@@ -1,45 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EECF2388E57
-	for <stable@vger.kernel.org>; Fri, 29 May 2026 23:22:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B201A38A299
+	for <stable@vger.kernel.org>; Fri, 29 May 2026 23:24:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780096977; cv=none; b=mchPWqR/zhgd1pzcgqVCcKi5Y0kxuRzQMD1QtMryjbb3jIMy92KZYr5SHw2zqjfo5Vjb4RPWUjjDmca7/q5pUqmNQiqzC9W95YRnsp3xZY/MkDvwsxIgzjL6uNMDhr1CMiuKGvpSZ4YKzPrdi8ceH6G6Uh493LkyiprhJ6X4doM=
+	t=1780097050; cv=none; b=qG1gtaDPL//thlNbqHgKp6BsK7DO3jKRxEgOeXEMB1ZyTK0mDXcWqtXcZHYsuDWn5bPtrb7ZfnSrjhTT39AYeTk2tasyTFRc9Ued5n7Z4BUfrQPE+v/Ux42VACGcXehow1nKbwllDF6RYaDvqPjww/blkIEmGWTLLXOmQYRGYD8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780096977; c=relaxed/simple;
-	bh=k5VVJVnW1M3JU3Vo+oL+JrXosN37i2xiGtyGT1ZCI6c=;
+	s=arc-20240116; t=1780097050; c=relaxed/simple;
+	bh=A5mubb2zxv+M2v5TIsFo0Cna8eaXxIztXCyk3BK7N14=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=EWTRRYPk4ZXX3k5qlVtJHrtGeQwtASlcjptZ0j6H4lbCPd6QvzOR57n2OoeERh46EEJ6bUsZ54AF6af18ZJXTcymqjRQjets4YZ4IaI6bXgogn9OMso4NGRBBMUQYHVPDT8qpTGB1XoEkUbT2UD86tAmvKmu19ne9QWPgdGOCP4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EX54Hvvb; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Ac04abflTUPFh/I8h/L4QgFx5qeUg6C6zF+r6zf7j0JjBPUKJetJFVGXXaJobnDAtEwbVDKJgZJm4NfLSxH2IJG9Oq6tKI0oqzhLIO6h2xDBim2ufpFhOm5whGIhMOqYdbN3f/1woTH0B0GKLHO8Zyj3qIeHCwcHp++dPCc5XD8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NZkMPbch; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EX54Hvvb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27DAF1F00893;
-	Fri, 29 May 2026 23:22:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NZkMPbch"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14EEF1F0089A;
+	Fri, 29 May 2026 23:24:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780096976;
-	bh=LvSjj6UrMTEk5wFI2j1plhV9NZ/iedLMEuc3Gwrr3Sk=;
+	s=k20260515; t=1780097049;
+	bh=L2eY6QKX78W43X21pA5JUFgJmy/vRli+Rx1w5cMywr0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EX54HvvbdfxGmtYuv0V3dB+Km4oUp1nGzNJVY80Y4dWo8MnmZ0kvwc8rTEIvwXKNf
-	 PREBVdKVyFjw8pJVKST7RcbwGFqUTp/N2r7bXLiw+pEXlgQea1+jm7U/BPheUe+IvH
-	 J6CaLsFcmMr++DRWqSuuml8zBc0lmOxudq0o07Txjl6Udpue1+YIJgYAc6oKCD1Zre
-	 EXLQ5rQdn7uCrsGaOkH7BJIxC15DxsmGLxHhWyvBR3/RLwqUx7bpOdJkvnLP+G5Rue
-	 CGgMaZk7+71o1tG22UQJ1K0NNYIThrXaO5TvNX+ETNAJQg8YL2QZb5wEyUsVn9Z5EC
-	 n4IUmXUOIy92w==
+	b=NZkMPbchJpAQi6VmBZpvZSb4RNnhcNY+mku1nKVJFADC3kz8dtFLQgVV895/vFtwc
+	 COnv9OgXBBBCV33h+1MpvQGKCQZX7FkKRKsjq0qtP6jwNXZXa+3odVS3mf3HQGMkfm
+	 Uybo0RrhG/2RjL/L9xShtmREJx9wC9w819IGFmb/RMcj2OGvWeUL9vW/dPqWA6PODp
+	 U/iM1O9ujas7FQEixm/1w68EgwJ0dkNWR8UjVEDfgi2jNOEkT5/kHvuioKPVSj40TQ
+	 IEBGchPLb6F+4cz+2XqmCK0UtAG1hOrVYIzf4wfAwx7YBbtDYEeH+dmaDiAx2joR8I
+	 INx6v60Q0FdIQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: David Carlier <devnexen@gmail.com>,
-	Bobby Eshleman <bobbyeshleman@meta.com>,
-	Stanislav Fomichev <sdf@fomichev.me>,
-	Mina Almasry <almasrymina@google.com>,
+Cc: Michael Bommarito <michael.bommarito@gmail.com>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] net: devmem: reject dma-buf bind with non-page-aligned size or SG length
-Date: Fri, 29 May 2026 19:22:54 -0400
-Message-ID: <20260529232254.1877494-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 2/2] net: hsr: defer node table free until after RCU readers
+Date: Fri, 29 May 2026 19:24:06 -0400
+Message-ID: <20260529232406.1883397-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026052820-passing-subject-c656@gregkh>
-References: <2026052820-passing-subject-c656@gregkh>
+In-Reply-To: <20260529232406.1883397-1-sashal@kernel.org>
+References: <2026052838-cleat-rewrite-24c4@gregkh>
+ <20260529232406.1883397-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,72 +46,51 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: David Carlier <devnexen@gmail.com>
+From: Michael Bommarito <michael.bommarito@gmail.com>
 
-[ Upstream commit 4eb82ba543421e9e38cc14e4e82058b78850df50 ]
+[ Upstream commit aaec7096f9961eb223b5b149abe9495525c205d9 ]
 
-net_devmem_bind_dmabuf() trusts dmabuf->size and sg_dma_len() to be
-PAGE_SIZE multiples without checking:
+HSR node-list and node-status generic-netlink operations run under
+rcu_read_lock(). They walk hsr->node_db through hsr_get_next_node() and
+hsr_get_node_data(), but RTM_DELLINK teardown removes the same node table
+with plain list_del() and frees each node immediately.
 
-  - tx_vec is sized dmabuf->size / PAGE_SIZE, and
-    net_devmem_get_niov_at() only bounds-checks virt_addr < dmabuf->size
-    before indexing tx_vec[virt_addr / PAGE_SIZE]. With size =
-    N*PAGE_SIZE + r (1 <= r < PAGE_SIZE), sendmsg() at iov_base =
-    N*PAGE_SIZE passes the bound check and reads tx_vec[N] -- one past.
+That lets a generic-netlink reader hold a struct hsr_node pointer across
+hsr_dellink(). In a KASAN build, widening the reader window after
+hsr_get_next_node() obtains the node reproduces a slab-use-after-free
+when the reader copies node->macaddress_A; the freeing stack is
+hsr_del_nodes() from hsr_dellink().
 
-  - owner->area.num_niovs = len / PAGE_SIZE while gen_pool_add_owner()
-    covers the full byte len, so a non-page-multiple non-final sg
-    desyncs num_niovs from the gen_pool region for every later sg, on
-    both RX and TX.
+Use list_del_rcu() and defer the free through the existing
+hsr_free_node_rcu() callback. This matches the lifetime rule used by the
+HSR prune paths, which already delete nodes with list_del_rcu() and
+call_rcu().
 
-dma-buf does not require page-aligned sizes, so the bind path has to
-enforce what its own indexing assumes. Reject both with -EINVAL.
-
-The size check is TX-only (only tx_vec is sized off dmabuf->size); the
-SG-length check covers both directions.
-
-Fixes: bd61848900bf ("net: devmem: Implement TX path")
-Cc: stable@vger.kernel.org
-Signed-off-by: David Carlier <devnexen@gmail.com>
-Reviewed-by: Bobby Eshleman <bobbyeshleman@meta.com>
-Acked-by: Stanislav Fomichev <sdf@fomichev.me>
-Reviewed-by: Mina Almasry <almasrymina@google.com>
-Link: https://patch.msgid.link/20260519203530.66310-1-devnexen@gmail.com
+Fixes: b9a1e627405d ("hsr: implement dellink to clean up resources")
+Cc: stable@vger.kernel.org # v5.3+
+Signed-off-by: Michael Bommarito <michael.bommarito@gmail.com>
+Link: https://patch.msgid.link/20260513233838.3064715-2-michael.bommarito@gmail.com
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/core/devmem.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ net/hsr/hsr_framereg.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/net/core/devmem.c b/net/core/devmem.c
-index 448f6582ac1ae..16ce197cb0faf 100644
---- a/net/core/devmem.c
-+++ b/net/core/devmem.c
-@@ -232,6 +232,11 @@ net_devmem_bind_dmabuf(struct net_device *dev,
+diff --git a/net/hsr/hsr_framereg.c b/net/hsr/hsr_framereg.c
+index 7e21e607efc6d..177e0879ddbb4 100644
+--- a/net/hsr/hsr_framereg.c
++++ b/net/hsr/hsr_framereg.c
+@@ -146,8 +146,8 @@ void hsr_del_nodes(struct list_head *node_db)
+ 	struct hsr_node *tmp;
+ 
+ 	list_for_each_entry_safe(node, tmp, node_db, mac_list) {
+-		list_del(&node->mac_list);
+-		hsr_free_node(node);
++		list_del_rcu(&node->mac_list);
++		call_rcu(&node->rcu_head, hsr_free_node_rcu);
  	}
+ }
  
- 	if (direction == DMA_TO_DEVICE) {
-+		if (!IS_ALIGNED(dmabuf->size, PAGE_SIZE)) {
-+			err = -EINVAL;
-+			NL_SET_ERR_MSG(extack, "TX dma-buf size must be a multiple of PAGE_SIZE");
-+			goto err_unmap;
-+		}
- 		binding->tx_vec = kvmalloc_array(dmabuf->size / PAGE_SIZE,
- 						 sizeof(struct net_iov *),
- 						 GFP_KERNEL);
-@@ -259,6 +264,12 @@ net_devmem_bind_dmabuf(struct net_device *dev,
- 		size_t len = sg_dma_len(sg);
- 		struct net_iov *niov;
- 
-+		if (!IS_ALIGNED(len, PAGE_SIZE)) {
-+			err = -EINVAL;
-+			NL_SET_ERR_MSG(extack, "dma-buf SG length must be PAGE_SIZE aligned");
-+			goto err_free_chunks;
-+		}
-+
- 		owner = kzalloc_node(sizeof(*owner), GFP_KERNEL,
- 				     dev_to_node(&dev->dev));
- 		if (!owner) {
 -- 
 2.53.0
 
