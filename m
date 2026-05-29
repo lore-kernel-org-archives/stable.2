@@ -1,38 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 239EF33D6F7
-	for <stable@vger.kernel.org>; Fri, 29 May 2026 23:53:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48B90352014
+	for <stable@vger.kernel.org>; Fri, 29 May 2026 23:53:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780098808; cv=none; b=mJF4GJpeYr4aFyKtvFW/FQmBL5/CHR2LV3yCIgOMkML9BveGPXS2kgFBS+FzcMsi+mgMG5Z5qn9gqH1QELruGI9Dhb8vjdBRjpkBnA7fh7Qs21gMEb8Zr4Qnbvh0zyXA5L5uYR3RvReXFHbiVV/Z+iX84Gi/GsEEXw/Lc/lT9UA=
+	t=1780098809; cv=none; b=QQJqIQFhKxrGzxO7MLYYc8Kx7rNliJ0UWyDIhkdbyhlrzQohHpWAISbfaJ4LSXoOqDrlhPUQduTWOpLoqK6Os4rJS9I/ua3b8hayVTyJgfcWlxUmj2bIaIEVejgEcW+ehx/Zt1Oka6oIWmk5bdnT7LcXJ1CYM3rHOJuUyGid0/4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780098808; c=relaxed/simple;
-	bh=T5wUneGGVxoBu6pcp0I+uhYPIWpELGz2TOVyQgmvWqg=;
+	s=arc-20240116; t=1780098809; c=relaxed/simple;
+	bh=2mrl2yMa/G3oy/EKk24jXB7OJYqMx4ghei7kOyKE2d0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ZK0N50OkI2UD0Lssk1fYCZsIJ6e07JJInqiv5kgc9TVWl4pA/UOXW9ljlNq5RKNCtmDyDMpr7MzQxPowOwbxD1sIVD8S+VaK0vnprOOtPVsIM37vKp+c6JwrjT0+GIg7OrWiLCQr7w6ebvGRTWlOS7w8Z61h/Zf6sQXC0gBtieQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E39v5XEa; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Qh+GF/ba171airpynyAj/QXaUSZ0VIt3hM5OSGasv9wCu5ibzH1BwkJqeB5wcqigKQT/hARvEB5pSve2MoCraEtw1AgRlKx8pDvTPF0/SfBUhxPBtVtLUAeTXf6vTa0/PwyeZr2WFWrEKr3JBgPjLHQMK8Q2rNJIjOtLY3i8Txo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bGPKMbYr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E39v5XEa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 872FA1F00899;
-	Fri, 29 May 2026 23:53:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bGPKMbYr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 318071F0089A;
+	Fri, 29 May 2026 23:53:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780098806;
-	bh=Lw3E5twYQwCok+ahN8I2VSC8dkXGc2+GWd0ir96sfmE=;
+	s=k20260515; t=1780098808;
+	bh=zVrQBTYQeu5zrM36csBgVBnWim6UsXIYY2BDZI9rRqU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=E39v5XEaqdidHYpTF2BC4OTmnropnMWZ5rAVpJw6x35kEDNElDMbomHfxMKPZ0+2c
-	 m/W/ctIQuwP0LHSvY00Fk0Dtz1wC3IuG+nD0jJwq9atb7FFWhbIrBGxiY1PRULmbpR
-	 JGdDyJ+hApv9fogtdtBJZ+FjwTn6FaCDZFtJOCth+ymV9C1U3EwQmNm9NWLJXimdHp
-	 WSpwBaI3KnW6Wlz/HbPkaDWlNgRaxWQ6Yp0tfTqmacRohu/DbW+gF65UqyuRDih8Bw
-	 15rCA00nGTg7psrj/YVfeaZtIB0sNKLotJAn71f3r3Dax5oUUhV0LguKu0JKl8nBXx
-	 C8nukshLzgpJg==
+	b=bGPKMbYrFntjDzNO/XPPWhrA5Jdq9a6UQwxZHXeuM6PwgRGuzPRxQzGuPXUlfKijV
+	 W9szH58gKlA3MtcgBlBd/RfDOsY3nV2MpPphAnTMRalwRM/9PMhcP9y9OS7pBf3C2v
+	 NnXo73c99cSdoDYP8ZiRc+SuvrNDxrW5Lhtch7p0OrZ/r7m1RFcsoSDOPwC2Lo/JVI
+	 F1ulpjvLoSHQPwVrPj6hgAvHcl+VpfSoYYrWMj6UTvpOQwUTK7mLmaxwi8APLsOR3N
+	 kYrj1RNpGim8foC/wSg0fEVdwbNHgQdUC8aAXZx8zlUw3Y3x1bWtjDQjkaFGScZoHG
+	 07VgsdxUgKvvA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
+Cc: Jiexun Wang <wangjiexun2025@gmail.com>,
+	Jann Horn <jannh@google.com>,
+	Yuan Tan <yuantan098@gmail.com>,
+	Yifan Wu <yifanwucs@gmail.com>,
+	Juefei Pu <tomapufckgml@gmail.com>,
+	Xin Liu <bird@lzu.edu.cn>,
+	Ren Wei <n05ec@lzu.edu.cn>,
+	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 2/3] Bluetooth: Init sk_peer_* on bt_sock_alloc
-Date: Fri, 29 May 2026 19:53:22 -0400
-Message-ID: <20260529235323.1964735-2-sashal@kernel.org>
+Subject: [PATCH 5.10.y 3/3] Bluetooth: serialize accept_q access
+Date: Fri, 29 May 2026 19:53:23 -0400
+Message-ID: <20260529235323.1964735-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260529235323.1964735-1-sashal@kernel.org>
 References: <2026052843-prankish-sharpener-ccb5@gregkh>
@@ -45,142 +52,223 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+From: Jiexun Wang <wangjiexun2025@gmail.com>
 
-[ Upstream commit 464c702fb9374ff8f3f816f24fb7ac719dd20e1e ]
+[ Upstream commit e83f5e24da741fa9405aeeff00b08c5ee7c37b88 ]
 
-This makes sure peer information is always available via sock when using
-bt_sock_alloc.
+bt_sock_poll() walks the accept queue without synchronization, while
+child teardown can unlink the same socket and drop its last reference.
+The unsynchronized accept queue walk has existed since the initial
+Bluetooth import.
 
+Protect accept_q with a dedicated lock for queue updates and polling.
+Also rework bt_accept_dequeue() to take temporary child references under
+the queue lock before dropping it and locking the child socket.
+
+Fixes: 1da177e4c3f41524e886b7f1b8a0c1fc7321cac2 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Reported-by: Jann Horn <jannh@google.com>
+Reported-by: Yuan Tan <yuantan098@gmail.com>
+Reported-by: Yifan Wu <yifanwucs@gmail.com>
+Reported-by: Juefei Pu <tomapufckgml@gmail.com>
+Reported-by: Xin Liu <bird@lzu.edu.cn>
+Signed-off-by: Jiexun Wang <wangjiexun2025@gmail.com>
+Signed-off-by: Ren Wei <n05ec@lzu.edu.cn>
+Signed-off-by: Jiexun Wang <wangjiexun2025@gmail.com>
+Reviewed-by: Jann Horn <jannh@google.com>
 Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
-Stable-dep-of: e83f5e24da74 ("Bluetooth: serialize accept_q access")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/bluetooth/af_bluetooth.c | 24 ++++++++++++++++++++++++
- net/bluetooth/hidp/sock.c    | 10 +---------
- net/bluetooth/l2cap_sock.c   | 19 -------------------
- 3 files changed, 25 insertions(+), 28 deletions(-)
+ include/net/bluetooth/bluetooth.h |  1 +
+ net/bluetooth/af_bluetooth.c      | 87 +++++++++++++++++++++++--------
+ 2 files changed, 66 insertions(+), 22 deletions(-)
 
+diff --git a/include/net/bluetooth/bluetooth.h b/include/net/bluetooth/bluetooth.h
+index fa37bdd00fa5b..43b4386018e26 100644
+--- a/include/net/bluetooth/bluetooth.h
++++ b/include/net/bluetooth/bluetooth.h
+@@ -291,6 +291,7 @@ void baswap(bdaddr_t *dst, const bdaddr_t *src);
+ struct bt_sock {
+ 	struct sock sk;
+ 	struct list_head accept_q;
++	spinlock_t accept_q_lock; /* protects accept_q */
+ 	struct sock *parent;
+ 	unsigned long flags;
+ 	void (*skb_msg_name)(struct sk_buff *, void *, int *);
 diff --git a/net/bluetooth/af_bluetooth.c b/net/bluetooth/af_bluetooth.c
-index b1d9b75c64853..67c5384f35a18 100644
+index 67c5384f35a18..d2981c0f91cb7 100644
 --- a/net/bluetooth/af_bluetooth.c
 +++ b/net/bluetooth/af_bluetooth.c
-@@ -155,6 +155,14 @@ struct sock *bt_sock_alloc(struct net *net, struct socket *sock,
- 	sk->sk_protocol = proto;
- 	sk->sk_state    = BT_OPEN;
+@@ -149,6 +149,7 @@ struct sock *bt_sock_alloc(struct net *net, struct socket *sock,
  
-+	/* Init peer information so it can be properly monitored */
-+	if (!kern) {
-+		spin_lock(&sk->sk_peer_lock);
-+		sk->sk_peer_pid  = get_pid(task_tgid(current));
-+		sk->sk_peer_cred = get_current_cred();
-+		spin_unlock(&sk->sk_peer_lock);
-+	}
-+
- 	return sk;
- }
- EXPORT_SYMBOL(bt_sock_alloc);
-@@ -177,6 +185,9 @@ EXPORT_SYMBOL(bt_sock_unlink);
+ 	sock_init_data(sock, sk);
+ 	INIT_LIST_HEAD(&bt_sk(sk)->accept_q);
++	spin_lock_init(&bt_sk(sk)->accept_q_lock);
  
- void bt_accept_enqueue(struct sock *parent, struct sock *sk, bool bh)
+ 	sock_reset_flag(sk, SOCK_ZAPPED);
+ 
+@@ -187,6 +188,7 @@ void bt_accept_enqueue(struct sock *parent, struct sock *sk, bool bh)
  {
-+	const struct cred *old_cred;
-+	struct pid *old_pid;
-+
+ 	const struct cred *old_cred;
+ 	struct pid *old_pid;
++	struct bt_sock *par = bt_sk(parent);
+ 
  	BT_DBG("parent %p, sk %p", parent, sk);
  
- 	sock_hold(sk);
-@@ -189,6 +200,19 @@ void bt_accept_enqueue(struct sock *parent, struct sock *sk, bool bh)
- 	list_add_tail(&bt_sk(sk)->accept_q, &bt_sk(parent)->accept_q);
+@@ -197,9 +199,13 @@ void bt_accept_enqueue(struct sock *parent, struct sock *sk, bool bh)
+ 	else
+ 		lock_sock_nested(sk, SINGLE_DEPTH_NESTING);
+ 
+-	list_add_tail(&bt_sk(sk)->accept_q, &bt_sk(parent)->accept_q);
  	bt_sk(sk)->parent = parent;
  
-+	/* Copy credentials from parent since for incoming connections the
-+	 * socket is allocated by the kernel.
-+	 */
-+	spin_lock(&sk->sk_peer_lock);
-+	old_pid = sk->sk_peer_pid;
-+	old_cred = sk->sk_peer_cred;
-+	sk->sk_peer_pid = get_pid(parent->sk_peer_pid);
-+	sk->sk_peer_cred = get_cred(parent->sk_peer_cred);
-+	spin_unlock(&sk->sk_peer_lock);
++	spin_lock_bh(&par->accept_q_lock);
++	list_add_tail(&bt_sk(sk)->accept_q, &par->accept_q);
++	sk_acceptq_added(parent);
++	spin_unlock_bh(&par->accept_q_lock);
 +
-+	put_pid(old_pid);
-+	put_cred(old_cred);
-+
- 	if (bh)
+ 	/* Copy credentials from parent since for incoming connections the
+ 	 * socket is allocated by the kernel.
+ 	 */
+@@ -217,8 +223,6 @@ void bt_accept_enqueue(struct sock *parent, struct sock *sk, bool bh)
  		bh_unlock_sock(sk);
  	else
-diff --git a/net/bluetooth/hidp/sock.c b/net/bluetooth/hidp/sock.c
-index 595fb3c9d6c36..19c932673bf14 100644
---- a/net/bluetooth/hidp/sock.c
-+++ b/net/bluetooth/hidp/sock.c
-@@ -255,21 +255,13 @@ static int hidp_sock_create(struct net *net, struct socket *sock, int protocol,
- 	if (sock->type != SOCK_RAW)
- 		return -ESOCKTNOSUPPORT;
- 
--	sk = sk_alloc(net, PF_BLUETOOTH, GFP_ATOMIC, &hidp_proto, kern);
-+	sk = bt_sock_alloc(net, sock, &hidp_proto, protocol, GFP_ATOMIC, kern);
- 	if (!sk)
- 		return -ENOMEM;
- 
--	sock_init_data(sock, sk);
+ 		release_sock(sk);
 -
- 	sock->ops = &hidp_sock_ops;
--
- 	sock->state = SS_UNCONNECTED;
+-	sk_acceptq_added(parent);
+ }
+ EXPORT_SYMBOL(bt_accept_enqueue);
  
--	sock_reset_flag(sk, SOCK_ZAPPED);
--
--	sk->sk_protocol = protocol;
--	sk->sk_state	= BT_OPEN;
--
- 	bt_sock_link(&hidp_sk_list, sk);
+@@ -227,45 +231,72 @@ EXPORT_SYMBOL(bt_accept_enqueue);
+  */
+ void bt_accept_unlink(struct sock *sk)
+ {
++	struct sock *parent = bt_sk(sk)->parent;
++
+ 	BT_DBG("sk %p state %d", sk, sk->sk_state);
  
- 	return 0;
-diff --git a/net/bluetooth/l2cap_sock.c b/net/bluetooth/l2cap_sock.c
-index 8df09c084411c..c3deae37f5853 100644
---- a/net/bluetooth/l2cap_sock.c
-+++ b/net/bluetooth/l2cap_sock.c
-@@ -177,21 +177,6 @@ static int l2cap_sock_bind(struct socket *sock, struct sockaddr *addr, int alen)
- 	return err;
++	spin_lock_bh(&bt_sk(parent)->accept_q_lock);
+ 	list_del_init(&bt_sk(sk)->accept_q);
+-	sk_acceptq_removed(bt_sk(sk)->parent);
++	sk_acceptq_removed(parent);
++	spin_unlock_bh(&bt_sk(parent)->accept_q_lock);
+ 	bt_sk(sk)->parent = NULL;
+ 	sock_put(sk);
+ }
+ EXPORT_SYMBOL(bt_accept_unlink);
+ 
++static struct sock *bt_accept_get(struct sock *parent, struct sock *sk)
++{
++	struct bt_sock *bt = bt_sk(parent);
++	struct sock *next = NULL;
++
++	/* accept_q is modified from child teardown paths too, so take a
++	 * temporary reference before dropping the queue lock.
++	 */
++	spin_lock_bh(&bt->accept_q_lock);
++
++	if (sk) {
++		if (bt_sk(sk)->parent != parent)
++			goto out;
++
++		if (!list_is_last(&bt_sk(sk)->accept_q, &bt->accept_q)) {
++			next = &list_next_entry(bt_sk(sk), accept_q)->sk;
++			sock_hold(next);
++		}
++	} else if (!list_empty(&bt->accept_q)) {
++		next = &list_first_entry(&bt->accept_q,
++					 struct bt_sock, accept_q)->sk;
++		sock_hold(next);
++	}
++
++out:
++	spin_unlock_bh(&bt->accept_q_lock);
++	return next;
++}
++
+ struct sock *bt_accept_dequeue(struct sock *parent, struct socket *newsock)
+ {
+-	struct bt_sock *s, *n;
+-	struct sock *sk;
++	struct sock *sk, *next;
+ 
+ 	BT_DBG("parent %p", parent);
+ 
+ restart:
+-	list_for_each_entry_safe(s, n, &bt_sk(parent)->accept_q, accept_q) {
+-		sk = (struct sock *)s;
+-
++	for (sk = bt_accept_get(parent, NULL); sk; sk = next) {
+ 		/* Prevent early freeing of sk due to unlink and sock_kill */
+-		sock_hold(sk);
+ 		lock_sock(sk);
+ 
+ 		/* Check sk has not already been unlinked via
+ 		 * bt_accept_unlink() due to serialisation caused by sk locking
+ 		 */
+-		if (!bt_sk(sk)->parent) {
++		if (bt_sk(sk)->parent != parent) {
+ 			BT_DBG("sk %p, already unlinked", sk);
+ 			release_sock(sk);
+ 			sock_put(sk);
+ 
+-			/* Restart the loop as sk is no longer in the list
+-			 * and also avoid a potential infinite loop because
+-			 * list_for_each_entry_safe() is not thread safe.
+-			 */
+ 			goto restart;
+ 		}
+ 
++		next = bt_accept_get(parent, sk);
++
+ 		/* sk is safely in the parent list so reduce reference count */
+ 		sock_put(sk);
+ 
+@@ -283,6 +314,8 @@ struct sock *bt_accept_dequeue(struct sock *parent, struct socket *newsock)
+ 				sock_graft(sk, newsock);
+ 
+ 			release_sock(sk);
++			if (next)
++				sock_put(next);
+ 			return sk;
+ 		}
+ 
+@@ -486,18 +519,28 @@ EXPORT_SYMBOL(bt_sock_stream_recvmsg);
+ 
+ static inline __poll_t bt_accept_poll(struct sock *parent)
+ {
+-	struct bt_sock *s, *n;
++	struct bt_sock *bt = bt_sk(parent);
++	struct bt_sock *s;
+ 	struct sock *sk;
++	__poll_t mask = 0;
++
++	spin_lock_bh(&bt->accept_q_lock);
++	list_for_each_entry(s, &bt->accept_q, accept_q) {
++		int state;
+ 
+-	list_for_each_entry_safe(s, n, &bt_sk(parent)->accept_q, accept_q) {
+ 		sk = (struct sock *)s;
+-		if (sk->sk_state == BT_CONNECTED ||
+-		    (test_bit(BT_SK_DEFER_SETUP, &bt_sk(parent)->flags) &&
+-		     sk->sk_state == BT_CONNECT2))
+-			return EPOLLIN | EPOLLRDNORM;
++		state = READ_ONCE(sk->sk_state);
++
++		if (state == BT_CONNECTED ||
++		    (test_bit(BT_SK_DEFER_SETUP, &bt->flags) &&
++		     state == BT_CONNECT2)) {
++			mask = EPOLLIN | EPOLLRDNORM;
++			break;
++		}
+ 	}
++	spin_unlock_bh(&bt->accept_q_lock);
+ 
+-	return 0;
++	return mask;
  }
  
--static void l2cap_sock_init_pid(struct sock *sk)
--{
--	struct l2cap_chan *chan = l2cap_pi(sk)->chan;
--
--	/* Only L2CAP_MODE_EXT_FLOWCTL ever need to access the PID in order to
--	 * group the channels being requested.
--	 */
--	if (chan->mode != L2CAP_MODE_EXT_FLOWCTL)
--		return;
--
--	spin_lock(&sk->sk_peer_lock);
--	sk->sk_peer_pid = get_pid(task_tgid(current));
--	spin_unlock(&sk->sk_peer_lock);
--}
--
- static int l2cap_sock_connect(struct socket *sock, struct sockaddr *addr,
- 			      int alen, int flags)
- {
-@@ -267,8 +252,6 @@ static int l2cap_sock_connect(struct socket *sock, struct sockaddr *addr,
- 	    chan->mode != L2CAP_MODE_EXT_FLOWCTL)
- 		chan->mode = L2CAP_MODE_LE_FLOWCTL;
- 
--	l2cap_sock_init_pid(sk);
--
- 	err = l2cap_chan_connect(chan, la.l2_psm, __le16_to_cpu(la.l2_cid),
- 				 &la.l2_bdaddr, la.l2_bdaddr_type);
- 	if (err)
-@@ -324,8 +307,6 @@ static int l2cap_sock_listen(struct socket *sock, int backlog)
- 		goto done;
- 	}
- 
--	l2cap_sock_init_pid(sk);
--
- 	sk->sk_max_ack_backlog = backlog;
- 	sk->sk_ack_backlog = 0;
- 
+ __poll_t bt_sock_poll(struct file *file, struct socket *sock,
 -- 
 2.53.0
 
