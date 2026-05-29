@@ -1,254 +1,200 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A57F2DCF67
-	for <stable@vger.kernel.org>; Fri, 29 May 2026 21:48:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C56D3644C5
+	for <stable@vger.kernel.org>; Fri, 29 May 2026 21:48:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780091327; cv=none; b=OVuAQdTWAQz+skL1CAGG/zMnRjvaakRu1r4wmcnMUCipQb13o3znwMP9fQAnwt0s8C61GT8PsBHY51hS1hx9t8Ma1Cj26W87VyQVEH2oSZ331IXO332JMxH9wtLrUI+nSnpdkYqiN6urbvM7uONA4cYmSpJz/9QMtj0GwubRhO0=
+	t=1780091329; cv=none; b=ftsdxqsCOfz1D3Yad0EnXIlCqUlCUZoySLXEvgYAl/HEYY8y5Et25upO32Abc2Omsf1bTGepwiXoA1ugKv0HV2Z4FYZfUvpBdxFmwqjRMdIijmix7Fh/aYeyW5hH9h7shhWbkCfPQa1e5MEfGhh6b26KQ2JWQO1eBqgJNbPzWMk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780091327; c=relaxed/simple;
-	bh=9HpiyeLVaMs0jU4iMa8xyc4HvMfgDeAS1Fjsmf58jxw=;
+	s=arc-20240116; t=1780091329; c=relaxed/simple;
+	bh=3dHYA59Jx6ka2816XYC4D/s2gcX3ppCNTDr0R+bLnSc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=hdHktusIBnnWGJq8gNBo2mZdKz3HYVtzXSATYOHJ0/yseJaENHipexyevhGOchyI1a1Wvxs1PyMQhuu3IIkPnJrj3KAMSSshySsWDegbJG4eM4ulTgfcXWYLKMqNI7zrla7d5RmEJVyjeZqt+4IfoAD5wYScIbjjhAnibbEUa/M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ImJNeKry; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=KUnUKzutBtDQ7LN2j6J+tA4jsHx6C3auomlNYT6yoHhDbTsj6RlzT8u4A//c2ovoVnhRfv303UcrsnXEpaAC8dNOTCaHcyKpEDDEwlTzplbn62WLNoLHBzO24iqm/AE7P/eggpFCoi4fmqmeIQHwZmOrRghoVD3rlKPDgPbX3pg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EYcU2T2M; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ImJNeKry"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 437171F00893;
-	Fri, 29 May 2026 21:48:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EYcU2T2M"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D86BE1F00898;
+	Fri, 29 May 2026 21:48:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780091326;
-	bh=cRGuSM29VH2IP+WI07BafiCIBPeVN8m5clYcoy2Pe/k=;
+	s=k20260515; t=1780091327;
+	bh=WPQpCcsP+7miRc6MrJ/mdz/jZruQN2QF3V8kX5+bWUg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ImJNeKryoueZIaHNSK9dY308H/06tdH1sH7Mplj1YFMyyOQaYqIHtO5vLH4SoYt45
-	 kppPbWA39PuCd536uwpvl98SKuVJo54rVR6X54yyeCydUvYCmPUdKc3JjGRjh43y4o
-	 dmmxPBGffhQ4w165xu4KI0uZJiyY99U7NR/rHF5Mav8YBQSIslKl7+elLgTNoYSrqW
-	 uooiRB3SHsnXVlG8qaJQjFuyZYogF+ctZCer3jAOw0Z0DoIJzX+KjMd7LbugjxggrW
-	 KwsD7L/LfQkD5J5x60mDPmsnPbwGX2SEZgL54U7MBf3lUCVNGdzPi1b0tP1MIYEKTf
-	 jWGIBOG3N5U1Q==
+	b=EYcU2T2MZsNbMmCEXSyZPchBVWvMjcRFFp+ruIpTNDAJLucqgty8cc7adkNfm3IXQ
+	 E+516L/6Yhsc3Xtk43686jBwBw8yZRvapIFAhcz7SP2cBQwPGJR9hkuO3DG9xhZG36
+	 6HIa4DcFHQkM8CHGbN8PI5cLK+fwMYZPCCyrBZfDxM0BZXNHqJQl7+/emQtmFPyqeg
+	 rj6GYJiRkZ5uPMVInuKTzcvMDJTKxbDsz9FrOE0B7yIGoZ5Ys0kPbUEclM2Qz0LkB3
+	 t+Ek8qn3cPhGDCjr3wh1pVrpMM1MGWK4FUluJAER7WbpmlFdJMDwS6PhMzHoy1Mp9E
+	 chxDXkI7PVfiw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Alistair Popple <apopple@nvidia.com>,
-	=?UTF-8?q?Arsen=20Arsenovi=C4=87?= <aarsenovic@baylibre.com>,
-	Balbir Singh <balbirs@nvidia.com>,
-	David Hildenbrand <david@kernel.org>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	John Hubbard <jhubbard@nvidia.com>,
-	Leon Romanovsky <leon@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Peter Xu <peterx@redhat.com>,
-	Matthew Brost <matthew.brost@intel.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Mike Rapoport <rppt@kernel.org>,
-	Shuah Khan <shuah@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	=?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
+Cc: Shuai Zhang <shuai.zhang@oss.qualcomm.com>,
+	Paul Menzel <pmenzel@molgen.mpg.de>,
+	Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
+	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] mm/memory: fix spurious warning when unmapping device-private/exclusive pages
-Date: Fri, 29 May 2026 17:48:42 -0400
-Message-ID: <20260529214842.1804656-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] Bluetooth: hci_qca: Convert timeout from jiffies to ms
+Date: Fri, 29 May 2026 17:48:45 -0400
+Message-ID: <20260529214845.1804717-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026052846-nineteen-extrovert-c500@gregkh>
-References: <2026052846-nineteen-extrovert-c500@gregkh>
+In-Reply-To: <2026052801-scouting-tweet-fbed@gregkh>
+References: <2026052801-scouting-tweet-fbed@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Alistair Popple <apopple@nvidia.com>
+From: Shuai Zhang <shuai.zhang@oss.qualcomm.com>
 
-[ Upstream commit be3f38d05cc5a7c3f13e51994c5dd043ab604d28 ]
+[ Upstream commit 375ba7484132662a4a8c7547d088fb6275c00282 ]
 
-Device private and exclusive entries are only supported for anonymous
-folios.  This condition is tested in __migrate_device_pages() and
-make_device_exclusive() using folio_test_anon().  However the unmap path
-tests this assumption using vma_is_anonymous().
+Since the timer uses jiffies as its unit rather than ms, the timeout value
+must be converted from ms to jiffies when configuring the timer. Otherwise,
+the intended 8s timeout is incorrectly set to approximately 33s.
 
-This is wrong because whilst anonymous VMAs can only contain folios where
-folio_test_anon() is true the opposite relation does not hold.  A folio
-for which folio_test_anon() is true does not imply vma_is_anonymous() is
-true.  Such a condition can occur if for example a folio is part of a
-private filebacked mapping.
+To improve readability, embed msecs_to_jiffies() directly in the macro
+definitions and drop the _MS suffix from macros that now yield jiffies
+values: MEMDUMP_TIMEOUT, FW_DOWNLOAD_TIMEOUT, IBS_DISABLE_SSR_TIMEOUT,
+CMD_TRANS_TIMEOUT, and IBS_BTSOC_TX_IDLE_TIMEOUT.
 
-In this case vma_is_anonymous() is false as the mapping is filebacked, but
-folio_test_anon() may be true, thus permitting devices to migrate the
-folio to device private memory.  This can lead to the following spurious
-warnings during process teardown:
+IBS_WAKE_RETRANS_TIMEOUT_MS and IBS_HOST_TX_IDLE_TIMEOUT_MS are
+intentionally left unchanged. Their values are stored in the struct fields
+wake_retrans and tx_idle_delay, which hold ms values at runtime and can be
+modified via debugfs. The msecs_to_jiffies() conversion happens at each
+call site against the field value, so it cannot be embedded in the macro.
 
-[  772.737706] ------------[ cut here ]------------
-[  772.739201] WARNING: mm/memory.c:1754 at unmap_page_range.cold+0x26/0x18a, CPU#17: hmm-tests/2041
-[  772.742050] Modules linked in: test_hmm nvidia_uvm(O) nvidia(O)
-[  772.743959] CPU: 17 UID: 0 PID: 2041 Comm: hmm-tests Tainted: G        W  O        7.0.0+ #387 PREEMPT(full)
-[  772.747104] Tainted: [W]=WARN, [O]=OOT_MODULE
-[  772.748509] Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS rel-1.17.0-0-gb52ca86e094d-prebuilt.qemu.org 04/01/2014
-[  772.752117] RIP: 0010:unmap_page_range.cold+0x26/0x18a
-[  772.753780] Code: 7e fe ff ff 48 89 4c 24 78 4c 89 44 24 38 e8 f2 ff b1 00 48 8b 4c 24 78 4c 8b 44 24 38 48 8b 44 24 18 48 83 78 48 00 74 04 90 <0f> 0b 90 48 89 ca b8 ff ff 37 00 48 c1 ea 03 48 c1 e0 2a 80 3c 02
-[  772.759602] RSP: 0018:ffff888112607550 EFLAGS: 00010286
-[  772.761310] RAX: ffff88811bbf4dc0 RBX: dffffc0000000000 RCX: ffffea03e9bfffd8
-[  772.763583] RDX: 1ffff1102377e9c1 RSI: 0000000000000008 RDI: ffff88811bbf4e08
-[  772.765914] RBP: 0000000000000006 R08: ffff8881059f7448 R09: ffffed10224c0e68
-[  772.768184] R10: ffff888112607347 R11: 0000000000000001 R12: 0000000000000001
-[  772.770461] R13: ffffea03e9bfffc0 R14: ffff888112607908 R15: ffffea03e9bfffc0
-[  772.772782] FS:  00007f327caa2780(0000) GS:ffff888427b7d000(0000) knlGS:0000000000000000
-[  772.775328] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-[  772.777187] CR2: 00007f327ca89000 CR3: 00000001994d5000 CR4: 00000000000006f0
-[  772.779135] Call Trace:
-[  772.779792]  <TASK>
-[  772.780317]  ? dmirror_interval_invalidate+0x1a3/0x290 [test_hmm]
-[  772.781873]  ? vm_normal_page_pud+0x2b0/0x2b0
-[  772.782992]  ? __rwlock_init+0x150/0x150
-[  772.784006]  ? lock_release+0x216/0x2b0
-[  772.785008]  ? __mmu_notifier_invalidate_range_start+0x505/0x6e0
-[  772.786522]  ? lock_release+0x216/0x2b0
-[  772.787498]  ? unmap_single_vma+0xb6/0x210
-[  772.788573]  unmap_vmas+0x27d/0x520
-[  772.789506]  ? unmap_single_vma+0x210/0x210
-[  772.790607]  ? mas_update_gap.part.0+0x620/0x620
-[  772.791834]  unmap_region+0x19e/0x350
-[  772.792769]  ? remove_vma+0x130/0x130
-[  772.793684]  ? mas_alloc_nodes+0x1f2/0x300
-[  772.794730]  vms_complete_munmap_vmas+0x8c1/0xe20
-[  772.795926]  ? unmap_region+0x350/0x350
-[  772.796917]  do_vmi_align_munmap+0x36a/0x4e0
-[  772.798018]  ? lock_release+0x216/0x2b0
-[  772.799024]  ? vma_shrink+0x620/0x620
-[  772.799983]  do_vmi_munmap+0x150/0x2c0
-[  772.800939]  __vm_munmap+0x161/0x2c0
-[  772.801872]  ? expand_downwards+0xd60/0xd60
-[  772.802948]  ? clockevents_program_event+0x1ef/0x540
-[  772.804217]  ? lock_release+0x216/0x2b0
-[  772.805158]  __x64_sys_munmap+0x59/0x80
-[  772.805776]  do_syscall_64+0xfc/0x670
-[  772.806336]  ? irqentry_exit+0xda/0x580
-[  772.806976]  entry_SYSCALL_64_after_hwframe+0x4b/0x53
-[  772.807772] RIP: 0033:0x7f327cbb2717
-[  772.808323] Code: 73 01 c3 48 8b 0d f9 76 0d 00 f7 d8 64 89 01 48 83 c8 ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 b8 0b 00 00 00 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d c9 76 0d 00 f7 d8 64 89 01 48
-[  772.811337] RSP: 002b:00007ffde7f57d38 EFLAGS: 00000202 ORIG_RAX: 000000000000000b
-[  772.812564] RAX: ffffffffffffffda RBX: 00007f327cc9c000 RCX: 00007f327cbb2717
-[  772.813733] RDX: 0000000000000000 RSI: 0000000000400000 RDI: 00007f327c289000
-[  772.814867] RBP: 0000000000421360 R08: 000000000000001a R09: 0000000000000000
-[  772.815991] R10: 0000000000000003 R11: 0000000000000202 R12: 00007ffde7f57d74
-[  772.817121] R13: 00007f327c689010 R14: 0000000000100000 R15: 00007f327c289000
-[  772.818272]  </TASK>
-[  772.818614] irq event stamp: 0
-[  772.819159] hardirqs last  enabled at (0): [<0000000000000000>] 0x0
-[  772.820174] hardirqs last disabled at (0): [<ffffffff82a57ab3>] copy_process+0x19f3/0x6440
-[  772.821511] softirqs last  enabled at (0): [<ffffffff82a57b00>] copy_process+0x1a40/0x6440
-[  772.822869] softirqs last disabled at (0): [<0000000000000000>] 0x0
-[  772.823871] ---[ end trace 0000000000000000 ]---
+Wake timer depends on commit c347ca17d62a
 
-Fix this by using the same check for folio_test_anon() in
-zap_nonpresent_ptes(). Also add a hmm-test case for this.
-
-Link: https://lore.kernel.org/20260501065116.2057242-1-apopple@nvidia.com
-Fixes: 999dad824c39 ("mm/shmem: persist uffd-wp bit across zapping for file-backed")
-Signed-off-by: Alistair Popple <apopple@nvidia.com>
-Reported-by: Arsen Arsenović <aarsenovic@baylibre.com>
-Reviewed-by: Balbir Singh <balbirs@nvidia.com>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: John Hubbard <jhubbard@nvidia.com>
-Cc: Leon Romanovsky <leon@kernel.org>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Peter Xu <peterx@redhat.com>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: Shuah Khan <shuah@kernel.org>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-[ adapted `folio_test_anon(folio)` to `PageAnon(page)` ]
+Cc: stable@vger.kernel.org
+Fixes: d841502c79e3 ("Bluetooth: hci_qca: Collect controller memory dump during SSR")
+Reviewed-by: Paul Menzel <pmenzel@molgen.mpg.de>
+Acked-by: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
+Signed-off-by: Shuai Zhang <shuai.zhang@oss.qualcomm.com>
+Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+[ adapted to `vmalloc`-based memdump path and older `qca_serdev_shutdown(struct device *dev)` signature ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/memory.c                            |  2 +-
- tools/testing/selftests/vm/hmm-tests.c | 50 ++++++++++++++++++++++++++
- 2 files changed, 51 insertions(+), 1 deletion(-)
+ drivers/bluetooth/hci_qca.c | 33 ++++++++++++++++-----------------
+ 1 file changed, 16 insertions(+), 17 deletions(-)
 
-diff --git a/mm/memory.c b/mm/memory.c
-index 66ebefe5034fb..8340edf81043b 100644
---- a/mm/memory.c
-+++ b/mm/memory.c
-@@ -1471,7 +1471,7 @@ static unsigned long zap_pte_range(struct mmu_gather *tlb,
- 			 * consider uffd-wp bit when zap. For more information,
- 			 * see zap_install_uffd_wp_if_needed().
- 			 */
--			WARN_ON_ONCE(!vma_is_anonymous(vma));
-+			WARN_ON_ONCE(!PageAnon(page));
- 			rss[mm_counter(page)]--;
- 			if (is_device_private_entry(entry))
- 				page_remove_rmap(page, vma, false);
-diff --git a/tools/testing/selftests/vm/hmm-tests.c b/tools/testing/selftests/vm/hmm-tests.c
-index 95af1a73f505f..cf86094a3027a 100644
---- a/tools/testing/selftests/vm/hmm-tests.c
-+++ b/tools/testing/selftests/vm/hmm-tests.c
-@@ -993,6 +993,56 @@ TEST_F(hmm, migrate)
- 	hmm_buffer_free(buffer);
- }
+diff --git a/drivers/bluetooth/hci_qca.c b/drivers/bluetooth/hci_qca.c
+index c0de1b22e7539..d6bf5058a4309 100644
+--- a/drivers/bluetooth/hci_qca.c
++++ b/drivers/bluetooth/hci_qca.c
+@@ -46,13 +46,12 @@
+ #define HCI_MAX_IBS_SIZE	10
  
-+/*
-+ * Migrate private file memory to device private memory.
-+ */
-+TEST_F(hmm, migrate_file_private)
-+{
-+	struct hmm_buffer *buffer;
-+	unsigned long npages;
-+	unsigned long size;
-+	unsigned long i;
-+	int *ptr;
-+	int ret;
-+	int fd;
-+
-+	npages = ALIGN(HMM_BUFFER_SIZE, self->page_size) >> self->page_shift;
-+	ASSERT_NE(npages, 0);
-+	size = npages << self->page_shift;
-+
-+	fd = hmm_create_file(size);
-+	ASSERT_GE(fd, 0);
-+
-+	buffer = malloc(sizeof(*buffer));
-+	ASSERT_NE(buffer, NULL);
-+
-+	buffer->fd = fd;
-+	buffer->size = size;
-+	buffer->mirror = malloc(size);
-+	ASSERT_NE(buffer->mirror, NULL);
-+
-+	buffer->ptr = mmap(NULL, size,
-+			   PROT_READ | PROT_WRITE,
-+			   MAP_PRIVATE,
-+			   buffer->fd, 0);
-+	ASSERT_NE(buffer->ptr, MAP_FAILED);
-+
-+	/* Initialize buffer in system memory. */
-+	for (i = 0, ptr = buffer->ptr; i < size / sizeof(*ptr); ++i)
-+		ptr[i] = i;
-+
-+	/* Migrate memory to device. */
-+	ret = hmm_migrate_sys_to_dev(self->fd, buffer, npages);
-+	ASSERT_EQ(ret, 0);
-+	ASSERT_EQ(buffer->cpages, npages);
-+
-+	/* Check what the device read. */
-+	for (i = 0, ptr = buffer->mirror; i < size / sizeof(*ptr); ++i)
-+		ASSERT_EQ(ptr[i], i);
-+
-+	hmm_buffer_free(buffer);
-+}
-+
- /*
-  * Migrate anonymous memory to device private memory and fault some of it back
-  * to system memory, then try migrating the resulting mix of system and device
+ #define IBS_WAKE_RETRANS_TIMEOUT_MS	100
+-#define IBS_BTSOC_TX_IDLE_TIMEOUT_MS	200
++#define IBS_BTSOC_TX_IDLE_TIMEOUT	msecs_to_jiffies(200)
+ #define IBS_HOST_TX_IDLE_TIMEOUT_MS	2000
+-#define CMD_TRANS_TIMEOUT_MS		100
+-#define MEMDUMP_TIMEOUT_MS		8000
+-#define IBS_DISABLE_SSR_TIMEOUT_MS \
+-	(MEMDUMP_TIMEOUT_MS + FW_DOWNLOAD_TIMEOUT_MS)
+-#define FW_DOWNLOAD_TIMEOUT_MS		3000
++#define CMD_TRANS_TIMEOUT		msecs_to_jiffies(100)
++#define MEMDUMP_TIMEOUT			msecs_to_jiffies(8000)
++#define FW_DOWNLOAD_TIMEOUT		msecs_to_jiffies(3000)
++#define IBS_DISABLE_SSR_TIMEOUT		(MEMDUMP_TIMEOUT + FW_DOWNLOAD_TIMEOUT)
+ 
+ /* susclk rate */
+ #define SUSCLK_RATE_32KHZ	32768
+@@ -1058,7 +1057,7 @@ static void qca_controller_memdump(struct work_struct *work)
+ 				    dump_size);
+ 			queue_delayed_work(qca->workqueue,
+ 					   &qca->ctrl_memdump_timeout,
+-					   msecs_to_jiffies(MEMDUMP_TIMEOUT_MS)
++					   MEMDUMP_TIMEOUT
+ 					  );
+ 
+ 			skb_pull(skb, sizeof(dump_size));
+@@ -1326,7 +1325,7 @@ static int qca_set_baudrate(struct hci_dev *hdev, uint8_t baudrate)
+ 
+ 	if (hu->serdev)
+ 		serdev_device_wait_until_sent(hu->serdev,
+-		      msecs_to_jiffies(CMD_TRANS_TIMEOUT_MS));
++		      CMD_TRANS_TIMEOUT);
+ 
+ 	/* Give the controller time to process the request */
+ 	switch (qca_soc_type(hu)) {
+@@ -1356,8 +1355,8 @@ static inline void host_set_baudrate(struct hci_uart *hu, unsigned int speed)
+ 
+ static int qca_send_power_pulse(struct hci_uart *hu, bool on)
+ {
++	int timeout = CMD_TRANS_TIMEOUT;
+ 	int ret;
+-	int timeout = msecs_to_jiffies(CMD_TRANS_TIMEOUT_MS);
+ 	u8 cmd = on ? QCA_WCN3990_POWERON_PULSE : QCA_WCN3990_POWEROFF_PULSE;
+ 
+ 	/* These power pulses are single byte command which are sent
+@@ -1556,7 +1555,7 @@ static void qca_wait_for_dump_collection(struct hci_dev *hdev)
+ 	struct qca_data *qca = hu->priv;
+ 
+ 	wait_on_bit_timeout(&qca->flags, QCA_MEMDUMP_COLLECTION,
+-			    TASK_UNINTERRUPTIBLE, MEMDUMP_TIMEOUT_MS);
++			    TASK_UNINTERRUPTIBLE, MEMDUMP_TIMEOUT);
+ 
+ 	clear_bit(QCA_MEMDUMP_COLLECTION, &qca->flags);
+ }
+@@ -2345,7 +2344,7 @@ static void qca_serdev_remove(struct serdev_device *serdev)
+ static void qca_serdev_shutdown(struct device *dev)
+ {
+ 	int ret;
+-	int timeout = msecs_to_jiffies(CMD_TRANS_TIMEOUT_MS);
++	int timeout = CMD_TRANS_TIMEOUT;
+ 	struct serdev_device *serdev = to_serdev_device(dev);
+ 	struct qca_serdev *qcadev = serdev_device_get_drvdata(serdev);
+ 	struct hci_uart *hu = &qcadev->serdev_hu;
+@@ -2403,7 +2402,7 @@ static int __maybe_unused qca_suspend(struct device *dev)
+ 	bool tx_pending = false;
+ 	int ret = 0;
+ 	u8 cmd;
+-	u32 wait_timeout = 0;
++	unsigned long wait_timeout = 0;
+ 
+ 	set_bit(QCA_SUSPENDING, &qca->flags);
+ 
+@@ -2424,15 +2423,15 @@ static int __maybe_unused qca_suspend(struct device *dev)
+ 	if (test_bit(QCA_IBS_DISABLED, &qca->flags) ||
+ 	    test_bit(QCA_SSR_TRIGGERED, &qca->flags)) {
+ 		wait_timeout = test_bit(QCA_SSR_TRIGGERED, &qca->flags) ?
+-					IBS_DISABLE_SSR_TIMEOUT_MS :
+-					FW_DOWNLOAD_TIMEOUT_MS;
++					IBS_DISABLE_SSR_TIMEOUT :
++					FW_DOWNLOAD_TIMEOUT;
+ 
+ 		/* QCA_IBS_DISABLED flag is set to true, During FW download
+ 		 * and during memory dump collection. It is reset to false,
+ 		 * After FW download complete.
+ 		 */
+ 		wait_on_bit_timeout(&qca->flags, QCA_IBS_DISABLED,
+-			    TASK_UNINTERRUPTIBLE, msecs_to_jiffies(wait_timeout));
++			    TASK_UNINTERRUPTIBLE, wait_timeout);
+ 
+ 		if (test_bit(QCA_IBS_DISABLED, &qca->flags)) {
+ 			bt_dev_err(hu->hdev, "SSR or FW download time out");
+@@ -2484,7 +2483,7 @@ static int __maybe_unused qca_suspend(struct device *dev)
+ 
+ 	if (tx_pending) {
+ 		serdev_device_wait_until_sent(hu->serdev,
+-					      msecs_to_jiffies(CMD_TRANS_TIMEOUT_MS));
++					      CMD_TRANS_TIMEOUT);
+ 		serial_clock_vote(HCI_IBS_TX_VOTE_CLOCK_OFF, hu);
+ 	}
+ 
+@@ -2493,7 +2492,7 @@ static int __maybe_unused qca_suspend(struct device *dev)
+ 	 */
+ 	ret = wait_event_interruptible_timeout(qca->suspend_wait_q,
+ 			qca->rx_ibs_state == HCI_IBS_RX_ASLEEP,
+-			msecs_to_jiffies(IBS_BTSOC_TX_IDLE_TIMEOUT_MS));
++			IBS_BTSOC_TX_IDLE_TIMEOUT);
+ 	if (ret == 0) {
+ 		ret = -ETIMEDOUT;
+ 		goto error;
 -- 
 2.53.0
 
