@@ -1,327 +1,166 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 019C23624C9;
-	Fri, 29 May 2026 22:05:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF5EE2F3C1F;
+	Fri, 29 May 2026 22:53:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780092353; cv=none; b=XFOajRLhILL/qfo6vcs3+oejINnzI90ODzo2YQvrEzdcU0R7zpXfaaekcemCTloUdxWnZhFdO015aalQckVVL8VHwn6AIzqZqq7ar2e38ovmOLpfDuSeqHBPVUf8w+A4nDYc0U2BSGbh7TZv9IKRZs9YgEr29gk8cQ4UdHi7wPU=
+	t=1780095214; cv=none; b=iwnTyYayMS4Jdq3tPfUUIz5gFZ23g2dvwStgYiZpJ4SXcsqjRN+obVuwtXSOZvHPhoKgZJlFWkoBK7dsS7hcpw0LlUokaJ5jC7m6bYFBxH3A7bCDn0BElCPu+TPXSs2/J3ricjhOmVLj0qz7SdnmaHy5Xut0D/h2fugEUHPih5g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780092353; c=relaxed/simple;
-	bh=u08XzB1uIqSuvj36hyCmUWuA0CJK5je6fl1B1TJUrwU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qXKSoZ1f3UqpIgrwf0av6h94ZkfGjDOZxIhIIiYb/3p+f4Py3VlIXKQtGZ7eCmUQGa4LZKbQ6wIMVayQNlMljBBpmCSAWIkg44GGcj/eRKVmA2BiUOJz2CFnjwjF/+e/k4Ek5lenYybjkWINHdCa791Cp5ZU/diM68qc3CnCIMQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=akEjEg2x; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780095214; c=relaxed/simple;
+	bh=G0fH7RKtfbAcuwWYv8qR8FxdNld+RPq8HHIjpN3Pr14=;
+	h=Date:From:To:Subject:Cc:MIME-Version:Message-ID:Content-Type; b=TNN78EUrbdQ1JooMdQfliDuPwgzGCv4x7EO6mOyedmCkkd7B7vPjV595x5Ai/YSRmzeIxtvPLc9GINaggipFXRg550WRC4hAlo21yAY98Ex7aLK1IdsoIQ7HZmphyKJu27lPq2/HKRKJGtotGfBciFl6VBpOSiNSjmf1eWs+FMo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=fvShiN0g; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=OyQqcbg/; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="akEjEg2x"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 678F21F00893;
-	Fri, 29 May 2026 22:05:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780092351;
-	bh=Kl6flcBu84jgTqywF8Efo372BSZV1TwotLetIP7TH+E=;
-	h=From:To:Cc:Subject:Date;
-	b=akEjEg2xai2zRUB11O7ILEXDf5sziOAGFIamK2DEty3zjK3rs64EnpSn9PghTlcZQ
-	 siW0MF8usb/5O0YZeTDyHHv1YIMJKAHcHr44OyM5ZK2iD6T+9iSl+PXS9/CqOONPhe
-	 Ac0gWboneIRAm3yFBt7qLlxW+5RBm4Hry8jmEZ5yIZeIeAa0B6lV6bFba7ce0JuJOn
-	 /aGvwl0Prp94UDFGX+AAhM/1gca3iuhrPhNZPO2yk/16ntIDLyocHfyqNE+FPVDxE8
-	 3E3u/bRFtf9PsJ3IXZA7ajIohFaXcTTVf7rl2m7pr885eR8tKocqnAhfsXXzmWXE3m
-	 zUsZvOylliK4A==
-From: Eric Biggers <ebiggers@kernel.org>
-To: linux-crypto@vger.kernel.org,
-	Herbert Xu <herbert@gondor.apana.org.au>
-Cc: Christian Lamparter <chunkeey@gmail.com>,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org,
-	Eric Biggers <ebiggers@kernel.org>,
-	stable@vger.kernel.org
-Subject: [PATCH] crypto: crypto4xx - Remove insecure and unused rng_alg
-Date: Fri, 29 May 2026 15:04:30 -0700
-Message-ID: <20260529220430.34135-1-ebiggers@kernel.org>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="fvShiN0g";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="OyQqcbg/"
+Date: Fri, 29 May 2026 22:53:27 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1780095209;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:  content-transfer-encoding:content-transfer-encoding;
+	bh=3rpljOHeSS7TL3aq3YU4dskbC3kuoCBkmESPO1DiA1A=;
+	b=fvShiN0glhn6jt02KtDMOaRXNHmLEVOrNi2g62EL6vKe2VS+I6JW+PW0nLzoBZ15W2Iw7f
+	9E/og2K5MVDJBN80gnywcQRWz89/iRDNm085pYeYUtTWvIsXV48mHTmZ55AKPr8HpKc7li
+	Ex9Jk04ZvxRHvevLuclNHSVbMnDkne4V0Fj3vhXeiveA+UyD0MfM3CeFZ6Hw8AUYWwmmjw
+	qKFwCC4xxAV2/EnrfP83O97NfcQCvEgtbjLjrT5C/fKQLbZ2xFkIbHjS00lqgslj027HVF
+	ESgOQYqNxntmv0i24uRU2aHJ+ATzwWY5Kb7z00m+fM97lFaVUzQ7F0jxOIrxxQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1780095209;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:  content-transfer-encoding:content-transfer-encoding;
+	bh=3rpljOHeSS7TL3aq3YU4dskbC3kuoCBkmESPO1DiA1A=;
+	b=OyQqcbg/H0nxPpsmV2ZYXNtLA3ecXdGVN8fiLDeE/KcbcRvsuupRxcSq0HHaeFNS0JUV+L
+	PoRU4WTL3kaIXbAQ==
+From: "tip-bot2 for Andrei Vagin" <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject: [tip: x86/urgent] Revert "x86/fpu: Refine and simplify the magic
+ number check during signal return"
+Cc: Andrei Vagin <avagin@google.com>, "Borislav Petkov (AMD)" <bp@alien8.de>,
+ "Chang S. Bae" <chang.seok.bae@intel.com>, stable@vger.kernel.org,
+ x86@kernel.org, linux-kernel@vger.kernel.org
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Message-ID: <178009520795.1039918.8317029204745792627.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-Remove crypto4xx_rng, as it is insecure and unused:
+The following commit has been merged into the x86/urgent branch of tip:
 
-- It has only a 64-bit security strength, which is highly inadequate.
-  This can be seen by the fact that crypto4xx_hw_init() seeds it with
-  only 64 bits of entropy, and the fact that the original commit
-  mentions that it implements ANSI X9.17 Annex C.
+Commit-ID:     44eeff9bc467bc7d1fec34fc3f6001f385fe462c
+Gitweb:        https://git.kernel.org/tip/44eeff9bc467bc7d1fec34fc3f6001f385f=
+e462c
+Author:        Andrei Vagin <avagin@google.com>
+AuthorDate:    Tue, 26 May 2026 20:50:43=20
+Committer:     Borislav Petkov (AMD) <bp@alien8.de>
+CommitterDate: Fri, 29 May 2026 15:05:30 -07:00
 
-  Another issue was that this driver didn't implement the crypto_rng API
-  correctly, as crypto4xx_prng_generate() didn't return 0 on success.
+Revert "x86/fpu: Refine and simplify the magic number check during signal ret=
+urn"
 
-- No user of this code is known.  It's usable only theoretically via the
-  "rng" algorithm type of AF_ALG.  But userspace actually just uses the
-  actual Linux RNG (/dev/random etc) instead.  And rng_algs don't
-  contribute entropy to the actual Linux RNG either.  (This may have
-  been confused with hwrng, which does contribute entropy.)
+This reverts
 
-Fixes: d072bfa48853 ("crypto: crypto4xx - add prng crypto support")
+  dc8aa31a7ac2 ("x86/fpu: Refine and simplify the magic number check during s=
+ignal return").
+
+The aforementioned commit broke applications that construct signal frames in
+userspace (such as CRIU and gVisor) if the frame's xstate size is smaller than
+the kernel's fpstate->user_size.
+
+Furthermore, this introduces a critical issue for checkpoint/restore tools
+like CRIU. If a process is checkpointed while inside a signal handler, its
+stack contains a signal frame formatted according to the source host's xstate
+capabilities.
+
+If that process is later restored on a destination host with larger xstate
+capabilities (e.g., a newer CPU with more features enabled, resulting in
+a larger fpstate->user_size), the kernel will look for FP_XSTATE_MAGIC2 at the
+destination host's larger user_size offset instead of the offset encoded in
+the frame's fx_sw->xstate_size.
+
+This causes the magic2 check to fail, forcing sigreturn to silently fall back
+to "FX-only" mode. Upon return from the signal handler, the process's extended
+state is reset to initial values instead of being restored, leading to silent
+data corruption.
+
+The aforementioned commit cited
+
+  d877550eaf2d ("x86/fpu: Stop relying on userspace for info to fault in xsav=
+e buffer")
+
+as justification to stop relying on userspace for the magic number check.
+
+However, these two changes are fundamentally different. The last one only
+changed how much memory the kernel ensures is paged-in before running XRSTOR
+to prevent an infinite loop. It did not change the signal frame format or how
+the layout is validated.
+
+Reverting this change restores the use of fx_sw->xstate_size for
+locating magic2 and restores the necessary sanity checks, ensuring that
+the signal frame remains self-describing and portable.
+
+  [ bp: Massage commit message. ]
+
+Fixes: dc8aa31a7ac2 ("x86/fpu: Refine and simplify the magic number check dur=
+ing signal return")
+Signed-off-by: Andrei Vagin <avagin@google.com>
+Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
+Acked-by: Chang S. Bae <chang.seok.bae@intel.com>
 Cc: stable@vger.kernel.org
-Signed-off-by: Eric Biggers <ebiggers@kernel.org>
+Link: https://lore.kernel.org/all/20260429000623.3356606-1-avagin@google.com
 ---
- drivers/crypto/Kconfig                  |  1 -
- drivers/crypto/amcc/crypto4xx_core.c    | 88 -------------------------
- drivers/crypto/amcc/crypto4xx_core.h    |  4 --
- drivers/crypto/amcc/crypto4xx_reg_def.h | 11 ----
- 4 files changed, 104 deletions(-)
+ arch/x86/kernel/fpu/signal.c | 11 ++++++++---
+ 1 file changed, 8 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/crypto/Kconfig b/drivers/crypto/Kconfig
-index 3449b3c9c6ad..5dab813a9f74 100644
---- a/drivers/crypto/Kconfig
-+++ b/drivers/crypto/Kconfig
-@@ -299,11 +299,10 @@ config CRYPTO_DEV_PPC4XX
- 	select CRYPTO_AES
- 	select CRYPTO_LIB_AES
- 	select CRYPTO_CCM
- 	select CRYPTO_CTR
- 	select CRYPTO_GCM
--	select CRYPTO_RNG
- 	select CRYPTO_SKCIPHER
- 	help
- 	  This option allows you to have support for AMCC crypto acceleration.
- 
- config HW_RANDOM_PPC4XX
-diff --git a/drivers/crypto/amcc/crypto4xx_core.c b/drivers/crypto/amcc/crypto4xx_core.c
-index b7b6c97d2147..68c5ff7a85b4 100644
---- a/drivers/crypto/amcc/crypto4xx_core.c
-+++ b/drivers/crypto/amcc/crypto4xx_core.c
-@@ -29,15 +29,13 @@
- #include <crypto/aead.h>
- #include <crypto/aes.h>
- #include <crypto/ctr.h>
- #include <crypto/gcm.h>
- #include <crypto/sha1.h>
--#include <crypto/rng.h>
- #include <crypto/scatterwalk.h>
- #include <crypto/skcipher.h>
- #include <crypto/internal/aead.h>
--#include <crypto/internal/rng.h>
- #include <crypto/internal/skcipher.h>
- #include "crypto4xx_reg_def.h"
- #include "crypto4xx_core.h"
- #include "crypto4xx_sa.h"
- #include "crypto4xx_trng.h"
-@@ -983,14 +981,10 @@ static int crypto4xx_register_alg(struct crypto4xx_device *sec_dev,
- 		switch (alg->alg.type) {
- 		case CRYPTO_ALG_TYPE_AEAD:
- 			rc = crypto_register_aead(&alg->alg.u.aead);
- 			break;
- 
--		case CRYPTO_ALG_TYPE_RNG:
--			rc = crypto_register_rng(&alg->alg.u.rng);
--			break;
--
- 		default:
- 			rc = crypto_register_skcipher(&alg->alg.u.cipher);
- 			break;
- 		}
- 
-@@ -1012,14 +1006,10 @@ static void crypto4xx_unregister_alg(struct crypto4xx_device *sec_dev)
- 		switch (alg->alg.type) {
- 		case CRYPTO_ALG_TYPE_AEAD:
- 			crypto_unregister_aead(&alg->alg.u.aead);
- 			break;
- 
--		case CRYPTO_ALG_TYPE_RNG:
--			crypto_unregister_rng(&alg->alg.u.rng);
--			break;
--
- 		default:
- 			crypto_unregister_skcipher(&alg->alg.u.cipher);
- 		}
- 		kfree(alg);
- 	}
-@@ -1074,73 +1064,10 @@ static irqreturn_t crypto4xx_ce_interrupt_handler_revb(int irq, void *data)
+diff --git a/arch/x86/kernel/fpu/signal.c b/arch/x86/kernel/fpu/signal.c
+index c3ec251..20b638c 100644
+--- a/arch/x86/kernel/fpu/signal.c
++++ b/arch/x86/kernel/fpu/signal.c
+@@ -27,14 +27,19 @@
+ static inline bool check_xstate_in_sigframe(struct fxregs_state __user *fxbu=
+f,
+ 					    struct _fpx_sw_bytes *fx_sw)
  {
- 	return crypto4xx_interrupt_handler(irq, data, PPC4XX_INTERRUPT_CLR |
- 		PPC4XX_TMO_ERR_INT);
- }
- 
--static int ppc4xx_prng_data_read(struct crypto4xx_device *dev,
--				 u8 *data, unsigned int max)
--{
--	unsigned int i, curr = 0;
--	u32 val[2];
--
--	do {
--		/* trigger PRN generation */
--		writel(PPC4XX_PRNG_CTRL_AUTO_EN,
--		       dev->ce_base + CRYPTO4XX_PRNG_CTRL);
--
--		for (i = 0; i < 1024; i++) {
--			/* usually 19 iterations are enough */
--			if ((readl(dev->ce_base + CRYPTO4XX_PRNG_STAT) &
--			     CRYPTO4XX_PRNG_STAT_BUSY))
--				continue;
--
--			val[0] = readl_be(dev->ce_base + CRYPTO4XX_PRNG_RES_0);
--			val[1] = readl_be(dev->ce_base + CRYPTO4XX_PRNG_RES_1);
--			break;
--		}
--		if (i == 1024)
--			return -ETIMEDOUT;
--
--		if ((max - curr) >= 8) {
--			memcpy(data, &val, 8);
--			data += 8;
--			curr += 8;
--		} else {
--			/* copy only remaining bytes */
--			memcpy(data, &val, max - curr);
--			break;
--		}
--	} while (curr < max);
--
--	return curr;
--}
--
--static int crypto4xx_prng_generate(struct crypto_rng *tfm,
--				   const u8 *src, unsigned int slen,
--				   u8 *dstn, unsigned int dlen)
--{
--	struct rng_alg *alg = crypto_rng_alg(tfm);
--	struct crypto4xx_alg *amcc_alg;
--	struct crypto4xx_device *dev;
--	int ret;
--
--	amcc_alg = container_of(alg, struct crypto4xx_alg, alg.u.rng);
--	dev = amcc_alg->dev;
--
--	mutex_lock(&dev->core_dev->rng_lock);
--	ret = ppc4xx_prng_data_read(dev, dstn, dlen);
--	mutex_unlock(&dev->core_dev->rng_lock);
--	return ret;
--}
--
--
--static int crypto4xx_prng_seed(struct crypto_rng *tfm, const u8 *seed,
--			unsigned int slen)
--{
--	return 0;
--}
--
- /*
-  * Supported Crypto Algorithms
-  */
- static struct crypto4xx_alg_common crypto4xx_alg[] = {
- 	/* Crypto AES modes */
-@@ -1266,22 +1193,10 @@ static struct crypto4xx_alg_common crypto4xx_alg[] = {
- 			.cra_blocksize	= 1,
- 			.cra_ctxsize	= sizeof(struct crypto4xx_ctx),
- 			.cra_module	= THIS_MODULE,
- 		},
- 	} },
--	{ .type = CRYPTO_ALG_TYPE_RNG, .u.rng = {
--		.base = {
--			.cra_name		= "stdrng",
--			.cra_driver_name        = "crypto4xx_rng",
--			.cra_priority		= 300,
--			.cra_ctxsize		= 0,
--			.cra_module		= THIS_MODULE,
--		},
--		.generate               = crypto4xx_prng_generate,
--		.seed                   = crypto4xx_prng_seed,
--		.seedsize               = 0,
--	} },
- };
- 
- /*
-  * Module Initialization Routine
-  */
-@@ -1351,13 +1266,10 @@ static int crypto4xx_probe(struct platform_device *ofdev)
- 	}
- 
- 	core_dev->dev->core_dev = core_dev;
- 	core_dev->dev->is_revb = is_revb;
- 	core_dev->device = dev;
--	rc = devm_mutex_init(&ofdev->dev, &core_dev->rng_lock);
--	if (rc)
--		return rc;
- 	spin_lock_init(&core_dev->lock);
- 	INIT_LIST_HEAD(&core_dev->dev->alg_list);
- 	ratelimit_default_init(&core_dev->dev->aead_ratelimit);
- 	rc = crypto4xx_build_sdr(core_dev->dev);
- 	if (rc)
-diff --git a/drivers/crypto/amcc/crypto4xx_core.h b/drivers/crypto/amcc/crypto4xx_core.h
-index ee36630c670f..3a028aec3f0c 100644
---- a/drivers/crypto/amcc/crypto4xx_core.h
-+++ b/drivers/crypto/amcc/crypto4xx_core.h
-@@ -12,14 +12,12 @@
- 
- #ifndef __CRYPTO4XX_CORE_H__
- #define __CRYPTO4XX_CORE_H__
- 
- #include <linux/ratelimit.h>
--#include <linux/mutex.h>
- #include <linux/scatterlist.h>
- #include <crypto/internal/aead.h>
--#include <crypto/internal/rng.h>
- #include <crypto/internal/skcipher.h>
- #include "crypto4xx_reg_def.h"
- #include "crypto4xx_sa.h"
- 
- #define PPC460SX_SDR0_SRST                      0x201
-@@ -109,11 +107,10 @@ struct crypto4xx_core_device {
- 	struct hwrng *trng;
- 	u32 int_status;
- 	u32 irq;
- 	struct tasklet_struct tasklet;
- 	spinlock_t lock;
--	struct mutex rng_lock;
- };
- 
- struct crypto4xx_ctx {
- 	struct crypto4xx_device *dev;
- 	struct dynamic_sa_ctl *sa_in;
-@@ -133,11 +130,10 @@ struct crypto4xx_aead_reqctx {
- struct crypto4xx_alg_common {
- 	u32 type;
- 	union {
- 		struct skcipher_alg cipher;
- 		struct aead_alg aead;
--		struct rng_alg rng;
- 	} u;
- };
- 
- struct crypto4xx_alg {
- 	struct list_head  entry;
-diff --git a/drivers/crypto/amcc/crypto4xx_reg_def.h b/drivers/crypto/amcc/crypto4xx_reg_def.h
-index 1038061224da..73d626308a84 100644
---- a/drivers/crypto/amcc/crypto4xx_reg_def.h
-+++ b/drivers/crypto/amcc/crypto4xx_reg_def.h
-@@ -88,24 +88,13 @@
- 
- #define CRYPTO4XX_DMA_CFG	        	0x000600d4
- #define CRYPTO4XX_BYTE_ORDER_CFG 		0x000600d8
- #define CRYPTO4XX_ENDIAN_CFG			0x000600d8
- 
--#define CRYPTO4XX_PRNG_STAT			0x00070000
--#define CRYPTO4XX_PRNG_STAT_BUSY		0x1
- #define CRYPTO4XX_PRNG_CTRL			0x00070004
- #define CRYPTO4XX_PRNG_SEED_L			0x00070008
- #define CRYPTO4XX_PRNG_SEED_H			0x0007000c
--
--#define CRYPTO4XX_PRNG_RES_0			0x00070020
--#define CRYPTO4XX_PRNG_RES_1			0x00070024
--#define CRYPTO4XX_PRNG_RES_2			0x00070028
--#define CRYPTO4XX_PRNG_RES_3			0x0007002C
--
--#define CRYPTO4XX_PRNG_LFSR_L			0x00070030
--#define CRYPTO4XX_PRNG_LFSR_H			0x00070034
--
- /*
-  * Initialize CRYPTO ENGINE registers, and memory bases.
-  */
- #define PPC4XX_PDR_POLL				0x3ff
- #define PPC4XX_OUTPUT_THRESHOLD			2
-
-base-commit: 49e05bb00f2e8168695f7af4d694c39e1423e8a2
--- 
-2.54.0
-
++	int min_xstate_size =3D sizeof(struct fxregs_state) +
++			      sizeof(struct xstate_header);
+ 	void __user *fpstate =3D fxbuf;
+ 	unsigned int magic2;
+=20
+ 	if (__copy_from_user(fx_sw, &fxbuf->sw_reserved[0], sizeof(*fx_sw)))
+ 		return false;
+=20
+-	/* Check for the first magic field */
+-	if (fx_sw->magic1 !=3D FP_XSTATE_MAGIC1)
++	/* Check for the first magic field and other error scenarios. */
++	if (fx_sw->magic1 !=3D FP_XSTATE_MAGIC1 ||
++	    fx_sw->xstate_size < min_xstate_size ||
++	    fx_sw->xstate_size > x86_task_fpu(current)->fpstate->user_size ||
++	    fx_sw->xstate_size > fx_sw->extended_size)
+ 		goto setfx;
+=20
+ 	/*
+@@ -43,7 +48,7 @@ static inline bool check_xstate_in_sigframe(struct fxregs_s=
+tate __user *fxbuf,
+ 	 * fpstate layout with out copying the extended state information
+ 	 * in the memory layout.
+ 	 */
+-	if (__get_user(magic2, (__u32 __user *)(fpstate + x86_task_fpu(current)->fp=
+state->user_size)))
++	if (__get_user(magic2, (__u32 __user *)(fpstate + fx_sw->xstate_size)))
+ 		return false;
+=20
+ 	if (likely(magic2 =3D=3D FP_XSTATE_MAGIC2))
