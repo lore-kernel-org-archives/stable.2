@@ -1,42 +1,56 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E7693ACA57
-	for <stable@vger.kernel.org>; Sat, 30 May 2026 11:49:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62B9B3AB293;
+	Sat, 30 May 2026 11:49:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780141766; cv=none; b=pAs+4QVEV4HAXjTYRDaF/UDacjNnG8HmxI6xXCXzziNK1Qn5f/4hNx1f3z1F31ti0DmBVFm0RFxs4fA+poIavXDXYoGPZ5M9ulxzxd5GgJKgrDudws9Rn9Ec5fGT9tzJBzGhfVRYqfclrmKYNdRTvsAPoCMLr6YpWtMvxawDHvA=
+	t=1780141781; cv=none; b=lnn9F3Mz1ShiPc5bkYai+0OVMyJMf3G00nx4NoYkD5GmqcZpn/FdsY2AP5QpxZgJ2+zBppHvk34vah+ArsMn4q1ZSaEj1YWzq3bbWzNU65kJsIpRJSQgyZQWrsLjbLDqeY2sLemy+81+IdlYnGcG2ZhZ4+FrULPpFMtgHvkLy9Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780141766; c=relaxed/simple;
-	bh=h4UcprwXE/uf04JxiYKhpQQkVGWjcezthGonkaUWuA4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bO5mi1hpn7IcULimGgHmUoDN0Pk0LTnpOZQgW8IHlT8gChsa7mmakELu0e6kZyPZv38qNGmNz0u2OdLWBvi1Nxy+RWF80pmTlPk1Fpveiwj1dWkgtXRcXekzOHiWExWcgKOzzqJdsz6/lhZxZRGDoofLybdaSuV3Pf7mZkd5cho=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AeSAsJUl; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780141781; c=relaxed/simple;
+	bh=LHDo+ZhBJKQohA9UlEU+BNm59Al6T7BX8YhX8vLBYts=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=j4NOzpHGvrmzNLmw1d22tllYSejewST/lW9cOrUfPOJvZz0S4fw9Up/Ge2cpsNNu7fUhSuQOkEz1JlKcwFhjoSlYBpGKp6u7DaKRudbj3icub9aLTCliS+v3Y8hWy7OTRiI1QtML8dsK7HZb/npOEpwhrxSz4/4ZycIAHa/WXbs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=idO0gdBv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AeSAsJUl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C13D1F00893;
-	Sat, 30 May 2026 11:49:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="idO0gdBv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E18681F00893;
+	Sat, 30 May 2026 11:49:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780141765;
-	bh=o9ZmF8wbY90lAY3pW8zUQD3a6Vc4kDYgLIW5pHRkHWs=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=AeSAsJUl32tkiR0hXmXMZqA+P/1IwfRKYijRQXZt9vZrYr0c4SM0XwH8cBDbLACxV
-	 sCHfe+uZTTEPDXw4KeEZ88Do36WglBueb+SqMr4Ix3JJjfcRuaN1eHQ2HzGK57fqZu
-	 b+EqoSp8mfKXkqdK+pj2SrzepVxaGo0NKUlSnbIzhjk4tFY+BzmXv/XR/9NtiIxq8Q
-	 CE0+lsFu6/v7QqQZXgLt37OOxdy1jkKoRidUjoP3fMvoMgL2CrSzSmvToaa0iQorbo
-	 33DrTvycOyN1XueOp41CHkVMMpd9AiHhSu8pWPW4Z5iMbs0Z3VdyAwW3+lZppG4Lto
-	 MZUtpJ/5Elo1w==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: "Matthieu Baerts (NGI0)" <matttbe@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] selftests: mptcp: drop nanoseconds width specifier
-Date: Sat, 30 May 2026 07:49:22 -0400
-Message-ID: <20260530114922.1970609-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026052827-mushroom-undercut-d57d@gregkh>
-References: <2026052827-mushroom-undercut-d57d@gregkh>
+	s=k20260515; t=1780141780;
+	bh=UgQLCX5R4nUTVcEi2+T6tAoqT0LEeC2bEEWFpQZ3VRM=;
+	h=From:To:Cc:Subject:Date;
+	b=idO0gdBvUzHIqOartjFJn5iybYT5M8IdwYQXmhNfarLE20B0g01gnLCXzr28h0yTw
+	 RWe1xddBsaSPtjIznFN6+AFA8uQT/P1+8aYgEj7/53yy1j2K394e7nLcchMySjKtw2
+	 fvFzH+pNYqUmvQjf6cQhyP2k4pufCCJwm1b9pEoaLM3QQ5RUQqIj5+lZnVDssqQHXQ
+	 5lrgA+l8oUImrWELNgrdAVOAzbu9Et6cJJdE3CbKFKfroWoDOBghS1gZjCvvAOreW7
+	 WGP8LJKxrrJaQr1jLrWFGBzS4HDLPZHUZ+HW2jcPi83ITM2jQFauZ1noGMklcHfOQs
+	 pamAWUs2nwiSg==
+From: Miguel Ojeda <ojeda@kernel.org>
+To: Miguel Ojeda <ojeda@kernel.org>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nicolas Schier <nsc@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	x86@kernel.org
+Cc: Boqun Feng <boqun@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	rust-for-linux@vger.kernel.org,
+	linux-kbuild@vger.kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	linux-kernel@vger.kernel.org,
+	Ralf Jung <post@ralfj.de>,
+	stable@vger.kernel.org
+Subject: [PATCH] rust: x86: support Rust >= 1.98.0 target spec
+Date: Sat, 30 May 2026 13:49:25 +0200
+Message-ID: <20260530114925.260754-1-ojeda@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,68 +59,46 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "Matthieu Baerts (NGI0)" <matttbe@kernel.org>
+Starting with Rust 1.98.0 (expected 2026-08-20), the target spec will not
+support `x86-softfloat` anymore [1]. Instead, `softfloat` should be used,
+which is an alias. Otherwise, one gets:
 
-[ Upstream commit 01ff78e4b3d98689184c52d97f9575dfbdc3b10f ]
+    error: error loading target specification: rustc-abi: invalid rustc abi: 'x86-softfloat'. allowed values: 'x86-sse2', 'softfloat' at line 3 column 32
+      |
+      = help: run `rustc --print target-list` for a list of built-in targets
 
-Using the format specifier +%s%3N with GNU date is honoured, and only
-prints 3 digits of the nanoseconds portion of the seconds since epoch,
-which corresponds to the milliseconds.
+Thus conditionally use one or the other depending on the version.
 
-The uutils implementation of date currently does not honour this, and
-always prints all 9 digits. This is a known issue [1], but can be worked
-around by adapting this test to use nanoseconds instead of microseconds,
-and then divide it by 1e6.
+The alias has existed since Rust 1.95.0 (released 2026-04-16) [2], but
+use the newer version instead to avoid changing how the build works for
+existing compilers, at least until more testing takes place.
 
-This fix is similar to what has been done on systemd side [2], and it is
-needed to run the selftests on Ubuntu 26.04, containing uutils 0.8.0.
-
-Note that the Fixes tag is there even if this patch doesn't fix an issue
-in the kernel selftests, but it is useful for those using uutils 0.8.0.
-
-Fixes: 048d19d444be ("mptcp: add basic kselftest for mptcp")
-Cc: stable@vger.kernel.org
-Link: https://github.com/uutils/coreutils/issues/11658 [1]
-Link: https://github.com/systemd/systemd/pull/41627 [2]
-Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
-Link: https://patch.msgid.link/20260515-net-mptcp-misc-fixes-7-1-rc4-v2-6-701e96419f2f@kernel.org
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Cc: Ralf Jung <post@ralfj.de>
+Cc: stable@vger.kernel.org # Needed in 6.12.y and later (Rust is pinned in older LTSs).
+Link: https://github.com/rust-lang/rust/pull/157151 [1]
+Link: https://github.com/rust-lang/rust/pull/151154 [2]
+Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
 ---
- tools/testing/selftests/net/mptcp/mptcp_connect.sh | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ scripts/generate_rust_target.rs | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/tools/testing/selftests/net/mptcp/mptcp_connect.sh b/tools/testing/selftests/net/mptcp/mptcp_connect.sh
-index f475b27185dec..89a6ee987ccc6 100755
---- a/tools/testing/selftests/net/mptcp/mptcp_connect.sh
-+++ b/tools/testing/selftests/net/mptcp/mptcp_connect.sh
-@@ -434,7 +434,7 @@ do_transfer()
- 	mptcp_lib_wait_local_port_listen "${listener_ns}" "${port}"
- 
- 	local start
--	start=$(date +%s%3N)
-+	start=$(date +%s%N)
- 	timeout ${timeout_test} \
- 		ip netns exec ${connector_ns} \
- 			./mptcp_connect -t ${timeout_poll} -p $port -s ${cl_proto} \
-@@ -447,7 +447,7 @@ do_transfer()
- 	local rets=$?
- 
- 	local stop
--	stop=$(date +%s%3N)
-+	stop=$(date +%s%N)
- 
- 	if $capture; then
- 		sleep 1
-@@ -463,7 +463,7 @@ do_transfer()
- 	fi
- 
- 	local duration
--	duration=$((stop-start))
-+	duration=$(((stop-start) / 1000000))
- 	result_msg+=" # time=${duration}ms"
- 	printf "(duration %05sms) " "${duration}"
- 	if [ ${rets} -ne 0 ] || [ ${retc} -ne 0 ]; then
+diff --git a/scripts/generate_rust_target.rs b/scripts/generate_rust_target.rs
+index 38b3416bb979..02bc45d15484 100644
+--- a/scripts/generate_rust_target.rs
++++ b/scripts/generate_rust_target.rs
+@@ -196,7 +196,9 @@ fn main() {
+         }
+     } else if cfg.has("X86_64") {
+         ts.push("arch", "x86_64");
+-        if cfg.rustc_version_atleast(1, 86, 0) {
++        if cfg.rustc_version_atleast(1, 98, 0) {
++            ts.push("rustc-abi", "softfloat");
++        } else if cfg.rustc_version_atleast(1, 86, 0) {
+             ts.push("rustc-abi", "x86-softfloat");
+         }
+         ts.push(
+
+base-commit: ac35b5580ace12e5d0a0b5e61e36d2c4e1ffa29c
 -- 
-2.53.0
+2.54.0
 
