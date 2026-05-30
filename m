@@ -1,157 +1,206 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB4751DDC28
-	for <stable@vger.kernel.org>; Sat, 30 May 2026 00:25:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B651B185B48;
+	Sat, 30 May 2026 00:30:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780100750; cv=none; b=JNLNZXD9usJyl5edGO4Ye3eFj+GbjmbXA5kuK4yvA8dWHCrQw6RItT/UE5M5DLvap7dELw507h6mO9u8I8dib2aZDa1+Cx5tyc9NDJrbpy4aVvlvfSwbSkP5pgdsIPOM4TUGDAg0ClNWJr7/HCT22EgoNhmISg8JpjLOoIEhYhU=
+	t=1780101045; cv=none; b=lH+AOo0UIBegUvq+Aq86i+67K+a16bRn/uVSWmBhV2/J9zyUgRJ51g6ziJtyLdDprdXyMYm7Z3QKEV5ElDnsj6mkdeLS2w7pgqvGYlp6cIqsO/fn/Hz4bMJBLz8vXW3Dd7fZVZyo5Ohd8sQovZ7J5JL17Kwn09QtBtx1fzXnjaU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780100750; c=relaxed/simple;
-	bh=HV6Ui4de5/YhnwtUkQcM5wR8KQtnTYOQ4EkRKEtAitk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Pt9Rt0c+lLmf3FPpYQGw1FxH2scHcVw6O30neu0gm6Qx4rtIt5zDlrt9eSWLt00i+XefMycp80sy4pE+jWdSgDBjlOpR8aMcZnYuq2+p0LHkc4ltWASo2QIkX/lGOzi2Ca5O3EJhwE46iR2PtoUcx7bJuutwSohSaPg78ZLNO7o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TD3rS6rz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780101045; c=relaxed/simple;
+	bh=hf5vLWK44D61F4E5sJP0UG78k4AZAIR+Uwq9t7nH/fg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=C4+1qcgbAzgg82iCNHQaB3mzO8VXpIMfaHpL9QkQeUPzoRRJ2pbff4mGb7piHqWsGA7SNRnjkflUGsjkjswQRB6okAu1Dzkg0rT+Sps/axYG/KM1QeAoxUOvGgCdA0KmL4Qr/k48DGq6lHaSgRqGgIItIzXooKWWfVlNxwZ/xFE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iQ80oYQf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TD3rS6rz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E78921F00893;
-	Sat, 30 May 2026 00:25:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iQ80oYQf"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id BECB21F00893;
+	Sat, 30 May 2026 00:30:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780100749;
-	bh=FQe7VvgAAZ8iOK7ByhJVhin+0he7T2H7w6kSXN6W460=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=TD3rS6rzq3SUEKClecSm2/vOXXSbTPCT4w9A3oOTtvf3jBRdbrX7hU8qfFrHmhGLe
-	 UZ5Jh5rGQFkdjTIEqzk+TimRibJZebcBdbEap6lFMMxvusaxYGPTjKVu4SNxEsY3Xd
-	 gNwF8DJyeV76k6NpWy6vaispTi9RboLz9ctcNswS+sU9j24puBn/q6apvX9zOOLJap
-	 rvoRHYO93vMyghDXj08/1tfNQwF8hCtdi0UGMIcvjtEov2yM9Co3Amd0USj/iKVg0L
-	 vAyFJGHhszuL8Qb6pHXhpq9iaAeL2YiyYv4elgfaaD2WmaOhUuCcobKXgHTGj2K9g1
-	 9b8VsnB+8Ot0Q==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: "Matthieu Baerts (NGI0)" <matttbe@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] selftests: mptcp: drop nanoseconds width specifier
-Date: Fri, 29 May 2026 20:25:46 -0400
-Message-ID: <20260530002546.2210747-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026052826-macaroni-trillion-063d@gregkh>
-References: <2026052826-macaroni-trillion-063d@gregkh>
+	s=k20260515; t=1780101044;
+	bh=6eI4zy4Tq766zXKoZs9XoR7a/knH/HX/boy0n1H0AOM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=iQ80oYQfARSQHoqXSPBGldklrCgaGUyCDgCZnKAO1puTJ4kQCnhVU4vZ+o0buzGrl
+	 16g0/4fvolxEQWMgedD9TRFYhaM94+MnyG3zQgH1eDnH3VZqA0N2slY7fSdM05so+V
+	 OUTlRfcyo6e5ZK7GwUF1zLK0Zhj3ak6Q7mqXyloQMym/Ex4mI4EvVA425PjLCDfEoH
+	 ywt044WBwx7ep8Vh8ouChRLgfyrWxDugZLn6ptqOwxKlNwZFOxD18ifUN6UecNlAxh
+	 xMhklPSV0MiaDInxxDa7bDUFnE54njc1bPolpKplyBGdpmhsGebtuS9LhUGwYmVPa9
+	 MrCgPsA7ulGJA==
+Date: Sat, 30 May 2026 03:30:40 +0300
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Michael Bommarito <michael.bommarito@gmail.com>
+Cc: Peter Huewe <peterhuewe@gmx.de>, Jason Gunthorpe <jgg@ziepe.ca>,
+	James Bottomley <James.Bottomley@hansenpartnership.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	linux-integrity@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] tpm: tpm2-sessions: wait for async KPP completion in
+ tpm_buf_append_salt
+Message-ID: <ahovsOJ6Vbdx_XEQ@kernel.org>
+References: <20260527184655.1919993-1-michael.bommarito@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260527184655.1919993-1-michael.bommarito@gmail.com>
 
-From: "Matthieu Baerts (NGI0)" <matttbe@kernel.org>
+On Wed, May 27, 2026 at 02:46:55PM -0400, Michael Bommarito wrote:
+> tpm_buf_append_salt() in drivers/char/tpm/tpm2-sessions.c calls
+> crypto_kpp_generate_public_key() and crypto_kpp_compute_shared_secret()
+> without installing a completion callback, discards both return values,
+> and immediately frees the kpp_request via kpp_request_free(). When the
+> resolved ecdh-nist-p256 KPP backend is asynchronous (atmel-ecc, HPRE,
+> keembay-ocs), either operation returns -EINPROGRESS and the deferred
+> completion worker dereferences the freed request.
+> 
+> The path fires automatically from the hwrng_fillfn kernel thread via
+> tpm_get_random -> tpm2_get_random -> tpm2_start_auth_session ->
+> tpm_buf_append_salt on every entropy poll, without any userland action.
+> 
+> Install crypto_req_done as the completion callback, wrap both KPP
+> operations in crypto_wait_req(), and propagate errors to the caller.
+> The wait is a no-op for synchronous backends.
+> 
+> Fixes: 1085b8276bb4 ("tpm: Add the rest of the session HMAC API")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Michael Bommarito <michael.bommarito@gmail.com>
+> Assisted-by: Claude:claude-opus-4-7
+> ---
+> 
+> Impact: on a kernel with an async ECDH KPP provider, any local user
+> can reclaim the freed kpp_request slab slot and control the indirect
+> call through req->base.complete. A reproducer is available on request.
+> Filing publicly per security-bugs.rst guidance.
 
-[ Upstream commit 01ff78e4b3d98689184c52d97f9575dfbdc3b10f ]
+Please send the reproducer and .config although I think I grasped
+what I need to put but just in case (if only for comparison).
 
-Using the format specifier +%s%3N with GNU date is honoured, and only
-prints 3 digits of the nanoseconds portion of the seconds since epoch,
-which corresponds to the milliseconds.
+> 
+> Notes:
+> 
+>     Validation (QEMU x86_64, swtpm, async ecdh-nist-p256 stub backend):
+>     
+>     Stock kernel: the freed kpp_request is reclaimed by an unprivileged
+>     heap spray; the deferred completion worker jumps to a controlled
+>     address (RIP=0x41414141) via the overwritten req->base.complete
+>     callback pointer. Reproduces on production-hardened allocator
+>     configs (MEMCG, RANDOM_KMALLOC_CACHES, SLAB_FREELIST_HARDENED,
+>     SLAB_FREELIST_RANDOM, INIT_ON_FREE).
+>     
+>     Patched kernel: crypto_wait_req() blocks until the async backend
+>     completes; the worker observes a live request with the correct
+>     crypto_req_done callback installed; kpp_request_free() runs only
+>     after both operations finish. KASAN-clean across 50 entropy polls.
+> 
+>  drivers/char/tpm/tpm2-sessions.c | 36 ++++++++++++++++++++++++--------
+>  1 file changed, 27 insertions(+), 9 deletions(-)
+> 
+> diff --git a/drivers/char/tpm/tpm2-sessions.c b/drivers/char/tpm/tpm2-sessions.c
+> index c4da6fde748f4..a23cc3a540c55 100644
+> --- a/drivers/char/tpm/tpm2-sessions.c
+> +++ b/drivers/char/tpm/tpm2-sessions.c
+> @@ -489,15 +489,17 @@ static void tpm2_KDFe(u8 z[EC_PT_SZ], const char *str, u8 *pt_u, u8 *pt_v,
+>  	sha256_final(&sctx, out);
+>  }
+>  
+> -static void tpm_buf_append_salt(struct tpm_buf *buf, struct tpm_chip *chip,
+> -				struct tpm2_auth *auth)
+> +static int tpm_buf_append_salt(struct tpm_buf *buf, struct tpm_chip *chip,
+> +			       struct tpm2_auth *auth)
+>  {
+>  	struct crypto_kpp *kpp;
+>  	struct kpp_request *req;
+> +	DECLARE_CRYPTO_WAIT(wait);
+>  	struct scatterlist s[2], d[1];
+>  	struct ecdh p = {0};
+>  	u8 encoded_key[EC_PT_SZ], *x, *y;
+>  	unsigned int buf_len;
+> +	int rc;
+>  
+>  	/* secret is two sized points */
+>  	tpm_buf_append_u16(buf, (EC_PT_SZ + 2)*2);
+> @@ -520,13 +522,14 @@ static void tpm_buf_append_salt(struct tpm_buf *buf, struct tpm_chip *chip,
+>  	kpp = crypto_alloc_kpp("ecdh-nist-p256", CRYPTO_ALG_INTERNAL, 0);
+>  	if (IS_ERR(kpp)) {
+>  		dev_err(&chip->dev, "crypto ecdh allocation failed\n");
+> -		return;
+> +		return PTR_ERR(kpp);
+>  	}
+>  
+>  	buf_len = crypto_ecdh_key_len(&p);
+>  	if (sizeof(encoded_key) < buf_len) {
+>  		dev_err(&chip->dev, "salt buffer too small needs %d\n",
+>  			buf_len);
+> +		rc = -EINVAL;
+>  		goto out;
+>  	}
+>  	crypto_ecdh_encode_key(encoded_key, buf_len, &p);
+> @@ -535,11 +538,17 @@ static void tpm_buf_append_salt(struct tpm_buf *buf, struct tpm_chip *chip,
+>  
+>  	/* salt is now the public point of this private key */
+>  	req = kpp_request_alloc(kpp, GFP_KERNEL);
+> -	if (!req)
+> +	if (!req) {
+> +		rc = -ENOMEM;
+>  		goto out;
+> +	}
+> +	kpp_request_set_callback(req, CRYPTO_TFM_REQ_MAY_BACKLOG,
+> +				 crypto_req_done, &wait);
+>  	kpp_request_set_input(req, NULL, 0);
+>  	kpp_request_set_output(req, s, EC_PT_SZ*2);
+> -	crypto_kpp_generate_public_key(req);
+> +	rc = crypto_wait_req(crypto_kpp_generate_public_key(req), &wait);
+> +	if (rc)
+> +		goto out_free_req;
+>  	/*
+>  	 * we're not done: now we have to compute the shared secret
+>  	 * which is our private key multiplied by the tpm_key public
+> @@ -551,8 +560,9 @@ static void tpm_buf_append_salt(struct tpm_buf *buf, struct tpm_chip *chip,
+>  	kpp_request_set_input(req, s, EC_PT_SZ*2);
+>  	sg_init_one(d, auth->salt, EC_PT_SZ);
+>  	kpp_request_set_output(req, d, EC_PT_SZ);
+> -	crypto_kpp_compute_shared_secret(req);
+> -	kpp_request_free(req);
+> +	rc = crypto_wait_req(crypto_kpp_compute_shared_secret(req), &wait);
+> +	if (rc)
+> +		goto out_free_req;
+>  
+>  	/*
+>  	 * pass the shared secret through KDFe for salt. Note salt
+> @@ -562,8 +572,11 @@ static void tpm_buf_append_salt(struct tpm_buf *buf, struct tpm_chip *chip,
+>  	 */
+>  	tpm2_KDFe(auth->salt, "SECRET", x, chip->null_ec_key_x, auth->salt);
+>  
+> - out:
+> +out_free_req:
+> +	kpp_request_free(req);
+> +out:
+>  	crypto_free_kpp(kpp);
+> +	return rc;
+>  }
+>  
+>  /**
+> @@ -1018,7 +1031,12 @@ int tpm2_start_auth_session(struct tpm_chip *chip)
+>  	tpm_buf_append(&buf, auth->our_nonce, sizeof(auth->our_nonce));
+>  
+>  	/* append encrypted salt and squirrel away unencrypted in auth */
+> -	tpm_buf_append_salt(&buf, chip, auth);
+> +	rc = tpm_buf_append_salt(&buf, chip, auth);
+> +	if (rc) {
+> +		tpm2_flush_context(chip, null_key);
+> +		tpm_buf_destroy(&buf);
+> +		goto out;
+> +	}
+>  	/* session type (HMAC, audit or policy) */
+>  	tpm_buf_append_u8(&buf, TPM2_SE_HMAC);
+>  
+> -- 
+> 2.53.0
+> 
+> 
 
-The uutils implementation of date currently does not honour this, and
-always prints all 9 digits. This is a known issue [1], but can be worked
-around by adapting this test to use nanoseconds instead of microseconds,
-and then divide it by 1e6.
-
-This fix is similar to what has been done on systemd side [2], and it is
-needed to run the selftests on Ubuntu 26.04, containing uutils 0.8.0.
-
-Note that the Fixes tag is there even if this patch doesn't fix an issue
-in the kernel selftests, but it is useful for those using uutils 0.8.0.
-
-Fixes: 048d19d444be ("mptcp: add basic kselftest for mptcp")
-Cc: stable@vger.kernel.org
-Link: https://github.com/uutils/coreutils/issues/11658 [1]
-Link: https://github.com/systemd/systemd/pull/41627 [2]
-Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
-Link: https://patch.msgid.link/20260515-net-mptcp-misc-fixes-7-1-rc4-v2-6-701e96419f2f@kernel.org
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-[ kept `timeout ${timeout_test}` wrapper in do_transfer() ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- tools/testing/selftests/net/mptcp/mptcp_connect.sh |  6 +++---
- tools/testing/selftests/net/mptcp/mptcp_lib.sh     | 10 +++++-----
- 2 files changed, 8 insertions(+), 8 deletions(-)
-
-diff --git a/tools/testing/selftests/net/mptcp/mptcp_connect.sh b/tools/testing/selftests/net/mptcp/mptcp_connect.sh
-index 6c2deef673e53..c3d96e46304b8 100755
---- a/tools/testing/selftests/net/mptcp/mptcp_connect.sh
-+++ b/tools/testing/selftests/net/mptcp/mptcp_connect.sh
-@@ -412,7 +412,7 @@ do_transfer()
- 	mptcp_lib_wait_local_port_listen "${listener_ns}" "${port}"
- 
- 	local start
--	start=$(date +%s%3N)
-+	start=$(date +%s%N)
- 	timeout ${timeout_test} \
- 		ip netns exec ${connector_ns} \
- 			./mptcp_connect -t ${timeout_poll} -p $port -s ${cl_proto} \
-@@ -425,7 +425,7 @@ do_transfer()
- 	local rets=$?
- 
- 	local stop
--	stop=$(date +%s%3N)
-+	stop=$(date +%s%N)
- 
- 	if $capture; then
- 		sleep 1
-@@ -441,7 +441,7 @@ do_transfer()
- 	fi
- 
- 	local duration
--	duration=$((stop-start))
-+	duration=$(((stop-start) / 1000000))
- 	printf "(duration %05sms) " "${duration}"
- 	if [ ${rets} -ne 0 ] || [ ${retc} -ne 0 ]; then
- 		mptcp_lib_pr_fail "client exit code $retc, server $rets"
-diff --git a/tools/testing/selftests/net/mptcp/mptcp_lib.sh b/tools/testing/selftests/net/mptcp/mptcp_lib.sh
-index 7e26b5a7db7f1..1fa926036cee3 100644
---- a/tools/testing/selftests/net/mptcp/mptcp_lib.sh
-+++ b/tools/testing/selftests/net/mptcp/mptcp_lib.sh
-@@ -29,7 +29,7 @@ declare -rx MPTCP_LIB_AF_INET6=10
- MPTCP_LIB_SUBTESTS=()
- MPTCP_LIB_SUBTESTS_DUPLICATED=0
- MPTCP_LIB_SUBTEST_FLAKY=0
--MPTCP_LIB_SUBTESTS_LAST_TS_MS=
-+MPTCP_LIB_SUBTESTS_LAST_TS_NS=
- MPTCP_LIB_TEST_COUNTER=0
- MPTCP_LIB_TEST_FORMAT="%02u %-50s"
- MPTCP_LIB_IP_MPTCP=0
-@@ -207,7 +207,7 @@ mptcp_lib_kversion_ge() {
- }
- 
- mptcp_lib_subtests_last_ts_reset() {
--	MPTCP_LIB_SUBTESTS_LAST_TS_MS="$(date +%s%3N)"
-+	MPTCP_LIB_SUBTESTS_LAST_TS_NS="$(date +%s%N)"
- }
- mptcp_lib_subtests_last_ts_reset
- 
-@@ -226,7 +226,7 @@ __mptcp_lib_result_check_duplicated() {
- __mptcp_lib_result_add() {
- 	local result="${1}"
- 	local time="time="
--	local ts_prev_ms
-+	local ts_prev_ns
- 	shift
- 
- 	local id=$((${#MPTCP_LIB_SUBTESTS[@]} + 1))
-@@ -236,9 +236,9 @@ __mptcp_lib_result_add() {
- 	# not to add two '#'
- 	[[ "${*}" != *"#"* ]] && time="# ${time}"
- 
--	ts_prev_ms="${MPTCP_LIB_SUBTESTS_LAST_TS_MS}"
-+	ts_prev_ns="${MPTCP_LIB_SUBTESTS_LAST_TS_NS}"
- 	mptcp_lib_subtests_last_ts_reset
--	time+="$((MPTCP_LIB_SUBTESTS_LAST_TS_MS - ts_prev_ms))ms"
-+	time+="$(((MPTCP_LIB_SUBTESTS_LAST_TS_NS - ts_prev_ns) / 1000000))ms"
- 
- 	MPTCP_LIB_SUBTESTS+=("${result} ${id} - ${KSFT_TEST}: ${*} ${time}")
- }
--- 
-2.53.0
-
+BR, Jarkko
