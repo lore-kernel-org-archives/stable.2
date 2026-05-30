@@ -1,42 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1999D2F8E85
-	for <stable@vger.kernel.org>; Sat, 30 May 2026 14:28:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10EE31940B0
+	for <stable@vger.kernel.org>; Sat, 30 May 2026 14:37:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780151319; cv=none; b=e+Xn759QI97ysM+09I4YuYsV/nbB/nAahJAvQJEU33MoMhzP+d3xQRowlSkamjyW+k8DxQKsfEInBj/KFNWe9KZEArO440RAInf3/Y+GJYZokxiN8APQT3metDxSaKCLpg7KjCIHJU0Odj0dhdu6LGPWgwtv6bbLFEHqyUrJL/o=
+	t=1780151858; cv=none; b=mpW88e2tK7xZL0ijhQGg3qNhPX9TL0EJDu2xHksH07yheaef58nHWFLndQKCJ2uAv3L1maZFIsYlVNRBo5dsgcam566/OWj56km/4NsNCLgxHH3hN0ku2P7Rg4Mup66ZzyofMk+aNwAAfkUmgCfzUQcZ4CLj5ybdcKJUT4azQa4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780151319; c=relaxed/simple;
-	bh=UbvP/nGhEzBVqBxpf69F0mfxr4b4ofYefN5xKfAm7jE=;
+	s=arc-20240116; t=1780151858; c=relaxed/simple;
+	bh=eprro5fNVf4NhU18VE+APMVLhZs21OP4DjeUUgnzUPo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Lbr8QKuXPChZg6K2PjD377YFde2ca3rrQjHGtaXs/PGZQ51u7rhrZaLkozL3Nkm39GvCasB/Teepg5H4YPqq2Db0RM356gEr0iyJs6bWGNot2NvAkV4m7hS4O/VO87BA/JCR6kgot7g2Hu2mN5Hgy1HSYfw3vxkxz1iZw+VTRPg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PJx1fVQZ; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=QORm4TO0SIeT1HeTAwDatMsvhGaU96JKzbOPUjX5wPQdGdiSSbnM40Xs2F2iAmwuGa6+SYhqE4KexaGrmqRmKptmogj/xSnOdm3WtDBU8i1Xc1ALC0cRmifjzT4HmDMmr3iBAWkRldPmZwTIucJuHVGY298dVYQJhrBmuWs3R6Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nx5ea4Su; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PJx1fVQZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 434B41F00893;
-	Sat, 30 May 2026 14:28:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nx5ea4Su"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 331A41F0089A;
+	Sat, 30 May 2026 14:37:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780151317;
-	bh=U8R7M0yOW6boewu0lRLSBAmPwh90KJZE6O096O0SGFA=;
+	s=k20260515; t=1780151856;
+	bh=pgyXogV3TAmnHoJNFzzpif1Plf+fIB5vBsiQlMST7sw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PJx1fVQZJ46FFYjlBj4F7kv5ZNxPP8ZgSdYEbbUWZZTXMrn2q1UYRVZt6pTIQDbzE
-	 l5dzz9oETrxXzKxwj8x2fEgdFOkjzTwDOweS/PH/CkOzDcCCMN1XzavaVcH439ibQ8
-	 7DTdAj0w6mWKF/MIQUSsAddsBupNi2y+HP5TNTrSmEJrHc1jpap6GjktkzuhpNHUd+
-	 2t7rWpyZjL3LPU5RlImRMT6QnMak7xvuqeMcG5nUX7RIQkXYzcWOBB9PWcbS4QBNbX
-	 oisKvPVsm/I96AWL0gKpNub9XExGffUMr5CCr8z4G9fqMLnCBimdCzYUjVuzUYXrJF
-	 cat5Q2Kr+I/pw==
+	b=nx5ea4SuXCvB94L0vHZkAPBsbKhX/DQyINf3x4S1I//iZRHycMAbSAVIYVw20GBbN
+	 HNpcnj09zRbpviPd7z/trDe6MrsVVWM74ogJcwlyKFlwTJih0C2nGmYKe+d4dMn4Ay
+	 P7qB/z8XsPytGpbaraGExFABxAE3gHTjhrG7Jvnn2/oqgVSmPKUvbtg7qTpaytZED1
+	 9M2QuzTK55CrA0Sdy1oEt7mEFMNafcJbRKNeauEG5U0+ZJJ5N2Qri3jfBn1nb6UQeT
+	 9JkP3wXMSPQin9AU2KfLr4I9IYymcLYFD+pC4o0MbjcsTn+Yqx97v6pMhc2hI5w6bj
+	 nqga6xdr7m6aA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: "Matthieu Baerts (NGI0)" <matttbe@kernel.org>,
 	Paolo Abeni <pabeni@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] selftests: mptcp: drop nanoseconds width specifier
-Date: Sat, 30 May 2026 10:28:35 -0400
-Message-ID: <20260530142835.2434049-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] selftests: mptcp: drop nanoseconds width specifier
+Date: Sat, 30 May 2026 10:37:34 -0400
+Message-ID: <20260530143734.2474733-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026052828-blurred-trifle-8582@gregkh>
-References: <2026052828-blurred-trifle-8582@gregkh>
+In-Reply-To: <2026052829-lubricate-outplayed-3874@gregkh>
+References: <2026052829-lubricate-outplayed-3874@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -77,10 +77,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/tools/testing/selftests/net/mptcp/mptcp_connect.sh b/tools/testing/selftests/net/mptcp/mptcp_connect.sh
-index d43eb907d244e..09c4330b8473f 100755
+index 1853285d78e67..6108488ca42ee 100755
 --- a/tools/testing/selftests/net/mptcp/mptcp_connect.sh
 +++ b/tools/testing/selftests/net/mptcp/mptcp_connect.sh
-@@ -450,7 +450,7 @@ do_transfer()
+@@ -462,7 +462,7 @@ do_transfer()
  	wait_local_port_listen "${listener_ns}" "${port}"
  
  	local start
@@ -89,7 +89,7 @@ index d43eb907d244e..09c4330b8473f 100755
  	timeout ${timeout_test} \
  		ip netns exec ${connector_ns} \
  			./mptcp_connect -t ${timeout_poll} -p $port -s ${cl_proto} \
-@@ -463,7 +463,7 @@ do_transfer()
+@@ -475,7 +475,7 @@ do_transfer()
  	local rets=$?
  
  	local stop
@@ -98,7 +98,7 @@ index d43eb907d244e..09c4330b8473f 100755
  
  	if $capture; then
  		sleep 1
-@@ -479,7 +479,7 @@ do_transfer()
+@@ -491,7 +491,7 @@ do_transfer()
  	fi
  
  	local duration
