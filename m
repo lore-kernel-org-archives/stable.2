@@ -1,317 +1,415 @@
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 469541B4F1F
-	for <stable@vger.kernel.org>; Sat, 30 May 2026 01:00:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.169
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780102811; cv=pass; b=D4ocNnRkMu16kv3LQshwq74DzGbuPHIa4d/vt4hUGIqfWOCpIwo4JVSlbsp8BEMy0QkvEYEhJgi6FT2UaNXMY6LyftN0rK4UzzBuo13BxuhdKSw/6t8c0yX4STuC80SvD9MNTRo/EXxMdMf8/ztf+rxo1kZV2Y8wQoxmRzhn3rc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780102811; c=relaxed/simple;
-	bh=Xsapng4XUGHRM1lGFdQHa7kxf//aFyx+bzo2X+mRqmU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=SsdqBYLPpiT6UWHsBI/10GDLHV8mxyZhkU9t0wsx9PO1gfVl6RMdQTfM2EZ76iaZ95bzB4+xr+uIe5Qthgt18nRhuoSpUO25UVmzmD3ZZ6ea2qHZMK0d2DrgB8thy08RlArdkhK0JJCHIczXKTId9XPjzkVwO65pcnTaG9BCiZM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gdIpuyKL; arc=pass smtp.client-ip=209.85.214.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63410288B8
+	for <stable@vger.kernel.org>; Sat, 30 May 2026 01:02:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780102944; cv=none; b=r90p3wno61QxeVPvd3rgLrnrRhIStMhrF+wCVD/u/6UHkGoKTYL8VU4/Zt3oDPirJUYakzfGRXakC6gnAq3b4KsvRiB5yQOIAgMDYpVARSV+ePE54lKg0M1YKFhY49Aucvgv8N8BQEbBVOs/n2QcyO5TmMqGAyOsXhJVDQ8InF8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780102944; c=relaxed/simple;
+	bh=BGwk0Xz0Oq0aYfF5q2dUHXvEbYT9Ah0t+UA76SEy7pc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=n6FyNFo+8EN6C3RZsrFF/TaTwdi8VAOMysYOr+rXCPbOZrhmeQZIMbeWd/blqD2F5N/WAmo+eStD364o+law6T0s9snCZFz+gCp8KHZ3AJURG7mPyCjoNjmFShZYNpzk0iHfblcqFHvCyJ7BnjfKtsBI3q+QafVxJiBySo8M6iI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G/Tyw8Ij; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gdIpuyKL"
-Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2bf3781ca51so3554745ad.0
-        for <stable@vger.kernel.org>; Fri, 29 May 2026 18:00:09 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1780102808; cv=none;
-        d=google.com; s=arc-20240605;
-        b=aOd8i7PC5svLgqzBMSIPjFCMF/a93miL6J09p0AszeTtF7ksFQMCTLTm45nR/0oRo1
-         gjvmkYufy2TAkmsd3ocymSEpexoRPSK5qW9oXYELf0UWk8aRzHex8NhlKQJAHiPZg/HL
-         /4PKTwKoV9egXE1Brd3sIKV1MuGM5v/Mb9LieI3GjG88bXwgZEhJ+5WwnybaHFSKvzGS
-         tVeyqemONvijRJ7y2BB7T2C3ut46n4dCXaIeYSkaeIQKTrvSqfThQaJmw9CD7O0sCniF
-         0fJlJWCE+JybV4MNWd5AnMi8QJlyHMzXz+c4GHKPQviNPz24RJK/cmKXSAh92YJ28G6M
-         1HXw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=iE1aJeMU3UqlHpiGOyDbSFLyOWGjGVM7dI7S8hJTB6c=;
-        fh=FfRoVSWN3jZwjMhL0u92TyzefTy3PB/jthNoSF5uON4=;
-        b=Zl4VTO6mfgofsMbheGeNZh6jRWb/fHgOdA8iIF5HHK5wGnQghghUXhfUmq7aym3LEm
-         1VpnGAB4ED5JBwrBMyo9CnFEALLIGPfOwgaUCsWeFB5lIeG18lm1j3UME47u8jRXX2g5
-         BsWfW2ZXaVW+Izd0qjbLY0bD5P4AlJP6qwXVPYHp6DzuKXNP+0866FGQ6Wq/H/YXLZLP
-         7/N+/LL6Vc/gfCPj+CAI9SlgJjZmzquSBVA/qwCrj9wGRQyDYvHcjmT5GxQBPO07OeTz
-         NVlMORm+sfwIzTfy9wfrmLrkC+KylMM/CegFqi5tNvSwCYmHgwmhIZP/Cx6C/ntHa2UT
-         2e9Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780102808; x=1780707608; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=iE1aJeMU3UqlHpiGOyDbSFLyOWGjGVM7dI7S8hJTB6c=;
-        b=gdIpuyKLbBYecXA7CfdjBbbng7Bz2c2nC2kGzxDcR8vR+nweOhixhxGezseTLFvx3V
-         Lf8IzGiJlmhcK0kZE2Zk/J1kUGKFUksYhLuBTCDV7aygFPTtP8LFPk9yJmU+iR2/f+xU
-         4JZ9jqq/djtMn0SUlF2HEOhfqL3bJxcR04yOUETyMSJQuDqSmRL+G9WlVjXlWZuS2U5N
-         vqJb/6/YXBB3U6pctqdgZT6qCDcMN2LpIIcmm/+cbPsjH3I2E5dJ/zUhCmA3zKJZBBPU
-         90wvo1B53NWIcl0WK6IrGkBqC4I3bzzZKOGsKn39Ubcdw0m60BC4Zt4dYQgDTRHAp+0l
-         uFug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780102808; x=1780707608;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=iE1aJeMU3UqlHpiGOyDbSFLyOWGjGVM7dI7S8hJTB6c=;
-        b=Gl+oA9aYK9NQJYNYOx4vW0d6oQcRT7weY2M3W9piOY94rjSOG2lKH7bO2JiL9MAvbY
-         ZOiJNsZ9tvNcJIJp3g5OG9YjHpIyVV0toJOVV48Dp13fgZGOm1PCGCtUszp4IwM9VhVz
-         /Ma88kcDaMtyoB+tt5Eye77l6dRbubS1sDmpqj/O041Ve53vejqgg9YFX/jJfJbJx9F7
-         8Gkpv0IYkg0IC7iv38WOtUNxEGhct+VO723xr3upoJRW5BdTz2ROccwk2w43uoBrd+ed
-         W19cKdhzpTwpwNO61B5hF06GnHY/NfHI8slxozAWnmxEsnD1xlwY/Qm3hD4X+GezlVkM
-         6vEA==
-X-Forwarded-Encrypted: i=1; AFNElJ9wpCB8T5KbcgRDA82TPhKCUUmMsO2MBE1I3DS4BnZHb9aGa04Q4kfBjl37TTOh2ZZlBjEePdE=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxguUKmplAllJQCVdbCUhMZRh5Mz2AWtBcO7VBouoyaNBh6Ezf7
-	6nfgZta4HuVQU2kxa3qOlo7Kg1qmb2UO8u4u4yoxxHA3Rr8u21j1OvvwCUGFRQFz3x+QRnJ0tRv
-	n9SH80M4qktAGufpuhLLEBwYFJLyQqXM=
-X-Gm-Gg: Acq92OH6kKr/2ftJUXEOqfZE00hoOWFOxRGdUb6jJvdOi5VdEEXFZ8iWaurU7UWlorS
-	WdN7vaxYfX5iHyWISA4Apj+uBIWM+ljkgwx6fQCtfffBFipDADPfamX5thdw18+2lENXq2N0qfd
-	BJsXCBGZ61MqByGU9+Ma4/i97SozyMUseCjuVsHAjjUY2BQPTSc/jldddd9YrXXmgKANMWzTEum
-	hAwjdROSG/oAqjujtgshOiQH/39ns/01smXGjfODc1YHCfIvuwQwGZ0+nT3uS91uWHvQA0CuMIt
-	3MyGCGp8fy4EvgaoiRE66JdPNyht
-X-Received: by 2002:a17:903:1905:b0:2bf:281f:19ec with SMTP id
- d9443c01a7336-2bf36803dccmr26075455ad.24.1780102808384; Fri, 29 May 2026
- 18:00:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G/Tyw8Ij"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 383CE1F00893;
+	Sat, 30 May 2026 01:02:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780102943;
+	bh=dobI/ylMiYp0FfPHWJOkPKe/SCovzWOczJOvGw5cuys=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=G/Tyw8Ijd3CGjGBTA2Njhub56eLvrXrprfuCezUOzgF9z7QlVXNmNrKCOFiB2c6s9
+	 gTUm3VEZqPJSvWepSrXcRx95jXZQoUZ+3aJg/NYpwklgYPCO2V3bccaOoiyXgHqunr
+	 JG1tFGPW0bGRPPl+WV98vlgpFK0MF5D6hADJbWOZvQheTot11WV0PpZxgG/BEuKTUE
+	 mDB9cOy9zdG4Hu6xEwT9ImAab0J35GTIo4bvSJiR/eEZjXcwO5QkA6lrS4O5ec064B
+	 /HQlnzQRJYT7beWIjh5D5pk8d0+8HLkvl+LxRSAuNzm2iw7rPFXZ3t8hiszUZYWoVJ
+	 zaVdNpdEj8tbQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>,
+	Will Deacon <will@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Ian Rogers <irogers@google.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Geert Uytterhoeven <geert@linux-m68k.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y] ring-buffer: Flush and stop persistent ring buffer on panic
+Date: Fri, 29 May 2026 21:02:19 -0400
+Message-ID: <20260530010219.2456798-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026052840-curve-charger-8597@gregkh>
+References: <2026052840-curve-charger-8597@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260527025828.5966-1-CFSworks@gmail.com> <20260527025828.5966-3-CFSworks@gmail.com>
- <937c1dbbb0300a8113d62ca1dbaffe1493bd10e5.camel@ibm.com>
-In-Reply-To: <937c1dbbb0300a8113d62ca1dbaffe1493bd10e5.camel@ibm.com>
-From: Sam Edwards <cfsworks@gmail.com>
-Date: Fri, 29 May 2026 17:59:55 -0700
-X-Gm-Features: AVHnY4KJ4IvzZHDaQ3pli8MLHryBbTX5TlcoaSBDM-uXok6d9w24L6k1pShHh_U
-Message-ID: <CAH5Ym4gJYT1WNY-s_bVjaRYQqu3bgAN0SRBnj0A5vttGUb4Uyw@mail.gmail.com>
-Subject: Re: [PATCH 2/2] ceph: properly decrypt filenames in vmalloc() buffers
-To: Viacheslav Dubeyko <Slava.Dubeyko@ibm.com>
-Cc: "idryomov@gmail.com" <idryomov@gmail.com>, Alex Markuze <amarkuze@redhat.com>, 
-	"slava@dubeyko.com" <slava@dubeyko.com>, "mchangir@redhat.com" <mchangir@redhat.com>, 
-	"stable@vger.kernel.org" <stable@vger.kernel.org>, Xiubo Li <xiubli@redhat.com>, 
-	"jlayton@kernel.org" <jlayton@kernel.org>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
-	"ceph-devel@vger.kernel.org" <ceph-devel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Fri, May 29, 2026 at 1:50=E2=80=AFPM Viacheslav Dubeyko
-<Slava.Dubeyko@ibm.com> wrote:
->
-> On Tue, 2026-05-26 at 19:58 -0700, Sam Edwards wrote:
-> > The fscrypt subsystem uses the scatterlist crypto API, inheriting its
-> > requirement that any buffers are in the linear mapping region. However,
-> > the messenger client uses kvmalloc() to create buffers for messages,
-> > which will occasionally place those buffers in the vmalloc() region whe=
-n
-> > physical memory fragmentation doesn't permit a large enough kmalloc().
-> > The various callers of ceph_fname_to_usr() directly pass (slices of) ra=
-w
-> > messages from the MDS without considering that the messages may be in
-> > vmalloc() buffers, resulting in oopses especially on non-x86 platforms
-> > (see 'Closes:' for more details and a reproducer).
-> >
-> > Make ceph_fname_to_usr() explicitly tolerant of vmalloc()-allocated
-> > fname->ctext, fname->name, and/or oname->name buffers, using `tname`
-> > (which, when non-null, must be a linear address; when null, is briefly
-> > allocated as necessary) as a bounce buffer to avoid passing any
-> > inappropriate addresses to fscrypt_fname_disk_to_usr().
-> >
-> > Additionally change parse_reply_info_readdir() -- the only function to
-> > supply its own `tname` -- to follow the new "tname must never come from
-> > vmalloc()" rule by passing NULL when the message is not in the linear
-> > region. Though this causes a per-dentry kmalloc()+kfree(), this overhea=
-d
-> > exists only when processing the minority of messages that spill into
-> > vmalloc(). My (crude) testing puts this at only about 1 in 8,000 readdi=
-r
-> > messages. Still, if the overhead proves unreasonable in the future, it
-> > is easy enough to mitigate: a future change could allocate a bounce
-> > buffer in parse_reply_info_readdir() and use that as `tname` instead.
-> >
-> > Fixes: 457117f077c67 ("ceph: add helpers for converting names for userl=
-and presentation")
-> > Closes: https://urldefense.proofpoint.com/v2/url?u=3Dhttps-3A__lore.ker=
-nel.org_ceph-2Ddevel_CAH5Ym4ga7miUQE0K-2DcJA93Ya7w62P69MAN27R5cBiYnudoOHdA-=
-40mail.gmail.com_T_&d=3DDwIDAg&c=3DBSDicqBQBDjDI9RkVyTcHQ&r=3Dq5bIm4AXMzc8N=
-Ju1_RGmnQ2fMWKq4Y4RAkElvUgSs00&m=3DbcX0FhBD6jzWXGOsw2LoJOl_TqgobmwNBmqNIhj2=
-K0qBn2krB8IUrIhcUs8LmJWM&s=3D2uInY5Ys7xQ_57Ifo4uovP7_e8SN0Q_wnzBDX-uj0hE&e=
-=3D
-> > Cc: stable@vger.kernel.org # v6.6+
-> > Signed-off-by: Sam Edwards <CFSworks@gmail.com>
-> > ---
-> >  fs/ceph/crypto.c     | 37 +++++++++++++++++++++++++++++--------
-> >  fs/ceph/mds_client.c |  8 ++++++--
-> >  2 files changed, 35 insertions(+), 10 deletions(-)
-> >
-> > diff --git a/fs/ceph/crypto.c b/fs/ceph/crypto.c
-> > index 7515cb251226..61d6830d16bc 100644
-> > --- a/fs/ceph/crypto.c
-> > +++ b/fs/ceph/crypto.c
-> > @@ -298,6 +298,10 @@ int ceph_encode_encrypted_dname(struct inode *pare=
-nt, char *buf, int elen)
-> >   * Otherwise, base64 decode the string, and then ask fscrypt to format=
- it
-> >   * for userland presentation.
-> >   *
-> > + * Though the fscrypt/crypto subsystems broadly expect all buffers to =
-be in the
-> > + * linear-mapped region, this function slightly relaxes those requirem=
-ents:
-> > + * fname->ctext, fname->name, and oname->name may be vmalloc(), but no=
-t tname.
-> > + *
-> >   * Returns 0 on success or negative error code on error.
-> >   */
-> >  int ceph_fname_to_usr(const struct ceph_fname *fname, unsigned char *t=
-name,
-> > @@ -305,11 +309,15 @@ int ceph_fname_to_usr(const struct ceph_fname *fn=
-ame, unsigned char *tname,
-> >  {
-> >       struct inode *dir =3D fname->dir;
-> >       struct fscrypt_str _tname =3D FSTR_INIT(NULL, 0);
-> > +     struct fscrypt_str _oname;
-> >       struct fscrypt_str iname;
-> >       char *name =3D fname->name;
-> >       int name_len =3D fname->name_len;
-> >       int ret;
-> >
-> > +     if (WARN_ON_ONCE(tname && is_vmalloc_addr(tname)))
-> > +             return -EIO;
-> > +
-> >       /* Sanity check that the resulting name will fit in the buffer */
-> >       if (fname->name_len > NAME_MAX || fname->ctext_len > NAME_MAX)
-> >               return -EIO;
-> > @@ -350,16 +358,18 @@ int ceph_fname_to_usr(const struct ceph_fname *fn=
-ame, unsigned char *tname,
-> >               goto out_inode;
-> >       }
-> >
-> > +     if (!tname && (fname->ctext_len =3D=3D 0 ||
-> > +                    unlikely(is_vmalloc_addr(fname->ctext)) ||
-> > +                    unlikely(is_vmalloc_addr(oname->name)))) {
-> > +             ret =3D fscrypt_fname_alloc_buffer(NAME_MAX, &_tname);
-> > +             if (ret)
-> > +                     goto out_inode;
-> > +             tname =3D _tname.name;
-> > +     }
-> > +
-> >       if (fname->ctext_len =3D=3D 0) {
-> >               int declen;
-> >
-> > -             if (!tname) {
-> > -                     ret =3D fscrypt_fname_alloc_buffer(NAME_MAX, &_tn=
-ame);
-> > -                     if (ret)
-> > -                             goto out_inode;
-> > -                     tname =3D _tname.name;
-> > -             }
-> > -
-> >               declen =3D base64_decode(name, name_len, tname, false,
-> >                                      BASE64_IMAP);
-> >               if (declen <=3D 0) {
-> > @@ -368,12 +378,21 @@ int ceph_fname_to_usr(const struct ceph_fname *fn=
-ame, unsigned char *tname,
-> >               }
-> >               iname.name =3D tname;
-> >               iname.len =3D declen;
-> > +     } else if (unlikely(is_vmalloc_addr(fname->ctext))) {
-> > +             memcpy(tname, fname->ctext, fname->ctext_len);
-> > +
-> > +             iname.name =3D tname;
-> > +             iname.len =3D fname->ctext_len;
-> >       } else {
-> >               iname.name =3D fname->ctext;
-> >               iname.len =3D fname->ctext_len;
-> >       }
-> >
-> > -     ret =3D fscrypt_fname_disk_to_usr(dir, 0, 0, &iname, oname);
-> > +     _oname.name =3D unlikely(is_vmalloc_addr(oname->name)) ?
-> > +             tname : oname->name;
-> > +     _oname.len =3D oname->len;
-> > +     ret =3D fscrypt_fname_disk_to_usr(dir, 0, 0, &iname, &_oname);
-> > +     oname->len =3D _oname.len;
-> >       if (!ret && (dir !=3D fname->dir)) {
-> >               char tmp_buf[BASE64_CHARS(NAME_MAX)];
-> >
-> > @@ -381,6 +400,8 @@ int ceph_fname_to_usr(const struct ceph_fname *fnam=
-e, unsigned char *tname,
-> >                                   oname->len, oname->name, dir->i_ino);
-> >               memcpy(oname->name, tmp_buf, name_len);
-> >               oname->len =3D name_len;
-> > +     } else if (!ret && unlikely(is_vmalloc_addr(oname->name))) {
-> > +             memcpy(oname->name, _oname.name, _oname.len);
-> >       }
->
-> When both dir !=3D fname->dir (longname snapshot) and is_vmalloc_addr(ona=
-me->name)
-> are true:
->
-> (1) The if branch is taken =E2=80=94 NOT the else if.
-> (2) _oname.name =3D tname holds the decrypted result (fscrypt wrote there=
-).
-> (3) oname->name is the stale vmalloc buffer =E2=80=94 the copy-back in th=
-e else if was
-> never executed.
-> (4) The snprintf reads oname->name and formats a snapshot name from garba=
-ge.
->
-> Am I right?
+From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
 
-Hi Slava,
+[ Upstream commit a494d3c8d5392bcdff83c2a593df0c160ff9f322 ]
 
-Indeed you are. Well spotted, I should have examined that snprintf a
-little more closely.
+On real hardware, panic and machine reboot may not flush hardware cache
+to memory. This means the persistent ring buffer, which relies on a
+coherent state of memory, may not have its events written to the buffer
+and they may be lost. Moreover, there may be inconsistency with the
+counters which are used for validation of the integrity of the
+persistent ring buffer which may cause all data to be discarded.
 
-> This part of logic needs to be reworked carefully. This if - else constru=
-ction
-> becomes really complicated to understand.
+To avoid this issue, stop recording of the ring buffer on panic and
+flush the cache of the ring buffer's memory.
 
-ACK - I was originally just going to amend the patch with that fixed:
+Fixes: e645535a954a ("tracing: Add option to use memmapped memory for trace boot instance")
+Cc: stable@vger.kernel.org
+Cc: Will Deacon <will@kernel.org>
+Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Cc: Ian Rogers <irogers@google.com>
+Link: https://patch.msgid.link/177751969602.2136606.12031934362587643488.stgit@mhiramat.tok.corp.google.com
+Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+Acked-by: Catalin Marinas <catalin.marinas@arm.com>
+Acked-by: Geert Uytterhoeven <geert@linux-m68k.org>
+Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ arch/alpha/include/asm/Kbuild        |  1 +
+ arch/arc/include/asm/Kbuild          |  1 +
+ arch/arm/include/asm/Kbuild          |  1 +
+ arch/arm64/include/asm/ring_buffer.h | 10 ++++++++++
+ arch/csky/include/asm/Kbuild         |  1 +
+ arch/hexagon/include/asm/Kbuild      |  1 +
+ arch/loongarch/include/asm/Kbuild    |  1 +
+ arch/m68k/include/asm/Kbuild         |  1 +
+ arch/microblaze/include/asm/Kbuild   |  1 +
+ arch/mips/include/asm/Kbuild         |  1 +
+ arch/nios2/include/asm/Kbuild        |  1 +
+ arch/openrisc/include/asm/Kbuild     |  1 +
+ arch/parisc/include/asm/Kbuild       |  1 +
+ arch/powerpc/include/asm/Kbuild      |  1 +
+ arch/riscv/include/asm/Kbuild        |  1 +
+ arch/s390/include/asm/Kbuild         |  1 +
+ arch/sh/include/asm/Kbuild           |  1 +
+ arch/sparc/include/asm/Kbuild        |  1 +
+ arch/um/include/asm/Kbuild           |  1 +
+ arch/x86/include/asm/Kbuild          |  1 +
+ arch/xtensa/include/asm/Kbuild       |  1 +
+ include/asm-generic/ring_buffer.h    | 13 +++++++++++++
+ kernel/trace/ring_buffer.c           | 22 ++++++++++++++++++++++
+ 23 files changed, 65 insertions(+)
+ create mode 100644 arch/arm64/include/asm/ring_buffer.h
+ create mode 100644 include/asm-generic/ring_buffer.h
 
-                char tmp_buf[BASE64_CHARS(NAME_MAX)];
+diff --git a/arch/alpha/include/asm/Kbuild b/arch/alpha/include/asm/Kbuild
+index 396caece6d6d9..80a12a6035530 100644
+--- a/arch/alpha/include/asm/Kbuild
++++ b/arch/alpha/include/asm/Kbuild
+@@ -5,3 +5,4 @@ generic-y += agp.h
+ generic-y += asm-offsets.h
+ generic-y += kvm_para.h
+ generic-y += mcs_spinlock.h
++generic-y += ring_buffer.h
+diff --git a/arch/arc/include/asm/Kbuild b/arch/arc/include/asm/Kbuild
+index 49285a3ce2398..ccc466802b5c4 100644
+--- a/arch/arc/include/asm/Kbuild
++++ b/arch/arc/include/asm/Kbuild
+@@ -5,4 +5,5 @@ generic-y += extable.h
+ generic-y += kvm_para.h
+ generic-y += mcs_spinlock.h
+ generic-y += parport.h
++generic-y += ring_buffer.h
+ generic-y += user.h
+diff --git a/arch/arm/include/asm/Kbuild b/arch/arm/include/asm/Kbuild
+index 03657ff8fbe3d..decad5f2c826f 100644
+--- a/arch/arm/include/asm/Kbuild
++++ b/arch/arm/include/asm/Kbuild
+@@ -3,6 +3,7 @@ generic-y += early_ioremap.h
+ generic-y += extable.h
+ generic-y += flat.h
+ generic-y += parport.h
++generic-y += ring_buffer.h
+ 
+ generated-y += mach-types.h
+ generated-y += unistd-nr.h
+diff --git a/arch/arm64/include/asm/ring_buffer.h b/arch/arm64/include/asm/ring_buffer.h
+new file mode 100644
+index 0000000000000..62316c4068881
+--- /dev/null
++++ b/arch/arm64/include/asm/ring_buffer.h
+@@ -0,0 +1,10 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++#ifndef _ASM_ARM64_RING_BUFFER_H
++#define _ASM_ARM64_RING_BUFFER_H
++
++#include <asm/cacheflush.h>
++
++/* Flush D-cache on persistent ring buffer */
++#define arch_ring_buffer_flush_range(start, end)	dcache_clean_pop(start, end)
++
++#endif /* _ASM_ARM64_RING_BUFFER_H */
+diff --git a/arch/csky/include/asm/Kbuild b/arch/csky/include/asm/Kbuild
+index 9a9bc65b57a9d..c98d8be2330a3 100644
+--- a/arch/csky/include/asm/Kbuild
++++ b/arch/csky/include/asm/Kbuild
+@@ -9,5 +9,6 @@ generic-y += qrwlock.h
+ generic-y += qrwlock_types.h
+ generic-y += qspinlock.h
+ generic-y += parport.h
++generic-y += ring_buffer.h
+ generic-y += user.h
+ generic-y += vmlinux.lds.h
+diff --git a/arch/hexagon/include/asm/Kbuild b/arch/hexagon/include/asm/Kbuild
+index 8c1a78c8f5271..10a1426d95e81 100644
+--- a/arch/hexagon/include/asm/Kbuild
++++ b/arch/hexagon/include/asm/Kbuild
+@@ -5,3 +5,4 @@ generic-y += extable.h
+ generic-y += iomap.h
+ generic-y += kvm_para.h
+ generic-y += mcs_spinlock.h
++generic-y += ring_buffer.h
+diff --git a/arch/loongarch/include/asm/Kbuild b/arch/loongarch/include/asm/Kbuild
+index 5b5a6c90e6e20..7850eedda3b38 100644
+--- a/arch/loongarch/include/asm/Kbuild
++++ b/arch/loongarch/include/asm/Kbuild
+@@ -9,5 +9,6 @@ generic-y += qrwlock.h
+ generic-y += user.h
+ generic-y += ioctl.h
+ generic-y += mmzone.h
++generic-y += ring_buffer.h
+ generic-y += statfs.h
+ generic-y += param.h
+diff --git a/arch/m68k/include/asm/Kbuild b/arch/m68k/include/asm/Kbuild
+index 0dbf9c5c6faeb..8ea462cd10e7f 100644
+--- a/arch/m68k/include/asm/Kbuild
++++ b/arch/m68k/include/asm/Kbuild
+@@ -3,4 +3,5 @@ generated-y += syscall_table.h
+ generic-y += extable.h
+ generic-y += kvm_para.h
+ generic-y += mcs_spinlock.h
++generic-y += ring_buffer.h
+ generic-y += spinlock.h
+diff --git a/arch/microblaze/include/asm/Kbuild b/arch/microblaze/include/asm/Kbuild
+index a055f5dbe00a3..0ed312ae61ef1 100644
+--- a/arch/microblaze/include/asm/Kbuild
++++ b/arch/microblaze/include/asm/Kbuild
+@@ -5,6 +5,7 @@ generic-y += extable.h
+ generic-y += kvm_para.h
+ generic-y += mcs_spinlock.h
+ generic-y += parport.h
++generic-y += ring_buffer.h
+ generic-y += syscalls.h
+ generic-y += tlb.h
+ generic-y += user.h
+diff --git a/arch/mips/include/asm/Kbuild b/arch/mips/include/asm/Kbuild
+index 7ba67a0d6c97b..a6bb06820e7c2 100644
+--- a/arch/mips/include/asm/Kbuild
++++ b/arch/mips/include/asm/Kbuild
+@@ -12,4 +12,5 @@ generic-y += mcs_spinlock.h
+ generic-y += parport.h
+ generic-y += qrwlock.h
+ generic-y += qspinlock.h
++generic-y += ring_buffer.h
+ generic-y += user.h
+diff --git a/arch/nios2/include/asm/Kbuild b/arch/nios2/include/asm/Kbuild
+index 0d09829ed1445..378ddebc1db36 100644
+--- a/arch/nios2/include/asm/Kbuild
++++ b/arch/nios2/include/asm/Kbuild
+@@ -5,5 +5,6 @@ generic-y += cmpxchg.h
+ generic-y += extable.h
+ generic-y += kvm_para.h
+ generic-y += mcs_spinlock.h
++generic-y += ring_buffer.h
+ generic-y += spinlock.h
+ generic-y += user.h
+diff --git a/arch/openrisc/include/asm/Kbuild b/arch/openrisc/include/asm/Kbuild
+index cef49d60d74c0..8aa34621702de 100644
+--- a/arch/openrisc/include/asm/Kbuild
++++ b/arch/openrisc/include/asm/Kbuild
+@@ -8,4 +8,5 @@ generic-y += spinlock_types.h
+ generic-y += spinlock.h
+ generic-y += qrwlock_types.h
+ generic-y += qrwlock.h
++generic-y += ring_buffer.h
+ generic-y += user.h
+diff --git a/arch/parisc/include/asm/Kbuild b/arch/parisc/include/asm/Kbuild
+index 4fb596d94c893..d48d158f72412 100644
+--- a/arch/parisc/include/asm/Kbuild
++++ b/arch/parisc/include/asm/Kbuild
+@@ -4,4 +4,5 @@ generated-y += syscall_table_64.h
+ generic-y += agp.h
+ generic-y += kvm_para.h
+ generic-y += mcs_spinlock.h
++generic-y += ring_buffer.h
+ generic-y += user.h
+diff --git a/arch/powerpc/include/asm/Kbuild b/arch/powerpc/include/asm/Kbuild
+index e5fdc336c9b22..12537f780e2c5 100644
+--- a/arch/powerpc/include/asm/Kbuild
++++ b/arch/powerpc/include/asm/Kbuild
+@@ -6,4 +6,5 @@ generic-y += agp.h
+ generic-y += kvm_types.h
+ generic-y += mcs_spinlock.h
+ generic-y += qrwlock.h
++generic-y += ring_buffer.h
+ generic-y += early_ioremap.h
+diff --git a/arch/riscv/include/asm/Kbuild b/arch/riscv/include/asm/Kbuild
+index 1461af12da6e2..ad6978567e5f5 100644
+--- a/arch/riscv/include/asm/Kbuild
++++ b/arch/riscv/include/asm/Kbuild
+@@ -11,5 +11,6 @@ generic-y += spinlock.h
+ generic-y += spinlock_types.h
+ generic-y += qrwlock.h
+ generic-y += qrwlock_types.h
++generic-y += ring_buffer.h
+ generic-y += user.h
+ generic-y += vmlinux.lds.h
+diff --git a/arch/s390/include/asm/Kbuild b/arch/s390/include/asm/Kbuild
+index 297bf71579689..2b367fa4de8e4 100644
+--- a/arch/s390/include/asm/Kbuild
++++ b/arch/s390/include/asm/Kbuild
+@@ -8,3 +8,4 @@ generic-y += asm-offsets.h
+ generic-y += kvm_types.h
+ generic-y += mcs_spinlock.h
+ generic-y += mmzone.h
++generic-y += ring_buffer.h
+diff --git a/arch/sh/include/asm/Kbuild b/arch/sh/include/asm/Kbuild
+index fc44d9c88b419..edbf46a7ea4c3 100644
+--- a/arch/sh/include/asm/Kbuild
++++ b/arch/sh/include/asm/Kbuild
+@@ -3,3 +3,4 @@ generated-y += syscall_table.h
+ generic-y += kvm_para.h
+ generic-y += mcs_spinlock.h
+ generic-y += parport.h
++generic-y += ring_buffer.h
+diff --git a/arch/sparc/include/asm/Kbuild b/arch/sparc/include/asm/Kbuild
+index 43b0ae4c2c211..9aa7a7e1242d5 100644
+--- a/arch/sparc/include/asm/Kbuild
++++ b/arch/sparc/include/asm/Kbuild
+@@ -4,3 +4,4 @@ generated-y += syscall_table_64.h
+ generic-y += agp.h
+ generic-y += kvm_para.h
+ generic-y += mcs_spinlock.h
++generic-y += ring_buffer.h
+diff --git a/arch/um/include/asm/Kbuild b/arch/um/include/asm/Kbuild
+index 18f902da8e997..abe7a9fe13c8f 100644
+--- a/arch/um/include/asm/Kbuild
++++ b/arch/um/include/asm/Kbuild
+@@ -19,6 +19,7 @@ generic-y += param.h
+ generic-y += parport.h
+ generic-y += percpu.h
+ generic-y += preempt.h
++generic-y += ring_buffer.h
+ generic-y += runtime-const.h
+ generic-y += softirq_stack.h
+ generic-y += switch_to.h
+diff --git a/arch/x86/include/asm/Kbuild b/arch/x86/include/asm/Kbuild
+index 6c23d1661b173..269b1ed3f12ec 100644
+--- a/arch/x86/include/asm/Kbuild
++++ b/arch/x86/include/asm/Kbuild
+@@ -12,3 +12,4 @@ generated-y += xen-hypercalls.h
+ generic-y += early_ioremap.h
+ generic-y += mcs_spinlock.h
+ generic-y += mmzone.h
++generic-y += ring_buffer.h
+diff --git a/arch/xtensa/include/asm/Kbuild b/arch/xtensa/include/asm/Kbuild
+index fa07c686cbcc2..a5875956392ab 100644
+--- a/arch/xtensa/include/asm/Kbuild
++++ b/arch/xtensa/include/asm/Kbuild
+@@ -7,4 +7,5 @@ generic-y += param.h
+ generic-y += parport.h
+ generic-y += qrwlock.h
+ generic-y += qspinlock.h
++generic-y += ring_buffer.h
+ generic-y += user.h
+diff --git a/include/asm-generic/ring_buffer.h b/include/asm-generic/ring_buffer.h
+new file mode 100644
+index 0000000000000..201d2aee10054
+--- /dev/null
++++ b/include/asm-generic/ring_buffer.h
+@@ -0,0 +1,13 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/*
++ * Generic arch dependent ring_buffer macros.
++ */
++#ifndef __ASM_GENERIC_RING_BUFFER_H__
++#define __ASM_GENERIC_RING_BUFFER_H__
++
++#include <linux/cacheflush.h>
++
++/* Flush cache on ring buffer range if needed. Do nothing by default. */
++#define arch_ring_buffer_flush_range(start, end)	do { } while (0)
++
++#endif /* __ASM_GENERIC_RING_BUFFER_H__ */
+diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
+index ccfaae8795f00..81990ebd63007 100644
+--- a/kernel/trace/ring_buffer.c
++++ b/kernel/trace/ring_buffer.c
+@@ -5,6 +5,7 @@
+  * Copyright (C) 2008 Steven Rostedt <srostedt@redhat.com>
+  */
+ #include <linux/trace_recursion.h>
++#include <linux/panic_notifier.h>
+ #include <linux/trace_events.h>
+ #include <linux/ring_buffer.h>
+ #include <linux/trace_clock.h>
+@@ -29,6 +30,7 @@
+ #include <linux/oom.h>
+ #include <linux/mm.h>
+ 
++#include <asm/ring_buffer.h>
+ #include <asm/local64.h>
+ #include <asm/local.h>
+ 
+@@ -549,6 +551,7 @@ struct trace_buffer {
+ 
+ 	unsigned long			range_addr_start;
+ 	unsigned long			range_addr_end;
++	struct notifier_block		flush_nb;
+ 
+ 	long				last_text_delta;
+ 	long				last_data_delta;
+@@ -2316,6 +2319,16 @@ static void rb_free_cpu_buffer(struct ring_buffer_per_cpu *cpu_buffer)
+ 	kfree(cpu_buffer);
+ }
+ 
++/* Stop recording on a persistent buffer and flush cache if needed. */
++static int rb_flush_buffer_cb(struct notifier_block *nb, unsigned long event, void *data)
++{
++	struct trace_buffer *buffer = container_of(nb, struct trace_buffer, flush_nb);
++
++	ring_buffer_record_off(buffer);
++	arch_ring_buffer_flush_range(buffer->range_addr_start, buffer->range_addr_end);
++	return NOTIFY_DONE;
++}
++
+ static struct trace_buffer *alloc_buffer(unsigned long size, unsigned flags,
+ 					 int order, unsigned long start,
+ 					 unsigned long end,
+@@ -2421,6 +2434,12 @@ static struct trace_buffer *alloc_buffer(unsigned long size, unsigned flags,
+ 
+ 	mutex_init(&buffer->mutex);
+ 
++	/* Persistent ring buffer needs to flush cache before reboot. */
++	if (start && end) {
++		buffer->flush_nb.notifier_call = rb_flush_buffer_cb;
++		atomic_notifier_chain_register(&panic_notifier_list, &buffer->flush_nb);
++	}
++
+ 	return buffer;
+ 
+  fail_free_buffers:
+@@ -2512,6 +2531,9 @@ ring_buffer_free(struct trace_buffer *buffer)
+ {
+ 	int cpu;
+ 
++	if (buffer->range_addr_start && buffer->range_addr_end)
++		atomic_notifier_chain_unregister(&panic_notifier_list, &buffer->flush_nb);
++
+ 	cpuhp_state_remove_instance(CPUHP_TRACE_RB_PREPARE, &buffer->node);
+ 
+ 	irq_work_sync(&buffer->irq_work.work);
+-- 
+2.53.0
 
-                name_len =3D snprintf(tmp_buf, sizeof(tmp_buf), "_%.*s_%llu=
-",
--                                   oname->len, oname->name, dir->i_ino);
-+                                   _oname.len, _oname.name, dir->i_ino);
-                memcpy(oname->name, tmp_buf, name_len);
-                oname->len =3D name_len;
-
-...but, looking at the if/else-if block more carefully, I realized we
-only care about ensuring `!ret`, so I'll simplify the control flow for
-v2.
-
-Thank you for the feedback,
-Sam
-
-> Thanks,
-> Slava.
->
-> >
-> >  out:
-> > diff --git a/fs/ceph/mds_client.c b/fs/ceph/mds_client.c
-> > index aa6730b48e97..8fcf185e3a82 100644
-> > --- a/fs/ceph/mds_client.c
-> > +++ b/fs/ceph/mds_client.c
-> > @@ -538,9 +538,13 @@ static int parse_reply_info_readdir(void **p, void=
- *end,
-> >                        * to do the base64_decode in-place. It's
-> >                        * safe because the decoded string should
-> >                        * always be shorter, which is 3/4 of origin
-> > -                      * string.
-> > +                      * string. If this message was allocated with
-> > +                      * vmalloc() (happens, but rarely), leave it
-> > +                      * NULL and let ceph_fname_to_usr() allocate
-> > +                      * suitable temporary working space instead.
-> >                        */
-> > -                     tname =3D _name;
-> > +                     if (likely(!is_vmalloc_addr(_name)))
-> > +                             tname =3D _name;
-> >
-> >                       /*
-> >                        * Set oname to _name too, and this will be
