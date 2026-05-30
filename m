@@ -1,45 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2059288C81;
-	Sat, 30 May 2026 20:01:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3168329AAFA
+	for <stable@vger.kernel.org>; Sat, 30 May 2026 20:07:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780171308; cv=none; b=L8iPDWTwPDZNbee2kI5K+TxFNekCK65uqoskz2CS2F2lh46us5PZKLKvCQzltt7zSZEnzkl0URYBrFNinVWBScYsh3Qmxsof5+z7jfUj/eBNUaTH7pORVePNKeO9YXlFXSR1dNL/g/1sQ7RYLBlhLHBq581AUWhRvK/J+Z0QqoE=
+	t=1780171631; cv=none; b=oFdx900OgNV/XTlFBs+DbfAt3hPT7Q6+sjUce0Vp9/KzPWOdPmFpFa2epxppWwU4aLvrr6KtFMV4E2tGZph9JuBuEIOGsaXuXtPfAhK2K9KSisrREgn0Ug/SWNlGufve8dPQzoaW0lPqMWCwQk5X8MJnt199t/9KK6J7RNDAwJI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780171308; c=relaxed/simple;
-	bh=dQ/SwkErJuAhiVfbeY3wBkrg55WKLm/tvfDpbBQB9FQ=;
+	s=arc-20240116; t=1780171631; c=relaxed/simple;
+	bh=k7qYrTueet8Ot8QgnS3W/+Ti20S7QXBzIUW2awUJwYA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kUAY8Q+51AhCPQARQbbqHqO41RPmsXGpfWbrF4zHa+RqYFDnbAUoa3B5f0dyrOCQfVR4AHMy+NICt+7uo25GgGbfYQ+iFlJyngiY0JaDq22H0Tx9BhRu3buvUb3v07Odv5Ua9KxsYoYRqJCBVnKsB4zC+2+yeUGXYg6RcyDUWTc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=jwv+1zLm; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=uENyMByL9ngLe6zDbTpIVCz0g42rr7/EiQ+h3JY44QhmKKB4FcyQQa+1VBf6dzOGgSy9DxsJO4jdm43umewTCgBFqguNJ6xbhr3+OgnYa9HuKV3a8l1ZXcdUVLd4CKTFA/gJDyAb5Zq2lyz6avlJIQjDshKSQITdENsAEuooYzY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RyXeoHwA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="jwv+1zLm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C6A41F00898;
-	Sat, 30 May 2026 20:01:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1780171304;
-	bh=Rwodttwjn6WrTysx1Bayx+y2MrfT/Ad2VgcoE3dAWW8=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RyXeoHwA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EAA51F00893;
+	Sat, 30 May 2026 20:07:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780171629;
+	bh=TJ8yuhn/o6hrj+jWuPOmlWfg8OCp8yD80Jso2dwQm3s=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jwv+1zLmC+AJ/18kYVzKlWqvfaxKJmgPUXJRrLTxefxKgqBQgqQKcCM5dtv1vYldE
-	 Hqv3hgbs8tw6ou2MHL4gNfumyYnUEAmQwSTl5gZN4lzLnuQmIKxxUZM4rEx3j31GAT
-	 N6H30gptf1EEfbgJEw2xNv4q1dy3NRxnMaXYRcDU=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=RyXeoHwAuXomtWkDj7Bf9jE5Mn+MYf3ivVop1Mo6hLJdxyOTwSPoQKLws8iiyaRbu
+	 MehPy0BkUtKIxwCmLzzlNo0gtU2myMJmfBRnRH5SmQUJDGynonjk4BByVPXvcosCno
+	 ikU1pdBbDmafHHY0LdzVHn3EjMoqurgALrgj/wOdqpfFOiZbYMWx3c0V7QBYmRY6mK
+	 0BA3TASSZUULSugpG2uoNA7TcbzcTsI8uvw5FptMyn2o93gK75jA1Wp3R4R6wOeGI+
+	 PUdYGjUB9luwuAbLJZ88b8x+N3dvrDRfeXNr4KZJ94jlFI3mlTR/nW2OjttjZWraLC
+	 FSuxx1oa+yYqg==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Fredric Cover <FredTheDude@proton.me>,
-	Steve French <stfrench@microsoft.com>,
-	Sasha Levin <sashal@kernel.org>,
-	Henrique Carvalho <henrique.carvalho@suse.com>
-Subject: [PATCH 5.15 010/776] fs/smb/client: fix out-of-bounds read in cifs_sanitize_prepath
-Date: Sat, 30 May 2026 17:55:24 +0200
-Message-ID: <20260530160240.519681832@linuxfoundation.org>
+Cc: Dawei Feng <dawei.feng@seu.edu.cn>,
+	Zilin Guan <zilin@seu.edu.cn>,
+	Simon Horman <horms@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y] octeontx2-pf: avoid double free of pool->stack on AQ init failure
+Date: Sat, 30 May 2026 16:07:07 -0400
+Message-ID: <20260530200707.3281847-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260530160240.228940103@linuxfoundation.org>
-References: <20260530160240.228940103@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+In-Reply-To: <2026052845-zoology-ceremony-67cd@gregkh>
+References: <2026052845-zoology-ceremony-67cd@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,51 +47,61 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-5.15-stable review patch.  If anyone has any objections, please let me know.
+From: Dawei Feng <dawei.feng@seu.edu.cn>
 
-------------------
+[ Upstream commit 9b244c242bec48b37e82b89787afd6a4c43457e1 ]
 
-From: Fredric Cover <FredTheDude@proton.me>
+otx2_pool_aq_init() frees pool->stack when mailbox sync or retry
+allocation fails, but leaves the pointer unchanged. Later,
+otx2_sq_aura_pool_init() unwinds the partial setup through
+otx2_aura_pool_free(), which frees pool->stack again. The CN20K-specific
+cn20k_pool_aq_init() implementation has the same bug in
+its corresponding error path.
 
-[ Upstream commit 78ec5bf2f589ec7fd8f169394bfeca541b077317 ]
+Set pool->stack to NULL immediately after the local free so the shared
+cleanup path does not free the same stack again while cleaning up
+partially initialized pool state.
 
-When cifs_sanitize_prepath is called with an empty string or a string
-containing only delimiters (e.g., "/"), the current logic attempts to
-check *(cursor2 - 1) before cursor2 has advanced. This results in an
-out-of-bounds read.
+The bug was first flagged by an experimental analysis tool we are
+developing for kernel memory-management bugs while analyzing
+v6.13-rc1. The tool is still under development and is not yet publicly
+available. Manual inspection confirms that the bug is still present in
+v7.1-rc3.
 
-This patch adds an early exit check after stripping prepended
-delimiters. If no path content remains, the function returns NULL.
+Runtime validation was not performed because reproducing this path
+requires OcteonTX2/CN20K hardware.
 
-The bug was identified via manual audit and verified using a
-standalone test case compiled with AddressSanitizer, which
-triggered a SEGV on affected inputs.
-
-Signed-off-by: Fredric Cover <FredTheDude@proton.me>
-Reviewed-by: Henrique Carvalho <[2]henrique.carvalho@suse.com>
-Signed-off-by: Steve French <stfrench@microsoft.com>
+Fixes: caa2da34fd25 ("octeontx2-pf: Initialize and config queues")
+Fixes: d322fbd17203 ("octeontx2-pf: Initialize cn20k specific aura and pool contexts")
+Cc: stable@vger.kernel.org
+Signed-off-by: Zilin Guan <zilin@seu.edu.cn>
+Signed-off-by: Dawei Feng <dawei.feng@seu.edu.cn>
+Reviewed-by: Simon Horman <horms@kernel.org>
+Link: https://patch.msgid.link/20260515151826.1005397-1-dawei.feng@seu.edu.cn
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/cifs/fs_context.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/net/ethernet/marvell/octeontx2/nic/otx2_common.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/fs/cifs/fs_context.c b/fs/cifs/fs_context.c
-index c3a71c69d3395..0336580062067 100644
---- a/fs/cifs/fs_context.c
-+++ b/fs/cifs/fs_context.c
-@@ -450,6 +450,10 @@ char *cifs_sanitize_prepath(char *prepath, gfp_t gfp)
- 	while (IS_DELIM(*cursor1))
- 		cursor1++;
- 
-+	/* exit in case of only delimiters */
-+	if (!*cursor1)
-+		return NULL;
-+
- 	/* copy the first letter */
- 	*cursor2 = *cursor1;
- 
+diff --git a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_common.c b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_common.c
+index 4fc73ac721b05..3e1cd8af080e3 100644
+--- a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_common.c
++++ b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_common.c
+@@ -1374,11 +1374,13 @@ int otx2_pool_init(struct otx2_nic *pfvf, u16 pool_id,
+ 		err = otx2_sync_mbox_msg(&pfvf->mbox);
+ 		if (err) {
+ 			qmem_free(pfvf->dev, pool->stack);
++			pool->stack = NULL;
+ 			return err;
+ 		}
+ 		aq = otx2_mbox_alloc_msg_npa_aq_enq(&pfvf->mbox);
+ 		if (!aq) {
+ 			qmem_free(pfvf->dev, pool->stack);
++			pool->stack = NULL;
+ 			return -ENOMEM;
+ 		}
+ 	}
 -- 
 2.53.0
-
-
 
