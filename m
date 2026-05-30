@@ -1,108 +1,128 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22C46395AE2;
-	Sat, 30 May 2026 16:52:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92358362157;
+	Sat, 30 May 2026 16:52:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780159955; cv=none; b=BokGVWLVcsZrAyPafBhf6Ui2U4ebFMi42PVpCOB69Dli8mZ8Dwnr7noJKV+d+vfArb0nqoEEa5d8OSSbHiZMFGdOY+/tS4Vb+XrbwDaSJGKC0jHTafzZeOLfFQ5blAIv0cINaNNlR6Nesfoi7M0oghbqv2dO3HARJ6KlwwBwQWA=
+	t=1780159957; cv=none; b=BDZAKYzDdRd89Hp+JBvPlhXi99j6K6XLPSFPovcg3yk74c06ILOiWngWI8c6HuX1RMUMfx1L7+msWeOZCU2LBxF5zUX0MhEpt5j0nBo0zq7tWfpBV5mHExwax3c4HLVsySl06/DqZ3+Z3X3PFanIYiEW5TdDH0+4wL8Vm41iwHc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780159955; c=relaxed/simple;
-	bh=YtGnqfCs9aJXvYFVFzr5blna7/gM+CTr7DczFf3VKEA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JFHf0nsyRAlKl4XOrRF95l/NCLQk4g2zVpk1JGan1YJEbYvafkYBFJj7LwvXoZ0CQzHDR8GwlvCmeSYGqixFES5gxB9h+yBA6DqvM9Ncc4yDy6aC6jfg6ve/nJCDJEXHIb6P/RvpRcCXDRwEqvru+gHqGNPslsI3WDvLe+YYr30=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=SAxw++Vz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780159957; c=relaxed/simple;
+	bh=jvBKcpRPqMkElAvtnlHvFX3fE1zwl2ElCd+UJN1nO+o=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Tp86fPb7ZeF9qW2sNrssyEBfDZbKMns48L3OzumMbfP/jFm5O24x9QKBAQWbeGksdeg2ogxeKHTAYpbCC9A0PkaAFG+fTIlG8LldDYX6EH1+/LDZMT7ZBjArs60srSvTqEiVBvrjRfT5GQD30W6IcTVWyLwrGqJ3HKVg1oYWuwc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ErTE6kd7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="SAxw++Vz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE4A91F00899;
-	Sat, 30 May 2026 16:52:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1780159953;
-	bh=2XmM8NLOc5/UYy5/87B6Qi9daJ8Ft0xl5zhrffonvfY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=SAxw++Vza55bwrMN7FoUUpK3FtRHzRbAy3TqwjTvoRfgEtJ/dnC12Ztz2GxvMDtSH
-	 HcvKXjBcX82zpmz+YjI2Y9rI6+rpulvTZ6aTp3BFo9ose38clM3CDUwUPL7SE6y8zf
-	 QBjJvdXfvml74WiQ8F9r0+U9z1y8eetwVSOUwvS0=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Yifan Wu <yifanwucs@gmail.com>,
-	Juefei Pu <tomapufckgml@gmail.com>,
-	Yuan Tan <yuantan098@gmail.com>,
-	Xin Liu <bird@lzu.edu.cn>,
-	Zhengchuan Liang <zcliangcn@gmail.com>,
-	Longxuan Yu <ylong030@ucr.edu>,
-	Ren Wei <n05ec@lzu.edu.cn>,
-	Pavel Begunkov <asml.silence@gmail.com>,
-	Jens Axboe <axboe@kernel.dk>
-Subject: [PATCH 6.1 206/969] io_uring/poll: fix signed comparison in io_poll_get_ownership()
-Date: Sat, 30 May 2026 17:55:30 +0200
-Message-ID: <20260530160306.162794621@linuxfoundation.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260530160300.485627683@linuxfoundation.org>
-References: <20260530160300.485627683@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ErTE6kd7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE06F1F00893;
+	Sat, 30 May 2026 16:52:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780159956;
+	bh=8UNb1/3qGmB4zSX8MLGFUwdcMgPk4T11baGG/hOQ7Cg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ErTE6kd7JtWaVBDAoXu2s7i33/fLSNJOgv99y2jirEIh5FRREhKyHEBpPSt60wuGB
+	 AF/SOzPfIvWwO0hK4X+wKLOyMMpot4HDZOhFrm7Sj/C3AKPURyGBLHLnNVflxDtTgB
+	 dBfmMUVNRAHFI1XwUKnpoxRso8AxGDhPJwVh+jfDUkiaMr529dMx/JZ4Ossvp9Y3KS
+	 hBplQJ73LWwxWvMO/09GaoCXEwwOdgi15VCVTwkzR5ITTHqJ8rlCkZCdIbRmYtOwM8
+	 t4MJQK6U335Nd8iHwPDAoAaDYkjqoEojWMw8xzoyXjqqKTDiA1RqrlWDGy931gkTgu
+	 EvuS8mB+7V7Ow==
+Date: Sat, 30 May 2026 19:52:25 +0300
+From: Mike Rapoport <rppt@kernel.org>
+To: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Kiryl Shutsemau <kirill@shutemov.name>, akpm@linux-foundation.org,
+	peterx@redhat.com, david@kernel.org, surenb@google.com,
+	vbabka@kernel.org, Liam.Howlett@oracle.com, ziy@nvidia.com,
+	corbet@lwn.net, skhan@linuxfoundation.org, seanjc@google.com,
+	pbonzini@redhat.com, jthoughton@google.com, aarcange@redhat.com,
+	sj@kernel.org, usama.arif@linux.dev, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+	linux-kselftest@vger.kernel.org, kvm@vger.kernel.org,
+	kernel-team@meta.com, "Kiryl Shutsemau (Meta)" <kas@kernel.org>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v5 04/18] mm: skip out-of-range bits in mk_vma_flags()
+Message-ID: <ahsVyQZ5UXhJLct2@kernel.org>
+References: <20260526130509.2748441-1-kirill@shutemov.name>
+ <20260526130509.2748441-5-kirill@shutemov.name>
+ <ahmQvfNk7S4F0LBj@lucifer>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ahmQvfNk7S4F0LBj@lucifer>
 
-6.1-stable review patch.  If anyone has any objections, please let me know.
+On Fri, May 29, 2026 at 03:00:14PM +0100, Lorenzo Stoakes wrote:
+> On Tue, May 26, 2026 at 02:04:52PM +0100, Kiryl Shutsemau wrote:
+> > From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+> >
+> > vma_flags_t is one unsigned long on 32-bit -- NUM_VMA_FLAG_BITS ==
+> > BITS_PER_LONG by design, so VM_xxx-declared bits sit in the first
+> > word and hit the single-long fast path. But the bit enum declares
+> > some bits unconditionally above BITS_PER_LONG (VMA_UFFD_MINOR_BIT
+> > == 41 today, with VM_UFFD_MINOR == VM_NONE on 32-bit so no VMA
+> > actually carries the bit).
+> 
+> Yeah ugh.
+> 
+> > Passing such a bit to mk_vma_flags() goes through __set_bit(41,
+> > &one_long) and writes one word past the end. The compiler folds
+> > the OOB store with wraparound (1UL << (41 % 32) == bit 9) into
+> > the first word. Bit 9 is already in __VMA_UFFD_FLAGS so the mask
+> > happens to come out right today, but any high-numbered bit whose
+> 
+> That is... helpful :) but not great that this is the situation, an
+> oversight, clearly! How I hate 32-bit kernels :)
+> 
+> > mod-BITS_PER_LONG position is otherwise unused would silently OR
+> > an extra bit into the mask.
+> >
+> > Add VMA_NO_BIT and have DECLARE_VMA_BIT() resolve any bitnum out
+> > of range to it. vma_flags_set_flag() drops negative bit values.
+> > The ternary collapses at compile time, the runtime check folds
+> > away when the bit is in range, and the common path is unchanged.
+> 
+> Hmm are you sure it does?
+> 
+> A key design goal was that mk_vma_flags() generates compile-time constants
+> the same as if the bitmap were constructed independently.
+> 
+> This surely must generate code? Or at least runs a significant risk of it?
 
-------------------
+...
 
-From: Longxuan Yu <ylong030@ucr.edu>
+> A simple solution that doesn't require change to the core is to just uglify
+> userfaultfd_k.h a bit with:
+> 
+> #ifdef HAVE_ARCH_USERFAULTFD_MINOR
+> #define __VMA_UFFD_FLAGS mk_vma_flags(VMA_UFFD_MISSING_BIT, VMA_UFFD_WP_BIT, \
+> 				      VMA_UFFD_MINOR_BIT)
+> #else
+> #define __VMA_UFFD_FLAGS mk_vma_flags(VMA_UFFD_MISSING_BIT, VMA_UFFD_WP_BIT)
+> #endif
+> 
+> But of course that becomes much more horrible with your changes...
+> 
+> Another alternative, which I used for VMA_DROPPABLE is to add something
+> like this in mm.h:
+> 
+> #ifdef CONFIG_HAVE_ARCH_USERFAULTFD_MINOR
+> #define VM_UFFD_MINOR	INIT_VM_FLAG(UFFD_MINOR)
+> +define VMA_UFFD_MINOR	mk_vma_flags(VMA_UFFD_MINOR_BIT)
+> #else
+> #define VM_UFFD_MINOR	VM_NONE
+> +define VMA_UFFD_MINOR	EMPTY_VMA_FLAGS
+> #endif
 
-commit 326941b22806cbf2df1fbfe902b7908b368cce42 upstream.
+I have a PoC of yet another alternative:
 
-io_poll_get_ownership() uses a signed comparison to check whether
-poll_refs has reached the threshold for the slowpath:
+https://git.kernel.org/pub/scm/linux/kernel/git/rppt/linux.git/log/?h=uffd/vm-flags
 
-    if (unlikely(atomic_read(&req->poll_refs) >= IO_POLL_REF_BIAS))
+The idea there is to keep a single VMA flag, VMA_UFFD_BIT/VM_UFFD and move
+all the rest into what's now struct vm_userfaultfd_ctx.
 
-atomic_read() returns int (signed). When IO_POLL_CANCEL_FLAG
-(BIT(31)) is set in poll_refs, the value becomes negative in
-signed arithmetic, so the >= 128 comparison always evaluates to
-false and the slowpath is never taken.
-
-Fix this by casting the atomic_read() result to unsigned int
-before the comparison, so that the cancel flag is treated as a
-large positive value and correctly triggers the slowpath.
-
-Fixes: a26a35e9019f ("io_uring: make poll refs more robust")
-Cc: stable@vger.kernel.org
-Reported-by: Yifan Wu <yifanwucs@gmail.com>
-Reported-by: Juefei Pu <tomapufckgml@gmail.com>
-Co-developed-by: Yuan Tan <yuantan098@gmail.com>
-Signed-off-by: Yuan Tan <yuantan098@gmail.com>
-Suggested-by: Xin Liu <bird@lzu.edu.cn>
-Tested-by: Zhengchuan Liang <zcliangcn@gmail.com>
-Signed-off-by: Longxuan Yu <ylong030@ucr.edu>
-Signed-off-by: Ren Wei <n05ec@lzu.edu.cn>
-Reviewed-by: Pavel Begunkov <asml.silence@gmail.com>
-Link: https://patch.msgid.link/3a3508b08bcd7f1bc3beff848ae6e1d73d355043.1775965597.git.ylong030@ucr.edu
-Signed-off-by: Jens Axboe <axboe@kernel.dk>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- io_uring/poll.c |    2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
---- a/io_uring/poll.c
-+++ b/io_uring/poll.c
-@@ -88,7 +88,7 @@ static bool io_poll_get_ownership_slowpa
-  */
- static inline bool io_poll_get_ownership(struct io_kiocb *req)
- {
--	if (unlikely(atomic_read(&req->poll_refs) >= IO_POLL_REF_BIAS))
-+	if (unlikely((unsigned int)atomic_read(&req->poll_refs) >= IO_POLL_REF_BIAS))
- 		return io_poll_get_ownership_slowpath(req);
- 	return !(atomic_fetch_inc(&req->poll_refs) & IO_POLL_REF_MASK);
- }
-
-
+-- 
+Sincerely yours,
+Mike.
