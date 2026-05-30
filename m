@@ -1,71 +1,90 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0E0781AA8;
-	Sat, 30 May 2026 20:40:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B165D3403EA;
+	Sat, 30 May 2026 20:43:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780173625; cv=none; b=fCeyF17V5iN9pw/fZZu9X7XRLBuWA8Eh+leYZ26h7Ug/A34689gLI+vMwRgFPUt4ehu/exNP3BUFuRDFLdcxbsbJRrmeAJ4X4UZFf4Y93pBmZ2p/ZjrMedHL2k1SVnBa6xlUjrHsfz1953x6hrQ+VLKvHrFri00Sk8jtfeTTHWE=
+	t=1780173833; cv=none; b=F7BaKA1byrSEaHEeTrIVV3cg0Wdh4KFCxL2lvoQhGQcN8wevqZeHCyucfg448z8MqtZzAbWuCyAjeHQ+NGcSJ4B+TCp+LOTv3JLB0pwIaVomYQiKt9IKFNg7ZOuj3ZsoWbtlPnusQlC0NtIPCmNcmBB8TD/4MAfRUcelZzaDZ8c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780173625; c=relaxed/simple;
-	bh=WgRkJOyBiuORez769sm6fL6zDgEr+JalV+KLoc5lR/g=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=jlEYqUi1AI6mCGf10x/lwJSq4IuUFu5Cqi5by6uIVEzRzyHWST4aZa8q8L/8VSSjTJDV7j4S+3aEy42u6Bjnt7RlHg35M9g2fSKc9QNepZTNBtEWanVqGKHROWM/umyhPQUXllHTsYdB/THGKlIXOjswKLjy8by4vbkQ+zfKsy8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DIpqfVws; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780173833; c=relaxed/simple;
+	bh=QI3ukdgzn9oHtvVOdq3G5jrrDf/hk6qMFVNn95PXs6w=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=eZJgQuvaoGnx6DZyo4ivLJoA3++it2szV16bqdel/ytRw8G6mnUepxmy74TNfPcLYy9TcJHiNxyBK7sBd3LYxV2QbhmiuYc/RWx3guPs7L1z0n0vZHkAgeQxQHL/4Lp1w41FKBqEd7RlCNAE0cYd6YFN9JEjIIOY2XLmc9cJuLY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g9VYEzBi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DIpqfVws"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22D441F00893;
-	Sat, 30 May 2026 20:40:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g9VYEzBi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 125211F00898;
+	Sat, 30 May 2026 20:43:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780173624;
-	bh=h6P+4e18fj4Wo82Qkuu3Z3wXeaTA4vAtamdzZqsN1ig=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=DIpqfVwsm/HJ1F9r/8VeiZdmNQQkJJsEbE85O3yvhVqKIllwKU5ccJq1JpUJYt7z0
-	 NyHHYP5KDKCXLoWF6ZOQuE72cK0IuvUWO7CtDHlPk/1L9KppzEWtwbtlYWeT//2ejC
-	 FZos0sWv+l8ULfPNGYrzQjA0N8ax6ghzn+fdhIImSA7C2lZZe98HgsRZIn7v0IYWNU
-	 159Ns+FklN+5soPoj/AJ299ily9AFe2/Z7RqG1HkNaFx18NERLvN57kT5JWysv3Yau
-	 ioMDsqhAtBIzgAH+VAb8AWMHKMYXf97r+inzOOUR/1fL6hFe4jQcUnh98+tsMHB0lR
-	 ca2FUa1EAuXvw==
-From: Srinivas Kandagatla <srini@kernel.org>
-To: Bartosz Golaszewski <brgl@kernel.org>, Johan Hovold <johan@kernel.org>, 
- Loic Poulain <loic.poulain@oss.qualcomm.com>, 
- Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Cc: linux-kernel@vger.kernel.org, brgl@kernel.org, stable@vger.kernel.org
-In-Reply-To: <20260521-nvmem-unbind-v4-0-7fa136759491@oss.qualcomm.com>
-References: <20260521-nvmem-unbind-v4-0-7fa136759491@oss.qualcomm.com>
-Subject: Re: (subset) [PATCH v4 00/10] nvmem: rework nvmem core and allow
- unbinding with active consumers
-Message-Id: <178017362283.116578.3318264066349893407.b4-ty@kernel.org>
-Date: Sat, 30 May 2026 21:40:22 +0100
+	s=k20260515; t=1780173832;
+	bh=hpMYg9af1pGzvuZiChTfHI2TaVJJnId4BcvefQrMcws=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=g9VYEzBibwBclm0bULayQCINiCUNdD/V2GBTFZAMtB4F0vgk6W17a7lXQszAN7wf4
+	 q2Eh7z01NdLsJC5vK83Z7Awi/eEAd4HyWdngA3Xj4DREIZHaTZzksA64rk0NamkkYp
+	 rELFUS5Iht5wZFF0WjSQCOAyBYhdUpeIkOYu5hfgDQp/RkDN+vlVEbllo2i7d+/Ijc
+	 trueC9/xCdsLwj7AGRwyC8cg7h/jxpjPPnTYV4//JNugPqv++TrUVjjTxpiBmXvAgS
+	 5rVT/v9lvEmC5wGf4G3iGBgfY4Y68eAwG1gdS2lO0V8/S5wPKOWfCEK0DXrNeqosJZ
+	 5ROuOOhh/Ijeg==
+From: srini@kernel.org
+To: gregkh@linuxfoundation.org
+Cc: linux-kernel@vger.kernel.org,
+	Andre Heider <a.heider@gmail.com>,
+	Stable@vger.kernel.org,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
+	Srinivas Kandagatla <srini@kernel.org>
+Subject: [PATCH 1/2] nvmem: layouts: onie-tlv: fix hang on unknown types
+Date: Sat, 30 May 2026 21:43:39 +0100
+Message-ID: <20260530204340.116743-2-srini@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260530204340.116743-1-srini@kernel.org>
+References: <20260530204340.116743-1-srini@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.14.3
+Content-Transfer-Encoding: 8bit
 
+From: Andre Heider <a.heider@gmail.com>
 
-On Thu, 21 May 2026 16:25:33 +0200, Bartosz Golaszewski wrote:
-> Sashiko pointed out some issues so this iteration fixes them. I'm also
-> Cc'ing Loic who seems to have encountered the issue of unbinding with
-> active consumers when working on the block nvmem provider.
-> 
-> Nvmem is one of the subsystems vulnerable to object life-time issues.
-> The memory nvmem core dereferences is owned by nvmem providers which can
-> be unbound at any time and even though nvmem devices themselves are
-> reference-counted, there's no synchronization with the provider modules.
-> 
-> [...]
+The EEPROM on my board has a vendor specific entry of type 0x41. When
+stumbling upon that, this driver hangs in an endless loop.
 
-Applied, thanks!
+Fix it by keep incrementing the offset on unknown entries, so the loop
+will eventually stop.
 
-[01/10] nvmem: core: fix use-after-free bugs in error paths
-        commit: 034b31a7b03d5d0a0bf1ad67ccb84c2ddaddd7c2
+Fixes: d3c0d12f6474 ("nvmem: layouts: onie-tlv: Add new layout driver")
+Cc: Stable@vger.kernel.org
+Signed-off-by: Andre Heider <a.heider@gmail.com>
+Reviewed-by: Miquel Raynal <miquel.raynal@bootlin.com>
+Signed-off-by: Srinivas Kandagatla <srini@kernel.org>
+---
+ drivers/nvmem/layouts/onie-tlv.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-Best regards,
+diff --git a/drivers/nvmem/layouts/onie-tlv.c b/drivers/nvmem/layouts/onie-tlv.c
+index 0967a32319a2..8b0f3c1b8a0e 100644
+--- a/drivers/nvmem/layouts/onie-tlv.c
++++ b/drivers/nvmem/layouts/onie-tlv.c
+@@ -119,7 +119,7 @@ static int onie_tlv_add_cells(struct device *dev, struct nvmem_device *nvmem,
+ 
+ 		cell.name = onie_tlv_cell_name(tlv.type);
+ 		if (!cell.name)
+-			continue;
++			goto next;
+ 
+ 		cell.offset = hdr_len + offset + sizeof(tlv.type) + sizeof(tlv.len);
+ 		cell.bytes = tlv.len;
+@@ -132,6 +132,7 @@ static int onie_tlv_add_cells(struct device *dev, struct nvmem_device *nvmem,
+ 			return ret;
+ 		}
+ 
++next:
+ 		offset += sizeof(tlv) + tlv.len;
+ 	}
+ 
 -- 
-Srinivas Kandagatla <srini@kernel.org>
+2.53.0
 
