@@ -1,44 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AFB6332EA7
-	for <stable@vger.kernel.org>; Sat, 30 May 2026 16:52:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 294343242BE;
+	Sat, 30 May 2026 16:52:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780159925; cv=none; b=oj5I+laPY+710pRqd4inpksNGqlc5x2eGGW/wTodF7Br5wRAweAOqcEUuBT4STo+TsxJ8fY03Mrcd+ZB7laREG/d1EIVOIlM+GkSMpuCVSIzSnsaGGK5NPyglk0s4gBLQlbYE0KwZJMGQV5VqDpiEtvAL85Kq1jrqgqrEaaMphc=
+	t=1780159926; cv=none; b=THyD88RGLxXIvTUBfhUJWTM+9GZbofAInfVH/iG86L5SRWyx2uMDGHwjCAR+krYDhqNLEyE2OxNfgj4yxU2FtW3GY0JYji2FZZf7k+o1Hw4Vz3ORuhjyBJKpcbxon9JNG9TiDbIbe5c0KfpSyHJdoaT7FlwvJFIWTAhqFziZ458=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780159925; c=relaxed/simple;
-	bh=OhWvF8qh2mc0vvP+amlmBruNLjcNHse3CyBRliuR6B4=;
+	s=arc-20240116; t=1780159926; c=relaxed/simple;
+	bh=ah3dajg82AHgAwFekjJSYxPudB2M6Oq+HXOrtb+WoF0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=iz3XzwhofPTJkzhNMiB7NdW3LmP5zYkIMSk93ZfCKfpcKgEmkSG89m9TaB26a/XUN7UpPgsfI6s4osPGv4gGHkvY4RZCUqpDsTB5DHsg3Zbb62K87uSP9lqtVc048msH8Zdf9GKCdkrK60tFhCoHUyaT9VAnq9T1eNDaniqxVZE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J2rLwfJp; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=p1pyXPqH2Me9HwEOKCspgpbqJbMbORyd9710AOi/rEqmm1TfiLCTOCwfsMxEucyfM3+Wz0Q85zUachvBROyQK8pivw31a3v1ZmJHTJnXsoN0kp8LLpwxoG0/ZiWzO7b7oRrkuXpKuBx+92EAf0xTvp/sFFCiaNbdfzTMGHKi+uk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=jW4E20xv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J2rLwfJp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A3741F00893;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="jW4E20xv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A4811F00898;
 	Sat, 30 May 2026 16:52:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780159924;
-	bh=mS47IlW9zaw7mLnYGdIzvaJoiEcBZFC/QRw/cW8WpqQ=;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1780159924;
+	bh=161Z4dm5vUjmJ9/30wlz6xE0OgeJ+1w6w2FyH6FB7vA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=J2rLwfJpuZCtcw0dqO5YPs47tXmH9xVxS34Fca7YSB3pAFOrBksoqjbia81601hAw
-	 QvaHLmUVGODNN1QJEA3o8bKhiIDdi82B0zXTBXr6h+gMSaPQCxN4ghlHjgjyyA9lBW
-	 lZiWTHcVNOiNRAGUDUljfuLWl2lkkM/QxIMuGjdSr1jHA6qlo4Ia4idLBsgT0hd7ec
-	 nRiqCikRFEwbrh7qkn5xtqCCQBOgKOYJ3+O6o7bcfio3kmVqXkBQOBKIuYOhwGnDt1
-	 KBD49hHfFPO6g6TYnUd44HGt5D5saSIi4+l3x1FXYTTu2UbUc9uW/aPerPh3KsG2Wv
-	 hCHSOv+ut5FjA==
-From: Sasha Levin <sashal@kernel.org>
+	b=jW4E20xvhbxS1J6HlsEYb4qqoDmCQMzsMbO0R53prb400Suh0fOYPdLZ2HlWNSmPg
+	 pmjD2CyTMRmmEfozTCC95xNSCEi29mdzNuYh+mUDi2ir10BMGtj2vPZgIMT7u+BfbF
+	 kQSSDgxhRpbPTsvzkbz13AJpB0YDcBIIiA4gdRoo=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Dawei Feng <dawei.feng@seu.edu.cn>,
-	Zilin Guan <zilin@seu.edu.cn>,
-	Simon Horman <horms@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] octeontx2-pf: avoid double free of pool->stack on AQ init failure
-Date: Sat, 30 May 2026 12:52:02 -0400
-Message-ID: <20260530165202.3003654-1-sashal@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Tzung-Bi Shih <tzungbi@kernel.org>,
+	Julius Werner <jwerner@chromium.org>,
+	Samuel Holland <samuel@sholland.org>,
+	Brian Norris <briannorris@chromium.org>,
+	chrome-platform@lists.linux.dev
+Subject: [PATCH 6.1 168/969] firmware: google: framebuffer: Do not mark framebuffer as busy
+Date: Sat, 30 May 2026 17:54:52 +0200
+Message-ID: <20260530160305.149095293@linuxfoundation.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026052841-plot-polyester-9f3b@gregkh>
-References: <2026052841-plot-polyester-9f3b@gregkh>
+In-Reply-To: <20260530160300.485627683@linuxfoundation.org>
+References: <20260530160300.485627683@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,61 +50,51 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Dawei Feng <dawei.feng@seu.edu.cn>
+6.1-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit 9b244c242bec48b37e82b89787afd6a4c43457e1 ]
+------------------
 
-otx2_pool_aq_init() frees pool->stack when mailbox sync or retry
-allocation fails, but leaves the pointer unchanged. Later,
-otx2_sq_aura_pool_init() unwinds the partial setup through
-otx2_aura_pool_free(), which frees pool->stack again. The CN20K-specific
-cn20k_pool_aq_init() implementation has the same bug in
-its corresponding error path.
+From: Thomas Zimmermann <tzimmermann@suse.de>
 
-Set pool->stack to NULL immediately after the local free so the shared
-cleanup path does not free the same stack again while cleaning up
-partially initialized pool state.
+commit f3850d399de3b6142b02315227ef9e772ed0c302 upstream.
 
-The bug was first flagged by an experimental analysis tool we are
-developing for kernel memory-management bugs while analyzing
-v6.13-rc1. The tool is still under development and is not yet publicly
-available. Manual inspection confirms that the bug is still present in
-v7.1-rc3.
+Remove the flag IORESOURCE_BUSY flag from coreboot's framebuffer
+resource. It prevents simpledrm from successfully requesting the
+range for its own use; resulting in errors such as
 
-Runtime validation was not performed because reproducing this path
-requires OcteonTX2/CN20K hardware.
+[    2.775430] simple-framebuffer simple-framebuffer.0: [drm] could not acquire memory region [mem 0x80000000-0x80407fff flags 0x80000200]
 
-Fixes: caa2da34fd25 ("octeontx2-pf: Initialize and config queues")
-Fixes: d322fbd17203 ("octeontx2-pf: Initialize cn20k specific aura and pool contexts")
-Cc: stable@vger.kernel.org
-Signed-off-by: Zilin Guan <zilin@seu.edu.cn>
-Signed-off-by: Dawei Feng <dawei.feng@seu.edu.cn>
-Reviewed-by: Simon Horman <horms@kernel.org>
-Link: https://patch.msgid.link/20260515151826.1005397-1-dawei.feng@seu.edu.cn
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+As with other uses of simple-framebuffer, the simple-framebuffer
+device should only declare it's I/O resources, but not actively use
+them.
+
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Fixes: 851b4c14532d ("firmware: coreboot: Add coreboot framebuffer driver")
+Acked-by: Tzung-Bi Shih <tzungbi@kernel.org>
+Acked-by: Julius Werner <jwerner@chromium.org>
+Cc: Samuel Holland <samuel@sholland.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Tzung-Bi Shih <tzungbi@kernel.org>
+Cc: Brian Norris <briannorris@chromium.org>
+Cc: Julius Werner <jwerner@chromium.org>
+Cc: chrome-platform@lists.linux.dev
+Cc: <stable@vger.kernel.org> # v4.18+
+Link: https://patch.msgid.link/20260217155836.96267-3-tzimmermann@suse.de
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/net/ethernet/marvell/octeontx2/nic/otx2_common.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/firmware/google/framebuffer-coreboot.c |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_common.c b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_common.c
-index 902d6abaa3ec1..062bc899d9550 100644
---- a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_common.c
-+++ b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_common.c
-@@ -1468,11 +1468,13 @@ int otx2_pool_init(struct otx2_nic *pfvf, u16 pool_id,
- 		err = otx2_sync_mbox_msg(&pfvf->mbox);
- 		if (err) {
- 			qmem_free(pfvf->dev, pool->stack);
-+			pool->stack = NULL;
- 			return err;
- 		}
- 		aq = otx2_mbox_alloc_msg_npa_aq_enq(&pfvf->mbox);
- 		if (!aq) {
- 			qmem_free(pfvf->dev, pool->stack);
-+			pool->stack = NULL;
- 			return -ENOMEM;
- 		}
- 	}
--- 
-2.53.0
+--- a/drivers/firmware/google/framebuffer-coreboot.c
++++ b/drivers/firmware/google/framebuffer-coreboot.c
+@@ -50,7 +50,7 @@ static int framebuffer_probe(struct core
+ 		return -ENODEV;
+ 
+ 	memset(&res, 0, sizeof(res));
+-	res.flags = IORESOURCE_MEM | IORESOURCE_BUSY;
++	res.flags = IORESOURCE_MEM;
+ 	res.name = "Coreboot Framebuffer";
+ 	res.start = fb->physical_address;
+ 	length = PAGE_ALIGN(fb->y_resolution * fb->bytes_per_line);
+
 
