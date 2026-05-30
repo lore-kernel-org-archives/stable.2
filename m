@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78BBC86334
-	for <stable@vger.kernel.org>; Sat, 30 May 2026 01:20:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CE4E86334
+	for <stable@vger.kernel.org>; Sat, 30 May 2026 01:23:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780104056; cv=none; b=Eqcc6K0Y/f3dYx92O6w0/R5zW6ihddo0bOaogC8GaQSi1Qw9PHPyKxOZLOmjgCbb5HppGIlJhDnTlyblwCf3qVEK4djxnDJc/4d2yqf3kZtx0vImjzoH7SYqmvyy3A993iWfy4A+9B7xP9vzGU88HACCXljeAH4xEaKUCDA7raA=
+	t=1780104227; cv=none; b=hgZZrqXSjHGDGOeiiN0m50L4ZlL3rXTNRgvpVYiIpwJuURKoGophGGvi7KlmIqX4CMVw+SA+rn3Yfk3t9oZ04ZETVNLm8etNq1gVjbYU2WSrsyUxbuw9udOCrBJt8JQPk6+51gB73vzD/rj5p7afDGIswLEAGxAOhRzg3qmenB8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780104056; c=relaxed/simple;
-	bh=9Jbml+IZhGpfs4onsDDJDmgwABzznVk8ScqQbKIhWpQ=;
+	s=arc-20240116; t=1780104227; c=relaxed/simple;
+	bh=oLzxluydf0D+mC43ms/YNYpBohBD8+MXDAa2VQptkFA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BDmIySUtUng1oJQwAAlaSwHavwdzxiMdg5VNx2BtB9QeW7ZjKXoL6f9ziTLpk8lu4F10GlkElJ+lUBa0t4FVnNaX9iAfzGw/fZyZHMmhlalRT2KZxHPigBLfjSNzgvxcEI5XeQkeic+BCA+t4qfU5XQxQ+0EqLveaqYK0bG/TcI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Kfz4ilTQ; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=XTSRh2kG0+XUSz3qsURu8i4sy+v1LJJ8FSG9kjgkC310qO0o+Ill0zqLVb2BIYMsrNH3V/69bZJRyRgfdhKLJ5hRkJwKeCQM5FlNZzX5SP1/c7dwsD6VoSV5A+cae9qBXjgOT5VJ6g+ikmuiB2X9YmJKucUNbedYfGZsbteF1Rs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KhzUCvdd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Kfz4ilTQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 256641F00893;
-	Sat, 30 May 2026 01:20:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KhzUCvdd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60F951F00893;
+	Sat, 30 May 2026 01:23:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780104055;
-	bh=ru8BqlWIKVS6uzvtmM8c6hrO++cXlHjRWVNEoPMgmkA=;
+	s=k20260515; t=1780104226;
+	bh=Ls0ERNa26M/LXcK61bMfEjpL+aWZl3dXjat5v1pwgCk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Kfz4ilTQw448EZFpj1D84XKxVvAHAt0LglQDNJMXjY6DbqSwJukrhF7jUAzod7vn4
-	 B9PGeNpL1bFgK9Epq7B78IdgCS3091g5zdUU4DchuvVUYP4CoDKM9KvUAjf4K3su8M
-	 kv0a1dMAeovQRJh0kEf6Y/lC7Ccx9k/pmd6nqngHuvxFMAAMIohohJ4BGdNRnntCDp
-	 U4VG/9hWCkp57y0pPkbLdu2uVcF4d/TVo/YoBRtDSt7ij5qfM29Lq5VCn1CzjKu52l
-	 YjYeSchymyLS+P4JAafVLEVtaLQ2CZ2dMgQmRqFwKqXdYrKrnKPDW2RlqfT1oomG4A
-	 seJyjVd0OCfLA==
+	b=KhzUCvddvWOHXfNEKtQPKv9/GbFKBihTuHtLHLluznh/krt6fV4tZSewC4RnHKmQO
+	 onQa2elIqt5CnXJWdSGe5ySbmqNl3x0zTEvnLFRAMoRyBlkW4kP4l+DgmTYtZn+SfC
+	 XBgyTHF4pzKPgxyg6rq98EGSkwtDM9U12zYNnBDe2QBQpUEODM0Pck3j9vFvZnzbX/
+	 HqvxoT/AWfjBHsPLzpg7FBecqOpn1WHbYEE/tkg4RdYPdcrAFDrm5IiGiFDCQGDCeA
+	 al+gcoHOD5B9gYGAJtffvJpAuka59lfzn2sa6A281ZEJ4cL+RMo12NruOZhlNZKGrK
+	 bFTpnQirT1cCw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Jose Ignacio Tornos Martinez <jtornosm@redhat.com>,
@@ -36,12 +36,12 @@ Cc: Jose Ignacio Tornos Martinez <jtornosm@redhat.com>,
 	Tony Nguyen <anthony.l.nguyen@intel.com>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] ice: fix VF queue configuration with low MTU values
-Date: Fri, 29 May 2026 21:20:52 -0400
-Message-ID: <20260530012052.2574044-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] ice: fix VF queue configuration with low MTU values
+Date: Fri, 29 May 2026 21:23:43 -0400
+Message-ID: <20260530012343.2600440-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026052803-argue-spendable-595e@gregkh>
-References: <2026052803-argue-spendable-595e@gregkh>
+In-Reply-To: <2026052804-fringe-uncaring-cd63@gregkh>
+References: <2026052804-fringe-uncaring-cd63@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -94,10 +94,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/net/ethernet/intel/ice/ice_virtchnl.c b/drivers/net/ethernet/intel/ice/ice_virtchnl.c
-index 1edcf93031831..61c40219de1a0 100644
+index fa9d928081d63..7cc04e7a9eef0 100644
 --- a/drivers/net/ethernet/intel/ice/ice_virtchnl.c
 +++ b/drivers/net/ethernet/intel/ice/ice_virtchnl.c
-@@ -1681,7 +1681,7 @@ static int ice_vc_cfg_qs_msg(struct ice_vf *vf, u8 *msg)
+@@ -1648,7 +1648,7 @@ static int ice_vc_cfg_qs_msg(struct ice_vf *vf, u8 *msg)
  
  			if (qpi->rxq.databuffer_size != 0 &&
  			    (qpi->rxq.databuffer_size > ((16 * 1024) - 128) ||
@@ -105,7 +105,7 @@ index 1edcf93031831..61c40219de1a0 100644
 +			     qpi->rxq.databuffer_size < 128))
  				goto error_param;
  			vsi->rx_buf_len = qpi->rxq.databuffer_size;
- 			ring->rx_buf_len = vsi->rx_buf_len;
+ 			vsi->rx_rings[i]->rx_buf_len = vsi->rx_buf_len;
 -- 
 2.53.0
 
