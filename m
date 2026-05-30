@@ -1,206 +1,196 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B651B185B48;
-	Sat, 30 May 2026 00:30:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9473A26ED59
+	for <stable@vger.kernel.org>; Sat, 30 May 2026 00:50:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780101045; cv=none; b=lH+AOo0UIBegUvq+Aq86i+67K+a16bRn/uVSWmBhV2/J9zyUgRJ51g6ziJtyLdDprdXyMYm7Z3QKEV5ElDnsj6mkdeLS2w7pgqvGYlp6cIqsO/fn/Hz4bMJBLz8vXW3Dd7fZVZyo5Ohd8sQovZ7J5JL17Kwn09QtBtx1fzXnjaU=
+	t=1780102226; cv=none; b=jX7zbze4jBQFI1LiUV2Miv8tbuVrp63CEbgHVYLkfT54B5CHns7NxlB04dDqkfIY9TeYnW8PpmtjsfTQfeE+hxVnc29G7bXF4zNmzsB9wov3qmwr6C+h7jddkptqgp07P8uIvoaqvKgYg9A/x0CaNNI6vmutGjL+J4jWf7HsfPw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780101045; c=relaxed/simple;
-	bh=hf5vLWK44D61F4E5sJP0UG78k4AZAIR+Uwq9t7nH/fg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=C4+1qcgbAzgg82iCNHQaB3mzO8VXpIMfaHpL9QkQeUPzoRRJ2pbff4mGb7piHqWsGA7SNRnjkflUGsjkjswQRB6okAu1Dzkg0rT+Sps/axYG/KM1QeAoxUOvGgCdA0KmL4Qr/k48DGq6lHaSgRqGgIItIzXooKWWfVlNxwZ/xFE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iQ80oYQf; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780102226; c=relaxed/simple;
+	bh=cvQG6tRKXi362IvSgCZgAnNPcXC60TTM92oNoMSU44k=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=EisiJziDfeap5jnBp9EekwQx/Rc6b3wjGy/ZyI3gsza/LMUWUoLzcwVjM6IokaFvrIhZDsnXhpEcJGNrKj1ZeMQm/xReyL35c1zp+hHjltbgT1ydMihf6f/6J7Letb3jHdQRE+7x3DkQYY3Jk7k6P98erU5vr56+LOyF8eS8jPw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wi7pwrCV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iQ80oYQf"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id BECB21F00893;
-	Sat, 30 May 2026 00:30:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wi7pwrCV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B3A21F00893;
+	Sat, 30 May 2026 00:50:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780101044;
-	bh=6eI4zy4Tq766zXKoZs9XoR7a/knH/HX/boy0n1H0AOM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=iQ80oYQfARSQHoqXSPBGldklrCgaGUyCDgCZnKAO1puTJ4kQCnhVU4vZ+o0buzGrl
-	 16g0/4fvolxEQWMgedD9TRFYhaM94+MnyG3zQgH1eDnH3VZqA0N2slY7fSdM05so+V
-	 OUTlRfcyo6e5ZK7GwUF1zLK0Zhj3ak6Q7mqXyloQMym/Ex4mI4EvVA425PjLCDfEoH
-	 ywt044WBwx7ep8Vh8ouChRLgfyrWxDugZLn6ptqOwxKlNwZFOxD18ifUN6UecNlAxh
-	 xMhklPSV0MiaDInxxDa7bDUFnE54njc1bPolpKplyBGdpmhsGebtuS9LhUGwYmVPa9
-	 MrCgPsA7ulGJA==
-Date: Sat, 30 May 2026 03:30:40 +0300
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Michael Bommarito <michael.bommarito@gmail.com>
-Cc: Peter Huewe <peterhuewe@gmx.de>, Jason Gunthorpe <jgg@ziepe.ca>,
-	James Bottomley <James.Bottomley@hansenpartnership.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	linux-integrity@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] tpm: tpm2-sessions: wait for async KPP completion in
- tpm_buf_append_salt
-Message-ID: <ahovsOJ6Vbdx_XEQ@kernel.org>
-References: <20260527184655.1919993-1-michael.bommarito@gmail.com>
+	s=k20260515; t=1780102225;
+	bh=DWZWcylqzhuCA5zMjt9tg72UeJCb4Qp2oQFBQWwDb4c=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Wi7pwrCV1/on7ezhB4xvNTyy5N1nFiHBiIOCpZduzPwWdMdKr/uP9p90XFxuLI4Qa
+	 8IEPKEnNZIjVWUHEkcPwqKI9L+s2lBOaOVsgbxcG7R4id9k+LxMM8jwX7PSCfd6QdK
+	 RynUf/Xy/3b6DJ0sCABJ+OR1E1bB7nuvBsiE5h7fG7EW5MTl4AMlxeNCDyACHtekQC
+	 fuXRw1WFDefGORt+3wFgn+u/7tbEnWQ1wqO3cjaqsDH4ydI/Xju1JB6PJqnJM/U30T
+	 pr/uP32Brv1Ux14H6U4/8Jw85zXvl6qGwdZifNzpEdQ2E+MgOfwTB3D/XTCtxApGEn
+	 qARs+uN8j47xA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Li Xiasong <lixiasong1@huawei.com>,
+	"Matthieu Baerts (NGI0)" <matttbe@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y] mptcp: pm: fix ADD_ADDR timer infinite retry on option space insufficient
+Date: Fri, 29 May 2026 20:50:21 -0400
+Message-ID: <20260530005022.2387154-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026052805-lumpiness-evict-5ec1@gregkh>
+References: <2026052805-lumpiness-evict-5ec1@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260527184655.1919993-1-michael.bommarito@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Wed, May 27, 2026 at 02:46:55PM -0400, Michael Bommarito wrote:
-> tpm_buf_append_salt() in drivers/char/tpm/tpm2-sessions.c calls
-> crypto_kpp_generate_public_key() and crypto_kpp_compute_shared_secret()
-> without installing a completion callback, discards both return values,
-> and immediately frees the kpp_request via kpp_request_free(). When the
-> resolved ecdh-nist-p256 KPP backend is asynchronous (atmel-ecc, HPRE,
-> keembay-ocs), either operation returns -EINPROGRESS and the deferred
-> completion worker dereferences the freed request.
-> 
-> The path fires automatically from the hwrng_fillfn kernel thread via
-> tpm_get_random -> tpm2_get_random -> tpm2_start_auth_session ->
-> tpm_buf_append_salt on every entropy poll, without any userland action.
-> 
-> Install crypto_req_done as the completion callback, wrap both KPP
-> operations in crypto_wait_req(), and propagate errors to the caller.
-> The wait is a no-op for synchronous backends.
-> 
-> Fixes: 1085b8276bb4 ("tpm: Add the rest of the session HMAC API")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Michael Bommarito <michael.bommarito@gmail.com>
-> Assisted-by: Claude:claude-opus-4-7
-> ---
-> 
-> Impact: on a kernel with an async ECDH KPP provider, any local user
-> can reclaim the freed kpp_request slab slot and control the indirect
-> call through req->base.complete. A reproducer is available on request.
-> Filing publicly per security-bugs.rst guidance.
+From: Li Xiasong <lixiasong1@huawei.com>
 
-Please send the reproducer and .config although I think I grasped
-what I need to put but just in case (if only for comparison).
+[ Upstream commit 51e398a3b8961b26a8c0a4ba9a777c5339791707 ]
 
-> 
-> Notes:
-> 
->     Validation (QEMU x86_64, swtpm, async ecdh-nist-p256 stub backend):
->     
->     Stock kernel: the freed kpp_request is reclaimed by an unprivileged
->     heap spray; the deferred completion worker jumps to a controlled
->     address (RIP=0x41414141) via the overwritten req->base.complete
->     callback pointer. Reproduces on production-hardened allocator
->     configs (MEMCG, RANDOM_KMALLOC_CACHES, SLAB_FREELIST_HARDENED,
->     SLAB_FREELIST_RANDOM, INIT_ON_FREE).
->     
->     Patched kernel: crypto_wait_req() blocks until the async backend
->     completes; the worker observes a live request with the correct
->     crypto_req_done callback installed; kpp_request_free() runs only
->     after both operations finish. KASAN-clean across 50 entropy polls.
-> 
->  drivers/char/tpm/tpm2-sessions.c | 36 ++++++++++++++++++++++++--------
->  1 file changed, 27 insertions(+), 9 deletions(-)
-> 
-> diff --git a/drivers/char/tpm/tpm2-sessions.c b/drivers/char/tpm/tpm2-sessions.c
-> index c4da6fde748f4..a23cc3a540c55 100644
-> --- a/drivers/char/tpm/tpm2-sessions.c
-> +++ b/drivers/char/tpm/tpm2-sessions.c
-> @@ -489,15 +489,17 @@ static void tpm2_KDFe(u8 z[EC_PT_SZ], const char *str, u8 *pt_u, u8 *pt_v,
->  	sha256_final(&sctx, out);
->  }
->  
-> -static void tpm_buf_append_salt(struct tpm_buf *buf, struct tpm_chip *chip,
-> -				struct tpm2_auth *auth)
-> +static int tpm_buf_append_salt(struct tpm_buf *buf, struct tpm_chip *chip,
-> +			       struct tpm2_auth *auth)
->  {
->  	struct crypto_kpp *kpp;
->  	struct kpp_request *req;
-> +	DECLARE_CRYPTO_WAIT(wait);
->  	struct scatterlist s[2], d[1];
->  	struct ecdh p = {0};
->  	u8 encoded_key[EC_PT_SZ], *x, *y;
->  	unsigned int buf_len;
-> +	int rc;
->  
->  	/* secret is two sized points */
->  	tpm_buf_append_u16(buf, (EC_PT_SZ + 2)*2);
-> @@ -520,13 +522,14 @@ static void tpm_buf_append_salt(struct tpm_buf *buf, struct tpm_chip *chip,
->  	kpp = crypto_alloc_kpp("ecdh-nist-p256", CRYPTO_ALG_INTERNAL, 0);
->  	if (IS_ERR(kpp)) {
->  		dev_err(&chip->dev, "crypto ecdh allocation failed\n");
-> -		return;
-> +		return PTR_ERR(kpp);
->  	}
->  
->  	buf_len = crypto_ecdh_key_len(&p);
->  	if (sizeof(encoded_key) < buf_len) {
->  		dev_err(&chip->dev, "salt buffer too small needs %d\n",
->  			buf_len);
-> +		rc = -EINVAL;
->  		goto out;
->  	}
->  	crypto_ecdh_encode_key(encoded_key, buf_len, &p);
-> @@ -535,11 +538,17 @@ static void tpm_buf_append_salt(struct tpm_buf *buf, struct tpm_chip *chip,
->  
->  	/* salt is now the public point of this private key */
->  	req = kpp_request_alloc(kpp, GFP_KERNEL);
-> -	if (!req)
-> +	if (!req) {
-> +		rc = -ENOMEM;
->  		goto out;
-> +	}
-> +	kpp_request_set_callback(req, CRYPTO_TFM_REQ_MAY_BACKLOG,
-> +				 crypto_req_done, &wait);
->  	kpp_request_set_input(req, NULL, 0);
->  	kpp_request_set_output(req, s, EC_PT_SZ*2);
-> -	crypto_kpp_generate_public_key(req);
-> +	rc = crypto_wait_req(crypto_kpp_generate_public_key(req), &wait);
-> +	if (rc)
-> +		goto out_free_req;
->  	/*
->  	 * we're not done: now we have to compute the shared secret
->  	 * which is our private key multiplied by the tpm_key public
-> @@ -551,8 +560,9 @@ static void tpm_buf_append_salt(struct tpm_buf *buf, struct tpm_chip *chip,
->  	kpp_request_set_input(req, s, EC_PT_SZ*2);
->  	sg_init_one(d, auth->salt, EC_PT_SZ);
->  	kpp_request_set_output(req, d, EC_PT_SZ);
-> -	crypto_kpp_compute_shared_secret(req);
-> -	kpp_request_free(req);
-> +	rc = crypto_wait_req(crypto_kpp_compute_shared_secret(req), &wait);
-> +	if (rc)
-> +		goto out_free_req;
->  
->  	/*
->  	 * pass the shared secret through KDFe for salt. Note salt
-> @@ -562,8 +572,11 @@ static void tpm_buf_append_salt(struct tpm_buf *buf, struct tpm_chip *chip,
->  	 */
->  	tpm2_KDFe(auth->salt, "SECRET", x, chip->null_ec_key_x, auth->salt);
->  
-> - out:
-> +out_free_req:
-> +	kpp_request_free(req);
-> +out:
->  	crypto_free_kpp(kpp);
-> +	return rc;
->  }
->  
->  /**
-> @@ -1018,7 +1031,12 @@ int tpm2_start_auth_session(struct tpm_chip *chip)
->  	tpm_buf_append(&buf, auth->our_nonce, sizeof(auth->our_nonce));
->  
->  	/* append encrypted salt and squirrel away unencrypted in auth */
-> -	tpm_buf_append_salt(&buf, chip, auth);
-> +	rc = tpm_buf_append_salt(&buf, chip, auth);
-> +	if (rc) {
-> +		tpm2_flush_context(chip, null_key);
-> +		tpm_buf_destroy(&buf);
-> +		goto out;
-> +	}
->  	/* session type (HMAC, audit or policy) */
->  	tpm_buf_append_u8(&buf, TPM2_SE_HMAC);
->  
-> -- 
-> 2.53.0
-> 
-> 
+When TCP option space is insufficient (e.g., when sending ADD_ADDR with an
+IPv6 address and port while tcp_timestamps is enabled), the original code
+jumped to out_unlock without clearing the addr_signal flag. This caused
+mptcp_pm_add_timer to keep rescheduling indefinitely, not sending ADD_ADDR,
+preventing subsequent addresses in the endpoint list from being announced.
 
-BR, Jarkko
+Handle this case by clearing the ADD_ADDR signal and skipping the matching
+ADD_ADDR retransmission entry. The skip path cancels the matching timer
+(with id check) and advances PM state progression, preserving forward
+progress to subsequent PM work.
+
+This cancellation is inherently best-effort. A concurrent add_timer
+callback may already be running and may acquire pm.lock before the
+cancel path updates entry state. In that case, one final ADD_ADDR
+transmit attempt can still be executed.
+
+Once the cancel path sets entry->retrans_times to ADD_ADDR_RETRANS_MAX,
+the callback-side retrans_times check suppresses further ADD_ADDR
+retransmissions.
+
+Note that when an ADD_ADDR is being prepared, a pure-ACK is queued. On
+the output side, it means that it is fine to skip non-pure-ACK packets,
+when drop_other_suboptions is set: a pure-ACK will be processed soon
+after.
+
+Fixes: 00cfd77b9063 ("mptcp: retransmit ADD_ADDR when timeout")
+Cc: stable@vger.kernel.org
+Signed-off-by: Li Xiasong <lixiasong1@huawei.com>
+Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
+Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
+Link: https://patch.msgid.link/20260515-net-mptcp-misc-fixes-7-1-rc4-v2-2-701e96419f2f@kernel.org
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ net/mptcp/pm.c         | 40 +++++++++++++++++++++++++++++++++-------
+ net/mptcp/pm_netlink.c | 16 +++++++++++++---
+ 2 files changed, 46 insertions(+), 10 deletions(-)
+
+diff --git a/net/mptcp/pm.c b/net/mptcp/pm.c
+index 8d2c27c43ee0b..b601dab95a42c 100644
+--- a/net/mptcp/pm.c
++++ b/net/mptcp/pm.c
+@@ -334,6 +334,7 @@ bool mptcp_pm_add_addr_signal(struct mptcp_sock *msk, const struct sk_buff *skb,
+ 			      struct mptcp_addr_info *addr, bool *echo,
+ 			      bool *drop_other_suboptions)
+ {
++	bool skip_add_addr = false;
+ 	int ret = false;
+ 	u8 add_addr;
+ 	u8 family;
+@@ -355,24 +356,49 @@ bool mptcp_pm_add_addr_signal(struct mptcp_sock *msk, const struct sk_buff *skb,
+ 	}
+ 
+ 	*echo = mptcp_pm_should_add_signal_echo(msk);
+-	port = !!(*echo ? msk->pm.remote.port : msk->pm.local.port);
+-
+-	family = *echo ? msk->pm.remote.family : msk->pm.local.family;
+-	if (remaining < mptcp_add_addr_len(family, *echo, port))
+-		goto out_unlock;
+-
+ 	if (*echo) {
+ 		*addr = msk->pm.remote;
+ 		add_addr = msk->pm.addr_signal & ~BIT(MPTCP_ADD_ADDR_ECHO);
++		port = !!msk->pm.remote.port;
++		family = msk->pm.remote.family;
+ 	} else {
+ 		*addr = msk->pm.local;
+ 		add_addr = msk->pm.addr_signal & ~BIT(MPTCP_ADD_ADDR_SIGNAL);
++		port = !!msk->pm.local.port;
++		family = msk->pm.local.family;
+ 	}
+-	WRITE_ONCE(msk->pm.addr_signal, add_addr);
++
++	if (remaining < mptcp_add_addr_len(family, *echo, port)) {
++		struct net *net = sock_net((struct sock *)msk);
++
++		if (!*drop_other_suboptions)
++			goto out_unlock;
++
++		if (*echo) {
++			MPTCP_INC_STATS(net, MPTCP_MIB_ECHOADDTXDROP);
++		} else {
++			skip_add_addr = true;
++			MPTCP_INC_STATS(net, MPTCP_MIB_ADDADDRTXDROP);
++		}
++		goto drop_signal_mark;
++	}
++
+ 	ret = true;
+ 
++drop_signal_mark:
++	WRITE_ONCE(msk->pm.addr_signal, add_addr);
++
+ out_unlock:
+ 	spin_unlock_bh(&msk->pm.lock);
++
++	/* On pure-ACK option-space exhaustion, stop retrying this ADD_ADDR:
++	 * clear the signal bit, cancel the matching retransmission timer, and
++	 * let the PM state machine progress.
++	 */
++	if (skip_add_addr) {
++		mptcp_pm_del_add_timer(msk, addr, true);
++		mptcp_pm_subflow_established(msk);
++	}
+ 	return ret;
+ }
+ 
+diff --git a/net/mptcp/pm_netlink.c b/net/mptcp/pm_netlink.c
+index 5d892583ab4ef..1609428ac06d9 100644
+--- a/net/mptcp/pm_netlink.c
++++ b/net/mptcp/pm_netlink.c
+@@ -325,7 +325,13 @@ static void mptcp_pm_add_timer(struct timer_list *timer)
+ 
+ 	spin_lock_bh(&msk->pm.lock);
+ 
+-	if (!mptcp_pm_should_add_signal_addr(msk)) {
++	/* The cancel path (mptcp_pm_del_add_timer()) can race with this
++	 * callback. Once cancel updates retrans_times to MAX, suppress further
++	 * retransmissions here. If this callback acquires pm.lock first, one
++	 * final transmit attempt is still possible.
++	 */
++	if (entry->retrans_times < ADD_ADDR_RETRANS_MAX &&
++	    !mptcp_pm_should_add_signal_addr(msk)) {
+ 		pr_debug("retransmit ADD_ADDR id=%d\n", entry->addr.id);
+ 		mptcp_pm_announce_addr(msk, &entry->addr, false);
+ 		mptcp_pm_add_addr_send_ack(msk);
+@@ -369,8 +375,12 @@ mptcp_pm_del_add_timer(struct mptcp_sock *msk,
+ 	/* Note: entry might have been removed by another thread.
+ 	 * We hold rcu_read_lock() to ensure it is not freed under us.
+ 	 */
+-	if (stop_timer)
+-		sk_stop_timer_sync(sk, &entry->add_timer);
++	if (stop_timer) {
++		if (check_id)
++			sk_stop_timer(sk, &entry->add_timer);
++		else
++			sk_stop_timer_sync(sk, &entry->add_timer);
++	}
+ 
+ 	rcu_read_unlock();
+ 	return entry;
+-- 
+2.53.0
+
