@@ -1,124 +1,388 @@
-Received: from mail-oo1-f47.google.com (mail-oo1-f47.google.com [209.85.161.47])
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40C443976AD
-	for <stable@vger.kernel.org>; Sat, 30 May 2026 10:02:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.161.47
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780135376; cv=pass; b=XS/0rzyqm9KZq5L7L4YskzHwKok66CRAKps5nG91Bocghryr+3XTX4m6IaXBYTPuKyxu6Qa+9m9bUlV75vuvuaPfM/613GsvJmbvc+yjDPCy6OwUFaG/yyxKrCHUjWnjcFN6Y5rcKi7F0O/C/YnT0TvRoCfsF3adColylDGcxbc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780135376; c=relaxed/simple;
-	bh=aRV0xyZX79AA+2ptor+ckfoSILpcXRbuSrq8Ab8c8tk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=iWWv4XxUgeoSPelnsRu0Xvg6+EtgCHhT9HJVoUjqrpZ8gllXP/iBtFUpWB8oJ2e7mLkSdwuK2Yii20h6571ayCCc3j7IXUyBA3T4DRJSVDeHuhR1cd1XXtoNsIg5m+Zsk16KgJTijRGIZxN9Wwal8EO1efry7H1MYFVb/hsnfj4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Iy9/C2v0; arc=pass smtp.client-ip=209.85.161.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E6BB3C1F
+	for <stable@vger.kernel.org>; Sat, 30 May 2026 10:21:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780136463; cv=none; b=WBM1t25cPjFiguDnH23RMxHM8Wsc/vSZFjDfutOm+g9gX4ihxE9QPPtAaWCxFt2mYvvZPobo3+2haVpcMtVFWb0oKv6szmhqOznIpf6QWHU0OSCHNtraAeJNdu621X185q8pSQB0yqkwI/wdHCW0g7lJniVdkA/mquAH6chQdIA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780136463; c=relaxed/simple;
+	bh=G2H4VNnDUs5XUueZIobtvk1uyhhGiN6Mm5vbC5DlGM8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=fBpf24b1Wnu3aBZEVks0d8s8oB4LjAvUaNYItxlWdSAq8DSERuzXEihrdJfXnzPyqm5UhDmPvGGq+0Ew0brYWDBdoBlfmeiM0Pu84o/TVcCh9+WvpulRGAjZ+HTBTqB26All6KWtHqIXmWKfaY5b5jNuU9xH8igBoSyIwo+F8+M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XyPbnE30; arc=none smtp.client-ip=209.85.128.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Iy9/C2v0"
-Received: by mail-oo1-f47.google.com with SMTP id 006d021491bc7-69d60694c9bso5330287eaf.2
-        for <stable@vger.kernel.org>; Sat, 30 May 2026 03:02:54 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1780135373; cv=none;
-        d=google.com; s=arc-20240605;
-        b=aLpz9MNEWAPbgunHxuOpWCC5hLE1noIlGcm1N7stliPhJOZzRmLGQyxZrmS65HJ6oU
-         xXIFl3FhVXoJSG2fZCWs44aPa2ePlY4ffAssDMEjBcV9PMSab196OCwk9wcA5wk8zx8X
-         pI3LkGpKUTIHwsCmiinCBAYSOkV5eo1y8g7mRXgzHY9P06C5wvTLSlnI+9V1LWFmHUs9
-         vuaQImhZlgeO74xhID4cpju+UGcDmu10sMkiL3T8L67NegYq2P+lW8dzxDkV8SwWc2oH
-         Lz8t4eCNA3jdHGLMpmrcD3ODiRJiMQakKdD40BF+NUfxbPQan7AR5f3sj4hwJ8UJLG1g
-         Yg+w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=wA1aH6CmxX7A5iRyqGW8vvL57CBSLJoeivyspRD1x3E=;
-        fh=j1ey+4aCSeSha+D1dl8Ja+HDrbYsYkpeFCqFwYUgSjE=;
-        b=hmJsQbiOEz4DLQMLPIyzybMV5FbC0qxUAEexrcDLNwfjNZmrTTl0FosyIjUN+6yXeE
-         nvHLRXSshcKUsxa3DSweodCqtJXmish1Hv0DHmAZm78oaKpNHx0LVSxGLXjAkP1jDJCs
-         WBRkIhsIwO9HZ0PnN3CdJxG1oLw0Dma2oNPknd9PEMHSPwdNc2I2saksnsmJyg6AJp20
-         DCP4fT4TRgQMAJwEd53DcCoH3lg6L36H+/ORrfb+GVM7XpeGI9nOwvSc1CAnYTa4DQR4
-         s2QY0Dp73VmGAi0uMsCjOCDDfvzurRTnWMHcPSa/kDt2Bzzpqq/J+tgLBA/4EKpK5abi
-         GCoQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XyPbnE30"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-49041e84237so70185515e9.1
+        for <stable@vger.kernel.org>; Sat, 30 May 2026 03:21:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780135373; x=1780740173; darn=vger.kernel.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=wA1aH6CmxX7A5iRyqGW8vvL57CBSLJoeivyspRD1x3E=;
-        b=Iy9/C2v0BdretmYRmz0PX2XkiUjK+vgBEUlFQY491bBYz1g3NxciHOQ4rDg1Q6UaBw
-         sm0Lmi32B/+5LWXkLk4IKYmlW7kqNqj0NiLDn/4w65XgOXfDGvg/NxR8vgwkl7ht+608
-         hFQBPBz1BBoB89l0JTKBpPlMi+cJry/s7TmF5j4hoeo6xlBocGR+1ftaPOy6XFr/OWCU
-         iS/kcXvtdVw7f0dMVmraiInjxAM5LYB11hWmQ8cHbHhlWKIAWxmfC4cMzio/1FgwuqXZ
-         keLN5Mrr8Iu45suvk+ItCguyPikem61TrW9RbVZTvQE+Z+w5mnP0+87A7g3uxRqxvLcz
-         kYDA==
+        d=gmail.com; s=20251104; t=1780136460; x=1780741260; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=/5iL54slSEG9uXbaeaKITPpQk2F01eVqtxgSPAEZYv4=;
+        b=XyPbnE308yKf+/W+OJNXG7RZ2ByBWrQx9lJ95q13gQb6Tqd0jsdIMIEpBh/zbXwaC9
+         uBMhm2LrFk+BTvgJgE8k/Ga9HzCOlmEi+MAR9uARl1VAdHWmRmvpB5TqJKEQhqGOrvn8
+         ozdj+QD48u99Rr5RkobY7xP/35m00fM2Hwn8o2reGIkWRLMo4vX2nz3plc/l6q+az0ym
+         RWjNWeHI4ywFslqg520cjGMBWcAg7TqXreloRCmAUgJR03klkauviWPbzlgJlZ3eJ8G/
+         J7cLYq9JUxNoUwl/ukv673QmcFNbXYBIJ2B8pg7AAprp8fomiwqDYkRFdfmDKteZp7MD
+         lpcA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780135373; x=1780740173;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=wA1aH6CmxX7A5iRyqGW8vvL57CBSLJoeivyspRD1x3E=;
-        b=iwo38Lzs19Kt9Ju5w2Zvb+eK49kHGoYFyLJ/EzplCI5MRwEACsT4hvqXTa2Zb5WgIZ
-         HbR86BXS2qTBLVWAotWyEHNKBPcJXd/LGULjwrJ9kEQLGF2+Ru4vRrd5Poux5b9zrjx1
-         7qByfux+mwNDJriOjSbck2orAIMxcO7eSlkXo+97dZ6KrQRmq4WlMdk/P4sSGjCzN6D7
-         +tSltPE2zMsNOaAqMHHxZLGMqLI4nvjT0Z2Z1lysk4ixPaXl6+OVoOspVoNqUhXFlCvL
-         K7yQGAjfe3NVWpXcb6oTbL4j0+qkmg5XY4nlbwaBqBXJyR8+SqBWzT6ovpl6tudKhNCd
-         JaeQ==
-X-Forwarded-Encrypted: i=1; AFNElJ+uBPGnZVSG6Pln/UbyeoVOI14lULH/wcLW9yDodFgvZYTl8AXuO8BXurLVbJElQX4owLtKqyQ=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwczjxZ5yfw6PVnKeaHTfsaUb18IO+i8mNKU32y/iyC2OSBoGZj
-	eviP2KDFsWEl6iXU0rpgQkLkPeDbuEoPfJ5alDkA8PNR+XA3QfyikROKxs/PxO4BZkIEgYJqMLr
-	5vbdXvAUFjFZ4r86aNeRMzSE6Viots3U=
-X-Gm-Gg: Acq92OE9hE7fBBhZb3OvKuJqbcDNnSFgLtP38ODn9/9H2g9hFn4QoXK7mjg0YxneTmM
-	Dm3SPe5mzwPppmf9Z2znwrhZsqwP0Cp8pzTt49VmESlwjReJWNgZQpTKok1//wwoJosy16sI6hQ
-	DXEnltzf1kvOMMN9LCJIT2wxulWpC83OFVh1ZWlbd3pCexX3SzFw5AfvDgo1JnGWqzNT3zUoiPH
-	heEC38Mv5dWZQLGJT7FTx6uvAI6PSKIeDLiISpss/R1Bpgu0Tw5u4Hv8BL0wUCOgXMIMUkEjX4n
-	LJoDnSjVwoUawhhNY1e4H22ldjOHby+RErl3XnJu14QL2ctMsAwc80yvFAk=
-X-Received: by 2002:a05:6820:1c91:b0:69d:d5f5:1727 with SMTP id
- 006d021491bc7-69e102b1853mr1483383eaf.5.1780135373192; Sat, 30 May 2026
- 03:02:53 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1780136460; x=1780741260;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=/5iL54slSEG9uXbaeaKITPpQk2F01eVqtxgSPAEZYv4=;
+        b=Un6LUgtq8CHSzkhsq22sKxmZ+nVZF8AYLoS33nOtmncMThSIvHgHq98PhbqKiQIr7U
+         Z99rV1cxf05mSDhryK7uwhDUJGi38x05uiWwPq05bQnLOzinaKiwhmQzcmCw9x8GIIs6
+         wlr9/SCdSsUySoKDWsFdLYXLADg19Q4jU7tTD7D8/F3UeXcY1efBwlr7jcABxndl2bdS
+         WEyx36deDIsLuiazh7P9sJ2ckeKXdXb0jPP9J2mAWpn5gl13bdUumGsze6RPwO53YsNi
+         aoyo0RLSJp0t4jY2Ua7eomVsLNCSudL6+ZFb339W2kWqjphpKz0eNbCceE8jkjA23ZiP
+         Z9Dw==
+X-Forwarded-Encrypted: i=1; AFNElJ8NFsAYyfl8+lW/koJstUE0l9rXKxBFT2SxFaRbzls1qnOf3YYdBrxCCq5V2f5zh26QFJo6+jY=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyenE+qlYTB59EDU4kpbGoZkXlP5LE/6red7BlbpXKn8CmtXQTZ
+	fV0B3N4jL+YzRjzqrshtbogatfauEk6RjiJufJ8U7pX7/T3svkm1kxnFXR14cA==
+X-Gm-Gg: Acq92OHWCmI6wUntYahmTSXV5alTbetLv0q20dkxRGWKhC3FgUFyDOaFvmzTm7dnx/x
+	WDh0cwIDPwSrxSpuEFiqS7oO9/mSf8jimnjFKAJ3iFy8XSI+K4zs+OBYku9YQDbd3JmkrkrrCnh
+	78bkUAIzsojeLVFVPr2rRXBIEShWAzmxtpqgNE5w0gtUL+eVEqHW16VduUjy7xrcpQGAUfcnHie
+	L/tXoSpBjHvL3JGM0fqhluSdB13LFfaFCSZKvhOGvTj9dXq6c8Yn5nMXpdmWmoNOIV0VpEzf1XC
+	tTLksXmKsRZbtkjxyWGJ+uKMo/YxAF3s8g3HXTS69ZJllm6DCBH9juJnRjnHd7HuXKmCYqug2Kt
+	nvb2+6fNRHruoJAsIPfX9QyVoEARrAcYSsAHdf6h/nGlh+0FnY133aohVAuDQtW+RduNSpfjMWw
+	sMjuGO0+GPDLOY41XPqRSLxn0licQmShX0ht/7BbD+ADONRO2hzsZjKwyYpRiMyGF0QNbIDhQVl
+	1WpezhzzLa6VzQPhAidC2sKBgBkj2OcxLzRHxobzL8=
+X-Received: by 2002:a05:600c:8b5b:b0:490:9dc3:3483 with SMTP id 5b1f17b1804b1-490a2a02a43mr41843095e9.2.1780136459593;
+        Sat, 30 May 2026 03:20:59 -0700 (PDT)
+Received: from shift (p200300d5ff07e00050f496fffe46beef.dip0.t-ipconnect.de. [2003:d5:ff07:e000:50f4:96ff:fe46:beef])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4909c104920sm32015845e9.21.2026.05.30.03.20.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 30 May 2026 03:20:58 -0700 (PDT)
+Received: from localhost ([127.0.0.1])
+	by shift.daheim with esmtp (Exim 4.99.3)
+	(envelope-from <chunkeey@gmail.com>)
+	id 1wTGjX-000000002mX-1Lcb;
+	Sat, 30 May 2026 12:20:57 +0200
+Message-ID: <e0b3cfc2-c6da-46d4-9dec-027dafaba74e@gmail.com>
+Date: Sat, 30 May 2026 12:20:57 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260529024429.6942-1-devnexen@gmail.com> <20260529050649.14109-1-devnexen@gmail.com>
- <ahqh3Zv8xXNENzHb@zed>
-In-Reply-To: <ahqh3Zv8xXNENzHb@zed>
-From: David CARLIER <devnexen@gmail.com>
-Date: Sat, 30 May 2026 11:02:40 +0100
-X-Gm-Features: AVHnY4IJRqkWaRtmQ6e3Icb9LwRiaPlqA4vFhZ-emg9TT2H0DQQNJB7tXh01f5E
-Message-ID: <CA+XhMqyhpn0kHgz=i9WUS+1rFN4kWW3DpUYubBN1k-qcKo+RpQ@mail.gmail.com>
-Subject: Re: [PATCH v2] media: mali-c55: fix integer overflow in scaler factor calculation
-To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-Cc: Daniel Scally <dan.scally@ideasonboard.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Hans Verkuil <hverkuil+cisco@kernel.org>, Nayden Kanchev <nayden.kanchev@arm.com>, 
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] crypto: crypto4xx - Remove insecure and unused rng_alg
+To: Eric Biggers <ebiggers@kernel.org>, linux-crypto@vger.kernel.org,
+ Herbert Xu <herbert@gondor.apana.org.au>
+Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260529220430.34135-1-ebiggers@kernel.org>
+Content-Language: de-DE
+From: Christian Lamparter <chunkeey@gmail.com>
+In-Reply-To: <20260529220430.34135-1-ebiggers@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Jacopo,
+Hi!
 
-  On Sat, May 30, 2026 at 10:55:59AM +0200, Jacopo Mondi wrote:
-  > Have you hit this issue ?
+On 5/30/26 12:04 AM, Eric Biggers wrote:
+> Remove crypto4xx_rng, as it is insecure and unused:
+> 
+> - It has only a 64-bit security strength, which is highly inadequate.
+>    This can be seen by the fact that crypto4xx_hw_init() seeds it with
+>    only 64 bits of entropy, and the fact that the original commit
+>    mentions that it implements ANSI X9.17 Annex C.
 
-  Not on hardware, I found it by code analysis. The sink format is clamped to
-  8192 and crop is clamped against the sink, so crop->width can reach
-  4096+, where (crop << 20) overflows 32 bits before landing in the u64.
-  I don't have a >=4096 source to reproduce on, but it's provable from the
-  operand widths and the clamp. UHD (3840) is just under; 4096 gives a
-  zero increment, wider values a garbage one.
+Yes, that "ANSI X9.17 Annex C" comes from the datasheet for the PRNG.
 
-  > Could we maybe first do the crop/scale division and then do the Q4.20
-  > conversion ? We could maybe save the below do_div() [...]
+>    Another issue was that this driver didn't implement the crypto_rng API
+>    correctly, as crypto4xx_prng_generate() didn't return 0 on success.
 
-  I don't think we can - dividing first loses the fraction the Q4.20
-  factor is there to keep. E.g. crop=4096, scale=1920:
+Oh! Hmm, I think I copied that "return amount;" from another driver that
+had it implemented? But I'm not sure, this was sooo long ago. That said,
+if this never worked...
 
-    correct:      4096 * 2^20 / 1920 = 2236962  (~2.133)
-    divide-first: (4096 / 1920) << 20 = 2097152  (2.0)   -> ~6.7% off
+> - No user of this code is known.  It's usable only theoretically via the
+>    "rng" algorithm type of AF_ALG.  But userspace actually just uses the
+>    actual Linux RNG (/dev/random etc) instead.  And rng_algs don't
+>    contribute entropy to the actual Linux RNG either.  (This may have
+>    been confused with hwrng, which does contribute entropy.)
 
-  So the multiply has to come first, and that pushes the numerator up to
-  8192 * 2^20 = 2^33, which needs a 64-bit divide either way. BIT_ULL()
-  just does the existing multiply in 64-bit. Happy to switch do_div() to
-  div_u64() if you prefer, but that's orthogonal.
+... and it's completely redundant: Sure!
 
-Cheers !
+just in case, this counts for anything, but as the person that added it in the
+first place:
+
+Acked-by: Christian Lamparter <chunkeey@gmail.com>
+
+> Fixes: d072bfa48853 ("crypto: crypto4xx - add prng crypto support")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Eric Biggers <ebiggers@kernel.org>
+> ---
+>   drivers/crypto/Kconfig                  |  1 -
+>   drivers/crypto/amcc/crypto4xx_core.c    | 88 -------------------------
+>   drivers/crypto/amcc/crypto4xx_core.h    |  4 --
+>   drivers/crypto/amcc/crypto4xx_reg_def.h | 11 ----
+>   4 files changed, 104 deletions(-)
+> 
+> diff --git a/drivers/crypto/Kconfig b/drivers/crypto/Kconfig
+> index 3449b3c9c6ad..5dab813a9f74 100644
+> --- a/drivers/crypto/Kconfig
+> +++ b/drivers/crypto/Kconfig
+> @@ -299,11 +299,10 @@ config CRYPTO_DEV_PPC4XX
+>   	select CRYPTO_AES
+>   	select CRYPTO_LIB_AES
+>   	select CRYPTO_CCM
+>   	select CRYPTO_CTR
+>   	select CRYPTO_GCM
+> -	select CRYPTO_RNG
+>   	select CRYPTO_SKCIPHER
+>   	help
+>   	  This option allows you to have support for AMCC crypto acceleration.
+>   
+>   config HW_RANDOM_PPC4XX
+> diff --git a/drivers/crypto/amcc/crypto4xx_core.c b/drivers/crypto/amcc/crypto4xx_core.c
+> index b7b6c97d2147..68c5ff7a85b4 100644
+> --- a/drivers/crypto/amcc/crypto4xx_core.c
+> +++ b/drivers/crypto/amcc/crypto4xx_core.c
+> @@ -29,15 +29,13 @@
+>   #include <crypto/aead.h>
+>   #include <crypto/aes.h>
+>   #include <crypto/ctr.h>
+>   #include <crypto/gcm.h>
+>   #include <crypto/sha1.h>
+> -#include <crypto/rng.h>
+>   #include <crypto/scatterwalk.h>
+>   #include <crypto/skcipher.h>
+>   #include <crypto/internal/aead.h>
+> -#include <crypto/internal/rng.h>
+>   #include <crypto/internal/skcipher.h>
+>   #include "crypto4xx_reg_def.h"
+>   #include "crypto4xx_core.h"
+>   #include "crypto4xx_sa.h"
+>   #include "crypto4xx_trng.h"
+> @@ -983,14 +981,10 @@ static int crypto4xx_register_alg(struct crypto4xx_device *sec_dev,
+>   		switch (alg->alg.type) {
+>   		case CRYPTO_ALG_TYPE_AEAD:
+>   			rc = crypto_register_aead(&alg->alg.u.aead);
+>   			break;
+>   
+> -		case CRYPTO_ALG_TYPE_RNG:
+> -			rc = crypto_register_rng(&alg->alg.u.rng);
+> -			break;
+> -
+>   		default:
+>   			rc = crypto_register_skcipher(&alg->alg.u.cipher);
+>   			break;
+>   		}
+>   
+> @@ -1012,14 +1006,10 @@ static void crypto4xx_unregister_alg(struct crypto4xx_device *sec_dev)
+>   		switch (alg->alg.type) {
+>   		case CRYPTO_ALG_TYPE_AEAD:
+>   			crypto_unregister_aead(&alg->alg.u.aead);
+>   			break;
+>   
+> -		case CRYPTO_ALG_TYPE_RNG:
+> -			crypto_unregister_rng(&alg->alg.u.rng);
+> -			break;
+> -
+>   		default:
+>   			crypto_unregister_skcipher(&alg->alg.u.cipher);
+>   		}
+>   		kfree(alg);
+>   	}
+> @@ -1074,73 +1064,10 @@ static irqreturn_t crypto4xx_ce_interrupt_handler_revb(int irq, void *data)
+>   {
+>   	return crypto4xx_interrupt_handler(irq, data, PPC4XX_INTERRUPT_CLR |
+>   		PPC4XX_TMO_ERR_INT);
+>   }
+>   
+> -static int ppc4xx_prng_data_read(struct crypto4xx_device *dev,
+> -				 u8 *data, unsigned int max)
+> -{
+> -	unsigned int i, curr = 0;
+> -	u32 val[2];
+> -
+> -	do {
+> -		/* trigger PRN generation */
+> -		writel(PPC4XX_PRNG_CTRL_AUTO_EN,
+> -		       dev->ce_base + CRYPTO4XX_PRNG_CTRL);
+> -
+> -		for (i = 0; i < 1024; i++) {
+> -			/* usually 19 iterations are enough */
+> -			if ((readl(dev->ce_base + CRYPTO4XX_PRNG_STAT) &
+> -			     CRYPTO4XX_PRNG_STAT_BUSY))
+> -				continue;
+> -
+> -			val[0] = readl_be(dev->ce_base + CRYPTO4XX_PRNG_RES_0);
+> -			val[1] = readl_be(dev->ce_base + CRYPTO4XX_PRNG_RES_1);
+> -			break;
+> -		}
+> -		if (i == 1024)
+> -			return -ETIMEDOUT;
+> -
+> -		if ((max - curr) >= 8) {
+> -			memcpy(data, &val, 8);
+> -			data += 8;
+> -			curr += 8;
+> -		} else {
+> -			/* copy only remaining bytes */
+> -			memcpy(data, &val, max - curr);
+> -			break;
+> -		}
+> -	} while (curr < max);
+> -
+> -	return curr;
+> -}
+> -
+> -static int crypto4xx_prng_generate(struct crypto_rng *tfm,
+> -				   const u8 *src, unsigned int slen,
+> -				   u8 *dstn, unsigned int dlen)
+> -{
+> -	struct rng_alg *alg = crypto_rng_alg(tfm);
+> -	struct crypto4xx_alg *amcc_alg;
+> -	struct crypto4xx_device *dev;
+> -	int ret;
+> -
+> -	amcc_alg = container_of(alg, struct crypto4xx_alg, alg.u.rng);
+> -	dev = amcc_alg->dev;
+> -
+> -	mutex_lock(&dev->core_dev->rng_lock);
+> -	ret = ppc4xx_prng_data_read(dev, dstn, dlen);
+> -	mutex_unlock(&dev->core_dev->rng_lock);
+> -	return ret;
+> -}
+> -
+> -
+> -static int crypto4xx_prng_seed(struct crypto_rng *tfm, const u8 *seed,
+> -			unsigned int slen)
+> -{
+> -	return 0;
+> -}
+> -
+>   /*
+>    * Supported Crypto Algorithms
+>    */
+>   static struct crypto4xx_alg_common crypto4xx_alg[] = {
+>   	/* Crypto AES modes */
+> @@ -1266,22 +1193,10 @@ static struct crypto4xx_alg_common crypto4xx_alg[] = {
+>   			.cra_blocksize	= 1,
+>   			.cra_ctxsize	= sizeof(struct crypto4xx_ctx),
+>   			.cra_module	= THIS_MODULE,
+>   		},
+>   	} },
+> -	{ .type = CRYPTO_ALG_TYPE_RNG, .u.rng = {
+> -		.base = {
+> -			.cra_name		= "stdrng",
+> -			.cra_driver_name        = "crypto4xx_rng",
+> -			.cra_priority		= 300,
+> -			.cra_ctxsize		= 0,
+> -			.cra_module		= THIS_MODULE,
+> -		},
+> -		.generate               = crypto4xx_prng_generate,
+> -		.seed                   = crypto4xx_prng_seed,
+> -		.seedsize               = 0,
+> -	} },
+>   };
+>   
+>   /*
+>    * Module Initialization Routine
+>    */
+> @@ -1351,13 +1266,10 @@ static int crypto4xx_probe(struct platform_device *ofdev)
+>   	}
+>   
+>   	core_dev->dev->core_dev = core_dev;
+>   	core_dev->dev->is_revb = is_revb;
+>   	core_dev->device = dev;
+> -	rc = devm_mutex_init(&ofdev->dev, &core_dev->rng_lock);
+> -	if (rc)
+> -		return rc;
+>   	spin_lock_init(&core_dev->lock);
+>   	INIT_LIST_HEAD(&core_dev->dev->alg_list);
+>   	ratelimit_default_init(&core_dev->dev->aead_ratelimit);
+>   	rc = crypto4xx_build_sdr(core_dev->dev);
+>   	if (rc)
+> diff --git a/drivers/crypto/amcc/crypto4xx_core.h b/drivers/crypto/amcc/crypto4xx_core.h
+> index ee36630c670f..3a028aec3f0c 100644
+> --- a/drivers/crypto/amcc/crypto4xx_core.h
+> +++ b/drivers/crypto/amcc/crypto4xx_core.h
+> @@ -12,14 +12,12 @@
+>   
+>   #ifndef __CRYPTO4XX_CORE_H__
+>   #define __CRYPTO4XX_CORE_H__
+>   
+>   #include <linux/ratelimit.h>
+> -#include <linux/mutex.h>
+>   #include <linux/scatterlist.h>
+>   #include <crypto/internal/aead.h>
+> -#include <crypto/internal/rng.h>
+>   #include <crypto/internal/skcipher.h>
+>   #include "crypto4xx_reg_def.h"
+>   #include "crypto4xx_sa.h"
+>   
+>   #define PPC460SX_SDR0_SRST                      0x201
+> @@ -109,11 +107,10 @@ struct crypto4xx_core_device {
+>   	struct hwrng *trng;
+>   	u32 int_status;
+>   	u32 irq;
+>   	struct tasklet_struct tasklet;
+>   	spinlock_t lock;
+> -	struct mutex rng_lock;
+>   };
+>   
+>   struct crypto4xx_ctx {
+>   	struct crypto4xx_device *dev;
+>   	struct dynamic_sa_ctl *sa_in;
+> @@ -133,11 +130,10 @@ struct crypto4xx_aead_reqctx {
+>   struct crypto4xx_alg_common {
+>   	u32 type;
+>   	union {
+>   		struct skcipher_alg cipher;
+>   		struct aead_alg aead;
+> -		struct rng_alg rng;
+>   	} u;
+>   };
+>   
+>   struct crypto4xx_alg {
+>   	struct list_head  entry;
+> diff --git a/drivers/crypto/amcc/crypto4xx_reg_def.h b/drivers/crypto/amcc/crypto4xx_reg_def.h
+> index 1038061224da..73d626308a84 100644
+> --- a/drivers/crypto/amcc/crypto4xx_reg_def.h
+> +++ b/drivers/crypto/amcc/crypto4xx_reg_def.h
+> @@ -88,24 +88,13 @@
+>   
+>   #define CRYPTO4XX_DMA_CFG	        	0x000600d4
+>   #define CRYPTO4XX_BYTE_ORDER_CFG 		0x000600d8
+>   #define CRYPTO4XX_ENDIAN_CFG			0x000600d8
+>   
+> -#define CRYPTO4XX_PRNG_STAT			0x00070000
+> -#define CRYPTO4XX_PRNG_STAT_BUSY		0x1
+>   #define CRYPTO4XX_PRNG_CTRL			0x00070004
+>   #define CRYPTO4XX_PRNG_SEED_L			0x00070008
+>   #define CRYPTO4XX_PRNG_SEED_H			0x0007000c
+> -
+> -#define CRYPTO4XX_PRNG_RES_0			0x00070020
+> -#define CRYPTO4XX_PRNG_RES_1			0x00070024
+> -#define CRYPTO4XX_PRNG_RES_2			0x00070028
+> -#define CRYPTO4XX_PRNG_RES_3			0x0007002C
+> -
+> -#define CRYPTO4XX_PRNG_LFSR_L			0x00070030
+> -#define CRYPTO4XX_PRNG_LFSR_H			0x00070034
+> -
+
+Hmm, don't think these defines will hurt anyone? As these are part of the hardware spec.
+Or do you forsee a future where AI-Agents will sent patches hallucinating that it "fixed"
+the issue which readds it? I have no idea.
+
+>   /*
+>    * Initialize CRYPTO ENGINE registers, and memory bases.
+>    */
+>   #define PPC4XX_PDR_POLL				0x3ff
+>   #define PPC4XX_OUTPUT_THRESHOLD			2
+
+
+Cheers,
+Christian
