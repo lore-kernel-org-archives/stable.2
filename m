@@ -1,108 +1,208 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 744663537D0;
-	Sat, 30 May 2026 08:56:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 752CF369D79;
+	Sat, 30 May 2026 09:38:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780131374; cv=none; b=j98eBTr9YZx5THcjM0BzLIHMMkDjcYvXGleRp3aseISmAs/ofmnkx/JeDvtZwg1L1hoxgzf1cIqtmyeL6hPWIx0/WyuDErgg7AffKcid2UstFW8v32WiwVKB6GOEHeZxIHxBT2v4EvEvayO09Ru6iVCRq9eoMuo6cSZziYy5lH8=
+	t=1780133931; cv=none; b=ZXb99pz97Elw9Vn1RlW+Sbu7Y0SThZCa8lbDFs6glBqN+xfhbeASAFVTekeU+UotggOlthX+F08F4SLG3w+ZoKAz4NcltKSsW8haMEPHNHxO/+HrBhI+5g9AovaDYE8dtSdxPbb5VgHtDoT9HexbO/pN/ozh6AxlH4AXNeqdmEE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780131374; c=relaxed/simple;
-	bh=e9BpaDkO6dh8loJgBYte5yvZkPQd5EXFNkw/7Gmg234=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rN8sXN81VBXok+c3IeOZU21lhYVl1ig2N6d1nEHny9/FOacGpsaluhBzap4yzSm2oZjeCiqF5lQnaKkTxkJywfu3LRc554ZfdZDk6mhnK4PZtHAz+iJupXTUrJOF8MlsfWkvUwnddzEhM4/CeKJvHkrX6JW/dL1jxJqGX1VQkJg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=hbXMiGwD; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1780133931; c=relaxed/simple;
+	bh=QsQdsNIoFR1555oDa3GUNCVMgvmy34178PlWtLaq9pc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=jdLNrSQQXirpaa9PRRTixQenlklBdc+hx6mPEOJYqA1I6YRr9cLWkYV4WQJi8cussXAeZ4q/Tb0uXMPNxCJFyGS0fOqTUBtad3XoI+w3s9PCK1LYKpwUhmqzTdiqZic1DcCbk1w2teoigH8OZbu1AiuVUSpa7/WzqhvSxjkZwgo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=1XIsxWrF; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=N7R4UQLI; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="hbXMiGwD"
-Received: from ideasonboard.com (mob-83-225-32-59.net.vodafone.it [83.225.32.59])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 27C8D9A4;
-	Sat, 30 May 2026 10:55:41 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1780131342;
-	bh=e9BpaDkO6dh8loJgBYte5yvZkPQd5EXFNkw/7Gmg234=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=hbXMiGwDufgWQhqnfraasHhLQcAmXvSl7H/1DFTGfeio4R0KyiyaT1ZOUwfl1OKrU
-	 tkeVrMw94TC08CoRLLPH1690PLHk4RgoH68FqQy6W4zQrFUNEEAhMTjGkWuC1kyh5D
-	 5Lw8GQfLhfGLWASoI+O1tQkCkQrrR0X2WUpoqc+o=
-Date: Sat, 30 May 2026 10:55:59 +0200
-From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-To: David Carlier <devnexen@gmail.com>
-Cc: Daniel Scally <dan.scally@ideasonboard.com>, 
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Hans Verkuil <hverkuil+cisco@kernel.org>, Nayden Kanchev <nayden.kanchev@arm.com>, 
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2] media: mali-c55: fix integer overflow in scaler
- factor calculation
-Message-ID: <ahqh3Zv8xXNENzHb@zed>
-References: <20260529024429.6942-1-devnexen@gmail.com>
- <20260529050649.14109-1-devnexen@gmail.com>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="1XIsxWrF";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="N7R4UQLI"
+From: Nam Cao <namcao@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1780133922;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=HjRzonH4lrOcAeFBkSlTRxm4za4mUMOgtiS6VkGSjis=;
+	b=1XIsxWrF+WtLg5mVwCnQKlhJdfcBHDdASMLxTsgtzJNQ99YdfMwUvPz8DFT77ibNKN7xEH
+	XAHEbwiGTCF68/zfM4PDy/jhgsa/L+AO7P9huc6CP9s3h8W/lLks8sMRb9VuFZSBsK0eVs
+	/WC0vtYZahkeRT/J6kr1gF+rjQ0pbZ5zjwFJMHNdzx2wBSUMQoOnU2AO0enz9Tly6EXYcz
+	bNPKE1ho5/A7WfYBz6xBp3jcFQdXYG1o6F8NeOnr/82vDN8jZDFmbJ23LXp38xOVIOsH6K
+	wJxI75w+OrbUXSlKaeCvtV0z7oo1pTCUxOnvfFexu9C+d/DmYVDnWheHVklmGQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1780133922;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=HjRzonH4lrOcAeFBkSlTRxm4za4mUMOgtiS6VkGSjis=;
+	b=N7R4UQLIG4QxtgycWs0IzvJPLvviqAvU0BSchKRh7KgSYuAnRVG/4ZaSiqBfYSgA7BlDAf
+	+GBkas3UNoYp1bBQ==
+To: Christian Brauner <brauner@kernel.org>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	Jan Kara <jack@suse.cz>,
+	Shuah Khan <shuah@kernel.org>,
+	Davidlohr Bueso <dave@stgolabs.net>,
+	Soheil Hassas Yeganeh <soheil@google.com>,
+	Mateusz Guzik <mjguzik@gmail.com>,
+	David Laight <david.laight.linux@gmail.com>,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org
+Cc: Nam Cao <namcao@linutronix.de>,
+	stable@vger.kernel.org
+Subject: [PATCH v2 2/2] eventpoll: Fix epoll_wait() report false negative
+Date: Sat, 30 May 2026 11:37:32 +0200
+Message-ID: <f773406fd0a6979e94921900d4428e8da1a71523.1780133499.git.namcao@linutronix.de>
+In-Reply-To: <cover.1780133499.git.namcao@linutronix.de>
+References: <cover.1780133499.git.namcao@linutronix.de>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260529050649.14109-1-devnexen@gmail.com>
+Content-Transfer-Encoding: quoted-printable
 
-Hi David
+ep_events_available() checks for available events by looking at ep->rdllist
+and ep->ovflist. However, this is done without a lock and can report false
+negative if rdllist and ovflist are changed in ep_start_scan() or
+ep_done_scan() by another task. For example:
+___________________________________________________________________________=
+_________
+                                           |ep_start_scan()
+                                           |  list_splice_init(&ep->rdllist=
+, txlist)
+ep_events_available()                      |
+  !list_empty_careful(&ep->rdllist) ||     |
+  READ_ONCE(ep->ovflist) !=3D EP_UNACTIVE_PTR|
+	                                   |  WRITE_ONCE(ep->ovflist, NULL)
+___________________________________________|_______________________________=
+_________
 
-On Fri, May 29, 2026 at 06:06:49AM +0100, David Carlier wrote:
-> The scaling factors are computed by multiplying the crop dimension by
-> the Q4.20 unit (1 << 20) and dividing by the output dimension. The
-> results are stored in u64, but both operands are 32-bit, so the product
-> is evaluated in 32-bit arithmetic and only widened afterwards.
->
-> Crop dimensions may be up to 8192. Once a dimension reaches 4096 the
-> product overflows 32 bits and wraps (zero at exactly 4096), programming
-> a corrupted scaling increment and corrupting the downscaled output.
->
+Another example:
+___________________________________________________________________________=
+_________
+ep_events_available()                      |
+                                           |ep_start_scan()
+                                           |  list_splice_init(&ep->rdllist=
+, txlist);
+	                                   |  WRITE_ONCE(ep->ovflist, NULL);
+  !list_empty_careful(&ep->rdllist) ||     |
+                                           |ep_done_scan()
+                                           |  WRITE_ONCE(ep->ovflist, EP_UN=
+ACTIVE_PTR);
+                                           |  list_splice(txlist, &ep->rdll=
+ist);
+  READ_ONCE(ep->ovflist) !=3D EP_UNACTIVE_PTR|
+___________________________________________|_______________________________=
+_________
 
-Have you hit this issue ?
+In the above examples, ep_events_available() sees no event from both
+rdllist and ovflist despite event being available.
 
-> Define the fixed-point unit as unsigned long long so the multiplication
-> is done in 64-bit arithmetic.
+Introduce a sequence lock to resolve this issue.
 
-I guess the h/v scale computation could also be done differently in
-the driver code.
+Measuring the time consumption of 10 million loop iterations doing
+epoll_wait(), the following performance drop is observed:
 
-We currently first transform the crop rectangle sizes to Q4.20 format
-and then divide by the scale rectangle sizes and this, as you
-correctly pointed out, could cause overflows as 32-bits arithmetic is
-used.
+   timeout  #event  before    after    diff
+     0ms      0     3727ms   3974ms   +6.6%
+     0ms      1     8099ms   9134ms    +13%
+     1ms      1    13525ms  13586ms  +0.45%
 
-Could we maybe first do the crop/scale division and then do the Q4.20
-conversion ? We could maybe save the below do_div() if we're in 32
-bits domain ? (I'm not actually 100% sure if do_div() is desirable
-regardless or not).
+Considering the use case of epoll_wait() (wait for events, do something
+with the events, repeat), it should only contribute to a small portion of
+user's CPU consumption. Therefore this performance drop is not alarming.
 
->
-> Fixes: d5f281f3dd29 ("media: mali-c55: Add Mali-C55 ISP driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: David Carlier <devnexen@gmail.com>
-> ---
-> v2: Use the BIT_ULL() macro instead of an open-coded (1ULL << 20)
->     (checkpatch).
-> ---
->  drivers/media/platform/arm/mali-c55/mali-c55-resizer.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-resizer.c b/drivers/media/platform/arm/mali-c55/mali-c55-resizer.c
-> index c4f46651dcee..6706939b4a90 100644
-> --- a/drivers/media/platform/arm/mali-c55/mali-c55-resizer.c
-> +++ b/drivers/media/platform/arm/mali-c55/mali-c55-resizer.c
-> @@ -15,7 +15,7 @@
->  #include "mali-c55-registers.h"
->
->  /* Scaling factor in Q4.20 format. */
-> -#define MALI_C55_RSZ_SCALER_FACTOR	(1U << 20)
-> +#define MALI_C55_RSZ_SCALER_FACTOR	BIT_ULL(20)
->
->  #define MALI_C55_RSZ_COEFS_BANKS	8
->  #define MALI_C55_RSZ_COEFS_ENTRIES	64
-> --
-> 2.53.0
->
+Fixes: c5a282e9635e ("fs/epoll: reduce the scope of wq lock in epoll_wait()=
+")
+Suggested-by: Mateusz Guzik <mjguzik@gmail.com>
+Signed-off-by: Nam Cao <namcao@linutronix.de>
+Cc: stable@vger.kernel.org
+---
+ fs/eventpoll.c | 20 +++++++++++++++++++-
+ 1 file changed, 19 insertions(+), 1 deletion(-)
+
+diff --git a/fs/eventpoll.c b/fs/eventpoll.c
+index a3090b446af1..58248862e5ee 100644
+--- a/fs/eventpoll.c
++++ b/fs/eventpoll.c
+@@ -38,6 +38,7 @@
+ #include <linux/compat.h>
+ #include <linux/rculist.h>
+ #include <linux/capability.h>
++#include <linux/seqlock.h>
+ #include <net/busy_poll.h>
+=20
+ /*
+@@ -190,6 +191,9 @@ struct eventpoll {
+ 	/* Lock which protects rdllist and ovflist */
+ 	spinlock_t lock;
+=20
++	/* Protect switching between rdllist and ovflist */
++	seqcount_spinlock_t seq;
++
+ 	/* RB tree root used to store monitored fd structs */
+ 	struct rb_root_cached rbr;
+=20
+@@ -382,8 +386,11 @@ static inline struct epitem *ep_item_from_wait(wait_qu=
+eue_entry_t *p)
+  */
+ static inline int ep_events_available(struct eventpoll *ep)
+ {
++	unsigned int seq =3D read_seqcount_begin(&ep->seq);
++
+ 	return !list_empty_careful(&ep->rdllist) ||
+-		READ_ONCE(ep->ovflist) !=3D EP_UNACTIVE_PTR;
++		READ_ONCE(ep->ovflist) !=3D EP_UNACTIVE_PTR ||
++		read_seqcount_retry(&ep->seq, seq);
+ }
+=20
+ #ifdef CONFIG_NET_RX_BUSY_POLL
+@@ -735,8 +742,12 @@ static void ep_start_scan(struct eventpoll *ep, struct=
+ list_head *txlist)
+ 	 */
+ 	lockdep_assert_irqs_enabled();
+ 	spin_lock_irq(&ep->lock);
++	write_seqcount_begin(&ep->seq);
++
+ 	list_splice_init(&ep->rdllist, txlist);
+ 	WRITE_ONCE(ep->ovflist, NULL);
++
++	write_seqcount_end(&ep->seq);
+ 	spin_unlock_irq(&ep->lock);
+ }
+=20
+@@ -768,6 +779,9 @@ static void ep_done_scan(struct eventpoll *ep,
+ 			ep_pm_stay_awake(epi);
+ 		}
+ 	}
++
++	write_seqcount_begin(&ep->seq);
++
+ 	/*
+ 	 * We need to set back ep->ovflist to EP_UNACTIVE_PTR, so that after
+ 	 * releasing the lock, events will be queued in the normal way inside
+@@ -779,6 +793,9 @@ static void ep_done_scan(struct eventpoll *ep,
+ 	 * Quickly re-inject items left on "txlist".
+ 	 */
+ 	list_splice(txlist, &ep->rdllist);
++
++	write_seqcount_end(&ep->seq);
++
+ 	__pm_relax(ep->ws);
+=20
+ 	if (!list_empty(&ep->rdllist)) {
+@@ -1155,6 +1172,7 @@ static int ep_alloc(struct eventpoll **pep)
+=20
+ 	mutex_init(&ep->mtx);
+ 	spin_lock_init(&ep->lock);
++	seqcount_spinlock_init(&ep->seq, &ep->lock);
+ 	init_waitqueue_head(&ep->wq);
+ 	init_waitqueue_head(&ep->poll_wait);
+ 	INIT_LIST_HEAD(&ep->rdllist);
+--=20
+2.47.3
+
