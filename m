@@ -1,41 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7F67352022;
-	Sat, 30 May 2026 20:45:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96FD2355819;
+	Sat, 30 May 2026 20:45:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780173944; cv=none; b=aWJyfkymE76/BF9OpzylsFJ+AM2QszsE7Kg0Enkk8kQ4m24xCyKnoaM4Rl89AQbBBNTGmLBfi6aHqKKkyKd+C+161/QJ0ExaclL1uBlIFbiJrs26FXkvXDkomrS8cjKwuLt2Zw/giIXxfDZoBJVhIRnzh7xZu5KuiTvy2dJg7fI=
+	t=1780173946; cv=none; b=lzqvRYlPuNIxfq/6CCUTboQP4t+gW+nRhYueXooS88UxyI3q6dYeXb985bnqgW9/DbOHBctQIzJMJ6hkMQqfqNdmqG47VvUKnVNjmDeVDSCsxs7Ieca/Jy9ZMZ6bMvs5ebNqBYUo7YBJm/rtiEHTNNIUphS6GEnuaYzOJlZ7wl8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780173944; c=relaxed/simple;
-	bh=09iULX3L/L4V9t85WZL43bXoI4CBZl1LSiLCFd6Qd3I=;
+	s=arc-20240116; t=1780173946; c=relaxed/simple;
+	bh=ivtVcWkO/v1V1f72OYLD+Kr2+OjL1goztC6IflZtIec=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jvkZ2+2dnSjaj6HFbIBCBhQ+tUe8zfZlZjxtm4L8UdYjma2ur+9I4B3D7KC90lLkOWfRibLpSAIeXc3h45PmxttAfq9dRvsyC/Np58Fux7zj73bu2d+fhgYEjNxuzlPLIzw0V1uXZMp4Ji2xdPXRytm+EtGiinyK0ztLyxevV34=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NZ8C3tFp; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=gdXwl5EIa4MxbnS5DIAK6Cg2XmIkF8w7SbI7dAknyIZFlRB8wTi0vtUcbXfnBsJIKLHS62bQ4HQX0bsD/jPoV7F1uk5M5hCAHz5/ktQ+MwNMqNj8DT//+XKtRelB+d31o1HyzF8woY177+3tjtRyXYpd/LDPFoiMgGzG7aL34Mg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nYOSuZWm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NZ8C3tFp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1CD81F0089A;
-	Sat, 30 May 2026 20:45:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nYOSuZWm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7FDE1F00899;
+	Sat, 30 May 2026 20:45:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780173943;
-	bh=HRxagvXZddwvmbuhDxGbZLEVAk+J9P4idy2x6+WVz8o=;
+	s=k20260515; t=1780173945;
+	bh=tLisUHuKI53t4eaaqFPc74kLG5u7gVAwhsx0GXoeEZc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NZ8C3tFplF6YCq/OCPfKg4sV+MYF6imiRJtMOni2IGjalbF2VwpPYnuQWMBMX5ZbT
-	 WykHePyyrfd07xi/c+z7UgbeU8hIxa7CJkF7dTJqQRRon0FaNa1XmNclKkD/sIz5wf
-	 T2NzQsLx6Z9TSBYJUVuviwb7rtOHEg1zYXYCbSHq8Fn8DIn6MzAtDwvWLq4zyli/Xs
-	 XxCOI5YmDu7YDgQxEjU6sKNYB20moG+xrZDutnBEXwKHKd7hF+R4RiTVLJmAqIObvn
-	 i7jbM8dq0M9gWEbAtxYR6r8TcM1Na32ItP/7B2S8XymaOJtYGT7SSxgFpx81HtxN1o
-	 IRuOmZJzWTm+w==
+	b=nYOSuZWmhUpCeb6hMb+cbFkSs/leMZbl0EuvXMSUfCptHK9KScwImprs98DvXhaVr
+	 HbqDhAlqkiC47en1owjn3NI+RALPJRr4z+SZR/Q/VvBj/LBN+hv0xY4ZXPCpUawbee
+	 LLDcmMgwgEYB4Zd5Brq2JBBMBUC6a/jk4Ltw+pduYcdJMrRApRlOCcJD7l6524T4p+
+	 RpKLooU1YVTs7l4ohw1aRvlT8ETYMOIKF7KY7s1W59eblp9hu4nkVxv/ugmv3spE9z
+	 q0OwGZ3cLFechYELp6+/H4Dcfeh3QSyI6sg5GK7j2CAq4lBtTYeQFRybCdX0+qsiAx
+	 Q30jYqTEXWPvA==
 From: srini@kernel.org
 To: gregkh@linuxfoundation.org
 Cc: linux-kernel@vger.kernel.org,
-	Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
+	Zhenghang Xiao <kipreyyy@gmail.com>,
 	stable@vger.kernel.org,
-	Bjorn Andersson <andersson@kernel.org>,
 	Srinivas Kandagatla <srini@kernel.org>
-Subject: [PATCH 3/4] misc: fastrpc: Fix NULL pointer dereference in rpmsg callback
-Date: Sat, 30 May 2026 21:45:27 +0100
-Message-ID: <20260530204528.116920-4-srini@kernel.org>
+Subject: [PATCH 4/4] misc: fastrpc: fix use-after-free race in fastrpc_map_create
+Date: Sat, 30 May 2026 21:45:28 +0100
+Message-ID: <20260530204528.116920-5-srini@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260530204528.116920-1-srini@kernel.org>
 References: <20260530204528.116920-1-srini@kernel.org>
@@ -47,77 +46,84 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+From: Zhenghang Xiao <kipreyyy@gmail.com>
 
-A NULL pointer dereference was observed on Hawi at boot when the DSP
-sends a glink message before fastrpc_rpmsg_probe() has completed
-initialization:
+fastrpc_map_lookup returns a raw pointer after releasing fl->lock. The
+caller fastrpc_map_create then calls fastrpc_map_get (kref_get_unless_zero)
+on this unprotected pointer. A concurrent MEM_UNMAP can free the map
+between the lock release and the kref operation, resulting in a
+use-after-free on the freed slab object.
 
-  Unable to handle kernel NULL pointer dereference at virtual address 0000000000000178
-  pc : _raw_spin_lock_irqsave+0x34/0x8c
-  lr : fastrpc_rpmsg_callback+0x3c/0xcc [fastrpc]
-  ...
-  Call trace:
-   _raw_spin_lock_irqsave+0x34/0x8c (P)
-   fastrpc_rpmsg_callback+0x3c/0xcc [fastrpc]
-   qcom_glink_native_rx+0x538/0x6a4
-   qcom_glink_smem_intr+0x14/0x24 [qcom_glink_smem]
+Restore the take_ref parameter to fastrpc_map_lookup so the reference
+is acquired atomically under fl->lock before the pointer is exposed to
+the caller.
 
-The faulting address 0x178 corresponds to the lock variable inside
-struct fastrpc_channel_ctx, confirming that cctx is NULL when
-fastrpc_rpmsg_callback() attempts to take the spinlock.
-
-There are two issues here. First, dev_set_drvdata() is called before
-spin_lock_init() and idr_init(), leaving a window where the callback
-can retrieve a valid cctx pointer but operate on an uninitialized
-spinlock. Second, the rpmsg channel becomes live as soon as the driver
-is bound, so fastrpc_rpmsg_callback() can fire before dev_set_drvdata()
-is called at all, resulting in dev_get_drvdata() returning NULL.
-
-Fix both issues by moving all cctx initialization ahead of
-dev_set_drvdata() so the structure is fully initialized before it
-becomes visible to the callback, and add a NULL check in
-fastrpc_rpmsg_callback() as a guard against any remaining window.
-
-Fixes: f6f9279f2bf0 ("misc: fastrpc: Add Qualcomm fastrpc basic driver model")
+Fixes: 10df039834f8 ("misc: fastrpc: Skip reference for DMA handles")
 Cc: stable@vger.kernel.org
-Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-Reviewed-by: Bjorn Andersson <andersson@kernel.org>
+Signed-off-by: Zhenghang Xiao <kipreyyy@gmail.com>
 Signed-off-by: Srinivas Kandagatla <srini@kernel.org>
 ---
- drivers/misc/fastrpc.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ drivers/misc/fastrpc.c | 25 +++++++++++--------------
+ 1 file changed, 11 insertions(+), 14 deletions(-)
 
 diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-index cca7489605c5..47cf3d21b51d 100644
+index 47cf3d21b51d..f3a49384586d 100644
 --- a/drivers/misc/fastrpc.c
 +++ b/drivers/misc/fastrpc.c
-@@ -2460,7 +2460,6 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
+@@ -388,7 +388,7 @@ static int fastrpc_map_get(struct fastrpc_map *map)
  
- 	kref_init(&data->refcount);
  
--	dev_set_drvdata(&rpdev->dev, data);
- 	rdev->dma_mask = &data->dma_mask;
- 	dma_set_mask_and_coherent(rdev, DMA_BIT_MASK(32));
- 	INIT_LIST_HEAD(&data->users);
-@@ -2469,6 +2468,7 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
- 	idr_init(&data->ctx_idr);
- 	data->domain_id = domain_id;
- 	data->rpdev = rpdev;
-+	dev_set_drvdata(&rpdev->dev, data);
+ static int fastrpc_map_lookup(struct fastrpc_user *fl, int fd,
+-			    struct fastrpc_map **ppmap)
++			    struct fastrpc_map **ppmap, bool take_ref)
+ {
+ 	struct fastrpc_map *map = NULL;
+ 	struct dma_buf *buf;
+@@ -403,6 +403,12 @@ static int fastrpc_map_lookup(struct fastrpc_user *fl, int fd,
+ 		if (map->fd != fd || map->buf != buf)
+ 			continue;
  
- 	err = of_platform_populate(rdev->of_node, NULL, NULL, rdev);
- 	if (err)
-@@ -2542,6 +2542,9 @@ static int fastrpc_rpmsg_callback(struct rpmsg_device *rpdev, void *data,
- 	if (len < sizeof(*rsp))
- 		return -EINVAL;
- 
-+	if (!cctx)
-+		return -ENODEV;
++		if (take_ref) {
++			ret = fastrpc_map_get(map);
++			if (ret)
++				break;
++		}
 +
- 	ctxid = ((rsp->ctx & FASTRPC_CTXID_MASK) >> 4);
+ 		*ppmap = map;
+ 		ret = 0;
+ 		break;
+@@ -920,19 +926,10 @@ static int fastrpc_map_attach(struct fastrpc_user *fl, int fd,
+ static int fastrpc_map_create(struct fastrpc_user *fl, int fd,
+ 			      u64 len, u32 attr, struct fastrpc_map **ppmap)
+ {
+-	struct fastrpc_session_ctx *sess = fl->sctx;
+-	int err = 0;
+-
+-	if (!fastrpc_map_lookup(fl, fd, ppmap)) {
+-		if (!fastrpc_map_get(*ppmap))
+-			return 0;
+-		dev_dbg(sess->dev, "%s: Failed to get map fd=%d\n",
+-			__func__, fd);
+-	}
+-
+-	err = fastrpc_map_attach(fl, fd, len, attr, ppmap);
++	if (!fastrpc_map_lookup(fl, fd, ppmap, true))
++		return 0;
  
- 	spin_lock_irqsave(&cctx->lock, flags);
+-	return err;
++	return fastrpc_map_attach(fl, fd, len, attr, ppmap);
+ }
+ 
+ /*
+@@ -1202,7 +1199,7 @@ static int fastrpc_put_args(struct fastrpc_invoke_ctx *ctx,
+ 	for (i = 0; i < FASTRPC_MAX_FDLIST; i++) {
+ 		if (!fdlist[i])
+ 			break;
+-		if (!fastrpc_map_lookup(fl, (int)fdlist[i], &mmap))
++		if (!fastrpc_map_lookup(fl, (int)fdlist[i], &mmap, false))
+ 			fastrpc_map_put(mmap);
+ 	}
+ 
 -- 
 2.53.0
 
