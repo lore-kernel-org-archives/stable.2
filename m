@@ -1,246 +1,80 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BFEB2343BE
-	for <stable@vger.kernel.org>; Sat, 30 May 2026 18:57:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C692628C5CB;
+	Sat, 30 May 2026 19:12:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780167442; cv=none; b=UT6Se/Xw4vo/IpRoBLKaiZmejdaSCWH/NjqnhmWX2mitnkuOb8RrB0BNQadDof0ZoDIm41bZVi7R8ItwZjo4xzPK5NeelFodRPhTxgY7x4HOx4jPP5GwEn9U7RgJRSyeKIqMZ48jSRcDQtTGUV3ZW/2kxkmVXxbAtn2JrlwHuk4=
+	t=1780168333; cv=none; b=QfO44Vw6ZrPvzt4OlakJHlYGCmaZGPryDsx7nVDiAEZ2Z41eH9u1vbg/scC8ZPtJZLm1gFTwpUIXByC7a2HonRtKfWgEIoHW1KTo3qa1Yjqi8CgIGKCNjqnHxZmParG+WqxbNDh4eViv8Vqi/+5bIiHRkIs+pwBqLbJI1sDmO3U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780167442; c=relaxed/simple;
-	bh=OMdq6DcdL40XMgkjllqdLF0EynRVjgvdLMAsdwSKI9w=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QNKaVRArGM8FTBm1UCs2FxjsmfZcDL69qCoa9kEee9UI2DKKPWikobbooS6PHB/rKYd1Ow3O2YCH9+1PQbMgGGZuPe1aEC6I/QuZyLbCNsiTM0gUZmJc40SAcgrVLfqRIKF3L8DlcJCcxhEvj0lID8MJrBZeA7ly5Ly1UkLTImg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=YuIGeCEa; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=WFiXfchG; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=YuIGeCEa; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=WFiXfchG; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1780168333; c=relaxed/simple;
+	bh=DJcr0gSSpMZr6xUdirV2SS3XS4yWuzkl58yJTUak94Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=RaMth5ymtVXATYF6/VMIGj1uiPEV2mvPBNmHbZKMJri+lv2EMLce5G/pA+86lZYJ6k05CyTZylU7bnddsiBgkbn4vv/9GAFA5c1DSq6nOKFc3I8C+Oz46ILbYYaAGw2yPgj5qLY3af3MNDloRtMmtGynfA/j7putdw/QGFTid+E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bOs1jz+o; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="YuIGeCEa";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="WFiXfchG";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="YuIGeCEa";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="WFiXfchG"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 0E9516B4BB;
-	Sat, 30 May 2026 18:57:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1780167439; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Hl/6Hzud/qMAEKC5HoBcZ2QJGJfPgZbaNL6g80kRCHI=;
-	b=YuIGeCEaAF6DXSEV9p+bzu2xWrP2fbBeqfMTGFC0z1xqwdcnrNCpHQQ0dynNqZ40HMJxe1
-	iFoHKN+LmX3eNKz9U+yt7f8JxG6T0fXu01BdkE9Wor7twmfxxg9TkFgbrd+M+capiHBkFN
-	903mZE+p0Fz+J3SdAEyf76HqZLeGpYg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1780167439;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Hl/6Hzud/qMAEKC5HoBcZ2QJGJfPgZbaNL6g80kRCHI=;
-	b=WFiXfchGAIswK0jbtZnq+9xxyJg0fco5nwMZHi7HeaVnHZckbpLnn5SXtCErvLrwm22/Hs
-	0+aEDGqU24vSJlAg==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1780167439; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Hl/6Hzud/qMAEKC5HoBcZ2QJGJfPgZbaNL6g80kRCHI=;
-	b=YuIGeCEaAF6DXSEV9p+bzu2xWrP2fbBeqfMTGFC0z1xqwdcnrNCpHQQ0dynNqZ40HMJxe1
-	iFoHKN+LmX3eNKz9U+yt7f8JxG6T0fXu01BdkE9Wor7twmfxxg9TkFgbrd+M+capiHBkFN
-	903mZE+p0Fz+J3SdAEyf76HqZLeGpYg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1780167439;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Hl/6Hzud/qMAEKC5HoBcZ2QJGJfPgZbaNL6g80kRCHI=;
-	b=WFiXfchGAIswK0jbtZnq+9xxyJg0fco5nwMZHi7HeaVnHZckbpLnn5SXtCErvLrwm22/Hs
-	0+aEDGqU24vSJlAg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7DF6F779A8;
-	Sat, 30 May 2026 18:57:18 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id iOCSHQ4zG2rXUwAAD6G6ig
-	(envelope-from <tzimmermann@suse.de>); Sat, 30 May 2026 18:57:18 +0000
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: mripard@kernel.org,
-	maarten.lankhorst@linux.intel.com,
-	airlied@redhat.com,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	admin@kodeit.net,
-	gargaditya08@proton.me,
-	paul@crapouillou.net,
-	jani.nikula@linux.intel.com,
-	mhklinux@outlook.com,
-	zack.rusin@broadcom.com,
-	bcm-kernel-feedback-list@broadcom.com
-Cc: dri-devel@lists.freedesktop.org,
-	linux-hyperv@vger.kernel.org,
-	intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org,
-	linux-mips@vger.kernel.org,
-	virtualization@lists.linux.dev,
-	Thomas Zimmermann <tzimmermann@suse.de>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bOs1jz+o"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4BF51F00893;
+	Sat, 30 May 2026 19:12:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780168332;
+	bh=wuWV0UDN7XNlhZhb++Cgiht7/YenA/gl8ofUZVO9VMk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=bOs1jz+oauIQCmArH/fPM8HDOOrAHv/F7bMYh+FHVbJubtmHf+sgKD/tCUW6TEsbE
+	 g256mN5wQ8CrEDMqDbFm3vhO/CtWEcENaGGoHDYmArQm1RWWX+mPCxyGX2BubIx9tZ
+	 r+RR3/n/qEyxuUkcBhsTBdWLn4rVWGZ/ssSwSB0+X2eFJcaC+y5/m/QBViyZkbfqN+
+	 /XonNk8OwW9Yg3ykoNOFeNBkE2Old6QgDvjtPaefzwddrSeOZqxx0tybAxKhLtj160
+	 UYMeLhE/juU/JfS1Kg8C2h1ku/qWXuwnN9ckhkB1d2gj+0/8wiHu4702aBTgGhf6ce
+	 pEL+SjY785pVw==
+Date: Sat, 30 May 2026 12:12:07 -0700
+From: Eric Biggers <ebiggers@kernel.org>
+To: Christian Lamparter <chunkeey@gmail.com>
+Cc: linux-crypto@vger.kernel.org, Herbert Xu <herbert@gondor.apana.org.au>,
+	linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH v4 01/10] drm/damage-helper: Do not alter damage clips on modeset, but ignore them
-Date: Sat, 30 May 2026 20:53:14 +0200
-Message-ID: <20260530185716.65688-2-tzimmermann@suse.de>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260530185716.65688-1-tzimmermann@suse.de>
-References: <20260530185716.65688-1-tzimmermann@suse.de>
+Subject: Re: [PATCH] crypto: crypto4xx - Remove insecure and unused rng_alg
+Message-ID: <20260530191207.GA6807@quark>
+References: <20260529220430.34135-1-ebiggers@kernel.org>
+ <e0b3cfc2-c6da-46d4-9dec-027dafaba74e@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spam-Level: 
-X-Spam-Score: -6.79
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-6.79 / 50.00];
-	REPLY(-4.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_MISSING_CHARSET(0.50)[];
-	NEURAL_HAM_SHORT(-0.19)[-0.970];
-	MIME_GOOD(-0.10)[text/plain];
-	ARC_NA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:email,suse.de:mid,lists.freedesktop.org:email,broadcom.com:email];
-	RCPT_COUNT_TWELVE(0.00)[20];
-	MIME_TRACE(0.00)[0:+];
-	TO_DN_SOME(0.00)[];
-	FUZZY_RATELIMITED(0.00)[rspamd.com];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_TO(0.00)[kernel.org,linux.intel.com,redhat.com,gmail.com,ffwll.ch,kodeit.net,proton.me,crapouillou.net,outlook.com,broadcom.com];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	R_RATELIMIT(0.00)[to_ip_from(RLqqu4k9zio1uathxs7idfp4sa)];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com,outlook.com]
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <e0b3cfc2-c6da-46d4-9dec-027dafaba74e@gmail.com>
 
-User space supplies rectangles for damage clipping in a plane property.
-For full mode sets, drivers still require a full plane update. In this
-case, leave the information as-is and set the ignore_damage_clips flag
-instead. The damage iterator will later ignore any damage information.
+On Sat, May 30, 2026 at 12:20:57PM +0200, Christian Lamparter wrote:
+> > diff --git a/drivers/crypto/amcc/crypto4xx_reg_def.h b/drivers/crypto/amcc/crypto4xx_reg_def.h
+> > index 1038061224da..73d626308a84 100644
+> > --- a/drivers/crypto/amcc/crypto4xx_reg_def.h
+> > +++ b/drivers/crypto/amcc/crypto4xx_reg_def.h
+> > @@ -88,24 +88,13 @@
+> >   #define CRYPTO4XX_DMA_CFG	        	0x000600d4
+> >   #define CRYPTO4XX_BYTE_ORDER_CFG 		0x000600d8
+> >   #define CRYPTO4XX_ENDIAN_CFG			0x000600d8
+> > -#define CRYPTO4XX_PRNG_STAT			0x00070000
+> > -#define CRYPTO4XX_PRNG_STAT_BUSY		0x1
+> >   #define CRYPTO4XX_PRNG_CTRL			0x00070004
+> >   #define CRYPTO4XX_PRNG_SEED_L			0x00070008
+> >   #define CRYPTO4XX_PRNG_SEED_H			0x0007000c
+> > -
+> > -#define CRYPTO4XX_PRNG_RES_0			0x00070020
+> > -#define CRYPTO4XX_PRNG_RES_1			0x00070024
+> > -#define CRYPTO4XX_PRNG_RES_2			0x00070028
+> > -#define CRYPTO4XX_PRNG_RES_3			0x0007002C
+> > -
+> > -#define CRYPTO4XX_PRNG_LFSR_L			0x00070030
+> > -#define CRYPTO4XX_PRNG_LFSR_H			0x00070034
+> > -
+> 
+> Hmm, don't think these defines will hurt anyone? As these are part of the hardware spec.
+> Or do you forsee a future where AI-Agents will sent patches hallucinating that it "fixed"
+> the issue which readds it? I have no idea.
 
-Also fixes a bug where ignore_damage_clips was not cleared across plane-
-state duplications.
+Well, there's not really any point in keeping these when they aren't
+used.
 
-Leaving the damage information as-is might be helpful to drivers that
-benefit from this information even on full modesets (e.g., for cache
-management). It will also help with consolidating the damage-handling
-logic.
-
-Also add a new unit test that evaluates the ignore_damage_clips flag. It
-sets two damage clips plus the flag and tests if the reported damage
-covers the entire framebuffer.
-
-v4:
-- slightly reword the commit description
-
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Fixes: 35ed38d58257 ("drm: Allow drivers to indicate the damage helpers to ignore damage clips")
-Acked-by: Zack Rusin <zack.rusin@broadcom.com>
-Cc: dri-devel@lists.freedesktop.org
-Cc: <stable@vger.kernel.org> # v6.10+
----
- drivers/gpu/drm/drm_atomic_state_helper.c     |  1 +
- drivers/gpu/drm/drm_damage_helper.c           |  6 ++--
- .../gpu/drm/tests/drm_damage_helper_test.c    | 28 +++++++++++++++++++
- 3 files changed, 31 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/drm_atomic_state_helper.c b/drivers/gpu/drm/drm_atomic_state_helper.c
-index cc70508d4fdb..84d5231ccac1 100644
---- a/drivers/gpu/drm/drm_atomic_state_helper.c
-+++ b/drivers/gpu/drm/drm_atomic_state_helper.c
-@@ -359,6 +359,7 @@ void __drm_atomic_helper_plane_duplicate_state(struct drm_plane *plane,
- 	state->fence = NULL;
- 	state->commit = NULL;
- 	state->fb_damage_clips = NULL;
-+	state->ignore_damage_clips = false;
- 	state->color_mgmt_changed = false;
- }
- EXPORT_SYMBOL(__drm_atomic_helper_plane_duplicate_state);
-diff --git a/drivers/gpu/drm/drm_damage_helper.c b/drivers/gpu/drm/drm_damage_helper.c
-index 74a7f4252ecf..945fac8dc27b 100644
---- a/drivers/gpu/drm/drm_damage_helper.c
-+++ b/drivers/gpu/drm/drm_damage_helper.c
-@@ -78,10 +78,8 @@ void drm_atomic_helper_check_plane_damage(struct drm_atomic_commit *state,
- 		if (WARN_ON(!crtc_state))
- 			return;
- 
--		if (drm_atomic_crtc_needs_modeset(crtc_state)) {
--			drm_property_blob_put(plane_state->fb_damage_clips);
--			plane_state->fb_damage_clips = NULL;
--		}
-+		if (drm_atomic_crtc_needs_modeset(crtc_state))
-+			plane_state->ignore_damage_clips = true;
- 	}
- }
- EXPORT_SYMBOL(drm_atomic_helper_check_plane_damage);
-diff --git a/drivers/gpu/drm/tests/drm_damage_helper_test.c b/drivers/gpu/drm/tests/drm_damage_helper_test.c
-index 0df2e1a54b0d..64f038a62ffe 100644
---- a/drivers/gpu/drm/tests/drm_damage_helper_test.c
-+++ b/drivers/gpu/drm/tests/drm_damage_helper_test.c
-@@ -603,6 +603,33 @@ static void drm_test_damage_iter_damage_not_visible(struct kunit *test)
- 	KUNIT_EXPECT_EQ_MSG(test, num_hits, 0, "Should not return any damage.");
- }
- 
-+static void drm_test_damage_iter_damage_ignore(struct kunit *test)
-+{
-+	struct drm_damage_mock *mock = test->priv;
-+	struct drm_atomic_helper_damage_iter iter;
-+	struct drm_property_blob damage_blob;
-+	struct drm_mode_rect damage[2];
-+	struct drm_rect clip;
-+	u32 num_hits = 0;
-+
-+	set_plane_src(&mock->old_state, 0, 0, 1024 << 16, 768 << 16);
-+	set_plane_src(&mock->state, 0, 0, 1024 << 16, 768 << 16);
-+	/* 2 damage clips, but ignore them. */
-+	set_damage_clip(&damage[0], 20, 30, 200, 180);
-+	set_damage_clip(&damage[1], 240, 200, 280, 250);
-+	set_damage_blob(&damage_blob, &damage[0], sizeof(damage));
-+	set_plane_damage(&mock->state, &damage_blob);
-+	mock->state.ignore_damage_clips = true;
-+	drm_atomic_helper_damage_iter_init(&iter, &mock->old_state, &mock->state);
-+	drm_atomic_for_each_plane_damage(&iter, &clip) {
-+		if (num_hits == 0)
-+			check_damage_clip(test, &clip, 0, 0, 1024, 768);
-+		num_hits++;
-+	}
-+
-+	KUNIT_EXPECT_EQ_MSG(test, num_hits, 1, "Should return full-framebuffer damage.");
-+}
-+
- static struct kunit_case drm_damage_helper_tests[] = {
- 	KUNIT_CASE(drm_test_damage_iter_no_damage),
- 	KUNIT_CASE(drm_test_damage_iter_no_damage_fractional_src),
-@@ -625,6 +652,7 @@ static struct kunit_case drm_damage_helper_tests[] = {
- 	KUNIT_CASE(drm_test_damage_iter_damage_one_outside),
- 	KUNIT_CASE(drm_test_damage_iter_damage_src_moved),
- 	KUNIT_CASE(drm_test_damage_iter_damage_not_visible),
-+	KUNIT_CASE(drm_test_damage_iter_damage_ignore),
- 	{ }
- };
- 
--- 
-2.54.0
-
+- Eric
