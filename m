@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22B6B2C15BB
-	for <stable@vger.kernel.org>; Sat, 30 May 2026 14:19:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97C582E06EF
+	for <stable@vger.kernel.org>; Sat, 30 May 2026 14:19:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780150772; cv=none; b=gul22A21v1p+DG77V54G8r9qj0VCQBiP1tyP4BUyCp4nIXNzU0Kyg+ujKoiiuuicoLGDscTANUVuVHp0l32YCL4LlG/RPxezELvfZc+w1rnN4ek7wWmaSdQDYKGw+L9h/z+EBOWIzQGA70tukdemLv9LqNngeC9XxKJ4lHhMrGs=
+	t=1780150775; cv=none; b=TzedgPVXoR1Xr+wJTG3hV/SaRU9T+lQ1NkVMP1tD/m2pd777jwc+3wUEdEKP9gW7PIUWx2UF1L7BMf6Fx6V8DQGgePiEkdjEAl4AfhCnvueJvxskQokNxDZL2Vbrf9epUBEEJn2w/KW9epIDAozz97/ja42JpOePH7tXI3C8UMM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780150772; c=relaxed/simple;
-	bh=XWGFF85efp8loaUsxEgnPPXIMOoK/Lv1ZyIBBVnjjxE=;
+	s=arc-20240116; t=1780150775; c=relaxed/simple;
+	bh=yHweQrbOprmIlO8Ev1UzYhYZupflm7ZNBfvOBQ+C43o=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Rf6oFfhKJxwCI3yhaQFcFeAXX2Nn2ZPIKun80BBiFVhSUGDkcSmtk9hzph0aLWtK69w4ODF1e74ClhOJHb+RFiCOciI3BupQDhO9t4IJ9bzsSHSNLIi1ImCpiaM4kL0JXV1fbZY6MohoXr+A3JYqDrgO0HMtiDmeNFw/8IUiJ/s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EAhPevMp; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=knKb5LhLWB7tjPhef+xQCvX4ZV/wBkUUT1Pn/LBjjOc6D9cbDZ0okqEjWCht2RjE0eofxqZbN2IRr4YNreCyeMzOew+s5faJb8Gh3N5dkpbRzucVTFpN6cWIICrGEq3eUYHjOV95nwMk/+6BNEYyjV1FAq7gOzvAMpxqfzsrutQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KAry+mAt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EAhPevMp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 699F41F0089A;
-	Sat, 30 May 2026 14:19:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KAry+mAt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 982921F00893;
+	Sat, 30 May 2026 14:19:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780150770;
-	bh=hzi5duAPx8bZfoNUQpBMPnQBKc+tIapvM4uwqy70WYM=;
+	s=k20260515; t=1780150774;
+	bh=gCwWxffmH0ffnNQteI21dtVgXQBFo6co+5Ae1R27Uo4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EAhPevMpUro1SojOt2ZIeIB3G88PwNu9TwrrJPJ/bJCHyUA5+JgGfrYRxL69v1pWt
-	 RSh2ISKzTEIxfmIrMpa+OvEbxQjaT1/SyyGAVd5T/1jW8G3INQOyWinzYcx1Z5AO9Z
-	 maV79MyZg+XwBz504ygW2Zr9Iec01ivVlFXpFxGhhEiMWgi1aWu/0gmtiJJmQymDqb
-	 x6vb4POns/BNH3xLNrnCtitAhRaTN2z8FP3X0BjSlO/CWgZXu8qQ4KGdB/G6uUwS0N
-	 Ugk8wOTREb7Gmv5yVt3fLaDVk9hHFMsyF56ETPYKFGvWxtyAfXwzLpvEdnYXIxdl/O
-	 Eyt2ivG5fZvOA==
+	b=KAry+mAtZgmHJ1sgpKo46THei00cXtLDEdISdLlE3KK2lFYnPmDp9otYsTZlfGnJE
+	 Vf8HGON5KUsRWre0JDEkBbJ31NJwevB4/v0jkMD4PlD0I9sAdjWYoQ6q/nEG1S35Kt
+	 9Ja1RLBu3UwxIaEp96ZJmwkEVLALZoTrC9fD1HNpf8We0RAEdEuBGvxxRK9ehjGe64
+	 y897AGExN+8hRD8YctBuw9C6XVWz/K+t5qxpWr/3S78K9b5/v2EdXYC2BNkwoHZwi/
+	 VLL6fmu6COI2vTMlTM+CwVd+wPpz72gssgLc+VylNhIolbAf/1zDIj3u6mXdc/4AGt
+	 JZ1ft1AxHLlig==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Stefano Garzarella <sgarzare@redhat.com>,
-	Paolo Abeni <pabeni@redhat.com>,
+Cc: Paolo Abeni <pabeni@redhat.com>,
+	"Matthieu Baerts (NGI0)" <matttbe@kernel.org>,
+	Geliang Tang <geliang@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 4/4] vsock/virtio: reset connection on receiving queue overflow
-Date: Sat, 30 May 2026 10:19:26 -0400
-Message-ID: <20260530141926.2406669-4-sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/3] mptcp: introduce the mptcp_init_skb helper
+Date: Sat, 30 May 2026 10:19:30 -0400
+Message-ID: <20260530141932.2407122-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260530141926.2406669-1-sashal@kernel.org>
-References: <2026052842-catering-overfeed-07a0@gregkh>
- <20260530141926.2406669-1-sashal@kernel.org>
+In-Reply-To: <2026052836-subscript-earache-630d@gregkh>
+References: <2026052836-subscript-earache-630d@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,88 +47,118 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Stefano Garzarella <sgarzare@redhat.com>
+From: Paolo Abeni <pabeni@redhat.com>
 
-[ Upstream commit a4f0b001782b21663d10df983b4b208195bec66c ]
+[ Upstream commit 9a0afe0db46720ce1a009c7dac168aa0584bd732 ]
 
-When there is no more space to queue an incoming packet, the packet is
-silently dropped. This causes data loss without any notification to
-either peer, since there is no retransmission.
+Factor out all the skb initialization step in a new helper and
+use it. Note that this change moves the MPTCP CB initialization
+earlier: we can do such step as soon as the skb leaves the
+subflow socket receive queues.
 
-Under normal circumstances, this should never happen. However, it could
-happen if the other peer doesn't respect the credit, or if the skb
-overhead, which we recently began to take into account with commit
-059b7dbd20a6 ("vsock/virtio: fix potential unbounded skb queue"),
-is too high.
-
-Fix this by resetting the connection and setting the local socket error
-to ENOBUFS when virtio_transport_recv_enqueue() can no longer queue a
-packet, so both peers are explicitly notified of the failure rather than
-silently losing data.
-
-Fixes: ae6fcfbf5f03 ("vsock/virtio: discard packets if credit is not respected")
-Cc: stable@vger.kernel.org
-Signed-off-by: Stefano Garzarella <sgarzare@redhat.com>
-Link: https://patch.msgid.link/20260518090656.134588-2-sgarzare@redhat.com
+Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
 Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+Reviewed-by: Geliang Tang <geliang@kernel.org>
+Tested-by: Geliang Tang <geliang@kernel.org>
+Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
+Link: https://patch.msgid.link/20250927-net-next-mptcp-rcv-path-imp-v1-4-5da266aa9c1a@kernel.org
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Stable-dep-of: 50c2d91c5dfa ("mptcp: do not drop partial packets")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/vmw_vsock/virtio_transport_common.c | 20 +++++++++++++++-----
- 1 file changed, 15 insertions(+), 5 deletions(-)
+ net/mptcp/protocol.c | 50 ++++++++++++++++++++++++--------------------
+ 1 file changed, 27 insertions(+), 23 deletions(-)
 
-diff --git a/net/vmw_vsock/virtio_transport_common.c b/net/vmw_vsock/virtio_transport_common.c
-index 52a8a7ffacf5c..966a20262d46d 100644
---- a/net/vmw_vsock/virtio_transport_common.c
-+++ b/net/vmw_vsock/virtio_transport_common.c
-@@ -920,7 +920,7 @@ virtio_transport_recv_connecting(struct sock *sk,
- 	return err;
+diff --git a/net/mptcp/protocol.c b/net/mptcp/protocol.c
+index 7dbb666c72c30..4fdce559a2235 100644
+--- a/net/mptcp/protocol.c
++++ b/net/mptcp/protocol.c
+@@ -321,7 +321,7 @@ static void mptcp_data_queue_ofo(struct mptcp_sock *msk, struct sk_buff *skb)
+ 	mptcp_set_owner_r(skb, sk);
  }
  
--static void
-+static bool
- virtio_transport_recv_enqueue(struct vsock_sock *vsk,
- 			      struct sk_buff *skb)
+-static bool mptcp_rmem_schedule(struct sock *sk, struct sock *ssk, int size)
++static bool mptcp_rmem_schedule(struct sock *sk, int size)
  {
-@@ -935,10 +935,8 @@ virtio_transport_recv_enqueue(struct vsock_sock *vsk,
- 	spin_lock_bh(&vvs->rx_lock);
- 
- 	can_enqueue = virtio_transport_inc_rx_pkt(vvs, len);
--	if (!can_enqueue) {
--		free_pkt = true;
-+	if (!can_enqueue)
- 		goto out;
--	}
- 
- 	/* Try to copy small packets into the buffer of last packet queued,
- 	 * to avoid wasting memory queueing the entire buffer with a small
-@@ -968,6 +966,8 @@ virtio_transport_recv_enqueue(struct vsock_sock *vsk,
- 	spin_unlock_bh(&vvs->rx_lock);
- 	if (free_pkt)
- 		kfree_skb(skb);
-+
-+	return can_enqueue;
+ 	struct mptcp_sock *msk = mptcp_sk(sk);
+ 	int amt, amount;
+@@ -339,27 +339,11 @@ static bool mptcp_rmem_schedule(struct sock *sk, struct sock *ssk, int size)
+ 	return true;
  }
  
- static int
-@@ -980,7 +980,17 @@ virtio_transport_recv_connected(struct sock *sk,
+-static bool __mptcp_move_skb(struct mptcp_sock *msk, struct sock *ssk,
+-			     struct sk_buff *skb, unsigned int offset,
+-			     size_t copy_len)
++static void mptcp_init_skb(struct sock *ssk, struct sk_buff *skb, int offset,
++			   int copy_len)
+ {
+-	struct mptcp_subflow_context *subflow = mptcp_subflow_ctx(ssk);
+-	struct sock *sk = (struct sock *)msk;
+-	struct sk_buff *tail;
+-	bool has_rxtstamp;
+-
+-	__skb_unlink(skb, &ssk->sk_receive_queue);
+-
+-	skb_ext_reset(skb);
+-	skb_orphan(skb);
+-
+-	/* try to fetch required memory from subflow */
+-	if (!mptcp_rmem_schedule(sk, ssk, skb->truesize)) {
+-		MPTCP_INC_STATS(sock_net(sk), MPTCP_MIB_RCVPRUNED);
+-		goto drop;
+-	}
+-
+-	has_rxtstamp = TCP_SKB_CB(skb)->has_rxtstamp;
++	const struct mptcp_subflow_context *subflow = mptcp_subflow_ctx(ssk);
++	bool has_rxtstamp = TCP_SKB_CB(skb)->has_rxtstamp;
  
- 	switch (le16_to_cpu(hdr->op)) {
- 	case VIRTIO_VSOCK_OP_RW:
--		virtio_transport_recv_enqueue(vsk, skb);
-+		if (!virtio_transport_recv_enqueue(vsk, skb)) {
-+			/* There is no more space to queue the packet, so let's
-+			 * close the connection; otherwise, we'll lose data.
-+			 */
-+			(void)virtio_transport_reset(vsk, skb);
-+			virtio_transport_do_close(vsk, true);
-+			sk->sk_err = ENOBUFS;
-+			sk->sk_error_report(sk);
-+			vsock_remove_sock(vsk);
-+			break;
-+		}
- 		sk->sk_data_ready(sk);
- 		return err;
- 	case VIRTIO_VSOCK_OP_CREDIT_UPDATE:
+ 	/* the skb map_seq accounts for the skb offset:
+ 	 * mptcp_subflow_get_mapped_dsn() is based on the current tp->copied_seq
+@@ -371,6 +355,25 @@ static bool __mptcp_move_skb(struct mptcp_sock *msk, struct sock *ssk,
+ 	MPTCP_SKB_CB(skb)->has_rxtstamp = has_rxtstamp;
+ 	MPTCP_SKB_CB(skb)->cant_coalesce = 0;
+ 
++	__skb_unlink(skb, &ssk->sk_receive_queue);
++
++	skb_ext_reset(skb);
++	skb_dst_drop(skb);
++}
++
++static bool __mptcp_move_skb(struct sock *sk, struct sk_buff *skb)
++{
++	u64 copy_len = MPTCP_SKB_CB(skb)->end_seq - MPTCP_SKB_CB(skb)->map_seq;
++	struct mptcp_sock *msk = mptcp_sk(sk);
++	struct sk_buff *tail;
++
++	/* try to fetch required memory from subflow */
++	if (!mptcp_rmem_schedule(sk, skb->truesize)) {
++		MPTCP_INC_STATS(sock_net(sk), MPTCP_MIB_RCVPRUNED);
++		mptcp_drop(sk, skb);
++		return false;
++	}
++
+ 	if (MPTCP_SKB_CB(skb)->map_seq == msk->ack_seq) {
+ 		/* in sequence */
+ 		msk->bytes_received += copy_len;
+@@ -391,7 +394,6 @@ static bool __mptcp_move_skb(struct mptcp_sock *msk, struct sock *ssk,
+ 	 * will retransmit as needed, if needed.
+ 	 */
+ 	MPTCP_INC_STATS(sock_net(sk), MPTCP_MIB_DUPDATA);
+-drop:
+ 	mptcp_drop(sk, skb);
+ 	return false;
+ }
+@@ -720,7 +722,9 @@ static bool __mptcp_move_skbs_from_subflow(struct mptcp_sock *msk,
+ 			if (tp->urg_data)
+ 				done = true;
+ 
+-			if (__mptcp_move_skb(msk, ssk, skb, offset, len))
++			mptcp_init_skb(ssk, skb, offset, len);
++			skb_orphan(skb);
++			if (__mptcp_move_skb(sk, skb))
+ 				moved += len;
+ 			seq += len;
+ 
 -- 
 2.53.0
 
