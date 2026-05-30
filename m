@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A987A1BBBE5
-	for <stable@vger.kernel.org>; Sat, 30 May 2026 19:47:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9D5922D7B9
+	for <stable@vger.kernel.org>; Sat, 30 May 2026 19:47:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780170468; cv=none; b=jlxWDqelvVJ7U516pGQd+ZOhp/O7mrqdUKoO3tj/JR3Rhf9/0IJXwAGPwAc6BCt7y9rqNzbYIGf2OTuLiVDz/aN8COrWvMrdO99RmS+Nl90+ycHI7/AXr+RzlP7XBN1YuA39sBVZ+BgYMgR8Q2wFDeZ6x4MTWKk/XvBzDUcWo6s=
+	t=1780170480; cv=none; b=tfLD7GPtftSwa8moJZB9keYYZKcxPgi8IHatsp3CtTQuASk3TnAVmkzmjLOMPsI0eA9TXjOMBGoWdhbwZyfwXg3mIY34xdFE0l9LThuszJnG41I8pTH79JNZ8WovFp+BxD0ar6oZRbecOJ6o+hGWfkMj7MiHewcb5e6DdU7A0oU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780170468; c=relaxed/simple;
-	bh=YMbxRjwJpba/0TLPoRedTHTg0b6d6VrzhpDSdVt9UHY=;
+	s=arc-20240116; t=1780170480; c=relaxed/simple;
+	bh=WcFpNg1x0Z+7KUDu3auIdmmS7biDWNU1aK3D6zAYNQA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hNG5FPCGUxBYlw6CUJCBA9EAG5E3W1HpWjIUN19Y/5kUH/asKVeaKD5B66jR6YG9PlZdFTrL7WrdhwALAdt4xqjcY3AWwbiAnaZGdl37p3plqN3kODPlA2FPSns2hdzzOoXhglWGWcPjDBjIwnZDIPF8tnSltDy884qMq7RNxXw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DSYet9rU; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=VQMSUf2G9ROUp3J78b/eROKuAFA0vTA/f5eS8IKrspgw1kNqV/4CAD80Fp+ghZqy5UwYvCMtQ6m8cBorc/FFikTxwc6RMkoG0hIMoSRvY+MOG6/PXeqbP4MbwACjG/CXyZ6HcvZlg0PrPp7o3oLXbKQqZPH+GhjSww0sypIJueM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E3lvTbun; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DSYet9rU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4FDB1F00898;
-	Sat, 30 May 2026 19:47:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E3lvTbun"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC1001F00893;
+	Sat, 30 May 2026 19:47:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780170467;
-	bh=UQTXcnvCMgCQtPVcx1YzD7U9hRgg2MsQzOgC/u23xSk=;
+	s=k20260515; t=1780170479;
+	bh=MXNQNsU+GSUrjf8GsHBu1rMfu4SjCLVZzRxcJ/OFwwY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DSYet9rUCITTOpY2LtrhYRiKWELzqOteotlo8/D37JmgTqJLzmQxSbGzU6dz0qLPr
-	 z4iPNLDM8JcWNZPY38tADDIBrgGy5OKAANeoiCyoa+rcOFe/raqtAsL/0nX/61vnQb
-	 qdViCzATXHX045g7EZFhJRHb6sAJRjiq96WBdlFY40EpT3diLzoMNFzjRqzaAFNTBX
-	 eQfJQBAlqfwZ7Ed7mFtzCjVwCJADH+kXj3+giCJ9qiYrXiq9uaPLVeerE0mQUxqbeL
-	 Ii18X+Lp+D2XdGPk6RLEspECFebnaW1XCoF3DgQ3W+CQFObN/6hykxQ7F+Dkrrchnb
-	 8GMUxnVdzf/Mw==
+	b=E3lvTbunTN154IRP5lJrES4XIZhkmtyiakiHJqojaMQFJQK10bix3nlFrW8IBD9fE
+	 Lgul9w4jt1tPMs62iVotRZRbdHCYBOUVuqSkgxA4gg23GlexpeHEv67Nn6bYCheB99
+	 ymrWP0uwgsQs8AIuQHRnTIr+IjYYRIPXa+zbFOGSzo2E1LXaN0Ay9ehkXR6Z6QcfwB
+	 EgJgcrpkstw4tAo+t4HjxsOxJf58aKv3S4kLGFcNOSEOmyvXlmVaV1KJW7I3DZ8gt6
+	 T105XthKCtKllZ/Ycm+D9Gio1z1amUEdLRM/D6+dgSqTy577kR+bmaKfWAxQ2IH8ww
+	 p5mSvClFQOaOQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Shardul Bankar <shardul.b@mpiricsoftware.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	"Matthieu Baerts (NGI0)" <matttbe@kernel.org>,
+Cc: Dawei Feng <dawei.feng@seu.edu.cn>,
+	Zilin Guan <zilin@seu.edu.cn>,
+	Simon Horman <horms@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] mptcp: do not drop partial packets
-Date: Sat, 30 May 2026 15:47:45 -0400
-Message-ID: <20260530194745.3257532-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] octeontx2-pf: avoid double free of pool->stack on AQ init failure
+Date: Sat, 30 May 2026 15:47:56 -0400
+Message-ID: <20260530194756.3258783-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026052838-unsterile-jailhouse-1f0f@gregkh>
-References: <2026052838-unsterile-jailhouse-1f0f@gregkh>
+In-Reply-To: <2026052843-accompany-skeletal-9d25@gregkh>
+References: <2026052843-accompany-skeletal-9d25@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,76 +47,61 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Shardul Bankar <shardul.b@mpiricsoftware.com>
+From: Dawei Feng <dawei.feng@seu.edu.cn>
 
-[ Upstream commit 50c2d91c5dfa0e465826ec1f8dbad9cdc254bd85 ]
+[ Upstream commit 9b244c242bec48b37e82b89787afd6a4c43457e1 ]
 
-When a packet arrives with map_seq < ack_seq < end_seq, the beginning
-of the packet has already been acknowledged but the end contains new
-data. Currently the entire packet is dropped as "old data," forcing
-the sender to retransmit.
+otx2_pool_aq_init() frees pool->stack when mailbox sync or retry
+allocation fails, but leaves the pointer unchanged. Later,
+otx2_sq_aura_pool_init() unwinds the partial setup through
+otx2_aura_pool_free(), which frees pool->stack again. The CN20K-specific
+cn20k_pool_aq_init() implementation has the same bug in
+its corresponding error path.
 
-Instead, skip the already-acked bytes by adjusting the skb offset and
-enqueue only the new portion. Update bytes_received and ack_seq to
-reflect the new data consumed.
+Set pool->stack to NULL immediately after the local free so the shared
+cleanup path does not free the same stack again while cleaning up
+partially initialized pool state.
 
-A previous attempt at this fix has been sent by Paolo Abeni [1], but had
-issues [2]: it also added a zero-window check and changed rcv_wnd_sent
-initialization, which caused test regressions. This version addresses
-only the partial packet handling without modifying receive window
-accounting.
+The bug was first flagged by an experimental analysis tool we are
+developing for kernel memory-management bugs while analyzing
+v6.13-rc1. The tool is still under development and is not yet publicly
+available. Manual inspection confirms that the bug is still present in
+v7.1-rc3.
 
-Fixes: ab174ad8ef76 ("mptcp: move ooo skbs into msk out of order queue.")
+Runtime validation was not performed because reproducing this path
+requires OcteonTX2/CN20K hardware.
+
+Fixes: caa2da34fd25 ("octeontx2-pf: Initialize and config queues")
+Fixes: d322fbd17203 ("octeontx2-pf: Initialize cn20k specific aura and pool contexts")
 Cc: stable@vger.kernel.org
-Link: https://lore.kernel.org/c9b426a4e163aa3c4fe8b80c79f1a610f47ae7d8.1763075056.git.pabeni@redhat.com [1]
-Closes: https://github.com/multipath-tcp/mptcp_net-next/issues/600 [2]
-Signed-off-by: Shardul Bankar <shardul.b@mpiricsoftware.com>
-[pabeni@redhat.com: update map]
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
-Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
-Link: https://patch.msgid.link/20260515-net-mptcp-misc-fixes-7-1-rc4-v2-1-701e96419f2f@kernel.org
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-[ dropped `msk->bytes_received += copy_len;` and relocated the `drop:` label to the function end for the existing RCVPRUNED `goto drop;` ]
+Signed-off-by: Zilin Guan <zilin@seu.edu.cn>
+Signed-off-by: Dawei Feng <dawei.feng@seu.edu.cn>
+Reviewed-by: Simon Horman <horms@kernel.org>
+Link: https://patch.msgid.link/20260515151826.1005397-1-dawei.feng@seu.edu.cn
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/mptcp/protocol.c | 22 +++++++++++++++++++---
- 1 file changed, 19 insertions(+), 3 deletions(-)
+ drivers/net/ethernet/marvell/octeontx2/nic/otx2_common.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/net/mptcp/protocol.c b/net/mptcp/protocol.c
-index 2f679ad0f15b6..2e8921068f569 100644
---- a/net/mptcp/protocol.c
-+++ b/net/mptcp/protocol.c
-@@ -329,10 +329,26 @@ static bool __mptcp_move_skb(struct mptcp_sock *msk, struct sock *ssk,
- 		return false;
+diff --git a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_common.c b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_common.c
+index 1999918ca500f..62394a4ebe36e 100644
+--- a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_common.c
++++ b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_common.c
+@@ -1386,11 +1386,13 @@ int otx2_pool_init(struct otx2_nic *pfvf, u16 pool_id,
+ 		err = otx2_sync_mbox_msg(&pfvf->mbox);
+ 		if (err) {
+ 			qmem_free(pfvf->dev, pool->stack);
++			pool->stack = NULL;
+ 			return err;
+ 		}
+ 		aq = otx2_mbox_alloc_msg_npa_aq_enq(&pfvf->mbox);
+ 		if (!aq) {
+ 			qmem_free(pfvf->dev, pool->stack);
++			pool->stack = NULL;
+ 			return -ENOMEM;
+ 		}
  	}
- 
--	/* old data, keep it simple and drop the whole pkt, sender
--	 * will retransmit as needed, if needed.
-+	/* Completely old data? */
-+	if (!after64(MPTCP_SKB_CB(skb)->end_seq, msk->ack_seq)) {
-+		MPTCP_INC_STATS(sock_net(sk), MPTCP_MIB_DUPDATA);
-+		mptcp_drop(sk, skb);
-+		return false;
-+	}
-+
-+	/* Partial packet: map_seq < ack_seq < end_seq.
-+	 * Skip the already-acked bytes and enqueue the new data.
- 	 */
--	MPTCP_INC_STATS(sock_net(sk), MPTCP_MIB_DUPDATA);
-+	copy_len = MPTCP_SKB_CB(skb)->end_seq - msk->ack_seq;
-+	MPTCP_SKB_CB(skb)->offset += msk->ack_seq - MPTCP_SKB_CB(skb)->map_seq;
-+	MPTCP_SKB_CB(skb)->map_seq += msk->ack_seq -
-+				      MPTCP_SKB_CB(skb)->map_seq;
-+	WRITE_ONCE(msk->ack_seq, msk->ack_seq + copy_len);
-+
-+	skb_set_owner_r(skb, sk);
-+	__skb_queue_tail(&sk->sk_receive_queue, skb);
-+	return true;
-+
- drop:
- 	mptcp_drop(sk, skb);
- 	return false;
 -- 
 2.53.0
 
