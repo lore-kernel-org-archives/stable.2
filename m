@@ -1,41 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD1D62FD7D3
-	for <stable@vger.kernel.org>; Sat, 30 May 2026 15:07:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D22B72F6596
+	for <stable@vger.kernel.org>; Sat, 30 May 2026 15:07:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780153664; cv=none; b=UkJxJyvv3lpGiU/vJXMhagN9G1OsHntqCDvbzRNSFsfZsF8b25ubFNJ4742H7zFE3m9bO5uuz1nJVWaVMvsvEPfoQBJFClF9CijCSMoUR7Ooh8meBpXYykmp4GhTYcMwExJ/IhAB4MhuP7ftpSGl1L2OwzqABPvsbH8ihvtSOjA=
+	t=1780153665; cv=none; b=tTZyp2YQqV12v4LF40SBUJmCRTxZbIlqTsev+3KUtgX/mzVtkscKP531EQLM5UIrzLOGSbIpf6YY2qfFFykVnk99rx+k9FMLoRyXwppVRg+PRFnlYGtQwbkrG9beWDK9kFepptdp1MOlBUjv7/Kuop3WrbW1JwRG1cwt+D0Tbgg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780153664; c=relaxed/simple;
-	bh=4ITldezE7KVQD10cBCnP3Ycy8CtVXwZPKR8YTdayl/g=;
+	s=arc-20240116; t=1780153665; c=relaxed/simple;
+	bh=D0JZZjtlSaf5IW0k4HZAXEh6TYjj0rkAuM1sAEi5xlU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Nf+sunub5rIYR5VzYPTvLx+qP1zz5V1RrNX2jdwenV/9ZWSwQcYAhIZ36Q6klyH5TOHn6bP556j+YHOGL0pHd0bO+6Szfu0tWMvrgDezJCqzRD8ZbPfZ5wS8BiPurixhlidL/UdLCNsnNR6q4HH2iYboXmQtNX+HNGL3KmlYXx8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gbD05PKb; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=sH5+5REfIi1cBXb433OmBjTMJVPD2bxEiSnW33VbpVLfLYTThgLfKudSkMUF/TMjJ/eNlkNjnU5g5dTknJuJKcAzOYYafuZaBwEKQoZ8T2UmbKMRWj8LAwxpyS0likT/eirv9NSEOjJSaKZjBEX+frgKfrjLsDCcdzVx2w+JsFo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aOeOJnz5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gbD05PKb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A14D1F0089B;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aOeOJnz5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F15B71F00898;
 	Sat, 30 May 2026 15:07:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780153663;
-	bh=NlepVFsZs0VRzu/vRYW9jCg/vfDx7XU5hjbvxeJLDDk=;
+	s=k20260515; t=1780153664;
+	bh=S2seu65oFiWgutipHR8gNHg/HFaeREsyKqeb6A+uMmo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=gbD05PKbA/BO8xgS8UpLzbg3rhs6dNLUDRnHqdjIhRPwmxckZf7QoC/hOYSICV7gV
-	 lGM00DaOir69uQx7kmEEhJH3lOcVZ3+mxEtRQuRdHDasHNjpGDr14AYbWJdVKFGZoo
-	 M9cK+n4VXivp9mUuxLrhuy0pGWmFq3XnHViJeyg/3t2GqW+m0jtGuUQY8rFI81LyqM
-	 2nW/PMdhgg1ahVfL298Ez94L3njj9tsVuAIIEMAC7Bog2xZosnOEGB3kS/ZD3DW/dd
-	 FIZRIjVYmHvvxX1hic65JaRdlfmQs5dsOu5c8aQ3rrToUnzzFQNkJi29pzS3kfRYJf
-	 vPlRSOUroDpVg==
+	b=aOeOJnz561EaAsBSltLKOXsQwER2iNjbyurMdyI5saZ2d1Ecv/sCcPJx3MVSLJdGE
+	 xHYMJAIPJX9E7x8bFOZl4w1AUmhm1qcpu/vGUw+hml1bWjiPEqdEX6Cvr3xW0ymuQS
+	 H9pjxomL4VSL5o+4SBxqCillOpQjV8HcKT9TLeMQJ97XjyLQbmQtTy1b84mxeBjPbm
+	 t9A5H0O2DNtUa/TFyouDtrvIPcGITAIL2V21lNuvhQqXsomzdKEYgwhv4WipK+BwOy
+	 s4aqTrQdv/8ufHLT/x9h98UAQZUOl9u5jk/d3gnn+Ww5j13a6G3c6yLokhGkzJXa9c
+	 9GHYMpz0+irOQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Paolo Abeni <pabeni@redhat.com>,
-	Mat Martineau <martineau@kernel.org>,
+Cc: Shardul Bankar <shardul.b@mpiricsoftware.com>,
+	Paolo Abeni <pabeni@redhat.com>,
 	"Matthieu Baerts (NGI0)" <matttbe@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/3] mptcp: handle first subflow closing consistently
-Date: Sat, 30 May 2026 11:07:39 -0400
-Message-ID: <20260530150740.2598142-2-sashal@kernel.org>
+Subject: [PATCH 6.6.y 3/3] mptcp: do not drop partial packets
+Date: Sat, 30 May 2026 11:07:40 -0400
+Message-ID: <20260530150740.2598142-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260530150740.2598142-1-sashal@kernel.org>
 References: <2026052837-repave-immovable-cfa4@gregkh>
@@ -48,104 +47,77 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Paolo Abeni <pabeni@redhat.com>
+From: Shardul Bankar <shardul.b@mpiricsoftware.com>
 
-[ Upstream commit 0eeb372deebce6c25b9afc09e35d6c75a744299a ]
+[ Upstream commit 50c2d91c5dfa0e465826ec1f8dbad9cdc254bd85 ]
 
-Currently, as soon as the PM closes a subflow, the msk stops accepting
-data from it, even if the TCP socket could be still formally open in the
-incoming direction, with the notable exception of the first subflow.
+When a packet arrives with map_seq < ack_seq < end_seq, the beginning
+of the packet has already been acknowledged but the end contains new
+data. Currently the entire packet is dropped as "old data," forcing
+the sender to retransmit.
 
-The root cause of such behavior is that code currently piggy back two
-separate semantic on the subflow->disposable bit: the subflow context
-must be released and that the subflow must stop accepting incoming
-data.
+Instead, skip the already-acked bytes by adjusting the skb offset and
+enqueue only the new portion. Update bytes_received and ack_seq to
+reflect the new data consumed.
 
-The first subflow is never disposed, so it also never stop accepting
-incoming data. Use a separate bit to mark the latter status and set such
-bit in __mptcp_close_ssk() for all subflows.
+A previous attempt at this fix has been sent by Paolo Abeni [1], but had
+issues [2]: it also added a zero-window check and changed rcv_wnd_sent
+initialization, which caused test regressions. This version addresses
+only the partial packet handling without modifying receive window
+accounting.
 
-Beyond making per subflow behaviour more consistent this will also
-simplify the next patch.
-
+Fixes: ab174ad8ef76 ("mptcp: move ooo skbs into msk out of order queue.")
+Cc: stable@vger.kernel.org
+Link: https://lore.kernel.org/c9b426a4e163aa3c4fe8b80c79f1a610f47ae7d8.1763075056.git.pabeni@redhat.com [1]
+Closes: https://github.com/multipath-tcp/mptcp_net-next/issues/600 [2]
+Signed-off-by: Shardul Bankar <shardul.b@mpiricsoftware.com>
+[pabeni@redhat.com: update map]
 Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-Reviewed-by: Mat Martineau <martineau@kernel.org>
+Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
 Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
-Link: https://patch.msgid.link/20251121-net-next-mptcp-memcg-backlog-imp-v1-11-1f34b6c1e0b1@kernel.org
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Stable-dep-of: 50c2d91c5dfa ("mptcp: do not drop partial packets")
+Link: https://patch.msgid.link/20260515-net-mptcp-misc-fixes-7-1-rc4-v2-1-701e96419f2f@kernel.org
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/mptcp/protocol.c | 14 +++++++++-----
- net/mptcp/protocol.h |  3 ++-
- 2 files changed, 11 insertions(+), 6 deletions(-)
+ net/mptcp/protocol.c | 24 +++++++++++++++++++-----
+ 1 file changed, 19 insertions(+), 5 deletions(-)
 
 diff --git a/net/mptcp/protocol.c b/net/mptcp/protocol.c
-index 1c30bb369498a..959385b1e564c 100644
+index 959385b1e564c..a933d61488c80 100644
 --- a/net/mptcp/protocol.c
 +++ b/net/mptcp/protocol.c
-@@ -875,10 +875,10 @@ void mptcp_data_ready(struct sock *sk, struct sock *ssk)
- 	int sk_rbuf, ssk_rbuf;
- 
- 	/* The peer can send data while we are shutting down this
--	 * subflow at msk destruction time, but we must avoid enqueuing
-+	 * subflow at subflow destruction time, but we must avoid enqueuing
- 	 * more data to the msk receive queue
- 	 */
--	if (unlikely(subflow->disposable))
-+	if (unlikely(subflow->closing))
- 		return;
- 
- 	ssk_rbuf = READ_ONCE(ssk->sk_rcvbuf);
-@@ -2477,6 +2477,13 @@ static void __mptcp_close_ssk(struct sock *sk, struct sock *ssk,
- 	struct mptcp_sock *msk = mptcp_sk(sk);
- 	bool dispose_it, need_push = false;
- 
-+	/* Do not pass RX data to the msk, even if the subflow socket is not
-+	 * going to be freed (i.e. even for the first subflow on graceful
-+	 * subflow close.
-+	 */
-+	lock_sock_nested(ssk, SINGLE_DEPTH_NESTING);
-+	subflow->closing = 1;
-+
- 	/* If the first subflow moved to a close state before accept, e.g. due
- 	 * to an incoming reset or listener shutdown, the subflow socket is
- 	 * already deleted by inet_child_forget() and the mptcp socket can't
-@@ -2487,7 +2494,6 @@ static void __mptcp_close_ssk(struct sock *sk, struct sock *ssk,
- 		/* ensure later check in mptcp_worker() will dispose the msk */
- 		mptcp_set_close_tout(sk, tcp_jiffies32 - (TCP_TIMEWAIT_LEN + 1));
- 		sock_set_flag(sk, SOCK_DEAD);
--		lock_sock_nested(ssk, SINGLE_DEPTH_NESTING);
- 		mptcp_subflow_drop_ctx(ssk);
- 		goto out_release;
+@@ -392,12 +392,26 @@ static bool __mptcp_move_skb(struct sock *sk, struct sk_buff *skb)
+ 		return false;
  	}
-@@ -2496,8 +2502,6 @@ static void __mptcp_close_ssk(struct sock *sk, struct sock *ssk,
- 	if (dispose_it)
- 		list_del(&subflow->node);
  
--	lock_sock_nested(ssk, SINGLE_DEPTH_NESTING);
--
- 	if (subflow->send_fastclose && ssk->sk_state != TCP_CLOSE)
- 		tcp_set_state(ssk, TCP_CLOSE);
+-	/* old data, keep it simple and drop the whole pkt, sender
+-	 * will retransmit as needed, if needed.
++	/* Completely old data? */
++	if (!after64(MPTCP_SKB_CB(skb)->end_seq, msk->ack_seq)) {
++		MPTCP_INC_STATS(sock_net(sk), MPTCP_MIB_DUPDATA);
++		mptcp_drop(sk, skb);
++		return false;
++	}
++
++	/* Partial packet: map_seq < ack_seq < end_seq.
++	 * Skip the already-acked bytes and enqueue the new data.
+ 	 */
+-	MPTCP_INC_STATS(sock_net(sk), MPTCP_MIB_DUPDATA);
+-	mptcp_drop(sk, skb);
+-	return false;
++	copy_len = MPTCP_SKB_CB(skb)->end_seq - msk->ack_seq;
++	MPTCP_SKB_CB(skb)->offset += msk->ack_seq - MPTCP_SKB_CB(skb)->map_seq;
++	MPTCP_SKB_CB(skb)->map_seq += msk->ack_seq -
++				      MPTCP_SKB_CB(skb)->map_seq;
++	msk->bytes_received += copy_len;
++	WRITE_ONCE(msk->ack_seq, msk->ack_seq + copy_len);
++
++	skb_set_owner_r(skb, sk);
++	__skb_queue_tail(&sk->sk_receive_queue, skb);
++	return true;
+ }
  
-diff --git a/net/mptcp/protocol.h b/net/mptcp/protocol.h
-index 2a33452715597..2039e030230a0 100644
---- a/net/mptcp/protocol.h
-+++ b/net/mptcp/protocol.h
-@@ -508,11 +508,12 @@ struct mptcp_subflow_context {
- 		send_infinite_map : 1,
- 		remote_key_valid : 1,        /* received the peer key from */
- 		disposable : 1,	    /* ctx can be free at ulp release time */
-+		closing : 1,	    /* must not pass rx data to msk anymore */
- 		stale : 1,	    /* unable to snd/rcv data, do not use for xmit */
- 		valid_csum_seen : 1,        /* at least one csum validated */
- 		is_mptfo : 1,	    /* subflow is doing TFO */
- 		close_event_done : 1,       /* has done the post-closed part */
--		__unused : 9;
-+		__unused : 8;
- 	enum mptcp_data_avail data_avail;
- 	bool	scheduled;
- 	bool	pm_listener;	    /* a listener managed by the kernel PM? */
+ static void mptcp_stop_rtx_timer(struct sock *sk)
 -- 
 2.53.0
 
