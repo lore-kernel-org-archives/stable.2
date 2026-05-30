@@ -1,94 +1,108 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7E57E39A05D;
-	Sat, 30 May 2026 08:54:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 744663537D0;
+	Sat, 30 May 2026 08:56:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780131279; cv=none; b=nYvwvDxAPVSlieWPPLauWKyal0jz9DFsiUYif2DfHgnA7XqGd56yHONwsdj3kv8hzGUo/OirodFKDCQD75yDG+2CCd6rufdnDnhbWl+VrkhZ7uqWe1MusuSiHRhz9Ts8m9+n9amgeyQ/1zoPE2+Z2hjbnSLKY0FCBNhUjbOEYDo=
+	t=1780131374; cv=none; b=j98eBTr9YZx5THcjM0BzLIHMMkDjcYvXGleRp3aseISmAs/ofmnkx/JeDvtZwg1L1hoxgzf1cIqtmyeL6hPWIx0/WyuDErgg7AffKcid2UstFW8v32WiwVKB6GOEHeZxIHxBT2v4EvEvayO09Ru6iVCRq9eoMuo6cSZziYy5lH8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780131279; c=relaxed/simple;
-	bh=Ak9G3LTYza/gCy6/RFFf4a29T76eDF8ntJacgmiggGk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Qup9hRTBD4mYECK8NcgvOsSqOeC9TwZAKPv+1leoNeLuT0v9ODqtSR2MQdNVb77KjyL9qc4860BaFfvdaeeQ9XItrghr/DkJ6K6K6dU1zeDx/aGoz47JN1zRBYtmt6IrCv9WEq4CFkdUTbuxJawkCbKCztiW0L8dfaCV1FVVxVA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Yx5bwhs8; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1780131374; c=relaxed/simple;
+	bh=e9BpaDkO6dh8loJgBYte5yvZkPQd5EXFNkw/7Gmg234=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=rN8sXN81VBXok+c3IeOZU21lhYVl1ig2N6d1nEHny9/FOacGpsaluhBzap4yzSm2oZjeCiqF5lQnaKkTxkJywfu3LRc554ZfdZDk6mhnK4PZtHAz+iJupXTUrJOF8MlsfWkvUwnddzEhM4/CeKJvHkrX6JW/dL1jxJqGX1VQkJg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=hbXMiGwD; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Yx5bwhs8"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 90C393515;
-	Sat, 30 May 2026 01:54:30 -0700 (PDT)
-Received: from cesw-amp-gbt-1s-m12830-01.blr.arm.com (cesw-amp-gbt-1s-m12830-01.blr.arm.com [10.164.195.31])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id D82313F632;
-	Sat, 30 May 2026 01:54:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1780131275; bh=Ak9G3LTYza/gCy6/RFFf4a29T76eDF8ntJacgmiggGk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=Yx5bwhs8LeClLHtnd2KjyEtflEV4UCKNY1KLqTIVI/VHD2zmhNBQws0EmMy3+WBNB
-	 RrwSVqyNK6yixYPKWJxweGMVpyLn80RLYlqSs3KxYBFOgoW6Py1NmRdlgSimr8fX/A
-	 HoxuImJ3uvdr0xRxe/Uu8zZ1uf9ERKn/vV573SjA=
-From: Dev Jain <dev.jain@arm.com>
-To: akpm@linux-foundation.org,
-	liam@infradead.org,
-	ljs@kernel.org,
-	jgg@ziepe.ca,
-	leon@kernel.org,
-	david@kernel.org,
-	shuah@kernel.org
-Cc: Dev Jain <dev.jain@arm.com>,
-	vbabka@kernel.org,
-	jannh@google.com,
-	pfalcato@suse.de,
-	balbirs@nvidia.com,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	rppt@kernel.org,
-	surenb@google.com,
-	mhocko@suse.com,
-	linux-kselftest@vger.kernel.org,
-	usama.arif@linux.dev,
-	ryan.roberts@arm.com,
-	anshuman.khandual@arm.com,
-	stable@vger.kernel.org
-Subject: [PATCH v2 1/2] fs/proc/task_mmu: do not warn on seeing non-migration pmd entry
-Date: Sat, 30 May 2026 08:54:11 +0000
-Message-ID: <20260530085413.1270139-2-dev.jain@arm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260530085413.1270139-1-dev.jain@arm.com>
-References: <20260530085413.1270139-1-dev.jain@arm.com>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="hbXMiGwD"
+Received: from ideasonboard.com (mob-83-225-32-59.net.vodafone.it [83.225.32.59])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 27C8D9A4;
+	Sat, 30 May 2026 10:55:41 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1780131342;
+	bh=e9BpaDkO6dh8loJgBYte5yvZkPQd5EXFNkw/7Gmg234=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=hbXMiGwDufgWQhqnfraasHhLQcAmXvSl7H/1DFTGfeio4R0KyiyaT1ZOUwfl1OKrU
+	 tkeVrMw94TC08CoRLLPH1690PLHk4RgoH68FqQy6W4zQrFUNEEAhMTjGkWuC1kyh5D
+	 5Lw8GQfLhfGLWASoI+O1tQkCkQrrR0X2WUpoqc+o=
+Date: Sat, 30 May 2026 10:55:59 +0200
+From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+To: David Carlier <devnexen@gmail.com>
+Cc: Daniel Scally <dan.scally@ideasonboard.com>, 
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Hans Verkuil <hverkuil+cisco@kernel.org>, Nayden Kanchev <nayden.kanchev@arm.com>, 
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] media: mali-c55: fix integer overflow in scaler
+ factor calculation
+Message-ID: <ahqh3Zv8xXNENzHb@zed>
+References: <20260529024429.6942-1-devnexen@gmail.com>
+ <20260529050649.14109-1-devnexen@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260529050649.14109-1-devnexen@gmail.com>
 
-pagemap_pmd_range_thp() warns if a non-present PMD is not a migration
-entry. This became false once device-private entries at the PMD level were
-added.
+Hi David
 
-Therefore, remove the stale migration-only assertion.
+On Fri, May 29, 2026 at 06:06:49AM +0100, David Carlier wrote:
+> The scaling factors are computed by multiplying the crop dimension by
+> the Q4.20 unit (1 << 20) and dividing by the output dimension. The
+> results are stored in u64, but both operands are 32-bit, so the product
+> is evaluated in 32-bit arithmetic and only widened afterwards.
+>
+> Crop dimensions may be up to 8192. Once a dimension reaches 4096 the
+> product overflows 32 bits and wraps (zero at exactly 4096), programming
+> a corrupted scaling increment and corrupting the downscaled output.
+>
 
-Fixes: a30b48bf1b24 ("mm/migrate_device: implement THP migration of zone device pages")
-Cc: stable@vger.kernel.org
-Signed-off-by: Dev Jain <dev.jain@arm.com>
----
- fs/proc/task_mmu.c | 1 -
- 1 file changed, 1 deletion(-)
+Have you hit this issue ?
 
-diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
-index 1e3a15bf46f4e..58938e62154d9 100644
---- a/fs/proc/task_mmu.c
-+++ b/fs/proc/task_mmu.c
-@@ -2129,7 +2129,6 @@ static int pagemap_pmd_range_thp(pmd_t *pmdp, unsigned long addr,
- 			flags |= PM_SOFT_DIRTY;
- 		if (pmd_swp_uffd_wp(pmd))
- 			flags |= PM_UFFD_WP;
--		VM_WARN_ON_ONCE(!pmd_is_migration_entry(pmd));
- 		page = softleaf_to_page(entry);
- 	}
- 
--- 
-2.43.0
+> Define the fixed-point unit as unsigned long long so the multiplication
+> is done in 64-bit arithmetic.
 
+I guess the h/v scale computation could also be done differently in
+the driver code.
+
+We currently first transform the crop rectangle sizes to Q4.20 format
+and then divide by the scale rectangle sizes and this, as you
+correctly pointed out, could cause overflows as 32-bits arithmetic is
+used.
+
+Could we maybe first do the crop/scale division and then do the Q4.20
+conversion ? We could maybe save the below do_div() if we're in 32
+bits domain ? (I'm not actually 100% sure if do_div() is desirable
+regardless or not).
+
+>
+> Fixes: d5f281f3dd29 ("media: mali-c55: Add Mali-C55 ISP driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: David Carlier <devnexen@gmail.com>
+> ---
+> v2: Use the BIT_ULL() macro instead of an open-coded (1ULL << 20)
+>     (checkpatch).
+> ---
+>  drivers/media/platform/arm/mali-c55/mali-c55-resizer.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-resizer.c b/drivers/media/platform/arm/mali-c55/mali-c55-resizer.c
+> index c4f46651dcee..6706939b4a90 100644
+> --- a/drivers/media/platform/arm/mali-c55/mali-c55-resizer.c
+> +++ b/drivers/media/platform/arm/mali-c55/mali-c55-resizer.c
+> @@ -15,7 +15,7 @@
+>  #include "mali-c55-registers.h"
+>
+>  /* Scaling factor in Q4.20 format. */
+> -#define MALI_C55_RSZ_SCALER_FACTOR	(1U << 20)
+> +#define MALI_C55_RSZ_SCALER_FACTOR	BIT_ULL(20)
+>
+>  #define MALI_C55_RSZ_COEFS_BANKS	8
+>  #define MALI_C55_RSZ_COEFS_ENTRIES	64
+> --
+> 2.53.0
+>
