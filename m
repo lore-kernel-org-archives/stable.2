@@ -1,121 +1,104 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3FA02C11E6
-	for <stable@vger.kernel.org>; Sat, 30 May 2026 20:07:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5C47313E34
+	for <stable@vger.kernel.org>; Sat, 30 May 2026 20:07:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780171634; cv=none; b=s6DDClswJO2h8+SR9T5jp3RnQqXqkjSq59dviTMDm34YnuEHjot04GX2YNIBpVq3Zu6SuUlH4I/2ot/G1zmZErrIhNiaTH9GNBxTdRChuNf/HXzHB0K+hvQBW7zPZtT43XmPuLHzPGsWJ0bVtNsg/Mdnacq1pG/tx3Lzir+rYMw=
+	t=1780171665; cv=none; b=DzA0JKxYFQKBiDaWyXDLRoB+d6CZq/TXuhWXN0h6zP653qruBbweQ/4TbfTOF7ZXouzfFap6KeG6zS68Vp/ojy71cYwCnk1TweBhTgDO488wZP0Pfl4pHSh4huvM30gK1j4d/yGpeWNZ6+9+nFFqLC+EAHBxcO5KS5cBxgBKEXU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780171634; c=relaxed/simple;
-	bh=n1hsIxPl9Q9HAvZYmenx4GuAr/ao90yNN06kiZGpQso=;
+	s=arc-20240116; t=1780171665; c=relaxed/simple;
+	bh=LFot29Qw6CRWP8SGoS7eQ4rjaq/Uwo2oU9EYJY1uaBI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=iylANVw4cI5tOf35/+zTLwxlV4WGdOiDsiu7ggDKtwn+pQai4ANs+PBcufmNqgAP0EBqzqr6/C2b4r1XqrEIraQUZtM1RvLHlWvN/ipHnudce0rL905uJGjY6Ydomu4gA91JBGtlsffKvQI+EaIyYJmO3qAjhfsApGO0Y6K1gSY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SuKtKbPI; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=AyelTSIPfbyAPRIkQ8axqnrGdYGyDJXSl1U1wVvMZRDzEOWbIxihqFsjqG1wFaQLhBuNKBaY+UJlV+tF5PdPEeb3IlJAmSx0RUFaHiWksXCIMvxRuQ4wZ/xxfU57lgBIXGdW5oLFiiRUXPsC64xi1++zAQ6d0oRrV6DYAklJt3Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W66M3aZs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SuKtKbPI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2DC21F00893;
-	Sat, 30 May 2026 20:07:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W66M3aZs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D52F1F00893;
+	Sat, 30 May 2026 20:07:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780171633;
-	bh=4lhU153Y/fVhKw03AIk6SHHSZch3t+Xy+V1ivzg4Lkw=;
+	s=k20260515; t=1780171662;
+	bh=ZoDutvNpSkZHU5p2AGcxtX0W1/mJFeSkqhEBm8eDRjA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=SuKtKbPI7RRFQU/KqfLXum+inti9PDl//aNsSkZxOmefYUzDL5EWTQz/8lfp3FX0j
-	 +JqERFp7GYGVBN+9dhV2qocgkpNbmhKCfYGl2QKK85gsGvru+IYTUBI43wDtEqogGz
-	 kq2o/syfdUFxvi/tOn9hhuiaVR+OsPJ0MGgUzg6FOPnRbbh4EG1w1z4oP2sv/mOF4/
-	 3sUb+ibJX6K0TeJPYaFNoWCT6ucVO8VFGiqaAIinOhg1ny3QKxGRuED/Cw/N5v2/pk
-	 ElNrJL0btBDaf86/CggV2DrJLy/RSxREB6QBj+82W5YODVXhDp5lxvJSrtO2Ypjx7G
-	 p5kz4oiKPLRLw==
+	b=W66M3aZsdqPn6sqe+/g/I1ngYy1Sxos0wdNxnIt7UkzsNfgzQDO8F9mZ5lPxjSMl2
+	 5Lx5ptike8O2O6xJgNyvF+on3Iczj4wOgaBbkz0H7kGLqn4EqybvZZvf969KDz+Bzd
+	 jPuMz4M93F5g4WG2i1EVMRt436RRp7Kro99WVWZ4hM51vbnvE1vz2zF2u6XyIWv060
+	 Rh0tTbmQuAmeuSssH3occ30LSBBPh+sObljZsnMBEdF4nhApHZJ3VzRX63Jk2bnXaq
+	 e5uaS4EmHTdq35bHtxAk4/lOi2wszEXWG7TPBFQpx1M86Pkecce1TvTR6Fw8BSGp1U
+	 CF6AQclniT56A==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Shardul Bankar <shardul.b@mpiricsoftware.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	"Matthieu Baerts (NGI0)" <matttbe@kernel.org>,
+Cc: Sam Daly <sam@samdaly.ie>,
+	Sunil Goutham <sgoutham@marvell.com>,
+	Linu Cherian <lcherian@marvell.com>,
+	Geetha sowjanya <gakula@marvell.com>,
+	hariprasad <hkelam@marvell.com>,
+	Subbaraya Sundeep <sbhatta@marvell.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	stable <stable@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] mptcp: do not drop partial packets
-Date: Sat, 30 May 2026 16:07:11 -0400
-Message-ID: <20260530200711.3281969-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] octeontx2-af: CGX: add bounds check to cgx_speed_mbps index
+Date: Sat, 30 May 2026 16:07:39 -0400
+Message-ID: <20260530200739.3283536-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026052839-kudos-clear-0573@gregkh>
-References: <2026052839-kudos-clear-0573@gregkh>
+In-Reply-To: <2026052832-gigahertz-crumb-cbe0@gregkh>
+References: <2026052832-gigahertz-crumb-cbe0@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Shardul Bankar <shardul.b@mpiricsoftware.com>
+From: Sam Daly <sam@samdaly.ie>
 
-[ Upstream commit 50c2d91c5dfa0e465826ec1f8dbad9cdc254bd85 ]
+[ Upstream commit c0bf0a4f3f1f5f57aa83e1400ba4f56f0abfd542 ]
 
-When a packet arrives with map_seq < ack_seq < end_seq, the beginning
-of the packet has already been acknowledged but the end contains new
-data. Currently the entire packet is dropped as "old data," forcing
-the sender to retransmit.
+cgx_speed_mbps has 13 elements but RESP_LINKSTAT_SPEED can yield values
+0-15. If it returns a value >= 13, this causes an out-of-bounds array
+access. Add a bounds check and default to speed 0 if the index is out of
+range.
 
-Instead, skip the already-acked bytes by adjusting the skb offset and
-enqueue only the new portion. Update bytes_received and ack_seq to
-reflect the new data consumed.
-
-A previous attempt at this fix has been sent by Paolo Abeni [1], but had
-issues [2]: it also added a zero-window check and changed rcv_wnd_sent
-initialization, which caused test regressions. This version addresses
-only the partial packet handling without modifying receive window
-accounting.
-
-Fixes: ab174ad8ef76 ("mptcp: move ooo skbs into msk out of order queue.")
-Cc: stable@vger.kernel.org
-Link: https://lore.kernel.org/c9b426a4e163aa3c4fe8b80c79f1a610f47ae7d8.1763075056.git.pabeni@redhat.com [1]
-Closes: https://github.com/multipath-tcp/mptcp_net-next/issues/600 [2]
-Signed-off-by: Shardul Bankar <shardul.b@mpiricsoftware.com>
-[pabeni@redhat.com: update map]
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
-Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
-Link: https://patch.msgid.link/20260515-net-mptcp-misc-fixes-7-1-rc4-v2-1-701e96419f2f@kernel.org
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-[ dropped `msk->bytes_received += copy_len;` and relocated the `drop:` label to the function end for the existing RCVPRUNED `goto drop;` ]
+Fixes: 61071a871ea6 ("octeontx2-af: Forward CGX link notifications to PFs")
+Cc: Sunil Goutham <sgoutham@marvell.com>
+Cc: Linu Cherian <lcherian@marvell.com>
+Cc: Geetha sowjanya <gakula@marvell.com>
+Cc: hariprasad <hkelam@marvell.com>
+Cc: Subbaraya Sundeep <sbhatta@marvell.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>
+Cc: stable <stable@kernel.org>
+Signed-off-by: Sam Daly <sam@samdaly.ie>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Link: https://patch.msgid.link/2026051352-refined-demise-e88d@gregkh
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/mptcp/protocol.c | 22 +++++++++++++++++++---
- 1 file changed, 19 insertions(+), 3 deletions(-)
+ drivers/net/ethernet/marvell/octeontx2/af/cgx.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/net/mptcp/protocol.c b/net/mptcp/protocol.c
-index 70bc440c615d7..b02c4885adbb9 100644
---- a/net/mptcp/protocol.c
-+++ b/net/mptcp/protocol.c
-@@ -314,10 +314,26 @@ static bool __mptcp_move_skb(struct mptcp_sock *msk, struct sock *ssk,
- 		return false;
- 	}
+diff --git a/drivers/net/ethernet/marvell/octeontx2/af/cgx.c b/drivers/net/ethernet/marvell/octeontx2/af/cgx.c
+index d97a4123438f0..d926577615869 100644
+--- a/drivers/net/ethernet/marvell/octeontx2/af/cgx.c
++++ b/drivers/net/ethernet/marvell/octeontx2/af/cgx.c
+@@ -1096,10 +1096,13 @@ static inline void link_status_user_format(u64 lstat,
+ 					   struct cgx *cgx, u8 lmac_id)
+ {
+ 	const char *lmac_string;
++	unsigned int speed;
  
--	/* old data, keep it simple and drop the whole pkt, sender
--	 * will retransmit as needed, if needed.
-+	/* Completely old data? */
-+	if (!after64(MPTCP_SKB_CB(skb)->end_seq, msk->ack_seq)) {
-+		MPTCP_INC_STATS(sock_net(sk), MPTCP_MIB_DUPDATA);
-+		mptcp_drop(sk, skb);
-+		return false;
-+	}
-+
-+	/* Partial packet: map_seq < ack_seq < end_seq.
-+	 * Skip the already-acked bytes and enqueue the new data.
- 	 */
--	MPTCP_INC_STATS(sock_net(sk), MPTCP_MIB_DUPDATA);
-+	copy_len = MPTCP_SKB_CB(skb)->end_seq - msk->ack_seq;
-+	MPTCP_SKB_CB(skb)->offset += msk->ack_seq - MPTCP_SKB_CB(skb)->map_seq;
-+	MPTCP_SKB_CB(skb)->map_seq += msk->ack_seq -
-+				      MPTCP_SKB_CB(skb)->map_seq;
-+	WRITE_ONCE(msk->ack_seq, msk->ack_seq + copy_len);
-+
-+	skb_set_owner_r(skb, sk);
-+	__skb_queue_tail(&sk->sk_receive_queue, skb);
-+	return true;
-+
- drop:
- 	mptcp_drop(sk, skb);
- 	return false;
+ 	linfo->link_up = FIELD_GET(RESP_LINKSTAT_UP, lstat);
+ 	linfo->full_duplex = FIELD_GET(RESP_LINKSTAT_FDUPLEX, lstat);
+-	linfo->speed = cgx_speed_mbps[FIELD_GET(RESP_LINKSTAT_SPEED, lstat)];
++	speed = FIELD_GET(RESP_LINKSTAT_SPEED, lstat);
++	linfo->speed = speed < ARRAY_SIZE(cgx_speed_mbps) ?
++		       cgx_speed_mbps[speed] : 0;
+ 	linfo->an = FIELD_GET(RESP_LINKSTAT_AN, lstat);
+ 	linfo->fec = FIELD_GET(RESP_LINKSTAT_FEC, lstat);
+ 	linfo->lmac_type_id = cgx_get_lmac_type(cgx, lmac_id);
 -- 
 2.53.0
 
