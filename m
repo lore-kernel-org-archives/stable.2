@@ -1,107 +1,106 @@
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C87626738C
-	for <stable@vger.kernel.org>; Sat, 30 May 2026 18:38:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A897331200;
+	Sat, 30 May 2026 18:38:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780166289; cv=none; b=YpEmGh8b3YUYhqTO2OUUScA+yu4wsqkKNWWuGNnXvGSHmkLwHE/JzONzywvOCEHeqPyL8SkMaLX5b/aLxT3J+Q78gvEU8BJkpHrEIFvGZKtzEDOI5VuUctgzOSnkrdiQFARknWSUVKce5R5JmkY21rHHCaleFEgAVW2ISqxK5As=
+	t=1780166290; cv=none; b=MX7moaI5sOkThiwPBTXa3ll6hRQkk4JuncsfKAm6xhMyNqjNRQoBZiBucqB4Q08nBlGH+PMu7Y+kvvOW4h7arTiKmxV8bTGrADSlPu+IkIYtsB+mK432NgdMw4XUbaYwXYvjo4byVQQ2whX25z7tKljpoq2BMvL0egxEA/heM3g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780166289; c=relaxed/simple;
-	bh=NLI0v+RttiQPW0DxzyASoDa+lnqiux+q/8Ll8MbHowU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=EYrp35SaWoX/boPsMN+mEU1pRCg1pkiDyzXYGoO7+ik2OfLpUCjtfL7684F/elgvh/7EG9byu7gZFZ7wN3n9pZ+lU4kp7zdVvs26MISY95vaL+4dTQ+kER2CxusAW8mzKYiUQItfUBuIb1dnV+Vw0XUVioQwfsEnn/VzDJRllr0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=MOZ8DLIy; arc=none smtp.client-ip=213.97.179.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	s=arc-20240116; t=1780166290; c=relaxed/simple;
+	bh=n8IEI4vqrCahX335iGsv6iWfUxpUK22O6KR4EpalfHA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=CKWRs/rynZG+UzGh/NI8IXHNaKbWO64o40hFTmZslSDomdks2O6SuSspNa4rOmzGhbpLrfSnNocwrTXvgCZg0AB6ASUim3C+2BH7/3SVfX+6luxidJtCzX1kZn+Mi6BKCJqEaNqrbq9n4X0ZmFVUpQO4W692Cb43I/k8XOFm/P4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=d6I/hD18; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="MOZ8DLIy"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Cc:To:In-Reply-To:References:Message-Id:
-	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:Sender:
-	Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender
-	:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=9x8OYvKFsNwqjP7jvmqNwZP7haudpAOz0SmRmxXx/PI=; b=MOZ8DLIyyZhL7AE8Bw+fKVJJqr
-	2JZCBaA13sKcxtPK7UR3FmZj4J9q1c8IGXziiltxkQxsTGWoSJ1etwOdnLghq63nIH+m+aDnfW/5Z
-	2LCzSwDPAixRKAZvJ+2AL6V+TXTF49Aqhkbiq6PtdtYTZHEuZ+eSIvgzF1yEPonW149m1HNmcW8ri
-	RugnEUMTtDgw20GfeA1Rd2SkHRidUSvhwdsldR/4qGROd8ry09HICBNlqczHxobACMpWmKXoj2tde
-	31XK4K+DVrsq4sG6ajD34JXSCD4zBk0bZySs9Pcq/pfnNk7cSu1kkBd8dq+StvDhnUJ/siSw88v7o
-	6oRpkQkQ==;
-Received: from [189.7.87.67] (helo=[10.0.0.1])
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
-	id 1wTOZS-00ALNh-38; Sat, 30 May 2026 20:38:06 +0200
-From: =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Date: Sat, 30 May 2026 15:37:42 -0300
-Subject: [PATCH 1/4] drm/v3d: Wait for pending L2T flush before cleaning
- caches
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="d6I/hD18"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D343B1F00893;
+	Sat, 30 May 2026 18:38:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1780166289;
+	bh=5W29QDOgW1jH4vAEBOuB7OPWNSr45h0MA/s2lckztlM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=d6I/hD18sp3iqZuHSHHuSdUQTT1uQZ9/cQGxNeIQ4CnV7NESi0FR6LYc6lJh/ClEy
+	 0iA7pkuGJN8yuedoqwy1/pxEHsl311daHl2x9PTaZDXttpn21iwVx6xtnZH3j/2sZ9
+	 +MF1rj0HBhz3sYFTjx2YCI5NhBImnNTK606fzZ6o=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Felix Gu <ustc.gu@gmail.com>,
+	Haibo Chen <haibo.chen@nxp.com>,
+	Mark Brown <broonie@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10 330/589] spi: fsl-qspi: Use reinit_completion() for repeated operations
+Date: Sat, 30 May 2026 18:03:31 +0200
+Message-ID: <20260530160233.586500317@linuxfoundation.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260530160224.570625122@linuxfoundation.org>
+References: <20260530160224.570625122@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260530-v3d-fix-rpi4-freezes-v1-1-c2c8307da6ce@igalia.com>
-References: <20260530-v3d-fix-rpi4-freezes-v1-0-c2c8307da6ce@igalia.com>
-In-Reply-To: <20260530-v3d-fix-rpi4-freezes-v1-0-c2c8307da6ce@igalia.com>
-To: Melissa Wen <mwen@igalia.com>, Iago Toral <itoral@igalia.com>
-Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
- stable@vger.kernel.org, =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1551; i=mcanal@igalia.com;
- h=from:subject:message-id; bh=NLI0v+RttiQPW0DxzyASoDa+lnqiux+q/8Ll8MbHowU=;
- b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBqGy6IKfrBNgvOxipeVBLlQFNlHTOqR93SY0Fo5
- N/c5SJVKo2JATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCahsuiAAKCRA/8w6Kdoj6
- qhoWB/987vqe5RJXjAq5zqDfNNS0pVHfja98VFCWPzo33F8l6S2jjQrULXwpWXLThlEZDmkHWeY
- sWIDAAowcEyiwiHuELbB8sSKy1SAN54H24uuH1J7LBNHglvkogOo/x4dsH6cNPiH9mqQoz9UGTW
- mP0vcaS1GzI9gH9kweK+nJo5pRkeTgDrKlW6zaymPk5FiwDvtSjEpjehZadSDAz712B0OaZnIlF
- x/58jQse6NH2E+JTSX2y607dnlSF3nvyomKw7eaJlx0xPdHcCTo+GPkoUWK8ERfTxKkWSncK6ib
- uGNliD66G4hK6rk5Fj0nCo1O/jq+YcSKj6KW0Xj1w2hWTH1l
-X-Developer-Key: i=mcanal@igalia.com; a=openpgp;
- fpr=F8E45D7D0116770729A677D13FF30E8A7688FAAA
 
-v3d_clean_caches() starts the cache-clean sequence by writing
-V3D_L2TCACTL_TMUWCF to V3D_CTL_L2TCACTL and then polling for that bit to
-clear. It does not, however, check for an L2T flush (L2TFLS) that may
-still be in flight from a previous operation.
+5.10-stable review patch.  If anyone has any objections, please let me know.
 
-On pre-V3D 7.1 hardware, kicking off the TMU write-combiner flush while an
-L2T flush is still pending can clobber bits in L2TCACTL and cause cache
-inconsistencies.
+------------------
 
-Poll for L2TFLS to clear before writing L2TCACTL on V3D < 7.1, ensuring
-any pending flush has completed before a new clean is issued.
+From: Felix Gu <ustc.gu@gmail.com>
 
-Cc: stable@vger.kernel.org
-Fixes: d223f98f0209 ("drm/v3d: Add support for compute shader dispatch.")
-Signed-off-by: Maíra Canal <mcanal@igalia.com>
+[ Upstream commit 981b080a79724738882b0af1c5bb7ade30d94f24 ]
+
+The driver currently calls init_completion() during every spi_mem_op.
+Tchnically it may work, but it's not the recommended pattern.
+
+According to the kernel documentation: Calling init_completion() on
+the same completion object twice is most likely a bug as it
+re-initializes the queue to an empty queue and enqueued tasks could
+get "lost" - use reinit_completion() in that case, but be aware of
+other races.
+
+So moves the initial initialization to probe function and uses
+reinit_completion() for subsequent operations.
+
+Fixes: 84d043185dbe ("spi: Add a driver for the Freescale/NXP QuadSPI controller")
+Signed-off-by: Felix Gu <ustc.gu@gmail.com>
+Reviewed-by: Haibo Chen <haibo.chen@nxp.com>
+Link: https://patch.msgid.link/20260304-spi-nxp-v2-3-cd7d7726a27e@gmail.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/v3d/v3d_gem.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ drivers/spi/spi-fsl-qspi.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/v3d/v3d_gem.c b/drivers/gpu/drm/v3d/v3d_gem.c
-index 1ee3c038d5f6..c43d9af41374 100644
---- a/drivers/gpu/drm/v3d/v3d_gem.c
-+++ b/drivers/gpu/drm/v3d/v3d_gem.c
-@@ -206,6 +206,14 @@ v3d_clean_caches(struct v3d_dev *v3d)
+diff --git a/drivers/spi/spi-fsl-qspi.c b/drivers/spi/spi-fsl-qspi.c
+index 46ae46a944c5c..2ff26027aafd2 100644
+--- a/drivers/spi/spi-fsl-qspi.c
++++ b/drivers/spi/spi-fsl-qspi.c
+@@ -607,7 +607,7 @@ static int fsl_qspi_do_op(struct fsl_qspi *q, const struct spi_mem_op *op)
+ 	void __iomem *base = q->iobase;
+ 	int err = 0;
  
- 	trace_v3d_cache_clean_begin(dev);
+-	init_completion(&q->c);
++	reinit_completion(&q->c);
  
-+	/* GFXH-1897: Ensure pending flushes complete before writing L2TCACTL */
-+	if (v3d->ver < V3D_GEN_71) {
-+		if (wait_for(!(V3D_CORE_READ(core, V3D_CTL_L2TCACTL) &
-+			       V3D_L2TCACTL_L2TFLS), 100)) {
-+			drm_err(dev, "Timeout waiting for L2T clean\n");
-+		}
-+	}
-+
- 	V3D_CORE_WRITE(core, V3D_CTL_L2TCACTL, V3D_L2TCACTL_TMUWCF);
- 	if (wait_for(!(V3D_CORE_READ(core, V3D_CTL_L2TCACTL) &
- 		       V3D_L2TCACTL_TMUWCF), 100)) {
-
+ 	/*
+ 	 * Always start the sequence at the same index since we update
+@@ -913,6 +913,7 @@ static int fsl_qspi_probe(struct platform_device *pdev)
+ 	if (ret < 0)
+ 		goto err_disable_clk;
+ 
++	init_completion(&q->c);
+ 	ret = devm_request_irq(dev, ret,
+ 			fsl_qspi_irq_handler, 0, pdev->name, q);
+ 	if (ret) {
 -- 
-2.54.0
+2.53.0
+
+
 
