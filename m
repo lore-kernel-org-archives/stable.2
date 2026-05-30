@@ -1,44 +1,51 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B10232D42B
-	for <stable@vger.kernel.org>; Sat, 30 May 2026 17:03:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D73BE2690D5;
+	Sat, 30 May 2026 17:03:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780160604; cv=none; b=cDwCsNX+KNM88NZRgYnJWppMprmJMEqL60nSg6rOF1JiXLyBHlvtOX2/wbwLH2075ZogOxjeuLQp6sZ9W50d9W1cHltlo22ZH7Q5p7LfkEFz/kVwCWaOmL1xptpJKq4OUqZk9Eajcvp8ZFMWH8bzSGiOHVmaZfMUCXVKp+Oe44w=
+	t=1780160604; cv=none; b=Vj9bIAwEz/WwqhmLZTFfC3N9JxyzETdz8t+k2K8idkFn8HpKvX11BOHilxqlTPg4z+kKHs4hdYePxFlkDG+Ucu3LnuSMlXSxLE7MZZXn7+2ZahbL4vcPbeJlPmCaUPtCyn1XGdMAcxzLS41p2ns4t4Yb0LY2QbfQnvpXC0dlUz0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1780160604; c=relaxed/simple;
-	bh=E3qP0vTfsjBJmFlyLD9+5ZV3AdafZB3ghd99ZDFv97U=;
+	bh=5smW3AUTriTzxkQr8QWB5pVi47Z//lt1MvCd5pwxcqw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=V3wv8C5CdRGCsJrUgBkqHj+3OQ9OMOLOTmvXCLQXzeTGZZAPpuM4JpZLLKZfHTXBWlWbIZ5c8gj4fKiLfwsB2qsyZj42Cvvxe1Knc11RZo4+spJEE/g9DImI/YcrW+DbLLtYtWa+EBPKBSop1rucvTazCxFjmHOUDtZJoldlOXU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kq5RIxNJ; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=VfR1y+r652UvbL58P+gTIwcG+YOK+arOMj3gGML2QJL51hJSBqEFhu3inzhikfvjV3+pAYqMYuy0hh+6hKZoSn4Gci9ZbAZMt0VQEL//KLyva7a+v7o8zd6q1jomdB+zD5TijQyu4f9ajUTSfRsU4DCE98LZHCUdR91TFZ8y5G0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=onL5xS3s; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kq5RIxNJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA0BC1F00893;
-	Sat, 30 May 2026 17:03:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780160603;
-	bh=vrZFWKLN8U1RZUIIMgJpDxR+Lc/KmVHS5YgbpipfhVQ=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="onL5xS3s"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 322081F00898;
+	Sat, 30 May 2026 17:03:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1780160603;
+	bh=AWepjDBwCRfskCTDOJTXRpsziBSJZsxzj9hvhqWNC/Q=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kq5RIxNJR+YWScFUV4bMB4MFs/qwn9xpwr97MPO38aQpwK18GhJ+LJ27+YGQ5GIFr
-	 ik5wcFLagPEvZKJNt871kxgNdpqBfygItR0oC60Pri7QfRfOz2jzSrhyUOs5YqwAhz
-	 4cCYB8f6xkFYHAv2ImMiLAajQjQzVLu9d4MLy2PPluNbp0RcQA7nXdJGke4WQCL2T+
-	 Bjl0qK5Z3NZcAVPZqkKbaGIDPyVCw7W76sVQc8Wl6IIU77Tdr6TZaFeMDquUmw+1kw
-	 Tz++Xkm+6oIiXVTxsrCXvbf/asqIyCvyfchoA58qd2iICIvR86J0ks37at1q7smG/m
-	 IZ0f56omtLi7g==
-From: Sasha Levin <sashal@kernel.org>
+	b=onL5xS3suxweIyWoDRttTaQNJYUY/3jHbym3uwGkX2lcoMOb9DyHqlGOC+uJPYuo1
+	 m0xGlgFBhbopwsSVo8kSrwq94S3QO4j8PT0tctNHtQl/hzMl61o44vV80Dxd+HPSEX
+	 iP3cOa77Xde5WtFjqiEvYG4M3aFlSnnklPou5j7Y=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Dawei Feng <dawei.feng@seu.edu.cn>,
-	Zilin Guan <zilin@seu.edu.cn>,
-	Simon Horman <horms@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] octeontx2-pf: avoid double free of pool->stack on AQ init failure
-Date: Sat, 30 May 2026 13:03:20 -0400
-Message-ID: <20260530170320.3036620-1-sashal@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Anhad Jai Singh <ffledgling@meta.com>,
+	"Paul E. McKenney" <paulmck@kernel.org>,
+	Oleg Nesterov <oleg@redhat.com>,
+	Jens Axboe <axboe@kernel.dk>,
+	Christian Brauner <brauner@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
+	Chris Mason <clm@fb.com>,
+	Rik van Riel <riel@surriel.com>,
+	Paul Menzel <pmenzel@molgen.mpg.de>
+Subject: [PATCH 6.1 383/969] exit: Sleep at TASK_IDLE when waiting for application core dump
+Date: Sat, 30 May 2026 17:58:27 +0200
+Message-ID: <20260530160310.874631722@linuxfoundation.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026052841-shoplift-raving-5384@gregkh>
-References: <2026052841-shoplift-raving-5384@gregkh>
+In-Reply-To: <20260530160300.485627683@linuxfoundation.org>
+References: <20260530160300.485627683@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,61 +54,57 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Dawei Feng <dawei.feng@seu.edu.cn>
+6.1-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit 9b244c242bec48b37e82b89787afd6a4c43457e1 ]
+------------------
 
-otx2_pool_aq_init() frees pool->stack when mailbox sync or retry
-allocation fails, but leaves the pointer unchanged. Later,
-otx2_sq_aura_pool_init() unwinds the partial setup through
-otx2_aura_pool_free(), which frees pool->stack again. The CN20K-specific
-cn20k_pool_aq_init() implementation has the same bug in
-its corresponding error path.
+From: Paul E. McKenney <paulmck@kernel.org>
 
-Set pool->stack to NULL immediately after the local free so the shared
-cleanup path does not free the same stack again while cleaning up
-partially initialized pool state.
+commit b8e753128ed074fcb48e9ceded940752f6b1c19f upstream.
 
-The bug was first flagged by an experimental analysis tool we are
-developing for kernel memory-management bugs while analyzing
-v6.13-rc1. The tool is still under development and is not yet publicly
-available. Manual inspection confirms that the bug is still present in
-v7.1-rc3.
+Currently, the coredump_task_exit() function sets the task state
+to TASK_UNINTERRUPTIBLE|TASK_FREEZABLE, which usually works well.
+But a combination of large memory and slow (and/or highly contended)
+mass storage can cause application core dumps to take more than
+two minutes, which can cause check_hung_task(), which is invoked by
+check_hung_uninterruptible_tasks(), to produce task-blocked splats.
+There does not seem to be any reasonable benefit to getting these splats.
 
-Runtime validation was not performed because reproducing this path
-requires OcteonTX2/CN20K hardware.
+Furthermore, as Oleg Nesterov points out, TASK_UNINTERRUPTIBLE could
+be misleading because the task sleeping in coredump_task_exit() really
+is killable, albeit indirectly.  See the check of signal->core_state
+in prepare_signal() and the check of fatal_signal_pending()
+in dump_interrupted(), which bypass the normal unkillability of
+TASK_UNINTERRUPTIBLE, resulting in coredump_finish() invoking
+wake_up_process() on any threads sleeping in coredump_task_exit().
 
-Fixes: caa2da34fd25 ("octeontx2-pf: Initialize and config queues")
-Fixes: d322fbd17203 ("octeontx2-pf: Initialize cn20k specific aura and pool contexts")
-Cc: stable@vger.kernel.org
-Signed-off-by: Zilin Guan <zilin@seu.edu.cn>
-Signed-off-by: Dawei Feng <dawei.feng@seu.edu.cn>
-Reviewed-by: Simon Horman <horms@kernel.org>
-Link: https://patch.msgid.link/20260515151826.1005397-1-dawei.feng@seu.edu.cn
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Therefore, change that TASK_UNINTERRUPTIBLE to TASK_IDLE.
+
+Reported-by: Anhad Jai Singh <ffledgling@meta.com>
+Signed-off-by: Paul E. McKenney <paulmck@kernel.org>
+Acked-by: Oleg Nesterov <oleg@redhat.com>
+Cc: Jens Axboe <axboe@kernel.dk>
+Cc: Christian Brauner <brauner@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>
+Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>
+Cc: Chris Mason <clm@fb.com>
+Cc: Rik van Riel <riel@surriel.com>
+Cc: Paul Menzel <pmenzel@molgen.mpg.de>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/net/ethernet/marvell/octeontx2/nic/otx2_common.c | 2 ++
- 1 file changed, 2 insertions(+)
+ kernel/exit.c |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_common.c b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_common.c
-index f75afcf5f5aef..0d5571bc8b4a8 100644
---- a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_common.c
-+++ b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_common.c
-@@ -1386,11 +1386,13 @@ int otx2_pool_init(struct otx2_nic *pfvf, u16 pool_id,
- 		err = otx2_sync_mbox_msg(&pfvf->mbox);
- 		if (err) {
- 			qmem_free(pfvf->dev, pool->stack);
-+			pool->stack = NULL;
- 			return err;
- 		}
- 		aq = otx2_mbox_alloc_msg_npa_aq_enq(&pfvf->mbox);
- 		if (!aq) {
- 			qmem_free(pfvf->dev, pool->stack);
-+			pool->stack = NULL;
- 			return -ENOMEM;
- 		}
- 	}
--- 
-2.53.0
+--- a/kernel/exit.c
++++ b/kernel/exit.c
+@@ -426,7 +426,7 @@ static void coredump_task_exit(struct ta
+ 			complete(&core_state->startup);
+ 
+ 		for (;;) {
+-			set_current_state(TASK_UNINTERRUPTIBLE|TASK_FREEZABLE);
++			set_current_state(TASK_IDLE|TASK_FREEZABLE);
+ 			if (!self.task) /* see coredump_finish() */
+ 				break;
+ 			schedule();
+
 
