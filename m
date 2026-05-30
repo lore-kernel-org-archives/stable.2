@@ -1,41 +1,41 @@
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C961126738C
-	for <stable@vger.kernel.org>; Sat, 30 May 2026 18:38:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C87626738C
+	for <stable@vger.kernel.org>; Sat, 30 May 2026 18:38:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780166288; cv=none; b=hMORP6/hrlGe6YPVpsagf7d+vEuYbQ1fQbA45KnpM1HJMFCfJK9CCVOispUEp855uXVwPh8RIN8Rkm/e8Ui6nRZWdGeoExi+R0nf74VkJYKlH9WqqIIJNAHDCfLz+6/LOT+nqcwSa6au/jKoU6DcGA1eZ0wc7s3JwF/PIrk5h7w=
+	t=1780166289; cv=none; b=YpEmGh8b3YUYhqTO2OUUScA+yu4wsqkKNWWuGNnXvGSHmkLwHE/JzONzywvOCEHeqPyL8SkMaLX5b/aLxT3J+Q78gvEU8BJkpHrEIFvGZKtzEDOI5VuUctgzOSnkrdiQFARknWSUVKce5R5JmkY21rHHCaleFEgAVW2ISqxK5As=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780166288; c=relaxed/simple;
-	bh=T4N0sBAg6OvCjb2pgLo2/mx0ExzDNFlAqYzZFdtR9+M=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=SxJc9h1ywtiJU+vO2Q0DMExzMy/IlCmEYIrXSWIOGx2TwQTbSY4c60dOAimG4SWO8+S4HZoG8A7RlKigJIltpnt14/dwp3I0jO3mv207hzQ5Yh1z59VXFvNpRQiNxeXPme/FC6ToGYyt9ANMLe4fTTwj1X9hVrYOolxhQ98Eb1c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=TM3fkiHy; arc=none smtp.client-ip=213.97.179.56
+	s=arc-20240116; t=1780166289; c=relaxed/simple;
+	bh=NLI0v+RttiQPW0DxzyASoDa+lnqiux+q/8Ll8MbHowU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=EYrp35SaWoX/boPsMN+mEU1pRCg1pkiDyzXYGoO7+ik2OfLpUCjtfL7684F/elgvh/7EG9byu7gZFZ7wN3n9pZ+lU4kp7zdVvs26MISY95vaL+4dTQ+kER2CxusAW8mzKYiUQItfUBuIb1dnV+Vw0XUVioQwfsEnn/VzDJRllr0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=MOZ8DLIy; arc=none smtp.client-ip=213.97.179.56
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="TM3fkiHy"
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="MOZ8DLIy"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Cc:To:Content-Transfer-Encoding:Content-Type:MIME-Version:
-	Message-Id:Date:Subject:From:Sender:Reply-To:Content-ID:Content-Description:
-	Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
-	In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
-	List-Post:List-Owner:List-Archive;
-	bh=9JbDhtonn5q5rNu0vzNVx69cnGfGhDTfpZJpjnWnyZo=; b=TM3fkiHyv83epjq0c3vSbI6fqd
-	yRzc7gbHz+i5QMdUEcncvS9ffDIbyofcNQrF1pIndwbyz8NNloM7sJUyVAIBtvtTOVlqmUXIcBJ4t
-	1h5NCCu8JRwVlQNjfD1lk9tB4B18WNmrR5cTMcu/3T9rqFGtaQwF1dtoNqnt9OZgqCTRehC1DElwS
-	ljE9e3e37+xqteqXUW3nvjPCR5kK2fz1+gFu2hZ9e07+w0jb948s6qFTjbKt6k6BQVuR+ZqUsGI7E
-	1oQ8sU417FngGyU79aikDaOEqmiw646HZePGvOB3SPe3BbXqsXgy3Dj7spY2fvlQ/kodlPIizFSN7
-	EpNfjBlA==;
+	s=20170329; h=Cc:To:In-Reply-To:References:Message-Id:
+	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:Sender:
+	Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender
+	:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=9x8OYvKFsNwqjP7jvmqNwZP7haudpAOz0SmRmxXx/PI=; b=MOZ8DLIyyZhL7AE8Bw+fKVJJqr
+	2JZCBaA13sKcxtPK7UR3FmZj4J9q1c8IGXziiltxkQxsTGWoSJ1etwOdnLghq63nIH+m+aDnfW/5Z
+	2LCzSwDPAixRKAZvJ+2AL6V+TXTF49Aqhkbiq6PtdtYTZHEuZ+eSIvgzF1yEPonW149m1HNmcW8ri
+	RugnEUMTtDgw20GfeA1Rd2SkHRidUSvhwdsldR/4qGROd8ry09HICBNlqczHxobACMpWmKXoj2tde
+	31XK4K+DVrsq4sG6ajD34JXSCD4zBk0bZySs9Pcq/pfnNk7cSu1kkBd8dq+StvDhnUJ/siSw88v7o
+	6oRpkQkQ==;
 Received: from [189.7.87.67] (helo=[10.0.0.1])
 	by fanzine2.igalia.com with esmtpsa 
 	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
-	id 1wTOZP-00ALNh-Ep; Sat, 30 May 2026 20:38:03 +0200
+	id 1wTOZS-00ALNh-38; Sat, 30 May 2026 20:38:06 +0200
 From: =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Subject: [PATCH 0/4] drm/v3d: Fix RPi 4 system hangs from stale cache and
- MMU state
-Date: Sat, 30 May 2026 15:37:41 -0300
-Message-Id: <20260530-v3d-fix-rpi4-freezes-v1-0-c2c8307da6ce@igalia.com>
+Date: Sat, 30 May 2026 15:37:42 -0300
+Subject: [PATCH 1/4] drm/v3d: Wait for pending L2T flush before cleaning
+ caches
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -44,73 +44,64 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2MwQ5AMBAFf0X2bJMqFfyKOKCv7AXZJiLEv2scJ
- 5mZhyJUEKnLHlKcEmXfEhR5RvM6bgtYfGKyxtbG2YbP0nOQi/WQioMCNyI30whXtN5UMyilhyI
- 5/7Yf3vcDIzHD0mYAAAA=
-X-Change-ID: 20260528-v3d-fix-rpi4-freezes-8bae519d04ce
+Message-Id: <20260530-v3d-fix-rpi4-freezes-v1-1-c2c8307da6ce@igalia.com>
+References: <20260530-v3d-fix-rpi4-freezes-v1-0-c2c8307da6ce@igalia.com>
+In-Reply-To: <20260530-v3d-fix-rpi4-freezes-v1-0-c2c8307da6ce@igalia.com>
 To: Melissa Wen <mwen@igalia.com>, Iago Toral <itoral@igalia.com>
 Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
  stable@vger.kernel.org, =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2299; i=mcanal@igalia.com;
- h=from:subject:message-id; bh=T4N0sBAg6OvCjb2pgLo2/mx0ExzDNFlAqYzZFdtR9+M=;
- b=owGbwMvMwMVo/5mvq6zj1yrG02pJDFnSeh1/ImPY9O9mRZem8Uj0Lrh0wHDTj87QyGcGtm+fe
- rgsXLK0k9GYhYGRi0FWTJHlx5PYWkaxcnbNZeUXYQaxMoFMYeDiFICJzGDjYJive6Hf7nLl5p67
- tT3HXRYtjk6qZZ3/84D1hi+sejvFbi7653RtYo6g3SYvmR9Nu00/1s9RE5hVd6YzLkq8nMHk0Jp
- PP9hKmjJ76qsWKKhMZzD48SKoyMzTl6eRLU1kmqYQk88GzVWTf2z54Xmjxfskv3PLk3hVs0cWmc
- Wl/t6Lkhz++P9p6E03M9bqrV/E9Wz2teOfq6Yf8JNSLZ5Ve7MrPvjwlY/2iQ/36t8q/P82m1kqu
- 3gWxyrtyNr7//M0O03ZvzazRJquX3y+rf11o/rhzelLCmqLOD5U3567rz3BJdf8C1fRk7oE+w+X
- E9hCD288PeXzkpT2qPIzU4zvN7e8uWdleHCn6tr3le+5AA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1551; i=mcanal@igalia.com;
+ h=from:subject:message-id; bh=NLI0v+RttiQPW0DxzyASoDa+lnqiux+q/8Ll8MbHowU=;
+ b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBqGy6IKfrBNgvOxipeVBLlQFNlHTOqR93SY0Fo5
+ N/c5SJVKo2JATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCahsuiAAKCRA/8w6Kdoj6
+ qhoWB/987vqe5RJXjAq5zqDfNNS0pVHfja98VFCWPzo33F8l6S2jjQrULXwpWXLThlEZDmkHWeY
+ sWIDAAowcEyiwiHuELbB8sSKy1SAN54H24uuH1J7LBNHglvkogOo/x4dsH6cNPiH9mqQoz9UGTW
+ mP0vcaS1GzI9gH9kweK+nJo5pRkeTgDrKlW6zaymPk5FiwDvtSjEpjehZadSDAz712B0OaZnIlF
+ x/58jQse6NH2E+JTSX2y607dnlSF3nvyomKw7eaJlx0xPdHcCTo+GPkoUWK8ERfTxKkWSncK6ib
+ uGNliD66G4hK6rk5Fj0nCo1O/jq+YcSKj6KW0Xj1w2hWTH1l
 X-Developer-Key: i=mcanal@igalia.com; a=openpgp;
  fpr=F8E45D7D0116770729A677D13FF30E8A7688FAAA
 
-Some users have reported hard system hangs on the Raspberry Pi 4 (V3D 4.2)
-under GPU load [1][2][3]. Investigation had traced these to V3D caches and
-MMU being left in an inconsistent state across PM transitions. This series
-addresses three distinct issues in the cache and MMU maintenance:
+v3d_clean_caches() starts the cache-clean sequence by writing
+V3D_L2TCACTL_TMUWCF to V3D_CTL_L2TCACTL and then polling for that bit to
+clear. It does not, however, check for an L2T flush (L2TFLS) that may
+still be in flight from a previous operation.
 
-  1. PATCH 1: Addresses an issue on pre-V3D 7.1 hardware, in which
-     starting a clean while an L2T flush is still pending can clobber bits
-     in L2TCACTL and leave the caches inconsistent. This issue existed
-     before the runtime PM series.
+On pre-V3D 7.1 hardware, kicking off the TMU write-combiner flush while an
+L2T flush is still pending can clobber bits in L2TCACTL and cause cache
+inconsistencies.
 
-  2. PATCH 2: Fixes the MMU TLB/cache flush in v3d_mmu_set_page_table()
-     being silently skipped during runtime resume. Directly addresses
-     the system hangs reported by the users.
+Poll for L2TFLS to clear before writing L2TCACTL on V3D < 7.1, ensuring
+any pending flush has completed before a new clean is issued.
 
-  3. PATCH 3: Cleans the V3D caches on runtime suspend, so all dirty lines
-     are written back to memory before the power domain is shut down.
-     Directly addresses the error `v3d fec00000.v3d: MMU error from
-     client L2T (7) at 0xff877600, pte invalid` reported during the
-     hangs.
-
-Together these restore correct cache/MMU coherency around runtime PM,
-addressing the reported hangs. Moreover, with this fixes, it was possible
-to reduce the autosuspend delay, which was increased as the shorter delays
-used to cause more frequent runtime suspend/resume cycles, which exposed
-the cache and MMU coherency bugs as random GPU hangs. With those fixed,
-we can reduce the autosuspend delay to a more reasonable value.
-
-[1] https://github.com/raspberrypi/linux/issues/7381
-[2] https://github.com/raspberrypi/linux/issues/7396
-[3] https://github.com/raspberrypi/linux/issues/7397
-
-Best regards,
-- Maíra
-
+Cc: stable@vger.kernel.org
+Fixes: d223f98f0209 ("drm/v3d: Add support for compute shader dispatch.")
+Signed-off-by: Maíra Canal <mcanal@igalia.com>
 ---
-Maíra Canal (4):
-      drm/v3d: Wait for pending L2T flush before cleaning caches
-      drm/v3d: Flush MMU TLB and cache during runtime resume
-      drm/v3d: Clean caches before runtime suspend
-      drm/v3d: Reduce PM runtime autosuspend delay
+ drivers/gpu/drm/v3d/v3d_gem.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
- drivers/gpu/drm/v3d/v3d_drv.c   |  2 +-
- drivers/gpu/drm/v3d/v3d_gem.c   |  8 ++++++++
- drivers/gpu/drm/v3d/v3d_mmu.c   | 31 ++++++++++++++++++++++---------
- drivers/gpu/drm/v3d/v3d_power.c |  2 ++
- 4 files changed, 33 insertions(+), 10 deletions(-)
----
-base-commit: 61de054a772a1feda6364931ab1baf9038abf1c8
-change-id: 20260528-v3d-fix-rpi4-freezes-8bae519d04ce
+diff --git a/drivers/gpu/drm/v3d/v3d_gem.c b/drivers/gpu/drm/v3d/v3d_gem.c
+index 1ee3c038d5f6..c43d9af41374 100644
+--- a/drivers/gpu/drm/v3d/v3d_gem.c
++++ b/drivers/gpu/drm/v3d/v3d_gem.c
+@@ -206,6 +206,14 @@ v3d_clean_caches(struct v3d_dev *v3d)
+ 
+ 	trace_v3d_cache_clean_begin(dev);
+ 
++	/* GFXH-1897: Ensure pending flushes complete before writing L2TCACTL */
++	if (v3d->ver < V3D_GEN_71) {
++		if (wait_for(!(V3D_CORE_READ(core, V3D_CTL_L2TCACTL) &
++			       V3D_L2TCACTL_L2TFLS), 100)) {
++			drm_err(dev, "Timeout waiting for L2T clean\n");
++		}
++	}
++
+ 	V3D_CORE_WRITE(core, V3D_CTL_L2TCACTL, V3D_L2TCACTL_TMUWCF);
+ 	if (wait_for(!(V3D_CORE_READ(core, V3D_CTL_L2TCACTL) &
+ 		       V3D_L2TCACTL_TMUWCF), 100)) {
+
+-- 
+2.54.0
 
