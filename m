@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4AE9355F3A;
-	Sat, 30 May 2026 20:44:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5E3A348C4C;
+	Sat, 30 May 2026 20:44:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780173879; cv=none; b=PVCTfP2fPgGIuDTPCuBKSJBSVnR6LZaWUsRE3yvu0YE6tgBfW4TZoq4eOzwBkivDlgcDdneWITxYAeOAsT9aSyrt6zCmm42MzHYLu48tx5abDV29xhrZTWRJPEfWOf1GDJ0SW587hPHYID2miH8n7YFVy5ZeG3JXk63JRLRXxLQ=
+	t=1780173881; cv=none; b=i64vTPeknoD9aFT6eSqV0NUU8aMJMkJJ8pIrusUzCY7TntvWuQ208FvhQjpmOWuayh0uu8qA8mhOszzx+J5xswc80izX/y0B5cDa5GP23oYk407lrIoQ47Wb1ZVB+o2SuA5iBOk0E/+mLjNEE5guna7ijj6Dqb9m+iWU0WgV5MI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780173879; c=relaxed/simple;
-	bh=lMmH0s5NcHHnMjtPYyHAIx3VxaoajI0IWp6g9tHyoao=;
+	s=arc-20240116; t=1780173881; c=relaxed/simple;
+	bh=YrQ9TWRiR9ZauWciOcM2foP81ki3GdMKCdh5VVUAAZo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qoM8FwX05tX/a9HCFvBz86s5xWN+oadEjm+05Z4Iq5qonxb76MIeAA+IpT7H/uU1smHdixXia/o9by44simErVTKlVf1dMHQwwy4LLYqB8pTF2gntjC9F9Br+xuIKTQwBCZkyHNZjC02KghS7ZCF58jmzDL7/lGhinNgZLX2MJI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mYTrT07O; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=pLd3E13Wm2qFNwKjIZRNYDDsI8nu7UQ0W1JRuy4MWZlUl9wGaCwyImhPQg3LZEjcAf2SUlHqCRQzJbP/aNuGHLKvF7HjgqCo0gFfvJguByqHPJyD+/xJqfL1d1deUEmLTJye5HUSI2roTs0QOX60/3CfSESZPD1NvyPb9q/drV8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OnTdXAqL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mYTrT07O"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C29091F00893;
-	Sat, 30 May 2026 20:44:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OnTdXAqL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05C891F00898;
+	Sat, 30 May 2026 20:44:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780173878;
-	bh=E60/PJE2WKp8w/h+GMwpXV+vokSE+dnbcL27XuFG6FA=;
+	s=k20260515; t=1780173880;
+	bh=kHAbwq/SzutZYIR0K/AW/f6Kcdb7/efCvqLgYx1wWtE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mYTrT07OqLL/eHGT4iTy/Ja6f5G0M6NVorMlN2GRSwRtTZlm5Yn2wSC7mXmkh6y8b
-	 ZymCA9kvl7TN7ef1V0ypjCOCdowkCMnKLh9HCMEIMpLiVwDOM/cyisQ2MeGFoGuZbd
-	 4kOGMakA2lIPnOPiEh5gqmfvu26pEq0K3ZLaQpA4p8WM91z1yFGi3EgVX0dJCvbZ+V
-	 PERFgZQQNTjBzswEZkB37+5/01WzOTpSCofn8QBLH/au/iJ5Sjp52DEpdIMbfAERNw
-	 x0QeeBNtLZ3XK7wgbLFUThnj8gh9jcL4iq4HNWtQhAxZJ4xbXNimR4K4ku/vNzWZC1
-	 MNZNlPDU39i+g==
+	b=OnTdXAqLhHS4mkMq28Vjdk0T1Jy6KltIta3tv1eGBF8QTXEl58ddY6LXuiwmKYKlJ
+	 aAqzaMdOFLFUPH8cYRxbVHLS09IgFqXGbCCA68IB4fUTz4cPq4YJMb+vEu6sJy++Wt
+	 X65H8arcsETVvkbG/lYge/ccmbiTOVo4aJA9slpYjSheodmZu+yYQ/ZnhdklKMDek1
+	 U7/MP8UG1ziD9pS1E/ZisyiwT3Aqba7jfku2KG8RK09GI7sb73uP919lc/jSJFB71r
+	 43aoxpjKxUGYzFA60jJvTezBPQ1nT5Fx1ZYP0bVKYWQUsCfbS0gMPg6e8bYAMAqsXT
+	 j6eTWgf/418Rw==
 From: srini@kernel.org
 To: gregkh@linuxfoundation.org
 Cc: linux-kernel@vger.kernel.org,
@@ -34,9 +34,9 @@ Cc: linux-kernel@vger.kernel.org,
 	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
 	Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
 	Srinivas Kandagatla <srini@kernel.org>
-Subject: [PATCH 2/8] slimbus: qcom-ngd-ctrl: Fix up platform_driver registration
-Date: Sat, 30 May 2026 21:44:15 +0100
-Message-ID: <20260530204421.116824-3-srini@kernel.org>
+Subject: [PATCH 3/8] slimbus: qcom-ngd-ctrl: Fix probe error path ordering
+Date: Sat, 30 May 2026 21:44:16 +0100
+Message-ID: <20260530204421.116824-4-srini@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260530204421.116824-1-srini@kernel.org>
 References: <20260530204421.116824-1-srini@kernel.org>
@@ -50,91 +50,52 @@ Content-Transfer-Encoding: 8bit
 
 From: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
 
-Device drivers should not invoke platform_driver_register()/unregister()
-in their probe and remove paths. They should further not rely on
-platform_driver_unregister() as their only means of "deleting" their
-child devices.
+qcom_slim_ngd_ctrl_probe() first registers the SSR callback then
+allocates the PDR context, as such the error path needs to come in
+opposite order to allow us to unroll each step.
 
-Introduce a helper to unregister the child device and move the
-platform_driver_register()/unregister() to module_init()/exit().
-
-Fixes: 917809e2280b ("slimbus: ngd: Add qcom SLIMBus NGD driver")
+Fixes: 16f14551d0df ("slimbus: qcom-ngd: cleanup in probe error path")
 Cc: stable@vger.kernel.org
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Reviewed-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
 Signed-off-by: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
 Signed-off-by: Srinivas Kandagatla <srini@kernel.org>
 ---
- drivers/slimbus/qcom-ngd-ctrl.c | 36 ++++++++++++++++++++++++++++++---
- 1 file changed, 33 insertions(+), 3 deletions(-)
+ drivers/slimbus/qcom-ngd-ctrl.c | 11 +++++------
+ 1 file changed, 5 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/slimbus/qcom-ngd-ctrl.c b/drivers/slimbus/qcom-ngd-ctrl.c
-index 428266949fdd..47ba9fb34d25 100644
+index 47ba9fb34d25..6b91a6f11cb6 100644
 --- a/drivers/slimbus/qcom-ngd-ctrl.c
 +++ b/drivers/slimbus/qcom-ngd-ctrl.c
-@@ -1560,6 +1560,13 @@ static int of_qcom_slim_ngd_register(struct device *parent,
- 	return -ENODEV;
- }
- 
-+static void qcom_slim_ngd_unregister(struct qcom_slim_ngd_ctrl *ctrl)
-+{
-+	struct qcom_slim_ngd *ngd = ctrl->ngd;
-+
-+	platform_device_del(ngd->pdev);
-+}
-+
- static int qcom_slim_ngd_probe(struct platform_device *pdev)
- {
- 	struct device *dev = &pdev->dev;
-@@ -1662,7 +1669,6 @@ static int qcom_slim_ngd_ctrl_probe(struct platform_device *pdev)
- 		goto err_pdr_lookup;
+@@ -1660,22 +1660,21 @@ static int qcom_slim_ngd_ctrl_probe(struct platform_device *pdev)
+ 	if (IS_ERR(ctrl->pdr)) {
+ 		ret = dev_err_probe(dev, PTR_ERR(ctrl->pdr),
+ 				    "Failed to init PDR handle\n");
+-		goto err_pdr_alloc;
++		goto err_unregister_ssr;
  	}
  
--	platform_driver_register(&qcom_slim_ngd_driver);
+ 	pds = pdr_add_lookup(ctrl->pdr, "avs/audio", "msm/adsp/audio_pd");
+ 	if (IS_ERR(pds) && PTR_ERR(pds) != -EALREADY) {
+ 		ret = dev_err_probe(dev, PTR_ERR(pds), "pdr add lookup failed\n");
+-		goto err_pdr_lookup;
++		goto err_pdr_release;
+ 	}
+ 
  	return of_qcom_slim_ngd_register(dev, ctrl);
  
- err_pdr_alloc:
-@@ -1676,7 +1682,9 @@ static int qcom_slim_ngd_ctrl_probe(struct platform_device *pdev)
+-err_pdr_alloc:
+-	qcom_unregister_ssr_notifier(ctrl->notifier, &ctrl->nb);
+-
+-err_pdr_lookup:
++err_pdr_release:
+ 	pdr_handle_release(ctrl->pdr);
++err_unregister_ssr:
++	qcom_unregister_ssr_notifier(ctrl->notifier, &ctrl->nb);
  
- static void qcom_slim_ngd_ctrl_remove(struct platform_device *pdev)
- {
--	platform_driver_unregister(&qcom_slim_ngd_driver);
-+	struct qcom_slim_ngd_ctrl *ctrl = platform_get_drvdata(pdev);
-+
-+	qcom_slim_ngd_unregister(ctrl);
+ 	return ret;
  }
- 
- static void qcom_slim_ngd_remove(struct platform_device *pdev)
-@@ -1752,6 +1760,28 @@ static struct platform_driver qcom_slim_ngd_driver = {
- 	},
- };
- 
--module_platform_driver(qcom_slim_ngd_ctrl_driver);
-+static int qcom_slim_ngd_init(void)
-+{
-+	int ret;
-+
-+	ret = platform_driver_register(&qcom_slim_ngd_driver);
-+	if (ret)
-+		return ret;
-+
-+	ret = platform_driver_register(&qcom_slim_ngd_ctrl_driver);
-+	if (ret)
-+		platform_driver_unregister(&qcom_slim_ngd_driver);
-+
-+	return ret;
-+}
-+
-+static void qcom_slim_ngd_exit(void)
-+{
-+	platform_driver_unregister(&qcom_slim_ngd_ctrl_driver);
-+	platform_driver_unregister(&qcom_slim_ngd_driver);
-+}
-+
-+module_init(qcom_slim_ngd_init);
-+module_exit(qcom_slim_ngd_exit);
- MODULE_LICENSE("GPL v2");
- MODULE_DESCRIPTION("Qualcomm SLIMBus NGD controller");
 -- 
 2.53.0
 
