@@ -1,42 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10EE31940B0
-	for <stable@vger.kernel.org>; Sat, 30 May 2026 14:37:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3AD9306756
+	for <stable@vger.kernel.org>; Sat, 30 May 2026 14:37:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780151858; cv=none; b=mpW88e2tK7xZL0ijhQGg3qNhPX9TL0EJDu2xHksH07yheaef58nHWFLndQKCJ2uAv3L1maZFIsYlVNRBo5dsgcam566/OWj56km/4NsNCLgxHH3hN0ku2P7Rg4Mup66ZzyofMk+aNwAAfkUmgCfzUQcZ4CLj5ybdcKJUT4azQa4=
+	t=1780151861; cv=none; b=ZDgWbdCyZNewoo2xpr2bOP2L9JhQS4ZldsXj/0Q1BRGM+ja0u6Zgg6w/t9RvEH9J3u8uDLII9igQM0Uswr2HFGAVwHaV0Dnis8lMDVkZcY9aQD55E2nitPUQ1DlhrXLVnMaUqpRdD6IKewNrRvnDiGpj/xukOFBpgtHrxHsPXIA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780151858; c=relaxed/simple;
-	bh=eprro5fNVf4NhU18VE+APMVLhZs21OP4DjeUUgnzUPo=;
+	s=arc-20240116; t=1780151861; c=relaxed/simple;
+	bh=noKHNorEGl2scw1Q11FJ5RB9RAYi5DT8oD2eTzvL7w0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QORm4TO0SIeT1HeTAwDatMsvhGaU96JKzbOPUjX5wPQdGdiSSbnM40Xs2F2iAmwuGa6+SYhqE4KexaGrmqRmKptmogj/xSnOdm3WtDBU8i1Xc1ALC0cRmifjzT4HmDMmr3iBAWkRldPmZwTIucJuHVGY298dVYQJhrBmuWs3R6Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nx5ea4Su; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Dk/0YXPha+fdz7ma20L58Ibi5+REgVzqBZcZARZibkwbm2xBCL89o+SQQWzxgFUhP9j1Jtfg/c8eF2YL+GhXxmpp5ny5VmNMLicF02XkTvLRH+Dv/VzoLL7ouTWh5gMaO68O/3yqcRup8UvlGS4n/i28qHXsdHglNpRZvOTNZgI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IKhOaR0y; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nx5ea4Su"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 331A41F0089A;
-	Sat, 30 May 2026 14:37:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IKhOaR0y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36D3D1F00898;
+	Sat, 30 May 2026 14:37:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780151856;
-	bh=pgyXogV3TAmnHoJNFzzpif1Plf+fIB5vBsiQlMST7sw=;
+	s=k20260515; t=1780151860;
+	bh=ZiezSk7IecnWcsbiCfIyf5dB6zLHosYzXaLREN+ENaU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nx5ea4SuXCvB94L0vHZkAPBsbKhX/DQyINf3x4S1I//iZRHycMAbSAVIYVw20GBbN
-	 HNpcnj09zRbpviPd7z/trDe6MrsVVWM74ogJcwlyKFlwTJih0C2nGmYKe+d4dMn4Ay
-	 P7qB/z8XsPytGpbaraGExFABxAE3gHTjhrG7Jvnn2/oqgVSmPKUvbtg7qTpaytZED1
-	 9M2QuzTK55CrA0Sdy1oEt7mEFMNafcJbRKNeauEG5U0+ZJJ5N2Qri3jfBn1nb6UQeT
-	 9JkP3wXMSPQin9AU2KfLr4I9IYymcLYFD+pC4o0MbjcsTn+Yqx97v6pMhc2hI5w6bj
-	 nqga6xdr7m6aA==
+	b=IKhOaR0yw3bDdyjq/cVXx+PaCMy2dIqg42TESEmTby2Cizrhj71+Md69W0bXvDI28
+	 zKut31E4tWSCZ0PsTsSi2LGfTtJpla4BFjOfCIQwUnQjKb2bNbzSHEVB/B9if7+FRb
+	 7sl3gvlQbjMq4z7ZK0eqerJe1mQzZo7qPesMqaLe5HRH3PHvlT+WNO826R6+uTqEEc
+	 7j1o1OO2+7s6gtIk+cBlbQLzhHUnIj3hYfOgXPlpAblOBB5zYxUOrFO0rfwAQpegyZ
+	 aoX5fKl7fZF77jZdMC2qauQXMWsQzTlodVPrX/EdzZgluBX+peIFhKVZAOF3fIqx2Q
+	 2ruEDVwEdGqKw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: "Matthieu Baerts (NGI0)" <matttbe@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
+Cc: Justin Stitt <justinstitt@google.com>,
+	Kees Cook <keescook@chromium.org>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] selftests: mptcp: drop nanoseconds width specifier
-Date: Sat, 30 May 2026 10:37:34 -0400
-Message-ID: <20260530143734.2474733-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/2] octeontx2-af: replace deprecated strncpy with strscpy
+Date: Sat, 30 May 2026 10:37:37 -0400
+Message-ID: <20260530143738.2474980-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026052829-lubricate-outplayed-3874@gregkh>
-References: <2026052829-lubricate-outplayed-3874@gregkh>
+In-Reply-To: <2026052831-chair-shed-69f0@gregkh>
+References: <2026052831-chair-shed-69f0@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,68 +46,67 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "Matthieu Baerts (NGI0)" <matttbe@kernel.org>
+From: Justin Stitt <justinstitt@google.com>
 
-[ Upstream commit 01ff78e4b3d98689184c52d97f9575dfbdc3b10f ]
+[ Upstream commit 473f8f2d1bfe1103f20140fdc80cad406b4d68c0 ]
 
-Using the format specifier +%s%3N with GNU date is honoured, and only
-prints 3 digits of the nanoseconds portion of the seconds since epoch,
-which corresponds to the milliseconds.
+`strncpy` is deprecated for use on NUL-terminated destination strings
+[1] and as such we should prefer more robust and less ambiguous string
+interfaces.
 
-The uutils implementation of date currently does not honour this, and
-always prints all 9 digits. This is a known issue [1], but can be worked
-around by adapting this test to use nanoseconds instead of microseconds,
-and then divide it by 1e6.
+We can see that linfo->lmac_type is expected to be NUL-terminated based
+on the `... - 1`'s present in the current code. Presumably making room
+for a NUL-byte at the end of the buffer.
 
-This fix is similar to what has been done on systemd side [2], and it is
-needed to run the selftests on Ubuntu 26.04, containing uutils 0.8.0.
+Considering the above, a suitable replacement is `strscpy` [2] due to
+the fact that it guarantees NUL-termination on the destination buffer
+without unnecessarily NUL-padding.
 
-Note that the Fixes tag is there even if this patch doesn't fix an issue
-in the kernel selftests, but it is useful for those using uutils 0.8.0.
+Let's also prefer the more idiomatic strscpy usage of (dest, src,
+sizeof(dest)) rather than (dest, src, SOME_LEN).
 
-Fixes: 048d19d444be ("mptcp: add basic kselftest for mptcp")
-Cc: stable@vger.kernel.org
-Link: https://github.com/uutils/coreutils/issues/11658 [1]
-Link: https://github.com/systemd/systemd/pull/41627 [2]
-Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
-Link: https://patch.msgid.link/20260515-net-mptcp-misc-fixes-7-1-rc4-v2-6-701e96419f2f@kernel.org
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+Link: https://www.kernel.org/doc/html/latest/process/deprecated.html#strncpy-on-nul-terminated-strings [1]
+Link: https://manpages.debian.org/testing/linux-manual-4.8/strscpy.9.en.html [2]
+Link: https://github.com/KSPP/linux/issues/90
+Signed-off-by: Justin Stitt <justinstitt@google.com>
+Reviewed-by: Kees Cook <keescook@chromium.org>
+Link: https://lore.kernel.org/r/20231010-strncpy-drivers-net-ethernet-marvell-octeontx2-af-cgx-c-v1-1-a443e18f9de8@google.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Stable-dep-of: c0bf0a4f3f1f ("octeontx2-af: CGX: add bounds check to cgx_speed_mbps index")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- tools/testing/selftests/net/mptcp/mptcp_connect.sh | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/net/ethernet/marvell/octeontx2/af/cgx.c | 8 +++-----
+ 1 file changed, 3 insertions(+), 5 deletions(-)
 
-diff --git a/tools/testing/selftests/net/mptcp/mptcp_connect.sh b/tools/testing/selftests/net/mptcp/mptcp_connect.sh
-index 1853285d78e67..6108488ca42ee 100755
---- a/tools/testing/selftests/net/mptcp/mptcp_connect.sh
-+++ b/tools/testing/selftests/net/mptcp/mptcp_connect.sh
-@@ -462,7 +462,7 @@ do_transfer()
- 	wait_local_port_listen "${listener_ns}" "${port}"
+diff --git a/drivers/net/ethernet/marvell/octeontx2/af/cgx.c b/drivers/net/ethernet/marvell/octeontx2/af/cgx.c
+index 0dc802cd851d2..0d8954f934b42 100644
+--- a/drivers/net/ethernet/marvell/octeontx2/af/cgx.c
++++ b/drivers/net/ethernet/marvell/octeontx2/af/cgx.c
+@@ -1228,8 +1228,6 @@ static inline void link_status_user_format(u64 lstat,
+ 					   struct cgx_link_user_info *linfo,
+ 					   struct cgx *cgx, u8 lmac_id)
+ {
+-	const char *lmac_string;
+-
+ 	linfo->link_up = FIELD_GET(RESP_LINKSTAT_UP, lstat);
+ 	linfo->full_duplex = FIELD_GET(RESP_LINKSTAT_FDUPLEX, lstat);
+ 	linfo->speed = cgx_speed_mbps[FIELD_GET(RESP_LINKSTAT_SPEED, lstat)];
+@@ -1240,12 +1238,12 @@ static inline void link_status_user_format(u64 lstat,
+ 	if (linfo->lmac_type_id >= LMAC_MODE_MAX) {
+ 		dev_err(&cgx->pdev->dev, "Unknown lmac_type_id %d reported by firmware on cgx port%d:%d",
+ 			linfo->lmac_type_id, cgx->cgx_id, lmac_id);
+-		strncpy(linfo->lmac_type, "Unknown", LMACTYPE_STR_LEN - 1);
++		strscpy(linfo->lmac_type, "Unknown", sizeof(linfo->lmac_type));
+ 		return;
+ 	}
  
- 	local start
--	start=$(date +%s%3N)
-+	start=$(date +%s%N)
- 	timeout ${timeout_test} \
- 		ip netns exec ${connector_ns} \
- 			./mptcp_connect -t ${timeout_poll} -p $port -s ${cl_proto} \
-@@ -475,7 +475,7 @@ do_transfer()
- 	local rets=$?
+-	lmac_string = cgx_lmactype_string[linfo->lmac_type_id];
+-	strncpy(linfo->lmac_type, lmac_string, LMACTYPE_STR_LEN - 1);
++	strscpy(linfo->lmac_type, cgx_lmactype_string[linfo->lmac_type_id],
++		sizeof(linfo->lmac_type));
+ }
  
- 	local stop
--	stop=$(date +%s%3N)
-+	stop=$(date +%s%N)
- 
- 	if $capture; then
- 		sleep 1
-@@ -491,7 +491,7 @@ do_transfer()
- 	fi
- 
- 	local duration
--	duration=$((stop-start))
-+	duration=$(((stop-start) / 1000000))
- 	printf "(duration %05sms) " "${duration}"
- 	if [ ${rets} -ne 0 ] || [ ${retc} -ne 0 ]; then
- 		echo "[ FAIL ] client exit code $retc, server $rets" 1>&2
+ /* Hardware event handlers */
 -- 
 2.53.0
 
