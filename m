@@ -1,43 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A00503AB293
-	for <stable@vger.kernel.org>; Sat, 30 May 2026 11:48:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E7693ACA57
+	for <stable@vger.kernel.org>; Sat, 30 May 2026 11:49:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780141708; cv=none; b=AMUZ79u/ci/KV/0rkE0yxSE4ULeqRPJnR3g/6ehnGkSqaU9zgQIqY5Dgg6DDYlpW3u3BywZ/t8T7DAeQ4OBH1jBvHnaJY/PMRPz8K7sokdS/MVQhjBwD086wgvLQwoZxDiEppCa8MKrANWVcgIQaVmZxf4yKdRc/rkG0f6JyrBo=
+	t=1780141766; cv=none; b=pAs+4QVEV4HAXjTYRDaF/UDacjNnG8HmxI6xXCXzziNK1Qn5f/4hNx1f3z1F31ti0DmBVFm0RFxs4fA+poIavXDXYoGPZ5M9ulxzxd5GgJKgrDudws9Rn9Ec5fGT9tzJBzGhfVRYqfclrmKYNdRTvsAPoCMLr6YpWtMvxawDHvA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780141708; c=relaxed/simple;
-	bh=lFRuATeNARUTQFt+bHBqyWHX02b64yEgk9gn9cBjCpg=;
+	s=arc-20240116; t=1780141766; c=relaxed/simple;
+	bh=h4UcprwXE/uf04JxiYKhpQQkVGWjcezthGonkaUWuA4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=TAw2USJq89QG+zO3iK/in77jdzK4I9faEDdQVdnk5ZPeEc/6X3Vh0pp1I2pEqdARXVdShwd7tjWtrlifrxSmNdXE6qc0Wbi1QNcklZnfulOC/ZxKR3BRuIxkLe7DPbRNaDqcfVbu31nZUC1dQFKRAAjSV1ZiVrmoSjSToOYbuh4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RtILWyAs; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=bO5mi1hpn7IcULimGgHmUoDN0Pk0LTnpOZQgW8IHlT8gChsa7mmakELu0e6kZyPZv38qNGmNz0u2OdLWBvi1Nxy+RWF80pmTlPk1Fpveiwj1dWkgtXRcXekzOHiWExWcgKOzzqJdsz6/lhZxZRGDoofLybdaSuV3Pf7mZkd5cho=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AeSAsJUl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RtILWyAs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1443F1F00899;
-	Sat, 30 May 2026 11:48:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AeSAsJUl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C13D1F00893;
+	Sat, 30 May 2026 11:49:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780141707;
-	bh=ZHlB9igaARf9LiBT+bMJ/Y87Rmv2tH8XIIOn6/MOwRM=;
+	s=k20260515; t=1780141765;
+	bh=o9ZmF8wbY90lAY3pW8zUQD3a6Vc4kDYgLIW5pHRkHWs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=RtILWyAsT4mG7PhQEnUO1k9vPKwg/LcqjwMvZm27rvWVA7EmLTV2OL995e/uL17cu
-	 rPhEW84pq94sAdytBb2UryqyDWBR60YZDTg3gel2ypIjOaJ1u1dwXywrJrbkvx1Hoi
-	 GsYhR3ysiqZDl8yjMjvUAG3BvY2PPtCSNcwJ78JCKLHRGlDu/NmhtKsh7orSM/FMIY
-	 TflD8g1FEdiRsHGbtFfD+8Sbc+bJ2yw+LwwD5z9K7jIUpIQVvQACly+yOxJDJEshcR
-	 /YxoSAZPDMp5Mz1s7tegmNaicY841dCVPUpG9/yB4Ikce67JV7xeGfEFxkqLTWBvhB
-	 vbW95vB4EhbTg==
+	b=AeSAsJUl32tkiR0hXmXMZqA+P/1IwfRKYijRQXZt9vZrYr0c4SM0XwH8cBDbLACxV
+	 sCHfe+uZTTEPDXw4KeEZ88Do36WglBueb+SqMr4Ix3JJjfcRuaN1eHQ2HzGK57fqZu
+	 b+EqoSp8mfKXkqdK+pj2SrzepVxaGo0NKUlSnbIzhjk4tFY+BzmXv/XR/9NtiIxq8Q
+	 CE0+lsFu6/v7QqQZXgLt37OOxdy1jkKoRidUjoP3fMvoMgL2CrSzSmvToaa0iQorbo
+	 33DrTvycOyN1XueOp41CHkVMMpd9AiHhSu8pWPW4Z5iMbs0Z3VdyAwW3+lZppG4Lto
+	 MZUtpJ/5Elo1w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Paolo Abeni <pabeni@redhat.com>,
-	"Matthieu Baerts (NGI0)" <matttbe@kernel.org>,
+Cc: "Matthieu Baerts (NGI0)" <matttbe@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/2] mptcp: reset rcv wnd on disconnect
-Date: Sat, 30 May 2026 07:48:24 -0400
-Message-ID: <20260530114824.1966673-2-sashal@kernel.org>
+Subject: [PATCH 6.6.y] selftests: mptcp: drop nanoseconds width specifier
+Date: Sat, 30 May 2026 07:49:22 -0400
+Message-ID: <20260530114922.1970609-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260530114824.1966673-1-sashal@kernel.org>
-References: <2026052849-concise-frosting-9b5c@gregkh>
- <20260530114824.1966673-1-sashal@kernel.org>
+In-Reply-To: <2026052827-mushroom-undercut-d57d@gregkh>
+References: <2026052827-mushroom-undercut-d57d@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,46 +45,68 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Paolo Abeni <pabeni@redhat.com>
+From: "Matthieu Baerts (NGI0)" <matttbe@kernel.org>
 
-[ Upstream commit 0981f90e1a05773a4c29c6e720f5ea1e3c8f1876 ]
+[ Upstream commit 01ff78e4b3d98689184c52d97f9575dfbdc3b10f ]
 
-If the MPTCP socket fallback to TCP before the MP handshake completion,
-the IASN remain 0, and the rcv_wnd_sent field is not explicitly
-initialized, just incremented over time with the data transfer.
+Using the format specifier +%s%3N with GNU date is honoured, and only
+prints 3 digits of the nanoseconds portion of the seconds since epoch,
+which corresponds to the milliseconds.
 
-At disconnect time such value is not cleared. If the next connection falls
-back to TCP before the MP handshake completion, the data transfer will
-keep incrementing the receive window end sequence starting from the last
-value used in the previous connection: the announced window will be
-unrelated from the actual receiver buffer size and likely too big.
+The uutils implementation of date currently does not honour this, and
+always prints all 9 digits. This is a known issue [1], but can be worked
+around by adapting this test to use nanoseconds instead of microseconds,
+and then divide it by 1e6.
 
-Address the issue zeroing the field at disconnect time.
+This fix is similar to what has been done on systemd side [2], and it is
+needed to run the selftests on Ubuntu 26.04, containing uutils 0.8.0.
 
-Fixes: b29fcfb54cd7 ("mptcp: full disconnect implementation")
+Note that the Fixes tag is there even if this patch doesn't fix an issue
+in the kernel selftests, but it is useful for those using uutils 0.8.0.
+
+Fixes: 048d19d444be ("mptcp: add basic kselftest for mptcp")
 Cc: stable@vger.kernel.org
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
+Link: https://github.com/uutils/coreutils/issues/11658 [1]
+Link: https://github.com/systemd/systemd/pull/41627 [2]
 Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
-Link: https://patch.msgid.link/20260515-net-mptcp-misc-fixes-7-1-rc4-v2-4-701e96419f2f@kernel.org
+Link: https://patch.msgid.link/20260515-net-mptcp-misc-fixes-7-1-rc4-v2-6-701e96419f2f@kernel.org
 Signed-off-by: Paolo Abeni <pabeni@redhat.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/mptcp/protocol.c | 1 +
- 1 file changed, 1 insertion(+)
+ tools/testing/selftests/net/mptcp/mptcp_connect.sh | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/net/mptcp/protocol.c b/net/mptcp/protocol.c
-index 16ade718b27c7..ffb492816d0b8 100644
---- a/net/mptcp/protocol.c
-+++ b/net/mptcp/protocol.c
-@@ -3310,6 +3310,7 @@ static int mptcp_disconnect(struct sock *sk, int flags)
+diff --git a/tools/testing/selftests/net/mptcp/mptcp_connect.sh b/tools/testing/selftests/net/mptcp/mptcp_connect.sh
+index f475b27185dec..89a6ee987ccc6 100755
+--- a/tools/testing/selftests/net/mptcp/mptcp_connect.sh
++++ b/tools/testing/selftests/net/mptcp/mptcp_connect.sh
+@@ -434,7 +434,7 @@ do_transfer()
+ 	mptcp_lib_wait_local_port_listen "${listener_ns}" "${port}"
  
- 	/* for fallback's sake */
- 	WRITE_ONCE(msk->ack_seq, 0);
-+	atomic64_set(&msk->rcv_wnd_sent, 0);
+ 	local start
+-	start=$(date +%s%3N)
++	start=$(date +%s%N)
+ 	timeout ${timeout_test} \
+ 		ip netns exec ${connector_ns} \
+ 			./mptcp_connect -t ${timeout_poll} -p $port -s ${cl_proto} \
+@@ -447,7 +447,7 @@ do_transfer()
+ 	local rets=$?
  
- 	WRITE_ONCE(sk->sk_shutdown, 0);
- 	sk_error_report(sk);
+ 	local stop
+-	stop=$(date +%s%3N)
++	stop=$(date +%s%N)
+ 
+ 	if $capture; then
+ 		sleep 1
+@@ -463,7 +463,7 @@ do_transfer()
+ 	fi
+ 
+ 	local duration
+-	duration=$((stop-start))
++	duration=$(((stop-start) / 1000000))
+ 	result_msg+=" # time=${duration}ms"
+ 	printf "(duration %05sms) " "${duration}"
+ 	if [ ${rets} -ne 0 ] || [ ${retc} -ne 0 ]; then
 -- 
 2.53.0
 
