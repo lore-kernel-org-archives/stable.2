@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AB9035203E;
-	Sat, 30 May 2026 20:43:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2E7033987F;
+	Sat, 30 May 2026 20:44:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780173835; cv=none; b=YMgb2Ygs15gBkjGGeo5cU3KR6dtzI0NxPdPjLniwwmiw9bu6ggaYwK75P8q5nbq+A9wfc6fXSz/9En13iluQF6i4kGL5xxWUb6V2No9/uY5G/V1wsByQPVaBer8nzRwmOkf5cwNKPnlzMSffV+0TTC4izBn+RMMX7qCz9jZFnGQ=
+	t=1780173877; cv=none; b=l1wLl9WROjGu7JuxuuwLMSNRkblRB85FWD7flX29xue65YovKcTMsJYwDXEsMy27KX/lKAT49kbBhG411r98KpQ0hk0ySukdX1gr/JppYdctfeZMoSgPCJzKilYm/oQt9oHrcg8uqAapvXQmw91o0sA31eJyz+dL1SjgQ5ZENbM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780173835; c=relaxed/simple;
-	bh=NBiNNOZ7ppkAGEMCPKXAcUmyiX2x8UQCji/NKXqzUlQ=;
+	s=arc-20240116; t=1780173877; c=relaxed/simple;
+	bh=dyYL01LZ5qHWMqyJwyvnUp+ChOrlhbU69c8t9ir9t6c=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QvuSXq9UADpFx7auD184m1yREW5/pYl512caJZHILywJF0Rv+eGzLu6li78TnwJ8jzl8tDScGyekaJonLZuG3oTxO7HGB64Ui++hKT8a3yhP4DdHFexajIYmAWf6llakJiSjEUo4WLkJoE9Q9jriVI9aX694/6b95UNI4ZC8mLg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NnpHussE; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=tBC8kvXwpsZsYSZiBsYH+W/lMoo2wa1fqGUxXGukcfgBCPgumyx32806Ey8Mu230E1RzHBdO6FcW/SuMVodKgDzW+JDbdGPZomnm/LgfV0KBmmgJyI9Hl+CTQ4wS3zXdy1uAgmiO5jBrdrj14EVYYDgf7bBbSckfBrSpD0JIiT8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U4k/20/O; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NnpHussE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 038801F00893;
-	Sat, 30 May 2026 20:43:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U4k/20/O"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 001671F00898;
+	Sat, 30 May 2026 20:44:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780173834;
-	bh=6rRzrKY+Y0EORNDYkmctl/wGL7UatyXvPKDCbTQlR+4=;
+	s=k20260515; t=1780173876;
+	bh=DghMdL8csfcQu1r/J9oPTH3CmWDSHrp8UzOqw+7OhZQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NnpHussEiAuq8A/wIXQjlrlB87kDxZ+5GHiKB7Hjzq57ONLtD1lLki9bOhWVGUQLo
-	 iZcD81BJd9VjvnwZpCgBJ6GbHoMOEJQPpDIpt9EpmDzvdkEg4469buJEKK7SR6kLPy
-	 ycMYvxK8N6Zwt/j7NNPCrruTDQbpwLY9lwJeFd0mNMg7mBNFljTg6l8umFvHWSIOQD
-	 00VYMP/7MyQ0NSwF/IfxzLMeLEhyP5FS54oIat1Jz8EUozly7tDt/dWkG+171kIytD
-	 1H2Np+xI7y6K0Ycc/h9WpmryI2K5HCzmmnQkMb4w35qgS0EhqnMK/I8Hrn+gGmwIyY
-	 Jfmc3kzRZBKrg==
+	b=U4k/20/OIc4TIQKEc1zXMN5/GdgGJ6DkhfalpAXDmVo6LDiVdWRZMpKggK4w1ErIQ
+	 g/KJEYi8yy3ABETMrQvSkr40KJfT/P/vdZC2RUgbmdxh1lDulzqnLsEyysSnQIStbv
+	 Ra4n0F+xkB+o2CwfIRWUtbla3mPBseLHO3nR/k8u9aUrjzbe7JszYC51wTLYwFDNA4
+	 RacByrt4QA6B5gF4+cK+Wj3T5IkbR9UPWld3VzSEae4W15/2TFxpa0SpgktooU5bbw
+	 kB9EtLBKZjv9T2CJ0+fRUpzje8wGGzV+j7nZMBv13r9phPYMVsGvfb5PgJHCzSyNwI
+	 tkaY10PQgZDfA==
 From: srini@kernel.org
 To: gregkh@linuxfoundation.org
 Cc: linux-kernel@vger.kernel.org,
 	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
 	stable@vger.kernel.org,
 	Srinivas Kandagatla <srini@kernel.org>
-Subject: [PATCH 2/2] nvmem: core: fix use-after-free bugs in error paths
-Date: Sat, 30 May 2026 21:43:40 +0100
-Message-ID: <20260530204340.116743-3-srini@kernel.org>
+Subject: [PATCH 1/8] slimbus: qcom-ngd-ctrl: fix OF node refcount
+Date: Sat, 30 May 2026 21:44:14 +0100
+Message-ID: <20260530204421.116824-2-srini@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260530204340.116743-1-srini@kernel.org>
-References: <20260530204340.116743-1-srini@kernel.org>
+In-Reply-To: <20260530204421.116824-1-srini@kernel.org>
+References: <20260530204421.116824-1-srini@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,58 +48,35 @@ Content-Transfer-Encoding: 8bit
 
 From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 
-Fix several instances of error paths in which we call
-__nvmem_device_put() - which may end up freeing the underlying memory
-and other resources - and then keep on using the nvmem structure. Always
-put the reference to the nvmem device as the last step before returning
-the error code.
+Platform devices created with platform_device_alloc() call
+platform_device_release() when the last reference to the device's
+kobject is dropped. This function calls of_node_put() unconditionally.
+This works fine for devices created with platform_device_register_full()
+but users of the split approach (platform_device_alloc() +
+platform_device_add()) must bump the reference of the of_node they
+assign manually. Add the missing call to of_node_get().
 
 Cc: stable@vger.kernel.org
-Fixes: 7ae6478b304b ("nvmem: core: rework nvmem cell instance creation")
-Fixes: e888d445ac33 ("nvmem: resolve cells from DT at registration time")
+Fixes: 917809e2280b ("slimbus: ngd: Add qcom SLIMBus NGD driver")
 Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 Signed-off-by: Srinivas Kandagatla <srini@kernel.org>
 ---
- drivers/nvmem/core.c | 12 +++++-------
- 1 file changed, 5 insertions(+), 7 deletions(-)
+ drivers/slimbus/qcom-ngd-ctrl.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/nvmem/core.c b/drivers/nvmem/core.c
-index 311cb2e5a5c0..e871181751f3 100644
---- a/drivers/nvmem/core.c
-+++ b/drivers/nvmem/core.c
-@@ -1468,18 +1468,16 @@ struct nvmem_cell *of_nvmem_cell_get(struct device_node *np, const char *id)
- 	cell_entry = nvmem_find_cell_entry_by_node(nvmem, cell_np);
- 	of_node_put(cell_np);
- 	if (!cell_entry) {
--		__nvmem_device_put(nvmem);
- 		nvmem_layout_module_put(nvmem);
--		if (nvmem->layout)
--			return ERR_PTR(-EPROBE_DEFER);
--		else
--			return ERR_PTR(-ENOENT);
-+		ret = nvmem->layout ? -EPROBE_DEFER : -ENOENT;
-+		__nvmem_device_put(nvmem);
-+		return ERR_PTR(ret);
- 	}
+diff --git a/drivers/slimbus/qcom-ngd-ctrl.c b/drivers/slimbus/qcom-ngd-ctrl.c
+index 1ed6be6e85d2..428266949fdd 100644
+--- a/drivers/slimbus/qcom-ngd-ctrl.c
++++ b/drivers/slimbus/qcom-ngd-ctrl.c
+@@ -1542,7 +1542,7 @@ static int of_qcom_slim_ngd_register(struct device *parent,
+ 			kfree(ngd);
+ 			return ret;
+ 		}
+-		ngd->pdev->dev.of_node = node;
++		ngd->pdev->dev.of_node = of_node_get(node);
+ 		ctrl->ngd = ngd;
  
- 	cell = nvmem_create_cell(cell_entry, id, cell_index);
- 	if (IS_ERR(cell)) {
--		__nvmem_device_put(nvmem);
- 		nvmem_layout_module_put(nvmem);
-+		__nvmem_device_put(nvmem);
- 	}
- 
- 	return cell;
-@@ -1593,8 +1591,8 @@ void nvmem_cell_put(struct nvmem_cell *cell)
- 		kfree_const(cell->id);
- 
- 	kfree(cell);
--	__nvmem_device_put(nvmem);
- 	nvmem_layout_module_put(nvmem);
-+	__nvmem_device_put(nvmem);
- }
- EXPORT_SYMBOL_GPL(nvmem_cell_put);
- 
+ 		ret = platform_device_add(ngd->pdev);
 -- 
 2.53.0
 
