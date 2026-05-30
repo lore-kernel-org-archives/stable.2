@@ -1,132 +1,116 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13DEC3ACA4D;
-	Sat, 30 May 2026 18:38:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C961126738C
+	for <stable@vger.kernel.org>; Sat, 30 May 2026 18:38:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780166287; cv=none; b=XzjAi2F8w4th1m9bkkSuGEhHnc5dt00hlLnsHjUmvC+G09pGuaPQmcPQzZiGH0LFfsi+r5Pq3FGR0Nc/tJMTE13I2O8mYz9ZzcD4TIgPyBcLK6+r7yDvyNnR+lvJZ0sYtDsjK9wBq2Gz+U7OSXYKePD/FBY2ilvKr20rB4eFIX0=
+	t=1780166288; cv=none; b=hMORP6/hrlGe6YPVpsagf7d+vEuYbQ1fQbA45KnpM1HJMFCfJK9CCVOispUEp855uXVwPh8RIN8Rkm/e8Ui6nRZWdGeoExi+R0nf74VkJYKlH9WqqIIJNAHDCfLz+6/LOT+nqcwSa6au/jKoU6DcGA1eZ0wc7s3JwF/PIrk5h7w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780166287; c=relaxed/simple;
-	bh=Z7mEWRqvDIB3Ye5PQxuA1VlGhi9ld4wxIRp23eETF1U=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=g4FjqufUHnpfcRxb1TSxLeKcFtt6vhezdoCGYbVWqT+snt2s2dG8KOv8VjZRDBjLEh3f3EctPsJeGkPP9doIZKLNJ6SrsVILaDGHXPZTtegzEHFsrQnRoh1dnL23+uPk+T6exhbGe543SZIrXf2wqlt/ijOnNkv/+g6woyZalhg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=hUHbOz8T; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780166288; c=relaxed/simple;
+	bh=T4N0sBAg6OvCjb2pgLo2/mx0ExzDNFlAqYzZFdtR9+M=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=SxJc9h1ywtiJU+vO2Q0DMExzMy/IlCmEYIrXSWIOGx2TwQTbSY4c60dOAimG4SWO8+S4HZoG8A7RlKigJIltpnt14/dwp3I0jO3mv207hzQ5Yh1z59VXFvNpRQiNxeXPme/FC6ToGYyt9ANMLe4fTTwj1X9hVrYOolxhQ98Eb1c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=TM3fkiHy; arc=none smtp.client-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="hUHbOz8T"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C7531F00893;
-	Sat, 30 May 2026 18:38:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1780166286;
-	bh=uZ6MlU11qPf9noqdt3LH2kWec10bo7X4d3T0smtG9K0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hUHbOz8Tv1xwv808jvDanXzhoZK+u3/mkWTXe6V8ESp7ZEOob0+7/TwU/hgybjmK1
-	 f2UTMN/hEu+rELBNPBN6AXc8GeghT1OMcm4JfkS3SrOhS+MsueLURte/yK08zZC8il
-	 Usez7KxrGhuJ13gvVBg4n5HLbaLSMndAAs8rp6tM=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Yuhao Jiang <danisjiang@gmail.com>,
-	Junrui Luo <moonafterrain@outlook.com>,
-	Mikulas Patocka <mpatocka@redhat.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10 329/589] dm log: fix out-of-bounds write due to region_count overflow
-Date: Sat, 30 May 2026 18:03:30 +0200
-Message-ID: <20260530160233.562215244@linuxfoundation.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260530160224.570625122@linuxfoundation.org>
-References: <20260530160224.570625122@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="TM3fkiHy"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Cc:To:Content-Transfer-Encoding:Content-Type:MIME-Version:
+	Message-Id:Date:Subject:From:Sender:Reply-To:Content-ID:Content-Description:
+	Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+	In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+	List-Post:List-Owner:List-Archive;
+	bh=9JbDhtonn5q5rNu0vzNVx69cnGfGhDTfpZJpjnWnyZo=; b=TM3fkiHyv83epjq0c3vSbI6fqd
+	yRzc7gbHz+i5QMdUEcncvS9ffDIbyofcNQrF1pIndwbyz8NNloM7sJUyVAIBtvtTOVlqmUXIcBJ4t
+	1h5NCCu8JRwVlQNjfD1lk9tB4B18WNmrR5cTMcu/3T9rqFGtaQwF1dtoNqnt9OZgqCTRehC1DElwS
+	ljE9e3e37+xqteqXUW3nvjPCR5kK2fz1+gFu2hZ9e07+w0jb948s6qFTjbKt6k6BQVuR+ZqUsGI7E
+	1oQ8sU417FngGyU79aikDaOEqmiw646HZePGvOB3SPe3BbXqsXgy3Dj7spY2fvlQ/kodlPIizFSN7
+	EpNfjBlA==;
+Received: from [189.7.87.67] (helo=[10.0.0.1])
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+	id 1wTOZP-00ALNh-Ep; Sat, 30 May 2026 20:38:03 +0200
+From: =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Subject: [PATCH 0/4] drm/v3d: Fix RPi 4 system hangs from stale cache and
+ MMU state
+Date: Sat, 30 May 2026 15:37:41 -0300
+Message-Id: <20260530-v3d-fix-rpi4-freezes-v1-0-c2c8307da6ce@igalia.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2MwQ5AMBAFf0X2bJMqFfyKOKCv7AXZJiLEv2scJ
+ 5mZhyJUEKnLHlKcEmXfEhR5RvM6bgtYfGKyxtbG2YbP0nOQi/WQioMCNyI30whXtN5UMyilhyI
+ 5/7Yf3vcDIzHD0mYAAAA=
+X-Change-ID: 20260528-v3d-fix-rpi4-freezes-8bae519d04ce
+To: Melissa Wen <mwen@igalia.com>, Iago Toral <itoral@igalia.com>
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
+ stable@vger.kernel.org, =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2299; i=mcanal@igalia.com;
+ h=from:subject:message-id; bh=T4N0sBAg6OvCjb2pgLo2/mx0ExzDNFlAqYzZFdtR9+M=;
+ b=owGbwMvMwMVo/5mvq6zj1yrG02pJDFnSeh1/ImPY9O9mRZem8Uj0Lrh0wHDTj87QyGcGtm+fe
+ rgsXLK0k9GYhYGRi0FWTJHlx5PYWkaxcnbNZeUXYQaxMoFMYeDiFICJzGDjYJive6Hf7nLl5p67
+ tT3HXRYtjk6qZZ3/84D1hi+sejvFbi7653RtYo6g3SYvmR9Nu00/1s9RE5hVd6YzLkq8nMHk0Jp
+ PP9hKmjJ76qsWKKhMZzD48SKoyMzTl6eRLU1kmqYQk88GzVWTf2z54Xmjxfskv3PLk3hVs0cWmc
+ Wl/t6Lkhz++P9p6E03M9bqrV/E9Wz2teOfq6Yf8JNSLZ5Ve7MrPvjwlY/2iQ/36t8q/P82m1kqu
+ 3gWxyrtyNr7//M0O03ZvzazRJquX3y+rf11o/rhzelLCmqLOD5U3567rz3BJdf8C1fRk7oE+w+X
+ E9hCD288PeXzkpT2qPIzU4zvN7e8uWdleHCn6tr3le+5AA==
+X-Developer-Key: i=mcanal@igalia.com; a=openpgp;
+ fpr=F8E45D7D0116770729A677D13FF30E8A7688FAAA
 
-5.10-stable review patch.  If anyone has any objections, please let me know.
+Some users have reported hard system hangs on the Raspberry Pi 4 (V3D 4.2)
+under GPU load [1][2][3]. Investigation had traced these to V3D caches and
+MMU being left in an inconsistent state across PM transitions. This series
+addresses three distinct issues in the cache and MMU maintenance:
 
-------------------
+  1. PATCH 1: Addresses an issue on pre-V3D 7.1 hardware, in which
+     starting a clean while an L2T flush is still pending can clobber bits
+     in L2TCACTL and leave the caches inconsistent. This issue existed
+     before the runtime PM series.
 
-From: Junrui Luo <moonafterrain@outlook.com>
+  2. PATCH 2: Fixes the MMU TLB/cache flush in v3d_mmu_set_page_table()
+     being silently skipped during runtime resume. Directly addresses
+     the system hangs reported by the users.
 
-[ Upstream commit c20e36b7631d83e7535877f08af8b0af72c44b1a ]
+  3. PATCH 3: Cleans the V3D caches on runtime suspend, so all dirty lines
+     are written back to memory before the power domain is shut down.
+     Directly addresses the error `v3d fec00000.v3d: MMU error from
+     client L2T (7) at 0xff877600, pte invalid` reported during the
+     hangs.
 
-The local variable region_count in create_log_context() is declared as
-unsigned int (32-bit), but dm_sector_div_up() returns sector_t (64-bit).
-When a device-mapper target has a sufficiently large ti->len with a small
-region_size, the division result can exceed UINT_MAX. The truncated
-value is then used to calculate bitset_size, causing clean_bits,
-sync_bits, and recovering_bits to be allocated far smaller than needed
-for the actual number of regions.
+Together these restore correct cache/MMU coherency around runtime PM,
+addressing the reported hangs. Moreover, with this fixes, it was possible
+to reduce the autosuspend delay, which was increased as the shorter delays
+used to cause more frequent runtime suspend/resume cycles, which exposed
+the cache and MMU coherency bugs as random GPU hangs. With those fixed,
+we can reduce the autosuspend delay to a more reasonable value.
 
-Subsequent log operations (log_set_bit, log_clear_bit, log_test_bit) use
-region indices derived from the full untruncated region space, causing
-out-of-bounds writes to kernel heap memory allocated by vmalloc.
+[1] https://github.com/raspberrypi/linux/issues/7381
+[2] https://github.com/raspberrypi/linux/issues/7396
+[3] https://github.com/raspberrypi/linux/issues/7397
 
-This can be reproduced by creating a mirror target whose region_count
-overflows 32 bits:
+Best regards,
+- Maíra
 
-  dmsetup create bigzero --table '0 8589934594 zero'
-  dmsetup create mymirror --table '0 8589934594 mirror \
-    core 2 2 nosync 2 /dev/mapper/bigzero 0 \
-    /dev/mapper/bigzero 0'
-
-The status output confirms the truncation (sync_count=1 instead of
-4294967297, because 0x100000001 was truncated to 1):
-
-  $ dmsetup status mymirror
-  0 8589934594 mirror 2 254:1 254:1 1/4294967297 ...
-
-This leads to a kernel crash in core_in_sync:
-
-  BUG: scheduling while atomic: (udev-worker)/9150/0x00000000
-  RIP: 0010:core_in_sync+0x14/0x30 [dm_log]
-  CR2: 0000000000000008
-  Fixing recursive fault but reboot is needed!
-
-Fix by widening the local region_count to sector_t and adding an
-explicit overflow check before the value is assigned to lc->region_count.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Reported-by: Yuhao Jiang <danisjiang@gmail.com>
-Signed-off-by: Junrui Luo <moonafterrain@outlook.com>
-Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/md/dm-log.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+Maíra Canal (4):
+      drm/v3d: Wait for pending L2T flush before cleaning caches
+      drm/v3d: Flush MMU TLB and cache during runtime resume
+      drm/v3d: Clean caches before runtime suspend
+      drm/v3d: Reduce PM runtime autosuspend delay
 
-diff --git a/drivers/md/dm-log.c b/drivers/md/dm-log.c
-index fe3a9473f3387..ade7e9a2b11b1 100644
---- a/drivers/md/dm-log.c
-+++ b/drivers/md/dm-log.c
-@@ -368,7 +368,7 @@ static int create_log_context(struct dm_dirty_log *log, struct dm_target *ti,
- 
- 	struct log_c *lc;
- 	uint32_t region_size;
--	unsigned int region_count;
-+	sector_t region_count;
- 	size_t bitset_size, buf_size;
- 	int r;
- 	char dummy;
-@@ -397,6 +397,10 @@ static int create_log_context(struct dm_dirty_log *log, struct dm_target *ti,
- 	}
- 
- 	region_count = dm_sector_div_up(ti->len, region_size);
-+	if (region_count > UINT_MAX) {
-+		DMWARN("region count exceeds limit of %u", UINT_MAX);
-+		return -EINVAL;
-+	}
- 
- 	lc = kmalloc(sizeof(*lc), GFP_KERNEL);
- 	if (!lc) {
--- 
-2.53.0
-
-
+ drivers/gpu/drm/v3d/v3d_drv.c   |  2 +-
+ drivers/gpu/drm/v3d/v3d_gem.c   |  8 ++++++++
+ drivers/gpu/drm/v3d/v3d_mmu.c   | 31 ++++++++++++++++++++++---------
+ drivers/gpu/drm/v3d/v3d_power.c |  2 ++
+ 4 files changed, 33 insertions(+), 10 deletions(-)
+---
+base-commit: 61de054a772a1feda6364931ab1baf9038abf1c8
+change-id: 20260528-v3d-fix-rpi4-freezes-8bae519d04ce
 
