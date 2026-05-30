@@ -1,102 +1,121 @@
-Received: from maynard.decadent.org.uk (maynard.decadent.org.uk [65.21.191.19])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4AF01BBBE5;
-	Sat, 30 May 2026 19:46:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.21.191.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A987A1BBBE5
+	for <stable@vger.kernel.org>; Sat, 30 May 2026 19:47:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780170368; cv=none; b=bHNv7fRwp4kmuMNklGxJev4YSjJjywH9jLs7q7j1mDyrWNbyLpmtWWOXA/Gr6vUF9yZiDhtMOTe8YhRw+a/irpOfF6WEIUM2MglF73N5N+xgMVv7A0u80ZRyMqs8hUo95LS3xIsLeBvwxpf1TJq727VpLCjqCkQfOIPALv2nNNw=
+	t=1780170468; cv=none; b=jlxWDqelvVJ7U516pGQd+ZOhp/O7mrqdUKoO3tj/JR3Rhf9/0IJXwAGPwAc6BCt7y9rqNzbYIGf2OTuLiVDz/aN8COrWvMrdO99RmS+Nl90+ycHI7/AXr+RzlP7XBN1YuA39sBVZ+BgYMgR8Q2wFDeZ6x4MTWKk/XvBzDUcWo6s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780170368; c=relaxed/simple;
-	bh=iNIIvVQAuSj5+sKBYCYJW3IPioaWgMVrQyhlp4bvtQo=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=sVs4+9COrkxn+12hPxoZ+zmffZAWNKjag5+9Mrp3bPx6yYWL5Zvw5xwAxUbGNJn2iBHybBV2HTQuJCQmxF6JnKa4FQg4QOvY7Phly8OS/fw+1WuuinjH+FQTAyjAFRSKLPy0t6CLs2R6DgCbmz2tcHlXGqnTLDvqaVS5K1OinRU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=decadent.org.uk; spf=pass smtp.mailfrom=decadent.org.uk; arc=none smtp.client-ip=65.21.191.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=decadent.org.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=decadent.org.uk
-Received: from [2a02:578:851f:1502:391e:c5f5:10e2:b9a3] (helo=deadeye)
-	by maynard with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <ben@decadent.org.uk>)
-	id 1wTPdE-000K8x-24;
-	Sat, 30 May 2026 19:46:04 +0000
-Received: from ben by deadeye with local (Exim 4.99.2)
-	(envelope-from <ben@decadent.org.uk>)
-	id 1wTPdE-0000000F0X8-0S4E;
-	Sat, 30 May 2026 21:46:04 +0200
-Message-ID: <56652caf63e8db874a3ebd761ec134c003d4986c.camel@decadent.org.uk>
-Subject: Re: [PATCH 5.10 027/589] xfrm: Wait for RCU readers during policy
- netns exit
-From: Ben Hutchings <ben@decadent.org.uk>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, Steffen Klassert
- <steffen.klassert@secunet.com>,  Florian Westphal	 <fw@strlen.de>, Sasha
- Levin <sashal@kernel.org>
-Date: Sat, 30 May 2026 21:45:58 +0200
-In-Reply-To: <20260530160225.295450347@linuxfoundation.org>
-References: <20260530160224.570625122@linuxfoundation.org>
-	 <20260530160225.295450347@linuxfoundation.org>
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-1gyBHEfPa8iPcrwGpl12"
-User-Agent: Evolution 3.56.2-9 
+	s=arc-20240116; t=1780170468; c=relaxed/simple;
+	bh=YMbxRjwJpba/0TLPoRedTHTg0b6d6VrzhpDSdVt9UHY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=hNG5FPCGUxBYlw6CUJCBA9EAG5E3W1HpWjIUN19Y/5kUH/asKVeaKD5B66jR6YG9PlZdFTrL7WrdhwALAdt4xqjcY3AWwbiAnaZGdl37p3plqN3kODPlA2FPSns2hdzzOoXhglWGWcPjDBjIwnZDIPF8tnSltDy884qMq7RNxXw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DSYet9rU; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DSYet9rU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4FDB1F00898;
+	Sat, 30 May 2026 19:47:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780170467;
+	bh=UQTXcnvCMgCQtPVcx1YzD7U9hRgg2MsQzOgC/u23xSk=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=DSYet9rUCITTOpY2LtrhYRiKWELzqOteotlo8/D37JmgTqJLzmQxSbGzU6dz0qLPr
+	 z4iPNLDM8JcWNZPY38tADDIBrgGy5OKAANeoiCyoa+rcOFe/raqtAsL/0nX/61vnQb
+	 qdViCzATXHX045g7EZFhJRHb6sAJRjiq96WBdlFY40EpT3diLzoMNFzjRqzaAFNTBX
+	 eQfJQBAlqfwZ7Ed7mFtzCjVwCJADH+kXj3+giCJ9qiYrXiq9uaPLVeerE0mQUxqbeL
+	 Ii18X+Lp+D2XdGPk6RLEspECFebnaW1XCoF3DgQ3W+CQFObN/6hykxQ7F+Dkrrchnb
+	 8GMUxnVdzf/Mw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Shardul Bankar <shardul.b@mpiricsoftware.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	"Matthieu Baerts (NGI0)" <matttbe@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] mptcp: do not drop partial packets
+Date: Sat, 30 May 2026 15:47:45 -0400
+Message-ID: <20260530194745.3257532-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026052838-unsterile-jailhouse-1f0f@gregkh>
+References: <2026052838-unsterile-jailhouse-1f0f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-SA-Exim-Connect-IP: 2a02:578:851f:1502:391e:c5f5:10e2:b9a3
-X-SA-Exim-Mail-From: ben@decadent.org.uk
-X-SA-Exim-Scanned: No (on maynard); SAEximRunCond expanded to false
+Content-Transfer-Encoding: 8bit
 
+From: Shardul Bankar <shardul.b@mpiricsoftware.com>
 
---=-1gyBHEfPa8iPcrwGpl12
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+[ Upstream commit 50c2d91c5dfa0e465826ec1f8dbad9cdc254bd85 ]
 
-On Sat, 2026-05-30 at 17:58 +0200, Greg Kroah-Hartman wrote:
-> 5.10-stable review patch.  If anyone has any objections, please let me kn=
-ow.
->=20
-> ------------------
->=20
-> From: Steffen Klassert <steffen.klassert@secunet.com>
->=20
-> [ Upstream commit 069daad4f2ae9c5c108131995529d5f02392c446 ]
-[...]
+When a packet arrives with map_seq < ack_seq < end_seq, the beginning
+of the packet has already been acknowledged but the end contains new
+data. Currently the entire packet is dropped as "old data," forcing
+the sender to retransmit.
 
-This is broken - it needs commit 3e5241731847 "xfrm: move policy_bydst
-RCU sync from per-netns .exit to .pre_exit" as a further fix.
+Instead, skip the already-acked bytes by adjusting the skb offset and
+enqueue only the new portion. Update bytes_received and ack_seq to
+reflect the new data consumed.
 
-I haven't checked whether that applies cleanly or needs backporting
-work.
+A previous attempt at this fix has been sent by Paolo Abeni [1], but had
+issues [2]: it also added a zero-window check and changed rcv_wnd_sent
+initialization, which caused test regressions. This version addresses
+only the partial packet handling without modifying receive window
+accounting.
 
-Ben.
+Fixes: ab174ad8ef76 ("mptcp: move ooo skbs into msk out of order queue.")
+Cc: stable@vger.kernel.org
+Link: https://lore.kernel.org/c9b426a4e163aa3c4fe8b80c79f1a610f47ae7d8.1763075056.git.pabeni@redhat.com [1]
+Closes: https://github.com/multipath-tcp/mptcp_net-next/issues/600 [2]
+Signed-off-by: Shardul Bankar <shardul.b@mpiricsoftware.com>
+[pabeni@redhat.com: update map]
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
+Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
+Link: https://patch.msgid.link/20260515-net-mptcp-misc-fixes-7-1-rc4-v2-1-701e96419f2f@kernel.org
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+[ dropped `msk->bytes_received += copy_len;` and relocated the `drop:` label to the function end for the existing RCVPRUNED `goto drop;` ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ net/mptcp/protocol.c | 22 +++++++++++++++++++---
+ 1 file changed, 19 insertions(+), 3 deletions(-)
 
---=20
-Ben Hutchings
-The Peter principle: In a hierarchy, every employee tends to rise to
-their level of incompetence.
+diff --git a/net/mptcp/protocol.c b/net/mptcp/protocol.c
+index 2f679ad0f15b6..2e8921068f569 100644
+--- a/net/mptcp/protocol.c
++++ b/net/mptcp/protocol.c
+@@ -329,10 +329,26 @@ static bool __mptcp_move_skb(struct mptcp_sock *msk, struct sock *ssk,
+ 		return false;
+ 	}
+ 
+-	/* old data, keep it simple and drop the whole pkt, sender
+-	 * will retransmit as needed, if needed.
++	/* Completely old data? */
++	if (!after64(MPTCP_SKB_CB(skb)->end_seq, msk->ack_seq)) {
++		MPTCP_INC_STATS(sock_net(sk), MPTCP_MIB_DUPDATA);
++		mptcp_drop(sk, skb);
++		return false;
++	}
++
++	/* Partial packet: map_seq < ack_seq < end_seq.
++	 * Skip the already-acked bytes and enqueue the new data.
+ 	 */
+-	MPTCP_INC_STATS(sock_net(sk), MPTCP_MIB_DUPDATA);
++	copy_len = MPTCP_SKB_CB(skb)->end_seq - msk->ack_seq;
++	MPTCP_SKB_CB(skb)->offset += msk->ack_seq - MPTCP_SKB_CB(skb)->map_seq;
++	MPTCP_SKB_CB(skb)->map_seq += msk->ack_seq -
++				      MPTCP_SKB_CB(skb)->map_seq;
++	WRITE_ONCE(msk->ack_seq, msk->ack_seq + copy_len);
++
++	skb_set_owner_r(skb, sk);
++	__skb_queue_tail(&sk->sk_receive_queue, skb);
++	return true;
++
+ drop:
+ 	mptcp_drop(sk, skb);
+ 	return false;
+-- 
+2.53.0
 
---=-1gyBHEfPa8iPcrwGpl12
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEErCspvTSmr92z9o8157/I7JWGEQkFAmobPnYACgkQ57/I7JWG
-EQnbqhAAvykFMJTiLdlVzSR1fkaWfwxeuntrkozYysknjd1B0fzjOUVzSQv8E062
-WaQwRDUCqn5yjnX2E2I2FQ/6BB/EwWT8QzCzUu6nz8Ow3xnMJSz05bB6VX8EaZ9V
-AJv7l/DIvjttAaqhKsnbLmGFFHRfMpGarFhb1ngbQPL+JEd0wCcHUT7ePxRaxRvW
-/jArtM07JBnxrTjt2BG1IjZaxLKLPQPh/RyWAeISsSikFsWdm5zgo5yaA5fVhNwR
-4ZkONqQOpuOSPE+Yd4IGeDeahDlAVgzVHaK3LB1jlzcB9pwcrovM6atS2NbWdTBP
-q2DwoxpN720/xEWfkfUI9gdhCHDoVOxEamkAn5TWECmt4ohnZiWlsZUB4A0buyz5
-8YWRGd2TOS5BD4Mf5TcC8zylADVVSjvuEAIB1u20AIioeFHjZzdcH6bmoC4fRYPr
-Y9IiUnX2PFCiWa6w0x5mww+VppNCsFzYoRuvUaewd6yzh7sRZQTuqyQxsLgqmr7l
-Fy5hPz0fHEGwWqZXGcccaRxjPzIQpqIzzxCZYPMykjFOEr/7+Zs3ZkNiOLoAYigd
-vC6/4RZr3kxiNESyMIw/UaBNN3hE+KrueJefxq1BXo2qZ4g+FQnE3LiMoZxePpnz
-CTMxRnarj/3H/ITyG6a/5YXcjmoPXoUtoUUVLN7ag+/cfOLXzzA=
-=HzCy
------END PGP SIGNATURE-----
-
---=-1gyBHEfPa8iPcrwGpl12--
