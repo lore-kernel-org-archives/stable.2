@@ -1,160 +1,171 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+Received: from smtp-bc08.mail.infomaniak.ch (smtp-bc08.mail.infomaniak.ch [45.157.188.8])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69EAE30C366;
-	Sun, 31 May 2026 10:30:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B19F63655FD
+	for <stable@vger.kernel.org>; Sun, 31 May 2026 10:41:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.157.188.8
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780223439; cv=none; b=fcmety9asiZDsr/oSOLZDjIGdEMMdVnvYaKEcSkNGl+czVcmEdukgudyqAQPWn5V41FbQlFaSIbUl14W9Q/YkkTSigrt9X07uDFVl2fUpVHiX2XdfzTdIE+wZ+6aexoN27rSxIjYhmKzXy6Rq7irrpRcvCRuhZX/40jRBe+Gau4=
+	t=1780224110; cv=none; b=HvX0QT3uZ0MZOFJDrMVeX4xzvGCFu9ydPyqHstZ1yh2ZZMZG/JQppByaeyNHgCvjnKSwSR4mHGY9hVda6K2Qd+VYDuHqIduUg26QNrHm6jyAemoC/aeaO8N+8Qk6uhoOYWlk9wvz1cvlSU24uqU5mtYY0BlPRJT5LM7FB5vZKQI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780223439; c=relaxed/simple;
-	bh=lakZVG7g5kCet7VQLT5a6WdgbIee6d7zDrhOBHgTWzc=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=gbBTbgoU2MjhqhzncuwjWC4hBjU27tifk/LP+SzXkmtW0EF48MH8OcTGNk25u8E+oSPPelV2PijnXW6yrbInI6kPnJW2PPpc5HNmCTfvC8HoCpZIVz+N87KgEkm8mGKFqn6/vguHE3cC21cs59g5eRd/gCdn0H8yX5yCStkzb9Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=DgT64fyr; arc=none smtp.client-ip=192.198.163.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1780224110; c=relaxed/simple;
+	bh=Wcx9iLblDp4hblQ+ibXg4HnEYwY70izi+BxL3C+KWI0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=AkgsIjaU6/OS64cQ9nRFn7OOqXyM7DldhgXl0dyPPpNkdAVLj4prV33y8/Euvk7Ory6JVQTU+nA+aNCv5x5eHIhiys42QzvZU6kBTNjwlpu9+5dUtFgRo2vyDKUVO2XKNxO3+NaQGJpIOCbd9zzW7TTVddXErynZNS80hr8ToQ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net; spf=pass smtp.mailfrom=digikod.net; dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b=G0OU4NmU; arc=none smtp.client-ip=45.157.188.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digikod.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="DgT64fyr"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1780223434; x=1811759434;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=lakZVG7g5kCet7VQLT5a6WdgbIee6d7zDrhOBHgTWzc=;
-  b=DgT64fyr4IVZrE00PPWo+4fhl5xN5LLt2m6VL69es3kp/Y4xcP194k3H
-   Q/L2iTvzo0VgMuqLRJxCdowWDus1qzZ72uUyq2nn9fxyvb7uDd1wNqMKg
-   UoS/dR/bljkKR6X/DCXmOk6M6iJH8U+oN8QB3CBf2rRQA6RvJyubwEsmf
-   1kVbyiDXR5OIZ3Jxm090B4ItEhSWC2rL0zZV2I2ONUNx4RAImXdjStp/W
-   MDkVbaxW0qWCHL7vvqbThdUYmiNPpL0ffRZWacJjhfB7gIs77ErExHeZR
-   jZorIaXrMLJHpu7zOTf0vnwuzm8B7Zjk1plz0IUcEVTHKosD4Ts9NSd3c
-   g==;
-X-CSE-ConnectionGUID: lNag5tOwRh+oxOXZz6S+9Q==
-X-CSE-MsgGUID: mod0W57aSr6g4TPKTmWvfQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11802"; a="80148212"
-X-IronPort-AV: E=Sophos;i="6.24,179,1774335600"; 
-   d="scan'208";a="80148212"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 May 2026 03:30:34 -0700
-X-CSE-ConnectionGUID: 0F5G0Mw5RueR5pkgXtT4JQ==
-X-CSE-MsgGUID: EecgkeFYRFmz2zGnrLp9aA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,179,1774335600"; 
-   d="scan'208";a="245118257"
-Received: from weis0040.iil.intel.com ([10.12.217.108])
-  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 May 2026 03:30:34 -0700
-From: Miri Korenblit <miriam.rachel.korenblit@intel.com>
-To: linux-wireless@vger.kernel.org
-Cc: Emmanuel Grumbach <emmanuel.grumbach@intel.com>,
-	stable@vger.kernel.org
-Subject: [PATCH wireless-fixes] wifi: iwlwifi: pcie: simplify the resume flow if fast resume is not used
-Date: Sun, 31 May 2026 13:30:19 +0300
-Message-Id: <20260531133005.e2ed9e0cd44f.If283625983a843933e0c01561a421daff184e9e9@changeid>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b="G0OU4NmU"
+Received: from smtp-3-0001.mail.infomaniak.ch (smtp-3-0001.mail.infomaniak.ch [10.4.36.108])
+	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4gSttq74bTzY7c;
+	Sun, 31 May 2026 12:41:39 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=digikod.net;
+	s=20191114; t=1780224099;
+	bh=LTPyEEY0B3ySg8X1BcNaRZY61/WIhBEjhdVchJdIjTY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=G0OU4NmUv6zHih8zeIu6GZiCHjUBARFKuHd6Vl3Pu3ftAbFT0jBz3klv4iXwwcMBn
+	 dZmrAf3nma6uE53BtgCClRj9QdsYJzmc2PAQoem5u/7O7c/ACpEvIHtO0F3NhMvOT0
+	 v51d1OZZPk3obY4A4BvdABo7KgaGg/cFEdi1DZCs=
+Received: from unknown by smtp-3-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4gSttq2Dzlz7gL;
+	Sun, 31 May 2026 12:41:39 +0200 (CEST)
+Date: Sun, 31 May 2026 12:41:35 +0200
+From: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>
+To: hexlabsecurity@proton.me
+Cc: Justin Suess <utilityemal77@gmail.com>, 
+	"gnoack@google.com" <gnoack@google.com>, 
+	"linux-security-module@vger.kernel.org" <linux-security-module@vger.kernel.org>, "stable@vger.kernel.org" <stable@vger.kernel.org>, 
+	Christian Brauner <brauner@kernel.org>
+Subject: Re: [PATCH v3 1/2] landlock: fix LANDLOCK_SCOPE_SIGNAL bypass via
+ F_SETOWN to invoker's pgid
+Message-ID: <20260531.irah0eiM3Chi@digikod.net>
+References: <7rvmLIHR1Zh8RDF1IY1-SYRHzErgw9gPHq0k98RLYVsmHqAejjxcuJi8V3QaSbW-SnNvY5tfM2Xn_S1dEajKV_f7iyitoPwJgOSTZQ0nytc=@proton.me>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Organization: Intel Israel (74) Limited
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <7rvmLIHR1Zh8RDF1IY1-SYRHzErgw9gPHq0k98RLYVsmHqAejjxcuJi8V3QaSbW-SnNvY5tfM2Xn_S1dEajKV_f7iyitoPwJgOSTZQ0nytc=@proton.me>
+X-Infomaniak-Routing: alpha
 
-From: Emmanuel Grumbach <emmanuel.grumbach@intel.com>
+On Fri, May 29, 2026 at 07:07:30PM +0000, hexlabsecurity@proton.me wrote:
+> From b5fdc79ce1cb2881d59dfed01d3d9170306be9e8 Mon Sep 17 00:00:00 2001
+> From: Bryam Vargas <hexlabsecurity@proton.me>
+> Date: Fri, 29 May 2026 12:49:41 -0500
+> Subject: [PATCH v3 1/2] landlock: fix LANDLOCK_SCOPE_SIGNAL bypass via
+>  F_SETOWN to invoker's pgid
 
-In most distributions, NetworkManager shuts the device down before
-entering system suspend, so fast suspend is typically not used.
+Please send proper threaded emails.  Sending two unrelated
+emails/patches and with additional headers in the body makes it more
+difficult to handle and ignored by reviewer bots.
 
-On older devices, resume currently tries to grab NIC access to infer
-whether the device was powered off while suspended. That probe is only
-meaningful for the fast-suspend path where the device is expected to
-remain alive.
+> 
+> A Landlock-restricted process can bypass LANDLOCK_SCOPE_SIGNAL on the
+> SIGIO delivery path and deliver arbitrary signals (including SIGKILL via
+> F_SETSIG) to non-Landlocked targets that share its pgid, by exploiting a
+> producer-side cache-vs-live evaluation gap.
 
-Unfortunately, for unclear reasons, grabbing NIC access was harmful as
-reported in the bugzilla ticket below.
+What does mean: "producer-side cache-vs-live evaluation gap"?
 
-Workaround this issue by simply not grabbing NIC access if fast suspend
-is not used.
+It looks like the "cache" here is the fowner data, which is not a cache.
 
-Fixes: 6a0f81c549a0 ("wifi: iwlwifi: fix merge damage related to iwl_pci_resume")
-Cc: stable@vger.kernel.org
-Closes: https://bugzilla.kernel.org/show_bug.cgi?id=221501
-Assisted-by: GitHub Copilot:gpt-5.3-codex
-Signed-off-by: Emmanuel Grumbach <emmanuel.grumbach@intel.com>
-Signed-off-by: Miri Korenblit <miriam.rachel.korenblit@intel.com>
----
- drivers/net/wireless/intel/iwlwifi/pcie/drv.c | 56 +++++++++++--------
- 1 file changed, 32 insertions(+), 24 deletions(-)
+Could you please make it clear in the commit message what is the threat
+(e.g. real-life scenario of a signal control bypass)?
 
-diff --git a/drivers/net/wireless/intel/iwlwifi/pcie/drv.c b/drivers/net/wireless/intel/iwlwifi/pcie/drv.c
-index dc99e7ac4726..eb3c5a6dd088 100644
---- a/drivers/net/wireless/intel/iwlwifi/pcie/drv.c
-+++ b/drivers/net/wireless/intel/iwlwifi/pcie/drv.c
-@@ -1225,33 +1225,41 @@ static int _iwl_pci_resume(struct device *device, bool restore)
- 	if (!trans->op_mode)
- 		return 0;
- 
--	/*
--	 * Scratch value was altered, this means the device was powered off, we
--	 * need to reset it completely.
--	 * Note: MAC (bits 0:7) will be cleared upon suspend even with wowlan,
--	 * but not bits [15:8]. So if we have bits set in lower word, assume
--	 * the device is alive.
--	 * Alternatively, if the scratch value is 0xFFFFFFFF, then we no longer
--	 * have access to the device and consider it powered off.
--	 * For older devices, just try silently to grab the NIC.
--	 */
--	if (trans->mac_cfg->device_family >= IWL_DEVICE_FAMILY_BZ) {
--		u32 scratch = iwl_read32(trans, CSR_FUNC_SCRATCH);
--
--		if (!(scratch & CSR_FUNC_SCRATCH_POWER_OFF_MASK) ||
--		    scratch == ~0U)
--			device_was_powered_off = true;
--	} else {
-+	if (test_bit(STATUS_DEVICE_ENABLED, &trans->status)) {
- 		/*
--		 * bh are re-enabled by iwl_trans_pcie_release_nic_access,
--		 * so re-enable them if _iwl_trans_pcie_grab_nic_access fails.
-+		 * Scratch value was altered, this means the device was powered
-+		 * off, we need to reset it completely.
-+		 * Note: MAC (bits 0:7) will be cleared upon suspend even with
-+		 * wowlan, but not bits [15:8]. So if we have bits set in lower
-+		 * word, assume the device is alive.
-+		 * Alternatively, if the scratch value is 0xFFFFFFFF, then we
-+		 * no longer have access to the device and consider it powered
-+		 * off.
-+		 * For older devices, just try silently to grab the NIC.
- 		 */
--		local_bh_disable();
--		if (_iwl_trans_pcie_grab_nic_access(trans, true)) {
--			iwl_trans_pcie_release_nic_access(trans);
-+		if (trans->mac_cfg->device_family >= IWL_DEVICE_FAMILY_BZ) {
-+			u32 scratch = iwl_read32(trans, CSR_FUNC_SCRATCH);
-+
-+			if (!(scratch & CSR_FUNC_SCRATCH_POWER_OFF_MASK) ||
-+			    scratch == ~0U) {
-+				IWL_DEBUG_WOWLAN(trans,
-+						 "Scratch 0x%08x indicates device was powered off\n",
-+						 scratch);
-+				device_was_powered_off = true;
-+			}
- 		} else {
--			device_was_powered_off = true;
--			local_bh_enable();
-+			/*
-+			 * bh are re-enabled by iwl_trans_pcie_release_nic_access,
-+			 * so re-enable them if _iwl_trans_pcie_grab_nic_access
-+			 * fails.
-+			 */
-+			local_bh_disable();
-+			if (_iwl_trans_pcie_grab_nic_access(trans, true)) {
-+				iwl_trans_pcie_release_nic_access(trans);
-+			} else {
-+				device_was_powered_off = true;
-+				local_bh_enable();
-+			}
- 		}
- 	}
- 
--- 
-2.34.1
+> 
+> The SIGIO path in hook_file_send_sigiotask() consults a cached subject
+> stored in landlock_file(file)->fown_subject at fcntl(F_SETOWN) time
+> (via hook_file_set_fowner()), instead of evaluating the live Landlock
+> domain of the invoking task at signal-send time. The capture is gated
+> by control_current_fowner(), which returns false (skipping capture)
+> when pid_task(fown->pid, fown->pid_type) is in current's thread group.
 
+Commit messages should mostly explain the "why", and only the minimal
+"what".
+
+A simpler commit message would be useful.
+
+> 
+> This is correct for PIDTYPE_TGID / PIDTYPE_PID, where the target is a
+> single task sharing current's cred. It is unsafe for PIDTYPE_PGID and
+
+By "task" do you mean "process"?
+
+> PIDTYPE_SID: when current is at the head of its pgid hlist -- the
+> default placement after fork(), hlist_add_head_rcu() in kernel/fork.c --
+> pid_task(pgid, PIDTYPE_PGID) resolves to current itself,
+> same_thread_group(current, current) is true, the capture is skipped, and
+> fown_subject.domain stays NULL. hook_file_send_sigiotask() then
+> short-circuits at "if (!subject->domain) return 0;", letting the kernel
+> fan the signal out to every member of the group, including tasks outside
+> current's Landlock domain that SCOPE_SIGNAL is supposed to protect.
+> 
+> The direct kill() path (hook_task_kill) is unaffected: it evaluates
+> current's live domain on every call. Only the cached SIGIO path is
+> broken.
+> 
+> Tighten control_current_fowner() to apply the thread-group exemption
+> only when the target identifies a single task whose Landlock cred is
+> necessarily shared with current (PIDTYPE_TGID, PIDTYPE_PID). For
+> PIDTYPE_PGID and PIDTYPE_SID, always capture the current Landlock
+> subject so the consumer's scope check runs against every member of the
+> group at delivery time.
+
+PIDTYPE_SID doesn't seem possible.
+
+> 
+> Stable kernels before the fown_subject conversion store the domain in
+> landlock_file(file)->fown_domain; control_current_fowner() is identical
+> there, so the same exemption and the same fix apply.
+> 
+> Fixes: 18eb75f3af40 ("landlock: Always allow signals between threads of the same process")
+> Cc: stable@vger.kernel.org
+> Reported-by: Bryam Vargas <hexlabsecurity@proton.me>
+
+You should remove Reported-by because it is implicit when you also add a
+Signed-off-by with the same value.
+
+> Tested-by: Justin Suess <utilityemal77@gmail.com>
+> Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
+> ---
+>  security/landlock/fs.c | 12 ++++++++++++
+>  1 file changed, 12 insertions(+)
+> 
+> diff --git a/security/landlock/fs.c b/security/landlock/fs.c
+> index c1ecfe239032..edaa52572cbd 100644
+> --- a/security/landlock/fs.c
+> +++ b/security/landlock/fs.c
+> @@ -1909,6 +1909,18 @@ static bool control_current_fowner(struct fown_struct *const fown)
+>  	if (!p)
+>  		return true;
+>  
+> +	/*
+> +	 * For PIDTYPE_PGID and PIDTYPE_SID, signal delivery fans out to
+> +	 * every member of the group at SIGIO time. Even when pid_task()
+> +	 * resolves to current itself (e.g., current is the pgid hlist
+> +	 * head post-fork), non-current members of the group are still
+> +	 * valid targets that must be checked by hook_file_send_sigiotask().
+> +	 * Always capture the current subject for those types so the
+> +	 * consumer scope check runs against the live fown_subject.
+
+This looks good but could be simplified.
+
+> +	 */
+> +	if (fown->pid_type == PIDTYPE_PGID || fown->pid_type == PIDTYPE_SID)
+
+PIDTYPE_SID is not possible for fowner, and I'd prefer a defensive
+programming approach:
+
+  fown->pid_type != PIDTYPE_PID && fown->pid_type != PIDTYPE_TGID
+
+> +		return true;
+> +
+>  	return !same_thread_group(p, current);
+>  }
+>  
+> -- 
+> 2.43.0
+> 
+> 
