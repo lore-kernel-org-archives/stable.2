@@ -1,205 +1,162 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f53.google.com (mail-qv1-f53.google.com [209.85.219.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07C0229ACDD;
-	Sun, 31 May 2026 17:39:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780249162; cv=none; b=TC0AUhQ9KTu9EkgTC2NsPRoOh1EntWo6AggAttriC5iyMdjrzIno0gtRpqjqSxNpab17WVBxbTq0HhserdgNpTnFVmDHkK6m+Eye+xazTgL37eH+XYONW+/YrXT/eAAP+hPlIyReboatgqfoaPxBTrlNGzHRmDYYf4HD8DZnqx4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780249162; c=relaxed/simple;
-	bh=Jni+SIUdjAT/ui0T/efHGFzu/GDzaRS/idRb6Nhfnk4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FPCNSockKCMm1mnxR7+vG8xovuCR5lj51gfdeLcWS8azmU7efrbGtFElRX/v/D3l6oV8SF3qw0C98DIuzomRIEjxBokFWJik6GHDcL69EeX+GDzb5nbQ+RRzhObI1SO1WmHdNvik5w4Czw6fFgl/EC+vWPrD0t9Jl0SxRhlKNRQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PRvc+fzc; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6446C39184E
+	for <stable@vger.kernel.org>; Sun, 31 May 2026 18:04:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.219.53
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780250691; cv=pass; b=O/eI32I6pCmAQ3vFA/4DKTnnNkigaS2KWQARN9qIW7NkB1ii8jSp9SEkzwPsHa9W/aYl3eYf+2EL6WZuUPmXq+rYhYU//Uom58pONMMjxoyywFrwXcuBAylXRiqMa0+nspqr8iGjwePqqsI7HF9LSP4THj5tVP/aBFylKT2xlTY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780250691; c=relaxed/simple;
+	bh=ofZSq7G8cMrSjcMKXZDuMvlm0WO9whahFj4x6LbtlRA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=r5BS4PKdmS8EXkdvCwuPEfwGcEbNITVLXEhhy4vYy+2tCyWfvigr0T3iRjo/z0bqHeM4A7cFK1wMyPCiHPA3nSBMBs2GxwfpvOq1cuQ4Ik8JlsAUumNUZ+m8r5BCe59rlg7WtQyZ5yVNxYrQj7sdT7r89bzTsMKD6vRs78l84Xc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=IHiRfkZ9; arc=pass smtp.client-ip=209.85.219.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PRvc+fzc"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 27F4B1F00893;
-	Sun, 31 May 2026 17:39:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780249160;
-	bh=1KQsIhLtxvDj0ZoZo9GMnO3LWk6oBsL3W3d3mVE8gYo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=PRvc+fzcvEnpl7ukGAVroZDG5EUWl03qbOArcePeyZZEQqtklcmjjC8fQ8p4/11pU
-	 e0VcXmCUTP366SbyFJuqd5CO5A5GLzlNY0TvZPUJBUOMYiY4KX4ecMQ/TIVRjQ3wFg
-	 e978qG0JNTJj3Ocmi0QqdwU2m/bimUiV2mK0dHKoXZHMNYV3M3zCUKegEu1dePdwMg
-	 AF8p86IkwPJmr3x3ne0FoT3qERgvmhvYtCLSq+rOKs5mfuil41NpitANusvqYnfxAk
-	 yB9bJsqdsF+D3gEqUyJhWGsbt3H9ZL6ABo4t/XJUxu1KuLpd6LvdzpFdSIaSlCkqvG
-	 cFXl4MlJpmqYw==
-Date: Sun, 31 May 2026 20:39:17 +0300
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Michael Bommarito <michael.bommarito@gmail.com>
-Cc: Peter Huewe <peterhuewe@gmx.de>, Jason Gunthorpe <jgg@ziepe.ca>,
-	James Bottomley <James.Bottomley@hansenpartnership.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	linux-integrity@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2] tpm: tpm2-sessions: wait for async KPP completion in
- tpm_buf_append_salt
-Message-ID: <ahxyRdpJhEsWc3kQ@kernel.org>
-References: <20260531124428.2304629-1-michael.bommarito@gmail.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="IHiRfkZ9"
+Received: by mail-qv1-f53.google.com with SMTP id 6a1803df08f44-8ccdf8d4ac5so30787286d6.1
+        for <stable@vger.kernel.org>; Sun, 31 May 2026 11:04:50 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1780250689; cv=none;
+        d=google.com; s=arc-20240605;
+        b=FUDSYnqqGXL97DvZAzhQAefUlpwLKcjOwprjXSCXYd9mbMfrMm4LlyvzrNPXtY3IYn
+         BTUQVceuVxqP+lCj4qiY+8OrnFdtSZANmTbkonAwCoZ3R6cwBKHKbTnOckBguFf2BsI1
+         WSKk31aLlkkBgAPIQwIOjGE3ktUIvJCiNZThIOG/EJ8q4HvU2S10rLiNEVgnDX6/pmKp
+         tcotMg0lfP3Z0XlnHPvvp6bPn+SFeuSQLJdlCMwo81DwU7CAgJub9WOO9dEDAmrYR0OF
+         psMywQsU0YofsYd3Lch3h42gRdekJDeRny366lU8902i1J/Wvpsboc0iQ2uKhg5pHTQV
+         W15w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=fhEgvzKeZCQs4CyiQC8uzW7u92ha6iJGj4bzQloVlmc=;
+        fh=LtirZrbLLUdgOryeF3uKsWK8c7hB8F64G6H5AAAElpM=;
+        b=Sfoak1AiFtJTPNmrWp5tJrvvfcwFI+PadyIUlTRlxfZiSP3nAoTMinTfaA0B/4UfWK
+         6OFWzMpAQ8ljh8yDCQrCalIwsuOhgGJq7uSRsb02Ey9et4b5dyF7repchwhpNqzBnywo
+         is34FG+Pvhy05zR5bZ0CWrf/VZ0Pd7x91C9DWz5cvTx4RjPefzP35J6An4eawUObyVip
+         GcVfBX5911ns+ewXepTquA61QREydcFKy+yM+yNBcTV/h5WeSZDGi24dEelXn0cJ8Abh
+         aud6Mwpw8ys2fCoMYmvJWGU4srKhCDs92ghvTI49962DhuC7sdyyWoqJJH8ZfeFQiovI
+         3NEA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1780250689; x=1780855489; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=fhEgvzKeZCQs4CyiQC8uzW7u92ha6iJGj4bzQloVlmc=;
+        b=IHiRfkZ9x2g+7ZCtlJbzdGS1y7gSc4s0TNoLz3bOBqkm2SHM8tEO7T+POkonjkbZ8t
+         CQugdPM9FEbmk44VeEH0wtHRujXfG/NNyIs6tRovHakG0lqulFSPgZEbMSKpWxeYAWUP
+         GDWUAuUK7Nl4jbeevSikUdjlbhcYnvebW7+J2tslH42TfqoJlj2mITgLHx0TJVCYNK8p
+         yYN3wQ+dm5tcK5unbqAyvTN+ZYvAaS/df9jIafoYJwWvUDV3dbAv2/by8FQlAJa+iXCn
+         c/02eJlvMlfYbcKKnGLQg9ax0iz+OjCNbkNX5vguqDzm5ifEO9sgHrdEqP7W+ZOXvaih
+         24uQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780250689; x=1780855489;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=fhEgvzKeZCQs4CyiQC8uzW7u92ha6iJGj4bzQloVlmc=;
+        b=FLnKhDyVQVzQr2/u0bpVw598qPGAgf51/FM+8i1gXSE3HhtXlcbe1kYm/QgBEyP6Al
+         WmA2D8Z3HoR+NZIOiTwlgG5IVeqB6mVGRYbMiMXRgy46Mbv3dDTZLFMxkZPXnFa2c5kA
+         hZklqW1V7PYYgIzRaiRct0sh5R2+/AJS7ZMWyj6UvVqa6maVO1tLimJyllFyJt5g1TVr
+         ppZBw9IUkJrhuQzotPVdJjzkkukezOLfOrVtziPkiXd0hZz4eEgXAXsJnv2z+O2RFm4u
+         +WlgwoaBHIDCQJRCfQFnntuCS95i3yAcFVPQtVKzZYVsuDAL57Dc+w2KkpfZ0/m46GmB
+         zb0w==
+X-Forwarded-Encrypted: i=1; AFNElJ8ZtHBWpg9+WFMYmDllY+BpQp1/iFgYhodX32J5/cGz57ED0L+k6c8tAzco0Wh67B93iHuifwE=@vger.kernel.org
+X-Gm-Message-State: AOJu0YynScIclwBZt1ZkUh1fozLmwh7/mNHL1UduMuoAmWKDYzUshfct
+	KyV4c9Uiz+RhieiUymaJ2lkklsLEsHrLDrvu7YLgHd8TiQlPYuJRMbqkPdBxvibhq0ocIJUwQhz
+	r7xRObDRpk/O14qBVKNIo2fSpDWZo7qB/UPsGSTEa
+X-Gm-Gg: Acq92OHydq/2pkUogOzrz9WEktyssRqm2fJBXMwnE72gybw0aUNHSQQhVLnwejdMSi2
+	TK91eLNdXx07YxF0Z3PgDsgyEfQ6uqO9i6Y9LQVwRdZ11solQPuVanEAsWYGYXq4Abktmfa0uKi
+	n2Chst0vk3Lg1JKTaErM9RcnkirrzF3jXzD6bRtJ5B9S2j7IMHCcmNlvahOvTN4Jf0lrc0uEYLK
+	RwUXfZFytlm6tfHdcDkQ6nyRFWJV/SqhBvercsj1xPerAv0elgYifvfLsSS8v90S2MQn/F3goj0
+	wPFcMUm5g6eHfr3Fe4eTgHiQDZMkQzbFb81tzcwrlaDsN4smf4KSD878irl5we/qXC2PY3w3npG
+	G3AwAvUJUqJ9QT4OhHnPYePqMC7o=
+X-Received: by 2002:a05:622a:5592:b0:509:34b8:a373 with SMTP id
+ d75a77b69052e-5173a778afdmr104207931cf.32.1780250688750; Sun, 31 May 2026
+ 11:04:48 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260531124428.2304629-1-michael.bommarito@gmail.com>
+References: <20260531153946.1627418-1-runyu.xiao@seu.edu.cn>
+In-Reply-To: <20260531153946.1627418-1-runyu.xiao@seu.edu.cn>
+From: Eric Dumazet <edumazet@google.com>
+Date: Sun, 31 May 2026 11:04:37 -0700
+X-Gm-Features: AVHnY4JtdL53ilgUiMTNnL2xIGvNC3MhuRWAIyGf-0ExL-UdcyIiDBNlspfYPTE
+Message-ID: <CANn89iK_YLvUJf60PkFy-EZwueifRJXaZGJ5pWegN9NLsXO-mQ@mail.gmail.com>
+Subject: Re: [PATCH net] ipv6: use READ_ONCE() in ipv6_flowlabel_get()
+To: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Cc: "David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, netdev@vger.kernel.org, 
+	Paolo Abeni <pabeni@redhat.com>, David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>, 
+	Simon Horman <horms@kernel.org>, linux-kernel@vger.kernel.org, jianhao.xu@seu.edu.cn, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sun, May 31, 2026 at 08:44:28AM -0400, Michael Bommarito wrote:
-> tpm_buf_append_salt() in drivers/char/tpm/tpm2-sessions.c calls
-> crypto_kpp_generate_public_key() and crypto_kpp_compute_shared_secret()
-> without installing a completion callback, discards both return values,
-> and immediately frees the kpp_request via kpp_request_free(). When the
-> resolved ecdh-nist-p256 KPP backend is asynchronous (atmel-ecc, HPRE,
-> keembay-ocs), either operation returns -EINPROGRESS and the deferred
-> completion worker dereferences the freed request.
-> 
-> The path fires automatically from the hwrng_fillfn kernel thread via
-> tpm_get_random -> tpm2_get_random -> tpm2_start_auth_session ->
-> tpm_buf_append_salt on every entropy poll, without any userland action.
-> 
-> Install crypto_req_done as the completion callback, wrap both KPP
-> operations in crypto_wait_req(), and propagate errors to the caller.
-> The wait is a no-op for synchronous backends.
-> 
-> Fixes: 1085b8276bb4 ("tpm: Add the rest of the session HMAC API")
-> Cc: stable@vger.kernel.org # v6.10+
-> Signed-off-by: Michael Bommarito <michael.bommarito@gmail.com>
-> Assisted-by: Claude:claude-opus-4-7
-> ---
-> v2: restructure the error cleanup into an explicit success return plus
->     err_free_req/err_free_kpp labels, per review. No functional change.
-> 
-> Validation (QEMU x86_64, swtpm, async ecdh-nist-p256 stub backend):
->   Unpatched, the deferred completion worker dereferences the freed
->   kpp_request: KASAN slab-use-after-free with the allocation and free
->   stacks both in tpm_buf_append_salt(), reached from
->   tpm2_start_auth_session -> tpm2_get_random -> hwrng_fillfn with no
->   userland action, then a NULL completion-pointer oops. Patched, the
->   same setup is KASAN-clean across repeated entropy polls: the worker
->   observes a live request and the free runs only after both KPP
->   operations complete. With no accelerator present, the synchronous
->   generic backend establishes sessions unchanged.
-> 
->  drivers/char/tpm/tpm2-sessions.c | 45 ++++++++++++++++++++++++--------
->  1 file changed, 34 insertions(+), 11 deletions(-)
-> 
-> diff --git a/drivers/char/tpm/tpm2-sessions.c b/drivers/char/tpm/tpm2-sessions.c
-> index c4da6fde748f4..f44646b26b192 100644
-> --- a/drivers/char/tpm/tpm2-sessions.c
-> +++ b/drivers/char/tpm/tpm2-sessions.c
-> @@ -489,15 +489,17 @@ static void tpm2_KDFe(u8 z[EC_PT_SZ], const char *str, u8 *pt_u, u8 *pt_v,
->  	sha256_final(&sctx, out);
->  }
->  
-> -static void tpm_buf_append_salt(struct tpm_buf *buf, struct tpm_chip *chip,
-> -				struct tpm2_auth *auth)
-> +static int tpm_buf_append_salt(struct tpm_buf *buf, struct tpm_chip *chip,
-> +			       struct tpm2_auth *auth)
->  {
->  	struct crypto_kpp *kpp;
->  	struct kpp_request *req;
-> +	DECLARE_CRYPTO_WAIT(wait);
->  	struct scatterlist s[2], d[1];
->  	struct ecdh p = {0};
->  	u8 encoded_key[EC_PT_SZ], *x, *y;
->  	unsigned int buf_len;
-> +	int rc;
->  
->  	/* secret is two sized points */
->  	tpm_buf_append_u16(buf, (EC_PT_SZ + 2)*2);
-> @@ -520,14 +522,15 @@ static void tpm_buf_append_salt(struct tpm_buf *buf, struct tpm_chip *chip,
->  	kpp = crypto_alloc_kpp("ecdh-nist-p256", CRYPTO_ALG_INTERNAL, 0);
->  	if (IS_ERR(kpp)) {
->  		dev_err(&chip->dev, "crypto ecdh allocation failed\n");
-> -		return;
-> +		return PTR_ERR(kpp);
->  	}
->  
->  	buf_len = crypto_ecdh_key_len(&p);
->  	if (sizeof(encoded_key) < buf_len) {
->  		dev_err(&chip->dev, "salt buffer too small needs %d\n",
->  			buf_len);
-> -		goto out;
-> +		rc = -EINVAL;
-> +		goto err_free_kpp;
->  	}
->  	crypto_ecdh_encode_key(encoded_key, buf_len, &p);
->  	/* this generates a random private key */
-> @@ -535,11 +538,17 @@ static void tpm_buf_append_salt(struct tpm_buf *buf, struct tpm_chip *chip,
->  
->  	/* salt is now the public point of this private key */
->  	req = kpp_request_alloc(kpp, GFP_KERNEL);
-> -	if (!req)
-> -		goto out;
-> +	if (!req) {
-> +		rc = -ENOMEM;
-> +		goto err_free_kpp;
-> +	}
-> +	kpp_request_set_callback(req, CRYPTO_TFM_REQ_MAY_BACKLOG,
-> +				 crypto_req_done, &wait);
->  	kpp_request_set_input(req, NULL, 0);
->  	kpp_request_set_output(req, s, EC_PT_SZ*2);
-> -	crypto_kpp_generate_public_key(req);
-> +	rc = crypto_wait_req(crypto_kpp_generate_public_key(req), &wait);
-> +	if (rc)
-> +		goto err_free_req;
->  	/*
->  	 * we're not done: now we have to compute the shared secret
->  	 * which is our private key multiplied by the tpm_key public
-> @@ -551,8 +560,9 @@ static void tpm_buf_append_salt(struct tpm_buf *buf, struct tpm_chip *chip,
->  	kpp_request_set_input(req, s, EC_PT_SZ*2);
->  	sg_init_one(d, auth->salt, EC_PT_SZ);
->  	kpp_request_set_output(req, d, EC_PT_SZ);
-> -	crypto_kpp_compute_shared_secret(req);
-> -	kpp_request_free(req);
-> +	rc = crypto_wait_req(crypto_kpp_compute_shared_secret(req), &wait);
-> +	if (rc)
-> +		goto err_free_req;
->  
->  	/*
->  	 * pass the shared secret through KDFe for salt. Note salt
-> @@ -562,8 +572,16 @@ static void tpm_buf_append_salt(struct tpm_buf *buf, struct tpm_chip *chip,
->  	 */
->  	tpm2_KDFe(auth->salt, "SECRET", x, chip->null_ec_key_x, auth->salt);
->  
-> - out:
-> +	kpp_request_free(req);
->  	crypto_free_kpp(kpp);
-> +	return 0;
-> +
-> +err_free_req:
-> +	kpp_request_free(req);
-> +
-> +err_free_kpp:
-> +	crypto_free_kpp(kpp);
-> +	return rc;
->  }
->  
->  /**
-> @@ -1018,7 +1036,12 @@ int tpm2_start_auth_session(struct tpm_chip *chip)
->  	tpm_buf_append(&buf, auth->our_nonce, sizeof(auth->our_nonce));
->  
->  	/* append encrypted salt and squirrel away unencrypted in auth */
-> -	tpm_buf_append_salt(&buf, chip, auth);
-> +	rc = tpm_buf_append_salt(&buf, chip, auth);
-> +	if (rc) {
-> +		tpm2_flush_context(chip, null_key);
-> +		tpm_buf_destroy(&buf);
-> +		goto out;
-> +	}
->  	/* session type (HMAC, audit or policy) */
->  	tpm_buf_append_u8(&buf, TPM2_SE_HMAC);
->  
-> -- 
-> 2.53.0
-> 
+On Sun, May 31, 2026 at 8:40=E2=80=AFAM Runyu Xiao <runyu.xiao@seu.edu.cn> =
+wrote:
+>
+> ipv6_flowlabel_get() still reads the shared per-net sysctl fields
+> flowlabel_consistency and flowlabel_state_ranges with plain loads,
+> while writers update them through proc_dou8vec_minmax(). These checks
+> run in the live IPV6_FLOWLABEL_MGR path, so lockless plain reads leave
+> KCSAN-visible data races and can make the policy checks observe stale or
+> inconsistent values.
+>
+> The race can be reached on a running system by toggling
+> /proc/sys/net/ipv6/flowlabel_consistency and
+> /proc/sys/net/ipv6/flowlabel_state_ranges while another task repeatedly
+> issues IPV6_FLOWLABEL_MGR requests with IPV6_FL_F_REFLECT or a
+> state-ranges flow label.
+>
+> This issue was first flagged by our static analysis tool while scanning
+> lockless IPv6 sysctl readers, then manually audited on Linux v6.18.21.
+> The IPV6_FLOWLABEL_MGR paths were runtime-reproduced with QEMU/KCSAN by
+> concurrently flipping the two sysctls while TCP reflect and UDP
+> state-ranges setsockopt actors exercised ipv6_flowlabel_get(). KCSAN
+> reported races between proc_dou8vec_minmax() and the two plain-load
+> sites in ipv6_flowlabel_get().
+>
+> A narrower second-round UDPv6 + IPV6_AUTOFLOWLABEL send-side reproducer
+> also hit the inline ip6_make_flowlabel() reader through
+> __ip6_make_skb() / proc_dou8vec_minmax(), but that site is already
+> fixed in this tree by commit ded139b59b5d
+> ("ipv6: annotate data-races from ip6_make_flowlabel()"). The remaining
+> plain readers in this tree are both in ipv6_flowlabel_get().
+>
+> Use READ_ONCE() for those remaining sysctl reads so they follow the same
+> lockless reader contract already used by other IPv6 sysctl readers.
+>
+> Build-tested by compiling net/ipv6/ip6_flowlabel.o on x86_64.
+>
+> Representative QEMU/KCSAN reports from the two target reader paths:
+>
+>   BUG: KCSAN: data-race in ipv6_flowlabel_opt / proc_dou8vec_minmax
+>   write: proc_dou8vec_minmax+0x206/0x220
+>   read:  ipv6_flowlabel_opt+0x6d8/0xd20
+>          do_ipv6_setsockopt+0x873/0x2220
+>          tcp_setsockopt+0x72/0xb0
+>
+>   BUG: KCSAN: data-race in ipv6_flowlabel_opt / proc_dou8vec_minmax
+>   write: proc_dou8vec_minmax+0x206/0x220
+>   read:  ipv6_flowlabel_opt+0x129/0xd20
+>          do_ipv6_setsockopt+0x873/0x2220
+>          udpv6_setsockopt+0x21/0x40
+>
 
-Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
+Please cut the verbosity, we do not need to copy/paste fifty lines
+just to explain the obvious.
 
-Thank you. I'll apply this shortly.
+I hope you understand there is no serious bug here, KCSAN is a
+debugging feature, not a production one.
 
-BR, Jarkko
+One or two lines should be enough, you can take a look at
+f062e8e25102324364aada61b8283356235bc3c1 ("ipv6: annotate data-races
+in net/ipv6/route.c")
+
+Also Fixes: tags are going to trigger extra work for many stable
+teams, for no reason.
