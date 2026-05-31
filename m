@@ -1,236 +1,86 @@
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.cock.li (mail.cock.li [37.120.193.123])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FD223043DC
-	for <stable@vger.kernel.org>; Sun, 31 May 2026 22:33:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 707FF33F591;
+	Sun, 31 May 2026 22:43:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=37.120.193.123
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780266787; cv=none; b=W/E7SVK+Qa0Y/foNCnYbwqkRUUAnbv0OZX1VWwfPQmqceuZtpyNPQe7C/TH9grllbbXp5KEPfo7OTAXOlQFFQTwI19WHXgae8HnhJtc9ykU/knfGv+lFSCdXKczGQckUp0kBTz1INkeJE6tCjNXK1ppOvC3Gs+eSl/0d3l5n/vA=
+	t=1780267397; cv=none; b=cS9XTqWm21JatX7s7uI+3Q0X0vzgDfVLM4a/NKmfF927OLd+tEC9QwWvNB4uMkKkR+YlLjd4bMPQwXQBwqDmBN8uboe1ptwhco6jmiM27HD+YcKPlFgacjnY4eOaYaOF8IvxTwJW+1ZjabUOwzKbUhIeR0FRHLkxYansIRqcS7w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780266787; c=relaxed/simple;
-	bh=R0S6ndC5Ri+Wndh5doVmrm6kTANEa5CDsZsBjFi+u8Q=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=do73J32Xkh8I7MDclzLbBadMUv+LebNddCMyppy4gvnjWJHBhodbQZ080HA4PFfvvmtv13sdk/2MZVdLSMc85+wKQ/KI+H5KnTzznxe9UXjBHP0F+AGkfF4sx6bFFfLUbFtBb2/FyvCLurAS0E4j6LAFiGTmPnA7TlZn9NXljY8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RXwBTWPw; arc=none smtp.client-ip=74.125.82.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1780267397; c=relaxed/simple;
+	bh=XgZKgdvdRJZ6QE3Us3zZJ8a1z/dSj82ioQpHMdTmgBc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ms8iu0Rej1oUqx1MLwbf3GVuOmCKEIm1s3vnop9hsgeBBawtBAHG6LMAc4STo+Dn0p/3w0EoWLERaW/1zB1pFszVI88z1ek4PiO6e3zsHDdYPJEtydkfJKXNQNce/pLSFJ3c80jG/aBy5CnkpoKdxY0nkdtHZ8IIzepzK2owgmg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=airmail.cc; spf=pass smtp.mailfrom=airmail.cc; dkim=pass (2048-bit key) header.d=airmail.cc header.i=@airmail.cc header.b=aIef59G+; arc=none smtp.client-ip=37.120.193.123
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=airmail.cc
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=airmail.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RXwBTWPw"
-Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-304d0ac5e3cso4262839eec.0
-        for <stable@vger.kernel.org>; Sun, 31 May 2026 15:33:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780266784; x=1780871584; darn=vger.kernel.org;
-        h=in-reply-to:content-language:references:cc:to:subject:from
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Cgzwm13HnnSC1Y4klYORe79NPgyF+qJNTa3oDX+gZEM=;
-        b=RXwBTWPwoVF7iHJaKQdcjD0i5oVniIbaDpphoI7LXsVJc/bpbGAJW41f4pbSy9xbbN
-         qFSMdJPdX4223yvqd7Hx7IvUN92mh3uz95Zqdy2ZPFNlYfsq03f8HILTxtoINHlGAFVB
-         C412prsvlF5xXGXjQt+2guaHbmqsRSKSKMb/lbjh37WhHlTS3sLzlophjg1OngcIIQqE
-         zki/afF9nPfU4m6iqCu4XCIDY0CoxwawoZtloNsfjQMrdjm50B3gmOywosJa0mq5rLxY
-         jmrtdRXuxRP2e2EJGXvD5HkWPWrqUMnGibwdtqzyVwvMsjtqWCI+nXwqnwkL14KCM0dF
-         GPOg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780266784; x=1780871584;
-        h=in-reply-to:content-language:references:cc:to:subject:from
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=Cgzwm13HnnSC1Y4klYORe79NPgyF+qJNTa3oDX+gZEM=;
-        b=PaA9OOfUE/dK5ZsFASYnhT+xGK3wp+3owk5lXLCN+FBqCL7odsooEw58J6Rw4GqCZM
-         PZigiKu8J/nLlgQoLqtgJMKXG5bJRMNL2agwiWq41YK+8VDPS2wdvh5cD7+6BS0c6AhO
-         P3YLVEygvvFmtdU9jQVl8VE11NALlWV+zNwNHyMMmg17aHroFT2EHYYTQJ/xNeaBxfCI
-         dF3sovuSqlQ1iZcWIORCQ5dLPHzFhHIGNI0XyRih/ACzOfvwhaZ/IoQmfkKzzCYll9pG
-         eNirFUVgrtbq3+IymvlMbf1W5ULLUSpLnvuC8xiBHkLoH49sUcquk5Fh8OiRfnn3DdVk
-         SviQ==
-X-Forwarded-Encrypted: i=1; AFNElJ+rCAmAzeCx/XtMwfXdYVv1fOjThDzzf5Y7Y44ejgcnEk+9P5hP/Lfpp/T2y8SNgUOL2JFwnDA=@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywi3V09FO9S0Q+yKDdVamU4M8N0NVtTZghMALMhGppUMEY2pw2t
-	isxkUwFAmJ0xnEPbGTYZgtdH0oqLRhg05oMqfDBGEb4oGV/31i+DooN2
-X-Gm-Gg: Acq92OGPqPc25LJFkbgbUuBMSRZFvMybJAxZxstAKSK5OKhymAPs/3Fao6O0kcR7TLF
-	BJoAUEz0J6f65pubbaP7p5wgzptokuCdSVcF6FqHD6WQBdv5bm1+v9zf1b1FjIFB0h8YYdKzUrm
-	pzOnfH896iwMer2umxv7X+EPXqf7pvb70NbJxXW+02/q/GU3SpGiUfnhSgR1KNocU3tWUlNVoip
-	3T1BtwVV/u469wmqdsHLlv920pqdH5k3WnhGBOuSfjq7vSMydroqKqtqvypPEloZyv/re7l2ggL
-	udhY7fBRFEXFs8UR/qOIMEW0FYjKchdmp7RZ0BDk4nusDMJtqVR23k7JUn0SnFA+fr21L82F8BL
-	roaKugTZB4soxDkHn2URkDSVnf13jVfkWwVOg6QN25sFq/81r+Sb0NBVnB3XttHcTk6Y7BsLtGM
-	m2cufYjuc+4OC22i3AcJ93qXSAWXlWUVk1PrXjWKOO80UxwnuY9mpu16cs4ZWrQ6AelLjeU80Cj
-	IA7I7vxcsfb
-X-Received: by 2002:a05:7301:2926:b0:304:d456:fca4 with SMTP id 5a478bee46e88-304fa67e7acmr3850002eec.21.1780266784340;
-        Sun, 31 May 2026 15:33:04 -0700 (PDT)
-Received: from [192.168.1.18] (177-4-161-23.user3p.v-tal.net.br. [177.4.161.23])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-304ed5b8fbbsm7355002eec.26.2026.05.31.15.33.01
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 31 May 2026 15:33:03 -0700 (PDT)
-Message-ID: <a6df0003-8be0-4663-8753-4e28f4cffb1e@gmail.com>
-Date: Sun, 31 May 2026 19:32:58 -0300
+	dkim=pass (2048-bit key) header.d=airmail.cc header.i=@airmail.cc header.b="aIef59G+"
+From: VolcomIlluminated <Volcomilluminated@airmail.cc>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=airmail.cc; s=mail;
+	t=1780266909; bh=XgZKgdvdRJZ6QE3Us3zZJ8a1z/dSj82ioQpHMdTmgBc=;
+	h=From:To:Cc:Subject:Date:From;
+	b=aIef59G+aUXQ5GdSZps8sPh4NxPMCea0DfA/QQhepWRW3QVDxrSQU9M4EBMRJGw4h
+	 pRHK76Juo9dQkN/TplaAR+Gf3FLBrfGWFL5z/8m+tKeECKzFZbxgsWJ0hky3x66LTi
+	 kxqc0Nu9V9culBITTrO/I1/gRkAvfJZcyMyMJwTqbguEefh86yjW5uRdIm1BVvcnln
+	 T/RTq3Pe7VPuVHe/LttYizloRYrNSgEb/4/XTx6yFHy+nvuqN31dv54lb/0m3cFjtp
+	 AiOyvMfqsUOpngMtyvmbLeQ88yZnIcS4iZLj0RceAL+Dr0NeChfx5XWvF1Tksvc4/3
+	 a0yqqbU8uokwA==
+To: pkshih@realtek.com
+Cc: kvalo@kernel.org,
+	luka.gejak@linux.dev,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	VolcomIlluminated <Volcomilluminated@airmail.cc>
+Subject: [PATCH] wifi: rtw88: extend USB TX report timeout to RTL8822BU
+Date: Sun, 31 May 2026 18:33:49 -0400
+Message-ID: <20260531223349.5952-1-Volcomilluminated@airmail.cc>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: =?UTF-8?Q?C=C3=A1ssio_Gabriel_Monteiro_Pires?=
- <cassiogabrielcontato@gmail.com>
-Subject: Re: [PATCH 5.10 002/589] ASoC: SOF: topology: reject invalid vendor
- array size in token parser
-To: Ben Hutchings <ben@decadent.org.uk>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
- Mark Brown <broonie@kernel.org>
-Cc: patches@lists.linux.dev, Sasha Levin <sashal@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-References: <20260530160224.570625122@linuxfoundation.org>
- <20260530160224.642881938@linuxfoundation.org>
- <daa0df3788560bd8759418d9c333e09c45368aa4.camel@decadent.org.uk>
-Content-Language: en-US
-In-Reply-To: <daa0df3788560bd8759418d9c333e09c45368aa4.camel@decadent.org.uk>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------mSZlpNXjrCJz0CATVO2tiEZ9"
+Content-Transfer-Encoding: 8bit
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------mSZlpNXjrCJz0CATVO2tiEZ9
-Content-Type: multipart/mixed; boundary="------------1hYVgRe97fvA93KIF4BIXAZE";
- protected-headers="v1"
-From: =?UTF-8?Q?C=C3=A1ssio_Gabriel_Monteiro_Pires?=
- <cassiogabrielcontato@gmail.com>
-To: Ben Hutchings <ben@decadent.org.uk>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
- Mark Brown <broonie@kernel.org>
-Cc: patches@lists.linux.dev, Sasha Levin <sashal@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Message-ID: <a6df0003-8be0-4663-8753-4e28f4cffb1e@gmail.com>
-Subject: Re: [PATCH 5.10 002/589] ASoC: SOF: topology: reject invalid vendor
- array size in token parser
-References: <20260530160224.570625122@linuxfoundation.org>
- <20260530160224.642881938@linuxfoundation.org>
- <daa0df3788560bd8759418d9c333e09c45368aa4.camel@decadent.org.uk>
-In-Reply-To: <daa0df3788560bd8759418d9c333e09c45368aa4.camel@decadent.org.uk>
-Autocrypt-Gossip: addr=broonie@kernel.org; keydata=
- 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
+Luka Gejak's patch increased the TX report timeout for RTL8723DU to
+accommodate off-channel dwell time during background scans. The same
+issue affects RTL8822BU (tested on Edimax EW-7822ULC) where background
+scans cause the firmware to stay off-channel for periods exceeding the
+default 500ms timeout, causing the purge timer to fire prematurely and
+drop TX tracking skbs.
 
---------------1hYVgRe97fvA93KIF4BIXAZE
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Extend the 2500ms timeout to also cover RTL8822BU USB devices.
 
-Hi!
+Tested on RTL8822BU (Edimax EW-7822ULC) with 17,706 packets over 24+
+hours with zero drops.
 
-On 5/30/26 15:51, Ben Hutchings wrote:
-> On Sat, 2026-05-30 at 17:58 +0200, Greg Kroah-Hartman wrote:
->> 5.10-stable review patch.  If anyone has any objections, please let me=
- know.
-
->>  		/* validate asize */
->> -		if (asize < 0) { /* FIXME: A zero-size array makes no sense */
->> +		if (asize < sizeof(*array)) {
->=20
-> asize is signed and this=C2=A0comparison coerces it to be unsigned.  So=
- non-
-> negative values of asize that are too small will be correctly rejected
-> here, but negative values will now be accepted.
->=20
-> I think this creates a worse security problem than it solves.
-
-Thanks for catching this.
-
-In order to keep the minimum header-size validation but force the compari=
-son
-to remain signed, I think we can do this:
-
-        if (asize < (int)sizeof(*array))
-
-While checking this further, I also noticed a separate parser-hardening i=
-ssue:
-sof_parse_token_sets() reads array->size before checking that the remaini=
-ng
-private data contains a full struct snd_soc_tplg_vendor_array header.
-
-So, on top of the signed comparison fix, the safer ordering would be:
-
---->8
-
-diff --git a/sound/soc/sof/topology.c b/sound/soc/sof/topology.c
-index cc6806cf59cd..bb6b981e55d1 100644
---- a/sound/soc/sof/topology.c
-+++ b/sound/soc/sof/topology.c
-@@ -740,6 +740,9 @@ static int sof_parse_token_sets(struct snd_soc_compon=
-ent *scomp,
- 	int ret;
-=20
- 	while (array_size > 0 && total < count * token_instance_num) {
-+		if (array_size < (int)sizeof(*array))
-+			return -EINVAL;
+Fixes: a82dfd33d123 ("wifi: rtw88: Add common USB chip support")
+Cc: stable@vger.kernel.org
+Signed-off-by: VolcomIlluminated <Volcomilluminated@airmail.cc>
+---
+--- /tmp/linux-6.18/drivers/net/wireless/realtek/rtw88/tx.c	2025-11-30 17:42:10.000000000 -0500
++++ /home/ptpx86mm1/kernelbuild/linux-6.18/drivers/net/wireless/realtek/rtw88/tx.c	2026-05-31 16:00:37.125645594 -0400
+@@ -196,6 +196,7 @@
+ void rtw_tx_report_enqueue(struct rtw_dev *rtwdev, struct sk_buff *skb, u8 sn)
+ {
+ 	struct rtw_tx_report *tx_report = &rtwdev->tx_report;
++	unsigned long timeout = RTW_TX_PROBE_TIMEOUT;
+ 	unsigned long flags;
+ 	u8 *drv_data;
+ 
+@@ -207,7 +208,12 @@
+ 	__skb_queue_tail(&tx_report->queue, skb);
+ 	spin_unlock_irqrestore(&tx_report->q_lock, flags);
+ 
+-	mod_timer(&tx_report->purge_timer, jiffies + RTW_TX_PROBE_TIMEOUT);
++	if ((rtwdev->chip->id == RTW_CHIP_TYPE_8723D ||
++	     rtwdev->chip->id == RTW_CHIP_TYPE_8822B) &&
++	    rtwdev->hci.type == RTW_HCI_TYPE_USB)
++		timeout = msecs_to_jiffies(2500);
 +
- 		asize =3D le32_to_cpu(array->size);
-=20
- 		/* validate asize */
-
-
-8<---
-
-The added check prevents a truncated-header read before dereferencing
-array->size. The existing signed asize check then validates the declared
-vendor-array size.
-
-Let me know what you guys think.
-
---=20
-Thanks,
-C=C3=A1ssio
-
-
---------------1hYVgRe97fvA93KIF4BIXAZE--
-
---------------mSZlpNXjrCJz0CATVO2tiEZ9
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-wnsEABYIACMWIQSrYqI5vIrg1X9eqEjQXT8aWv/ugwUCahy3GwUDAAAAAAAKCRDQXT8aWv/ugxGY
-AQDkVN/9CBbQR+mih1YnWSZCtDHlaV6pP9TADLYVHzEXwgD9GuNk/uUQUa61Ug5Utfy0FhTpJ/aB
-8dMKqGD5v6jsgAg=
-=aOZM
------END PGP SIGNATURE-----
-
---------------mSZlpNXjrCJz0CATVO2tiEZ9--
++	mod_timer(&tx_report->purge_timer, jiffies + timeout);
+ }
+ EXPORT_SYMBOL(rtw_tx_report_enqueue);
+ 
