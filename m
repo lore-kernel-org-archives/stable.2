@@ -1,171 +1,172 @@
-Received: from smtp-bc08.mail.infomaniak.ch (smtp-bc08.mail.infomaniak.ch [45.157.188.8])
+Received: from maynard.decadent.org.uk (maynard.decadent.org.uk [65.21.191.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B19F63655FD
-	for <stable@vger.kernel.org>; Sun, 31 May 2026 10:41:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.157.188.8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C65E376A18;
+	Sun, 31 May 2026 10:53:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.21.191.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780224110; cv=none; b=HvX0QT3uZ0MZOFJDrMVeX4xzvGCFu9ydPyqHstZ1yh2ZZMZG/JQppByaeyNHgCvjnKSwSR4mHGY9hVda6K2Qd+VYDuHqIduUg26QNrHm6jyAemoC/aeaO8N+8Qk6uhoOYWlk9wvz1cvlSU24uqU5mtYY0BlPRJT5LM7FB5vZKQI=
+	t=1780224811; cv=none; b=jU2VcSIBgsBwoURTADtLC1PEIaiXc6nXpHMJO4ewM4hlmoWAWpRwbOsU6IHuVRU48TIHEfzoLnvs2VLjxrgaXdtLGrm6bf3bICa1puMiBbllNKGOBCRaAh7e/18fVLWk2TG7cbU5pmr/jKFsnYiWYXLjGoQkt6q34ypkRJoIoQ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780224110; c=relaxed/simple;
-	bh=Wcx9iLblDp4hblQ+ibXg4HnEYwY70izi+BxL3C+KWI0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AkgsIjaU6/OS64cQ9nRFn7OOqXyM7DldhgXl0dyPPpNkdAVLj4prV33y8/Euvk7Ory6JVQTU+nA+aNCv5x5eHIhiys42QzvZU6kBTNjwlpu9+5dUtFgRo2vyDKUVO2XKNxO3+NaQGJpIOCbd9zzW7TTVddXErynZNS80hr8ToQ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net; spf=pass smtp.mailfrom=digikod.net; dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b=G0OU4NmU; arc=none smtp.client-ip=45.157.188.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digikod.net
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b="G0OU4NmU"
-Received: from smtp-3-0001.mail.infomaniak.ch (smtp-3-0001.mail.infomaniak.ch [10.4.36.108])
-	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4gSttq74bTzY7c;
-	Sun, 31 May 2026 12:41:39 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=digikod.net;
-	s=20191114; t=1780224099;
-	bh=LTPyEEY0B3ySg8X1BcNaRZY61/WIhBEjhdVchJdIjTY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=G0OU4NmUv6zHih8zeIu6GZiCHjUBARFKuHd6Vl3Pu3ftAbFT0jBz3klv4iXwwcMBn
-	 dZmrAf3nma6uE53BtgCClRj9QdsYJzmc2PAQoem5u/7O7c/ACpEvIHtO0F3NhMvOT0
-	 v51d1OZZPk3obY4A4BvdABo7KgaGg/cFEdi1DZCs=
-Received: from unknown by smtp-3-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4gSttq2Dzlz7gL;
-	Sun, 31 May 2026 12:41:39 +0200 (CEST)
-Date: Sun, 31 May 2026 12:41:35 +0200
-From: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>
-To: hexlabsecurity@proton.me
-Cc: Justin Suess <utilityemal77@gmail.com>, 
-	"gnoack@google.com" <gnoack@google.com>, 
-	"linux-security-module@vger.kernel.org" <linux-security-module@vger.kernel.org>, "stable@vger.kernel.org" <stable@vger.kernel.org>, 
-	Christian Brauner <brauner@kernel.org>
-Subject: Re: [PATCH v3 1/2] landlock: fix LANDLOCK_SCOPE_SIGNAL bypass via
- F_SETOWN to invoker's pgid
-Message-ID: <20260531.irah0eiM3Chi@digikod.net>
-References: <7rvmLIHR1Zh8RDF1IY1-SYRHzErgw9gPHq0k98RLYVsmHqAejjxcuJi8V3QaSbW-SnNvY5tfM2Xn_S1dEajKV_f7iyitoPwJgOSTZQ0nytc=@proton.me>
+	s=arc-20240116; t=1780224811; c=relaxed/simple;
+	bh=i45gdTuZiRDSr0I/OSp/H4C/1/l9afk6RfqlpF+CjIs=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=K6h1PXeLQ99q/KpKyJ53TrZZXjMlWnLSFsjCw4v3K+NCphlvQIVibjCC6gTtUsfNFr9Xm9Sqg6YfOH858/UaSDx2R95CiNVJw+I+eXlg28PTNJe22GWAMn0V+nwHK/DK1eOnIuQDHDsr3O6lj92TnSCoZ4a80yoeyxyXm98y3M4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=decadent.org.uk; spf=pass smtp.mailfrom=decadent.org.uk; arc=none smtp.client-ip=65.21.191.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=decadent.org.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=decadent.org.uk
+Received: from [2a02:578:851f:1502:391e:c5f5:10e2:b9a3] (helo=deadeye)
+	by maynard with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <ben@decadent.org.uk>)
+	id 1wTdnL-000Ncn-0a;
+	Sun, 31 May 2026 10:53:27 +0000
+Received: from ben by deadeye with local (Exim 4.99.2)
+	(envelope-from <ben@decadent.org.uk>)
+	id 1wTdnJ-0000000F8HQ-417y;
+	Sun, 31 May 2026 12:53:25 +0200
+Message-ID: <136f03aa6f51bdfecc786e5278f5fd03b4a6966e.camel@decadent.org.uk>
+Subject: Re: [PATCH 5.10 072/589] media: uvcvideo: Use heuristic to find
+ stream entity
+From: Ben Hutchings <ben@decadent.org.uk>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, Angel4005 <ooara1337@gmail.com>, Ricardo
+ Ribalda	 <ribalda@chromium.org>, Hans de Goede <hansg@kernel.org>, Hans
+ Verkuil	 <hverkuil+cisco@kernel.org>, Sasha Levin <sashal@kernel.org>
+Date: Sun, 31 May 2026 12:53:20 +0200
+In-Reply-To: <20260530160226.496219768@linuxfoundation.org>
+References: <20260530160224.570625122@linuxfoundation.org>
+	 <20260530160226.496219768@linuxfoundation.org>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-1/MpVFW9o6bj11MJxigQ"
+User-Agent: Evolution 3.56.2-9 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <7rvmLIHR1Zh8RDF1IY1-SYRHzErgw9gPHq0k98RLYVsmHqAejjxcuJi8V3QaSbW-SnNvY5tfM2Xn_S1dEajKV_f7iyitoPwJgOSTZQ0nytc=@proton.me>
-X-Infomaniak-Routing: alpha
+X-SA-Exim-Connect-IP: 2a02:578:851f:1502:391e:c5f5:10e2:b9a3
+X-SA-Exim-Mail-From: ben@decadent.org.uk
+X-SA-Exim-Scanned: No (on maynard); SAEximRunCond expanded to false
 
-On Fri, May 29, 2026 at 07:07:30PM +0000, hexlabsecurity@proton.me wrote:
-> From b5fdc79ce1cb2881d59dfed01d3d9170306be9e8 Mon Sep 17 00:00:00 2001
-> From: Bryam Vargas <hexlabsecurity@proton.me>
-> Date: Fri, 29 May 2026 12:49:41 -0500
-> Subject: [PATCH v3 1/2] landlock: fix LANDLOCK_SCOPE_SIGNAL bypass via
->  F_SETOWN to invoker's pgid
 
-Please send proper threaded emails.  Sending two unrelated
-emails/patches and with additional headers in the body makes it more
-difficult to handle and ignored by reviewer bots.
+--=-1/MpVFW9o6bj11MJxigQ
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> 
-> A Landlock-restricted process can bypass LANDLOCK_SCOPE_SIGNAL on the
-> SIGIO delivery path and deliver arbitrary signals (including SIGKILL via
-> F_SETSIG) to non-Landlocked targets that share its pgid, by exploiting a
-> producer-side cache-vs-live evaluation gap.
+On Sat, 2026-05-30 at 17:59 +0200, Greg Kroah-Hartman wrote:
+> 5.10-stable review patch.  If anyone has any objections, please let me kn=
+ow.
+>=20
+> ------------------
+>=20
+> From: Ricardo Ribalda <ribalda@chromium.org>
+>=20
+> [ Upstream commit 758dbc756aad429da11c569c0d067f7fd032bcf7 ]
 
-What does mean: "producer-side cache-vs-live evaluation gap"?
+This doesn't properly fix the problem.  Commit 3d9f32e02c2e "media:
+uvcvideo: Create an ID namespace for streaming output terminals" (which
+reverts this) needs to be applied on top.  I haven't checked whether
+that would apply cleanly.
 
-It looks like the "cache" here is the fowner data, which is not a cache.
+Ben.
 
-Could you please make it clear in the commit message what is the threat
-(e.g. real-life scenario of a signal control bypass)?
-
-> 
-> The SIGIO path in hook_file_send_sigiotask() consults a cached subject
-> stored in landlock_file(file)->fown_subject at fcntl(F_SETOWN) time
-> (via hook_file_set_fowner()), instead of evaluating the live Landlock
-> domain of the invoking task at signal-send time. The capture is gated
-> by control_current_fowner(), which returns false (skipping capture)
-> when pid_task(fown->pid, fown->pid_type) is in current's thread group.
-
-Commit messages should mostly explain the "why", and only the minimal
-"what".
-
-A simpler commit message would be useful.
-
-> 
-> This is correct for PIDTYPE_TGID / PIDTYPE_PID, where the target is a
-> single task sharing current's cred. It is unsafe for PIDTYPE_PGID and
-
-By "task" do you mean "process"?
-
-> PIDTYPE_SID: when current is at the head of its pgid hlist -- the
-> default placement after fork(), hlist_add_head_rcu() in kernel/fork.c --
-> pid_task(pgid, PIDTYPE_PGID) resolves to current itself,
-> same_thread_group(current, current) is true, the capture is skipped, and
-> fown_subject.domain stays NULL. hook_file_send_sigiotask() then
-> short-circuits at "if (!subject->domain) return 0;", letting the kernel
-> fan the signal out to every member of the group, including tasks outside
-> current's Landlock domain that SCOPE_SIGNAL is supposed to protect.
-> 
-> The direct kill() path (hook_task_kill) is unaffected: it evaluates
-> current's live domain on every call. Only the cached SIGIO path is
-> broken.
-> 
-> Tighten control_current_fowner() to apply the thread-group exemption
-> only when the target identifies a single task whose Landlock cred is
-> necessarily shared with current (PIDTYPE_TGID, PIDTYPE_PID). For
-> PIDTYPE_PGID and PIDTYPE_SID, always capture the current Landlock
-> subject so the consumer's scope check runs against every member of the
-> group at delivery time.
-
-PIDTYPE_SID doesn't seem possible.
-
-> 
-> Stable kernels before the fown_subject conversion store the domain in
-> landlock_file(file)->fown_domain; control_current_fowner() is identical
-> there, so the same exemption and the same fix apply.
-> 
-> Fixes: 18eb75f3af40 ("landlock: Always allow signals between threads of the same process")
+> Some devices, like the Grandstream GUV3100 webcam, have an invalid UVC
+> descriptor where multiple entities share the same ID, this is invalid
+> and makes it impossible to make a proper entity tree without heuristics.
+>=20
+> We have recently introduced a change in the way that we handle invalid
+> entities that has caused a regression on broken devices.
+>=20
+> Implement a new heuristic to handle these devices properly.
+>=20
+> Reported-by: Angel4005 <ooara1337@gmail.com>
+> Closes: https://lore.kernel.org/linux-media/CAOzBiVuS7ygUjjhCbyWg-KiNx+HF=
+TYnqH5+GJhd6cYsNLT=3DDaA@mail.gmail.com/
+> Fixes: 0e2ee70291e6 ("media: uvcvideo: Mark invalid entities with id UVC_=
+INVALID_ENTITY_ID")
 > Cc: stable@vger.kernel.org
-> Reported-by: Bryam Vargas <hexlabsecurity@proton.me>
-
-You should remove Reported-by because it is implicit when you also add a
-Signed-off-by with the same value.
-
-> Tested-by: Justin Suess <utilityemal77@gmail.com>
-> Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
+> Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+> Reviewed-by: Hans de Goede <hansg@kernel.org>
+> Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+> Tested-by: Ron Economos <re@w6rz.net>
+> Tested-by: Pavel Machek (CIP) <pavel@nabladev.com>
+> Tested-by: Brett A C Sheffield <bacs@librecast.net>
+> Tested-by: Mark Brown <broonie@kernel.org>
+> Tested-by: Barry K. Nathan <barryn@pobox.com>
+> Tested-by: Peter Schneider <pschneider1968@googlemail.com>
+> Tested-by: Francesco Dolcini <francesco.dolcini@toradex.com>
+> Tested-by: Shuah Khan <skhan@linuxfoundation.org>
+> Tested-by: Jon Hunter <jonathanh@nvidia.com>
+> Tested-by: Florian Fainelli <florian.fainelli@broadcom.com>
+> Tested-by: Miguel Ojeda <ojeda@kernel.org>
+> Tested-by: Vijayendra Suman <vijayendra.suman@oracle.com>
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
 > ---
->  security/landlock/fs.c | 12 ++++++++++++
->  1 file changed, 12 insertions(+)
-> 
-> diff --git a/security/landlock/fs.c b/security/landlock/fs.c
-> index c1ecfe239032..edaa52572cbd 100644
-> --- a/security/landlock/fs.c
-> +++ b/security/landlock/fs.c
-> @@ -1909,6 +1909,18 @@ static bool control_current_fowner(struct fown_struct *const fown)
->  	if (!p)
->  		return true;
->  
+>  drivers/media/usb/uvc/uvc_driver.c | 15 ++++++++++++++-
+>  1 file changed, 14 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/u=
+vc_driver.c
+> index 34e3f04340a23..20a18caf77176 100644
+> --- a/drivers/media/usb/uvc/uvc_driver.c
+> +++ b/drivers/media/usb/uvc/uvc_driver.c
+> @@ -442,13 +442,26 @@ static struct uvc_entity *uvc_entity_by_reference(s=
+truct uvc_device *dev,
+> =20
+>  static struct uvc_streaming *uvc_stream_by_id(struct uvc_device *dev, in=
+t id)
+>  {
+> -	struct uvc_streaming *stream;
+> +	struct uvc_streaming *stream, *last_stream;
+> +	unsigned int count =3D 0;
+> =20
+>  	list_for_each_entry(stream, &dev->streams, list) {
+> +		count +=3D 1;
+> +		last_stream =3D stream;
+>  		if (stream->header.bTerminalLink =3D=3D id)
+>  			return stream;
+>  	}
+> =20
 > +	/*
-> +	 * For PIDTYPE_PGID and PIDTYPE_SID, signal delivery fans out to
-> +	 * every member of the group at SIGIO time. Even when pid_task()
-> +	 * resolves to current itself (e.g., current is the pgid hlist
-> +	 * head post-fork), non-current members of the group are still
-> +	 * valid targets that must be checked by hook_file_send_sigiotask().
-> +	 * Always capture the current subject for those types so the
-> +	 * consumer scope check runs against the live fown_subject.
-
-This looks good but could be simplified.
-
+> +	 * If the streaming entity is referenced by an invalid ID, notify the
+> +	 * user and use heuristics to guess the correct entity.
 > +	 */
-> +	if (fown->pid_type == PIDTYPE_PGID || fown->pid_type == PIDTYPE_SID)
-
-PIDTYPE_SID is not possible for fowner, and I'd prefer a defensive
-programming approach:
-
-  fown->pid_type != PIDTYPE_PID && fown->pid_type != PIDTYPE_TGID
-
-> +		return true;
+> +	if (count =3D=3D 1 && id =3D=3D UVC_INVALID_ENTITY_ID) {
+> +		dev_warn(&dev->intf->dev,
+> +			 "UVC non compliance: Invalid USB header. The streaming entity has an=
+ invalid ID, guessing the correct one.");
+> +		return last_stream;
+> +	}
 > +
->  	return !same_thread_group(p, current);
+>  	return NULL;
 >  }
->  
-> -- 
-> 2.43.0
-> 
-> 
+> =20
+
+--=20
+Ben Hutchings
+Time is nature's way of making sure that
+everything doesn't happen at once.
+
+--=-1/MpVFW9o6bj11MJxigQ
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEErCspvTSmr92z9o8157/I7JWGEQkFAmocEyEACgkQ57/I7JWG
+EQkVPA/+MSEar0a53RF8fIgTGxoLwkeWNKLzZhkG9fOcIZmi0r8auU5XNvRih+d6
+KRPticuZoFDHDQm/vO4w/RtFJW4akPT2d2QJ/UcezxuncNegCNLdKxeEpnfCW5d8
+UvSoGJpvCSX/bLa3+/NmyvvF+GvmYlBo60dJNF8Dh3WG+3FHOmriPTazfy2irXsk
+yOX9prSpjDOheDBf+cQ+dfqMJ3mPFS12Piecb9yO4uNVQZgE01Vt6Hfx7qUdwt93
+D4Jgp1Gn7NF0YKE4q856q36LLFUeMZRZnEiP9+cQtosH/XFdxF1sE8lzgtASwDww
+BygE8Ov4NTDCAhUFQikpPqq3IAq1tpQoKK/X001dzT2SJGXuym0zGFg5jACzda54
+UAWWLnvymCho3IwR9UcTwKo73hBgp2wyZMDXAHDAOKLYKoooxfxnXBvoffPF150g
+0G12MACYLRHBsKgkDaf+MshMGDu36qrFN2DGjRSvEa8bje+JfMHYJVY33QJVzZ71
+xQ00yOYKU2NgZqdYIM6oVScNiePL/eX86r98YbdXszlHAvi39w7kYNQYh/LdZnbb
+eJFDBECC+xKJP9qxZLzw5vqVyr+fTo0Pt6RdVVYuhFCybFTXTqt3i4vFEJ7YCbfD
+qF0sUqrcbzqc5fdvcIbckF7ZDUFRCHgBZgbMdIQhGjzwFWJndLQ=
+=706S
+-----END PGP SIGNATURE-----
+
+--=-1/MpVFW9o6bj11MJxigQ--
