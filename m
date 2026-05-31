@@ -1,146 +1,105 @@
-Received: from maynard.decadent.org.uk (maynard.decadent.org.uk [65.21.191.19])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1ADC3242B2;
-	Sun, 31 May 2026 14:32:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.21.191.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB18C20C461
+	for <stable@vger.kernel.org>; Sun, 31 May 2026 14:36:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780237929; cv=none; b=jCVjOJMQH7GDeEnMG8JqH6rg1xeNjH4RzJ1Y3zrGbx0VNl344YiP7hOIRsqoxh+LIXkR6CfKlbhudYzWzrWJyN4vlze/qeh7/rgxjpFos0se3ANAQxmcygGVslRjOb0LwO6cgZUn15j2vqd1UFK8vQjVSm7J/NkF8tGg2wD5MFs=
+	t=1780238198; cv=none; b=JfeS4UI+vtjqUBRux87s253YNfcUrta9FHissXQpgNyZf7v9QfWPfyJxAjdcd8o13Wafr3k9FUcw9dzyzd1BrCYFWYmkG17MVWHLymtHvRwBs/mtgQK4sE5sqGnEi44zbhY6wj8UXAy09hrDSWo8xBiw31GQBkNYvQvIdECggxM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780237929; c=relaxed/simple;
-	bh=o2bghsenNXobi081XOpbMzNDXWsR4DzLRzj+dbjqFOA=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=gnAKo8vd79LvlVRmH5Lkhi2A+/QANScLmDgW/6fic1LrHVB6/v/VXFhWDq2RYeU/N7hj0ol1t+2HUw4bLnVWcT59zDe5yVcqchOFNYu+QGCUfzSHZJWITN7XLcyEM/2SSmY7GpNLbaNa5mrAckvFMyG96yGdydMH3IdVgERPfzM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=decadent.org.uk; spf=pass smtp.mailfrom=decadent.org.uk; arc=none smtp.client-ip=65.21.191.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=decadent.org.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=decadent.org.uk
-Received: from [2a02:578:851f:1502:391e:c5f5:10e2:b9a3] (helo=deadeye)
-	by maynard with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <ben@decadent.org.uk>)
-	id 1wThCu-000OJL-23;
-	Sun, 31 May 2026 14:32:04 +0000
-Received: from ben by deadeye with local (Exim 4.99.2)
-	(envelope-from <ben@decadent.org.uk>)
-	id 1wThCt-0000000FGOt-0b4W;
-	Sun, 31 May 2026 16:32:03 +0200
-Message-ID: <70620d4eddfa13b0b5333e482bb76d7f4b323114.camel@decadent.org.uk>
-Subject: Re: [PATCH 5.10 096/589] scsi: ufs: core: Improve SCSI abort
- handling
-From: Ben Hutchings <ben@decadent.org.uk>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, Bean Huo <beanhuo@micron.com>, Stanley Chu	
- <stanley.chu@mediatek.com>, Bart Van Assche <bvanassche@acm.org>, "Martin
- K. Petersen" <martin.petersen@oracle.com>, Vasiliy Kovalev
- <kovalev@altlinux.org>, Sasha Levin	 <sashal@kernel.org>
-Date: Sun, 31 May 2026 16:31:58 +0200
-In-Reply-To: <20260530160227.218464986@linuxfoundation.org>
-References: <20260530160224.570625122@linuxfoundation.org>
-	 <20260530160227.218464986@linuxfoundation.org>
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-M9kNx94o/cPq/cqSst5y"
-User-Agent: Evolution 3.56.2-9 
+	s=arc-20240116; t=1780238198; c=relaxed/simple;
+	bh=VBfST3UXgyTlkP0EH/KCc/5GWH1k8BUjMNuhwJhVe3o=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=PHcL3DYYSD3JISleBxqWEfmwrhwguCMp/itpy04GnIQ9lILp0k/i7VK5vq5QCC/gRyatSMdytQ3iObrCTOYMK1VLkVAaGTzjoS1PKOIksOhi7c/LCAUWuj8E+4iEaYlEvJhfVQpmSNnhyEH+UpNRxv9t/Hz5bBu50l8z76VetF8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fFVBnxH5; arc=none smtp.client-ip=209.85.214.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fFVBnxH5"
+Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2bf125989f2so20349255ad.3
+        for <stable@vger.kernel.org>; Sun, 31 May 2026 07:36:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780238196; x=1780842996; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=RAmB6qU0tUcDyuQM8cPLpHCE5VdrhYXfLUEjav8vq/s=;
+        b=fFVBnxH5kHPqoiPmu7l5fAUMMDsW8LZZWZ3AKlNtwKraIbQwlOXpguDIn5j9iNGq4J
+         5RMyuPKsC/3lr6k976+ejmnviukM8S8FKLRh64CfDRdJf/baOgQiq3KG0Lr2Zp+a+yh5
+         uYfFUM1DforP5ujnGIUnT0YAFOzj1k8NTxDJM0p6yjnHTQr22/SH2060SOO9iON9C7Sm
+         N+KBa5C7WxXEjLTE3XuSzsQwFaC0jshNGgZlHcPr35S+QO/R2u5PTh0Od9fh+2qYr6q7
+         NK/8vrxFvMk3k+nygKcUxprPviAsFQCGkRU414OnACp5y6S4084Va6reitM7ZDUufQml
+         /qKA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780238196; x=1780842996;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=RAmB6qU0tUcDyuQM8cPLpHCE5VdrhYXfLUEjav8vq/s=;
+        b=kfaGlmDYxH9286Cm/jngZh3IJ4i8uCNTalgONbEip/RZCDuEsXHLuNpIE9nLoOW2OR
+         GJ09XG7W5U/OUKfXXsoMLJhilIJKGb50ZoKn7ob0HprziYRbCUWrdzMlYo6uWXa/ckIs
+         Fn98doSZ6y8EpfMYscgINM9gP+5GEOjr1b/rWGa1GYyao1SMH4gC/Mw9AbuhdUWPX95/
+         ZGeMzKWGv8YlMLfvHdTymz/ZJtmoV5uaoLDOncr1Eu0jqf+dtEimfkc6GRC/yPctmU8W
+         R3uvW0APr3E6ZouarHHRQMhzSNKL10Ty9/81lz7vEAv4HKlR1pZLrMTUCJlqAGDxO0Zo
+         U2Ig==
+X-Forwarded-Encrypted: i=1; AFNElJ8N21hqpc8r5brt/SUeEGC8GSDxs9Xd1pzHyFrxvvCHM2LjQ04LIBFtknfDWD3kYf2edwByCHY=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzB76nlAHdiDSap/mxexCcznsz7EnMgU0qBiHlDGwrB8QhqXOpY
+	LTt6OW8vEwLfuHA3bdq3K/hY+wsE3x1hFZf+rCsPTONvFSoJoJmzN/AS
+X-Gm-Gg: Acq92OExY3f2g4U6NUERiP5Riqzgyiqmo0TEo0gjHVsciB+d8zteKfqxr6Ec7g1mhlR
+	ZkvtsA4Djs0p2kSx2x8OnD/YVbaz5T8ILdxfRMKkB3pfv6sMwmnV/MXxr2rjOhnqtiHnR9UfAQw
+	B6+5UN75RCV1x7O9+gr73oUGLgyznfuCicsSvCpm0P/JNGpVSl70ICqxMF5WOJWkBN5/V10v9Fj
+	5ilJbrsQk70FRJCv93WHm544DXZdRd1JCLGUhbXcixURzY92JDpbABsxwSDRoe+fnVBt+yzHR2G
+	7UR7jeVzyMf0LaZQ82XiewdSurqW9mKd4CPAwc5eN0GbkkggdXRt0jmyqDtqNU9HYWp63MtzvyB
+	Z2gFOO5WEJ2HcmEYkCdEJ/2LJxpBMJmfG+coFXgWMFgHJPkB69zOBx2v6MFB6y6tNrAPqMDoSp7
+	3u/p+R02zHZwWtKu0LAGvS5I7VId2SGx7v9Gzdvpd+wnGl5QU=
+X-Received: by 2002:a17:903:3585:b0:2bf:160f:7038 with SMTP id d9443c01a7336-2bf367c1435mr92914815ad.12.1780238196196;
+        Sun, 31 May 2026 07:36:36 -0700 (PDT)
+Received: from [10.4.72.5] ([139.177.225.241])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2bf23b0121fsm77749365ad.49.2026.05.31.07.36.29
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 31 May 2026 07:36:35 -0700 (PDT)
+Message-ID: <5ee310d9-d432-400d-8506-751ee4a41fc6@gmail.com>
+Date: Sun, 31 May 2026 22:36:27 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-SA-Exim-Connect-IP: 2a02:578:851f:1502:391e:c5f5:10e2:b9a3
-X-SA-Exim-Mail-From: ben@decadent.org.uk
-X-SA-Exim-Scanned: No (on maynard); SAEximRunCond expanded to false
+User-Agent: Mozilla Thunderbird
+Subject: Re: [v2 0/2] KVM: Validate irqchip index in routing entries
+To: Greg KH <gregkh@linuxfoundation.org>, Yanfei Xu <yanfei.xu@bytedance.com>
+Cc: harshpb@linux.ibm.com, zhaotianrui@loongson.cn, maobibo@loongson.cn,
+ chenhuacai@kernel.org, maddy@linux.ibm.com, npiggin@gmail.com,
+ sashiko-reviews@lists.linux.dev, seanjc@google.com, pbonzini@redhat.com,
+ kvm@vger.kernel.org, stable@vger.kernel.org, loongarch@lists.linux.dev,
+ linuxppc-dev@lists.ozlabs.org, caixiangfeng@bytedance.com,
+ fangying.tommy@bytedance.com
+References: <20260531135326.2238555-1-yanfei.xu@bytedance.com>
+ <2026053158-cussed-outweigh-6f0f@gregkh>
+From: Yanfei Xu <isyanfei.xu@gmail.com>
+In-Reply-To: <2026053158-cussed-outweigh-6f0f@gregkh>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
 
---=-M9kNx94o/cPq/cqSst5y
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On 2026/5/31 22:15, Greg KH wrote:
+>> -- 
+>> 2.20.1
+>>
+> <formletter>
+>
+> This is not the correct way to submit patches for inclusion in the
+> stable kernel tree.  Please read:
+>      https://www.kernel.org/doc/html/latest/process/stable-kernel-rules.html
+> for how to do this properly.
+>
+> </formletter>
 
-On Sat, 2026-05-30 at 17:59 +0200, Greg Kroah-Hartman wrote:
-> 5.10-stable review patch.  If anyone has any objections, please let me kn=
-ow.
->=20
-> ------------------
->=20
-> From: Bart Van Assche <bvanassche@acm.org>
->=20
-> commit 3ff1f6b6ba6f97f50862aa50e79959cc8ddc2566 upstream.
+Thanks for pointing out the correct process. I saw
+that PPC maintainer added "Cc: stable@vger.kernel.org"
+on v1, so I mistakenly thought v2 should cc...
 
-Since there are no patches to ufshcd in this series besides this and its
-revert, it seems like you should drop both of them.
+Thanks,
+Yanfei
 
-Ben.
-
-> The following has been observed on a test setup:
->=20
-> WARNING: CPU: 4 PID: 250 at drivers/scsi/ufs/ufshcd.c:2737 ufshcd_queueco=
-mmand+0x468/0x65c
-> Call trace:
->  ufshcd_queuecommand+0x468/0x65c
->  scsi_send_eh_cmnd+0x224/0x6a0
->  scsi_eh_test_devices+0x248/0x418
->  scsi_eh_ready_devs+0xc34/0xe58
->  scsi_error_handler+0x204/0x80c
->  kthread+0x150/0x1b4
->  ret_from_fork+0x10/0x30
->=20
-> That warning is triggered by the following statement:
->=20
-> 	WARN_ON(lrbp->cmd);
->=20
-> Fix this warning by clearing lrbp->cmd from the abort handler.
->=20
-> Link: https://lore.kernel.org/r/20211104181059.4129537-1-bvanassche@acm.o=
-rg
-> Fixes: 7a3e97b0dc4b ("[SCSI] ufshcd: UFS Host controller driver")
-> Reviewed-by: Bean Huo <beanhuo@micron.com>
-> Reviewed-by: Stanley Chu <stanley.chu@mediatek.com>
-> Signed-off-by: Bart Van Assche <bvanassche@acm.org>
-> Signed-off-by: Martin K. Petersen <martin.petersen@oracle.com>
-> [ kovalev: bp to fix CVE-2021-47188; adapted placement of
->   lrbp->cmd =3D NULL for 5.10 function structure ]
-> Signed-off-by: Vasiliy Kovalev <kovalev@altlinux.org>
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
-> ---
->  drivers/scsi/ufs/ufshcd.c | 1 +
->  1 file changed, 1 insertion(+)
->=20
-> diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
-> index c7bf0e6bc303d..1b8072f47e7e8 100644
-> --- a/drivers/scsi/ufs/ufshcd.c
-> +++ b/drivers/scsi/ufs/ufshcd.c
-> @@ -6788,6 +6788,7 @@ static int ufshcd_abort(struct scsi_cmnd *cmd)
->  		__ufshcd_transfer_req_compl(hba, (1UL << tag));
->  		spin_unlock_irqrestore(host->host_lock, flags);
->  out:
-> +		lrbp->cmd =3D NULL;
->  		err =3D SUCCESS;
->  	} else {
->  		dev_err(hba->dev, "%s: failed with err %d\n", __func__, err);
-
---=20
-Ben Hutchings
-Time is nature's way of making sure that
-everything doesn't happen at once.
-
---=-M9kNx94o/cPq/cqSst5y
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEErCspvTSmr92z9o8157/I7JWGEQkFAmocRl4ACgkQ57/I7JWG
-EQkU6A//QIhP8MUFpZh2gTGy7IfkiYvBX5qXmlyyHOgqGPXYfOQuilPRUsP456xB
-ViyATSW5CK846XdNGm4VG6GpQYkp+8eL1Puj7AuLGhj09EerQY3y7v/KJ4EGP65B
-dxOu0CBeQc3pOfbd3soYTsy3s1cxeFUSY8n9p2bBkQ/c7ZccZtGgBpXlDHbkBsrH
-2uoJMj1833cSd14GnFtZbHNPcc76t2mSSM7I9n3vy++cyaAWuOobx/rVFGpQq1lT
-eGIrr9m8l7UXN5TmB5yISuPRFjaZ0UE5epvIuv/2+LT9CR34ZjIkunNze6mPWQ58
-NLI/pDcE/5akbhVf6a9YlN9FS86T6t8H8OIdu6Tf/SIG1zcHM52Z4M/BCOMhfZSn
-C2gUMcgK9PrgGIBYsYChp1C4kSxB6yTRdkMAuQH75VX8H4Am54yTUWgkzljrhI8j
-IEi4eWs5YhOg6/GWdTGgIMIscfv47YrcYsnXkmTrU9sSQfZhb7VlcZsBkPgHjX1G
-e/l4BjIFVuDj1dsVNAlrs4r8ZpDf2PTQ5+RqybcxHDM8ZFqTQYxKJ5ZqAu9cvg20
-Ixn2h1lJ4GylVRtUXdlmh04ZxzWEwGRKcMJCjnI5GP/rXqv6+YVMM/60sPeH+pRJ
-RqeK1dkixP5XhPZWO6iJRdHYkxN2n45SBus+cvdflghM8Gny4oU=
-=4oM5
------END PGP SIGNATURE-----
-
---=-M9kNx94o/cPq/cqSst5y--
