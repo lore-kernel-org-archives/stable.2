@@ -1,172 +1,149 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from maynard.decadent.org.uk (maynard.decadent.org.uk [65.21.191.19])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D6743161BE
-	for <stable@vger.kernel.org>; Sun, 31 May 2026 20:01:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1113E32B12B;
+	Sun, 31 May 2026 20:14:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.21.191.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780257708; cv=none; b=AlNPwvcfIalkqdLb0JntaGokrct694HMMiJGTwmw5ABBNqZVM5gHdWEiT1SCl3K0qT4JS8vG72swLUaxVGnMm1p4UWgQYkuI1IgdSkjOAtaZxYsBk7c1f1lRDMmCTLQ/xOLwuvZnyC5w6uy9WVBu733Aaf66JfLFNptlps0wvFg=
+	t=1780258456; cv=none; b=IvIb4bRGU9N8CGkeG6URzyTqXxVg4RfjfLkXPMtlj1oCiXOMDV+6L8PANNA3NHOOdG4Y20bNt86sVWGxLrcKx3ALpSrcviubf1Qmgo7vvIaEE9wR9OPUN9Vmpt3MGYe2rt8JxfUztpG27HFc3f3SnVndfIU5n6BdijlvuNrxYOY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780257708; c=relaxed/simple;
-	bh=q28vvrdEPiKApq9SxP0QpNQPB9TQ84GLDcQHQxOK18A=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=umdrE/vpvNhc3JpViKVPbc/JVuSrFM7zThS5FuIMIIdpr3H3RSj3eoRH+5y4JgdHdPbtFjH9TGjYORSdVTdTE5cLN9rph7x5XcWPZMWmwcFvvBlFpf9kStJULqzDIhm90M+qlXmQH4aEVXPK/jhsnqZT0dWyB48XbN2aoLOtmvQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=ZYltk7Yi; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=oo6bgMkJ; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=ZYltk7Yi; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=oo6bgMkJ; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="ZYltk7Yi";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="oo6bgMkJ";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="ZYltk7Yi";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="oo6bgMkJ"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 92FA3674E3;
-	Sun, 31 May 2026 20:01:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1780257699; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=P2eHy+yLhrpbpMQLr6C2OcfliHr5ktRiooZtRZfHTn4=;
-	b=ZYltk7YiSV7VEb7zsRW1W1Cp9G5d9LUitdcsGqgSbu4Ck82ZnA5ZSn2qMjYxQXU50UXGih
-	HVQNz4BZQ4DD2RSo/MliD1bCDe94popFhOyywlB4OUz3P8rzzq5IBruiuhpKVgdLzFTiwa
-	7tsBbclKo5WSVN3mcZaV0KuX4YvDnWg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1780257699;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=P2eHy+yLhrpbpMQLr6C2OcfliHr5ktRiooZtRZfHTn4=;
-	b=oo6bgMkJ2/iFj1VmNYjl+zk+0D77p4c9UQPBaXeNQ7mJa3DZCE5WBXl+3A/ZAcUYqFnvPR
-	Io7mx03SeiDes5Dw==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1780257699; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=P2eHy+yLhrpbpMQLr6C2OcfliHr5ktRiooZtRZfHTn4=;
-	b=ZYltk7YiSV7VEb7zsRW1W1Cp9G5d9LUitdcsGqgSbu4Ck82ZnA5ZSn2qMjYxQXU50UXGih
-	HVQNz4BZQ4DD2RSo/MliD1bCDe94popFhOyywlB4OUz3P8rzzq5IBruiuhpKVgdLzFTiwa
-	7tsBbclKo5WSVN3mcZaV0KuX4YvDnWg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1780257699;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=P2eHy+yLhrpbpMQLr6C2OcfliHr5ktRiooZtRZfHTn4=;
-	b=oo6bgMkJ2/iFj1VmNYjl+zk+0D77p4c9UQPBaXeNQ7mJa3DZCE5WBXl+3A/ZAcUYqFnvPR
-	Io7mx03SeiDes5Dw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E10CB779A7;
-	Sun, 31 May 2026 20:01:38 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id BXH5M6KTHGr1SwAAD6G6ig
-	(envelope-from <fmancera@suse.de>); Sun, 31 May 2026 20:01:38 +0000
-Message-ID: <2fbe241d-16bb-4d63-82e0-a44523de5ee7@suse.de>
-Date: Sun, 31 May 2026 22:01:31 +0200
+	s=arc-20240116; t=1780258456; c=relaxed/simple;
+	bh=10PBxLE8vh1z+Yx+PNDrgc3lS5UezaNt+zZZKiygrrM=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=hLqtF3eerPHit10iS2FxCJQKXRdt1ftFxdu+1w1+2KKQfksrrDHn+9feWoj6DJ/Kp00ni3XNvXIgqXHYuFBQJ8ZkSNUMohyMd7sKowopYChvflUkaM9cdE3Yy4yWvivzWLJXbn5f+4N1OFq4tasHqRCrCKyJNKEikq6e1cWPRcU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=decadent.org.uk; spf=pass smtp.mailfrom=decadent.org.uk; arc=none smtp.client-ip=65.21.191.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=decadent.org.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=decadent.org.uk
+Received: from [2a02:578:851f:1502:391e:c5f5:10e2:b9a3] (helo=deadeye)
+	by maynard with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <ben@decadent.org.uk>)
+	id 1wTmY0-000PfP-0e;
+	Sun, 31 May 2026 20:14:12 +0000
+Received: from ben by deadeye with local (Exim 4.99.2)
+	(envelope-from <ben@decadent.org.uk>)
+	id 1wTmXz-0000000FRLT-1dRW;
+	Sun, 31 May 2026 22:14:11 +0200
+Message-ID: <5903b777c7688dd17f8e4eb173361c80ea0fff46.camel@decadent.org.uk>
+Subject: Re: [PATCH 5.10 177/589] KVM: nSVM: Sync NextRIP to cached vmcb12
+ after VMRUN of L2
+From: Ben Hutchings <ben@decadent.org.uk>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, Yosry Ahmed <yosry@kernel.org>, Sean
+ Christopherson <seanjc@google.com>
+Date: Sun, 31 May 2026 22:14:06 +0200
+In-Reply-To: <20260530160229.538712833@linuxfoundation.org>
+References: <20260530160224.570625122@linuxfoundation.org>
+	 <20260530160229.538712833@linuxfoundation.org>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-3c8dqEpHifOe+gwk3EA9"
+User-Agent: Evolution 3.56.2-9 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] hsr: broadcast netlink notifications in the device's
- net namespace
-To: Maoyi Xie <maoyixie.tju@gmail.com>, Jakub Kicinski <kuba@kernel.org>
-Cc: "David S . Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
- Simon Horman <horms@kernel.org>, Jan Vaclav <jvaclav@redhat.com>,
- Andrew Lunn <andrew@lunn.ch>, Taehee Yoo <ap420073@gmail.com>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <CAHPEe=GO=2qqWZPwBB4rrXc3mkD0dznp2K78nCsKwF=c-QwxEw@mail.gmail.com>
- <20260527075924.2707856-1-maoyixie.tju@gmail.com>
- <21df0b14-f530-4e9a-931a-21154ec18c78@suse.de>
- <20260527161849.738b7f1f@kernel.org>
- <CAHPEe=F+ii=GgNorkhYJYXZAa4akxjKxG+qFr_H-USQE1F8bRQ@mail.gmail.com>
-Content-Language: en-US
-From: Fernando Fernandez Mancera <fmancera@suse.de>
-In-Reply-To: <CAHPEe=F+ii=GgNorkhYJYXZAa4akxjKxG+qFr_H-USQE1F8bRQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Spam-Flag: NO
-X-Spam-Score: -2.80
-X-Spam-Level: 
-X-Spamd-Result: default: False [-2.80 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	RCVD_TLS_ALL(0.00)[];
-	ARC_NA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FUZZY_RATELIMITED(0.00)[rspamd.com];
-	RCPT_COUNT_TWELVE(0.00)[12];
-	TAGGED_RCPT(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[davemloft.net,google.com,redhat.com,kernel.org,lunn.ch,gmail.com,vger.kernel.org];
-	FREEMAIL_TO(0.00)[gmail.com,kernel.org];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.de:mid]
+X-SA-Exim-Connect-IP: 2a02:578:851f:1502:391e:c5f5:10e2:b9a3
+X-SA-Exim-Mail-From: ben@decadent.org.uk
+X-SA-Exim-Scanned: No (on maynard); SAEximRunCond expanded to false
 
 
+--=-3c8dqEpHifOe+gwk3EA9
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 5/31/26 12:23 PM, Maoyi Xie wrote:
-> On Thu, 28 May 2026 07:18, Jakub Kicinski <kuba@kernel.org> wrote:
->> Not sure TBH, we'd need to take a ref on the netns and allocate
->> a tracker (on DEBUG kernels). One could go either way.
-> 
-> On the RCU side, you're right that moving the net out of the lock
-> means taking a ref, and this isn't a hot path where that really pays
-> off. So I'd lean towards keeping it as posted, with the multicast
-> still inside the rcu_read_lock. Fernando, thanks for the suggestion
-> either way.
-> 
+On Sat, 2026-05-30 at 18:00 +0200, Greg Kroah-Hartman wrote:
+> 5.10-stable review patch.  If anyone has any objections, please let me kn=
+ow.
+>=20
+> ------------------
+>=20
+> From: Yosry Ahmed <yosry@kernel.org>
+>=20
+> commit 778d8c1b2a6ffe622ddcd3bb35b620e6e41f4da0 upstream.
+>=20
+> After VMRUN in guest mode, nested_sync_control_from_vmcb02() syncs
+> fields written by the CPU from vmcb02 to the cached vmcb12. This is
+> because the cached vmcb12 is used as the authoritative copy of some of
+> the controls, and is the payload when saving/restoring nested state.
+>=20
+> NextRIP is also written by the CPU (in some cases) after VMRUN, but is
+> not sync'd to the cached vmcb12. As a result, it is corrupted after
+> save/restore (replaced by the original value written by L1 on nested
+> VMRUN). This could cause problems for both KVM (e.g. when injecting a
+> soft IRQ) or L1 (e.g. when using NextRIP to advance RIP after emulating
+> an instruction).
+>=20
+> Fix this by sync'ing NextRIP to the cache after VMRUN of L2, but only
+> after completing interrupts (not in nested_sync_control_from_vmcb02()),
+> as KVM may update NextRIP (e.g. when re-injecting a soft IRQ).
+>=20
+> Fixes: cc440cdad5b7 ("KVM: nSVM: implement KVM_GET_NESTED_STATE and KVM_S=
+ET_NESTED_STATE")
+> CC: stable@vger.kernel.org
+> Co-developed-by: Sean Christopherson <seanjc@google.com>
+> Signed-off-by: Yosry Ahmed <yosry@kernel.org>
+> Link: https://patch.msgid.link/20260225005950.3739782-2-yosry@kernel.org
+> Signed-off-by: Sean Christopherson <seanjc@google.com>
+> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> ---
+>  arch/x86/kvm/svm/svm.c |   10 ++++++++++
+>  1 file changed, 10 insertions(+)
+>=20
+> --- a/arch/x86/kvm/svm/svm.c
+> +++ b/arch/x86/kvm/svm/svm.c
+> @@ -3677,6 +3677,16 @@ static __no_kcsan fastpath_t svm_vcpu_ru
+>  	if (is_guest_mode(vcpu))
+>  		return EXIT_FASTPATH_NONE;
+> =20
+> +	/*
+> +	 * Update the cache after completing interrupts to get an accurate
+> +	 * NextRIP, e.g. when re-injecting a soft interrupt.
+> +	 *
+> +	 * FIXME: Rework svm_get_nested_state() to not pull data from the
+> +	 *        cache (except for maybe int_ctl).
+> +	 */
+> +	if (is_guest_mode(vcpu))
+> +		svm->nested.ctl.next_rip =3D svm->vmcb->control.next_rip;
 
-In such case:
+I don't know whether this assignment would be a correct fix for 5.10,
+but in this version it is unreachable because of the previous if-
+statement.
 
-Reviewed-by: Fernando Fernandez Mancera <fmancera@suse.de>
+Ben.
 
-Keep it if re-posted to net-next please.
+> +
+>  	return svm_exit_handlers_fastpath(vcpu);
+>  }
+> =20
+>=20
+>=20
 
-Thanks!
+--=20
+Ben Hutchings
+Time is nature's way of making sure that
+everything doesn't happen at once.
 
->> I'm replying because I wanted to question whether this is Fixes+stable@
->> worthy. Sending the notifications to the namespace where the device is
->> makes sense. But it's as much a behavior changes as it is a fix.
->> The commit in question was merged to 5.6, real users clearly don't care.
-> 
-> On the Fixes and stable tags, my thinking was that the init_net side
-> is an information leak. A privileged listener there ends up seeing
-> ring error and node down events from devices in other netns. The
-> payload carries the peer MAC and the slave ifindex. That was my reason
-> for tagging it.
-> 
-> But I see your point that it is as much a behavior change as a fix,
-> and if nobody has hit it since 5.6, the risk is clearly low. I don't
-> feel strongly here. If you'd rather take it as a plain net-next
-> improvement without the two tags, that is completely fine by me and I
-> will respin it that way.
-> 
-> Thanks,
-> Maoyi
+--=-3c8dqEpHifOe+gwk3EA9
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
 
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEErCspvTSmr92z9o8157/I7JWGEQkFAmoclo4ACgkQ57/I7JWG
+EQl9SQ/+LTc6DQ9dIPl/HC7xwDogMCb7M19V+MXsDTDwRil/BYd844R7oqxcm6ho
+9Z2u5H32vn1K/tObwsqy46Ou1Hw94cj46rrlJJ42tWg49Eq6oqnXqb7WXr9kJrpO
+Ic7UI0wrR3W9HuoCOLHhkM0XEEelHCTFjbyRQ5GnDJDgSdfHUe5KMiX5t8XI8l8t
+Jn7JRwd3UFiVIVGD53U5+lJU5axhJJ9vnkCcPpSTifi4yHOMI+Z5MiGuMwbpBxhT
+m5jJJgCRTiHjrbyosn7oCnn1Uuqr737QWB0BcLsL6VGRohX2OzAkKy+M3NGDBVzJ
+qNiNbddPhJkCM2jXjUEbTDkXxBMzhOJzfbkL349CL482glHzj02L2gLnzg1G5Nub
+AAhjdtyqDekZZRekBAoriXm4F3I6mvfm3BhC86yu+/MDFsOJA14Iklntkngn895V
+PSXWn+0USUXpfLUaEAttxyfAV5v5iYLKewCyawplCDPDhjxLcJk0H89UAwKwHiv/
+9LEdpDvgE/s4+a3IYlFMu11yKqKj33Rlma9x7iXqEX2bIQvtKNCb8lC1lHhQqg8/
+uV2XcsxdVi5QpdMq8VszS2aVDtseIz57ISjXHEJX9RcVNVg45iY70e374pawiJ1X
+NM4gcxWRrQ+6gdtQdWY+EBfStKeSmjo6LBKrRGE6/unNr6wkuEs=
+=87de
+-----END PGP SIGNATURE-----
+
+--=-3c8dqEpHifOe+gwk3EA9--
