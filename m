@@ -1,96 +1,170 @@
-Received: from comms.kousu.ca (comms.kousu.ca [46.23.90.174])
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B0F43403EA;
-	Sun, 31 May 2026 20:55:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.23.90.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEDDE28FFF6
+	for <stable@vger.kernel.org>; Sun, 31 May 2026 21:03:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780260951; cv=none; b=EbFvrk/gv7e88UzQKOKgT6Fr+AYlLt+yKTpoEP+iPsyNTwrG72isPlxF9BJwWlwVX3YNu69J7GIQS7MSaw6hUMwQmRslg72d0T4RufP9+8KCcLySaSXbeLyZYcKbg22/3L7MwighghIIlUMB1gUC89v29m643V/MnLuoZBrcdK4=
+	t=1780261425; cv=none; b=crM1IUwkspWltbRiWM80vF/GNpQG7kxX1znhygV5g7kVd1CH6vEyeliKTJO8pBkDRc5xvlMO+XYw8tki/jwa8pq2i9Lx4HGlW0DCZfbnMHAbJnLHPYCiScFG36kNBYIBvojJfJihgDvY0awFEA5E3/IWE3+/BESwO3HpDy0HgBA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780260951; c=relaxed/simple;
-	bh=jbTNWhwRndBe/mVL+d70N8jfHasPnypOTPoQZy75zdA=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=XBW3vCt3+N9BH6rGl9Vi6VHwTJ5unG2APGVcguokRzuan93g+pvHohvKNCwIEmWx82JoqJJWwrslUNSZr8rnpnL88mGWsLJ2Z211WeHLhiw9aoxR4i7EoBe1Pyj+nE/9ILqI0lhsChfn0e0RiPbWlWzOqJXUSaPjmFYHd/606Mo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=kousu.ca; spf=pass smtp.mailfrom=kousu.ca; dkim=permerror (0-bit key) header.d=kousu.ca header.i=@kousu.ca header.b=CpA7w6gB; dkim=pass (2048-bit key) header.d=kousu.ca header.i=@kousu.ca header.b=ONJ2JNJ2; arc=none smtp.client-ip=46.23.90.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=kousu.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kousu.ca
+	s=arc-20240116; t=1780261425; c=relaxed/simple;
+	bh=MKxBXFUVPv7lrp/B/zQ8eAYIXsFELqEcvpKTjggTUR8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=krKJB0QTVqM+c8qbI/BegeL21WgvOM0kUO1bxFTciJuF7uo6XpDdyr0McvKUBFKVWjwaxA1OmlDYwhZNcAnlarwEfjDxgBOVV1qxLmCOtZnnHTHmO1wjChMkLPAJCDVf7iTsFbQOKApINypFZeiYlJcKcvRbjQngetJ5P9ix8Kk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=rH0G9PPr; arc=none smtp.client-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=permerror (0-bit key) header.d=kousu.ca header.i=@kousu.ca header.b="CpA7w6gB";
-	dkim=pass (2048-bit key) header.d=kousu.ca header.i=@kousu.ca header.b="ONJ2JNJ2"
-DKIM-Signature: v=1; a=ed25519-sha256; c=simple/simple; s=ed25519; bh=jbTNWhwR
-	ndBe/mVL+d70N8jfHasPnypOTPoQZy75zdA=; h=references:in-reply-to:
-	subject:cc:to:from:date; d=kousu.ca; b=CpA7w6gB2JlTc5jTyd+RffjydzAeIN1
-	dOseUah03OXLKGGdvaa8JaiN13/TLtcrh7qGuy1E8djTQQ5RKrJsMAA==
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; s=rsa; bh=jbTNWhwRndBe/mVL
-	+d70N8jfHasPnypOTPoQZy75zdA=; h=references:in-reply-to:subject:cc:to:
-	from:date; d=kousu.ca; b=ONJ2JNJ28HFs2UWnALkXu9hXPsOd3JwCDmgSYe+FmxKRy
-	vKfk6j5os6PEkcezplTMJAUrrmDJ6G2FzY7WpdjFVclqCZFd8jA+amQhaTcL/2uPp1C/P9
-	rysnEtyhlys+3mwXQ+wsfQCBaJb+NTN0aqHBm2biDlQf9367TcBTTqP6PmhL+S0Y7ZABOE
-	Fkv5NpDc4OMNCIsmPmBAkN9yluOtii+WtY6N3QxApB7Cq8h57ddW0jwhd17hhWlqXFhoC/
-	NUuSOCmMGbwDmIEwP+i/2Mz2Vxe/QyFMKGhUB9l8EJmw0o8mZDAwNUMuRDPik79XsiuIjn
-	WPQsRFQg2tENmJcuw==
-Received: from comms.kousu.ca (localhost [127.0.0.1])
-	by comms.kousu.ca (OpenSMTPD) with ESMTP id 6e368829;
-	Sun, 31 May 2026 22:29:06 +0200 (CEST)
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="rH0G9PPr"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+	Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:Content-Description:
+	Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+	In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+	List-Post:List-Owner:List-Archive;
+	bh=nJ33K3gDEA0ztP2VLjZkr3Myqsk6mdBomiJLKiUFsFM=; b=rH0G9PPr5z4eQHJKuJnYdJioyz
+	ENmm2xBcSXOed6hcYAI/Rh4zYAFfX+A6UUtCuVQmZllPe8dCZBvel9gE421TdZslGbVAq4VUM0fu/
+	MF1GhEgAVOO+eaLO4PkpMOd42HBehRInPXKgan5gS/FAs5uo4eIhP0Sa2xobyPYs3+Nlg2ZVF3Fqu
+	YiyjS/h1GD5eRw9XPzw3BNd0NUjmqq/lGxHggJLBXs6qI7mkjn6CoctgSbxlT7iw3EJUjxxFo/55t
+	LOcKrKCgTtRSrmWTNli1FejjkJTVNbrrN2na5NvFnnkED6inNYpUY91kkTWwYWIOB5f/A94eewOaH
+	6tNxqKJw==;
+Received: from [189.7.87.67] (helo=prince)
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+	id 1wTnJr-00AhRK-7X; Sun, 31 May 2026 23:03:39 +0200
+From: =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Iago Toral Quiroga <itoral@igalia.com>,
+	kernel-dev@igalia.com,
+	=?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>
+Subject: [PATCH 6.12.y 1/2] drm/v3d: Fix use-after-free of CPU job query arrays on error path
+Date: Sun, 31 May 2026 18:02:01 -0300
+Message-ID: <20260531210323.1637818-1-mcanal@igalia.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Sun, 31 May 2026 16:29:06 -0400
-From: Nick <nick@kousu.ca>
-To: linux-acpi@vger.kernel.org
-Cc: johannes.goede@oss.qualcomm.com, "Rafael J. Wysocki"
- <rafael@kernel.org>, "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
- regressions@lists.linux.dev, John Veness <john-linux@pelago.org.uk>,
- linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
- platform-driver-x86@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [REGRESSION] Toshiba Fn keys + lidswitch
-In-Reply-To: <75398536-2ca8-4205-9205-18afc5227397@pelago.org.uk>
-References: <E2OXET.4X5GTP37VTNC3@kousu.ca>
- <CAJZ5v0jVQyWYqPo_MiUwNQb7FLNR_Q_++Xq=xA1owcHpcjN=OA@mail.gmail.com>
- <bc9d5258-d4df-46a1-bba9-de3486f722ab@pelago.org.uk>
- <8503d297-68ca-4bfe-bbdf-537a85890d86@oss.qualcomm.com>
- <75398536-2ca8-4205-9205-18afc5227397@pelago.org.uk>
-Message-ID: <eddc6acd74abcea6131f3cfc606bc596@kousu.ca>
-X-Sender: nick@kousu.ca
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 2026-05-31 11:17, John Veness wrote:
-> On 30/05/2026 14:34, johannes.goede@oss.qualcomm.com wrote:
->> In case you've not seen it yet, Rafael send out the test patch
->> publicly later that day in another email in this thread:
->> 
->> https://lore.kernel.org/linux-acpi/12896447.O9o76ZdvQC@rafael.j.wysocki/
->> 
->> Regards,
->> 
->> Hans
-> 
-> Thanks for the pointer, and sorry for missing that! I had only been
-> looking in the archives of platform-driver-x86@vger.kernel.org which 
-> for
-> some reason didn't receive the patch.
-> 
-> John
+The CPU job ioctl's fail label calls kvfree() on cpu_job's timestamp and
+performance query arrays after v3d_job_cleanup(), which drops the job's
+last reference and frees cpu_job. Reading cpu_job at that point is a
+use-after-free. Also, on the early v3d_job_init() failure path, it is a
+NULL dereference, since v3d_job_deallocate() zeroes the local pointer.
 
-On 2026-05-31 11:25, John Veness wrote:
-> I'm not Nick, but I have tested the patch here on my old Toshiba Tecra 
-> Z50-A
-> and it seems to have worked - I now have Fn+keys working fine, after 
-> losing them
-> in a recent kernel update (apart from Fn+3 for volume down, and Fn+4 
-> for volume up,
-> which for some reason continued to work when the others didn't).
-> 
-> John
+In the success path, the arrays are released from the scheduler's
+.free_job callback, but on the error path, they are freed manually, as
+the job was never pushed to the scheduler. While the success path deals
+with this correctly, the fail path doesn't.
 
-Same here. All my Fn keys work except for Esc through F8. Glad Rafael's 
-patch worked for you too! There's a newer copy of it at 
-https://lore.kernel.org/linux-acpi/2046403.PYKUYFuaPT@rafael.j.wysocki/T/#t 
-by the way.
+On top of that, the manual kvfree() calls only free the array storage;
+they don't drm_syncobj_put() the per-query syncobjs that
+v3d_timestamp_query_info_free() and v3d_performance_query_info_free()
+release on the success path. So the same fail path that triggers the
+use-after-free also leaks one syncobj reference per query.
 
-- Nick
+Unify the CPU job teardown into the CPU job's kref destructor, mirroring
+v3d_render_job_free(). The scheduler's .free_job slot reverts to the
+generic v3d_sched_job_free() and the fail label drops the manual
+kvfree() calls, leaving a single teardown path that is reached from both
+the scheduler and the ioctl error path. That removes the use-after-free,
+the NULL dereference, and the syncobj leak by construction.
+
+Cc: stable@vger.kernel.org
+Fixes: 9ba0ff3e083f ("drm/v3d: Create a CPU job extension for the timestamp query job")
+Assisted-by: Claude:claude-opus-4.7
+Reviewed-by: Iago Toral Quiroga <itoral@igalia.com>
+Link: https://patch.msgid.link/20260515-v3d-cpu-job-leaks-v1-1-7f147cbbf935@igalia.com
+Signed-off-by: Maíra Canal <mcanal@igalia.com>
+(cherry picked from commit b0fe80c0b9250b35e2211bf3117e7aca814a21b0)
+Signed-off-by: Maíra Canal <mcanal@igalia.com>
+---
+ drivers/gpu/drm/v3d/v3d_sched.c  | 16 +---------------
+ drivers/gpu/drm/v3d/v3d_submit.c | 19 ++++++++++++++++---
+ 2 files changed, 17 insertions(+), 18 deletions(-)
+
+diff --git a/drivers/gpu/drm/v3d/v3d_sched.c b/drivers/gpu/drm/v3d/v3d_sched.c
+index c9c88d3ad669..90eef062766c 100644
+--- a/drivers/gpu/drm/v3d/v3d_sched.c
++++ b/drivers/gpu/drm/v3d/v3d_sched.c
+@@ -103,20 +103,6 @@ v3d_performance_query_info_free(struct v3d_performance_query_info *query_info,
+ 	}
+ }
+ 
+-static void
+-v3d_cpu_job_free(struct drm_sched_job *sched_job)
+-{
+-	struct v3d_cpu_job *job = to_cpu_job(sched_job);
+-
+-	v3d_timestamp_query_info_free(&job->timestamp_query,
+-				      job->timestamp_query.count);
+-
+-	v3d_performance_query_info_free(&job->performance_query,
+-					job->performance_query.count);
+-
+-	v3d_job_cleanup(&job->base);
+-}
+-
+ static void
+ v3d_switch_perfmon(struct v3d_dev *v3d, struct v3d_job *job)
+ {
+@@ -846,7 +832,7 @@ static const struct drm_sched_backend_ops v3d_cache_clean_sched_ops = {
+ static const struct drm_sched_backend_ops v3d_cpu_sched_ops = {
+ 	.run_job = v3d_cpu_job_run,
+ 	.timedout_job = v3d_generic_job_timedout,
+-	.free_job = v3d_cpu_job_free
++	.free_job = v3d_sched_job_free
+ };
+ 
+ int
+diff --git a/drivers/gpu/drm/v3d/v3d_submit.c b/drivers/gpu/drm/v3d/v3d_submit.c
+index ddc20191a1ce..40c21aaade0d 100644
+--- a/drivers/gpu/drm/v3d/v3d_submit.c
++++ b/drivers/gpu/drm/v3d/v3d_submit.c
+@@ -118,6 +118,21 @@ v3d_render_job_free(struct kref *ref)
+ 	v3d_job_free(ref);
+ }
+ 
++static void
++v3d_cpu_job_free(struct kref *ref)
++{
++	struct v3d_cpu_job *job = container_of(ref, struct v3d_cpu_job,
++					       base.refcount);
++
++	v3d_timestamp_query_info_free(&job->timestamp_query,
++				      job->timestamp_query.count);
++
++	v3d_performance_query_info_free(&job->performance_query,
++					job->performance_query.count);
++
++	v3d_job_free(ref);
++}
++
+ void v3d_job_cleanup(struct v3d_job *job)
+ {
+ 	if (!job)
+@@ -1310,7 +1325,7 @@ v3d_submit_cpu_ioctl(struct drm_device *dev, void *data,
+ 	trace_v3d_submit_cpu_ioctl(&v3d->drm, cpu_job->job_type);
+ 
+ 	ret = v3d_job_init(v3d, file_priv, &cpu_job->base,
+-			   v3d_job_free, 0, &se, V3D_CPU);
++			   v3d_cpu_job_free, 0, &se, V3D_CPU);
+ 	if (ret) {
+ 		v3d_job_deallocate((void *)&cpu_job);
+ 		goto fail;
+@@ -1393,8 +1408,6 @@ v3d_submit_cpu_ioctl(struct drm_device *dev, void *data,
+ 	v3d_job_cleanup((void *)csd_job);
+ 	v3d_job_cleanup(clean_job);
+ 	v3d_put_multisync_post_deps(&se);
+-	kvfree(cpu_job->timestamp_query.queries);
+-	kvfree(cpu_job->performance_query.queries);
+ 
+ 	return ret;
+ }
+-- 
+2.54.0
+
