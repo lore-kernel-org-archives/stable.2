@@ -1,129 +1,158 @@
-Received: from mail-m60118.netease.com (mail-m60118.netease.com [210.79.60.118])
+Received: from maynard.decadent.org.uk (maynard.decadent.org.uk [65.21.191.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 518924D8CE;
-	Sun, 31 May 2026 12:48:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.79.60.118
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 368AD38D3F6;
+	Sun, 31 May 2026 13:20:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.21.191.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780231728; cv=none; b=dyiT7eQzirMJxVbOn5HM0yQ8HRFk3BNdw22KQnLYTeQ/tSPunY40D1+g4J7uTMmSx/OAD3MjANTruYp2AxqKcO3/Pt7jS8YjZNUQZ9Bz/+w7SRuR/JMDqcb1HtK7ptc1+2GqlUlTCkqD1cYwP1qABMk7sDm9FNXxdX1aLxieUCk=
+	t=1780233634; cv=none; b=KpiDyfjfFq+Xi41elLJmxoeJMuaWb96+0251G21sFv83Y80FvBuYWOOr16V7K+n5M8unWKMeBuO/DHt9MIjm/UdcbUCpS5BqwSfe3sVkNt5Se11XybBHS1BhaNbwNWwbxjVoH0ZXIr6eJSfoEffP9tWi7aWFGI9eKkO34Qx7ULs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780231728; c=relaxed/simple;
-	bh=ga6ao25d1JTHgfYvqJR12MirHM8k1OnptQ9KBUCPdoM=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Ib7tUv1G/883h8UXntg0W++CP9MJx7KeXZDNdkSHgCF+Rvxg+DRqXE37m5IrGafiHEaf5rj3sCLP1ldWa/HAmYekXdM7v5lZ8q6whMwVWwYpdZmjDSsUuus0KOioMjqXlmXa3JxChJviN427qPhOKPJ3FCFZ5mEDE+8/BX2zBQc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=N5sOpDHY; arc=none smtp.client-ip=210.79.60.118
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="N5sOpDHY"
-Received: from PC-202605011814.localdomain (unknown [221.228.238.82])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 40786b883;
-	Sun, 31 May 2026 20:48:34 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: davem@davemloft.net,
-	dsahern@kernel.org
-Cc: edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	runyu.xiao@seu.edu.cn,
-	jianhao.xu@seu.edu.cn,
-	stable@vger.kernel.org
-Subject: [PATCH net] ipv6: use READ_ONCE() for bindv6only default in inet6_create()
-Date: Sun, 31 May 2026 20:48:28 +0800
-Message-Id: <20260531124828.2323406-1-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1780233634; c=relaxed/simple;
+	bh=KUBg7hsI1YVDn0Qj0Kaw6/CZu61rIfo+N9/0U1evMLU=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=oblIuHeOXgii8lxyOTsRwZGA/27HrpoHCGqvNnaK3pNBwTC5twmeKiMqLNNCOyVxkBoywuxJE2PpN6loJYa6ampNT3mdefdQlDpUaIUSyocDJLGEVrjd2Bea1qcherOo/Qhg/YTEud7Iv2rN37Ni8CQt5H4szkyN1mheG0velRY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=decadent.org.uk; spf=pass smtp.mailfrom=decadent.org.uk; arc=none smtp.client-ip=65.21.191.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=decadent.org.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=decadent.org.uk
+Received: from [2a02:578:851f:1502:391e:c5f5:10e2:b9a3] (helo=deadeye)
+	by maynard with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <ben@decadent.org.uk>)
+	id 1wTg5b-000O4g-19;
+	Sun, 31 May 2026 13:20:27 +0000
+Received: from ben by deadeye with local (Exim 4.99.2)
+	(envelope-from <ben@decadent.org.uk>)
+	id 1wTg5Z-0000000FCef-3MG7;
+	Sun, 31 May 2026 15:20:25 +0200
+Message-ID: <866e188244055e8b90d632cb82e2badb40946706.camel@decadent.org.uk>
+Subject: Re: [PATCH 5.10 101/589] rxrpc: Fix key quota calculation for
+ multitoken keys
+From: Ben Hutchings <ben@decadent.org.uk>
+To: Sasha Levin <sashal@kernel.org>, David Howells <dhowells@redhat.com>
+Cc: patches@lists.linux.dev, Marc Dionne <marc.dionne@auristor.com>, Jeffrey
+ Altman <jaltman@auristor.com>, Simon Horman <horms@kernel.org>,
+ linux-afs@lists.infradead.org, 	stable@kernel.org, Jakub Kicinski
+ <kuba@kernel.org>, Greg Kroah-Hartman	 <gregkh@linuxfoundation.org>, stable
+ <stable@vger.kernel.org>
+Date: Sun, 31 May 2026 15:20:20 +0200
+In-Reply-To: <20260530160227.359961685@linuxfoundation.org>
+References: <20260530160224.570625122@linuxfoundation.org>
+	 <20260530160227.359961685@linuxfoundation.org>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-KdLnGxpFZeMT36rZDyM1"
+User-Agent: Evolution 3.56.2-9 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9e7e14362d03a1kunme0273942106092
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZHhhPVh9LHxhNSE1MHUtPGlYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUpVSUlDVUlIQ1VDSVlXWRYaDxIVHRRZQVlPS0hVSktJSE
-	5DQ1VKS0tVS1kG
-DKIM-Signature: a=rsa-sha256;
-	b=N5sOpDHY2/KHq2Zc4utFmwCRKGGg+bl/VqTdWLPqCEX/sWxza8uUDOHNTC/5AWKG+Yz5Z9QqowqPcNgw9wHziJ2b+5gz9TnwdoZoHEtknAEPtrbM8w4bncfgM0zAf1KOilUGU37Kpfq6SFxB6zVkVkaJPGaHW1t50fMIM7JZIow=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=FMFH/MMyaYzGdrx/DaFPZW8M1UXSknLDtVo9O1ZlCYc=;
-	h=date:mime-version:subject:message-id:from;
+X-SA-Exim-Connect-IP: 2a02:578:851f:1502:391e:c5f5:10e2:b9a3
+X-SA-Exim-Mail-From: ben@decadent.org.uk
+X-SA-Exim-Scanned: No (on maynard); SAEximRunCond expanded to false
 
-inet6_create() copies net->ipv6.sysctl.bindv6only into sk->sk_ipv6only
-without any locking. bindv6only is writable through the IPv6 sysctl
-table via proc_dou8vec_minmax(), and adjacent lockless sysctl reads in
-the same function already use READ_ONCE().
 
-This read is reachable whenever AF_INET6 sockets are created while
-/proc/sys/net/ipv6/bindv6only is being updated. In our QEMU/KCSAN stress
-test on Linux v6.18.21, one actor repeatedly toggled
-/proc/sys/net/ipv6/bindv6only while four concurrent readers repeatedly
-created AF_INET6 stream and datagram sockets and queried IPV6_V6ONLY.
-The writer completed 75313 sysctl updates in 45 seconds, and the readers
-created more than 360000 IPv6 sockets in the same window.
+--=-KdLnGxpFZeMT36rZDyM1
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-KCSAN reported the following race:
+On Sat, 2026-05-30 at 17:59 +0200, Greg Kroah-Hartman wrote:
+> 5.10-stable review patch.  If anyone has any objections, please let me kn=
+ow.
+>=20
+> ------------------
+>=20
+> From: David Howells <dhowells@redhat.com>
+>=20
+> [ Upstream commit bdbfead6d38979475df0c2f4bad2b19394fe9bdc ]
+>=20
+> In the rxrpc key preparsing, every token extracted sets the proposed quot=
+a
+> value, but for multitoken keys, this will overwrite the previous proposed
+> quota, losing it.
+>=20
+> Fix this by adding to the proposed quota instead.
+>=20
+> Fixes: 8a7a3eb4ddbe ("KEYS: RxRPC: Use key preparsing")
+> Closes: https://sashiko.dev/#/patchset/20260319150150.4189381-1-dhowells%=
+40redhat.com
+> Signed-off-by: David Howells <dhowells@redhat.com>
+> cc: Marc Dionne <marc.dionne@auristor.com>
+> cc: Jeffrey Altman <jaltman@auristor.com>
+> cc: Simon Horman <horms@kernel.org>
+> cc: linux-afs@lists.infradead.org
+> cc: stable@kernel.org
+> Link: https://patch.msgid.link/20260408121252.2249051-2-dhowells@redhat.c=
+om
+> Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+> [ dropped hunk for rxrpc_preparse_xdr_yfs_rxgk() ]
 
-==================================================================
-BUG: KCSAN: data-race in inet6_create / proc_dou8vec_minmax
+Indeed 5.10 does not have that key type, but it does have
+rxrpc_preparse_xdr_rxk5() which I think also needs to be updated.
 
-write (marked) to 0xffffffffaa27bbcd of 1 bytes by task 95 on cpu 1:
- proc_dou8vec_minmax+0x206/0x220
- proc_sys_call_handler+0x21d/0x300
- proc_sys_write+0xe/0x20
- vfs_write+0x559/0x6d0
- ksys_write+0x88/0x110
- __x64_sys_write+0x3c/0x50
- x64_sys_call+0x1016/0x2020
- do_syscall_64+0xb0/0x2c0
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
+Ben.
 
-read to 0xffffffffaa27bbcd of 1 bytes by task 97 on cpu 0:
- inet6_create+0x351/0x700
- __sock_create+0x149/0x280
- __sys_socket+0x9f/0x130
- __x64_sys_socket+0x3b/0x50
- x64_sys_call+0x1c76/0x2020
- do_syscall_64+0xb0/0x2c0
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
+> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> ---
+>  net/rxrpc/key.c |    5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
+>=20
+> --- a/net/rxrpc/key.c
+> +++ b/net/rxrpc/key.c
+> @@ -108,7 +108,7 @@ static int rxrpc_preparse_xdr_rxkad(stru
+>  		return -EKEYREJECTED;
+> =20
+>  	plen =3D sizeof(*token) + sizeof(*token->kad) + tktlen;
+> -	prep->quotalen =3D datalen + plen;
+> +	prep->quotalen +=3D datalen + plen;
+> =20
+>  	plen -=3D sizeof(*token);
+>  	token =3D kzalloc(sizeof(*token), GFP_KERNEL);
+> @@ -718,6 +718,7 @@ static int rxrpc_preparse(struct key_pre
+>  	memcpy(&kver, prep->data, sizeof(kver));
+>  	prep->data +=3D sizeof(kver);
+>  	prep->datalen -=3D sizeof(kver);
+> +	prep->quotalen =3D 0;
+> =20
+>  	_debug("KEY I/F VERSION: %u", kver);
+> =20
+> @@ -755,7 +756,7 @@ static int rxrpc_preparse(struct key_pre
+>  		goto error;
+> =20
+>  	plen =3D sizeof(*token->kad) + v1->ticket_length;
+> -	prep->quotalen =3D plen + sizeof(*token);
+> +	prep->quotalen +=3D plen + sizeof(*token);
+> =20
+>  	ret =3D -ENOMEM;
+>  	token =3D kzalloc(sizeof(*token), GFP_KERNEL);
+>=20
+>=20
 
-value changed: 0x01 -> 0x00
-==================================================================
+--=20
+Ben Hutchings
+Time is nature's way of making sure that
+everything doesn't happen at once.
 
-Wrap the bindv6only read in READ_ONCE() to annotate the intentional
-lockless access and match the surrounding per-net sysctl reader
-contract.
+--=-KdLnGxpFZeMT36rZDyM1
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
 
-This issue was first flagged by our static analysis tool while scanning
-lockless sysctl readers, then manually audited and runtime-reproduced
-with QEMU + KCSAN on Linux v6.18.21.
+-----BEGIN PGP SIGNATURE-----
 
-Build-tested by compiling net/ipv6/af_inet6.o on x86_64 netdev/main.
-Runtime-tested with a QEMU/KCSAN stress test that concurrently toggled
-/proc/sys/net/ipv6/bindv6only and created AF_INET6 sockets.
+iQIzBAABCgAdFiEErCspvTSmr92z9o8157/I7JWGEQkFAmocNZQACgkQ57/I7JWG
+EQlRJxAAiEFKtwUy3nJ/4y1FfxU0J93QfRiALaoiMSl6QtKX/V3to7AmxdW94nsL
+IAx923DA+9pbMi9XX9EtOcWBOxHo6am3VtvXeN7bj0KfLb1t0q86d7dTEW0o497O
+VRM/wElqCzI5t09LGidZt8LBN5CeEO+1KXzZtatNKlG++dNMboX40mrY9zFJptHt
+OER+1wpK7C69cHWHx/iLLw0/y2DdgK7rBhP6blJfL5DwjbdaJ2B5kDKuhsoJ9D/2
+oR2cGfep+pNfVoGin/iYPke8UETRaDz+xoFqiFKPKk+wZzS5dp6UH2UR/UMI5Nv5
+Bi4AKfAPG9giFS+8C3+Ih0insWiXu0ru3uj56RmSpCTyl/xzS6Jl+AJNL0RFcWNW
+aK1Gwq0gKpW73frm+KQZpGuEBZq3EOqyk9I9NAyVKHxXPT5+D8+jlqFHGjHdvT4l
+gmqelyKyXEnX+wLIxjIc4OLLE4bCrMIfWy696ormBUovMuFkEO2AVIlXJCyu8rJ0
+RcY2hPvoXOrYXQyrEFGb5+DDCdwd87W4Is4K5ev9EH6eWfkVNhAGv7nPCH66DpGO
+us8s0GPwaKdltseP/NWXr7b6maH1rq+kJB7G5hkoT2t4nidl4UABsDrVxphC+b6A
+VTe75hPObNH5yonkM09RwDu9bg8BjQu3lH+gl0ovaW2bmzoA95k=
+=tNwi
+-----END PGP SIGNATURE-----
 
-Fixes: 9fe516ba3fb2 ("inet: move ipv6only in sock_common")
-Cc: stable@vger.kernel.org
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
----
- net/ipv6/af_inet6.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/net/ipv6/af_inet6.c b/net/ipv6/af_inet6.c
-index 0a88b376141d..79fc6ce6ff77 100644
---- a/net/ipv6/af_inet6.c
-+++ b/net/ipv6/af_inet6.c
-@@ -211,7 +211,7 @@ static int inet6_create(struct net *net, struct socket *sock, int protocol,
- 	np->pmtudisc	= IPV6_PMTUDISC_WANT;
- 	inet6_assign_bit(REPFLOW, sk, READ_ONCE(net->ipv6.sysctl.flowlabel_reflect) &
- 				      FLOWLABEL_REFLECT_ESTABLISHED);
--	sk->sk_ipv6only	= net->ipv6.sysctl.bindv6only;
-+	sk->sk_ipv6only	= READ_ONCE(net->ipv6.sysctl.bindv6only);
- 	sk->sk_txrehash = READ_ONCE(net->core.sysctl_txrehash);
- 
- 	/* Init the ipv4 part of the socket since we can have sockets
--- 
-2.34.1
+--=-KdLnGxpFZeMT36rZDyM1--
