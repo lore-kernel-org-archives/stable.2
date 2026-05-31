@@ -1,111 +1,138 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from maynard.decadent.org.uk (maynard.decadent.org.uk [65.21.191.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 147FD1E5201;
-	Sun, 31 May 2026 19:28:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DB8033ADB9;
+	Sun, 31 May 2026 19:59:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.21.191.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780255683; cv=none; b=ZF2JAEPG/uiVmCJiuRRx5Oi+sdwZiYHVLnGLdT8xerXnp9oTTIMQ0FVxSiVacU5pRy1jmKYOcMnO2WR6NZheK3NMN83RNujwJb6HCWaQi6ExgncJJERZvl+OBiKCT82+OnE2qNyPJMCk4v93dqDjTKvzU6ZUkFsc/wEoqOYK5DY=
+	t=1780257577; cv=none; b=lVamdMBcZH6OpRmCkYdg9rgnBjygwEka+Lwqk1SjXnJdpsQbM8afmGQOxeqQ4c7f6ljS91+quRbYzq88jUgM454Wa/VfkG2XlpReXsbb9497dqIbgiZfyarnfNmGqDRWkn7fk3tfpvL/dgXuF4qkACHzPrzcD7M3H+A1CxiQY1M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780255683; c=relaxed/simple;
-	bh=CTnkmAQnkA5SfpvH8+lu4xi8MRjux2507e8Tk3nsyyg=;
-	h=Date:To:From:Subject:Message-Id; b=OMCyu1wsvWm30BZNFhXcZ/pGWhiu3qNweVGP3SwPWQ04sIpO4nCX+sSY47E0geRCxgDYaFyF0azxKI50QZO1Fmqd6jT4Wm+G/N/zyWb/vpk/tsuB3RdHb+HshtgXGcuuJu5QMsDKMh2uxDVGvxVFeC8ka7fhcfOUQ2MB+uYx3dw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=DEeRh9zG; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="DEeRh9zG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE9AD1F00893;
-	Sun, 31 May 2026 19:28:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1780255681;
-	bh=heSCjggVhJx5Aki8OPuK2xH50XETOW+MNUOoWifCJe0=;
-	h=Date:To:From:Subject;
-	b=DEeRh9zGMXV7MSdu2zLgVMoiWglXrdW2wYywmyhW73k4VbzGNiJdzM6ua6Zjgh/sv
-	 QNyGxaH3j+q9HjTuDxIntM3JAZWF+YNx00MsenSb30dBaHSRUFcGaandSzHo4htmq2
-	 heax4Pv8u65LnhodntHC2zvGxFjqFVtNRpSEWetU=
-Date: Sun, 31 May 2026 12:28:01 -0700
-To: mm-commits@vger.kernel.org,stable@vger.kernel.org,piaojun@huawei.com,mark@fasheh.com,junxiao.bi@oracle.com,jlbec@evilplan.org,heming.zhao@suse.com,gechangwei@live.cn,farhad.alemi@berkeley.edu,joseph.qi@linux.alibaba.com,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + ocfs2-add-journal-null-check-in-ocfs2_checkpoint_inode.patch added to mm-nonmm-unstable branch
-Message-Id: <20260531192801.AE9AD1F00893@smtp.kernel.org>
+	s=arc-20240116; t=1780257577; c=relaxed/simple;
+	bh=k106Z2KaX+ljDvwcW+GCOwU/FBMLDiohQoo3OZNmhfI=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=S2B6SAFwYcnW0yrUV5iovAZQq66Al2rGgfi5DufImx4KQf05SQw0NpM6uDslfITLoxNt42WyCLA2HpajDtyDyOkliILvfQ79W5dHhQpQTIM8MpYgGn0P6m8WBIh0evlPcB5wmN24mDcuiQ4LS/JsBVfgWDURWTkRJkh4ZeLSx44=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=decadent.org.uk; spf=pass smtp.mailfrom=decadent.org.uk; arc=none smtp.client-ip=65.21.191.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=decadent.org.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=decadent.org.uk
+Received: from [2a02:578:851f:1502:391e:c5f5:10e2:b9a3] (helo=deadeye)
+	by maynard with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <ben@decadent.org.uk>)
+	id 1wTmJi-000Pd2-2x;
+	Sun, 31 May 2026 19:59:26 +0000
+Received: from ben by deadeye with local (Exim 4.99.2)
+	(envelope-from <ben@decadent.org.uk>)
+	id 1wTmJi-0000000FQk4-0frN;
+	Sun, 31 May 2026 21:59:26 +0200
+Message-ID: <203134947f42d331eeb0f19c0849802c044103c7.camel@decadent.org.uk>
+Subject: Re: [PATCH 5.10 176/589] KVM: nSVM: Mark all of vmcb02 dirty when
+ restoring nested state
+From: Ben Hutchings <ben@decadent.org.uk>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, Yosry Ahmed <yosry.ahmed@linux.dev>, Sean
+ Christopherson <seanjc@google.com>
+Date: Sun, 31 May 2026 21:59:21 +0200
+In-Reply-To: <20260530160229.512180199@linuxfoundation.org>
+References: <20260530160224.570625122@linuxfoundation.org>
+	 <20260530160229.512180199@linuxfoundation.org>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-O9XXhZybCtgtX9mSZOUw"
+User-Agent: Evolution 3.56.2-9 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-SA-Exim-Connect-IP: 2a02:578:851f:1502:391e:c5f5:10e2:b9a3
+X-SA-Exim-Mail-From: ben@decadent.org.uk
+X-SA-Exim-Scanned: No (on maynard); SAEximRunCond expanded to false
 
 
-The patch titled
-     Subject: ocfs2: add journal NULL check in ocfs2_checkpoint_inode()
-has been added to the -mm mm-nonmm-unstable branch.  Its filename is
-     ocfs2-add-journal-null-check-in-ocfs2_checkpoint_inode.patch
+--=-O9XXhZybCtgtX9mSZOUw
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/ocfs2-add-journal-null-check-in-ocfs2_checkpoint_inode.patch
+On Sat, 2026-05-30 at 18:00 +0200, Greg Kroah-Hartman wrote:
+> 5.10-stable review patch.  If anyone has any objections, please let me kn=
+ow.
+>=20
+> ------------------
+>=20
+> From: Yosry Ahmed <yosry.ahmed@linux.dev>
+>=20
+> commit e63fb1379f4b9300a44739964e69549bebbcdca4 upstream.
+>=20
+> When restoring a vCPU in guest mode, any state restored before
+> KVM_SET_NESTED_STATE (e.g. KVM_SET_SREGS) will mark the corresponding
+> dirty bits in vmcb01, as it is the active VMCB before switching to
+> vmcb02 in svm_set_nested_state().
 
-This patch will later appear in the mm-nonmm-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+Given thow much svm_set_nested_state() has changed since 5.10, I'm
+having a hard time seeing how this fix can work here, particularly
+without commit 4995a3685f1b "KVM: SVM: Use a separate vmcb for the
+nested L2 guest".  Has this been tested on 5.10?
 
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
+Ben.
 
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+>=20
+> Hence, mark all fields in vmcb02 dirty in svm_set_nested_state() to
+> capture any previously restored fields.
+>=20
+> Fixes: cc440cdad5b7 ("KVM: nSVM: implement KVM_GET_NESTED_STATE and KVM_S=
+ET_NESTED_STATE")
+> CC: stable@vger.kernel.org
+> Signed-off-by: Yosry Ahmed <yosry.ahmed@linux.dev>
+> Link: https://patch.msgid.link/20260210010806.3204289-1-yosry.ahmed@linux=
+.dev
+> Signed-off-by: Sean Christopherson <seanjc@google.com>
+> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> ---
+>  arch/x86/kvm/svm/nested.c |    6 ++++++
+>  1 file changed, 6 insertions(+)
+>=20
+> --- a/arch/x86/kvm/svm/nested.c
+> +++ b/arch/x86/kvm/svm/nested.c
+> @@ -1236,6 +1236,12 @@ static int svm_set_nested_state(struct k
+>  		goto out_free;
+> =20
+>  	/*
+> +	 * Any previously restored state (e.g. KVM_SET_SREGS) would mark fields
+> +	 * dirty in vmcb01 instead of vmcb02, so mark all of vmcb02 dirty here.
+> +	 */
+> +	vmcb_mark_all_dirty(svm->vmcb);
+> +
+> +	/*
+>  	 * All checks done, we can enter guest mode.  L1 control fields
+>  	 * come from the nested save state.  Guest state is already
+>  	 * in the registers, the save area of the nested state instead
+>=20
+>=20
 
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
+--=20
+Ben Hutchings
+Time is nature's way of making sure that
+everything doesn't happen at once.
 
-------------------------------------------------------
-From: Joseph Qi <joseph.qi@linux.alibaba.com>
-Subject: ocfs2: add journal NULL check in ocfs2_checkpoint_inode()
-Date: Sun, 31 May 2026 21:16:45 +0800
+--=-O9XXhZybCtgtX9mSZOUw
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
 
-During unmount, ocfs2_journal_shutdown() frees the journal and sets
-osb->journal to NULL. Later, when VFS evicts remaining cached inodes,
-ocfs2_evict_inode() -> ocfs2_clear_inode() -> ocfs2_checkpoint_inode()
--> ocfs2_ci_fully_checkpointed() dereferences osb->journal, causing a
-NULL pointer dereference.
+-----BEGIN PGP SIGNATURE-----
 
-Fix this by adding a NULL check for osb->journal in
-ocfs2_checkpoint_inode(). If the journal is NULL, it has already been
-fully flushed and destroyed during shutdown, so there is nothing to
-checkpoint.
+iQIzBAABCgAdFiEErCspvTSmr92z9o8157/I7JWGEQkFAmockxkACgkQ57/I7JWG
+EQnmPhAAzp5n8oNeNlzyNIGQQVR6KEX2mcNdvM42nESS/2DJWEiMrcGBw+ISEpj0
+S0N31KVk6U6aVREtdJvqNGYaqQOfY7ofEyl7w81eqOIa7hNFTEWfFxzCtHJWBwOB
+jZTcJaap9Sd+9v0DsMToN0eRR3379TDThXRzbQoj6xMb02FoxumZIy9BL91tkI0g
+Q+xvwH64aHt6EffhxU92/FBotsYVqBo0wEa5c9s+mVp/bakglbeSFF9tjusQUtyQ
+G+7kPjxFVkormcp35B/GxQp9syHUmqw08xwtMgv3oSx0hTAi+GP9a69a16d6VZhc
+0azcwGnFIqJkUAu7ujXfmxiIe7Yb0eLurj0WC7GL1gzUQyAfFlwSa2OUf7LRPUtC
+k5Dqcm28sQHd0ypVsEdNXqw1iUVLbmG9/gV2Ozf4DErPYRT24KiQLE1ahOboXZWW
+F0N/gnNWwRFi4jcu5sA9YhjlUynlOZGvqNQ9VyAM/bR/xxQYJbJSjGqX8dt7NPP2
+AcbXwdMZEC+hmpuAtEtUmemO/oMTVuGHI+WQlpKBR1qXPQAFUy2tPYdwtZdqwWts
+dbX6bY5idTOmhEyBnsSqgS2ViW74wVy0zJPMO3bDIgDBNoQN5hE/FPx74Cb7u9y9
+rf5BwzxSpW7me1C3puQwNR8YTFuwfeGS+4pM9BMSLBgCxMIFwFg=
+=BzDy
+-----END PGP SIGNATURE-----
 
-Link: https://lore.kernel.org/20260531131645.3650299-1-joseph.qi@linux.alibaba.com
-Reported-by: Farhad Alemi <farhad.alemi@berkeley.edu>
-Fixes: da5e7c87827e ("ocfs2: cleanup journal init and shutdown")
-Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
-Tested-by: Farhad Alemi <farhad.alemi@berkeley.edu>
-Cc: Mark Fasheh <mark@fasheh.com>
-Cc: Joel Becker <jlbec@evilplan.org>
-Cc: Junxiao Bi <junxiao.bi@oracle.com>
-Cc: Changwei Ge <gechangwei@live.cn>
-Cc: Jun Piao <piaojun@huawei.com>
-Cc: Heming Zhao <heming.zhao@suse.com>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
----
-
- fs/ocfs2/journal.h |    3 +++
- 1 file changed, 3 insertions(+)
-
---- a/fs/ocfs2/journal.h~ocfs2-add-journal-null-check-in-ocfs2_checkpoint_inode
-+++ a/fs/ocfs2/journal.h
-@@ -196,6 +196,9 @@ static inline void ocfs2_checkpoint_inod
- 	if (ocfs2_mount_local(osb))
- 		return;
- 
-+	if (!osb->journal)
-+		return;
-+
- 	if (!ocfs2_ci_fully_checkpointed(INODE_CACHE(inode))) {
- 		/* WARNING: This only kicks off a single
- 		 * checkpoint. If someone races you and adds more
-_
-
-Patches currently in -mm which might be from joseph.qi@linux.alibaba.com are
-
-ocfs2-add-journal-null-check-in-ocfs2_checkpoint_inode.patch
-
+--=-O9XXhZybCtgtX9mSZOUw--
