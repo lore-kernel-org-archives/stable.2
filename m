@@ -1,136 +1,142 @@
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4234C5474F
-	for <stable@vger.kernel.org>; Sun, 31 May 2026 13:29:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780234172; cv=none; b=YXaszpXU5vzn41F88eIl/0Mj6X2gtxCxgMYKZKSLc+MwxmRd+010CbauXTun2a1KVgexYGWEUYUnyvYa9PsRAAEr9P/lPJUmOS4wpugY/Eccp/YnoTEycioE3wLLfpELuy5JYajmOCtqJmhsU6j2KKX2lvOaTC59VW7ucd6+m5Y=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780234172; c=relaxed/simple;
-	bh=0qrAIbvC63IS8BEjtZEusW7k5lHdMo7Dalz14xMeN2A=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=eyHTxnnO0glH3nhnxcYzVN4GCtKz8iF7UQ8TaxoUQkqIIrJWWxJ3kIT/Kkq4FILxx1yIj8DUJzZMOY/e9ixrwD0NIl3pp+khFPidjyFpL1olKLNkr/rf9J2Zo6ZGbyZowMqeG7lj54NQ63VVbLo2fklqnKoFTdhPx6d8+0wEz+o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dTuxJuzc; arc=none smtp.client-ip=209.85.216.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 891DF283FE6
+	for <stable@vger.kernel.org>; Sun, 31 May 2026 13:32:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.180
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780234362; cv=pass; b=I3AB65v8Lvx+elvwx9EPcFYuHAXDm6DivMlez+xUGfCF9hMxzgpuz4y3La5M1BuSl+KuJ+0ey7T6nz1ScbIfB9N72r97A82QN7ElT6/LtixZ+UUIY+Qj7epkeusbtBee2Wb32fCCSUDPhq8VtCmBkVw0D0Um6MS5RJXPhQzVv9I=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780234362; c=relaxed/simple;
+	bh=qAMyTFiFtTC0eh3lc4F6V3JJiXo41Df+HeqxHIXgYe4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=BYC/34wcBoFoCLELzJ41GG78ndNIdkK1M3WREl/7W/FU4yQB2PHmO7yk2GfaKqrI1CHcmrrtoqtfFwf4cQMf2Me9dZqU2Zp+jK042A2tX5Dl1tUBg8UG89ZUHC/MO+GfZZvcEdkEPzhHapbDGsGVuyNcZPMGRlyS2bpd07aOS6Q=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=k7aUXPwf; arc=pass smtp.client-ip=74.125.82.180
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dTuxJuzc"
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-36d9f91a336so182055a91.0
-        for <stable@vger.kernel.org>; Sun, 31 May 2026 06:29:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="k7aUXPwf"
+Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-305056ac6cbso98703eec.1
+        for <stable@vger.kernel.org>; Sun, 31 May 2026 06:32:41 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1780234361; cv=none;
+        d=google.com; s=arc-20240605;
+        b=bdGGLI3T+PnOACQA8C9sCRm+2Y9tU7KfwZ/9C/x4lh/itvKXP3Ay/lP7mlmIDdAsHO
+         hqJTwmaVTJh87JelaeKddVXhV1Xh+xsvzv7BNX+8IhtZ+plGL0Q7ns0k/GdkoHS1Do5B
+         kXbzU+fwJaB26myjGX1+7/R9TZesw2HPG9hI3Y41zo3XHDS83WmJqoNVhP5WHOC44+W6
+         YUwFYm67WFsBkbXOZ7BBo5r4OoAyfVjIyoY2Yu5CANc3OQHq9dI7prdhPTGHyKHyvt0T
+         jff5g9QzGgdKLs/lxFA81XO7unCB+OmGvp6opiM56RcgrC/jUmX3kTq8/963Rar9sJUt
+         BgqA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=fWh0gdQbkNaUBMeVhYlkCZO1iRuS2+mRH1lNXIa5o8Y=;
+        fh=+u+BoGXNlsWaOZU0Klw3KLwJw/5IXdg9AZo1gFXdr08=;
+        b=E2W0xM8Cx03rxqW3rAcDsw/6GMX+QwbhVrUfZyCIAIAAobWBq4I8yGctrcqXYuyLrr
+         8+7ThQdHyLwG8kz8b0ZV/d35LqvMRHAyJ2dZ4AEXQB6o3kgHy8CQgFwWdDsFCHWFVd9Q
+         sPBFYPEWAZmA2wo7R8LgevF6GvtXvmL/7zZfdlYH+y7tzfHxWW3nIlXdfRTgBUlNbDgu
+         HAUjw6tgy3oyvoXV2G6WrR4zSKRg4y7N8oS9lRQn1xNsmzPmsD8xTLtFlfckB2p+cjiG
+         xR36gQ5SxtxptYHhrmo6TgJ1go7kYVZe3G9zq269BcQNivs3Wn0hTofkHn/d0fpF+qOQ
+         +DYQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780234170; x=1780838970; darn=vger.kernel.org;
-        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=UuDSgqRRHkSSjLap3TemoZOIyfRnlWdOQPsLTnhdd8k=;
-        b=dTuxJuzcUVaycmZ7W8Lh45z3SsNU81ThBGIDEfMcbSVIxyGLMRiLiO7O3LqhF5cC88
-         7f6fXNHUXL+DDYKFVxc8+f3V1HPZisCZCA46YzKtlzZDYEkF7XIVgmPbCbNAH6RGblUX
-         QU9NuiXkR0HZFiISpwybk9WQYtwT93uWiRt4f/uIxrzmvbHKn0B7hW51ejoc6BsnafGz
-         xXzNwWKUByQVUr13+Aa6kDi9948CwdIg7ySgX8lTq9JNzMLX46YeiZsIZsqaeifdVlji
-         1eLXJQCVz9p0dzD919rtDbq0Xgp0Jx5iY+M7SuJoYyJbMDWV/9nvmA4ayaeR/i1kq6Yp
-         WryQ==
+        d=gmail.com; s=20251104; t=1780234361; x=1780839161; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=fWh0gdQbkNaUBMeVhYlkCZO1iRuS2+mRH1lNXIa5o8Y=;
+        b=k7aUXPwfVCa+A1xV3xg7R1gPGpSGX0amSwRUkU0yHjlJVFntutJT3oYHxdVAHsduYv
+         DbW2TcAOpzvLKD6xQk4WTMZNY2aRxYb7HgWW2dRvPmlKO6FV8+4/onBc2FccypuIq2PP
+         bIRLcb50YgQmUXP8GJ/K/i1jVeDYx6NjYnJd3dpg+IVWFF6eZAdt7vb2dx6OmaWW2oO4
+         7aX7GpqaOvtuvpiCuZavI1WACiWxI+XHP5JAdHoI01CjyReD8OcDl2Ei5EA3J7sYZIZM
+         vzqqO9jPrh5nKvmryLV2saNrIH7as1zWrScNjqWwyAHn0Jl6si+KZgnPJkAAdQ37l2NB
+         o9hQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780234170; x=1780838970;
-        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=UuDSgqRRHkSSjLap3TemoZOIyfRnlWdOQPsLTnhdd8k=;
-        b=rWHKn9z0Mz8Wb79FlwLkeYLU4tCXlqSQicYH5n0/l2kFYVp/vE/eavtjta8otMutcI
-         ZTMab5CeSUhEQ0N31Pc/obYTp6cT8u0Xm1xTa+sRXyLz8J6hmlYcbGZn1+YXoufou/Fm
-         JSihKV075RrNqRe4SC3Qw7xhzJroPpkEMZnc8vabCUNPQaPYVfg4hCuQxER4YK7vzxb9
-         R7vlUNufjrEmwZIIgGrjB/ENnIiXUKbR0ipZr36fLYUcGvSusJ6c80ilNlrvjtIGdf7X
-         LP+3yhmBcqsNR9TH57sX06ksnowOnBgU3b19xFokf73K0BqOf3UMk7p7N7/vJ/Srjz7l
-         cxCg==
-X-Forwarded-Encrypted: i=1; AFNElJ/P/4Spr4/iElQflUW61MiWFG4tRL1H07+QV0PFdTM3hdy0m6QNevy0qcBIQarYHt7mSp83CcE=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzvaJXoZwZNjchwAschVOQQmVsqd5Du2X/XYlao1saH5p5OlDEA
-	UqV0WGdBbdDmtzUlWeQ9zeMInYraURkEs3x3dJmg89lVnoD06L1cDMUe
-X-Gm-Gg: Acq92OHRHyKqTSsDvoibdXzGZ3WAW232fWNVPywX/NzTa0oCD1YuxYWA6NTp7jvHYPi
-	I/q9wWFuIqOIAAnwVckpnpZhtJ9kv4OF34Ey8tIfzAuqNaM8GovIa8wXvVKDEXb5xeNyniEfoIL
-	6zFOskfYckZ53bJvkntfIrH2piXc4IVNrKk9b8U/fNijlg0wAh6n3fsPOvPZ5XdQhCy6uN5yFgw
-	iv9QrHPt85JMTDKbOR3lZ8PlxPJUUJymV6qwK+Fb1xmr/ukhEB8gVVZGpwYrxQA8yg6hl7Lu2TC
-	kRoynwUgfvYcjzXKX0V0P4/EUrtZK1VL5cO+Xripnk3718/1yK6zGDQFNsHkyABAADGczSCEo73
-	ma+Kmz5cMrrjadOoCYJaOwqctbTYOWF544EHlap3s/nRhwMNlpX4uKqi1czQ1P76fDw4GTTwyjf
-	aiQmhuqjbtY24bIv/PGK0YlcE7CQnKXQkVDUnfaprAjiB5ZZVEGj0nQw==
-X-Received: by 2002:a17:90b:1981:b0:36d:86a5:5b8 with SMTP id 98e67ed59e1d1-36d86a50739mr2020494a91.11.1780234170380;
-        Sun, 31 May 2026 06:29:30 -0700 (PDT)
-Received: from v4bel ([58.123.110.97])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-36bbdd1a855sm3477044a91.6.2026.05.31.06.29.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 31 May 2026 06:29:29 -0700 (PDT)
-Date: Sun, 31 May 2026 22:29:24 +0900
-From: Hyunwoo Kim <imv4bel@gmail.com>
-To: gregkh@linuxfoundation.org, arve@android.com, tkjos@android.com,
-	brauner@kernel.org, cmllamas@google.com, aliceryhl@google.com,
-	mo@sdhn.cc, wedsonaf@gmail.com, Liam.Howlett@oracle.com
-Cc: linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
-	stable@vger.kernel.org, imv4bel@gmail.com
-Subject: [PATCH v2] rust_binder: use a u64 stride when cleaning up the
- offsets array
-Message-ID: <ahw3tFhLz9bMMJAO@v4bel>
+        d=1e100.net; s=20251104; t=1780234361; x=1780839161;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=fWh0gdQbkNaUBMeVhYlkCZO1iRuS2+mRH1lNXIa5o8Y=;
+        b=iXWukuBhHru3XmH1F/BzoUfOO6tsq7HadstRI8Z7sD5SytirHmc17MVDK0j4Ri79UE
+         8XrEUHfR0GoJSOVt0oNedryMCKOFwnGwrDsJNKqKEn1TXm5ydR6PLZO4uhgRffnsL9Gq
+         mBvDNux5MeWPHpY+D9KH+sSpFNKhrHMd7AWb7eJ8kbQf8d8vPeI4M+a/AurJmAk1RMyB
+         XC3Vg0kDB9BiAhwgwtJq9asKI3oEMSIzVO12yL8WWhvRn5pq9WxiYoHNwRdRygbea3Qi
+         znYMVcB+YyaHHR4ptYPL2Uy2SRCotS6mQTuS6qHmRjkXw4+ouIURLwZ/O4Uffb14Y2cl
+         dCvA==
+X-Forwarded-Encrypted: i=1; AFNElJ/5GbE+C0uj3c07dUu7szdttxHMuqBNcYO3DoWDLqomqX6D0PPxft8tlm2Ug48Z1B+zCpsOnoE=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzITnaXxaj31zVqdiD8S9jWrYIbjlfEgVbew4oK/t81AC/sbNN8
+	p9pZuZEcIywMPaK+kLAoqlwK5VbqierXsYHawTgHFcQaJm9nr9M+NlXeNWYAw2S3MeOHMCLJCVt
+	PGZUe2hd/nS6RLzjnZGD9SZ7zIJfSraM=
+X-Gm-Gg: Acq92OHSdTkHNx2UEXuuAiMKJd9bS7CZqpSBQECGoRt8CzFCBDy56ZVRwZFaRM6wXq1
+	Nx8Km5kppp2G7vsIZuwWvgDIIZjyDEE4KSKYqP32DnpWTpuQYE+AzuHRk8NgLElGB34fi78SHBI
+	XMpGGDuPH/S7d9QA3bpi6DBIg/zJ5IBbVI/CS2cWRwVxJ6kZOtQRxi38TsmduxCtuMINj7mJJwC
+	4dVtUhQkC4VDk8Hl+QuLYUGQR3Wfq1LndzgM8zMInKuECbq7vWdpnPUUciMw1aRLjq01aNvURVI
+	MCZCNiZ6OtfIVBINv0j774h1G3Nu1OvCN/nluFV7ra+lGLnJiTvBzhn/+5RbGdprZ82lY+4bxwn
+	WdUhlmqJkOdrHaQ4KlxKUWWRd+tF2b6ZAxw==
+X-Received: by 2002:a05:7301:6785:b0:2d3:4252:b13d with SMTP id
+ 5a478bee46e88-304fa6815a1mr1660153eec.5.1780234360638; Sun, 31 May 2026
+ 06:32:40 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+References: <20260530114925.260754-1-ojeda@kernel.org>
+In-Reply-To: <20260530114925.260754-1-ojeda@kernel.org>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Sun, 31 May 2026 15:32:26 +0200
+X-Gm-Features: AVHnY4LkFossGWgF2BUdrWeoDzVI1qLwed4mxEucX-F3jYH0q0QFqR2HJgvbDJ8
+Message-ID: <CANiq72nJP0+FED8MRX9_Jz0WX9ZeTekqE8xE2066VGsQPns-QA@mail.gmail.com>
+Subject: Re: [PATCH] rust: x86: support Rust >= 1.98.0 target spec
+To: Miguel Ojeda <ojeda@kernel.org>
+Cc: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, Boqun Feng <boqun@kernel.org>, 
+	Gary Guo <gary@garyguo.net>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+	Danilo Krummrich <dakr@kernel.org>, rust-for-linux@vger.kernel.org, 
+	linux-kbuild@vger.kernel.org, "H. Peter Anvin" <hpa@zytor.com>, linux-kernel@vger.kernel.org, 
+	Ralf Jung <post@ralfj.de>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Allocation's Drop walks the offsets array (binder_size_t = u64 entries),
-cleaning up the objects, but it used usize instead of u64 for both the
-stride and the per-entry read.
+On Sat, May 30, 2026 at 1:49=E2=80=AFPM Miguel Ojeda <ojeda@kernel.org> wro=
+te:
+>
+> Starting with Rust 1.98.0 (expected 2026-08-20), the target spec will not
+> support `x86-softfloat` anymore [1]. Instead, `softfloat` should be used,
+> which is an alias. Otherwise, one gets:
+>
+>     error: error loading target specification: rustc-abi: invalid rustc a=
+bi: 'x86-softfloat'. allowed values: 'x86-sse2', 'softfloat' at line 3 colu=
+mn 32
+>       |
+>       =3D help: run `rustc --print target-list` for a list of built-in ta=
+rgets
+>
+> Thus conditionally use one or the other depending on the version.
+>
+> The alias has existed since Rust 1.95.0 (released 2026-04-16) [2], but
+> use the newer version instead to avoid changing how the build works for
+> existing compilers, at least until more testing takes place.
+>
+> Cc: Ralf Jung <post@ralfj.de>
+> Cc: stable@vger.kernel.org # Needed in 6.12.y and later (Rust is pinned i=
+n older LTSs).
+> Link: https://github.com/rust-lang/rust/pull/157151 [1]
+> Link: https://github.com/rust-lang/rust/pull/151154 [2]
+> Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
 
-On 64-bit kernels (usize == u64) this is harmless, but on 32-bit kernels
-it walks the 8-byte entries in 4-byte steps, iterating an N-entry array
-2N times, and reads the always-zero high word as offset 0, cleaning up
-the object at offset 0 N extra times. As a result the referenced node or
-handle ends up with a lower reference count than it actually has (a
-refcount over-decrement), and binder's reference accounting is corrupted;
-for example, the owner can be notified of a strong reference release
-(BR_RELEASE) even though references still remain.
+Applied to `rust-fixes` early so that we start getting testing
+tomorrow -- thanks everyone!
 
-Change the stride to u64, and read each entry as a u64, narrowing it to
-usize with try_into().
+Tags still welcome for a day or so.
 
-On 32-bit ARM, when this over-decrement would drive a count below zero,
-the driver's existing refcount guard refuses it and fires:
+(I considered `rust-next`, but to simplify testing for ~2 weeks for
+those that want to use nightly, I decided to put it in `rust-fixes`
+instead.)
 
-  rust_binder: Failure: refcount underflow!
-
-Cc: stable@vger.kernel.org
-Fixes: eafedbc7c050 ("rust_binder: add Rust Binder driver")
-Signed-off-by: Hyunwoo Kim <imv4bel@gmail.com>
----
-Changes in v2:
-- reformat to satisfy rustfmt, as pointed out by the kernel test robot
-- v1: https://lore.kernel.org/all/ahjpn-3WQTywTdyj@v4bel/
----
- drivers/android/binder/allocation.rs | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/android/binder/allocation.rs b/drivers/android/binder/allocation.rs
-index b7b05e72970a..ea5846e4da16 100644
---- a/drivers/android/binder/allocation.rs
-+++ b/drivers/android/binder/allocation.rs
-@@ -259,7 +259,7 @@ fn drop(&mut self) {
- 
-             if let Some(offsets) = info.offsets.clone() {
-                 let view = AllocationView::new(self, offsets.start);
--                for i in offsets.step_by(size_of::<usize>()) {
-+                for i in offsets.step_by(size_of::<u64>()) {
-                     if view.cleanup_object(i).is_err() {
-                         pr_warn!("Error cleaning up object at offset {}\n", i)
-                     }
-@@ -420,7 +420,8 @@ pub(crate) fn transfer_binder_object(
-     }
- 
-     fn cleanup_object(&self, index_offset: usize) -> Result {
--        let offset = self.alloc.read(index_offset)?;
-+        let offset = self.alloc.read::<u64>(index_offset)?;
-+        let offset: usize = offset.try_into().map_err(|_| EINVAL)?;
-         let header = self.read::<BinderObjectHeader>(offset)?;
-         match header.type_ {
-             BINDER_TYPE_WEAK_BINDER | BINDER_TYPE_BINDER => {
--- 
-2.43.0
-
+Cheers,
+Miguel
