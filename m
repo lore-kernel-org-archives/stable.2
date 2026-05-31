@@ -1,158 +1,136 @@
-Received: from maynard.decadent.org.uk (maynard.decadent.org.uk [65.21.191.19])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 368AD38D3F6;
-	Sun, 31 May 2026 13:20:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.21.191.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4234C5474F
+	for <stable@vger.kernel.org>; Sun, 31 May 2026 13:29:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780233634; cv=none; b=KpiDyfjfFq+Xi41elLJmxoeJMuaWb96+0251G21sFv83Y80FvBuYWOOr16V7K+n5M8unWKMeBuO/DHt9MIjm/UdcbUCpS5BqwSfe3sVkNt5Se11XybBHS1BhaNbwNWwbxjVoH0ZXIr6eJSfoEffP9tWi7aWFGI9eKkO34Qx7ULs=
+	t=1780234172; cv=none; b=YXaszpXU5vzn41F88eIl/0Mj6X2gtxCxgMYKZKSLc+MwxmRd+010CbauXTun2a1KVgexYGWEUYUnyvYa9PsRAAEr9P/lPJUmOS4wpugY/Eccp/YnoTEycioE3wLLfpELuy5JYajmOCtqJmhsU6j2KKX2lvOaTC59VW7ucd6+m5Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780233634; c=relaxed/simple;
-	bh=KUBg7hsI1YVDn0Qj0Kaw6/CZu61rIfo+N9/0U1evMLU=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=oblIuHeOXgii8lxyOTsRwZGA/27HrpoHCGqvNnaK3pNBwTC5twmeKiMqLNNCOyVxkBoywuxJE2PpN6loJYa6ampNT3mdefdQlDpUaIUSyocDJLGEVrjd2Bea1qcherOo/Qhg/YTEud7Iv2rN37Ni8CQt5H4szkyN1mheG0velRY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=decadent.org.uk; spf=pass smtp.mailfrom=decadent.org.uk; arc=none smtp.client-ip=65.21.191.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=decadent.org.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=decadent.org.uk
-Received: from [2a02:578:851f:1502:391e:c5f5:10e2:b9a3] (helo=deadeye)
-	by maynard with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <ben@decadent.org.uk>)
-	id 1wTg5b-000O4g-19;
-	Sun, 31 May 2026 13:20:27 +0000
-Received: from ben by deadeye with local (Exim 4.99.2)
-	(envelope-from <ben@decadent.org.uk>)
-	id 1wTg5Z-0000000FCef-3MG7;
-	Sun, 31 May 2026 15:20:25 +0200
-Message-ID: <866e188244055e8b90d632cb82e2badb40946706.camel@decadent.org.uk>
-Subject: Re: [PATCH 5.10 101/589] rxrpc: Fix key quota calculation for
- multitoken keys
-From: Ben Hutchings <ben@decadent.org.uk>
-To: Sasha Levin <sashal@kernel.org>, David Howells <dhowells@redhat.com>
-Cc: patches@lists.linux.dev, Marc Dionne <marc.dionne@auristor.com>, Jeffrey
- Altman <jaltman@auristor.com>, Simon Horman <horms@kernel.org>,
- linux-afs@lists.infradead.org, 	stable@kernel.org, Jakub Kicinski
- <kuba@kernel.org>, Greg Kroah-Hartman	 <gregkh@linuxfoundation.org>, stable
- <stable@vger.kernel.org>
-Date: Sun, 31 May 2026 15:20:20 +0200
-In-Reply-To: <20260530160227.359961685@linuxfoundation.org>
-References: <20260530160224.570625122@linuxfoundation.org>
-	 <20260530160227.359961685@linuxfoundation.org>
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-KdLnGxpFZeMT36rZDyM1"
-User-Agent: Evolution 3.56.2-9 
+	s=arc-20240116; t=1780234172; c=relaxed/simple;
+	bh=0qrAIbvC63IS8BEjtZEusW7k5lHdMo7Dalz14xMeN2A=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=eyHTxnnO0glH3nhnxcYzVN4GCtKz8iF7UQ8TaxoUQkqIIrJWWxJ3kIT/Kkq4FILxx1yIj8DUJzZMOY/e9ixrwD0NIl3pp+khFPidjyFpL1olKLNkr/rf9J2Zo6ZGbyZowMqeG7lj54NQ63VVbLo2fklqnKoFTdhPx6d8+0wEz+o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dTuxJuzc; arc=none smtp.client-ip=209.85.216.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dTuxJuzc"
+Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-36d9f91a336so182055a91.0
+        for <stable@vger.kernel.org>; Sun, 31 May 2026 06:29:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780234170; x=1780838970; darn=vger.kernel.org;
+        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=UuDSgqRRHkSSjLap3TemoZOIyfRnlWdOQPsLTnhdd8k=;
+        b=dTuxJuzcUVaycmZ7W8Lh45z3SsNU81ThBGIDEfMcbSVIxyGLMRiLiO7O3LqhF5cC88
+         7f6fXNHUXL+DDYKFVxc8+f3V1HPZisCZCA46YzKtlzZDYEkF7XIVgmPbCbNAH6RGblUX
+         QU9NuiXkR0HZFiISpwybk9WQYtwT93uWiRt4f/uIxrzmvbHKn0B7hW51ejoc6BsnafGz
+         xXzNwWKUByQVUr13+Aa6kDi9948CwdIg7ySgX8lTq9JNzMLX46YeiZsIZsqaeifdVlji
+         1eLXJQCVz9p0dzD919rtDbq0Xgp0Jx5iY+M7SuJoYyJbMDWV/9nvmA4ayaeR/i1kq6Yp
+         WryQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780234170; x=1780838970;
+        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=UuDSgqRRHkSSjLap3TemoZOIyfRnlWdOQPsLTnhdd8k=;
+        b=rWHKn9z0Mz8Wb79FlwLkeYLU4tCXlqSQicYH5n0/l2kFYVp/vE/eavtjta8otMutcI
+         ZTMab5CeSUhEQ0N31Pc/obYTp6cT8u0Xm1xTa+sRXyLz8J6hmlYcbGZn1+YXoufou/Fm
+         JSihKV075RrNqRe4SC3Qw7xhzJroPpkEMZnc8vabCUNPQaPYVfg4hCuQxER4YK7vzxb9
+         R7vlUNufjrEmwZIIgGrjB/ENnIiXUKbR0ipZr36fLYUcGvSusJ6c80ilNlrvjtIGdf7X
+         LP+3yhmBcqsNR9TH57sX06ksnowOnBgU3b19xFokf73K0BqOf3UMk7p7N7/vJ/Srjz7l
+         cxCg==
+X-Forwarded-Encrypted: i=1; AFNElJ/P/4Spr4/iElQflUW61MiWFG4tRL1H07+QV0PFdTM3hdy0m6QNevy0qcBIQarYHt7mSp83CcE=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzvaJXoZwZNjchwAschVOQQmVsqd5Du2X/XYlao1saH5p5OlDEA
+	UqV0WGdBbdDmtzUlWeQ9zeMInYraURkEs3x3dJmg89lVnoD06L1cDMUe
+X-Gm-Gg: Acq92OHRHyKqTSsDvoibdXzGZ3WAW232fWNVPywX/NzTa0oCD1YuxYWA6NTp7jvHYPi
+	I/q9wWFuIqOIAAnwVckpnpZhtJ9kv4OF34Ey8tIfzAuqNaM8GovIa8wXvVKDEXb5xeNyniEfoIL
+	6zFOskfYckZ53bJvkntfIrH2piXc4IVNrKk9b8U/fNijlg0wAh6n3fsPOvPZ5XdQhCy6uN5yFgw
+	iv9QrHPt85JMTDKbOR3lZ8PlxPJUUJymV6qwK+Fb1xmr/ukhEB8gVVZGpwYrxQA8yg6hl7Lu2TC
+	kRoynwUgfvYcjzXKX0V0P4/EUrtZK1VL5cO+Xripnk3718/1yK6zGDQFNsHkyABAADGczSCEo73
+	ma+Kmz5cMrrjadOoCYJaOwqctbTYOWF544EHlap3s/nRhwMNlpX4uKqi1czQ1P76fDw4GTTwyjf
+	aiQmhuqjbtY24bIv/PGK0YlcE7CQnKXQkVDUnfaprAjiB5ZZVEGj0nQw==
+X-Received: by 2002:a17:90b:1981:b0:36d:86a5:5b8 with SMTP id 98e67ed59e1d1-36d86a50739mr2020494a91.11.1780234170380;
+        Sun, 31 May 2026 06:29:30 -0700 (PDT)
+Received: from v4bel ([58.123.110.97])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-36bbdd1a855sm3477044a91.6.2026.05.31.06.29.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 31 May 2026 06:29:29 -0700 (PDT)
+Date: Sun, 31 May 2026 22:29:24 +0900
+From: Hyunwoo Kim <imv4bel@gmail.com>
+To: gregkh@linuxfoundation.org, arve@android.com, tkjos@android.com,
+	brauner@kernel.org, cmllamas@google.com, aliceryhl@google.com,
+	mo@sdhn.cc, wedsonaf@gmail.com, Liam.Howlett@oracle.com
+Cc: linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
+	stable@vger.kernel.org, imv4bel@gmail.com
+Subject: [PATCH v2] rust_binder: use a u64 stride when cleaning up the
+ offsets array
+Message-ID: <ahw3tFhLz9bMMJAO@v4bel>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-SA-Exim-Connect-IP: 2a02:578:851f:1502:391e:c5f5:10e2:b9a3
-X-SA-Exim-Mail-From: ben@decadent.org.uk
-X-SA-Exim-Scanned: No (on maynard); SAEximRunCond expanded to false
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
+Allocation's Drop walks the offsets array (binder_size_t = u64 entries),
+cleaning up the objects, but it used usize instead of u64 for both the
+stride and the per-entry read.
 
---=-KdLnGxpFZeMT36rZDyM1
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On 64-bit kernels (usize == u64) this is harmless, but on 32-bit kernels
+it walks the 8-byte entries in 4-byte steps, iterating an N-entry array
+2N times, and reads the always-zero high word as offset 0, cleaning up
+the object at offset 0 N extra times. As a result the referenced node or
+handle ends up with a lower reference count than it actually has (a
+refcount over-decrement), and binder's reference accounting is corrupted;
+for example, the owner can be notified of a strong reference release
+(BR_RELEASE) even though references still remain.
 
-On Sat, 2026-05-30 at 17:59 +0200, Greg Kroah-Hartman wrote:
-> 5.10-stable review patch.  If anyone has any objections, please let me kn=
-ow.
->=20
-> ------------------
->=20
-> From: David Howells <dhowells@redhat.com>
->=20
-> [ Upstream commit bdbfead6d38979475df0c2f4bad2b19394fe9bdc ]
->=20
-> In the rxrpc key preparsing, every token extracted sets the proposed quot=
-a
-> value, but for multitoken keys, this will overwrite the previous proposed
-> quota, losing it.
->=20
-> Fix this by adding to the proposed quota instead.
->=20
-> Fixes: 8a7a3eb4ddbe ("KEYS: RxRPC: Use key preparsing")
-> Closes: https://sashiko.dev/#/patchset/20260319150150.4189381-1-dhowells%=
-40redhat.com
-> Signed-off-by: David Howells <dhowells@redhat.com>
-> cc: Marc Dionne <marc.dionne@auristor.com>
-> cc: Jeffrey Altman <jaltman@auristor.com>
-> cc: Simon Horman <horms@kernel.org>
-> cc: linux-afs@lists.infradead.org
-> cc: stable@kernel.org
-> Link: https://patch.msgid.link/20260408121252.2249051-2-dhowells@redhat.c=
-om
-> Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-> [ dropped hunk for rxrpc_preparse_xdr_yfs_rxgk() ]
+Change the stride to u64, and read each entry as a u64, narrowing it to
+usize with try_into().
 
-Indeed 5.10 does not have that key type, but it does have
-rxrpc_preparse_xdr_rxk5() which I think also needs to be updated.
+On 32-bit ARM, when this over-decrement would drive a count below zero,
+the driver's existing refcount guard refuses it and fires:
 
-Ben.
+  rust_binder: Failure: refcount underflow!
 
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
-> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> ---
->  net/rxrpc/key.c |    5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
->=20
-> --- a/net/rxrpc/key.c
-> +++ b/net/rxrpc/key.c
-> @@ -108,7 +108,7 @@ static int rxrpc_preparse_xdr_rxkad(stru
->  		return -EKEYREJECTED;
-> =20
->  	plen =3D sizeof(*token) + sizeof(*token->kad) + tktlen;
-> -	prep->quotalen =3D datalen + plen;
-> +	prep->quotalen +=3D datalen + plen;
-> =20
->  	plen -=3D sizeof(*token);
->  	token =3D kzalloc(sizeof(*token), GFP_KERNEL);
-> @@ -718,6 +718,7 @@ static int rxrpc_preparse(struct key_pre
->  	memcpy(&kver, prep->data, sizeof(kver));
->  	prep->data +=3D sizeof(kver);
->  	prep->datalen -=3D sizeof(kver);
-> +	prep->quotalen =3D 0;
-> =20
->  	_debug("KEY I/F VERSION: %u", kver);
-> =20
-> @@ -755,7 +756,7 @@ static int rxrpc_preparse(struct key_pre
->  		goto error;
-> =20
->  	plen =3D sizeof(*token->kad) + v1->ticket_length;
-> -	prep->quotalen =3D plen + sizeof(*token);
-> +	prep->quotalen +=3D plen + sizeof(*token);
-> =20
->  	ret =3D -ENOMEM;
->  	token =3D kzalloc(sizeof(*token), GFP_KERNEL);
->=20
->=20
+Cc: stable@vger.kernel.org
+Fixes: eafedbc7c050 ("rust_binder: add Rust Binder driver")
+Signed-off-by: Hyunwoo Kim <imv4bel@gmail.com>
+---
+Changes in v2:
+- reformat to satisfy rustfmt, as pointed out by the kernel test robot
+- v1: https://lore.kernel.org/all/ahjpn-3WQTywTdyj@v4bel/
+---
+ drivers/android/binder/allocation.rs | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
---=20
-Ben Hutchings
-Time is nature's way of making sure that
-everything doesn't happen at once.
+diff --git a/drivers/android/binder/allocation.rs b/drivers/android/binder/allocation.rs
+index b7b05e72970a..ea5846e4da16 100644
+--- a/drivers/android/binder/allocation.rs
++++ b/drivers/android/binder/allocation.rs
+@@ -259,7 +259,7 @@ fn drop(&mut self) {
+ 
+             if let Some(offsets) = info.offsets.clone() {
+                 let view = AllocationView::new(self, offsets.start);
+-                for i in offsets.step_by(size_of::<usize>()) {
++                for i in offsets.step_by(size_of::<u64>()) {
+                     if view.cleanup_object(i).is_err() {
+                         pr_warn!("Error cleaning up object at offset {}\n", i)
+                     }
+@@ -420,7 +420,8 @@ pub(crate) fn transfer_binder_object(
+     }
+ 
+     fn cleanup_object(&self, index_offset: usize) -> Result {
+-        let offset = self.alloc.read(index_offset)?;
++        let offset = self.alloc.read::<u64>(index_offset)?;
++        let offset: usize = offset.try_into().map_err(|_| EINVAL)?;
+         let header = self.read::<BinderObjectHeader>(offset)?;
+         match header.type_ {
+             BINDER_TYPE_WEAK_BINDER | BINDER_TYPE_BINDER => {
+-- 
+2.43.0
 
---=-KdLnGxpFZeMT36rZDyM1
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEErCspvTSmr92z9o8157/I7JWGEQkFAmocNZQACgkQ57/I7JWG
-EQlRJxAAiEFKtwUy3nJ/4y1FfxU0J93QfRiALaoiMSl6QtKX/V3to7AmxdW94nsL
-IAx923DA+9pbMi9XX9EtOcWBOxHo6am3VtvXeN7bj0KfLb1t0q86d7dTEW0o497O
-VRM/wElqCzI5t09LGidZt8LBN5CeEO+1KXzZtatNKlG++dNMboX40mrY9zFJptHt
-OER+1wpK7C69cHWHx/iLLw0/y2DdgK7rBhP6blJfL5DwjbdaJ2B5kDKuhsoJ9D/2
-oR2cGfep+pNfVoGin/iYPke8UETRaDz+xoFqiFKPKk+wZzS5dp6UH2UR/UMI5Nv5
-Bi4AKfAPG9giFS+8C3+Ih0insWiXu0ru3uj56RmSpCTyl/xzS6Jl+AJNL0RFcWNW
-aK1Gwq0gKpW73frm+KQZpGuEBZq3EOqyk9I9NAyVKHxXPT5+D8+jlqFHGjHdvT4l
-gmqelyKyXEnX+wLIxjIc4OLLE4bCrMIfWy696ormBUovMuFkEO2AVIlXJCyu8rJ0
-RcY2hPvoXOrYXQyrEFGb5+DDCdwd87W4Is4K5ev9EH6eWfkVNhAGv7nPCH66DpGO
-us8s0GPwaKdltseP/NWXr7b6maH1rq+kJB7G5hkoT2t4nidl4UABsDrVxphC+b6A
-VTe75hPObNH5yonkM09RwDu9bg8BjQu3lH+gl0ovaW2bmzoA95k=
-=tNwi
------END PGP SIGNATURE-----
-
---=-KdLnGxpFZeMT36rZDyM1--
