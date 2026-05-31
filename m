@@ -1,74 +1,71 @@
-Received: from mx1.mythic-beasts.com (mx1.mythic-beasts.com [46.235.224.141])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3328E30E0E9;
-	Sun, 31 May 2026 15:18:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.235.224.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B53483112C1;
+	Sun, 31 May 2026 15:26:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780240695; cv=none; b=cuQw3hfIw/PK0yb4WyaBH8nPfzuuZ4201bet1ydbXnCesZdyj4sqs6qcgUCDJd+OclnvZHapD0occOgjTa5LtSMlxXVUGhWzZb7F0oGriiZVtJJXxC6Na/V36B3b0H/yPqfMNi3uaVcp8HJFxfjrml1jyjBS9anfY/LmIw14JRE=
+	t=1780241191; cv=none; b=kDH4KOubr+/QA55F8Op2ozN8WRPwFRDVxjGrPIOZ6eVQJI7KDny9CuX08wMZieHZIb99ujtJ9tyPAxn4LJULZ4PQ/R4UOspyQrwWPe+Ofd3IOqINST5O706aRFm7qk0Sym0HRiv2Lxl+420HURy3rb0X5PaBHVq4wR5sdcmc2PU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780240695; c=relaxed/simple;
-	bh=rhOTB4kvjmISDBctDwT5HOz93gVp+fe2NG4uXfye8nc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qjyaiJ2u0hBD5Va+FbPYEarBYOn3HCbY13For1l4kpCupa1jl5i79IZs133gf8eRBPHRiOOQkhQj/CuY/JEphadBJNCunbuPUmWabtdea1mdCcZN8/i2eQxF2jmBmB+eP5kOBi75rpVeOFzO6f4rsPCN00T9o4PdvimhECp61Is=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pelago.org.uk; spf=pass smtp.mailfrom=pelago.org.uk; dkim=pass (2048-bit key) header.d=pelago.org.uk header.i=@pelago.org.uk header.b=XDNrlPVK; arc=none smtp.client-ip=46.235.224.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pelago.org.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pelago.org.uk
+	s=arc-20240116; t=1780241191; c=relaxed/simple;
+	bh=xW4ka1DZpu7P2cUnHjBUEMfDUHAeRAPOyMtbF+394+k=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FOUmo+WBK8WKhSDJ6p3gKsErcnkW/IiCyME7bKXEOMU7AKDP76LpPzZUjKAN3bOr8XlY+QQL6CvYmZvBuuSuspLUyACBU80upr9gF2sR7kQcUNXOrqJCxz7lIlaFC10okrtfaasIdkeV15KPIsAocf3G7K5GG6eGAk6RhkSA8tI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=nhbaX4Nw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pelago.org.uk header.i=@pelago.org.uk header.b="XDNrlPVK"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=pelago.org.uk; s=mythic-beasts-k1; h=From:To:Subject:Date;
-	bh=x3VT+5iyicJEVrdyWbzkEK72fKPATPivo6/EvwZumBw=; b=XDNrlPVKHWbauR5caD5Hsk9xJs
-	m5fG/kzn/NXDY7GbTEOvIfc6eSxmb846M90d/mDs5vRkm7kWIf4M/nEDcwvTkk+zOxRrH3FYyBTGN
-	iRwp69DT9dvhFuw/WeBMDWmqeJ1eKlD5YCH2GXJxB/FDlIPOUyGzcNahrWFg1LWhm/5ee78FkxMEH
-	JJwJOyIeBaoiSIlcnauLeFz1KC5p4+BP2ioY47I2THZgkS96g9e+Shg5C2YTwmNuBGnDhbR1fncmf
-	S1bliDBFLTgnmC//0wOYAFJ0ILJ+oQPZWIYRfCpkRBUK9VVwpW3KWZm20NCDK9rhd+fFV2PkRFtxb
-	JOAFxwTw==;
-Received: by mailhub-cam-d.mythic-beasts.com with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <john-linux@pelago.org.uk>)
-	id 1wThvE-00Ddc3-2t;
-	Sun, 31 May 2026 16:17:53 +0100
-Message-ID: <75398536-2ca8-4205-9205-18afc5227397@pelago.org.uk>
-Date: Sun, 31 May 2026 16:17:24 +0100
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="nhbaX4Nw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79D681F00893;
+	Sun, 31 May 2026 15:26:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1780241190;
+	bh=z704NJZDS6mAj4oNh35dy4uyshG7Q7lM1eefKHZO5B0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=nhbaX4NwOU06t8ZNdaIO0VxywgUqso+21KIvjTGnO/dDzWyLgFVlSnXu1SKqAqAWa
+	 Gc1/Yty+0S8fbXvIQuX+5nSVl2Uvi931nBhBaIjTwOqIyFQLmWZnUHbcsWnPUXJrMN
+	 5QhiO+JCfjEQ+85odRPaGugXyv2V2ueo+g7uQJfY=
+Date: Sun, 31 May 2026 17:25:35 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Yanfei Xu <isyanfei.xu@gmail.com>
+Cc: Yanfei Xu <yanfei.xu@bytedance.com>, harshpb@linux.ibm.com,
+	zhaotianrui@loongson.cn, maobibo@loongson.cn, chenhuacai@kernel.org,
+	maddy@linux.ibm.com, npiggin@gmail.com,
+	sashiko-reviews@lists.linux.dev, seanjc@google.com,
+	pbonzini@redhat.com, kvm@vger.kernel.org, stable@vger.kernel.org,
+	loongarch@lists.linux.dev, linuxppc-dev@lists.ozlabs.org,
+	caixiangfeng@bytedance.com, fangying.tommy@bytedance.com
+Subject: Re: [v2 0/2] KVM: Validate irqchip index in routing entries
+Message-ID: <2026053122-splashed-supernova-90c3@gregkh>
+References: <20260531135326.2238555-1-yanfei.xu@bytedance.com>
+ <2026053158-cussed-outweigh-6f0f@gregkh>
+ <5ee310d9-d432-400d-8506-751ee4a41fc6@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [REGRESSION] Toshiba Fn keys + lidswitch
-To: johannes.goede@oss.qualcomm.com, "Rafael J. Wysocki" <rafael@kernel.org>,
- Nick <nick@kousu.ca>
-Cc: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
- regressions@lists.linux.dev, linux-acpi@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
- todd.e.brandt@linux.intel.com, xi.pardee@linux.intel.com,
- platform-driver-x86@vger.kernel.org, stable@vger.kernel.org
-References: <E2OXET.4X5GTP37VTNC3@kousu.ca>
- <CAJZ5v0jVQyWYqPo_MiUwNQb7FLNR_Q_++Xq=xA1owcHpcjN=OA@mail.gmail.com>
- <bc9d5258-d4df-46a1-bba9-de3486f722ab@pelago.org.uk>
- <8503d297-68ca-4bfe-bbdf-537a85890d86@oss.qualcomm.com>
-Content-Language: en-GB
-From: John Veness <john-linux@pelago.org.uk>
-In-Reply-To: <8503d297-68ca-4bfe-bbdf-537a85890d86@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-BlackCat-Spam-Score: 0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <5ee310d9-d432-400d-8506-751ee4a41fc6@gmail.com>
 
-On 30/05/2026 14:34, johannes.goede@oss.qualcomm.com wrote:
-> In case you've not seen it yet, Rafael send out the test patch
-> publicly later that day in another email in this thread:
+On Sun, May 31, 2026 at 10:36:27PM +0800, Yanfei Xu wrote:
 > 
-> https://lore.kernel.org/linux-acpi/12896447.O9o76ZdvQC@rafael.j.wysocki/
+> On 2026/5/31 22:15, Greg KH wrote:
+> > > -- 
+> > > 2.20.1
+> > > 
+> > <formletter>
+> > 
+> > This is not the correct way to submit patches for inclusion in the
+> > stable kernel tree.  Please read:
+> >      https://www.kernel.org/doc/html/latest/process/stable-kernel-rules.html
+> > for how to do this properly.
+> > 
+> > </formletter>
 > 
-> Regards,
-> 
-> Hans
+> Thanks for pointing out the correct process. I saw
+> that PPC maintainer added "Cc: stable@vger.kernel.org"
+> on v1, so I mistakenly thought v2 should cc...
 
-Thanks for the pointer, and sorry for missing that! I had only been
-looking in the archives of platform-driver-x86@vger.kernel.org which for
-some reason didn't receive the patch.
-
-John
+That's great, then take a look at the file above to show you how to do
+that :)
