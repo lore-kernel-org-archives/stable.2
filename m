@@ -1,138 +1,172 @@
-Received: from maynard.decadent.org.uk (maynard.decadent.org.uk [65.21.191.19])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DB8033ADB9;
-	Sun, 31 May 2026 19:59:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.21.191.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D6743161BE
+	for <stable@vger.kernel.org>; Sun, 31 May 2026 20:01:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780257577; cv=none; b=lVamdMBcZH6OpRmCkYdg9rgnBjygwEka+Lwqk1SjXnJdpsQbM8afmGQOxeqQ4c7f6ljS91+quRbYzq88jUgM454Wa/VfkG2XlpReXsbb9497dqIbgiZfyarnfNmGqDRWkn7fk3tfpvL/dgXuF4qkACHzPrzcD7M3H+A1CxiQY1M=
+	t=1780257708; cv=none; b=AlNPwvcfIalkqdLb0JntaGokrct694HMMiJGTwmw5ABBNqZVM5gHdWEiT1SCl3K0qT4JS8vG72swLUaxVGnMm1p4UWgQYkuI1IgdSkjOAtaZxYsBk7c1f1lRDMmCTLQ/xOLwuvZnyC5w6uy9WVBu733Aaf66JfLFNptlps0wvFg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780257577; c=relaxed/simple;
-	bh=k106Z2KaX+ljDvwcW+GCOwU/FBMLDiohQoo3OZNmhfI=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=S2B6SAFwYcnW0yrUV5iovAZQq66Al2rGgfi5DufImx4KQf05SQw0NpM6uDslfITLoxNt42WyCLA2HpajDtyDyOkliILvfQ79W5dHhQpQTIM8MpYgGn0P6m8WBIh0evlPcB5wmN24mDcuiQ4LS/JsBVfgWDURWTkRJkh4ZeLSx44=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=decadent.org.uk; spf=pass smtp.mailfrom=decadent.org.uk; arc=none smtp.client-ip=65.21.191.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=decadent.org.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=decadent.org.uk
-Received: from [2a02:578:851f:1502:391e:c5f5:10e2:b9a3] (helo=deadeye)
-	by maynard with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <ben@decadent.org.uk>)
-	id 1wTmJi-000Pd2-2x;
-	Sun, 31 May 2026 19:59:26 +0000
-Received: from ben by deadeye with local (Exim 4.99.2)
-	(envelope-from <ben@decadent.org.uk>)
-	id 1wTmJi-0000000FQk4-0frN;
-	Sun, 31 May 2026 21:59:26 +0200
-Message-ID: <203134947f42d331eeb0f19c0849802c044103c7.camel@decadent.org.uk>
-Subject: Re: [PATCH 5.10 176/589] KVM: nSVM: Mark all of vmcb02 dirty when
- restoring nested state
-From: Ben Hutchings <ben@decadent.org.uk>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, Yosry Ahmed <yosry.ahmed@linux.dev>, Sean
- Christopherson <seanjc@google.com>
-Date: Sun, 31 May 2026 21:59:21 +0200
-In-Reply-To: <20260530160229.512180199@linuxfoundation.org>
-References: <20260530160224.570625122@linuxfoundation.org>
-	 <20260530160229.512180199@linuxfoundation.org>
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-O9XXhZybCtgtX9mSZOUw"
-User-Agent: Evolution 3.56.2-9 
+	s=arc-20240116; t=1780257708; c=relaxed/simple;
+	bh=q28vvrdEPiKApq9SxP0QpNQPB9TQ84GLDcQHQxOK18A=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=umdrE/vpvNhc3JpViKVPbc/JVuSrFM7zThS5FuIMIIdpr3H3RSj3eoRH+5y4JgdHdPbtFjH9TGjYORSdVTdTE5cLN9rph7x5XcWPZMWmwcFvvBlFpf9kStJULqzDIhm90M+qlXmQH4aEVXPK/jhsnqZT0dWyB48XbN2aoLOtmvQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=ZYltk7Yi; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=oo6bgMkJ; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=ZYltk7Yi; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=oo6bgMkJ; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="ZYltk7Yi";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="oo6bgMkJ";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="ZYltk7Yi";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="oo6bgMkJ"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 92FA3674E3;
+	Sun, 31 May 2026 20:01:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1780257699; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=P2eHy+yLhrpbpMQLr6C2OcfliHr5ktRiooZtRZfHTn4=;
+	b=ZYltk7YiSV7VEb7zsRW1W1Cp9G5d9LUitdcsGqgSbu4Ck82ZnA5ZSn2qMjYxQXU50UXGih
+	HVQNz4BZQ4DD2RSo/MliD1bCDe94popFhOyywlB4OUz3P8rzzq5IBruiuhpKVgdLzFTiwa
+	7tsBbclKo5WSVN3mcZaV0KuX4YvDnWg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1780257699;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=P2eHy+yLhrpbpMQLr6C2OcfliHr5ktRiooZtRZfHTn4=;
+	b=oo6bgMkJ2/iFj1VmNYjl+zk+0D77p4c9UQPBaXeNQ7mJa3DZCE5WBXl+3A/ZAcUYqFnvPR
+	Io7mx03SeiDes5Dw==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1780257699; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=P2eHy+yLhrpbpMQLr6C2OcfliHr5ktRiooZtRZfHTn4=;
+	b=ZYltk7YiSV7VEb7zsRW1W1Cp9G5d9LUitdcsGqgSbu4Ck82ZnA5ZSn2qMjYxQXU50UXGih
+	HVQNz4BZQ4DD2RSo/MliD1bCDe94popFhOyywlB4OUz3P8rzzq5IBruiuhpKVgdLzFTiwa
+	7tsBbclKo5WSVN3mcZaV0KuX4YvDnWg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1780257699;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=P2eHy+yLhrpbpMQLr6C2OcfliHr5ktRiooZtRZfHTn4=;
+	b=oo6bgMkJ2/iFj1VmNYjl+zk+0D77p4c9UQPBaXeNQ7mJa3DZCE5WBXl+3A/ZAcUYqFnvPR
+	Io7mx03SeiDes5Dw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E10CB779A7;
+	Sun, 31 May 2026 20:01:38 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id BXH5M6KTHGr1SwAAD6G6ig
+	(envelope-from <fmancera@suse.de>); Sun, 31 May 2026 20:01:38 +0000
+Message-ID: <2fbe241d-16bb-4d63-82e0-a44523de5ee7@suse.de>
+Date: Sun, 31 May 2026 22:01:31 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-SA-Exim-Connect-IP: 2a02:578:851f:1502:391e:c5f5:10e2:b9a3
-X-SA-Exim-Mail-From: ben@decadent.org.uk
-X-SA-Exim-Scanned: No (on maynard); SAEximRunCond expanded to false
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net] hsr: broadcast netlink notifications in the device's
+ net namespace
+To: Maoyi Xie <maoyixie.tju@gmail.com>, Jakub Kicinski <kuba@kernel.org>
+Cc: "David S . Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
+ Simon Horman <horms@kernel.org>, Jan Vaclav <jvaclav@redhat.com>,
+ Andrew Lunn <andrew@lunn.ch>, Taehee Yoo <ap420073@gmail.com>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <CAHPEe=GO=2qqWZPwBB4rrXc3mkD0dznp2K78nCsKwF=c-QwxEw@mail.gmail.com>
+ <20260527075924.2707856-1-maoyixie.tju@gmail.com>
+ <21df0b14-f530-4e9a-931a-21154ec18c78@suse.de>
+ <20260527161849.738b7f1f@kernel.org>
+ <CAHPEe=F+ii=GgNorkhYJYXZAa4akxjKxG+qFr_H-USQE1F8bRQ@mail.gmail.com>
+Content-Language: en-US
+From: Fernando Fernandez Mancera <fmancera@suse.de>
+In-Reply-To: <CAHPEe=F+ii=GgNorkhYJYXZAa4akxjKxG+qFr_H-USQE1F8bRQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Spam-Flag: NO
+X-Spam-Score: -2.80
+X-Spam-Level: 
+X-Spamd-Result: default: False [-2.80 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	RCVD_TLS_ALL(0.00)[];
+	ARC_NA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FUZZY_RATELIMITED(0.00)[rspamd.com];
+	RCPT_COUNT_TWELVE(0.00)[12];
+	TAGGED_RCPT(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[davemloft.net,google.com,redhat.com,kernel.org,lunn.ch,gmail.com,vger.kernel.org];
+	FREEMAIL_TO(0.00)[gmail.com,kernel.org];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.de:mid]
 
 
---=-O9XXhZybCtgtX9mSZOUw
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Sat, 2026-05-30 at 18:00 +0200, Greg Kroah-Hartman wrote:
-> 5.10-stable review patch.  If anyone has any objections, please let me kn=
-ow.
->=20
-> ------------------
->=20
-> From: Yosry Ahmed <yosry.ahmed@linux.dev>
->=20
-> commit e63fb1379f4b9300a44739964e69549bebbcdca4 upstream.
->=20
-> When restoring a vCPU in guest mode, any state restored before
-> KVM_SET_NESTED_STATE (e.g. KVM_SET_SREGS) will mark the corresponding
-> dirty bits in vmcb01, as it is the active VMCB before switching to
-> vmcb02 in svm_set_nested_state().
+On 5/31/26 12:23 PM, Maoyi Xie wrote:
+> On Thu, 28 May 2026 07:18, Jakub Kicinski <kuba@kernel.org> wrote:
+>> Not sure TBH, we'd need to take a ref on the netns and allocate
+>> a tracker (on DEBUG kernels). One could go either way.
+> 
+> On the RCU side, you're right that moving the net out of the lock
+> means taking a ref, and this isn't a hot path where that really pays
+> off. So I'd lean towards keeping it as posted, with the multicast
+> still inside the rcu_read_lock. Fernando, thanks for the suggestion
+> either way.
+> 
 
-Given thow much svm_set_nested_state() has changed since 5.10, I'm
-having a hard time seeing how this fix can work here, particularly
-without commit 4995a3685f1b "KVM: SVM: Use a separate vmcb for the
-nested L2 guest".  Has this been tested on 5.10?
+In such case:
 
-Ben.
+Reviewed-by: Fernando Fernandez Mancera <fmancera@suse.de>
 
->=20
-> Hence, mark all fields in vmcb02 dirty in svm_set_nested_state() to
-> capture any previously restored fields.
->=20
-> Fixes: cc440cdad5b7 ("KVM: nSVM: implement KVM_GET_NESTED_STATE and KVM_S=
-ET_NESTED_STATE")
-> CC: stable@vger.kernel.org
-> Signed-off-by: Yosry Ahmed <yosry.ahmed@linux.dev>
-> Link: https://patch.msgid.link/20260210010806.3204289-1-yosry.ahmed@linux=
-.dev
-> Signed-off-by: Sean Christopherson <seanjc@google.com>
-> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> ---
->  arch/x86/kvm/svm/nested.c |    6 ++++++
->  1 file changed, 6 insertions(+)
->=20
-> --- a/arch/x86/kvm/svm/nested.c
-> +++ b/arch/x86/kvm/svm/nested.c
-> @@ -1236,6 +1236,12 @@ static int svm_set_nested_state(struct k
->  		goto out_free;
-> =20
->  	/*
-> +	 * Any previously restored state (e.g. KVM_SET_SREGS) would mark fields
-> +	 * dirty in vmcb01 instead of vmcb02, so mark all of vmcb02 dirty here.
-> +	 */
-> +	vmcb_mark_all_dirty(svm->vmcb);
-> +
-> +	/*
->  	 * All checks done, we can enter guest mode.  L1 control fields
->  	 * come from the nested save state.  Guest state is already
->  	 * in the registers, the save area of the nested state instead
->=20
->=20
+Keep it if re-posted to net-next please.
 
---=20
-Ben Hutchings
-Time is nature's way of making sure that
-everything doesn't happen at once.
+Thanks!
 
---=-O9XXhZybCtgtX9mSZOUw
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
+>> I'm replying because I wanted to question whether this is Fixes+stable@
+>> worthy. Sending the notifications to the namespace where the device is
+>> makes sense. But it's as much a behavior changes as it is a fix.
+>> The commit in question was merged to 5.6, real users clearly don't care.
+> 
+> On the Fixes and stable tags, my thinking was that the init_net side
+> is an information leak. A privileged listener there ends up seeing
+> ring error and node down events from devices in other netns. The
+> payload carries the peer MAC and the slave ifindex. That was my reason
+> for tagging it.
+> 
+> But I see your point that it is as much a behavior change as a fix,
+> and if nobody has hit it since 5.6, the risk is clearly low. I don't
+> feel strongly here. If you'd rather take it as a plain net-next
+> improvement without the two tags, that is completely fine by me and I
+> will respin it that way.
+> 
+> Thanks,
+> Maoyi
 
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEErCspvTSmr92z9o8157/I7JWGEQkFAmockxkACgkQ57/I7JWG
-EQnmPhAAzp5n8oNeNlzyNIGQQVR6KEX2mcNdvM42nESS/2DJWEiMrcGBw+ISEpj0
-S0N31KVk6U6aVREtdJvqNGYaqQOfY7ofEyl7w81eqOIa7hNFTEWfFxzCtHJWBwOB
-jZTcJaap9Sd+9v0DsMToN0eRR3379TDThXRzbQoj6xMb02FoxumZIy9BL91tkI0g
-Q+xvwH64aHt6EffhxU92/FBotsYVqBo0wEa5c9s+mVp/bakglbeSFF9tjusQUtyQ
-G+7kPjxFVkormcp35B/GxQp9syHUmqw08xwtMgv3oSx0hTAi+GP9a69a16d6VZhc
-0azcwGnFIqJkUAu7ujXfmxiIe7Yb0eLurj0WC7GL1gzUQyAfFlwSa2OUf7LRPUtC
-k5Dqcm28sQHd0ypVsEdNXqw1iUVLbmG9/gV2Ozf4DErPYRT24KiQLE1ahOboXZWW
-F0N/gnNWwRFi4jcu5sA9YhjlUynlOZGvqNQ9VyAM/bR/xxQYJbJSjGqX8dt7NPP2
-AcbXwdMZEC+hmpuAtEtUmemO/oMTVuGHI+WQlpKBR1qXPQAFUy2tPYdwtZdqwWts
-dbX6bY5idTOmhEyBnsSqgS2ViW74wVy0zJPMO3bDIgDBNoQN5hE/FPx74Cb7u9y9
-rf5BwzxSpW7me1C3puQwNR8YTFuwfeGS+4pM9BMSLBgCxMIFwFg=
-=BzDy
------END PGP SIGNATURE-----
-
---=-O9XXhZybCtgtX9mSZOUw--
