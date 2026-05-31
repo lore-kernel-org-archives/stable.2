@@ -1,120 +1,126 @@
-Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
+Received: from m.b4.vu (m.b4.vu [203.16.231.148])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD55423ABB9;
-	Sun, 31 May 2026 15:10:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC37A38F633
+	for <stable@vger.kernel.org>; Sun, 31 May 2026 15:13:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.16.231.148
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780240247; cv=none; b=tGiHoKk1GR5ovCYrRCVmgKRQAuznjWPLN4et6HUQzAae3cYJ2NBgjwKllqj2Ra8/0vJJ0ayWQZzBQJcyPdSu0y0cw6SixaKnFNpoqQo2BE0uURp4iEPqrFdLkcaUrp43hv3z4xRGwOrtcr2rHvIsNp35qDdwlfNotHzCQyFF60s=
+	t=1780240412; cv=none; b=t/+wscFh5GxAuPqAF3+SDO5SOThRgmiCuSfJWvu3OjrxGn0yeaf/A6Vd9MDY+gMwGG0vk3GIFSF9/rBRXN7fYrxToXnr83wzmMIniPDJa3s02m2N0vuz9ozurlTT4MkBK1gHKzAaRww9Gy4B/tLLhGQ379SArK3X/DnYwkLE+mY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780240247; c=relaxed/simple;
-	bh=/WvQqRzLV6/31YRlR06Wu9LK7gnO1utmm8eK6Ltkcjg=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=uM1wLDUna3Zxsy8YVkDrdRCx/2Kz5ky35lAOib47iGlgO0h6qJ/2H1UsBWDAOKfqwPOPRH/7cMbmLIZ4Vv1/lZgKuOJRuQk+SKdhugLcIyqFqDoRyqyTael5NH6jh6MJ7fRwvM73n+/oRbX8teX2DGJHxBmapWHpPw9HWhbfXlI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=Xw1d5ZyY; arc=none smtp.client-ip=45.254.49.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	s=arc-20240116; t=1780240412; c=relaxed/simple;
+	bh=H2ExlMdIhxev/OHb0le93xGbNGsb+HE6C8eYWRhN4VQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HUv2xPeCd4RCEfIAq/q0ZafgMQWRSXjdbBHwhHU1nGm28GH92rKtui78Rows/OC+HOLPgw1FwxxaRo+gbJhjhBQ+f4jOlYJA5kLbUT3ce1B5/yffP+GzDHAAsJiGxINllXaBYePRikQwuSzTcDrpdX78qIvjm8jByThteHe71fE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=b4.vu; spf=pass smtp.mailfrom=b4.vu; dkim=pass (2048-bit key) header.d=b4.vu header.i=@b4.vu header.b=IFhxnrGB; arc=none smtp.client-ip=203.16.231.148
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=b4.vu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=b4.vu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="Xw1d5ZyY"
-Received: from PC-202605011814.localdomain (unknown [223.112.146.162])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 40796bd43;
-	Sun, 31 May 2026 22:55:13 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: Kalle Valo <kvalo@kernel.org>,
-	Igor Mitsyanko <imitsyanko@quantenna.com>
-Cc: Sergey Matyukevich <geomatsi@gmail.com>,
-	Andrey Shevchenko <ashevchenko@quantenna.com>,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	jianhao.xu@seu.edu.cn,
-	runyu.xiao@seu.edu.cn,
-	stable@vger.kernel.org
-Subject: [PATCH wireless] wifi: qtnfmac: topaz: defer IRQ enabling until IPC init
-Date: Sun, 31 May 2026 22:54:35 +0800
-Message-Id: <20260531145435.701703-1-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=b4.vu header.i=@b4.vu header.b="IFhxnrGB"
+Received: by m.b4.vu (Postfix, from userid 1000)
+	id C2EEB67DC7DB; Mon,  1 Jun 2026 00:43:20 +0930 (ACST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 m.b4.vu C2EEB67DC7DB
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=b4.vu; s=m1;
+	t=1780240400; bh=fGPzGM6HsELRKDb0LPe7FpxAWXKREgEVrtYdnVrRNlI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=IFhxnrGB3R8Gy0pb5KDCtWuEbxYgZ+rB930ZW3ezUW3np6ez6BYVD9gB9gkZpJEp6
+	 mnJ8DiiYp/3NIhZIPkjSBGNQ83FXfulvAVzG8N1zUBoHJSFZ570Jmqo2bHcKDU5xCH
+	 oz8mMFl40OZDLi8zDxPhyociOuuUgaIt9UycXV0A+8EMp2pVOSel41U6qRV2TX4Pio
+	 IbLdM8YhgHAOmKLiuYqtLTThyPGv+W0ZWrIWSxZLro86p6Sn4WboQC9C5s3XvX86OP
+	 WCu51K7y0yflN+hwHX+AUxLxQvmtqQCtwNP13ltd0yotkgcJPBZSVix7LbZUAFurWB
+	 7x8QJDU96V/dg==
+Date: Mon, 1 Jun 2026 00:43:20 +0930
+From: "Geoffrey D. Bennett" <g@b4.vu>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+	Takashi Iwai <tiwai@suse.de>, Sasha Levin <sashal@kernel.org>
+Subject: Re: [PATCH 6.1 054/969] ALSA: usb-audio: Improve Focusrite sample
+ rate filtering
+Message-ID: <ahxQECPrGoTY10B3@m.b4.vu>
+References: <20260530160300.485627683@linuxfoundation.org>
+ <20260530160301.888290661@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9e7e88299d03a1kunmc8b7c3c910ac2f
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaGUNJVhoZHR4dTx9LGE9KGFYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUhVSkpJVUpPTVVKTUlZV1kWGg8SFR0UWUFZT0tIVUpLSU
-	hOQ0NVSktLVUtZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=Xw1d5ZyYxJ4aUersYsAb/1+IGjVWgMgTCPBP7QiONKMypAV7smhjNHByFXwmRCtdvQDbsSLKPr3ZYb4eUNgR98P268yyb/+0p5vlEZeb1/zxym264IYL3dVWPNIRiX4n9C1ffCU7qAC7sSQAl7tiZzMUiNVZvBnSUzqCSWz+dwc=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=HX5NtF9cwr3M6zvvxorPVwS+U+QX6xEfSohkA7zvYdY=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260530160301.888290661@linuxfoundation.org>
 
-qtnf_pcie_topaz_probe() currently calls devm_request_irq() and only then
-disable_irq(). request_irq() installs the action in the irq core
-immediately, so qtnf_pcie_topaz_interrupt() can run before the Topaz
-private IRQ consumers are initialized.
+On Sat, May 30, 2026 at 05:52:58PM +0200, Greg Kroah-Hartman wrote:
+> 6.1-stable review patch.  If anyone has any objections, please let me know.
+> 
+> ------------------
+> 
+> From: Geoffrey D. Bennett <g@b4.vu>
+> 
+> [ Upstream commit 24d2d3c5f94007a5a0554065ab7349bb69e28bcb ]
+> 
+> Replace the bLength == 10 max_rate check in
+> focusrite_valid_sample_rate() with filtering that also examines the
+> bmControls VAL_ALT_SETTINGS bit.
+> 
+> When VAL_ALT_SETTINGS is readable, the device uses strict
+> per-altsetting rate filtering (only the highest rate pair for that
+> altsetting is valid). When it is not readable, all rates up to
+> max_rate are valid.
+> 
+> For devices without the bLength == 10 Format Type descriptor extension
+> but with VAL_ALT_SETTINGS readable and multiple altsettings (only seen
+> in Scarlett 18i8 3rd Gen playback), fall back to the Focusrite
+> convention: alt 1 = 48kHz, alt 2 = 96kHz, alt 3 = 192kHz.
+> 
+> This produces correct rate tables for all tested Focusrite devices
+> (all Scarlett 2nd, 3rd, and 4th Gen, Clarett+, and Vocaster) using
+> only USB descriptors, allowing QUIRK_FLAG_VALIDATE_RATES to be removed
+> for Focusrite in the next commit.
+> 
+> Signed-off-by: Geoffrey D. Bennett <g@b4.vu>
+> Signed-off-by: Takashi Iwai <tiwai@suse.de>
+> Link: https://patch.msgid.link/7e18c1f393a6ecb6fc75dd867a2c4dbe135e3e22.1771594828.git.g@b4.vu
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
+> ---
+>  sound/usb/format.c | 86 +++++++++++++++++++++++++++++++++++++++-------
+>  1 file changed, 74 insertions(+), 12 deletions(-)
+> 
+> diff --git a/sound/usb/format.c b/sound/usb/format.c
+> index f33d25a4e4cc7..682adbdf7ee79 100644
+[...]
 
-This window is reachable on a running system as soon as probe has
-successfully registered pdev->irq but before qtnf_pcie_init_shm_ipc()
-sets shm_ipc_ep_in/out.irq_handler. If an interrupt is delivered in
-this interval, qtnf_pcie_topaz_interrupt() calls
-qtnf_shm_ipc_irq_handler() for shm_ipc_ep_in/out while their irq_handler
-callbacks are still unset, so the driver can observe an early IRQ
-before its IPC consumer state is ready.
+Hi Greg,
 
-The issue was found on Linux v6.18.21 by our static analysis tool while
-scanning request_irq()/disable_irq() registration-order bugs in
-wireless PCIe drivers, and then manually reviewed. It was validated
-with a QEMU no-device harness using
-IRQ_SIM and a directed generic_handle_irq_safe() injection between
-request_irq() and qtnf_pcie_init_shm_ipc(). The harness reported:
+Please drop these from 6.1 and 5.15. They're part of a 3-patch series
+that needs all 3 to get the benefit (plus 5 more fixes on top for the
+1st Gen Scarletts that the series regressed).
 
-  has_action=1 shm_in=0000000000000000 shm_out=0000000000000000
-  reached handler before shm_ipc init
-  irq_count=1
+The series avoids leaving the device at 192kHz after probe (which
+mutes the internal mixer and disables the Air/Safe modes until an
+application opens the PCM). But the part that actually fixes that,
+38c322068a26 ("Add QUIRK_FLAG_SKIP_IFACE_SETUP"), wasn't selected.
+Without it, __snd_usb_parse_audio_interface() still calls
+snd_usb_init_sample_rate(rate_max) at probe, so removing
+VALIDATE_RATES on its own doesn't help.
 
-This is family-level runtime evidence for the same early-IRQ window. No
-Topaz hardware was available to exercise the real device path end-to-end.
+Unfortunately 38c322068a26 is a regression for some 1st Gen Scarletts,
+and those exclusions were found one model at a time, so I'm not 100%
+confident every affected model is covered, although there have been no
+further reports in nearly 8 weeks. I'm not sure for 6.1/5.15 if the
+benefit outweighs the risk, but if you'd rather take it all, the full
+set in order is:
 
-Request the IRQ with IRQF_NO_AUTOEN instead and keep the existing
-enable_irq() in qtnf_post_init_ep() as the point where interrupts
-become visible. This closes the early-IRQ window while preserving the
-intended bring-up order.
+24d2d3c5f940 ALSA: usb-audio: Improve Focusrite sample rate filtering
+a8cc55bf81a4 ALSA: usb-audio: Remove VALIDATE_RATES quirk for Focusrite devices
+38c322068a26 ALSA: usb-audio: Add QUIRK_FLAG_SKIP_IFACE_SETUP
+8780f561f671 ALSA: usb-audio: Exclude Scarlett 2i2 1st Gen from SKIP_IFACE_SETUP
+990a8b0732cf ALSA: usb-audio: Exclude Scarlett 2i4 1st Gen from SKIP_IFACE_SETUP
+f025ac8c698a ALSA: usb-audio: Exclude Scarlett Solo 1st Gen from SKIP_IFACE_SETUP
+a0dafdbd1049 ALSA: usb-audio: Exclude Scarlett 2i2 1st Gen (8016) from SKIP_IFACE_SETUP
+a47306a74c31 ALSA: usb-audio: Exclude Scarlett 18i20 1st Gen from SKIP_IFACE_SETUP
 
-Build-tested by compiling topaz_pcie.o on x86_64.
+Same issue applies to 6.6 and 6.12: they took the first two (filter +
+VALIDATE_RATES removal) but not 38c322068a26, so the 192kHz behaviour
+is unchanged there. They should probably get the same treatment.
 
-Fixes: e401fa25cfa2 ("qtnfmac: add support for Topaz chipsets")
-Cc: stable@vger.kernel.org
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
----
- drivers/net/wireless/quantenna/qtnfmac/pcie/topaz_pcie.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/net/wireless/quantenna/qtnfmac/pcie/topaz_pcie.c b/drivers/net/wireless/quantenna/qtnfmac/pcie/topaz_pcie.c
-index ef5c069542d4..a3a285f17dca 100644
---- a/drivers/net/wireless/quantenna/qtnfmac/pcie/topaz_pcie.c
-+++ b/drivers/net/wireless/quantenna/qtnfmac/pcie/topaz_pcie.c
-@@ -1132,9 +1132,9 @@ static int qtnf_pcie_topaz_probe(struct qtnf_bus *bus,
- 
- 	/* assign host msi irq before card init */
- 	if (ts->base.msi_enabled)
--		irqflags = IRQF_NOBALANCING;
-+		irqflags = IRQF_NOBALANCING | IRQF_NO_AUTOEN;
- 	else
--		irqflags = IRQF_NOBALANCING | IRQF_SHARED;
-+		irqflags = IRQF_NOBALANCING | IRQF_SHARED | IRQF_NO_AUTOEN;
- 
- 	ret = devm_request_irq(&pdev->dev, pdev->irq,
- 			       &qtnf_pcie_topaz_interrupt,
-@@ -1144,8 +1144,6 @@ static int qtnf_pcie_topaz_probe(struct qtnf_bus *bus,
- 		return ret;
- 	}
- 
--	disable_irq(pdev->irq);
--
- 	ret = qtnf_pre_init_ep(bus);
- 	if (ret) {
- 		pr_err("failed to init card\n");
--- 
-2.34.1
+Thanks,
+Geoffrey
