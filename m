@@ -1,101 +1,134 @@
-Received: from air.basealt.ru (air.basealt.ru [193.43.8.18])
+Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 110B238F63D
-	for <stable@vger.kernel.org>; Sun, 31 May 2026 15:35:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.43.8.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B03DF26E706;
+	Sun, 31 May 2026 15:45:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780241723; cv=none; b=azt1skLWXlpALeeYBsLsrBrJtBUJG0Pftb3lC+K883fb7ApSl+5okJ2i84uPXmscdaxpDc643bJv1XhHVnHQSsHsHIBybOptTdxmA3ntAHqIcTXD2wMrHuEpEAttaYIn75S64Hf/xTtepEXUkoR7SoDpRkbbrLLbId8G6E+SlmE=
+	t=1780242346; cv=none; b=ZZEtEQE4xXBL7ujv9aQaf8PkocLqmoJBljPKOWbHHHvQxXxNNX+HhQmm+Io4ZlzIDNFeWpgMs1Y5tqas6ygKEnso0baTfJ3lTslIpuotEVC9eHee8uZTgFFXl1eJ/k6odXMoXbPyXc6drZAc/vrJEtpzawzLHGQZrGmC3oJYIQs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780241723; c=relaxed/simple;
-	bh=Sz2DmgnbadyAo3Dz86pJGRgTp2LYw+19Ug46KEiSCB0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=OHJV2tQ5eOL21Kgf5zyr87UvfNziLlMcXOCzcuYi0Cma4lVoKEpGLSVevnQZg0d0nHxMHuqf2Hiafk8wzk73TgvYOv9gDGvzzzke18kIPnRCbqjYjBM8r+haq1w5nHDPE7HyOWE42WKZjxLrzIrM/z6gkF6hJgl77eE3ZdRWfTA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=altlinux.org; spf=pass smtp.mailfrom=altlinux.org; arc=none smtp.client-ip=193.43.8.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=altlinux.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altlinux.org
-Received: from [10.88.16.7] (unknown [193.43.11.2])
-	(Authenticated sender: kovalevvv)
-	by air.basealt.ru (Postfix) with ESMTPSA id 4E77C2336D;
-	Sun, 31 May 2026 18:35:19 +0300 (MSK)
-Message-ID: <fc9b0b14-be90-71be-17a8-695549dedd5d@basealt.ru>
-Date: Sun, 31 May 2026 18:35:18 +0300
+	s=arc-20240116; t=1780242346; c=relaxed/simple;
+	bh=SVD63xrn6IISIPNiLlBTLVrnjqjyUKsekxiCpciE/N8=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=uInol5bIprV+BJ49AiPnVNuEnRgkJfHp7UIpNpqVRtE9qnCwQoFN58mlG9MbiifJ5VJNSHqEYcvFJ0fpK0ZKA+760ZzgMNLgcR8OjLb4mwmn6MGvtYJ9x57MjpyyLxx1A5EF7C5KSWQ1/XTOO7o3At971eXygnHperU75+aZv0I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=GchTXq6y; arc=none smtp.client-ip=101.71.155.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="GchTXq6y"
+Received: from PC-202605011814.localdomain (unknown [223.112.146.162])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4079b0796;
+	Sun, 31 May 2026 23:40:21 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: "David S . Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>,
+	netdev@vger.kernel.org
+Cc: Paolo Abeni <pabeni@redhat.com>,
+	Eric Dumazet <edumazet@google.com>,
+	David Ahern <dsahern@kernel.org>,
+	Ido Schimmel <idosch@nvidia.com>,
+	Simon Horman <horms@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	jianhao.xu@seu.edu.cn,
+	runyu.xiao@seu.edu.cn,
+	stable@vger.kernel.org
+Subject: [PATCH net] ipv6: use READ_ONCE() in ipv6_flowlabel_get()
+Date: Sun, 31 May 2026 23:39:46 +0800
+Message-Id: <20260531153946.1627418-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH 5.10 095/589] ALSA: usb-audio: fix null pointer
- dereference on pointer cs_desc
-To: Ben Hutchings <ben@decadent.org.uk>, Chengfeng Ye <cyeaa@connect.ust.hk>,
- Takashi Iwai <tiwai@suse.de>
-Cc: patches@lists.linux.dev, Sasha Levin <sashal@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- stable <stable@vger.kernel.org>
-References: <20260530160224.570625122@linuxfoundation.org>
- <20260530160227.194081368@linuxfoundation.org>
- <ca469f4a22fe4688bbf88c355d074ae5be16a621.camel@decadent.org.uk>
-Content-Language: en-US
-From: Vasiliy Kovalev <kovalev@altlinux.org>
-In-Reply-To: <ca469f4a22fe4688bbf88c355d074ae5be16a621.camel@decadent.org.uk>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0a9e7eb17baf03a1kunm1a9473aa10c4ad
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCShhJVklJGk4aQ0xKGU9LGVYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUhVSkpJVUpPTVVKTUlZV1kWGg8SFR0UWUFZT0tIVUpLSU
+	hOQ0NVSktLVUtZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=GchTXq6yBIqgbfkodXRn449NHQhaIPStb9g4k2rFPVMWXdLfe+FgPe7UhrFXLw1DbeTflwb4uj8TVzFbMtKS8HH6nUobCtgae6s8CzR12ikwDfLlHk1QIBvzY9JWlYBsSGPdoW7u/5v9ZXdYcUYhDkYJIz/2HmbRyRukC/byZVo=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
+	bh=xYgiqMGXQuBXTQ4de//AYazBAazERw6uoWfhIGwwyqg=;
+	h=date:mime-version:subject:message-id:from;
 
-On 5/31/26 15:33, Ben Hutchings wrote:
-> On Sat, 2026-05-30 at 17:59 +0200, Greg Kroah-Hartman wrote:
->> 5.10-stable review patch.  If anyone has any objections, please let me know.
->>
->> ------------------
->>
->> From: Chengfeng Ye <cyeaa@connect.ust.hk>
->>
->> commit b97053df0f04747c3c1e021ecbe99db675342954 upstream.
->>
->> The pointer cs_desc return from snd_usb_find_clock_source could
->> be null, so there is a potential null pointer dereference issue.
->> Fix this by adding a null check before dereference.
->>
->> Signed-off-by: Chengfeng Ye <cyeaa@connect.ust.hk>
->> Link: https://lore.kernel.org/r/20211024111736.11342-1-cyeaa@connect.ust.hk
->> Signed-off-by: Takashi Iwai <tiwai@suse.de>
->> Fixes: 1dc669fed61a ("ALSA: usb-audio: UAC2: support read-only freq control")
->> [ kovalev: bp to fix CVE-2021-47211; added Fixes tag; the null
->>    check was added into both UAC2 and UAC3 branches since the
->>    older kernel still has the clock source lookup split between
->>    snd_usb_find_clock_source() and snd_usb_find_clock_source_v3()
->>    (see upstream commit 9ec730052fa2) ]
-> 
-> In the upstream version the return statement was added in
-> snd_usb_set_sample_rate_v2v3(), so set_sample_rate_v2v3() will do:
-> 
->          cur_rate = snd_usb_set_sample_rate_v2v3(chip, fmt, clock, rate);  // = 0
->          if (cur_rate < 0) ...                              // false
->          if (!cur_rate)                                     // true
->                  cur_rate = prev_rate;
->          if (cur_rate != rate) ...
->   validation:
->          if (!uac_clock_source_is_valid(chip, fmt, clock))  // true because clock soure is missing
->                  return -ENXIO;
-> 
-> so it will ultimately return -ENXIO.
-> 
-> Whereas this backport puts the return statements in
-> set_sample_rate_v2v3(), so it directly returns 0 i.e. silently fails.
-> Shouldn't these be changed to return -ENXIO?
-> 
-> Ben.
+ipv6_flowlabel_get() still reads the shared per-net sysctl fields
+flowlabel_consistency and flowlabel_state_ranges with plain loads,
+while writers update them through proc_dou8vec_minmax(). These checks
+run in the live IPV6_FLOWLABEL_MGR path, so lockless plain reads leave
+KCSAN-visible data races and can make the policy checks observe stale or
+inconsistent values.
 
-Hi Ben,
-You're right. In 5.10 set_sample_rate_v2v3() is a single function, so 
-return 0 here is consumed as success by snd_usb_pcm_prepare(), diverging 
-from upstream which ends up at -ENXIO via !uac_clock_source_is_valid().
+The race can be reached on a running system by toggling
+/proc/sys/net/ipv6/flowlabel_consistency and
+/proc/sys/net/ipv6/flowlabel_state_ranges while another task repeatedly
+issues IPV6_FLOWLABEL_MGR requests with IPV6_FL_F_REFLECT or a
+state-ranges flow label.
 
-v2 sent: 
-https://lore.kernel.org/all/20260531152950.191924-1-kovalev@altlinux.org/
+This issue was first flagged by our static analysis tool while scanning
+lockless IPv6 sysctl readers, then manually audited on Linux v6.18.21.
+The IPV6_FLOWLABEL_MGR paths were runtime-reproduced with QEMU/KCSAN by
+concurrently flipping the two sysctls while TCP reflect and UDP
+state-ranges setsockopt actors exercised ipv6_flowlabel_get(). KCSAN
+reported races between proc_dou8vec_minmax() and the two plain-load
+sites in ipv6_flowlabel_get().
 
+A narrower second-round UDPv6 + IPV6_AUTOFLOWLABEL send-side reproducer
+also hit the inline ip6_make_flowlabel() reader through
+__ip6_make_skb() / proc_dou8vec_minmax(), but that site is already
+fixed in this tree by commit ded139b59b5d
+("ipv6: annotate data-races from ip6_make_flowlabel()"). The remaining
+plain readers in this tree are both in ipv6_flowlabel_get().
+
+Use READ_ONCE() for those remaining sysctl reads so they follow the same
+lockless reader contract already used by other IPv6 sysctl readers.
+
+Build-tested by compiling net/ipv6/ip6_flowlabel.o on x86_64.
+
+Representative QEMU/KCSAN reports from the two target reader paths:
+
+  BUG: KCSAN: data-race in ipv6_flowlabel_opt / proc_dou8vec_minmax
+  write: proc_dou8vec_minmax+0x206/0x220
+  read:  ipv6_flowlabel_opt+0x6d8/0xd20
+         do_ipv6_setsockopt+0x873/0x2220
+         tcp_setsockopt+0x72/0xb0
+
+  BUG: KCSAN: data-race in ipv6_flowlabel_opt / proc_dou8vec_minmax
+  write: proc_dou8vec_minmax+0x206/0x220
+  read:  ipv6_flowlabel_opt+0x129/0xd20
+         do_ipv6_setsockopt+0x873/0x2220
+         udpv6_setsockopt+0x21/0x40
+
+Fixes: 6444f72b4b74 ("ipv6: add flowlabel_consistency sysctl")
+Fixes: 82a584b7cd36 ("ipv6: Flow label state ranges")
+Cc: stable@vger.kernel.org
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+---
+ net/ipv6/ip6_flowlabel.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/net/ipv6/ip6_flowlabel.c b/net/ipv6/ip6_flowlabel.c
+index b1ccdf0dc646..1ab5ad0dcf24 100644
+--- a/net/ipv6/ip6_flowlabel.c
++++ b/net/ipv6/ip6_flowlabel.c
+@@ -620,7 +620,7 @@ static int ipv6_flowlabel_get(struct sock *sk, struct in6_flowlabel_req *freq,
+ 	int err;
+ 
+ 	if (freq->flr_flags & IPV6_FL_F_REFLECT) {
+-		if (net->ipv6.sysctl.flowlabel_consistency) {
++		if (READ_ONCE(net->ipv6.sysctl.flowlabel_consistency)) {
+ 			net_info_ratelimited("Can not set IPV6_FL_F_REFLECT if flowlabel_consistency sysctl is enable\n");
+ 			return -EPERM;
+ 		}
+@@ -633,7 +633,7 @@ static int ipv6_flowlabel_get(struct sock *sk, struct in6_flowlabel_req *freq,
+ 
+ 	if (freq->flr_label & ~IPV6_FLOWLABEL_MASK)
+ 		return -EINVAL;
+-	if (net->ipv6.sysctl.flowlabel_state_ranges &&
++	if (READ_ONCE(net->ipv6.sysctl.flowlabel_state_ranges) &&
+ 	    (freq->flr_label & IPV6_FLOWLABEL_STATELESS_FLAG))
+ 		return -ERANGE;
+ 
 -- 
-Thanks,
-Vasiliy
+2.34.1
