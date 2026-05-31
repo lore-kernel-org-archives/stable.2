@@ -1,153 +1,124 @@
-Received: from fhigh-a2-smtp.messagingengine.com (fhigh-a2-smtp.messagingengine.com [103.168.172.153])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f44.google.com (mail-yx1-f44.google.com [74.125.224.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA5633438A7
-	for <stable@vger.kernel.org>; Sun, 31 May 2026 01:29:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.153
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780190953; cv=none; b=jSls8mcgNV19tsf6W1rchhD/Fv4DjYQA7DYzUDZ5PN8MVx1ciqgMPkxixJ2gRNhaT8UFWbWK1yPZJBmWwmpb8bagoK6jLE5qIxFeywERs+i8ThgxIKZmTc/V99d4UqF8CbabDjHl0vOSQmRAMqFUbpkLE8H+5NIJrSywuvXIfKY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780190953; c=relaxed/simple;
-	bh=307yPJJAHpzr2/1FcYA8kldsdHxrtXw1QnbV/mVS2fw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=lUdn+Yoc0Kq0hF4s63uNwlVH67tVFXM8toqw3J2KYNChTNVh8lMJYQhj7xjjERIt34TPWzjVW8UqMuA1hXxiAshCa03XpUko2vatC0cHvUmV17meChcPmH3ulLRhwLX/3BySyAHHz43m9ANLfWQly3/Cgk/7jmh5K57auu3QV5M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com; spf=pass smtp.mailfrom=pobox.com; dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b=qRADWNpR; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=h5VqDS7y; arc=none smtp.client-ip=103.168.172.153
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEE1B24BD03
+	for <stable@vger.kernel.org>; Sun, 31 May 2026 01:45:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.44
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780191901; cv=pass; b=KG+EwXK4PLWiDtWVDu6xv1VVwnRFKI28WS5JD64UhUXlaNb9g6R39dwblTL8PKrqlkkoqapNF6N9FqudToIAbDUoU4mPol1DdMumjR/RoETme0OUjb43GLYOoha28SyjbQu4UKSpFfe9fjQX3PkhX/OrdSYcvaJax+BobQKV7nc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780191901; c=relaxed/simple;
+	bh=VwqbU5ro897QX71KGfNrhRfC/Ah5/wdZUHUGHxN8mQk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=lvX0UM7fvjZgsFsdEs6CCz+9XSxMWCNoU6edzqDIk2zJuJWKqawL9Wy87l7VVipFewiFKLF5udkr/mzlm9zMzK5II8xpX7jyr/VVumAaB6TYHE4t2crisKeU2h3eJajTGP5G4iS1aiKAvCm32aQZSvllDDY7/oC1DLG4nHlmkhU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bGdk28lo; arc=pass smtp.client-ip=74.125.224.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b="qRADWNpR";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="h5VqDS7y"
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id D1FDE140005C;
-	Sat, 30 May 2026 21:29:10 -0400 (EDT)
-Received: from phl-frontend-02 ([10.202.2.161])
-  by phl-compute-04.internal (MEProxy); Sat, 30 May 2026 21:29:10 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1780190950;
-	 x=1780277350; bh=FXHoUwq6+hJslcgA+GH0HnzXbfw3bpiGTV2ua8fi5LI=; b=
-	qRADWNpRx9l1oOMNZ2vRBhmMwnTjRSInv/o0QzZ3CfZttrwQnU4aCIFbSlaCOkfv
-	O09YJvM6sy6WpXd9mOUtVT96mL6uj1EKk+wCalyjkdYJxn/weZSVXHXj4dfjtAWI
-	y46pbHxvkdVlUN7ENw4B0/JuOUGp2GJbubJD6IyXmYzHKngURV7FsqYeoKny8itD
-	ro15BBNg5fs8+dteHqXJ8c6MDdEHRX7pBQQdZdIXSB7XURp6MxkmcUJMes5QaJNs
-	8nohqQAz6dOZMl0FRwc91Tz+vzfB/IPYpZhmMFSArGhQ8Gb8Fu+PxTVUdNtBTevu
-	2rIFgrsd3qWuDBmP6ZOWWg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1780190950; x=
-	1780277350; bh=FXHoUwq6+hJslcgA+GH0HnzXbfw3bpiGTV2ua8fi5LI=; b=h
-	5VqDS7ymaBfOUB3DxbF64XJl2u4ikYvwopIvYI7eg1rZhDtVv2frZn+cPvqzAeQC
-	imasBxUGqSN03FMU3ThSuAUAnR2Utm0LfgJOx//ggGWPJKClLdiaSqaH2M/Q8MZ+
-	p3YB/88v/oRBCX2g83XHlJW+thk4xNpZ2hwdk/BQ7CI6d7FeZq55E/oAT4AtjsDO
-	QGIvYhqU328n5rN3Z+ZqRFtQNW7VMz8utm3CWWO90oUE0d1FB7IuspOCt1B5ukTI
-	eUzN5r0zN2FZT6A29TSY7sqSwI6hiR/v8MIbywvfRnoxHIpr6zsJoU+3524Gc0YB
-	64Zj6k3C9DP6slVDUlcbw==
-X-ME-Sender: <xms:5Y4barhTodSyoWrQvg3XUETFWr6cIMr0iIdzyIjK1s81Syd51SRzJw>
-    <xme:5Y4bapaMopnj6DoiBP2xM0bZ-QgXIr0qknzkgdLp6KnlHsL48LfHtvJFc02TiRslC
-    AzbnFEIpS9s2nqXfo8z8cN4jesmGfMbzPizMzaaOwpG1Cxu_crREYM>
-X-ME-Received: <xmr:5Y4bakVfg74TEUesEtu6Ka8BUGuq0GNBjFxV0ERnffpYY564HwlVrkuoWto7OL8A3jJ-Wwtep_jvzwjWeXa7hCjR201Mdthq>
-X-ME-Proxy-Cause: dmFkZTETXgvviTlQhfv1mnp2y3iuBRVhrNr4mhTa6gJtfCaKyGCL9r0NoGGVmCvKuK9jGc
-    le5QrzNdL0sQRvgSnBNYnZOU6wfbiNWC+lBlColRDY8qn4bFgrP81eIk2VHVaMlEAUt/FX
-    UHT6c8NI+pZHtkNFQFshvxfcewSkXaYjwdT2zKl4xiC1viMlQRmw4a2WqW9/jL8MYGKiV7
-    mlte9HB2PEeeOQ3/ZIKXV0y1dlYidsKvKNxRwTSudJDSKY+SaoF3Qm9PDIapWXJ5+Xn1+Q
-    WEgdZKzB1qBR5ee1c/idmwur+3/V7fWlqOejl8hj1Q2RO+0Tb5ngorReye9jCK79gcavOA
-    YVPMfr27hUYl/BVrjp8YWgRQ6PYNh+txrbfW5diB4VcXtQaRW+kEawmB98oDe8BrP0E/wh
-    VJOKWpzkUkn+V8v9ACmWeu+dVQxtf/bVlse0JoCiz9v9edjvK5Er51CO2wT09fSgSXrtqa
-    Y5tSqNuKpeAljkkdxrOsdK/qDUpaVy0ey1L3qhA1otXOgFWg50KpuhqrWqtaC3gyhiTd2N
-    igQSIPIbpDjEfNnX+ewZpd8JaOdSuiofOspWGtcAIi01PFaLxDONcxEmd25m7HT7uzWMyV
-    vIfpHJqZAJ2AeqM5xdudvAPxs11gMQ1lWTRPCYIDrz+mwqcgzs24480dvPUg
-X-ME-Proxy: <xmx:5Y4baghFGtOJsTQFTTNMKAHS-_HfLxNkd5XLBpgvG1WTakHCztk2eQ>
-    <xmx:5o4bavmdOiUMm4IObkF7MxJJMJA58SELFxhH2aMZISvYFDGMN6NiZw>
-    <xmx:5o4bapxWUig_tyaf98ZZ1ntzX5LCywd3797cHfArtRaswfpk945tAg>
-    <xmx:5o4baqtanvYYu9k8vJR9HdNWbJNFNpCNn74K4aYaYaBFEjQCivpKHA>
-    <xmx:5o4balPTub55SyXwXvSieE4D3LWqF8rOLbg6NkKsUyCfigdPsXrjKbbg>
-Feedback-ID: i6289494f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
- 30 May 2026 21:29:07 -0400 (EDT)
-Message-ID: <5e2ac444-451c-4220-8013-0e6382b5f165@pobox.com>
-Date: Sat, 30 May 2026 18:29:06 -0700
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bGdk28lo"
+Received: by mail-yx1-f44.google.com with SMTP id 956f58d0204a3-6605e6db5f1so1035332d50.2
+        for <stable@vger.kernel.org>; Sat, 30 May 2026 18:45:00 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1780191900; cv=none;
+        d=google.com; s=arc-20240605;
+        b=fyz2RMlxcU/eyZXRl6LS2WGIvft1P1hmTepjwrZB4ToQZHJ4+XLMB9F+cSJqbVodq7
+         ptXEs855ErbLx0ee1L5kPi7SJB72buPcnHw0IxAehLvF3oo3DX/Aol//9vSLaStu3jpt
+         bY1qaLr/MZNvMHFmTOYWpojD/AjsTKn8VqOrS9I7+dduhbPO3s/wu9H1q8PV0in9Zekt
+         wOyBaWwcWDR4vZHyIrzdgS9S2CjQBanHjx6LH0bT/qlvPiK7LfCYjbYp9vdLg28ixJlZ
+         hBGc+VDkDG1ksUP14KOt/6wtvMQUWVeXR5cH+qhziMAkgN6upyZhz+SVEO7TlDp2c+hy
+         CrZg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=VwqbU5ro897QX71KGfNrhRfC/Ah5/wdZUHUGHxN8mQk=;
+        fh=FIoHdjbNh2TWMsxWYVaU0b7VViy88cpUQS24tjkIW/0=;
+        b=QaEHoECQpFBSsVr6P4ALrQ4oFydQlPbrhr4qyNDgjEmS3bscLUa5LeB0nRJmmZE47T
+         g6UJt25qM8wg8zbX7DRqPxehre6X4yQUBsVz0ljdhal3/N4apP6bLjXKKe9KrBNGznW0
+         2CBYDnlvvBdsmXXUQ/ZZQAAn1/QsLtzEPMlWMdYAfDdk7iW3ZOheex15qJLtwYc4Pynq
+         dAkEO7qEqhRQoXMv9i50wDMscBSkD0++RjnFEkYgti+FhtzkZ/fiJOMDvy/r7vP2F234
+         9LIp36tHG1oHmYLVPRhqlJJxKTPEv8RsPc4GhOnpgq0VQ2U+bvie2JhG8u15qqFON0XE
+         rxjw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780191900; x=1780796700; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=VwqbU5ro897QX71KGfNrhRfC/Ah5/wdZUHUGHxN8mQk=;
+        b=bGdk28lozACXNPKfBywsZ3mG6s4zBF2PgTH9KaAAhWQpAPSYGWFrFSa4Wfq4oq7mXD
+         P+NV0gftMhyf+PbSOitcvS4y2Ab9C7kuGJCZ//4ISxAqp/bsugwq6OyENWPn/XxP2RbW
+         81y3xLQgLMmBsYOduwi/CN52nHOU4D7DK1ITQqUFQzKCvv6EhwFkDdXXF+dN4Ta9Hc/0
+         4us8/1BJWkhQ48lI5giAlszQAeSz+zwLc8T98VLTAXABILzqfRMq/JW+MlsJuD9xT+ul
+         R2JXQUu2o8Q0ps2sQ2jUBAMET21+7zT7Mda3sryP9zrAb8DhnbaNS05MYPteIlGGqG4Y
+         PK6A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780191900; x=1780796700;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=VwqbU5ro897QX71KGfNrhRfC/Ah5/wdZUHUGHxN8mQk=;
+        b=ZMB+K2GkVP6KxPBGXixDltFbuR/64pZBalHQIpcBg0bC+NXNOziD8fBQ2P3lz/isT2
+         wl2x+PQ7p4zkFsNumC8aEYAkXmWKGXW5gaTeQrx99ebNb2jXlIngUvWlHHO0KrFKEMKk
+         mGVIhTCRS31O+U6X0SRfFZj45IH2RJXpGcu3PriZemLG0eH277B0cdykum/DL388Tq3I
+         n9Un2h7/8UvUGjn3VH3NNiQBwXrJEv2tK4bp0C5++qLBHf0x5aeHgS5rMKi0BwMHaZ/Z
+         o91dWllVK5dce9+b4/CApp51wXFghsaBuUsToH9izNLOtXMKKt6q8QVhc0oxFJQe78H6
+         Io7A==
+X-Forwarded-Encrypted: i=1; AFNElJ8vUWKHdPomk0iiyWAjZmn/1JU8aS0vyyFAvi5Ztu1BVNnjfhyD4SeouWQvr6YNDAvvTzYkfsA=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz3de6tel6n8KQlisLulML8BWgmYyLT0YR9vNTYeG5ascv/DJZx
+	sHPsma8sMvZ0bky3wLD8W7Vj78v9lO0oG2zo4j4FQdatkRB0bwDRaeM3yRe2n5bC/CwOWLbo7QS
+	Xa8utJ0HPGl/BZkcYfT5MpJCQG5RKa4OaY3dd
+X-Gm-Gg: Acq92OHR5+H3Nj2znvXotqRk1XN6qH8c2sLcWaWBjW+9GpS3p3qjm5qsIaCeTnc5NRr
+	etdmI50v/jNUJbNRLibt6eBPmoTGtw+vCqlvZdPW91I13w7fZoOas17BXveotRTRmX+OB7yPbwq
+	rEt8sjjagmkXJIL4VVMEysjwI9ZnDeqwSB7Y1o/EsWZmc3pRYSjIgV7gzss2K/j2eQIUs8BvptY
+	Xf5UmZw6Q2lBlSo4+qEXjmA6QsFUB6fz+fg6unclX9rd/wC+z2mBiDXxnk0ekBDM7+lO3FGsSvn
+	RRF8l/t/QileSXmJRIJmPk85thJXHOL9YibG8PjQVBr4nAtGBaVaf98rkzj4jc6rzfZrBmV+xBh
+	ZLdCdbg==
+X-Received: by 2002:a05:690e:43d7:b0:660:460e:254b with SMTP id
+ 956f58d0204a3-6605f068571mr3687927d50.38.1780191899729; Sat, 30 May 2026
+ 18:44:59 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5.10 072/589] media: uvcvideo: Use heuristic to find
- stream entity
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, Angel4005 <ooara1337@gmail.com>,
- Ricardo Ribalda <ribalda@chromium.org>, Hans de Goede <hansg@kernel.org>,
- Hans Verkuil <hverkuil+cisco@kernel.org>, Ron Economos <re@w6rz.net>,
- "Pavel Machek (CIP)" <pavel@nabladev.com>,
- Brett A C Sheffield <bacs@librecast.net>, Mark Brown <broonie@kernel.org>,
- Peter Schneider <pschneider1968@googlemail.com>,
- Francesco Dolcini <francesco.dolcini@toradex.com>,
- Shuah Khan <skhan@linuxfoundation.org>, Jon Hunter <jonathanh@nvidia.com>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Miguel Ojeda <ojeda@kernel.org>,
- Vijayendra Suman <vijayendra.suman@oracle.com>,
- Sasha Levin <sashal@kernel.org>
-References: <20260530160224.570625122@linuxfoundation.org>
- <20260530160226.496219768@linuxfoundation.org>
-Content-Language: en-US
-From: "Barry K. Nathan" <barryn@pobox.com>
-In-Reply-To: <20260530160226.496219768@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20260430040704.113622-1-kartikey406@gmail.com> <eea194aa0f8734f38fa645db935aca47175bdf17.camel@redhat.com>
+In-Reply-To: <eea194aa0f8734f38fa645db935aca47175bdf17.camel@redhat.com>
+From: Deepanshu Kartikey <kartikey406@gmail.com>
+Date: Sun, 31 May 2026 07:14:48 +0530
+X-Gm-Features: AVHnY4IoW1fZ_suyNHPqLDrDuECtYKSHSM3mNf25rwJnNEPZzvMHT3qfHLCFemI
+Message-ID: <CADhLXY66nCRtQk-gzHcZGm596sB2BAVKM1Ehue0ELj=OjuC-=Q@mail.gmail.com>
+Subject: Re: [PATCH v3] nilfs2: reject CLEAN_SEGMENTS ioctl with out-of-range
+ segment numbers
+To: Viacheslav Dubeyko <vdubeyko@redhat.com>
+Cc: konishi.ryusuke@gmail.com, slava@dubeyko.com, linux-nilfs@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, 
+	syzbot+62f0f99d2f2bb8e3bbd7@syzkaller.appspotmail.com, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 5/30/26 8:59 AM, Greg Kroah-Hartman wrote:
-> 5.10-stable review patch.  If anyone has any objections, please let me know.
-> 
-> ------------------
-> 
-> From: Ricardo Ribalda<ribalda@chromium.org>
-> 
-> [ Upstream commit 758dbc756aad429da11c569c0d067f7fd032bcf7 ]
-> 
-> Some devices, like the Grandstream GUV3100 webcam, have an invalid UVC
-> descriptor where multiple entities share the same ID, this is invalid
-> and makes it impossible to make a proper entity tree without heuristics.
-> 
-> We have recently introduced a change in the way that we handle invalid
-> entities that has caused a regression on broken devices.
-> 
-> Implement a new heuristic to handle these devices properly.
-> 
-> Reported-by: Angel4005<ooara1337@gmail.com>
-> Closes:https://lore.kernel.org/linux-media/CAOzBiVuS7ygUjjhCbyWg-KiNx+HFTYnqH5+GJhd6cYsNLT=DaA@mail.gmail.com/
-> Fixes: 0e2ee70291e6 ("media: uvcvideo: Mark invalid entities with id UVC_INVALID_ENTITY_ID")
-> Cc:stable@vger.kernel.org
-> Signed-off-by: Ricardo Ribalda<ribalda@chromium.org>
-> Reviewed-by: Hans de Goede<hansg@kernel.org>
-> Signed-off-by: Hans Verkuil<hverkuil+cisco@kernel.org>
-> Tested-by: Ron Economos<re@w6rz.net>
-> Tested-by: Pavel Machek (CIP)<pavel@nabladev.com>
-> Tested-by: Brett A C Sheffield<bacs@librecast.net>
-> Tested-by: Mark Brown<broonie@kernel.org>
-> Tested-by: Barry K. Nathan<barryn@pobox.com>
-> Tested-by: Peter Schneider<pschneider1968@googlemail.com>
-> Tested-by: Francesco Dolcini<francesco.dolcini@toradex.com>
-> Tested-by: Shuah Khan<skhan@linuxfoundation.org>
-> Tested-by: Jon Hunter<jonathanh@nvidia.com>
-> Tested-by: Florian Fainelli<florian.fainelli@broadcom.com>
-> Tested-by: Miguel Ojeda<ojeda@kernel.org>
-> Tested-by: Vijayendra Suman<vijayendra.suman@oracle.com>
-> Signed-off-by: Sasha Levin<sashal@kernel.org>
-> ---
->   drivers/media/usb/uvc/uvc_driver.c | 15 ++++++++++++++-
->   1 file changed, 14 insertions(+), 1 deletion(-)
+On Thu, Apr 30, 2026 at 11:41=E2=80=AFPM Viacheslav Dubeyko <vdubeyko@redha=
+t.com> wrote:
+>
+> Usually, I prefer to keep the err variable at the end of declarations. Be=
+cause,
+> it is the ending state of the function. And I am feeling that something i=
+s wrong
+> every time when likewise variable is hidden inside of declaration list. :=
+) There
+> is nothing critical in my remark. But anyway... :)
+>
+> The path looks good to me.
+>
+> Thanks,
+> Slava.
+>
 
-Comparing this patch to the corresponding patches that went into
-5.15.203/6.1.169/6.6.117/6.12.58/6.17.8, I believe these Tested-by tags
-may be incorrect.
+Hi Viacheslav,
 
-(Incidentally, I think my email client may have removed some of the
-spaces in the quoted text, but I'm not sure why that happened.)
+Gentle Reminder. I want to know the status of the patch.
+Let me know if anything is required from my side.
 
--- 
--Barry K. Nathan  <barryn@pobox.com>
+Thanks
+
+Deepanshu
