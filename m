@@ -1,43 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96FD2355819;
-	Sat, 30 May 2026 20:45:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACA5C1F8691
+	for <stable@vger.kernel.org>; Sun, 31 May 2026 00:23:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780173946; cv=none; b=lzqvRYlPuNIxfq/6CCUTboQP4t+gW+nRhYueXooS88UxyI3q6dYeXb985bnqgW9/DbOHBctQIzJMJ6hkMQqfqNdmqG47VvUKnVNjmDeVDSCsxs7Ieca/Jy9ZMZ6bMvs5ebNqBYUo7YBJm/rtiEHTNNIUphS6GEnuaYzOJlZ7wl8=
+	t=1780187038; cv=none; b=gUDgvvqMhIQcxlO3lfmvHTgPuCUmMdiiDYFGAlCmRmV0aAGNZIc+90ZPC7v99orgNSLn0ZWNXM9fDQtL2WVFbWsyEUsL8AQT1qdgBbAHWeot1kkAfreJYDdcMBZacOZYb1i55nCUBIAOyR3GEpy1yJrL4MuW5uJTUkgkplcn12s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780173946; c=relaxed/simple;
-	bh=ivtVcWkO/v1V1f72OYLD+Kr2+OjL1goztC6IflZtIec=;
+	s=arc-20240116; t=1780187038; c=relaxed/simple;
+	bh=ZYudhCCjaYxEfzORu3Vdq4+rPczRgH+7D3f0GFTxNKA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gdXwl5EIa4MxbnS5DIAK6Cg2XmIkF8w7SbI7dAknyIZFlRB8wTi0vtUcbXfnBsJIKLHS62bQ4HQX0bsD/jPoV7F1uk5M5hCAHz5/ktQ+MwNMqNj8DT//+XKtRelB+d31o1HyzF8woY177+3tjtRyXYpd/LDPFoiMgGzG7aL34Mg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nYOSuZWm; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=k6sUQI90TOdli8SwCFmHUyIHSSvlFo8Q09ds7+3BuPyfqhhshAahK8Ts2uyHttnzBsJ6oWU7XcLjKanh6YU4DsGceOxnkwqEtFe0gYGnKktCXEVKRGfunUCzY8KbGjW9tFroUjpolK/ObtQNpqfz0ulH5ha6bcP8vEbAfGZCKro=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ah6B7tVz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nYOSuZWm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7FDE1F00899;
-	Sat, 30 May 2026 20:45:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ah6B7tVz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0D661F00893;
+	Sun, 31 May 2026 00:23:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780173945;
-	bh=tLisUHuKI53t4eaaqFPc74kLG5u7gVAwhsx0GXoeEZc=;
+	s=k20260515; t=1780187037;
+	bh=UVsuE+3+HQ7LKlksRFBf+SrA82HSzQ36XJw/h/pehLw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nYOSuZWmhUpCeb6hMb+cbFkSs/leMZbl0EuvXMSUfCptHK9KScwImprs98DvXhaVr
-	 HbqDhAlqkiC47en1owjn3NI+RALPJRr4z+SZR/Q/VvBj/LBN+hv0xY4ZXPCpUawbee
-	 LLDcmMgwgEYB4Zd5Brq2JBBMBUC6a/jk4Ltw+pduYcdJMrRApRlOCcJD7l6524T4p+
-	 RpKLooU1YVTs7l4ohw1aRvlT8ETYMOIKF7KY7s1W59eblp9hu4nkVxv/ugmv3spE9z
-	 q0OwGZ3cLFechYELp6+/H4Dcfeh3QSyI6sg5GK7j2CAq4lBtTYeQFRybCdX0+qsiAx
-	 Q30jYqTEXWPvA==
-From: srini@kernel.org
-To: gregkh@linuxfoundation.org
-Cc: linux-kernel@vger.kernel.org,
-	Zhenghang Xiao <kipreyyy@gmail.com>,
-	stable@vger.kernel.org,
-	Srinivas Kandagatla <srini@kernel.org>
-Subject: [PATCH 4/4] misc: fastrpc: fix use-after-free race in fastrpc_map_create
-Date: Sat, 30 May 2026 21:45:28 +0100
-Message-ID: <20260530204528.116920-5-srini@kernel.org>
+	b=Ah6B7tVznHlEoOVjZnbN8qeClmCxFIyT00zj90RfEhqfs+WHWwr4lw56NZVasoDPv
+	 xqP8Bx4qRg8/xm479dF2PR8soPD59f6NjUI45JwUnUsavFc919UgH+Ug6EGMqQTt1f
+	 /lena0v34a5Y1TRayOsWCNhth0gnABFlvhuRE4bArGxkwDTIrTJg004u6K3lHoP2k0
+	 fC2u93hnwao1qzCff5xQQG7AfHa8b2iAnZkzjKr5nPYNFjgByuIZgByV4v7Fpl6pwd
+	 zi94YswbdYcsp7ry4oLeDnv4WuvsYammKrF+gBWIIy89we9k7q9k91dwBuqyr9dMZZ
+	 wlJq5b8CbEVnA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Zeng Heng <zengheng4@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.0.y] arm64: tlb: Flush walk cache when unsharing PMD tables
+Date: Sat, 30 May 2026 20:23:54 -0400
+Message-ID: <20260531002354.3659423-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260530204528.116920-1-srini@kernel.org>
-References: <20260530204528.116920-1-srini@kernel.org>
+In-Reply-To: <2026052831-stammer-jaws-339f@gregkh>
+References: <2026052831-stammer-jaws-339f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,83 +45,53 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Zhenghang Xiao <kipreyyy@gmail.com>
+From: Zeng Heng <zengheng4@huawei.com>
 
-fastrpc_map_lookup returns a raw pointer after releasing fl->lock. The
-caller fastrpc_map_create then calls fastrpc_map_get (kref_get_unless_zero)
-on this unprotected pointer. A concurrent MEM_UNMAP can free the map
-between the lock release and the kref operation, resulting in a
-use-after-free on the freed slab object.
+[ Upstream commit c2ff4764e03e7a8d758352f4aceb8fe1be6ac971 ]
 
-Restore the take_ref parameter to fastrpc_map_lookup so the reference
-is acquired atomically under fl->lock before the pointer is exposed to
-the caller.
+When huge_pmd_unshare() is called to unshare a PMD table, the
+tlb_unshare_pmd_ptdesc() function sets tlb->unshared_tables=true
+but the aarch64 tlb_flush() only checked tlb->freed_tables to
+determine whether to use TLBF_NONE (vae1is, invalidates walk
+cache) or TLBF_NOWALKCACHE (vale1is, leaf-only).
 
-Fixes: 10df039834f8 ("misc: fastrpc: Skip reference for DMA handles")
-Cc: stable@vger.kernel.org
-Signed-off-by: Zhenghang Xiao <kipreyyy@gmail.com>
-Signed-off-by: Srinivas Kandagatla <srini@kernel.org>
+This caused the stale PMD page table entry to remain in the walk cache
+after unshare, potentially leading to incorrect page table walks.
+
+Fix by including unshared_tables in the check, so that when
+unsharing tables, TLBF_NONE is used and the walk cache is properly
+invalidated.
+
+Here is the detailed distinction between vae1is and vale1is:
+
+| Instruction Combination  | Actual Invalidation Scope                         |
+| ------------------------ | --------------------------------------------------|
+| `VAE1IS`  + TTL=`0`      | All entries at all levels (full invalidation)     |
+| `VAE1IS`  + TTL=`2` (L2) | Non-leaf at Level 0/1 + leaf at Level 2           |
+| `VALE1IS` + TTL=`0`      | Leaf entries at all levels (non-leaf not cleared) |
+| `VALE1IS` + TTL=`2` (L2) | Leaf entry at Level 2 only                        |
+
+Signed-off-by: Zeng Heng <zengheng4@huawei.com>
+Fixes: 8ce720d5bd91 ("mm/hugetlb: fix excessive IPI broadcasts when unsharing PMD tables using mmu_gather")
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Catalin Marinas <catalin.marinas@arm.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/misc/fastrpc.c | 25 +++++++++++--------------
- 1 file changed, 11 insertions(+), 14 deletions(-)
+ arch/arm64/include/asm/tlb.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-index 47cf3d21b51d..f3a49384586d 100644
---- a/drivers/misc/fastrpc.c
-+++ b/drivers/misc/fastrpc.c
-@@ -388,7 +388,7 @@ static int fastrpc_map_get(struct fastrpc_map *map)
- 
- 
- static int fastrpc_map_lookup(struct fastrpc_user *fl, int fd,
--			    struct fastrpc_map **ppmap)
-+			    struct fastrpc_map **ppmap, bool take_ref)
+diff --git a/arch/arm64/include/asm/tlb.h b/arch/arm64/include/asm/tlb.h
+index 8d762607285cc..b3b863c919fea 100644
+--- a/arch/arm64/include/asm/tlb.h
++++ b/arch/arm64/include/asm/tlb.h
+@@ -53,7 +53,7 @@ static inline int tlb_get_level(struct mmu_gather *tlb)
+ static inline void tlb_flush(struct mmu_gather *tlb)
  {
- 	struct fastrpc_map *map = NULL;
- 	struct dma_buf *buf;
-@@ -403,6 +403,12 @@ static int fastrpc_map_lookup(struct fastrpc_user *fl, int fd,
- 		if (map->fd != fd || map->buf != buf)
- 			continue;
- 
-+		if (take_ref) {
-+			ret = fastrpc_map_get(map);
-+			if (ret)
-+				break;
-+		}
-+
- 		*ppmap = map;
- 		ret = 0;
- 		break;
-@@ -920,19 +926,10 @@ static int fastrpc_map_attach(struct fastrpc_user *fl, int fd,
- static int fastrpc_map_create(struct fastrpc_user *fl, int fd,
- 			      u64 len, u32 attr, struct fastrpc_map **ppmap)
- {
--	struct fastrpc_session_ctx *sess = fl->sctx;
--	int err = 0;
--
--	if (!fastrpc_map_lookup(fl, fd, ppmap)) {
--		if (!fastrpc_map_get(*ppmap))
--			return 0;
--		dev_dbg(sess->dev, "%s: Failed to get map fd=%d\n",
--			__func__, fd);
--	}
--
--	err = fastrpc_map_attach(fl, fd, len, attr, ppmap);
-+	if (!fastrpc_map_lookup(fl, fd, ppmap, true))
-+		return 0;
- 
--	return err;
-+	return fastrpc_map_attach(fl, fd, len, attr, ppmap);
- }
- 
- /*
-@@ -1202,7 +1199,7 @@ static int fastrpc_put_args(struct fastrpc_invoke_ctx *ctx,
- 	for (i = 0; i < FASTRPC_MAX_FDLIST; i++) {
- 		if (!fdlist[i])
- 			break;
--		if (!fastrpc_map_lookup(fl, (int)fdlist[i], &mmap))
-+		if (!fastrpc_map_lookup(fl, (int)fdlist[i], &mmap, false))
- 			fastrpc_map_put(mmap);
- 	}
+ 	struct vm_area_struct vma = TLB_FLUSH_VMA(tlb->mm, 0);
+-	bool last_level = !tlb->freed_tables;
++	bool last_level = !(tlb->freed_tables || tlb->unshared_tables);
+ 	unsigned long stride = tlb_get_unmap_size(tlb);
+ 	int tlb_level = tlb_get_level(tlb);
  
 -- 
 2.53.0
