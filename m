@@ -1,126 +1,74 @@
-Received: from m.b4.vu (m.b4.vu [203.16.231.148])
+Received: from mx1.mythic-beasts.com (mx1.mythic-beasts.com [46.235.224.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC37A38F633
-	for <stable@vger.kernel.org>; Sun, 31 May 2026 15:13:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.16.231.148
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3328E30E0E9;
+	Sun, 31 May 2026 15:18:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.235.224.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780240412; cv=none; b=t/+wscFh5GxAuPqAF3+SDO5SOThRgmiCuSfJWvu3OjrxGn0yeaf/A6Vd9MDY+gMwGG0vk3GIFSF9/rBRXN7fYrxToXnr83wzmMIniPDJa3s02m2N0vuz9ozurlTT4MkBK1gHKzAaRww9Gy4B/tLLhGQ379SArK3X/DnYwkLE+mY=
+	t=1780240695; cv=none; b=cuQw3hfIw/PK0yb4WyaBH8nPfzuuZ4201bet1ydbXnCesZdyj4sqs6qcgUCDJd+OclnvZHapD0occOgjTa5LtSMlxXVUGhWzZb7F0oGriiZVtJJXxC6Na/V36B3b0H/yPqfMNi3uaVcp8HJFxfjrml1jyjBS9anfY/LmIw14JRE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780240412; c=relaxed/simple;
-	bh=H2ExlMdIhxev/OHb0le93xGbNGsb+HE6C8eYWRhN4VQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HUv2xPeCd4RCEfIAq/q0ZafgMQWRSXjdbBHwhHU1nGm28GH92rKtui78Rows/OC+HOLPgw1FwxxaRo+gbJhjhBQ+f4jOlYJA5kLbUT3ce1B5/yffP+GzDHAAsJiGxINllXaBYePRikQwuSzTcDrpdX78qIvjm8jByThteHe71fE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=b4.vu; spf=pass smtp.mailfrom=b4.vu; dkim=pass (2048-bit key) header.d=b4.vu header.i=@b4.vu header.b=IFhxnrGB; arc=none smtp.client-ip=203.16.231.148
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=b4.vu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=b4.vu
+	s=arc-20240116; t=1780240695; c=relaxed/simple;
+	bh=rhOTB4kvjmISDBctDwT5HOz93gVp+fe2NG4uXfye8nc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=qjyaiJ2u0hBD5Va+FbPYEarBYOn3HCbY13For1l4kpCupa1jl5i79IZs133gf8eRBPHRiOOQkhQj/CuY/JEphadBJNCunbuPUmWabtdea1mdCcZN8/i2eQxF2jmBmB+eP5kOBi75rpVeOFzO6f4rsPCN00T9o4PdvimhECp61Is=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pelago.org.uk; spf=pass smtp.mailfrom=pelago.org.uk; dkim=pass (2048-bit key) header.d=pelago.org.uk header.i=@pelago.org.uk header.b=XDNrlPVK; arc=none smtp.client-ip=46.235.224.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pelago.org.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pelago.org.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=b4.vu header.i=@b4.vu header.b="IFhxnrGB"
-Received: by m.b4.vu (Postfix, from userid 1000)
-	id C2EEB67DC7DB; Mon,  1 Jun 2026 00:43:20 +0930 (ACST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 m.b4.vu C2EEB67DC7DB
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=b4.vu; s=m1;
-	t=1780240400; bh=fGPzGM6HsELRKDb0LPe7FpxAWXKREgEVrtYdnVrRNlI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=IFhxnrGB3R8Gy0pb5KDCtWuEbxYgZ+rB930ZW3ezUW3np6ez6BYVD9gB9gkZpJEp6
-	 mnJ8DiiYp/3NIhZIPkjSBGNQ83FXfulvAVzG8N1zUBoHJSFZ570Jmqo2bHcKDU5xCH
-	 oz8mMFl40OZDLi8zDxPhyociOuuUgaIt9UycXV0A+8EMp2pVOSel41U6qRV2TX4Pio
-	 IbLdM8YhgHAOmKLiuYqtLTThyPGv+W0ZWrIWSxZLro86p6Sn4WboQC9C5s3XvX86OP
-	 WCu51K7y0yflN+hwHX+AUxLxQvmtqQCtwNP13ltd0yotkgcJPBZSVix7LbZUAFurWB
-	 7x8QJDU96V/dg==
-Date: Mon, 1 Jun 2026 00:43:20 +0930
-From: "Geoffrey D. Bennett" <g@b4.vu>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev,
-	Takashi Iwai <tiwai@suse.de>, Sasha Levin <sashal@kernel.org>
-Subject: Re: [PATCH 6.1 054/969] ALSA: usb-audio: Improve Focusrite sample
- rate filtering
-Message-ID: <ahxQECPrGoTY10B3@m.b4.vu>
-References: <20260530160300.485627683@linuxfoundation.org>
- <20260530160301.888290661@linuxfoundation.org>
+	dkim=pass (2048-bit key) header.d=pelago.org.uk header.i=@pelago.org.uk header.b="XDNrlPVK"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=pelago.org.uk; s=mythic-beasts-k1; h=From:To:Subject:Date;
+	bh=x3VT+5iyicJEVrdyWbzkEK72fKPATPivo6/EvwZumBw=; b=XDNrlPVKHWbauR5caD5Hsk9xJs
+	m5fG/kzn/NXDY7GbTEOvIfc6eSxmb846M90d/mDs5vRkm7kWIf4M/nEDcwvTkk+zOxRrH3FYyBTGN
+	iRwp69DT9dvhFuw/WeBMDWmqeJ1eKlD5YCH2GXJxB/FDlIPOUyGzcNahrWFg1LWhm/5ee78FkxMEH
+	JJwJOyIeBaoiSIlcnauLeFz1KC5p4+BP2ioY47I2THZgkS96g9e+Shg5C2YTwmNuBGnDhbR1fncmf
+	S1bliDBFLTgnmC//0wOYAFJ0ILJ+oQPZWIYRfCpkRBUK9VVwpW3KWZm20NCDK9rhd+fFV2PkRFtxb
+	JOAFxwTw==;
+Received: by mailhub-cam-d.mythic-beasts.com with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <john-linux@pelago.org.uk>)
+	id 1wThvE-00Ddc3-2t;
+	Sun, 31 May 2026 16:17:53 +0100
+Message-ID: <75398536-2ca8-4205-9205-18afc5227397@pelago.org.uk>
+Date: Sun, 31 May 2026 16:17:24 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260530160301.888290661@linuxfoundation.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [REGRESSION] Toshiba Fn keys + lidswitch
+To: johannes.goede@oss.qualcomm.com, "Rafael J. Wysocki" <rafael@kernel.org>,
+ Nick <nick@kousu.ca>
+Cc: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+ regressions@lists.linux.dev, linux-acpi@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
+ todd.e.brandt@linux.intel.com, xi.pardee@linux.intel.com,
+ platform-driver-x86@vger.kernel.org, stable@vger.kernel.org
+References: <E2OXET.4X5GTP37VTNC3@kousu.ca>
+ <CAJZ5v0jVQyWYqPo_MiUwNQb7FLNR_Q_++Xq=xA1owcHpcjN=OA@mail.gmail.com>
+ <bc9d5258-d4df-46a1-bba9-de3486f722ab@pelago.org.uk>
+ <8503d297-68ca-4bfe-bbdf-537a85890d86@oss.qualcomm.com>
+Content-Language: en-GB
+From: John Veness <john-linux@pelago.org.uk>
+In-Reply-To: <8503d297-68ca-4bfe-bbdf-537a85890d86@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-BlackCat-Spam-Score: 0
 
-On Sat, May 30, 2026 at 05:52:58PM +0200, Greg Kroah-Hartman wrote:
-> 6.1-stable review patch.  If anyone has any objections, please let me know.
+On 30/05/2026 14:34, johannes.goede@oss.qualcomm.com wrote:
+> In case you've not seen it yet, Rafael send out the test patch
+> publicly later that day in another email in this thread:
 > 
-> ------------------
+> https://lore.kernel.org/linux-acpi/12896447.O9o76ZdvQC@rafael.j.wysocki/
 > 
-> From: Geoffrey D. Bennett <g@b4.vu>
+> Regards,
 > 
-> [ Upstream commit 24d2d3c5f94007a5a0554065ab7349bb69e28bcb ]
-> 
-> Replace the bLength == 10 max_rate check in
-> focusrite_valid_sample_rate() with filtering that also examines the
-> bmControls VAL_ALT_SETTINGS bit.
-> 
-> When VAL_ALT_SETTINGS is readable, the device uses strict
-> per-altsetting rate filtering (only the highest rate pair for that
-> altsetting is valid). When it is not readable, all rates up to
-> max_rate are valid.
-> 
-> For devices without the bLength == 10 Format Type descriptor extension
-> but with VAL_ALT_SETTINGS readable and multiple altsettings (only seen
-> in Scarlett 18i8 3rd Gen playback), fall back to the Focusrite
-> convention: alt 1 = 48kHz, alt 2 = 96kHz, alt 3 = 192kHz.
-> 
-> This produces correct rate tables for all tested Focusrite devices
-> (all Scarlett 2nd, 3rd, and 4th Gen, Clarett+, and Vocaster) using
-> only USB descriptors, allowing QUIRK_FLAG_VALIDATE_RATES to be removed
-> for Focusrite in the next commit.
-> 
-> Signed-off-by: Geoffrey D. Bennett <g@b4.vu>
-> Signed-off-by: Takashi Iwai <tiwai@suse.de>
-> Link: https://patch.msgid.link/7e18c1f393a6ecb6fc75dd867a2c4dbe135e3e22.1771594828.git.g@b4.vu
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
-> ---
->  sound/usb/format.c | 86 +++++++++++++++++++++++++++++++++++++++-------
->  1 file changed, 74 insertions(+), 12 deletions(-)
-> 
-> diff --git a/sound/usb/format.c b/sound/usb/format.c
-> index f33d25a4e4cc7..682adbdf7ee79 100644
-[...]
+> Hans
 
-Hi Greg,
+Thanks for the pointer, and sorry for missing that! I had only been
+looking in the archives of platform-driver-x86@vger.kernel.org which for
+some reason didn't receive the patch.
 
-Please drop these from 6.1 and 5.15. They're part of a 3-patch series
-that needs all 3 to get the benefit (plus 5 more fixes on top for the
-1st Gen Scarletts that the series regressed).
-
-The series avoids leaving the device at 192kHz after probe (which
-mutes the internal mixer and disables the Air/Safe modes until an
-application opens the PCM). But the part that actually fixes that,
-38c322068a26 ("Add QUIRK_FLAG_SKIP_IFACE_SETUP"), wasn't selected.
-Without it, __snd_usb_parse_audio_interface() still calls
-snd_usb_init_sample_rate(rate_max) at probe, so removing
-VALIDATE_RATES on its own doesn't help.
-
-Unfortunately 38c322068a26 is a regression for some 1st Gen Scarletts,
-and those exclusions were found one model at a time, so I'm not 100%
-confident every affected model is covered, although there have been no
-further reports in nearly 8 weeks. I'm not sure for 6.1/5.15 if the
-benefit outweighs the risk, but if you'd rather take it all, the full
-set in order is:
-
-24d2d3c5f940 ALSA: usb-audio: Improve Focusrite sample rate filtering
-a8cc55bf81a4 ALSA: usb-audio: Remove VALIDATE_RATES quirk for Focusrite devices
-38c322068a26 ALSA: usb-audio: Add QUIRK_FLAG_SKIP_IFACE_SETUP
-8780f561f671 ALSA: usb-audio: Exclude Scarlett 2i2 1st Gen from SKIP_IFACE_SETUP
-990a8b0732cf ALSA: usb-audio: Exclude Scarlett 2i4 1st Gen from SKIP_IFACE_SETUP
-f025ac8c698a ALSA: usb-audio: Exclude Scarlett Solo 1st Gen from SKIP_IFACE_SETUP
-a0dafdbd1049 ALSA: usb-audio: Exclude Scarlett 2i2 1st Gen (8016) from SKIP_IFACE_SETUP
-a47306a74c31 ALSA: usb-audio: Exclude Scarlett 18i20 1st Gen from SKIP_IFACE_SETUP
-
-Same issue applies to 6.6 and 6.12: they took the first two (filter +
-VALIDATE_RATES removal) but not 38c322068a26, so the 192kHz behaviour
-is unchanged there. They should probably get the same treatment.
-
-Thanks,
-Geoffrey
+John
