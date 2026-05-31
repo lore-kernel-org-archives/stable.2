@@ -1,94 +1,205 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E4FC1A9FBC;
-	Sun, 31 May 2026 17:04:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07C0229ACDD;
+	Sun, 31 May 2026 17:39:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780247096; cv=none; b=mixGAzQIx1RcC/QKM6IBCZVdts9RYm/5SU10pj2+sPXMu0bn1U1IQwnK4CmQJ4sP6FgF+4fj05Bypcs4uU9ut0zatV4ZlKglSCgyMyZV3aWA/7e7fV+tObNcVAs/xviR3yttq5zQH9FGYzrROhPD7BUvvHcegG93puIrmBQIlIU=
+	t=1780249162; cv=none; b=TC0AUhQ9KTu9EkgTC2NsPRoOh1EntWo6AggAttriC5iyMdjrzIno0gtRpqjqSxNpab17WVBxbTq0HhserdgNpTnFVmDHkK6m+Eye+xazTgL37eH+XYONW+/YrXT/eAAP+hPlIyReboatgqfoaPxBTrlNGzHRmDYYf4HD8DZnqx4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780247096; c=relaxed/simple;
-	bh=jngPp+w7Ksu7gsTnfGygZDL4tF+S1G+/zkSdXoYzJ1c=;
+	s=arc-20240116; t=1780249162; c=relaxed/simple;
+	bh=Jni+SIUdjAT/ui0T/efHGFzu/GDzaRS/idRb6Nhfnk4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JQZ1SgN3JtbSLo6t97C8dHjuyj3bZGjMhB82imReLJSDAnmyyXb3dHN18C4O8rbZvQjTAVVabQ1FYANOA9LYnz0bkF8ELwmp3R2A9MCCoJUW80O4giVTd+3J/sGPqWNNKWpJefSlJ0dD0KMUJwI4qLMYMvznAjUbWlmyx2w5Tao=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dwJ4pCvr; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=FPCNSockKCMm1mnxR7+vG8xovuCR5lj51gfdeLcWS8azmU7efrbGtFElRX/v/D3l6oV8SF3qw0C98DIuzomRIEjxBokFWJik6GHDcL69EeX+GDzb5nbQ+RRzhObI1SO1WmHdNvik5w4Czw6fFgl/EC+vWPrD0t9Jl0SxRhlKNRQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PRvc+fzc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dwJ4pCvr"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 2BF101F00893;
-	Sun, 31 May 2026 17:04:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PRvc+fzc"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 27F4B1F00893;
+	Sun, 31 May 2026 17:39:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780247094;
-	bh=vmVcttHD8U/PDaD7LLGhIcJvfJteRmIRh1ozj2XkBLY=;
+	s=k20260515; t=1780249160;
+	bh=1KQsIhLtxvDj0ZoZo9GMnO3LWk6oBsL3W3d3mVE8gYo=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=dwJ4pCvrtNRcPsZbpOLZT80KHltJ4bE1PaxdZ6TF/j/vRwWX6pTmn0gBfCZFdVnR1
-	 m2tRqEL+XEHUl/E3EtFJiAqVo1tKfM0RjaqDc8PrEp9HeVPZUea6XQ6SuKNG9rCFl5
-	 6az83l2/n7mIawRdwJs7uVzgfH9Uznd+G7QLn0/UxQ9xTb10TMvnZUxijVM75wzZG+
-	 I64RNhtEvcjYPCpzydqgrY8umqHclesW1JwK1PbfRH0xDBtrPhBnYtB8nJDxAWURWA
-	 PWdEo9bRC19cnyGXLzgDi/nRGu8SZjv7cOJUrCtFUlOZSMlEKpoGGiuwA21SjQ4Soo
-	 qmEQ1WHz2Iqpw==
-Date: Sun, 31 May 2026 20:04:50 +0300
+	b=PRvc+fzcvEnpl7ukGAVroZDG5EUWl03qbOArcePeyZZEQqtklcmjjC8fQ8p4/11pU
+	 e0VcXmCUTP366SbyFJuqd5CO5A5GLzlNY0TvZPUJBUOMYiY4KX4ecMQ/TIVRjQ3wFg
+	 e978qG0JNTJj3Ocmi0QqdwU2m/bimUiV2mK0dHKoXZHMNYV3M3zCUKegEu1dePdwMg
+	 AF8p86IkwPJmr3x3ne0FoT3qERgvmhvYtCLSq+rOKs5mfuil41NpitANusvqYnfxAk
+	 yB9bJsqdsF+D3gEqUyJhWGsbt3H9ZL6ABo4t/XJUxu1KuLpd6LvdzpFdSIaSlCkqvG
+	 cFXl4MlJpmqYw==
+Date: Sun, 31 May 2026 20:39:17 +0300
 From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Alessandro G <ale.grpp@gmail.com>
-Cc: keyringsy@vger.kernel.org, stable@vger.kernel.org,
-	David Howells <dhowells@redhat.com>,
-	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>,
-	Denis Kenzior <denkenz@gmail.com>,
-	Marcel Holtmann <marcel@holtmann.org>, keyrings@vger.kernel.org,
-	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] KEYS: fix overflow in keyctl_pkey_params_get_2()
-Message-ID: <ahxqMocnAcWY7Hn9@kernel.org>
-References: <20260531024914.3712130-1-jarkko@kernel.org>
- <ahuqIqUninpjqfpF@kernel.org>
- <CAJXJp6jMLQvYi6rpt31hO0O5WwLipSihT9PxFJu1bvtfUS2CBw@mail.gmail.com>
+To: Michael Bommarito <michael.bommarito@gmail.com>
+Cc: Peter Huewe <peterhuewe@gmx.de>, Jason Gunthorpe <jgg@ziepe.ca>,
+	James Bottomley <James.Bottomley@hansenpartnership.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	linux-integrity@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2] tpm: tpm2-sessions: wait for async KPP completion in
+ tpm_buf_append_salt
+Message-ID: <ahxyRdpJhEsWc3kQ@kernel.org>
+References: <20260531124428.2304629-1-michael.bommarito@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAJXJp6jMLQvYi6rpt31hO0O5WwLipSihT9PxFJu1bvtfUS2CBw@mail.gmail.com>
+In-Reply-To: <20260531124428.2304629-1-michael.bommarito@gmail.com>
 
-On Sun, May 31, 2026 at 09:23:11AM +0200, Alessandro G wrote:
-> Hi Jarkko,
+On Sun, May 31, 2026 at 08:44:28AM -0400, Michael Bommarito wrote:
+> tpm_buf_append_salt() in drivers/char/tpm/tpm2-sessions.c calls
+> crypto_kpp_generate_public_key() and crypto_kpp_compute_shared_secret()
+> without installing a completion callback, discards both return values,
+> and immediately frees the kpp_request via kpp_request_free(). When the
+> resolved ecdh-nist-p256 KPP backend is asynchronous (atmel-ecc, HPRE,
+> keembay-ocs), either operation returns -EINPROGRESS and the deferred
+> completion worker dereferences the freed request.
 > 
-> The surname is “Groppo” instead of “Grupp”, don’t worry and thanks for asking!
+> The path fires automatically from the hwrng_fillfn kernel thread via
+> tpm_get_random -> tpm2_get_random -> tpm2_start_auth_session ->
+> tpm_buf_append_salt on every entropy poll, without any userland action.
 > 
-> Thanks also for the fix!
+> Install crypto_req_done as the completion callback, wrap both KPP
+> operations in crypto_wait_req(), and propagate errors to the caller.
+> The wait is a no-op for synchronous backends.
 > 
-> BR,
-> Alessandro
+> Fixes: 1085b8276bb4 ("tpm: Add the rest of the session HMAC API")
+> Cc: stable@vger.kernel.org # v6.10+
+> Signed-off-by: Michael Bommarito <michael.bommarito@gmail.com>
+> Assisted-by: Claude:claude-opus-4-7
+> ---
+> v2: restructure the error cleanup into an explicit success return plus
+>     err_free_req/err_free_kpp labels, per review. No functional change.
+> 
+> Validation (QEMU x86_64, swtpm, async ecdh-nist-p256 stub backend):
+>   Unpatched, the deferred completion worker dereferences the freed
+>   kpp_request: KASAN slab-use-after-free with the allocation and free
+>   stacks both in tpm_buf_append_salt(), reached from
+>   tpm2_start_auth_session -> tpm2_get_random -> hwrng_fillfn with no
+>   userland action, then a NULL completion-pointer oops. Patched, the
+>   same setup is KASAN-clean across repeated entropy polls: the worker
+>   observes a live request and the free runs only after both KPP
+>   operations complete. With no accelerator present, the synchronous
+>   generic backend establishes sessions unchanged.
+> 
+>  drivers/char/tpm/tpm2-sessions.c | 45 ++++++++++++++++++++++++--------
+>  1 file changed, 34 insertions(+), 11 deletions(-)
+> 
+> diff --git a/drivers/char/tpm/tpm2-sessions.c b/drivers/char/tpm/tpm2-sessions.c
+> index c4da6fde748f4..f44646b26b192 100644
+> --- a/drivers/char/tpm/tpm2-sessions.c
+> +++ b/drivers/char/tpm/tpm2-sessions.c
+> @@ -489,15 +489,17 @@ static void tpm2_KDFe(u8 z[EC_PT_SZ], const char *str, u8 *pt_u, u8 *pt_v,
+>  	sha256_final(&sctx, out);
+>  }
+>  
+> -static void tpm_buf_append_salt(struct tpm_buf *buf, struct tpm_chip *chip,
+> -				struct tpm2_auth *auth)
+> +static int tpm_buf_append_salt(struct tpm_buf *buf, struct tpm_chip *chip,
+> +			       struct tpm2_auth *auth)
+>  {
+>  	struct crypto_kpp *kpp;
+>  	struct kpp_request *req;
+> +	DECLARE_CRYPTO_WAIT(wait);
+>  	struct scatterlist s[2], d[1];
+>  	struct ecdh p = {0};
+>  	u8 encoded_key[EC_PT_SZ], *x, *y;
+>  	unsigned int buf_len;
+> +	int rc;
+>  
+>  	/* secret is two sized points */
+>  	tpm_buf_append_u16(buf, (EC_PT_SZ + 2)*2);
+> @@ -520,14 +522,15 @@ static void tpm_buf_append_salt(struct tpm_buf *buf, struct tpm_chip *chip,
+>  	kpp = crypto_alloc_kpp("ecdh-nist-p256", CRYPTO_ALG_INTERNAL, 0);
+>  	if (IS_ERR(kpp)) {
+>  		dev_err(&chip->dev, "crypto ecdh allocation failed\n");
+> -		return;
+> +		return PTR_ERR(kpp);
+>  	}
+>  
+>  	buf_len = crypto_ecdh_key_len(&p);
+>  	if (sizeof(encoded_key) < buf_len) {
+>  		dev_err(&chip->dev, "salt buffer too small needs %d\n",
+>  			buf_len);
+> -		goto out;
+> +		rc = -EINVAL;
+> +		goto err_free_kpp;
+>  	}
+>  	crypto_ecdh_encode_key(encoded_key, buf_len, &p);
+>  	/* this generates a random private key */
+> @@ -535,11 +538,17 @@ static void tpm_buf_append_salt(struct tpm_buf *buf, struct tpm_chip *chip,
+>  
+>  	/* salt is now the public point of this private key */
+>  	req = kpp_request_alloc(kpp, GFP_KERNEL);
+> -	if (!req)
+> -		goto out;
+> +	if (!req) {
+> +		rc = -ENOMEM;
+> +		goto err_free_kpp;
+> +	}
+> +	kpp_request_set_callback(req, CRYPTO_TFM_REQ_MAY_BACKLOG,
+> +				 crypto_req_done, &wait);
+>  	kpp_request_set_input(req, NULL, 0);
+>  	kpp_request_set_output(req, s, EC_PT_SZ*2);
+> -	crypto_kpp_generate_public_key(req);
+> +	rc = crypto_wait_req(crypto_kpp_generate_public_key(req), &wait);
+> +	if (rc)
+> +		goto err_free_req;
+>  	/*
+>  	 * we're not done: now we have to compute the shared secret
+>  	 * which is our private key multiplied by the tpm_key public
+> @@ -551,8 +560,9 @@ static void tpm_buf_append_salt(struct tpm_buf *buf, struct tpm_chip *chip,
+>  	kpp_request_set_input(req, s, EC_PT_SZ*2);
+>  	sg_init_one(d, auth->salt, EC_PT_SZ);
+>  	kpp_request_set_output(req, d, EC_PT_SZ);
+> -	crypto_kpp_compute_shared_secret(req);
+> -	kpp_request_free(req);
+> +	rc = crypto_wait_req(crypto_kpp_compute_shared_secret(req), &wait);
+> +	if (rc)
+> +		goto err_free_req;
+>  
+>  	/*
+>  	 * pass the shared secret through KDFe for salt. Note salt
+> @@ -562,8 +572,16 @@ static void tpm_buf_append_salt(struct tpm_buf *buf, struct tpm_chip *chip,
+>  	 */
+>  	tpm2_KDFe(auth->salt, "SECRET", x, chip->null_ec_key_x, auth->salt);
+>  
+> - out:
+> +	kpp_request_free(req);
+>  	crypto_free_kpp(kpp);
+> +	return 0;
+> +
+> +err_free_req:
+> +	kpp_request_free(req);
+> +
+> +err_free_kpp:
+> +	crypto_free_kpp(kpp);
+> +	return rc;
+>  }
+>  
+>  /**
+> @@ -1018,7 +1036,12 @@ int tpm2_start_auth_session(struct tpm_chip *chip)
+>  	tpm_buf_append(&buf, auth->our_nonce, sizeof(auth->our_nonce));
+>  
+>  	/* append encrypted salt and squirrel away unencrypted in auth */
+> -	tpm_buf_append_salt(&buf, chip, auth);
+> +	rc = tpm_buf_append_salt(&buf, chip, auth);
+> +	if (rc) {
+> +		tpm2_flush_context(chip, null_key);
+> +		tpm_buf_destroy(&buf);
+> +		goto out;
+> +	}
+>  	/* session type (HMAC, audit or policy) */
+>  	tpm_buf_append_u8(&buf, TPM2_SE_HMAC);
+>  
+> -- 
+> 2.53.0
+> 
 
-Thank you! This was a super good bug report.
+Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
 
-Since I cannot do it without permission, can I add your tested-by to the
-patch?
+Thank you. I'll apply this shortly.
 
 BR, Jarkko
-
-> 
-> Il giorno dom 31 mag 2026 alle 05:25 Jarkko Sakkinen <jarkko@kernel.org> ha
-> scritto:
-> 
->     On Sun, May 31, 2026 at 05:49:13AM +0300, Jarkko Sakkinen wrote:
->     > The length for the internal output buffer is calculated incorrectly,
->     which
->     > can result overflow when a too small buffer is provided.
->     >
->     > Fix the bug by allocating internal output with the size of the maximum
->     > length of the cryptographic primitive instead of caller provided size.
->     >
->     > Cc: stable@vger.kernel.org # v4.20+
->     > Fixes: 00d60fd3b932 ("KEYS: Provide keyctls to drive the new key type ops
->     for asymmetric keys [ver #2]")
->     > Reported-by: Alessandro Grupp <ale.grpp@gmail.com>
->     > Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
-> 
->     Should be available in -next within a day or along the lines so please
->     be quick with tags/feedback. I'll forward a PR as soon as all is good.
-> 
->     BR, Jarkko
-> 
