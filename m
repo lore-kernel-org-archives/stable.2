@@ -1,91 +1,236 @@
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C29242DCF6C
-	for <stable@vger.kernel.org>; Sun, 31 May 2026 21:03:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FD223043DC
+	for <stable@vger.kernel.org>; Sun, 31 May 2026 22:33:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780261426; cv=none; b=LOeNo55TxWU6WWcxPnpCsGq0elQFhUZFAXp2N25LeasKgDRkAIp3jDhfajc4wE07fYpU8TcxoqsfJOeYTYkJ1R9Orv3bLif9P32itJjmNqgp1wCovh88K6tNir6vp1UgVHY3wMSSCVwR6J+CPk1bXXEQYQbkt3Jo9ZEDuI6RaDk=
+	t=1780266787; cv=none; b=W/E7SVK+Qa0Y/foNCnYbwqkRUUAnbv0OZX1VWwfPQmqceuZtpyNPQe7C/TH9grllbbXp5KEPfo7OTAXOlQFFQTwI19WHXgae8HnhJtc9ykU/knfGv+lFSCdXKczGQckUp0kBTz1INkeJE6tCjNXK1ppOvC3Gs+eSl/0d3l5n/vA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780261426; c=relaxed/simple;
-	bh=Slrh7c/WpgTXIB1M+3Ok+vmHpA0rkcf7FnFXxIdLGL4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=EeNf5Do7tICJAjVyT6qmrYImBlYqzBWF8A/Y5/6Io1uNx9VOqvap1DSHBEwz1ca+PzdgLOblylW2FHlJMlMULdn5oBl7apJwGWX0uFz0/nUMM+8dnoRN3i14IbZyPzUTqBKvjJjaOM4bCW9ettERuAVwJARCIXrolO5KvlpiJd0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=kqZlsZSu; arc=none smtp.client-ip=213.97.179.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	s=arc-20240116; t=1780266787; c=relaxed/simple;
+	bh=R0S6ndC5Ri+Wndh5doVmrm6kTANEa5CDsZsBjFi+u8Q=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=do73J32Xkh8I7MDclzLbBadMUv+LebNddCMyppy4gvnjWJHBhodbQZ080HA4PFfvvmtv13sdk/2MZVdLSMc85+wKQ/KI+H5KnTzznxe9UXjBHP0F+AGkfF4sx6bFFfLUbFtBb2/FyvCLurAS0E4j6LAFiGTmPnA7TlZn9NXljY8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RXwBTWPw; arc=none smtp.client-ip=74.125.82.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="kqZlsZSu"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
-	In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
-	List-Post:List-Owner:List-Archive;
-	bh=9GXwJ8Qss8MUb/Kr/4sQ3HKMVGmXDM6Ezfo8jhqq4po=; b=kqZlsZSuBZSf8K1aR2qM65/xm2
-	yF34GBESOEomcI1QBShkvLGyxsyzYokgSBXI151rBWLSOhVePzlo2tosXIVcu6zynYEh5qsntGcMc
-	XyH4qVSNDOhhYXP49DSkqdySAU/vp+tbUVh1sCBHY07HySNtPULU/PWBIcctlehh5A9CLKm53gy76
-	Dy5a3ihfnvn0h9LXp6UgLjoteCiUaj8ew6rZu3Y0w45ESmhG1ZmAOSZDS+eEKpVtDSUrQEzjotLIv
-	0LNrO68RD9UFDofwJ+ZNDfol10KWNHVBq2iOiLHz2kE5utbm61g8GrC5WgFjPfpCM90AI3fggcHts
-	is6cndKQ==;
-Received: from [189.7.87.67] (helo=prince)
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
-	id 1wTnJt-00AhRK-F6; Sun, 31 May 2026 23:03:41 +0200
-From: =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Iago Toral Quiroga <itoral@igalia.com>,
-	kernel-dev@igalia.com,
-	=?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>
-Subject: [PATCH 6.12.y 2/2] drm/v3d: Release indirect CSD GEM reference on CPU job free
-Date: Sun, 31 May 2026 18:02:02 -0300
-Message-ID: <20260531210323.1637818-2-mcanal@igalia.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260531210323.1637818-1-mcanal@igalia.com>
-References: <20260531210323.1637818-1-mcanal@igalia.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RXwBTWPw"
+Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-304d0ac5e3cso4262839eec.0
+        for <stable@vger.kernel.org>; Sun, 31 May 2026 15:33:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780266784; x=1780871584; darn=vger.kernel.org;
+        h=in-reply-to:content-language:references:cc:to:subject:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Cgzwm13HnnSC1Y4klYORe79NPgyF+qJNTa3oDX+gZEM=;
+        b=RXwBTWPwoVF7iHJaKQdcjD0i5oVniIbaDpphoI7LXsVJc/bpbGAJW41f4pbSy9xbbN
+         qFSMdJPdX4223yvqd7Hx7IvUN92mh3uz95Zqdy2ZPFNlYfsq03f8HILTxtoINHlGAFVB
+         C412prsvlF5xXGXjQt+2guaHbmqsRSKSKMb/lbjh37WhHlTS3sLzlophjg1OngcIIQqE
+         zki/afF9nPfU4m6iqCu4XCIDY0CoxwawoZtloNsfjQMrdjm50B3gmOywosJa0mq5rLxY
+         jmrtdRXuxRP2e2EJGXvD5HkWPWrqUMnGibwdtqzyVwvMsjtqWCI+nXwqnwkL14KCM0dF
+         GPOg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780266784; x=1780871584;
+        h=in-reply-to:content-language:references:cc:to:subject:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=Cgzwm13HnnSC1Y4klYORe79NPgyF+qJNTa3oDX+gZEM=;
+        b=PaA9OOfUE/dK5ZsFASYnhT+xGK3wp+3owk5lXLCN+FBqCL7odsooEw58J6Rw4GqCZM
+         PZigiKu8J/nLlgQoLqtgJMKXG5bJRMNL2agwiWq41YK+8VDPS2wdvh5cD7+6BS0c6AhO
+         P3YLVEygvvFmtdU9jQVl8VE11NALlWV+zNwNHyMMmg17aHroFT2EHYYTQJ/xNeaBxfCI
+         dF3sovuSqlQ1iZcWIORCQ5dLPHzFhHIGNI0XyRih/ACzOfvwhaZ/IoQmfkKzzCYll9pG
+         eNirFUVgrtbq3+IymvlMbf1W5ULLUSpLnvuC8xiBHkLoH49sUcquk5Fh8OiRfnn3DdVk
+         SviQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+rCAmAzeCx/XtMwfXdYVv1fOjThDzzf5Y7Y44ejgcnEk+9P5hP/Lfpp/T2y8SNgUOL2JFwnDA=@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywi3V09FO9S0Q+yKDdVamU4M8N0NVtTZghMALMhGppUMEY2pw2t
+	isxkUwFAmJ0xnEPbGTYZgtdH0oqLRhg05oMqfDBGEb4oGV/31i+DooN2
+X-Gm-Gg: Acq92OGPqPc25LJFkbgbUuBMSRZFvMybJAxZxstAKSK5OKhymAPs/3Fao6O0kcR7TLF
+	BJoAUEz0J6f65pubbaP7p5wgzptokuCdSVcF6FqHD6WQBdv5bm1+v9zf1b1FjIFB0h8YYdKzUrm
+	pzOnfH896iwMer2umxv7X+EPXqf7pvb70NbJxXW+02/q/GU3SpGiUfnhSgR1KNocU3tWUlNVoip
+	3T1BtwVV/u469wmqdsHLlv920pqdH5k3WnhGBOuSfjq7vSMydroqKqtqvypPEloZyv/re7l2ggL
+	udhY7fBRFEXFs8UR/qOIMEW0FYjKchdmp7RZ0BDk4nusDMJtqVR23k7JUn0SnFA+fr21L82F8BL
+	roaKugTZB4soxDkHn2URkDSVnf13jVfkWwVOg6QN25sFq/81r+Sb0NBVnB3XttHcTk6Y7BsLtGM
+	m2cufYjuc+4OC22i3AcJ93qXSAWXlWUVk1PrXjWKOO80UxwnuY9mpu16cs4ZWrQ6AelLjeU80Cj
+	IA7I7vxcsfb
+X-Received: by 2002:a05:7301:2926:b0:304:d456:fca4 with SMTP id 5a478bee46e88-304fa67e7acmr3850002eec.21.1780266784340;
+        Sun, 31 May 2026 15:33:04 -0700 (PDT)
+Received: from [192.168.1.18] (177-4-161-23.user3p.v-tal.net.br. [177.4.161.23])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-304ed5b8fbbsm7355002eec.26.2026.05.31.15.33.01
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 31 May 2026 15:33:03 -0700 (PDT)
+Message-ID: <a6df0003-8be0-4663-8753-4e28f4cffb1e@gmail.com>
+Date: Sun, 31 May 2026 19:32:58 -0300
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+From: =?UTF-8?Q?C=C3=A1ssio_Gabriel_Monteiro_Pires?=
+ <cassiogabrielcontato@gmail.com>
+Subject: Re: [PATCH 5.10 002/589] ASoC: SOF: topology: reject invalid vendor
+ array size in token parser
+To: Ben Hutchings <ben@decadent.org.uk>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>
+Cc: patches@lists.linux.dev, Sasha Levin <sashal@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+References: <20260530160224.570625122@linuxfoundation.org>
+ <20260530160224.642881938@linuxfoundation.org>
+ <daa0df3788560bd8759418d9c333e09c45368aa4.camel@decadent.org.uk>
+Content-Language: en-US
+In-Reply-To: <daa0df3788560bd8759418d9c333e09c45368aa4.camel@decadent.org.uk>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------mSZlpNXjrCJz0CATVO2tiEZ9"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------mSZlpNXjrCJz0CATVO2tiEZ9
+Content-Type: multipart/mixed; boundary="------------1hYVgRe97fvA93KIF4BIXAZE";
+ protected-headers="v1"
+From: =?UTF-8?Q?C=C3=A1ssio_Gabriel_Monteiro_Pires?=
+ <cassiogabrielcontato@gmail.com>
+To: Ben Hutchings <ben@decadent.org.uk>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>
+Cc: patches@lists.linux.dev, Sasha Levin <sashal@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Message-ID: <a6df0003-8be0-4663-8753-4e28f4cffb1e@gmail.com>
+Subject: Re: [PATCH 5.10 002/589] ASoC: SOF: topology: reject invalid vendor
+ array size in token parser
+References: <20260530160224.570625122@linuxfoundation.org>
+ <20260530160224.642881938@linuxfoundation.org>
+ <daa0df3788560bd8759418d9c333e09c45368aa4.camel@decadent.org.uk>
+In-Reply-To: <daa0df3788560bd8759418d9c333e09c45368aa4.camel@decadent.org.uk>
+Autocrypt-Gossip: addr=broonie@kernel.org; keydata=
+ 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
+
+--------------1hYVgRe97fvA93KIF4BIXAZE
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
 
-v3d_get_cpu_indirect_csd_params() takes a reference to the indirect BO via
-drm_gem_object_lookup() and stashes it in cpu_job->indirect_csd.indirect,
-but nothing on the CPU job teardown path ever drops that reference.
+Hi!
 
-Drop the extra reference in v3d_cpu_job_free(). The NULL check covers ioctl
-errors before the lookup ran and CPU job types other than
-V3D_CPU_JOB_TYPE_INDIRECT_CSD, which leave the field zero-initialised.
+On 5/30/26 15:51, Ben Hutchings wrote:
+> On Sat, 2026-05-30 at 17:58 +0200, Greg Kroah-Hartman wrote:
+>> 5.10-stable review patch.  If anyone has any objections, please let me=
+ know.
 
-Cc: stable@vger.kernel.org
-Fixes: 18b8413b25b7 ("drm/v3d: Create a CPU job extension for a indirect CSD job")
-Assisted-by: Claude:claude-opus-4.7
-Reviewed-by: Iago Toral Quiroga <itoral@igalia.com>
-Link: https://patch.msgid.link/20260515-v3d-cpu-job-leaks-v1-2-7f147cbbf935@igalia.com
-Signed-off-by: Maíra Canal <mcanal@igalia.com>
-(cherry picked from commit 6eb6e5acafa46854d4363e6c34981289995f3ace)
----
- drivers/gpu/drm/v3d/v3d_submit.c | 3 +++
- 1 file changed, 3 insertions(+)
+>>  		/* validate asize */
+>> -		if (asize < 0) { /* FIXME: A zero-size array makes no sense */
+>> +		if (asize < sizeof(*array)) {
+>=20
+> asize is signed and this=C2=A0comparison coerces it to be unsigned.  So=
+ non-
+> negative values of asize that are too small will be correctly rejected
+> here, but negative values will now be accepted.
+>=20
+> I think this creates a worse security problem than it solves.
 
-diff --git a/drivers/gpu/drm/v3d/v3d_submit.c b/drivers/gpu/drm/v3d/v3d_submit.c
-index 40c21aaade0d..23472c7af41a 100644
---- a/drivers/gpu/drm/v3d/v3d_submit.c
-+++ b/drivers/gpu/drm/v3d/v3d_submit.c
-@@ -130,6 +130,9 @@ v3d_cpu_job_free(struct kref *ref)
- 	v3d_performance_query_info_free(&job->performance_query,
- 					job->performance_query.count);
- 
-+	if (job->indirect_csd.indirect)
-+		drm_gem_object_put(job->indirect_csd.indirect);
+Thanks for catching this.
+
+In order to keep the minimum header-size validation but force the compari=
+son
+to remain signed, I think we can do this:
+
+        if (asize < (int)sizeof(*array))
+
+While checking this further, I also noticed a separate parser-hardening i=
+ssue:
+sof_parse_token_sets() reads array->size before checking that the remaini=
+ng
+private data contains a full struct snd_soc_tplg_vendor_array header.
+
+So, on top of the signed comparison fix, the safer ordering would be:
+
+--->8
+
+diff --git a/sound/soc/sof/topology.c b/sound/soc/sof/topology.c
+index cc6806cf59cd..bb6b981e55d1 100644
+--- a/sound/soc/sof/topology.c
++++ b/sound/soc/sof/topology.c
+@@ -740,6 +740,9 @@ static int sof_parse_token_sets(struct snd_soc_compon=
+ent *scomp,
+ 	int ret;
+=20
+ 	while (array_size > 0 && total < count * token_instance_num) {
++		if (array_size < (int)sizeof(*array))
++			return -EINVAL;
 +
- 	v3d_job_free(ref);
- }
- 
--- 
-2.54.0
+ 		asize =3D le32_to_cpu(array->size);
+=20
+ 		/* validate asize */
 
+
+8<---
+
+The added check prevents a truncated-header read before dereferencing
+array->size. The existing signed asize check then validates the declared
+vendor-array size.
+
+Let me know what you guys think.
+
+--=20
+Thanks,
+C=C3=A1ssio
+
+
+--------------1hYVgRe97fvA93KIF4BIXAZE--
+
+--------------mSZlpNXjrCJz0CATVO2tiEZ9
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+wnsEABYIACMWIQSrYqI5vIrg1X9eqEjQXT8aWv/ugwUCahy3GwUDAAAAAAAKCRDQXT8aWv/ugxGY
+AQDkVN/9CBbQR+mih1YnWSZCtDHlaV6pP9TADLYVHzEXwgD9GuNk/uUQUa61Ug5Utfy0FhTpJ/aB
+8dMKqGD5v6jsgAg=
+=aOZM
+-----END PGP SIGNATURE-----
+
+--------------mSZlpNXjrCJz0CATVO2tiEZ9--
