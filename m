@@ -1,110 +1,153 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fhigh-a2-smtp.messagingengine.com (fhigh-a2-smtp.messagingengine.com [103.168.172.153])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7614D1FBEBC
-	for <stable@vger.kernel.org>; Sun, 31 May 2026 00:24:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA5633438A7
+	for <stable@vger.kernel.org>; Sun, 31 May 2026 01:29:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.153
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780187047; cv=none; b=BfNMWE+3F2Rfd7j5vOs2Lrrcacf/iFYyuWAyb1P+tw34gqES0MhxtX3o6ztgJN69tsQ+ACUlwD9EKvkrI14RHqjEV6oFoWH2ohLXvegVRjgJBnTWD2tggYydEAwS2Eyo0+2bnpI6nsWz3QiHYP9zO+w+06jEuxb66IWDdRjXwmY=
+	t=1780190953; cv=none; b=jSls8mcgNV19tsf6W1rchhD/Fv4DjYQA7DYzUDZ5PN8MVx1ciqgMPkxixJ2gRNhaT8UFWbWK1yPZJBmWwmpb8bagoK6jLE5qIxFeywERs+i8ThgxIKZmTc/V99d4UqF8CbabDjHl0vOSQmRAMqFUbpkLE8H+5NIJrSywuvXIfKY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780187047; c=relaxed/simple;
-	bh=V2wMmY+ziECuo+ZVMX0Is0ehvCTFt8rBs2JRt3NQRI8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=nbwr9BatZPNn0bWK0BYEFQ/ojQXGgteQ+1k5Rnq108rA05DcCpRvJEwrh2jIPpIOGfLgsalUZc/hb38PYb7BAigxA/y5m5qz504/o+LYLE9KcLfHNWnX7AxJUKIafMzV24ibuPaTABhIHk0jYJX6JG+tqQLa2Bt4JjYGA05+3zQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q/Q+UEjr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780190953; c=relaxed/simple;
+	bh=307yPJJAHpzr2/1FcYA8kldsdHxrtXw1QnbV/mVS2fw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=lUdn+Yoc0Kq0hF4s63uNwlVH67tVFXM8toqw3J2KYNChTNVh8lMJYQhj7xjjERIt34TPWzjVW8UqMuA1hXxiAshCa03XpUko2vatC0cHvUmV17meChcPmH3ulLRhwLX/3BySyAHHz43m9ANLfWQly3/Cgk/7jmh5K57auu3QV5M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com; spf=pass smtp.mailfrom=pobox.com; dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b=qRADWNpR; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=h5VqDS7y; arc=none smtp.client-ip=103.168.172.153
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q/Q+UEjr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED2471F0089A;
-	Sun, 31 May 2026 00:24:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780187046;
-	bh=ZWxW+FuiWo7R5oKyWP/wXYVyY3RuDeHwFIJM5xWkiNc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Q/Q+UEjryswS1WsT9IOqLIWOscmKPm2SjW2gGzPQ2DtklWCqDKiYh9efD/wbS2LAh
-	 en2Xc+dsfCEwnREaPg+FuOmmaTOwaechNaSW6wooJU4ai914VNxhAu3wcIhVneHb3B
-	 CxNh2B6e4/QDYx9JTSyFjcLqDDfe8Ou7/S5kly9B5pNXN6tp1f8OQZH8qzDHLxWxSq
-	 UAJ/IoYJilOm4O5j08dOsBu9EY7yHy3EzmXVBi/bNHyUBZ70uwWgFuGm4ApFlvFGOL
-	 9ne6I+7MNaLKdefSgjobPZzbj2yUjgJYmjNRscIVnHq51OJr+OqghqKAjjsYqZd4lI
-	 u51lWpB42C7EA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Sam Daly <sam@samdaly.ie>,
-	Sunil Goutham <sgoutham@marvell.com>,
-	Linu Cherian <lcherian@marvell.com>,
-	Geetha sowjanya <gakula@marvell.com>,
-	hariprasad <hkelam@marvell.com>,
-	Subbaraya Sundeep <sbhatta@marvell.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	stable <stable@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 3/3] octeontx2-af: CGX: add bounds check to cgx_speed_mbps index
-Date: Sat, 30 May 2026 20:24:01 -0400
-Message-ID: <20260531002401.3659638-3-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260531002401.3659638-1-sashal@kernel.org>
-References: <2026052833-reuse-denial-9a59@gregkh>
- <20260531002401.3659638-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b="qRADWNpR";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="h5VqDS7y"
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id D1FDE140005C;
+	Sat, 30 May 2026 21:29:10 -0400 (EDT)
+Received: from phl-frontend-02 ([10.202.2.161])
+  by phl-compute-04.internal (MEProxy); Sat, 30 May 2026 21:29:10 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1780190950;
+	 x=1780277350; bh=FXHoUwq6+hJslcgA+GH0HnzXbfw3bpiGTV2ua8fi5LI=; b=
+	qRADWNpRx9l1oOMNZ2vRBhmMwnTjRSInv/o0QzZ3CfZttrwQnU4aCIFbSlaCOkfv
+	O09YJvM6sy6WpXd9mOUtVT96mL6uj1EKk+wCalyjkdYJxn/weZSVXHXj4dfjtAWI
+	y46pbHxvkdVlUN7ENw4B0/JuOUGp2GJbubJD6IyXmYzHKngURV7FsqYeoKny8itD
+	ro15BBNg5fs8+dteHqXJ8c6MDdEHRX7pBQQdZdIXSB7XURp6MxkmcUJMes5QaJNs
+	8nohqQAz6dOZMl0FRwc91Tz+vzfB/IPYpZhmMFSArGhQ8Gb8Fu+PxTVUdNtBTevu
+	2rIFgrsd3qWuDBmP6ZOWWg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1780190950; x=
+	1780277350; bh=FXHoUwq6+hJslcgA+GH0HnzXbfw3bpiGTV2ua8fi5LI=; b=h
+	5VqDS7ymaBfOUB3DxbF64XJl2u4ikYvwopIvYI7eg1rZhDtVv2frZn+cPvqzAeQC
+	imasBxUGqSN03FMU3ThSuAUAnR2Utm0LfgJOx//ggGWPJKClLdiaSqaH2M/Q8MZ+
+	p3YB/88v/oRBCX2g83XHlJW+thk4xNpZ2hwdk/BQ7CI6d7FeZq55E/oAT4AtjsDO
+	QGIvYhqU328n5rN3Z+ZqRFtQNW7VMz8utm3CWWO90oUE0d1FB7IuspOCt1B5ukTI
+	eUzN5r0zN2FZT6A29TSY7sqSwI6hiR/v8MIbywvfRnoxHIpr6zsJoU+3524Gc0YB
+	64Zj6k3C9DP6slVDUlcbw==
+X-ME-Sender: <xms:5Y4barhTodSyoWrQvg3XUETFWr6cIMr0iIdzyIjK1s81Syd51SRzJw>
+    <xme:5Y4bapaMopnj6DoiBP2xM0bZ-QgXIr0qknzkgdLp6KnlHsL48LfHtvJFc02TiRslC
+    AzbnFEIpS9s2nqXfo8z8cN4jesmGfMbzPizMzaaOwpG1Cxu_crREYM>
+X-ME-Received: <xmr:5Y4bakVfg74TEUesEtu6Ka8BUGuq0GNBjFxV0ERnffpYY564HwlVrkuoWto7OL8A3jJ-Wwtep_jvzwjWeXa7hCjR201Mdthq>
+X-ME-Proxy-Cause: dmFkZTETXgvviTlQhfv1mnp2y3iuBRVhrNr4mhTa6gJtfCaKyGCL9r0NoGGVmCvKuK9jGc
+    le5QrzNdL0sQRvgSnBNYnZOU6wfbiNWC+lBlColRDY8qn4bFgrP81eIk2VHVaMlEAUt/FX
+    UHT6c8NI+pZHtkNFQFshvxfcewSkXaYjwdT2zKl4xiC1viMlQRmw4a2WqW9/jL8MYGKiV7
+    mlte9HB2PEeeOQ3/ZIKXV0y1dlYidsKvKNxRwTSudJDSKY+SaoF3Qm9PDIapWXJ5+Xn1+Q
+    WEgdZKzB1qBR5ee1c/idmwur+3/V7fWlqOejl8hj1Q2RO+0Tb5ngorReye9jCK79gcavOA
+    YVPMfr27hUYl/BVrjp8YWgRQ6PYNh+txrbfW5diB4VcXtQaRW+kEawmB98oDe8BrP0E/wh
+    VJOKWpzkUkn+V8v9ACmWeu+dVQxtf/bVlse0JoCiz9v9edjvK5Er51CO2wT09fSgSXrtqa
+    Y5tSqNuKpeAljkkdxrOsdK/qDUpaVy0ey1L3qhA1otXOgFWg50KpuhqrWqtaC3gyhiTd2N
+    igQSIPIbpDjEfNnX+ewZpd8JaOdSuiofOspWGtcAIi01PFaLxDONcxEmd25m7HT7uzWMyV
+    vIfpHJqZAJ2AeqM5xdudvAPxs11gMQ1lWTRPCYIDrz+mwqcgzs24480dvPUg
+X-ME-Proxy: <xmx:5Y4baghFGtOJsTQFTTNMKAHS-_HfLxNkd5XLBpgvG1WTakHCztk2eQ>
+    <xmx:5o4bavmdOiUMm4IObkF7MxJJMJA58SELFxhH2aMZISvYFDGMN6NiZw>
+    <xmx:5o4bapxWUig_tyaf98ZZ1ntzX5LCywd3797cHfArtRaswfpk945tAg>
+    <xmx:5o4baqtanvYYu9k8vJR9HdNWbJNFNpCNn74K4aYaYaBFEjQCivpKHA>
+    <xmx:5o4balPTub55SyXwXvSieE4D3LWqF8rOLbg6NkKsUyCfigdPsXrjKbbg>
+Feedback-ID: i6289494f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
+ 30 May 2026 21:29:07 -0400 (EDT)
+Message-ID: <5e2ac444-451c-4220-8013-0e6382b5f165@pobox.com>
+Date: Sat, 30 May 2026 18:29:06 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 5.10 072/589] media: uvcvideo: Use heuristic to find
+ stream entity
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, Angel4005 <ooara1337@gmail.com>,
+ Ricardo Ribalda <ribalda@chromium.org>, Hans de Goede <hansg@kernel.org>,
+ Hans Verkuil <hverkuil+cisco@kernel.org>, Ron Economos <re@w6rz.net>,
+ "Pavel Machek (CIP)" <pavel@nabladev.com>,
+ Brett A C Sheffield <bacs@librecast.net>, Mark Brown <broonie@kernel.org>,
+ Peter Schneider <pschneider1968@googlemail.com>,
+ Francesco Dolcini <francesco.dolcini@toradex.com>,
+ Shuah Khan <skhan@linuxfoundation.org>, Jon Hunter <jonathanh@nvidia.com>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Miguel Ojeda <ojeda@kernel.org>,
+ Vijayendra Suman <vijayendra.suman@oracle.com>,
+ Sasha Levin <sashal@kernel.org>
+References: <20260530160224.570625122@linuxfoundation.org>
+ <20260530160226.496219768@linuxfoundation.org>
+Content-Language: en-US
+From: "Barry K. Nathan" <barryn@pobox.com>
+In-Reply-To: <20260530160226.496219768@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Sam Daly <sam@samdaly.ie>
+On 5/30/26 8:59 AM, Greg Kroah-Hartman wrote:
+> 5.10-stable review patch.  If anyone has any objections, please let me know.
+> 
+> ------------------
+> 
+> From: Ricardo Ribalda<ribalda@chromium.org>
+> 
+> [ Upstream commit 758dbc756aad429da11c569c0d067f7fd032bcf7 ]
+> 
+> Some devices, like the Grandstream GUV3100 webcam, have an invalid UVC
+> descriptor where multiple entities share the same ID, this is invalid
+> and makes it impossible to make a proper entity tree without heuristics.
+> 
+> We have recently introduced a change in the way that we handle invalid
+> entities that has caused a regression on broken devices.
+> 
+> Implement a new heuristic to handle these devices properly.
+> 
+> Reported-by: Angel4005<ooara1337@gmail.com>
+> Closes:https://lore.kernel.org/linux-media/CAOzBiVuS7ygUjjhCbyWg-KiNx+HFTYnqH5+GJhd6cYsNLT=DaA@mail.gmail.com/
+> Fixes: 0e2ee70291e6 ("media: uvcvideo: Mark invalid entities with id UVC_INVALID_ENTITY_ID")
+> Cc:stable@vger.kernel.org
+> Signed-off-by: Ricardo Ribalda<ribalda@chromium.org>
+> Reviewed-by: Hans de Goede<hansg@kernel.org>
+> Signed-off-by: Hans Verkuil<hverkuil+cisco@kernel.org>
+> Tested-by: Ron Economos<re@w6rz.net>
+> Tested-by: Pavel Machek (CIP)<pavel@nabladev.com>
+> Tested-by: Brett A C Sheffield<bacs@librecast.net>
+> Tested-by: Mark Brown<broonie@kernel.org>
+> Tested-by: Barry K. Nathan<barryn@pobox.com>
+> Tested-by: Peter Schneider<pschneider1968@googlemail.com>
+> Tested-by: Francesco Dolcini<francesco.dolcini@toradex.com>
+> Tested-by: Shuah Khan<skhan@linuxfoundation.org>
+> Tested-by: Jon Hunter<jonathanh@nvidia.com>
+> Tested-by: Florian Fainelli<florian.fainelli@broadcom.com>
+> Tested-by: Miguel Ojeda<ojeda@kernel.org>
+> Tested-by: Vijayendra Suman<vijayendra.suman@oracle.com>
+> Signed-off-by: Sasha Levin<sashal@kernel.org>
+> ---
+>   drivers/media/usb/uvc/uvc_driver.c | 15 ++++++++++++++-
+>   1 file changed, 14 insertions(+), 1 deletion(-)
 
-[ Upstream commit c0bf0a4f3f1f5f57aa83e1400ba4f56f0abfd542 ]
+Comparing this patch to the corresponding patches that went into
+5.15.203/6.1.169/6.6.117/6.12.58/6.17.8, I believe these Tested-by tags
+may be incorrect.
 
-cgx_speed_mbps has 13 elements but RESP_LINKSTAT_SPEED can yield values
-0-15. If it returns a value >= 13, this causes an out-of-bounds array
-access. Add a bounds check and default to speed 0 if the index is out of
-range.
+(Incidentally, I think my email client may have removed some of the
+spaces in the quoted text, but I'm not sure why that happened.)
 
-Fixes: 61071a871ea6 ("octeontx2-af: Forward CGX link notifications to PFs")
-Cc: Sunil Goutham <sgoutham@marvell.com>
-Cc: Linu Cherian <lcherian@marvell.com>
-Cc: Geetha sowjanya <gakula@marvell.com>
-Cc: hariprasad <hkelam@marvell.com>
-Cc: Subbaraya Sundeep <sbhatta@marvell.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>
-Cc: stable <stable@kernel.org>
-Signed-off-by: Sam Daly <sam@samdaly.ie>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Link: https://patch.msgid.link/2026051352-refined-demise-e88d@gregkh
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/net/ethernet/marvell/octeontx2/af/cgx.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/net/ethernet/marvell/octeontx2/af/cgx.c b/drivers/net/ethernet/marvell/octeontx2/af/cgx.c
-index a0ba4e00226db..7511745d65d82 100644
---- a/drivers/net/ethernet/marvell/octeontx2/af/cgx.c
-+++ b/drivers/net/ethernet/marvell/octeontx2/af/cgx.c
-@@ -669,13 +669,18 @@ static inline void link_status_user_format(u64 lstat,
- 					   struct cgx_link_user_info *linfo,
- 					   struct cgx *cgx, u8 lmac_id)
- {
-+	unsigned int speed;
-+
- 	linfo->link_up = FIELD_GET(RESP_LINKSTAT_UP, lstat);
- 	linfo->full_duplex = FIELD_GET(RESP_LINKSTAT_FDUPLEX, lstat);
--	linfo->speed = cgx_speed_mbps[FIELD_GET(RESP_LINKSTAT_SPEED, lstat)];
- 	linfo->an = FIELD_GET(RESP_LINKSTAT_AN, lstat);
- 	linfo->fec = FIELD_GET(RESP_LINKSTAT_FEC, lstat);
- 	linfo->lmac_type_id = cgx_get_lmac_type(cgx, lmac_id);
- 
-+	speed = FIELD_GET(RESP_LINKSTAT_SPEED, lstat);
-+	linfo->speed = speed < ARRAY_SIZE(cgx_speed_mbps) ?
-+		       cgx_speed_mbps[speed] : 0;
-+
- 	if (linfo->lmac_type_id >= LMAC_MODE_MAX) {
- 		dev_err(&cgx->pdev->dev, "Unknown lmac_type_id %d reported by firmware on cgx port%d:%d",
- 			linfo->lmac_type_id, cgx->cgx_id, lmac_id);
 -- 
-2.53.0
-
+-Barry K. Nathan  <barryn@pobox.com>
