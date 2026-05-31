@@ -1,100 +1,97 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 435D5379974;
-	Sun, 31 May 2026 07:54:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FD433803D1;
+	Sun, 31 May 2026 08:45:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.16
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780214067; cv=fail; b=iboXrY6ssHJ75DKY051dfyiPw4CKwlck1Zhm3L12l8ke/iE1FtTqOFADM7RmiC8tSmkIV+GAIldoAoUHMLU+P7EFLNpXw1X7Bz4X4AJB9MGiOhsbyyQGo3J1JQdwJhD+OejEDSb+51eiRPraPxqhFhaYhhk20JQtkhkRH5fxm2c=
+	t=1780217119; cv=fail; b=PdG/3EgZt7Z1he8mfDVcMNht43dqK1UP/ZDHky0UD0ANhBotByJYiiYGpaPc2EyGSdNK4Pdmb7OhD80Qro7pAtt21HhFuY7Lq1iduvrdBIPUw09RlUAyPiyZoQBruWxSt2gm997chdoZOo9DhzivYS7Cy8aW3W93PefxBPfYqoM=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780214067; c=relaxed/simple;
-	bh=dfM3cJ4PyM3QS9iBlKddYb1EseKZWLU596Ab+GYdtYk=;
+	s=arc-20240116; t=1780217119; c=relaxed/simple;
+	bh=ZEp+77RrPZRsTxYhpvZDuY/0K0E2mf/zchr7lhdQtI4=;
 	h=Date:From:To:CC:Subject:Message-ID:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=uHCwPTeBsOUcD9+YFGLWHb3iAapAHfdlzi0agEn/tnNQVh5VkCh89zJeQSdTd9HOt1+6Udxp3vAKu8IuDED8YUsZAme/urVCxujyME359h8SJmhp82d9qso0Xm+wKElJ03sbw6mI099IKWKBUVCAuQxXpSBp6+mZuM1ASTQlDz8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=GWLINlPf; arc=fail smtp.client-ip=198.175.65.19
+	 Content-Disposition:In-Reply-To:MIME-Version; b=haUA68iX2+DpfRymzF3PesiWONW+kcW3kZW/8dTsUZ5/AuMbbqwF80nNKPbF3uFG0fUuGp2yVM/OFI0meIRQQVnV6jsDYZnFcShsWFkJHQxbMto+E5oJcwLGncKCRl4QkghAS4uWEEc1MuvYzPMO40EfIR+gCS8gYzDJo68y9ww=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=YgzOFGXm; arc=fail smtp.client-ip=192.198.163.16
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="GWLINlPf"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="YgzOFGXm"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1780214064; x=1811750064;
-  h=date:from:to:cc:subject:message-id:in-reply-to:
-   mime-version;
-  bh=dfM3cJ4PyM3QS9iBlKddYb1EseKZWLU596Ab+GYdtYk=;
-  b=GWLINlPfSdVGC78V47CguBxXWZcgIiYH9VfbRj8e+hST/kX2f73QRg/w
-   b3ID7YDVWiUp8tFvNQ2qM16ZuHkv5xYscM9YylFjJHreIBbBkeu21MpKq
-   hjrCqpC2qK7tRQbp93+QPd5F94RRwFZPnopOXNOs3Klqbt0lIm+ZW5A+X
-   i6AGApUmo3Sdgt7WgjjYUFo8fcI72x8lUtG96xGlzg9cXgu3nfQv9dozY
-   rtXJ+3zYzChXOUULEalihJKm1bm8G+d/1AKZLQMEjg9otbFJzT4dNCWFV
-   5eqWrmid72pjjLaE3Ann7Z3yRTKRie6aIyzjQIaK4vRdzNVXYpcm6I8lv
-   A==;
-X-CSE-ConnectionGUID: gV7JDmnDSlGn/cKiQVHV/g==
-X-CSE-MsgGUID: kuzl+5qdQq6kI4zrCwbqLA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11802"; a="80973678"
-X-IronPort-AV: E=Sophos;i="6.24,178,1774335600"; 
-   d="scan'208";a="80973678"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
-  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 May 2026 00:54:23 -0700
-X-CSE-ConnectionGUID: f/ZU/5foRBu8XAqjgcPMoA==
-X-CSE-MsgGUID: n0jRTO5PS5G2nSWHXv9JwQ==
+  t=1780217117; x=1811753117;
+  h=date:from:to:cc:subject:message-id:
+   content-transfer-encoding:in-reply-to:mime-version;
+  bh=ZEp+77RrPZRsTxYhpvZDuY/0K0E2mf/zchr7lhdQtI4=;
+  b=YgzOFGXmipAip8XmeQy3Y8JLUyjazhBMOooyO8l9uUKY3B1XnUtDIHtF
+   qjyP8R22lJgvfd78iwyM22YXeOlqCkA4eUFQqDdWA8VUbFhFX2H9aNYfn
+   XnxPGiZ1pr0vuWFGEz2KLFkh/w+Km4ayRlmRzshV/QQXcqaexAT5Zh8PA
+   I2kUBeYxGVmiL595pRuInSwPaqLkozL2/dUaCy1Z3DSUMgVdn5rtt9gf7
+   7YLiFndqimyoBsMU5Zzla3iwTpriaO8iVkZW2hpOkgXe7a0wf8hGg8YqV
+   J2JYxQF+VNTheazZ/sq8R9iWVo4JqS+cLpg2Ynd2O5ycWhoaFc0obTrqL
+   Q==;
+X-CSE-ConnectionGUID: cfTUpvZpQfGRT8lw2Nm8VQ==
+X-CSE-MsgGUID: ZSX11EwdRviBWDQCOKSJWA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11802"; a="68537229"
+X-IronPort-AV: E=Sophos;i="6.24,179,1774335600"; 
+   d="scan'208";a="68537229"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 May 2026 01:45:15 -0700
+X-CSE-ConnectionGUID: 1t9qvdeJQ2ikMsSEP1HX1A==
+X-CSE-MsgGUID: ubiV9E3ST+CgmtwpxrO0uw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,178,1774335600"; 
-   d="scan'208";a="242461008"
-Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
-  by orviesa010.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 May 2026 00:54:22 -0700
-Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+X-IronPort-AV: E=Sophos;i="6.24,179,1774335600"; 
+   d="scan'208";a="245101985"
+Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
+  by fmviesa004.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 May 2026 01:45:15 -0700
+Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Sun, 31 May 2026 00:54:22 -0700
-Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ 15.2.2562.37; Sun, 31 May 2026 01:45:14 -0700
+Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
+ FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37 via Frontend Transport; Sun, 31 May 2026 00:54:21 -0700
-Received: from PH8PR06CU001.outbound.protection.outlook.com (40.107.209.14) by
- edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
+ 15.2.2562.37 via Frontend Transport; Sun, 31 May 2026 01:45:14 -0700
+Received: from DM5PR21CU001.outbound.protection.outlook.com (52.101.62.63) by
+ edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Sun, 31 May 2026 00:54:21 -0700
+ 15.2.2562.37; Sun, 31 May 2026 01:45:14 -0700
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=STr+49PLQp45Y6EjeIhvX85SKfc3C0+oQePu4+mKRJ6bBIib5O/tSENCgXRz7qqvzfnxk1TIADmQVQhrB+qoe7sgzQ3dsFmylacU879lFQQGsY3IdOhJ0j7h4y/J94Ii5fcu/F5sy4WIB32HlXZaehhZ8vBt0gFqDATYySVUmv6NtLATCVhNT0JSgNnReteYDlxGYDkoO4aTeMhWj/c8IxuTP9U/BOKAGV9RZKxnkxLZHeV6GpOe8WX3B7CHwPydWS+JCgwI1snjUE34e0uj70DyVanp2mPxGgSFBIjzwlvv4vE1vd31NV76U7Fg6euecSQUCOLm0ZqTl8RRCqRIMA==
+ b=lSTIJ9VJvFY/y5X+moty/ToZiseNoMwTanU1RsSP1RaG3NT0mgn+x4vH5v4Iil2LHtAVtpgxcqiyHVQz/cWVJZtQ6Yz2T2tKwajQxCRNZh1gR2G+Y0mou+tvl7Q8lDY+vUs66K4Ui6wADP9j2kDYAQoWWWy4vicNjRT5GpYcVWfhhvfxZ8IRtySJd2gRCKi5msX0LvTU5IdPPxrZaOD7AkyiepVoEvadHFtZO6jjyF4GFL0JTf8W0JdmhZ8HXKEQnO9OxD8FF65bC0C95LS2D3YWq2dHzKDyJ/rTtbZkGkgk0eB65ikFmOh3UXzU8RLjaiKdsBeJNSPw8xe20I6nNw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+l2/CC+1grcxcplQx4OOXSZXCdZP4TKSqpayKRe+kbM=;
- b=xXUzCgM76cfE1Pj/4wQ/Jx72x3L9HDh5Xtp5VudVQdTSVmU1mXz20etn5XdgE9bx5dDXn2LeKraIXlK7V/knq/skt5ftjOEyRj0OlKMBOWhBNJLSmM3qRuoSURRuD7btmCekcl78hW8I6e6CGKBDeT9v/8oNUY5ESEj+kLQyKJbBJ6WbbSAxwQZ+bjOgMzEh6ls31+B8Eu2TEWd29n4hIw11Xm6uuUauMuvSd0+GqeLKITRxP12uBsRUns4CAIWW8SnUBlxVPVz4p/8nV8SeBU9WyfHyQW7KK/pxsQbGTm1k/Nid7V1z9RfGNtl3aDWSRAK5wDY5lEoVYiDyJ3Zsxg==
+ bh=OscKAq1gS0+dysQvodnl+CDSyI1sCzFIGtZLlNmEHOE=;
+ b=dNhmg1LQX5+KL63/YYzazR/fhYN2uCh2QBF29MU9c3f8vmxRn6F4XF4NHCyWEG2rDB/TfRvSLsN6WWVlGoPZiw/Vrc0ehETSkkzsNd0YR5hO6ZFPe6Ds07qxRMpLgymWtPn2I8ndM2j/Ca97EqzWGAmQyAKVauPJSKgM8IACXXUN20BNWWK0U04MFQLgu4gCFpvXhzVQ2M79wokchrMg+tB3PiJ53jghOrmIgr4A3njimflCGfQjeMqsFE4XDtmhXvEYaItmHn3wsVL+x8TN3s3UXYH1V4yZEG1bmE/2iZwujfB/1SA0TwV+a/OuBj3O7rAEsI0q9oAZpS8b8DgfUw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
  dkim=pass header.d=intel.com; arc=none
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=intel.com;
 Received: from PH0PR11MB5832.namprd11.prod.outlook.com (2603:10b6:510:141::7)
- by DM3PPFD2F4A0090.namprd11.prod.outlook.com (2603:10b6:f:fc00::f50) with
+ by IA1PR11MB6217.namprd11.prod.outlook.com (2603:10b6:208:3eb::16) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.16; Sun, 31 May
- 2026 07:54:19 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.15; Sun, 31 May
+ 2026 08:45:07 +0000
 Received: from PH0PR11MB5832.namprd11.prod.outlook.com
  ([fe80::106e:78dd:4c96:d707]) by PH0PR11MB5832.namprd11.prod.outlook.com
  ([fe80::106e:78dd:4c96:d707%5]) with mapi id 15.21.0071.015; Sun, 31 May 2026
- 07:54:19 +0000
-Date: Sun, 31 May 2026 15:54:09 +0800
+ 08:45:07 +0000
+Date: Sun, 31 May 2026 16:44:59 +0800
 From: kernel test robot <oliver.sang@intel.com>
-To: <w15303746062@163.com>
-CC: <oe-lkp@lists.linux.dev>, <lkp@intel.com>,
-	<dri-devel@lists.freedesktop.org>, <maarten.lankhorst@linux.intel.com>,
-	<mripard@kernel.org>, <tzimmermann@suse.de>, <airlied@gmail.com>,
-	<simona@ffwll.ch>, <sumit.semwal@linaro.org>, <christian.koenig@amd.com>,
-	<jeffy.chen@rock-chips.com>, <linux-kernel@vger.kernel.org>,
-	<linux-media@vger.kernel.org>, <linaro-mm-sig@lists.linaro.org>, Mingyu Wang
-	<25181214217@stu.xidian.edu.cn>, <stable@vger.kernel.org>,
-	<oliver.sang@intel.com>
-Subject: Re: [PATCH] drm/prime: Fix unsupervised rb_tree corruption in
- drm_prime_remove_buf_handle
-Message-ID: <202605310941.ddd52610-lkp@intel.com>
+To: Wentao Liang <vulab@iscas.ac.cn>
+CC: <oe-lkp@lists.linux.dev>, <lkp@intel.com>, <linux-block@vger.kernel.org>,
+	Jens Axboe <axboe@kernel.dk>, Damien Le Moal <dlemoal@kernel.org>,
+	<linux-kernel@vger.kernel.org>, Wentao Liang <vulab@iscas.ac.cn>,
+	<stable@vger.kernel.org>, <oliver.sang@intel.com>
+Subject: Re: [PATCH] block: blk-zoned: fix zwplug refcount leak on write
+ error path
+Message-ID: <202605311048.34c03950-lkp@intel.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Disposition: inline
-In-Reply-To: <20260528082912.1051262-1-w15303746062@163.com>
-X-ClientProxiedBy: SI2P153CA0015.APCP153.PROD.OUTLOOK.COM
- (2603:1096:4:140::21) To PH0PR11MB5832.namprd11.prod.outlook.com
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260526141824.2293025-1-vulab@iscas.ac.cn>
+X-ClientProxiedBy: SI2PR01CA0035.apcprd01.prod.exchangelabs.com
+ (2603:1096:4:192::13) To PH0PR11MB5832.namprd11.prod.outlook.com
  (2603:10b6:510:141::7)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -103,245 +100,374 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH0PR11MB5832:EE_|DM3PPFD2F4A0090:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9ed14536-d9ca-4014-4150-08debee9d1cb
+X-MS-TrafficTypeDiagnostic: PH0PR11MB5832:EE_|IA1PR11MB6217:EE_
+X-MS-Office365-Filtering-Correlation-Id: 92f696dc-1013-4887-9383-08debef0ea75
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|7416014|366016|6133799003|3023799007|5023799004|18002099003|22082099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info: C9zm/Jih5Q3UlAYfrvXopRtZKCeulD2MNaSj9AmkBIEMkjLLdrHG44AU2aSBsO67OoMpvZmi1bUB7IkY9BcAzenyfQwq3iQozPfhDgDU6aYplMcrj0pK3e0sAmTlqsyKaMUbHMp/nqt2aC3rg/PW3Xkc6Jp6e6VfkEtU2cQ13O+TOd1cBO9qFpkt3rnuzMQ1WhilhPdZYD1iTAN6BoKpkkQuwUt6zawEPAErvaQ/udjMrma2e1/9p92tO2Id4SR0G3pgPlo6wVZPUwZyPORsdMopQvAMY3xhMsF0lySMlAlhDfckWX6LfroRVnAvccnquOlI6sW4agRGAwckwW81okXrPnh/MUYpAb9ERtqr8OXdIHAjsH6wJDvZ0vMoKtoZJwdQ455QsrBOwzj+IzLKfBRauDVO90X0RU2OA6I+e4eLPVH1K0Wsf8zk4o5vgDbvxTNIgpEsgifEC2eQf2vPDRcdcIL9Nntw79NUpXvC7iqZHk0Lt+4oGJ1VsBFyqnY4/Rg7jJ9m5OSZLDo+BNOf58B4myLR8OKOE2SldGj4H50VGc9Ke5rCJjHV+EFF5mmxCKMkIDAMTkNvddn0o8a3dcs5+CHU6fLnWbUrvTHhC/nQAMUdSlONRKQ8h0GT0rH1n5mdo+ymkwlRveLkHPE0Gg==
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR11MB5832.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(366016)(6133799003)(3023799007)(5023799004)(18002099003)(22082099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014|11063799006|56012099006|3023799007|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: 64XLbm77IcD4RB4xFy8Uh78KvSXEiOlQZ4ZnfvefQnyGT/AgNNsifvt0phboHENWjBWlxpL9sdsDSWiSiMchOotetWkdYaqpa8+26N+z2wd6lJAcjNuJyNI8coWjyYd6Fry+2jcWuNCdlYk7n+i7i44zCI+UW6oHHSGm4Zt0xRg+q1VspNMfek+C60z5c+h/SSEJINRvdn4SF8A6kvYnxSytG/F/kfFEjJhW0MCWU0G02rjZol8VT3+A7OW193bL9T7xwA0sjIopIbrps5nUtwHvXMLiugqFDiKS24Jnc6GQLPYRJ56+vhjPevGQF4oFgHMswjQSBxLf6zh0tVi7RK8JEDJD8kYJKMw8L3zV4jlfB+zuvA6lZdHLdMo1veqPurSsMX5ZHSLfoPTXYI9i1nDCiaYNlv900+1GnCbyQD8/DT/Tzm4TXugBdYSqTlunUrHZ3UfjOUUmJWwwOxiJH0JzmGGG9aVGnqIhOoYGyoDDoaAQ/wFaMbwULNnS+igNVt5dV2GkugekekDQhXRVSFJf92qkf9hr/Ugl4G1mGzrHBEkE03N79HfkVNyET05VfM/Ba1W2cnuNNF+eY8RUczjgtWXMeNmzXsq5k7SQKc0Ixpnnpw/VOjMBSunnCUA1Y/cz2b8TU1Le1Pd+RptvFA==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR11MB5832.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(11063799006)(56012099006)(3023799007)(22082099003)(18002099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?z/EWBuB+a4Q8/960397psuYC9ZvaT4Ml4UQ04te/q+xAkKqbwe17Kp9yM55g?=
- =?us-ascii?Q?NpCP0euXkwI16CK91k1o2bw2yFqfg31mUEKyHwtfLBo72u8ZnTNxYamkEw7m?=
- =?us-ascii?Q?zcsVuvo2TRCxHyPdKL86FuLiMAfbhEV/4Yz6qRgk1olrxvg4grnEasegY7Jp?=
- =?us-ascii?Q?H7Wg2MnMLI1x8K28IAOiEencSna1gUzBgRjvQFPIVAyJNfuiv484ojd5fNPL?=
- =?us-ascii?Q?4jqtEpX3qv88XB4++TudSiYybYaIVkmZ/JxxkW2BM0/d580siiSCNpbx4W0u?=
- =?us-ascii?Q?BeMRKm4T4IB1xohuD/ZEHXbQfUBrDt3ZupdS2hyeDi42EGxOC3uZ2YqF/ABh?=
- =?us-ascii?Q?B+eRY7sb9vEt4jxz8/W6Exhgv4DbTNhQr2kaFZhlW/8bWtl4aeGj0+CY1Ktg?=
- =?us-ascii?Q?nn53Gw40/Jjy5yvPcE6XrgsFn+kiXbd0aqHqiEL8FjSA8oum02qAEYfJilj8?=
- =?us-ascii?Q?wNPVtIWQH+FHFTpnVIvypaHZfZ2MzcNdV+6dWKDxbnylIsJB6M5nYg1iS/8e?=
- =?us-ascii?Q?0p8y+3CKn69Be1dN7uhYBPDDsvdjAXFjL0OfevR7z3aCrcQtGBjRoMOiHrB1?=
- =?us-ascii?Q?UL/XsK/YvXns5eTwULl+EdquDgN+3Z9gV7XLSMkRSXisQYYKSgA/n3kwbC0i?=
- =?us-ascii?Q?l/wbxMBmcR5ftq8RVpfGLGNH9d4wFn4ssOo3Ebc8gBX7KxXYwLnS0wT8vJ80?=
- =?us-ascii?Q?sGTu665t/l1XKYVLLi9WsfcjrbZdIdODLrvEBRI2gVrHsa51nDwFj/khjWFa?=
- =?us-ascii?Q?Cedp4ilyxyTGgwyhqIz50fu2S+WR5xQE4V+UPDzBgi/XinwqxRxJjxqfUZDQ?=
- =?us-ascii?Q?wdOWIlu0Pa4iSzBNV8p0ZDew2IUPySMrlkUWbeT/vgZcGDOjLsY+q8w9Xqal?=
- =?us-ascii?Q?YquXjnCucfMEO62sxrOGa8oxmBXOPTyUj+steqqe89LPLCG+BPx7WeBdXrc1?=
- =?us-ascii?Q?7tm1kIB+0QJ0sJsYHhqPTp7Sum37YkwttTS2yiNJNFkDafKxKNCMsXusY3pw?=
- =?us-ascii?Q?jiiwZ2VkFLzxJFo31yijqnmM1es3Ue6aup7eB/ZmpnKqQ2i4nMqT6HEsWsuW?=
- =?us-ascii?Q?DvjJpksP5vlGU3oriJKgNef8CVWCcnwuj+S9PqCQkx1DYgY6075KoiN20xc6?=
- =?us-ascii?Q?UxiGRM/P+VDxsPSzVRhGfXhirx8Q8QVQL5HO2gGFs4uLtjEAlbaJhhwacaOr?=
- =?us-ascii?Q?ajdDu5CDj9RgSRJ0I1R1iNsUr5OnzyjvR8Fm7SedYMVCJns03WYTv1TKRs55?=
- =?us-ascii?Q?r3z+y70k/KfTsHiLni0tYnKXDks9NMhDuWaD9eq/jBz742iMkk9yMi7EAPx9?=
- =?us-ascii?Q?UiP0xfRIxRAqR/lw9PmIZltcRafLc0oUAeLYZZhMNlvliwl/llRhmxmOfHm5?=
- =?us-ascii?Q?t+2LyfxuUk5V9vSIWvnExG4D1eDmmBIIGbpYtUNHefD0NCXOK02meA7+jhjI?=
- =?us-ascii?Q?yNh2J9vFMQ2iO7PcZJu/xH+4ErUR/SGhYkv4yTEVWwALPffIprmTYo+D/xOq?=
- =?us-ascii?Q?BnoQWyi57hNfeVYLILmciv18WPa3jnGA5ClGIyew2LaLv3E6nRVRx9Z/8bKs?=
- =?us-ascii?Q?qiDusNrnEDan7dAsj/R6v9k0atJUvLTVzZ4L8gNlPzqk1+R/i+KWIzjzja1T?=
- =?us-ascii?Q?ziaToKgD87q1nyMnmz0Fu+1V3wp8GYsvMn0J9JkjlQaiX7M4HDWjKxSqUtmr?=
- =?us-ascii?Q?huJm75pyVdAItXmxasxtxzrWscgK05raxqX3hwmWcCncam96xJ8vpjNSIMwz?=
- =?us-ascii?Q?QO2CD5o+Pw=3D=3D?=
-X-Exchange-RoutingPolicyChecked: SotBIqOrlzwtXkrJ6YeNCT9nJxcUvKerrDg6XcaLy51YC/u2nv1E0UDTm/yTdsqfifuQevktZhzHJA1mjqySHw2ksVBZAANKzEhzcCVeNBiLDTUEpeBhfKK3ABRgv947QPSrhlbt0hCVEgjPf+T1LtMWz/PBHiyJPv/xI3OAxl2mcPvQkCXIydLnHoNDkg9t6d7h8gOjq2m6nXvQlKB4l+C6Wr+CI94d7TL93SEpz54QCR1JDTJkO7L3zIcuvEa93B2ISOJV+qnykL/IpV6ievNKgYG0VwC8WfeQB/V98trhhHxcJ1yR4DJx7PukdrPuUBJWI6sKo62PCGu4jwBgHA==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9ed14536-d9ca-4014-4150-08debee9d1cb
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?FqIQ3KL8kSiu+TRmU6xtqx4rHGcysh0R4hoP58hBz/3va+A3fC9xuosT0rzl?=
+ =?us-ascii?Q?79csjoSp9Fu7MHP6wnpPN1txG29SM6j8fECWiub8p03fJiDQZfKiHbGChWkr?=
+ =?us-ascii?Q?sFxPga279B8zmNGcqIEUX8a9/XI/t2v9cIXAeXj0kScbKimPM2vWMUrJZbbr?=
+ =?us-ascii?Q?4oHdF40DgFK0soHyP6KNFhKH6tsY4zL+pO+YqH9nccaDGQgGf+TW/CPjVIm1?=
+ =?us-ascii?Q?wXSaDgonHZc19Fexe77jAgwFinLpvLeYJD7RfvUO1YQwKajYt8hnRARMKzmK?=
+ =?us-ascii?Q?rEd/qVKnK/HZ3sIS/M7qWO72+tqX8udDeZ+U2cBUFX6t1pwSuWBuS6SxJAHn?=
+ =?us-ascii?Q?Fd+40ZB+ATlGMz4JM3BoiO4rxT+RiJ4fmzFcFY6bgf2JQlupfH6Th/NWOBWo?=
+ =?us-ascii?Q?r7i9MgG1QWpmrYAhfpnlRcrfrasw1HDHKeI1X3Qp2xXHVN20knbWvdWtnDUK?=
+ =?us-ascii?Q?oroX/hENZjwfGGGYyFR8mYgfBlLONJ1N0FcSrGHC6qgVD+XKLvhP3ZDo9vNu?=
+ =?us-ascii?Q?RW2ohGUSHhDqe9q2uqgDzVRXUwcw9xTrYVHUv5R2J39zt5C8Pv+PBPfZc4Df?=
+ =?us-ascii?Q?apM8s0lMGea7h8yTX9OfIJJqxv8Iat4lNtEjK2CcaNZrqrqr45ebFbZ6BDI3?=
+ =?us-ascii?Q?H8FAuMbhZIhUoiam2C2vSZ+An4bqgNnZ/OI4SdqhBeuQ7P/B2tCMSmob/Eg7?=
+ =?us-ascii?Q?CEaNxYBeTuiRsRoEvADqBo7EKHAD1WgsapX6a/wXu7wBZ3bGzV5YbV4I/rpB?=
+ =?us-ascii?Q?jDBmZyjUC2FQ4NrR6xQu535C2HErnHf9Zz5BMCkkhligyEYGb7bgJdVNGOny?=
+ =?us-ascii?Q?n+ROtUr6dmFwUtQW68BMVY8jBHORh12seHQc/TCTtiPup3QDgTEraN6/AVfK?=
+ =?us-ascii?Q?hFVCtLf37Jimk3V+BmefWuIirzkNePyQrzV7TYLDSO58dToLvzUKCdPcOI7X?=
+ =?us-ascii?Q?plxcP/AyzA9difIDQKhLI7snmWQ1A2zVbB18oJxVCxcPE8eVRhMBZZ/RusIR?=
+ =?us-ascii?Q?EXE8/OFMOLRTLvRYanx4rXzRdsr3Tf3OEw+EORNrVtQBbsQe9pFuwQ451Mx/?=
+ =?us-ascii?Q?GWy6frWWZFlpaN5F3433PMJfE4QPnmgrvAi7kwwg5Ulx9RYucaoF6X8D/W//?=
+ =?us-ascii?Q?RfTEnu0L6fOJ5E97IaAEeSHzoqQkms6MxfWl0BFvKQXZoQ1OWDaIMe1FZnv2?=
+ =?us-ascii?Q?B4KFpOeHFSeQFbCC50wOovZWUUy8Lx12mVepfU44hRSPS/jiuhXohJd6N+4Z?=
+ =?us-ascii?Q?+JL1Nr8oC7nuq+2uDXRInlzjVeJOVyZR9kkppSLASE6C121QJ+vCW5bQSNcT?=
+ =?us-ascii?Q?rFHspwQIRh5+Aj6TG2ssbM8imlUXayJIuyLG8j3sj01o7oJ9tmksvWhiC+1S?=
+ =?us-ascii?Q?igblp39MRpQjgt3C8SXzGaVUwjn/5PpukX8SpPdUpcdRUVfqQ3oZSsySIm6V?=
+ =?us-ascii?Q?H0/mdmL1WKipg5cecySJdqj6hCLwxjFJhHPo/siUjau3rRbkKpEhaTax6Sic?=
+ =?us-ascii?Q?hqIVLGo+//JwJiZ9Fs3cXx6xDWw78/a8blmL+NC+PADNxeqwDHCwAdmYxBL+?=
+ =?us-ascii?Q?YH+GWZgnFEh+AdSC9gJQyLQqhfaPjKI54VlJiyJZFkmZVM3EY1d7lnzfUr2B?=
+ =?us-ascii?Q?z8YQSM5qzXODmktOK/b1nxWFBPXgdRHU1gGVX/N5neiWBnssmyLYRSvdWJA/?=
+ =?us-ascii?Q?S/MQzVrelHOrM/DnA3xw/8XzfmQVeBFuXZ0KYfya4HRGGkrWiKHrhi8uI1gS?=
+ =?us-ascii?Q?JHSNipFkIA=3D=3D?=
+X-Exchange-RoutingPolicyChecked: aJxrpSe+NunxmBkoOjMP2j0vlEbTj1tsGVud9BLIVfrlKfFgJYjuCwKvG2L7d6mvQQTsXWY10GfdWj/NMwLt+aqQEr9h+voVE904783bGRq8D6Dcuiae5+71RmwGQ06twQu7qQuhAwIuSKKpikAik4RdSUVhi5O/paWw4nGWrAih8qytjMHejt85GJaR4dWJSsicANYPBkszvycwkt2+L9+OyvmHoBOCS49onxQISmAkDYr7wL4NZIJDo9yyyx7cVSqfhSwoui8u82L8wBX6hUOdfQ68KPxlCO1vcrI870A5hgIr3EoTl2HNC8YWxhObQX0neFfozARQPooEb4P7HQ==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 92f696dc-1013-4887-9383-08debef0ea75
 X-MS-Exchange-CrossTenant-AuthSource: PH0PR11MB5832.namprd11.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 May 2026 07:54:19.1104
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 May 2026 08:45:07.0174
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: h3tnhFZqBobOXOXdaasounhRoNi89n5NqB9bKTTWT3JXVqUihFQbnrHsN8oSrH5rJ/+TYMckvojKe92/T7/tfA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PPFD2F4A0090
+X-MS-Exchange-CrossTenant-UserPrincipalName: vZAwMbTXA3HJ5vAmye1K/e91GCGDcGkJgEmhurC11g8ms5HFAEFSlmQkVPdInKMnkezRg9JfW4SmtOPE8gJG+g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR11MB6217
 X-OriginatorOrg: intel.com
 
 
 
 Hello,
 
-kernel test robot noticed "WARNING:possible_recursive_locking_detected" on:
+kernel test robot noticed "RIP:disk_free_zone_wplug" on:
 
-commit: 60a023d26c97753be2beee6062d71ce9416725b1 ("[PATCH] drm/prime: Fix unsupervised rb_tree corruption in drm_prime_remove_buf_handle")
-url: https://github.com/intel-lab-lkp/linux/commits/w15303746062-163-com/drm-prime-Fix-unsupervised-rb_tree-corruption-in-drm_prime_remove_buf_handle/20260528-163356
-base: https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
-patch link: https://lore.kernel.org/all/20260528082912.1051262-1-w15303746062@163.com/
-patch subject: [PATCH] drm/prime: Fix unsupervised rb_tree corruption in drm_prime_remove_buf_handle
+commit: d9343256aa173471dbb7f3e02a2177801f2f2136 ("[PATCH] block: blk-zoned=
+: fix zwplug refcount leak on write error path")
+url: https://github.com/intel-lab-lkp/linux/commits/Wentao-Liang/block-blk-=
+zoned-fix-zwplug-refcount-leak-on-write-error-path/20260526-234750
+base: https://git.kernel.org/cgit/linux/kernel/git/axboe/linux.git for-next
+patch link: https://lore.kernel.org/all/20260526141824.2293025-1-vulab@isca=
+s.ac.cn/
+patch subject: [PATCH] block: blk-zoned: fix zwplug refcount leak on write =
+error path
 
-in testcase: boot
+in testcase: blktests
+version: blktests-x86_64-9131687-1_20260529
+with following parameters:
 
-config: x86_64-rhel-9.4-bpf
+	test: zbd-004
+
+
+config: x86_64-rhel-9.4-func
 compiler: gcc-14
-test machine: qemu-system-x86_64 -enable-kvm -cpu SandyBridge -smp 2 -m 32G
+test machine: 16 threads Intel(R) Core(TM) i7-13620H (Raptor Lake) with 32G=
+ memory
 
 (please refer to attached dmesg/kmsg for entire log/backtrace)
 
 
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
+If you fix the issue in a separate patch/commit (i.e. not just a new versio=
+n of
 the same patch/commit), kindly add following tags
 | Reported-by: kernel test robot <oliver.sang@intel.com>
-| Closes: https://lore.kernel.org/oe-lkp/202605310941.ddd52610-lkp@intel.com
+| Closes: https://lore.kernel.org/oe-lkp/202605311048.34c03950-lkp@intel.co=
+m
 
 
 
-[   86.630882][  T218] WARNING: possible recursive locking detected
-[   86.631312][  T218] 7.1.0-rc2+ #1 Not tainted
-[   86.631634][  T218] --------------------------------------------
-[   86.632065][  T218] (udev-worker)/218 is trying to acquire lock:
-[   86.632529][  T218] ffff8881ab017388 (&prime_fpriv->lock){+.+.}-{4:4}, at: drm_prime_remove_buf_handle (gpu/drm/drm_prime.c:195) drm
-[   86.633434][  T218]
-[   86.633434][  T218] but task is already holding lock:
-[   86.633951][  T218] ffff8881ab017388 (&prime_fpriv->lock){+.+.}-{4:4}, at: drm_gem_object_release_handle (gpu/drm/drm_gem.c:377) drm
-[   86.638664][  T218]
-[   86.638664][  T218] other info that might help us debug this:
-[   86.639229][  T218]  Possible unsafe locking scenario:
-[   86.639229][  T218]
-[   86.639769][  T218]        CPU0
-[   86.640006][  T218]        ----
-[   86.640243][  T218]   lock(&prime_fpriv->lock);
-[   86.640581][  T218]   lock(&prime_fpriv->lock);
-[   86.640916][  T218]
-[   86.640916][  T218]  *** DEADLOCK ***
-[   86.640916][  T218]
-[   86.641480][  T218]  May be due to missing lock nesting notation
-[   86.641480][  T218]
-[   86.642060][  T218] 4 locks held by (udev-worker)/218:
-[   86.642446][  T218]  #0: ffff8881022921f8 (&dev->mutex){....}-{4:4}, at: __driver_attach (linux/device.h:1040 base/dd.c:1174 base/dd.c:1294)
-[   86.643133][  T218]  #1: ffff8881ab020260 (&dev->clientlist_mutex){+.+.}-{4:4}, at: drm_client_register (gpu/drm/drm_client.c:129) drm
-[   86.644051][  T218]  #2: ffff8882a2b58a70 (&helper->lock){+.+.}-{4:4}, at: drm_fb_helper_initial_config (gpu/drm/drm_fb_helper.c:1717 gpu/drm/drm_fb_helper.c:1710) drm_kms_helper
-[   86.644930][  T218]  #3: ffff8881ab017388 (&prime_fpriv->lock){+.+.}-{4:4}, at: drm_gem_object_release_handle (gpu/drm/drm_gem.c:377) drm
-[   86.645880][  T218]
-[   86.645880][  T218] stack backtrace:
-[   86.646300][  T218] CPU: 1 UID: 0 PID: 218 Comm: (udev-worker) Not tainted 7.1.0-rc2+ #1 PREEMPT(full)
-[   86.646307][  T218] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-[   86.646311][  T218] Call Trace:
-[   86.646316][  T218]  <TASK>
-[   86.646321][  T218]  dump_stack_lvl (dump_stack.c:94 dump_stack.c:120)
-[   86.646333][  T218]  print_deadlock_bug.cold (locking/lockdep.c:3041)
-[   86.646341][  T218]  validate_chain (locking/lockdep.c:3093 locking/lockdep.c:3895)
-[   86.646350][  T218]  __lock_acquire (locking/lockdep.c:5237)
-[   86.646366][  T218]  lock_acquire (trace/events/lock.h:24 (discriminator 15) trace/events/lock.h:24 (discriminator 15) locking/lockdep.c:5831 (discriminator 15))
-[   86.646372][  T218]  ? drm_prime_remove_buf_handle (gpu/drm/drm_prime.c:195) drm
-[   86.646516][  T218]  ? rcu_is_watching (x86/include/asm/atomic.h:23 linux/atomic/atomic-arch-fallback.h:457 linux/context_tracking.h:128 rcu/tree.c:752)
-[   86.646521][  T218]  ? drm_prime_remove_buf_handle (gpu/drm/drm_prime.c:195) drm
-[   86.646659][  T218]  ? lock_acquire (trace/events/lock.h:24 (discriminator 21) locking/lockdep.c:5831 (discriminator 21))
-[   86.646665][  T218]  __mutex_lock (locking/mutex.c:646 locking/mutex.c:820)
-[   86.646675][  T218]  ? drm_prime_remove_buf_handle (gpu/drm/drm_prime.c:195) drm
-[   86.646814][  T218]  ? drm_prime_remove_buf_handle (gpu/drm/drm_prime.c:195) drm
-[   86.646952][  T218]  ? __mutex_lock (locking/mutex.c:656 locking/mutex.c:820)
-[   86.646958][  T218]  ? drm_gem_object_release_handle (gpu/drm/drm_gem.c:377) drm
-[   86.647103][  T218]  ? __pfx___mutex_lock (locking/mutex.c:914)
-[   86.647109][  T218]  ? __pfx___mutex_lock (locking/mutex.c:914)
-[   86.647116][  T218]  ? idr_replace (idr.c:304)
-[   86.647124][  T218]  ? drm_prime_remove_buf_handle (gpu/drm/drm_prime.c:195) drm
-[   86.647264][  T218] drm_prime_remove_buf_handle (gpu/drm/drm_prime.c:195) drm
-[   86.647408][  T218] drm_gem_object_release_handle (gpu/drm/drm_gem.c:379) drm
-[   86.647555][  T218] drm_gem_handle_delete (gpu/drm/drm_gem.c:413) drm
-[   86.647700][  T218] drm_client_buffer_create_dumb (gpu/drm/drm_client.c:424) drm
-[   86.647840][  T218]  ? __pfx_drm_client_buffer_create_dumb (gpu/drm/drm_client.c:267) drm
-[   86.647977][  T218]  ? drm_fb_helper_single_fb_probe (gpu/drm/drm_fb_helper.c:1414 gpu/drm/drm_fb_helper.c:1445) drm_kms_helper
-[   86.648030][  T218] drm_fbdev_shmem_driver_fbdev_probe (gpu/drm/drm_fbdev_shmem.c:151) drm_shmem_helper
-[   86.648045][  T218]  ? __pfx_drm_fbdev_shmem_driver_fbdev_probe (gpu/drm/drm_fbdev_shmem.c:119) drm_shmem_helper
-[   86.648055][  T218]  ? __kmalloc_noprof (linux/local_lock_internal.h:62 slub.c:4771 slub.c:4883 slub.c:5294 slub.c:5307)
-[   86.648064][  T218]  ? rcu_is_watching (x86/include/asm/atomic.h:23 linux/atomic/atomic-arch-fallback.h:457 linux/context_tracking.h:128 rcu/tree.c:752)
-[   86.648073][  T218] drm_fb_helper_single_fb_probe (gpu/drm/drm_fb_helper.c:1454) drm_kms_helper
-[   86.648121][  T218]  ? __pfx_drm_fb_helper_single_fb_probe (gpu/drm/drm_fb_helper.c:1391) drm_kms_helper
-[   86.648167][  T218]  ? fb_copy_cmap (video/fbdev/core/fbcmap.c:187)
-[   86.648174][  T218]  ? fb_alloc_cmap_gfp (video/fbdev/core/fbcmap.c:124 (discriminator 1))
-[   86.648180][  T218] __drm_fb_helper_initial_config_and_unlock (gpu/drm/drm_fb_helper.c:1635) drm_kms_helper
-[   86.648230][  T218] drm_fbdev_client_hotplug (gpu/drm/clients/drm_fbdev_client.c:66) drm_client_lib
-[   86.648239][  T218] drm_client_register (gpu/drm/drm_client.c:143) drm
-[   86.648376][  T218] drm_fbdev_client_setup (gpu/drm/clients/drm_fbdev_client.c:168) drm_client_lib
-[   86.648383][  T218] drm_client_setup (gpu/drm/clients/drm_client_setup.c:46 gpu/drm/clients/drm_client_setup.c:35) drm_client_lib
-[   86.648390][  T218] bochs_pci_probe (gpu/drm/tiny/bochs.c:776 gpu/drm/tiny/bochs.c:747) bochs
-[   86.648405][  T218]  ? __pfx_bochs_pci_probe (gpu/drm/tiny/bochs.c:254) bochs
-[   86.648413][  T218]  local_pci_probe (pci/pci-driver.c:325)
-[   86.648422][  T218]  pci_call_probe (pci/pci-driver.c:387)
-[   86.648427][  T218]  ? __pfx_pci_call_probe (pci/pci-driver.c:653)
-[   86.648432][  T218]  ? find_held_lock (locking/lockdep.c:5350)
-[   86.648439][  T218]  ? pci_match_device (linux/spinlock.h:390 pci/pci-driver.c:156)
-[   86.648444][  T218]  ? rcu_is_watching (x86/include/asm/atomic.h:23 linux/atomic/atomic-arch-fallback.h:457 linux/context_tracking.h:128 rcu/tree.c:752)
-[   86.648448][  T218]  ? trace_preempt_on (trace/events/preemptirq.h:53 (discriminator 21) trace/trace_preemptirq.c:120 (discriminator 21))
-[   86.648452][  T218]  ? pci_match_id (pci/pci.h:466 pci/pci.h:460 pci/pci-driver.c:110)
-[   86.648459][  T218]  ? pci_match_device (pci/pci-driver.c:168)
-[   86.648465][  T218]  pci_device_probe (pci/pci-driver.c:448 pci/pci-driver.c:482)
-[   86.648471][  T218]  call_driver_probe (base/dd.c:631)
-[   86.648477][  T218]  really_probe (base/dd.c:709)
-[   86.648484][  T218]  __driver_probe_device (base/dd.c:871)
-[   86.648489][  T218]  driver_probe_device (base/dd.c:901)
-[   86.648495][  T218]  __driver_attach (base/dd.c:1295)
-[   86.648500][  T218]  ? __pfx___driver_attach (base/dd.c:1004 (discriminator 1))
-[   86.648504][  T218]  bus_for_each_dev (base/bus.c:383)
-[   86.648511][  T218]  ? __pfx_bus_for_each_dev (base/bus.c:205)
-[   86.648516][  T218]  ? bus_add_driver (base/bus.c:754)
-[   86.648520][  T218]  ? trace_preempt_on (trace/events/preemptirq.h:53 (discriminator 21) trace/trace_preemptirq.c:120 (discriminator 21))
-[   86.648526][  T218]  bus_add_driver (base/bus.c:756)
-[   86.648532][  T218]  driver_register (base/driver.c:249)
-[   86.648538][  T218]  ? __pfx_bochs_pci_driver_init (bochs.c:?) bochs
-[   86.648548][  T218]  do_one_initcall (main.c:1392)
-[   86.648555][  T218]  ? __pfx_do_one_initcall (trace/events/initcall.h:10)
-[   86.648561][  T218]  ? kasan_unpoison (kasan/shadow.c:146 kasan/shadow.c:178)
-[   86.648568][  T218]  ? __kasan_slab_alloc (kasan/common.c:336 kasan/common.c:366)
-[   86.648575][  T218]  ? rcu_is_watching (x86/include/asm/atomic.h:23 linux/atomic/atomic-arch-fallback.h:457 linux/context_tracking.h:128 rcu/tree.c:752)
-[   86.648579][  T218]  ? kasan_unpoison (kasan/shadow.c:146 kasan/shadow.c:178)
-[   86.648586][  T218]  do_init_module (module/main.c:3106)
-[   86.648594][  T218]  ? __pfx_do_init_module (trace/events/module.h:50 (discriminator 1))
-[   86.648599][  T218]  ? load_module (module/main.c:2528 module/main.c:2523 module/main.c:3575)
-[   86.648603][  T218]  ? kfree (linux/kasan.h:235 slub.c:2689 slub.c:6250 slub.c:6565)
-[   86.648611][  T218]  load_module (module/main.c:3580)
-[   86.648620][  T218]  ? __pfx_load_module (module/main.c:3020)
-[   86.648626][  T218]  ? __pfx_kernel_read_file (??:?)
-[   86.648632][  T218]  ? do_syscall_64 (linux/irq-entry-common.h:279 linux/entry-common.h:320 x86/entry/syscall_64.c:100)
-[   86.648640][  T218]  init_module_from_file (module/main.c:3777)
-[   86.648646][  T218]  ? __pfx_init_module_from_file (module/main.c:3634)
-[   86.648656][  T218]  ? idempotent_init_module (linux/spinlock.h:390 module/main.c:3688 module/main.c:3788)
-[   86.648661][  T218]  ? rcu_is_watching (x86/include/asm/atomic.h:23 linux/atomic/atomic-arch-fallback.h:457 linux/context_tracking.h:128 rcu/tree.c:752)
-[   86.648664][  T218]  ? trace_preempt_on (trace/events/preemptirq.h:53 (discriminator 21) trace/trace_preemptirq.c:120 (discriminator 21))
-[   86.648669][  T218]  ? preempt_count_sub (sched/core.c:5874 (discriminator 2) sched/core.c:5871 (discriminator 2) sched/core.c:5893 (discriminator 2))
-[   86.648676][  T218]  idempotent_init_module (module/main.c:3789)
-[   86.648682][  T218]  ? __pfx_idempotent_init_module (module/main.c:3778)
-[   86.648687][  T218]  ? preempt_count_sub (sched/core.c:5874 (discriminator 2) sched/core.c:5871 (discriminator 2) sched/core.c:5893 (discriminator 2))
-[   86.648696][  T218]  ? security_capable (security.c:660 (discriminator 20))
-[   86.648702][  T218]  __x64_sys_finit_module (module/main.c:3815 module/main.c:3799 module/main.c:3799)
-[   86.648708][  T218]  do_syscall_64 (x86/entry/syscall_64.c:63 x86/entry/syscall_64.c:94)
-[   86.648713][  T218]  ? rcu_is_watching (x86/include/asm/atomic.h:23 linux/atomic/atomic-arch-fallback.h:457 linux/context_tracking.h:128 rcu/tree.c:752)
-[   86.648717][  T218]  ? trace_preempt_on (trace/events/preemptirq.h:53 (discriminator 21) trace/trace_preemptirq.c:120 (discriminator 21))
-[   86.648720][  T218]  ? do_syscall_64 (linux/randomize_kstack.h:58 x86/entry/syscall_64.c:92)
-[   86.648725][  T218]  ? preempt_count_sub (sched/core.c:5874 (discriminator 2) sched/core.c:5871 (discriminator 2) sched/core.c:5893 (discriminator 2))
-[   86.648730][  T218]  ? do_syscall_64 (linux/randomize_kstack.h:58 x86/entry/syscall_64.c:92)
-[   86.648734][  T218]  ? irqentry_exit (linux/irq-entry-common.h:280 linux/irq-entry-common.h:325 entry/common.c:162)
-[   86.648740][  T218]  entry_SYSCALL_64_after_hwframe (x86/entry/entry_64.S:121)
-[   86.648747][  T218] RIP: 0033:0x7f3757f90779
-[   86.648768][  T218] Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d 4f 86 0d 00 f7 d8 64 89 01 48
+[   38.687737][  T420] INFO: lkp CACHE_DIR is /opt/rootfs/tmp
+[   38.687747][  T420]
+[   40.261858][ T1207] loop: module loaded
+[   40.340461][ T1252] null_blk: disk nullb0 created
+[   40.341026][ T1252] null_blk: module loaded
+[   40.347691][ T1255] null_blk: nullb1: using native zone append
+[   40.349880][ T1255] null_blk: disk nullb1 created
+[   40.402539][ T1255] run blktests zbd/004 at 2026-05-30 10:54:31
+[   40.445801][ T1286] ------------[ cut here ]------------
+[   40.446398][ T1286] WARNING: block/blk-zoned.c:590 at disk_free_zone_wpl=
+ug+0x26b/0x330, CPU#3: dd/1286
+[   40.447008][ T1286] Modules linked in: null_blk loop btrfs libblake2b zs=
+td_compress raid6_pq xor binfmt_misc snd_hda_codec_intelhdmi snd_hda_codec_=
+hdmi snd_hda_codec_alc269 snd_hda_codec_realtek_lib snd_hda_scodec_componen=
+t snd_hda_codec_generic snd_hda_intel snd_sof_pci_intel_tgl snd_sof_pci_int=
+el_cnl snd_sof_intel_hda_generic soundwire_intel snd_sof_intel_hda_sdw_bpt =
+snd_sof_intel_hda_common snd_soc_hdac_hda snd_sof_intel_hda_mlink snd_sof_i=
+ntel_hda soundwire_cadence intel_rapl_msr snd_sof_pci snd_sof_xtensa_dsp sn=
+d_soc_sdw_utils intel_uncore_frequency intel_uncore_frequency_common x86_pk=
+g_temp_thermal snd_sof snd_sof_utils snd_soc_acpi_intel_match snd_soc_acpi_=
+intel_sdca_quirks soundwire_generic_allocation snd_soc_acpi crc8 soundwire_=
+bus snd_soc_sdca intel_powerclamp coretemp snd_soc_avs snd_soc_hda_codec sn=
+d_hda_ext_core spi_pxa2xx_platform snd_hda_codec dw_dmac kvm_intel snd_hda_=
+core spi_pxa2xx_core i915 snd_intel_dspcfg snd_intel_sdw_acpi processor_the=
+rmal_device_pci snd_hwdep processor_thermal_device kvm intel_gtt
+[   40.447061][ T1286]  processor_thermal_wt_hint drm_buddy snd_soc_core tt=
+m btusb platform_temperature_control iwlwifi btrtl snd_compress processor_t=
+hermal_soc_slider drm_display_helper spi_nor btintel processor_thermal_rfim=
+ snd_pcm irqbypass think_lmi cec processor_thermal_rapl btbcm rapl intel_ra=
+pl_common drm_client_lib btmtk drm_kms_helper mtd intel_pmc_core snd_timer =
+ahci intel_cstate intel_lpss_pci processor_thermal_wt_req cfg80211 firmware=
+_attributes_class wmi_bmof bluetooth pmt_telemetry video libahci processor_=
+thermal_power_floor mei_me snd spi_intel_pci i2c_i801 pmt_discovery process=
+or_thermal_mbox intel_lpss intel_uncore libata pl2303 pmt_class i2c_smbus p=
+cspkr idma64 spi_intel rfkill soundcore mei int340x_thermal_zone wmi intel_=
+pmc_ssram_telemetry int3400_thermal acpi_thermal_rel intel_vsec pinctrl_tig=
+erlake acpi_pad acpi_tad drm fuse nfnetlink
+[   40.452569][ T1286] CPU: 3 UID: 0 PID: 1286 Comm: dd Tainted: G S      W=
+           7.1.0-rc3+ #1 PREEMPT(lazy)
+[   40.453213][ T1286] Tainted: [S]=3DCPU_OUT_OF_SPEC, [W]=3DWARN
+[   40.453849][ T1286] Hardware name: LENOVO 90XW004HPL/336B, BIOS M5LKT1CA=
+ 01/06/2025
+[   40.454439][ T1286] RIP: 0010:disk_free_zone_wplug (blk-zoned.c:592 (dis=
+criminator 1))
+[   40.455005][ T1286] Code: 5d 41 5e 41 5f e9 f5 fc e2 fe 83 e2 07 38 d0 7=
+f 08 84 c0 0f 85 82 00 00 00 41 c6 04 24 ff e9 15 ff ff ff 0f 0b e9 2c fe f=
+f ff <0f> 0b a8 01 0f 84 f8 fd ff ff 0f 0b e9 f1 fd ff ff e8 bf 7a 61 ff
 All code
-========
-   0:	ff c3                	inc    %ebx
-   2:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
-   9:	00 00 00 
-   c:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
-  11:	48 89 f8             	mov    %rdi,%rax
-  14:	48 89 f7             	mov    %rsi,%rdi
-  17:	48 89 d6             	mov    %rdx,%rsi
-  1a:	48 89 ca             	mov    %rcx,%rdx
-  1d:	4d 89 c2             	mov    %r8,%r10
-  20:	4d 89 c8             	mov    %r9,%r8
-  23:	4c 8b 4c 24 08       	mov    0x8(%rsp),%r9
-  28:	0f 05                	syscall
-  2a:*	48 3d 01 f0 ff ff    	cmp    $0xfffffffffffff001,%rax		<-- trapping instruction
-  30:	73 01                	jae    0x33
-  32:	c3                   	ret
-  33:	48 8b 0d 4f 86 0d 00 	mov    0xd864f(%rip),%rcx        # 0xd8689
-  3a:	f7 d8                	neg    %eax
-  3c:	64 89 01             	mov    %eax,%fs:(%rcx)
-  3f:	48                   	rex.W
+=3D=3D=3D=3D=3D=3D=3D=3D
+   0:	5d                   	pop    %rbp
+   1:	41 5e                	pop    %r14
+   3:	41 5f                	pop    %r15
+   5:	e9 f5 fc e2 fe       	jmp    0xfffffffffee2fcff
+   a:	83 e2 07             	and    $0x7,%edx
+   d:	38 d0                	cmp    %dl,%al
+   f:	7f 08                	jg     0x19
+  11:	84 c0                	test   %al,%al
+  13:	0f 85 82 00 00 00    	jne    0x9b
+  19:	41 c6 04 24 ff       	movb   $0xff,(%r12)
+  1e:	e9 15 ff ff ff       	jmp    0xffffffffffffff38
+  23:	0f 0b                	ud2
+  25:	e9 2c fe ff ff       	jmp    0xfffffffffffffe56
+  2a:*	0f 0b                	ud2		<-- trapping instruction
+  2c:	a8 01                	test   $0x1,%al
+  2e:	0f 84 f8 fd ff ff    	je     0xfffffffffffffe2c
+  34:	0f 0b                	ud2
+  36:	e9 f1 fd ff ff       	jmp    0xfffffffffffffe2c
+  3b:	e8 bf 7a 61 ff       	call   0xffffffffff617aff
 
-
+Code starting with the faulting instruction
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+   0:	0f 0b                	ud2
+   2:	a8 01                	test   $0x1,%al
+   4:	0f 84 f8 fd ff ff    	je     0xfffffffffffffe02
+   a:	0f 0b                	ud2
+   c:	e9 f1 fd ff ff       	jmp    0xfffffffffffffe02
+  11:	e8 bf 7a 61 ff       	call   0xffffffffff617ad5
+[   40.455652][ T1286] RSP: 0018:ffffc9000179f4d8 EFLAGS: 00010246
+[   40.456258][ T1286] RAX: 0000000000000000 RBX: ffff888883a71800 RCX: fff=
+fffff8293c99a
+[   40.456863][ T1286] RDX: 1ffff1111074e30e RSI: 0000000000000004 RDI: fff=
+f888883a71870
+[   40.457503][ T1286] RBP: ffff8881efd97000 R08: 0000000000000001 R09: fff=
+fed111074e30d
+[   40.458107][ T1286] R10: ffff888883a7186f R11: ffff888200fac01c R12: fff=
+f888890e92940
+[   40.458785][ T1286] R13: ffff88889dac03f8 R14: 000000096a349520 R15: fff=
+f8888a6d6b780
+[   40.459408][ T1286] FS:  00007f265573c780(0000) GS:ffff8887cd24b000(0000=
+) knlGS:0000000000000000
+[   40.460016][ T1286] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[   40.460681][ T1286] CR2: 000055b746683f88 CR3: 000000019ef16006 CR4: 000=
+0000000f72ef0
+[   40.461295][ T1286] PKRU: 55555554
+[   40.461905][ T1286] Call Trace:
+[   40.462554][ T1286]  <TASK>
+[   40.463161][ T1286]  blk_mq_finish_request (blk.h:548 blk-mq.c:786)
+[   40.463864][ T1286]  __blk_mq_end_request (blk-mq.c:1164)
+[   40.464518][ T1286] null_queue_rq (block/null_blk/main.c:1703 (discrimin=
+ator 1)) null_blk
+[   40.465132][ T1286] null_queue_rqs (block/null_blk/main.c:1717) null_blk
+[   40.465828][ T1286]  ? __pfx_null_queue_rqs (block/null_blk/main.c:1326)=
+ null_blk
+[   40.466460][ T1286]  ? _raw_spin_lock_irqsave (linux/instrumented.h:55 l=
+inux/atomic/atomic-instrumented.h:1301 asm-generic/qspinlock.h:111 linux/sp=
+inlock.h:187 linux/spinlock_api_smp.h:133 locking/spinlock.c:166)
+[   40.467069][ T1286]  ? __pfx__raw_spin_lock_irqsave (locking/spinlock.c:=
+273)
+[   40.467748][ T1286]  blk_mq_dispatch_queue_requests (blk-mq.c:2903 (disc=
+riminator 1))
+[   40.468362][ T1286]  blk_mq_flush_plug_list (blk-mq.c:2991)
+[   40.469031][ T1286]  ? blk_account_io_start (blk-mq.c:1145 blk-mq.c:1121=
+)
+[   40.469695][ T1286]  ? __pfx_blk_mq_flush_plug_list (blk-mq.h:364 (discr=
+iminator 1))
+[   40.470310][ T1286]  ? blk_mq_submit_bio (blk-mq.c:3231)
+[   40.470968][ T1286]  __blk_flush_plug (blk-core.c:1229)
+[   40.471617][ T1286]  ? __pfx___blk_flush_plug (linux/list.h:46 (discrimi=
+nator 2))
+[   40.472224][ T1286]  ? gup_fast_fallback (gup.c:3202)
+[   40.472917][ T1286]  __submit_bio (blk-core.c:1256 blk-core.c:648)
+[   40.473551][ T1286]  ? get_page_from_freelist (page_alloc.c:1866 page_al=
+loc.c:3946)
+[   40.474215][ T1286]  ? __pfx___submit_bio (blk-core.c:1257 (discriminato=
+r 1))
+[   40.474900][ T1286]  submit_bio_noacct_nocheck (blk-core.c:721 blk-core.=
+c:752)
+[   40.475528][ T1286]  ? __pfx_submit_bio_noacct_nocheck (blk-core.c:712)
+[   40.476196][ T1286]  ? submit_bio_noacct (blk-core.c:881)
+[   40.476875][ T1286]  bio_await (bio.c:1499)
+[   40.477495][ T1286]  ? __pfx_bio_await (bio.c:1471)
+[   40.478094][ T1286]  ? bio_iov_iter_get_pages (bio.c:1266)
+[   40.478753][ T1286]  submit_bio_wait (bio.c:1517)
+[   40.479354][[   40.483105][ T1286]  blkdev_write_iter (fops.c:722 fops.c=
+:790)
+[   40.483748][ T1286]  vfs_write (read_write.c:595 read_write.c:688)
+[   40.484345][ T1286]  ? __pfx_vfs_write (linux/percpu-rwsem.h:131 (discri=
+minator 38))
+[   40.484934][ T1286]  ? __pfx_css_rstat_updated (cgroup/rstat.c:548)
+[   40.485546][ T1286]  ? do_syscall_64+[   40.570578][ T1287] ------------=
+[ cut here ]------------
+[   40.571274][ T1287] refcount_t: underflow; use-after-free.
+[   40.571922][ T1287] WARNING: lib/refcount.c:28 at refcount_warn_saturate=
++0xa9/0xf0, CPU#12: dd/1287
+[   40.572594][ T1287] Modules linked in: null_blk loop btrfs libblake2b zs=
+td_compress raid6_pq xor binfmt_misc snd_hda_codec_intelhdmi snd_hda_codec_=
+hdmi snd_hda_codec_alc269 snd_hda_codec_realtek_lib snd_hda_scodec_componen=
+t snd_hda_codec_generic snd_hda_intel snd_sof_pci_intel_tgl snd_sof_pci_int=
+el_cnl snd_sof_intel_hda_generic soundwire_intel snd_sof_intel_hda_sdw_bpt =
+snd_sof_intel_hda_common snd_soc_hdac_hda snd_sof_intel_hda_mlink snd_sof_i=
+ntel_hda soundwire_cadence intel_rapl_msr snd_sof_pci snd_sof_xtensa_dsp sn=
+d_soc_sdw_utils[   40.572665][ T1287]  processor_thermal_wt_hint drm_buddy =
+snd_soc_core ttm btusb platform_temperature_control iwlwifi btrtl snd_compr=
+ess processor_thermal_soc_slider drm_display_helper spi_nor btintel process=
+or_thermal_rfim snd_pcm irqbypass think_lmi ce[   40.595153][ T1287]  ? __p=
+fx__raw_spin_lock_irqsave (locking/spinlock.c:273)
+[   40.595903][ T1287]  blk_mq_dispatch_queue_requests (blk-mq.c:2903 (disc=
+riminator 1))
+[   40.596653][ T1287]  blk_mq_flush_plug_list (blk-mq.c:2991)
+[   40.597402][ T1287]  ? blk_account_io_start (blk-mq.c:1145 blk-mq.c:1121=
+)
+[ [   40.617272][ T1287]  ? folio_add_lru_vma (swap.c:536)
+[   40.617965][ T1287]  ksys_write (read_write.c:740)
+[   40.618658][ T1287]  ? __pfx_ksys_write (read_write.c:724)
+[   40.619354][ T1287]  ? folio_add_new_anon_rmap (linux/instrumented.h:82 =
+asm-generic/bitops/instrumented-non-atomic.h:141 linux/page-flags.h:843 lin=
+ux/page-flags.h:864 linux/mm.h:1724 rmap.c:1697)
+[   40.620041][ T1287]  do_syscall_[   43.443332][  T420] LKP: stdout: 365:=
+  /lkp/lkp/src/bin/run-lkp /lkp/jobs/scheduled/igk-rpl-d05/blktests-zbd-004=
+-debian-13-x86_64-20250902.cgz-d9343256aa17-20260530-48630-1qqgxqy-5.yaml
+[   43.443340][  T420]
+[   43.445914][  T420] RESULT_ROOT=3D/result/blktests/zbd-004/igk-rpl-d05/d=
+ebian-13-x86_64-20250902.cgz/x86_64-rhel-9.4-func/gcc-14/d9343256aa173471db=
+b7f3e02a2177801f2f2136/5
+[   43.445920][  T420]
+[   43.448290][  T420] job=3D/lkp/jobs/scheduled/igk-rpl-d05/blktests-zbd-0=
+04-debian-13-x86_64-20250902.cgz-d9343256aa17-20260530-48630-1qqgxqy-5.yaml
+[   43.448293][  T420]
+[   49.435619][  T420] result_service: raw_upload, RESULT_MNT: /internal-lk=
+p-server/result, RESULT_ROOT: /internal-lkp-server/result/blktests/zbd-004/=
+igk-rpl-d05/debian-13-x86_64-20250902.cgz/x86_64-rhel-9.4-func/gcc-14/d9343=
+256aa173471dbb7f3e02a2177801f2f2136/5, TMP_RESULT_ROOT: /tmp/lkp/result
+[   49.435628][  T420]
+[   49.438631][  T420] run-job /lkp/jobs/scheduled/igk-rpl-d05/blktests-zbd=
+-004-debian-13-x86_64-20250902.cgz-d9343256aa17-20260530-48630-1qqgxqy-5.ya=
+ml
+[   49.438634][  T420]
+[   50.297903][  T420] /usr/bin/wget -q --timeout=3D3600 --tries=3D1 --loca=
+l-encoding=3DUTF-8 http://internal-lkp-server:80/~lkp/cgi-bin/lkp-jobfile-a=
+ppend-var?job_file=3D/lkp/jobs/scheduled/igk-rpl-d05/blktests-zbd-004-debia=
+n-13-x86_64-20250902.cgz-d9343256aa17-20260530-48630-1qqgxqy-5.yaml&job_sta=
+te=3Drunning -O /dev/null
+[   50.297912][  T420]
+[   50.300165][  T420] target ucode: 0x4129
+[   50.300168][  T420]
+[   50.301778][  T420] LKP: stdout: 1009: current_version: 4129, target_ver=
+sion: 4129
+[   50.301791][  T420]
+[   50.302957][  T420] check_nr_cpu
+[   50.302959][  T420]
+[   50.304375][  T420] CPU(s):                                  16
+[   50.304378][  T420]
+[   50.305812][  T420] On-line CPU(s) list:                     0-15
+[   50.305815][  T420]
+[   50.307490][  T420] Model name:                              13th Gen In=
+tel(R) Core(TM) i7-13620H
+[   50.307494][  T420]
+[   50.308972][  T420] Thread(s) per core:                      2
+[   50.308974][  T420]
+[   50.310450][  T420] Core(s) per socket:                      10
+[   50.310453][  T420]
+[   50.311846][  T420] Socket(s):                               1
+[   50.311849][  T420]
+[   50.313233][  T420] CPU(s) scaling MHz:                      30%
+[   50.313236][  T420]
+[   50.314648][  T420] NUMA node(s):                            1
+[   50.314650][  T420]
+[   50.316064][  T420] NUMA node0 CPU(s):                       0-15
+[   50.316066][  T420]
+[   50.317507][  T420] 2026-05-30 10:54:26 cd /lkp/benchmarks/blktests
+[   50.317509][  T420]
+[   50.319031][  T420] Defaulting to policy_version 2 because kernel suppor=
+ts it.
+[   50.319034][  T420]
+[   50.320596][  T420] Customizing passphrase hashing difficulty for this s=
+ystem...
+[   50.320600][  T420]
+[   50.322106][  T420] Created global config file at "/etc/fscrypt.conf".
+[   50.322108][  T420]
+[   50.323861][  T420] Allow users other than root to create fscrypt metada=
+ta on the root filesystem?
+[   50.323864][  T420]
+[   50.326241][  T420] (See https://github.com/google/fscrypt#setting-up-fs=
+crypt-on-a-filesystem) [y/N] Metadata directories created at "/.fscrypt", w=
+ritable by root only.
+[   50.326244][  T420]
+[   50.327687][  T420] 2026-05-30 10:54:31 echo zbd/004
+[   50.327689][  T420]
+[   50.329072][  T420] 2026-05-30 10:54:31 ./check zbd/004
+[   50.329074][  T420]
+[   50.330721][  T420] zbd/004 =3D> nullb1 (write split across sequential z=
+ones)
+[   50.330724][  T420]
+[   50.332420][  T420] zbd/004 =3D> nullb1 (write split across sequential z=
+ones)      [failed]
+[   50.332423][  T420]
+[   50.333796][  T420]     runtime    ...  0.246s
+[   50.333798][  T420]
+[   50.335223][  T420]     something found in dmesg:
+[   50.335226][  T420]
+[   50.336967][  T420]
+[   40.402539] [   T1255] run blktests zbd/004 at 2026-05-30 10:54:31
+[   50.336970][  T420]
+[   50.338633][  T420]
+[   40.445801] [   T1286] ------------[ cut here ]------------
+[   50.338636][  T420]
+[   50.340724][  T420]
+[   40.446398] [   T1286] WARNING: block/blk-zoned.c:590 at disk_free_zone_=
+wplug+0x26b/0x330, CPU#3: dd/1286
+[   50.340727][  T420]
+[   60.489873][ T1461] EXT4-fs (nvme0n1p3): unmounting filesystem 1516f48d-=
+9247-4757-9a6e-5cfcf67431a2.
+[   62.359503][    T1] watchdog: watchdog0: watchdog did not stop!
+[   62.393655][    T1] watchdog: watchdog0: watchdog did not stop!
+[   62.479655][    T1] r8169 0000:02:00.0 eth0: Link is Down
+[    0.000000][    T0] Linux version 7.1.0-rc3+ (kbuild@6767f1d4f5ea) (gcc-=
+14 (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44) #1 SMP=
+ PREEMPT_DYNAMIC Sat May 30 06:29:39 CEST 2026
 
 The kernel config and materials to reproduce are available at:
-https://download.01.org/0day-ci/archive/20260531/202605310941.ddd52610-lkp@intel.com
+https://download.01.org/0day-ci/archive/20260531/202605311048.34c03950-lkp@=
+intel.com
 
 
 
--- 
+--=20
 0-DAY CI Kernel Test Service
 https://github.com/intel/lkp-tests/wiki
 
