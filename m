@@ -1,151 +1,113 @@
-Received: from mail-yw1-f174.google.com (mail-yw1-f174.google.com [209.85.128.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C41D67263B
-	for <stable@vger.kernel.org>; Sun, 31 May 2026 01:47:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.174
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780192037; cv=pass; b=OepvCjg5oEsmf04GZxZnYr1KVvbft1aA8A1XFK+hJjq1d13CRV9muY7ZhPWBGo7525yK9hOfFGdRp6lWJE7G0eHWcLrfyqq0Oo/oT1FFWxcx3kaP0ljZgbe0Uka3xAud/AYvGwaeAi4qQrL6Q5NTN9ykSv5tO/mzPts+uZLlt74=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780192037; c=relaxed/simple;
-	bh=vh5kRDjzzBEJ7r3I1+/zHm3OqBBaVfrc2+H7j4HGEXU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ZxxbYXawXcDT2mpF9Ety8mL5Y0yY/W4i6qFrdQFyBPBbVGrYaLafCxRnUQHblGznQtRaYBqVrxUPFS1iSj3TU4/6vLf6KZp0b+lYU6u+OezSJyGklUwyql8PdYHNDfdqfWN11j7suwy3dOLrNCGKGjdTcc/pCoXLHuxltppe26Q=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XjRcvfON; arc=pass smtp.client-ip=209.85.128.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F7351A8F7B;
+	Sun, 31 May 2026 02:49:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780195771; cv=none; b=XFMMjW7oPEViqWE/q7DJ6qtLvU0fNKFFcTqNiMon3hFF0NZJsB2h+A5ja9+g20VcJ5hlagXg2trw4Dzz2IGfF4ypWskuE6WuZ9Id5jo1DNsKQh+ztl75mP+7mxtTRG/S0vwVY978ehInEhJG2Tsgaouxvq/S3QnWBUqsr0lHUhk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780195771; c=relaxed/simple;
+	bh=bDYDvx2V7+tK7aqgpPuEk9coQxxvk/0vDczFqp0Vzxw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NfSVeDENYyNXOmiNFQc5DFVDqgVl6FI7ER35VhwiBHN7Zr3C6LnzStwxZLpuQIq0x+53GBhSsSI2aC9DBp4pWqYrOVeuUPCgLY82nJQgKCuX1fNzDz6K8WBu/z34cgF445DqfwyAde6DkwBJpdZ06S/X+NbdEgDV+DGOkh9s7nw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fo3Gd6yG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XjRcvfON"
-Received: by mail-yw1-f174.google.com with SMTP id 00721157ae682-7e2cb01a974so3768707b3.1
-        for <stable@vger.kernel.org>; Sat, 30 May 2026 18:47:15 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1780192035; cv=none;
-        d=google.com; s=arc-20240605;
-        b=LsA+YIF7uiXWW5DHTgWb+0tV6Uhy8OOsG6ewvHyRiACnUOV1Q3o2MpoJ5494WOGr1G
-         YjLKqLMbmjrgRdgaSDe4KjVAPisbyIAwM0d8LGIzf2KVWfNdXUVOT3Leu4Ruhe7kwmLH
-         JEaa0GC5c8Z8ZodXQgRYtFfs8PBmx0ZZec00DDUa5ODXXnC8oMvj8yFdLoHcT4b5p1Pr
-         npqig6B+8Qr5gl7W/0Kw7tt99wrxfwos10kApJyd+PQGuYUvN7W96ynn0rnn/xKRmnQP
-         hN8bx8J7FUzIrTbWiU2/H52+omWS2qApDQmkm9iQPFThDFbI6mDNzgfKqRnw8SgpgJt6
-         EhWg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=wo6qnMj7T215aHzWxww/SxbyHvlT9Ci/8Zz3mgbJ9ms=;
-        fh=ONEsne37yTcX5Ugdxb0BZRYCrS03/NMSb6Khzha/Ms0=;
-        b=YP/fnqJiwPHvdRsCEzE0WyDu6kHVIt97azjGltJJ94ZSIxSSIjjjkk+TCKtKu0g/x2
-         WthnLz6auN0wJfpanNpqP86YGWGlK8PsAmqdwv3Hy7h+5ryc7r6dUofsxr23VTjmfHi2
-         KnJSRXaakGYL4KQde7y3VGVc4zCHTqtPtftWGamAuUC/UTBJY8utONmZ53z83+5PY+Rh
-         cLVX4FBeRbRru5smBV3sZ3ZQDKh+pce+lL/LoM5ziNOkQbVyProXAKDjrhJ3Qq8dZd32
-         tduKKuAVl0VTQNVOALvFRopwDhQt6f/ZrLbC50PT2HG5J3BJxr3VqbxRoSSTR/GS7Dux
-         GfMA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780192035; x=1780796835; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=wo6qnMj7T215aHzWxww/SxbyHvlT9Ci/8Zz3mgbJ9ms=;
-        b=XjRcvfONSZ08P2/9nR0hz5GZHpa9GBdmwMDwDcplxkQ3rfhuXiwqZW4qizf2Uvi6QP
-         PQubYFxMaYIVRoNhD2mR8y+agWKmrJ+vgk0PQ1yIgu0WGLtOvpWhCSFlQ2lCVQ+Xjt7x
-         pVpDp4cd/aVk+H7pJpYIHoTDQfYdbUDPiceaL+JtYjKmm2WfCOBdB8GcxV3+rpBvB8If
-         P/KrZpcYtO+U1OzWDHPw1t7jV9PZrptLSICR+5nOLhLYKNoqXR394SbCpPQtJLLS1ads
-         wl3AtQgsPxVhQM4+AiNhmckPsFG6+hBWVsiZeQAHZc8WC6h5FEoeF7kdE+nr5ABSygnc
-         F7eQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780192035; x=1780796835;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=wo6qnMj7T215aHzWxww/SxbyHvlT9Ci/8Zz3mgbJ9ms=;
-        b=gV2Ky7ZsC9eZ6zA4CE5uQq1d3geKMO36lrF16OlsbGzuIY13AHYqb/3a87gF7xmx4t
-         WKzgOX1uGcMd3Rpuyf/vg/ssFPtZRElj/H8tXsCTAA9lo0I1VuStJRQRobBHX2B8zdo/
-         0d6QjmvZaYmhjg2YXn963rGHViRXLbTGvv/qJdTr3NCUl+SO0zdLFGmXoFlJcmRHZhVZ
-         TD4h4lwFUNtpugj60MwVitAWa4UE+pFm39+SG1xVwunKc3mXX7iM5gnQ2qm9kK8tiGPq
-         uBW/ty6JDue6N4nJziYujHSeq2RV5Ii8Xw9ClKT7ZhVIC/5qgEdKCy31ozwWv3EQ8BZv
-         RK+w==
-X-Forwarded-Encrypted: i=1; AFNElJ94cwAYQCvXwUV5vwlXpwW36C9jk96tv3I0FGCFwgv0xPaANVev7A7O4hNymdqYJ6BqXMpX7F4=@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywbbmw5VPSfaX/7/5ci/vBVKSzKsoCALOpZYOWO/um6aamSbfRB
-	3THytHUMiaZXzu8hzmaRBlOftOjifXn3VPe1p3K+ywx2BMVB/MZnd3Yz0zKN93Vg2Kd3zuR4IxE
-	cagiUCi1ixoOlMka9hNXhgEQjaQqmCDo=
-X-Gm-Gg: Acq92OEFO47ofJFw4p4A8T6XYerLKmtkEoD3YKj8zsCnjnYDuLk/yWp9QBcR4DUcuxc
-	lVCgCu1PY2w9JmUX7QaiZ1HwMABStZlQk9/e6p47CAnKWgu9S57f8QRxF84V0efFqPwRtXIEg3J
-	tMBmZnOPL33sXv9FVwm6CW8a91rFOcqQZWwLFX8vwgAJOw9lmEd/oG8UlKy2jXIaUISTYvYiuQD
-	YKzRvN8d774XZPbOsoBDDr+hxipu2eOND8krsur+NVLPuTEgrYs8pdfC0CeAG5Onu69ZqZ7vd9f
-	6cTk9iTW/5ercxLdEwJsS2040tVj7en3Vb5dMPu8X3/Fh1r32Z+ZU1ghIYaW6iEkAMOcxZEuFzh
-	uLX+MYQ==
-X-Received: by 2002:a05:690e:118d:b0:660:7700:e31f with SMTP id
- 956f58d0204a3-6607700f684mr1270513d50.24.1780192034893; Sat, 30 May 2026
- 18:47:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fo3Gd6yG"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 87ED81F00893;
+	Sun, 31 May 2026 02:49:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780195770;
+	bh=A6IeEdZpvBmCUKsi3lq5RQ6kZ8FtktixPi29MeB6WaM=;
+	h=From:To:Cc:Subject:Date;
+	b=fo3Gd6yGK5rlRh94E12l1f+mMWiD64xwZS8GKxP7YcBwUvaHXo53nXdYx1EjrQW8r
+	 xz/YPbN+nVPm6eRN0ScCD9Y4qvZzFvHGjWmNqUI+VAetWM77oDGoPvX5M/uzLCJojN
+	 7j3Auy9yPihmbzbchwuS4nd8GCAtEC6nZQLUzIA7oU0G0nwFbZYcwSTg6cMiIcCzrT
+	 bINaEIsPtb6CDKnhvy+DqZ49eVJpbJjIKHBtsekU3/g2JimFMrnVKn4r0SHgB73emf
+	 kO10HM80S2SfcfOpHLCy+EGqJS/JtkMPnEXj/2s1Fqezf7olXEkMHOsWkRKI66j/HN
+	 nAbkkNZURT1iQ==
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: keyringsy@vger.kernel.org
+Cc: Jarkko Sakkinen <jarkko@kernel.org>,
+	stable@vger.kernel.org,
+	Alessandro Grupp <ale.grpp@gmail.com>,
+	David Howells <dhowells@redhat.com>,
+	Paul Moore <paul@paul-moore.com>,
+	James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	Denis Kenzior <denkenz@gmail.com>,
+	Marcel Holtmann <marcel@holtmann.org>,
+	keyrings@vger.kernel.org,
+	linux-security-module@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] KEYS: fix overflow in keyctl_pkey_params_get_2()
+Date: Sun, 31 May 2026 05:49:13 +0300
+Message-ID: <20260531024914.3712130-1-jarkko@kernel.org>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260324015539.1451660-1-kartikey406@gmail.com>
-In-Reply-To: <20260324015539.1451660-1-kartikey406@gmail.com>
-From: Deepanshu Kartikey <kartikey406@gmail.com>
-Date: Sun, 31 May 2026 07:17:03 +0530
-X-Gm-Features: AVHnY4LVuloeVDsa0PR4xsQ4qvl_ltMiGJu6FklAXAj3AWoL-9T2VPD0GwmQrf8
-Message-ID: <CADhLXY4SKRFnkDhR31U9pU_4CQ9WC+2AOfYL1KXnLoedTDoWbA@mail.gmail.com>
-Subject: Re: [PATCH v2] media: ec168: fix slab-out-of-bounds in ec168_i2c_xfer
-To: mchehab@kernel.org
-Cc: harperchen1110@gmail.com, linux-media@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-	syzbot+64485d3659c4c07111b4@syzkaller.appspotmail.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Tue, Mar 24, 2026 at 7:25=E2=80=AFAM Deepanshu Kartikey
-<kartikey406@gmail.com> wrote:
->
-> The WRITE_DEMOD path in ec168_i2c_xfer() checks msg[i].len < 1
-> before accessing the buffer, but then reads both buf[0] (register)
-> and buf[1] (value). If userspace supplies a 1-byte I2C message,
-> the read of buf[1] goes out of bounds, triggering a KASAN
-> slab-out-of-bounds error.
->
-> Fix by checking msg[i].len < 2 and returning -EOPNOTSUPP if the
-> buffer is too short to contain both register and value bytes.
->
-> Fixes: a6dcefcc08ec ("media: dvb-usb-v2: ec168: fix null-ptr-deref in ec1=
-68_i2c_xfer()")
-> Cc: stable@vger.kernel.org
-> Reported-by: syzbot+64485d3659c4c07111b4@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=3D64485d3659c4c07111b4
-> Tested-by: syzbot+64485d3659c4c07111b4@syzkaller.appspotmail.com
-> Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
-> ---
-> Changes in v2:
->   - Fix author email case (Kartikey406 -> kartikey406)
->   - Add Cc: stable@vger.kernel.org as the Fixes tag points
->     to a commit present in the stable tree
-> ---
->  drivers/media/usb/dvb-usb-v2/ec168.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/media/usb/dvb-usb-v2/ec168.c b/drivers/media/usb/dvb=
--usb-v2/ec168.c
-> index 973b32356b17..ebfb02826b20 100644
-> --- a/drivers/media/usb/dvb-usb-v2/ec168.c
-> +++ b/drivers/media/usb/dvb-usb-v2/ec168.c
-> @@ -135,7 +135,7 @@ static int ec168_i2c_xfer(struct i2c_adapter *adap, s=
-truct i2c_msg msg[],
->                         }
->                 } else {
->                         if (msg[i].addr =3D=3D ec168_ec100_config.demod_a=
-ddress) {
-> -                               if (msg[i].len < 1) {
-> +                               if (msg[i].len < 2) {
->                                         i =3D -EOPNOTSUPP;
->                                         break;
->                                 }
-> --
-> 2.43.0
->
+The length for the internal output buffer is calculated incorrectly, which
+can result overflow when a too small buffer is provided.
 
-Gentle ping on this patch. Please let me know the status of this patch.
+Fix the bug by allocating internal output with the size of the maximum
+length of the cryptographic primitive instead of caller provided size.
 
-Thanks
+Cc: stable@vger.kernel.org # v4.20+
+Fixes: 00d60fd3b932 ("KEYS: Provide keyctls to drive the new key type ops for asymmetric keys [ver #2]")
+Reported-by: Alessandro Grupp <ale.grpp@gmail.com>
+Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
+---
+Alessandro, please correct if I put the last name correctly (and
+sincere apologies if not).
+ security/keys/keyctl_pkey.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
-Deepanshu
+diff --git a/security/keys/keyctl_pkey.c b/security/keys/keyctl_pkey.c
+index 97bc27bbf079..ba150ee2d4a3 100644
+--- a/security/keys/keyctl_pkey.c
++++ b/security/keys/keyctl_pkey.c
+@@ -138,28 +138,35 @@ static int keyctl_pkey_params_get_2(const struct keyctl_pkey_params __user *_par
+ 		if (uparams.in_len  > info.max_dec_size ||
+ 		    uparams.out_len > info.max_enc_size)
+ 			return -EINVAL;
++
++		params->out_len = info.max_enc_size;
+ 		break;
+ 	case KEYCTL_PKEY_DECRYPT:
+ 		if (uparams.in_len  > info.max_enc_size ||
+ 		    uparams.out_len > info.max_dec_size)
+ 			return -EINVAL;
++
++		params->out_len = info.max_dec_size;
+ 		break;
+ 	case KEYCTL_PKEY_SIGN:
+ 		if (uparams.in_len  > info.max_data_size ||
+ 		    uparams.out_len > info.max_sig_size)
+ 			return -EINVAL;
++
++		params->out_len = info.max_sig_size;
+ 		break;
+ 	case KEYCTL_PKEY_VERIFY:
+ 		if (uparams.in_len  > info.max_data_size ||
+ 		    uparams.in2_len > info.max_sig_size)
+ 			return -EINVAL;
++
++		params->out_len = info.max_sig_size;
+ 		break;
+ 	default:
+ 		BUG();
+ 	}
+
+ 	params->in_len  = uparams.in_len;
+-	params->out_len = uparams.out_len; /* Note: same as in2_len */
+ 	return 0;
+ }
+
+--
+2.47.3
+
