@@ -1,128 +1,160 @@
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E271345CBC
-	for <stable@vger.kernel.org>; Sun, 31 May 2026 10:23:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.52
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780223029; cv=pass; b=K2YhMYsHDJ5l5tvY/07CbUmoCFwsmrKP6pY7JaXYH64EPVvIIG5fyIBgSSPZHoGc+T6wCiR+yM6PLn1MShFggJ3s7cR6/kLBDn9fJhV3zd56WUshkJZ+aeE+FfS+cczRxpw8ePXfMACxUS8smUjdzcn9w/vCbvvCyhYQdqoZ25U=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780223029; c=relaxed/simple;
-	bh=fLLR8+6bmCGL+3izc0M2O2Lxk4Hx/AsBvEPAyarzO7U=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=KwchMwkUx8vH5L3xds0G5BUWlbOwy7Kv1P9zRlfpPtLEmYBUtLDjzM3pNqka++3ITTEkC39zyHWnxJ+SF5mGCfiKJk5rg3igKd0YkrWofdWis2MjNCk9ZLUDnTi4LYSoHWJxMKo6qeyl2CeiJPz69q6aL83HLn4VHLIRQczBpyI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=N5z5fxJD; arc=pass smtp.client-ip=209.85.221.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69EAE30C366;
+	Sun, 31 May 2026 10:30:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780223439; cv=none; b=fcmety9asiZDsr/oSOLZDjIGdEMMdVnvYaKEcSkNGl+czVcmEdukgudyqAQPWn5V41FbQlFaSIbUl14W9Q/YkkTSigrt9X07uDFVl2fUpVHiX2XdfzTdIE+wZ+6aexoN27rSxIjYhmKzXy6Rq7irrpRcvCRuhZX/40jRBe+Gau4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780223439; c=relaxed/simple;
+	bh=lakZVG7g5kCet7VQLT5a6WdgbIee6d7zDrhOBHgTWzc=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=gbBTbgoU2MjhqhzncuwjWC4hBjU27tifk/LP+SzXkmtW0EF48MH8OcTGNk25u8E+oSPPelV2PijnXW6yrbInI6kPnJW2PPpc5HNmCTfvC8HoCpZIVz+N87KgEkm8mGKFqn6/vguHE3cC21cs59g5eRd/gCdn0H8yX5yCStkzb9Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=DgT64fyr; arc=none smtp.client-ip=192.198.163.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="N5z5fxJD"
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-45ef56d9b67so1235345f8f.2
-        for <stable@vger.kernel.org>; Sun, 31 May 2026 03:23:48 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1780223027; cv=none;
-        d=google.com; s=arc-20240605;
-        b=cZnLK2tZ1dYKIt/0/UEfzmdPwjOOFwcY6zVPOVkSFzG267FdtwvFyUBK5hfNxoZ3Ww
-         AN4utDhAXxPbnxxfMp1EloKJ7HHlisgQ44TX+ta9mJs+5JT7woPrB8Izk6JjtVA8zaGH
-         5ex9Hgd6iR+eCYMlJE+byLLhBp6VG5ubcN+Cs+QiRdm6u37MWoZC2ImVrb15pmXT41U/
-         FbJ/3sRoa8pF5rC8JhIwp1JsDplbPxnf65wHPHdqd6gM8UKdoct9nzdH0JVR58nzVF2q
-         wLwedDpLm+zvpsqCbiKvROR3TlNgewuKXFOE4qTwMBCQtNYwDEuAwZyEEBW8XfDZENGt
-         Zj2g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=fLLR8+6bmCGL+3izc0M2O2Lxk4Hx/AsBvEPAyarzO7U=;
-        fh=immbg8U5f2eVFCyhMxcnJswbBzhyhWBmoRGzw11K4fc=;
-        b=DyEfggJkApghdI4wtoxSDSHDIODYY82KPuSeDpDPi84297kLJk8H4RSbmExIpNJB+g
-         9r508gbjSOfoA/W8CEazZrJsGzuO0QkfeyQrYdgNJ0sN5t7T+dLA8shGi1CQiJ30l7o+
-         raLMOzrmawvo8J9oLFxLqAMosWdFVMbdAn5a3YVVbHFRH+qim+ruF+WDvLoKAkkIDORh
-         JD4SJsEthbbY2Com9+qozYZA+hZaV6y89ZahFaOdecOXjQvL/JT+OAIL2mU5PnkCc1yY
-         vwAm4oJJgkA7PsC0h2uJxHPAbDhzo4PGM4cGoDsa1ODsC5g4mInw5s+IcIZnwdqYOhMP
-         uneA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780223027; x=1780827827; darn=vger.kernel.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=fLLR8+6bmCGL+3izc0M2O2Lxk4Hx/AsBvEPAyarzO7U=;
-        b=N5z5fxJDH4HqVdvtuMrFh5WFdzVe40AbFtLTd/6PKAcqHs6oDEzORYCMNZZkMh5PWf
-         bRGaJFKv6rwMPwywdXY/434LbPk1XxHZIb58zVi3mTPhs2P4VRVZjBO8bdHb9Xab3mhG
-         RvNs/1fClAW9wNsxPCBwuxmtbIWHpCb8UJl9kJykbkCMI0QYJzGVZpiCbRhBHjy4AXBc
-         z0x0p0U9A5kkGoBh/68DIvvUst8ZqC5Aj/fmncYMzsQvXvCc48pAiHcVfu/wSI4td6EZ
-         +XsntvK3OYr3+Fghlbjor2LFUjBTmNLho6M+yVLCyQAPFdPsbfcEZqiP/PQh/2V6nxR4
-         zk5A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780223027; x=1780827827;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=fLLR8+6bmCGL+3izc0M2O2Lxk4Hx/AsBvEPAyarzO7U=;
-        b=s+eDRfH3j9BpD+CFk5NT4Ptjrpjvz7S6KMSbTOkx1AlxDIKYqq59BwH26PK4pmYXjF
-         qwfCwZ1SS8ui4K79r+gkNTIoIe2P0J2dZdLsXae68yl3br2aibxTJXOm2xHaDp4DmPDm
-         6N74WgsEUFfR8zZtk3CfR7OJ7oRN1GxxVfO85tSGvnGLcuqVLcfBtPSOlxQ+U8z9zCnk
-         aseyQlJAU9dXDbS620Gz6emTUuJIM3sB38rg79XcHGXMLekqD+GsV2Fj67fa+ILDcaGL
-         MBTebT0PcmX3LxKpCEG0COY/TFgHX5bIroeRHzxcMqhq5iCRfA3BFWP69LiVe2MoL/u7
-         eoIw==
-X-Forwarded-Encrypted: i=1; AFNElJ9GY+8gmf1E7ibXS1k9Hax4+k7CTzadryBFlb2OU0w/o4TLWFcxPL+nU9/ZMhMs5SgTL1QJE0Y=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzD6ZGeZO2AcOsi9mGUquEcQsRnR+WX2EgFbTT7xq7Mj5OP1pES
-	THkeXFfNJYZ1dEfCn06w5HV3x+15YZjdOikknTcj4PWhBt15uVz6Dw5pZeVp3NrCg7AgC4Qqf3I
-	Ibm0NUe8dFePDpvBllHDwXWig8cQtKq0=
-X-Gm-Gg: Acq92OFef3iNZrhixQ28AA165OGIgHkGvGsIQIaPq2fZQ0qXZvkwIykWjwCLDdBCeRf
-	nhJu9iLUZf3OfKghdnMQVKDmlRf6Yy0F56jOgzLyC76sHnMKtWMMizJhHlQJ1SIYjETmu7GSogk
-	T2HUYdNnUDJM74cz+PNo7r1ZRNGnM2ZrplBIF+zUe9kuTIEkz3vsJHLpNxnylJbEtvVUe2dB5FO
-	/iNAaX7IGYcocUYP1tyFGHDvPDFppmmiL8yQoBNrF92RAYE5gY+/uKCpi5/5yNJBlCI5vVyMSGm
-	79VsvVQ2TFUtn8kbzco8RNd5RA4O
-X-Received: by 2002:a05:600c:4fc4:b0:490:6889:202 with SMTP id
- 5b1f17b1804b1-490a29639e6mr116698675e9.29.1780223026778; Sun, 31 May 2026
- 03:23:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="DgT64fyr"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1780223434; x=1811759434;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=lakZVG7g5kCet7VQLT5a6WdgbIee6d7zDrhOBHgTWzc=;
+  b=DgT64fyr4IVZrE00PPWo+4fhl5xN5LLt2m6VL69es3kp/Y4xcP194k3H
+   Q/L2iTvzo0VgMuqLRJxCdowWDus1qzZ72uUyq2nn9fxyvb7uDd1wNqMKg
+   UoS/dR/bljkKR6X/DCXmOk6M6iJH8U+oN8QB3CBf2rRQA6RvJyubwEsmf
+   1kVbyiDXR5OIZ3Jxm090B4ItEhSWC2rL0zZV2I2ONUNx4RAImXdjStp/W
+   MDkVbaxW0qWCHL7vvqbThdUYmiNPpL0ffRZWacJjhfB7gIs77ErExHeZR
+   jZorIaXrMLJHpu7zOTf0vnwuzm8B7Zjk1plz0IUcEVTHKosD4Ts9NSd3c
+   g==;
+X-CSE-ConnectionGUID: lNag5tOwRh+oxOXZz6S+9Q==
+X-CSE-MsgGUID: mod0W57aSr6g4TPKTmWvfQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11802"; a="80148212"
+X-IronPort-AV: E=Sophos;i="6.24,179,1774335600"; 
+   d="scan'208";a="80148212"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 May 2026 03:30:34 -0700
+X-CSE-ConnectionGUID: 0F5G0Mw5RueR5pkgXtT4JQ==
+X-CSE-MsgGUID: EecgkeFYRFmz2zGnrLp9aA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,179,1774335600"; 
+   d="scan'208";a="245118257"
+Received: from weis0040.iil.intel.com ([10.12.217.108])
+  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 May 2026 03:30:34 -0700
+From: Miri Korenblit <miriam.rachel.korenblit@intel.com>
+To: linux-wireless@vger.kernel.org
+Cc: Emmanuel Grumbach <emmanuel.grumbach@intel.com>,
+	stable@vger.kernel.org
+Subject: [PATCH wireless-fixes] wifi: iwlwifi: pcie: simplify the resume flow if fast resume is not used
+Date: Sun, 31 May 2026 13:30:19 +0300
+Message-Id: <20260531133005.e2ed9e0cd44f.If283625983a843933e0c01561a421daff184e9e9@changeid>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CAHPEe=GO=2qqWZPwBB4rrXc3mkD0dznp2K78nCsKwF=c-QwxEw@mail.gmail.com>
- <20260527075924.2707856-1-maoyixie.tju@gmail.com> <21df0b14-f530-4e9a-931a-21154ec18c78@suse.de>
- <20260527161849.738b7f1f@kernel.org>
-In-Reply-To: <20260527161849.738b7f1f@kernel.org>
-From: Maoyi Xie <maoyixie.tju@gmail.com>
-Date: Sun, 31 May 2026 18:23:35 +0800
-X-Gm-Features: AVHnY4Lg-drlo1nT7uZW5coIPZFwVZQUv9F4k8fWAy2gBbp-s6mdZBwVD22P17I
-Message-ID: <CAHPEe=F+ii=GgNorkhYJYXZAa4akxjKxG+qFr_H-USQE1F8bRQ@mail.gmail.com>
-Subject: Re: [PATCH net] hsr: broadcast netlink notifications in the device's
- net namespace
-To: Jakub Kicinski <kuba@kernel.org>
-Cc: Fernando Fernandez Mancera <fmancera@suse.de>, "David S . Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Jan Vaclav <jvaclav@redhat.com>, Andrew Lunn <andrew@lunn.ch>, Taehee Yoo <ap420073@gmail.com>, 
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Organization: Intel Israel (74) Limited
+Content-Transfer-Encoding: 8bit
 
-On Thu, 28 May 2026 07:18, Jakub Kicinski <kuba@kernel.org> wrote:
-> Not sure TBH, we'd need to take a ref on the netns and allocate
-> a tracker (on DEBUG kernels). One could go either way.
+From: Emmanuel Grumbach <emmanuel.grumbach@intel.com>
 
-On the RCU side, you're right that moving the net out of the lock
-means taking a ref, and this isn't a hot path where that really pays
-off. So I'd lean towards keeping it as posted, with the multicast
-still inside the rcu_read_lock. Fernando, thanks for the suggestion
-either way.
+In most distributions, NetworkManager shuts the device down before
+entering system suspend, so fast suspend is typically not used.
 
-> I'm replying because I wanted to question whether this is Fixes+stable@
-> worthy. Sending the notifications to the namespace where the device is
-> makes sense. But it's as much a behavior changes as it is a fix.
-> The commit in question was merged to 5.6, real users clearly don't care.
+On older devices, resume currently tries to grab NIC access to infer
+whether the device was powered off while suspended. That probe is only
+meaningful for the fast-suspend path where the device is expected to
+remain alive.
 
-On the Fixes and stable tags, my thinking was that the init_net side
-is an information leak. A privileged listener there ends up seeing
-ring error and node down events from devices in other netns. The
-payload carries the peer MAC and the slave ifindex. That was my reason
-for tagging it.
+Unfortunately, for unclear reasons, grabbing NIC access was harmful as
+reported in the bugzilla ticket below.
 
-But I see your point that it is as much a behavior change as a fix,
-and if nobody has hit it since 5.6, the risk is clearly low. I don't
-feel strongly here. If you'd rather take it as a plain net-next
-improvement without the two tags, that is completely fine by me and I
-will respin it that way.
+Workaround this issue by simply not grabbing NIC access if fast suspend
+is not used.
 
-Thanks,
-Maoyi
+Fixes: 6a0f81c549a0 ("wifi: iwlwifi: fix merge damage related to iwl_pci_resume")
+Cc: stable@vger.kernel.org
+Closes: https://bugzilla.kernel.org/show_bug.cgi?id=221501
+Assisted-by: GitHub Copilot:gpt-5.3-codex
+Signed-off-by: Emmanuel Grumbach <emmanuel.grumbach@intel.com>
+Signed-off-by: Miri Korenblit <miriam.rachel.korenblit@intel.com>
+---
+ drivers/net/wireless/intel/iwlwifi/pcie/drv.c | 56 +++++++++++--------
+ 1 file changed, 32 insertions(+), 24 deletions(-)
+
+diff --git a/drivers/net/wireless/intel/iwlwifi/pcie/drv.c b/drivers/net/wireless/intel/iwlwifi/pcie/drv.c
+index dc99e7ac4726..eb3c5a6dd088 100644
+--- a/drivers/net/wireless/intel/iwlwifi/pcie/drv.c
++++ b/drivers/net/wireless/intel/iwlwifi/pcie/drv.c
+@@ -1225,33 +1225,41 @@ static int _iwl_pci_resume(struct device *device, bool restore)
+ 	if (!trans->op_mode)
+ 		return 0;
+ 
+-	/*
+-	 * Scratch value was altered, this means the device was powered off, we
+-	 * need to reset it completely.
+-	 * Note: MAC (bits 0:7) will be cleared upon suspend even with wowlan,
+-	 * but not bits [15:8]. So if we have bits set in lower word, assume
+-	 * the device is alive.
+-	 * Alternatively, if the scratch value is 0xFFFFFFFF, then we no longer
+-	 * have access to the device and consider it powered off.
+-	 * For older devices, just try silently to grab the NIC.
+-	 */
+-	if (trans->mac_cfg->device_family >= IWL_DEVICE_FAMILY_BZ) {
+-		u32 scratch = iwl_read32(trans, CSR_FUNC_SCRATCH);
+-
+-		if (!(scratch & CSR_FUNC_SCRATCH_POWER_OFF_MASK) ||
+-		    scratch == ~0U)
+-			device_was_powered_off = true;
+-	} else {
++	if (test_bit(STATUS_DEVICE_ENABLED, &trans->status)) {
+ 		/*
+-		 * bh are re-enabled by iwl_trans_pcie_release_nic_access,
+-		 * so re-enable them if _iwl_trans_pcie_grab_nic_access fails.
++		 * Scratch value was altered, this means the device was powered
++		 * off, we need to reset it completely.
++		 * Note: MAC (bits 0:7) will be cleared upon suspend even with
++		 * wowlan, but not bits [15:8]. So if we have bits set in lower
++		 * word, assume the device is alive.
++		 * Alternatively, if the scratch value is 0xFFFFFFFF, then we
++		 * no longer have access to the device and consider it powered
++		 * off.
++		 * For older devices, just try silently to grab the NIC.
+ 		 */
+-		local_bh_disable();
+-		if (_iwl_trans_pcie_grab_nic_access(trans, true)) {
+-			iwl_trans_pcie_release_nic_access(trans);
++		if (trans->mac_cfg->device_family >= IWL_DEVICE_FAMILY_BZ) {
++			u32 scratch = iwl_read32(trans, CSR_FUNC_SCRATCH);
++
++			if (!(scratch & CSR_FUNC_SCRATCH_POWER_OFF_MASK) ||
++			    scratch == ~0U) {
++				IWL_DEBUG_WOWLAN(trans,
++						 "Scratch 0x%08x indicates device was powered off\n",
++						 scratch);
++				device_was_powered_off = true;
++			}
+ 		} else {
+-			device_was_powered_off = true;
+-			local_bh_enable();
++			/*
++			 * bh are re-enabled by iwl_trans_pcie_release_nic_access,
++			 * so re-enable them if _iwl_trans_pcie_grab_nic_access
++			 * fails.
++			 */
++			local_bh_disable();
++			if (_iwl_trans_pcie_grab_nic_access(trans, true)) {
++				iwl_trans_pcie_release_nic_access(trans);
++			} else {
++				device_was_powered_off = true;
++				local_bh_enable();
++			}
+ 		}
+ 	}
+ 
+-- 
+2.34.1
+
