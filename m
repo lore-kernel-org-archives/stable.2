@@ -1,141 +1,103 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.34.181.151])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF8023E0C44
-	for <stable@vger.kernel.org>; Mon,  1 Jun 2026 17:31:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44953313283
+	for <stable@vger.kernel.org>; Mon,  1 Jun 2026 17:34:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.34.181.151
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780335096; cv=none; b=lufb6ny04TBOWva72A6ryw6s/XlGA+gkWKFUw6b7YNey+y7vcPyZbOo788x40LnyGkfP+iYkmUGMcrSk9cEU6GS+eb2Y5WIQQbL9AgbF5GaOU8seJAJDVaQmixnNFUndF9wCQhrbxc33cOX1aNBSFayE6a4gQfb3UyifMcUOpI0=
+	t=1780335272; cv=none; b=sG/Q6VXUMXho+eVUqxZ/7SmSrdYt5IefSD+2iMHJzptdJyMF73SrwDXUpufN1FCKVwuuopvWZlgiOjUJaPdo93nGtoxYbj44DEkcDbrnjZr1gYipC/JMhCxbvXHS7/bLXqEu98zgusz9JDiMvDDTbwbyZ7Xa9kH/NkQgO/8u/z4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780335096; c=relaxed/simple;
-	bh=+iGzM7HonutIf/1fYWQXIb0gqsC2l31H6CniBpONzbo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=qpsnz3dOPir3s0Da9hipFOBgJcXYDlGAwr6sfybEh/m+XCtK7Yf3Z4EPCJVSNqqjysDXu9PLk+0DcprK+ZKeXvStv01I5nmSu/S7f8ZheUVcEeZ1KvjlGs5x1RpSJKKQ7k3fjr0CHWEVHsR+HTmLq+5pnpPJHrppNnbrkHDw8XE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YcBP0NHa; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780335272; c=relaxed/simple;
+	bh=sE6njkJEp4k7reIjcuUdLFOAcSxP1sZIw+VApabLxJI=;
+	h=From:To:CC:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=TwOGaWrCvTkvUVdBd1g/2RMJH7Nma4ZhpvwfEv1PFxJGuC9ROYZKyupfEBHK/29xGoWc3SPR8yMe5Vg0E/sdSf2vm1sGSBbfqGR2l1yQlfzSqGMwnhlDtVYzKCkuHvag5z06v2HgunJF4h6OrKVpqkD8tLzXgt3RsO15IRJV2J8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de; spf=pass smtp.mailfrom=amazon.de; dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b=GOjBc+Mh; arc=none smtp.client-ip=52.34.181.151
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YcBP0NHa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5EC61F0089D
-	for <stable@vger.kernel.org>; Mon,  1 Jun 2026 17:31:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780335094;
-	bh=cs/TXGwOXqiDQxl+x5whpiJodvIicydtJzJyPq8Pn0A=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=YcBP0NHas6DazuOWE4ZTQg9cm+JXIuu7RUgjXgke0TOmZpqDRvQ7FOSybYVUwP/i7
-	 6SbWySBvfNQN6vVTV+aY/4aCDtlYrMALMnrBgn+MBGehdpMYDRZhyiAlRiE1i8O/6x
-	 QcrcHwF+CoP6MqeJopSLXlk0gkjFduEcjt+vbhysOaD0yPO2Yqa3IysXFbo+Exbu0e
-	 Muy1Zz+ttVru5pc/BzJ4IM27+BQhBZv+VPvPampgYJGd/Dny319rdDx6orS0rn9AFr
-	 x+UQATpzDuw/lg02CiyL1Ce0t5IsyZy7z/c1YtjcWR/EMf/ThWaXCXQqMUqwZyxEfH
-	 1c05sbFrfM9kA==
-Received: by mail-lj1-f176.google.com with SMTP id 38308e7fff4ca-39677245e15so18072151fa.1
-        for <stable@vger.kernel.org>; Mon, 01 Jun 2026 10:31:34 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ9iEwu8gmRxbBBIJpH3ib9BL4lIDaUkEl4gE8x0N5k/0oIqCNYqWP2Od8tr9PQ8qSKxHNbCsfw=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzPYgUn9RIv1jyld7tFxPHpncF6sXdhxUTub5VtzUxHog82nPqz
-	DQRh/FebeNDF9JMNUecrEtUjH3sICIBNqMzCzEhZGcgbIz8txX9QRjgjiRXSKUPSXUVuqWs+dOV
-	k8Fjtv6y6FrTp8lbeCRjZoy3HgoWua40=
-X-Received: by 2002:a05:6512:b8c:b0:5aa:7107:268c with SMTP id
- 2adb3069b0e04-5aa71072919mr977471e87.28.1780335093102; Mon, 01 Jun 2026
- 10:31:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b="GOjBc+Mh"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
+  t=1780335271; x=1811871271;
+  h=from:to:cc:subject:in-reply-to:references:date:
+   message-id:mime-version;
+  bh=gNTAQDrVKLggTTWWyzpgrt2RReuC1quSVK4V/MXLIwU=;
+  b=GOjBc+MhZlo56F16GiqMqdJhPCn714Znsa4fwysi7+rs3esac1Yd9jJi
+   mlyvBDi9GVERL5TTVhVuoG5REpJuVp0U8LXeCXOevULqfyUJaMcLsX4Lu
+   6TwprngDGy5vqVltKSRCIfvVDXR5dsQ9CovYzXQ2ZA7+p+Dz7tbliqMzH
+   ZFan9I23fx50t4XiwxuoSLzcOlSdxS2HmFxhxRGuqCaeM8QUwYHIUFDD6
+   XNdpm8DXeH8jF/SUdSCjX1dCv7YKLJcwM+RfdqtP+JIOFS7Xb6HTaRSoY
+   rnG6OAmvuPLjrVyqkPpsVVrJgkaer9sOdgpSMelsjMGZ1vGdak7PFdMW1
+   Q==;
+X-CSE-ConnectionGUID: /wTNCTaoQn699AJ6A9LWJQ==
+X-CSE-MsgGUID: b7RJvN6BR1WEVvGZTCq0nQ==
+X-IronPort-AV: E=Sophos;i="6.24,181,1774310400"; 
+   d="scan'208";a="20851813"
+Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
+  by internal-pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Jun 2026 17:34:28 +0000
+Received: from EX19MTAUWA001.ant.amazon.com [205.251.233.182:25088]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.19.154:2525] with esmtp (Farcaster)
+ id fc2b5218-b6d3-4437-98e6-e21bfec254e2; Mon, 1 Jun 2026 17:34:28 +0000 (UTC)
+X-Farcaster-Flow-ID: fc2b5218-b6d3-4437-98e6-e21bfec254e2
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWA001.ant.amazon.com (10.250.64.218) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.37;
+ Mon, 1 Jun 2026 17:34:27 +0000
+Received: from dev-dsk-mngyadam-1c-cb3f7548.eu-west-1.amazon.com.amazon.de
+ (10.253.107.175) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.37; Mon, 1 Jun 2026
+ 17:34:26 +0000
+From: Mahmoud Nagy Adam <mngyadam@amazon.de>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+CC: <stable@vger.kernel.org>, <patches@lists.linux.dev>, Mingzhe Zou
+	<mingzhe.zou@easystack.cn>, Coly Li <colyli@fnnas.com>, Jens Axboe
+	<axboe@kernel.dk>, <nagy@khwaternagy.com>
+Subject: Re: [PATCH 6.1 431/969] bcache: fix uninitialized closure object
+In-Reply-To: <20260530160312.161639627@linuxfoundation.org>
+References: <20260530160300.485627683@linuxfoundation.org>
+	<20260530160312.161639627@linuxfoundation.org>
+Date: Mon, 1 Jun 2026 19:34:24 +0200
+Message-ID: <lrkyqqzmq17xb.fsf@dev-dsk-mngyadam-1c-cb3f7548.eu-west-1.amazon.com>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260527-b4-acpi-battery-notification-v1-0-2303bed8ec0b@rong.moe>
-In-Reply-To: <20260527-b4-acpi-battery-notification-v1-0-2303bed8ec0b@rong.moe>
-From: "Rafael J. Wysocki" <rafael@kernel.org>
-Date: Mon, 1 Jun 2026 19:31:20 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0jY5ew8pA2HZ+t5MfbANT34euTOYe6F0kCt6=X9aVecmA@mail.gmail.com>
-X-Gm-Features: AVHnY4JGIP2k4QeyO3EdbKvb31eVSS9HS3TWXWlHkZn4svSAUpiRIEL5bWWGDKY
-Message-ID: <CAJZ5v0jY5ew8pA2HZ+t5MfbANT34euTOYe6F0kCt6=X9aVecmA@mail.gmail.com>
-Subject: Re: [PATCH 0/2] ACPI: battery: Do not generate too much pressure on
- ACPI methods
-To: Rong Zhang <i@rong.moe>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, 
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>, linux-acpi@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, =?UTF-8?Q?Jeffrey_W=C3=A4lti?= <jeffrey@waelti.dev>, 
-	stable@vger.kernel.org, Rick <rickk1166@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D043UWA001.ant.amazon.com (10.13.139.45) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-On Tue, May 26, 2026 at 8:33=E2=80=AFPM Rong Zhang <i@rong.moe> wrote:
->
-> The acpi_battery_get_property() and acpi_battery_notify() callbacks
-> sometimes generate too much pressure on corresponding ACPI methods. On
-> some devices with fragile ACPI implementation, these methods share the
-> same mutex protecting EC accesses (hence slow to execute) with a lot of
-> other EC-related methods. Such pressure on them eventually leads to a
-> catastrophic situation that a bunch of ACPI method calls fail to acquire
-> the same mutex due to timeout. The firmware of these devices doesn't
-> handle mutex acquisition failure gracefully and return garbage data,
-> causing even more chaos.
->
-> For acpi_battery_get_property(), it generates too much pressure on the
-> _BST method because of the lack of synchronization. In detail, it
-> sometimes nullifies the cache mechanism of acpi_battery_get_state() when
-> multiple processes read power supply properties simultaneously, which
-> usually happens after a uevent. Normally, emitting a uevent implies that
-> the cache must have been refreshed due to power_supply_uevent() reading
-> all properties, so the mentioned processes should have seen cache hits.
-> Unfortunately, these fragile devices' power_supply_ext properties are
-> somehow slow to read after battery events, resulting in cache expiration
-> before power_supply_uevent() finishes. Hence, once the uevent reaches
-> userspace, the _BST method will be executed multiple times within a
-> short period due to userspace processes reading all properties again.
->
-> For acpi_battery_notify(), a very common pattern in EC queries that
-> emits two consecutive battery notifications with event IDs 0x80 and 0x81
-> updates battery state and calls power_supply_changed() twice within a
-> short period, generating significant pressure on _STA, _BST and
-> _BIX/_BIF methods. Not only that, power_supply_ext properties may also
-> rely on some other ACPI methods, so both uevent assembling and userspace
-> processes call them. It becomes a nightmare when all these methods share
-> the same ACPI mutex and hence vulnerable to lock starvation. Even worse,
-> after the first uevent reaches userspace, some userspace processes start
-> to read all battery properties in order to refresh their internal
-> states, which competes with the second notification's handling and
-> uevent assembling, exacerbating the lock starvation.
->
-> Fix acpi_battery_get_property() by protecting it with update_lock to
-> synchronize it. This also prevents potential race conditions, e.g., when
-> multiple tasks read power supply properties simultaneously, or when
-> other synchronized methods are called during its execution.
->
-> Improve acpi_battery_notify() by merging consecutive battery
-> notifications within 10ms using a delayed work, so that they only
-> refresh and/or update battery state once. ACPI netlink event and
-> notifier call chain are still triggered multiple times in order not to
-> break other components. Finally, call power_supply_changed() once and
-> lead to a single uevent instead of a bunch, preventing userspace
-> programs from causing too much pressure on power supply properties and
-> the underlying ACPI methods.
->
-> With the series, the lock starvation issue on mentioned devices is
-> greatly improved according to the feedback from one of the device
-> owners.
->
-> Tested-by: Jeffrey W=C3=A4lti <jeffrey@waelti.dev>
-> Cc: stable@vger.kernel.org
-> Reported-by: Rick <rickk1166@gmail.com>
-> Closes: https://bugzilla.kernel.org/show_bug.cgi?id=3D221065
->
-> Signed-off-by: Rong Zhang <i@rong.moe>
-> ---
-> Rong Zhang (2):
->       ACPI: battery: Synchronize get_property() callback
->       ACPI: battery: Merge consecutive battery notifications
->
->  drivers/acpi/battery.c | 113 +++++++++++++++++++++++++++++++++++++------=
-------
->  1 file changed, 87 insertions(+), 26 deletions(-)
-> ---
 
-Please see sashiko.dev's feedback on this series:
+Hey Greg,
 
-https://sashiko.dev/#/patchset/20260527-b4-acpi-battery-notification-v1-0-2=
-303bed8ec0b%40rong.moe
+Greg Kroah-Hartman <gregkh@linuxfoundation.org> writes:
 
-and address it or let me know why you think that it doesn't need to be
-addressed.
+> 6.1-stable review patch.  If anyone has any objections, please let me know.
+>
+> ------------------
+>
+> From: Mingzhe Zou <mingzhe.zou@easystack.cn>
+>
+> commit 20a8e451ec1c7e99060b1bbaaad03ce88c39ddb8 upstream.
+>
 
-Thanks!
+Just a heads up, that this fix patch is missing from 6.6->6.18
+kernels. While being backported to older kernels (< 6.1). Any blockers
+for it to be backported to newer kernels as well?
+
+Regards,
+Mahmoud Nagy Adam
+
+
+
+Amazon Web Services Development Center Germany GmbH
+Tamara-Danz-Str. 13
+10243 Berlin
+Geschaeftsfuehrung: Christof Hellmis, Andreas Stieger
+Eingetragen am Amtsgericht Charlottenburg unter HRB 257764 B
+Sitz: Berlin
+Ust-ID: DE 365 538 597
+
