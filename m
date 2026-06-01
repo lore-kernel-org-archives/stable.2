@@ -1,42 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9503E3AE1B1
-	for <stable@vger.kernel.org>; Mon,  1 Jun 2026 14:01:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 455DC3B27EF
+	for <stable@vger.kernel.org>; Mon,  1 Jun 2026 14:01:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780322514; cv=none; b=R2vras5vQIOdWb22o3mSFGDy3/zb8mpsgABM/gflZQXy6293yhnNRzOjt5NDgJOBpNiblBvJDVAoZATbIgCcasBGkJEq9UiQ+vHn7osNbSyfZ6Nec2Xw1xfzW/+76lwRLNDsBD3PpAHx7fY8iUUtz8en+vQP+7bvMPSf+qY5LbM=
+	t=1780322515; cv=none; b=GV0GK1oaeevbDZudEr96MwHMmHX1aaeUSXyK8LHKm2ZSDnvAiaRstbkJRnv+UN0PQAv9yyeU/A/VPCqH/oZFCXM6J3fCD5aBvyzVS2ggRQk0BvS/z4R7B5fPafn9rOkzlLlxcYQRZNSY0I64zJUCTvjOvq/JiFuT6eKMtZZ2kWs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780322514; c=relaxed/simple;
-	bh=QlmJWxL1Jm9pKGUIjgONOuieZ4Y7BJhgM91SgyAsccM=;
+	s=arc-20240116; t=1780322515; c=relaxed/simple;
+	bh=eVw7Kq1Gr2HCKBnmBeZNVF21xW9pV+sZYqPZkKpPh58=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=YkyO+STSQesng+XJSPr4cKFHeo7NdHR6Kqq2L/K3Ubu1pyzW7JNTVqIjYGWWyeTM/fe5PryxO4GdKI+W7SQfkJk7OZPDbXuEo71cj0KriA3DDRlnf43V01uEhkOqYqrSkTIkoPp096/YKZFqHTPH/jXRxqM6yWve90SYJl5VIv0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EcSPa98N; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=ZI98V2XD6IAjOKmy30BjuKgz2zwwUcKLJGMZF3zmsnOvW/y7aey0I23OBFsCVhCvtj9FHFjMXe0xPHMhVa0NsYCyMQjIoxrmhsNY8NfRQzG6FC1C+hziT2BdPcRVGa3iyzYOw1FkH8v7QupaXfnFyJuNO8fAu5LiSIzyc7sght0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HmJBXF9I; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EcSPa98N"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC7CE1F0089B;
-	Mon,  1 Jun 2026 14:01:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HmJBXF9I"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89E1E1F00893;
+	Mon,  1 Jun 2026 14:01:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780322513;
-	bh=8M1n566b0xLrwcP5VjKaUoqyQDbA/JKxkRSbNY9qWLU=;
+	s=k20260515; t=1780322514;
+	bh=PZqqrANU2C+tfsV9swzek0nwyrWMSTbTuupZoVJiadc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EcSPa98NnRHKOubk93o2XvHAtpoMRHJQun1ntEiyHeMP60H4hsiuuo3USfnuitOs4
-	 E/FvnzK0UbZJ1NVB5oIbOhOB3lcyW6bnbXCxX5SkC0tOn3GODYRiiBKjeu0QNEYcd4
-	 11MHf4dKV6ALP20xW+ay8nc2hDkVnqmM8n/EEHVPEp92zS5tVr1jSaV00vKm8OtPpE
-	 UXNGkMRLCQnhjugUGrerBmi4TjW8/u8syMT19HFX68cmjq7N+1QdDmM9IzL4qfCzmv
-	 cggfRXC2zis+aOOMO2UpO10IfETfKx+U0kYEtgapbJMHkQ+DjRO1sqPSNuTf/yvZ33
-	 /ifqEA6pw+6pg==
+	b=HmJBXF9It2DxlMgMGVZEpWW5Ocd12hBF1DEfhG0Eo4varzB/mCbBJok29xiYVjAMm
+	 6Z/5L/q3GaKsvoLjqVP8jKxClR7NktG7NC77P7DymI5IZKvfA+wAEOdMxcRQSRE7gV
+	 RtiUCgr4qYzPQOEQR7VanYBxq+srXd6IScC2dvEM/spQBDVPZ2b8tIku/o9eDn807f
+	 GjZ6DkKrdeX2EG9rWAjci5OJ5c8aLEnk22oLM4pq4c/lrvgSQuSjmmLI9z2zSiFuvm
+	 Jg+GfkKDpZof25Yy1VHog5HI5BHe2e9dfcf4DLzE8q5iic6SKOzDgbIwt0ABin45y+
+	 WlQCqLfN08KMQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Guenter Roeck <linux@roeck-us.net>,
-	Sanman Pradhan <psanman@juniper.net>,
+Cc: Abdurrahman Hussain <abdurrahman@nexthop.ai>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Guenter Roeck <linux@roeck-us.net>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 1/2] hwmon: (pmbus) Add support for guarded PMBus lock
-Date: Mon,  1 Jun 2026 10:01:50 -0400
-Message-ID: <20260601140151.802636-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 2/2] hwmon: (pmbus/adm1266) serialize GPIO PMBus accesses with pmbus_lock
+Date: Mon,  1 Jun 2026 10:01:51 -0400
+Message-ID: <20260601140151.802636-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026052841-exquisite-attach-1b4c@gregkh>
+In-Reply-To: <20260601140151.802636-1-sashal@kernel.org>
 References: <2026052841-exquisite-attach-1b4c@gregkh>
+ <20260601140151.802636-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,68 +47,65 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Guenter Roeck <linux@roeck-us.net>
+From: Abdurrahman Hussain <abdurrahman@nexthop.ai>
 
-[ Upstream commit 1814f4d3ff358277a5b6957e7f133c2812dc80ec ]
+[ Upstream commit bab8c6fb5af8df7e753d196c1262cb78e92ca872 ]
 
-Add support for guard(pmbus_lock)() and scoped_guard(pmbus_lock)()
-to be able to simplify the PMBus code.
+adm1266_gpio_get(), adm1266_gpio_get_multiple(), and
+adm1266_gpio_dbg_show() all issue PMBus reads against the device but
+none of them take pmbus_lock.  The pmbus_core framework holds
+pmbus_lock around its own multi-transaction sequences (notably the
+"set PAGE, then read paged register" pattern used by hwmon
+attributes), so an unlocked GPIO accessor can land between a PAGE
+write and the subsequent paged read in another thread and corrupt
+either side's view of the device state machine.
 
-Also introduce pmbus_lock() as pre-requisite for supporting
-guard().
+Take pmbus_lock at the top of each of the three accessors via the
+scope-based guard().  The lock is uncontended in the common case and
+adds only a single mutex round-trip per call.
 
-Reviewed-by: Sanman Pradhan <psanman@juniper.net>
+Fixes: d98dfad35c38 ("hwmon: (pmbus/adm1266) Add support for GPIOs")
+Cc: stable@vger.kernel.org
+Signed-off-by: Abdurrahman Hussain <abdurrahman@nexthop.ai>
+Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Link: https://lore.kernel.org/r/20260518-adm1266-gpio-fixes-v3-6-e425e4f88139@nexthop.ai
 Signed-off-by: Guenter Roeck <linux@roeck-us.net>
-Stable-dep-of: bab8c6fb5af8 ("hwmon: (pmbus/adm1266) serialize GPIO PMBus accesses with pmbus_lock")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/hwmon/pmbus/pmbus.h      | 5 +++++
- drivers/hwmon/pmbus/pmbus_core.c | 8 ++++++++
- 2 files changed, 13 insertions(+)
+ drivers/hwmon/pmbus/adm1266.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/hwmon/pmbus/pmbus.h b/drivers/hwmon/pmbus/pmbus.h
-index d2e9bfb5320fc..e499cdae9442c 100644
---- a/drivers/hwmon/pmbus/pmbus.h
-+++ b/drivers/hwmon/pmbus/pmbus.h
-@@ -10,6 +10,7 @@
- #define PMBUS_H
+diff --git a/drivers/hwmon/pmbus/adm1266.c b/drivers/hwmon/pmbus/adm1266.c
+index d90f8f80be8e0..e077944ebd6f5 100644
+--- a/drivers/hwmon/pmbus/adm1266.c
++++ b/drivers/hwmon/pmbus/adm1266.c
+@@ -172,6 +172,8 @@ static int adm1266_gpio_get(struct gpio_chip *chip, unsigned int offset)
+ 	else
+ 		pmbus_cmd = ADM1266_PDIO_STATUS;
  
- #include <linux/bitops.h>
-+#include <linux/cleanup.h>
- #include <linux/regulator/driver.h>
++	guard(pmbus_lock)(data->client);
++
+ 	ret = i2c_smbus_read_block_data(data->client, pmbus_cmd, read_buf);
+ 	if (ret < 0)
+ 		return ret;
+@@ -192,6 +194,8 @@ static int adm1266_gpio_get_multiple(struct gpio_chip *chip, unsigned long *mask
+ 	unsigned int gpio_nr;
+ 	int ret;
  
- /*
-@@ -563,7 +564,11 @@ int pmbus_get_fan_rate_device(struct i2c_client *client, int page, int id,
- int pmbus_get_fan_rate_cached(struct i2c_client *client, int page, int id,
- 			      enum pmbus_fan_mode mode);
- int pmbus_lock_interruptible(struct i2c_client *client);
-+void pmbus_lock(struct i2c_client *client);
- void pmbus_unlock(struct i2c_client *client);
++	guard(pmbus_lock)(data->client);
 +
-+DEFINE_GUARD(pmbus_lock, struct i2c_client *, pmbus_lock(_T), pmbus_unlock(_T))
-+
- int pmbus_update_fan(struct i2c_client *client, int page, int id,
- 		     u8 config, u8 mask, u16 command);
- struct dentry *pmbus_get_debugfs_dir(struct i2c_client *client);
-diff --git a/drivers/hwmon/pmbus/pmbus_core.c b/drivers/hwmon/pmbus/pmbus_core.c
-index 572be3ebc03df..7150f12d26300 100644
---- a/drivers/hwmon/pmbus/pmbus_core.c
-+++ b/drivers/hwmon/pmbus/pmbus_core.c
-@@ -3871,6 +3871,14 @@ struct dentry *pmbus_get_debugfs_dir(struct i2c_client *client)
- }
- EXPORT_SYMBOL_NS_GPL(pmbus_get_debugfs_dir, "PMBUS");
+ 	ret = i2c_smbus_read_block_data(data->client, ADM1266_GPIO_STATUS, read_buf);
+ 	if (ret < 0)
+ 		return ret;
+@@ -230,6 +234,8 @@ static void adm1266_gpio_dbg_show(struct seq_file *s, struct gpio_chip *chip)
+ 	int ret;
+ 	int i;
  
-+void pmbus_lock(struct i2c_client *client)
-+{
-+	struct pmbus_data *data = i2c_get_clientdata(client);
++	guard(pmbus_lock)(data->client);
 +
-+	mutex_lock(&data->update_lock);
-+}
-+EXPORT_SYMBOL_NS_GPL(pmbus_lock, "PMBUS");
-+
- int pmbus_lock_interruptible(struct i2c_client *client)
- {
- 	struct pmbus_data *data = i2c_get_clientdata(client);
+ 	for (i = 0; i < ADM1266_GPIO_NR; i++) {
+ 		write_cmd = adm1266_gpio_mapping[i][1];
+ 		ret = adm1266_pmbus_block_xfer(data, ADM1266_GPIO_CONFIG, 1, &write_cmd, read_buf);
 -- 
 2.53.0
 
