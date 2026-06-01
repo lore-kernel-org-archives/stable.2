@@ -1,129 +1,94 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1BB937F729;
-	Mon,  1 Jun 2026 08:37:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ED96349CE7;
+	Mon,  1 Jun 2026 08:47:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780303049; cv=none; b=TXvq1yo7ZammY+YF+5Esz1m7S3QLb7xeddz/z99nmlBHacXoUjFWLT8XDw6+IaZ1Pw059oQ2Q0gXC7a3obcVVwf7mHjEoYPFz55xmrlg1hVIiFWSavncFP2G5kAD2PbZ1ikBhM1uqzN/RqeJA6xzx/Cu2gnZgsopkC2ZQ5rbYlE=
+	t=1780303641; cv=none; b=LNpJUPNTN8rWjMcTYvICm9QGHIza+Mfxu/hjUvRA86QMaTII/OcUP0cynjrGprlBVedhm7Elh6JMTQbnmCkPSjVTJGbrjoRd8oKSHshyZ9RxD/2tS7k/QAP9nRiCPn4l6yvHEkbBZd0V8nVtTenVJGewELBJVJqqwat7oqqm/ZA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780303049; c=relaxed/simple;
-	bh=JE9TaM48ZtwXiXb91iLyKzYjBT2SZ64YKZWsUyVnn/4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cqd9ViwCdwJcr0lnz4/GntCrkgFIgq1kgDyJaBlpgKHE+AXkkjvq5PBw/zIWN5E3EZYky9nBBJqr9lA8sP8fL36u2YHk749UlQ3taL30bNdWfm5x0/kM9EbZtC/TeZkztRf2bgCl/28MkN8uJlB/HsLsbi4Pj5KG3tIWxx3KLOk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KDw9Ev1h; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780303641; c=relaxed/simple;
+	bh=FvWO1DQR9PSK/kSEH1HSoxZBaYkieoINGM+a+PKJUVE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hGdYvHj6GCJUUywzGHrm/YydsY0gNnVD/xtrrA8cAd4Bhhzvf2Ush3rVrvz8CyzOFrWTeHcj7DilmLeOr9TMEQ31rgqCDRsIs6lPp6/zLK92UGv26yhGu4WRjFSLx2QO32qDQdvC3quYiEH5m64z0MgaghM5WMc5wWI98AMwI3E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=gCK/lI1P; arc=none smtp.client-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KDw9Ev1h"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 241621F00893;
-	Mon,  1 Jun 2026 08:37:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780303048;
-	bh=wKc+Pic6kUT/6n8WdeX34Gv1g4QfhyifwzIHCQKyiyc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=KDw9Ev1h1HwJ3bUlx/uQfSspPwfPx570BGMaevqnnYGFNnspJc2mvurKaGYlvJ3Vk
-	 NszVH/c1fDXJdE3VTZA6sURL0KE+DfFuOdo/8ATOCVBYSdhsFq5UX9UrDFu7pg5fEB
-	 XxtZ0IA4oMM8eCX85fWY/Y3llvwtS4qU9s3qs1N6rUHMZ/ZwoI9pMPxtejeVPUZrJv
-	 eXMdLW9g/10hu7NPNcdAR1Hn445D0ohfNkT6h+GlYklNClIQ3m/e8GJ993XMAT/15x
-	 wRmww34hquFU6NTJtIyQ78997Xj7Aj8msWOKaLAgeBLPSL374ThNMoP3AC7sA1zph/
-	 G4EWBpgv42isQ==
-From: Lee Jones <lee@kernel.org>
-To: lee@kernel.org,
-	Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>,
-	=?UTF-8?q?Filipe=20La=C3=ADns?= <lains@riseup.net>,
-	Bastien Nocera <hadess@hadess.net>,
-	Ping Cheng <ping.cheng@wacom.com>,
-	Jason Gerecke <jason.gerecke@wacom.com>,
-	Viresh Kumar <vireshk@kernel.org>,
-	Johan Hovold <johan@kernel.org>,
-	Alex Elder <elder@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>,
-	"Mario Limonciello (AMD)" <superm1@kernel.org>,
-	Kwok Kin Ming <kenkinming2002@gmail.com>,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	greybus-dev@lists.linaro.org,
-	linux-staging@lists.linux.dev,
-	bpf@vger.kernel.org
-Cc: stable@vger.kernel.org,
-	Nathan Chancellor <nathan@kernel.org>,
-	Miguel Ojeda <ojeda@kernel.org>,
-	Linus Torvalds <torvalds@linux-foundation.org>
-Subject: [linux-6.12.y 4/4] HID: core: Fix size_t specifier in hid_report_raw_event()
-Date: Mon,  1 Jun 2026 09:36:12 +0100
-Message-ID: <20260601083642.908433-4-lee@kernel.org>
-X-Mailer: git-send-email 2.54.0.823.g6e5bcc1fc9-goog
-In-Reply-To: <20260601083642.908433-1-lee@kernel.org>
-References: <20260601083642.908433-1-lee@kernel.org>
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="gCK/lI1P"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 9C3BF116C40;
+	Mon,  1 Jun 2026 10:47:08 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1780303631;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=YIeqwSroJEmQZI2uQ5WI4926AydeuIuVX4oqsN3tzz8=;
+	b=gCK/lI1Pi6ZdyXqxfKSelEi2CA0EOtX6+IaNEBX0im434GQE76XUuFUrrkVJmGpdS0i6Ph
+	3r6LlwAZsynaRe2jNAA5qi8K5be0Nfu7tdSwWtWyN5fSqxL8BI/ovtgh+6SkkYi+InRi+1
+	Kn39h0eXej87vNgOGH5CssgKklX6RfQ4VhOjLuF6Y5caG3SvnRFwm2qlzZwUzey5CpiIPn
+	33XXVVAsEWMU6Gw+g1QeKcLjfeYUOzG3KR0XWXSExfVwjqjoJoapY2t/4HHNB4mDxodViN
+	n0KsAkA2qpJnuuei/YKYsvR1FT50inxoW2ja8NprweQuqhSedY3cphfC2fMAhQ==
+Date: Mon, 1 Jun 2026 10:47:06 +0200
+From: Pavel Machek <pavel@nabladev.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	claudiu.beznea@kernel.org, Chris.Paterson2@renesas.com
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
+	patches@kernelci.org, lkft-triage@lists.linaro.org,
+	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+	sr@sladewatkins.com
+Subject: Re: [PATCH 5.10 000/589] 5.10.258-rc1 review
+Message-ID: <ah1HCk9vuUMCzAvU@duo.ucw.cz>
+References: <20260530160224.570625122@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="wPkJT+ToGdUfRPPt"
+Content-Disposition: inline
+In-Reply-To: <20260530160224.570625122@linuxfoundation.org>
+X-Last-TLS-Session-Version: TLSv1.3
 
-From: Nathan Chancellor <nathan@kernel.org>
 
-[ Upstream commit 4d3a2a466b8d68d852a1f3bbf11204b718428dc4 ]
+--wPkJT+ToGdUfRPPt
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-When building for 32-bit platforms, for which 'size_t' is
-'unsigned int', there are warnings around using the incorrect format
-specifier to print bsize in hid_report_raw_event():
+Hi!
 
-  drivers/hid/hid-core.c:2054:29: error: format specifies type 'long' but the argument has type 'size_t' (aka 'unsigned int') [-Werror,-Wformat]
-   2053 |                 hid_warn_ratelimited(hid, "Event data for report %d is incorrect (%d vs %ld)\n",
-        |                                                                                         ~~~
-        |                                                                                         %zu
-   2054 |                                      report->id, csize, bsize);
-        |                                                         ^~~~~
-  drivers/hid/hid-core.c:2076:29: error: format specifies type 'long' but the argument has type 'size_t' (aka 'unsigned int') [-Werror,-Wformat]
-   2075 |                 hid_warn_ratelimited(hid, "Event data for report %d was too short (%d vs %ld)\n",
-        |                                                                                          ~~~
-        |                                                                                          %zu
-   2076 |                                      report->id, rsize, bsize);
-        |                                                         ^~~~~
+> This is the start of the stable review cycle for the 5.10.258 release.
+> There are 589 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 
-Use the proper 'size_t' format specifier, '%zu', to clear up the
-warnings.
+We see boot failures on 5.10-cip:
 
-Cc: stable@vger.kernel.org
-Fixes: 2c85c61d1332 ("HID: pass the buffer size to hid_report_raw_event")
-Reported-by: Miguel Ojeda <ojeda@kernel.org>
-Closes: https://lore.kernel.org/20260516020430.110135-1-ojeda@kernel.org/
-Signed-off-by: Nathan Chancellor <nathan@kernel.org>
-Signed-off-by: Linus Torvalds <torvalds@linux-foundation.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
-(cherry picked from commit 3ab135238832446399614e7a4bb796d620717806)
-Signed-off-by: Lee Jones <lee@kernel.org>
----
- drivers/hid/hid-core.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+https://gitlab.com/cip-project/cip-testing/linux-stable-rc-ci/-/pipelines/2564188475
+https://lava.ciplatform.org/scheduler/job/1451830
 
-diff --git a/drivers/hid/hid-core.c b/drivers/hid/hid-core.c
-index d9ea99cdb68e..87d990ada868 100644
---- a/drivers/hid/hid-core.c
-+++ b/drivers/hid/hid-core.c
-@@ -2015,7 +2015,7 @@ int hid_report_raw_event(struct hid_device *hid, enum hid_report_type type, u8 *
- 		return 0;
- 
- 	if (unlikely(bsize < csize)) {
--		hid_warn_ratelimited(hid, "Event data for report %d is incorrect (%d vs %ld)\n",
-+		hid_warn_ratelimited(hid, "Event data for report %d is incorrect (%d vs %zu)\n",
- 				     report->id, csize, bsize);
- 		return -EINVAL;
- 	}
-@@ -2037,7 +2037,7 @@ int hid_report_raw_event(struct hid_device *hid, enum hid_report_type type, u8 *
- 		rsize = max_buffer_size;
- 
- 	if (bsize < rsize) {
--		hid_warn_ratelimited(hid, "Event data for report %d was too short (%d vs %ld)\n",
-+		hid_warn_ratelimited(hid, "Event data for report %d was too short (%d vs %zu)\n",
- 				     report->id, rsize, bsize);
- 		return -EINVAL;
- 	}
--- 
-2.54.0.823.g6e5bcc1fc9-goog
+This may be related to
 
+[PATCH v3] phy: renesas: rcar-gen3-usb2: Avoid long delay in atomic context
+
+but I don't see related patches in the shortlog below. I put Renesas
+people in the cc list, they should know more.
+
+Best regards,
+									Pavel
+
+--wPkJT+ToGdUfRPPt
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iF0EABECAB0WIQRPfPO7r0eAhk010v0w5/Bqldv68gUCah1HCgAKCRAw5/Bqldv6
+8u4lAJ403IuxbDkgW7SL4NdEnFK61WHBNQCfSMZnfRg2hVXgRqOWkqgBGTmb+TY=
+=XZNf
+-----END PGP SIGNATURE-----
+
+--wPkJT+ToGdUfRPPt--
