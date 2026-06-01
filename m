@@ -1,94 +1,140 @@
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ED96349CE7;
-	Mon,  1 Jun 2026 08:47:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48602385D60
+	for <stable@vger.kernel.org>; Mon,  1 Jun 2026 08:54:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780303641; cv=none; b=LNpJUPNTN8rWjMcTYvICm9QGHIza+Mfxu/hjUvRA86QMaTII/OcUP0cynjrGprlBVedhm7Elh6JMTQbnmCkPSjVTJGbrjoRd8oKSHshyZ9RxD/2tS7k/QAP9nRiCPn4l6yvHEkbBZd0V8nVtTenVJGewELBJVJqqwat7oqqm/ZA=
+	t=1780304064; cv=none; b=GuEdoy3Imn1D4mh/RzRp9Ciq7wxdlT6W0oZ8IydTgefZ+XteD7B4nAx5S0+S9ykayVgUN0b2061IWzWKnV6AilhNG16ZJGn9cqpxvZcdRyMkQd/81Oci5sZkXWXwlrwzj1pkcEqql1O1obPVI+bjIF3iUWvxK9Q5AvQD7N0y9dU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780303641; c=relaxed/simple;
-	bh=FvWO1DQR9PSK/kSEH1HSoxZBaYkieoINGM+a+PKJUVE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hGdYvHj6GCJUUywzGHrm/YydsY0gNnVD/xtrrA8cAd4Bhhzvf2Ush3rVrvz8CyzOFrWTeHcj7DilmLeOr9TMEQ31rgqCDRsIs6lPp6/zLK92UGv26yhGu4WRjFSLx2QO32qDQdvC3quYiEH5m64z0MgaghM5WMc5wWI98AMwI3E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=gCK/lI1P; arc=none smtp.client-ip=178.251.229.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	s=arc-20240116; t=1780304064; c=relaxed/simple;
+	bh=Rl4xuY1v9VBtAe/BpnRqX4uCDCp+AZh+liY7lQ03n5g=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=WQvamQG4sJDy9z/6+xIrtr/drFZ6155HqeB5r914izITvnr2mFxBoTyCAkHm68kWuhNYrl2s21r06Gg3GBvVOULSVr3G+eKP6VPniOXdhwLBjcpe65MIW+P44+fVDCd5Pkc6+MbhTrDPMURVOUolLs88OwS4cZLE8lsbjZ3CSQY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=YUT1YuqG; arc=none smtp.client-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="gCK/lI1P"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 9C3BF116C40;
-	Mon,  1 Jun 2026 10:47:08 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1780303631;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=YIeqwSroJEmQZI2uQ5WI4926AydeuIuVX4oqsN3tzz8=;
-	b=gCK/lI1Pi6ZdyXqxfKSelEi2CA0EOtX6+IaNEBX0im434GQE76XUuFUrrkVJmGpdS0i6Ph
-	3r6LlwAZsynaRe2jNAA5qi8K5be0Nfu7tdSwWtWyN5fSqxL8BI/ovtgh+6SkkYi+InRi+1
-	Kn39h0eXej87vNgOGH5CssgKklX6RfQ4VhOjLuF6Y5caG3SvnRFwm2qlzZwUzey5CpiIPn
-	33XXVVAsEWMU6Gw+g1QeKcLjfeYUOzG3KR0XWXSExfVwjqjoJoapY2t/4HHNB4mDxodViN
-	n0KsAkA2qpJnuuei/YKYsvR1FT50inxoW2ja8NprweQuqhSedY3cphfC2fMAhQ==
-Date: Mon, 1 Jun 2026 10:47:06 +0200
-From: Pavel Machek <pavel@nabladev.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	claudiu.beznea@kernel.org, Chris.Paterson2@renesas.com
-Cc: stable@vger.kernel.org, patches@lists.linux.dev,
-	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
-	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
-	patches@kernelci.org, lkft-triage@lists.linaro.org,
-	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
-	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
-	sr@sladewatkins.com
-Subject: Re: [PATCH 5.10 000/589] 5.10.258-rc1 review
-Message-ID: <ah1HCk9vuUMCzAvU@duo.ucw.cz>
-References: <20260530160224.570625122@linuxfoundation.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="YUT1YuqG"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1780304064; x=1811840064;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=Rl4xuY1v9VBtAe/BpnRqX4uCDCp+AZh+liY7lQ03n5g=;
+  b=YUT1YuqGs23qrboTwAiLu/I+h/+hvBiMVbtWgsrFxJrtdt4Pxp+tGJKT
+   24uJIPubZRvg7C5c7NvjgMbcDUmPqBgUXqXYv2LNPJ/Vw0Ee8rO08RI4f
+   ohd0CoiohOw/o0kqKPGsj0zLvtA1ZBGIzJFa8EV/li17Chnui+jUoAY8V
+   YQQRF//BVSp+RlYFyOLSNCt/MOyRwcVdcj/7ZhydrowJzlUn7pU8rSPod
+   hS3a4fg1hLELb2HvuDwEdAVOdSLKXV3sOTUFbk6BwdEFyCSPdb7sney5/
+   5TchluyX1os7ZzAsZxfwHEdgrqRTFr4kpm6+kp63cM2CkXuU/OApOm0Rh
+   w==;
+X-CSE-ConnectionGUID: +tr1R01oTEGwEsVnppYD6g==
+X-CSE-MsgGUID: r2hpBd7tSjWqEaaIBFoQPQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11803"; a="91368926"
+X-IronPort-AV: E=Sophos;i="6.24,180,1774335600"; 
+   d="scan'208";a="91368926"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Jun 2026 01:54:23 -0700
+X-CSE-ConnectionGUID: vPz26myOQSO1bqY57bHFaw==
+X-CSE-MsgGUID: MChDPTJNQaCjQbQvM+58RQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,180,1774335600"; 
+   d="scan'208";a="239110460"
+Received: from dut-2a59.iind.intel.com ([10.190.239.113])
+  by fmviesa006.fm.intel.com with ESMTP; 01 Jun 2026 01:54:20 -0700
+From: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
+Cc: ville.syrjala@linux.intel.com,
+	uma.shankar@intel.com,
+	chaitanya.kumar.borah@intel.com,
+	pranay.samala@intel.com,
+	stable@vger.kernel.org
+Subject: [v4 3/3] drm/i915: Fix color blob reference handling in intel_plane_state
+Date: Mon,  1 Jun 2026 13:59:53 +0530
+Message-Id: <20260601082953.128539-4-chaitanya.kumar.borah@intel.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260601082953.128539-1-chaitanya.kumar.borah@intel.com>
+References: <20260601082953.128539-1-chaitanya.kumar.borah@intel.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="wPkJT+ToGdUfRPPt"
-Content-Disposition: inline
-In-Reply-To: <20260530160224.570625122@linuxfoundation.org>
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 
+Take proper references for hw color blobs (degamma_lut, gamma_lut,
+ctm, lut_3d) in intel_plane_duplicate_state() and drop them in
+intel_plane_destroy_state().
 
---wPkJT+ToGdUfRPPt
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+v2:
+- handle blobs in hw state clear
 
-Hi!
+Cc: <stable@vger.kernel.org> #v6.19+
+Fixes: 3b7476e786c2 ("drm/i915/color: Add framework to program PRE/POST CSC LUT")
+Fixes: a78f1b6baf4d ("drm/i915/color: Add framework to program CSC")
+Fixes: 65db7a1f9cf7 ("drm/i915/color: Add 3D LUT to color pipeline")
+Reviewed-by: Pranay Samala <pranay.samala@intel.com> #v1
+Reviewed-by: Uma Shankar <uma.shankar@intel.com>
+Signed-off-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_plane.c | 27 ++++++++++++++++++++++
+ 1 file changed, 27 insertions(+)
 
-> This is the start of the stable review cycle for the 5.10.258 release.
-> There are 589 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+diff --git a/drivers/gpu/drm/i915/display/intel_plane.c b/drivers/gpu/drm/i915/display/intel_plane.c
+index b8348c0189aa..3eaf82477f49 100644
+--- a/drivers/gpu/drm/i915/display/intel_plane.c
++++ b/drivers/gpu/drm/i915/display/intel_plane.c
+@@ -145,6 +145,15 @@ intel_plane_duplicate_state(struct drm_plane *plane)
+ 	if (intel_state->hw.fb)
+ 		drm_framebuffer_get(intel_state->hw.fb);
+ 
++	if (intel_state->hw.degamma_lut)
++		drm_property_blob_get(intel_state->hw.degamma_lut);
++	if (intel_state->hw.gamma_lut)
++		drm_property_blob_get(intel_state->hw.gamma_lut);
++	if (intel_state->hw.ctm)
++		drm_property_blob_get(intel_state->hw.ctm);
++	if (intel_state->hw.lut_3d)
++		drm_property_blob_get(intel_state->hw.lut_3d);
++
+ 	return &intel_state->uapi;
+ }
+ 
+@@ -168,6 +177,16 @@ intel_plane_destroy_state(struct drm_plane *plane,
+ 	__drm_atomic_helper_plane_destroy_state(&plane_state->uapi);
+ 	if (plane_state->hw.fb)
+ 		drm_framebuffer_put(plane_state->hw.fb);
++
++	if (plane_state->hw.degamma_lut)
++		drm_property_blob_put(plane_state->hw.degamma_lut);
++	if (plane_state->hw.gamma_lut)
++		drm_property_blob_put(plane_state->hw.gamma_lut);
++	if (plane_state->hw.ctm)
++		drm_property_blob_put(plane_state->hw.ctm);
++	if (plane_state->hw.lut_3d)
++		drm_property_blob_put(plane_state->hw.lut_3d);
++
+ 	kfree(plane_state);
+ }
+ 
+@@ -340,6 +359,14 @@ static void intel_plane_clear_hw_state(struct intel_plane_state *plane_state)
+ {
+ 	if (plane_state->hw.fb)
+ 		drm_framebuffer_put(plane_state->hw.fb);
++	if (plane_state->hw.degamma_lut)
++		drm_property_blob_put(plane_state->hw.degamma_lut);
++	if (plane_state->hw.gamma_lut)
++		drm_property_blob_put(plane_state->hw.gamma_lut);
++	if (plane_state->hw.ctm)
++		drm_property_blob_put(plane_state->hw.ctm);
++	if (plane_state->hw.lut_3d)
++		drm_property_blob_put(plane_state->hw.lut_3d);
+ 
+ 	memset(&plane_state->hw, 0, sizeof(plane_state->hw));
+ }
+-- 
+2.25.1
 
-We see boot failures on 5.10-cip:
-
-https://gitlab.com/cip-project/cip-testing/linux-stable-rc-ci/-/pipelines/2564188475
-https://lava.ciplatform.org/scheduler/job/1451830
-
-This may be related to
-
-[PATCH v3] phy: renesas: rcar-gen3-usb2: Avoid long delay in atomic context
-
-but I don't see related patches in the shortlog below. I put Renesas
-people in the cc list, they should know more.
-
-Best regards,
-									Pavel
-
---wPkJT+ToGdUfRPPt
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iF0EABECAB0WIQRPfPO7r0eAhk010v0w5/Bqldv68gUCah1HCgAKCRAw5/Bqldv6
-8u4lAJ403IuxbDkgW7SL4NdEnFK61WHBNQCfSMZnfRg2hVXgRqOWkqgBGTmb+TY=
-=XZNf
------END PGP SIGNATURE-----
-
---wPkJT+ToGdUfRPPt--
