@@ -1,64 +1,42 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C95E2BEFEE
-	for <stable@vger.kernel.org>; Mon,  1 Jun 2026 16:21:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3E751DF75B
+	for <stable@vger.kernel.org>; Mon,  1 Jun 2026 16:28:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780330865; cv=none; b=dwOE5EILCjRfszpWTSLVZxuSONrGddpUivgB4ksdw3RxXSzc9Hj7dXzhkHmrBYbAr+Vb8B/TDnU0ehyca8bErvTE3jBOBslNv3rmbTT2hk1b9gRJ796YOX4IA55LgK2pGfYd5zyxzkjdyP1cE1qSc5OcKT5qa+r8cbP/VcrUalc=
+	t=1780331297; cv=none; b=KCOJC0hz0jwJMiXq0KshXYVyIy3yjUCG+qRlbdyq3ncsFvax8YMmfWNkOt7QCzdcDGsmSy0zl+iMbwRl1xd2NcxfG/rS8/b6EZQBKXihSayAgzn18xxYvz/uZWDYq5GmjVYtNwKPUGF4OPWsv58xcNYYuYqLLVqIf+yypJ4iQDA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780330865; c=relaxed/simple;
-	bh=AKMN0szB49azcSqo4uiqRatTW6387T8GYKIDqVqi7dw=;
+	s=arc-20240116; t=1780331297; c=relaxed/simple;
+	bh=vlSRJkR8EG1S4ORTsuGw1RE2oZOCs70pSIj3NZG3LCY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dbLMzE1L0NDZQjho9KyVGqSr3xAabQ5rD0wGgV0SrcTbr6EnK0ZapVK48y3228aWGi3PYHOiAumHSvsSbNqgti8KpEv+adJSYDcOKqiGHgYTu7yy6Mi5GN9vJHTGGfyqt3Oe0VlTnRi8+ti9IeqB4dzl2E/zsvYY9cR3BNKz9wc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=FepDpHKY; arc=none smtp.client-ip=192.198.163.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 MIME-Version; b=IwWw9HKmkc3tjsFQC6+9MOmV5YyVjF9L3y823o4xATAqj9pTHCJ/3qgrrFVjI8bK6n/dV0cxsA0Lnzfnf48YBMazFKjHd7EhYdDxmdMWDHV9jSUaCnxXz71WRNxCfNfRO5HgHrGFEgdYdA1gX8f+qG5r76I8jlDkiwLDXMgYCho=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DZ+Lp2AI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="FepDpHKY"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1780330865; x=1811866865;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=AKMN0szB49azcSqo4uiqRatTW6387T8GYKIDqVqi7dw=;
-  b=FepDpHKYtiSCMvmA9x46DBeIaP71vYUl2GR+9oMurvlQmhT8C3EcHFCt
-   oF2TQMS9+FS7Awc4wGfcf7ZX3tkU78PaNcf2rgssZ11969LDqWMrG185N
-   qcN0e5kjtxREk/oYBzB68fLnPz/J9i4nG2Q2+0F3Nc3KGCbgio7pE2NKk
-   A8flcZWlxl8vVzzDE2znL6F9BskA4LyiSRheAndUaSLqwMVQ/YXdNTo5q
-   R0HJEHA/75pKxiPXo9KlgGUqQAv1hlu8xFPwh9czfkMyVT2yzk9lkr2/D
-   YJcnOTgdRCDRjNQypVTdmfWi4WVxDPTLmZviRaKMWUwge3nEF73Ef4970
-   g==;
-X-CSE-ConnectionGUID: ZnY5kO18Tb+O4fva/dyhFw==
-X-CSE-MsgGUID: u4AB6icQQsmKpDYRkWwa3Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11804"; a="91780461"
-X-IronPort-AV: E=Sophos;i="6.24,181,1774335600"; 
-   d="scan'208";a="91780461"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Jun 2026 09:20:59 -0700
-X-CSE-ConnectionGUID: dmjn0uI7QVyRYIo2oF9DMg==
-X-CSE-MsgGUID: Fqd8yWQNQP2vlcwBJV5LfA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,181,1774335600"; 
-   d="scan'208";a="239453322"
-Received: from akacprow-dev3.igk.intel.com ([10.91.220.47])
-  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Jun 2026 09:20:57 -0700
-From: Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>
-To: dri-devel@lists.freedesktop.org
-Cc: oded.gabbay@gmail.com,
-	jeff.hugo@oss.qualcomm.com,
-	lizhi.hou@amd.com,
-	karol.wachowski@linux.intel.com,
-	dawid.osuchowski@linux.intel.com,
-	david.laight.linux@gmail.com,
-	Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] accel/ivpu: Fix signed integer truncation in IPC receive
-Date: Mon,  1 Jun 2026 18:16:43 +0200
-Message-ID: <20260601161643.229342-1-andrzej.kacprowski@linux.intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <b464b589-2d28-4617-baf0-eefbe14e170a@linux.intel.com>
-References: <b464b589-2d28-4617-baf0-eefbe14e170a@linux.intel.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DZ+Lp2AI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF0391F00898;
+	Mon,  1 Jun 2026 16:28:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780331296;
+	bh=1tlrttXUA6qo8Nrk6Ojgq1G7MK0WIDquM6tuYXTkWdw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=DZ+Lp2AI2KxCijCob7syWVV8ISYMpzEWecUsSlaq2oUBhAMMVZDxMjRva5D7L8Byg
+	 kDurHolLdRmqh3scuNUFm0wUOYdhraIoLgw2P7YxyxLApI79SZLHbwXiXOzKKWNc9F
+	 Wnrx+gth9saSK7NMAm4e+YqJOxvn809AKQv+5cyn6vp6Lj6iDaBqnAfkxANALI15da
+	 7PU6LkA96jU1aY8F97IM5/Pil8vm8TDEhzVpEILfnEJpGoXf2Z53uVHes+XJfbN8jZ
+	 5I86lRrdBHYag/o54nxy+rVKNukD8NQix35jukoWLTsFgGKlr5SoATDg1FtsJxMZ87
+	 xz+Q0kq3t8dfQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Abdurrahman Hussain <abdurrahman@nexthop.ai>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y] hwmon: (pmbus/adm1266) serialize sequencer_state debugfs read with pmbus_lock
+Date: Mon,  1 Jun 2026 12:28:14 -0400
+Message-ID: <20260601162814.975302-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026052854-glamorous-tabby-2e68@gregkh>
+References: <2026052854-glamorous-tabby-2e68@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -67,37 +45,53 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Fix potential buffer overflow where firmware-supplied data_size is cast
-to signed int before being used in min_t(). Large unsigned values
-(>= 0x80000000) become negative, causing unsigned wraparound and
-oversized memcpy operations that can overflow the stack buffer.
+From: Abdurrahman Hussain <abdurrahman@nexthop.ai>
 
-Change min_t(int, ...) to min() as both values are unsigned and can be
-handled by min() without explicit cast.
+[ Upstream commit 4e4af55aaca7f6d7673d5f9889ad0529db86a048 ]
 
-Fixes: 3b434a3445ff ("accel/ivpu: Use threaded IRQ to handle JOB done messages")
-Cc: <stable@vger.kernel.org> # v6.12+
-Signed-off-by: Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>
+adm1266_state_read() backs the sequencer_state debugfs entry and
+issues an i2c_smbus_read_word_data(client, ADM1266_READ_STATE)
+against the device without taking pmbus_lock.  pmbus_core holds
+pmbus_lock around its own multi-transaction sequences (notably the
+"set PAGE, then read paged register" pattern used by hwmon
+attributes), so an unlocked debugfs reader can land between a PAGE
+write and the subsequent paged read in another thread.  READ_STATE
+itself is not paged, so it cannot corrupt PAGE in flight, but the
+same defensive serialisation that applies to the GPIO accessors
+applies here: any direct device access from outside pmbus_core
+should be ordered with respect to pmbus_core's own.
+
+Take pmbus_lock at the top of adm1266_state_read() via the
+scope-based guard().
+
+Fixes: ed1ff457e187 ("hwmon: (pmbus/adm1266) add debugfs for states")
+Cc: stable@vger.kernel.org
+Signed-off-by: Abdurrahman Hussain <abdurrahman@nexthop.ai>
+Link: https://lore.kernel.org/r/20260518-adm1266-gpio-fixes-v3-8-e425e4f88139@nexthop.ai
+Signed-off-by: Guenter Roeck <linux@roeck-us.net>
+[ replaced `guard(pmbus_lock)(client)` with manual `pmbus_lock_interruptible()`/`pmbus_unlock()` ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-Changes in v2:
-- Replaced min_t() with min()
+ drivers/hwmon/pmbus/adm1266.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
- drivers/accel/ivpu/ivpu_ipc.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/accel/ivpu/ivpu_ipc.c b/drivers/accel/ivpu/ivpu_ipc.c
-index f47df092bb0d..9347f05a2b79 100644
---- a/drivers/accel/ivpu/ivpu_ipc.c
-+++ b/drivers/accel/ivpu/ivpu_ipc.c
-@@ -276,7 +276,7 @@ int ivpu_ipc_receive(struct ivpu_device *vdev, struct ivpu_ipc_consumer *cons,
- 	if (ipc_buf)
- 		memcpy(ipc_buf, rx_msg->ipc_hdr, sizeof(*ipc_buf));
- 	if (rx_msg->jsm_msg) {
--		u32 size = min_t(int, rx_msg->ipc_hdr->data_size, sizeof(*jsm_msg));
-+		u32 size = min(rx_msg->ipc_hdr->data_size, sizeof(*jsm_msg));
+diff --git a/drivers/hwmon/pmbus/adm1266.c b/drivers/hwmon/pmbus/adm1266.c
+index ed0a7b9fae4bf2..1986ba48e59147 100644
+--- a/drivers/hwmon/pmbus/adm1266.c
++++ b/drivers/hwmon/pmbus/adm1266.c
+@@ -322,7 +322,12 @@ static int adm1266_state_read(struct seq_file *s, void *pdata)
+ 	struct i2c_client *client = to_i2c_client(dev);
+ 	int ret;
  
- 		if (rx_msg->jsm_msg->result != VPU_JSM_STATUS_SUCCESS) {
- 			ivpu_err(vdev, "IPC resp result error: %d\n", rx_msg->jsm_msg->result);
++	ret = pmbus_lock_interruptible(client);
++	if (ret)
++		return ret;
++
+ 	ret = i2c_smbus_read_word_data(client, ADM1266_READ_STATE);
++	pmbus_unlock(client);
+ 	if (ret < 0)
+ 		return ret;
+ 
 -- 
-2.43.0
+2.53.0
 
