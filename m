@@ -1,179 +1,207 @@
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SY5PR01CU010.outbound.protection.outlook.com (mail-australiaeastazolkn19012012.outbound.protection.outlook.com [52.103.72.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3DE6377017
-	for <stable@vger.kernel.org>; Mon,  1 Jun 2026 12:22:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780316571; cv=none; b=kn9Yv0LDQhzq9ZnfHIEH8rS14dCFHIsrSHgeCiaqcAIIMRrQX74IhDK8O7nEOkAti3PVXkym+XVp5lein2UwOWWz1FvRvYLGzImStWqQ6cLWF8ndaM+RBRQdO9tNx36wMQxwFYXVRH5tI9ezvk312M8VBpluIiVT8R/SMHzQxIk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780316571; c=relaxed/simple;
-	bh=2WgfNreLWJxft+zoPVPrApEmJdxucipKkpzWrRjPZeE=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Uv1gQEHLUxxkneNH0WDRubUAYhFOXeHg0Ka7hyR58pcj3/z+vfLFT17zjuoC+K2xK863yaBvgjcu04fwCqWblXn2KF/FVLCuju2hHybv9pEh5KlNLzoMCb197432Yq9Yq+LKTmOa95bq9OAhUcK5XOmAduYRdgN6r/qvwH7Dnls=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=H/nScCcT; arc=none smtp.client-ip=209.85.221.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C03D835FF5B;
+	Mon,  1 Jun 2026 12:33:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.72.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780317226; cv=fail; b=gn2LGTOu/9r6RodYMdEkVqCHi5t/FVwwQMntve4AO1IoynKAZ4JXWKxsiVIc0pUPQe5FfFETxtRvOVsaY6NeACJDaG0St1pH4GTMouyvHrCDR/p+kq7TYNEGeGCjjnqpfdtTYj+MJMC5YSJ/GV2gGEg5VkDRM3GmyOcYv/uQmnE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780317226; c=relaxed/simple;
+	bh=P8CBGXJh4eQoXgCCKj/JKMrR47OiY9z6al6rITHl5ss=;
+	h=From:Date:Subject:Content-Type:Message-ID:To:Cc:MIME-Version; b=doSxyeDyXAeNX5sJvGRiK8Lx+m2qmukag3qyfW+RkW50lR+jh2tj0ZvzH1GOuQEfjewbk5tz1R/FaU73q7xGpcMu4Xrk+T3qEiQ8rDdMGY+r9lziA+5xTFIZawe2ts1cAXw2neqHc0axFOJOhaLQg2ljYcm5bnIlSzfv+sTTNNk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com; spf=pass smtp.mailfrom=outlook.com; dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b=FrmGa0Ia; arc=fail smtp.client-ip=52.103.72.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="H/nScCcT"
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-45ef6565cfdso1175342f8f.0
-        for <stable@vger.kernel.org>; Mon, 01 Jun 2026 05:22:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780316567; x=1780921367; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:subject:cc:to:from:date:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=CIha1sal+E5YftvHy0Sy4Bf69FGdGrpFmedRP0jS2Og=;
-        b=H/nScCcTtdE9Lwy6QTD/1oevOOZFwBIZiCeE0/KxbXlpI32FDQckbMn+dFMtTodzTI
-         5hNXye31DOi97jDhE1YBEWsjegAkl4dRgXHjm/PnyQLMnlgTi43kEZYbnGZvJkm/At+B
-         Pyr4RpkXOWk6+OnQyNE38/qm85uiaFpWk+4DP+n3z/gBabN4BW9dsThSAbNW+yCmmRm1
-         NpN0bo3wf8PAfEL1llCQHPD6UXrgi2R0G0JkEtgLPB0hLEkevTuTxMOFUFj3Z4Hrv1uF
-         w/PF/Zfc+ro1+SLESfhW3FBGUsm3LgoU1bAwpRsSYL7wZYmmufDqmXq3MUxSMlGdmmMF
-         9cFg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780316567; x=1780921367;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=CIha1sal+E5YftvHy0Sy4Bf69FGdGrpFmedRP0jS2Og=;
-        b=EPOHBlcamKhmCYH+ofc7dqytfBw2vMMSxQtlAp+qScJZrG5rv7JQQnVCmYeyP8FyNC
-         XlSf1SooVt/Ktp+3Xgn5ShLOUYV/US53QfI0kxIU9Qg6QTauLSqYIQlwD26XwM9CQvAd
-         i4dVBUu0uMabSEvfJm2iY73V0tTv7Jf2ntz6j3UnhtxbCLB7BEqI1v431CVb9FHdzK22
-         COFM9uO25Ox4NrmX2sWQ6UovCuyGffieThrqj1C1vo3ZkbGwvLovCb4wkX7Xv3oGRtga
-         d4mbzscvuWX0CaPemJEUHrmI5cX0yddUII+lMcYTapARPOvaD02eXi1cKrQVxV2g4uwH
-         bOoA==
-X-Forwarded-Encrypted: i=1; AFNElJ8ggZ5DylA9+DKSZ7nXdAs0dC9Fg1aXRpEzG1yNkWxNmaXToEKi+y4ogGrQrkRykkGFUfx5wbM=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzro8w728eSL+JHWXTbBLzt+laqgyRWm/wWn9CBeAzYc8qt24WR
-	ZMjUQWiFA4kFiDOazw0/EVcw2ANeMGY9o/IxPBa8xQKfqRdVDgFAD8yV
-X-Gm-Gg: Acq92OGLClJrGMqkZ/lVtTF+8UzWOqaelND8iZFzf9BmxIQuzX4MnyvRRKQiHtsEc3i
-	OxBipZFQUXs9mY8s/dYgDEWsEE2uj9fAR/xUWRuJvZZvVNAxbjy6N7q6yAbGMq7xRvYTQvZPIwE
-	MjFh3ZiOv9HQ3uvXYC5Zt8GKFssvtJXrQP9p/jtVYmrJMjuGqQd/tT+0zrfMUkwlwZugxqRDgRX
-	4xgcv/nRWHGELGAC/j9G1Glut89Tsztd+0MfvAsiyLouGSisqx97i1VnzDRrQBIkkVXQyjfm0Jg
-	b6LsAfI77Vop+pkV+V6AFcpz8GJK+FL1rQCpAnDTf/le04dPepD5CMyPEEOlUh5Z+sNK78IzO/F
-	mQBazOqxpjsLwREjuzyiT5N2Zd6ZC4jkj9nVZMiyXSJyGqs8zdl6qC4s+P0JmiYHWqOrfwdKpek
-	eBZjCNHtANZFArpm3lmGD1Azei9CwgLMrV5uBt+nUWBDRSFVh2m07SJZMpobl2PneI5ORuwPA=
-X-Received: by 2002:a5d:453a:0:b0:45e:edc8:d440 with SMTP id ffacd0b85a97d-45ef6aea822mr15326542f8f.1.1780316567078;
-        Mon, 01 Jun 2026 05:22:47 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45ef354cd87sm23765184f8f.24.2026.06.01.05.22.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 01 Jun 2026 05:22:46 -0700 (PDT)
-Date: Mon, 1 Jun 2026 13:22:45 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Cc: "David S . Miller" <davem@davemloft.net>, Jakub Kicinski
- <kuba@kernel.org>, netdev@vger.kernel.org, Paolo Abeni <pabeni@redhat.com>,
- Eric Dumazet <edumazet@google.com>, David Ahern <dsahern@kernel.org>, Ido
- Schimmel <idosch@nvidia.com>, Simon Horman <horms@kernel.org>,
- linux-kernel@vger.kernel.org, jianhao.xu@seu.edu.cn, stable@vger.kernel.org
-Subject: Re: [PATCH net] ipv6: use READ_ONCE() in ipv6_flowlabel_get()
-Message-ID: <20260601132245.4be1b32a@pumpkin>
-In-Reply-To: <20260531153946.1627418-1-runyu.xiao@seu.edu.cn>
-References: <20260531153946.1627418-1-runyu.xiao@seu.edu.cn>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+	dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b="FrmGa0Ia"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=gy/RcVR26OolG+3+ToB0ZUoEC9aoHjRWVrVyTrB0MRmpXRb+H6WHvDbyMdwf02IHbXNJAkoo+aUsQzrKYVl054H+L8sGmXrStmg+2Pg5e145AduYSud4JPpUDU+NFtBeM7Z7kfkawwt6T38y1/Jpk51R8+RTnM0NE2Yyxw5AUMTM8+YUPcvKYoczv80mZDsT5qkblpAjbUMe+Q48qTaIDgd7OxESZ+vcOFZUji5iqKZ/0YYoPhIEY9Zkubc0aVbdy6FrOz8KZHUbFb+9q/RuG8fH1n3TC6zmzrT2fJyJXMNS5jZsNEHf2ezF6QmwPUfcyefZJoRKpHs4pGLNgHrmAA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=sk3bUb3Y2XkS3LvYZw9ZH4aiWxDT35xKsqXIHS41Cu0=;
+ b=tG17VN7/WpJDGeuFqLcvnL9SDVfkL2fxpfEOsyi3HPdf0xaC+X9OeJL+MBY8mmNbSkzpJtHnrIamZRNw1+CrkQqNRcGGCT+rlMH/eYtDEg/Rt8QAuMz2wcvnK+XEa26rB77TR+UdyAzRxr7y4hfD31KapjVSGEnuw6OHg1Qh/gHpDHWGhKCP/Q39hCzxKj03/73MvPLjXsCIlwbEB6ZN+5YglWmqQNE6OE0c1CpWuYKuxHkfY9TyC8FN8H5qxedAJA+ubJR3GsaCP/4l54ICpulImK7KrebCI/fCn/6Oivizlftn22aVqHIHmd6KrWKgsEAW+KnFSmXBD+URh5aPVw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=sk3bUb3Y2XkS3LvYZw9ZH4aiWxDT35xKsqXIHS41Cu0=;
+ b=FrmGa0Ia8+10bw7oksuOqnS+7iAvrahpTiHHx6T6qWUb7UwnlhprHeHs/XfFTEs2ZD+ZknudM3lopjrONFDxCHojWCXtiapSSIPuqFzmhngHKIr6JhTrOrlseKMQhUuske+m7fpwSMo6lR12so3TqyfgRvMR+tyKQ99/oQXsQyN7fHf2IXHvgQvZWXeaEuQDfz0qwMcUn2EnPvNU0K/e/8x3DDKgtgvGGeBYVgsAindSHflhrePqtQJo1XII0JovPxoKbe9HPUkgvJxa6HufCbUb9udeGU1Y2m70I55/F45wFzKHhiEC1P1Zb4INYXRxd3pOxjeWEaxP2c5YukyGWg==
+Received: from SYBPR01MB7881.ausprd01.prod.outlook.com (2603:10c6:10:1b0::5)
+ by MEYPR01MB6328.ausprd01.prod.outlook.com (2603:10c6:220:106::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.17; Mon, 1 Jun 2026
+ 12:33:39 +0000
+Received: from SYBPR01MB7881.ausprd01.prod.outlook.com
+ ([fe80::7cd2:d6e8:3fa0:5f0c]) by SYBPR01MB7881.ausprd01.prod.outlook.com
+ ([fe80::7cd2:d6e8:3fa0:5f0c%3]) with mapi id 15.21.0071.015; Mon, 1 Jun 2026
+ 12:33:39 +0000
+From: Junrui Luo <moonafterrain@outlook.com>
+Date: Mon, 01 Jun 2026 20:30:58 +0800
+Subject: [PATCH] media: vicodec: fix out-of-bounds write on capture buffer
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID:
+ <SYBPR01MB7881A4E2AC434488ABFA775CAF152@SYBPR01MB7881.ausprd01.prod.outlook.com>
+X-B4-Tracking: v=1; b=H4sIAIF7HWoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDMwND3bTMitRiXRNTo+RUS4sUc7MUCyWg2oKiVLAEUGl0bG0tACnyDFp
+ XAAAA
+X-Change-ID: 20260601-fixes-452ce98d76d8
+To: Hans Verkuil <hverkuil@kernel.org>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Dafna Hirschfeld <dafna3@gmail.com>
+Cc: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>, 
+ linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Yuhao Jiang <danisjiang@gmail.com>, stable@vger.kernel.org, 
+ Junrui Luo <moonafterrain@outlook.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2052;
+ i=moonafterrain@outlook.com; h=from:subject:message-id;
+ bh=P8CBGXJh4eQoXgCCKj/JKMrR47OiY9z6al6rITHl5ss=;
+ b=owJ4nJvAy8zAJVb4wiKgu++DA+NptSSGLNnqxqKnq5cI7vv+8ydzwfJ8F5NPH4oWLankTTDgy
+ ZiX/c+sOrejlIVBjItBVkyR5XjBpW8Wvlt0t/hsSYaZw8oEMoSBi1MAJvL5BcP/mo8h8/bnPLVV
+ 85nKLVJX+a9U7enVzT/2iyxZz+nrMN99J8P/gKtzfnHe+bet5nnuTUan9VOe/l3ydFPRl41Z+Rl
+ pGwUDuAC/gFDV
+X-Developer-Key: i=moonafterrain@outlook.com; a=openpgp;
+ fpr=C770D2F6384DB42DB44CB46371E838508B8EF040
+X-ClientProxiedBy: TP0P295CA0022.TWNP295.PROD.OUTLOOK.COM
+ (2603:1096:910:5::18) To SYBPR01MB7881.ausprd01.prod.outlook.com
+ (2603:10c6:10:1b0::5)
+X-Microsoft-Original-Message-ID:
+ <20260601-fixes-v1-1-288c3958249b@outlook.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SYBPR01MB7881:EE_|MEYPR01MB6328:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1bbd5634-b1b9-4d3a-28d5-08debfda0229
+X-Microsoft-Antispam:
+	BCL:0;ARA:14566002|5072599009|6090799003|15080799012|23021999003|5062599005|55001999006|41001999006|24021099003|24121999003|22091999003|8060799015|19110799012|3412199025|440099028|52005399003|40105399003|1710799026;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?a2E4T1FUWERjSjh2dWNwY3J6aWt4VjhMRWdMSlZ0c1RzQXhGaWs2L3ZtTU10?=
+ =?utf-8?B?RWg5RWVLakhuUWlib09iREV3UGJET21JbVZCdTVQbFBROGE2SFdaL1pwVzdw?=
+ =?utf-8?B?cjVoQzVUR2pKZm4vdzZ3VU9Qa2lqeTRGd2w1emwrdTFhV2lNK2dDd3M4NFp5?=
+ =?utf-8?B?Ny9hMVRQT3RzU3lVOW1vTWlpUXdYTmZnR1g4TlpCNm5jNGVWbTlRZ3N6Wjhr?=
+ =?utf-8?B?Q29vSTdxa01zSkNvVUVyV0QwUmk0eUowaENoTVlONENwWnFOY2dqNUV1cFhK?=
+ =?utf-8?B?cVgvMDBjMkt4U0xlSElINzdzYmUxamg5RURDMytxTnZ6Um1HNGQ4NEI4VEpH?=
+ =?utf-8?B?R09sUURlK01CZlFZZTRzcWkremlyUU1oSURDS21MWjM0aVUvY2t4VTlHQy9r?=
+ =?utf-8?B?WGt2TjE3V0wyR1FMZUppZzdBY1N4S0JUbXlMWGhLZjVnMnd3bFczTzEzbXk3?=
+ =?utf-8?B?SGJ0Q0xha2MwbkNhemk0UGxHcXd3TXB4eEduRGpHbFc1Ymk3dGhYNngvL3I3?=
+ =?utf-8?B?RzZ0VVpYWE42UUJHMGJHdEVLTFhxYmI4a1c1cFRZdTB5QTlUOVY3SjhuK2Vw?=
+ =?utf-8?B?ZTRLbUZQVTlranlOVUtDdHZiMmg5eHpwaE5XRitQOSszeHNLV2RDUStPeHk0?=
+ =?utf-8?B?bHYxQ1JwS094Y2QxZURlRlg4VUFOUzBEcGU1dm9HYmdpcmZLR3Y4bndKdWZW?=
+ =?utf-8?B?QllydzBSY3Jvd0xtQ3JTbUpoWjRvNUxua1NWVkxjVWhTVUNOVDN5RzNJQ2ZW?=
+ =?utf-8?B?UWd4eURBWWtLaWVuV0IvZUJZUXJweGZYWC9DV0E3TWVzZ0QzblpJNXBnZkIr?=
+ =?utf-8?B?Zld4OTRWeGoraUxJQkZ2bThjYnhFT1cxaGZrYjgzMStkcW84bXozVHhpbmhE?=
+ =?utf-8?B?MVhBanFGZXZteWx5aDlNc3phZnlJVDVpTHFIR1lzOTFaTHkrSzByWE9WTWpm?=
+ =?utf-8?B?bjRyRFAzS0JlekE5V3llNmduODYzRUYzS3Z0MzdQSjBlWmc0NHR1cTJYSDFX?=
+ =?utf-8?B?c3M1aXR6MW1wbCtXS3ZzRVJQM25WdG16ZC80aCtRMmsxSmFjOXViaHZpc3g1?=
+ =?utf-8?B?MEhJS21RTzJxTEpkUFVicnYyYUV0YklRZU9DbStCcTRiMnA3QXFCZk1pcXRX?=
+ =?utf-8?B?WndxVmU2bjlxMEt6dkg3bkgxeHpwT1VLNzcwK0Y1cXdwMGlOL1o2K0JlcDRR?=
+ =?utf-8?B?TVhyVy9SQUVXSHQ0K1gyRmJxSzRaY0tzaGYrUnpvRmxKQWxDTjlqbVI5VG1h?=
+ =?utf-8?B?UFB5SjUvZXo5cnJkSk5DVEthd09yZTA4QWtYZDdKRTZubjhFMk04bkw3dlRq?=
+ =?utf-8?B?a1lXM2NMYjJyYnJEUnkvSzl6SW9EMGpsbXNNcVlTTkF4OVpKSkFpd29GR0FY?=
+ =?utf-8?B?SGwrUVlqUkErWFNBYWcvdWZ1RXpIeGtYT01odWZvYnRDQjNsenp4VWg5NkYv?=
+ =?utf-8?B?ZFFvclRwdlhIODVYY3F0Zi9taUZ0RGFsZ1Jia3VlTlI4TEZyaXFpSm1jRnQr?=
+ =?utf-8?B?OEFCdGRLUHhOc0ZJblRUWStnODJnWVlMbUlKSVVJdE5vZ0p3d3VhMmQ2OEEr?=
+ =?utf-8?B?SUpQZz09?=
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?QnNIbFZxZEZ4YnVQTm1wL2J2a2lEMTZybHNFY2M4U3pRSjRlOEJSMUlQTzlm?=
+ =?utf-8?B?amNUT2kxVHlGTmRmOVdiS1g5YXBXMDFFNUp3QUk0d1NBT1hPWXcvcHNWN1Nj?=
+ =?utf-8?B?aXhFZDF1b0ZsTTNuNm0xNmVQVExnQVlSNG5neWJWNjNTUjVyUmRLd1VLQUtK?=
+ =?utf-8?B?c2hEY3ZPL3h1dTRRVk8zVUZmWEMyT0hBRjBwNXN1OGlBUVc0YmlCYmk5T1lv?=
+ =?utf-8?B?cDhNNjR1b2dPM3FzMnZtWWRXSFFTdWNIZy85dW8rOTFlYTJ1L1IzL0paMTZZ?=
+ =?utf-8?B?aHBIS0Y2cEUveGloTDI1TTVIZXd0a1IydHBNVWNXNUI3UFRRRXlQOCtzbVpz?=
+ =?utf-8?B?YTZ6eCszMktwQ1B6TzdGOGJyNlZpMUJkcTd4bjNkNHBHeUFhZXoyTmxNdk5z?=
+ =?utf-8?B?L0VCNXdBR01rcWYzMHYyMWk1RW9iay9QUGYwaGlrWWU5bGtrRWdEL2RZUEFq?=
+ =?utf-8?B?cWduM3NzZzBhanR5Q3ErV3hQZXloczhCQjllSEFNNzRxVGtYSGxiVURxU1Zl?=
+ =?utf-8?B?WXBVMmo5TlpGYk1KN1UxVTJJTEV2Zk1Wemp0SnZ3ZG5WbTFrOWdXKyt1L08r?=
+ =?utf-8?B?ZGo2cElUanlyeDRhL0RpeHNiaUt4VlhSbjU4T29qbHFsRkdLa3dHNUx1djFX?=
+ =?utf-8?B?b1k0aFFvODE2VEYzQTE1OXBCelBqSnFrQ01lTm83WEdadHNKTDZCaGlrZDZw?=
+ =?utf-8?B?VE9FRmZhMlFZaXoyZS9yQ3Bmbm9OSkhHM2ZuTXY2Y1FxakV6eUZQaGdCaHVY?=
+ =?utf-8?B?WjBqNHhBaHlTMERSSmZnM0lHMnE3UHlMY1U2c0V2djZsOStYbnl0MHBiTVpE?=
+ =?utf-8?B?enZoK0NSMVIwOGk0UVVicEdtNU9oMlFNSDE1Qm1ucHU2eFBaQ2FJSS9PMTJn?=
+ =?utf-8?B?dHdJUmhKV0laS0YyRzUvTE1iK3RsOWVpREp3MElQYmV5bk5VcmtZOThEOUVh?=
+ =?utf-8?B?MXNSenRIZDZtQnRlRERsaVpLQ3lseTVXVGlJcDNkRjVtUzhYb3hnWWtlU2FC?=
+ =?utf-8?B?dHFWaTV5NCtNbjZxR0VEZzk3Q2hPQXYrWUZWUldaK2xZTElJeHlqZDFoUitr?=
+ =?utf-8?B?cWpSQk9QZFRqRkkzdkZORHNqa2lDWGVXeDNpc2pjWW0wMktSZlJYVnl4NjFH?=
+ =?utf-8?B?SEdZLzAvVDBYVnJNMFRRbHgvcmhWUzF5Q1NqTGZidGtKNlpHUlczNXRmVmxu?=
+ =?utf-8?B?SStSWlVKdjNEd21zU1RyMzgyd2J2c0IzazRiMFFXWXZwcUU2b0lWUm9vU3h2?=
+ =?utf-8?B?VEo3NEViSWs4NXBlTDF6QW5oM3VQdWFRQlpSVHB2WTlMUEdPZmJ2WUJwMnNh?=
+ =?utf-8?B?eHJoNzhPbTljNlZCR21WQkNDYVN5Tnk2VFBkOVFucDVrZFE0M2R6N1MzdEFl?=
+ =?utf-8?B?aUcwZVQxVmsxN3pDQjJaYU56SGFYMEFSdUNoTkY2aDJVMGJYRG9sWmEwcC92?=
+ =?utf-8?B?dUxVbVh0bTRhbXZiaXF0em1GejBFSytERUl1U0d2SHUvRVJQQXRUcUM5aWlp?=
+ =?utf-8?B?SUZpZ1hmRXZsRmQ3YjllWW5qdU1RblJXbFNYRkdoeFd3VWpRellUd3BQODRk?=
+ =?utf-8?B?enU4U2JMVkJBdndFTTZ0TWFVRE5HQnQydFp0c0J4cjFMbXIwNWlOaHF3WUg5?=
+ =?utf-8?B?c2tKU29kN0FXTU9QejdqRjRzVVJUYSs0MlREaXQxZ3hwanBWL0NrOU4xWm92?=
+ =?utf-8?B?TjA4dXpES1IzUHZOMUhNbGNSZVliaG1RVk9uS1k1ZmIzZ2Z6MXNJeFJsOXhG?=
+ =?utf-8?B?V1JJbFBqVktEZTR3ZU9sRzg5SVhHOW9ZS29RSVhvSDh0ZDYzamx2RHZLL0lh?=
+ =?utf-8?B?Y3dVQVdVN2RTcU13d253NERzZG1TanVEYlRWb1NidGo4cVRFa1dWUVBNbGE0?=
+ =?utf-8?B?a1QzTUhiMUxmV3hNTmwxay9UWGgvM3MzanNQeTFmazc0T2c9PQ==?=
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1bbd5634-b1b9-4d3a-28d5-08debfda0229
+X-MS-Exchange-CrossTenant-AuthSource: SYBPR01MB7881.ausprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jun 2026 12:33:39.6613
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MEYPR01MB6328
 
-On Sun, 31 May 2026 23:39:46 +0800
-Runyu Xiao <runyu.xiao@seu.edu.cn> wrote:
+The vicodec stateful decoder handles its first resolution change in
+vicodec_buf_queue(), which calls update_capture_data_from_header() to
+set q_dst->sizeimage to the new, possibly larger, format. Unlike a
+subsequent change in job_ready(), it does not set ctx->source_changed,
+so the m2m scheduler still runs a job. buf_prepare() validates queued
+CAPTURE buffers against q_dst->vb2_sizeimage.
 
-> ipv6_flowlabel_get() still reads the shared per-net sysctl fields
-> flowlabel_consistency and flowlabel_state_ranges with plain loads,
-> while writers update them through proc_dou8vec_minmax(). These checks
-> run in the live IPV6_FLOWLABEL_MGR path, so lockless plain reads leave
-> KCSAN-visible data races and can make the policy checks observe stale or
-> inconsistent values.
-> 
-> The race can be reached on a running system by toggling
-> /proc/sys/net/ipv6/flowlabel_consistency and
-> /proc/sys/net/ipv6/flowlabel_state_ranges while another task repeatedly
-> issues IPV6_FLOWLABEL_MGR requests with IPV6_FL_F_REFLECT or a
-> state-ranges flow label.
-> 
-> This issue was first flagged by our static analysis tool while scanning
-> lockless IPv6 sysctl readers, then manually audited on Linux v6.18.21.
-> The IPV6_FLOWLABEL_MGR paths were runtime-reproduced with QEMU/KCSAN by
-> concurrently flipping the two sysctls while TCP reflect and UDP
-> state-ranges setsockopt actors exercised ipv6_flowlabel_get(). KCSAN
-> reported races between proc_dou8vec_minmax() and the two plain-load
-> sites in ipv6_flowlabel_get().
-> 
-> A narrower second-round UDPv6 + IPV6_AUTOFLOWLABEL send-side reproducer
-> also hit the inline ip6_make_flowlabel() reader through
-> __ip6_make_skb() / proc_dou8vec_minmax(), but that site is already
-> fixed in this tree by commit ded139b59b5d
-> ("ipv6: annotate data-races from ip6_make_flowlabel()"). The remaining
-> plain readers in this tree are both in ipv6_flowlabel_get().
-> 
-> Use READ_ONCE() for those remaining sysctl reads so they follow the same
-> lockless reader contract already used by other IPv6 sysctl readers.
-> 
-> Build-tested by compiling net/ipv6/ip6_flowlabel.o on x86_64.
-> 
-> Representative QEMU/KCSAN reports from the two target reader paths:
-> 
->   BUG: KCSAN: data-race in ipv6_flowlabel_opt / proc_dou8vec_minmax
->   write: proc_dou8vec_minmax+0x206/0x220
->   read:  ipv6_flowlabel_opt+0x6d8/0xd20
->          do_ipv6_setsockopt+0x873/0x2220
->          tcp_setsockopt+0x72/0xb0
-> 
->   BUG: KCSAN: data-race in ipv6_flowlabel_opt / proc_dou8vec_minmax
->   write: proc_dou8vec_minmax+0x206/0x220
->   read:  ipv6_flowlabel_opt+0x129/0xd20
->          do_ipv6_setsockopt+0x873/0x2220
->          udpv6_setsockopt+0x21/0x40
-> 
-> Fixes: 6444f72b4b74 ("ipv6: add flowlabel_consistency sysctl")
-> Fixes: 82a584b7cd36 ("ipv6: Flow label state ranges")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-> ---
->  net/ipv6/ip6_flowlabel.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/net/ipv6/ip6_flowlabel.c b/net/ipv6/ip6_flowlabel.c
-> index b1ccdf0dc646..1ab5ad0dcf24 100644
-> --- a/net/ipv6/ip6_flowlabel.c
-> +++ b/net/ipv6/ip6_flowlabel.c
-> @@ -620,7 +620,7 @@ static int ipv6_flowlabel_get(struct sock *sk, struct in6_flowlabel_req *freq,
->  	int err;
->  
->  	if (freq->flr_flags & IPV6_FL_F_REFLECT) {
-> -		if (net->ipv6.sysctl.flowlabel_consistency) {
-> +		if (READ_ONCE(net->ipv6.sysctl.flowlabel_consistency)) {
+A CAPTURE buffer allocated before the source change still passes
+buf_prepare(), and device_process() then decodes q_dst->sizeimage bytes
+into it with no clamp to the buffer's actual size, leading to a
+controlled-content out-of-bounds write past the vmalloc-backed capture
+buffer.
 
-That can't actually fix anything.
-If the value can be written concurrently it will still be zero or non-zero
-even if the write gets split.
-So it can only ever be the same as the write happening a bit earlier or
-a bit later.
+Guard the write at the decode site in device_process() against
+q_dst->sizeimage, the number of bytes the decode actually writes. The
+destination buffer is completed with VB2_BUF_STATE_ERROR by the existing
+device_run() error path.
 
-There might be a real bug if the code looks at
-net->ipv6.sysctl.flowlabel_consistency again.
-But a READ_ONCE() in an if won't fix anything.
+Fixes: 3b15f68e19c2 ("media: vicodec: Add support for resolution change event.")
+Reported-by: Yuhao Jiang <danisjiang@gmail.com>
+Cc: stable@vger.kernel.org
+Signed-off-by: Junrui Luo <moonafterrain@outlook.com>
+---
+ drivers/media/test-drivers/vicodec/vicodec-core.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
->  			net_info_ratelimited("Can not set IPV6_FL_F_REFLECT if flowlabel_consistency sysctl is enable\n");
->  			return -EPERM;
->  		}
-> @@ -633,7 +633,7 @@ static int ipv6_flowlabel_get(struct sock *sk, struct in6_flowlabel_req *freq,
->  
->  	if (freq->flr_label & ~IPV6_FLOWLABEL_MASK)
->  		return -EINVAL;
-> -	if (net->ipv6.sysctl.flowlabel_state_ranges &&
-> +	if (READ_ONCE(net->ipv6.sysctl.flowlabel_state_ranges) &&
+diff --git a/drivers/media/test-drivers/vicodec/vicodec-core.c b/drivers/media/test-drivers/vicodec/vicodec-core.c
+index 318e8330f16a..2950d42c8c63 100644
+--- a/drivers/media/test-drivers/vicodec/vicodec-core.c
++++ b/drivers/media/test-drivers/vicodec/vicodec-core.c
+@@ -321,6 +321,8 @@ static int device_process(struct vicodec_ctx *ctx,
+ 		q_dst = get_q_data(ctx, V4L2_BUF_TYPE_VIDEO_CAPTURE);
+ 		if (comp_frame_size > ctx->comp_max_size)
+ 			return -EINVAL;
++		if (vb2_plane_size(&dst_vb->vb2_buf, 0) < q_dst->sizeimage)
++			return -EINVAL;
+ 		state->info = q_dst->info;
+ 		ret = v4l2_fwht_decode(state, p_src, p_dst);
+ 		if (ret < 0)
 
-Ditto.
+---
+base-commit: e43ffb69e0438cddd72aaa30898b4dc446f664f8
+change-id: 20260601-fixes-452ce98d76d8
 
->  	    (freq->flr_label & IPV6_FLOWLABEL_STATELESS_FLAG))
->  		return -ERANGE;
->  
-
--- David
+Best regards,
+-- 
+Junrui Luo <moonafterrain@outlook.com>
 
