@@ -1,104 +1,122 @@
-Received: from out30-98.freemail.mail.aliyun.com (out30-98.freemail.mail.aliyun.com [115.124.30.98])
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CFF439AD25;
-	Mon,  1 Jun 2026 10:07:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DF18390C9F
+	for <stable@vger.kernel.org>; Mon,  1 Jun 2026 10:11:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780308437; cv=none; b=n/HESJ8LOdniT7XtMdS2dvVVzz25wB31EagmmzMYwMNyHpKLazO6pYTKAbHkuJc0npADcgZHvTgJfJqMjZCJB1eLqkccs6EnPGWmWT2qSvkTYq1/4G3bhJ/Zenf4K5ty7bveYQucrlI9nf6tJ+XU/FXauAW21b9Uk405Yvtqx9g=
+	t=1780308710; cv=none; b=lCaAn+AP2K74JZxVlJanP6e6vveO+gSUg3uOw753Nrt0syDXEPdqFrTvl8b0y8Wt9n2HEr+150VTfc4e8r8U0ySDwOUByzbdvZytVooJvJIYMzJawwndZk1g/W5drlxSOlXAH80hfMvM93xvY4jMnuDzPtqUJytOnO0/xzl/zCI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780308437; c=relaxed/simple;
-	bh=SkdmBOZ3XElDVGwpjH+3ctHe2Thn7Ye0kr6/wP9Q8gA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=GOdUFxfH45rwyxFQuHIt+rBJFbzN8cUmSnJLQXclXXAgyn0Qp1TBhPipOFAW74rxAlASVX4m+7YKuH5094B5PGOjTVRh653aTBZLSP3vFtItgzNTA7wryAsNkI2DA3WBhkzuwL6+3PcArXwWX5KTGvD6RdgIZfBfbm+lIULxApE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=gTuTbwC4; arc=none smtp.client-ip=115.124.30.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1780308710; c=relaxed/simple;
+	bh=Fb7LeDpXYSoMzPHGb+BLFXUA1x8RElEbKlqXfIVsTuc=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=TQpxO1/mmHiNWmHGzM81cF6/bl1T2TSrG/xJzwLUyuVFjUkGVsjVoLV2N0KofY6e/G8qTB8RhoEPaFUIq0QMrwkbhYu4176gdK4z7CrlMYAmw7oix63YTuBu5RaiykPre1isKMD0mR6lJjz081poSxXXzWvl19+rmnbLdtFGGBk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=qLkav5iT; arc=none smtp.client-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="gTuTbwC4"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1780308421; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=xTBzogHjY5tKT0n6JoprK9cC3L7c3pO2FxATE7b3Juo=;
-	b=gTuTbwC4ArdPht4EF8/+UhyWqQynYMJO88KANQWMPkc5PwXQFyZtCTxVE7jDjoRxX7iMKExBBNHdvUG25CRZwuRJMk7LbqsixrN/F8+K+P99hemr+jXMQf0X0Eb2xtnf1p1Z0XpW9DLpV38eDBBEaXiq06MSYzkKPoqHCOncewE=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R191e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045133197;MF=libaokun@linux.alibaba.com;NM=1;PH=DS;RN=8;SR=0;TI=SMTPD_---0X4-1I8A_1780308418;
-Received: from 30.221.147.139(mailfrom:libaokun@linux.alibaba.com fp:SMTPD_---0X4-1I8A_1780308418 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Mon, 01 Jun 2026 18:06:59 +0800
-Message-ID: <f367eae6-3cfd-48b4-8da8-465a21e51386@linux.alibaba.com>
-Date: Mon, 1 Jun 2026 18:06:58 +0800
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="qLkav5iT"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:
+	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+	List-Post:List-Owner:List-Archive;
+	bh=3NNJq5se+S0sYBMco9FFh7hZ/lpbqS+JiOZ8c2N40CU=; b=qLkav5iT4am9euQJ5OrRYPF10E
+	p83ZqwMTBuLuWj8OfKw+Ia8fjGNVBbsXBsbYXwbeKURMp9mW44e0zM1Ri7tTMK9VWqoXPBdg0vNdJ
+	eknjvKlOBp4v5r3oC+DB8ejeXaMctfHudR59YjzQpV6Z9H3w4/4LpvbL/suMsbNt64+xMVNVcpavM
+	MhArAswBqkxTg6/P6OrasuwjrKVJ8J6eT29smlGmAuD+0RGtIty93D8EZeuKPYWtbi6SreuPmtuLm
+	bs2Xp48TubwePRXjHwYR7jAJSNJrLCJB6oqApTDCzpStfC8ggGD9WhxPvMdXQhAH3oFffqhYXWyME
+	CIXZcjJA==;
+Received: from static-234-112-85-188.ipcom.comunitel.net ([188.85.112.234] helo=[192.168.0.17])
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+	id 1wTzcJ-00AxPj-Qi; Mon, 01 Jun 2026 12:11:31 +0200
+Message-ID: <47df01b2fab27fc3df9074d18d417f5a7d1b4db1.camel@igalia.com>
+Subject: Re: [PATCH 2/2] drm/v3d: Skip CSD when it has zeroed workgroups
+From: Iago Toral <itoral@igalia.com>
+To: =?ISO-8859-1?Q?Ma=EDra?= Canal <mcanal@igalia.com>, Melissa Wen
+	 <mwen@igalia.com>, Jose Maria Casanova Crespo <jmcasanova@igalia.com>
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
+	stable@vger.kernel.org
+Date: Mon, 01 Jun 2026 12:11:21 +0200
+In-Reply-To: <20260530-v3d-fix-indirect-csd-v1-2-15533948663f@igalia.com>
+References: <20260530-v3d-fix-indirect-csd-v1-0-15533948663f@igalia.com>
+	 <20260530-v3d-fix-indirect-csd-v1-2-15533948663f@igalia.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.52.3-0ubuntu1.1 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] jbd2: fix integer underflow in
- jbd2_journal_initialize_fast_commit()
-To: Junrui Luo <moonafterrain@outlook.com>
-Cc: Theodore Ts'o <tytso@mit.edu>, Jan Kara <jack@suse.com>,
- Harshad Shirwadkar <harshadshirwadkar@gmail.com>,
- linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org,
- Yuhao Jiang <danisjiang@gmail.com>, stable@vger.kernel.org
-References: <SYBPR01MB7881663C927DE9D7BBF4D1DFAF062@SYBPR01MB7881.ausprd01.prod.outlook.com>
-From: Baokun Li <libaokun@linux.alibaba.com>
-In-Reply-To: <SYBPR01MB7881663C927DE9D7BBF4D1DFAF062@SYBPR01MB7881.ausprd01.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 2026/5/13 17:28, Junrui Luo wrote:
-> jbd2_journal_initialize_fast_commit() validates journal capacity by
-> checking (journal->j_last - num_fc_blks < JBD2_MIN_JOURNAL_BLOCKS).
-> Both j_last and num_fc_blks are unsigned, so when num_fc_blks exceeds
-> j_last the subtraction wraps to a large value, bypassing the bounds
-> check.
->
-> The resulting underflow corrupts j_last, j_fc_first, and j_free,
-> leading to journal abort.
->
-> Fix by checking num_fc_blks against j_last before the subtraction,
-> returning -EFSCORRUPTED.
->
-> Fixes: 6866d7b3f2bb ("ext4 / jbd2: add fast commit initialization")
-> Reported-by: Yuhao Jiang <danisjiang@gmail.com>
+El s=C3=A1b, 30-05-2026 a las 16:51 -0300, Ma=C3=ADra Canal escribi=C3=B3:
+> A compute shader dispatch encodes its workgroup counts in the
+> CFG0..CFG2
+> registers. Kicking off a dispatch with a zero count in any of the
+> three
+> dimensions is invalid. First, the hardware will process 0 as 65536,
+> causing an illegitimate submission. But over that, a submission with
+> a
+> zeroed workgroup dimension should be a no-op.
+>=20
+> These zeroed counts can reach the dispatch path through an indirect
+> CSD
+> job, whose workgroup counts are only known once the indirect buffer
+> is
+> read and may legitimately be zero, but such scenario should only
+> result in
+> a no-op.
+>=20
+> Don't submit the job to the hardware when any of the workgroup counts
+> is
+> zero, so the job completes immediately instead of running the shader.
+>=20
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Junrui Luo <moonafterrain@outlook.com>
-
-The Fixes tag is not quite accurate, it should be:
-
-Fixes: e029c5f279872 ("ext4: make num of fast commit blocks configurable")
-
-Otherwise looks good to me:
-
-Reviewed-by: Baokun Li libaokun@linux.alibaba.com
-
+> Fixes: d223f98f0209 ("drm/v3d: Add support for compute shader
+> dispatch.")
+> Suggested-by: Jose Maria Casanova Crespo <jmcasanova@igalia.com>
+> Signed-off-by: Ma=C3=ADra Canal <mcanal@igalia.com>
 > ---
-> Changes in v2:
-> - Return -EFSCORRUPTED instead of -ENOSPC
-> - Link to v1: https://lore.kernel.org/all/SYBPR01MB78813DD23B28BD49B1AA1123AF392@SYBPR01MB7881.ausprd01.prod.outlook.com/
-> ---
->  fs/jbd2/journal.c | 2 ++
->  1 file changed, 2 insertions(+)
->
-> diff --git a/fs/jbd2/journal.c b/fs/jbd2/journal.c
-> index cb2c529a8f1b..0bb97459fbf0 100644
-> --- a/fs/jbd2/journal.c
-> +++ b/fs/jbd2/journal.c
-> @@ -2263,6 +2263,8 @@ jbd2_journal_initialize_fast_commit(journal_t *journal)
->  	unsigned long long num_fc_blks;
->  
->  	num_fc_blks = jbd2_journal_get_num_fc_blks(sb);
-> +	if (num_fc_blks > journal->j_last)
-> +		return -EFSCORRUPTED;
->  	if (journal->j_last - num_fc_blks < JBD2_MIN_JOURNAL_BLOCKS)
->  		return -ENOSPC;
->  
->
-> ---
-> base-commit: 7aaa8047eafd0bd628065b15757d9b48c5f9c07d
-> change-id: 20260513-fixes-e6dcda3273d4
->
-> Best regards,
+> =C2=A0drivers/gpu/drm/v3d/v3d_sched.c | 3 +++
+> =C2=A01 file changed, 3 insertions(+)
+>=20
+> diff --git a/drivers/gpu/drm/v3d/v3d_sched.c
+> b/drivers/gpu/drm/v3d/v3d_sched.c
+> index 47f83936cd73..5476fcf43793 100644
+> --- a/drivers/gpu/drm/v3d/v3d_sched.c
+> +++ b/drivers/gpu/drm/v3d/v3d_sched.c
+> @@ -352,6 +352,9 @@ v3d_csd_job_run(struct drm_sched_job *sched_job)
+> =C2=A0		return NULL;
+> =C2=A0	}
+> =C2=A0
+> +	if (!job->args.cfg[0] || !job->args.cfg[1] || !job-
+> >args.cfg[2])
+> +		return NULL;
 
+I think this is not correct: cfg[0-2] have the actual dispatch sizes
+encoded in the 16 MSB bits of these registers, allowing the lower 16-
+bit to specify a base offset for the generated workgroup ids that may
+not be zero. Therefore, I think we would want to rewrite this check as:
+
+if ((job->args.cfg[0] & 0xffff0000u) =3D=3D 0 ||
+    (job->args.cfg[1] & 0xffff0000u) =3D=3D 0 ||
+    (job->args.cfg[2] & 0xffff0000u) =3D=3D 0) {
+        return NULL;
+}
+
+Also, we probably want to add a comment here explaining that at the hw
+level, 0 is interpreted as 65536 but the user-space driver only exposes
+65535 as the maximum workgroup size allowed.
+
+Iago
+
+> +
+> =C2=A0	v3d->queue[V3D_CSD].active_job =3D &job->base;
+> =C2=A0
+> =C2=A0	v3d_invalidate_caches(v3d);
+>=20
 
