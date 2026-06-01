@@ -1,29 +1,29 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB3D4386562;
-	Mon,  1 Jun 2026 07:37:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92C5E34753F;
+	Mon,  1 Jun 2026 07:38:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780299470; cv=none; b=gw43LAn44tjZKcr28kjxcNx+T1Q0DpxPaHasFF1L9lassml3eEDMg3oDeK+eDjTVHSol6Vgp/Dhjlu+NBoqawt+sW+OPVZbFKrrYtdg0ucrawM1fzo73JRJu6DkzICqYlzaW9J9ocUqGjowsgS4xDPuA6tt3o6Dm/YFnxBxn7DY=
+	t=1780299486; cv=none; b=egYVP9EypIBcR0DGAL0aD4dLXgBuWIH5+C2aZdpNhZrllEQvUdk1FUPsEJJqo7JTYSGdr6LMtc3/8OZYWkdyZBqOJFO0jiQzajeVQwyqY09dVWlcs8Vy/w8ZHYIiC/c95Ts2VKxW7TdfC2yFODfaGW8oMrIlq+fjTlsY9ncWfz8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780299470; c=relaxed/simple;
-	bh=Ek5wNeDlKunRjqC/tClcZ3RLaBRyYn1c+CHkgJJhjqk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=edG8KY4Eu+Q9KhRY75THnd4F5JIh6ujXhgMwi1vOCTAv9F192aIp+8fEYR57hmcOPNnlv2Z0QFvp7MKk6aMLySVfe8f/K5KlMiTlT7EpfS7Hwp4SYc6RtQ6CeqCPRZxQllA3M0xRU7OyOd+PPx8zwErBckRj7rH1ZAKpmy8VBF8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=aEFePCCJ; arc=none smtp.client-ip=220.197.31.5
+	s=arc-20240116; t=1780299486; c=relaxed/simple;
+	bh=6f0dwVJGIEbqzR/ZYbyYLldBm2WesUmnI1Bpxd7kvqs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=L0fLUW5JvoneIIVWVyT6DOmILBdItek+0D70MoIq9sKkqxvX6sxulhWB98KbPJW9sawL4NYs+onVfak71AcCqvLY1cZwMRS90hexxzrVuYyS8Qxpt9+sHh0F3wYWvVJXKDpOlYS26tZ5ZzUIXcjxawlfHgGozC46S1IuENLM06Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=Gt6wDJ/N; arc=none smtp.client-ip=117.135.210.5
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="aEFePCCJ"
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="Gt6wDJ/N"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=a/
-	Zs5f5xEHSrlBtGPZN2d57ff2u+NC9NESUkRBygjqI=; b=aEFePCCJQsn37OZJ19
-	ZlvbRhk1UoyOswMGhgU+r088MLad7Y8CNWQqI6vebXEIpHHV/YZg0I8BnZvBcr1r
-	0/o3/PO+THRB+RE0iR61vBoTVK4cepQCHio0bxpAY6twYbf7wMcRJ9hCX5EcdCVY
-	6yK/EzjXSymOk8CYCsQZcJd90=
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=gx
+	hVj8DLM/GTViv+vM9MIYmd+lg23f6GIVVMOIIJhGk=; b=Gt6wDJ/Ny7m29pFZeL
+	hV5FC59ss/da7yDh/Bor5TrENisWPLKiQ5AptEtqbiVFpY8CpDtznnlZTNJvLN+l
+	TmDVJiI1kVCbMAaXQ67fPGprDbDoafrbMA1M4S7qdbS3DXnHQ0Fa9zJUoe6EF0Dw
+	WVOirWCBsqtp9P7Vru9+ATeXE=
 Received: from China-163-team (unknown [])
-	by gzsmtp1 (Coremail) with SMTP id PCgvCgBHeqCsNh1qQDrnFg--.47777S2;
-	Mon, 01 Jun 2026 15:37:22 +0800 (CST)
+	by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id _____wC34ubFNh1q2s8PAw--.55371S2;
+	Mon, 01 Jun 2026 15:37:43 +0800 (CST)
 From: Wenshan Lan <jetlan9@163.com>
 To: gregkh@linuxfoundation.org,
 	sashal@kernel.org,
@@ -33,9 +33,9 @@ Cc: linux-kernel@vger.kernel.org,
 	Alexander Sverdlin <alexander.sverdlin@gmail.com>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Wenshan Lan <jetlan9@163.com>
-Subject: [PATCH 6.12.y] net: cpsw_new: Fix potential unregister of netdev that has not been registered yet
-Date: Mon,  1 Jun 2026 15:37:08 +0800
-Message-ID: <20260601073708.73350-1-jetlan9@163.com>
+Subject: [PATCH 6.6.y] net: cpsw_new: Fix potential unregister of netdev that has not been registered yet
+Date: Mon,  1 Jun 2026 15:37:35 +0800
+Message-ID: <20260601073735.73376-1-jetlan9@163.com>
 X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -44,12 +44,12 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PCgvCgBHeqCsNh1qQDrnFg--.47777S2
+X-CM-TRANSID:_____wC34ubFNh1q2s8PAw--.55371S2
 X-Coremail-Antispam: 1Uf129KBjvJXoW7Ar15Gr4DWFWUtF1ruFWDCFg_yoW8Cw4xpr
-	48Ka4S9a10qr4vqwsrJa4UJFW5W3W2q3sxur9rCa4SvF4Dt345tF15XFyagFy5ArWxCFWY
+	48Ka4F9a10qr4vqanrJa4UJFW5W3W2q393ur9rCa4SvF4Dt345tF45XFyagFyUArWxGF4Y
 	yw1Yvw1vva4DAFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pEWrW7UUUUU=
-X-CM-SenderInfo: xmhwztjqz6il2tof0z/xtbC7BScZWodNrQVRwAA3m
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pE_-PUUUUUU=
+X-CM-SenderInfo: xmhwztjqz6il2tof0z/xtbC7AegaWodNscXkwAA3g
 
 From: Kevin Hao <haokexin@gmail.com>
 
@@ -75,10 +75,10 @@ Signed-off-by: Wenshan Lan <jetlan9@163.com>
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/net/ethernet/ti/cpsw_new.c b/drivers/net/ethernet/ti/cpsw_new.c
-index a74caaca94d1..fa161a109604 100644
+index 1f98044b3666..64f527ba9a47 100644
 --- a/drivers/net/ethernet/ti/cpsw_new.c
 +++ b/drivers/net/ethernet/ti/cpsw_new.c
-@@ -1443,7 +1443,8 @@ static void cpsw_unregister_ports(struct cpsw_common *cpsw)
+@@ -1442,7 +1442,8 @@ static void cpsw_unregister_ports(struct cpsw_common *cpsw)
  	int i = 0;
  
  	for (i = 0; i < cpsw->data.slaves; i++) {
@@ -88,7 +88,7 @@ index a74caaca94d1..fa161a109604 100644
  			continue;
  
  		unregister_netdev(cpsw->slaves[i].ndev);
-@@ -1463,7 +1464,6 @@ static int cpsw_register_ports(struct cpsw_common *cpsw)
+@@ -1462,7 +1463,6 @@ static int cpsw_register_ports(struct cpsw_common *cpsw)
  		if (ret) {
  			dev_err(cpsw->dev,
  				"cpsw: err registering net device%d\n", i);
