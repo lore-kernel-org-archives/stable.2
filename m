@@ -1,136 +1,135 @@
-Received: from maynard.decadent.org.uk (maynard.decadent.org.uk [65.21.191.19])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl1-f65.google.com (mail-dl1-f65.google.com [74.125.82.65])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0806435E1DA;
-	Mon,  1 Jun 2026 11:16:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.21.191.19
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780312578; cv=none; b=FGwmyzDZL/xApQYVzOfHY7VG/EQ+Wm7MZeUdKP8Qs1ija2X1QRWLFfNDz/tjUeWjukDcJePNeszTuZsmYodZ5jnRjrOeI0+lfKmikzuD8tvOngVvDX5M0yA+F6962KUTBHQO7YFTjyWaipUny1e4r9ExTcW6FwpF7bEvoNLWSXs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780312578; c=relaxed/simple;
-	bh=djJied4dawYJH5VGwlKlbIVawFM9/ARBlmVZ4+BH2Xw=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=mnQ9DtdeoC/aT3jL+MSvOPMhiqQH24zP9oTGq/Lj6m2Af8ogNJspXilKrc1zVIZPvwGZ48JxpPwuhsfxJtnkXAriF4BmT+8Z+e6PLyb8dAD6Xj+TzRnBul1ZKtKH0u1QPa7N2KICqxgNGPUXsgMkan/kor/8XR7v3CPL8YghcnU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=decadent.org.uk; spf=pass smtp.mailfrom=decadent.org.uk; arc=none smtp.client-ip=65.21.191.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=decadent.org.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=decadent.org.uk
-Received: from [2a02:578:851f:1502:391e:c5f5:10e2:b9a3] (helo=deadeye)
-	by maynard with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <ben@decadent.org.uk>)
-	id 1wU0cv-000V3T-0y;
-	Mon, 01 Jun 2026 11:16:13 +0000
-Received: from ben by deadeye with local (Exim 4.99.2)
-	(envelope-from <ben@decadent.org.uk>)
-	id 1wU0ct-0000000FXsA-41PN;
-	Mon, 01 Jun 2026 13:16:11 +0200
-Message-ID: <211fb901ba2c644e6ebdffe46d9face7e317db70.camel@decadent.org.uk>
-Subject: Re: [PATCH 5.10 210/589] spi: rockchip: fix controller
- deregistration
-From: Ben Hutchings <ben@decadent.org.uk>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, addy ke <addy.ke@rock-chips.com>, Johan Hovold
-	 <johan@kernel.org>, Mark Brown <broonie@kernel.org>
-Date: Mon, 01 Jun 2026 13:16:06 +0200
-In-Reply-To: <20260530160230.478262786@linuxfoundation.org>
-References: <20260530160224.570625122@linuxfoundation.org>
-	 <20260530160230.478262786@linuxfoundation.org>
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-HWfmFy+lonVxdOIi8ZMS"
-User-Agent: Evolution 3.56.2-9 
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 003A5318EC1
+	for <stable@vger.kernel.org>; Mon,  1 Jun 2026 11:31:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.65
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780313520; cv=pass; b=mt4FmLweHw9LBdf7ZXuvvEi9MJT6AEx8OcK4rUr0Hxit02VzhlWy5tNaCBtjm0g9eB7ls3cwso504Vkt9pbmDlTB4SwG51zd/0fciJbEKsWfwpF3kWPM1JX2595oOWszexyXWeXWKBsvaqg9bsS5TsouoirI0ijobra5T9kbpGg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780313520; c=relaxed/simple;
+	bh=yszJgkZCWn8L+J9sz17zUOD/xufK8NMtC/jiWVOFC5Y=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Content-Type; b=nbZ9tPrb731hFrmViSK4F/j2Lb/Upsjku77lvS+FD5O6jPYJmL0zcQ4O9XCnIOUYUyTZdsqGQxNE+ZP0S6P0+6esPDuIJIfTEokD6KHREsv1olr02zTK1TsKaXMglMEN963jDxNfwhdAVtDqewZtUofPpTD1vax0RNyv2ycLOcc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KAAbRrFR; arc=pass smtp.client-ip=74.125.82.65
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KAAbRrFR"
+Received: by mail-dl1-f65.google.com with SMTP id a92af1059eb24-13621cca8f5so7281335c88.0
+        for <stable@vger.kernel.org>; Mon, 01 Jun 2026 04:31:58 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1780313518; cv=none;
+        d=google.com; s=arc-20240605;
+        b=MbZ7E4zAesMoDK/37whE9T9sfFIeeyxhpHp+l6bVbQ96uyB3wD1am5gwBg8mUHLa5Y
+         3LzdQcvRPLA0LuyiWliifd3Gk4oeTk+A/lq45bp3sj+C6nr2N+KFEySQxvuBmngTxX5l
+         38AhJAkQ2oCXRhV9XiYVIu1sy7eaIaGLrPdwttRqaMXcmtoI/2s9dl1wGb91SjotxuhU
+         gOKyImxDmGmUtaFM+c6NoWJr/bPkmTr4RNnBNwTb05Pg5dFscbxJfVxz1qZsrPZkGKcc
+         5BxN7UOSwKwgoCh10crrfNWD5bHjC1lCE6JtIBUGgE8lC+2nAdG2ZwPYY3sDmwVY7JFT
+         61gg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=Cqxcp75xtoM57dtYJ+S/ObM2E9rTcqiq8xwIiEu9bBY=;
+        fh=tnDJa69asIcMf0S261oWsKWCRDbcGo7ASJc4laRzBMM=;
+        b=bnvs/n++ZKWsmLZXeEnJgIaHoV7/NBe2aJP2cOV79l6mo5cxKuts7HCZAnG0Q6i0oG
+         0PwJiDufPSm559Oc0yXPKTV148lpwTHNWOpMo6dEgfat1MR4UBBChFt4gLd3jo2GYiSm
+         O+P2IVq+EO8kkiu0n3wi+gxkqqqy5L0bEcmGWJcU5E6eOYGLDtI5wLAmbmr3YnJVkOKZ
+         iDwalKeLWBQC3GIdZWY7KdaBvWiQ75jtfaep1pMbFROF7OsR1+BYJqacRgLk9KHFnkoM
+         hChcaO0pABUeUm7FBjxtTOCPTrh8uzq+aNNQ7XPfQEA6KlgTynEeDc9LjQkeLmbWqs57
+         KhfA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780313518; x=1780918318; darn=vger.kernel.org;
+        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=Cqxcp75xtoM57dtYJ+S/ObM2E9rTcqiq8xwIiEu9bBY=;
+        b=KAAbRrFRLEY4qF/4mjQ3f1UiUQtiSbfzHtE6YkKMtz4kbv7WMHYZZduU1irdoFu1RG
+         X3H1QVzRlbdcKapY+Mc8CYbiWJ0g+Fb5ht0xpiKaLbf974vZzSHiqR95/SBYCYZXWeGS
+         2apeNvaWbm590C8K8R/UWruGoQAOmWHXuUhI0ZikmsjCvOoF/bjEgk2Nucn8f+8G0YMm
+         5zl0ZYPqH1Jgmlfc/fAqpSjGTK8cyswDZrjoPJ/yZTrIuU4V+6WpqFELU4eLPrDi3sjP
+         Qu00teTpdaKxu5Y5EXqbd0k/wxeZA0Ma7KZ1Oga2j6RFRxHyeFgKIxgPDtyAaYnz/fw8
+         i9kQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780313518; x=1780918318;
+        h=to:subject:message-id:date:from:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=Cqxcp75xtoM57dtYJ+S/ObM2E9rTcqiq8xwIiEu9bBY=;
+        b=Xiv8lKvPIyU7wtokJJGo+Hd9iXKwxmJiy8DYqwKI2H8v4A0+20AKITL7l2GksbmvKQ
+         UeKDBvEZpLL/wKGDZzEK5MytRgFgPf5WGTWAxD6/YWhyLn0FUyWzg8d89Fbj38k5Rndd
+         qtkIk8s7gFcZYpjZH/rTI/4/xLWnueGugrzUoZTTfRTT3QjPupB29aDdmOpc3sfJAMyj
+         8YUDncdKA+JVYe3DhJ9qB1QrsqeGcEXRsapmjhDif3FJlU0CnYZ9x8uoVctbfShGKzXl
+         jVFr6zFHUJFG8k9Itk0GLn97GEXyYFNpxgW0ycgfmR9pNwcANxtOvh461NwQXY2SWx9D
+         P/dw==
+X-Gm-Message-State: AOJu0YwsYQ0E7JPDqBDgb8eKoC1Q8qjZdoZWKK+mV7aA3TS3ptM3W4yj
+	we1bPAYRluUWIuf2XpAvQuNT7Tb1xJ4/1LhYtBjQFGaG6IN7y8nxlPuEWS/umRhVpAhHVDeU0mU
+	J7IuJuvY0Kpz6yUlvpzN1k4OU0kjpcf3vFRMvsNEwN5TRCD8=
+X-Gm-Gg: Acq92OEkZ6rrVrWlvvOnfUeGB+SxQ3yEqHWu/KTwgDRD4YS4No3nsaqgVkYfZjD7qCl
+	Yt6rikwJx5HSCTfkDt8xeGYqET3eDL5UPIrlEq591BXbDVRsufwRTP40lQCgi6qbJH96671ghf2
+	hfujcOlbKr9NAbXgD0W0pIPUY3LMS5YQghmCTevLyn/eSI1p3BvSqGcPtOSvdVSyJj36bIDasFU
+	ZcyxCvzE0WUIMVJyerhMBj2HhDTzkXJnfXOi+0w8kafbzctWqyGckYV3jgCqlIhSWAMGkZyh941
+	Lq/RTdY37Id/z7RlT0kVSmzdyrHU
+X-Received: by 2002:a05:7022:392:b0:137:938a:1044 with SMTP id
+ a92af1059eb24-137d425e735mr4514505c88.33.1780313518020; Mon, 01 Jun 2026
+ 04:31:58 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-SA-Exim-Connect-IP: 2a02:578:851f:1502:391e:c5f5:10e2:b9a3
-X-SA-Exim-Mail-From: ben@decadent.org.uk
-X-SA-Exim-Scanned: No (on maynard); SAEximRunCond expanded to false
-
-
---=-HWfmFy+lonVxdOIi8ZMS
+From: boz baba <bababoz943@gmail.com>
+Date: Mon, 1 Jun 2026 14:31:48 +0300
+X-Gm-Features: AVHnY4IkZaXRztFMyZ0UAa_2Q1e-88z0noe4I9gVIsgWROR6bbGX68MZKK77zWg
+Message-ID: <CAAB7JC+TiyF6-1uvzhOcJ9KeDUhNgLmXk8unHNogY156xSu61g@mail.gmail.com>
+Subject: [PATCH] net: esp4/esp6: missing skb_has_shared_frag() check in 6.1.y
+ (CVE-2026-43284 backport)
+To: stable@vger.kernel.org, steffen.klassert@secunet.com, 
+	netdev@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Sat, 2026-05-30 at 18:01 +0200, Greg Kroah-Hartman wrote:
-> 5.10-stable review patch.  If anyone has any objections, please let me kn=
-ow.
->=20
-> ------------------
->=20
-> From: Johan Hovold <johan@kernel.org>
->=20
-> commit 53e7a16070feb7d1d4d81a583eaac5e25048b9c3 upstream.
->=20
-> Make sure to deregister the controller before freeing underlying
-> resources like DMA channels during driver unbind.
->=20
-> Fixes: 64e36824b32b ("spi/rockchip: add driver for Rockchip RK3xxx SoCs i=
-ntegrated SPI")
-> Cc: stable@vger.kernel.org	# 3.17
-> Cc: addy ke <addy.ke@rock-chips.com>
-> Signed-off-by: Johan Hovold <johan@kernel.org>
-> Link: https://patch.msgid.link/20260324082326.901043-3-johan@kernel.org
-> Signed-off-by: Mark Brown <broonie@kernel.org>
-> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> ---
->  drivers/spi/spi-rockchip.c |    4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
->=20
-> --- a/drivers/spi/spi-rockchip.c
-> +++ b/drivers/spi/spi-rockchip.c
-> @@ -792,7 +792,7 @@ static int rockchip_spi_probe(struct pla
->  		ctlr->can_dma =3D rockchip_spi_can_dma;
->  	}
-> =20
-> -	ret =3D devm_spi_register_controller(&pdev->dev, ctlr);
-> +	ret =3D spi_register_controller(ctlr);
->  	if (ret < 0) {
->  		dev_err(&pdev->dev, "Failed to register controller\n");
->  		goto err_free_dma_rx;
-> @@ -828,6 +828,8 @@ static int rockchip_spi_remove(struct pl
->  	clk_disable_unprepare(rs->spiclk);
->  	clk_disable_unprepare(rs->apb_pclk);
-> =20
-> +	spi_unregister_controller(ctlr);
+Hi stable team,
 
-This needs to be inserted above the clk_disable_unprepare()s.
+The fix for CVE-2026-43284 ("Dirty Frag", commit f4c50a4034e6) added a
+skb_has_shared_frag() check to the skip_cow path in esp_input() in both
+net/ipv4/esp4.c and net/ipv6/esp6.c. This fix was backported to 6.12.y
+but appears to be missing from the 6.1.y stable branch.
 
-Ben.
+Affected: linux-6.1.133 (latest 6.1.y as of 2026-05-31)
+Fixed in: linux-6.12.91, mainline (f4c50a4034e6)
 
-> +
->  	pm_runtime_put_noidle(&pdev->dev);
->  	pm_runtime_disable(&pdev->dev);
->  	pm_runtime_set_suspended(&pdev->dev);
->=20
->=20
+Vulnerable pattern in net/ipv4/esp4.c (line 912) and net/ipv6/esp6.c (line 960):
 
---=20
-Ben Hutchings
-The obvious mathematical breakthrough [to break modern encryption]
-would be development of an easy way to factor large prime numbers.
-                                                           - Bill Gates
+  if (!skb_cloned(skb)) {
+      if (!skb_is_nonlinear(skb)) {
+          nfrags = 1;
+          goto skip_cow;
+      } else if (!skb_has_frag_list(skb)) {   /* <-- missing &&
+!skb_has_shared_frag(skb) */
+          nfrags = skb_shinfo(skb)->nr_frags;
+          nfrags++;
+          goto skip_cow;
+      }
+  }
 
---=-HWfmFy+lonVxdOIi8ZMS
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
+The missing check allows an skb with SKBFL_SHARED_FRAG set (e.g. from
+vmsplice()/sendfile()) to bypass skb_cow_data() and proceed to in-place
+aead decryption via:
 
------BEGIN PGP SIGNATURE-----
+  aead_request_set_crypt(req, sg, sg, elen + ivlen, iv);
+  crypto_aead_decrypt(req);
 
-iQIzBAABCgAdFiEErCspvTSmr92z9o8157/I7JWGEQkFAmodafcACgkQ57/I7JWG
-EQnWog/7Be/kcSY2goDxGfyABoAYReWH5An2ZMf+nHTdW6zQHL21zlgbOEChbpRK
-28n+06wg9ZD5l18gLShnBcQDC5+EFMBfKz0huo2yPCCtQ4yhMxqIn8cY01QnIiz1
-My/YJVS2iSpT3uX8jA/7tlB97MHdIfzJJ7qfwgO8Cw8udMUA+kDy837EL2Th+4o5
-v6vxfVWiCGplD+DsbkwcZ1OAQShLktAgiSOLCGV8qh+z/ddEypuDUplYXLcZkzcH
-lkXGOzPHgaAOa0l+doUGbmV93kID9cFvtSB6F2rPLEaAGkp3f2/Eh7r3joZ+0YNz
-46XsBqmKZ1KU8axuh0wSAqCc5yBvgF2HKUvKsN4+Cf25VBbCeS3n/jg5qDER/oxl
-mxunmw+3CxkXQMQjvpLXcjEqiOLPynN6VQmX3FspDWL5k9u4eyDXkrAGYuu646WK
-5qUe7qtgH3C2MAg0ZWcBWwiwtmng/Y91eVDsDxoMSZh6lxPAKPn5BPH/tLP8fkqb
-VDL1QE7yi2RuKUhRFsOGDEuCUvmfWI+5uhDrjhJ6E85HyeH8ar6dyFNLcSmH3A1F
-R+QnhNBjSst4QH9S9gYF6OPgiHwu1g6QxtLC7CjynNI20sxdpDf+z7Uype06LwP1
-pB7ZMJbyUJCq874FOk+H4GHJV5mZihswynzIOq8LUebTU7pKc2c=
-=MNU6
------END PGP SIGNATURE-----
+This is the same page-cache corruption primitive as CVE-2026-43284.
 
---=-HWfmFy+lonVxdOIi8ZMS--
+Please backport commit f4c50a4034e6 to linux-6.1.y.
+
+Affected versions: linux-6.1.x (all versions, fix not present)
+Fixed versions: linux-6.12.91+, mainline
+
+Verified by: source comparison of net/ipv4/esp4.c and net/ipv6/esp6.c
+between linux-6.1.133 and linux-6.12.91.
+
+References:
+- CVE-2026-43284 (Dirty Frag)
+- Fix commit: f4c50a4034e6
+
+Thanks,
+boz
