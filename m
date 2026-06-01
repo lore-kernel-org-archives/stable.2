@@ -1,122 +1,187 @@
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DF18390C9F
-	for <stable@vger.kernel.org>; Mon,  1 Jun 2026 10:11:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC00C395AD4
+	for <stable@vger.kernel.org>; Mon,  1 Jun 2026 10:16:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780308710; cv=none; b=lCaAn+AP2K74JZxVlJanP6e6vveO+gSUg3uOw753Nrt0syDXEPdqFrTvl8b0y8Wt9n2HEr+150VTfc4e8r8U0ySDwOUByzbdvZytVooJvJIYMzJawwndZk1g/W5drlxSOlXAH80hfMvM93xvY4jMnuDzPtqUJytOnO0/xzl/zCI=
+	t=1780308969; cv=none; b=pn8mRzPf5pZ8ahEKpsjSGvrnoe+MwEi09Cs3u/cyANtJ499Q+QJtrQK7pvf15IQa+EJcpfF2WXMZDASCu5aDLheMdKISvXmoc74dobx8cL2NP2Z+ZO4goQHGzeSosDlroJXZFeGrbT6ACTAkadCyTjk/eR99VUy6Q6x08m6VNO0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780308710; c=relaxed/simple;
-	bh=Fb7LeDpXYSoMzPHGb+BLFXUA1x8RElEbKlqXfIVsTuc=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=TQpxO1/mmHiNWmHGzM81cF6/bl1T2TSrG/xJzwLUyuVFjUkGVsjVoLV2N0KofY6e/G8qTB8RhoEPaFUIq0QMrwkbhYu4176gdK4z7CrlMYAmw7oix63YTuBu5RaiykPre1isKMD0mR6lJjz081poSxXXzWvl19+rmnbLdtFGGBk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=qLkav5iT; arc=none smtp.client-ip=213.97.179.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	s=arc-20240116; t=1780308969; c=relaxed/simple;
+	bh=//fpv6KtnZGPacElQOdywvJfvUtWfzycEBrOQGiMPzk=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=lag2h8w6m5LuI/5KJs8SZPcr0LacO+jYJSaLvctPXOxL/oTB3CIxP5bneD65Zi4HJAyZOcZo1P+xlSR1msuhoHFbX2gmwGPWeWV1IQRp9QZ1uO5BhFDbNIIJVMq2xMJr7tnqfcP04bGE0GGqmayCO6zAx+XZ43VdzetyLFAXs54=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=bG97OOPA; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=qYqFzf19; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="qLkav5iT"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:
-	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
-	List-Post:List-Owner:List-Archive;
-	bh=3NNJq5se+S0sYBMco9FFh7hZ/lpbqS+JiOZ8c2N40CU=; b=qLkav5iT4am9euQJ5OrRYPF10E
-	p83ZqwMTBuLuWj8OfKw+Ia8fjGNVBbsXBsbYXwbeKURMp9mW44e0zM1Ri7tTMK9VWqoXPBdg0vNdJ
-	eknjvKlOBp4v5r3oC+DB8ejeXaMctfHudR59YjzQpV6Z9H3w4/4LpvbL/suMsbNt64+xMVNVcpavM
-	MhArAswBqkxTg6/P6OrasuwjrKVJ8J6eT29smlGmAuD+0RGtIty93D8EZeuKPYWtbi6SreuPmtuLm
-	bs2Xp48TubwePRXjHwYR7jAJSNJrLCJB6oqApTDCzpStfC8ggGD9WhxPvMdXQhAH3oFffqhYXWyME
-	CIXZcjJA==;
-Received: from static-234-112-85-188.ipcom.comunitel.net ([188.85.112.234] helo=[192.168.0.17])
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
-	id 1wTzcJ-00AxPj-Qi; Mon, 01 Jun 2026 12:11:31 +0200
-Message-ID: <47df01b2fab27fc3df9074d18d417f5a7d1b4db1.camel@igalia.com>
-Subject: Re: [PATCH 2/2] drm/v3d: Skip CSD when it has zeroed workgroups
-From: Iago Toral <itoral@igalia.com>
-To: =?ISO-8859-1?Q?Ma=EDra?= Canal <mcanal@igalia.com>, Melissa Wen
-	 <mwen@igalia.com>, Jose Maria Casanova Crespo <jmcasanova@igalia.com>
-Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
-	stable@vger.kernel.org
-Date: Mon, 01 Jun 2026 12:11:21 +0200
-In-Reply-To: <20260530-v3d-fix-indirect-csd-v1-2-15533948663f@igalia.com>
-References: <20260530-v3d-fix-indirect-csd-v1-0-15533948663f@igalia.com>
-	 <20260530-v3d-fix-indirect-csd-v1-2-15533948663f@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3-0ubuntu1.1 
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="bG97OOPA";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="qYqFzf19"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1780308964;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Ec/J4tNvrAMdwkOq5RTOf80WrT+IRWDMG7cFT7/0gaw=;
+	b=bG97OOPAoHu9sfEqhiUz+D42kqucPKFn4+sshDR/VXpNGLmDVaTEgP2R54uiN2L3HHo2zO
+	jzvjYnrPIG4a3Jzhet9bvw/ibed2K84i6Ofv5Wc+4N19MY+Z1W2OQ3QyccwWNqWYrsA6Y5
+	yHQkjhDV+Vc7NUW2GqIz90nagSVmSFw=
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-304-NeNDhsWPMnCJMBEDGaZC0Q-1; Mon, 01 Jun 2026 06:16:03 -0400
+X-MC-Unique: NeNDhsWPMnCJMBEDGaZC0Q-1
+X-Mimecast-MFC-AGG-ID: NeNDhsWPMnCJMBEDGaZC0Q_1780308962
+Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-4909ea0ffbeso22693125e9.1
+        for <stable@vger.kernel.org>; Mon, 01 Jun 2026 03:16:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1780308962; x=1780913762; darn=vger.kernel.org;
+        h=mime-version:message-id:date:references:in-reply-to:subject:cc:to
+         :from:from:to:cc:subject:date:message-id:reply-to;
+        bh=Ec/J4tNvrAMdwkOq5RTOf80WrT+IRWDMG7cFT7/0gaw=;
+        b=qYqFzf198t5SPjnGYTxm2tKTCvzMBJI2CCWRPxD/dU3kRMjYnN/ed9VLpQGypAl5Ho
+         i4eXAZE4oKfy/iOKRi8EoCjlTsPIDbf5+pOdP20Y5kgylUZBD40govnhIm5EQ6N4NrRa
+         Wb7OYlj/DVytwIL5+uMkcU53JMnU4adtZ0FoZdDJUaBdJbrmIVU88xJOFhtNky9FwnXK
+         /gvlEUJD4nRuaNkhon5QjDtGDIt0eitUjXr+cL51lm7cO8v0wjNLpwj3Fo6kW3mVzKcs
+         +clN1HG6CImY9UL1mRmZsfVXzWrMXt88sCM0SE1UvBMbKKGn66gbqD1R7hVWmCBSRn4t
+         Pm6w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780308962; x=1780913762;
+        h=mime-version:message-id:date:references:in-reply-to:subject:cc:to
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=Ec/J4tNvrAMdwkOq5RTOf80WrT+IRWDMG7cFT7/0gaw=;
+        b=UUMIWHur6oBFgWErIhy0aNGh0gDlHJP58/cvzFuLWOddcS3owOOihHR0a/0K67IOjo
+         HDFpTGACms7gp/DYTrtSu31W6NyFaxU3GFcOG1arFlx+qbQjarIC4MeZs1KgMOHaLq9K
+         zzKA7/2u3ACIkGLfHo8FViqbh3rs7RR9FKv7t8Zv6hmDBWqDvuEb+wE2WlBPjIXkyR6I
+         +zbiOB6R/cRbiLQlLqonfPjW+ozDDNBX4n6nQgOMmmnThrTTGD7oBpfyrfyMyNjk6u0d
+         InWiN4S1YzBsSi+H25TryhOtAW9Tfkbqq/Sq9RMiueTUpxUMKPHNTqIx93nsWJy0WXGv
+         IXcw==
+X-Forwarded-Encrypted: i=1; AFNElJ8EgC4f7IG1EKXToiGntTx1ZNG7zmEcBDWFWJZ9LKWk5Po+nBjQ7nsVa4iAag8I91GWEjV+cio=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy84nPgtui0njcfRLwRV1krcf4wkuDPMI8GDYzJDPjeOdxu4c7v
+	GrYkLIHVr9Cxh0E0HrEjQlvI+zeq2uyCqLlm8uDjKIWHXznAPYJ4O/qJPLz/OLii86JfoR2iThV
+	sA/c7DxPrVJwK5/rWK7g0giX0m7KC97NCgbleDUl3/cXScFgk4fW2f4MrUw==
+X-Gm-Gg: Acq92OHX5/pXWS5ZyOERd7CzAPpgnx1WpimZ8J3gMM6pX9svyeNINA+YdC+vr6eDExD
+	db7UKSLCaAJWwo8MFeTzaqKX+KXdK+HhIb4tJ5etOvBDIiLoA/EssMsVSOl9XsAeSP4Im6E443j
+	rjWIiC9pBAREtyf0LGatqeNZrOizSAJJzMUCYub73RMFhKVdbLqLHYBgl/c8Cd2Dx8abMsaO+tU
+	hjWb1hwBrSh3X6HMu7eNMEPJMX2pP2rWt3Vf47DU9doxGzc8/v5wF1f5VsjyWvAggLeegULcBIz
+	c+6qbzE/PZqUuQAUM0k4WVWxdan4346sgZBZt393xY9a3tYnb+fzMrNyAVXT/jfDtRNIHpTodFV
+	Ju2zrdWQecacaprD/hP7EFHcd7ztVkUBUVbcpvI3w5faA4/CywvDosCCFpD1lPcHRznki2kFy/m
+	GOUa0o74MN+3JnApI=
+X-Received: by 2002:a05:600c:1c06:b0:490:a298:3859 with SMTP id 5b1f17b1804b1-490a29838b6mr211911695e9.24.1780308962231;
+        Mon, 01 Jun 2026 03:16:02 -0700 (PDT)
+X-Received: by 2002:a05:600c:1c06:b0:490:a298:3859 with SMTP id 5b1f17b1804b1-490a29838b6mr211910935e9.24.1780308961705;
+        Mon, 01 Jun 2026 03:16:01 -0700 (PDT)
+Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45ef32fabcasm23621879f8f.0.2026.06.01.03.16.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 01 Jun 2026 03:16:01 -0700 (PDT)
+From: Javier Martinez Canillas <javierm@redhat.com>
+To: Thomas Zimmermann <tzimmermann@suse.de>, mripard@kernel.org,
+ maarten.lankhorst@linux.intel.com, airlied@redhat.com, airlied@gmail.com,
+ simona@ffwll.ch, admin@kodeit.net, gargaditya08@proton.me,
+ paul@crapouillou.net, jani.nikula@linux.intel.com, mhklinux@outlook.com,
+ zack.rusin@broadcom.com, bcm-kernel-feedback-list@broadcom.com
+Cc: dri-devel@lists.freedesktop.org, linux-hyperv@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ linux-mips@vger.kernel.org, virtualization@lists.linux.dev, Thomas
+ Zimmermann <tzimmermann@suse.de>, stable@vger.kernel.org
+Subject: Re: [PATCH v4 01/10] drm/damage-helper: Do not alter damage clips
+ on modeset, but ignore them
+In-Reply-To: <20260530185716.65688-2-tzimmermann@suse.de>
+References: <20260530185716.65688-1-tzimmermann@suse.de>
+ <20260530185716.65688-2-tzimmermann@suse.de>
+Date: Mon, 01 Jun 2026 12:16:00 +0200
+Message-ID: <87y0gylg67.fsf@ocarina.mail-host-address-is-not-set>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain
 
-El s=C3=A1b, 30-05-2026 a las 16:51 -0300, Ma=C3=ADra Canal escribi=C3=B3:
-> A compute shader dispatch encodes its workgroup counts in the
-> CFG0..CFG2
-> registers. Kicking off a dispatch with a zero count in any of the
-> three
-> dimensions is invalid. First, the hardware will process 0 as 65536,
-> causing an illegitimate submission. But over that, a submission with
-> a
-> zeroed workgroup dimension should be a no-op.
->=20
-> These zeroed counts can reach the dispatch path through an indirect
-> CSD
-> job, whose workgroup counts are only known once the indirect buffer
-> is
-> read and may legitimately be zero, but such scenario should only
-> result in
-> a no-op.
->=20
-> Don't submit the job to the hardware when any of the workgroup counts
-> is
-> zero, so the job completes immediately instead of running the shader.
->=20
-> Cc: stable@vger.kernel.org
-> Fixes: d223f98f0209 ("drm/v3d: Add support for compute shader
-> dispatch.")
-> Suggested-by: Jose Maria Casanova Crespo <jmcasanova@igalia.com>
-> Signed-off-by: Ma=C3=ADra Canal <mcanal@igalia.com>
+Thomas Zimmermann <tzimmermann@suse.de> writes:
+
+Hello Thomas,
+
+> User space supplies rectangles for damage clipping in a plane property.
+> For full mode sets, drivers still require a full plane update. In this
+> case, leave the information as-is and set the ignore_damage_clips flag
+> instead. The damage iterator will later ignore any damage information.
+>
+> Also fixes a bug where ignore_damage_clips was not cleared across plane-
+> state duplications.
+>
+> Leaving the damage information as-is might be helpful to drivers that
+> benefit from this information even on full modesets (e.g., for cache
+> management). It will also help with consolidating the damage-handling
+> logic.
+>
+> Also add a new unit test that evaluates the ignore_damage_clips flag. It
+> sets two damage clips plus the flag and tests if the reported damage
+> covers the entire framebuffer.
+>
+> v4:
+> - slightly reword the commit description
+>
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> Fixes: 35ed38d58257 ("drm: Allow drivers to indicate the damage helpers to ignore damage clips")
+> Acked-by: Zack Rusin <zack.rusin@broadcom.com>
+> Cc: dri-devel@lists.freedesktop.org
+> Cc: <stable@vger.kernel.org> # v6.10+
 > ---
-> =C2=A0drivers/gpu/drm/v3d/v3d_sched.c | 3 +++
-> =C2=A01 file changed, 3 insertions(+)
->=20
-> diff --git a/drivers/gpu/drm/v3d/v3d_sched.c
-> b/drivers/gpu/drm/v3d/v3d_sched.c
-> index 47f83936cd73..5476fcf43793 100644
-> --- a/drivers/gpu/drm/v3d/v3d_sched.c
-> +++ b/drivers/gpu/drm/v3d/v3d_sched.c
-> @@ -352,6 +352,9 @@ v3d_csd_job_run(struct drm_sched_job *sched_job)
-> =C2=A0		return NULL;
-> =C2=A0	}
-> =C2=A0
-> +	if (!job->args.cfg[0] || !job->args.cfg[1] || !job-
-> >args.cfg[2])
-> +		return NULL;
+>  drivers/gpu/drm/drm_atomic_state_helper.c     |  1 +
+>  drivers/gpu/drm/drm_damage_helper.c           |  6 ++--
+>  .../gpu/drm/tests/drm_damage_helper_test.c    | 28 +++++++++++++++++++
+>  3 files changed, 31 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/drm_atomic_state_helper.c b/drivers/gpu/drm/drm_atomic_state_helper.c
+> index cc70508d4fdb..84d5231ccac1 100644
+> --- a/drivers/gpu/drm/drm_atomic_state_helper.c
+> +++ b/drivers/gpu/drm/drm_atomic_state_helper.c
+> @@ -359,6 +359,7 @@ void __drm_atomic_helper_plane_duplicate_state(struct drm_plane *plane,
+>  	state->fence = NULL;
+>  	state->commit = NULL;
+>  	state->fb_damage_clips = NULL;
+> +	state->ignore_damage_clips = false;
+>  	state->color_mgmt_changed = false;
+>  }
 
-I think this is not correct: cfg[0-2] have the actual dispatch sizes
-encoded in the 16 MSB bits of these registers, allowing the lower 16-
-bit to specify a base offset for the generated workgroup ids that may
-not be zero. Therefore, I think we would want to rewrite this check as:
+I would split this as a separate patch since is the bug you are fixing for
+commit 35ed38d58257 ("drm: Allow drivers to indicate the damage helpers to
+ignore damage clips").
 
-if ((job->args.cfg[0] & 0xffff0000u) =3D=3D 0 ||
-    (job->args.cfg[1] & 0xffff0000u) =3D=3D 0 ||
-    (job->args.cfg[2] & 0xffff0000u) =3D=3D 0) {
-        return NULL;
-}
+>  EXPORT_SYMBOL(__drm_atomic_helper_plane_duplicate_state);
+> diff --git a/drivers/gpu/drm/drm_damage_helper.c b/drivers/gpu/drm/drm_damage_helper.c
+> index 74a7f4252ecf..945fac8dc27b 100644
+> --- a/drivers/gpu/drm/drm_damage_helper.c
+> +++ b/drivers/gpu/drm/drm_damage_helper.c
+> @@ -78,10 +78,8 @@ void drm_atomic_helper_check_plane_damage(struct drm_atomic_commit *state,
+>  		if (WARN_ON(!crtc_state))
+>  			return;
+>  
+> -		if (drm_atomic_crtc_needs_modeset(crtc_state)) {
+> -			drm_property_blob_put(plane_state->fb_damage_clips);
+> -			plane_state->fb_damage_clips = NULL;
+> -		}
+> +		if (drm_atomic_crtc_needs_modeset(crtc_state))
+> +			plane_state->ignore_damage_clips = true;
+>  	}
+>  }
 
-Also, we probably want to add a comment here explaining that at the hw
-level, 0 is interpreted as 65536 but the user-space driver only exposes
-65535 as the maximum workgroup size allowed.
+This makes sense to me as well and I agree that re-using the flag for this
+is better than making plane_state->fb_damage_clips == NULL the condition.
 
-Iago
+As mentioned though, I would make it a separate patch. Both changes look
+good to me:
 
-> +
-> =C2=A0	v3d->queue[V3D_CSD].active_job =3D &job->base;
-> =C2=A0
-> =C2=A0	v3d_invalidate_caches(v3d);
->=20
+Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
+
+-- 
+Best regards,
+
+Javier Martinez Canillas
+Core Platforms
+Red Hat
 
