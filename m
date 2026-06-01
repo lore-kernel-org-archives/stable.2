@@ -1,116 +1,141 @@
-Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
+Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C0E333469C
-	for <stable@vger.kernel.org>; Mon,  1 Jun 2026 06:30:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.170
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780295457; cv=pass; b=q2EUsLEz1OwUH3SMoInTxS6xaKFEeYLb423QwY+XU8R+Xz3NAbtM/4fI4jFFFj2bqL3Bnfs98tYBGHxs9PS/MLA53ySYPJHjbipaEbsGIf6005ShVdayYKBYjk0hyvtN6ko3d1tvKJ2cBRONScPVT82QCdK64ghAYis6dlYxEuc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780295457; c=relaxed/simple;
-	bh=R1yhEG4MKoXjJ4bO08OeDXprdSO1fiP+peqcjquLtrs=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37244352037
+	for <stable@vger.kernel.org>; Mon,  1 Jun 2026 06:41:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.42
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780296092; cv=none; b=aW0+6Zyu2Cn4cqzN6EIKCUtrhoaiVyijXb7K8YHddfw6TIDkG7taZSxEVuJ/fHr4d6gaJ/VGSLIQRt7h2e4ITEYuGxiCVnEn3BXjsoORMZu8h+vrGJiY+JHkrSvvsiQkOGcvQ5YwutEOR4WT7yyX91XZ3hofcs0wosHYYPN/HaQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780296092; c=relaxed/simple;
+	bh=JKr3Z0kvyM5THXu2zQIiY1on4STp7BRu77YEIZYjAyo=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=JH5yZTCFDeeMU1VhdGP+0hz7gLYD/aW/vGk08Q5dNRNjduhYVoEpH5OWYCgTbrfFdpKPJKZo96UgMFWYWV4jopanToSPVSu3gK0g7lPY9dveyKU6GxJdGik5Nl2H2OIQga/F31VpoP2eR84Bg4YsSpIJBteBnEmBYcVr9ENeKtA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TewebJpN; arc=pass smtp.client-ip=74.125.82.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 To:Cc:Content-Type; b=qIdIGaXypJLGy38hNgrUxuaEQmIvlB/A+N3VqEij6xiI7U7zv3QlHDVAks6ixq0elTrBIpzjc2iGVnFBc+YW9M10lX50slgppbndv/ZX1zNqdN23x2ViY5r170raencn/eatPQZUwZrSeaS1xH9ffOIJACTtIe8++rzQg6xF7b8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=Nu/YY+VT; arc=none smtp.client-ip=209.85.208.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TewebJpN"
-Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-306f1213aadso56434eec.1
-        for <stable@vger.kernel.org>; Sun, 31 May 2026 23:30:56 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1780295456; cv=none;
-        d=google.com; s=arc-20240605;
-        b=hT0aaNrHHnrI5CownqvFkwPaxgvisEFJ5zaovaOAsTPeBHQzqnzOTozAj5r6ba6WkL
-         Sk8He36eNNJaxH1QNLnvBECm61pK8Vw4CJP3okDJMvZoEygzIGbHXt72B4+dnLlqTWg4
-         SQlwy1P4omIg/2JSlCiDasdxYv3XILF74wV8/zliH+GQRiCOZdGbzadSbEdtZDR4M8E3
-         ajLwW97u5+WESPLiDZyrGwnlU8xYvbhO5fL31bWPGLaCf57qV2F9gigJnA574hLQA2/u
-         SGdM3ekmEowkixiyQW07Z9c309g2V51zEjG8re32KexALsY7eipEAmtKF9VFmDNDt4q+
-         8Qfg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=R1yhEG4MKoXjJ4bO08OeDXprdSO1fiP+peqcjquLtrs=;
-        fh=r9bert3WXkPq7rdqgwNo5t5goYV2bqnNcl5OhqfmSIQ=;
-        b=DDuVdn2jNfApz18L1aS6RoBL/MjvM2XjwHLvn9e8wlSEpR2+9ReqVNe1XYVj6yOG6W
-         LfqTrHXph4ppJacHafsy8vRn4fVTFBPQVl14tVemP03IlHuXlUmHSTxUa9EoHePlzdpH
-         v8tSGcIFdqFRmG8aLU07/uriiY1m31PGmoZxrLF8x+SChmrGOZRVrZXZ2wcls6K6/INe
-         XiTytv6r6vxWCwVDfQykIuRvzoAC9pqZ9mValtaFk7w0OACY7/U2rRVCxWtPzaQyGifm
-         fTYiAID+UDZLofZWVVpCzQBmKFgjo2cGgq1m7ZBHp2/rN00DkD/9e2DY8l0etQXEOATX
-         vQCg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="Nu/YY+VT"
+Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-68d232ed3f9so1412252a12.0
+        for <stable@vger.kernel.org>; Sun, 31 May 2026 23:41:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780295456; x=1780900256; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=R1yhEG4MKoXjJ4bO08OeDXprdSO1fiP+peqcjquLtrs=;
-        b=TewebJpNtT6qAjTZUa+Mh16aWsN8/d/7b3VddeBekOT6dBZYswciaPWb0aQ5iZJCyf
-         4baxLX5lRuW6PXHqZZteTZ4MYFyYmFHYxQewdtTUz0v6WZe3N4Y+Za52bSSBYcc8atW9
-         XqKFeoRGNJHG8Z4l78aOK92iCqV0zMYn/DaIbVIczgsCXnLa9EXoQqUE1K0KAayO697+
-         fWAO2owf/6pFEgo7Fv+hfs2mlEcNf0eDEfJkButpuEu1KNF/HKxVaCbj6K9LEtkgD7ar
-         O1mwUp/kcuahZ4f4CWbhwGwTuoIGoyMUlvE3tQcl7QlXFW+kk/wP4hWDB4lNux2EAOpj
-         PRUw==
+        d=chromium.org; s=google; t=1780296090; x=1780900890; darn=vger.kernel.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=grkecyCDjbFeNTHglTGH7ZaSe0hCCHo9PMK+wzDd0Ts=;
+        b=Nu/YY+VThFuzduDOhbPy6kvesQ3t0yNLO8mwd13OMN6YX/Syr/BLQ6XX+u6G4lByTy
+         oVzLfKkIk4ddJysR3VV0+RG/elUroYpSQSobfkHAkxDJeS8FDvNL2PyaJb2KhWaMghJm
+         dZUjsGg4Xu0vvlimL/SDnJ/di3ZiyW4Vqtv2E=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780295456; x=1780900256;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=R1yhEG4MKoXjJ4bO08OeDXprdSO1fiP+peqcjquLtrs=;
-        b=eQam7NnMNdHZ9cX2Db4/x1LgX+3pGp0VFLu1gGPYsiQnEQL2N8Im0eayYD86dfqOib
-         g1EOtDM2VQIloPL6LoF27yVV6PNU0fQ6dmJiIV6w5gnKkBsiQ6mH/OBhbeNICP6IhueN
-         +VK8LnCzkVt+5i2BQ4A9xrmapfwLj245ehGbbnJUYtbCe+4WHde7Mqvez7zzi66CU/Tx
-         DOnH8wWqwRw+FBjTJdKNxcZZugDZiE3TGRHcCP0Wt9bpFJ/way/bR7VqvECnPCrHgWRB
-         r2a60uJ/eMMt0Ll96MXk+A2FySLWJSTJa65PNHRVQwBzWyBVPw1DHAOD5VQQkUNTOYUw
-         DSQA==
-X-Forwarded-Encrypted: i=1; AFNElJ+efO3zj6NOUlXWhJ6x4s6IClmP19Tthbhnt7bcq8AjoCVT5pUG5HpOKed/vw1jk5nJcw93JIM=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx3ml0GghQRxaK5qGA82gPtvwvPkXevocoBjKsIEzu/l7hHKw+I
-	ZPeShjEh978EF0fasH6NYp6WlyfRBCq0nVHjCBdhZRPCeGfTcqfdN8DxWvcOQjFNQ5hMMa6akwy
-	dOBdzUj51x/4t/ZJAOYqlXsm15Ozz6jQ=
-X-Gm-Gg: Acq92OEtqTK8COUyZieYLxg0EvMOhaeD4u7cLEqWpIQO3Bk9OCSOmkxkyMABWpNhjQH
-	xt2pTgJEb2SnnJ+y4ENgEsfY3+fCCd3mQCaVn3+9JMSG9sCopOiICtrk0t3Q0f71LCSNlgyw0jX
-	2JCA8NPKoZ8cJIEJsMDcv8l/L1UeL9CNnHcCaCQPTL58YQYBvtwcJNRPjPs4nLidIT0g2wZFzwC
-	xkl+bUYnqh4RzzMGSnBma0kraGC0WMgIY4nNV3nqUyynzZ02hv8qD8satHE6tGkZeK3P7iekFUu
-	cMnpL4qnC1qhCTOdAYASkMidaBYmfVZXad7FFnqqXEbhUfeHR8o+sFtmkBVnpYOe+Cz2puox2Om
-	pCcyGGwwIUvuM9MKahZ1luuYeUAR/lWhOcA==
-X-Received: by 2002:a05:7300:ec08:b0:304:2af3:5fef with SMTP id
- 5a478bee46e88-304fa70effbmr2039142eec.8.1780295455709; Sun, 31 May 2026
- 23:30:55 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1780296090; x=1780900890;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=grkecyCDjbFeNTHglTGH7ZaSe0hCCHo9PMK+wzDd0Ts=;
+        b=agpK0B5iw6Sz5J/+GDc3E+BMf4lLGESENBdjXmEAh3yYhUEHhFA0N+6nemnlBW7pqk
+         0KKkllj/A5nSV0xpLdoJJBaiOMUk/iCplj4Zj9HxE2xJAMQgNkfyBiCAzTe2okTUydHF
+         SadHmcllPqtrgakIUO0U+fVhtuGM8bFVynzOeQYa5Tn3rGyTwS4yamfH4b5iYVaXrr/+
+         6sGRDUY0q30GghInHCI6IgK5WpN6s4HjWjeXhKUqBlfHhLaB9T7JlBb/cJg0P0toQNbQ
+         Fz6/7MzgBk8h9UP3ETbI9Y7rD6DQRKCwDQBCbd0D5bYsOjgaq3GAfA2VSUQk+7EHAEgh
+         z0Kw==
+X-Forwarded-Encrypted: i=1; AFNElJ8fTPpXOX46CX/xJClvxd1x30Sm1gqCW4h2HL0izjDcWO0hgfd7d5vRr5+VZa8MlNw7IW8C4ws=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxKqn374RaCsduarIMgsU7jnufzzd9iSlJu0p7YZMgDjCfUtaNN
+	Eyr3BfcSkMfZYKuXSVMgfjF7ymvc9NompDElaTtFU2LAFlBpMWa5GS1n2f8uLUENkXyrXYA9n5t
+	0FJZxFA==
+X-Gm-Gg: Acq92OHbUiWvczBsAmiuYtMCJjJy2KDpH3px1z4YbsJQ3IXLs22W7+oJrYYD0O/3SAS
+	RiEmO0EQNviniIQ1YmOMu5CZeQBYdM7K1iftdBNIbDroIrZOBAeYmdzQbCOM6cI/f5xUlnAqGUs
+	HQwPf5Jzg78jXp3jmCEfcFnytEd0tXc3tMByA3G3i9/f7FLudefMKtI/IrRzuUZBDVSn5RKAK83
+	fVgWWh+nAdOmqTnpPh5Zg8DyEiPsWlhZ+nHsLJcrYl7qTdws4+lD0H03m1KySM1FZHzqQwD5vxy
+	UG7cHOdaHXoPNTYhzThMnWxUQ+3DgOCmy6waO5/dDCkhKV4LBay9oQ8hKUmkpNf70QRIRi6hpbI
+	2owSjbl+9q1jrRU4uYasoyE7UPPOe8wODnX47vejT0eWZqqlF36fzkT5rLUZvVW1zJch5WWRjLd
+	KkD1kSmWiIO5XGlIeNaTpbITzQ3j9IFcLUm5JFLiBbrI/vhOK20Mpx5zIJF15pESlC3CTU8sE=
+X-Received: by 2002:a17:906:f595:b0:bd6:4d8c:bbff with SMTP id a640c23a62f3a-beab04dc033mr525214266b.22.1780296089597;
+        Sun, 31 May 2026 23:41:29 -0700 (PDT)
+Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com. [209.85.218.52])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-68ceb844b5esm1666763a12.17.2026.05.31.23.41.27
+        for <stable@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 31 May 2026 23:41:29 -0700 (PDT)
+Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-bebac79fff8so119014766b.0
+        for <stable@vger.kernel.org>; Sun, 31 May 2026 23:41:27 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ+RP+4IfnR+Nd91G6K08PUE+1z4gPXHDIfa5qTIGYRc9UduMZGsdKN2m+J62PL5AOANQWnr6VA=@vger.kernel.org
+X-Received: by 2002:a17:907:3e0a:b0:bcb:66df:819a with SMTP id
+ a640c23a62f3a-beab1e809cdmr487255866b.40.1780296086476; Sun, 31 May 2026
+ 23:41:26 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260530095809.213611-1-ojeda@kernel.org>
-In-Reply-To: <20260530095809.213611-1-ojeda@kernel.org>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Mon, 1 Jun 2026 08:30:41 +0200
-X-Gm-Features: AVHnY4L74PI_Op0lO-oFiwBsbA3m9WuT43J5CDI-t5H375DzSgGheCIUTH6PY5Y
-Message-ID: <CANiq72miRU9Qz1+ehyNa26LaG4LbT1XcHgKoODRhoHBxxDdHXw@mail.gmail.com>
-Subject: Re: [PATCH] rust: cpufreq: clean new `clippy::map_or_identity` lint
- for Rust 1.98.0
-To: Miguel Ojeda <ojeda@kernel.org>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Viresh Kumar <viresh.kumar@linaro.org>, linux-pm@vger.kernel.org, 
-	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
-	Danilo Krummrich <dakr@kernel.org>, rust-for-linux@vger.kernel.org, stable@vger.kernel.org
+References: <20260530160224.570625122@linuxfoundation.org> <20260530160226.496219768@linuxfoundation.org>
+ <5e2ac444-451c-4220-8013-0e6382b5f165@pobox.com> <136f03aa6f51bdfecc786e5278f5fd03b4a6966e.camel@decadent.org.uk>
+ <20260601015021.rc-uvcvideo-heuristic@kernel.org>
+In-Reply-To: <20260601015021.rc-uvcvideo-heuristic@kernel.org>
+From: Ricardo Ribalda <ribalda@chromium.org>
+Date: Mon, 1 Jun 2026 08:41:14 +0200
+X-Gmail-Original-Message-ID: <CANiDSCvh6u6AWnarEtso=zKPD3upEsaJBMOm1x35fHyPMaEMyw@mail.gmail.com>
+X-Gm-Features: AVHnY4J7eEIEPEY8n4veiWY6QsIg61l11iuaxssDhuKBbjpiPm_kh5n0oDz1rwY
+Message-ID: <CANiDSCvh6u6AWnarEtso=zKPD3upEsaJBMOm1x35fHyPMaEMyw@mail.gmail.com>
+Subject: Re: [PATCH 5.10 072/589] media: uvcvideo: Use heuristic to find
+ stream entity
+To: Sasha Levin <sashal@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org, 
+	patches@lists.linux.dev, Angel4005 <ooara1337@gmail.com>, 
+	Hans de Goede <hansg@kernel.org>, Hans Verkuil <hverkuil+cisco@kernel.org>, Ron Economos <re@w6rz.net>, 
+	"Pavel Machek (CIP)" <pavel@nabladev.com>, Brett A C Sheffield <bacs@librecast.net>, Mark Brown <broonie@kernel.org>, 
+	Peter Schneider <pschneider1968@googlemail.com>, 
+	Francesco Dolcini <francesco.dolcini@toradex.com>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Jon Hunter <jonathanh@nvidia.com>, Florian Fainelli <florian.fainelli@broadcom.com>, 
+	Miguel Ojeda <ojeda@kernel.org>, Vijayendra Suman <vijayendra.suman@oracle.com>, 
+	Ben Hutchings <ben@decadent.org.uk>, "Barry K. Nathan" <barryn@pobox.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Sat, May 30, 2026 at 11:58=E2=80=AFAM Miguel Ojeda <ojeda@kernel.org> wr=
-ote:
+Hi Sasha
+
+On Mon, 1 Jun 2026 at 04:11, Sasha Levin <sashal@kernel.org> wrote:
 >
-> Cc: stable@vger.kernel.org # Needed in 6.12.y and later (Rust is pinned i=
-n older LTSs).
+> On Sun, 2026-05-31 at 12:53 +0200, Ben Hutchings wrote:
+> > This doesn't properly fix the problem.  Commit 3d9f32e02c2e "media:
+> > uvcvideo: Create an ID namespace for streaming output terminals" (which
+> > reverts this) needs to be applied on top.
+>
+> Rather than carry the heuristic and then layer the namespace rework on top
+> in 5.10 only, I've dropped this together with its regression source
+> 0e2ee70291e6 ("media: uvcvideo: Mark invalid entities with id
+> UVC_INVALID_ENTITY_ID") from the 5.10 queue. That mirrors what 3d9f32e02c2e
+> does upstream (it reverts the heuristic), and avoids exposing the
+> 0e2ee70291e6 regression that would otherwise enter 5.10 in the same batch.
 
-Adjusted to "6.18.y and later", since `cpufreq` was not there in 6.12.y any=
-way.
+Are you going to apply:
 
-(I didn't use Fixes: because it isn't really a fix, although as usual
-it depends on how one thinks about those...)
+Commit 3d9f32e02c2e "media: uvcvideo: Create an ID namespace for
+streaming output terminals"
+?
 
-Cheers,
-Miguel
+We need either that patch or this one: media: uvcvideo: Use heuristic
+to find stream entity
+
+The namespace solution is cleaner, which is why it is the upstream
+solution, but both patches solve the issue.
+
+Regards
+
+>
+> Barry K. Nathan wrote:
+> > Comparing this patch to the corresponding patches that went into
+> > 5.15.203/6.1.169/6.6.117/6.12.58/6.17.8, I believe these Tested-by tags
+> > may be incorrect.
+>
+> You're right that the tag set on the 5.10 backport was over-attributed
+> relative to the other branches; since the patch is being dropped this is
+> now moot. Thanks to you both for the review.
+>
+> --
+> Thanks,
+> Sasha
+
+
+
+-- 
+Ricardo Ribalda
