@@ -1,93 +1,113 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E060B32ED40;
-	Mon,  1 Jun 2026 05:14:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D27034403D;
+	Mon,  1 Jun 2026 05:25:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780290855; cv=none; b=ilyZPiOiw7mG6WRzqWD+GZ+PRBKRgIzjvRUOPPEiCtgrDz0KBuRUO+TdVzzem9phGsyWQ1i8otHTFT4Jp38gVy5wA4Bq6xnPxbO1NLc6dNW8cMi9ztlUda97BEgPxTLO1g2Zy+vNxFaouM2tgE+uEcGgRhw6RzUdjgTClab1pCM=
+	t=1780291508; cv=none; b=kYtgkhpjuhaQ0AlXTDRg35jPWRVE4hlYBO94S0rXU6QPWBUZ7F6f+qsFpsB7DdciXSgqW2RmrEWRuNhv5jsI4x2o5cIvQOfsRqhiyIumi+1ak5ATqnVNVb+35i67HZANS11rb8sPM82CX512vuj5dwFwwq+C4DI4/HS62VUSZ9s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780290855; c=relaxed/simple;
-	bh=Fiz4iY/YcutQJJ/+A3JH/I6rOTTrRVt16Bnb9RgMVSU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tLEP6l3up2LaYLnPxAcoSZRflDZHtoG6d/lxoBdA7L+MaZRzQgQmf5nd4HAjK2EXaETcBVlNbR5zDGr/YeCsQ5pMcNtLkJ9lLaICfZH80B63kxpyYSZN8VlxQzq0h+VwGdwk+dLtevCUhT1+wxXNBCUHr6ht8r+VOxD+CmSeyz8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Gz0wDi6T; arc=none smtp.client-ip=192.198.163.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1780291508; c=relaxed/simple;
+	bh=+rXhp5enUiqzUqXZ8+cReVBPFeph94Y1vMCw3pnuRIE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gbftrr6KMLQHNVqmjlqa1n/94oK0GewYIGzkvRcMclIzb3CbAp/ssVW3XaaP6hFIsk8diH7G6JVVmZ+K6eeAk2giqLfgFK//RQDnP09Yrf+g6gKnSFWfv+QGV6rivJztGI29s2O6BDAga7oIJE/RXH67soq4GXqsqdTxTkgLb5w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=WMXPzYHs; arc=none smtp.client-ip=117.135.210.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Gz0wDi6T"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1780290854; x=1811826854;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=Fiz4iY/YcutQJJ/+A3JH/I6rOTTrRVt16Bnb9RgMVSU=;
-  b=Gz0wDi6THujVizGfv7eLDGwcp71hfwZ1edYvlDwrRrIRSXdr7h4KPex3
-   YBap6vgRbjRuOe+1tPeIq5NScMy6lxTYjfvQ6JrjtxVpOtoTeTbJL/yQh
-   l2h9d99Z0zDj1rY6DQObf31CyckiEqT9M9KzfJpFMB8068XEKnlWk6Ss0
-   Cd+pU2tNpjk6wm1dI93ckNSXabfIzLiEBc0VtMuqKAUGRSXgnj+PDMB01
-   tgXfy3lccgc0nw84IuPtB58OomgiY36twtNd58hFVCcEsnQS8uZCX2kcn
-   cMSOlvnXCK6QP0n5iTxwjqRSulRLuZn5S1bkKVXIIKn3IXMVDt+wtvNhM
-   g==;
-X-CSE-ConnectionGUID: iKrG44IHSp6Mm2mwJkV11w==
-X-CSE-MsgGUID: ZQYRbbR2RmKEKkBZR+z47g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11803"; a="83618053"
-X-IronPort-AV: E=Sophos;i="6.24,180,1774335600"; 
-   d="scan'208";a="83618053"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 May 2026 22:14:13 -0700
-X-CSE-ConnectionGUID: 3sF0PFfpRluY6xhnlOEVFw==
-X-CSE-MsgGUID: arMnjOiERAqQMU3pW1HcqA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,180,1774335600"; 
-   d="scan'208";a="242410357"
-Received: from yilunxu-optiplex-7050.sh.intel.com (HELO localhost) ([10.239.159.165])
-  by orviesa006.jf.intel.com with ESMTP; 31 May 2026 22:14:11 -0700
-Date: Mon, 1 Jun 2026 12:50:01 +0800
-From: Xu Yilun <yilun.xu@linux.intel.com>
-To: Sebastian Alba Vives <sebasjosue84@gmail.com>
-Cc: gregkh@linuxfoundation.org, linux-fpga@vger.kernel.org,
-	conor.dooley@microchip.com, mdf@kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v8 0/3] fpga: bounds checks and input validation fixes
-Message-ID: <ah0PeR1lESJjH/yv@yilunxu-OptiPlex-7050>
-References: <20260518190742.61426-1-sebasjosue84@gmail.com>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="WMXPzYHs"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=vw
+	awXOS85N266Kc92qEO6y0kEvBacHRvTjnktzIuO10=; b=WMXPzYHsgFxvRZ0PoK
+	DXghH+R+P/bMY/LjfxZvOj15K5WIMQMEMen9eXu6aWpK0aA85ntTAf4VJLNO6ZoG
+	nH9WlVm31No2/eyrm6FSHoW5KaiSHIm531FzENn4ggmRXH2GV71IW31+vYOCu61W
+	n3jbAmjo42e+7oeoeuzkI4P2c=
+Received: from China-163-team (unknown [])
+	by gzsmtp5 (Coremail) with SMTP id QCgvCgBHerB+Fx1qZmXdFw--.291S2;
+	Mon, 01 Jun 2026 13:24:25 +0800 (CST)
+From: Wenshan Lan <jetlan9@163.com>
+To: gregkh@linuxfoundation.org,
+	sashal@kernel.org,
+	stable@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	Vinicius Costa Gomes <vinicius.gomes@intel.com>,
+	Dave Jiang <dave.jiang@intel.com>,
+	Vinod Koul <vkoul@kernel.org>,
+	Wenshan Lan <jetlan9@163.com>
+Subject: [PATCH 5.15.y] dmaengine: idxd: Fix not releasing workqueue on .release()
+Date: Mon,  1 Jun 2026 13:24:12 +0800
+Message-ID: <20260601052412.72913-1-jetlan9@163.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260518190742.61426-1-sebasjosue84@gmail.com>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:QCgvCgBHerB+Fx1qZmXdFw--.291S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7WF1DGF17JF1rCrW5KFyDKFg_yoW5Jr4Dpr
+	43JFW5W3s2qr9xG3W7XF18ury5G3WSy3yfurWfWw13uay5Za45X34ftFW29398JrZ5GF42
+	qF90q34rXF48tFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pEEoG9UUUUU=
+X-CM-SenderInfo: xmhwztjqz6il2tof0z/xtbCwwrJkmodF4raPgAA3c
 
-On Mon, May 18, 2026 at 01:07:39PM -0600, Sebastian Alba Vives wrote:
-> This series adds three defensive fixes to FPGA drivers:
-> 
-> Patch 1/3 fixes dfh_get_param_size() in the DFL driver where the loop
-> bounds check is evaluated before incrementing size, potentially returning
-> an inflated size that exceeds the feature region boundary.
-> 
-> Patch 2/3 validates the DMA mapping length in afu_ioctl_dma_map() at the
-> ioctl entry point before passing it down the call chain, preventing
-> implicit integer truncation in pin_user_pages_fast().
-> 
-> Patch 3/3 fixes mpf_ops_parse_header() in the Microchip SPI FPGA manager
-> where a zero header_size from the bitstream causes a one-byte read before
-> the buffer start.
-> 
-> Sebastian Alba Vives (3):
->   fpga: dfl: add bounds check in dfh_get_param_size()
->   fpga: dfl-afu: validate DMA mapping length in afu_dma_map_region()
->   fpga: microchip-spi: fix zero header_size OOB read in
->     mpf_ops_parse_header()
-> 
->  drivers/fpga/dfl-afu-main.c  | 3 +++
->  drivers/fpga/dfl.c           | 2 ++
->  drivers/fpga/microchip-spi.c | 3 +++
->  3 files changed, 8 insertions(+)
+From: Vinicius Costa Gomes <vinicius.gomes@intel.com>
 
-Reviewed-by: Xu Yilun <yilun.xu@intel.com>
+[ Upstream commit 3d33de353b1ff9023d5ec73b9becf80ea87af695 ]
 
-Applied to for-next
+The workqueue associated with an DSA/IAA device is not released when
+the object is freed.
+
+Fixes: 47c16ac27d4c ("dmaengine: idxd: fix idxd conf_dev 'struct device' lifetime")
+Reviewed-by: Dave Jiang <dave.jiang@intel.com>
+Signed-off-by: Vinicius Costa Gomes <vinicius.gomes@intel.com>
+Link: https://patch.msgid.link/20260121-idxd-fix-flr-on-kernel-queues-v3-v3-7-7ed70658a9d1@intel.com
+Signed-off-by: Vinod Koul <vkoul@kernel.org>
+[ Remove destroy_workqueue(idxd->wq) from the function idxd_remove() to
+avoid the workqueue is released twice. ]
+Signed-off-by: Wenshan Lan <jetlan9@163.com>
+---
+On 5.15.x, destroy_workqueue(idxd->wq) is still called directly in 
+idxd_remove(). Applying the upstream patch as-is would cause a double
+destroy: 
+once in idxd_remove() and again in idxd_conf_device_release() when 
+put_device() triggers the release callback.
+
+Resolution: In addition to adding destroy_workqueue(idxd->wq) to 
+idxd_conf_device_release(), the call was removed from idxd_remove(). 
+This is safe because idxd_remove() ends with
+put_device(idxd_confdev(idxd)) which drops the last reference and 
+triggers idxd_conf_device_release(), where the workqueue is now destroyed.
+
+---
+ drivers/dma/idxd/init.c  | 1 -
+ drivers/dma/idxd/sysfs.c | 1 +
+ 2 files changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/dma/idxd/init.c b/drivers/dma/idxd/init.c
+index f2d27c6ec1ce..698387103da7 100644
+--- a/drivers/dma/idxd/init.c
++++ b/drivers/dma/idxd/init.c
+@@ -829,7 +829,6 @@ static void idxd_remove(struct pci_dev *pdev)
+ 	pci_iounmap(pdev, idxd->reg_base);
+ 	iommu_dev_disable_feature(&pdev->dev, IOMMU_DEV_FEAT_SVA);
+ 	pci_disable_device(pdev);
+-	destroy_workqueue(idxd->wq);
+ 	perfmon_pmu_remove(idxd);
+ 	put_device(idxd_confdev(idxd));
+ }
+diff --git a/drivers/dma/idxd/sysfs.c b/drivers/dma/idxd/sysfs.c
+index 489a9d885076..ee208dfdd0cb 100644
+--- a/drivers/dma/idxd/sysfs.c
++++ b/drivers/dma/idxd/sysfs.c
+@@ -1271,6 +1271,7 @@ static void idxd_conf_device_release(struct device *dev)
+ {
+ 	struct idxd_device *idxd = confdev_to_idxd(dev);
+ 
++	destroy_workqueue(idxd->wq);
+ 	kfree(idxd->groups);
+ 	kfree(idxd->wqs);
+ 	kfree(idxd->engines);
+-- 
+2.43.0
+
