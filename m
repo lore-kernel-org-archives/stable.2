@@ -1,90 +1,107 @@
-Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com [205.220.177.32])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63D763D3B3
-	for <stable@vger.kernel.org>; Mon,  1 Jun 2026 15:40:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=205.220.177.32
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 123553DA7DD;
+	Mon,  1 Jun 2026 15:51:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.11
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780328401; cv=fail; b=c3mMv0hqkggc2Wwc/YdnQ77AAoobJXV0qVocjQHlpfRkuD62nGBVy8LKy6S9EDzjd2KlY6zbpxTvb0L7sYZad9uO7479rKsS9dnpNnnQE53ppkzQyySqTlZq3VoBbOtvmfG5ZdnbJa2WL2F3R6Yoi74W8DfDpanojm4D5Gdwqcw=
+	t=1780329104; cv=fail; b=RcSlTQBh9AnNJ6BYumsaPAHHY8lvSiF1iS1EslpKhDgHpDjB7qa3qfNVCbGSK7XbNQt4TYXD5uafG3Yh9yBzQc/Itg8XtON/h5f+zcT0gSMqa3cBrQAeIKqewBpTG5BsvZbM8hpU/jauvrYBcTR5d1JaxjZZfAfiNgqwLH9epuo=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780328401; c=relaxed/simple;
-	bh=bj5/lUvFBJAwoEr+pRuZqjCwc5At2MfgAaCarCP02qs=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=ftdjkbcGOJqFmRxhKc4s6TPBLQzVYjHD83cZo1Xfvrj2KX5HSyDDuCPdPVh/zLtu96aE4judOuzLTanot7Kg0fIJGaXpuhDZ6rBg/VhSaCN6NJbNWjpOqOteA31+ByeGIttSA10LCEgfd6PwXrrkodBXi+LgFnvLshyRNJbXS9E=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com; spf=pass smtp.mailfrom=oracle.com; dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b=HVr5kbON; dkim=pass (1024-bit key) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.b=BwA6Ro3o; arc=fail smtp.client-ip=205.220.177.32
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oracle.com
+	s=arc-20240116; t=1780329104; c=relaxed/simple;
+	bh=2V+2917W8KrSIKxn+2HFFQ/DVM0Uu+BGUIqS1AoE4xo=;
+	h=Date:From:To:CC:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=rvmdt9y40LVNShOtcmcXm7oDR6QwyLiosEvbzZxjs1z6NTO6nUpKr+quGfX94y5kRZzBllpXpkT7X9ZPZ1RLoMJHAL99aDzd/OAUiMfZ2LgBZixxRf4Lz6uu0z+oREU1Z11llJ5V09H+Xh54G1mQFU/Yxdiw1WUg5VngOPnjWMg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=PQgkyXLy; arc=fail smtp.client-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="HVr5kbON";
-	dkim=pass (1024-bit key) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.b="BwA6Ro3o"
-Received: from pps.filterd (m0246632.ppops.net [127.0.0.1])
-	by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 651EtkZj732067;
-	Mon, 1 Jun 2026 15:39:21 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	corp-2025-04-25; bh=W6u0z8kXoJduSYRoLqa1NX1RsmiP17VkPHq79Zvj7VQ=; b=
-	HVr5kbONp3OvJlyKNJGPtg0cJjRg0V99Mx4PPGbCDC2cwpeCQob6Od/SkFpP3Oya
-	jx+LpDGIjRg18SU5mNKaaCeMgpvp95WE/RXe6G3fCvjRvZzAF7nOjYiAqdJWT/ZR
-	vjjSRlEh2lGEe8izfc5sn/v9sXChTXlZxBRL6hhq00ZSffxG6tGgb9rZzh44gG3L
-	WaW4EJPiJMU79Fa0LhNTThQpQ93wX2to1aMRR9sBsmOsMgDfCFTB221uMN/WQHJM
-	VfS6rMUKQUz06vWkft48zX8TKCLdw2if1mEJkJRu3FgOHSGGpu31kqhjzCZIQYw3
-	xiE7j8cA4EAAyaYKQM46jg==
-Received: from phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com (phxpaimrmta03.appoci.oracle.com [138.1.37.129])
-	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4efqgrtegf-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 01 Jun 2026 15:39:20 +0000 (GMT)
-Received: from pps.filterd (phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
-	by phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com (8.18.1.7/8.18.1.7) with ESMTP id 651FYwGm033882;
-	Mon, 1 Jun 2026 15:39:19 GMT
-Received: from ph8pr06cu001.outbound.protection.outlook.com (mail-westus3azon11012030.outbound.protection.outlook.com [40.107.209.30])
-	by phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTPS id 4efpbc0scr-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 01 Jun 2026 15:39:19 +0000 (GMT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="PQgkyXLy"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1780329104; x=1811865104;
+  h=date:from:to:cc:subject:message-id:references:
+   content-transfer-encoding:in-reply-to:mime-version;
+  bh=2V+2917W8KrSIKxn+2HFFQ/DVM0Uu+BGUIqS1AoE4xo=;
+  b=PQgkyXLylZBYM241KDJBUCi7xdLGQONmJzrjMIgOFV5xD+ZHoKBLiSMc
+   ukTx644KKwTk6i4J3Fc02AsNunyaAY9sxVNcliei5fQWOjXhBNEVc8amL
+   KK7WXHdacYKqZ+QRRK4C4DXmmJDDD1ICuGwmR7ftEw86gXzgVYvABntTn
+   DKBzJ9IE/JPv+QoJ89dn75jwvDArh7JIPnVY+BNiPMS/CAXj+5VaEpS0q
+   IhKqFm7fXOhQHGACOmYJjCVlrdOibb1Rfn2hrXTpVFBi3hrBk6O41fhXg
+   fdDK/JWRzCwgiJlKSVrw77i7DH7+KtuWrtnreBK89nV6F3CaDw/KGdfT0
+   A==;
+X-CSE-ConnectionGUID: wUsdHqi9R9un7C4VvilRcA==
+X-CSE-MsgGUID: TnWfVVEeQoydLy/sw0KFyw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11804"; a="91402681"
+X-IronPort-AV: E=Sophos;i="6.24,181,1774335600"; 
+   d="scan'208";a="91402681"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Jun 2026 08:51:31 -0700
+X-CSE-ConnectionGUID: ymaJJUxwSGa9uZa7GVpeJw==
+X-CSE-MsgGUID: rCI88x2iTBCLceYhlrHz1Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,181,1774335600"; 
+   d="scan'208";a="243732745"
+Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
+  by orviesa007.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Jun 2026 08:51:29 -0700
+Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Mon, 1 Jun 2026 08:51:28 -0700
+Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37 via Frontend Transport; Mon, 1 Jun 2026 08:51:28 -0700
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (52.101.43.43) by
+ edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Mon, 1 Jun 2026 08:51:28 -0700
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=O+Gm+uS8+hTNd6HaOXPdIIMKLBi9huSagDNrOnyICilmElNac9WVV6f/Ir1kNM72lxlo4ge89VGYuYa6Z9NvDufcXQudBHu8MjMgM4s6tBDEWalgdIftYQfDpHvQRTDkV2dAODu4edVxiif91HDXYc52K0qOZujMgHK1Fxu1T1pcw1zJ4iITOVSLYzfu/JI8QlYj/8dGyOzkxtNGGAgh8EY0fNxqb2UNHTe3zA5BB3B849LpaJd1OCp8zfdTazrR1dIpf4duwgzkzHh0BR5wuQAVW4+nuvVC2/WUGK3xznY9K6SGqtb8rXF7b8CnjPczMkyOc9W9J6/KWshA9Z5vZQ==
+ b=hzSQsdJDjxeBgmRSl+Wb2pyvToVXyUnPpLlT8VKReJ8AKz/QNrcwwV2KNzOkrDlwa++f38tANo3EkuxF0E68VOr7b86gcGq9eI6t5uOPqQSybmDbjPsaTdT+eDCQXpb9bZQf3e90fzl2cfrPK4qA1Tdp11GoTyoN7P5XfKFbfUvqFS4KNZ5QBbn9lFNz+XDuIcKMxHVxZfo9T3jWHhl5LYzTVhNMShHqyfacl4wnkG2swZjTsxg63J+hDbXu2rEjG/a1yajmgBIp7NFqbTSeq/LEBTm8VZMtJFjBOW91IS6eu5wTZWm1x5t9uhoM3GkuC8g//P9r40/n9lTpHy5p9Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=W6u0z8kXoJduSYRoLqa1NX1RsmiP17VkPHq79Zvj7VQ=;
- b=sgHGp7BzbAQolZgCSK6aapx1FifHPwESGix2FI9jTndo/QplqT4/4VIFRT3yzkxoCJMz5GwceeDkh9678bwymmDXATEDlG0U3id6M2fMKMSow4PwkLCjV+coekCpN5a7t7KcQ4kqkWTpk9bvDPxuBI8Ri8RQPVnOUECVxwT/9nwuWEKnXTM74a66r8tyTDogBlUH9m3urKLyZqj5RAa1RSWA1iJxY3Pc4qQNvfw7eglyEcSPe092KTOkFXb+guyLg9MElLWBRO0sQsC686n3bUm7ybTvvxj7/RblIUXxVNJG1nuLEtybSSpO9CQDmOqqqJ33wbMJEL0lspM0GAh5sQ==
+ bh=JBRkL8nQihDGQNVyl/hfOXNYBa5k6cfuI4xF/gr+X0Q=;
+ b=WFm1hAIbZh2apKrC64yAE32URtFLGfZXXoHDSDN73/GqU9y9Iim6fECLVFbxeL+a1uotVkt2M9AKmti0TTx6OpP6pp/uKZm4CmawHeedCOSflW1h/VJUReYtcXkQO2vjW0exjFX81jCT1+W3KmguIQRQTBWD/42rBc9GHACJcwNoeRu92Ndc2IxNMvDoRZy20fQ5OkdjBi4io8O7/gS+SA4RtDHWUN5mr5WMd4W7Wgn00RtSpNaw0GLmg87JjOwaIBsG3xgG9VolbeOLVFIvt5G4992iqjvmFKYquyO0OWitEBxM7a/0EdgBhKUS/Bf2mKE9x0ArN1XsEVBAoMg8Rg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
- dkim=pass header.d=oracle.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=W6u0z8kXoJduSYRoLqa1NX1RsmiP17VkPHq79Zvj7VQ=;
- b=BwA6Ro3oA1Ct8wL9SKtH0hOdk0oRwmb2NxzpbqWTbHUvYfiArT2f59dqrfswL4aKhroWLjujCVqqWc01osLCDDtEEw+2oGzUS8JQM3fbX+59bNuRCDh2QdwfzaWG00jj2fNrMLuRNKFN9WlDU2lEVLF03Zz8uqSustLzIvRJiXQ=
-Received: from DS3PR10MB997700.namprd10.prod.outlook.com (2603:10b6:8:347::19)
- by BL3PR10MB6066.namprd10.prod.outlook.com (2603:10b6:208:3b5::10) with
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from DM4PR11MB6117.namprd11.prod.outlook.com (2603:10b6:8:b3::19) by
+ IA3PR11MB8920.namprd11.prod.outlook.com (2603:10b6:208:578::15) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.15; Mon, 1 Jun 2026
- 15:39:16 +0000
-Received: from DS3PR10MB997700.namprd10.prod.outlook.com
- ([fe80::4c1c:3bb:c4c9:8e7a]) by DS3PR10MB997700.namprd10.prod.outlook.com
- ([fe80::4c1c:3bb:c4c9:8e7a%7]) with mapi id 15.21.0071.011; Mon, 1 Jun 2026
- 15:39:16 +0000
-Message-ID: <1da626d0-1335-4306-a0fa-a26a0a36248b@oracle.com>
-Date: Mon, 1 Jun 2026 21:09:03 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.12 170/272] netfilter: x_tables: add and use
- xtables_unregister_table_exit
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, Tristan Madani <tristan@talencesecurity.com>,
-        Florian Westphal <fw@strlen.de>,
-        Pablo Neira Ayuso <pablo@netfilter.org>,
-        Sasha Levin <sashal@kernel.org>
-References: <20260528194629.379955525@linuxfoundation.org>
- <20260528194634.080823144@linuxfoundation.org>
-Content-Language: en-US
-From: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
-In-Reply-To: <20260528194634.080823144@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: DX0P273CA0004.AREP273.PROD.OUTLOOK.COM
- (2603:1086:300:26::8) To DS3PR10MB997700.namprd10.prod.outlook.com
- (2603:10b6:8:347::19)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.12; Mon, 1 Jun 2026
+ 15:51:25 +0000
+Received: from DM4PR11MB6117.namprd11.prod.outlook.com
+ ([fe80::d9b3:e942:2686:3cdd]) by DM4PR11MB6117.namprd11.prod.outlook.com
+ ([fe80::d9b3:e942:2686:3cdd%5]) with mapi id 15.21.0071.015; Mon, 1 Jun 2026
+ 15:51:25 +0000
+Date: Mon, 1 Jun 2026 17:51:12 +0200
+From: Maciej Fijalkowski <maciej.fijalkowski@intel.com>
+To: Petr Oros <poros@redhat.com>
+CC: Jacob Keller <jacob.e.keller@intel.com>, David Laight
+	<david.laight.linux@gmail.com>, John Ousterhout <ouster@cs.stanford.edu>,
+	<stable@vger.kernel.org>, <anthony.l.nguyen@intel.com>,
+	<intel-wired-lan@lists.osuosl.org>, <przemyslaw.kitszel@intel.com>,
+	<netdev@vger.kernel.org>
+Subject: Re: [Intel-wired-lan] [PATCH net v3] ice: fix packet corruption due
+ to extraneous page flip
+Message-ID: <ah2qcDLxMlGYNhgf@boxer>
+References: <20260512181953.1689-1-ouster@cs.stanford.edu>
+ <20260513100732.499e3f49@pumpkin>
+ <CAGXJAmzK+56DHnitD1g263mPSgWg9jZyq2z6R+vd8bV_c4ZbuQ@mail.gmail.com>
+ <20260513214927.17a8dd45@pumpkin>
+ <CAGXJAmx4LaVv=QJ=SanvF6iayJ8+SiLyUqht+jMxouXPX=54-g@mail.gmail.com>
+ <20260514110112.12bdf5ff@pumpkin>
+ <30dc284c-8cc0-4bae-b7b0-99d6d71a66e3@intel.com>
+ <e1ce1387-ae6b-4b43-b5d8-a1141c4a4f1c@redhat.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <e1ce1387-ae6b-4b43-b5d8-a1141c4a4f1c@redhat.com>
+X-ClientProxiedBy: VI4PEPF00000143.AUTP296.PROD.OUTLOOK.COM
+ (2603:10a6:808:1::88a) To DM4PR11MB6117.namprd11.prod.outlook.com
+ (2603:10b6:8:b3::19)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -92,295 +109,249 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS3PR10MB997700:EE_|BL3PR10MB6066:EE_
-X-MS-Office365-Filtering-Correlation-Id: 69dd86c9-47e3-4100-35e4-08debff3f03d
+X-MS-TrafficTypeDiagnostic: DM4PR11MB6117:EE_|IA3PR11MB8920:EE_
+X-MS-Office365-Filtering-Correlation-Id: 76898746-f86f-4c84-9aa9-08debff5a2d9
+X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|366016|4143699003|5023799004|18002099003|22082099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	nkyRPTa9H3gzCSqN3bziAsjCowWi4YG+T2WLKmaEAdDkO/8Kf79zdoeETMkwLDv56COOGStgwQQkYVDdg2MW14e+P6OIFGQE0bJrueHOi+YgyGQLLUTm84smpc5thsKW5qDyLQCdzKZK1cbT5m4bTthurcMPK8Lz1jdImug2LD8YrpRhTctWVlph4i8He0rwrPUZNmT+lBm2rvcxnIRMxBDWU9z4SqPRD7JsNZ13L9PlwhxImCBvltA4UOZS9CsFZoqejHFmQoyF+su93LVD+/ssYSagCw2zs2qVNiixxbXhZPH/sAZmcYf6H9+3dqwWAdzJxd4fO03j6NaAJBmRocAYiyhOm6+GgH/G/aPZ2Of24Pap8jSuNOf53wmaNrjypYRW1rxK06pBrA4vAiGubpWBmAX6e5Igicujlkz0X0uXl5TBjffSZhktVvjRmK+Rwu97/MNo2lFpRG1ofd97rH7PhBhGZ2oSK8/amkpmAU/QxTPmzMS4HLQPKW5NGDTOhmTnJ+P5smR+0CVS7v6YUfUMZYQZu/9bc3+UAmmJ2ACdV8y3cFEZgRQ85cnAUQ4kaSCj/wOMhd2iEBGqyQ2m3FsTv0VGd93iRzYSSWByUMG2WDshfoW+/55cGvt6dDBvj0fjvSvBQfvs8fUpT+n+FLIIo+G7+X8Eh+6Dmm4eV8QuQqJvNf0hkmrY0dXRuhu8atpEoKKsGYzy2kCOGSFv7Q==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS3PR10MB997700.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(4143699003)(5023799004)(18002099003)(22082099003)(56012099006);DIR:OUT;SFP:1101;
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014|6133799003|18002099003|22082099003|56012099006|11063799006|5023799004|4143699003|20046099003;
+X-Microsoft-Antispam-Message-Info: ie16KaxgbC9rICKvX2Yfk8vt8w9/h8w18BShF1PyfkGps/J3pOBkfd3mAXI1orb59nqO0381W4+OtsC2Nv0y0MWupHvkHHIN366XyUw2vPiipel/QgesCuSkoXJ7AvckrcGb5ZfFX3SI+Z3V0sHqhwsnKVPOXso1HTRQUsYji70j8c90cwWIje3GsJiyItjhZJ4d55CBwFjuSBAKbDQvUzTA+CNYoN4S9QxI5w2AVR9t8n2vt6cttlTgvhznT8xlrylLN5MgWFSg3m1nIraOLpxZSHvtAb5r409VslYZTPRwVvv2J26j5cPqkJSiEjIncpTWO+AtWT1bCXbObar4xfwMP320hCNFOjwYpq4E7odYJTFzfovBz4cqKBItqYjkP1K0eozMmr9XtKoswodcQu30V3gqU6qsAnqCbAGgz/xpXZAzuWdwuKAp53lwUfI57poRTiYs6J9pO+jimzxH8NBjfTNDsL2wMQjrGJtAh9RNjsbpjpgW+9GErzVc6ee4+rlqgWczbc5ZVfxF5tFCwUF3M6IxFeMD/oMGpKyUXagqRQr2L8+Ytw8YxtRPhtG/9td+CuKtP3puj48Nqd2OtwXRNIENln9gRO4GP+nBLEWjQ45+7CSq23JuthBJTMPmiXAhbbaQ/HZAvGQcsVVXHwYonFuQam5lgeIZAFBB5i2T1dU+U6Rrzg03aSMJACJs
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR11MB6117.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(6133799003)(18002099003)(22082099003)(56012099006)(11063799006)(5023799004)(4143699003)(20046099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?L0dDMVQzNDc4ZEttUjVYc05qYXp5S2d0U3crZ0lXb2tkQzBacTgzVk1xdFNU?=
- =?utf-8?B?TVlBZ0luZkE4Y3dDREptOEJQMmFRdjZiaGlxS1ZlOUhBSmtIYk5kT2tHVnF5?=
- =?utf-8?B?Z2VxVTBNRVlQNy9VNHVZWWJKcmdwcTQ1NHNTdTlBQUFrVU44eS9ZSGNncTJ2?=
- =?utf-8?B?TGEzclhQZVdDTnJhWFM1cDl0NHNDUEtGSlBDM3BIQVZpamMwK2V3dHgxeFN1?=
- =?utf-8?B?QVNFWjlDTHpQTDV5alJHODFwNy9yakUxSnBTWDl3S21sRFlWNUJ3UHNiaHVv?=
- =?utf-8?B?UitUeXFROEtDSFJRMi9GUWI0akxuY0lSbjR3aDBEelYycXBRUU5nZUFSbW41?=
- =?utf-8?B?ZjQzWXdXSittS203SW9DNGxsTUpoZ0xIakdhWExYK0VLdEorTUdzMUlPL0dD?=
- =?utf-8?B?WW1DemJCNEtIUWVQdkkzcDVwTk10dzA2NnA2VVN4SmlzL2cvQnF5aTNnMnFs?=
- =?utf-8?B?WnFLL3VobFFsQkpqQ0kyMGZTSkNaR3FaMHpHRk1IQWtrRW5HZ01hYnFiWjJD?=
- =?utf-8?B?Z1htSlNQcE9wSy9jaHMzK0wwM1crY1J4S1lTRTZmTDNZaE42Y2RwWTNHTzA3?=
- =?utf-8?B?RlRiTGtWZzlENURuTWhxSm9OS3VBY2hvdVkzMWMxZ0E2b0Z4OXUranRuNzZ2?=
- =?utf-8?B?RzNzUlFudWhTUlJaZGlhaDYyOG0vMHRmZTAvN2VLNlBBTzRROTlaQ3REZWNv?=
- =?utf-8?B?Yk4rdjBaMVVJbStXMlB0end3RlpFUWR1dlZ2WDJUN2V2QXowWTc2SFY1bEdr?=
- =?utf-8?B?ZDB3ZURaL2g2b2tqbUFpNHVQQmdBUHI3OEFpeGlhN3oyNnVkWnB1VEFZUTZX?=
- =?utf-8?B?Sk44SFA5UDlxVjZ2dDFWVkxlWVF6dDZJUGFCTHdMWVJiald0dHkrcENyUmFi?=
- =?utf-8?B?L0dlL25JWUg0c1F6MUFwMkZGZkhkKzRHdEVraDkrMzAybTBXcWFmMVRWa0Y1?=
- =?utf-8?B?WjFGVlBjL09uR1pRT2JHYVBOTFlOa3JibXR1QytDckJod2pBN3JKNnJUdkhn?=
- =?utf-8?B?QmF5SFBFMC9TUnN0ZGRsU3VyNEd0YXhxZWlaMWtZUkdtV1h2VG1QdFNreFo5?=
- =?utf-8?B?aEF5OWN4RW01eUIyTUlsbVdBN09UZUVyUG82Q1h4VEQ0NnAzQWVRcklhZ1VM?=
- =?utf-8?B?djBQeXNEWWU3eUtyeDlicllNTnJYa1Rvb201alNyWVBCZlFENUttS3NjaVhS?=
- =?utf-8?B?RW5uNXdEVkgwUFdkUXFtQm5GeUd4UnR6b290cUhwTWNzWlduaCtCQ2ZRWllW?=
- =?utf-8?B?U2dQY0g0YkZ4MkVGclFkZkNHMGhJWE9KdXkwMTRqek43TGJGZGpWcDE4SjNp?=
- =?utf-8?B?NEZqTFAzRHFwU05XN3JQajRRWGZVZkQvRXpuN3pSaUNZY0NMTTNldnRpcGd0?=
- =?utf-8?B?N05xZFIyenBka3QvOVJndkJkdzdRWTRERmEzeEhRUDNoL0FYaW9HYnBVNlhh?=
- =?utf-8?B?Q2pKdE9iMThXQkR5ZmlCSWpTTUFTNDFTekU2SWV3UTBJRWlYdGNzSFRzbFZY?=
- =?utf-8?B?aVhzQ2VpYVF0YjZPb2ovRE5BTm9jaFdrNW13QndJZjdxTHZIWmVKVkxlYkpQ?=
- =?utf-8?B?MHNmWDFqN1k4eVk3TktnK2FVeVRTYVdlRjdHWFpySXJoY3lRd1lBRjV6Vm5i?=
- =?utf-8?B?Tm9kZ2VZdDhXR0lLc0RoSERWbkM4TkxrMzJzWGJRS0hRS2RudlU3dFY0NVM5?=
- =?utf-8?B?QjB0VlpqMGVWMnpxUFducE1GY2xKSnRIK1dSK1pSdjlVL2M2S3VzR25veFh5?=
- =?utf-8?B?Q1FKN3pOVmcwRE13c09zSTY1YVBzRVVpTEE4SlpmeTdLRXJUYXNVQWk5MG5G?=
- =?utf-8?B?NElOa3BhaW1xalNxOGtHSWI2bXI0UThiYmhDOXZIMFhUTmppaUVMdlF2QS9H?=
- =?utf-8?B?WUNqTktRanE5WlNKd1Mvb3JnQTB3VVk0SlFYNGpwWHR6eHFzNW4xVHlkaHZz?=
- =?utf-8?B?b3pyRzZvcmVXTFNwM2lqbEo5R2owZ0M3Rng5UDBFWnBtZTJreVJ4MTd1aTJZ?=
- =?utf-8?B?Q0J1MjR0Zkg5WTUxTDIyYnJIOXkyVTRzdkI5VEIrZmVnUkhuaFErc05RVkVj?=
- =?utf-8?B?dGFZRTY2N0JNZWxNUGVKZWlseDdKSldYSjAvRzA3WUNPTDkyNTdvWE9Oc3Vq?=
- =?utf-8?B?ZVdBcVgwSGh6WCt1QmZnRytNZmo2RFhWK1h3RlhrUmVPdjRpYUdtZWFBSk1L?=
- =?utf-8?B?ZWxhMnlidWI3SzVSSVc1QThwQjY1T2lNRVgvbWhSZzkrUXJoUFlHSUY0WXdX?=
- =?utf-8?B?RHpBN1Jtb2VrZWYrL2xtZjY3Wld2Q2pKRkdDWmRPYzJIM2RJbGRmWENqQ2N6?=
- =?utf-8?B?RFFZajdDclQ2cjV5TGQzRzllaE1qVFZzVmNqZEJ3ZWMyNVoydHBWY0N0TUta?=
- =?utf-8?Q?5zmbE1uY7g4TOZ5y7APnlDIAjKvR6LK7GLrSW?=
-X-Exchange-RoutingPolicyChecked:
-	Sfzgx2oHcqZxau4R/KodEgsMpguLjsDix08MdDY+NK7QERFI0oMxFg+dGfCqWh8th/BM+t3Idll3PwGzfiEdRZAtWP78Vr74wkM2Hq+C8hz+VZLddOkTyggvaMz8XSTnh41J3kpi6imE3mHguCF32XwFx/h4ECND77QXm3AXplG2r1qqCn9Ju0pPzlDgq+LuGKP/95Qm4ExFAF5ERzeyzet0sa44ZCrV+SnfVCxcYOy9xeZG9B4ClOJE335/mvkfLnVnGap2OpC+A4ZeTGdTHPJwSozO9BI6TXcb3h0leOVR7XvWyqRFOGDJlPDYKrVjarcjlYQOFf6LRVPPlzUqkA==
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
-	+w3MDGot1+YyEgHolXQryFurwCgwDlL4ypiaVUC9AOGW+5Npcbznpfqq6GQVH4Q6gMq3aDXvCwaareK0Y12KDIoR+w2sm2hRy8a78kSgT9yumixNf6SwdTVfWYHcbQSaQbv2JpWPrwEEaQ9SEo+ysBNy0tILD8Y3fOXTQWV8M1X7EcQUBR2WZmwGv9D8JG4/R3HDpBS0eukXIj8YE3dTHZ2E+V3LQ6pU0Q7z2gxp/Pn+ykzcVqtebK4Ds/ahX4Z6ZbQHyMcjF6YEKbjkpPv6nA5MbenIcfwlu5yR9U1SX7XjFvgMJzv3/hBNkoEmQoW6s4BmkRVKRC2g1r97/LZoM/W/yiZaC6Y7vJ2TRBdbrKdj/gZx/y7vLs5/bgsLkkkPxON+D3hgo50ChRo87A6L5wNO1fnmQKDViJ/PAB15dIqjTExw3x5UiuKCuxqxuU6Cl14QjoUV860jCpcXqk/RWr9mAe3GKa0bTPYqgQEnrwc8T7XptADArjmtHhEXyZtfHw+4NHLI400xRSz4UC1apfvOFYfAuSr3/WirJIcCencyeQrGtWlG1Q4x4MZE0HrI7cjY7ixe/oky4olPBkpfigYWSxYD9PGQRg9LtFJRPk0=
-X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 69dd86c9-47e3-4100-35e4-08debff3f03d
-X-MS-Exchange-CrossTenant-AuthSource: DS3PR10MB997700.namprd10.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UXgzN1Q5RWU5NDVHRDRLQ0QyOTJjdm4vNStXUUNBZ24vcFZXaEd0YjJILzJD?=
+ =?utf-8?B?YmZOT2pzNnJpT3dxQUZBczNFR1JVRDNjS1d4TmVTTlVnMU5IQVhSRTVjREN6?=
+ =?utf-8?B?aU13K1libkp5Q0tSNFU0RVdnSG5RUnhQYlRidzFEakhuWmVPTFZVYUwzb1pi?=
+ =?utf-8?B?aHphbXFhNWFHU1MzNFBJRXJ1anViZ3lHM2Z2K1JIK25Uald1SnN6a2UycG0v?=
+ =?utf-8?B?elJxazFMZ0R3OW1raWVONmdsa0xUZklSd2M5Snh4UkxMclN4NGFFZCtVejBJ?=
+ =?utf-8?B?ZHFFSFUzR1pyNTFhTVBXQThkNlV2cnZWeWFnNkY3Q2JNeDRTUEtxazgrclhW?=
+ =?utf-8?B?eWVDY3hMWjA4R0R5eHdiSG50UGVIK1ROdWhudS9Xa3p3T29icEtrYjMyNldv?=
+ =?utf-8?B?S3FMWEJyd2F3U0VZQXlVaHl1c1lqeFQvamJhZllWS3dHdG0wcUxJWmRoZkx6?=
+ =?utf-8?B?eHFGaFQwUkwxTWRsbElKRmIya2N3V3RsZWRWUVhBOXZuT1UybzEzMk9UaHpV?=
+ =?utf-8?B?MTlHTm5NM3BuR3VYZ1MwaHRhbDJhSm1pTjZXaEJyZlVaU2lhaEdEbXgyeWZG?=
+ =?utf-8?B?d0RxbXQrWFczK0NVQ1ZxbzdudEtCUmgxUzE0bitHanNuZmoycmJNSEJtS2ZF?=
+ =?utf-8?B?bWVZbkEwaDBGTXR4WHN4ZUpvTk9CRXRreWlZUElTQ0I4YVFyQmZ3V2ZjbjIy?=
+ =?utf-8?B?UnBudVFESUEwUU0vb0VoVjhXS1hLSlZuKzYrQjVHUGN5TmFlRG9MM3Frc3Zx?=
+ =?utf-8?B?WU5yQjFkcWdRSWNqbkk0U2szQ0NJanRoQjRZb2lJV0JaZkEreFc5dmFaMjQx?=
+ =?utf-8?B?b3F5SklnZ0tKSmxtT3crRFN0SXZxQ1kyOTNFN3ZZZUZycjM3YXE4ZnpDb2ov?=
+ =?utf-8?B?cUtkeGpBVm9QemhtVktkLzlyVlpTTmUwWSsweHU5ckRaTUwvRUhrMVE5bjdn?=
+ =?utf-8?B?WlAybTZBTk1RVVJGNXBHZ1dzdkFNUE85V2NsRHVRSGVlNWpING1NdUR4RGZ0?=
+ =?utf-8?B?OFlLVmdxaStsVmdQK1dicVBqMUtQa3ZPVGV2NDVyVjFIM2FvZGp5TldUcEha?=
+ =?utf-8?B?QzV4WjVYVHdZejkydUZ6RTdoUkZKM0ZVZzlMVitkWVRlL2txUGpqaHdjNys3?=
+ =?utf-8?B?ZGRydlh1RUorVFUxMDNwc3JvVVdKa1UzMFliaHZFcWhEcEJqTkhaY29JYkFk?=
+ =?utf-8?B?SWFiOGNXd1ZyWGk2T2p2eXppeUpmVzBoVjZ2MFpGTHk4WFpnZjArMTB0OTZ2?=
+ =?utf-8?B?V1IwNExYMStpaTYxQjY3ell6NEJoV2ZEcmI2MVovaDliV25ubncvdytVaVUv?=
+ =?utf-8?B?cGc0NEJacnZlV1lTTjJGckRIS3RldHN4bytNM2dSMTlmMkJqYVprVWdwcmFO?=
+ =?utf-8?B?ejhIdWJGMFRCOC80Tk9laFY5YTVuNHk1RnhHQWVnUmM0NDNmZXRmNUEwZ2J0?=
+ =?utf-8?B?aFZJT2t1YUpUbzYzVTFmMmEra2ZGRVdoeENzQjFoaVZIU0ZjU2kvQUNMRXpl?=
+ =?utf-8?B?UU9McGIzM1NOVkpnQW9RbDdlanFPYlBYZ0E5RFFKa21ub1hGZERYRmlKMy8v?=
+ =?utf-8?B?RTVTWGlCRHRLSE5BMEhDWlZ0SUNPaFEzN0RaRGhHclFzbEVaWWluNlR0ZGZa?=
+ =?utf-8?B?NExGTEFTOXR1YXVWK2lVbTBQNitnblE1WDVVMG9zaG1jdWtBbzFHNkRzV0R4?=
+ =?utf-8?B?VUdiQWQ0dC94L1k2NmJVQ0JXa0U5ZlQ4UE94SklOTkI3WEgvNldaV3dJcG4w?=
+ =?utf-8?B?NnNMNzFwaGg3SzRUdXZRVUJsN0pYL29NYVcybGZ1V0hHeFRMNGVmdkRNV0NO?=
+ =?utf-8?B?TEt5SDIwVWEwbkI0djlFd1I1QTZOdlkwc2ttRmxCcFNWdWxWMDUrc3hscmRX?=
+ =?utf-8?B?UkRwZjhhYzRXRi9ISlNXK1ovYitBaEltRlMwWm9rWmZwRmxpVDQ3cEMxNEls?=
+ =?utf-8?B?RnFhd3JpSGFLK1JxSTd5SkdSanZ1cDU0c0k5NFBmR1EwV05wQ3p2TkdCVTNT?=
+ =?utf-8?B?S1RKNXR4SE5sOVJZSEV1SXJCdGhWZnBRK2RCTDFiU2hHaW1Pbk1QZ0liRmw5?=
+ =?utf-8?B?MzZMdHFxUDF4UWF1TlNLWmZLM3loZDJGWVFwM1UvYW12RFNHVTd1b3BhL21l?=
+ =?utf-8?B?ejg5ZmRMOTlXd05BUEJFaUc3K1FMQXVxQThkSE5NMkhscXZLbUJMYVhPYUtT?=
+ =?utf-8?B?TlFYa0lHWFI5MERDbEptRXBXUHJaMU1kdzVmQUxMamh0VDB2Ym8vUnhXbjNB?=
+ =?utf-8?B?L2hPYkJUY3NRSStveDNEamhHM1FpWnVpZllEdXh6Z1BwZVNPeTN5YzNqRFJE?=
+ =?utf-8?B?MTRkQVFBUzVDQUZzejVXeFJOZUNlUUVPZUFvdkM0enVOR2pISkZQNFUrc1ZG?=
+ =?utf-8?Q?NzqD4YyAGfQhobYY=3D?=
+X-Exchange-RoutingPolicyChecked: UCFe0lJU28fzchTRy8z7UpUYBIKjrc1fheAoG8fQI1xmMqkqT2Hd5nXJsuw+rqxKR0FjrPwHNi8wasGeZSxDM3y/HA0ILBqXSkr78acWqyeR5aef6D30kqA6xh96U7PIkdfVB0I8gnbnOFGUwuKN9kOQTO/Od+peRYr2zPc+xTO7bUEmOpLt1hC8vIdPPIPGn73hVVUVo0eHXxOxxGL63KrV6iRNE3IictbYroTeote1CJcNZ83mlP9+Xc7g5l2S9G1LtTvg8a3yR8nyjxFSwpLoECh//dJvVjomDZW6n7ICmX/5m0AlD/smjmpnmK1oF3nfSK1ODBU4Mvs6AfBo6A==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 76898746-f86f-4c84-9aa9-08debff5a2d9
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR11MB6117.namprd11.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jun 2026 15:39:16.4977
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jun 2026 15:51:25.6814
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: RcHC/pmtzI1SBxLx6/eOxYefn4y4yOmLPB8a5oMCF/BEE1w0ypDwGypmjtV1RNINT1sApzzM6D9s5Ou8jTJUoM1mVmnaxhq3bpLalM4sTzu10WSS37BUbWPoCpW2+Il/
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR10MB6066
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-01_04,2026-05-28_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxscore=0
- adultscore=0 suspectscore=0 phishscore=0 malwarescore=0 bulkscore=0
- spamscore=0 mlxlogscore=999 lowpriorityscore=0 classifier=spam adjust=0
- reason=mlx scancount=1 engine=8.19.0-2605130000 definitions=main-2606010156
-X-Authority-Analysis: v=2.4 cv=NLnlPU6g c=1 sm=1 tr=0 ts=6a1da7a8 b=1 cx=c_pps
- a=WeWmnZmh0fydH62SvGsd2A==:117 a=WeWmnZmh0fydH62SvGsd2A==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
- a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=FelO9ux0wxsA:10 a=GoEa3M9JfhUA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=jiCTI4zE5U7BLdzWsZGv:22 a=3I1J8UUJPc9JN9BFgKH3:22 a=VwQbUJbxAAAA:8
- a=pGLkceISAAAA:8 a=yPCof4ZbAAAA:8 a=J_-Nd1mkAAAA:8 a=3HDBlxybAAAA:8
- a=urHxGH3jmiCKOw7aGAEA:9 a=QEXdDO2ut3YA:10 a=n8ForQn92ZFaZtFqRdMw:22
- a=laEoCiVfU_Unz3mSdgXN:22
-X-Proofpoint-GUID: UraemBeBqAySjw_s7DWojwWX5YM57b8S
-X-Proofpoint-ORIG-GUID: UraemBeBqAySjw_s7DWojwWX5YM57b8S
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjAxMDE1NiBTYWx0ZWRfX+rL5hgSAOLcq
- BCi5MaHd4c77tmjCwaRPfFdI8iBPW7bNwisAi3s+5A/gLgcjvpfyrEwiBKIiXiu3QJb0MlIbR2d
- 8pDi+KZVoOUjXDUpfOUn0fFhhvgmYCdNHQwrBeOY1EYD97BivmtS1EqpEarzISDl2SnFm6YMnDp
- Ke3Zp5f/35iFYPuyag3HA+AXvgo7IG920+QF0bs+96mPtaxEI2EQXA8pk69aAYeC+JIt70w4hpk
- dir/E07ZPU1x5XgOgsqTUQtILbdPR9DxT+aAvWbTPN9uq9rg9u2Qqin/Hl19u+fGwCYw2w2NVA8
- 3NI9b9gN+q6y2mfHiUEvA3tGDCqadbifbbgI45wB+vqQfzApmy7D/9oty8/Vfsx+eHjYP+UQUzb
- LVZ7/IUVO3ySgh7wKYF3OsbhTzNJcafeFuWO2MUv+BDqtPGaoMFQqQ65MI1KJpxOC66/tTdxSIk
- e3lDUN9eNJCllSILrSQ==
+X-MS-Exchange-CrossTenant-UserPrincipalName: Z1IJ6nx3SE8SPapmc/usXjqeQkoKkx9QUu2JT8iVVH2EWh5xXSS2OrP0VEv/4DkjDeSu6QDBSHFNbMrHfT3aKq8iO2f3+5N+jajwExq4mFc=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA3PR11MB8920
+X-OriginatorOrg: intel.com
 
-Hi Greg/Sasha
-
-On 29/05/26 01:19, Greg Kroah-Hartman wrote:
-> 6.12-stable review patch.  If anyone has any objections, please let me know.
+On Tue, May 26, 2026 at 02:47:42PM +0200, Petr Oros wrote:
 > 
-> ------------------
+> On 5/14/26 18:43, Jacob Keller wrote:
+> > On 5/14/2026 3:01 AM, David Laight wrote:
+> > > On Wed, 13 May 2026 21:47:11 -0700
+> > > John Ousterhout <ouster@cs.stanford.edu> wrote:
+> > > 
+> > > > On Wed, May 13, 2026 at 1:49 PM David Laight
+> > > > <david.laight.linux@gmail.com> wrote:
+> > > > > On Wed, 13 May 2026 09:28:40 -0700
+> > > > > John Ousterhout <ouster@cs.stanford.edu> wrote:
+> > > > > > On Wed, May 13, 2026 at 2:07 AM David Laight
+> > > > > > <david.laight.linux@gmail.com> wrote:
+> > > > > > > On Tue, 12 May 2026 11:19:53 -0700
+> > > > > > > John Ousterhout <ouster@cs.stanford.edu> wrote:
+> > > > > > > > Consider the following sequence of events:
+> > > > > > > > * The bottom half of a buffer page is filled with data from
+> > > > > > > >    packet A. The page has a net reference count (reference count
+> > > > > > > >    - bias) of 1. The page is returned to the NIC, flipped to
+> > > > > > > >    use the top half.
+> > > > > > > > * Before the reference on the page is released, the NIC returns
+> > > > > > > >    the page with no data in it ('size' is zero in ice_clean_rx_irq).
+> > > > > > > >    In this case the bias does not get decremented. The page still
+> > > > > > > >    has a net reference count of 1, so it gets returned to the NIC.
+> > > > > > > >    However, ice_put_rx_mbuf flipped the page so that the bottom
+> > > > > > > >    half is active.
+> > > > > > > > * If the NIC stores another packet in the page before packet A
+> > > > > > > >    has released its reference, the data in packet A will be
+> > > > > > > >    overwritten with data from the new packet.
+> > > > > > > > * Unfortunately zero-length buffers occur frequently: they seem
+> > > > > > > >    to occur whenever a packet uses every available byte in a
+> > > > > > > >    buffer, ending precisely at the end of the buffer. When this
+> > > > > > > >    happens the NIC seems to generate an extra zero-length
+> > > > > > > >    buffer.
+> > > > > > > > The fix is for ice_put_rx_mbuf not to flip pages that have a
+> > > > > > > > size of 0.
+> > > > > > > How is this different from packet B (in the top half) being
+> > > > > > > freed before packet A (in the bottom half)?
+> > > > > > I'm not sure exactly what you're referring to here. Are you asking
+> > > > > > about a situation where both halves of the page get filled with packet
+> > > > > > data and then the second half to be filled is the first to be freed? I
+> > > > > > believe that the ICE driver abandons a page if both halves are ever
+> > > > > > occupied simultaneously; the page will be returned to the system once
+> > > > > > both halves have dropped their references. Thus it doesn't matter
+> > > > > > which half is freed first.
+> > > > > That is what I was thinking, seems like the logic is over complicated.
+> > > > > 
+> > > > > If you need to put 4k pages into some kind of iommu rather than 2k buffers
+> > > > > (to contain 1536 byte ethernet packets) then I'd have thought you'd
+> > > > > initially put both halves into adjacent tx ring entries.
+> > > > > If a rx buffer is discarded (eg a zero length fragment or a CRC error,
+> > > > > or even 'copy break' for short packets) then, as an optimisation,
+> > > > > you could reuse the buffer for another receive.
+> > > > > The same could be done if the page is freed by an application.
+> > > > > 
+> > > > > However it sounds like it doesn't use the 2nd half until the first
+> > > > > completes - otherwise you'd never 'flip' to make the other half
+> > > > > active.
+> > > > > 
+> > > > > Thinks...
+> > > > > By only putting half of each 4k 'page' into the rx ring the code
+> > > > > will usually save (expensive) iommu setup in the (probably) normal
+> > > > > case where the buffers are freed 'reasonably quickly'.
+> > > > > But that really requires a 'free/with_nic/busy' state for each half
+> > > > > rather then trying to guess from a reference count.
+> > > > > 
+> > > > > But if the low-level code is recycling the rx buffer (for any reason)
+> > > > > it wants to use the same buffer.
+> > > > > 
+> > > > > The ethernet driver I wrote (a long time ago, early 90s) allocated
+> > > > > 64k as 128 512byte buffers and did an aligned word-sized copy of
+> > > > > every receive frame - most frames were in contiguous memory.
+> > > > > The simplicity of it made up for the cost of the copy, especially
+> > > > > since that was an iommu system.
+> > > > I'm not here to defend the logic (and it has been replaced with
+> > > > something that is probably simpler and more efficient); I'm just
+> > > > suggesting a bug fix for the stable releases that still have this
+> > > > logic.
+> > Right. We definitely want a fix for the possible data corruption in
+> > stable. Ideally one as simple as possible.
+> > 
+> > > You've forced me to look at all of the function :-)
+> > > I've noticed a few things:
+> > > - If ice_add_xdp_frag() fails (because there are too many fragments)
+> > >    then the rest of the fragments are left in the tx ring (instead
+> > >    of being discarded) - so are likely to be treated as a full packet
+> > >    later on.
+> > > - Frames with status errors (crc, framing etc) are discarded after
+> > >    the skb is built - surely that should happen before the xdp 'program'
+> > >    is called.
+> > > - If the remote system send a very very long frame (traditionally the PHY's
+> > >    'jabber detect' didn't always work) you can end up with all of the rx
+> > >    ring being full of a single partial packet.
+> > > 
+> > > I think you need to avoid calling ice_add_xdp_frag() when 'size == 0'.
+> > > Then in ice_put_rx_mbuf() unconditionally call ice_put_rx_buf() for
+> > > zero length fragments.
+> > > The comment would be 'zero length fragments can always be reused'.
+> > > 
+> > That seems correct.
+> > 
+> > > The zero length fragments almost certainly exist because the mac hardware
+> > > advances the the new buffer expecting more data - but only gets the
+> > > 4 byte CRC. So the zero length buffer contains the receive status.
+> > > 
+> > That matches my understanding.
+> Hi John,
 > 
-> From: Florian Westphal <fw@strlen.de>
+> I have been looking at the same area in the pre-page-pool ice code and
+> I want to ask whether you observed memory growth during your Homa runs
+> that exposed the corruption, because in my testing the same bias mismatch
+> also produces a slow page leak that your v3 does not close.
 > 
-> [ Upstream commit b4597d5fd7d2f8cebfffd40dffb5e003cc78964c ]
+> Short version of the leak path, in the PASS (!CONSUMED) branch:
 > 
-> Previous change added xtables_unregister_table_pre_exit to detach the
-> table from the packetpath and to unlink it from the active table list.
-> In case of rmmod, userspace that is doing set/getsockopt for this table
-> will not be able to re-instantiate the table:
->   1. The larval table has been removed already
->   2. existing instantiated table is no longer on the xt pernet table list.
+>   1. ice_get_rx_buf(size=0) does pagecnt_bias-- unconditionally
+>      (added by commit ef68094cb09e ("ice: Fix kernel panic due to page
+>      refcount underflow") as the fix for the matching panic).
+
+you mean in ice_get_rx_buf() ? I do not see this part anywhere. Must be
+your custom recipe when you ported 84bf1ac85af8 ("ice: fix Rx page leak on
+multi-buffer frames") ?
+
+Given the amount of issues 0 sized frags gave us I was thinking whether
+they should be treated in the same manner as normal frags.
+
+But please rule this out on your side to align with John so we could
+proceed with this fix.
+
+Thanks
+Maciej
+
+>   2. ice_add_xdp_frag() then returns 0 for size==0, so that page is
+>      never attached to the xdp_buff/SKB. Nobody downstream will ever
+>      call put_page() to balance the pagecnt_bias-- from step 1.
+>   3. Your v3 in ice_put_rx_mbuf() correctly skips the page flip for
+>      size==0, which closes the corruption window. But it does not
+>      restore pagecnt_bias for that zero size buffer, so the page is
+>      handed back to ice_reuse_rx_page() with a permanent deficit of 1.
+>   4. On the next reuse of that page with size > 0, pagecnt_bias drops
+>      again. ice_can_reuse_rx_page() now sees pgcnt - bias == 2 and
+>      drains via __page_frag_cache_drain(page, pagecnt_bias). Because
+>      pagecnt_bias is one too low, the drain undershoots by 1: page
+>      refcount stays at 2 instead of 1.
+>   5. The SKB eventually releases its reference (refcount -> 1), but
+>      nothing ever brings it to 0. The page is leaked.
+>      ice_alloc_rx_bufs() just allocates a fresh page to fill the slot.
 > 
-> This adds the second stage helper:
+> At the zero size frequency you mentioned (thousands per second), this
+> adds up to roughly MB/s of leaked page cache, which Jaroslav Pulchart
+> originally reported against 6.13.y on NUMA nodes and which motivated
+> the libeth/page_pool conversion in mainline. So in stable trees the
+> leak side of this bug is still live.
 > 
-> unlink the table from the dying list, free the hook ops (if any) and do
-> the audit notification.  It replaces xt_unregister_table().
+> Two questions:
 > 
-> Fixes: fdacd57c79b7 ("netfilter: x_tables: never register tables by default")
-> Reported-by: Tristan Madani <tristan@talencesecurity.com>
-> Reviewed-by: Tristan Madani <tristan@talencesecurity.com>
-> Closes: https://lore.kernel.org/netfilter-devel/20260429175613.1459342-1-tristmd@gmail.com/
-> Signed-off-by: Florian Westphal <fw@strlen.de>
-> Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
-....
-
-
->   
->   struct compat_delta {
-> @@ -1522,23 +1525,6 @@ struct xt_table *xt_register_table(struct net *net,
->   }
->   EXPORT_SYMBOL_GPL(xt_register_table);
->   
-> -void *xt_unregister_table(struct xt_table *table)
-> -{
-> -	struct xt_table_info *private;
-> -
-> -	mutex_lock(&xt[table->af].mutex);
-> -	private = table->private;
-> -	list_del(&table->list);
-> -	mutex_unlock(&xt[table->af].mutex);
-> -	audit_log_nfcfg(table->name, table->af, private->number,
-> -			AUDIT_XT_OP_UNREGISTER, GFP_KERNEL);
-> -	kfree(table->ops);
-> -	kfree(table);
-> -
-> -	return private;
-> -}
-> -EXPORT_SYMBOL_GPL(xt_unregister_table);
-> -
->   /**
->    * xt_unregister_table_pre_exit - pre-shutdown unregister of a table
->    * @net: network namespace
-> @@ -1548,6 +1534,14 @@ EXPORT_SYMBOL_GPL(xt_unregister_table);
->    * Unregisters the specified netfilter table from the given network namespace
->    * and also unregisters the hooks from netfilter core: no new packets will be
->    * processed.
-> + *
-> + * This must be called prior to xt_unregister_table_exit() from the pernet
-> + * .pre_exit callback.  After this call, the table is no longer visible to
-> + * the get/setsockopt path.  In case of rmmod, module exit path must have
-> + * called xt_unregister_template() prior to unregistering pernet ops to
-> + * prevent re-instantiation of the table.
-> + *
-> + * See also: xt_unregister_table_exit()
->    */
->   void xt_unregister_table_pre_exit(struct net *net, u8 af, const char *name)
->   {
-> @@ -1557,6 +1551,7 @@ void xt_unregister_table_pre_exit(struct net *net, u8 af, const char *name)
->   	mutex_lock(&xt[af].mutex);
->   	list_for_each_entry(t, &xt_net->tables[af], list) {
->   		if (strcmp(t->name, name) == 0) {
-> +			list_move(&t->list, &xt_net->dead_tables[af]);
->   			mutex_unlock(&xt[af].mutex);
->   
->   			if (t->ops) /* nat table registers with nat core, t->ops is NULL. */
-> @@ -1567,6 +1562,50 @@ void xt_unregister_table_pre_exit(struct net *net, u8 af, const char *name)
->   	mutex_unlock(&xt[af].mutex);
->   }
->   EXPORT_SYMBOL(xt_unregister_table_pre_exit);
-> +
-> +/**
-> + * xt_unregister_table_exit - remove a table during namespace teardown
-> + * @net: the network namespace from which to unregister the table
-> + * @af: address family (e.g., NFPROTO_IPV4, NFPROTO_IPV6)
-> + * @name: name of the table to unregister
-> + *
-> + * Completes the unregister process for a table. This must be called from
-> + * the pernet ops .exit callback. This is the second stage after
-> + * xt_unregister_table_pre_exit().
-> + *
-> + * pair with xt_unregister_table_pre_exit() during namespace shutdown.
-> + *
-> + * Return: the unregistered table or NULL if the table was never
-> + *         instantiated. The caller needs to kfree() the table after it
-> + *         has removed the family specific matches/targets.
-> + */
-> +struct xt_table *xt_unregister_table_exit(struct net *net, u8 af, const char *name)
-> +{
-> +	struct xt_pernet *xt_net = net_generic(net, xt_pernet_id);
-> +	struct xt_table *table;
-> +
-> +	mutex_lock(&xt[af].mutex);
-> +	list_for_each_entry(table, &xt_net->dead_tables[af], list) {
-> +		struct nf_hook_ops *ops = NULL;
-> +
-> +		if (strcmp(table->name, name) != 0)
-> +			continue;
-> +
-> +		list_del(&table->list);
-> +
-> +		audit_log_nfcfg(table->name, table->af, table->private->number,
-> +				AUDIT_XT_OP_UNREGISTER, GFP_KERNEL);
-> +		swap(table->ops, ops);
-> +		mutex_unlock(&xt[af].mutex);
-> +
-> +		kfree(ops);
-> +		return table;
-> +	}
-> +	mutex_unlock(&xt[af].mutex);
-> +
-> +	return NULL;
-
-Apart from a different concern I raised here:
-
-
-https://lore.kernel.org/all/a8cd18fa-18da-4286-a704-e7045d8d9531@oracle.com/
-
-I ran an AI-assisted backport review and checked the x_tables state in 
-6.12.y: and the analysis goes like this:
-
-This backports the upstream unregister-side split from b4597d5fd7d2f8 
-without the upstream registration-side prerequisite commit: b62eb8dcf2c4 
-("netfilter: x_tables: allocate hook ops while under mutex")
-
-
-Upstream builds this patch on top of b62eb8dcf2c4 ("netfilter: x_tables: 
-allocate hook ops while under mutex"). With that prerequisite, hook 
-allocation and nf_register_net_hooks() happen inside 
-xt_register_table(), before the table is linked on the active list, and 
-the failure path includes the needed RCU handling.
-
-Current 6.12.y still has the older model: 
-ip_tables/ip6_tables/arp_tables call xt_register_table() first, then 
-allocate/register hooks in family code. If nf_register_net_hooks() 
-fails, the path goes to __ipt_unregister_table() or the equivalent 
-helper, which now only frees the table object which also means the 
-backport can free a table that was already linked on xt_net->tables[]
-
-So i think we should drop this whole netfiler / x_tables series and 
-think through w a better way to backport the race fixes.
-
-Thanks,
-Harshit
-
-
-
-
-
-
-
-> +}
-> +EXPORT_SYMBOL_GPL(xt_unregister_table_exit);
->   #endif
->   
->   #ifdef CONFIG_PROC_FS
-> @@ -2013,8 +2052,10 @@ static int __net_init xt_net_init(struct net *net)
->   	struct xt_pernet *xt_net = net_generic(net, xt_pernet_id);
->   	int i;
->   
-> -	for (i = 0; i < NFPROTO_NUMPROTO; i++)
-> +	for (i = 0; i < NFPROTO_NUMPROTO; i++) {
->   		INIT_LIST_HEAD(&xt_net->tables[i]);
-> +		INIT_LIST_HEAD(&xt_net->dead_tables[i]);
-> +	}
->   	return 0;
->   }
->   
-> @@ -2023,8 +2064,10 @@ static void __net_exit xt_net_exit(struct net *net)
->   	struct xt_pernet *xt_net = net_generic(net, xt_pernet_id);
->   	int i;
->   
-> -	for (i = 0; i < NFPROTO_NUMPROTO; i++)
-> +	for (i = 0; i < NFPROTO_NUMPROTO; i++) {
->   		WARN_ON_ONCE(!list_empty(&xt_net->tables[i]));
-> +		WARN_ON_ONCE(!list_empty(&xt_net->dead_tables[i]));
-> +	}
->   }
->   
->   static struct pernet_operations xt_net_ops = {
-
+>   - Did you monitor RSS / page allocator stats over the duration of
+>     your Homa runs? If you did and did not see growth, I would like
+>     to understand what is different about your setup, because by my
+>     reading of the code the leak should fire whenever both halves of
+>     a page end up in SKBs simultaneously and one of them carried a
+>     zero size descriptor along the way.
+> 
+>   - If your focus was specifically the corruption, would you be open
+>     to extending v3 (or replacing it) with a fix that also restores
+>     pagecnt_bias for the size==0 case? The minimal extension is one
+>     extra branch in ice_put_rx_mbuf:
+> 
+>         if (verdict != ICE_XDP_CONSUMED && size != 0)
+>                 ice_rx_buf_adjust_pg_offset(buf, xdp->frame_sz);
+>         else
+>                 buf->pagecnt_bias++;
+> 
+>     which restores bias on every path where the page is not actually
+>     going out to an SKB. (I have a slightly different variant that
+>     tracks has_data in struct ice_rx_buf to also handle the broken
+>     positional 'i <= xdp_frags' counter in the CONSUMED path, where
+>     zero size descriptors in the middle of a frame steal bias++ slots
+>     from real fragments. Happy to share it if useful.)
+> 
+> Regards,
+> Petr
+> 
+> 
