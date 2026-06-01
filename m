@@ -1,34 +1,35 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA19E2737E0;
-	Mon,  1 Jun 2026 03:11:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 703FB24A06A;
+	Mon,  1 Jun 2026 03:11:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780283471; cv=none; b=L4EgHQQqkeUeVy2i2sYfJ+hlyoY5NpE4N1tcfiZlS91pE5k3S22bsIID7M0i0SIdPTraHxiB5cww9/Fj8C+/bGpCFcU38wyqCvZ46/hb4rPuPaqS3rMXowIILhxQ+NshkllQyUYrgBJX0hkr5nx4Xp1aZbcfmGVtuD76JgzBD4o=
+	t=1780283478; cv=none; b=R7GsGNvdRMo9sgtBofZJg2kQS0vmvCRNPxDpjll2T61dAYFJOqpqOoI6uL9YJlBn7oC1h9HBrINfuxdYuMkQt0Hy9JtR8EaUsZyt7MoAaPSoXPBy9qu6Y2b7o2NOSsNoC+9IpgU1dHtJUEdm0vPMWlk7lhF6OmFBxV0sYOxEW4g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780283471; c=relaxed/simple;
-	bh=N1bc/nUu/TVx6vrRiyttrdnrCWdRHHAZglldql0RHt0=;
+	s=arc-20240116; t=1780283478; c=relaxed/simple;
+	bh=GLfWQd2TsQbqct9PeWcRmweoXhBgKsmkaFdxXHjiZJ4=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=FJRGA/X6VwTeYg3l/8TxpXDCobOqtnzyGQ2FlOhKfqUgUrhjLrYv/O7MQAaTtDgWD1coVAoU+hMzkk+Lha6PRPP7uWMnAHU+Ne0WdqXaVMFdph9XH3eu8hfwHcQZti4OEhtdugVgv968i9icyM+0XrQBLfjYCTw4SXKA1C/nD5Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XT8M8KYP; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=XOMdelDC7O+Dgq73nbYADPXYzfX5TLrCHYDr3ahOyl6dtB6GgH3zARJtLb4Da/f8WkdkwWSt2bwNmMLd0DMvtXbyEy05rzTly1fDluiC8jPo+0oHCXFzTY98XLl7H6Dm1ea79JXjeY6bmpki2orjy1o/mZ2gETxDH+LHwAXJWMg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G6ynj0Uh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XT8M8KYP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DF511F00893;
-	Mon,  1 Jun 2026 03:11:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G6ynj0Uh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A5EB1F00898;
+	Mon,  1 Jun 2026 03:11:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780283470;
-	bh=B4xB1YlIM90XgSgiiXndV0d7/6vuxA6YWpl23fcgEKU=;
+	s=k20260515; t=1780283477;
+	bh=Ff1yPSPiJtJfD68kpyDRuircorhinc0kjjCW+BQhjP4=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=XT8M8KYPSA5dZeFZB2GCNBlFtgCX43f+ft0DI9OOMgXKHGqvXb60phmvWofEdCpm9
-	 9pdh7hG/ThYqRVCiNaqa7Fqj0Gs1G25xF54eFqLEQw4WF/Us1zrFxyjmcsuUVNUM5F
-	 +L1GJrO++gg9oFqpuKgWGX7MZruoMuvtNd7xz1Zav44ADsQk771IOx+ngU6n4yf6Et
-	 9iDdRZ1m0gp104AMtQy2OAJyvvpJiAokJA1UpzA5P8GlucDVxb5e/b5OxQdvGeWisx
-	 fA4Fs+AnV+VGqWF+hsm3rsl7A8Fht90tLRajQ1YcCJ1BPQWFJBOALDxWRk5t32e/hn
-	 xU7QBPiZ4BuyA==
+	b=G6ynj0UhTzgdKfDqIdpjebGQo69vfYElzlnMIVBgveFtMDBcwZoIiG8NMgFBziFnP
+	 WGbpHOf+XRljtHEO7g/xufQ73WvWqt/rodAUtmB2lqk88Q+z0aHUfm5N4pblmDlvbO
+	 KVxeeu6thkQPfAoTUFgong+Bx5GjUOwhILmr/++PYE9UqyNI9i+j4ho8IKDNvNShHy
+	 kk5E8D4fkqvP5CPC5C7ZgCFNIRYqfA4biVEZiOkrr9nXkAEKBFSbGFn0mTyzsaccCy
+	 ayavaQmC8ZMiYXf4m46jjcG9dCT8kByrLNG4oQtiBXhl7qM4HkM/dCvKVSFy28aSV0
+	 8veYJogawRcsA==
 From: "Matthieu Baerts (NGI0)" <matttbe@kernel.org>
-Date: Mon, 01 Jun 2026 13:10:04 +1000
-Subject: [PATCH net 08/10] mptcp: sockopt: set sockopt on all subflows
+Date: Mon, 01 Jun 2026 13:10:05 +1000
+Subject: [PATCH net 09/10] mptcp: pm: avoid sleeping while holding
+ rcu_read_lock
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -37,7 +38,7 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260601-net-mptcp-misc-fixes-7-1-rc7-v1-8-a5ae7791754b@kernel.org>
+Message-Id: <20260601-net-mptcp-misc-fixes-7-1-rc7-v1-9-a5ae7791754b@kernel.org>
 References: <20260601-net-mptcp-misc-fixes-7-1-rc7-v1-0-a5ae7791754b@kernel.org>
 In-Reply-To: <20260601-net-mptcp-misc-fixes-7-1-rc7-v1-0-a5ae7791754b@kernel.org>
 To: Mat Martineau <martineau@kernel.org>, Geliang Tang <geliang@kernel.org>, 
@@ -46,61 +47,98 @@ To: Mat Martineau <martineau@kernel.org>, Geliang Tang <geliang@kernel.org>,
  Simon Horman <horms@kernel.org>, Florian Westphal <fw@strlen.de>
 Cc: netdev@vger.kernel.org, mptcp@lists.linux.dev, 
  linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- "Matthieu Baerts (NGI0)" <matttbe@kernel.org>, stable@vger.kernel.org
+ "Matthieu Baerts (NGI0)" <matttbe@kernel.org>, stable@vger.kernel.org, 
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
+ Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
+ Hannes Reinecke <hare@kernel.org>, linux-rt-devel@lists.linux.dev
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1237; i=matttbe@kernel.org;
- h=from:subject:message-id; bh=N1bc/nUu/TVx6vrRiyttrdnrCWdRHHAZglldql0RHt0=;
- b=owEBbQKS/ZANAwAIAfa3gk9CaaBzAcsmYgBqHPgeEPpqKTvjGzOf8cNr1mQoA1WSdlrRvGwbp
- 79pX5ZafSuJAjMEAAEIAB0WIQToy4X3aHcFem4n93r2t4JPQmmgcwUCahz4HgAKCRD2t4JPQmmg
- c6CyD/oD2ZNPsQJKezZeB/3041Z52oUPR1IDEzXcEt8pZHKbaukirkYGSX2X9LtjamkZNDm3RQ2
- 0CSEsE018YCTzC5KPEnvAXp6MzjXWlnetCSJ+7C6uEACK7po3Dpz88Y2IEfzUh/ufgt82+SMEAO
- IpaaKcED9PMz9SWNowMqSg6glB5WMhN4akM994ZNgmWaMHPLs654bKs+X5WXpUebl9ZqbKY2tC0
- 1igKeF7DP6wm96LTizS2SJvK1jTQL+TlPApkQ8kQX/OC8QKGBv17i2yiCDbbbPVbt/Bmp6keCSM
- eGKeFz/87fvQURWJA/DNYtL6p+gAjgi12sk8Q/diBBLjGM7BIDt1dzAYFVSFVsIyuvMlsKhV3yb
- N3T2ABV2tA3RyOVk/4frtmq8EzZcpyrZ27tVqlvpD3TXFT7R2vf+NsJ6ZgmoZSWfYsCDbW63M4p
- gX7P/NR9tL7nTql5w7FI5iA/XUzuV6nVHQ8r7AxxPP4vNIyKunGm/7XZVIACTmRHgq3dq7aMlgt
- 1EGHy1OUhuZgMm2EZPy6+wOOLQly/YmzQbqLUZ0Lk1kLxkKj/QBWoYd/5+ZD2gFLVgphKG8V4D7
- 2vvY9WjMnbUZVpa1esgsmaX0jPMozJTeUnV5EFmJui92cV8Kw4tZrTfBttp3tsJ96+9v3XTEr7m
- w6zT6lKeiYhvKpQ==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2332; i=matttbe@kernel.org;
+ h=from:subject:message-id; bh=GLfWQd2TsQbqct9PeWcRmweoXhBgKsmkaFdxXHjiZJ4=;
+ b=owEBbQKS/ZANAwAIAfa3gk9CaaBzAcsmYgBqHPgf8MYNWxvDl7gSug1wQ7Kaz3jmOSNsfBYXe
+ ALCqAN7N4mJAjMEAAEIAB0WIQToy4X3aHcFem4n93r2t4JPQmmgcwUCahz4HwAKCRD2t4JPQmmg
+ c2/7D/47YihB1wam2Kedc6BDJ8zDyMcet3jUTJr6jlS90sLBM1g23lR/IF83v2EJQ8iYxXP4sbU
+ yjnhxnaIB5SEdYtQXpdw5pjs5iZojPm+N28iSQRXwadEfaalsfaLlfqScS7r/4//sASQ7EEbZoE
+ jE/EpD4KFjDo8+LHLjxyxG+Dhs7UXIa4ksX/jLdCfyvG/tH43agdcdW77acfl/oAsQ7hQCJnc9c
+ HX9tzlp2RkjA51JBA7zwgitLA4MAtrAMJpZ4o4dAFDCr9unF0mvs+utACO7cDF7hMM1EAI0CSe4
+ UDhGzmMmzvF3eGUbS6iKQJPDBV3LwcEb+Zgf7aj5IN3Zw3njG6PcpMjvADd6V3NSz0I5LwC1RM7
+ E0GUgwDijq7z+cKumhUuxH8kxgYvg4sjDJ4Yx2upkgxdi/QsVdWyKgCVk14LkLAJrXL7zsmogm3
+ gO7mUbfGFhmVtfujHnduH4J5urV8ceYuEtJn7+gcT4mjz955e0QolJq9+Sx3zY1F4F0mbfe30xi
+ RfP2LoPyk72PtmIz9Cnzs7tDRyb1+TyrFzC+tKsndTFVDLPfL3OGQs0m9gTVLKFUqB7uYJuoBwO
+ s+mJ486T1a6b3sYHXcTYzAkQOe0cFRNiHlpB1y6em2YVxP5ikClKPHUuaL4nC2gy5TbYTYgDWo3
+ RWKIWkJphaeUnbA==
 X-Developer-Key: i=matttbe@kernel.org; a=openpgp;
  fpr=E8CB85F76877057A6E27F77AF6B7824F4269A073
 
-The mptcp_setsockopt_all_sf(), currently used only with TCP_MAXSEG,
-stopped when one subflow returned an error.
+sk_stop_timer_sync() calls del_timer_sync(), which spin-waits for the
+timer callback to complete on non-RT kernels. But on PREEMPT_RT, it can
+sleep. Sleeping inside an RCU read-side critical section might trigger a
+lockdep splat.
 
-Even if it is not wrong, this is different from the other helpers trying
-to set the option on all subflows, and then returning an error if at
-least one of them had an issue.
+Instead, keep a reference to the timer, under rcu_read_lock, and call
+sk_stop_timer*() without the RCU lock.
 
-Follow this behaviour, for a question of uniformity.
+While at it, apply the reversed Xmas order when declaring variables.
 
-Fixes: 51c5fd09e1b4 ("mptcp: add TCP_MAXSEG sockopt support")
+Fixes: 426358d9be7c ("mptcp: fix a race in mptcp_pm_del_add_timer()")
 Cc: stable@vger.kernel.org
 Reviewed-by: Mat Martineau <martineau@kernel.org>
 Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
 ---
- net/mptcp/sockopt.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: Clark Williams <clrkwllms@kernel.org>
+To: Steven Rostedt <rostedt@goodmis.org>
+To: Hannes Reinecke <hare@kernel.org>
+Cc: linux-rt-devel@lists.linux.dev
+---
+ net/mptcp/pm.c | 18 +++++++++---------
+ 1 file changed, 9 insertions(+), 9 deletions(-)
 
-diff --git a/net/mptcp/sockopt.c b/net/mptcp/sockopt.c
-index 91aa57f1d0fd..fcf6feb2a9eb 100644
---- a/net/mptcp/sockopt.c
-+++ b/net/mptcp/sockopt.c
-@@ -817,10 +817,11 @@ static int mptcp_setsockopt_all_sf(struct mptcp_sock *msk, int level,
+diff --git a/net/mptcp/pm.c b/net/mptcp/pm.c
+index 3e770c7407e1..1e0866159972 100644
+--- a/net/mptcp/pm.c
++++ b/net/mptcp/pm.c
+@@ -401,9 +401,9 @@ struct mptcp_pm_add_entry *
+ mptcp_pm_del_add_timer(struct mptcp_sock *msk,
+ 		       const struct mptcp_addr_info *addr, bool check_id)
+ {
+-	struct mptcp_pm_add_entry *entry;
+ 	struct sock *sk = (struct sock *)msk;
+-	bool stop_timer = false;
++	struct mptcp_pm_add_entry *entry;
++	struct timer_list *timer = NULL;
  
- 	mptcp_for_each_subflow(msk, subflow) {
- 		struct sock *ssk = mptcp_subflow_tcp_sock(subflow);
-+		int err;
+ 	rcu_read_lock();
  
--		ret = tcp_setsockopt(ssk, level, optname, optval, optlen);
--		if (ret)
--			break;
-+		err = tcp_setsockopt(ssk, level, optname, optval, optlen);
-+		if (err < 0 && ret == 0)
-+			ret = err;
+@@ -411,7 +411,7 @@ mptcp_pm_del_add_timer(struct mptcp_sock *msk,
+ 	entry = mptcp_lookup_anno_list_by_saddr(msk, addr);
+ 	if (entry && (!check_id || entry->addr.id == addr->id)) {
+ 		entry->retrans_times = ADD_ADDR_RETRANS_MAX;
+-		stop_timer = true;
++		timer = &entry->add_timer;
  	}
+ 	if (!check_id && entry)
+ 		list_del(&entry->list);
+@@ -420,14 +420,14 @@ mptcp_pm_del_add_timer(struct mptcp_sock *msk,
+ 	/* Note: entry might have been removed by another thread.
+ 	 * We hold rcu_read_lock() to ensure it is not freed under us.
+ 	 */
+-	if (stop_timer) {
+-		if (check_id)
+-			sk_stop_timer(sk, &entry->add_timer);
+-		else
+-			sk_stop_timer_sync(sk, &entry->add_timer);
+-	}
++	if (timer && check_id)
++		sk_stop_timer(sk, timer);
  
- 	if (!ret)
+ 	rcu_read_unlock();
++
++	if (timer && !check_id)
++		sk_stop_timer_sync(sk, timer);
++
+ 	return entry;
+ }
+ 
 
 -- 
 2.53.0
