@@ -1,121 +1,80 @@
-Received: from fout-a7-smtp.messagingengine.com (fout-a7-smtp.messagingengine.com [103.168.172.150])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38BED3806CE;
-	Mon,  1 Jun 2026 06:54:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.150
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01402347BBD;
+	Mon,  1 Jun 2026 06:58:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780296858; cv=none; b=h897pjG0b+LEo1w9feP4AFhV74r+ZFz7HIy30w5zaSfEXWUfqN8QpVA8uuQnSfXVWan0zVpuRr6SFWgFoJYPbD9jj+cPd7P0sEpA97eu0ONCevyGQC1p4MkWGMNG4JQWSPAXbXq9PP2PWNU+0rl5qpbybKephony0wO6fdZHf9g=
+	t=1780297097; cv=none; b=lJTQXp2TCx+lN4oIOycMjm9pYk56oJKpfAolGPlN/KyowTjUqeG7cYg8+r7+IY4ugrvpA7czS4Q4ZnY2b6fFDPP4UhW7BzvNm+8DCFqqiczAKhyLJ5NUhkYhaus5yEjFE3xtmYCHef8hFg9/uhiO3RsLpq/PsDa7szCL5MXXONg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780296858; c=relaxed/simple;
-	bh=6+D/HV2hutrD3NWx7CQmPSJE1q+yf64nkYMNNgSo5n8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Wgf11QlwSmI9mOCElD0SazWtmt0Wv/O1brnICGEiG5X9SYYoltra7rQmjoNSzRQfdFzCnXmZKA1mvA5LSQfGLZfpSF0Zck9tnv4qWFw3NsLtlv0rrPHJ6chnGOfEK3ftktb7pMkLMiRcwWLb40LdRnQ4mu8Gb8xu5r8xiM0zIi0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com; spf=pass smtp.mailfrom=pobox.com; dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b=GAm57KWS; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=bPKjPaGt; arc=none smtp.client-ip=103.168.172.150
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
+	s=arc-20240116; t=1780297097; c=relaxed/simple;
+	bh=yJy0CmnIxJjAFp2xvW0lH2ZU1wwcYRyC/5qf0dtOaLU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Z8eGHmq90KuXCMkVCPnC91orW5yYk59xMWW9Rr/kCDeX9RacMUe/Co1j+uScU1ja/FTJgzIrVmjzMIpepIK6GNuVUdlZixrOP5juEBSxOloGK66Uqinn1y9oNHChXuALaHQzrvmYlzRJzVEC2ck6w6fWGC1UHp5b3b+TNToDcvE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=zORcKruJ; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=0FcOzPlV; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b="GAm57KWS";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="bPKjPaGt"
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfout.phl.internal (Postfix) with ESMTP id 80B5BEC01D1;
-	Mon,  1 Jun 2026 02:54:15 -0400 (EDT)
-Received: from phl-frontend-01 ([10.202.2.160])
-  by phl-compute-05.internal (MEProxy); Mon, 01 Jun 2026 02:54:15 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1780296855;
-	 x=1780383255; bh=hKTO0qf4C4LzwggzJvsMwTM2li7HDIQWWhZAjJnbO8A=; b=
-	GAm57KWSsHF5cpNf9F+g9e7Yp9B1YdoaEumNNMstqilD+uhztBCSbXGmiAU5X+FQ
-	fqkTiD1skAX5WEv8QuVbzuCo98gax9KZd3Qiq5Oj+doyr+zi//AT+elZJuJeI8jU
-	iUuIn0aa9GU1n6Wq8qJr7UkkdEPzc++lN1Ghu9UT2pPsrFzyIZJrloY6jV8+q16Q
-	6KKZIiPvCgiZYeuk3nHhrkO0V/ZW1O3K7ZvQtHqgKQgcJS91fvZkZL8atvB8vAOT
-	EzDrDcJyGERogTUv53O/DZx2NSdLMUzIHg+WhwntUzCj9WV8mNcSZJtHGotYr0AI
-	BQKwpN6Q6Rnjui0w9d5bcw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1780296855; x=
-	1780383255; bh=hKTO0qf4C4LzwggzJvsMwTM2li7HDIQWWhZAjJnbO8A=; b=b
-	PKjPaGtTYXtStq1mBn5KM/wJTF1FJeUbs7FE0q4CbEGz9Xu37g9j6WfsYAlc6drh
-	idpgY6aNGu7Alf0YsVo8EsJak7/D0aPBB+rjSM4dZKvicTOBhE1nsbNo/XXi/SR8
-	stDV/foX6Z+3Ohl77teGdSKwh6LUNasjE190Z4fwTqJw/zNehIsnOLPC7AWoBF0d
-	vjy4NNToZo0q3S8V15jQO1rxcuSEDYEJ4eXNOb3a7UsPHz0+3GO0UGBqiPoJJQGw
-	5VA7lDvS04BSBsQgPdq9SVLyI0gwwcosv4OwMYD0/AfU+OzYAf8SXIktJjd3eLwR
-	udgXQSBli1FkKWm0pug1A==
-X-ME-Sender: <xms:liwdaj7RB0hP8WKJLU-k8liKhuFDnmD6gMgBvcTJLaea8FZ9a3I92Q>
-    <xme:liwdakwafTa65SYqx2GciN8BnAJ9qlJ1ANP1Vlh2mGgeOVoGzhfynOXQCuZLLwoKa
-    t0zLUuoGiCrYzVDYHMdRKm6boRnK-_zSgaqx9q5m-3yHUTHCU7lqA>
-X-ME-Received: <xmr:liwdal9hCMjQxTFd_IsAsS9cMp96rh1jIdx1pljQI6ZcLyVlQwal4hW46FvR6dnJiLtscvV-p9JWg1fzywPGhN5m90YhJ_VV>
-X-ME-Proxy-Cause: dmFkZTGXJxcod9zgFW6rG0VSmWXbGpH2E+z0SCLbfllWouww/5ACfY3DtSzT69+3dJcxlJ
-    bwtASi4hnEYg5ir0+XkIMJv4k5K5+SeMsrvBYEkRjRymqn89ipC7kmgxx2n1h6lopnFwfG
-    6SJ7znSjTvgok53QT8Pyj1h+musssMWsJ432obrbMSB1E6xJ0K1jh/YxWn+7toYerMLtyj
-    ecfvTRpRnIAyfvDNya7V/LLg8bi0X6X7rTTRW5HJh1s8VXGIIkbvxBi50kvfL9k93w5/2l
-    GZ9AZCz0ZnW0y5xvLhNnVxvVczxJHRXCDf9AeOHHMpfEI/X3NKYW7W+4DXlZ8c7hx7Mdjp
-    qp4w+pYYk2Ek1LrA8Ro7liF8n09pPS+NsUJ+04kF0iqgsZRceX+bXEhd2nbBIaQcdsvY+E
-    5L2XY77wdWcNGOvS/38ItwW58kQIb82j3BMSkZc+pC5lPI7tgEG8pOUT2+1ileSmlpuXhj
-    9TB196I1Gm8Kb153D4WLTTQNvdiFuTlXwRlQnMGWt5PdGmojl6EOaibb3ZLv+8qeVHDE2D
-    g521kpVOay1OSC52E7WdgiN0+o165oR/ovnazvIpNo0e88kPjv/43wVm3NgGYUJWbilKfK
-    2VYC3UzPzBAtWUR6CLu4Klh5sY+1hwP6JN3nxV6ZrQ1dyQy0tH69P/zn0vCw
-X-ME-Proxy: <xmx:liwdaoG5EywTvmeuMgq3yc4qMDDtw1Fkb3cZ_gUOySJq9MXfu4Tnwg>
-    <xmx:liwdavCaZ9l6W_NRgSqm98Kkg4LZs_mdaOXVqjSJNy8E6j0uTW7xMw>
-    <xmx:liwdasku7Ftjihiu9Zy9jdPoWKOrialTyeGXa6FNUkNqLAjYfO46TQ>
-    <xmx:liwdaiSjrs54n5RVQagsHpDPXOfiVLjAJ_PFqQmmjzRYK1inlT32WA>
-    <xmx:lywdapMEXua7tqEhssO9SS-wPwayHFaqGnW-EVC1zqRIWCu2C6U06Fb5>
-Feedback-ID: i6289494f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 1 Jun 2026 02:54:12 -0400 (EDT)
-Message-ID: <5c48884d-6bcc-4a12-a9dc-dd9e2d03dd90@pobox.com>
-Date: Sun, 31 May 2026 23:54:10 -0700
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="zORcKruJ";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="0FcOzPlV"
+Date: Mon, 1 Jun 2026 08:58:13 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1780297094;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=yJy0CmnIxJjAFp2xvW0lH2ZU1wwcYRyC/5qf0dtOaLU=;
+	b=zORcKruJ9QJOtW4JL1Pm23rr8Nn7859O839uqpFCiRaLhnVpt3vH5A45v3oD0GwU5zEKFp
+	5KoiJpX7ERkDuyC63RVc863tn+FhxNrbtSYDFuc9XRyXQKe098LP/duwnZ6B+DMlsG+va6
+	gBMoGhERg8d+Qryv1wRUdCzFR/nyy6IWl7NJxOE3QEiINHdZOIDw93MtX4O/A0Tg2Zl+Ot
+	VMBejWMXFzpGnedfK2hJIGqYdCc5QQYg+xqIBqUXRnN3N8J2NkblzOca2Dhpg2ox4QKjDM
+	vZpyeqt2EeCZ++90Cu00ZypywIJUdXYBZVkgN7cYdaIuJqTu3S3KeSTLp8qWZA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1780297094;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=yJy0CmnIxJjAFp2xvW0lH2ZU1wwcYRyC/5qf0dtOaLU=;
+	b=0FcOzPlVIato7qS/odBjpYZVeForAreWqj7U1P+j8gvuU5FR/47koS4F5+qJ3QtgejkaMS
+	lLIMMvRIEAawgHAA==
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: "Matthieu Baerts (NGI0)" <matttbe@kernel.org>
+Cc: Mat Martineau <martineau@kernel.org>, Geliang Tang <geliang@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>, Florian Westphal <fw@strlen.de>,
+	netdev@vger.kernel.org, mptcp@lists.linux.dev,
+	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+	stable@vger.kernel.org, Clark Williams <clrkwllms@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Hannes Reinecke <hare@kernel.org>, linux-rt-devel@lists.linux.dev
+Subject: Re: [PATCH net 09/10] mptcp: pm: avoid sleeping while holding
+ rcu_read_lock
+Message-ID: <20260601065813.Z8V8Tb6d@linutronix.de>
+References: <20260601-net-mptcp-misc-fixes-7-1-rc7-v1-0-a5ae7791754b@kernel.org>
+ <20260601-net-mptcp-misc-fixes-7-1-rc7-v1-9-a5ae7791754b@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5.10 000/589] 5.10.258-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260530160224.570625122@linuxfoundation.org>
-Content-Language: en-US
-From: "Barry K. Nathan" <barryn@pobox.com>
-In-Reply-To: <20260530160224.570625122@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260601-net-mptcp-misc-fixes-7-1-rc7-v1-9-a5ae7791754b@kernel.org>
 
-On 5/30/26 8:58 AM, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 5.10.258 release.
-> There are 589 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Mon, 01 Jun 2026 16:01:34 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v5.x/stable-review/patch-5.10.258-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-5.10.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+On 2026-06-01 13:10:05 [+1000], Matthieu Baerts (NGI0) wrote:
+> sk_stop_timer_sync() calls del_timer_sync(), which spin-waits for the
+There is no del_timer_sync()
 
-Tested on 2 amd64 laptops (a Lenovo ThinkPad T14 Gen 1 and a 2017 Apple
-MacBook Air). Working well, no regressions observed.
+> timer callback to complete on non-RT kernels. But on PREEMPT_RT, it can
+> sleep. Sleeping inside an RCU read-side critical section might trigger a
+> lockdep splat.
 
-Tested-by: Barry K. Nathan <barryn@pobox.com>
+It can not sleep. timer_delete_sync() does not sleep. It can block on
+spinlock_t and schedule but this is okay within a RCU read section.
 
--- 
--Barry K. Nathan  <barryn@pobox.com>
+Do you have a report for this?
+
+Sebastian
