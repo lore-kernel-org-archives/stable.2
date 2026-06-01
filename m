@@ -1,187 +1,117 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC00C395AD4
-	for <stable@vger.kernel.org>; Mon,  1 Jun 2026 10:16:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C0F93955C7
+	for <stable@vger.kernel.org>; Mon,  1 Jun 2026 10:26:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780308969; cv=none; b=pn8mRzPf5pZ8ahEKpsjSGvrnoe+MwEi09Cs3u/cyANtJ499Q+QJtrQK7pvf15IQa+EJcpfF2WXMZDASCu5aDLheMdKISvXmoc74dobx8cL2NP2Z+ZO4goQHGzeSosDlroJXZFeGrbT6ACTAkadCyTjk/eR99VUy6Q6x08m6VNO0=
+	t=1780309562; cv=none; b=Vr6xI3hTjD++KX+Wn1n99yXyKE74PnMb/WDX0ZPx3fsvhrj2MgBRCXL4KKD0025hY5SML5TD4a9zRfQSNgTYDAwzlJi65pmCvlwsX6LGnQBidqZz3zcKWzYsjGOOCXXD8swAEX59Ov+psQWM6a5fLGV1eJIy7B7EJQAObsdLEbY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780308969; c=relaxed/simple;
-	bh=//fpv6KtnZGPacElQOdywvJfvUtWfzycEBrOQGiMPzk=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=lag2h8w6m5LuI/5KJs8SZPcr0LacO+jYJSaLvctPXOxL/oTB3CIxP5bneD65Zi4HJAyZOcZo1P+xlSR1msuhoHFbX2gmwGPWeWV1IQRp9QZ1uO5BhFDbNIIJVMq2xMJr7tnqfcP04bGE0GGqmayCO6zAx+XZ43VdzetyLFAXs54=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=bG97OOPA; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=qYqFzf19; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1780309562; c=relaxed/simple;
+	bh=MT8y3W9BpKyCzzFF6DhqsNlI8SINBQKwQSPAq/IyNNs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Ey4gOw9Fh32nbUKBWsWPFjNiHdOZFlCdl7UkybZgcAmC5S7PyOwbhREb6mwG/fJwuy0HOeM0hqaFg3lm4Wvf4XeHyiC/C82kLq8VHYE2AnA+a0G8ey7pDV2P2T10dhvMFHwhYvpwLGEWdsguWm6id4CC1o4MgbvCSad+rjsV0rI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=UDNT6uMz; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=yXaLXw43; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="bG97OOPA";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="qYqFzf19"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1780308964;
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="UDNT6uMz";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="yXaLXw43"
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1780309559;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Ec/J4tNvrAMdwkOq5RTOf80WrT+IRWDMG7cFT7/0gaw=;
-	b=bG97OOPAoHu9sfEqhiUz+D42kqucPKFn4+sshDR/VXpNGLmDVaTEgP2R54uiN2L3HHo2zO
-	jzvjYnrPIG4a3Jzhet9bvw/ibed2K84i6Ofv5Wc+4N19MY+Z1W2OQ3QyccwWNqWYrsA6Y5
-	yHQkjhDV+Vc7NUW2GqIz90nagSVmSFw=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-304-NeNDhsWPMnCJMBEDGaZC0Q-1; Mon, 01 Jun 2026 06:16:03 -0400
-X-MC-Unique: NeNDhsWPMnCJMBEDGaZC0Q-1
-X-Mimecast-MFC-AGG-ID: NeNDhsWPMnCJMBEDGaZC0Q_1780308962
-Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-4909ea0ffbeso22693125e9.1
-        for <stable@vger.kernel.org>; Mon, 01 Jun 2026 03:16:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1780308962; x=1780913762; darn=vger.kernel.org;
-        h=mime-version:message-id:date:references:in-reply-to:subject:cc:to
-         :from:from:to:cc:subject:date:message-id:reply-to;
-        bh=Ec/J4tNvrAMdwkOq5RTOf80WrT+IRWDMG7cFT7/0gaw=;
-        b=qYqFzf198t5SPjnGYTxm2tKTCvzMBJI2CCWRPxD/dU3kRMjYnN/ed9VLpQGypAl5Ho
-         i4eXAZE4oKfy/iOKRi8EoCjlTsPIDbf5+pOdP20Y5kgylUZBD40govnhIm5EQ6N4NrRa
-         Wb7OYlj/DVytwIL5+uMkcU53JMnU4adtZ0FoZdDJUaBdJbrmIVU88xJOFhtNky9FwnXK
-         /gvlEUJD4nRuaNkhon5QjDtGDIt0eitUjXr+cL51lm7cO8v0wjNLpwj3Fo6kW3mVzKcs
-         +clN1HG6CImY9UL1mRmZsfVXzWrMXt88sCM0SE1UvBMbKKGn66gbqD1R7hVWmCBSRn4t
-         Pm6w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780308962; x=1780913762;
-        h=mime-version:message-id:date:references:in-reply-to:subject:cc:to
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=Ec/J4tNvrAMdwkOq5RTOf80WrT+IRWDMG7cFT7/0gaw=;
-        b=UUMIWHur6oBFgWErIhy0aNGh0gDlHJP58/cvzFuLWOddcS3owOOihHR0a/0K67IOjo
-         HDFpTGACms7gp/DYTrtSu31W6NyFaxU3GFcOG1arFlx+qbQjarIC4MeZs1KgMOHaLq9K
-         zzKA7/2u3ACIkGLfHo8FViqbh3rs7RR9FKv7t8Zv6hmDBWqDvuEb+wE2WlBPjIXkyR6I
-         +zbiOB6R/cRbiLQlLqonfPjW+ozDDNBX4n6nQgOMmmnThrTTGD7oBpfyrfyMyNjk6u0d
-         InWiN4S1YzBsSi+H25TryhOtAW9Tfkbqq/Sq9RMiueTUpxUMKPHNTqIx93nsWJy0WXGv
-         IXcw==
-X-Forwarded-Encrypted: i=1; AFNElJ8EgC4f7IG1EKXToiGntTx1ZNG7zmEcBDWFWJZ9LKWk5Po+nBjQ7nsVa4iAag8I91GWEjV+cio=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy84nPgtui0njcfRLwRV1krcf4wkuDPMI8GDYzJDPjeOdxu4c7v
-	GrYkLIHVr9Cxh0E0HrEjQlvI+zeq2uyCqLlm8uDjKIWHXznAPYJ4O/qJPLz/OLii86JfoR2iThV
-	sA/c7DxPrVJwK5/rWK7g0giX0m7KC97NCgbleDUl3/cXScFgk4fW2f4MrUw==
-X-Gm-Gg: Acq92OHX5/pXWS5ZyOERd7CzAPpgnx1WpimZ8J3gMM6pX9svyeNINA+YdC+vr6eDExD
-	db7UKSLCaAJWwo8MFeTzaqKX+KXdK+HhIb4tJ5etOvBDIiLoA/EssMsVSOl9XsAeSP4Im6E443j
-	rjWIiC9pBAREtyf0LGatqeNZrOizSAJJzMUCYub73RMFhKVdbLqLHYBgl/c8Cd2Dx8abMsaO+tU
-	hjWb1hwBrSh3X6HMu7eNMEPJMX2pP2rWt3Vf47DU9doxGzc8/v5wF1f5VsjyWvAggLeegULcBIz
-	c+6qbzE/PZqUuQAUM0k4WVWxdan4346sgZBZt393xY9a3tYnb+fzMrNyAVXT/jfDtRNIHpTodFV
-	Ju2zrdWQecacaprD/hP7EFHcd7ztVkUBUVbcpvI3w5faA4/CywvDosCCFpD1lPcHRznki2kFy/m
-	GOUa0o74MN+3JnApI=
-X-Received: by 2002:a05:600c:1c06:b0:490:a298:3859 with SMTP id 5b1f17b1804b1-490a29838b6mr211911695e9.24.1780308962231;
-        Mon, 01 Jun 2026 03:16:02 -0700 (PDT)
-X-Received: by 2002:a05:600c:1c06:b0:490:a298:3859 with SMTP id 5b1f17b1804b1-490a29838b6mr211910935e9.24.1780308961705;
-        Mon, 01 Jun 2026 03:16:01 -0700 (PDT)
-Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45ef32fabcasm23621879f8f.0.2026.06.01.03.16.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 01 Jun 2026 03:16:01 -0700 (PDT)
-From: Javier Martinez Canillas <javierm@redhat.com>
-To: Thomas Zimmermann <tzimmermann@suse.de>, mripard@kernel.org,
- maarten.lankhorst@linux.intel.com, airlied@redhat.com, airlied@gmail.com,
- simona@ffwll.ch, admin@kodeit.net, gargaditya08@proton.me,
- paul@crapouillou.net, jani.nikula@linux.intel.com, mhklinux@outlook.com,
- zack.rusin@broadcom.com, bcm-kernel-feedback-list@broadcom.com
-Cc: dri-devel@lists.freedesktop.org, linux-hyperv@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-mips@vger.kernel.org, virtualization@lists.linux.dev, Thomas
- Zimmermann <tzimmermann@suse.de>, stable@vger.kernel.org
-Subject: Re: [PATCH v4 01/10] drm/damage-helper: Do not alter damage clips
- on modeset, but ignore them
-In-Reply-To: <20260530185716.65688-2-tzimmermann@suse.de>
-References: <20260530185716.65688-1-tzimmermann@suse.de>
- <20260530185716.65688-2-tzimmermann@suse.de>
-Date: Mon, 01 Jun 2026 12:16:00 +0200
-Message-ID: <87y0gylg67.fsf@ocarina.mail-host-address-is-not-set>
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=pfpmvv3vkWQc7+S/D25INR4q2xsdkLWMGh28bbEu+hA=;
+	b=UDNT6uMzJKUqHx/xyNUtqv3frBsFKct0dMec6VCpFYO9k6oBHHB3znQkL+oUS9Ly+BKEoq
+	YnGuuR0qEpqxlWatPw/too45aPkE03OoS4gzVbuIBVLJkeu8EwLG9ChlsaddRUq2oGajlU
+	d7ZDJ6YS8ML6s5nwvki7jpGgK4uNDa2UY4BxGHvOKKcZhvmJBPGxmiwbbjwmNDWToyokEo
+	mVP/bPVTsA0gMpP1RKW0E/0DMhvxM5KKYp1n6ibZmv2U8Nvcn6w0TgGpC6iDqS4GhRIh7i
+	PNxERUNt8/JfBz2aYjkG89TGsAALefjQjmX2DVasGo9NAsmB0zaIro+So/9MWw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1780309559;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=pfpmvv3vkWQc7+S/D25INR4q2xsdkLWMGh28bbEu+hA=;
+	b=yXaLXw43cVNMl+oV2GE6K2EbeT/hgCIrtJ2/D4Y7Oblrg0sJUo1rGRPPNdvoLZfsrXYQPf
+	pBcBzUz1TlhuFhBw==
+To: stable@vger.kernel.org
+Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Subject: [PATCH v6.12-stable v2 00/15] Backport: arm64: debug: remove hook registration, split exception entry
+Date: Mon,  1 Jun 2026 12:25:39 +0200
+Message-ID: <20260601102554.233076-1-bigeasy@linutronix.de>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Thomas Zimmermann <tzimmermann@suse.de> writes:
+Hi,
 
-Hello Thomas,
+this is a backport of the "arm64: debug: remove hook registration, split
+exception entry" series
+        https://lore.kernel.org/all/20250707114109.35672-1-ada.coupriediaz@=
+arm.com/
 
-> User space supplies rectangles for damage clipping in a plane property.
-> For full mode sets, drivers still require a full plane update. In this
-> case, leave the information as-is and set the ignore_damage_clips flag
-> instead. The damage iterator will later ignore any damage information.
->
-> Also fixes a bug where ignore_damage_clips was not cleared across plane-
-> state duplications.
->
-> Leaving the damage information as-is might be helpful to drivers that
-> benefit from this information even on full modesets (e.g., for cache
-> management). It will also help with consolidating the damage-handling
-> logic.
->
-> Also add a new unit test that evaluates the ignore_damage_clips flag. It
-> sets two damage clips plus the flag and tests if the reported damage
-> covers the entire framebuffer.
->
-> v4:
-> - slightly reword the commit description
->
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> Fixes: 35ed38d58257 ("drm: Allow drivers to indicate the damage helpers to ignore damage clips")
-> Acked-by: Zack Rusin <zack.rusin@broadcom.com>
-> Cc: dri-devel@lists.freedesktop.org
-> Cc: <stable@vger.kernel.org> # v6.10+
-> ---
->  drivers/gpu/drm/drm_atomic_state_helper.c     |  1 +
->  drivers/gpu/drm/drm_damage_helper.c           |  6 ++--
->  .../gpu/drm/tests/drm_damage_helper_test.c    | 28 +++++++++++++++++++
->  3 files changed, 31 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/gpu/drm/drm_atomic_state_helper.c b/drivers/gpu/drm/drm_atomic_state_helper.c
-> index cc70508d4fdb..84d5231ccac1 100644
-> --- a/drivers/gpu/drm/drm_atomic_state_helper.c
-> +++ b/drivers/gpu/drm/drm_atomic_state_helper.c
-> @@ -359,6 +359,7 @@ void __drm_atomic_helper_plane_duplicate_state(struct drm_plane *plane,
->  	state->fence = NULL;
->  	state->commit = NULL;
->  	state->fb_damage_clips = NULL;
-> +	state->ignore_damage_clips = false;
->  	state->color_mgmt_changed = false;
->  }
+which has been merged as of v6.17-rc1. It fixes the HW breakpoint issue
+on PREEMPT_RT.
 
-I would split this as a separate patch since is the bug you are fixing for
-commit 35ed38d58257 ("drm: Allow drivers to indicate the damage helpers to
-ignore damage clips").
+I only picked one dependency and manually fixed the other conflicts to
+avoid a larger backport.
 
->  EXPORT_SYMBOL(__drm_atomic_helper_plane_duplicate_state);
-> diff --git a/drivers/gpu/drm/drm_damage_helper.c b/drivers/gpu/drm/drm_damage_helper.c
-> index 74a7f4252ecf..945fac8dc27b 100644
-> --- a/drivers/gpu/drm/drm_damage_helper.c
-> +++ b/drivers/gpu/drm/drm_damage_helper.c
-> @@ -78,10 +78,8 @@ void drm_atomic_helper_check_plane_damage(struct drm_atomic_commit *state,
->  		if (WARN_ON(!crtc_state))
->  			return;
->  
-> -		if (drm_atomic_crtc_needs_modeset(crtc_state)) {
-> -			drm_property_blob_put(plane_state->fb_damage_clips);
-> -			plane_state->fb_damage_clips = NULL;
-> -		}
-> +		if (drm_atomic_crtc_needs_modeset(crtc_state))
-> +			plane_state->ignore_damage_clips = true;
->  	}
->  }
+This has been prepared against v6.12.91. v6.12-stable is the only
+relevant tree for a backport (earlier stable version have no PREEMPT_RT
+support).
 
-This makes sense to me as well and I agree that re-using the flag for this
-is better than making plane_state->fb_damage_clips == NULL the condition.
+v1=E2=80=A6v2: https://lore.kernel.org/all/20260528144825.850351-1-bigeasy@=
+linutronix.de/
+- Added "arm64: debug: always unmask interrupts in el0_softstp()" because it
+  has a fixes: tag on one of the added patches. (Suggested by Ada)
 
-As mentioned though, I would make it a separate patch. Both changes look
-good to me:
+- Added Ada's Reviewed-by tag.
 
-Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
+Ada Couprie Diaz (14):
+  arm64: debug: clean up single_step_handler logic
+  arm64: refactor aarch32_break_handler()
+  arm64: debug: call software breakpoint handlers statically
+  arm64: debug: call step handlers statically
+  arm64: debug: remove break/step handler registration infrastructure
+  arm64: entry: Add entry and exit functions for debug exceptions
+  arm64: debug: split hardware breakpoint exception entry
+  arm64: debug: refactor reinstall_suspended_bps()
+  arm64: debug: split single stepping exception entry
+  arm64: debug: split hardware watchpoint exception entry
+  arm64: debug: split brk64 exception entry
+  arm64: debug: split bkpt32 exception entry
+  arm64: debug: remove debug exception registration infrastructure
+  arm64: debug: always unmask interrupts in el0_softstp()
 
--- 
-Best regards,
+Mostafa Saleh (1):
+  arm64: Introduce esr_is_ubsan_brk()
 
-Javier Martinez Canillas
-Core Platforms
-Red Hat
+ arch/arm64/include/asm/debug-monitors.h       |  34 +--
+ arch/arm64/include/asm/esr.h                  |   5 +
+ arch/arm64/include/asm/exception.h            |  14 +-
+ arch/arm64/include/asm/kgdb.h                 |  12 +
+ arch/arm64/include/asm/kprobes.h              |   8 +
+ arch/arm64/include/asm/system_misc.h          |   4 -
+ arch/arm64/include/asm/traps.h                |   6 +
+ arch/arm64/include/asm/uprobes.h              |  11 +
+ arch/arm64/kernel/debug-monitors.c            | 258 +++++++-----------
+ arch/arm64/kernel/entry-common.c              | 148 +++++++++-
+ arch/arm64/kernel/hw_breakpoint.c             |  60 ++--
+ arch/arm64/kernel/kgdb.c                      |  39 +--
+ arch/arm64/kernel/probes/kprobes.c            |  31 +--
+ arch/arm64/kernel/probes/kprobes_trampoline.S |   2 +-
+ arch/arm64/kernel/probes/uprobes.c            |  24 +-
+ arch/arm64/kernel/traps.c                     |  80 +-----
+ arch/arm64/mm/fault.c                         |  75 -----
+ 17 files changed, 340 insertions(+), 471 deletions(-)
+
+--=20
+2.53.0
 
