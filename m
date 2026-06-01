@@ -1,135 +1,193 @@
-Received: from mail-dl1-f65.google.com (mail-dl1-f65.google.com [74.125.82.65])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from maynard.decadent.org.uk (maynard.decadent.org.uk [65.21.191.19])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 003A5318EC1
-	for <stable@vger.kernel.org>; Mon,  1 Jun 2026 11:31:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.65
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780313520; cv=pass; b=mt4FmLweHw9LBdf7ZXuvvEi9MJT6AEx8OcK4rUr0Hxit02VzhlWy5tNaCBtjm0g9eB7ls3cwso504Vkt9pbmDlTB4SwG51zd/0fciJbEKsWfwpF3kWPM1JX2595oOWszexyXWeXWKBsvaqg9bsS5TsouoirI0ijobra5T9kbpGg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780313520; c=relaxed/simple;
-	bh=yszJgkZCWn8L+J9sz17zUOD/xufK8NMtC/jiWVOFC5Y=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Content-Type; b=nbZ9tPrb731hFrmViSK4F/j2Lb/Upsjku77lvS+FD5O6jPYJmL0zcQ4O9XCnIOUYUyTZdsqGQxNE+ZP0S6P0+6esPDuIJIfTEokD6KHREsv1olr02zTK1TsKaXMglMEN963jDxNfwhdAVtDqewZtUofPpTD1vax0RNyv2ycLOcc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KAAbRrFR; arc=pass smtp.client-ip=74.125.82.65
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KAAbRrFR"
-Received: by mail-dl1-f65.google.com with SMTP id a92af1059eb24-13621cca8f5so7281335c88.0
-        for <stable@vger.kernel.org>; Mon, 01 Jun 2026 04:31:58 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1780313518; cv=none;
-        d=google.com; s=arc-20240605;
-        b=MbZ7E4zAesMoDK/37whE9T9sfFIeeyxhpHp+l6bVbQ96uyB3wD1am5gwBg8mUHLa5Y
-         3LzdQcvRPLA0LuyiWliifd3Gk4oeTk+A/lq45bp3sj+C6nr2N+KFEySQxvuBmngTxX5l
-         38AhJAkQ2oCXRhV9XiYVIu1sy7eaIaGLrPdwttRqaMXcmtoI/2s9dl1wGb91SjotxuhU
-         gOKyImxDmGmUtaFM+c6NoWJr/bPkmTr4RNnBNwTb05Pg5dFscbxJfVxz1qZsrPZkGKcc
-         5BxN7UOSwKwgoCh10crrfNWD5bHjC1lCE6JtIBUGgE8lC+2nAdG2ZwPYY3sDmwVY7JFT
-         61gg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=Cqxcp75xtoM57dtYJ+S/ObM2E9rTcqiq8xwIiEu9bBY=;
-        fh=tnDJa69asIcMf0S261oWsKWCRDbcGo7ASJc4laRzBMM=;
-        b=bnvs/n++ZKWsmLZXeEnJgIaHoV7/NBe2aJP2cOV79l6mo5cxKuts7HCZAnG0Q6i0oG
-         0PwJiDufPSm559Oc0yXPKTV148lpwTHNWOpMo6dEgfat1MR4UBBChFt4gLd3jo2GYiSm
-         O+P2IVq+EO8kkiu0n3wi+gxkqqqy5L0bEcmGWJcU5E6eOYGLDtI5wLAmbmr3YnJVkOKZ
-         iDwalKeLWBQC3GIdZWY7KdaBvWiQ75jtfaep1pMbFROF7OsR1+BYJqacRgLk9KHFnkoM
-         hChcaO0pABUeUm7FBjxtTOCPTrh8uzq+aNNQ7XPfQEA6KlgTynEeDc9LjQkeLmbWqs57
-         KhfA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780313518; x=1780918318; darn=vger.kernel.org;
-        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=Cqxcp75xtoM57dtYJ+S/ObM2E9rTcqiq8xwIiEu9bBY=;
-        b=KAAbRrFRLEY4qF/4mjQ3f1UiUQtiSbfzHtE6YkKMtz4kbv7WMHYZZduU1irdoFu1RG
-         X3H1QVzRlbdcKapY+Mc8CYbiWJ0g+Fb5ht0xpiKaLbf974vZzSHiqR95/SBYCYZXWeGS
-         2apeNvaWbm590C8K8R/UWruGoQAOmWHXuUhI0ZikmsjCvOoF/bjEgk2Nucn8f+8G0YMm
-         5zl0ZYPqH1Jgmlfc/fAqpSjGTK8cyswDZrjoPJ/yZTrIuU4V+6WpqFELU4eLPrDi3sjP
-         Qu00teTpdaKxu5Y5EXqbd0k/wxeZA0Ma7KZ1Oga2j6RFRxHyeFgKIxgPDtyAaYnz/fw8
-         i9kQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780313518; x=1780918318;
-        h=to:subject:message-id:date:from:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Cqxcp75xtoM57dtYJ+S/ObM2E9rTcqiq8xwIiEu9bBY=;
-        b=Xiv8lKvPIyU7wtokJJGo+Hd9iXKwxmJiy8DYqwKI2H8v4A0+20AKITL7l2GksbmvKQ
-         UeKDBvEZpLL/wKGDZzEK5MytRgFgPf5WGTWAxD6/YWhyLn0FUyWzg8d89Fbj38k5Rndd
-         qtkIk8s7gFcZYpjZH/rTI/4/xLWnueGugrzUoZTTfRTT3QjPupB29aDdmOpc3sfJAMyj
-         8YUDncdKA+JVYe3DhJ9qB1QrsqeGcEXRsapmjhDif3FJlU0CnYZ9x8uoVctbfShGKzXl
-         jVFr6zFHUJFG8k9Itk0GLn97GEXyYFNpxgW0ycgfmR9pNwcANxtOvh461NwQXY2SWx9D
-         P/dw==
-X-Gm-Message-State: AOJu0YwsYQ0E7JPDqBDgb8eKoC1Q8qjZdoZWKK+mV7aA3TS3ptM3W4yj
-	we1bPAYRluUWIuf2XpAvQuNT7Tb1xJ4/1LhYtBjQFGaG6IN7y8nxlPuEWS/umRhVpAhHVDeU0mU
-	J7IuJuvY0Kpz6yUlvpzN1k4OU0kjpcf3vFRMvsNEwN5TRCD8=
-X-Gm-Gg: Acq92OEkZ6rrVrWlvvOnfUeGB+SxQ3yEqHWu/KTwgDRD4YS4No3nsaqgVkYfZjD7qCl
-	Yt6rikwJx5HSCTfkDt8xeGYqET3eDL5UPIrlEq591BXbDVRsufwRTP40lQCgi6qbJH96671ghf2
-	hfujcOlbKr9NAbXgD0W0pIPUY3LMS5YQghmCTevLyn/eSI1p3BvSqGcPtOSvdVSyJj36bIDasFU
-	ZcyxCvzE0WUIMVJyerhMBj2HhDTzkXJnfXOi+0w8kafbzctWqyGckYV3jgCqlIhSWAMGkZyh941
-	Lq/RTdY37Id/z7RlT0kVSmzdyrHU
-X-Received: by 2002:a05:7022:392:b0:137:938a:1044 with SMTP id
- a92af1059eb24-137d425e735mr4514505c88.33.1780313518020; Mon, 01 Jun 2026
- 04:31:58 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACEE8346E6C;
+	Mon,  1 Jun 2026 11:34:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.21.191.19
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780313694; cv=none; b=kVuVBchV0+5vM27GGtrcKsyEy4kS9XFitcXqA0GvNEUN6Q0DUe8IP7VrP1OUdU0oHJNUsuBaFE4CBnXV5o6h5UuCo82PJD43/wr7rZHXGD7x6XwEv+85PfeGelEFDY5BHIw6PpBTpI/YwblOFLK966I1ElYp6Q/fEwEX83LRiAQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780313694; c=relaxed/simple;
+	bh=EO1RRd+05ZYASXl/TawX6FjkPRcq/IWCAitYl0V0QeU=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=GgMrfL5lKov65S25H5MiYwlZ6NdgkFpol1n/D6uebcm+Ob9Dolesr3isniq+cT9SKE6gvtb164WV8qj0Y/5sjFvNNmq/oct3bvVifMEc13fU6KHqlZ4I060caqzfW4c5jNULEIFBPEym3R3FclY4PAmUjBgIN/jXkCcxvJxHd7c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=decadent.org.uk; spf=pass smtp.mailfrom=decadent.org.uk; arc=none smtp.client-ip=65.21.191.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=decadent.org.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=decadent.org.uk
+Received: from [2a02:578:851f:1502:391e:c5f5:10e2:b9a3] (helo=deadeye)
+	by maynard with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <ben@decadent.org.uk>)
+	id 1wU0uw-000V5x-2F;
+	Mon, 01 Jun 2026 11:34:50 +0000
+Received: from ben by deadeye with local (Exim 4.99.2)
+	(envelope-from <ben@decadent.org.uk>)
+	id 1wU0uv-0000000Fa7e-2GEC;
+	Mon, 01 Jun 2026 13:34:49 +0200
+Message-ID: <7e870e1219db98c9e19777eedfa3b0eb41f41235.camel@decadent.org.uk>
+Subject: Re: [PATCH 5.10 211/589] net/sched: sch_red: Replace direct dequeue
+ call with peek and qdisc_dequeue_peeked
+From: Ben Hutchings <ben@decadent.org.uk>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org,
+  Jamal Hadi Salim	 <jhs@mojatatu.com>, Victor Nogueria <victor@mojatatu.com>
+Cc: patches@lists.linux.dev, Manas <ghandatmanas@gmail.com>, Rakshit Awasthi
+	 <rakshitawasthi17@gmail.com>, Eric Dumazet <edumazet@google.com>, Jakub
+ Kicinski <kuba@kernel.org>
+Date: Mon, 01 Jun 2026 13:34:44 +0200
+In-Reply-To: <20260530160230.510336558@linuxfoundation.org>
+References: <20260530160224.570625122@linuxfoundation.org>
+	 <20260530160230.510336558@linuxfoundation.org>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-dNRy7ekohfVgaFV2YxZi"
+User-Agent: Evolution 3.56.2-9 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: boz baba <bababoz943@gmail.com>
-Date: Mon, 1 Jun 2026 14:31:48 +0300
-X-Gm-Features: AVHnY4IkZaXRztFMyZ0UAa_2Q1e-88z0noe4I9gVIsgWROR6bbGX68MZKK77zWg
-Message-ID: <CAAB7JC+TiyF6-1uvzhOcJ9KeDUhNgLmXk8unHNogY156xSu61g@mail.gmail.com>
-Subject: [PATCH] net: esp4/esp6: missing skb_has_shared_frag() check in 6.1.y
- (CVE-2026-43284 backport)
-To: stable@vger.kernel.org, steffen.klassert@secunet.com, 
-	netdev@vger.kernel.org
+X-SA-Exim-Connect-IP: 2a02:578:851f:1502:391e:c5f5:10e2:b9a3
+X-SA-Exim-Mail-From: ben@decadent.org.uk
+X-SA-Exim-Scanned: No (on maynard); SAEximRunCond expanded to false
+
+
+--=-dNRy7ekohfVgaFV2YxZi
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi stable team,
+On Sat, 2026-05-30 at 18:01 +0200, Greg Kroah-Hartman wrote:
+> 5.10-stable review patch.  If anyone has any objections, please let me kn=
+ow.
+>=20
+> ------------------
+>=20
+> From: Jamal Hadi Salim <jhs@mojatatu.com>
+>=20
+> commit 458d5615272d3de535748342eb68ca492343048c upstream.
+>=20
+> When red qdisc has children (eg qfq qdisc) whose peek() callback is
+> qdisc_peek_dequeued(), we could get a kernel panic. When the parent of su=
+ch
+> qdiscs (eg illustrated in patch #3 as tbf) wants to retrieve an skb from
+> its child (red in this case), it will do the following:
 
-The fix for CVE-2026-43284 ("Dirty Frag", commit f4c50a4034e6) added a
-skb_has_shared_frag() check to the skip_cow path in esp_input() in both
-net/ipv4/esp4.c and net/ipv6/esp6.c. This fix was backported to 6.12.y
-but appears to be missing from the 6.1.y stable branch.
+The same bug exists in sch_sfb and was fixed by commit 1b9bc71153b0
+"net/sched: sch_sfb: Replace direct dequeue call with peek and
+qdisc_dequeue_peeked", so please also pick that for stable.
 
-Affected: linux-6.1.133 (latest 6.1.y as of 2026-05-31)
-Fixed in: linux-6.12.91, mainline (f4c50a4034e6)
+(From a very brief scan it seems like sch_multiq and sch_taprio might
+also have this bug, but perhaps they have restrictions that make this
+impossible.)
 
-Vulnerable pattern in net/ipv4/esp4.c (line 912) and net/ipv6/esp6.c (line 960):
+Ben.
 
-  if (!skb_cloned(skb)) {
-      if (!skb_is_nonlinear(skb)) {
-          nfrags = 1;
-          goto skip_cow;
-      } else if (!skb_has_frag_list(skb)) {   /* <-- missing &&
-!skb_has_shared_frag(skb) */
-          nfrags = skb_shinfo(skb)->nr_frags;
-          nfrags++;
-          goto skip_cow;
-      }
-  }
+>  1a. do a peek() - and when sensing there's an skb the child can offer, t=
+hen
+>      - the child in this case(red) calls its child's (qfq) peek.
+>         qfq does the right thing and will return the gso_skb queue packet=
+.
+>         Note: if there wasnt a gso_skb entry then qfq will store it there=
+.
+>  1b. invoke a dequeue() on the child (red). And herein lies the problem.
+>      - red will call the child's dequeue() which will essentially just
+>        try to grab something of qfq's queue.
+>=20
+> [   78.667668][  T363] KASAN: null-ptr-deref in range [0x0000000000000048=
+-0x000000000000004f]
+> [   78.667927][  T363] CPU: 1 UID: 0 PID: 363 Comm: ping Not tainted 7.1.=
+0-rc1-00033-g46f74a3f7d57-dirty #790 PREEMPT(full)
+> [   78.668263][  T363] Hardware name: Bochs Bochs, BIOS Bochs 01/01/2011
+> [   78.668486][  T363] RIP: 0010:qfq_dequeue+0x446/0xc90 [sch_qfq]
+> [   78.668718][  T363] Code: 54 c0 e8 dd 90 00 f1 48 c7 c7 e0 03 54 c0 48=
+ 89 de e8 ce 90 00 f1 48 8d 7b 48 b8 ff ff 37 00 48 89 fa 48 c1 e0 2a 48 c1=
+ ea 03 <80> 3c 02 00 74 05 e8 ef a1 e1 f1 48 8b 7b 48 48 8d 54 24 58 48 8d
+> [   78.669312][  T363] RSP: 0018:ffff88810de573e0 EFLAGS: 00010216
+> [   78.669533][  T363] RAX: dffffc0000000000 RBX: 0000000000000000 RCX: 0=
+000000000000000
+> [   78.669790][  T363] RDX: 0000000000000009 RSI: 0000000000000004 RDI: 0=
+000000000000048
+> [   78.670044][  T363] RBP: ffff888110dc4000 R08: ffffffffb1b0885a R09: f=
+ffffbfff6ba9078
+> [   78.670297][  T363] R10: 0000000000000003 R11: ffff888110e31c80 R12: 0=
+000001880000000
+> [   78.670560][  T363] R13: ffff888110dc4150 R14: ffff888110dc42b8 R15: 0=
+000000000000200
+> [   78.670814][  T363] FS:  00007f66a8f09c40(0000) GS:ffff888163428000(00=
+00) knlGS:0000000000000000
+> [   78.671110][  T363] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> [   78.671324][  T363] CR2: 000055db4c6a30a8 CR3: 000000010da67000 CR4: 0=
+000000000750ef0
+> [   78.671585][  T363] PKRU: 55555554
+> [   78.671713][  T363] Call Trace:
+> [   78.671843][  T363]  <TASK>
+> [   78.671936][  T363]  ? __pfx_qfq_dequeue+0x10/0x10 [sch_qfq]
+> [   78.672148][  T363]  ? __pfx__printk+0x10/0x10
+> [   78.672322][  T363]  ? srso_alias_return_thunk+0x5/0xfbef5
+> [   78.672496][  T363]  ? lockdep_hardirqs_on_prepare+0xa8/0x1a0
+> [   78.672706][  T363]  ? srso_alias_return_thunk+0x5/0xfbef5
+> [   78.672875][  T363]  ? trace_hardirqs_on+0x19/0x1a0
+> [   78.673047][  T363]  red_dequeue+0x65/0x270 [sch_red]
+> [   78.673217][  T363]  ? srso_alias_return_thunk+0x5/0xfbef5
+> [   78.673385][  T363]  tbf_dequeue.cold+0xb0/0x70c [sch_tbf]
+> [   78.673566][  T363]  __qdisc_run+0x169/0x1900
+>=20
+> The right thing to do in #1b is to grab the skb off gso_skb queue.
+> This patchset fixes that issue by changing #1b to use qdisc_dequeue_peeke=
+d()
+> method instead.
+>=20
+> Fixes: 77be155cba4e ("pkt_sched: Add peek emulation for non-work-conservi=
+ng qdiscs.")
+> Reported-by: Manas <ghandatmanas@gmail.com>
+> Reported-by: Rakshit Awasthi <rakshitawasthi17@gmail.com>
+> Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
+> Reviewed-by: Eric Dumazet <edumazet@google.com>
+> Link: https://patch.msgid.link/20260430152957.194015-2-jhs@mojatatu.com
+> Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> ---
+>  net/sched/sch_red.c |    2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> --- a/net/sched/sch_red.c
+> +++ b/net/sched/sch_red.c
+> @@ -153,7 +153,7 @@ static struct sk_buff *red_dequeue(struc
+>  	struct red_sched_data *q =3D qdisc_priv(sch);
+>  	struct Qdisc *child =3D q->qdisc;
+> =20
+> -	skb =3D child->dequeue(child);
+> +	skb =3D qdisc_dequeue_peeked(child);
+>  	if (skb) {
+>  		qdisc_bstats_update(sch, skb);
+>  		qdisc_qstats_backlog_dec(sch, skb);
+>=20
+>=20
 
-The missing check allows an skb with SKBFL_SHARED_FRAG set (e.g. from
-vmsplice()/sendfile()) to bypass skb_cow_data() and proceed to in-place
-aead decryption via:
+--=20
+Ben Hutchings
+The obvious mathematical breakthrough [to break modern encryption]
+would be development of an easy way to factor large prime numbers.
+                                                           - Bill Gates
 
-  aead_request_set_crypt(req, sg, sg, elen + ivlen, iv);
-  crypto_aead_decrypt(req);
+--=-dNRy7ekohfVgaFV2YxZi
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
 
-This is the same page-cache corruption primitive as CVE-2026-43284.
+-----BEGIN PGP SIGNATURE-----
 
-Please backport commit f4c50a4034e6 to linux-6.1.y.
+iQIzBAABCgAdFiEErCspvTSmr92z9o8157/I7JWGEQkFAmodblUACgkQ57/I7JWG
+EQkZ/g/6A9m6bzYRmFMV2+YsbS2sqtlxwFM17N1Mk0rwLWrerm/SHyVpPQ1dhebq
+RPQTAaJ+MDSYBH9klWWq7qVl8FfbxyzB7/8k9rTJym1ICD3r2JU+1tMEBlsh6ecT
+6fzantMDuwPf1M2Ud893QKlOxQpVZbyAUgc74RyEurXbZYU74n0VnvR/QYyDVzq6
+echzomAVTchDde10IfYifaTH1AY70+v/nm7BgGWh8zVxBAO9lwfrVKPo2vjUncRc
+IhiTfjHP3e22pprlrT4VZsEK+deGWIhQtgFlFL9uivPXnKKz+cKtx6pYI9lqIyzu
+GkAsWRuMA1hlUhDlHoNee6PuBQHK+PW6NdRYk069Kd4zmFqHLkjRzDPm8eXRj84T
+5jcf+PO4J99VE5awOuXU78Nxnf7ytqhw4dkiHYLW5QHeS984sxJ2plAjskmoqiAc
+peoa5AANQOkjyIhZaCBXQ/wPhCG8lviZkQX6QirUv1K+zjko9zXQq/ORfr2Ltc8m
+xykmNfCysGdrFUmlvciMAVI0zLSp0ayEXNqaGM0RZmd4B67vaBsijugGH4/In7bB
+xUqZg5JcR3nVRJis0IB8g7pEUDjE9a+Zpd8b9KFWP/HA3WZCgL1SBskpfk++g5Sn
+1LGPzEht3I6GpxhyL0802/VPZ7RM/dV+xML3XfxIATEZuTjYpU4=
+=bH30
+-----END PGP SIGNATURE-----
 
-Affected versions: linux-6.1.x (all versions, fix not present)
-Fixed versions: linux-6.12.91+, mainline
-
-Verified by: source comparison of net/ipv4/esp4.c and net/ipv6/esp6.c
-between linux-6.1.133 and linux-6.12.91.
-
-References:
-- CVE-2026-43284 (Dirty Frag)
-- Fix commit: f4c50a4034e6
-
-Thanks,
-boz
+--=-dNRy7ekohfVgaFV2YxZi--
