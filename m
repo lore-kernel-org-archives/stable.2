@@ -1,138 +1,143 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA42F3D76;
-	Mon,  1 Jun 2026 07:27:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE98B38642C;
+	Mon,  1 Jun 2026 07:30:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780298852; cv=none; b=Z5BglWGegr9mj7CH+WfnNXoscUCDABg8TtPvyFf8jTSUPVTPJhubGL8lq8AK/UeP9rRHmTmZ0N1aa5bQNYnIHOMC/2f8u5+emhM4ZAg65x31FjJcKMDAmkqcgnWLbjcqtFjdKQywvGWG5ZKo1UIFOInqmN7zlZA2t4pl4mvVxQU=
+	t=1780299012; cv=none; b=kUpP8mzbPd0in6ssnyTgVHjK0ihHqpKmbQdgezqMkHN+XbsY24nBUCnirXL68SjYbj4TvPhphkiAcTjFXDy2F+6kdsR4Ye3pIjTjOLHac3DWAqQzBDyCvm/a3Jr6hrC/AL473CCZtWLyWQRzWllOmc9w+OqRtHgDV4Zm2XHDh2s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780298852; c=relaxed/simple;
-	bh=wMbTWGjuic+ST4Ffoux/6Etu/zn8n6qCExrO5zXlApU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=p6NcXb1KqZufz/yJiPP4MzGxLsVHghj0xA4YZZU0SouiHSJReBfppWUu0Tn5WvmqdnJ3xobQVubW4pS8SREf5myT+LIp3RGxBG9Q2Y0RVm0lb/xbrHsT8SWzneZX9CXj+SU3fOiGr83VL/AYIQ5qroX5Sd1iRIj6I98MyZxZwWY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nh5A+/2+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780299012; c=relaxed/simple;
+	bh=quItyXVXLVGSC6o/bMwaJUmgthrEoXAqy3yY7DAoKgU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=OwniZ61nStHEJHSdVMkb4U+QuwywlFh9DxQrKS0IEJu/WdJk3Qo5uOB7LKTH9szE7cwdyxfnp+2FgGCACrHpguAnWQ+uZ1EoBKu4bXjoi1m2B62d3062QI9g55pUVPruDzP0bjRj/8AbOUtZ7C6HXIbEq2OKK2TXO0bysZ7Gc0s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KPtTOlbB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nh5A+/2+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B2C91F00893;
-	Mon,  1 Jun 2026 07:27:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KPtTOlbB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 643151F00893;
+	Mon,  1 Jun 2026 07:30:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780298851;
-	bh=7snzxVSxi3ygpRfS5YXqVDVEjeMpSEmeXDAlj457stQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=nh5A+/2+SKdjoxjd86GM0PCvAAeKdRkq/p3dDhUACVQd6trP2iinS0Syj3YdTIWSn
-	 Oui2ZipEIJYLhXkJfaHiTQfRgfcmaAXyK2Lutu2w/zHLSAHjdYXcQE6k2U7EZ0Se1C
-	 gDqQa2HIyhRF3OO3L4YIbOCyGSMWsw9JiW3HFAPAJCziBb7TULD5piMuw/w1/WZNwS
-	 STjZ5DbyCyIKqaH1ZdKv+PDwEdoqanVb9TBdYK1tFeckoGALkOlSJ1m4v6VxhEhywd
-	 QeDrTbKlUYLZvvZoie4GBQ4lHeMmAh28EQzmYMLrGkKpR+j+jXv9y0JGbUXl7ZayTd
-	 4f3XC1igsx/vQ==
-Message-ID: <1e11dea6-a9a4-425e-a31b-ab5f8561f3b8@kernel.org>
-Date: Mon, 1 Jun 2026 17:27:21 +1000
+	s=k20260515; t=1780299010;
+	bh=gzL2SkcPkY1ldzSUTPG15UAH/VU6zt02ppqwKAVNiNk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=KPtTOlbBxe1Yje7/O/XLhDQ1xUOBh7WMYZ0z1ajw90/Hy78HgnC0veSYnWX7n0i1Q
+	 EmmWADIPMpshoRg3Ya4GAsAgow/NXBOVd7MKyfeM8iMn+UGfrXi1BFhmmkxWnFcA8v
+	 Kv7buAIJvrNL+bra9gaS6oSrJcl8hH0nD8w7jyYIbEHvK3WUW0xe6oW6ynxnqM88or
+	 9ZDg8zZz+aMcN+QaQJwiDvEuNggHslQnH1FXnG+cwdhwPjIZ+YDWq7Mt4ZaRRWkpB8
+	 9vbeZeYJShgotMvQmg6jVXRkekg/TzHbfytrkS/NQKVXyYcbsB0nmW/OWojFhtWMKU
+	 VG126C8Kk8qqg==
+Date: Mon, 1 Jun 2026 09:30:04 +0200
+From: Benjamin Tissoires <bentiss@kernel.org>
+To: Carlos Llamas <cmllamas@google.com>
+Cc: Benjamin Tissoires <benjamin.tissoires@redhat.com>, 
+	Bastien Nocera <hadess@hadess.net>, Jiri Kosina <jikos@kernel.org>, 
+	Filipe =?utf-8?B?TGHDrW5z?= <lains@riseup.net>, Ping Cheng <ping.cheng@wacom.com>, 
+	Jason Gerecke <jason.gerecke@wacom.com>, Viresh Kumar <vireshk@kernel.org>, 
+	Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Lee Jones <lee@kernel.org>, linux-input@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, 
+	linux-usb@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 2/4] HID: core: introduce hid_safe_input_report()
+Message-ID: <ah00D_yttLtjlYA-@beelink>
+References: <20260415-wip-fix-core-v1-0-ed3c4c823175@kernel.org>
+ <20260415-wip-fix-core-v1-2-ed3c4c823175@kernel.org>
+ <8fedad8e9caecd379f2296562cd6abd37f7cee46.camel@hadess.net>
+ <CAO-hwJ+EgC0pM6L6vGFEaRFt2Nwj5b-CCf_5e5VkvrXgdHrjNg@mail.gmail.com>
+ <ahsh0UtTX6e0ZeHa@google.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-Subject: Re: [PATCH net 09/10] mptcp: pm: avoid sleeping while holding
- rcu_read_lock
-Content-Language: fr
-To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Cc: Mat Martineau <martineau@kernel.org>, Geliang Tang <geliang@kernel.org>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Simon Horman <horms@kernel.org>, Florian Westphal <fw@strlen.de>,
- netdev@vger.kernel.org, mptcp@lists.linux.dev, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org, stable@vger.kernel.org,
- Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>,
- Hannes Reinecke <hare@kernel.org>, linux-rt-devel@lists.linux.dev
-References: <20260601-net-mptcp-misc-fixes-7-1-rc7-v1-0-a5ae7791754b@kernel.org>
- <20260601-net-mptcp-misc-fixes-7-1-rc7-v1-9-a5ae7791754b@kernel.org>
- <20260601065813.Z8V8Tb6d@linutronix.de>
-From: Matthieu Baerts <matttbe@kernel.org>
-Autocrypt: addr=matttbe@kernel.org; keydata=
- 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
- lzVbFe7fduHbABmYz9cefQpO7wDE/Q==
-Organization: NGI0 Core
-In-Reply-To: <20260601065813.Z8V8Tb6d@linutronix.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <ahsh0UtTX6e0ZeHa@google.com>
 
-Hi Sebastian,
+Hi Carlos,
 
-Thank you for the review!
-
-On 01/06/2026 16:58, Sebastian Andrzej Siewior wrote:
-> On 2026-06-01 13:10:05 [+1000], Matthieu Baerts (NGI0) wrote:
->> sk_stop_timer_sync() calls del_timer_sync(), which spin-waits for the
-> There is no del_timer_sync()
-
-Indeed, not sure why I put that one. I wanted to say timer_delete_sync()
-
->> timer callback to complete on non-RT kernels. But on PREEMPT_RT, it can
->> sleep. Sleeping inside an RCU read-side critical section might trigger a
->> lockdep splat.
+On May 30 2026, Carlos Llamas wrote:
+> On Thu, Apr 16, 2026 at 04:46:28PM +0200, Benjamin Tissoires wrote:
+> > On Thu, Apr 16, 2026 at 11:41 AM Bastien Nocera <hadess@hadess.net> wrote:
+> > >
+> > > On Wed, 2026-04-15 at 11:38 +0200, Benjamin Tissoires wrote:
+> > > > hid_input_report() is used in too many places to have a commit that
+> > > > doesn't cross subsystem borders. Instead of changing the API,
+> > > > introduce
+> > > > a new one when things matters in the transport layers:
+> > > > - usbhid
+> > > > - i2chid
+> > > >
+> > > > This effectively revert to the old behavior for those two transport
+> > > > layers.
+> > > >
+> > > > Fixes: 0a3fe972a7cb ("HID: core: Mitigate potential OOB by removing
+> > > > bogus memset()")
+> > > > Cc: stable@vger.kernel.org
+> > > > Signed-off-by: Benjamin Tissoires <bentiss@kernel.org>
+> > > > ---
+[...]
 > 
-> It can not sleep. timer_delete_sync() does not sleep. It can block on
-> spinlock_t and schedule but this is okay within a RCU read section.
+> Hi Benjamin, our CI started failing with commit 0a3fe972a7cb ("HID:
+> core: Mitigate potential OOB by removing bogus memset()"), so I was
+> hoping your patchset would fix this.
+> 
+> However, I just realized our call path goes through uhid precisely,
+> which still triggers the EINVAL error since uhid as not converted to
+> hid_safe_input_report().
+> 
+> My vague understanding though, is that uhid_event uses a static buffer
+> in ev->data[UHID_DATA_MAX], so maybe we can use that through
+> uhid_dev_input{2}()?
+> 
+> I ran the following path through our CI and it fixed our issue, so I
+> wanted to get your thoughts on this.
 
-Sorry, I got confused by the comment in __timer_delete_sync().
+Oh, yes, you are correct. Sorry with all the back and forth on this
+paritcular topic, my brain assumed that uhid was only allocating the
+useful part of the payload and was not safe.
 
-> Do you have a report for this?
-No, sorry. I was exploring the code in timer.c after a related comment
-from Sashiko [1]. I noticed the comment in __timer_delete_sync() about
-being able to sleep on PREEMPT_RT, then saw that timer_delete_sync() was
-called inside a rcu_read_lock(), and I thought it was wrong. I should
-have tried to reproduce the warning on PREEMPT_RT, but I switched to the
-next bug instead :-/
+For the future me: the problem with uhid was that we were emultaing
+devices that would trigger a bug elsewhere in the stack not in
+uhid_dev_input*().
 
-Sorry for the noise, let's drop this patch if it is not needed then.
-
-[1] https://github.com/multipath-tcp/mptcp_net-next/issues/623
+Patch looks good, please send it normally to the ML with your SoB :)
 
 Cheers,
-Matt
--- 
-Sponsored by the NGI0 Core fund.
+Benjamin
 
+> 
+> Carlos Llamas
+> 
+> ---
+>  drivers/hid/uhid.c | 8 ++++----
+>  1 file changed, 4 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/hid/uhid.c b/drivers/hid/uhid.c
+> index 524b53a3c87b..37b60c3aaf66 100644
+> --- a/drivers/hid/uhid.c
+> +++ b/drivers/hid/uhid.c
+> @@ -595,8 +595,8 @@ static int uhid_dev_input(struct uhid_device *uhid, struct uhid_event *ev)
+>  	if (!READ_ONCE(uhid->running))
+>  		return -EINVAL;
+>  
+> -	hid_input_report(uhid->hid, HID_INPUT_REPORT, ev->u.input.data,
+> -			 min_t(size_t, ev->u.input.size, UHID_DATA_MAX), 0);
+> +	hid_safe_input_report(uhid->hid, HID_INPUT_REPORT, ev->u.input.data, UHID_DATA_MAX,
+> +			      min_t(size_t, ev->u.input.size, UHID_DATA_MAX), 0);
+>  
+>  	return 0;
+>  }
+> @@ -606,8 +606,8 @@ static int uhid_dev_input2(struct uhid_device *uhid, struct uhid_event *ev)
+>  	if (!READ_ONCE(uhid->running))
+>  		return -EINVAL;
+>  
+> -	hid_input_report(uhid->hid, HID_INPUT_REPORT, ev->u.input2.data,
+> -			 min_t(size_t, ev->u.input2.size, UHID_DATA_MAX), 0);
+> +	hid_safe_input_report(uhid->hid, HID_INPUT_REPORT, ev->u.input2.data, UHID_DATA_MAX,
+> +			      min_t(size_t, ev->u.input2.size, UHID_DATA_MAX), 0);
+>  
+>  	return 0;
+>  }
+> 
