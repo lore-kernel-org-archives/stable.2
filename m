@@ -1,148 +1,241 @@
-Received: from maynard.decadent.org.uk (maynard.decadent.org.uk [65.21.191.19])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6669311968;
-	Mon,  1 Jun 2026 17:37:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.21.191.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 352F33314B7;
+	Mon,  1 Jun 2026 17:41:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780335435; cv=none; b=c/uPAaQE3pm0mpSaS3WvHD7nKpU9GJQtKcd5U7oAsymQWiEzNcwIso1IxyhSNp0opLuidyDq8o/3JJCFrguNzV6ByZLTRIes/vdCfXrZfG6DX6WgzgLb3JuZSAtZ/CmdwR1nRbGC0wOWTamI/Ou20I54IwOoavNq9aYOh55BoLU=
+	t=1780335678; cv=none; b=SB9gpPgqdxeHwM5oJwwP2IQZEd7Bat/uQ/jOPPLm5r4WRCSDY9XlFBWvKjjt1xb7BnX79qGb9ygECDr8cj3xteQjHCTMFGKoXHUvXTmFo0W8ITsOA2nvnujbHUnhM5Xzs+HeqWgHG8NZ8AKZhvTpjbiXErMfQ7ativzzQb5WHy0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780335435; c=relaxed/simple;
-	bh=rmlc6o5adaI0BpyYyl1Yl2KstdJtTxbkpxBAsQQHstk=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=QZoxItCsYUF5zKAJyPzKfEEkvK2C88Yj+/cWeXzR2q9IfRFTmmpt3GFF0ehWoiqfjDvDKtg1xy8JdozDHe0Fis16CI8WVaadOlPxBhZqwiqdurYqdBcmHosy9DE1wzrax5dW6vaznlq6NQVJKM1sKWUk/htjYPQFU/p2hWYJHCI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=decadent.org.uk; spf=pass smtp.mailfrom=decadent.org.uk; arc=none smtp.client-ip=65.21.191.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=decadent.org.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=decadent.org.uk
-Received: from [2a02:578:851f:1502:391e:c5f5:10e2:b9a3] (helo=deadeye)
-	by maynard with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <ben@decadent.org.uk>)
-	id 1wU6Zb-000Wza-1X;
-	Mon, 01 Jun 2026 17:37:11 +0000
-Received: from ben by deadeye with local (Exim 4.99.2)
-	(envelope-from <ben@decadent.org.uk>)
-	id 1wU6Zb-0000000FlfI-0IY3;
-	Mon, 01 Jun 2026 19:37:11 +0200
-Message-ID: <8cd2c0613f018690cba5ae76c4ab73da05118312.camel@decadent.org.uk>
-Subject: Re: [PATCH 5.10 263/589] media: uvcvideo: Enable VB2_DMABUF for
- metadata stream
-From: Ben Hutchings <ben@decadent.org.uk>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, Ricardo Ribalda <ribalda@chromium.org>, Laurent
- Pinchart <laurent.pinchart@ideasonboard.com>, Hans de Goede
- <johannes.goede@oss.qualcomm.com>,  Hans Verkuil <hverkuil+cisco@kernel.org>
-Date: Mon, 01 Jun 2026 19:37:06 +0200
-In-Reply-To: <20260530160231.873363839@linuxfoundation.org>
-References: <20260530160224.570625122@linuxfoundation.org>
-	 <20260530160231.873363839@linuxfoundation.org>
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-HzNFlQ+ic3J1W9SEjboq"
-User-Agent: Evolution 3.56.2-9 
+	s=arc-20240116; t=1780335678; c=relaxed/simple;
+	bh=ZVug3kaqTUP2mtKSklmx9nUnrdSBRzhmVGtcHSo0Omw=;
+	h=Date:To:From:Subject:Message-Id; b=a6eTAiFI6yaq4KtElHeQx6kod1j5v8kLLwj8vGm+Ac8HYrvuT0fCM04dOD9f/61An+qTTH7yeBcoCaLv8B9VvRkd+IRYRKNbFny9kDp+k2JnJyjfKiPyWmtJDK+4BAaQzdg1C4UuuyQAZ6wuBASDn6bCaaN/n6gM6Hua/RAIW1A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=gB8BhgGL; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="gB8BhgGL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3E2E1F00893;
+	Mon,  1 Jun 2026 17:41:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1780335675;
+	bh=PnMdVX4biqwlVmhpe6fl4dMiIu2Yewi2KzpAXgipRO0=;
+	h=Date:To:From:Subject;
+	b=gB8BhgGLJF5DxLmbRGcJNdHryl7apfbhQjk/bnbSNVmITAhI3GpT5LLFPsr5xzpSv
+	 qPAIMtRuD8OJc/fPAmpHFsgUtLIwbTzCKae7qCxetNOpRyeJozMnh5DRKhPIbVwLUk
+	 zboMZWhgb221P/X/tzhngzRRN293WsOnv0hzvffM=
+Date: Mon, 01 Jun 2026 10:41:15 -0700
+To: mm-commits@vger.kernel.org,ziy@nvidia.com,stable@vger.kernel.org,sj@kernel.org,ryan.roberts@arm.com,richard.weiyang@gmail.com,npache@redhat.com,liam@infradead.org,lance.yang@linux.dev,dev.jain@arm.com,david@kernel.org,baolin.wang@linux.alibaba.com,baohua@kernel.org,balbirs@nvidia.com,ljs@kernel.org,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + mm-huge_memory-use-correct-flags-for-device-private-pmd-entry.patch added to mm-hotfixes-unstable branch
+Message-Id: <20260601174115.B3E2E1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-SA-Exim-Connect-IP: 2a02:578:851f:1502:391e:c5f5:10e2:b9a3
-X-SA-Exim-Mail-From: ben@decadent.org.uk
-X-SA-Exim-Scanned: No (on maynard); SAEximRunCond expanded to false
 
 
---=-HzNFlQ+ic3J1W9SEjboq
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+The patch titled
+     Subject: mm/huge_memory: use correct flags for device private PMD entry
+has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
+     mm-huge_memory-use-correct-flags-for-device-private-pmd-entry.patch
 
-On Sat, 2026-05-30 at 18:02 +0200, Greg Kroah-Hartman wrote:
-> 5.10-stable review patch.  If anyone has any objections, please let me kn=
-ow.
->=20
-> ------------------
->=20
-> From: Ricardo Ribalda <ribalda@chromium.org>
->=20
-> commit fbac03467e53d8d72e5099c03df26d9adae11416 upstream.
->=20
-> The UVC driver has two video streams, one for the frames and another one
-> for the metadata. Both streams share most of the codebase, but only the
-> data stream declares support for DMABUF transfer mode.
->=20
-> I have tried the DMABUF transfer mode with CONFIG_DMABUF_HEAPS_SYSTEM
-> and the frames looked correct.
->=20
-> This patch announces the support for DMABUF for the metadata stream.
-> This is useful for apps/HALs that only want to support DMABUF.
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-huge_memory-use-correct-flags-for-device-private-pmd-entry.patch
 
-So this is a feature addition.
+This patch will later appear in the mm-hotfixes-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
-And the uvcvideo driver has changed a lot since 5.10 (or even 6.1), so
-unless someone specifically tested that these older versions will also
-work with dmabuf I question whether this is worth the risk.
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
 
-Ben.
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
 
-> Cc: stable@vger.kernel.org
-> Fixes: 088ead2552458 ("media: uvcvideo: Add a metadata device node")
-> Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
-> Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-> Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
-> Link: https://patch.msgid.link/20260309-uvc-metadata-dmabuf-v1-1-fc8b87bd=
-29c5@chromium.org
-> Signed-off-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-> Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
-> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> ---
->  drivers/media/usb/uvc/uvc_queue.c |    3 +--
->  1 file changed, 1 insertion(+), 2 deletions(-)
->=20
-> --- a/drivers/media/usb/uvc/uvc_queue.c
-> +++ b/drivers/media/usb/uvc/uvc_queue.c
-> @@ -222,7 +222,7 @@ int uvc_queue_init(struct uvc_video_queu
->  	int ret;
-> =20
->  	queue->queue.type =3D type;
-> -	queue->queue.io_modes =3D VB2_MMAP | VB2_USERPTR;
-> +	queue->queue.io_modes =3D VB2_MMAP | VB2_USERPTR | VB2_DMABUF;
->  	queue->queue.drv_priv =3D queue;
->  	queue->queue.buf_struct_size =3D sizeof(struct uvc_buffer);
->  	queue->queue.mem_ops =3D &vb2_vmalloc_memops;
-> @@ -235,7 +235,6 @@ int uvc_queue_init(struct uvc_video_queu
->  		queue->queue.ops =3D &uvc_meta_queue_qops;
->  		break;
->  	default:
-> -		queue->queue.io_modes |=3D VB2_DMABUF;
->  		queue->queue.ops =3D &uvc_queue_qops;
->  		break;
->  	}
->=20
->=20
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
 
---=20
-Ben Hutchings
-The obvious mathematical breakthrough [to break modern encryption]
-would be development of an easy way to factor large prime numbers.
-                                                           - Bill Gates
+------------------------------------------------------
+From: Lorenzo Stoakes <ljs@kernel.org>
+Subject: mm/huge_memory: use correct flags for device private PMD entry
+Date: Mon, 1 Jun 2026 09:30:44 +0100
 
---=-HzNFlQ+ic3J1W9SEjboq
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
+Commit 65edfda6f3f2 ("mm/rmap: extend rmap and migration support
+device-private entries") updated set_pmd_migration_entry() to use
+pmdp_huge_get_and_clear() in the softleaf case, but made no further
+adjustments to the function itself.
 
------BEGIN PGP SIGNATURE-----
+Therefore this function continues to incorrectly use pmd_write(),
+pmd_soft_dirty() and pmd_uffd_wp() to determine whether the installed
+migration entry should be marked writable, softdirty or uffd-wp
+respectively.
 
-iQIzBAABCgAdFiEErCspvTSmr92z9o8157/I7JWGEQkFAmodw0IACgkQ57/I7JWG
-EQmKEg//d0Xpt4RWDamWqSTs8ve3icqR505r03/N7m7+UtqQDBjrhxDuu4nPXMBJ
-nDbFmKJfpDCHitccTPxuxDkdC57DfeZVi7lGnAoqN5hKAqHNnKZwax0s/aYknJh2
-ONtNRJcSO697ipi4LgRd70h2eL33/NenxUSME9ODKsmr4uOU5+t9LSVgjXXRNhw6
-+eHqyAhHaLwe+OJir6O9rGED9cHuJxM1OGLaxmWPOttJMl4vCMhhAPFIfsH7ayny
-7DKAw8u6aXc+Ksg6Q7B58jn6jxlpaLI+5yuxP7/lL11fNH3X3xlH95W+HWHP9kjC
-m84NDlPaMDZK9b+OipwcQqLX6xP12TOQqNt40bod598dzd0Zk3m1Yi+Fp7yQbWgf
-UwqoD5AFtTjKddDhD9TAgLHtZ/SIDCATLCvm/KcLk+Ydb6Qbx+Ri5uUROPmzs4VA
-ombhb9amXUDk3CqV6+/7FiuovS+74hgb4XRisoZNXRCIa53TFWpaEwiWawpk42Y2
-Epu9Cctotj0T2kCH00OPUXUoz8j+R3HNt23UD2MSV3VkrK8rRZ2v484By6BKT357
-kKOoI+tPZRTHjEP1hTilHE7KZtlQLbkpz/T1aZtJ9smp/MuBSbmMByhnKouXe3xN
-2U3m8QpvJtFibo/AAlqWVK5okFBhg7e0zP6QufV1HtVPylNI590=
-=RbZi
------END PGP SIGNATURE-----
+Whilst all are incorrect, the most problematic of these is pmd_write(), as
+this can lead to corrupted rmap state.
 
---=-HzNFlQ+ic3J1W9SEjboq--
+On x86-64 _PAGE_SWP_SOFT_DIRTY is aliased to _PAGE_RW.  So calling
+pmd_write() on a softleaf will return the softdirty state encoded in the
+entry, assuming CONFIG_MEM_SOFT_DIRTY was enabled.
+
+This was observed when running the hmm.hmm_device_private.anon_write_child
+selftest:
+
+1. The test faults in a range then migrates it such that a device-private
+   THP range is established.
+
+2. The parent then migrates it to a device-private writable PMD entry whose
+   folio is entirely AnonExclusive with entire_mapcount=1, softdirty set
+   (accidentally correct write state).
+
+3. The parent forks and the PMD entries are set to device-private read only
+   entries, entire_mapcount=2, softdirty still set.
+
+4. [BUG] The child writes to the range then migrates to RAM - intending to
+   install non-writable migration entries - but replacing parent and child
+   PMD mappings with WRITABLE entries due to misinterpreting the softdirty
+   bit.
+
+5. In remove_migration_pmd(), if !softleaf_is_migration_read(entry) we
+   set the RMAP_EXCLUSIVE flag when calling folio_add_anon_rmap_pmd() for
+   both parent and child, which are therefore AnonExclusive.
+
+6. [SPLAT] Child sets migrated folio entire_mapcount=1, parent sets
+   entire_mapcount=2 and we end up with an AnonExclusive folio with
+   entire_mapcount=2! Assert fires in __folio_add_anon_rmap():
+
+		VM_WARN_ON_FOLIO(folio_test_large(folio) &&
+				 folio_entire_mapcount(folio) > 1 &&
+				 PageAnonExclusive(cur_page), folio)
+
+This patch fixes the issue by correctly referencing the softleaf entry
+fields for writable, softdirty and uffd-wp in set_pmd_migration_entry().
+
+It also only updates A/D flags if the entry is present as these are
+otherwise not meaningful for a softleaf entry.
+
+This patch also flips the if (!present) { ...  } else { ...  } logic in
+set_pmd_migration_entry() so it is easier to understand, and adds some
+comments to make things clearer.
+
+I was able to bisect this to commit 775465fd26a3 ("lib/test_hmm: add zone
+device private THP test infrastructure") which first exposes this bug as
+it was the commit that permitted test_hmm to generate the test.
+
+However commit 65edfda6f3f2 ("mm/rmap: extend rmap and migration support
+device-private entries") is the commit that actually enabled this
+behaviour.
+
+Link: https://lore.kernel.org/20260601083044.57132-1-ljs@kernel.org
+Fixes: 65edfda6f3f2 ("mm/rmap: extend rmap and migration support device-private entries")
+Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Reviewed-by: Dev Jain <dev.jain@arm.com>
+Cc: Balbir Singh <balbirs@nvidia.com>
+Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: Barry Song <baohua@kernel.org>
+Cc: Lance Yang <lance.yang@linux.dev>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Nico Pache <npache@redhat.com>
+Cc: Ryan Roberts <ryan.roberts@arm.com>
+Cc: SeongJae Park <sj@kernel.org>
+Cc: Wei Yang <richard.weiyang@gmail.com>
+Cc: Zi Yan <ziy@nvidia.com>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+---
+
+ mm/huge_memory.c |   45 +++++++++++++++++++++++++++++++++------------
+ 1 file changed, 33 insertions(+), 12 deletions(-)
+
+--- a/mm/huge_memory.c~mm-huge_memory-use-correct-flags-for-device-private-pmd-entry
++++ a/mm/huge_memory.c
+@@ -4981,7 +4981,7 @@ int set_pmd_migration_entry(struct page_
+ 	struct vm_area_struct *vma = pvmw->vma;
+ 	struct mm_struct *mm = vma->vm_mm;
+ 	unsigned long address = pvmw->address;
+-	bool anon_exclusive;
++	bool anon_exclusive, present, writable, softdirty, uffd_wp;
+ 	pmd_t pmdval;
+ 	swp_entry_t entry;
+ 	pmd_t pmdswp;
+@@ -4989,12 +4989,26 @@ int set_pmd_migration_entry(struct page_
+ 	if (!(pvmw->pmd && !pvmw->pte))
+ 		return 0;
+ 
+-	flush_cache_range(vma, address, address + HPAGE_PMD_SIZE);
+-	if (unlikely(!pmd_present(*pvmw->pmd)))
+-		pmdval = pmdp_huge_get_and_clear(vma->vm_mm, address, pvmw->pmd);
+-	else
++	present = pmd_present(*pvmw->pmd);
++	if (likely(present)) {
++		flush_cache_range(vma, address, address + HPAGE_PMD_SIZE);
++
+ 		pmdval = pmdp_invalidate(vma, address, pvmw->pmd);
+ 
++		writable = pmd_write(pmdval);
++		softdirty = pmd_soft_dirty(pmdval);
++		uffd_wp = pmd_uffd_wp(pmdval);
++	} else {
++		softleaf_t old_entry;
++
++		pmdval = pmdp_huge_get_and_clear(vma->vm_mm, address, pvmw->pmd);
++		old_entry = softleaf_from_pmd(pmdval);
++
++		writable = softleaf_is_device_private_write(old_entry);
++		softdirty = pmd_swp_soft_dirty(pmdval);
++		uffd_wp = pmd_swp_uffd_wp(pmdval);
++	}
++
+ 	/* See folio_try_share_anon_rmap_pmd(): invalidate PMD first. */
+ 	anon_exclusive = folio_test_anon(folio) && PageAnonExclusive(page);
+ 	if (anon_exclusive && folio_try_share_anon_rmap_pmd(folio, page)) {
+@@ -5002,24 +5016,31 @@ int set_pmd_migration_entry(struct page_
+ 		return -EBUSY;
+ 	}
+ 
+-	if (pmd_dirty(pmdval))
+-		folio_mark_dirty(folio);
+-	if (pmd_write(pmdval))
++	/* Determine type of migration entry. */
++	if (writable)
+ 		entry = make_writable_migration_entry(page_to_pfn(page));
+ 	else if (anon_exclusive)
+ 		entry = make_readable_exclusive_migration_entry(page_to_pfn(page));
+ 	else
+ 		entry = make_readable_migration_entry(page_to_pfn(page));
+-	if (pmd_young(pmdval))
++
++	/* Set A/D bits as necessary. */
++	if (present && pmd_young(pmdval))
+ 		entry = make_migration_entry_young(entry);
+-	if (pmd_dirty(pmdval))
++	if (present && pmd_dirty(pmdval)) {
++		folio_mark_dirty(folio);
+ 		entry = make_migration_entry_dirty(entry);
++	}
++
++	/* Set PMD. */
+ 	pmdswp = swp_entry_to_pmd(entry);
+-	if (pmd_soft_dirty(pmdval))
++	if (softdirty)
+ 		pmdswp = pmd_swp_mksoft_dirty(pmdswp);
+-	if (pmd_uffd_wp(pmdval))
++	if (uffd_wp)
+ 		pmdswp = pmd_swp_mkuffd_wp(pmdswp);
+ 	set_pmd_at(mm, address, pvmw->pmd, pmdswp);
++
++	/* Migration entry installed: cleanup rmap, folio. */
+ 	folio_remove_rmap_pmd(folio, page, vma);
+ 	folio_put(folio);
+ 	trace_set_migration_pmd(address, pmd_val(pmdswp));
+_
+
+Patches currently in -mm which might be from ljs@kernel.org are
+
+mm-huge_memory-use-correct-flags-for-device-private-pmd-entry.patch
+drivers-char-mem-eliminate-unnecessary-use-of-success_hook.patch
+mm-vma-remove-mmap_action-success_hook.patch
+mm-vma-eliminate-mmap_action-error_hook-introduce-error_filter.patch
+
