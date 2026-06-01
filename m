@@ -1,174 +1,92 @@
-Received: from pdx-out-012.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-012.esa.us-west-2.outbound.mail-perimeter.amazon.com [35.162.73.231])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C604F3438B4;
-	Mon,  1 Jun 2026 09:30:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.162.73.231
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36287285417;
+	Mon,  1 Jun 2026 09:37:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780306210; cv=none; b=d0gRcCcJ5LEjZzV6mn7c1IlhBVZKbM+1SWZwiZ2/7B2nwQueNQr1j2GCPhtevo5FeELHFlUzA3EW3hfPTgBnD3KdH2/UDXwe4LO/4Fy525XgFCFniwTG7XNfZGH+KEXtderw4OWLJC3tKkmgrt72CpUD0fk9RfeLcky4ko007bQ=
+	t=1780306659; cv=none; b=E2wUD7FsNR39966H1/7DgMifBl+I8EsnVEWhcInBjqlvBQDU3de8hLzsdpZVHnfNNcRgDAzrXFadBX4JJf8yUBzjMWQ1aXRH8Bkt4o0Eq/DhqpWhs00qQ9G6upoqu7CGlbeFV+kMl4GXkWDgvQroZYDETt0VvdYSAfDIbN9LV1A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780306210; c=relaxed/simple;
-	bh=OvHJDxBLer/KMoiG4SEo/qRY7Hjb+dywLz08afdf3rg=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=qx3i4MsbGjQB/xVPqBtLx8T2ZzPN/oLwxjiJ3Ab2wFCwfQDdCTGz6DgFZbQn4SE2QeKbo1xVVWh7ypAQOoG/DrPRfeldsphHDfgHF59XYB5qzOR1S09pHKLXcPM/4NYTi/jnWjdjvArbLLHYty7D6bADypN/i2Zoj9zS7pU3vHY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de; spf=pass smtp.mailfrom=amazon.de; dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b=OUsIBo7I; arc=none smtp.client-ip=35.162.73.231
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
+	s=arc-20240116; t=1780306659; c=relaxed/simple;
+	bh=9eE/88fQSqXK3PWBhQXJt59pjMmydVz4iFC/+YtdLa8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=B23/PMkmUcpc7yUOdCxQ5E7PJ74Lz7u55rBP41mrYdQqLIP18xfvQgu0seABKRjEvU75ZTrZDjT7PFRMx6YK699jKckpP35AuzvrvRw06d7oyW35mR4M7ZybehvyLdXvL7s/fpbSteOy4q3EBgYE1YUf2YxAJqj/4+hVMA1wI4Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c1PJZNWT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b="OUsIBo7I"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
-  t=1780306208; x=1811842208;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=M2wQtFcciWsfTba4Bx+EqffPExVMFVr2dQP2DazucmA=;
-  b=OUsIBo7I+BQGTBePRI5B/WEiEBb2mS4k7PMq8rA/DWWHU2qKna9ZcR0Q
-   bc+f6jhIgVnAOXBr0o9aUXknkBCSPqbrkkiD+S+KknbMSdKFYt1oEjVzC
-   DnfqNwfTnFZRdO2waqTMqTi02DmBKugb4LilxDGgq+oBTX9eLRii4SX5f
-   XA4Iwzacf/4Q8V8sXfVQ+tiSPDC0FeNOypLFL8hE9eVDDIJXNoAL+ne/I
-   0hrolTGXjPO8q/syVeJb3jXDEjHlFwxRehy6BIEF73VMgXMT5Y3X5rPpG
-   W7WNlOZszSgCvw3UMO4RAoLf0sXahIP/KZwr02VYvUkEmLblGGIj+XleU
-   g==;
-X-CSE-ConnectionGUID: c8oJnFHSSCakrxa4T66FgA==
-X-CSE-MsgGUID: 7k7goRWHThGFWzn7AQp2cA==
-X-IronPort-AV: E=Sophos;i="6.24,181,1774310400"; 
-   d="scan'208";a="20629465"
-Received: from ip-10-5-9-48.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.9.48])
-  by internal-pdx-out-012.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Jun 2026 09:30:08 +0000
-Received: from EX19MTAUWB001.ant.amazon.com [205.251.233.104:16543]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.19.154:2525] with esmtp (Farcaster)
- id 065e6b8e-8300-46c6-a48d-56b8ecabcb0b; Mon, 1 Jun 2026 09:30:08 +0000 (UTC)
-X-Farcaster-Flow-ID: 065e6b8e-8300-46c6-a48d-56b8ecabcb0b
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWB001.ant.amazon.com (10.250.64.248) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.37;
- Mon, 1 Jun 2026 09:30:06 +0000
-Received: from dev-dsk-gyokhan-1b-83b48b3c.eu-west-1.amazon.com (10.13.234.1)
- by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.37;
- Mon, 1 Jun 2026 09:30:04 +0000
-From: Gyokhan Kochmarla <gyokhan@amazon.de>
-To: <stable@vger.kernel.org>
-CC: <gregkh@linuxfoundation.org>, <axboe@kernel.dk>, <dlemoal@kernel.org>,
-	<johannes.thumshirn@wdc.com>, <linux-block@vger.kernel.org>, "Shin'ichiro
- Kawasaki" <shinichiro.kawasaki@wdc.com>, Gyokhan Kochmarla
-	<gyokhan@amazon.de>
-Subject: block: fix handling of dead zone write plugs
-Date: Mon, 1 Jun 2026 09:29:58 +0000
-Message-ID: <20260601092958.12798-1-gyokhan@amazon.de>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c1PJZNWT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F2F01F00893;
+	Mon,  1 Jun 2026 09:37:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780306658;
+	bh=AzbXwY67i7orrJSYLIcDP2MIfpMzq9fPfuSJU14oS7I=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=c1PJZNWT6Jhrtsti0/iLRUjmX2p41TJJfRVGF/3HNXBQB7PyKa2x9bRmyaeFYhkph
+	 S/XYHC6xhKx56Ya51Xak5ZkdEYl7w6jJ5CHtlZipgiVBNEdAMNHH/iRIH0rE/rdUWu
+	 0NcYKv9W6ljVMkX338Av9+n5cEDMlkvl9EyHcrfG4IQCWXZKImq9ht9DNl8Bv5zvtM
+	 ATehWylJaNN+9d/XXQwwW29cYaUrS+pOaBG4dYswLQ5k9wG0aOJ57MhEFaYf6nU2l8
+	 SGi6xk/XJwSfllo85W6VmcGnxePA0rHGqKLm46uy+j9fAJrU+3ZTv7yeI+eHKuE7At
+	 N4eY0MFKY1p+w==
+Date: Mon, 1 Jun 2026 10:37:30 +0100
+From: Lorenzo Stoakes <ljs@kernel.org>
+To: Kiryl Shutsemau <kirill@shutemov.name>
+Cc: akpm@linux-foundation.org, rppt@kernel.org, peterx@redhat.com, 
+	david@kernel.org, surenb@google.com, vbabka@kernel.org, Liam.Howlett@oracle.com, 
+	ziy@nvidia.com, corbet@lwn.net, skhan@linuxfoundation.org, seanjc@google.com, 
+	pbonzini@redhat.com, jthoughton@google.com, aarcange@redhat.com, sj@kernel.org, 
+	usama.arif@linux.dev, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org, kvm@vger.kernel.org, 
+	kernel-team@meta.com, stable@vger.kernel.org
+Subject: Re: [PATCH v5 04/18] mm: skip out-of-range bits in mk_vma_flags()
+Message-ID: <ah1Sxn5VHLF6jlcU@lucifer>
+References: <20260526130509.2748441-1-kirill@shutemov.name>
+ <20260526130509.2748441-5-kirill@shutemov.name>
+ <ahmQvfNk7S4F0LBj@lucifer>
+ <ahmoH9v6_DA2i_zn@thinkstation>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ClientProxiedBy: EX19D045UWA003.ant.amazon.com (10.13.139.46) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ahmoH9v6_DA2i_zn@thinkstation>
 
-From: Damien Le Moal <dlemoal@kernel.org>
+On Fri, May 29, 2026 at 05:09:56PM +0100, Kiryl Shutsemau wrote:
+> On Fri, May 29, 2026 at 03:00:14PM +0100, Lorenzo Stoakes wrote:
+> > > Add VMA_NO_BIT and have DECLARE_VMA_BIT() resolve any bitnum out
+> > > of range to it. vma_flags_set_flag() drops negative bit values.
+> > > The ternary collapses at compile time, the runtime check folds
+> > > away when the bit is in range, and the common path is unchanged.
+> >
+> > Hmm are you sure it does?
+>
+> You were right - I measured it (gcc 15.2, clang 21.1.8, -O2). The
+> DECLARE_VMA_BIT() ternary is fine, but the "if (bit < 0)" guard does not
+> reliably fold: with it, clang stops folding __VMA_UFFD_FLAGS to a constant
+> and gcc keeps a rolled loop; without it, both fold.
+>
+> So I've dropped VMA_NO_BIT and gone with your config-gated-mask approach
+> instead: mk_vma_flags_from_masks() plus VMA_UFFD_{MISSING,WP,MINOR,RWP}
+> masks that collapse to EMPTY_VMA_FLAGS when unavailable, so no out-of-range
+> bit ever reaches mk_vma_flags(). __VMA_UFFD_FLAGS now folds to a single
+> constant on both compilers, 32- and 64-bit. Added your Suggested-by.
+>
+> I also took your "use the new API" hint and added a prep patch converting
+> the existing userfaultfd_*() helpers to vma_test_any_mask() (Suggested-by
+> you as well). One deviation: vma_test(vma, VMA_UFFD_RWP_BIT) is itself an
+> out-of-bounds *read* on 32-bit (test_bit(43, &one_long)), so the helpers
+> use vma_test_any_mask() with the masks rather than the bit.
+>
+> > Either way, I think we should break out any fix like this from the series.
+>
+> Agreed - the OOB fix and the other pre-existing fixes will go as a separate
+> series with the RWP work rebased on top.
 
-commit 836efd35c472d89c838d7b17ef339ddb3286ffc5 upstream.
+Ack on all and thanks! :)
 
-Shin'ichiro reported hard to reproduce unaligned write errors with zoned
-block devices. Under normal operation conditions (e.g. running XFS on an
-SMR disk), these errors are nearly impossible to trigger. But using a
-"slow" kernel with many debug options enables and some specific use
-cases (e.g. fio zbd test case 46), the errors can be reproduced fairly
-easily.
+>
+> --
+>   Kiryl Shutsemau / Kirill A. Shutemov
 
-The unaligned write errors come from mishandling a valid reference
-counting pattern of zone write plugs. Such pattern triggers for instance
-if a process A writes a zone (not necessarilly to the full state),
-another process B immediately resets the zone and immediately following
-the completion of the zone reset, starts issuing writes to the zone.
-With such pattern, in some cases, the zone write plugs worker thread of
-the device may still be holding a reference to the zone write plug of
-the zone taken when process A was writing to the zone. The following
-zone reset from process B marks the zone as dead but does not remove the
-zone write plug from the device hash table as a reference to the plug
-still exist. Once process B starts issuing new writes, the zone write
-plug is seen as dead and the writes from process B are immediately
-failed, despite this write pattern being perfectly legal.
-
-Fix this by allowing restoring a dead zone write plug to a live state if
-a write is issued to the zone when the zone is: marked as dead, empty
-and the write sector corresponds to the first sector of the zone (that
-is, the write is aligned to the zone write pointer). This is done with
-the new helper function disk_check_zone_wplug_dead(), which restores a
-dead zone write plug to a live state by clearing the BLK_ZONE_WPLUG_DEAD
-flag and restoring the initial reference to the zone write plug taken
-when the plug was added to the device hash table.
-
-Reported-by: Shin'ichiro Kawasaki <shinichiro.kawasaki@wdc.com>
-Fixes: b7d4ffb51037 ("block: fix zone write plug removal")
-Signed-off-by: Damien Le Moal <dlemoal@kernel.org>
-Tested-by: Shin'ichiro Kawasaki <shinichiro.kawasaki@wdc.com>
-Link: https://patch.msgid.link/20260513111129.108809-1-dlemoal@kernel.org
-Signed-off-by: Jens Axboe <axboe@kernel.dk>
-
-[ context conflict due to different line offsets in blk-zoned.c ]
-Signed-off-by: Gyokhan Kochmarla <gyokhan@amazon.de>
-
-diff --git a/block/blk-zoned.c b/block/blk-zoned.c
---- a/block/blk-zoned.c
-+++ b/block/blk-zoned.c
-@@ -505,6 +505,28 @@ static void disk_mark_zone_wplug_dead(struct blk_zone_wplug *zwplug)
- 	}
- }
- 
-+static inline bool disk_check_zone_wplug_dead(struct blk_zone_wplug *zwplug)
-+{
-+	if (!(zwplug->flags & BLK_ZONE_WPLUG_DEAD))
-+		return false;
-+
-+	/*
-+	 * If a new write is received right after a zone reset completes and
-+	 * while the disk_zone_wplugs_worker() thread has not yet released the
-+	 * reference on the zone write plug after processing the last write to
-+	 * the zone, then the new write BIO will see the zone write plug marked
-+	 * as dead. This case is however a false positive and a perfectly valid
-+	 * pattern. In such case, restore the zone write plug to a live one.
-+	 */
-+	if (!zwplug->wp_offset && bio_list_empty(&zwplug->bio_list)) {
-+		zwplug->flags &= ~BLK_ZONE_WPLUG_DEAD;
-+		refcount_inc(&zwplug->ref);
-+		return false;
-+	}
-+
-+	return true;
-+}
-+
- static void blk_zone_wplug_bio_work(struct work_struct *work);
- 
- /*
-@@ -1027,12 +1049,12 @@ static bool blk_zone_wplug_handle_write(struct bio *bio, unsigned int nr_segs)
- 	}
- 
- 	/*
--	 * If we got a zone write plug marked as dead, then the user is issuing
--	 * writes to a full zone, or without synchronizing with zone reset or
--	 * zone finish operations. In such case, fail the BIO to signal this
--	 * invalid usage.
-+	 * Check if we got a zone write plug marked as dead. If yes, then the
-+	 * user is likely issuing writes to a full zone, or without
-+	 * synchronizing with zone reset or zone finish operations. In such
-+	 * case, fail the BIO to signal this invalid usage.
- 	 */
--	if (zwplug->flags & BLK_ZONE_WPLUG_DEAD) {
-+	if (disk_check_zone_wplug_dead(zwplug)) {
- 		spin_unlock_irqrestore(&zwplug->lock, flags);
- 		disk_put_zone_wplug(zwplug);
- 		bio_io_error(bio);
-
-
-
-Amazon Web Services Development Center Germany GmbH
-Tamara-Danz-Str. 13
-10243 Berlin
-Geschaeftsfuehrung: Christof Hellmis, Andreas Stieger
-Eingetragen am Amtsgericht Charlottenburg unter HRB 257764 B
-Sitz: Berlin
-Ust-ID: DE 365 538 597
-
+Cheers, Lorenzo
