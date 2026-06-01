@@ -1,241 +1,197 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 352F33314B7;
-	Mon,  1 Jun 2026 17:41:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780335678; cv=none; b=SB9gpPgqdxeHwM5oJwwP2IQZEd7Bat/uQ/jOPPLm5r4WRCSDY9XlFBWvKjjt1xb7BnX79qGb9ygECDr8cj3xteQjHCTMFGKoXHUvXTmFo0W8ITsOA2nvnujbHUnhM5Xzs+HeqWgHG8NZ8AKZhvTpjbiXErMfQ7ativzzQb5WHy0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780335678; c=relaxed/simple;
-	bh=ZVug3kaqTUP2mtKSklmx9nUnrdSBRzhmVGtcHSo0Omw=;
-	h=Date:To:From:Subject:Message-Id; b=a6eTAiFI6yaq4KtElHeQx6kod1j5v8kLLwj8vGm+Ac8HYrvuT0fCM04dOD9f/61An+qTTH7yeBcoCaLv8B9VvRkd+IRYRKNbFny9kDp+k2JnJyjfKiPyWmtJDK+4BAaQzdg1C4UuuyQAZ6wuBASDn6bCaaN/n6gM6Hua/RAIW1A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=gB8BhgGL; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 499FE3E0C44
+	for <stable@vger.kernel.org>; Mon,  1 Jun 2026 17:51:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.48
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780336270; cv=pass; b=ZR65EPSj3beNsezXVbXQjtt0aEAR6/Ji1imetUhujAvq7tCNsOVkv3moW72Csc8ZmG9KEyNfbPZH/lVcQNBbALNbWuY9pO7V4lpKmjFrZGHGVBh0jyinw/f8mJ5GbitXVyK1500LAK4WwAn/CN4dIlYBuQ1Sn4Skf0sz5ewsdkg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780336270; c=relaxed/simple;
+	bh=flOdQbFMjfUG0jkFksI2WZ1HJzXvIy8Dsk0tvu6DNig=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=lxguYz30viK0RQIwL3kRki5YAua9PdZ37oTGn5Joi6+fvwDodc8VoGODSJXfOGl5+JTjuRvq7uIiNMC3/0rDSNfbAe3+Dz4pn1ZBf0D5XKWrDrRT4IWXqWjwE7nSLotxCjfQhAdjYo1mQSWH56kDPWlhRggSBixOeNoHkAu7BXo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=tFeTSrGP; arc=pass smtp.client-ip=209.85.218.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="gB8BhgGL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3E2E1F00893;
-	Mon,  1 Jun 2026 17:41:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tFeTSrGP"
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-bdf8add254dso968585866b.1
+        for <stable@vger.kernel.org>; Mon, 01 Jun 2026 10:51:07 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1780336266; cv=none;
+        d=google.com; s=arc-20240605;
+        b=ZG+PC1pe9UO7dq9AyMnUHczahX/9cmdBLoynAM3HN8txgkHPAV6KGDffBen2/cLOLQ
+         YrqHtxk/9QcWMUdHXIz9+u6SdZjbL940iBm6abwLYmNlpxIYwMbEFFa7nUH+HW8TCazo
+         2o6Vo21aVpiqYQ2jJTauL3yWDBr30+G0O/RhAJyiR0JQSvQbnr3mQOwjAOzCaxu09hM9
+         AbO4LBdoqVBA6BpS8ybYtH6Eq7vMuwG9lgsZTs8fTwMSs3AOrzvOb3UFJ9b8JZMqpfCZ
+         ce7wvhMjaa783YnWHWoyY8uvwNT8WoeXAGQ0FlqRYWk2ZXz/5BTRZYcZ06i0epUO2UMe
+         LADQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=1oyN2GHO/W1PVNw6MHzzvIqAiryGCw8vjjyfHSwiSxY=;
+        fh=6zTPu7a/Mmy/U4u+Fd381rsTEZtTojEfZIo48I63LsE=;
+        b=kTNvuvGsgwR3wpxl+NGC2flfXnPxebDUDyoUUnpDnFI3cj84iY4eXlO4TKZic8VbOQ
+         IlXKFrvXZ2Xsdrzfnh1GAfPxR8zF0BdcuvoUY8XKEr05cGU4Tq874WMdYtEPT8a9b7Ny
+         /lb6pum9qsEJlphxo6YEIbKb16loYT6GVGfRhxJ6m3K/NYdC7iHCA7JKjwIVaQ1i5j6g
+         /FD3mieLl33RqwAAw2fDM1HvBghp3rpInG5mJhOSut/RdiZ3V3r8nasysDGWOXTPbAP8
+         OjdIeFWvXnU5o3RUMoc3yPNFiyQWirradVYmrODIPPvVQlrW3et+OV8UoZpivUy9/gt4
+         QtSA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1780335675;
-	bh=PnMdVX4biqwlVmhpe6fl4dMiIu2Yewi2KzpAXgipRO0=;
-	h=Date:To:From:Subject;
-	b=gB8BhgGLJF5DxLmbRGcJNdHryl7apfbhQjk/bnbSNVmITAhI3GpT5LLFPsr5xzpSv
-	 qPAIMtRuD8OJc/fPAmpHFsgUtLIwbTzCKae7qCxetNOpRyeJozMnh5DRKhPIbVwLUk
-	 zboMZWhgb221P/X/tzhngzRRN293WsOnv0hzvffM=
-Date: Mon, 01 Jun 2026 10:41:15 -0700
-To: mm-commits@vger.kernel.org,ziy@nvidia.com,stable@vger.kernel.org,sj@kernel.org,ryan.roberts@arm.com,richard.weiyang@gmail.com,npache@redhat.com,liam@infradead.org,lance.yang@linux.dev,dev.jain@arm.com,david@kernel.org,baolin.wang@linux.alibaba.com,baohua@kernel.org,balbirs@nvidia.com,ljs@kernel.org,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + mm-huge_memory-use-correct-flags-for-device-private-pmd-entry.patch added to mm-hotfixes-unstable branch
-Message-Id: <20260601174115.B3E2E1F00893@smtp.kernel.org>
+        d=gmail.com; s=20251104; t=1780336266; x=1780941066; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=1oyN2GHO/W1PVNw6MHzzvIqAiryGCw8vjjyfHSwiSxY=;
+        b=tFeTSrGPap1yf2dbp8FM1Wl0GY22tAy1HeqCwDyDijuqOFsKzJQB3U/iZC/IkcXwkv
+         JT0YYWTrK9SOhBTAsSeqIK3JSUc2fFILOIr2uWJvlqUTRWGrUg1Q89K5gYx/qfd3ESPC
+         XqMnHMSgO+YgVCukGPQAXwW1NmqIXNTDqq90IgCaOqFt1vqAYYIzxY5rV51c3VUw97l9
+         QLlwIs2r69eyDzv9vCg+gbKH0jsi1lK74Nlnh82Z3TJTc8ikKyGKUHrkeoXpF4LiMj2+
+         6KRL1rnJ5LteFdxJOuYXJmwMClELpnX60Eb258zZLF5V6+e5d0EkWjRdt4dki3z+j9va
+         V2Mw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780336266; x=1780941066;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=1oyN2GHO/W1PVNw6MHzzvIqAiryGCw8vjjyfHSwiSxY=;
+        b=NCHuiQtjqQX3dcIqOllAsN5i/3Qu7YVNtupHsnjTnWnOhuq7Pm/A3DH6vo1TEVRqY3
+         T/YRRj+pkh3wXmLYgj8xT/LFeFuvxqns/RysfBsbaH/IpNpxaP0InPfSWCVkcWXGVoKT
+         s67yatj5bVUnGhDx5fp+pNNZSPZkpSBdTjQWFKinb/RBMzknJpwF3zZzGqr0BgyepG6X
+         Cf+n/A0/Rwkw8r9B5CCvNIyJEFpesqWnMYuFFMa3ts8jdu4JtSs7uSOXOsVvdhjmb1MH
+         PtyP0uqBaPNBnOyDEWtuoMaBYAQbahoU067vjXd2CpdVOuBN8CqvDgrd8EcPFEbE4MPi
+         4uyw==
+X-Forwarded-Encrypted: i=1; AFNElJ8IYVzAv5R6hXxdykXgKJpbB27EkC5CNqG7wOvhAehc09YXQA7d3jabUkTdv0nv14qHwwnQQCo=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxjXbJXGIPxgHqlvAcgae0nHay60lyui6iycXLuZX1mZSzV8MWc
+	X1/m8L9yFeM8a5nuU+rLd9oG3hVhJ5LMVAkN6wcUkG6bpYq8cd3GzvJ37cd0ngUiBBMi8ms7bZl
+	pRbUJIBLg1notVgBHsTEysCh+80cIpy8=
+X-Gm-Gg: Acq92OE9mYG79HnHAxKVYIyawDNGE5xe6qkn6HqGknvbB3zsoQdXgAZneIzZBN3pYOg
+	yQwfy+ChSObzjuyAhsDQIC6rTa6JdD0heR8XWXpeIdNPVaaiNhYo1mIw2R3cH0eOvTbid/4IJe2
+	6LzgO8saBLmOcxc0C1W3VQ8tybzPzDiLLTbkfSBuUyFaiDmOM3diZPpi6knWUirXKIZcK3fBZV8
+	tZJmNKG2QQuLJ33UtdmyUPj7OyokhzHYPAFhVEYg5WL+ef0u7xhdIBq7U+MIYa4rO45DYDL4KBa
+	OBzLy+1UfD5CYv6gTn7MoQ4G5zbXILuwrPfv82nzBBZjERMLBVA=
+X-Received: by 2002:a17:907:3d55:b0:bcb:4046:63ee with SMTP id
+ a640c23a62f3a-beab17aaa7fmr558548966b.31.1780336265621; Mon, 01 Jun 2026
+ 10:51:05 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260601161501.1444829-1-shakeel.butt@linux.dev>
+In-Reply-To: <20260601161501.1444829-1-shakeel.butt@linux.dev>
+From: Kairui Song <ryncsn@gmail.com>
+Date: Tue, 2 Jun 2026 01:50:28 +0800
+X-Gm-Features: AVHnY4IV1F6PCCbzzYjlKLYKIUjD5M0VssnH2_2WxHth41_Ifdx4MpgpS8XDWPI
+Message-ID: <CAMgjq7CQt+W5jAB1DM=nCRpLOFnCK3FkdKT6O0sznOEGpo6=Zw@mail.gmail.com>
+Subject: Re: [PATCH v2] mm/list_lru: drain before clearing xarray entry on reparent
+To: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Johannes Weiner <hannes@cmpxchg.org>, 
+	Dave Chinner <david@fromorbit.com>, Roman Gushchin <roman.gushchin@linux.dev>, 
+	Muchun Song <muchun.song@linux.dev>, Qi Zheng <qi.zheng@linux.dev>, 
+	Meta kernel team <kernel-team@meta.com>, linux-mm@kvack.org, cgroups@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Chris Mason <clm@fb.com>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Tue, Jun 2, 2026 at 12:28=E2=80=AFAM Shakeel Butt <shakeel.butt@linux.de=
+v> wrote:
+>
+> memcg_reparent_list_lrus() clears the dying memcg's xarray entry with
+> xas_store(&xas, NULL) before reparenting its per-node lists into the
+> parent. This opens a window where a concurrent list_lru_del() arriving
+> for the dying memcg sees xa_load() =3D=3D NULL, walks to the parent in
+> lock_list_lru_of_memcg(), takes the parent's per-node lock, and calls
+> list_del_init() on an item still physically linked on the dying
+> memcg's list.
+>
+> If another in-flight thread holds the dying memcg's per-node lock at
+> the same moment (another list_lru_del, or a list_lru_walk_one running
+> an isolate callback), both threads modify ->next/->prev pointers on the
+> same physical list under different locks. Adjacent items can corrupt
+> each other's links.
+>
+> Fix it by reversing the order: reparent each per-node list and mark the
+> child's list lru dead and then clear the xarray entry. Any concurrent
+> list_lru op that finds the still-set xarray entry either takes the dying
+> memcg's per-node lock (synchronizing with the drain) or sees LONG_MIN
+> and walks to the parent, where the items now live.
+>
+> Fixes: fb56fdf8b9a2 ("mm/list_lru: split the lock to per-cgroup scope")
+> Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
+> Reported-by: Chris Mason <clm@fb.com>
+> Cc: stable@vger.kernel.org
+> ---
+> Changes since v1:
+> - Use xa_erase_irq() instead of xa_erase() (Sashiko & Claude).
+> - Added comment on CSS_DYING check in memcg_list_lru_alloc avoiding a new=
+ mlru
+>   allocation.
+>
+>  mm/list_lru.c | 21 ++++++++++++---------
+>  1 file changed, 12 insertions(+), 9 deletions(-)
+>
+> diff --git a/mm/list_lru.c b/mm/list_lru.c
+> index dd29bcf8eb5f..d454bce9a78e 100644
+> --- a/mm/list_lru.c
+> +++ b/mm/list_lru.c
+> @@ -473,26 +473,29 @@ void memcg_reparent_list_lrus(struct mem_cgroup *me=
+mcg, struct mem_cgroup *paren
+>         mutex_lock(&list_lrus_mutex);
+>         list_for_each_entry(lru, &memcg_list_lrus, list) {
+>                 struct list_lru_memcg *mlru;
+> -               XA_STATE(xas, &lru->xa, memcg->kmemcg_id);
+>
+>                 /*
+> -                * Lock the Xarray to ensure no on going list_lru_memcg
+> -                * allocation and further allocation will see css_is_dyin=
+g().
+> +                * css_is_dying() check in memcg_list_lru_alloc() avoids
+> +                * allocating a new mlru since CSS_DYING is already set f=
+or this
+> +                * memcg a rcu grace period ago.
+>                  */
+> -               xas_lock_irq(&xas);
+> -               mlru =3D xas_store(&xas, NULL);
+> -               xas_unlock_irq(&xas);
+> +               mlru =3D xa_load(&lru->xa, memcg->kmemcg_id);
+>                 if (!mlru)
+>                         continue;
+>
+>                 /*
+> -                * With Xarray value set to NULL, holding the lru lock be=
+low
+> -                * prevents list_lru_{add,del,isolate} from touching the =
+lru,
+> -                * safe to reparent.
+> +                * Reparent each per-node list and mark the child dead
+> +                * (LONG_MIN) before clearing xarray entry otherwise a
+> +                * concurrent list_lru_del() may corrupt the list if it a=
+rrives
+> +                * after xarray clear but before reparenting as
+> +                * lock_list_lru_of_memcg will acquire parent's lock whil=
+e the
+> +                * item is still on child's list.
+>                  */
+>                 for_each_node(i)
+>                         memcg_reparent_list_lru_one(lru, i, &mlru->node[i=
+], parent);
+>
+> +               xa_erase_irq(&lru->xa, memcg->kmemcg_id);
+> +
+>                 /*
+>                  * Here all list_lrus corresponding to the cgroup are gua=
+ranteed
+>                  * to remain empty, we can safely free this lru, any furt=
+her
+> --
+> 2.53.0-Meta
+>
+>
 
-The patch titled
-     Subject: mm/huge_memory: use correct flags for device private PMD entry
-has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
-     mm-huge_memory-use-correct-flags-for-device-private-pmd-entry.patch
+Nice catch! Thanks a lot!
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-huge_memory-use-correct-flags-for-device-private-pmd-entry.patch
-
-This patch will later appear in the mm-hotfixes-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: Lorenzo Stoakes <ljs@kernel.org>
-Subject: mm/huge_memory: use correct flags for device private PMD entry
-Date: Mon, 1 Jun 2026 09:30:44 +0100
-
-Commit 65edfda6f3f2 ("mm/rmap: extend rmap and migration support
-device-private entries") updated set_pmd_migration_entry() to use
-pmdp_huge_get_and_clear() in the softleaf case, but made no further
-adjustments to the function itself.
-
-Therefore this function continues to incorrectly use pmd_write(),
-pmd_soft_dirty() and pmd_uffd_wp() to determine whether the installed
-migration entry should be marked writable, softdirty or uffd-wp
-respectively.
-
-Whilst all are incorrect, the most problematic of these is pmd_write(), as
-this can lead to corrupted rmap state.
-
-On x86-64 _PAGE_SWP_SOFT_DIRTY is aliased to _PAGE_RW.  So calling
-pmd_write() on a softleaf will return the softdirty state encoded in the
-entry, assuming CONFIG_MEM_SOFT_DIRTY was enabled.
-
-This was observed when running the hmm.hmm_device_private.anon_write_child
-selftest:
-
-1. The test faults in a range then migrates it such that a device-private
-   THP range is established.
-
-2. The parent then migrates it to a device-private writable PMD entry whose
-   folio is entirely AnonExclusive with entire_mapcount=1, softdirty set
-   (accidentally correct write state).
-
-3. The parent forks and the PMD entries are set to device-private read only
-   entries, entire_mapcount=2, softdirty still set.
-
-4. [BUG] The child writes to the range then migrates to RAM - intending to
-   install non-writable migration entries - but replacing parent and child
-   PMD mappings with WRITABLE entries due to misinterpreting the softdirty
-   bit.
-
-5. In remove_migration_pmd(), if !softleaf_is_migration_read(entry) we
-   set the RMAP_EXCLUSIVE flag when calling folio_add_anon_rmap_pmd() for
-   both parent and child, which are therefore AnonExclusive.
-
-6. [SPLAT] Child sets migrated folio entire_mapcount=1, parent sets
-   entire_mapcount=2 and we end up with an AnonExclusive folio with
-   entire_mapcount=2! Assert fires in __folio_add_anon_rmap():
-
-		VM_WARN_ON_FOLIO(folio_test_large(folio) &&
-				 folio_entire_mapcount(folio) > 1 &&
-				 PageAnonExclusive(cur_page), folio)
-
-This patch fixes the issue by correctly referencing the softleaf entry
-fields for writable, softdirty and uffd-wp in set_pmd_migration_entry().
-
-It also only updates A/D flags if the entry is present as these are
-otherwise not meaningful for a softleaf entry.
-
-This patch also flips the if (!present) { ...  } else { ...  } logic in
-set_pmd_migration_entry() so it is easier to understand, and adds some
-comments to make things clearer.
-
-I was able to bisect this to commit 775465fd26a3 ("lib/test_hmm: add zone
-device private THP test infrastructure") which first exposes this bug as
-it was the commit that permitted test_hmm to generate the test.
-
-However commit 65edfda6f3f2 ("mm/rmap: extend rmap and migration support
-device-private entries") is the commit that actually enabled this
-behaviour.
-
-Link: https://lore.kernel.org/20260601083044.57132-1-ljs@kernel.org
-Fixes: 65edfda6f3f2 ("mm/rmap: extend rmap and migration support device-private entries")
-Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Reviewed-by: Dev Jain <dev.jain@arm.com>
-Cc: Balbir Singh <balbirs@nvidia.com>
-Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: Barry Song <baohua@kernel.org>
-Cc: Lance Yang <lance.yang@linux.dev>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Nico Pache <npache@redhat.com>
-Cc: Ryan Roberts <ryan.roberts@arm.com>
-Cc: SeongJae Park <sj@kernel.org>
-Cc: Wei Yang <richard.weiyang@gmail.com>
-Cc: Zi Yan <ziy@nvidia.com>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
----
-
- mm/huge_memory.c |   45 +++++++++++++++++++++++++++++++++------------
- 1 file changed, 33 insertions(+), 12 deletions(-)
-
---- a/mm/huge_memory.c~mm-huge_memory-use-correct-flags-for-device-private-pmd-entry
-+++ a/mm/huge_memory.c
-@@ -4981,7 +4981,7 @@ int set_pmd_migration_entry(struct page_
- 	struct vm_area_struct *vma = pvmw->vma;
- 	struct mm_struct *mm = vma->vm_mm;
- 	unsigned long address = pvmw->address;
--	bool anon_exclusive;
-+	bool anon_exclusive, present, writable, softdirty, uffd_wp;
- 	pmd_t pmdval;
- 	swp_entry_t entry;
- 	pmd_t pmdswp;
-@@ -4989,12 +4989,26 @@ int set_pmd_migration_entry(struct page_
- 	if (!(pvmw->pmd && !pvmw->pte))
- 		return 0;
- 
--	flush_cache_range(vma, address, address + HPAGE_PMD_SIZE);
--	if (unlikely(!pmd_present(*pvmw->pmd)))
--		pmdval = pmdp_huge_get_and_clear(vma->vm_mm, address, pvmw->pmd);
--	else
-+	present = pmd_present(*pvmw->pmd);
-+	if (likely(present)) {
-+		flush_cache_range(vma, address, address + HPAGE_PMD_SIZE);
-+
- 		pmdval = pmdp_invalidate(vma, address, pvmw->pmd);
- 
-+		writable = pmd_write(pmdval);
-+		softdirty = pmd_soft_dirty(pmdval);
-+		uffd_wp = pmd_uffd_wp(pmdval);
-+	} else {
-+		softleaf_t old_entry;
-+
-+		pmdval = pmdp_huge_get_and_clear(vma->vm_mm, address, pvmw->pmd);
-+		old_entry = softleaf_from_pmd(pmdval);
-+
-+		writable = softleaf_is_device_private_write(old_entry);
-+		softdirty = pmd_swp_soft_dirty(pmdval);
-+		uffd_wp = pmd_swp_uffd_wp(pmdval);
-+	}
-+
- 	/* See folio_try_share_anon_rmap_pmd(): invalidate PMD first. */
- 	anon_exclusive = folio_test_anon(folio) && PageAnonExclusive(page);
- 	if (anon_exclusive && folio_try_share_anon_rmap_pmd(folio, page)) {
-@@ -5002,24 +5016,31 @@ int set_pmd_migration_entry(struct page_
- 		return -EBUSY;
- 	}
- 
--	if (pmd_dirty(pmdval))
--		folio_mark_dirty(folio);
--	if (pmd_write(pmdval))
-+	/* Determine type of migration entry. */
-+	if (writable)
- 		entry = make_writable_migration_entry(page_to_pfn(page));
- 	else if (anon_exclusive)
- 		entry = make_readable_exclusive_migration_entry(page_to_pfn(page));
- 	else
- 		entry = make_readable_migration_entry(page_to_pfn(page));
--	if (pmd_young(pmdval))
-+
-+	/* Set A/D bits as necessary. */
-+	if (present && pmd_young(pmdval))
- 		entry = make_migration_entry_young(entry);
--	if (pmd_dirty(pmdval))
-+	if (present && pmd_dirty(pmdval)) {
-+		folio_mark_dirty(folio);
- 		entry = make_migration_entry_dirty(entry);
-+	}
-+
-+	/* Set PMD. */
- 	pmdswp = swp_entry_to_pmd(entry);
--	if (pmd_soft_dirty(pmdval))
-+	if (softdirty)
- 		pmdswp = pmd_swp_mksoft_dirty(pmdswp);
--	if (pmd_uffd_wp(pmdval))
-+	if (uffd_wp)
- 		pmdswp = pmd_swp_mkuffd_wp(pmdswp);
- 	set_pmd_at(mm, address, pvmw->pmd, pmdswp);
-+
-+	/* Migration entry installed: cleanup rmap, folio. */
- 	folio_remove_rmap_pmd(folio, page, vma);
- 	folio_put(folio);
- 	trace_set_migration_pmd(address, pmd_val(pmdswp));
-_
-
-Patches currently in -mm which might be from ljs@kernel.org are
-
-mm-huge_memory-use-correct-flags-for-device-private-pmd-entry.patch
-drivers-char-mem-eliminate-unnecessary-use-of-success_hook.patch
-mm-vma-remove-mmap_action-success_hook.patch
-mm-vma-eliminate-mmap_action-error_hook-introduce-error_filter.patch
-
+Reviewed-by: Kairui Song <kasong@tencent.com>
