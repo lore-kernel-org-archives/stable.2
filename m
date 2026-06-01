@@ -1,22 +1,22 @@
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E739339A040
-	for <stable@vger.kernel.org>; Mon,  1 Jun 2026 10:26:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2D7739A4BA
+	for <stable@vger.kernel.org>; Mon,  1 Jun 2026 10:26:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780309566; cv=none; b=mxHR3YKhvTJtHFHuKk+2Hw46EJaDJ5hv3/nXx02FKzFtwBUxyLhDLKcuIp/K6jnEhWc+M6y1ueSaIJNDd/vkXFanN+0Ck+n4uyWsoaP31Xl7QA6K3TdbWlPO//LCHEnt1a24z1ydlQvW+UnfQP/HT2pakFczbASIwggbsuegfLs=
+	t=1780309566; cv=none; b=FXHYJFYfar6ze+YBUXCP9QksOmNv+1120WGzEC1AvfcyL3pyd6ry+TGrR74L7Ao29OZX8JgOf0wf3NUtuuLazbNFR5zclMCqmZvXe9jyZJSN2SXePIkkFxpuey+gbEufvpuPZYUsJhaqcBbN9mVRvjnzAbwtjYc9Ajy3Ep/Ita0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1780309566; c=relaxed/simple;
-	bh=IDmFn6DRAMwtPw7uA//W1es7+SS83hUZ3Y+LdpLEMdk=;
+	bh=xl/2NDb6XDtSj94bV7D6pcUmu3hS6xqReuwHukJDHWU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=n7+eR0wnpyHl87CmeUCH1VmEwwCPv4HVCzK1l0vIaJZzIgJ+pnHmY1YvYd4DMqf5Y2gdSl5XVqbdIA7gRWXQH+1e7oSXuvA08pmLyjsL7OC50Nj0WDWRJqW9h/cKRCUw46LMhsNDPT8EweRLuFCPNIudibEk6+nXGZ28MlwIybA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=uEpeg/20; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=VKUTbx/g; arc=none smtp.client-ip=193.142.43.55
+	 MIME-Version; b=khyxUbFULucJvMuMkPoXWsP7jU/bME97wfA21waPcHjlJ97SVlehz9xofWtJWBkM1kKVhhlM0mxPINQmYtw0H/UcJTxHD2SzdU67sAH+thuNsLXdWOzDKOU+y3gWlTCI+4N92a4c2oMiCjNfFok6fC0jswWwKlCiHrMZG1daHhw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=gk9l5Een; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=OoB56akN; arc=none smtp.client-ip=193.142.43.55
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="uEpeg/20";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="VKUTbx/g"
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="gk9l5Een";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="OoB56akN"
 From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
 	s=2020; t=1780309561;
@@ -24,31 +24,30 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=xnZFs0PVSLC0pgeG8qqJVjB5PdoQUTV5448mSjmxa30=;
-	b=uEpeg/20luSXK0cUR0w5mYrZ7KY66OYYFtXkEnh4T3twoHvJcl/w+d/ouMChxOqqZWkR3Z
-	4i08+KO2INZzpXBf0O/zyZS7G6iDsQs2ml7hO4431DzIA6N1xXVjPChF5TvUGQYrxZCS21
-	D6s6N6QgIxY5/sKW6PkjeNfeSndWZ/gDsR4sgUzGUjYYwamR9hdMWhwq233upU2jvdHFX7
-	1NrOrU1bWhZrTaaNCMGMUQ0CdebcClC01D7GG0bbZttTX8M22CMM28eUB9xJj4ZhLP0XuF
-	Uv+LPh40E/QwjIHMjxj/xbio1UmWoAs/XQlMPvHRMF6dMGcPqK7f8y81iporlw==
+	bh=8PfwKeLo1K3+CVdeWoQTBbeYfNSRXf9W5OTBJyknmDg=;
+	b=gk9l5Een9L9I3WFzUo7apCHDeoRY4hHUYF0FgYkqxAkcmvXjmdpHcCezWNuzicq+7mZz/L
+	ra9ZS/KEC9iGmx1PkMUWfDKbUgNyuFbiwTmi/7yKuQni8LZ4vrGnPQBorFuqa8tqXhh4kf
+	7wdoOLnBAFDbAw6SigXoA1T8YmrMI6yxmegjELNGi+mLKyZyEoN9Un9wK7TSCCQVH5gGmC
+	3izwmp3iLb81MN7mJd3Ei0gZ17CgyHRFiK18+IyDuimFcqF7FhOwKUaSEG92Z8QJbv7hdf
+	FqYyRIIOIVOspaeqb0i9j9iZ0RaZzEOlBiMzJQcAbLJADEEk0gCr/jKechOW1Q==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
 	s=2020e; t=1780309561;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=xnZFs0PVSLC0pgeG8qqJVjB5PdoQUTV5448mSjmxa30=;
-	b=VKUTbx/gVarBM/pOBn1qTj1dBMgQXEOf/0kYF07meuY4tL11Y08T8312HOzJQ/a6GmQaJZ
-	3TM7LHPEXkKZZMDQ==
+	bh=8PfwKeLo1K3+CVdeWoQTBbeYfNSRXf9W5OTBJyknmDg=;
+	b=OoB56akNdkgNG9rhQEhnuW46zBh0M6e28cY2D8ec5sg0/z6bmSsbJdxcDrUBOQAMfy2MNi
+	+y859ULI5B5r8GCA==
 To: stable@vger.kernel.org
 Cc: Ada Couprie Diaz <ada.coupriediaz@arm.com>,
 	"Luis Claudio R. Goncalves" <lgoncalv@redhat.com>,
-	Anshuman Khandual <anshuman.khandual@arm.com>,
 	Will Deacon <will@kernel.org>,
 	Mark Rutland <mark.rutland@arm.com>,
 	Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Subject: [PATCH v6.12-stable v2 09/15] arm64: debug: refactor reinstall_suspended_bps()
-Date: Mon,  1 Jun 2026 12:25:48 +0200
-Message-ID: <20260601102554.233076-10-bigeasy@linutronix.de>
+Subject: [PATCH v6.12-stable v2 11/15] arm64: debug: split hardware watchpoint exception entry
+Date: Mon,  1 Jun 2026 12:25:50 +0200
+Message-ID: <20260601102554.233076-12-bigeasy@linutronix.de>
 In-Reply-To: <20260601102554.233076-1-bigeasy@linutronix.de>
 References: <20260601102554.233076-1-bigeasy@linutronix.de>
 Precedence: bulk
@@ -61,145 +60,209 @@ Content-Transfer-Encoding: quoted-printable
 
 From: Ada Couprie Diaz <ada.coupriediaz@arm.com>
 
-Upstream commit 80691d35523de3292b64c2ffa444aab3d55e51ba
+Upstream commit 413f0bba005dacf2484bb8ecce212fab9be79d81
 
-`reinstall_suspended_bps()` plays a key part in the stepping process
-when we have hardware breakpoints and watchpoints enabled.
-It checks if we need to step one, will re-enable it if it has
-been handled and will return whether or not we need to proceed with
-a single-step.
+Currently all debug exceptions share common entry code and are routed
+to `do_debug_exception()`, which calls dynamically-registered
+handlers for each specific debug exception. This is unfortunate as
+different debug exceptions have different entry handling requirements,
+and it would be better to handle these distinct requirements earlier.
 
-However, the current naming and return values make it harder to understand
-the logic and goal of the function.
+Hardware watchpoints are the only debug exceptions that will write
+FAR_EL1, so we need to preserve it and pass it down.
+However, they cannot be used to maliciously train branch predictors, so
+we can omit calling `arm64_bp_hardening()`, nor do they need to handle
+the Cortex-A76 erratum #1463225, as it only applies to single stepping
+exceptions.
 
-Rename it `try_step_suspended_breakpoints()` and change the return value
-to a boolean, aligning it with similar functions used in
-`do_el0_undef()` like `try_emulate_mrs()`, and making its behaviour
-more obvious.
+As the hardware watchpoint handler only returns 0 and never triggers
+the call to `arm64_notify_die()`, we can call it directly from
+`entry-common.c`.
+Split the hardware watchpoint exception entry and adjust the behaviour
+to match the lack of needed mitigations.
 
 Signed-off-by: Ada Couprie Diaz <ada.coupriediaz@arm.com>
 Tested-by: Luis Claudio R. Goncalves <lgoncalv@redhat.com>
-Reviewed-by: Anshuman Khandual <anshuman.khandual@arm.com>
 Reviewed-by: Will Deacon <will@kernel.org>
 Acked-by: Mark Rutland <mark.rutland@arm.com>
-Link: https://lore.kernel.org/r/20250707114109.35672-9-ada.coupriediaz@arm.=
-com
+Link: https://lore.kernel.org/r/20250707114109.35672-11-ada.coupriediaz@arm=
+.com
 Signed-off-by: Will Deacon <will@kernel.org>
 Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 Reviewed-by: Ada Couprie Diaz <ada.coupriediaz@arm.com>
 ---
- arch/arm64/include/asm/debug-monitors.h |  6 +++---
- arch/arm64/kernel/debug-monitors.c      |  2 +-
- arch/arm64/kernel/hw_breakpoint.c       | 25 ++++++++++++-------------
- 3 files changed, 16 insertions(+), 17 deletions(-)
+ arch/arm64/include/asm/exception.h |  4 ++++
+ arch/arm64/kernel/entry-common.c   | 31 ++++++++++++++++++++++++++++++
+ arch/arm64/kernel/hw_breakpoint.c  | 17 +++++-----------
+ 3 files changed, 40 insertions(+), 12 deletions(-)
 
-diff --git a/arch/arm64/include/asm/debug-monitors.h b/arch/arm64/include/a=
-sm/debug-monitors.h
-index 5319da0f0ca4e..24c7981abeb0b 100644
---- a/arch/arm64/include/asm/debug-monitors.h
-+++ b/arch/arm64/include/asm/debug-monitors.h
-@@ -83,11 +83,11 @@ int kernel_active_single_step(void);
- void kernel_rewind_single_step(struct pt_regs *regs);
-=20
+diff --git a/arch/arm64/include/asm/exception.h b/arch/arm64/include/asm/ex=
+ception.h
+index 6d40efc28be40..594350e552e11 100644
+--- a/arch/arm64/include/asm/exception.h
++++ b/arch/arm64/include/asm/exception.h
+@@ -61,8 +61,12 @@ void do_debug_exception(unsigned long addr_if_watchpoint=
+, unsigned long esr,
+ 			struct pt_regs *regs);
  #ifdef CONFIG_HAVE_HW_BREAKPOINT
--int reinstall_suspended_bps(struct pt_regs *regs);
-+bool try_step_suspended_breakpoints(struct pt_regs *regs);
+ void do_breakpoint(unsigned long esr, struct pt_regs *regs);
++void do_watchpoint(unsigned long addr, unsigned long esr,
++			struct pt_regs *regs);
  #else
--static inline int reinstall_suspended_bps(struct pt_regs *regs)
-+static inline bool try_step_suspended_breakpoints(struct pt_regs *regs)
- {
--	return -ENODEV;
-+	return false;
+ static inline void do_breakpoint(unsigned long esr, struct pt_regs *regs) =
+{}
++static inline void do_watchpoint(unsigned long addr, unsigned long esr,
++			struct pt_regs *regs) {}
+ #endif /* CONFIG_HAVE_HW_BREAKPOINT */
+ void do_el0_softstep(unsigned long esr, struct pt_regs *regs);
+ void do_el1_softstep(unsigned long esr, struct pt_regs *regs);
+diff --git a/arch/arm64/kernel/entry-common.c b/arch/arm64/kernel/entry-com=
+mon.c
+index c22cc4d0052d5..b90babcf2e2b1 100644
+--- a/arch/arm64/kernel/entry-common.c
++++ b/arch/arm64/kernel/entry-common.c
+@@ -535,6 +535,18 @@ static void noinstr el1_softstp(struct pt_regs *regs, =
+unsigned long esr)
+ 	arm64_exit_el1_dbg(regs);
  }
- #endif
 =20
-diff --git a/arch/arm64/kernel/debug-monitors.c b/arch/arm64/kernel/debug-m=
-onitors.c
-index a28482e25c4c3..b95a135ef10a9 100644
---- a/arch/arm64/kernel/debug-monitors.c
-+++ b/arch/arm64/kernel/debug-monitors.c
-@@ -195,7 +195,7 @@ static int single_step_handler(unsigned long unused, un=
-signed long esr,
- 	 * If we are stepping a pending breakpoint, call the hw_breakpoint
- 	 * handler first.
- 	 */
--	if (!reinstall_suspended_bps(regs))
-+	if (try_step_suspended_breakpoints(regs))
- 		return 0;
++static void noinstr el1_watchpt(struct pt_regs *regs, unsigned long esr)
++{
++	/* Watchpoints are the only debug exception to write FAR_EL1 */
++	unsigned long far =3D read_sysreg(far_el1);
++
++	arm64_enter_el1_dbg(regs);
++	debug_exception_enter(regs);
++	do_watchpoint(far, esr, regs);
++	debug_exception_exit(regs);
++	arm64_exit_el1_dbg(regs);
++}
++
+ static void noinstr el1_dbg(struct pt_regs *regs, unsigned long esr)
+ {
+ 	unsigned long far =3D read_sysreg(far_el1);
+@@ -584,6 +596,8 @@ asmlinkage void noinstr el1h_64_sync_handler(struct pt_=
+regs *regs)
+ 		el1_softstp(regs, esr);
+ 		break;
+ 	case ESR_ELx_EC_WATCHPT_CUR:
++		el1_watchpt(regs, esr);
++		break;
+ 	case ESR_ELx_EC_BRK64:
+ 		el1_dbg(regs, esr);
+ 		break;
+@@ -800,6 +814,19 @@ static void noinstr el0_softstp(struct pt_regs *regs, =
+unsigned long esr)
+ 	exit_to_user_mode(regs);
+ }
 =20
- 	if (call_step_hook(regs, esr) =3D=3D DBG_HOOK_HANDLED)
++static void noinstr el0_watchpt(struct pt_regs *regs, unsigned long esr)
++{
++	/* Watchpoints are the only debug exception to write FAR_EL1 */
++	unsigned long far =3D read_sysreg(far_el1);
++
++	enter_from_user_mode(regs);
++	debug_exception_enter(regs);
++	do_watchpoint(far, esr, regs);
++	debug_exception_exit(regs);
++	local_daif_restore(DAIF_PROCCTX);
++	exit_to_user_mode(regs);
++}
++
+ static void noinstr el0_dbg(struct pt_regs *regs, unsigned long esr)
+ {
+ 	/* Only watchpoints write FAR_EL1, otherwise its UNKNOWN */
+@@ -882,6 +909,8 @@ asmlinkage void noinstr el0t_64_sync_handler(struct pt_=
+regs *regs)
+ 		el0_softstp(regs, esr);
+ 		break;
+ 	case ESR_ELx_EC_WATCHPT_LOW:
++		el0_watchpt(regs, esr);
++		break;
+ 	case ESR_ELx_EC_BRK64:
+ 		el0_dbg(regs, esr);
+ 		break;
+@@ -1006,6 +1035,8 @@ asmlinkage void noinstr el0t_32_sync_handler(struct p=
+t_regs *regs)
+ 		el0_softstp(regs, esr);
+ 		break;
+ 	case ESR_ELx_EC_WATCHPT_LOW:
++		el0_watchpt(regs, esr);
++		break;
+ 	case ESR_ELx_EC_BKPT32:
+ 		el0_dbg(regs, esr);
+ 		break;
 diff --git a/arch/arm64/kernel/hw_breakpoint.c b/arch/arm64/kernel/hw_break=
 point.c
-index d7eede5d869c2..309ae24d45480 100644
+index 8a80e13347c88..ab76b36dce820 100644
 --- a/arch/arm64/kernel/hw_breakpoint.c
 +++ b/arch/arm64/kernel/hw_breakpoint.c
-@@ -847,36 +847,35 @@ NOKPROBE_SYMBOL(watchpoint_handler);
- /*
-  * Handle single-step exception.
-  */
--int reinstall_suspended_bps(struct pt_regs *regs)
-+bool try_step_suspended_breakpoints(struct pt_regs *regs)
+@@ -750,8 +750,7 @@ static int watchpoint_report(struct perf_event *wp, uns=
+igned long addr,
+ 	return step;
+ }
+=20
+-static int watchpoint_handler(unsigned long addr, unsigned long esr,
+-			      struct pt_regs *regs)
++void do_watchpoint(unsigned long addr, unsigned long esr, struct pt_regs *=
+regs)
  {
- 	struct debug_info *debug_info =3D &current->thread.debug;
--	int handled_exception =3D 0, *kernel_step;
--
--	kernel_step =3D this_cpu_ptr(&stepping_kernel_bp);
-+	int *kernel_step =3D this_cpu_ptr(&stepping_kernel_bp);
-+	bool handled_exception =3D false;
+ 	int i, step =3D 0, *kernel_step, access, closest_match =3D 0;
+ 	u64 min_dist =3D -1, dist;
+@@ -806,7 +805,7 @@ static int watchpoint_handler(unsigned long addr, unsig=
+ned long esr,
+ 	rcu_read_unlock();
+=20
+ 	if (!step)
+-		return 0;
++		return;
 =20
  	/*
- 	 * Called from single-step exception handler.
--	 * Return 0 if execution can resume, 1 if a SIGTRAP should be
--	 * reported.
-+	 * Return true if we stepped a breakpoint and can resume execution,
-+	 * false if we need to handle a single-step.
- 	 */
- 	if (user_mode(regs)) {
- 		if (debug_info->bps_disabled) {
- 			debug_info->bps_disabled =3D 0;
- 			toggle_bp_registers(AARCH64_DBG_REG_BCR, DBG_ACTIVE_EL0, 1);
--			handled_exception =3D 1;
-+			handled_exception =3D true;
+ 	 * We always disable EL0 watchpoints because the kernel can
+@@ -819,7 +818,7 @@ static int watchpoint_handler(unsigned long addr, unsig=
+ned long esr,
+=20
+ 		/* If we're already stepping a breakpoint, just return. */
+ 		if (debug_info->bps_disabled)
+-			return 0;
++			return;
+=20
+ 		if (test_thread_flag(TIF_SINGLESTEP))
+ 			debug_info->suspended_step =3D 1;
+@@ -830,7 +829,7 @@ static int watchpoint_handler(unsigned long addr, unsig=
+ned long esr,
+ 		kernel_step =3D this_cpu_ptr(&stepping_kernel_bp);
+=20
+ 		if (*kernel_step !=3D ARM_KERNEL_STEP_NONE)
+-			return 0;
++			return;
+=20
+ 		if (kernel_active_single_step()) {
+ 			*kernel_step =3D ARM_KERNEL_STEP_SUSPEND;
+@@ -839,10 +838,8 @@ static int watchpoint_handler(unsigned long addr, unsi=
+gned long esr,
+ 			kernel_enable_single_step(regs);
  		}
-=20
- 		if (debug_info->wps_disabled) {
- 			debug_info->wps_disabled =3D 0;
- 			toggle_bp_registers(AARCH64_DBG_REG_WCR, DBG_ACTIVE_EL0, 1);
--			handled_exception =3D 1;
-+			handled_exception =3D true;
- 		}
-=20
- 		if (handled_exception) {
- 			if (debug_info->suspended_step) {
- 				debug_info->suspended_step =3D 0;
- 				/* Allow exception handling to fall-through. */
--				handled_exception =3D 0;
-+				handled_exception =3D false;
- 			} else {
- 				user_disable_single_step(current);
- 			}
-@@ -890,17 +889,17 @@ int reinstall_suspended_bps(struct pt_regs *regs)
-=20
- 		if (*kernel_step !=3D ARM_KERNEL_STEP_SUSPEND) {
- 			kernel_disable_single_step();
--			handled_exception =3D 1;
-+			handled_exception =3D true;
- 		} else {
--			handled_exception =3D 0;
-+			handled_exception =3D false;
- 		}
-=20
- 		*kernel_step =3D ARM_KERNEL_STEP_NONE;
  	}
-=20
--	return !handled_exception;
-+	return handled_exception;
+-
+-	return 0;
  }
--NOKPROBE_SYMBOL(reinstall_suspended_bps);
-+NOKPROBE_SYMBOL(try_step_suspended_breakpoints);
+-NOKPROBE_SYMBOL(watchpoint_handler);
++NOKPROBE_SYMBOL(do_watchpoint);
 =20
  /*
-  * Context-switcher for restoring suspended breakpoints.
+  * Handle single-step exception.
+@@ -984,10 +981,6 @@ static int __init arch_hw_breakpoint_init(void)
+ 	pr_info("found %d breakpoint and %d watchpoint registers.\n",
+ 		core_num_brps, core_num_wrps);
+=20
+-	/* Register debug fault handlers. */
+-	hook_debug_fault_code(DBG_ESR_EVT_HWWP, watchpoint_handler, SIGTRAP,
+-			      TRAP_HWBKPT, "hw-watchpoint handler");
+-
+ 	/*
+ 	 * Reset the breakpoint resources. We assume that a halting
+ 	 * debugger will leave the world in a nice state for us.
 --=20
 2.53.0
 
