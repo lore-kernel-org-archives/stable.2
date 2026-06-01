@@ -1,35 +1,34 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D070264617;
-	Mon,  1 Jun 2026 03:11:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED7F225B0AD;
+	Mon,  1 Jun 2026 03:11:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780283463; cv=none; b=ikqSJztZVGbvv8P3hZfTRHLZ4q1yS04T1YQeSSJ0s291A8ZzIogd5CaK+/xukRoGQJiUUZ/FmfT3nArim1ryFhCtv7LEdyZ7A7MyZfMqaGY+Tk0oPOMh0ypYZBseUzU4i+DShPTuLLHkw4FOGJaDpi800zFsGy2fccwoD8sMmiU=
+	t=1780283467; cv=none; b=XYNnwJoDQTHDtQLFdP1qTDRLZUSU6yu5j2wLUOobENQ3IZL8/jDRtsaWQThsh+xALZaPAxnKIACc2ug+Q0ll706QCgyXmXN87VXsg5DJg+xgIEnnUvz510/cj/48LA5FDKFyNmaXJzoki52GmmauTUSSKbB1sMIwv/UaNbOOqUs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780283463; c=relaxed/simple;
-	bh=McbAPzejErfT3vRXQ/3hwMvfOEHqfV+gtaE6BzKmcQE=;
+	s=arc-20240116; t=1780283467; c=relaxed/simple;
+	bh=MNwk9kiw5Gw4uouuz+RiKh+UVqshlnpxa58+xHjhdHA=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Wi9TZUhF6qKAzKEG3LgvbJt4Zzz7iM5972MmbLQwXmwJNzFKOezeUpnBRfXd6ZA/QjYpdrcnbzIA1Tx0+ikX0iG18Poh4tBFFpZzy365W2+neWZfC607w6likeYgNWp6H5s+0x80nnZRutXpjkShZw43C/qz9vR5Ayf4KtDTYXg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VHPbiZjv; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=MMnnANl/wrQuLclRpRLnkaMK4bNM8vdQ5cU4gt6P7GhFJ8QdlsHX/9vr4uAgJVtwUDZgFr4HE+OisJqFcxNRXwk/0h+/TLrgW7T/DNBEVEhgJTtwFqFqEUIzwTfYYe55bPTXLeJhsDkYEBmqL7QYX8Eck0t1Z3xdB+sDUzYENPc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HRmgEx6m; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VHPbiZjv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D17731F00893;
-	Mon,  1 Jun 2026 03:10:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HRmgEx6m"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A3ED1F00898;
+	Mon,  1 Jun 2026 03:11:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780283460;
-	bh=4EWYupGYd5fMa1tvYvYfivxtiq5o+ETcaNhau+4S4So=;
+	s=k20260515; t=1780283465;
+	bh=SlNpdZug6zmUodf4JIGKJ0htxXImybIlq2fCzCj5nQM=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=VHPbiZjvBi3URIbh+9yy1Ty0f5ERdJok9O/jdthqPra31SzdHCq0cp8NZJt4APYEG
-	 czsapRFgQxA1jsmWCVNieeB0gsAicomDdig4xdSLTWvvw/HdhC0sjPbbCQUDyhYoeW
-	 oIClSq+OKWX7ribSmXdprd2qqgL8z+bTXxrIz+Bjw+auvRwB2hZAtA6xzE+6TQeCsn
-	 Pfj4ze5xMEemqvrvYSKrSHBt9JR+WfUB51WSEKzg+H9cknCASEDGih5jAKVUKvKN5H
-	 FEweXYLav1JmJ9xo9n704aL75hOJRF+KlryecwTgDvQXOzfsXZVZb6ZP8Nj+XB/wJ0
-	 4837g2pSZCskg==
+	b=HRmgEx6mo5HJdMxbCYYGbe3hruJHOCiYzsm0NTtY9Rcwr/8xKnkEo1ovGsFcQBCGE
+	 412jwPmVNPX3yw35vwsjY6zIJ0fAubnX9fzi/ZKn9A5xROtvmPwb77Z4MEnyq2zL8h
+	 FhwESQyWpZtleYQMdERSBsZ9uxO016+kjchCWAdL1wRSObsOQRV3f/c1k9kF3oQlQs
+	 EgIEv8gb0O4anMvHY7yJJU57+l1CexBS5FJIN0O+k8zdflMCUh6kx2iNa/0JBX8GmC
+	 TNCp9Pht5tTbSQcnGGuz6EfIsMhwVtbNfVLCiiN6d/foRvwaxoPuLFP1xhRNTAnUp2
+	 f66HyprNvRU2A==
 From: "Matthieu Baerts (NGI0)" <matttbe@kernel.org>
-Date: Mon, 01 Jun 2026 13:10:02 +1000
-Subject: [PATCH net 06/10] selftests: mptcp: add test for extra_subflows
- underflow on userspace PM
+Date: Mon, 01 Jun 2026 13:10:03 +1000
+Subject: [PATCH net 07/10] mptcp: sockopt: check timestamping ret value
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,7 +37,7 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260601-net-mptcp-misc-fixes-7-1-rc7-v1-6-a5ae7791754b@kernel.org>
+Message-Id: <20260601-net-mptcp-misc-fixes-7-1-rc7-v1-7-a5ae7791754b@kernel.org>
 References: <20260601-net-mptcp-misc-fixes-7-1-rc7-v1-0-a5ae7791754b@kernel.org>
 In-Reply-To: <20260601-net-mptcp-misc-fixes-7-1-rc7-v1-0-a5ae7791754b@kernel.org>
 To: Mat Martineau <martineau@kernel.org>, Geliang Tang <geliang@kernel.org>, 
@@ -47,59 +46,69 @@ To: Mat Martineau <martineau@kernel.org>, Geliang Tang <geliang@kernel.org>,
  Simon Horman <horms@kernel.org>, Florian Westphal <fw@strlen.de>
 Cc: netdev@vger.kernel.org, mptcp@lists.linux.dev, 
  linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- "Matthieu Baerts (NGI0)" <matttbe@kernel.org>, Tao Cui <cuitao@kylinos.cn>, 
- stable@vger.kernel.org, Shuah Khan <shuah@kernel.org>
+ "Matthieu Baerts (NGI0)" <matttbe@kernel.org>, stable@vger.kernel.org, 
+ Willem de Bruijn <willemdebruijn.kernel@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1256; i=matttbe@kernel.org;
- h=from:subject:message-id; bh=cyJve84NvhmylEe8skv2EBSqKlu2Y3sUtFlAamahTeg=;
- b=owEBbQKS/ZANAwAIAfa3gk9CaaBzAcsmYgBqHPgeVqo4MD4RbWI77LRUvcraY7/mPtF7LoMdC
- S0S5gOPfq6JAjMEAAEIAB0WIQToy4X3aHcFem4n93r2t4JPQmmgcwUCahz4HgAKCRD2t4JPQmmg
- c/WIEADBsojBBx6aa+lOXi5MVUtjGRHSyaatf20rWs7D+XtxEbZ06HVU8OsoNdq3Jwb/xjooi+d
- Jr1YBHyRQAOlUbJhe7KQKqfl/eSMXSbYsFoct2WPrZ263rejFVVxOrjufTvDtFWFt6BLC6LoNbc
- +IQ0En6toato0zDqsf+Za2/ipT2lIpuzbjbNAQDiq79BDSyXVlU4LH/RNJUKDeZyCxst+M0Rw61
- lA+C+PSXASc2SahUZu72ercuVm0Lj8sNb3ndKU860Tk4mj563xs7vKYFQazgIlcA+L6DNXjM8pZ
- iBdHPulFmpA3K/odyrD003b+LSTxsjJve5x44/BObLWTjfbP71HdgqhxY9RoSIz2tznsbQtPbBU
- bBQK5pA319AulbK7LTKutbIpaKwDYD/nSFBSkUgQIyI172mo58bMBdmxJCILzvlUIP5yg1G1XXa
- 9bCmt70AEyfwzJZBWL5rL/7ZFQAfepvy7G6x0wU3DjnPYokPOFIOF2XQWw/LYXWN6t0jX/ax3LH
- +bVlk7khSk1lhsjd/GhJa1a6XBVquj+lBFWKO1hCW+uGsVSeK4JK5Zlo8dA/S+wEfc6OOp7PwmX
- VFqXMXQQ4Gug5p6CAkzgA0kisj0c0t0He+ZhItL5VA0dIDrnagv8JOh+D3/DeixhwMM9dYUCteU
- 47T3a2Fr5gHgA5w==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1470; i=matttbe@kernel.org;
+ h=from:subject:message-id; bh=MNwk9kiw5Gw4uouuz+RiKh+UVqshlnpxa58+xHjhdHA=;
+ b=owEBbQKS/ZANAwAIAfa3gk9CaaBzAcsmYgBqHPgeBBlAQ7nJn/sXIa1+ZnFT7h7/ZVOomNl9p
+ vdJK8YZzr2JAjMEAAEIAB0WIQToy4X3aHcFem4n93r2t4JPQmmgcwUCahz4HgAKCRD2t4JPQmmg
+ c+k7D/4ufZfUHtXs+WV6sxu/X3R0mz5SXfH/ef+xL2ilno8D0fPPNXCUtNsaKaFbZMPdmQ1ZX67
+ j5GaLQBMqSxecArzlgA7RT60QpcIBKCkyhU/mv+QS3pOc5tsD+WFt3GASQUDvvBSG5GhLXuILu1
+ uaVSoknF//WRmIAUauqThF0RHn906ltDUdW5Dkt7OmrLeSbKj8oqqINQDaQZdVgGVchWfTXJ5HC
+ A4xyYCUstX5z0kgtnzrwD6VdTdCTrkpIO28ZU0AEyAbUrPaTm9vdnkAmZ8cM87IezmA9ESd+z+D
+ qqnTFltnZEPAIQCvl47jRuCrdvz3HP2m8324TC23HWqwrV3JhmS8RkiPSSWJuclol6SIRwMHn54
+ 1UX5x+09zKSuAG/20XrShujw+ka6T/otrHA45hJPNlwI77BVrcrvnqSCNtOZkOnmg93FzUhEK95
+ Arat/R4vQaEWz+lXYKiSF85RoCsdhOZT8Gkdtn0n57ZEwMkhKpbuQ4q4lZFAN+559FbiO25l4LJ
+ OnQzbpmrewSMUp5075R7+uQ5fhYk0SJx3FKOAPDeEAnjEbZeoZA4TpvWZSKkkYexDt35eiaUGTC
+ rXYCHO5NcwZ9iQAJvSCyqdJqaiv9mcun9JBrXKDxfkU9lEG9N9BIRa9VQM4CdbaJCZRBn7JTDsX
+ GeDVsTAAa2WO64g==
 X-Developer-Key: i=matttbe@kernel.org; a=openpgp;
  fpr=E8CB85F76877057A6E27F77AF6B7824F4269A073
 
-From: Tao Cui <cuitao@kylinos.cn>
+sock_set_timestamping() can fail for different reasons. The returned
+value should then be checked.
 
-Add a test to verify that when userspace PM fails to create a subflow
-(e.g. using an unreachable address), the extra_subflows counter is not
-decremented below zero.
+If sock_set_timestamping() fails for at least one subflow, the first
+error is now reported to the userspace, similar to what is done with
+other socket options.
 
-Fixes: 77e4b94a3de6 ("mptcp: update userspace pm infos")
+Fixes: 9061f24bf82e ("mptcp: sockopt: propagate timestamp request to subflows")
 Cc: stable@vger.kernel.org
-Signed-off-by: Tao Cui <cuitao@kylinos.cn>
-Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
+Reported-by: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+Closes: https://lore.kernel.org/willemdebruijn.kernel.178a41a53d041@gmail.com
+Reviewed-by: Mat Martineau <martineau@kernel.org>
 Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
 ---
-To: Shuah Khan <shuah@kernel.org>
-Cc: linux-kselftest@vger.kernel.org
----
- tools/testing/selftests/net/mptcp/mptcp_join.sh | 4 ++++
- 1 file changed, 4 insertions(+)
+ net/mptcp/sockopt.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-diff --git a/tools/testing/selftests/net/mptcp/mptcp_join.sh b/tools/testing/selftests/net/mptcp/mptcp_join.sh
-index 5acd12021e6e..4b3f71e66609 100755
---- a/tools/testing/selftests/net/mptcp/mptcp_join.sh
-+++ b/tools/testing/selftests/net/mptcp/mptcp_join.sh
-@@ -4100,6 +4100,10 @@ userspace_tests()
- 		chk_rm_nr 0 1
- 		chk_mptcp_info subflows 0 subflows 0
- 		chk_subflows_total 1 1
-+		# check counters are not affected by errors at creation time
-+		userspace_pm_add_sf $ns2 10.0.12.2 10 2>/dev/null
-+		chk_mptcp_info subflows 0 subflows 0
-+		chk_subflows_total 1 1
- 		kill_events_pids
- 		mptcp_lib_kill_group_wait $tests_pid
- 	fi
+diff --git a/net/mptcp/sockopt.c b/net/mptcp/sockopt.c
+index 87b5796d0135..91aa57f1d0fd 100644
+--- a/net/mptcp/sockopt.c
++++ b/net/mptcp/sockopt.c
+@@ -241,15 +241,19 @@ static int mptcp_setsockopt_sol_socket_timestamping(struct mptcp_sock *msk,
+ 
+ 	mptcp_for_each_subflow(msk, subflow) {
+ 		struct sock *ssk = mptcp_subflow_tcp_sock(subflow);
++		int err;
+ 
+ 		lock_sock(ssk);
+-		sock_set_timestamping(ssk, optname, timestamping);
++		err = sock_set_timestamping(ssk, optname, timestamping);
+ 		release_sock(ssk);
++
++		if (err < 0 && ret == 0)
++			ret = err;
+ 	}
+ 
+ 	release_sock(sk);
+ 
+-	return 0;
++	return ret;
+ }
+ 
+ static int mptcp_setsockopt_sol_socket_linger(struct mptcp_sock *msk, sockptr_t optval,
 
 -- 
 2.53.0
