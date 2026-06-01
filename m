@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01F773F9FB
-	for <stable@vger.kernel.org>; Mon,  1 Jun 2026 00:39:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 912EE1465B4
+	for <stable@vger.kernel.org>; Mon,  1 Jun 2026 00:44:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780274349; cv=none; b=YjdGHGoqxG+O8nEEHuKRiesUVxShG8sekMR019z08YL4FQmQo+A527uJLcWsprmUJFeWUwTYcWgcMVdcAap5FsqxGGLjREpjUM5oIaLj9max1CEbpWxsVNCPO3Hdp8tq5gzeT6Zr49Kjr1YO/4r8CRkihD/WCFkBM4Bfa6yphdw=
+	t=1780274656; cv=none; b=LXjli6WI5FsNZ0YVDlag+cPG+VluSjXb+KQcBbislPv0168NP+mFdlKBD2jwCaxMqPkNMIPawSGXs+UhkxplplgOt0TstUplvySHs6AtjyKB/XxzOdqy5his7mu1rV1h5ldvZ3gMBebQdSaunBtOnzTU3e8A27YPJj5B33FEpZo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780274349; c=relaxed/simple;
-	bh=OAUhShPwUr9ucLakdDfQ+nHSH4mMGn/PkJXt7HbxODk=;
+	s=arc-20240116; t=1780274656; c=relaxed/simple;
+	bh=C5K+IURjv1GFRGM6G2rDKQkH9tyxqZ8qkMSQ+yWMaJU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QNPKdb3gEVwGs1x/Rj7wuwCHPLdinCjLtjqzjnei8gWgp7C2nju9fkvrh62DWLE6NhT2Gl4hLEzbt63mxYEJWbWaZMt1WWKetvcORlUc9NN2k+HujgBAFO57yzi3dGr92yNWzEUUWmHRNpXqyrKLtr8vwihiFJRJPL9H4wxZBpk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NNxhKvdV; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=NEIfGUvsAfA2zHvtjpJpDt1QbBoSEcse4el6Z2WdRM6g0I3ixX+usnYzjnLRtn74C2WCUG1woUpbNIk2DVsTCqa0C2gHRXF6ieExApHTJ9s6lrX++rlt3IFbi6zO3vmgqABpyyQdnciDgVITtk45tJdCgAgVKGdWcDI/3zVU/+I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KUwjgqIG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NNxhKvdV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13ADD1F00893;
-	Mon,  1 Jun 2026 00:39:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KUwjgqIG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF15B1F00893;
+	Mon,  1 Jun 2026 00:44:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780274347;
-	bh=vp8+bDDY5VdToqJn3J2Et+7d7TZBbHFOxwkingLt/5M=;
+	s=k20260515; t=1780274655;
+	bh=bt/RlMss2gDhEF0SrsIdoI+u5Z2Bk/zlNfVfB1kckSU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NNxhKvdVdDDM0qBi9oG8dBLM1Pnhq5cHBxK53lZKSL11McEaZ3SuiBrBs+kRt45oK
-	 aQ3j53G7x9fm26CKUl9Ba6VFGGlC22x128hPNgI2zBSM5bbYZyDAQY9YZkjkY9TxYs
-	 j8GutSuPGFJXpauIvmco7TkGlvWuK0bYrZwPAq4nEEB+3rp6rLZWLLlUxBhYbhIgki
-	 mBsSlrKv80eNDo9kBThmEdHmGZxMzlycLz/Aa362j1Bdejj5qfS7UsbzPvrnoBzjYO
-	 1geFQwEYmKkq0dDlu9pPNAhQle6S2mfdF8jUTweXK39BdVkjAOCKVpyFoNZMDaPeyQ
-	 FPO9kalEVVfvA==
+	b=KUwjgqIGHNDiD9frPHc8nYzlio+yMWDd1NBByYaTTRd9DvOtaX2oMT0e6sJHRTjWL
+	 JM3pP4WhJTzJOQ+cKcufdBQGyqb5EPAfYjHmtZUwkm1xf4prNmoLo4Ngz4p6eqgiL8
+	 b2OmqWfOus/HqkXi0/tjoVlT72ra8ekotWiQFkG3BATM/sO6Be0DpqWa0Z1X33E6kF
+	 0tSCbDvvVDOtxPlhm3I+DKOb8bD0UDgcACwBusMTZkFqZTbZTvPGAI/tRBFPUG++I5
+	 fuUyK12QD9px6GhqpcEzLMfpeg5hqxOAa12LaUWPAKZyqw3A04wOGbTMCuLlUjG3Lf
+	 V4Oz9yGiriJIg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Gang Yan <yangang@kylinos.cn>,
 	"Matthieu Baerts (NGI0)" <matttbe@kernel.org>,
 	Paolo Abeni <pabeni@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.0.y] mptcp: update window_clamp on subflows when SO_RCVBUF is set
-Date: Sun, 31 May 2026 20:39:05 -0400
-Message-ID: <20260601003905.84041-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y] mptcp: update window_clamp on subflows when SO_RCVBUF is set
+Date: Sun, 31 May 2026 20:44:13 -0400
+Message-ID: <20260601004413.90717-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026052819-liberty-cramp-97fe@gregkh>
-References: <2026052819-liberty-cramp-97fe@gregkh>
+In-Reply-To: <2026052819-lifter-chariot-8dc6@gregkh>
+References: <2026052819-lifter-chariot-8dc6@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -79,7 +79,7 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 8 insertions(+), 2 deletions(-)
 
 diff --git a/net/mptcp/sockopt.c b/net/mptcp/sockopt.c
-index 1cf608e7357bd..52f4accf2bba4 100644
+index de12b3c548edd..566ab5e6c8621 100644
 --- a/net/mptcp/sockopt.c
 +++ b/net/mptcp/sockopt.c
 @@ -67,6 +67,12 @@ static int mptcp_get_int_option(struct mptcp_sock *msk, sockptr_t optval,
@@ -104,7 +104,7 @@ index 1cf608e7357bd..52f4accf2bba4 100644
  			break;
  		case SO_MARK:
  			if (READ_ONCE(ssk->sk_mark) != sk->sk_mark) {
-@@ -1560,7 +1566,7 @@ static void sync_socket_options(struct mptcp_sock *msk, struct sock *ssk)
+@@ -1558,7 +1564,7 @@ static void sync_socket_options(struct mptcp_sock *msk, struct sock *ssk)
  			mptcp_subflow_ctx(ssk)->cached_sndbuf = sk->sk_sndbuf;
  		}
  		if (sk->sk_userlocks & SOCK_RCVBUF_LOCK)
