@@ -1,158 +1,119 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from pdx-out-012.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-012.esa.us-west-2.outbound.mail-perimeter.amazon.com [35.162.73.231])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC60039099C
-	for <stable@vger.kernel.org>; Mon,  1 Jun 2026 09:26:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E3E818FC97
+	for <stable@vger.kernel.org>; Mon,  1 Jun 2026 09:29:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.162.73.231
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780305968; cv=none; b=GNwT2f6H0gmVzOInFXJWIswISHjHJCm+m7pfyknYkyR+NdjPv/RhFwCZkB+09Z2ouCt+6Dgdc+482/1utnK4G4TNfF6p49Id8jb04Y2IV+VQKzKG5aZ/95Ck+3fFWuAPPTboAZDnHhlun5Rmp5I9/2f2nsR+WXGVqjLDiFnTpVA=
+	t=1780306171; cv=none; b=Deva1Kv/jqUwpPoGNwVf10aCnyuuOUAZSMMY9g8LhJ5lNZNX9aP9I8CF5Z++lkw4FxFlZfYY67/l6A36e528oc97dcOxhzZ7KiA/Oi2RL+1dZwKBFo4g6LRJmzkYlxHO/FC2+JGjmn4/x0WoCEXfiQnFVbXxpg/D7VHlc/RT2+E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780305968; c=relaxed/simple;
-	bh=92tjw0qOeTMiu/O2oXMKbRtKwgW0ttd71f9F8miPIDI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=mOG2KICSnD9hjAZ8HciDlMmAbJ6Muzz5uTVQtj3xZtTx6f3CPuGIG/3VK6r11Qomk41EUfx+ZszRvngR/UtgosbtS6bL+enaqgq9ml+Yz3NzdfVbYY0uGVNVD9z9j3y948R/k1g52+Ajn+J5iVptYkmD7NZkc4AT+Pd2Iq7plRE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=B61DGT/N; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=HB6Y4NFH; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1780306171; c=relaxed/simple;
+	bh=P62XFj3El1zqG9GGFEYXfqYzqOt/6OFbZEohx6gDRu0=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=RIdaM6y6SHK9I/shrCMPJn02heBnR6NsRh3VZmm7jdUmirJBCAWr9rX60he4/zqc0zCTcx+9BxvC0iuFDGRfeULaKEI8TRJCszlg4yMSmGaAzLFh4mVA2bdBg0CBho8+Im2bV7yotgz8+kaJnARXcpE3vjjzVpLgc8/pLH1ADF0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de; spf=pass smtp.mailfrom=amazon.de; dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b=RvTmHaQS; arc=none smtp.client-ip=35.162.73.231
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="B61DGT/N";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="HB6Y4NFH"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1780305965;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=IbDQ1hQ8dNMnVHUs2DSdKneMuLGxvpohPlMlW5RIgfM=;
-	b=B61DGT/NIzeLUmycnfrQiTsLVBBkIPz6/WyX+hc+aoyL/apoWCZ6peSIazmcXFXdbiUr3w
-	XKt8ZhELyTj9vwbi2wPSLDK9cSvfTf70C9OB8Mz+giNa0dN7ryQqDcrZtKUidk2A0chNmt
-	03nuRg5WVr4s8V0f+cuc26lT6oacPqg=
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
- [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-502-LgiZmirnN8y-R5YybakoUw-1; Mon, 01 Jun 2026 05:26:02 -0400
-X-MC-Unique: LgiZmirnN8y-R5YybakoUw-1
-X-Mimecast-MFC-AGG-ID: LgiZmirnN8y-R5YybakoUw_1780305962
-Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-45efa2f7009so1010373f8f.3
-        for <stable@vger.kernel.org>; Mon, 01 Jun 2026 02:26:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b="RvTmHaQS"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1780305961; x=1780910761; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:content-language:from
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=IbDQ1hQ8dNMnVHUs2DSdKneMuLGxvpohPlMlW5RIgfM=;
-        b=HB6Y4NFHNixrbjzXBkgd4id9xC8TXSBSqDB0E9UtM1J0owEVrFX0QKTuHvFsFXqo2w
-         zpcSx+J0QYeDeoTs9+fTjcs8ccAgDsU5XM1TS9FjPDOrkn2RcEYVmYDDkzvPjGUUGucx
-         ++H0P9OcwiODjy453xYQmietUatsbStAwAMNDhY99HwEcGeD/nthRNV5BSYme3sQ2QFB
-         dUka6Azfve6XzeHnvJlvW45jbgZ5WwPfLVo3zAikbzRVCOEi5JTq3jmy50DO0f78t2jd
-         ym7vwoKrfuWR034xx+9k09x8QKjjsUwihWUVzOUYvhAWkWEFO9F8ljHaQkL4qPF8QXOw
-         LNIA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780305961; x=1780910761;
-        h=content-transfer-encoding:in-reply-to:content-language:from
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=IbDQ1hQ8dNMnVHUs2DSdKneMuLGxvpohPlMlW5RIgfM=;
-        b=TkX6wjOSQshDOKRY8tkLs1faEZIrghLbw6S2fd8qGabEWnV8+0Kcz/qEp0XBoc07BF
-         RIJTRgJa7ur5dCR4DswVkn+Q+1NIT17zjhuZO8lhEd6Y+Z2mlgV+6xCKaPON71DITokJ
-         DO5MzYQ3Zt0JjaWD3bDJ6hHX3qPUQpzk+9SG8cMpzRvmDMgNdoc6JRi602x5GmAbhWis
-         No5DV1CTRB/H+zgR5Bywcbewgde4S/eIW1JFYiaroX19ABHeQxk86xcTyGTmESPdkL+j
-         +aI2YLmRx8pQ+i3uh+IOZ8SLOZGIddLKD/uNy9lrnNpt77vXKtiD4W8GX3pg5m+92qf7
-         LBgQ==
-X-Forwarded-Encrypted: i=1; AFNElJ+7SHIwkt8oxEr7fXE5WEk6v+efr4bvhQizy5QRzD+AJG3KGGPVbeQK87l4iotT+F49rhja+G0=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxKY4P68z9aZZ4lMTuax9J8aQK13oGvdWOZSX9UNKau9Bc94pjK
-	YP9Aq0T6mksQO+4ftFj/5V20kVJZq/kSukvJjVX7qfiLwyTqDJQra4BOUyr9idWsTQk1ZWweaqz
-	inckKSaI9Ykdm3vhnpLdqtx8wzimFUs16nEiBHULsXfLLZF2195VpX8Gnbg==
-X-Gm-Gg: Acq92OHOBNiO/gU5OB4gZhKns2Ls8xSYj8rq+NZwYSll/dgHTOdcZB3CfCoD2EaQa/C
-	VXiV3lH3u5XqgaqgyNMkq3icgSQfueDULw3ozYfTTf+ya5ZnjnrSLxnYf/XQ3y4KzstwrggEpNK
-	VaDJ9UNa5/M+7VBXiYlT5xtB+C3viSspm6wY29FjvJHpwAWDF2h4i606JnI9ib86OLISixiUbQR
-	NJu0WhiD2YcyV9k21BjGslOuiPN5U9mfk7g9HHGV0/8pe4Wv5Kr7LkUg0MLf/cEKUJn4aa4T0vx
-	SYOEgo5SEunnYvwUCwg4levEK+UI+5rhLnRMEbjcZ84pY8ez8FVRNc6i6iQCfFBFaQqJI7vqV6r
-	qRyWeq2ctvdtdeGDMJOjl9nD0nlcVQpxCRixIRW6m43nmrDqm31rQGqwgQ+CQzWsuwlBq
-X-Received: by 2002:adf:ef12:0:b0:43c:ef4f:79e4 with SMTP id ffacd0b85a97d-45ef6ba1e31mr13765421f8f.37.1780305961529;
-        Mon, 01 Jun 2026 02:26:01 -0700 (PDT)
-X-Received: by 2002:adf:ef12:0:b0:43c:ef4f:79e4 with SMTP id ffacd0b85a97d-45ef6ba1e31mr13765397f8f.37.1780305961103;
-        Mon, 01 Jun 2026 02:26:01 -0700 (PDT)
-Received: from [192.168.88.32] ([169.155.232.197])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45ef35598e5sm21777598f8f.27.2026.06.01.02.26.00
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 01 Jun 2026 02:26:00 -0700 (PDT)
-Message-ID: <97069506-352b-4152-a57b-5a974320529d@redhat.com>
-Date: Mon, 1 Jun 2026 11:25:59 +0200
+  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
+  t=1780306170; x=1811842170;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=HpjtZmFXsxidBZJjFQYAS6CBJU5vUaHDo+8aVLCph/E=;
+  b=RvTmHaQSNMkKg3+uDEEi3xzUmM+l68AkvIjFJUHiY99MAziLvKDVQQYW
+   BKuNL21cCgpMq4VtP5riUADpTrApqEG2A21DGrK4bx8X1ZydrxITrVYum
+   7Xe4WzuSIYlVxupnD4SK7PvxgOj309L3fM00Afsdcs9N/mnOZNFjVPUoJ
+   clts1yUaWIgF46Sw9zbL34MWYgWq3Tp+qsRLqTgT00Las+mOaWLrSPnO2
+   TGHXpaQl9DewmYC9avEx2NCE0B4gzIpqG9ju9zZDIBDi5GNQID+vBXohs
+   g2nYmOYP/ngeoqqoCuUCvS+I6pXu2xWpkVCrx3k2Zi7jMfmMz/1gZMkGo
+   A==;
+X-CSE-ConnectionGUID: paRINLUsTfCt7XNNg/2Yiw==
+X-CSE-MsgGUID: CQMjXlMvR9aNle3Z+GucdA==
+X-IronPort-AV: E=Sophos;i="6.24,181,1774310400"; 
+   d="scan'208";a="20629402"
+Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
+  by internal-pdx-out-012.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Jun 2026 09:29:26 +0000
+Received: from EX19MTAUWA002.ant.amazon.com [205.251.233.178:16247]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.6.91:2525] with esmtp (Farcaster)
+ id bb685c7a-870e-4d2d-aad3-f6d9fb73e6b5; Mon, 1 Jun 2026 09:29:26 +0000 (UTC)
+X-Farcaster-Flow-ID: bb685c7a-870e-4d2d-aad3-f6d9fb73e6b5
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWA002.ant.amazon.com (10.250.64.202) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.37;
+ Mon, 1 Jun 2026 09:29:26 +0000
+Received: from dev-dsk-gyokhan-1b-83b48b3c.eu-west-1.amazon.com (10.13.234.1)
+ by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.37;
+ Mon, 1 Jun 2026 09:29:24 +0000
+From: Gyokhan Kochmarla <gyokhan@amazon.de>
+To: <stable@vger.kernel.org>
+CC: <gregkh@linuxfoundation.org>, <sudeep.holla@arm.com>,
+	<sebastianene@google.com>, <linux-arm-kernel@lists.infradead.org>, "Sudeep
+ Holla" <sudeep.holla@kernel.org>, Gyokhan Kochmarla <gyokhan@amazon.de>
+Subject: firmware: arm_ffa: Align RxTx buffer size before mapping
+Date: Mon, 1 Jun 2026 09:29:18 +0000
+Message-ID: <20260601092918.11031-1-gyokhan@amazon.de>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] vsock/vmci: fix sk_ack_backlog leak on failed handshake
-To: Raf Dickson <rafdog35@gmail.com>, netdev@vger.kernel.org,
- virtualization@lists.linux.dev, linux-kernel@vger.kernel.org
-Cc: sgarzare@redhat.com, stefanha@redhat.com, bryan-bt.tan@broadcom.com,
- vishnu.dasa@broadcom.com, bcm-kernel-feedback-list@broadcom.com,
- stable@vger.kernel.org
-References: <20260526104356.469928-1-rafdog35@gmail.com>
-From: Paolo Abeni <pabeni@redhat.com>
-Content-Language: en-US
-In-Reply-To: <20260526104356.469928-1-rafdog35@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+X-ClientProxiedBy: EX19D039UWB001.ant.amazon.com (10.13.138.119) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On 5/26/26 12:43 PM, Raf Dickson wrote:
-> When vmci_transport_recv_connecting_server() returns an error,
-> vmci_transport_recv_listen() calls vsock_remove_pending() but never
-> calls sk_acceptq_removed(). This leaves sk_ack_backlog incremented
-> permanently.
-> 
-> Repeated handshake failures (malformed packets, queue pair alloc
-> failure, event subscribe failure) cause sk_ack_backlog to climb
-> toward sk_max_ack_backlog. Once it reaches the limit the listener
-> permanently refuses all new connections with -ECONNREFUSED, a
-> silent denial of service requiring a process restart to recover.
-> 
-> The two existing sk_acceptq_removed() calls in af_vsock.c do not
-> cover this path: line 764 checks vsock_is_pending() which returns
-> false after vsock_remove_pending(), and line 1889 is only reached
-> on successful accept().
-> 
-> Fix by balancing sk_acceptq_added() with sk_acceptq_removed() on
-> the error path.
-> 
-> Fixes: d021c344051a ("VSOCK: Introduce VM Sockets")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Raf Dickson <rafdog35@gmail.com>
+From: Sudeep Holla <sudeep.holla@kernel.org>
 
-Waiting for Stefano's feedback - should be back in a couple of days.
+commit 0399e3f872ca3d78044bb715a73ea645806d2c7b upstream.
 
-> ---
->  net/vmw_vsock/vmci_transport.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
-> 
-> diff --git a/net/vmw_vsock/vmci_transport.c b/net/vmw_vsock/vmci_transport.c
-> index d2579380f5..88ccc55455 100644
-> --- a/net/vmw_vsock/vmci_transport.c
-> +++ b/net/vmw_vsock/vmci_transport.c
-> @@ -980,8 +980,10 @@ static int vmci_transport_recv_listen(struct sock *sk,
->  			err = -EINVAL;
->  		}
->  
-> -		if (err < 0)
-> +		if (err < 0) {
->  			vsock_remove_pending(sk, pending);
-> +			sk_acceptq_removed(sk);
+Commit 83210251fd70 ("firmware: arm_ffa: Use the correct buffer size during
+RXTX_MAP") advertises PAGE_ALIGN(rxtx_bufsz) to firmware when mapping the
+buffers but the driver continues to stores the minimum FF-A buffer size
+in drv_info->rxtx_bufsz which is used elsewhere in the driver.
 
-I'm wondering if sk_acceptq_removed() should be bounded in
-vsock_remove_pending() ? (even if that change would probably be net-next
-material).
+Align the size before storing it so that the allocation, validation and
+FFA_RXTX_MAP all use the same buffer size.
 
-/P
+Fixes: 83210251fd70 ("firmware: arm_ffa: Use the correct buffer size during RXTX_MAP")
+Cc: Sebastian Ene <sebastianene@google.com>
+Link: https://sashiko.dev/#/patchset/20260402113939.930221-1-sebastianene@google.com
+Reviewed-by: Sebastian Ene <sebastianene@google.com>
+Link: https://patch.msgid.link/20260428-ffa_fixes-v2-9-8595ae450034@kernel.org
+Signed-off-by: Sudeep Holla <sudeep.holla@kernel.org>
+Signed-off-by: Gyokhan Kochmarla <gyokhan@amazon.de>
+
+diff --git a/drivers/firmware/arm_ffa/driver.c b/drivers/firmware/arm_ffa/driver.c
+--- a/drivers/firmware/arm_ffa/driver.c
++++ b/drivers/firmware/arm_ffa/driver.c
+@@ -2059,6 +2059,7 @@ static int __init ffa_init(void)
+ 			rxtx_bufsz = SZ_4K;
+ 	}
+ 
++	rxtx_bufsz = PAGE_ALIGN(rxtx_bufsz);
+ 	drv_info->rxtx_bufsz = rxtx_bufsz;
+ 	drv_info->rx_buffer = alloc_pages_exact(rxtx_bufsz, GFP_KERNEL);
+ 	if (!drv_info->rx_buffer) {
+@@ -2074,7 +2075,7 @@ static int __init ffa_init(void)
+ 
+ 	ret = ffa_rxtx_map(virt_to_phys(drv_info->tx_buffer),
+ 			   virt_to_phys(drv_info->rx_buffer),
+-			   PAGE_ALIGN(rxtx_bufsz) / FFA_PAGE_SIZE);
++			   rxtx_bufsz / FFA_PAGE_SIZE);
+ 	if (ret) {
+ 		pr_err("failed to register FFA RxTx buffers\n");
+ 		goto free_pages;
 
 
 
-> +		}
->  
->  		release_sock(pending);
->  		vmci_transport_release_pending(pending);
+Amazon Web Services Development Center Germany GmbH
+Tamara-Danz-Str. 13
+10243 Berlin
+Geschaeftsfuehrung: Christof Hellmis, Andreas Stieger
+Eingetragen am Amtsgericht Charlottenburg unter HRB 257764 B
+Sitz: Berlin
+Ust-ID: DE 365 538 597
 
