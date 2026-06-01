@@ -1,86 +1,78 @@
-Received: from out-189.mta1.migadu.com (out-189.mta1.migadu.com [95.215.58.189])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B56EE390CAA;
-	Mon,  1 Jun 2026 09:19:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.189
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76D2638F24B
+	for <stable@vger.kernel.org>; Mon,  1 Jun 2026 09:24:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780305577; cv=none; b=Ssv7godQrlZE8IkeHuYh94w6yh6sfjJZQMaHV64qKEyvnhtvztPWUMT29AdYbPzT2SrR+JfS/r+U9+faWbcVuO9jeguiE2YCGGdu8bh1IClRBdlEzeZYFQgb6YPityiMPw+uN6fo68sjI+vAkroAJ3d0qSqhsJIGEtYBXXd3xDM=
+	t=1780305870; cv=none; b=spuMUzUAYU7iudu6OITC665w0YwyZmLj8Ac6mlPvN/hbbas3oUJm6zH3Yrum4rg6dNVSu+4B8H5/WEQpD0PCTq9hiuh6pJyrkPRXG5WMjaABuEaIfAw6eGT4HFBfbLpa4HmB0mlVztdwlMczmD79e2mRkrbNp298zv9juIXCE5s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780305577; c=relaxed/simple;
-	bh=PPChPTR/glaiNHISsa+FGiwhtJkD2/oee5H5c/F4L5k=;
-	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc; b=ujucQo1jkck30CAqYj7GQu39bVB5x8cMlRCL3d+/vAcCkrlnzvehge7NXWK7kqPTIYDHSiYuTYqRtmGVTOqMn/eW3CT8ah5bJj4Qz/Op2QPg9pvvVX3OEYh6apX5FT2axLONQXMKrcPakYZZ1/0mA3Dj2GRBu5c7rBTCM2KMhtk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=iKIKQJRy; arc=none smtp.client-ip=95.215.58.189
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1780305870; c=relaxed/simple;
+	bh=4BC84247A2oiYLOV8M1HSjItie/dGQEWBf26XC0hyHU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bRM9tuJvGubY0/yf88i/hlDl4mt1sDkkFralpAhvUbq7vW4L/xM3KZA+CWK02elNdbwVJEO6Fp/YDLkKJdqZGvDM0BBNhbAl/Ek23+d77wO4WB33UdIGRw3J6Fjk1NubewuimofH8JiBOQxfxDeGzcKc7HMw0nmntowIyg3u+3Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=w1OF9x3u; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=dStm3Rbp; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="iKIKQJRy"
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="w1OF9x3u";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="dStm3Rbp"
+Date: Mon, 1 Jun 2026 11:24:26 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1780305867;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=4BC84247A2oiYLOV8M1HSjItie/dGQEWBf26XC0hyHU=;
+	b=w1OF9x3u2mnFYdqfxGcFj5M8wSP3fyhvQVz+Fcr3UPRhELu4zkhtXtbO+aqZzP+fyH8mgv
+	+/rv/bSVqhU89uxVtE5+X7sZ3X9hJ4W3jAM6vqcIN3Jd5HvSMTCgnEI7wF60KXm4B711mB
+	ByHvido/zLo7E0oVfZglDoQM70HkpL7qlMVLiq98c0Y03m6mGYC2PLOW/gwBxz68YRkwNe
+	hjLqz9Z18R9Jr+M1C3zuGxos4Nh68Ankzhh/pLXmMw5FhW0BqH9f23Ea0MhbR9pxBbPllT
+	O/5mM89pIxrWeiGrEnSXY+kV6iYnpYIGHUeq8JADvu2BLaVATIgSYj+VTpAV7A==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1780305867;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=4BC84247A2oiYLOV8M1HSjItie/dGQEWBf26XC0hyHU=;
+	b=dStm3RbpWx/Ch6RxX27MoZRYTQ13K0WcZi7KDIFIJbOu1seXRDSmgRtJmqjNqiMKFkvNRC
+	7PDxsHbDVLj9EzDw==
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: Ada Couprie Diaz <ada.coupriediaz@arm.com>
+Cc: stable@vger.kernel.org
+Subject: Re: [PATCH v6.12-stable 00/14] Backport: arm64: debug: remove hook
+ registration, split exception entry
+Message-ID: <20260601092426.zQYkhBOD@linutronix.de>
+References: <20260528144825.850351-1-bigeasy@linutronix.de>
+ <48316697-6c3b-465c-a49a-d2adb749d459@arm.com>
+ <a328aaa6-0e34-4dfc-b4ab-0193e8bca6ee@arm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1780305566;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=d5IyFKFbRT3IKZtpikCYlnIfXgvvgQ7v1CmhoyZgrLI=;
-	b=iKIKQJRyZO7nrywzvbDm3R6lAw+dIiZnj3xTdbymV1G11dNR4PzQ5gu3ZcC38ePos4UHZz
-	dbJexfJbtJKCAi6nLtpJ67BFXN0C1G54yyypw8GGbuCHn6f8LFZto5N85lKcz+6n5qKHH+
-	USlkhKTQOCl3Nbyu3whgXhpp4klhYEA=
-Date: Mon, 01 Jun 2026 09:19:23 +0000
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: "Tianchu Chen" <tianchu.chen@linux.dev>
-Message-ID: <d52449abfd8e1e46c8bfe9ebdc00d931fc0e4147@linux.dev>
-TLS-Required: No
-Subject: Re: [PATCH] crypto: sun4i-ss - Remove insecure and unused rng_alg
-To: ebiggers@kernel.org
-Cc: clabbe.montjoie@gmail.com, herbert@gondor.apana.org.au,
- jernej.skrabec@gmail.com, linux-arm-kernel@lists.infradead.org,
- linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-sunxi@lists.linux.dev, samuel@sholland.org, stable@vger.kernel.org,
- wens@kernel.org
-X-Migadu-Flow: FLOW_OUT
+In-Reply-To: <a328aaa6-0e34-4dfc-b4ab-0193e8bca6ee@arm.com>
 
-From: Tianchu Chen <flynnnchen@tencent.com>
-In-Reply-To: <20260529193648.18172-1-ebiggers@kernel.org>
-References: <20260529193648.18172-1-ebiggers@kernel.org>
+On 2026-05-29 18:05:27 [+0100], Ada Couprie Diaz wrote:
+> Given the conflicts do not seem to have required significant code changes,
+> I don't know how useful it is but it all looks good to me ; conditional on
+> pulling
+> the EL0 soft-step fix for pseudo-NMIs with the backport.
+>=20
+> Reviewed-by: Ada Couprie Diaz <ada.coupriediaz@arm.com>
+>=20
+> Thanks again for backporting the series !
 
-On Fri, May 29, 2026 at 12:36:48PM -0700, Eric Biggers wrote:
-> Remove sun4i_ss_rng, as it is insecure and unused:
->
-> - It has multiple vulnerabilities.  sun4i_ss_prng_seed() is missing
->   locking and has a buffer overflow.
+Should have tested commits against a fixes tag=E2=80=A6
+Thank you for the review (and the patches in the first place).
 
-Thanks for cleaning this up.
+> Kind regards,
+> Ada
 
-For the record, the sun4i_ss_prng_seed() buffer overflow you mention here
-is the same issue we reported earlier with a targeted fix:
-  https://lore.kernel.org/linux-crypto/20260529194152.GA3628@quark/
-
-It is an unauthenticated, unbounded memcpy() into the 24-byte ss->seed[]
-buffer, reachable from any user via AF_ALG ALG_SET_KEY with no privileges
-on affected Allwinner sun4i hardware.
-
-Please note that this should be treated as a security fix. For the earlie=
-r
-stable releases, keeping the rng_alg but adding a proper bounds check in
-sun4i_ss_prng_seed() might still be a preferable option to consider.
-
-Given the above, would you mind adding the following trailers to the comm=
-it
-message?  Besides crediting the discovery and report, they would also mak=
-e
-this security issue easier to track and reference across the stable trees=
-:
-
-  Discovered by Atuin - Automated Vulnerability Discovery Engine
-  Reported-by: Tianchu Chen <flynnnchen@tencent.com>
-
-
-Thanks,
-Tianchu
+Sebastian
