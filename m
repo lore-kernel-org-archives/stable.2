@@ -1,156 +1,159 @@
-Received: from maynard.decadent.org.uk (maynard.decadent.org.uk [65.21.191.19])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f174.google.com (mail-oi1-f174.google.com [209.85.167.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83B4C31F99F;
-	Mon,  1 Jun 2026 16:46:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.21.191.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2204932570D
+	for <stable@vger.kernel.org>; Mon,  1 Jun 2026 16:47:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780332369; cv=none; b=mAcn3XB5YYwp8DLTrrygekqYLT+4lV9wCWzXYOsNY0o/Is7LccmTAwugBhgb76mIYTWWeZJZRIvGUJ0GMGSwZ6zF8vGDU2K9jCxgluJZnphkJvCs2yXAPA4+xcE3aDSnyYTmtgBebTlGi9y5XDM0Nqdso3kyP+8obMT/spEQT/w=
+	t=1780332467; cv=none; b=TYuM3DoAZLgttIv+5bRgK8bPz2QIuegyh3C0QzwmOmPWoKSt8xxnw+g9tpzFW9xhJr0WRA6EUQaf8g5BCAay4u/ExaE0jlXllTQETq8hWrIrQLJ14V58mEhFCzDox8TL7iLAb0NNSJQeFk5T3+IE2G6O4jED9nEr4t3MyxnLKhQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780332369; c=relaxed/simple;
-	bh=3cCCn7y9Xe2Dh4Yr8mYubeJd3ZRnIKQDLhRAIcYsUpI=;
+	s=arc-20240116; t=1780332467; c=relaxed/simple;
+	bh=k7d7WO1IGhjE1EeoOZERJmeHfwgMycEtCXi2A0ollLA=;
 	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Eyl3/0yL1/ZDu0BLmyYrTFviSHkjvKij5GIk0JsArVSr6X33Y6Sl1bWvY2x34AQWrRaOy82V02sNNPl2HlgHOP7uuWstuVDtL0jVW/rSI4/DrY5vl56oMft/ODhg9keXtK6D3rj8tk5Ftxd8N4xaj8E3lzuxMushMsWMR+fYUzU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=decadent.org.uk; spf=pass smtp.mailfrom=decadent.org.uk; arc=none smtp.client-ip=65.21.191.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=decadent.org.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=decadent.org.uk
-Received: from [2a02:578:851f:1502:391e:c5f5:10e2:b9a3] (helo=deadeye)
-	by maynard with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <ben@decadent.org.uk>)
-	id 1wU5m9-000Wam-1K;
-	Mon, 01 Jun 2026 16:46:05 +0000
-Received: from ben by deadeye with local (Exim 4.99.2)
-	(envelope-from <ben@decadent.org.uk>)
-	id 1wU5m8-0000000Fj97-30kc;
-	Mon, 01 Jun 2026 18:46:04 +0200
-Message-ID: <7ccc26ea6552c9fcae1817e2601a96901f0ca261.camel@decadent.org.uk>
-Subject: Re: [PATCH 5.10 245/589] cpuidle: powerpc: avoid double clear when
- breaking snooze
-From: Ben Hutchings <ben@decadent.org.uk>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, "Mukesh Kumar Chaurasiya (IBM)"
-	 <mkchauras@gmail.com>, Shrikanth Hegde <sshegde@linux.ibm.com>, Madhavan
- Srinivasan <maddy@linux.ibm.com>
-Date: Mon, 01 Jun 2026 18:46:00 +0200
-In-Reply-To: <20260530160231.436997162@linuxfoundation.org>
-References: <20260530160224.570625122@linuxfoundation.org>
-	 <20260530160231.436997162@linuxfoundation.org>
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-2y5jHA2ElOQCtvOrzOpN"
-User-Agent: Evolution 3.56.2-9 
+	 Content-Type:MIME-Version; b=js3aeH9aqkIvOZHeLrk905kmfcxaoyCKI+dn+hi7YcamxS+Gdf1lNZM9oqezYAL2/oDEz34D3gQdvIerMQntLWJFoIcTYX7F23FkTxz0oWMoeQosZaU5lKQXr4UjgrqvLKpEUatvBpgxqm1kllzSGVfqexf8A4pptTZ0auhkuuQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com; spf=pass smtp.mailfrom=dubeyko.com; dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b=CcIrEj3p; arc=none smtp.client-ip=209.85.167.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b="CcIrEj3p"
+Received: by mail-oi1-f174.google.com with SMTP id 5614622812f47-485ecc0f2dfso1952232b6e.3
+        for <stable@vger.kernel.org>; Mon, 01 Jun 2026 09:47:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=dubeyko-com.20251104.gappssmtp.com; s=20251104; t=1780332465; x=1780937265; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:autocrypt
+         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=k7d7WO1IGhjE1EeoOZERJmeHfwgMycEtCXi2A0ollLA=;
+        b=CcIrEj3pMQecm/JhQzqxTy9ldZE7pm8Rq4vKM/JctnD7zQ7BBF+4+opt5fK355v5IA
+         HwtdiX7A+PFaAszOKj1QW0lTtVlUoKVbSMbUfhzbdwfXYqmmfiXMbSwvcbXSy1E4TL6T
+         /DCLjA0FM6iRKVSmWhjmsPHOm74hAHZx903+lBj35v5Whgv8vSv7G2XwSWcX8jDDLZHp
+         lveuspIj2BQQxssLJWj6hr4Z/8OCo8T4kfEJFmq5+90ufy2cOezTdaAnfqmFaC+jNm0J
+         L5dgHRbgnVLArN9LtDi0O8dg7+BRoj3HY82gVHqlMDRCmtOTv2Yv4DiQ+FqO/AeOrw/f
+         JHnA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780332465; x=1780937265;
+        h=mime-version:user-agent:content-transfer-encoding:autocrypt
+         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=k7d7WO1IGhjE1EeoOZERJmeHfwgMycEtCXi2A0ollLA=;
+        b=WpagdlzbMlMfCNYyES6uGh34pUrmVkJ+X0tfjb1umlRnhH1RerV0IcJVWpngdWhFxm
+         so6EWJi3KdOSOQUxe5pgiSxRs75ZNQDJ+mQlNJOcQ5H8c+lSkA8b1PWdF/KWMQISbJXo
+         dq6ByHnR2zNwLEzBOgCJ3V6pXpWysdWbxk/kCIgJoMCsmjIVvP8h/C17YK7tKmYcJtes
+         vFvXWNan6EAoUpJfGNfRcHoAwDnq3AFn4vvmdFodSHvmv1/8k3ktoC6XBUpROMjvI/ht
+         XbgzUVI0u787rLFuxqG7qLm5gQ9bYl4x4J5OrA4ocdsJP8rSxpEKGzyhHViB1Jz7vwKl
+         wTkQ==
+X-Forwarded-Encrypted: i=1; AFNElJ9p713ujo0XnDjEtG8afZRa0nbtND9gKwcY+/G52xnmC29am9xlTtpogRRERIc5E56Pb6UoKh8=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyP+x1aXzR1dCIC18nhtpLQ0FqlJ6dEBhfnKg0LXUy4ULxuBl/I
+	y+06QuZhncGejXgjnpikWoO9T3GQl2qKCWXayiNxRKOFaGgkv2uMS3nrn5JfOYiHaW0=
+X-Gm-Gg: Acq92OHpC3JoZaBUwbZnRCEa4MecCqRE0cnX4E5dXIIf5xbIElMHx/G0gsrol/O90fg
+	F4HhrOIDdwC9+dA6UX60WsbSgLsP1mBIS23UsprseCXLQ/BGP/TvTFm9RrNNnOh4ALiKok7aXS6
+	9YJcpuXEY3j+8abEf20pkrmB3HIdBC10puE/NIn9F0REcsX757KUAuD0/Sqw1k41qh6+ADVlafo
+	WSVlKFK06P9W6MS7svM/2OsUqLQa4fzpm8SXHF/b0o8FMFpW9Vnn/sT06VTaWYvL8l8dzje0+cy
+	dDX0OcTuFmDaB7AI4pEC7LEby5mhL8ib5sRS2f2exhjqQJglOtHZrSFbXtFR+EI7W6dzAH1qPNX
+	hwJ7Ly/t/baU4pCgC/pMKZL3KPaCmm9ONBy8nfbr5L6QyYpdHT6SWU+fMx6lWfyIKgXYhjQrz93
+	m3QYtQ0q9hdvqTWDW4A7iiPr3cGwmiwZOCAlTPquMYkSc3VSKpLnLDWCjT5ksvaS7nwClJ5FHtB
+	qkSEUu29yYD/GT/1la56l6SKdGJhiWR4fWmIXa1IlYQC3xPOEMJumIj5lEhx8uOCysMg67S
+X-Received: by 2002:a05:6808:1921:b0:482:7a59:47a with SMTP id 5614622812f47-485fbd772b7mr6539898b6e.46.1780332465061;
+        Mon, 01 Jun 2026 09:47:45 -0700 (PDT)
+Received: from [10.0.0.3] (162-197-212-70.lightspeed.sntcca.sbcglobal.net. [162.197.212.70])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-43c93a2296bsm8049707fac.4.2026.06.01.09.47.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 01 Jun 2026 09:47:44 -0700 (PDT)
+Message-ID: <9e7569ab278fc8538f0e44b552856e52f9eab37c.camel@dubeyko.com>
+Subject: Re: [PATCH v3] nilfs2: reject CLEAN_SEGMENTS ioctl with
+ out-of-range segment numbers
+From: slava@dubeyko.com
+To: Deepanshu Kartikey <kartikey406@gmail.com>, Viacheslav Dubeyko
+	 <vdubeyko@redhat.com>
+Cc: konishi.ryusuke@gmail.com, linux-nilfs@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, 
+	syzbot+62f0f99d2f2bb8e3bbd7@syzkaller.appspotmail.com,
+ stable@vger.kernel.org
+Date: Mon, 01 Jun 2026 09:47:43 -0700
+In-Reply-To: <CADhLXY66nCRtQk-gzHcZGm596sB2BAVKM1Ehue0ELj=OjuC-=Q@mail.gmail.com>
+References: <20260430040704.113622-1-kartikey406@gmail.com>
+	 <eea194aa0f8734f38fa645db935aca47175bdf17.camel@redhat.com>
+	 <CADhLXY66nCRtQk-gzHcZGm596sB2BAVKM1Ehue0ELj=OjuC-=Q@mail.gmail.com>
+Autocrypt: addr=slava@dubeyko.com; prefer-encrypt=mutual;
+ keydata=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
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.1 (by Flathub.org) 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-SA-Exim-Connect-IP: 2a02:578:851f:1502:391e:c5f5:10e2:b9a3
-X-SA-Exim-Mail-From: ben@decadent.org.uk
-X-SA-Exim-Scanned: No (on maynard); SAEximRunCond expanded to false
 
-
---=-2y5jHA2ElOQCtvOrzOpN
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Sat, 2026-05-30 at 18:02 +0200, Greg Kroah-Hartman wrote:
-> 5.10-stable review patch.  If anyone has any objections, please let me kn=
-ow.
+On Sun, 2026-05-31 at 07:14 +0530, Deepanshu Kartikey wrote:
+> On Thu, Apr 30, 2026 at 11:41=E2=80=AFPM Viacheslav Dubeyko
+> <vdubeyko@redhat.com> wrote:
+> >=20
+> > Usually, I prefer to keep the err variable at the end of
+> > declarations. Because,
+> > it is the ending state of the function. And I am feeling that
+> > something is wrong
+> > every time when likewise variable is hidden inside of declaration
+> > list. :) There
+> > is nothing critical in my remark. But anyway... :)
+> >=20
+> > The path looks good to me.
+> >=20
+> > Thanks,
+> > Slava.
+> >=20
 >=20
-> ------------------
+> Hi Viacheslav,
 >=20
-> From: Shrikanth Hegde <sshegde@linux.ibm.com>
->=20
-> commit 64ed1e3e728afb57ba9acb59e69de930ead847d9 upstream.
->=20
-> snooze_loop is done often in any system which has fair bit of
-> idle time. So it qualifies for even micro-optimizations.
->=20
-> When breaking the snooze due to timeout, TIF_POLLING_NRFLAG is cleared
-> twice. Clearing the bit invokes atomics. Avoid double clear and thereby
-> avoid one atomic write.
->=20
-> dev->poll_time_limit indicates whether the loop was broken due to
-> timeout. Use that instead of defining a new variable.
-
-That is only true after commit 5ddcc03a07ae "powerpc/cpuidle: Set
-CPUIDLE_FLAG_POLLING for snooze state".  So please drop this for 5.10,
-5.15, and 6.1.
-
-Ben.
-
->=20
-> Fixes: 7ded429152e8 ("cpuidle: powerpc: no memory barrier after break fro=
-m idle")
-> Cc: stable@vger.kernel.org
-> Reviewed-by: Mukesh Kumar Chaurasiya (IBM) <mkchauras@gmail.com>
-> Signed-off-by: Shrikanth Hegde <sshegde@linux.ibm.com>
-> Signed-off-by: Madhavan Srinivasan <maddy@linux.ibm.com>
-> Link: https://patch.msgid.link/20260311061709.1230440-1-sshegde@linux.ibm=
-.com
-> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> ---
->  drivers/cpuidle/cpuidle-powernv.c |    5 ++++-
->  drivers/cpuidle/cpuidle-pseries.c |    5 ++++-
->  2 files changed, 8 insertions(+), 2 deletions(-)
->=20
-> --- a/drivers/cpuidle/cpuidle-powernv.c
-> +++ b/drivers/cpuidle/cpuidle-powernv.c
-> @@ -93,7 +93,10 @@ static int snooze_loop(struct cpuidle_de
-> =20
->  	HMT_medium();
->  	ppc64_runlatch_on();
-> -	clear_thread_flag(TIF_POLLING_NRFLAG);
-> +
-> +	/* Avoid double clear when breaking */
-> +	if (!dev->poll_time_limit)
-> +		clear_thread_flag(TIF_POLLING_NRFLAG);
-> =20
->  	local_irq_disable();
-> =20
-> --- a/drivers/cpuidle/cpuidle-pseries.c
-> +++ b/drivers/cpuidle/cpuidle-pseries.c
-> @@ -61,7 +61,10 @@ static int snooze_loop(struct cpuidle_de
->  	}
-> =20
->  	HMT_medium();
-> -	clear_thread_flag(TIF_POLLING_NRFLAG);
-> +
-> +       /* Avoid double clear when breaking */
-> +	if (!dev->poll_time_limit)
-> +		clear_thread_flag(TIF_POLLING_NRFLAG);
-> =20
->  	local_irq_disable();
-> =20
->=20
+> Gentle Reminder. I want to know the status of the patch.
+> Let me know if anything is required from my side.
 >=20
 
---=20
-Ben Hutchings
-The obvious mathematical breakthrough [to break modern encryption]
-would be development of an easy way to factor large prime numbers.
-                                                           - Bill Gates
+This patch in the for-next branch several weeks already. I will send it
+to upstream for 7.2-rc1 merge cycle.
 
---=-2y5jHA2ElOQCtvOrzOpN
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEErCspvTSmr92z9o8157/I7JWGEQkFAmodt0gACgkQ57/I7JWG
-EQlZlA/+NIBzaU+8ml5d4b5meSjS4deXdfkhd8//cs24lh8hZpTsAepxkrIuQ14p
-kG4H9dJ6UAmppFv4qSrUJOTPoL6+0KT/YfNEuW88NvK7rKK05O1hkUyXOEG01I4c
-CwENRvIk2etB28A9YNtcjm+tauQrScyRaToyn43Nb2E2UopBt9eyyfaZPaNEnZMY
-tzeSMCQSrO+EL47QTZXUujylgVhecpxeAzwaMopR3pexNCn/pTOemSc3stqJVrjR
-FmExpm7As9s/bAVCd+APlxjNA8mzdIpWU4f+JMkR497QVC2ARZMUAi4LZ5McQZSL
-NEmlNIfJfyF/wo3gqBbQfsEwSSrjNF55JL1pBcJPpk2bTFQayXNf0mfH08dwtZ+Q
-OmWmE4/r2/zDmt2yIFMMgo/jI48ioJwQexnpMYIMEMPpnuE6IVe1gadm9kLqxrmR
-G6H58A90np5D2ixui/h4qN+U406VepuXtbBD+SIZ05TQbmFU9h0bG2HLl+Ox88SD
-5oolI7Ge4c9xYy7jdOLYg9gMASQNPVEte8+yyU1EJXOm5unTkfzY3WfLgR6Z/Zex
-mYBhlNG/OQrpyW/t+HsFNpLbSM7gytvSEAX/DdeuA5Uajwc0tV/iL018hwHGQ6Bw
-wDu49FZ4Ycau57NQL70UwfJF8tTXbzSwKnmToaNJIlGnxPhH7P8=
-=LEz5
------END PGP SIGNATURE-----
-
---=-2y5jHA2ElOQCtvOrzOpN--
+Thanks,
+Slava.
