@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1350D78F4A
-	for <stable@vger.kernel.org>; Mon,  1 Jun 2026 00:51:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA3C072621
+	for <stable@vger.kernel.org>; Mon,  1 Jun 2026 00:52:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780275116; cv=none; b=Vis7mseXAI0u5y4c2yiIzEsn1SmSVM7O4haXjckCF7oWf3cYRCwOAnheK20pFKA6Zm+00Pz04WgmBVkqtwAFctUw1XLzZK8N7pkzSdlyRyhD9kB+bjlV/BnSCjQeOW6T2HZWcztZP7ruHOaTB3eB5h5deBqH9Pqvvwqzs4I/1m0=
+	t=1780275134; cv=none; b=Vkz+xWkbql12mNk+J9bPZIxGwNq86+LmIzlVlB6fZZHa0EwlMGZHJ1i9h24TuwIWtlbk02GI4WYkAvt3IF5bijUxoZ7cjmPl40aU0zGflLhJTgiIWe33Mhcy8cerMg9h2EaQY5/qzW/itPMd8tgvRJkr8a0jWpHGy5KCmL/qPXI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780275116; c=relaxed/simple;
-	bh=+S9NSdhppfuuIZ57IfsM1POTlB+yIiP0/LHxn/pNu70=;
+	s=arc-20240116; t=1780275134; c=relaxed/simple;
+	bh=hPneDrGaZmT+HKCCwKUkFJL7vDuIMLUCVdllUMv1q3s=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jz/kme42aJ/xUacTN/9B/IjZ3CW3A/XWBVd0AnfKDUDVW5yrsI6Y3so/TBk2YrEOHPeQNoMOIGwFE5bQRcFQS49J63c1vkZtI5Wdtp1w8ExFAeM2D7Lvk7dwLHl9kReDMNTUrnnnTvehZ5xMPT5T7zAr4qfBzXYBeaqZNkjv29M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oSX/Bp2y; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=pcdNMXl8KkNRDl7ZS2Kl5vxtdTZe7zH53zrZUqp0PN37NNMalUp300DA3QHbbw8eRTx9ioWad9dC8AvbxiQ0qZYZ2vKWQLe+TNvsxTuoUwQZw08n9VYFSkNR2uahqbjZwYBNPlsvoQPvDVOwmx8pfimPYax4kkk5/mjBQt+HbGQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DFVOc2WJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oSX/Bp2y"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F26151F00893;
-	Mon,  1 Jun 2026 00:51:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DFVOc2WJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D76301F00893;
+	Mon,  1 Jun 2026 00:52:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780275115;
-	bh=0plXK96bdqA0JcgaUA8+fp5VBI2BMUrCX3QLNw41duY=;
+	s=k20260515; t=1780275133;
+	bh=z6qXGwVgormD1p5fJp0EnRd/p9K8qoPaR/2Ka0QcoM0=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=oSX/Bp2yVP9JTYYtulWVkdtPrAYx4+EyH0cpIaA5yPUX8YtgoUEi8/8pGcCGj1q+P
-	 UE+ACYdUs/vhtCMiFzjsuOIgeFD9ztGO8zd8iYU1+d2E9QifPD+70VbKLA3h2U9jLW
-	 +bIM+qZL/4nKqlyvWxy5MnLiqT2x+HgDzrg0oa5hB/9XQ1l0Tzn5znCp5evuHMdJYh
-	 aw/20fVSwOpPhMXUEKkEVQHhQN4Mdw8GRv0dI3hu17vIxG9ePwB4AW8jgcbKCI++jy
-	 WcDS+YtQFl9bQTPAeYjp13UFu5NaJVF8eDa11ZN2HSwHKdggDz4Yh8+QOKhANFAvZD
-	 auEQ//pzc03pw==
-Message-ID: <19e7e34b-c0ea-4129-b8a4-2e781dec800c@kernel.org>
-Date: Mon, 1 Jun 2026 10:51:51 +1000
+	b=DFVOc2WJPaele2xMHHlviikaLQa5EubLuHNM0cPWJao3QqsPHmMeuJAZeD5ip41iH
+	 iSLG3s+CMQVIO4gqzyeSssXSQmb9ko0HH7a39kad+/+5NH77ZhG2qn2kSJj9DaMqVX
+	 VC8NivHtkCGI/BGwjbcLGgcnITW0UjZiDsuRmCXkRc1dfzH8O/tJou/PtvENVtX0oS
+	 3WRtJs0tJ183XDkD65WGlfBq2WghJAMZWJKbe9LcCKJLKxWAPL5NdndXBj5KxyQNlL
+	 yi9IVV4QeZD8AyG3jKi4ODb21elGswUoPz8LcEV+6BsmbvtjlmbwcsBW9m8ODv3n3c
+	 K7+dzalYZKfRg==
+Message-ID: <a4232e10-9e76-4b5e-9f0a-d7ada1d8980c@kernel.org>
+Date: Mon, 1 Jun 2026 10:52:08 +1000
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,13 +35,13 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird Beta
-Subject: Re: [PATCH 6.18.y] mptcp: update window_clamp on subflows when
+Subject: Re: [PATCH 6.12.y] mptcp: update window_clamp on subflows when
  SO_RCVBUF is set
 Content-Language: fr
 To: Sasha Levin <sashal@kernel.org>, stable@vger.kernel.org
 Cc: Gang Yan <yangang@kylinos.cn>, Paolo Abeni <pabeni@redhat.com>
-References: <2026052819-lifter-chariot-8dc6@gregkh>
- <20260601004413.90717-1-sashal@kernel.org>
+References: <2026052820-headdress-transpose-ad5f@gregkh>
+ <20260601004704.94197-1-sashal@kernel.org>
 From: Matthieu Baerts <matttbe@kernel.org>
 Autocrypt: addr=matttbe@kernel.org; keydata=
  xsFNBFXj+ekBEADxVr99p2guPcqHFeI/JcFxls6KibzyZD5TQTyfuYlzEp7C7A9swoK5iCvf
@@ -87,13 +87,13 @@ Autocrypt: addr=matttbe@kernel.org; keydata=
  JY6dglzGKnCi/zsmp2+1w559frz4+IC7j/igvJGX4KDDKUs0mlld8J2u2sBXv7CGxdzQoHaz
  lzVbFe7fduHbABmYz9cefQpO7wDE/Q==
 Organization: NGI0 Core
-In-Reply-To: <20260601004413.90717-1-sashal@kernel.org>
+In-Reply-To: <20260601004704.94197-1-sashal@kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 Hi Sasha,
 
-On 01/06/2026 10:44, Sasha Levin wrote:
+On 01/06/2026 10:47, Sasha Levin wrote:
 > From: Gang Yan <yangang@kylinos.cn>
 > 
 > [ Upstream commit 3a543ae0e2092d5c2085d5f21f7a7dbafdffea3c ]
