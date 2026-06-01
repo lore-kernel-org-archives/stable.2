@@ -1,134 +1,135 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8C032594B9;
-	Mon,  1 Jun 2026 20:09:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CEA337E30F;
+	Mon,  1 Jun 2026 20:24:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780344585; cv=none; b=qxhhCGsZ5Pw7PE7+RVBg+DD8bihfyP3NZCckUL9FKm1jU+5SCbDpo1ek0Ke+UG/WQXCgiUlZ/+c3eFDGdiBusl13yOSEV3kcdmVya++HrIVcgLWMln2A2dFIHoHeOjJ17Hvs6y42Z6YSgPUeeUWbt46AY++zBr9bM/8a0eiD7Fg=
+	t=1780345463; cv=none; b=JO064iHtiRGhJk9CJ4YVy46rjntTacS25eTJ07t9K8lFea9Zul7ipvEaYd3kc1mNZSou95kS2n6JrECnIp28EFG7gy1OylAKMmcpcmQzmnWe+A/l/mD8j212K/AFIp6LcF6k6loDmeBIe6J7XfrRI0sbkZzG19SSZ/YrW3BvIQk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780344585; c=relaxed/simple;
-	bh=cxEjWbnC92cSU1KoyID8L3aOf/9G23AtI3T+WEeuGPk=;
-	h=Date:To:From:Subject:Message-Id; b=UdykABbee2CsgawSRQiFiDXlTUXNx0l6K8DEKqWdhe2UOyg+DpZoRwohuKI9upsJZm40jMmgyjHPz/miOoiqUi4e75imPBz3Q6PHnd/raEj4BUOLGK2APQlIkkBNBLU1aQS54qlf4PIsZDxOyW73s0BhDpXWRR5XSrFVxCpdcuE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=GGYsIrNE; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780345463; c=relaxed/simple;
+	bh=l3dLCfo8STCCjPr/FqdtQ/3GS1wUw1HahkL+2RftIZg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=UKPrEQh6Hps01Kb1Y3KPK/oWFn31YcWM9+QDtgSb9mSjBJ1PNpVBSf7I/+diJFqLeJ8hN4t9rehpbW+p8R3slESZqltvauOcgj3SYTlPnXHJSnqjStNlCx+FNG7vVkVdnBSYlDCvy9QStDile0PiVm+V09+876wSH+sMVXiveYg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=JD/rgItE; arc=none smtp.client-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="GGYsIrNE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 691CF1F00893;
-	Mon,  1 Jun 2026 20:09:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1780344583;
-	bh=KvLOCEW8jkHCwNgMzFOGEaiNG/pU3Kk0wDhsTLyXRlg=;
-	h=Date:To:From:Subject;
-	b=GGYsIrNEX+t2HqMFEA3D1xOvmDOHkgQT23bVrfobsk8g32kTgnjAoOT+pxAJMQqpf
-	 Oo086AfyULy9C4uqGSUVZYrPdYCMBpsR5SSz9GGzK74nZvFEiK5bCgQrDzmqGKCcl4
-	 AkETJAYDmm7xGOPtKxt+9fDnUj41O6K0mBrMPfQw=
-Date: Mon, 01 Jun 2026 13:09:43 -0700
-To: mm-commits@vger.kernel.org,tglx@kernel.org,stable@vger.kernel.org,mingo@redhat.com,kdesler@soohrt.org,hpa@zytor.com,dave.hansen@linux.intel.com,bp@alien8.de,osalvador@suse.de,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + archx86-skip-setting-align_offset-for-hugetlb-mappings.patch added to mm-hotfixes-unstable branch
-Message-Id: <20260601200943.691CF1F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="JD/rgItE"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=6/5W0G6Gs1Q9GB3IxcldPERQvThA7tz7U249bqa4a9U=; b=JD/rgItEItTF3waKZU0fyhZfOO
+	p6KhOF2dIKsWbBlXDH6Szda6v6pwxYE0KSLQ6p9Jvu4aC0kMd1Jp91bHbXXGW1JY4kLAuzDZFSXs9
+	P7bQk5/xrqJRa6GrGWdxnMhnM9cOr/Mh7DhOreUlDgBnF2TcRdtGfQbRd9WsBVDwHFqfKKNmW2p+o
+	Eq81r5ZCto6v0j62Ti/4LX0nmYsBAqhcbZ6JenvK3VL8pcuJJabuzAf2wJL1ohACsCSDs/sp5+nbD
+	m2tuZulS6JhmLQAZ2oWemvoJrOfuaHp1Sctzmp2YTWfFeramTBO8sylg/IQVtL1hc2i3NQH4Kt9qQ
+	+ovW+CfA==;
+Received: from willy by casper.infradead.org with local (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1wU9Av-00000000iHG-2DOC;
+	Mon, 01 Jun 2026 20:23:53 +0000
+Date: Mon, 1 Jun 2026 21:23:53 +0100
+From: Matthew Wilcox <willy@infradead.org>
+To: David Laight <david.laight.linux@gmail.com>
+Cc: Kees Cook <kees@kernel.org>, Luis Chamberlain <mcgrof@kernel.org>,
+	Pengpeng Hou <pengpeng@iscas.ac.cn>, stable@vger.kernel.org,
+	Petr Pavlu <petr.pavlu@suse.com>,
+	Richard Weinberger <richard@nod.at>,
+	Anton Ivanov <anton.ivanov@cambridgegreys.com>,
+	Johannes Berg <johannes@sipsolutions.net>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Len Brown <lenb@kernel.org>, Corey Minyard <corey@minyard.net>,
+	Gabriel Somlo <somlo@cmu.edu>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Jani Nikula <jani.nikula@linux.intel.com>,
+	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	Tvrtko Ursulin <tursulin@ursulin.net>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Bart Van Assche <bvanassche@acm.org>,
+	Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Hans de Goede <hansg@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>, Hannes Reinecke <hare@suse.de>,
+	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+	"Martin K. Petersen" <martin.petersen@oracle.com>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Alan Stern <stern@rowland.harvard.edu>,
+	Jason Wang <jasowang@redhat.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
+	Jason Baron <jbaron@akamai.com>, Jim Cromie <jim.cromie@gmail.com>,
+	Tiwei Bie <tiwei.btw@antgroup.com>,
+	Benjamin Berg <benjamin.berg@intel.com>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	"David E. Box" <david.e.box@linux.intel.com>,
+	"Maciej W. Rozycki" <macro@orcam.me.uk>,
+	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Sean Christopherson <seanjc@google.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>, Vinod Koul <vkoul@kernel.org>,
+	Frank Li <Frank.Li@kernel.org>, Daniel Gomez <da.gomez@kernel.org>,
+	Sami Tolvanen <samitolvanen@google.com>,
+	Aaron Tomlin <atomlin@atomlin.com>,
+	Alexander Potapenko <glider@google.com>,
+	Marco Elver <elver@google.com>, Dmitry Vyukov <dvyukov@google.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	John Johansen <john.johansen@canonical.com>,
+	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Georgia Garcia <georgia.garcia@canonical.com>, kvm@vger.kernel.org,
+	dmaengine@vger.kernel.org, linux-modules@vger.kernel.org,
+	kasan-dev@googlegroups.com, linux-mm@kvack.org,
+	apparmor@lists.ubuntu.com, linux-security-module@vger.kernel.org,
+	linux-um@lists.infradead.org, linux-acpi@vger.kernel.org,
+	openipmi-developer@lists.sourceforge.net, qemu-devel@nongnu.org,
+	intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+	linux-rdma@vger.kernel.org, linux-media@vger.kernel.org,
+	linux-pci@vger.kernel.org, linux-scsi@vger.kernel.org,
+	linux-pm@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+	linux-serial@vger.kernel.org, linux-usb@vger.kernel.org,
+	usb-storage@lists.one-eyed-alien.net,
+	virtualization@lists.linux.dev, linux-kernel@vger.kernel.org,
+	linux-arch@vger.kernel.org, netdev@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org, linux-hardening@vger.kernel.org
+Subject: Re: [PATCH 01/11] params: bound array element output to the caller's
+ page buffer
+Message-ID: <ah3qWZ4cqhrbHZcl@casper.infradead.org>
+References: <20260521133315.work.845-kees@kernel.org>
+ <20260521133326.2465264-1-kees@kernel.org>
+ <20260521174631.71a06440@pumpkin>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260521174631.71a06440@pumpkin>
 
+On Thu, May 21, 2026 at 05:46:31PM +0100, David Laight wrote:
+> On Thu, 21 May 2026 06:33:14 -0700
+> Kees Cook <kees@kernel.org> wrote:
+> > Collect each element into a temporary PAGE_SIZE buffer first and then
+> > copy only the remaining space into the caller's page buffer.
+> 
+> Should this be using a 4k buffer on all architectures?
+> Initially perhaps just using a different name for the constant until
+> all the associated PAGE_SIZE limits have been removed.
 
-The patch titled
-     Subject: arch,x86: skip setting align_offset for hugetlb mappings
-has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
-     archx86-skip-setting-align_offset-for-hugetlb-mappings.patch
-
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/archx86-skip-setting-align_offset-for-hugetlb-mappings.patch
-
-This patch will later appear in the mm-hotfixes-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: Oscar Salvador <osalvador@suse.de>
-Subject: arch,x86: skip setting align_offset for hugetlb mappings
-Date: Mon, 1 Jun 2026 14:50:15 +0200
-
-On x86, arch_get_unmapped_area{_topdown} set align_offset in order to
-avoid cache aliasing on I$ on AMD family 15h when 'align_va_addr' is
-enabled.
-
-Prior to commit 7bd3f1e1a9ae ("mm: make hugetlb mappings go through
-mm_get_unmapped_area_vmflags"), we did not have to worry about that
-because hugetlb specific code did not set align_offset, but the above
-commit got rid of hugetlb specific code and started to route hugetlb
-mappings through the generic interface.
-
-Doing that has the effect of handing non-aligned hugetlb mappings to
-userspace, which is plain wrong, eventually leading to a BUG in
-__unmap_hugepage_range().
-
-So, skip setting align_offset if we are dealing with a hugetlb mapping.
-
-Link: https://lore.kernel.org/20260601125015.216110-1-osalvador@suse.de
-Fixes: 7bd3f1e1a9ae ("mm: make hugetlb mappings go through mm_get_unmapped_area_vmflags")
-Signed-off-by: Oscar Salvador <osalvador@suse.de>
-Reported-by: Karsten Desler <kdesler@soohrt.org>
-Closes: https://lore.kernel.org/linux-mm/20260527143643.GO31091@soohrt.org/
-Tested-by: Karsten Desler <kdesler@soohrt.org>
-Cc: Borislav Petkov <bp@alien8.de>
-Cc: Dave Hansen <dave.hansen@linux.intel.com>
-Cc: "H. Peter Anvin" <hpa@zytor.com>
-Cc: Ingo Molnar <mingo@redhat.com>
-Cc: Thomas Gleixner <tglx@kernel.org>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
----
-
- arch/x86/kernel/sys_x86_64.c |   14 ++++++++++++--
- 1 file changed, 12 insertions(+), 2 deletions(-)
-
---- a/arch/x86/kernel/sys_x86_64.c~archx86-skip-setting-align_offset-for-hugetlb-mappings
-+++ a/arch/x86/kernel/sys_x86_64.c
-@@ -157,7 +157,12 @@ arch_get_unmapped_area(struct file *filp
- 	}
- 	if (filp) {
- 		info.align_mask = get_align_mask(filp);
--		info.align_offset += get_align_bits();
-+		/*
-+		 * Hugepages must remain hugepage-aligned, so skip adding an offset
-+		 * in case we enabled 'align_va_addr'.
-+		 */
-+		if (!is_file_hugepages(filp))
-+			info.align_offset += get_align_bits();
- 	}
- 
- 	return vm_unmapped_area(&info);
-@@ -222,7 +227,12 @@ get_unmapped_area:
- 
- 	if (filp) {
- 		info.align_mask = get_align_mask(filp);
--		info.align_offset += get_align_bits();
-+		/*
-+		 * Hugepages must remain hugepage-aligned, so skip adding an offset
-+		 * in case we enabled 'align_va_addr'.
-+		 */
-+		if (!is_file_hugepages(filp))
-+			info.align_offset += get_align_bits();
- 	}
- 	addr = vm_unmapped_area(&info);
- 	if (!(addr & ~PAGE_MASK))
-_
-
-Patches currently in -mm which might be from osalvador@suse.de are
-
-archx86-skip-setting-align_offset-for-hugetlb-mappings.patch
-
+If we're acually going to think about this, even 4KiB is too big.
+An 80x25 terminal is 2000 bytes (assuming no utf8), so 4KiB is two
+entire screenfuls.  Limiting to 2048 would seem reasonable to me.
