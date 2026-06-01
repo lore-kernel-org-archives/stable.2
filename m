@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC49739E194
-	for <stable@vger.kernel.org>; Mon,  1 Jun 2026 13:17:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DDBF365A0F
+	for <stable@vger.kernel.org>; Mon,  1 Jun 2026 13:17:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780319849; cv=none; b=t8KwzLPTBAmRdjocVZpRKgcKBeBTALjbhB80Wb1QBH8BYGSbM9EEMk/eHNabJboNobdRwl+qR98m45SZJT7M+B5NVnYemHqasa4VDgwZb776/yUW6/KHyIs0iRXkyr2x0xooHI6DTTLtXQH9+ooVO2oMf0Fp9BzcthwUKnP0MQk=
+	t=1780319850; cv=none; b=apWdMepo+MML/HC4fv1F/4wux5Hxbn3Csu65Q0XxAnKYNQAsM8U/v0Y72hHtwrunuA5TPUfhbBf/ysW3SY++2u1cO7Jgm7gb3yhbqj9Mko6Lr4wz6A/SBYNfhOzETKGmjp/7JlMsBzPgP/FY8L+HSfXWEfkurmKS5E43hoMCsO4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780319849; c=relaxed/simple;
-	bh=qoubM5vwrZ4rKD2RLxYdjy7Hk1EvFtCEA91xXfPQyL8=;
+	s=arc-20240116; t=1780319850; c=relaxed/simple;
+	bh=OJ9RuobannAvkyw1IT1tHyo6Y4y9Jh3FRX7Jxlr6XVg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Z2Wd+Lq58qBeeSKEaO4XTMviDy9Szei6ZTduYpLTgrvbPbcbshwHWpVQujJSjP8MBOJB0mM66azyELEuHZURNoE9eY2qX43Y/GqQb2o5p6r5TimLwqE5LWy+jZfLNVD9gmQqQV+Lw3+yQKYWzYLVlu2PQY//ZPcIPuAgvrg7OHI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RWcrLIGP; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=CCjDTy/FGfPqAbP2jPMvijOQU6PM9KJvUEteDbJthkSvAqDBpqjo+Ojn3oa1nu3SazRnuvujBQraXR3MhGl9WB3o50KvXg4tl4HtKjVb4BmKg0nglt1hfjmgcydqRqBWm/2wj/f/RlpDglckwZYXtX9EcZC5fFlmrs9E8uCtGGQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Hpq3u2Jl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RWcrLIGP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B6BC1F00899;
-	Mon,  1 Jun 2026 13:17:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Hpq3u2Jl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8847A1F0089A;
+	Mon,  1 Jun 2026 13:17:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780319847;
-	bh=OkCF5REwrlSof8aRd/cawuTeHQEPAXc+AUd0Xcju8uY=;
+	s=k20260515; t=1780319849;
+	bh=123A7HprqI8OIIqDrS2szhlS5d1WSCZ+LoNop6dItOw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=RWcrLIGPon/DpLAu929ypmyBLdpXYIN50GRj841EIkMhbpUMuVD8SxZHR4C6gDFqm
-	 NFmwA4gmNm4dtXZYhtd/lQ4OguWyyVm2wvOBSIekv39b2F8LBqwaj+++luLDYQK6Ba
-	 AlhGe431QRkFbNRucndzvsbAOABpiSNJKZk+nnlznNlVNG3BtgYZ+4lgZJrGMkYXqR
-	 CDfFIBivhAirBTR2qBphUgL/XsLeR81sZ2DpxSzJE4eJJ2FCDqh/alPpIEqLZLfFOr
-	 j6mEL6JrjgCbhXXjmMMjEOA1+Y9J0por1I7JOobmYIT4gKsPLJH82nPXxxMnDq3rR3
-	 DPFovyqMhpY7w==
+	b=Hpq3u2JlulJ+t98uwY3rDTCQuW0aLoFWkyp/+b4QbGenlAqeXzUKj55UMgV81VE48
+	 ewnuDMBI30jB5CvAbhGFY2iJoGCS1+vlr6JGpGqjE7w29Po3jXr68pSheFi/yibFID
+	 WF9ArwgA+lmpnw2rPUiHxB58jE7OwxhsjncI4hgBLKca6whEHCCPp89fqz/KJneRZG
+	 r612lVRXnRVrx8twUTrKm0ZWZUHDn5zsTRZ9/gYasJBDKjT6SD9olewdCjx5+qYnAd
+	 lmkcWQJZbW/MNrD3Ng4Lo9yE3TNvdSjHeY6uwVdq8j5oRjg3mZ5LxXkcN1uNY58A8O
+	 XvUv0I+yhpQSA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
 	Iago Toral Quiroga <itoral@igalia.com>,
-	Melissa Wen <mwen@igalia.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 1/3] drm/v3d: Synchronous operations can't timeout
-Date: Mon,  1 Jun 2026 09:17:23 -0400
-Message-ID: <20260601131725.780793-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 3/3] drm/v3d: Release indirect CSD GEM reference on CPU job free
+Date: Mon,  1 Jun 2026 09:17:25 -0400
+Message-ID: <20260601131725.780793-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026052815-arose-kabob-9b34@gregkh>
+In-Reply-To: <20260601131725.780793-1-sashal@kernel.org>
 References: <2026052815-arose-kabob-9b34@gregkh>
+ <20260601131725.780793-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,76 +49,40 @@ Content-Transfer-Encoding: 8bit
 
 From: Maíra Canal <mcanal@igalia.com>
 
-[ Upstream commit 78fe02d090d38393cc00de9d1929e59426f202a4 ]
+[ Upstream commit 6eb6e5acafa46854d4363e6c34981289995f3ace ]
 
-CPU jobs and CACHE CLEAN jobs execute synchronously once the DRM
-scheduler starts running them. Therefore, there is no fence to wait on,
-neither are those jobs able to timeout.
+v3d_get_cpu_indirect_csd_params() takes a reference to the indirect BO via
+drm_gem_object_lookup() and stashes it in cpu_job->indirect_csd.indirect,
+but nothing on the CPU job teardown path ever drops that reference.
 
-Hence, remove the `timedout_job` hook from the CPU and CACHE CLEAN
-scheduler ops.
+Drop the extra reference in v3d_cpu_job_free(). The NULL check covers ioctl
+errors before the lookup ran and CPU job types other than
+V3D_CPU_JOB_TYPE_INDIRECT_CSD, which leave the field zero-initialised.
 
+Cc: stable@vger.kernel.org
+Fixes: 18b8413b25b7 ("drm/v3d: Create a CPU job extension for a indirect CSD job")
+Assisted-by: Claude:claude-opus-4.7
 Reviewed-by: Iago Toral Quiroga <itoral@igalia.com>
-Reviewed-by: Melissa Wen <mwen@igalia.com>
-Link: https://lore.kernel.org/r/20250826-v3d-queue-lock-v3-5-979efc43e490@igalia.com
+Link: https://patch.msgid.link/20260515-v3d-cpu-job-leaks-v1-2-7f147cbbf935@igalia.com
 Signed-off-by: Maíra Canal <mcanal@igalia.com>
-Stable-dep-of: 6eb6e5acafa4 ("drm/v3d: Release indirect CSD GEM reference on CPU job free")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/v3d/v3d_sched.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/v3d/v3d_submit.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/v3d/v3d_sched.c b/drivers/gpu/drm/v3d/v3d_sched.c
-index c9c88d3ad6698..63564266135f6 100644
---- a/drivers/gpu/drm/v3d/v3d_sched.c
-+++ b/drivers/gpu/drm/v3d/v3d_sched.c
-@@ -684,6 +684,7 @@ v3d_cpu_job_run(struct drm_sched_job *sched_job)
- 	trace_v3d_cpu_job_end(&v3d->drm, job->job_type);
- 	v3d_job_update_stats(&job->base, V3D_CPU);
+diff --git a/drivers/gpu/drm/v3d/v3d_submit.c b/drivers/gpu/drm/v3d/v3d_submit.c
+index 40c21aaade0d6..23472c7af41a9 100644
+--- a/drivers/gpu/drm/v3d/v3d_submit.c
++++ b/drivers/gpu/drm/v3d/v3d_submit.c
+@@ -130,6 +130,9 @@ v3d_cpu_job_free(struct kref *ref)
+ 	v3d_performance_query_info_free(&job->performance_query,
+ 					job->performance_query.count);
  
-+	/* Synchronous operation, so no fence to wait on. */
- 	return NULL;
++	if (job->indirect_csd.indirect)
++		drm_gem_object_put(job->indirect_csd.indirect);
++
+ 	v3d_job_free(ref);
  }
- 
-@@ -699,6 +700,7 @@ v3d_cache_clean_job_run(struct drm_sched_job *sched_job)
- 
- 	v3d_job_update_stats(job, V3D_CACHE_CLEAN);
- 
-+	/* Synchronous operation, so no fence to wait on. */
- 	return NULL;
- }
- 
-@@ -786,7 +788,7 @@ v3d_render_job_timedout(struct drm_sched_job *sched_job)
- }
- 
- static enum drm_gpu_sched_stat
--v3d_generic_job_timedout(struct drm_sched_job *sched_job)
-+v3d_tfu_job_timedout(struct drm_sched_job *sched_job)
- {
- 	struct v3d_job *job = to_v3d_job(sched_job);
- 
-@@ -827,7 +829,7 @@ static const struct drm_sched_backend_ops v3d_render_sched_ops = {
- 
- static const struct drm_sched_backend_ops v3d_tfu_sched_ops = {
- 	.run_job = v3d_tfu_job_run,
--	.timedout_job = v3d_generic_job_timedout,
-+	.timedout_job = v3d_tfu_job_timedout,
- 	.free_job = v3d_sched_job_free,
- };
- 
-@@ -839,13 +841,11 @@ static const struct drm_sched_backend_ops v3d_csd_sched_ops = {
- 
- static const struct drm_sched_backend_ops v3d_cache_clean_sched_ops = {
- 	.run_job = v3d_cache_clean_job_run,
--	.timedout_job = v3d_generic_job_timedout,
- 	.free_job = v3d_sched_job_free
- };
- 
- static const struct drm_sched_backend_ops v3d_cpu_sched_ops = {
- 	.run_job = v3d_cpu_job_run,
--	.timedout_job = v3d_generic_job_timedout,
- 	.free_job = v3d_cpu_job_free
- };
  
 -- 
 2.53.0
