@@ -1,84 +1,41 @@
-Received: from mail-lj1-f177.google.com (mail-lj1-f177.google.com [209.85.208.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 279AC39902D
-	for <stable@vger.kernel.org>; Mon,  1 Jun 2026 10:54:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1222532ED34
+	for <stable@vger.kernel.org>; Mon,  1 Jun 2026 11:02:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780311254; cv=none; b=olFMU4P6KmLVoQJ5VxRDAcvXEiPVnsdWGF8Nex36dTAAuTN7bdRgKsnK+S8cZHbuemNrY+YHmVRwC1FTdLESanFE/6wz7wANjvDxjpbbpHiiIcCQc3mmEfIi2Mgk2IqFGLLxRAhpG9SAvnJIj4Vg8Hx2TMpDduJ2AP4dmCMoIjU=
+	t=1780311728; cv=none; b=jz3Len2U6BQlr9HIEo9/8CjYFczquj2FTaCsq/paz6tRPfjAleioqsrOL4Rc1CtQpNPFKHc20yu3XrKqttB7iraQamTiGAUBf+Q0xnkvFCwIeS5g4ydUvPiKqvC7JtdT38N+tmB0n1lcbmlBXWqH3jYOrbsWHQZDjaqcVTxCeO0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780311254; c=relaxed/simple;
-	bh=aBqwRcjjrirAEQcYUzGrlCWqcSI+0qm6EGsqltY6yx8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Yb5nci8loa2L/pEbglAqjQJXbo/dUosBDbRdUF59QWCaxXb1Zc9aH+cWKIHE3Qr/q+GoY/Ac3tvjjP6FCNZDCiKwi1yBaz21obZUkAxMH09ePGad3irIwGZIIewVUAoLHNrtalIERKl7IKpym30uWmZw5Ojo2zZq7GfzJWvrlGc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YMtAkGfh; arc=none smtp.client-ip=209.85.208.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1780311728; c=relaxed/simple;
+	bh=XhR6oTkoKWqIqxVxPcVjY6ziMQAuF1oDMdwXHIeeroc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=fhh3DVTXd2VnOBEt0hZkKxe804G8bBU+dz1y9L7xA/AwnCUoiyGz2VTcN5atWQaJ+OReWwFScyCsmOhJCVAEBGlIhwPDjlqPwpbkl5q4yW5pQ6h4x9ybDZ//iWK6gtbPSaGpVS005LQBdZPl42XvUIZFJBBupF06b32U3Xr3EdM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ayvnsapa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YMtAkGfh"
-Received: by mail-lj1-f177.google.com with SMTP id 38308e7fff4ca-39666f49929so17538521fa.0
-        for <stable@vger.kernel.org>; Mon, 01 Jun 2026 03:54:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780311251; x=1780916051; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=lFXg3u3Hl1xsWJNPPj6ianatRb4V7SHTMso00cbxCeY=;
-        b=YMtAkGfhBSUTJtXvRvAmSFQtqkI4LW5g2KiGEicDsLCdw5BQ6QWD9cLLapBuxjPP0+
-         xHTECCMQ2d8Tc2cuY3/qGoHJt90mHvpkbsft3Gh5pGNn87zQPD2JgfSaZBXWbcSlukBS
-         MLIhWYNy/GaZqbjMJ8Dx8ye5XmoJTABWe1yPdofQhw/7PXKOO3iqxUDoI1K/XVwNe5PW
-         kk0jLSQpq5LEfWvYZuCxSa54mM8FZgUERQP96Y94yM3MfcqbOP5NQrF4yaJH8Fc6gMdU
-         AvgEXpWj7GCsX1krCIcg4dOf3p33qMqPaHc1g4y4g5JxvfSt+IOtVDwuUrnXviIXn79+
-         3HAg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780311251; x=1780916051;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=lFXg3u3Hl1xsWJNPPj6ianatRb4V7SHTMso00cbxCeY=;
-        b=IBpNVmwMPYH4vp1mG7mRZpP0CSFllGikG64y676+DBubTeNeWvUUzEDy01t/UUcDgc
-         4eOjLHqeUbLxju+dMSRvvCGDpyxhqGgS+XmMxfQaJ+eH+M5Qg7hvqduShbyez27W1VXF
-         0yKfbGdU+Bd1C6bnHz8L/CurR3AcDJv0HrCUMN/Bz7TWKO+FWsIfFHxg+D/Wq3LFEpf/
-         sUgdVbkaNVwfyWbU03tTGdNcCxMx5AlfBDwd+DVXwl/5vIyeGPM6J5QSBs77fpvP1TEz
-         iwsN+G4cn2tDpZpJAjvCePjwIlIz6t/65xqsjb1uHA+DGPlG9q5pfK7TM/EVMxMJlaNP
-         TUrA==
-X-Gm-Message-State: AOJu0YybtqIh1+xpbhIF8wusGwteb604OSjyFo7w3SHLeWl48UI3x+tO
-	rAbczkfOVVJB9r/ITWYNx7kxwUgAU4nnRCG2F099+T8DenRFr1uCPS72USVRx5HJ9EU=
-X-Gm-Gg: Acq92OEKXsw4GWRdtU7/9rvkY9IYaoxSP8PGrriFJcd3JzHzklKNL+zdUx5c5hw5w7v
-	dxThxCn2m1s1V+wuuGw6B+o7ZNGyI2/NeUWmilzViSYYDZRbHQ12D+tCNmp4ZDZSCVD/Auf9vwD
-	2Snb79X/QXLR0Bi9IhHU8LKrYH8rQuk17iT00CbwktBdt1KxyNB1UWkrdLVDTVCta+nf5MLIbCj
-	qHQ3gxjTCqVryIBKaLsAHghPkApHpiP1gIWEBvl1ddBUbhu0mreLigfwJSjlLRHzQpMg+Kd0oAo
-	MV1bFQKgCmmt1ExeYt+VQQYm9P/KHKJaH3sndSYLTrtcmSkoJgJ2QUiuS93Htf9MwGkUuU01hQi
-	hnpOBMzwvRKpy5UErcxR3fONxOZFLQmZgIUO99p2HMDHV9HiYYj7tOn9HlMZh32rXOkj0ktnE49
-	uzTTg2B7/AgV2dOYxpsLfPZBYu2RA31R8430uM2TbkTnfO4ztckTfNZ1DKZHOT7uKtdvZmY+Nqh
-	lRvfJU=
-X-Received: by 2002:a05:651c:4419:10b0:395:fded:ee35 with SMTP id 38308e7fff4ca-39664e39419mr20850381fa.3.1780311251119;
-        Mon, 01 Jun 2026 03:54:11 -0700 (PDT)
-Received: from c0624c666cc5.devsec.astralinux.ru ([93.188.205.42])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3967a2e7abcsm10381351fa.8.2026.06.01.03.54.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 01 Jun 2026 03:54:10 -0700 (PDT)
-From: Vladislav Nikolaev <vlad102nikolaev@gmail.com>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Vladislav Nikolaev <vlad102nikolaev@gmail.com>,
-	Zhu Yanjun <zyjzyj2000@gmail.com>,
-	Doug Ledford <dledford@redhat.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Haggai Eran <haggaie@mellanox.com>,
-	Kamal Heib <kamalh@mellanox.com>,
-	Amir Vadai <amirv@mellanox.com>,
-	Moni Shoua <monis@mellanox.com>,
-	Yonatan Cohen <yonatanc@mellanox.com>,
-	Leon Romanovsky <leon@kernel.org>,
-	linux-rdma@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Zhu Yanjun <yanjunz@nvidia.com>,
-	lvc-project@linuxtesting.org,
-	syzbot+cfcc1a3c85be15a40cba@syzkaller.appspotmail.com,
-	Zhu Yanjun <yanjun.zhu@linux.dev>
-Subject: [PATCH 5.10/5.15] RDMA/rxe: Fix the error "trying to register non-static key in rxe_cleanup_task"
-Date: Mon,  1 Jun 2026 13:52:32 +0300
-Message-ID: <20260601105336.3023-1-vlad102nikolaev@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ayvnsapa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33C021F00893;
+	Mon,  1 Jun 2026 11:02:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780311726;
+	bh=0og8ay/3mP3D01K0aHSHgRqjzAkle1o5LnrNjGQ2Dxg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=AyvnsapasQFY08C8bX55wpzFj2BygxQSx+KkBvU3CFxOckIV3JjPbCBI+rQsHBZLV
+	 s3hB4POjmXKTHmLTvUhtuTlJOGJUvSmq6CRq+JGf9TuU02aNDuhAqkz675X95Hbd8b
+	 0d6tPC3DmQqD59t9ENY9sMfFa7vTqsqKML4u+MV1pLPiIwcfrfPZjSiTwgIGNKY2rg
+	 ry2fRPYdUBGtvGvf5ipXgYedh223kDOqV+j+XN02xhZbnR0exL8bSc5XwGN4HZOi96
+	 Pb0fGUqHAdOUGxMONO1d8bhaRTb2oQ0X1Hde1viqd/rwDZOBEgQesnXh5yT49qBSAN
+	 CqvVUlLnE0llQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/2] cpufreq: intel_pstate: Add and use hybrid_get_cpu_type()
+Date: Mon,  1 Jun 2026 07:02:03 -0400
+Message-ID: <20260601110204.439565-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026052846-jasmine-recess-d8cc@gregkh>
+References: <2026052846-jasmine-recess-d8cc@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -87,50 +44,59 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Zhu Yanjun <yanjun.zhu@linux.dev>
+From: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
 
-commit b2b1ddc457458fecd1c6f385baa9fbda5f0c63ad upstream.
+[ Upstream commit 528dde6619677ac6dc26d9dda1e3c9014b4a08c8 ]
 
-In the function rxe_create_qp(), rxe_qp_from_init() is called to
-initialize qp, internally things like rxe_init_task are not setup until
-rxe_qp_init_req().
+Introduce a function for identifying the type of a given CPU in a
+hybrid system, called hybrid_get_cpu_type(), and use if for hybrid
+scaling factor determination in hwp_get_cpu_scaling().
 
-If an error occurred before this point then the unwind will call
-rxe_cleanup() and eventually to rxe_qp_do_cleanup()/rxe_cleanup_task()
-which will oops when trying to access the uninitialized spinlock.
-
-If rxe_init_task is not executed, rxe_cleanup_task will not be called.
-
-Reported-by: syzbot+cfcc1a3c85be15a40cba@syzkaller.appspotmail.com
-Link: https://syzkaller.appspot.com/bug?id=fd85757b74b3eb59f904138486f755f71e090df8
-Fixes: 8700e3e7c485 ("Soft RoCE driver")
-Fixes: 2d4b21e0a291 ("IB/rxe: Prevent from completer to operate on non valid QP")
-Signed-off-by: Zhu Yanjun <yanjun.zhu@linux.dev>
-Link: https://lore.kernel.org/r/20230413101115.1366068-1-yanjun.zhu@intel.com
-Signed-off-by: Leon Romanovsky <leon@kernel.org>
-Signed-off-by: Vladislav Nikolaev <vlad102nikolaev@gmail.com>
+Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+Link: https://patch.msgid.link/1954386.tdWV9SEqCh@rafael.j.wysocki
+Stable-dep-of: 0e7c710478b3 ("cpufreq: intel_pstate: Use correct scaling factor on Raptor Lake-E")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-Backport fix for CVE-2023-54028
- drivers/infiniband/sw/rxe/rxe_qp.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+ drivers/cpufreq/intel_pstate.c | 13 +++++++------
+ 1 file changed, 7 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/infiniband/sw/rxe/rxe_qp.c b/drivers/infiniband/sw/rxe/rxe_qp.c
-index 13b237d93a61..687d4419388f 100644
---- a/drivers/infiniband/sw/rxe/rxe_qp.c
-+++ b/drivers/infiniband/sw/rxe/rxe_qp.c
-@@ -785,8 +785,11 @@ void rxe_qp_destroy(struct rxe_qp *qp)
- 		del_timer_sync(&qp->rnr_nak_timer);
+diff --git a/drivers/cpufreq/intel_pstate.c b/drivers/cpufreq/intel_pstate.c
+index eb7fb25dfbefc..6e1a793408dee 100644
+--- a/drivers/cpufreq/intel_pstate.c
++++ b/drivers/cpufreq/intel_pstate.c
+@@ -909,6 +909,11 @@ static struct freq_attr *hwp_cpufreq_attrs[] = {
+ 	[HWP_CPUFREQ_ATTR_COUNT] = NULL,
+ };
+ 
++static u8 hybrid_get_cpu_type(unsigned int cpu)
++{
++	return cpu_data(cpu).topo.intel_type;
++}
++
+ static bool no_cas __ro_after_init;
+ 
+ static struct cpudata *hybrid_max_perf_cpu __read_mostly;
+@@ -2299,18 +2304,14 @@ static int knl_get_turbo_pstate(int cpu)
+ static int hwp_get_cpu_scaling(int cpu)
+ {
+ 	if (hybrid_scaling_factor) {
+-		struct cpuinfo_x86 *c = &cpu_data(cpu);
+-		u8 cpu_type = c->topo.intel_type;
+-
+ 		/*
+ 		 * Return the hybrid scaling factor for P-cores and use the
+ 		 * default core scaling for E-cores.
+ 		 */
+-		if (cpu_type == INTEL_CPU_TYPE_CORE)
++		if (hybrid_get_cpu_type(cpu) == INTEL_CPU_TYPE_CORE)
+ 			return hybrid_scaling_factor;
+ 
+-		if (cpu_type == INTEL_CPU_TYPE_ATOM)
+-			return core_get_scaling();
++		return core_get_scaling();
  	}
  
--	rxe_cleanup_task(&qp->req.task);
--	rxe_cleanup_task(&qp->comp.task);
-+	if (qp->req.task.func)
-+		rxe_cleanup_task(&qp->req.task);
-+
-+	if (qp->comp.task.func)
-+		rxe_cleanup_task(&qp->comp.task);
- 
- 	/* flush out any receive wr's or pending requests */
- 	if (qp->req.task.func)
+ 	/* Use core scaling on non-hybrid systems. */
 -- 
-2.47.3
+2.53.0
+
