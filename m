@@ -1,45 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DDDB29D26E
-	for <stable@vger.kernel.org>; Mon,  1 Jun 2026 10:51:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FD8F29D26E
+	for <stable@vger.kernel.org>; Mon,  1 Jun 2026 10:51:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780311068; cv=none; b=hBr3IqaAde1JXQt66z4mDTCxPJi2qrdRppOY7Qdjd26nDVLQYJwMODGq796wZdc7j8BA/B6pQC332H7TZQESbzltwaiX+z2pgKjDsxh3AFLa267nX7xXN1znV/jVdFE4dJkBl4xgqQgtGbMxYLzM8/Bdvp2lNp5Cs5l5CaPAhDQ=
+	t=1780311071; cv=none; b=khdSqA+XSFLy2kxb+lZItjh0xgi5MhFjddQgIeg8VyvSQbgR31hIERpo5N+/BqhsgMUOR6rckOTDdbmZxCmVj1A4a9KmQzZ5xGiXOmKW8FIyW0Zg9v+hAQdZiZh6d4EPo1NqUKyeE5+uIm2FyrTPzVkeeFMgIJdf0NrAfw8a//I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780311068; c=relaxed/simple;
-	bh=xrKXIPds7UGTqVDe1meZ3JhuDnLOk/Cw5vk++fFXBeE=;
+	s=arc-20240116; t=1780311071; c=relaxed/simple;
+	bh=meg+zuMCivyNgpp/N2EtC+q5e3NIMZ3i5vALMFX5REY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mO+rB0wGpetu6IxR5Cfm4uz7r6ge2YAlhiaHQlktRvoyI9h07XGCekLA6inJeWo58t0GK8Ah1pxd2R18aAUajaJVtmCFiN8kU3g+eXtDJ+FXVOtCgjF/kY+xlOu96Xjlk1d8dcRKhiDpeqjiY8ipCgTiFwkdAYgoVigcZJ8kdGo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jf4Ce7Xr; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=eZ628DVoDvzlMWi8k3o0i//ekDJb30bLpEV5TXS4ke/ucR0kJrggdvkJ/YFgzrqTw6PdO6GLYUWH4wZ+f9b+finH3M0suD7sU934qGXPd+KLFyjK1eMLLQpiIsnzfn0LJWInV1F6jlNi/JmX5sOWu4v8Zkt2Ho+edmF/MLL+yu0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m7ZGO17B; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jf4Ce7Xr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 651A51F00899;
-	Mon,  1 Jun 2026 10:51:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m7ZGO17B"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDF5D1F00893;
+	Mon,  1 Jun 2026 10:51:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780311067;
-	bh=es1cwXU/2qYp4Dkxp8Dor4B1pYAAJD01v2CbnEiaRZU=;
+	s=k20260515; t=1780311070;
+	bh=v3/q3mW43ccJDIpzNO2gjLDVuJt5i3fA0BlDWKHVhmY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jf4Ce7Xr3lQmam9Vma32PVeKJ8mNxdjqCgvYc+WtmJr00fnVpCY/qjcqmmYgsb18c
-	 U8O/Z0DYBZytaCFNho7gM0c+i5sswFTqMIoNncCPGfNcMgDMXDsFmuUKTAj5IiuEfH
-	 dYpnkOk+3Q93WN3j1IH+YBR+z/zM9Zmn3bS/YMwLnEMGQrKgfOw4pY0vsiykcEeG6b
-	 spiKoLQGN5QUrqjbV6ci9PK9/WNQkz4u6gv6ZMvQ7LI5L/57BMqWkBTt9v2EJJSHU1
-	 j2Z1VDxabzWeE0FkUUI40DkNc+YoQhRf/fdm847EAGZOcZaSE68JJDVxvBSMszyn0z
-	 gAbxJPbEkv2qA==
+	b=m7ZGO17B7hoBg41P+hOjP9Kp4s/e1aajhp5e3Z+MnLgxJLNTnFH+9V1Tx18rrCHbM
+	 eKN/lGr08mwHd89QVOpByTyXnZq3wOuaPj8yTTORYrjQcrOMFu8dsf+5SdsqpBUYPw
+	 EYbPQ3mfktPaLOOoAGoL8s//svHheWBp3jRagSWOvnyRW5el2o1ZVwotYKmAIEOsiQ
+	 uxjp47vI/JqUiHUdg5OY5vG5oV9OdqycmEZuIg4pRTReeDN13Wdg1DoAeqJZWcVbUP
+	 0Mt3oVwW+/Z1cz1aHexCaAnzvx2B8rqSu5iHMfRQyQm7kw/If7TjHRSQLT/r3N0bdG
+	 GI/7fj5Ch6kBg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Wayne Chang <waynec@nvidia.com>,
-	Wei-Cheng Chen <weichengc@nvidia.com>,
-	Jon Hunter <jonathanh@nvidia.com>,
-	Vinod Koul <vkoul@kernel.org>,
+Cc: Yang Yingliang <yangyingliang@huawei.com>,
+	Mark Brown <broonie@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 2/2] phy: tegra: xusb: Fix per-pad high-speed termination calibration
-Date: Mon,  1 Jun 2026 06:51:03 -0400
-Message-ID: <20260601105103.376449-2-sashal@kernel.org>
+Subject: [PATCH 5.10.y 1/2] spi: qup: switch to use modern name
+Date: Mon,  1 Jun 2026 06:51:07 -0400
+Message-ID: <20260601105108.378152-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260601105103.376449-1-sashal@kernel.org>
-References: <2026052822-poking-retrace-342b@gregkh>
- <20260601105103.376449-1-sashal@kernel.org>
+In-Reply-To: <2026052838-tank-lucid-17e8@gregkh>
+References: <2026052838-tank-lucid-17e8@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,145 +45,457 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Wayne Chang <waynec@nvidia.com>
+From: Yang Yingliang <yangyingliang@huawei.com>
 
-[ Upstream commit da110228b54f2e2143d97ea7151e0dc22e539d67 ]
+[ Upstream commit 597442ff4f6226206b7cc28b86eb2be0ae9c6418 ]
 
-The existing code reads a single hs_term_range_adj value from bit field
-[10:7] of FUSE_SKU_CALIB_0 and applies it to all USB2 pads uniformly.
-However, on SoCs that support per-pad termination, each pad has its own
-hs_term_range_adj field: pad 0 in FUSE_SKU_CALIB_0[10:7], and pads 1-3
-in FUSE_USB_CALIB_EXT_0 at bit offsets [8:5], [12:9], and [16:13]
-respectively.
+Change legacy name master to modern name host or controller.
 
-Fix the calibration by reading per-pad values from the appropriate fuse
-registers. For SoCs that do not support per-pad termination, replicate
-pad 0's value to all pads to maintain existing behavior.
+No functional changed.
 
-Add a has_per_pad_term flag to the SoC data to indicate whether per-pad
-termination values are available in FUSE_USB_CALIB_EXT_0.
-
-Fixes: 1ef535c6ba8e ("phy: tegra: xusb: Add Tegra194 support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wayne Chang <waynec@nvidia.com>
-Signed-off-by: Wei-Cheng Chen <weichengc@nvidia.com>
-Reviewed-by: Jon Hunter <jonathanh@nvidia.com>
-Tested-by: Jon Hunter <jonathanh@nvidia.com>
-Link: https://patch.msgid.link/20260504033305.2283145-1-weichengc@nvidia.com
-Signed-off-by: Vinod Koul <vkoul@kernel.org>
+Signed-off-by: Yang Yingliang <yangyingliang@huawei.com>
+Link: https://lore.kernel.org/r/20230818093154.1183529-10-yangyingliang@huawei.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+Stable-dep-of: a7e8f3efd50a ("spi: qup: fix error pointer deref after DMA setup failure")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/phy/tegra/xusb-tegra186.c | 32 ++++++++++++++++++++++++-------
- drivers/phy/tegra/xusb.h          |  1 +
- 2 files changed, 26 insertions(+), 7 deletions(-)
+ drivers/spi/spi-qup.c | 162 +++++++++++++++++++++---------------------
+ 1 file changed, 81 insertions(+), 81 deletions(-)
 
-diff --git a/drivers/phy/tegra/xusb-tegra186.c b/drivers/phy/tegra/xusb-tegra186.c
-index b778bdeeee59d..05a57037e3837 100644
---- a/drivers/phy/tegra/xusb-tegra186.c
-+++ b/drivers/phy/tegra/xusb-tegra186.c
-@@ -20,8 +20,8 @@
- /* FUSE USB_CALIB registers */
- #define HS_CURR_LEVEL_PADX_SHIFT(x)	((x) ? (11 + (x - 1) * 6) : 0)
- #define HS_CURR_LEVEL_PAD_MASK		0x3f
--#define HS_TERM_RANGE_ADJ_SHIFT		7
--#define HS_TERM_RANGE_ADJ_MASK		0xf
-+#define HS_TERM_RANGE_ADJ_PADX_SHIFT(x)	((x) ? (5 + (x - 1) * 4) : 7)
-+#define HS_TERM_RANGE_ADJ_PAD_MASK	0xf
- #define HS_SQUELCH_SHIFT		29
- #define HS_SQUELCH_MASK			0x7
+diff --git a/drivers/spi/spi-qup.c b/drivers/spi/spi-qup.c
+index 2cc9bb413c108..bfa06e61a7e52 100644
+--- a/drivers/spi/spi-qup.c
++++ b/drivers/spi/spi-qup.c
+@@ -386,20 +386,20 @@ static void spi_qup_write(struct spi_qup *controller)
+ 	} while (remainder);
+ }
  
-@@ -238,7 +238,7 @@
- struct tegra_xusb_fuse_calibration {
- 	u32 *hs_curr_level;
- 	u32 hs_squelch;
--	u32 hs_term_range_adj;
-+	u32 *hs_term_range_adj;
- 	u32 rpd_ctrl;
- };
- 
-@@ -868,7 +868,7 @@ static int tegra186_utmi_phy_power_on(struct phy *phy)
- 
- 	value = padctl_readl(padctl, XUSB_PADCTL_USB2_OTG_PADX_CTL1(index));
- 	value &= ~TERM_RANGE_ADJ(~0);
--	value |= TERM_RANGE_ADJ(priv->calib.hs_term_range_adj);
-+	value |= TERM_RANGE_ADJ(priv->calib.hs_term_range_adj[index]);
- 	value &= ~RPD_CTRL(~0);
- 	value |= RPD_CTRL(priv->calib.rpd_ctrl);
- 	padctl_writel(padctl, value, XUSB_PADCTL_USB2_OTG_PADX_CTL1(index));
-@@ -1403,17 +1403,23 @@ static const char * const tegra186_usb3_functions[] = {
- static int
- tegra186_xusb_read_fuse_calibration(struct tegra186_xusb_padctl *padctl)
+-static int spi_qup_prep_sg(struct spi_master *master, struct scatterlist *sgl,
++static int spi_qup_prep_sg(struct spi_controller *host, struct scatterlist *sgl,
+ 			   unsigned int nents, enum dma_transfer_direction dir,
+ 			   dma_async_tx_callback callback)
  {
-+	const struct tegra_xusb_padctl_soc *soc = padctl->base.soc;
- 	struct device *dev = padctl->base.dev;
- 	unsigned int i, count;
- 	u32 value, *level;
-+	u32 *hs_term_range_adj;
- 	int err;
+-	struct spi_qup *qup = spi_master_get_devdata(master);
++	struct spi_qup *qup = spi_controller_get_devdata(host);
+ 	unsigned long flags = DMA_PREP_INTERRUPT | DMA_PREP_FENCE;
+ 	struct dma_async_tx_descriptor *desc;
+ 	struct dma_chan *chan;
+ 	dma_cookie_t cookie;
  
--	count = padctl->base.soc->ports.usb2.count;
-+	count = soc->ports.usb2.count;
+ 	if (dir == DMA_MEM_TO_DEV)
+-		chan = master->dma_tx;
++		chan = host->dma_tx;
+ 	else
+-		chan = master->dma_rx;
++		chan = host->dma_rx;
  
- 	level = devm_kcalloc(dev, count, sizeof(u32), GFP_KERNEL);
- 	if (!level)
- 		return -ENOMEM;
+ 	desc = dmaengine_prep_slave_sg(chan, sgl, nents, dir, flags);
+ 	if (IS_ERR_OR_NULL(desc))
+@@ -413,13 +413,13 @@ static int spi_qup_prep_sg(struct spi_master *master, struct scatterlist *sgl,
+ 	return dma_submit_error(cookie);
+ }
  
-+	hs_term_range_adj = devm_kcalloc(dev, count, sizeof(u32), GFP_KERNEL);
-+	if (!hs_term_range_adj)
-+		return -ENOMEM;
-+
- 	err = tegra_fuse_readl(TEGRA_FUSE_SKU_CALIB_0, &value);
- 	if (err)
- 		return dev_err_probe(dev, err,
-@@ -1429,8 +1435,8 @@ tegra186_xusb_read_fuse_calibration(struct tegra186_xusb_padctl *padctl)
+-static void spi_qup_dma_terminate(struct spi_master *master,
++static void spi_qup_dma_terminate(struct spi_controller *host,
+ 				  struct spi_transfer *xfer)
+ {
+ 	if (xfer->tx_buf)
+-		dmaengine_terminate_all(master->dma_tx);
++		dmaengine_terminate_all(host->dma_tx);
+ 	if (xfer->rx_buf)
+-		dmaengine_terminate_all(master->dma_rx);
++		dmaengine_terminate_all(host->dma_rx);
+ }
  
- 	padctl->calib.hs_squelch = (value >> HS_SQUELCH_SHIFT) &
- 					HS_SQUELCH_MASK;
--	padctl->calib.hs_term_range_adj = (value >> HS_TERM_RANGE_ADJ_SHIFT) &
--						HS_TERM_RANGE_ADJ_MASK;
-+	hs_term_range_adj[0] = (value >> HS_TERM_RANGE_ADJ_PADX_SHIFT(0)) &
-+				HS_TERM_RANGE_ADJ_PAD_MASK;
+ static u32 spi_qup_sgl_get_nents_len(struct scatterlist *sgl, u32 max,
+@@ -446,8 +446,8 @@ static int spi_qup_do_dma(struct spi_device *spi, struct spi_transfer *xfer,
+ 			  unsigned long timeout)
+ {
+ 	dma_async_tx_callback rx_done = NULL, tx_done = NULL;
+-	struct spi_master *master = spi->master;
+-	struct spi_qup *qup = spi_master_get_devdata(master);
++	struct spi_controller *host = spi->controller;
++	struct spi_qup *qup = spi_controller_get_devdata(host);
+ 	struct scatterlist *tx_sgl, *rx_sgl;
+ 	int ret;
  
- 	err = tegra_fuse_readl(TEGRA_FUSE_USB_CALIB_EXT_0, &value);
- 	if (err) {
-@@ -1442,6 +1448,17 @@ tegra186_xusb_read_fuse_calibration(struct tegra186_xusb_padctl *padctl)
+@@ -482,20 +482,20 @@ static int spi_qup_do_dma(struct spi_device *spi, struct spi_transfer *xfer,
+ 			return ret;
+ 		}
+ 		if (rx_sgl) {
+-			ret = spi_qup_prep_sg(master, rx_sgl, rx_nents,
++			ret = spi_qup_prep_sg(host, rx_sgl, rx_nents,
+ 					      DMA_DEV_TO_MEM, rx_done);
+ 			if (ret)
+ 				return ret;
+-			dma_async_issue_pending(master->dma_rx);
++			dma_async_issue_pending(host->dma_rx);
+ 		}
  
- 	padctl->calib.rpd_ctrl = (value >> RPD_CTRL_SHIFT) & RPD_CTRL_MASK;
+ 		if (tx_sgl) {
+-			ret = spi_qup_prep_sg(master, tx_sgl, tx_nents,
++			ret = spi_qup_prep_sg(host, tx_sgl, tx_nents,
+ 					      DMA_MEM_TO_DEV, tx_done);
+ 			if (ret)
+ 				return ret;
  
-+	for (i = 1; i < count; i++) {
-+		if (soc->has_per_pad_term)
-+			hs_term_range_adj[i] =
-+				(value >> HS_TERM_RANGE_ADJ_PADX_SHIFT(i)) &
-+				HS_TERM_RANGE_ADJ_PAD_MASK;
-+		else
-+			hs_term_range_adj[i] = hs_term_range_adj[0];
-+	}
-+
-+	padctl->calib.hs_term_range_adj = hs_term_range_adj;
-+
+-			dma_async_issue_pending(master->dma_tx);
++			dma_async_issue_pending(host->dma_tx);
+ 		}
+ 
+ 		if (!wait_for_completion_timeout(&qup->done, timeout))
+@@ -514,8 +514,8 @@ static int spi_qup_do_dma(struct spi_device *spi, struct spi_transfer *xfer,
+ static int spi_qup_do_pio(struct spi_device *spi, struct spi_transfer *xfer,
+ 			  unsigned long timeout)
+ {
+-	struct spi_master *master = spi->master;
+-	struct spi_qup *qup = spi_master_get_devdata(master);
++	struct spi_controller *host = spi->controller;
++	struct spi_qup *qup = spi_controller_get_devdata(host);
+ 	int ret, n_words, iterations, offset = 0;
+ 
+ 	n_words = qup->n_words;
+@@ -660,7 +660,7 @@ static irqreturn_t spi_qup_qup_irq(int irq, void *dev_id)
+ /* set clock freq ... bits per word, determine mode */
+ static int spi_qup_io_prep(struct spi_device *spi, struct spi_transfer *xfer)
+ {
+-	struct spi_qup *controller = spi_master_get_devdata(spi->master);
++	struct spi_qup *controller = spi_controller_get_devdata(spi->controller);
+ 	int ret;
+ 
+ 	if (spi->mode & SPI_LOOP && xfer->len > controller->in_fifo_sz) {
+@@ -681,9 +681,9 @@ static int spi_qup_io_prep(struct spi_device *spi, struct spi_transfer *xfer)
+ 
+ 	if (controller->n_words <= (controller->in_fifo_sz / sizeof(u32)))
+ 		controller->mode = QUP_IO_M_MODE_FIFO;
+-	else if (spi->master->can_dma &&
+-		 spi->master->can_dma(spi->master, spi, xfer) &&
+-		 spi->master->cur_msg_mapped)
++	else if (spi->controller->can_dma &&
++		 spi->controller->can_dma(spi->controller, spi, xfer) &&
++		 spi->controller->cur_msg_mapped)
+ 		controller->mode = QUP_IO_M_MODE_BAM;
+ 	else
+ 		controller->mode = QUP_IO_M_MODE_BLOCK;
+@@ -694,7 +694,7 @@ static int spi_qup_io_prep(struct spi_device *spi, struct spi_transfer *xfer)
+ /* prep qup for another spi transaction of specific type */
+ static int spi_qup_io_config(struct spi_device *spi, struct spi_transfer *xfer)
+ {
+-	struct spi_qup *controller = spi_master_get_devdata(spi->master);
++	struct spi_qup *controller = spi_controller_get_devdata(spi->controller);
+ 	u32 config, iomode, control;
+ 	unsigned long flags;
+ 
+@@ -842,11 +842,11 @@ static int spi_qup_io_config(struct spi_device *spi, struct spi_transfer *xfer)
  	return 0;
  }
  
-@@ -1645,6 +1662,7 @@ const struct tegra_xusb_padctl_soc tegra194_xusb_padctl_soc = {
- 	.supply_names = tegra194_xusb_padctl_supply_names,
- 	.num_supplies = ARRAY_SIZE(tegra194_xusb_padctl_supply_names),
- 	.supports_gen2 = true,
-+	.has_per_pad_term = true,
- };
- EXPORT_SYMBOL_GPL(tegra194_xusb_padctl_soc);
- #endif
-diff --git a/drivers/phy/tegra/xusb.h b/drivers/phy/tegra/xusb.h
-index 8cfbbdbd6e0c0..9f5651a3ea5d5 100644
---- a/drivers/phy/tegra/xusb.h
-+++ b/drivers/phy/tegra/xusb.h
-@@ -433,6 +433,7 @@ struct tegra_xusb_padctl_soc {
- 	unsigned int num_supplies;
- 	bool supports_gen2;
- 	bool need_fake_usb3_port;
-+	bool has_per_pad_term;
- };
+-static int spi_qup_transfer_one(struct spi_master *master,
++static int spi_qup_transfer_one(struct spi_controller *host,
+ 			      struct spi_device *spi,
+ 			      struct spi_transfer *xfer)
+ {
+-	struct spi_qup *controller = spi_master_get_devdata(master);
++	struct spi_qup *controller = spi_controller_get_devdata(host);
+ 	unsigned long timeout, flags;
+ 	int ret;
  
- struct tegra_xusb_padctl {
+@@ -880,21 +880,21 @@ static int spi_qup_transfer_one(struct spi_master *master,
+ 	spin_unlock_irqrestore(&controller->lock, flags);
+ 
+ 	if (ret && spi_qup_is_dma_xfer(controller->mode))
+-		spi_qup_dma_terminate(master, xfer);
++		spi_qup_dma_terminate(host, xfer);
+ 
+ 	return ret;
+ }
+ 
+-static bool spi_qup_can_dma(struct spi_master *master, struct spi_device *spi,
++static bool spi_qup_can_dma(struct spi_controller *host, struct spi_device *spi,
+ 			    struct spi_transfer *xfer)
+ {
+-	struct spi_qup *qup = spi_master_get_devdata(master);
++	struct spi_qup *qup = spi_controller_get_devdata(host);
+ 	size_t dma_align = dma_get_cache_alignment();
+ 	int n_words;
+ 
+ 	if (xfer->rx_buf) {
+ 		if (!IS_ALIGNED((size_t)xfer->rx_buf, dma_align) ||
+-		    IS_ERR_OR_NULL(master->dma_rx))
++		    IS_ERR_OR_NULL(host->dma_rx))
+ 			return false;
+ 		if (qup->qup_v1 && (xfer->len % qup->in_blk_sz))
+ 			return false;
+@@ -902,7 +902,7 @@ static bool spi_qup_can_dma(struct spi_master *master, struct spi_device *spi,
+ 
+ 	if (xfer->tx_buf) {
+ 		if (!IS_ALIGNED((size_t)xfer->tx_buf, dma_align) ||
+-		    IS_ERR_OR_NULL(master->dma_tx))
++		    IS_ERR_OR_NULL(host->dma_tx))
+ 			return false;
+ 		if (qup->qup_v1 && (xfer->len % qup->out_blk_sz))
+ 			return false;
+@@ -915,30 +915,30 @@ static bool spi_qup_can_dma(struct spi_master *master, struct spi_device *spi,
+ 	return true;
+ }
+ 
+-static void spi_qup_release_dma(struct spi_master *master)
++static void spi_qup_release_dma(struct spi_controller *host)
+ {
+-	if (!IS_ERR_OR_NULL(master->dma_rx))
+-		dma_release_channel(master->dma_rx);
+-	if (!IS_ERR_OR_NULL(master->dma_tx))
+-		dma_release_channel(master->dma_tx);
++	if (!IS_ERR_OR_NULL(host->dma_rx))
++		dma_release_channel(host->dma_rx);
++	if (!IS_ERR_OR_NULL(host->dma_tx))
++		dma_release_channel(host->dma_tx);
+ }
+ 
+-static int spi_qup_init_dma(struct spi_master *master, resource_size_t base)
++static int spi_qup_init_dma(struct spi_controller *host, resource_size_t base)
+ {
+-	struct spi_qup *spi = spi_master_get_devdata(master);
++	struct spi_qup *spi = spi_controller_get_devdata(host);
+ 	struct dma_slave_config *rx_conf = &spi->rx_conf,
+ 				*tx_conf = &spi->tx_conf;
+ 	struct device *dev = spi->dev;
+ 	int ret;
+ 
+ 	/* allocate dma resources, if available */
+-	master->dma_rx = dma_request_chan(dev, "rx");
+-	if (IS_ERR(master->dma_rx))
+-		return PTR_ERR(master->dma_rx);
++	host->dma_rx = dma_request_chan(dev, "rx");
++	if (IS_ERR(host->dma_rx))
++		return PTR_ERR(host->dma_rx);
+ 
+-	master->dma_tx = dma_request_chan(dev, "tx");
+-	if (IS_ERR(master->dma_tx)) {
+-		ret = PTR_ERR(master->dma_tx);
++	host->dma_tx = dma_request_chan(dev, "tx");
++	if (IS_ERR(host->dma_tx)) {
++		ret = PTR_ERR(host->dma_tx);
+ 		goto err_tx;
+ 	}
+ 
+@@ -953,13 +953,13 @@ static int spi_qup_init_dma(struct spi_master *master, resource_size_t base)
+ 	tx_conf->dst_addr = base + QUP_OUTPUT_FIFO;
+ 	tx_conf->dst_maxburst = spi->out_blk_sz;
+ 
+-	ret = dmaengine_slave_config(master->dma_rx, rx_conf);
++	ret = dmaengine_slave_config(host->dma_rx, rx_conf);
+ 	if (ret) {
+ 		dev_err(dev, "failed to configure RX channel\n");
+ 		goto err;
+ 	}
+ 
+-	ret = dmaengine_slave_config(master->dma_tx, tx_conf);
++	ret = dmaengine_slave_config(host->dma_tx, tx_conf);
+ 	if (ret) {
+ 		dev_err(dev, "failed to configure TX channel\n");
+ 		goto err;
+@@ -968,9 +968,9 @@ static int spi_qup_init_dma(struct spi_master *master, resource_size_t base)
+ 	return 0;
+ 
+ err:
+-	dma_release_channel(master->dma_tx);
++	dma_release_channel(host->dma_tx);
+ err_tx:
+-	dma_release_channel(master->dma_rx);
++	dma_release_channel(host->dma_rx);
+ 	return ret;
+ }
+ 
+@@ -980,7 +980,7 @@ static void spi_qup_set_cs(struct spi_device *spi, bool val)
+ 	u32 spi_ioc;
+ 	u32 spi_ioc_orig;
+ 
+-	controller = spi_master_get_devdata(spi->master);
++	controller = spi_controller_get_devdata(spi->controller);
+ 	spi_ioc = readl_relaxed(controller->base + SPI_IO_CONTROL);
+ 	spi_ioc_orig = spi_ioc;
+ 	if (!val)
+@@ -994,7 +994,7 @@ static void spi_qup_set_cs(struct spi_device *spi, bool val)
+ 
+ static int spi_qup_probe(struct platform_device *pdev)
+ {
+-	struct spi_master *master;
++	struct spi_controller *host;
+ 	struct clk *iclk, *cclk;
+ 	struct spi_qup *controller;
+ 	struct resource *res;
+@@ -1030,32 +1030,32 @@ static int spi_qup_probe(struct platform_device *pdev)
+ 		return -ENXIO;
+ 	}
+ 
+-	master = spi_alloc_master(dev, sizeof(struct spi_qup));
+-	if (!master) {
+-		dev_err(dev, "cannot allocate master\n");
++	host = spi_alloc_master(dev, sizeof(struct spi_qup));
++	if (!host) {
++		dev_err(dev, "cannot allocate host\n");
+ 		return -ENOMEM;
+ 	}
+ 
+ 	/* use num-cs unless not present or out of range */
+ 	if (of_property_read_u32(dev->of_node, "num-cs", &num_cs) ||
+ 	    num_cs > SPI_NUM_CHIPSELECTS)
+-		master->num_chipselect = SPI_NUM_CHIPSELECTS;
++		host->num_chipselect = SPI_NUM_CHIPSELECTS;
+ 	else
+-		master->num_chipselect = num_cs;
++		host->num_chipselect = num_cs;
+ 
+-	master->bus_num = pdev->id;
+-	master->mode_bits = SPI_CPOL | SPI_CPHA | SPI_CS_HIGH | SPI_LOOP;
+-	master->bits_per_word_mask = SPI_BPW_RANGE_MASK(4, 32);
+-	master->max_speed_hz = max_freq;
+-	master->transfer_one = spi_qup_transfer_one;
+-	master->dev.of_node = pdev->dev.of_node;
+-	master->auto_runtime_pm = true;
+-	master->dma_alignment = dma_get_cache_alignment();
+-	master->max_dma_len = SPI_MAX_XFER;
++	host->bus_num = pdev->id;
++	host->mode_bits = SPI_CPOL | SPI_CPHA | SPI_CS_HIGH | SPI_LOOP;
++	host->bits_per_word_mask = SPI_BPW_RANGE_MASK(4, 32);
++	host->max_speed_hz = max_freq;
++	host->transfer_one = spi_qup_transfer_one;
++	host->dev.of_node = pdev->dev.of_node;
++	host->auto_runtime_pm = true;
++	host->dma_alignment = dma_get_cache_alignment();
++	host->max_dma_len = SPI_MAX_XFER;
+ 
+-	platform_set_drvdata(pdev, master);
++	platform_set_drvdata(pdev, host);
+ 
+-	controller = spi_master_get_devdata(master);
++	controller = spi_controller_get_devdata(host);
+ 
+ 	controller->dev = dev;
+ 	controller->base = base;
+@@ -1063,16 +1063,16 @@ static int spi_qup_probe(struct platform_device *pdev)
+ 	controller->cclk = cclk;
+ 	controller->irq = irq;
+ 
+-	ret = spi_qup_init_dma(master, res->start);
++	ret = spi_qup_init_dma(host, res->start);
+ 	if (ret == -EPROBE_DEFER)
+ 		goto error;
+ 	else if (!ret)
+-		master->can_dma = spi_qup_can_dma;
++		host->can_dma = spi_qup_can_dma;
+ 
+ 	controller->qup_v1 = (uintptr_t)of_device_get_match_data(dev);
+ 
+ 	if (!controller->qup_v1)
+-		master->set_cs = spi_qup_set_cs;
++		host->set_cs = spi_qup_set_cs;
+ 
+ 	spin_lock_init(&controller->lock);
+ 	init_completion(&controller->done);
+@@ -1150,7 +1150,7 @@ static int spi_qup_probe(struct platform_device *pdev)
+ 	pm_runtime_set_active(dev);
+ 	pm_runtime_enable(dev);
+ 
+-	ret = devm_spi_register_master(dev, master);
++	ret = devm_spi_register_controller(dev, host);
+ 	if (ret)
+ 		goto disable_pm;
+ 
+@@ -1162,17 +1162,17 @@ static int spi_qup_probe(struct platform_device *pdev)
+ 	clk_disable_unprepare(cclk);
+ 	clk_disable_unprepare(iclk);
+ error_dma:
+-	spi_qup_release_dma(master);
++	spi_qup_release_dma(host);
+ error:
+-	spi_master_put(master);
++	spi_controller_put(host);
+ 	return ret;
+ }
+ 
+ #ifdef CONFIG_PM
+ static int spi_qup_pm_suspend_runtime(struct device *device)
+ {
+-	struct spi_master *master = dev_get_drvdata(device);
+-	struct spi_qup *controller = spi_master_get_devdata(master);
++	struct spi_controller *host = dev_get_drvdata(device);
++	struct spi_qup *controller = spi_controller_get_devdata(host);
+ 	u32 config;
+ 
+ 	/* Enable clocks auto gaiting */
+@@ -1188,8 +1188,8 @@ static int spi_qup_pm_suspend_runtime(struct device *device)
+ 
+ static int spi_qup_pm_resume_runtime(struct device *device)
+ {
+-	struct spi_master *master = dev_get_drvdata(device);
+-	struct spi_qup *controller = spi_master_get_devdata(master);
++	struct spi_controller *host = dev_get_drvdata(device);
++	struct spi_qup *controller = spi_controller_get_devdata(host);
+ 	u32 config;
+ 	int ret;
+ 
+@@ -1214,8 +1214,8 @@ static int spi_qup_pm_resume_runtime(struct device *device)
+ #ifdef CONFIG_PM_SLEEP
+ static int spi_qup_suspend(struct device *device)
+ {
+-	struct spi_master *master = dev_get_drvdata(device);
+-	struct spi_qup *controller = spi_master_get_devdata(master);
++	struct spi_controller *host = dev_get_drvdata(device);
++	struct spi_qup *controller = spi_controller_get_devdata(host);
+ 	int ret;
+ 
+ 	if (pm_runtime_suspended(device)) {
+@@ -1223,7 +1223,7 @@ static int spi_qup_suspend(struct device *device)
+ 		if (ret)
+ 			return ret;
+ 	}
+-	ret = spi_master_suspend(master);
++	ret = spi_controller_suspend(host);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -1238,8 +1238,8 @@ static int spi_qup_suspend(struct device *device)
+ 
+ static int spi_qup_resume(struct device *device)
+ {
+-	struct spi_master *master = dev_get_drvdata(device);
+-	struct spi_qup *controller = spi_master_get_devdata(master);
++	struct spi_controller *host = dev_get_drvdata(device);
++	struct spi_qup *controller = spi_controller_get_devdata(host);
+ 	int ret;
+ 
+ 	ret = clk_prepare_enable(controller->iclk);
+@@ -1256,7 +1256,7 @@ static int spi_qup_resume(struct device *device)
+ 	if (ret)
+ 		goto disable_clk;
+ 
+-	ret = spi_master_resume(master);
++	ret = spi_controller_resume(host);
+ 	if (ret)
+ 		goto disable_clk;
+ 
+@@ -1271,8 +1271,8 @@ static int spi_qup_resume(struct device *device)
+ 
+ static int spi_qup_remove(struct platform_device *pdev)
+ {
+-	struct spi_master *master = dev_get_drvdata(&pdev->dev);
+-	struct spi_qup *controller = spi_master_get_devdata(master);
++	struct spi_controller *host = dev_get_drvdata(&pdev->dev);
++	struct spi_qup *controller = spi_controller_get_devdata(host);
+ 	int ret;
+ 
+ 	ret = pm_runtime_get_sync(&pdev->dev);
+@@ -1290,7 +1290,7 @@ static int spi_qup_remove(struct platform_device *pdev)
+ 			 ERR_PTR(ret));
+ 	}
+ 
+-	spi_qup_release_dma(master);
++	spi_qup_release_dma(host);
+ 
+ 	pm_runtime_put_noidle(&pdev->dev);
+ 	pm_runtime_disable(&pdev->dev);
 -- 
 2.53.0
 
