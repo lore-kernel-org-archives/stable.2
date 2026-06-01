@@ -1,43 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AEC639C645
-	for <stable@vger.kernel.org>; Mon,  1 Jun 2026 10:51:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AD3338BF62
+	for <stable@vger.kernel.org>; Mon,  1 Jun 2026 10:51:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780311072; cv=none; b=lZmr3aKpux/908qiwSikyv2XN8spDRzvsMbHJQGD7g6qtiCHADvlscl9bzZFHvC2qrHrg8hgC3WvCxi0tc+EW4zd7o+1+8cX6BP+AZTu57Gwlj6A6S+pzIsQjBd1iFQXd2mkOu4lX0wGh5/fWtBSxAy5Pt0USPagdEfM/wFvdeQ=
+	t=1780311079; cv=none; b=jvuCok5GdPo7NgnnSJ4HfOhSHOmDhk0/0i19XR8jqa5NKmfM9JlicpBvzQ25Tbx8ik4+0ugwyGV39ueqrcB2eLQxPY/UnQFMnwO5gMSpsPWgfUHBkfiv5M3qhQXKspiEDP4EasFh2TrVSez3DERVdHummsOZJiHjtHJBG0rB25M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780311072; c=relaxed/simple;
-	bh=TiOr63QrLYqodw9q8r7YXM4pEJHBv/q0IJvdE8kbxQo=;
+	s=arc-20240116; t=1780311079; c=relaxed/simple;
+	bh=udRDF6zeiGkU5umSayP5uorMCFVseskk2kqNEmW5zpE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=V7EcDmhq5aIqVVixSvCfsxCCbM3FyU0PnZ1fT+nqgPWymp8BexQtnzNcOHBWSGswdCBtDgpOJgJcU99nurf9l5EjApdwJ5RXmwWsw82+88AooPW2cGIZdGfXq7fDX38/oeHupQJ6Q1k8qiSrnORUQnnKJlB37gBj9iQNn7dFF4w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Lx+jxdlx; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=lzB9SwmTx1LOORHnG80rOBLT71ScIqLvxCjOf8LCLWFbKNAeccb/YhhxORdaoglmMAcCowQV6TdnYM106O1lYNsLTmc1rKt6Dg8PyhX5acMd+1TCPlYtzZOkw/o0YRL4xhg7nybB2P//DNkdCCMdmz7mcU6NssclAjqGUGAP3+c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mACQllnQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Lx+jxdlx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D2171F00899;
-	Mon,  1 Jun 2026 10:51:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mACQllnQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD9121F00893;
+	Mon,  1 Jun 2026 10:51:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780311071;
-	bh=/prnaV6OnvMGIpqEAXxZfD5+7o3yxNw3kC5Sn19gTzM=;
+	s=k20260515; t=1780311078;
+	bh=KO2RAXo3WUG9VMi5tHyfSUjk9hjT1G2iDXSFXtS37+8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Lx+jxdlxDLsUH9tXbvZ0+XSvP0I0XMUGSiGvR+kExRsEIsQrJKc7SSo0Y54aXLK/B
-	 jzZiZd0LfTbAlQprGsgcdf48yyqKa/T3do5NOerAA2aJl1LsMvBL48sINYnha+YLRT
-	 TEixl4jNLmIs/X5JjzlBdrtGFyq47tz0eBEvrIPj+vD9hJlJDYXf7rvJCU1UQdpP47
-	 wmoI82h6DaJqZzmJJ8xEclWoJnOX05VBCSGCfGnD9oLXy3duI6q66fUf2qIlYNYXbA
-	 WJ/j/yuZkjpL7+DQvHvVI2OhQFZ+074DTBehVzi5V7xaBN6v26HqTVhcVbcOA4ISnL
-	 zzWezDfFpcQCw==
+	b=mACQllnQ0HZgHVQ7ZPTniBJzZVeB0TRsOa5BBrnAeGMf1GWNMPhNepOq6RkJu2XK2
+	 SdaN/gBYcaaZaDoq3PW3L/hjYGUnIb9cc0MU2C5H+hITeq3mk2tdyZJG0e98p+chGJ
+	 zCnTKFyhHTlSed3mdef8dHWwqM+AaeS/k3BS6BMnIsGYRhUVVG2fKYrEjeM48V16MX
+	 BtxBU1e8x70SPNSxgvXB/Iz9qTaFMjFONOvWqNUz4OVD5I2GIg5SM6TZLU/qODL4IZ
+	 Kn6qMhoHJrEr8JjwQt+5edk77fpoA9o4JDjUogtvUiTLDlCQrRAQlq6oWqnOXILO0M
+	 +73vhCwwHwygQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Johan Hovold <johan@kernel.org>,
-	Mark Brown <broonie@kernel.org>,
+Cc: Zeng Heng <zengheng4@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 2/2] spi: qup: fix error pointer deref after DMA setup failure
-Date: Mon,  1 Jun 2026 06:51:08 -0400
-Message-ID: <20260601105108.378152-2-sashal@kernel.org>
+Subject: [PATCH 5.15.y] arm64: tlb: Flush walk cache when unsharing PMD tables
+Date: Mon,  1 Jun 2026 06:51:16 -0400
+Message-ID: <20260601105116.381170-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260601105108.378152-1-sashal@kernel.org>
-References: <2026052838-tank-lucid-17e8@gregkh>
- <20260601105108.378152-1-sashal@kernel.org>
+In-Reply-To: <2026052836-paternity-village-0e9f@gregkh>
+References: <2026052836-paternity-village-0e9f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,45 +45,53 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Johan Hovold <johan@kernel.org>
+From: Zeng Heng <zengheng4@huawei.com>
 
-[ Upstream commit a7e8f3efd50a165ba0189f6dc57f7e51a7d149db ]
+[ Upstream commit c2ff4764e03e7a8d758352f4aceb8fe1be6ac971 ]
 
-The driver falls back to PIO mode if DMA setup fails during probe.
+When huge_pmd_unshare() is called to unshare a PMD table, the
+tlb_unshare_pmd_ptdesc() function sets tlb->unshared_tables=true
+but the aarch64 tlb_flush() only checked tlb->freed_tables to
+determine whether to use TLBF_NONE (vae1is, invalidates walk
+cache) or TLBF_NOWALKCACHE (vale1is, leaf-only).
 
-Make sure to the clear the DMA channel pointers on setup failure to
-avoid dereferencing an error pointer (or attempting to release a channel
-a second time) on later probe errors or driver unbind.
+This caused the stale PMD page table entry to remain in the walk cache
+after unshare, potentially leading to incorrect page table walks.
 
-This issue was flagged by Sashiko when reviewing a devres allocation
-conversion patch.
+Fix by including unshared_tables in the check, so that when
+unsharing tables, TLBF_NONE is used and the walk cache is properly
+invalidated.
 
-Fixes: 612762e82ae6 ("spi: qup: Add DMA capabilities")
-Link: https://sashiko.dev/#/patchset/20260505072909.618363-1-johan%40kernel.org?part=4
-Cc: stable@vger.kernel.org	# 4.1
-Signed-off-by: Johan Hovold <johan@kernel.org>
-Link: https://patch.msgid.link/20260512074334.914735-1-johan@kernel.org
-Signed-off-by: Mark Brown <broonie@kernel.org>
+Here is the detailed distinction between vae1is and vale1is:
+
+| Instruction Combination  | Actual Invalidation Scope                         |
+| ------------------------ | --------------------------------------------------|
+| `VAE1IS`  + TTL=`0`      | All entries at all levels (full invalidation)     |
+| `VAE1IS`  + TTL=`2` (L2) | Non-leaf at Level 0/1 + leaf at Level 2           |
+| `VALE1IS` + TTL=`0`      | Leaf entries at all levels (non-leaf not cleared) |
+| `VALE1IS` + TTL=`2` (L2) | Leaf entry at Level 2 only                        |
+
+Signed-off-by: Zeng Heng <zengheng4@huawei.com>
+Fixes: 8ce720d5bd91 ("mm/hugetlb: fix excessive IPI broadcasts when unsharing PMD tables using mmu_gather")
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Catalin Marinas <catalin.marinas@arm.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/spi/spi-qup.c | 3 +++
- 1 file changed, 3 insertions(+)
+ arch/arm64/include/asm/tlb.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/spi/spi-qup.c b/drivers/spi/spi-qup.c
-index bfa06e61a7e52..e57c4f29f4e5c 100644
---- a/drivers/spi/spi-qup.c
-+++ b/drivers/spi/spi-qup.c
-@@ -969,8 +969,11 @@ static int spi_qup_init_dma(struct spi_controller *host, resource_size_t base)
- 
- err:
- 	dma_release_channel(host->dma_tx);
-+	host->dma_tx = NULL;
- err_tx:
- 	dma_release_channel(host->dma_rx);
-+	host->dma_rx = NULL;
-+
- 	return ret;
- }
+diff --git a/arch/arm64/include/asm/tlb.h b/arch/arm64/include/asm/tlb.h
+index c995d1f4594f6..cd6997187104d 100644
+--- a/arch/arm64/include/asm/tlb.h
++++ b/arch/arm64/include/asm/tlb.h
+@@ -53,7 +53,7 @@ static inline int tlb_get_level(struct mmu_gather *tlb)
+ static inline void tlb_flush(struct mmu_gather *tlb)
+ {
+ 	struct vm_area_struct vma = TLB_FLUSH_VMA(tlb->mm, 0);
+-	bool last_level = !tlb->freed_tables;
++	bool last_level = !(tlb->freed_tables || tlb->unshared_tables);
+ 	unsigned long stride = tlb_get_unmap_size(tlb);
+ 	int tlb_level = tlb_get_level(tlb);
  
 -- 
 2.53.0
