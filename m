@@ -1,87 +1,127 @@
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+Received: from smtpbgau2.qq.com (smtpbgau2.qq.com [54.206.34.216])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C1E93644BC;
-	Mon,  1 Jun 2026 08:57:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8062388E64;
+	Mon,  1 Jun 2026 08:59:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.206.34.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780304259; cv=none; b=FpegZXbUAtf/scmedQeXVfimMiSNORzYRiMdfYmets+0lcipdYkLPUHIwjA4nfr5jzJL0Du9yOde+J0XFBQ6J6Zl6h5F/Zo8Xjt6J81/f/buCxRWzpu+8G4TLBlYL8DP9mw6y1iNhXDpcLLGKsp7ntj07N9DLO4+h0WBjVpoVrg=
+	t=1780304375; cv=none; b=B709y90jVNbxwi9Kb6hGHURR8RomDokTEFEnIw1E1pkCuELrB7GZsaZwXHsAOhWKROS9o3zYHANSShxqt8aD0q2GTjN0wzIPD/l+kOUpUM2GkHg3EhPE3emId2J6dNqupZehcv4nCRzvf0Xwzp1GFjX1Y861JTmrFkOavBjnMfs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780304259; c=relaxed/simple;
-	bh=KbWsRpe3SIhfIeylvLrLeQUakVue1xz16XtGgEZJByw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=W32wqmrlM0gKmY2fJJISj0yvyB9KWdpUPBPKRoSxIhvnYx9NMYYFkPxOoo3OVVU/SGe0bvaqC0dy9RDWPPLZZxodyUAwTk4tJlY1QJ4gIXTkTRuR2UnA4LHNAul3/4u+qwf9TmPZQJ2+pZEgiKQqP8WcRk2rw+Hxu9YLZuPoEQ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=WU8Javs8; arc=none smtp.client-ip=178.251.229.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	s=arc-20240116; t=1780304375; c=relaxed/simple;
+	bh=8zQvzTc96q3xI2j7PmvnrJ5g/KnjmGPG3zS0o9WNdNQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=eCbsO8+NhaPORvG8d2FUW2IJk2KfJYpvC0mICBUee881G6uTYvMSroVW6D8XWGV3VV5SpesHml0uuqCDkN0KSumSIiRyydaHNm4TuqFUqUNEpktqoC5NdYBWNzfxlqF8zdCzxwMLdByII+mnv63DlE+hQEPUlQC40vG5/RHSqrI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=Kfqwr/ro; arc=none smtp.client-ip=54.206.34.216
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="WU8Javs8"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 63EBF116C3B;
-	Mon,  1 Jun 2026 10:57:33 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1780304254;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=O7+aX1WgTYimqo5AFft+uhwmFo51zynXJCJvagO0X5Q=;
-	b=WU8Javs8CHX4vIzT3y8tdlM4VA/ZY0PqAkYXLLVz2y2Rqy+yO98ueLCIvRN++Ofwz718Px
-	8/XC/4Qd7KJJX6IsIFUZPsgIAdHDF3TjB5PasrFSmVkIiOrmF4iN/6FO/IJSA82TyP5oCQ
-	yQPQSpPA7hrNgYsZpsPK5iaaRoxQW+x/W6hvdBcCGvQy+zAim1lXlNwN2k1vRQ7GDCV97H
-	VEhHuM3XCL08dM5P/XrSdRdvs+/kgxp0SFHrImPjEpfd7K/vyREl7sQwkmAYaauF41hAvK
-	+a74rMpwMkiG+Z8Rzm+J8ENPPbfaeBlfejzfpJA3APd/9t1WpAA1VDPKox8Rdw==
-Date: Mon, 1 Jun 2026 10:57:31 +0200
-From: Pavel Machek <pavel@nabladev.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev,
-	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
-	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
-	patches@kernelci.org, lkft-triage@lists.linaro.org,
-	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
-	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
-	sr@sladewatkins.com
-Subject: Re: [PATCH 5.15 000/776] 5.15.209-rc1 review
-Message-ID: <ah1Je748wi2x15bF@duo.ucw.cz>
-References: <20260530160240.228940103@linuxfoundation.org>
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="Kfqwr/ro"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1780304242;
+	bh=JrPdlqiPqB2XYPAwe4Y6ZpExCv4MAfgU7GRIO4GdeiQ=;
+	h=From:To:Subject:Date:Message-Id:MIME-Version;
+	b=Kfqwr/rowy/4cGmxCBFivnMgpcoIGqG1iGHogLPdoZAthBxFpyav64ORFQe2rwSh4
+	 ccidlxpOchUw+PIxkbBESnB6bOafw73sp713KwlLCjNpkZKTdwcVUVvl6RxaSLa7fy
+	 A62D4Cu6GGjvjkMihpz4yjcoC28lbeZEn3sEP0/E=
+X-QQ-mid: esmtpgz12t1780304222t384bbe44
+X-QQ-Originating-IP: ALqWp/in1iYHwrhJ4pv5l6nQyw3F+9vwwK7m8dHw2l0=
+Received: from localhost.localdomain ( [124.126.19.250])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Mon, 01 Jun 2026 16:56:54 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 15784183384065971705
+EX-QQ-RecipientCnt: 11
+From: ZhaoJinming <zhaojinming@uniontech.com>
+To: Jay Vosburgh <jv@jvosburgh.net>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: Jarod Wilson <jarod@redhat.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	ZhaoJinming <zhaojinming@uniontech.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] net: bonding: fix NULL pointer dereference in bond_do_ioctl()
+Date: Mon,  1 Jun 2026 16:56:49 +0800
+Message-Id: <20260601085649.4029067-1-zhaojinming@uniontech.com>
+X-Mailer: git-send-email 2.20.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="KdRgzWVtrTO9nihX"
-Content-Disposition: inline
-In-Reply-To: <20260530160240.228940103@linuxfoundation.org>
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpgz:uniontech.com:qybglogicsvrsz:qybglogicsvrsz4b-0
+X-QQ-XMAILINFO: NlqsT6bE7SJIwzwLfkLrULC6yh0N2upuIgQERLXK3M/247FCc6UDwxex
+	QtwDJfYrwiNfhIIgXJG7VtzoMKgNHkthoPbt/MDW/vnOamI4lKThZ2lqWF3pwEfs7t0aI2Z
+	cA0mB2el0m8vlSuL3wvtuY/LDK1ZdgFXnE8VjDVNfwCbSiRSFZA+UkpOCtS5WcK9lnHGLe8
+	gtJa3YYyaQq4IPQ3Ln2cySccjzRdYTBIKujEwcVeJIDsQrbTIsTqD3CtPzh1FTu4kzTqPcx
+	3d5WiSmg00MfZRbQnPBB27V7RQ3BsRZ6Xc4NQqIT/PP3fbcIVccp+KxU3q7liZfol30KnTU
+	2musW/345i0L6ie7UibErcaHHU/qQQiXEJdP2We5BB2OcrmQqG/8C2axBMr1++q+96E8njS
+	wFDwPub+stSv0nxcaJSx250vX1XQroLwcl/y1hdxvMEa/293JVZqdgH6rbGqYZx6MXX8q9y
+	z8U5nDLIs1ckBUaaD4vA6zfsgOVJxXZyh/AMG29Eyulrb79P8HqjPdhaHTgPt4GjI+ubIrq
+	UjozpZ4yuGoXCM17RezYUN2Kvbv7vES+zqi/zhbp5mAG+LVmHrwXmrZc1kEr/cgzRDXk/Uq
+	n6xJUchwuRcGRQFTnj8OfF7kDgKYy9CHP26aCpJQz/NYBkypgRZS7fJCB+K10J/4/kdNdQ6
+	qFn/kvC88QiEI1dbIAWg7Mchn4QT1VSZFnpdlcM27hW62uSk87TlUJUXmWraBWhtDlZopHt
+	xXwsk+ErAw6ZbIzOqdva/O5CGao6hH1nb+OM4Uy60LdVTCDzCKWjR5NW3AsuB+4rxn7TWK9
+	sDUno7Opuyqs9WwvlIEpLmsnc+A5wZALMNRmdD032EKmgItB1qszyFsMT/kg4fkgMU64Eqv
+	4AmChrKBDw67R/SXj6uZUh/mbUqqqMvaQJVyOI5WP3JqrBfPCTsfMyldXAFM39hcY7GXvIa
+	W9TfT9rHGD9HO6NaGVJdVEafmr0bH+VjNbPnA7WEWUAf9dpPB3HkpPQj10+I9/QUlIGKFQm
+	bk/miYm85UQINZ4hOMrU7K+0itTjI=
+X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
+X-QQ-RECHKSPAM: 0
 
+In bond_do_ioctl(), slave_dev is obtained via __dev_get_by_name() which
+can return NULL if the requested interface name does not exist. However,
+the subsequent slave_dbg() call is placed before the NULL check:
 
---KdRgzWVtrTO9nihX
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+    slave_dev = __dev_get_by_name(net, ifr->ifr_slave);
+    slave_dbg(bond_dev, slave_dev, "slave_dev=%p:\n", slave_dev); //here
+    if (!slave_dev)
+        return -ENODEV;
 
-Hi!
+The slave_dbg() macro expands to netdev_dbg(bond_dev, "(slave %s): " fmt,
+(slave_dev)->name, ...) which unconditionally dereferences slave_dev->name
+before the NULL check is performed. This results in a NULL pointer
+dereference kernel oops when a user calls bonding ioctl (e.g. 
+SIOCBONDENSLAVE, SIOCBONDRELEASE, etc.) with a non-existent slave 
+interface name.
 
-> This is the start of the stable review cycle for the 5.15.209 release.
-> There are 776 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+This is reachable from userspace via the bonding ioctl interface with
+CAP_NET_ADMIN capability, making it a potential local denial-of-service
+vector.
 
-CIP testing did not find any problems here:
+Fix by moving the slave_dbg() call after the NULL check.
 
-https://gitlab.com/cip-project/cip-testing/linux-stable-rc-ci/-/tree/linux-5.15.y
+Fixes: e2a7420df2e0 ("bonding/main: convert to using slave printk macros")
+Cc: stable@vger.kernel.org # v5.2+
+Signed-off-by: ZhaoJinming <zhaojinming@uniontech.com>
+---
+ drivers/net/bonding/bond_main.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Tested-by: Pavel Machek (CIP) <pavel@nabladev.com>
+diff --git a/drivers/net/bonding/bond_main.c b/drivers/net/bonding/bond_main.c
+index 82e779f7916b..8e75453ce0ef 100644
+--- a/drivers/net/bonding/bond_main.c
++++ b/drivers/net/bonding/bond_main.c
+@@ -4621,11 +4621,11 @@ static int bond_do_ioctl(struct net_device *bond_dev, struct ifreq *ifr, int cmd
+ 
+ 	slave_dev = __dev_get_by_name(net, ifr->ifr_slave);
+ 
+-	slave_dbg(bond_dev, slave_dev, "slave_dev=%p:\n", slave_dev);
+-
+ 	if (!slave_dev)
+ 		return -ENODEV;
+ 
++	slave_dbg(bond_dev, slave_dev, "slave_dev=%p:\n", slave_dev);
++
+ 	switch (cmd) {
+ 	case SIOCBONDENSLAVE:
+ 		res = bond_enslave(bond_dev, slave_dev, NULL);
+-- 
+2.20.1
 
-Best regards,
-                                                                Pavel
-
---KdRgzWVtrTO9nihX
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iF0EABECAB0WIQRPfPO7r0eAhk010v0w5/Bqldv68gUCah1JewAKCRAw5/Bqldv6
-8vxXAKCyZjbOdEkblUHBElCNWXC7DQq8jgCgpFn/SMoMv8mDs6eLDFxL4KHJQ/4=
-=sdQq
------END PGP SIGNATURE-----
-
---KdRgzWVtrTO9nihX--
