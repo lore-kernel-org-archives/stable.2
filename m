@@ -1,41 +1,41 @@
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3420D364024
-	for <stable@vger.kernel.org>; Mon,  1 Jun 2026 19:13:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDFDE367F48
+	for <stable@vger.kernel.org>; Mon,  1 Jun 2026 19:14:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780341243; cv=none; b=OkA4lrR9wD/OpWelVx5tYD+Hz1GfORJv6iBC4ERzeu6jRNUU2FcH4fC3l5jPhpoGSAYsnVbkeF4xkP08hNmp2tPXnO0fBKB26faxGbT6+ZzeoWLnwjTfnQL2JmZFX59scqx1NFDsEnER7rIqp6C+Gvrt/nctZL93R8oIgD2BTI8=
+	t=1780341243; cv=none; b=kMfZNCgFQ0pS3UqR6dtwxWueKBgAhrHsxhJ/tpafQNAUDnk1eRge7D7dpVMMUKoN1aN9vwk6NqxLONeaSOBGQHZw3yzIJ40jA8bJbwtUrhnwQgpfYYw+UWU7cb5T+6gzDZnA3IAkLeX+5rk1tqMx/jfiCWWSFPYRSFW3wo55j8I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1780341243; c=relaxed/simple;
-	bh=hD9ZyK/6hHSNBHm2d6rNF/7VjnRepNqxvoX09MKzYjQ=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Gv7z11vHT0udZNBdEmKdmZKsIr1KvexHZJdLMG7904GHswP8ikW+sO3nSTQZC0/3MDAUsHejLfcGxzxroMcM9CIkzE9cmF+JXyB0ymsgbcqLJdGPx8SXyNxJuzIkQz8WaAVdHVNT1j6D4ZRK/yx7Sna7xW6pM7AMZNqjzfzAa1M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=ncHLTk+1; arc=none smtp.client-ip=213.97.179.56
+	bh=TmUeISSPkoxu6GHUhx+L0cQBj3qSN0V+RYbBp7OmGnY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=Wns83V+HlqQZ/380OAglApbQS170hgT7yg4TUoT9zZOU49LvwCUtn0O6L3uOKVjT3YGRopUjOdAGrHocT3XC87D4Ir73mwxJed5SK0yWVEGP5Z9BI0QstVTcK0JtxYDEGA1gsXQ4xCUOEp/grJ+ECv8fgTE47ZGnFuMRZ3QG9e4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=JOpcRjk5; arc=none smtp.client-ip=213.97.179.56
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="ncHLTk+1"
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="JOpcRjk5"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Cc:To:Content-Transfer-Encoding:Content-Type:MIME-Version:
-	Message-Id:Date:Subject:From:Sender:Reply-To:Content-ID:Content-Description:
-	Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
-	In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
-	List-Post:List-Owner:List-Archive;
-	bh=y99MWSkT3U44gIyTsTR6uqD1N8j0ka6iS4rLudm/EkE=; b=ncHLTk+1zSXdLat/q5YeVhwesa
-	3lAJY/GpD2KZT3HIWoYgM7jFpwEbj4evQfcMCVKjmIfKh4d52vDDZflihuhNVA1L+7tZ7lKbC1wsU
-	5yKA/84HZ+2ROhNIApNT8RMQZnXuH6vLlNYEePHPNK1wbGmUkJiEk2iQ3QUbfcRqLFvtmFWYOw1dG
-	gTkVl+Y0frkk3uWDYWHJ8mA2GQqDdoHX0FR1rQxevjn5NiL0ER1XPizrm8e3oBSFrWZHO7Cvsxuqo
-	tr75NCEA1+YPm5wDc6kqBOiPuKzpv0pDOBur7s60p3lvrGLcXSr1jMIelYpghUP1WOeq84MdODFzJ
-	d4FrpDDQ==;
+	s=20170329; h=Cc:To:In-Reply-To:References:Message-Id:
+	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:Sender:
+	Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender
+	:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=UoHHquSvhwUEjuOaTqZ+K+Tlgrx/liQg23aXecIpwrM=; b=JOpcRjk5STOh6tIivRDl6lwRQ5
+	g4doV1Kmw7w/6k/UoLmAOlWLtsOBiJHCjJ28qB1Tdl8NRYQF85UAc/02q5g2aTIOuLJjPZfms6WJ7
+	CII5ioChZkULfzItxcA7/apnYAvEHdFFQZ9X0v3fStR102JwlU691E5b4GYY69W2GJliImH2Rox8M
+	Ppbx3eCOagDUzHat7qcBwW+eZJdLq56nSffY7KLUKbu0PNV2mNoKRwUpUHGoBA7yaptSNgE4fXUG6
+	k2WVKHMKSdnKePZ/kCAfzl9V198R0TgRZ7XCilgOxCk+erJt+DyAOIRKq3g2EQP4dZiMaI9U4UC4D
+	Dxsc3Ekw==;
 Received: from [189.7.87.67] (helo=[10.0.0.1])
 	by fanzine2.igalia.com with esmtpsa 
 	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
-	id 1wU85C-00BGx8-G7; Mon, 01 Jun 2026 21:13:54 +0200
+	id 1wU85F-00BGx8-Dt; Mon, 01 Jun 2026 21:13:57 +0200
 From: =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Subject: [PATCH v2 0/2] drm/v3d: Fix indirect CSD jobs with zeroed
- workgroups
-Date: Mon, 01 Jun 2026 16:13:46 -0300
-Message-Id: <20260601-v3d-fix-indirect-csd-v2-0-aaebf035b936@igalia.com>
+Date: Mon, 01 Jun 2026 16:13:47 -0300
+Subject: [PATCH v2 1/2] drm/v3d: Fix vaddr leak when indirect CSD has
+ zeroed workgroups
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -44,59 +44,65 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22NywrCMBREf6XctVfyMLG68j+ki5BHe0HTkpSgl
- Py7sbh0eYaZMxtkn8hnuHYbJF8o0xwbiEMHdjJx9EiuMQgmNFNcY5EOA72QoqPk7Yo2O9Q90zY
- IZtTZQJsuybfOrr0PjSfK65ze+0vh3/QnlOy/sHBkyJWS8nLqtZbhRqN5kDna+QlDrfUDR2EQk
- LkAAAA=
-X-Change-ID: 20260516-v3d-fix-indirect-csd-6806cf20a57a
+Message-Id: <20260601-v3d-fix-indirect-csd-v2-1-aaebf035b936@igalia.com>
+References: <20260601-v3d-fix-indirect-csd-v2-0-aaebf035b936@igalia.com>
+In-Reply-To: <20260601-v3d-fix-indirect-csd-v2-0-aaebf035b936@igalia.com>
 To: Melissa Wen <mwen@igalia.com>, Iago Toral Quiroga <itoral@igalia.com>, 
  Jose Maria Casanova Crespo <jmcasanova@igalia.com>
 Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
  stable@vger.kernel.org, =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1124; i=mcanal@igalia.com;
- h=from:subject:message-id; bh=hD9ZyK/6hHSNBHm2d6rNF/7VjnRepNqxvoX09MKzYjQ=;
- b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBqHdnvcGOnhYyEe7HVEnHErw4S4WeA1u3BS63mu
- MZE/kWvhKmJATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCah3Z7wAKCRA/8w6Kdoj6
- qnjDB/9e+uRJ2DLb/Jj+tUpb0bIC6PFJxNw46qvBJn29fiRs99QE5TeGn338iud6qzN0BjzGMgc
- 4XZMQYWCakrcssM51og8rT5BdjzQ1iDUh+17z13pLklbx27LFYkrCcglu+ORm2aexoPRk6U/anK
- F4x/mlaSkUIktNYWyfsBS0XFwWBZhvsOd2gjxy9xlaA5gcO7eibGji+gOa74iIhA63eO+Asa/dn
- np4OoUyS72osheT/DrfntGZxfnv/PP39TJypr8BzoBrcRJwEO/WydQSAEIFl2i3Ffx0a8BBTu/0
- bEpxPzv7dXoOBPVlWhWCg1JmsDPtXl1D+3PNnSkCA/g3jUyM
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1515; i=mcanal@igalia.com;
+ h=from:subject:message-id; bh=TmUeISSPkoxu6GHUhx+L0cQBj3qSN0V+RYbBp7OmGnY=;
+ b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBqHdnvzlCnX8vga1PHskPht5nazSRXdLpcqUr0/
+ SyQ7MI/knyJATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCah3Z7wAKCRA/8w6Kdoj6
+ qng+B/0ZWMWWUcTcDOeJAzK4g/pdGN1IciTvyuKSv1z/Px1AQ/rLn3E7a++aFAnE5nrCEyAIc27
+ 1qqh6ebq+wtzgIHhYo6AIIHrBs97vwuKGqoayqyd4T+5gfSBVcrAdjP+lxMkqAFk3tReSNvTlrQ
+ 1EXvT6aQRpEEj9lIEj7nyw9TCbMVq7AVP5c0VfoyOuJxWSTeHPjpCT7lCboNSHuDPWbwYMmD1DQ
+ 4mV0u2TGxd9MpRDkDtqquhUUadHwG57CsWogpjUJn0GtKxluoUpQMKhEexwAjC2CV1aIkjmiDht
+ sQTF8nlFu28YBMAhmNxQ7nJQtV/a9iWfJVSFWEjkGTUd/2uz
 X-Developer-Key: i=mcanal@igalia.com; a=openpgp;
  fpr=F8E45D7D0116770729A677D13FF30E8A7688FAAA
 
-Hi,
+v3d_rewrite_csd_job_wg_counts_from_indirect() maps both the indirect
+buffer and the workgroup buffer and is expected to release them before
+returning. When any of the workgroup counts read from the buffer is zero,
+the function bailed out early and skipped the cleanup, leaking the vaddr
+mappings of both BOs.
 
-Indirect CSD lets userspace defer the workgroup counts to a GPU buffer
-that is only filled at runtime, so the counts are unknown at submission
-time and can legitimately turn out to be zero.
+Jump to the cleanup path instead of returning directly, so the mappings
+are always dropped.
 
-However, exercing this case exposed two issues in the CSD path.
-
-  1. Virtual address leaks when the indirect CSD has zeroed workgroups.
-
-  2. CSD jobs with zeroed workgroups shouldn't be submitted to hardware.
-
-This series intends to address both issues.
-
-Best regards,
-- Maíra
-
+Cc: stable@vger.kernel.org
+Fixes: 18b8413b25b7 ("drm/v3d: Create a CPU job extension for a indirect CSD job")
+Suggested-by: Jose Maria Casanova Crespo <jmcasanova@igalia.com>
+Signed-off-by: Maíra Canal <mcanal@igalia.com>
 ---
-v1 -> v2: https://lore.kernel.org/r/20260530-v3d-fix-indirect-csd-v1-0-15533948663f@igalia.com
+ drivers/gpu/drm/v3d/v3d_sched.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-- [2/2] Don't check the whole cfg[0-2], check only the number of workgroups (Iago Toral)
-- [2/2] Add a comment about how the HW interprets 0 (Iago Toral)
+diff --git a/drivers/gpu/drm/v3d/v3d_sched.c b/drivers/gpu/drm/v3d/v3d_sched.c
+index 94bf628dc91c..47f83936cd73 100644
+--- a/drivers/gpu/drm/v3d/v3d_sched.c
++++ b/drivers/gpu/drm/v3d/v3d_sched.c
+@@ -403,7 +403,7 @@ v3d_rewrite_csd_job_wg_counts_from_indirect(struct v3d_cpu_job *job)
+ 	wg_counts = (uint32_t *)(bo->vaddr + indirect_csd->offset);
+ 
+ 	if (wg_counts[0] == 0 || wg_counts[1] == 0 || wg_counts[2] == 0)
+-		return;
++		goto unmap_bo;
+ 
+ 	args->cfg[0] = wg_counts[0] << V3D_CSD_CFG012_WG_COUNT_SHIFT;
+ 	args->cfg[1] = wg_counts[1] << V3D_CSD_CFG012_WG_COUNT_SHIFT;
+@@ -428,6 +428,7 @@ v3d_rewrite_csd_job_wg_counts_from_indirect(struct v3d_cpu_job *job)
+ 		}
+ 	}
+ 
++unmap_bo:
+ 	v3d_put_bo_vaddr(indirect);
+ 	v3d_put_bo_vaddr(bo);
+ }
 
----
-Maíra Canal (2):
-      drm/v3d: Fix vaddr leak when indirect CSD has zeroed workgroups
-      drm/v3d: Skip CSD when it has zeroed workgroups
-
- drivers/gpu/drm/v3d/v3d_sched.c | 12 +++++++++++-
- 1 file changed, 11 insertions(+), 1 deletion(-)
----
-base-commit: 5ab62dd3687bcc2cc542b99385aabac5c996db6f
-change-id: 20260516-v3d-fix-indirect-csd-6806cf20a57a
+-- 
+2.54.0
 
