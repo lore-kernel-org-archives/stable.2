@@ -1,170 +1,79 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD96D3A4F5F
-	for <stable@vger.kernel.org>; Mon,  1 Jun 2026 13:17:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CBB6361667;
+	Mon,  1 Jun 2026 13:20:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780319855; cv=none; b=tUgap3EOcYUkV65d+OWkqOLKnPC5FxPDzssu4lsZNVC2PLSxgL8frBlQT/zNFXUYSZjIIXDgiE6KVfDmhnGH9+8Cs9HJhnni03vGgjKUE4qWe10RkVJkS8CYnrXUzdhsE7qsBsK2wv0YjAPszLZQVd7M/ialTXmu+O1rZtcvMz4=
+	t=1780320004; cv=none; b=a4cXtJfLecTTJdNMs6F+p/X+lSwrmEU4cCE/EZv2jWV98qejRl5BeWLRkBu1p4Y75Mpo0GVhpX1xR1hxzi/XToCjPS4SHlPcNwzwkmi84c1bhUa5HWCcIoUgN8cE3s1FWw0ILJeyKXUmuEl7arsu3D+eQk3+leXMki2qo0ZFTCk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780319855; c=relaxed/simple;
-	bh=Js/XTs/Sr7dWy5IEmYcOS0kfD5Gq54MbjirF7xFb6IY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=f4nuR/7sZ885fzxDnkXSj+aLretJ1GMGW1ocInR1Npqk+ICUIqqunlgrKfcFVDpoykEA5PDHV7Vz5QXWMaIsNu3p/xy3D0qB3DlbNvWGUu9LIx6hlK570VLJpZP53sRyswWgYcaL4eV/PC5K6k3ADbMQeJr2vtuQSfqmTlgk1oE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FRz91pQe; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780320004; c=relaxed/simple;
+	bh=9W2NPKEDU1da2jjyWsGK2j1JtSQDRiYaTlXLHKrAK/4=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=mEqNCHlUBXD2cj9nBIYTRI0CJeYysed1KPteLch4luzH8SkcZ8j5ff4nbU/2riF2UQbkdvUJhMIj2PMnGWsNZ2VWElJufr0lRO8KTbwEHnys5OIgEy2F2Adu7tUke6cRsvD1YBurxrCKPh9c84f4/lzGyMEarFzOC3hz9tH3aQo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TRnlSyrB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FRz91pQe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F409D1F00899;
-	Mon,  1 Jun 2026 13:17:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TRnlSyrB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 234991F00893;
+	Mon,  1 Jun 2026 13:20:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780319854;
-	bh=wTbDzE6Wudczc5AqpAslp6YawgY3AbvmNqKNlqaxbTc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=FRz91pQeYv3cv3DBEr/DNkrahPVVqXusfms7NMAfncl7LpxAdnyhxmM19bcxQnhm1
-	 8uKP5YVBOn5pkpb+8ArHN96SymNI+/2ouR/Y3UhlNunjeT33fgfMR099kLkr5La0YU
-	 nPUzL2L8sH6nETpO129iA+AhRSu3AB4MOyv9wmmZ3yNoq5oh3aQDw/m917Xbgjac4u
-	 mndDT2wdgqK3i+grdnwU5N1WUwWDhn60mUeV9vnV6Rzz+7RCUTUFsUtD/vLZPUDDJm
-	 +yADEwt3gKg/vec6gI5Clk350v8ClhaIQxS1tDKJ0IyfS0SARlstF5FuI7Xmwhqg7I
-	 7AeX4+F/po2kA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
-	Iago Toral Quiroga <itoral@igalia.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/2] drm/v3d: Fix use-after-free of CPU job query arrays on error path
-Date: Mon,  1 Jun 2026 09:17:31 -0400
-Message-ID: <20260601131731.780919-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260601131731.780919-1-sashal@kernel.org>
-References: <2026052855-portable-pardon-850e@gregkh>
- <20260601131731.780919-1-sashal@kernel.org>
+	s=k20260515; t=1780320003;
+	bh=NwRQuglpCzv2aWAtVxL3KeXU1pHrNihF16osYLcGXpI=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=TRnlSyrB0Nbnkm6pc/WwNlWZPP5pGKJPDQ2Ga214z4/6ciEQy5CqGbQ6df0I1xScU
+	 Ril8Gk+OkCKVY+M4apdWotxLVQ38OkdvbPawA8tA6A8JFjT6fBcrXAkrS35FVXpNrT
+	 EYOyctfx7Y1F1ZH0izS9t3Lu88SlWuRKSdd1wtFUdXH0IbudgpVTPxp3GH0aO9+dHr
+	 sbxbIcehYKbUgkbtiibYOj8GvGwI5RF+/4ipYl+haQP26DrS+JKxJZ7RP8vMxG06Dg
+	 YSTxXtr8PFEte2L7nGXkc5FchJ6WzWivBVReilnj7IoTcN9F4CykSZ/KjaFEHePlIB
+	 fUMQcSnJrAxWQ==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D396E38119D1;
+	Mon,  1 Jun 2026 13:20:06 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH] net/mlx5: Reorder completion before putting command entry
+ in
+ cmd_work_handler
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <178032000565.3675417.3853659741110676431.git-patchwork-notify@kernel.org>
+Date: Mon, 01 Jun 2026 13:20:05 +0000
+References: <20260526162932.501584-1-kniv@yandex-team.ru>
+In-Reply-To: <20260526162932.501584-1-kniv@yandex-team.ru>
+To: Nikolay Kuratov <kniv@yandex-team.ru>
+Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ linux-rdma@vger.kernel.org, saeedm@nvidia.com, moshe@nvidia.com,
+ agoldberger@nvidia.com, tariqt@nvidia.com, stable@vger.kernel.org
 
-From: Maíra Canal <mcanal@igalia.com>
+Hello:
 
-[ Upstream commit b0fe80c0b9250b35e2211bf3117e7aca814a21b0 ]
+This patch was applied to netdev/net.git (main)
+by Paolo Abeni <pabeni@redhat.com>:
 
-The CPU job ioctl's fail label calls kvfree() on cpu_job's timestamp and
-performance query arrays after v3d_job_cleanup(), which drops the job's
-last reference and frees cpu_job. Reading cpu_job at that point is a
-use-after-free. Also, on the early v3d_job_init() failure path, it is a
-NULL dereference, since v3d_job_deallocate() zeroes the local pointer.
+On Tue, 26 May 2026 19:29:32 +0300 you wrote:
+> Assuming callback != NULL && !page_queue, cmd_work_handler takes
+> command entry with refcnt == 1 from mlx5_cmd_invoke.
+> If either semaphore timeout or index allocation error happens,
+> it does final cmd_ent_put(ent). To avoid access to freed memory,
+> notify slotted completion before cmd_ent_put.
+> 
+> This is theoretical issue found by Svace static analyser.
+> 
+> [...]
 
-In the success path, the arrays are released from the scheduler's
-.free_job callback, but on the error path, they are freed manually, as
-the job was never pushed to the scheduler. While the success path deals
-with this correctly, the fail path doesn't.
+Here is the summary with links:
+  - net/mlx5: Reorder completion before putting command entry in cmd_work_handler
+    https://git.kernel.org/netdev/net/c/02896a7fa4cd
 
-On top of that, the manual kvfree() calls only free the array storage;
-they don't drm_syncobj_put() the per-query syncobjs that
-v3d_timestamp_query_info_free() and v3d_performance_query_info_free()
-release on the success path. So the same fail path that triggers the
-use-after-free also leaks one syncobj reference per query.
-
-Unify the CPU job teardown into the CPU job's kref destructor, mirroring
-v3d_render_job_free(). The scheduler's .free_job slot reverts to the
-generic v3d_sched_job_free() and the fail label drops the manual
-kvfree() calls, leaving a single teardown path that is reached from both
-the scheduler and the ioctl error path. That removes the use-after-free,
-the NULL dereference, and the syncobj leak by construction.
-
-Cc: stable@vger.kernel.org
-Fixes: 9ba0ff3e083f ("drm/v3d: Create a CPU job extension for the timestamp query job")
-Assisted-by: Claude:claude-opus-4.7
-Reviewed-by: Iago Toral Quiroga <itoral@igalia.com>
-Link: https://patch.msgid.link/20260515-v3d-cpu-job-leaks-v1-1-7f147cbbf935@igalia.com
-Signed-off-by: Maíra Canal <mcanal@igalia.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/gpu/drm/v3d/v3d_sched.c  | 16 +---------------
- drivers/gpu/drm/v3d/v3d_submit.c | 19 ++++++++++++++++---
- 2 files changed, 17 insertions(+), 18 deletions(-)
-
-diff --git a/drivers/gpu/drm/v3d/v3d_sched.c b/drivers/gpu/drm/v3d/v3d_sched.c
-index 63564266135f6..c5b63ba46f3db 100644
---- a/drivers/gpu/drm/v3d/v3d_sched.c
-+++ b/drivers/gpu/drm/v3d/v3d_sched.c
-@@ -103,20 +103,6 @@ v3d_performance_query_info_free(struct v3d_performance_query_info *query_info,
- 	}
- }
- 
--static void
--v3d_cpu_job_free(struct drm_sched_job *sched_job)
--{
--	struct v3d_cpu_job *job = to_cpu_job(sched_job);
--
--	v3d_timestamp_query_info_free(&job->timestamp_query,
--				      job->timestamp_query.count);
--
--	v3d_performance_query_info_free(&job->performance_query,
--					job->performance_query.count);
--
--	v3d_job_cleanup(&job->base);
--}
--
- static void
- v3d_switch_perfmon(struct v3d_dev *v3d, struct v3d_job *job)
- {
-@@ -846,7 +832,7 @@ static const struct drm_sched_backend_ops v3d_cache_clean_sched_ops = {
- 
- static const struct drm_sched_backend_ops v3d_cpu_sched_ops = {
- 	.run_job = v3d_cpu_job_run,
--	.free_job = v3d_cpu_job_free
-+	.free_job = v3d_sched_job_free
- };
- 
- int
-diff --git a/drivers/gpu/drm/v3d/v3d_submit.c b/drivers/gpu/drm/v3d/v3d_submit.c
-index ddc20191a1cee..40c21aaade0d6 100644
---- a/drivers/gpu/drm/v3d/v3d_submit.c
-+++ b/drivers/gpu/drm/v3d/v3d_submit.c
-@@ -118,6 +118,21 @@ v3d_render_job_free(struct kref *ref)
- 	v3d_job_free(ref);
- }
- 
-+static void
-+v3d_cpu_job_free(struct kref *ref)
-+{
-+	struct v3d_cpu_job *job = container_of(ref, struct v3d_cpu_job,
-+					       base.refcount);
-+
-+	v3d_timestamp_query_info_free(&job->timestamp_query,
-+				      job->timestamp_query.count);
-+
-+	v3d_performance_query_info_free(&job->performance_query,
-+					job->performance_query.count);
-+
-+	v3d_job_free(ref);
-+}
-+
- void v3d_job_cleanup(struct v3d_job *job)
- {
- 	if (!job)
-@@ -1310,7 +1325,7 @@ v3d_submit_cpu_ioctl(struct drm_device *dev, void *data,
- 	trace_v3d_submit_cpu_ioctl(&v3d->drm, cpu_job->job_type);
- 
- 	ret = v3d_job_init(v3d, file_priv, &cpu_job->base,
--			   v3d_job_free, 0, &se, V3D_CPU);
-+			   v3d_cpu_job_free, 0, &se, V3D_CPU);
- 	if (ret) {
- 		v3d_job_deallocate((void *)&cpu_job);
- 		goto fail;
-@@ -1393,8 +1408,6 @@ v3d_submit_cpu_ioctl(struct drm_device *dev, void *data,
- 	v3d_job_cleanup((void *)csd_job);
- 	v3d_job_cleanup(clean_job);
- 	v3d_put_multisync_post_deps(&se);
--	kvfree(cpu_job->timestamp_query.queries);
--	kvfree(cpu_job->performance_query.queries);
- 
- 	return ret;
- }
+You are awesome, thank you!
 -- 
-2.53.0
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
 
