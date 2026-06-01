@@ -1,42 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2621132ED34
-	for <stable@vger.kernel.org>; Mon,  1 Jun 2026 11:02:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99BF327F18B
+	for <stable@vger.kernel.org>; Mon,  1 Jun 2026 11:02:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780311733; cv=none; b=ElAJhGSZ/U+BKYTBAbspMkj9gsXcFwGO4CWGuMI/AIgZIIm5VV87AMjfAd2yY2C1e+Cs3RUU3YfxfvAcGWveshH2RdfN406n5tbE0IkTAfogpO6HKxnPpEUGOwUFfR9EYI1afksoZVHEO+gSqY/4IezKUd+RCcJKqbGRDX/E4fw=
+	t=1780311741; cv=none; b=lgDmuhqnliv6oV2VlNndth4cAsozdhdLaDeMKwXZWJgz2tOIEnaS8cwu3bPuosI3tSVlnbY6K8xe9qYe80Gc01IHNxEb3YAutftfJEfzZHYnpP5KTmXquCphz2U4XPA2OouDuZQcKqM7+KU9WC3FmfavqKN+4VpVIivAHV79BoA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780311733; c=relaxed/simple;
-	bh=udRDF6zeiGkU5umSayP5uorMCFVseskk2kqNEmW5zpE=;
+	s=arc-20240116; t=1780311741; c=relaxed/simple;
+	bh=dht9jC8AGYORsvh9xj3JCeCV0lJ+aLtstXlWr3BvYTw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PS7XnuyqGOI1tUHu5boV6AoYiTguLt9Zh6dD56nLVVbzJk4AnRhFDJY4cVqA4Xcaz+ZDrEZoceIQUYdQVrNz+ZOkvm7M1e+G1C0TCIHA1aHiUl0s8LQak0B/ILSnInU1rFvFzrCZo2jlfXLVouyMTMwWmj8XBLjEXW+//deEE3w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F1c9xbJZ; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=s85AWpo0uc5bdkF51iWMruMneIRvzWULyI4MM/qLGQMX+uJOqTi0hY58/fYtKiIBc4sSXLhOla28Vw0JfPvyGd6Bh3N17KfWaN/lHjEaYq2JoP6mcsuE4N2VhDcAOppoOMlVXDh3tChXb/mU7O4TrSQaqUirDQurd0KHwjuoyCw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l+TfLTV5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F1c9xbJZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B5E81F00893;
-	Mon,  1 Jun 2026 11:02:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l+TfLTV5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDA341F00893;
+	Mon,  1 Jun 2026 11:02:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780311731;
-	bh=KO2RAXo3WUG9VMi5tHyfSUjk9hjT1G2iDXSFXtS37+8=;
+	s=k20260515; t=1780311740;
+	bh=kMKUMo4CXOTfMGg9F5UbhppyLRfu5916qOMmGvrYpDA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=F1c9xbJZdHZmcwC8logWhidDrloUAFJjosECkultVuEVZxefvY/QgXEGLW3DDwLbq
-	 2TDo9pf1vG8E8W9pKDVm+CZTCTg3pVAcehk0IUCSlwDD/N58/SLx+9uHt0Kd7KGiqo
-	 g6EwXFfQ/7Eeu09NfyGfq+K8NrvsohH3J9J0ROACtWitSAminwGzo6JjAIMtn+iy3b
-	 bH8H2di1OVZx1s2NAkAPo9puof6x4NSsyE+HubyHsVqgfI5FAMWx8ez1ax77yUdFTX
-	 DTPAvUX4epqQJ6WPVj/uIEfXoswQfR6B8iiEWdLAnfExcJ6tc+bzzxZ3Wt1GHnfvfk
-	 zJVUpgNBcxZBQ==
+	b=l+TfLTV53/adeE1Y521UMunYrPqvmeD0zowYj5pfVw+MYuSRCJrYc/ST6LdzuE+MN
+	 ++nfX5JXpGMrD0R6uqlWT6C6KN+u63zbviaKTWSVpBtfh6rn4ak3apl6NGtxdbRDJ0
+	 lFyLljGCm++bU0JhN4VkCjq/1efnkHEIjXCdFSX0LEeJK/xPYR2F6UAQhioN1F+cgx
+	 AOtoWcTHWVuI9aAnumOzYdPy81+lYdlBjtEnOtl8oubTvNPkCSb44G3Lek2nrWAUQA
+	 aMiJQC7eMW3XhjGyFi+Ek4drPimsloDSLQ2CgYuxMcE0lyuoj+V3gnne9nOcJkOp0g
+	 Gm4JOehRqLZgw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Zeng Heng <zengheng4@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
+Cc: Wayne Chang <waynec@nvidia.com>,
+	Jon Hunter <jonathanh@nvidia.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] arm64: tlb: Flush walk cache when unsharing PMD tables
-Date: Mon,  1 Jun 2026 07:02:09 -0400
-Message-ID: <20260601110209.439741-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/2] phy: tegra: xusb: Disable trk clk when not in use
+Date: Mon,  1 Jun 2026 07:02:17 -0400
+Message-ID: <20260601110218.439979-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026052837-spotty-squishier-8961@gregkh>
-References: <2026052837-spotty-squishier-8961@gregkh>
+In-Reply-To: <2026052823-reemerge-wick-01cb@gregkh>
+References: <2026052823-reemerge-wick-01cb@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,53 +46,49 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Zeng Heng <zengheng4@huawei.com>
+From: Wayne Chang <waynec@nvidia.com>
 
-[ Upstream commit c2ff4764e03e7a8d758352f4aceb8fe1be6ac971 ]
+[ Upstream commit 71d9e899584e11bbd7eaf9934a619c69a15060d8 ]
 
-When huge_pmd_unshare() is called to unshare a PMD table, the
-tlb_unshare_pmd_ptdesc() function sets tlb->unshared_tables=true
-but the aarch64 tlb_flush() only checked tlb->freed_tables to
-determine whether to use TLBF_NONE (vae1is, invalidates walk
-cache) or TLBF_NOWALKCACHE (vale1is, leaf-only).
+Pad tracking is a one-time calibration for Tegra186 and Tegra194.
+Clk should be disabled after calibration.
 
-This caused the stale PMD page table entry to remain in the walk cache
-after unshare, potentially leading to incorrect page table walks.
+Disable clk after calibration.
+While at it add 100us delay for HW recording the calibration value.
 
-Fix by including unshared_tables in the check, so that when
-unsharing tables, TLBF_NONE is used and the walk cache is properly
-invalidated.
-
-Here is the detailed distinction between vae1is and vale1is:
-
-| Instruction Combination  | Actual Invalidation Scope                         |
-| ------------------------ | --------------------------------------------------|
-| `VAE1IS`  + TTL=`0`      | All entries at all levels (full invalidation)     |
-| `VAE1IS`  + TTL=`2` (L2) | Non-leaf at Level 0/1 + leaf at Level 2           |
-| `VALE1IS` + TTL=`0`      | Leaf entries at all levels (non-leaf not cleared) |
-| `VALE1IS` + TTL=`2` (L2) | Leaf entry at Level 2 only                        |
-
-Signed-off-by: Zeng Heng <zengheng4@huawei.com>
-Fixes: 8ce720d5bd91 ("mm/hugetlb: fix excessive IPI broadcasts when unsharing PMD tables using mmu_gather")
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Catalin Marinas <catalin.marinas@arm.com>
+Signed-off-by: Wayne Chang <waynec@nvidia.com>
+Signed-off-by: Jon Hunter <jonathanh@nvidia.com>
+Link: https://lore.kernel.org/r/20230111110450.24617-5-jonathanh@nvidia.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Stable-dep-of: da110228b54f ("phy: tegra: xusb: Fix per-pad high-speed termination calibration")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/arm64/include/asm/tlb.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/phy/tegra/xusb-tegra186.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/arch/arm64/include/asm/tlb.h b/arch/arm64/include/asm/tlb.h
-index c995d1f4594f6..cd6997187104d 100644
---- a/arch/arm64/include/asm/tlb.h
-+++ b/arch/arm64/include/asm/tlb.h
-@@ -53,7 +53,7 @@ static inline int tlb_get_level(struct mmu_gather *tlb)
- static inline void tlb_flush(struct mmu_gather *tlb)
- {
- 	struct vm_area_struct vma = TLB_FLUSH_VMA(tlb->mm, 0);
--	bool last_level = !tlb->freed_tables;
-+	bool last_level = !(tlb->freed_tables || tlb->unshared_tables);
- 	unsigned long stride = tlb_get_unmap_size(tlb);
- 	int tlb_level = tlb_get_level(tlb);
+diff --git a/drivers/phy/tegra/xusb-tegra186.c b/drivers/phy/tegra/xusb-tegra186.c
+index e1c8ce06bf5a0..559224f9d0cd9 100644
+--- a/drivers/phy/tegra/xusb-tegra186.c
++++ b/drivers/phy/tegra/xusb-tegra186.c
+@@ -612,6 +612,10 @@ static void tegra186_utmi_bias_pad_power_on(struct tegra_xusb_padctl *padctl)
+ 	value &= ~USB2_PD_TRK;
+ 	padctl_writel(padctl, value, XUSB_PADCTL_USB2_BIAS_PAD_CTL1);
+ 
++	udelay(100);
++
++	clk_disable_unprepare(priv->usb2_trk_clk);
++
+ 	mutex_unlock(&padctl->lock);
+ }
+ 
+@@ -636,8 +640,6 @@ static void tegra186_utmi_bias_pad_power_off(struct tegra_xusb_padctl *padctl)
+ 	value |= USB2_PD_TRK;
+ 	padctl_writel(padctl, value, XUSB_PADCTL_USB2_BIAS_PAD_CTL1);
+ 
+-	clk_disable_unprepare(priv->usb2_trk_clk);
+-
+ 	mutex_unlock(&padctl->lock);
+ }
  
 -- 
 2.53.0
