@@ -1,35 +1,35 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85CCE21257E;
-	Mon,  1 Jun 2026 03:10:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D070264617;
+	Mon,  1 Jun 2026 03:11:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780283456; cv=none; b=DHXevpIgSZpX8hVmMmCDGkmMwArt6fSYMTAmdB5JvYjkLJZil0jTX1u+SIQfjyna6WkBONnYdGY6MxJuq8182odYlOHsjr82b6WH9HUM0RNiDMIs6z7iuFsatnbUzzUfqY+YG8C0D/OAtKL6AJFqvvrxKAE046sXqUMxwseUgHU=
+	t=1780283463; cv=none; b=ikqSJztZVGbvv8P3hZfTRHLZ4q1yS04T1YQeSSJ0s291A8ZzIogd5CaK+/xukRoGQJiUUZ/FmfT3nArim1ryFhCtv7LEdyZ7A7MyZfMqaGY+Tk0oPOMh0ypYZBseUzU4i+DShPTuLLHkw4FOGJaDpi800zFsGy2fccwoD8sMmiU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780283456; c=relaxed/simple;
-	bh=RbIMlTBhX+nwth2ktVhSGSSP8Wft3sWwsEfCV850KPU=;
+	s=arc-20240116; t=1780283463; c=relaxed/simple;
+	bh=McbAPzejErfT3vRXQ/3hwMvfOEHqfV+gtaE6BzKmcQE=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=l754/SHm/XibPM9HanpqOvFMNqKEC1QlilHUTPmcn4h3rxCdox7oHGZF0KurkeKWFdVnEdA6I4zfRapYeOaL3LxIWJTePzm4XUnupWGcByNX3a5HXVBWgDV26y7/TVqqBwJ9mo+6p9bJn2sH1kYzQmENuGlC6dYfJSuHH3xiOtw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=joDMrWWY; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=Wi9TZUhF6qKAzKEG3LgvbJt4Zzz7iM5972MmbLQwXmwJNzFKOezeUpnBRfXd6ZA/QjYpdrcnbzIA1Tx0+ikX0iG18Poh4tBFFpZzy365W2+neWZfC607w6likeYgNWp6H5s+0x80nnZRutXpjkShZw43C/qz9vR5Ayf4KtDTYXg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VHPbiZjv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="joDMrWWY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 513341F00898;
-	Mon,  1 Jun 2026 03:10:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VHPbiZjv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D17731F00893;
+	Mon,  1 Jun 2026 03:10:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780283455;
-	bh=GszvUxBaQDM6cXw6ZUDOFBlW4uvlwqG8sNmpgHjMLvE=;
+	s=k20260515; t=1780283460;
+	bh=4EWYupGYd5fMa1tvYvYfivxtiq5o+ETcaNhau+4S4So=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=joDMrWWYGKQX8mpyBOrXDgS8L5WkLxwaMK2ABpvygehNsvQy+mv+GdCGx/Sdnh7Df
-	 RmIiPbaLGN2bkQb3LwXYgd+5lhToHf0M4hXgo59mwcuIyfEDXtKN0RuDWetfqA0wxb
-	 WFjHgdeVnhxtTksx7pXYB7R6gDmW32mME888lfy46e80DMz+G+1CsfCj6zJyWNruO9
-	 e4qyyBZ7K5vPUhR1lZ5jDywiw4zUN7zLeuL5KdmrVSy8QVQn0Ud3LleY/kleGCFOoO
-	 5GWn8BKf2fAQI8NMCy/ei6uebw3KaF7qVx7qIt19v7P/tnZnzTHBQI6SdRuRUS+0op
-	 5kPjSDMGi6b6g==
+	b=VHPbiZjvBi3URIbh+9yy1Ty0f5ERdJok9O/jdthqPra31SzdHCq0cp8NZJt4APYEG
+	 czsapRFgQxA1jsmWCVNieeB0gsAicomDdig4xdSLTWvvw/HdhC0sjPbbCQUDyhYoeW
+	 oIClSq+OKWX7ribSmXdprd2qqgL8z+bTXxrIz+Bjw+auvRwB2hZAtA6xzE+6TQeCsn
+	 Pfj4ze5xMEemqvrvYSKrSHBt9JR+WfUB51WSEKzg+H9cknCASEDGih5jAKVUKvKN5H
+	 FEweXYLav1JmJ9xo9n704aL75hOJRF+KlryecwTgDvQXOzfsXZVZb6ZP8Nj+XB/wJ0
+	 4837g2pSZCskg==
 From: "Matthieu Baerts (NGI0)" <matttbe@kernel.org>
-Date: Mon, 01 Jun 2026 13:10:01 +1000
-Subject: [PATCH net 05/10] mptcp: pm: fix extra_subflows underflow on
- userspace PM subflow creation
+Date: Mon, 01 Jun 2026 13:10:02 +1000
+Subject: [PATCH net 06/10] selftests: mptcp: add test for extra_subflows
+ underflow on userspace PM
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,7 +38,7 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260601-net-mptcp-misc-fixes-7-1-rc7-v1-5-a5ae7791754b@kernel.org>
+Message-Id: <20260601-net-mptcp-misc-fixes-7-1-rc7-v1-6-a5ae7791754b@kernel.org>
 References: <20260601-net-mptcp-misc-fixes-7-1-rc7-v1-0-a5ae7791754b@kernel.org>
 In-Reply-To: <20260601-net-mptcp-misc-fixes-7-1-rc7-v1-0-a5ae7791754b@kernel.org>
 To: Mat Martineau <martineau@kernel.org>, Geliang Tang <geliang@kernel.org>, 
@@ -48,37 +48,30 @@ To: Mat Martineau <martineau@kernel.org>, Geliang Tang <geliang@kernel.org>,
 Cc: netdev@vger.kernel.org, mptcp@lists.linux.dev, 
  linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
  "Matthieu Baerts (NGI0)" <matttbe@kernel.org>, Tao Cui <cuitao@kylinos.cn>, 
- stable@vger.kernel.org
+ stable@vger.kernel.org, Shuah Khan <shuah@kernel.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1923; i=matttbe@kernel.org;
- h=from:subject:message-id; bh=7ukesoEXWL1n6AAghVFKroS6WjmMIg9iq0MAWyf9XNo=;
- b=owEBbQKS/ZANAwAIAfa3gk9CaaBzAcsmYgBqHPgeUdPWrOC90oSk/b3RuEYzhSI9SXUiGMytg
- fMmoe6ND7qJAjMEAAEIAB0WIQToy4X3aHcFem4n93r2t4JPQmmgcwUCahz4HgAKCRD2t4JPQmmg
- c91bEACmOi21fbl7qM0ww2YK74tekfYZbboBoN7Jhkw1rOfLXCprcV90Mm6jAtxYUaCjhfAnM5W
- MXA6ZC1/mCteXi451PaU6yHDnWAsDX65GOFpFNL4sa6d1XvckY3Gj/XJiAiOT66uGL5MMoeYg/k
- +CEFeEPqeXZHgOFpyLNkaFJkvnK+1Wrj+sEVJHysK369Bsg4w4uv8uYln09O/LPpoLuA7or7Ot+
- w26BYY4xFrw+JVGJ9T2isYup635jEB3zeIb9MK2EE7731KeYgSF+pd+5zGZzFNnYHj5J9uUfGMv
- W3VWhPn4kg1nta/hacWS8dnItahDte1eKCydm/G/Nr4A42cpJajj4KGCN5tiuNXfMUFNn7dwxPY
- 8cFlQxvcNz8MVkWMYaYnRGRs67BhxLXUS7NdjCuHb+WlPRzC7bII1pqgI/1HZFR+/H9ut4T9CSO
- dfi3Hqhn0+4EJ5TqMS+XWguh0FiYAE22Cu629o48Y+6+WwGlsPB/BI3XpvLH5nLveZfqoCQdOGl
- qEw7RvdPP/5Uxlg/OWBpAH52DyeQd+6le+uG+o08QUcCPHqVKJF78mJJ5/sK0850ymhO600irMJ
- gnRZ2JZqSacbr8DiGsrJ/surq5CjRGzPsa9bGJ+7X4lcR0TjTp/6xiVsuyBKO7dBFkTR5NRtL2R
- ELh2ojgS+tmdrbQ==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1256; i=matttbe@kernel.org;
+ h=from:subject:message-id; bh=cyJve84NvhmylEe8skv2EBSqKlu2Y3sUtFlAamahTeg=;
+ b=owEBbQKS/ZANAwAIAfa3gk9CaaBzAcsmYgBqHPgeVqo4MD4RbWI77LRUvcraY7/mPtF7LoMdC
+ S0S5gOPfq6JAjMEAAEIAB0WIQToy4X3aHcFem4n93r2t4JPQmmgcwUCahz4HgAKCRD2t4JPQmmg
+ c/WIEADBsojBBx6aa+lOXi5MVUtjGRHSyaatf20rWs7D+XtxEbZ06HVU8OsoNdq3Jwb/xjooi+d
+ Jr1YBHyRQAOlUbJhe7KQKqfl/eSMXSbYsFoct2WPrZ263rejFVVxOrjufTvDtFWFt6BLC6LoNbc
+ +IQ0En6toato0zDqsf+Za2/ipT2lIpuzbjbNAQDiq79BDSyXVlU4LH/RNJUKDeZyCxst+M0Rw61
+ lA+C+PSXASc2SahUZu72ercuVm0Lj8sNb3ndKU860Tk4mj563xs7vKYFQazgIlcA+L6DNXjM8pZ
+ iBdHPulFmpA3K/odyrD003b+LSTxsjJve5x44/BObLWTjfbP71HdgqhxY9RoSIz2tznsbQtPbBU
+ bBQK5pA319AulbK7LTKutbIpaKwDYD/nSFBSkUgQIyI172mo58bMBdmxJCILzvlUIP5yg1G1XXa
+ 9bCmt70AEyfwzJZBWL5rL/7ZFQAfepvy7G6x0wU3DjnPYokPOFIOF2XQWw/LYXWN6t0jX/ax3LH
+ +bVlk7khSk1lhsjd/GhJa1a6XBVquj+lBFWKO1hCW+uGsVSeK4JK5Zlo8dA/S+wEfc6OOp7PwmX
+ VFqXMXQQ4Gug5p6CAkzgA0kisj0c0t0He+ZhItL5VA0dIDrnagv8JOh+D3/DeixhwMM9dYUCteU
+ 47T3a2Fr5gHgA5w==
 X-Developer-Key: i=matttbe@kernel.org; a=openpgp;
  fpr=E8CB85F76877057A6E27F77AF6B7824F4269A073
 
 From: Tao Cui <cuitao@kylinos.cn>
 
-The userspace PM increments extra_subflows after __mptcp_subflow_connect()
-succeeds, but __mptcp_subflow_connect() calls mptcp_pm_close_subflow()
-on failure to roll back the pre-increment done by the kernel PM's fill_*()
-helpers. Because the userspace PM hasn't incremented yet at that point,
-this decrement is spurious and causes extra_subflows to underflow.
-
-Fix it by aligning the userspace PM with the kernel PM: increment
-extra_subflows before calling __mptcp_subflow_connect(), so the existing
-error path in subflow.c correctly rolls it back on failure. Also simplify
-the error handling by taking pm.lock only when needed for cleanup.
+Add a test to verify that when userspace PM fails to create a subflow
+(e.g. using an unreachable address), the extra_subflows counter is not
+decremented below zero.
 
 Fixes: 77e4b94a3de6 ("mptcp: update userspace pm infos")
 Cc: stable@vger.kernel.org
@@ -86,41 +79,27 @@ Signed-off-by: Tao Cui <cuitao@kylinos.cn>
 Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
 Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
 ---
- net/mptcp/pm_userspace.c | 14 ++++++++------
- 1 file changed, 8 insertions(+), 6 deletions(-)
+To: Shuah Khan <shuah@kernel.org>
+Cc: linux-kselftest@vger.kernel.org
+---
+ tools/testing/selftests/net/mptcp/mptcp_join.sh | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/net/mptcp/pm_userspace.c b/net/mptcp/pm_userspace.c
-index 8cbc1920afb4..0d3a95e676f1 100644
---- a/net/mptcp/pm_userspace.c
-+++ b/net/mptcp/pm_userspace.c
-@@ -408,19 +408,21 @@ int mptcp_pm_nl_subflow_create_doit(struct sk_buff *skb, struct genl_info *info)
- 	local.flags = entry.flags;
- 	local.ifindex = entry.ifindex;
- 
-+	spin_lock_bh(&msk->pm.lock);
-+	msk->pm.extra_subflows++;
-+	spin_unlock_bh(&msk->pm.lock);
-+
- 	lock_sock(sk);
- 	err = __mptcp_subflow_connect(sk, &local, &addr_r);
- 	release_sock(sk);
- 
--	if (err)
-+	if (err) {
- 		GENL_SET_ERR_MSG_FMT(info, "connect error: %d", err);
- 
--	spin_lock_bh(&msk->pm.lock);
--	if (err)
-+		spin_lock_bh(&msk->pm.lock);
- 		mptcp_userspace_pm_delete_local_addr(msk, &entry);
--	else
--		msk->pm.extra_subflows++;
--	spin_unlock_bh(&msk->pm.lock);
-+		spin_unlock_bh(&msk->pm.lock);
-+	}
- 
-  create_err:
- 	sock_put(sk);
+diff --git a/tools/testing/selftests/net/mptcp/mptcp_join.sh b/tools/testing/selftests/net/mptcp/mptcp_join.sh
+index 5acd12021e6e..4b3f71e66609 100755
+--- a/tools/testing/selftests/net/mptcp/mptcp_join.sh
++++ b/tools/testing/selftests/net/mptcp/mptcp_join.sh
+@@ -4100,6 +4100,10 @@ userspace_tests()
+ 		chk_rm_nr 0 1
+ 		chk_mptcp_info subflows 0 subflows 0
+ 		chk_subflows_total 1 1
++		# check counters are not affected by errors at creation time
++		userspace_pm_add_sf $ns2 10.0.12.2 10 2>/dev/null
++		chk_mptcp_info subflows 0 subflows 0
++		chk_subflows_total 1 1
+ 		kill_events_pids
+ 		mptcp_lib_kill_group_wait $tests_pid
+ 	fi
 
 -- 
 2.53.0
