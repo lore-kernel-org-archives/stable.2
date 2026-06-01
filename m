@@ -1,43 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B5E4346AFB
-	for <stable@vger.kernel.org>; Mon,  1 Jun 2026 11:02:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2621132ED34
+	for <stable@vger.kernel.org>; Mon,  1 Jun 2026 11:02:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780311728; cv=none; b=s6Kih/j/Qu9g87/EOLAaJ9DK7SgBkw3l3E9v/csUsIKZxXJm5r4EZ2JWbmdQThHoS1YCKsdI8INRglQ/yM+Vcbj56QRZ0Nk000IphawXM2a18xnvXUGpWCG5E7/UNYoao4sh+DMxY8Fq99Lehyp7QAVoQNCUCuU6J9TLjDSOGeU=
+	t=1780311733; cv=none; b=ElAJhGSZ/U+BKYTBAbspMkj9gsXcFwGO4CWGuMI/AIgZIIm5VV87AMjfAd2yY2C1e+Cs3RUU3YfxfvAcGWveshH2RdfN406n5tbE0IkTAfogpO6HKxnPpEUGOwUFfR9EYI1afksoZVHEO+gSqY/4IezKUd+RCcJKqbGRDX/E4fw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780311728; c=relaxed/simple;
-	bh=a/V/ZqsOru2Y9J+du0DU8mxrAJPAFgnbdOWSA1IOYQs=;
+	s=arc-20240116; t=1780311733; c=relaxed/simple;
+	bh=udRDF6zeiGkU5umSayP5uorMCFVseskk2kqNEmW5zpE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CLwnFi6kjRH1CW7p7smldigJg1s0KBbZF6ZIbEplHIm3IUh04IJtGFUjSAizcSsAJmx77VQ+jBDLlXwQpo8UmHnmWznQmtLghiEulHrldtUE3EePiBAOeGlOsyF6ZKoOxoyq8fyWYmkmqB4n1opN2zagVp7maMdvyX0+9dZnUJo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oyfpuF72; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=PS7XnuyqGOI1tUHu5boV6AoYiTguLt9Zh6dD56nLVVbzJk4AnRhFDJY4cVqA4Xcaz+ZDrEZoceIQUYdQVrNz+ZOkvm7M1e+G1C0TCIHA1aHiUl0s8LQak0B/ILSnInU1rFvFzrCZo2jlfXLVouyMTMwWmj8XBLjEXW+//deEE3w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F1c9xbJZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oyfpuF72"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D59D01F00899;
-	Mon,  1 Jun 2026 11:02:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F1c9xbJZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B5E81F00893;
+	Mon,  1 Jun 2026 11:02:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780311727;
-	bh=v7hlWWnWKATPA2BFRktGbl7qtTgWhJ7ZNc0XU1ZwKic=;
+	s=k20260515; t=1780311731;
+	bh=KO2RAXo3WUG9VMi5tHyfSUjk9hjT1G2iDXSFXtS37+8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=oyfpuF72BVq+MWpnkZnAxryEi4GzTa4wLDS5hiCABoD2UbHZeLBPcsaX9LRJBJ9cd
-	 V6daTTYAgmnlrNdfNrFXTI36DF+rsm5H/x7k4+dbaSl04vz4PWE4ZBxAwvuVZL6f3h
-	 t1TZ4Uv8Pfv+jSmQO050APDweNzHZv7eoxblUwLXbglIe0yMy9QvOq8HaJpYPs8s2I
-	 FarGqTjGpuHO9q2lFCM8NiZVpQUrdzsdj/e9i+lu6rJEJWqJwbhu867V42rOG2f/3O
-	 5Ql8tVcXqGio51coKGNEJD+lHGYvWAOPby9OgJYdahbmzVM+VC2+0hp70Cp/MPFKXt
-	 icGMMuYnY3eNw==
+	b=F1c9xbJZdHZmcwC8logWhidDrloUAFJjosECkultVuEVZxefvY/QgXEGLW3DDwLbq
+	 2TDo9pf1vG8E8W9pKDVm+CZTCTg3pVAcehk0IUCSlwDD/N58/SLx+9uHt0Kd7KGiqo
+	 g6EwXFfQ/7Eeu09NfyGfq+K8NrvsohH3J9J0ROACtWitSAminwGzo6JjAIMtn+iy3b
+	 bH8H2di1OVZx1s2NAkAPo9puof6x4NSsyE+HubyHsVqgfI5FAMWx8ez1ax77yUdFTX
+	 DTPAvUX4epqQJ6WPVj/uIEfXoswQfR6B8iiEWdLAnfExcJ6tc+bzzxZ3Wt1GHnfvfk
+	 zJVUpgNBcxZBQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
-	Henry Tseng <henrytseng@qnap.com>,
+Cc: Zeng Heng <zengheng4@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/2] cpufreq: intel_pstate: Use correct scaling factor on Raptor Lake-E
-Date: Mon,  1 Jun 2026 07:02:04 -0400
-Message-ID: <20260601110204.439565-2-sashal@kernel.org>
+Subject: [PATCH 5.10.y] arm64: tlb: Flush walk cache when unsharing PMD tables
+Date: Mon,  1 Jun 2026 07:02:09 -0400
+Message-ID: <20260601110209.439741-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260601110204.439565-1-sashal@kernel.org>
-References: <2026052846-jasmine-recess-d8cc@gregkh>
- <20260601110204.439565-1-sashal@kernel.org>
+In-Reply-To: <2026052837-spotty-squishier-8961@gregkh>
+References: <2026052837-spotty-squishier-8961@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,48 +45,54 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
+From: Zeng Heng <zengheng4@huawei.com>
 
-[ Upstream commit 0e7c710478b3089cdfe8669347f77b163e836c4f ]
+[ Upstream commit c2ff4764e03e7a8d758352f4aceb8fe1be6ac971 ]
 
-Raptor Lake-E has the same processor ID as Raptor Lake-S, so there is
-an entry in intel_hybrid_scaling_factor[] for it.  It does not contain
-E-cores though and hybrid_get_cpu_type() returns 0 for its P-cores, so
-they get the default "core" scaling factor.  However, the original
-Raptor Lake scaling factor for P-cores still needs to be used for
-mapping the HWP performance levels of the P-cores in Raptor Lake-E to
-frequency, as though they were part of a real hybrid system.
+When huge_pmd_unshare() is called to unshare a PMD table, the
+tlb_unshare_pmd_ptdesc() function sets tlb->unshared_tables=true
+but the aarch64 tlb_flush() only checked tlb->freed_tables to
+determine whether to use TLBF_NONE (vae1is, invalidates walk
+cache) or TLBF_NOWALKCACHE (vale1is, leaf-only).
 
-To address this, update hwp_get_cpu_scaling() to return
-hybrid_scaling_factor, which is the P-core scaling factor
-retrieved from intel_hybrid_scaling_factor[], for all CPUs
-that are not enumerated as E-cores.
+This caused the stale PMD page table entry to remain in the walk cache
+after unshare, potentially leading to incorrect page table walks.
 
-Fixes: 9b18d536b124 ("cpufreq: intel_pstate: Use CPPC to get scaling factors")
-Link: https://lore.kernel.org/all/20260511235328.2018458-1-srinivas.pandruvada@linux.intel.com/
-Reported-by: Henry Tseng <henrytseng@qnap.com>
-Closes: https://lore.kernel.org/linux-pm/20260508063032.3248602-1-henrytseng@qnap.com/
-Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-Cc: All applicable <stable@vger.kernel.org>
-Link: https://patch.msgid.link/4523296.ejJDZkT8p0@rafael.j.wysocki
+Fix by including unshared_tables in the check, so that when
+unsharing tables, TLBF_NONE is used and the walk cache is properly
+invalidated.
+
+Here is the detailed distinction between vae1is and vale1is:
+
+| Instruction Combination  | Actual Invalidation Scope                         |
+| ------------------------ | --------------------------------------------------|
+| `VAE1IS`  + TTL=`0`      | All entries at all levels (full invalidation)     |
+| `VAE1IS`  + TTL=`2` (L2) | Non-leaf at Level 0/1 + leaf at Level 2           |
+| `VALE1IS` + TTL=`0`      | Leaf entries at all levels (non-leaf not cleared) |
+| `VALE1IS` + TTL=`2` (L2) | Leaf entry at Level 2 only                        |
+
+Signed-off-by: Zeng Heng <zengheng4@huawei.com>
+Fixes: 8ce720d5bd91 ("mm/hugetlb: fix excessive IPI broadcasts when unsharing PMD tables using mmu_gather")
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Catalin Marinas <catalin.marinas@arm.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/cpufreq/intel_pstate.c | 2 +-
+ arch/arm64/include/asm/tlb.h | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/cpufreq/intel_pstate.c b/drivers/cpufreq/intel_pstate.c
-index 6e1a793408dee..7fb6412b5f193 100644
---- a/drivers/cpufreq/intel_pstate.c
-+++ b/drivers/cpufreq/intel_pstate.c
-@@ -2308,7 +2308,7 @@ static int hwp_get_cpu_scaling(int cpu)
- 		 * Return the hybrid scaling factor for P-cores and use the
- 		 * default core scaling for E-cores.
- 		 */
--		if (hybrid_get_cpu_type(cpu) == INTEL_CPU_TYPE_CORE)
-+		if (hybrid_get_cpu_type(cpu) != INTEL_CPU_TYPE_ATOM)
- 			return hybrid_scaling_factor;
+diff --git a/arch/arm64/include/asm/tlb.h b/arch/arm64/include/asm/tlb.h
+index c995d1f4594f6..cd6997187104d 100644
+--- a/arch/arm64/include/asm/tlb.h
++++ b/arch/arm64/include/asm/tlb.h
+@@ -53,7 +53,7 @@ static inline int tlb_get_level(struct mmu_gather *tlb)
+ static inline void tlb_flush(struct mmu_gather *tlb)
+ {
+ 	struct vm_area_struct vma = TLB_FLUSH_VMA(tlb->mm, 0);
+-	bool last_level = !tlb->freed_tables;
++	bool last_level = !(tlb->freed_tables || tlb->unshared_tables);
+ 	unsigned long stride = tlb_get_unmap_size(tlb);
+ 	int tlb_level = tlb_get_level(tlb);
  
- 		return core_get_scaling();
 -- 
 2.53.0
 
