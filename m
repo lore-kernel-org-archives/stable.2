@@ -1,41 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1222532ED34
-	for <stable@vger.kernel.org>; Mon,  1 Jun 2026 11:02:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B5E4346AFB
+	for <stable@vger.kernel.org>; Mon,  1 Jun 2026 11:02:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780311728; cv=none; b=jz3Len2U6BQlr9HIEo9/8CjYFczquj2FTaCsq/paz6tRPfjAleioqsrOL4Rc1CtQpNPFKHc20yu3XrKqttB7iraQamTiGAUBf+Q0xnkvFCwIeS5g4ydUvPiKqvC7JtdT38N+tmB0n1lcbmlBXWqH3jYOrbsWHQZDjaqcVTxCeO0=
+	t=1780311728; cv=none; b=s6Kih/j/Qu9g87/EOLAaJ9DK7SgBkw3l3E9v/csUsIKZxXJm5r4EZ2JWbmdQThHoS1YCKsdI8INRglQ/yM+Vcbj56QRZ0Nk000IphawXM2a18xnvXUGpWCG5E7/UNYoao4sh+DMxY8Fq99Lehyp7QAVoQNCUCuU6J9TLjDSOGeU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1780311728; c=relaxed/simple;
-	bh=XhR6oTkoKWqIqxVxPcVjY6ziMQAuF1oDMdwXHIeeroc=;
+	bh=a/V/ZqsOru2Y9J+du0DU8mxrAJPAFgnbdOWSA1IOYQs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fhh3DVTXd2VnOBEt0hZkKxe804G8bBU+dz1y9L7xA/AwnCUoiyGz2VTcN5atWQaJ+OReWwFScyCsmOhJCVAEBGlIhwPDjlqPwpbkl5q4yW5pQ6h4x9ybDZ//iWK6gtbPSaGpVS005LQBdZPl42XvUIZFJBBupF06b32U3Xr3EdM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ayvnsapa; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=CLwnFi6kjRH1CW7p7smldigJg1s0KBbZF6ZIbEplHIm3IUh04IJtGFUjSAizcSsAJmx77VQ+jBDLlXwQpo8UmHnmWznQmtLghiEulHrldtUE3EePiBAOeGlOsyF6ZKoOxoyq8fyWYmkmqB4n1opN2zagVp7maMdvyX0+9dZnUJo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oyfpuF72; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ayvnsapa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33C021F00893;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oyfpuF72"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D59D01F00899;
 	Mon,  1 Jun 2026 11:02:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780311726;
-	bh=0og8ay/3mP3D01K0aHSHgRqjzAkle1o5LnrNjGQ2Dxg=;
+	s=k20260515; t=1780311727;
+	bh=v7hlWWnWKATPA2BFRktGbl7qtTgWhJ7ZNc0XU1ZwKic=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=AyvnsapasQFY08C8bX55wpzFj2BygxQSx+KkBvU3CFxOckIV3JjPbCBI+rQsHBZLV
-	 s3hB4POjmXKTHmLTvUhtuTlJOGJUvSmq6CRq+JGf9TuU02aNDuhAqkz675X95Hbd8b
-	 0d6tPC3DmQqD59t9ENY9sMfFa7vTqsqKML4u+MV1pLPiIwcfrfPZjSiTwgIGNKY2rg
-	 ry2fRPYdUBGtvGvf5ipXgYedh223kDOqV+j+XN02xhZbnR0exL8bSc5XwGN4HZOi96
-	 Pb0fGUqHAdOUGxMONO1d8bhaRTb2oQ0X1Hde1viqd/rwDZOBEgQesnXh5yT49qBSAN
-	 CqvVUlLnE0llQ==
+	b=oyfpuF72BVq+MWpnkZnAxryEi4GzTa4wLDS5hiCABoD2UbHZeLBPcsaX9LRJBJ9cd
+	 V6daTTYAgmnlrNdfNrFXTI36DF+rsm5H/x7k4+dbaSl04vz4PWE4ZBxAwvuVZL6f3h
+	 t1TZ4Uv8Pfv+jSmQO050APDweNzHZv7eoxblUwLXbglIe0yMy9QvOq8HaJpYPs8s2I
+	 FarGqTjGpuHO9q2lFCM8NiZVpQUrdzsdj/e9i+lu6rJEJWqJwbhu867V42rOG2f/3O
+	 5Ql8tVcXqGio51coKGNEJD+lHGYvWAOPby9OgJYdahbmzVM+VC2+0hp70Cp/MPFKXt
+	 icGMMuYnY3eNw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+	Henry Tseng <henrytseng@qnap.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 1/2] cpufreq: intel_pstate: Add and use hybrid_get_cpu_type()
-Date: Mon,  1 Jun 2026 07:02:03 -0400
-Message-ID: <20260601110204.439565-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 2/2] cpufreq: intel_pstate: Use correct scaling factor on Raptor Lake-E
+Date: Mon,  1 Jun 2026 07:02:04 -0400
+Message-ID: <20260601110204.439565-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026052846-jasmine-recess-d8cc@gregkh>
+In-Reply-To: <20260601110204.439565-1-sashal@kernel.org>
 References: <2026052846-jasmine-recess-d8cc@gregkh>
+ <20260601110204.439565-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,57 +48,46 @@ Content-Transfer-Encoding: 8bit
 
 From: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
 
-[ Upstream commit 528dde6619677ac6dc26d9dda1e3c9014b4a08c8 ]
+[ Upstream commit 0e7c710478b3089cdfe8669347f77b163e836c4f ]
 
-Introduce a function for identifying the type of a given CPU in a
-hybrid system, called hybrid_get_cpu_type(), and use if for hybrid
-scaling factor determination in hwp_get_cpu_scaling().
+Raptor Lake-E has the same processor ID as Raptor Lake-S, so there is
+an entry in intel_hybrid_scaling_factor[] for it.  It does not contain
+E-cores though and hybrid_get_cpu_type() returns 0 for its P-cores, so
+they get the default "core" scaling factor.  However, the original
+Raptor Lake scaling factor for P-cores still needs to be used for
+mapping the HWP performance levels of the P-cores in Raptor Lake-E to
+frequency, as though they were part of a real hybrid system.
 
+To address this, update hwp_get_cpu_scaling() to return
+hybrid_scaling_factor, which is the P-core scaling factor
+retrieved from intel_hybrid_scaling_factor[], for all CPUs
+that are not enumerated as E-cores.
+
+Fixes: 9b18d536b124 ("cpufreq: intel_pstate: Use CPPC to get scaling factors")
+Link: https://lore.kernel.org/all/20260511235328.2018458-1-srinivas.pandruvada@linux.intel.com/
+Reported-by: Henry Tseng <henrytseng@qnap.com>
+Closes: https://lore.kernel.org/linux-pm/20260508063032.3248602-1-henrytseng@qnap.com/
 Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-Link: https://patch.msgid.link/1954386.tdWV9SEqCh@rafael.j.wysocki
-Stable-dep-of: 0e7c710478b3 ("cpufreq: intel_pstate: Use correct scaling factor on Raptor Lake-E")
+Cc: All applicable <stable@vger.kernel.org>
+Link: https://patch.msgid.link/4523296.ejJDZkT8p0@rafael.j.wysocki
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/cpufreq/intel_pstate.c | 13 +++++++------
- 1 file changed, 7 insertions(+), 6 deletions(-)
+ drivers/cpufreq/intel_pstate.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/cpufreq/intel_pstate.c b/drivers/cpufreq/intel_pstate.c
-index eb7fb25dfbefc..6e1a793408dee 100644
+index 6e1a793408dee..7fb6412b5f193 100644
 --- a/drivers/cpufreq/intel_pstate.c
 +++ b/drivers/cpufreq/intel_pstate.c
-@@ -909,6 +909,11 @@ static struct freq_attr *hwp_cpufreq_attrs[] = {
- 	[HWP_CPUFREQ_ATTR_COUNT] = NULL,
- };
- 
-+static u8 hybrid_get_cpu_type(unsigned int cpu)
-+{
-+	return cpu_data(cpu).topo.intel_type;
-+}
-+
- static bool no_cas __ro_after_init;
- 
- static struct cpudata *hybrid_max_perf_cpu __read_mostly;
-@@ -2299,18 +2304,14 @@ static int knl_get_turbo_pstate(int cpu)
- static int hwp_get_cpu_scaling(int cpu)
- {
- 	if (hybrid_scaling_factor) {
--		struct cpuinfo_x86 *c = &cpu_data(cpu);
--		u8 cpu_type = c->topo.intel_type;
--
- 		/*
+@@ -2308,7 +2308,7 @@ static int hwp_get_cpu_scaling(int cpu)
  		 * Return the hybrid scaling factor for P-cores and use the
  		 * default core scaling for E-cores.
  		 */
--		if (cpu_type == INTEL_CPU_TYPE_CORE)
-+		if (hybrid_get_cpu_type(cpu) == INTEL_CPU_TYPE_CORE)
+-		if (hybrid_get_cpu_type(cpu) == INTEL_CPU_TYPE_CORE)
++		if (hybrid_get_cpu_type(cpu) != INTEL_CPU_TYPE_ATOM)
  			return hybrid_scaling_factor;
  
--		if (cpu_type == INTEL_CPU_TYPE_ATOM)
--			return core_get_scaling();
-+		return core_get_scaling();
- 	}
- 
- 	/* Use core scaling on non-hybrid systems. */
+ 		return core_get_scaling();
 -- 
 2.53.0
 
