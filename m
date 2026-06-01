@@ -1,43 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 912EE1465B4
-	for <stable@vger.kernel.org>; Mon,  1 Jun 2026 00:44:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 992CC1465B4
+	for <stable@vger.kernel.org>; Mon,  1 Jun 2026 00:44:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780274656; cv=none; b=LXjli6WI5FsNZ0YVDlag+cPG+VluSjXb+KQcBbislPv0168NP+mFdlKBD2jwCaxMqPkNMIPawSGXs+UhkxplplgOt0TstUplvySHs6AtjyKB/XxzOdqy5his7mu1rV1h5ldvZ3gMBebQdSaunBtOnzTU3e8A27YPJj5B33FEpZo=
+	t=1780274660; cv=none; b=Qr54OrjIg6cmoKumHgCGn7YFKcEu+gpYwsr0TPYL9WuNW9fqhuP4J6qjKXcBqGok1rY0B2ckq7/IpprEjogkmk3IiWzMxfOwsxgNNhSua1Glww7bMTeaE7gUXiKGfgKS/iLrcegqFZSU4135lYkKSx83fTMFw2bpTGxy+F4+gsE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780274656; c=relaxed/simple;
-	bh=C5K+IURjv1GFRGM6G2rDKQkH9tyxqZ8qkMSQ+yWMaJU=;
+	s=arc-20240116; t=1780274660; c=relaxed/simple;
+	bh=MB9u9jjLsohfYVPymqmHma+qjODr9B1H4UcJR6k+KBQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NEIfGUvsAfA2zHvtjpJpDt1QbBoSEcse4el6Z2WdRM6g0I3ixX+usnYzjnLRtn74C2WCUG1woUpbNIk2DVsTCqa0C2gHRXF6ieExApHTJ9s6lrX++rlt3IFbi6zO3vmgqABpyyQdnciDgVITtk45tJdCgAgVKGdWcDI/3zVU/+I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KUwjgqIG; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=RFKW7uG31t8s+ZFsdGdp9Vlf98YhqIKCb6/0QLKBksJJvSPtcHZfOUtW6dHLswqKVWFBp9bg0mY1XIDB0WACSFERjQpt9oBtrat+1mfG3AcjfavSoC2o+Apgf0pW7GhxxcfNcbNm7vaRtYIZhNaaNOM39qh5DCn30Dm5JbZnOgk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GsQ0qtBz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KUwjgqIG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF15B1F00893;
-	Mon,  1 Jun 2026 00:44:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GsQ0qtBz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA9971F00893;
+	Mon,  1 Jun 2026 00:44:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780274655;
-	bh=bt/RlMss2gDhEF0SrsIdoI+u5Z2Bk/zlNfVfB1kckSU=;
+	s=k20260515; t=1780274659;
+	bh=Lz1UC4afwI6xbTP+Q1mOuhJIW7et4efxhRwj7TMQAIQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=KUwjgqIGHNDiD9frPHc8nYzlio+yMWDd1NBByYaTTRd9DvOtaX2oMT0e6sJHRTjWL
-	 JM3pP4WhJTzJOQ+cKcufdBQGyqb5EPAfYjHmtZUwkm1xf4prNmoLo4Ngz4p6eqgiL8
-	 b2OmqWfOus/HqkXi0/tjoVlT72ra8ekotWiQFkG3BATM/sO6Be0DpqWa0Z1X33E6kF
-	 0tSCbDvvVDOtxPlhm3I+DKOb8bD0UDgcACwBusMTZkFqZTbZTvPGAI/tRBFPUG++I5
-	 fuUyK12QD9px6GhqpcEzLMfpeg5hqxOAa12LaUWPAKZyqw3A04wOGbTMCuLlUjG3Lf
-	 V4Oz9yGiriJIg==
+	b=GsQ0qtBzk7SoNTBowC2Y57PMzY0wZRdu18NoNmz5MqIZArKZQ90LjbZMswYpcwLmV
+	 ZrbOsaEbl7qBdim4o/03EIHS0KQbWDS9fDoGAWDRyfM9BwZ4RsN36ogxRvrsABlBs9
+	 ylnl8znoJOUHhN2eOzd5ULz1fR4Yv0OYnibOhTlY3SW5MKFlLw8oZc/rNsDo6ydljE
+	 hEOQ0gLUkwemaZHjniC6HIjiv7O0/b2YUsF0Rh5vVtm/a1k7LmxglTrSiodm7C6zJs
+	 uOhnMSFa/78NCmUnW41gmDLnREsAD052LtcMGnRPDO38qJ+PuVAMaXNhsEOOqK2XdG
+	 jr3CF78tnQhYQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Gang Yan <yangang@kylinos.cn>,
-	"Matthieu Baerts (NGI0)" <matttbe@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
+Cc: Zeng Heng <zengheng4@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] mptcp: update window_clamp on subflows when SO_RCVBUF is set
-Date: Sun, 31 May 2026 20:44:13 -0400
-Message-ID: <20260601004413.90717-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] arm64: tlb: Flush walk cache when unsharing PMD tables
+Date: Sun, 31 May 2026 20:44:17 -0400
+Message-ID: <20260601004417.90834-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026052819-lifter-chariot-8dc6@gregkh>
-References: <2026052819-lifter-chariot-8dc6@gregkh>
+In-Reply-To: <2026052833-matter-helmet-c510@gregkh>
+References: <2026052833-matter-helmet-c510@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,73 +45,54 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Gang Yan <yangang@kylinos.cn>
+From: Zeng Heng <zengheng4@huawei.com>
 
-[ Upstream commit 3a543ae0e2092d5c2085d5f21f7a7dbafdffea3c ]
+[ Upstream commit c2ff4764e03e7a8d758352f4aceb8fe1be6ac971 ]
 
-Add __mptcp_subflow_set_rcvbuf() helper to write the subflow sk_rcvbuf,
-but also to call the recently added tcp_set_rcvbuf() helper to update
-window_clamp. This is needed because the window clap is updated when
-scaling_ratio changes, in tcp_measure_rcv_mss(). Until scaling_ratio
-changes, the subflow is stuck with the old window clamp which may be
-based on a small initial buffer.
+When huge_pmd_unshare() is called to unshare a PMD table, the
+tlb_unshare_pmd_ptdesc() function sets tlb->unshared_tables=true
+but the aarch64 tlb_flush() only checked tlb->freed_tables to
+determine whether to use TLBF_NONE (vae1is, invalidates walk
+cache) or TLBF_NOWALKCACHE (vale1is, leaf-only).
 
-Use this new helper in both mptcp_sol_socket_sync_intval() (setsockopt
-path) and sync_socket_options() (new subflow creation path).
+This caused the stale PMD page table entry to remain in the walk cache
+after unshare, potentially leading to incorrect page table walks.
 
-Note that this patch depends on commit b025461303d8 ("tcp: update
-window_clamp when SO_RCVBUF is set"): it fixes the issue on TCP side,
-but the same fix is needed on MPTCP side as well.
+Fix by including unshared_tables in the check, so that when
+unsharing tables, TLBF_NONE is used and the walk cache is properly
+invalidated.
 
-Fixes: a2cbb1603943 ("tcp: Update window clamping condition")
-Cc: stable@vger.kernel.org
-Closes: https://github.com/multipath-tcp/mptcp_net-next/issues/619
-Signed-off-by: Gang Yan <yangang@kylinos.cn>
-Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
-Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
-Link: https://patch.msgid.link/20260515-net-mptcp-misc-fixes-7-1-rc4-v2-5-701e96419f2f@kernel.org
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-[ inlined missing `tcp_set_rcvbuf()` to `tcp_set_window_clamp(ssk, tcp_win_from_space(ssk, val))` ]
+Here is the detailed distinction between vae1is and vale1is:
+
+| Instruction Combination  | Actual Invalidation Scope                         |
+| ------------------------ | --------------------------------------------------|
+| `VAE1IS`  + TTL=`0`      | All entries at all levels (full invalidation)     |
+| `VAE1IS`  + TTL=`2` (L2) | Non-leaf at Level 0/1 + leaf at Level 2           |
+| `VALE1IS` + TTL=`0`      | Leaf entries at all levels (non-leaf not cleared) |
+| `VALE1IS` + TTL=`2` (L2) | Leaf entry at Level 2 only                        |
+
+Signed-off-by: Zeng Heng <zengheng4@huawei.com>
+Fixes: 8ce720d5bd91 ("mm/hugetlb: fix excessive IPI broadcasts when unsharing PMD tables using mmu_gather")
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Catalin Marinas <catalin.marinas@arm.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/mptcp/sockopt.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+ arch/arm64/include/asm/tlb.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/net/mptcp/sockopt.c b/net/mptcp/sockopt.c
-index de12b3c548edd..566ab5e6c8621 100644
---- a/net/mptcp/sockopt.c
-+++ b/net/mptcp/sockopt.c
-@@ -67,6 +67,12 @@ static int mptcp_get_int_option(struct mptcp_sock *msk, sockptr_t optval,
- 	return 0;
- }
- 
-+static void __mptcp_subflow_set_rcvbuf(struct sock *ssk, int val)
-+{
-+	WRITE_ONCE(ssk->sk_rcvbuf, val);
-+	tcp_set_window_clamp(ssk, tcp_win_from_space(ssk, val));
-+}
-+
- static void mptcp_sol_socket_sync_intval(struct mptcp_sock *msk, int optname, int val)
+diff --git a/arch/arm64/include/asm/tlb.h b/arch/arm64/include/asm/tlb.h
+index a947c6e784ed2..d29a3b842b105 100644
+--- a/arch/arm64/include/asm/tlb.h
++++ b/arch/arm64/include/asm/tlb.h
+@@ -58,7 +58,7 @@ static inline int tlb_get_level(struct mmu_gather *tlb)
+ static inline void tlb_flush(struct mmu_gather *tlb)
  {
- 	struct mptcp_subflow_context *subflow;
-@@ -100,7 +106,7 @@ static void mptcp_sol_socket_sync_intval(struct mptcp_sock *msk, int optname, in
- 		case SO_RCVBUF:
- 		case SO_RCVBUFFORCE:
- 			ssk->sk_userlocks |= SOCK_RCVBUF_LOCK;
--			WRITE_ONCE(ssk->sk_rcvbuf, sk->sk_rcvbuf);
-+			__mptcp_subflow_set_rcvbuf(ssk, sk->sk_rcvbuf);
- 			break;
- 		case SO_MARK:
- 			if (READ_ONCE(ssk->sk_mark) != sk->sk_mark) {
-@@ -1558,7 +1564,7 @@ static void sync_socket_options(struct mptcp_sock *msk, struct sock *ssk)
- 			mptcp_subflow_ctx(ssk)->cached_sndbuf = sk->sk_sndbuf;
- 		}
- 		if (sk->sk_userlocks & SOCK_RCVBUF_LOCK)
--			WRITE_ONCE(ssk->sk_rcvbuf, sk->sk_rcvbuf);
-+			__mptcp_subflow_set_rcvbuf(ssk, sk->sk_rcvbuf);
- 	}
+ 	struct vm_area_struct vma = TLB_FLUSH_VMA(tlb->mm, 0);
+-	bool last_level = !tlb->freed_tables;
++	bool last_level = !(tlb->freed_tables || tlb->unshared_tables);
+ 	unsigned long stride = tlb_get_unmap_size(tlb);
+ 	int tlb_level = tlb_get_level(tlb);
  
- 	if (sock_flag(sk, SOCK_LINGER)) {
 -- 
 2.53.0
 
