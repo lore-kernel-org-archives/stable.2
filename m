@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCB45823DE
-	for <stable@vger.kernel.org>; Mon,  1 Jun 2026 00:50:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1350D78F4A
+	for <stable@vger.kernel.org>; Mon,  1 Jun 2026 00:51:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780275039; cv=none; b=m+kpcAvkCd//2EWXIAgUD3z6ODebkWIkDcHtxSqhH+tgfbAtRiDavLiJQT47BlXu8hMBiYFrvdmy+/f2dTbqHSV1ZPZ/yz1KChGKbRx3v3mEx7lgruegCKfQQNZnFJe78phQt33VgT+UkM6l8WStDURP6ulYspkaIjhPQOGEgKk=
+	t=1780275116; cv=none; b=Vis7mseXAI0u5y4c2yiIzEsn1SmSVM7O4haXjckCF7oWf3cYRCwOAnheK20pFKA6Zm+00Pz04WgmBVkqtwAFctUw1XLzZK8N7pkzSdlyRyhD9kB+bjlV/BnSCjQeOW6T2HZWcztZP7ruHOaTB3eB5h5deBqH9Pqvvwqzs4I/1m0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780275039; c=relaxed/simple;
-	bh=ALab0YfEDuB+7HmfWwC6YGIS3uf5Xr3n8uaQy4Ys1hg=;
+	s=arc-20240116; t=1780275116; c=relaxed/simple;
+	bh=+S9NSdhppfuuIZ57IfsM1POTlB+yIiP0/LHxn/pNu70=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=EnzE5SAfhKhZgpZmMHfALqFStXlW4qCwlqeBqbNn9wboqMg7EDRVXl8TdLsbGozTMDFqPp/miWytL1WS1yxvQ8Lxrok6L6LALEDdjAWR848JnWAN5dmyRQg+BMCEyWLksEopKkAAvD1zoYMBCyWA56jhlB6/ndDuHPsBhz6BEU4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GMjZScGD; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=jz/kme42aJ/xUacTN/9B/IjZ3CW3A/XWBVd0AnfKDUDVW5yrsI6Y3so/TBk2YrEOHPeQNoMOIGwFE5bQRcFQS49J63c1vkZtI5Wdtp1w8ExFAeM2D7Lvk7dwLHl9kReDMNTUrnnnTvehZ5xMPT5T7zAr4qfBzXYBeaqZNkjv29M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oSX/Bp2y; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GMjZScGD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFC381F00893;
-	Mon,  1 Jun 2026 00:50:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oSX/Bp2y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F26151F00893;
+	Mon,  1 Jun 2026 00:51:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780275038;
-	bh=JociplAlb0brmADuK6eAzOunhaiDYOcLqW2/nxIZUGg=;
+	s=k20260515; t=1780275115;
+	bh=0plXK96bdqA0JcgaUA8+fp5VBI2BMUrCX3QLNw41duY=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=GMjZScGDyj3haL7ksPp8Xkh+FGxUzBb59CEplRbRqlHrXJoLBjx68TQHq9+yoEADJ
-	 FY5uiJKwlzQ76PulNLOqPq59ptUXwzK22XfbQ9RhAvGVtxAGK6rGaxzc3tMOReXepV
-	 85tbgW2IsN0JkJjIAJLhg9wr4SvjJYlgyuijzLb1tXsEexoXZsaA1cume1fBAnDpTa
-	 WVXHC9zzqlHxlG+t1LpDgbS/nnym+jG2XrG6ibWujd/0sNtmKsW66u5VnMJFNGV/rj
-	 qjjnXXf50O2RF21yksFEND/S56s1q4FKKhN8XJBdv5kGlptd5vffZoSUiCCsi8SAQI
-	 NI+WmxD46DS6g==
-Message-ID: <bd2ea2a2-5ec9-49f2-90e1-5551c4f5c3e2@kernel.org>
-Date: Mon, 1 Jun 2026 10:50:33 +1000
+	b=oSX/Bp2yVP9JTYYtulWVkdtPrAYx4+EyH0cpIaA5yPUX8YtgoUEi8/8pGcCGj1q+P
+	 UE+ACYdUs/vhtCMiFzjsuOIgeFD9ztGO8zd8iYU1+d2E9QifPD+70VbKLA3h2U9jLW
+	 +bIM+qZL/4nKqlyvWxy5MnLiqT2x+HgDzrg0oa5hB/9XQ1l0Tzn5znCp5evuHMdJYh
+	 aw/20fVSwOpPhMXUEKkEVQHhQN4Mdw8GRv0dI3hu17vIxG9ePwB4AW8jgcbKCI++jy
+	 WcDS+YtQFl9bQTPAeYjp13UFu5NaJVF8eDa11ZN2HSwHKdggDz4Yh8+QOKhANFAvZD
+	 auEQ//pzc03pw==
+Message-ID: <19e7e34b-c0ea-4129-b8a4-2e781dec800c@kernel.org>
+Date: Mon, 1 Jun 2026 10:51:51 +1000
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,14 +35,13 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird Beta
-Subject: Re: [PATCH 7.0.y] mptcp: update window_clamp on subflows when
+Subject: Re: [PATCH 6.18.y] mptcp: update window_clamp on subflows when
  SO_RCVBUF is set
 Content-Language: fr
-To: Sasha Levin <sashal@kernel.org>
-Cc: Gang Yan <yangang@kylinos.cn>, Paolo Abeni <pabeni@redhat.com>,
- stable@vger.kernel.org
-References: <2026052819-liberty-cramp-97fe@gregkh>
- <20260601003905.84041-1-sashal@kernel.org>
+To: Sasha Levin <sashal@kernel.org>, stable@vger.kernel.org
+Cc: Gang Yan <yangang@kylinos.cn>, Paolo Abeni <pabeni@redhat.com>
+References: <2026052819-lifter-chariot-8dc6@gregkh>
+ <20260601004413.90717-1-sashal@kernel.org>
 From: Matthieu Baerts <matttbe@kernel.org>
 Autocrypt: addr=matttbe@kernel.org; keydata=
  xsFNBFXj+ekBEADxVr99p2guPcqHFeI/JcFxls6KibzyZD5TQTyfuYlzEp7C7A9swoK5iCvf
@@ -88,13 +87,13 @@ Autocrypt: addr=matttbe@kernel.org; keydata=
  JY6dglzGKnCi/zsmp2+1w559frz4+IC7j/igvJGX4KDDKUs0mlld8J2u2sBXv7CGxdzQoHaz
  lzVbFe7fduHbABmYz9cefQpO7wDE/Q==
 Organization: NGI0 Core
-In-Reply-To: <20260601003905.84041-1-sashal@kernel.org>
+In-Reply-To: <20260601004413.90717-1-sashal@kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 Hi Sasha,
 
-On 01/06/2026 10:39, Sasha Levin wrote:
+On 01/06/2026 10:44, Sasha Levin wrote:
 > From: Gang Yan <yangang@kylinos.cn>
 > 
 > [ Upstream commit 3a543ae0e2092d5c2085d5f21f7a7dbafdffea3c ]
@@ -112,17 +111,8 @@ On 01/06/2026 10:39, Sasha Levin wrote:
 > Note that this patch depends on commit b025461303d8 ("tcp: update
 > window_clamp when SO_RCVBUF is set"): it fixes the issue on TCP side,
 > but the same fix is needed on MPTCP side as well.
-Thank you for the backport. I guess there is a conflict, because commit
-b025461303d8 ("tcp: update window_clamp when SO_RCVBUF is set") has not
-been backported to 7.0 (nor 6.18, 6.12 and 6.6). See the note above for
-more details.
-
-In other words, MPTCP is imitating TCP's behaviour. So no need to
-backport this patch if the fix on TCP side is not backported either.
-
-I think it would be better to take both the TCP fix (b025461303d8), and
-this one (3a543ae0e209). But maybe the TCP fix has not been backported
-on purpose?
+See my message on the same patch for v7.0: b025461303d8 should be
+backported first, but if not, better not to backport this patch.
 
 Cheers,
 Matt
