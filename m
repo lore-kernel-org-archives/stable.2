@@ -1,170 +1,175 @@
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013012.outbound.protection.outlook.com [40.107.162.12])
+Received: from out-174.mta0.migadu.com (out-174.mta0.migadu.com [91.218.175.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A024194A6C;
-	Mon,  1 Jun 2026 21:04:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.12
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780347842; cv=fail; b=tWVdEvFTWFyLwcarszDj68JFOn1iTeJNTVVycnTspbuDuLe/IRYqyM0UuCiDlKY/rdeB8PXDvT/zggV5XbkypVQ6pnqLtAG1eNL9Gf0nCu9srWp1Tk1V9qxrmVSaTTiD9fu3hvrrL/18zDGCtRYaYDPNFfZhdkuyO1WgOPydzOE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780347842; c=relaxed/simple;
-	bh=4zDKudiuYQO/NGbYTiWGLsv/6NDwkESUUnQwEi3HpdE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=EO55+56HfBsTfjyOUeaYE6OI6VOu5sTfMc3DNsuUhNUhOZpXTqnHuKx8e8Licz/5PjxSRq9gNecByx4QckpyU5nbR+abZFaghhArIg1KNjSKWa3jtSkuZaTj5KDANlQdDfP2jHfQDjX6O6EA9/63l9oUykrKbD5U1rLRWxpjw78=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=HIMX/AGS; arc=fail smtp.client-ip=40.107.162.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC5832E9ED6
+	for <stable@vger.kernel.org>; Mon,  1 Jun 2026 21:07:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.174
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780348066; cv=none; b=M4g0hTWWr0iJjrJEDNqCHVzNST/551I1CCkT/DY2vmJCoQoArJwQfBDVdMiHhpdVxrajDoURJrfEPPj0DkCYa8arQostUMUX/lTLbh/h6A7WUa9OuOYyUXc9yFThp3iiKcipFoh6dOoF4zjsCF8REELpBdN/+gMD3K2++v8K2XE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780348066; c=relaxed/simple;
+	bh=+L8aVHnARkByV3UmQ+HgDTphp9/dN6AUUqp/Wm7Mltw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Dl8oVmUFllP+il/ZPWx/UTHTClQ+QUGSwIOC9IFGjLpEchfVuE0ijFc+j3QR20Bs5CaPjONaMTVO95PXF6A8FmizA5IM8DJQ2J+RO6SLXf1k+oCfXsO7XrZsZBHXKHnTfCXPN6XWrG/HP27scjcaQ0SC2nHgH9eyg6pBAop44Uc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=UKNosXut; arc=none smtp.client-ip=91.218.175.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="HIMX/AGS"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Qb71uT3GBC+CL+n1sLhZX0V4MF7d2KWcvQheRhE7exGnanV57ubpvHkRcDQD5yM/8tm/jhE3RhMH3/h8b6xMDy5ZdBQoyVxMMnSDUNXRt77oxQcRp2icspJzxZU2cI/Ly9SNiZXuBIFz93+6faeq3nTTfpBbp5MzfUIVHHqQwe7Pzq5D5ZztKrP/hrHBymBdxjTyr4n/tyPsNwXXLSbq3SWwNatctcjQVU2lgBnCb9/rQlcL3quOwDb2J/gUb7SsY8eEriHcgiHuoKoKk6zZc3SLPWfjOfmNM/S91maeBRXOKg8sGFVlfjkV/VP24/1j+pLgxNGBNxH6GUNsraicPg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nslvE/JwldPBYVw3KdaCFrfBxLVcgwqeOy34asEZtZo=;
- b=nrJb0Nsw11JW1xcnNlY8wA0anCokHYQHSdi10yOAxRvwq+Sc18DKpULJoCXVI6gEiQ3EvGifzWvTRVNf0krlV9t527U9BvYapp8dLALIrpLlVq63xNrckaZjEufe8rOpA7ngtbp5TN/I+xQhe9d1MwKys2MvesNbG1ohfW2y8NsdTEKFrHlmhq2/kO/Msv+chZwZqQHxe+PjBgYQPF1Fn/bvwf6kmMvVHHpmp+I8LuIUMmNng5unyC8EEa/8Wql7Mi5FvzOQiWI7QS8gCjykUiA7xGv4W/25u+1/K1ImTaYfdMTJI6ajNsV6WPSu3qeqr79wqnKvzgO5qbYB9UHfkg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nslvE/JwldPBYVw3KdaCFrfBxLVcgwqeOy34asEZtZo=;
- b=HIMX/AGSVBekr1073cVJB5fdL1QMHVlC+GMCwe7Zoh6FJvhOSvcCjWg1AZnShAFsf0GndDoh6fvrGBPJNJDO7godX7a5W0QlTvLl/ouFjtzXO50PxHPVcyEaxRnu8K5Aq6vDs464nPLgr7PKFjLAXZlyOVognb/4G9quLSpAajwI4gvdal54MMn8bwdC06R6jyBPoXpR6Eq3uFLaTdh3G/e6gFL9yptvNPUjb2/glGQwPSg3Rzk0Q02HfwkPH9WGNcbYEWDMeMAz/KfaU7NPRMK/SXhf3kLZ/+HzXxMa3/BX9aeop4LXBAPWxlqeno8ZcYp/4zvams4DGrbbfwypmQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by VI0PR04MB12079.eurprd04.prod.outlook.com (2603:10a6:800:310::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.16; Mon, 1 Jun 2026
- 21:03:58 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0071.014; Mon, 1 Jun 2026
- 21:03:58 +0000
-From: Frank.Li@oss.nxp.com
-To: Chester Lin <chester62515@gmail.com>,
-	Matthias Brugger <mbrugger@suse.com>,
-	Ghennadi Procopciuc <ghennadi.procopciuc@oss.nxp.com>,
-	NXP S32 Linux Team <s32@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Shawn Guo <shawnguo@kernel.org>,
-	linux-arm-kernel@lists.infradead.org,
-	imx@lists.linux.dev,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Frank Li <Frank.Li@nxp.com>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] arm64: dts: s32g3: Fix SWT8 watchdog address
-Date: Mon,  1 Jun 2026 17:03:50 -0400
-Message-ID: <178034782710.586600.17914400551362692167.b4-ty@b4>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260528120323.46287-2-krzysztof.kozlowski@oss.qualcomm.com>
-References: <20260528120323.46287-2-krzysztof.kozlowski@oss.qualcomm.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PH8P220CA0029.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:510:348::13) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="UKNosXut"
+Message-ID: <a167cf00-7a9c-4a30-9142-e0b6f9a4a3d7@linux.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1780348061;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=co0I00Xq52CoHpDQW6LxXKmSSFvzTGDaX5Spnes4S7Y=;
+	b=UKNosXutGYs6+967EgMtIqG8JVq9x0cg73SkhMlQT1c37PNmfT/993A5K1YsQyZtwOnFkO
+	cbpa2Mjo2pkZDiPsnS/gbuiNDqNofIXM9YurXBqCW/tR7NHllXTSbfQzuAvV+1Ym6bgBmi
+	zEh665smwy1LyY9DyKyzIPuuzvlYHJs=
+Date: Mon, 1 Jun 2026 14:07:30 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|VI0PR04MB12079:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9a3d6441-060b-4a1c-66c2-08dec0214c5f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|366016|1800799024|7416014|376014|921020|18002099003|22082099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	Gf4mKerwv+IGWQwjqwnR5kI2ZgkvL28iGmKRAQcrX4sjiVPyUyT6zVz2jhL5z6QP2sB7vPZsTBv94wvqFZDoBmmb3OsY6qDJuc0ltgN81cuaaMaSGf65KjzKXzxJcGfF2oTNIrX7GANxFYOl+YBtxQSxGnLB/a5q/CdmshFVO1+UbJj2b7sCL1UG5CaT5eiTb/mgsVWfDenu3pAsHTKFui4+hiHH2YqORh8GepWsv30kI7wAbvZy8tH5MhVPUBQsiAqPbsdJagc6hEhbf7LSFSiJeTO+YnKmT+7N6YFaNlsoHvpG1PAgmiZdpY8Z/wMFBpiSUtPDt0ScK1bWeGtua/RCtyCxRujaUkIHiYwj8s8vALeTo3yLa3QXdaspnXMDGv0Cw7VHgTEsDRVpaO/IDuOotO43+L4LpvJEs+IKBsv+TMqy4ZE7u/geoc7mhkEcOyA91AJEN0ZjDkK5tDQKuvjURvznxMnaNGHlVGAIxgOYdJYERmSIe3vWb/8/mAEXOLfuzy3NZ5v94jS0A9C6xorCRdAPKA7tYGWcR61r9UVYqeREMpBFxiCSPzOzVoHk4G7hoS6tzEWhhbNMqxrlNCKsuMGFw75yEtOJ5s1Ti3gXCwgesvyH5iG2aNblMHhU0daojq18GTQ2fIt5y3LAm1FeZuzh2tm9XYYJl58TvLqd/6tPZ/p7n9ydkcw2+moJv7iAC+0tAtDluswpBBS6cOD8fsjf3Q7RZFJVuj1CH28=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(366016)(1800799024)(7416014)(376014)(921020)(18002099003)(22082099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?RW1Fc0hqUUY5QjZkVWZxeTcvSDFIdGVkNkxmckpoMjJ3dWtmS2U0c0sveUoy?=
- =?utf-8?B?Y3dpY21kdEVHY2NrKzUxMFJ5eGFXT1lpa0lwaUVETFBjMHFYTnBYYm9ISExY?=
- =?utf-8?B?TVFhV1pnUEwxcXJzSFAwb2lnanJIWXRXNlc4Q0IvUFJYZGV5YmZUMGJWNHhS?=
- =?utf-8?B?THZJSTE3MVNuODFCZmhZU0lhZGI2ZGdsb0pFT3pGbEZTSk9LM2xRM1lBbUR4?=
- =?utf-8?B?RDREVFBJQkZHR3o5aG9jOHl4dk1RUk52ZVU4KzVDQVhaZzZPR3hubFo5SGpp?=
- =?utf-8?B?bG5UQ0hzY255U3NZVGlrbnRrUFFEZy9JcWNYRitnbDlOa05va1I1OC82SW5Z?=
- =?utf-8?B?aE4rL3g0MTg0bk5xMGVHRnFIdGh3STA1VldKWk95YldxdnRNbDN2UU9HQ3BO?=
- =?utf-8?B?NjRieEg1TjVCZmNBNXh5S05tUnZlbzY0K2ZIV3BzWW1LREVaaWpiOFF5elJN?=
- =?utf-8?B?UnYzU3ltdzhUOXkxV1pWajd2TFRhQW5ITmtsYy9pSlM2QkJyV2tmRVhvdE5v?=
- =?utf-8?B?Nm85bHQ3T3RmQlk3cW96UUU0UWhGOCsxS0VCQjB6LzdZYks3V283eDltcHd1?=
- =?utf-8?B?bGEzR1VsUVl0bTFvSWVrN0dKTFVqM3JhWUpSaXpvQ0hRc3hrYW13NjdoTWtZ?=
- =?utf-8?B?T2RrcDF0Z2ZMYkh0c2FqVWlDRGJPZjFWUmpTVFptWVlWLzVycFlGM3JNOUFO?=
- =?utf-8?B?aGdlLzlwMDNnRUZOM1NWWW5CL1pYWWFLUWNhUnJobWpacUVVeHNJaytmUkhC?=
- =?utf-8?B?SW9PSkRDZENndHZMc00xY3hxanl4alJkcjAxdUs5SW4wc3poeXorZWxwTzhD?=
- =?utf-8?B?S09Takh5SXRSb1pPNnBNRTJXcjZhejJ1VW5aVmlNMnY5ZGNlbkdZTG1JOFIr?=
- =?utf-8?B?U0NQeUV3ZTZrNGpyRnFKRFE0QzJvSE41aWVFZUhLbXA0QVZ0elIxTmEvWGt5?=
- =?utf-8?B?Q0lPNFdBQ1h3czFKL0RCSHcvWmgrZlprRVQzUEdYRkhhNlE1ZmkrMTY3OGNu?=
- =?utf-8?B?N1A5ZzFNUHUxczcvUENDSzExcWtIMlVnRkJIdnZkZ0luZjJEWXlTSHQ4ZkFP?=
- =?utf-8?B?MTJ4andCbTFMWmRoYlhnRCtINWVJK3Y2THAvaFRDa1ZqVkE1UkFxYVpQQkp1?=
- =?utf-8?B?cU5FeHAxWCtjcElRSmtXdm0ySGRhaDVyRE96QTA1T0l5M2FnUVErVmlGeG1X?=
- =?utf-8?B?ZE1jUlIraEZna3ZyMGY5MFR5dWpZcUYwUDFvRnlNNjJ1WDZiREJNTVJTaXZh?=
- =?utf-8?B?dnhBaDJkdmIybXNiSUplZVVROFFFelJtR0xkamg3NlI0eDR2czRyNGFneXhv?=
- =?utf-8?B?UWRQdTJnbXl5b3RBbWQrcGh2VWh1bFpuaEczeG5PdTdzd2lseTZPVWhpQk9H?=
- =?utf-8?B?VEp4eENNUnA1QTZGMnFQYVJXVE5SbEUvRHlOaXNpc1dZZnNhQ1hMUys3aHho?=
- =?utf-8?B?VzFhWkxVWEtUSHRMejN2VEY3Y3lFb2pnemlrYUt0clJ1L2ROREdGc2JqazRF?=
- =?utf-8?B?RXo4S0gxV1BZd2d4dWZhNzRyMmFGWGRyMnVQaDduaGorUTRIWW15dUk4a1dz?=
- =?utf-8?B?QXpuSUJmVE9mZFBUbGpzTFl1SjhnTXB3OEV5cjZwSmRVOGF3enNPZWtlaUIv?=
- =?utf-8?B?TkpkZVNrdmdsRWE2bnpkS1M3aTJTWTB6YzVFZ0pWVWwvNnNWU0lBRnBpVWt1?=
- =?utf-8?B?YUhzaGtubEhCajlndW1RQWU2VHNVdmVnV2U5WUhPbmVVQ1MrTzdjQmJZMERC?=
- =?utf-8?B?bmlUSXcvc1cyTjJIeFVXb1E0bndJVmZxOVRBUDFRZ3g5NEcwcnViVjk1Syt0?=
- =?utf-8?B?dUx4NkNlOHhiSHdERy9CMVpQL1VqSzVFWWhwR0NLRE5oUTd0cHhlUm5uQ0xV?=
- =?utf-8?B?MW9aMkk0THB5c3ZURTVtTm9jVmNKb1RVUkVnbG5zZjk5YVA4SWdHa09xcUFU?=
- =?utf-8?B?VHhyZ2tUQ3pmYVZsdkxOWW1EeUNhMzM3QUd6ZFFqMUNJQkJCRjdWcmgwdVll?=
- =?utf-8?B?WW13MXVEdDlNK3YwNllCMFlCdHREMlRwSFA5NWNIU2lpbWltV01sL3BhVFdR?=
- =?utf-8?B?MTlVaHhBamxtUy83ZjlBL0JLNmRRUnJrcnl0YWplbHMvVGxHdmJmMTlsTlI4?=
- =?utf-8?B?UnpQMXlXU3lzR1JpWnQwK3RKUTFQWGRsYWMvYXA5eW5VMCtxSlExbEdTd2hj?=
- =?utf-8?B?VElqemFpWkFEa3B3c05uOURyOGlzb09vL25NVUdKNkt5bjh3bXN3QUVCU1FJ?=
- =?utf-8?B?OFhlZDIvNXBRZFpqUnJuYy9kYWFUREw5dUI4OWlPOGxhZ0pUcUZxSnFISTN6?=
- =?utf-8?B?VWUyd3AxMXRnVENzQjVlZVk4Z3BKYWtDV3hHVXdMNEgyUXRQUFZReDNtUGY3?=
- =?utf-8?Q?Ux0ZmDR+XQ4zFKzg=3D?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9a3d6441-060b-4a1c-66c2-08dec0214c5f
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jun 2026 21:03:58.2571
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: GdI2pozTasWVLsTym5ekneQ/0ckl0srG3FmE3j10x2hRYFBvz0v7sZDQaDZCPr3h7J34me9hkzI0nfybvINWkPw7Gt39M14JrxQTE8IegUGs0oCprhZK3yMRBRv4hDqr
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR04MB12079
-
-From: Frank Li <Frank.Li@nxp.com>
+Subject: Re: [PATCH v2 1/3] bpf: cgroup: use kvfree() for replaced sysctl
+ write buffer
+Content-Language: en-GB
+To: Dawei Feng <dawei.feng@seu.edu.cn>, martin.lau@linux.dev
+Cc: emil@etsalapatis.com, ast@kernel.org, daniel@iogearbox.net,
+ andrii@kernel.org, eddyz87@gmail.com, memxor@gmail.com, song@kernel.org,
+ jolsa@kernel.org, kees@kernel.org, joel.granados@kernel.org,
+ bpf@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, jianhao.xu@seu.edu.cn,
+ stable@vger.kernel.org, Zilin Guan <zilin@seu.edu.cn>
+References: <20260529031026.2716641-1-dawei.feng@seu.edu.cn>
+ <20260529031026.2716641-2-dawei.feng@seu.edu.cn>
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: Yonghong Song <yonghong.song@linux.dev>
+In-Reply-To: <20260529031026.2716641-2-dawei.feng@seu.edu.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Migadu-Flow: FLOW_OUT
 
 
-On Thu, 28 May 2026 14:03:24 +0200, Krzysztof Kozlowski wrote:
-> Add missing hex annotation to fix the SWT8 watchdog address in 'reg'
-> property, as reported by dtc W=1:
-> 
->   s32g3.dtsi:863.27-869.5: Warning (simple_bus_reg): /soc@0/watchdog@40500000: simple-bus unit address format error, expected "269fb20"
-> 
-> Lack of hex '0x' meant address would be interpreted as decimal thus
-> completely different value used as this device MMIO.  If device was
-> enabled this could lead to corruption of other device address space and
-> broken boot.
-> 
-> [...]
 
-Applied, thanks!
+On 5/28/26 8:10 PM, Dawei Feng wrote:
+> proc_sys_call_handler() allocates its temporary sysctl buffer with
+> kvzalloc() and passes it to __cgroup_bpf_run_filter_sysctl(). Since
+> kvzalloc() may fall back to vmalloc() for large allocations, freeing
+> that buffer with kfree() is wrong and can corrupt memory.
+>
+> Use kvfree() to safely handle both kmalloc and kvzalloc()/vmalloc
+> allocations.
+>
+> The bug was first flagged by an experimental analysis tool we are
+> developing for kernel memory-management bugs while analyzing
+> v6.13-rc1. The tool is still under development and is not yet publicly
+> available. Manual inspection confirms that the bug is still
+> present in v7.1-rc5.
+>
+> Reproduced the bug based on v7.1-rc4 in a QEMU x86_64 guest booted with
+> KASAN and CONFIG_FAILSLAB enabled. To exercise the replacement path, the
+> test tree also included the accompanying fix for the stale ret == 1
+> check in __cgroup_bpf_run_filter_sysctl(). The reproducer confines
+> failslab injections to the proc_sys_call_handler() range, uses
+> stacktrace-depth=32, and injects fail-nth=1 while writing 8191 bytes to
+> /proc/sys/kernel/domainname from a task in the target cgroup. Under
+> that setup, fail-nth=1 triggered the fault:
+>
+>    BUG: unable to handle page fault for address: ffffeb0200024d48
+>    #PF: supervisor read access in kernel mode
+>    #PF: error_code(0x0000) - not-present page
+>    PGD 0 P4D 0
+>    Oops: Oops: 0000  SMP KASAN NOPTI
+>    CPU: 2 UID: 0 PID: 209 Comm: repro_proc_sys_ Not tainted 7.1.0-rc4-00686-g97625979a5d4  PREEMPT(lazy)
+>    Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.15.0-1 04/01/2014
+>    RIP: 0010:kfree+0x6e/0x510
+>    Code: 80 48 01 ef 0f 82 ae 04 00 00 48 c7 c0 00 00 00 80 48 2b 05 04 1b 23 04 48 01 c7 48 c1 ef 0c 48 c1 e7 06 48 03 3d e2 1a 23 04 <4c> 8b 57 08 4c 89 d0 83 e0 01 48 83 e8 01 49 09 c2 49 >
+>    RSP: 0018:ffff888108de7ab8 EFLAGS: 00010282
+>    RAX: 0000777f80000000 RBX: ffff88815af398c0 RCX: 0000000000000080
+>    RDX: 0000000000000000 RSI: 0000000000000000 RDI: ffffeb0200024d40
+>    RBP: ffffc90000935000 R08: 0000000000000001 R09: 0000000000000001
+>    R10: ffffffff86b4b297 R11: 0000000000000000 R12: ffffffff819b71fd
+>    R13: 0000000000000001 R14: ffff888108de7cc0 R15: 0000000000000000
+>    FS:  00007f8988cc2b80(0000) GS:ffff8881d3256000(0000) knlGS:0000000000000000
+>    CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+>    CR2: ffffeb0200024d48 CR3: 0000000101d6b000 CR4: 0000000000350ef0
+>    Call Trace:
+>     <TASK>
+>     ? __cgroup_bpf_run_filter_sysctl+0x626/0xc30
+>     __cgroup_bpf_run_filter_sysctl+0x74d/0xc30
+>     ? __pfx___cgroup_bpf_run_filter_sysctl+0x10/0x10
+>     ? srso_return_thunk+0x5/0x5f
+>     ? __kvmalloc_node_noprof+0x345/0x870
+>     ? proc_sys_call_handler+0x250/0x480
+>     ? srso_return_thunk+0x5/0x5f
+>     proc_sys_call_handler+0x3a2/0x480
+>     ? __pfx_proc_sys_call_handler+0x10/0x10
+>     ? srso_return_thunk+0x5/0x5f
+>     ? selinux_file_permission+0x39f/0x500
+>     ? srso_return_thunk+0x5/0x5f
+>     ? lock_is_held_type+0x9e/0x120
+>     vfs_write+0x98e/0x1000
+>     ? srso_return_thunk+0x5/0x5f
+>     ? kmem_cache_free+0x308/0x550
+>     ? __pfx_vfs_write+0x10/0x10
+>     ? __pfx_do_sys_openat2+0x10/0x10
+>     ksys_write+0xf2/0x1d0
+>     ? __pfx_ksys_write+0x10/0x10
+>     ? srso_return_thunk+0x5/0x5f
+>     ? trace_irq_enable.constprop.0+0x110/0x140
+>     do_syscall_64+0x115/0x690
+>     entry_SYSCALL_64_after_hwframe+0x77/0x7f
+>     RIP: 0033:0x7f8988dd8907
+>     Code: 10 00 f7 d8 64 89 02 48 c7 c0 ff ff ff ff eb b7 0f 1f 00 f3 0f 1e fa 64 8b 04 25 18 00 00 00 85 c0 75 10 b8  01 00 00 00 0f 05 <48> 3d 00 f0 ff ff 77 51 c3 48 83 ec 28 48 89 54 24 18 >
+>     RSP: 002b:00007fff4069b878 EFLAGS: 00000246 ORIG_RAX: 0000000000000001
+>     RAX: ffffffffffffffda RBX: 0000000000000003 RCX: 00007f8988dd8907
+>     RDX: 0000000000001fff RSI: 0000564f97ef46b0 RDI: 0000000000000005
+>     RBP: 0000564f97ef46b0 R08: 0000000000000000 R09: 0000564f97ef46b0
+>     R10: 0000000000000004 R11: 0000000000000246 R12: 0000000000000000
+>     R13: 0000000000001fff R14: 0000000000000005 R15: 0000000000000001
+>     </TASK>
 
-[1/1] arm64: dts: s32g3: Fix SWT8 watchdog address
-      commit: 34faa9fbda5cc78479851fcd94f3b94f91b0cd84
+I think the above log can be simplified like
 
-Best regards,
--- 
-Frank Li <Frank.Li@nxp.com>
+   BUG: unable to handle page fault for address: ffffeb0200024d48
+   #PF: supervisor read access in kernel mode
+   #PF: error_code(0x0000) - not-present page
+   PGD 0 P4D 0
+   Oops: Oops: 0000  SMP KASAN NOPTI
+   CPU: 2 UID: 0 PID: 209 Comm: repro_proc_sys_ Not tainted 7.1.0-rc4-00686-g97625979a5d4  PREEMPT(lazy)
+   Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.15.0-1 04/01/2014
+   RIP: 0010:kfree+0x6e/0x510
+   ...
+   Call Trace:
+    <TASK>
+    ? __cgroup_bpf_run_filter_sysctl+0x626/0xc30
+    __cgroup_bpf_run_filter_sysctl+0x74d/0xc30
+    ? __pfx___cgroup_bpf_run_filter_sysctl+0x10/0x10
+    ? srso_return_thunk+0x5/0x5f
+    ? __kvmalloc_node_noprof+0x345/0x870
+    ? proc_sys_call_handler+0x250/0x480
+    ? srso_return_thunk+0x5/0x5f
+    proc_sys_call_handler+0x3a2/0x480
+    ? __pfx_proc_sys_call_handler+0x10/0x10
+    ? srso_return_thunk+0x5/0x5f
+    ? selinux_file_permission+0x39f/0x500
+    ? srso_return_thunk+0x5/0x5f
+    ? lock_is_held_type+0x9e/0x120
+    vfs_write+0x98e/0x1000
+    ...
+
+> With this fix applied on top of the same test setup, rerunning the
+> reproducer with fail-nth=1 yields no corresponding Oops reports.
+>
+> Fixes: 4508943794ef ("proc: use kvzalloc for our kernel buffer")
+> Cc: stable@vger.kernel.org
+>
+> Signed-off-by: Zilin Guan <zilin@seu.edu.cn>
+> Signed-off-by: Dawei Feng <dawei.feng@seu.edu.cn>
+
+Acked-by: Yonghong Song <yonghong.song@linux.dev>
+
