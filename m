@@ -1,242 +1,161 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90A8D35A925
-	for <stable@vger.kernel.org>; Mon,  1 Jun 2026 11:48:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D99D736B061
+	for <stable@vger.kernel.org>; Mon,  1 Jun 2026 12:01:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780314486; cv=none; b=gMnJVbJagxxiSAyT0lDnOTCkJ3HrJHr73ogJKbc4KNypHcVSPajxa4CnQ7EqZKLB9vwu7N4LJkQGQbzgFZUJpb3y+Cj0Q1GP6FAYtX1AON7x5bFsM5Q+LcbS0fgFeC9euPhC6fRXSV62QcUCrW73ny46LJGGFKkqQb91omXnCH0=
+	t=1780315311; cv=none; b=mxCJqHA3RpK7UmzJWHCDd7tMGuYB0ggbABpci0EX6QEG6oHuC3uuD0ktSGfWCpX7B6wMsKUTr6Nvxz7YmLc+AV90b/nDQ7vqlUY8TxhL8OXWd0kH1pGYyQ0Erceg+kF8gPRiwesSK8QgIQrZupcS/HTZzPjm9Y6zR/h3xtP9CSk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780314486; c=relaxed/simple;
-	bh=mDZcyD6Qym7NLV78zpK4l6Yxyrba1PoSuj/nb7H/FI8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jl2rhY7Jog/deyu4dtL0ZB4qUJ86xErYOIUdJWjFKW4/vNUnQ8c+OaD8mh0lV8+pNSz3Mq8DwZHJe8jxqArxiVytNVtduulRtMoJrnQV3EramZtRFUyhN7NUJLxgaZGXzhO4tiqWc7zh4ju3fHAAjPPP+MkPhzcQf7hWCe3pgYI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=1IBHuQRq; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=OJfiPScB; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=1IBHuQRq; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=OJfiPScB; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1780315311; c=relaxed/simple;
+	bh=6xEhnlKK7ZlkDqcUSGtO041ICWC0sPmKbWyTpW9cEvs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=nB+3gU8wAaNBv5mkp/4y7OA89Czz23So9zj9BcMlsM3QFkdBqtcyin6byaTWpY7wn0zXZrDhuOq+H0U8TXqXB7BYwaYQBpIJA+F5Wb6oODEZvokPQ/1W374Gj6PTqaxmFzEVJoTSn1LBTPwDnNtoazFXuje0BWTZPr2i58bpKXM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=mQQq7I+L; arc=none smtp.client-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="1IBHuQRq";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="OJfiPScB";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="1IBHuQRq";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="OJfiPScB"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id B34E46BD62;
-	Mon,  1 Jun 2026 11:48:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1780314481; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=FiHa3tcGzOa5FM/qNGPUEGPLZiMPAqSqaI28VPiHwUg=;
-	b=1IBHuQRqWNCO1dDPHm9SksVSrEdviZSssRV5zCQL8I6EMiDy/Hb2PQNb6L9xcPlaxq3XN7
-	xqmFX2M2cXRvK+g5KLvNyEn7IXx6PT50eH2k4OO2IAzbeN8vO5wEQV3CrDRlGm84aJZP00
-	hJ3Ll98n+XMJCCar3RQLmEswrKpbLPY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1780314481;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=FiHa3tcGzOa5FM/qNGPUEGPLZiMPAqSqaI28VPiHwUg=;
-	b=OJfiPScBIgYn6RI4+U8dipDMjQvIYB2GLzhyG6XpEHv9tcxhIQ18hTXqSq+znribP3HSn0
-	yKVhCeK/jlqtptBw==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1780314481; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=FiHa3tcGzOa5FM/qNGPUEGPLZiMPAqSqaI28VPiHwUg=;
-	b=1IBHuQRqWNCO1dDPHm9SksVSrEdviZSssRV5zCQL8I6EMiDy/Hb2PQNb6L9xcPlaxq3XN7
-	xqmFX2M2cXRvK+g5KLvNyEn7IXx6PT50eH2k4OO2IAzbeN8vO5wEQV3CrDRlGm84aJZP00
-	hJ3Ll98n+XMJCCar3RQLmEswrKpbLPY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1780314481;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=FiHa3tcGzOa5FM/qNGPUEGPLZiMPAqSqaI28VPiHwUg=;
-	b=OJfiPScBIgYn6RI4+U8dipDMjQvIYB2GLzhyG6XpEHv9tcxhIQ18hTXqSq+znribP3HSn0
-	yKVhCeK/jlqtptBw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 35331779A8;
-	Mon,  1 Jun 2026 11:48:01 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id ULmQC3FxHWq0XAAAD6G6ig
-	(envelope-from <tzimmermann@suse.de>); Mon, 01 Jun 2026 11:48:01 +0000
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: shiyongbang@huawei.com,
-	xinliang.liu@linaro.org,
-	tiantao6@hisilicon.com,
-	kong.kongxinwei@hisilicon.com,
-	sumit.semwal@linaro.org,
-	yongqin.liu@linaro.org,
-	jstultz@google.com,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	airlied@gmail.com,
-	simona@ffwll.ch
-Cc: dri-devel@lists.freedesktop.org,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Rongrong Zou <zourongrong@gmail.com>,
-	Sean Paul <seanpaul@chromium.org>,
-	Dmitry Baryshkov <lumag@kernel.org>,
-	Baihan Li <libaihan@huawei.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v3 1/4] drm/hibmc: Use drm_atomic_helper_check_plane_state()
-Date: Mon,  1 Jun 2026 13:45:15 +0200
-Message-ID: <20260601114756.51953-2-tzimmermann@suse.de>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260601114756.51953-1-tzimmermann@suse.de>
-References: <20260601114756.51953-1-tzimmermann@suse.de>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="mQQq7I+L"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1780315310; x=1811851310;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=6xEhnlKK7ZlkDqcUSGtO041ICWC0sPmKbWyTpW9cEvs=;
+  b=mQQq7I+L3VYEhrfpQwKg4E6FxBoK1N+aOhnlh//V53StFwkEK5sn9xbg
+   zRyeZDm7cgicjRTV2FTY/uSjsfhwc4THMICiuxBZxb1ZaskVf5Mwedm2Q
+   1opGulyg8Wwg0gOit/RUYhqMYxMCS7o9QJgFQVFVdhVTOBsCXFy+6lIYi
+   OXwgGY2Sla553He7UwTfvF7F8sf/p8oE1qLa9Dzvih+KjCgaBC0qNwj29
+   ZEyN3dAkbeZDS6WkcaUQSDnS+dX28kTMT1BNxeYBzyJUw0Nr0NXu9saTH
+   08+ZgiateGNsQfjVtoLyMTKmoGMGlwGsjz9AxYHGlhD9tBiYjFqMuKUnS
+   g==;
+X-CSE-ConnectionGUID: xuiyzAuITE+lWRRqTN8Pnw==
+X-CSE-MsgGUID: 5BG/UHEyQhCYLD/GmnkQxg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11803"; a="92452248"
+X-IronPort-AV: E=Sophos;i="6.24,181,1774335600"; 
+   d="scan'208";a="92452248"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Jun 2026 05:01:49 -0700
+X-CSE-ConnectionGUID: TtFYD29wQlCMTTH2+NgJ4w==
+X-CSE-MsgGUID: IBi+Mt/pTU6tTgPzh4/oaw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,181,1774335600"; 
+   d="scan'208";a="242743594"
+Received: from dhhellew-desk2.ger.corp.intel.com (HELO [10.245.245.132]) ([10.245.245.132])
+  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Jun 2026 05:01:47 -0700
+Message-ID: <b9b9e20f-703d-4e43-bd1a-17d8bbcead70@intel.com>
+Date: Mon, 1 Jun 2026 13:01:44 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/xe: Fix UAF in xe_gem_prime_import() on attach
+ failure
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Nitin Gote <nitin.r.gote@intel.com>, intel-xe@lists.freedesktop.org,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+Cc: stable@vger.kernel.org,
+ Thomas Hellstrom <thomas.hellstrom@linux.intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ "Prosyak, Vitaly" <Vitaly.Prosyak@amd.com>
+References: <20260601101536.1333480-2-nitin.r.gote@intel.com>
+ <ff4a02f0-5a59-4bad-af76-3d71146f136e@intel.com>
+ <5e3854dd-d6ad-4110-966e-9029ef7c2374@amd.com>
+Content-Language: en-GB
+From: Matthew Auld <matthew.auld@intel.com>
+In-Reply-To: <5e3854dd-d6ad-4110-966e-9029ef7c2374@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Spam-Level: 
-X-Spam-Score: -2.80
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-2.80 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_CONTAINS_FROM(1.00)[];
-	R_MISSING_CHARSET(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-0.988];
-	MIME_GOOD(-0.10)[text/plain];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_CC(0.00)[lists.freedesktop.org,suse.de,gmail.com,chromium.org,kernel.org,huawei.com,vger.kernel.org];
-	RCPT_COUNT_TWELVE(0.00)[18];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[chromium.org:email,huawei.com:email,imap1.dmz-prg2.suse.org:helo,suse.de:email,suse.de:mid,linaro.org:email];
-	FUZZY_RATELIMITED(0.00)[rspamd.com];
-	FROM_HAS_DN(0.00)[];
-	URIBL_BLOCKED(0.00)[linaro.org:email,imap1.dmz-prg2.suse.org:helo,huawei.com:email,suse.de:email,suse.de:mid];
-	RCVD_COUNT_TWO(0.00)[2];
-	FREEMAIL_TO(0.00)[huawei.com,linaro.org,hisilicon.com,google.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_DN_SOME(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com]
 
-Call drm_atomic_helper_check_plane_state() from the primary plane's
-atomic-check helper and replace the custom implementation.
+On 01/06/2026 12:39, Christian König wrote:
+> 
+> 
+> On 6/1/26 12:46, Matthew Auld wrote:
+>> On 01/06/2026 11:15, Nitin Gote wrote:
+>>> xe_dma_buf_create_obj() creates the importer BO with obj->resv
+>>> pointing at the exporter's dma_buf->resv. When dma_buf_dynamic_attach()
+>>> fails, no dma_buf reference is held so the exporter can be freed
+>>> immediately. Since ttm_bo_release() now always defers cleanup for
+>>> ttm_bo_type_sg BOs to the TTM workqueue, the worker later calls
+>>> dma_resv_lock() on the already-freed exporter resv, causing a UAF.
+>>>
+>>> Reset obj->resv to the BO's private _resv before calling xe_bo_put()
+>>> in the error path. The BO is not yet published (attach failed) and
+>>> carries no fences, so the switch is safe.
+>>>
+>>> Observed with igt@xe_live_ktest@xe_dma_buf_kunit on BMG (QEMU):
+>>>
+>>>     Oops: general protection fault, probably for non-canonical address 0x6b6b6b6b6b6b6b9c
+>>>     Workqueue: ttm ttm_bo_delayed_delete [ttm]
+>>>     RIP: 0010:mutex_can_spin_on_owner+0x3f/0xc0
+>>>     Call Trace:
+>>>      <TASK>
+>>>      ? __ww_mutex_lock.constprop.0+0x2dd/0x18e0
+>>>      ? ttm_bo_delayed_delete+0x41/0xc0 [ttm]
+>>>      ww_mutex_lock+0x3c/0xb0
+>>>      ttm_bo_delayed_delete+0x41/0xc0 [ttm]
+>>>      process_one_work+0x239/0x740
+>>>      worker_thread+0x200/0x3f0
+>>>      kthread+0x10d/0x150
+>>>      ret_from_fork+0x3bd/0x470
+>>>      ret_from_fork_asm+0x1a/0x30
+>>>      </TASK>
+>>>
+>>> Closes: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8023
+>>> Fixes: d99fbd9aab62 ("drm/ttm: Always take the bo delayed cleanup path for imported bos")
+>>> Cc: stable@vger.kernel.org # v6.8+
+>>> Cc: Thomas Hellstrom <thomas.hellstrom@linux.intel.com>
+>>> Cc: Matthew Brost <matthew.brost@intel.com>
+>>> Cc: Matthew Auld <matthew.auld@intel.com>
+>>> Signed-off-by: Nitin Gote <nitin.r.gote@intel.com>
+>>> ---
+>>>    drivers/gpu/drm/xe/xe_dma_buf.c | 8 ++++++++
+>>>    1 file changed, 8 insertions(+)
+>>>
+>>> diff --git a/drivers/gpu/drm/xe/xe_dma_buf.c b/drivers/gpu/drm/xe/xe_dma_buf.c
+>>> index 8a920e58245c..6d944bd4065c 100644
+>>> --- a/drivers/gpu/drm/xe/xe_dma_buf.c
+>>> +++ b/drivers/gpu/drm/xe/xe_dma_buf.c
+>>> @@ -384,6 +384,14 @@ struct drm_gem_object *xe_gem_prime_import(struct drm_device *dev,
+>>>          attach = dma_buf_dynamic_attach(dma_buf, dev->dev, attach_ops, obj);
+>>>        if (IS_ERR(attach)) {
+>>> +        /*
+>>> +         * The BO was created with resv = dma_buf->resv (exporter's
+>>> +         * resv). Since attach failed, no dma_buf reference is held and
+>>> +         * the exporter may be freed before TTM's delayed_delete worker
+>>> +         * runs. Switch to the BO's own resv to prevent a UAF when
+>>> +         * ttm_bo_delayed_delete() tries to lock the stale pointer.
+>>> +         */
+>>> +        obj->resv = &obj->_resv;
+>>
+>> +Christian, does amdgpu not have the type of same issue here? Also any thoughts here?
+> 
+> Oh, good catch. Yeah I think we have the same problem on amdgpu as well.
 
-All plane's implementations of atomic_check should call the shared
-_check_plane_state() helper first. It adjusts the plane state for
-correct positioning, rotation and scaling of the plane. Do this
-even if the plane's CRTC has been disabled by setting the parameter
-can_update_disabled. The original code returned early in this case,
-but it's safe to so and cleaner to have all plane state initialized.
+Maybe dumb question, but why does the ttm_bo_individualize_resv() skip 
+the final switch of the resv for type_sg? It goes through the trouble of 
+copying the fences across?
 
-As we don't set can_position, drm_atomic_helper_check_plane_state()'s
-visibility check tests if the plane covers all of the CRTC. This is
-a small change from the original code, which tested if the plane is
-exactly the size of the CRTC. With the new test, the plane still has
-to cover all of the CRTC, but can be larger than the CRTC's size. A
-later patch can fully implement this feature in hibmc.
+If we do need to handle this here, do we also need to grab the lru lock, 
+like we do in ttm_bo_individualize_resv() when doing the swap?
 
-If the plane is disabled, the helper clears the visibility flag in the
-plane state. On errors or if the plane is not visible, the atomic-check
-helper can return early. Implement all this in hibmc and drop the custom
-code that does some of it.
+Ideally xe and amdgpu can just have identical solutions here.
 
-v2:
-- extend the commit description (Yongbang)
-
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Fixes: da52605eea8f ("drm/hisilicon/hibmc: Add support for display engine")
-Reviewed-by: Yongbang Shi <shiyongbang@huawei.com>
-Cc: Rongrong Zou <zourongrong@gmail.com>
-Cc: Sean Paul <seanpaul@chromium.org>
-Cc: Xinliang Liu <xinliang.liu@linaro.org>
-Cc: Dmitry Baryshkov <lumag@kernel.org>
-Cc: Baihan Li <libaihan@huawei.com>
-Cc: Yongbang Shi <shiyongbang@huawei.com>
-Cc: <stable@vger.kernel.org> # v4.10+
----
- .../gpu/drm/hisilicon/hibmc/hibmc_drm_de.c    | 46 ++++++-------------
- 1 file changed, 14 insertions(+), 32 deletions(-)
-
-diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c
-index 3066dc9ebc64..7c0b88c774b5 100644
---- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c
-+++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c
-@@ -72,46 +72,28 @@ static int hibmc_get_best_clock_idx(const struct drm_display_mode *mode)
- static int hibmc_plane_atomic_check(struct drm_plane *plane,
- 				    struct drm_atomic_commit *state)
- {
--	struct drm_plane_state *new_plane_state = drm_atomic_get_new_plane_state(state,
--										 plane);
--	struct drm_framebuffer *fb = new_plane_state->fb;
--	struct drm_crtc *crtc = new_plane_state->crtc;
--	struct drm_crtc_state *crtc_state;
--	u32 src_w = new_plane_state->src_w >> 16;
--	u32 src_h = new_plane_state->src_h >> 16;
--
--	if (!crtc || !fb)
--		return 0;
-+	struct drm_plane_state *new_plane_state =
-+		drm_atomic_get_new_plane_state(state, plane);
-+	struct drm_crtc_state *new_crtc_state = NULL;
-+	int ret;
- 
--	crtc_state = drm_atomic_get_crtc_state(state, crtc);
--	if (IS_ERR(crtc_state))
--		return PTR_ERR(crtc_state);
-+	if (new_plane_state->crtc)
-+		new_crtc_state = drm_atomic_get_new_crtc_state(state, new_plane_state->crtc);
- 
--	if (src_w != new_plane_state->crtc_w || src_h != new_plane_state->crtc_h) {
--		drm_dbg_atomic(plane->dev, "scale not support\n");
--		return -EINVAL;
--	}
--
--	if (new_plane_state->crtc_x < 0 || new_plane_state->crtc_y < 0) {
--		drm_dbg_atomic(plane->dev, "crtc_x/y of drm_plane state is invalid\n");
--		return -EINVAL;
--	}
--
--	if (!crtc_state->enable)
-+	ret = drm_atomic_helper_check_plane_state(new_plane_state, new_crtc_state,
-+						  DRM_PLANE_NO_SCALING,
-+						  DRM_PLANE_NO_SCALING,
-+						  false, true);
-+	if (ret)
-+		return ret;
-+	else if (!new_plane_state->visible)
- 		return 0;
- 
--	if (new_plane_state->crtc_x + new_plane_state->crtc_w >
--	    crtc_state->adjusted_mode.hdisplay ||
--	    new_plane_state->crtc_y + new_plane_state->crtc_h >
--	    crtc_state->adjusted_mode.vdisplay) {
--		drm_dbg_atomic(plane->dev, "visible portion of plane is invalid\n");
--		return -EINVAL;
--	}
--
- 	if (new_plane_state->fb->pitches[0] % 128 != 0) {
- 		drm_dbg_atomic(plane->dev, "wrong stride with 128-byte aligned\n");
- 		return -EINVAL;
- 	}
-+
- 	return 0;
- }
- 
--- 
-2.54.0
+> 
+> How the heck did you found that? Do we have a dummy driver (VGEM?) which could be made to always fail attachment for a test case?
+> 
+> @Vitaly can you take a look and try to come up with a test case for that? Thanks in advance.
+> 
+> Thanks for the notice,
+> Christian.
+> 
+>>
+>>>            xe_bo_put(gem_to_xe_bo(obj));
+>>>            return ERR_CAST(attach);
+>>>        }
+>>
+> 
 
