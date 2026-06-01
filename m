@@ -1,104 +1,70 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9F993DCDA4;
-	Mon,  1 Jun 2026 20:43:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED5133358C4;
+	Mon,  1 Jun 2026 20:44:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780346594; cv=none; b=o91JN4H6FNvWr+C/YfoYHgKLZgdXnLGKXntAgwn2Ciu5BBi6j/3LZJ+U9rA7UDRpq4inn0G67agJomuE81HkCI+d4QmPXv37Fo03W2Qa0LEZGPxmGsxigTJajU+ewVI2r/5hIMrUH2GvoKjH8dtxsBkaKJvMhngPA+0/LjUkUBI=
+	t=1780346669; cv=none; b=JYSl6Q3f0xWrZlCXPl0rq6+ruj0NMpBocY5WeHZoweKSxAOHJ+zFm3h/aXYooZ2Tr6zGSjyeCt+elR9ug9eS67fGxwpOp73CZVSgsjA2zSIRJ/psWj/2DblBJ1xIWDdLNSSTCdhiIxF5cpiR05I/8rsrbnVxfN3LxADqYYAN1uM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780346594; c=relaxed/simple;
-	bh=fOGSZLe6merD5rMvEEGhH7/QQJN7eja4hCCkHPCcY+A=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bT02rGWGcY9CGWnAd+TWIGuZZu0qbAD6BhnIQ7bNMHPJKTsbbY6++vav5U/Is0+qyWWgTpNf6iQCoQJmh5It2+qtHn9qrUCVPFEmMhVmV0b8cf4LOOroZqTU2YqM3viB5SBkwHtJlmlF3hMLxV5LS6fLiJXZn6xmve3GqsSBWW0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GXgPVvfs; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780346669; c=relaxed/simple;
+	bh=rUZOBdM9EjHb9Ij1KI0G6nXjC8r3Of2qZtSZyBmeWxU=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=a/i8/H7GHvjdOAuBX5ea1lA0T+anBff2sBQyRF+9P88OvcIIOkHjirze09nbNa3kL63/8/ip/2qVr5tyy1wuNbdy4bcDZeXAaYQmnbWF4MMCLK0TVp/8hOMMHtn1H9VaOZoFaEffhXYym73L3o+IqI4W9zOlSDDh81TON4aObkM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=hrrMw5Xx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GXgPVvfs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1B7D1F00893;
-	Mon,  1 Jun 2026 20:43:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780346593;
-	bh=+uw086cjFZdYmPMPQz8ZpiQh3kOo1lbXDBzkinb0UZY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=GXgPVvfsVXGA9rI4vI8Bf8Qgxsc7GKAT2k+osTb3bAsjRjBTn9ty9u9rv9gGaG2R/
-	 NfJdYECPlPknmaPjewBW1EhrfhfWJn3o2A67PdrdIXYEwvWGEPbbEH+zouk2L1H6zu
-	 1TSMG2FTmBY1DEApLI14bHpjdfKTAIdgxEeo/6j8Z9peQud/5hg0gPJetEfHmNj/zi
-	 +AynVzF2BI2ICb8wTkjItoO5qjCRtudT8cbBlpRNRcJb0X3lPpCBi3sTYRJ+u5m8Xq
-	 h3iYwFvhCgMI0pCmQi5vFCpPJgB8sPKhBi2+nock8O+oLQB4WOv3rwyBXQMY4JgW5s
-	 Tbm1XVfOILP1Q==
-Date: Mon, 1 Jun 2026 21:43:09 +0100
-From: Simon Horman <horms@kernel.org>
-To: Doruk Tan Ozturk <doruk@0sec.ai>
-Cc: alex.aring@gmail.com, stefan@datenfreihafen.org,
-	miquel.raynal@bootlin.com, aleksander.lobakin@intel.com,
-	linux-wpan@vger.kernel.org, netdev@vger.kernel.org,
-	security@kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH net v2] mac802154: llsec: add skb_cow_data() before
- in-place crypto
-Message-ID: <20260601204309.GA3410996@horms.kernel.org>
-References: <20260525161806.96158-1-doruk@0sec.ai>
- <20260526183726.56100-1-doruk@0sec.ai>
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="hrrMw5Xx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6858A1F00893;
+	Mon,  1 Jun 2026 20:44:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1780346668;
+	bh=x1Ita4ALRIwbUma+e/SouNp6V9HdLIRsvnqj4QVKvVc=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=hrrMw5Xx9njrDfRhxz8cA2HudadDAyZ/Tq/XTLaaWnSpxkbH7q96Xak4yU+QSv52M
+	 QAPXFegY6c4cYCJjYPzFdkmx1oksfr/gs4pKXzc6kLSZdy54qt58pLrhha3ANm+XnO
+	 Lc/OdZmlpzwyZ//IdLHBeaiJf88jBAyJH073AIi8=
+Date: Mon, 1 Jun 2026 13:44:27 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Giorgi Tchankvetadze <giorgitchankvetadze1997@gmail.com>
+Cc: vbabka@kernel.org, surenb@google.com, mhocko@suse.com,
+ jackmanb@google.com, hannes@cmpxchg.org, ziy@nvidia.com,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] mm/compaction: guard move_freelist_head() against
+ invalid freepage
+Message-Id: <20260601134427.dda82558dfb2da579d66cbb0@linux-foundation.org>
+In-Reply-To: <20260601133941.111989-2-giorgitchankvetadze1997@gmail.com>
+References: <20260601133941.111989-2-giorgitchankvetadze1997@gmail.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260526183726.56100-1-doruk@0sec.ai>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Tue, May 26, 2026 at 08:37:26PM +0200, Doruk Tan Ozturk wrote:
-> llsec_do_encrypt_unauth(), llsec_do_encrypt_auth(),
-> llsec_do_decrypt_unauth(), and llsec_do_decrypt_auth() all perform
-> in-place cryptographic transformations on skb data.  They build a
-> scatterlist with sg_init_one() pointing into the skb's linear data area
-> and then pass the same scatterlist as both src and dst to the crypto API
-> (e.g. crypto_skcipher_encrypt/decrypt, crypto_aead_encrypt/decrypt).
-> 
-> On the RX path, __ieee802154_rx_handle_packet() clones the received skb
-> before handing it to each subscriber via ieee802154_subif_frame().  The
-> cloned skb shares the same underlying data buffer via reference
-> counting.  When llsec_do_decrypt() subsequently modifies this shared
-> buffer in place, it corrupts data that other clones -- potentially
-> belonging to other sockets or subsystems -- still reference.
-> 
-> On the TX path, similar data sharing can occur when an skb's head has
-> been cloned (skb_cloned() returns true).
-> 
-> The fix is to call skb_cow_data() before performing any in-place crypto
-> operation.  skb_cow_data() ensures that the skb's data area is not
-> shared: if the skb head is cloned or the data spans multiple fragments,
-> it copies the data into a private buffer that can be safely modified in
-> place.  This is the same pattern used by:
-> 
->   - ESP (net/ipv4/esp4.c, net/ipv6/esp6.c)
->   - MACsec (drivers/net/macsec.c)
->   - WireGuard (drivers/net/wireguard/receive.c)
->   - TIPC (net/tipc/crypto.c)
-> 
-> Without this guard, in-place crypto on shared skb data leads to:
->   - Silent data corruption of other skb clones
->   - Use-after-free when the crypto API scatterwalk writes through a
->     page that has already been freed by another clone's kfree_skb()
->   - Kernel crashes under concurrent 802.15.4 traffic with security
->     enabled (KASAN/KMSAN reports slab-use-after-free)
-> 
-> Found by 0sec (https://0sec.ai) using automated source analysis.
-> 
-> Fixes: 4c14a2fb5d14 ("mac802154: add llsec decryption method")
-> Fixes: 03556e4d0dbb ("mac802154: add llsec encryption method")
-> Cc: stable@vger.kernel.org
-> Reported-by: Doruk Tan Ozturk <doruk@0sec.ai>
-> Closes: https://lore.kernel.org/linux-wpan/20260525161806.96158-1-doruk@0sec.ai/
-> Reviewed-by: Alexander Lobakin <aleksander.lobakin@intel.com>
-> Signed-off-by: Doruk Tan Ozturk <doruk@0sec.ai>
-> ---
-> v2:
->   - mark as net fix per Olek's review
->   - add Closes tag
->   - add Reviewed-by
+On Mon,  1 Jun 2026 17:39:42 +0400 Giorgi Tchankvetadze <giorgitchankvetadze1997@gmail.com> wrote:
 
-FTR: An AI generated review of this patch is available on sashiko.dev.
-I believe that review can be treated in the context of possible follow-up
-and should not effect the progress of this patch.
+> In fast_isolate_freepages(), freepage is declared uninitialized and
+> is only assigned a valid page pointer if list_for_each_entry_reverse
+> exits via break. If the loop runs to completion (all pages in the
+> freelist have pfn < min_pfn), freepage holds the list head sentinel
+> and high_pfn remains zero, so the high_pfn fallback does not update
+> it either.
+> 
+> The subsequent unconditional call to move_freelist_head(freelist,
+> freepage) then passes the sentinel as a page pointer, which is
+> invalid.
+> 
+> Guard move_freelist_head() inside the existing 'if (page)' block
+> where freepage is guaranteed to refer to a real page.
+
+Seems correct from my reading.  That code is rather twisty.
+
+> This issue was identified via Coccinelle (use_after_iter.cocci).
+
+But AI review is worried:
+	https://sashiko.dev/#/patchset/20260601133941.111989-2-giorgitchankvetadze1997@gmail.com
+
+
