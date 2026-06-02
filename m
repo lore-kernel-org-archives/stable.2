@@ -1,133 +1,168 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D939391E51
-	for <stable@vger.kernel.org>; Tue,  2 Jun 2026 19:26:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AF3025B09A
+	for <stable@vger.kernel.org>; Tue,  2 Jun 2026 19:39:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780428371; cv=none; b=hZ7TWZpO9nSIM2XAUMmktVQnxOIDVhJHpgggiN52Wah4VFjsB8DjnmE0spl4KeUjRhtG8kC9iUUjd5QHBMZJ4TFH4z4yYcvjdlwbQlvLPX9W9QsgssexMKSNkXAuuvmllOGIZcXPS+nX3mR68qNVDp0Pq3ZFQxyxrsJShZw+Snw=
+	t=1780429159; cv=none; b=e63ezMyQji8M+vfvZgpE0k97P3hCej0Zm+nVJ+YzQ7zSKJH7g9bEwKksOM1mJBx+7fNvwUzT4WyMmEZGqEAm0Iu8KslIQgnhKwMAQhDBvVljAurVEdNrb3mJEZVnft4h+NLe9kRgvXXRk7NFzy3CK6fOpjo+BN8uXfQQZvUSSTs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780428371; c=relaxed/simple;
-	bh=Rr8JzWohT1tJsTGXm2ibqCRdqbA1on/DZn4rk+VclDs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=TGsi9FpGyzgPjTc+iHsKwwDyUWqWl//V7U4svr9poDcskm+5zHDiUh2md+nokFVOZ8ZoLBSPj3MGpiIhoyy5H6UGp2AW13/x/F7oaDwlmbTgWcExentqZJ9miPYWo4SJDsrT8LgXp4rlzB3Sra9XfR1YHAfQvBg/1bdzgxhimsM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ld2Vlz3k; arc=none smtp.client-ip=209.85.128.52
+	s=arc-20240116; t=1780429159; c=relaxed/simple;
+	bh=efKRPUDTPUoGOcVDERs/7DG/6rThtLMlbYrSuiPb8cQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=vE6HAjxBnCJtVR2s3G9AsEWtH8bkPYVQ9OuCaQDjjcXapqlFiK40faRJ2xpwQ6yVMHc3VZ9B7711BcVy5RRFzQPkYyNRgordJJAQhDFYgSz3s3/dv/V69r+QLI1UEgYIv1U0+XxhN/J86qVcHpA8IBOMZgCsKx1mew7LY30fn9Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TCYvDT6K; arc=none smtp.client-ip=209.85.221.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ld2Vlz3k"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-49041fb8c23so89658505e9.0
-        for <stable@vger.kernel.org>; Tue, 02 Jun 2026 12:26:10 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TCYvDT6K"
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-45e9f4a3510so6878256f8f.1
+        for <stable@vger.kernel.org>; Tue, 02 Jun 2026 12:39:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780428369; x=1781033169; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Gz9Gm1t+wb2XGdBfPNWvyntpJxCorkDCnuo7sD8+Tmc=;
-        b=Ld2Vlz3kElhVFbe9t/6Bbc81i8nhWuwVt6NJGqBnRJITR98uaiikfHxJw4BTEqNp9A
-         vxbETM2FcG3jzONh14FE8cRC8YgmqEtolIp76RQv5VLlsCjL5KsQuNiIbZfdY2WdkAn6
-         1Yo6zZ+Kli4XhkI1W2ixLVut07uVWwqx4zuEb09GPsW0jsv9N/9tNY3TxlNQwEEnGhOS
-         3XLgiNqypufgkdx3gFHZ5N9vp4x33hImUvmIzmrX73DU5fWNjPO3UOe9V0ahA1uibdtV
-         Iz35smpoKktR4t4J2gTUx2Sd39Ng6hb1ivNtX1jrABYgppkueWyd6SKRD0Pd8ywxkYjR
-         ojdg==
+        d=gmail.com; s=20251104; t=1780429156; x=1781033956; darn=vger.kernel.org;
+        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=37nV9vxfz0/ekkonDlO3tYm5sw+ScB5jVbCrede1ePM=;
+        b=TCYvDT6Kw+3Ytc+tSP11YYLo2OdT4eM+DDOBx1VLZn1mkNx2q+AXKbu94tjZg4Yk8r
+         2RuzFfMmhy7RNjAWl7wYCp/pc65AwKxL7iSbi6NfrLmzVPasYZKPnDsdmn8XtC89QvUN
+         MYiQloNU8VtUUYY/MmPzw70/7+fbspAtS9SYIiM6bnPvZ/fmHJaCAUQkkWqWIk1jblg2
+         ezrvoA2s4tANbYBxtA1WDT9CxdEKPL0K9iXdhSpQBhv1ygVZNVMu5ZZiV3GZmDlyliR4
+         F3KnBFQfzqZ+tfc0+vQygap+WZbGh0Z/K9Q6F7s/jDcuYb5gyKAm3syqc9pGmGS3/67G
+         ChtA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780428369; x=1781033169;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=Gz9Gm1t+wb2XGdBfPNWvyntpJxCorkDCnuo7sD8+Tmc=;
-        b=R9ATmezjKaQd9EtA5Btwf3A9BFf/E6hNgEFCrxnYgqGqZrGQwKR6LeQdRVRUgncZPj
-         6Oh+HbbsICRTQZ3zNsHBhuSE0aFnQW8+Q+C3U7lQcOssyqP97yy85DcvP6a1xLUo9QuB
-         x9IOPW0/oTvRapZr/CUH2Kd+imdReCOfwSoSU0ndp83dVFqZ1hpVNtnc5rd1WafJbVqK
-         AY5Q+aqhbstLfll/WyaoSZkF1VjAdr57HZDuQf96EAb9JpmU1fb94DJMgDtSoNLqlfCi
-         nzcKdcYdfCVAXyyccYgFIPxSUrv/aPde24rYN5aPIPeNL6E6fMIgr0oKZ4eY4uUndtL0
-         45DA==
-X-Forwarded-Encrypted: i=1; AFNElJ/aLdO2Dy6WHhDyreaE1tskVHi3Mx/QfVrCpdJ9P4lbL8XbMD/SKfW50D3k03r8anI1Ca+9rQA=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxSPVPm5BZNPKqndXSj+Mpqn610CUtMsqwsStyYi/AxUaNGm960
-	f5MDG11F/6WbWARgd4g4wJMyIjkIz4vzwdT1SndsQzC13H6sazHAfNXN
-X-Gm-Gg: Acq92OFNK6dpgwdIubGINmxDaKSukXRpIHHHcGAkS5ssxAYIwMef1FN2V69HHOkRT8o
-	lXs7ForPftjtyw3ReMih0VYznRe9ct8o25Q2R8pDfwFj1QqdRu6a9HFa6kE5wN0DVuzJURWQFCD
-	gid70F9S0gzUOoQWDlNfd7n9Cg1N0Pq9E1DBYy9f9NS3vhOuCOu/rRLdHHYEE8GvPo4KuAfP1gP
-	IXu8s5HPetzdoIlEZiHOtCqYpGnG21elLRpk8KAINAFpkQr6W5wtnYWVTFFbZ6jsjyDHJ6r9i6d
-	cti6CcWo4yVprSQNk5fKW9MbtkZKcJ6HcI+1GQZjVaVhX5oyrQsDVqeASM1d1tnBFQaNB8qSp4y
-	iY0yfr38ghgd9ICXEm8Jl0CLFMFuMQwETEb/48jC23B9REf8SlZKWFxKX2cnFlAgWqYVsRAGkTJ
-	CNxK5QWZOnVIILI7RgJranrW4u4Pw1tZr19MxXHyRoctSmzVVlzqPieX54EleYMSrEjpPuxz6Fa
-	IrMdPOJJbZ0kZ1EFXQztSS0bhG04m/OXzlzEZhadCtUuQun1xYW0Mcp
-X-Received: by 2002:a05:600c:8a0c:10b0:490:9d5c:a3e0 with SMTP id 5b1f17b1804b1-490b5e8982bmr2280875e9.9.1780428368805;
-        Tue, 02 Jun 2026 12:26:08 -0700 (PDT)
-Received: from iku.example.org ([2a06:5906:61b:2d00:5ef:9913:4a77:3bcf])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4601f2dc577sm1473364f8f.3.2026.06.02.12.26.08
+        d=1e100.net; s=20251104; t=1780429156; x=1781033956;
+        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=37nV9vxfz0/ekkonDlO3tYm5sw+ScB5jVbCrede1ePM=;
+        b=hE7mO4XhBh0rOVc3gMoHV8CY1ecR1cxpXSkdzXg5bjBYIr4aYZmm2Vo81rPAqtMGCv
+         uDfEMzBchOfq6SO3ay+uckwJ+1I1dLtv8nOrftVBWhRz0/xnMdfhF5sFYILkTd0iNxS/
+         frTWNhdWzqOQ38ryQo377kRcwZ4z/uQKdsz0gcop1Dw4WTO+8QxjQrjaFSX7ZYKNomDc
+         v0/ZLwVTfkJIVrA1NLYV2rwtk758UFoXnTwrczgIKiTPpWZWzMonggKl9C0a1vFTmMZW
+         /Ohi8NoaeWixr8ABtv9x5LCGIsPXkIp7ZQ8he88+IW0RW15PkF2WKLIu8sWTnGZLcP6j
+         VAKQ==
+X-Gm-Message-State: AOJu0Yx6/V+PG6wi2n0M7F19TuSl6YzzFbgGQkHb4lwUAPh1+lO17Y/V
+	xItUnJtOERYQn147NH7W2QOHBVvI2TE9g69fjuJyDBzPTpP+xrmZgvWlM7xzTW7t
+X-Gm-Gg: Acq92OE37VnMA1BYq2dmxSmEXTncNx3G+dSsYR+Mj+trtvc+aonMH0XdNbor+av+kUc
+	FW8h/tJJ9q3/Q+3cwBX8NpBpn+ot3d8/qJqaW33FxXHjhzJhS4KiXF+NEr+tReTiE1y/fpn0Evq
+	Ev9d6XaXFkuposAML0ux1Q3DaSmyw8lrdg8zgGv+Ojpvo4bPSEgje0S+wctnPCNMy+Dxq6tyqX3
+	yLGzXcNHxGnbcaosdP4do9NBPpv6NHzYbmHlbpNx5s0fo9O2KNEpJEobT/nUoctujiNXZSKQvhQ
+	LVppfs2R3xCe6ukpyED9wcmsO4WHN6ZDA49OtSTy7cvk0nrGH1UJfjNm7E/TPhkpHzMWiS/I219
+	kIM+tpxkicB1X18rCb23LFxEkvwb6iXlQ2NIFtiW9QjHsTY3khb/2xMEhlkArgix9zZy+CVerha
+	7SoAToZjJ/kFK6ZKBcEJSF95baVpW0zqCh0gDgeXFAt8giSZk/3QCXzcZkeM8cXPVkMllJMJuxt
+	3js4oGiCOKObEhKdzyEM0GsUd9KBOpNGHfByHGjtH2333to1a2yG0BIKq5v2B0rsCVxWFiQHYDn
+	4IOjDDzbq1u1YrfbctIJFhf2l+H4edKypBYIFfA9h1tDYIopNmnKDQ==
+X-Received: by 2002:a05:600c:35ca:b0:490:44eb:c1dc with SMTP id 5b1f17b1804b1-490b5fe1fd6mr3859195e9.20.1780429156275;
+        Tue, 02 Jun 2026 12:39:16 -0700 (PDT)
+Received: from mail.gmail.com (2a01cb0889497e00d5a27cd7dcd113c6.ipv6.abo.wanadoo.fr. [2a01:cb08:8949:7e00:d5a2:7cd7:dcd1:13c6])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490b61511d0sm1823735e9.2.2026.06.02.12.39.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 02 Jun 2026 12:26:08 -0700 (PDT)
-From: Prabhakar <prabhakar.csengg@gmail.com>
-X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-To: Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	linux-rtc@vger.kernel.org
-Cc: linux-renesas-soc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Prabhakar <prabhakar.csengg@gmail.com>,
-	Biju Das <biju.das.jz@bp.renesas.com>,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2 1/5] rtc: renesas-rtca3: Fix PIE clear polling condition in alarm setup error path
-Date: Tue,  2 Jun 2026 20:25:55 +0100
-Message-ID: <20260602192559.1791344-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260602192559.1791344-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
-References: <20260602192559.1791344-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+        Tue, 02 Jun 2026 12:39:15 -0700 (PDT)
+Date: Tue, 2 Jun 2026 21:39:13 +0200
+From: Paul Chaignon <paul.chaignon@gmail.com>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>,
+	Shung-Hsi Yu <shung-hsi.yu@suse.com>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Martin KaFai Lau <martin.lau@kernel.org>,
+	Stanislav Fomichev <sdf@fomichev.me>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>
+Subject: [PATCH 6.1.y v2 00/11] Fix BPF selftests
+Message-ID: <cover.1780427227.git.paul.chaignon@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+This patchset fixes the BPF selftests on 6.1. Its patches fall into
+two categories:
+- Reverts of backported selftests, usually because they test a change
+  that didn't land in 6.1 (3 patches).
+- Backports of selftest fixes and their dependencies (8 patches).
 
-In rtca3_set_alarm(), the setup_failed path attempts to disable the
-Periodic Interrupt Enable (PIE) bit and wait until it is cleared.
-However, the polling condition passed to readb_poll_timeout_atomic()
-uses an incorrect expression:
+With this, the BPF selftests are passing on 6.1 (tested with both LLVM
+16 and 18).
 
-    !(tmp & ~RTCA3_RCR1_PIE)
+Changes in v2:
+  - Fixed the conflict resolution on the first patch to apply cleanly
+    on 6.1.y.
 
-As ~RTCA3_RCR1_PIE evaluates to a mask of all bits except PIE, the
-condition effectively waits for all non-PIE bits to become zero, which
-is unrelated to the intended operation and is unlikely to ever be true.
-This causes the poll to time out unnecessarily.
+Andrii Nakryiko (3):
+  selftests/bpf: add generic BPF program tester-loader
+  selftests/bpf: Convert test_global_funcs test to test_loader framework
+  selftests/bpf: enhance align selftest's expected log matching
 
-Fix the condition to check for the PIE bit itself being cleared:
+Daniel Borkmann (1):
+  selftests/bpf: Fix ARG_PTR_TO_LONG {half-,}uninitialized test
 
-    !(tmp & RTCA3_RCR1_PIE)
+Jiri Olsa (1):
+  selftests/bpf: Add read_build_id function
 
-This correctly waits until PIE is deasserted after being cleared.
+Martin KaFai Lau (1):
+  selftests/bpf: S/iptables/iptables-legacy/ in the bpf_nf and
+    xdp_synproxy test
 
-Fixes: d4488377609e3 ("rtc: renesas-rtca3: Add driver for RTCA-3 available on Renesas RZ/G3S SoC")
-Cc: stable@vger.kernel.org
-Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Reviewed-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
-Tested-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com> # on RZ/G3S
----
- drivers/rtc/rtc-renesas-rtca3.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Paul Chaignon (3):
+  Revert "selftests/bpf: Workaround strict bpf_lsm return value check."
+  Revert "selftests/bpf: Add tests for _opts variants of
+    bpf_*_get_fd_by_id()"
+  Revert "selftests/bpf: Add a cgroup prog bpf_get_ns_current_pid_tgid()
+    test"
 
-diff --git a/drivers/rtc/rtc-renesas-rtca3.c b/drivers/rtc/rtc-renesas-rtca3.c
-index cbabaa4dc96a..2dc080d0eb6c 100644
---- a/drivers/rtc/rtc-renesas-rtca3.c
-+++ b/drivers/rtc/rtc-renesas-rtca3.c
-@@ -455,7 +455,7 @@ static int rtca3_set_alarm(struct device *dev, struct rtc_wkalrm *wkalrm)
- 		 * specified timeout for setup.
- 		 */
- 		writeb(rcr1 & ~RTCA3_RCR1_PIE, priv->base + RTCA3_RCR1);
--		readb_poll_timeout_atomic(priv->base + RTCA3_RCR1, tmp, !(tmp & ~RTCA3_RCR1_PIE),
-+		readb_poll_timeout_atomic(priv->base + RTCA3_RCR1, tmp, !(tmp & RTCA3_RCR1_PIE),
- 					  10, RTCA3_DEFAULT_TIMEOUT_US);
- 		atomic_set(&priv->alrm_sstep, RTCA3_ALRM_SSTEP_DONE);
- 	}
+Stanislav Fomichev (1):
+  selftests/bpf: Update bpf_clone_redirect expected return code
+
+Yonghong Song (1):
+  bpf: Fix a few selftest failures due to llvm18 change
+
+ tools/testing/selftests/bpf/DENYLIST.s390x    |   1 -
+ tools/testing/selftests/bpf/Makefile          |   2 +-
+ .../testing/selftests/bpf/prog_tests/align.c  |  18 +-
+ .../testing/selftests/bpf/prog_tests/bpf_nf.c |   6 +-
+ .../selftests/bpf/prog_tests/empty_skb.c      |  12 +-
+ .../bpf/prog_tests/libbpf_get_fd_by_id_opts.c |  87 -------
+ .../bpf/prog_tests/ns_current_pid_tgid.c      |  73 ------
+ .../bpf/prog_tests/test_global_funcs.c        | 131 +++-------
+ .../selftests/bpf/prog_tests/xdp_synproxy.c   |   6 +-
+ tools/testing/selftests/bpf/progs/bpf_misc.h  |   5 +
+ .../selftests/bpf/progs/test_global_func1.c   |   6 +-
+ .../selftests/bpf/progs/test_global_func10.c  |   1 +
+ .../selftests/bpf/progs/test_global_func11.c  |   4 +-
+ .../selftests/bpf/progs/test_global_func12.c  |   4 +-
+ .../selftests/bpf/progs/test_global_func13.c  |   4 +-
+ .../selftests/bpf/progs/test_global_func14.c  |   4 +-
+ .../selftests/bpf/progs/test_global_func15.c  |   4 +-
+ .../selftests/bpf/progs/test_global_func16.c  |   4 +-
+ .../selftests/bpf/progs/test_global_func17.c  |   5 +-
+ .../selftests/bpf/progs/test_global_func2.c   |  43 +++-
+ .../selftests/bpf/progs/test_global_func3.c   |  10 +-
+ .../selftests/bpf/progs/test_global_func4.c   |  55 ++++-
+ .../selftests/bpf/progs/test_global_func5.c   |   4 +-
+ .../selftests/bpf/progs/test_global_func6.c   |   4 +-
+ .../selftests/bpf/progs/test_global_func7.c   |   4 +-
+ .../selftests/bpf/progs/test_global_func8.c   |   4 +-
+ .../selftests/bpf/progs/test_global_func9.c   |   4 +-
+ .../bpf/progs/test_libbpf_get_fd_by_id_opts.c |  37 ---
+ .../bpf/progs/test_ns_current_pid_tgid.c      |   7 -
+ tools/testing/selftests/bpf/test_loader.c     | 233 ++++++++++++++++++
+ tools/testing/selftests/bpf/test_progs.h      |  33 +++
+ tools/testing/selftests/bpf/trace_helpers.c   |  82 ++++++
+ tools/testing/selftests/bpf/trace_helpers.h   |   5 +
+ .../testing/selftests/bpf/verifier/int_ptr.c  |   6 +-
+ 34 files changed, 561 insertions(+), 347 deletions(-)
+ delete mode 100644 tools/testing/selftests/bpf/prog_tests/libbpf_get_fd_by_id_opts.c
+ delete mode 100644 tools/testing/selftests/bpf/progs/test_libbpf_get_fd_by_id_opts.c
+ create mode 100644 tools/testing/selftests/bpf/test_loader.c
+
 -- 
-2.54.0
+2.43.0
 
