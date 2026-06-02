@@ -1,122 +1,162 @@
-Received: from n169-111.mail.139.com (n169-111.mail.139.com [120.232.169.111])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C37C73B9D94;
-	Tue,  2 Jun 2026 07:50:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=120.232.169.111
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B34370808
+	for <stable@vger.kernel.org>; Tue,  2 Jun 2026 07:52:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780386620; cv=none; b=a0MZPOnZ7U0b8zFCXTc9IWnko3vZilgkefAA4fPLY+e5Mjbz5Y8d+x1bc6I+EHhdVBZaPdpGjgTTJmMxk15rvmKzFUXXH8II7YraA0hWiOAfYHfxYcnKYFP1nza/jkemb4robv8ZJ+1bSDoQCi7PQGWYE+mOBgPdErOEhNGPOdM=
+	t=1780386745; cv=none; b=D8+JOQmjuoBAGBbxLsUnJamedjIxgGT+Q4DzNFO/zPFWtWC01dSYUhxiBRTOoag0IXWq0loff5HykOnnE+/qBNKfX/R3ALNciidoP7Fs2fhbHXJq2dART85EmsNWDu0dZ9KTrIiIqki4Vj/g1A+Pz4c+2P1MmozIFTpIR1u5na0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780386620; c=relaxed/simple;
-	bh=r8JJSHfKw9Brkkcjw3TDT0i1OPaFOAg7fPAPfVj2Lec=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=RUBUUTLeL/5M+8MUMUzFukB7WZZOxZgrZhwey2nRKqDaIyyvmvrJVclw9tWdcodJqxtSHwkyiiU2iimkybyPhJ+ZYJBt6lIaUu7141BJGLpCCpUA3fPRmsJou+C8eb3VTCa9HuvRXN2FPPik0QHsDfjEhLHk7Y3QKZcrbHQAO5s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=139.com; spf=pass smtp.mailfrom=139.com; dkim=pass (1024-bit key) header.d=139.com header.i=@139.com header.b=d6uX4TgG; arc=none smtp.client-ip=120.232.169.111
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=139.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=139.com
+	s=arc-20240116; t=1780386745; c=relaxed/simple;
+	bh=eiSYb56ISqHiWW85Bez4/clFZUsfcUNxHe8kRpVIXmQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=mQCcIwUqfdvAhxVGlOPdLm4UWTEd1C7UDUm/7sGgcAv/Y3399fwcOpm5yW+zISR0Oraue0KGGKNKXZab8Rf7KuV7XjtDiqun7pnbjdI7sLnVYM5cc01yrOcOOJ9GZqMnuslsCzu8VpY1PIyI5oP+vu0jIEhvnxAg8G5nhs8Tbwg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Jt8sVGs7; arc=none smtp.client-ip=209.85.210.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=139.com header.i=@139.com header.b="d6uX4TgG"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Jt8sVGs7"
+Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-8423f1d8902so792142b3a.1
+        for <stable@vger.kernel.org>; Tue, 02 Jun 2026 00:52:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=139.com; s=dkim; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=d6uX4TgGv6yot+IU0+JPwwvDwBJHBzykiSicikOxgodxZpH+fkeYwgHGBUqGq7rzIWMfgJj+lNOow
-	 0ql+JDtHphqTba4Swg3OVsjLXuL/y7JLIMbTFSUGUosh0zC7YnYgo7dZOPdxmbR+tdB56046di2BwJ
-	 uJgb+IeO0p5EHHrI=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM:                                                                                        
-X-RM-SPAM-FLAG:00000000
-Received:from NTT-kernel-dev (unknown[60.247.85.88])
-	by rmsmtp-lg-appmail-12-12001 (RichMail) with SMTP id 2ee16a1e8b375ef-0261c;
-	Tue, 02 Jun 2026 15:50:19 +0800 (CST)
-X-RM-TRANSID:2ee16a1e8b375ef-0261c
-From: Li hongliang <1468888505@139.com>
-To: gregkh@linuxfoundation.org,
-	stable@vger.kernel.org,
-	jk@codeconstruct.com.au
-Cc: patches@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	matt@codeconstruct.com.au,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	netdev@vger.kernel.org
-Subject: [PATCH 5.15.y] net: mctp: ensure our nlmsg responses are initialised
-Date: Tue,  2 Jun 2026 15:50:14 +0800
-Message-Id: <20260602075014.3210968-1-1468888505@139.com>
-X-Mailer: git-send-email 2.34.1
+        d=gmail.com; s=20251104; t=1780386743; x=1780991543; darn=vger.kernel.org;
+        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=hP2LSLOcJwd8pqW0+7W9R4omsBDhLT1ZDgtaEvUzbZw=;
+        b=Jt8sVGs7PW5hDokM3WyoGbYSM4xx1e1wwYjyS5AAAE1eTiu0gkU8CEqyODvgg1Gz6/
+         BLbsslNns58OhmJ2ek+jLflLBD4r+L0X4zrxKMauiYqSFr5BmkwZhBcuyu5zSayKf9HB
+         ItrgYnA+No8DUJitk8xY+HlnvNkbmjQDNWJ/vSTOWDn0OEh4MnScTDhh9qVpoDbUem5T
+         7aWE+T55RSbdqT8tm1s+2C9Tkxe0rS3OTNrBXswRP5PLEYstzESNcT1CYZDOiFwNgFiw
+         7Uunm6tYWu8AxNpJW9KGcrPGy8IUn/O0gqW01l1jJ1q+J0pdxB5dA4n+749PXm0BixOB
+         CNNQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780386743; x=1780991543;
+        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=hP2LSLOcJwd8pqW0+7W9R4omsBDhLT1ZDgtaEvUzbZw=;
+        b=A0t6a5JA2cCvRlsd2xqIQOAgfxPDN1oMStDxHc1dS6FJY5L7uA62h5zYT/b0cqkSjn
+         dHMF5rz1dxLlwvOW4zJl7eHHZyyKA4+azonST5O+YfMNHpP1e/5Q7KOSRlbipWGlAaTW
+         0M2s9OgIynvJwPSdeVlIGpM4YZcfCpaKnebdwYxbhEGGZdMI2l5eEXdLVDVJ8+TAq7oZ
+         08nilW8BorNmJ5jdQ4YbYCWEwdrD1Ec25JWuqkPM+mpouNkLxRGuYySjMgrB14krp52S
+         wjsoHHqy4k2ePT9FlH9PZ1IV9QBCTKDe3ol0UVk438HwuorNkEfVb7eD4JkkgL0/BPtE
+         VxPw==
+X-Forwarded-Encrypted: i=1; AFNElJ/8qBnhnyUF27kD4OEdnZQAIzdHHentrH0WLOwFj1J9rd0D16nKqWlrKTd4NaayQ3Pf3iIncrk=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyto2tlSLyAGFkaPv4uqrvclz75sw+Gv/y5989Gyv6aoHuCxRZw
+	ltHu94T8s+xB8InUP6rJWWSEDUjvx1Anh1P2v3TcIa1sFtzYwOvQK45z
+X-Gm-Gg: Acq92OHGyQh1uQzvjeMa4vguprKTmaVyfkjf2Hv50UmI4AmO7so9goBKNtrRdIJo2nl
+	Ospgp9z1lOJA8+VOVPNIASaj0Z38bP6DtahdjsZWf/i4D3l9R1D3dUR7X8e37HEnlLvdujoWbC9
+	7F17JDxjhNjSse8A8TSGlo2VrXNIVPs29VTeH2oCNXVBLgxCEYyE55tZk93YA3ZpRE9N3Au3YmI
+	N9WVPb31qq5Gd3R2FkxRJ6bcbIvXU4O0pbVdThKd/a0mVP2iFpMG2W3T0sHc1yWkF4OGQmkJWQt
+	P8iJ7nyl78FMG77eX7V6uA60ajorm8urwu35qU+ty81am5HjRy9rw+3oFC+bcNz678tzDDPgrq3
+	jsU9P0kpmdNTEo3vMv56SqAuVXUAGIgDwAk4u6iTJT0ObsvJIRe+vOeKpsGrekGrmwcdN/F0E6K
+	gc4bdcVn3oXaJA/3TkKi3cUIvd9SX6Am6IrwY/RwiH4YMmT+qojCJ2hq5uwPa71lrC
+X-Received: by 2002:a05:6a00:3cd3:b0:835:6388:655d with SMTP id d2e1a72fcca58-84225401e17mr12812962b3a.14.1780386743362;
+        Tue, 02 Jun 2026 00:52:23 -0700 (PDT)
+Received: from v4bel ([58.123.110.97])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8423dc9f361sm7534426b3a.24.2026.06.02.00.52.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 02 Jun 2026 00:52:22 -0700 (PDT)
+Date: Tue, 2 Jun 2026 16:52:18 +0900
+From: Hyunwoo Kim <imv4bel@gmail.com>
+To: maz@kernel.org, oupton@kernel.org, joey.gouly@arm.com,
+	seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com,
+	catalin.marinas@arm.com, will@kernel.org, kees@kernel.org
+Cc: linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+	imv4bel@gmail.com
+Subject: [PATCH v2] KVM: arm64: vgic-its: Serialize translation cache
+ invalidation under its_lock
+Message-ID: <ah6Lsi4MfKUU6wBR@v4bel>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-From: Jeremy Kerr <jk@codeconstruct.com.au>
+vgic_its_invalidate_cache() walks the per-ITS translation cache with
+xa_for_each() and drops the cache's reference on each entry with
+vgic_put_irq().
 
-[ Upstream commit a6a9bc544b675d8b5180f2718ec985ad267b5cbf ]
+It must be called with its_lock held. The ITS command handlers and the
+ITS teardown path hold it, but two paths that also invalidate the cache do
+not: the GITS_CTLR write path holds only cmd_lock, and the path that
+clears EnableLPIs in a redistributor's GICR_CTLR holds neither lock. Two
+contexts without a common lock, such as two vCPUs clearing EnableLPIs or
+an EnableLPIs clear racing an ITS command, can drain the same cache at
+once. If both observe an entry, erase it and then put it, the single
+reference the cache holds on that entry is dropped more than once, and the
+entry can be freed while an ITE still maps it.
 
-Syed Faraz Abrar (@farazsth98) from Zellic, and Pumpkin (@u1f383) from
-DEVCORE Research Team working with Trend Micro Zero Day Initiative
-report that a RTM_GETNEIGH will return uninitalised data in the pad
-bytes of the ndmsg data.
+Take its_lock in the two paths that lacked it: the GITS_CTLR write path
+and vgic_its_invalidate_all_caches(), which clears EnableLPIs. Since
+vgic_its_invalidate_all_caches() now takes a mutex, it can no longer walk
+kvm->devices under rcu_read_lock(), so walk it under kvm->lock instead.
+With its_lock held across every invalidation, each entry is erased and put
+by a single context, so the cache reference is dropped exactly once.
 
-Ensure we're initialising the netlink data to zero, in the link, addr
-and neigh response messages.
-
-Fixes: 831119f88781 ("mctp: Add neighbour netlink interface")
-Fixes: 06d2f4c583a7 ("mctp: Add netlink route management")
-Fixes: 583be982d934 ("mctp: Add device handling and netlink interface")
-Signed-off-by: Jeremy Kerr <jk@codeconstruct.com.au>
-Reviewed-by: Simon Horman <horms@kernel.org>
-Link: https://patch.msgid.link/20260209-dev-mctp-nlmsg-v1-1-f1e30c346a43@codeconstruct.com.au
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Li hongliang <1468888505@139.com>
+Cc: stable@vger.kernel.org
+Fixes: 8201d1028caa ("KVM: arm64: vgic-its: Maintain a translation cache per ITS")
+Suggested-by: Oliver Upton <oupton@kernel.org>
+Signed-off-by: Hyunwoo Kim <imv4bel@gmail.com>
 ---
- net/mctp/device.c | 1 +
- net/mctp/neigh.c  | 1 +
- net/mctp/route.c  | 1 +
- 3 files changed, 3 insertions(+)
+Changes in v2:
+- Serialize the invalidation under its_lock as suggested by Oliver,
+  instead of v1's gating of the put on the xa_erase() return value.
+- v1: https://lore.kernel.org/all/ah2c5lu4JbUg7dj-@v4bel/
+---
+ arch/arm64/kvm/vgic/vgic-its.c | 13 ++++++++-----
+ 1 file changed, 8 insertions(+), 5 deletions(-)
 
-diff --git a/net/mctp/device.c b/net/mctp/device.c
-index aec7ffad2666..a11d5aca201c 100644
---- a/net/mctp/device.c
-+++ b/net/mctp/device.c
-@@ -55,6 +55,7 @@ static int mctp_fill_addrinfo(struct sk_buff *skb, struct netlink_callback *cb,
- 		return -EMSGSIZE;
+diff --git a/arch/arm64/kvm/vgic/vgic-its.c b/arch/arm64/kvm/vgic/vgic-its.c
+index 1d7e5d560af4..4bf60fa5bd7c 100644
+--- a/arch/arm64/kvm/vgic/vgic-its.c
++++ b/arch/arm64/kvm/vgic/vgic-its.c
+@@ -596,6 +596,8 @@ static void vgic_its_invalidate_cache(struct vgic_its *its)
+ 	struct vgic_irq *irq;
+ 	unsigned long idx;
  
- 	hdr = nlmsg_data(nlh);
-+	memset(hdr, 0, sizeof(*hdr));
- 	hdr->ifa_family = AF_MCTP;
- 	hdr->ifa_prefixlen = 0;
- 	hdr->ifa_flags = 0;
-diff --git a/net/mctp/neigh.c b/net/mctp/neigh.c
-index bc75a263719c..18a6be38f172 100644
---- a/net/mctp/neigh.c
-+++ b/net/mctp/neigh.c
-@@ -217,6 +217,7 @@ static int mctp_fill_neigh(struct sk_buff *skb, u32 portid, u32 seq, int event,
- 		return -EMSGSIZE;
++	lockdep_assert_held(&its->its_lock);
++
+ 	xa_for_each(&its->translation_cache, idx, irq) {
+ 		xa_erase(&its->translation_cache, idx);
+ 		vgic_put_irq(kvm, irq);
+@@ -607,17 +609,16 @@ void vgic_its_invalidate_all_caches(struct kvm *kvm)
+ 	struct kvm_device *dev;
+ 	struct vgic_its *its;
  
- 	hdr = nlmsg_data(nlh);
-+	memset(hdr, 0, sizeof(*hdr));
- 	hdr->ndm_family = AF_MCTP;
- 	hdr->ndm_ifindex = dev->ifindex;
- 	hdr->ndm_state = 0; // TODO other state bits?
-diff --git a/net/mctp/route.c b/net/mctp/route.c
-index 48d32bfd3863..a93796eb0a09 100644
---- a/net/mctp/route.c
-+++ b/net/mctp/route.c
-@@ -1031,6 +1031,7 @@ static int mctp_fill_rtinfo(struct sk_buff *skb, struct mctp_route *rt,
- 		return -EMSGSIZE;
+-	rcu_read_lock();
++	guard(mutex)(&kvm->lock);
  
- 	hdr = nlmsg_data(nlh);
-+	memset(hdr, 0, sizeof(*hdr));
- 	hdr->rtm_family = AF_MCTP;
+-	list_for_each_entry_rcu(dev, &kvm->devices, vm_node) {
++	list_for_each_entry(dev, &kvm->devices, vm_node) {
+ 		if (dev->ops != &kvm_arm_vgic_its_ops)
+ 			continue;
  
- 	/* we use the _len fields as a number of EIDs, rather than
+ 		its = dev->private;
++		guard(mutex)(&its->its_lock);
+ 		vgic_its_invalidate_cache(its);
+ 	}
+-
+-	rcu_read_unlock();
+ }
+ 
+ int vgic_its_resolve_lpi(struct kvm *kvm, struct vgic_its *its,
+@@ -1725,8 +1726,10 @@ static void vgic_mmio_write_its_ctlr(struct kvm *kvm, struct vgic_its *its,
+ 		goto out;
+ 
+ 	its->enabled = !!(val & GITS_CTLR_ENABLE);
+-	if (!its->enabled)
++	if (!its->enabled) {
++		guard(mutex)(&its->its_lock);
+ 		vgic_its_invalidate_cache(its);
++	}
+ 
+ 	/*
+ 	 * Try to process any pending commands. This function bails out early
 -- 
-2.34.1
-
+2.43.0
 
