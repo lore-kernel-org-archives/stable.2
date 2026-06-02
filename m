@@ -1,93 +1,138 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 30DB53438BF
-	for <stable@vger.kernel.org>; Tue,  2 Jun 2026 10:05:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mx1.secunet.com (mx1.secunet.com [62.96.220.36])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 081B92BD5B4;
+	Tue,  2 Jun 2026 10:06:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.96.220.36
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780394750; cv=none; b=a2TAfWKo7VmC1kMv3VtP4Na5RhJEgG9h0KNNeE2UEDgXhfE8nyuWWnNbWOfxT2PtPkop9M/1K4OLtOlk9jMoKO3dG4CviPACBka62qCxTS5DvqVrVDwqYpiov4bWmES0XHjuK7Y9ekSfR9kAGtFcMCse+/se4Bm2Rw3yV+rtr2U=
+	t=1780394775; cv=none; b=uO3+2lDNZrx86C2T6nU3+hmidSaSqXViJ3tOaYV2kA0Xe/eemK2L7/ZTOFFxQ4s9V4HezswBrdVuvdgZAlxC/vdiHhPUkueFWWdoCwvPRMRhY+45L96E6Thvz/0fJ4M3F+UcT2FIxpYdYXsaO2e+5YYE1bgfVEERiLm/rxhdrlM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780394750; c=relaxed/simple;
-	bh=KkZL3kZjlzIKZDczsKUqHdtUtCFsETbMqyj175b7mTo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rKPwuzkKBra0DXncuXrInDEda0iFEBsXKQdlzcGsCVWd9lC4V6yqjHQ1OvM+A/p5hPq+CziXetkbpTmrngRcIflqPbk6LjuNAvfSY8PxVc6C6hsWvODNtfXExP0RxwpdCLTaeA7ai0ZER1PTI5EkZth9td/0TqcDB43jkYXqXdk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=kl9GGNH0; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1780394775; c=relaxed/simple;
+	bh=BEdbwmGbIBnnbQ+wIL9cNcKcyM+hW5MjQ/S/FB5eMII=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=O6jcyKWC+h7MAZ9qFziF8A3GYG7ts8E8UQJZb6CgKQv9uHJCPtnNrruhmgZFqNWx7y2CewaKSCcHOqzm7Ovm8O/ZrfpESXj9bzQDK3bcYsZnsuRltxEEuq2o64p/bCl39o/BLsWRK4BdKhR+eJUDMCm3yiyp+6pkMumQRRZ+xOk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=secunet.com; spf=pass smtp.mailfrom=secunet.com; dkim=pass (2048-bit key) header.d=secunet.com header.i=@secunet.com header.b=SM3HDZGy; arc=none smtp.client-ip=62.96.220.36
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=secunet.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=secunet.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="kl9GGNH0"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9091B2309;
-	Tue,  2 Jun 2026 03:05:43 -0700 (PDT)
-Received: from thinkpad-e142931.arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id DD7C83F632;
-	Tue,  2 Jun 2026 03:05:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1780394748; bh=KkZL3kZjlzIKZDczsKUqHdtUtCFsETbMqyj175b7mTo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=kl9GGNH0LnDyLs5hJh70fo+fntDxJSbU2Yh7BKyfzbFXGHXr6zUg7scfVNhUXhJ6R
-	 Tp5b86PaKl4aa1R0+OHqUW2VZoiwL2z7hFbRPTGwyJS4O/emX/3sQWJUpn62KB2TO+
-	 I+SiFLWoFYfwTYzfDP/8n5OD6HQLahyViUhrFJj4=
-Date: Tue, 2 Jun 2026 11:05:32 +0100
-From: Wei-Lin Chang <weilin.chang@arm.com>
-To: Oliver Upton <oupton@kernel.org>, kvmarm@lists.linux.dev
-Cc: Marc Zyngier <maz@kernel.org>, Joey Gouly <joey.gouly@arm.com>, 
-	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, stable@vger.kernel.org
-Subject: Re: [PATCH] KVM: arm64: nv: Fix handling of XN[0] when !FEAT_XNX
-Message-ID: <c6ygqahq5cnk7b3q2hyy7aiagmnvytizp7sksjqz6qo57ghifa@ruflsb5snx2s>
-References: <20260602072759.37885-1-oupton@kernel.org>
+	dkim=pass (2048-bit key) header.d=secunet.com header.i=@secunet.com header.b="SM3HDZGy"
+Received: from localhost (localhost [127.0.0.1])
+	by mx1.secunet.com (Postfix) with ESMTP id B97AC2074F;
+	Tue,  2 Jun 2026 12:06:03 +0200 (CEST)
+X-Virus-Scanned: by secunet
+Received: from mx1.secunet.com ([127.0.0.1])
+ by localhost (mx1.secunet.com [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id 3MQyhY0hl7PI; Tue,  2 Jun 2026 12:06:03 +0200 (CEST)
+Received: from EXCH-01.secunet.de (rl1.secunet.de [10.32.0.231])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mx1.secunet.com (Postfix) with ESMTPS id 1361C20508;
+	Tue,  2 Jun 2026 12:06:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mx1.secunet.com 1361C20508
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=secunet.com;
+	s=202301; t=1780394763;
+	bh=acdeYbVitHm7oHVUpkd4RKXf1Knk3DzGdPy8GFVCVvY=;
+	h=Date:From:To:CC:Subject:References:In-Reply-To:From;
+	b=SM3HDZGyWDrEr6DgHdoQ87pQMTdvnHdRy/TfMxFXVww2iSzh0Ry/iZ9jDsWBBvCI0
+	 GTx6TJt7VIrpwXHneUA9++3dwI6B9GM/pFEvQ1Vwrn2Tk0rG4SbNh+5F3mPKG7APzj
+	 t1gGhg9PNRGsKpI+8wmBu19R3YjeCcI41uK02zsVOY9TswpMvqI2hEGP3E1uGn7MrY
+	 22eH501UmKTRd7BT2gvPd2C+8+E5bFrySL7FdT1Sn6xGLvEKziU8muyO7Qe2cYld+C
+	 qNJe5d4NVlqEdzhOIH9K+LEuyoNhz3wpiy+SJDrnQF/Eo6EgEiTEK75Q8QbrhgDLjc
+	 1v6wHS90FVIBg==
+Received: from secunet.com (10.182.7.193) by EXCH-01.secunet.de (10.32.0.171)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Tue, 2 Jun
+ 2026 12:06:02 +0200
+Received: (nullmailer pid 523192 invoked by uid 1000);
+	Tue, 02 Jun 2026 10:06:01 -0000
+Date: Tue, 2 Jun 2026 12:06:01 +0200
+From: Steffen Klassert <steffen.klassert@secunet.com>
+To: Tristan Madani <tristmd@gmail.com>
+CC: Herbert Xu <herbert@gondor.apana.org.au>, Christian Hopps
+	<chopps@labn.net>, "David S. Miller" <davem@davemloft.net>, Eric Dumazet
+	<edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+	<pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+	<netdev@vger.kernel.org>, <stable@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] xfrm: iptfs: fix ABBA deadlock in iptfs_destroy_state()
+Message-ID: <ah6rCd7up8i6173I@secunet.com>
+References: <20260528160318.2631699-1-tristan@talencesecurity.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset="us-ascii"
 Content-Disposition: inline
-In-Reply-To: <20260602072759.37885-1-oupton@kernel.org>
+In-Reply-To: <20260528160318.2631699-1-tristan@talencesecurity.com>
+X-ClientProxiedBy: EXCH-01.secunet.de (10.32.0.171) To EXCH-01.secunet.de
+ (10.32.0.171)
 
-On Tue, Jun 02, 2026 at 12:27:59AM -0700, Oliver Upton wrote:
-> XN has already been extracted from its bitfield position so using
-> FIELD_PREP() on the mask that clears XN[0] is completely broken, having
-> the effect of unconditionally granting execute permissions...
+On Thu, May 28, 2026 at 04:03:18PM +0000, Tristan Madani wrote:
+> iptfs_destroy_state() calls hrtimer_cancel() while holding a spinlock
+> that the timer callback also acquires, leading to an ABBA deadlock on
+> SMP systems.
 > 
-> Fix the obvious mistake by manipulating the right bit.
+> For the output timer (iptfs_timer):
+>   - iptfs_destroy_state() holds x->lock, calls hrtimer_cancel()
+>   - iptfs_delay_timer() callback takes x->lock
 > 
+> For the drop timer (drop_timer):
+>   - iptfs_destroy_state() holds drop_lock, calls hrtimer_cancel()
+>   - iptfs_drop_timer() callback takes drop_lock
+> 
+> Both timers use HRTIMER_MODE_REL_SOFT, so their callbacks run in softirq
+> context.  When hrtimer_cancel() is called for a soft timer that is
+> currently executing on another CPU, hrtimer_cancel_wait_running() spins
+> on softirq_expiry_lock -- the same lock held by the softirq running the
+> callback.  If the callback is blocked waiting for the spinlock held by
+> the caller of hrtimer_cancel(), a circular dependency forms:
+> 
+>   CPU 0: holds lock_A -> waits for softirq_expiry_lock
+>   CPU 1: holds softirq_expiry_lock -> waits for lock_A
+> 
+> Fix this by cancelling both timers before acquiring their respective
+> locks.  hrtimer_cancel() is safe to call without holding any lock and
+> will wait for any in-progress callback to complete.  The locks are still
+> acquired afterwards to synchronize with any in-flight packet processing
+> before tearing down the state.
+> 
+> Found by source code audit.
+> 
+> Fixes: 4b3faf610cc6 ("xfrm: iptfs: add new iptfs xfrm mode impl")
+> Cc: Christian Hopps <chopps@labn.net>
+> Cc: Steffen Klassert <steffen.klassert@secunet.com>
 > Cc: stable@vger.kernel.org
-> Fixes: d93febe2ed2e ("KVM: arm64: nv: Forward FEAT_XNX permissions to the shadow stage-2")
-> Signed-off-by: Oliver Upton <oupton@kernel.org>
+> Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
 > ---
->  arch/arm64/include/asm/kvm_nested.h | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+>  net/xfrm/xfrm_iptfs.c | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
 > 
-> diff --git a/arch/arm64/include/asm/kvm_nested.h b/arch/arm64/include/asm/kvm_nested.h
-> index 091544e6af44..f5d4eb925198 100644
-> --- a/arch/arm64/include/asm/kvm_nested.h
-> +++ b/arch/arm64/include/asm/kvm_nested.h
-> @@ -131,7 +131,7 @@ static inline bool kvm_s2_trans_exec_el0(struct kvm *kvm, struct kvm_s2_trans *t
->  	u8 xn = FIELD_GET(KVM_PTE_LEAF_ATTR_HI_S2_XN, trans->desc);
+> diff --git a/net/xfrm/xfrm_iptfs.c b/net/xfrm/xfrm_iptfs.c
+> index 97bc979e55baf..fd25b2b230793 100644
+> --- a/net/xfrm/xfrm_iptfs.c
+> +++ b/net/xfrm/xfrm_iptfs.c
+> @@ -2708,8 +2708,9 @@ static void iptfs_destroy_state(struct xfrm_state *x)
+>  	if (!xtfs)
+>  		return;
 >  
->  	if (!kvm_has_xnx(kvm))
-> -		xn &= FIELD_PREP(KVM_PTE_LEAF_ATTR_HI_S2_XN, 0b10);
-> +		xn &= BIT(1);
+> -	spin_lock_bh(&xtfs->x->lock);
+>  	hrtimer_cancel(&xtfs->iptfs_timer);
+> +
+> +	spin_lock_bh(&xtfs->x->lock);
+>  	__skb_queue_head_init(&list);
+>  	skb_queue_splice_init(&xtfs->queue, &list);
+>  	spin_unlock_bh(&xtfs->x->lock);
+> @@ -2717,8 +2718,9 @@ static void iptfs_destroy_state(struct xfrm_state *x)
+>  	while ((skb = __skb_dequeue(&list)))
+>  		kfree_skb(skb);
 >  
->  	switch (xn) {
->  	case 0b00:
-> @@ -147,7 +147,7 @@ static inline bool kvm_s2_trans_exec_el1(struct kvm *kvm, struct kvm_s2_trans *t
->  	u8 xn = FIELD_GET(KVM_PTE_LEAF_ATTR_HI_S2_XN, trans->desc);
->  
->  	if (!kvm_has_xnx(kvm))
-> -		xn &= FIELD_PREP(KVM_PTE_LEAF_ATTR_HI_S2_XN, 0b10);
-> +		xn &= BIT(1);
+> -	spin_lock_bh(&xtfs->drop_lock);
+>  	hrtimer_cancel(&xtfs->drop_timer);
+> +
+> +	spin_lock_bh(&xtfs->drop_lock);
+>  	spin_unlock_bh(&xtfs->drop_lock);
 
-I think using 0b10 here can improve styling consistency very slightly,
-but either way,
-
-Reviewed-by: Wei-Lin Chang <weilin.chang@arm.com>
-
->  
->  	switch (xn) {
->  	case 0b00:
-> 
-> base-commit: 5d6919055dec134de3c40167a490f33c74c12581
-> -- 
-> 2.47.3
-> 
+What is this? You take the drop_lock just to release it in the next
+line.
