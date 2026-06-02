@@ -1,137 +1,175 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010012.outbound.protection.outlook.com [52.101.69.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9AAC31DDBF
-	for <stable@vger.kernel.org>; Tue,  2 Jun 2026 20:11:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780431093; cv=none; b=hNYDef8D+61ozuojcqYSh67NplD7dqQ5nMSEQtyw3MD8nHKKQ7b3O0Wz4kWU8WlgCp5k4cLFnfSNLgCKh0hmoPwgQfnKqFko6xEHqqOiEmNoWucsXH4QPLVjFnzCcbE+z1AHBUl7TVJ03bKU3UJAkQafE7RMLdBVpQzPTjyslz4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780431093; c=relaxed/simple;
-	bh=0JqtBpYUnXIfBSOJ9sBFjxb9UBuuSJ3GUR0evn/Js9k=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=iA6LJRZzm5rsUESBph4UF7vNUcaUi2X+t1OLeCVa2t7yHpM4RVJ6xmAZktcgi4Ry+9acNenzeBXIrMJjX/FsVmP223th+CnkhDlM/sQTKZPqGaIO9XWpu+C+RyGL0LkB6VqHlFH/p0gk2RL0qzQU9cxkLMkvS+yhnrm3vsQLz/I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net; spf=pass smtp.mailfrom=flipper.net; dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b=pj25vQ8Y; arc=none smtp.client-ip=209.85.128.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD05431B837;
+	Tue,  2 Jun 2026 20:13:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780431187; cv=fail; b=VaB75vEkSi2nSdhia96NQH0ZGaQqx3PhGF7uwmWyqIsVJrl4rJfGeGNZGS6Jploupvyicnx5jBb1pINbP0U0uOJ0KbWlnycda/AKtOOU9u9nxhbxtzhAkvhoeg//Wr09upIyu3iiEtmV11w5vK/z7fsuewdySzhjWF9HcRPhDkI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780431187; c=relaxed/simple;
+	bh=6mZneZlfHoiwfSVcTIBQ1PnSQlhXvXLigC/kjegRMBI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=ftjX510J9u4vHE01wDVcgWmHz+Yx0Px2CEokYOY7XfYrakRiUw0oQMU/hWZrWV1jOuhgFeV8Hu+Q0zDz2Bb04pMsgz8xI5bV6VJJpkOoeEsZGo2MGxmdqcTcJQAG3hVahQhX0bR/c6vK0sDioDwZvOtDBI8B+ZiB9WnJEs8YN+A=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=O13FgV2W; arc=fail smtp.client-ip=52.101.69.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b="pj25vQ8Y"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4906238c62eso97683855e9.3
-        for <stable@vger.kernel.org>; Tue, 02 Jun 2026 13:11:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=flipper.net; s=google; t=1780431090; x=1781035890; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=ZKgY/LuZvQl+MpRxtJBgscIMUnKIMmUCTQze1Bp636w=;
-        b=pj25vQ8Y8M+jV8MDUXAfilI75khrAQKZslwobjWIQkGY/n+Dq170I0inKcH6bVolaP
-         lZEn7eH3QRsBG1C1tZ6TSPoYGBczyCjW0C+AjZ5XO46eUtWpKrq06fw0Se9U6RuHdyoJ
-         P+wfijgDcxlwG0jFfsvH7VdwTkY2WZXpMbhtGDL7foCHWEWCBtZZ70kNQ6i7fjrsmfG6
-         Ry1XpPf5cT/nFzyJpuMFgJEhQUUl2EHCnM/aLa/fXPnOpsZS0asPWmLqXCdFI8rOo/Dm
-         sEfpFl1u31LInihReb0ryMjmXiiII1Zl+dVOhh7sod/wexWCn7bWWUd3FGmbAEdBbrFJ
-         ZX3g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780431090; x=1781035890;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=ZKgY/LuZvQl+MpRxtJBgscIMUnKIMmUCTQze1Bp636w=;
-        b=SNZIzetX5DJruCi2RPeTpVdMqV3Ug1APiK2ShbwYwaokSc3VerqDJoimDOm8aDB0tY
-         iKA5u3/lbU1qmfJyWfZx+d4R3N2ZRiA6BuhYXoXw/vtqnRn7ijjrCqn3p3Xm/qu3aWEq
-         0SgFEtx8rQ5UW91Lp6KdAjnGIu1A72/xRAnhgpDSogIUBL5WjR2O6mLsfoUjFFo+Rewm
-         koMK4IU7NvCRv56ddj/GtJWh737xL8ItrYqbx3abiWkYjCfheZEijFURtc9gLp6EJvVf
-         yuGf0fSHX7Ovs4eVKrtS36KB8jZNnL4GYlgUlYQGySmFb8kx+k0OlS8GUUVe8gOI9rAA
-         Dtyw==
-X-Forwarded-Encrypted: i=1; AFNElJ+XIHiSx5hezpQKg6NiS6p5vaFd04MDAUVKuPDa62ZTW91wA9ANoutAk+I7LiKPkYGHT6Vbsew=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz6tgqbNm24/VbmOWaEh8layK9p1wPXzHDKYSfgXx+YrDBy9sa4
-	+0acViXQFZEdQ5JG7UPJz3/phuRkCH1wU2/tP+7nhMT1aTwkmz/l9XVDSW0RdKenApU=
-X-Gm-Gg: Acq92OEGxbe9M7XIecOO6UbjUS96UFL2FVMz4LQdWlO0pAqwnyEWSUsZ9ucCY8g/29t
-	3SI6P8GGuVIKGMfMcFoWOaJ8nhnl6rdabf5WsVosUomvETTBFuwyVpgUhfKvVr06pH9andREvUh
-	Y0SjGKw1YAHvTU2GjrWNuznqDtj7HkAbdshwRg96iZOYDCHbxu/F4MzgItTLZl6DgdCvfR2sSCr
-	Jp2l4oI/q7OGQsLDMlwj6MsCEQF679+p3Gvgi+6Jj79e/W0zTYAIUELq1SMUktcxmqSuiNBslc7
-	TZnjftZNEe0hegj+cWed52m0Ah+m4D8JBGGiLQ+GIax2DWWa2uDjpQBcmUzawS+/GAzqyEu0kU6
-	CJSKhpVkMhGJjNqMGopzgGJ8fMFyaiNhZGq3JV1Gi2DEFS2b5CLKuwNNaqtKVabrjLPZCMxSoCr
-	0EBIHEfnAAiS0LmCV4U2aKSuuDKAEDaFKlpLPlGcu46KmIzmu1P18=
-X-Received: by 2002:a05:600c:8184:b0:490:b5a0:ccfe with SMTP id 5b1f17b1804b1-490b610797cmr4064345e9.31.1780431090477;
-        Tue, 02 Jun 2026 13:11:30 -0700 (PDT)
-Received: from alchark-surface.localdomain ([5.194.92.128])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490b63e6720sm2588515e9.13.2026.06.02.13.11.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 02 Jun 2026 13:11:30 -0700 (PDT)
-From: Alexey Charkov <alchark@flipper.net>
-Date: Wed, 03 Jun 2026 00:10:50 +0400
-Subject: [PATCH v7 2/7] power: supply: bq257xx: Fix VSYSMIN clamping logic
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="O13FgV2W"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=GtWoPpdpjvnCe17F8jRAYjaThLn2H7yG+++FiazSwOmo7S2NCr+KgM6sw3HsL2y0PRQaSwHRRmBPU93mVWHH5ItyHfaFW8hqwlS6jmAKFXbd7bSAbqz7uSJmyg/lL0cy/IWr1p3pfu8/ezItQXBoIVdGp1kx7UNGEekQkZpVuIbE6lqigE3pEkQMcGg6+rD66OsjZmD/tQ8x4Ro6muw6bZcmyV+l8ExjQez4ihD/Pwqq5UMCBowMR3xJIBkBBWcs+zS/XB2iVQkvqAHqf5jWrXgrazulihvvh4b3FAVhIuo+dYNKguEUVpRzuVUknXVZtPoaQn/pZxzgBvjrV1USDQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6mZneZlfHoiwfSVcTIBQ1PnSQlhXvXLigC/kjegRMBI=;
+ b=kwt+bnH+77caOOvG+HxWyHBYSawePtqpLcRP9t21kvu7vfSkPe2FRTTn6qsKm3T1UfH7zCeQFZ6nZKXV7V+vSyBxjee4KpuVFAIJOzl2HU1//9JvEVwhB2WqAWzo4ESbtB1Ir7KlpUIWdDqupM8V2lVq5p/Y3c6D5q5PokE/UONrs5wnDzSZ0tQM+WzqhuGFrswZ7RzryfGqZCZROQUomfnbSom0AHYBBieKIhy+fTZpobRY5CfgXMP+ysPzVUkTEKPBqFNQLLihWuGo9hwHB+6XMMsoYAMcyyPwIpk/cFAyOr7qEtqBi44MhfDNmHzc5YVQ8Bqp/fGXApYYpRO+Gg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6mZneZlfHoiwfSVcTIBQ1PnSQlhXvXLigC/kjegRMBI=;
+ b=O13FgV2WO/JKNStHKrYvqCDJrk9NCrx/IqBVYgRGxl1fMu24/LR99lSRA9LeqN8u5vUvpIeDCJjdtvJYnGuoAFiIK7aedn8jAlVdiniJQa9jt5WW6dw1QeUPPVkVMPuRuiCBalgGYj9HRc0wBg1dcsP1EJFWFVEdL5phOSblz6MwQAGhXZ0vSq3d/PlAQtRmUgKanSFegKFyPU7zhPADuklTKvPbf8V7uPi/bA5ktER0R7aNv8LU4hV7U3q6OjUcgvoIY+ADZWl3Rlq6uRpylct9vvPSHsYW6Ge01FO9QTUEBhBqyLfNMX+wB8J+UWDs//XY8vfIiYd1BxFeY1TGjg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from PA4PR04MB9366.eurprd04.prod.outlook.com (2603:10a6:102:2a9::8)
+ by PAXPR04MB9572.eurprd04.prod.outlook.com (2603:10a6:102:24f::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.17; Tue, 2 Jun 2026
+ 20:13:00 +0000
+Received: from PA4PR04MB9366.eurprd04.prod.outlook.com
+ ([fe80::75e4:8143:ddbc:6588]) by PA4PR04MB9366.eurprd04.prod.outlook.com
+ ([fe80::75e4:8143:ddbc:6588%3]) with mapi id 15.21.0071.015; Tue, 2 Jun 2026
+ 20:13:00 +0000
+Date: Tue, 2 Jun 2026 16:12:53 -0400
+From: Frank Li <Frank.li@nxp.com>
+To: Claudiu Beznea <claudiu.beznea@kernel.org>
+Cc: wsa+renesas@sang-engineering.com, tommaso.merciai.xr@bp.renesas.com,
+	alexandre.belloni@bootlin.com, p.zabel@pengutronix.de,
+	claudiu.beznea@tuxon.dev, linux-i3c@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2 06/17] i3c: renesas: Perform Dynamic Address
+ Assignment on resume
+Message-ID: <ah85RaUXmaBVFkYk@lizhi-Precision-Tower-5810>
+References: <20260602132824.3541151-1-claudiu.beznea@kernel.org>
+ <20260602132824.3541151-7-claudiu.beznea@kernel.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260602132824.3541151-7-claudiu.beznea@kernel.org>
+X-ClientProxiedBy: PH7P222CA0020.NAMP222.PROD.OUTLOOK.COM
+ (2603:10b6:510:33a::8) To PA4PR04MB9366.eurprd04.prod.outlook.com
+ (2603:10a6:102:2a9::8)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260603-bq25792-v7-2-d487bed276d0@flipper.net>
-References: <20260603-bq25792-v7-0-d487bed276d0@flipper.net>
-In-Reply-To: <20260603-bq25792-v7-0-d487bed276d0@flipper.net>
-To: Chris Morgan <macromorgan@hotmail.com>, Mark Brown <broonie@kernel.org>, 
- Sebastian Reichel <sre@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
- Lee Jones <lee@kernel.org>
-Cc: linux-kernel@vger.kernel.org, 
- Sebastian Reichel <sebastian.reichel@collabora.com>, 
- linux-pm@vger.kernel.org, Alexey Charkov <alchark@flipper.net>, 
- stable@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2028; i=alchark@flipper.net;
- h=from:subject:message-id; bh=0JqtBpYUnXIfBSOJ9sBFjxb9UBuuSJ3GUR0evn/Js9k=;
- b=owGbwMvMwCW2adGNfoHIK0sZT6slMWTJWzx7tYB7af1S72lfHuvaqHH4NRcI3fxyJVxhplHtD
- PHJ6va3OyayMIhxMViKKbLM/bbEdqoR36xdHh5fYeawMoEMkRZpYAACFga+3MS8UiMdIz1TbUM9
- QyMdYx0jBi5OAZjqh74M/90iZilcm3ba/Z6hQIB0uFBs0v1DXcyryq0ZeX6u8fjZPpmRYdrUf5f
- 9Zs9a7v/z1enwrKB7iryLDqsGLX6jLXv1imVkCjMA
-X-Developer-Key: i=alchark@flipper.net; a=openpgp;
- fpr=9DF6A43D95320E9ABA4848F5B2A2D88F1059D4A5
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PA4PR04MB9366:EE_|PAXPR04MB9572:EE_
+X-MS-Office365-Filtering-Correlation-Id: 28f21711-f608-4a21-65db-08dec0e357fb
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|19092799006|7416014|52116014|376014|1800799024|38350700014|4143699003|18002099003|22082099003|56012099006|11063799006|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	9FzGFhNveCdMtVkN6bySZwSk/dMP4qfdMysJuMHFJN47JElfMWLKg3Braa6WfFNz6LDPCvfBagSl3agq3YUNsXaOsOJWXKgrYu4GoiFKsNTTK3/JnQBnDXruNxd63vVDNabQ5GTqc+XdyRsGdphVelWeDpid2bJOGPeg0GruP7aUxQIU/Fjz2kIzp7BTaB4SiAvKSFaekOItheUJHul1JxUQKLF7VuwCs4r6zGjBkz2qSqB3TTo7BZvg4PhFsWZTHc70FNviC+F1OfC7W84rpkW3TD52bq6SOItZYri8/+sS5x8zowOwvZRrzH3dQR1KVIIb3egyemDGeElAtgL9QgEc8IQGqFvhP8gLs3tOjDtxNAc7hopvIsnjn2Tnem1dx2rDUIXNO0TkghadE5SoaYwRQ+JbujHqATq+xRrSMjJxxZRYwyWk9Tv7P+pNa2f6OBQlTPzzuWe7GaMrHTSLOZRjXxFIE6+YGdsp+75iH0wWtJ/D9htsjF0JomIg5AItLUGI7gg020U9d75WnLVSTpVUp9F/cDFeVZ8we/1wXCTiMH63zexcxbKe+stG68B4Neu/tl3+mS5scFgUxnH90ciIB3vkXOp0ZIeNP8gzFokQojnXb4MDFGazAAlDKMou9EwSsZ02c+kN6xQgw7GhtZiAKfsfEsrtD4NK58jPypvp9wOfL3lQUVxTW+IlcePL
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR04MB9366.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(19092799006)(7416014)(52116014)(376014)(1800799024)(38350700014)(4143699003)(18002099003)(22082099003)(56012099006)(11063799006)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?VJHfoWoh3ke0E8osgd974iP1zz/cxHtSkSNhkJvLl0WRRsQQ/Uy6+5r5qoaX?=
+ =?us-ascii?Q?1MFf5q84VYGM2p9Ma9EzU/CO4bKXJVV/ciLzFl/QNE8cofIg5dKwJP1O4Mmy?=
+ =?us-ascii?Q?sQjvht+8J2HjRwJBMLpJPSIqLnZd84lNTSFjMseTaZB9kqtYZEJH5pp/fGYZ?=
+ =?us-ascii?Q?rTtgOy+PgJgkt/tm6TB1FzvUUEvxsiAcAWLoenUISiq27AiihcfcKtjXwXA8?=
+ =?us-ascii?Q?Nn7lRtEfR3KnU7b+kZL03Z/hq4LFk3btexqp+d034EIx6sAHhT8XxOxG1Pus?=
+ =?us-ascii?Q?h7/Z6WAtEJIRP011Dq9486XtgJYTC0j2/946DHkFGD1SobtUVGLIwmmf83df?=
+ =?us-ascii?Q?8/7Mvenf1fZtb53ZK5c8reYAZiW1dDRzKJPzWnh8lV5d3f/Vjx9QXVf55TZa?=
+ =?us-ascii?Q?DIRgg4/c+uOuhKbT90X0SbGm2lFkMb14QWclLGl8mJUxWaS0hQF6ovaU6dtl?=
+ =?us-ascii?Q?P14TGA+L/F/v9bb7xrgW+7jAEAjbkAxdazYMV76Y0BUScTEd3zoIXQGRKNrM?=
+ =?us-ascii?Q?j+uCxxtFl6c3Fh92GVL2EEP4ssPda4ZJR4ZjVxPxi2CfFexPvFNNYW31wF/U?=
+ =?us-ascii?Q?i4Bb0KoXvOENhhBioZ4XlkmO9fQ24jvDxEgPn+tbYqHBIXmQZHqBjvJ5v/kY?=
+ =?us-ascii?Q?Wojpmpd/Zk8jsmNRtBUgwXUQ0iBG2fjRC3pLgJdx6vOqhk0LzNRd+Xu/RQPo?=
+ =?us-ascii?Q?Uco6OlSeNkxS5s76WikASArs5t7m5ZSEp5VDP/Vsj7adgG/69bQHGSJ6mycG?=
+ =?us-ascii?Q?4z6OQLdJV+4L4pRZxTvwWzuN+ktbsTCub6MOSoOtKuSl1UvGlgZR3CuE06SI?=
+ =?us-ascii?Q?tz/5EkibYbsbLSOyawWPMGmKfA7R/paxRZqt681p58thjDv2dyjbQDy7pSmb?=
+ =?us-ascii?Q?fX9WXpfduxE2e6GCG7Kxyj6NsDaJxV5H0wr4B0C/MPM4Lhbob+bZ46iyuNo6?=
+ =?us-ascii?Q?a1+FykL2HRWvhb596zp3tDS8VpoGYihEX6UOCK++cC2Ian17CWz24yO6sE9N?=
+ =?us-ascii?Q?RoPAz+Fr5PFdaWaj9c6ikgwSTcNk9tDMfjK5USVSNnQhmQTBQ0UBGtQFFF4p?=
+ =?us-ascii?Q?uJUTyoQ2TLZXGellIWiITlXRbt1WAw/gc+m56ZRNMt4zXXk8fNg3KF4TJ8lV?=
+ =?us-ascii?Q?v0Q41KGB6qT6AEbQQwoOushWpFNa+X3PlsWkzkDkeTrR4OA+oRiA1M8Ub7P1?=
+ =?us-ascii?Q?/BpePHEWd63XG7nO9ve/gIMB3jW+NHolqPLPeoNLHvYTMWShcy+bRv5ujGUW?=
+ =?us-ascii?Q?QGImRC52wJdO6UMOrCF2VrANpd/WgCpwPXSp3d/1eH4XVvfS3h/FX4WgM5y0?=
+ =?us-ascii?Q?+NRD7r/ANLOOYvkIf9o9vJLCai/1tfh9K60IPySIC4vlLAFJOdB0Qh1rgVYG?=
+ =?us-ascii?Q?Mx2D+e77ho5TU0/FMEpG/xZwr4VoJ+Rb5My6z5J+hhnzx3UdbaMJaeTdNhgT?=
+ =?us-ascii?Q?RktPtn6FG/FMSKXuKpAXOv5ZugppUk+L6EmE1Gq2SwwIvcR0zXK1laEV1pMb?=
+ =?us-ascii?Q?4U5J8otPGOY8fXxBTEFDvLPR0sRlIHcmQ7xQFLGb1x6VEBvW9H7NCfElwKnY?=
+ =?us-ascii?Q?QwHBI8b50GI386oV9XSIm1MiUf0skUXe0s7gFcI8J5dLIHH31siG+XZWzpwq?=
+ =?us-ascii?Q?Q3kDNYPNlgWwZhEUYqd+vMXWhT8QN2X6IYhMc1SP4Mp6DON+OeqGsjtN0Jk+?=
+ =?us-ascii?Q?SjffZE9KWvAUE+IALBJCbngT55X5BWHCeXnJBA7Wrn0dM11Cu6aaLm+gItMV?=
+ =?us-ascii?Q?yJLOnvjPsQ=3D=3D?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 28f21711-f608-4a21-65db-08dec0e357fb
+X-MS-Exchange-CrossTenant-AuthSource: PA4PR04MB9366.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2026 20:13:00.0692
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: +mHvnIHgkK2Z5rE0K6iaA/gfLanVXg70ihakamfgs7RnceJ4+tQbCTaAvHcyDHNg+wEX2UUNOMcVSihKt1neuA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB9572
 
-The minimal system voltage (VSYSMIN) is meant to protect the battery from
-dangerous over-discharge. When the device tree provides a value for the
-minimum design voltage of the battery, the user should not be allowed to
-set a lower VSYSMIN, as that would defeat the purpose of this protection.
+On Tue, Jun 02, 2026 at 04:28:13PM +0300, Claudiu Beznea wrote:
+> From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+>
+> The Renesas RZ/G3S SoC supports a power saving mode where power to most
+> SoC components, including I3C, is turned off.
+>
+> On systems where the I3C devices also loses power during suspend (e.g. NXP
+> P3T1085UK-ARD connected to the PMOD1_6A connector of the RZ SMARC Carrier
+> 2 + Renesas RZ/G3S SMARC SOM), the devices becomes unreachable after
+> resume.
+>
+> Running DAA in the controller resume path restores communication. However,
+> DAA relies on interrupts for TX/RX, which are not available in the noirq
+> suspend/resume phase (unless they are wakeup interrupts). For this, the
+> suspend/resume callbacks were moved out of the noirq phase. Currently,
+> there is no identified use case on either the Renesas RZ/G3S or Renesas
+> RZ/G3E SoCs that requires the controller suspend/resume hooks to be part of
+> the noirq suspend/resume phase.
+>
+> Since renesas_i3c_reset() is not called anymore in atomic context
+> update it to use read_poll_timeout().
+>
+> To cover the case where the controller had already attached all the
+> i3c->maxdevs devices before a suspend/resume cycle and i3c->free_pos is
+> zero, struct renesas_i3c::resuming flag was introduced.
+>
+> The flag is set in renesas_i3c_resume() before calling
+> i3c_master_do_daa_ext() and checked in renesas_i3c_daa(). In case it is
+> set the previous saved DATBAS register values are used for the slots
+> already occupied before suspend. This allows keeping alive the connection
+> to the I3C devices when all the supported slots are occupied before
+> suspend.
+>
+> When resuming from suspend, renesas_i3c_daa() re-runs DAA for al
+> slots except those used by I2C devices. I2C devices are attached during
+> probe, at bus initialization time, and always occupy the first positions in
+> i3c->free_pos. In addition, there are no DATBAS register settings
+> associated with them.
+>
+> Fixes: e7218986319b ("i3c: renesas: Add suspend/resume support")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+> ---
 
-Flip the clamping logic when setting VSYSMIN to ensure that battery design
-voltage is respected.
+Please check sashiko review result
 
-Cc: stable@vger.kernel.org
-Fixes: 1cc017b7f9c7 ("power: supply: bq257xx: Add support for BQ257XX charger")
-Tested-by: Chris Morgan <macromorgan@hotmail.com>
-Reviewed-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-Signed-off-by: Alexey Charkov <alchark@flipper.net>
----
- drivers/power/supply/bq257xx_charger.c | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
+https://sashiko.dev/#/patchset/20260602132824.3541151-1-claudiu.beznea%40kernel.org
 
-diff --git a/drivers/power/supply/bq257xx_charger.c b/drivers/power/supply/bq257xx_charger.c
-index 02c7d8b61e82..7ca4ae610902 100644
---- a/drivers/power/supply/bq257xx_charger.c
-+++ b/drivers/power/supply/bq257xx_charger.c
-@@ -128,9 +128,8 @@ static int bq25703_get_min_vsys(struct bq257xx_chg *pdata, int *intval)
-  * @vsys: voltage value to set in uV.
-  *
-  * This function takes a requested minimum system voltage value, clamps
-- * it between the minimum supported value by the charger and a user
-- * defined minimum system value, and then writes the value to the
-- * appropriate register.
-+ * it between the user defined minimum system value and the maximum supported
-+ * value by the charger, and then writes the value to the appropriate register.
-  *
-  * Return: Returns 0 on success or error if an error occurs.
-  */
-@@ -139,7 +138,7 @@ static int bq25703_set_min_vsys(struct bq257xx_chg *pdata, int vsys)
- 	unsigned int reg;
- 	int vsys_min = pdata->vsys_min;
- 
--	vsys = clamp(vsys, BQ25703_MINVSYS_MIN_UV, vsys_min);
-+	vsys = clamp(vsys, vsys_min, BQ25703_MINVSYS_MAX_UV);
- 	reg = ((vsys - BQ25703_MINVSYS_MIN_UV) / BQ25703_MINVSYS_STEP_UV);
- 	reg = FIELD_PREP(BQ25703_MINVSYS_MASK, reg);
- 
+Frank
 
--- 
-2.53.0
-
+>
