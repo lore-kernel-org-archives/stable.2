@@ -1,64 +1,118 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B4222E7F39
-	for <stable@vger.kernel.org>; Tue,  2 Jun 2026 06:24:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 09C4034EEEE;
+	Tue,  2 Jun 2026 06:33:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780381455; cv=none; b=H57x0Ju1EBvzPzQJst9Fo+HqCPjAkuhIq+MfeZhWRwZz34S84wLNLTeNcaRE3TENiiryASldl0OzCDnQj5pfiQ7N3gjeXXJ7uPNdHzX4yNSGb4MbNV5//T62mFFTYbazDqVFyn3//ykYAcOK74fYnT33DmXfSzyZkx05OEFnUS0=
+	t=1780381985; cv=none; b=pfgQ+wgm5oDZIhWzmkGIG3J33UPsFQ2EdBnktkNiDE5EWU/ejtLfeav8Cd3P0NFzkMEcG5HA66YRxSWhelfT/DCDS6OVZZGepZVi7rJLV2CxzSUD+K3aOhXSEOGbMyQ/uCQFM75oNGAJhdaEOhtb1wsvV3xVs5k8KfLFzlpxIc0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780381455; c=relaxed/simple;
-	bh=CWOt5keY58fzK+pE6b4uSIOgyclOO9R7QqSeFSgUI2A=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dUSQfyaevNBsRITtWxk6XrUA8gRFnGI0uYaGjZ0IK5cOh+dDhUzqYm2HQryAEvsLRNiZOR+j+ZsxN4WfZLbOISKgEeCJwkFMOqPtFsCZO0A2Yw9ckLHmqf49c3fJMK0um92rcAIW13UCUQ8jWOvk7jR8uM40+bsOZNKuGHSu5e0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=LwIXW8A5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780381985; c=relaxed/simple;
+	bh=qz05PwTA4HuRNr4ARk6c3VjCwvFC+bW1NTje/WkmVPQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=BvJz7l+XPceKqvavKiQPqnLlZXk7+QBiEMhN7rfvxToMRCPjhONjcU/LG9inRFmgCjEK9Asd1g62qbMZxxV/S8HqnnnSW5WRmqyhum8ReAQopkE9l6u2Um76ReAZ9ekOhss3NxJH0QUqwxlHYWZn3Q/aS+K3eMQsV58/cQXyDeA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=W8P52rqU; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="LwIXW8A5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86BA21F00893;
-	Tue,  2 Jun 2026 06:24:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1780381454;
-	bh=RpAPDmNA66WNnfJ4AvN0raoD8EJGzen/3LXo27lsL7Y=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=LwIXW8A54XgAcI8IXyrpZm+VtfwgbM+MIcaueaafGe+QRdiE5JMHpEJmxHr1kjPdU
-	 2YN0S/RblTUFchG64dc8VXPIfsussE0UW3hHlkETI6OYtVphfj2KxF+T+0+dwGwRir
-	 LHsBOgR+Jd6HuoPLWvIIKbDqgGpY3JPR2vXhGHeo=
-Date: Tue, 2 Jun 2026 08:23:18 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Jeremy Erazo <mendozayt13@gmail.com>
-Cc: security@kernel.org, Christoph Hellwig <hch@infradead.org>,
-	Sagi Grimberg <sagi@grimberg.me>,
-	Chaitanya Kulkarni <kch@nvidia.com>, Hannes Reinecke <hare@suse.de>,
-	Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>,
-	linux-nvme@lists.infradead.org, stable@vger.kernel.org
-Subject: Re: nvmet: pre-auth heap OOB read in DH-HMAC-CHAP authentication
- (data->hl unchecked in nvmet_auth_reply)
-Message-ID: <2026060255-flagstone-salaried-7cab@gregkh>
-References: <6a1e4ed5.f18a29c3.bfe2b.5229@mx.google.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="W8P52rqU"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B8C9A176C;
+	Mon,  1 Jun 2026 23:32:51 -0700 (PDT)
+Received: from [10.164.19.28] (unknown [10.164.19.28])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 342E33F632;
+	Mon,  1 Jun 2026 23:32:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1780381976; bh=qz05PwTA4HuRNr4ARk6c3VjCwvFC+bW1NTje/WkmVPQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=W8P52rqULy8EgMCv3VoHG/oPcN8xzFRTm0MMO+8epoLD09z1j5dUEPlnncU3kRwVu
+	 meLb8U698TNe/FRFV0Os10F+xaUpB8p6DhZVBOSnFtbGb2r2bal+bxG9WlhJfvwd6L
+	 cPAYBN6mNWM0vhQCfBAe1vL9kyhq4pdOA/ckIRWA=
+Message-ID: <0ab810b9-8644-4562-8218-c9a1d4ddd423@arm.com>
+Date: Tue, 2 Jun 2026 12:02:47 +0530
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <6a1e4ed5.f18a29c3.bfe2b.5229@mx.google.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/6] fs/proc/task_mmu: fix make_uffd_wp_huge_pte()
+ prot-update race
+To: "Kiryl Shutsemau (Meta)" <kas@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Lorenzo Stoakes <ljs@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ David Hildenbrand <david@kernel.org>, stable@vger.kernel.org,
+ Sashiko AI review <sashiko-bot@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
+ =?UTF-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>,
+ Muhammad Usama Anjum <usama.anjum@arm.com>,
+ Stephen Rothwell <sfr@canb.auug.org.au>, Arnd Bergmann <arnd@arndb.de>,
+ linux-fsdevel@vger.kernel.org
+References: <20260529172331.356655-1-kas@kernel.org>
+ <20260529172331.356655-2-kas@kernel.org>
+Content-Language: en-US
+From: Dev Jain <dev.jain@arm.com>
+In-Reply-To: <20260529172331.356655-2-kas@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Jun 01, 2026 at 08:32:37PM -0700, Jeremy Erazo wrote:
-> == Disclosure preferences ==
+
+
+On 29/05/26 10:53 pm, Kiryl Shutsemau (Meta) wrote:
+> make_uffd_wp_huge_pte() arms the UFFD_WP bit on a present HugeTLB PTE by
+> calling huge_ptep_modify_prot_commit() with a ptent snapshot that was
+> fetched without the corresponding huge_ptep_modify_prot_start(). The
+> start helper is what atomically clears the entry so the kernel-owned
+> snapshot stays consistent until the commit; without it, the hardware
+> may set Dirty or Accessed in the live PTE between the original read
+> and the commit, and huge_ptep_modify_prot_commit() (whose generic
+> implementation just calls set_huge_pte_at()) then writes the stale
+> snapshot back over the live hardware bits, losing the update.
 > 
-> I'm happy with any reasonable embargo length (14-30 days). I have
-> not shared this finding with any third party. Please coordinate CVE
-> assignment with the kernel.org CNA.
+> The non-hugetlb sibling make_uffd_wp_pte() does this correctly via
+> ptep_modify_prot_start() / ptep_modify_prot_commit(). Mirror that
+> pattern for the present-PTE branch. The migration case stays as-is --
+> migration entries are non-present, so there's no hardware update to
+> race against.
+> 
+> Fixes: 52526ca7fdb9 ("fs/proc/task_mmu: implement IOCTL to get and optionally clear info about PTEs")
+> Cc: stable@vger.kernel.org
+> Reported-by: Sashiko AI review <sashiko-bot@kernel.org>
+> Signed-off-by: Kiryl Shutsemau <kas@kernel.org>
+> ---
 
-You sent this to a public mailing list, there is no "embargo" possible.
-Nor is this how CVEs are assigned (please read the documentation for
-that.)
+LGTM
 
-Please submit a patch for both of the issues you reported, in a format
-that can be applied, so this can be resolved properly.
+Reviewed-by: Dev Jain <dev.jain@arm.com>
 
-thanks,
 
-greg k-h
+>  fs/proc/task_mmu.c | 12 ++++++++----
+>  1 file changed, 8 insertions(+), 4 deletions(-)
+> 
+> diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
+> index 1e3a15bf46f4..e21a38ac745b 100644
+> --- a/fs/proc/task_mmu.c
+> +++ b/fs/proc/task_mmu.c
+> @@ -2610,12 +2610,16 @@ static void make_uffd_wp_huge_pte(struct vm_area_struct *vma,
+>  	if (softleaf_is_hwpoison(entry) || softleaf_is_marker(entry))
+>  		return;
+>  
+> -	if (softleaf_is_migration(entry))
+> +	if (softleaf_is_migration(entry)) {
+>  		set_huge_pte_at(vma->vm_mm, addr, ptep,
+>  				pte_swp_mkuffd_wp(ptent), psize);
+> -	else
+> -		huge_ptep_modify_prot_commit(vma, addr, ptep, ptent,
+> -					     huge_pte_mkuffd_wp(ptent));
+> +	} else {
+> +		pte_t old_pte, new_pte;
+> +
+> +		old_pte = huge_ptep_modify_prot_start(vma, addr, ptep);
+> +		new_pte = huge_pte_mkuffd_wp(old_pte);
+> +		huge_ptep_modify_prot_commit(vma, addr, ptep, old_pte, new_pte);
+> +	}
+>  }
+>  #endif /* CONFIG_HUGETLB_PAGE */
+>  
+
