@@ -1,171 +1,87 @@
-Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19FF136683B
-	for <stable@vger.kernel.org>; Tue,  2 Jun 2026 07:26:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FB25364E80;
+	Tue,  2 Jun 2026 07:28:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780385204; cv=none; b=HVoL6EI2pKgq6aoij6cgIFmIg6RvEyNyYT25RRrprDIKYzbbTIweN/SZsGRjGEjETV7PH/iuufCdnnz13PwmNgrEY3rLDCZNovQ0PWn/QCNMj52bEEshHkBRxDMd9ohAQ+aUsgQxLIJdQWOjtOzWQjf4BJ4A7cg/E/2Q5huyysM=
+	t=1780385283; cv=none; b=cQlYKWUThdGULK34nw6BeoHCmPu4TL8osKgvV4lx5VMf9JLi5HtdJXii+XBZfGZOS7A3OSLZDMuG36WA0E8HpmoqrQhwxvRgw0y1x14mBBeCU0IFse6DEOhdIkZJYF7Tbg549dpoOtuUaW3HdiWR6Se8Xi702rmWkBgf33xkr4w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780385204; c=relaxed/simple;
-	bh=lww/k4S/rDCe2g/lPxK8iJlS1INRNKuBuTnReTHVA3Q=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=U0bxCgwaQ9tRRmLWy839HFBPqhpxqKn2Tz9OII2Y/BgYL+lZXwLnAw747YKnfTFfUz1GT2Z5L4/REljJ+Bu2QY+8MEL9P0H+rY0Kwt8bpnOMPAPFN2v47o0nMFUQMeLrpRhxTIb3vsNYxBkkWyEd0ml75Dzz/RVjXm0dr92CxGE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=eDUSMZcU; arc=none smtp.client-ip=209.85.218.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1780385283; c=relaxed/simple;
+	bh=hhvCEdB/JJDW0uD2o6q9xX0G9xeuu8KLHs00YAyAOhw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tBzcMHgUP6AFaphKEzCmItIdzlC3CciukTPcGWOerDnHcpF7NpMsn2wLLOgXO3DxGNRRE7G+JtpmUsj0VDBjhnWeivANLw6/0CyJP0uhjRqIn8XM2mmwv8w0mxXtb/kmuBE1FaVRUcwSZF6EcYl/xVz2zvKn0VC4t4KiYjZlcxA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FnzFNL6a; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="eDUSMZcU"
-Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-bef47b1ac01so65254966b.2
-        for <stable@vger.kernel.org>; Tue, 02 Jun 2026 00:26:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1780385200; x=1780990000; darn=vger.kernel.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=rIJcYzfKNWvO4LbSTb+KowDs+YJ5wjm9TkOAb/K4D3M=;
-        b=eDUSMZcUwEkg4Tu322leRNNzq+ZeAUcdhtiUHJZWR01W6lqH0MfVsEErmm4ab2Ey3l
-         X/7sBCLiZPpRF5C/XXWSptHUK2QkpVcGlk66EcbioHaCffYu9WzTPNQqWVA6vCGdsawY
-         VcRAeQV6U1TljX5CUOtiydA5ugexLm8pqoyas=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780385200; x=1780990000;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=rIJcYzfKNWvO4LbSTb+KowDs+YJ5wjm9TkOAb/K4D3M=;
-        b=iLZ6F69LFqmD/utOoOrvl8x2YrHZS6J63IKkkDlpVwJGIbYiULBt0f8xqnotVKes86
-         Kr6z0NiZnzJD/XjxW6y5id+cIhDcdVVoIOvu3QxSbb5C5KhUU7F7wC00b1gBHN0OxcHA
-         Qp9rnp5roickWNl1e4wlto/au5J5fgHFDfKoflPArEhabKqbYcm95H95vXiuLupeQvhj
-         hgz8iv97e08G6RwHlQ0VK5Sf9CdwvP4Db8MElhCcVuGLaJPcw9+FOXaeQyw00WUlRXRu
-         tMh0TGbFGFmoY3rGTZ1STshZ+84WYhHxx2b7vTdqYh+0N4qSbuw7MwnYVDiLq4Bp/gHI
-         IuUQ==
-X-Forwarded-Encrypted: i=1; AFNElJ99k26enEvjeMcNEftLRsFPTztsUJfbKR8lUE7palNuld50vZC7wdoIuGus8ZBxHl7+JS5CQK8=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz2BbrheuBZlWTLhuFUWVNAf3jw6ITUZHu5tANPKb4wdOZ9jaqv
-	BMNgvNohrIfBbwU8SH7jWf/fVgOfhSCRn1M2cRjPPIIn8UQZF+D7ZC4j7e59p+HhbhK0AJ8SLE/
-	aY9ynpQ==
-X-Gm-Gg: Acq92OEdD05k7v1N0ypg5SNAa7LZLD6cTC4HmnPjzJJwHpzmKIBHkEqQVJev28ImO03
-	uMC3T08vcWbd+G4NXRQqVr1+n6xF5Z8xqMYm6WmXWMMqeIDx0agK+3c5Fc/miNRT3h9AjJ/pFMM
-	VfIkPMzVBnQHwLiCjodOhSnlQzvIaZbOE0ec0m3SRdlEDx3MpMJvG2lpEVGCetAwgmo+59GhF66
-	yQ8cYkBQFO1/SV+HJYboFVm051YAsUDwa3gNqnLFXVf6i/XEAue/uFgjwJgrnrvvnDHkwp318wg
-	65TqeDi3pS4tMoCQ0zQ/FcfZpwns9sFLrb2rBFeHAA0DTIaWOp19yc29KAhoks4+6MNOJ3XoE3B
-	/aQW/AwNvDQ4E/h6gTt2qUuH+0jDDI3yrfrvGm2PfAva5sELq/5Jm/kmkf0mHs/8x/EhebEob7v
-	aKG0tasIaVAUjjHWMGeyzwZW3pEtLB+aU4iqjO0ywAxq8BchJX2myCgvs1qrNSqYMvD4NuVcc=
-X-Received: by 2002:a17:907:2678:b0:bef:90af:6ff1 with SMTP id a640c23a62f3a-bef90af9ac9mr41947466b.31.1780385200432;
-        Tue, 02 Jun 2026 00:26:40 -0700 (PDT)
-Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com. [209.85.208.44])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-68ceb7ba814sm3050791a12.13.2026.06.02.00.26.38
-        for <stable@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 02 Jun 2026 00:26:39 -0700 (PDT)
-Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6877c719cb0so18077941a12.2
-        for <stable@vger.kernel.org>; Tue, 02 Jun 2026 00:26:38 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ+vi3QzeTPNaoiiqrlMakMe/yNl8RWdO0qCv49HDZNdGIT1bFabwOrWxvhXk1o3hnDb6jfR/9Q=@vger.kernel.org
-X-Received: by 2002:a17:907:e143:b0:beb:7b50:3a7e with SMTP id
- a640c23a62f3a-beb7b50621cmr392521666b.45.1780385197985; Tue, 02 Jun 2026
- 00:26:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FnzFNL6a"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78E571F00893;
+	Tue,  2 Jun 2026 07:28:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780385281;
+	bh=o+FDLE073g6f02yiEQlUrQXnN1L23r2BUAEWpK9WN/I=;
+	h=From:To:Cc:Subject:Date;
+	b=FnzFNL6asX5tiFGJ4FDSnxLwOmy6GVVmW4vf+EYKUjmUoLh4F3hUctWRp+axCGwvj
+	 gj/Z0rFeF2XuN24vyslrQfotXvmb6QuqsZ7GAJNYAkfAjLZlpeIWxcm6pFYehWLA/H
+	 ZvbCKJ5elcyVa+N5FEbO/ROhNUsgoiLmn3G3C1L5ienKArfehr4dShRw+9kdCnqFEi
+	 F0oAhh2xEQ0Rq9Nesu2TD6J42LGHaFGzGBvEWiyquklyEWjibFOWccLHvdct3ibXha
+	 wH+tCF/7Dj7QUCex/VoYasg7a3zAtqiasw4Y662pOTiL3N1e1UhpE7IvTbKzGYvu+o
+	 GLK05HYzZVimA==
+From: Oliver Upton <oupton@kernel.org>
+To: kvmarm@lists.linux.dev
+Cc: Marc Zyngier <maz@kernel.org>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Oliver Upton <oupton@kernel.org>,
+	stable@vger.kernel.org
+Subject: [PATCH] KVM: arm64: nv: Fix handling of XN[0] when !FEAT_XNX
+Date: Tue,  2 Jun 2026 00:27:59 -0700
+Message-ID: <20260602072759.37885-1-oupton@kernel.org>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260530160224.570625122@linuxfoundation.org> <20260530160231.873363839@linuxfoundation.org>
- <8cd2c0613f018690cba5ae76c4ab73da05118312.camel@decadent.org.uk>
-In-Reply-To: <8cd2c0613f018690cba5ae76c4ab73da05118312.camel@decadent.org.uk>
-From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Tue, 2 Jun 2026 09:26:25 +0200
-X-Gmail-Original-Message-ID: <CANiDSCs7PXPQw=rHrM58766YdagnDyDNh92DEhcfis8TYrW1+A@mail.gmail.com>
-X-Gm-Features: AVHnY4JSIWy-WoxOBFubbS8uyyq247CjKAuWnxAQPGSXvXaXvW97nNTsZ779qxM
-Message-ID: <CANiDSCs7PXPQw=rHrM58766YdagnDyDNh92DEhcfis8TYrW1+A@mail.gmail.com>
-Subject: Re: [PATCH 5.10 263/589] media: uvcvideo: Enable VB2_DMABUF for
- metadata stream
-To: Ben Hutchings <ben@decadent.org.uk>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org, 
-	patches@lists.linux.dev, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Hans de Goede <johannes.goede@oss.qualcomm.com>, Hans Verkuil <hverkuil+cisco@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hi Ben
+XN has already been extracted from its bitfield position so using
+FIELD_PREP() on the mask that clears XN[0] is completely broken, having
+the effect of unconditionally granting execute permissions...
 
-On Mon, 1 Jun 2026 at 19:37, Ben Hutchings <ben@decadent.org.uk> wrote:
->
-> On Sat, 2026-05-30 at 18:02 +0200, Greg Kroah-Hartman wrote:
-> > 5.10-stable review patch.  If anyone has any objections, please let me know.
-> >
-> > ------------------
-> >
-> > From: Ricardo Ribalda <ribalda@chromium.org>
-> >
-> > commit fbac03467e53d8d72e5099c03df26d9adae11416 upstream.
-> >
-> > The UVC driver has two video streams, one for the frames and another one
-> > for the metadata. Both streams share most of the codebase, but only the
-> > data stream declares support for DMABUF transfer mode.
-> >
-> > I have tried the DMABUF transfer mode with CONFIG_DMABUF_HEAPS_SYSTEM
-> > and the frames looked correct.
-> >
-> > This patch announces the support for DMABUF for the metadata stream.
-> > This is useful for apps/HALs that only want to support DMABUF.
->
-> So this is a feature addition.
->
-> And the uvcvideo driver has changed a lot since 5.10 (or even 6.1), so
-> unless someone specifically tested that these older versions will also
-> work with dmabuf I question whether this is worth the risk.
+Fix the obvious mistake by manipulating the right bit.
 
-Just one note: The different transfer modes are implemented by vb2,
-not by the driver, so changes in the driver should not affect this
-specific change.
+Cc: stable@vger.kernel.org
+Fixes: d93febe2ed2e ("KVM: arm64: nv: Forward FEAT_XNX permissions to the shadow stage-2")
+Signed-off-by: Oliver Upton <oupton@kernel.org>
+---
+ arch/arm64/include/asm/kvm_nested.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-I have no specific use case for this change in 5.10. So I am fine if
-it is not backported that far. But it should be very low risk (famous
-last words)
+diff --git a/arch/arm64/include/asm/kvm_nested.h b/arch/arm64/include/asm/kvm_nested.h
+index 091544e6af44..f5d4eb925198 100644
+--- a/arch/arm64/include/asm/kvm_nested.h
++++ b/arch/arm64/include/asm/kvm_nested.h
+@@ -131,7 +131,7 @@ static inline bool kvm_s2_trans_exec_el0(struct kvm *kvm, struct kvm_s2_trans *t
+ 	u8 xn = FIELD_GET(KVM_PTE_LEAF_ATTR_HI_S2_XN, trans->desc);
+ 
+ 	if (!kvm_has_xnx(kvm))
+-		xn &= FIELD_PREP(KVM_PTE_LEAF_ATTR_HI_S2_XN, 0b10);
++		xn &= BIT(1);
+ 
+ 	switch (xn) {
+ 	case 0b00:
+@@ -147,7 +147,7 @@ static inline bool kvm_s2_trans_exec_el1(struct kvm *kvm, struct kvm_s2_trans *t
+ 	u8 xn = FIELD_GET(KVM_PTE_LEAF_ATTR_HI_S2_XN, trans->desc);
+ 
+ 	if (!kvm_has_xnx(kvm))
+-		xn &= FIELD_PREP(KVM_PTE_LEAF_ATTR_HI_S2_XN, 0b10);
++		xn &= BIT(1);
+ 
+ 	switch (xn) {
+ 	case 0b00:
 
->
-> Ben.
->
-> > Cc: stable@vger.kernel.org
-> > Fixes: 088ead2552458 ("media: uvcvideo: Add a metadata device node")
-> > Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
-> > Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-> > Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
-> > Link: https://patch.msgid.link/20260309-uvc-metadata-dmabuf-v1-1-fc8b87bd29c5@chromium.org
-> > Signed-off-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-> > Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
-> > Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> > ---
-> >  drivers/media/usb/uvc/uvc_queue.c |    3 +--
-> >  1 file changed, 1 insertion(+), 2 deletions(-)
-> >
-> > --- a/drivers/media/usb/uvc/uvc_queue.c
-> > +++ b/drivers/media/usb/uvc/uvc_queue.c
-> > @@ -222,7 +222,7 @@ int uvc_queue_init(struct uvc_video_queu
-> >       int ret;
-> >
-> >       queue->queue.type = type;
-> > -     queue->queue.io_modes = VB2_MMAP | VB2_USERPTR;
-> > +     queue->queue.io_modes = VB2_MMAP | VB2_USERPTR | VB2_DMABUF;
-> >       queue->queue.drv_priv = queue;
-> >       queue->queue.buf_struct_size = sizeof(struct uvc_buffer);
-> >       queue->queue.mem_ops = &vb2_vmalloc_memops;
-> > @@ -235,7 +235,6 @@ int uvc_queue_init(struct uvc_video_queu
-> >               queue->queue.ops = &uvc_meta_queue_qops;
-> >               break;
-> >       default:
-> > -             queue->queue.io_modes |= VB2_DMABUF;
-> >               queue->queue.ops = &uvc_queue_qops;
-> >               break;
-> >       }
-> >
-> >
->
-> --
-> Ben Hutchings
-> The obvious mathematical breakthrough [to break modern encryption]
-> would be development of an easy way to factor large prime numbers.
->                                                            - Bill Gates
-
-
-
+base-commit: 5d6919055dec134de3c40167a490f33c74c12581
 -- 
-Ricardo Ribalda
+2.47.3
+
