@@ -1,108 +1,162 @@
-Received: from out-171.mta0.migadu.com (out-171.mta0.migadu.com [91.218.175.171])
+Received: from mout.web.de (mout.web.de [212.227.15.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 884A335AC33
-	for <stable@vger.kernel.org>; Tue,  2 Jun 2026 18:46:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F791363C64;
+	Tue,  2 Jun 2026 18:52:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.15.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780425985; cv=none; b=utLKHEBTSDyj6HusdxV99r0iyQTRmoBAAwTL3N+b4tr/Y8ji4sHhCXELYPEqRHeF8fLjZXdDFim/jLqJkicPymhjRC6gM2xAcoKMgQbrR/uDtdb0kl6mgeQhs22Tu+KSq3A37HZf1VGbjMSOU4iirQRrRGUJQkHxxuG4VjnK1jk=
+	t=1780426345; cv=none; b=bu0G6MmHPdbC/vepSKpXsWQkBG1YHuCQVF0q+O4/zfFhxxVs3qiV7++BVFJtTeZbnTRUIFQGHRRuxPSOrfwgGTorGbEZvqfoh++7DPiCkAz3W3yYH5olzzs/zuIafkWEWaQrj7BAAFn69iAayJ6gDfN/CgRr72RUnUQ45pV/2IU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780425985; c=relaxed/simple;
-	bh=V6EBvgPkBCJj4gMf5RnwXrcs3ISikfnUiRSRzesNW3U=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=eH1uw7Bh0Nig/wp3Kq9ajmnzplQ5EiuIm0ZtDlwYW0qWmHJ3JSj1Ng1OT8TFH85ba3PyT+gWmiRbbAJX2AaZLJ/4Rb5ukcuh1zV67BuvOoOthVZmcMLXrqb2A1ON1wImQ/bN+F2+E1NIeeYnOK0rlwa8c3zYKRWLng+p0HZLJy8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=kFA+XhGT; arc=none smtp.client-ip=91.218.175.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1780426345; c=relaxed/simple;
+	bh=P18+MolSDqD504w87LT81UQXk1hghN0KHhZZgtX9/A8=;
+	h=Message-ID:Date:MIME-Version:To:Cc:References:Subject:From:
+	 In-Reply-To:Content-Type; b=YqSZyXcBF9JRqxuhRdw6W92QaOSXx+jRL8w8uMGbxkGdcbiwfXyDPFSDd7UpoqCoXrb29x+kiSBHvOUM0B38FI///95n+zUckXMwM4zIIkSeSj9SgBKBwcvlv2QMZodFBMZV/+lx1Lo33P/PlUibIuG+bFwFKieheauzlt7nVuU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de; spf=pass smtp.mailfrom=web.de; dkim=pass (2048-bit key) header.d=web.de header.i=markus.elfring@web.de header.b=ci4F2xwO; arc=none smtp.client-ip=212.227.15.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=web.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="kFA+XhGT"
-Message-ID: <d62b1b27-7a70-4d06-9191-a8d95104c2b7@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1780425971;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=FlAg+csNNDI+pLXHH0cpQXS1ilqz4znagmUSixnYiE4=;
-	b=kFA+XhGTjmkHMETtRBBpUqn5/Lu4VBsrgMGd6adUpbJ+LBW2rRCMQynI3Z/cIS76au2UCj
-	xoR+8y1AkY/2syut1/x1JQ5/egAn31QPd4HGgNRqQUryA9MG7kRoy+Iptc+j5+6FDnCM+y
-	8/VHwuwMet9JVb1/enPJLELVAAYDr+E=
-Date: Tue, 2 Jun 2026 11:46:03 -0700
+	dkim=pass (2048-bit key) header.d=web.de header.i=markus.elfring@web.de header.b="ci4F2xwO"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
+	s=s29768273; t=1780426341; x=1781031141; i=markus.elfring@web.de;
+	bh=HhBgtsNQoRwpzYU1yb7fP6Pi0sH3HNiE1N1abgF2rC0=;
+	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:To:Cc:References:
+	 Subject:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 cc:content-transfer-encoding:content-type:date:from:message-id:
+	 mime-version:reply-to:subject:to;
+	b=ci4F2xwOS2EG9V8fJzVocf79Z3j9EIP/SQVgGYw/Uzf3DxDTRtBM0uLuLcP1VOs6
+	 7zFbXcMMgK243Ha4K8d0eKPAjMEkUOpPXDTRlUg16YJut3inBCwNm+mvesv+pxuqM
+	 MR9BFdV3M6538zWtdgNFQ8ubARHQFnYiID1kjF8LchRywFLTcTv0pY0gK11lR0vC5
+	 VS7q7ouw5uDVnmANMhFBqXRXZEjTEVXdFte6JUKvExthZCPN+UfiFilPeFFdcYkii
+	 cFq5STyy5oJFdbBU21pYTepfqym4k8Iu0LCRy4g7V2illtdoyghi1WzMV6smxm7CR
+	 7u96BTNRdFUsnfj+ZA==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from client.hidden.invalid by smtp.web.de (mrweb006
+ [213.165.67.108]) with ESMTPSA (Nemesis) id 1N1d7s-1xS3zB1CRs-00zLcl; Tue, 02
+ Jun 2026 20:52:21 +0200
+Message-ID: <39c49c28-0674-43a2-8048-6687f9a3bace@web.de>
+Date: Tue, 2 Jun 2026 20:52:16 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [PATCH v2 3/4] crypto: ccp: Fix possible deadlock in SEV init
- failure path
-To: Tom Lendacky <thomas.lendacky@amd.com>,
- Sean Christopherson <seanjc@google.com>, Paolo Bonzini
- <pbonzini@redhat.com>, Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- "H. Peter Anvin" <hpa@zytor.com>, Peter Gonda <pgonda@google.com>,
- Brijesh Singh <brijesh.singh@amd.com>, Youngjae Lee <youngjaelee@meta.com>,
- Ashish Kalra <ashish.kalra@amd.com>, Michael Roth <michael.roth@amd.com>,
- John Allen <john.allen@amd.com>, Herbert Xu <herbert@gondor.apana.org.au>
-Cc: clm@meta.com, kvm@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-crypto@vger.kernel.org, stable@vger.kernel.org,
- Atish Patra <atishp@meta.com>
-References: <20260601-sev_snp_fixes-v2-0-611891b28a86@meta.com>
- <20260601-sev_snp_fixes-v2-3-611891b28a86@meta.com>
- <379e45d2-1765-4043-8ad0-ce013da8683f@amd.com>
-Content-Language: en-US
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Atish Patra <atish.patra@linux.dev>
-In-Reply-To: <379e45d2-1765-4043-8ad0-ce013da8683f@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Migadu-Flow: FLOW_OUT
+User-Agent: Mozilla Thunderbird
+To: patchwork-bot+netdevbpf@kernel.org, vulab@iscas.ac.cn,
+ netdev@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>
+Cc: stable@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>,
+ Simon Horman <horms@kernel.org>
+References: <178036982189.224606.10962942847177813465.git-patchwork-notify@kernel.org>
+Subject: Re: [PATCH] net: qrtr: fix node refcount leak on ctrl packet alloc
+ failure
+Content-Language: en-GB, de-DE
+From: Markus Elfring <Markus.Elfring@web.de>
+In-Reply-To: <178036982189.224606.10962942847177813465.git-patchwork-notify@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:XFp8xKx8EAXM2lIE53MRcMUCTsaMKzRuQUjtOBdoVgGrkQw7P5u
+ gPEIQlzosv04I4BYaonJ6whGI/iDXtSatVj/irsaUmfa944c5hwkBzKtqo94un+MQDGX/ty
+ iIWHN1ZicUbxiXGXVGJ5U+1Y3fYA2/zF8VpOTdPivebMz6K6aa3D5bsHb3S83EjsgnQnc5Z
+ AUyuVjBW5uxKeuD8Myc2g==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:7ZQrpN1cAgs=;HCDvzQ+mI4Vst5oZ5Jow/fQsOqJ
+ 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
+ NYTTqphakbO4Lqrx/6haC68s2ZU=
 
+=E2=80=A6
+> > Add qrtr_node_release(node) before returning on the allocation failure
+> > path to properly release the reference.
+=E2=80=A6
+> Here is the summary with links:
+>   - net: qrtr: fix node refcount leak on ctrl packet alloc failure
+>     https://git.kernel.org/netdev/net-next/c/3b09ff541145
 
-On 6/2/26 7:43 AM, Tom Lendacky wrote:
-> On 6/1/26 18:04, Atish Patra wrote:
->> From: Atish Patra <atishp@meta.com>
->>
->> __sev_platform_init_handle_init_ex_path() called
-> s/called/calls/
->
->> rmp_mark_pages_firmware() with locked=false but while the parent
-> s/but//
->
->> function of init_ex_path already acquired the sev_cmd_mutex.
->> In case of a rmpupdate failure for any page after the first, the cleanup
-> s/In case/In the case/
-> s/a rmpupdate/an RMPUPDATE/
->
->> path would invoke reclaim pages which would result in a deadlock in
->> sev_do_cmd.
->>
->> Pass locked=true to honor the lock status of the parent function.
->>
->> Fixes: 7364a6fbca45 ("crypto: ccp: Handle non-volatile INIT_EX data when SNP is enabled")
->>
->> Reported-by: Chris Mason <clm@meta.com>
->> Assisted-by: Claude:claude-opus-4-6
->> Signed-off-by: Atish Patra <atishp@meta.com>
-> Reviewed-by: Tom Lendacky <thomas.lendacky@amd.com>
->
-Thanks for the review. Fixed the typos in the commit text.
+Would it have been possible to avoid a bit of duplicate source code
+by using an additional label in the implementation of the function =E2=80=
+=9Cqrtr_send_resume_tx=E2=80=9D?
+https://elixir.bootlin.com/linux/v7.1-rc6/source/net/qrtr/af_qrtr.c#L998-L=
+1024
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Do=
+cumentation/process/coding-style.rst?h=3Dv7.1-rc6#n526
 
->> ---
->>   drivers/crypto/ccp/sev-dev.c | 2 +-
->>   1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/drivers/crypto/ccp/sev-dev.c b/drivers/crypto/ccp/sev-dev.c
->> index d1e9e0ac63b6..3d4793e8e34b 100644
->> --- a/drivers/crypto/ccp/sev-dev.c
->> +++ b/drivers/crypto/ccp/sev-dev.c
->> @@ -1557,7 +1557,7 @@ static int __sev_platform_init_handle_init_ex_path(struct sev_device *sev)
->>   		unsigned long npages;
->>   
->>   		npages = 1UL << get_order(NV_LENGTH);
->> -		if (rmp_mark_pages_firmware(__pa(sev_init_ex_buffer), npages, false)) {
->> +		if (rmp_mark_pages_firmware(__pa(sev_init_ex_buffer), npages, true)) {
->>   			dev_err(sev->dev, "SEV: INIT_EX NV memory page state change failed.\n");
->>   			return -ENOMEM;
->>   		}
->>
+Regards,
+Markus
