@@ -1,147 +1,75 @@
-Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com [209.85.160.172])
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DA513431E3
-	for <stable@vger.kernel.org>; Tue,  2 Jun 2026 12:33:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F136B313283
+	for <stable@vger.kernel.org>; Tue,  2 Jun 2026 12:41:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780403630; cv=none; b=dcYWc2nDpjxTIGr2WSDgNNBtm/D7MYIrMdltM6UUvYe0ObLInIwBn/Hg2exYtdhvy6PjpmBsjWjMtsSdXulhRs2fZPQu/jN2tzNL3zl2ZXV/NE24i/P4S7tqxpfWX3TlAbV+E69/KQJupVor1CUQKR1OKGU31GZqVU5VvknI9Zs=
+	t=1780404063; cv=none; b=CBruwzAaLFHcOj4PYvUEbtjT550VKIpIJ96DTDl7PU0vItSdzkhpb1jkV29D0VX9MIQoGFrMFROvqS6fEzjy62HkPB/sPGcGPZ9yGqGKGZI9tSaEA3XVl8gNkehef6K0IZxY1RYCbYAHIsctnVIXS4EM0RxaixB7bj0Oeju/9+E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780403630; c=relaxed/simple;
-	bh=Dt7ynl7RjMDm10IwkFbV7yaqQ3XCHkv1Jhl7dMLZbl4=;
+	s=arc-20240116; t=1780404063; c=relaxed/simple;
+	bh=lcXbnLDgLgVs2uXAQfjp2nc6EET+6EBNWhFE8+/l0xY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BsDvI7GQYVSmfjdeJ+G5EGQiSeq/VJ7w0dPRiXjCTY0wRAcK4yFjKdZBceeKNXi+QVySDDhEWYxyoMFSJ/mHuSnx6AZGqEEef4W4QCQunh9xsoqPSui/6wwatxC+CNJ9/uFvyLKF/GmA+SYuVZhQs1oW5JrPnDDBpACXinSOtqo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=Mjg0KMTz; arc=none smtp.client-ip=209.85.160.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
+	 Content-Type:Content-Disposition:In-Reply-To; b=qp+iw5oCKfXAtNpWpn9qNLJj9Fnh/wDSdRXhIpfZpeBf4R4Fpvzc2nV73D6wDGgkEWQStLCBdRsGhanjddRDMMT7alacgjvd+eIWUZQ5dKHSsgbOBQMxebs09xnIXU9TpzM2oItwhXvCHl3w6CD5M3TA+lPPQuJT/meCFquT07g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=IW45O6Va; arc=none smtp.client-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="Mjg0KMTz"
-Received: by mail-qt1-f172.google.com with SMTP id d75a77b69052e-5176465a4a4so13345891cf.2
-        for <stable@vger.kernel.org>; Tue, 02 Jun 2026 05:33:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="IW45O6Va"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-490a765d410so28009805e9.1
+        for <stable@vger.kernel.org>; Tue, 02 Jun 2026 05:41:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1780403626; x=1781008426; darn=vger.kernel.org;
+        d=suse.com; s=google; t=1780404059; x=1781008859; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=3fuMy8ZTlB4sZmM4SRNfS45Rtpr0e2y/Uhs3uZMD108=;
-        b=Mjg0KMTzNzeCi7FV4Cglipctnd4qTRNJBs44FcFTysdYrVy+WlGmP/0GDFu0J+wJ7m
-         R/AuPEohevy1QNUE+WUDGubmJcDZZnffsV7i/Zze94JkqRPhbPdy15Qk6yh0s9q2hu1/
-         bI7dm1G26H7om23e5xJModDeVrIOi0meO3NUWse+J5lk5WegiPpkj76Qz79IXx4wghAH
-         J1I3OvFvwHvZLYWvaUMDTJFwu8CeiZpFpTAa6VbXuL1p2SxsoyL2H/fX/865+UB4pvvq
-         PhJR1KIiS2V1O2Xw5dcvwmRIXL5LbfWF9nRanp+5gjV4eMn6+GEiDs6cHaCPjs+09FpH
-         tsZw==
+        bh=qSDM2Nyr7WYYlYXf1yBwq5GfCMjSOs4ctNyEmP6XpQA=;
+        b=IW45O6VaRSkblMVsvJfCNyHg2woDizBEVSqXSFKF9GWHXDhMwxrR4n6wD/4430W96W
+         ww6pa8LvU+lsoX8S9/O1YE3/oN/lBHog9MWlyifEFPlZKNLbd/+L6ipQKMToRONbwfVv
+         z93iQsvup+wSCajULsETGntW836vgYJLGFem+CuCSuhTiYGfAwEPL8v2rzQIORrc4mUI
+         EhW5pYCH2Nd/37lSh8o7NNYGIx6/1SHV5P/LpGdsd1Y0Qktp2LZkj/8nHdydufjZlVTW
+         JKlA1WP1Ao02jsaMqnU2/o5G+k3RPKh5xpBD4yJqVvCs0SBdEVFq9QCshIWBJKKWa6Ry
+         k+Lg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780403626; x=1781008426;
+        d=1e100.net; s=20251104; t=1780404059; x=1781008859;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=3fuMy8ZTlB4sZmM4SRNfS45Rtpr0e2y/Uhs3uZMD108=;
-        b=MYdI5eQcczE6ywYVsj/WD8HfPMFwGRc1co2MAU6dCPPxqWbUWmthXlJ2qaVwnCQYsR
-         ZnFtbCFV85rwToSCFIKkG0IM/CkgzAneY39RKvc+mjaLiQ0Uin8IoqBQRh42uOyuX0ww
-         5lomYrRtwh0IGSUOmfC4mrIvONmVULP6iiyVVhI2VDB5+X/x0Y902vnsXfRsPpMjl9NW
-         IoZj7sm3Mw6QpjF+VTEE/4L8xGBYkhPgcKSB8gn+4rSUfgrpxWG5xnxDgaION2mhfAwv
-         lxDNYBO0Wcd9wvn7egJAdChbLzTkkQu7ULPcVssKSt1DWKEIph4H2g/1XVvaRmCD6TTf
-         6/tw==
-X-Forwarded-Encrypted: i=1; AFNElJ8DFtrJw5wui6H1roGBNcGy3il/EAILIFvr0h1H9D0j9tzuvCPRGYqh1xR7QlWsvHeEoO4kCpg=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy4nO0RhspvajIEL0DqDcbevUD4W5BRKHGJ2pMdb+svDuK9MTOm
-	gPnOTnpdt6pE6F30MDOtOM1QvFJePS1/6FomaevoGdhDsQRZG8u/hO0g407e+4tDEaQ=
-X-Gm-Gg: Acq92OGvNuJ0ZEwK2IDEPtIqk4FSgSKU8jlcwTTiGYwHOEGawPAAL3weQLNRKIXzCzk
-	ZxGO2Y8cgnrHQZEywFr4IsEMgAMK+3YNw9PzVGt86kEXjVXHxZNivbEIrAhhKude9lhkRLjgH2m
-	l6sHafm1e6Y/ZZu6YokkeLMrN9+pQ281acPRhin/C4ihBYpm66LpW6cwrUjjbWf0jQjeoM1YQH/
-	zgGBCuJii2rzW8YYgOFQaWVlQPct/qA6lUCHE6z8y8/fUaDYqvDA+C1/VGiVUz96Gljfyqc6hPI
-	caXH3ZSfaxTVDVTrexd1rzvDK7lIDl3uEh6/yp0lTMGBsIoRSQRkKpNMHTeFwRb8I31qSoN5+U0
-	jvfTLfAOfIai9Mz3+Nd1j/1NStEHkk8NGmVoE7ejwKcP0ceQALYcl+huhdLUJbCOwkykYmePkd1
-	PD4trKnkHwXmCBI/iGfFBB4LJ7dbRQiyKXlmY7cLBLOx/k2Fq5hTphZlmUb/TK7N6PUUnpOdaXS
-	z9rqmwWWf2wVcwu
-X-Received: by 2002:a05:622a:190a:b0:509:2527:d789 with SMTP id d75a77b69052e-5173a5c05ecmr228232631cf.6.1780403625864;
-        Tue, 02 Jun 2026 05:33:45 -0700 (PDT)
-Received: from ziepe.ca (crbknf0213w-47-54-130-67.pppoe-dynamic.high-speed.nl.bellaliant.net. [47.54.130.67])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-51741d6a240sm78686221cf.18.2026.06.02.05.33.45
+        bh=qSDM2Nyr7WYYlYXf1yBwq5GfCMjSOs4ctNyEmP6XpQA=;
+        b=LAtR3wPlCbNY6f2TL55CfI/RDEpCbnR088y5vYWEAzRxlYBMmzt0pORMMCZmlKt1hE
+         vCkPHZK/jpIQqYHvJRv75uN6PRNg5BAkZIXzlMBhWieG9yAcr9AcOWmbNPjuyzUKlq9q
+         xr+FCC5kei2OndUp4ELs8FftcX2x/tvIBgTwLJhd0flv0elij2R9Hx+NJL1b7YhuqQlA
+         tMyoDd+KGsow8+gMSTc4xgwKJ0ti0npx3A/x234Ody+hkSC2Z4ro4G8ImcXYR6sJv0mq
+         twsH/lxQu9Ai2O7NvbRyGVhIJgXYgqv24RMqyTJ0N+RXycpkinPUBoDVDdEGBfTFkWkp
+         lIrA==
+X-Forwarded-Encrypted: i=1; AFNElJ86v3ZBn1fVs/QcFCW5I7C2+P7St5Yb0PvTm543zYQ3D1XImtQAuVDq+tIaWjPcayMvH67L7J8=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzR99mJstHBrXhBl90IYpA75EeKj4mwtATxQCdatLICUccuRhCR
+	isBFqBA2/9TH2AiWDVrfflb2OgqoYcM7Szj+TvGoCycMO/2hXr/lEw95uJogpxa5Bi0=
+X-Gm-Gg: Acq92OE3akheiuIcNZvNoM6vXc025g0URaVnJq1ofJYl7Dn+YxqgZt6xvxnTdtvP5bu
+	HGg7QdjLE3o20TCiRfPbr7q7nKHGy0/4Rje2B2WLGyCOPPZIdWX+4uZJQGrH17UUTtfCr08EJKS
+	jFDKt3S2uWHVZQsYNaiTqPdThtOcoa4zt1jRUMWk6Z3LV9jo32BwjHudogxqUgBWm/+FiUmEOyh
+	86F31uHY9HXMaX2ZFwYwqJlgiSYqMfuB5os7AmSNwKoTv0FlFWdGaOhnRdNQCFBMsWGJxDDQhnf
+	u/3Mn9m9PeW9dEWN5Zrmug4eGyIzzRnVny3PPd3lSRkLR4tcZ2mYZpqD8ihl83kZUDGw7xicxan
+	wjHo7PUsWWJ/naawLJRCvpWGCvv/hrwQl1+Hj1AmZjXM4dNGzBexHtk4SnzhdusMAtp0kKnihAj
+	HySuoXxAzj+/CRXNpCIhUWQ3gGvFfsh+DZCDyX
+X-Received: by 2002:a05:600c:4e43:b0:490:ace2:f8f with SMTP id 5b1f17b1804b1-490ace2109bmr139640425e9.21.1780404059323;
+        Tue, 02 Jun 2026 05:40:59 -0700 (PDT)
+Received: from pathway ([176.114.240.130])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490b0e38126sm55399785e9.14.2026.06.02.05.40.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 02 Jun 2026 05:33:45 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1wUOJU-00000003m5x-3DKO;
-	Tue, 02 Jun 2026 09:33:44 -0300
-Date: Tue, 2 Jun 2026 09:33:44 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
+        Tue, 02 Jun 2026 05:40:59 -0700 (PDT)
+Date: Tue, 2 Jun 2026 14:40:56 +0200
+From: Petr Mladek <pmladek@suse.com>
 To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Kees Cook <kees@kernel.org>, Luis Chamberlain <mcgrof@kernel.org>,
-	Pengpeng Hou <pengpeng@iscas.ac.cn>, stable@vger.kernel.org,
-	Petr Pavlu <petr.pavlu@suse.com>,
-	Richard Weinberger <richard@nod.at>,
-	Anton Ivanov <anton.ivanov@cambridgegreys.com>,
-	Johannes Berg <johannes@sipsolutions.net>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Len Brown <lenb@kernel.org>, Corey Minyard <corey@minyard.net>,
-	Gabriel Somlo <somlo@cmu.edu>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Jani Nikula <jani.nikula@linux.intel.com>,
-	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	Tvrtko Ursulin <tursulin@ursulin.net>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Bart Van Assche <bvanassche@acm.org>,
-	Leon Romanovsky <leon@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Hans de Goede <hansg@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>, Hannes Reinecke <hare@suse.de>,
-	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
-	"Martin K. Petersen" <martin.petersen@oracle.com>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Alan Stern <stern@rowland.harvard.edu>,
-	Jason Wang <jasowang@redhat.com>,
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-	Eugenio =?utf-8?B?UMOpcmV6?= <eperezma@redhat.com>,
-	Jason Baron <jbaron@akamai.com>, Jim Cromie <jim.cromie@gmail.com>,
-	Tiwei Bie <tiwei.btw@antgroup.com>,
-	Benjamin Berg <benjamin.berg@intel.com>,
-	Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>,
-	"David E. Box" <david.e.box@linux.intel.com>,
-	"Maciej W. Rozycki" <macro@orcam.me.uk>,
-	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	Sean Christopherson <seanjc@google.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>, Vinod Koul <vkoul@kernel.org>,
-	Frank Li <Frank.Li@kernel.org>, Daniel Gomez <da.gomez@kernel.org>,
-	Sami Tolvanen <samitolvanen@google.com>,
-	Aaron Tomlin <atomlin@atomlin.com>,
-	Alexander Potapenko <glider@google.com>,
-	Marco Elver <elver@google.com>, Dmitry Vyukov <dvyukov@google.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	John Johansen <john.johansen@canonical.com>,
-	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>,
-	Georgia Garcia <georgia.garcia@canonical.com>, kvm@vger.kernel.org,
-	dmaengine@vger.kernel.org, linux-modules@vger.kernel.org,
-	kasan-dev@googlegroups.com, linux-mm@kvack.org,
-	apparmor@lists.ubuntu.com, linux-security-module@vger.kernel.org,
-	linux-um@lists.infradead.org, linux-acpi@vger.kernel.org,
-	openipmi-developer@lists.sourceforge.net, qemu-devel@nongnu.org,
-	intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
-	linux-rdma@vger.kernel.org, linux-media@vger.kernel.org,
-	linux-pci@vger.kernel.org, linux-scsi@vger.kernel.org,
-	linux-pm@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
-	linux-serial@vger.kernel.org, linux-usb@vger.kernel.org,
-	usb-storage@lists.one-eyed-alien.net,
-	virtualization@lists.linux.dev, linux-kernel@vger.kernel.org,
-	linux-arch@vger.kernel.org, netdev@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org, linux-hardening@vger.kernel.org
-Subject: Re: [PATCH 01/11] params: bound array element output to the caller's
- page buffer
-Message-ID: <20260602123344.GG2487554@ziepe.ca>
-References: <20260521133315.work.845-kees@kernel.org>
- <20260521133326.2465264-1-kees@kernel.org>
- <ah699hwLxIIOZ0-7@ashevche-desk.local>
+Cc: Andrew Morton <akpm@linux-foundation.org>, mm-commits@vger.kernel.org,
+	stable@vger.kernel.org, nathan@kernel.org, hca@linux.ibm.com,
+	gor@linux.ibm.com, ansuelsmth@gmail.com, andersson@kernel.org,
+	aleksander.lobakin@intel.com, agordeev@linux.ibm.com, arnd@arndb.de,
+	Tamir Duberstein <tamird@kernel.org>
+Subject: Re: + errh-use-__always_inline-on-all-error-pointer-helpers.patch
+ added to mm-nonmm-unstable branch
+Message-ID: <ah7PWK4gTdOYG1t_@pathway>
+References: <20260526184100.3BA431F000E9@smtp.kernel.org>
+ <ah6WDkwO8eYY5f2a@ashevche-desk.local>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -150,29 +78,127 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <ah699hwLxIIOZ0-7@ashevche-desk.local>
+In-Reply-To: <ah6WDkwO8eYY5f2a@ashevche-desk.local>
 
-On Tue, Jun 02, 2026 at 02:26:46PM +0300, Andy Shevchenko wrote:
-> On Thu, May 21, 2026 at 06:33:14AM -0700, Kees Cook wrote:
-> > 
-> > param_array_get() appends each element's string representation into the
-> > shared sysfs page buffer by passing buffer + off to the element getter.
-> > 
-> > That works for getters that only write a small bounded string, but
-> > param_get_charp() and similar helpers format against PAGE_SIZE from the
-> > pointer they receive. Once off is non-zero, an element getter can
-> > therefore write past the end of the original sysfs page buffer.
-> > 
-> > Collect each element into a temporary PAGE_SIZE buffer first and then
-> > copy only the remaining space into the caller's page buffer.
-> 
-> ...
-> 
-> > +	elem_buf = kmalloc(PAGE_SIZE, GFP_KERNEL);
-> 
-> get_free_page() (or how it is called)?
+Adding Tamir into Cc.
 
-I thought modern mm guidance was to use kmalloc whenever possible and
-not use get_free_page() unless you intend to use the struct page bits?
+On Tue 2026-06-02 11:36:30, Andy Shevchenko wrote:
+> On Tue, May 26, 2026 at 11:40:59AM -0700, Andrew Morton wrote:
+> 
+> > The patch titled
+> >      Subject: err.h: use __always_inline on all error pointer helpers
+> > has been added to the -mm mm-nonmm-unstable branch.  Its filename is
+> >      errh-use-__always_inline-on-all-error-pointer-helpers.patch
+> > 
+> > This patch will shortly appear at
+> >      https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/errh-use-__always_inline-on-all-error-pointer-helpers.patch
+> 
+> Petr, shouldn't this also fix the problem with old (buggy) GCC for xtensa
+> (IIRC) that we encountered in some tests a couple of months ago?
 
-Jason
+It might here there as well. Unfortunately, I could not test it easily
+because it required some old GCC.
+
+I wonder if Tamir could try to revert the commit 8901ac9d2c7eb8ed
+("printf: Compile the kunit test with DISABLE_BRANCH_PROFILING")
+and try this patch instead.
+
+Best Regards,
+Petr
+
+> > ------------------------------------------------------
+> > From: Arnd Bergmann <arnd@arndb.de>
+> > Subject: err.h: use __always_inline on all error pointer helpers
+> > Date: Tue, 26 May 2026 12:18:41 +0200
+> > 
+> > While testing randconfig builds on s390, I came across a link failure with
+> > CONFIG_DMA_SHARED_BUFFER disabled:
+> > 
+> > ERROR: modpost: "dma_buf_put" [drivers/iommu/iommufd/iommufd.ko] undefined!
+> > 
+> > The problem here is that IS_ERR() is not inlined and dead code elimination
+> > fails as a consequence.
+> > 
+> > The err.h helpers all turn into a trivial assignment of a bit mask and
+> > should never result in a function call, so force them to always be inline.
+> > This should generally result in better object code aside from avoiding
+> > the link failure above.
+> > 
+> > Link: https://lore.kernel.org/20260526101851.2495110-1-arnd@kernel.org
+> > Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+> > Reviewed-by: Alexander Lobakin <aleksander.lobakin@intel.com>
+> > Cc: Alexander Gordeev <agordeev@linux.ibm.com>
+> > Cc: Andriy Shevchenko <andriy.shevchenko@linux.intel.com>
+> > Cc: Ansuel Smith <ansuelsmth@gmail.com>
+> > Cc: Bjorn Andersson <andersson@kernel.org>
+> > Cc: Heiko Carstens <hca@linux.ibm.com>
+> > Cc: Nathan Chancellor <nathan@kernel.org>
+> > Cc: Vasily Gorbik <gor@linux.ibm.com>
+> > Cc: <stable@vger.kernel.org>
+> > Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+> > ---
+> > 
+> >  include/linux/err.h |   12 ++++++------
+> >  1 file changed, 6 insertions(+), 6 deletions(-)
+> > 
+> > --- a/include/linux/err.h~errh-use-__always_inline-on-all-error-pointer-helpers
+> > +++ a/include/linux/err.h
+> > @@ -36,7 +36,7 @@
+> >   *
+> >   * Return: A pointer with @error encoded within its value.
+> >   */
+> > -static inline void * __must_check ERR_PTR(long error)
+> > +static __always_inline void * __must_check ERR_PTR(long error)
+> >  {
+> >  	return (void *) error;
+> >  }
+> > @@ -60,7 +60,7 @@ static inline void * __must_check ERR_PT
+> >   * @ptr: An error pointer.
+> >   * Return: The error code within @ptr.
+> >   */
+> > -static inline long __must_check PTR_ERR(__force const void *ptr)
+> > +static __always_inline long __must_check PTR_ERR(__force const void *ptr)
+> >  {
+> >  	return (long) ptr;
+> >  }
+> > @@ -73,7 +73,7 @@ static inline long __must_check PTR_ERR(
+> >   * @ptr: The pointer to check.
+> >   * Return: true if @ptr is an error pointer, false otherwise.
+> >   */
+> > -static inline bool __must_check IS_ERR(__force const void *ptr)
+> > +static __always_inline bool __must_check IS_ERR(__force const void *ptr)
+> >  {
+> >  	return IS_ERR_VALUE((unsigned long)ptr);
+> >  }
+> > @@ -87,7 +87,7 @@ static inline bool __must_check IS_ERR(_
+> >   *
+> >   * Like IS_ERR(), but also returns true for a null pointer.
+> >   */
+> > -static inline bool __must_check IS_ERR_OR_NULL(__force const void *ptr)
+> > +static __always_inline bool __must_check IS_ERR_OR_NULL(__force const void *ptr)
+> >  {
+> >  	return unlikely(!ptr) || IS_ERR_VALUE((unsigned long)ptr);
+> >  }
+> > @@ -99,7 +99,7 @@ static inline bool __must_check IS_ERR_O
+> >   * Explicitly cast an error-valued pointer to another pointer type in such a
+> >   * way as to make it clear that's what's going on.
+> >   */
+> > -static inline void * __must_check ERR_CAST(__force const void *ptr)
+> > +static __always_inline void * __must_check ERR_CAST(__force const void *ptr)
+> >  {
+> >  	/* cast away the const */
+> >  	return (void *) ptr;
+> > @@ -122,7 +122,7 @@ static inline void * __must_check ERR_CA
+> >   *
+> >   * Return: The error code within @ptr if it is an error pointer; 0 otherwise.
+> >   */
+> > -static inline int __must_check PTR_ERR_OR_ZERO(__force const void *ptr)
+> > +static __always_inline int __must_check PTR_ERR_OR_ZERO(__force const void *ptr)
+> >  {
+> >  	if (IS_ERR(ptr))
+> >  		return PTR_ERR(ptr);
+> 
+> -- 
+> With Best Regards,
+> Andy Shevchenko
+> 
