@@ -1,34 +1,35 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C17F03E3140;
-	Tue,  2 Jun 2026 12:15:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 538473E1231;
+	Tue,  2 Jun 2026 12:15:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780402501; cv=none; b=rR+5zWAevaLfLOjrRX5/c8rWXT2/gxxYzxBN2ImsbgaqR6glIOa+BdIlJI2U1j42hCCqmvUE7PSopJwwpzxbCGaXoLAwbfQiFQW0zX5XVvpB2rYNxH4vvvDbgF94/HTfo1t92hXHbj+CkMFXs3sJxGc/PCyK3T6yC2QTxAX2APw=
+	t=1780402506; cv=none; b=jQe8dkSaKDz7m95FsWriSMt1whL7R4JhJhcCjTZPDmiPyLSosZnKqDmsRoQ1tN7Qj+wIsx44R12xgKuAwChv3cErTAJtaUtt5hAvHG7RfmYylyLWOMZixXVa9ONTIrS8dgMxGcPxUoYlkwbm8SjD0w7M4SezwDUHjwDtMfuY/Ys=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780402501; c=relaxed/simple;
-	bh=tY/a57/TVSvpgNnIoyCRPnJyQg+HO8WVORGfo0db7mU=;
+	s=arc-20240116; t=1780402506; c=relaxed/simple;
+	bh=RbIMlTBhX+nwth2ktVhSGSSP8Wft3sWwsEfCV850KPU=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=RufPfu/syBCeKBICGEwneh/pFmp3V2J1GdgN2PQ1IZ7Bt+JviAtKrJlGDCFk+LNV8Yt93FvSDTJ+AKvKqaxw5OAkCML06MfiR92ICjwRzmQQoCSKtAQrnPL3QykHjBtGnKPBqzVXH7W/cgqK2wVNydvXCAn4X4OCFDGkZcwu6Lg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bN/t8e4G; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=GR45rrZtMNwnWjkW0uGqFxpz4uJ623/wT9xbSPjEjEZPr/6bwJB+KnnmmkWWkJrp03IIHQAZOj5IOsHaCgXJau4ZZ4pqHIKPriFm2QLPeirCroihYYPROPJCcFPXUMwoof+xTbvpqZJQuJbgsujX81+WNC+oy02k1dkZS9wLeY8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=anYL2ekO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bN/t8e4G"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0ADB11F00893;
-	Tue,  2 Jun 2026 12:14:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="anYL2ekO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 518741F00899;
+	Tue,  2 Jun 2026 12:15:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780402500;
-	bh=Xa5SkSOu7iCqTLmCDdQrrU6/PcTgQV+a6wr23yqLyL0=;
+	s=k20260515; t=1780402505;
+	bh=GszvUxBaQDM6cXw6ZUDOFBlW4uvlwqG8sNmpgHjMLvE=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=bN/t8e4GPN1ixO5zKW32iqbICLD5oNiKI4n11SMzdbZl/l1OTsb4yIOwwcjyHE+yR
-	 yWpVUssEaM+81IDHZdQrYVRQPMLVpq111khHEUnoetjycTr6FXFx+wETDYl+YkNqDT
-	 U65eVn1W45mooL+cb0vcRIQFnAGleywrOAugEHrrWcRA4/QMy1oNZv+XskWapYQWlD
-	 Y9KpZkc1OMFADY+RfXPkJH2JKYL9sDnHBUa3NXB71Ay2ixm68UENxTjstcln4vcfh4
-	 VreoWKiSZmwv3ehgWbfKg+Ml4VrmCICxgao64lHY//Y31mhKkxMvtb3FKFUkjjK5aP
-	 p8c0hErig5Aqw==
+	b=anYL2ekO3xG7ATE9PPzneakr4Cets8drBTTViQwVThOpz1S2ET6jhGPkIqMDPCC/T
+	 ygkbLkRayd6MC6MTrij71BnCdtJNb9EKK4IaVH4blQbRjl7K2+JQDw3ksrxay0iKEu
+	 mo5PG6+ZaqkVLEeGWZqUHpw+d8xoAw5AVjNyWGPID59gNHLPpKlU0zWWBIuGCaeKWd
+	 Fej0aytYS/UyDIRdfv/4/faDEEdF7lj/0Dxo9jsFCwFid3xEM+16XLPwyBoK3zwLLW
+	 kJYTQ+xdL/oXcBCXMR1Ib3aHJ9AlAmJsrdVsDmPXJWym96821P4q7jrZOXyE7aShXD
+	 TmOaI4pjFihmA==
 From: "Matthieu Baerts (NGI0)" <matttbe@kernel.org>
-Date: Tue, 02 Jun 2026 22:14:11 +1000
-Subject: [PATCH net v2 04/11] mptcp: allow subflow rcv wnd to shrink
+Date: Tue, 02 Jun 2026 22:14:12 +1000
+Subject: [PATCH net v2 05/11] mptcp: pm: fix extra_subflows underflow on
+ userspace PM subflow creation
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -37,7 +38,7 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260602-net-mptcp-misc-fixes-7-1-rc7-v2-4-856831229976@kernel.org>
+Message-Id: <20260602-net-mptcp-misc-fixes-7-1-rc7-v2-5-856831229976@kernel.org>
 References: <20260602-net-mptcp-misc-fixes-7-1-rc7-v2-0-856831229976@kernel.org>
 In-Reply-To: <20260602-net-mptcp-misc-fixes-7-1-rc7-v2-0-856831229976@kernel.org>
 To: Mat Martineau <martineau@kernel.org>, Geliang Tang <geliang@kernel.org>, 
@@ -46,76 +47,80 @@ To: Mat Martineau <martineau@kernel.org>, Geliang Tang <geliang@kernel.org>,
  Simon Horman <horms@kernel.org>, Florian Westphal <fw@strlen.de>
 Cc: netdev@vger.kernel.org, mptcp@lists.linux.dev, 
  linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- "Matthieu Baerts (NGI0)" <matttbe@kernel.org>, stable@vger.kernel.org
+ "Matthieu Baerts (NGI0)" <matttbe@kernel.org>, Tao Cui <cuitao@kylinos.cn>, 
+ stable@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2014; i=matttbe@kernel.org;
- h=from:subject:message-id; bh=ZxRWHdtL3tuj75xtqktzYg7JOxPwuV8ew2GHxY1a/ao=;
- b=owEBbQKS/ZANAwAIAfa3gk9CaaBzAcsmYgBqHsksqYVJJrvGMZJqDZMaYcZK9Tvt0Ie3hjsoj
- pawnoIpFrOJAjMEAAEIAB0WIQToy4X3aHcFem4n93r2t4JPQmmgcwUCah7JLAAKCRD2t4JPQmmg
- c5UED/9Bb3D/tC8nQpL9Rux+nrE2lxJqGwswXeBu1LKr6fmyvBcqU5XbzzsxK3RuU1h1elGrsev
- i8mO0ZpL9eAt8fXcuUGUtiQFdJWAraqNH5lPODFlnV1xHfAkYb/oWjEJfgNu1EBb4Cx7Of0LKCu
- nIB4NT6OGvP/g944Yho9Iq3vHvcu12Z5t9R2RT81FRv2CchtENx/AWFynUV4rkYnWpLQ7G2eGm8
- CVeL1hxtvTq2RtRiWESQWYzfU7RConhIqeGcXE11fTg/DfdRjQuPQkff6imxEw1JKtz2kK4pin4
- Ct4xR4d/duM479b6XS1kALIMD0EGL6YEgADG5igzkl77n8dRpeffNaF/6OjvNUJSBKWZZFNBzP8
- pQpXXYf4xbWP/AKRLt/Z7Wo7pNnLUG0Vf1R9mjiDp3bdaStLAHAEp7AlEpdiYT/wU5IMvKZJQC0
- ZydOofi9NIya7kerpsrmjI4BpjYzKbED5VlpSZdahMVzBKUWiP4t4JyY+DeWEbor62KUWmBXXxC
- bxYiQJjPTg+pP6k8AG2m9Er7GW7D/IvqKpQG52gYxvssHPFP8D8BS28eKxJZeuulJJf6tQmW8p3
- SDlxRAGZcq076QwSKC3IGpuztUbUWVx8cdttgHxfhTH7yJEBw/WEygohBYOo7Pp8cm77FQUkBa9
- o8IKnRu7wGLrd6g==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1923; i=matttbe@kernel.org;
+ h=from:subject:message-id; bh=7ukesoEXWL1n6AAghVFKroS6WjmMIg9iq0MAWyf9XNo=;
+ b=owEBbQKS/ZANAwAIAfa3gk9CaaBzAcsmYgBqHsksbi2YDv1oHFqBSHFmhgsONSsDTaWJHJTNx
+ kBAG9P6hZOJAjMEAAEIAB0WIQToy4X3aHcFem4n93r2t4JPQmmgcwUCah7JLAAKCRD2t4JPQmmg
+ cy4kD/9zUAp6YRfI4W/e5jjRIpW3xIKDrQASL32osbKBTHCNnREUP8oHiJT5hdUMcmtET1YJIvn
+ 8zH16xNL1EIl5V/IYC5tRrwoJd+LAAR7i8/+Sd8y+YWFtAkI0Pjq62T84Ng2ypoKkc6UxW8YP0R
+ xqsx/Ba7lY+zedvHHTr0Jjok/cUbN0AF2qRYlEmJi9XM2NO3mU7xISSfX8P5mo8wVmnUczfCRnU
+ btoVGufWyHPZ/+Le6giw1N4FKOkUcTUxFvRC2DHbJLfWBlYC89HsEESGPLN5cJbcjdCcqMW7NLw
+ 8nz8fbU/pFRA/fVaXDW6KYmY3+T1D5ggImzQT+PoKl8PdfsH15UW9N5Fwrr7VefWaBZnE5Xlf/q
+ kc0lhOFXhhfVJNhi7aO4i+OZWsjPMXyy/4+MK56QaASc8maxrWpw0raBMpZ01rLQL772jwg4Ein
+ jvvJWDC8CdLZkW7Y9RWRX4Q1UlEO2aHUOKev9R+s4M6yON4nIVHXzC7IF5l4vURqtxsORettMxE
+ pSNs1twMruzI88wQbToOS2rEJNemw9mKBYX1DWXN4Rd8/NOvCrCUO5974cWOxLAc5rqbN9lB7pT
+ R1Fexfw03eDYr7Tpsf3dWOHKVheDXUlCUt3BqBgQcSwTngF/yvfYqhKozwRMbs78mwkfwLLG2FL
+ KByQQ2C35uutTRA==
 X-Developer-Key: i=matttbe@kernel.org; a=openpgp;
  fpr=E8CB85F76877057A6E27F77AF6B7824F4269A073
 
-From: Paolo Abeni <pabeni@redhat.com>
+From: Tao Cui <cuitao@kylinos.cn>
 
-In MPTCP connection, the `window` field in the TCP header refers to the
-MPTCP-level rcv_nxt and it's right edge should not move backward. Such
-constraint is enforced at DSS option generation time.
+The userspace PM increments extra_subflows after __mptcp_subflow_connect()
+succeeds, but __mptcp_subflow_connect() calls mptcp_pm_close_subflow()
+on failure to roll back the pre-increment done by the kernel PM's fill_*()
+helpers. Because the userspace PM hasn't incremented yet at that point,
+this decrement is spurious and causes extra_subflows to underflow.
 
-At the same time, the TCP stack ensures independently that the TCP-level
-rcv wnd right's edge does not move backward. That in turn causes artificial
-inflating of the MPTCP rcv window when the incoming data is acked at the
-TCP level and is OoO in the MPTCP sequence space (or lands in the backlog).
+Fix it by aligning the userspace PM with the kernel PM: increment
+extra_subflows before calling __mptcp_subflow_connect(), so the existing
+error path in subflow.c correctly rolls it back on failure. Also simplify
+the error handling by taking pm.lock only when needed for cleanup.
 
-As a consequence, the incoming traffic can exceed the receiver rcvbuf size
-even when the sender is not misbehaving.
-
-Prevent such scenario forcibly allowing the TCP subflow to shrink the
-TCP-level rcv wnd regardless of the current netns setting.
-
-Fixes: f3589be0c420 ("mptcp: never shrink offered window")
+Fixes: 77e4b94a3de6 ("mptcp: update userspace pm infos")
 Cc: stable@vger.kernel.org
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+Signed-off-by: Tao Cui <cuitao@kylinos.cn>
 Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
 Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
 ---
- net/mptcp/options.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ net/mptcp/pm_userspace.c | 14 ++++++++------
+ 1 file changed, 8 insertions(+), 6 deletions(-)
 
-diff --git a/net/mptcp/options.c b/net/mptcp/options.c
-index 2d25f319f328..51ca334678b4 100644
---- a/net/mptcp/options.c
-+++ b/net/mptcp/options.c
-@@ -566,6 +566,7 @@ static bool mptcp_established_options_dss(struct sock *sk, struct sk_buff *skb,
- {
- 	struct mptcp_subflow_context *subflow = mptcp_subflow_ctx(sk);
- 	struct mptcp_sock *msk = mptcp_sk(subflow->conn);
-+	struct tcp_sock *tp = tcp_sk(sk);
- 	unsigned int dss_size = 0;
- 	struct mptcp_ext *mpext;
- 	unsigned int ack_size;
-@@ -614,6 +615,12 @@ static bool mptcp_established_options_dss(struct sock *sk, struct sk_buff *skb,
- 	if (dss_size == 0)
- 		ack_size += TCPOLEN_MPTCP_DSS_BASE;
+diff --git a/net/mptcp/pm_userspace.c b/net/mptcp/pm_userspace.c
+index 8cbc1920afb4..0d3a95e676f1 100644
+--- a/net/mptcp/pm_userspace.c
++++ b/net/mptcp/pm_userspace.c
+@@ -408,19 +408,21 @@ int mptcp_pm_nl_subflow_create_doit(struct sk_buff *skb, struct genl_info *info)
+ 	local.flags = entry.flags;
+ 	local.ifindex = entry.ifindex;
  
-+	/* The caller is __tcp_transmit_skb(), and will compute the new rcv
-+	 * wnd soon: ensure that the window can shrink.
-+	 */
-+	if (skb)
-+		tp->rcv_wnd = tp->rcv_nxt - tp->rcv_wup;
++	spin_lock_bh(&msk->pm.lock);
++	msk->pm.extra_subflows++;
++	spin_unlock_bh(&msk->pm.lock);
 +
- 	dss_size += ack_size;
+ 	lock_sock(sk);
+ 	err = __mptcp_subflow_connect(sk, &local, &addr_r);
+ 	release_sock(sk);
  
- 	*size = ALIGN(dss_size, 4);
+-	if (err)
++	if (err) {
+ 		GENL_SET_ERR_MSG_FMT(info, "connect error: %d", err);
+ 
+-	spin_lock_bh(&msk->pm.lock);
+-	if (err)
++		spin_lock_bh(&msk->pm.lock);
+ 		mptcp_userspace_pm_delete_local_addr(msk, &entry);
+-	else
+-		msk->pm.extra_subflows++;
+-	spin_unlock_bh(&msk->pm.lock);
++		spin_unlock_bh(&msk->pm.lock);
++	}
+ 
+  create_err:
+ 	sock_put(sk);
 
 -- 
 2.53.0
