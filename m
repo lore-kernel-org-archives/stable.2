@@ -1,198 +1,118 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DF7B2D2382;
-	Tue,  2 Jun 2026 06:14:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780380862; cv=none; b=D3My+yeiwMxk42ANTJP5eCxzud/YKAnz6642clOyaNVc5vpR5DKaB2Tt4EazJ/VXm1v6eXp7omNXv4tMO02RwTz6UA8QcA9ffpmAfDI1Gfwhln1Stxlj1xxptx6mBZ2AYHxzNIWep82RHZ429e01XceR5/7RItZWjmEK9/8cYVc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780380862; c=relaxed/simple;
-	bh=ZZloKfi+BZkzFML4nwkLNn6PsJRRhLCXqfaYA3b9NT0=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=L+hBRjD4lp4N/ehgJUXoOeXwQyW+liIN5Hx6NcyeErriEr6T46eXk+W6jd4bt9mbCMDZ5XcUi/pxZ7lcTu6L/6hA/AvnpszUb8UivB43E4fPRC6iqhXgTTXSuBOUNgx5X6KDZ4b6BPBBesJUXycw5krcPmnrfoJQxAsbGNf/Gxw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=CKa0STd9; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5902433B6FB
+	for <stable@vger.kernel.org>; Tue,  2 Jun 2026 06:23:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.43
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780381412; cv=pass; b=nivR+AU0nTN6WDdlCE+JuyZkpkJGSI58Z6v9XAjDX6ivHxhHZAMq0hHc92/E6ESULfQd9W2LyV0Y3p7myWL/9PsrLBqbW5Jez25cREykbtGKr7ShEiKVtdFI/kxixScTStybgD6XnjCmpHxGVvQwN/l4gnTXNDF7xV8z66hKaJE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780381412; c=relaxed/simple;
+	bh=bHbWohJPBF9CHwsWq93xd0EknGGk7dN/OkRGS8+4yhU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=E4ulqlCf8y/h7Y5o9qisb2cmBDCn3mVJGs9LCHaGz0Cx3zkUu47RqtdkLOTAbtzh3JYdlUVarz/1bbXljmbBUi9EzfuwPlxjs53Cvg+D9MhE8raYS2C/Hw3e+UbUT9Rp/YvDqM7mCmXbv6y4GDZW0ygIrgjnylFMt1Rko1pqKzM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YwV8BqG0; arc=pass smtp.client-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="CKa0STd9"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6526EF4G02716836, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1780380855; bh=ilJXk8Qu02sYQ2BxQLxa2OOTW7Tl/jc1dpPk5iv8ogA=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=CKa0STd9u6ScnEPUz8jVq0wgeAT9Mpd8kCQdFAFA+P5LdMm0aBWl1bbR4GnTL8gqU
-	 2Pam4TuHemHZ+DSOQYegzXS81rbLzXlfCgZVekZyj3DiIQzFl6Eo/iDtEpDtVkDjoU
-	 Qwd0sEc2YYWJiIN4DvdO/KKji+Y2wX5oiuiW+UFHWiY95tYnGakiIO/2/YkTKyI5rH
-	 zFjDvQDjZVNvK/rgLG3TPLHaATDwTWu+1kO2HKEXC958tzAm/ekFr+gGLrIcBNDKCB
-	 21f+UsVPm6gkPU/Pj4pI14I4MB3dy/PdO6uVPF9Obxn4TQxOQd+Wo3sMiZd4w84rJ/
-	 AzwceZWJpKn9g==
-Received: from mail.realtek.com (rtkexhmbs04.realtek.com.tw[10.21.1.54])
-	by rtits2.realtek.com.tw (8.15.2/3.28/5.94) with ESMTPS id 6526EF4G02716836
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Tue, 2 Jun 2026 14:14:15 +0800
-Received: from RTKEXHMBS05.realtek.com.tw (10.21.1.55) by
- RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.17; Tue, 2 Jun 2026 14:14:15 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS05.realtek.com.tw (10.21.1.55) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.17; Tue, 2 Jun 2026 14:14:15 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::e6fd:5a3f:8946:92c4%10]) with mapi id
- 15.02.2562.017; Tue, 2 Jun 2026 14:14:15 +0800
-From: Kailang <kailang@realtek.com>
-To: Takashi Iwai <tiwai@suse.de>, Mike Karcic <mikekarcic@protonmail.com>
-CC: Sean Rhodes <sean@starlabs.systems>, "stable@vger.kernel.org"
-	<stable@vger.kernel.org>, "regressions@lists.linux.dev"
-	<regressions@lists.linux.dev>, "linux-sound@vger.kernel.org"
-	<linux-sound@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>
-Subject: RE: [REGRESSION] Speaker pop/chirp on Meteor Lake ALC287 (17aa:231e)
- -- 6.12.73 to 6.12.85
-Thread-Topic: [REGRESSION] Speaker pop/chirp on Meteor Lake ALC287 (17aa:231e)
- -- 6.12.73 to 6.12.85
-Thread-Index: AQHc7t9eJfAz3yPaB0G+XZXqEzNDFrYqzh7Q
-Date: Tue, 2 Jun 2026 06:14:14 +0000
-Message-ID: <833d600fdebd4aaeab6706185ce854e6@realtek.com>
-References: <O6pYAi7yf23du9ivLsL0QqrnTmodj2lDTL7Wviv7I_nhjVtvllO7Y5Ban0TeTqrastb1RWhJtlkqrM3quLMWSriai-YjjGy312MTcEhxyWs=@protonmail.com>
-	<CABtds-3GOyBr1H=c5aFV1uzfkhO3d1NHMPuon_cWDq0V=pFwUA@mail.gmail.com>
-	<wZmYozyav1sNx53nFr4ShKmcdLFVJp5bdUOJgUq1I57MX6kgyq7n8XvH-MWG9Fi4q2x4CQqjEQ3Q8ok5MClut8hNixnhVmVtXkhcOzH1sw8=@protonmail.com>
-	<87eciwukvy.wl-tiwai@suse.de>
-	<RfzfjlzeaeMgNNWNST_Zzx1v49rYjM63MvAV6O5_fFIoZJ73GcN69FDLJcwhJ3s6fl9TVD2l45YBh2n3hy95LM7rhLhoVt8dU9stMkuVJvE=@protonmail.com>
-	<87mrxjsk52.wl-tiwai@suse.de>
-	<bibLdgyll9YOEDANdCBy8WOqeOeJry1SnahLR-EhoGkttJ6BE2srDZ9jv0gjkt0bA19aKivruQs3nkMQWbdEXPaOrLT80xjzF4KJvDcB-IU=@protonmail.com>
- <87cxyfs2vm.wl-tiwai@suse.de>
-In-Reply-To: <87cxyfs2vm.wl-tiwai@suse.de>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YwV8BqG0"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4903f7a90d1so98192315e9.2
+        for <stable@vger.kernel.org>; Mon, 01 Jun 2026 23:23:31 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1780381410; cv=none;
+        d=google.com; s=arc-20240605;
+        b=H3ZvxTx+C0zi9Rp8uii6cHQ+/S1OjAGYw3kgyjC6T8yY11zJwdWfwnnfd+Kvk1zzai
+         U4cgZMwIXCSNdO5INOz+D3UzYqHBxtlJyDMxVW7dsdWjoGpLI68TFgIoAEm3cSdehwcf
+         okqXDT01z529VSBEyHdbVB5sCgnOIps8BLm76yugeJuxZEOVLxjkcVTVfrMwjBv1/AKm
+         cLTwYhQULj1OiOraWhl136Qp8xwyIV63Qtdt1nvc4gOMyWaA6b7LSBkKDUF8V6AT1ORm
+         BXu+S0juAAFvVD+sfJ6Xz3mKQ1z2IPTC2NINpcNYlmNITjGvhnIdI6+LOlOmHlLLlh/q
+         irZQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=bHbWohJPBF9CHwsWq93xd0EknGGk7dN/OkRGS8+4yhU=;
+        fh=cA+WwP0kLXCUoBRGi3gjYFUOMmLKz1ic7h0g3G4mJgQ=;
+        b=XzNGkjvmxo5wxe+NINDlY4CeiKJ8eL5GlMwoU+kjkdBIqk3TfQJZwO1YtenKnjnehe
+         vQe55J3b7gInYMf6vguPDVrmWM25h/qplSzByR3GcfGsQoaBb+F02ySRPInwu1AOAWNF
+         SX6y1bbVMd+7WlGyI8qe7l1sLZgqfz+mfQwMMbC3MGu+qQkGc7kR92cK3emhMQ7z0e0m
+         gK3v2EMcvt9aXMXT+/+MaXyeVIw69XIX/LjXK+XMZOI/YBFMm0cez1cEdvns/hjXmbSg
+         N18SJ90eqi3eYtrR6O7UYp8FJVptL8ujkjq1eIAKCkV2PxAlFJSZrZiPROdVyA52zoq/
+         uNBQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780381410; x=1780986210; darn=vger.kernel.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=bHbWohJPBF9CHwsWq93xd0EknGGk7dN/OkRGS8+4yhU=;
+        b=YwV8BqG0EOkI7v3fATcIFQS3dUlpA99MAPW4bat1PnQTcYNpdeMlZdKM6Lf4RzaSlu
+         0VAfTi/qIiRRvcK6Rq7RzUySUPhAbG59uS7oY/KfvZfmrxxQRRkiAJS6Le5SfkoUxjcP
+         PGoPVaEactBylBghfr1A2lIln1YQrBOpLym1O7wNoDjRXglaclol1ggcyyOan3SLnI3/
+         gLeuMLzTnLLQhSxXI75X4TSZHIxVjq1ygQHfptpSSeOw27wKf4RaEbMPi7yVfQPsrNSb
+         YdbrWjEYlPXoWulvVY+O7sGeEUYts7YByHe84gsbU65BQdPQzMnojwC7lDJ9bZJRZkzL
+         7Ifw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780381410; x=1780986210;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=bHbWohJPBF9CHwsWq93xd0EknGGk7dN/OkRGS8+4yhU=;
+        b=JteOPPm2ENONuzbOy9HGSyaDvThrEzk75FVusfHuml4D+QN0z9+IByEiIiBYg+jhmM
+         GmXjTTtGmNgveFdgnN8zCo33GJEbv25LSjQtvYtPF1VINRVWbEWLzsK1D4rshWziczly
+         sYgO6F9/o//AW3qh0YdAypCGSVinxNzKwu2V1qb3eEp5cUDm5NwRW1TwqONcPOyGbAxm
+         J/fOAqB1gd4LStyGJZ7x4nzUUHKakm8AEjRL1rpu85UZy1QsxsxtTSTIUOzegygKBpiE
+         eq+lhc3+O3kev0XtGKiSh2aBwv70PWKkODglKJuNytARuxz3pIQB/83VV3snQPnJp9Ek
+         j1gA==
+X-Forwarded-Encrypted: i=1; AFNElJ+KGwkS5XV7zctag9k4DLBoZt63pAzFYCs27KSgqgrdYR5g1wPLwNmX4Kr4F/hcpcIBh4BDlXg=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyq8DlxFlb7BDQzWlMSBfWnIKDqaPp2kdKLmnvddyEyGO/gW6kW
+	zJWwIpLfl+9d61bIsUE8s8NnDKPoNkPxmmHrKa382G79c0vvB7KOfzVvf24xK++qPnZJPZpMWKz
+	GmEiiTMewvDDAF5+iE9dqUelKbcyPNRUbQuSL
+X-Gm-Gg: Acq92OEzb3GZIRn7/rKQNPz6MqGEsFFbuYBoPakqL1Q+zlgIbAa3+rCL14QooT1ItF7
+	1/VOwF9fYVyWrnUxfSWYJgXcYu0eWHklYtP5YDjZU+nuPQ5G7VRpeAj8E5Pa5MBbaf6ewBLDg5H
+	0y0IV6Aub/0kjD/Tnc8tJKwLXzdKyvHz6msgi1kIXlIxTqOmc+PYtUzT4VRo2lW37SKbk9Xg9PC
+	cuMz9ECk2FW1yXlqw6WxCPqrhmyFDvWHKfe5Kt6gomUdZALs3GihF0iTQe4/JbYeINTWoA8sCIL
+	mywXiBllGqsRLCA0Kw==
+X-Received: by 2002:a05:600c:6592:b0:490:a1dc:e542 with SMTP id
+ 5b1f17b1804b1-490a2904ab0mr275922295e9.6.1780381409619; Mon, 01 Jun 2026
+ 23:23:29 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <20260601034148.1272080-1-maoyixie.tju@gmail.com> <CABAhCOQ7Sd2G4ZVwNUK7i6cF7v=CwhcYosvYAgopb=32aNimZQ@mail.gmail.com>
+In-Reply-To: <CABAhCOQ7Sd2G4ZVwNUK7i6cF7v=CwhcYosvYAgopb=32aNimZQ@mail.gmail.com>
+From: Maoyi Xie <maoyixie.tju@gmail.com>
+Date: Tue, 2 Jun 2026 14:23:18 +0800
+X-Gm-Features: AVHnY4J_sOxDZYbF_hzxFAN6WDTC4_Z74hTDLDHSLVwE5BKSjGzP4QlCsca9gCc
+Message-ID: <CAHPEe=H_7Cbz2-QQt4fTM-tAUNnRnm4wxRZ+TRXHkz9Tdqkerg@mail.gmail.com>
+Subject: Re: [PATCH net v2] net: require CAP_NET_ADMIN in the device netns for
+ tunnel changelink
+To: Xiao Liang <shaw.leon@gmail.com>
+Cc: Jakub Kicinski <kuba@kernel.org>, "David S . Miller" <davem@davemloft.net>, 
+	Paolo Abeni <pabeni@redhat.com>, Eric Dumazet <edumazet@google.com>, 
+	David Ahern <dsahern@kernel.org>, Kuniyuki Iwashima <kuniyu@google.com>, 
+	Nikolaos Gkarlis <nickgarlis@gmail.com>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
+Hi Xiao,
 
-There were the same SSID for two different symptoms.
-But this project was from 2025. This machine maybe didn't in our site.
+On Tue, Jun 2, 2026 at 10:10 AM Xiao Liang <shaw.leon@gmail.com> wrote:
+> Should modifying params that don't affect tunnel lookup (e.g. GRE_CSUM
+> and GRE_SEQ) require CAP_NET_ADMIN in link netns?
 
------Original Message-----
-From: Takashi Iwai <tiwai@suse.de>=20
-Sent: Friday, May 29, 2026 4:20 AM
-To: Mike Karcic <mikekarcic@protonmail.com>
-Cc: Kailang <kailang@realtek.com>; Takashi Iwai <tiwai@suse.de>; Sean Rhode=
-s <sean@starlabs.systems>; stable@vger.kernel.org; regressions@lists.linux.=
-dev; linux-sound@vger.kernel.org; linux-kernel@vger.kernel.org
-Subject: Re: [REGRESSION] Speaker pop/chirp on Meteor Lake ALC287 (17aa:231=
-e) -- 6.12.73 to 6.12.85
+ip_tunnel_update() unlinks and relinks the tunnel in the creation
+netns hash unconditionally, even for a CSUM or SEQ only change, and
+ip6gre_changelink() does the same. So every changelink writes that
+hash, not only the ones that change the endpoints. That is why the
+check sits at the entry, and it matches the ioctl side in 8b484efd5cb4.
 
+You are right that a CSUM or SEQ only change relinks into the same
+bucket and has no lookup effect. I can narrow the check to the params
+that move the bucket if you prefer, though that means diffing old and
+new params in each changelink. I lean towards the entry check for
+consistency, but happy to go either way.
 
-External mail : This email originated from outside the organization. Do not=
- reply, click links, or open attachments unless you recognize the sender an=
-d know the content is safe.
-
-
-
-On Thu, 28 May 2026 20:27:30 +0200,
-Mike Karcic wrote:
->
-> Yes, I can confirm the patched kernel is running, and commenting out that=
- line fixes the problem completely.
->
-> Below is output with the added debug lines as requested:
->
-> $ uname -r
-> 6.12.90-debug-no-discoefs
->
-> $ sudo dmesg | grep -i "alc287_alc1318"
-> [  453.823528] snd_hda_codec_realtek ehdaudio0D0:=20
-> alc287_alc1318_playback_pcm_hook called action=3D0 [  453.871577]=20
-> snd_hda_codec_realtek ehdaudio0D0: alc287_alc1318_playback_pcm_hook=20
-> called action=3D1 [  459.605379] snd_hda_codec_realtek ehdaudio0D0:=20
-> alc287_alc1318_playback_pcm_hook called action=3D2 [  459.605497]=20
-> snd_hda_codec_realtek ehdaudio0D0: alc287_alc1318_playback_pcm_hook=20
-> called action=3D3
->
-> $ grep -n -A5 -B2 "alc_process_coef_fw.*dis_coefs" sound/pci/hda/patch_re=
-altek.c
-> 7918-           return;
-> 7919-   alc_update_coef_idx(codec, 0x10, 1<<11, 1<<11);
-> 7920:   /* alc_process_coef_fw(codec, dis_coefs); */ /* commented out for=
- testing */
-> 7921-   alc_process_coef_fw(codec, coefs);
-> 7922-   spec->power_hook =3D alc287_s4_power_gpio3_default;
-> 7923-   spec->gen.pcm_playback_hook =3D alc287_alc1318_playback_pcm_hook;
-> 7924-}
-
-Hm, then the previous fix doesn't seem working, obviously.
-Kailang, could you check this in your side?
-
-Maybe we should apply the AMP-silence-detection disablement conditionally t=
-o certain models?
-
-
-thanks,
-
-Takashi
-
->
->
->
-> Sent with Proton Mail secure email.
->
-> On Thursday, May 28th, 2026 at 10:07 AM, Takashi Iwai <tiwai@suse.de> wro=
-te:
->
-> > On Thu, 28 May 2026 15:38:54 +0200,
-> > Mike Karcic wrote:
-> > >
-> > > I did test 46c862f5419e on 6.12.90. Chirp still present.
-> > >
-> > > I'm also on a ThinkPad X1 Carbon Gen 12 with ALC287 (17aa:231e),=20
-> > > same as the original reporter. The fix resolved it for them but=20
-> > > not for me.
-> > >
-> > > Only a full revert of 630fbc6e870e resolves the issue.
-> > >
-> > > Verification on the running kernel:
-> > >
-> > >   $ grep -c "dis_coefs" sound/pci/hda/patch_realtek.c
-> > >   2
-> > >
-> > >   $ grep -c "en_coefs" sound/pci/hda/patch_realtek.c
-> > >   0
-> > >
-> > >   $ sed -n '/alc287_alc1318_playback_pcm_hook/,/^}/p' sound/pci/hda/p=
-atch_realtek.c
-> > >   static void alc287_alc1318_playback_pcm_hook(struct hda_pcm_stream =
-*hinfo,
-> > >                                      struct hda_codec *codec,
-> > >                                      struct snd_pcm_substream *substr=
-eam,
-> > >                                      int action)
-> > >   {
-> > >           switch (action) {
-> > >           case HDA_GEN_PCM_ACT_OPEN:
-> > >                   alc_write_coefex_idx(codec, 0x5a, 0x00, 0x954f);
-> > >                   break;
-> > >           case HDA_GEN_PCM_ACT_CLOSE:
-> > >                   alc_write_coefex_idx(codec, 0x5a, 0x00, 0x554f);
-> > >                   break;
-> > >           }
-> > >   }
-> > >
-> > > Happy to test further patches.
-> >
-> > Just to be sure, could you verify that you've tested really the=20
-> > patched kernel, e.g. by adding a debug print, etc?
-> > If yes and the problem is seen even with the patch, try to comment out
-> >   alc_process_coef_fw(codec, dis_coefs); and confirm that this fixes=20
-> > the problem.
-> >
-> >
-> > Takashi
-> >
+Thanks,
+Maoyi
