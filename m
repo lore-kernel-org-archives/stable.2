@@ -1,136 +1,141 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10A383DDDCE;
-	Tue,  2 Jun 2026 12:17:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03D653D669D;
+	Tue,  2 Jun 2026 12:24:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780402661; cv=none; b=XDuCM7YVkth3meCilUCOzAWYOsbEl82RNKI1LhYHTmeT6mUV4UOfusDwdT8RJQ25OnujErPWJxprS2telSGT4jBdLfNPSTqVHgxTt2CboZCLxOhYw10zQ4PHphw6TnegCjVTxqqO+oIwPufNgRW63g6A2HG0r5uxfJKAAtSGzdM=
+	t=1780403069; cv=none; b=eO9MuHHLyoKhlY8IWWgWQaRVmcZ8ZvIlK4/XwbfovCFOwjKn6pNRFKMobjSjZvtf6j6Sadmy6nk5wCdVanMF8dSWhLjzrBT4f2gnR4b4A+rbt24NGhjy1GrxDs4jYpS7DtRHUvYarTmJ53XW5LgAupBuudMheW6ihwjrJiJOrk0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780402661; c=relaxed/simple;
-	bh=Rc0n/4B8uVDfQQlpuMRda7zheY3mHHjkq98GKpiJjt4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YbHhEgQKYrcObAZfiLR22RavSMbwx30dqNQV8z96hLRFafkRC6659qeVF9OpQ0xwtVnDfSXAKvBBeS9+i4Yr1r4Yci5MJYlO1EiDFMXukc48vEbtVN0VYFqeWsesP2OgXLPvzWiSD4YMNLoT4uPbwBPDNlXwoYqZcT0CyQ2zDxU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=Klhn/5DK; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1780403069; c=relaxed/simple;
+	bh=JlT+cZYsqRG96W04CugaFUAuiXRhWUqpRZ1gwj1v9yQ=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=iGsz4HzaDCFq7lSPflpN7JRn4y1eMWTBgE9z2G9oyzqBU/Si1dtlnAAaKIoWG5VDiH+OHiWZxaDP9xPMXdiUVlE+T2dI+MCcJqnsq9ehLpslOVC83JJv1DXPem/MhNCJCqG/6vdVct3REvFQmc53Id5on0I+td/yyrVgiSJqY3Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=lSBGcYcw; arc=none smtp.client-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="Klhn/5DK"
-Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6526Bijq3294139;
-	Tue, 2 Jun 2026 12:17:19 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=pp1; bh=S4LhiaiseoLditI98UzQIfvNCyICnetVjBlGJkixe
-	yU=; b=Klhn/5DK+1DxBrF9vHBK+olY97gio7VwfgogTpncmig5xcoJbSxtVJPjX
-	c4CEn+c/+mY98yD0rI+/SUDxoOqmcfNCvoCqmawpvs8pT9jjClRs6LoUN08G9p8d
-	mTrvc1uhpYsHTik0LgTGBunhed9jnIY1rXbzCoIYvH0IHMOqSJQ/bwxaaWKRgQ34
-	RIrjsP5ePnqbjfA35rHAdHA0saQNXHkMtjHdOyeKP3gQ8RJnwnP5m14OKTT38u5S
-	zEeomXP0mFBsEsq2m7SroZ/QFc7tnT3JDUqux5dIpmnasgV1mlZtFbekgRKCo9V+
-	oizgQW92mtU+yQnkffUKRpkYKOd6g==
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4efnahnjuk-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 02 Jun 2026 12:17:18 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 652C99lH015688;
-	Tue, 2 Jun 2026 12:17:17 GMT
-Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4egcegjwv2-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 02 Jun 2026 12:17:17 +0000 (GMT)
-Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
-	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 652CHE5c31588730
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 2 Jun 2026 12:17:14 GMT
-Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 1F97F20043;
-	Tue,  2 Jun 2026 12:17:14 +0000 (GMT)
-Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 222832004B;
-	Tue,  2 Jun 2026 12:17:12 +0000 (GMT)
-Received: from mac.bl1-in.ibm.com (unknown [9.123.11.154])
-	by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Tue,  2 Jun 2026 12:17:11 +0000 (GMT)
-From: Gautam Menghani <gautam@linux.ibm.com>
-To: maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com,
-        chleroy@kernel.org
-Cc: Gautam Menghani <gautam@linux.ibm.com>, linuxppc-dev@lists.ozlabs.org,
-        linux-kernel@vger.kernel.org, harshpb@linux.ibm.com,
-        stable@vger.kernel.org, Sean Christopherson <seanjc@google.com>
-Subject: [PATCH v4] powerpc/pseries/Kconfig: Enable CONFIG_VPA_PMU to be used with KVM
-Date: Tue,  2 Jun 2026 17:47:05 +0530
-Message-ID: <20260602121706.8423-1-gautam@linux.ibm.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="lSBGcYcw"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:MIME-Version:Content-Type:References:
+	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=KVqA0dyDMlZqpwtMJ9x40FOgRbN07P0B63/VMtUhQro=; b=lSBGcYcwI1Kbe1cfXa/27rifmo
+	scx63GB4xXpDCQloMYUD4NJ8Rv87w6TP1+1Le+SqqmHnKBMV+6NrT9f0Jr5+ViLcLQZOKlS42FT9q
+	ydf6rDB3xDcEhZ1DR5STEbOACE4IyA+U9nheEjVC7534M6qCFs4RvcTFHi8g8wgXDE5LpbKPmmRME
+	jastH441b9qUFise3AOStU/6SX0yEgO9r7Xzx/yuWP8A+qZFEwjAVNkMNM17RWc0phKa2HtxK9HDa
+	6utSlaudiPL0dx/rOyuHHQyTKvNUpebC6y/eNjiSblOD+ZEfJD1JAwSKumGtlFFStiFwRkTYBu52B
+	4dd69Y2A==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <benh@debian.org>)
+	id 1wUOAK-002x2t-2P;
+	Tue, 02 Jun 2026 12:24:16 +0000
+Message-ID: <d9c2e8ea23b1919fe663e480cc7def260ed0ee24.camel@debian.org>
+Subject: Re: [PATCH 5.15 002/570] ip6_tunnel: Fix usage of
+ skb_vlan_inet_prepare()
+From: Ben Hutchings <benh@debian.org>
+To: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>, Greg
+ Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, Sasha Levin <sashal@kernel.org>, Alexandr
+ Alexandrov <alexandr.alexandrov@oracle.com>
+Date: Tue, 02 Jun 2026 14:24:10 +0200
+In-Reply-To: <68ad88bb-958d-4009-8631-284853ffe1b0@oracle.com>
+References: <20260413155830.386096114@linuxfoundation.org>
+	 <20260413155830.485087556@linuxfoundation.org>
+	 <68ad88bb-958d-4009-8631-284853ffe1b0@oracle.com>
+Organization: Debian
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-GEeodVjEnDPZLD35272B"
+User-Agent: Evolution 3.56.2-9 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjAyMDExNiBTYWx0ZWRfX4fAjMt5ZWUGK
- +g/5MBYjv8J5mDxNulUhZtixi9m/KODxWl8NzXe/pMHQXRyxFnmH4NfuXDmhYgLPVPOIoti4dxr
- 3C/mzt0XSl1RGVZrV0vldFLag7llOhngbURMOwxgWC2HQZ8toYD7nAyWXOIdhkpUFbqV58HdjNK
- Hb8JOtgMX4wbz6208rLxhupH5mWL5hQtKDyWAn5R95Kjn42cX5dQbLe9lS82CUG4HZ8FDVLtghv
- /UG65l7eS9YfBH2IXQNOkKO6blzsYI0ayjHRrtJ9bgXtRk4TvMnsQtVmCpfViFX5sGgHWWuiXtm
- SziQ5+XbrRLw37/QxCt5FdZQygWm2tQGctZR/pjqXDbSrgG3A0k8u+rKHc4Tvkh+MWhlYu8DB0U
- Z1/XQoDcVVjG9mTHv6h2GU459aQZGNofcwbVdX7i8w00T3LdVfGf9OSuKxpHQ2mkGLTPdAPy3yI
- B4NexoF6z2dAR6w35OQ==
-X-Proofpoint-ORIG-GUID: jO8XjvYul8zzxp-2LfLi0xarIwr0ep75
-X-Authority-Analysis: v=2.4 cv=cOzQdFeN c=1 sm=1 tr=0 ts=6a1ec9cf cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=FelO9ux0wxsA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VwQbUJbxAAAA:8 a=1XWaLZrsAAAA:8 a=VnNF1IyMAAAA:8
- a=dkYHUGA-BDwxkZPz_lEA:9
-X-Proofpoint-GUID: DKglUHwq6bgocDs4W-vNGNkRjis1Mobb
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-02_01,2026-05-28_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 impostorscore=0 lowpriorityscore=0 spamscore=0 bulkscore=0
- malwarescore=0 phishscore=0 suspectscore=0 priorityscore=1501 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606020116
+X-Debian-User: benh
 
-Currently, CONFIG_VPA_PMU is not enabled by default, and consequently
-cannot be used for KVM guests at all, unless explicitly enabled on
-host kernel.
 
-Mark CONFIG_VPA_PMU as "default m" to ensure it is available when KVM is
-being used.
+--=-GEeodVjEnDPZLD35272B
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Fixes: 176cda0619b6c ("powerpc/perf: Add perf interface to expose vpa counters")
-Cc: stable@vger.kernel.org # v6.13+
-Suggested-by: Sean Christopherson <seanjc@google.com>
-Signed-off-by: Gautam Menghani <gautam@linux.ibm.com>
----
-v3 -> v4:
-1. Reword the patch description (Harsh)
+On Tue, 2026-06-02 at 16:50 +0530, Harshit Mogalapalli wrote:
+> Hi Ben, Greg, Sasha,
+>=20
+> On 13/04/26 21:22, Greg Kroah-Hartman wrote:
+> > 5.15-stable review patch.  If anyone has any objections, please let me =
+know.
+> >=20
+> > ------------------
+> >=20
+> > From: Ben Hutchings <ben@decadent.org.uk>
+> >=20
+> > Backports of commit 81c734dae203 "ip6_tunnel: use
+> > skb_vlan_inet_prepare() in __ip6_tnl_rcv()" broke IPv6 tunnelling in
+> > stable branches 5.10-6.12 inclusive.  This is because the return value
+> > of skb_vlan_inet_prepare() had the opposite sense (0 for error rather
+> > than for success) before commit 9990ddf47d416 "net: tunnel: make
+> > skb_vlan_inet_prepare() return drop reasons".
+> >=20
+> > For branches including commit c504e5c2f964 "net: skb: introduce
+> > kfree_skb_reason()" etc. (i.e. 6.1 and newer) it was simple to
+> > backport commit 9990ddf47d416, but for 5.10 and 5.15 that doesn't seem
+> > to be practical.
+>=20
+> We have seen ltp-net failing after this LTS update on downstream kernel(U=
+EK)
+>=20
+>    mainline            : v5.17-rc1        - c504e5c2f964 net: skb:=20
+> introduce kfree_skb_reason()
+>    stable-5.15         : v5.15.58         - 5158e18225c0 net: skb:=20
+> introduce kfree_skb_reason()
+>=20
+> So this is not needed for 5.15.y.
 
-v2 -> v3:
-1. Make CONFIG_VPA_PMU as default m so that it can separately disabled
-(Sean)
+I don't know about that test failure, but your analysis is wrong.  The
+dependency of the original fix was commit 9990ddf47d416 "net: tunnel:
+make skb_vlan_inet_prepare() return drop reasons" which changed the
+sense of skb_vlan_inet_prepare()'s return value and has not been
+backported to 5.15.  That in turn depended on the commit you are looking
+at.
 
-v1 -> v2:
-1. Rebased on latest master
+> This needs to be reverted for 5.15.y, looks good for 5.10.y
+[...]
 
- arch/powerpc/platforms/pseries/Kconfig | 1 +
- 1 file changed, 1 insertion(+)
+I started looking at how to fix the regression in 5.10, which does not
+have a backport of commit c504e5c2f964, and did not notice that it had
+been backported to 5.15.  So this patch probably could be reverted and
+replaced with a backport of commit 9990ddf47d416.  But simply reverting
+it would not be correct.
 
-diff --git a/arch/powerpc/platforms/pseries/Kconfig b/arch/powerpc/platforms/pseries/Kconfig
-index f7052b131a4c..74910ce3a541 100644
---- a/arch/powerpc/platforms/pseries/Kconfig
-+++ b/arch/powerpc/platforms/pseries/Kconfig
-@@ -154,6 +154,7 @@ config HV_PERF_CTRS
- config VPA_PMU
- 	tristate "VPA PMU events"
- 	depends on KVM_BOOK3S_64_HV && HV_PERF_CTRS
-+	default m
- 	help
- 	  Enable access to the VPA PMU counters via perf. This enables
- 	  code that support measurement for KVM on PowerVM(KoP) feature.
--- 
-2.53.0
+Ben.
 
+--=20
+Ben Hutchings - Debian developer, member of kernel, installer and LTS
+teams
+
+--=-GEeodVjEnDPZLD35272B
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEErCspvTSmr92z9o8157/I7JWGEQkFAmoey2oACgkQ57/I7JWG
+EQlkURAAtcN3wwN/IwXVolorxWiAfyc16MmuRFvwqC8TRrus+Nc6t19KRRKBscxV
+7bFA7bFHNhXnyM4kj2CJEe2Ft4uLwqV66fGnD9K4Kri2nL8Ogc3nYNRl/W7LR2Zg
+Lw4z1Sk7NUdy2uJ2AYtovuoErzvUPwS1iT/KgcAbFNAl6O6ZrQ1lakOGGXiYwTqG
+XiBdZL5y3SuT4sEBFf0Pc1lq3Hu7gYVr6gbJybnF264he7dOXTVXYKISFO4icK2J
+tAPeBHtWQyJUZSCp5mo2HtWHKcBleR1kW3R/hb3CFS4idXw9Hiy/U0scJz7keyRx
+ByMHnqm42Jpb/mHK7mQ1CPutSi4fztS9+u0GWG775WvHxIPdL52Q31ob6el4q/Vx
+DypIy3BUDDDZ9t/6zkY8eUk3RYcs+42axPOPoqUTYqkvXOrpusPOy9hySqpIuiZb
+bVaN21um2AKJIfZhewjKfAizFBiL9W79lEkyn0e4leCu/Nmv0yPL8ylbRfXF93Jx
+ib1r4GmtiAwjI7VIQKhkoGJE/jdssFwhp2kWmR3563OjpLpU0psWQpNkxTjFQ+MQ
+YPTpBNquvf8qn42aRWnWE2UGjj0OF+uNAmBrkVl693KO2+cGP/RtgZDd8Ua9hjv5
+jnIbPFkKO4GpPj/HubL7Cs6apVdLhCSLI1Mk1koqu1ugYs9ZYJY=
+=/TEW
+-----END PGP SIGNATURE-----
+
+--=-GEeodVjEnDPZLD35272B--
