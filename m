@@ -1,33 +1,43 @@
-Received: from mail.8bytes.org (mail.8bytes.org [85.214.250.239])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7D98033D4E9
-	for <stable@vger.kernel.org>; Tue,  2 Jun 2026 08:46:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=85.214.250.239
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780390008; cv=none; b=PPsQgHCjbdtaq8RZSSUwYz/1bEQxetlZ3dyxUJWSJs28/oywcW8xWo8kLAN+6XPU0qsvJmNis5VxhKe4kCjNV7H05KbRNlqfjcEIbxXQsnOsliXdKTpGCzUY8Xf7eXdOFydT5Ml45cFL13KErvNmHi+g4IONcpXPValdz/xRxP4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780390008; c=relaxed/simple;
-	bh=cBOt05zGzbEU1xLn+LgzyMbXoyfoUi9iDiE7os8XVZA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PxQwgRuZrfd/hS8rBS4D/fty9Z2xSFEM0sV5KGki0MNhaNy1Cd3xOjA0ypGoCP70zrPC6Ty5E8Apmq8P3fB00huV2sCSO/lXqcw0rXWSZfqaslnpyL4elRr67p1Y1o5Jmm6vE5uQX/azEPEn15NEJwwl2Ib29ZZkU2SxgD2m244=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=8bytes.org; spf=pass smtp.mailfrom=8bytes.org; arc=none smtp.client-ip=85.214.250.239
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=8bytes.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=8bytes.org
-Received: from 8bytes.org (p200300f6af4fc500cd665649150e3ae5.dip0.t-ipconnect.de [IPv6:2003:f6:af4f:c500:cd66:5649:150e:3ae5])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.8bytes.org (Postfix) with ESMTPSA id 8107B1C6BB3;
-	Tue,  2 Jun 2026 10:46:46 +0200 (CEST)
-Date: Tue, 2 Jun 2026 10:46:45 +0200
-From: =?utf-8?B?SsO2cmcgUsO2ZGVs?= <joro@8bytes.org>
-To: Weinan Liu <wnliu@google.com>
-Cc: iommu@lists.linux.dev, jgg@nvidia.com, suravee.suthikulpanit@amd.com, 
-	will@kernel.org, patches@lists.linux.dev, stable@vger.kernel.org, 
-	robin.murphy@arm.com, vasant.hegde@amd.com, santosh.shukla@amd.com, chrisl@kernel.org, 
-	josef@toxicpanda.com
-Subject: Re: [PATCH v2 0/1] Don't split flush for amd_iommu_domain_flush_all()
-Message-ID: <ah6YY7OlNFCxVmOD@8bytes.org>
-References: <20260528223147.750229-1-wnliu@google.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ABD7314D35
+	for <stable@vger.kernel.org>; Tue,  2 Jun 2026 08:50:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780390245; cv=none; b=i/D52HBrHME4zPcUa0D8fKSxRlw1LcJnDEHQqmFEuvEuaYeCeGkXsRhz5AgCWEVe7k40PAwxAYqtxfNKlCn0w97FkhwCrT33cZe/SBfvH1SNSMvirhOM+IIPB2w5HhhNWkFZWJwz1Zf9/b2NfVmGJZ7hfUG+2gAPgcdlZrG0DLo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780390245; c=relaxed/simple;
+	bh=d/Jmmkccq6m64xYLP8DHcAGOpIuwTZpCZ+GgDYFhE74=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=I1UwVcwiQjBOqraFc345z77ATjQfHG31ayU2QzZuu4n8zDS4GCxzRCt7s2UcHrp2OZPrQBVQ45Ejh8NE969OYHWRZq59tCgwDu/IA4Ndm3kreSmEw3pdF+34NCe/Ao3QViUWwA4NwSWZnBzgCBAI21Fifhhj2aVf2yeriHECnmQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ajNcqyed; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ajNcqyed"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A57C91F00893;
+	Tue,  2 Jun 2026 08:50:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780390244;
+	bh=gs1YDxQOs1/Jv+Rm3Tfht7T6bHIW93ex5vfitXcPBJU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ajNcqyeduhLNBBjc1kNn7nqKrnT+ceffr01bUkCPXfrEZTnjFhs6JRv7ipjntw7XA
+	 tc8XoAhzqZfkj2KkyEW4uZPDqchmV3kr1531burJPNB+Tl9N+DbXHBrp0h9MY2YcEU
+	 OnmuPrsNkf/bZHIwyWoYDXXlVzpPErSgjKDfn8G4JNp9dwC3I9DYKJILA+Ja/UI/lZ
+	 q8XbrVVhcjCduJoD5CZjmt1zpAPy6MNY7UNuqgAfHuG8UdQz/aN7GQk1DfZD+LtoI1
+	 c9O6XuwAYnT3P15qiEezFUicXj4hzMHbM4ALnPQrVxIXj5wvFv57kO9FF3DKJ4xXgT
+	 TWxsVtVFTw38Q==
+Date: Tue, 2 Jun 2026 09:50:38 +0100
+From: Keith Busch <kbusch@kernel.org>
+To: Jeremy Erazo <mendozayt13@gmail.com>
+Cc: security@kernel.org, Christoph Hellwig <hch@infradead.org>,
+	Sagi Grimberg <sagi@grimberg.me>,
+	Chaitanya Kulkarni <kch@nvidia.com>, Hannes Reinecke <hare@suse.de>,
+	Jens Axboe <axboe@kernel.dk>, linux-nvme@lists.infradead.org,
+	stable@vger.kernel.org
+Subject: Re: nvmet: pre-auth heap OOB read in DH-HMAC-CHAP authentication
+ (data->hl unchecked in nvmet_auth_reply)
+Message-ID: <ah6ZXmX1anVLrr76@kbusch-mbp>
+References: <6a1e4ed5.f18a29c3.bfe2b.5229@mx.google.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -36,13 +46,31 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260528223147.750229-1-wnliu@google.com>
+In-Reply-To: <6a1e4ed5.f18a29c3.bfe2b.5229@mx.google.com>
 
-On Thu, May 28, 2026 at 10:31:46PM +0000, Weinan Liu wrote:
-> Weinan Liu (1):
->   iommu/amd: Don't split flush for amd_iommu_domain_flush_all()
+On Mon, Jun 01, 2026 at 08:32:37PM -0700, Jeremy Erazo wrote:
+>   @@ -119,6 +120,16 @@ static u8 nvmet_auth_reply(struct nvmet_req *req, void *d)
+>                     __func__, ctrl->cntlid, req->sq->qid,
+>                     data->hl, data->cvalid, dhvlen);
 > 
->  drivers/iommu/amd/iommu.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
+>   +        /* Confirm the transferred length actually contains the
+>   +         * rval payload the message body advertises. The host
+>   +         * response is hl bytes; with cvalid set, hl more bytes
+>   +         * of challenge follow; with dhvlen set, dhvlen more
+>   +         * bytes of DH value follow.
+>   +         */
+>   +        if (tl < sizeof(*data) + data->hl +
+>   +                 (data->cvalid ? data->hl : 0) + dhvlen)
+>   +                return NVME_AUTH_DHCHAP_FAILURE_INCORRECT_PAYLOAD;
+>   +
 
-Applied, thanks.
+I think the fix should change the ternary condition from data->cvalid to
+(data->cvalid || dhvlen):
+
+  if (tl < sizeof(*data) + data->hl +
+           ((data->cvalid || dhvlen) ? data->hl : 0) + dhvlen)
+          return NVME_AUTH_DHCHAP_FAILURE_INCORRECT_PAYLOAD;
+
+But this is a bit of an eye-sore, so let's make this easier to read by
+lifting the ternary computation outside the 'if' section and store the
+result in a temporary variable.
