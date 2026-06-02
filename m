@@ -1,100 +1,178 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7C3C3C5DBE;
-	Tue,  2 Jun 2026 08:32:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13A463BD63C;
+	Tue,  2 Jun 2026 08:33:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780389138; cv=none; b=daSuhpqzfpbbBQD7iy7aZuwhcMlutX6YVFpSr2S+N+kXz9fRszWVp7Mh5K/xN+Cyda7Jcr29OD0vS/SDseNP8L4OeE4ef2Z2UuJTyxQSvHDJ8V3F017X9OurMzh4NLvnglThfXwtNX4R+U99qF3PMQ8hl9nEwLZkelaZ+5q6a10=
+	t=1780389185; cv=none; b=JcftKKd8sxc1OMyO5lAzfbv/PJtiWoHgt/GibC8vHjBOKjMWT/L2m3NhZvJdJGFUm1WIG9jcJ/ROj73vdxOlTOg2Y6M453XAuWpNqbv9Sy7Nu14K7h9k6hsNTbM6yZg6M95g7wPVog5fTUHLokqzV/Ley2jDOF621JEv8w3PpWk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780389138; c=relaxed/simple;
-	bh=IsyMWC1ykDaBmgFzN1yazxHHc0d6aG52NplrlIAR01k=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=AJBLwyyLqk3fMHc+C11R84W5YoJnMgJ/mgMi4NPU6o187scXMp/dFa081/KAhb88Ij4Su1zxPTx8NRCTR4vtA5GU6v7k7UK6jEslHZktYjbmj831vdGOjGNNX0AsEWD8Jg5mc7mFyQaW5Zt0NLc+6InTQHnKJYNHQ2E5XECNu8c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 8c18e1ac5e5d11f1aa26b74ffac11d73-20260602
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.12,REQID:f9dc1260-f978-445f-8f76-bf83c48dc470,IP:0,U
-	RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:-5
-X-CID-META: VersionHash:e7bac3a,CLOUDID:b0d2196e1c3d3982a0b7b15cc78b0136,BulkI
-	D:nil,BulkQuantity:0,Recheck:0,SF:102|850|865|898,TC:nil,Content:0|15|50,E
-	DM:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA
-	:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 8c18e1ac5e5d11f1aa26b74ffac11d73-20260602
-X-User: zenghongling@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <zenghongling@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 5209442; Tue, 02 Jun 2026 16:32:10 +0800
-From: Hongling Zeng <zenghongling@kylinos.cn>
-To: chuck.lever@oracle.com,
-	jlayton@kernel.org,
-	neil@brown.name,
-	okorniev@redhat.com,
-	Dai.Ngo@oracle.com,
-	tom@talpey.com,
-	trondmy@kernel.org,
-	anna@kernel.org,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org
-Cc: linux-nfs@vger.kernel.org,
-	netdev@vger.kernel.org,
-	zhongling0719@126.com,
-	Hongling Zeng <zenghongling@kylinos.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] sunrpc: fix uninitialized xprt_create_args structure
-Date: Tue,  2 Jun 2026 16:32:05 +0800
-Message-Id: <20260602083205.183807-1-zenghongling@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	s=arc-20240116; t=1780389185; c=relaxed/simple;
+	bh=bdX2Xt6j18Lg8V8SssoC+l+w8pPe1UrfZrht6WkWgJ4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=rYBeu0TpghZJmoGmPe0S9XswWZlPya8XwrteZCoO09hf3D6jLQM+VPSDnzh34T+xJevfJOGrh9lmy8byHfngmRmRNWAzeV1MrzLIYrdTy3JjonvYztPudw4uiEfZZ8nHSeHZoJXKaqLvZLrvbavm/q+mB7+FpnmlpenhYYpNB8U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VhPA+n+i; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VhPA+n+i"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD8A61F00899;
+	Tue,  2 Jun 2026 08:32:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780389182;
+	bh=6ImCYU+TtOZg2vTfWZSd4fkm9BzeEqJiDqaIVmGVhX4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=VhPA+n+iHPnrTiQhiY+2njrnPuAKPmUMA1XLzg8zXiDW8Ur1i82vNx+RfsJaHbG/V
+	 t7LbB5UhCxBdzaJgsH+Lvuq6RDqn9YeoBU8syoFnxCx8408jaBxPSYzu4Bo0magd+R
+	 qUqAb6faRwucvYUwiOcr8ToMu/106/cWUy0iiey2TdjOO8+ez1b83N0mMkwbwL6mGH
+	 odmbpkrqwFdeEaR3JsP3SgaX86XCV0HQFNbu3Ac0xCeTVpcwjH4xS+y5Oe5DYue6pW
+	 xOhvUH3gY8D7rkv/tpgMPWHflYIBNWAxY4wlaO8LVww9UXDrQLnYP/FAT47uclaej+
+	 pk4ioZzvUkOSw==
+Date: Tue, 2 Jun 2026 11:32:54 +0300
+From: Mike Rapoport <rppt@kernel.org>
+To: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, Lorenzo Stoakes <ljs@kernel.org>,
+	David Hildenbrand <david@kernel.org>, stable@vger.kernel.org,
+	Sashiko AI review <sashiko-bot@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>, Peter Xu <peterx@redhat.com>,
+	Pedro Falcato <pfalcato@suse.de>, Alice Ryhl <aliceryhl@google.com>
+Subject: Re: [PATCH 6/6] userfaultfd: build __VMA_UFFD_FLAGS from
+ config-gated masks
+Message-ID: <ah6VNjfXXx-3Nh9l@kernel.org>
+References: <20260529172331.356655-1-kas@kernel.org>
+ <20260529172331.356655-7-kas@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260529172331.356655-7-kas@kernel.org>
 
-The xprt_create_args structure is allocated on the stack without
-initialization in rpc_sysfs_xprt_switch_add_xprt_store(). While some
-fields are manually populated, critical fields like srcaddr, bc_xps,
-and flags contain uninitialized stack garbage.
+On Fri, May 29, 2026 at 06:23:30PM +0100, Kiryl Shutsemau (Meta) wrote:
+> The VMA flags bitmap is a single word today: NUM_VMA_FLAG_BITS is
+> BITS_PER_LONG, so on 32-bit vma_flags_t holds only 32 bits. (The bitmap
+> type exists so this can grow past BITS_PER_LONG later; until it does,
+> anything declared above the first word is out of range on 32-bit.) The bit
+> enum nevertheless declares some bits unconditionally above BITS_PER_LONG --
+> VMA_UFFD_MINOR_BIT is 41, with VM_UFFD_MINOR == VM_NONE on 32-bit so no VMA
+> actually carries the bit.
+> 
+> __VMA_UFFD_FLAGS feeds VMA_UFFD_MINOR_BIT to mk_vma_flags() unconditionally.
+> On 32-bit that becomes __set_bit(41, &one_long), a write one word past the
+> end of the single-word bitmap. The compiler folds the out-of-bounds store
+> with wraparound (1UL << (41 % 32) == bit 9) into the first word; bit 9 is
+> already in __VMA_UFFD_FLAGS so the mask happens to come out right today, but
+> it is an out-of-bounds write all the same, and any high-numbered bit whose
+> mod-BITS_PER_LONG position is otherwise unused would silently OR an extra
+> bit into the mask.
+> 
+> Rather than feed bit numbers that may not exist on the current build to
+> mk_vma_flags(), build the mask from whole per-mode masks that collapse to
+> EMPTY_VMA_FLAGS when their feature is unavailable. Add
+> mk_vma_flags_from_masks() for that, and define VMA_UFFD_MISSING / _WP /
+> _MINOR alongside the VM_UFFD_* flags, gating VMA_UFFD_MINOR on the same
+> config as VM_UFFD_MINOR (which implies 64BIT, where bit 41 fits). An
+> out-of-range bit is then never materialised, on any arch, and the in-range
+> fast path stays a compile-time constant.
+> 
+> Fixes: 9ea35a25d51b ("mm: introduce VMA flags bitmap type")
+> Cc: stable@vger.kernel.org
+> Reported-by: Sashiko AI review <sashiko-bot@kernel.org>
+> Suggested-by: Lorenzo Stoakes <ljs@kernel.org>
+> Signed-off-by: Kiryl Shutsemau <kas@kernel.org>
+> Assisted-by: Claude:claude-opus-4-8
 
-This can lead to:
-1. Kernel panic when xs_setup_xprt() dereferences garbage srcaddr
-2. Information leak if srcaddr points to sensitive stack data
-3. Unpredictable behavior if flags has random bits set
+Can you ask claude to produce more concise changelogs and better split it
+to paragraphs?
 
-The fix is to zero-initialize the structure to ensure all unused
-fields are NULL/0, preventing the transport setup code from acting
-on garbage data.
+Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
 
-Cc: stable@vger.kernel.org
-Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
----
- net/sunrpc/sysfs.c | 1 +
- 1 file changed, 1 insertion(+)
+> ---
+>  include/linux/mm.h            | 39 +++++++++++++++++++++++++++++++++++
+>  include/linux/userfaultfd_k.h |  4 ++--
+>  2 files changed, 41 insertions(+), 2 deletions(-)
+> 
+> diff --git a/include/linux/mm.h b/include/linux/mm.h
+> index 0f2612a70fb1..485df9c2dbdd 100644
+> --- a/include/linux/mm.h
+> +++ b/include/linux/mm.h
+> @@ -496,6 +496,21 @@ enum {
+>  #else
+>  #define VM_UFFD_MINOR	VM_NONE
+>  #endif
+> +
+> +/*
+> + * vma_flags_t masks for the userfaultfd VMA flags. VMA_UFFD_MINOR is gated on
+> + * the same config as VM_UFFD_MINOR -- which implies 64BIT, where the bit fits
+> + * -- so an out-of-range bit is never fed to mk_vma_flags() on a build whose
+> + * bitmap cannot hold it.
+> + */
+> +#define VMA_UFFD_MISSING	mk_vma_flags(VMA_UFFD_MISSING_BIT)
+> +#define VMA_UFFD_WP		mk_vma_flags(VMA_UFFD_WP_BIT)
+> +#ifdef CONFIG_HAVE_ARCH_USERFAULTFD_MINOR
+> +#define VMA_UFFD_MINOR		mk_vma_flags(VMA_UFFD_MINOR_BIT)
+> +#else
+> +#define VMA_UFFD_MINOR		EMPTY_VMA_FLAGS
+> +#endif
+> +
+>  #ifdef CONFIG_64BIT
+>  #define VM_ALLOW_ANY_UNCACHED	INIT_VM_FLAG(ALLOW_ANY_UNCACHED)
+>  #define VM_SEALED		INIT_VM_FLAG(SEALED)
+> @@ -1238,6 +1253,30 @@ static __always_inline void vma_flags_set_mask(vma_flags_t *flags,
+>  #define vma_flags_set(flags, ...) \
+>  	vma_flags_set_mask(flags, mk_vma_flags(__VA_ARGS__))
+>  
+> +static __always_inline vma_flags_t __mk_vma_flags_from_masks(size_t count,
+> +		const vma_flags_t *masks)
+> +{
+> +	vma_flags_t flags = EMPTY_VMA_FLAGS;
+> +	size_t i;
+> +
+> +	for (i = 0; i < count; i++)
+> +		vma_flags_set_mask(&flags, masks[i]);
+> +	return flags;
+> +}
+> +
+> +/*
+> + * Combine pre-computed vma_flags_t masks into one value, e.g.:
+> + *
+> + * vma_flags_t flags = mk_vma_flags_from_masks(VMA_UFFD_WP, VMA_UFFD_MINOR);
+> + *
+> + * Unlike mk_vma_flags(), which takes bit numbers, this takes whole masks --
+> + * each of which may be EMPTY_VMA_FLAGS when its feature is unavailable -- so a
+> + * bit that does not exist on the current build is never materialised.
+> + */
+> +#define mk_vma_flags_from_masks(...)					\
+> +	__mk_vma_flags_from_masks(COUNT_ARGS(__VA_ARGS__),		\
+> +		(const vma_flags_t []){__VA_ARGS__})
+> +
+>  /* Clear all of the to-clear flags in flags, non-atomically. */
+>  static __always_inline void vma_flags_clear_mask(vma_flags_t *flags,
+>  		vma_flags_t to_clear)
+> diff --git a/include/linux/userfaultfd_k.h b/include/linux/userfaultfd_k.h
+> index 3ec8e1071673..68edac4dcd78 100644
+> --- a/include/linux/userfaultfd_k.h
+> +++ b/include/linux/userfaultfd_k.h
+> @@ -23,8 +23,8 @@
+>  /* The set of all possible UFFD-related VM flags. */
+>  #define __VM_UFFD_FLAGS (VM_UFFD_MISSING | VM_UFFD_WP | VM_UFFD_MINOR)
+>  
+> -#define __VMA_UFFD_FLAGS mk_vma_flags(VMA_UFFD_MISSING_BIT, VMA_UFFD_WP_BIT, \
+> -				      VMA_UFFD_MINOR_BIT)
+> +#define __VMA_UFFD_FLAGS mk_vma_flags_from_masks(VMA_UFFD_MISSING, VMA_UFFD_WP, \
+> +						 VMA_UFFD_MINOR)
+>  
+>  /*
+>   * CAREFUL: Check include/uapi/asm-generic/fcntl.h when defining
+> -- 
+> 2.54.0
+> 
 
-diff --git a/net/sunrpc/sysfs.c b/net/sunrpc/sysfs.c
-index a90480f80154..0a99d0f1eb4c 100644
---- a/net/sunrpc/sysfs.c
-+++ b/net/sunrpc/sysfs.c
-@@ -333,6 +333,7 @@ static ssize_t rpc_sysfs_xprt_switch_add_xprt_store(struct kobject *kobj,
- 	if (!xprt_switch)
- 		return 0;
- 
-+	memset(&xprt_create_args, 0, sizeof(xprt_create_args));
- 	xprt = rpc_xprt_switch_get_main_xprt(xprt_switch);
- 	if (!xprt)
- 		goto out;
 -- 
-2.25.1
-
+Sincerely yours,
+Mike.
