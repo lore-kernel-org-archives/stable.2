@@ -1,34 +1,34 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B3B03E2769;
-	Tue,  2 Jun 2026 12:15:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B63A3E2AA1;
+	Tue,  2 Jun 2026 12:15:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780402521; cv=none; b=uqBSZ/GGX8gBmib27O4ESOyny6yBuQgcDMwsGI7lU9GnPjrk8HyY9BTOff3T+FZi0xjcYc3HeGyMGiqcATja51klaO7DkK2oo8iS5Nj9rzrnxu7cln2E9WEUoxI9Mm1COXgNgJ8TKWO62uV6vHD0s6V3MunYrrz508wMuelEPsw=
+	t=1780402526; cv=none; b=Hs2wTyI3NbKtnpyug6x6OeCHEHdNivuqPSyY5IIv727Vtyrq4ynIvk0RptJC9CdToO2XKehZawDQYt6Co7fWls+cNh8w9NaqXZJSBA9YzROXauB4oQhKyOEiZqerR1mV3ejhDcEkPvsMksbf91seD4pg9JluMxM+wzOZMz262IM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780402521; c=relaxed/simple;
-	bh=N1bc/nUu/TVx6vrRiyttrdnrCWdRHHAZglldql0RHt0=;
+	s=arc-20240116; t=1780402526; c=relaxed/simple;
+	bh=RT/E+puSLaZidPDXPx3TDleWNistOBZUBVAzhbx9FHw=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Fa0lVdi6Dd4++qiCXDAZeoQxwwL8G7c8dLI4hP7IixscHHj5L93nJCaEh5kfBN2lb3/F6eLeR+5LYuEzpDkRjg7mroYkrRumZrRCuqk3PET0N/bY4MoWap1LOjwEwOyktpNCaPJ8DTLMGURRcYnovGDNVRU4JlUd1mrLuk/cMrQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SSwIzN90; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=P0OSqIUm/93R8Cx5oGBlgF//aA7DyrjrqKsJGU1IfXuQ7zdEQBkxwNsoVuQ8rkHkYGoUkbAqvmywRs5U11Zk9GNzQIJYp1koFlnYmATb7qYYKjC6DkiUXXlNeljYXFo+bJ12dzttl6KY1HCH2mpVQ9Pjk9S/1Sh3T6ejmAwC+9I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fw+/GaxQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SSwIzN90"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 147ED1F00893;
-	Tue,  2 Jun 2026 12:15:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fw+/GaxQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A82B11F00898;
+	Tue,  2 Jun 2026 12:15:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780402520;
-	bh=B4xB1YlIM90XgSgiiXndV0d7/6vuxA6YWpl23fcgEKU=;
+	s=k20260515; t=1780402525;
+	bh=TE32s63FN7oiWP8Km/xUybIoPrIk9f292PR3zY9E4mU=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=SSwIzN90WHVAVkOr2JHlhH8fVDX/cdEAtDa8l4hbTkk5uOvLIUA6fqkjwpn4o1eOI
-	 jy99AVK2fGCr+Daw3Glk29VrWnazBPImWWvhl47jdiSiVnDIbDZYpch8VEC76nRV/j
-	 cbVaTONBVCLcSpeCEn4J19qrL26y2l7yUL5pxmNcnGFnYOW+Kyll3cJ0VClI6Ln4GX
-	 cC5k9k+61ZwLyKtSARh8Na4X4mEEQWZOcycLFYNCGHoscX9C3nvecCHtPBr6USUB/+
-	 sJdmfpqKZzjGvIL7Toc+nQdvyyrNaZ8lJx5KFPixQFEJ7fnmpyEMBQxMDNJoTJ0LTo
-	 DUV014MYHyp2g==
+	b=fw+/GaxQtuYIpWxX3I/RDuwiT7bFVE91FglusPhnm3c0p9VT7lSs4UWjxkax8U4ho
+	 uwR4KYz4nXz3viQ4GZWeOJd2AFVSgQkzb1CMhiLsykCkQqru8gcsWOCMBcMU49japJ
+	 T0VfIEN5NvO9XNXNBvwB43QaC0Gh9Okn/xC64qgdn6rviAh2uHy0nUfybYeRdT0fOJ
+	 57NORM7XT6ut1Ze0mdJKjxm8vFWuDhtm7p2cv8t4UcdOURGPmFIQOA+lb/eBhwWzhL
+	 LXYrQE8+iX8lHjrUHyMvDfnuPqh61xGo+tAVnpQ0GREpkAxReh0De/X4sXwJEIIL3r
+	 8+wcVkR8wKxWA==
 From: "Matthieu Baerts (NGI0)" <matttbe@kernel.org>
-Date: Tue, 02 Jun 2026 22:14:15 +1000
-Subject: [PATCH net v2 08/11] mptcp: sockopt: set sockopt on all subflows
+Date: Tue, 02 Jun 2026 22:14:16 +1000
+Subject: [PATCH net v2 09/11] mptcp: check desc->count in read_sock
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -37,7 +37,7 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260602-net-mptcp-misc-fixes-7-1-rc7-v2-8-856831229976@kernel.org>
+Message-Id: <20260602-net-mptcp-misc-fixes-7-1-rc7-v2-9-856831229976@kernel.org>
 References: <20260602-net-mptcp-misc-fixes-7-1-rc7-v2-0-856831229976@kernel.org>
 In-Reply-To: <20260602-net-mptcp-misc-fixes-7-1-rc7-v2-0-856831229976@kernel.org>
 To: Mat Martineau <martineau@kernel.org>, Geliang Tang <geliang@kernel.org>, 
@@ -46,61 +46,62 @@ To: Mat Martineau <martineau@kernel.org>, Geliang Tang <geliang@kernel.org>,
  Simon Horman <horms@kernel.org>, Florian Westphal <fw@strlen.de>
 Cc: netdev@vger.kernel.org, mptcp@lists.linux.dev, 
  linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- "Matthieu Baerts (NGI0)" <matttbe@kernel.org>, stable@vger.kernel.org
+ "Matthieu Baerts (NGI0)" <matttbe@kernel.org>, 
+ Gang Yan <yangang@kylinos.cn>, stable@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1237; i=matttbe@kernel.org;
- h=from:subject:message-id; bh=N1bc/nUu/TVx6vrRiyttrdnrCWdRHHAZglldql0RHt0=;
- b=owEBbQKS/ZANAwAIAfa3gk9CaaBzAcsmYgBqHsks2QEuzSYHMPCU8zFEmJNQCwGBHJ9OBY3JY
- Fm/L1NGDUWJAjMEAAEIAB0WIQToy4X3aHcFem4n93r2t4JPQmmgcwUCah7JLAAKCRD2t4JPQmmg
- c9LUEADoDTAfJ4IQwvOm87BA5wseGddFN/qDZcquGnMZNsmxNtLt4wMcxEnNy+fOB8EceC4wSdh
- /GB9KY27DTtftU31+Vs+z0eo9CUj1tbeXK3HZs1jugt7jvddZxPEN9rMTiLkBtAHpF/NQBChD3s
- 2F2DAsBGdW2uv1xCNw65a8bhM+0f5jVQtkmWdrFaMF0JUeNx6h6dZNVsqkUQHH3HFD/teCTsdFP
- CLdFt8MHOUvBL6+IiyA29KmJL229TAsCubzl9WATYRLJUkWFpMLuymvOpuF4BCKF2Rz2p6oFG4Q
- iGNiB4xudGgCluPxEWI+19Dq60ZWctHu+JRESjGBgaf7i3nTFFoxcLR/BnSWD8RzkXkCS+y9cDE
- f1aI3Pq6fW86o21xhHWJwzwXOU0mlQgiFtdWNOEm3as78aSBO1J7GhhykcLKqqzqPap/b/37n/W
- iSYti2txhFtv26HYV1kJ/HPLPWCMHfTeKkpGq3519k+Klyq7xNzY8As8JxeP2vJj1pGRVsF+Slc
- YnE0BhBSKFiXsiutOB7jpmjD23kgoeqNGUJ94ZxTPBCiCiflc9CQDWy05OCNVJWh37CasI/tcgm
- W7XQeSUcqGNPi+XpeVh9gw0g1j3jed/RQIAu2g6M1+ezMJZtWUk1btNWtGjvUJ+4Sx7qfIAjGS/
- Gnwknita+8qteRg==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1199; i=matttbe@kernel.org;
+ h=from:subject:message-id; bh=ouh+8y0QVk20uitc41ZjPExokNTNSrOLDbO4PTnW4No=;
+ b=owEBbQKS/ZANAwAIAfa3gk9CaaBzAcsmYgBqHsksWaN6ilIurzO/hzZnxWVCBztHQP9abU+aP
+ VsA0Ku3xkGJAjMEAAEIAB0WIQToy4X3aHcFem4n93r2t4JPQmmgcwUCah7JLAAKCRD2t4JPQmmg
+ c9NVEACJqfhJ8a8FwMXrvsNBO8w7ZFgf8zsdFqFFpgI1NRT8vP49DA6Fk80dqB+FRFsTL76HEIO
+ TU0zXRH8FWEplaE6p0TBVeh5Shc/L/E4JzMW5mZ8vUDo83EoD2X1TzEqghf5CvB0X1ZjcOvmnVb
+ xgohauG4Q1YNbFXRlTHvRteTN2AO9oqbhgePaT0ZbEooirgHh2ibmFcCEsS73oT35Zgiod7ShNQ
+ ilta6ftCuBwmuST/XWn+dDA8gtx4JNq0zwDBJaKEhQnJUAc/+99INlFk+q0R+WsmyfdROhCF5gg
+ spQF9sBHJV7DHP0EQygZAJE5oDNyOMM7M8DKc217nVDJWVx2BemiSks9AZWDH8jkk6q3lRGJoU1
+ tzFXMkI6B5LfVaa6+XC9aUo4nSa4H2/dRBzkbJpAeghgFGcwidRhMTyiFPy3eXMh3MTy08zEoEF
+ slLRS0GrqQhGfcDgS8Meq2FdDjEpWazzjzY3R84u2dUxFi4Rg5igMAjv7AxiJtTVQJYQ7o91Kjb
+ DPRfXLmCpO692BF4Zop5ckuam0rCg8zYy8c6MRV8fvt4IH7mbwW4GtDG0IoY108jZNtdys2KB9z
+ zmZ7bFR9VILUS5Hoov5Cfsfv6v8XWtN9Evb8uTOPN3lc7kycH5E3z1lk/Hq8Qs4Wn6yJ2syrR+2
+ xciUqmm6fg/O5Lw==
 X-Developer-Key: i=matttbe@kernel.org; a=openpgp;
  fpr=E8CB85F76877057A6E27F77AF6B7824F4269A073
 
-The mptcp_setsockopt_all_sf(), currently used only with TCP_MAXSEG,
-stopped when one subflow returned an error.
+From: Gang Yan <yangang@kylinos.cn>
 
-Even if it is not wrong, this is different from the other helpers trying
-to set the option on all subflows, and then returning an error if at
-least one of them had an issue.
+__tcp_read_sock() checks desc->count after each skb is consumed and
+breaks the loop when it reaches 0. The MPTCP variant lacks this check.
 
-Follow this behaviour, for a question of uniformity.
+This is a functional bug, other subsystems also rely on this check:
+TLS strparser sets desc->count to 0 once a full TLS record is assembled
+and depends on this break to stop reading.
 
-Fixes: 51c5fd09e1b4 ("mptcp: add TCP_MAXSEG sockopt support")
+Add the same desc->count check to __mptcp_read_sock(), mirroring
+__tcp_read_sock().
+
+Fixes: 250d9766a984 ("mptcp: implement .read_sock")
 Cc: stable@vger.kernel.org
-Reviewed-by: Mat Martineau <martineau@kernel.org>
+Co-developed-by: Geliang Tang <geliang@kernel.org>
+Signed-off-by: Geliang Tang <geliang@kernel.org>
+Signed-off-by: Gang Yan <yangang@kylinos.cn>
+Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
 Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
 ---
- net/mptcp/sockopt.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ net/mptcp/protocol.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/net/mptcp/sockopt.c b/net/mptcp/sockopt.c
-index 91aa57f1d0fd..fcf6feb2a9eb 100644
---- a/net/mptcp/sockopt.c
-+++ b/net/mptcp/sockopt.c
-@@ -817,10 +817,11 @@ static int mptcp_setsockopt_all_sf(struct mptcp_sock *msk, int level,
+diff --git a/net/mptcp/protocol.c b/net/mptcp/protocol.c
+index 7fac5fac2097..cb9515f505aa 100644
+--- a/net/mptcp/protocol.c
++++ b/net/mptcp/protocol.c
+@@ -4428,6 +4428,8 @@ static int __mptcp_read_sock(struct sock *sk, read_descriptor_t *desc,
+ 		}
  
- 	mptcp_for_each_subflow(msk, subflow) {
- 		struct sock *ssk = mptcp_subflow_tcp_sock(subflow);
-+		int err;
- 
--		ret = tcp_setsockopt(ssk, level, optname, optval, optlen);
--		if (ret)
--			break;
-+		err = tcp_setsockopt(ssk, level, optname, optval, optlen);
-+		if (err < 0 && ret == 0)
-+			ret = err;
+ 		mptcp_eat_recv_skb(sk, skb);
++		if (!desc->count)
++			break;
  	}
  
- 	if (!ret)
+ 	if (noack)
 
 -- 
 2.53.0
