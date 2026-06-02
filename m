@@ -1,61 +1,77 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79FB9356768
-	for <stable@vger.kernel.org>; Tue,  2 Jun 2026 04:05:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA50C303A0D
+	for <stable@vger.kernel.org>; Tue,  2 Jun 2026 04:18:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780373118; cv=none; b=V9zyTbuF2cuxZVhaES3D6ftonkfyAPp1NeZnyzSOLTfMgsnQBjRvuJ5o/V9iXzpoI8cz9zGcweMenql16It/FT6pc1FvrR57OiODmrbBodT/MfqKppk85sKyuC7qbnxQwDjqQHHpF5AhQnMZjvkoTGyBjqj1GqYYldBk7VbjgeM=
+	t=1780373885; cv=none; b=GPuUtXE7YiNP0w5KMUna9XDt9hLc0xlDgy485JjUD8Jr6F+vDoJgCtp1Pxj79phLEeZPPZgpab5DVpSxZ/75w3VeiNzwtEfZojXoYVJFH6+ahgyfsKkNdTUzZiyF7XaWAc43aF+CS8Armrbo1FojtvRena89FS11uxb7jJYUl0s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780373118; c=relaxed/simple;
-	bh=S1jpinAVQUrO41zNsuv5T3sh9Sks4ksg0J2htDzh/iA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rhjlcsOirvNiEX4aT1or+2O4x8UyBCY8c2Y5+mzpzii/1mTMSCzLALZtbFodN5xlBD++T7QhZa3X+SsyshbqIti3p0oa1XKqFxfM31QB2zDQBoHyfmXIvcBzTJzRTpJOmCWhd7PrUo1rNWOeaW4kZinbn8gGhOxNSW/eVgCVRqw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b=IvFawDyT; dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b=IvFawDyT; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1780373885; c=relaxed/simple;
+	bh=wjsgzb5f0i2GceW55gjwOFYg1nJd8WVGttnpZFp2x0o=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=kI6sD94dg+VvUaq8SBgudCfFXDeWV9nJEuSCU8Gr5guy6NxWvP1/2G81F9aoHO4qXh13+Vr3B7EYPKBnu6zcGK6N5uiDKwOK5wo87vih8Zdop3GV68LsIdF3a4R9a3/oeeaEwOm+Tc99P4OfF3ICA3tvd4Q0l8VAfOLee8kgpus=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Bfi79pRU; arc=none smtp.client-ip=209.85.216.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b="IvFawDyT";
-	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b="IvFawDyT"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id A48AF688BA;
-	Tue,  2 Jun 2026 04:05:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1780373109; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=x+q3lxIRNr8hC/oZIP22Gmc96sl5oqq+J5lMxHp2hP0=;
-	b=IvFawDyTdGb1OjLWBrEoxNlD09oCa6FGWpihXsgrRqIKD7aDlNtgpzgWbo1DxzC4NHEigM
-	GpPiG6za7KAsdv0cQDkLuDh1eFvatf5KDE0rraXGEQEsAjnV0YBSs3UliUqaiEyvkjuw7t
-	x/zlwqT9eNZB5fHgXd7cEMPRD0k5Z8E=
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.com header.s=susede1 header.b=IvFawDyT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1780373109; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=x+q3lxIRNr8hC/oZIP22Gmc96sl5oqq+J5lMxHp2hP0=;
-	b=IvFawDyTdGb1OjLWBrEoxNlD09oCa6FGWpihXsgrRqIKD7aDlNtgpzgWbo1DxzC4NHEigM
-	GpPiG6za7KAsdv0cQDkLuDh1eFvatf5KDE0rraXGEQEsAjnV0YBSs3UliUqaiEyvkjuw7t
-	x/zlwqT9eNZB5fHgXd7cEMPRD0k5Z8E=
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6C348779A7;
-	Tue,  2 Jun 2026 04:05:08 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id e50GDHRWHmpPEwAAD6G6ig
-	(envelope-from <wqu@suse.com>); Tue, 02 Jun 2026 04:05:08 +0000
-From: Qu Wenruo <wqu@suse.com>
-To: linux-btrfs@vger.kernel.org
-Cc: Su Yue <glass.su@suse.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] btrfs: do not trim a device which is not writeable
-Date: Tue,  2 Jun 2026 13:34:46 +0930
-Message-ID: <0d25653c3bc93726e259dbb9d01559c4cfdf47ac.1780373081.git.wqu@suse.com>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Bfi79pRU"
+Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-36b7b802299so742229a91.1
+        for <stable@vger.kernel.org>; Mon, 01 Jun 2026 21:18:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780373883; x=1780978683; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=2u/sXbb1d4QFDg/pusKeKJpTffkT9R2yLxVJHbJkuC0=;
+        b=Bfi79pRUi5AnVU56nuFRLOZ1FMBO9QkLBiL0S8EyQW+rRqAq1H/kQZMx62SKUzEJwo
+         hkYCE872cXjy8ucmlBP9e9nZd1Rj/UxWowmaFscbgTBjYQNaRFyyJ+iu2r4clB61m8Dx
+         QzSTFyztXjSvXH3sG3jVrGBmwfM2zVQX/QKH+4SJ04+8tjIgN3NpSyqFSapI8OoN7b0z
+         I3Ucp6Swr8gtAdeyVZuwTM09IXAk32GQmlIDZEOHm8QqR1gSTs7gY0WEfliZ7tZg/OHa
+         tLVAr+nBwkI+4gYJICNkhFG2Mi7XooDbk3z+Eue5V+KW58vyR+TxhG70CRhqfFxRSHir
+         4MbA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780373883; x=1780978683;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=2u/sXbb1d4QFDg/pusKeKJpTffkT9R2yLxVJHbJkuC0=;
+        b=Q/wCZ+1BTkvs/jIHUi9Fux4c1n16apuURBVnsEGjo3ZiVrE239Y4fjn2Kc7TBULh1n
+         CtqKGb6Hj5NvzGwB2Q45YgkSt3atcWHXU91skOr2L7j9BI5DG3tLvzsR1Pwl7zILPmkr
+         gFghPUP+h2X4kw+P57UYEhZuOEgAXESMIuG9sM6kM6SDgQ8XX9stn8uKUfpOPxxc6yZZ
+         dHrJSmj/iaDRDZoglF9i4+208Ax0840aPW1Jr4lutI9aiCniqp5f2PvtRIGbU+RQlRRp
+         /MtezHqOyTNwJ1RDwyrW0BEkPOhEAtjlJwWzqZebu2kxmuQHbxQBrFd0clbxsJbCKw0I
+         23ug==
+X-Forwarded-Encrypted: i=1; AFNElJ+0unQwIlZ3vodF+agIQsZOx1uu9vrrbyRiuQBkhrIw2uyT3KN/Yq1lUO9+mQQQd6bLE1rBAO0=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxrgPT90gguWX1ZSkxKRY+260czDEE4cwEYuDsC/LNiuKnINu93
+	dqF8K53xnlH4QbePYcpb8d2y36IG/80LyfJ1fzRk4Sv1U1u0MRvwFb0o
+X-Gm-Gg: Acq92OGU9u6qF378W2JPjd6r5MlFAU/3Uo7QwgCbZt7LgcI04OTOv6zI94BpEsJnIro
+	j+xYRsTmDpKpLoD93rWgxg2M7b+fsQYTPAo1FbNHf67Bpfb5tJF/mfDjUfZ7aTrZlENQroucvry
+	xlXejgCGTbXEI85LWi3SzRm0sfQYV4XpZKxrWBlN9p8fgYJrSHlqEhWKPlqGfD3FGxVc5xsj1JO
+	E7E6wWgITK7rsMWTlgWZis1l8RbChNAXGm6qO8gHTEx1cZTg0gmA5LgXw7BMcKYJUonp+VBfcBh
+	LugUY9jmHC3EroPOA7Oc6lxUe8+ZHtSOyYIzJah19l8dK03Kat0FfGqSgGe44tLySVC3i6Gn5Jv
+	fIfzKfiGVLXX78oVRqKnYltpFteMCTAQPiJe8ATkUQmSDqa6X8/LIUdNKaRhk7bLVPhiH/MhdKx
+	vqlyAQ+3PC2JQP2+4bKfqQzEYeP60Q
+X-Received: by 2002:a17:90b:2e06:b0:36a:c208:7e63 with SMTP id 98e67ed59e1d1-36ddbe58149mr994830a91.8.1780373882806;
+        Mon, 01 Jun 2026 21:18:02 -0700 (PDT)
+Received: from kali ([2402:e280:3d7c:a2:536a:b505:93f5:9d5d])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-36dd91c8687sm1167910a91.8.2026.06.01.21.17.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 01 Jun 2026 21:18:02 -0700 (PDT)
+From: Pavitra Jha <jhapavitra98@gmail.com>
+To: idryomov@gmail.com
+Cc: Slava.Dubeyko@ibm.com,
+	amarkuze@redhat.com,
+	ceph-devel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Pavitra Jha <jhapavitra98@gmail.com>
+Subject: [PATCH v3] ceph: fix two unsafe bare decodes in decode_lockers()
+Date: Tue,  2 Jun 2026 00:17:35 -0400
+Message-ID: <20260602041735.1023057-1-jhapavitra98@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <202605310022.LGyGb8eD-lkp@intel.com>
+References: <202605310022.LGyGb8eD-lkp@intel.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -63,170 +79,161 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Spam-Flag: NO
-X-Rspamd-Action: no action
-X-Spam-Level: 
-X-Spamd-Result: default: False [-3.01 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_CONTAINS_FROM(1.00)[];
-	R_MISSING_CHARSET(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	MIME_TRACE(0.00)[0:+];
-	FUZZY_RATELIMITED(0.00)[rspamd.com];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	FROM_HAS_DN(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.com:email,suse.com:dkim,suse.com:mid];
-	RCVD_TLS_ALL(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
-	DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	RCPT_COUNT_THREE(0.00)[3];
-	DKIM_TRACE(0.00)[suse.com:+]
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: A48AF688BA
-X-Spam-Score: -3.01
 
-[BUG]
-There is a bug report that btrfs/242 can randomly fail with the
-following NULL pointer dereference:
+decode_lockers() in cls_lock_client.c contains two bare decode operations
+that allow a malicious or compromised OSD to trigger slab-out-of-bounds
+reads:
 
- run fstests btrfs/242 at 2026-06-01 10:25:08
- BTRFS: device fsid d4d7f234-487c-4787-88e4-47a8b68c9874 devid 1 transid 9 /dev/sdc (8:32) scanned by mount (122609)
- BTRFS info (device sdc): first mount of filesystem d4d7f234-487c-4787-88e4-47a8b68c9874
- BTRFS info (device sdc): using crc32c checksum algorithm
- BTRFS warning (device sdc): devid 2 uuid fbe72d72-3272-482d-80fb-ab88ed398192 is missing
- BTRFS warning (device sdc): devid 2 uuid fbe72d72-3272-482d-80fb-ab88ed398192 is missing
- BTRFS info (device sdc): allowing degraded mounts
- BTRFS info (device sdc): turning on async discard
- BTRFS info (device sdc): enabling free space tree
- Unable to handle kernel NULL pointer dereference at virtual address 0000000000000018
- user pgtable: 4k pages, 48-bit VAs, pgdp=000000013fd6b000
- CPU: 4 UID: 0 PID: 122625 Comm: fstrim Not tainted 7.0.10-2-default #1 PREEMPT(full) openSUSE Tumbleweed e9a5f6b24978fba3bf015a992f865837fdfff3dd
- Hardware name: QEMU KVM Virtual Machine, BIOS edk2-20250812-19.fc42 08/12/2025
- pstate: 01400005 (nzcv daif +PAN -UAO -TCO +DIT -SSBS BTYPE=--)
- pc : btrfs_trim_fs+0x34c/0xa00 [btrfs]
- lr : btrfs_trim_fs+0x1f0/0xa00 [btrfs]
- Call trace:
-  btrfs_trim_fs+0x34c/0xa00 [btrfs f02c1d570ceea621c69d302ba75dd61868083840] (P)
-  btrfs_ioctl_fitrim+0xe8/0x178 [btrfs f02c1d570ceea621c69d302ba75dd61868083840]
-  btrfs_ioctl+0xdd4/0x2bd8 [btrfs f02c1d570ceea621c69d302ba75dd61868083840]
-  __arm64_sys_ioctl+0xac/0x108
-  invoke_syscall.constprop.0+0x5c/0xd0
-  el0_svc_common.constprop.0+0x40/0xf0
-  do_el0_svc+0x24/0x40
-  el0_svc+0x40/0x1d0
-  el0t_64_sync_handler+0xa0/0xe8
-  el0t_64_sync+0x1b0/0x1b8
- Code: 17ffff83 f94017e0 f9002be0 f9402ea0 (f9400c00)
- ---[ end trace 0000000000000000  ]---
+1. ceph_decode_32(p) at the num_lockers field has no preceding bounds
+   check. ceph_start_decoding() accepts struct_len=0 as valid -- the
+   internal ceph_decode_need(p, end, 0, bad) always passes -- so when an
+   OSD sends struct_len=0, ceph_start_decoding() returns success with
+   p == end. The immediately following bare ceph_decode_32(p) then reads
+   4 bytes past the validated buffer boundary. The garbage value is
+   passed directly to kzalloc_objs() as the locker count.
 
-Also the reporter is very kind to test the following ASSERT() added to
-btrfs_trim_free_extents_throttle():
+   The sibling function decode_watchers() in osd_client.c already uses
+   ceph_decode_32_safe() after its own ceph_start_decoding() call.
+   decode_lockers() was the only site using the bare variant.
 
-	ASSERT(device->bdev,
-	       "devid=%llu path=%s dev_state=0x%lx\n",
-	       device->devid, btrfs_dev_name(device), device->dev_state);
+2. ceph_decode_8(p) after the decode_locker() loop has no preceding
+   bounds check. If an OSD crafts num_lockers such that the loop
+   advances p exactly to end, the subsequent bare ceph_decode_8(p) reads
+   one byte past the validated buffer boundary. The result is passed
+   directly into *type, which is used as a lock type discriminator by
+   callers, giving an OSD-controlled one-byte OOB read with direct
+   influence over the lock type field.
 
-And it shows the following output:
+Fix both by replacing bare operations with their safe variants:
+  ceph_decode_32(p) -> ceph_decode_32_safe(p, end, *num_lockers,
+                                           err_inval)
+  ceph_decode_8(p)  -> ceph_decode_8_safe(p, end, *type,
+                                          err_free_lockers)
 
- assertion failed: device->bdev, in extent-tree.c:6630 (devid=2 path=/dev/sdd dev_state=0x82)
+The goto targets differ intentionally:
+  err_inval: is a new label returning -EINVAL directly. It is used for
+  the pre-allocation failure path where *lockers is not yet allocated
+  and must not be passed to ceph_free_lockers().
 
-Which means the device->bdev is NULL, and the dev_state is
-BTRFS_DEV_STATE_IN_FS_METADATA | BTRFS_DEV_STATE_ITEM_FOUND, without
-BTRFS_DEV_STATE_WRITEABLE flag set.
+  err_free_lockers: is the existing label. It is used for the
+  post-allocation failure path where *lockers is allocated and must
+  be freed.
 
-[CAUSE]
-The pc points to the following call chain:
+ret is set to -EINVAL before ceph_decode_8_safe() so that
+err_free_lockers returns the correct error code on bounds violation.
+Without this, err_free_lockers would return a stale ret value (0 from
+the successful decode_locker() loop), silently swallowing the error.
 
- btrfs_trim_fs()
- |- btrfs_trim_free_extents()
-    |- btrfs_trim_free_extents_throttle()
-       |- bdev_max_discard_sectors(device->bdev)
+-EINVAL is correct for both failure paths. The data received from the
+OSD is structurally malformed. -ENOMEM would misrepresent the failure
+class to callers and to stable@ backporters triaging error paths.
 
-So the NULL pointer dereference is caused by device->bdev being NULL.
+KASAN report for bug 1 (kernel 7.0.0-rc7, QEMU/x86_64, KASLR disabled):
+  ==================================================================
+  BUG: KASAN: slab-out-of-bounds in ceph_oob3_init+0x251/0xff0 [ceph_oob3_poc]
+  Read of size 4 at addr ffff88800a29b76e by task insmod/58
 
-This looks impossible by a quick glance, as just before calling
-btrfs_trim_free_extents_throttle(), we have skipped any device that has
-BTRFS_DEV_STATE_MISSING flag set.
+  CPU: 0 UID: 0 PID: 58 Comm: insmod Tainted: G           O        7.0.0-rc7-g9c2abf69da83-dirty #15 PREEMPT(lazy)
+  Tainted: [O]=OOT_MODULE
+  Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.17.0-debian-1.17.0-1 04/01/2014
+  Call Trace:
+   <TASK>
+   dump_stack_lvl+0x4d/0x70
+   print_report+0x170/0x4f3
+   kasan_report+0xda/0x110
+   ceph_oob3_init+0x251/0xff0 [ceph_oob3_poc]
+   do_one_initcall+0x9a/0x3a0
+   do_init_module+0x27c/0x790
+   load_module+0x4a9a/0x6350
+   init_module_from_file+0x15c/0x180
+   idempotent_init_module+0x21f/0x750
+   __x64_sys_finit_module+0xba/0x120
+   do_syscall_64+0xe2/0x570
+   entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
-However in this particular case, there is a window where the missing
-device is later re-scanned, causing btrfs to remove the
-BTRFS_DEV_STATE_MISSING flag:
+  Allocated by task 58:
+   kasan_save_stack+0x30/0x50
+   kasan_save_track+0x14/0x30
+   __kasan_kmalloc+0x7f/0x90
+   ceph_oob3_init+0x4d/0xff0 [ceph_oob3_poc]
+   do_one_initcall+0x9a/0x3a0
+   do_init_module+0x27c/0x790
+   load_module+0x4a9a/0x6350
+   init_module_from_file+0x15c/0x180
+   idempotent_init_module+0x21f/0x750
+   __x64_sys_finit_module+0xba/0x120
+   do_syscall_64+0xe2/0x570
+   entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
- btrfs_control_ioctl()
- |- btrfs_scan_one_device()
-    |- device_list_add()
-       |- rcu_assign_pointer(device->name, name);
-       |  This updates the missing device's path to the new good path.
-       |
-       |- clear_bit(BTRFS_DEV_STATE_MISSING, &device->dev_state)
-          This removes the BTRFS_DEV_STATE_MISSING flag.
+  The buggy address belongs to the object at ffff88800a29a000
+   which belongs to the cache kmalloc-8k of size 8192
+  The buggy address is located 5998 bytes inside of
+   allocated 6000-byte region [ffff88800a29a000, ffff88800a29b770)
 
-This allows the missing device to re-appear and clear the
-BTRFS_DEV_STATE_MISSING flag.
-However the device still does not have the BTRFS_DEV_STATE_WRITEABLE
-flag set, nor is its bdev pointer updated.
+  Memory state around the buggy address:
+   ffff88800a29b600: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+   ffff88800a29b680: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  >ffff88800a29b700: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 fc fc
+                                                               ^
+   ffff88800a29b780: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+  ==================================================================
 
-The bdev pointer remains NULL, triggering the crash later.
+  num_lockers=0xccccaaaa (OOB garbage from KASAN redzone)
 
-[FIX]
-This is a big de-synchronization between BTRFS_DEV_STATE_MISSING and
-device->bdev pointer, and shows a gap in btrfs's re-appearing-device
-handling.
+Bug 2 (ceph_decode_8) follows from the identical precondition. A
+dedicated PoC is available on request.
 
-The proper handling of re-appearing device will need quite some extra
-work, which is out of the context of this small fix.
+Attacker model: a malicious or compromised OSD in a multi-tenant Ceph
+deployment can trigger this against any kernel client that issues the
+lock.get_info class method (e.g. during RBD exclusive lock acquisition)
+without any further privileges beyond OSD session establishment.
 
-Thankfully the regular bbio submission path has already handled it well
-by checking if the device->bdev is NULL before submitting.
-
-So here we just fix the crash by checking if the device is writeable and
-has a bdev pointer before calling bdev_max_discard_sectors().
-
-Reported-by: Su Yue <glass.su@suse.com>
-Link: https://lore.kernel.org/linux-btrfs/wlwir19t.fsf@damenly.org/
-Cc: stable@vger.kernel.org # 5.10+
-Signed-off-by: Qu Wenruo <wqu@suse.com>
+Fixes: d4ed4a530562 ("libceph: support for lock.lock_info")
+Cc: stable@vger.kernel.org
+Signed-off-by: Pavitra Jha <jhapavitra98@gmail.com>
 ---
- fs/btrfs/extent-tree.c | 13 +++++++++----
- 1 file changed, 9 insertions(+), 4 deletions(-)
+v3: Combine both fixes (ceph_decode_32 and ceph_decode_8) into a single
+    patch per Viacheslav Dubeyko's review. Set ret = -EINVAL before
+    ceph_decode_8_safe() so err_free_lockers returns the correct error
+    code, not stale ret (caught by Dan Carpenter / smatch). Clarify
+    err_inval vs err_free_lockers goto selection rationale and
+    -EINVAL justification.
+---
+ net/ceph/cls_lock_client.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-diff --git a/fs/btrfs/extent-tree.c b/fs/btrfs/extent-tree.c
-index 6030cdbdb742..f3c3eb508f86 100644
---- a/fs/btrfs/extent-tree.c
-+++ b/fs/btrfs/extent-tree.c
-@@ -6624,12 +6624,17 @@ static int btrfs_trim_free_extents_throttle(struct btrfs_device *device,
+diff --git a/net/ceph/cls_lock_client.c b/net/ceph/cls_lock_client.c
+index c6956f1df..4e6a6d3e4 100644
+--- a/net/ceph/cls_lock_client.c
++++ b/net/ceph/cls_lock_client.c
+@@ -299,7 +299,7 @@ static int decode_lockers(void **p, void *end, u8 *type, char **tag,
+ 	if (ret)
+ 		return ret;
  
- 	*trimmed = 0;
+-	*num_lockers = ceph_decode_32(p);
++	ceph_decode_32_safe(p, end, *num_lockers, err_inval);
+ 	*lockers = kzalloc_objs(**lockers, *num_lockers, GFP_NOIO);
+ 	if (!*lockers)
+ 		return -ENOMEM;
+@@ -310,7 +310,8 @@ static int decode_lockers(void **p, void *end, u8 *type, char **tag,
+ 			goto err_free_lockers;
+ 	}
  
--	/* Discard not supported = nothing to do. */
--	if (!bdev_max_discard_sectors(device->bdev))
-+	/*
-+	 * The caller only filters out MISSING devices, but a device that was
-+	 * missing at mount and later rescanned has MISSING cleared while
-+	 * bdev is still NULL and WRITEABLE is still unset. Skip those here.
-+	 */
-+	if (!test_bit(BTRFS_DEV_STATE_WRITEABLE, &device->dev_state) ||
-+	    !device->bdev)
- 		return 0;
+-	*type = ceph_decode_8(p);
++	ret = -EINVAL;
++	ceph_decode_8_safe(p, end, *type, err_free_lockers);
+ 	s = ceph_extract_encoded_string(p, end, NULL, GFP_NOIO);
+ 	if (IS_ERR(s)) {
+ 		ret = PTR_ERR(s);
+@@ -320,6 +321,8 @@ static int decode_lockers(void **p, void *end, u8 *type, char **tag,
+ 	*tag = s;
+ 	return 0;
  
--	/* Not writable = nothing to do. */
--	if (!test_bit(BTRFS_DEV_STATE_WRITEABLE, &device->dev_state))
-+	/* Discard not supported = nothing to do. */
-+	if (!bdev_max_discard_sectors(device->bdev))
- 		return 0;
- 
- 	/* No free space = nothing to do. */
++err_inval:
++	return -EINVAL;
+ err_free_lockers:
+ 	ceph_free_lockers(*lockers, *num_lockers);
+ 	return ret;
 -- 
-2.54.0
+2.53.0
 
