@@ -1,41 +1,93 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FB25364E80;
-	Tue,  2 Jun 2026 07:28:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE806391E72
+	for <stable@vger.kernel.org>; Tue,  2 Jun 2026 07:34:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780385283; cv=none; b=cQlYKWUThdGULK34nw6BeoHCmPu4TL8osKgvV4lx5VMf9JLi5HtdJXii+XBZfGZOS7A3OSLZDMuG36WA0E8HpmoqrQhwxvRgw0y1x14mBBeCU0IFse6DEOhdIkZJYF7Tbg549dpoOtuUaW3HdiWR6Se8Xi702rmWkBgf33xkr4w=
+	t=1780385670; cv=none; b=Ssd9KifhdX9wYq/bbgwfe1Mhf/WV/bmozU/FJblMGbBflrZIEtIse8GmnYg1raNwsI+xXku6NHQuEnUigiweLCALb9EBvEL+Wkat3ocTgD3crl33Hlj0dVLFmJOqS3xNTrUVPtxZafnHTwNQKd/XFhK4apZI0qHTVPHK1XtyPRc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780385283; c=relaxed/simple;
-	bh=hhvCEdB/JJDW0uD2o6q9xX0G9xeuu8KLHs00YAyAOhw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tBzcMHgUP6AFaphKEzCmItIdzlC3CciukTPcGWOerDnHcpF7NpMsn2wLLOgXO3DxGNRRE7G+JtpmUsj0VDBjhnWeivANLw6/0CyJP0uhjRqIn8XM2mmwv8w0mxXtb/kmuBE1FaVRUcwSZF6EcYl/xVz2zvKn0VC4t4KiYjZlcxA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FnzFNL6a; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780385670; c=relaxed/simple;
+	bh=YVirmTDYaEkiYsJPJUV6u+ccJQzQNksQiW7zP4Dw14U=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=P6ZZsDpn79dT3NVFa3XSe4/YW4hDMN27KuvGm3uf3k4zjGocBn54JC2uVaXOe9MDy1X9UzM2AAmJome5jRQDfDzf17sn2sH+UQJiunQ+zMmfFCOMDiZzjBZ4mUkwZNTBFdVYj3aQoZq0n6KlcPuHaDN3NpgYg7N4eoNNFhQkDVo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=mCCwsyJC; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=YpaWI8l5; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FnzFNL6a"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78E571F00893;
-	Tue,  2 Jun 2026 07:28:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780385281;
-	bh=o+FDLE073g6f02yiEQlUrQXnN1L23r2BUAEWpK9WN/I=;
-	h=From:To:Cc:Subject:Date;
-	b=FnzFNL6asX5tiFGJ4FDSnxLwOmy6GVVmW4vf+EYKUjmUoLh4F3hUctWRp+axCGwvj
-	 gj/Z0rFeF2XuN24vyslrQfotXvmb6QuqsZ7GAJNYAkfAjLZlpeIWxcm6pFYehWLA/H
-	 ZvbCKJ5elcyVa+N5FEbO/ROhNUsgoiLmn3G3C1L5ienKArfehr4dShRw+9kdCnqFEi
-	 F0oAhh2xEQ0Rq9Nesu2TD6J42LGHaFGzGBvEWiyquklyEWjibFOWccLHvdct3ibXha
-	 wH+tCF/7Dj7QUCex/VoYasg7a3zAtqiasw4Y662pOTiL3N1e1UhpE7IvTbKzGYvu+o
-	 GLK05HYzZVimA==
-From: Oliver Upton <oupton@kernel.org>
-To: kvmarm@lists.linux.dev
-Cc: Marc Zyngier <maz@kernel.org>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Oliver Upton <oupton@kernel.org>,
-	stable@vger.kernel.org
-Subject: [PATCH] KVM: arm64: nv: Fix handling of XN[0] when !FEAT_XNX
-Date: Tue,  2 Jun 2026 00:27:59 -0700
-Message-ID: <20260602072759.37885-1-oupton@kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="mCCwsyJC";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YpaWI8l5"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 652293bX622614
+	for <stable@vger.kernel.org>; Tue, 2 Jun 2026 07:34:22 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=JjC88RteyMdNmZiiaQdoQEc/10QE+WI+V+C
+	6wyLn56Q=; b=mCCwsyJCStiVArdcAakihN+lVucb+RmIJ+esFp/Lm/ZZaBRBOu6
+	qOY/JkoG/OmdTPNQ4MSjGpspHTeLEPUhXfbVMS6F+5oWpFjEsZbrdURfzp1otOI/
+	3T9pauBZz29MgxxlljYGnvdbLUUUIqG6sjn/tJj6TlPGfhiNZZhvWZqLCqY26h/y
+	w0YSTceUkmpxzikPzKCrNV2WCvvzIjDV3PHvu/AbAUeLSECsrVg4aEtpYkvV5JlF
+	cU593s5cNY9XexgMRLTxTbl2REErDsLlp3flxOTFC30m+o8sN8P0y0cQvMk8OzR/
+	bJ1iHW8enyFyn/9yW+eg+0+0GS777U6Ne7w==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eh954mng4-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Tue, 02 Jun 2026 07:34:22 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-516e0846095so45970961cf.0
+        for <stable@vger.kernel.org>; Tue, 02 Jun 2026 00:34:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1780385662; x=1780990462; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=JjC88RteyMdNmZiiaQdoQEc/10QE+WI+V+C6wyLn56Q=;
+        b=YpaWI8l5bYG5dP+5ojcB1/pgG8oUv235TSCdMTe2F3xV+T2zJm7GWFpry6XbvTnsmK
+         54ukSrzDVya1+mrRZgQTjaLbPg/8Tbf/THnyLqeacdYPTuLHOPhKzUfPEvunMV0K4UMg
+         8YktDv0kOFu7uIh+uD9uUY/1TP7ydcZx7QqiexaD4YUmMUEyg9HzJDeTqqYBV7h/niIP
+         96vFY22INf3o/kZ9mBQXJSl9uHaTHP0x4MMEM3wO6KnyIgz3i0DFoOkfNeI24TNNb5US
+         V0R675aTvOwSASn+fSDYdkKKZNzNGSDSfx8EOT8uGyYcosFVhBvQ/dnc/cQhl/LRNbmF
+         Dq3A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780385662; x=1780990462;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=JjC88RteyMdNmZiiaQdoQEc/10QE+WI+V+C6wyLn56Q=;
+        b=MrYDlChEVR3N5DRm+UDQzJkOJJkYvSjrcDBiLLg59BjlpN8dChqHqSznC43O/xCC/Y
+         QQcYj8rKSFCb2mKQpUgPLK39duCE3bFtZA3Lv9gERscqZ0r8agDsHXZeqIzrAsWSh4iC
+         JkAfNAKJualj7XETw3yiOcK0D8yWCGrASNejvPpq/B2GugHeQoZSLKJOctVRBNmTprmf
+         /+5hMhvWW517wVQfCdoyQXOd3UjpcJbWjU7X+3mvlpK2PcC+WLkfF2++lM8vGuI7fU7u
+         BiCEHsElgNDEU4qub30CxFAKCaTJ58dThmvROjXqxHx2weeozbP6Q0dG5A/erMsn2L8P
+         HJdw==
+X-Forwarded-Encrypted: i=1; AFNElJ9G5tEq5hlbDcSQUcx8REMjji0OYN/GXW2J56J/nDAu3m4pLP9u82PaHVaUORFBSMf1PeFYJ6w=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwyUj283mbnKwn6SI+hJZQPbmvafju08llvoTJMAeQ2Bkh7KoQv
+	HEbc6lxN85+309Zl5LyggO6zd52BH4GmpU5ZFH0I/6tIJ4MYHZodqBbZgqAg+6AkZuD99JpT0OZ
+	uHyOe7NYOFAmDPVMFNn+pgl3wqhK2dgAQhisbROWPvxY+gPmY8MagVAdGU7M=
+X-Gm-Gg: Acq92OEwP0wOol1+YkkgtwzPMgBm331koTpck7SMLbMrzvnNbHzOx77LXhapQJ0IBW0
+	1mRkRUTOYIf1eDY7j1kFa4VYUBXYQJ/OTWZJ0aBu4vv1wf/RmLTMrt0KttwuLSVxRh07O8ux54L
+	QU154XNP8JCnw4+FiuH2DYiT0ugGlYeZ/ob3wu0UBsES7Sl6VI24UEI2sJBjK6hQYDV5R3r/Gcu
+	ETuSUwvZjnwHyzkQ4EC+P0DMxjcEuQ+hLRpkSYxE3+VegVCfeb92a/lQZcUcaJgTXI4l8vPY0Dn
+	LYpk6JkOJsfRz+kNXBog8zvCUWnpUf1ZIU6fJG5U7lwFmYv5O7ucJN8wFzIATY710MHRsGLJCSt
+	EkF4vK9u/7TGWixiSCKS0d0sS1ze+5kfMRIf/lk/aooAI6/sN1pK8cREwVfVE30hKpI3oXmG+Ko
+	bWPmUaK+9bcfLw0g==
+X-Received: by 2002:ac8:5fd4:0:b0:516:daff:7f7e with SMTP id d75a77b69052e-5173a80ffb6mr203814461cf.48.1780385661985;
+        Tue, 02 Jun 2026 00:34:21 -0700 (PDT)
+X-Received: by 2002:ac8:5fd4:0:b0:516:daff:7f7e with SMTP id d75a77b69052e-5173a80ffb6mr203814161cf.48.1780385661519;
+        Tue, 02 Jun 2026 00:34:21 -0700 (PDT)
+Received: from brgl-qcom.local (2-228-54-83.ip190.fastwebnet.it. [2.228.54.83])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45ef34a0403sm32453424f8f.6.2026.06.02.00.34.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 02 Jun 2026 00:34:20 -0700 (PDT)
+From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+To: Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+        Andrew Lunn <andrew+netdev@lunn.ch>,
+        "David S. Miller" <davem@davemloft.net>,
+        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, brgl@kernel.org,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        stable@vger.kernel.org
+Subject: [PATCH RESEND net] net: mv643xx: fix OF node refcount
+Date: Tue,  2 Jun 2026 09:34:14 +0200
+Message-ID: <20260602073414.22500-1-bartosz.golaszewski@oss.qualcomm.com>
 X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -44,44 +96,60 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: Kl_6E0W-Xy1nQvYtinrGMHzHUMksJOh3
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjAyMDA2OSBTYWx0ZWRfXwuBiUZ5a8NP/
+ Yp5JCxSacPQmtjBJwIJXUOTaMTTrML6llUZJbnQfFy2on/UixVQo1BnymjFwjIiUMLqRyDiMGTz
+ C5jApu3XfjIzCBtRUThXnlnJhVRfSD8G8ezIfd5KpqtPx/Q+gUMNfY4mKRaQqjLB36S3sQYXCHO
+ xHz9cwSENWiCsYuyUnVm9ul/KAL0vF0f5nKK4JF/LQ7GnMz4Tys0HAY+dZmh5+bYlisHjn41T0M
+ X9AQY30pTgFQa4TPl0/QCRG+3TqxXTWApbQ6LY2NwjVtErnOehkloPOoJrwHoL6TM/uakJf6uv+
+ 0Ej8I4sIhEPkOZiYNIGLhCgWg7AH4VgLcC2TyXmOYBG6OXf5xk0jJFqRYQbOIbl3zi1pMNNYDou
+ qHzE4326KMIMjNF2kOxcaNDBDtFHZIEUMhss1yWmpQYG4ceNUDOo8eHAxw5NeU0ukq4I3+6YUeH
+ tb7kE1NyFXs8y/G/J9Q==
+X-Proofpoint-GUID: Kl_6E0W-Xy1nQvYtinrGMHzHUMksJOh3
+X-Authority-Analysis: v=2.4 cv=VpcTxe2n c=1 sm=1 tr=0 ts=6a1e877e cx=c_pps
+ a=WeENfcodrlLV9YRTxbY/uA==:117 a=F4J0OHcPalsv3C1teIDEwQ==:17
+ a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=2glh-Q7MoEu8omcI7JcA:9 a=kacYvNCVWA4VmyqE58fU:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-01_07,2026-05-28_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 suspectscore=0 spamscore=0 lowpriorityscore=0 bulkscore=0
+ malwarescore=0 phishscore=0 adultscore=0 priorityscore=1501 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606020069
 
-XN has already been extracted from its bitfield position so using
-FIELD_PREP() on the mask that clears XN[0] is completely broken, having
-the effect of unconditionally granting execute permissions...
-
-Fix the obvious mistake by manipulating the right bit.
+Platform devices created with platform_device_alloc() call
+platform_device_release() when the last reference to the device's
+kobject is dropped. This function calls of_node_put() unconditionally.
+This works fine for devices created with platform_device_register_full()
+but users of the split approach (platform_device_alloc() +
+platform_device_add()) must bump the reference of the of_node they
+assign manually. Add the missing call to of_node_get().
 
 Cc: stable@vger.kernel.org
-Fixes: d93febe2ed2e ("KVM: arm64: nv: Forward FEAT_XNX permissions to the shadow stage-2")
-Signed-off-by: Oliver Upton <oupton@kernel.org>
+Fixes: 76723bca2802 ("net: mv643xx_eth: add DT parsing support")
+Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 ---
- arch/arm64/include/asm/kvm_nested.h | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Resending separately as requested by Jakub
 
-diff --git a/arch/arm64/include/asm/kvm_nested.h b/arch/arm64/include/asm/kvm_nested.h
-index 091544e6af44..f5d4eb925198 100644
---- a/arch/arm64/include/asm/kvm_nested.h
-+++ b/arch/arm64/include/asm/kvm_nested.h
-@@ -131,7 +131,7 @@ static inline bool kvm_s2_trans_exec_el0(struct kvm *kvm, struct kvm_s2_trans *t
- 	u8 xn = FIELD_GET(KVM_PTE_LEAF_ATTR_HI_S2_XN, trans->desc);
- 
- 	if (!kvm_has_xnx(kvm))
--		xn &= FIELD_PREP(KVM_PTE_LEAF_ATTR_HI_S2_XN, 0b10);
-+		xn &= BIT(1);
- 
- 	switch (xn) {
- 	case 0b00:
-@@ -147,7 +147,7 @@ static inline bool kvm_s2_trans_exec_el1(struct kvm *kvm, struct kvm_s2_trans *t
- 	u8 xn = FIELD_GET(KVM_PTE_LEAF_ATTR_HI_S2_XN, trans->desc);
- 
- 	if (!kvm_has_xnx(kvm))
--		xn &= FIELD_PREP(KVM_PTE_LEAF_ATTR_HI_S2_XN, 0b10);
-+		xn &= BIT(1);
- 
- 	switch (xn) {
- 	case 0b00:
+ drivers/net/ethernet/marvell/mv643xx_eth.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-base-commit: 5d6919055dec134de3c40167a490f33c74c12581
+diff --git a/drivers/net/ethernet/marvell/mv643xx_eth.c b/drivers/net/ethernet/marvell/mv643xx_eth.c
+index f9055b3d6fb10..1881583be5ce2 100644
+--- a/drivers/net/ethernet/marvell/mv643xx_eth.c
++++ b/drivers/net/ethernet/marvell/mv643xx_eth.c
+@@ -2780,7 +2780,7 @@ static int mv643xx_eth_shared_of_add_port(struct platform_device *pdev,
+ 		goto put_err;
+ 	}
+ 	ppdev->dev.coherent_dma_mask = DMA_BIT_MASK(32);
+-	ppdev->dev.of_node = pnp;
++	ppdev->dev.of_node = of_node_get(pnp);
+ 
+ 	ret = platform_device_add_resources(ppdev, &res, 1);
+ 	if (ret)
 -- 
 2.47.3
 
