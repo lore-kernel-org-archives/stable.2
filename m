@@ -1,65 +1,82 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 497851CEAC2
-	for <stable@vger.kernel.org>; Tue,  2 Jun 2026 15:49:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EC9D3BA244
+	for <stable@vger.kernel.org>; Tue,  2 Jun 2026 15:52:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780415345; cv=none; b=L6W4mlpOn1QHBY610efVMBGJC+S3N3FnaRuYfuN3P78m07lDtS60DMdXwmQYeMpujB7buUOPs8SOw3MaphYOF1/rF+2uJr9t8Lk4oOD5y0O5H2xLyyqXcl+ewY7qKDj99Gc2RyeTlmYkQ6ISN2W1HvFXFvxleNTidlQh9GsByq8=
+	t=1780415536; cv=none; b=dizjbV9ydaVG+yrJOd8XZjQ8vVbd3glQHCGZ27w6RXC+Xc/JULVSy4s3H6OsggKQCu4t69rdplqH7VPVC2o6qZ1wTXB/z47lAYQeK6hForm3Kruki1PZBsejrvcuvzaQ+J1ADHzQX+lRhEdxRNiLMuWTmJKtJ6SCdHeBdMMLrUs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780415345; c=relaxed/simple;
-	bh=+eLvSsYQyFCJQ7bO5gQHkRjfmAWoQUcHPEOZme3fZrw=;
-	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cGLe1Zb/2lHKsDf9Bbu3ehS6Z1eUeZZlkoXuB2zaEJsMo2DdAdtnELJirKg8HCEaLG7LFQN3Cp+MXeB6Y7yzA9VrQurlxqqzR4j+nS3RDndxSblvA9XtnebaQGH+tUTOJ5nfbN8xu+YJ3QItcVwqhDf9CQP1JjtC7FRjnMR+vyE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=ns7qlyFS; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1780415536; c=relaxed/simple;
+	bh=RAL3ZX7gX3Qwt4a6LoAFqg4/b9gWA2A+ezozkGYu5v4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ZNcmjJAySDK8xRVCDT6wdiSpxfp2dwra1pAA6xYtzpN3gdiPUs72zuBUmjXZ/U/Jgh1NGJ8OUNOXXaJPWTfkygqjszIEaUIL74kROpBYbI8QHHar8k11CGn+X18dUEFWtDt2o/+Bz2l+xKlZDSSOFjNtWlYHoxmzpdFNbnFNDPM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=D0wZVm+y; arc=none smtp.client-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="ns7qlyFS"
-Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6528S6sU2708324
-	for <stable@vger.kernel.org>; Tue, 2 Jun 2026 15:49:03 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=
-	content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=c4TvMJWoEycB0OtTw
-	+glbO0CqV0SQo6y3MjbUtH+hAg=; b=ns7qlyFSvfU0z2ICfYe/b/auAIrRZ8Ek9
-	V13yreohw4vPHU1vNLCRcjBFtvEc3XIEt08SoqrkhM641OH5yqkknyVqKUm37Rz/
-	KpmtRebTBTS9ex3f+vZu9upHz2oQkArWmeDlmb4KU+r1UjiTAQ9vayicBvTQUAhn
-	rYSohJTbJKii6ju6y+tzfAr1isa8Yh7Hu7ReQJ+rl334dV1h+lh2q/sGAc6u7zY5
-	iS3rgDL6B1JcHPkJ1a/2WdTijXr/CJCoNpUAEAbuyKB+vICLeabdVh0aoBJybhsd
-	vmYZNotZFN64DGUb2Go6OxfCtZCKhHKsiAgDXaZ8A33V9NsyaMGzw==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4efnahpgf4-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
-	for <stable@vger.kernel.org>; Tue, 02 Jun 2026 15:49:03 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 652FdBSc031223
-	for <stable@vger.kernel.org>; Tue, 2 Jun 2026 15:49:02 GMT
-Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4egbqhbusy-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
-	for <stable@vger.kernel.org>; Tue, 02 Jun 2026 15:49:02 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
-	by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 652Fn0ni29688142
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
-	for <stable@vger.kernel.org>; Tue, 2 Jun 2026 15:49:00 GMT
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 0C9352004B
-	for <stable@vger.kernel.org>; Tue,  2 Jun 2026 15:49:00 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id EE77120040
-	for <stable@vger.kernel.org>; Tue,  2 Jun 2026 15:48:59 +0000 (GMT)
-Received: from tuxmaker.boeblingen.de.ibm.com (unknown [9.87.85.9])
-	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP
-	for <stable@vger.kernel.org>; Tue,  2 Jun 2026 15:48:59 +0000 (GMT)
-From: Peter Oberparleiter <oberpar@linux.ibm.com>
-To: stable@vger.kernel.org
-Subject: [PATCH 6.12.y] s390/cio: Restore GFP_DMA for CHSC allocation
-Date: Tue,  2 Jun 2026 17:48:55 +0200
-Message-ID: <20260602154855.365104-1-oberpar@linux.ibm.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026052823-removing-pretended-b7d6@gregkh>
-References: <2026052823-removing-pretended-b7d6@gregkh>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="D0wZVm+y"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-490aebf33e9so11405215e9.3
+        for <stable@vger.kernel.org>; Tue, 02 Jun 2026 08:52:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780415532; x=1781020332; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=fcSYq5CNRe914+kh+MhUoX6E3CbZbAlZ8MDYAoh0zI0=;
+        b=D0wZVm+yPCQCUkDlqARJFBllvw1zfPTP3YXy460qUBOs+SkuKaLPX0+4G2Fhj3UIE9
+         +GVh0dZmh6tY0zokqQFa8q8y06ssjwhSTJQ5Xpf2rfMB5/EDHv2MnCg3EDg3grmEj01Q
+         DU37Re78vyEQLlfePfrySp0K89hJ3JIekz2yXvBdsXsMsQ5EuTsnS2Z2kZtZrpiL3aQc
+         0/S4/CHuNf93ZE/uEcP/aOLM4rpmKDkgVa+ueHsihYHhX8xLEr5NY10bG9MfrJwaQb9J
+         DGbgiph62Mf48FlLvlYm8OFWqF2pSzVA6FmNglM5FLcs2mFMyP9r1fHY3Gh+MTVZCa7u
+         MIIA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780415532; x=1781020332;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=fcSYq5CNRe914+kh+MhUoX6E3CbZbAlZ8MDYAoh0zI0=;
+        b=NXBNrRQoza/WHOfT3xcPA4q5WcJmNaGiCbooyipZoak9XCjVFMqwIojYoBKzsBLkqV
+         i+jdktBTVeV4v92eudNOMgo+P7qe5DqY+B56G/+xA6er8GyafgXk6iugUh5XSW/PMS5r
+         k3lGgbwZAZtMtOoX/7bimIMghfT6+fu34k/HgZ6T1AqJTb8aaZRrxOY1ROtsiUWlJiyZ
+         Z8xNi0e3YgPqy664w40ViRastU/eAvnRIxa+wapmBY7q2EymBeUL/aUwzBgQbYrFpiXV
+         1Pv6vUZHrLZx/OCKQuSy78nlt6Swmy1eMSlSJHt92trxQmeM7ggyLlu5sfvZcvaA3EYO
+         /8uA==
+X-Forwarded-Encrypted: i=1; AFNElJ8Bs2uCHQva9Pd/ZR6tdj0apUKjFbaXqv+6aZU6MR+Og5ui1fBrqktlaih4qHXATybiGqxcPwo=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz8fdGinLBPXiK1NndbLJInIM6Ke6tCmwLYN8PhdrePCVXxEZSl
+	ei93nezbeiVMLtW+1ePUUbUYORFwolBjgs465T0g2H7YVqZncZLPlyPk
+X-Gm-Gg: Acq92OESyy7dQznMWvl73mjOX6WSfFG6hucy6eq2B0Kc2SgaLoViN3vMF/G2Bx3raN0
+	Hfinw1rXvzXOho7mUnHSIvTxGLm8v38oo2e3czTDRgHLStf8XnXzKca1GmtMYRWULAHGo8HuVby
+	+xG4zhwJIFE2gcmJHpO581lNUBO6S3mtKkzQEk6SQYQTLuqDBuJUxmf1lyQBiZ3DN844Ytk6VlF
+	vYRFEfe9InqVlpn0jOMIEP3iFMFPWmViDwftiXwu+3B3q2sVP2MRIBeB+ZWZobjp0ndQwrXgzMu
+	2HQI7cm6gMHeLipcyJnY+Mt46ayMhLuMbd88IXldIEAeIWTRDUd65CGJ7M41iG5v0Hs1wM0TX3E
+	rd7cH/4Bn/VoCWDKUkp1uIFTfGqNEusfbJPoqKOzhOszoCyIrlAiPyRBus/7Qtl4efQYgsDEHyR
+	F/yULDt8SRElFZUk3h6UNijjsQwj09JlPOfX7BF766KWL5fKk9fOUixQtPE6J4wSf3mw==
+X-Received: by 2002:a05:600c:8b2e:b0:490:48df:2793 with SMTP id 5b1f17b1804b1-490b50c634cmr4713175e9.26.1780415531774;
+        Tue, 02 Jun 2026 08:52:11 -0700 (PDT)
+Received: from localhost.localdomain ([5.165.242.139])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490b55fda1dsm108445e9.1.2026.06.02.08.52.07
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 02 Jun 2026 08:52:10 -0700 (PDT)
+From: LeantionX <leontyevantony@gmail.com>
+X-Google-Original-From: LeantionX <leontyevanton1995@gmail.com>
+To: netdev@vger.kernel.org
+Cc: linux-hyperv@vger.kernel.org,
+	kys@microsoft.com,
+	haiyangz@microsoft.com,
+	wei.liu@kernel.org,
+	decui@microsoft.com,
+	longli@microsoft.com,
+	andrew+netdev@lunn.ch,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	edumazet@google.com,
+	davem@davemloft.net,
+	stable@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Anton Leontev <leontyevantony@gmail.com>
+Subject: [PATCH net] hv_netvsc: use kmap_local_page in netvsc_copy_to_send_buf
+Date: Tue,  2 Jun 2026 18:52:10 +0300
+Message-ID: <20260602155210.90987-1-leontyevanton1995@gmail.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -67,172 +84,62 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjAyMDE1MCBTYWx0ZWRfXyJrLl2O8pic+
- cA/JFFFhib1FJhjBrO/MrT1OCrrkHqOqUyUmKwnwO8CEkalsUDzR/9nADBAwNQSQxZ4lkCQKXLT
- esTXpcnB4FTKKiYYt4/4uu9+vFsMbYlIBo2yv/JmE0xJ6QuQvdmsV8Am+FAnZhZKM2GCJiIl6Gr
- tBs14tdYDgpzG8EGvDDXqQx1T9c+kvTL4tBGYU+6s2CXtA73SXA/ZphYsk1nwHR2o3vgC6ZIFA6
- UvtIQ2Mr0ENDAbNF292EuLFWKi1Y2/c+Hbc0MzeCznkvjMkqd38SU+mL7nb5+VdPMppLzoG/IZ9
- OQ0Fqn0MDEgcdz3nHDe7sPa0d9JwmjOqQrShd5T3OWLW4HbaLESDGyav07y6A4qfBV1y8Ba1wWZ
- t1xctYOYKXQuCclRcouBmNXRu1MGk+MazZs+eszJ53Q+hcFZzBBh99GZs+CbsDqB+oIDIV+v5d6
- xyZaT6eKMpMkFgJRVQA==
-X-Proofpoint-ORIG-GUID: F4vWKkoLL1pd5pCy8JG5BhOHVugk3fC1
-X-Authority-Analysis: v=2.4 cv=cOzQdFeN c=1 sm=1 tr=0 ts=6a1efb6f cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=FelO9ux0wxsA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
- a=8SZ3sY9okZyLWmRNyBMA:9
-X-Proofpoint-GUID: F4vWKkoLL1pd5pCy8JG5BhOHVugk3fC1
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-02_02,2026-05-28_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1011 impostorscore=0 lowpriorityscore=0 spamscore=0 bulkscore=0
- malwarescore=0 phishscore=0 suspectscore=0 priorityscore=1501 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606020150
 
-[ Upstream commit ea34567db0a6b3a7ce78ba421592344315c8f90e ]
+From: Anton Leontev <leontyevantony@gmail.com>
 
-Re-add GFP_DMA when allocating memory for CHSC control blocks.
-On some supported machines, CHSC cannot access memory outside
-the DMA zone, causing CHSC command failures.
+netvsc_copy_to_send_buf() copies skb fragment pages into the shared
+VMBus send buffer using phys_to_virt() on the fragment PFN. On 32-bit
+x86 with CONFIG_HIGHMEM=y, phys_to_virt() (i.e. __va()) is only valid
+for LOWMEM addresses below 896 MiB. For a HIGHMEM page it returns an
+address that has no kernel page table entry and lies outside the
+kernel direct map, so the subsequent memcpy() faults. As this happens
+on the transmit softirq path, the fault is fatal.
 
+A HIGHMEM fragment reaches this path whenever the page backing an skb
+fragment lives above the LOWMEM boundary, which is common on a 32-bit
+guest with several GiB of RAM (for example when the in-kernel NFS
+server splices page cache pages directly into the reply skb).
+
+Map the fragment page on demand with kmap_local_page()/kunmap_local()
+instead. Using pfn_to_page() on pb[i].pfn maps exactly the page
+described by the page buffer entry. On configurations without HIGHMEM
+(amd64, i386 without CONFIG_HIGHMEM) kmap_local_page() reduces to
+page_address(), so this is a no-op there.
+
+Fixes: c25aaf814a63 ("hyperv: Enable sendbuf mechanism on the send path")
 Cc: stable@vger.kernel.org
-Fixes: a3a64a4def8d ("s390/cio: remove unneeded DMA zone allocation")
-Signed-off-by: Peter Oberparleiter <oberpar@linux.ibm.com>
-Reviewed-by: Heiko Carstens <hca@linux.ibm.com>
-Signed-off-by: Alexander Gordeev <agordeev@linux.ibm.com>
-[ adjusted context to account for missing commit bf4afc53b77ae ]
-Signed-off-by: Peter Oberparleiter <oberpar@linux.ibm.com>
+Signed-off-by: Anton Leontev <leontyevantony@gmail.com>
 ---
- drivers/s390/cio/chsc.c     |  4 ++--
- drivers/s390/cio/chsc_sch.c | 20 ++++++++++----------
- drivers/s390/cio/scm.c      |  2 +-
- 3 files changed, 13 insertions(+), 13 deletions(-)
+ drivers/net/hyperv/netvsc.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/s390/cio/chsc.c b/drivers/s390/cio/chsc.c
-index dcc1e1c34ca2..8fe6658dcfe1 100644
---- a/drivers/s390/cio/chsc.c
-+++ b/drivers/s390/cio/chsc.c
-@@ -1153,8 +1153,8 @@ int __init chsc_init(void)
- {
- 	int ret;
- 
--	sei_page = (void *)get_zeroed_page(GFP_KERNEL);
--	chsc_page = (void *)get_zeroed_page(GFP_KERNEL);
-+	sei_page = (void *)get_zeroed_page(GFP_KERNEL | GFP_DMA);
-+	chsc_page = (void *)get_zeroed_page(GFP_KERNEL | GFP_DMA);
- 	if (!sei_page || !chsc_page) {
- 		ret = -ENOMEM;
- 		goto out_err;
-diff --git a/drivers/s390/cio/chsc_sch.c b/drivers/s390/cio/chsc_sch.c
-index 1e58ee3cc87d..9131ce3af1b8 100644
---- a/drivers/s390/cio/chsc_sch.c
-+++ b/drivers/s390/cio/chsc_sch.c
-@@ -293,7 +293,7 @@ static int chsc_ioctl_start(void __user *user_area)
- 	if (!css_general_characteristics.dynio)
- 		/* It makes no sense to try. */
- 		return -EOPNOTSUPP;
--	chsc_area = (void *)get_zeroed_page(GFP_KERNEL);
-+	chsc_area = (void *)get_zeroed_page(GFP_DMA | GFP_KERNEL);
- 	if (!chsc_area)
- 		return -ENOMEM;
- 	request = kzalloc(sizeof(*request), GFP_KERNEL);
-@@ -341,7 +341,7 @@ static int chsc_ioctl_on_close_set(void __user *user_area)
- 		ret = -ENOMEM;
- 		goto out_unlock;
+diff --git a/drivers/net/hyperv/netvsc.c b/drivers/net/hyperv/netvsc.c
+index 59e95341f9b1..6984f6c97257 100644
+--- a/drivers/net/hyperv/netvsc.c
++++ b/drivers/net/hyperv/netvsc.c
+@@ -12,6 +12,7 @@
+ #include <linux/sched.h>
+ #include <linux/wait.h>
+ #include <linux/mm.h>
++#include <linux/highmem.h>
+ #include <linux/delay.h>
+ #include <linux/io.h>
+ #include <linux/slab.h>
+@@ -965,11 +966,13 @@ static void netvsc_copy_to_send_buf(struct netvsc_device *net_device,
  	}
--	on_close_chsc_area = (void *)get_zeroed_page(GFP_KERNEL);
-+	on_close_chsc_area = (void *)get_zeroed_page(GFP_DMA | GFP_KERNEL);
- 	if (!on_close_chsc_area) {
- 		ret = -ENOMEM;
- 		goto out_free_request;
-@@ -393,7 +393,7 @@ static int chsc_ioctl_start_sync(void __user *user_area)
- 	struct chsc_sync_area *chsc_area;
- 	int ret, ccode;
  
--	chsc_area = (void *)get_zeroed_page(GFP_KERNEL);
-+	chsc_area = (void *)get_zeroed_page(GFP_KERNEL | GFP_DMA);
- 	if (!chsc_area)
- 		return -ENOMEM;
- 	if (copy_from_user(chsc_area, user_area, PAGE_SIZE)) {
-@@ -439,7 +439,7 @@ static int chsc_ioctl_info_channel_path(void __user *user_cd)
- 		u8 data[PAGE_SIZE - 20];
- 	} __attribute__ ((packed)) *scpcd_area;
+ 	for (i = 0; i < page_count; i++) {
+-		char *src = phys_to_virt(pb[i].pfn << HV_HYP_PAGE_SHIFT);
++		struct page *page = pfn_to_page(pb[i].pfn);
++		char *src = kmap_local_page(page);
+ 		u32 offset = pb[i].offset;
+ 		u32 len = pb[i].len;
  
--	scpcd_area = (void *)get_zeroed_page(GFP_KERNEL);
-+	scpcd_area = (void *)get_zeroed_page(GFP_KERNEL | GFP_DMA);
- 	if (!scpcd_area)
- 		return -ENOMEM;
- 	cd = kzalloc(sizeof(*cd), GFP_KERNEL);
-@@ -501,7 +501,7 @@ static int chsc_ioctl_info_cu(void __user *user_cd)
- 		u8 data[PAGE_SIZE - 20];
- 	} __attribute__ ((packed)) *scucd_area;
- 
--	scucd_area = (void *)get_zeroed_page(GFP_KERNEL);
-+	scucd_area = (void *)get_zeroed_page(GFP_KERNEL | GFP_DMA);
- 	if (!scucd_area)
- 		return -ENOMEM;
- 	cd = kzalloc(sizeof(*cd), GFP_KERNEL);
-@@ -564,7 +564,7 @@ static int chsc_ioctl_info_sch_cu(void __user *user_cud)
- 		u8 data[PAGE_SIZE - 20];
- 	} __attribute__ ((packed)) *sscud_area;
- 
--	sscud_area = (void *)get_zeroed_page(GFP_KERNEL);
-+	sscud_area = (void *)get_zeroed_page(GFP_KERNEL | GFP_DMA);
- 	if (!sscud_area)
- 		return -ENOMEM;
- 	cud = kzalloc(sizeof(*cud), GFP_KERNEL);
-@@ -626,7 +626,7 @@ static int chsc_ioctl_conf_info(void __user *user_ci)
- 		u8 data[PAGE_SIZE - 20];
- 	} __attribute__ ((packed)) *sci_area;
- 
--	sci_area = (void *)get_zeroed_page(GFP_KERNEL);
-+	sci_area = (void *)get_zeroed_page(GFP_KERNEL | GFP_DMA);
- 	if (!sci_area)
- 		return -ENOMEM;
- 	ci = kzalloc(sizeof(*ci), GFP_KERNEL);
-@@ -697,7 +697,7 @@ static int chsc_ioctl_conf_comp_list(void __user *user_ccl)
- 		u32 res;
- 	} __attribute__ ((packed)) *cssids_parm;
- 
--	sccl_area = (void *)get_zeroed_page(GFP_KERNEL);
-+	sccl_area = (void *)get_zeroed_page(GFP_KERNEL | GFP_DMA);
- 	if (!sccl_area)
- 		return -ENOMEM;
- 	ccl = kzalloc(sizeof(*ccl), GFP_KERNEL);
-@@ -757,7 +757,7 @@ static int chsc_ioctl_chpd(void __user *user_chpd)
- 	int ret;
- 
- 	chpd = kzalloc(sizeof(*chpd), GFP_KERNEL);
--	scpd_area = (void *)get_zeroed_page(GFP_KERNEL);
-+	scpd_area = (void *)get_zeroed_page(GFP_KERNEL | GFP_DMA);
- 	if (!scpd_area || !chpd) {
- 		ret = -ENOMEM;
- 		goto out_free;
-@@ -797,7 +797,7 @@ static int chsc_ioctl_dcal(void __user *user_dcal)
- 		u8 data[PAGE_SIZE - 36];
- 	} __attribute__ ((packed)) *sdcal_area;
- 
--	sdcal_area = (void *)get_zeroed_page(GFP_KERNEL);
-+	sdcal_area = (void *)get_zeroed_page(GFP_KERNEL | GFP_DMA);
- 	if (!sdcal_area)
- 		return -ENOMEM;
- 	dcal = kzalloc(sizeof(*dcal), GFP_KERNEL);
-diff --git a/drivers/s390/cio/scm.c b/drivers/s390/cio/scm.c
-index c7894d61306d..375cbfa31b53 100644
---- a/drivers/s390/cio/scm.c
-+++ b/drivers/s390/cio/scm.c
-@@ -228,7 +228,7 @@ int scm_update_information(void)
- 	size_t num;
- 	int ret;
- 
--	scm_info = (void *)__get_free_page(GFP_KERNEL);
-+	scm_info = (void *)__get_free_page(GFP_KERNEL | GFP_DMA);
- 	if (!scm_info)
- 		return -ENOMEM;
+ 		memcpy(dest, (src + offset), len);
++		kunmap_local(src);
+ 		dest += len;
+ 	}
  
 -- 
-2.53.0
+2.43.0
 
