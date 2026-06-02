@@ -1,162 +1,118 @@
-Received: from mout.web.de (mout.web.de [212.227.15.3])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F791363C64;
-	Tue,  2 Jun 2026 18:52:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.15.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C919F39A076
+	for <stable@vger.kernel.org>; Tue,  2 Jun 2026 18:53:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780426345; cv=none; b=bu0G6MmHPdbC/vepSKpXsWQkBG1YHuCQVF0q+O4/zfFhxxVs3qiV7++BVFJtTeZbnTRUIFQGHRRuxPSOrfwgGTorGbEZvqfoh++7DPiCkAz3W3yYH5olzzs/zuIafkWEWaQrj7BAAFn69iAayJ6gDfN/CgRr72RUnUQ45pV/2IU=
+	t=1780426392; cv=none; b=kk0vwHBRToENFEL6MZKRmC/askn5BqlBbVKLRyfJj7cwYcpU7PoxCofgfpJIxYaNLSIF8FIBT78ZRtWlXP0C2pxDp0cVeAttcuw7LVZcPkq49GAq4d6lg1L3/zSFSLeu7ivuYZMdzO7Rw94fTAZr+z4HMLxhevDyYnRqjp5MqoM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780426345; c=relaxed/simple;
-	bh=P18+MolSDqD504w87LT81UQXk1hghN0KHhZZgtX9/A8=;
-	h=Message-ID:Date:MIME-Version:To:Cc:References:Subject:From:
-	 In-Reply-To:Content-Type; b=YqSZyXcBF9JRqxuhRdw6W92QaOSXx+jRL8w8uMGbxkGdcbiwfXyDPFSDd7UpoqCoXrb29x+kiSBHvOUM0B38FI///95n+zUckXMwM4zIIkSeSj9SgBKBwcvlv2QMZodFBMZV/+lx1Lo33P/PlUibIuG+bFwFKieheauzlt7nVuU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de; spf=pass smtp.mailfrom=web.de; dkim=pass (2048-bit key) header.d=web.de header.i=markus.elfring@web.de header.b=ci4F2xwO; arc=none smtp.client-ip=212.227.15.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=web.de
+	s=arc-20240116; t=1780426392; c=relaxed/simple;
+	bh=H3E2VUOeSZ6d9yGEwVnxSBk+sMS7hg6UAIMW1iNHWqM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jepfTNZJNaNX6fQtCh9DnzaL012VlXz1ETl5mQkxHYts3ZgrIlshUj8dpSGO9k5IEgma4FGgJe1gkyvE3It2M/ylcCA/7aXuzPWH8vR9LAKGCc+ZhImhb9p/MLHl16oTBFW5dfdDljGxsR9k7e/gxmeCmD+Sv8uLJEt3LEedP4w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YoKrKgi2; arc=none smtp.client-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=web.de header.i=markus.elfring@web.de header.b="ci4F2xwO"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
-	s=s29768273; t=1780426341; x=1781031141; i=markus.elfring@web.de;
-	bh=HhBgtsNQoRwpzYU1yb7fP6Pi0sH3HNiE1N1abgF2rC0=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:To:Cc:References:
-	 Subject:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 cc:content-transfer-encoding:content-type:date:from:message-id:
-	 mime-version:reply-to:subject:to;
-	b=ci4F2xwOS2EG9V8fJzVocf79Z3j9EIP/SQVgGYw/Uzf3DxDTRtBM0uLuLcP1VOs6
-	 7zFbXcMMgK243Ha4K8d0eKPAjMEkUOpPXDTRlUg16YJut3inBCwNm+mvesv+pxuqM
-	 MR9BFdV3M6538zWtdgNFQ8ubARHQFnYiID1kjF8LchRywFLTcTv0pY0gK11lR0vC5
-	 VS7q7ouw5uDVnmANMhFBqXRXZEjTEVXdFte6JUKvExthZCPN+UfiFilPeFFdcYkii
-	 cFq5STyy5oJFdbBU21pYTepfqym4k8Iu0LCRy4g7V2illtdoyghi1WzMV6smxm7CR
-	 7u96BTNRdFUsnfj+ZA==
-X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
-Received: from client.hidden.invalid by smtp.web.de (mrweb006
- [213.165.67.108]) with ESMTPSA (Nemesis) id 1N1d7s-1xS3zB1CRs-00zLcl; Tue, 02
- Jun 2026 20:52:21 +0200
-Message-ID: <39c49c28-0674-43a2-8048-6687f9a3bace@web.de>
-Date: Tue, 2 Jun 2026 20:52:16 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YoKrKgi2"
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-490b2b037d2so8943405e9.3
+        for <stable@vger.kernel.org>; Tue, 02 Jun 2026 11:53:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780426389; x=1781031189; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=2Gw+lAJx26MHPvNsPTjwzTfgQLbZfxxh2FfWY9yR8kc=;
+        b=YoKrKgi2gL0GoKzGaw1/LKp2N4iM969WiOOGpWpwLfYIoS299ryQPs9onU9Wj6ptXL
+         fgFMBLoQ/q8JKeCKEw+zQmVHBj979uDGvdOLYMQ+cotDjYR97Hw4chTn97l5j9m9hb5L
+         SSvMWZ3CxZZ2qRe4u4wpKayeY50RncKJ7ezF2cDEfvzIvh4nAFehP6ofoq2VgHUBiMpm
+         ZQFkp7TKL86Lr4p5UtqlQLnRVj7nbIQehFbbkjLcrMIUosBylJ8imN48wFMniSx8RBPy
+         CUdeZ7Rkpmyhe45TePng5CIRdS+UsrRXaiUtBwKuf6zJUjyV4v/eFT2B5lBvr/XAN/lT
+         aeKA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780426389; x=1781031189;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=2Gw+lAJx26MHPvNsPTjwzTfgQLbZfxxh2FfWY9yR8kc=;
+        b=tZWlfkqclqB+xBGIlAJ4JbTx5tVjSES+F/+CTw2hncIgJU4kzGi5w5EYTxCZ+Pt576
+         5D0ondKW++zZ610KEENKpRbmXpSly8EOpRjdIm5NEb7iVLwFMhW5mcw7tZrcOo6lM+3p
+         rpsvQFgM1wlShcuG3UpQ1Z9Z6dRu/TTxxe+VRCI3R0U9KctH4pXBX4JAwKn7rW0S37s/
+         nWaBtNiSoFwPOJkypN23FpblAX5KQcwUaXjDJ/4RcA1OM2mWbjS4RSKAU5P6gEOwQ99B
+         pZjzce9e1Kjz3ADZnCe5iJHLqHQqdLNrkjX8KO4BGX7lAZh0JjHRtWy+0COfcXYefNO4
+         oHWw==
+X-Forwarded-Encrypted: i=1; AFNElJ/oTL0SNibTAGiO8lP4R57MtRLbyHFiBORC3zcC9pBDmXz0QJ+Ifh6lAAZbZSVkKJ3VBujnTXE=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyD/gh5dUwEsA4HufinJSN1as8hCaMywmH90eB4ohKpuS4DG2aN
+	pDXHKAHl29+avyMjSrgmuAMY+mSTdMS7FFphZ3XUBjMdyRb7VzWUKylM
+X-Gm-Gg: Acq92OEzbjQUhktv/yREs0KtZRp66GD+MukF4FOjVMIw3l7mW3o4yl0TFQxKmGy30fx
+	LHiGSsSLRA9yGfM7pG0iitcBMaFhfz/8PYfrdoj1e+cq18RhrSkEloJsu0jaZ0EgLwhqbyJHvfM
+	BgUeL6fAYKfVZbwYr+4ABqkzKpfDGvxxf5x0hYHJGpE/xVvWbfniD10Cjq+DTLUq24pvAmOO6l7
+	r3WwDmFvsppxTv4s0+w4NoyTmrVibNpzDUeSn+ifqyPuSdFDfJJPiaEPSwQ8n5Pc0eirr4gNiv4
+	/+m2AL10Nr8v9UC0x5L+G3ybHSKeCIEupzPwOudGemZGj0btpEATfHeAcTTGvH7FE8G61+jlWbc
+	ShYB65Xmt/FhPMqPQVtfCs0YOZUCgrsOJaf/GZmsbAUPQO70swwBBhbXdZYsGLaXLwQ8Vx6uTCA
+	d/yUrA81erdpuktrpGWFwg2p7iKQBELytVMGkV+5pKFHKOa5WBvS9Xrq37ais+5kHwEFInWnCqD
+	hO5N6KSnTsA/05ng5+CSA==
+X-Received: by 2002:a05:600c:5247:b0:48f:e245:394e with SMTP id 5b1f17b1804b1-490b60f6453mr702585e9.27.1780426388995;
+        Tue, 02 Jun 2026 11:53:08 -0700 (PDT)
+Received: from dohko.chello.ie (188-141-5-72.dynamic.upc.ie. [188.141.5.72])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4601f2dcad5sm1356023f8f.5.2026.06.02.11.53.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 02 Jun 2026 11:53:08 -0700 (PDT)
+From: David Carlier <devnexen@gmail.com>
+To: Daniel Scally <dan.scally@ideasonboard.com>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Nayden Kanchev <nayden.kanchev@arm.com>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	David Carlier <devnexen@gmail.com>
+Subject: [PATCH] media: mali-c55: fix dropped last AEC histogram zone weight
+Date: Tue,  2 Jun 2026 19:53:05 +0100
+Message-ID: <20260602185305.30759-1-devnexen@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: patchwork-bot+netdevbpf@kernel.org, vulab@iscas.ac.cn,
- netdev@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>
-Cc: stable@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>,
- Simon Horman <horms@kernel.org>
-References: <178036982189.224606.10962942847177813465.git-patchwork-notify@kernel.org>
-Subject: Re: [PATCH] net: qrtr: fix node refcount leak on ctrl packet alloc
- failure
-Content-Language: en-GB, de-DE
-From: Markus Elfring <Markus.Elfring@web.de>
-In-Reply-To: <178036982189.224606.10962942847177813465.git-patchwork-notify@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:XFp8xKx8EAXM2lIE53MRcMUCTsaMKzRuQUjtOBdoVgGrkQw7P5u
- gPEIQlzosv04I4BYaonJ6whGI/iDXtSatVj/irsaUmfa944c5hwkBzKtqo94un+MQDGX/ty
- iIWHN1ZicUbxiXGXVGJ5U+1Y3fYA2/zF8VpOTdPivebMz6K6aa3D5bsHb3S83EjsgnQnc5Z
- AUyuVjBW5uxKeuD8Myc2g==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:7ZQrpN1cAgs=;HCDvzQ+mI4Vst5oZ5Jow/fQsOqJ
- 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
- NYTTqphakbO4Lqrx/6haC68s2ZU=
+Content-Transfer-Encoding: 8bit
 
-=E2=80=A6
-> > Add qrtr_node_release(node) before returning on the allocation failure
-> > path to properly release the reference.
-=E2=80=A6
-> Here is the summary with links:
->   - net: qrtr: fix node refcount leak on ctrl packet alloc failure
->     https://git.kernel.org/netdev/net-next/c/3b09ff541145
+The 15x15 AEC histogram metering grid has 225 per-zone weights, packed
+by userspace as a u8 array. The driver writes the first 56 registers
+(zones 0 through 223) in a loop, then handles the final register on its
+own to keep static analysers from flagging the array access.
 
-Would it have been possible to avoid a bit of duplicate source code
-by using an additional label in the implementation of the function =E2=80=
-=9Cqrtr_send_resume_tx=E2=80=9D?
-https://elixir.bootlin.com/linux/v7.1-rc6/source/net/qrtr/af_qrtr.c#L998-L=
-1024
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Do=
-cumentation/process/coding-style.rst?h=3Dv7.1-rc6#n526
+That separate path computes the address and value for the 225th weight
+(the bottom-right zone) but never issues the register write, so the zone
+keeps its stale or default weight. Any non-default weight userspace sets
+for the last zone is silently ignored, skewing auto-exposure metering.
+Both the AEXP_HIST_WEIGHTS and AEXP_IHIST_WEIGHTS blocks are affected as
+they share this handler.
 
-Regards,
-Markus
+Issue the missing write, masking the value as the loop does.
+
+Fixes: 01535ea08674 ("media: platform: Add mali-c55 parameters video node")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-4-8
+Signed-off-by: David Carlier <devnexen@gmail.com>
+---
+ drivers/media/platform/arm/mali-c55/mali-c55-params.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-params.c b/drivers/media/platform/arm/mali-c55/mali-c55-params.c
+index de0e9d898db7..33e2232ec8f5 100644
+--- a/drivers/media/platform/arm/mali-c55/mali-c55-params.c
++++ b/drivers/media/platform/arm/mali-c55/mali-c55-params.c
+@@ -212,6 +212,7 @@ mali_c55_params_aexp_hist_weights(struct mali_c55 *mali_c55,
+ 
+ 	val = params->zone_weights[MALI_C55_MAX_ZONES - 1];
+ 	addr = base + MALI_C55_AEXP_HIST_ZONE_WEIGHTS_OFFSET + (4 * 56);
++	mali_c55_ctx_write(mali_c55, addr, val & MALI_C55_AEXP_HIST_ZONE_WEIGHT_MASK);
+ }
+ 
+ static void mali_c55_params_digital_gain(struct mali_c55 *mali_c55,
+-- 
+2.53.0
+
