@@ -1,154 +1,93 @@
-Received: from mail-244123.protonmail.ch (mail-244123.protonmail.ch [109.224.244.123])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95B633A8723
-	for <stable@vger.kernel.org>; Tue,  2 Jun 2026 10:04:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.123
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 30DB53438BF
+	for <stable@vger.kernel.org>; Tue,  2 Jun 2026 10:05:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780394673; cv=none; b=hjbwtRkd1i94emncrdN59WDA49qB36isny2tf3JRAoWrrBz8q8FK+qttvKPvwV+IVZNWGs1J4EX8LT0c6zAC122eL9wzFLSa2xNx08h4ZKrtwqcac3Q/pictJ+k/POt4gvwA2Vva1XeHLHRh6TSBVTYNmEn0g1Yew7yaajHpUBo=
+	t=1780394750; cv=none; b=a2TAfWKo7VmC1kMv3VtP4Na5RhJEgG9h0KNNeE2UEDgXhfE8nyuWWnNbWOfxT2PtPkop9M/1K4OLtOlk9jMoKO3dG4CviPACBka62qCxTS5DvqVrVDwqYpiov4bWmES0XHjuK7Y9ekSfR9kAGtFcMCse+/se4Bm2Rw3yV+rtr2U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780394673; c=relaxed/simple;
-	bh=8yitcGedObR7T+mmA4PMc99vOGJuoP0FGUiv0c6lB3E=;
-	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=Qx0p69Ob1pnf2q4Sz/Xn39wTKGz+EWriQtpa+GMNthbrwUQqRSnR6cg4KvO50HXr+D910X7rpdU1VuCU5dXGveAqFQRoWAi6YkBbGC9YeArBPHOUUsOjkJhhc7i20OtrqNhbWmovwz1xeZjKZwGQciwX6TXD7mJ37X3wcyK8tn0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=A5qRbJMW; arc=none smtp.client-ip=109.224.244.123
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	s=arc-20240116; t=1780394750; c=relaxed/simple;
+	bh=KkZL3kZjlzIKZDczsKUqHdtUtCFsETbMqyj175b7mTo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=rKPwuzkKBra0DXncuXrInDEda0iFEBsXKQdlzcGsCVWd9lC4V6yqjHQ1OvM+A/p5hPq+CziXetkbpTmrngRcIflqPbk6LjuNAvfSY8PxVc6C6hsWvODNtfXExP0RxwpdCLTaeA7ai0ZER1PTI5EkZth9td/0TqcDB43jkYXqXdk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=kl9GGNH0; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="A5qRbJMW"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1780394661; x=1780653861;
-	bh=8yitcGedObR7T+mmA4PMc99vOGJuoP0FGUiv0c6lB3E=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=A5qRbJMWf5kCP3b4ltI0jE+f6xZ5OD6DOdz9oNUzlT5QCFS5vJt0MLzyUd9nU5Jmb
-	 Ldsvo8ApMAbCUJ6iPgXFoGQ/lWadX7xpfufQOLqT2fFzDLxyaTgnNnjP4j+86ISUra
-	 CwGRoGkGAFOZku+d/maaMGKRqEqWkkjQEzkZ5hmo3N+5UTnQynFttXY7BjLozKRCC7
-	 dOK5vMFIntNWk4f6FVfKR9YmLhKi87QunqjV3ECors/WCiWLrgtpD/ZQ71cg0Eqf76
-	 r0adLdAM/R0jB0pu/ruz4vflpHgBFfT0g73jganzdaS7yuGO2WLmBK2XJluTIYnI1y
-	 9jYPnN6X+nMHw==
-Date: Tue, 02 Jun 2026 10:04:16 +0000
-To: regressions@lists.linux.dev
-From: Gerhard Schwanzer <geschw@pm.me>
-Cc: amd-gfx@lists.freedesktop.org, stable@vger.kernel.org, alexander.deucher@amd.com, xiaogang.chen@amd.com, Philip.Yang@amd.com
-Subject: [REGRESSION] drm/amdkfd: SVM split-tail remap regression causes SDMA0 permission fault on RX 7600 XT
-Message-ID: <2bfa2f1b-567a-429b-aee2-a8dcf7efd5aa@pm.me>
-Feedback-ID: 110185885:user:proton
-X-Pm-Message-ID: 3827eb5612f6249c3e3ac56190779809977b43b4
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="kl9GGNH0"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9091B2309;
+	Tue,  2 Jun 2026 03:05:43 -0700 (PDT)
+Received: from thinkpad-e142931.arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id DD7C83F632;
+	Tue,  2 Jun 2026 03:05:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1780394748; bh=KkZL3kZjlzIKZDczsKUqHdtUtCFsETbMqyj175b7mTo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=kl9GGNH0LnDyLs5hJh70fo+fntDxJSbU2Yh7BKyfzbFXGHXr6zUg7scfVNhUXhJ6R
+	 Tp5b86PaKl4aa1R0+OHqUW2VZoiwL2z7hFbRPTGwyJS4O/emX/3sQWJUpn62KB2TO+
+	 I+SiFLWoFYfwTYzfDP/8n5OD6HQLahyViUhrFJj4=
+Date: Tue, 2 Jun 2026 11:05:32 +0100
+From: Wei-Lin Chang <weilin.chang@arm.com>
+To: Oliver Upton <oupton@kernel.org>, kvmarm@lists.linux.dev
+Cc: Marc Zyngier <maz@kernel.org>, Joey Gouly <joey.gouly@arm.com>, 
+	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, stable@vger.kernel.org
+Subject: Re: [PATCH] KVM: arm64: nv: Fix handling of XN[0] when !FEAT_XNX
+Message-ID: <c6ygqahq5cnk7b3q2hyy7aiagmnvytizp7sksjqz6qo57ghifa@ruflsb5snx2s>
+References: <20260602072759.37885-1-oupton@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; protocol="application/pgp-signature"; micalg=pgp-sha256; boundary="------b1d22f524bd0fce574b9f8951abc473a1600bb6c1d38a6de76fecad1260b7fd4"; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260602072759.37885-1-oupton@kernel.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------b1d22f524bd0fce574b9f8951abc473a1600bb6c1d38a6de76fecad1260b7fd4
-Content-Type: multipart/mixed;
- boundary=1ea919c22093f7c70f318045009b12ce5122f2e65a6c40e57fa1a7b4729f
-Message-ID: <2bfa2f1b-567a-429b-aee2-a8dcf7efd5aa@pm.me>
-Date: Tue, 2 Jun 2026 11:48:23 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Gerhard Schwanzer <geschw@pm.me>
-Subject: [REGRESSION] drm/amdkfd: SVM split-tail remap regression causes SDMA0
- permission fault on RX 7600 XT
-To: regressions@lists.linux.dev
-Cc: amd-gfx@lists.freedesktop.org, stable@vger.kernel.org,
- alexander.deucher@amd.com, xiaogang.chen@amd.com, Philip.Yang@amd.com
-Content-Language: en-US
+On Tue, Jun 02, 2026 at 12:27:59AM -0700, Oliver Upton wrote:
+> XN has already been extracted from its bitfield position so using
+> FIELD_PREP() on the mask that clears XN[0] is completely broken, having
+> the effect of unconditionally granting execute permissions...
+> 
+> Fix the obvious mistake by manipulating the right bit.
+> 
+> Cc: stable@vger.kernel.org
+> Fixes: d93febe2ed2e ("KVM: arm64: nv: Forward FEAT_XNX permissions to the shadow stage-2")
+> Signed-off-by: Oliver Upton <oupton@kernel.org>
+> ---
+>  arch/arm64/include/asm/kvm_nested.h | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/arch/arm64/include/asm/kvm_nested.h b/arch/arm64/include/asm/kvm_nested.h
+> index 091544e6af44..f5d4eb925198 100644
+> --- a/arch/arm64/include/asm/kvm_nested.h
+> +++ b/arch/arm64/include/asm/kvm_nested.h
+> @@ -131,7 +131,7 @@ static inline bool kvm_s2_trans_exec_el0(struct kvm *kvm, struct kvm_s2_trans *t
+>  	u8 xn = FIELD_GET(KVM_PTE_LEAF_ATTR_HI_S2_XN, trans->desc);
+>  
+>  	if (!kvm_has_xnx(kvm))
+> -		xn &= FIELD_PREP(KVM_PTE_LEAF_ATTR_HI_S2_XN, 0b10);
+> +		xn &= BIT(1);
+>  
+>  	switch (xn) {
+>  	case 0b00:
+> @@ -147,7 +147,7 @@ static inline bool kvm_s2_trans_exec_el1(struct kvm *kvm, struct kvm_s2_trans *t
+>  	u8 xn = FIELD_GET(KVM_PTE_LEAF_ATTR_HI_S2_XN, trans->desc);
+>  
+>  	if (!kvm_has_xnx(kvm))
+> -		xn &= FIELD_PREP(KVM_PTE_LEAF_ATTR_HI_S2_XN, 0b10);
+> +		xn &= BIT(1);
 
---1ea919c22093f7c70f318045009b12ce5122f2e65a6c40e57fa1a7b4729f
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8; format=flowed
+I think using 0b10 here can improve styling consistency very slightly,
+but either way,
 
-SGksDQoNCkkgd291bGQgbGlrZSB0byBtYWtlIHN1cmUgdGhpcyBBTURLRkQgU1ZNIHJlZ3Jlc3Np
-b24gaXMgdHJhY2tlZCBieSB0aGUNCkxpbnV4IHJlZ3Jlc3Npb24gcHJvY2Vzcy4NCg0KR2l0TGFi
-IHJlcG9ydDoNCg0KIMKgIGh0dHBzOi8vZ2l0bGFiLmZyZWVkZXNrdG9wLm9yZy9kcm0vYW1kLy0v
-d29ya19pdGVtcy80OTE0DQoNClRoZSByZWdyZXNzaW9uIHdhcyBvcmlnaW5hbGx5IHJlcG9ydGVk
-IG9uIDIwMjYtMDEtMjcuIEl0IHdhcyBiaXNlY3RlZCB0byB0aGUNCnNhbWUgZnVuY3Rpb25hbCBj
-aGFuZ2UgdGhhdCBBbGV4IERldWNoZXIncyByZXZlcnQgcGF0Y2ggbGF0ZXIgdGFyZ2V0ZWQ6DQoN
-CiDCoCA0NDhlZTQ1MzUzZWY5ZmIxYTM0ZjVmMjZlYjNmNDg5MjNjNmYwODk4DQogwqAgZHJtL2Ft
-ZGtmZDogVXNlIGh1Z2UgcGFnZSBzaXplIHRvIGNoZWNrIHNwbGl0IHN2bSByYW5nZSBhbGlnbm1l
-bnQNCg0KVGhlIGFmZmVjdGVkIGtlcm5lbCBsaW5lIEkgdGVzdGVkIGlkZW50aWZpZXMgdGhlIHNh
-bWUgY2hhbmdlIGFzOg0KDQogwqAgYmYyMDg0YTdiMWQ3NWQwOTNiNmE3OWRmNGMxMDE0MmQ0OWZi
-YWEwZQ0KDQpBbGV4J3MgcmV2ZXJ0IHBhdGNoOg0KDQpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9w
-Lm9yZy9hcmNoaXZlcy9hbWQtZ2Z4LzIwMjYtRmVicnVhcnkvMTM4ODI0Lmh0bWwNCg0KQSBzbWFs
-bCBDL0hTQSByZXByb2R1Y2VyIGlzIG5vdyBhdmFpbGFibGUgaW4gdGhlIEdpdExhYiByZXBvcnQu
-IEl0IGRvZXMgbm90DQpyZXF1aXJlIFB5VG9yY2gsIENvbWZ5VUksIERvY2tlciwgbW9kZWwgZmls
-ZXMsIG9yIHRoZSBvcmlnaW5hbCB3b3JrbG9hZC4gSXQNCnVzZXMgUk9Dci9IU0EsIGFuIGFub255
-bW91cyBUSFAtYWR2aXNlZCBob3N0IG1hcHBpbmcsIGV4cGxpY2l0IEtGRCBTVk0NClNFVF9BVFRS
-IGlvY3RscywgYW5kIGFuIEhTQSBTRE1BIEQySCBjb3B5Lg0KDQpTaW5nbGUgcmVwcm9kdWNlciBj
-b21tYW5kLCBzYW1lIGJpbmFyeSBvbiBib3RoIGtlcm5lbHM6DQoNCiDCoCAuL2tmZF9zdm1fc3Bs
-aXRfaHNhX2NvcHkgLS11cHN0cmVhbS1hYg0KDQpTYW1lLW1hY2hpbmUgQS9CIHJlc3VsdCBvbiBh
-biBSWCA3NjAwIFhUOg0KDQogwqAgNDQ4ZWU0NTMvYmYyMDg0YTcgYWN0aXZlOg0KIMKgIMKgIDEv
-MSBydW4gZmF1bHRzIHdpdGggU0RNQTAgcGVybWlzc2lvbiBmYXVsdA0KIMKgIMKgIEdDVk1fTDJf
-UFJPVEVDVElPTl9GQVVMVF9TVEFUVVM9MHgwMDg0MUE1MQ0KDQogwqAgNDQ4ZWU0NTMvYmYyMDg0
-YTcgbG9jYWxseSByZXZlcnRlZDoNCiDCoCDCoCAxMC8xMCBydW5zIGNvbXBsZXRlDQogwqAgwqAg
-bm8gUk9DciBtZW1vcnkgYWNjZXNzIGZhdWx0DQogwqAgwqAgbm8gbmV3IEdDVk0vU0RNQTAgcGVy
-bWlzc2lvbiBmYXVsdCBpbiBkbWVzZw0KDQpUaGUgYmFkIGZhdWx0IHBhZ2UgaXMgaW5zaWRlIHRo
-ZSBzcGxpdCB0YWlsIGFuZCBpbnNpZGUgdGhlIFNETUEgY29weSByYW5nZToNCg0KIMKgIGNyaXRp
-Y2FsIHRhaWw6IFsweDcyMjQyOWQ2MS4uMHg3MjI0MjlkZmZdDQogwqAgY29weSBwYWdlczrCoCDC
-oCBbMHg3MjI0MjliMzAuLjB4NzIyNDI5ZDcwXQ0KIMKgIGZhdWx0IHBhZ2U6wqAgwqAgMHg3MjI0
-MjlkNjUNCg0KQSBmdWxsIGZ0cmFjZS9QVEUgcnVuIHdpdGggdGhlIHNhbWUgQyByZXByb2R1Y2Vy
-L1NWTSBzZXF1ZW5jZSBhbHNvIHNob3dzOg0KDQogwqAgc3BsaXRfdGFpbCAuLi4gY3VycmVudF9y
-ZW1hcD0wIG9sZF9yZW1hcD0xIG1pc3NlZD0xDQogwqAgTUlTU0VEX1JFTUFQX0NBTkRJREFURSBz
-cGxpdD10YWlsDQogwqAgbm8gYW1kZ3B1X3ZtX3VwZGF0ZV9wdGVzIGNvdmVyaW5nIHRoZSBmYXVs
-dCBwYWdlIGFmdGVyIHRoZSBtYXJrZXIgYmVmb3JlDQogwqAgdGhlIGZhdWx0LXNpZGUgR0VUX0FU
-VFINCg0KVGhlIHN1c3BlY3RlZCBjb2RlIGlzc3VlIGlzIHRoYXQgdGhlIHNwbGl0LXRhaWwvaGVh
-ZCByZW1hcCBwcmVkaWNhdGUgDQppbnRyb2R1Y2VkDQpieSA0NDhlZTQ1My9iZjIwODRhNyBjYW4g
-bWlzcyB0YWlscyBpbnNpZGUgdGhlIGZpbmFsIDUxMi1wYWdlIGJsb2NrLiBTaW5jZQ0KcHJhbmdl
-LT5sYXN0IGlzIGluY2x1c2l2ZSwgQUxJR05fRE9XTihwcmFuZ2UtPmxhc3QsIDUxMikgaXMgdGhl
-IHN0YXJ0IG9mIHRoZQ0KZmluYWwgYmxvY2ssIG5vdCBhbiBleGNsdXNpdmUgdXBwZXIgYm91bmQu
-DQoNCkkgYWxzbyBzZW50IGEgc2hvcnQgZm9sbG93LXVwIHRvIGFtZC1nZnggd2l0aCB0aGUgcmVw
-cm9kdWNlci9BLUIgc3VtbWFyeSBhbmQNCmFza2VkIHdoYXQgb3JpZ2luYWwgZmFpbHVyZSBvciB3
-b3JrbG9hZCA0NDhlZTQ1My9iZjIwODRhNyB3YXMgaW50ZW5kZWQgDQp0byBmaXg6DQoNCmh0dHBz
-Oi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL2FyY2hpdmVzL2FtZC1nZngvMjAyNi1KdW5lLzE0NTgw
-MC5odG1sDQoNCkkgY2FuIHJlc2VuZCB0aGUgcmVwcm9kdWNlciBzb3VyY2UgYW5kIHN1bW1hcmll
-cyBkaXJlY3RseSBvbi1saXN0IGlmIA0KcHJlZmVycmVkLg0KDQojcmVnemJvdCBpbnRyb2R1Y2Vk
-OiA0NDhlZTQ1MzUzZWY5ZmIxYTM0ZjVmMjZlYjNmNDg5MjNjNmYwODk4DQojcmVnemJvdCBtb25p
-dG9yOiBodHRwczovL2dpdGxhYi5mcmVlZGVza3RvcC5vcmcvZHJtL2FtZC8tL3dvcmtfaXRlbXMv
-NDkxNA0KDQpUaGFua3MsDQpHZXJoYXJkIFNjaHdhbnplcg0K
---1ea919c22093f7c70f318045009b12ce5122f2e65a6c40e57fa1a7b4729f
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment; filename="publickey - geschw@pm.me -
- 0xE32DB141.asc"; name="publickey - geschw@pm.me - 0xE32DB141.asc"
-Content-Type: application/pgp-keys; filename="publickey - geschw@pm.me -
- 0xE32DB141.asc"; name="publickey - geschw@pm.me - 0xE32DB141.asc"
+Reviewed-by: Wei-Lin Chang <weilin.chang@arm.com>
 
-LS0tLS1CRUdJTiBQR1AgUFVCTElDIEtFWSBCTE9DSy0tLS0tCkNvbW1lbnQ6IGh0dHBzOi8vZ29w
-ZW5wZ3Aub3JnClZlcnNpb246IEdvcGVuUEdQIDIuOS4wCgp4ak1FYWFZQ0loWUpLd1lCQkFIYVJ3
-OEJBUWRBTDhzSFhxTDN5Q21KNUp6d3FEQ0hkWTZoSTJRQTM1TWx6Q082CkpyMTNWakRORzJkbGMy
-Tm9kMEJ3YlM1dFpTQThaMlZ6WTJoM1FIQnRMbTFsUHNMQUVRUVRGZ29BZ3dXQ2FhWUMKSWdNTENR
-Y0pFSGJ4WHM4VnA1eFpSUlFBQUFBQUFCd0FJSE5oYkhSQWJtOTBZWFJwYjI1ekxtOXdaVzV3WjNC
-cQpjeTV2Y21mbmRLQmtNZmZLVmQvNWFFclk3VjRWR2g3L3U4Zm45OTQrQUZhemswRGF3UU1WQ2dn
-RUZnQUNBUUlaCkFRS2JBd0llQVJZaEJPTXRzVUVPWXNWaEJITnZ1M2J4WHM4VnA1eFpBQUErZlFE
-L2RFSXQyZGw1WUVwVFdBSkEKRU16MnlDOXNmTHJQN1piRm8vZytYcUlkNDNjQS8yaGlPUTJ1ZlB1
-VXlJbVBNU2xMRUJjV0pCWkxlVDJqRHVyeQpMSGNadmVJRHpqZ0VhYVlDSWhJS0t3WUJCQUdYVlFF
-RkFRRUhRQ0cyL0RXd2Z4R253S3hUUzF6MUluSkV2TkhqCm5WTndheE4rc1NjWFNvME1Bd0VJQjhL
-K0JCZ1dDZ0J3QllKcHBnSWlDUkIyOFY3UEZhZWNXVVVVQUFBQUFBQWMKQUNCellXeDBRRzV2ZEdG
-MGFXOXVjeTV2Y0dWdWNHZHdhbk11YjNKbkVIUDBza2ZMVDBsWWV6OHJLYW5Vb2E3YwpYekhFSmt4
-TkxoSlhuM2JJOXpZQ213d1dJUVRqTGJGQkRtTEZZUVJ6Yjd0MjhWN1BGYWVjV1FBQU1LY0JBTTNt
-CjlxYmt1cm9DTFdBMzZXMHhnRXJTaVBhdTNwTDR4c28yOFRzcUlCaE5BUDlQODhPYm41dnZzYmp1
-V29VaE4wWU4KeEVXQnpuQ1dsZmtPQ1ppOTBNaFFCQT09Cj1hbmNVCi0tLS0tRU5EIFBHUCBQVUJM
-SUMgS0VZIEJMT0NLLS0tLS0=
---1ea919c22093f7c70f318045009b12ce5122f2e65a6c40e57fa1a7b4729f--
-
---------b1d22f524bd0fce574b9f8951abc473a1600bb6c1d38a6de76fecad1260b7fd4
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-Version: ProtonMail
-
-wqsEARYIAF0FgmoeqqAJEHbxXs8Vp5xZNRQAAAAAABwAEHNhbHRAbm90YXRp
-b25zLm9wZW5wZ3Bqcy5vcmctF4Bo6pC5YvBC7JAYk3jUFiEE4y2xQQ5ixWEE
-c2+7dvFezxWnnFkAAM/1AP9HCiI9L8eb4WAGxlEFWmdV9NA0hfw7zvV55dtd
-tLfxIQD/QL6fR3Qm/LieSsG4Mr6EPPDUQejl9Be7OfMq3qmjTwE=
-=l8Wl
------END PGP SIGNATURE-----
-
-
---------b1d22f524bd0fce574b9f8951abc473a1600bb6c1d38a6de76fecad1260b7fd4--
-
+>  
+>  	switch (xn) {
+>  	case 0b00:
+> 
+> base-commit: 5d6919055dec134de3c40167a490f33c74c12581
+> -- 
+> 2.47.3
+> 
