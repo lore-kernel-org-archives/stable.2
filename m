@@ -1,50 +1,51 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C01738839D;
-	Tue,  2 Jun 2026 18:21:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D79EF390C8C
+	for <stable@vger.kernel.org>; Tue,  2 Jun 2026 18:21:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780424501; cv=none; b=N1R74AzYwG/FvB9dciNSxApQg50nEm+lEYqKqPTnCTgjyr/PI69MEgVJGJGXpQR3V4g5hX2CC573vEmNl1e0Zeeeu/xc9tu2DwvhvRe7EZFoMLmrKcfBGr+PorUDFIhdt8PcNriAr/Vz3o8cQGq1GeoYzaZW6/qpGysmVZL3o/4=
+	t=1780424502; cv=none; b=HFueSIW1U1s6eyZGq8tI3jaRpgEVVn6e+d7bJC2VQqTrNrEiivKcQxhZg4f4GbU3+uk9AXxo2g5XfFsmR29ziXxxxJEFT+OXmLRoQJfSwyrPaOnp2L4uaEmJ+kE3b37oEYlXOLGNP+ak35Hz7bECKGcTi4YPZcowNUXQWxGeVZU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780424501; c=relaxed/simple;
-	bh=VX8/5J1UHVi6WOFIgYIpOxAZUnFMdQy0KtAPIzqi6VA=;
+	s=arc-20240116; t=1780424502; c=relaxed/simple;
+	bh=bLNk4YQ7V0aWh/ltmKyQ1PTzjeephg1z5nvy8HsGpmE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=YSytDIV2n2wz60lA5/KOodNO+UEBDr89EYIY5TjXMXuU6VAtBpZJLws0/30E3nvH5h4BDEszpMyR2h+eEnSuey368ajg3kkY4pr0iOYqnYiJK2rex8bByQDvWSzvNTHqypdPs8xT5DWoRzaJUZ3t6kNJhvIfCH5YTTRBqcxtIMw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TbJlZNZ+; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=KYu5K7aCzdpHFzy/mDwTw+g5cU4NWZxADkhEgpGT5+CkZRNHxpgnlgu6HiwukMiM/4R42qN6zSFZnWo261QPXV00EDT34Im8bbXf/6QImE4aF+c+cfYypMCbdgkt43bwmerjqh4AgIM8n6wsusQ+OxRSSEYR2ia6hs+aEJbhTRA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QvkizhFI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TbJlZNZ+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7BB1D1F00893;
-	Tue,  2 Jun 2026 18:21:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QvkizhFI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1495E1F00898;
+	Tue,  2 Jun 2026 18:21:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780424498;
-	bh=BRXmaFtHlGtmlACxC5RELFhg8zad2ITbAOk9CjyKfFA=;
+	s=k20260515; t=1780424500;
+	bh=6s7r+T0XeSz8PrDRUBCZyebkpWeWHzvIPR+oIDL9M6c=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=TbJlZNZ+lDckIQHwqLqi7pwz3DgXXMoniCMFQMYrqutjoc8Um5Q9oG4p8QhWTL41a
-	 /Z9PpXTzCEh2emlG8ENEFmtD5bInXIzumSvFwDHnx0m0ktbfM8jhSfCiCyxlt7rIuD
-	 bq0Wdcvdk57ruf6L4AhaqAnvx9Y9a0KlwImQSbGhSE3AYL/hLP+qldzTnOz0asE8GO
-	 U7d5J/rQMlBaaIBgowckw6nNSrtN+cZMa4x3BNxfKW3q9bOQXTbH9Fmin+rxN0IBff
-	 APiCEXmGor1Z0PAEhAO6s9qgCkXOrLZi+MPlrh3+Jxrs+GmBxRaz/arPHwWU2s/1hj
-	 kcJJvyoriEZvg==
+	b=QvkizhFI/c4HbC/P//4+C3AfdSyFJUaYFlYl4t8Yrmd+u0aTdb7F+IEFwsE0rZPMU
+	 xqr5KJ9py+3WdkYvPDf0/cvRGxIiCJMW9wlLdIw/gPqpY/46mFbLwgwI5hgOlbSEr4
+	 vRRsdN/UxiWuBzTSGeB7rsDq8Sm/bRYTWo4szfRNCwXc3hjgK5VPgdCmpkLwPIYjLH
+	 jhtCKnqZn64XG37fn8A8RPsOTrE2jTFxU/TARRXaizC9xChHsfU1r4891vsncFSCNx
+	 a75p1jwLQL4YxHHUHXwOx242kgwvBHPNTh09cXGRRJcw5+3u0jAiNxhI9hlwJrvusx
+	 a/fXxcNaRBaXg==
 From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org,
-	Prathamesh Shete <pshete@nvidia.com>
+To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	Thierry Reding <treding@nvidia.com>,
-	Petlozu Pravareshwar <petlozup@nvidia.com>,
-	Jon Hunter <jonathanh@nvidia.com>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Meng Li <Meng.Li@windriver.com>,
-	Ulf Hansson <ulf.hansson@linaro.org>,
-	Robert Garcia <rob_garcia@163.com>,
-	linux-tegra@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 6.6.y] soc/tegra: pmc: Fix unsafe generic_handle_irq() call
-Date: Tue,  2 Jun 2026 14:21:18 -0400
-Message-ID: <20260602180500.tegra-pmc-reply@kernel.org>
+	Shung-Hsi Yu <shung-hsi.yu@suse.com>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Martin KaFai Lau <martin.lau@kernel.org>,
+	Stanislav Fomichev <sdf@google.com>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Paul Chaignon <paul.chaignon@gmail.com>
+Subject: Re: [PATCH 6.1.y 00/11] Fix BPF selftests
+Date: Tue,  2 Jun 2026 14:21:19 -0400
+Message-ID: <20260602180500.bpf-selftests-reply@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260602025812.3535026-1-rob_garcia@163.com>
-References: <20260602025812.3535026-1-rob_garcia@163.com>
+In-Reply-To: <cover.1780392092.git.paul.chaignon@gmail.com>
+References: <cover.1780392092.git.paul.chaignon@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -53,10 +54,12 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Tue, Jun 02, 2026 at 10:58:12AM +0800, Robert Garcia wrote:
-> [PATCH 6.6.y] soc/tegra: pmc: Fix unsafe generic_handle_irq() call
+On Tue, Jun 02, 2026 at 11:28:43AM +0200, Paul Chaignon wrote:
+> [PATCH 6.1.y 00/11] Fix BPF selftests
 
-Thanks, but this doesn't apply to 6.6.y.
+Thanks for the series. Patch 1/11 doesn't apply to current 6.1.y: its Makefile
+hunk context references json_writer.c in TRUNNER_EXTRA_SOURCES, but 6.1.y only
+has cap_helpers.c there.
 
 -- 
 Thanks,
