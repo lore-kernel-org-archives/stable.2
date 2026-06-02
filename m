@@ -1,57 +1,59 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65EF73939C2
-	for <stable@vger.kernel.org>; Tue,  2 Jun 2026 18:21:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67D98391844
+	for <stable@vger.kernel.org>; Tue,  2 Jun 2026 18:21:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780424506; cv=none; b=mh6IH79CySbwJ940WONKdZtRXh74SQdm0ehOyJ4RqO3ETIu4w/MS+pA5CfqkIECF2GpAGWK70uT+Py0ML3TrVIoIkqjf8k1vj/8+oOg0D5RzaHyV3naIljFfJq6QgRH8D0tKg3+oiCSPBQMQSq92He9q3uRg3qDsrq0hvkfAy88=
+	t=1780424508; cv=none; b=hvsXPZe9BolywTkLFoxZb3RCDpHxHfoc2qVsOzOR8yzSxhPZUbmwk+BpMMFiZRE45qXRtehxEbDPxrDsoMCneqtRxVa31h4KbBrKVhGa6Ci3bdqpmmryBDHsd0QOXX/LcNakuTAKs/3DxL1apvVIPUXt3XCD7CjVB9nTpxj7uyQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780424506; c=relaxed/simple;
-	bh=MVvTyIxkIW8kafkuyeT5yHAst+40KPSzQdu4O/gvC9A=;
+	s=arc-20240116; t=1780424508; c=relaxed/simple;
+	bh=sqdMMtbY/26Ox2S6GXMK2cy1LPLrxXhmCSEHrefBhbI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jNEjt7iUkoAqXatGgp3ownelVlIW5DcKF8MtU6q2nngeARmAhhKRULyW6U31oRxg37uEuINysAyD+lMfH6U/i31bPeYVKvjlRLOLahCvwDSlPdkkbkInEgvTR2GNKl+OcK4TPlf8o27QIIX+/1SBthZY83fo0tjT+idtmv8vBPY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gqZJnlZv; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=TsmLma9Uk1PfhSrUgzFIiRMyZZAFy20EpIC0OR7CbnwkHcruJ9IERZAji4guXF+59s4ocB3HEbQsHu1pj4QAhYXa039ndIZQYhSz8ZQXYtRkFtTcTHZvEDL1+SyEvLZ1U8ACPrXs6gNhGOScj8GAesQYJNzLEhTHuj4Uzm8tUT0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ofujh7yz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gqZJnlZv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 462CB1F00893;
-	Tue,  2 Jun 2026 18:21:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ofujh7yz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58AFF1F0089A;
+	Tue,  2 Jun 2026 18:21:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780424503;
-	bh=MVvTyIxkIW8kafkuyeT5yHAst+40KPSzQdu4O/gvC9A=;
+	s=k20260515; t=1780424504;
+	bh=79x/bdmRuLluYzncV824n3s3KlSyYxd6NcKkgpckguA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=gqZJnlZv3bckkg9Dt92RNiAfLTrHP3vWDQ2z8n8uMzGWhVzcaOrCgFKgeldrisGyl
-	 H+BGMAnNdB56CSpfdrB89jw8W2kyBE1/nmSK/6rTUUuX6IYaW0YTus0Ph2juxASq1d
-	 7nKkTodDvc8woZAM17rA7InkP0WZ+agGVL9N1OAFfK8Rw10qW0sVijwUILh4y8A0E3
-	 mS4mNFuvtJrnzAjiLH9QEnTMfoHwhwvMo/imuzmzcqv8BjcOT6JXtpsT3d0p9Yh8O5
-	 pV5YZUi5RtIcMMfrg7iPYfd84KeGFgH5Bu/+M6v5ydJCb4FD4dONntx9K+6otGVPjc
-	 jm4Z03LFXbNMw==
+	b=ofujh7yzAqQnwZXJPK237kfZ/iQSy5ISS4hIYMFe3/dFSkcshdg+eiAmomanS/OA5
+	 6hZXvUzIurueNNxTGAnZeHvmyCLSjyzIKBneFqGUNnbBThyinU9xI13FFOWMQo1KXQ
+	 proHp1KNPl1MmzqmFm1x7xnIJTMZmXCS0rpnHFiJZe/Rw3pGaJoS05CN1VBng6wysL
+	 A0yTKMxIj5fVMyKDpKNpZ87lia/yuGNqQIRRHhqdYj0VAKfSedMAEp5F7KEk3MNdi8
+	 wp0RGn8MSB/eJZDnEqjzJmFepSRUcrMz8K+m0Jnu70XV3/xR/CblYzqxZMwS9sWuv9
+	 yj5UfWJsVFdoQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org,
-	Vasiliy Kovalev <kovalev@altlinux.org>
+	=?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>
 Cc: Sasha Levin <sashal@kernel.org>,
-	Ben Hutchings <ben@decadent.org.uk>,
-	Takashi Iwai <tiwai@suse.com>,
-	alsa-devel@alsa-project.org,
-	lvc-project@linuxtesting.org
-Subject: Re: [PATCH v2 5.10.y] ALSA: usb-audio: fix null pointer dereference on pointer cs_desc
-Date: Tue,  2 Jun 2026 14:21:21 -0400
-Message-ID: <20260602180900.alsa-cs-desc-reply@kernel.org>
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Iago Toral Quiroga <itoral@igalia.com>,
+	kernel-dev@igalia.com
+Subject: Re: [PATCH 6.12.y 1/2] drm/v3d: Fix use-after-free of CPU job query arrays on error path
+Date: Tue,  2 Jun 2026 14:21:22 -0400
+Message-ID: <20260602180900.drm-v3d-uaf-reply@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260531152950.191924-1-kovalev@altlinux.org>
-References: <20260531152950.191924-1-kovalev@altlinux.org>
+In-Reply-To: <20260531210323.1637818-1-mcanal@igalia.com>
+References: <20260531210323.1637818-1-mcanal@igalia.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On Sat, May 31, 2026 at 06:29:50PM +0300, Vasiliy Kovalev wrote:
-> [PATCH v2 5.10.y] ALSA: usb-audio: fix null pointer dereference on pointer cs_desc
+On Sat, May 31, 2026 at 06:02:01PM -0300, Maíra Canal wrote:
+> [PATCH 6.12.y 1/2] drm/v3d: Fix use-after-free of CPU job query arrays on error path
+> [PATCH 6.12.y 2/2] drm/v3d: Release indirect CSD GEM reference on CPU job free
 
-Now applied to 5.10.y.
+Both patches now applied to 6.12.y.
 
+-- 
 Thanks,
 Sasha
