@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37C493C37BD;
-	Tue,  2 Jun 2026 22:25:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB7633C063E;
+	Tue,  2 Jun 2026 22:26:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780439127; cv=none; b=ngmxPaQRSg6aJcIG/P1oRg3DthvwfikVYBMTWLAeOY0cQzwUHZUWDQXlrZ2AoOloDUYOLZoWmj2+gWBZAePTFNkmcrbrgGPmUzbVUg43YGxzVsbBsmTCVIR612MEMDYYL3cotQb4xTBmAiRtRIOJWFjrZ391kGx5QUlYtD1dtr4=
+	t=1780439165; cv=none; b=XhBCioqR7Bdkc7xnz8HbQS1FFhaxVku6dZehTG89q76B+ARHP//G4cRcjFnlIlCidNZjDP5q4y9qGxdFGir2TNdS4v6rpZjcE0InuqYFym0eIqBrxAFa7mTeVzJEtrNjW+zK01KlYKANOds5VnC+k+4yZPHbmfvct+0Ba2W+/b8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780439127; c=relaxed/simple;
-	bh=3SkRT+UFxHrKgNVjhsR7L0IKxkTpWHk/XbgCujmvnMY=;
-	h=Date:To:From:Subject:Message-Id; b=tHn2+Fw5v3nBluk9AkiDkQkPCJMEi8HVsf5RAa6PFpnG3ClN27syZ7uMZVgHUrlUnHaP8yJ/oqTQaKm14HYuzYJfKExtGI8d+VyXSzJw76vNkVoYFS1ft1PEpqbKaCRgwCvUitbIxawGfOb/HDE98FVHVQSQeKJ7ZDkkKhyefgU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=ZYF1Ekxy; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780439165; c=relaxed/simple;
+	bh=5t4H7ayqqik64uHSbW31pbJ5HFYbrRQhC4GqjB3b7YY=;
+	h=Date:To:From:Subject:Message-Id; b=uLHa3svfjqkA18DeWIMf+uehh1jG+lieM+VrqbMcPE3tkBZXMpMBtxBnTt7wqMeQ/BDVIr6dpfTi2FcY3h1wlMbLctWWWzmwdIUEbPlMPCPtPsIGpDPPTbDjnjBYyVNe5Oh1B43esLJzZXSPS2gEgZN4VMWIegkzCm1rGrTyq6k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=tXWshOCE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="ZYF1Ekxy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A97E1F00898;
-	Tue,  2 Jun 2026 22:25:26 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="tXWshOCE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B01281F00898;
+	Tue,  2 Jun 2026 22:26:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1780439126;
-	bh=vUTlZ9WIcewarp0dujyeKsrIDM1ICFDV6BrEERvCYik=;
+	d=linux-foundation.org; s=korg; t=1780439164;
+	bh=lSDzwR5+BNmUKJo5yTADATYzm70OOZtOcTd7nHkgndg=;
 	h=Date:To:From:Subject;
-	b=ZYF1EkxyLLWMNLa6SCLi197R2lp/ObaOLDcdljKvQ1NB7lB1w2QDMWFbBC6EZNjEX
-	 aNZK9HEtomJ7Tq0DCwKe1hd04D07xW51/Yde/HIdtdzZTpjyykJa3y78YPzPW/xTtE
-	 nrMN5EHHQmYsBnllU4yyiBCyqjJ+3hfeygBz2Wq0=
-Date: Tue, 02 Jun 2026 15:25:25 -0700
-To: mm-commits@vger.kernel.org,vishal.l.verma@intel.com,stable@vger.kernel.org,rppt@kernel.org,rafael@kernel.org,osalvador@kernel.org,icheng@nvidia.com,gregkh@linuxfoundation.org,djakov@kernel.org,david@kernel.org,georgi.djakov@oss.qualcomm.com,akpm@linux-foundation.org
+	b=tXWshOCE7nDj7Vs2lJdJtuc5oJZ/wxpr0riBX6DKMxqVM0pn8S3AX22YWBT+ZbDyX
+	 SDu7TED9r+1i9Eq1WbgY2JuCoxnIKDE1WoaKblP2TRjA+1UsrF4cMdFnOYHMWkTaEW
+	 +wLnXLl/lqzax4ZbPNkjl+2IBVRhEA910zwVAwTk=
+Date: Tue, 02 Jun 2026 15:26:04 -0700
+To: mm-commits@vger.kernel.org,stable@vger.kernel.org,sj@kernel.org,akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-stable] drivers-base-memory-set-mem-altmap-after-successful-device-registration.patch removed from -mm tree
-Message-Id: <20260602222526.0A97E1F00898@smtp.kernel.org>
+Subject: [merged mm-stable] mm-damon-core-trace-esz-at-first-setup.patch removed from -mm tree
+Message-Id: <20260602222604.B01281F00898@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,65 +35,70 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 
 
 The quilt patch titled
-     Subject: drivers/base/memory: set mem->altmap after successful device registration
+     Subject: mm/damon/core: trace esz at first setup
 has been removed from the -mm tree.  Its filename was
-     drivers-base-memory-set-mem-altmap-after-successful-device-registration.patch
+     mm-damon-core-trace-esz-at-first-setup.patch
 
 This patch was dropped because it was merged into the mm-stable branch
 of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
 ------------------------------------------------------
-From: Georgi Djakov <georgi.djakov@oss.qualcomm.com>
-Subject: drivers/base/memory: set mem->altmap after successful device registration
-Date: Thu, 14 May 2026 02:26:57 -0700
+From: SeongJae Park <sj@kernel.org>
+Subject: mm/damon/core: trace esz at first setup
+Date: Wed, 20 May 2026 08:03:10 -0700
 
-If __add_memory_block() fails at xa_store() (under memory pressure for
-example), device_unregister() is called, which eventually triggers
-memory_block_release() with mem->altmap still set, causing a
-WARN_ON(mem->altmap).  This was triggered by modifying virtio-mem driver.
+DAMON traces effective size quota from the second update, only if a change
+has been made by the update.  Tracing only changed updates was an
+intentional decision to avoid unnecessary same value tracing.  Always
+skipping the first value is just an unintended mistake.
 
-Fix this by delaying the assignment of mem->altmap until after
-__add_memory_block() has succeeded.
+The mistake makes the tracepoint based investigation incomplete, because
+the first effective size quota is never traced.  It is not a big issue
+when the 'consist' quota tuner is used, because it keeps changing the
+quota in the usual setup.
 
-Link: https://lore.kernel.org/20260514092657.3057141-1-georgi.djakov@oss.qualcomm.com
-Fixes: 1a8c64e11043 ("mm/memory_hotplug: embed vmem_altmap details in memory block")
-Signed-off-by: Georgi Djakov <georgi.djakov@oss.qualcomm.com>
-Acked-by: Oscar Salvador (SUSE) <osalvador@kernel.org>
-Cc: Vishal Verma <vishal.l.verma@intel.com>
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: Richard Cheng <icheng@nvidia.com>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Georgi Djakov <djakov@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>
-Cc: <stable@vger.kernel.org>
+However, when the 'temporal' tuner is used, the quota value is not changed
+before the goal achievement status is completely changed.  For example, if
+the DAMOS scheme is started with an under-achieved goal, the quota is set
+to the maximum value, and kept the same value until the goal is achieved. 
+Because DAMON skips the first value, the user cannot know what effective
+quota the current scheme is using.  Only after the goal is achieved, the
+effective quota is changed to zero, and traced.
+
+Unconditionally trace the initial quota value to fix this problem.
+
+Note that the 'temporal' quota tuner was introduced by commit af738a6a00c1
+("mm/damon/core: introduce DAMOS_QUOTA_GOAL_TUNER_TEMPORAL"), which was
+added to 7.1-rc1.  But even with the 'consist' quota tuner, the tracing is
+unintentionally incomplete.  Hence this commit marks the introduction of
+the trace event as the broken commit.
+
+Link: https://lore.kernel.org/20260520150311.80925-1-sj@kernel.org
+Fixes: a86d695193bf ("mm/damon: add trace event for effective size quota")
+Signed-off-by: SeongJae Park <sj@kernel.org>
+Cc: <stable@vger.kernel.org> # 6.17.x
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 ---
 
- drivers/base/memory.c |    3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ mm/damon/core.c |    2 ++
+ 1 file changed, 2 insertions(+)
 
---- a/drivers/base/memory.c~drivers-base-memory-set-mem-altmap-after-successful-device-registration
-+++ a/drivers/base/memory.c
-@@ -797,7 +797,6 @@ static int add_memory_block(unsigned lon
- 	mem->start_section_nr = block_id * sections_per_block;
- 	mem->state = state;
- 	mem->nid = nid;
--	mem->altmap = altmap;
- 	INIT_LIST_HEAD(&mem->group_next);
+--- a/mm/damon/core.c~mm-damon-core-trace-esz-at-first-setup
++++ a/mm/damon/core.c
+@@ -2899,6 +2899,8 @@ static void damos_adjust_quota(struct da
+ 	if (!quota->total_charged_sz && !quota->charged_from) {
+ 		quota->charged_from = jiffies;
+ 		damos_set_effective_quota(c, s);
++		if (trace_damos_esz_enabled())
++			damos_trace_esz(c, s, quota);
+ 	}
  
- #ifndef CONFIG_NUMA
-@@ -815,6 +814,8 @@ static int add_memory_block(unsigned lon
- 	if (ret)
- 		return ret;
- 
-+	mem->altmap = altmap;
-+
- 	if (group) {
- 		mem->group = group;
- 		list_add(&mem->group_next, &group->memory_blocks);
+ 	/* New charge window starts */
 _
 
-Patches currently in -mm which might be from georgi.djakov@oss.qualcomm.com are
+Patches currently in -mm which might be from sj@kernel.org are
 
+mm-damon-reclaim-handle-ctx-allocation-failure.patch
+mm-damonn-lru_sort-handle-ctx-allocation-failure.patch
+maintainers-add-testing-abi-documents-for-mm.patch
 
