@@ -1,139 +1,130 @@
-Received: from out162-62-57-252.mail.qq.com (out162-62-57-252.mail.qq.com [162.62.57.252])
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50C273603DD;
-	Tue,  2 Jun 2026 06:58:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.57.252
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1755347BC6
+	for <stable@vger.kernel.org>; Tue,  2 Jun 2026 07:11:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780383508; cv=none; b=ML/xPZbY52Mj8NjWm0++z+IY8WwjMqxDcF5oquXAhWSpvlCjNJfS3cbfkeJp/uMlPWF5qMqEO+kbqJ4wCSxweK8Z7bQ2f1IukIAWGN3G/rcuWZIHQ6g50ynFXXpIuFVvfMea0TLrYtwN8b8q/yV1DvTZqi7zy1phfhMIuiNeRjU=
+	t=1780384264; cv=none; b=ZHe6RZT1Ls+V30ph1/X3Ld5UinJuEhMN0kC+EpIWoHM2neEQC0RcxZnWA7ZgEou7X7StfAAPR9GAlVmZx85y/CimVNi6KCCEaDrjYRFOU2kVI8aasIFvFV7O+sMEOw+VitWUbB84ltOzNduD5g78BNAAWIGOrFCBc5hVe8pkIlU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780383508; c=relaxed/simple;
-	bh=y7gaOVSkev8OKgUOf1YIMsX7aJlaQDh/wcoYNEPxQ8g=;
-	h=Message-ID:From:To:Cc:Subject:Date:In-Reply-To:References:
-	 MIME-Version; b=cODicoHJo/Cw2tRhw/8hJicrZuVr3fYU3XJI9HLOTucbwky5lInHh1MJls6kdX/WTreHqwpCVw3m2jmKf9JdEg9iqrL1Q6iRxUJyIczEPECLYSkrT5Mz/xMhbs0VS8/ihvI53elp4RCtGEbwOdUtufTFlk8YiyRGqz25tT6p6js=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foxmail.com; spf=pass smtp.mailfrom=foxmail.com; dkim=pass (1024-bit key) header.d=foxmail.com header.i=@foxmail.com header.b=IzwFjFsY; arc=none smtp.client-ip=162.62.57.252
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foxmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foxmail.com
+	s=arc-20240116; t=1780384264; c=relaxed/simple;
+	bh=U1zk6Y2TXpDJxdcrfKxY4jbseCRnsIusZvdsn/lnFsc=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Yq6QiH47ywcRTif+AfOL6Or5rvcF1/2IqIuEKn39HWGrT38UqA9VKmoRrXmC2ObDlVCc7njtYcCGMwWbP09aQJX4shech4hqTeadKVKYRBA7PHHycCWvZxf4MSituAFiY75B5nE5HKcKBFNZoWRurdLi1xcXpt1xeh3oEEfEbRs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=L3TjL2rH; arc=none smtp.client-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=foxmail.com header.i=@foxmail.com header.b="IzwFjFsY"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
-	s=s201512; t=1780383501;
-	bh=p2KVL35te1+gvvlusWIcKVNV/mSZmYzRwC1n4grXbAw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=IzwFjFsYFZIqGcMDvO//7jghg4FvMJgsV/MPOBYZkp4cHC/9yxHc8HySe3gMVzk4g
-	 pULQciHw9Fa6m5VoFre2n1S+5IkxUPAaejIkNUj03DLcI7Ah9NlOVE8ySpPaMVdyZA
-	 TQDFeDBUQQbytA3SoqjCj5kI8nf4x+JaVNsd/txk=
-Received: from localhost.localdomain ([116.128.244.169])
-	by newxmesmtplogicsvrszc56-0.qq.com (NewEsmtp) with SMTP
-	id E9419AC3; Tue, 02 Jun 2026 14:58:20 +0800
-X-QQ-mid: xmsmtpt1780383500tsmi8y543
-Message-ID: <tencent_2FA9C0219BBCE44ED2E6E05DAB221EB82F09@qq.com>
-X-QQ-XMAILINFO: OeJ9zRfntlNPEU9XRyJcqm4r4wqoD29BbGUcqIUp5yFWl82VTmu34Bq0qcq1//
-	 mJq8Gzco2tmtXy0+M1A1WTDxJus6JyPcdu0UUf+Tg/RKO/vlaLiCfbpg91LAMp4s8TWEPZlAHzAL
-	 wb9IgutJGEeLkUmXJaNjrPc9har3Zjxmi3F96lj/toARjvFmfLTu6l/Vgz+MNohukZ2DuzzGMLDt
-	 /+pvRDbgUA/CYYykK5mXFhzoG28lmgF1kcP3NAald5xBI/0cykNfB2Zq/Hcmt/uHGQrp9laUeRm+
-	 KJBBR2dpZQZxWfJS0mn5ZZHgh801KTHKBrfV38IVe3eTIJRN0voZofUW9Sw8NldNSJZCMoL7eemw
-	 FijTbkivbi+cmD/8uzb9+b+YEx2L47ihwD9b0O992jFAEL4SY00rpn8OCGx2lTdwAUDKYglnjKXp
-	 jz1dQJBmtjJLLYcwJ0DiCCBBvsf8S+gX6VeHr8sR//YbDTvLgobDbtPU7NOMPHJYWuiFCUCSUgUP
-	 dxtgbjNgT5SuPJECoJyZ+TUCsaS6vbpRhV67B2PzZPzjdYCV4pphvv6xDufv+57GZ21UVaTZ+h9q
-	 kidya8bgurOczSVBqihH+GfWIZIKakIj2iCwvLbJUG/lR0hXzxx+V+JzEkrUJJplzK7/JYZo5YnD
-	 HQqx3ngaru5paeZ0lAfdjopWcastinSKSz3EQnS0VZIvMJ/uuX0WyeeowQnWjbYjGl8NQ54f2VRe
-	 LUxX5qy0TVQRoD19sCXvrDNSA2kujZUKTrFGgYtf7WTgX23bfXqQ5uZQNRBL+4adV7qXmpjqcREO
-	 BB39vtj8iJC+MxEEetiOPb99UuP8vWMpZZsoYfyOasvIAsrfbObQqL37nmsyLRdSxCcJLeeSyd6d
-	 nYmXmHRH8d2SbU5gPAPuyL7HXd6ASVOrb5MIQtcz6VxAokx9Y8184OgMQfc3AeSjLYQYf6KK36G9
-	 POe4hCqoVwNKvcqqrbaLUD0cUKCUjDtBblDxrxALmIxoLjiGT0Q/Ss967mfEZ8CGhO2DjAySj6W7
-	 5KYx7a7uhGRIsQEN+6177VP4AdCsbioADnmWyQuDDNvLI1ZMg7t6wqlktptihsQYb6nOTUo0McDY
-	 acHxqxObW5QtXKoP4=
-X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
-From: xiaopeitux@foxmail.com
-To: mchehab@kernel.org,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	mchehab@s-opensource.com
-Cc: Pei Xiao <xiaopei01@kylinos.cn>,
-	Shuangpeng Bai <shuangpeng.kernel@gmail.com>,
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="L3TjL2rH"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:
+	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+	List-Post:List-Owner:List-Archive;
+	bh=0/xmktmPrrIYCJHOQlDHmeOVRloHcWNYMzI+S6Krurg=; b=L3TjL2rHuiSycbWTZmJJJcVe8Y
+	1UpHm6fxn4ELXfn3N9loojiTfvGpRtvFl6Vil/9XtvjfbjSb6yTT3zkdtUqJzncouIe85culIX/nQ
+	10fqYp9qa5dkxWrsdU1qD7JZ1OMAb77wDwBa53ti70B14VkgGnmIPp0fV/VrSk8q6gkEslMXTxhmK
+	wO8QTUrfa8Pw57Gd1VVCSCrDtTT0aaf2zVFak//cH+zCfS5YxTow7LE+B7lrkpZnqZfS49xwRDvPj
+	c4pqU0j2UgSQHK6kR/iXKs0FGeDsyx7OGCRso8YZ+92YTWnvlNhBazOiXS7xMCHVBC3Xpk8A/LLze
+	dGl9WHDw==;
+Received: from static-234-112-85-188.ipcom.comunitel.net ([188.85.112.234] helo=[192.168.0.17])
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+	id 1wUJGz-00BZZf-Vo; Tue, 02 Jun 2026 09:10:50 +0200
+Message-ID: <68bb463c77c3d65f23f53b4a2c64fd4547e45aa3.camel@igalia.com>
+Subject: Re: [PATCH v2 2/2] drm/v3d: Skip CSD when it has zeroed workgroups
+From: Iago Toral <itoral@igalia.com>
+To: =?ISO-8859-1?Q?Ma=EDra?= Canal <mcanal@igalia.com>, Melissa Wen
+	 <mwen@igalia.com>, Jose Maria Casanova Crespo <jmcasanova@igalia.com>
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
 	stable@vger.kernel.org
-Subject: [PATCH 2/2] media: pci: saa7164: fix slab-use-after-free in saa7164_dvb_register
-Date: Tue,  2 Jun 2026 14:58:19 +0800
-X-OQ-MSGID: <31e275856b681580942cab9fb75f9957665af716.1780383298.git.xiaopei01@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <c0cb04583f255e53d39214257bc6a3be8ec8dfb9.1780383298.git.xiaopei01@kylinos.cn>
-References: <c0cb04583f255e53d39214257bc6a3be8ec8dfb9.1780383298.git.xiaopei01@kylinos.cn>
+Date: Tue, 02 Jun 2026 09:10:39 +0200
+In-Reply-To: <20260601-v3d-fix-indirect-csd-v2-2-aaebf035b936@igalia.com>
+References: <20260601-v3d-fix-indirect-csd-v2-0-aaebf035b936@igalia.com>
+	 <20260601-v3d-fix-indirect-csd-v2-2-aaebf035b936@igalia.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.52.3-0ubuntu1.1 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Pei Xiao <xiaopei01@kylinos.cn>
+El lun, 01-06-2026 a las 16:13 -0300, Ma=C3=ADra Canal escribi=C3=B3:
+> A compute shader dispatch encodes its workgroup counts in the
+> CFG0..CFG2
+> registers. Kicking off a dispatch with a zero count in any of the
+> three
+> dimensions is invalid. First, the hardware will process 0 as 65536,
+> causing an illegitimate submission. But over that, a submission with
+> a
+> zeroed workgroup dimension should be a no-op.
+>=20
+> These zeroed counts can reach the dispatch path through an indirect
+> CSD
+> job, whose workgroup counts are only known once the indirect buffer
+> is
+> read and may legitimately be zero, but such scenario should only
+> result in
+> a no-op.
+>=20
+> Don't submit the job to the hardware when any of the workgroup counts
+> is
+> zero, so the job completes immediately instead of running the shader.
+>=20
+> Cc: stable@vger.kernel.org
+> Fixes: d223f98f0209 ("drm/v3d: Add support for compute shader
+> dispatch.")
+> Suggested-by: Jose Maria Casanova Crespo <jmcasanova@igalia.com>
+> Signed-off-by: Ma=C3=ADra Canal <mcanal@igalia.com>
+> ---
+> =C2=A0drivers/gpu/drm/v3d/v3d_sched.c | 9 +++++++++
+> =C2=A01 file changed, 9 insertions(+)
+>=20
+> diff --git a/drivers/gpu/drm/v3d/v3d_sched.c
+> b/drivers/gpu/drm/v3d/v3d_sched.c
+> index 47f83936cd73..681d10af4c8e 100644
+> --- a/drivers/gpu/drm/v3d/v3d_sched.c
+> +++ b/drivers/gpu/drm/v3d/v3d_sched.c
+> @@ -352,6 +352,15 @@ v3d_csd_job_run(struct drm_sched_job *sched_job)
+> =C2=A0		return NULL;
+> =C2=A0	}
+> =C2=A0
+> +	/* For dispatch dimensions, HW interprets 0 as 65536,
+> causing
+> +	 * illegitimate submissions that must be rejected. Note that
+> +	 * 65535 (2^16 - 1) is the maximum number of workgroups per
+> dimension.
+> +	 */
 
-A use-after-free (UAF) issue similar to the one in au0828 was found in
-the saa7164 DVB driver. When dvb_register_frontend() fails before the
-frontend's kref is initialized (e.g., due to -ENOMEM in kzalloc of
-fe->frontend_priv), the error path still calls dvb_frontend_detach(),
-which eventually invokes dvb_frontend_put(), immediately frees the frontend
-via dvb_frontend_free().
+I am not sure this description is accurate. I think passing in 0
+doesn't cause illegitimate submissions. I think the issue is that if we
+allow 0 to be interpreted as 65536 then can't tell if an indirect job=20
+actually configured 0 as the dimension. So I'd rephrase this as:
 
-Later, the outer error path in saa7164_dvb_register() again calls
-dvb->frontend->ops.release() on the already freed frontend, leading
-to a double free and a KASAN slab-use-after-free report.
+/* The hw interprets a workgroup size of 0 as 65536, however,
+ * the user-space driver exposes a maximum of 65535. So a 0 on any
+ * dimension means that=C2=A0we have no workgroups and the compute shader
+ * should not be dispatched.
+ */
 
-The call chain is:
+With that change, both patches are:
 
-  saa7164_dvb_register()
-    -> dvb_register(port)
-      -> dvb_register_frontend()
-          (fails before kref_init, e.g., -ENOMEM)
-      -> fail_frontend:
-        -> dvb_frontend_detach()
-          -> dvb_frontend_put()
-                -> __dvb_frontend_free()
-                  -> dvb_frontend_invoke_release(fe, fe->ops.release)
-                    -> (frontend-specific release, frees the object)
-    (back to saa7164_dvb_register)
-    if (ret < 0) {
-        if (dvb->frontend->ops.release)
-            dvb->frontend->ops.release(dvb->frontend);  // USE-AFTER-FREE
-    }
+Reviewed-by: Iago Toral Quiroga <itoral@igalia.com>
 
-The second release is redundant and unsafe because the frontend has
-already been freed by the first release via dvb_frontend_put.
-
-Fix this by removing the redundant manual release call in the outer
-error path. The frontend is already destroyed by dvb_frontend_put()
-in the inner error path, so we only need to set dvb->frontend to NULL
-to avoid any further misuse.
-
-Modified by referring to au0828 UAF.
-
-Fixes: ead666000a5f ("media: dvb_frontend: only use kref after initialized")
-Reported-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
-Closes: https://lore.kernel.org/lkml/AAC17221-93BF-436F-92AC-906A18F882F0@gmail.com/
-Cc: stable@vger.kernel.org
-Signed-off-by: Pei Xiao <xiaopei01@kylinos.cn>
----
- drivers/media/pci/saa7164/saa7164-dvb.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/media/pci/saa7164/saa7164-dvb.c b/drivers/media/pci/saa7164/saa7164-dvb.c
-index 3eb749db1ca7..ba6e83b360ac 100644
---- a/drivers/media/pci/saa7164/saa7164-dvb.c
-+++ b/drivers/media/pci/saa7164/saa7164-dvb.c
-@@ -727,8 +727,10 @@ int saa7164_dvb_register(struct saa7164_port *port)
- 	/* register everything */
- 	ret = dvb_register(port);
- 	if (ret < 0) {
--		if (dvb->frontend->ops.release)
--			dvb->frontend->ops.release(dvb->frontend);
-+		/* dvb->frontend freed in dvb_frontend_put, now we can set
-+		 * frontend to NULL
-+		 */
-+		dvb->frontend = NULL;
- 		return ret;
- 	}
- 
--- 
-2.25.1
+> +	if (!V3D_GET_FIELD(job->args.cfg[0],
+> V3D_CSD_QUEUED_CFG0_NUM_WGS_X) ||
+> +	=C2=A0=C2=A0=C2=A0 !V3D_GET_FIELD(job->args.cfg[1],
+> V3D_CSD_QUEUED_CFG1_NUM_WGS_Y) ||
+> +	=C2=A0=C2=A0=C2=A0 !V3D_GET_FIELD(job->args.cfg[2],
+> V3D_CSD_QUEUED_CFG2_NUM_WGS_Z))
+> +		return NULL;
+> +
+> =C2=A0	v3d->queue[V3D_CSD].active_job =3D &job->base;
+> =C2=A0
+> =C2=A0	v3d_invalidate_caches(v3d);
+>=20
 
