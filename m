@@ -1,92 +1,92 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F58D3D349A;
-	Tue,  2 Jun 2026 10:17:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A1E93D349A;
+	Tue,  2 Jun 2026 10:18:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780395475; cv=none; b=eVJPWhEA4bKAb3buBXyGMAyR24oY7zGjM72wboJnipoUD02VaOX2C1arVOrsb5NWmx6BMY3Gs5PKCkcleeyd1+miaPio8ooD0ubxJeu9n5UlhLHusT+HyM7my7KRMSz68JnJwm1rMNBwCAJ1WuFRppEiKiEqI5YYo6V4Ya+h1ZM=
+	t=1780395516; cv=none; b=icJAGs7RYjd+zMF7MmIH3OiNZF/WSszYlKV2kKfoTmEp+Xp8shEoCe20HP6x4z9x2XWFuOz5heVtOCGqXOOI4+96DErgSTWZBZ7XR7eRT16EPl3TafJbxg/zhju8KGk1HUlakujT67EVM+4t+LDCWE6CfWQPaIFXGVI+vtIQH/o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780395475; c=relaxed/simple;
-	bh=0Xwc8J6pstK6FPuxfGfZ0a8ZZw6vYlDnpkOAwM1wCZ8=;
+	s=arc-20240116; t=1780395516; c=relaxed/simple;
+	bh=0CwGFvg6msXZHsPhvYki0SBF0WQtGa73wA83lE4DqsU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eSD8LxjshX7Iflbmn33a7DgYvl5nNTbbFV0SGrgaXf9IJDJdJqNRvjPpSTHYOppsPnLArMTayD5+3ktECN/NIj11E54ZYo9mvZZeZ9/sngN6WKMdAHmYN+D/Hmwh+c6Js22zFkQprOf0Zkykz/uJ0R6ZFGaBEyQTY7zw1/fcMzY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OGtn0kJe; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=Gl7DUPyDjzq9g5T5U0Wsq2RYSKYGzKHguXbNONI6iSE/Y0W8Y8GztvaLlzA8U8nLzS7Cis84bLFjEmLFHJwK9QcbvFkMP25ka2l6ECGUWS12gctTlVvTqALBMfG7HotN4pYqHh6mk5O4BjyAsmL8L9zBf0lsMaRO4Zqbmgo5FWI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=UUVbMuGv; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OGtn0kJe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DCD41F00893;
-	Tue,  2 Jun 2026 10:17:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780395474;
-	bh=sOUTmCnODvoRiB4svT1aqcrWncFRBiBKgj63J/VkJHE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=OGtn0kJepFBMpmV/220GBzd6lN8Zh5Ff7HU69LeZuDR8hWPfTDHKD/sBawoZyNrFq
-	 3IBM2Xy7XgsdN1pgaqsishkuXS/csW7fsh/ZW3+R8j/dWyrLLuQPGnrjoUYaKIbWdc
-	 xIdc8IZUYN3uUMonCJne59IjM56Wsbz/MgRJ2wUjLUy4zzG0xNPNd1Y8eT9wzwZfSB
-	 FhJt5QqTY8aBmD1ehPRte4vp6z54hH2fnvXAHpHJWH3XwNilhf1S8EubxS1gornIMj
-	 pNIjbpbOdd0gX74B1C+KlxpbjZdoa3ZyFtc0FJ/sCZkQ/zFUXQ6hvrWQC/ynQloAfL
-	 2MAdALfjbkbsw==
-Received: from johan by xi.lan with local (Exim 4.99.3)
-	(envelope-from <johan@kernel.org>)
-	id 1wUMBz-0000000ACp1-2ZbO;
-	Tue, 02 Jun 2026 12:17:51 +0200
-Date: Tue, 2 Jun 2026 12:17:51 +0200
-From: Johan Hovold <johan@kernel.org>
-To: Adrian Korwel <adriank20047@gmail.com>
-Cc: linux-usb@vger.kernel.org, gregkh@linuxfoundation.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 1/2] USB: serial: io_ti: fix heap overflow in
- get_manuf_info()
-Message-ID: <ah6tz1s90zvxaPef@hovoldconsulting.com>
-References: <2026052525-devotee-reclaim-7673@gregkh>
- <20260525145832.2941-1-adriank20047@gmail.com>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="UUVbMuGv"
+Received: from ideasonboard.com (unknown [IPv6:2001:b07:6462:5de2:520d:d7a3:63ca:99e8])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 48307802;
+	Tue,  2 Jun 2026 12:18:03 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1780395483;
+	bh=0CwGFvg6msXZHsPhvYki0SBF0WQtGa73wA83lE4DqsU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=UUVbMuGv5ok3OC/BscovpMISUUR/RwkgrZx4eJmeOtddPzKNeJvgO9jmk5gsr9v2u
+	 3q4vlH4RKtudjte204arqRNXDz9fyl/P6BzgwolQyBpBMFtXVzuP2qJumCLUKxl3cZ
+	 gnWMgmom656pJZoM33ARQp0EpQMVWMxtsBwwNUco=
+Date: Tue, 2 Jun 2026 12:18:23 +0200
+From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+To: David CARLIER <devnexen@gmail.com>
+Cc: Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+	Daniel Scally <dan.scally@ideasonboard.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Hans Verkuil <hverkuil+cisco@kernel.org>, Nayden Kanchev <nayden.kanchev@arm.com>, 
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] media: mali-c55: fix integer overflow in scaler
+ factor calculation
+Message-ID: <ah6seVCMzk0JODrf@zed>
+References: <20260529024429.6942-1-devnexen@gmail.com>
+ <20260529050649.14109-1-devnexen@gmail.com>
+ <ahqh3Zv8xXNENzHb@zed>
+ <CA+XhMqyhpn0kHgz=i9WUS+1rFN4kWW3DpUYubBN1k-qcKo+RpQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260525145832.2941-1-adriank20047@gmail.com>
+In-Reply-To: <CA+XhMqyhpn0kHgz=i9WUS+1rFN4kWW3DpUYubBN1k-qcKo+RpQ@mail.gmail.com>
 
-On Mon, May 25, 2026 at 09:58:31AM -0500, Adrian Korwel wrote:
-> get_manuf_info() reads le16_to_cpu(rom_desc->Size) bytes from the
-> device I2C EEPROM into a buffer allocated with kmalloc_obj(), which
-> is sizeof(struct edge_ti_manuf_descriptor) = 10 bytes.
-> 
-> The Size field comes from the device and is only validated to fit
-> within TI_MAX_I2C_SIZE (16384 bytes),
+Hi David
 
-get_descriptor_addr() does not validate this, but apparently
-check_i2c_image() has already done so. I added a comment about that
-since it's not obvious.
+On Sat, May 30, 2026 at 11:02:40AM +0100, David CARLIER wrote:
+> Hi Jacopo,
+>
+>   On Sat, May 30, 2026 at 10:55:59AM +0200, Jacopo Mondi wrote:
+>   > Have you hit this issue ?
+>
+>   Not on hardware, I found it by code analysis. The sink format is clamped to
+>   8192 and crop is clamped against the sink, so crop->width can reach
+>   4096+, where (crop << 20) overflows 32 bits before landing in the u64.
+>   I don't have a >=4096 source to reproduce on, but it's provable from the
+>   operand widths and the clamp. UHD (3840) is just under; 4096 gives a
+>   zero increment, wider values a garbage one.
+>
+>   > Could we maybe first do the crop/scale division and then do the Q4.20
+>   > conversion ? We could maybe save the below do_div() [...]
+>
+>   I don't think we can - dividing first loses the fraction the Q4.20
+>   factor is there to keep. E.g. crop=4096, scale=1920:
+>
+>     correct:      4096 * 2^20 / 1920 = 2236962  (~2.133)
+>     divide-first: (4096 / 1920) << 20 = 2097152  (2.0)   -> ~6.7% off
+>
+>   So the multiply has to come first, and that pushes the numerator up to
+>   8192 * 2^20 = 2^33, which needs a 64-bit divide either way. BIT_ULL()
+>   just does the existing multiply in 64-bit. Happy to switch do_div() to
+>   div_u64() if you prefer, but that's orthogonal.
 
-> not against the destination
-> buffer size. A malicious USB device can therefore set Size to any
-> value up to 16383, causing a heap overflow of up to 16373 bytes
-> when plugged into a host running this driver.
+Oh yes you're right, I think using ULL is certainly better.
 
-You also need to account for the first two bytes and the header so these
-numbers should be 16377 and 16367, right?
- 
-> valid_csum() is called after read_rom() and also iterates
-> buffer[0..Size-1], compounding the out-of-bounds access.
-> 
-> Fix by rejecting descriptors larger than the destination struct
-> before calling read_rom().
+Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
 
-We should also make sure that the descriptor is not too short so I
-amended the patch when applying.
+Thanks
+  j
 
-End result is here:
 
-	https://git.kernel.org/pub/scm/linux/kernel/git/johan/usb-serial.git/commit/?h=usb-linus&id=183c1076eca43bbb3e7bdf597456f91d81c73e74
 
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Adrian Korwel <adriank20047@gmail.com>
-
-Both fixes now applied, thanks.
-
-Johan
+>
+> Cheers !
