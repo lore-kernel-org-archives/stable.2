@@ -1,62 +1,62 @@
-Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
+Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91DCC364935
-	for <stable@vger.kernel.org>; Tue,  2 Jun 2026 02:30:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F56D3655F8
+	for <stable@vger.kernel.org>; Tue,  2 Jun 2026 02:30:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780367419; cv=none; b=aFgupqhot1LY2aYlXziC2gAWAQpZgwWtN7Dz80Wzn0UJoW+rIolVh1F5pdNiicP6LL9w1IKxKUOMRd4B5fj4Yzz37/UD+9vkQUKwwniBbin5Q44Xa96MW8oFgc5DJKbFhY2PQH2z2S2+ikuTZxsQamVbu0vPlU7fsj1cnu3MaPQ=
+	t=1780367421; cv=none; b=M8K8L0U1FjZnyQZBCgkW3l+Z1ex34fc/cnuFMAjSVUeSig+qY/3FGtjrE0eNjF++EiVotfjlF/DosAAsY4/i2rxieJrfNvvzdE2uLyHoliZb+SaPITrTrRihnovQ69fKYYhk1lk2SbnSnkTMdB/0t8jb/KTLzHzKX5Esi0puOhY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780367419; c=relaxed/simple;
-	bh=KXyrILcCRnmNCPuYJN6QLIuRlb9sOwoE41urgQBER5Q=;
-	h=Content-Type:MIME-Version:Subject:From:To:Cc:Date:Message-ID; b=CNnPoD3NY1NAz+e248qcGxlT5yJaE3hG0Jh9lnKTngPy5ngDmDpdKZjMrH5rVAsoOF3fVqRnfLpb3zxo8aiyrpzNwY78dJJbw5y8ZEHEyOAMQeNBhpgvILc2OgPyiCv8DCvS2eJZ1OMF00RnQK3r1AfoW8XT41GV1cs93bhb0y4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org; spf=pass smtp.mailfrom=kernelci.org; dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b=hs6EC41F; arc=none smtp.client-ip=74.125.82.43
+	s=arc-20240116; t=1780367421; c=relaxed/simple;
+	bh=aNCY4Nq5ceBE7HoT3WZkwMVjg1SBA6PiZRePzYRybEo=;
+	h=Content-Type:MIME-Version:Subject:From:To:Cc:Date:Message-ID; b=TapAU4G6nnQCU+Y6JnBplQzr3+Jy1ZXbHsYoYXctDRbdRFsfBBO8ax2YXE4d74+nwqO6n1cBaMOuw5ZGcyysJ0mw2q20n4jPV6EGLyf+/XV+CTcMwBVlP7+GkB9n5tx+YKz6/PukusiQsPDh+pcouwm0SuGgCW5P6KskiQEParA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org; spf=pass smtp.mailfrom=kernelci.org; dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b=Qge5bvG/; arc=none smtp.client-ip=74.125.82.170
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelci.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b="hs6EC41F"
-Received: by mail-dl1-f43.google.com with SMTP id a92af1059eb24-1363fe80fe8so12970068c88.0
-        for <stable@vger.kernel.org>; Mon, 01 Jun 2026 19:30:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b="Qge5bvG/"
+Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-307263ad0cbso1760842eec.0
+        for <stable@vger.kernel.org>; Mon, 01 Jun 2026 19:30:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernelci.org; s=google; t=1780367416; x=1780972216; darn=vger.kernel.org;
+        d=kernelci.org; s=google; t=1780367419; x=1780972219; darn=vger.kernel.org;
         h=message-id:date:reply-to:cc:to:from:subject
          :content-transfer-encoding:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=381flff3FhtIDQrIo11Baa1X+cPozVjFjYASUxHZtDs=;
-        b=hs6EC41F8CiOUjUzT0mFYHs7xSsH+peRn20SMWqBd5TfOREOD/nvq7S/nCcSG0Ktht
-         XIs1jFbYVqxF4JKqmNYpTjSV5MXJ28dZh2vbaMqielh0i2+7n9JQRz+fs+7PFG4jJmRb
-         smPFrk/aBjUVC2uXUNDWtulPuXjPslgHS/oO/2bvvqv0lu8NQXmDSkZc1gwf/NjCI1Tg
-         08H3k9KPkj6ya1H5FGCV+Nji00FidjdK527Z95ThZyNfebmdBFEh0T2X/ohcK3jeqDSW
-         5l3f4kuCRsW66GRuoXqPWIWhh/hHTe4YJce5vxagSwSC+B16LNx0KPUHjaAJ/8KRNgAH
-         bL1A==
+        bh=PQYZrl+XAeWhFuy7ePSShrqD8baJpYflZDNrv2mZ/y0=;
+        b=Qge5bvG/ZpcNA3qrOjKi03Xt5sa33aWbniNi8bgE2tR5zp4jn+rqrZvov8SIwdO1In
+         TQmeSr4VPNs9znIrmDZXCQKtDEZVRJhpjxhExE/Cm8WKIbR+nhrx0P0bTvJxaKgvIPVi
+         QUfqmyvkBcQ21Lq/QkULyk3IaagPe599hOyh29zLLe1w36jH4RoR/FvJVY4xkymUSWHx
+         QA7eJfOEuKWEckPicks1eRNw2qMzImb5mTYDpGIqDcviMt/KySc8mgv0tg5ZoZQ4WJQx
+         tTaR00d+UwzscVptHnQ12BUIUowBru85Xngv4JlceADcxleoQY6bdEiK5NHslZ+0QVm4
+         FQDQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780367416; x=1780972216;
+        d=1e100.net; s=20251104; t=1780367419; x=1780972219;
         h=message-id:date:reply-to:cc:to:from:subject
          :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=381flff3FhtIDQrIo11Baa1X+cPozVjFjYASUxHZtDs=;
-        b=TP1AS10YbPqkuzFg5kEej1f4g0zn2J3gaiPJP0j1AU1qoPvhTntzI6363Cvq2pNfLA
-         PEjrYJ0xRq5gZZAmH85LU3yvlM8lZn+LqJDJ6txsmrzVCeVXS5DyxsZbUIUo12wz7SJf
-         mjhNV81DpcyJd89RTY1Wu7OX512+rr4TTINFicfBFLf/zpQyX7FXASLjl8ShdGfxvamW
-         MKkTv9AXPFxfCGeGY00GXoz73siN3emsR5AhY4XXlkGChl0+VKaI/2c7S4vFLZe/yb8c
-         AhaCBH0NLyf0g213P8nesdnlY9RuPzSTCYIwoQ9pDIhrTBPpSuKaQUV4u32NF7cE0+ET
-         0W6Q==
-X-Gm-Message-State: AOJu0YyU3rTU51cSQ/nCOIPkNs+hDb7PVQejEUdXRGcJ4wJvM/1s8ilv
-	Phs0/oXiW2wlqxg35oJWgh8ZljM9vo0cWvAn0vV800sQ9uA5cOi5r1LX8e9449Nmor05NF3XAqr
-	vHP8R
-X-Gm-Gg: Acq92OHhUPGn0c6oMrtYdg/g06O9btHeFBqVm31TGjE8Bcdgr4rLjavqNGGzaV6ID2M
-	+gyzqff+UTqavvu72cWOQ1O7IV7zjCWB+43L/cTYnJPtiFtTuU5AEq2SbpiY19aAXZM3lXIGroV
-	7WoRFlCUPbRMwcgIv6gvSZ44L6Occ+FlhaMs1rxk69criPBerX47fulWPxzK9te8S5j9hPk5TB4
-	FmTQeE7UoBFAm4JL/RSq6xyIyLKVFfNm+CkSwmx4GbS8AnjEz1QLPVZ9RlkbGq5rGydRyOgUUnf
-	s9zk3utlQ5PWnKqFlJms/hW9RA8J3cSFCzxOTup4K77e3lRYTpBZJaalYp2GkcB7AEwjuGtFNFA
-	G/M8Ut5U8Exf/9gHo8UtwO3FkoIvGB5iqDNSJQSPfRmAuz6HOgXHijiBgwbN7z6HofeUhqUN3Cs
-	Sm99uL4gVYGbpz3YMPHvN2kBzvdvY=
-X-Received: by 2002:a05:7300:f18f:b0:2f5:285c:4374 with SMTP id 5a478bee46e88-304fa75bd1dmr6550465eec.35.1780367415939;
-        Mon, 01 Jun 2026 19:30:15 -0700 (PDT)
+        bh=PQYZrl+XAeWhFuy7ePSShrqD8baJpYflZDNrv2mZ/y0=;
+        b=Zr5GNxmCPlFbsiW4ECwR1lgI/YWf5YdMXZycLUXKja4YVMkWqcR0c3RIk6eLJIYgnT
+         rOn9wLAnRBPYdMFQHRcrXyjLSddokulwbvrczaFu7EpyZhYurB0gNojq6BsuARnjrNyU
+         9WMVnSaF7f4tZO6pLKuNpgVwRPud5uM5Ui6/u2BTjd/maUb1inOjxpQipJylhrPhySDv
+         2BKtvDZZ0hINBKhjMm/pwYGX3Z9keQF9Y0J8d852VIqmD9sQKg66PmTJOZvhehG+uyEY
+         2C27+vsJRWByIxVwO4j6wlNAKA5JeRRmx/f+FI6NKv9DtETtH0Ubxc9wP1Zta5m1zZTL
+         e1Mw==
+X-Gm-Message-State: AOJu0YxTGhfisYulPDsRWTNkxSbUz41kBGlQEQKBHCbjmYENXwye/DWF
+	+4H4TXqwYilp0mUdKySa1OO55pKuq+hTV4yXmCXi51WLfsr+sh667EwDviv1aur9YVR0KmMD7hV
+	qjkai
+X-Gm-Gg: Acq92OFNiL+BYzuwvZcww80Wt+r7xxqKb8YZRx7Df70N/rHdSbrTQY7RDGxSCNhXQdL
+	9tV4ZTaG0715cQU3vczVvhZOfAyMMxzwpKAdw2KOAfbljwsB5HWV5qr6AdVDAi+tfjjqR2eqLgX
+	iyAYOtEhAQDhHuIgpyTtiV3HzsYg+eEpGEZywFSJX4Pp+SQoChH+GbebCUP7QII8U8fImR7kLI8
+	820jDXZXcqztLBISBTDLjnfwgWiKew/6Z0G5FY8nPie76j2PcNpGfr0ZfRzRKfVugoUlWDPQR46
+	l2sjAaqB4UdEuDdrj2oqXIY62WWcMvgsA5kyoAhYgMHdpoSVd2J6DlcccFGhQyQmRtQJXiZ+3qQ
+	vaHlY+HZ87fVm8rY7Z0h6aOVC2j64KX3T0GoOPfzSC+uGT+SbOwQpR39+jzpLsLD2DjaYBKuY9A
+	mHcqMF2Sua8r/ZP8m+5KP6tsCfzCw=
+X-Received: by 2002:a05:7300:6ca7:b0:304:4f23:4466 with SMTP id 5a478bee46e88-304fa50140fmr7440455eec.15.1780367418910;
+        Mon, 01 Jun 2026 19:30:18 -0700 (PDT)
 Received: from 330cfa3079ca ([20.38.40.137])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-304ed2bdda4sm9573625eec.2.2026.06.01.19.30.15
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-304ed53d06asm11279966eec.14.2026.06.01.19.30.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 01 Jun 2026 19:30:15 -0700 (PDT)
+        Mon, 01 Jun 2026 19:30:18 -0700 (PDT)
 Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -65,14 +65,14 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [STATUS] stable/linux-6.1.y -
- 228da13e907e2b46b7222cfc35290fbfad920bef
+Subject: [STATUS] stable/linux-5.10.y -
+ 5dbd240ac9a06a52a2c7e70b69b6fd7d11aeb359
 From: KernelCI bot <bot@kernelci.org>
 To: kernelci-results@groups.io
 Cc: stable@vger.kernel.org
 Reply-To: kernelci@lists.linux.dev
-Date: Tue, 02 Jun 2026 02:30:15 -0000
-Message-ID: <178036741495.9044.4537193400559725782@330cfa3079ca>
+Date: Tue, 02 Jun 2026 02:30:18 -0000
+Message-ID: <178036741789.9044.4944475782934688113@330cfa3079ca>
 
 
 
@@ -80,20 +80,20 @@ Message-ID: <178036741495.9044.4537193400559725782@330cfa3079ca>
 
 Hello,
 
-Status summary for stable/linux-6.1.y
+Status summary for stable/linux-5.10.y
 
 Dashboard:
-https://d.kernelci.org/c/stable/linux-6.1.y/228da13e907e2b46b7222cfc35290fbfad920bef/
+https://d.kernelci.org/c/stable/linux-5.10.y/5dbd240ac9a06a52a2c7e70b69b6fd7d11aeb359/
 
 giturl: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-branch: linux-6.1.y
-commit hash: 228da13e907e2b46b7222cfc35290fbfad920bef
+branch: linux-5.10.y
+commit hash: 5dbd240ac9a06a52a2c7e70b69b6fd7d11aeb359
 origin: maestro
-test start time: 2026-06-01 16:34:32.798000+00:00
+test start time: 2026-06-01 16:34:31.937000+00:00
 
-Builds:	   41 ✅    1 ❌    0 ⚠️
-Boots: 	   40 ✅    0 ❌    4 ⚠️
-Tests: 	 1559 ✅   59 ❌  667 ⚠️
+Builds:	   42 ✅    0 ❌    0 ⚠️
+Boots: 	   33 ✅    0 ❌    4 ⚠️
+Tests: 	  229 ✅   49 ❌   33 ⚠️
 
 ### POSSIBLE REGRESSIONS
 
@@ -111,34 +111,24 @@ Hardware: bcm2711-rpi-4-b
   > Config: defconfig+lab-setup+kselftest
     - Architecture/compiler: arm64/gcc-14
       - boot
-      last run: https://d.kernelci.org/test/maestro:6a1de8b72cc72b6e94aefb79
-      history:  > ⚠️  > ✅  
+      last run: https://d.kernelci.org/test/maestro:6a1dd9812cc72b6e94ae7639
+      history:  > ⚠️  > ✅  > ✅  
             
 Hardware: beaglebone-black
   > Config: multi_v7_defconfig
     - Architecture/compiler: arm/gcc-14
       - boot
-      last run: https://d.kernelci.org/test/maestro:6a1dce682cc72b6e94ae1a43
+      last run: https://d.kernelci.org/test/maestro:6a1dcd9c2cc72b6e94ae14e7
       history:  > ✅  > ⚠️  
-            
-Hardware: imx6dl-udoo
-  > Config: multi_v7_defconfig
-    - Architecture/compiler: arm/gcc-14
-      - boot
-      last run: https://d.kernelci.org/test/maestro:6a1dce742cc72b6e94ae1a8b
-      history:  > ⚠️  > ✅  
             
 Hardware: qemu-x86_64
   > Config: x86_64_defconfig+lab-setup+x86-board+kselftest
     - Architecture/compiler: x86_64/gcc-14
       - boot
-      last run: https://d.kernelci.org/test/maestro:6a1dc4d02cc72b6e94adb09e
-      history:  > ⚠️  > ✅  
+      last run: https://d.kernelci.org/test/maestro:6a1dc86c2cc72b6e94adc384
+      history:  > ✅  > ⚠️  > ✅  
             
 
-
-
-This branch has 1 pre-existing build issues. See details in the dashboard.
 
 Sent every day if there were changes in the past 24 hours.
 Legend: ✅ PASS   ❌ FAIL  ⚠️ INCONCLUSIVE
