@@ -1,264 +1,151 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB59033A70A;
-	Tue,  2 Jun 2026 02:58:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780369128; cv=none; b=dKLRqxso4qGwG0A1Sb8albG6LzJdhcwaWc8chHiUBWFibZ6YgCObBUGzaakSVpq0FI41gbFDM4Q3K8Ff4x0KMqSwiyGvBbzDXhWaw8YfdfoM2hJ4vK97I1dtLsxFBf5k8epYHEy+E2F1NqEXQGPhtWY+1E8XdUa7xqIlb3k5ZBU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780369128; c=relaxed/simple;
-	bh=nIWrX8/xjSgQop69xjMm5VGLqbFc7I2snTAO0davVvM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hXKNPT/jmepq1xSxY6t3Q4w9fv2AmbXGLfoJAfFtmLPJMrrnOknFF6IzvCSQ2O6iAAfVf2ROJCzRLWBYwR866XTqVY+80VXuWatVVDwEIg36iITL2jG955+i36X/ofPUQ1y2bn6E4S8g75ttqQS2WWzrp4M/k1JiVeGnmwpsTrM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=T2gXAMYt; arc=none smtp.client-ip=220.197.31.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06D9C3624C9
+	for <stable@vger.kernel.org>; Tue,  2 Jun 2026 03:02:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.172
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780369361; cv=pass; b=p2o+HIx+os4UqJ5m2kqXlA4qGDPJoSc1MG5/rogUUxx2WES79H10J/t006r52T4DcQd5q2sxpb6WpkUnC7RoxH2CUAIYRjwta7ihE3WYLn7pxy2BI+2VeBPthexwP/qA+vemakd41Eob6lmh3bc5iBsAfd1mIJ23j8Gek8LRtt8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780369361; c=relaxed/simple;
+	bh=RnIW3qmnHLBRpyMDOu1mpA+jBoMl6x3qPFLQbmUMVl4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=KohQDHqRk3zGp0Dt+IXxThjvX3euzK9SzhZ2uZsiCI5hfKljGLMNQ0ypBjVKs+vytR01mlqQPBNskE3qrKJkUbwCNqQHutYykHsktFGZuUccIXf5C2jrZL1Wn8c9C/p4+dMG0cPmTOjP2LjKxrTp38eJSg/zl6XmPadx8VZo5Uo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com; spf=pass smtp.mailfrom=paul-moore.com; dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b=WG4k5pad; arc=pass smtp.client-ip=209.85.214.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paul-moore.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="T2gXAMYt"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=jW
-	cj5KXzVf50Z0Lmy57Di0WeDde7W1hIGhp4tmxTXms=; b=T2gXAMYt3MS1cbIwSg
-	P5Dop4it863AXVXRfy7ro+JlZW1C7ANyhZ0AemnU5HZVv+3s1Cpu985KuNAwsUns
-	KWhJQu3vNTshFV0AjbJLv6Q4zhBk9VsyrzBtFx4WH4qWKL8m6hfMm/kZFWcokpI5
-	SpS3VZTlOgOV2oBS2ftjqcwIs=
-Received: from pek-lpg-core5.wrs.com (unknown [])
-	by gzga-smtp-mtada-g1-0 (Coremail) with SMTP id _____wD3n8nIRh5q+v6CAw--.56991S2;
-	Tue, 02 Jun 2026 10:58:17 +0800 (CST)
-From: Robert Garcia <rob_garcia@163.com>
-To: stable@vger.kernel.org,
-	Prathamesh Shete <pshete@nvidia.com>
-Cc: Thierry Reding <treding@nvidia.com>,
-	Petlozu Pravareshwar <petlozup@nvidia.com>,
-	Jon Hunter <jonathanh@nvidia.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Meng Li <Meng.Li@windriver.com>,
-	Ulf Hansson <ulf.hansson@linaro.org>,
-	Robert Garcia <rob_garcia@163.com>,
-	linux-tegra@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 6.6.y] soc/tegra: pmc: Fix unsafe generic_handle_irq() call
-Date: Tue,  2 Jun 2026 10:58:12 +0800
-Message-ID: <20260602025812.3535026-1-rob_garcia@163.com>
-X-Mailer: git-send-email 2.44.3
+	dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b="WG4k5pad"
+Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2bf30d530bdso34411735ad.3
+        for <stable@vger.kernel.org>; Mon, 01 Jun 2026 20:02:38 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1780369358; cv=none;
+        d=google.com; s=arc-20240605;
+        b=d42US6ac6Fo9d8y7gwztAi6p8tDEq76ONo3uVEvbYhbE4jTGhK48R8hQKK4mfVVRJj
+         nah8xUy4sW86UATjyNoObopE1bjHE9hx0uF5Kc5A3l7RFvsKtqs9E65v5X/DXKPrCNSh
+         m45T2sF37m69RDjsdaQKaSeH9eFUHMDFKBBQK90JmQY3Sy/4taVSCHh60NYgP1qBa1Io
+         SKQ34WvtnjVPUdLKzZ2XK9/sufTN2x+UIQTfOm7VNClVPDKSF9lariw06ilPNOOvmJvL
+         wRguVkt0P9whptATDqD/1uVevCEXjNsCOSrAvEc75TqVxBwIR7h5C1xPrqMUJ/EbrzeG
+         0new==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=cX5ghXyUMI7Mq5sziM3BByCUGq4ELxb8uNFCRPHZ0PY=;
+        fh=qsNcQn25p22ejcQjNs7Bl43QMqCePQCFxryEK2pwNAc=;
+        b=ZFe51FtpABWHofuQJ+8aUu/Ahkgd1NwykNKjLihiUqMkpUT2YG4fRbXHGct9Yc+/Lk
+         YQi5Nn1uvb+eK7CcAMaMh1gb0gNXoZuHUQqD/5ktzvIOgDOCFamjKf4JUagXTdTgKq57
+         P/eHjOt3uvVigNUL7ZNND+BmyAUT3c/GpNxRnE0abwEiy6InNG1UuhA97cKt55g2x7j9
+         Q1mJB2x0hUgDIzV8aUEvAKqp/02eDs8wscnnIcjL4+b+JWrtuF/UgutYfNT14SwsNYk7
+         SmrJVc2zqnenNWrz4thHpL19/8zF2JUWQxRG8owJVDcgtBBL/xD6PljrrEUuSdncPKZL
+         TSBg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=paul-moore.com; s=google; t=1780369358; x=1780974158; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=cX5ghXyUMI7Mq5sziM3BByCUGq4ELxb8uNFCRPHZ0PY=;
+        b=WG4k5pad/j+z0EGjhJfou99wweYu862hQYxAv7rIAeGZ2w9AZUA3jEXNrngRPw7BHG
+         LJhJsPx+i1DHiyE45BMqRDSTGNdua/UipOnwbzfGmOhj5Vf7Ny64/mCVWRWtMcUPrzf0
+         vCy/1mP6bE0SPTk61TC2V4CeKaEBMn/WOAu39hhfaQIrZK5YyDI2f5mgI5mwypxL2rY3
+         rErMT2KqhzBQwzXwI7dlL3qf2+CvFr0LqLo0lcBCVr3Yo8l2u2cgbv5EA/mHALNoy8iy
+         9MVD5iE5EAitiGDXPo6vuR2u5WrpxUOiCY+8l/4/lgRkOSkDDO30aKXHxu8lqisz4+Ny
+         LzWw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780369358; x=1780974158;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=cX5ghXyUMI7Mq5sziM3BByCUGq4ELxb8uNFCRPHZ0PY=;
+        b=dnJIYEVP80Wqw6K4RdM3dFzwWUfYUgjYE4wwnSZhV15H5dz7wO8j6+xNiOpLCQG1Qr
+         jSTcUL7kXbsMgXcpVR3Pbm6WgumZyeUI9J65gpq1q43Z/+qFM+RYSGAQnAVUdjU97sZY
+         ZCVsCEPXrWeRZiHPQ/S0BlL3obS7Xpx36rrK6tCP12QLOHS/zPhWytdGPDXGhyQWC6xt
+         1WwccPdXI5Kgfp2wvR0DI20R3va199lcdOLs/D7hU6K6eDj/tMtCCVO8YH09HCgSw1zy
+         sxF2vPDKYOjGJJ8ht4yAxZqAeQiVIyqXL8Oexu+iVlqaTHDJ5nqE7v8nLCLdXTm8crb6
+         iemA==
+X-Forwarded-Encrypted: i=1; AFNElJ9Q3xW/ihKR9tpV8sl7j/zDaoYon/6c1MikoBa7BrAP3kxVkHsc72F/+dgDTT73Zwz8oS3uxxM=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxzSOsyQ7khVHmbMagJ0nYeY3JcfU/YGcCO8mUJqe0jUPcECFTd
+	VuAzuP62huW7AjWwW2zzHeDRz30344MRMN/4IhihahiTL4haih/CykTWf9wIaORN1rstLXL4OCw
+	bnbM/F9nbQ+SZxrViGnNHvc8oYjC/nYlwu0EuAOe2
+X-Gm-Gg: Acq92OFG++r6XZPk5ZCDXUdEKPjBId4C/Nmf+1da/y81q/GrwAbxR0mmkg+spqA3QXg
+	9BfZFGo8LmgZs2p66HZtn9U2LcCh6rKC5zSNEgvpWdiG23qp6HSpmuhS7GwujYdrja9k37bh5Gu
+	gT5n0N0TbO1wjGi/jmTRRnJGQVbZN/cRlViDYUw4tDtlfITkZAy+LCVowXxC/LqymMFqAlzReu3
+	dxqfyn/qjAXgSztRWZyV3Gapi6owJNU5OOK5bbgUymBjiGmvbYaKZK0sdIJHUAKD4zeEJbseKGA
+	VSvpM4ZaYarCJu4yhw==
+X-Received: by 2002:a17:902:e784:b0:2c0:3400:5c42 with SMTP id
+ d9443c01a7336-2c034005d88mr148499485ad.26.1780369358143; Mon, 01 Jun 2026
+ 20:02:38 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3n8nIRh5q+v6CAw--.56991S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW3Wry5KFyruF1fAFWkWr13XFb_yoWxWrWUpa
-	y5KFWF9w4UJFWxua15ua10vF13CF18X3yxGr43Aas3J3yUKrnY9FnxXFyYqF48ArZa9F45
-	Aay0yryUKw4UXFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pRdR65UUUUU=
-X-CM-SenderInfo: 5uresw5dufxti6rwjhhfrp/xtbDAgnlUWoeRskKvQAA3z
+References: <20260524041442.2432071-1-tpluszz77@gmail.com> <20260524041442.2432071-4-tpluszz77@gmail.com>
+In-Reply-To: <20260524041442.2432071-4-tpluszz77@gmail.com>
+From: Paul Moore <paul@paul-moore.com>
+Date: Mon, 1 Jun 2026 23:02:25 -0400
+X-Gm-Features: AVHnY4IKOEuFCYPopcTHkisDnIftyduVHmrJM7aEiXWe4ijxf-NYQbyG_FOKLzs
+Message-ID: <CAHC9VhRM81w3-38sx103CFuow=+Jg4SNvJGWekNcow4s1yOAdA@mail.gmail.com>
+Subject: Re: [PATCH net v2 3/4] netlabel: validate CALIPSO option against skb
+ tail in netlbl_skbuff_getattr
+To: Qi Tang <tpluszz77@gmail.com>
+Cc: davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com, 
+	edumazet@google.com, netdev@vger.kernel.org, fw@strlen.de, lyutoon@gmail.com, 
+	stable@vger.kernel.org, Simon Horman <horms@kernel.org>, Huw Davies <huw@codeweavers.com>, 
+	linux-security-module@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Prathamesh Shete <pshete@nvidia.com>
+On Sun, May 24, 2026 at 12:15=E2=80=AFAM Qi Tang <tpluszz77@gmail.com> wrot=
+e:
+>
+> netlbl_skbuff_getattr() locates the CALIPSO option in the IPv6 HBH
+> header via calipso_optptr() and hands the bare pointer to
+> calipso_getattr() -> calipso_opt_getattr().  The consumer re-reads
+> calipso[1] (option data length) and calipso[6] (cat_len/4) and walks
+> calipso + 10 for cat_len bytes via netlbl_bitmap_walk().
+>
+> ipv6_hop_calipso() validates these bytes only at parse time inside
+> ipv6_parse_hopopts().  An nftables PRE_ROUTING payload write reachable
+> from an unprivileged user namespace can rewrite both bytes between
+> parse and the SELinux peer-label consume path
+> (selinux_sock_rcv_skb_compat -> selinux_netlbl_sock_rcv_skb ->
+> netlbl_skbuff_getattr).  The self-consistency check
+> (cat_len + 8 > len) inside calipso_opt_getattr() is defeated by
+> mutating both bytes consistently, allowing a ~232-byte
+> slab-out-of-bounds read from calipso + 10 whose set bits become MLS
+> categories driving the access decision.
+>
+> netlbl_skbuff_getattr() has the skb; gate the consume on the option
+> fitting within skb_tail_pointer().  The IPv6 option layout is
+> type(1) + length(1) + length bytes of data, so requiring
+> ptr + 2 + ptr[1] <=3D skb_tail covers the option and its embedded
+> bitmap.  When the bounds check fails the packet has been mutated
+> after parse, so return -EINVAL rather than fall through to the
+> unlabeled path.
+>
+> Runtime confirmation (SELinux compat path with selinux=3D1 enforcing=3D0
+> and a CALIPSO DOI added via netlabelctl): Udp6InDatagrams increments
+> to 1 with the mutated cat_len, showing
+> selinux_socket_sock_rcv_skb -> netlbl_skbuff_getattr ->
+> calipso_opt_getattr -> netlbl_bitmap_walk runs end-to-end past the
+> option's true bound; with this patch the consume path returns
+> -EINVAL at the bounds check and the counter stays 0.
+>
+> Cc: stable@vger.kernel.org
+> Reported-by: Qi Tang <tpluszz77@gmail.com>
+> Reported-by: Tong Liu <lyutoon@gmail.com>
+> Fixes: 2917f57b6bc1 ("calipso: Allow the lsm to label the skbuff directly=
+.")
+> Signed-off-by: Qi Tang <tpluszz77@gmail.com>
+> ---
+>  net/netlabel/netlabel_kapi.c | 15 +++++++++++++--
+>  1 file changed, 13 insertions(+), 2 deletions(-)
 
-[ Upstream commit e6d96073af681780820c94079b978474a8a44413 ]
+Thanks for the fix.
 
-Currently, when resuming from system suspend on Tegra platforms,
-the following warning is observed:
+Acked-by: Paul Moore <paul@paul-moore.com>
 
-WARNING: CPU: 0 PID: 14459 at kernel/irq/irqdesc.c:666
-Call trace:
- handle_irq_desc+0x20/0x58 (P)
- tegra186_pmc_wake_syscore_resume+0xe4/0x15c
- syscore_resume+0x3c/0xb8
- suspend_devices_and_enter+0x510/0x540
- pm_suspend+0x16c/0x1d8
-
-The warning occurs because generic_handle_irq() is being called from
-a non-interrupt context which is considered as unsafe.
-
-Fix this warning by deferring generic_handle_irq() call to an IRQ work
-which gets executed in hard IRQ context where generic_handle_irq()
-can be called safely.
-
-When PREEMPT_RT kernels are used, regular IRQ work (initialized with
-init_irq_work) is deferred to run in per-CPU kthreads in preemptible
-context rather than hard IRQ context. Hence, use the IRQ_WORK_INIT_HARD
-variant so that with PREEMPT_RT kernels, the IRQ work is processed in
-hardirq context instead of being deferred to a thread which is required
-for calling generic_handle_irq().
-
-On non-PREEMPT_RT kernels, both init_irq_work() and IRQ_WORK_INIT_HARD()
-execute in IRQ context, so this change has no functional impact for
-standard kernel configurations.
-
-Signed-off-by: Petlozu Pravareshwar <petlozup@nvidia.com>
-Signed-off-by: Prathamesh Shete <pshete@nvidia.com>
-Reviewed-by: Jon Hunter <jonathanh@nvidia.com>
-Tested-by: Jon Hunter <jonathanh@nvidia.com>
-[treding@nvidia.com: miscellaneous cleanups]
-Signed-off-by: Thierry Reding <treding@nvidia.com>
-[ Deleted tegra186_pmc_process_wake_events() 
-which has a bit differences. ]
-Signed-off-by: Robert Garcia <rob_garcia@163.com>
----
- drivers/soc/tegra/pmc.c | 109 +++++++++++++++++++++++++++-------------
- 1 file changed, 74 insertions(+), 35 deletions(-)
-
-diff --git a/drivers/soc/tegra/pmc.c b/drivers/soc/tegra/pmc.c
-index a9dc15ec8a13..968ea40c17b7 100644
---- a/drivers/soc/tegra/pmc.c
-+++ b/drivers/soc/tegra/pmc.c
-@@ -28,6 +28,7 @@
- #include <linux/iopoll.h>
- #include <linux/irqdomain.h>
- #include <linux/irq.h>
-+#include <linux/irq_work.h>
- #include <linux/kernel.h>
- #include <linux/of_address.h>
- #include <linux/of_clk.h>
-@@ -500,6 +501,10 @@ struct tegra_pmc {
- 	unsigned long *wake_sw_status_map;
- 	unsigned long *wake_cntrl_level_map;
- 	struct syscore_ops syscore;
-+
-+	/* Pending wake IRQ processing */
-+	struct irq_work wake_work;
-+	u32 *wake_status;
- };
- 
- static struct tegra_pmc *pmc = &(struct tegra_pmc) {
-@@ -1973,6 +1978,50 @@ static int tegra_pmc_parse_dt(struct tegra_pmc *pmc, struct device_node *np)
- 	return 0;
- }
- 
-+/* translate sc7 wake sources back into IRQs to catch edge triggered wakeups */
-+static void tegra186_pmc_wake_handler(struct irq_work *work)
-+{
-+	struct tegra_pmc *pmc = container_of(work, struct tegra_pmc, wake_work);
-+	unsigned int i, wake;
-+
-+	for (i = 0; i < pmc->soc->max_wake_vectors; i++) {
-+		unsigned long status = pmc->wake_status[i];
-+
-+		for_each_set_bit(wake, &status, 32) {
-+			irq_hw_number_t hwirq = wake + (i * 32);
-+			struct irq_desc *desc;
-+			unsigned int irq;
-+
-+			irq = irq_find_mapping(pmc->domain, hwirq);
-+			if (!irq) {
-+				dev_warn(pmc->dev,
-+					"No IRQ found for WAKE#%lu!\n",
-+					hwirq);
-+				continue;
-+			}
-+
-+			dev_dbg(pmc->dev,
-+				"Resume caused by WAKE#%lu mapped to IRQ#%u\n",
-+				hwirq, irq);
-+
-+			desc = irq_to_desc(irq);
-+			if (!desc) {
-+				dev_warn(pmc->dev,
-+					"No descriptor found for IRQ#%u\n",
-+					irq);
-+				continue;
-+			}
-+
-+			if (!desc->action || !desc->action->name)
-+				continue;
-+
-+			generic_handle_irq(irq);
-+		}
-+
-+		pmc->wake_status[i] = 0;
-+	}
-+}
-+
- static int tegra_pmc_init(struct tegra_pmc *pmc)
- {
- 	if (pmc->soc->max_wake_events > 0) {
-@@ -1991,6 +2040,18 @@ static int tegra_pmc_init(struct tegra_pmc *pmc)
- 		pmc->wake_cntrl_level_map = bitmap_zalloc(pmc->soc->max_wake_events, GFP_KERNEL);
- 		if (!pmc->wake_cntrl_level_map)
- 			return -ENOMEM;
-+
-+		pmc->wake_status = kcalloc(pmc->soc->max_wake_vectors, sizeof(u32), GFP_KERNEL);
-+		if (!pmc->wake_status)
-+			return -ENOMEM;
-+
-+		/*
-+		 * Initialize IRQ work for processing wake IRQs. Must use
-+		 * HARD_IRQ variant to run in hard IRQ context on PREEMPT_RT
-+		 * because we call generic_handle_irq() which requires hard
-+		 * IRQ context.
-+		 */
-+		pmc->wake_work = IRQ_WORK_INIT_HARD(tegra186_pmc_wake_handler);
- 	}
- 
- 	if (pmc->soc->init)
-@@ -3385,52 +3446,30 @@ static void wke_clear_wake_status(struct tegra_pmc *pmc)
- 	}
- }
- 
--/* translate sc7 wake sources back into IRQs to catch edge triggered wakeups */
--static void tegra186_pmc_process_wake_events(struct tegra_pmc *pmc, unsigned int index,
--					     unsigned long status)
--{
--	unsigned int wake;
--	unsigned long flags;
--
--	dev_dbg(pmc->dev, "Wake[%d:%d]  status=%#lx\n", (index * 32) + 31, index * 32, status);
--
--	for_each_set_bit(wake, &status, 32) {
--		irq_hw_number_t hwirq = wake + 32 * index;
--		struct irq_desc *desc;
--		unsigned int irq;
--
--		irq = irq_find_mapping(pmc->domain, hwirq);
--
--		desc = irq_to_desc(irq);
--		if (!desc || !desc->action || !desc->action->name) {
--			dev_dbg(pmc->dev, "Resume caused by WAKE%ld, IRQ %d\n", hwirq, irq);
--			continue;
--		}
--
--		dev_dbg(pmc->dev, "Resume caused by WAKE%ld, %s\n", hwirq, desc->action->name);
--		local_irq_save(flags);
--		irq_enter();
--		generic_handle_irq(irq);
--		irq_exit();
--		local_irq_restore(flags);
--	}
--}
--
- static void tegra186_pmc_wake_syscore_resume(void)
- {
--	u32 status, mask;
- 	unsigned int i;
-+	u32 mask;
- 
- 	for (i = 0; i < pmc->soc->max_wake_vectors; i++) {
- 		mask = readl(pmc->wake + WAKE_AOWAKE_TIER2_ROUTING(i));
--		status = readl(pmc->wake + WAKE_AOWAKE_STATUS_R(i)) & mask;
--
--		tegra186_pmc_process_wake_events(pmc, i, status);
-+		pmc->wake_status[i] = readl(pmc->wake + WAKE_AOWAKE_STATUS_R(i)) & mask;
- 	}
-+
-+	/* Schedule IRQ work to process wake IRQs (if any) */
-+	irq_work_queue(&pmc->wake_work);
- }
- 
- static int tegra186_pmc_wake_syscore_suspend(void)
- {
-+	unsigned int i;
-+
-+	/* Check if there are unhandled wake IRQs */
-+	for (i = 0; i < pmc->soc->max_wake_vectors; i++)
-+		if (pmc->wake_status[i])
-+			dev_warn(pmc->dev,
-+				 "Unhandled wake IRQs pending vector[%u]: 0x%x\n",
-+				 i, pmc->wake_status[i]);
- 	wke_read_sw_wake_status(pmc);
- 
- 	/* flip the wakeup trigger for dual-edge triggered pads
--- 
-2.44.3
-
+--=20
+paul-moore.com
