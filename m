@@ -1,131 +1,80 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB62C23ED6A;
-	Tue,  2 Jun 2026 19:47:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81EF6258CD0;
+	Tue,  2 Jun 2026 20:00:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780429626; cv=none; b=NptuMZ1gW19HO8Z0kR+1VFDnpyY7Pv/aC8YzPIFm8Xl6GfNsgaTg+ImhLSoPLoaoT9TfBM5MSS+tHDMxZIXXRDhepx3TzgHOmRaPHQTODK0aXKPn3zLGzD/O03azzwvAhERK5rFzep+c/L7XYM1AjC6iL68Hp2iGNx7QdA8Fy+8=
+	t=1780430415; cv=none; b=M0OU5dDzWvuv+NeeAPhNXqdoOMWQrYZUA40xp0kh0uEwrlV9KeVZBdJybSBE7+UfYa+4YDwMB0xoP0k6G3Agb4h9RtNtKgbh4oK7BRyPtpef8/4I0JjQm+2xIzLYMH2eFqxFvk40wCnF71hN/2CunI3zy7+YRQE/YygUHxk6OtQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780429626; c=relaxed/simple;
-	bh=988h3oP0ZzvxnJLyczvTbKwHgWEgSI5Yq494RePLLIg=;
-	h=Date:To:From:Subject:Message-Id; b=mkaqBdrWpQ4PYaNs0nmUSTjWJ5/oFnvJGdq051SWy7QDr5NFrFgfFWXaDmKbdnVVX/tHpjQKuBeQQ78ymrZDpl7v0zRDtYvBHoHkMkY/QnHz0CocGahBncYvagUWrAudrHCbXziaLqTAvL94xtMpup+48NeO4dPVqpGkpNA55g0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=T/geGRJq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780430415; c=relaxed/simple;
+	bh=pp1ACkXvTAv6fQjODUDO944IZztNmwcrFY+RNu+jx+k=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=TXBM4Nw3HSM7YVU7e8QeB1k7yQoV3PWjxnfHMD7HylOySEQekrqfgQMVLwnr0gtPpmf+FYxt8kPJx2ZoTiZIgzQpMz3dao2Rj1fm3P+pWlePhNZTv5zqqVOoFm2pO2f8NzbbT35RnyCpR4baMRzrTtE8XrobwJnFcPe9b3orxIw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AvUyxlfV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="T/geGRJq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DD591F00893;
-	Tue,  2 Jun 2026 19:47:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1780429624;
-	bh=GZz9RP0mu2Kh7gwi2ngE+Hf6GzJWvrjBXMa52H2h/HU=;
-	h=Date:To:From:Subject;
-	b=T/geGRJqC8Et2jAWiGv7idaRfWpiju3h6blgs1f+/xkc/dZS5dWahBqYULkySJtQ3
-	 Za0itEVcvk9ezWyNj9w3yKQ6jHk2vEm2bi7iRT1Vs3be7NUDhXxPA6obWVf3g4h5gR
-	 7zk94UZUqH8YUCi7cXT3aTZ8yn+Av8LqUqSiFlsQ=
-Date: Tue, 02 Jun 2026 12:47:03 -0700
-To: mm-commits@vger.kernel.org,vbabka@kernel.org,stable@vger.kernel.org,shakeel.butt@linux.dev,riel@surriel.com,pfalcato@suse.de,ljs@kernel.org,liam@infradead.org,kasong@tencent.com,jannh@google.com,hannes@cmpxchg.org,chrisl@kernel.org,baoquan.he@linux.dev,usama.arif@linux.dev,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + mm-mincore-handle-non-swap-entries-before-config_swap-guard.patch added to mm-hotfixes-unstable branch
-Message-Id: <20260602194704.4DD591F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AvUyxlfV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4341C1F00893;
+	Tue,  2 Jun 2026 20:00:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780430414;
+	bh=9vkwn6/HTRIlP9ph5Nq9SfktdmRKpAL4kJ8i3VZyYGM=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=AvUyxlfVAMp1AIyT5fb2HYz7BMlC2uxGpEEH0XRU/3k6Lc8ea/6DNEJM+9dfh6gT6
+	 32tXQ/Dlz+l0ptJxHLYeiUkSA2dFdJE1wHtVQF6+vWT7M+JQfs5mkDw0tCE9j7kto1
+	 Cee5lSC+5s+FBeZqaNkOVUoKo+GoXK5s1oY95wBTDfHFxdwcXUfn8BjEVyvXFBF+3X
+	 WEOjlbWs6AEJNVHEYSEqnyk0+MY6wotba//8z5VUpIm4NMZSLW1PuQtiSktysMv5BI
+	 FZjm5mCv/tK7ICxxNjQomnbpF++Jc5g0/WhIbXBfqmWv7PC+aymyIhofZqSrDQfaW4
+	 YUPqn28cJ6GDg==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 56A8E3811A6E;
+	Tue,  2 Jun 2026 20:00:17 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net v2] netdevsim: fib: fix use-after-free of FIB data via
+ debugfs
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <178043041589.1026900.5518951073080196283.git-patchwork-notify@kernel.org>
+Date: Tue, 02 Jun 2026 20:00:15 +0000
+References: <20260529135718.1804031-1-yzjaurora@gmail.com>
+In-Reply-To: <20260529135718.1804031-1-yzjaurora@gmail.com>
+To: Zijing yin <yzjaurora@gmail.com>
+Cc: kuba@kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@google.com, pabeni@redhat.com, idosch@nvidia.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
 
+Hello:
 
-The patch titled
-     Subject: mm/mincore: handle non-swap entries before !CONFIG_SWAP guard
-has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
-     mm-mincore-handle-non-swap-entries-before-config_swap-guard.patch
+This patch was applied to netdev/net-next.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-mincore-handle-non-swap-entries-before-config_swap-guard.patch
+On Fri, 29 May 2026 06:57:17 -0700 you wrote:
+> netdevsim: fib: fix use-after-free of FIB data via debugfs
+> 
+> Writing to the netdevsim debugfs file
+> "netdevsim/netdevsimN/fib/nexthop_bucket_activity" enters
+> nsim_nexthop_bucket_activity_write(), which looks up a nexthop in
+> data->nexthop_ht under rtnl_lock(). If a network namespace teardown,
+> devlink reload or device deletion runs concurrently, nsim_fib_destroy()
+> frees that rhashtable (and the surrounding nsim_fib_data) while the
+> write is still in flight, leading to a slab-use-after-free:
+> 
+> [...]
 
-This patch will later appear in the mm-hotfixes-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+Here is the summary with links:
+  - [net,v2] netdevsim: fib: fix use-after-free of FIB data via debugfs
+    https://git.kernel.org/netdev/net-next/c/5893cc75a191
 
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: Usama Arif <usama.arif@linux.dev>
-Subject: mm/mincore: handle non-swap entries before !CONFIG_SWAP guard
-Date: Tue, 2 Jun 2026 10:22:47 -0700
-
-mincore_swap() also fields migration/hwpoison entries (and shmem
-swapin-error entries), which can exist on !CONFIG_SWAP builds when
-CONFIG_MIGRATION or CONFIG_MEMORY_FAILURE is enabled.  The
-!IS_ENABLED(CONFIG_SWAP) guard ran before the non-swap-entry early return,
-so mincore_pte_range() can spuriously WARN and report these pages
-nonresident on !CONFIG_SWAP kernels.
-
-Move the guard below the non-swap-entry check so only true swap entries
-trip the WARN, and migration/hwpoison entries take the existing "uptodate
-/ non-shmem" path.
-
-Link: https://lore.kernel.org/20260602172247.279421-1-usama.arif@linux.dev
-Fixes: 1f2052755c15 ("mm/mincore: use a helper for checking the swap cache")
-Signed-off-by: Usama Arif <usama.arif@linux.dev>
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
-Cc: Baoquan He <baoquan.he@linux.dev>
-Cc: Chris Li <chrisl@kernel.org>
-Cc: Jann Horn <jannh@google.com>
-Cc: Johannes Weiner <hannes@cmpxchg.org>
-Cc: Kairui Song <kasong@tencent.com>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Rik van Riel <riel@surriel.com>
-Cc: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
----
-
- mm/mincore.c |   10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
-
---- a/mm/mincore.c~mm-mincore-handle-non-swap-entries-before-config_swap-guard
-+++ a/mm/mincore.c
-@@ -64,11 +64,6 @@ static unsigned char mincore_swap(swp_en
- 	struct folio *folio = NULL;
- 	unsigned char present = 0;
- 
--	if (!IS_ENABLED(CONFIG_SWAP)) {
--		WARN_ON(1);
--		return 0;
--	}
--
- 	/*
- 	 * Shmem mapping may contain swapin error entries, which are
- 	 * absent. Page table may contain migration or hwpoison
-@@ -77,6 +72,11 @@ static unsigned char mincore_swap(swp_en
- 	if (!softleaf_is_swap(entry))
- 		return !shmem;
- 
-+	if (!IS_ENABLED(CONFIG_SWAP)) {
-+		WARN_ON(1);
-+		return 0;
-+	}
-+
- 	/*
- 	 * Shmem mapping lookup is lockless, so we need to grab the swap
- 	 * device. mincore page table walk locks the PTL, and the swap
-_
-
-Patches currently in -mm which might be from usama.arif@linux.dev are
-
-mm-mincore-handle-non-swap-entries-before-config_swap-guard.patch
-mm-make-mmap_miss-accounting-symmetric-for-vm_seq_read.patch
-mm-bypass-mmap_miss-heuristic-for-vm_exec-readahead.patch
-mm-use-mapping_max_folio_order-for-force_thp_readahead-order.patch
 
