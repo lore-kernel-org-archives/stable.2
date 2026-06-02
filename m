@@ -1,109 +1,74 @@
-Received: from ixit.cz (ixit.cz [185.100.197.86])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58BBD3D45CF;
-	Tue,  2 Jun 2026 10:23:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.100.197.86
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 056F13D0BF3;
+	Tue,  2 Jun 2026 10:25:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780395839; cv=none; b=eJkUUPml/fPnyyWQ1MQkpIMPHPi4qACltLS6/iciVBKAxEjf0KdMBOQT5sU2ae8+0sxeORiYOmvlzw4Im6bPt1rVN+rrwA18zytN5LT97K1YB4X+BudnHN8GWsnZz2pt7i7cdq5vpfF13YWFtRoQLXquEqsbJRuV3s9LXDmeJk8=
+	t=1780395917; cv=none; b=BUTwPUWOg6xVWTsS5PHTwNM5j4dSoiQgKWzteD/eKwxFUIB7henZP68DMcLqQgpmvkq0Dmt+5lAbgDQnUN5NZX1qytBUOn/wUtPwwcuxEclRhuJFpoRGNGv17YiEyjgYEdUShFw4zlN6tT+h4d1m0RStWsc37aHpLsdjYKoa+UA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780395839; c=relaxed/simple;
-	bh=+K9DTj8e2Z6n2VJIqQwUG2NytbeZU+wXGpHcjIUkTKM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=l7WDqcfnRCwpekTWTAa63Rz5s++xKUg49F1wfx9beNto3f6TVWA9hVy0vEXGEPrz+BoYQh7I9pn+PxRsDaYbViH0ymJmhlFabVtmXEbbH1tgNBGVuONG2ykA8s+MMzYlJn/PFhk64qyP+dfpGqtARlg3b3KrvAb9Zwhgj6ghth0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=BEZK5Shx; arc=none smtp.client-ip=185.100.197.86
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	s=arc-20240116; t=1780395917; c=relaxed/simple;
+	bh=BUZ6l3xZ0P1H+mzazYoO94kEUui2SHGzBWm8iIXhYys=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qDsGMnIBxe+hRmRDnvyspWTM3pzEJ/ayRactwXpT4o0gpADe2KEpf5aKa2Vb/qVIOTiIJbI43cq8q4eIHuT4wk73KUOiyEdo0mLMMwxL/m0Bd7hhGLARr+HXuZrw/zUaA7/L+VKGsiAxzPy8CiMzIFLBEAloJHL71orWWcdaYTE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VaE2y1B9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="BEZK5Shx"
-Received: from [172.20.10.2] (37-48-17-230.nat.epc.tmcz.cz [37.48.17.230])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id C26CA5340A92;
-	Tue, 02 Jun 2026 12:23:54 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1780395835;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=iTXX74tvnRX0qhbPqCYRges0nubf/IUVTyCE6dqQB5Q=;
-	b=BEZK5ShxkruIm2m1NyuJY6a9h3wC76UlxyiD3Un4Ywxf0bTynEysDpab/hwX5JNzyXOBbV
-	wzqMRXmfEYnrvRHmo43DUxS4ZtAIozbuQ0UkHQ/KzyTDcQPWGA2YErx1g+5986S1lpAuoK
-	XMVxGFv/wtsjot5SLOzTItcnXo7iLd8=
-Message-ID: <3c7b90a2-251a-456a-99bd-27261fc2832a@ixit.cz>
-Date: Tue, 2 Jun 2026 12:23:54 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VaE2y1B9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B8761F00893;
+	Tue,  2 Jun 2026 10:25:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780395916;
+	bh=ujYRedhk5lwMgFqV8/GJR30PtxWyUV4s3ZYme0N6EKc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=VaE2y1B9bNcNJz9ygk1tsvahF/A9NwlIdtilgqw3HNl3s6OCq4NeFGSCkPstpjy9l
+	 TJZd7CMWDPU8AL9wv3CiUwvS4ceuH6QCe2vYxCRFY5VjSWI4qnzER0h221cUtYuXiE
+	 5TQzdE6xAVDTa3SEb5XlA2cyIIaeVAT6nIsoO/p8G8iWZu20KUd8Qig2dg5QAvZpR9
+	 7rn43/EdyDhN+kGlNCFCpRF7Z7rq04vgwwST7vzHqkFnQNxyqls52tD/1SvBqdM+0k
+	 wLDM5Xkrt5uPZC/YwBiJ7NvKHYHOCjwC6UL8WwYSJ52Dc8emF/urX9i0fZ1GxoIOT7
+	 VsKiVnZPlw/8Q==
+Date: Tue, 2 Jun 2026 11:25:11 +0100
+From: Will Deacon <will@kernel.org>
+To: Robin Murphy <robin.murphy@arm.com>
+Cc: Shyam Saini <shyamsaini@linux.microsoft.com>, iommu@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+	robin.clark@oss.qualcomm.com, joro@8bytes.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] iommu/arm-smmu: pass smmu->dev to report_iommu_fault
+Message-ID: <ah6vhy58ztNm0Nlt@willie-the-truck>
+References: <20260517005052.3783378-1-shyamsaini@linux.microsoft.com>
+ <83e27ae0-870e-4bfe-806d-2c2f21a719df@arm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5] nfc: nxp-nci: i2c: use rising-edge IRQ on ACPI systems
-To: carl.lee@amd.com, krzk@kernel.org, peter.shen@amd.com,
- colin.huang2@amd.com, kuba@kernel.org, luca.stefani.ge1@gmail.com,
- brgl@kernel.org, mpearson@squebb.ca
-Cc: Mark Pearson <mpearson-lenovo@squebb.ca>,
- Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260519-nfc-nxp-nci-i2c-restore-irq-trigger-fallback-v5-1-1a826cfbc128@amd.com>
-Content-Language: en-US
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <20260519-nfc-nxp-nci-i2c-restore-irq-trigger-fallback-v5-1-1a826cfbc128@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <83e27ae0-870e-4bfe-806d-2c2f21a719df@arm.com>
 
-On Tue, 19 May 2026 17:32:53 +0800, Carl Lee wrote:
- > nfc: nxp-nci: i2c: use rising-edge IRQ on ACPI systems
+On Mon, May 18, 2026 at 06:00:14PM +0100, Robin Murphy wrote:
+> On 17/05/2026 1:50 am, Shyam Saini wrote:
+> > report_iommu_fault() passes the dev argument to trace_io_page_fault(),
+> > which dereferences it via dev_name() and dev_driver_string(). Passing
+> > NULL causes a kernel crash when the io_page_fault tracepoint is
+> > enabled.
+> > 
+> > In arm-smmu.c, 'commit f8f934c180f6 ("iommu/arm-smmu: Add support for driver IOMMU fault handlers")'
+> > replaced a dev_err_ratelimited() call that correctly used smmu->dev with
+> 
+> I'm not sure it was really correct - it's pretty clear that "dev" is
+> intended to be the client device that _caused_ the fault, since why would it
+> make any sense to pass the IOMMU device to some other driver/subsystem's
+> fault handler? (Yes, other IOMMU drivers already do that; I would consider
+> them just as wrong too).
+> 
+> IMO it would seem more robust to just fix the tracepoint to handle a NULL
+> "dev" in the case that one can't (easily) be identified.
 
-Applied, thanks!
+Yeah, I agree. Passing the SMMU device just because it's the only thing
+we have is just a bodge around the NULL dereference. We'd be better off
+hacking include/trace/events/iommu.h to print placeholder "(NULL)"
+entries when the device pointer is NULL.
 
-
-Best regards,
--- 
-David Heidelberg <david@ixit.cz>
+Will
