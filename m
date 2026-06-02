@@ -1,326 +1,171 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BD3226D4CA
-	for <stable@vger.kernel.org>; Mon,  1 Jun 2026 23:41:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780357300; cv=none; b=Cv80v/ZvaMK9pqbf8pS8LqJA+dVrDtbmaoTYiFAdOwmpEs54gzouxOChDG3icbG+TbEzspXWDIrWcm2vwCcY/LkT/BzYFTG7YrFuUcOI6L6HZtNuh94k9acfiL5Mc9xFmbjtTQ4A2JKM7rGgMbxV6OdZ9LAsR5/G5eGOjAj9AWI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780357300; c=relaxed/simple;
-	bh=BMgOF1hL7xNoFricd/B7Hlk7G5Rsm6O7+6W4w495Prc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=G5NmXjwQ0Qb1CIkTcoOq3D+aVjoqCnckS7zuUL55AErX09s/9aFMtVYeXnnbpH00283SV8koomNmIw+aL2aL3OjpPmtHCZhZIeahdPHivWGsRC01jGUxHT+35rCf9N77td2RxQWHEJC8W4AGEMwCR0PF//vQUhpoBO/gcXRG/iY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=I2FACQa7; arc=none smtp.client-ip=192.198.163.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 776EC2D4B68;
+	Tue,  2 Jun 2026 00:33:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.15
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780360440; cv=fail; b=skmpeZnhEBD/ECz4tQrCRgMerO5tlq4uWI4WUM/tmem++QqWyVqwLMGULIYqOD8e5sDBNmjyPUNC+syhL5gFZYyAvh4ZdZ0vR5Z8o+VbfasippxJoFEfpv+hDlqYQZHZqVLRJQdjEw7iZJMrh8WRcQNuIEJ8VhAKLYm6RmqZVGE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780360440; c=relaxed/simple;
+	bh=luFJXSlRBwOre4c+peiZhccXmrCrFM5n2Y8oWm4yd9o=;
+	h=Date:From:To:CC:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=eIewmceUXL20JloqkII/1MuozIYYZcZjmok5QOgZ6d1PD+uwaYx7xcUjW3Efq+m9KkdcpI+1UxVl9WbxGerY0b7LJY5KmsrjU8oeAr1p+wzUp1L9niAWxTraRLSfhgdyI6tbEbcJsA9/pEBDByrCPciirDboMJv7m/9cskLUyMo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=hfCUWS6y; arc=fail smtp.client-ip=198.175.65.15
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="I2FACQa7"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="hfCUWS6y"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1780357298; x=1811893298;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=BMgOF1hL7xNoFricd/B7Hlk7G5Rsm6O7+6W4w495Prc=;
-  b=I2FACQa7C5R/3iKibnLrK9ci4+j6ZK5hWOLfT534zYqXyOyuvrvZKucb
-   EM88s7ePvzCl/z/t8Gknt55hnm25bVx2NBpePe4Q2cunhMoUrtXZNBLw/
-   zg1W2PVrdNe24Py4WGIYaKNurpF6GdG1KOKDPix8ffnmNyRmEfkmtXJCl
-   my7onZL5gFS6NQ45a00M1UjDXA8LaAu6yywqDqM/shizkWXrRr4/iZzHz
-   63dwZ/kMbzsEBX1m4721Y5HJQihRCWSH2VEvzU0RAYRVdl8Iwvs+H/dN0
-   UXQOy7urzfwAEoyLaten9G+YhfWIuG0zC4l4nhXZhEhB6rvK3sxwNSKmW
-   Q==;
-X-CSE-ConnectionGUID: M3apbFp5SgaJ9rh+GRXeKw==
-X-CSE-MsgGUID: ZdoazGXhQHuSj1QLqYXpYg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11804"; a="84981716"
+  t=1780360439; x=1811896439;
+  h=date:from:to:cc:subject:message-id:references:
+   in-reply-to:mime-version;
+  bh=luFJXSlRBwOre4c+peiZhccXmrCrFM5n2Y8oWm4yd9o=;
+  b=hfCUWS6yOH0J9GKfu2uEZln3f1HEBQSBjhPQrZnENl5cQPeBGz3ecv+k
+   XHRI7a9n+oDEQZOnjac2lVQA/7KJA+4jPCV8jF++wgbMh8gwf4WHrcvTp
+   N+VnzG0seqMETCMzAPvey/oo0G82tilOTA2zOHXCBrgrNbujetBPAToNB
+   xQvjBgFAIJD1bC2W4EQzT/nID6KmJVQMuq0bwqRXcnOYz3+GKqnJETSqX
+   sjOCJYaIQr9DSU2xEzCUK7V75ar/n83rC1uqvy3PFZdESciqv3OCe0Rya
+   gJ83DNfx/Iqc+eqspz6B9WWYzUyJvUx+pjgAeNl0Gr8e6U+N8eU/6Yzz0
+   A==;
+X-CSE-ConnectionGUID: FDf8NKavSBikirxfH/z90A==
+X-CSE-MsgGUID: 0rXQsoYzQlqmlKnxfhEZTA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11804"; a="84756343"
 X-IronPort-AV: E=Sophos;i="6.24,182,1774335600"; 
-   d="scan'208";a="84981716"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Jun 2026 16:41:37 -0700
-X-CSE-ConnectionGUID: F7CvCWj3R0SMxJb4Poo/Nw==
-X-CSE-MsgGUID: 9A/F29d+SWCjlEDin9i+Bw==
+   d="scan'208";a="84756343"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Jun 2026 17:33:59 -0700
+X-CSE-ConnectionGUID: 8j+dyQq5T6iBL0Nzmp/v1A==
+X-CSE-MsgGUID: ncFGZo7nShKD+2YEHXFhHg==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.24,182,1774335600"; 
-   d="scan'208";a="273993363"
-Received: from dut4463arlhx.fm.intel.com ([10.105.10.159])
-  by orviesa002.jf.intel.com with ESMTP; 01 Jun 2026 16:41:36 -0700
-From: Brian Nguyen <brian3.nguyen@intel.com>
-To: intel-xe@lists.freedesktop.org
-Cc: Brian Nguyen <brian3.nguyen@intel.com>,
-	stable@vger.kernel.org,
-	Matthew Auld <matthew.auld@intel.com>,
-	Zongyao Bai <zongyao.bai@intel.com>
-Subject: [PATCH v2] drm/xe: Add compact-PT and addr mask handling for page reclaim
-Date: Mon,  1 Jun 2026 23:41:37 +0000
-Message-ID: <20260601234136.1444344-2-brian3.nguyen@intel.com>
-X-Mailer: git-send-email 2.43.0
+   d="scan'208";a="267601991"
+Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
+  by fmviesa001.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Jun 2026 17:33:58 -0700
+Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Mon, 1 Jun 2026 17:33:58 -0700
+Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
+ FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37 via Frontend Transport; Mon, 1 Jun 2026 17:33:58 -0700
+Received: from BL2PR02CU003.outbound.protection.outlook.com (52.101.52.26) by
+ edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Mon, 1 Jun 2026 17:33:58 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=zAVGOQAqLIO2hWh0B64A2bxVHWULewPixFEq8A/q2FiJVPRcen0226TB66ObX5vdZUim9aFjxXno9wlv2jnyxN3IpA1uIsqhonWZiF3Bga05gv3BrsOOSKlepHJr+MyYd0Uw3aGx/2dueNX6uJboWx3mWKKttsvbZ5szR0Xn6evvdJqdPRrHluoOwObZ5ya+q4EV49b99kqDbCJn7GUz0cBHJknxelxBCihYXwr1OBjMEbskis4OHmfjV4pvW/wYZWquWw/JmuFa1GpDPXwEfl15gBV9yCAB+zoMz0xI239MzylSrijXfMwhKIHnOfbj64d1885N+uCTQpt1Y2doIg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0Xywywxz3t86I8piWFY8Q/csdeih5Sm+S2GnKOZoTsA=;
+ b=UTdFSevr+NMpbGszYliuBSP1XjZhqDjfjPV62mGe3/6gz+ZuWlDbgIBoaha/svB9C/NKB4aoTLMSA/sfKlcRt0kADTUKCrzqm6WQCMt+ilKoGQrY4JglqUUbY2Pyzgsx0tFaGMUHHgwepjBgw6cKDMqDA79OE0NMUgKYjQCJDXpjRneVY+O428GSUp5DFN2YErtgVCTAJvdcKvmZGR5hdIln0RHAHkE1HK6OkbPU8TFFi3B3CKifyFZZOdVvWqLKepD5iIhPkbg/jhMJFqooP+gQlrSUr7wcZ8Rrww4HtZAofFPXDAjEQssbAW6HcoLhcn4P9cJ1bfzClG6XPDDtvg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from DS4PPF0BAC23327.namprd11.prod.outlook.com (2603:10b6:f:fc02::9)
+ by IA0PR11MB7212.namprd11.prod.outlook.com (2603:10b6:208:43e::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.16; Tue, 2 Jun 2026
+ 00:33:50 +0000
+Received: from DS4PPF0BAC23327.namprd11.prod.outlook.com
+ ([fe80::a195:49d4:38c5:3891]) by DS4PPF0BAC23327.namprd11.prod.outlook.com
+ ([fe80::a195:49d4:38c5:3891%4]) with mapi id 15.21.0071.010; Tue, 2 Jun 2026
+ 00:33:49 +0000
+Date: Mon, 1 Jun 2026 17:33:46 -0700
+From: Alison Schofield <alison.schofield@intel.com>
+To: Abdun Nihaal <nihaal@cse.iitm.ac.in>
+CC: Vishal Verma <vishal.l.verma@intel.com>, Dan Williams <djbw@kernel.org>,
+	Dave Jiang <dave.jiang@intel.com>, Ira Weiny <ira.weiny@intel.com>,
+	<nvdimm@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
+	<stable@vger.kernel.org>
+Subject: Re: [PATCH 0/2] nvdimm/btt: fix a few memory leaks
+Message-ID: <ah4k6qRKGiouAB7P@aschofie-mobl2.lan>
+References: <20260519-nvdimmleaks-v1-0-592300fb7a43@cse.iitm.ac.in>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20260519-nvdimmleaks-v1-0-592300fb7a43@cse.iitm.ac.in>
+X-ClientProxiedBy: SJ0PR05CA0060.namprd05.prod.outlook.com
+ (2603:10b6:a03:33f::35) To DS4PPF0BAC23327.namprd11.prod.outlook.com
+ (2603:10b6:f:fc02::9)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS4PPF0BAC23327:EE_|IA0PR11MB7212:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4d025d00-d747-4800-e2b0-08dec03e9d8e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016|6133799003|22082099003|18002099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info: pE19Ot6pyBqGNbleLdn7qfE2iGjZr8IKsjRj2hJuiJEMy9d+n7xSpD8VIOvlyap7Rv0rGe0eIRDwkDJ5QvZ88aF0jDHgqNt9OQmjtshEPfCAYt5/4z7kTdBUwSpTWIyBMYzTbfRgsqwdRciP2zF34uOScX2D2p9eC7zjhWYNswoitzMn2d3gOzCLILLzSc8m3Adm0FStEyiFcWBv3vCegpKF6OFIGaQ73JsBHI/vJNj/2YkDffmfkaIxrVinGSjnaWWNQBNGG84srFz3yezxDK1ApypHM+nOC1xA9/ETeoSIEL789O6fiw7nq+hUs73jHSijcKOAufTpDcKjZHf+fCOWMF4XdQkPfSmkqswmFLk0IG/pcJcRwai0G+5Lb6U+zeP5ySptRAUHUeEpuHJ83S5/SvLxisT8l5Hcfj1tTE1db/t9KLj2k8l1i7StrmhKGf8qveV1VeSQMcs0AGuhCWA/3lFF1mYSwxLc5S7m9RUsPSRzn0vf+lBAe1DQom0jcXLu+V8OjQlD/U2HlWGhxmjUHsvB5kAWbI7D07uQeN5Nl4fnMPGdM8wAGVkjQgUXL7RqIwsoNr2mZN/CicZyzWn7vQ2fGMPGUt3ntGxj9/JZlLfJQKrl1x8MpbwptgdrlpmJ3KNU9Ee6/OsLUP4aSbdoBeSEuJAYkIICNWe37TmSqgsjItQhJol5Pop6vobq
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS4PPF0BAC23327.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(6133799003)(22082099003)(18002099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?gJsVErZ9CNadQKUxqfXQZTJOV4SzdefoNdhC0OOMZ7AFSJ9Gi3Vp7fj8XOma?=
+ =?us-ascii?Q?Rbsg5HSVq2R38eezkivZtmJGJdGnXE1Ok4Vbcajx7etp6keJwO7nwhy75dkx?=
+ =?us-ascii?Q?Of8k063F0AClTGKpJsw03GaCTjsXrE5uKaa3kb6vYXmDOIwOU3I72P86W39b?=
+ =?us-ascii?Q?TadvvwkwvGZsmfDmxSyaLDWbeXJ8trBq5xVznSM2doNVXf9PAURKdJigb9RN?=
+ =?us-ascii?Q?aafGgaGI/4e8Fm+OZrDgqvy+K2S47B/xwqanNxk6Sl1eTNzjohE3Oyw46sM0?=
+ =?us-ascii?Q?BXRKOgfdC0bNAbjeS+Y0jwwXO5MjzbbzyXrG9LRnBh+heYMer/y52jfzNlV5?=
+ =?us-ascii?Q?CoznYzvdnhEJo/6NttxSRbCRm2AZeIZwyR73nyEp8ZS5u+QcRHlPuryvlko+?=
+ =?us-ascii?Q?yV/lfNJKHR8W3eKpnSvK+BEEa6IXeeDMdRP8Nhh5sn7nodKgy0LjChLnTGaM?=
+ =?us-ascii?Q?TeeHEXN9TwhFAzP2K+xo+47u2ztm99v9Qryli4xynsVWUdqhrdICUtV/zXd4?=
+ =?us-ascii?Q?uY74jKoLt+sz43O9A4sgamIquFg/upQVdj+iohoG7kmN7HjpElCUTTwdr3So?=
+ =?us-ascii?Q?6UXl1EPFYa5QE/tOqRE4FoaC53LFYjcyEFNK1JcA5gdvzENSeyLaCY0706V1?=
+ =?us-ascii?Q?anV8ixZ6OFKJoy05GVlpxQwplIsrDuZmhBLTL4PSWqSLiiAvQnatUq9WJPOH?=
+ =?us-ascii?Q?VY4hA9KdwUDZElzrM64Ztrm7tpUW05rzHbeLpaRvAH8AlVXmlslIqbIKGRhT?=
+ =?us-ascii?Q?WbP3D8STiAHBzRLKJlOcT74P1EYGasmT34gkt00F4gpXyoZjy0DUScfw7IiV?=
+ =?us-ascii?Q?DX1XWnibBTaSVTT9qAjqqzrfePI65RRuu7UB/E/mk8Use1WCn8Zs5Bk/1KC6?=
+ =?us-ascii?Q?08bdVmnjYuwxEvpymefcZ1AE7QJ/TygK3iFmD8xJZbb5u6BdWbjqoHC+EMQ2?=
+ =?us-ascii?Q?JNZfxQ/5XXWP+ujd7vcvv5/i3gYtzFAl/K2IYh55OGNshHt/2uCOHIZdCRlx?=
+ =?us-ascii?Q?CnEFC6NYm3rLgWbgofeNujxUm7P6wOE/QDcgfIwyaHogckzRFtg8DWFBUTV6?=
+ =?us-ascii?Q?vpNAD77D61ghQ0aTkLW6YqJH3w2Toh2yBDd1V9iVdzfB8VnH9N9twzn24GYQ?=
+ =?us-ascii?Q?uzBTmCR6dD+i1ZdyHR/6fA3/8Ge3cR2y+l6jAEgYuvWucj8Lgz7IV/T7c1t1?=
+ =?us-ascii?Q?ZIxEgov9U5rpfCDYXJ09PFE3Pp7etkKZaQgrAVTWWwq9uqPyYwKkKRxv8sOT?=
+ =?us-ascii?Q?omda0HRvqYCMVqAU4BSFfYNfUghPfK7fKn46nvHeiI0CZgruwszpYXHQ41HG?=
+ =?us-ascii?Q?TeW0mo7w59lnWqGCjQtRp4YoWiHrDO+wWvnpAG8QXvA8cugn2hdABPHb8bQM?=
+ =?us-ascii?Q?dlqiZyRJs0X3elWWX843G9TPVXgzQ/mBnshiJ5pUnRoPZt1Lu12ANCMXgOSO?=
+ =?us-ascii?Q?3zBc43uzTyBVgpRXqJr/8dUMz8GaopcspBq9DHKf9FTfdqNEPtuXIPyDsq8p?=
+ =?us-ascii?Q?Nw13qAo4XDbJlWJiKW7rq8GGFb0/70pWQwasmN3rOXXkM3+rPnAamQinuGrR?=
+ =?us-ascii?Q?OVRYr8RgXIT/ka2R8Db/HF4H0OZQKZh750GRW69h0jFk/iDuL52QvudpdPm1?=
+ =?us-ascii?Q?CkYR13fSjsdJHrawQ7WWAp8O3h66Tk0uJ0OSiZ7o5IiVD9dNjkoc9FMo5Cip?=
+ =?us-ascii?Q?20L5yDJPdmkrEql6ft1l4upBU5PWbMHbmfXKMDGZlvCp6SQVQCWEikRHY4ga?=
+ =?us-ascii?Q?bD7q3CMVEF0TkQk/aPd05C5dPnCzs6I=3D?=
+X-Exchange-RoutingPolicyChecked: MxxwUjV4+Fn2U7aZVoI5g5CWhQOzp63xcfZYEAP+QXWeWSCHDRQ2iGYw2ZsBCJ6l2/7IP8PAOEz1phTZTTV84VXYBHKK4a06d4LkQYOqE/r0was5lM7HWcxhyj8ZJIxK8AuL79L6ZAe6DUvL1fo5HiOWRD6fvVFwZKkuraNIGF1iLLFhMp1UbXj5CyTyWMdotPgZb+reLg+JsbLWLMauBFwsNGml1c8qrSFg/TmDvw+zj7Q/+tZQE27r77IJ803CLhvyl3ceqC02Y0swFBCVH//k15GztHA0KrUQOTDyw3knTypwrQkwEjm1OszADLd/c0YG4rO4PiuMQVsaBA7qOA==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4d025d00-d747-4800-e2b0-08dec03e9d8e
+X-MS-Exchange-CrossTenant-AuthSource: DS4PPF0BAC23327.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2026 00:33:49.8900
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 3KpCFtRGkvCu7L2BK9Z/YgZlmv9E5HwXlnSr98TwU9Qjm3hDeRrv/UBOWFxhhWpk9Pw+I5MVlGNM0NbDXKoE1FVDAx5HwuU8GHClEoXFVJ0=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR11MB7212
+X-OriginatorOrg: intel.com
 
-Current implementation of generate_reclaim_entry() overlooks some
-differences between the different page implementations: address masking
-and compact 64K page handling.
+On Tue, May 19, 2026 at 11:20:11AM +0530, Abdun Nihaal wrote:
+> The following two patches fix memory leak issues in error paths in the
+> btt_init() and discover_arenas() functions.
+> 
+> - nvdimm/btt: fix potential memory leak in btt_init()
+> - nvdimm/btt: fix potential memory leak in discover_arenas()
+> 
+> Compile tested only. Issue found using static analysis.
+> 
+> Signed-off-by: Abdun Nihaal <nihaal@cse.iitm.ac.in>
+> ---
+> Abdun Nihaal (2):
+>       nvdimm/btt: fix potential memory leak in discover_arenas()
+>       nvdimm/btt: fix potential memory leak in btt_init()
 
-Address masking of each leaf varies depending on the leaf entry size.
-generate_reclaim_entry() is using XE_PTE_ADDR_MASK [51:12] for all leaf
-entries. For 2MB PTEs, bit 12 (PAT) is part of the flags so the old mask
-corrupts the physical address extraction.
-
-64K pages can be represented as PS64 and a compact PT, which the latter
-was not handled. Compact pages aren't walked by the unbind walker, so we
-separately walk through the compact PT to ensure none of the leaf 64K
-PTEs are dropped. Previously, compact pt were causing an abort since it
-was considered covered and not descended into.
-
-v2:
- - Update 64K entry/unbind walker for 64K compact PT handling. (Matthew)
- - Rework calculations of reclamation and address mask size.
- - Add new func abstracting the error handling before generating the
-   reclaim entry.
-
-Fixes: b912138df299 ("drm/xe: Create page reclaim list on unbind")
-Cc: stable@vger.kernel.org
-Cc: Matthew Auld <matthew.auld@intel.com>
-Suggested-by: Zongyao Bai <zongyao.bai@intel.com>
-Signed-off-by: Brian Nguyen <brian3.nguyen@intel.com>
----
- drivers/gpu/drm/xe/regs/xe_gtt_defs.h |   2 +-
- drivers/gpu/drm/xe/xe_pt.c            | 129 +++++++++++++++-----------
- 2 files changed, 77 insertions(+), 54 deletions(-)
-
-diff --git a/drivers/gpu/drm/xe/regs/xe_gtt_defs.h b/drivers/gpu/drm/xe/regs/xe_gtt_defs.h
-index 4d83461e538b..5fa2d8ab7776 100644
---- a/drivers/gpu/drm/xe/regs/xe_gtt_defs.h
-+++ b/drivers/gpu/drm/xe/regs/xe_gtt_defs.h
-@@ -9,7 +9,7 @@
- #define XELPG_GGTT_PTE_PAT0	BIT_ULL(52)
- #define XELPG_GGTT_PTE_PAT1	BIT_ULL(53)
- 
--#define XE_PTE_ADDR_MASK	GENMASK_ULL(51, 12)
-+#define XE_PAGE_ADDR_MASK(shift)    GENMASK_ULL(51, (shift))
- #define GGTT_PTE_VFID		GENMASK_ULL(11, 2)
- 
- #define GUC_GGTT_TOP		0xFEE00000
-diff --git a/drivers/gpu/drm/xe/xe_pt.c b/drivers/gpu/drm/xe/xe_pt.c
-index 2669ff5ee747..68a911ab9216 100644
---- a/drivers/gpu/drm/xe/xe_pt.c
-+++ b/drivers/gpu/drm/xe/xe_pt.c
-@@ -1602,23 +1602,21 @@ static bool xe_pt_check_kill(u64 addr, u64 next, unsigned int level,
- 	return false;
- }
- 
--/* page_size = 2^(reclamation_size + XE_PTE_SHIFT) */
--#define COMPUTE_RECLAIM_ADDRESS_MASK(page_size)				\
--({									\
--	BUILD_BUG_ON(!__builtin_constant_p(page_size));			\
--	ilog2(page_size) - XE_PTE_SHIFT;				\
--})
--
- static int generate_reclaim_entry(struct xe_tile *tile,
- 				  struct xe_page_reclaim_list *prl,
- 				  u64 pte, struct xe_pt *xe_child)
- {
- 	struct xe_gt *gt = tile->primary_gt;
- 	struct xe_guc_page_reclaim_entry *reclaim_entries = prl->entries;
--	u64 phys_addr = pte & XE_PTE_ADDR_MASK;
-+	bool is_2m = xe_child->level == 1 && (pte & XE_PDE_PS_2M);
-+	bool is_64k = xe_child->level == 0 && ((pte & XE_PTE_PS64) || xe_child->is_compact);
-+	u32 page_shift = is_2m ? ilog2(SZ_2M) : is_64k ? ilog2(SZ_64K) : ilog2(SZ_4K);
-+	/* Physical address bits start at page shift: 2M->[51:21], 64K->[51:16], 4K->[51:12] */
-+	u64 phys_addr = pte & XE_PAGE_ADDR_MASK(page_shift);
-+	/* Page address is relative to 4K page regardless of entry level */
- 	u64 phys_page = phys_addr >> XE_PTE_SHIFT;
- 	int num_entries = prl->num_entries;
--	u32 reclamation_size;
-+	u32 reclamation_size = page_shift - XE_PTE_SHIFT;
- 
- 	xe_tile_assert(tile, xe_child->level <= MAX_HUGEPTE_LEVEL);
- 	xe_tile_assert(tile, reclaim_entries);
-@@ -1633,18 +1631,15 @@ static int generate_reclaim_entry(struct xe_tile *tile,
- 	 * Page size is computed as 2^(reclamation_size + XE_PTE_SHIFT) bytes.
- 	 * Only 4K, 64K (level 0), and 2M pages are supported by hardware for page reclaim
- 	 */
--	if (xe_child->level == 0 && !(pte & XE_PTE_PS64)) {
--		xe_gt_stats_incr(gt, XE_GT_STATS_ID_PRL_4K_ENTRY_COUNT, 1);
--		reclamation_size = COMPUTE_RECLAIM_ADDRESS_MASK(SZ_4K);  /* reclamation_size = 0 */
--		xe_tile_assert(tile, phys_addr % SZ_4K == 0);
--	} else if (xe_child->level == 0) {
--		xe_gt_stats_incr(gt, XE_GT_STATS_ID_PRL_64K_ENTRY_COUNT, 1);
--		reclamation_size = COMPUTE_RECLAIM_ADDRESS_MASK(SZ_64K); /* reclamation_size = 4 */
--		xe_tile_assert(tile, phys_addr % SZ_64K == 0);
--	} else if (xe_child->level == 1 && pte & XE_PDE_PS_2M) {
-+	if (is_2m) {
- 		xe_gt_stats_incr(gt, XE_GT_STATS_ID_PRL_2M_ENTRY_COUNT, 1);
--		reclamation_size = COMPUTE_RECLAIM_ADDRESS_MASK(SZ_2M);  /* reclamation_size = 9 */
- 		xe_tile_assert(tile, phys_addr % SZ_2M == 0);
-+	} else if (is_64k) {
-+		xe_gt_stats_incr(gt, XE_GT_STATS_ID_PRL_64K_ENTRY_COUNT, 1);
-+		xe_tile_assert(tile, phys_addr % SZ_64K == 0);
-+	} else if (xe_child->level == 0) {
-+		xe_gt_stats_incr(gt, XE_GT_STATS_ID_PRL_4K_ENTRY_COUNT, 1);
-+		xe_tile_assert(tile, phys_addr % SZ_4K == 0);
- 	} else {
- 		xe_page_reclaim_list_abort(tile->primary_gt, prl,
- 					   "unsupported PTE level=%u pte=%#llx",
-@@ -1665,6 +1660,48 @@ static int generate_reclaim_entry(struct xe_tile *tile,
- 	return 0;
- }
- 
-+static int add_pte_to_prl(struct xe_tile *tile, struct xe_page_reclaim_list *prl,
-+			  struct xe_pt *xe_child, u64 pte, u64 addr)
-+{
-+	/*
-+	 * In rare scenarios, pte may not be written yet due to racy conditions.
-+	 * In such cases, invalidate the PRL and fallback to full PPC invalidation.
-+	 */
-+	if (!pte) {
-+		xe_page_reclaim_list_abort(tile->primary_gt, prl,
-+					   "found zero pte at addr=%#llx", addr);
-+		return -EINVAL;
-+	}
-+
-+	/* Ensure it is a defined page */
-+	xe_tile_assert(tile, xe_child->level == 0 ||
-+		       (pte & (XE_PDE_PS_2M | XE_PDPE_PS_1G)));
-+
-+	/* Account for NULL terminated entry on end (-1) */
-+	if (prl->num_entries >= XE_PAGE_RECLAIM_MAX_ENTRIES - 1) {
-+		xe_page_reclaim_list_abort(tile->primary_gt, prl,
-+					   "overflow while adding pte=%#llx", pte);
-+		return -ENOSPC;
-+	}
-+
-+	return generate_reclaim_entry(tile, prl, pte, xe_child);
-+}
-+
-+static bool add_compact_pt_prl(struct xe_tile *tile, struct xe_page_reclaim_list *prl,
-+			       struct xe_device *xe, struct xe_pt *compact_pt, u64 addr)
-+{
-+	struct iosys_map *map = &compact_pt->bo->vmap;
-+
-+	for (pgoff_t i = 0; i < SZ_2M / SZ_64K && xe_page_reclaim_list_valid(prl); i++) {
-+		u64 pte = xe_map_rd(xe, map, i * sizeof(u64), u64);
-+
-+		if (add_pte_to_prl(tile, prl, compact_pt, pte, addr))
-+			break;
-+	}
-+
-+	return xe_page_reclaim_list_valid(prl);
-+}
-+
- static int xe_pt_stage_unbind_entry(struct xe_ptw *parent, pgoff_t offset,
- 				    unsigned int level, u64 addr, u64 next,
- 				    struct xe_ptw **child,
-@@ -1674,21 +1711,22 @@ static int xe_pt_stage_unbind_entry(struct xe_ptw *parent, pgoff_t offset,
- 	struct xe_pt *xe_child = container_of(*child, typeof(*xe_child), base);
- 	struct xe_pt_stage_unbind_walk *xe_walk =
- 		container_of(walk, typeof(*xe_walk), base);
--	struct xe_device *xe = tile_to_xe(xe_walk->tile);
-+	struct xe_page_reclaim_list *prl = xe_walk->prl;
-+	struct xe_tile *tile = xe_walk->tile;
-+	struct xe_device *xe = tile_to_xe(tile);
- 	pgoff_t first = xe_pt_offset(addr, xe_child->level, walk);
- 	bool killed;
- 
- 	XE_WARN_ON(!*child);
- 	XE_WARN_ON(!level);
- 	/* Check for leaf node */
--	if (xe_walk->prl && xe_page_reclaim_list_valid(xe_walk->prl) &&
-+	if (prl && xe_page_reclaim_list_valid(prl) &&
- 	    xe_child->level <= MAX_HUGEPTE_LEVEL) {
- 		struct iosys_map *leaf_map = &xe_child->bo->vmap;
- 		pgoff_t count = xe_pt_num_entries(addr, next, xe_child->level, walk);
- 
- 		for (pgoff_t i = 0; i < count; i++) {
- 			u64 pte;
--			int ret;
- 
- 			/*
- 			 * If not a leaf pt, skip unless non-leaf pt is interleaved between
-@@ -1698,10 +1736,20 @@ static int xe_pt_stage_unbind_entry(struct xe_ptw *parent, pgoff_t offset,
- 				u64 pt_size = 1ULL << walk->shifts[xe_child->level];
- 				bool edge_pt = (i == 0 && !IS_ALIGNED(addr, pt_size)) ||
- 					       (i == count - 1 && !IS_ALIGNED(next, pt_size));
-+				struct xe_pt *child_pt =
-+					container_of(xe_child->base.children[first + i],
-+						     struct xe_pt, base);
- 
--				if (!edge_pt) {
--					xe_page_reclaim_list_abort(xe_walk->tile->primary_gt,
--								   xe_walk->prl,
-+				if (edge_pt)
-+					continue;
-+
-+				/* Walker never descends into compact PTs, descend now */
-+				if (child_pt->is_compact) {
-+					if (!add_compact_pt_prl(tile, prl, xe, child_pt, addr))
-+						break;
-+				} else {
-+					xe_page_reclaim_list_abort(tile->primary_gt,
-+								   prl,
- 								   "PT is skipped by walk at level=%u offset=%lu",
- 								   xe_child->level, first + i);
- 					break;
-@@ -1711,37 +1759,12 @@ static int xe_pt_stage_unbind_entry(struct xe_ptw *parent, pgoff_t offset,
- 
- 			pte = xe_map_rd(xe, leaf_map, (first + i) * sizeof(u64), u64);
- 
--			/*
--			 * In rare scenarios, pte may not be written yet due to racy conditions.
--			 * In such cases, invalidate the PRL and fallback to full PPC invalidation.
--			 */
--			if (!pte) {
--				xe_page_reclaim_list_abort(xe_walk->tile->primary_gt, xe_walk->prl,
--							   "found zero pte at addr=%#llx", addr);
-+			if (add_pte_to_prl(tile, prl, xe_child, pte, addr))
- 				break;
--			}
--
--			/* Ensure it is a defined page */
--			xe_tile_assert(xe_walk->tile, xe_child->level == 0 ||
--				       (pte & (XE_PDE_PS_2M | XE_PDPE_PS_1G)));
- 
- 			/* An entry should be added for 64KB but contigious 4K have XE_PTE_PS64 */
- 			if (pte & XE_PTE_PS64)
- 				i += 15; /* Skip other 15 consecutive 4K pages in the 64K page */
--
--			/* Account for NULL terminated entry on end (-1) */
--			if (xe_walk->prl->num_entries < XE_PAGE_RECLAIM_MAX_ENTRIES - 1) {
--				ret = generate_reclaim_entry(xe_walk->tile, xe_walk->prl,
--							     pte, xe_child);
--				if (ret)
--					break;
--			} else {
--				/* overflow, mark as invalid */
--				xe_page_reclaim_list_abort(xe_walk->tile->primary_gt, xe_walk->prl,
--							   "overflow while adding pte=%#llx",
--							   pte);
--				break;
--			}
- 		}
- 	}
- 
-@@ -1751,7 +1774,7 @@ static int xe_pt_stage_unbind_entry(struct xe_ptw *parent, pgoff_t offset,
- 	 * Verify if any PTE are potentially dropped at non-leaf levels, either from being
- 	 * killed or the page walk covers the region.
- 	 */
--	if (xe_walk->prl && xe_page_reclaim_list_valid(xe_walk->prl) &&
-+	if (prl && xe_page_reclaim_list_valid(prl) &&
- 	    xe_child->level > MAX_HUGEPTE_LEVEL && xe_child->num_live) {
- 		bool covered = xe_pt_covers(addr, next, xe_child->level, &xe_walk->base);
- 
-@@ -1760,7 +1783,7 @@ static int xe_pt_stage_unbind_entry(struct xe_ptw *parent, pgoff_t offset,
- 		 * we need to invalidate the PRL.
- 		 */
- 		if (killed || covered)
--			xe_page_reclaim_list_abort(xe_walk->tile->primary_gt, xe_walk->prl,
-+			xe_page_reclaim_list_abort(tile->primary_gt, prl,
- 						   "kill at level=%u addr=%#llx next=%#llx num_live=%u",
- 						   level, addr, next, xe_child->num_live);
- 	}
--- 
-2.43.0
+Applied to nvdimm/nvdimm.git (libnvdimm-for-next)
+https://git.kernel.org/nvdimm/nvdimm/c/13fe4cd9ddd0
+https://git.kernel.org/nvdimm/nvdimm/c/1a6b6442a982
 
