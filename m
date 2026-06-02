@@ -1,85 +1,152 @@
-Received: from mx1.secunet.com (mx1.secunet.com [62.96.220.36])
+Received: from ixit.cz (ixit.cz [185.100.197.86])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 972D03DB338;
-	Tue,  2 Jun 2026 10:12:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.96.220.36
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 786043D47B2;
+	Tue,  2 Jun 2026 10:13:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.100.197.86
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780395143; cv=none; b=aJZVHhZJMHYBa+A9kC0SYlyYBb137RRDBye1g9df+T2DFelPdVy75fQy7eaW30mJEgb2hcR8cqoe0CMDCNZJAjz/rxKyoFq1gWr13U9U9ZZEdl+zNfaklOFaKXyw2sgA/yXBN6s0mlUuTUX86HvuCK22z5NdJscfbUC+eL8rEDI=
+	t=1780395219; cv=none; b=pQio/ig9OQryZm/xbEfoX03pGR9ASdm7fVerTKNANTyvM4kOCU0ZYR2oyE3aUGZ/NpefCrPftwhBwU6shucfrw+MGJNIL4sW28TFxpR2T8/v9oZF8AWhLPKkLojPVwbwRD5J2ofd5ujYYxJgPxLGmzTKdUFo6+1zA3nr47YVooU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780395143; c=relaxed/simple;
-	bh=2NAio0MHv8BYG7XK3tUkFUn1ovnM+InLLL2mQgwAYTo=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pxzVxVjb7K7a1eyhfND9Lrri608lo6JUpRDwyQRRCel1Oubh+GML7mvhrwRjbhCy818mB5BlJlPHQvbYOSsD1snxEHZ/C+Eqor4f0HclhU+fQSUtNz6jtJzH97CmmbZoEWu8CzN9wdtaPsyjAJkVyXjqn7llD68x1gCMs6Gor7Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=secunet.com; spf=pass smtp.mailfrom=secunet.com; dkim=pass (2048-bit key) header.d=secunet.com header.i=@secunet.com header.b=jQlix4Dg; arc=none smtp.client-ip=62.96.220.36
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=secunet.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=secunet.com
+	s=arc-20240116; t=1780395219; c=relaxed/simple;
+	bh=9dWJmOeNAZspaBa8O+OPVMNFVl+ladrJV5YSlBcQeYQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ij4I86EV89n3wVroIaq/20/0MqJjRrAQS+2t9OHc1rAIHUtAKhgI47JdjA427X6s3sW3Qw8JlTGqXPL5xOkb5WPZ4E4RKUz44tgTy4pupIDABC2ZT3kbnAUzCiGfgzFaLNJkCiP52yw9oXm5nNfEwSZFLSFao0AENRTWO159jxQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=x531GGVs; arc=none smtp.client-ip=185.100.197.86
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=secunet.com header.i=@secunet.com header.b="jQlix4Dg"
-Received: from localhost (localhost [127.0.0.1])
-	by mx1.secunet.com (Postfix) with ESMTP id B43902074F;
-	Tue,  2 Jun 2026 12:12:19 +0200 (CEST)
-X-Virus-Scanned: by secunet
-Received: from mx1.secunet.com ([127.0.0.1])
- by localhost (mx1.secunet.com [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id gZYpSn90M4hU; Tue,  2 Jun 2026 12:12:19 +0200 (CEST)
-Received: from EXCH-01.secunet.de (rl1.secunet.de [10.32.0.231])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="x531GGVs"
+Received: from [172.20.10.2] (37-48-17-230.nat.epc.tmcz.cz [37.48.17.230])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519)
 	(No client certificate requested)
-	by mx1.secunet.com (Postfix) with ESMTPS id 333142050A;
-	Tue,  2 Jun 2026 12:12:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mx1.secunet.com 333142050A
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=secunet.com;
-	s=202301; t=1780395139;
-	bh=MTsU1Y41x4+rjB1nFr7GfXqK79SwNq7FbfNTTogCOtA=;
-	h=Date:From:To:CC:Subject:References:In-Reply-To:From;
-	b=jQlix4DgD/WIIuRzp6z4h1Z86o3c3C7vAXydKvcN2cTKShwX10kDw2FTp3VDLerCA
-	 QLo/ejzntWuI6IncrhBD6MpVkJcMoAcL97bhMFmJ3gYJFQVnV+ZMUuqTP1MfT2UOU5
-	 mfYPuvYpsHOtnN/ylL0IQLpAyUH6gew1sh8lTyE0M8mPUnrFFNMSsYWbzSztu/um9L
-	 QgXm54RlCIe6oab5/OoQG4m8ph/uVySA1BCwc3RS8UaHByTPg78amY+XlhLKRJyg2F
-	 lJLd/XOPjDdisKXlpv83z/Kx1f4lQkIWWW1j7PIc4EYJdOiWBIw6N7UKkOOcZ9ZX0K
-	 SpbTdBrdhCaCw==
-Received: from secunet.com (10.182.7.193) by EXCH-01.secunet.de (10.32.0.171)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Tue, 2 Jun
- 2026 12:12:18 +0200
-Received: (nullmailer pid 529991 invoked by uid 1000);
-	Tue, 02 Jun 2026 10:12:17 -0000
-Date: Tue, 2 Jun 2026 12:12:17 +0200
-From: Steffen Klassert <steffen.klassert@secunet.com>
-To: Takao Sato <takaosato1997@gmail.com>
-CC: <netdev@vger.kernel.org>, <w@1wt.eu>, <davem@davemloft.net>,
-	<herbert@gondor.apana.org.au>, <chopps@chopps.org>, <pfalcato@suse.de>,
-	<stable@vger.kernel.org>
-Subject: Re: [PATCH net v5] xfrm: iptfs: preserve shared-frag marker in
- iptfs_consume_frags()
-Message-ID: <ah6sgVwMHiWVZsNB@secunet.com>
-References: <20260526160957.1497109-1-takaosato1997@gmail.com>
+	by ixit.cz (Postfix) with ESMTPSA id 1E851534046D;
+	Tue, 02 Jun 2026 12:13:32 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1780395212;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=UeAf18dGfpVcHM4ZsOsIO1hfpCZ9+x5/eIrTR0tYfNk=;
+	b=x531GGVspMX8sbbH4BEgcNvtp+f8soQ/vqXaIstgLgjDshhHh2MtcPWBtYgblumBu8Ootd
+	YsRsgehZjzXziX7BLyYMsdGVfZceShhox4D21BTC7Gy563jpfAjeqsuPGxeT9SpOfvHnfv
+	W76KEnt6y2eEyef/71NzxpYUBiFmlhY=
+Message-ID: <bbe9d826-80b6-4aec-80d3-b8faca0375f9@ixit.cz>
+Date: Tue, 2 Jun 2026 12:13:31 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20260526160957.1497109-1-takaosato1997@gmail.com>
-X-ClientProxiedBy: EXCH-03.secunet.de (10.32.0.183) To EXCH-01.secunet.de
- (10.32.0.171)
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7] nfc: hci: fix out-of-bounds read in HCP header parsing
+To: Ashutosh Desai <ashutoshdesai993@gmail.com>
+Cc: kuba@kernel.org, edumazet@google.com, davem@davemloft.net,
+ pabeni@redhat.com, horms@kernel.org, stable@vger.kernel.org,
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org
+References: <20260505170712.96560-1-ashutoshdesai993@gmail.com>
+Content-Language: en-US
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ xsFNBF5v1x4BEADS3EddwsNsvVAI1XF8uQKbdYPY/GhjaSLziwVnbwv5BGwqB1tfXoHnccoA
+ 9kTgKAbiXG/CiZFhD6l4WCIskQDKzyQN3JhCUIxh16Xyw0lECI7iqoW9LmMoN1dNKcUmCO9g
+ lZxQaOl+1bY/7ttd7DapLh9rmBXJ2lKiMEaIpUwb/Nw0d7Enp4Jy2TpkhPywIpUn8CoJCv3/
+ 61qbvI9y5utB/UhfMAUXsaAgwEJyGPAqHlC0YZjaTwOu+YQUE3AFzhCbksq95CwDz4U4gdls
+ dmv9tkATfu2OmzERZQ6vJTehK0Pu4l5KmCAzYg42I9Dy4E6b17x6NncKbcByQFOXMtG0qVUk
+ F1yeeOQUHwu+8t3ZDMBUhCkRL/juuoqLmyDWKMc0hKNNeZ9BNXgB8fXkRLWEUfgDXsFyEkKp
+ NxUy5bDRlivf6XfExnikk5kj9l2gGlNQwqROti/46bfbmlmc/a2GM4k8ZyalHNEAdwtXYSpP
+ 8JJmlbQ7hNTLkc3HQLRsIocN5th/ur7pPMz1Beyp0gbE9GcOceqmdZQB80vJ01XDyCAihf6l
+ AMnzwpXZsjqIqH9r7T7tM6tVEVbPSwPt4eZYXSoJijEBC/43TBbmxDX+5+3txRaSCRQrG9dY
+ k3mMGM3xJLCps2KnaqMcgUnvb1KdTgEFUZQaItw7HyRd6RppewARAQABzSBEYXZpZCBIZWlk
+ ZWxiZXJnIDxkYXZpZEBpeGl0LmN6PsLBlAQTAQgAPgIbAwULCQgHAgYVCgkICwIEFgIDAQIe
+ AQIXgBYhBNd6Cc/u3Cu9U6cEdGACP8TTSSByBQJl+KksBQkPDaAOAAoJEGACP8TTSSBy6IAQ
+ AMqFqVi9LLxCEcUWBn82ssQGiVSDniKpFE/tp7lMXflwhjD5xoftoWOmMYkiWE86t5x5Fsp7
+ afALx7SEDz599F1K1bLnaga+budu55JEAYGudD2WwpLJ0kPzRhqBwGFIx8k6F+goZJzxPDsf
+ loAtXQE62UvEKa4KRRcZmF0GGoRsgA7vE7OnV8LMeocdD3eb2CuXLzauHAfdvqF50IfPH/sE
+ jbzROiAZU+WgrwU946aOzrN8jVU+Cy8XAccGAZxsmPBfhTY5f2VN1IqvfaRdkKKlmWVJWGw+
+ ycFpAEJKFRdfcc5PSjUJcALn5C+hxzL2hBpIZJdfdfStn+DWHXNgBeRDiZj1x6vvyaC43RAb
+ VXvRzOQfG4EaMVMIOvBjBA/FtIpb1gtXA42ewhvPnd5RVCqD9YYUxsVpJ9d+XsAy7uib3BsV
+ W2idAEsPtoqhVhq8bCUs/G4sC2DdyGZK8MRFDJqciJSUbqA+5z1ZCuE8UOPDpZKiW6H/OuOM
+ zDcjh0lOzr4p+/1TSg1PbUh7fQ+nbMuiT044sC1lLtJK0+Zyn0GwhR82oNM4fldNsaHRW42w
+ QGD35+eNo5Pvb3We5XRMlBdhFnj7Siggp4J8/PJ6MJvRyC+RIJPGtbdMB2/RxWunFLn87e5w
+ UgwR9jPMHAstuTR1yR23c4SIYoQ2fzkrRzuazsFNBF5v1x4BEADnlrbta2WL87BlEOotZUh0
+ zXANMrNV15WxexsirLetfqbs0AGCaTRNj+uWlTUDJRXOVIwzmF76Us3I2796+Od2ocNpLheZ
+ 7EIkq8budtLVd1c06qJ+GMraz51zfgSIazVInNMPk9T6fz0lembji5yEcNPNNBA4sHiFmXfo
+ IhepHFOBApjS0CiOPqowYxSTPe/DLcJ/LDwWpTi37doKPhBwlHev1BwVCbrLEIFjY0MLM0aT
+ jiBBlyLJaTqvE48gblonu2SGaNmGtkC3VoQUQFcVYDXtlL9CVbNo7BAt5gwPcNqEqkUL60Jh
+ FtvVSKyQh6gn7HHsyMtgltjZ3NKjv8S3yQd7zxvCn79tCKwoeNevsvoMq/bzlKxc9QiKaRPO
+ aDj3FtW7R/3XoKJBY8Hckyug6uc2qYWRpnuXc0as6S0wfek6gauExUttBKrtSbPPHiuTeNHt
+ NsT4+dyvaJtQKPBTbPHkXpTO8e1+YAg7kPj3aKFToE/dakIh8iqUHLNxywDAamRVn8Ha67WO
+ AEAA3iklJ49QQk2ZyS1RJ2Ul28ePFDZ3QSr9LoJiOBZv9XkbhXS164iRB7rBZk6ZRVgCz3V6
+ hhhjkipYvpJ/fpjXNsVL8jvel1mYNf0a46T4QQDQx4KQj0zXJbC2fFikAtu1AULktF4iEXEI
+ rSjFoqhd4euZ+QARAQABwsF8BBgBCAAmAhsMFiEE13oJz+7cK71TpwR0YAI/xNNJIHIFAmX4
+ qVAFCQ8NoDIACgkQYAI/xNNJIHKN4A/+Ine2Ii7JiuGITjJkcV6pgKlfwYdEs4eFD1pTRb/K
+ 5dprUz3QSLP41u9OJQ23HnESMvn31UENk9ffebNoW7WxZ/8cTQY0JY/cgTTrlNXtyAlGbR3/
+ 3Q/VBJptf04Er7I6TaKAmqWzdVeKTw33LljpkHp02vrbOdylb4JQG/SginLV9purGAFptYRO
+ 8JNa2J4FAQtQTrfOUjulOWMxy7XRkqK3QqLcPW79/CFn7q1yxamPkpoXUJq9/fVjlhk7P+da
+ NYQpe4WQQnktBY29SkFnvfIAwqIVU8ix5Oz8rghuCcAdR7lEJ7hCX9bR0EE05FOXdZy5FWL9
+ GHvFa/Opkq3DPmFl/0nt4HJqq1Nwrr+WR6d0414oo1n2hPEllge/6iD3ZYwptTvOFKEw/v0A
+ yqOoYSiKX9F7Ko7QO+VnYeVDsDDevKic2T/4GDpcSVd9ipiKxCQvUAzKUH7RUpqDTa+rYurm
+ zRKcgRumz2Tc1ouHj6qINlzEe3a5ldctIn/dvR1l2Ko7GBTG+VGp9U5NOAEkGpxHG9yg6eeY
+ fFYnMme51H/HKiyUlFiE3yd5LSmv8Dhbf+vsI4x6BOOOq4Iyop/Exavj1owGxW0hpdUGcCl1
+ ovlwVPO/6l/XLAmSGwdnGqok5eGZQzSst0tj9RC9O0dXO1TZocOsf0tJ8dR2egX4kxM=
+In-Reply-To: <20260505170712.96560-1-ashutoshdesai993@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, May 26, 2026 at 01:09:57PM -0300, Takao Sato wrote:
-> iptfs_consume_frags() transfers paged fragments from one socket buffer
-> to another but fails to propagate the SKBFL_SHARED_FRAG flag. This is
-> the same class of bug that was fixed in skb_try_coalesce() for
-> CVE-2026-46300: when fragments backed by read-only page-cache pages are
-> merged, the marker indicating their shared nature must be preserved so
-> that ESP can decide correctly whether in-place encryption is safe.
+On 05/05/2026 19:07, Ashutosh Desai wrote:
+> Both nfc_hci_recv_from_llc() and nci_hci_data_received_cb() read
+> packet->header from skb->data at function entry without first checking
+> that the buffer holds at least one byte. A malicious NFC peer can send
+> a 0-byte HCP frame that passes through the SHDLC layer and reaches
+> these functions, causing an out-of-bounds heap read of packet->header.
+> The same 0-byte frame, if queued as a non-final fragment, also causes
+> the reassembly loop to underflow msg_len to UINT_MAX, triggering
+> skb_over_panic() when the reassembled skb is written.
 > 
-> Apply the same two-line fix used in skb_try_coalesce() to
-> iptfs_consume_frags().
+> Fix this by adding a pskb_may_pull() check at the entry of each
+> function before packet->header is first accessed. The existing
+> pskb_may_pull() checks before the reassembled hcp_skb is cast to
+> struct hcp_packet remain in place to guard the 2-byte HCP message
+> header.
 > 
-> Fixes: b96ba312e21c ("xfrm: iptfs: share page fragments of inner packets")
-> Cc: stable@vger.kernel.org # 6.14+
-> Signed-off-by: Takao Sato <takaosato1997@gmail.com>
+> Fixes: 8b8d2e08bf0d ("NFC: HCI support")
+> Fixes: 11f54f228643 ("NFC: nci: Add HCI over NCI protocol support")
+> Cc: stable@vger.kernel.org
+> Reviewed-by: Simon Horman <horms@kernel.org>
+> Signed-off-by: Ashutosh Desai <ashutoshdesai993@gmail.com>
+> ---
+> Changes in v7:
+> - Add David Heidelberg <david+nfc@ixit.cz> to CC (NFC subsystem maintainer)
+> 
+> Changes in v6:
+> - Add pskb_may_pull(skb, 1) at function entry in both functions before
+>    packet->header is first accessed, to fix OOB read on 0-byte frames
+>    and prevent integer underflow in the fragment reassembly path
+>    (Paolo Abeni)
+> 
+> V6 -> V7: add NFC subsystem maintainer to CC
+> V5 -> V6: add entry-point length checks per Paolo Abeni's review
+> V4 -> V5: fix whitespace damage
+> V3 -> V4: add Fixes tags
+> V2 -> V3: drop redundant checks from nfc_hci_msg_rx_work/nci_hci_msg_rx_work;
+>            remove incorrect Suggested-by tag
+> V1 -> V2: use pskb_may_pull() instead of skb->len check
+> 
+> v6: https://lore.kernel.org/netdev/20260502163116.3409687-1-ashutoshdesai993@gmail.com/
+> v5: https://lore.kernel.org/netdev/20260416051522.4154698-1-ashutoshdesai993@gmail.com/
+> v4: https://lore.kernel.org/netdev/177614425081.3600288.2536320552978506086@gmail.com/
+> v3: https://lore.kernel.org/netdev/20260413024329.3293075-1-ashutoshdesai993@gmail.com/
+> v2: https://lore.kernel.org/netdev/20260409150825.2217133-1-ashutoshdesai993@gmail.com/
+> v1: https://lore.kernel.org/netdev/20260408223113.2009304-1-ashutoshdesai993@gmail.com/
+> 
+>   net/nfc/hci/core.c | 10 ++++++++++
+>   net/nfc/nci/hci.c  | 10 ++++++++++
+>   2 files changed, 20 insertions(+)
+> 
 
-Applied, thanks a lot!
+Applied, thank you!
+
+David Heidelberg
