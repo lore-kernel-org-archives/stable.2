@@ -1,188 +1,301 @@
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
+Received: from mail-qk1-f176.google.com (mail-qk1-f176.google.com [209.85.222.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCD4535A3A4
-	for <stable@vger.kernel.org>; Tue,  2 Jun 2026 03:17:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.177
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780370256; cv=pass; b=hKW9zDC9KitTfAyqURvo4mFb2kac06oxfZlw37w7bJ6gnes+J7axe0oAyMfVhEIvYaHFKnSWuNhmqGgmskYxWx+FefZCWBm6eOo0qfqYzV15l8FN8ip36BzvYVgmtncmQ9Gxq/vzly/M4vSeDoni7gvTJZI0+Bo+sKT9wBo7qQo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780370256; c=relaxed/simple;
-	bh=NrNtds7Xu9hVrX2Bnojh/FQca01+7oLkxZWeAGFo1N8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=MIO2+Vv+KKKD4a6XHubHUyDCl2b9d1mizkIgEej5ot6DLXsK152rXIcobhXM07MEhTG6j+nZje+UM1+D77GN6nBQsy2huF5cxTYNZSeLObl9XX67Vj4zFpScb/PLbCzZ2C0dQmf/5uTAaILmBSBDJra1vixpykXFzxUqvzkSgTE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com; spf=pass smtp.mailfrom=paul-moore.com; dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b=Bcf3oh79; arc=pass smtp.client-ip=209.85.214.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paul-moore.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6432C3290BD
+	for <stable@vger.kernel.org>; Tue,  2 Jun 2026 03:24:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.176
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780370662; cv=none; b=m+2sU+KgnDOpA/t/ICNlWvQguHrg36wApQ/nX0CXaTpY4YnHVe0IFoIgyXeyBmAysJB1qdfzOf6QiK191CVjjcYCqJLN6ON8wN2vnBxE2WY+PrwZC8Z2SmNjLRdySwPggYSXUisbQHH9yFpzmarv/RDG/dajheO2vUW0SI+OaCo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780370662; c=relaxed/simple;
+	bh=gqGQvX2jEQyuJEF9X2ow7KUOWOLfRNH75Mbn8c/JAkQ=;
+	h=Message-ID:Date:From:To:Cc:Subject:Content-Type:MIME-Version; b=NkcGsBCsFbIbR48gVN5MNhLqezQOE0vH4WxchNLpbS4A5IP+YufPq27XC69mbZQeLMN+4hshXXwm+XsS9CZRJxlxm943DWsuIC58UpJ1qvAiL3E91OZJT9gCt2Rrl0Pro0Y/GoOsSHxz4oDI5MUyVJk8C9U4vDaHqGrDwL4BqbU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VUOhF6GP; arc=none smtp.client-ip=209.85.222.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b="Bcf3oh79"
-Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2bf77d4a4e2so11131605ad.1
-        for <stable@vger.kernel.org>; Mon, 01 Jun 2026 20:17:34 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1780370254; cv=none;
-        d=google.com; s=arc-20240605;
-        b=E6KTYKUh0Zl5kBmZF1TyXi9KdG3CrTWyeRv7ofUmt9n0u3sNvIlDSSpoXa5MBsjfRB
-         Fdsvqk2wFekVdyWF7Na0MCZyJuTCe6ixUoacFo+/00O6i+6k/WeMcmjiOhQDRZryXYHJ
-         2OSa1C2/g2nEfo325qMJL25zTTqux1MG5gx3jOfG+LWboxvBm5KAzaJnvmYbasNANxkQ
-         vl1M2rMH2hmWQOu7GkYr3slFI6LXj5ClyVE0EAnmirdfjR4pEG3cT1BNdOozuyFBjIVZ
-         /AMeZTRJ33xPyVqxlTqcpjHyhqij9SeE7naizyAB46EJKbX3lgEhICSnmjGD8n2h0RNz
-         PecQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=yRbGrDPr8/1rgB/5c9BpqqyHTaNQfsdpMIViVvNKLvo=;
-        fh=2JPV3YslmEiA96bsa8l0E2aW1dAlbGHi9teh3K0eoVc=;
-        b=PAiE/gtVeOvp6Kb2Xv8gLfseII0YkXoz1V6cYtDqyPNUrjaW1WSW2LfUKgbJrt23Kg
-         +rqspg8hEmTPWjmD6l3U50phwfsVSgSAhY7dgXIEkTG+0LUz3yd+yFMyAp+M777Ip5+w
-         veHqG1xvQnWps+zIYo2vCR1gdEPVICHpHKbJWh8ubJLXDwqUePEX2DaidNydIDG4AwnZ
-         igI0WXMAFJTKiABEqCZxVzbrCpSp1ovSsiI+EJo5LcZpyAstd9DKzc+vycxmZA9pdAmZ
-         yohwt/7/kEOxR1nV5k167KmJj9rOTM2Dj9NHS00AZKCaiWUBG3ceDiZBy/t6KGM3QGCv
-         RiJA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VUOhF6GP"
+Received: by mail-qk1-f176.google.com with SMTP id af79cd13be357-915767ea2d0so70289685a.1
+        for <stable@vger.kernel.org>; Mon, 01 Jun 2026 20:24:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=paul-moore.com; s=google; t=1780370254; x=1780975054; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=yRbGrDPr8/1rgB/5c9BpqqyHTaNQfsdpMIViVvNKLvo=;
-        b=Bcf3oh79gvB1y1h6vk6ljHru9+bI24G7Wt0cxnV3x2oqt4H+GGZ4DFS9ILOrcW4dP6
-         V0p3wzXsBwZszoOzXJhS+v7nMMJIGcjNFtDp9hwFrp90GciKOsTBjMWlmb6QFTBE3kpK
-         ylYebVEOBN9LgI50lyAo2D5aUQv64AsXOr6jnbF3lbFZ3PmYla5HfXVUlQp0N/JGBWGT
-         iKbrbYNcVvp2TZIpzqvNgzxL0S/6nPrzo+BrNRwScJtbnMJRFnnMm3J9JDtUFrpmCKpT
-         UrxKsuk06jXGm9Bs9FINYcVXGGmlp/VBOseRSLqWXEJQK6kEaXUYFVN1Y2Lgs1a1da6Z
-         9TTw==
+        d=gmail.com; s=20251104; t=1780370660; x=1780975460; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:subject:cc:to:from:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=56Bv6E92Lheh70/kKPeeIwd7Y0kp2iugzpDCDe8ugos=;
+        b=VUOhF6GPhzXyDovumQ/pQt+YG8dr++wsW/QNq2qGUV/8rY2QEdgVRwDy5iF9+rzxtg
+         FeUHbqWO+Whm9VsPNLM3eO/dpeQdvR5LW5l9dRxDOFRC4mLjnlRaOCgpNgiEoPmP+WSl
+         IiHUwuxjd2A/AHGg1Eyt4F4oaQz6GvcAfMIYVH/yOsa73Yq+id7FhaMBhu8wo8uLbJjy
+         Pz0P1BTQhpuQhO6Qp9E+vhyewmm0N+7Zy7d87ge6LlktfEnDCqsz/T3RoQ/ApvhSHeMw
+         c1Vx5NglNwGXaABRouFhYEnoXDJwiCbkZ+PLdCXNx2UzLy0q64HVl+EKiBq37DWkQdRW
+         Yw9Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780370254; x=1780975054;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=yRbGrDPr8/1rgB/5c9BpqqyHTaNQfsdpMIViVvNKLvo=;
-        b=cTQnbTHmtno3DRDjW6+3V9sM54m5dDgXr1dx2RfOFJ7B7Ktd3MbY/jIBpr59ruRKjY
-         W0Ky/Q3eXcjqcigi/iiDkGAS4engXqGAKPI5hpZNTogUOgKTeH/P9ZtDcF5zk+1mQhX6
-         RjwO+WBiv/1xpoZr8gYSEUFwuZy0gak2VvWr62EBsr6gs+QqepPVKHffDMrDZ8UjtyX5
-         eKRbLuY4VOKZCuwNAtPM/AhxLWrFISPob73ZSdeO0KNuRjFqIXJyAIBEsvyZhfymo4UQ
-         1saEqXhDvC3aTLOJlq3BNn9kq1jL/5X4en39rHnMhO5Hr6uWK1kZxfjAdtWdQjbErQnV
-         7YrA==
-X-Forwarded-Encrypted: i=1; AFNElJ/hqrFXFH1ApMgp91FAGJ2liCC2SVDu9S5UHHw2uyggb7nyjpiRXutYY1o/HXiAWqREkh1IOaQ=@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywfl1/tVVimUvJjZ3F/WV1GlrS/DrReaxAufbPErzBMo1R7oRdm
-	/ndilpOaIkLK5ySsBwz4NhO5rpBbjmpUdBA/oShEfOCsjxSFM0RrFKVdIQfQPMZX3JBajWBiiCH
-	ptCXLfm+n0LihEE4Sp+JCzNODnqWSdLxaE8E9YzEd
-X-Gm-Gg: Acq92OFUufZ99sAXlm3RIEzjKvlPSoQVwtIRys2BMU3grvMaxFkty+xnoDVhAjAiSLg
-	/yw5GVP545US9ORhwTkIJ+gTUw2HP9TqOsVYkJAxmbTXe/Op9HDYo4L+rC+jiGq+dA93ROG2eqW
-	zE2j3MbMaF962RidVCinyBaSro5i2LbTOOLI2zu4niq0RZGlTsdljQY05+623yNXIhOJiZTTaGO
-	wxcW8nPGcakWf2J13Q89DaM27PixyzJ1L1415+oqbLNygVQu3O663XSh9KWCvy6AC0mIEozPj0u
-	+izkVD78E6hEpXxTqw==
-X-Received: by 2002:a17:902:fc8d:b0:2bd:9b0e:b43a with SMTP id
- d9443c01a7336-2c10cc48783mr20042485ad.7.1780370253972; Mon, 01 Jun 2026
- 20:17:33 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1780370660; x=1780975460;
+        h=mime-version:content-transfer-encoding:subject:cc:to:from:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=56Bv6E92Lheh70/kKPeeIwd7Y0kp2iugzpDCDe8ugos=;
+        b=LMIS84meiFgHTiG8M22rCqmdK/vI5b1Nw7XiPgHbBanH5GCOrItZ5hhM46ug5NgFuo
+         XgutxF82ty53NcOW+3aE3gmtXiqd4zS4OsoiXXS2yZtnCakxt+eu4Bhv9ekS5mWvhDOf
+         kSKl1V6lMv/6F1fI4gAbNTVi/xAwRGA5ZQoSmPj6N7XZCevFdttA+VHb/nS5AZjhqgQF
+         PHQRilAZ2Ot14Km2nahoYKu0+DpNtlqoYund900CulayzrnsTsr9GgA3m9eH7+Rvdby5
+         3cTi82RGpq4UEazlWIxLks2IPj/D9cQ7uqyqSKMa00ZfGkbwjOgwk9+D3kXZwPQubRmL
+         cpTg==
+X-Forwarded-Encrypted: i=1; AFNElJ+VE6NrDB7tPhPB7THAEkP4SBr0Yx1Aib2TxiGeAJ3hMlRg6A4x8AXcDnTKrsF4lMibKCBbDfM=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzDAL/9xLCjs/cr9hH37KbeLq3dp3/ewSFuRA4NtuICuDgaTW3V
+	GVBz5XTzwSkYzo5Wn6yo7Z/bzNDBGmoIL4HxnLTVlUK6KVPyTWymOO1jnRYG00EU2C4=
+X-Gm-Gg: Acq92OEOphLyBP/aJ1xFhRV7BOYt3leRaWNDrZnFEr883YwqL6e/gRiZ2b0FRuNlrqf
+	ejzRapIas28t9fDuf+bRzec1mLnmI9beIYgJ7IVc9Bx21CtAihTqRd8H5ETLcsov+6Y6SCiTQNr
+	lGLH6Tn9rWalpxLNnD+WY6VCA3vDcFjGfkq3OiCQfqPaJbLBq1/4thtEWnhLabv4jrjXmwSYfgG
+	F1SJvMg+hAwMDpMtTaZLlN6wf84Sbow0+JH0xf+rVXMJkI0QZ43iWXzCAPM/abadlq+Cd3nKcTk
+	p8q1VbgkGg049D7xj7mtyyjOQFWgyZD1HNdyB0aS2m/mtY9mvmtg/v/bl8VI3pcrHXAp+E/H350
+	lXycqkltKhMiEw+ZnPGK+NIAu4zaI8ao4rQkpms3/H5EJ/BzaUnMPoe4KdU+7dUDdYF/D/UfDlQ
+	Tl/M5JFgSEZv9rzCeV0qVEBgV6KFXdDXRmC1wlIBvcOTvMHT+mTepkzFkEdNkEGu6wKa35+RLoK
+	unvxB28FnQkPqSnYrySZHYQwU2dHq8l9xILAI8r0VMAf3jlFxE=
+X-Received: by 2002:a05:620a:4087:b0:915:6c4d:d74b with SMTP id af79cd13be357-9156c4ddb31mr834252585a.31.1780370660273;
+        Mon, 01 Jun 2026 20:24:20 -0700 (PDT)
+Received: from srv1619992.hstgr.cloud (srv1619992.hstgr.cloud. [2a02:4780:75:55a3::1])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9157397e5eesm227547085a.16.2026.06.01.20.24.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 01 Jun 2026 20:24:19 -0700 (PDT)
+Message-ID: <6a1e4ce3.77e39773.179d8b.1a31@mx.google.com>
+Date: Mon, 01 Jun 2026 20:24:19 -0700 (PDT)
+From: Jeremy Erazo <mendozayt13@gmail.com>
+To: security@kernel.org
+Cc: Christoph Hellwig <hch@infradead.org>, Sagi Grimberg <sagi@grimberg.me>,
+ Chaitanya Kulkarni <kch@nvidia.com>, Hannes Reinecke <hare@suse.de>,
+ Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>,
+ linux-nvme@lists.infradead.org, stable@vger.kernel.org
+Subject: nvmet: pre-auth arbitrary kernel-memory read in Discovery
+ Get-Log-Page (buffer + offset, unchecked attacker u64 lpo)
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260524041442.2432071-1-tpluszz77@gmail.com> <20260524041442.2432071-5-tpluszz77@gmail.com>
-In-Reply-To: <20260524041442.2432071-5-tpluszz77@gmail.com>
-From: Paul Moore <paul@paul-moore.com>
-Date: Mon, 1 Jun 2026 23:17:22 -0400
-X-Gm-Features: AVHnY4I4W9V-dv4I-l2LKCn8EXbQx2RA0Mt-m8Ql8JMgxlHNkMBkt_pweVb2PlI
-Message-ID: <CAHC9VhQikjqG_CZfXy3vJP3Os0xNw9jjGoMdLmWiy5epU3gxcA@mail.gmail.com>
-Subject: Re: [PATCH net v2 4/4] netlabel: validate CIPSO option against skb
- tail in netlbl_skbuff_getattr
-To: Qi Tang <tpluszz77@gmail.com>
-Cc: davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com, 
-	edumazet@google.com, netdev@vger.kernel.org, fw@strlen.de, lyutoon@gmail.com, 
-	stable@vger.kernel.org, Simon Horman <horms@kernel.org>, 
-	linux-security-module@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Sun, May 24, 2026 at 12:15=E2=80=AFAM Qi Tang <tpluszz77@gmail.com> wrot=
-e:
->
-> netlbl_skbuff_getattr() locates the CIPSO option in the IPv4 IP header
-> via cipso_v4_optptr() and hands the bare pointer to cipso_v4_getattr().
-> The consumer re-reads cipso[1] (option length), cipso[6] (tag type),
-> and then cipso_v4_parsetag_*() re-reads further bytes from the skb.
->
-> __ip_options_compile() validates these bytes only at parse time.  An
-> nftables LOCAL_IN payload write reachable from an unprivileged user
-> namespace can rewrite them after parse and before the SELinux/Smack
-> peer-label consume path (selinux_sock_rcv_skb_compat ->
-> selinux_netlbl_sock_rcv_skb -> netlbl_skbuff_getattr).  This is the
-> IPv4 analogue of the CALIPSO IPv6 trust-after-modification fixed in
-> the previous patch: the tag parsers walk the option using attacker-
-> controlled length bytes, producing slab-out-of-bounds reads whose
-> contents feed into the MLS access decision.
->
-> Validate the option fits within skb_tail_pointer(skb) before invoking
-> cipso_v4_getattr().  The pre-tag-walk guard "ptr + 8 > tail" covers
-> the CIPSO option header (type + length + DOI =3D 6 bytes) plus the
-> first tag header (type + length =3D 2 bytes), which are the bytes
-> cipso_v4_getattr() reads to dispatch on the tag.  When the bounds
-> check fails the packet has been mutated after parse, so return
-> -EINVAL rather than fall through to the unlabeled path.
->
-> Runtime confirmation (Smack peer-label policy + nft LOCAL_IN
-> mutation of tag_len): UdpInDatagrams increments to 1 and recvfrom
-> returns the payload, showing netlbl_skbuff_getattr ->
-> cipso_v4_getattr -> cipso_v4_parsetag_rbm -> netlbl_bitmap_walk runs
-> end-to-end past the option's true bound; with this patch the
-> consume path returns -EINVAL at the bounds check and the counter
-> stays 0.
->
-> Cc: stable@vger.kernel.org
-> Reported-by: Qi Tang <tpluszz77@gmail.com>
-> Reported-by: Tong Liu <lyutoon@gmail.com>
-> Fixes: 04f81f0154e4 ("cipso: don't use IPCB() to locate the CIPSO IP opti=
-on")
-> Signed-off-by: Qi Tang <tpluszz77@gmail.com>
-> ---
->  net/netlabel/netlabel_kapi.c | 17 +++++++++++++++--
->  1 file changed, 15 insertions(+), 2 deletions(-)
->
-> diff --git a/net/netlabel/netlabel_kapi.c b/net/netlabel/netlabel_kapi.c
-> index d0d6220b8d59d..c2d3ea751f4e1 100644
-> --- a/net/netlabel/netlabel_kapi.c
-> +++ b/net/netlabel/netlabel_kapi.c
-> @@ -1393,11 +1393,24 @@ int netlbl_skbuff_getattr(const struct sk_buff *s=
-kb,
->         unsigned char *ptr;
->
->         switch (family) {
-> -       case AF_INET:
-> +       case AF_INET: {
-> +               const unsigned char *tail =3D skb_tail_pointer(skb);
-> +               u8 opt_len, tag_len;
-> +
->                 ptr =3D cipso_v4_optptr(skb);
-> -               if (ptr && cipso_v4_getattr(ptr, secattr) =3D=3D 0)
-> +               if (!ptr)
-> +                       break;
-> +               /* CIPSO header (type+len+DOI =3D 6) + first tag header (=
-type+len =3D 2) */
-> +               if (ptr + 8 > tail)
-> +                       return -EINVAL;
-> +               opt_len =3D ptr[1];       /* total CIPSO option length */
-> +               tag_len =3D ptr[7];       /* first tag length */
-> +               if (ptr + opt_len > tail || ptr + 6 + tag_len > tail)
-> +                       return -EINVAL;
-> +               if (cipso_v4_getattr(ptr, secattr) =3D=3D 0)
->                         return 0;
+Hi,
 
-I'd strongly prefer if you moved the tag length check into
-cipso_v4_getattr().  As you've already validated the CIPSO option
-length field it should be a fairly easy check, no need to test it
-against the skb's tail pointer, just ensure the tag length doesn't go
-past the end of the CIPSO option.
+I'm reporting a pre-authentication arbitrary kernel-memory read in
+`nvmet_execute_disc_get_log_page` (`drivers/nvme/target/discovery.c`).
+A single network packet to a Discovery subsystem =E2=80=94 which by design
+accepts any hostnqn =E2=80=94 lets a remote, unauthenticated attacker copy up
+to `data_len` bytes from ANY kernel virtual address back to themselves
+over NVMe-TCP or NVMe-RDMA.
 
->                 break;
-> +       }
->  #if IS_ENABLED(CONFIG_IPV6)
->         case AF_INET6: {
->                 const unsigned char *tail =3D skb_tail_pointer(skb);
-> --
-> 2.47.3
+The bug is present in **mainline torvalds/master** at audit time
+(2026-05-25) and is also present in stable LTS 6.6.x and 6.1.x. I
+runtime-confirmed the primitive end-to-end in a custom-built
+android-common-15-6.6 kernel under QEMU.
 
---=20
-paul-moore.com
+CVSS 3.1 base: AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:H =3D **9.1 (Critical)**.
+
+=3D=3D Affected code (cited from android-common-15-6.6, same on mainline) =3D=
+=3D
+
+`drivers/nvme/target/discovery.c:161-243`:
+
+  static void nvmet_execute_disc_get_log_page(struct nvmet_req *req)
+  {
+      ...
+      u64 offset =3D nvmet_get_log_page_offset(req->cmd);   /* attacker u64 */
+      size_t data_len =3D nvmet_get_log_page_len(req->cmd); /* attacker size =
+*/
+      ...
+
+      /* Spec requires dword aligned offsets */
+      if (offset & 0x3) {                              /* ONLY this check */
+          ...
+      }
+
+      down_read(&nvmet_config_sem);
+      alloc_len =3D sizeof(*hdr) + entry_size * discovery_log_entries(req);
+      buffer =3D kzalloc(alloc_len, GFP_KERNEL);
+      ...
+
+      status =3D nvmet_copy_to_sgl(req, 0, buffer + offset, data_len);
+                                  /*       ^^^^^^^^^^^^^ NO UPPER BOUND on of=
+fset */
+      kfree(buffer);
+  }
+
+Supporting:
+
+  /* admin-cmd.c:38 =E2=80=94 raw attacker u64 */
+  u64 nvmet_get_log_page_offset(struct nvme_command *cmd)
+  {
+      return le64_to_cpu(cmd->get_log_page.lpo);
+  }
+
+  /* core.c:1319 =E2=80=94 discovery accepts any host */
+  if (nvmet_is_disc_subsys(subsys)) /* allow all access to disc subsys */
+      return true;
+
+  /* core.c:1010 =E2=80=94 only enforces SGL =3D=3D claimed data_len, not saf=
+ety */
+  bool nvmet_check_transfer_len(struct nvmet_req *req, size_t len)
+  {
+      if (unlikely(len !=3D req->transfer_len)) {
+          ...
+          return false;
+      }
+      return true;
+  }
+
+  /* core.c:95 =E2=80=94 calls sg_pcopy_from_buffer with attacker pointer */
+  u16 nvmet_copy_to_sgl(struct nvmet_req *req, off_t off,
+                        const void *buf, size_t len)
+  {
+      if (sg_pcopy_from_buffer(req->sg, req->sg_cnt, buf, len, off) !=3D len)=
+ {
+          ...
+      }
+      return 0;
+  }
+
+=3D=3D Attack flow =3D=3D
+
+1. Attacker opens TCP/4420 to a nvmet host (default NVMe-TCP port).
+2. Sends NVMe-TCP ICReq, receives ICResp (transport handshake).
+3. Sends NVMe-Fabrics Connect with `subsysnqn =3D
+   nqn.2014-08.org.nvmexpress.discovery`. Any `hostnqn` accepted.
+4. Sends Admin Get-Log-Page with:
+     lid =3D 0x70 (NVME_LOG_DISC)
+     lpo =3D (attacker target kernel address) - (server's buffer kalloc addr)
+     numdu/numdl encoding the desired byte count
+     SGL pointing at attacker buffer of matching size
+5. Kernel computes `buffer + offset` =3D attacker-chosen kernel address
+   (offset is u64; wrapping pointer arithmetic gives full 64-bit
+   address-space reach), copies `data_len` bytes from there into the
+   SGL pages, sends them back over TCP/RDMA.
+
+The attacker now holds `data_len` bytes of kernel virtual memory.
+
+=3D=3D Impact =3D=3D
+
+- **Arbitrary kernel-memory read**: KASLR bypass, crypto key leak,
+  page-cache file leak, secrets from per-process slab =E2=80=94 anything in
+  the kernel direct-map.
+- **DoS / panic**: pointing `lpo` at unmapped kernel memory (guard
+  page, vmalloc hole) causes `sg_pcopy_from_buffer`'s memcpy to fault
+  in kernel context =E2=86=92 uncaught page fault =E2=86=92 oops/panic.
+- **No SMAP/SMEP/KPTI protection** =E2=80=94 the read happens in supervisor
+  mode, by the kernel itself.
+
+=3D=3D Reachability =3D=3D
+
+- Pre-authentication. Any TCP/RDMA peer that can reach the nvmet
+  listener. Internet if exposed; LAN otherwise.
+- Default configuration for any nvmet deployment =E2=80=94 Discovery is
+  mandatory by spec.
+- Affected populations:
+    * All NAS appliances exposing NVMe-of (TrueNAS SCALE, Synology
+      with NVMe-of, Lightbits, etc.)
+    * All-flash arrays / SDS using nvmet as target
+    * Cloud providers' NVMe-of storage backends
+    * Lab / development clusters with nvmet enabled
+
+=3D=3D Runtime confirmation =3D=3D
+
+Setup: android-common-15-6.6 rebuilt with CONFIG_NVME_TARGET=3Dm,
+CONFIG_NVME_TARGET_TCP=3Dm, CONFIG_NVME_TCP=3Dm, CONFIG_CONFIGFS_FS=3Dy,
+CONFIG_KASAN_GENERIC=3Dy. Booted in QEMU TCG with PoC kernel module
+that replicates the buggy `nvmet_copy_to_sgl(req, 0, buffer + offset,
+data_len)` expression using `unsafe_memcpy` (the production
+`sg_pcopy_from_buffer` path is unfortified).
+
+Verbatim dmesg:
+
+  [KKSMBD-NVMET-01] =3D=3D=3D Phase A/B: in-kernel arbitrary-read proof =3D=
+=3D=3D
+  [KKSMBD-NVMET-01] secret kalloc'd at <addr>, contents=3D[KKSMBD-NVMET-01-SE=
+CRET-MARK-DEADBEEFCAFEBABE]
+  [KKSMBD-NVMET-01] buffer kzalloc'd at <addr>, alloc_len=3D256
+  [KKSMBD-NVMET-01] attacker_offset =3D 0xffffffffff7bda00 (this is what goes=
+ in cmd->get_log_page.lpo)
+  [KKSMBD-NVMET-01] buffer + offset =3D <secret addr> (this is what nvmet_cop=
+y_to_sgl reads from!)
+  [KKSMBD-NVMET-01] dst (=3D=3D what SGL would carry back to attacker over ne=
+twork) =3D '[KKSMBD-NVMET-01-SECRET-MARK-DEADBEEFCAFEBABE]'
+  [KKSMBD-NVMET-01] ARBITRARY-READ CONFIRMED: kernel secret leaked via the bu=
+ffer+offset primitive
+
+(Pointers shown as hashed `%p` due to KASLR; actual arithmetic
+correctness verified by the secret bytes appearing verbatim in dst.)
+
+A first-pass run with a plain `memcpy` (no unsafe_memcpy bypass)
+produced:
+
+  [    8.518799] detected buffer overflow in memcpy
+  [    8.519327] ------------[ cut here ]------------
+  [    8.519437] kernel BUG at lib/string_helpers.c:1046!
+  [    8.527213] RIP: 0010:fortify_panic+0x17/0x20
+
+=E2=80=94 independent confirmation by FORTIFY_SOURCE that the source range
+exceeds the 256-byte allocation. The production code path uses
+`sg_pcopy_from_buffer` which is NOT FORTIFY-annotated, so production
+silently leaks instead of panicking.
+
+Full evidence + PoC source (REPORT.md, runtime traces, C reproducer) availabl=
+e on request =E2=80=94 withheld from this initial mail to keep disclosure sur=
+face minimal.
+
+=3D=3D Fix proposal =3D=3D
+
+Bound `offset` against the allocated buffer size before the copy:
+
+  --- a/drivers/nvme/target/discovery.c
+  +++ b/drivers/nvme/target/discovery.c
+  @@ -239,7 +239,18 @@ static void nvmet_execute_disc_get_log_page(struct nvm=
+et_req *req)
+
+          up_read(&nvmet_config_sem);
+
+  -       status =3D nvmet_copy_to_sgl(req, 0, buffer + offset, data_len);
+  +       /* Spec lets the host position into the log page; do NOT let
+  +        * them position OUTSIDE it.
+  +        */
+  +       if (offset >=3D alloc_len) {
+  +               status =3D NVME_SC_INVALID_FIELD | NVME_SC_DNR;
+  +               kfree(buffer);
+  +               goto out;
+  +       }
+  +
+  +       status =3D nvmet_copy_to_sgl(req, 0, buffer + offset,
+  +                                  min_t(size_t, data_len,
+  +                                                alloc_len - offset));
+          kfree(buffer);
+  out:
+          nvmet_req_complete(req, status);
+
+A defensive alternative would refuse any `offset` that is not zero
+when the requested `data_len` exceeds `alloc_len - offset`, returning
+the spec-correct `NVME_SC_INVALID_FIELD`.
+
+=3D=3D Affected branches =3D=3D
+
+Confirmed vulnerable: mainline torvalds/master at 2026-05-25
+(verified via raw.githubusercontent.com fetch),
+android-common-15-6.6 (matches stable LTS 6.6 ksmbd code, same nvmet
+copy).
+
+Probable also vulnerable: linux-stable 6.6.x, 6.1.x, 5.15.x, 5.10.x,
+and distros tracking these (Debian/Ubuntu/RHEL/SUSE).
+
+=3D=3D Researcher / Credit =3D=3D
+
+Jeremy Erazo (trexnegr0)
+mendozayt13@gmail.com
+Signed-off-by: Jeremy Erazo <mendozayt13@gmail.com>
+
+=3D=3D Disclosure preferences =3D=3D
+
+I'm happy with any reasonable embargo length (14-30 days). I have not
+shared this finding with any third party. Please coordinate CVE
+assignment with the kernel.org CNA.
+
+Thanks for your time.
+
+=E2=80=94 Jeremy
