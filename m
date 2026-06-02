@@ -1,39 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57B4D29BD9A
-	for <stable@vger.kernel.org>; Tue,  2 Jun 2026 02:05:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE7FD33B6FB
+	for <stable@vger.kernel.org>; Tue,  2 Jun 2026 02:05:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780365929; cv=none; b=evI+1SjSHN5rCDeJGiDGU/fJaKpGajqx/zwaq8PmnRqIjai2iKhzLhpoXMIQVo+EJwhir/+kOIsWaLSeCGMWlV/ynjzd8hs1cOcRR2Pde5FWwcNEEWo0ilJoF8AhuQol2ssXgvGWVxf57kGMBCQW4sJyaonkuKtjPZ8SqRZDSjg=
+	t=1780365946; cv=none; b=Jt9pr4vxoAiGh668TAL/zokmDRXk9Bt8L7JtWzDlZuu58G9rP4nPZGpHxwr0fABAEbzKQdrrXjxYBHq9d6HHTMWbNsJmHs1Bvbe5+6vHM12bq1+ED83y9DNDCqNl2k+srrW5alFUF4Shg8f9TyZ/G5JtOgi6aHFvoiTFIcZyQ9s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780365929; c=relaxed/simple;
-	bh=uANqIiROyK8Y9+c4KmhS7e/umjDNKKvL6zcY+5pm5gw=;
+	s=arc-20240116; t=1780365946; c=relaxed/simple;
+	bh=VcY1ZuHRtLksuXrT+HYZEYkHXr0ZOSNJwLQZh9zL3Tg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=I6iVR+LXpN9Uue1LzuG+lY2YTLhQzQdiv0+wXOMwV0yHLipJ4Dk+D2J94vzMfpERl69TYqUuZF9K0ZG9Mzs/xPxXTiy4WUYX3ZA5jzUbMXaRmtmHR8d/Er8iMzSocnNUw3q9tWxbzs5mWksa4dgMpmo+Alp3ByWfwLwk2Nv+cwY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XcR0bYFI; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=PIXcQU0k+lSyssiURn5qlzLtGEs/zCCocx0DQGKVIqBHL7aflSvn6YabkYz237s+mh+VXWj5cjJSKfB3AR5MKI/C5H8RYNeHSwEqNco9fwiIgI/Xq0UXwA68PZWYWWEy5wl263T2SrXGBfH41pvCDyf6AYm+VvhTuW5xJBn5Hw4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W6lLc8uD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XcR0bYFI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 856301F00893;
-	Tue,  2 Jun 2026 02:05:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W6lLc8uD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14A431F00898;
+	Tue,  2 Jun 2026 02:05:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780365928;
-	bh=g3Sgf/bZHlp8vNhNkJ7jXf22IgiBdTcar75fJpRMt0k=;
+	s=k20260515; t=1780365945;
+	bh=2Yfg+PU8lOd4lnyKAHQwKoKw3ef0OEu6H3IghsygdFc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XcR0bYFIUprUiMQjMJTWQqUApoHxu+iHnnohnkJNMcev9sNpKSGCMG1DvNGkIKRbc
-	 j76k7BCjwlrwDRxNjYXwAZ2gO0OoHZsALkhu4KxlmiQxUI3emsOxC1LBcqI4PcCMj2
-	 N2HmdNesD5VCq0Zj1ptWFFZ7KIuPDlXXhhrB5j33/he7ssVN7HujF9NDtbtKf3YgSb
-	 E7T3NDprSCHk6rqGdH10hOLBulNYKeBDDuQ0UqkTEsz5GcCT5YerwUAtOiDSyAz3zz
-	 2Kh9g4ONLvCgl7s0k3nEoIe604fUSdB+WJk5E7trnZNAoLRfpL2DoYHgdgbS/8reK1
-	 ED1W+B1kC6vmQ==
+	b=W6lLc8uDnlYnLlt1NWZ8VQJAegTlLkL+IbtNOmBkv5VZx4MO0p8sDyn8xOAkVkTPH
+	 9PNOkiQBmaBC6Wzm5j8vOvme5HCoO6AEk0C5Hrc2Hszryluu/XFEF0+4lanGucJoO8
+	 /Tdi1oh60CNOPj9p0ogieo5nChr2ahKuElyUUiUztq+x4r5rjGq83V0TXewSzjOXKb
+	 VkZ+9RAfKC+WRgi21yQBv2V7WSQ7x581yF/kB+zeb1MrDFQwvWcPFYsA8DMVjwGmQC
+	 p0R+2qb9MSSLpNPiWgYpvNuy+tdqmUC7KMrt2JhyD8OLYuzL9msa2VcvAPkwuUAHRq
+	 5tBF3MzVmR/lg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Abdurrahman Hussain <abdurrahman@nexthop.ai>,
 	Guenter Roeck <linux@roeck-us.net>,
 	Sasha Levin <sashal@kernel.org>
 Subject: [PATCH 6.1.y] hwmon: (pmbus/adm1266) serialize sequencer_state debugfs read with pmbus_lock
-Date: Mon,  1 Jun 2026 22:05:25 -0400
-Message-ID: <20260602020525.603691-1-sashal@kernel.org>
+Date: Mon,  1 Jun 2026 22:05:43 -0400
+Message-ID: <20260602020543.607205-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <2026052855-crummy-unequal-904f@gregkh>
 References: <2026052855-crummy-unequal-904f@gregkh>
@@ -69,7 +69,7 @@ Cc: stable@vger.kernel.org
 Signed-off-by: Abdurrahman Hussain <abdurrahman@nexthop.ai>
 Link: https://lore.kernel.org/r/20260518-adm1266-gpio-fixes-v3-8-e425e4f88139@nexthop.ai
 Signed-off-by: Guenter Roeck <linux@roeck-us.net>
-[ changed `guard(pmbus_lock)(client)` to manual `pmbus_lock_interruptible()`/`pmbus_unlock()` calls ]
+[ open-coded `guard(pmbus_lock)(client)` as `pmbus_lock_interruptible()`/`pmbus_unlock()` ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
  drivers/hwmon/pmbus/adm1266.c | 7 +++++++
