@@ -1,148 +1,109 @@
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from ixit.cz (ixit.cz [185.100.197.86])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 594273D091F
-	for <stable@vger.kernel.org>; Tue,  2 Jun 2026 10:21:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58BBD3D45CF;
+	Tue,  2 Jun 2026 10:23:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.100.197.86
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780395672; cv=none; b=ftcZZgblPE+hdaZzGCgHHmTugf72Nw1v7/J5T3WLhJSwgMdYd4GfzHvtA753pLKDYSRkcPHE6cdXXNRXXROWwKJNwrobhTp8RVEKdwzwPL6WiY0++2Cf16I4UT7qARCGnjvg9g7u1z1j42SwoAswwFtBEuYxih9IdMfZ7Bir1Gg=
+	t=1780395839; cv=none; b=eJkUUPml/fPnyyWQ1MQkpIMPHPi4qACltLS6/iciVBKAxEjf0KdMBOQT5sU2ae8+0sxeORiYOmvlzw4Im6bPt1rVN+rrwA18zytN5LT97K1YB4X+BudnHN8GWsnZz2pt7i7cdq5vpfF13YWFtRoQLXquEqsbJRuV3s9LXDmeJk8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780395672; c=relaxed/simple;
-	bh=+4cHcDc8kuAJc5aNRNtmAM0yDMNGCgeOgwIdNSW4zwo=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=MQUSlxtQFBmN0662lwAamXSQEy78sUDnty3IWzPAc+i9iC3J4srLBPEdvE7oud0qE8Yxip5b6EF+BjvPU2uk7BSWa5qVVe+QcWNNsgoPMtagHpjirt9xYGGMMBafIYzg+WjlPivPDbQIojCueJvxrHWoZpN8OQ2fmHz52ld4qps=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fgq40C9T; arc=none smtp.client-ip=209.85.214.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1780395839; c=relaxed/simple;
+	bh=+K9DTj8e2Z6n2VJIqQwUG2NytbeZU+wXGpHcjIUkTKM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=l7WDqcfnRCwpekTWTAa63Rz5s++xKUg49F1wfx9beNto3f6TVWA9hVy0vEXGEPrz+BoYQh7I9pn+PxRsDaYbViH0ymJmhlFabVtmXEbbH1tgNBGVuONG2ykA8s+MMzYlJn/PFhk64qyP+dfpGqtARlg3b3KrvAb9Zwhgj6ghth0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=BEZK5Shx; arc=none smtp.client-ip=185.100.197.86
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fgq40C9T"
-Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2c0c2c7e0c5so16340625ad.1
-        for <stable@vger.kernel.org>; Tue, 02 Jun 2026 03:21:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780395669; x=1781000469; darn=vger.kernel.org;
-        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=ikY1El5docE8q+sLqTg4r7/Wm1ohIOfVrhz9dhSUA/E=;
-        b=fgq40C9TYIWL+fv6LbkJpmGDIES7/9bEpbivS4wivAPUci37biZSP+rPFqqaIMxhS6
-         qnIUtqObTORqhzVwkpuXuaOI2ez/UPLocoqASPhZsIiyN3YzKUiEMX8TmK35BWmofEI4
-         lfZ7sC/hTGwzDe0JDm8GPtF4Q+9emyjx+K/RGNKMT27PRU8UgTtKo0vpCYuL+vVp/L5L
-         NOLo85kmNenkdZE0O8MDxw4NFcyoYT7pgeLyrOSUPtqGpdbqZf04bU6undTc6zsh5y1k
-         fs57pfvYZWacYIfqwr+JdxGTcGy9oW5naS9jpJ9NEZgxFV0KcwGN6EmnKyI2z1/1BUSo
-         guOA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780395669; x=1781000469;
-        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=ikY1El5docE8q+sLqTg4r7/Wm1ohIOfVrhz9dhSUA/E=;
-        b=qmotv93/wdYFFaf7BV8yIwpvHmm5Z0WVh/D4q9x33mdGwIPQY5Uq6pCIugl42wq/J9
-         JFnhwmTNXilnLLX/GteHo5NBqWpercFrG57BDIVfMX1o6WF/TqK7EBtmz8NKjYMQcx2g
-         AJCIrporolNDwDU/HUofrWtWR2Nz4oiBEG4IlBQYOCpuBZAaFa3tKQnmKHau/k6iGwWy
-         91fS1sS91JakWQiitONnenRFK5YiKK1PDLwVw6ZJo+Fi1NQoW8wavwlbyW3kFwqypC64
-         OlzplY69Ls3FTwjKaPWcMZtl9xR8w5Tbin7EZlmwMsvL2lTud+b3JYEYXG2/gFV0hkb+
-         iXfw==
-X-Gm-Message-State: AOJu0Yy1irPGRUs6UkCmHeIM34K5YMeV/xUqMRa3nL2WmFScbKpCI+CX
-	mSIr/cMhovmK+bejz3hdCSc3fsDPMWRUblysW0HiovugiN4N1VbH/TN2ByQXIO2o
-X-Gm-Gg: Acq92OEb3RBNzC8CJaSZvCM0l89OBRevwe6FPEN75U62L4kt3HqfUTlHjyGpzmN5NkA
-	hTN1XtQ1Rsxf7Fpb/hH+Hw+QgpBQ8nWOzn07qgXBknwm/cnuf8vBgXwz0ObTw7Wf1JxstSgrahh
-	KZHI6YSRvqb4atJC7bROq+U5e9JQeBHl1am0Ocu7pOGOAvpnbHRoJSpGsV/J2+F9dqTYmjKfuQC
-	M9Ht8f9E8AjR9z7w3ZjyAWW/ziY3i8LjwUaOFMKwcjadzn6qfekhGekfWEZwmnXpdsT7RKnfuJS
-	In3JY/sfwvblU6mVXMSk1rEv4DcJEfL0ACfn/iXOE+CGvupNpiU/0PTkaFtC8P53k0zD3kfXDNj
-	G2QaAW0PN0tWgHnWBNZIsIlKU4MApI76jFVvioEbGDOK9g1V1sgNdDK9zi+IqB3B6kzQ/8QKcvt
-	JB2P6BtWzNh41zUKEIIAsMl9hvOsbQlNO9StZCPUjggZndjMV5FqiR/gIfA0TnEXgx
-X-Received: by 2002:a17:903:1c6:b0:2ba:25ca:b49f with SMTP id d9443c01a7336-2bf367d6cf2mr167163525ad.17.1780395669392;
-        Tue, 02 Jun 2026 03:21:09 -0700 (PDT)
-Received: from v4bel ([58.123.110.97])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2bf23a2dbfbsm131215415ad.37.2026.06.02.03.21.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 02 Jun 2026 03:21:08 -0700 (PDT)
-Date: Tue, 2 Jun 2026 19:21:05 +0900
-From: Hyunwoo Kim <imv4bel@gmail.com>
-To: dsahern@kernel.org, idosch@nvidia.com, davem@davemloft.net,
-	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
-	horms@kernel.org
-Cc: stable@vger.kernel.org, netdev@vger.kernel.org, imv4bel@gmail.com
-Subject: [PATCH net v2] inet: frags: fix use-after-free caused by the
- fqdir_pre_exit() flush
-Message-ID: <ah6ukYq5G98LshdA@v4bel>
+	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="BEZK5Shx"
+Received: from [172.20.10.2] (37-48-17-230.nat.epc.tmcz.cz [37.48.17.230])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id C26CA5340A92;
+	Tue, 02 Jun 2026 12:23:54 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1780395835;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=iTXX74tvnRX0qhbPqCYRges0nubf/IUVTyCE6dqQB5Q=;
+	b=BEZK5ShxkruIm2m1NyuJY6a9h3wC76UlxyiD3Un4Ywxf0bTynEysDpab/hwX5JNzyXOBbV
+	wzqMRXmfEYnrvRHmo43DUxS4ZtAIozbuQ0UkHQ/KzyTDcQPWGA2YErx1g+5986S1lpAuoK
+	XMVxGFv/wtsjot5SLOzTItcnXo7iLd8=
+Message-ID: <3c7b90a2-251a-456a-99bd-27261fc2832a@ixit.cz>
+Date: Tue, 2 Jun 2026 12:23:54 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5] nfc: nxp-nci: i2c: use rising-edge IRQ on ACPI systems
+To: carl.lee@amd.com, krzk@kernel.org, peter.shen@amd.com,
+ colin.huang2@amd.com, kuba@kernel.org, luca.stefani.ge1@gmail.com,
+ brgl@kernel.org, mpearson@squebb.ca
+Cc: Mark Pearson <mpearson-lenovo@squebb.ca>,
+ Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260519-nfc-nxp-nci-i2c-restore-irq-trigger-fallback-v5-1-1a826cfbc128@amd.com>
+Content-Language: en-US
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <20260519-nfc-nxp-nci-i2c-restore-irq-trigger-fallback-v5-1-1a826cfbc128@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On netns teardown, fqdir_pre_exit() walks the fqdir rhashtable and
-flushes every fragment queue that is not yet complete using
-inet_frag_queue_flush(). That helper frees all the skbs queued on the
-fragment queue but does not set INET_FRAG_COMPLETE, and leaves
-q->fragments_tail and q->last_run_head pointing at the freed skbs.
-The queue itself stays in the rhashtable.
+On Tue, 19 May 2026 17:32:53 +0800, Carl Lee wrote:
+ > nfc: nxp-nci: i2c: use rising-edge IRQ on ACPI systems
 
-fqdir_pre_exit() first lowers high_thresh to 0 to stop new queue lookups,
-but it cannot stop a fragment that already obtained the queue through
-inet_frag_find() earlier and stalled just before taking the queue lock.
-Once that fragment resumes after the flush and takes the queue lock,
-it passes the INET_FRAG_COMPLETE check and then dereferences the freed
-fragments_tail. inet_frag_queue_insert() reads FRAG_CB() and ->len of
-that pointer and, on the append path, writes ->next_frag, causing a
-slab use-after-free. IPv6, nf_conntrack_reasm6 and 6lowpan reassembly
-share the same flush path and are affected as well.
+Applied, thanks!
 
-Reset rb_fragments, fragments_tail and last_run_head in
-inet_frag_queue_flush() so a flushed queue no longer points at the
-freed skbs. A fragment that resumes after the flush and takes the
-queue lock then finds an empty queue and starts a new run instead of
-dereferencing the freed fragments_tail. ip_frag_reinit() already
-performed this reset after its own flush, so drop the now duplicate
-code there.
 
-Cc: stable@vger.kernel.org
-Fixes: 006a5035b495 ("inet: frags: flush pending skbs in fqdir_pre_exit()")
-Suggested-by: Eric Dumazet <edumazet@google.com>
-Signed-off-by: Hyunwoo Kim <imv4bel@gmail.com>
----
-Changes in v2:
-- Move the queue pointer reset into inet_frag_queue_flush() to remove the
-duplicate reset in ip_frag_reinit().
-- Drop the INET_FRAG_COMPLETE setting since it leaks the queue on the
-fqdir_pre_exit() path.
-- v1: https://lore.kernel.org/all/ah1Sw2g-I89BRRiT@v4bel/
----
- net/ipv4/inet_fragment.c | 3 +++
- net/ipv4/ip_fragment.c   | 3 ---
- 2 files changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/net/ipv4/inet_fragment.c b/net/ipv4/inet_fragment.c
-index 393770920abd..1127519b8416 100644
---- a/net/ipv4/inet_fragment.c
-+++ b/net/ipv4/inet_fragment.c
-@@ -328,6 +328,9 @@ void inet_frag_queue_flush(struct inet_frag_queue *q,
- 	reason = reason ?: SKB_DROP_REASON_FRAG_REASM_TIMEOUT;
- 	sum = inet_frag_rbtree_purge(&q->rb_fragments, reason);
- 	sub_frag_mem_limit(q->fqdir, sum);
-+	q->rb_fragments = RB_ROOT;
-+	q->fragments_tail = NULL;
-+	q->last_run_head = NULL;
- }
- EXPORT_SYMBOL(inet_frag_queue_flush);
- 
-diff --git a/net/ipv4/ip_fragment.c b/net/ipv4/ip_fragment.c
-index 56b0f738d2f2..c790d2f49487 100644
---- a/net/ipv4/ip_fragment.c
-+++ b/net/ipv4/ip_fragment.c
-@@ -250,9 +250,6 @@ static int ip_frag_reinit(struct ipq *qp)
- 	qp->q.flags = 0;
- 	qp->q.len = 0;
- 	qp->q.meat = 0;
--	qp->q.rb_fragments = RB_ROOT;
--	qp->q.fragments_tail = NULL;
--	qp->q.last_run_head = NULL;
- 	qp->iif = 0;
- 	qp->ecn = 0;
- 
+Best regards,
 -- 
-2.43.0
-
+David Heidelberg <david@ixit.cz>
