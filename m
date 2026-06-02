@@ -1,34 +1,35 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AC1330FF2A;
-	Tue,  2 Jun 2026 12:14:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 700C63DB33F;
+	Tue,  2 Jun 2026 12:14:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780402489; cv=none; b=VHVrgLPRQDqHGsJsm+JfO0yXbznJx/l+Ss+rzWCdkjB8cEfOJKB/kJQITQNf+bB+NrmBofXHfNNC42ey0S82jG04k+Dzzhk4M+BY2hTQA7MNz2VqpPDtnxbVoAbTmDh5qHB5qhfIJ/4GIqEN7Zhr/dK3KB5BQB4yOSIBy4L/FvM=
+	t=1780402493; cv=none; b=HHRXVfhMG7xXciph7WsqlP9O1Baj35zmqAJk7cFo4LCwwuIhUstUyDiBfmvrxbNSjXuR9+qeeQagTnbl03/O3wqioavMBn7UKD/4iFhJYQEPsMZIbvWiW1SD8yRdTdgw8WOUyCb2dV3P5yJiCcWKlfPWGdV4d4dDp4hc2CG4Nog=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780402489; c=relaxed/simple;
-	bh=rkQBiCaZv3FLsMCB1B/qXFTAapBqRO/jjIMFsa8uZvQ=;
+	s=arc-20240116; t=1780402493; c=relaxed/simple;
+	bh=89uQ3n/0Qw3xj0GP3YUOWBjrjD9h2PL6dSpP8OMpD5k=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Kfnz3BRzyjEQ4cTutO1XzfhEHaMi60tKYYab3Ei8jUoTga0Z30gBQ7GEQnLbvEixlRi67bRoYxb2lvOf6bbqLX4RPsQ35P44p1euOFXCkz/HUDmHvkLQwOQbUbLcN6yvqYtdjlFWJ0SKD+wNDJ5a8n+VVwkhxC3cHlhExfYD67I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qr8oouv4; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=uEzMqs242vMCkBw2zfMArRiuHWiscFuJS/Dw57q0yvFDDp8FeIZuELK1+wdbXHOKkFrS/K67zR1QfsIsJHG5UkSUuSXgTg3MKjACk8N15WmSy9CVI3uugWpeRhwQxSdkgIcYzdxSumYL8eDvV5I9op9YXNyisRyrwh2PRVr/l94=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oJeELQpp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qr8oouv4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B74F1F00898;
-	Tue,  2 Jun 2026 12:14:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oJeELQpp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05D9B1F00893;
+	Tue,  2 Jun 2026 12:14:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780402487;
-	bh=8up5MYwx4EhVVjUDefYI07aSVy3uzwumnDLm7oQTWB4=;
+	s=k20260515; t=1780402492;
+	bh=aaWaJPX46vtcjlCbR7WSB0JgKZ/Rcr2pe1adTWLv85w=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=Qr8oouv4dNKcKjpjri0nxbW6z1Vo8+ndyJ+hGZuPnT8k6/jo7NPKV7MoJLDUwLRm7
-	 xQEsw8V6QKE3/AwsaHp4Lujb/duvgu2+v9tLkXm1GCYrmZKZ4zmI095C8srw7xeWDm
-	 wYIe7LZMKfSeC+nxudjqxkB2o2vZfpZvFYTgSDappsq7LphLf0BhJpfoqTvxefLO0I
-	 RM3aqAtBAkwUxlqQCBRPrlnLTQ4dAG8Xao6LKFVXVPO5Oh9t3F5HYDLZVPsy0RO+85
-	 sr4kIErvZkc5zW0Fwsyc8Y38kakOaQNv+Tsoxydf4BXXtAETfTnkSRi+/bqiG0pcoT
-	 czf/VhfZfYxug==
+	b=oJeELQppnutOMNTdRqYVqhfrW8sfW1oXbzCE2/13wksfckDVIdoZRlBcI4Uq1YN7W
+	 mhbwtjCujEOnFTPLEhwDtVdPuwPCX5Gth1K59nY0Uy9wa2o+ji6+Sp3fyvmxDroF5J
+	 pOfGzPYE55kUJLbt/j9FSxc746/1VDDmrsxqgMrRKIUfz8QOkgKaFY3cH+3UEOli8X
+	 UUhJd/ejFWBJrNf8OSFqoGOO/QdY++PrHa8vWwwjIUv5QCh+yzHowH3LHUc2hsZhjF
+	 h1wsax266yyrwhUcokAG8ewgmsHgyVIlOk5vGabONVmrE0Gs98q0CvlfjZOThoKUpo
+	 ibhbS9ZcwT3Wg==
 From: "Matthieu Baerts (NGI0)" <matttbe@kernel.org>
-Date: Tue, 02 Jun 2026 22:14:08 +1000
-Subject: [PATCH net v2 01/11] mptcp: fix missing wakeups in edge scenarios
+Date: Tue, 02 Jun 2026 22:14:09 +1000
+Subject: [PATCH net v2 02/11] mptcp: fix retransmission loop when csum is
+ enabled
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -37,7 +38,7 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260602-net-mptcp-misc-fixes-7-1-rc7-v2-1-856831229976@kernel.org>
+Message-Id: <20260602-net-mptcp-misc-fixes-7-1-rc7-v2-2-856831229976@kernel.org>
 References: <20260602-net-mptcp-misc-fixes-7-1-rc7-v2-0-856831229976@kernel.org>
 In-Reply-To: <20260602-net-mptcp-misc-fixes-7-1-rc7-v2-0-856831229976@kernel.org>
 To: Mat Martineau <martineau@kernel.org>, Geliang Tang <geliang@kernel.org>, 
@@ -48,33 +49,34 @@ Cc: netdev@vger.kernel.org, mptcp@lists.linux.dev,
  linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
  "Matthieu Baerts (NGI0)" <matttbe@kernel.org>, stable@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1069; i=matttbe@kernel.org;
- h=from:subject:message-id; bh=8bYMyyvhQFOSZqNFT4QxJeSNWbzfPC95/VwNPuygVVk=;
- b=owEBbQKS/ZANAwAIAfa3gk9CaaBzAcsmYgBqHsksQ67lkTH5XRM3T3lMPHAJFgRuZTsmQJlqO
- DuLz9eZ/96JAjMEAAEIAB0WIQToy4X3aHcFem4n93r2t4JPQmmgcwUCah7JLAAKCRD2t4JPQmmg
- cxiuEADrrwdslrpmxQDqBrLmqjh/TBxh4T4YLysTxsZBUsbOODlADtJqdH2q1iLScEmt5ENBTAp
- a4YOR8NzjfELOkVBok3C1BU4G7cZwUbIrFmQ6h+lb7+1bz2vlW52WOmyv/4ZGfYTtAOZKLO4LCb
- Pm4/Vx8acKZDkYlGOR/hN4j0b3qO0fi5D+Qpl99qzLgolLZLPIqAANB/LB+7H4R3G7k5LMrFx0G
- 3sjmOfXTenSRwpda3xh8XXF0QKimG2vpwQbqhvIKDQqQP4VqxsXMeqpU+9Gnks5QSQowdAocZnw
- VvxEOPexEokxP4+rrCWZbcul/6Plu10GOgBsIQgNrOuj71ownyF6rZ7ir+MfJOI5/JE2OO4Fhal
- kFmD/gybb6Em/N6x7XeOh4IPe1UOF7K+wXm57ZsV1PKf6n9gRV8b4JyXFA2O3ra/dAjPHda04df
- I5lYv1WV60PgHgXHJNP69aDLkrd04KLDMmCB90ogRrLAHEeEbkVsyc90s/eb0qw9k2ltsaNhHLc
- DPO5+ZlmsrfD63K/z+gE6Jf++5kqES2ljVhNgMSkf4/WANxu7m77ggFfslOC9kMvu8yPBENT4c2
- EtRd85gBdWh7y6852oHIAs/E5hMhXYbsiSpMJdPPw/z8+D1JPjJzkXYSpcNYR8txCMydU3pK8/g
- dqLQmRt/AZTPfuw==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1206; i=matttbe@kernel.org;
+ h=from:subject:message-id; bh=vBnH00lmV7eZlsPI2IZN0MrG2/KQqq2hWo2tFLKydHs=;
+ b=owEBbQKS/ZANAwAIAfa3gk9CaaBzAcsmYgBqHsksW1ZYzRxnUnLX88enh/v3Kd94bl7FioKSV
+ WZm4ElBPgeJAjMEAAEIAB0WIQToy4X3aHcFem4n93r2t4JPQmmgcwUCah7JLAAKCRD2t4JPQmmg
+ c9KAD/4mCT+QjdBm9zxk+dsvJGn5JpJAuIzpXTxOsO0UfgQYvdNcedKMF0/zZLFKUraxv0esOTE
+ fx5yvdhxP87xIbNcbEf6wLvDXVRLJ5uYId28V+wRa5qi9wjZ58zowFdCDew892ky1jYubVRiBrw
+ xN0EUhgLvPDL5a9A8+E3w+QVIzd3dvocz6o4equkvM+0mompUda9S/wKzhqeHraGbMg7p+tVNuH
+ QOWMpXP9RsLlhLAzbHmAqeGUK1tT4fP0uvidWSzqSTmzdmlVy2+8zJSOOTehmKnD2v9qi6L/Mjo
+ tIh/KULGJT3zq+7gWDnp89U5ufVObWQeP5ccjHJzfVBFpZMvs50Af8UIXYuqQFjH3fxSGpkWXe+
+ wfTs00tsOb8Cv5RzowPGbZYK6mYNoJ1K8htVfnDqZ0LDD2XfCptz6CLjB9gRZI5J8E6Wu3Wqkkg
+ 303eKzTMQCjKP2i9+IXPHrJUfxAr7Gn5xRDamdNK8PiV5dIZs+RMnfWbUjCgusKXp9breSPJ+bx
+ V4unNstRUsII6SOF6xUEteoMI/cJTIS91QymXZeh3Qa2C636O8NrnFO61QykqPGAeHoCfzzGBOi
+ ++Od/liQ3JyEu8gXh9kFRD319XPU0gBiOXj+U520fvp03gvyq8iMrVmW3uI6co1TmVqGMwl/juC
+ KiIxB3LzFBFI7ug==
 X-Developer-Key: i=matttbe@kernel.org; a=openpgp;
  fpr=E8CB85F76877057A6E27F77AF6B7824F4269A073
 
 From: Paolo Abeni <pabeni@redhat.com>
 
-The mptcp_recvmsg() can fill MPTCP socket receive queue via
-mptcp_move_skbs(), but currently does not try to wakeup any listener,
-because the same process is going to check the receive queue soon.
+Sashiko noted that retransmission with csum enabled can actually
+transmit new data, but currently the relevant code does not update
+accordingly snd_nxt.
 
-When multiple threads are reading from the same fd, the above can
-cause stall. Add the missing wakeup.
+The may cause incoming ack drop and an endless retransmission loop.
 
-Fixes: 6771bfd9ee24 ("mptcp: update mptcp ack sequence from work queue")
+Address the issue incrementing snd_nxt as needed.
+
+Fixes: 4e14867d5e91 ("mptcp: tune re-injections for csum enabled mode")
 Cc: stable@vger.kernel.org
 Signed-off-by: Paolo Abeni <pabeni@redhat.com>
 Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
@@ -84,19 +86,19 @@ Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
  1 file changed, 4 insertions(+)
 
 diff --git a/net/mptcp/protocol.c b/net/mptcp/protocol.c
-index a72a6ad6ee8b..5a20ab2789ae 100644
+index 5a20ab2789ae..7fac5fac2097 100644
 --- a/net/mptcp/protocol.c
 +++ b/net/mptcp/protocol.c
-@@ -2276,6 +2276,10 @@ static bool mptcp_move_skbs(struct sock *sk)
- 		mptcp_backlog_spooled(sk, moved, &skbs);
- 	}
- 	mptcp_data_unlock(sk);
+@@ -2869,6 +2869,10 @@ static void __mptcp_retrans(struct sock *sk)
+ 	msk->bytes_retrans += len;
+ 	dfrag->already_sent = max(dfrag->already_sent, len);
+ 
++	/* With csum enabled retransmission can send new data. */
++	if (after64(dfrag->already_sent + dfrag->data_seq, msk->snd_nxt))
++		WRITE_ONCE(msk->snd_nxt, dfrag->already_sent + dfrag->data_seq);
 +
-+	if (enqueued && mptcp_epollin_ready(sk))
-+		sk->sk_data_ready(sk);
-+
- 	return enqueued;
- }
+ reset_timer:
+ 	mptcp_check_and_set_pending(sk);
  
 
 -- 
