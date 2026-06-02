@@ -1,35 +1,34 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3BFF3D75CD;
-	Tue,  2 Jun 2026 12:14:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C17F03E3140;
+	Tue,  2 Jun 2026 12:15:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780402497; cv=none; b=VMl9E27wyzR5WyVCCeMUqGuYiYH/VTVe4esK6b5ObrhTnxfctHrVF3cFRN1yeFNT328NBZQQIIc5BGqc8mN7gGFbAVGgH/OENmxKc3K3aXhGWKbVIiBU3QtMC1zHOE/QRSjrakRbM1ujUMeaMTgX54UjYL1YDBNMnn1dABaFN28=
+	t=1780402501; cv=none; b=rR+5zWAevaLfLOjrRX5/c8rWXT2/gxxYzxBN2ImsbgaqR6glIOa+BdIlJI2U1j42hCCqmvUE7PSopJwwpzxbCGaXoLAwbfQiFQW0zX5XVvpB2rYNxH4vvvDbgF94/HTfo1t92hXHbj+CkMFXs3sJxGc/PCyK3T6yC2QTxAX2APw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780402497; c=relaxed/simple;
-	bh=jBgzogHroSyH3RGwTgEBFf2pIGnpDvwm5wRjXJySUWA=;
+	s=arc-20240116; t=1780402501; c=relaxed/simple;
+	bh=tY/a57/TVSvpgNnIoyCRPnJyQg+HO8WVORGfo0db7mU=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=CWMRTzew8P7L/gSIN8TzJ/n9S6AajQ8/bNWb3naIv6khlQ9UZO1RNi8qg40/Ci0sYQfJd3LpSO3gJho1HtnduPRSEtnBlF5rCPnlfQQWUqv4QtfT+uM1J+PAeyXH0dvVSngu+UxH/RTEUjb3vH+tAWJgOXDr+I7zck0gCbG98GI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bNWLhE14; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=RufPfu/syBCeKBICGEwneh/pFmp3V2J1GdgN2PQ1IZ7Bt+JviAtKrJlGDCFk+LNV8Yt93FvSDTJ+AKvKqaxw5OAkCML06MfiR92ICjwRzmQQoCSKtAQrnPL3QykHjBtGnKPBqzVXH7W/cgqK2wVNydvXCAn4X4OCFDGkZcwu6Lg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bN/t8e4G; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bNWLhE14"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCDA61F0089A;
-	Tue,  2 Jun 2026 12:14:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bN/t8e4G"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0ADB11F00893;
+	Tue,  2 Jun 2026 12:14:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780402496;
-	bh=PeIzH2RQMo2+yCD0FPitqljkg8IzJphIovhYUeiSSIA=;
+	s=k20260515; t=1780402500;
+	bh=Xa5SkSOu7iCqTLmCDdQrrU6/PcTgQV+a6wr23yqLyL0=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=bNWLhE147UyzR/IIjrn1kd+y8zjjWwl2YE+71Kx5Vhi9MV7NLwGK0d7LXcHx1mhcs
-	 69cMRMZKQnLFGvB4mEW7K+PNeLX5uPovCfU+wgCZnv22v9iqwJYgbhg9YRmiOtC/Nm
-	 JHo6zxSfZH99wO8Bxbi/MzZwtOFMdhrnvsywp506AotK39XDvg/yEfZ/o6chsvO1TE
-	 ZwnbEnxIfJdcMhOOjOn7XWDpIeRUH9rpvAoNxW/UnvkXaE8ffZyoTxx9ujGRsIEJA0
-	 zYXAfj+yscpjS3DH7PSdeVDC/4vN0MN1uNwgQLvVz1U+B0KcAp5KIMCUfBO6n+5ZdF
-	 2j+2lWGL6nw9Q==
+	b=bN/t8e4GPN1ixO5zKW32iqbICLD5oNiKI4n11SMzdbZl/l1OTsb4yIOwwcjyHE+yR
+	 yWpVUssEaM+81IDHZdQrYVRQPMLVpq111khHEUnoetjycTr6FXFx+wETDYl+YkNqDT
+	 U65eVn1W45mooL+cb0vcRIQFnAGleywrOAugEHrrWcRA4/QMy1oNZv+XskWapYQWlD
+	 Y9KpZkc1OMFADY+RfXPkJH2JKYL9sDnHBUa3NXB71Ay2ixm68UENxTjstcln4vcfh4
+	 VreoWKiSZmwv3ehgWbfKg+Ml4VrmCICxgao64lHY//Y31mhKkxMvtb3FKFUkjjK5aP
+	 p8c0hErig5Aqw==
 From: "Matthieu Baerts (NGI0)" <matttbe@kernel.org>
-Date: Tue, 02 Jun 2026 22:14:10 +1000
-Subject: [PATCH net v2 03/11] mptcp: close TOCTOU race while computing
- rcv_wnd
+Date: Tue, 02 Jun 2026 22:14:11 +1000
+Subject: [PATCH net v2 04/11] mptcp: allow subflow rcv wnd to shrink
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,7 +37,7 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260602-net-mptcp-misc-fixes-7-1-rc7-v2-3-856831229976@kernel.org>
+Message-Id: <20260602-net-mptcp-misc-fixes-7-1-rc7-v2-4-856831229976@kernel.org>
 References: <20260602-net-mptcp-misc-fixes-7-1-rc7-v2-0-856831229976@kernel.org>
 In-Reply-To: <20260602-net-mptcp-misc-fixes-7-1-rc7-v2-0-856831229976@kernel.org>
 To: Mat Martineau <martineau@kernel.org>, Geliang Tang <geliang@kernel.org>, 
@@ -49,140 +48,74 @@ Cc: netdev@vger.kernel.org, mptcp@lists.linux.dev,
  linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
  "Matthieu Baerts (NGI0)" <matttbe@kernel.org>, stable@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3838; i=matttbe@kernel.org;
- h=from:subject:message-id; bh=2Fsu/GUr9y27OlxB9B+kvW2hHPd+B+X0zyN/HUKfhN4=;
- b=owEBbQKS/ZANAwAIAfa3gk9CaaBzAcsmYgBqHsks5sJKGW2eZlMU2xV5T/SPDA/c60LO6Me8o
- bfVzbFpTtuJAjMEAAEIAB0WIQToy4X3aHcFem4n93r2t4JPQmmgcwUCah7JLAAKCRD2t4JPQmmg
- czHMD/oDGBXCqu0tpdkGP7aleZq5C2SLkw7SwS2vcgjrGs1o6NY7X0lK0PLdggjBeCHyyu2fAzR
- T/PAVWePFIN5huWbYkmafQ9C2sQCyyMbx9SPxy0bpzmfE6Quwd7CeHbG855LENimXZaTB2wTwed
- Tna1UuRlH4AeGyTF55CQ4+hoEhHwww44nqNKDrOaD34lf8Aiz4as7D/7dRuLzaiJrhKPI4g9sPo
- XigetEqZph3c5Dnog1NW/l11U+Par8A/ZLEHjovcc1q5f+OB4L8Ysunl63zNKw2bvks9u/KhG0F
- 12PsMGGvVJYTbTCER5qKQ8RWIEJjuKZAjBiyKo/1ctMWueZgdi3IJBLROLfyGaz0mAz+HHzL+rn
- dN7iHgENWmVoZLplsX95gVI5mJHwYNON0t7RGalGwGzi1oBUZdX+23xkMQRhEITE9BM7qRVetPp
- 1RF0ISuQcXolLfCN6hmmVVpssDGbQa8fc6tptoqRYntyVckIQaRp7Kkai5Ylu8GpQmz0wEDkp6x
- N5d+T+qwmSq5LRthsf7Tspu3AK9aWQwf5FnqF4Tbliz9Uh/abuw+PJduczDoW/0/ZwxUgeOlfBB
- trXNtIySlJq3EY00E4YhlT4GU5kqSwAAvAo45Ud3rIcZD3nI9d2mkhmDtfXj0j/4c11eJn0ucTN
- nrO2QjC2bcp7NZQ==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2014; i=matttbe@kernel.org;
+ h=from:subject:message-id; bh=ZxRWHdtL3tuj75xtqktzYg7JOxPwuV8ew2GHxY1a/ao=;
+ b=owEBbQKS/ZANAwAIAfa3gk9CaaBzAcsmYgBqHsksqYVJJrvGMZJqDZMaYcZK9Tvt0Ie3hjsoj
+ pawnoIpFrOJAjMEAAEIAB0WIQToy4X3aHcFem4n93r2t4JPQmmgcwUCah7JLAAKCRD2t4JPQmmg
+ c5UED/9Bb3D/tC8nQpL9Rux+nrE2lxJqGwswXeBu1LKr6fmyvBcqU5XbzzsxK3RuU1h1elGrsev
+ i8mO0ZpL9eAt8fXcuUGUtiQFdJWAraqNH5lPODFlnV1xHfAkYb/oWjEJfgNu1EBb4Cx7Of0LKCu
+ nIB4NT6OGvP/g944Yho9Iq3vHvcu12Z5t9R2RT81FRv2CchtENx/AWFynUV4rkYnWpLQ7G2eGm8
+ CVeL1hxtvTq2RtRiWESQWYzfU7RConhIqeGcXE11fTg/DfdRjQuPQkff6imxEw1JKtz2kK4pin4
+ Ct4xR4d/duM479b6XS1kALIMD0EGL6YEgADG5igzkl77n8dRpeffNaF/6OjvNUJSBKWZZFNBzP8
+ pQpXXYf4xbWP/AKRLt/Z7Wo7pNnLUG0Vf1R9mjiDp3bdaStLAHAEp7AlEpdiYT/wU5IMvKZJQC0
+ ZydOofi9NIya7kerpsrmjI4BpjYzKbED5VlpSZdahMVzBKUWiP4t4JyY+DeWEbor62KUWmBXXxC
+ bxYiQJjPTg+pP6k8AG2m9Er7GW7D/IvqKpQG52gYxvssHPFP8D8BS28eKxJZeuulJJf6tQmW8p3
+ SDlxRAGZcq076QwSKC3IGpuztUbUWVx8cdttgHxfhTH7yJEBw/WEygohBYOo7Pp8cm77FQUkBa9
+ o8IKnRu7wGLrd6g==
 X-Developer-Key: i=matttbe@kernel.org; a=openpgp;
  fpr=E8CB85F76877057A6E27F77AF6B7824F4269A073
 
 From: Paolo Abeni <pabeni@redhat.com>
 
-The MPTCP output path access locklessly the MPTCP-level ack_seq
-in multiple times, using possibly different values for the data_ack
-in the DSS option and to compute the announced rcv wnd for the same
-packet.
+In MPTCP connection, the `window` field in the TCP header refers to the
+MPTCP-level rcv_nxt and it's right edge should not move backward. Such
+constraint is enforced at DSS option generation time.
 
-Refactor the cote to avoid inconsistencies which may confuse the
-peer. Also ensure that the MPTCP level rcv wnd is updated only when
-the egress packet actually contains a DSS ack.
+At the same time, the TCP stack ensures independently that the TCP-level
+rcv wnd right's edge does not move backward. That in turn causes artificial
+inflating of the MPTCP rcv window when the incoming data is acked at the
+TCP level and is OoO in the MPTCP sequence space (or lands in the backlog).
 
-Fixes: fa3fe2b15031 ("mptcp: track window announced to peer")
+As a consequence, the incoming traffic can exceed the receiver rcvbuf size
+even when the sender is not misbehaving.
+
+Prevent such scenario forcibly allowing the TCP subflow to shrink the
+TCP-level rcv wnd regardless of the current netns setting.
+
+Fixes: f3589be0c420 ("mptcp: never shrink offered window")
 Cc: stable@vger.kernel.org
 Signed-off-by: Paolo Abeni <pabeni@redhat.com>
 Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
 Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
 ---
- net/mptcp/options.c | 36 ++++++++++++++++++------------------
- 1 file changed, 18 insertions(+), 18 deletions(-)
+ net/mptcp/options.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
 diff --git a/net/mptcp/options.c b/net/mptcp/options.c
-index 8a1c5698983c..2d25f319f328 100644
+index 2d25f319f328..51ca334678b4 100644
 --- a/net/mptcp/options.c
 +++ b/net/mptcp/options.c
-@@ -570,7 +570,6 @@ static bool mptcp_established_options_dss(struct sock *sk, struct sk_buff *skb,
+@@ -566,6 +566,7 @@ static bool mptcp_established_options_dss(struct sock *sk, struct sk_buff *skb,
+ {
+ 	struct mptcp_subflow_context *subflow = mptcp_subflow_ctx(sk);
+ 	struct mptcp_sock *msk = mptcp_sk(subflow->conn);
++	struct tcp_sock *tp = tcp_sk(sk);
+ 	unsigned int dss_size = 0;
  	struct mptcp_ext *mpext;
  	unsigned int ack_size;
- 	bool ret = false;
--	u64 ack_seq;
+@@ -614,6 +615,12 @@ static bool mptcp_established_options_dss(struct sock *sk, struct sk_buff *skb,
+ 	if (dss_size == 0)
+ 		ack_size += TCPOLEN_MPTCP_DSS_BASE;
  
- 	opts->csum_reqd = READ_ONCE(msk->csum_enabled);
- 	mpext = skb ? mptcp_get_ext(skb) : NULL;
-@@ -601,14 +600,11 @@ static bool mptcp_established_options_dss(struct sock *sk, struct sk_buff *skb,
- 		return ret;
- 	}
- 
--	ack_seq = READ_ONCE(msk->ack_seq);
- 	if (READ_ONCE(msk->use_64bit_ack)) {
- 		ack_size = TCPOLEN_MPTCP_DSS_ACK64;
--		opts->ext_copy.data_ack = ack_seq;
- 		opts->ext_copy.ack64 = 1;
- 	} else {
- 		ack_size = TCPOLEN_MPTCP_DSS_ACK32;
--		opts->ext_copy.data_ack32 = (uint32_t)ack_seq;
- 		opts->ext_copy.ack64 = 0;
- 	}
- 	opts->ext_copy.use_ack = 1;
-@@ -1297,19 +1293,14 @@ bool mptcp_incoming_options(struct sock *sk, struct sk_buff *skb)
- 	return true;
- }
- 
--static void mptcp_set_rwin(struct tcp_sock *tp, struct tcphdr *th)
-+static u64 mptcp_set_rwin(struct mptcp_sock *msk, struct tcp_sock *tp,
-+			  struct tcphdr *th, u64 ack_seq)
- {
- 	const struct sock *ssk = (const struct sock *)tp;
--	struct mptcp_subflow_context *subflow;
--	u64 ack_seq, rcv_wnd_old, rcv_wnd_new;
--	struct mptcp_sock *msk;
-+	u64 rcv_wnd_old, rcv_wnd_new;
- 	u32 new_win;
- 	u64 win;
- 
--	subflow = mptcp_subflow_ctx(ssk);
--	msk = mptcp_sk(subflow->conn);
--
--	ack_seq = READ_ONCE(msk->ack_seq);
- 	rcv_wnd_new = ack_seq + tp->rcv_wnd;
- 
- 	rcv_wnd_old = atomic64_read(&msk->rcv_wnd_sent);
-@@ -1362,7 +1353,7 @@ static void mptcp_set_rwin(struct tcp_sock *tp, struct tcphdr *th)
- 
- update_wspace:
- 	WRITE_ONCE(msk->old_wspace, tp->rcv_wnd);
--	subflow->rcv_wnd_sent = rcv_wnd_new;
-+	return rcv_wnd_new;
- }
- 
- static void mptcp_track_rwin(struct tcp_sock *tp)
-@@ -1474,13 +1465,25 @@ void mptcp_write_options(struct tcphdr *th, __be32 *ptr, struct tcp_sock *tp,
- 		*ptr++ = mptcp_option(MPTCPOPT_DSS, len, 0, flags);
- 
- 		if (mpext->use_ack) {
-+			struct mptcp_sock *msk;
-+			u64 ack_seq;
++	/* The caller is __tcp_transmit_skb(), and will compute the new rcv
++	 * wnd soon: ensure that the window can shrink.
++	 */
++	if (skb)
++		tp->rcv_wnd = tp->rcv_nxt - tp->rcv_wup;
 +
-+			/* DSS option is set only by mptcp_established_options,
-+			 * the caller is __tcp_transmit_skb() and ssk is always
-+			 * not NULL.
-+			 */
-+			subflow = mptcp_subflow_ctx(ssk);
-+			msk = mptcp_sk(subflow->conn);
-+			ack_seq = READ_ONCE(msk->ack_seq);
- 			if (mpext->ack64) {
--				put_unaligned_be64(mpext->data_ack, ptr);
-+				put_unaligned_be64(ack_seq, ptr);
- 				ptr += 2;
- 			} else {
--				put_unaligned_be32(mpext->data_ack32, ptr);
-+				put_unaligned_be32(ack_seq, ptr);
- 				ptr += 1;
- 			}
-+			subflow->rcv_wnd_sent = mptcp_set_rwin(msk, tp, th,
-+							       ack_seq);
- 		}
+ 	dss_size += ack_size;
  
- 		if (mpext->use_map) {
-@@ -1708,9 +1711,6 @@ void mptcp_write_options(struct tcphdr *th, __be32 *ptr, struct tcp_sock *tp,
- 			i += 4;
- 		}
- 	}
--
--	if (tp)
--		mptcp_set_rwin(tp, th);
- }
- 
- __be32 mptcp_get_reset_option(const struct sk_buff *skb)
+ 	*size = ALIGN(dss_size, 4);
 
 -- 
 2.53.0
