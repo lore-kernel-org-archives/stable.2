@@ -1,110 +1,177 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out162-62-57-49.mail.qq.com (out162-62-57-49.mail.qq.com [162.62.57.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4E0A32BF52
-	for <stable@vger.kernel.org>; Tue,  2 Jun 2026 06:42:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 303AB3A7193
+	for <stable@vger.kernel.org>; Tue,  2 Jun 2026 06:57:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.57.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780382569; cv=none; b=J/swcom4a8E9rEI4PveeqSIoi/UYwf2l6yA7zRidQo/McEDv8o5QLxc+hei5x0zZe0Uo3TkVXJTqBTem320Vw10mmGLnbrC4XjsKyi7KYCIu2aDCqWC36ls7XO8BMf1LTW1n0wkbvUr7QgYE3RtjRMIm/gWuWS/OCPMNF5P7lWo=
+	t=1780383451; cv=none; b=sHnJxVYqiCuKO1VbbKfGd1nnRFZQygR40E8FZqqi3xvzFbrUZsva5j8S0zGvb9sflty1s7e4dgfjt7xJa59zW3Npy8ogxyX7IelfjdO4NYdYbnF4CyBQmch3zk2wkYYJ91Ro3CrJAq+xkDft+O348F3ClwHWBPCAsVW0zTinh9g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780382569; c=relaxed/simple;
-	bh=qE///xx7EQlY0uI+1+xH8GZBQ0wprBOgoD0QacK7mPI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CHoN0K4yxxspOdA0gGFioT5ysHZ2u+taGRTngA4Femvfgl1kKLsuUCwWi8VkFWiw6yAtECVdERv5NfrsAgxi/p1At5EhreOUFffKQJC+8NTGFJxTtTKKsrVAYQjOCpfNIG0spWeWe90WE0m/K9u9juFazpar+nYy7GJ2w7hxrB4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=E5c3jx1K; arc=none smtp.client-ip=209.85.128.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1780383451; c=relaxed/simple;
+	bh=o5+CeElZHIIOXnJc4NY+IIRsKr70lhE35Yu4969gRfg=;
+	h=Message-ID:From:To:Cc:Subject:Date:MIME-Version; b=hT+tVZGnjrWYepUjOeuUAEz3CQsOGhSIaY9yBK/KdxORwCTbfu4vB/swsCAPTMOpm7Yu+9f2ng+Lm8PvxiaoBhNNijRp0GVuKqHpO/IQRlMoTrmGzzoHlVOdFiJeSJrpnQQEJQhUVP4IZWz0TKxeEzxhUBEUKvibgDOtKPbb1c4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foxmail.com; spf=pass smtp.mailfrom=foxmail.com; dkim=pass (1024-bit key) header.d=foxmail.com header.i=@foxmail.com header.b=X7Bg+JZ1; arc=none smtp.client-ip=162.62.57.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foxmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foxmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="E5c3jx1K"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-490ac357c55so15342725e9.1
-        for <stable@vger.kernel.org>; Mon, 01 Jun 2026 23:42:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1780382566; x=1780987366; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=2N/m1TM4Ju0vSdiUK1Hy2gxsTSd/KSb52qvXdhc7mG0=;
-        b=E5c3jx1KDznGM/xQCCeuWsjY4ltjgWWwMQMR6WqY4ouqMxfYDFjIBa1nhXEhsWdeZD
-         9WsOws/fVK+/V+oj/2ix/11XjFR2rwCoTikBDid1RTcHiPH8h5cAS2ZMJ41sE4QCLNiL
-         RlueKdatJ9Qyz6Cz1xDSX4ATUq2KVPoj/Irc2ImVRNhqg9hzYk8Vl5zHbzDy3yREG+sL
-         f2S898wQ7xO4IffaDH7yDS/wyEpldPJ2Hapy8wF8kza/rdPzraY1e8HUZKvBMjgd1C6l
-         UHC0Ak3EDVz9mvvSxCKSecG6cBF43WhUSZuPMylTXTBO7Qiqtu/EyRjRyrmCcVvxuaNh
-         ePEg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780382566; x=1780987366;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=2N/m1TM4Ju0vSdiUK1Hy2gxsTSd/KSb52qvXdhc7mG0=;
-        b=P0ts4yogBPYyFDzuZ4/hucW4FrnkiAdF87wxEd087JVXeDBwk8TYdHb+XAjsg3nGKR
-         2blpzEq3QpP1lGxxFHe60aBHx+Pu4pRQ1Xp2ZmksDomz3gMF90bsIU5gMMzZuPnUQxu6
-         HY6XedUFwgVNhLBOWopbvAF/zMH+obmx4tP8LZdiUT4BJBaUX9Nv6kIoXrGmXEF7v4XR
-         AGc98Gy/8Ls9eDpkK3TCmuB/zyC8VA+QX+f5wJ0+ZDCbuBCLaCfsTVEX6lR48b39I+Tz
-         GBuhwMddvEj6U3/YYu9x4UzeAzhQvwlifAz+bnF3G8NfzognR0KUH7mQNv/GXr4UpSw4
-         CmfQ==
-X-Gm-Message-State: AOJu0YwJiCfaPRTKtecx1xJbvlA1OqeuHXxE9zbuqOQ4cvW8OZyQydYi
-	PcwO6IKc9QQiHAp2m/sBMzMmHgilHKqhvBuQqYW+yheWXYtgIE7eyScC11pTrphImYU=
-X-Gm-Gg: Acq92OEZZmRK7FmtOTokQe2eKJQlYQah3SGy7YF1JYC6g+NwbWKO9MGOf5ti+OE7rb6
-	YdiuyZbLbFpVbTIc2DS8DFR99wz7T3BlzpTAkBMGadTn65BozzAA5wryBvatrPZdUtx+UM+Gz04
-	AaKRL5z0Wz5FZhKzVhwRCgsO276pW7gD/NVQ9hiNdZeYn9rohZWL9eH4CTdUTBTNKoNLMmQG1iL
-	vQJUVyGZFkOa5yhxMxt0udRzGDkhuSR1+Wlwb4rVC72Ol78ofTzRk39UhtCP78+J+casUhh0sYR
-	qnEJ5WqW2SlWTkwCabVnbAEif7fp2QUGrqBGbSMI9RFaW6xStxMfMfcxznvfo6dWl/87vWaYzyz
-	6SKVPvc+EESQ4Cenneu5SoxmWPkYIjuBfOVNUlBd2rXUOWLqOZ+HtVpzSHTvEkweFRFF9iTnFDq
-	8NuiqHEbl1GjbtBC6sjly5bFQ+euxN03vKDZ0sfPybncih/8T1bRudGR74cUj6dXxAWlzsZzjzJ
-	E+N
-X-Received: by 2002:a05:600c:a55:b0:48f:e518:d110 with SMTP id 5b1f17b1804b1-490b0717e7dmr51100485e9.32.1780382566124;
-        Mon, 01 Jun 2026 23:42:46 -0700 (PDT)
-Received: from u94a (218-164-49-131.dynamic-ip.hinet.net. [218.164.49.131])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2bf239fdf0asm121897245ad.26.2026.06.01.23.42.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 01 Jun 2026 23:42:45 -0700 (PDT)
-Date: Tue, 2 Jun 2026 14:42:35 +0800
-From: Shung-Hsi Yu <shung-hsi.yu@suse.com>
-To: Zhenzhong Wu <jt26wzz@gmail.com>
-Cc: stable@vger.kernel.org, Paul Chaignon <paul.chaignon@gmail.com>, 
-	bpf@vger.kernel.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	ast@kernel.org, daniel@iogearbox.net, john.fastabend@gmail.com, 
-	andrii@kernel.org, martin.lau@linux.dev, song@kernel.org, yonghong.song@linux.dev, 
-	kpsingh@kernel.org, haoluo@google.com, jolsa@kernel.org, menglong8.dong@gmail.com, 
-	tamird@kernel.org, eddyz87@gmail.com
-Subject: Re: [RFC PATCH 6.1.y 0/2] bpf: backport scalar not-equal tracking
- fixes
-Message-ID: <ah56iBM2P_9hF3_L@u94a>
-References: <20260601180400.1381736-1-jt26wzz@gmail.com>
- <ah5pf25fhVH9WuU-@u94a>
+	dkim=pass (1024-bit key) header.d=foxmail.com header.i=@foxmail.com header.b="X7Bg+JZ1"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
+	s=s201512; t=1780383438;
+	bh=XR1CBcVCRqj2n1AfL+uL1VdxCXyHM89+MTPtiIBLqpw=;
+	h=From:To:Cc:Subject:Date;
+	b=X7Bg+JZ1GJgnAb28d0HmWB7iwbt55NeLcqZBzPj656TWsiFTDOe1z85hm2oNGy/8D
+	 ptI1JjTBYG/zq7PDTc7Yl914PL+KJOXecOXc+MuvG38GJ4qAth30QK7JU295bA7Zkv
+	 KqN71T1updhS06JWPIFkvvFjeOQXKtYVBaVuwgNI=
+Received: from localhost.localdomain ([116.128.244.169])
+	by newxmesmtplogicsvrszb43-0.qq.com (NewEsmtp) with SMTP
+	id E501C283; Tue, 02 Jun 2026 14:57:16 +0800
+X-QQ-mid: xmsmtpt1780383436t62imag9y
+Message-ID: <tencent_E54E7EE6CA5DFF23BCB8F9A87C2037BD0C09@qq.com>
+X-QQ-XMAILINFO: MDbayGdXPuoejEoP+0r6WqC/jwESN5g4cnoGB7tPdCbfrQFJ87BU5dagEMlL+I
+	 qcHabZRO3HyyPjUuPiRqKRrFIqIp2JCzYcd2lk7JthHLX7h4U8KeGq9EOQwW5zoqxo4uahpNunhQ
+	 eeljVeEQk9NqP1Kn+0zh/bjvCLvS5LlCmLw9l+zzxD089czUosHiIBWzb/cOdBHZNh6EY1eB0l/t
+	 +RtEyXUhQ3VLW9m6GtxHQokL25N9Dik/4HlwuD1eenqyUbXhaFlEWFg+r77t5fnZ0XQXP3GqMuo9
+	 ZQ+MpiD4Lzlw4LR6NDldh3eXQecZZZ4FmZsQvB/L501VYMZumFZeIkgJpwD7oTGqjxoiJqoXBLR6
+	 w6HrLtvkBrkQOMPLW8ls7uoaRyYhiWXb4ET1PU161fcm1C7Zvom9VAyoVgyU3IHeioLVWeCzYn4d
+	 uJFoAkkVQfUaFVC3ln12j0+gfhIoL/vGyEy3QG/grtKV3XNYB0OOab71uHdi7toO4OEIulpX0wzh
+	 fFK+ap5HLH3qK4x6B2fCoVUajlWTLKRfCLquWCRZ91ykPiH6yN7XPvNWCt4etvsH0YZMmdkr+wI6
+	 ZznlKtCnBgmymMGqU7939yry/+ddxAvtpvE0E2i5wCys003sCom/wkG7wMLFwx9eL7LsfaB9PI4m
+	 4PTpL70KDrWcdEhsFpWNHbHCMcz+0a9fV+oaOrYeOmNPisNtavGnu6qDfxaF7f9QYyRvkOfdx59m
+	 A9KhswP5esDv2WDN2Ub27Kso8FEeBb2xCwAAmlyva4EKLWC+K+fHfuROySZZzIPR+lRKMwRqIpZ5
+	 nNlpJhPjQ+tffsabeYRzgKFvdgldn/JnWURDmsfTSx5aJq36dW3N9dYfgUSSr1LEivXhJVUEJhQH
+	 2nM67CJEUuTEmBKmzaCa9VfY7snUyS/tJzKQzfIVvcFgn8aEGL5Oo4/TF/o3jQxL5Wd1YKVmYGtj
+	 kjd4kjA9dquKBHov0X8V8lNteQZvmYI4YChsuLV9xDTpD4uZokJxTp67uYnYxG2OoqmOrDVGFH+Y
+	 CPPNPbaXfJ3Uls7YDI9dR7eTjSs/rrnP70DTL0+e5Sp3jqyNdU48k69zVI0zk=
+X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
+From: xiaopeitux@foxmail.com
+To: mchehab@kernel.org,
+	hverkuil+cisco@kernel.org,
+	mingo@kernel.org,
+	brad@nextdimension.cc,
+	tglx@kernel.org,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	mchehab@s-opensource.com
+Cc: Pei Xiao <xiaopei01@kylinos.cn>,
+	Shuangpeng Bai <shuangpeng.kernel@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/2] media: au0828: fix slab-use-after-free in au0828_dvb_register
+Date: Tue,  2 Jun 2026 14:57:03 +0800
+X-OQ-MSGID: <c0cb04583f255e53d39214257bc6a3be8ec8dfb9.1780383298.git.xiaopei01@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ah5pf25fhVH9WuU-@u94a>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Jun 02, 2026 at 01:47:01PM +0800, Shung-Hsi Yu wrote:
+From: Pei Xiao <xiaopei01@kylinos.cn>
+
+A use-after-free (UAF) issue was reported by KASAN when the au0828 driver
+attempts to register a DVB frontend and the operation fails (returning
+-ENOMEM). The error path leads to a double free of the frontend object,
+causing a slab-use-after-free.
+
+The root cause is that when dvb_register_frontend() fails before the kref
+of the frontend is initialized (-ENOMEM in kzalloc of fe->frontend_priv),
+the error handler still calls dvb_frontend_detach() which eventually
+invokes dvb_frontend_put(). Since the kref is not yet initialized,
+immediately frees the frontend via __dvb_frontend_free(). Later, the outer
+error path in au0828_dvb_register() calls dvb->frontend->ops.release()
+again, resulting in a double free and UAF.
+
+Specifically, the call chain is:
+
+  au0828_dvb_register()
+    -> dvb_register()
+      -> dvb_register_frontend()
+          (fails before kref_init, returns -ENOMEM)
+      -> goto fail_frontend
+        -> dvb_frontend_detach()
+          -> dvb_frontend_put()
+                -> __dvb_frontend_free()
+                  -> dvb_frontend_invoke_release(fe, fe->ops.release)
+                    -> au8522_release()
+                      -> kfree(state)  [frontend memory freed]
+    (back to au0828_dvb_register)
+    if (ret < 0) {
+        if (dvb->frontend->ops.release)
+            dvb->frontend->ops.release(dvb->frontend);  // USE-AFTER-FREE
+        dvb->frontend = NULL;
+    }
+
+Thus, the second release is redundant and unsafe because the frontend
+has already been freed by the first release via dvb_frontend_put.
+
+Fix this by removing the redundant manual release call in the outer
+error path. The frontend is already destroyed by dvb_frontend_put() in
+the inner error path, so we only need to set dvb->frontend to NULL.
+
+Logs:
+usb 3-1: new high-speed USB device number 2 using dummy_hcd
+usb 3-1: New USB device found, idVendor=0fe9, idProduct=d620, bcdDevice=
+1.00
+usb 3-1: New USB device strings: Mfr=0, Product=0, SerialNumber=0
+au0828: i2c bus registered
+au8522 1-0047: creating new instance
+DVB: Unable to find symbol xc5000_attach()
+dvbdev: DVB: registering new adapter (au0828)
+au0828: dvb_register_frontend failed (errno = -12)
+au8522 1-0047: destroying instance
+==================================================================
+BUG: KASAN: slab-use-after-free in au0828_dvb_register+0x1280/0x15f0
+Read of size 8 at addr ffff8881685f4118 by task kworker/1:1/42
+
+Workqueue: usb_hub_wq hub_event
+Call Trace:
+dump_stack_lvl+0x26/0x80
+print_report+0x16a/0x5d0
+kasan_report+0xc3/0x100
+au0828_dvb_register+0x1280/0x15f0
+au0828_usb_probe+0x353/0x4b0
+usb_probe_interface+0x4aa/0xa40
 ...
-> On Tue, Jun 02, 2026 at 02:03:58AM +0800, Zhenzhong Wu wrote:
-> > Hi BPF maintainers,
-> > 
-> > This RFC backports two BPF verifier scalar range-tracking fixes to 6.1.y.
-> > The series is intended to fix a verifier state-pruning issue where an
-> > impossible scalar path can be kept while the real success path is pruned.
-> > 
-> > This is a verifier scalar range-tracking issue, not a helper-specific
-> > issue.
-> > The visible failure is that the verifier can prune the real success
-> > continuation, which should not be skipped, and keep only an impossible one.
-> ...
-> 
-> This sounds somewhat similar to the issue fixed in "backport of iterator
-> and callback handling fixes" for stable 6.6[1] by @Eduard. Could you try
-> to test on the latest stable 6.6.y as well at see if you can reproduce
-> the issue there?
+
+Freed by task 42 on cpu 1 at 65.659497s:
+kasan_save_track+0x2e/0x90
+kasan_save_free_info+0x3c/0x50
+__kasan_slab_free+0x36/0x60
+kfree+0x154/0x450
+au8522_release_state+0x1b6/0x210
+dvb_frontend_put+0x12a/0x170
+au0828_dvb_register+0xfd9/0x15f0
+au0828_usb_probe+0x353/0x4b0
+usb_probe_interface+0x4aa/0xa40
 ...
 
-My mistake, the reproducer you had doesn't use iterator or callback, so
-probably not fixed in stable 6.6. I'll take a better look at this later
-this week.
+Fixes: ead666000a5f ("media: dvb_frontend: only use kref after initialized")
+Reported-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
+Closes: https://lore.kernel.org/lkml/AAC17221-93BF-436F-92AC-906A18F882F0@gmail.com/
+Tested-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
+Cc: stable@vger.kernel.org
+Signed-off-by: Pei Xiao <xiaopei01@kylinos.cn>
+---
+ drivers/media/usb/au0828/au0828-dvb.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-> 1: https://lore.kernel.org/stable/20240125001554.25287-1-eddyz87@gmail.com/
-> 2: https://www.kernel.org/doc/html/latest/process/stable-kernel-rules.html
+diff --git a/drivers/media/usb/au0828/au0828-dvb.c b/drivers/media/usb/au0828/au0828-dvb.c
+index 31123e6f9fc3..3c74b85c3a40 100644
+--- a/drivers/media/usb/au0828/au0828-dvb.c
++++ b/drivers/media/usb/au0828/au0828-dvb.c
+@@ -633,8 +633,9 @@ int au0828_dvb_register(struct au0828_dev *dev)
+ 	/* register everything */
+ 	ret = dvb_register(dev);
+ 	if (ret < 0) {
+-		if (dvb->frontend->ops.release)
+-			dvb->frontend->ops.release(dvb->frontend);
++		/* dvb->frontend freed in dvb_frontend_put, now we can set
++		 * frontend to NULL
++		 */
+ 		dvb->frontend = NULL;
+ 		return ret;
+ 	}
+-- 
+2.25.1
+
