@@ -1,162 +1,179 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C214C3C9EE6
-	for <stable@vger.kernel.org>; Tue,  2 Jun 2026 09:11:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5F6C385D97
+	for <stable@vger.kernel.org>; Tue,  2 Jun 2026 09:15:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780391484; cv=none; b=bcU1aQZm1qBEsjhYMcYOb1EC5ziIoX8hdT+av8+m/nEsAOeSquRxo25kSOdDVPdGW0+vSC7lBjWVaPGH6eVu0LZ5hjTc8zL0fV0G4nZHXscMY4mgrFVKzeLy0/lAJQNS9AlMAR1KZGwljHLN/YL4QjEYG2OR/jhcsLp2aj2ji7c=
+	t=1780391721; cv=none; b=IZ6jHb0psLUyfEugmw9IxLgNnHfY8sJVo+ET1HJ/aA34TJNsemeFrZN0QhCxOEHKP0sk68cFp0kfDgWjjtRl5qpUKsnajtE1ffrGtn8yrKTx+qBQEWC8+JbwWst6XOcKGJjPFQkQvAWfGtA8UlvDyoumSsouKSiyISPHH24JTgw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780391484; c=relaxed/simple;
-	bh=kmYFTKG2SUmlBpuou8py97T6+0Zpvl4KZ/RWdzmEoQc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mnRRpDuO8kpDcJbYKMSIrdjDveNXxlWk+/uxMzCEnWzxgVpMrl5LGQpAs0S5kXdpXZhsOb/QprqRe5JXAST95Sb8NeniITwqiMJiWCgU+HSWxvKVQjVUlUEw3Ua1CAyYdH1BcHUkZOBKpCIYHqyn0++MPLISsEth0g1l1yOqpGY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=v2tljnKH; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=V9fvRhjx; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=v2tljnKH; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=V9fvRhjx; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	s=arc-20240116; t=1780391721; c=relaxed/simple;
+	bh=wDdUTjS1uiiROITR8pl2La8dWidC/29wrQyzY8OL21M=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=FdT3tktX8h+CUcMbPG79hzKdb6m173z+eHYQIQ7Bv1JBh9GYwn8E1jp40lCGiFrJOHZCP1iblF6V0BqT+55Qcej1lAX09kJSMUzQLpIPiuLCnPmDO8remD4cwjnlx5yReDDRzSUxAuCEjlgRhMVzryUFVKI//tZzJJF6UqsUvYk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ATy/w2E5; arc=none smtp.client-ip=192.198.163.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="v2tljnKH";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="V9fvRhjx";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="v2tljnKH";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="V9fvRhjx"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id BDCE767142;
-	Tue,  2 Jun 2026 09:11:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1780391479; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=56S6nHTn6QLJXTKoYw39upu1bRnKRafvZtBNAP4v898=;
-	b=v2tljnKHaq6gUr0smMyvmzxgdYG5qci7SJKfPGApxkxVyc4K/hb5h2Jh6pnRTuKumrtNNn
-	tXnk/mEDCntbmNUhyq3tZUXQo6CGiUoNGGTpgqlG6GTSbax2Ipl3Q+zF/PveM5LonjdQHO
-	kU2leV/aFaPx0sSKexCnGsCz/+AGJxA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1780391479;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=56S6nHTn6QLJXTKoYw39upu1bRnKRafvZtBNAP4v898=;
-	b=V9fvRhjx34y6RXwCpaQ3DZxIA7UlXXXh7wOHYDPFPh6U5SdShBRKyXhjXvrwjuLcbcj5ct
-	Zthva0hqIDNO8eBQ==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=v2tljnKH;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=V9fvRhjx
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1780391479; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=56S6nHTn6QLJXTKoYw39upu1bRnKRafvZtBNAP4v898=;
-	b=v2tljnKHaq6gUr0smMyvmzxgdYG5qci7SJKfPGApxkxVyc4K/hb5h2Jh6pnRTuKumrtNNn
-	tXnk/mEDCntbmNUhyq3tZUXQo6CGiUoNGGTpgqlG6GTSbax2Ipl3Q+zF/PveM5LonjdQHO
-	kU2leV/aFaPx0sSKexCnGsCz/+AGJxA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1780391479;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=56S6nHTn6QLJXTKoYw39upu1bRnKRafvZtBNAP4v898=;
-	b=V9fvRhjx34y6RXwCpaQ3DZxIA7UlXXXh7wOHYDPFPh6U5SdShBRKyXhjXvrwjuLcbcj5ct
-	Zthva0hqIDNO8eBQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B3EBD779A7;
-	Tue,  2 Jun 2026 09:11:19 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id gdvnKzeeHmqGOwAAD6G6ig
-	(envelope-from <jack@suse.cz>); Tue, 02 Jun 2026 09:11:19 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 4B26CA0EC1; Tue, 02 Jun 2026 11:11:11 +0200 (CEST)
-Date: Tue, 2 Jun 2026 11:11:11 +0200
-From: Jan Kara <jack@suse.cz>
-To: Al Viro <viro@zeniv.linux.org.uk>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
-	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, linux-fsdevel@vger.kernel.org, 
-	Jens Axboe <axboe@kernel.dk>, linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	lvc-project@linuxtesting.org, stable@vger.kernel.org, Denis Arefev <arefev@swemel.ru>
-Subject: Re: [PATCH] make new mount API honour SB_NOUSER (was Re: [PATCH]
- block: Avoid mounting the bdev pseudo-filesystem in userspace)
-Message-ID: <eevyuiiqt5b4n7kws2lc24jk2njdllanojl76t5cftx6he6hba@y46tiknbebj4>
-References: <20260521072857.5078-1-arefev@swemel.ru>
- <20260602011907.GM2636677@ZenIV>
- <20260602013526.GO2636677@ZenIV>
- <20260602020444.GP2636677@ZenIV>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ATy/w2E5"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1780391720; x=1811927720;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=wDdUTjS1uiiROITR8pl2La8dWidC/29wrQyzY8OL21M=;
+  b=ATy/w2E5/xj/Cv72xVcbGhOMcZBxq/hODQCSbPnIxsw3SEpnBx8qXuTo
+   QKf4gmCKa4ejL2V/VVgjRDav0NQA92fWgqGkzDDKn3OyJoj7cN5ZFN6fq
+   TN7UCbsALPBgIJOvNksR6T6ltyot0Y1tVC7jcJRNzKb84E+kfzqaViqLP
+   LI2Cz3tQuYJy8cRG+HsbZDih74XHTyGwYWLB/HsdaCcHjxCBWx8NUrUTM
+   FrS/nAb2Q9PG2jKqcQqD3Bs8f9yUGYaDfLwOUQqcyHiuzB6J9+8KBZgxs
+   4o3n1CVeIlnlkf71wmuXJ2+l+urlIhQhKr9KWDitL9r0K+R4WQQK7b2MF
+   Q==;
+X-CSE-ConnectionGUID: nMIOGx/DQfWfB88HAMSa5Q==
+X-CSE-MsgGUID: XgGyzPUMS5GxVxz8ykCX3A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11804"; a="68716593"
+X-IronPort-AV: E=Sophos;i="6.24,183,1774335600"; 
+   d="scan'208";a="68716593"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Jun 2026 02:15:12 -0700
+X-CSE-ConnectionGUID: YhaHEIsESnS3gtsYgnxwhw==
+X-CSE-MsgGUID: miUEYDmQQWWe6mtnqpPrNQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,183,1774335600"; 
+   d="scan'208";a="237505158"
+Received: from mszycik-desk.igk.intel.com (HELO [10.217.160.157]) ([10.217.160.157])
+  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Jun 2026 02:15:11 -0700
+Message-ID: <da793a64-3a52-4c8d-8daa-da2c5c877e27@linux.intel.com>
+Date: Tue, 2 Jun 2026 11:15:04 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260602020444.GP2636677@ZenIV>
-X-Spam-Flag: NO
-X-Rspamd-Action: no action
-X-Spam-Level: 
-X-Spamd-Result: default: False [-4.01 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_COUNT_THREE(0.00)[3];
-	FUZZY_RATELIMITED(0.00)[rspamd.com];
-	ARC_NA(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	MIME_TRACE(0.00)[0:+];
-	FROM_HAS_DN(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[11];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	MISSING_XM_UA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DKIM_TRACE(0.00)[suse.cz:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.cz:dkim,suse.com:email]
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: BDCE767142
-X-Spam-Score: -4.01
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.12 178/272] ice: fix setting RSS VSI hash for E830
+To: Jacob Keller <jacob.e.keller@intel.com>,
+ Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev,
+ Aleksandr Loktionov <aleksandr.loktionov@intel.com>,
+ Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+ Jakub Kicinski <kuba@kernel.org>, Sasha Levin <sashal@kernel.org>
+References: <20260528194629.379955525@linuxfoundation.org>
+ <20260528194634.287856530@linuxfoundation.org>
+ <89da255b-a781-4ccd-bcd2-b2f856a8d7a8@oracle.com>
+ <34103d30-acf0-481c-a387-26a9fc4769c6@intel.com>
+Content-Language: en-US
+From: Marcin Szycik <marcin.szycik@linux.intel.com>
+In-Reply-To: <34103d30-acf0-481c-a387-26a9fc4769c6@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Tue 02-06-26 03:04:44, Al Viro wrote:
-> one should *not* be allowed to mount one of those, new API or not.
+
+
+On 02/06/2026 00:20, Jacob Keller wrote:
+> On 6/1/2026 9:37 AM, Harshit Mogalapalli wrote:
+>> Hi Greg/Sasha,
+>>
+>> On 29/05/26 01:19, Greg Kroah-Hartman wrote:
+>>> 6.12-stable review patch.  If anyone has any objections, please let me
+>>> know.
+>>>
+>>> ------------------
+>>>
+>>> From: Marcin Szycik <marcin.szycik@linux.intel.com>
+>>>
+>>> [ Upstream commit b3cda96feb60d91fe88d52b974ff110dcfa91239 ]
+>>>
+>>> ice_set_rss_hfunc() performs a VSI update, in which it sets hashing
+>>> function, leaving other VSI options unchanged. However, ::q_opt_flags is
+>>> mistakenly set to the value of another field, instead of its original
+>>> value, probably due to a typo. What happens next is hardware-dependent:
+>>>
+>>> On E810, only the first bit is meaningful (see
+>>> ICE_AQ_VSI_Q_OPT_PE_FLTR_EN) and can potentially end up in a different
+>>> state than before VSI update.
+>>>
+>>> On E830, some of the remaining bits are not reserved. Setting them
+>>> to some unrelated values can cause the firmware to reject the update
+>>> because of invalid settings, or worse - succeed.
+>>>
+>>> Reproducer:
+>>>    sudo ethtool -X $PF1 equal 8
+>>>
+>>> Output in dmesg:
+>>>    Failed to configure RSS hash for VSI 6, error -5
+>>>
+>>> Fixes: 352e9bf23813 ("ice: enable symmetric-xor RSS for Toeplitz hash
+>>> function")
+>>> Reviewed-by: Aleksandr Loktionov <aleksandr.loktionov@intel.com>
+>>> Reviewed-by: Przemek Kitszel <przemyslaw.kitszel@intel.com>
+>>> Signed-off-by: Marcin Szycik <marcin.szycik@linux.intel.com>
+>>> Signed-off-by: Jacob Keller <jacob.e.keller@intel.com>
+>>> Link: https://patch.msgid.link/20260506-jk-iwl-net-2026-05-04-v2-5-
+>>> a5ea4dc837a9@intel.com
+>>> Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+>>> Signed-off-by: Sasha Levin <sashal@kernel.org>
+>>> ---
+>>>   drivers/net/ethernet/intel/ice/ice_main.c | 2 +-
+>>>   1 file changed, 1 insertion(+), 1 deletion(-)
+>>>
+>>> diff --git a/drivers/net/ethernet/intel/ice/ice_main.c b/drivers/net/
+>>> ethernet/intel/ice/ice_main.c
+>>> index 2a629b9a9e03a..664bedfbd8054 100644
+>>> --- a/drivers/net/ethernet/intel/ice/ice_main.c
+>>> +++ b/drivers/net/ethernet/intel/ice/ice_main.c
+>>> @@ -8108,7 +8108,7 @@ int ice_set_rss_hfunc(struct ice_vsi *vsi, u8
+>>> hfunc)
+>>>       ctx->info.q_opt_rss |=
+>>>           FIELD_PREP(ICE_AQ_VSI_Q_OPT_RSS_HASH_M, hfunc);
+>>>       ctx->info.q_opt_tc = vsi->info.q_opt_tc;
+>>> -    ctx->info.q_opt_flags = vsi->info.q_opt_rss;
+>>> +    ctx->info.q_opt_flags = vsi->info.q_opt_flags;
+>>>   
+>>
+>>
+>> I ran an AI-assisted backport review and checked this against the 6.12.y
+>> ice driver. I think the E830 RSS fix is incomplete on this branch.
+>>
+>> The backport fixed the PF path in ice_main.c, so 6.12.y now has:
+>>
+>> ctx->info.q_opt_flags = vsi->info.q_opt_flags;
+>>
+>> But 6.12.y still has the older VF virtchnl RSS path in ice_virtchnl.c,
+>> and that path still does:
+>>
+>> ctx->info.q_opt_flags = vsi->info.q_opt_rss;
+>>
+>> Upstream has newer VF helper in virt/rss.c preserves q_opt_flags as
+>> well, but that helper/refactor is not present in this 6.12.y tree.
+>>
+>> See commit: 3a6d87e2eaac ("ice: implement GTP RSS context tracking and
+>> configuration") which is not yet in 6.12.y
+>>
+>> I think 6.12.y needs the equivalent one-line fix in drivers/net/
+>> ethernet/intel/ice/ice_virtchnl.c, changing q_opt_flags to preserve vsi-
+>>> info.q_opt_flags there too. Thoughts?
+>>
+>> Maybe lets drop this and backport it again ?
+>>
 > 
-> Reported-by: Denis Arefev <arefev@swemel.ru>
-> Signed-off-by: Al Viro <viro@zeniv.linux.org.uk>
+> I think you're correct that this won't fully resolve the issue.
 
-Won't it make sense to actually check fc->sb_flags before we call
-vfs_create_mount()? Otherwise it looks good to me.
+Hi,
 
-								Honza
+I didn't submit a followup fix for 6.12 as per [1]:
 
-> ---
-> [[ I still want to see the rest of the reproducer - report smells like a missing
-> d_can_lookup() somewhere, on top of fsmount(2) bug]]
-> diff --git a/fs/namespace.c b/fs/namespace.c
-> index fe919abd2f01..17777c837683 100644
-> --- a/fs/namespace.c
-> +++ b/fs/namespace.c
-> @@ -4499,6 +4499,10 @@ SYSCALL_DEFINE3(fsmount, int, fs_fd, unsigned int, flags,
->  	new_mnt = vfs_create_mount(fc);
->  	if (IS_ERR(new_mnt))
->  		return PTR_ERR(new_mnt);
-> +	if (new_mnt->mnt_sb->s_flags & SB_NOUSER) {
-> +		mntput(new_mnt);
-> +		return -EINVAL;
-> +	}
->  	new_mnt->mnt_flags = mnt_flags;
->  
->  	new_path.dentry = dget(fc->root);
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+>No “This could be a problem...” type of things like a “theoretical race
+>condition”, unless an explanation of how the bug can be exploited is also
+>provided.
+
+because I didn't manage to break it. Should I submit it to stable anyway?
+Also, as stated above, commit 3a6d87e2eaac accidentally fixed it in modern
+versions.
+
+Thanks,
+Marcin
+
+[1] https://docs.kernel.org/process/stable-kernel-rules.html
