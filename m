@@ -1,124 +1,238 @@
-Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65AAD3EA953
-	for <stable@vger.kernel.org>; Tue,  2 Jun 2026 15:35:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.176
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780414546; cv=pass; b=cuctUr3H798Axfo5AcMWW9row2Id451DOQGGb6XwDGLiiIFMjsF3OvDaHgKWseHD4hZxt42LDgXQZGnYxQ2VssX7+eEruJQHG8GmDyi9eejcbhz/SVGJxvzsa2Ox9VgfJU4Kue1JiT+xQBr3J9sGFjvO9cCWAJTx+hXIEhuaEEc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780414546; c=relaxed/simple;
-	bh=oKhZRKSNDQsRxVT0JGr6nA+dxNnWA37kOR8/qGg6Q1I=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=VTuRZ5kCyuWo0Fml8hq4wNVmj54ot3Lj4qlnwdNidc6tUVpuWguqHCBdbK3IioXB4izf+Y56HXMpglSkGX2lCePK08u5UzfX8p3H8dFe9srGh2l2CxhdONJzzZoie+8wOgXBwweNNOiTGQKVdaMmGIg6yBbsx1n78GF36DZN72E=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=quora.org; spf=pass smtp.mailfrom=quora.org; dkim=pass (1024-bit key) header.d=quora.org header.i=@quora.org header.b=nTWtNnAk; arc=pass smtp.client-ip=209.85.210.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=quora.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=quora.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 497851CEAC2
+	for <stable@vger.kernel.org>; Tue,  2 Jun 2026 15:49:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780415345; cv=none; b=L6W4mlpOn1QHBY610efVMBGJC+S3N3FnaRuYfuN3P78m07lDtS60DMdXwmQYeMpujB7buUOPs8SOw3MaphYOF1/rF+2uJr9t8Lk4oOD5y0O5H2xLyyqXcl+ewY7qKDj99Gc2RyeTlmYkQ6ISN2W1HvFXFvxleNTidlQh9GsByq8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780415345; c=relaxed/simple;
+	bh=+eLvSsYQyFCJQ7bO5gQHkRjfmAWoQUcHPEOZme3fZrw=;
+	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=cGLe1Zb/2lHKsDf9Bbu3ehS6Z1eUeZZlkoXuB2zaEJsMo2DdAdtnELJirKg8HCEaLG7LFQN3Cp+MXeB6Y7yzA9VrQurlxqqzR4j+nS3RDndxSblvA9XtnebaQGH+tUTOJ5nfbN8xu+YJ3QItcVwqhDf9CQP1JjtC7FRjnMR+vyE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=ns7qlyFS; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=quora.org header.i=@quora.org header.b="nTWtNnAk"
-Received: by mail-pf1-f176.google.com with SMTP id d2e1a72fcca58-8423b08b293so1154197b3a.3
-        for <stable@vger.kernel.org>; Tue, 02 Jun 2026 08:35:45 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1780414545; cv=none;
-        d=google.com; s=arc-20240605;
-        b=ZnRHgxf3U3vjICBuo2X3ohgXaxm+r/a0KEzRUTMJYXjf5z8lmBxYb6Y5rTcxGx3gH5
-         a9mwqjv0j9XY3gVBae0Td3S80NKJujtk5SHYaRKNr2ckDiXVqbSrCiLOhaYnvmVHxXwT
-         hchiVf7rBS7ZqhkWo9M2AvVux47NEuv+Eo62I+C19io98D+MlZ8C8aipIqxpLEEcTiPU
-         EYNeOTryJPdYsz06R2hf5VvitKchawJCWAhxx0lxFW4o1nMH8Hfk4KQZIw00WAHsRqGd
-         i3fYkz947DBxc4HU24VQTGnDnDkXWMtSm5VrnSooecXwqMM5z21cn2rC7WM+388h4gqP
-         b1BA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=xIH2uRX8VoTWmyY9T8w1tKTf1uWV1y+wbUzLia8/LPI=;
-        fh=TxNxS2rIJJEqMKNZZ00mxDGIXgGrEXSB+078z6eaZv8=;
-        b=ldyFtIMvWacK4q4S2PXJoPmTeXzXxHu5SaDkWiYOkyUx0HJqNSEYxM4BjQIGLhVk4E
-         z7TWpCJ63TrLqsGLqeFHeFnRJGMMUIxTG7ESpmIdxUP9Z2Mctt6G/m5lDRZPzUipzdqP
-         7Ug3L46rglh666POuJ6vmrl3DuG6CEp3IiXaSXKINLMHS9jofALTDeDf5xMzFFuxAhgu
-         LA2jFS8ZIOeTR5GooBafS9TAKBnxF3To1CVSjwMs9LVrd8fja6VXKNpZ0GnC6Mkh+5hg
-         dXqqedEv7sIpV3AHh+QRSTbaGcMloJ7BBL5htHPPG8wTe6MGJDoHGAWfuA5ze0AMx9Ps
-         i55Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=quora.org; s=google; t=1780414545; x=1781019345; darn=vger.kernel.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=xIH2uRX8VoTWmyY9T8w1tKTf1uWV1y+wbUzLia8/LPI=;
-        b=nTWtNnAkx2IZWX2abNaxi39nj78ERcYHOQaia/o9AT0DuOcSJkDKIYJ4VnHqmaFVu3
-         LfRcqexPGednanrxMWijK6dQdeuj7Pi5A3nx9YKv/CQclRE//vE6DIKj6d62tR4D0wuw
-         zpFx2j9j+Re94WhP7QfWxYNIH03BJfbG/Q24E=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780414545; x=1781019345;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=xIH2uRX8VoTWmyY9T8w1tKTf1uWV1y+wbUzLia8/LPI=;
-        b=BFGi4j10YaqIgwdoKiYtlYXOttBNeNoL4fg9ky/5xUoODSifUHpgySIZiEsL3G+1pp
-         a18lL/b/A71QuCu8zcVKT2W5UfEYfVI/LYHY+2rTzZwMYVw1oynqBQosR3QBBcLtm9Qw
-         CL+LE+ftefw7EXWaWm66JpB4T88lqjZ+lF6fls5TO9ExSGqHlxEXAjd6uoZ6LSqetkjg
-         u2vD10H21Q0ApyshrLs0X+HekVlJj85Yec4zG/GpI1LpTHxKckNLQioukHU8ByTLzMrP
-         7PIVZK05a6tTt4nfHdJpPLAwRbnLIp0jmNATtw4mrOn8mQc54PfTLx6FV5xvc9fRCVzy
-         jWrg==
-X-Forwarded-Encrypted: i=1; AFNElJ9yTTQ0dWOjNEAALdPiq/6ECAFDQTO7rjeaQ7hxZF6JQ4wa47afEj8auRkTaX5YI0+djL2a43Y=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxbslztJE9DES7XrNqn1ffvPiQ0HfulHZodMQ3QOpr0vK63TMi7
-	iF+7R1SbORz43ux5YXDeJkeuiELkRV2VEf7ALl1p4poyt6E7yqkBwXlchOlma0DU/nRXPXXDR0t
-	8AoHb3MqUka0D6G8oawhpHmr6DtNx+kdGMw9boF6+KQ==
-X-Gm-Gg: Acq92OFpRpTCbmzvyFnbNxJeHZntzuUyEH1ohbtNx/QMjMDO8ce0XwT97/RdDt+wvwD
-	TxCIA2t5x03b6uYPf90Yazx6OIZLHD8eEau46G8Q7M+E0rTEXivHd26585bKcfda66rk1Cp3HOs
-	aBXJRAYA2wy/VUraXMHAd6Q2HacNFy+l+fh9liC8pwZF1/I/kXDI0jZRiG8dYHgS60yc9UkRLXL
-	u67ptarmu1cOkRyRHBYATfGHB0mxBv5OhU+WneKUxQFRzmGIYA3g2iNNDnZbyV0hrAlIDHM+TDL
-	9287Ytl/JDkcqoShUgT4KKae9HDjzTUZMgiUGaQe7I0iFdYEbERhryDtQ/3nJlNNohTT0i2e8Ft
-	aeh3eakApGSbiE1L5Qlx2OJUSTFnw0uY3WtHHrvYcLG7pe0DWs5iOIorXECrA2U/tFoVakATrQ6
-	nWijkl+uswg90AIlIqtIRoHq15djFwGhoEol641RGG1SyhmTgq6UVDRxWZuBk=
-X-Received: by 2002:a05:6a00:1bc5:b0:82f:9985:d4a1 with SMTP id
- d2e1a72fcca58-84282f4be9emr114808b3a.24.1780414544733; Tue, 02 Jun 2026
- 08:35:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="ns7qlyFS"
+Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6528S6sU2708324
+	for <stable@vger.kernel.org>; Tue, 2 Jun 2026 15:49:03 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=
+	content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=pp1; bh=c4TvMJWoEycB0OtTw
+	+glbO0CqV0SQo6y3MjbUtH+hAg=; b=ns7qlyFSvfU0z2ICfYe/b/auAIrRZ8Ek9
+	V13yreohw4vPHU1vNLCRcjBFtvEc3XIEt08SoqrkhM641OH5yqkknyVqKUm37Rz/
+	KpmtRebTBTS9ex3f+vZu9upHz2oQkArWmeDlmb4KU+r1UjiTAQ9vayicBvTQUAhn
+	rYSohJTbJKii6ju6y+tzfAr1isa8Yh7Hu7ReQJ+rl334dV1h+lh2q/sGAc6u7zY5
+	iS3rgDL6B1JcHPkJ1a/2WdTijXr/CJCoNpUAEAbuyKB+vICLeabdVh0aoBJybhsd
+	vmYZNotZFN64DGUb2Go6OxfCtZCKhHKsiAgDXaZ8A33V9NsyaMGzw==
+Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4efnahpgf4-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+	for <stable@vger.kernel.org>; Tue, 02 Jun 2026 15:49:03 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma23.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 652FdBSc031223
+	for <stable@vger.kernel.org>; Tue, 2 Jun 2026 15:49:02 GMT
+Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
+	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4egbqhbusy-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+	for <stable@vger.kernel.org>; Tue, 02 Jun 2026 15:49:02 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
+	by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 652Fn0ni29688142
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
+	for <stable@vger.kernel.org>; Tue, 2 Jun 2026 15:49:00 GMT
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 0C9352004B
+	for <stable@vger.kernel.org>; Tue,  2 Jun 2026 15:49:00 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id EE77120040
+	for <stable@vger.kernel.org>; Tue,  2 Jun 2026 15:48:59 +0000 (GMT)
+Received: from tuxmaker.boeblingen.de.ibm.com (unknown [9.87.85.9])
+	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP
+	for <stable@vger.kernel.org>; Tue,  2 Jun 2026 15:48:59 +0000 (GMT)
+From: Peter Oberparleiter <oberpar@linux.ibm.com>
+To: stable@vger.kernel.org
+Subject: [PATCH 6.12.y] s390/cio: Restore GFP_DMA for CHSC allocation
+Date: Tue,  2 Jun 2026 17:48:55 +0200
+Message-ID: <20260602154855.365104-1-oberpar@linux.ibm.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026052823-removing-pretended-b7d6@gregkh>
+References: <2026052823-removing-pretended-b7d6@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260601041336.9497-1-daniel@quora.org> <ecavEnqJTDXvfFykc9uJb5No7ioighpjrCdw2CFZ4c8Izr5DxpTs-606Bg7K0RtHTaOqksWivHxWQLzMBP6qow==@protonmail.internalid>
- <20260601041336.9497-2-daniel@quora.org> <ec7c564e-745a-4998-af9a-e9632fe063f7@kernel.org>
-In-Reply-To: <ec7c564e-745a-4998-af9a-e9632fe063f7@kernel.org>
-From: Daniel J Blueman <daniel@quora.org>
-Date: Tue, 2 Jun 2026 23:35:32 +0800
-X-Gm-Features: AVHnY4Jsj6RGlQW4Ea0C-JB6jRZRFbYG2MvxlnfYpmwEKpWeXFNaNH003Nh9F4U
-Message-ID: <CAMVG2ssnyH=KUKrdfnUOtPYU7p17inyzcYWcKhT4EAZxDzDjfg@mail.gmail.com>
-Subject: Re: [PATCH 2/2] arm64: dts: qcom: hamoa: Reserve low IOVA range for Iris
-To: Vikash Garodia <quic_vgarodia@quicinc.com>
-Cc: Vikash Garodia <vikash.garodia@oss.qualcomm.com>, 
-	Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org, 
-	linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-	"Bryan O'Donoghue" <bod@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjAyMDE1MCBTYWx0ZWRfXyJrLl2O8pic+
+ cA/JFFFhib1FJhjBrO/MrT1OCrrkHqOqUyUmKwnwO8CEkalsUDzR/9nADBAwNQSQxZ4lkCQKXLT
+ esTXpcnB4FTKKiYYt4/4uu9+vFsMbYlIBo2yv/JmE0xJ6QuQvdmsV8Am+FAnZhZKM2GCJiIl6Gr
+ tBs14tdYDgpzG8EGvDDXqQx1T9c+kvTL4tBGYU+6s2CXtA73SXA/ZphYsk1nwHR2o3vgC6ZIFA6
+ UvtIQ2Mr0ENDAbNF292EuLFWKi1Y2/c+Hbc0MzeCznkvjMkqd38SU+mL7nb5+VdPMppLzoG/IZ9
+ OQ0Fqn0MDEgcdz3nHDe7sPa0d9JwmjOqQrShd5T3OWLW4HbaLESDGyav07y6A4qfBV1y8Ba1wWZ
+ t1xctYOYKXQuCclRcouBmNXRu1MGk+MazZs+eszJ53Q+hcFZzBBh99GZs+CbsDqB+oIDIV+v5d6
+ xyZaT6eKMpMkFgJRVQA==
+X-Proofpoint-ORIG-GUID: F4vWKkoLL1pd5pCy8JG5BhOHVugk3fC1
+X-Authority-Analysis: v=2.4 cv=cOzQdFeN c=1 sm=1 tr=0 ts=6a1efb6f cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+ a=FelO9ux0wxsA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
+ a=8SZ3sY9okZyLWmRNyBMA:9
+X-Proofpoint-GUID: F4vWKkoLL1pd5pCy8JG5BhOHVugk3fC1
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-02_02,2026-05-28_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1011 impostorscore=0 lowpriorityscore=0 spamscore=0 bulkscore=0
+ malwarescore=0 phishscore=0 suspectscore=0 priorityscore=1501 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606020150
 
-On Tue, 2 Jun 2026 at 18:27, Bryan O'Donoghue <bod@kernel.org> wrote:
->
-> On 01/06/2026 05:13, Daniel J Blueman wrote:
-> > On X1-family hamoa platforms, Iris DMA below IOVA 0x25800000 (600MB)
-> > triggers unhandled SMMU page faults
->
-> How do we know that is a correct address - does it come from qcom
-> documentation or trial and error ?
+[ Upstream commit ea34567db0a6b3a7ce78ba421592344315c8f90e ]
 
-@Vikash, beyond your comment I linked in the patch [1] kindly cite a
-source for the different stream-ID <600MB behaviour, and share
-specifics, eg if silicon, firmware, or driver and constraint, defect
-or otherwise, so I can include a definitive description.
+Re-add GFP_DMA when allocating memory for CHSC control blocks.
+On some supported machines, CHSC cannot access memory outside
+the DMA zone, causing CHSC command failures.
 
-Also good to know if my workaround is good for long-term, or on the
-other hand handling streams <600MB is important/useful.
+Cc: stable@vger.kernel.org
+Fixes: a3a64a4def8d ("s390/cio: remove unneeded DMA zone allocation")
+Signed-off-by: Peter Oberparleiter <oberpar@linux.ibm.com>
+Reviewed-by: Heiko Carstens <hca@linux.ibm.com>
+Signed-off-by: Alexander Gordeev <agordeev@linux.ibm.com>
+[ adjusted context to account for missing commit bf4afc53b77ae ]
+Signed-off-by: Peter Oberparleiter <oberpar@linux.ibm.com>
+---
+ drivers/s390/cio/chsc.c     |  4 ++--
+ drivers/s390/cio/chsc_sch.c | 20 ++++++++++----------
+ drivers/s390/cio/scm.c      |  2 +-
+ 3 files changed, 13 insertions(+), 13 deletions(-)
 
-Thanks,
-  Dan
+diff --git a/drivers/s390/cio/chsc.c b/drivers/s390/cio/chsc.c
+index dcc1e1c34ca2..8fe6658dcfe1 100644
+--- a/drivers/s390/cio/chsc.c
++++ b/drivers/s390/cio/chsc.c
+@@ -1153,8 +1153,8 @@ int __init chsc_init(void)
+ {
+ 	int ret;
+ 
+-	sei_page = (void *)get_zeroed_page(GFP_KERNEL);
+-	chsc_page = (void *)get_zeroed_page(GFP_KERNEL);
++	sei_page = (void *)get_zeroed_page(GFP_KERNEL | GFP_DMA);
++	chsc_page = (void *)get_zeroed_page(GFP_KERNEL | GFP_DMA);
+ 	if (!sei_page || !chsc_page) {
+ 		ret = -ENOMEM;
+ 		goto out_err;
+diff --git a/drivers/s390/cio/chsc_sch.c b/drivers/s390/cio/chsc_sch.c
+index 1e58ee3cc87d..9131ce3af1b8 100644
+--- a/drivers/s390/cio/chsc_sch.c
++++ b/drivers/s390/cio/chsc_sch.c
+@@ -293,7 +293,7 @@ static int chsc_ioctl_start(void __user *user_area)
+ 	if (!css_general_characteristics.dynio)
+ 		/* It makes no sense to try. */
+ 		return -EOPNOTSUPP;
+-	chsc_area = (void *)get_zeroed_page(GFP_KERNEL);
++	chsc_area = (void *)get_zeroed_page(GFP_DMA | GFP_KERNEL);
+ 	if (!chsc_area)
+ 		return -ENOMEM;
+ 	request = kzalloc(sizeof(*request), GFP_KERNEL);
+@@ -341,7 +341,7 @@ static int chsc_ioctl_on_close_set(void __user *user_area)
+ 		ret = -ENOMEM;
+ 		goto out_unlock;
+ 	}
+-	on_close_chsc_area = (void *)get_zeroed_page(GFP_KERNEL);
++	on_close_chsc_area = (void *)get_zeroed_page(GFP_DMA | GFP_KERNEL);
+ 	if (!on_close_chsc_area) {
+ 		ret = -ENOMEM;
+ 		goto out_free_request;
+@@ -393,7 +393,7 @@ static int chsc_ioctl_start_sync(void __user *user_area)
+ 	struct chsc_sync_area *chsc_area;
+ 	int ret, ccode;
+ 
+-	chsc_area = (void *)get_zeroed_page(GFP_KERNEL);
++	chsc_area = (void *)get_zeroed_page(GFP_KERNEL | GFP_DMA);
+ 	if (!chsc_area)
+ 		return -ENOMEM;
+ 	if (copy_from_user(chsc_area, user_area, PAGE_SIZE)) {
+@@ -439,7 +439,7 @@ static int chsc_ioctl_info_channel_path(void __user *user_cd)
+ 		u8 data[PAGE_SIZE - 20];
+ 	} __attribute__ ((packed)) *scpcd_area;
+ 
+-	scpcd_area = (void *)get_zeroed_page(GFP_KERNEL);
++	scpcd_area = (void *)get_zeroed_page(GFP_KERNEL | GFP_DMA);
+ 	if (!scpcd_area)
+ 		return -ENOMEM;
+ 	cd = kzalloc(sizeof(*cd), GFP_KERNEL);
+@@ -501,7 +501,7 @@ static int chsc_ioctl_info_cu(void __user *user_cd)
+ 		u8 data[PAGE_SIZE - 20];
+ 	} __attribute__ ((packed)) *scucd_area;
+ 
+-	scucd_area = (void *)get_zeroed_page(GFP_KERNEL);
++	scucd_area = (void *)get_zeroed_page(GFP_KERNEL | GFP_DMA);
+ 	if (!scucd_area)
+ 		return -ENOMEM;
+ 	cd = kzalloc(sizeof(*cd), GFP_KERNEL);
+@@ -564,7 +564,7 @@ static int chsc_ioctl_info_sch_cu(void __user *user_cud)
+ 		u8 data[PAGE_SIZE - 20];
+ 	} __attribute__ ((packed)) *sscud_area;
+ 
+-	sscud_area = (void *)get_zeroed_page(GFP_KERNEL);
++	sscud_area = (void *)get_zeroed_page(GFP_KERNEL | GFP_DMA);
+ 	if (!sscud_area)
+ 		return -ENOMEM;
+ 	cud = kzalloc(sizeof(*cud), GFP_KERNEL);
+@@ -626,7 +626,7 @@ static int chsc_ioctl_conf_info(void __user *user_ci)
+ 		u8 data[PAGE_SIZE - 20];
+ 	} __attribute__ ((packed)) *sci_area;
+ 
+-	sci_area = (void *)get_zeroed_page(GFP_KERNEL);
++	sci_area = (void *)get_zeroed_page(GFP_KERNEL | GFP_DMA);
+ 	if (!sci_area)
+ 		return -ENOMEM;
+ 	ci = kzalloc(sizeof(*ci), GFP_KERNEL);
+@@ -697,7 +697,7 @@ static int chsc_ioctl_conf_comp_list(void __user *user_ccl)
+ 		u32 res;
+ 	} __attribute__ ((packed)) *cssids_parm;
+ 
+-	sccl_area = (void *)get_zeroed_page(GFP_KERNEL);
++	sccl_area = (void *)get_zeroed_page(GFP_KERNEL | GFP_DMA);
+ 	if (!sccl_area)
+ 		return -ENOMEM;
+ 	ccl = kzalloc(sizeof(*ccl), GFP_KERNEL);
+@@ -757,7 +757,7 @@ static int chsc_ioctl_chpd(void __user *user_chpd)
+ 	int ret;
+ 
+ 	chpd = kzalloc(sizeof(*chpd), GFP_KERNEL);
+-	scpd_area = (void *)get_zeroed_page(GFP_KERNEL);
++	scpd_area = (void *)get_zeroed_page(GFP_KERNEL | GFP_DMA);
+ 	if (!scpd_area || !chpd) {
+ 		ret = -ENOMEM;
+ 		goto out_free;
+@@ -797,7 +797,7 @@ static int chsc_ioctl_dcal(void __user *user_dcal)
+ 		u8 data[PAGE_SIZE - 36];
+ 	} __attribute__ ((packed)) *sdcal_area;
+ 
+-	sdcal_area = (void *)get_zeroed_page(GFP_KERNEL);
++	sdcal_area = (void *)get_zeroed_page(GFP_KERNEL | GFP_DMA);
+ 	if (!sdcal_area)
+ 		return -ENOMEM;
+ 	dcal = kzalloc(sizeof(*dcal), GFP_KERNEL);
+diff --git a/drivers/s390/cio/scm.c b/drivers/s390/cio/scm.c
+index c7894d61306d..375cbfa31b53 100644
+--- a/drivers/s390/cio/scm.c
++++ b/drivers/s390/cio/scm.c
+@@ -228,7 +228,7 @@ int scm_update_information(void)
+ 	size_t num;
+ 	int ret;
+ 
+-	scm_info = (void *)__get_free_page(GFP_KERNEL);
++	scm_info = (void *)__get_free_page(GFP_KERNEL | GFP_DMA);
+ 	if (!scm_info)
+ 		return -ENOMEM;
+ 
+-- 
+2.53.0
 
-[1] https://github.com/qualcomm-linux/kernel-topics/issues/1157#issuecomment-4458933574
-
---
-Daniel J Blueman
