@@ -1,74 +1,45 @@
-Received: from mail-qt1-f169.google.com (mail-qt1-f169.google.com [209.85.160.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D53A0364049
-	for <stable@vger.kernel.org>; Tue,  2 Jun 2026 02:40:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB59033A70A;
+	Tue,  2 Jun 2026 02:58:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780368040; cv=none; b=IiB+iaifDFvYoUgOzpZZyV6t06COCvfj6egoWumjQuyb5P2ZlChvlNnJllhwmtSwoxQgac6GbfhnoGnao1aMb7raRslArGWPO78IEcHKoH1HmAboepSMMs/WvMFsc/mHxGB9SIaEjZc5D8cpCJT3PhEgjeIRZxP7EXqOACDj/sQ=
+	t=1780369128; cv=none; b=dKLRqxso4qGwG0A1Sb8albG6LzJdhcwaWc8chHiUBWFibZ6YgCObBUGzaakSVpq0FI41gbFDM4Q3K8Ff4x0KMqSwiyGvBbzDXhWaw8YfdfoM2hJ4vK97I1dtLsxFBf5k8epYHEy+E2F1NqEXQGPhtWY+1E8XdUa7xqIlb3k5ZBU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780368040; c=relaxed/simple;
-	bh=pu3l4so7HE/6aPov23DNyoo+QaCHW2xwcQuz5IOG1Ok=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MP1/OKZBSVOO0ejXlA/wVV6TPL2cC45bYCZlhMDyDLt54WlikY06JPfab3xpcKAXY3a9AJECvXUYh4azQ73rEcJE5NLCF9zx6cKggrl87h2J+XmAjXY5cxjEcRB28njQGzbFK6tWm0HudFlUkTR82gpnduIa04+vEOP95F6IMcQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Uq1zRBmW; arc=none smtp.client-ip=209.85.160.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1780369128; c=relaxed/simple;
+	bh=nIWrX8/xjSgQop69xjMm5VGLqbFc7I2snTAO0davVvM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hXKNPT/jmepq1xSxY6t3Q4w9fv2AmbXGLfoJAfFtmLPJMrrnOknFF6IzvCSQ2O6iAAfVf2ROJCzRLWBYwR866XTqVY+80VXuWatVVDwEIg36iITL2jG955+i36X/ofPUQ1y2bn6E4S8g75ttqQS2WWzrp4M/k1JiVeGnmwpsTrM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=T2gXAMYt; arc=none smtp.client-ip=220.197.31.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Uq1zRBmW"
-Received: by mail-qt1-f169.google.com with SMTP id d75a77b69052e-51749fe346cso14257171cf.0
-        for <stable@vger.kernel.org>; Mon, 01 Jun 2026 19:40:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780368038; x=1780972838; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=AeohTwvd4oZnskIqWgfC2EYaBkDAYS0G0xQwLeBQASs=;
-        b=Uq1zRBmWgW/XNimxHN5i/mO2fpLsbBUNuQgr9D1ouxijxK1UHkOQkeHTFCx7NBf3th
-         JiXrGQG68zgCnky9Wh89yJzm9BwWzK5ZqIqvztBbIolF9Q2aCgzNAckfLrtnEN8J9BMi
-         46MmAYjt2IwLfVNA9mXjZdYxk6PbyhnJ6QEGMzWlc02bp+XwWbMJj5Xlar4QgrS6r+Ux
-         qY85l88Frhm0tiLh6OQR0lFlRCMCrQenpULrU5r00NIOmiA7DeyoGV8g/dUXE5vVe0zG
-         wb9RVZmZhqProfBKYAAbehyH/CXCUAsRyN+rdNjC0Hlg0vNcL8kvGbu+Lg6Irt5EIqzL
-         K8Yw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780368038; x=1780972838;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=AeohTwvd4oZnskIqWgfC2EYaBkDAYS0G0xQwLeBQASs=;
-        b=KLcGk2ck77SE2+DnBFxMpB48CYufodX2cOGxZerUqKTkdaFhEc08iLRh5h5o7hbOq7
-         pZrc1LbueR8Zpb3gw/up710JUKxwuse4MoaNkIx0R6N1w8iKchZwP8AaioaOw1NzNzvw
-         zXgrhMH2m4Na3gmEcKwF3Kf8227HW9aN65HJn0qfMt5YXBc5452tbyU2Iem4R6sFcTDl
-         STuV8xEOOaUSUqeSi5oUjQ9AhZrDYVH7219orGAP2kHuLgdEz8NsviTWitwVI+vHWdMV
-         U3hbTrrbCqlWB885ujYNQs1hja0lRpDRLtaYS8dsLa9eQ6f6mgza/9tqZS9AaydPPWwr
-         BT/w==
-X-Forwarded-Encrypted: i=1; AFNElJ+mB+VkVzUOdRlx9wdpS5jAe4UeYsjKQaAyy8oACWIbvh/dh4D04RibUtrpMsW62oeagpT8ngU=@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywd0Qk7EwNdfQ5eDWnhVl7KkiboAS3E05CBMjEjo6BjyMiM+xVy
-	gpVlOWfU8SIz7dutJncIdBMq2LzEkjaeL9l7BLHReqdJYrgNyvKmHeyT
-X-Gm-Gg: Acq92OEsq2Tf1oYcrQzH8Oijn+uwu4fGq3SyiGzTaw+AE04xjJXYmjZjMk4dayIBqLP
-	ZU/nHvqB4YkLlaeRKhkD8urriA+rQzbsnPYkxi8D0FQQWmE5jK26mrtA4dmW8KC8+iOhpWGivyR
-	ZgUuF9S8G+5ae0lSmUpgGAc+AnlrQByddRRsHE2ZdIKRshkgANwMiWKK6hf8orXYNg12hA7pMk2
-	jSGeQHPpA5CBYVpijIl09qIEIxTKnNPCS44NV9yUZwyeTeKi6yX1DQlPFsxkqgE9RVua7gjo3rn
-	MzRP1mdA9mLq797sm68D2mkNUwIoshYTle4wk0kUM1rv/ZagyOTBVnV2O9iVsGaqHGc2nQ9+a6G
-	UwlEhOzhyiG7aGktPmSYO8qybQywXysU78DULvIZwQvfO9rUhD3MhjMbsGDsyL7aS+Kp8iJKle3
-	ez9ea9q7fihqRAzl+j1HmfSC9UV98+Z0fMoMe9vJ9m7/NY0khev7WQVqo8FBkUFOzfEByAxqhBC
-	jeh
-X-Received: by 2002:a05:622a:6843:10b0:516:ea2d:7c5a with SMTP id d75a77b69052e-5173a8232d8mr154097731cf.41.1780368037828;
-        Mon, 01 Jun 2026 19:40:37 -0700 (PDT)
-Received: from aiden-laptop.bowlinghome.net ([207.174.150.233])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8ccea23e115sm108327466d6.42.2026.06.01.19.40.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 01 Jun 2026 19:40:37 -0700 (PDT)
-From: Aiden Bowling <aidenlbowling56@gmail.com>
-To: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Aiden Bowling <aidenlbowling56@gmail.com>
-Subject: [PATCH] kernel/sys.c: fix prctl_set_auxv to use sizeof instead of user-supplied len
-Date: Mon,  1 Jun 2026 22:40:02 -0400
-Message-ID: <20260602024001.14119-2-aidenlbowling56@gmail.com>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="T2gXAMYt"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=jW
+	cj5KXzVf50Z0Lmy57Di0WeDde7W1hIGhp4tmxTXms=; b=T2gXAMYt3MS1cbIwSg
+	P5Dop4it863AXVXRfy7ro+JlZW1C7ANyhZ0AemnU5HZVv+3s1Cpu985KuNAwsUns
+	KWhJQu3vNTshFV0AjbJLv6Q4zhBk9VsyrzBtFx4WH4qWKL8m6hfMm/kZFWcokpI5
+	SpS3VZTlOgOV2oBS2ftjqcwIs=
+Received: from pek-lpg-core5.wrs.com (unknown [])
+	by gzga-smtp-mtada-g1-0 (Coremail) with SMTP id _____wD3n8nIRh5q+v6CAw--.56991S2;
+	Tue, 02 Jun 2026 10:58:17 +0800 (CST)
+From: Robert Garcia <rob_garcia@163.com>
+To: stable@vger.kernel.org,
+	Prathamesh Shete <pshete@nvidia.com>
+Cc: Thierry Reding <treding@nvidia.com>,
+	Petlozu Pravareshwar <petlozup@nvidia.com>,
+	Jon Hunter <jonathanh@nvidia.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Meng Li <Meng.Li@windriver.com>,
+	Ulf Hansson <ulf.hansson@linaro.org>,
+	Robert Garcia <rob_garcia@163.com>,
+	linux-tegra@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 6.6.y] soc/tegra: pmc: Fix unsafe generic_handle_irq() call
+Date: Tue,  2 Jun 2026 10:58:12 +0800
+Message-ID: <20260602025812.3535026-1-rob_garcia@163.com>
+X-Mailer: git-send-email 2.44.3
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -76,33 +47,218 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3n8nIRh5q+v6CAw--.56991S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW3Wry5KFyruF1fAFWkWr13XFb_yoWxWrWUpa
+	y5KFWF9w4UJFWxua15ua10vF13CF18X3yxGr43Aas3J3yUKrnY9FnxXFyYqF48ArZa9F45
+	Aay0yryUKw4UXFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pRdR65UUUUU=
+X-CM-SenderInfo: 5uresw5dufxti6rwjhhfrp/xtbDAgnlUWoeRskKvQAA3z
 
-prctl_set_auxv() passed the user-supplied 'len' to memcpy() when copying
-into mm->saved_auxv, instead of sizeof(user_auxv). Since user_auxv is
-already sized to the full auxv buffer, using 'len' risks a partial write
-if the caller supplies a smaller value. Use sizeof(user_auxv) to always
-copy the full buffer after validation.
+From: Prathamesh Shete <pshete@nvidia.com>
 
-Signed-off-by: Aiden Bowling <aidenlbowling56@gmail.com>
+[ Upstream commit e6d96073af681780820c94079b978474a8a44413 ]
+
+Currently, when resuming from system suspend on Tegra platforms,
+the following warning is observed:
+
+WARNING: CPU: 0 PID: 14459 at kernel/irq/irqdesc.c:666
+Call trace:
+ handle_irq_desc+0x20/0x58 (P)
+ tegra186_pmc_wake_syscore_resume+0xe4/0x15c
+ syscore_resume+0x3c/0xb8
+ suspend_devices_and_enter+0x510/0x540
+ pm_suspend+0x16c/0x1d8
+
+The warning occurs because generic_handle_irq() is being called from
+a non-interrupt context which is considered as unsafe.
+
+Fix this warning by deferring generic_handle_irq() call to an IRQ work
+which gets executed in hard IRQ context where generic_handle_irq()
+can be called safely.
+
+When PREEMPT_RT kernels are used, regular IRQ work (initialized with
+init_irq_work) is deferred to run in per-CPU kthreads in preemptible
+context rather than hard IRQ context. Hence, use the IRQ_WORK_INIT_HARD
+variant so that with PREEMPT_RT kernels, the IRQ work is processed in
+hardirq context instead of being deferred to a thread which is required
+for calling generic_handle_irq().
+
+On non-PREEMPT_RT kernels, both init_irq_work() and IRQ_WORK_INIT_HARD()
+execute in IRQ context, so this change has no functional impact for
+standard kernel configurations.
+
+Signed-off-by: Petlozu Pravareshwar <petlozup@nvidia.com>
+Signed-off-by: Prathamesh Shete <pshete@nvidia.com>
+Reviewed-by: Jon Hunter <jonathanh@nvidia.com>
+Tested-by: Jon Hunter <jonathanh@nvidia.com>
+[treding@nvidia.com: miscellaneous cleanups]
+Signed-off-by: Thierry Reding <treding@nvidia.com>
+[ Deleted tegra186_pmc_process_wake_events() 
+which has a bit differences. ]
+Signed-off-by: Robert Garcia <rob_garcia@163.com>
 ---
- kernel/sys.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/soc/tegra/pmc.c | 109 +++++++++++++++++++++++++++-------------
+ 1 file changed, 74 insertions(+), 35 deletions(-)
 
-diff --git a/kernel/sys.c b/kernel/sys.c
-index 62e842055cc9..d3f5229649e3 100644
---- a/kernel/sys.c
-+++ b/kernel/sys.c
-@@ -2189,7 +2189,7 @@ static int prctl_set_auxv(struct mm_struct *mm, unsigned long addr,
- 	BUILD_BUG_ON(sizeof(user_auxv) != sizeof(mm->saved_auxv));
+diff --git a/drivers/soc/tegra/pmc.c b/drivers/soc/tegra/pmc.c
+index a9dc15ec8a13..968ea40c17b7 100644
+--- a/drivers/soc/tegra/pmc.c
++++ b/drivers/soc/tegra/pmc.c
+@@ -28,6 +28,7 @@
+ #include <linux/iopoll.h>
+ #include <linux/irqdomain.h>
+ #include <linux/irq.h>
++#include <linux/irq_work.h>
+ #include <linux/kernel.h>
+ #include <linux/of_address.h>
+ #include <linux/of_clk.h>
+@@ -500,6 +501,10 @@ struct tegra_pmc {
+ 	unsigned long *wake_sw_status_map;
+ 	unsigned long *wake_cntrl_level_map;
+ 	struct syscore_ops syscore;
++
++	/* Pending wake IRQ processing */
++	struct irq_work wake_work;
++	u32 *wake_status;
+ };
  
- 	task_lock(current);
--	memcpy(mm->saved_auxv, user_auxv, len);
-+	memcpy(mm->saved_auxv, user_auxv, sizeof(user_auxv));
- 	task_unlock(current);
- 
+ static struct tegra_pmc *pmc = &(struct tegra_pmc) {
+@@ -1973,6 +1978,50 @@ static int tegra_pmc_parse_dt(struct tegra_pmc *pmc, struct device_node *np)
  	return 0;
-
-base-commit: e43ffb69e0438cddd72aaa30898b4dc446f664f8
+ }
+ 
++/* translate sc7 wake sources back into IRQs to catch edge triggered wakeups */
++static void tegra186_pmc_wake_handler(struct irq_work *work)
++{
++	struct tegra_pmc *pmc = container_of(work, struct tegra_pmc, wake_work);
++	unsigned int i, wake;
++
++	for (i = 0; i < pmc->soc->max_wake_vectors; i++) {
++		unsigned long status = pmc->wake_status[i];
++
++		for_each_set_bit(wake, &status, 32) {
++			irq_hw_number_t hwirq = wake + (i * 32);
++			struct irq_desc *desc;
++			unsigned int irq;
++
++			irq = irq_find_mapping(pmc->domain, hwirq);
++			if (!irq) {
++				dev_warn(pmc->dev,
++					"No IRQ found for WAKE#%lu!\n",
++					hwirq);
++				continue;
++			}
++
++			dev_dbg(pmc->dev,
++				"Resume caused by WAKE#%lu mapped to IRQ#%u\n",
++				hwirq, irq);
++
++			desc = irq_to_desc(irq);
++			if (!desc) {
++				dev_warn(pmc->dev,
++					"No descriptor found for IRQ#%u\n",
++					irq);
++				continue;
++			}
++
++			if (!desc->action || !desc->action->name)
++				continue;
++
++			generic_handle_irq(irq);
++		}
++
++		pmc->wake_status[i] = 0;
++	}
++}
++
+ static int tegra_pmc_init(struct tegra_pmc *pmc)
+ {
+ 	if (pmc->soc->max_wake_events > 0) {
+@@ -1991,6 +2040,18 @@ static int tegra_pmc_init(struct tegra_pmc *pmc)
+ 		pmc->wake_cntrl_level_map = bitmap_zalloc(pmc->soc->max_wake_events, GFP_KERNEL);
+ 		if (!pmc->wake_cntrl_level_map)
+ 			return -ENOMEM;
++
++		pmc->wake_status = kcalloc(pmc->soc->max_wake_vectors, sizeof(u32), GFP_KERNEL);
++		if (!pmc->wake_status)
++			return -ENOMEM;
++
++		/*
++		 * Initialize IRQ work for processing wake IRQs. Must use
++		 * HARD_IRQ variant to run in hard IRQ context on PREEMPT_RT
++		 * because we call generic_handle_irq() which requires hard
++		 * IRQ context.
++		 */
++		pmc->wake_work = IRQ_WORK_INIT_HARD(tegra186_pmc_wake_handler);
+ 	}
+ 
+ 	if (pmc->soc->init)
+@@ -3385,52 +3446,30 @@ static void wke_clear_wake_status(struct tegra_pmc *pmc)
+ 	}
+ }
+ 
+-/* translate sc7 wake sources back into IRQs to catch edge triggered wakeups */
+-static void tegra186_pmc_process_wake_events(struct tegra_pmc *pmc, unsigned int index,
+-					     unsigned long status)
+-{
+-	unsigned int wake;
+-	unsigned long flags;
+-
+-	dev_dbg(pmc->dev, "Wake[%d:%d]  status=%#lx\n", (index * 32) + 31, index * 32, status);
+-
+-	for_each_set_bit(wake, &status, 32) {
+-		irq_hw_number_t hwirq = wake + 32 * index;
+-		struct irq_desc *desc;
+-		unsigned int irq;
+-
+-		irq = irq_find_mapping(pmc->domain, hwirq);
+-
+-		desc = irq_to_desc(irq);
+-		if (!desc || !desc->action || !desc->action->name) {
+-			dev_dbg(pmc->dev, "Resume caused by WAKE%ld, IRQ %d\n", hwirq, irq);
+-			continue;
+-		}
+-
+-		dev_dbg(pmc->dev, "Resume caused by WAKE%ld, %s\n", hwirq, desc->action->name);
+-		local_irq_save(flags);
+-		irq_enter();
+-		generic_handle_irq(irq);
+-		irq_exit();
+-		local_irq_restore(flags);
+-	}
+-}
+-
+ static void tegra186_pmc_wake_syscore_resume(void)
+ {
+-	u32 status, mask;
+ 	unsigned int i;
++	u32 mask;
+ 
+ 	for (i = 0; i < pmc->soc->max_wake_vectors; i++) {
+ 		mask = readl(pmc->wake + WAKE_AOWAKE_TIER2_ROUTING(i));
+-		status = readl(pmc->wake + WAKE_AOWAKE_STATUS_R(i)) & mask;
+-
+-		tegra186_pmc_process_wake_events(pmc, i, status);
++		pmc->wake_status[i] = readl(pmc->wake + WAKE_AOWAKE_STATUS_R(i)) & mask;
+ 	}
++
++	/* Schedule IRQ work to process wake IRQs (if any) */
++	irq_work_queue(&pmc->wake_work);
+ }
+ 
+ static int tegra186_pmc_wake_syscore_suspend(void)
+ {
++	unsigned int i;
++
++	/* Check if there are unhandled wake IRQs */
++	for (i = 0; i < pmc->soc->max_wake_vectors; i++)
++		if (pmc->wake_status[i])
++			dev_warn(pmc->dev,
++				 "Unhandled wake IRQs pending vector[%u]: 0x%x\n",
++				 i, pmc->wake_status[i]);
+ 	wke_read_sw_wake_status(pmc);
+ 
+ 	/* flip the wakeup trigger for dual-edge triggered pads
 -- 
-2.54.0
+2.44.3
 
