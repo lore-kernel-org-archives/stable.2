@@ -1,217 +1,85 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx1.secunet.com (mx1.secunet.com [62.96.220.36])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4ECA3E5A1C
-	for <stable@vger.kernel.org>; Tue,  2 Jun 2026 10:12:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 972D03DB338;
+	Tue,  2 Jun 2026 10:12:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.96.220.36
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780395136; cv=none; b=QLIcFCMz/3M9NIgTtxbae6tQJ6IAVjVGC0xzBi8KdFWfyRqWR8+DMvoGIY7TdVdfy2djx9VmRZgq6qDwkChz2Mz8Ai69gd8Bw6zESz+vFzwyFmhM/lJQCxe+0YPvu73WlEYvLKw44+k5mlDK4eIkv2Hgvg4Q7iDKq+u/HS/ZF0I=
+	t=1780395143; cv=none; b=aJZVHhZJMHYBa+A9kC0SYlyYBb137RRDBye1g9df+T2DFelPdVy75fQy7eaW30mJEgb2hcR8cqoe0CMDCNZJAjz/rxKyoFq1gWr13U9U9ZZEdl+zNfaklOFaKXyw2sgA/yXBN6s0mlUuTUX86HvuCK22z5NdJscfbUC+eL8rEDI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780395136; c=relaxed/simple;
-	bh=z3ty/ZdUawtY5dkPdrb/MMmFZ3eM0oC0peNaIucAUAs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=kNomy6TkLiY7DD7n8NcOYDg4F2aPIqOxfic/guehoYVRCQgOWCx2V06jRZ5R6Z5Zce/YNHc0VW0fVFrQvZkZdexoHuGqHuKEsgcncXuRuRwJ3SXsimjx3R0DThePgiMXVRw/31v9x9BnNaExg18k/4NX8dI2MO8qeldNAZuday8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QS3wn+1B; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780395143; c=relaxed/simple;
+	bh=2NAio0MHv8BYG7XK3tUkFUn1ovnM+InLLL2mQgwAYTo=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pxzVxVjb7K7a1eyhfND9Lrri608lo6JUpRDwyQRRCel1Oubh+GML7mvhrwRjbhCy818mB5BlJlPHQvbYOSsD1snxEHZ/C+Eqor4f0HclhU+fQSUtNz6jtJzH97CmmbZoEWu8CzN9wdtaPsyjAJkVyXjqn7llD68x1gCMs6Gor7Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=secunet.com; spf=pass smtp.mailfrom=secunet.com; dkim=pass (2048-bit key) header.d=secunet.com header.i=@secunet.com header.b=jQlix4Dg; arc=none smtp.client-ip=62.96.220.36
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=secunet.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=secunet.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QS3wn+1B"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 800231F00898
-	for <stable@vger.kernel.org>; Tue,  2 Jun 2026 10:12:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780395134;
-	bh=e/TCg1uIVA8+dNYHPD8jbrJl5eIIsO+os0J5gb+iRFY=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=QS3wn+1BRxuED9UmM0zeA7ezqFyxRkVDr/wVqlq9r2qf26KPKLJPHQ6wLB/XmiUzf
-	 nyNZ4dgZxpc13NGQ1Hbe6i6qg/E9HJTG7pNHIf3+QjBP/ki/dkmD5cdC7oyC5kqqd4
-	 9S4rXwWPzsmW/shYrV+pvZCWErd5KI7TwxW9vWW7XHfyTRmWn4i+wKh9htnmE88q+3
-	 Py1XfqgGZnbgtOzQDsIzFA+9fU9niwVWzBqsGgkJy6YMi82I4QMmdxzzhupGZx68Xm
-	 USo7Dx3Xy4KE13/IvuK0izvDI5A7M8sKbSnzVQNHqtjBK7flImOEni8ySMeHci94TD
-	 lkLq8HWTYUJ7A==
-Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-bec4639953dso401974866b.1
-        for <stable@vger.kernel.org>; Tue, 02 Jun 2026 03:12:14 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ/uZ7vBjtDG4ryPmkQBZ8gVlJr0GHgUh8g4jb7HMHGHIBVF2EgxgbzW4OGgBVRSPlcfv5XtrDk=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxDsbD5rcpZRcOoAZJb3leF/JA1eODLxJZKx/q2aR8VTYDOExPl
-	2PKNZcIFo22VrlXnoMqJP7ZlMyEChGQ+HMF8Qtz1xWA3fPXnssdwL/MQFQNexSbg9tP+x9pZscl
-	3eAFRwZNhpnisSlFbKDtteVN7f/Mosl8=
-X-Received: by 2002:a17:906:630e:b0:bee:f402:5567 with SMTP id
- a640c23a62f3a-beef4025730mr232735766b.41.1780395133086; Tue, 02 Jun 2026
- 03:12:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=secunet.com header.i=@secunet.com header.b="jQlix4Dg"
+Received: from localhost (localhost [127.0.0.1])
+	by mx1.secunet.com (Postfix) with ESMTP id B43902074F;
+	Tue,  2 Jun 2026 12:12:19 +0200 (CEST)
+X-Virus-Scanned: by secunet
+Received: from mx1.secunet.com ([127.0.0.1])
+ by localhost (mx1.secunet.com [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id gZYpSn90M4hU; Tue,  2 Jun 2026 12:12:19 +0200 (CEST)
+Received: from EXCH-01.secunet.de (rl1.secunet.de [10.32.0.231])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mx1.secunet.com (Postfix) with ESMTPS id 333142050A;
+	Tue,  2 Jun 2026 12:12:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mx1.secunet.com 333142050A
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=secunet.com;
+	s=202301; t=1780395139;
+	bh=MTsU1Y41x4+rjB1nFr7GfXqK79SwNq7FbfNTTogCOtA=;
+	h=Date:From:To:CC:Subject:References:In-Reply-To:From;
+	b=jQlix4DgD/WIIuRzp6z4h1Z86o3c3C7vAXydKvcN2cTKShwX10kDw2FTp3VDLerCA
+	 QLo/ejzntWuI6IncrhBD6MpVkJcMoAcL97bhMFmJ3gYJFQVnV+ZMUuqTP1MfT2UOU5
+	 mfYPuvYpsHOtnN/ylL0IQLpAyUH6gew1sh8lTyE0M8mPUnrFFNMSsYWbzSztu/um9L
+	 QgXm54RlCIe6oab5/OoQG4m8ph/uVySA1BCwc3RS8UaHByTPg78amY+XlhLKRJyg2F
+	 lJLd/XOPjDdisKXlpv83z/Kx1f4lQkIWWW1j7PIc4EYJdOiWBIw6N7UKkOOcZ9ZX0K
+	 SpbTdBrdhCaCw==
+Received: from secunet.com (10.182.7.193) by EXCH-01.secunet.de (10.32.0.171)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Tue, 2 Jun
+ 2026 12:12:18 +0200
+Received: (nullmailer pid 529991 invoked by uid 1000);
+	Tue, 02 Jun 2026 10:12:17 -0000
+Date: Tue, 2 Jun 2026 12:12:17 +0200
+From: Steffen Klassert <steffen.klassert@secunet.com>
+To: Takao Sato <takaosato1997@gmail.com>
+CC: <netdev@vger.kernel.org>, <w@1wt.eu>, <davem@davemloft.net>,
+	<herbert@gondor.apana.org.au>, <chopps@chopps.org>, <pfalcato@suse.de>,
+	<stable@vger.kernel.org>
+Subject: Re: [PATCH net v5] xfrm: iptfs: preserve shared-frag marker in
+ iptfs_consume_frags()
+Message-ID: <ah6sgVwMHiWVZsNB@secunet.com>
+References: <20260526160957.1497109-1-takaosato1997@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <0d25653c3bc93726e259dbb9d01559c4cfdf47ac.1780373081.git.wqu@suse.com>
-In-Reply-To: <0d25653c3bc93726e259dbb9d01559c4cfdf47ac.1780373081.git.wqu@suse.com>
-From: Filipe Manana <fdmanana@kernel.org>
-Date: Tue, 2 Jun 2026 11:11:35 +0100
-X-Gmail-Original-Message-ID: <CAL3q7H4kaY_y749iKN9SyTKSggcfZKg2D=EBvF-Yt-WypAW_kg@mail.gmail.com>
-X-Gm-Features: AVHnY4JFcsk5GqVrzwhtEu5nP4-PdU4Xqej5gZZLtjdghnNH4hRU3Y-nH2YcQpg
-Message-ID: <CAL3q7H4kaY_y749iKN9SyTKSggcfZKg2D=EBvF-Yt-WypAW_kg@mail.gmail.com>
-Subject: Re: [PATCH] btrfs: do not trim a device which is not writeable
-To: Qu Wenruo <wqu@suse.com>
-Cc: linux-btrfs@vger.kernel.org, Su Yue <glass.su@suse.com>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20260526160957.1497109-1-takaosato1997@gmail.com>
+X-ClientProxiedBy: EXCH-03.secunet.de (10.32.0.183) To EXCH-01.secunet.de
+ (10.32.0.171)
 
-On Tue, Jun 2, 2026 at 5:05=E2=80=AFAM Qu Wenruo <wqu@suse.com> wrote:
->
-> [BUG]
-> There is a bug report that btrfs/242 can randomly fail with the
-> following NULL pointer dereference:
->
->  run fstests btrfs/242 at 2026-06-01 10:25:08
->  BTRFS: device fsid d4d7f234-487c-4787-88e4-47a8b68c9874 devid 1 transid =
-9 /dev/sdc (8:32) scanned by mount (122609)
->  BTRFS info (device sdc): first mount of filesystem d4d7f234-487c-4787-88=
-e4-47a8b68c9874
->  BTRFS info (device sdc): using crc32c checksum algorithm
->  BTRFS warning (device sdc): devid 2 uuid fbe72d72-3272-482d-80fb-ab88ed3=
-98192 is missing
->  BTRFS warning (device sdc): devid 2 uuid fbe72d72-3272-482d-80fb-ab88ed3=
-98192 is missing
->  BTRFS info (device sdc): allowing degraded mounts
->  BTRFS info (device sdc): turning on async discard
->  BTRFS info (device sdc): enabling free space tree
->  Unable to handle kernel NULL pointer dereference at virtual address 0000=
-000000000018
->  user pgtable: 4k pages, 48-bit VAs, pgdp=3D000000013fd6b000
->  CPU: 4 UID: 0 PID: 122625 Comm: fstrim Not tainted 7.0.10-2-default #1 P=
-REEMPT(full) openSUSE Tumbleweed e9a5f6b24978fba3bf015a992f865837fdfff3dd
->  Hardware name: QEMU KVM Virtual Machine, BIOS edk2-20250812-19.fc42 08/1=
-2/2025
->  pstate: 01400005 (nzcv daif +PAN -UAO -TCO +DIT -SSBS BTYPE=3D--)
->  pc : btrfs_trim_fs+0x34c/0xa00 [btrfs]
->  lr : btrfs_trim_fs+0x1f0/0xa00 [btrfs]
->  Call trace:
->   btrfs_trim_fs+0x34c/0xa00 [btrfs f02c1d570ceea621c69d302ba75dd618680838=
-40] (P)
->   btrfs_ioctl_fitrim+0xe8/0x178 [btrfs f02c1d570ceea621c69d302ba75dd61868=
-083840]
->   btrfs_ioctl+0xdd4/0x2bd8 [btrfs f02c1d570ceea621c69d302ba75dd6186808384=
-0]
->   __arm64_sys_ioctl+0xac/0x108
->   invoke_syscall.constprop.0+0x5c/0xd0
->   el0_svc_common.constprop.0+0x40/0xf0
->   do_el0_svc+0x24/0x40
->   el0_svc+0x40/0x1d0
->   el0t_64_sync_handler+0xa0/0xe8
->   el0t_64_sync+0x1b0/0x1b8
->  Code: 17ffff83 f94017e0 f9002be0 f9402ea0 (f9400c00)
->  ---[ end trace 0000000000000000  ]---
->
-> Also the reporter is very kind to test the following ASSERT() added to
-> btrfs_trim_free_extents_throttle():
->
->         ASSERT(device->bdev,
->                "devid=3D%llu path=3D%s dev_state=3D0x%lx\n",
->                device->devid, btrfs_dev_name(device), device->dev_state);
->
-> And it shows the following output:
->
->  assertion failed: device->bdev, in extent-tree.c:6630 (devid=3D2 path=3D=
-/dev/sdd dev_state=3D0x82)
->
-> Which means the device->bdev is NULL, and the dev_state is
-> BTRFS_DEV_STATE_IN_FS_METADATA | BTRFS_DEV_STATE_ITEM_FOUND, without
-> BTRFS_DEV_STATE_WRITEABLE flag set.
->
-> [CAUSE]
-> The pc points to the following call chain:
->
->  btrfs_trim_fs()
->  |- btrfs_trim_free_extents()
->     |- btrfs_trim_free_extents_throttle()
->        |- bdev_max_discard_sectors(device->bdev)
->
-> So the NULL pointer dereference is caused by device->bdev being NULL.
->
-> This looks impossible by a quick glance, as just before calling
-> btrfs_trim_free_extents_throttle(), we have skipped any device that has
-> BTRFS_DEV_STATE_MISSING flag set.
->
-> However in this particular case, there is a window where the missing
-> device is later re-scanned, causing btrfs to remove the
-> BTRFS_DEV_STATE_MISSING flag:
->
->  btrfs_control_ioctl()
->  |- btrfs_scan_one_device()
->     |- device_list_add()
->        |- rcu_assign_pointer(device->name, name);
->        |  This updates the missing device's path to the new good path.
->        |
->        |- clear_bit(BTRFS_DEV_STATE_MISSING, &device->dev_state)
->           This removes the BTRFS_DEV_STATE_MISSING flag.
->
-> This allows the missing device to re-appear and clear the
-> BTRFS_DEV_STATE_MISSING flag.
-> However the device still does not have the BTRFS_DEV_STATE_WRITEABLE
-> flag set, nor is its bdev pointer updated.
->
-> The bdev pointer remains NULL, triggering the crash later.
->
-> [FIX]
-> This is a big de-synchronization between BTRFS_DEV_STATE_MISSING and
-> device->bdev pointer, and shows a gap in btrfs's re-appearing-device
-> handling.
->
-> The proper handling of re-appearing device will need quite some extra
-> work, which is out of the context of this small fix.
->
-> Thankfully the regular bbio submission path has already handled it well
-> by checking if the device->bdev is NULL before submitting.
->
-> So here we just fix the crash by checking if the device is writeable and
-> has a bdev pointer before calling bdev_max_discard_sectors().
->
-> Reported-by: Su Yue <glass.su@suse.com>
-> Link: https://lore.kernel.org/linux-btrfs/wlwir19t.fsf@damenly.org/
-> Cc: stable@vger.kernel.org # 5.10+
+On Tue, May 26, 2026 at 01:09:57PM -0300, Takao Sato wrote:
+> iptfs_consume_frags() transfers paged fragments from one socket buffer
+> to another but fails to propagate the SKBFL_SHARED_FRAG flag. This is
+> the same class of bug that was fixed in skb_try_coalesce() for
+> CVE-2026-46300: when fragments backed by read-only page-cache pages are
+> merged, the marker indicating their shared nature must be preserved so
+> that ESP can decide correctly whether in-place encryption is safe.
+> 
+> Apply the same two-line fix used in skb_try_coalesce() to
+> iptfs_consume_frags().
+> 
+> Fixes: b96ba312e21c ("xfrm: iptfs: share page fragments of inner packets")
+> Cc: stable@vger.kernel.org # 6.14+
+> Signed-off-by: Takao Sato <takaosato1997@gmail.com>
 
-Fixes: 499f377f49f0 ("btrfs: iterate over unused chunk space in FITRIM")
-
-Please always try to include the offending commit to make downstream
-work easier.
-
-Reviewed-by: Filipe Manana <fdmanana@suse.com>
-
-Thanks.
-
-> Signed-off-by: Qu Wenruo <wqu@suse.com>
-> ---
->  fs/btrfs/extent-tree.c | 13 +++++++++----
->  1 file changed, 9 insertions(+), 4 deletions(-)
->
-> diff --git a/fs/btrfs/extent-tree.c b/fs/btrfs/extent-tree.c
-> index 6030cdbdb742..f3c3eb508f86 100644
-> --- a/fs/btrfs/extent-tree.c
-> +++ b/fs/btrfs/extent-tree.c
-> @@ -6624,12 +6624,17 @@ static int btrfs_trim_free_extents_throttle(struc=
-t btrfs_device *device,
->
->         *trimmed =3D 0;
->
-> -       /* Discard not supported =3D nothing to do. */
-> -       if (!bdev_max_discard_sectors(device->bdev))
-> +       /*
-> +        * The caller only filters out MISSING devices, but a device that=
- was
-> +        * missing at mount and later rescanned has MISSING cleared while
-> +        * bdev is still NULL and WRITEABLE is still unset. Skip those he=
-re.
-> +        */
-> +       if (!test_bit(BTRFS_DEV_STATE_WRITEABLE, &device->dev_state) ||
-> +           !device->bdev)
->                 return 0;
->
-> -       /* Not writable =3D nothing to do. */
-> -       if (!test_bit(BTRFS_DEV_STATE_WRITEABLE, &device->dev_state))
-> +       /* Discard not supported =3D nothing to do. */
-> +       if (!bdev_max_discard_sectors(device->bdev))
->                 return 0;
->
->         /* No free space =3D nothing to do. */
-> --
-> 2.54.0
->
->
+Applied, thanks a lot!
