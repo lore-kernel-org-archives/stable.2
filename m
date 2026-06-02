@@ -1,92 +1,148 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A1E93D349A;
-	Tue,  2 Jun 2026 10:18:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 594273D091F
+	for <stable@vger.kernel.org>; Tue,  2 Jun 2026 10:21:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780395516; cv=none; b=icJAGs7RYjd+zMF7MmIH3OiNZF/WSszYlKV2kKfoTmEp+Xp8shEoCe20HP6x4z9x2XWFuOz5heVtOCGqXOOI4+96DErgSTWZBZ7XR7eRT16EPl3TafJbxg/zhju8KGk1HUlakujT67EVM+4t+LDCWE6CfWQPaIFXGVI+vtIQH/o=
+	t=1780395672; cv=none; b=ftcZZgblPE+hdaZzGCgHHmTugf72Nw1v7/J5T3WLhJSwgMdYd4GfzHvtA753pLKDYSRkcPHE6cdXXNRXXROWwKJNwrobhTp8RVEKdwzwPL6WiY0++2Cf16I4UT7qARCGnjvg9g7u1z1j42SwoAswwFtBEuYxih9IdMfZ7Bir1Gg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780395516; c=relaxed/simple;
-	bh=0CwGFvg6msXZHsPhvYki0SBF0WQtGa73wA83lE4DqsU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Gl7DUPyDjzq9g5T5U0Wsq2RYSKYGzKHguXbNONI6iSE/Y0W8Y8GztvaLlzA8U8nLzS7Cis84bLFjEmLFHJwK9QcbvFkMP25ka2l6ECGUWS12gctTlVvTqALBMfG7HotN4pYqHh6mk5O4BjyAsmL8L9zBf0lsMaRO4Zqbmgo5FWI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=UUVbMuGv; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1780395672; c=relaxed/simple;
+	bh=+4cHcDc8kuAJc5aNRNtmAM0yDMNGCgeOgwIdNSW4zwo=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=MQUSlxtQFBmN0662lwAamXSQEy78sUDnty3IWzPAc+i9iC3J4srLBPEdvE7oud0qE8Yxip5b6EF+BjvPU2uk7BSWa5qVVe+QcWNNsgoPMtagHpjirt9xYGGMMBafIYzg+WjlPivPDbQIojCueJvxrHWoZpN8OQ2fmHz52ld4qps=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fgq40C9T; arc=none smtp.client-ip=209.85.214.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="UUVbMuGv"
-Received: from ideasonboard.com (unknown [IPv6:2001:b07:6462:5de2:520d:d7a3:63ca:99e8])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 48307802;
-	Tue,  2 Jun 2026 12:18:03 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1780395483;
-	bh=0CwGFvg6msXZHsPhvYki0SBF0WQtGa73wA83lE4DqsU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=UUVbMuGv5ok3OC/BscovpMISUUR/RwkgrZx4eJmeOtddPzKNeJvgO9jmk5gsr9v2u
-	 3q4vlH4RKtudjte204arqRNXDz9fyl/P6BzgwolQyBpBMFtXVzuP2qJumCLUKxl3cZ
-	 gnWMgmom656pJZoM33ARQp0EpQMVWMxtsBwwNUco=
-Date: Tue, 2 Jun 2026 12:18:23 +0200
-From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-To: David CARLIER <devnexen@gmail.com>
-Cc: Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
-	Daniel Scally <dan.scally@ideasonboard.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Hans Verkuil <hverkuil+cisco@kernel.org>, Nayden Kanchev <nayden.kanchev@arm.com>, 
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2] media: mali-c55: fix integer overflow in scaler
- factor calculation
-Message-ID: <ah6seVCMzk0JODrf@zed>
-References: <20260529024429.6942-1-devnexen@gmail.com>
- <20260529050649.14109-1-devnexen@gmail.com>
- <ahqh3Zv8xXNENzHb@zed>
- <CA+XhMqyhpn0kHgz=i9WUS+1rFN4kWW3DpUYubBN1k-qcKo+RpQ@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fgq40C9T"
+Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2c0c2c7e0c5so16340625ad.1
+        for <stable@vger.kernel.org>; Tue, 02 Jun 2026 03:21:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780395669; x=1781000469; darn=vger.kernel.org;
+        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=ikY1El5docE8q+sLqTg4r7/Wm1ohIOfVrhz9dhSUA/E=;
+        b=fgq40C9TYIWL+fv6LbkJpmGDIES7/9bEpbivS4wivAPUci37biZSP+rPFqqaIMxhS6
+         qnIUtqObTORqhzVwkpuXuaOI2ez/UPLocoqASPhZsIiyN3YzKUiEMX8TmK35BWmofEI4
+         lfZ7sC/hTGwzDe0JDm8GPtF4Q+9emyjx+K/RGNKMT27PRU8UgTtKo0vpCYuL+vVp/L5L
+         NOLo85kmNenkdZE0O8MDxw4NFcyoYT7pgeLyrOSUPtqGpdbqZf04bU6undTc6zsh5y1k
+         fs57pfvYZWacYIfqwr+JdxGTcGy9oW5naS9jpJ9NEZgxFV0KcwGN6EmnKyI2z1/1BUSo
+         guOA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780395669; x=1781000469;
+        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=ikY1El5docE8q+sLqTg4r7/Wm1ohIOfVrhz9dhSUA/E=;
+        b=qmotv93/wdYFFaf7BV8yIwpvHmm5Z0WVh/D4q9x33mdGwIPQY5Uq6pCIugl42wq/J9
+         JFnhwmTNXilnLLX/GteHo5NBqWpercFrG57BDIVfMX1o6WF/TqK7EBtmz8NKjYMQcx2g
+         AJCIrporolNDwDU/HUofrWtWR2Nz4oiBEG4IlBQYOCpuBZAaFa3tKQnmKHau/k6iGwWy
+         91fS1sS91JakWQiitONnenRFK5YiKK1PDLwVw6ZJo+Fi1NQoW8wavwlbyW3kFwqypC64
+         OlzplY69Ls3FTwjKaPWcMZtl9xR8w5Tbin7EZlmwMsvL2lTud+b3JYEYXG2/gFV0hkb+
+         iXfw==
+X-Gm-Message-State: AOJu0Yy1irPGRUs6UkCmHeIM34K5YMeV/xUqMRa3nL2WmFScbKpCI+CX
+	mSIr/cMhovmK+bejz3hdCSc3fsDPMWRUblysW0HiovugiN4N1VbH/TN2ByQXIO2o
+X-Gm-Gg: Acq92OEb3RBNzC8CJaSZvCM0l89OBRevwe6FPEN75U62L4kt3HqfUTlHjyGpzmN5NkA
+	hTN1XtQ1Rsxf7Fpb/hH+Hw+QgpBQ8nWOzn07qgXBknwm/cnuf8vBgXwz0ObTw7Wf1JxstSgrahh
+	KZHI6YSRvqb4atJC7bROq+U5e9JQeBHl1am0Ocu7pOGOAvpnbHRoJSpGsV/J2+F9dqTYmjKfuQC
+	M9Ht8f9E8AjR9z7w3ZjyAWW/ziY3i8LjwUaOFMKwcjadzn6qfekhGekfWEZwmnXpdsT7RKnfuJS
+	In3JY/sfwvblU6mVXMSk1rEv4DcJEfL0ACfn/iXOE+CGvupNpiU/0PTkaFtC8P53k0zD3kfXDNj
+	G2QaAW0PN0tWgHnWBNZIsIlKU4MApI76jFVvioEbGDOK9g1V1sgNdDK9zi+IqB3B6kzQ/8QKcvt
+	JB2P6BtWzNh41zUKEIIAsMl9hvOsbQlNO9StZCPUjggZndjMV5FqiR/gIfA0TnEXgx
+X-Received: by 2002:a17:903:1c6:b0:2ba:25ca:b49f with SMTP id d9443c01a7336-2bf367d6cf2mr167163525ad.17.1780395669392;
+        Tue, 02 Jun 2026 03:21:09 -0700 (PDT)
+Received: from v4bel ([58.123.110.97])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2bf23a2dbfbsm131215415ad.37.2026.06.02.03.21.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 02 Jun 2026 03:21:08 -0700 (PDT)
+Date: Tue, 2 Jun 2026 19:21:05 +0900
+From: Hyunwoo Kim <imv4bel@gmail.com>
+To: dsahern@kernel.org, idosch@nvidia.com, davem@davemloft.net,
+	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+	horms@kernel.org
+Cc: stable@vger.kernel.org, netdev@vger.kernel.org, imv4bel@gmail.com
+Subject: [PATCH net v2] inet: frags: fix use-after-free caused by the
+ fqdir_pre_exit() flush
+Message-ID: <ah6ukYq5G98LshdA@v4bel>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CA+XhMqyhpn0kHgz=i9WUS+1rFN4kWW3DpUYubBN1k-qcKo+RpQ@mail.gmail.com>
 
-Hi David
+On netns teardown, fqdir_pre_exit() walks the fqdir rhashtable and
+flushes every fragment queue that is not yet complete using
+inet_frag_queue_flush(). That helper frees all the skbs queued on the
+fragment queue but does not set INET_FRAG_COMPLETE, and leaves
+q->fragments_tail and q->last_run_head pointing at the freed skbs.
+The queue itself stays in the rhashtable.
 
-On Sat, May 30, 2026 at 11:02:40AM +0100, David CARLIER wrote:
-> Hi Jacopo,
->
->   On Sat, May 30, 2026 at 10:55:59AM +0200, Jacopo Mondi wrote:
->   > Have you hit this issue ?
->
->   Not on hardware, I found it by code analysis. The sink format is clamped to
->   8192 and crop is clamped against the sink, so crop->width can reach
->   4096+, where (crop << 20) overflows 32 bits before landing in the u64.
->   I don't have a >=4096 source to reproduce on, but it's provable from the
->   operand widths and the clamp. UHD (3840) is just under; 4096 gives a
->   zero increment, wider values a garbage one.
->
->   > Could we maybe first do the crop/scale division and then do the Q4.20
->   > conversion ? We could maybe save the below do_div() [...]
->
->   I don't think we can - dividing first loses the fraction the Q4.20
->   factor is there to keep. E.g. crop=4096, scale=1920:
->
->     correct:      4096 * 2^20 / 1920 = 2236962  (~2.133)
->     divide-first: (4096 / 1920) << 20 = 2097152  (2.0)   -> ~6.7% off
->
->   So the multiply has to come first, and that pushes the numerator up to
->   8192 * 2^20 = 2^33, which needs a 64-bit divide either way. BIT_ULL()
->   just does the existing multiply in 64-bit. Happy to switch do_div() to
->   div_u64() if you prefer, but that's orthogonal.
+fqdir_pre_exit() first lowers high_thresh to 0 to stop new queue lookups,
+but it cannot stop a fragment that already obtained the queue through
+inet_frag_find() earlier and stalled just before taking the queue lock.
+Once that fragment resumes after the flush and takes the queue lock,
+it passes the INET_FRAG_COMPLETE check and then dereferences the freed
+fragments_tail. inet_frag_queue_insert() reads FRAG_CB() and ->len of
+that pointer and, on the append path, writes ->next_frag, causing a
+slab use-after-free. IPv6, nf_conntrack_reasm6 and 6lowpan reassembly
+share the same flush path and are affected as well.
 
-Oh yes you're right, I think using ULL is certainly better.
+Reset rb_fragments, fragments_tail and last_run_head in
+inet_frag_queue_flush() so a flushed queue no longer points at the
+freed skbs. A fragment that resumes after the flush and takes the
+queue lock then finds an empty queue and starts a new run instead of
+dereferencing the freed fragments_tail. ip_frag_reinit() already
+performed this reset after its own flush, so drop the now duplicate
+code there.
 
-Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Cc: stable@vger.kernel.org
+Fixes: 006a5035b495 ("inet: frags: flush pending skbs in fqdir_pre_exit()")
+Suggested-by: Eric Dumazet <edumazet@google.com>
+Signed-off-by: Hyunwoo Kim <imv4bel@gmail.com>
+---
+Changes in v2:
+- Move the queue pointer reset into inet_frag_queue_flush() to remove the
+duplicate reset in ip_frag_reinit().
+- Drop the INET_FRAG_COMPLETE setting since it leaks the queue on the
+fqdir_pre_exit() path.
+- v1: https://lore.kernel.org/all/ah1Sw2g-I89BRRiT@v4bel/
+---
+ net/ipv4/inet_fragment.c | 3 +++
+ net/ipv4/ip_fragment.c   | 3 ---
+ 2 files changed, 3 insertions(+), 3 deletions(-)
 
-Thanks
-  j
+diff --git a/net/ipv4/inet_fragment.c b/net/ipv4/inet_fragment.c
+index 393770920abd..1127519b8416 100644
+--- a/net/ipv4/inet_fragment.c
++++ b/net/ipv4/inet_fragment.c
+@@ -328,6 +328,9 @@ void inet_frag_queue_flush(struct inet_frag_queue *q,
+ 	reason = reason ?: SKB_DROP_REASON_FRAG_REASM_TIMEOUT;
+ 	sum = inet_frag_rbtree_purge(&q->rb_fragments, reason);
+ 	sub_frag_mem_limit(q->fqdir, sum);
++	q->rb_fragments = RB_ROOT;
++	q->fragments_tail = NULL;
++	q->last_run_head = NULL;
+ }
+ EXPORT_SYMBOL(inet_frag_queue_flush);
+ 
+diff --git a/net/ipv4/ip_fragment.c b/net/ipv4/ip_fragment.c
+index 56b0f738d2f2..c790d2f49487 100644
+--- a/net/ipv4/ip_fragment.c
++++ b/net/ipv4/ip_fragment.c
+@@ -250,9 +250,6 @@ static int ip_frag_reinit(struct ipq *qp)
+ 	qp->q.flags = 0;
+ 	qp->q.len = 0;
+ 	qp->q.meat = 0;
+-	qp->q.rb_fragments = RB_ROOT;
+-	qp->q.fragments_tail = NULL;
+-	qp->q.last_run_head = NULL;
+ 	qp->iif = 0;
+ 	qp->ecn = 0;
+ 
+-- 
+2.43.0
 
-
-
->
-> Cheers !
