@@ -1,64 +1,64 @@
 Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB01030E0CC
-	for <stable@vger.kernel.org>; Tue,  2 Jun 2026 09:28:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68FBA3C81A9
+	for <stable@vger.kernel.org>; Tue,  2 Jun 2026 09:29:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780392529; cv=none; b=XrbnkuTk5lAYQckXqnID3C3fI78cciDvlNeTnOSdswj9WxJReOaoMSQNpm2iQrm9XUvs4c0TFjpSk1K4BrFj8cOmvxyFYudueQyCx65pcvodrn3Zz7tyupqUqFwTE/VNThtKiGo2/Yd63BD45kdbudIs8JtLwLUVvOwx6ilqFTw=
+	t=1780392568; cv=none; b=hegwCBFkkfigoXuvBAVNriR8uJKntiavlODKwg5W4o9sKmz7A7CrNqif1jjSenq/HPt/EMokHL0+5rZdbS8bHUByQopDVmZ70ISOtQ3yyT8yIjwfnBG0ET+jfCh/QHDIxUZTvLrOgzkAmFbKKA/wWNpRfxONS1llnDwjpN1JOJk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780392529; c=relaxed/simple;
-	bh=Oiq4HEgaRf9tjh8x7ZlSbBUshrck7Ju7Cqde2lx6qMM=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=Oyqn/DKnTj23W6AF4KKzecdSUg536BvxoUUfva/qgnHWi6GEUK8zvbmtx5Cmbdk7UmGH9esbIVwQrJC0+BvbIquwE5GdrXuf72pPnhtNSuLv+0KLbD94pzH4sIdtJiCzhNUZteSH0P9GCywrQHSoB1xbOjhiDHhz3q4mCSpUJGQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jGMM1plB; arc=none smtp.client-ip=209.85.128.48
+	s=arc-20240116; t=1780392568; c=relaxed/simple;
+	bh=K5JW8yhjOZLSYTIDbj4WPK013G3i8IzP2N6WySN8OGk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=VN5wF2C9TiV/k4WUkDRM66GyexmZEMPiPDdTSaYZKB0hPGYhnY6K243NAUDL190YdQEYKpCD6iFfQcIC+HpR6vOuBlpNahyPNjR+OQonXVjQLiOjt0R+uFzJ3nEHTrsRkdEmO/SrViUretvxAOWhuVLZVzyBaE/2IqHzs/EPOPI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=c9Tm7ZMh; arc=none smtp.client-ip=209.85.128.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jGMM1plB"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-490ace40f4bso19323665e9.3
-        for <stable@vger.kernel.org>; Tue, 02 Jun 2026 02:28:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="c9Tm7ZMh"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-490a762db7aso17615985e9.0
+        for <stable@vger.kernel.org>; Tue, 02 Jun 2026 02:29:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780392526; x=1780997326; darn=vger.kernel.org;
-        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=dHC7I1CVe7v05xLZUOjp28bBF7y5MMCiMICuX+nCrzM=;
-        b=jGMM1plBZADST9MQ1CVoPvZrV+eXC39xaNIzLj35n7NAm9sig3mQYYmjHN765rrdje
-         jsxdZgjhdNO8sr6aYnYpKWbCdpPvKexOV9YrSxjwPJIYefDiMxO0fFVnjqUVJJ2HDiei
-         0Czk2iDcijzGcUacIRqJr6zMgVFLDtxBoLrZXaltTkxJtkxBq+qO4O9yzkV2vkvLC9vI
-         wSJPBO+cue6vCnTkYxp75jpvqiRgMHi6iq4b3sLxZQOgCuLpwNTMoRAq2R8eYUjk3h6S
-         rG0sQrmQxPBoat8VAzrM0/OO+vrQ5IzEylDivE1Z8PL2waNQp/P+TL/aUgjjH4v4psEr
-         +lIw==
+        d=gmail.com; s=20251104; t=1780392565; x=1780997365; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=QC+9vLQ6NySPZSUsgJQeP4ZHMQlmAA/BsYzMM8SVUmA=;
+        b=c9Tm7ZMheEfCESiPho+YctZFg2WGwgD6SMvnyer4HLrQkGXy+Co86BoMzJmhRchFZ/
+         Cvc7RyMLaX6SO2eywuf2POC9dmiuwkfMUci098B8VF9yih554jZldeRKkCWagMX347Zf
+         TKyLMrKzwmBVA5MzsY/H8S5LoDNHVZX+eHQ2XCxvzsxGhldDW76T0U4rXMqmPOEn9PqM
+         MLSKTFp57bZdUHWwQDOO1eebNR+JOQIPpWSRIj9h3psuWtoMCObLcmlInRI0zHn+vQyP
+         tCfbBlKRowQ0Ct8WsGuKcFYm92FHY4RUyWO9LwpI+PPAtN0cSk0gGiponyXRU+6UZwWz
+         Accg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780392526; x=1780997326;
-        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=dHC7I1CVe7v05xLZUOjp28bBF7y5MMCiMICuX+nCrzM=;
-        b=RZH5Wy5M5C/VydSQaWKXAiLhpEqUoNtvRA6w8nTThnKpvtw7LTcV5euKaRHsnBsRfa
-         ov0vqEs3A6v33M4Tn6Annr6HWENTD2hTmGFqRkHWOsuR/UY6zqLkUajl+r28VU4YKiyg
-         x1fHPgzN1OPMOZggdxH9dRgjhHXa4TEjYSIqkRg4PQDJuqZGVvfguq4hKqE9x4b8xltL
-         a2a/lGDxdtFhXunsRhokQtdyOeWUER7wpxSHLdyWCgQDTfToFAtCc/jmiV+ZGFYKxgs6
-         ev2yhviKP7EhVR/TZG+wkCKWFK7Fh7YJ7XwVKKnxKZerIbAmvdCZHGjQWejq9CybsCEx
-         1BfA==
-X-Gm-Message-State: AOJu0Yz6LllGH0x1+YwGRMa7+RUDKH2n66OWycQmRplu2sEShW5z+/fz
-	CmM9rxqwJnhAlWCamQ8ibo8g+DFebh8mvzL/vS+BrKCU0efjeLevK9V+OzW6tRoC
-X-Gm-Gg: Acq92OHpOgdbmKGvRpQNoBg25Z5nA1axIITYZdVPV/UyHHsc+48hhnbmmI351C9OlzV
-	XtYjYBnYE50hGo+L4Zsc56LbSHNmuf5DRvhnukh5wIHFpNTGQjy/lRihP7Srg3asj0ygXp3h0JZ
-	Y8r41Qfmtuf8dLQ3TiH7+vWs5Ximki9C1hlqrIAFeL3rTN+s3Af8jTYgUQiZkCsrnY/+W4AN8K8
-	PsugepwA6TgEpz+3kDS9ZzmB/RLMEWDX0eCuqrzqjtu68ll/CBP7PmCXFTwkm0ctIu3T0tK60wy
-	C0SrcYguaIulJ4ilg8b5R17j9X8BrqQNiTBuRWOZT4PRQ8JRP+w6IfT6Ko3O8GXxCbAuz1lMWdr
-	4oq27/rJiJ5xVCphvWBG/slDSmJh0t8PK7lKCo9e9VjW1oHQaz2Zavpfq3mqzYVdIXSZKUSSlwz
-	zYO5hamc6329NFtzeGznHQVyEBkYya/njt7lZpSBqualk4SaPCgj5Ka/Jv0rkKfIEL+2gkuJv62
-	YH/wTCET24P+v7xmCyq5rg38VNrh3YBxZFk+BFiQybDXMV/2yGHuw99hmozwRtal7V452t31Myz
-	pugfgRi5e5Zi5RkBIm5ckLL3NjTbMPDv8voQ9FYJMHhBFIh5qRg+Gw==
-X-Received: by 2002:a05:600d:8498:10b0:488:d6eb:e63c with SMTP id 5b1f17b1804b1-490a29299acmr200439035e9.15.1780392525817;
-        Tue, 02 Jun 2026 02:28:45 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1780392565; x=1780997365;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=QC+9vLQ6NySPZSUsgJQeP4ZHMQlmAA/BsYzMM8SVUmA=;
+        b=bSRkLw3+hLXp2LWT398Fm9lQcuZj8KbpJPF2ZCEksXqn33qrfjgIufJC6m1t+XXfnM
+         YAXWPuuSShj3Sni0nhKrFqT8iduK5D4iUxQo1cB1ethvLH+U2L6mqd09YJtRW+gZRsp+
+         HvtOKbNtJFuqnUJ5iDkTwX+HEC69bdkj2mcFpebi17Q1v8JtSTclmn+bc+2kBHcuwftE
+         GOhlu2Zr8gSJ1hx0NDpm/v9Q0jAQVAHF//4fidZ6PKW5bTmuZwsA8FE7vqmymQqmKCKC
+         36ks6sXy6IAekxlS1y35XM34GP89kZJkiI9OmGNG79m1AmBU8qWFG144bqz/XBCXZmVp
+         JA1Q==
+X-Gm-Message-State: AOJu0Yz96pG4Nvz3hHnsyIu3m4sb/gduLtrVEQmk9wxwmu/xpXWno3lq
+	0Pz7D79GGCM2iJuFa9TXdMZLjmRavQoMNbAursuEqUEr7oqOT0eakLSgCyHHg5Sc
+X-Gm-Gg: Acq92OGjPjYyKZutbff6mHZgBT91l0flwkt4Y6wEH4rca5n52Gw8i6bQMXvce2s7Y02
+	tQk4LeQjHhxYKBjxrAJhErUyFwwJ1NE9EJoSr20AbFUo/iOXwYZ3u2szAIxYNUCFNXNeiQufnJV
+	KZ63URjjCPoFBUlD3VFk3MAJlnC64ql80C54jGoOO2n0elPer2ql/dMJoEjX/Ayqhh/IT+7++oJ
+	kngQv819WaleRUqSM3OYh6gQ/k56+JZO+6E0xQN9eOJh0UTX8uD9R5J7Fsfb+pJ/p8krcb3KGGU
+	RXggjoOsMOgonJfihGR+EIyVn1O9/qsnvxzFAAH1DBbOMFwMQkLZ0SsfoLtFEDyY08qi80vEVI5
+	z7UZDqnaG7f6Zx01PWN4CSZlmZmkt0uJxGYyhBMsfBW7QfDoEBhZHboLKkhZunOAI+VckAr2kNF
+	JW7hm73B7yQNC9nOvn/PENflMzdFKOa+9OnokvHE5zsg621AeUddaXwvE1C8srzU5y8LgVnpA5G
+	EsNk6lCqw0yah9iAgSCuMxPwUiG7tCsMSZHhRXVkpYObEi39rXfLT9RTC4IIe6rjJZe3nTNXd9T
+	rLzY13h8AQ/zdhPUbH7ZXxn+k6sP97TFk8Tn5EmYuia4TfRdSGOQ9w==
+X-Received: by 2002:a05:600c:450c:b0:490:b35c:88ea with SMTP id 5b1f17b1804b1-490b35c8d8cmr14974985e9.15.1780392564610;
+        Tue, 02 Jun 2026 02:29:24 -0700 (PDT)
 Received: from mail.gmail.com (2a01cb0889497e00d5a27cd7dcd113c6.ipv6.abo.wanadoo.fr. [2a01:cb08:8949:7e00:d5a2:7cd7:dcd1:13c6])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4909c0495fcsm162136685e9.0.2026.06.02.02.28.44
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490b29f49b8sm25329635e9.15.2026.06.02.02.29.23
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 02 Jun 2026 02:28:45 -0700 (PDT)
-Date: Tue, 2 Jun 2026 11:28:43 +0200
+        Tue, 02 Jun 2026 02:29:23 -0700 (PDT)
+Date: Tue, 2 Jun 2026 11:29:22 +0200
 From: Paul Chaignon <paul.chaignon@gmail.com>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
@@ -72,8 +72,10 @@ Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Stanislav Fomichev <sdf@google.com>,
 	Yonghong Song <yonghong.song@linux.dev>,
 	Jiri Olsa <jolsa@kernel.org>
-Subject: [PATCH 6.1.y 00/11] Fix BPF selftests
-Message-ID: <cover.1780392092.git.paul.chaignon@gmail.com>
+Subject: [PATCH 6.1.y 01/11] selftests/bpf: add generic BPF program
+ tester-loader
+Message-ID: <8cca958ea8e4f047f3a828b0ec42adcb277d4c81.1780392092.git.paul.chaignon@gmail.com>
+References: <cover.1780392092.git.paul.chaignon@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -82,83 +84,397 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+In-Reply-To: <cover.1780392092.git.paul.chaignon@gmail.com>
 
-This patchset fixes the BPF selftests on 6.1. Its patches fall into
-two categories:
-- Reverts of backported selftests, usually because they test a change
-  that didn't land in 6.1 (3 patches).
-- Backports of selftest fixes and their dependencies (8 patches).
+From: Andrii Nakryiko <andrii@kernel.org>
 
-With this, the BPF selftests are passing on 6.1 (tested with both LLVM
-16 and 18).
+[ Upstream commit 537c3f66eac137a02ec50a40219d2da6597e5dc9 ]
 
-Andrii Nakryiko (3):
-  selftests/bpf: add generic BPF program tester-loader
-  selftests/bpf: Convert test_global_funcs test to test_loader framework
-  selftests/bpf: enhance align selftest's expected log matching
+It's become a common pattern to have a collection of small BPF programs
+in one BPF object file, each representing one test case. On user-space
+side of such tests we maintain a table of program names and expected
+failure or success, along with optional expected verifier log message.
 
-Daniel Borkmann (1):
-  selftests/bpf: Fix ARG_PTR_TO_LONG {half-,}uninitialized test
+This works, but each set of tests reimplement this mundane code over and
+over again, which is a waste of time for anyone trying to add a new set
+of tests. Furthermore, it's quite error prone as it's way too easy to miss
+some entries in these manually maintained test tables (as evidences by
+dynptr_fail tests, in which ringbuf_release_uninit_dynptr subtest was
+accidentally missed; this is fixed in next patch).
 
-Jiri Olsa (1):
-  selftests/bpf: Add read_build_id function
+So this patch implements generic test_loader, which accepts skeleton
+name and handles the rest of details: opens and loads BPF object file,
+making sure each program is tested in isolation. Optionally each test
+case can specify expected BPF verifier log message. In case of failure,
+tester makes sure to report verifier log, but it also reports verifier
+log in verbose mode unconditionally.
 
-Martin KaFai Lau (1):
-  selftests/bpf: S/iptables/iptables-legacy/ in the bpf_nf and
-    xdp_synproxy test
+Now, the interesting deviation from existing custom implementations is
+the use of btf_decl_tag attribute to specify expected-to-fail vs
+expected-to-succeed markers and, optionally, expected log message
+directly next to BPF program source code, eliminating the need to
+manually create and update table of tests.
 
-Paul Chaignon (3):
-  Revert "selftests/bpf: Workaround strict bpf_lsm return value check."
-  Revert "selftests/bpf: Add tests for _opts variants of
-    bpf_*_get_fd_by_id()"
-  Revert "selftests/bpf: Add a cgroup prog bpf_get_ns_current_pid_tgid()
-    test"
+We define few macros wrapping btf_decl_tag with a convention that all
+values of btf_decl_tag start with "comment:" prefix, and then utilizing
+a very simple "just_some_text_tag" or "some_key_name=<value>" pattern to
+define things like expected success/failure, expected verifier message,
+extra verifier log level (if necessary). This approach is demonstrated
+by next patch in which two existing sets of failure tests are converted.
 
-Stanislav Fomichev (1):
-  selftests/bpf: Update bpf_clone_redirect expected return code
+Tester supports both expected-to-fail and expected-to-succeed programs,
+though this patch set didn't convert any existing expected-to-succeed
+programs yet, as existing tests couple BPF program loading with their
+further execution through attach or test_prog_run. One way to allow
+testing scenarios like this would be ability to specify custom callback,
+executed for each successfully loaded BPF program. This is left for
+follow up patches, after some more analysis of existing test cases.
 
-Yonghong Song (1):
-  bpf: Fix a few selftest failures due to llvm18 change
+This test_loader is, hopefully, a start of a test_verifier-like runner,
+but integrated into test_progs infrastructure. It will allow much better
+"user experience" of defining low-level verification tests that can take
+advantage of all the libbpf-provided nicety features on BPF side: global
+variables, declarative maps, etc.  All while having a choice of defining
+it in C or as BPF assembly (through __attribute__((naked)) functions and
+using embedded asm), depending on what makes most sense in each
+particular case. This will be explored in follow up patches as well.
 
- tools/testing/selftests/bpf/DENYLIST.s390x    |   1 -
- tools/testing/selftests/bpf/Makefile          |   2 +-
- .../testing/selftests/bpf/prog_tests/align.c  |  18 +-
- .../testing/selftests/bpf/prog_tests/bpf_nf.c |   6 +-
- .../selftests/bpf/prog_tests/empty_skb.c      |  12 +-
- .../bpf/prog_tests/libbpf_get_fd_by_id_opts.c |  87 -------
- .../bpf/prog_tests/ns_current_pid_tgid.c      |  73 ------
- .../bpf/prog_tests/test_global_funcs.c        | 131 +++-------
- .../selftests/bpf/prog_tests/xdp_synproxy.c   |   6 +-
- tools/testing/selftests/bpf/progs/bpf_misc.h  |   5 +
- .../selftests/bpf/progs/test_global_func1.c   |   6 +-
- .../selftests/bpf/progs/test_global_func10.c  |   1 +
- .../selftests/bpf/progs/test_global_func11.c  |   4 +-
- .../selftests/bpf/progs/test_global_func12.c  |   4 +-
- .../selftests/bpf/progs/test_global_func13.c  |   4 +-
- .../selftests/bpf/progs/test_global_func14.c  |   4 +-
- .../selftests/bpf/progs/test_global_func15.c  |   4 +-
- .../selftests/bpf/progs/test_global_func16.c  |   4 +-
- .../selftests/bpf/progs/test_global_func17.c  |   5 +-
- .../selftests/bpf/progs/test_global_func2.c   |  43 +++-
- .../selftests/bpf/progs/test_global_func3.c   |  10 +-
- .../selftests/bpf/progs/test_global_func4.c   |  55 ++++-
- .../selftests/bpf/progs/test_global_func5.c   |   4 +-
- .../selftests/bpf/progs/test_global_func6.c   |   4 +-
- .../selftests/bpf/progs/test_global_func7.c   |   4 +-
- .../selftests/bpf/progs/test_global_func8.c   |   4 +-
- .../selftests/bpf/progs/test_global_func9.c   |   4 +-
- .../bpf/progs/test_libbpf_get_fd_by_id_opts.c |  37 ---
- .../bpf/progs/test_ns_current_pid_tgid.c      |   7 -
- tools/testing/selftests/bpf/test_loader.c     | 233 ++++++++++++++++++
- tools/testing/selftests/bpf/test_progs.h      |  33 +++
- tools/testing/selftests/bpf/trace_helpers.c   |  82 ++++++
- tools/testing/selftests/bpf/trace_helpers.h   |   5 +
- .../testing/selftests/bpf/verifier/int_ptr.c  |   6 +-
- 34 files changed, 561 insertions(+), 347 deletions(-)
- delete mode 100644 tools/testing/selftests/bpf/prog_tests/libbpf_get_fd_by_id_opts.c
- delete mode 100644 tools/testing/selftests/bpf/progs/test_libbpf_get_fd_by_id_opts.c
+Acked-by: John Fastabend <john.fastabend@gmail.com>
+Signed-off-by: Andrii Nakryiko <andrii@kernel.org>
+Link: https://lore.kernel.org/r/20221207201648.2990661-1-andrii@kernel.org
+Signed-off-by: Alexei Starovoitov <ast@kernel.org>
+Stable-dep-of: 95ebb376176c ("selftests/bpf: Convert test_global_funcs test to test_loader framework")
+[ Note: Minor conflict in Makefile. ]
+Signed-off-by: Paul Chaignon <paul.chaignon@gmail.com>
+---
+ tools/testing/selftests/bpf/Makefile         |   2 +-
+ tools/testing/selftests/bpf/progs/bpf_misc.h |   5 +
+ tools/testing/selftests/bpf/test_loader.c    | 233 +++++++++++++++++++
+ tools/testing/selftests/bpf/test_progs.h     |  33 +++
+ 4 files changed, 272 insertions(+), 1 deletion(-)
  create mode 100644 tools/testing/selftests/bpf/test_loader.c
 
+diff --git a/tools/testing/selftests/bpf/Makefile b/tools/testing/selftests/bpf/Makefile
+index ef874c142527..7a28366a0f05 100644
+--- a/tools/testing/selftests/bpf/Makefile
++++ b/tools/testing/selftests/bpf/Makefile
+@@ -520,7 +520,7 @@ TRUNNER_BPF_PROGS_DIR := progs
+ TRUNNER_EXTRA_SOURCES := test_progs.c cgroup_helpers.c trace_helpers.c	\
+ 			 network_helpers.c testing_helpers.c		\
+ 			 btf_helpers.c flow_dissector_load.h		\
+-			 cap_helpers.c json_writer.c
++			 cap_helpers.c json_writer.c test_loader.c
+ TRUNNER_EXTRA_FILES := $(OUTPUT)/urandom_read $(OUTPUT)/bpf_testmod.ko	\
+ 		       $(OUTPUT)/liburandom_read.so			\
+ 		       $(OUTPUT)/xdp_synproxy				\
+diff --git a/tools/testing/selftests/bpf/progs/bpf_misc.h b/tools/testing/selftests/bpf/progs/bpf_misc.h
+index 5bb11fe595a4..4a01ea9113bf 100644
+--- a/tools/testing/selftests/bpf/progs/bpf_misc.h
++++ b/tools/testing/selftests/bpf/progs/bpf_misc.h
+@@ -2,6 +2,11 @@
+ #ifndef __BPF_MISC_H__
+ #define __BPF_MISC_H__
+ 
++#define __msg(msg)		__attribute__((btf_decl_tag("comment:test_expect_msg=" msg)))
++#define __failure		__attribute__((btf_decl_tag("comment:test_expect_failure")))
++#define __success		__attribute__((btf_decl_tag("comment:test_expect_success")))
++#define __log_level(lvl)	__attribute__((btf_decl_tag("comment:test_log_level="#lvl)))
++
+ #if defined(__TARGET_ARCH_x86)
+ #define SYSCALL_WRAPPER 1
+ #define SYS_PREFIX "__x64_"
+diff --git a/tools/testing/selftests/bpf/test_loader.c b/tools/testing/selftests/bpf/test_loader.c
+new file mode 100644
+index 000000000000..679efb3aa785
+--- /dev/null
++++ b/tools/testing/selftests/bpf/test_loader.c
+@@ -0,0 +1,233 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/* Copyright (c) 2022 Meta Platforms, Inc. and affiliates. */
++#include <stdlib.h>
++#include <test_progs.h>
++#include <bpf/btf.h>
++
++#define str_has_pfx(str, pfx) \
++	(strncmp(str, pfx, __builtin_constant_p(pfx) ? sizeof(pfx) - 1 : strlen(pfx)) == 0)
++
++#define TEST_LOADER_LOG_BUF_SZ 1048576
++
++#define TEST_TAG_EXPECT_FAILURE "comment:test_expect_failure"
++#define TEST_TAG_EXPECT_SUCCESS "comment:test_expect_success"
++#define TEST_TAG_EXPECT_MSG_PFX "comment:test_expect_msg="
++#define TEST_TAG_LOG_LEVEL_PFX "comment:test_log_level="
++
++struct test_spec {
++	const char *name;
++	bool expect_failure;
++	const char *expect_msg;
++	int log_level;
++};
++
++static int tester_init(struct test_loader *tester)
++{
++	if (!tester->log_buf) {
++		tester->log_buf_sz = TEST_LOADER_LOG_BUF_SZ;
++		tester->log_buf = malloc(tester->log_buf_sz);
++		if (!ASSERT_OK_PTR(tester->log_buf, "tester_log_buf"))
++			return -ENOMEM;
++	}
++
++	return 0;
++}
++
++void test_loader_fini(struct test_loader *tester)
++{
++	if (!tester)
++		return;
++
++	free(tester->log_buf);
++}
++
++static int parse_test_spec(struct test_loader *tester,
++			   struct bpf_object *obj,
++			   struct bpf_program *prog,
++			   struct test_spec *spec)
++{
++	struct btf *btf;
++	int func_id, i;
++
++	memset(spec, 0, sizeof(*spec));
++
++	spec->name = bpf_program__name(prog);
++
++	btf = bpf_object__btf(obj);
++	if (!btf) {
++		ASSERT_FAIL("BPF object has no BTF");
++		return -EINVAL;
++	}
++
++	func_id = btf__find_by_name_kind(btf, spec->name, BTF_KIND_FUNC);
++	if (func_id < 0) {
++		ASSERT_FAIL("failed to find FUNC BTF type for '%s'", spec->name);
++		return -EINVAL;
++	}
++
++	for (i = 1; i < btf__type_cnt(btf); i++) {
++		const struct btf_type *t;
++		const char *s;
++
++		t = btf__type_by_id(btf, i);
++		if (!btf_is_decl_tag(t))
++			continue;
++
++		if (t->type != func_id || btf_decl_tag(t)->component_idx != -1)
++			continue;
++
++		s = btf__str_by_offset(btf, t->name_off);
++		if (strcmp(s, TEST_TAG_EXPECT_FAILURE) == 0) {
++			spec->expect_failure = true;
++		} else if (strcmp(s, TEST_TAG_EXPECT_SUCCESS) == 0) {
++			spec->expect_failure = false;
++		} else if (str_has_pfx(s, TEST_TAG_EXPECT_MSG_PFX)) {
++			spec->expect_msg = s + sizeof(TEST_TAG_EXPECT_MSG_PFX) - 1;
++		} else if (str_has_pfx(s, TEST_TAG_LOG_LEVEL_PFX)) {
++			errno = 0;
++			spec->log_level = strtol(s + sizeof(TEST_TAG_LOG_LEVEL_PFX) - 1, NULL, 0);
++			if (errno) {
++				ASSERT_FAIL("failed to parse test log level from '%s'", s);
++				return -EINVAL;
++			}
++		}
++	}
++
++	return 0;
++}
++
++static void prepare_case(struct test_loader *tester,
++			 struct test_spec *spec,
++			 struct bpf_object *obj,
++			 struct bpf_program *prog)
++{
++	int min_log_level = 0;
++
++	if (env.verbosity > VERBOSE_NONE)
++		min_log_level = 1;
++	if (env.verbosity > VERBOSE_VERY)
++		min_log_level = 2;
++
++	bpf_program__set_log_buf(prog, tester->log_buf, tester->log_buf_sz);
++
++	/* Make sure we set at least minimal log level, unless test requirest
++	 * even higher level already. Make sure to preserve independent log
++	 * level 4 (verifier stats), though.
++	 */
++	if ((spec->log_level & 3) < min_log_level)
++		bpf_program__set_log_level(prog, (spec->log_level & 4) | min_log_level);
++	else
++		bpf_program__set_log_level(prog, spec->log_level);
++
++	tester->log_buf[0] = '\0';
++}
++
++static void emit_verifier_log(const char *log_buf, bool force)
++{
++	if (!force && env.verbosity == VERBOSE_NONE)
++		return;
++	fprintf(stdout, "VERIFIER LOG:\n=============\n%s=============\n", log_buf);
++}
++
++static void validate_case(struct test_loader *tester,
++			  struct test_spec *spec,
++			  struct bpf_object *obj,
++			  struct bpf_program *prog,
++			  int load_err)
++{
++	if (spec->expect_msg) {
++		char *match;
++
++		match = strstr(tester->log_buf, spec->expect_msg);
++		if (!ASSERT_OK_PTR(match, "expect_msg")) {
++			/* if we are in verbose mode, we've already emitted log */
++			if (env.verbosity == VERBOSE_NONE)
++				emit_verifier_log(tester->log_buf, true /*force*/);
++			fprintf(stderr, "EXPECTED MSG: '%s'\n", spec->expect_msg);
++			return;
++		}
++	}
++}
++
++/* this function is forced noinline and has short generic name to look better
++ * in test_progs output (in case of a failure)
++ */
++static noinline
++void run_subtest(struct test_loader *tester,
++		 const char *skel_name,
++		 skel_elf_bytes_fn elf_bytes_factory)
++{
++	LIBBPF_OPTS(bpf_object_open_opts, open_opts, .object_name = skel_name);
++	struct bpf_object *obj = NULL, *tobj;
++	struct bpf_program *prog, *tprog;
++	const void *obj_bytes;
++	size_t obj_byte_cnt;
++	int err;
++
++	if (tester_init(tester) < 0)
++		return; /* failed to initialize tester */
++
++	obj_bytes = elf_bytes_factory(&obj_byte_cnt);
++	obj = bpf_object__open_mem(obj_bytes, obj_byte_cnt, &open_opts);
++	if (!ASSERT_OK_PTR(obj, "obj_open_mem"))
++		return;
++
++	bpf_object__for_each_program(prog, obj) {
++		const char *prog_name = bpf_program__name(prog);
++		struct test_spec spec;
++
++		if (!test__start_subtest(prog_name))
++			continue;
++
++		/* if we can't derive test specification, go to the next test */
++		err = parse_test_spec(tester, obj, prog, &spec);
++		if (!ASSERT_OK(err, "parse_test_spec"))
++			continue;
++
++		tobj = bpf_object__open_mem(obj_bytes, obj_byte_cnt, &open_opts);
++		if (!ASSERT_OK_PTR(tobj, "obj_open_mem")) /* shouldn't happen */
++			continue;
++
++		bpf_object__for_each_program(tprog, tobj)
++			bpf_program__set_autoload(tprog, false);
++
++		bpf_object__for_each_program(tprog, tobj) {
++			/* only load specified program */
++			if (strcmp(bpf_program__name(tprog), prog_name) == 0) {
++				bpf_program__set_autoload(tprog, true);
++				break;
++			}
++		}
++
++		prepare_case(tester, &spec, tobj, tprog);
++
++		err = bpf_object__load(tobj);
++		if (spec.expect_failure) {
++			if (!ASSERT_ERR(err, "unexpected_load_success")) {
++				emit_verifier_log(tester->log_buf, false /*force*/);
++				goto tobj_cleanup;
++			}
++		} else {
++			if (!ASSERT_OK(err, "unexpected_load_failure")) {
++				emit_verifier_log(tester->log_buf, true /*force*/);
++				goto tobj_cleanup;
++			}
++		}
++
++		emit_verifier_log(tester->log_buf, false /*force*/);
++		validate_case(tester, &spec, tobj, tprog, err);
++
++tobj_cleanup:
++		bpf_object__close(tobj);
++	}
++
++	bpf_object__close(obj);
++}
++
++void test_loader__run_subtests(struct test_loader *tester,
++			       const char *skel_name,
++			       skel_elf_bytes_fn elf_bytes_factory)
++{
++	/* see comment in run_subtest() for why we do this function nesting */
++	run_subtest(tester, skel_name, elf_bytes_factory);
++}
+diff --git a/tools/testing/selftests/bpf/test_progs.h b/tools/testing/selftests/bpf/test_progs.h
+index 0cec84d7debb..a25d89244a47 100644
+--- a/tools/testing/selftests/bpf/test_progs.h
++++ b/tools/testing/selftests/bpf/test_progs.h
+@@ -1,4 +1,7 @@
+ /* SPDX-License-Identifier: GPL-2.0 */
++#ifndef __TEST_PROGS_H
++#define __TEST_PROGS_H
++
+ #include <stdio.h>
+ #include <unistd.h>
+ #include <errno.h>
+@@ -211,6 +214,12 @@ int test__join_cgroup(const char *path);
+ #define CHECK_ATTR(condition, tag, format...) \
+ 	_CHECK(condition, tag, tattr.duration, format)
+ 
++#define ASSERT_FAIL(fmt, args...) ({					\
++	static int duration = 0;					\
++	CHECK(false, "", fmt"\n", ##args);				\
++	false;								\
++})
++
+ #define ASSERT_TRUE(actual, name) ({					\
+ 	static int duration = 0;					\
+ 	bool ___ok = (actual);						\
+@@ -396,3 +405,27 @@ int write_sysctl(const char *sysctl, const char *value);
+ #endif
+ 
+ #define BPF_TESTMOD_TEST_FILE "/sys/kernel/bpf_testmod"
++
++struct test_loader {
++	char *log_buf;
++	size_t log_buf_sz;
++
++	struct bpf_object *obj;
++};
++
++typedef const void *(*skel_elf_bytes_fn)(size_t *sz);
++
++extern void test_loader__run_subtests(struct test_loader *tester,
++				      const char *skel_name,
++				      skel_elf_bytes_fn elf_bytes_factory);
++
++extern void test_loader_fini(struct test_loader *tester);
++
++#define RUN_TESTS(skel) ({						       \
++	struct test_loader tester = {};					       \
++									       \
++	test_loader__run_subtests(&tester, #skel, skel##__elf_bytes);	       \
++	test_loader_fini(&tester);					       \
++})
++
++#endif /* __TEST_PROGS_H */
 -- 
 2.43.0
 
