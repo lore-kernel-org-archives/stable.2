@@ -1,110 +1,108 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from mail-106121.protonmail.ch (mail-106121.protonmail.ch [79.135.106.121])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA67C34AAE3;
-	Wed,  3 Jun 2026 01:37:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A62737BE8C;
+	Wed,  3 Jun 2026 01:38:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.121
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780450625; cv=none; b=CbJEphJrSDx4t6dVdkf6bQ+YNQsrRuGN1JO5WNrdIfZlioHtQTVfULNOVTp4FDR4bvKijrt2avmcTTwd77o7kyOtNAySfpPw4ko3RSEPUHv5XQLsW3gsc1o/2Jt83nXmG+HhdJKrHXP2oaoljpMJg7ERdCSzyEoJKnWkGAbZE3o=
+	t=1780450700; cv=none; b=sOTaC/edDsK4yINO8EoL4YbdMqdvP/pOhT5jwiHqXpLsZ/NoS/amS/FSBbUYXd+0T72GvjJDida99cZPiztibReCWdZJJ9nKAiE+2u31h2Xd6g0lEVxFsLeco7JGQaVRWaNO/tNQTI+VCLA5GPma+agtSGq3+FjIhIRMhl1G/Ro=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780450625; c=relaxed/simple;
-	bh=JH8p6nupcMUBqYj33I5eOiO6hzR7aTXI/GjmyJ0JzT4=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=jN7M8jEFWok6yUw3JLhPNBV/JTthIRtl0HbD+oHrWV5Ar6AkkcesdbtuNJNUeYfxTIGgSuD4ma8PWKYSnh3t39DeQ3g1lmOVhG9W5dSdFkMIEkX7YMzaRRYz1B7qxG1YH/shryyoVLnaddPlCF99oMWporxwxjalokSv8o4HiQw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: b573e1de5eec11f1aa26b74ffac11d73-20260603
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.12,REQID:6846cdb4-b600-47ba-8e08-97aee3a6dd97,IP:0,U
-	RL:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
-	N:release,TS:-25
-X-CID-META: VersionHash:e7bac3a,CLOUDID:c948205c490dbae470ab7c7ddb3294dc,BulkI
-	D:nil,BulkQuantity:0,Recheck:0,SF:102|850|865|898,TC:nil,Content:0|15|50,E
-	DM:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA
-	:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: b573e1de5eec11f1aa26b74ffac11d73-20260603
-X-User: zenghongling@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <zenghongling@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1357867210; Wed, 03 Jun 2026 09:36:57 +0800
-From: Hongling Zeng <zenghongling@kylinos.cn>
-To: chuck.lever@oracle.com,
-	jlayton@kernel.org,
-	neil@brown.name,
-	okorniev@redhat.com,
-	Dai.Ngo@oracle.com,
-	tom@talpey.com,
-	trondmy@kernel.org,
-	anna@kernel.org,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org
-Cc: linux-nfs@vger.kernel.org,
-	netdev@vger.kernel.org,
-	zhongling0719@126.com,
-	Hongling Zeng <zenghongling@kylinos.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] sunrpc: fix uninitialized xprt_create_args structure
-Date: Wed,  3 Jun 2026 09:36:52 +0800
-Message-Id: <20260603013652.12904-1-zenghongling@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	s=arc-20240116; t=1780450700; c=relaxed/simple;
+	bh=6K4kwWVj+MVW/8WTrSVGKkdwyz8YfNbYNzUN2tzQ5YY=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=XGZY2wZp62BK2SnCWp89815eHvFl1tUeg76DO5iwc/y4rLGqQ65v7WGxwxuSa9ROcmHoEbwBp/H0yeveWRmpG3xsaGDtjn0lrII+yHFvglj9nLJ8a4gvr8gAPOefnplulFbBr0LUlWF0O31ZGykUf09Ao6bgl+J93znGxiTi0EM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=ZxOK2uCq; arc=none smtp.client-ip=79.135.106.121
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="ZxOK2uCq"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail; t=1780450687; x=1780709887;
+	bh=V4RAZ7YsxCmaPJkYuxbidNGulBV6q3DaB47ubschr+A=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=ZxOK2uCqHVInKh0XmtoOTk2Y+FABI8H3O9i84g/rzLu2QCHdSn16CBQpvCLL4CPJY
+	 QvG1tZZIju/WdQ/ponqN00a707kw5Jy2AnqnBrFyJP1a6ryKguG7RqTwacnExHoYY9
+	 5hs0QNvsKM1T07ySA6VbqrSeiiaqnFxL9U2RZs9jmd3igVSsHd2LNk3IElIqoliAet
+	 ZeMfLCX5YLZy3x+denNS7IXN244H6VuMKkhOab7W7fr5J/3qFGVQu1JxaABoJPKb/O
+	 9if9b6X62R6HHe7y8OhDVHQNy9WLABD1ZE38IwyBbZMBsGJzTayivSAgZof4nPRR1Y
+	 iLvRbMxmqnlXQ==
+Date: Tue, 02 Jun 2026 17:27:47 +0000
+To: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>, =?utf-8?Q?G=C3=BCnther_Noack?= <gnoack@google.com>
+From: Bryam Vargas <hexlabsecurity@proton.me>
+Cc: Justin Suess <utilityemal77@gmail.com>, Christian Brauner <brauner@kernel.org>, Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>, "Serge E . Hallyn" <serge@hallyn.com>, linux-security-module@vger.kernel.org, stable@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v4 0/2] landlock: fix SCOPE_SIGNAL bypass on the SIGIO/fowner path
+Message-ID: <20260602172741.18760-1-hexlabsecurity@proton.me>
+In-Reply-To: <20260531.irah0eiM3Chi@digikod.net>
+References: <7rvmLIHR1Zh8RDF1IY1-SYRHzErgw9gPHq0k98RLYVsmHqAejjxcuJi8V3QaSbW-SnNvY5tfM2Xn_S1dEajKV_f7iyitoPwJgOSTZQ0nytc=@proton.me> <20260531.irah0eiM3Chi@digikod.net>
+Feedback-ID: 199661219:user:proton
+X-Pm-Message-ID: dd76b6c270b492527521f76e045ccb5f6023a19d
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-The xprt_create_args structure is allocated on the stack without
-initialization in rpc_sysfs_xprt_switch_add_xprt_store(). While some
-fields are manually populated, critical fields like srcaddr, bc_xps,
-and flags contain uninitialized stack garbage.
+This series fixes a LANDLOCK_SCOPE_SIGNAL bypass on the asynchronous SIGIO
+(fcntl(F_SETOWN)) delivery path, and adds a regression test.
 
-This can lead to:
-1. Kernel panic when xs_setup_xprt() dereferences garbage srcaddr
-2. Information leak if srcaddr points to sensitive stack data
-3. Unpredictable behavior if flags has random bits set
+A sandboxed process that owns a file or socket can request a signal
+(F_SETSIG, e.g. SIGKILL) to be delivered to a whole process group on I/O
+readiness (F_SETOWN(-pgid) + O_ASYNC).  When it is the head of its own
+process group -- the default after fork() -- that group still contains the
+non-sandboxed process that launched it (a supervisor, a security monitor),
+so the sandbox can signal processes that SCOPE_SIGNAL is meant to protect
+from it.
 
-The fix is to zero-initialize the structure to ensure all unused
-fields are NULL/0, preventing the transport setup code from acting
-on garbage data.
+Patch 1 narrows the same-thread-group exemption in control_current_fowner()
+so a process-group fowner always records the caller's Landlock domain; the
+delivery-time check in hook_file_send_sigiotask() then runs against every
+group member.  The direct kill() path (hook_task_kill) is unaffected.
 
-Cc: stable@vger.kernel.org
-Suggested-by: Jeff Layton <jlayton@kernel.org>
-Reviewed-by: Jeff Layton <jlayton@kernel.org>
-Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+Patch 2 adds the regression test in scoped_signal_test.c.
 
----
-Changes in V2:
-- Use designated initializer instead of memset, as suggested by
-  Jeff Layton
-- Add Reviewed-by tag
+The defect was introduced by commit 18eb75f3af40 ("landlock: Always allow
+signals between threads of the same process") in v6.15, and is present in t=
+he
+stable branches that backported it (6.12.y, 6.13.y, 6.14.y).
+control_current_fowner() is identical across those branches.
 
----
- net/sunrpc/sysfs.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+A/B verified on 6.12.90 + CONFIG_SECURITY_LANDLOCK (same .config, only the =
+fix
+hunk differs): without patch 1 the new test fails (the non-sandboxed parent=
+ is
+signaled, SCOPE_SIGNAL bypassed); with patch 1 the new test passes and the
+landlock signal-scoping suite is 20/20.
 
-diff --git a/net/sunrpc/sysfs.c b/net/sunrpc/sysfs.c
-index a90480f80154..4669227a6de6 100644
---- a/net/sunrpc/sysfs.c
-+++ b/net/sunrpc/sysfs.c
-@@ -327,7 +327,7 @@ static ssize_t rpc_sysfs_xprt_switch_add_xprt_store(struct kobject *kobj,
- {
- 	struct rpc_xprt_switch *xprt_switch =
- 		rpc_sysfs_xprt_switch_kobj_get_xprt(kobj);
--	struct xprt_create xprt_create_args;
-+	struct xprt_create xprt_create_args = {};
- 	struct rpc_xprt *xprt, *new;
- 
- 	if (!xprt_switch)
--- 
-2.25.1
+v3 -> v4 (review feedback from Micka=C3=ABl Sala=C3=BCn):
+  - patch 1: rewrite the commit message -- drop the "cache" framing, lead w=
+ith
+    the threat scenario, mostly "why" and minimal "what", "process" not "ta=
+sk";
+  - patch 1: drop PIDTYPE_SID (not possible for an fowner) and use the defe=
+nsive
+    condition "!=3D PIDTYPE_PID && !=3D PIDTYPE_TGID"; simplify the in-code=
+ comment;
+  - patch 1: remove Reported-by (implicit with the same Signed-off-by);
+  - send as a proper git send-email threaded series.
+  - v1/v2 were sent to security@kernel.org (embargoed; not in a public arch=
+ive).
+
+Bryam Vargas (2):
+  landlock: fix LANDLOCK_SCOPE_SIGNAL bypass on the SIGIO path
+  selftests/landlock: test SCOPE_SIGNAL on the SIGIO/fowner pgid path
+
+ security/landlock/fs.c                        |  9 ++
+ .../selftests/landlock/scoped_signal_test.c   | 97 +++++++++++++++++++
+ 2 files changed, 106 insertions(+)
+
+
+base-commit: 6f3ed7fec72fc8979b2a8c7219c0a9fcfc8d07b5
+--=20
+2.43.0
+
 
