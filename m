@@ -1,64 +1,64 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 672AF284883
-	for <stable@vger.kernel.org>; Tue,  2 Jun 2026 19:41:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F32A33C187
+	for <stable@vger.kernel.org>; Tue,  2 Jun 2026 19:41:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780429311; cv=none; b=b/W0zWI+h9KVqvA4fLbECCcU3uf6C3kzO+848C+TtXcNc4zj1yRnba8+sOQpcP9IYkAMEwF3N5jYlwTkWslzGHQ5g/HLmZkBxlvHezegvbZcaFVYa238QTf7vZj0o2mNOFqruAq8tGBoVCZ6/L6SY0YvIuU9wIQkhZs+fl7CT+w=
+	t=1780429322; cv=none; b=BG1KOd7cCs7oT3SIZ3yEIcgkIpZW7uFCZOZAUoLHdBT2g/9BndO5tk1d42dx+qznSc4so6cZ+B6R7kCj6rX7NQ8I5L6E54XKgf66fkUipGw5Ujq4tu2iDS+WqwOFrVJ4kmPxZVrhDG2FGjKsVqqHOeeV0MWnwMm1xRXytoNccow=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780429311; c=relaxed/simple;
-	bh=GpOhVnUato6nAjWG5ZzhOjxZMa/xx1ZXereqiPdbuvA=;
+	s=arc-20240116; t=1780429322; c=relaxed/simple;
+	bh=egse+XxtkwVMphtjiNpwZsmQaS+mfRtWD/xgsG+WTyw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WF95dUd40N71nNSsFLZo3lqlG1eGRWnjR/c2hsyQ2BOah9Y8hwGTd2kteKKmziLRP4sBxhjnfF3qzvjBdNhxw32x1Dy2tYPV1pFj6tQEoksdJw4vvJsRWn3yd7uHCTA7GXFu2HHplkNDRnSu3bgvx+2EP5dCWJjjsufKlmUTEDs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pagcUi3n; arc=none smtp.client-ip=209.85.128.53
+	 Content-Type:Content-Disposition:In-Reply-To; b=KDTu8DLyIJ8k0EbEeC5Cc5SqVDF64zcIN5+eKiZ4mAkfLMvCs0W6P4o5vq0Nri3ir2ztfqnYZ/5cXtjzObVFMowDDFCyr4syM2kC7+wskKqQNnr7eQtdSDGfdDpVQcpU8dzO9/kDwPMPDeP3bGp2sCYIeTAmhLNOUgI+6pjCWMQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=K1fUyaLB; arc=none smtp.client-ip=209.85.128.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pagcUi3n"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-490b3637b90so9016485e9.3
-        for <stable@vger.kernel.org>; Tue, 02 Jun 2026 12:41:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K1fUyaLB"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4903d730b1fso107185175e9.2
+        for <stable@vger.kernel.org>; Tue, 02 Jun 2026 12:41:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780429309; x=1781034109; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1780429318; x=1781034118; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=mSScEfq21tmwJsqhb0IpUvHNH6FCuXi3tvVlH03ljGQ=;
-        b=pagcUi3nYzSc8izEY8NDhNOJo4vfPjy3ZJFRtdeyJSZUwu29qFW5AcmXCg4giLmj3D
-         qBqeKO2g/usW9RRunJsxIttH0lYqL/WepfJB1QILKoZ7CahwDsOBJS/ulUwhkG4FTfvi
-         or6YBvE6VXdrWgr8z6vbpiOAaKvu2ioqAi9cECB7bMiYtQ5b6I9un36ROROfk5uU6kO5
-         B7jLlxRH+939K9U8qv6wDeqWb1bR/2XV7haMKc3gGHiyhnV6cV+q0X/CV69xK+kYWYbE
-         efUBK/yeEJZDHr99YyRdZOvopaYAKYNIthb2zufl288QIEGbvyxm+P9kN6okjHLE65+U
-         PNaQ==
+        bh=R8hbcVLfhwfBVVN8TSYLuuPAl5pTHwJWuqQyoki3gYM=;
+        b=K1fUyaLB8o6ts2oEy88yfL4Lt2dxiDkW/FazsYmiZDNEWNjkrDCfYEu4keOt21qQtv
+         NfO9zKeeSdMZNbYwOY05bVJqxNEmjjOfALVFuFneCevS1oa2djW4fN1orCGsOQOqAi29
+         YK/1H5qP4Sr9Ep91ppYpXS4VtA5zEmSMZfk53z+Mp2ptPwzkoMq69htnDGw5wojgBKSt
+         GgA1ZhX5RBL4Sr95cBS8skfuEDMtYmkWhgvGR98h0zx465h8MheMYe4nCH2EWlEFrTWu
+         OPg/L3JYtSENkarqpLrLEmuZXLfjAySzywCTp/oUKMTzDqzJnWzJrHQ3jxFyt5Y/qec4
+         FwSg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780429309; x=1781034109;
+        d=1e100.net; s=20251104; t=1780429318; x=1781034118;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=mSScEfq21tmwJsqhb0IpUvHNH6FCuXi3tvVlH03ljGQ=;
-        b=PUJ3hRdQ9GpSbCC3dIa01dWlwBkqctyme6j0oEFZLyZZClQkArmQ+lr9ffh0cHME77
-         fbvBRfmdnaaTTwUHKybtc7va1DOnajNzDY3cq9cF0T6nz9Qgpiqk+lb3O5esS3Litb0s
-         Y129Jvq7QVMr/pU1IdXy72dMsuwe95A/v4i6gvD5LhxTi39w3skyXCHv8+WbAHrM8PIa
-         1MJPdPqkp8NCcmhnPbHU0UK9e3tlsYCxQNuidzuMlgR0bHB4IR7DST9e0XPVNXAZ+gCJ
-         mBbwq5QUcOiQED0TKzmFQ6VTPv6Ff1Qs7R7YJkPRn9+q6AO47x2FShgf03cnKJX5iE3r
-         6YRw==
-X-Gm-Message-State: AOJu0YyUcMQEfq1y9oh5h16J2Fg1XI6lGMfTFOmp34VbGltUEEIwxAR9
-	u/HNV9eFJt/N12ELwgr3GOEH2EAMTQuekKHlLbds/ZfJhtfpi1Y2cs7WqT+hJ+7R
-X-Gm-Gg: Acq92OHgJw/cdxA7HuxUiYSRNHxyWEtxIuduo24dFsZeQieJs8QgtrJZ2iaKioTQMxm
-	w6tWfoCMqbJ0v2bpq5WzxZJoXuEAh0vIGgocFTLOm1lW5LtCXd/mIcwa3P5uv1OYeOHU5S6k5Tn
-	txep1/M2PXT2ByIAB2vemeCkeANJOBH+g3QL2YuopTlhMVi3hrVISA3lUA+IkD2PVA/m2MGP5J9
-	7WJL6+ywQeKPm0t7noGx0NJ4Xm2o65ynd6qMdJN3AX5JRL2LdKaZQY/O+AXjHV+pfi275D2o4sB
-	gbp1xgu+bLbO6hgsK4LgpRT4C3DlrQYHALC2cCYmWv+Z+KLt4VfhRL347PogB3FLJhA/xk3RRE5
-	quu1TvtcwVIcTX45QscI6XNXVD8w8QhDe/8m4foFBE7yEKX25c1Y8e1M+HeYZLumflYFCP5l5K1
-	U+lel7lwpatDMMPpCwniPlo6CP2kxLUwaQSkvuiCduLtMzrNgx8oyEWNBHDKQb1aJfuQqE5sWBO
-	x06z9hck+/DFwQuolvjIhHnpZGJND71q6yzyJ/QvEsuAOz2j4jtQP6aa3V+6rVYEFr0BnhNDVWw
-	e8g7j/q8reR8mpj85qiogpIxCbwvLi1ZwkeIXPmI8oOmZ/ydxoDCVBzSK8tlU9cN
-X-Received: by 2002:a05:600c:1d09:b0:490:9d5b:d721 with SMTP id 5b1f17b1804b1-490b5ed62admr3222195e9.16.1780429308835;
-        Tue, 02 Jun 2026 12:41:48 -0700 (PDT)
+        bh=R8hbcVLfhwfBVVN8TSYLuuPAl5pTHwJWuqQyoki3gYM=;
+        b=oNCDMXCq76p5NphdFovpuLhxORP55IfZ8z08hvASN5HXUee3RvT0+ut8mhM7sYqP8o
+         PFCr2RIE+rV2AzIdUbp11JaMr0RVx1bgXFiQ8V45iR3mQOcDWeEbgBiB7LwUk24eyDoO
+         UcbxGBYKIrd6oyK4/XI9yY6GwGbSPbDKa5Ln8+2l9cQjGaCA/gZcPvB9pbmX4sIkd1br
+         5wDqeOrC7tizqMlXyBxUavPBLskzEuWgoF647NJtXkUrixUoRel19myavy+C+AHi97P2
+         +fz3NGw6/8Hej2Nwtuti1CvalLRygN+UFWJ56ry8jbymxPO9Q2xKRpbYGX+SWV4lgMet
+         1/FA==
+X-Gm-Message-State: AOJu0YxklyDBfaBfSUY6b4OxYiIVHl7OdT/EAOnAeEE0hWvXXgnt6H51
+	cguo5oNqcYhp8Z0xlXwOAFwrbSFDiIxglhr2VixcYLlmo/iUBCeszYu2qxRGwSn8
+X-Gm-Gg: Acq92OGw108OBoyQ6PAneGimhHA8pd7UCsfy0s3JFQF4sMU35QIe6DVYat4CE9N/j+K
+	e/yGyUWao6bB3+3laVA5lyGaonyWTg5Euaz+SPMbTJrEVOHWUM99lpqvxFNvlMnvawghROTyCTx
+	IR1G738ooTY3+cL4onK9UPXApgokYcAAPatLi8iKoLWan5hYEhV9ct8iYObVQ3FdG/Xp0fj/e4p
+	FrN3cfVl4DgrhYOUIh499zKVhFVH1ZZAlQG4UF9OKKmm/3FoCeOOSAuO1GryhqVNFLt/W4eqndI
+	gP0WlTjJ+rsYOTkj+ACABf0zm5ZYEZguEVI+VgZbDp0uvBM3jrx+OqWeMIwTj2X/6VP0K/y3u/+
+	Tpn8aCGrr0rlIZ3/BIVhvPkLT934TzrsQH2glVbMSOIdDFd+tYp6AOZ1uosgpMCHPYS2BDJptXh
+	M5EOunjLu4SFvgCSTUgGCgRYWC7JCvISSoZKCnO1YyBvHwMIxirLXoTiD27Pr07yJSOI0m6h3Sj
+	1WercRtjJittf0hLg/ORyaHZMMnjlPkYujzE5prraSa5Hoov7O5S4QMPShJFs4P06s/j7Pp4k6s
+	HkBUYsdQp4EqixGL+QOe0Cldmko2jHWTKU/eMNJ+nox7sNHfeVrU2A==
+X-Received: by 2002:a05:600c:6385:b0:490:46df:a87a with SMTP id 5b1f17b1804b1-490b5e73e7dmr4526535e9.1.1780429317784;
+        Tue, 02 Jun 2026 12:41:57 -0700 (PDT)
 Received: from mail.gmail.com (2a01cb0889497e00d5a27cd7dcd113c6.ipv6.abo.wanadoo.fr. [2a01:cb08:8949:7e00:d5a2:7cd7:dcd1:13c6])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490b0e13f91sm106961405e9.3.2026.06.02.12.41.47
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490b61511c4sm2758285e9.1.2026.06.02.12.41.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 02 Jun 2026 12:41:48 -0700 (PDT)
-Date: Tue, 2 Jun 2026 21:41:46 +0200
+        Tue, 02 Jun 2026 12:41:57 -0700 (PDT)
+Date: Tue, 2 Jun 2026 21:41:55 +0200
 From: Paul Chaignon <paul.chaignon@gmail.com>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
@@ -72,9 +72,9 @@ Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Stanislav Fomichev <sdf@fomichev.me>,
 	Yonghong Song <yonghong.song@linux.dev>,
 	Jiri Olsa <jolsa@kernel.org>
-Subject: [PATCH 6.1.y v2 09/11] Revert "selftests/bpf: Add a cgroup prog
- bpf_get_ns_current_pid_tgid() test"
-Message-ID: <9f6469459ace58f189b12e4e3636488ef443775a.1780427227.git.paul.chaignon@gmail.com>
+Subject: [PATCH 6.1.y v2 10/11] selftests/bpf: Fix ARG_PTR_TO_LONG
+ {half-,}uninitialized test
+Message-ID: <c835cdfab6691e37b71f773a6001d7e2311fea0b.1780427227.git.paul.chaignon@gmail.com>
 References: <cover.1780427227.git.paul.chaignon@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -86,140 +86,54 @@ Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 In-Reply-To: <cover.1780427227.git.paul.chaignon@gmail.com>
 
-This reverts commit 4d8fb7ed7a55 ("selftests/bpf: Add a cgroup prog
-bpf_get_ns_current_pid_tgid() test").
+From: Daniel Borkmann <daniel@iogearbox.net>
 
-That commit should have never been backported to 6.1 because it
-introduces a test for a feature that isn't supported:
-bpf_get_ns_current_pid_tgid() cannot be called from cgroup BPF programs
-in 6.1.
+[ Upstream commit b8e188f023e07a733b47d5865311ade51878fe40 ]
 
+The assumption of 'in privileged mode reads from uninitialized stack locations
+are permitted' is not quite correct since the verifier was probing for read
+access rather than write access. Both tests need to be annotated as __success
+for privileged and unprivileged.
+
+Signed-off-by: Daniel Borkmann <daniel@iogearbox.net>
+Acked-by: Andrii Nakryiko <andrii@kernel.org>
+Link: https://lore.kernel.org/r/20240913191754.13290-6-daniel@iogearbox.net
+Signed-off-by: Alexei Starovoitov <ast@kernel.org>
+[ Note: The format of logs completely changed since 6.1 so this change
+  had to be reapplied to the old test file. This commit needs to be
+  backported because it fixes a test broken by commit 32556ce93bc4
+  ("bpf: Fix helper writes to read-only maps") from the same patchset. ]
 Signed-off-by: Paul Chaignon <paul.chaignon@gmail.com>
 Acked-by: Shung-Hsi Yu <shung-hsi.yu@suse.com>
 ---
- .../bpf/prog_tests/ns_current_pid_tgid.c      | 73 -------------------
- .../bpf/progs/test_ns_current_pid_tgid.c      |  7 --
- 2 files changed, 80 deletions(-)
+ tools/testing/selftests/bpf/verifier/int_ptr.c | 6 +-----
+ 1 file changed, 1 insertion(+), 5 deletions(-)
 
-diff --git a/tools/testing/selftests/bpf/prog_tests/ns_current_pid_tgid.c b/tools/testing/selftests/bpf/prog_tests/ns_current_pid_tgid.c
-index 2c57ceede095..a84c41862ff8 100644
---- a/tools/testing/selftests/bpf/prog_tests/ns_current_pid_tgid.c
-+++ b/tools/testing/selftests/bpf/prog_tests/ns_current_pid_tgid.c
-@@ -12,7 +12,6 @@
- #include <sys/wait.h>
- #include <sys/mount.h>
- #include <fcntl.h>
--#include "network_helpers.h"
- 
- #define STACK_SIZE (1024 * 1024)
- static char child_stack[STACK_SIZE];
-@@ -75,50 +74,6 @@ static int test_current_pid_tgid_tp(void *args)
- 	return ret;
- }
- 
--static int test_current_pid_tgid_cgrp(void *args)
--{
--	struct test_ns_current_pid_tgid__bss *bss;
--	struct test_ns_current_pid_tgid *skel;
--	int server_fd = -1, ret = -1, err;
--	int cgroup_fd = *(int *)args;
--	pid_t tgid, pid;
--
--	skel = test_ns_current_pid_tgid__open();
--	if (!ASSERT_OK_PTR(skel, "test_ns_current_pid_tgid__open"))
--		return ret;
--
--	bpf_program__set_autoload(skel->progs.cgroup_bind4, true);
--
--	err = test_ns_current_pid_tgid__load(skel);
--	if (!ASSERT_OK(err, "test_ns_current_pid_tgid__load"))
--		goto cleanup;
--
--	bss = skel->bss;
--	if (get_pid_tgid(&pid, &tgid, bss))
--		goto cleanup;
--
--	skel->links.cgroup_bind4 = bpf_program__attach_cgroup(
--		skel->progs.cgroup_bind4, cgroup_fd);
--	if (!ASSERT_OK_PTR(skel->links.cgroup_bind4, "bpf_program__attach_cgroup"))
--		goto cleanup;
--
--	server_fd = start_server(AF_INET, SOCK_STREAM, NULL, 0, 0);
--	if (!ASSERT_GE(server_fd, 0, "start_server"))
--		goto cleanup;
--
--	if (!ASSERT_EQ(bss->user_pid, pid, "pid"))
--		goto cleanup;
--	if (!ASSERT_EQ(bss->user_tgid, tgid, "tgid"))
--		goto cleanup;
--	ret = 0;
--
--cleanup:
--	if (server_fd >= 0)
--		close(server_fd);
--	test_ns_current_pid_tgid__destroy(skel);
--	return ret;
--}
--
- static void test_ns_current_pid_tgid_new_ns(int (*fn)(void *), void *arg)
+diff --git a/tools/testing/selftests/bpf/verifier/int_ptr.c b/tools/testing/selftests/bpf/verifier/int_ptr.c
+index 02d9e004260b..8c74cff20903 100644
+--- a/tools/testing/selftests/bpf/verifier/int_ptr.c
++++ b/tools/testing/selftests/bpf/verifier/int_ptr.c
+@@ -25,9 +25,8 @@
+ 		BPF_MOV64_IMM(BPF_REG_0, 1),
+ 		BPF_EXIT_INSN(),
+ 	},
+-	.result = REJECT,
++	.result = ACCEPT,
+ 	.prog_type = BPF_PROG_TYPE_CGROUP_SYSCTL,
+-	.errstr = "invalid indirect read from stack R4 off -16+0 size 8",
+ },
  {
- 	int wstatus;
-@@ -140,25 +95,6 @@ static void test_ns_current_pid_tgid_new_ns(int (*fn)(void *), void *arg)
- 		return;
- }
- 
--static void test_in_netns(int (*fn)(void *), void *arg)
--{
--	struct nstoken *nstoken = NULL;
--
--	SYS(cleanup, "ip netns add ns_current_pid_tgid");
--	SYS(cleanup, "ip -net ns_current_pid_tgid link set dev lo up");
--
--	nstoken = open_netns("ns_current_pid_tgid");
--	if (!ASSERT_OK_PTR(nstoken, "open_netns"))
--		goto cleanup;
--
--	test_ns_current_pid_tgid_new_ns(fn, arg);
--
--cleanup:
--	if (nstoken)
--		close_netns(nstoken);
--	SYS_NOFAIL("ip netns del ns_current_pid_tgid");
--}
--
- /* TODO: use a different tracepoint */
- void serial_test_ns_current_pid_tgid(void)
+ 	"ARG_PTR_TO_LONG half-uninitialized",
+@@ -57,9 +56,6 @@
+ 		BPF_MOV64_IMM(BPF_REG_0, 0),
+ 		BPF_EXIT_INSN(),
+ 	},
+-	.result_unpriv = REJECT,
+-	.errstr_unpriv = "invalid indirect read from stack R4 off -16+4 size 8",
+-	/* in privileged mode reads from uninitialized stack locations are permitted */
+ 	.result = ACCEPT,
+ },
  {
-@@ -166,13 +102,4 @@ void serial_test_ns_current_pid_tgid(void)
- 		test_current_pid_tgid_tp(NULL);
- 	if (test__start_subtest("new_ns_tp"))
- 		test_ns_current_pid_tgid_new_ns(test_current_pid_tgid_tp, NULL);
--	if (test__start_subtest("new_ns_cgrp")) {
--		int cgroup_fd = -1;
--
--		cgroup_fd = test__join_cgroup("/sock_addr");
--		if (ASSERT_GE(cgroup_fd, 0, "join_cgroup")) {
--			test_in_netns(test_current_pid_tgid_cgrp, &cgroup_fd);
--			close(cgroup_fd);
--		}
--	}
- }
-diff --git a/tools/testing/selftests/bpf/progs/test_ns_current_pid_tgid.c b/tools/testing/selftests/bpf/progs/test_ns_current_pid_tgid.c
-index d0010e698f66..aa3ec7ca16d9 100644
---- a/tools/testing/selftests/bpf/progs/test_ns_current_pid_tgid.c
-+++ b/tools/testing/selftests/bpf/progs/test_ns_current_pid_tgid.c
-@@ -28,11 +28,4 @@ int tp_handler(const void *ctx)
- 	return 0;
- }
- 
--SEC("?cgroup/bind4")
--int cgroup_bind4(struct bpf_sock_addr *ctx)
--{
--	get_pid_tgid();
--	return 1;
--}
--
- char _license[] SEC("license") = "GPL";
 -- 
 2.43.0
 
