@@ -1,140 +1,124 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73F583630B3;
-	Tue,  2 Jun 2026 15:33:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780414392; cv=none; b=tPuVbY0sDPzZfys5pUyP+NE7gOTIM0omwY7g13jPE3fmoydJFu+8ViTytekBy9exRl63mTMDlasIZn1D5ymfE3zZg/ML4jYWzAJ3dgt5q1ir1uwbx0Jm8VxERx0Ghnr3cWU1Wm6AvOcZprQe+Unj703Iq9XMNewsOx0SueBulUY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780414392; c=relaxed/simple;
-	bh=hE5lg4ZrxvxGScNyLw5phbE5nMNRaCGZ5U0DzxNOAyE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=cyZTaTnEDG/kMp4OmrwmSfvMBaKW1MhSwC6Jurw4AhraG8OINaeIlKgKQnXaumBuG3GwVJfQCw6I1W2xW5rW78bG4JFBEUqzGtAo1XmCnKDi47k82xmy093R1n8KAIkSFFNr/nqUu1RG/vM8WsegQcxbFpmIJXIf+ixGbJS/jaQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NjBf3n5n; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65AAD3EA953
+	for <stable@vger.kernel.org>; Tue,  2 Jun 2026 15:35:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.176
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780414546; cv=pass; b=cuctUr3H798Axfo5AcMWW9row2Id451DOQGGb6XwDGLiiIFMjsF3OvDaHgKWseHD4hZxt42LDgXQZGnYxQ2VssX7+eEruJQHG8GmDyi9eejcbhz/SVGJxvzsa2Ox9VgfJU4Kue1JiT+xQBr3J9sGFjvO9cCWAJTx+hXIEhuaEEc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780414546; c=relaxed/simple;
+	bh=oKhZRKSNDQsRxVT0JGr6nA+dxNnWA37kOR8/qGg6Q1I=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=VTuRZ5kCyuWo0Fml8hq4wNVmj54ot3Lj4qlnwdNidc6tUVpuWguqHCBdbK3IioXB4izf+Y56HXMpglSkGX2lCePK08u5UzfX8p3H8dFe9srGh2l2CxhdONJzzZoie+8wOgXBwweNNOiTGQKVdaMmGIg6yBbsx1n78GF36DZN72E=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=quora.org; spf=pass smtp.mailfrom=quora.org; dkim=pass (1024-bit key) header.d=quora.org header.i=@quora.org header.b=nTWtNnAk; arc=pass smtp.client-ip=209.85.210.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=quora.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=quora.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NjBf3n5n"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 188361F00893;
-	Tue,  2 Jun 2026 15:33:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780414391;
-	bh=Hy916jDLgWGpIbUAJ39IRE6QY96PsOceJjyl4DGOzLU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=NjBf3n5nQkOvvlpZTghOdxPPRIeOcZybYu5rbM+vh1V/k8/y5pdJzelPWvfju7KfR
-	 JS9nD/DxVzzqoNx+X0GwCU+G4kNb974pcer9WAz4sAhJOYK+o3ZE4VVyJ87xEQr2H1
-	 kk8IXu45tMgAAqtU9uEbwiQHNkhnkA0SqdODylsN3o7UEBuSxLSKAiqwzhygzGA/Wz
-	 nDlJ/F7ItBjxROHtL/CXS2GKAEQVA2/UHZ6gH183A0w3m0aFhhlYE304NnJ++epVd0
-	 pRsIaffiJNllZfgIIOwnxKrVzIO17AZ6G9Iz7SC+K/Fa/UHDAhyiAC6XY1NGH8H3Lk
-	 1x0iKDwFQRFlg==
-Message-ID: <d09da32c-5c87-473e-8f02-74bd6e165f46@kernel.org>
-Date: Tue, 2 Jun 2026 16:33:06 +0100
+	dkim=pass (1024-bit key) header.d=quora.org header.i=@quora.org header.b="nTWtNnAk"
+Received: by mail-pf1-f176.google.com with SMTP id d2e1a72fcca58-8423b08b293so1154197b3a.3
+        for <stable@vger.kernel.org>; Tue, 02 Jun 2026 08:35:45 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1780414545; cv=none;
+        d=google.com; s=arc-20240605;
+        b=ZnRHgxf3U3vjICBuo2X3ohgXaxm+r/a0KEzRUTMJYXjf5z8lmBxYb6Y5rTcxGx3gH5
+         a9mwqjv0j9XY3gVBae0Td3S80NKJujtk5SHYaRKNr2ckDiXVqbSrCiLOhaYnvmVHxXwT
+         hchiVf7rBS7ZqhkWo9M2AvVux47NEuv+Eo62I+C19io98D+MlZ8C8aipIqxpLEEcTiPU
+         EYNeOTryJPdYsz06R2hf5VvitKchawJCWAhxx0lxFW4o1nMH8Hfk4KQZIw00WAHsRqGd
+         i3fYkz947DBxc4HU24VQTGnDnDkXWMtSm5VrnSooecXwqMM5z21cn2rC7WM+388h4gqP
+         b1BA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=xIH2uRX8VoTWmyY9T8w1tKTf1uWV1y+wbUzLia8/LPI=;
+        fh=TxNxS2rIJJEqMKNZZ00mxDGIXgGrEXSB+078z6eaZv8=;
+        b=ldyFtIMvWacK4q4S2PXJoPmTeXzXxHu5SaDkWiYOkyUx0HJqNSEYxM4BjQIGLhVk4E
+         z7TWpCJ63TrLqsGLqeFHeFnRJGMMUIxTG7ESpmIdxUP9Z2Mctt6G/m5lDRZPzUipzdqP
+         7Ug3L46rglh666POuJ6vmrl3DuG6CEp3IiXaSXKINLMHS9jofALTDeDf5xMzFFuxAhgu
+         LA2jFS8ZIOeTR5GooBafS9TAKBnxF3To1CVSjwMs9LVrd8fja6VXKNpZ0GnC6Mkh+5hg
+         dXqqedEv7sIpV3AHh+QRSTbaGcMloJ7BBL5htHPPG8wTe6MGJDoHGAWfuA5ze0AMx9Ps
+         i55Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=quora.org; s=google; t=1780414545; x=1781019345; darn=vger.kernel.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=xIH2uRX8VoTWmyY9T8w1tKTf1uWV1y+wbUzLia8/LPI=;
+        b=nTWtNnAkx2IZWX2abNaxi39nj78ERcYHOQaia/o9AT0DuOcSJkDKIYJ4VnHqmaFVu3
+         LfRcqexPGednanrxMWijK6dQdeuj7Pi5A3nx9YKv/CQclRE//vE6DIKj6d62tR4D0wuw
+         zpFx2j9j+Re94WhP7QfWxYNIH03BJfbG/Q24E=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780414545; x=1781019345;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=xIH2uRX8VoTWmyY9T8w1tKTf1uWV1y+wbUzLia8/LPI=;
+        b=BFGi4j10YaqIgwdoKiYtlYXOttBNeNoL4fg9ky/5xUoODSifUHpgySIZiEsL3G+1pp
+         a18lL/b/A71QuCu8zcVKT2W5UfEYfVI/LYHY+2rTzZwMYVw1oynqBQosR3QBBcLtm9Qw
+         CL+LE+ftefw7EXWaWm66JpB4T88lqjZ+lF6fls5TO9ExSGqHlxEXAjd6uoZ6LSqetkjg
+         u2vD10H21Q0ApyshrLs0X+HekVlJj85Yec4zG/GpI1LpTHxKckNLQioukHU8ByTLzMrP
+         7PIVZK05a6tTt4nfHdJpPLAwRbnLIp0jmNATtw4mrOn8mQc54PfTLx6FV5xvc9fRCVzy
+         jWrg==
+X-Forwarded-Encrypted: i=1; AFNElJ9yTTQ0dWOjNEAALdPiq/6ECAFDQTO7rjeaQ7hxZF6JQ4wa47afEj8auRkTaX5YI0+djL2a43Y=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxbslztJE9DES7XrNqn1ffvPiQ0HfulHZodMQ3QOpr0vK63TMi7
+	iF+7R1SbORz43ux5YXDeJkeuiELkRV2VEf7ALl1p4poyt6E7yqkBwXlchOlma0DU/nRXPXXDR0t
+	8AoHb3MqUka0D6G8oawhpHmr6DtNx+kdGMw9boF6+KQ==
+X-Gm-Gg: Acq92OFpRpTCbmzvyFnbNxJeHZntzuUyEH1ohbtNx/QMjMDO8ce0XwT97/RdDt+wvwD
+	TxCIA2t5x03b6uYPf90Yazx6OIZLHD8eEau46G8Q7M+E0rTEXivHd26585bKcfda66rk1Cp3HOs
+	aBXJRAYA2wy/VUraXMHAd6Q2HacNFy+l+fh9liC8pwZF1/I/kXDI0jZRiG8dYHgS60yc9UkRLXL
+	u67ptarmu1cOkRyRHBYATfGHB0mxBv5OhU+WneKUxQFRzmGIYA3g2iNNDnZbyV0hrAlIDHM+TDL
+	9287Ytl/JDkcqoShUgT4KKae9HDjzTUZMgiUGaQe7I0iFdYEbERhryDtQ/3nJlNNohTT0i2e8Ft
+	aeh3eakApGSbiE1L5Qlx2OJUSTFnw0uY3WtHHrvYcLG7pe0DWs5iOIorXECrA2U/tFoVakATrQ6
+	nWijkl+uswg90AIlIqtIRoHq15djFwGhoEol641RGG1SyhmTgq6UVDRxWZuBk=
+X-Received: by 2002:a05:6a00:1bc5:b0:82f:9985:d4a1 with SMTP id
+ d2e1a72fcca58-84282f4be9emr114808b3a.24.1780414544733; Tue, 02 Jun 2026
+ 08:35:44 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] arm64: dts: qcom: hamoa: Reserve low IOVA range for
- Iris
-To: Val Packett <val@packett.cool>, Daniel J Blueman <daniel@quora.org>,
- Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260601041336.9497-1-daniel@quora.org>
- <ecavEnqJTDXvfFykc9uJb5No7ioighpjrCdw2CFZ4c8Izr5DxpTs-606Bg7K0RtHTaOqksWivHxWQLzMBP6qow==@protonmail.internalid>
- <20260601041336.9497-2-daniel@quora.org>
- <ec7c564e-745a-4998-af9a-e9632fe063f7@kernel.org>
- <_39fGr5QVBbTJK-SvJ9y9KoxUbgVw5Sda8smTkFt4BjPipARemW3jLSyt6wnfB0b5i0weVC-dD7RRZ9J0_fHsw==@protonmail.internalid>
- <809635d9-6e66-4ace-8f47-4a5a268f4f18@packett.cool>
-From: Bryan O'Donoghue <bod@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=bod@kernel.org; keydata=
- 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
-In-Reply-To: <809635d9-6e66-4ace-8f47-4a5a268f4f18@packett.cool>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20260601041336.9497-1-daniel@quora.org> <ecavEnqJTDXvfFykc9uJb5No7ioighpjrCdw2CFZ4c8Izr5DxpTs-606Bg7K0RtHTaOqksWivHxWQLzMBP6qow==@protonmail.internalid>
+ <20260601041336.9497-2-daniel@quora.org> <ec7c564e-745a-4998-af9a-e9632fe063f7@kernel.org>
+In-Reply-To: <ec7c564e-745a-4998-af9a-e9632fe063f7@kernel.org>
+From: Daniel J Blueman <daniel@quora.org>
+Date: Tue, 2 Jun 2026 23:35:32 +0800
+X-Gm-Features: AVHnY4Jsj6RGlQW4Ea0C-JB6jRZRFbYG2MvxlnfYpmwEKpWeXFNaNH003Nh9F4U
+Message-ID: <CAMVG2ssnyH=KUKrdfnUOtPYU7p17inyzcYWcKhT4EAZxDzDjfg@mail.gmail.com>
+Subject: Re: [PATCH 2/2] arm64: dts: qcom: hamoa: Reserve low IOVA range for Iris
+To: Vikash Garodia <quic_vgarodia@quicinc.com>
+Cc: Vikash Garodia <vikash.garodia@oss.qualcomm.com>, 
+	Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org, 
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	"Bryan O'Donoghue" <bod@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-On 02/06/2026 16:03, Val Packett wrote:
-> 
-> On 6/2/26 7:26 AM, Bryan O'Donoghue wrote:
->> On 01/06/2026 05:13, Daniel J Blueman wrote:
->>> On X1-family hamoa platforms, Iris DMA below IOVA 0x25800000 (600MB)
->>> triggers unhandled SMMU page faults
->>
->> How do we know that is a correct address - does it come from qcom
->> documentation or trial and error ?
-> 
-> 
-> If you follow the Link:, you can see that it does come from qcom..
-> 
-> https://github.com/qualcomm-linux/kernel-topics/issues/1157#issuecomment-4458933574
+On Tue, 2 Jun 2026 at 18:27, Bryan O'Donoghue <bod@kernel.org> wrote:
+>
+> On 01/06/2026 05:13, Daniel J Blueman wrote:
+> > On X1-family hamoa platforms, Iris DMA below IOVA 0x25800000 (600MB)
+> > triggers unhandled SMMU page faults
+>
+> How do we know that is a correct address - does it come from qcom
+> documentation or trial and error ?
 
-A rhetorical and leading question - the commit log should just explain 
-what is going on..
+@Vikash, beyond your comment I linked in the patch [1] kindly cite a
+source for the different stream-ID <600MB behaviour, and share
+specifics, eg if silicon, firmware, or driver and constraint, defect
+or otherwise, so I can include a definitive description.
 
-> This series is basically a "hotfix" version of a more complicated series:
-> 
-> https://lore.kernel.org/linux-media/20250627-video_cb-v3-0-51e18c0ffbce@quicinc.com/
+Also good to know if my workaround is good for long-term, or on the
+other hand handling streams <600MB is important/useful.
 
+Thanks,
+  Dan
 
-> that introduced an extra subnode that let the driver only use that
-> restricted IOVA range for non-pixel buffers (only those actually need
-> the restriction) but that resulted in a very long discussion and was
-> kinda shelved because of that.. x_x
-This and the subsequent require a Fixes:
+[1] https://github.com/qualcomm-linux/kernel-topics/issues/1157#issuecomment-4458933574
 
-I think this change is OK wrt to bindings because we are adding not 
-subtracting - but I'd like the commit log to actually explain whats 
-happening not give me links to random places.
-
----
-bod
+--
+Daniel J Blueman
