@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C11A43B9D84;
-	Tue,  2 Jun 2026 22:24:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF9D43B9DA4;
+	Tue,  2 Jun 2026 22:24:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780439049; cv=none; b=VvCf80typqc8iJz91zcNtX9MLGQxAIRXa0tqC1VGzKapsxiq/YdzsTKEO21JtgZRo7WJ7lAWDr6O+8vTQlg2o2rN0v0eV5ktYWwSUtHn8hBNBPu3/h73qhyoQZs8juEiDCZjXQsItcACO3wArfwDv6FRIqOOLCG63zIZxZpnLyA=
+	t=1780439064; cv=none; b=OYBCunAEGnk2SgGIEnq6by8siy2JdwbvFjCabfcxI9QBEbwiMgUOAZbt+kRU0Uye1jSfKsMgdKLFEoGAdz8SiIv9DwTaynOXWRet10mJBnFN2BRscDyP193QEOG8HXR4svE/otP2630SOi2bvJWrT/LtMKWDVBIzpBXh6PFW554=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780439049; c=relaxed/simple;
-	bh=N9AkCg0Z2UI/J+Y3LjcNpADBTFeEXJxl/qv/gjYq0NM=;
-	h=Date:To:From:Subject:Message-Id; b=WnhiU/zexS5A7hdDjgTL6K8FxSGAUDH+cdkLzGt2AFcB8juy1meD8/gI8HCTXYZ6JAmq/Wcv84SaLT5AC+fAjfqzXTbmhGqFMmNaInxmw1VUCN5PUfEbeuwu6IG5KW4oQ4DM2ULRi4Gx34xtLnPXpRKpdfo/td0k02JX+HvTdnY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=paN7rtro; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780439064; c=relaxed/simple;
+	bh=wJTH0a7rJF0eILSrpxUy1aXR5voLqDYAutIK32cA/9g=;
+	h=Date:To:From:Subject:Message-Id; b=FwUW4UPJw8njxMloKGIH/+Kfjb0V7u21LBJ2GCEYV6n+xZFyz5GFXG62ALVuAU+xMvBcyjr2YggcjzEWRft0DULOljok99VhyFBkUnr02cGKT6mSla5I2FIBU9nQsUu+KJeOChekVcXmCz28l1qNe5rtvQdYyaxItkE7g5mRda4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=yov1xRdJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="paN7rtro"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95DA21F00899;
-	Tue,  2 Jun 2026 22:24:07 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="yov1xRdJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B67041F00899;
+	Tue,  2 Jun 2026 22:24:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1780439047;
-	bh=CMNgR1wdgfjQ3Y+74+RnZe2qYoCvtFP3kP4zEdcZ5/U=;
+	d=linux-foundation.org; s=korg; t=1780439062;
+	bh=l+Gf7DOD+EQQM6WYz1IoTZdAx3550bQBgVrK51/pokw=;
 	h=Date:To:From:Subject;
-	b=paN7rtro3YdxOVzRIA8LBkwiNmNS0nDc6eE2OrNOJqDTvWDjRaEY0wcE8se5kaQPX
-	 gRA80uOssCkdlBGvDjtYpKu7p5b8iaNEgwAhMUgesu/fVP1V3sMcuIxPFGyC2XLxwb
-	 FyAyJcsyHXbZbUPitciX4Ez9Tm1QN843J0oqk+NQ=
-Date: Tue, 02 Jun 2026 15:24:07 -0700
-To: mm-commits@vger.kernel.org,viro@zeniv.linux.org.uk,stable@vger.kernel.org,peterx@redhat.com,jack@suse.cz,david@kernel.org,brauner@kernel.org,rppt@kernel.org,akpm@linux-foundation.org
+	b=yov1xRdJUOPN81w2e1UwS/FejCeUp/vJCltksGLNzr8pMONItbNmJztTOxjd2MsdK
+	 7lyXlgmiErWuby7B9NDXLl10ZBwh1WCEips2uSjoUYGQ9PtrY5Gd8otbAJAntmoDlL
+	 nGNkQPtogtLUfCjOwzxrbQKdxZtUaKjNKfVouP3g=
+Date: Tue, 02 Jun 2026 15:24:22 -0700
+To: mm-commits@vger.kernel.org,stable@vger.kernel.org,shakeel.butt@linux.dev,ryncsn@gmail.com,roman.gushchin@linux.dev,muchun.song@linux.dev,mhocko@kernel.org,hughd@google.com,hannes@cmpxchg.org,david@kernel.org,baohua@kernel.org,jose.fernandez@linux.dev,akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-stable] userfaultfd-ensure-mremap_userfaultfd_fail-releases-mmap_changing.patch removed from -mm tree
-Message-Id: <20260602222407.95DA21F00899@smtp.kernel.org>
+Subject: [merged mm-stable] mm-swap_cgroup-fix-null-deref-in-lookup_swap_cgroup_id-on-swapless-host.patch removed from -mm tree
+Message-Id: <20260602222422.B67041F00899@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,117 +35,86 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 
 
 The quilt patch titled
-     Subject: userfaultfd: ensure mremap_userfaultfd_fail() releases mmap_changing
+     Subject: mm: swap_cgroup: fix NULL deref in lookup_swap_cgroup_id on swapless host
 has been removed from the -mm tree.  Its filename was
-     userfaultfd-ensure-mremap_userfaultfd_fail-releases-mmap_changing.patch
+     mm-swap_cgroup-fix-null-deref-in-lookup_swap_cgroup_id-on-swapless-host.patch
 
 This patch was dropped because it was merged into the mm-stable branch
 of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
 ------------------------------------------------------
-From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
-Subject: userfaultfd: ensure mremap_userfaultfd_fail() releases mmap_changing
-Date: Wed, 13 May 2026 11:14:16 +0300
+From: "Jose Fernandez (Anthropic)" <jose.fernandez@linux.dev>
+Subject: mm: swap_cgroup: fix NULL deref in lookup_swap_cgroup_id on swapless host
+Date: Mon, 04 May 2026 12:55:17 +0000
 
-Sashiko says:
+lookup_swap_cgroup_id() passes swap_cgroup_ctrl[type].map to
+__swap_cgroup_id_lookup() without checking that the type was ever
+registered via swap_cgroup_swapon().  On a swapless host every ctrl->map
+is NULL, so __swap_cgroup_id_lookup() dereferences NULL + a scaled
+swp_offset().
 
-  mremap_userfaultfd_prep() increments ctx->mmap_changing to stall
-  concurrent operations, but mremap_userfaultfd_fail() does not
-  decrement it before dropping the context reference.
+Since commit bea67dcc5eea ("mm: attempt to batch free swap entries for
+zap_pte_range()"), zap_pte_range() -> swap_pte_batch() calls
+lookup_swap_cgroup_id() on any non-present, non-none PTE that decodes as a
+real swap entry, without first validating it against swap_info[].  A
+single PTE corrupted into a type-0 swap entry takes the host down at
+process exit.
 
-If an mremap operation fails, ctx->mmap_changing remains elevated. This
-will causes subsequent userfaultfd operations like a UFFDIO_COPY to fail
-with -EAGAIN.
+We hit this in production on a swapless 6.12.58 host: ~1s of
+"get_swap_device: Bad swap file entry 3f800204222bb" (do_swap_page() being
+correctly defensive about the same entry) followed by
 
-Decrement ctx->mmap_changing in mremap_userfaultfd_fail().
+  BUG: unable to handle page fault for address: 000003f800204220
+  RIP: 0010:lookup_swap_cgroup_id+0x2b/0x60
+  Call Trace:
+   swap_pte_batch+0xbf/0x230
+   zap_pte_range+0x4c8/0x780
+   unmap_page_range+0x190/0x3e0
+   exit_mmap+0xd9/0x3c0
+   do_exit+0x20c/0x4b0
 
-Link: https://sashiko.dev/#/patchset/20260430113512.115938-1-rppt@kernel.org
-Link: https://lore.kernel.org/20260513081416.495963-1-rppt@kernel.org
-Fixes: df2cc96e7701 ("userfaultfd: prevent non-cooperative events vs mcopy_atomic races")
-Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
-Cc: Al Viro <viro@zeniv.linux.org.uk>
-Cc: Christian Brauner <brauner@kernel.org>
-Cc: Jan Kara <jack@suse.cz>
-Cc: Peter Xu <peterx@redhat.com>
+syzbot has reported the identical stack.
+
+The source of the PTE corruption is a separate bug; this change makes the
+teardown path as robust as the fault path already is.  Every other caller
+of lookup_swap_cgroup_id() is downstream of a get_swap_device() that has
+already validated the entry, so the new branch is cold.
+
+Link: https://lore.kernel.org/20260504-swap-cgroup-fix-7-0-v1-1-f53ff41ee553@linux.dev
+Fixes: bea67dcc5eea ("mm: attempt to batch free swap entries for zap_pte_range()")
+Signed-off-by: Jose Fernandez (Anthropic) <jose.fernandez@linux.dev>
+Reported-by: syzbot+e12bd9ca48157add237a@syzkaller.appspotmail.com
+Link: https://lore.kernel.org/r/69859728.050a0220.3b3015.0033.GAE@google.com
+Assisted-by: Claude:unspecified
+Cc: Barry Song <baohua@kernel.org>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Hugh Dickins <hughd@google.com>
+Cc: Johannes Weiner <hannes@cmpxchg.org>
+Cc: Kairui Song <ryncsn@gmail.com>
+Cc: Michal Hocko <mhocko@kernel.org>
+Cc: Muchun Song <muchun.song@linux.dev>
+Cc: Roman Gushchin <roman.gushchin@linux.dev>
+Cc: Shakeel Butt <shakeel.butt@linux.dev>
 Cc: <stable@vger.kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 ---
 
- fs/userfaultfd.c |    2 ++
+ mm/swap_cgroup.c |    2 ++
  1 file changed, 2 insertions(+)
 
---- a/fs/userfaultfd.c~userfaultfd-ensure-mremap_userfaultfd_fail-releases-mmap_changing
-+++ a/fs/userfaultfd.c
-@@ -786,6 +786,8 @@ void mremap_userfaultfd_fail(struct vm_u
- 	if (!ctx)
- 		return;
+--- a/mm/swap_cgroup.c~mm-swap_cgroup-fix-null-deref-in-lookup_swap_cgroup_id-on-swapless-host
++++ a/mm/swap_cgroup.c
+@@ -124,6 +124,8 @@ unsigned short lookup_swap_cgroup_id(swp
+ 		return 0;
  
-+	atomic_dec(&ctx->mmap_changing);
-+	VM_WARN_ON_ONCE(atomic_read(&ctx->mmap_changing) < 0);
- 	userfaultfd_ctx_put(ctx);
+ 	ctrl = &swap_cgroup_ctrl[swp_type(ent)];
++	if (unlikely(!ctrl->map))
++		return 0;
+ 	return __swap_cgroup_id_lookup(ctrl->map, swp_offset(ent));
  }
  
 _
 
-Patches currently in -mm which might be from rppt@kernel.org are
+Patches currently in -mm which might be from jose.fernandez@linux.dev are
 
-selftests-mm-hugetlb-read-hwpoison-add-sigbus-handler.patch
-selftests-mm-migration-dont-assume-huge-page-is-twomeg.patch
-selftests-mm-migration-make-nthreads-represent-number-of-working-threads.patch
-selftests-mm-migration-properly-cleanup-forked-processes.patch
-selftests-mm-run_vmtestssh-dont-gate-thp-and-ksm-tests-on-have_hugepages.patch
-selftests-mm-merge-map_hugetlb-into-hugepage-mmap.patch
-selftests-mm-rename-hugepage-tests-to-hugetlb.patch
-selftests-mm-hugetlb-shm-use-kselftest-framework.patch
-selftests-mm-hugetlb-vmemmap-use-kselftest-framework.patch
-selftests-mm-hugetlb-madvise-use-kselftest-framework.patch
-selftests-mm-hugetlb_madv_vs_map-use-kselftest-framework.patch
-selftests-mm-hugetlb-read-hwpoison-use-kselftest-framework.patch
-selftests-mm-khugepaged-group-tests-in-an-array.patch
-selftests-mm-khugepaged-use-ksefltest-framework.patch
-selftests-mm-khugepaged-use-ksefltest-framework-fix.patch
-selftests-mm-ksm_tests-use-kselftest-framework.patch
-selftests-mm-protection_keys-use-descriptive-test-names-in-the-output.patch
-selftests-mm-protection_keys-use-kselftest-framework.patch
-selftests-mm-uffd-common-use-kselftest-framework.patch
-selftests-mm-uffd-stress-use-kselftest-framework.patch
-selftests-mm-uffd-unit-tests-use-kselftest-framework.patch
-selftests-mm-va_high_addr_switch-use-kselftest-framework.patch
-selftests-mm-add-atexit-and-signal-handlers-to-thp_settings.patch
-selftests-mm-rename-thp_settings-to-hugepage_settings.patch
-selftests-mm-move-hugetlb-helpers-to-hugepage_settings.patch
-selftests-mm-hugepage_settings-use-unsigned-long-in-detect_hugetlb_page_size.patch
-selftests-mm-hugepage_settings-add-apis-to-get-and-set-nr_hugepages.patch
-selftests-mm-hugepage_settings-rename-and-rework-get_free_hugepages.patch
-selftests-mm-hugepage_settings-add-apis-for-hugetlb-setup-and-teardown.patch
-selftests-mm-move-read_file-read_num-and-write_num-to-vm_util.patch
-selftests-mm-vm_util-add-helpers-to-set-and-restore-shm-limits.patch
-selftests-mm-compaction_test-use-hugetlb-helpers.patch
-selftests-mm-cow-add-setup-of-hugetlb-pages.patch
-selftests-mm-gup_longterm-add-setup-of-hugetlb-pages.patch
-selftests-mm-gup_test-add-setup-of-hugetlb-pages.patch
-selftests-mm-hmm-tests-add-setup-of-hugetlb-pages.patch
-selftests-mm-hugepage_dio-add-setup-of-hugetlb-pages.patch
-selftests-mm-hugetlb_fault_after_madv-add-setup-of-hugetlb-pages.patch
-selftests-mm-hugetlb-madvise-add-setup-of-hugetlb-pages.patch
-selftests-mm-hugetlb_madv_vs_map-add-setup-of-hugetlb-pages.patch
-selftests-mm-hugetlb-mmap-add-setup-of-hugetlb-pages.patch
-selftests-mm-hugetlb-mremap-add-setup-of-hugetlb-pages.patch
-selftests-mm-hugetlb-shm-add-setup-of-hugetlb-pages.patch
-selftests-mm-hugetlb-soft-offline-add-setup-of-hugetlb-pages.patch
-selftests-mm-hugetlb-vmemmap-add-setup-of-hugetlb-pages.patch
-selftests-mm-migration-add-setup-of-hugetlb-pages.patch
-selftests-mm-pagemap_ioctl-add-setup-of-hugetlb-pages.patch
-selftests-mm-protection_keys-use-library-code-for-hugetlb-setup.patch
-selftests-mm-thuge-gen-add-setup-of-hugetlb-pages.patch
-selftests-mm-uffd-stress-use-hugetlb_save-and-alloc-huge-pages.patch
-selftests-mm-uffd-unit-tests-add-setup-of-hugetlb-pages.patch
-selftests-mm-uffd-wp-mremap-add-setup-of-hugetlb-pages.patch
-selftests-mm-va_high_addr_switch-add-setup-of-hugetlb-pages.patch
-selftests-mm-va_high_addr_switchsh-drop-huge-pages-setup.patch
-selftests-mm-run_vmtestssh-free-memory-if-available-memory-is-low.patch
-selftests-mm-run_vmtestssh-drop-detection-and-setup-of-hugetlb.patch
-xor-use-kmalloc-in-calibrate_xor_blocks.patch
-raid6-use-kmalloc-in-raid6_select_algo.patch
 
