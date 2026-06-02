@@ -1,130 +1,171 @@
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1755347BC6
-	for <stable@vger.kernel.org>; Tue,  2 Jun 2026 07:11:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19FF136683B
+	for <stable@vger.kernel.org>; Tue,  2 Jun 2026 07:26:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780384264; cv=none; b=ZHe6RZT1Ls+V30ph1/X3Ld5UinJuEhMN0kC+EpIWoHM2neEQC0RcxZnWA7ZgEou7X7StfAAPR9GAlVmZx85y/CimVNi6KCCEaDrjYRFOU2kVI8aasIFvFV7O+sMEOw+VitWUbB84ltOzNduD5g78BNAAWIGOrFCBc5hVe8pkIlU=
+	t=1780385204; cv=none; b=HVoL6EI2pKgq6aoij6cgIFmIg6RvEyNyYT25RRrprDIKYzbbTIweN/SZsGRjGEjETV7PH/iuufCdnnz13PwmNgrEY3rLDCZNovQ0PWn/QCNMj52bEEshHkBRxDMd9ohAQ+aUsgQxLIJdQWOjtOzWQjf4BJ4A7cg/E/2Q5huyysM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780384264; c=relaxed/simple;
-	bh=U1zk6Y2TXpDJxdcrfKxY4jbseCRnsIusZvdsn/lnFsc=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Yq6QiH47ywcRTif+AfOL6Or5rvcF1/2IqIuEKn39HWGrT38UqA9VKmoRrXmC2ObDlVCc7njtYcCGMwWbP09aQJX4shech4hqTeadKVKYRBA7PHHycCWvZxf4MSituAFiY75B5nE5HKcKBFNZoWRurdLi1xcXpt1xeh3oEEfEbRs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=L3TjL2rH; arc=none smtp.client-ip=213.97.179.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	s=arc-20240116; t=1780385204; c=relaxed/simple;
+	bh=lww/k4S/rDCe2g/lPxK8iJlS1INRNKuBuTnReTHVA3Q=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=U0bxCgwaQ9tRRmLWy839HFBPqhpxqKn2Tz9OII2Y/BgYL+lZXwLnAw747YKnfTFfUz1GT2Z5L4/REljJ+Bu2QY+8MEL9P0H+rY0Kwt8bpnOMPAPFN2v47o0nMFUQMeLrpRhxTIb3vsNYxBkkWyEd0ml75Dzz/RVjXm0dr92CxGE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=eDUSMZcU; arc=none smtp.client-ip=209.85.218.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="L3TjL2rH"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:
-	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
-	List-Post:List-Owner:List-Archive;
-	bh=0/xmktmPrrIYCJHOQlDHmeOVRloHcWNYMzI+S6Krurg=; b=L3TjL2rHuiSycbWTZmJJJcVe8Y
-	1UpHm6fxn4ELXfn3N9loojiTfvGpRtvFl6Vil/9XtvjfbjSb6yTT3zkdtUqJzncouIe85culIX/nQ
-	10fqYp9qa5dkxWrsdU1qD7JZ1OMAb77wDwBa53ti70B14VkgGnmIPp0fV/VrSk8q6gkEslMXTxhmK
-	wO8QTUrfa8Pw57Gd1VVCSCrDtTT0aaf2zVFak//cH+zCfS5YxTow7LE+B7lrkpZnqZfS49xwRDvPj
-	c4pqU0j2UgSQHK6kR/iXKs0FGeDsyx7OGCRso8YZ+92YTWnvlNhBazOiXS7xMCHVBC3Xpk8A/LLze
-	dGl9WHDw==;
-Received: from static-234-112-85-188.ipcom.comunitel.net ([188.85.112.234] helo=[192.168.0.17])
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
-	id 1wUJGz-00BZZf-Vo; Tue, 02 Jun 2026 09:10:50 +0200
-Message-ID: <68bb463c77c3d65f23f53b4a2c64fd4547e45aa3.camel@igalia.com>
-Subject: Re: [PATCH v2 2/2] drm/v3d: Skip CSD when it has zeroed workgroups
-From: Iago Toral <itoral@igalia.com>
-To: =?ISO-8859-1?Q?Ma=EDra?= Canal <mcanal@igalia.com>, Melissa Wen
-	 <mwen@igalia.com>, Jose Maria Casanova Crespo <jmcasanova@igalia.com>
-Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
-	stable@vger.kernel.org
-Date: Tue, 02 Jun 2026 09:10:39 +0200
-In-Reply-To: <20260601-v3d-fix-indirect-csd-v2-2-aaebf035b936@igalia.com>
-References: <20260601-v3d-fix-indirect-csd-v2-0-aaebf035b936@igalia.com>
-	 <20260601-v3d-fix-indirect-csd-v2-2-aaebf035b936@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3-0ubuntu1.1 
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="eDUSMZcU"
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-bef47b1ac01so65254966b.2
+        for <stable@vger.kernel.org>; Tue, 02 Jun 2026 00:26:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1780385200; x=1780990000; darn=vger.kernel.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=rIJcYzfKNWvO4LbSTb+KowDs+YJ5wjm9TkOAb/K4D3M=;
+        b=eDUSMZcUwEkg4Tu322leRNNzq+ZeAUcdhtiUHJZWR01W6lqH0MfVsEErmm4ab2Ey3l
+         X/7sBCLiZPpRF5C/XXWSptHUK2QkpVcGlk66EcbioHaCffYu9WzTPNQqWVA6vCGdsawY
+         VcRAeQV6U1TljX5CUOtiydA5ugexLm8pqoyas=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780385200; x=1780990000;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=rIJcYzfKNWvO4LbSTb+KowDs+YJ5wjm9TkOAb/K4D3M=;
+        b=iLZ6F69LFqmD/utOoOrvl8x2YrHZS6J63IKkkDlpVwJGIbYiULBt0f8xqnotVKes86
+         Kr6z0NiZnzJD/XjxW6y5id+cIhDcdVVoIOvu3QxSbb5C5KhUU7F7wC00b1gBHN0OxcHA
+         Qp9rnp5roickWNl1e4wlto/au5J5fgHFDfKoflPArEhabKqbYcm95H95vXiuLupeQvhj
+         hgz8iv97e08G6RwHlQ0VK5Sf9CdwvP4Db8MElhCcVuGLaJPcw9+FOXaeQyw00WUlRXRu
+         tMh0TGbFGFmoY3rGTZ1STshZ+84WYhHxx2b7vTdqYh+0N4qSbuw7MwnYVDiLq4Bp/gHI
+         IuUQ==
+X-Forwarded-Encrypted: i=1; AFNElJ99k26enEvjeMcNEftLRsFPTztsUJfbKR8lUE7palNuld50vZC7wdoIuGus8ZBxHl7+JS5CQK8=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz2BbrheuBZlWTLhuFUWVNAf3jw6ITUZHu5tANPKb4wdOZ9jaqv
+	BMNgvNohrIfBbwU8SH7jWf/fVgOfhSCRn1M2cRjPPIIn8UQZF+D7ZC4j7e59p+HhbhK0AJ8SLE/
+	aY9ynpQ==
+X-Gm-Gg: Acq92OEdD05k7v1N0ypg5SNAa7LZLD6cTC4HmnPjzJJwHpzmKIBHkEqQVJev28ImO03
+	uMC3T08vcWbd+G4NXRQqVr1+n6xF5Z8xqMYm6WmXWMMqeIDx0agK+3c5Fc/miNRT3h9AjJ/pFMM
+	VfIkPMzVBnQHwLiCjodOhSnlQzvIaZbOE0ec0m3SRdlEDx3MpMJvG2lpEVGCetAwgmo+59GhF66
+	yQ8cYkBQFO1/SV+HJYboFVm051YAsUDwa3gNqnLFXVf6i/XEAue/uFgjwJgrnrvvnDHkwp318wg
+	65TqeDi3pS4tMoCQ0zQ/FcfZpwns9sFLrb2rBFeHAA0DTIaWOp19yc29KAhoks4+6MNOJ3XoE3B
+	/aQW/AwNvDQ4E/h6gTt2qUuH+0jDDI3yrfrvGm2PfAva5sELq/5Jm/kmkf0mHs/8x/EhebEob7v
+	aKG0tasIaVAUjjHWMGeyzwZW3pEtLB+aU4iqjO0ywAxq8BchJX2myCgvs1qrNSqYMvD4NuVcc=
+X-Received: by 2002:a17:907:2678:b0:bef:90af:6ff1 with SMTP id a640c23a62f3a-bef90af9ac9mr41947466b.31.1780385200432;
+        Tue, 02 Jun 2026 00:26:40 -0700 (PDT)
+Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com. [209.85.208.44])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-68ceb7ba814sm3050791a12.13.2026.06.02.00.26.38
+        for <stable@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 02 Jun 2026 00:26:39 -0700 (PDT)
+Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6877c719cb0so18077941a12.2
+        for <stable@vger.kernel.org>; Tue, 02 Jun 2026 00:26:38 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ+vi3QzeTPNaoiiqrlMakMe/yNl8RWdO0qCv49HDZNdGIT1bFabwOrWxvhXk1o3hnDb6jfR/9Q=@vger.kernel.org
+X-Received: by 2002:a17:907:e143:b0:beb:7b50:3a7e with SMTP id
+ a640c23a62f3a-beb7b50621cmr392521666b.45.1780385197985; Tue, 02 Jun 2026
+ 00:26:37 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <20260530160224.570625122@linuxfoundation.org> <20260530160231.873363839@linuxfoundation.org>
+ <8cd2c0613f018690cba5ae76c4ab73da05118312.camel@decadent.org.uk>
+In-Reply-To: <8cd2c0613f018690cba5ae76c4ab73da05118312.camel@decadent.org.uk>
+From: Ricardo Ribalda <ribalda@chromium.org>
+Date: Tue, 2 Jun 2026 09:26:25 +0200
+X-Gmail-Original-Message-ID: <CANiDSCs7PXPQw=rHrM58766YdagnDyDNh92DEhcfis8TYrW1+A@mail.gmail.com>
+X-Gm-Features: AVHnY4JSIWy-WoxOBFubbS8uyyq247CjKAuWnxAQPGSXvXaXvW97nNTsZ779qxM
+Message-ID: <CANiDSCs7PXPQw=rHrM58766YdagnDyDNh92DEhcfis8TYrW1+A@mail.gmail.com>
+Subject: Re: [PATCH 5.10 263/589] media: uvcvideo: Enable VB2_DMABUF for
+ metadata stream
+To: Ben Hutchings <ben@decadent.org.uk>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org, 
+	patches@lists.linux.dev, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Hans de Goede <johannes.goede@oss.qualcomm.com>, Hans Verkuil <hverkuil+cisco@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-El lun, 01-06-2026 a las 16:13 -0300, Ma=C3=ADra Canal escribi=C3=B3:
-> A compute shader dispatch encodes its workgroup counts in the
-> CFG0..CFG2
-> registers. Kicking off a dispatch with a zero count in any of the
-> three
-> dimensions is invalid. First, the hardware will process 0 as 65536,
-> causing an illegitimate submission. But over that, a submission with
-> a
-> zeroed workgroup dimension should be a no-op.
->=20
-> These zeroed counts can reach the dispatch path through an indirect
-> CSD
-> job, whose workgroup counts are only known once the indirect buffer
-> is
-> read and may legitimately be zero, but such scenario should only
-> result in
-> a no-op.
->=20
-> Don't submit the job to the hardware when any of the workgroup counts
-> is
-> zero, so the job completes immediately instead of running the shader.
->=20
-> Cc: stable@vger.kernel.org
-> Fixes: d223f98f0209 ("drm/v3d: Add support for compute shader
-> dispatch.")
-> Suggested-by: Jose Maria Casanova Crespo <jmcasanova@igalia.com>
-> Signed-off-by: Ma=C3=ADra Canal <mcanal@igalia.com>
-> ---
-> =C2=A0drivers/gpu/drm/v3d/v3d_sched.c | 9 +++++++++
-> =C2=A01 file changed, 9 insertions(+)
->=20
-> diff --git a/drivers/gpu/drm/v3d/v3d_sched.c
-> b/drivers/gpu/drm/v3d/v3d_sched.c
-> index 47f83936cd73..681d10af4c8e 100644
-> --- a/drivers/gpu/drm/v3d/v3d_sched.c
-> +++ b/drivers/gpu/drm/v3d/v3d_sched.c
-> @@ -352,6 +352,15 @@ v3d_csd_job_run(struct drm_sched_job *sched_job)
-> =C2=A0		return NULL;
-> =C2=A0	}
-> =C2=A0
-> +	/* For dispatch dimensions, HW interprets 0 as 65536,
-> causing
-> +	 * illegitimate submissions that must be rejected. Note that
-> +	 * 65535 (2^16 - 1) is the maximum number of workgroups per
-> dimension.
-> +	 */
+Hi Ben
 
-I am not sure this description is accurate. I think passing in 0
-doesn't cause illegitimate submissions. I think the issue is that if we
-allow 0 to be interpreted as 65536 then can't tell if an indirect job=20
-actually configured 0 as the dimension. So I'd rephrase this as:
+On Mon, 1 Jun 2026 at 19:37, Ben Hutchings <ben@decadent.org.uk> wrote:
+>
+> On Sat, 2026-05-30 at 18:02 +0200, Greg Kroah-Hartman wrote:
+> > 5.10-stable review patch.  If anyone has any objections, please let me know.
+> >
+> > ------------------
+> >
+> > From: Ricardo Ribalda <ribalda@chromium.org>
+> >
+> > commit fbac03467e53d8d72e5099c03df26d9adae11416 upstream.
+> >
+> > The UVC driver has two video streams, one for the frames and another one
+> > for the metadata. Both streams share most of the codebase, but only the
+> > data stream declares support for DMABUF transfer mode.
+> >
+> > I have tried the DMABUF transfer mode with CONFIG_DMABUF_HEAPS_SYSTEM
+> > and the frames looked correct.
+> >
+> > This patch announces the support for DMABUF for the metadata stream.
+> > This is useful for apps/HALs that only want to support DMABUF.
+>
+> So this is a feature addition.
+>
+> And the uvcvideo driver has changed a lot since 5.10 (or even 6.1), so
+> unless someone specifically tested that these older versions will also
+> work with dmabuf I question whether this is worth the risk.
 
-/* The hw interprets a workgroup size of 0 as 65536, however,
- * the user-space driver exposes a maximum of 65535. So a 0 on any
- * dimension means that=C2=A0we have no workgroups and the compute shader
- * should not be dispatched.
- */
+Just one note: The different transfer modes are implemented by vb2,
+not by the driver, so changes in the driver should not affect this
+specific change.
 
-With that change, both patches are:
+I have no specific use case for this change in 5.10. So I am fine if
+it is not backported that far. But it should be very low risk (famous
+last words)
 
-Reviewed-by: Iago Toral Quiroga <itoral@igalia.com>
+>
+> Ben.
+>
+> > Cc: stable@vger.kernel.org
+> > Fixes: 088ead2552458 ("media: uvcvideo: Add a metadata device node")
+> > Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+> > Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> > Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
+> > Link: https://patch.msgid.link/20260309-uvc-metadata-dmabuf-v1-1-fc8b87bd29c5@chromium.org
+> > Signed-off-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> > Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+> > Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> > ---
+> >  drivers/media/usb/uvc/uvc_queue.c |    3 +--
+> >  1 file changed, 1 insertion(+), 2 deletions(-)
+> >
+> > --- a/drivers/media/usb/uvc/uvc_queue.c
+> > +++ b/drivers/media/usb/uvc/uvc_queue.c
+> > @@ -222,7 +222,7 @@ int uvc_queue_init(struct uvc_video_queu
+> >       int ret;
+> >
+> >       queue->queue.type = type;
+> > -     queue->queue.io_modes = VB2_MMAP | VB2_USERPTR;
+> > +     queue->queue.io_modes = VB2_MMAP | VB2_USERPTR | VB2_DMABUF;
+> >       queue->queue.drv_priv = queue;
+> >       queue->queue.buf_struct_size = sizeof(struct uvc_buffer);
+> >       queue->queue.mem_ops = &vb2_vmalloc_memops;
+> > @@ -235,7 +235,6 @@ int uvc_queue_init(struct uvc_video_queu
+> >               queue->queue.ops = &uvc_meta_queue_qops;
+> >               break;
+> >       default:
+> > -             queue->queue.io_modes |= VB2_DMABUF;
+> >               queue->queue.ops = &uvc_queue_qops;
+> >               break;
+> >       }
+> >
+> >
+>
+> --
+> Ben Hutchings
+> The obvious mathematical breakthrough [to break modern encryption]
+> would be development of an easy way to factor large prime numbers.
+>                                                            - Bill Gates
 
-> +	if (!V3D_GET_FIELD(job->args.cfg[0],
-> V3D_CSD_QUEUED_CFG0_NUM_WGS_X) ||
-> +	=C2=A0=C2=A0=C2=A0 !V3D_GET_FIELD(job->args.cfg[1],
-> V3D_CSD_QUEUED_CFG1_NUM_WGS_Y) ||
-> +	=C2=A0=C2=A0=C2=A0 !V3D_GET_FIELD(job->args.cfg[2],
-> V3D_CSD_QUEUED_CFG2_NUM_WGS_Z))
-> +		return NULL;
-> +
-> =C2=A0	v3d->queue[V3D_CSD].active_job =3D &job->base;
-> =C2=A0
-> =C2=A0	v3d_invalidate_caches(v3d);
->=20
 
+
+-- 
+Ricardo Ribalda
