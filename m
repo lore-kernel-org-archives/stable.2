@@ -1,77 +1,122 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA3CA317155;
-	Tue,  2 Jun 2026 14:56:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6E5D3E8324;
+	Tue,  2 Jun 2026 14:57:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780412186; cv=none; b=TnprcXFRVRW4o7lrbppN7Te6fBzrIrTTblfLP87zbirruaG3REcPyMAHtvwYzUISvaSSz51gNPbe/C7Qx2yygjLYLBNziyHb8SbCo5z56bxpJvDl53a852VbVz4IC18o0G4Ahy7imO+ggxei7iTrAu+7eVnMEqNygna4INpBZrc=
+	t=1780412281; cv=none; b=X0OX9Hg4LHrRHiQLYqJ1USk0tAHkeAc6IRNcBWLQbopTOgdzd8MHb2CoBgbO8M6DPBoBLttSqyghChiDYA7CG6UBM+95TJ9CVa6y4DRofqEH96z8mMBzAuu0h9qCRXy6Qntxv0SDRmIwxvPKQSIsx4zLIm1wAPNksDXgEd+RSoc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780412186; c=relaxed/simple;
-	bh=YIJ7rX18HompEVY/4NNVgbjIACeu2JguLfv2oFETzRw=;
+	s=arc-20240116; t=1780412281; c=relaxed/simple;
+	bh=vNq45d1mDRlq9GGhmU4BKWAv1tSbLrh6BxZtzTADikg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=NGiEihQKKeF0/3jthXqW2qF9Uj6tyPF3GZtOPV8SIDkUCGE0JH0pddm8LfFnm9iD2GU607P3Eo1RbE42Jd6jXMVcSfllhdyOslzovfHNFEmncofxtSM7Rgsy1O5wtJUpFnrDWH+3pUs2huJZ3QLg5k7BWxRNK8ZpaSBwg9vGLPw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GcJKL2Cv; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=q6j/RJkDnjP6qjn4G7yZSIgRCghrnkks/zMOYTmfS5B/QccxNCy7BgYOHbwKUu9+W2/T842dLtQc1U2ZBzN5ddfOFOqymjViZDsf6quypvH43pMJ9kVS7mNHCkkXM/sZwMUcC+pfRHgROE8SlZDjh9k30SpZ71WMqrsnY3GRKy0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=JPNHhWha; arc=none smtp.client-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GcJKL2Cv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 571D61F00893;
-	Tue,  2 Jun 2026 14:56:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780412185;
-	bh=0e2WjIs6vl0bBZ5EFT0fhM25ePLzt3kOIfXa7ZB9L/0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=GcJKL2CvaHnwZW6E7iGjBIFcbBHLFvPp9WHiVlMihkSzVt6lTfMwhubopJb69WO8y
-	 aS9UKuMoKGvl4hkPXh5hVhPeXaxkEh/P/7jahkX925GzB71OLePVeukYnU3bobi/cy
-	 StjmYBKRu1bEKq6LJ745EKvE0Kq8wMrvp7JsOkvSDCvTX50qW8IGpVKuM/ZRleq3e+
-	 Gpncx5Dt/sHaog6DCc+zanVtzY33MiUWMv69GkxKFcqpWYxpqa/aNX8GL3FPUfOfFa
-	 QhlFJ6cfaMuao0Zicw5vmxvAtdLa61RHcOnEu4Cqk6tzVnOV8JyDM2gJQw+4hACeBa
-	 +VzOXWGoyH30w==
-From: Christian Brauner <brauner@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>,
-	Al Viro <viro@zeniv.linux.org.uk>
-Cc: Christian Brauner <brauner@kernel.org>,
-	Jan Kara <jack@suse.cz>,
-	linux-fsdevel@vger.kernel.org,
-	Jens Axboe <axboe@kernel.dk>,
-	linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	lvc-project@linuxtesting.org,
-	stable@vger.kernel.org,
-	Denis Arefev <arefev@swemel.ru>
-Subject: Re: [PATCH] make new mount API honour SB_NOUSER (was Re: [PATCH] block: Avoid mounting the bdev pseudo-filesystem in userspace)
-Date: Tue,  2 Jun 2026 16:55:43 +0200
-Message-ID: <20260602-qualifizieren-besagen-raspel-96ecdd95091e@brauner>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260602020444.GP2636677@ZenIV>
-References: <20260602020444.GP2636677@ZenIV>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="JPNHhWha"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1780412280; x=1811948280;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=vNq45d1mDRlq9GGhmU4BKWAv1tSbLrh6BxZtzTADikg=;
+  b=JPNHhWhaQovZs+JPK0O1TBAVQGAgbcus8uC7CIRTPpl1vz1OpNi611QQ
+   BnHN+DmNXZ7xs5ZiImSnKiBJg9rd1RLvqAC719pTfdDm0eWprmlmRztDa
+   YyqGWm05h1bwb9h1cOUK4enDNJv7j+eZcV2F2w0NHUXhtWeF3tp6hbHPi
+   1fqLwNQd+ICwf2vD0BCEt9ZIDtgYsRdL4GZLXYbOox/UY+5EP6KvV10yM
+   KrgNY1knsmFKJnnIFQvtVXwBKN6LTA7bVbZcvUGCwB45FUpvUfm1v2J8D
+   L9k1csPDkLgCyar0xWv/ssjSuOmaAArtiLkiGOfayp/3i1VrODv5x9x+B
+   A==;
+X-CSE-ConnectionGUID: nx5bixW1QD6huXVpKwItzA==
+X-CSE-MsgGUID: vq7HzWL1QbSB0X8cjtVMAA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11805"; a="103859996"
+X-IronPort-AV: E=Sophos;i="6.24,183,1774335600"; 
+   d="scan'208";a="103859996"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Jun 2026 07:57:55 -0700
+X-CSE-ConnectionGUID: JYOz9VHrSrqdfu0w+Gv+YQ==
+X-CSE-MsgGUID: zqwUxP+STFuStepAZAu9ow==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,183,1774335600"; 
+   d="scan'208";a="243095628"
+Received: from 9cc2c43eec6b.jf.intel.com ([10.54.77.29])
+  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Jun 2026 07:57:54 -0700
+From: Zide Chen <zide.chen@intel.com>
+To: Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Andi Kleen <ak@linux.intel.com>,
+	Eranian Stephane <eranian@google.com>
+Cc: linux-kernel@vger.kernel.org,
+	linux-perf-users@vger.kernel.org,
+	Dapeng Mi <dapeng1.mi@linux.intel.com>,
+	Zide Chen <zide.chen@intel.com>,
+	stable@vger.kernel.org
+Subject: [PATCH V3 4/7] perf/x86/intel/uncore: Defer ADL global PMON enable to enable_box()
+Date: Tue,  2 Jun 2026 07:49:05 -0700
+Message-ID: <20260602144908.263680-5-zide.chen@intel.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260602144908.263680-1-zide.chen@intel.com>
+References: <20260602144908.263680-1-zide.chen@intel.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Developer-Signature: v=1; a=openpgp-sha256; l=891; i=brauner@kernel.org; h=from:subject:message-id; bh=YIJ7rX18HompEVY/4NNVgbjIACeu2JguLfv2oFETzRw=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWTJvRcpWOl/4NJv3VmVSx93vGr3PpK+83pRd2yRkCyPT +4VZz/ejlIWBjEuBlkxRRaHdpNwueU8FZuNMjVg5rAygQxh4OIUgImccGFk6GDlS5smNDukyEhL esIk72L/pftkbO5OW/ZFftOidq/4PIZ/VkGajL21x85YpE7if992sXTiz8Pf1j9tnhXn+DTr2Jd pjAA=
-X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 Content-Transfer-Encoding: 8bit
 
-On Tue, 02 Jun 2026 03:04:44 +0100, Al Viro wrote:
-> one should *not* be allowed to mount one of those, new API or not.
+On some Raptor Cove CPUs, enabling uncore PMON globally at driver init
+may increase power consumption even when no perf events are in use.
 
-Applied to the vfs-7.2.misc branch of the vfs/vfs.git tree.
-Patches in the vfs-7.2.misc branch should appear in linux-next soon.
+Drop adl_uncore_msr_init_box() and defer programming the global control
+register to enable_box(), so it is only set when a box is actually used.
 
-Please report any outstanding bugs that were missed during review in a
-new review to the original patch series allowing us to drop it.
+IMC and IMC freerunning counters use a separate control path and are
+unaffected.
 
-It's encouraged to provide Acked-bys and Reviewed-bys even though the
-patch has now been applied. If possible patch trailers will be updated.
+Cc: stable@vger.kernel.org
+Fixes: 772ed05f3c5c ("perf/x86/intel/uncore: Add Alder Lake support")
+Reviewed-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
+Signed-off-by: Zide Chen <zide.chen@intel.com>
+---
+V3:
+- Add Fixes tag. (Dapeng)
+---
+ arch/x86/events/intel/uncore_snb.c | 7 -------
+ 1 file changed, 7 deletions(-)
 
-Note that commit hashes shown below are subject to change due to rebase,
-trailer updates or similar. If in doubt, please check the listed branch.
+diff --git a/arch/x86/events/intel/uncore_snb.c b/arch/x86/events/intel/uncore_snb.c
+index 3dbc6bacbd9d..edddd4f9ab5f 100644
+--- a/arch/x86/events/intel/uncore_snb.c
++++ b/arch/x86/events/intel/uncore_snb.c
+@@ -563,12 +563,6 @@ void tgl_uncore_cpu_init(void)
+ 	skl_uncore_msr_ops.init_box = rkl_uncore_msr_init_box;
+ }
+ 
+-static void adl_uncore_msr_init_box(struct intel_uncore_box *box)
+-{
+-	if (box->pmu->pmu_idx == 0)
+-		wrmsrq(ADL_UNC_PERF_GLOBAL_CTL, SNB_UNC_GLOBAL_CTL_EN);
+-}
+-
+ static void adl_uncore_msr_enable_box(struct intel_uncore_box *box)
+ {
+ 	wrmsrq(ADL_UNC_PERF_GLOBAL_CTL, SNB_UNC_GLOBAL_CTL_EN);
+@@ -587,7 +581,6 @@ static void adl_uncore_msr_exit_box(struct intel_uncore_box *box)
+ }
+ 
+ static struct intel_uncore_ops adl_uncore_msr_ops = {
+-	.init_box	= adl_uncore_msr_init_box,
+ 	.enable_box	= adl_uncore_msr_enable_box,
+ 	.disable_box	= adl_uncore_msr_disable_box,
+ 	.exit_box	= adl_uncore_msr_exit_box,
+-- 
+2.54.0
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
-branch: vfs-7.2.misc
-
-[1/1] mount: honour SB_NOUSER in the new mount API 
-      https://git.kernel.org/vfs/vfs/c/67d8c452fae1
