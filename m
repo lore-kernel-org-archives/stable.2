@@ -1,318 +1,232 @@
-Received: from mail-qk1-f171.google.com (mail-qk1-f171.google.com [209.85.222.171])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3398C2DC334
-	for <stable@vger.kernel.org>; Tue,  2 Jun 2026 03:32:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79FB9356768
+	for <stable@vger.kernel.org>; Tue,  2 Jun 2026 04:05:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780371170; cv=none; b=QnLUy6cEiR2V9DMZncMccG3zbICTBxqecRSS84zq6Alyr6+lpVNe+nGAMeiEmvdzohQz+lTDvn5qMWq+xgUPxLsVmx0yx593ejaF5JJ4cX/G6vZQ36F7NuyRjgCIGJKN1ximjjwMecY7tW6G/YpwyVAJgdczmwVbWjObtJM1pcQ=
+	t=1780373118; cv=none; b=V9zyTbuF2cuxZVhaES3D6ftonkfyAPp1NeZnyzSOLTfMgsnQBjRvuJ5o/V9iXzpoI8cz9zGcweMenql16It/FT6pc1FvrR57OiODmrbBodT/MfqKppk85sKyuC7qbnxQwDjqQHHpF5AhQnMZjvkoTGyBjqj1GqYYldBk7VbjgeM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780371170; c=relaxed/simple;
-	bh=xskOilzoIPU7L+dsZZo6KP+0yz2VLVqDiy6VfJmLJBA=;
-	h=Message-ID:Date:From:To:Cc:Subject:Content-Type:MIME-Version; b=p27UoLhetZxq4YETSfTR9kV8z+8Dj5sZHck0Jyahv/FVngS3fbfAKOhYU1JyzTgJYnsM/TMycoYdfIQL9qEYFRQMAb8FSQ7PHCS9kCb6x9lOAeT4njeJg1k7Cdvz1RU9oSgpKq62V9U+H5s8XvhV9uI0uWSzSgILkJltcQdUdgM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TT9HRtGn; arc=none smtp.client-ip=209.85.222.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1780373118; c=relaxed/simple;
+	bh=S1jpinAVQUrO41zNsuv5T3sh9Sks4ksg0J2htDzh/iA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rhjlcsOirvNiEX4aT1or+2O4x8UyBCY8c2Y5+mzpzii/1mTMSCzLALZtbFodN5xlBD++T7QhZa3X+SsyshbqIti3p0oa1XKqFxfM31QB2zDQBoHyfmXIvcBzTJzRTpJOmCWhd7PrUo1rNWOeaW4kZinbn8gGhOxNSW/eVgCVRqw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b=IvFawDyT; dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b=IvFawDyT; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TT9HRtGn"
-Received: by mail-qk1-f171.google.com with SMTP id af79cd13be357-915767ea2d0so70726885a.1
-        for <stable@vger.kernel.org>; Mon, 01 Jun 2026 20:32:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780371166; x=1780975966; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:subject:cc:to:from:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=j0CKbJj8QrYuhAIDLjRrGgebNjuXjxYKwkDAf/9N+ss=;
-        b=TT9HRtGno8jZIReHFnBd7RYY2jyBo0ta49rW4qYmRrjmqUVwkLE0732VusQ8mdii0A
-         cObTKYn23PCgJ5EYnS8ijKr9wNBV0EiLjH0+Ur6aIRUSQfIREB2nH8BiPNiq1bvLMVjy
-         9JaVx+G/yPoSPFN8TFfhA6i+sDfzyCbq5pf0F4LRXXpMgCeTTwU9Jqa0SyH3gvOehDyR
-         5WDhl2sqNQHRep6Ud8Z+0U5dhbCZgRzVIX6iifFJ2pTOwkT+Nf6GjeXI7RF0La0jKT4A
-         y8kND4IJEwTQhCpVYWeLfNS8sDH3Y4iCnk1fyFOXhM1+kVKUwvppsBW/pjKQOMO43Zgy
-         AUlg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780371166; x=1780975966;
-        h=mime-version:content-transfer-encoding:subject:cc:to:from:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=j0CKbJj8QrYuhAIDLjRrGgebNjuXjxYKwkDAf/9N+ss=;
-        b=V/rDbBAzlnr/4orQuzErAj3FnHiyix4ijGgADIEIiguoH3oQzzvAZHpFJoqgfHBgF4
-         l47eY0vWKWl+423bCWvjmDy41ir2f6qlhE7RWBPn4ulHj75J5w3T/QhAyR9aASLEkdTL
-         MpAGR3op1qux+drIk3U9g0p757Wvd1kqJpmJxifvDbkYDYlJqb29OHaDHgdo0EajAtLx
-         7iMyqXgmzCpa/e0MxyalJ5Fc4dAnjt9kCoB6gTkU5b1Y4a46m4jGB/g4XmxPudnC1blu
-         98/lyjSjwPk2SuyQjCelUCFwMvx+UMc4+K4wwU8jbw1v9UZsxqsUd9tWXgEUDFaaVtaC
-         sLfg==
-X-Forwarded-Encrypted: i=1; AFNElJ8kt3asz/DCbeUx+EDxsom5L+n/tyoJkAEMpRmXxX6xG75UUYiZkPu7AKaAHRBcQZ28qF8zAmE=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz8tp4rec4abnInkoAGoPPXRCDGmY/C5DjHhSvHOynKh6k9nAFR
-	hmQ92mpCC4tX2aopv86BX/nGyIfu9U05Vm/yMmWDU2hr/WXkgIWfNh/q
-X-Gm-Gg: Acq92OFYHAN1alreS5Pq/6YIB4kA0OK61cmzG1Gfk8RZvYH9LfIU7ET8A+jZTvBSIWD
-	WGmWe3T1OWTM9BAfbDC00zIhHeVcwaCjpwU0uRiL0IZyETN0gUmTV++ajqUOSRzM9kqaQ9D8VEa
-	zprjsyvTVQqPffR4c7exMHcjxIRviGchGZQ20Fm6lotTUx5s3oz0RNrOf36yA1A1sqoi1U6v2jZ
-	qc6htUKuS0URrKrteAlYrBvAo5iB6FX1W03xQRbDgwZgWZW1Jzhr5I0HyXIzH7w+4v47zz1HZzL
-	Mxt4QIDQc9OzNnY56OeRgGpV5KWkDt/s7zSy677bGka5jUjbLfOL78zaVIOSDpFVm2MwW9A/et4
-	ALcqjH4urp344xD8Nm9TW63d6pCQ4yw5VX81Xzv2pnlF/2rCX6BtBSt/U5ExAibWk7+GF8ApKqD
-	Lp8/R/S7gDm8ta/TB/LHJeshj2ZzMYKW4fFITLsGPMX9OfIi/D8Lhs4uhW+E84wR7U2XiuONUxv
-	CsIk+L2hs5UqAugxhwXW/74zlHsZPGMzITM0wQVCMnZkkeMHzE=
-X-Received: by 2002:a05:6214:3482:b0:8cd:7c6a:8147 with SMTP id 6a1803df08f44-8cd7c6a8436mr158018216d6.10.1780371165867;
-        Mon, 01 Jun 2026 20:32:45 -0700 (PDT)
-Received: from srv1619992.hstgr.cloud (srv1619992.hstgr.cloud. [2a02:4780:75:55a3::1])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8ccea042373sm110086696d6.9.2026.06.01.20.32.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 01 Jun 2026 20:32:45 -0700 (PDT)
-Message-ID: <6a1e4edd.541e6ed7.68248.dfe4@mx.google.com>
-Date: Mon, 01 Jun 2026 20:32:45 -0700 (PDT)
-From: Jeremy Erazo <mendozayt13@gmail.com>
-To: security@kernel.org
-Cc: Christoph Hellwig <hch@infradead.org>, Sagi Grimberg <sagi@grimberg.me>,
- Chaitanya Kulkarni <kch@nvidia.com>, Hannes Reinecke <hare@suse.de>,
- Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>,
- linux-nvme@lists.infradead.org, stable@vger.kernel.org
-Subject: nvmet: pre-auth heap OOB read in DH-HMAC-CHAP authentication
- (data->hl unchecked in nvmet_auth_reply)
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b="IvFawDyT";
+	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b="IvFawDyT"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id A48AF688BA;
+	Tue,  2 Jun 2026 04:05:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1780373109; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=x+q3lxIRNr8hC/oZIP22Gmc96sl5oqq+J5lMxHp2hP0=;
+	b=IvFawDyTdGb1OjLWBrEoxNlD09oCa6FGWpihXsgrRqIKD7aDlNtgpzgWbo1DxzC4NHEigM
+	GpPiG6za7KAsdv0cQDkLuDh1eFvatf5KDE0rraXGEQEsAjnV0YBSs3UliUqaiEyvkjuw7t
+	x/zlwqT9eNZB5fHgXd7cEMPRD0k5Z8E=
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.com header.s=susede1 header.b=IvFawDyT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1780373109; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=x+q3lxIRNr8hC/oZIP22Gmc96sl5oqq+J5lMxHp2hP0=;
+	b=IvFawDyTdGb1OjLWBrEoxNlD09oCa6FGWpihXsgrRqIKD7aDlNtgpzgWbo1DxzC4NHEigM
+	GpPiG6za7KAsdv0cQDkLuDh1eFvatf5KDE0rraXGEQEsAjnV0YBSs3UliUqaiEyvkjuw7t
+	x/zlwqT9eNZB5fHgXd7cEMPRD0k5Z8E=
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6C348779A7;
+	Tue,  2 Jun 2026 04:05:08 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id e50GDHRWHmpPEwAAD6G6ig
+	(envelope-from <wqu@suse.com>); Tue, 02 Jun 2026 04:05:08 +0000
+From: Qu Wenruo <wqu@suse.com>
+To: linux-btrfs@vger.kernel.org
+Cc: Su Yue <glass.su@suse.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] btrfs: do not trim a device which is not writeable
+Date: Tue,  2 Jun 2026 13:34:46 +0930
+Message-ID: <0d25653c3bc93726e259dbb9d01559c4cfdf47ac.1780373081.git.wqu@suse.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Spam-Flag: NO
+X-Rspamd-Action: no action
+X-Spam-Level: 
+X-Spamd-Result: default: False [-3.01 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_CONTAINS_FROM(1.00)[];
+	R_MISSING_CHARSET(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	MIME_TRACE(0.00)[0:+];
+	FUZZY_RATELIMITED(0.00)[rspamd.com];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	FROM_HAS_DN(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.com:email,suse.com:dkim,suse.com:mid];
+	RCVD_TLS_ALL(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
+	DKIM_SIGNED(0.00)[suse.com:s=susede1];
+	RCPT_COUNT_THREE(0.00)[3];
+	DKIM_TRACE(0.00)[suse.com:+]
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: A48AF688BA
+X-Spam-Score: -3.01
 
-Hi,
+[BUG]
+There is a bug report that btrfs/242 can randomly fail with the
+following NULL pointer dereference:
 
-I'm reporting an out-of-bounds read in `nvmet_auth_reply()`
-(`drivers/nvme/target/fabrics-cmd-auth.c`), reachable from an
-unauthenticated remote attacker against any nvmet host that has
-DH-HMAC-CHAP authentication enabled on a configured subsystem.
+ run fstests btrfs/242 at 2026-06-01 10:25:08
+ BTRFS: device fsid d4d7f234-487c-4787-88e4-47a8b68c9874 devid 1 transid 9 /dev/sdc (8:32) scanned by mount (122609)
+ BTRFS info (device sdc): first mount of filesystem d4d7f234-487c-4787-88e4-47a8b68c9874
+ BTRFS info (device sdc): using crc32c checksum algorithm
+ BTRFS warning (device sdc): devid 2 uuid fbe72d72-3272-482d-80fb-ab88ed398192 is missing
+ BTRFS warning (device sdc): devid 2 uuid fbe72d72-3272-482d-80fb-ab88ed398192 is missing
+ BTRFS info (device sdc): allowing degraded mounts
+ BTRFS info (device sdc): turning on async discard
+ BTRFS info (device sdc): enabling free space tree
+ Unable to handle kernel NULL pointer dereference at virtual address 0000000000000018
+ user pgtable: 4k pages, 48-bit VAs, pgdp=000000013fd6b000
+ CPU: 4 UID: 0 PID: 122625 Comm: fstrim Not tainted 7.0.10-2-default #1 PREEMPT(full) openSUSE Tumbleweed e9a5f6b24978fba3bf015a992f865837fdfff3dd
+ Hardware name: QEMU KVM Virtual Machine, BIOS edk2-20250812-19.fc42 08/12/2025
+ pstate: 01400005 (nzcv daif +PAN -UAO -TCO +DIT -SSBS BTYPE=--)
+ pc : btrfs_trim_fs+0x34c/0xa00 [btrfs]
+ lr : btrfs_trim_fs+0x1f0/0xa00 [btrfs]
+ Call trace:
+  btrfs_trim_fs+0x34c/0xa00 [btrfs f02c1d570ceea621c69d302ba75dd61868083840] (P)
+  btrfs_ioctl_fitrim+0xe8/0x178 [btrfs f02c1d570ceea621c69d302ba75dd61868083840]
+  btrfs_ioctl+0xdd4/0x2bd8 [btrfs f02c1d570ceea621c69d302ba75dd61868083840]
+  __arm64_sys_ioctl+0xac/0x108
+  invoke_syscall.constprop.0+0x5c/0xd0
+  el0_svc_common.constprop.0+0x40/0xf0
+  do_el0_svc+0x24/0x40
+  el0_svc+0x40/0x1d0
+  el0t_64_sync_handler+0xa0/0xe8
+  el0t_64_sync+0x1b0/0x1b8
+ Code: 17ffff83 f94017e0 f9002be0 f9402ea0 (f9400c00)
+ ---[ end trace 0000000000000000  ]---
 
-The bug is present in **mainline torvalds/master** at audit time
-(2026-06-02, verified via raw.githubusercontent.com fetch). It is
-also present in stable LTS 6.6.x and other branches that ship the
-NVMe-oF DH-HMAC-CHAP target (the function was added with the
-DH-HMAC-CHAP target feature in 6.0).
+Also the reporter is very kind to test the following ASSERT() added to
+btrfs_trim_free_extents_throttle():
 
-CVSS 3.1 base: AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N =3D **7.5 (High)**.
+	ASSERT(device->bdev,
+	       "devid=%llu path=%s dev_state=0x%lx\n",
+	       device->devid, btrfs_dev_name(device), device->dev_state);
 
-This is filed shortly after my earlier report of an arbitrary
-kernel-memory read in `nvmet_execute_disc_get_log_page` (sent today
-to this list). Both are in `drivers/nvme/target/` and both are
-attacker-controlled-length-meets-pointer-arithmetic class =E2=80=94 but they
-are independent bugs with independent fixes.
+And it shows the following output:
 
-=3D=3D Affected code (cited from torvalds/master, 2026-06-02) =3D=3D
+ assertion failed: device->bdev, in extent-tree.c:6630 (devid=2 path=/dev/sdd dev_state=0x82)
 
-`drivers/nvme/target/fabrics-cmd-auth.c::nvmet_execute_auth_send()`
-(the AUTH_Send PDU dispatcher) does:
+Which means the device->bdev is NULL, and the dev_state is
+BTRFS_DEV_STATE_IN_FS_METADATA | BTRFS_DEV_STATE_ITEM_FOUND, without
+BTRFS_DEV_STATE_WRITEABLE flag set.
 
-  tl =3D le32_to_cpu(req->cmd->auth_send.tl);  /* attacker u32 */
-  if (!tl) { ... goto done; }
-  if (!nvmet_check_transfer_len(req, tl)) return;
-  d =3D kmalloc(tl, GFP_KERNEL);
-  if (!d) { ... }
-  status =3D nvmet_copy_from_sgl(req, 0, d, tl);
-  /* ... dispatch by data->auth_id ... */
-  if (data->auth_id =3D=3D NVME_AUTH_DHCHAP_MESSAGE_REPLY)
-      dhchap_status =3D nvmet_auth_reply(req, d);
+[CAUSE]
+The pc points to the following call chain:
 
-The ONLY validation of `tl` is "non-zero" and that the SGL transfer
-length matches the command's declared length. There is no check that
-`tl` is large enough to contain the struct header *plus* the
-payload that the message body advertises.
+ btrfs_trim_fs()
+ |- btrfs_trim_free_extents()
+    |- btrfs_trim_free_extents_throttle()
+       |- bdev_max_discard_sectors(device->bdev)
 
-`nvmet_auth_reply()` then does:
+So the NULL pointer dereference is caused by device->bdev being NULL.
 
-  struct nvmf_auth_dhchap_reply_data *data =3D d;
-  u16 dhvlen =3D le16_to_cpu(data->dhvlen);
-  u8 *response;
+This looks impossible by a quick glance, as just before calling
+btrfs_trim_free_extents_throttle(), we have skipped any device that has
+BTRFS_DEV_STATE_MISSING flag set.
 
-  if (dhvlen) {
-      if (!ctrl->dh_tfm) ...
-      if (nvmet_auth_ctrl_sesskey(req, data->rval + 2 * data->hl,  /* OOB#3 */
-                                  dhvlen) < 0) ...
-  }
+However in this particular case, there is a window where the missing
+device is later re-scanned, causing btrfs to remove the
+BTRFS_DEV_STATE_MISSING flag:
 
-  response =3D kmalloc(data->hl, GFP_KERNEL);
-  ...
-  if (nvmet_auth_host_hash(req, response, data->hl) < 0) ...
-  if (memcmp(data->rval, response, data->hl))            /* OOB#1 */
-      ...
-  if (data->cvalid) {
-      req->sq->dhchap_c2 =3D kmemdup(data->rval + data->hl, data->hl, /* OOB#=
-2 */
-                                   GFP_KERNEL);
-      ...
-  }
+ btrfs_control_ioctl()
+ |- btrfs_scan_one_device()
+    |- device_list_add()
+       |- rcu_assign_pointer(device->name, name);
+       |  This updates the missing device's path to the new good path.
+       |
+       |- clear_bit(BTRFS_DEV_STATE_MISSING, &device->dev_state)
+          This removes the BTRFS_DEV_STATE_MISSING flag.
 
-Three call sites use `data->hl` (an attacker-controlled u8, range
-0-255 from the wire) and `data->dhvlen` (an attacker-controlled
-__le16, range 0-65535) as offsets into / lengths reading from
-`data->rval` without any prior check that the PDU transfer length
-contained the corresponding bytes.
+This allows the missing device to re-appear and clear the
+BTRFS_DEV_STATE_MISSING flag.
+However the device still does not have the BTRFS_DEV_STATE_WRITEABLE
+flag set, nor is its bdev pointer updated.
 
-Supporting struct (`include/linux/nvme.h:1712`):
+The bdev pointer remains NULL, triggering the crash later.
 
-  struct nvmf_auth_dhchap_reply_data {
-      __u8    auth_type;
-      __u8    auth_id;
-      __le16  rsvd1;
-      __le16  t_id;
-      __u8    hl;          /* attacker u8 */
-      __u8    rsvd2;
-      __u8    cvalid;
-      __u8    rsvd3;
-      __le16  dhvlen;      /* attacker __le16 */
-      __le32  seqnum;
-      /* 'hl' bytes of response data */
-      __u8    rval[];
-      /* followed by 'hl' bytes of Challenge value */
-      /* followed by 'dhvlen' bytes of DH value */
-  };
+[FIX]
+This is a big de-synchronization between BTRFS_DEV_STATE_MISSING and
+device->bdev pointer, and shows a gap in btrfs's re-appearing-device
+handling.
 
-`sizeof(struct nvmf_auth_dhchap_reply_data)` =3D 16 bytes (header only).
+The proper handling of re-appearing device will need quite some extra
+work, which is out of the context of this small fix.
 
-=3D=3D Attack flow =3D=3D
+Thankfully the regular bbio submission path has already handled it well
+by checking if the device->bdev is NULL before submitting.
 
-1. Attacker opens TCP/4420 to a nvmet host that has DH-HMAC-CHAP
-   configured on at least one subsystem.
-2. Sends NVMe-TCP ICReq, receives ICResp (transport handshake).
-3. Sends NVMe-Fabrics Connect with `subsysnqn =3D <target subsys with
-   CHAP>`, any `hostnqn`. (Connect succeeds; the controller now
-   expects the host to drive the CHAP exchange.)
-4. Sends AUTH_Send with `auth_id =3D MESSAGE_NEGOTIATE`, advertising
-   any supported hash (e.g., SHA-256).
-5. AUTH_Receive =E2=80=94 controller sends CHALLENGE.
-6. Sends a malicious AUTH_Send with:
-     auth_type  =3D NVME_AUTH_DHCHAP_MESSAGES (1)
-     auth_id    =3D NVME_AUTH_DHCHAP_MESSAGE_REPLY (2)
-     tl         =3D 16 (sizeof(struct nvmf_auth_dhchap_reply_data) only;
-                       no rval[] payload)
-     data->hl   =3D 0xff
-     data->cvalid =3D 1
-     data->dhvlen =3D 0
-7. Kernel:
-     - kmalloc(16) returns a kmalloc-16 slab object (SLUB rounds up).
-     - copy_from_sgl writes the 16-byte attacker header into it.
-     - data =3D d; data->rval =3D d + 16 =3D past the allocation.
-     - memcmp(data->rval, response, 255) reads 255 bytes starting at
-       offset 16 of the kmalloc-16 slab object =E2=80=94 directly into the
-       adjacent slab object.
-     - If data->cvalid is set, kmemdup(data->rval + 255, 255) reads
-       an additional 510 bytes past the allocation and copies 255 of
-       them into a new kernel allocation (which the attacker can
-       later exfil via further wire messages if the CHAP exchange
-       continues, e.g., via AUTH_Receive's payload).
+So here we just fix the crash by checking if the device is writeable and
+has a bdev pointer before calling bdev_max_discard_sectors().
 
-=3D=3D KASAN catch signature (expected) =3D=3D
+Reported-by: Su Yue <glass.su@suse.com>
+Link: https://lore.kernel.org/linux-btrfs/wlwir19t.fsf@damenly.org/
+Cc: stable@vger.kernel.org # 5.10+
+Signed-off-by: Qu Wenruo <wqu@suse.com>
+---
+ fs/btrfs/extent-tree.c | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
 
-Under KASAN this produces a slab-out-of-bounds READ report tied to
-`memcmp` / `kmemdup` called from `nvmet_auth_reply`:
+diff --git a/fs/btrfs/extent-tree.c b/fs/btrfs/extent-tree.c
+index 6030cdbdb742..f3c3eb508f86 100644
+--- a/fs/btrfs/extent-tree.c
++++ b/fs/btrfs/extent-tree.c
+@@ -6624,12 +6624,17 @@ static int btrfs_trim_free_extents_throttle(struct btrfs_device *device,
+ 
+ 	*trimmed = 0;
+ 
+-	/* Discard not supported = nothing to do. */
+-	if (!bdev_max_discard_sectors(device->bdev))
++	/*
++	 * The caller only filters out MISSING devices, but a device that was
++	 * missing at mount and later rescanned has MISSING cleared while
++	 * bdev is still NULL and WRITEABLE is still unset. Skip those here.
++	 */
++	if (!test_bit(BTRFS_DEV_STATE_WRITEABLE, &device->dev_state) ||
++	    !device->bdev)
+ 		return 0;
+ 
+-	/* Not writable = nothing to do. */
+-	if (!test_bit(BTRFS_DEV_STATE_WRITEABLE, &device->dev_state))
++	/* Discard not supported = nothing to do. */
++	if (!bdev_max_discard_sectors(device->bdev))
+ 		return 0;
+ 
+ 	/* No free space = nothing to do. */
+-- 
+2.54.0
 
-  BUG: KASAN: slab-out-of-bounds in memcmp+0x... (or __asan_memcmp)
-  Read of size 255 at addr ffff... by task kworker/...
-  Call Trace:
-   memcmp
-   nvmet_auth_reply
-   nvmet_execute_auth_send
-   nvmet_tcp_io_work
-   ...
-
-I've prepared an in-kernel proof module
-(`nvmet-auth-oob-proof.c`) that replicates the primitive against a
-deliberately-undersized buffer to make the KASAN signature explicit;
-it's a one-shot module that builds against any current 6.x kernel
-tree. Available on request =E2=80=94 withheld from this initial mail to keep
-disclosure surface minimal.
-
-A userspace network reproducer (Python NVMe-TCP client driving the
-CHAP state machine through the malicious AUTH_Send) is in progress
-and will follow.
-
-=3D=3D Fix proposal =3D=3D
-
-Validate the PDU transfer length covers the struct header *plus* the
-hl- and dhvlen-derived payload before any pointer arithmetic on
-data->rval. The minimal fix sits at the entry to nvmet_auth_reply:
-
-  --- a/drivers/nvme/target/fabrics-cmd-auth.c
-  +++ b/drivers/nvme/target/fabrics-cmd-auth.c
-  @@ -112,6 +112,7 @@ static u8 nvmet_auth_reply(struct nvmet_req *req, void =
-*d)
-   {
-           struct nvmet_ctrl *ctrl =3D req->sq->ctrl;
-           struct nvmf_auth_dhchap_reply_data *data =3D d;
-  +        u32 tl =3D le32_to_cpu(req->cmd->auth_send.tl);
-           u16 dhvlen =3D le16_to_cpu(data->dhvlen);
-           u8 *response;
-
-  @@ -119,6 +120,16 @@ static u8 nvmet_auth_reply(struct nvmet_req *req, void=
- *d)
-                    __func__, ctrl->cntlid, req->sq->qid,
-                    data->hl, data->cvalid, dhvlen);
-
-  +        /* Confirm the transferred length actually contains the
-  +         * rval payload the message body advertises. The host
-  +         * response is hl bytes; with cvalid set, hl more bytes
-  +         * of challenge follow; with dhvlen set, dhvlen more
-  +         * bytes of DH value follow.
-  +         */
-  +        if (tl < sizeof(*data) + data->hl +
-  +                 (data->cvalid ? data->hl : 0) + dhvlen)
-  +                return NVME_AUTH_DHCHAP_FAILURE_INCORRECT_PAYLOAD;
-  +
-           if (dhvlen) {
-                   if (!ctrl->dh_tfm)
-                           return NVME_AUTH_DHCHAP_FAILURE_INCORRECT_PAYLOAD;
-
-The same shape applies to `nvmet_auth_negotiate` and any other
-auth-state handler that reads variable-length fields from the
-attacker buffer. A defence-in-depth alternative is to do this length
-validation once inside `nvmet_execute_auth_send` before dispatching,
-since the handler-specific math (hl, dhvlen, etc.) varies per
-message type.
-
-=3D=3D Affected branches =3D=3D
-
-Confirmed vulnerable: mainline torvalds/master at 2026-06-02
-(verified via raw.githubusercontent.com fetch).
-
-Probable also vulnerable: linux-stable 6.6.x, 6.1.x (where the
-DH-HMAC-CHAP target was backported), and distros tracking those
-(Debian/Ubuntu/RHEL/SUSE).
-
-NOT vulnerable: any kernel without `CONFIG_NVME_TARGET_AUTH=3Dy` (the
-auth subsystem isn't compiled in).
-
-=3D=3D Threat model =3D=3D
-
-This is reachable pre-final-authentication: the attacker has
-completed Fabrics Connect (which establishes the controller binding)
-but has not yet completed the CHAP handshake. CHAP is exactly what
-this code is supposed to enforce; the bug is in the CHAP enforcement
-itself. The kernel cannot rely on CHAP being effective when the CHAP
-handler can be tricked into reading past its input buffer before any
-secret is verified.
-
-Network reachability is "any host that can open TCP/4420 to the
-nvmet target". In production NVMe-oF deployments this is the same
-exposure surface that DH-HMAC-CHAP exists to protect =E2=80=94 i.e., the
-mitigation is the bug.
-
-=3D=3D Researcher / Credit =3D=3D
-
-Jeremy Erazo (trexnegr0)
-mendozayt13@gmail.com
-Signed-off-by: Jeremy Erazo <mendozayt13@gmail.com>
-
-=3D=3D Disclosure preferences =3D=3D
-
-I'm happy with any reasonable embargo length (14-30 days). I have
-not shared this finding with any third party. Please coordinate CVE
-assignment with the kernel.org CNA.
-
-This is the second nvmet finding I'm reporting today; both are
-independent bugs but they neighbour each other in the same subsystem
-and one combined backport batch on the stable side might be the
-cleanest disposition. Happy to coordinate that with whichever route
-your team prefers.
-
-Thanks for your time.
-
-=E2=80=94 Jeremy
