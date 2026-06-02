@@ -1,51 +1,50 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D79EF390C8C
-	for <stable@vger.kernel.org>; Tue,  2 Jun 2026 18:21:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AF2C39184C;
+	Tue,  2 Jun 2026 18:21:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780424502; cv=none; b=HFueSIW1U1s6eyZGq8tI3jaRpgEVVn6e+d7bJC2VQqTrNrEiivKcQxhZg4f4GbU3+uk9AXxo2g5XfFsmR29ziXxxxJEFT+OXmLRoQJfSwyrPaOnp2L4uaEmJ+kE3b37oEYlXOLGNP+ak35Hz7bECKGcTi4YPZcowNUXQWxGeVZU=
+	t=1780424504; cv=none; b=aTnoQu6t+zxRhsPMfiump0Z/IrR7rL1Qa3RvfatUL0GNVunA2mCQVhJ8fdZTlxDx1VskG3pvuiMvhEKnU4uilGdPa74bw8y64ohJzQ00ia81zVi+9znmFjPneeQooE+Y1TIIm2QJZhhcvk7Rweyob644hPZ0Rr8LF4MYco4hm6g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780424502; c=relaxed/simple;
-	bh=bLNk4YQ7V0aWh/ltmKyQ1PTzjeephg1z5nvy8HsGpmE=;
+	s=arc-20240116; t=1780424504; c=relaxed/simple;
+	bh=8ytOHlLqGjw8D/71xahC8oDz2wv2y5Lsxg55xpfbd6w=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KYu5K7aCzdpHFzy/mDwTw+g5cU4NWZxADkhEgpGT5+CkZRNHxpgnlgu6HiwukMiM/4R42qN6zSFZnWo261QPXV00EDT34Im8bbXf/6QImE4aF+c+cfYypMCbdgkt43bwmerjqh4AgIM8n6wsusQ+OxRSSEYR2ia6hs+aEJbhTRA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QvkizhFI; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=sn1aVK2RyfrXRJ2RC1HGHF1tPYEKMP9ZndSOv0rtWEIZpELupztSOphc40dODR1yUE7dduGqzM39sP6NvjsyP/MFu4y0AKA5OCLigYuCb9sY4pzNEoi/Mwgbu4jPqgUAaqoeVccXxwIxb8Mlf+Sj4BQB4el8L4HhYDzzwCBlXBI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MivB+XLK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QvkizhFI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1495E1F00898;
-	Tue,  2 Jun 2026 18:21:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MivB+XLK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B30DD1F00899;
+	Tue,  2 Jun 2026 18:21:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780424500;
-	bh=6s7r+T0XeSz8PrDRUBCZyebkpWeWHzvIPR+oIDL9M6c=;
+	s=k20260515; t=1780424502;
+	bh=b+ThjlcJjpLxxMSne/TmFnpLJdJaPgKpkVosByRLWi0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QvkizhFI/c4HbC/P//4+C3AfdSyFJUaYFlYl4t8Yrmd+u0aTdb7F+IEFwsE0rZPMU
-	 xqr5KJ9py+3WdkYvPDf0/cvRGxIiCJMW9wlLdIw/gPqpY/46mFbLwgwI5hgOlbSEr4
-	 vRRsdN/UxiWuBzTSGeB7rsDq8Sm/bRYTWo4szfRNCwXc3hjgK5VPgdCmpkLwPIYjLH
-	 jhtCKnqZn64XG37fn8A8RPsOTrE2jTFxU/TARRXaizC9xChHsfU1r4891vsncFSCNx
-	 a75p1jwLQL4YxHHUHXwOx242kgwvBHPNTh09cXGRRJcw5+3u0jAiNxhI9hlwJrvusx
-	 a/fXxcNaRBaXg==
+	b=MivB+XLK5N4S55oTvZt5EaXMm2e2lVGBQFrevRgbEvHxpRHKSFNSZ1EdrD1tCxfnR
+	 Ih0YZ0VmdFC3gn6eJ2OdrAkJB5G/j54Ecw0QmhROAiAd2KQeVwSc/zwmAI0x+hX9Ta
+	 y5f+KocjaygiPBuwXRT58S+u1EsWR0P7QlCJ6Tm5CvgVHlL+dFOM7CVCalVVrNCSrB
+	 hYitwVNDbKAtQMvrEHZBB3jDd2j+IE5800akRhjjoVQoz2paI+HeEB2poZCLYeIDLb
+	 N0/IWiA7JzbOloauZSoc12CGcK3Iyl0K/BuVSFKsuWrW95CPakjdqVQx+ofcOyvsHI
+	 eInCIM7xwCkiw==
 From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
+To: Nick <nick@kousu.ca>,
+	John Veness <john-linux@pelago.org.uk>,
+	"Rafael J. Wysocki" <rafael@kernel.org>
 Cc: Sasha Levin <sashal@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Shung-Hsi Yu <shung-hsi.yu@suse.com>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Martin KaFai Lau <martin.lau@kernel.org>,
-	Stanislav Fomichev <sdf@google.com>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Paul Chaignon <paul.chaignon@gmail.com>
-Subject: Re: [PATCH 6.1.y 00/11] Fix BPF selftests
-Date: Tue,  2 Jun 2026 14:21:19 -0400
-Message-ID: <20260602180500.bpf-selftests-reply@kernel.org>
+	linux-acpi@vger.kernel.org,
+	johannes.goede@oss.qualcomm.com,
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+	regressions@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	platform-driver-x86@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [REGRESSION] Toshiba Fn keys + lidswitch
+Date: Tue,  2 Jun 2026 14:21:20 -0400
+Message-ID: <20260602180900.acpi-toshiba-reply@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <cover.1780392092.git.paul.chaignon@gmail.com>
-References: <cover.1780392092.git.paul.chaignon@gmail.com>
+In-Reply-To: <CAJZ5v0hR2b81+0FWAn3s_HJNWwweRSVk35KczPBKNabb-H91kg@mail.gmail.com>
+References: <E2OXET.4X5GTP37VTNC3@kousu.ca> <CAJZ5v0jVQyWYqPo_MiUwNQb7FLNR_Q_++Xq=xA1owcHpcjN=OA@mail.gmail.com> <bc9d5258-d4df-46a1-bba9-de3486f722ab@pelago.org.uk> <8503d297-68ca-4bfe-bbdf-537a85890d86@oss.qualcomm.com> <75398536-2ca8-4205-9205-18afc5227397@pelago.org.uk> <eddc6acd74abcea6131f3cfc606bc596@kousu.ca> <CAJZ5v0hR2b81+0FWAn3s_HJNWwweRSVk35KczPBKNabb-H91kg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -54,13 +53,18 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Tue, Jun 02, 2026 at 11:28:43AM +0200, Paul Chaignon wrote:
-> [PATCH 6.1.y 00/11] Fix BPF selftests
+On Mon, Jun 01, 2026 at 02:12:50PM +0200, Rafael J. Wysocki wrote:
+> The patch is there in 7.1-rc6, so it should propagate to -stable kernels
+> over time.
 
-Thanks for the series. Patch 1/11 doesn't apply to current 6.1.y: its Makefile
-hunk context references json_writer.c in TRUNNER_EXTRA_SOURCES, but 6.1.y only
-has cap_helpers.c there.
+I've queued the fix for 7.0.y now rather than waiting:
 
--- 
+  a004b8f0d3bc5d ("ACPI: button: Enable wakeup GPEs for ACPI buttons at probe time")
+
+along with its prerequisite:
+
+  fe80251152fed5 ("ACPI: button: Fix ACPI GPE handler leak during removal")
+
+--
 Thanks,
 Sasha
