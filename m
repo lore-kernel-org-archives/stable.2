@@ -1,206 +1,100 @@
-Received: from mail-ot1-f45.google.com (mail-ot1-f45.google.com [209.85.210.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C52743C3792
-	for <stable@vger.kernel.org>; Tue,  2 Jun 2026 08:30:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.45
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780389005; cv=pass; b=PSOYXKElRe4qLCYydP3KayemU26B0pj2C0jOOIYKN1dfZ7hQBkPMKz/clKkQNYoce/ZmICkjsfMa50z7mhfV7Rw/61oNgxPX/JM28mWrZwoiqpbxplFZGUUEVBKrG+1K5WpjkSWCH1iL+bXC0NBVTTefxwLTFtLYT8TYCz7J+fw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780389005; c=relaxed/simple;
-	bh=6SQlnHR5t0pbOUkzAXG5VRT9/Vc0Pf5j6VE73rnaPpc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=h0xFr0nDdefcLSQZOcwgT5eiEXZV7FXjTrcwTyzeIhEYkd8Z15wIoaq1x237OVk871hNCKECjiEnSgGaS+Y6LFwuTe9F8PwifpkWemhYREyibsblvSiOZCbGblXJVL1arA5okkrMNZmK5w1s1/uSS26hjFy3+IfBOZp6VaniL7E=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dxO/07g5; arc=pass smtp.client-ip=209.85.210.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dxO/07g5"
-Received: by mail-ot1-f45.google.com with SMTP id 46e09a7af769-7e6b5c374e5so2073573a34.0
-        for <stable@vger.kernel.org>; Tue, 02 Jun 2026 01:30:01 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1780389000; cv=none;
-        d=google.com; s=arc-20240605;
-        b=SD728UCZx3oUnLPMD2CTdmKw985o0PqS2Dkd/YwQ5v4y3RwBubSpDuiUNUUnImTvsj
-         KwHSXk+IG/tFfzO+5cwSwxmaLvZpnqfXyK4CedUG5/80Rdmik6OW6j8OaspHg4BYrFca
-         XpgjIaaDvhwtbQWxASZSaZkjq31IleQd0/hKLmu3pgF4bNmWmmN2F6xRwS9LGzS/xufM
-         jfnlx4fL9Nt4pFF3qQYxUDF47Vfw/WGxFxFqRXiroFLOG5sYBySro7Ss5YO/KuiT6Msn
-         2RFsQGFukk92kC5NlR6AwVkQATCMIibUb3Ts2Bnjp/xXdXm5qNCJ5zwI6L8sMRm6H5hc
-         Jvcg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=6SQlnHR5t0pbOUkzAXG5VRT9/Vc0Pf5j6VE73rnaPpc=;
-        fh=l4uDTqf4BfZKuIJY5HckiHd2uGU1m7jcRfOvfY1LZDU=;
-        b=CmlavtP65d73GHzxdOyfQNsQFrX5W31kxpnho2pcHEV4DuWHX1LePBEAo6hoTaTnRs
-         PeCFTH7Fn+CcSQrF/ZCqWfXd4+PQA0N+SrLBKkCA/D9duwiYHrcUEa0ntV7GwsqEsbHQ
-         YGGaAh68YOkH5ECbmT4QSOWDfe0LVKYUwmIkWgBOMRBLwNqe4H//5C9kOffHCqTTREgN
-         7DPUX8qah/CECVQ4QisSboKtPTJj2eIEH1YV3MSzuLbnycXic/kPd8UNAZUlzPTlX6w1
-         GIRiwtsyEZym04qzE57J0GZG3cunU9K3UYT7sdp4vKYOSXOKGKeR8nblQ8zR8jmfr8Bo
-         7otQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780389000; x=1780993800; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=6SQlnHR5t0pbOUkzAXG5VRT9/Vc0Pf5j6VE73rnaPpc=;
-        b=dxO/07g5TxblayyN+aRUcSPz7xFjn5hcFFXPtIZTYwX49JzIUm08qA7v80KvbsBsVk
-         hEcvnir1d9TuWjJ9R24b7WdO8UkxC/8QESpGJRipfbx5Hg2cYH9iAiXqUcikjeLTYV17
-         34uPP5v+eYZkfEzb/1vegBlIUI5cBCqkHN8iGg1LFk5OgpTrFVOwk1wCSe3I/nHHqToC
-         7VzVyyrlQaLXWo/Zz1+pRkTyxt2mQBCb4fCIF1E0sZsxxtWvNlWcFrMIxaZOYJkn3gSN
-         6kPFXf98l/Q5F8/WFGq3Dr1UbBPsl1Z+eK/C/ZJbpGNah7kzk6fgYTqd4cEG8ZidPYnp
-         bc5g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780389000; x=1780993800;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=6SQlnHR5t0pbOUkzAXG5VRT9/Vc0Pf5j6VE73rnaPpc=;
-        b=DXA2UTka8gBA7g4fn4ItWrBmLtXILbL2fwoadyKG7Bpxq1eFPQznVT8cD6snzBYawv
-         0OZ+gEFdssVSnsCx4TBwAT/6Qn5h2zsDb+dPIrMRcdzm58541ns2eLRIQBEMom5AsPeQ
-         UI3lkpaHZZoqDkQ+Au8kppf0LRPk7ejZMnoXzVVshbYbOXFIio3pxj8F8UrTbN+ODxFE
-         eIO2lrw00jc2xpmYlBbzXjBH/KSdJM5YEvfOUSrQt2pmFyMkHzzRCcnyF4uafiyaUM2H
-         YMOs8MR21bPz8Q3XDXgnSCPlgWVZmdmPRG0eGBKLHcV5ugSshxKEIpW2PkcEwm2U3Svc
-         FdKw==
-X-Forwarded-Encrypted: i=1; AFNElJ/E8haTVyfGeD/6bL9tfOaC8tqFfNT28tHNKzvj50GLimkpLHKkQwHrW30DpIVOqMEdGn2UzLg=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwTU36FN4UpQLj4K3dICgyqgtNPv25seEYMz/qA2PQHR6+ryrGK
-	IRqxgyKW0CW33GdMf1B5w863ecmD8g9rkd9Jhv92vjY8uOKhzLSMDEQJuX8hehTJJdxwGg4IhAD
-	HYUzpsUhrcCW0fks6kKnGgUnYK40nj/4vwHgG
-X-Gm-Gg: Acq92OGZtI9xQUcl+CsBI4lYcuLFqBmal1uRrWHYosqJM/m1Lood1E5OeZSZcxYxvQL
-	jmzmR1LmTaTSL2pKd42/0jWUsOcswL4/qVVyA+yfneQeY4BejUVNwZASY5IlqWeVF2wu5RS1PBl
-	O+S7jVsxTgPAFW1NLZOQm70qjuVdP7ZRiPTjVk/8qhgjr8yBgtfKHCmpEhlue6SF0CHcXKApcYc
-	G2tjxDYCvX2Lixmjq30YsbKDXdMV7rkixli45zp+6pZCZrel+fwMK/mMEemikp2kEGCGivJjwiV
-	Jce86XodOiEfg49lzyUgDxzBW44EoA==
-X-Received: by 2002:a05:6830:6ed2:b0:7de:c870:46d4 with SMTP id
- 46e09a7af769-7e6d21a2e4fmr1341740a34.1.1780389000536; Tue, 02 Jun 2026
- 01:30:00 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7C3C3C5DBE;
+	Tue,  2 Jun 2026 08:32:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780389138; cv=none; b=daSuhpqzfpbbBQD7iy7aZuwhcMlutX6YVFpSr2S+N+kXz9fRszWVp7Mh5K/xN+Cyda7Jcr29OD0vS/SDseNP8L4OeE4ef2Z2UuJTyxQSvHDJ8V3F017X9OurMzh4NLvnglThfXwtNX4R+U99qF3PMQ8hl9nEwLZkelaZ+5q6a10=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780389138; c=relaxed/simple;
+	bh=IsyMWC1ykDaBmgFzN1yazxHHc0d6aG52NplrlIAR01k=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=AJBLwyyLqk3fMHc+C11R84W5YoJnMgJ/mgMi4NPU6o187scXMp/dFa081/KAhb88Ij4Su1zxPTx8NRCTR4vtA5GU6v7k7UK6jEslHZktYjbmj831vdGOjGNNX0AsEWD8Jg5mc7mFyQaW5Zt0NLc+6InTQHnKJYNHQ2E5XECNu8c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 8c18e1ac5e5d11f1aa26b74ffac11d73-20260602
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.12,REQID:f9dc1260-f978-445f-8f76-bf83c48dc470,IP:0,U
+	RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:-5
+X-CID-META: VersionHash:e7bac3a,CLOUDID:b0d2196e1c3d3982a0b7b15cc78b0136,BulkI
+	D:nil,BulkQuantity:0,Recheck:0,SF:102|850|865|898,TC:nil,Content:0|15|50,E
+	DM:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA
+	:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 8c18e1ac5e5d11f1aa26b74ffac11d73-20260602
+X-User: zenghongling@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <zenghongling@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 5209442; Tue, 02 Jun 2026 16:32:10 +0800
+From: Hongling Zeng <zenghongling@kylinos.cn>
+To: chuck.lever@oracle.com,
+	jlayton@kernel.org,
+	neil@brown.name,
+	okorniev@redhat.com,
+	Dai.Ngo@oracle.com,
+	tom@talpey.com,
+	trondmy@kernel.org,
+	anna@kernel.org,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org
+Cc: linux-nfs@vger.kernel.org,
+	netdev@vger.kernel.org,
+	zhongling0719@126.com,
+	Hongling Zeng <zenghongling@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] sunrpc: fix uninitialized xprt_create_args structure
+Date: Tue,  2 Jun 2026 16:32:05 +0800
+Message-Id: <20260602083205.183807-1-zenghongling@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260518170147.13885-1-lucid_duck@justthetip.ca>
- <20260519235713.49109-1-lucid_duck@justthetip.ca> <20260519235713.49109-2-lucid_duck@justthetip.ca>
- <CA+bbHrUcwtNhatzV+ufa8O3Wrku2_W4-UL=3XMy4-kg9qiOdXw@mail.gmail.com>
- <a36b5712dd420da4090bfa8868e78b1b2b90c916.camel@sipsolutions.net>
- <CA+bbHrV3fFHWevyDGPtAS=2M2mc+LxP6=xA-5fXaiTKTD=R31g@mail.gmail.com>
- <739ba20fa3c88e92bf034d80383015b8bc78ebfe.camel@sipsolutions.net>
- <CA+bbHrUqh+nu_eKBMVaPH6Q8YxuKS=S0kON2Zsb+gRZHU=SBPA@mail.gmail.com>
- <e73634b3b52d9ebe6c4e339ea5f6c35cb6d433a7.camel@sipsolutions.net> <CA+bbHrXtEdHEDHDb+8KNaKu=ODvkYwjiEEOtU2HntSRb8-WZ5g@mail.gmail.com>
-In-Reply-To: <CA+bbHrXtEdHEDHDb+8KNaKu=ODvkYwjiEEOtU2HntSRb8-WZ5g@mail.gmail.com>
-From: =?UTF-8?B?w5NzY2FyIEFsZm9uc28gRMOtYXo=?= <oscar.alfonso.diaz@gmail.com>
-Date: Tue, 2 Jun 2026 10:29:50 +0200
-X-Gm-Features: AVHnY4KxO6mfQCrNzOiYYtrulc1IFovrcdX_UxK3eb-GAlxd_LDaTO4kf4jBHCs
-Message-ID: <CA+bbHrVbDBwmQnDyEa-Mw1yH8vMSEQa0ZP5CyL+8oaT2rpqpOg@mail.gmail.com>
-Subject: Re: [PATCH v4] wifi: mac80211: fix monitor mode frame capture for
- real chanctx drivers
-To: Johannes Berg <johannes@sipsolutions.net>
-Cc: Devin Wittmayer <lucid_duck@justthetip.ca>, linux-wireless@vger.kernel.org, 
-	Felix Fietkau <nbd@nbd.name>, Lorenzo Bianconi <lorenzo@kernel.org>, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, fjhhz1997@gmail.com, 
-	Brite <brite.airgeddon@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hello, sorry for the delay, but here are the tests that were carried out:
+The xprt_create_args structure is allocated on the stack without
+initialization in rpc_sysfs_xprt_switch_add_xprt_store(). While some
+fields are manually populated, critical fields like srcaddr, bc_xps,
+and flags contain uninitialized stack garbage.
 
--Compiled kernel 7.0.11 using the suggested patch:
-https://patchwork.kernel.org/project/linux-wireless/patch/20260519235713.49=
-109-2-lucid_duck@justthetip.ca/
+This can lead to:
+1. Kernel panic when xs_setup_xprt() dereferences garbage srcaddr
+2. Information leak if srcaddr points to sensitive stack data
+3. Unpredictable behavior if flags has random bits set
 
-*Tests with Ralink RT3572:
-Standard DoS 2.4ghz -> working
-VIF DoS 2.4ghz -> working
-Standard DoS 5ghz -> working
-VIF DoS 5ghz -> working
+The fix is to zero-initialize the structure to ensure all unused
+fields are NULL/0, preventing the transport setup code from acting
+on garbage data.
 
-*Tests with MediaTek MT7921U:
-Standard DoS 2.4ghz -> working
-VIF DoS 2.4ghz -> working
-Standard DoS 5ghz -> working
-VIF DoS 5ghz -> not working (no freeze or error)
+Cc: stable@vger.kernel.org
+Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+---
+ net/sunrpc/sysfs.c | 1 +
+ 1 file changed, 1 insertion(+)
 
--Compiled kernel 7.1-rc6 using same patch:
-https://patchwork.kernel.org/project/linux-wireless/patch/20260519235713.49=
-109-2-lucid_duck@justthetip.ca/
+diff --git a/net/sunrpc/sysfs.c b/net/sunrpc/sysfs.c
+index a90480f80154..0a99d0f1eb4c 100644
+--- a/net/sunrpc/sysfs.c
++++ b/net/sunrpc/sysfs.c
+@@ -333,6 +333,7 @@ static ssize_t rpc_sysfs_xprt_switch_add_xprt_store(struct kobject *kobj,
+ 	if (!xprt_switch)
+ 		return 0;
+ 
++	memset(&xprt_create_args, 0, sizeof(xprt_create_args));
+ 	xprt = rpc_xprt_switch_get_main_xprt(xprt_switch);
+ 	if (!xprt)
+ 		goto out;
+-- 
+2.25.1
 
-*Tests with Ralink RT3572:
-Standard DoS 2.4ghz -> working
-VIF DoS 2.4ghz -> working
-Standard DoS 5ghz -> working
-VIF DoS 5ghz -> working
-
-*Tests with MediaTek MT7921U:
-Standard DoS 2.4ghz -> working
-VIF DoS 2.4ghz -> working
-Standard DoS 5ghz -> working
-VIF DoS 5ghz -> not working (no freeze or error)
-
-So exactly the same behavior on both kernels.
-
-Hope it helps. Thanks and regards.
---
-Oscar
-
-OpenPGP Key: DA9C60E9 ||
-https://pgp.mit.edu/pks/lookup?op=3Dget&search=3D0x79B17260DA9C60E9
-4F74 B302 354D 817D DE38 0A43 79B1 7260 DA9C 60E9
---
-El mi=C3=A9, 20 may 2026 a las 11:55, =C3=93scar Alfonso D=C3=ADaz
-(<oscar.alfonso.diaz@gmail.com>) escribi=C3=B3:
->
-> Ok, I'll do the testing using this one you suggested:
-> https://patchwork.kernel.org/project/linux-wireless/patch/20260519235713.=
-49109-2-lucid_duck@justthetip.ca/
->
-> Thanks.
-> --
-> Oscar
->
-> OpenPGP Key: DA9C60E9 ||
-> https://pgp.mit.edu/pks/lookup?op=3Dget&search=3D0x79B17260DA9C60E9
-> 4F74 B302 354D 817D DE38 0A43 79B1 7260 DA9C 60E9
-> --
->
-> El mi=C3=A9, 20 may 2026 a las 11:53, Johannes Berg
-> (<johannes@sipsolutions.net>) escribi=C3=B3:
-> >
-> > On Wed, 2026-05-20 at 11:51 +0200, =C3=93scar Alfonso D=C3=ADaz wrote:
-> > > Ok, let me do one final test using Johannes=E2=80=99 v2 patch. The ex=
-pected
-> > > behavior is as follows:
-> > >
-> > > 6.18 or lower: no need to test, it will not work. It=E2=80=99s clear =
-now that
-> > > this does not matter, since the goal is only to fix newer kernel
-> > > versions.
-> > >
-> > > 6.19: some versions of the 6.19 will crash and others will not. The
-> > > crash was fixed at some point between 6.18.12 and 6.19.12. No need to
-> > > test.
-> > >
-> > > 7.0, or 7.1: the expected result is that there will be no crash, and
-> > > VIF + deauth will work only on 2.4 GHz. It will not work on 5 GHz
-> > > (I'll test both, normal DoS and VIF+DoS). There should be no crash,
-> > > but it will not work.
-> > >
-> > > So I'll focus my testing on 7.0 and 7.1 and I'll get back to you with
-> > > the results. I'll be testing this patch (v2):
-> > > https://patchwork.kernel.org/project/linux-wireless/patch/20251216111=
-909.25076-2-johannes@sipsolutions.net/
-> > >
-> >
-> > Thanks. For testing that one you'd have to revert the other first, I
-> > think, you could also just test this one:
-> >
-> > https://patchwork.kernel.org/project/linux-wireless/patch/2026051923571=
-3.49109-2-lucid_duck@justthetip.ca/
-> >
-> > But I think they're basically all equivalent.
-> >
-> > Since we eventually need a patch to apply w/o reverting, Devin's is
-> > probably better than my old one.
-> >
-> > johannes
