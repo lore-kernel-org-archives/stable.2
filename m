@@ -1,122 +1,89 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+Received: from out-173.mta1.migadu.com (out-173.mta1.migadu.com [95.215.58.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6E5D3E8324;
-	Tue,  2 Jun 2026 14:57:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA7313CAA59
+	for <stable@vger.kernel.org>; Tue,  2 Jun 2026 15:04:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780412281; cv=none; b=X0OX9Hg4LHrRHiQLYqJ1USk0tAHkeAc6IRNcBWLQbopTOgdzd8MHb2CoBgbO8M6DPBoBLttSqyghChiDYA7CG6UBM+95TJ9CVa6y4DRofqEH96z8mMBzAuu0h9qCRXy6Qntxv0SDRmIwxvPKQSIsx4zLIm1wAPNksDXgEd+RSoc=
+	t=1780412666; cv=none; b=OpTt4Vd002/X5e03Q4WwkNhsLq5ky9yMXCEIk4PVBVIc34mXDDRLyEzAITLx9wOqAHaGB4EqPm+2o2cSsLBDwINU0FOMj2T66gc4hgf0ga+gUfP8IBqKWbo+qM4iASw+dPtz2X6hwn6Oiut09nTZt7/ThaVeLEukPRY08x68RPQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780412281; c=relaxed/simple;
-	bh=vNq45d1mDRlq9GGhmU4BKWAv1tSbLrh6BxZtzTADikg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=q6j/RJkDnjP6qjn4G7yZSIgRCghrnkks/zMOYTmfS5B/QccxNCy7BgYOHbwKUu9+W2/T842dLtQc1U2ZBzN5ddfOFOqymjViZDsf6quypvH43pMJ9kVS7mNHCkkXM/sZwMUcC+pfRHgROE8SlZDjh9k30SpZ71WMqrsnY3GRKy0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=JPNHhWha; arc=none smtp.client-ip=198.175.65.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1780412666; c=relaxed/simple;
+	bh=hhLyU1suKqRemMZ3uMjdPzeVwrqN8+HIhvS6Kah3daM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ksrRrRgxgwsGp5iL3HyJyqw2Q3t472HoiFXHub9uDoNtn7hF3X/H/+KLsalGZtRs0nLCILYxAt34xg50nLOtAYW0lDstSZugqheB2osnJKRwTzyjKVqUf4o47nj8/ZMnkMfKXWQSqN4xxDKLris0nonN1+z3062bs3/9fB33UVQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool; spf=pass smtp.mailfrom=packett.cool; dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b=BFgAAH/x; arc=none smtp.client-ip=95.215.58.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="JPNHhWha"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1780412280; x=1811948280;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=vNq45d1mDRlq9GGhmU4BKWAv1tSbLrh6BxZtzTADikg=;
-  b=JPNHhWhaQovZs+JPK0O1TBAVQGAgbcus8uC7CIRTPpl1vz1OpNi611QQ
-   BnHN+DmNXZ7xs5ZiImSnKiBJg9rd1RLvqAC719pTfdDm0eWprmlmRztDa
-   YyqGWm05h1bwb9h1cOUK4enDNJv7j+eZcV2F2w0NHUXhtWeF3tp6hbHPi
-   1fqLwNQd+ICwf2vD0BCEt9ZIDtgYsRdL4GZLXYbOox/UY+5EP6KvV10yM
-   KrgNY1knsmFKJnnIFQvtVXwBKN6LTA7bVbZcvUGCwB45FUpvUfm1v2J8D
-   L9k1csPDkLgCyar0xWv/ssjSuOmaAArtiLkiGOfayp/3i1VrODv5x9x+B
-   A==;
-X-CSE-ConnectionGUID: nx5bixW1QD6huXVpKwItzA==
-X-CSE-MsgGUID: vq7HzWL1QbSB0X8cjtVMAA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11805"; a="103859996"
-X-IronPort-AV: E=Sophos;i="6.24,183,1774335600"; 
-   d="scan'208";a="103859996"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Jun 2026 07:57:55 -0700
-X-CSE-ConnectionGUID: JYOz9VHrSrqdfu0w+Gv+YQ==
-X-CSE-MsgGUID: zqwUxP+STFuStepAZAu9ow==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,183,1774335600"; 
-   d="scan'208";a="243095628"
-Received: from 9cc2c43eec6b.jf.intel.com ([10.54.77.29])
-  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Jun 2026 07:57:54 -0700
-From: Zide Chen <zide.chen@intel.com>
-To: Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Andi Kleen <ak@linux.intel.com>,
-	Eranian Stephane <eranian@google.com>
-Cc: linux-kernel@vger.kernel.org,
-	linux-perf-users@vger.kernel.org,
-	Dapeng Mi <dapeng1.mi@linux.intel.com>,
-	Zide Chen <zide.chen@intel.com>,
-	stable@vger.kernel.org
-Subject: [PATCH V3 4/7] perf/x86/intel/uncore: Defer ADL global PMON enable to enable_box()
-Date: Tue,  2 Jun 2026 07:49:05 -0700
-Message-ID: <20260602144908.263680-5-zide.chen@intel.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260602144908.263680-1-zide.chen@intel.com>
-References: <20260602144908.263680-1-zide.chen@intel.com>
+	dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b="BFgAAH/x"
+Message-ID: <809635d9-6e66-4ace-8f47-4a5a268f4f18@packett.cool>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=packett.cool;
+	s=key1; t=1780412652;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=qHszsEN8PB3ekey0lEf70Vm5pm7eZsuxWjxfuJZ2+RI=;
+	b=BFgAAH/xcynmV8UeSdeG6LKfgfP4MDNJFZp6R2gs0qShyj4nudTtq4HPYoLRzSCxM9Q07h
+	S1Bs1hlDJFHvewK5FG2GtTvPu6On7jrT47U9dCsObZJ4qcmTaYpELOFFDop47C1nUjkdKp
+	4p7LeOgwfHBZmMNNdAtTmnCfVnAO1hS2FmTw9rsw9MUR/HRiPwHhL4aZinED5PCg04yoiX
+	8il1U+Dw6dtacMog5D3eXtfu0UsCocDvUxBGFAFRLycFYJaPCl0kQt/ARiekfRIXJy36bl
+	lF0nMon19m8s8y3wQlA7IqUh9deLu1ALcxMtcXUaDeH3BVHO7Xbjo4pfwMyoKA==
+Date: Tue, 2 Jun 2026 12:03:53 -0300
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH 2/2] arm64: dts: qcom: hamoa: Reserve low IOVA range for
+ Iris
+To: Bryan O'Donoghue <bod@kernel.org>, Daniel J Blueman <daniel@quora.org>,
+ Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260601041336.9497-1-daniel@quora.org>
+ <ecavEnqJTDXvfFykc9uJb5No7ioighpjrCdw2CFZ4c8Izr5DxpTs-606Bg7K0RtHTaOqksWivHxWQLzMBP6qow==@protonmail.internalid>
+ <20260601041336.9497-2-daniel@quora.org>
+ <ec7c564e-745a-4998-af9a-e9632fe063f7@kernel.org>
+Content-Language: en-US
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: Val Packett <val@packett.cool>
+In-Reply-To: <ec7c564e-745a-4998-af9a-e9632fe063f7@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Migadu-Flow: FLOW_OUT
 
-On some Raptor Cove CPUs, enabling uncore PMON globally at driver init
-may increase power consumption even when no perf events are in use.
 
-Drop adl_uncore_msr_init_box() and defer programming the global control
-register to enable_box(), so it is only set when a box is actually used.
+On 6/2/26 7:26 AM, Bryan O'Donoghue wrote:
+> On 01/06/2026 05:13, Daniel J Blueman wrote:
+>> On X1-family hamoa platforms, Iris DMA below IOVA 0x25800000 (600MB)
+>> triggers unhandled SMMU page faults
+>
+> How do we know that is a correct address - does it come from qcom 
+> documentation or trial and error ? 
 
-IMC and IMC freerunning counters use a separate control path and are
-unaffected.
 
-Cc: stable@vger.kernel.org
-Fixes: 772ed05f3c5c ("perf/x86/intel/uncore: Add Alder Lake support")
-Reviewed-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
-Signed-off-by: Zide Chen <zide.chen@intel.com>
----
-V3:
-- Add Fixes tag. (Dapeng)
----
- arch/x86/events/intel/uncore_snb.c | 7 -------
- 1 file changed, 7 deletions(-)
+If you follow the Link:, you can see that it does come from qcom..
 
-diff --git a/arch/x86/events/intel/uncore_snb.c b/arch/x86/events/intel/uncore_snb.c
-index 3dbc6bacbd9d..edddd4f9ab5f 100644
---- a/arch/x86/events/intel/uncore_snb.c
-+++ b/arch/x86/events/intel/uncore_snb.c
-@@ -563,12 +563,6 @@ void tgl_uncore_cpu_init(void)
- 	skl_uncore_msr_ops.init_box = rkl_uncore_msr_init_box;
- }
- 
--static void adl_uncore_msr_init_box(struct intel_uncore_box *box)
--{
--	if (box->pmu->pmu_idx == 0)
--		wrmsrq(ADL_UNC_PERF_GLOBAL_CTL, SNB_UNC_GLOBAL_CTL_EN);
--}
--
- static void adl_uncore_msr_enable_box(struct intel_uncore_box *box)
- {
- 	wrmsrq(ADL_UNC_PERF_GLOBAL_CTL, SNB_UNC_GLOBAL_CTL_EN);
-@@ -587,7 +581,6 @@ static void adl_uncore_msr_exit_box(struct intel_uncore_box *box)
- }
- 
- static struct intel_uncore_ops adl_uncore_msr_ops = {
--	.init_box	= adl_uncore_msr_init_box,
- 	.enable_box	= adl_uncore_msr_enable_box,
- 	.disable_box	= adl_uncore_msr_disable_box,
- 	.exit_box	= adl_uncore_msr_exit_box,
--- 
-2.54.0
+https://github.com/qualcomm-linux/kernel-topics/issues/1157#issuecomment-4458933574
+
+This series is basically a "hotfix" version of a more complicated series:
+
+https://lore.kernel.org/linux-media/20250627-video_cb-v3-0-51e18c0ffbce@quicinc.com/
+
+that introduced an extra subnode that let the driver only use that 
+restricted IOVA range for non-pixel buffers (only those actually need 
+the restriction) but that resulted in a very long discussion and was 
+kinda shelved because of that.. x_x
+
+
+~val
 
