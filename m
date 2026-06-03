@@ -1,122 +1,135 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.7])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E7FA1429D;
-	Wed,  3 Jun 2026 01:25:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F50F3603FE;
+	Wed,  3 Jun 2026 01:34:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780449919; cv=none; b=CLhg8v4nTyjlKzzqsFXqZhnTNNUq8O7pFJNvS9QGEBq+dyKcQwDIcIjBfrEyMXlYQD+AjVi9xjgqVJPoKytxTTtwyf6CRsIJJxUgrih/eGu4h50qNid+WICpJgjENaq4mdeAUmW4WAkIw9/W4JRbvN1+b6xzqZ2k1bf1ay7JN9M=
+	t=1780450480; cv=none; b=nBxf5eCLROgz4pNvCwmXDZCn+biLIL1xdIi24v9alJPT9/iZDxxXdvbzOpCAZiZ2ZiOSCE3Egn1KQ9iAu5ysFxAtUBFH7/lvkwUOqwB8yOFiC8Y52d0NcJVAsgUtbQoe1/Yc2Xv9zCQukDVrzkUZCkW5G6CxKMXXB1JUdG/u+mw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780449919; c=relaxed/simple;
-	bh=nfUGedCUQfBOXGF/ntq0IvsVNb9oZ6rc9UnAZfSkbU0=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=qpGO9EM3Rzf7OUytx1Du3sMwReKbsy3/O6XpzcdjtFDusqfAX+0khyHSARNKxGY7cp6Wz3XTsMEeDNKmPQTcU+T1ZRDCkPWNWZlH90PDWNxCUDMEdT9gNi7/syTddESNez71OPyjXJeQ0pUaxI72nf5X/8XSLlSKzgj8To0AkIg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowADnU+d4gh9q95E0Eg--.10537S2;
-	Wed, 03 Jun 2026 09:25:12 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: idryomov@gmail.com,
-	amarkuze@redhat.com,
-	slava@dubeyko.com
-Cc: ceph-devel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH v3] ceph: fix writeback_count leak in write_folio_nounlock()
-Date: Wed,  3 Jun 2026 01:25:00 +0000
-Message-Id: <20260603012500.3688976-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1780450480; c=relaxed/simple;
+	bh=esmJIIxm5KHtqbg938bfkDA8ppwaZ16VwS7nKCJivPY=;
+	h=Message-ID:Date:From:MIME-Version:To:CC:Subject:References:
+	 In-Reply-To:Content-Type; b=AzQDCkV5r7Xs8BuHjLowWzZGnLBpxsYeWfdmz56Espjqkrpl2astFqAuyG3L9/0SHowXc7c5TvlWfqe90LF95PZzH3CLyHo/01eNLY9EncXmQvaExd1VWkCbX5EYprXdtTilSgz+3v+iDUNM1fhdaZy7WsPeXtfhzU4Bpeap4lI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=ppk/GZ3J; arc=none smtp.client-ip=220.197.31.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="ppk/GZ3J"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+	s=s110527; h=Message-ID:Date:From:MIME-Version:To:Subject:
+	Content-Type; bh=BtEiAyLyIPFGiPQbhVD6Qlb1WOziCceBXDJcSwMDSjg=;
+	b=ppk/GZ3Jq6c2rl1QNQ4l2GXnjiNQ/lVoHgm2IqAwqEoMuSMT2CByFuQIDJnL6D
+	CKGI5PPcTiwamPlyUvTRW66BybZYIVTzKiSxSJP3ockfyTN+eAtiqcU3ACotxdSf
+	eh+YM6PU28GLVlMJgnW6OP3oLRZo3Jrx9B6OX9zyLv/P4=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wDnD4hphB9qJCFYAw--.12847S2;
+	Wed, 03 Jun 2026 09:33:30 +0800 (CST)
+Message-ID: <6A1F846C.6000405@126.com>
+Date: Wed, 03 Jun 2026 09:33:32 +0800
+From: Hongling Zeng <zhongling0719@126.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:31.0) Gecko/20100101 Thunderbird/31.2.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+To: Anna Schumaker <anna@kernel.org>, 
+ Hongling Zeng <zenghongling@kylinos.cn>,
+ Chuck Lever <chuck.lever@oracle.com>, Jeff Layton <jlayton@kernel.org>, 
+ NeilBrown <neil@brown.name>,
+ Olga Kornievskaia <okorniev@redhat.com>, Dai Ngo <Dai.Ngo@oracle.com>, 
+ Tom Talpey <tom@talpey.com>,
+ Trond Myklebust <trondmy@kernel.org>, 
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>,
+ Simon Horman <horms@kernel.org>
+CC: linux-nfs@vger.kernel.org, netdev@vger.kernel.org, 
+ stable@vger.kernel.org
+Subject: Re: [PATCH] sunrpc: fix uninitialized xprt_create_args structure
+References: <20260602083205.183807-1-zenghongling@kylinos.cn> <c3dc789b-c8c0-43e6-ae8d-615c932f4fa1@app.fastmail.com>
+In-Reply-To: <c3dc789b-c8c0-43e6-ae8d-615c932f4fa1@app.fastmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowADnU+d4gh9q95E0Eg--.10537S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxJr4UXF4xKw4fKrWDtrW3Awb_yoW5JF4rpr
-	Wjk34qkr40vr1xGr98Cas5t3W5C3y8CrWfKF4UJF13uFn5Xr4jgayjq34YqF1fAryfJa9a
-	qr4vkryruayqyFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUkE14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Cr
-	1j6rxdM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
-	6xIIjxv20xvE14v26r126r1DMcIj6I8E87Iv67AKxVW8Jr0_Cr1UMcvjeVCFs4IE7xkEbV
-	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AF
-	wI0_JF0_Jw1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4
-	xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1D
-	MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I
-	0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWU
-	JVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r1j6r4UYxBIdaVFxhVjvjDU0xZFpf9x0JUHpB
-	fUUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCQ4GA2oe8TlyywABsG
+X-CM-TRANSID:_____wDnD4hphB9qJCFYAw--.12847S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7Ary5KFyDGFyrJr1xuFy5CFg_yoW8Kw43pr
+	ZrGay5GFWDtws7Ww1rAw48C34Fyr4rGF45Gr4jyF98ArnxKas7tF12kFWj9F97CF4rGF1q
+	q3Wjvwn5X3yqyaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jStC7UUUUU=
+X-CM-SenderInfo: x2kr0wpolqwiqxrzqiyswou0bp/xtbBoAqdbmofhGoDIAAA3h
 
-write_folio_nounlock() increments fsc->writeback_count to track
-in-flight writeback operations. On several error paths where the
-function returns early (folio lookup failure, snapshot context
-allocation failure, and writepages submission failure), the function
-returns without calling atomic_long_dec_return() to decrement the
-counter.
+   Hi Anna and Jeff,
 
-Each leaked increment keeps the counter above zero, which can prevent
-the filesystem from cleanly unmounting or suspending writes.
+   Thanks for the review!
 
-Add atomic_long_dec_return() calls on all error paths that currently
-return without decrementing the counter.
+   Regarding Anna's question about copying fields from the main xprt:
 
-Fixes: d55207717ded ("ceph: add encryption support to writepage and writepages")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+   Based on my analysis, these missing fields are not stored in
+   struct rpc_xprt:
+   - srcaddr: only passed during creation, not stored in xprt
+   - bc_xps: not present in rpc_xprt (only bc_xprt is stored)
+   - flags: not stored in xprt after creation
 
----
-Changes in v3:
-- Also clear write_congested flag when decrementing writeback_count
-  on error paths, as suggested by Viacheslav Dubeyko.
-- Fix typo error.
----
- fs/ceph/addr.c | 12 +++++++++---
- 1 file changed, 9 insertions(+), 3 deletions(-)
+   Since these values are not available in the main xprt, we cannot
+   copy them. Zero-initializing is the correct approach with the
+   current design.
 
-diff --git a/fs/ceph/addr.c b/fs/ceph/addr.c
-index a606378649c3..7fab73874068 100644
---- a/fs/ceph/addr.c
-+++ b/fs/ceph/addr.c
-@@ -790,7 +790,9 @@ static int write_folio_nounlock(struct folio *folio,
- 				    ceph_wbc.truncate_size, true);
- 	if (IS_ERR(req)) {
- 		folio_redirty_for_writepage(wbc, folio);
--		atomic_long_dec(&fsc->writeback_count);
-+		if (atomic_long_dec_return(&fsc->writeback_count) <
-+				CONGESTION_OFF_THRESH(fsc->mount_options->congestion_kb))
-+			fsc->write_congested = false;
- 		return PTR_ERR(req);
- 	}
- 
-@@ -810,7 +812,9 @@ static int write_folio_nounlock(struct folio *folio,
- 			folio_redirty_for_writepage(wbc, folio);
- 			folio_end_writeback(folio);
- 			ceph_osdc_put_request(req);
--			atomic_long_dec(&fsc->writeback_count);
-+			if (atomic_long_dec_return(&fsc->writeback_count) <
-+					CONGESTION_OFF_THRESH(fsc->mount_options->congestion_kb))
-+				fsc->write_congested = false;
- 			return PTR_ERR(bounce_page);
- 		}
- 	}
-@@ -849,7 +853,9 @@ static int write_folio_nounlock(struct folio *folio,
- 			      ceph_vinop(inode), folio);
- 			folio_redirty_for_writepage(wbc, folio);
- 			folio_end_writeback(folio);
--			atomic_long_dec_return(&fsc->writeback_count);
-+			if (atomic_long_dec_return(&fsc->writeback_count) <
-+					CONGESTION_OFF_THRESH(fsc->mount_options->congestion_kb))
-+				fsc->write_congested = false;
- 			return err;
- 		}
- 		if (err == -EBLOCKLISTED)
--- 
-2.34.1
+   Updated to v2 with designated initializer as suggested by Jeff.
+
+   Thanks,
+   Hongling
+
+在 2026年06月02日 23:59, Anna Schumaker 写道:
+> Hi Hongling,
+>
+> Thanks for the patch!
+>
+> On Tue, Jun 2, 2026, at 4:32 AM, Hongling Zeng wrote:
+>> The xprt_create_args structure is allocated on the stack without
+>> initialization in rpc_sysfs_xprt_switch_add_xprt_store(). While some
+>> fields are manually populated, critical fields like srcaddr, bc_xps,
+>> and flags contain uninitialized stack garbage.
+>>
+>> This can lead to:
+>> 1. Kernel panic when xs_setup_xprt() dereferences garbage srcaddr
+>> 2. Information leak if srcaddr points to sensitive stack data
+>> 3. Unpredictable behavior if flags has random bits set
+> I took a look through the transport setup function to see what they
+> do when these fields are set to NULL, and it looks like thy do their
+> best to choose a default value which might be different than the
+> values set to the original transport that we are trying to clone.
+>
+> Can we instead set the missing fields in the xprt_create_args based
+> on how the main xprt is configured?
+>
+> Thanks,
+> Anna
+>
+>> The fix is to zero-initialize the structure to ensure all unused
+>> fields are NULL/0, preventing the transport setup code from acting
+>> on garbage data.
+>>
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+>> ---
+>>   net/sunrpc/sysfs.c | 1 +
+>>   1 file changed, 1 insertion(+)
+>>
+>> diff --git a/net/sunrpc/sysfs.c b/net/sunrpc/sysfs.c
+>> index a90480f80154..0a99d0f1eb4c 100644
+>> --- a/net/sunrpc/sysfs.c
+>> +++ b/net/sunrpc/sysfs.c
+>> @@ -333,6 +333,7 @@ static ssize_t
+>> rpc_sysfs_xprt_switch_add_xprt_store(struct kobject *kobj,
+>>   	if (!xprt_switch)
+>>   		return 0;
+>>
+>> +	memset(&xprt_create_args, 0, sizeof(xprt_create_args));
+>>   	xprt = rpc_xprt_switch_get_main_xprt(xprt_switch);
+>>   	if (!xprt)
+>>   		goto out;
+>> -- 
+>> 2.25.1
 
