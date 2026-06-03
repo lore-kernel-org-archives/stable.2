@@ -1,249 +1,171 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013036.outbound.protection.outlook.com [40.93.196.36])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EA763DCD92
-	for <stable@vger.kernel.org>; Wed,  3 Jun 2026 17:38:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780508299; cv=none; b=deKnoEVyw8cbukkwZOw82g1ahOzAcYlgUYS/bI+HkIItzaHXS2stAonb396OqFdskkKerj7QJgeqJEigJGGlEvxD5vYFi9N1y/Nt3EiMROfT+jPZuG7ttDRDoRuRha7E+f/mnagm7jAqyiGgg5efI8NAVBHZkXGc7Jf4YX2l4Vg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780508299; c=relaxed/simple;
-	bh=/Lgj9HtEnqPpmq+rogy1Nun9KLEpuIEnHyzW//Qr03k=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=sm9pmh6oNJj0CWSzQI3OUyAJK/wwYy8YxEDpLbjCe5KX4wDuwJx0NhsRn3mNAjgkeEFvE3yNdY7jY+HewMnyd+3ZpryKleYTMkntxVKMp8Ogee3MnYUYbWCnrBcHcR54gZ4fsuYud+6PkeFNxbb35HS3Xxkvu8U3ZatIJXaQuVo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=fIrjrmRE; arc=none smtp.client-ip=209.85.128.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7550D37F75A;
+	Wed,  3 Jun 2026 17:55:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.36
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780509305; cv=fail; b=DTHSKubf3lMOtflCnkKzvvZUzmCJCQR0QREx3y5/A45BUqOwA9Z6U5pyHcBtE0C3Xbv+2EB8TxA+DeBxeohsG/p9K6b6OedvKqRU+z+ZaYf0ZM7rY9nRAAG/HNaPPS9I6JHGTc/F6Hh1xu8toNUe7HLpPyvFkZ99ncn1RXkX2GI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780509305; c=relaxed/simple;
+	bh=xT2B++yd21FTc/FBUEtU7vsId3hbwEtCJa5XdKIKu8k=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=mGA35tUZiBMwfg6+HUpqSYFWEYPjjymsLVJolBnUtrckTPY6mpFK9kqFDvSI4UHvvB/I7hr0Jly5LxlovTdxx+cRcVLXcfQm9T5l2pmuFyroNYFW5a9gFGSb9J96aem1oyvODljCQ5i/dVHffxGjvWnwCWHNIV9VyEm+rYBTIVI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=A/vi5H+Z; arc=fail smtp.client-ip=40.93.196.36
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="fIrjrmRE"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-490b23c828aso4925e9.1
-        for <stable@vger.kernel.org>; Wed, 03 Jun 2026 10:38:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1780508293; x=1781113093; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
-         :date:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=mVCPWqSNKcww4dR+mNI3XTjBLMex/Kkq8cMFX9Pn86M=;
-        b=fIrjrmRERXZZGx2aKTwfYHBDhksTNYr/gstglZtNq+vjUhQPcVmDwv5nb+7/ZGP1Sq
-         aXULYHX9SM3ADPsNR77CeEYVKwM8p7M2WI987nK4WVpN3/ceJ8HduJ4JQg0j0l7nrHC2
-         suQEmLxBGpLJ8fGl4NdC7BXJ69rmz6axDBS1EQO//Y4VQVK5kKsCHchtbOcosPXLpYaN
-         2MpINMxa+oZNZtMsll5ocX6t1qA9E6UoJVVcYt7MCrc1y7fnWQoLtjAbE7Tr6cVxX+Zy
-         19Itb6WkT2576q5NCFkFe0IX2ZwwtEUPwOU9pkenoQDjf5DI+YOfLtWrhE52uFCgYhwH
-         VEig==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780508293; x=1781113093;
-        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
-         :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=mVCPWqSNKcww4dR+mNI3XTjBLMex/Kkq8cMFX9Pn86M=;
-        b=a6MG/TKafA4wKG3NcCNPvEckb3Lbph6vpJ4J/as7Ab0YZjd671RpYlL2sEPX8N6nzX
-         im9x+c+38mjRnAjFiSM71OWN22N4s9CdL/Oy9B/BYgtblU7NF+oZfE9C44rX0pEWLDIr
-         eGl6GsGLlaERaTauf8czuOOUZTazi2XhJKltI9sXdF9bNRP6ghzeennLMMxn5vaLlf9J
-         x+aj9TBOJq9Cdo/aiI3YdbrcmnIIOxZmaJlcWxIHipys9cK7HbccgsHyIE5zEE4dQ9Cq
-         0bYd9Eqt2/FYspv7NaiiR0mPTRI88NBq1yRnpKfhRUV6MUWXaaOiuESg8xdsbvbRV301
-         /nyg==
-X-Forwarded-Encrypted: i=1; AFNElJ+0IouvFVKQDcXlO5xT7VQ1gqqKV0UQbfwqKGQBCZwN9wKhTXFqn/5herRkQMPuJh5/J9ablek=@vger.kernel.org
-X-Gm-Message-State: AOJu0YynnMvpBEbHXBse2GEM/3gar3bFGoucQrU9XSARC1coJS+YAhyo
-	ztxoZHK+oCkx8zRxWny2p+87OWKB3jaHReIdRz+K08hZlSPnSXLIg0eM7nDrYt2LlA==
-X-Gm-Gg: Acq92OGf4K6rfHvOc/V00ijrqg9Psdvq2ics6N9GVYXlOSh9b5G23RPEsiG9w73M08a
-	SxWkkkOsSqAArr5Vm3icHNNzLcYgRiuQzdYjMAmVeoj74EVZCAfkP6r3EipQJZexcB4tHx/gO6S
-	W+AGM9cNvv0yP/JOMhVsx+6ikR1cpULZrN9CQoIsHuZdi1GDEUyBy54Y148y6fcKbXdZtbJOKJD
-	BXuJ0vGwJW9rI89llFpwoPNIY23eRMANHfvVqO7JE9+S7fMUIJWMyUf6yd1ukU3wNquv3KhZI8C
-	y8nGb/b6TdeUV6nIAOud7DVmB6YpuDieuZVQ52kdPg2ExqbA+KUyFG3MRxZVi36HcJ0hHubTaSr
-	z/HVoZqKTdl5eMBIgHJNVta5ksPktVx7tufWpGALhTwmkbAY9rLU7TFZndiqj5o7bUOTyy5uWga
-	L4KNkGnsGJju9Rf/CqcK2GG6ApunwjgqOubKIxvd4QRNUDqKy5G7duW/HiYNnEBv5qVyAmes5C
-X-Received: by 2002:a05:600c:1912:b0:490:ab15:b9e8 with SMTP id 5b1f17b1804b1-490bca7445emr90855e9.2.1780508292385;
-        Wed, 03 Jun 2026 10:38:12 -0700 (PDT)
-Received: from localhost ([2a00:79e0:288a:8:ac5a:f71c:9e28:abca])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490bc391aaasm9894005e9.1.2026.06.03.10.38.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 03 Jun 2026 10:38:11 -0700 (PDT)
-From: Jann Horn <jannh@google.com>
-Date: Wed, 03 Jun 2026 19:38:06 +0200
-Subject: [PATCH] fhandle: fix UAF due to unlocked ->mnt_ns read in
- may_decode_fh()
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="A/vi5H+Z"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=V9lqlWVV6PeW96l9AOUiyZS0Gga3oC2F5jhwPYQ9kLK/lCYWPIm0jsz3eUKkz7aoFBFKEVazvSqjMgbRp7nx7X3qzjkj0PEk8frexfZJSUaXkbjrsN9WzV4LzPHxi3EMqo+1BUezaV6ksmyLDCitUM2QsfKNJojCSd00x8e5aT2GRd04jtUTt1oeOFTFfYCqiBOGDPe4FnA0MUwWJXRIw0+kV9PMhBFh4f8paEGHdbhxY7QWtepaghlTYHdncBLc2lsHYjnzSPpZRpqganV8zqfeP7VjiYZ/XNncWxo6Ui9beUd1NiKnldRxfiGXb4nzIQSJKiXHdPiSJc4BVvF3dg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=QH4VGjEYlmZE/OJHl24D1EMKFIPtXy7SjRgQ7RheK6w=;
+ b=qQPphA37A68JCSkY2RXK24rsdIj208/pJHzszbIA3oISfct5gNPNjugX+tcB9ZaISR9jTReQlMeV7OxEiv9FqbNE4+govDE9EM2EoXUNDuw3foek+X9WIlfh9i+NXu/JA1cVhJnb26hdHTjK81O0k3u0y0EeaySZo7M4mMxpk2ZHwcZ4n1EOsPa6onQ5DbpTGn67uLzkSuevK9KhS1liBZYtQwcej9ApNNvSYeDYouHDDgtqeXQJvfb1MWUFuppcJ/wUXw1fjeX1cyB+6ODlI1P3Aammi5u3YzIUHfGv+spFU8+VKhszHrIrIMsWXmk7kc5Zvq05S0Ia/i0Ku1Nqpw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=QH4VGjEYlmZE/OJHl24D1EMKFIPtXy7SjRgQ7RheK6w=;
+ b=A/vi5H+ZhjK6yMPXVT7a8PlwHE7xC28JUL1AW87wRCT/rRweozPKzUJ9FUYmAXZXkfvmjyGGUl8OHsel2UU3m28Z0IBBGE3JWh+TBYTZ9d1gpHEpVKrl8lNbVMVF8lbSGXbqFAcI0jAMdhgDENM6HWbE22UEPuTwKlcCOvZNOUFEzFcpNWp+hcxIh+36F0MIpBsRayLWuAZfw1B5+EY0mVh4//xauJAMpiwaxpg4ULqLmhfYsb5R+/4yIg+SxthRUTIyIHXxmxI+Nto5U5K51i5VDEWze2DAXYvfj6p/jEsmkIxKb2eJvDrRIpYkBjY9Isv0LmmkJjj3Z9KT+HZqTw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from LV8PR12MB9620.namprd12.prod.outlook.com (2603:10b6:408:2a1::19)
+ by CH3PR12MB8935.namprd12.prod.outlook.com (2603:10b6:610:169::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.15; Wed, 3 Jun 2026
+ 17:54:59 +0000
+Received: from LV8PR12MB9620.namprd12.prod.outlook.com
+ ([fe80::299d:f5e0:3550:1528]) by LV8PR12MB9620.namprd12.prod.outlook.com
+ ([fe80::299d:f5e0:3550:1528%4]) with mapi id 15.21.0092.006; Wed, 3 Jun 2026
+ 17:54:57 +0000
+Date: Wed, 3 Jun 2026 14:54:55 -0300
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: Michael Bommarito <michael.bommarito@gmail.com>
+Cc: Leon Romanovsky <leonro@nvidia.com>, linux-rdma@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+	Vlad Dumitrescu <vdumitrescu@nvidia.com>,
+	Or Har-Toov <ohartoov@nvidia.com>,
+	Bob Pearson <rpearsonhpe@gmail.com>, Sean Hefty <shefty@nvidia.com>,
+	Kees Cook <kees@kernel.org>
+Subject: Re: [PATCH v2] IB/mad: cap RMPP reassembly window size
+Message-ID: <20260603175455.GA1554392@nvidia.com>
+References: <20260518212336.337104-1-michael.bommarito@gmail.com>
+ <20260520154715.1457495-1-michael.bommarito@gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260520154715.1457495-1-michael.bommarito@gmail.com>
+X-ClientProxiedBy: BL1PR13CA0255.namprd13.prod.outlook.com
+ (2603:10b6:208:2ba::20) To LV8PR12MB9620.namprd12.prod.outlook.com
+ (2603:10b6:408:2a1::19)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260603-vfs-fhandle-uaf-fix-v1-1-ff64ee367e4d@google.com>
-X-B4-Tracking: v=1; b=H4sIAH5mIGoC/yWMywqDQAxFf0WyNjBGfNRfkS7UybSRojJRKYj/b
- myX517OOUA5Cis0yQGRd1GZJ4MsTWB4d9OLUbwxkKPSlS7HPSgGe/yHcesCBvliTlQ9fNFTVdR
- g5hLZ5l+1ff5Zt37kYb1TcJ4X/gcrkXcAAAA=
-X-Change-ID: 20260603-vfs-fhandle-uaf-fix-32279d5b2758
-To: Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
- Chuck Lever <chuck.lever@oracle.com>, Jeff Layton <jlayton@kernel.org>, 
- Amir Goldstein <amir73il@gmail.com>
-Cc: linux-fsdevel@vger.kernel.org, linux-nfs@vger.kernel.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- Jann Horn <jannh@google.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1780508288; l=5636;
- i=jannh@google.com; s=20240730; h=from:subject:message-id;
- bh=/Lgj9HtEnqPpmq+rogy1Nun9KLEpuIEnHyzW//Qr03k=;
- b=QBYoxLJIwvpSnWQyglXtVqRr/pmqqfjrZYlk0p12HNcbNJYMSOj125PeA2qZCwy3jaXqTz89a
- dMYx1BW4O4FBeJgBIDlLdKs0YsZtaOaQAGK3bJEv2akyIrsqKOlChgZ
-X-Developer-Key: i=jannh@google.com; a=ed25519;
- pk=AljNtGOzXeF6khBXDJVVvwSEkVDGnnZZYqfWhP1V+C8=
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LV8PR12MB9620:EE_|CH3PR12MB8935:EE_
+X-MS-Office365-Filtering-Correlation-Id: f9299b0a-a7ee-434d-f2c3-08dec199398f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|376014|18002099003|6133799003|22082099003|11063799006|56012099006|4143699003;
+X-Microsoft-Antispam-Message-Info:
+	6v/lrlc2ud0OF3OS+cXQNuB7WcCL40I1dK4Wa0SseH9+CDD6hI6qka31MXZo4kRcS0hLLZZKShHttCdRV67fFu2DI/qL5ivLkrNobk7njj86Lqb0XQRdz04j4xwX974GDLJOL1YP3cKIaZNpTD2oqrfeYH0TqxaPbMF/eb1/ZgCH49+NYwp4nUMGZJ1lBKZk0X8p/s08LrhRMW/aocAtUuKRgb3Gfev/gW9tKQXDfPB3TsJBKvQUznzyC/eEzjvZZAHRB7U2nDB8NGpJtIVCb09e0cqsnAWNK3OmHLNDdyYz5+sgK5U8Iyjk3YMNhrFwp4eAweGES/6Al5wpZcUD2U95LE8TnqYbxvBUt10VumxuRkJUxjN/KglcSzCJKy38BwJiwa7KlCQTaNtrYQw6dc5MiRES3P5yTa+4rzgyt/9LMS7/x4o3HFri5gkS1IfEeFBHE6D7or3y8Qx5euOCVIxZgxRmGNjKX82Lh9LbGQ5Ta3MEjZfrACdidpel3rHSUsDz6ou3e2AfbRdg+BCYXHHIBVR1tKY0mS3Q51hninX4nvmNch+uL39jTN37JUy4Nh9j2MtutQwUA9U5QZK3sooWHOtNaTa1uPEmZVQqhTd4iRuxgcjA7ecn5lgsMN8l/nNcshcUmd3loXbSbqhkVLMjRuWlX9gFz3wtqctZ7+ILYZCbB5Wih8fHdvrSdXk7
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV8PR12MB9620.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(18002099003)(6133799003)(22082099003)(11063799006)(56012099006)(4143699003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?OQQJboC6mi/wMGaO/r6rQMbKBRLfbERCWGC+xxCiPwj6mqZ9F2zS/wvp7Bqf?=
+ =?us-ascii?Q?q/ThEwJzIBmDZLbnrsoyONU/xMZuqDC9l/gmpeqNGOiwxFUojUfemWC7ayzR?=
+ =?us-ascii?Q?R+UJ1bVQxRlpYZOhZFxTyt/dzAjzPeSYmCq4BW2HgL7ILPq5vaoW6yLt5v1g?=
+ =?us-ascii?Q?rJ14iOr0XKSDWcQc3GHVgupv5Vunl6iACXJ4BykhBvfBvQVhfSSPk6LW2VSG?=
+ =?us-ascii?Q?CKvKP9tIe7mSXgnpSUGs9rdXdS9hoiZOprxz4+2YJKft2lRcjfbbnaPIk7f/?=
+ =?us-ascii?Q?HkH8cUtVAn3IbYqBac2vGwGLXbjtlVU/BLrt6RE0JMai1rm7VTjNKVcw1FQu?=
+ =?us-ascii?Q?LhPd9bGeTTXqeUqW+m5Wwr6JWgublcUTuf1Fo/wqRIw8c2qTqO2Wf+4YEBCs?=
+ =?us-ascii?Q?r7KH3OZ93509FZehZSVhctNQeRjnKu+HxwBf9zOIo3szL4aJFZ5vZFakS0gi?=
+ =?us-ascii?Q?394rKi7rJZambdIsYUkyXA2HrZhMInDA9kAygrrMhd4AkznKG6nybkfgNblI?=
+ =?us-ascii?Q?wGs07rkxGBxk/xdSOoZCI7DrW//qpOSa/kGbsWj9NccI583ADTknIgiwUXSa?=
+ =?us-ascii?Q?peeBzhofuNkkQr1gyW+cx1hNhZ3YazBG6mOjMu4ICpYzyaPk38XnzJeRQvq0?=
+ =?us-ascii?Q?yxfcprxrkWt5tdE3kVsFb7yJZgOKTkTRrsElCY44dA0FzKlOXT7oeWcSc68P?=
+ =?us-ascii?Q?16KScEi6i3mTGZ+u058EcKrI70sm6tkfhaqkY5HbWbhjLpd4CPfKaqm/JG7d?=
+ =?us-ascii?Q?Xs538TcznLyKvgb+XzZloKK3zd+ao6M9JIMxX5NQRCgz0AcqrFdkUb0ME+wE?=
+ =?us-ascii?Q?KS6zHlCSiRwaHjcPnvPzxjElKu4DPNyZpWhUmGMVIi2kKGt4iE9SRbQRuVdW?=
+ =?us-ascii?Q?0AQz7tCj5phth4+IM85BFjp5e+X9FnbUUz6hWOQSGCiXtgYhcO9ggxMSfkh6?=
+ =?us-ascii?Q?gW3HBPBZ6XjXKhGB3XEZJCZ4Wl6scthYylaGAmWCiyXG3dYm9FbEbw9fRND4?=
+ =?us-ascii?Q?tCEbC7cr5kuvsyfMBHfx5ZQtPZyK6NZD8zyGThqlwfO/s9byw3yr5rMUZfFZ?=
+ =?us-ascii?Q?i2MsxbU+U5IVjT7UcKQtwjhAf1ff24T3bax+wBI+2n9yyyRWuLWPBBv3YKr2?=
+ =?us-ascii?Q?/fQsgZBuBhWXsKgNPeVWBAVTMCDYG7/RXMEH0N8rhWVCO7OnetD2BlN6dLzO?=
+ =?us-ascii?Q?s5qyoqwMG/225gNm4k3408zmhrDzf7LJTc3umPo2JqFeJKV4Lw0j2YOM7aoQ?=
+ =?us-ascii?Q?5K+3Z0cChQgy0zNNpqahVYm0B5INy9Ba7W6DeOS/f/dhr5C/fF+NtfJYWjln?=
+ =?us-ascii?Q?OvGpUykoj/ePglzsQdwa4eaVdDpEuh6WeQgoHducuyLxOgmuZl+Qtr4/2nEr?=
+ =?us-ascii?Q?xbBldO7KjxYy5ixWi+xYqoDcwYIo8lZS3TlR/+wSWGbzuQ9ViHDx+SXa/3wj?=
+ =?us-ascii?Q?e/0esxeYae8WhuHLswBFXaoJBqLt9YN/6aT5becWSdWaJQbcBy8Eorlhh2R3?=
+ =?us-ascii?Q?/Qdw3uKrQSD38MidrPS+ngFzOOQJnr1oGUh1dCH0lXCwQTPtaiYCwLGVugk0?=
+ =?us-ascii?Q?1D/JVQLHlFpipccSOKgH7QWOWV2t08YPDZJ6Nn7Z/EJqrnTb+7oPtjAscyVK?=
+ =?us-ascii?Q?g8+83GgW3tqjtlKqWdTG1rk/xNJA52pEmfgnwLkk21CYopcb9UEFvhSZB40c?=
+ =?us-ascii?Q?Lut56uJmd6OPL6kh3AH1ukNQwB2LqqIfLsWprCuUiOYYclB4?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f9299b0a-a7ee-434d-f2c3-08dec199398f
+X-MS-Exchange-CrossTenant-AuthSource: LV8PR12MB9620.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jun 2026 17:54:57.4643
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: HpaikLComGlsMyXGW5+DyFqED1rYBt9Oxt4QbOtXWhZ0p1Rt5EG6kg5mtX8P+JsN
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8935
 
-may_decode_fh() accesses mount::mnt_ns without holding any locks; that
-means the mount can concurrently be unmounted, and the mnt_namespace can
-concurrently be freed after an RCU grace period.
+On Wed, May 20, 2026 at 11:47:15AM -0400, Michael Bommarito wrote:
+> find_seg_location() inserts reordered RMPP DATA segments into a
+> per-transaction list by walking that list in reverse. The walk runs
+> under rmpp_recv->lock in the MAD receive worker, so a large receive
+> window makes a reversed RMPP burst expensive.
+> 
+> The receive window comes from recv_queue.max_active. With the default
+> recv_queue_size of 512, the window is 64. Larger tuned queues can raise
+> the window to 1024, turning one reordered transaction into repeated
+> long list walks and keeping the target port's MAD worker busy for
+> milliseconds.
+> 
+> Cap the RMPP window at 64, matching the current default. This keeps
+> existing behavior for default configurations and prevents larger receive
+> queues from increasing the worst-case insertion walk.
+> 
+> Fixes: fa619a77046b ("[PATCH] IB: Add RMPP implementation")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Codex:gpt-5-5-xhigh
+> Signed-off-by: Michael Bommarito <michael.bommarito@gmail.com>
+> ---
+> Impact: a fabric peer that can send QP1 GMP RMPP DATA segments can keep
+> the targeted port's MAD worker busy with reordered RMPP bursts, delaying
+> other MAD processing on that port.
+> 
+> I tested this on v7.1-rc2 under x86_64 QEMU/KVM with rxe and raw RoCEv2
+> packets carrying descending RMPP segment numbers. With
+> recv_queue_size=8192, the unpatched kernel spent at least 1.5 ms per
+> F=1024 burst in the insertion walk; the patched kernel dropped the same
+> run to about 0.28 ms because segments outside the capped window are
+> rejected before the list grows. A normal in-window F=32 RMPP exchange
+> still completed; there are no in-tree selftests for QP1 GMP RMPP
+> reassembly in tools/testing/selftests/drivers/net/rdma.
 
-This race can happens as follows, assuming that the mount point was
-created by open_tree(..., OPEN_TREE_CLONE):
+Why do you think it is OK to only search back 64? Where do these
+numbers come from?
 
-thread 1            thread 2            RCU
-                    __do_sys_open_by_handle_at
-                      do_handle_open
-                        handle_to_path
-                          may_decode_fh
-                            is_mounted
-                              [mount::mnt_ns access]
-                            [mount::mnt_ns access]
-__do_sys_close
-  fput_close_sync
-    __fput
-      dissolve_on_fput
-        umount_tree
-        class_namespace_excl_destructor
-          namespace_unlock
-            free_mnt_ns
-              mnt_ns_tree_remove
-                call_rcu(mnt_ns_release_rcu)
-                                        mnt_ns_release_rcu
-                                          mnt_ns_release
-                                            kfree
-                            [mnt_namespace::user_ns access] **UAF**
+Is this a real issue?  It looks to me like all this code is gated by
+IB_USER_MAD_USER_RMPP and no in-kernel user makes use of RMPP.
 
-Fix it by taking rcu_read_lock() around the mount::mnt_ns access, like
-in __prepend_path().
-Additionally, document the semantics of mount::mnt_ns, and use WRITE_ONCE()
-for writers that can race with lockless readers.
+Use of RMPP in userspace is extremely rare and requires privilege to
+activate. If userspace opts into it then and only then would there be
+a performance issue.
 
-This bug is unreachable unless one of the following is set:
+So I don't see why we should be changing this and risking regressions
+with the window reduction?
 
- - CONFIG_PREEMPTION
- - CONFIG_RCU_STRICT_GRACE_PERIOD
-
-because it requires an RCU grace period to happen during a syscall without
-an explicit preemption.
-
-This doesn't seem to have interesting security impact; worst-case, it could
-leak the result of an integer comparison to userspace (from the level
-check in cap_capable()), cause an endless loop, or crash the kernel by
-dereferencing an invalid address.
-
-Fixes: 620c266f3949 ("fhandle: relax open_by_handle_at() permission checks")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jann Horn <jannh@google.com>
----
-I used custom tooling to force this race condition to occur and check
-that it leads to a KASAN splat - let me know if you want me to create a
-kernel patch to force the race condition and a reproducer you can run.
-
-I remember Christian asking me for feedback on the patch that introduced
-the bug, and I missed the bug because I didn't realize what the semantics
-of mount::mnt_ns are...
----
- fs/fhandle.c   | 16 ++++++++++++++--
- fs/mount.h     |  8 +++++++-
- fs/namespace.c |  6 +++---
- 3 files changed, 24 insertions(+), 6 deletions(-)
-
-diff --git a/fs/fhandle.c b/fs/fhandle.c
-index 642e3d569497..1ca7eb3a6cb5 100644
---- a/fs/fhandle.c
-+++ b/fs/fhandle.c
-@@ -285,6 +285,19 @@ static int do_handle_to_path(struct file_handle *handle, struct path *path,
- 	return 0;
- }
- 
-+static bool capable_wrt_mount(struct mount *mount)
-+{
-+	struct mnt_namespace *mnt_ns;
-+
-+	/*
-+	 * For ->mnt_ns access.
-+	 * The following READ_ONCE() is semantically rcu_dereference().
-+	 */
-+	guard(rcu)();
-+	mnt_ns = READ_ONCE(mount->mnt_ns);
-+	return ns_capable(mnt_ns->user_ns, CAP_SYS_ADMIN);
-+}
-+
- static inline int may_decode_fh(struct handle_to_path_ctx *ctx,
- 				unsigned int o_flags)
- {
-@@ -320,8 +333,7 @@ static inline int may_decode_fh(struct handle_to_path_ctx *ctx,
- 	if (ns_capable(root->mnt->mnt_sb->s_user_ns, CAP_SYS_ADMIN))
- 		ctx->flags = HANDLE_CHECK_PERMS;
- 	else if (is_mounted(root->mnt) &&
--		 ns_capable(real_mount(root->mnt)->mnt_ns->user_ns,
--			    CAP_SYS_ADMIN) &&
-+		 capable_wrt_mount(real_mount(root->mnt)) &&
- 		 !has_locked_children(real_mount(root->mnt), root->dentry))
- 		ctx->flags = HANDLE_CHECK_PERMS | HANDLE_CHECK_SUBTREE;
- 	else
-diff --git a/fs/mount.h b/fs/mount.h
-index e0816c11a198..f0af6d789bfc 100644
---- a/fs/mount.h
-+++ b/fs/mount.h
-@@ -71,7 +71,13 @@ struct mount {
- 	struct hlist_head mnt_slave_list;/* list of slave mounts */
- 	struct hlist_node mnt_slave;	/* slave list entry */
- 	struct mount *mnt_master;	/* slave is on master->mnt_slave_list */
--	struct mnt_namespace *mnt_ns;	/* containing namespace */
-+	/*
-+	 * Containing namespace.
-+	 * Normally protected by namespace_sem, but there are also lockless
-+	 * readers (which must use RCU to guard against the namespace being
-+	 * freed).
-+	 */
-+	struct mnt_namespace *mnt_ns;
- 	struct mountpoint *mnt_mp;	/* where is it mounted */
- 	union {
- 		struct hlist_node mnt_mp_list;	/* list mounts with the same mountpoint */
-diff --git a/fs/namespace.c b/fs/namespace.c
-index fe919abd2f01..f5905f4ec560 100644
---- a/fs/namespace.c
-+++ b/fs/namespace.c
-@@ -1079,7 +1079,7 @@ static void mnt_add_to_ns(struct mnt_namespace *ns, struct mount *mnt)
- 	bool mnt_first_node = true, mnt_last_node = true;
- 
- 	WARN_ON(mnt_ns_attached(mnt));
--	mnt->mnt_ns = ns;
-+	WRITE_ONCE(mnt->mnt_ns, ns);
- 	while (*link) {
- 		parent = *link;
- 		if (mnt->mnt_id_unique < node_to_mount(parent)->mnt_id_unique) {
-@@ -1434,7 +1434,7 @@ EXPORT_SYMBOL(mntget);
- void mnt_make_shortterm(struct vfsmount *mnt)
- {
- 	if (mnt)
--		real_mount(mnt)->mnt_ns = NULL;
-+		WRITE_ONCE(real_mount(mnt)->mnt_ns, NULL);
- }
- 
- /**
-@@ -1806,7 +1806,7 @@ static void umount_tree(struct mount *mnt, enum umount_tree_flags how)
- 			ns->nr_mounts--;
- 			__touch_mnt_namespace(ns);
- 		}
--		p->mnt_ns = NULL;
-+		WRITE_ONCE(p->mnt_ns, NULL);
- 		if (how & UMOUNT_SYNC)
- 			p->mnt.mnt_flags |= MNT_SYNC_UMOUNT;
- 
-
----
-base-commit: ba3e43a9e601636f5edb54e259a74f96ca3b8fd8
-change-id: 20260603-vfs-fhandle-uaf-fix-32279d5b2758
-
-Best regards,
---  
-Jann Horn <jannh@google.com>
-
+Jason
