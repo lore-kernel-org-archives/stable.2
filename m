@@ -1,156 +1,102 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D192F3E63BE
-	for <stable@vger.kernel.org>; Wed,  3 Jun 2026 16:38:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780504736; cv=none; b=Ydz+8I/GDEPkzeAzY6exxmzpv/fx2gdSLLTQ+1LzELleMdOtjOoA8Pulp4q2sfnjyyr0/oGuItrgY19QzXS2HqAjwG6cLnNH0/Ak/EmqZncXeweuEt4tWWdagNmJQfh2/2UtNbNWn2Wybc6+cVdzBTj4clWyRqRdsvTUNLBip2o=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780504736; c=relaxed/simple;
-	bh=K/YVSy3Jio3EDLqXiV7+CBIoj59O3grDjIPmiQ+k2Ks=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Yq/fc8sbqScmR8/DhqjrLdT4jjLl0xJfPK/mPAaU6IEK/jWxOB7CoyxeMNCLkmON/Vz69AX0Qd8PMYTcIZLzxovJ1ohyk670iyezahUaJytpViLKnlz9bT+CW1hSHMXRsirZh8RzLEmodcbRNSdxnV+QBEaVyF247ctQz6cHOvs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=R1ob+GOF; arc=none smtp.client-ip=209.85.128.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0625426ECD
+	for <stable@vger.kernel.org>; Wed,  3 Jun 2026 16:46:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.177
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780505180; cv=pass; b=p22g4lODHwd49dqUO13sNSNnYDoDdnSbaSOGtZhbWei3Saly2kHPNv/zG12WTlgDucu7gxl1izuzq1ge+aPpKqEG5fh3Qrra4/R3oFRl2bI7Hl1tu9tS7lyASeClj3I7iX19ouAlx5Fh62iKZStyFxJuHBtr3cCxIVm5jOVVfYc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780505180; c=relaxed/simple;
+	bh=Sp0RGi5NmaP49iEYxVtxwSOEg/eXQsdxe/qX51EHsAw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=iCkNR1vyyWRbmzjJriZVUNueXVYLIO/H9ity033e2fQrNWUZT4781mdN9NA60Xj+KlekLX96oTFDrccWbM2mDP8hQgcN1JrhJTpM4cqzAOEgJfQ3wkd00a8trzaWHvKwfEsX6l8QUNsAdxcdWANuM52Mz4MCITSVgBSTvdL5Ytc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0sec.ai; spf=pass smtp.mailfrom=0sec.ai; dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b=g5H2IGOl; arc=pass smtp.client-ip=209.85.210.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0sec.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=0sec.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="R1ob+GOF"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-490aaeabdb4so23300885e9.1
-        for <stable@vger.kernel.org>; Wed, 03 Jun 2026 09:38:54 -0700 (PDT)
+	dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b="g5H2IGOl"
+Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-842358aaf36so1714666b3a.2
+        for <stable@vger.kernel.org>; Wed, 03 Jun 2026 09:46:18 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1780505178; cv=none;
+        d=google.com; s=arc-20240605;
+        b=HLPGzN6C6OVqU4wJnpQvBJciQi6Dce2dHkvy/6axlSm0tUq2cDMPndfNPrludndNqm
+         H07p4D/HvTQLg1EsBpBZOPxsDHw1HoZGMWlnzWjvC8cTaOHfmQnhQyIc0Xu26tJKkPJ3
+         9ThRPfDvJKIwj5ztW51OyPkweihBMJQ4tHAMytMdVwcgdKQi5eTe97RRFRYfHmE2GRoD
+         HpT6gDPPKOOz7W4tpKg3OJHC6ri79fJS4KVTs9EQFkKvRBTcIrYy/5VPbBIY64UTqrGR
+         PkQYrDO9U80cQ+pGSw1lx7fvjlpYDqBnnvhXxe4CfZDARmN2Md4luX9nffVQDc2CzKj0
+         UIIw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=Sp0RGi5NmaP49iEYxVtxwSOEg/eXQsdxe/qX51EHsAw=;
+        fh=xeDP20VsG2eYVjJd0SCS3agZoqScq8oKt5mk1OAXquY=;
+        b=XbF7Y/Tv3qhOb0KE4ouQVotKdh5Z7o188MQhHoT1mtmIGCyw12CPqpvZunJZ6zh/S/
+         ID/zWna3YxgcVmSbt3oqlv8+nV8lHXE06j9JOJWpKbOnIWCAyOcDCF4BpMy6o8/iz7+r
+         cO99Fuza56jK/J/B46mp5tM2JpV0KMagbIeXEzBLI534yxUrQW4TZtzP7rbAipMMmheI
+         xbqcGpF8JxJnYAG/AUS5nzX4gZx+rfAivPGg+ad0WYZo0lg7pF6KIXChAE6/6Kd/xhAp
+         LCn90jg1pxIn4ywThNYWbFzkk7bplk33nX9HhL6N8soJu+WUhWlj1h9fmRndoWfEaXKp
+         37mw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780504733; x=1781109533; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=259LrnAOdGfiedRDzKiXBqB7ciLo61uHaIr6D3LBW08=;
-        b=R1ob+GOFGbA8grfK3rS3WPnissX1XhOAzMRICSepyUSuJdAunS4UUXyFfJwrxaMdxo
-         q7x8Rz62nl3ubmIJPrSesQ4BobY0rjmj/JpJriPh5kvAyl9VPt7Xam0dN0SlIwhKApUM
-         0/hBuRyfoAL1vWEcEJTvIALrWSOd0ERA+V47GQs+abXl8jkuoOfr0pezZXy2mw79Qi/A
-         h0FigVtwIJ4630Bm55J/TWp9YsDEH/cbP9Tm3YPXEQQ7Kr36uceOEc+NK8Vs2BZ/83AV
-         /hFPt3RtoMRLvmG2tKn8GwlE/bLACN/5v9OOe74+I/LMjtYQfazKTJXGI3GttcPX7fGf
-         qxzg==
+        d=0sec.ai; s=google; t=1780505178; x=1781109978; darn=vger.kernel.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=Sp0RGi5NmaP49iEYxVtxwSOEg/eXQsdxe/qX51EHsAw=;
+        b=g5H2IGOlFEp1b0RLhwnJZF9eCEJ+q5Dx1yXF4vPWLYSFhMU7NSAh5BhhVuSxeogr27
+         XoLaaBo/Lm/rHJ+OvTXZSwjLnGKkDEcc9umGylKIWay3Rp+1OWqt8A962+QGj0s6jXbG
+         KyV7h632oF8doijMtIcLNqP/xAoURi3Rdz5TIL2FG+7CoYIo+4QO0qC1qiuxhx+bbnmU
+         cwkVjfvgvaZu2OHCm5RiI15kq/Iey8FaewGkdgRkqPrCf0XonC8K4q7wxCBeHR0UTxXa
+         jDEDNhW8g+tplnXGLgjvH+r34Juh6AHabyqYr+3Yz57Bl2qphRuj8a4LPAbPG0RfXen5
+         deHg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780504733; x=1781109533;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=259LrnAOdGfiedRDzKiXBqB7ciLo61uHaIr6D3LBW08=;
-        b=sNSmvsCi+SNAwIiRyID9e71vMZQjAKSXR04HD161ggAHrpEO2Sa9uw52RHkHqXSx5I
-         x79S1P5m3dxXBvNwR0SFPevfs8D+xgbppUV1mohu2yN/Lx4bhQI9o5awZmwKkus0qfjA
-         iQIZucF3h3gxclLpRGWZ3ABhp6Y4qdxA+yRrVIlBITfeMPKBp2shY6WrSoGblLhTS30E
-         sVlyc276HblKw5Mcg1YfxeUIOyidwHm0ZQYqrYBNfJ9W02xCPZWF/rbs8xoWeqfvUcgL
-         N0RJSh7v8YL4DS9fOI5TUP8NwwD+eWxyFAJyPdSZSjwFM5EQQrnDwA5O2pjqhzBxoAXV
-         JbBA==
-X-Forwarded-Encrypted: i=1; AFNElJ+/Clcj0QmHn7p0Y75c4Q6gg+t+6cTBsorQCVCWKiEs4r6ZEnHb+tCiRrEJpcO8E/YwD2eI8mQ=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw+ymUZd1jIvmMd5xHjOeAa4frfN6KsOA+Lk/7DD5n9wwtMlwmv
-	NRgVsvSCFLEVU+h+tpG6PbGD5jzG7KLc2G1cJP9tJZD2aCgJb6/oBuy4
-X-Gm-Gg: Acq92OE92OOCFto7eU+p1r/czWhyB0O3S+7fWKEjePH/gKSdl2XbcfQKszsYSrjZ9hh
-	ZDkoNDCeVqhGvLHwLgX6/OzqmDicZwiP7+fQaJjn9i1Z4Wr8U3PX/SCHpHiMLz9BIF2O0sfK7mQ
-	C+FDSlG5WpNcMFhyRqZrGqUTr2O/8gS3gxTkAwKRaHhhAiW5/rTnsvQ7yfLBuXIhPWpHbY1Y7Mm
-	pV4Tr5GohWBs9mNAb6kuyXgvXkOACx200CXhSdxlUAzX0O8fe0dGkuCl0F2brcPYoiK+91Cr2ae
-	uoEvrcIi6HFLBjVr5QUQKc/oo81AzKJIOGQsVKD/lFTwvXj/gd95wZ/HkZz6gxi4SPsVJXHTSjP
-	30lIhW1hrXA7mgZYV7LSwQkCY1Uay2y4Y07v3F+jdbbimZ9bYyKP7rJ0Xe4KB9sFx1BjdDBIXVU
-	AN/rTCsCbsz4MatAJXUcrEYT1hzdYB0TLBat6kq9U9gvZ1TU0E5/2+3qW+5OBVo3j1E5ViEkWP6
-	vOH7A==
-X-Received: by 2002:a05:600c:1c1e:b0:490:b00c:8e6a with SMTP id 5b1f17b1804b1-490b5fe65a6mr69071435e9.28.1780504731298;
-        Wed, 03 Jun 2026 09:38:51 -0700 (PDT)
-Received: from localhost.localdomain ([5.165.242.139])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490bc3a8632sm7261405e9.8.2026.06.03.09.38.48
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 03 Jun 2026 09:38:50 -0700 (PDT)
-From: Anton Leontev <leontyevantony@gmail.com>
-To: netdev@vger.kernel.org
-Cc: linux-hyperv@vger.kernel.org,
-	haiyangz@microsoft.com,
-	kys@microsoft.com,
-	wei.liu@kernel.org,
-	decui@microsoft.com,
-	longli@microsoft.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	edumazet@google.com,
-	davem@davemloft.net,
-	stable@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Anton Leontev <leontyevantony@gmail.com>
-Subject: [PATCH net v2] hv_netvsc: use kmap_local_page in netvsc_copy_to_send_buf
-Date: Wed,  3 Jun 2026 19:38:51 +0300
-Message-ID: <20260603163851.18058-1-leontyevantony@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260602155210.90987-1-leontyevanton1995@gmail.com>
-References: <20260602155210.90987-1-leontyevanton1995@gmail.com>
+        d=1e100.net; s=20251104; t=1780505178; x=1781109978;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Sp0RGi5NmaP49iEYxVtxwSOEg/eXQsdxe/qX51EHsAw=;
+        b=E6wn03gTF1W5495SnHSkTGOZVrue0UJLTbZbrjouXL95cMW26y3hFSL5r5ObbsSZEa
+         2B/67b/XjA/xmMJDZCSGtkkkE9bCqYF61I7kTJol7Xf+Zu5g9rYhZJieLPinisGS4682
+         MzUyUjqDhhUiuo9HrHZGgnSZ8v2XZ4dqDXXx6NUv1Q9ZbWqebk2OWqgDKSiDXigCB7oa
+         mOjZAez3QTr18ir9cSWe6JMThYe7CG+WUA6d1fIta+lbaq2JGq6z7KEPu1TMSQeiwUnq
+         5+3PXC6XO3Qapa9fUtyqsx3teBTmwLwcwZzL9SOHlw/mfhAWb0AtNtZyDloFcvVltjNx
+         5hJw==
+X-Forwarded-Encrypted: i=1; AFNElJ9OEH+V5uOy9LB4pnWymTa/k/VqQqYtamPm7O/InXprybyO8sBHPeo8xdyZHKKzBqjeGF21FeI=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwnoWYDR3TqdFPqX+h2p2IKqu+ALqqsvOdjLMZqeybE7kMJ7r1L
+	aY6DZjOH7hUAvxkb06Z+Q24DJaEFmDAhPbB9BGzh1VFuS8PlJoNT0lyd1/zS3K8pPHedT9Q9PUH
+	iNVbw5uQf5pDtNjEQr8vWDJvadusGBrWX1CJ79kX+G+Y=
+X-Gm-Gg: Acq92OF01/ekA3cdnRvP7kuP3dU6r539JX2OOqHiyuo2kuNo0+nlCMEQLMTw5MdqNH8
+	GLkCGFY5fjOmy+x2nQEnhhHjjEgvt4tISYU6ionv6xMmj4LlWGt3jt99E67k1d3h4fJHH6QPXN8
+	Ek4a1HUoR/DrF47D3v24F7Q7kKSf3nDx4zykYW/kS5APvBATqBeogDta+k5+MkF8slipw7ZKodD
+	eeRvocWhCCdUOIhr31J1hvXyAR6JSMGvm+kow+C3TJ5XX3ZGxCjah48JZf3RJt4c+0tRQXMdY4z
+	rQ2U33QJC2XabPlp8xbvvIo0yndUtlW5aOfGdpdevCQt3dTE8u+h/TsTzzJiNdWvO0bwlt19zF9
+	VQ5WIrQ==
+X-Received: by 2002:a05:6a00:2e88:b0:842:1ffc:55b4 with SMTP id
+ d2e1a72fcca58-84284fbcdc1mr4542715b3a.36.1780505178146; Wed, 03 Jun 2026
+ 09:46:18 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260603141355.68156-1-doruk@0sec.ai> <2f3ea9d6-a483-427d-bf81-ff26627f4f1c@intel.com>
+In-Reply-To: <2f3ea9d6-a483-427d-bf81-ff26627f4f1c@intel.com>
+From: "Doruk (0sec)" <doruk@0sec.ai>
+Date: Wed, 3 Jun 2026 18:46:06 +0200
+X-Gm-Features: AVHnY4J6gY9pqDSXMaShzszHsJrbvb7KD7f_CAT036a599QygxqxvS8l2JPk_5A
+Message-ID: <CAPdMp1r_fPeqHC9LeEek2+u9JMma_h+qtg=CoGs5Gpp+QL8ivw@mail.gmail.com>
+Subject: Re: [PATCH net v2] nfc: digital: clamp SENSF_RES length to the
+ destination buffer
+To: aleksander.lobakin@intel.com
+Cc: david@ixit.cz, oe-linux-nfc@lists.linux.dev, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-netvsc_copy_to_send_buf() copies skb fragment pages into the shared
-VMBus send buffer using phys_to_virt() on the fragment PFN. On 32-bit
-x86 with CONFIG_HIGHMEM=y, phys_to_virt() (i.e. __va()) is only valid
-for LOWMEM addresses below 896 MiB. For a HIGHMEM page it returns an
-address that has no kernel page table entry and lies outside the
-kernel direct map, so the subsequent memcpy() faults. As this happens
-on the transmit softirq path, the fault is fatal.
+On Wed, Jun 03, 2026 04:28 PM, Alexander Lobakin
+<aleksander.lobakin@intel.com> wrote:
+> But I guess it's not needed at all, we can just silently clamp such packets?
 
-A HIGHMEM fragment reaches this path whenever the page backing an skb
-fragment lives above the LOWMEM boundary, which is common on a 32-bit
-guest with several GiB of RAM (for example when the in-kernel NFS
-server splices page cache pages directly into the reply skb).
-
-pb[i].pfn is a Hyper-V PFN at HV_HYP_PAGE_SIZE (4K) granularity. The
-physical address is reconstructed first and phys_to_page() is used to
-obtain the native struct page, with offset_in_page() added so the
-in-page offset stays correct where PAGE_SIZE > HV_HYP_PAGE_SIZE (e.g.
-arm64 with 64K pages). The page is then mapped on demand with
-kmap_local_page()/kunmap_local(). On !CONFIG_HIGHMEM configs
-kmap_local_page() reduces to page_address(), so this is a no-op there.
-
-Fixes: c25aaf814a63 ("hyperv: Enable sendbuf mechanism on the send path")
-Cc: stable@vger.kernel.org
-Signed-off-by: Anton Leontev <leontyevantony@gmail.com>
----
-v2:
- - Reconstruct the physical address from the Hyper-V PFN and use
-   phys_to_page() + offset_in_page() instead of pfn_to_page() on the
-   raw PFN, correct where PAGE_SIZE > 4K (e.g. arm64 64K pages).
-   Reported by Haiyang Zhang.
- - Built for i386 (CONFIG_HIGHMEM) and arm64 (64K pages).
- drivers/net/hyperv/netvsc.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/net/hyperv/netvsc.c b/drivers/net/hyperv/netvsc.c
-index 59e95341f9b1..2038d9f5c9f9 100644
---- a/drivers/net/hyperv/netvsc.c
-+++ b/drivers/net/hyperv/netvsc.c
-@@ -12,6 +12,7 @@
- #include <linux/sched.h>
- #include <linux/wait.h>
- #include <linux/mm.h>
-+#include <linux/highmem.h>
- #include <linux/delay.h>
- #include <linux/io.h>
- #include <linux/slab.h>
-@@ -965,11 +966,14 @@ static void netvsc_copy_to_send_buf(struct netvsc_device *net_device,
- 	}
- 
- 	for (i = 0; i < page_count; i++) {
--		char *src = phys_to_virt(pb[i].pfn << HV_HYP_PAGE_SHIFT);
--		u32 offset = pb[i].offset;
-+		phys_addr_t paddr = pb[i].pfn << HV_HYP_PAGE_SHIFT;
-+		struct page *page = phys_to_page(paddr);
-+		u32 offset = offset_in_page(paddr) + pb[i].offset;
- 		u32 len = pb[i].len;
-+		char *src = kmap_local_page(page);
- 
- 		memcpy(dest, (src + offset), len);
-+		kunmap_local(src);
- 		dest += len;
- 	}
- 
--- 
-2.43.0
-
+I agree, thanks for the review!
+Doruk
