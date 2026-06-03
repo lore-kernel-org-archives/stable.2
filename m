@@ -1,45 +1,32 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6867E403EA0;
-	Wed,  3 Jun 2026 08:09:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C453410D1B;
+	Wed,  3 Jun 2026 08:15:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780474200; cv=none; b=t40eRMO58GrGV4y7zIAExj4wf6p2kUpPhAKixD6UNI1/ErkB6xLeq0RnACYKekO8ACtAosPxQWPL6+XuaQ5EMnwfjk6Ey3UZVLWHxouCuTdYwLuHZPnlI9dlEVLnqBy/XunH/KtGMg4UXkmSJsa3sTT9pq11U6aHJAO4yOgr2ik=
+	t=1780474534; cv=none; b=PORcXZdIZRG1LxM8zO1FuVCKXHYT1Ugg3gQy8PRxv4+55BbU+gRt8Hicw2KLf79HbcR3BSD2vJvaywiTjw9QMDH/RQnGSEKsb8Zf8JvBlvcgmgo7IpiFHp0ywUZtwpdgBGyjbTZSONBfiSP95gc1RWxlcMH6JnWXDkQdL59G2Ps=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780474200; c=relaxed/simple;
-	bh=trhe3JQRuZD6Z2eqR2dt5x0aSlZ4iceV6hLNqZtc3MA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VikB5+JtpfaIXj27HDPj+JteJq3QBVhbFljVUXt7hTgvAp6GGRpGeqxxo+0N4FJmMpsXBmR4kZJBhW4ErlQ9ti1bU58x0niIlb5yM5HHnMSaH/AJdwuLupAMXl7YkeOZTdrDP7T5R6VS7ejUAJFOhsXonBzMCPwtn7PJc45HnQQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=OzPeuMXl; arc=none smtp.client-ip=117.135.210.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="OzPeuMXl"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Cp
-	9RRL9kcLgzNgDIMzSk2IWxzcSq68texAEeDTI94JI=; b=OzPeuMXlE+fbxjOXcC
-	i8EQtfvAb33WiPleJOaerKFhnM4n9245Vp9kFzG1md/d+PTgJ3Wok0CO0Hz6DcaK
-	gvhSaa8qF4zpd99yEGym/8z+C+EHdrN4T/6yOf5PuZqfplNSBEKoK4ISV5W/+Od9
-	0z0ZpLc6gZd2bNwqMa+zjfa0k=
-Received: from pek-lpg-core5.wrs.com (unknown [])
-	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wDXPyQp4R9qrA3TBA--.7184S2;
-	Wed, 03 Jun 2026 16:09:13 +0800 (CST)
-From: Robert Garcia <rob_garcia@163.com>
-To: stable@vger.kernel.org,
-	Prathamesh Shete <pshete@nvidia.com>
-Cc: Thierry Reding <treding@nvidia.com>,
-	Petlozu Pravareshwar <petlozup@nvidia.com>,
-	Jon Hunter <jonathanh@nvidia.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Meng Li <Meng.Li@windriver.com>,
-	Ulf Hansson <ulf.hansson@linaro.org>,
-	Robert Garcia <rob_garcia@163.com>,
-	linux-tegra@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 6.6.y] soc/tegra: pmc: Fix unsafe generic_handle_irq() call
-Date: Wed,  3 Jun 2026 16:09:12 +0800
-Message-ID: <20260603080912.2022575-1-rob_garcia@163.com>
-X-Mailer: git-send-email 2.44.3
+	s=arc-20240116; t=1780474534; c=relaxed/simple;
+	bh=mHb5HAmB5QuGq3DeLSglVkG4VRqKnwuYkrE+myRcHaU=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Gl2OyUGl7PNgvT5w+cS2y6reaVNCHc3yCjRZauhQlwOEpKrdnaGo8sGoR4GvjQNmJElMYt8UpUNA7lDYOYJ5bN1oSD2qCAzRJ/kUxYxtx5VeW0P6/kJsQgu8nx06hvJxODdNuRSsvZkhg2GNN5rp54zzwEMk2/ejKT9E8NC+Jr4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-03 (Coremail) with SMTP id rQCowABXO+KX4h9qRgB7Ew--.18774S2;
+	Wed, 03 Jun 2026 16:15:19 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: herbert@gondor.apana.org.au,
+	davem@davemloft.net
+Cc: linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] crypto: fix refcount leak in crypto_register_alg()
+Date: Wed,  3 Jun 2026 08:15:09 +0000
+Message-Id: <20260603081509.3716161-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,211 +34,64 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDXPyQp4R9qrA3TBA--.7184S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW3Wry5KFyruF1fAFWkWr13XFb_yoWxGFWUpa
-	y5KF4F9w4UJFWfua15ua10vF13CF18X3yxGrW3Aas3G3yUKrn09FnxXFyYqF48ArZakF45
-	A3yvyryUKw4UXFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pRT89AUUUUU=
-X-CM-SenderInfo: 5uresw5dufxti6rwjhhfrp/xtbC5grkUGof4Sr8aAAA3y
+X-CM-TRANSID:rQCowABXO+KX4h9qRgB7Ew--.18774S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Ww4UZF1ftF4DXFW7Jw1DKFg_yoW8Jw4Dpw
+	4Fk3yqkFZ8Gry8KFWkK3WfJryUGrW3ur13Ar40ka1jy3ZxXwsYq3ySy345JF12kFZ5JF1U
+	JrWvkF13ZF1qyaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUkK14x267AKxVWUJVW8JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
+	6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7v_Jr
+	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v2
+	6r126r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrV
+	AFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCI
+	c40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267
+	AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_
+	Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VUjiL05
+	UUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCREHA2ofveWSBAAAsn
 
-From: Prathamesh Shete <pshete@nvidia.com>
+When crypto_check_alg() succeeds it sets the algorithm's refcount
+to 1. In crypto_register_alg(), if the algorithm type requires
+duplication (CRYPTO_ALG_DUP_FIRST), the code attempts a kmemdup of
+the algorithm descriptor. If that allocation fails the function
+returns -ENOMEM without calling crypto_alg_put() to release the
+reference obtained by crypto_check_alg(), resulting in a refcount
+leak.
 
-[ Upstream commit e6d96073af681780820c94079b978474a8a44413 ]
+Fix this by adding the missing crypto_alg_put() before the early
+return, matching the handling of the other error paths in the
+function.
 
-Currently, when resuming from system suspend on Tegra platforms,
-the following warning is observed:
-
-WARNING: CPU: 0 PID: 14459 at kernel/irq/irqdesc.c:666
-Call trace:
- handle_irq_desc+0x20/0x58 (P)
- tegra186_pmc_wake_syscore_resume+0xe4/0x15c
- syscore_resume+0x3c/0xb8
- suspend_devices_and_enter+0x510/0x540
- pm_suspend+0x16c/0x1d8
-
-The warning occurs because generic_handle_irq() is being called from
-a non-interrupt context which is considered as unsafe.
-
-Fix this warning by deferring generic_handle_irq() call to an IRQ work
-which gets executed in hard IRQ context where generic_handle_irq()
-can be called safely.
-
-When PREEMPT_RT kernels are used, regular IRQ work (initialized with
-init_irq_work) is deferred to run in per-CPU kthreads in preemptible
-context rather than hard IRQ context. Hence, use the IRQ_WORK_INIT_HARD
-variant so that with PREEMPT_RT kernels, the IRQ work is processed in
-hardirq context instead of being deferred to a thread which is required
-for calling generic_handle_irq().
-
-On non-PREEMPT_RT kernels, both init_irq_work() and IRQ_WORK_INIT_HARD()
-execute in IRQ context, so this change has no functional impact for
-standard kernel configurations.
-
-Signed-off-by: Petlozu Pravareshwar <petlozup@nvidia.com>
-Signed-off-by: Prathamesh Shete <pshete@nvidia.com>
-Reviewed-by: Jon Hunter <jonathanh@nvidia.com>
-Tested-by: Jon Hunter <jonathanh@nvidia.com>
-[treding@nvidia.com: miscellaneous cleanups]
-Signed-off-by: Thierry Reding <treding@nvidia.com>
-Signed-off-by: Robert Garcia <rob_garcia@163.com>
+Cc: stable@vger.kernel.org
+Fixes: f1440a90465b ("crypto: api - Add support for duplicating algorithms before registration")
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- drivers/soc/tegra/pmc.c | 104 ++++++++++++++++++++++++++++------------
- 1 file changed, 74 insertions(+), 30 deletions(-)
+Changes in v2:
+- Clarify the refcount lifecycle.
+- Fix code error.
+---
+ crypto/algapi.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/soc/tegra/pmc.c b/drivers/soc/tegra/pmc.c
-index 1306e3b8b5c0..4cb47c29dc6b 100644
---- a/drivers/soc/tegra/pmc.c
-+++ b/drivers/soc/tegra/pmc.c
-@@ -28,6 +28,7 @@
- #include <linux/iopoll.h>
- #include <linux/irqdomain.h>
- #include <linux/irq.h>
-+#include <linux/irq_work.h>
- #include <linux/kernel.h>
- #include <linux/of_address.h>
- #include <linux/of_clk.h>
-@@ -467,6 +468,10 @@ struct tegra_pmc {
- 	unsigned long *wake_sw_status_map;
- 	unsigned long *wake_cntrl_level_map;
- 	struct syscore_ops syscore;
-+
-+	/* Pending wake IRQ processing */
-+	struct irq_work wake_work;
-+	u32 *wake_status;
- };
+diff --git a/crypto/algapi.c b/crypto/algapi.c
+index b0e4b13131c3..260d03b328ec 100644
+--- a/crypto/algapi.c
++++ b/crypto/algapi.c
+@@ -446,9 +446,10 @@ int crypto_register_alg(struct crypto_alg *alg)
+ 		u8 *p = (u8 *)alg - algsize;
  
- static struct tegra_pmc *pmc = &(struct tegra_pmc) {
-@@ -1940,6 +1945,50 @@ static int tegra_pmc_parse_dt(struct tegra_pmc *pmc, struct device_node *np)
- 	return 0;
- }
- 
-+/* translate sc7 wake sources back into IRQs to catch edge triggered wakeups */
-+static void tegra186_pmc_wake_handler(struct irq_work *work)
-+{
-+	struct tegra_pmc *pmc = container_of(work, struct tegra_pmc, wake_work);
-+	unsigned int i, wake;
-+
-+	for (i = 0; i < pmc->soc->max_wake_vectors; i++) {
-+		unsigned long status = pmc->wake_status[i];
-+
-+		for_each_set_bit(wake, &status, 32) {
-+			irq_hw_number_t hwirq = wake + (i * 32);
-+			struct irq_desc *desc;
-+			unsigned int irq;
-+
-+			irq = irq_find_mapping(pmc->domain, hwirq);
-+			if (!irq) {
-+				dev_warn(pmc->dev,
-+					 "No IRQ found for WAKE#%lu!\n",
-+					 hwirq);
-+				continue;
-+			}
-+
-+			dev_dbg(pmc->dev,
-+				"Resume caused by WAKE#%lu mapped to IRQ#%u\n",
-+				hwirq, irq);
-+
-+			desc = irq_to_desc(irq);
-+			if (!desc) {
-+				dev_warn(pmc->dev,
-+					 "No descriptor found for IRQ#%u\n",
-+					 irq);
-+				continue;
-+			}
-+
-+			if (!desc->action || !desc->action->name)
-+				continue;
-+
-+			generic_handle_irq(irq);
-+		}
-+
-+		pmc->wake_status[i] = 0;
-+	}
-+}
-+
- static int tegra_pmc_init(struct tegra_pmc *pmc)
- {
- 	if (pmc->soc->max_wake_events > 0) {
-@@ -1958,6 +2007,18 @@ static int tegra_pmc_init(struct tegra_pmc *pmc)
- 		pmc->wake_cntrl_level_map = bitmap_zalloc(pmc->soc->max_wake_events, GFP_KERNEL);
- 		if (!pmc->wake_cntrl_level_map)
+ 		p = kmemdup(p, algsize + sizeof(*alg), GFP_KERNEL);
+-		if (!p)
++		if (!p) {
+ 			crypto_alg_put(alg);
  			return -ENOMEM;
-+
-+		pmc->wake_status = kcalloc(pmc->soc->max_wake_vectors, sizeof(u32), GFP_KERNEL);
-+		if (!pmc->wake_status)
-+			return -ENOMEM;
-+
-+		/*
-+		 * Initialize IRQ work for processing wake IRQs. Must use
-+		 * HARD_IRQ variant to run in hard IRQ context on PREEMPT_RT
-+		 * because we call generic_handle_irq() which requires hard
-+		 * IRQ context.
-+		 */
-+		pmc->wake_work = IRQ_WORK_INIT_HARD(tegra186_pmc_wake_handler);
- 	}
++		}
  
- 	if (pmc->soc->init)
-@@ -3156,47 +3217,30 @@ static void wke_clear_wake_status(struct tegra_pmc *pmc)
- 	}
- }
- 
--/* translate sc7 wake sources back into IRQs to catch edge triggered wakeups */
--static void tegra186_pmc_process_wake_events(struct tegra_pmc *pmc, unsigned int index,
--					     unsigned long status)
--{
--	unsigned int wake;
--
--	dev_dbg(pmc->dev, "Wake[%d:%d]  status=%#lx\n", (index * 32) + 31, index * 32, status);
--
--	for_each_set_bit(wake, &status, 32) {
--		irq_hw_number_t hwirq = wake + 32 * index;
--		struct irq_desc *desc;
--		unsigned int irq;
--
--		irq = irq_find_mapping(pmc->domain, hwirq);
--
--		desc = irq_to_desc(irq);
--		if (!desc || !desc->action || !desc->action->name) {
--			dev_dbg(pmc->dev, "Resume caused by WAKE%ld, IRQ %d\n", hwirq, irq);
--			continue;
--		}
--
--		dev_dbg(pmc->dev, "Resume caused by WAKE%ld, %s\n", hwirq, desc->action->name);
--		generic_handle_irq(irq);
--	}
--}
--
- static void tegra186_pmc_wake_syscore_resume(void)
- {
--	u32 status, mask;
- 	unsigned int i;
-+	u32 mask;
- 
- 	for (i = 0; i < pmc->soc->max_wake_vectors; i++) {
- 		mask = readl(pmc->wake + WAKE_AOWAKE_TIER2_ROUTING(i));
--		status = readl(pmc->wake + WAKE_AOWAKE_STATUS_R(i)) & mask;
--
--		tegra186_pmc_process_wake_events(pmc, i, status);
-+		pmc->wake_status[i] = readl(pmc->wake + WAKE_AOWAKE_STATUS_R(i)) & mask;
- 	}
-+
-+	/* Schedule IRQ work to process wake IRQs (if any) */
-+	irq_work_queue(&pmc->wake_work);
- }
- 
- static int tegra186_pmc_wake_syscore_suspend(void)
- {
-+	unsigned int i;
-+
-+	/* Check if there are unhandled wake IRQs */
-+	for (i = 0; i < pmc->soc->max_wake_vectors; i++)
-+		if (pmc->wake_status[i])
-+			dev_warn(pmc->dev,
-+				 "Unhandled wake IRQs pending vector[%u]: 0x%x\n",
-+				 i, pmc->wake_status[i]);
- 	wke_read_sw_wake_status(pmc);
- 
- 	/* flip the wakeup trigger for dual-edge triggered pads
+ 		alg = (void *)(p + algsize);
+ 		alg->cra_destroy = crypto_free_alg;
 -- 
-2.44.3
+2.34.1
 
