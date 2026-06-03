@@ -1,74 +1,72 @@
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47A403AA1B5
-	for <stable@vger.kernel.org>; Wed,  3 Jun 2026 14:13:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 714522DA759;
+	Wed,  3 Jun 2026 14:16:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780496040; cv=none; b=hACqTf+AHEFQRGIl5bzgRONHdVWhhSWm5xJ/yN64glmFjGUmTDyW3w2HeeKm4R5rfDOYcR7kx+56FT1WVZ8ZO8ZpNrlvp6RtPyoLfY16pvGKH2Ga6i39RQnRpL7eqiaF9UM8ChV2CAdMovtarjC8UgaZDM3tw2PWSdZ7P3ZIQfQ=
+	t=1780496175; cv=none; b=QmWj5QcRFwzoOhtPpRhS3TvrdyMbrTnQWQUysJkU/+Kogmj9XXR/hCqI9s7oHq09qmkWYHmtLJJSzbVzz7bQYCU6cnmkdR2fJpSAIIBujDRPOr5go9IoPHQyEuaM7VG3fxWhr9UsvLPDW+ZREX8gDy5SHZYpXtsqxhPd8XexI+E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780496040; c=relaxed/simple;
-	bh=rltsMnPstES5O95K26OEKN7CoVBeKZdZbNkscQutuP0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Yzwu2Vyojo7rE3jqpbk2ZzgGL1qQrK0Q17hpzl2ICWGCwRKBQkwGHo5VqCkEGCmITE+g2ASocnjor74ZaPE6Y3x6vP6kvGRUiErmn2Qi27AVDhiuQofr7LUWzJPvaq8ZCMOPeZo4l3t+SvoTYgkYEOXLIohZNBze99rrUdUqFag=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0sec.ai; spf=pass smtp.mailfrom=0sec.ai; dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b=qmHCz89Q; arc=none smtp.client-ip=209.85.128.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0sec.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=0sec.ai
+	s=arc-20240116; t=1780496175; c=relaxed/simple;
+	bh=HlOo9yuJ7W1DgckPTdmqfNteUtA2KwlYM8ZEcapsuds=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=u85+coJelmtfiG9kMAl8OEGxH0eKjvjFV829Eatt9g6VIJw/exhYmsQ4g/c06KqmbcLFdz2EJeqEp5CKiYJCmYRQ2m89UGkYTP2JB6By39Sx0e/cw1rDPB9hIdQg+bcO7D74dZs94KB26f6wSRioB4cVAzfel5AbyKYHCodhevg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=OXpNl8Af; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b="qmHCz89Q"
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-490b613a17bso10324785e9.3
-        for <stable@vger.kernel.org>; Wed, 03 Jun 2026 07:13:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=0sec.ai; s=google; t=1780496038; x=1781100838; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=VjsRnZLZQ7estap9LmjUBhs1AGh/vTFeIsSLLUn4dTk=;
-        b=qmHCz89Q+g/pg+3oeXfCXYnh9bdh5d186DzHO7wwxjQ8vDhT2wc9k72Xt3s5PXgDwy
-         rzqrkTCJRVJyFY7bWcOHk909tFA3zAtIvQdOKwzILVrK8tRFbGYMo6thx0NUL4waolBi
-         igzCtQbHuYWS88dxccZFYAvfJIdS5BHBsTWZItckPkA6z03lEWTHyUrOgdnaD4FTXGx0
-         /cmV3RFGY2DC1Ed32py3H+IEB0UPqSfUzuOlzqwWG8KOlviKrkCJK0ZML4CSlajt7IN6
-         K3m8eSfXHttSYbz6g8rQrNmhodoJqD7k/nkcsPERUDTGIu9CTOa7+DwXEsLnauGju5ps
-         Ux1g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780496038; x=1781100838;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=VjsRnZLZQ7estap9LmjUBhs1AGh/vTFeIsSLLUn4dTk=;
-        b=lRBgzcLAHMUqbGIEN4bhCuvO7vPdbglWt+gyNTpEexCkH7i1ja0RnJjRQKoMmeML6m
-         B0pReUIDEcNtddbxhJV83k/AXZiuV8y6vZ27xvBFzAPRQik7o3MVwIAlQM6vKCKuStPo
-         k0HvefHI7gBjlngk0TPZqdNWLnsRQCBHX+YbBtWaXuFwieN21GHYzTUothipVeijsdI6
-         PeJZwZS+pqHxq0nm8BnfE2ZyVw4lEfcxMwRaH6rip2voxK7IhoAc+sfNn0+YOy8dfb8g
-         aqOy78SeYnQUzvDal1YR1DqB+XLxHsxrZMAj5u73VtjJd4tsrwwSR6F9/Q+ohQbyOttm
-         ATcw==
-X-Forwarded-Encrypted: i=1; AFNElJ+xkVzHlWfCiqczB4qxGWTFw+2K0+LuWGuAnxyzFhTHV9EjImzzuESV9iODiVaQOuLnaoUnmNc=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxqD2pP8MOSYRjEh77p1jeUpVC1Vc8mUhnc7gEIVL7NSVHgaDza
-	3LxRaIF2rY0JGfG0ybpeicP9wcnifxq2INAY3bGXYEFXWymRjAZTUPHdc1kyJ8uNCRMZ
-X-Gm-Gg: Acq92OHTE68w3QZ9OTNyX+fFQtaE7XxMaUAkwKVe/r9gQVh75jmTpomLz/7DkGRlwVs
-	/Bc7h4ZZJ0IIa8Q1Jf+s4qVrs1AzDjHkrnUibgvvYWzRGWmAGOn9ZGIQ0svLpGjwAjndKwjZ+b7
-	AYxVGobMHhcB1D4MWqKvVy8qgvxGEpkqu17iRPGJT+NV9y0SiiOCA9PHfHevlIYJda5NmpfrF8E
-	jqquhJN2DScqqYlZBzMsXmo7kjjuoFrbkKf4rfLJOdu9mriXsYG9CQeRW45pPGhdvclcYZ8vlnl
-	tJzfJOc/cWmfr+PNz7XWR0f459LrH8Pw8Ydg/LC8i6J68lgJr0M2fGJzw3hFdTtFeeQ8M2Sl7zp
-	fD0LLcdrrF7rzWsaKcFSl5qo1AyGIPuXG6yVQywXEUgqyXSW8lQyD8a9Wf7uscYiv3CJuQ+KFkk
-	nLcG146SHcIbAzaPx1LjijKN1q7twIvG5Z7Ws9ZpZgNXpcaHSreKHNXbnPDRAOZ2K9SkH9c6/nI
-	UjLyC9siicuzov6RdJmiMWYD/uLtPMTHzWZEc1kky8BZCokHM+Y7KEo3lDyYgUC2g==
-X-Received: by 2002:a05:600c:1392:b0:490:a1a6:6f24 with SMTP id 5b1f17b1804b1-490b5eaad68mr59903695e9.15.1780496037716;
-        Wed, 03 Jun 2026 07:13:57 -0700 (PDT)
-Received: from PeakBook-Mini.tail8e484.ts.net ([178.197.223.24])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490b6d16f0csm65358165e9.15.2026.06.03.07.13.56
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 03 Jun 2026 07:13:57 -0700 (PDT)
-From: Doruk Tan Ozturk <doruk@0sec.ai>
-To: David Heidelberg <david@ixit.cz>,
-	oe-linux-nfc@lists.linux.dev
-Cc: Aleksander Lobakin <aleksander.lobakin@intel.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Doruk Tan Ozturk <doruk@0sec.ai>,
-	stable@vger.kernel.org
-Subject: [PATCH net v2] nfc: digital: clamp SENSF_RES length to the destination buffer
-Date: Wed,  3 Jun 2026 16:13:55 +0200
-Message-ID: <20260603141355.68156-1-doruk@0sec.ai>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="OXpNl8Af"
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6535a1lH3708001;
+	Wed, 3 Jun 2026 14:15:53 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=pp1; bh=F1bCpJrGMayffkxKESwEy89wGfZqbjQXhYCNeMH4m
+	8o=; b=OXpNl8AfgIC3enEhRAken53IjjrZeTsl6nU3J8a51jqnZy5JMOYLvvvoW
+	RNebtLzciiPcllR5c5sJOFu5Leoamnnet3cvpYQMW5f2QPK7BnZqJ0o8ea9Z1qB8
+	t5ZXKCZvuSXnGGztEMtoNuAidE8Zim1688SFlp5a/zP/wcE7zSbZN8q9G16q4XoN
+	uuXn7RM0WabkTKWDK62pGNZbiTvoGaIr0P5dsnSDskHBzNgWKN0LsX2rfExDE7pX
+	l+a+L5QSG80nPKNwpm2HzPirHmgJox2mxuXjk8G4Jew0lRFmpadCFy3ujThHczYM
+	6Z98MUfcekfFhVUF+mymqAIEuBHuw==
+Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4efpaeat3n-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 03 Jun 2026 14:15:52 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma23.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 653E977k028270;
+	Wed, 3 Jun 2026 14:15:51 GMT
+Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
+	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4egbqhge0y-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 03 Jun 2026 14:15:51 +0000 (GMT)
+Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
+	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 653EFlsd31064404
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 3 Jun 2026 14:15:47 GMT
+Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id C27C72004D;
+	Wed,  3 Jun 2026 14:15:47 +0000 (GMT)
+Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id CD56B20040;
+	Wed,  3 Jun 2026 14:15:44 +0000 (GMT)
+Received: from localhost.localdomain (unknown [9.39.24.49])
+	by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Wed,  3 Jun 2026 14:15:44 +0000 (GMT)
+From: Amit Machhiwal <amachhiw@linux.ibm.com>
+To: linuxppc-dev@lists.ozlabs.org, Madhavan Srinivasan <maddy@linux.ibm.com>
+Cc: Amit Machhiwal <amachhiw@linux.ibm.com>,
+        Vaibhav Jain <vaibhav@linux.ibm.com>,
+        Harsh Prateek Bora <harshpb@linux.ibm.com>,
+        Ritesh Harjani <ritesh.list@gmail.com>,
+        Anushree Mathur <anushree.mathur@linux.ibm.com>,
+        Nicholas Piggin <npiggin@gmail.com>,
+        Michael Ellerman <mpe@ellerman.id.au>,
+        "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+        kvm@vger.kernel.org, stable@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: [PATCH] KVM: PPC: Book3S HV: Validate arch_compat against host compatibility mode
+Date: Wed,  3 Jun 2026 19:45:39 +0530
+Message-ID: <20260603141539.47620-1-amachhiw@linux.ibm.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -76,41 +74,104 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Authority-Analysis: v=2.4 cv=Zt3d7d7G c=1 sm=1 tr=0 ts=6a203718 cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+ a=FelO9ux0wxsA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=V8glGbnc2Ofi9Qvn3v5h:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
+ a=9nGdcix9NZkGgJ1vRr8A:9
+X-Proofpoint-GUID: KByeJRv7OplG_laWcGHPeUMbQA1popcP
+X-Proofpoint-ORIG-GUID: 32BC2DOvRklg3hef9YvCfmhZHLxjtdYO
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjAzMDEzNiBTYWx0ZWRfX9/ReuZZWpXFM
+ pRk589GcemCfXWOuYftpujfWFrw/PUy1ShP6BBfPoH7rLnW9Shzp6yZuzXR2Dmm8p6U9Iu5e3RO
+ cQlhYB98XQgjnmBxHWcsaK1sY1RybOQmLyDHOiZCjnfia72EvPG0dHv9A/pFFj3N5bxNQsLCltS
+ T8A6AlnTbg4EycAdSY5o2IWqswfBjUmVTAWywq9VTPoU2qTOsSwiV5hqCbp0ngazYyqWtObmDVg
+ K8FnPLqbLnBEZHBXdsBbf4huht16pmdznyqXV6EbyyS0qozlg5INKmUNZERh4VqZPMQ3K6zUsD/
+ UMvxxbnQN+4F0uP4RIy+8ekXx1kKkVev7DOLogMfRWGntqu7YYB4bnQ0W26YqXsmKbF5yhmPzt3
+ WlNnQN1C++IsBcbMZr8yTNyovJ2jkKRno13uJLQMrqf0aR7tWetztr3NcqX8xJfSsiEZ+fWeucK
+ DuA7vbMNXt7lwPqRrlA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-03_04,2026-05-28_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 suspectscore=0 priorityscore=1501 bulkscore=0 clxscore=1015
+ phishscore=0 spamscore=0 malwarescore=0 adultscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606030136
 
-digital_in_recv_sensf_res() memcpy()s resp->len bytes from a remote
-NFC-F device response into the NFC_SENSF_RES_MAXSIZE-byte target.sensf_res
-field without an upper-bound check. A nearby malicious NFC-F device can
-send an oversized SENSF_RES response to overflow the stack-local struct
-nfc_target.
+On IBM POWER systems, newer processor generations can operate in
+compatibility modes corresponding to earlier generations. This becomes
+relevant for nested virtualization, where nested KVM guests may need to
+run with a specific processor compatibility level.
 
-Clamp resp->len to NFC_SENSF_RES_MAXSIZE before the copy.
+Currently, when running a nested KVM guest (L2) inside a Power11 pSeries
+logical partition (L1) booted in Power10 compatibility mode, the guest
+fails to boot while setting 'arch_compat'. This happens because the CPU
+class is derived from the hardware PVR (via mfspr()), which reflects the
+physical processor generation (Power11), rather than the effective
+compatibility mode (Power10).
 
-Found by 0sec automated security-research tooling (https://0sec.ai).
+As a result, userspace may request a Power11 arch_compat for the L2
+guest. However, the L1 partition, running in Power10 compatibility, has
+only negotiated support up to Power10 with the Power Hypervisor (L0).
+When H_GUEST_SET_STATE is invoked with a Power11 Logical PVR, the
+hypervisor rejects the request, leading to a late guest boot failure:
 
-Fixes: 8c0695e4998d ("NFC Digital: Add NFC-F technology support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Doruk Tan Ozturk <doruk@0sec.ai>
+  KVM-NESTEDv2: couldn't set guest wide elements
+  [..KVM reg dump..]
+
+This situation should be detected earlier. Rejecting unsupported
+'arch_compat' values in 'kvmppc_set_arch_compat()' avoids issuing an
+invalid H_GUEST_SET_STATE hcall and provides a clearer failure mode.
+
+Add a check to reject Power11 'arch_compat' requests when the host is
+running in Power10 compatibility mode, returning -EINVAL early instead
+of deferring the failure to the hypervisor.
+
+Suggested-by: Vaibhav Jain <vaibhav@linux.ibm.com>
+Tested-by: Anushree Mathur <anushree.mathur@linux.ibm.com>
+Cc: <stable@vger.kernel.org> # v6.13+
+Signed-off-by: Amit Machhiwal <amachhiw@linux.ibm.com>
 ---
-v2:
- - Clamp resp->len with min_t() before the copy (Alexander Lobakin).
- - Add Fixes: tag and Cc: stable (Alexander Lobakin).
- - Frame as a stack buffer overflow (saved-return overwrite not demonstrated).
- net/nfc/digital_technology.c | 2 ++
- 1 file changed, 2 insertions(+)
+Changelog:
 
-diff --git a/net/nfc/digital_technology.c b/net/nfc/digital_technology.c
-index ae63c5eb0..ae6487c10 100644
---- a/net/nfc/digital_technology.c
-+++ b/net/nfc/digital_technology.c
-@@ -778,6 +778,8 @@ static void digital_in_recv_sensf_res(struct nfc_digital_dev *ddev, void *arg,
- 
- 	sensf_res = (struct digital_sensf_res *)resp->data;
- 
-+	resp->len = min_t(unsigned int, resp->len, NFC_SENSF_RES_MAXSIZE);
-+
- 	memcpy(target.sensf_res, sensf_res, resp->len);
- 	target.sensf_res_len = resp->len;
- 
+* Moved this patch out of the v3 series [1] as discussed here [2]
+* Addressed below review comments from Ritesh:
+  - Based the PVR validation on cpu features
+  - Fixed hcall name typo
+  - Stable backport
+
+[1] https://lore.kernel.org/all/20260522152744.55251-1-amachhiw@linux.ibm.com/
+[2] https://lore.kernel.org/all/20260522152744.55251-2-amachhiw@linux.ibm.com/
+---
+ arch/powerpc/kvm/book3s_hv.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+diff --git a/arch/powerpc/kvm/book3s_hv.c b/arch/powerpc/kvm/book3s_hv.c
+index 61dbeea317f3..e16dbb199366 100644
+--- a/arch/powerpc/kvm/book3s_hv.c
++++ b/arch/powerpc/kvm/book3s_hv.c
+@@ -446,7 +446,17 @@ static int kvmppc_set_arch_compat(struct kvm_vcpu *vcpu, u32 arch_compat)
+ 			guest_pcr_bit = PCR_ARCH_300;
+ 			break;
+ 		case PVR_ARCH_31:
++			guest_pcr_bit = PCR_ARCH_31;
++			break;
+ 		case PVR_ARCH_31_P11:
++			/*
++			 * Need to check this for ISA 3.1, as Power10 and
++			 * Power11 share the same PCR. For any subsequent ISA
++			 * versions, this will be taken care of by the guest vs
++			 * host PCR comparison below.
++			 */
++			if (!cpu_has_feature(CPU_FTR_P11_PVR))
++				return -EINVAL;
+ 			guest_pcr_bit = PCR_ARCH_31;
+ 			break;
+ 		default:
+
+base-commit: ba3e43a9e601636f5edb54e259a74f96ca3b8fd8
 -- 
-2.53.0
+2.50.1 (Apple Git-155)
 
