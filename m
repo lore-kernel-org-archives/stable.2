@@ -1,41 +1,37 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22555367B90;
-	Wed,  3 Jun 2026 12:24:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from angie.orcam.me.uk (angie.orcam.me.uk [78.133.224.34])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4284C3C4577;
+	Wed,  3 Jun 2026 12:26:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=78.133.224.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780489448; cv=none; b=Q0q7Gaup7TilSdRzkZ7hFp039o3awxe6nBAkEW66/7IOYen7DuJYT/6fFEJoxAQNil7LWAdi8Nfgg632rBygylGSbD5glFgxqaD/rVk4Pqff0yNEcsrYbXqjKljWwTR2RC2IOUEVO2Lpa+VOtQfrFIKUFuAPgAdQxeLMFHmsbdk=
+	t=1780489599; cv=none; b=iqJZaEMXptXiwGVq/th4zpUXKwX+vCJQMy4DnVvf5iycCfMl9u8LEdYVkZRC5YaNDoAd8BUZxUvZ39gR+ZSdCDij+D/OSSb8Lw2jCsPeJGt0VMtTPQ84+4oEVu9lLhOd9s0kzxnRexi9MveRW7FqsDf62ghiKSbc4Rz8cQJ5DV8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780489448; c=relaxed/simple;
-	bh=fhgpEIvNeyfQKRYomQWaRlL99rmQ0rQnJNsvUCdcMvc=;
+	s=arc-20240116; t=1780489599; c=relaxed/simple;
+	bh=iEw0d2HxGjaXO1qlltq6rX8bbbhmpUKAI2DaxgB8uVs=;
 	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=bMfDADaDsoSAzu2IH02od/eV0UdvO9Oxh+6LnNsyrSiU6POc8ht0ZPN30K1AzykLeYqDY0rL3HLMhx44SCysdm/hzWxECMVcy8HEwXTxCUCWijNprjbK5Z8QYsJfQvBb4yYmAHDyZo5YwX4BntmFPFNpLsaWIg8KzbOdlUm6JD0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iO8p5ibD; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iO8p5ibD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 346F21F00893;
-	Wed,  3 Jun 2026 12:24:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780489446;
-	bh=hXHl2kqJr/S0Wgp1udof7iRvEicwkY2guHehFWaFpsU=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References;
-	b=iO8p5ibDLCSM+5JybV5K1CNtix4uAW5j922nOHf7n2wJpy1egElT+q+oQBH3H7oUu
-	 ky1Mwq6Yo2U1xISpBK7R/iS/UvldPaaw0pY7H3jWNBu3KPixstrx7lFStW0klZEQ41
-	 nsV9QJNeELkoPruc7vju0nrzMo7es36Cj3QO5OUQr9ZjLWgvSd5OS8VjkK22MOPns6
-	 BHlHj4JemmiLSu+lAgFYN8DlsL5+eF4Q+YbRsjWxO5UM9jG7fjxm/LN+0l/HiNzZ59
-	 I1WSou96FSYbmK0A9I6v8pnNTGbhTotZcVCQCGp8/2ZxpYpqBTynGRo5pAEJo6yF7v
-	 IEWpNAzMFWTsA==
-Date: Wed, 3 Jun 2026 14:24:04 +0200 (CEST)
-From: Jiri Kosina <jikos@kernel.org>
-To: Jinmo Yang <jinmo44.yang@gmail.com>
-cc: linux-input@vger.kernel.org, dmitry.torokhov@gmail.com, 
-    benjamin.tissoires@redhat.com, stable@vger.kernel.org
-Subject: Re: [PATCH v2] HID: wacom: fix slab-out-of-bounds write in
- wacom_wac_queue_insert
-In-Reply-To: <20260528175945.2987781-1-jinmo44.yang@gmail.com>
-Message-ID: <7970933s-3os1-595r-54pn-s6s36n019626@xreary.bet>
-References: <20260524135203.1996265-1-jinmo44.yang@gmail.com> <20260528175945.2987781-1-jinmo44.yang@gmail.com>
+	 MIME-Version:Content-Type; b=axlNW16jaIs2I4NFaqe3NeumCBPrwGviBLTAeU72Npv0Q8RjZlfDjLOiky0J820hbUvlBFTVznqj4A8uCIsgk1ZGs8SXfn9CKb8HsmSLS0NmAhnPHmd36WX6HEZMFSMxLBF+SBfVflE7Clo89YS+ZO3V0xBnTAsTonGtugtTXy0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=orcam.me.uk; spf=none smtp.mailfrom=orcam.me.uk; arc=none smtp.client-ip=78.133.224.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=orcam.me.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=orcam.me.uk
+Received: by angie.orcam.me.uk (Postfix, from userid 500)
+	id 43DB39200B3; Wed,  3 Jun 2026 14:26:34 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+	by angie.orcam.me.uk (Postfix) with ESMTP id 400C992009C;
+	Wed,  3 Jun 2026 13:26:34 +0100 (BST)
+Date: Wed, 3 Jun 2026 13:26:34 +0100 (BST)
+From: "Maciej W. Rozycki" <macro@orcam.me.uk>
+To: Jacques Nilo <jnilo@free.fr>
+cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+    Jiri Slaby <jirislaby@kernel.org>, 
+    =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+    Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+    linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org, 
+    stable@vger.kernel.org
+Subject: Re: [PATCH v2 0/3] serial: 8250: fix BREAK+SysRq dispatch on
+ guard()-locked IRQ handlers
+In-Reply-To: <cover.1778675349.git.jnilo@free.fr>
+Message-ID: <alpine.DEB.2.21.2606031315270.22659@angie.orcam.me.uk>
+References: <cover.1778592805.git.jnilo@free.fr> <cover.1778675349.git.jnilo@free.fr>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -44,34 +40,18 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Fri, 29 May 2026, Jinmo Yang wrote:
+On Wed, 13 May 2026, Jacques Nilo wrote:
 
-> wacom_wac_queue_insert() calls kfifo_skip() in a loop when the kfifo
-> doesn't have enough space for the incoming report. If the kfifo is
-> empty, kfifo_skip() reads stale data left in the kmalloc'd buffer
-> via __kfifo_peek_n() and interprets it as a record length, advancing
-> fifo->out by that garbage value. This corrupts the internal kfifo
-> state, causing kfifo_unused() to return a value much larger than the
-> actual buffer size, which bypasses __kfifo_in_r()'s guard:
-> 
->   if (len + recsize > kfifo_unused(fifo))
->       return 0;
-> 
-> kfifo_copy_in() then performs an out-of-bounds memcpy, writing up to
-> 3842 bytes past the 256-byte buffer.
-> 
-> Add a !kfifo_is_empty() condition to the while loop so kfifo_skip()
-> is never called on an empty fifo, and check the return value of
-> kfifo_in() to reject reports that are too large for the fifo.
-> 
-> Suggested-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-> Fixes: 5e013ad20689 ("HID: wacom: Remove static WACOM_PKGLEN_MAX limit")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Jinmo Yang <jinmo44.yang@gmail.com>
+> This series fixes a silent regression where a SysRq character entered as
+> BREAK + key on the serial console is consumed by the kernel but never
+> dispatched to handle_sysrq(). Same description as v1 [1].
 
-Applied, thanks.
+ Thanks for the report and working on a fix.  This issue hit me hard last 
+week when chasing a bug with one of my systems where my debug hacks caused 
+me to become unable to become root and reboot the system properly.  To my 
+surprise I was unable to access any of the magic SysRq features either and 
+consequently I had to power-cycle the system remotely via a PDU (it's some 
+1600km/1000mi away).  I've now verified that 1/3 and 2/3 bring the feature 
+back with patched 7.0.0 and said x86 PC.  No way to verify 3/3 though.
 
--- 
-Jiri Kosina
-SUSE Labs
-
+  Maciej
