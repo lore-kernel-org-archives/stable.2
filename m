@@ -1,127 +1,88 @@
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sipsolutions.net (s3.sipsolutions.net [168.119.38.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4F1C477E58
-	for <stable@vger.kernel.org>; Wed,  3 Jun 2026 12:09:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 708D946AF37;
+	Wed,  3 Jun 2026 12:10:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=168.119.38.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780488580; cv=none; b=SUFxytapK/6HjAubWt75T65e6WdEk/OpARn0RUlDBZtUHhpD3as2sriYnKjSnGy7L7Dy28ZPP//zqu3NEd3DG6veAOEiHK59MOUNnSuQbkTMCEBzbXNjQAtqrpewb6ui9ic6mHpMJfGW+dHq+VGuZ4I6Wg++c9Rretu5FW+3mxM=
+	t=1780488613; cv=none; b=rAPvN3ZYeEm7YmSlcGLrZMOQ68ZXXUZ3PY+R4NOC6M8ukXg4Fq3WJXjRq44SaXlTGgnlvylKdRACxhlHHJ5lcCoGWRbLxtbxd+Ab+T2WeEwmqM8AsHfnQ26ZxNJlMQ5Ken1dX/JCf7uAgUQ/CrOitfCoyLSgCICtG4Ghrwc0jtk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780488580; c=relaxed/simple;
-	bh=3GWDWLWCMXc+5OOno8Qwns2iSCPZvQEoDk/ip8tJyEA=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=kqTaskGC8tpLanJQeUmHvxHBVguBefqPtI6rSZm4qhd2Y7yiRPCUd0P9uW9JUhJ6GW4FfM0y6gorZfsLNxg/NZWCnti2wM5HElBeaz/3+YICjkBSp5+8fQtGQzr2i3QWdTC9WBAmDtS0gimxXWIvTCPQYqIP0h+iXc95JlJPqME=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Z8zAmw7K; arc=none smtp.client-ip=209.85.214.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1780488613; c=relaxed/simple;
+	bh=E53t0GX/q0rfd2pSXpToIBYHwBQUqiT01aMUKreh3Jk=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=edRF+xowYZNhQabj0dXRDKDyMh0j3FjUY0bmGh1BCUnSkx7vM+QENxYQykSmBmnkHAb7mid8XkdR4pcFJlODk67f8Mw52JryRgrB7KwU0YHZ4O6aAjsuj3Cwai7Q1YVjSYBpsUVlLhtRuREweJNgHu/9BZtusFax5ObvVPHOACg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net; spf=none smtp.mailfrom=sipsolutions.net; dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b=keEAZASF; arc=none smtp.client-ip=168.119.38.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=sipsolutions.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Z8zAmw7K"
-Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2c0bd02d97eso42847715ad.2
-        for <stable@vger.kernel.org>; Wed, 03 Jun 2026 05:09:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780488578; x=1781093378; darn=vger.kernel.org;
-        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=PtMTRcfS8t3A0zoUtO5rbb4BAKaZHdusERWAc+kj3aw=;
-        b=Z8zAmw7K/cgDJoubb5NhTGVFD5aw/jelvqaW53zradCGDQkpjA4CEt0vD8pbKp6rzw
-         uBA5yT10fZw/IONwFINNRxpTtIZffp+bmTT9EyRDIm9F9Ua8rV32KNewIaW8E8eq1WI8
-         20gzqh+6Gr3r/+tFOw3jfZSrnWJGR4yxPChQtBbxXY57U4FG62p5nMd/XGNwbMQox2IM
-         0enVl5B/alijGhYYfTOhzjct5NJ4IOS7Wh9+Fzb03TwYJYcOQ+ujWZBtozwCojCHRxWC
-         tIsPKapx1LTb3CjH4MLYeoVfmMetEQhzMWVBTlE3NwL6PeiDOkZEuXvP06n8cQKXRspX
-         0NCQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780488578; x=1781093378;
-        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=PtMTRcfS8t3A0zoUtO5rbb4BAKaZHdusERWAc+kj3aw=;
-        b=PAJ9YA206w7LFc2fXVK5BgEJTiU2ciLfGvdJ+SMMoY/tX9Pr69H3sjqvngTku2YMis
-         xdBeOg7FQiY3xK4e7cBLYw8iIs+GvDfdcd8mPSS8B8vaMX4gOd9TXKLnziQNxHU5i/7d
-         itHCzAAzRiGY5F8Qnz8zh2H7PlJS4JuFJK/rIhAJ1NB3TIvWQvZhWYVjikwyD3AVGkze
-         xuXPXyjqIhSd50gN70BK8UKHTU/o6ZLyZlDKrsMvKx7Oys5WLaAGldXfKQy+r480Zv8Q
-         5a5SYU3BQFnAeAxsvPwYeLs/TVSe6nIQXvYUuDl0OgsHKNMF1ov4dtZtLmbGlOf3W6dX
-         cBRQ==
-X-Forwarded-Encrypted: i=1; AFNElJ+a7bxMhCexbBvqqF/8Fi6aqy0EsW5q9OE4kOKVUmH5oSeuJYfZN5JqKmaiKyOB2Km5+tXrjFU=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz1pGLvblrqrBH4lv4wNo849xuhHG6sE8z2YtzYG1wcCsRWzzPq
-	dtDy/U4ELRvf3zrIKYLgIbx3o0gcaCGtbQ10hGFppMW+pv1pJ2rUBFah
-X-Gm-Gg: Acq92OEiUq6IsNEkLwu3P85p8z04RYocd7gQCOQD8X6ikmA9FmwmK7r4sN2yQ0WVgFt
-	+fL8kIqackXP/oR5UcpzAWSxCEPDiRO1ZOFoNGSMmvTDqzlpQFdIYUWLHtH3IOXHHRHmD0cxlhq
-	XA6FRLo7QcxnOG6zMKEqIAuv8oLmjCSkQTwHMwIX0oZDiYOBn8Obwd1pYMUbQjW5cbv88tnPdgP
-	GhaoBSPloySbl6fkXodB1pmocckbhXIddXfiRu7vhAgg8F/Ovi01e6m+V3i1oaineBMFkJQ9cWd
-	nHgQWphDuwLSYmLNpSH49cSq3CCKK/tUEFgLhCdXtlPK8ckndXdV/59ATdcpe/aUFsl1cUNW0qN
-	xSG9oztlDzdNU1GHrW24laXxCpZ8/rR6SV7S0kAD+BhkIS6/Jek+fjkcfkdjG05Wg7guHfFstpz
-	ogx1OsWQpM1+qh1JsA5D+ezMl9pJlYtY2+PX86B1fuV+bsfxBnhKGtSA==
-X-Received: by 2002:a17:902:da88:b0:2c1:69cb:441a with SMTP id d9443c01a7336-2c169cb4529mr27294735ad.18.1780488577735;
-        Wed, 03 Jun 2026 05:09:37 -0700 (PDT)
-Received: from v4bel ([58.123.110.97])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c16629cfb4sm25082855ad.59.2026.06.03.05.09.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 03 Jun 2026 05:09:37 -0700 (PDT)
-Date: Wed, 3 Jun 2026 21:09:33 +0900
-From: Hyunwoo Kim <imv4bel@gmail.com>
-To: maz@kernel.org, oupton@kernel.org, joey.gouly@arm.com,
-	seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com,
-	catalin.marinas@arm.com, will@kernel.org
-Cc: linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
-	stable@vger.kernel.org, imv4bel@gmail.com
-Subject: [PATCH v2] KVM: arm64: Take the SRCU lock for page table walks in
- fault injection and AT emulation
-Message-ID: <aiAZfdeyanIvP8SD@v4bel>
+	dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b="keEAZASF"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=sipsolutions.net; s=mail; h=MIME-Version:Content-Transfer-Encoding:
+	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
+	Resent-Cc:Resent-Message-ID; bh=+PlzdCER/RcjA0HQ3AgtKopayR3MXsHpT+3IgIX4iOI=;
+	t=1780488612; x=1781698212; b=keEAZASFmyNChkK4Q6g2K76nZgLQAiaZZNnZx+hczgaUs8/
+	xp8GEoH+fP08CGxro8wWlojDFOfCz9nK2vvepIiewV2tf6NOCTVOG9+xl10g0qjm+4OoUQ8Mc3iQf
+	dh62zPgKn8vOMQAjTsGzEE6IxJjcumXJQ6Q7m1ljAdSL6kennVsyqeai2i14Ysku4UxC9FmIADd2d
+	pgsJyW6ka1+5V8GGj9cHwyP7JptJyyplLDZjCmVTkTGGkdZZuHeRAvaKNUn8/PkTZ2yd2HiCCCWvH
+	Cdr3QLF1DSgZwvRCEBaY+i41uce/W320JMS7g1M8snvJ9h0If2t5Db41Ikb6lAfg==;
+Received: by sipsolutions.net with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.98.2)
+	(envelope-from <johannes@sipsolutions.net>)
+	id 1wUkQD-0000000H6do-3qUU;
+	Wed, 03 Jun 2026 14:10:10 +0200
+Message-ID: <978c9a11cf836680b1fd9365f3b90f028ddf5372.camel@sipsolutions.net>
+Subject: Re: [PATCH v4] wifi: mac80211: fix monitor mode frame capture for
+ real chanctx drivers
+From: Johannes Berg <johannes@sipsolutions.net>
+To: Devin Wittmayer <lucid_duck@justthetip.ca>, 
+	linux-wireless@vger.kernel.org
+Cc: Felix Fietkau <nbd@nbd.name>, Lorenzo Bianconi <lorenzo@kernel.org>, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org, Oscar Alfonso Diaz
+	 <oscar.alfonso.diaz@gmail.com>, fjhhz1997@gmail.com
+Date: Wed, 03 Jun 2026 14:10:09 +0200
+In-Reply-To: <20260519235713.49109-2-lucid_duck@justthetip.ca>
+References: <20260518170147.13885-1-lucid_duck@justthetip.ca>
+	 <20260519235713.49109-1-lucid_duck@justthetip.ca>
+	 <20260519235713.49109-2-lucid_duck@justthetip.ca>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+X-malware-bazaar: not-scanned
 
-walk_s1() and kvm_walk_nested_s2() expect to be called while holding
-kvm->srcu to guard against memslot changes. While this is generally
-the case, __kvm_at_s12() and __kvm_find_s1_desc_level() call into the
-respective walkers without taking kvm->srcu.
+On Tue, 2026-05-19 at 16:57 -0700, Devin Wittmayer wrote:
+>=20
+> Cc: stable@vger.kernel.org # 6.9+
 
-Fix by acquiring kvm->srcu prior to the table walk in both instances.
+No. It's known to crash drivers on some versions, so it should
+explicitly opt out of stable by
 
-Cc: stable@vger.kernel.org
-Fixes: 50f77dc87f13 ("KVM: arm64: Populate level on S1PTW SEA injection")
-Fixes: be04cebf3e78 ("KVM: arm64: nv: Add emulation of AT S12E{0,1}{R,W}")
-Suggested-by: Oliver Upton <oupton@kernel.org>
-Signed-off-by: Hyunwoo Kim <imv4bel@gmail.com>
----
-Changes in v2:
-- Wrap only the walker calls with scoped_guard() and move the injection
-  lock into __kvm_find_s1_desc_level(), as suggested by Oliver.
-- Reword the commit message as suggested.
-- v1: https://lore.kernel.org/all/ah7_BAAzHggzdZeI@v4bel/
----
- arch/arm64/kvm/at.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+Cc: <stable+noautosel@kernel.org> # causes some older drivers to crash
 
-diff --git a/arch/arm64/kvm/at.c b/arch/arm64/kvm/at.c
-index 9f8f0ae8e86e..889c2c15d7bd 100644
---- a/arch/arm64/kvm/at.c
-+++ b/arch/arm64/kvm/at.c
-@@ -1569,7 +1569,8 @@ int __kvm_at_s12(struct kvm_vcpu *vcpu, u32 op, u64 vaddr)
- 	/* Do the stage-2 translation */
- 	ipa = (par & GENMASK_ULL(47, 12)) | (vaddr & GENMASK_ULL(11, 0));
- 	out.esr = 0;
--	ret = kvm_walk_nested_s2(vcpu, ipa, &out);
-+	scoped_guard(srcu, &vcpu->kvm->srcu)
-+		ret = kvm_walk_nested_s2(vcpu, ipa, &out);
- 	if (ret < 0)
- 		return ret;
- 
-@@ -1665,7 +1666,8 @@ int __kvm_find_s1_desc_level(struct kvm_vcpu *vcpu, u64 va, u64 ipa, int *level)
- 	}
- 
- 	/* Walk the guest's PT, looking for a match along the way */
--	ret = walk_s1(vcpu, &wi, &wr, va);
-+	scoped_guard(srcu, &vcpu->kvm->srcu)
-+		ret = walk_s1(vcpu, &wi, &wr, va);
- 	switch (ret) {
- 	case -EINTR:
- 		/* We interrupted the walk on a match, return the level */
--- 
-2.43.0
 
+> -	if (chanctx_conf)
+> +	if (chanctx_conf) {
+>  		chandef =3D &chanctx_conf->def;
+> -	else if (local->emulate_chanctx)
+> -		chandef =3D &local->hw.conf.chandef;
+> -	else
+> -		goto fail_rcu;
+> +	} else {
+> +		struct ieee80211_chanctx *ctx;
+> +
+> +		ctx =3D list_first_or_null_rcu(&local->chanctx_list,
+> +					     struct ieee80211_chanctx, list);
+> +		if (!ctx ||
+> +		    rcu_access_pointer(ctx->list.next) !=3D &local->chanctx_list)
+> +			goto fail_rcu;
+
+This results in a sparse warning, maybe my loop approach was better
+after all.
+
+johannes
