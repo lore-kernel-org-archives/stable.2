@@ -1,123 +1,100 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8591385509;
-	Wed,  3 Jun 2026 09:17:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56D0E388E52
+	for <stable@vger.kernel.org>; Wed,  3 Jun 2026 09:17:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780478238; cv=none; b=pFGmPRoK23EcPQEwrHRwAzuZ/WJiHbGLJR0slFKsWh5U6X20Q9dTwvmWC9Xu1EFgiskDzXWClz6k+aKQz8IKE9GJM/jLs5Xmlin4EHisUsqxm54yt7D5NsM7AcEHKHNY8z9nd3oM+IuL8eXjKjNNbVBfvHeL7yAoFMxuK/6LJ6M=
+	t=1780478252; cv=none; b=eZ977lndKobGAO6l2GiYduPPyFxMFqs2iq7uz/+L6ObOFIHCA23jyw0vdSPRsC6zE5dED6Af1oz+6F6ADKiae6rDSSOGVwYECkqe+7/TRXAj7RQSUSknSgor/fHWPaW9T0qblacUtuL8a7pYUJccWAZQ9qrrL2QC5DrsOUpLTTg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780478238; c=relaxed/simple;
-	bh=fVEQwUhLoVNS2/4eGVtXLnWvltW4cAklpOycSiFtU34=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=chx9An11nFhgLK7M3mw7jACOTHUWajqI4pmiTVvreiKLuXulSBjkjaVUzeboza3rF7YMOXjQRXdA3+bMpFgxVBgy2P4wcH6AmekCkWGL22yPQxWYp8LAT7FxeQ7LURzoxya1zI60//E7Pf9aI6XdRyO52AIPM/EfgJ16jSb7z58=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eNnUdHOO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780478252; c=relaxed/simple;
+	bh=kJ82LS2c7VtnpbVfYf6en1BpQwOaSYvNSWOCFvbtoh0=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=jxCCh9ZvPbXLHORmFfbIOPrPtrdm0qyamgQ5JBA7RttGSDuY4Jv89PnrjFX4k9Yqz+1zro87pfmF7YybFpe7JE5vAhEQMooYFfmOE+CKNGNKvKsjTeUMjH7LTifOm1F0dfwDgv2JZnuoYIEkheGSE6RE2HRWIuMcArYWwb4Rv70=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cym/tRus; arc=none smtp.client-ip=209.85.221.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eNnUdHOO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A27D11F00898;
-	Wed,  3 Jun 2026 09:17:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780478233;
-	bh=MQcYvCT3a1VhxRUtA3yBud3Cov811xvbS3O5Ig1I1EU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=eNnUdHOONZj/Uqfobds326We859nRyj5alnrvuw22DWztlicGiTtvdh/lPqUMHomH
-	 eusa4H1OccADhexFj1ZDOpYnipOmGEVGsmmWLCqRXYHX6GeVbfE6sq6sEw0wlYbVpb
-	 +pFWjneZKUQta42+/f8Nf1T6gFffvQ3ehLIzBzKTvSASlplK9weKercZg/MIhicvyh
-	 xyKmyPwJTFKDYktmLbUpzKaaPXn5ri57SqdVgp7qgrSzD/hvcjXWEHeIwAoTJpKh8N
-	 ASglMn8rh4GxR0GHGJwf+npyEvFk+88ZWdOtDh+WbDtescacZBZp3AhSbo/HcvL7Sn
-	 afoMjRs6v8nyQ==
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailfauth.phl.internal (Postfix) with ESMTP id D04F1F40069;
-	Wed,  3 Jun 2026 05:17:11 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-02.internal (MEProxy); Wed, 03 Jun 2026 05:17:11 -0400
-X-ME-Sender: <xms:F_EfanZcvCdn_IXcFRLd4iKDazSop5vjxZl1ouYp9GeOxqA5nRavYA>
-    <xme:F_EfaoyIf5rFHeBAAQeAbqI69rWQlwaEF6zrVKizOgD_i4CgwUw9RCyta3eCRGdFM
-    9HdhRUIPOkIjB5TCakGwIqkpMFTJ-BN7jt9Xeo28JQodLGaTX1Tc1E>
-X-ME-Received: <xmr:F_EfajPtnZ9KNOhTYs4_uvPIl61OW-YIyf7DhoYiXTlhBYTrlVlY1g8BhsxveQ>
-X-ME-Proxy-Cause: dmFkZTEezkExBEAIasghnBjiLysnYWt/PY0pVmQQaVS2AHfOsx523B0oS6FXtB65660IUX
-    Ik7qeiMI7PD1c2/VWZGwROrAwi/xjvTxBVXtAeKDoQTzSe4rcT7tz5VEeOidVy1nkIsUJw
-    qMPOdTqvhppr6iBrbU5iKf5PbS34JKc7KWpNMXWq1iVfFe86W2okDBZ7BsLYh2sxJXDph5
-    WPj/raJ/oHFgrbYK7fCJEbDyu56K4mVEhEsrwg8DfdXEyRID3Id62znlLnyAXMSO7DqL/v
-    6ud7XPsjkkElM2rszubqPIZFZyPZCVQXpSeF3Vo1JRkGbK6ITAKQbE9lwWpkpp9ZZbNLEI
-    1E7YAFlvx6zOFsgMTeUSEtVbXlXsKL1XV/Jpq7Zay7VdPwgSJGtXu8hg77KrmAs1fNKomh
-    XOuW2GO7NEgX1KY9JugpJ6hC0eBYlX70fuOf7c1+NrFxOH/Th16u7rkJNzCXYhBdNvy3Ct
-    8ksInv+Hp3fIa4yqVA/JS40Fre0RM0bto9HQ5nsmCF2XotFbHo0V7fOgiyXcRW4CD3VR70
-    sf+5PrMtdU/v5qRMJ3KMZJclBdzVDnYic3o383/5L0KefvqeNTz7pAYVnZNMqn6B475kwJ
-    QKWZZLCwpz33f/ujUS9CAXEfSaWe2FpYzxuZpdLbT7PhSijxsfF0Um9zUntg
-X-ME-Proxy: <xmx:F_Efagx8HkpG9ov_-pm8rTOFX4E5eMtiHJzbN_1TM0Dd4anhnaXGyg>
-    <xmx:F_EfalCi8PbrH6J7VCPFstQ77JnqVE2F699dViPj9tuSiFP9KA1ONA>
-    <xmx:F_EfarMrzoXMp6lunk_04ZhhPiGoB_SMYETpVC0V2f-c2SUz-5AZ3A>
-    <xmx:F_EfamYDrvz_hD_WXX9b291GPjGzmQ0qmS6BZW8S0jOJggTlP_GKhQ>
-    <xmx:F_EfahJZ_12Jbk3MrZtBOfiKCh1BeMskekjHnRrNiN2w48UMPjI9aUoz>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 3 Jun 2026 05:17:11 -0400 (EDT)
-Date: Wed, 3 Jun 2026 10:17:10 +0100
-From: Kiryl Shutsemau <kas@kernel.org>
-To: Mike Rapoport <rppt@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, Lorenzo Stoakes <ljs@kernel.org>, 
-	David Hildenbrand <david@kernel.org>, stable@vger.kernel.org, 
-	Sashiko AI review <sashiko-bot@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, Peter Xu <peterx@redhat.com>, Pedro Falcato <pfalcato@suse.de>, 
-	Alice Ryhl <aliceryhl@google.com>
-Subject: Re: [PATCH 6/6] userfaultfd: build __VMA_UFFD_FLAGS from
- config-gated masks
-Message-ID: <ah_xBwbAexZ7ew0t@thinkstation>
-References: <20260529172331.356655-1-kas@kernel.org>
- <20260529172331.356655-7-kas@kernel.org>
- <ah6VNjfXXx-3Nh9l@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cym/tRus"
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-45f3cf907ceso1991933f8f.2
+        for <stable@vger.kernel.org>; Wed, 03 Jun 2026 02:17:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780478249; x=1781083049; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:subject:cc:to:from:date:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=WWDk+OzqxFsgFShuxBM2y3BRidTB0F0fOkuYz1HmptU=;
+        b=cym/tRusnyMIp6/h3qK2ijvvyyx00AR2Byuq7Ovs7ybtq1GEz20ygu6TS44YNA/DpL
+         CbMa1Un5dBUjxztBBK9ajxF3Vm7t9oZ1EdyGj9/fcg3C/3+SQBwruqMjiQqwnHwSnLqd
+         4jIozygkpmfpZziEsuQ1QUrC3qDtfebPOXMFGba5YyaEYGCdkr7MfZCylxBdWMSqZFpu
+         xiEo/rd6Tr/zvzCf1nwwQPYU4C4zDxYgnqn7kz+uXMmSUbjFKTtb4EmM6yipX6Q0wiAX
+         shqtVu8ElOt6widl0CiOMUQcnBxs3IL3CBkpGC8uGyspt6YK06RJHeiAvLnP5Ln9f0hv
+         I/9w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780478249; x=1781083049;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=WWDk+OzqxFsgFShuxBM2y3BRidTB0F0fOkuYz1HmptU=;
+        b=XHVDiOfy37ioMUDhDuIeHGovvG/3nmPvKcYEkFu3oRaFN8hjHPu6FR0EhILo/egLQg
+         WAU9HmwtKVXQLdDQ1jM9ZvcPdux0Ik2f85JWNkf6TIi1zkg9l2X6uUtP4Et+XgqFTONE
+         AJWYw5/qlRTB+YJ6L+K6wgY5haJqqsJu9yfbBW5vzum3K7iXD03P9/GH8QK5B3UXvu4j
+         Js5oyVASPXICh5PXduKAMWa/7oBl0CBJa9L7uboXZ76IU6img9s0EEPINw45JbZYOxhz
+         4PWKO9zWoaf51zyNtaOnexwMfLVQq412Xd2E3ELNns/c2+2V/kwKnwQqa8oJtmJ4WpU4
+         JJag==
+X-Forwarded-Encrypted: i=1; AFNElJ+WCzm6ia/nAIVHFSd5JpQcAnmy8S7Vnp1K0OAs6KWZeJhsPhzeCdYT7iexCk7tNHE+41ZMn4s=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzMiMS1JPE/cSYpeZJpRIthWXa0kclOYqpIg8x/ELW1F9htML4K
+	4ljPJdjtposN7RHpj+5B5A8nS7qewkLc3U1CjSGkPV4tKlR0lNw4vHYh
+X-Gm-Gg: Acq92OEfDi/h4i3brNxh9/uWPHb8NbSCq9G4NbnCD0g5DTV5RX+Bh4L+rF29ULdiZ+D
+	Sb7Tn+OMthrTz11Xx7KOgMlMCgu340ZidIdxh5e7ni1mcZ1XlkXIbC+nMhHSK5037NZPluRBMrT
+	KRyyFWLdKVjeBz08VRbmZXYsuCuuMtCojUtJJD0EXezzNcGjgX2a/TqKKM/oku81qh+EURB8kQs
+	jXv1U7Jle8RIpS2qcFXoa6tuQI0l7nUH4F7esB8mQK+BtFsYpSNon4OTzMydBd5jDizo4vRK86h
+	NLEhon1aJszh2ft+aHUKL6qrPXa1LSzNTcSoljipjGCWjZyAHp3McwUiuM3XMCJdyzPFo/r8Z5v
+	DCeFv10e2dEuYT+rrYRs+ikSdxhtfhLKw6NFdar7+VxzQN1XYRf4ryCoXGjv8nAfPv1E9sZKPYv
+	SjpAmYs68g+qTL7EJIZkH0Wsa5456nmmd/w8BkZUoaOG8lOLAMpnshgscJtfQiXb7Z8zeGf8I=
+X-Received: by 2002:a05:600c:c84:b0:490:389:7644 with SMTP id 5b1f17b1804b1-490b5fe0e36mr39962935e9.17.1780478248344;
+        Wed, 03 Jun 2026 02:17:28 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490b61511c4sm51593825e9.1.2026.06.03.02.17.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 03 Jun 2026 02:17:28 -0700 (PDT)
+Date: Wed, 3 Jun 2026 10:17:26 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Aiden Bowling <aidenlbowling56@gmail.com>, Lorenzo Stoakes
+ <ljs@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, Vlastimil
+ Babka <vbabka@kernel.org>, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH] kernel/sys.c: fix prctl_set_auxv to use sizeof instead
+ of user-supplied len
+Message-ID: <20260603101726.05d1f7a8@pumpkin>
+In-Reply-To: <f6d59be4-db98-431b-97d8-d991e7381135@kernel.org>
+References: <20260602024001.14119-2-aidenlbowling56@gmail.com>
+	<ah6jS246wBcTH6gr@lucifer>
+	<CAGOa741UNr5DzK4vr8RBLvhZcCs9zdva6tqmMptQw5P8ooNEOA@mail.gmail.com>
+	<f6d59be4-db98-431b-97d8-d991e7381135@kernel.org>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ah6VNjfXXx-3Nh9l@kernel.org>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Tue, Jun 02, 2026 at 11:32:54AM +0300, Mike Rapoport wrote:
-> On Fri, May 29, 2026 at 06:23:30PM +0100, Kiryl Shutsemau (Meta) wrote:
-> > The VMA flags bitmap is a single word today: NUM_VMA_FLAG_BITS is
-> > BITS_PER_LONG, so on 32-bit vma_flags_t holds only 32 bits. (The bitmap
-> > type exists so this can grow past BITS_PER_LONG later; until it does,
-> > anything declared above the first word is out of range on 32-bit.) The bit
-> > enum nevertheless declares some bits unconditionally above BITS_PER_LONG --
-> > VMA_UFFD_MINOR_BIT is 41, with VM_UFFD_MINOR == VM_NONE on 32-bit so no VMA
-> > actually carries the bit.
-> > 
-> > __VMA_UFFD_FLAGS feeds VMA_UFFD_MINOR_BIT to mk_vma_flags() unconditionally.
-> > On 32-bit that becomes __set_bit(41, &one_long), a write one word past the
-> > end of the single-word bitmap. The compiler folds the out-of-bounds store
-> > with wraparound (1UL << (41 % 32) == bit 9) into the first word; bit 9 is
-> > already in __VMA_UFFD_FLAGS so the mask happens to come out right today, but
-> > it is an out-of-bounds write all the same, and any high-numbered bit whose
-> > mod-BITS_PER_LONG position is otherwise unused would silently OR an extra
-> > bit into the mask.
-> > 
-> > Rather than feed bit numbers that may not exist on the current build to
-> > mk_vma_flags(), build the mask from whole per-mode masks that collapse to
-> > EMPTY_VMA_FLAGS when their feature is unavailable. Add
-> > mk_vma_flags_from_masks() for that, and define VMA_UFFD_MISSING / _WP /
-> > _MINOR alongside the VM_UFFD_* flags, gating VMA_UFFD_MINOR on the same
-> > config as VM_UFFD_MINOR (which implies 64BIT, where bit 41 fits). An
-> > out-of-range bit is then never materialised, on any arch, and the in-range
-> > fast path stays a compile-time constant.
-> > 
-> > Fixes: 9ea35a25d51b ("mm: introduce VMA flags bitmap type")
-> > Cc: stable@vger.kernel.org
-> > Reported-by: Sashiko AI review <sashiko-bot@kernel.org>
-> > Suggested-by: Lorenzo Stoakes <ljs@kernel.org>
-> > Signed-off-by: Kiryl Shutsemau <kas@kernel.org>
-> > Assisted-by: Claude:claude-opus-4-8
+On Tue, 2 Jun 2026 19:25:56 +0200
+"David Hildenbrand (Arm)" <david@kernel.org> wrote:
+
+> On 6/2/26 16:14, Aiden Bowling wrote:
+> > The issue is that using the user-supplied 'len' risks a partial write into mm-  
+> >>saved_auxv if they pass something smaller than the actual buffer size, even if  
+> > the buffer is validated. We should always copy the full buffer size after
+> > validation to maintain consistency and prevent accidental partial data exposure/
+> > corruption.  
 > 
-> Can you ask claude to produce more concise changelogs and better split it
-> to paragraphs?
+> Which partial data exposure?
+> 
 
-Will do!
-
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+The one you don't get with the patch because of the previously
+unnecessary initialisation of the array :-)
