@@ -1,125 +1,84 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+Received: from out-187.mta1.migadu.com (out-187.mta1.migadu.com [95.215.58.187])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5933943E491;
-	Wed,  3 Jun 2026 09:51:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5241A37104D
+	for <stable@vger.kernel.org>; Wed,  3 Jun 2026 09:52:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.187
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780480317; cv=none; b=s+XgcJXFG+SCtMkCW7zhX/kChiNkqx6oI0UZgOViNhfF8JIi72hSfZkY3HafqV5bTt4qAMSDdwIyXPNTxiBoIBHytRjl1RlbgL/eT7bXMKOYLUMtHO5FxBmbDtfqhnuM7wyYthP5wxTpP2MpUlL4CnQe3NhJ7hkBnPlwdT14wDI=
+	t=1780480361; cv=none; b=GJ0BsrSYgmaPAcyAj7coK+3psyUVHinqvpa+X25E1UNm8lHpkhi3mVNtzCMy3li2cvNfZBGRDXyZUcVR5M2JfZSGD3WmZtYJ4MObSgQaOwNxvlXYnDK5//94zqLaQruALrhJkdqsSCHWJTEXAp2H4iLDw8mWUu7BNr3vKLW8sP0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780480317; c=relaxed/simple;
-	bh=+yYJ9M3cWQke6Ap4V+FpaDtyY0grkOGm2ALwGnwOKas=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CTcAigVjpezYiLvOeGYVl9DjnwxvxYY8peSwOF7nYkzYSX2bjQLL4JYrrJde9krfFQtnpLjO0TVQgC9Q8i3sZvG4NDy5DR5r3b1o3EWLXDA+OC0HGUyC9XWoJyT9Zl/uD0lzexIKYQZXS7R7sg3iiGK0vsAcSKOnf2r29Ikp3mo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=gBrQoABV; arc=none smtp.client-ip=198.175.65.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1780480361; c=relaxed/simple;
+	bh=YY53cw2KFoXP90UlUZOe1zK95d0DwsY3YnKMfN7jpPY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ghBHCAs1BYKbEBXw9VDIcHdzRwWD5/e4tAUeUn09R2NiEZuV522KYSfdJJFecqbrtk19A6NdpRlZ04gphohKOY0v2opxRSQEOlGG5QDa+IEsZc4cOrzkzENf/d4Dr082HEbL+R8y4Igpz7JVHiz9NoGaMyHrPvadna7xc/QsVp0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=YfPoiDZK; arc=none smtp.client-ip=95.215.58.187
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="gBrQoABV"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1780480317; x=1812016317;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=+yYJ9M3cWQke6Ap4V+FpaDtyY0grkOGm2ALwGnwOKas=;
-  b=gBrQoABVtqewkAAo6/6vd+nI5DjXfo8uTJmXD42lvNOl0AZGpIP8goGy
-   RBI5W4RT9ASJGcwfIIkHuZB0gmoX2q/NAybQMtuM2A/d9qlsnH7AzAcV4
-   8ZiN5VLAm59Lejij9Run70yiTn1dm+iXJW4RJVGDbGGDNnro0jgXGU9cO
-   +i0NRHTCPv6oKszdC7hrEqPbyivlUHprrniHWAu1s5Pb6K4UQX+axcw8p
-   Z7TYjcot5oS6p6feJI0evW29v/KXfMCWOILwpQdTiLLzanSJO9S4tRPpr
-   OTPoZu2R5A0HHSNBZ5BX8tv90Vwm2Ch2EJqCU3R3/462bohhoDkU9Yd/O
-   w==;
-X-CSE-ConnectionGUID: PG9e2t9nSNqN/nzZqcKhJg==
-X-CSE-MsgGUID: kNoQDS9xT1GoqVsGDrRB7g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11805"; a="84908122"
-X-IronPort-AV: E=Sophos;i="6.24,185,1774335600"; 
-   d="scan'208";a="84908122"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Jun 2026 02:51:56 -0700
-X-CSE-ConnectionGUID: mzM++ZaYRZey/cpohpjAwQ==
-X-CSE-MsgGUID: f91owUDBRi6JhlqNDSkpag==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,185,1774335600"; 
-   d="scan'208";a="245993532"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.116])
-  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Jun 2026 02:51:52 -0700
-Date: Wed, 3 Jun 2026 12:51:50 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Xu Yang <xu.yang_2@oss.nxp.com>, Bartosz Golaszewski <brgl@kernel.org>
-Cc: Daniel Scally <djrscally@gmail.com>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	linux-acpi@vger.kernel.org, driver-core@lists.linux.dev,
-	linux-kernel@vger.kernel.org, Xu Yang <xu.yang_2@nxp.com>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] device property: fix infinite loop in
- fwnode_for_each_child_node()
-Message-ID: <ah_5NgZPc2U0_FPO@ashevche-desk.local>
-References: <20260603-fixes_fwnode_iteration-v2-0-0ae381f8b7b9@nxp.com>
- <20260603-fixes_fwnode_iteration-v2-2-0ae381f8b7b9@nxp.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="YfPoiDZK"
+Message-ID: <bcf95603-a04b-489e-8edf-b6bc4a42192c@linux.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1780480358;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=L9y161r+C4QaUQPCPFY8+/eWlsInhIknGyIgcTTS+Zk=;
+	b=YfPoiDZKbBT/Gq1znLBKg7M/pnDycgPCLsUnM5pAO6QSkWDgpjnE7JiGWJ53PHqcdOxqMg
+	0qVAErTuGUhQr6r9xL+flbasJvM6idM4nP8luELXc01opatOy4V0+ugM4O3laFOVhqmCwH
+	53iUQ2lbj07rnJO5W0YktFF9XUCDvWE=
+Date: Wed, 3 Jun 2026 10:52:24 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260603-fixes_fwnode_iteration-v2-2-0ae381f8b7b9@nxp.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Subject: Re: [PATCH] mm/mincore: handle non-swap entries before !CONFIG_SWAP
+ guard
+To: Pedro Falcato <pfalcato@suse.de>, stable@vger.kernel.org
+Cc: Andrew Morton <akpm@linux-foundation.org>, jannh@google.com,
+ liam@infradead.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+ ljs@kernel.org, vbabka@kernel.org, chrisl@kernel.org, kasong@tencent.com,
+ baoquan.he@linux.dev, youngjun.park@lge.com, hannes@cmpxchg.org,
+ riel@surriel.com, shakeel.butt@linux.dev, kas@kernel.org,
+ kernel-team@meta.com, stable@vger.kernel.org
+References: <20260602172247.279421-1-usama.arif@linux.dev>
+ <ah8XqXQycZdbYFG9@pedro-suse.lan>
+Content-Language: en-US
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: Usama Arif <usama.arif@linux.dev>
+In-Reply-To: <ah8XqXQycZdbYFG9@pedro-suse.lan>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Migadu-Flow: FLOW_OUT
 
-On Wed, Jun 03, 2026 at 04:44:32PM +0800, Xu Yang wrote:
 
-> When iterate over children of a fwnode that has a secondary fwnode,
-> fwnode_get_next_child_node() can enter an infinite loop if the secondary
-> fwnode has more than one child.
+
+On 02/06/2026 18:51, Pedro Falcato wrote:
+> On Tue, Jun 02, 2026 at 10:22:47AM -0700, Usama Arif wrote:
+>> mincore_swap() also fields migration/hwpoison entries (and shmem
+>> swapin-error entries), which can exist on !CONFIG_SWAP builds when
+>> CONFIG_MIGRATION or CONFIG_MEMORY_FAILURE is enabled.  The
+>> !IS_ENABLED(CONFIG_SWAP) guard ran before the non-swap-entry early
+>> return, so mincore_pte_range() can spuriously WARN and report these
+>> pages nonresident on !CONFIG_SWAP kernels.
+>>
+>> Move the guard below the non-swap-entry check so only true swap
+>> entries trip the WARN, and migration/hwpoison entries take the
+>> existing "uptodate / non-shmem" path.
+>>
+>> Fixes: 1f2052755c15 ("mm/mincore: use a helper for checking the swap cache")
+>> Signed-off-by: Usama Arif <usama.arif@linux.dev>
 > 
->                        Parent        Child
->       (Primary fwnode)   FWa:   {FWa1, FWa2, FWa3}
->     (Secondary fwnode)   FWb:   {FWb1, FWb2}
+> LGTM, thanks!
 > 
-> In this case:
+> Reviewed-by: Pedro Falcato <pfalcato@suse.de>
 > 
->  ┌─> fwnode_get_next_child_node(FWa, FWa1)
->  │    - fwnode_call_ptr_op(FWa, get_next_child_node, FWa1) returns FWa2
->  │
->  │   ...
->  │
->  │   fwnode_get_next_child_node(FWa, FWa3)
->  │    - fwnode_call_ptr_op(FWa, get_next_child_node, FWa3) returns NULL
->  │    - fwnode_call_ptr_op(FWb, get_next_child_node, FWa3) returns FWb1
->  │
->  │   fwnode_get_next_child_node(FWa, FWb1)
->  │    - fwnode_call_ptr_op(FWa, get_next_child_node, FWb1) returns FWa1
->  └────┘
+> Maybe Cc: stable@kernel.org ?
 > 
-> This cause fwnode_for_each_child_node() to loop indefinitely, reapeatedly
-> output {FWa1, FWa2, FWa3, FWb1, FWa1, ...}.
-> 
-> The root cause is that when the current child (FWb1) belongs to the
-> secondary fwnode, calling get_next_child_node() on the parimary fwnode
-> incorrectly returns the first child (FWa1) again instead of NULL.
-> 
-> Fix this by dynamically checking the parent fwnode of the current child
-> before calling get_next_child_node(). This approach follows the pattern
-> established in commit b5b41ab6b0c1 ("device property: Check
-> fwnode->secondary in fwnode_graph_get_next_endpoint()").
 
-...
+Ah yes, I have cc-ed stable in the reply to this email, but probably that
+is not enough?
 
-TBH, this code becomes twisted and complicated. Can we add some test cases to
-show the problem? Also we need to add other possible combinations (somewhat
-about ~5-6) of the different types of fwnode in a relationship.
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Thanks
