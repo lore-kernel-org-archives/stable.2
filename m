@@ -1,109 +1,128 @@
-Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA5C3481FBB
-	for <stable@vger.kernel.org>; Wed,  3 Jun 2026 19:15:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.41
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780514107; cv=pass; b=mhbzIqo9I69E/MJHuG1obwHXLpFWhfS9F9XHRFixuvuP4GFwsxfK2Z/QIJsyHwLymtW9xEACZDKWrDIyriPp4If0QGMANtMEgdCU5N3GB720Phj7GvIokaP+riKldUx3o8mStJqBJ76mIiaLmSozVFOfNwp/WNzVI3iX2MR/Njs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780514107; c=relaxed/simple;
-	bh=60oYmwJGC5Tx6z0G3fsCQIEvwp54Q9uaEUQlNjxCn+s=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=JSZ+8X9daf4BSwX9LoqbPLiyb1FGfWIJ5TCLha00Q0BPG0z+6bmomMYX6ef4E8fbaAREL+R4+/BZhjaDTDzOIT9P7GALY4jAfcsgxUgu3W+ISDVAr1tO0pkaoJKlq05447qYOfP/Gzp23DC8doB/mE/NCWEjuXilLP4mfmcgMIc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=jfCgoD20; arc=pass smtp.client-ip=209.85.208.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADA6F2727EB
+	for <stable@vger.kernel.org>; Wed,  3 Jun 2026 19:19:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780514380; cv=none; b=Nz9Jp46ZeZK7RqhGkqdr1BJty0GAFhdWXKimKp90TJUZ4roqB+xnoEQUlOg5BC7ikRAO4tfoLhouWQhh1zC0zwxDwftJBuWkjQ9vccHvpPmXmEQVmQpptx9Qe8bx8AvPJpOJNz1hgIuNNxNUId0U7Rsgk+EQl5iqZdRcxbGk5Fc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780514380; c=relaxed/simple;
+	bh=UoIdpyHy+FBCSpwrRixXpH3sB2tAgVqfiwcQVGT1/yQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bVvZvUpHcIkp8fZVVseA6ZbsyVYHGNcVkpvHRUz3T2Njyb7BG5Qy0ajqrMCWR/Pwjr0Rg/BE9LWL5FOoFLxZuRCsM4fei7CWw+iKhBsZslAGsuvhfbBp+7vZ4yRw3E6hwbGoCaYgdNmQC518zLvXAlj1FPQRCUUwK5bcPXPe7Sk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rFmR9N6n; arc=none smtp.client-ip=209.85.216.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="jfCgoD20"
-Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-68ced08613aso2183a12.0
-        for <stable@vger.kernel.org>; Wed, 03 Jun 2026 12:15:05 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1780514104; cv=none;
-        d=google.com; s=arc-20240605;
-        b=hXtnb2MRKoBvASOhSkuHnWgVcqzzNIdfsxtv7DgRK/U5Wy0N3P86SjfenHywxXXqzr
-         weDsurN4pATMYKflt4xQuMiAg4AOE0cElyCg0ZKw8i0fXywOvIG4CcENKJtyAa3gh5E5
-         bcWLN53gjJLll8pIbud4tK+YgiAu5XJLUJnVvPx7YOOS+jbnJRp4nZXL4OuKUPkSY8RL
-         HHaJrbsiLqi2UB6Khc3eWO5fyQwHZWJ7TsCNaYOSHa5JN+1+CJsKODY0Uhz/eE1a7OiB
-         w9vnKksuUOxv8+sG5WLXnzyuUp6q/WA+VxDUChY8Kc8athGJPcGkIXiCdlvrw35ywC8S
-         JCRQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=60oYmwJGC5Tx6z0G3fsCQIEvwp54Q9uaEUQlNjxCn+s=;
-        fh=/is+38VExpn2ped9rTqOaazuCZSUDxStOJM3tJHbevU=;
-        b=hm2wWSVFwb//JQnzTwMx76cA3jeIFZ6HIWDH+CXrhG4NQCIcuoViN8yIGF65rcxjSX
-         CKDs0WnN3md5mgRVVoa7e7Jn+Pu6pi0lc76J3R1kYNqBgFnPwY3W0frb0NrRzdoU6pwz
-         eXDE5YC7d3XSer69uIyYHRg+1sIZNp6brDsN0oxqwO83oRiYzpalNQxxggJ7CNjPz1rO
-         nk51vgYO+CMghLN70IGcFxVYeRFLiuC7X88Kj4ECay4VI2jqeBgNGIkooSa8o69QcTnQ
-         tGWPwQbndlFLW3uNUq4I++weMbl7KHirUmF+8jozi9d5UAbsRbETbvVC4ewqr8WDDmP9
-         FJog==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rFmR9N6n"
+Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-36b7b7b7a80so598310a91.1
+        for <stable@vger.kernel.org>; Wed, 03 Jun 2026 12:19:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1780514104; x=1781118904; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=60oYmwJGC5Tx6z0G3fsCQIEvwp54Q9uaEUQlNjxCn+s=;
-        b=jfCgoD20x0qu8FZprg93X9hh0T1PTypoAvgZBKJeink+mL18zBqEY2pmwVerCEJwsl
-         GkyNgfsCPofojIJhn5Vd3Vk2Pk/J9HMcfJpABhiw6yoEAyK+q4dApFG4OIn0bqfECNyQ
-         2oJZbCI9bmLnfOblCoqW15O4RUQ6Vhwd4Z/505wVP/FxtDmKGW+oXozWxRwWxYpMpb04
-         5o03yP6rSexzL0vFgJZNBAY+fEm863IlApogxPgsRsNc5tZb8Uj1bsAUr12J+EZuNS+6
-         ppnBooS/9tfJ3kDEPidU5nkDnrnLpKoSXs9FIcgPYlHQPwkg58N1spmmlbQS5DXFnpsU
-         Pe/w==
+        d=gmail.com; s=20251104; t=1780514379; x=1781119179; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=a7oEWiqRPlrqKYQz3Vgcs1hdfF2O6Qp9+772afOP9uI=;
+        b=rFmR9N6nZhaeHx/IhiirkHJktI0N3pnNpeGl0uiRD1IDS+CCf1ICdrVyqa3ylnIt+S
+         117zd12/5WLj9u0Ta2h2qLHDu6Ngdxg5cfX6axs9UsrS8qY9ZoVm/S1JUW85YIJDGxH9
+         WoVEOnGBpiyKqd4lcNM934y1kVHhQjZny7LbdcTayYRrK35jJTdhN8p2xsugFHQYxluL
+         HHsOxS1M4EqHP4fOI3EYZop8mw40E6QaTWPMmM5cG0ipCVue5WeJ2qaOBlfx2CW5COab
+         0WIfEi+HXymTi9L0bfuTz4aprt5JV9T7PPPImAPgAhEb6yqS0k7UkNBRghEY/g23FsHa
+         zhCA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780514104; x=1781118904;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=60oYmwJGC5Tx6z0G3fsCQIEvwp54Q9uaEUQlNjxCn+s=;
-        b=BG8vc6SZ2kC2C1bX6KwZvmFe+kIMF1q6MVlDJvrnwLo+5OGOldLxoE+9OjrE2SLS6a
-         uq8oUDjRJ7MPZR8lhR06ovyyUVaxwOfLY5Bys+fbcW1qWW9IpjPGTF13l+S869H/Knmf
-         xbqOYT2HxO00UGNPzq6I0+5AuOIK/oFy6BRDJZOftyKU8l1R4bTCGEZ0TdYi42Poe+6m
-         JWpyHlj36OYxxDSQb0r3Vqz95QgOmBSX0dBzZq3NgYantNHgdpPZQM8H9mx5TWhDpAs0
-         hd4c8iUo4sSv777XyGBCGb7DDfjmxQhNXkPFvlJbHgRqoUf8EY4STVPJvtHzIl5rOXkQ
-         6ezQ==
-X-Forwarded-Encrypted: i=1; AFNElJ9ki78lGpXSjEEqGGsCRRegiEpXmJKqLwNhl49oI7v3IAzDn+M/XlX8mEhuUt7Y7kzSOX5wKEg=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwQL3ni+udVFZD5TkkxJ0yUXSoIqlWOEeQnCllCW4B8OqjT4qNM
-	pbJaNnnPQV8yiPPESrb7yE1J3ixaHWr2XpModPXrzvjCXDeDo2txJ2++L6l81pVia8OtSvtwY/Z
-	jg2FcklTUMDFkRJmXY5XmwqHm3Hbb4YvTgtvbomZN
-X-Gm-Gg: Acq92OGh93KcQFbfQ9Y9ibgIaSOejQuTvSG8eEHQeRt+2JnAAolcd2YjuQQJpVjOq57
-	AjWCcBJ6YDW28pFcD2DkfdiLSD0Vhoy/8lEEkoJ5E3EpBsz2Mcy374Wq+iamn3bJugXEaUy8MVM
-	e8ZKfOiBHSOfm28Y469cD36zoLWwIWi7IRCyFMX1Q3SOCNbhhA5w6v/E0EL0Sm7f0W3O2NS6JDm
-	VbWIcplgwzqNGf/A8myo/56FVszhsLcp9N2O3GCvZP12JxHat07PX7exHye8nuA0a/CGwTru+rT
-	rKc+mkdd4dFx7gjunG5vxC0qu1MuM3E7G6nrvxSfMq+qTxvn
-X-Received: by 2002:a05:6402:a2c5:10b0:67b:7d05:60b8 with SMTP id
- 4fb4d7f45d1cf-68f129a2317mr14728a12.10.1780514103934; Wed, 03 Jun 2026
- 12:15:03 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1780514379; x=1781119179;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=a7oEWiqRPlrqKYQz3Vgcs1hdfF2O6Qp9+772afOP9uI=;
+        b=B9zSsEfWl7RKhiHCCFGZbJ0aJgTnYXztk80K/HNN6BSwYRFABrFPw6W4k/R/VyK3k9
+         ThHUNqpCv5B9gf7UBNO+NdJIkE2iTC7nPFnATBT/JHJNpcCkAIqd+v+rZs77Z9a+8H8N
+         75kOV55iDhZSO9OSCT4q1oNKd4VpCQCsPTccbZhBlrxGPexTv0nRCkC60KW2AZU2vP3m
+         VS5YcGCrgFVLXh/sM5qT0Iq7QjrFysDfosnLpqGdmfrv2vyVuK6V41Xsdzm/6Q0m4ij/
+         QRkouiPU61N6VURUJiAN3brCCQkkYL4bsFM5QQsgY2jy+xHKa+NgNC9MqqeeoMvCDBlS
+         GBXQ==
+X-Gm-Message-State: AOJu0YzugtWqM6AYJfVc7fUsGwA5ZVZ1LVpWMXUSllyIDQX1rrYQtXUz
+	6z0fVGXPFIRp5C4RhXECkGKGVoclOCkWA5ONe0YWDHvRJMufqAbkyUJP
+X-Gm-Gg: Acq92OH1OxsDNbn/dw7pHnehrwkIg6JeC2lq0To6jHA171I7j/0PgdnCsZCVkGvXFwC
+	5ukgSxmIKkYRE+BZrK5KZPIfqB8D+zpz79tEepnmzWiyu5RQ7tRk9yWU0xz8POBJoYfNl91f3hp
+	GlRhuM4wfJBvevn+sQH2kKt/MYfyMx8JHGuG8zurpSA3tJ0z8YWveiUZR6QDhKGqGarPOK4Ti1n
+	q1RVQ+y6kdL+dq+CupRX67m4qxP2/Cdg2SxXV+pJaWJ9/bAUNeW7YAGPdclzlaKCjjWa5ZRruoR
+	BpIzyP/nJmAnAdjQFC6rfazm09A6ywpEzMsD8uBnnYlkiKxSust0+5sjfJqNw4sJuUVRiYSpDa1
+	KKQLwF7HhnyxaDd36sQAeDrZl7etL9nIZEg3UrpjaFKajxWcfcFUKK+XvzEmu6AWI6NEASIA3es
+	CBg/GUVtkoO+r2CVfyq/NaIc0uOJEW8YtVZw==
+X-Received: by 2002:a17:90b:520d:b0:36d:86a5:5b8 with SMTP id 98e67ed59e1d1-36f782b84a5mr424573a91.11.1780514378939;
+        Wed, 03 Jun 2026 12:19:38 -0700 (PDT)
+Received: from Tacenda ([2401:4900:cbde:d362:a420:48d0:ac47:151d])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-36e6e3e51casm2006055a91.1.2026.06.03.12.19.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 03 Jun 2026 12:19:38 -0700 (PDT)
+From: Dakkshesh <beakthoven@gmail.com>
+To: gregkh@linuxfoundation.org
+Cc: stable@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Dakkshesh <beakthoven@gmail.com>
+Subject: [PATCH] scripts/sorttable: guard long_size under MCOUNT_SORT_ENABLED
+Date: Thu,  4 Jun 2026 00:47:08 +0530
+Message-ID: <20260603191708.27241-1-beakthoven@gmail.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260603-vfs-fhandle-uaf-fix-v1-1-ff64ee367e4d@google.com>
- <20260603181523.GW2636677@ZenIV> <20260603182454.GX2636677@ZenIV>
- <CAG48ez0Jte3UE8wn9Ljs3o2uVDFB24Zbp9zBdaj+D5c4R0+TSQ@mail.gmail.com>
- <20260603185324.GA2636677@ZenIV> <20260603190225.GB2636677@ZenIV> <CAG48ez34NaE5DCdC=VQWFRPds6JHwGq2YJDF5e6XUtGPNfQq+g@mail.gmail.com>
-In-Reply-To: <CAG48ez34NaE5DCdC=VQWFRPds6JHwGq2YJDF5e6XUtGPNfQq+g@mail.gmail.com>
-From: Jann Horn <jannh@google.com>
-Date: Wed, 3 Jun 2026 21:14:25 +0200
-X-Gm-Features: AVHnY4Jw9NWOm2jCBllhmHRKUG5CK3R17Tf93bIq0FGTh8la-bdsWtIarmCo4Tk
-Message-ID: <CAG48ez2kK2dB4Tva0aNdWphV6BS021A4bf6a_cu_yOEJ8Uy=PQ@mail.gmail.com>
-Subject: Re: [PATCH] fhandle: fix UAF due to unlocked ->mnt_ns read in may_decode_fh()
-To: Al Viro <viro@zeniv.linux.org.uk>
-Cc: Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
-	Chuck Lever <chuck.lever@oracle.com>, Jeff Layton <jlayton@kernel.org>, 
-	Amir Goldstein <amir73il@gmail.com>, linux-fsdevel@vger.kernel.org, 
-	linux-nfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Wed, Jun 3, 2026 at 9:08=E2=80=AFPM Jann Horn <jannh@google.com> wrote:
-> (And there's also that weird detail of how, for anonymous namespaces,
-> the active refcount isn't used and AFAICS never actually drops to
-> zero...)
+clang's -Wunused-but-set-global (a sub-warning of
+-Wunused-but-set-variable, enabled via -Wall), points out an
+unused static global variable in scripts/sorttable.c:
 
-(Er, nevermind, I missed that anonymous namespaces just have their
-active refcount set to 0 from the start already.)
+scripts/sorttable.c:452:12: error: variable 'long_size' set but not
+  used [-Werror,-Wunused-but-set-variable]
+
+long_size is only read inside MCOUNT_SORT_ENABLED blocks. In upstream,
+it is implicitly resolved by commit b055f4c431e3 ("sorttable: Move ELF
+parsing into scripts/elf-parse.[ch]") which refactors the file entirely.
+
+Cc: stable@vger.kernel.org
+Signed-off-by: Dakkshesh <beakthoven@gmail.com>
+---
+ scripts/sorttable.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/scripts/sorttable.c b/scripts/sorttable.c
+index deed676bf..674b24a97 100644
+--- a/scripts/sorttable.c
++++ b/scripts/sorttable.c
+@@ -449,7 +449,9 @@ static inline void *get_index(void *start, int entsize, int index)
+ }
+ 
+ static int extable_ent_size;
++#ifdef MCOUNT_SORT_ENABLED
+ static int long_size;
++#endif
+ 
+ #define ERRSTR_MAXSZ	256
+ 
+@@ -1311,7 +1313,9 @@ static int do_file(char const *const fname, void *addr)
+ 		};
+ 
+ 		e = efuncs;
++#ifdef MCOUNT_SORT_ENABLED
+ 		long_size		= 4;
++#endif
+ 		extable_ent_size	= 8;
+ 
+ 		if (r2(&ehdr->e32.e_ehsize) != sizeof(Elf32_Ehdr) ||
+@@ -1348,7 +1352,9 @@ static int do_file(char const *const fname, void *addr)
+ 		};
+ 
+ 		e = efuncs;
++#ifdef MCOUNT_SORT_ENABLED
+ 		long_size		= 8;
++#endif
+ 		extable_ent_size	= 16;
+ 
+ 		if (r2(&ehdr->e64.e_ehsize) != sizeof(Elf64_Ehdr) ||
+-- 
+2.54.0
+
