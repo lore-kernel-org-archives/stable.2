@@ -1,158 +1,144 @@
-Received: from mail-yx1-f45.google.com (mail-yx1-f45.google.com [74.125.224.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A02437756A
-	for <stable@vger.kernel.org>; Wed,  3 Jun 2026 05:29:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.45
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780464585; cv=pass; b=g4+V7MoybyVMn8wkFfmmkBwRyvBvwIRxB/6k6nWU+DSuWGIx9IiwY0yknVKD1omL+HmFXKh+xdT7aRmJuwS7Ifeh/z8vZnDPjxdtT72wBiJiumfK2Lgo2AdBR1wZCiX7mqkK1AYpvRrBCLQHJghBEnbJJ7zG1/38F10NyhRBGzc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780464585; c=relaxed/simple;
-	bh=VcM4nuQ2hmvuiM0bqHjX58fcri2ACUFgOliK/mfNxbk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=IumTQm6pqwbbcgRojr0Eu+HJ1P5o9Sw6kU4zta1KJ+loQbSWXHqTz1d/qlgWJA2nxhEg2X67fptRjFgsNfDHIPp9orHv4V1ixRH7aIHaAMcwxkCTxR50cXpuGhiINsrPHeHan1hD7rB2MeBqD8KZ67Pp1rQLp47KDHnshF55AiQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=J2jm6rRI; arc=pass smtp.client-ip=74.125.224.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB7963126DA
+	for <stable@vger.kernel.org>; Wed,  3 Jun 2026 05:32:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780464773; cv=none; b=WWDPOPdrvusHfKcbmzfsj9of8f5jcvk3E9alF+MbcXXRDkgO5B6wHBxe4zQ3dBJdCDA5/039laWShWFe9BGpgluETgdEtb1/I9fdxzTq8OHJgk3FAJJ9MQ6p4sb7HXQc/RmJSkwIieR9mwlMiSdj/4HYDOk4UGDZWxCaXxkcdcg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780464773; c=relaxed/simple;
+	bh=lYMCbtzts2y35poUF6esDzLR/5cazFe2EIHnXzqa10g=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=cFw3o0C2HLVEWRVnMf7O5xt1flIfZHcZcrFS8gpe2gItmwWoDDgsaLti1EswmSrGITwN5xQMOGQn7c6NEZZyk8UK+WOye1B/SWjmtgFWNu9frA5jqcNK0q+y/R7CTZ/uQeHAmxtY3hYWM4Faj2BF6iFM+nvnm+ZNJbsC9HRhJSA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=NdgWb9kS; arc=none smtp.client-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="J2jm6rRI"
-Received: by mail-yx1-f45.google.com with SMTP id 956f58d0204a3-66077f6c438so3323117d50.2
-        for <stable@vger.kernel.org>; Tue, 02 Jun 2026 22:29:44 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1780464583; cv=none;
-        d=google.com; s=arc-20240605;
-        b=F/L3emnR1p7EyvEHi7+zCxK36QYSy6GHRP9L4grD4a8yZDsdbicDkuNB1a7x4gEnSk
-         jbochQ4AuGjto9JbqkPN8ak5Z1rDkJhkJZpQ+b/Pb+WieU+g6+8ONSnsB0g++J0me7lQ
-         TZbA1G7odfqD5PVPYTkAzLF9E1xXkolq1UwHN9W9UMX+kzB7s33LS4v0jtvFHbmpcQ+a
-         1/K/mgo4mJ2yCIcp8wjPiQmCVaQ+Y6LgxbYkvI3Ceyr+Fy4Qh9uHVdHyRIg5pvW1cRpd
-         GmxnLkQwjrV7EtgCTcDqAVNZMV6Uud1puhntwmVIuXrk5uLMeov8R+fhlzzPa5foMfaf
-         jMdA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=VcM4nuQ2hmvuiM0bqHjX58fcri2ACUFgOliK/mfNxbk=;
-        fh=ECPKrsA5uGSb731Tg6+f5nb5N0CM60+Gr1lf/x89nUY=;
-        b=P4i3oQ7s8LDw5DpJjediEJgqcc2lAjM8Fb4tlJir5hglA77U9XGEGrSmQFRhXiyTI4
-         GLf01+vHjzHONGgJ1lZ1ptyBWdh5kBvz7NW2epdluem1XCrFx8NCjIL+7tnuA1W2shA1
-         OElRZLyg1MquZWgsinOU4Ud2ZG2SnFEg8tg0zOrNzZfSaVR9LqYpAt+55w6Jo/lUDHPm
-         f3Ofn402ji1ENU+1CrkauaDvDzrcVEbcIHbwpprmBDhO9S1HN/jhfO/xHBZHFJdCf9AI
-         vk9QF2d3yY4hTQPI5A6oR0Rvdcr0oSwZoOdOz3HmdTe4aVKonxM4lxSA7M8mhfuf7xWa
-         P6Ug==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780464583; x=1781069383; darn=vger.kernel.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=VcM4nuQ2hmvuiM0bqHjX58fcri2ACUFgOliK/mfNxbk=;
-        b=J2jm6rRIZj2zRdB8XCHuo9IqWk+9TVP+MwA9DrupQ3m7exO4eNX3O/6iDvr7axLuAw
-         VaynVLRzB/PP/0R61WveRyPuxbuLRgYf/L6RaJVb1XMGE5yv8lHl9jEuFK9mYGsghNUW
-         0/TTB2BCJjNyFdKekcPHHcccx6Y4amE5oJNYnp0Z7s5QvXQ4QaOmi7FyidU2OCey/IqX
-         Ys62GRofGN9AqMX2pJosjZqZXsQSROGSlLWbCafTkIEIQpXPwiR3XobtXTTMRB2MJmG5
-         zBAd9Rm85DUzxz7qm3nL99QyTft5ndxNcsOsB1ldoNKGtmpv2gOzAGMhqlRGIWuUF0K7
-         q+ig==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780464583; x=1781069383;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=VcM4nuQ2hmvuiM0bqHjX58fcri2ACUFgOliK/mfNxbk=;
-        b=cUMpAiLzFPPRmPWCKxAmGoNR5ClNX2IJSyT79K8zNVmy93LE0Br03rLbklrPG0LSbv
-         L7o0qfBczD6g1aUAAOr/M6AexEBJG8eIWyGXbl32q6zInS9liOxXf3Dy7PixT4p+J9ts
-         ydQH8w2EIPfNDZPJotMwW56+aDgVrr0Cv1iuSarduQUaCYzlICdShWjc+n1JLAXi37kx
-         uW1eWkOzysZTFDI3xBdIqqcLLR4XGIled3zW75MiTC7qXZTrUESj+RcT7yQevFrzZj7w
-         tqrbqssar6AJ4ilC0GsMqn5CBX5xG8/m0moBR3FFdj2yGtrQOSwxsMAHvrWj9MHrh5Ag
-         bIDg==
-X-Forwarded-Encrypted: i=1; AFNElJ9qWnIPeWVAO4xg7ID8Vw65UE57E62TrZwnRztVlFouDn4Djm6+3fkCTRaGonmywwtgMUQvEK8=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwOrChGs7k6AFO+A7tceyQdDS8HQpz342GGctKXUSlzYOjwlXZq
-	u8quxblWkRYDFsUWij+WTpv5e/PqTcJXq7IQeamWlyHowTzp7fALZvf3XBVn5nuBsLXK1MzO8kb
-	anGYlLHMugmHt/KT4V0AlmbIBlEBS5vk=
-X-Gm-Gg: Acq92OGyELI49za6er8AP2wPSWQ8XIUNBp+ErJ27X4JIJ3H5yu5cuQARRixZuvhJdZ3
-	gcls/qPRdyqzy6qnsZq60ftGoSrUqSE9xqbirLjMe+odKOYnw6B+aWJWZY5cW/0iuxoKFUiAIG8
-	oW1frwl/yMd8/09wvPffwPladWWP8nD9ZjZx949vIJAp3zNWZUhjWIgVleuWnF1SzmRZrLmdcm4
-	mzRLvD2PttOIqOsAW4TVU/ncXijFtB0I/xH/RDx+jTt7CKi1+6VqXsTL4fv8+Vjrf0T4w2PNEya
-	78RKrHmtBSlLJEz/aNnr
-X-Received: by 2002:a05:690e:408b:b0:651:b2e4:63c1 with SMTP id
- 956f58d0204a3-660dd530b47mr1468054d50.22.1780464583418; Tue, 02 Jun 2026
- 22:29:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="NdgWb9kS"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:
+	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+	List-Post:List-Owner:List-Archive;
+	bh=RWjY1TKUGF/Kl50g2OYv74usbZ24Y3l69wLSdBVZXM8=; b=NdgWb9kSviE2QCjYelvpBEF8iT
+	ur8R1f5g6vgMsvQ23QSkhwBmdNswOPejnrHwcXUU/Id9cAUeeSrc4gZGPiJVvLGcriKvgiB7D6q3u
+	brM41cxWBg9ZinYIk1XpoPFC3CCxDHAEox1DLWrKiJN6OrjUZ1jfThZ/f8MzgTVdix9a4sLJhTCLG
+	SMx3uGfSi0Lj6onl3uJMxbFvjQaVnlr0eLwxbSpudB0Qcvd1jCuAt502H9jo4HZZqEWHMhlMET9+O
+	bO6/g7svrDSb6V4l/wnT2yodxkFvu81agJR3F6SrziZlEZ0KpBvDvsBJhOmt2RbepwtGFnheQOFlu
+	DFILOX/g==;
+Received: from static-234-112-85-188.ipcom.comunitel.net ([188.85.112.234] helo=[192.168.0.17])
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+	id 1wUeDd-00C23r-TA; Wed, 03 Jun 2026 07:32:45 +0200
+Message-ID: <b2342af30ae66a6bdfee7ff2d2389f4f94542b7f.camel@igalia.com>
+Subject: Re: [PATCH v4 2/2] drm/v3d: Skip CSD when it has zeroed workgroups
+From: Iago Toral <itoral@igalia.com>
+To: =?ISO-8859-1?Q?Ma=EDra?= Canal <mcanal@igalia.com>, Melissa Wen
+	 <mwen@igalia.com>, Jose Maria Casanova Crespo <jmcasanova@igalia.com>
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
+	stable@vger.kernel.org
+Date: Wed, 03 Jun 2026 07:32:35 +0200
+In-Reply-To: <20260602-v3d-fix-indirect-csd-v4-2-654309e32bc0@igalia.com>
+References: <20260602-v3d-fix-indirect-csd-v4-0-654309e32bc0@igalia.com>
+	 <20260602-v3d-fix-indirect-csd-v4-2-654309e32bc0@igalia.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.52.3-0ubuntu1.1 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260602155210.90987-1-leontyevanton1995@gmail.com> <BY1PR21MB38709E89497445EECE3C931DCA122@BY1PR21MB3870.namprd21.prod.outlook.com>
-In-Reply-To: <BY1PR21MB38709E89497445EECE3C931DCA122@BY1PR21MB3870.namprd21.prod.outlook.com>
-From: Anton Leontev <leontyevantony@gmail.com>
-Date: Wed, 3 Jun 2026 08:29:41 +0300
-X-Gm-Features: AVHnY4JnwoCsNKa6ADnSbG6NTG6nP0KaPkNGbMnFr4WC0wsdE_B23uevxeXo304
-Message-ID: <CAAN-wAkSjVbfzto+Pi4-OLt2vXyzeCNpqhen2VQFA+VCFH2HrA@mail.gmail.com>
-Subject: Re: [EXTERNAL] [PATCH net] hv_netvsc: use kmap_local_page in netvsc_copy_to_send_buf
-To: Haiyang Zhang <haiyangz@microsoft.com>
-Cc: "netdev@vger.kernel.org" <netdev@vger.kernel.org>, 
-	"linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>, KY Srinivasan <kys@microsoft.com>, 
-	"wei.liu@kernel.org" <wei.liu@kernel.org>, Dexuan Cui <DECUI@microsoft.com>, Long Li <longli@microsoft.com>, 
-	"andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>, "kuba@kernel.org" <kuba@kernel.org>, 
-	"pabeni@redhat.com" <pabeni@redhat.com>, "edumazet@google.com" <edumazet@google.com>, 
-	"davem@davemloft.net" <davem@davemloft.net>, "stable@vger.kernel.org" <stable@vger.kernel.org>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
 
->
->
->
-> > -----Original Message-----
-> > From: LeantionX <leontyevantony@gmail.com>
-> > Sent: Tuesday, June 2, 2026 11:52 AM
-> > To: netdev@vger.kernel.org
-> > Cc: linux-hyperv@vger.kernel.org; KY Srinivasan <kys@microsoft.com>;
-> > Haiyang Zhang <haiyangz@microsoft.com>; wei.liu@kernel.org; Dexuan Cui
-> > <DECUI@microsoft.com>; Long Li <longli@microsoft.com>;
-> > andrew+netdev@lunn.ch; kuba@kernel.org; pabeni@redhat.com;
-> > edumazet@google.com; davem@davemloft.net; stable@vger.kernel.org; linux-
-> > kernel@vger.kernel.org; Anton Leontev <leontyevantony@gmail.com>
-> > Subject: [EXTERNAL] [PATCH net] hv_netvsc: use kmap_local_page in
-> > netvsc_copy_to_send_buf
-> >
-> > [You don't often get email from leontyevantony@gmail.com. Learn why this
-> > is important at https://aka.ms/LearnAboutSenderIdentification ]
-> >
-> > From: Anton Leontev <leontyevantony@gmail.com>
-> >
-> > netvsc_copy_to_send_buf() copies skb fragment pages into the shared
-> > VMBus send buffer using phys_to_virt() on the fragment PFN. On 32-bit
-> > x86 with CONFIG_HIGHMEM=y, phys_to_virt() (i.e. __va()) is only valid
-> > for LOWMEM addresses below 896 MiB. For a HIGHMEM page it returns an
-> > address that has no kernel page table entry and lies outside the
-> > kernel direct map, so the subsequent memcpy() faults. As this happens
-> > on the transmit softirq path, the fault is fatal.
-> Please include the stack trace in patch description.
->
-> > A HIGHMEM fragment reaches this path whenever the page backing an skb
-> > fragment lives above the LOWMEM boundary, which is common on a 32-bit
-> > guest with several GiB of RAM (for example when the in-kernel NFS
-> > server splices page cache pages directly into the reply skb).
-> >
-> > Map the fragment page on demand with kmap_local_page()/kunmap_local()
-> > instead. Using pfn_to_page() on pb[i].pfn maps exactly the page
-> > described by the page buffer entry. On configurations without HIGHMEM
-> > (amd64, i386 without CONFIG_HIGHMEM) kmap_local_page() reduces to
-> > page_address(), so this is a no-op there.
->
-> So, on 64bit kernel, it has no performance impact?
->
-> Thanks,
-> - Haiyang
->
+Reviewed-by: Iago Toral Quiroga <itoral@igalia.com>
 
-Correct. On 64-bit (and any !CONFIG_HIGHMEM config) all pages are
-permanently present in the kernel direct map, so kmap_local_page()
-folds to page_address() and kunmap_local() is a no-op. The generated
-code is therefore equivalent to the previous direct-map access, with
-no extra mapping cost on the tx path.
+El mar, 02-06-2026 a las 14:50 -0300, Ma=C3=ADra Canal escribi=C3=B3:
+> A compute shader dispatch encodes its workgroup counts in the
+> CFG0..CFG2
+> registers. Kicking off a dispatch with a zero count in any of the
+> three
+> dimensions is invalid. First, the hardware will process 0 as 65536,
+> while the user-space driver exposes a maximum of 65535. Over that, a
+> submission with a zeroed workgroup dimension should be a no-op.
+>=20
+> These zeroed counts can reach the dispatch path through an indirect
+> CSD
+> job, whose workgroup counts are only known once the indirect buffer
+> is
+> read and may legitimately be zero, but such scenario should only
+> result in
+> a no-op.
+>=20
+> Overwrite the indirect CSD job workgroup counts with the indirect BO
+> ones, even if they are zeroed, and don't submit the job to the
+> hardware
+> when any of the workgroup counts is zero, so the job completes
+> immediately
+> instead of running the shader.
+>=20
+> Cc: stable@vger.kernel.org
+> Fixes: d223f98f0209 ("drm/v3d: Add support for compute shader
+> dispatch.")
+> Suggested-by: Jose Maria Casanova Crespo <jmcasanova@igalia.com>
+> Signed-off-by: Ma=C3=ADra Canal <mcanal@igalia.com>
+> ---
+> =C2=A0drivers/gpu/drm/v3d/v3d_sched.c | 16 +++++++++++++---
+> =C2=A01 file changed, 13 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/v3d/v3d_sched.c
+> b/drivers/gpu/drm/v3d/v3d_sched.c
+> index 47f83936cd73..8a635a9ec046 100644
+> --- a/drivers/gpu/drm/v3d/v3d_sched.c
+> +++ b/drivers/gpu/drm/v3d/v3d_sched.c
+> @@ -352,6 +352,16 @@ v3d_csd_job_run(struct drm_sched_job *sched_job)
+> =C2=A0		return NULL;
+> =C2=A0	}
+> =C2=A0
+> +	/* The HW interprets a workgroup size of 0 as 65536;
+> however, the
+> +	 * user-space driver exposes a maximum of 65535. Therefore,
+> a 0 in
+> +	 * any dimension means that we have no workgroups and the
+> compute
+> +	 * shader should not be dispatched.
+> +	 */
+> +	if (!V3D_GET_FIELD(job->args.cfg[0],
+> V3D_CSD_QUEUED_CFG0_NUM_WGS_X) ||
+> +	=C2=A0=C2=A0=C2=A0 !V3D_GET_FIELD(job->args.cfg[1],
+> V3D_CSD_QUEUED_CFG1_NUM_WGS_Y) ||
+> +	=C2=A0=C2=A0=C2=A0 !V3D_GET_FIELD(job->args.cfg[2],
+> V3D_CSD_QUEUED_CFG2_NUM_WGS_Z))
+> +		return NULL;
+> +
+> =C2=A0	v3d->queue[V3D_CSD].active_job =3D &job->base;
+> =C2=A0
+> =C2=A0	v3d_invalidate_caches(v3d);
+> @@ -402,13 +412,13 @@
+> v3d_rewrite_csd_job_wg_counts_from_indirect(struct v3d_cpu_job *job)
+> =C2=A0
+> =C2=A0	wg_counts =3D (uint32_t *)(bo->vaddr + indirect_csd->offset);
+> =C2=A0
+> -	if (wg_counts[0] =3D=3D 0 || wg_counts[1] =3D=3D 0 || wg_counts[2]
+> =3D=3D 0)
+> -		goto unmap_bo;
+> -
+> =C2=A0	args->cfg[0] =3D wg_counts[0] <<
+> V3D_CSD_CFG012_WG_COUNT_SHIFT;
+> =C2=A0	args->cfg[1] =3D wg_counts[1] <<
+> V3D_CSD_CFG012_WG_COUNT_SHIFT;
+> =C2=A0	args->cfg[2] =3D wg_counts[2] <<
+> V3D_CSD_CFG012_WG_COUNT_SHIFT;
+> =C2=A0
+> +	if (wg_counts[0] =3D=3D 0 || wg_counts[1] =3D=3D 0 || wg_counts[2]
+> =3D=3D 0)
+> +		goto unmap_bo;
+> +
+> =C2=A0	num_batches =3D DIV_ROUND_UP(indirect_csd->wg_size, 16) *
+> =C2=A0		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (wg_counts[0] * wg_counts[1] * wg_=
+counts[2]);
+> =C2=A0
+>=20
 
-The kmap is only meaningful on 32-bit CONFIG_HIGHMEM, where the
-fragment page may live above the LOWMEM boundary and the old
-phys_to_virt() result is invalid.
-
-Thanks,
-Anton
