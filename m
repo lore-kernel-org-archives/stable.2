@@ -1,54 +1,54 @@
-Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011023.outbound.protection.outlook.com [52.101.65.23])
+Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012046.outbound.protection.outlook.com [52.101.66.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 002174657C6;
-	Wed,  3 Jun 2026 08:41:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.23
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04FC54657FD;
+	Wed,  3 Jun 2026 08:41:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.46
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780476099; cv=fail; b=kscoEcNqB1XL7x+sAniGyDpCmC++OlT/4IXKIGlmn7K2/YHKpp96UTbr707llUsfbjNXxAuckjoYdAIsZvz5CFSJL6rQQF6xpLbdwCrIwScqUUD9eH5sG710jhQ0v6Xk6f1S1edPyeACEX/oOULa/jhhg6HUfKKdLIeHBipyUqk=
+	t=1780476102; cv=fail; b=shAts9My9QmwoFHmuPWYRk6KV8A/s1Q9NRbH39p61xBBFZfXIN50VY8KSHW/e33cb7E+/qSkNPsPeNyiL6yQeAoh4xNU2LHM6qMSXR6SKG9b7qB+1rXItwrVbtjEgMCSf9N0TVE+HBnE3pVFxKi+9OdJ8+YfLMGLKRS69NiGK2E=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780476099; c=relaxed/simple;
-	bh=O6BNfb4H0BvQVYaag8TrbUDbehLJlavqm1AaQH6fIyY=;
+	s=arc-20240116; t=1780476102; c=relaxed/simple;
+	bh=Tcw2OotuFVcHvhQa/X6+36qR1gZEkpH5yNMliBXuCYk=;
 	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
-	 To:Cc:MIME-Version; b=ZBIW9neAHIY/3W9fsta4g4smavDxv9/mc0i1hb+T59kXV5bkXjVGgh0yzRv/LdcmfG6t9QQSmXYnC9VroQRVxVtQOeOfVQO+aMOvPEmCrCJqB1PArnufRSSDUn9GGcHaKVi6LMpx3evV1w7xPNn/EM87avr7zRlusyCqKKTiHGA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=WvX1+MKA; arc=fail smtp.client-ip=52.101.65.23
+	 To:Cc:MIME-Version; b=rYG9XC2w5ZEpM8w15lfrYgF0l0wT+JsLqQxyTv75lExGNy+skhaPtZYFLz+8gwyTc18D3MAtOeBeP7rpOLctR+xv4MJYrqcbBTUgeZ31tpoZDoIkMqCiRQfDPT8fWFmXaN8Ddhv/J64jZvn/wM1IktEn5VGeaYsBJHJNSTzGD+8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=cwTDVXYJ; arc=fail smtp.client-ip=52.101.66.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="WvX1+MKA"
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="cwTDVXYJ"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wtYk/H/DnCgGfFmJPvY+LMhPJezfQQGpSWGFxQycIm/Ex1pmhoIr0TNXjC4uzURi3Y8X6NlxEomT3yiWcgyXA11ihgs6fFoyBQZbuEbXz8mCxtQz3tVv6YwxtFKHdPLTqXcZH5G3Lv+9vQXQfNEyuduR0dmhI05J4UPIDvwHZls6bd08d/i04rpr61xyNoEUOpzEbmrJxgpszZYGMfJb+ZaI3E7m8/WUhwDlZI2kiY19WlYE1qHbNuEJxW3a3qrfqgx13Lh+gW2q9uxrW/UohzZxACPYcIw7iLWpIPnedqE4cpRddSXkdPg1xMSkbQkPQyjDPuSOQM5cOan6aaNzoQ==
+ b=qv3GnprB2r3b7EqzYR5X7ZpzFfNFeauhfjhM/7fNN33Xboan7QHbNF3M177NwpjuDUGlZMHc3lKT5m5r7DBzJrrBCvcaIrle87IfrOTggp6opu59v1PVM2jY+bZkrfmpwtn1jKh4rXcdBYaLKq3PPnDt/zN/oINc+lCVmZyh6rZ5kSQQ2FTvOMh+PtjEegwOZn7eL/saQJ/R0k2NnmKwgvlhrCbClPHN5rkO7PVDJ3m55Jy/QDwW2oeQjkY199unubf3axNxLYLV55RYIm9UI13HR511bBQ+kY1z4J1GjEU85/a9650A5w6OLkT1uleHZWEBwLo+KLaI4lQPV+uSTQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4Gh2zYvBrSsvuOVhgRkEL/iyXuWAvlT5TmsbR7BOn9U=;
- b=GbkiIqCpvuNMr0ZVhwllq0KbI9bIZb15AgK/4PfmPM2h1OtDPGPJEtpcDU4y8NZIjZwQJrz6XFNvZEufTMN10N53gB8o/dsHwjULlxRogQ8YEh1ORN8dvxs/9A/bhjLJwPI7ewT127NrOqa7MFrX4BdvuQ9Zc/a/HWWKmGZkDRFlFBhBD5KU6ez6H/uJATKmD1t615M5oocEjvI/w87Bc3io839g1VzNxuTsrkjG8Ui5hpep9HWo7XT5zO95lAteIWK5N2zw5ClTWLOWYZKURvS4YxDI29Wcr50UAhsx643txyw952/GxZqJEOM39FkTKdL4AHh9EsHpJgzg9CcwQw==
+ bh=18+lHutZ7D3sVaNc8fEFutZEZPsl9KKH36SAMc8apRM=;
+ b=jLZfHOpACmpmVkYLx3MDiBG9beoShpTT7UV3im9/+K8hwB2YbNQneSb8vHvBVS8y26l4yPNWOm7q+qZyfnusWHOfhnN0/cBAYTwjYr4mIMC7ZQkVnbIAqfQyhnElw/3vjQ871eQduG6uqRxNoODkCCSx9v4bClQbAdwSrT2/O0NhqkILP0tpnhvfhEVu7MXo1iUqqO7/qJMJ502oTDpN7q2WOmsGU9QUjew/q7zsMhDipZcwMBzBnTB0iQofqgRISIz+aot8/soDrxqo/fUHbP6Hk01vQx+LbyAhkyyCOzDKB7+eHAEtCeF9rVErIM9lnj7hhEQo8wZBrr/GTP0pQw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
  dkim=pass header.d=oss.nxp.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
  s=selector1-NXP1-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4Gh2zYvBrSsvuOVhgRkEL/iyXuWAvlT5TmsbR7BOn9U=;
- b=WvX1+MKAj/9cGkqTQdzBFEgiFQaLNwz14z/cGAUNzj3FcldW04dOtAb0xex2lxRiWamz00TIqfFpN/gyW3buRMM/4AzJ96kAj38JG8x93g+Pxpm+zaFZ9vSbB2HrWSuaPWaJ/udR3yla844WN3EobokmSjKJeZIgly7t5JmE9MdSb6LWuPUvKZpqyMsfO5HlQ8J5LpGwKl0Q2mL+HX2naBuu7jEbnFZNm8d5N18kpfc/CMDeLz8k1ZXNtW5edQ6MZRSbsetlZ6CkxlmXEWwogIB5EA1IecUcwY5Bk0fJM7Zv2rT02Ai3PXrXPfWQdJLVUllNyzGrsdXolRHXakYjMQ==
+ bh=18+lHutZ7D3sVaNc8fEFutZEZPsl9KKH36SAMc8apRM=;
+ b=cwTDVXYJvlArBoM/45frDl/pjIXSrdkB5dVP9OVKjBugbYAIU9JjogqHwXtg3UhvSVBYk5M4QNWe+zDRMtBTNAMymQOgLo9CqBbe84gWt/50vy2IpDUfFu+fyHMLu+sIzLMdkoDHDlKsFmiU8d4Yr7IXSJth+UmCUU+xnRuMg1x9pOQrv+dAQn18hFGK+9XFauSH+csx9XjFXSIjREeMNqWDbxsHZ0TeoXMAgaah7860iHtxohBMHkyB/T4bLJxfpTQHOiMKKttQQNAV+qHya2sd5M45uN6hCQdVu4tUwmHVNGmfCFj8pYfrUrjFN0kZ1TV/mOIzcGngQVY46zorwA==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=oss.nxp.com;
 Received: from PAXPR04MB9422.eurprd04.prod.outlook.com (2603:10a6:102:2b4::21)
- by GV4PR04MB11902.eurprd04.prod.outlook.com (2603:10a6:150:2e6::18) with
+ by AS5PR04MB11465.eurprd04.prod.outlook.com (2603:10a6:20b:6c2::14) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.7; Wed, 3 Jun 2026
- 08:41:33 +0000
+ 08:41:38 +0000
 Received: from PAXPR04MB9422.eurprd04.prod.outlook.com
  ([fe80::54e:28bf:aa85:d25d]) by PAXPR04MB9422.eurprd04.prod.outlook.com
  ([fe80::54e:28bf:aa85:d25d%4]) with mapi id 15.21.0071.015; Wed, 3 Jun 2026
- 08:41:33 +0000
+ 08:41:37 +0000
 From: Xu Yang <xu.yang_2@oss.nxp.com>
-Date: Wed, 03 Jun 2026 16:44:31 +0800
-Subject: [PATCH v2 1/2] software node: fix refcount leak in
- software_node_get_next_child()
+Date: Wed, 03 Jun 2026 16:44:32 +0800
+Subject: [PATCH v2 2/2] device property: fix infinite loop in
+ fwnode_for_each_child_node()
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260603-fixes_fwnode_iteration-v2-1-0ae381f8b7b9@nxp.com>
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260603-fixes_fwnode_iteration-v2-2-0ae381f8b7b9@nxp.com>
 References: <20260603-fixes_fwnode_iteration-v2-0-0ae381f8b7b9@nxp.com>
 In-Reply-To: <20260603-fixes_fwnode_iteration-v2-0-0ae381f8b7b9@nxp.com>
 To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
@@ -63,15 +63,16 @@ Cc: linux-acpi@vger.kernel.org, driver-core@lists.linux.dev,
  linux-kernel@vger.kernel.org, Xu Yang <xu.yang_2@nxp.com>, 
  stable@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1780476273; l=3206;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1780476273; l=3079;
  i=xu.yang_2@nxp.com; s=20250815; h=from:subject:message-id;
- bh=Dx5CFiqYsqKIjXOSZ97dhiBcnznlW5VWQSXYapF/P+k=;
- b=Ao+/Xch80mZGE1Fjq/QUhRKmHPdaYGO2HuhBmQ6QXPCTNqoPQX5YZv1gZWZHznb7UZ3zU7xG+
- r2YU/RX95PEDREoXNTrDek+7jr9I8N72igyJVSGYSOYNJD5CuYDBVFa
+ bh=2i2kKcYDU3UUn10CnufyCGwuLdj5Hqtsn3VGeQET1RY=;
+ b=8qRfkuTT7qb49+90PzN2U6Axz1DPAps6IeNztIUSmUgOw1fFwBJHPVKdu80kh5TA0L6DirNz/
+ XTk0x2IqHj+BJAPefp1dsS9lGSJccAejC24VG+1A8pAon0ONpT5i65b
 X-Developer-Key: i=xu.yang_2@nxp.com; a=ed25519;
  pk=5c2HwftfKxFlMJboUe40+xawMtfnp5F8iEiv5CiKS+4=
-X-ClientProxiedBy: SG2P153CA0033.APCP153.PROD.OUTLOOK.COM (2603:1096:4:c7::20)
- To PAXPR04MB9422.eurprd04.prod.outlook.com (2603:10a6:102:2b4::21)
+X-ClientProxiedBy: SG2PR01CA0184.apcprd01.prod.exchangelabs.com
+ (2603:1096:4:189::9) To PAXPR04MB9422.eurprd04.prod.outlook.com
+ (2603:10a6:102:2b4::21)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -79,160 +80,155 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PAXPR04MB9422:EE_|GV4PR04MB11902:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1dc7b5e3-c422-483d-5052-08dec14be9b2
+X-MS-TrafficTypeDiagnostic: PAXPR04MB9422:EE_|AS5PR04MB11465:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6c2c328f-cf7b-460b-7aaf-08dec14becf9
 X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
- BCL:0;ARA:13230040|1800799024|366016|19092799006|376014|7416014|6133799003|18002099003|22082099003|56012099006|11063799006;
+ BCL:0;ARA:13230040|1800799024|366016|19092799006|376014|7416014|3023799007|18002099003|22082099003|56012099006|11063799006;
 X-Microsoft-Antispam-Message-Info:
- GH0CCwiGbzpkZxzr8/+roYY+YZaJg6E9BG8H63jxOrrBeSxahOQbazcB8Iq6cxSW6Ynmput72S/9uAGgVxJucxbF2v6z4rKberKLXST93BrsJ1AJp9lgew4bKXL15FXCfRJvV5DWTcvtVTKEXmq9Y6ZzVcScOopMtP9JSWMSnz8GLCetbWvz/NAZEHOavxfH0hy2XRPh+tZU+gyew3ebaAVslvhkrCh/2oxFPPnh+28CeDeBgsyA+mIa5dI/nGXatO3rp/FbNjTyl6WXjTsUMkWDQhGZAyRjpRa7uNjHKWlcmZlwOftKVnT91PGiiB2iKAtBP4WGzyqbMTs0ievxCycsAN/DRloPsag3V2aSBuu7RRga3b8cCNSaSuo56ovfy7KSjXmNsntCfEYHajggrjj912BIb+vOYTgyBv3oT2UJgE7q1cDKb5KyhWZStX49B5/dkEazLnKCtko10/ZUPlPDuoCRNKfPhORgCcMaLZf4+YNcaVacReuwu3Hvmw0/CJ5yKaUNH+c22ChB5ths6U2qUfjsUagsGtxAAdnd2o3YI2a7VkoUj+6AaI852Fjs36R8ghn5E2F9Zy9/Mg0ne0obaJWg6kGHMJ0xmxn5nGKBrk8u7d3jvnYLDqlWk8BngfoV2jmIqMYj93v5Uk9DDUwuFRQURs7T1lTvcK+5v86zoBF3U/rPjvxE6yFlA13E
+ g834mwCbLRlySX33oy+Y3d0p1PidtuDElxmVosPDan4DRnecMYiVgO1FAWso2oEhJ52MhBF5J/WR7O9IlpQDKt2cGRh6y/MUOnIJhSJUCRKhWFI1udzp4qHAkMM4aW3TnMNnUXeQ+msnIW6DeNHBR6y2O/G/4FEp7e4s5m05jWTc6k9E+nwSGrQRQBfWmC0aiKdf0yxEUS2aYfYYoUckbhFXo1yW5XyptjoovkDF7HyD31j/bDlCEUe78R9vTyH7B96FpkwQ1ik3z7E74BPLoklACSTymTkdi1fKDsTmsYoigKuzSVPVFt5VsQnN/tiBLkmucloK5WOBs+uDxe29qiFQUQlkA2C2F0kruv+5RUFZ3inqK5tNv/3Fh6u3at5hQIdd/m8IeH6Om3NzXRs2OAMnk+RZ0/TOuKJo23gseekHnDtuw3uXOSzKzDyPZVset6FQcK6qToF7I1OWO+xlxtIIxLLKppOLg9eSSnhGwSDllwisalSbccMsPi0WqRCKnse9tcgtTxkm7dJK/2dCT7yOf+L10Ma0HrBMmEvB4d9J49+Bv/bNYVRit256WI0K6fw1i6ljL5COHaxVB9LQ9uZy6kdf0uRfUrGVBAYjUYlwYHwyuc6jgSEfpewV2Cp7Snj3ne5eJ5EBGA0T3BMrAflbQvfVmyEbY2v6/ZLuDxgC/Wr/n0ml43N2hVaqTqQj
 X-Forefront-Antispam-Report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAXPR04MB9422.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(19092799006)(376014)(7416014)(6133799003)(18002099003)(22082099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAXPR04MB9422.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(19092799006)(376014)(7416014)(3023799007)(18002099003)(22082099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
- =?utf-8?B?OWs5RkNhVW5hRlhrRlBmNmRLZmc1elR4QksvUnRRb3QzZEFBT0ZTZVIwc3Yv?=
- =?utf-8?B?YnRFSXVIMmlEd3hXd1g2NW43V2dIQzVMSFlVOC9vOEhqaXJoMUo2K1dPdjNU?=
- =?utf-8?B?SHZaUnJUSXhYV05aWnBUNGUxNUtZR01QNGs0d1VVakMzaGE5UDJoMWJ1QVpB?=
- =?utf-8?B?ODNWTm5oS0dpOEJpdUM5dDVkdVQwenArb2JaTkRTeXZoWkoyTkdBWGUwb1VM?=
- =?utf-8?B?VHNwcm8wcnNxdlFMOWRWN3k4NFloOWRLaEMwL1h4YmFHY3pGYzJDSzRhZWJK?=
- =?utf-8?B?STcyNm9ucVF5TjBrMFltSzlMYmdSQzBkNWtKMlZmbUozcDBZVmhlcml5Z01n?=
- =?utf-8?B?cDkyc1dESU5lVEthUExuZFMxRUFZUm9STC9nNlFWVG5SV2VpUFRRTGZucVM3?=
- =?utf-8?B?Y2NhSSsyT1ArZ2svT0NXYjV5dzVXSURTWURVeWZFWWxlV3FpMGJrMm54Ullw?=
- =?utf-8?B?elRCTVhIRkczUnhhMUVvVXdianlVYjU1d3IzT01FdkllWUtpR3Y4Q2RxNm1l?=
- =?utf-8?B?bGFNWCs5aE9zMUVjWWhnbDRTMVJFU0ZiblJUb0NwUkNudW16cGlCVFlqdEY1?=
- =?utf-8?B?bEM1RWZyekRINytoVnQ1TEw3bE4za0lpRFRSMFZmZkR5QkM4Z0VqT1NGOU4v?=
- =?utf-8?B?VlROSmo4bXA1MVlYRjBRYWxpRXpZSzlSMXdzdGJBY1ZtaDZkdXZSdW5BWjg5?=
- =?utf-8?B?ZmpwOEdxdGxOWFZPRStOMmp5U1dEWURSbExFc2t2ald5ZTBGN1JWL0l5Uytu?=
- =?utf-8?B?bi9kSGJqYzh0T3M2TElPZWlickdkZjY3QXF0Q0w4R3l2UlBBbDlualBWU0Ny?=
- =?utf-8?B?bGZDWGk3QzV0Vk90MmRDWkdublBwc0FiV3lPaXVkTUpiSW9MaEVnaEJLWnVn?=
- =?utf-8?B?d04wL1pNS29rYlJvZDNaSGVEbXlIMHNPOWVEUDFZNXlzcE9LamtmZG5CeUhx?=
- =?utf-8?B?UVVadVllN1E0ZC9NRTJnVG9sYVRnVVltbWJDd01hSXAzZ3pDZ3RCdkN2ZlVz?=
- =?utf-8?B?QWZwNkxURjloSEV2VWlrWWhhUkJqaTE2cUY4LzRiUDlmTlpsa0JOOUoxcDUy?=
- =?utf-8?B?Tk4vTzdWR3BIZWZLL0UvVThsL3IwcmNISC9KZUNLRjJzUFBFVW5ra2R0QVhq?=
- =?utf-8?B?VG5oeHl1SW9wRXFXakM0Tmo2U1ZEdHd6VytacElwNDBvcXVNWlVaSjU2eFdw?=
- =?utf-8?B?Mk5jT2c2djJwMk94YkpSTWhYTDRzMjBTYUxNZDJMU3J6Tm81WW5nK2dwQ0NW?=
- =?utf-8?B?YXFxcjFZeXFHMm5wLzhsMjlMSzFUUThYK1JZN0dJU0pjUEZWWDdMVEtmRFYz?=
- =?utf-8?B?N0RlUlBIVUppd0Jpd09vRjhWK2NIUUJRYVdTZlVjQW1wbFBteXdybkZSM0I0?=
- =?utf-8?B?NDFLNkZScGx1VWZ6RkwyVmF2SW1lZm1Rc2ZLZVRrblhGUjMrK2grc0FRYjly?=
- =?utf-8?B?UElpVE1SZWdDWlEyblUyZ3RYQlZlQU43L01JaUdyMmlEWU5ZZGJBYVVIUVRr?=
- =?utf-8?B?MXduUHV6Q2ZPdVZrZlM3S1pxQmZwV1hkZHJFbFp3YkNGWmRNZkxQVlN6TGt4?=
- =?utf-8?B?VzJQTlh4MjdpTmFRUUdSMDEzZC9iM2tqMW90RGNIL1NQNFhGSDdJVmRlcUph?=
- =?utf-8?B?Qlh1blJGcWdUVVViM3ZVcFZER2drbUdpRlVHejR6cTBrV09EUG43V0JCZ3BD?=
- =?utf-8?B?L2ZyZlQ5SHpSZDUxOUIwZ2VOemdjNDRxMk1zTkdWWHc2M1kxa242WUFvc2pV?=
- =?utf-8?B?TXpiU1Fwc1RUeUpSZ3pxY25ZL1J6cVFBUXhSVHVhSFphUVg4WmFHWFdTVHdW?=
- =?utf-8?B?dWxXV3ZXRUdXWVhvS3BWeFF3Y3A3Y1BvRVIxaHZvR0hCSnBacTFGaWxaNWhZ?=
- =?utf-8?B?ekI0QnB3N0VibkNCeGMwdTNKRkJHbXM1VlFRNlZ3OTVvWkh6RjVEUHYrK1pa?=
- =?utf-8?B?N09YcWZtUW5nTjRvZjNGOEQyclVlUkZhMjNLb3ZpcGFnV3FFYVhrWkdobWkr?=
- =?utf-8?B?L2JBek9FUXBLZVNMUHBPdk5MNmNheXRnZ3FHTjYrZnF3c2xDQ2l2YXMxWUJr?=
- =?utf-8?B?RmtsZEVsK0p4MUJkMWloTEhVVjZvSEh6SUNGK1JYSzN1UDlUWG5KYTg5MXN2?=
- =?utf-8?B?M2FZSkxGRmZPRC9xZFRZL214K085L3AwOUtRbldWREdwUm9rUkJvVFdjUHV5?=
- =?utf-8?B?NUdOS2ZubHZNWmhTQ21NKzRxZGNRT2NRVVUvZUpRRzJMQmQzOHJCS1l4MVA0?=
- =?utf-8?B?SXBlRzhVeEdlZXROR2lFUU1uR0JLakhSRVg5V0hLUDBXTEZna0R3YUpPdXQw?=
- =?utf-8?B?cmdGOC85bHQwQ0JyQVc3RkZjRk1SZEhGZ3lWbTZNQVUybnhjVmZ6Q1l3S28w?=
- =?utf-8?Q?nzdy9tmhW2ja8oZI5gp97n/3EyGJcrp/K1M1A?=
+ =?utf-8?B?VEpnS2tsdXhYTGJvby9idUpHSmRvbXdqeUY0QUdYSzN2QkpGK0Q2UklweFM2?=
+ =?utf-8?B?UC9vUXJkSlpUaUhlOG1VQi9PVGFMcHc1T1Nwc3VpbExWb1FkQ1djaXlFWTBJ?=
+ =?utf-8?B?aUxZVnJOVGhueTRjNjM4RkQwSzFwQnZyWlJsY0s2aitwN3ZkdFdNNEx5RHZO?=
+ =?utf-8?B?Nm94aXAwbS9TeUtTWTZJYVllaHEydWw1L1VkdzRNVndSRVpVYUh4dWxIVlNq?=
+ =?utf-8?B?T0hMdlBXY0VROWU2YVFzVzl0QmpMd01LZEZSSEJDdngrOE16Zm02enBQblBq?=
+ =?utf-8?B?OUNRb2ZCQ3VkZDBzSHlIeG9UWlQ2K3ZQQm5QWHJhdXpsRkZQQUdER0grYUJG?=
+ =?utf-8?B?aEcrNHNaYWQ4S2tYUVNZU010eFdjS0NWeDlMT3VYaTk4Um1uVEtQMFUzcUMz?=
+ =?utf-8?B?cDBJeS8wQlNJM0JSQTQ4bzUzcGJtaVE4YXpyUjFCT3BVaFRpWGNycW1pcFRs?=
+ =?utf-8?B?NU16QlZoM0puNE9KVUViR2JWaGhLRkdiZWRNTFB6TUlxK1NDZlNFbTFLOEJl?=
+ =?utf-8?B?VnFzYkpGcStMMC9GMkJiVFh5Ym03OU00OStMYllrRWoweVUyS0VmU09USVg0?=
+ =?utf-8?B?OE96ZDdkbGRzYmdSWi9zckV4dTdZRXdHQ3RyeXpsc0RwNU9RNzliaGdqUzZs?=
+ =?utf-8?B?NnJXMDB2M05MbnRBRS9RYmg4Tk9CNXJwUkdoK1dVT3RXUlVwWFpSL01mTkcr?=
+ =?utf-8?B?Y29NREJRNlFkcVlzbzZRUDMwQXlCYk1sR2tWOFdFMVJhMEV4bFpEdnJUVm5i?=
+ =?utf-8?B?VlQvZ1dLQWlLcVI4YkkwdjBLVTE4V0tFYWJHMzhHY09KajBaSk5HMG1JNXBD?=
+ =?utf-8?B?TlpOUGdzQmphREVodnN1V1VVS2sycEdJRjF3NUpBNUVkOGcyVm5ES2JVRjYz?=
+ =?utf-8?B?a3EwaHNLbXBJMGRNYXV5SlMwemsxdGc0NlV4c3JtVUNxZVZKOGkvYWVZZGJp?=
+ =?utf-8?B?NlkzN3BrMkJ5cGV1UFc3QlBWcElUV3RPbUQ1dk42ZWIxYUZuNmJJWUhVVHEz?=
+ =?utf-8?B?WXZzbFhtL3VMMXAyTUVVSFZSbVE4RzBMTnhyclFwM0NHM1hNRmlXamNqcHJX?=
+ =?utf-8?B?U0pwUDFvWW4rZ0FSZFkwSW9kMm9JOFMrekc0S1k1bjVLVnh2N2ZZWGw0aHYr?=
+ =?utf-8?B?RkNhZUl5cXluSldpTG53WFBSVUVLRitoUFRHZDdZMnk1TUJUbnVJVXdCWUQy?=
+ =?utf-8?B?UVIwL0l2alc2UW1MUDJJTXdFc2tXdmYxdDNqcWNwZWJlandDQ3Z0V203ZGNO?=
+ =?utf-8?B?UTFSN1crNmw2d3lBMjRoMHE2OEZZQUlmZG00Vk5vdmJycXo2TllHdkFTTy9o?=
+ =?utf-8?B?d0dzZzYxc3JRNWpwZHVLZk9tNzFzakFWNnBmbnRiTXk0OVFVVmhmRDVVa3lV?=
+ =?utf-8?B?UU9EM2M1UTcxNGJUSytVRTY4ZTFVTmRZb1g3UitJUExxMzJsUEhXNjY4NmZK?=
+ =?utf-8?B?bGtjem95WVNzdlByOW1Gb05RYkk5cktuL1FISmo0Q0crays2dHdsa0ZJTE1X?=
+ =?utf-8?B?RlZ6OGtBbXFyMUw5SzFHV0dielFXM01RQ1htZ2x6dnlIblQ0cTBSMGR1TTJk?=
+ =?utf-8?B?U0l6ODd6TUdoYmJUbVovWnpCM2dJWnl5MThCYnlMRWlBQU9nMGxERnJWRkVo?=
+ =?utf-8?B?Tml2VzRHRHljeW85MmpNUUkwY1hHS0NudUd0bFZRaEJoMlJSL0NaQlZKQ21h?=
+ =?utf-8?B?b3JPQ1UxUmk5c1M3UjVCZDNpU0pGN2dlRXp1OW9tNjVlcXdZcjk3eUMweU8v?=
+ =?utf-8?B?SHpjcGVKYWJiTjI4eXROYmZBTVpvcGFBQm5zQ0hoQnJndGNxb2trVmRwVmdR?=
+ =?utf-8?B?andDYUJzc2ZuK3MxMkRFOHh2YkszRlRGRjNUZDVIU3VvT2xXb3MwYnIwTHAz?=
+ =?utf-8?B?bWZNTnVSaEZDUkQrWENENDI2VEdYaUFYQzFuTlVPWTlPUEJzdFBjQjVpVUxT?=
+ =?utf-8?B?bjJJaW1HVEN5ZlhrV2VYeDBJdXZkNjE3NjlTNUptRC8zdTRKZkY3cHI0c0hx?=
+ =?utf-8?B?Q0xWV2ZSMXNBNFdWdUUwNmd3T21hRDViMVdEZWZpdXlyYU40WDlSWVFNcUhp?=
+ =?utf-8?B?Q0M4bzlwR0ZXQ2RDeFRqamgrTzVjbG9tdm5UYnNXVTJzRXZoRHFnbit0TzBa?=
+ =?utf-8?B?YTFDeTBudEJBa0ZKOEZOYm9RVFRBbzc0YTZDbXNlWFo1YjJ2ek8wdHFFTElL?=
+ =?utf-8?B?MURySTErUnZJMGUxS0pqU29GTzd1eXlhdktzdWZUR2p1K0I1dE16ZGwwUFNh?=
+ =?utf-8?B?Y2NJUjVyUXdISnBVSkNBUTF3QXkvZ3RzREpmN0trbWVDdGZ3ZEl2Yi85STkr?=
+ =?utf-8?B?LzhIbitYR1U4Ykp6VTZQU1orSDhIRStTM2N6cCtMUFFqdlVFWUIrU2pqREY5?=
+ =?utf-8?Q?oO1MRwGs8RH8S2NemnXIenmho4Dui7Mxp9eVE?=
 X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1dc7b5e3-c422-483d-5052-08dec14be9b2
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6c2c328f-cf7b-460b-7aaf-08dec14becf9
 X-MS-Exchange-CrossTenant-AuthSource: PAXPR04MB9422.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jun 2026 08:41:32.4299
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jun 2026 08:41:37.8536
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: fNjTBjYNlGYNffKcmT2qIyGHt3bq794NzphNr02XXfGl/xPz2WUa9LKSA/Imr8urPf73k1CfuGhRaLRteirX9j5TmSpAg/hxNrbT4J27mP7PrA+n6yS8xnZkiVQdLv2P
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV4PR04MB11902
+X-MS-Exchange-CrossTenant-UserPrincipalName: C8HyMO6mMj2LwiGBDkhY6SvupSHGrYlsOItRsKiVZhreVAU240Yr7DfSI6fUFcaarpGeVSluggSy+1zf9tKHMIoNNnv+nYcOk4RHhBMVpklhOYws3DHbd7f6yH6hbMJk
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS5PR04MB11465
 
 From: Xu Yang <xu.yang_2@nxp.com>
 
-When a swnode acts as a secondary fwnode and is participates in child
-iteration, a refcount leak occurs for the last child of the primary
-fwnode's children.
+When iterate over children of a fwnode that has a secondary fwnode,
+fwnode_get_next_child_node() can enter an infinite loop if the secondary
+fwnode has more than one child.
 
-                   Parent      Child
-  (Primary fwnode)   FW:   {FW1, FW2, FW3}
-(Secondary fwnode)   SW:   {}
+                       Parent        Child
+      (Primary fwnode)   FWa:   {FWa1, FWa2, FWa3}
+    (Secondary fwnode)   FWb:   {FWb1, FWb2}
 
-In this case, FW3's refcount is decremented twice during iteration:
+In this case:
 
- fwnode_get_next_child_node(FW, FW3)
-  1. fwnode_call_ptr_op(FW, get_next_child_node, FW3) returns NULL and
-     decrements FW3's refcount
-  2. fwnode_call_ptr_op(SW, get_next_child_node, FW3) returns NULL and
-     decrements FW3's refcount again
+ ┌─> fwnode_get_next_child_node(FWa, FWa1)
+ │    - fwnode_call_ptr_op(FWa, get_next_child_node, FWa1) returns FWa2
+ │
+ │   ...
+ │
+ │   fwnode_get_next_child_node(FWa, FWa3)
+ │    - fwnode_call_ptr_op(FWa, get_next_child_node, FWa3) returns NULL
+ │    - fwnode_call_ptr_op(FWb, get_next_child_node, FWa3) returns FWb1
+ │
+ │   fwnode_get_next_child_node(FWa, FWb1)
+ │    - fwnode_call_ptr_op(FWa, get_next_child_node, FWb1) returns FWa1
+ └────┘
 
-The same double-decrement issue occurs when SW has children.
+This cause fwnode_for_each_child_node() to loop indefinitely, reapeatedly
+output {FWa1, FWa2, FWa3, FWb1, FWa1, ...}.
 
-The kernel dump as below:
+The root cause is that when the current child (FWb1) belongs to the
+secondary fwnode, calling get_next_child_node() on the parimary fwnode
+incorrectly returns the first child (FWa1) again instead of NULL.
 
-[   25.435805] OF: ERROR: of_node_release() detected bad of_node_put() on /soc/usb@4c010010/usb@4c100000
-[   25.445072] CPU: 0 UID: 0 PID: 617 Comm: sh Not tainted 7.1.0-rc4-next-20260522-00011-g7376b330abca #210 PREEMPT
-[   25.445080] Hardware name: NXP i.MX95 19X19 board (DT)
-[   25.445083] Call trace:
-[   25.445086]  show_stack+0x18/0x30 (C)
-[   25.445101]  dump_stack_lvl+0x60/0x80
-[   25.445108]  dump_stack+0x18/0x24
-[   25.445113]  of_node_release+0x158/0x194
-[   25.445122]  kobject_put+0xa0/0x120
-[   25.445129]  of_node_put+0x18/0x28
-[   25.445134]  of_fwnode_put+0x38/0x58
-[   25.445141]  software_node_get_next_child+0x54/0x15c
-[   25.445150]  fwnode_get_next_child_node+0x70/0x94
-[   25.445156]  fwnode_get_next_available_child_node+0x34/0x88
-[   25.445162]  device_links_driver_bound+0x2f4/0x334
-[   25.445168]  driver_bound+0x68/0xb0
-                ...
-[   25.445258] OF: ERROR: next of_node_put() on this node will result in a kobject warning 'refcount_t: underflow; use-after-free.'
+Fix this by dynamically checking the parent fwnode of the current child
+before calling get_next_child_node(). This approach follows the pattern
+established in commit b5b41ab6b0c1 ("device property: Check
+fwnode->secondary in fwnode_graph_get_next_endpoint()").
 
-Fix this by ensuring software_node_get_next_child() does not decrement
-the child's refcount when:
-- The parent has no children, OR
-- The parent has children but the input child is not a swnode
-
-This prevents the refcount from being incorrectly decremented for
-fwnodes that don't belong to the software node hierarchy.
-
-Fixes: fb5ec981adf0 ("media: software_node: Fix refcounts in software_node_get_next_child()")
+Fixes: 2692c614f8f0 ("device property: Allow secondary lookup in fwnode_get_next_child_node()")
 Cc: stable@vger.kernel.org
 Signed-off-by: Xu Yang <xu.yang_2@nxp.com>
 
 ---
 Changes in v2:
- - no changes
+ - use __free() to put parent fwnode
 ---
- drivers/base/swnode.c | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
+ drivers/base/property.c | 18 +++++++++++++++---
+ 1 file changed, 15 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/base/swnode.c b/drivers/base/swnode.c
-index 869228a65cb3..507de464d387 100644
---- a/drivers/base/swnode.c
-+++ b/drivers/base/swnode.c
-@@ -474,18 +474,18 @@ software_node_get_next_child(const struct fwnode_handle *fwnode,
- 	struct swnode *p = to_swnode(fwnode);
- 	struct swnode *c = to_swnode(child);
+diff --git a/drivers/base/property.c b/drivers/base/property.c
+index e08eadd66f4f..f51087065bf6 100644
+--- a/drivers/base/property.c
++++ b/drivers/base/property.c
+@@ -808,17 +808,29 @@ fwnode_get_next_child_node(const struct fwnode_handle *fwnode,
+ 			   struct fwnode_handle *child)
+ {
+ 	struct fwnode_handle *next;
++	const struct fwnode_handle *parent;
++	struct fwnode_handle *child_parent __free(fwnode_handle) = NULL;
  
--	if (!p || list_empty(&p->children) ||
--	    (c && list_is_last(&c->entry, &p->children))) {
--		fwnode_handle_put(child);
-+	if (!p || list_empty(&p->children))
+ 	if (IS_ERR_OR_NULL(fwnode))
  		return NULL;
--	}
- 
--	if (c)
-+	if (c) {
-+		fwnode_handle_put(child);
-+		if (list_is_last(&c->entry, &p->children))
-+			return NULL;
- 		c = list_next_entry(c, entry);
--	else
++	/*
++	 * If this function is in a loop and the previous iteration returned
++	 * an child from fwnode->secondary, then we need to use the secondary
++	 * as parent rather than @fwnode.
++	 */
++	if (child) {
++		child_parent = fwnode_get_parent(child);
++		parent = child_parent;
 +	} else {
- 		c = list_first_entry(&p->children, struct swnode, entry);
++		parent = fwnode;
 +	}
  
--	fwnode_handle_put(child);
- 	return fwnode_handle_get(&c->fwnode);
+-	/* Try to find a child in primary fwnode */
+-	next = fwnode_call_ptr_op(fwnode, get_next_child_node, child);
++	next = fwnode_call_ptr_op(parent, get_next_child_node, child);
+ 	if (next)
+ 		return next;
+ 
+ 	/* When no more children in primary, continue with secondary */
+-	return fwnode_call_ptr_op(fwnode->secondary, get_next_child_node, child);
++	return fwnode_call_ptr_op(parent->secondary, get_next_child_node, NULL);
  }
+ EXPORT_SYMBOL_GPL(fwnode_get_next_child_node);
  
 
 -- 
