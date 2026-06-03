@@ -1,256 +1,147 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAB1448BD57
-	for <stable@vger.kernel.org>; Wed,  3 Jun 2026 19:32:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFC333A3816;
+	Wed,  3 Jun 2026 20:16:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780515127; cv=none; b=A4v/vxv9+HRDneIoE3rt9fDvCC16ijRSTiAK2EPWjXJRUpl12gNDuDUhhzAta8gONCrSBkfFLbsAXI57tmpf+kRw/IwcmF1G36PHfYfrtk8tNEUeK589AbMNMPRcaqIl445bN2MjsBYocpGr24kcKOyBCU0mRBQj0gzH6aOKPYQ=
+	t=1780517775; cv=none; b=fw6k2boULuFJGY29+8TbkNuankE70FCBpSeEns01P4Su+ubHjJY5IOrNxiQTQ4lExkAVFnJBFpcUtb41GKU/nNsPhh3Pk5vdyNDQtd+dd52pMO5Ru667MrrtMdQ3oM1tk/Xps9AhWpj5w58cdyhdCwj80p/wknNRW2uNQTNOqf0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780515127; c=relaxed/simple;
-	bh=TQxe3lxjnun8hagmZm/MNZUEw9/HolUDis/d92awEoY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=iezwn8kOHRWzVdpBTcj2FwtHuG5X9lsI2iCoWmC3O3uMG3wnFTkQvntQ9yekjMX2dhOzasJCQ52OqxLoEH5x84zhdCG33MxK1zNdN3aO2cojUQedVRVleyT6j6miD73sh9tuw/po0oez006cpvuvnqITebpc2Bm1zg4TDEz8JEU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=YLFdbCai; arc=none smtp.client-ip=209.85.128.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1780517775; c=relaxed/simple;
+	bh=ljWLbcWqPQqUQqC+Y9aEHfuzUNNwSOwpXPzUrs/XVno=;
+	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
+	 Message-ID:Content-Type; b=sgFPzN31wjUPBSlpgzhcGX5oZMsJISrme0xLuykN+zCw7hyRR9hv/a4uxXm+fYV0/p0efVVtlPJ/jZ3HeEn/tOH+YVwPemqgs4JCzcd0tAoCl70WsljCR8I5qtVl3rEDdSYSrYu6jJtIilh3apwK74kGUoSjqM3GS2j/aKPiOKg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=WMWwsoze; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=I+PuS+yi; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="YLFdbCai"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4891b4934ffso15715e9.0
-        for <stable@vger.kernel.org>; Wed, 03 Jun 2026 12:32:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1780515124; x=1781119924; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
-         :date:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=WyYYbe9n0CflRt4VnvQU2N03ZiDpY3ZgwW7PfjETq5w=;
-        b=YLFdbCaiajgSxtTu2+rCX/PlPlM0MAC4q4NHlEM/vQD2jLpBMcKIF81QQpbjXNChc6
-         6aaBKrVwi9r+qR+8/de2fh9tBXepP2szaJrOlpclIHkM/XLmbldwkRUKM9d6AIobxq5R
-         Qpr2UWbWHPfvNiNDVeY5N/DfyqcJZxPF7D217bc64rfwHhXJ50rfNqFnEKrc0OvYlHkY
-         r7uxSP3Wv314cxrQFlj9J3EuFXhHwjXW0xim/YirWHwXIy5gCxnNcO9LGUiy1L3eF8GM
-         pWUJzUr8aONDpl6lcJiAlrlkpJBGY9jUSJ4LgfKofeLcVB6YrO9KPLAM0EJBpP2kcexC
-         GEtg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780515124; x=1781119924;
-        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
-         :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=WyYYbe9n0CflRt4VnvQU2N03ZiDpY3ZgwW7PfjETq5w=;
-        b=TvMDH9iEaAJMcJdCQ87wMnyzm1oK7obuDzxT7IMmyCpNK8gvexZgzhBSe1Hy3o8jAH
-         +1yQQRvCOFfsmzte21+d18MNpInoRAMaQgnQGO+pCvf52BQ8WdqWkK/wwZ3xyShONFFG
-         BT0Q6Mk3ZK0oZxDaubrLcjroLDKiFlVYHN+Ywil8L6/H547T/d9E3O40adxvga2+MQYF
-         izbuiazABLQw0AvUzuZOmgA03IKI87cBZDpic+xqIGfpTeE91nbIed3wYA6FtRvE+E90
-         oxVppiDQu7mTKgc8CE22mMoRH39+v3GqxsZcvWofmwPNccpw7QHBxDBCvj5EA7xMw2eS
-         /aOQ==
-X-Forwarded-Encrypted: i=1; AFNElJ8ju55zmmCUDJCrjqVmIuGOBPe6GHt9C4UCkjBGkR5Ns8n3aZte6hlK2hHHM4umlqYvKJ8OdLw=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxmWQD0tFRd4vpbaeoCucFsopqsimdHXD7We1NaeKca04nhe8DS
-	Pykf87JT3a8mZWoUyG8kxSs9Z2QSCNNVJlKLmKswV4WDWXIC8vKrZA7XUr/2/kSJ/A==
-X-Gm-Gg: Acq92OGjx+xgPjrtABW6Qxp3PVo/5tSJ0ZV8mTpttsiPg5gr6MK5IvJZ9byeEopi+iO
-	/khIdDH5/KiBqncH3OucXSzXBTT5GVIyCRFjcD4QT7knOYxLXnDDkmoVedLqeCrPoSDMp6kC8cQ
-	RmVcsqnDV0AiC94Ct75cSYU8V0GBG2x49RGU1lzcdGCNlYrCwElci7tWGqE9l+VY9Td9TbPMVXq
-	4qPIQpB3p7NI2BArrYtu2fBsAP2CvA/6QLHY2NyUiaCp17wvLc2MZN1x3/7yfIt5/3+gvcKbF4K
-	PEKSqMcNTr5jmKExFS5mOdeRtGZAr24Fn+VAL3YnCri2vFp9+Z6hJFRy364HXAtwfkQSAhi3/MV
-	ORJ6my4p8odUku1HLPO6N9+LCAfuD13P7/ax6JY3r1JJbELEXxeTZrgCHJOVHj2oMXdaBMyHJJI
-	fZNmBehnX/+TFoDsHPt1b7cCTW9UeoHi++W0gGlw3N7i4hAftsd/T1iK6d1CbNww==
-X-Received: by 2002:a05:600d:18:b0:490:b2ae:44e1 with SMTP id 5b1f17b1804b1-490bcbea733mr114005e9.5.1780515123978;
-        Wed, 03 Jun 2026 12:32:03 -0700 (PDT)
-Received: from localhost ([2a00:79e0:288a:8:ac5a:f71c:9e28:abca])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4601f35fd33sm10773167f8f.35.2026.06.03.12.32.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 03 Jun 2026 12:32:03 -0700 (PDT)
-From: Jann Horn <jannh@google.com>
-Date: Wed, 03 Jun 2026 21:31:57 +0200
-Subject: [PATCH v2] fhandle: fix UAF due to unlocked ->mnt_ns read in
- may_decode_fh()
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="WMWwsoze";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="I+PuS+yi"
+Date: Wed, 03 Jun 2026 20:16:08 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1780517772;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=HaAcml/hsg87+10WXExvmobFW3lWSh2IJIWZcKaC2PQ=;
+	b=WMWwsozel6zE39ywRYVesQBSYcrqYp1wUyF04v0SUthnmgMXjWlpTf0K3PckrdJZwYOJjE
+	p44vcYZ0l4go1n3ku7Cjg8Fr0CwxMCL6nA5VNVhhRSJxRyT968E6Oa9NglEfPBbgcrCq6j
+	U8hxrmTUrAV5xB2lpOSU5Gk6UvZWT9j4OKAycpdYhft5SC32MeaCEg4FinKxT+yGPSqBje
+	eeE5M29GNwT9M9wYUezUx1wkfC5Iklc9pcyE/Viw1+CeqM76QiqPiwkuVPltKHvXW6tZcg
+	cileJwmaQ8qg02i42wdlD+rtXKRakaFB1B0YE8U3P/VmwtrAX+eHQk0WYeOUag==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1780517772;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=HaAcml/hsg87+10WXExvmobFW3lWSh2IJIWZcKaC2PQ=;
+	b=I+PuS+yiYv8/fHgSwAmj3Jov+A27CiRDLiiv5lGSoOgpPo5Nds+XxQdL4jQj90DMKPDukR
+	XMlzNOVciHl770BA==
+From: "tip-bot2 for Davidlohr Bueso" <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject: [tip: locking/urgent] locking/rtmutex: Skip remove_waiter() when
+ waiter is not enqueued
+Cc: syzbot+78147abe6c524f183ee9@syzkaller.appspotmail.com,
+ Davidlohr Bueso <dave@stgolabs.net>, Thomas Gleixner <tglx@kernel.org>,
+ stable@vger.kernel.org, x86@kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20260507112913.1019537-1-dave@stgolabs.net>
+References: <20260507112913.1019537-1-dave@stgolabs.net>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Message-ID: <178051776811.710.17500090454720140903.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260603-vfs-fhandle-uaf-fix-v2-1-d05db76a5084@google.com>
-X-B4-Tracking: v=1; b=H4sIACyBIGoC/32NSw6CMBCGr0Jm7ZjSQlFW3sOwADqFGqSmhUZDu
- Lst7l1+/3MDT86QhzrbwFEw3tg5Aj9l0I/tPBAaFRk445JJJjBojzo6aiJcW43avFFwXl1V2fG
- qvEBsvhxF+Vi9Nz/2a/egfklTKTEav1j3OW5DnnL/H0KOOWotCyIhKyrUbbB2mOjc2yc0+75/A
- aB7oQrJAAAA
-X-Change-ID: 20260603-vfs-fhandle-uaf-fix-32279d5b2758
-To: Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
- Chuck Lever <chuck.lever@oracle.com>, Jeff Layton <jlayton@kernel.org>, 
- Amir Goldstein <amir73il@gmail.com>
-Cc: linux-fsdevel@vger.kernel.org, linux-nfs@vger.kernel.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- Jann Horn <jannh@google.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1780515120; l=6036;
- i=jannh@google.com; s=20240730; h=from:subject:message-id;
- bh=TQxe3lxjnun8hagmZm/MNZUEw9/HolUDis/d92awEoY=;
- b=K+4of6TqNWTyWzKPNAp9t6KhlWoMPKZ8N6RslxyIcl5G/CVP0yN5DB2rP9fkDSdzg39pgsZDq
- Ga5TomOHFV0AbRGKlkO9Mss5adscN2S+yIo9aKIeptmxtyDNWKoGKXH
-X-Developer-Key: i=jannh@google.com; a=ed25519;
- pk=AljNtGOzXeF6khBXDJVVvwSEkVDGnnZZYqfWhP1V+C8=
+Content-Transfer-Encoding: quoted-printable
 
-may_decode_fh() accesses mount::mnt_ns without holding any locks; that
-means the mount can concurrently be unmounted, and the mnt_namespace can
-concurrently be freed after an RCU grace period.
+The following commit has been merged into the locking/urgent branch of tip:
 
-This race can happens as follows, assuming that the mount point was
-created by open_tree(..., OPEN_TREE_CLONE):
+Commit-ID:     40a25d59e85b3c8709ac2424d44f65610467871e
+Gitweb:        https://git.kernel.org/tip/40a25d59e85b3c8709ac2424d44f6561046=
+7871e
+Author:        Davidlohr Bueso <dave@stgolabs.net>
+AuthorDate:    Thu, 07 May 2026 04:29:13 -07:00
+Committer:     Thomas Gleixner <tglx@kernel.org>
+CommitterDate: Wed, 03 Jun 2026 22:11:53 +02:00
 
-thread 1            thread 2            RCU
-                    __do_sys_open_by_handle_at
-                      do_handle_open
-                        handle_to_path
-                          may_decode_fh
-                            is_mounted
-                              [mount::mnt_ns access]
-                            [mount::mnt_ns access]
-__do_sys_close
-  fput_close_sync
-    __fput
-      dissolve_on_fput
-        umount_tree
-        class_namespace_excl_destructor
-          namespace_unlock
-            free_mnt_ns
-              mnt_ns_tree_remove
-                call_rcu(mnt_ns_release_rcu)
-                                        mnt_ns_release_rcu
-                                          mnt_ns_release
-                                            kfree
-                            [mnt_namespace::user_ns access] **UAF**
+locking/rtmutex: Skip remove_waiter() when waiter is not enqueued
 
-Fix it by taking rcu_read_lock() around the mount::mnt_ns access, like
-in __prepend_path().
-Additionally, document the semantics of mount::mnt_ns, and use WRITE_ONCE()
-for writers that can race with lockless readers.
+syzbot triggered the following splat in remove_waiter() via
+FUTEX_CMP_REQUEUE_PI:
 
-This bug is unreachable unless one of the following is set:
+  KASAN: null-ptr-deref in range [0x0000000000000a88-0x0000000000000a8f]
+   class_raw_spinlock_constructor
+   remove_waiter+0x159/0x1200 kernel/locking/rtmutex.c:1561
+   rt_mutex_start_proxy_lock+0x103/0x120
+   futex_requeue+0x10e4/0x20d0
+   __x64_sys_futex+0x34f/0x4d0
 
- - CONFIG_PREEMPTION
- - CONFIG_RCU_STRICT_GRACE_PERIOD
+task_blocks_on_rt_mutex() does not arm the waiter upon deadlock detection,
+leaving waiter->task nil, where 3bfdc63936dd ("rtmutex: Use waiter::task inst=
+ead
+of current in remove_waiter()") made this fatal.
 
-because it requires an RCU grace period to happen during a syscall without
-an explicit preemption.
+Furthermore, rt_mutex_start_proxy_lock() should not be calling into remove_wa=
+iter()
+upon a successfully grabbing the rtmutex. 1a1fb985f2e2 ("futex: Handle early =
+deadlock
+return correctly"), moved the remove_waiter() out of __rt_mutex_start_proxy_l=
+ock()
+(where 'ret' was only ever 0 or < 0) into the wrapper. Tighten this check to
+account for try_to_take_rt_mutex().
 
-This doesn't seem to have interesting security impact; worst-case, it could
-leak the result of an integer comparison to userspace (from the level
-check in cap_capable()), cause an endless loop, or crash the kernel by
-dereferencing an invalid address.
-
-Fixes: 620c266f3949 ("fhandle: relax open_by_handle_at() permission checks")
+Fixes: 3bfdc63936dd ("rtmutex: Use waiter::task instead of current in remove_=
+waiter()")
+Reported-by: syzbot+78147abe6c524f183ee9@syzkaller.appspotmail.com
+Signed-off-by: Davidlohr Bueso <dave@stgolabs.net>
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
 Cc: stable@vger.kernel.org
-Signed-off-by: Jann Horn <jannh@google.com>
+Closes: https://lore.kernel.org/all/69f114ac.050a0220.ac8b.0003.GAE@google.co=
+m/
+Link: https://patch.msgid.link/20260507112913.1019537-1-dave@stgolabs.net
 ---
-I used custom tooling to force this race condition to occur and check
-that it leads to a KASAN splat - let me know if you want me to create a
-kernel patch to force the race condition and a reproducer you can run.
+ kernel/locking/rtmutex.c     | 3 +++
+ kernel/locking/rtmutex_api.c | 2 +-
+ 2 files changed, 4 insertions(+), 1 deletion(-)
 
-I remember Christian asking me for feedback on the patch that introduced
-the bug, and I missed the bug because I didn't realize what the semantics
-of mount::mnt_ns are...
----
-Changes in v2:
-- improve comment on mnt_ns semantics based on discussion with viro@
-- Link to v1: https://patch.msgid.link/20260603-vfs-fhandle-uaf-fix-v1-1-ff64ee367e4d@google.com
----
- fs/fhandle.c   | 16 ++++++++++++++--
- fs/mount.h     | 10 +++++++++-
- fs/namespace.c |  6 +++---
- 3 files changed, 26 insertions(+), 6 deletions(-)
-
-diff --git a/fs/fhandle.c b/fs/fhandle.c
-index 642e3d569497..1ca7eb3a6cb5 100644
---- a/fs/fhandle.c
-+++ b/fs/fhandle.c
-@@ -285,6 +285,19 @@ static int do_handle_to_path(struct file_handle *handle, struct path *path,
- 	return 0;
- }
- 
-+static bool capable_wrt_mount(struct mount *mount)
-+{
-+	struct mnt_namespace *mnt_ns;
+diff --git a/kernel/locking/rtmutex.c b/kernel/locking/rtmutex.c
+index 4f386ea..daeeeef 100644
+--- a/kernel/locking/rtmutex.c
++++ b/kernel/locking/rtmutex.c
+@@ -1558,6 +1558,9 @@ static void __sched remove_waiter(struct rt_mutex_base =
+*lock,
+=20
+ 	lockdep_assert_held(&lock->wait_lock);
+=20
++	if (!waiter_task) /* never enqueued */
++		return;
 +
-+	/*
-+	 * For ->mnt_ns access.
-+	 * The following READ_ONCE() is semantically rcu_dereference().
-+	 */
-+	guard(rcu)();
-+	mnt_ns = READ_ONCE(mount->mnt_ns);
-+	return ns_capable(mnt_ns->user_ns, CAP_SYS_ADMIN);
-+}
-+
- static inline int may_decode_fh(struct handle_to_path_ctx *ctx,
- 				unsigned int o_flags)
- {
-@@ -320,8 +333,7 @@ static inline int may_decode_fh(struct handle_to_path_ctx *ctx,
- 	if (ns_capable(root->mnt->mnt_sb->s_user_ns, CAP_SYS_ADMIN))
- 		ctx->flags = HANDLE_CHECK_PERMS;
- 	else if (is_mounted(root->mnt) &&
--		 ns_capable(real_mount(root->mnt)->mnt_ns->user_ns,
--			    CAP_SYS_ADMIN) &&
-+		 capable_wrt_mount(real_mount(root->mnt)) &&
- 		 !has_locked_children(real_mount(root->mnt), root->dentry))
- 		ctx->flags = HANDLE_CHECK_PERMS | HANDLE_CHECK_SUBTREE;
- 	else
-diff --git a/fs/mount.h b/fs/mount.h
-index e0816c11a198..5c120f8361bd 100644
---- a/fs/mount.h
-+++ b/fs/mount.h
-@@ -71,7 +71,15 @@ struct mount {
- 	struct hlist_head mnt_slave_list;/* list of slave mounts */
- 	struct hlist_node mnt_slave;	/* slave list entry */
- 	struct mount *mnt_master;	/* slave is on master->mnt_slave_list */
--	struct mnt_namespace *mnt_ns;	/* containing namespace */
-+	/*
-+	 * Containing namespace (active or deactivating, non-refcounted).
-+	 * Normally protected by namespace_sem.
-+	 * Can also be accessed locklessly under RCU. RCU readers can't rely on
-+	 * the namespace still being active, but implicitly hold a passive
-+	 * reference (because an RCU delay happens between a namespace being
-+	 * deactivated and the corresponding passive refcount drop).
-+	 */
-+	struct mnt_namespace *mnt_ns;
- 	struct mountpoint *mnt_mp;	/* where is it mounted */
- 	union {
- 		struct hlist_node mnt_mp_list;	/* list mounts with the same mountpoint */
-diff --git a/fs/namespace.c b/fs/namespace.c
-index fe919abd2f01..f5905f4ec560 100644
---- a/fs/namespace.c
-+++ b/fs/namespace.c
-@@ -1079,7 +1079,7 @@ static void mnt_add_to_ns(struct mnt_namespace *ns, struct mount *mnt)
- 	bool mnt_first_node = true, mnt_last_node = true;
- 
- 	WARN_ON(mnt_ns_attached(mnt));
--	mnt->mnt_ns = ns;
-+	WRITE_ONCE(mnt->mnt_ns, ns);
- 	while (*link) {
- 		parent = *link;
- 		if (mnt->mnt_id_unique < node_to_mount(parent)->mnt_id_unique) {
-@@ -1434,7 +1434,7 @@ EXPORT_SYMBOL(mntget);
- void mnt_make_shortterm(struct vfsmount *mnt)
- {
- 	if (mnt)
--		real_mount(mnt)->mnt_ns = NULL;
-+		WRITE_ONCE(real_mount(mnt)->mnt_ns, NULL);
- }
- 
- /**
-@@ -1806,7 +1806,7 @@ static void umount_tree(struct mount *mnt, enum umount_tree_flags how)
- 			ns->nr_mounts--;
- 			__touch_mnt_namespace(ns);
- 		}
--		p->mnt_ns = NULL;
-+		WRITE_ONCE(p->mnt_ns, NULL);
- 		if (how & UMOUNT_SYNC)
- 			p->mnt.mnt_flags |= MNT_SYNC_UMOUNT;
- 
-
----
-base-commit: ba3e43a9e601636f5edb54e259a74f96ca3b8fd8
-change-id: 20260603-vfs-fhandle-uaf-fix-32279d5b2758
-
-Best regards,
---  
-Jann Horn <jannh@google.com>
-
+ 	scoped_guard(raw_spinlock, &waiter_task->pi_lock) {
+ 		rt_mutex_dequeue(lock, waiter);
+ 		waiter_task->pi_blocked_on =3D NULL;
+diff --git a/kernel/locking/rtmutex_api.c b/kernel/locking/rtmutex_api.c
+index 124219a..514fce7 100644
+--- a/kernel/locking/rtmutex_api.c
++++ b/kernel/locking/rtmutex_api.c
+@@ -365,7 +365,7 @@ int __sched rt_mutex_start_proxy_lock(struct rt_mutex_bas=
+e *lock,
+=20
+ 	raw_spin_lock_irq(&lock->wait_lock);
+ 	ret =3D __rt_mutex_start_proxy_lock(lock, waiter, task, &wake_q);
+-	if (unlikely(ret))
++	if (unlikely(ret < 0))
+ 		remove_waiter(lock, waiter);
+ 	preempt_disable();
+ 	raw_spin_unlock_irq(&lock->wait_lock);
