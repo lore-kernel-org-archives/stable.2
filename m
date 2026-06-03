@@ -1,44 +1,50 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D79833CF677
-	for <stable@vger.kernel.org>; Wed,  3 Jun 2026 15:14:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FBC73B4439;
+	Wed,  3 Jun 2026 15:14:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780499673; cv=none; b=iS9D5MgQH/48gxox5CriBsFfvyNI9df+rXzw3wV7U3iXTb0w4cuwZm7lZYaAX/AF4HX5wJeDmov8dmjcUJzc7d1CciuPh0soKtvGWJYUSfsVSmC6NN/YCgEEbHJalFtLUPff8g+C+3CGkWhwdEukJTK7/zPMl5H4PcUvZKk7QJs=
+	t=1780499675; cv=none; b=MrM+DNyvGrlS4DOfLElG197Q2Im7HKvx0nwS9sk6ai2914vpGwCOotOBOuBIHlG3AxWhESTaGWX8Xcl5EYcrpXODmsBoNVVt8lF+jrEsOIBgdJbWpRrqn9+YUlAdAWvrn/PbFAn0mviEqDfmdS00V0At2Gk2KFBQ+W44uSfDaBU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780499673; c=relaxed/simple;
-	bh=ndcg9HTiLyWJn+0+Zo7QJd/gIe/Eeiv4cJUP2rhG5Kg=;
+	s=arc-20240116; t=1780499675; c=relaxed/simple;
+	bh=ABUHQQBtP8a2eT0meSyoQC1tKOfWe0IBUxX77BCvL38=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=db4/BXjjB6LfgEP5jD/M/Ro2CVnt13eDi/F2jjVV/Vo2Mdo8ULVVoW5SEBXcQo4IBvtlb0WM6VgrkpKmJR11JvW4h3Q3+cGRBZF+gy4n0T1gSL174ZF4otuezOSwLgLu3Be0/q8OkJy3c+/XXmfdngavnuK2e424rkBy7VsYbrk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EgpjHidw; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Ginm2tG/5D9PhJXoh25PAADuvNhEfaSQKnrEas8m9nQoTl1yTP9/dsGdc/yZmHGMg87qumMCbVfiglKklNefgpRe1ob8W9kqHN3JPHLdWyIWdkaYsYbcH1TBwBOIjU8WwAt+pzMBA7g6bHxQBLy4Vg7I89ge8HjiV3P6uJfMpi0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SPZ3ToqB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EgpjHidw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19FA21F00893;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SPZ3ToqB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B1831F00899;
 	Wed,  3 Jun 2026 15:14:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780499672;
-	bh=+wNM6NZFTfOIUY0WPqES+hsYCoypKEamWs7y3Mr2xFM=;
+	s=k20260515; t=1780499674;
+	bh=EWOwp7Yrnu95fd6AMzKTYBWJxuxNBPzz8DT7EZJjsFA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EgpjHidw8oQzDs7d0ir/I/bGN3PfWj6kgvX8cZgabVAf68wU4u6XIOx0GnDbLfkAl
-	 52LAu18mqTVHK+E+tAIObfMPrPAuQO/9CWHM5LckfnHQhDC/+tIxTQqKJV9AWcVlIN
-	 Jrez92zOTftPVGxIyxf/rzEWUW0dTOJMJM+uAXBzZKOFwxu/pOFUe+N1XJXiJShKlw
-	 xAdpEjvPqgePUaBLQBP3iNamnHZpsS9KTC1nkey/ymTWxbZk6ZbiF4h+8KkudSxy+N
-	 T/u7OrJGU+JacCgYwH7qUJXNe8dTZAR/MKUWluJDDBtxADFiS9lp/t93YSdsOBnilG
-	 AXot26ntrSXDA==
+	b=SPZ3ToqBaLNlmwrcHRInhHtj25Q9O1kVnHhi5JZJJG2nmJ0avEwFZeVOcyrCWkD8B
+	 fMfvGOQxsvxc9kLnyDYeQ0ajGnu0p1wkMpEAVUhW9NX+x2LssTEDmC/kPgV65mm2la
+	 PFYhRYs2cmRH4CCtfCgg8DQuJLtIqZSkG0Tmybs6MaJZsFvUytguWnm7H0eqSmY237
+	 4vEn/wuZ0RLRTHRju/F19WclKJaCeLUmUElkJ5YjWxdBtF+17w2vqRsklxsevUUcld
+	 nEe+iSYjQEt0cO+2JWy/MOHcPIU44pz8anJGMvZzXcUmTtBHz+SFbIsfeZDYjokinE
+	 F7UKKwcj9qTBQ==
 From: Sasha Levin <sashal@kernel.org>
-To: Jiping Ma <jiping.ma2@windriver.com>
+To: Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>
 Cc: Sasha Levin <sashal@kernel.org>,
-	michael.bommarito@gmail.com,
-	stable@vger.kernel.org,
-	stfrench@microsoft.com,
-	Greg KH <gregkh@linuxfoundation.org>
-Subject: Re: [PATCH 5.15.y] smb: client: validate the whole DACL before rewriting it in cifsacl
-Date: Wed,  3 Jun 2026 11:13:58 -0400
-Message-ID: <20260603111500.item001@kernel.org>
+	linux-kernel@vger.kernel.org,
+	criu@lists.linux.dev,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	x86@kernel.org,
+	Andrei Vagin <avagin@google.com>,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	"Chang S. Bae" <chang.seok.bae@intel.com>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 1/5] Revert "x86/fpu: Refine and simplify the magic number check during signal return"
+Date: Wed,  3 Jun 2026 11:13:59 -0400
+Message-ID: <20260603111500.item003@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260526015822.4076817-1-jiping.ma2@windriver.com>
-References: <20260526015822.4076817-1-jiping.ma2@windriver.com>
+In-Reply-To: <20260526205047.3339490-2-avagin@google.com>
+References: <20260526205047.3339490-2-avagin@google.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,7 +53,7 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Queued for 6.18.y, thanks.
+Queued for 7.0.y and 6.18.y, thanks.
 
 -- 
 Thanks,
