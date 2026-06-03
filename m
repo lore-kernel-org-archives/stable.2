@@ -1,183 +1,85 @@
-Received: from mail-24417.protonmail.ch (mail-24417.protonmail.ch [109.224.244.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A0F537C928
-	for <stable@vger.kernel.org>; Wed,  3 Jun 2026 01:38:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D3BA3D6CC2;
+	Wed,  3 Jun 2026 02:10:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780450711; cv=none; b=Wn8irMyHkc1nDHZRnQI4K6OWnaD+0MgGIkjXUFXs/vq9/Ry4VWuSTveZuOSL3HMVMSC1fx8WfNDVm5ZCCYiRoQZlnFZi/+zsfzkpojxrGY4tBYRPKufJ5R+eFGkHLqgc+SbRkUb2daBD+x4Xv7q9Hb0Rtl0klOjpn/YxeW7W+vs=
+	t=1780452652; cv=none; b=lnK5Zep2YXnLGVLV32IDtLcKaaBkyn2oDSt6Ac/iNCOJq4ObViE5SsFX5lVbLGC2zNJRV3pRwx7tjzpv6iZ+zjF1iIUQES6X/FBLaaE85xdxXSKITX1tmecJCHRsp8WbEMFrQ/bsm5NAZLa28GTAXVszU9A5yQaJUbz7mv0c81g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780450711; c=relaxed/simple;
-	bh=QxrzYeHZ9k2TdtXLJ7NosY0R953zUVso6EmSGeoENEE=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=u2oi+zfoJGhmg1xM1cYXoY07gejJE4FXcQnNdu+2LSgxlkn3gDrfdKB4atMAn04jl3eHJD4XmSIrmFvhwLheEPuqk0kNveo/gOFaVY1vocMHEd30jxL3IVn9kStEraPksKbn7AtunvtF8OEFXzcqdUlLrwA8TtGXzoBx+sAJX4o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=dGlHD/3/; arc=none smtp.client-ip=109.224.244.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="dGlHD/3/"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1780450706; x=1780709906;
-	bh=cRGdVuL25/+8RzBGzRV7c+495EWiR/Aa1Z4J451vdts=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=dGlHD/3/ghgt39AJb2Ixbo7JOiaPweeFmEAwkwquDb4jCwLzWaPvckLeR+H2U+0Uy
-	 mNHflpTf5Pg5HvN0AdP1xGz2BmapYjtAFlrHZAJPE+86Ly8O2ERQlbd//sj3RmSDeD
-	 LAEAWILtnYnjJMcRq0r2vcWm6SuH0e6YNbJSBchcJZB3bxoWoAp13ACQPm08jNMqzL
-	 O51seE2IvBH5pKyH2OUxEe3jnF7f56TOwWdj8WPDRENShwEv0verZkY2OUF1Yi1izT
-	 dqJOY8ZH6rtAn8nw8hYwPO01wjZpgSDKZJWC7OfRiAVERDGSCzCqpktZJseEK+iFKy
-	 BsOblr/Rbzh7A==
-Date: Tue, 02 Jun 2026 17:28:05 +0000
-To: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>, =?utf-8?Q?G=C3=BCnther_Noack?= <gnoack@google.com>
-From: Bryam Vargas <hexlabsecurity@proton.me>
-Cc: Justin Suess <utilityemal77@gmail.com>, Christian Brauner <brauner@kernel.org>, Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>, "Serge E . Hallyn" <serge@hallyn.com>, linux-security-module@vger.kernel.org, stable@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v4 2/2] selftests/landlock: test SCOPE_SIGNAL on the SIGIO/fowner pgid path
-Message-ID: <20260602172741.18760-3-hexlabsecurity@proton.me>
-In-Reply-To: <20260602172741.18760-1-hexlabsecurity@proton.me>
-References: <7rvmLIHR1Zh8RDF1IY1-SYRHzErgw9gPHq0k98RLYVsmHqAejjxcuJi8V3QaSbW-SnNvY5tfM2Xn_S1dEajKV_f7iyitoPwJgOSTZQ0nytc=@proton.me> <20260531.irah0eiM3Chi@digikod.net> <20260602172741.18760-1-hexlabsecurity@proton.me>
-Feedback-ID: 199661219:user:proton
-X-Pm-Message-ID: 335be816ca89f676268cd269abca1c33a7fd1f39
+	s=arc-20240116; t=1780452652; c=relaxed/simple;
+	bh=GA1ac7NuTO4GpjDs79h2L90K3Sk+9Y04MR7qwVCMw+Q=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=jPbwF6C7RJzspSWYJ3Z7aZqu0IK4yQKSQLgO/oEfYGdnLZvpNxI+lcT+UJ6cyNyxlu5yyL5+9CI3K3yiGxBwG+06F+HxssbyC05XhmYYEaMn25ByCDDwJvOtep7XvovMIE7pAw+d6uCf0MgRvdjBfwsUzsc77LtJqj6gKZWaF2c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-01 (Coremail) with SMTP id qwCowACnSNEmjR9q4lF8AA--.127S2;
+	Wed, 03 Jun 2026 10:10:46 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: axboe@kernel.dk
+Cc: linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] block/fops: fix refcount underflow in __blkdev_direct_IO()
+Date: Wed,  3 Jun 2026 02:10:35 +0000
+Message-Id: <20260603021035.3690601-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qwCowACnSNEmjR9q4lF8AA--.127S2
+X-Coremail-Antispam: 1UD129KBjvdXoWrZF4DKF4xJFyDAFyUCr1DGFg_yoWfKrc_Gr
+	n5Cas5uayUXF4ak3Way3W5ZFZ7uw18ur1I9rnrKFZrtF15ta13CFnaqrZ5Ar18uFW0gasx
+	G39rXFW7tw43CjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbx8FF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr0_
+	Gr1UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVWxJr
+	0_GcWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+	2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26r4UJVWxJr1lOx8S6xCaFVCjc4AY6r
+	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AK
+	xVWUAVWUtwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F4
+	0E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1l
+	IxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxV
+	AFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j
+	6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0JU6Hq
+	cUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgsHA2ofeSkijwABsA
 
-Add a regression test for the LANDLOCK_SCOPE_SIGNAL bypass on the
-asynchronous SIGIO delivery path.  A sandboxed process that owns a file
-via fcntl(F_SETOWN, -pgrp) while sitting at the head of its process
-group's PID hlist (the default position after fork()) used to have its
-Landlock domain recording skipped, letting the SIGIO fan-out reach
-non-sandboxed members of the process group.
+__blkdev_direct_IO() calls bio_get() and bio_put() around
+I/O operations, but if the I/O fails, the error path may call
+bio_put() twice, causing a refcount underflow.
 
-The test creates a dedicated process group, sandboxes the (hlist-head)
-child with LANDLOCK_SCOPE_SIGNAL, arms F_SETSIG(SIGURG) / F_SETOWN(-pgrp)
-/ O_ASYNC on a pipe and triggers the fan-out.  The in-domain child must
-receive the signal (proving the trigger fired); the non-sandboxed parent,
-which is outside the child's domain, must not.  Without the fix the parent
-is signaled and the test fails.
+Fix this by moving the bio_put() call from the error path into
+the cleanup section that is only executed once, regardless of
+whether the I/O succeeded or failed.
 
-Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
+Fixes: 3d8b5a22d404 ("block: add support to pass user meta buffer")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- .../selftests/landlock/scoped_signal_test.c   | 97 +++++++++++++++++++
- 1 file changed, 97 insertions(+)
+ block/fops.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/tools/testing/selftests/landlock/scoped_signal_test.c b/tools/=
-testing/selftests/landlock/scoped_signal_test.c
-index d8bf33417619..62d86a115775 100644
---- a/tools/testing/selftests/landlock/scoped_signal_test.c
-+++ b/tools/testing/selftests/landlock/scoped_signal_test.c
-@@ -559,4 +559,101 @@ TEST_F(fown, sigurg_socket)
- =09=09_metadata->exit_code =3D KSFT_FAIL;
+diff --git a/block/fops.c b/block/fops.c
+index bb6642b45937..4dd1e40c7d4e 100644
+--- a/block/fops.c
++++ b/block/fops.c
+@@ -286,6 +286,8 @@ static ssize_t __blkdev_direct_IO(struct kiocb *iocb, struct iov_iter *iter,
+ 	bio_release_pages(bio, false);
+ 	bio_clear_flag(bio, BIO_REFFED);
+ 	bio_put(bio);
++	if (bio == &dio->bio)
++		bio_put(bio);
+ 	blk_finish_plug(&plug);
+ 	return ret;
  }
-=20
-+/*
-+ * Checks that LANDLOCK_SCOPE_SIGNAL is enforced on the asynchronous SIGIO
-+ * delivery path (fcntl(F_SETOWN)) when the file owner is a process group.
-+ *
-+ * A sandboxed process sitting at the head of its process group's PID hlis=
-t
-+ * (the default position right after fork()) used to escape the
-+ * fcntl(F_SETOWN, -pgrp) domain recording: pid_task(pgrp, PIDTYPE_PGID)
-+ * resolved to the process itself, so the same-thread-group exemption skip=
-ped
-+ * recording its Landlock domain.  At SIGIO time that domain was then unse=
-t
-+ * and the signal fanned out to every group member, including non-sandboxe=
-d
-+ * processes outside the domain.
-+ */
-+TEST(sigio_to_pgid_members)
-+{
-+=09int trigger[2], sync_child[2];
-+=09char buf;
-+=09pid_t child;
-+=09int status, i;
-+
-+=09drop_caps(_metadata);
-+
-+=09/*
-+=09 * Isolates the test in its own process group so the SIGIO fan-out
-+=09 * stays bounded to this parent and the child forked below.
-+=09 */
-+=09ASSERT_EQ(0, setpgid(0, 0));
-+
-+=09/* The non-sandboxed parent is the protected (out-of-domain) target. */
-+=09ASSERT_EQ(0, setup_signal_handler(SIGURG));
-+=09signal_received =3D 0;
-+
-+=09ASSERT_EQ(0, pipe2(trigger, O_CLOEXEC));
-+=09ASSERT_EQ(0, pipe2(sync_child, O_CLOEXEC));
-+
-+=09child =3D fork();
-+=09ASSERT_LE(0, child);
-+=09if (child =3D=3D 0) {
-+=09=09/*
-+=09=09 * The child inherits the parent's new process group and, just
-+=09=09 * attached with hlist_add_head_rcu(), is now the head of the
-+=09=09 * pgid hlist: this is the case that used to skip the recording.
-+=09=09 */
-+=09=09EXPECT_EQ(0, close(sync_child[0]));
-+
-+=09=09/* In-domain positive control: the child must be signaled. */
-+=09=09ASSERT_EQ(0, setup_signal_handler(SIGURG));
-+=09=09signal_received =3D 0;
-+
-+=09=09create_scoped_domain(_metadata, LANDLOCK_SCOPE_SIGNAL);
-+
-+=09=09/* Owns the SIGIO source for the whole process group. */
-+=09=09ASSERT_EQ(0, fcntl(trigger[0], F_SETSIG, SIGURG));
-+=09=09ASSERT_EQ(0, fcntl(trigger[0], F_SETOWN, -getpgrp()));
-+=09=09ASSERT_EQ(0, fcntl(trigger[0], F_SETFL, O_ASYNC));
-+
-+=09=09/* Fans SIGURG out to every member of the process group. */
-+=09=09ASSERT_EQ(1, write(trigger[1], ".", 1));
-+
-+=09=09/*
-+=09=09 * The sandboxed child is in its own domain and must always be
-+=09=09 * signaled: this proves the SIGIO actually fired.
-+=09=09 */
-+=09=09for (i =3D 0; i < 1000 && !signal_received; i++)
-+=09=09=09usleep(1000);
-+=09=09EXPECT_EQ(1, signal_received);
-+
-+=09=09ASSERT_EQ(1, write(sync_child[1], ".", 1));
-+=09=09EXPECT_EQ(0, close(sync_child[1]));
-+
-+=09=09_exit(_metadata->exit_code);
-+=09=09return;
-+=09}
-+=09EXPECT_EQ(0, close(sync_child[1]));
-+=09EXPECT_EQ(0, close(trigger[0]));
-+=09EXPECT_EQ(0, close(trigger[1]));
-+
-+=09/* Waits for the child to generate the SIGIO. */
-+=09ASSERT_EQ(1, read(sync_child[0], &buf, 1));
-+=09EXPECT_EQ(0, close(sync_child[0]));
-+
-+=09/* Lets a delivered-but-pending signal run our handler, if any. */
-+=09for (i =3D 0; i < 100 && !signal_received; i++)
-+=09=09usleep(1000);
-+
-+=09/*
-+=09 * SCOPE_SIGNAL must block the fan-out to this non-sandboxed parent,
-+=09 * which is outside the child's Landlock domain.  Before the fix the
-+=09 * parent was signaled here.
-+=09 */
-+=09EXPECT_EQ(0, signal_received);
-+
-+=09ASSERT_EQ(child, waitpid(child, &status, 0));
-+=09if (WIFSIGNALED(status) || !WIFEXITED(status) ||
-+=09    WEXITSTATUS(status) !=3D EXIT_SUCCESS)
-+=09=09_metadata->exit_code =3D KSFT_FAIL;
-+}
-+
- TEST_HARNESS_MAIN
---=20
-2.43.0
-
+-- 
+2.34.1
 
