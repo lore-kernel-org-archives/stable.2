@@ -1,91 +1,94 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAC491E766F;
-	Wed,  3 Jun 2026 13:38:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9F83329E6C;
+	Wed,  3 Jun 2026 13:46:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780493918; cv=none; b=iz9V3IIr7SGMzbzMjhihbx93PprXAV3GHyEPkUqCMB+0Nha3myTCIKJ1j+ltFKpYLYTKXM69QM48r76zhAxrPhMsAIBHWGHEA2wgelKm/ztQDSfqjt/wMgDdZd/oQ116yyTZnrwJS5ssa5KlAwHq3gnyzWgDQ79BRgxrtFZsAPY=
+	t=1780494380; cv=none; b=KFiLYpQ2mqqPcoDjlohI7rOJONVjH6vnWNqkB02fFQq1YEkA1RX2FPl6pkQqwiO9Rd9AqduKHKqGDRdXhFq+7IBzoThhyuWYwDPbCwBHDs7k08hGonEaotecQ3i5oD9LfU3V8PEP4juL53mjpFHtxL0GQ7BTN1d7VGgduPe7jb8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780493918; c=relaxed/simple;
-	bh=jpfMl3LBsN10XtaqYl6MLqpzotID798CTdJ4oaGnIxw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ds4nQfbsJMTiKS75pW1ExwdeUnZcD8VVdoU5prhCBwyZQ+d5xNnBki6DRnow1OGLovgc41ZSviN8ZhlBM+fa06zdAUQuf5e9UJvh1f82hyVwNzvzQ/6Qz27vqQYIfvRA6BeiOjM+Y8WWURXSfwv6LIm5I04XZq/6M7dfRqBh31Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7E771F00893;
-	Wed,  3 Jun 2026 13:38:33 +0000 (UTC)
-Message-ID: <2e62a5af-06f5-4a11-80f1-81c62f9b2311@tuxon.dev>
-Date: Wed, 3 Jun 2026 16:38:31 +0300
+	s=arc-20240116; t=1780494380; c=relaxed/simple;
+	bh=YFNAqFDxk/MEMEUnwOMbFmzvs+j1ZkGZaJGTjzFOkMw=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=q9Fe2pnxhV7dj7njZ9Mzj3X9ngZGXMo+0NPBUb1o7nizmz+O2VmDNA3WFclleUdRlUsLRezq2ZZxIDDhcjvsQq1R6ziitF2NcKAKvWgeJ8/1yRQqsRz3c+3yu1J7mkkOVC8if9VWxTT6REXYGtI3H6jkDfKgYUMchC8NmGKLxt8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X3lpzVzN; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X3lpzVzN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D92741F00893;
+	Wed,  3 Jun 2026 13:46:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780494379;
+	bh=SM1cKq9SfWufKuIA+3YVCEbGbuxmG5CEwN2ohUYgVxI=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=X3lpzVzNsmzUvBWgrJY/p4bH8g7VDsT822kjq9ZTydis6zw7/CngVyU7LjFVwcqVp
+	 PEuYKLUGDIRYvv/9CdXuFr+/WK+OPzpdDRSAENljYuFyvoTpyyHiFzmexKqJvSvlSL
+	 iAyp3Pu6EJZhVkSMowL5zHx8L3AKv8HL3Zys4IVIGtV5axAC0EXnNNqfaXLXUcG2N6
+	 Neh+iezmCtZmXO+5sIQLR3/K/rkoxTi/JFVHEdANmw15bE2mOgeVIYj2zQLQg5v7Xv
+	 Wwl2ZMeN/qHLyQbPp74H6ZAZUxdXdv+S5qQjPXop4bC3FZrEMH1x/d44Ae3uQo0OvH
+	 bvrwIEVjAmhgw==
+Date: Wed, 3 Jun 2026 14:46:12 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Runyu Xiao <runyu.xiao@seu.edu.cn>, nuno.sa@analog.com, lars@metafoo.de,
+ Michael.Hennerich@analog.com, dlechner@baylibre.com, andy@kernel.org,
+ benato.denis96@gmail.com, martin@martingkelly.com,
+ linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ jianhao.xu@seu.edu.cn, stable@vger.kernel.org
+Subject: Re: [PATCH 1/2] iio: imu: adis: add IRQF_NO_THREAD to non-FIFO
+ trigger IRQ
+Message-ID: <20260603144612.0102a336@jic23-huawei>
+In-Reply-To: <ah997ABzoOb0cFq3@ashevche-desk.local>
+References: <20260602091727.2406720-1-runyu.xiao@seu.edu.cn>
+	<20260602091727.2406720-2-runyu.xiao@seu.edu.cn>
+	<ah997ABzoOb0cFq3@ashevche-desk.local>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RESEND v3 3/5] phy: renesas: rcar-gen3-usb2: Lock around
- hardware registers and driver data
-To: Xia Fukun <xiafukun@huawei.com>, yoshihiro.shimoda.uh@renesas.com,
- vkoul@kernel.org, kishon@kernel.org, geert+renesas@glider.be,
- magnus.damm@gmail.com, horms+renesas@verge.net.au,
- fabrizio.castro@bp.renesas.com, Greg KH <gregkh@linuxfoundation.org>
-Cc: linux-renesas-soc@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-kernel@vger.kernel.org,
- Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>, stable@vger.kernel.org,
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- "tanghui (C)" <tanghui20@huawei.com>
-References: <20250507125032.565017-1-claudiu.beznea.uj@bp.renesas.com>
- <20250507125032.565017-4-claudiu.beznea.uj@bp.renesas.com>
- <e49fc109-41a2-449f-a232-d8beac2c5e08@huawei.com>
-Content-Language: en-US
-From: Claudiu Beznea <claudiu.beznea@tuxon.dev>
-In-Reply-To: <e49fc109-41a2-449f-a232-d8beac2c5e08@huawei.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
+On Wed, 3 Jun 2026 04:05:48 +0300
+Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
 
-
-On 6/3/26 16:22, Xia Fukun wrote:
-> On 5/7/2025 8:50 PM, Claudiu wrote:
+> On Tue, Jun 02, 2026 at 05:17:26PM +0800, Runyu Xiao wrote:
+> > devm_adis_probe_trigger() registers iio_trigger_generic_data_rdy_poll()
+> > through devm_request_irq() on the non-FIFO path, but it does not add
+> > IRQF_NO_THREAD to the IRQ flags.
+> > 
+> > When the kernel is booted with forced IRQ threading, the parent IRQ can
+> > otherwise be threaded by the IRQ core and the subsequent IIO trigger
+> > child IRQ is then dispatched from irq/... thread context instead of
+> > hardirq context. Because iio_trigger_generic_data_rdy_poll()
+> > immediately drives iio_trigger_poll(), this violates the hardirq-only
+> > IIO trigger helper contract and can push downstream trigger consumers
+> > through the wrong execution context.
+> > 
+> > Add IRQF_NO_THREAD on top of the existing adis->irq_flag value for the
+> > non-FIFO request_irq() path, while preserving the current trigger
+> > polarity and IRQF_NO_AUTOEN behavior.  
 > 
->> @@ -348,6 +349,8 @@ static ssize_t role_store(struct device *dev, struct device_attribute *attr,
->>   	bool is_b_device;
->>   	enum phy_mode cur_mode, new_mode;
->>   
->> +	guard(spinlock_irqsave)(&ch->lock);
->> +
->>   	if (!ch->is_otg_channel || !rcar_gen3_is_any_otg_rphy_initialized(ch))
->>   		return -EIO;
->>   
->> @@ -415,7 +418,7 @@ static void rcar_gen3_init_otg(struct rcar_gen3_chan *ch)
->>   		val = readl(usb2_base + USB2_ADPCTRL);
->>   		writel(val | USB2_ADPCTRL_IDPULLUP, usb2_base + USB2_ADPCTRL);
->>   	}
->> -	msleep(20);
->> +	mdelay(20);
->>   
->>   	writel(0xffffffff, usb2_base + USB2_OBINTSTA);
->>   	writel(ch->obint_enable_bits, usb2_base + USB2_OBINTEN);
-> The fix for the rcar_gen3_init_otg function has not been backported to
-> the 5.10-stable branch, which leads to a "scheduling while atomic" bug
-> in that branch:
+> > Build-tested by compiling adis_trigger.o.
+> > 
+> > No ADIS hardware was available for end-to-end runtime testing on this
+> > submission branch.  
 > 
-> rcar_gen3_phy_usb2_init()                    ← phy_init() callback
->    → guard(spinlock_irqsave)(&ch->lock)       ← acquires spinlock, disabling preemption + IRQs
->    → rcar_gen3_init_otg(ch)
->        → msleep(20)                           ← BUG: scheduling while atomic!
+> These two paragraphs are unneeded details and can go to the cover letter.
 > 
-> The patch for 5.10 is available at the following link:
-> https://web.git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/? 
-> h=linux-5.10.y&id=0f86a559900fbe96af08a3a226a86fac27b02b8f
+> ...
 > 
-> Perhaps the stable patch for the 5.10 branch needs to be updated to
-> fix this serious bug?
+> Code wise IIRC another approach was discussed. But Jonathan may know better.
+> 
 
-Sasha applied today the patch at [1] to solve this problem on v5.10.
+Whilst I dislike the necessity of marking these, I'm not aware of another
+solution.  Maybe the discussion Andy refers to what the one around
+papering over ONESHOT where if that flag is set and there isn't a thread
+handler it's a driver bug.
 
-Thank you,
-Claudiu
+For this we might be able to on day do something cleverer but that would
+first mean fixing up how we run top halfs when only the thread is called.
 
-[1] 
-https://lore.kernel.org/all/20260501225859.504868-1-nobuhiro.iwamatsu.x90@mail.toshiba/
+So with a patch descriptions tweaked as Andy suggests I'll pick these up.
