@@ -1,121 +1,116 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f180.google.com (mail-qt1-f180.google.com [209.85.160.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59C041F4611;
-	Wed,  3 Jun 2026 00:30:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E74EF2D061D
+	for <stable@vger.kernel.org>; Wed,  3 Jun 2026 01:05:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780446619; cv=none; b=bRjzJJ3HMijVwfGuN2Lm5MevK+Irt5I9Ck9WbibZ2UKRhAAXh8ykzpaNRFTe1nsSfyw2E7415r6QFe7gFj2iXTCb7lQhzHlvvLAgOXZsZxzkGIxfeyywpKkq9OW0iUZ90VTN3M+3HbN5TxI7JiH9JYX5SbHVtk1K+PLCHMLDFSw=
+	t=1780448752; cv=none; b=Yp/6+fhupLLqHLAUGVbMzf8bTmd4U+xig6C3Fia1LIXXfV2L6nMqDBibji6l3tOg+KyPzqSsCrRUziUuP7cAfiP4ZwH1Gs9kisL7U/eTnJt8y87dco1Vo/RgDjsvHtiYDofOIvjgI2UquLAnRmVtJnJATmukO0EoKYwYYPa5ji4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780446619; c=relaxed/simple;
-	bh=FKgMLgLLd/0PNaMUChniI9zKgfQfR++e80a+w+L4SWM=;
+	s=arc-20240116; t=1780448752; c=relaxed/simple;
+	bh=u4ZwvdtqyKkvqfZ4xOXnUQfX+M6r5bs1mqg9vWH4izY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QXsCEUHHl4YkxyJdLPUwa0of0ncdXO1UO9Q8K+W/SAV4wOrRUvYP2BLnuSXytb+QpKE4ajyiHuKR///ay++U23+sHycZ3pjXHTfvjtVYabwvVdsAdiQ8TbfUhfV7QhNNbo69EqNs11+CVEJthYLnzoCWi4KVvSQxJCSWDejbZDM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=epq4LTTw; arc=none smtp.client-ip=198.175.65.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=ltF4wQI0g3ucEHAoITaeTsiSWxUjKVSf6pTLWnPzpFWh4+p+GXCo32ViM9CaQFaQgipa4LpbnjlqmG4VUCIpDnp7W8DmnC3xZU6vmYL3aEtewsTR7JkPdQ5vd17U7kjQGZI75QuEcWpaRvHIm5lvoawDnif2PhvCcnv9jUK2sgw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=Vb/IqGD9; arc=none smtp.client-ip=209.85.160.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="epq4LTTw"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1780446618; x=1811982618;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=FKgMLgLLd/0PNaMUChniI9zKgfQfR++e80a+w+L4SWM=;
-  b=epq4LTTweTuo3BevPyG8VKAUYvDibqUgaXPAWnlVP4rnnp2b3EHOvdCg
-   TkFQUXkRiAmTTyKt1MGWI1Erl3xpy+vLu5pHCzZjc0dzbL8DDgg/I4I+a
-   rQdyr01N276ytYSmZPdncf1C8OTBbFUGt6aFnJt/zBS7V0z3k6AldeurX
-   nAOb8c+9w5pQN5D287WdhKZ0iO+Xwahy9co16MhelnWGId9wt8sHPsfsR
-   jaz1j67X5bOwKsEoGDPIZDXBv7b/z/qaiDer6WJyHu47iyf4g/eGGIeUG
-   ktv2IsElCZOvnSbhMxRBnA3pkoawu334e7few8DJ3ZuLou/dJcwRhBYsZ
-   A==;
-X-CSE-ConnectionGUID: y8HALrreTkqlLGjWIt5fhg==
-X-CSE-MsgGUID: aRIOheUhQVS9jEMR8QlObA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11805"; a="92729258"
-X-IronPort-AV: E=Sophos;i="6.24,184,1774335600"; 
-   d="scan'208";a="92729258"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Jun 2026 17:30:18 -0700
-X-CSE-ConnectionGUID: dEKq9ur5QUKz4G06Y8DxSg==
-X-CSE-MsgGUID: Nr5vR1cCRRm7lKJ8dFJEpw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,184,1774335600"; 
-   d="scan'208";a="248370724"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.116])
-  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Jun 2026 17:30:15 -0700
-Date: Wed, 3 Jun 2026 03:30:12 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Xu Yang <xu.yang_2@nxp.com>
-Cc: Daniel Scally <djrscally@gmail.com>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	linux-acpi@vger.kernel.org, driver-core@lists.linux.dev,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 2/2] device property: fix infinite loop in
- fwnode_for_each_child_node()
-Message-ID: <ah91lJp-PNkyB11n@ashevche-desk.local>
-References: <20260525-fixes_fwnode_iteration-v1-0-a12903fb2919@nxp.com>
- <20260525-fixes_fwnode_iteration-v1-2-a12903fb2919@nxp.com>
+	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="Vb/IqGD9"
+Received: by mail-qt1-f180.google.com with SMTP id d75a77b69052e-5176fab2badso8219401cf.0
+        for <stable@vger.kernel.org>; Tue, 02 Jun 2026 18:05:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ziepe.ca; s=google; t=1780448750; x=1781053550; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=nF9EObNDEmryj31PflampZ0Pq/iKEgkudnP3BX3S/AU=;
+        b=Vb/IqGD9/62/BIaKGrIR97P2I/GXAC662Sggs9S78HDf0fobGJc2/vEkpLplHqBWoB
+         xCMzsdzLXXiBVsPblWOR5W/XfIElIfei8vaUSCFIsr90zkcd6jtLr1h70i5l4t2J7DAT
+         4O4xbWrrfMMfI1vU0fpwMLEzojfBK1DmxbFeoPvJQ/fa40QsQuYk4h9oaLj/G7Bn1/Fn
+         06XMVTzgL9VgtH37FyPgDXp223hu5PfyqJyVlZc7H3JTfQKt1oX2vRbADp1F7/ZJEQ9f
+         2SeskE4cOCA7RZ9toCEx8LE7BnROL8gXECEbv41grH/51KjrRrnYeaoy41DPHV1CcoZm
+         LZkg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780448750; x=1781053550;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=nF9EObNDEmryj31PflampZ0Pq/iKEgkudnP3BX3S/AU=;
+        b=PqZj3avmb7bNP+jlsl06nwpB7BeyUklWPt+BuDB3qASkTHxCxloRlQ+xg8jWrLUupP
+         t9psUH52Ex3aDK5pJBNptFdhvuey2Ayb4Klh7ziBsyNPoLh4Sxq0sPZxTCsiBbrnHHFv
+         AOsX6m6Z8MOZSlesRk5iQxiShoCttws4YwDa2MFuy7TY0jo0JGM6KBoMku2lQPIxOTYY
+         QS0UlslNSWPP0JrLDrC2iGuDXP1hwHEDPsncgIH7EyF1uPrXDKjRRfzTy7OBbLdxZTSl
+         V8aUbByNb023KOZyqtzKhIvc5Fouff06uyWihh57SJSTGOU3YM0TPMMUuzuvPqb+qcLp
+         1Rdg==
+X-Forwarded-Encrypted: i=1; AFNElJ9KfY5tJ5UNWvGJ0aiNUhVGdu5LAjbW0+eni3hFilmLgKHeta9oKVPnAc3TS5QHf9HXV0pBE60=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwDvxLKda+7+5xIMna36Ngz/EPcVEaPaTp3dzx7R96sTW0WfFUK
+	aADa65MBmH61OJHi9CrUFxYmJ8XIySVdTq9Ch5ZDl6Y8fxUlvDVVcu4dzmvsWLbvRjU=
+X-Gm-Gg: Acq92OG01ac41KKkWP2L0HP7HCvrviXXriDdIhxrQUc1SN0X5dMwhR59AQo+0SeeS6z
+	qtxppAP/tl+tA+JUTQi4FNZx7+RCZGQ/iPEuGrYN+UUuQE/uVpCER/y94ZZDZCrCY35Y6zaEUZo
+	pOwLD8A1x7iySeMMn5CUbJZM4igrPXX5zcHBkrv1tgyWY6jD24FzNGjfqF9S2VuCQ2FWz+Oo8DY
+	en1qxveaGZXpgb29WC2qhvLxtDFiZSFx72TK0HbEGLpgaWfpea3BueEefF0+KbMEYBJ+VUwhj3w
+	jd2HReJCbopjR7g1yHh2SDtaHLh7mNls460oIAy2fXEY3QRjorD+SHWQ/g+srhGvjPO1vSJyJqJ
+	M/X3GtHcRdp8rhh4eoHcIYLL51lJXSNVjM638gE6nkh3doFmkEOqOcmgsR1DPSVEq5cRUdzp+vD
+	Ir5gcUVA/MpQdTdGDlvjJE4V2JOrZ//LMLPcTdZrned0B2msBjPPGviOy981275ZhXIlqPpM2Cv
+	whRcqjmWhyn4YSc15NRgKFShNg=
+X-Received: by 2002:ac8:7dd6:0:b0:50f:b257:9301 with SMTP id d75a77b69052e-5177877c12cmr23156881cf.52.1780448749904;
+        Tue, 02 Jun 2026 18:05:49 -0700 (PDT)
+Received: from ziepe.ca (crbknf0213w-47-54-130-67.pppoe-dynamic.high-speed.nl.bellaliant.net. [47.54.130.67])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-51775c297a8sm12256991cf.8.2026.06.02.18.05.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 02 Jun 2026 18:05:49 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1wUa3I-00000004y36-1UNk;
+	Tue, 02 Jun 2026 22:05:48 -0300
+Date: Tue, 2 Jun 2026 22:05:48 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Junrui Luo <moonafterrain@outlook.com>
+Cc: Alex Williamson <alex@shazbot.org>,
+	Shameer Kolothum <skolothumtho@nvidia.com>,
+	Yishai Hadas <yishaih@nvidia.com>, Shay Drory <shayd@nvidia.com>,
+	Kevin Tian <kevin.tian@intel.com>, kvm@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Yuhao Jiang <danisjiang@gmail.com>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] vfio: prevent infinite loop in vfio_mig_get_next_state()
+ on blocked arc
+Message-ID: <20260603010548.GP2487554@ziepe.ca>
+References: <SYBPR01MB7881290BBDE79B61AE6A017FAF122@SYBPR01MB7881.ausprd01.prod.outlook.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260525-fixes_fwnode_iteration-v1-2-a12903fb2919@nxp.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <SYBPR01MB7881290BBDE79B61AE6A017FAF122@SYBPR01MB7881.ausprd01.prod.outlook.com>
 
-On Mon, May 25, 2026 at 02:09:20PM +0800, Xu Yang wrote:
-> When iterate over children of a fwnode that has a secondary fwnode,
-> fwnode_get_next_child_node() can enter an infinite loop if the secondary
-> fwnode has more than one child.
+On Tue, Jun 02, 2026 at 04:58:48PM +0800, Junrui Luo wrote:
+> vfio_mig_get_next_state() walks vfio_from_fsm_table[] one step at a time,
+> looping to skip optional states the device does not support until
+> *next_fsm is supported. A blocked transition is encoded as
+> VFIO_DEVICE_STATE_ERROR, which the trailing return reports as -EINVAL.
 > 
->                        Parent        Child
->       (Primary fwnode)   FWa:   {FWa1, FWa2, FWa3}
->     (Secondary fwnode)   FWb:   {FWb1, FWb2}
+> The skip loop does not account for the ERROR sentinel.
+> state_flags_table[ERROR] is ~0U and vfio_from_fsm_table[ERROR][*] is
+> ERROR, so once *next_fsm becomes ERROR the loop condition stays true and
+> *next_fsm never changes. The blocked arcs STOP_COPY -> PRE_COPY and
+> STOP_COPY -> PRE_COPY_P2P map to ERROR yet pass the support check on a
+> precopy-capable device, causing the loop to spin forever while holding
+> the driver state mutex. This can result in a soft lockup, and a panic
+> with softlockup_panic set.
 > 
-> In this case:
+> Terminate the skip loop on the ERROR sentinel so a blocked transition
+> falls through to the existing return and reports -EINVAL.
 > 
->  ┌─> fwnode_get_next_child_node(FWa, FWa1)
->  │    - fwnode_call_ptr_op(FWa, get_next_child_node, FWa1) returns FWa2
->  │
->  │   ...
->  │
->  │   fwnode_get_next_child_node(FWa, FWa3)
->  │    - fwnode_call_ptr_op(FWa, get_next_child_node, FWa3) returns NULL
->  │    - fwnode_call_ptr_op(FWb, get_next_child_node, FWa3) returns FWb1
->  │
->  │   fwnode_get_next_child_node(FWa, FWb1)
->  │    - fwnode_call_ptr_op(FWa, get_next_child_node, FWb1) returns FWa1
->  └────┘
-> 
-> This cause fwnode_for_each_child_node() to loop indefinitely, reapeatedly
-> output {FWa1, FWa2, FWa3, FWb1, FWa1, ...}.
-> 
-> The root cause is that when the current child (FWb1) belongs to the
-> secondary fwnode, calling get_next_child_node() on the parimary fwnode
-> incorrectly returns the first child (FWa1) again instead of NULL.
-> 
-> Fix this by dynamically checking the parent fwnode of the current child
-> before calling get_next_child_node(). This approach follows the pattern
-> established in commit b5b41ab6b0c1 ("device property: Check
-> fwnode->secondary in fwnode_graph_get_next_endpoint()").
+> Fixes: 4db52602a607 ("vfio: Extend the device migration protocol with PRE_COPY")
+> Reported-by: Yuhao Jiang <danisjiang@gmail.com>
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Junrui Luo <moonafterrain@outlook.com>
+> ---
+>  drivers/vfio/vfio_main.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
 
-...
+Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
 
-Can we utilise __free() instead?
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Jason
