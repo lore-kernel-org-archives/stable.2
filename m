@@ -1,98 +1,83 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1841E3A9632
-	for <stable@vger.kernel.org>; Wed,  3 Jun 2026 02:20:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9BF7F346E6D;
+	Wed,  3 Jun 2026 02:34:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780453220; cv=none; b=FMwyUJ3RxOmKzSfkxjKa2f9WKHsl+1cjQIX9AiJdt7gBTWBDmMfiHegNZA1jOT06KyQCH6p5iXe2xsOqkgdoTx5AEg45ua9Rm9YKmfSz6vWaGelGbSXtgI0+NqTbeee2CX4i+iLikJUvr4EGNNjf22UEdP7VP7EjgmHvEl/GYz8=
+	t=1780454076; cv=none; b=OMN6tOohVbgksj4zfLiWF5IVPP4TvDxWftuqRKJI9JX75QAKr98IrY8Q0I88Nhn+86YHVL+Jj98BekLwIPW2domkS/IBrB5KifvmCQsfibYrMxlxlEAiMwCYkWP+HoY2At6DYtLai+nSlW/B8M/N4m1RldVmGZBpoT/drrSbRf4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780453220; c=relaxed/simple;
-	bh=HgxEtv+A2qKraBVAuqP+/2iLx0+3LmLFpvkFLTooJAE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=b70C3xTyGQ9KOowYyaJpBA/TYcvV2fxHmJX0k7d7jxfqnF/O1RRQRUh5iIHUqR+F7ZMI1q2nBHOU9zT3RXzss+Kpi3mLoqJDL/nplHabYcNEHLV6pyWGC8UWTuxDXNUSbd9Iq6ukfCOZta0TizFivZcCzlbsBQNbe5qTbMuyrFo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ts02qBNu; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ts02qBNu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1C1E1F0089C
-	for <stable@vger.kernel.org>; Wed,  3 Jun 2026 02:20:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780453218;
-	bh=HgxEtv+A2qKraBVAuqP+/2iLx0+3LmLFpvkFLTooJAE=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=Ts02qBNu4eDgGECt4dv3TbrbDlX+7snlrk1F86/erHHSKzB92F2vJQ/sxD/OTxxcs
-	 NJkkbugjxE8gjJKCH4jimG82H1PLHMoMYfhiAAqoWS8U7W314glaLmdEeQbooic9xz
-	 2TXKxUbFUvx07n7ADjUUzcw8hr5zboC4vX9P0ikGav37JGny/IoyXM2ev9qalp+3/p
-	 cdNHJf6piUNGs/us/11nBbNLMjTiMm+IXV+0R9wmZZ8SZD0xpgpPIdxmR4BYuzqVsO
-	 xPnAI/qp4yImAfdJDdv/Bdvc7V7A3/axEF/kcQy/qBCdaX2/gJiKqt4rj7AdzpxfBD
-	 /9qRAuqwL9bRw==
-Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-bec3ffb95dbso465190266b.0
-        for <stable@vger.kernel.org>; Tue, 02 Jun 2026 19:20:18 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ9KX8woXLtB4W6+yfNnIETPtO3AOYBvAG+p7sTEX5m6H2AdB5uOqKtoau5CBzBOf/DcFi7miEs=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw8O6RdKCUJ3F5H4xZvdlj//Ym6b3WZRRp70dKRTiPNtq7uDLWb
-	5hJQjf519pbUkZNXRb5LgJbF60YGwyVf0Z6NpRi3HFj3wF0Lpx54AiVjt67lVpeipPPjPFqot+F
-	tBUYqhkOMtXExd9D8mgMfWmVANMRcyYc=
-X-Received: by 2002:a17:907:7290:b0:beb:7b50:3a7b with SMTP id
- a640c23a62f3a-bf0ac40aff4mr45067366b.6.1780453217454; Tue, 02 Jun 2026
- 19:20:17 -0700 (PDT)
+	s=arc-20240116; t=1780454076; c=relaxed/simple;
+	bh=Iqh1YNObkmIR1qbVIWwRODYW5+nGM/+SWOeX5JKUIUs=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=DXOPkEC68Ad8nv0HoaHGP7V0OHgQwl8GK5Oc9by3eFqojNOXVFRd24wwP1/aiPiXJZzMeW2WIvaV/xFw6OBo9oSUwlHAT2tJIvU9a4tWi8BeYxJW9w+K1ZsyB+654JJ098uEopVamOA/vK1oMgd5jhDBlsOixh9DrCIfvq4bYiM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [10.2.5.213])
+	by gateway (Coremail) with SMTP id _____8Bxt3i5kh9qbvsPAA--.19826S3;
+	Wed, 03 Jun 2026 10:34:33 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.2.5.213])
+	by front1 (Coremail) with SMTP id qMiowJAxHMK4kh9qThaaAA--.29567S2;
+	Wed, 03 Jun 2026 10:34:32 +0800 (CST)
+From: Bibo Mao <maobibo@loongson.cn>
+To: Huacai Chen <chenhuacai@kernel.org>
+Cc: kernel@xen0n.name,
+	kvm@vger.kernel.org,
+	loongarch@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] LoongArch: KVM: Fix FPU register width issue with user access API
+Date: Wed,  3 Jun 2026 10:34:30 +0800
+Message-Id: <20260603023430.1748197-1-maobibo@loongson.cn>
+X-Mailer: git-send-email 2.39.3
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260602235646.23581-1-hemparekh1596@gmail.com>
-In-Reply-To: <20260602235646.23581-1-hemparekh1596@gmail.com>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Wed, 3 Jun 2026 11:20:05 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd_hNhenv7_+HtyZ66zyw5bCyN16ki2RTRf5BEYyCkxGYg@mail.gmail.com>
-X-Gm-Features: AVHnY4LPDH63fHGyXR5ToGAYaxEwE0MdRK87mQcFQ5V7YsmEbTyQVwyAVM-jwWY
-Message-ID: <CAKYAXd_hNhenv7_+HtyZ66zyw5bCyN16ki2RTRf5BEYyCkxGYg@mail.gmail.com>
-Subject: Re: [PATCH] ksmbd: fix out-of-bounds read in smb_check_perm_dacl()
-To: Hem Parekh <hemparekh1596@gmail.com>
-Cc: Steve French <sfrench@samba.org>, Sergey Senozhatsky <senozhatsky@chromium.org>, 
-	Tom Talpey <tom@talpey.com>, Hyunchul Lee <hyc.lee@gmail.com>, linux-cifs@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qMiowJAxHMK4kh9qThaaAA--.29567S2
+X-CM-SenderInfo: xpdruxter6z05rqj20fqof0/
+X-Coremail-Antispam: 1Uk129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7
+	ZEXasCq-sGcSsGvfJ3UbIjqfuFe4nvWSU5nxnvy29KBjDU0xBIdaVrnUUvcSsGvfC2Kfnx
+	nUUI43ZEXa7xR_UUUUUUUUU==
 
-On Wed, Jun 3, 2026 at 8:56=E2=80=AFAM Hem Parekh <hemparekh1596@gmail.com>=
- wrote:
->
-> The permission-check ACE walk in smb_check_perm_dacl() validates the ACE
-> header size and caps sid.num_subauth at SID_MAX_SUB_AUTHORITIES, but it
-> never checks that ace->size is actually large enough to contain
-> num_subauth sub-authorities before compare_sids() dereferences them.
->
-> CIFS_SID_BASE_SIZE covers the SID header up to but excluding the
-> sub_auth[] array, and offsetof(struct smb_ace, sid) is the ACE header,
-> so the existing guards only guarantee the 8-byte SID base, i.e. zero
-> sub-authorities. compare_sids() then reads ace->sid.sub_auth[i] for
-> i < min(local_sid->num_subauth, ace->sid.num_subauth). The local
-> comparison SIDs (sid_everyone, sid_unix_NFS_mode, and the id_to_sid()
-> result) always have at least one sub-authority, and an attacker controls
-> the ACE revision and authority bytes (which lie within the in-bounds SID
-> base), so they can match one of those SIDs and force the sub_auth read.
->
-> A crafted ACE with size =3D=3D 16 and num_subauth >=3D 1 placed at the ta=
-il of
-> the security descriptor therefore causes a heap out-of-bounds read of up
-> to SID_MAX_SUB_AUTHORITIES * sizeof(__le32) bytes past the pntsd
-> allocation. The security descriptor is loaded by ksmbd_vfs_get_sd_xattr()
-> into a buffer sized exactly to the on-disk data (kzalloc(sd_size) in
-> ndr_decode_v4_ntacl()), so the read lands past the allocation. The
-> malformed descriptor can be stored verbatim via SMB2_SET_INFO (the DACL
-> is not normalised before being written to the security.NTACL xattr) and
-> the read fires on a subsequent SMB2_CREATE access check, making this
-> reachable by an authenticated client on a share that uses ACL xattrs.
->
-> Add the missing num_subauth-versus-ace_size check, mirroring the
-> identical guards already present in the sibling parsers parse_dacl() and
-> smb_inherit_dacl().
->
-> Fixes: d07b26f39246 ("ksmbd: require minimum ACE size in smb_check_perm_d=
-acl()")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hem Parekh <hemparekh1596@gmail.com>
-Applied it to #ksmbd-for-next-next.
-Thanks!
+At the beginning, only 64 bit FPU is supported. With FPU register
+get interface, 64 bit FPU data is copied to user space, the same with
+FPU set API. However with LSX and LASX supported in later, there should
+be FPU data copied with bigger width. Here fixes this issue, copy the
+whole 256 bit FPU data to user space.
+
+Fixes: db1ecca22edf ("LoongArch: KVM: Add LSX (128bit SIMD) support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Bibo Mao <maobibo@loongson.cn>
+---
+ arch/loongarch/kvm/vcpu.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/arch/loongarch/kvm/vcpu.c b/arch/loongarch/kvm/vcpu.c
+index e28084c49e68..2e40386f8686 100644
+--- a/arch/loongarch/kvm/vcpu.c
++++ b/arch/loongarch/kvm/vcpu.c
+@@ -1312,7 +1312,7 @@ int kvm_arch_vcpu_ioctl_get_fpu(struct kvm_vcpu *vcpu, struct kvm_fpu *fpu)
+ 	fpu->fcc = vcpu->arch.fpu.fcc;
+ 	fpu->fcsr = vcpu->arch.fpu.fcsr;
+ 	for (i = 0; i < NUM_FPU_REGS; i++)
+-		memcpy(&fpu->fpr[i], &vcpu->arch.fpu.fpr[i], FPU_REG_WIDTH / 64);
++		memcpy(&fpu->fpr[i], &vcpu->arch.fpu.fpr[i], sizeof(union fpureg));
+ 
+ 	return 0;
+ }
+@@ -1324,7 +1324,7 @@ int kvm_arch_vcpu_ioctl_set_fpu(struct kvm_vcpu *vcpu, struct kvm_fpu *fpu)
+ 	vcpu->arch.fpu.fcc = fpu->fcc;
+ 	vcpu->arch.fpu.fcsr = fpu->fcsr;
+ 	for (i = 0; i < NUM_FPU_REGS; i++)
+-		memcpy(&vcpu->arch.fpu.fpr[i], &fpu->fpr[i], FPU_REG_WIDTH / 64);
++		memcpy(&vcpu->arch.fpu.fpr[i], &fpu->fpr[i], sizeof(union fpureg));
+ 
+ 	return 0;
+ }
+
+base-commit: e43ffb69e0438cddd72aaa30898b4dc446f664f8
+-- 
+2.39.3
+
