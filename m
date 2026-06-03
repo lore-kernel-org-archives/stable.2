@@ -1,67 +1,21 @@
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 312CC30B509
-	for <stable@vger.kernel.org>; Wed,  3 Jun 2026 13:32:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAC491E766F;
+	Wed,  3 Jun 2026 13:38:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780493535; cv=none; b=mGo3S/i6bigYWPrEjgPclcJXQOhrflM2ggN4VA5ToY+W60MCdwLjvuMNcgUrkpIaHjrJRU5ogwqEXVwtxMqXzZc+ACBAaleqfKqRpm3TYT/Uc+WTICk3GFcm+tf3NwODbFWHWnVbr74uPhq8NVX2DBM4/Ri4+NZMSGc2ldh+OSg=
+	t=1780493918; cv=none; b=iz9V3IIr7SGMzbzMjhihbx93PprXAV3GHyEPkUqCMB+0Nha3myTCIKJ1j+ltFKpYLYTKXM69QM48r76zhAxrPhMsAIBHWGHEA2wgelKm/ztQDSfqjt/wMgDdZd/oQ116yyTZnrwJS5ssa5KlAwHq3gnyzWgDQ79BRgxrtFZsAPY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780493535; c=relaxed/simple;
-	bh=0XaLpw8wCWCVqO3HuR7IIwW8qzeoCTixBtIKErorbuM=;
+	s=arc-20240116; t=1780493918; c=relaxed/simple;
+	bh=jpfMl3LBsN10XtaqYl6MLqpzotID798CTdJ4oaGnIxw=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=TGxaMhtJUhvu815mzVElnwjNeIZLOJ9NBQzZt+iftpFslCdiLsOQ1hWZnjyAcHNAG4pNi8OIaCV0OfQuLW12RvHQt5PiVEnXylMZaHVRGdUD/HhjsLXM3QFlZ4K28eEU5CkY7i9WVY6gkNHPJZ8sKt8XNCSmfdInsJjRMlmDx0M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=K5Pkbg1v; arc=none smtp.client-ip=209.85.128.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K5Pkbg1v"
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4906869f0cbso123654735e9.1
-        for <stable@vger.kernel.org>; Wed, 03 Jun 2026 06:32:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780493533; x=1781098333; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=4TVbfpbXuT0Cc8+UmhjB+WjY3nKUaTcDDEiy2PFK/eY=;
-        b=K5Pkbg1veMtiMn3iRnrbfarln4Qey7dy+cZiKbAKWdXixIno80/sRg1GRpSETsRJ9a
-         UJZuJ0WcOX0IkHnFZHIxgVymDrTEYMAHqsqWio172F2jHdiOni0jzQoz6GlJeGLyU858
-         OeAmEhtPgDSfr2wnSqkM+l/i6qP5GUlMEhtisBEjCtyk+a2qrjamrLHjw7k/yJsQsnaK
-         96lUAQPcLtBNkgp99kccMvzvavbrvgtUdFPNvwXGfHwD76Z9W6zCOVLDG6M/CXpmiZ6D
-         bYdWZM5gP1uzA3H6ILWm1aJeSzN/FPUcew6RcW/PV3hc66srs7qevDprvZWIA3wd/+ey
-         cO/w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780493533; x=1781098333;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=4TVbfpbXuT0Cc8+UmhjB+WjY3nKUaTcDDEiy2PFK/eY=;
-        b=EJRPjHk8lIiG3RYaoNPHcM56zw2ufsCkJ/8V9cVW2gvWH2Y9ns9/TFxGt0q2QReQNu
-         YDln3l5Q15HS2SiiByz7FBJoXQHctZY/6VrU4keD0QanNRqQjzl5ywVBda+BS1zeGvYG
-         vdrjF7Tl/IIYF6Xip+xD++paNCADfP1CFydxUQnJOnxXOalxdgtbW+E0yUtniFUzKDGu
-         ANHZauzXJ4J/bGkWW+9SSiI09+vEzxw3C71ABXbGBBhKihlIb2uXEXLEELCCBRCW1R3K
-         1hmPdRhDfXEYBwhjBbULUVQq5JQRNZf9Dt9ZN1st5ScW6bbj6afP6hxfr055x/zgjXYJ
-         FzhA==
-X-Forwarded-Encrypted: i=1; AFNElJ8cLRS6r24SfeMJuZAdvtkMGAUbrvQ8mRYeL5CsBXCQTLOnmgXk9S4Bm0YYUwFDYHhdWxL/4Ps=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzaumDdfeUJhjrqZhFlWV4ls4W/eChXNl5Cvde8xUjZFDVbNw+1
-	F3Kxbtc9CdtY1Agt9khZws05fiv8BPEjbY2XGEAh5xgsYdp+GPGJiJop
-X-Gm-Gg: Acq92OFtDTBc8O+ffv/i75Fdu4P55/h7UHOWXLiASND3OHK3l5+/d7TthPVG9OjCqHV
-	cuJDnwYR+R8anulYvjnIwEz2eUZXf2X9WcmqNvuygc7P0h7odEYH6aZnrAhSH8sMcwJEj3GLR0Y
-	soZHRJnLul9nMp7C5+IWYZmaGfEtww4MxrzSMnFUjqXJBqUy+X/+Fspx4w8xkBSchzdei65BnRY
-	P5+O+8YY4ar6gdy0AiiKgt/qmdnxGQb0DKqDBsQMd1bPHNI+W7kKYQOjxSGT7tZBz4TLx2qnsLY
-	3M4bFDe9F4W8iAmDZqIcR2B6L5J+LQJuNJNFa3ERlYr9ESVXchk3+kfd4cw4tIR/969H7K5GJjd
-	f+K2Q9NgKbnzkPJbLGjL1kkwgO/PqkDbMk8TpiGH5SZG3s5j0n7E71yQZw9a9IBjUbrueszjzq2
-	a6uY1KpveCxGkLJQ1U4SafqBVcEMW4+UWFu2hVsp+iXDm5L6+FecZGiDoU0A6HWpVFKfZvqUYFo
-	omMSZ7K4mw4OvQxuz4MKg==
-X-Received: by 2002:a05:600c:c48e:b0:490:40f1:5314 with SMTP id 5b1f17b1804b1-490b5eb73aamr51371835e9.1.1780493532528;
-        Wed, 03 Jun 2026 06:32:12 -0700 (PDT)
-Received: from ?IPV6:2a01:4b00:bd1f:f500:f867:fc8a:5174:5755? ([2a01:4b00:bd1f:f500:f867:fc8a:5174:5755])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4601f351d69sm12355413f8f.29.2026.06.03.06.32.11
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 03 Jun 2026 06:32:11 -0700 (PDT)
-Message-ID: <755aaa06-9f6f-4f49-a3ac-5cf7f3574393@gmail.com>
-Date: Wed, 3 Jun 2026 14:32:11 +0100
+	 In-Reply-To:Content-Type; b=ds4nQfbsJMTiKS75pW1ExwdeUnZcD8VVdoU5prhCBwyZQ+d5xNnBki6DRnow1OGLovgc41ZSviN8ZhlBM+fa06zdAUQuf5e9UJvh1f82hyVwNzvzQ/6Qz27vqQYIfvRA6BeiOjM+Y8WWURXSfwv6LIm5I04XZq/6M7dfRqBh31Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7E771F00893;
+	Wed,  3 Jun 2026 13:38:33 +0000 (UTC)
+Message-ID: <2e62a5af-06f5-4a11-80f1-81c62f9b2311@tuxon.dev>
+Date: Wed, 3 Jun 2026 16:38:31 +0300
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,65 +23,69 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 3/3] bpf: Restore sysctl new-value from 1 to 0
-To: Dawei Feng <dawei.feng@seu.edu.cn>, martin.lau@linux.dev
-Cc: emil@etsalapatis.com, ast@kernel.org, daniel@iogearbox.net,
- andrii@kernel.org, eddyz87@gmail.com, memxor@gmail.com, song@kernel.org,
- yonghong.song@linux.dev, jolsa@kernel.org, kees@kernel.org,
- joel.granados@kernel.org, bpf@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, jianhao.xu@seu.edu.cn,
- stable@vger.kernel.org, Zilin Guan <zilin@seu.edu.cn>
-References: <20260603105317.944304-1-dawei.feng@seu.edu.cn>
- <20260603105317.944304-4-dawei.feng@seu.edu.cn>
+Subject: Re: [PATCH RESEND v3 3/5] phy: renesas: rcar-gen3-usb2: Lock around
+ hardware registers and driver data
+To: Xia Fukun <xiafukun@huawei.com>, yoshihiro.shimoda.uh@renesas.com,
+ vkoul@kernel.org, kishon@kernel.org, geert+renesas@glider.be,
+ magnus.damm@gmail.com, horms+renesas@verge.net.au,
+ fabrizio.castro@bp.renesas.com, Greg KH <gregkh@linuxfoundation.org>
+Cc: linux-renesas-soc@vger.kernel.org, linux-phy@lists.infradead.org,
+ linux-kernel@vger.kernel.org,
+ Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>, stable@vger.kernel.org,
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ "tanghui (C)" <tanghui20@huawei.com>
+References: <20250507125032.565017-1-claudiu.beznea.uj@bp.renesas.com>
+ <20250507125032.565017-4-claudiu.beznea.uj@bp.renesas.com>
+ <e49fc109-41a2-449f-a232-d8beac2c5e08@huawei.com>
 Content-Language: en-US
-From: Mykyta Yatsenko <mykyta.yatsenko5@gmail.com>
-In-Reply-To: <20260603105317.944304-4-dawei.feng@seu.edu.cn>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+From: Claudiu Beznea <claudiu.beznea@tuxon.dev>
+In-Reply-To: <e49fc109-41a2-449f-a232-d8beac2c5e08@huawei.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 6/3/26 11:53 AM, Dawei Feng wrote:
-> Commit 4e63acdff864 ("bpf: Introduce bpf_sysctl_{get,set}_new_value
-> helpers") changed the success return value to 0, but failed to update the
-> corresponding check in __cgroup_bpf_run_filter_sysctl(). Since
-> bpf_prog_run_array_cg() now returns 0 on success, the legacy ret == 1
-> condition is never satisfied. As a result, the modified value is ignored,
-> and bpf_sysctl_set_new_value() fails to replace the write buffer.
-> 
-> Fix this by checking for a return value of 0 instead, so cgroup/sysctl
-> programs can correctly replace the pending sysctl buffer.
-> 
-> This bug was discovered during a manual code review. Tested via a
-> cgroup/sysctl BPF reproducer overriding writes to a target sysctl.
-> Pre-fix, bpf_sysctl_set_new_value("foo") was silently ignored: the write
-> returned 8192 and the value remained "600". Post-fix, the BPF replacement
-> buffer properly propagates: the write returns 3 and the value updates to
-> "foo".
 
-I wonder if we can make that reproducer into a selftest, clearly this
-codepath is not tested automatically at all, which is a problem.
 
+On 6/3/26 16:22, Xia Fukun wrote:
+> On 5/7/2025 8:50 PM, Claudiu wrote:
 > 
-> Fixes: f10d05966196 ("bpf: Make BPF_PROG_RUN_ARRAY return -err instead of allow boolean")
-> Cc: stable@vger.kernel.org
+>> @@ -348,6 +349,8 @@ static ssize_t role_store(struct device *dev, struct device_attribute *attr,
+>>   	bool is_b_device;
+>>   	enum phy_mode cur_mode, new_mode;
+>>   
+>> +	guard(spinlock_irqsave)(&ch->lock);
+>> +
+>>   	if (!ch->is_otg_channel || !rcar_gen3_is_any_otg_rphy_initialized(ch))
+>>   		return -EIO;
+>>   
+>> @@ -415,7 +418,7 @@ static void rcar_gen3_init_otg(struct rcar_gen3_chan *ch)
+>>   		val = readl(usb2_base + USB2_ADPCTRL);
+>>   		writel(val | USB2_ADPCTRL_IDPULLUP, usb2_base + USB2_ADPCTRL);
+>>   	}
+>> -	msleep(20);
+>> +	mdelay(20);
+>>   
+>>   	writel(0xffffffff, usb2_base + USB2_OBINTSTA);
+>>   	writel(ch->obint_enable_bits, usb2_base + USB2_OBINTEN);
+> The fix for the rcar_gen3_init_otg function has not been backported to
+> the 5.10-stable branch, which leads to a "scheduling while atomic" bug
+> in that branch:
 > 
-> Acked-by: Yonghong Song <yonghong.song@linux.dev>
-> Signed-off-by: Zilin Guan <zilin@seu.edu.cn>
-> Signed-off-by: Dawei Feng <dawei.feng@seu.edu.cn>
-> ---
->  kernel/bpf/cgroup.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+> rcar_gen3_phy_usb2_init()                    ← phy_init() callback
+>    → guard(spinlock_irqsave)(&ch->lock)       ← acquires spinlock, disabling preemption + IRQs
+>    → rcar_gen3_init_otg(ch)
+>        → msleep(20)                           ← BUG: scheduling while atomic!
 > 
-> diff --git a/kernel/bpf/cgroup.c b/kernel/bpf/cgroup.c
-> index a0b5f8cd8b10..3f06e2270f5c 100644
-> --- a/kernel/bpf/cgroup.c
-> +++ b/kernel/bpf/cgroup.c
-> @@ -1935,7 +1935,7 @@ int __cgroup_bpf_run_filter_sysctl(struct ctl_table_header *head,
->  
->  	kfree(ctx.cur_val);
->  
-> -	if (ret == 1 && ctx.new_updated) {
-> +	if (!ret && ctx.new_updated) {
->  		kvfree(*buf);
->  		*buf = ctx.new_val;
->  		*pcount = ctx.new_len;
+> The patch for 5.10 is available at the following link:
+> https://web.git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/? 
+> h=linux-5.10.y&id=0f86a559900fbe96af08a3a226a86fac27b02b8f
+> 
+> Perhaps the stable patch for the 5.10 branch needs to be updated to
+> fix this serious bug?
 
+Sasha applied today the patch at [1] to solve this problem on v5.10.
+
+Thank you,
+Claudiu
+
+[1] 
+https://lore.kernel.org/all/20260501225859.504868-1-nobuhiro.iwamatsu.x90@mail.toshiba/
