@@ -1,100 +1,100 @@
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56D0E388E52
-	for <stable@vger.kernel.org>; Wed,  3 Jun 2026 09:17:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21CCB328B61
+	for <stable@vger.kernel.org>; Wed,  3 Jun 2026 09:19:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780478252; cv=none; b=eZ977lndKobGAO6l2GiYduPPyFxMFqs2iq7uz/+L6ObOFIHCA23jyw0vdSPRsC6zE5dED6Af1oz+6F6ADKiae6rDSSOGVwYECkqe+7/TRXAj7RQSUSknSgor/fHWPaW9T0qblacUtuL8a7pYUJccWAZQ9qrrL2QC5DrsOUpLTTg=
+	t=1780478367; cv=none; b=VwjA2qt0Ta0U2EbUZurFgJBSTbu2bVTuR8AGdiMGZZpwCJ8H2Z1pn+Y47iVVQmT+nkI9hl9X7Pq6olfnwkNXNo/buYQWthCDoi1dz4L+bLS0drMxzX60ejIBjGQVkitVdvwSUdlPDxS4Gnc3uXy5Welinkup9zjs9cgW6eXokeE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780478252; c=relaxed/simple;
-	bh=kJ82LS2c7VtnpbVfYf6en1BpQwOaSYvNSWOCFvbtoh0=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=jxCCh9ZvPbXLHORmFfbIOPrPtrdm0qyamgQ5JBA7RttGSDuY4Jv89PnrjFX4k9Yqz+1zro87pfmF7YybFpe7JE5vAhEQMooYFfmOE+CKNGNKvKsjTeUMjH7LTifOm1F0dfwDgv2JZnuoYIEkheGSE6RE2HRWIuMcArYWwb4Rv70=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cym/tRus; arc=none smtp.client-ip=209.85.221.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1780478367; c=relaxed/simple;
+	bh=ox5Hfim7OXzdy4CsWYeM5j5AVPQcn2SoPHZtnHyyhxM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mBDaDf8ADNwQ7LnAt8pQTgmK2rFgllfyojsG0nfTLvnl32qKlKlkVbKZKlZs1+Ut+6bkKedDICQbRO/cNj5gB94LSd25VdQHvQERZNEZZRA6RRJg6eSQzIxUgZWc8XtXXUz28Wk8E3N5nYTg+g5NKmW+6+UxsEIvBEKAoI5DpPg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=aXnUoJc7; arc=none smtp.client-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cym/tRus"
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-45f3cf907ceso1991933f8f.2
-        for <stable@vger.kernel.org>; Wed, 03 Jun 2026 02:17:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780478249; x=1781083049; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:subject:cc:to:from:date:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=WWDk+OzqxFsgFShuxBM2y3BRidTB0F0fOkuYz1HmptU=;
-        b=cym/tRusnyMIp6/h3qK2ijvvyyx00AR2Byuq7Ovs7ybtq1GEz20ygu6TS44YNA/DpL
-         CbMa1Un5dBUjxztBBK9ajxF3Vm7t9oZ1EdyGj9/fcg3C/3+SQBwruqMjiQqwnHwSnLqd
-         4jIozygkpmfpZziEsuQ1QUrC3qDtfebPOXMFGba5YyaEYGCdkr7MfZCylxBdWMSqZFpu
-         xiEo/rd6Tr/zvzCf1nwwQPYU4C4zDxYgnqn7kz+uXMmSUbjFKTtb4EmM6yipX6Q0wiAX
-         shqtVu8ElOt6widl0CiOMUQcnBxs3IL3CBkpGC8uGyspt6YK06RJHeiAvLnP5Ln9f0hv
-         I/9w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780478249; x=1781083049;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=WWDk+OzqxFsgFShuxBM2y3BRidTB0F0fOkuYz1HmptU=;
-        b=XHVDiOfy37ioMUDhDuIeHGovvG/3nmPvKcYEkFu3oRaFN8hjHPu6FR0EhILo/egLQg
-         WAU9HmwtKVXQLdDQ1jM9ZvcPdux0Ik2f85JWNkf6TIi1zkg9l2X6uUtP4Et+XgqFTONE
-         AJWYw5/qlRTB+YJ6L+K6wgY5haJqqsJu9yfbBW5vzum3K7iXD03P9/GH8QK5B3UXvu4j
-         Js5oyVASPXICh5PXduKAMWa/7oBl0CBJa9L7uboXZ76IU6img9s0EEPINw45JbZYOxhz
-         4PWKO9zWoaf51zyNtaOnexwMfLVQq412Xd2E3ELNns/c2+2V/kwKnwQqa8oJtmJ4WpU4
-         JJag==
-X-Forwarded-Encrypted: i=1; AFNElJ+WCzm6ia/nAIVHFSd5JpQcAnmy8S7Vnp1K0OAs6KWZeJhsPhzeCdYT7iexCk7tNHE+41ZMn4s=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzMiMS1JPE/cSYpeZJpRIthWXa0kclOYqpIg8x/ELW1F9htML4K
-	4ljPJdjtposN7RHpj+5B5A8nS7qewkLc3U1CjSGkPV4tKlR0lNw4vHYh
-X-Gm-Gg: Acq92OEfDi/h4i3brNxh9/uWPHb8NbSCq9G4NbnCD0g5DTV5RX+Bh4L+rF29ULdiZ+D
-	Sb7Tn+OMthrTz11Xx7KOgMlMCgu340ZidIdxh5e7ni1mcZ1XlkXIbC+nMhHSK5037NZPluRBMrT
-	KRyyFWLdKVjeBz08VRbmZXYsuCuuMtCojUtJJD0EXezzNcGjgX2a/TqKKM/oku81qh+EURB8kQs
-	jXv1U7Jle8RIpS2qcFXoa6tuQI0l7nUH4F7esB8mQK+BtFsYpSNon4OTzMydBd5jDizo4vRK86h
-	NLEhon1aJszh2ft+aHUKL6qrPXa1LSzNTcSoljipjGCWjZyAHp3McwUiuM3XMCJdyzPFo/r8Z5v
-	DCeFv10e2dEuYT+rrYRs+ikSdxhtfhLKw6NFdar7+VxzQN1XYRf4ryCoXGjv8nAfPv1E9sZKPYv
-	SjpAmYs68g+qTL7EJIZkH0Wsa5456nmmd/w8BkZUoaOG8lOLAMpnshgscJtfQiXb7Z8zeGf8I=
-X-Received: by 2002:a05:600c:c84:b0:490:389:7644 with SMTP id 5b1f17b1804b1-490b5fe0e36mr39962935e9.17.1780478248344;
-        Wed, 03 Jun 2026 02:17:28 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490b61511c4sm51593825e9.1.2026.06.03.02.17.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 03 Jun 2026 02:17:28 -0700 (PDT)
-Date: Wed, 3 Jun 2026 10:17:26 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Aiden Bowling <aidenlbowling56@gmail.com>, Lorenzo Stoakes
- <ljs@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, Vlastimil
- Babka <vbabka@kernel.org>, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH] kernel/sys.c: fix prctl_set_auxv to use sizeof instead
- of user-supplied len
-Message-ID: <20260603101726.05d1f7a8@pumpkin>
-In-Reply-To: <f6d59be4-db98-431b-97d8-d991e7381135@kernel.org>
-References: <20260602024001.14119-2-aidenlbowling56@gmail.com>
-	<ah6jS246wBcTH6gr@lucifer>
-	<CAGOa741UNr5DzK4vr8RBLvhZcCs9zdva6tqmMptQw5P8ooNEOA@mail.gmail.com>
-	<f6d59be4-db98-431b-97d8-d991e7381135@kernel.org>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="aXnUoJc7"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=Uq9f
+	U7AXRK7LsWpMVeb6SeERHivJR3tgaFKWpY/Pd4g=; b=aXnUoJc7txPDX9GqT8xI
+	z+Oye/s8ic9HTiTcQbbax7u04+1LKa9x6Dfafg4xtHOS46QzbhbGqp0kroi9VWv9
+	m3mBCz8Ha3O5SLwqDiM0Pzc53SJtqxY8d+4wsdjMUT7KFNVZpkMiVkavq/+l9xx4
+	kmZo0sFEt67ADS2eoeHRtMbdeleoZnV7oZhT5E7fikAqfW6Vr1xSycG18MQ6dw8w
+	1LhqyCRoRCz30HhDz0SqELN93JdlAxn48wJsD1qG0JpmRN3PoI9x9KkIzQcScq1R
+	FWGoaboLkG3a65mBkKn43JGpVUaosIux59BYyb2yiENQvdmqIbB58YGYdtK5cFlX
+	kg==
+Received: (qmail 3214735 invoked from network); 3 Jun 2026 11:19:20 +0200
+Received: by mail.zeus03.de with UTF8SMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 3 Jun 2026 11:19:20 +0200
+X-UD-Smtp-Session: l3s3148p1@BtAx7FVThuEujnsK
+Date: Wed, 3 Jun 2026 11:19:20 +0200
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: Johan Hovold <johan@kernel.org>
+Cc: Andi Shyti <andi.shyti@kernel.org>, linux-i2c@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+	Phil Reid <preid@electromag.com.au>
+Subject: Re: [PATCH v3 02/10] i2c: core: fix hang on adapter registration
+ failure
+Message-ID: <ah_xmDHy4awrnb0K@ninjato>
+References: <20260511143715.729714-1-johan@kernel.org>
+ <20260511143715.729714-3-johan@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="EeghvUUimabcsKpa"
+Content-Disposition: inline
+In-Reply-To: <20260511143715.729714-3-johan@kernel.org>
 
-On Tue, 2 Jun 2026 19:25:56 +0200
-"David Hildenbrand (Arm)" <david@kernel.org> wrote:
 
-> On 6/2/26 16:14, Aiden Bowling wrote:
-> > The issue is that using the user-supplied 'len' risks a partial write into mm-  
-> >>saved_auxv if they pass something smaller than the actual buffer size, even if  
-> > the buffer is validated. We should always copy the full buffer size after
-> > validation to maintain consistency and prevent accidental partial data exposure/
-> > corruption.  
-> 
-> Which partial data exposure?
-> 
+--EeghvUUimabcsKpa
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-The one you don't get with the patch because of the previously
-unnecessary initialisation of the array :-)
+On Mon, May 11, 2026 at 04:37:07PM +0200, Johan Hovold wrote:
+> Clients may be registered from bus notifier callbacks when the adapter
+> is registered. On a subsequent error during registration, the adapter
+> references taken by such clients prevent the wait for the references to
+> be released from ever completing.
+>=20
+> Fix this by refactoring client deregistration and deregistering also on
+> late adapter registration failures.
+>=20
+> Fixes: f8756c67b3de ("i2c: core: call of_i2c_setup_smbus_alert in i2c_reg=
+ister_adapter")
+> Cc: stable@vger.kernel.org	# 4.15
+> Cc: Phil Reid <preid@electromag.com.au>
+> Signed-off-by: Johan Hovold <johan@kernel.org>
+
+Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+
+Until tomorrow noon latest, I will have all patches reviewed.
+
+
+--EeghvUUimabcsKpa
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmof8ZgACgkQFA3kzBSg
+KbaP3RAAmknIFw83V3UaTbift1VDhN79cbWs2o8w5IJwBA8lomSb5cI1s7BMiJjL
+Xna+h2NYJ41kZYpTatMLHPlGNFLydEfyrStDITH2BcTgJdfilBgGRB9sQqw8K09K
+EvCBTxKn7OsNPfbQtyAK929UTRhrILe333Pdvw9JVx8AL1wvsRchHF2WklpYgGjt
+fuBi6kNrhGh89NdmL748Vxz5aonGTO8w0x+d4n/rDDroRJndKCd8OrEvSSW4mNJj
+ZDVIE27dy/l7ekDVGvTZsNQvFrAv2C+WE14oP3KJ0k3aBjChmC60ilMUHa2WBhlX
+ag2+gDmyQ0MUdHJOhcfWaQEFpGfFuuEv1ccBuUy0CY7JUAuG2Lpy0CQ20EKd46co
+8RgzC4uVON+uQwo9b91nLbVl//hIVJvNHT6dq5V9Ei+r7gyi5wYYFYvSROP19bkW
+N+lBi1x0ijNT6Yv6cHtOG91w5uRyGsnQ5SxDtuC1HO5sU+dDWNutIm6jcAZkiB5k
+vbTzFVUssDkeebAfZuXXhWhTtTNJlQkoDBiaLxPqx6fpd30KKoz1hi+3zAjuL7X0
+Uz1o9lvxeOaVYOp9goaAss+oOqYffGJaKreprCz5imlIJifTj1eIHMgXJmd+JxWY
+6tsPl+hdzgS2OftkYJYhBpt2uTXkHN1w+MqZePsBdW/JpV3WTOU=
+=DWLg
+-----END PGP SIGNATURE-----
+
+--EeghvUUimabcsKpa--
