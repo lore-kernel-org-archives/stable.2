@@ -1,177 +1,219 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 714522DA759;
-	Wed,  3 Jun 2026 14:16:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780496175; cv=none; b=QmWj5QcRFwzoOhtPpRhS3TvrdyMbrTnQWQUysJkU/+Kogmj9XXR/hCqI9s7oHq09qmkWYHmtLJJSzbVzz7bQYCU6cnmkdR2fJpSAIIBujDRPOr5go9IoPHQyEuaM7VG3fxWhr9UsvLPDW+ZREX8gDy5SHZYpXtsqxhPd8XexI+E=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780496175; c=relaxed/simple;
-	bh=HlOo9yuJ7W1DgckPTdmqfNteUtA2KwlYM8ZEcapsuds=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=u85+coJelmtfiG9kMAl8OEGxH0eKjvjFV829Eatt9g6VIJw/exhYmsQ4g/c06KqmbcLFdz2EJeqEp5CKiYJCmYRQ2m89UGkYTP2JB6By39Sx0e/cw1rDPB9hIdQg+bcO7D74dZs94KB26f6wSRioB4cVAzfel5AbyKYHCodhevg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=OXpNl8Af; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1449339B952;
+	Wed,  3 Jun 2026 14:22:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.18
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780496539; cv=fail; b=ni9nYwuFrdW8VljQaZhkGtItW7UET2GQFppAs4mxmCa2OZgkKt2jEY/1xiapZ2xzoEG1GM3Z9Sy+RAhjip6hAtvbXWDq+2yPqYebRE4QNzIUGJnWzV20HLgQ1wE5KEVwcs1rbA31aH5AYiq87RFIV4/+MhcTKs+C3Vu8MYHWkao=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780496539; c=relaxed/simple;
+	bh=pelBkeVKP4cGUQbJ10Sr7+d+rO6QKZgCO64P7Wh9laY=;
+	h=Message-ID:Date:Subject:To:CC:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=O+OT9jalA7HQv452h3UQ1faEnfOmzem+VqOSPRAIjTpaTfweF81ikpms7eAiohU5eO0IvPZkxaMer0UjgAobEUukFJ2EwfVwBJDAHUQE6548/IT6jczF3xp6zp2sYmwbL5MbuXvZYAjlqNwRwGBtQMtjU57yDRo2BvJyqtj1+r4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=fe+4ay9x; arc=fail smtp.client-ip=198.175.65.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="OXpNl8Af"
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6535a1lH3708001;
-	Wed, 3 Jun 2026 14:15:53 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=pp1; bh=F1bCpJrGMayffkxKESwEy89wGfZqbjQXhYCNeMH4m
-	8o=; b=OXpNl8AfgIC3enEhRAken53IjjrZeTsl6nU3J8a51jqnZy5JMOYLvvvoW
-	RNebtLzciiPcllR5c5sJOFu5Leoamnnet3cvpYQMW5f2QPK7BnZqJ0o8ea9Z1qB8
-	t5ZXKCZvuSXnGGztEMtoNuAidE8Zim1688SFlp5a/zP/wcE7zSbZN8q9G16q4XoN
-	uuXn7RM0WabkTKWDK62pGNZbiTvoGaIr0P5dsnSDskHBzNgWKN0LsX2rfExDE7pX
-	l+a+L5QSG80nPKNwpm2HzPirHmgJox2mxuXjk8G4Jew0lRFmpadCFy3ujThHczYM
-	6Z98MUfcekfFhVUF+mymqAIEuBHuw==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4efpaeat3n-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 03 Jun 2026 14:15:52 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 653E977k028270;
-	Wed, 3 Jun 2026 14:15:51 GMT
-Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4egbqhge0y-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 03 Jun 2026 14:15:51 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
-	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 653EFlsd31064404
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 3 Jun 2026 14:15:47 GMT
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id C27C72004D;
-	Wed,  3 Jun 2026 14:15:47 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id CD56B20040;
-	Wed,  3 Jun 2026 14:15:44 +0000 (GMT)
-Received: from localhost.localdomain (unknown [9.39.24.49])
-	by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Wed,  3 Jun 2026 14:15:44 +0000 (GMT)
-From: Amit Machhiwal <amachhiw@linux.ibm.com>
-To: linuxppc-dev@lists.ozlabs.org, Madhavan Srinivasan <maddy@linux.ibm.com>
-Cc: Amit Machhiwal <amachhiw@linux.ibm.com>,
-        Vaibhav Jain <vaibhav@linux.ibm.com>,
-        Harsh Prateek Bora <harshpb@linux.ibm.com>,
-        Ritesh Harjani <ritesh.list@gmail.com>,
-        Anushree Mathur <anushree.mathur@linux.ibm.com>,
-        Nicholas Piggin <npiggin@gmail.com>,
-        Michael Ellerman <mpe@ellerman.id.au>,
-        "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-        kvm@vger.kernel.org, stable@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Subject: [PATCH] KVM: PPC: Book3S HV: Validate arch_compat against host compatibility mode
-Date: Wed,  3 Jun 2026 19:45:39 +0530
-Message-ID: <20260603141539.47620-1-amachhiw@linux.ibm.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="fe+4ay9x"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1780496538; x=1812032538;
+  h=message-id:date:subject:to:cc:references:from:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=pelBkeVKP4cGUQbJ10Sr7+d+rO6QKZgCO64P7Wh9laY=;
+  b=fe+4ay9xr84pdRecVizlJNOz0f1vZ2HGeHmcVDO4q9jySirnDdWYfUZ3
+   ajkB8Y/8Njs3EOYjgDL6s8ZsdUnyC3Lajx4ohACocOCVg/W+nAISb36IM
+   6x0+RJEu8Pq0nRQ/NrGQbuIZEQ1tG1zsm1mjBYekQn+j19rfC5V3teyv3
+   NYA68mvYY2Fh3xHfduldgTe3HBNS9g7TB/iNAltPMLePW7z0xkRtgIR8a
+   FnOOc+0zHH3s2iIXxZwr+V2xu55qDcQ91sG5Ta4RMvPnpJFx+WvkMZlnw
+   tvgnChjTfM3BSyNKbTg+kYxD2ywgiqX4AxPd/tLUZt+OHbxAT/ZTzI5Dm
+   A==;
+X-CSE-ConnectionGUID: uRLowX7tT8uGzLkkbV19Ow==
+X-CSE-MsgGUID: 642Szk25TUefiXlwOjcqrg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11805"; a="81368747"
+X-IronPort-AV: E=Sophos;i="6.24,185,1774335600"; 
+   d="scan'208";a="81368747"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Jun 2026 07:22:17 -0700
+X-CSE-ConnectionGUID: 8ZSTO/bGS26arYM1k5ASaQ==
+X-CSE-MsgGUID: fAcrjbxcS4SLmr/wvemA2w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,185,1774335600"; 
+   d="scan'208";a="246075357"
+Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
+  by fmviesa004.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Jun 2026 07:22:17 -0700
+Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Wed, 3 Jun 2026 07:22:16 -0700
+Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37 via Frontend Transport; Wed, 3 Jun 2026 07:22:16 -0700
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (40.93.195.9) by
+ edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Wed, 3 Jun 2026 07:22:16 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=H9VzohPViEb1KoOylG8MQhvZw9g+UJ8pyxgH96lPgYbUaowoBbub20GvLpa7Yq4bcySwzs9r8Ll2k/sHZHkhPqocPcIEet3kHkvbRjK97sbZzp2TbjB0z3CvbBPLv7IH3/yosQjceFM+gcGLdhxbimwdtMtskFYb5o+hjvcuMlgyNNcb5hvHFCV8Q0D3HQh5NrcUEa+QdcmpcIFJ53b0o9KSAu3M700JNElicOXknbT1CYuzPL9heiVWL8kd6/ncPETH1hYBI8cVA2qd5RJQG8s56pmLF5CqUO0NXg92vZzlFDABRB0OZuwiGhIDqSgLJFw1y3F5FPbrSDViVBJdCA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=IbQ4fR7nUlVJR++260nE77cZqFq2XYELeXGWwEDXXWQ=;
+ b=TEmjqahrNl3hw0p5FvJBa8Lb53PbC1TG8Uue2Jd62mUi8VXnF3wNUf2ldzkDgAxGPkX3kNryAwGmQg7UPv0RGwGtMLoCEUEkvvgwuTfgTxZGDGg9WuRCdnBCOXbR0vsfHUJY3gp9FLUSszZJOetMealz6vt7Y3Uu3jpvGN71Auvff6fBPAtY+jwvtsi6LCR5fzadXw+7aOdd42CbCol0c7cd7JKUgheVlistC5n9gPff2u/Emlxvn26XDAxUpvTfMiR4MnBr8wfzB/IjOJvQH9RN1VUE8IELkJrteMdzMAZKBkpJhIlpSvVgitXneHfy1RjPXKpmemo8XpSJRdWsHQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from DS0PR11MB8718.namprd11.prod.outlook.com (2603:10b6:8:1b9::20)
+ by CY8PR11MB7244.namprd11.prod.outlook.com (2603:10b6:930:97::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.7; Wed, 3 Jun 2026
+ 14:22:14 +0000
+Received: from DS0PR11MB8718.namprd11.prod.outlook.com
+ ([fe80::6aa:411d:4bfa:619c]) by DS0PR11MB8718.namprd11.prod.outlook.com
+ ([fe80::6aa:411d:4bfa:619c%4]) with mapi id 15.21.0092.006; Wed, 3 Jun 2026
+ 14:22:14 +0000
+Message-ID: <c4aaea87-b84b-4877-81b6-fcc71e203d41@intel.com>
+Date: Wed, 3 Jun 2026 16:22:07 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v2] rtase: Reset TX subqueue when clearing TX ring
+To: Justin Lai <justinlai0215@realtek.com>
+CC: "kuba@kernel.org" <kuba@kernel.org>, "davem@davemloft.net"
+	<davem@davemloft.net>, "edumazet@google.com" <edumazet@google.com>,
+	"pabeni@redhat.com" <pabeni@redhat.com>, "andrew+netdev@lunn.ch"
+	<andrew+netdev@lunn.ch>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "netdev@vger.kernel.org"
+	<netdev@vger.kernel.org>, "stable@vger.kernel.org" <stable@vger.kernel.org>,
+	"horms@kernel.org" <horms@kernel.org>, Ping-Ke Shih <pkshih@realtek.com>,
+	Larry Chiu <larry.chiu@realtek.com>
+References: <20260602114659.12335-1-justinlai0215@realtek.com>
+ <29f4493e45cb43aebbfb2dc6b93eb4c0@realtek.com>
+Content-Language: en-US
+From: Alexander Lobakin <aleksander.lobakin@intel.com>
+In-Reply-To: <29f4493e45cb43aebbfb2dc6b93eb4c0@realtek.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: VI1PR09CA0178.eurprd09.prod.outlook.com
+ (2603:10a6:800:120::32) To DS0PR11MB8718.namprd11.prod.outlook.com
+ (2603:10b6:8:1b9::20)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Authority-Analysis: v=2.4 cv=Zt3d7d7G c=1 sm=1 tr=0 ts=6a203718 cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=FelO9ux0wxsA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=V8glGbnc2Ofi9Qvn3v5h:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
- a=9nGdcix9NZkGgJ1vRr8A:9
-X-Proofpoint-GUID: KByeJRv7OplG_laWcGHPeUMbQA1popcP
-X-Proofpoint-ORIG-GUID: 32BC2DOvRklg3hef9YvCfmhZHLxjtdYO
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjAzMDEzNiBTYWx0ZWRfX9/ReuZZWpXFM
- pRk589GcemCfXWOuYftpujfWFrw/PUy1ShP6BBfPoH7rLnW9Shzp6yZuzXR2Dmm8p6U9Iu5e3RO
- cQlhYB98XQgjnmBxHWcsaK1sY1RybOQmLyDHOiZCjnfia72EvPG0dHv9A/pFFj3N5bxNQsLCltS
- T8A6AlnTbg4EycAdSY5o2IWqswfBjUmVTAWywq9VTPoU2qTOsSwiV5hqCbp0ngazYyqWtObmDVg
- K8FnPLqbLnBEZHBXdsBbf4huht16pmdznyqXV6EbyyS0qozlg5INKmUNZERh4VqZPMQ3K6zUsD/
- UMvxxbnQN+4F0uP4RIy+8ekXx1kKkVev7DOLogMfRWGntqu7YYB4bnQ0W26YqXsmKbF5yhmPzt3
- WlNnQN1C++IsBcbMZr8yTNyovJ2jkKRno13uJLQMrqf0aR7tWetztr3NcqX8xJfSsiEZ+fWeucK
- DuA7vbMNXt7lwPqRrlA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-03_04,2026-05-28_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 suspectscore=0 priorityscore=1501 bulkscore=0 clxscore=1015
- phishscore=0 spamscore=0 malwarescore=0 adultscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606030136
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR11MB8718:EE_|CY8PR11MB7244:EE_
+X-MS-Office365-Filtering-Correlation-Id: 29279aea-9488-496a-e0aa-08dec17b8187
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|7416014|376014|1800799024|18002099003|22082099003|56012099006|4143699003|11063799006;
+X-Microsoft-Antispam-Message-Info: 20nwNuV4Ie34DJthKAzT88yNEiy4B1pIEWTvNVnQ73NfdHmVcsGuZZGvAb0EaLNDybWjwzYMPUQR0WnkUlr/CwfDGSYvE5tC7WeK32bd+paHrkkYYCi/biNvar7OFNMYdRbaTAtunt1WG1wekVYjDFAO8LUB1Dp/3AyUM7cQKaIsl2jTl57XKRy1up/iMiShvUiwGr/Zc2PdIrp0LzPTRSbfMyjsO0+yVgTtXRcdNJkSzQBDv/rDNnSCN20EJVPUeodjC0P/3YRECDFHbnBCjn41grO6p2mhkkSJ0/i4vz+5t6xHHY6Kn+m6vi4Dk9B6E0UXTpXwBL+GNC6iGKWNfak62N9pVEGhEHdDWWxYU6sRiSTmNIzhnTwSbEk+OxBk3G+DQfF5ntW1/3PEydwC6lVd3zN70V1nJxen9OTBWkJy//Wz3KYa99Z+2iASgSoCVaYKZ1/U7/ggCni/qdJ6XX5Dsir+jw/bWrxlyZAsNrKduhGdODZ9PpIai4nA5pZAj1BUCF8cWJydrJfpL7vsc+q1fMjZ57Qk8OfKVNGBqYzLFvmwYPEF/M3Cokm4GNirfQC1LbxfWTkk72M/u2d5pa7SKVxpDIWgL9ZtyqjB4zMtSiFPHq0ZHFuo5KslYmJjIAR+EgIkxAFxFNyHRvjtjkhU0HsrJYO03rBlBKtsgMTMEeTHkYGX4mF0MyyVpJqe
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR11MB8718.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(376014)(1800799024)(18002099003)(22082099003)(56012099006)(4143699003)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?c2d3RDl4VENjeU9RL3JFMFJCVlRnL0RyUTdHL2NmWDc1Tm1UaVNyc252dVVD?=
+ =?utf-8?B?MTFJZXM5YnU5NytNeHY3STdKaXlNaG5vSk0yM0dqa2NsU1pqQS9ocnBWZGUr?=
+ =?utf-8?B?Q3NtL0VpNkhiUDJZZmNBaHFKNDdOdS9NbVlmNjBKemlTczZOWERZdk4zNmJL?=
+ =?utf-8?B?QUdxQmxtQ25QWjI1U3N3cFhpeEJnVWZPQ213TFlpaW1lSWVuY2RFRW55aWJG?=
+ =?utf-8?B?aTd6R0RyU1lYMS80YnhabC9KaHRUcS9vekFjZncvUlkrZVdqb1ZxYnNoMUM4?=
+ =?utf-8?B?aUx5VFpFYjkydjF6c3VjZGRMa2EwTFFWdGh4Y0x2M3pjWVBtMU1LaU1mcFYr?=
+ =?utf-8?B?cnhydGk1T290bU1WeG1VcVN6VThHVGpJWUFoajAwdW1Ya2dhTExvTEVOTi9Q?=
+ =?utf-8?B?R3cvTlJ1TkxxbHJRcFByblRGamlzbDI2V094dmw2ZHYzRDlkTGtmaEthTUc4?=
+ =?utf-8?B?cUJhOWlobTZBVyt1bFdEcUhqU2RmWjdDOC9KNFgvdjVBYlBwb1lYMWJHOUZl?=
+ =?utf-8?B?ekNIQW13dUsvUUE4TU9NODhVUE5mRk5oRFlxZFd2N0VWZGM1ZDRFSFA5RTM1?=
+ =?utf-8?B?Y3FHcVJ4MTU2SWQvNHY4ZU5xT3lNaWxYTm11WkkyS3d1L0g0OFZVVkFnOFJq?=
+ =?utf-8?B?bi9DS1grempFM0w1dVhaV3VPVW5TTEQ4UmhRNGtRbG1GUkVRcHp6NW95T0Vw?=
+ =?utf-8?B?QlNEcnYxeE1CblZYQ0ZZV0RrYmNIRFNHTXJ3eWd5MkdpcWNHWWcxa2lTb3U4?=
+ =?utf-8?B?L0RadUJTRU04K2VHcXYyRUIwOTVQZ1JLTFlGaERzU0o1NHVLSXlhdC9zVE5R?=
+ =?utf-8?B?clZjQS9UOVJYbkNmeEQ0cUhyWVNDcmlydTZjcy9oaldNMkpjUWxqYUh0cFY2?=
+ =?utf-8?B?VnZLQ1ZHenVxbTROcXI2ZVE2YjgwTk43TC9rYmpvbTU3dTJySHhJTDVzc2w3?=
+ =?utf-8?B?UFo4VjdEL3daRXZzZzBnUzZpUzhvZnRMYi9ScWVaYXROOS9keWxEZzRLOE1y?=
+ =?utf-8?B?YWVxV1FiMzd0ZXdlTWxPNlVNVWNKZG54MkdRSUwwbU1KTnc1L0VtNW81R3lQ?=
+ =?utf-8?B?RVNZYmdEaWNoV1BjeHE0SVN5OURFV1lqK2gybzlpckRxd2pxaGR0Q3hzWmVx?=
+ =?utf-8?B?TXljUU96a3JaMzFzdDZodUxiSWpQb0liRHBHUVpHaTdnNmlZSXFSRUY1cndB?=
+ =?utf-8?B?cXU2R0pINGdYMU9YNjZ1Uk1VaEsyY24yQUNHOUFFVjhsMllYc0RlRW5KSlFy?=
+ =?utf-8?B?SlVudUJmbi9jTkw0WkQ0Z05kY2pNNVRNQVdndThjWjdjU1QzWEhzUUp6RHlE?=
+ =?utf-8?B?TDFYemdUVWtNYUVnVlpMeUVCekFJWk9SaUExZ0VkZklsdHZlUC9tUlJyZjFi?=
+ =?utf-8?B?SGNaSy9vL1RHT3F5UUZMNXNqY2ZVTGRNNHl5d2ZLWVZMQUovTkdYUDA5cC82?=
+ =?utf-8?B?b2ZrcHp5TUtDYlkra1FoVk4rQTBTM3RNaThtQ0s2akxOMDhUMTNZZFVFZFdU?=
+ =?utf-8?B?NlRlQ1NMWEpOcWdOWmg5bFN1Q01rREdLTk5EZnJHTkVGRFdWQUpiaStiYkVF?=
+ =?utf-8?B?V3ovSlZ5U01QUUQ4MHF5Z2lyUHRBaXZFcDZHaFBGWHlJNmVkZDZ6OHN4N2dl?=
+ =?utf-8?B?dXMwZWt3VmZkY091RWdyTk44cnhycjVGMHRTZldYZGVFaHNqVGNNU0tRNjRO?=
+ =?utf-8?B?YmVVdnU1K05QemgzcnBPZEFKdmZVeXp5VDNjeWFNTG5LQUxKb2lreUN1OGMw?=
+ =?utf-8?B?L2UwYmdQTjFaa242Q0Z4clNBeU8zNkthZ0hMTlZZOGVlL0o4T3BvT3dJNXlZ?=
+ =?utf-8?B?N2Y1VzVQNUlIcGNEa0grT1VmVHpyV3hnaklwWm1qb0tQRCs0bUdLTm14MmJC?=
+ =?utf-8?B?Vm5xMnBKS0k4RUNNK2dScnpEL3N1VGM3cXN0RHpOVUxrOEJFMG5EN0V4SUwr?=
+ =?utf-8?B?V0RWQk5WS1N4eW82bU5sZVhjZWtFVmZCMUhLOUM5Rk5Wb2gxcTEzcGNSbk41?=
+ =?utf-8?B?aEpZalB3bURZUTZHanFqY2pVemQydG9vK215QmlCT2RzenFzdi9IS0doT2FR?=
+ =?utf-8?B?ZGNaMTRoVU01ODdrVXdSc1FUdTJKRXVMZWdyVkwzYSs2L09sakZhTVhvLzNG?=
+ =?utf-8?B?NzRIbGtNYWJlR0RmQ0kxS0ZSRXgvM3Q3WE9SRlVUb3FySW4zZ3RlTVNXMDdj?=
+ =?utf-8?B?MmRoczJPcjVjakM3clBOT0xnWWV4Y1VTRzNPRmo3RklqalI4M0JiNVhCSjY0?=
+ =?utf-8?B?SXM3dzlESWdWMlZlMFUwM3NlYmZyUi9nZ2M0QlppeklGNVhnWFJ1NWlIT29o?=
+ =?utf-8?B?WG9MRGFuUktUcHAzNzBsTk1XYTRCZE14dS94RElwYnVIb2U4ZmFka2tsWkt4?=
+ =?utf-8?Q?tBd36gKJKG6MdJ7g=3D?=
+X-Exchange-RoutingPolicyChecked: ak2h6ht4o7KymiBQgI/NT7IafeKcOIMG0hWGqTP708ouMMzCpTgbLfRU7AZTMVPsXcjVud9cggUu/0SP18KMp8tWRQYNGvvUNxRNHqAU+3xWUIb3Kjx6eUCWpkZ6TKKlCG/KnovCWjacSTw/HlUoukn9WYpNORb2ES6xds1701d56l5irskqXcGT3cHXM8YQc0xafuVWJY/O/1BhXN/qh6JLJ/NL5b3+SaQS7wTvKdEgmCJSWECMepS87U42sY95gjxZzNh67DydEbV/TpuxNFK7KK3jVEYGKS+U1c7a4tmFSFOV0V4CKPCPD/hXhm6DmeUEoFVtEG4/bRtWan9hRg==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 29279aea-9488-496a-e0aa-08dec17b8187
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB8718.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jun 2026 14:22:13.4917
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: VHVYkd8Vo0ztVttSyNGzBl2XeIx0n0K7PNE5BjZnYY57MEXuc0lGKzRXTG799ZV3pJ7ORSle5Yk8sSzt5znPfb5uPcmS+MLlUKf3xMTudu8=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR11MB7244
+X-OriginatorOrg: intel.com
 
-On IBM POWER systems, newer processor generations can operate in
-compatibility modes corresponding to earlier generations. This becomes
-relevant for nested virtualization, where nested KVM guests may need to
-run with a specific processor compatibility level.
+From: Justin Lai <justinlai0215@realtek.com>
+Date: Wed, 3 Jun 2026 03:21:34 +0000
 
-Currently, when running a nested KVM guest (L2) inside a Power11 pSeries
-logical partition (L1) booted in Power10 compatibility mode, the guest
-fails to boot while setting 'arch_compat'. This happens because the CPU
-class is derived from the hardware PVR (via mfspr()), which reflects the
-physical processor generation (Power11), rather than the effective
-compatibility mode (Power10).
+> Justin Lai <justinlai0215@realtek.com> wrote:
+>>
+>> rtase_tx_clear() clears the TX ring and resets the ring indexes.
+>> However, the TX queue state and BQL accounting are not reset at the same
+>> time.
+>>
+>> This may leave __QUEUE_STATE_STACK_XOFF asserted after rtase_sw_reset(),
+>> preventing new TX packets from being scheduled.
+>>
+>> Reset the TX subqueue when clearing the TX ring so the TX queue state and
+>> BQL accounting are restored together.
+>>
+>> Fixes: 5a2a2f15244c ("rtase: Implement the rtase_down function")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Justin Lai <justinlai0215@realtek.com>
+>> ---
+>> v1 -> v2:
+>> - Target net tree.
+>> - Add Fixes tag.
+>> ---
+>>  drivers/net/ethernet/realtek/rtase/rtase_main.c | 2 ++
+>>  1 file changed, 2 insertions(+)
+>>
+>> diff --git a/drivers/net/ethernet/realtek/rtase/rtase_main.c
+>> b/drivers/net/ethernet/realtek/rtase/rtase_main.c
+>> index ef13109c49cf..6ccbefb5acf2 100644
+>> --- a/drivers/net/ethernet/realtek/rtase/rtase_main.c
+>> +++ b/drivers/net/ethernet/realtek/rtase/rtase_main.c
+>> @@ -239,6 +239,8 @@ static void rtase_tx_clear(struct rtase_private *tp)
+>>  		rtase_tx_clear_range(ring, ring->dirty_idx, RTASE_NUM_DESC);
+>>  		ring->cur_idx = 0;
+>>  		ring->dirty_idx = 0;
+>> +
+>> +		netdev_tx_reset_subqueue(tp->dev, i);
+>>  	}
+>>  }
+>>
+>> --
+>> 2.40.1
+> 
+> Adding Olek, who was accidentally missed from the CC list.
 
-As a result, userspace may request a Power11 arch_compat for the L2
-guest. However, the L1 partition, running in Power10 compatibility, has
-only negotiated support up to Power10 with the Power Hypervisor (L0).
-When H_GUEST_SET_STATE is invoked with a Power11 Logical PVR, the
-hypervisor rejects the request, leading to a late guest boot failure:
 
-  KVM-NESTEDv2: couldn't set guest wide elements
-  [..KVM reg dump..]
+Reviewed-by: Alexander Lobakin <aleksander.lobakin@intel.com>
 
-This situation should be detected earlier. Rejecting unsupported
-'arch_compat' values in 'kvmppc_set_arch_compat()' avoids issuing an
-invalid H_GUEST_SET_STATE hcall and provides a clearer failure mode.
-
-Add a check to reject Power11 'arch_compat' requests when the host is
-running in Power10 compatibility mode, returning -EINVAL early instead
-of deferring the failure to the hypervisor.
-
-Suggested-by: Vaibhav Jain <vaibhav@linux.ibm.com>
-Tested-by: Anushree Mathur <anushree.mathur@linux.ibm.com>
-Cc: <stable@vger.kernel.org> # v6.13+
-Signed-off-by: Amit Machhiwal <amachhiw@linux.ibm.com>
----
-Changelog:
-
-* Moved this patch out of the v3 series [1] as discussed here [2]
-* Addressed below review comments from Ritesh:
-  - Based the PVR validation on cpu features
-  - Fixed hcall name typo
-  - Stable backport
-
-[1] https://lore.kernel.org/all/20260522152744.55251-1-amachhiw@linux.ibm.com/
-[2] https://lore.kernel.org/all/20260522152744.55251-2-amachhiw@linux.ibm.com/
----
- arch/powerpc/kvm/book3s_hv.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
-
-diff --git a/arch/powerpc/kvm/book3s_hv.c b/arch/powerpc/kvm/book3s_hv.c
-index 61dbeea317f3..e16dbb199366 100644
---- a/arch/powerpc/kvm/book3s_hv.c
-+++ b/arch/powerpc/kvm/book3s_hv.c
-@@ -446,7 +446,17 @@ static int kvmppc_set_arch_compat(struct kvm_vcpu *vcpu, u32 arch_compat)
- 			guest_pcr_bit = PCR_ARCH_300;
- 			break;
- 		case PVR_ARCH_31:
-+			guest_pcr_bit = PCR_ARCH_31;
-+			break;
- 		case PVR_ARCH_31_P11:
-+			/*
-+			 * Need to check this for ISA 3.1, as Power10 and
-+			 * Power11 share the same PCR. For any subsequent ISA
-+			 * versions, this will be taken care of by the guest vs
-+			 * host PCR comparison below.
-+			 */
-+			if (!cpu_has_feature(CPU_FTR_P11_PVR))
-+				return -EINVAL;
- 			guest_pcr_bit = PCR_ARCH_31;
- 			break;
- 		default:
-
-base-commit: ba3e43a9e601636f5edb54e259a74f96ca3b8fd8
--- 
-2.50.1 (Apple Git-155)
-
+Thanks,
+Olek
