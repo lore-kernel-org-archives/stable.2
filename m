@@ -1,31 +1,44 @@
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C453410D1B;
-	Wed,  3 Jun 2026 08:15:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B5913A3E78;
+	Wed,  3 Jun 2026 08:15:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780474534; cv=none; b=PORcXZdIZRG1LxM8zO1FuVCKXHYT1Ugg3gQy8PRxv4+55BbU+gRt8Hicw2KLf79HbcR3BSD2vJvaywiTjw9QMDH/RQnGSEKsb8Zf8JvBlvcgmgo7IpiFHp0ywUZtwpdgBGyjbTZSONBfiSP95gc1RWxlcMH6JnWXDkQdL59G2Ps=
+	t=1780474565; cv=none; b=IiyTDltCnKBWzPEkxd0Kc2T93AXmnEiKhYdOM/k2NAcZo4wOijix/MmF/aUvIj6LfEeEa++/3qUpWawu2lZtU6DYhkl3kTSuVvDWMoWiPvuEj6pCxICkiadEOWCTXUevtHyt9u7Svl6HtnOWs+jbFr6lwRgUUo6JUvrSGOjNVA0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780474534; c=relaxed/simple;
-	bh=mHb5HAmB5QuGq3DeLSglVkG4VRqKnwuYkrE+myRcHaU=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Gl2OyUGl7PNgvT5w+cS2y6reaVNCHc3yCjRZauhQlwOEpKrdnaGo8sGoR4GvjQNmJElMYt8UpUNA7lDYOYJ5bN1oSD2qCAzRJ/kUxYxtx5VeW0P6/kJsQgu8nx06hvJxODdNuRSsvZkhg2GNN5rp54zzwEMk2/ejKT9E8NC+Jr4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowABXO+KX4h9qRgB7Ew--.18774S2;
-	Wed, 03 Jun 2026 16:15:19 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: herbert@gondor.apana.org.au,
-	davem@davemloft.net
-Cc: linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] crypto: fix refcount leak in crypto_register_alg()
-Date: Wed,  3 Jun 2026 08:15:09 +0000
-Message-Id: <20260603081509.3716161-1-vulab@iscas.ac.cn>
+	s=arc-20240116; t=1780474565; c=relaxed/simple;
+	bh=RI6YeFlGQAU6vP+RRBx8i7uMtfZLp5nlvHZnFb3vAFc=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=nqGDFYdNvxE2aXYW7hCabCZoZDLzKH7YuQOFrevRYrKrv4HnuDyxIfCBaenG6lVj9807BLPS3jj5ATZHFXUI0CqD7w6JOOZRV8yChQq1agbYBz7gVgt/bFyM3seUaWVqkB6TGuBouknXwuLlW7cRO/0V/DMSDkhi5niZAGAQcPU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=BCTz1VQ1; arc=none smtp.client-ip=117.135.210.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="BCTz1VQ1"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=9w
+	oouAF0An6oG2I77wAgtnEo0aT0iRBw0iUrbijYQKU=; b=BCTz1VQ10iygThUmhr
+	iBoec4z8tor/KhJuEK22qa3krofqBPmUsfwi9YHvFi7wubS+gVQs9TEaS06RKZM0
+	yhqM3GxFTyfvx0e87QKa9ZpKNqGv5ejAO6+wmwvHBdgMntMotilvmvuCG8ss5ZxC
+	P3kbXcU0zNzjH+r8CCdGhqqNU=
+Received: from pek-lpg-core5.wrs.com (unknown [])
+	by gzga-smtp-mtada-g1-0 (Coremail) with SMTP id _____wD3Mm2N4h9qv_h5BA--.18235S2;
+	Wed, 03 Jun 2026 16:15:10 +0800 (CST)
+From: Robert Garcia <rob_garcia@163.com>
+To: stable@vger.kernel.org,
+	Stefan Metzmacher <metze@samba.org>
+Cc: Steve French <stfrench@microsoft.com>,
+	Tom Talpey <tom@talpey.com>,
+	Long Li <longli@microsoft.com>,
+	Namjae Jeon <linkinjeon@kernel.org>,
+	Pavel Shilovsky <pshilov@microsoft.com>,
+	Robert Garcia <rob_garcia@163.com>,
+	linux-cifs@vger.kernel.org,
+	samba-technical@lists.samba.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 5.15.y] smb: client: fix smbdirect_recv_io leak in smbd_negotiate() error path
+Date: Wed,  3 Jun 2026 16:15:09 +0800
+Message-Id: <20260603081509.2027062-1-rob_garcia@163.com>
 X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -34,64 +47,50 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowABXO+KX4h9qRgB7Ew--.18774S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Ww4UZF1ftF4DXFW7Jw1DKFg_yoW8Jw4Dpw
-	4Fk3yqkFZ8Gry8KFWkK3WfJryUGrW3ur13Ar40ka1jy3ZxXwsYq3ySy345JF12kFZ5JF1U
-	JrWvkF13ZF1qyaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUkK14x267AKxVWUJVW8JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
-	6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
-	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
-	I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7v_Jr
-	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v2
-	6r126r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrV
-	AFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCI
-	c40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267
-	AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_
-	Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VUjiL05
-	UUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCREHA2ofveWSBAAAsn
+X-CM-TRANSID:_____wD3Mm2N4h9qv_h5BA--.18235S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7Ar17JFy3Jw4kJr4rtF17Awb_yoW8GF1kpF
+	ZI9wn3Kr409r4xCwsrAF18u3sxWF1vv345ur4UWw4xArWFq345JF4Fya1vga1UKFWrKF4f
+	XanFgrWrG3WjyFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pETa0DUUUUU=
+X-CM-SenderInfo: 5uresw5dufxti6rwjhhfrp/xtbDAQ4+qWof4o6+YwAA3c
 
-When crypto_check_alg() succeeds it sets the algorithm's refcount
-to 1. In crypto_register_alg(), if the algorithm type requires
-duplication (CRYPTO_ALG_DUP_FIRST), the code attempts a kmemdup of
-the algorithm descriptor. If that allocation fails the function
-returns -ENOMEM without calling crypto_alg_put() to release the
-reference obtained by crypto_check_alg(), resulting in a refcount
-leak.
+From: Stefan Metzmacher <metze@samba.org>
 
-Fix this by adding the missing crypto_alg_put() before the early
-return, matching the handling of the other error paths in the
-function.
+[ Upstream commit daac51c7032036a0ca5f1aa419ad1b0471d1c6e0 ]
 
-Cc: stable@vger.kernel.org
-Fixes: f1440a90465b ("crypto: api - Add support for duplicating algorithms before registration")
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+During tests of another unrelated patch I was able to trigger this
+error: Objects remaining on __kmem_cache_shutdown()
+
+Cc: Steve French <smfrench@gmail.com>
+Cc: Tom Talpey <tom@talpey.com>
+Cc: Long Li <longli@microsoft.com>
+Cc: Namjae Jeon <linkinjeon@kernel.org>
+Cc: linux-cifs@vger.kernel.org
+Cc: samba-technical@lists.samba.org
+Fixes: f198186aa9bb ("CIFS: SMBD: Establish SMB Direct connection")
+Signed-off-by: Stefan Metzmacher <metze@samba.org>
+Signed-off-by: Steve French <stfrench@microsoft.com>
+Signed-off-by: Robert Garcia <rob_garcia@163.com>
 ---
-Changes in v2:
-- Clarify the refcount lifecycle.
-- Fix code error.
----
- crypto/algapi.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ fs/cifs/smbdirect.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/crypto/algapi.c b/crypto/algapi.c
-index b0e4b13131c3..260d03b328ec 100644
---- a/crypto/algapi.c
-+++ b/crypto/algapi.c
-@@ -446,9 +446,10 @@ int crypto_register_alg(struct crypto_alg *alg)
- 		u8 *p = (u8 *)alg - algsize;
+diff --git a/fs/cifs/smbdirect.c b/fs/cifs/smbdirect.c
+index 48bd879349fb..c9bda34fd2f5 100644
+--- a/fs/cifs/smbdirect.c
++++ b/fs/cifs/smbdirect.c
+@@ -1084,8 +1084,10 @@ static int smbd_negotiate(struct smbd_connection *info)
+ 	log_rdma_event(INFO, "smbd_post_recv rc=%d iov.addr=%llx iov.length=%x iov.lkey=%x\n",
+ 		       rc, response->sge.addr,
+ 		       response->sge.length, response->sge.lkey);
+-	if (rc)
++	if (rc) {
++		put_receive_buffer(info, response);
+ 		return rc;
++	}
  
- 		p = kmemdup(p, algsize + sizeof(*alg), GFP_KERNEL);
--		if (!p)
-+		if (!p) {
- 			crypto_alg_put(alg);
- 			return -ENOMEM;
-+		}
- 
- 		alg = (void *)(p + algsize);
- 		alg->cra_destroy = crypto_free_alg;
+ 	init_completion(&info->negotiate_completion);
+ 	info->negotiate_done = false;
 -- 
 2.34.1
 
