@@ -1,85 +1,127 @@
-Received: from sipsolutions.net (s3.sipsolutions.net [168.119.38.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E489446AF25;
-	Wed,  3 Jun 2026 12:09:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=168.119.38.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4F1C477E58
+	for <stable@vger.kernel.org>; Wed,  3 Jun 2026 12:09:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780488549; cv=none; b=kVyRjGyttfuKuBiAoekuTE0VqR/sjFBl1kqyeoAGS3eN0bunKwUtT0QccnD5btzVgylLwhjWEczuoMUdGe0pYmHvog/TLwyGZcrB6+i8UJweAbNjiqed6DyH6zEXl335EVJKoUQa5XC1lDrcuTaGW7IIFuV0c0uR4X8g/q4uTgM=
+	t=1780488580; cv=none; b=SUFxytapK/6HjAubWt75T65e6WdEk/OpARn0RUlDBZtUHhpD3as2sriYnKjSnGy7L7Dy28ZPP//zqu3NEd3DG6veAOEiHK59MOUNnSuQbkTMCEBzbXNjQAtqrpewb6ui9ic6mHpMJfGW+dHq+VGuZ4I6Wg++c9Rretu5FW+3mxM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780488549; c=relaxed/simple;
-	bh=TURbif7gWNaDDF3klfoXuexBKsR0D79kAq7JnNnfcwk=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=P06ZQY6Y/uZa4qG+WGzGyiuVxL0v+IcnrWbnZh527yvWSDUt9pUizUSqY3yxf+57MGDRyKq4HknnBWVBi+kwK9c3JAV2GuxcJuQk2UCnGL6jzpETSroSyZwpIhAc5wkEtocZz4kFi1pUxYeJfIKZP0xRcbQxTFvB8pXLfPuHyiQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net; spf=none smtp.mailfrom=sipsolutions.net; dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b=KaDAE/br; arc=none smtp.client-ip=168.119.38.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=sipsolutions.net
+	s=arc-20240116; t=1780488580; c=relaxed/simple;
+	bh=3GWDWLWCMXc+5OOno8Qwns2iSCPZvQEoDk/ip8tJyEA=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=kqTaskGC8tpLanJQeUmHvxHBVguBefqPtI6rSZm4qhd2Y7yiRPCUd0P9uW9JUhJ6GW4FfM0y6gorZfsLNxg/NZWCnti2wM5HElBeaz/3+YICjkBSp5+8fQtGQzr2i3QWdTC9WBAmDtS0gimxXWIvTCPQYqIP0h+iXc95JlJPqME=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Z8zAmw7K; arc=none smtp.client-ip=209.85.214.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b="KaDAE/br"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=sipsolutions.net; s=mail; h=MIME-Version:Content-Transfer-Encoding:
-	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
-	Resent-Cc:Resent-Message-ID; bh=TURbif7gWNaDDF3klfoXuexBKsR0D79kAq7JnNnfcwk=;
-	t=1780488548; x=1781698148; b=KaDAE/brexMWhBvutk1AT2zitW4vSJy3sPeFfVakHEfrnwx
-	Ww0yJe5d3c0N8unG1fAFJcdWkq05pWsYlz99DMcHMuuOrnbeQ7qNjvlj/3QCZiiFDAuu8WjRwpKjC
-	/uNF8/pRGI82EhSOyITScPYEiY9Rgt2UgGmt1OU5LnXQHaRt7GMqqpEQfX4chrpCfhrJoKFnTN2k4
-	8bqn7R6cgSGWU6I4Klt8TKpEbiKNjclYWoohqUj8p/uRaB3eNGDywci0RPtvebE27hdgpVhyz6f/K
-	0iYTn/OM2vEInjoFUY0VmVLoUeKYE8YdBEqqfacPP+KWD8X0jTTe3f9tW1iqKiWg==;
-Received: by sipsolutions.net with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.98.2)
-	(envelope-from <johannes@sipsolutions.net>)
-	id 1wUkPB-0000000H6Yu-076l;
-	Wed, 03 Jun 2026 14:09:05 +0200
-Message-ID: <734be1c57f6739e9bae6f049074a16503734b17c.camel@sipsolutions.net>
-Subject: Re: [PATCH v4] wifi: mac80211: fix monitor mode frame capture for
- real chanctx drivers
-From: Johannes Berg <johannes@sipsolutions.net>
-To: =?ISO-8859-1?Q?=D3scar?= Alfonso =?ISO-8859-1?Q?D=EDaz?=
-	 <oscar.alfonso.diaz@gmail.com>
-Cc: Devin Wittmayer <lucid_duck@justthetip.ca>, 
-	linux-wireless@vger.kernel.org, Felix Fietkau <nbd@nbd.name>, Lorenzo
- Bianconi	 <lorenzo@kernel.org>, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, 	fjhhz1997@gmail.com, Brite
- <brite.airgeddon@gmail.com>
-Date: Wed, 03 Jun 2026 14:09:04 +0200
-In-Reply-To: <CA+bbHrUqv=4y7OUQuaheLuoBjp9hnaxw_8WwFOY0o8J4xm-K0Q@mail.gmail.com> (sfid-20260603_135443_011740_B393183F)
-References: <20260518170147.13885-1-lucid_duck@justthetip.ca>
-	 <20260519235713.49109-1-lucid_duck@justthetip.ca>
-	 <20260519235713.49109-2-lucid_duck@justthetip.ca>
-	 <CA+bbHrUcwtNhatzV+ufa8O3Wrku2_W4-UL=3XMy4-kg9qiOdXw@mail.gmail.com>
-	 <a36b5712dd420da4090bfa8868e78b1b2b90c916.camel@sipsolutions.net>
-	 <CA+bbHrV3fFHWevyDGPtAS=2M2mc+LxP6=xA-5fXaiTKTD=R31g@mail.gmail.com>
-	 <739ba20fa3c88e92bf034d80383015b8bc78ebfe.camel@sipsolutions.net>
-	 <CA+bbHrUqh+nu_eKBMVaPH6Q8YxuKS=S0kON2Zsb+gRZHU=SBPA@mail.gmail.com>
-	 <e73634b3b52d9ebe6c4e339ea5f6c35cb6d433a7.camel@sipsolutions.net>
-	 <CA+bbHrXtEdHEDHDb+8KNaKu=ODvkYwjiEEOtU2HntSRb8-WZ5g@mail.gmail.com>
-	 <CA+bbHrVbDBwmQnDyEa-Mw1yH8vMSEQa0ZP5CyL+8oaT2rpqpOg@mail.gmail.com>
-	 <CA+bbHrUqv=4y7OUQuaheLuoBjp9hnaxw_8WwFOY0o8J4xm-K0Q@mail.gmail.com>
-	 (sfid-20260603_135443_011740_B393183F)
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Z8zAmw7K"
+Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2c0bd02d97eso42847715ad.2
+        for <stable@vger.kernel.org>; Wed, 03 Jun 2026 05:09:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780488578; x=1781093378; darn=vger.kernel.org;
+        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=PtMTRcfS8t3A0zoUtO5rbb4BAKaZHdusERWAc+kj3aw=;
+        b=Z8zAmw7K/cgDJoubb5NhTGVFD5aw/jelvqaW53zradCGDQkpjA4CEt0vD8pbKp6rzw
+         uBA5yT10fZw/IONwFINNRxpTtIZffp+bmTT9EyRDIm9F9Ua8rV32KNewIaW8E8eq1WI8
+         20gzqh+6Gr3r/+tFOw3jfZSrnWJGR4yxPChQtBbxXY57U4FG62p5nMd/XGNwbMQox2IM
+         0enVl5B/alijGhYYfTOhzjct5NJ4IOS7Wh9+Fzb03TwYJYcOQ+ujWZBtozwCojCHRxWC
+         tIsPKapx1LTb3CjH4MLYeoVfmMetEQhzMWVBTlE3NwL6PeiDOkZEuXvP06n8cQKXRspX
+         0NCQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780488578; x=1781093378;
+        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=PtMTRcfS8t3A0zoUtO5rbb4BAKaZHdusERWAc+kj3aw=;
+        b=PAJ9YA206w7LFc2fXVK5BgEJTiU2ciLfGvdJ+SMMoY/tX9Pr69H3sjqvngTku2YMis
+         xdBeOg7FQiY3xK4e7cBLYw8iIs+GvDfdcd8mPSS8B8vaMX4gOd9TXKLnziQNxHU5i/7d
+         itHCzAAzRiGY5F8Qnz8zh2H7PlJS4JuFJK/rIhAJ1NB3TIvWQvZhWYVjikwyD3AVGkze
+         xuXPXyjqIhSd50gN70BK8UKHTU/o6ZLyZlDKrsMvKx7Oys5WLaAGldXfKQy+r480Zv8Q
+         5a5SYU3BQFnAeAxsvPwYeLs/TVSe6nIQXvYUuDl0OgsHKNMF1ov4dtZtLmbGlOf3W6dX
+         cBRQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+a7bxMhCexbBvqqF/8Fi6aqy0EsW5q9OE4kOKVUmH5oSeuJYfZN5JqKmaiKyOB2Km5+tXrjFU=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz1pGLvblrqrBH4lv4wNo849xuhHG6sE8z2YtzYG1wcCsRWzzPq
+	dtDy/U4ELRvf3zrIKYLgIbx3o0gcaCGtbQ10hGFppMW+pv1pJ2rUBFah
+X-Gm-Gg: Acq92OEiUq6IsNEkLwu3P85p8z04RYocd7gQCOQD8X6ikmA9FmwmK7r4sN2yQ0WVgFt
+	+fL8kIqackXP/oR5UcpzAWSxCEPDiRO1ZOFoNGSMmvTDqzlpQFdIYUWLHtH3IOXHHRHmD0cxlhq
+	XA6FRLo7QcxnOG6zMKEqIAuv8oLmjCSkQTwHMwIX0oZDiYOBn8Obwd1pYMUbQjW5cbv88tnPdgP
+	GhaoBSPloySbl6fkXodB1pmocckbhXIddXfiRu7vhAgg8F/Ovi01e6m+V3i1oaineBMFkJQ9cWd
+	nHgQWphDuwLSYmLNpSH49cSq3CCKK/tUEFgLhCdXtlPK8ckndXdV/59ATdcpe/aUFsl1cUNW0qN
+	xSG9oztlDzdNU1GHrW24laXxCpZ8/rR6SV7S0kAD+BhkIS6/Jek+fjkcfkdjG05Wg7guHfFstpz
+	ogx1OsWQpM1+qh1JsA5D+ezMl9pJlYtY2+PX86B1fuV+bsfxBnhKGtSA==
+X-Received: by 2002:a17:902:da88:b0:2c1:69cb:441a with SMTP id d9443c01a7336-2c169cb4529mr27294735ad.18.1780488577735;
+        Wed, 03 Jun 2026 05:09:37 -0700 (PDT)
+Received: from v4bel ([58.123.110.97])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c16629cfb4sm25082855ad.59.2026.06.03.05.09.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 03 Jun 2026 05:09:37 -0700 (PDT)
+Date: Wed, 3 Jun 2026 21:09:33 +0900
+From: Hyunwoo Kim <imv4bel@gmail.com>
+To: maz@kernel.org, oupton@kernel.org, joey.gouly@arm.com,
+	seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com,
+	catalin.marinas@arm.com, will@kernel.org
+Cc: linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
+	stable@vger.kernel.org, imv4bel@gmail.com
+Subject: [PATCH v2] KVM: arm64: Take the SRCU lock for page table walks in
+ fault injection and AT emulation
+Message-ID: <aiAZfdeyanIvP8SD@v4bel>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-malware-bazaar: not-scanned
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On Wed, 2026-06-03 at 13:54 +0200, =C3=93scar Alfonso D=C3=ADaz wrote:
-> Hi, after my yesterday's email with the tests results. As you can see,
-> all the cases are working but the 5ghz+VIF+DoS. Will this patch be
-> added anyway while looking for a fix for this specific case? if so,
-> from what kernel version will it be available? 7.0 I guess, just to
-> confirm and update airgeddon wiki-docs.
->=20
+walk_s1() and kvm_walk_nested_s2() expect to be called while holding
+kvm->srcu to guard against memslot changes. While this is generally
+the case, __kvm_at_s12() and __kvm_find_s1_desc_level() call into the
+respective walkers without taking kvm->srcu.
 
-Thanks for testing. I really don't want to have stable for this since
-it's known to crash on some versions, so it'll be 7.2.
+Fix by acquiring kvm->srcu prior to the table walk in both instances.
 
-That's assuming I get a new version soon, because this one doesn't build
-cleanly.
+Cc: stable@vger.kernel.org
+Fixes: 50f77dc87f13 ("KVM: arm64: Populate level on S1PTW SEA injection")
+Fixes: be04cebf3e78 ("KVM: arm64: nv: Add emulation of AT S12E{0,1}{R,W}")
+Suggested-by: Oliver Upton <oupton@kernel.org>
+Signed-off-by: Hyunwoo Kim <imv4bel@gmail.com>
+---
+Changes in v2:
+- Wrap only the walker calls with scoped_guard() and move the injection
+  lock into __kvm_find_s1_desc_level(), as suggested by Oliver.
+- Reword the commit message as suggested.
+- v1: https://lore.kernel.org/all/ah7_BAAzHggzdZeI@v4bel/
+---
+ arch/arm64/kvm/at.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-johannes
+diff --git a/arch/arm64/kvm/at.c b/arch/arm64/kvm/at.c
+index 9f8f0ae8e86e..889c2c15d7bd 100644
+--- a/arch/arm64/kvm/at.c
++++ b/arch/arm64/kvm/at.c
+@@ -1569,7 +1569,8 @@ int __kvm_at_s12(struct kvm_vcpu *vcpu, u32 op, u64 vaddr)
+ 	/* Do the stage-2 translation */
+ 	ipa = (par & GENMASK_ULL(47, 12)) | (vaddr & GENMASK_ULL(11, 0));
+ 	out.esr = 0;
+-	ret = kvm_walk_nested_s2(vcpu, ipa, &out);
++	scoped_guard(srcu, &vcpu->kvm->srcu)
++		ret = kvm_walk_nested_s2(vcpu, ipa, &out);
+ 	if (ret < 0)
+ 		return ret;
+ 
+@@ -1665,7 +1666,8 @@ int __kvm_find_s1_desc_level(struct kvm_vcpu *vcpu, u64 va, u64 ipa, int *level)
+ 	}
+ 
+ 	/* Walk the guest's PT, looking for a match along the way */
+-	ret = walk_s1(vcpu, &wi, &wr, va);
++	scoped_guard(srcu, &vcpu->kvm->srcu)
++		ret = walk_s1(vcpu, &wi, &wr, va);
+ 	switch (ret) {
+ 	case -EINTR:
+ 		/* We interrupted the walk on a match, return the level */
+-- 
+2.43.0
+
