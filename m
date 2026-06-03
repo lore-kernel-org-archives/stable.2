@@ -1,87 +1,59 @@
-Received: from mail-lj1-f177.google.com (mail-lj1-f177.google.com [209.85.208.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E5E530FF08
-	for <stable@vger.kernel.org>; Wed,  3 Jun 2026 12:42:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 266E0480977;
+	Wed,  3 Jun 2026 13:04:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780490554; cv=none; b=h+ite0pYzZ/HRsLQkFTl+3MGhfkHT7Q1n40ki+QXQnpKNcWbjKSZ2ywwtmTiduLPwxRF4w3A5FvJKzSNKAYUJRg+718GVbAgEVvVfrdn9zP1OzIjLTkxezC40PAvMlOeLY8D5gp62hLg6T5w7ukaQ4DkSZX8fJC2qjVLCqfwuW4=
+	t=1780491904; cv=none; b=WZWgMR49uYey1xmTP+qGa8ucVpUc2sC3WGu14tSNOVwofiRfrKqjZEkq6fskQlmvPgUV2kQ3YBPHxnEy8kse8Stu9bjsmvo9q23baQoDXWL4bEhhPip5ee2PEC0R+k3CuMtR565BoRWzOljIb6P3t4tgL8y1oPnaO9NNMOkk0vg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780490554; c=relaxed/simple;
-	bh=W45UheOnEo6xoVkJQ1bKfCsHdmCm5iK51xyJNLoBVoQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=tMdk3wo9Uc5ZhokpZVSRqBcDgjaLg7w/FCfVphsC1oLWK6oRlBNCLZWBIrXl8cPCZn+RugpSk/VZ1HKJ+j4dJc6ajDbzBQHiwgkvmvfdp+6Pg5+IGmLjXmxW9M56DwZuBVDS4iR00jYK0Z2v1lWDOunzvu/wHkRCAhvFKq5RIJU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=f63Jgjq1; arc=none smtp.client-ip=209.85.208.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1780491904; c=relaxed/simple;
+	bh=LBErQI6nA7dzL7B8ktri5f3krdyfYiDJTLqjkqR04bY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mzAbzMVWNSVLfFDiTbsVSVmUzFB+CmyAqK9Qv0e1T10/Z6y0wfWt95ipthCni33s2aOMnAbB/U5mqV7gE2Xs/XmXU+obP74Bz4qx2SZTmbEPQLbikvB+gEO1U92Fo0BmUjpI2VODURGt+oYuwfZZWIUiFCuNYlsL1i4foMn/wQc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=h5z94MxS; arc=none smtp.client-ip=117.135.210.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="f63Jgjq1"
-Received: by mail-lj1-f177.google.com with SMTP id 38308e7fff4ca-39677c80386so43005191fa.3
-        for <stable@vger.kernel.org>; Wed, 03 Jun 2026 05:42:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780490551; x=1781095351; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=LDtZiNqgwPDv3Sul4nimrZPm2bZQA1f3gdfMwdog6fo=;
-        b=f63Jgjq1hbiRXPvkB56dsXESilnieQ7md0DtpAgkc1fPyO0cdPaYlm89o3EzH0RGub
-         e6O2W+mgQuPLCjSzFN7rsOh2iQJfYeU31w+FhmQuomXg8J0ZJeiH3PH83QUI+eWOSktm
-         VldorI6NtUm6NYcIAbcpHOAP8QbnNx5+zb7APqpH32gTrcVfs/1pX7b3N672ThWxocbX
-         VvI/TchUhFe9gqhZcCtXM3zNZmZXatF80Iqyi7pXIlNpSwfzTs+JzYs66M8zhntZFyFB
-         gCdFcTh3EOImLfTRKjL0IaLX3eYHPxf5yqegkORgqE74nGMOk53cMdfqtqWuhO0PXZnv
-         PyDA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780490551; x=1781095351;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=LDtZiNqgwPDv3Sul4nimrZPm2bZQA1f3gdfMwdog6fo=;
-        b=l8nexaBtZGj/IoI6ose9fEn11CVoNgW077J+COXi3lLlw3QfqfP7eEmP1U+EsGCCx9
-         WRzby9POAfzqMHagCMfaWpuIz+zQ+hvWhMkGAFDI3Z8HMZVYoBkIYunPlFOReggm55il
-         D22/xyonH3+MPn7EweVRc80ZE/ANfG8/odMIyzKFzfbLD/hH+17GNzoiZiMEMmpN+cO5
-         WVc2k44FleJbh7ffjsiLgrYhJvw8DkYGxMf+xtJoaVlP+JO3UPNH+XFC62Bhv4h3OXAj
-         mHt37Gdy1lHVEvH7HBYVz4hhWpNUvYJR5uZ96y+JgLjhoMwrKv8xiGH0AI1lT4cqzSNd
-         +MAg==
-X-Forwarded-Encrypted: i=1; AFNElJ9IfuZCqt1Du6CcMIrMXn1mHlBT3e6uXcMODRQHP6Z9++zEIu4xAvEUI9ynGrjZk7cI0aPCii8=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzAh5whgG0N9tdKLK8MC4fjtEGRMO3DVtXiCBTSEVq4LjfvhPLp
-	ATC7EG0fzP9PoIwTGPbICjr3OWJ1WbVKvhF7MVgqsepvC/umxxhcJr5z
-X-Gm-Gg: Acq92OF3LyT4XHdg9TGesHctSh/72kztinSVrhu6gI7Cfk16GHbcb4q8yEC+BP7Gvqa
-	K1fCUk6QrPlz3Z4XCKhlbfXscgouBeRT0UFmyB8byiZMtDRX2WcdnJ0kctTWuaZhdTs1n0ujLlF
-	PWgCcn39wDs8eWoOq1S8iEWRsSzbviMy9e/kHhneS5uJ4op3YaaXUFaNYgUGc19piqTh/b7zYMh
-	Sd6DxAAtBA/fMG1y4JbunJhGhhROybkqfi+A/+WrM+KbXcrKjS5AsNcrQfRzxheH+VaIcVYPsif
-	js5B2+XJk8fxsk5eQOLpMcv7qs032zr5a0tJHnrKqqBMjL6YL9KEMZzn7PvJcNXHGrKEI2weD0D
-	iZM10nJrF1tyTZJXowTMGlWL8yi8Yncbl8zB2BYiaj9UVvNoWT+8bLOAg0E3k8vEjHkW/LBCArU
-	HjgHzKdMG7XQPPH+PrhsykrrzNG6Jz/5Wkph3YA2mGyMAFXIE51OCILWzUeR6nN8NEoVVw
-X-Received: by 2002:a05:6512:33c5:b0:5aa:6d0f:1dd3 with SMTP id 2adb3069b0e04-5aa7c0feb53mr1122592e87.20.1780490551272;
-        Wed, 03 Jun 2026 05:42:31 -0700 (PDT)
-Received: from c0624c666cc5.devsec.astralinux.ru ([93.188.205.42])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5aa7b97ac3fsm631197e87.42.2026.06.03.05.42.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 03 Jun 2026 05:42:30 -0700 (PDT)
-From: Vladislav Nikolaev <vlad102nikolaev@gmail.com>
-To: Fedor Pchelkin <pchelkin@ispras.ru>
-Cc: Vladislav Nikolaev <vlad102nikolaev@gmail.com>,
-	stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Zhu Yanjun <zyjzyj2000@gmail.com>,
-	Doug Ledford <dledford@redhat.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Haggai Eran <haggaie@mellanox.com>,
-	Kamal Heib <kamalh@mellanox.com>,
-	Amir Vadai <amirv@mellanox.com>,
-	Moni Shoua <monis@mellanox.com>,
-	Yonatan Cohen <yonatanc@mellanox.com>,
-	Leon Romanovsky <leon@kernel.org>,
-	linux-rdma@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Zhu Yanjun <yanjunz@nvidia.com>,
-	lvc-project@linuxtesting.org
-Subject: Re: [PATCH 5.10/5.15] RDMA/rxe: Fix the error "trying to register non-static key in rxe_cleanup_task"
-Date: Wed,  3 Jun 2026 15:42:24 +0300
-Message-ID: <20260603124226.296-1-vlad102nikolaev@gmail.com>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="h5z94MxS"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=OR
+	mKfkx1an3GTIAvXWkc41xaU079Fl80NRrhqmonOHg=; b=h5z94MxS2/xnJ6CJwL
+	AdhgJShigkFyt3+PEU178oFvo/2QCTGaeVp5OmYzPOi7E6pvcP++uOjla3VQxo+W
+	N7uxeVuPCj/NOgzZyuratxB6AIiBh/q4eCz2t6BJWlYqOvcxnTjWuJt5lp2SAJQl
+	goI/KaFt5bmVe2XpaoWSxqhpM=
+Received: from China-163-team (unknown [])
+	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wBnoqAAJiBqWd71BA--.49866S2;
+	Wed, 03 Jun 2026 21:03:04 +0800 (CST)
+From: Wenshan Lan <jetlan9@163.com>
+To: gregkh@linuxfoundation.org,
+	sashal@kernel.org,
+	stable@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>,
+	Mimi Zohar <zohar@linux.ibm.com>,
+	Alexander Graf <graf@amazon.com>,
+	Ard Biesheuvel <ardb@kernel.org>,
+	Borislav Betkov <bp@alien8.de>,
+	guoweikang <guoweikang.kernel@gmail.com>,
+	Henry Willard <henry.willard@oracle.com>,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Ingo Molnar <mingo@redhat.com>,
+	Jiri Bohac <jbohac@suse.cz>,
+	Joel Granados <joel.granados@kernel.org>,
+	Jonathan McDowell <noodles@fb.com>,
+	Mike Rapoport <rppt@kernel.org>,
+	Paul Webb <paul.x.webb@oracle.com>,
+	Sohil Mehta <sohil.mehta@intel.com>,
+	Sourabh Jain <sourabhjain@linux.ibm.com>,
+	Thomas Gleinxer <tglx@linutronix.de>,
+	Yifei Liu <yifei.l.liu@oracle.com>,
+	Baoquan He <bhe@redhat.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Wenshan Lan <jetlan9@163.com>
+Subject: [PATCH 6.6.y 1/3] ima: verify the previous kernel's IMA buffer lies in addressable RAM
+Date: Wed,  3 Jun 2026 21:02:37 +0800
+Message-ID: <20260603130239.81400-1-jetlan9@163.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260601165404-4e37c4ba7b9a60b739186cc0-pchelkin@ispras>
-References: <20260601165404-4e37c4ba7b9a60b739186cc0-pchelkin@ispras>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -89,15 +61,135 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wBnoqAAJiBqWd71BA--.49866S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxGr1fGw13WF13Ar4fCFy3urg_yoWruFy5pa
+	9agr4rGrn7Jr1xCws7u3WakF98Xw4kWFy5Wa9xurn7CFy3Jr1DXrsYvrnaqF17tFW3KFyf
+	trsIg3WSg34UXaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zi5ku7UUUUU=
+X-CM-SenderInfo: xmhwztjqz6il2tof0z/xtbC7Aou9mogJgpqPwAA3N
 
-On Mon, 1 Jun 2026 at 06:59:11 -0700, Fedor Pchelkin wrote:
-> There is another
->
->     rxe_cleanup_task(&qp->resp.task);
->
-> call at the start of rxe_qp_destroy() in 5.10/5.15 kernels.  Should that
-> be taken into account as well, like in upstream commit?
+From: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
 
-Thanks for the review. Yes, you are right. I have sent v2 which takes
-the responder task cleanup into account by matching the upstream cleanup
-order and adding the missing qp->resp.task.func check.
+[ Upstream commit 10d1c75ed4382a8e79874379caa2ead8952734f9 ]
+
+Patch series "Address page fault in ima_restore_measurement_list()", v3.
+
+When the second-stage kernel is booted via kexec with a limiting command
+line such as "mem=<size>" we observe a pafe fault that happens.
+
+    BUG: unable to handle page fault for address: ffff97793ff47000
+    RIP: ima_restore_measurement_list+0xdc/0x45a
+    #PF: error_code(0x0000)  not-present page
+
+This happens on x86_64 only, as this is already fixed in aarch64 in
+commit: cbf9c4b9617b ("of: check previous kernel's ima-kexec-buffer
+against memory bounds")
+
+
+This patch (of 3):
+
+When the second-stage kernel is booted with a limiting command line (e.g.
+"mem=<size>"), the IMA measurement buffer handed over from the previous
+kernel may fall outside the addressable RAM of the new kernel.  Accessing
+such a buffer can fault during early restore.
+
+Introduce a small generic helper, ima_validate_range(), which verifies
+that a physical [start, end] range for the previous-kernel IMA buffer lies
+within addressable memory:
+	- On x86, use pfn_range_is_mapped().
+	- On OF based architectures, use page_is_ram().
+
+Link: https://lkml.kernel.org/r/20251231061609.907170-1-harshit.m.mogalapalli@oracle.com
+Link: https://lkml.kernel.org/r/20251231061609.907170-2-harshit.m.mogalapalli@oracle.com
+Signed-off-by: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
+Reviewed-by: Mimi Zohar <zohar@linux.ibm.com>
+Cc: Alexander Graf <graf@amazon.com>
+Cc: Ard Biesheuvel <ardb@kernel.org>
+Cc: Borislav Betkov <bp@alien8.de>
+Cc: guoweikang <guoweikang.kernel@gmail.com>
+Cc: Henry Willard <henry.willard@oracle.com>
+Cc: "H. Peter Anvin" <hpa@zytor.com>
+Cc: Ingo Molnar <mingo@redhat.com>
+Cc: Jiri Bohac <jbohac@suse.cz>
+Cc: Joel Granados <joel.granados@kernel.org>
+Cc: Jonathan McDowell <noodles@fb.com>
+Cc: Mike Rapoport <rppt@kernel.org>
+Cc: Paul Webb <paul.x.webb@oracle.com>
+Cc: Sohil Mehta <sohil.mehta@intel.com>
+Cc: Sourabh Jain <sourabhjain@linux.ibm.com>
+Cc: Thomas Gleinxer <tglx@linutronix.de>
+Cc: Yifei Liu <yifei.l.liu@oracle.com>
+Cc: Baoquan He <bhe@redhat.com>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Signed-off-by: Wenshan Lan <jetlan9@163.com>
+---
+ include/linux/ima.h                |  1 +
+ security/integrity/ima/ima_kexec.c | 35 ++++++++++++++++++++++++++++++
+ 2 files changed, 36 insertions(+)
+
+diff --git a/include/linux/ima.h b/include/linux/ima.h
+index 86b57757c7b1..1ae8647576ff 100644
+--- a/include/linux/ima.h
++++ b/include/linux/ima.h
+@@ -145,6 +145,7 @@ static inline int ima_measure_critical_data(const char *event_label,
+ #ifdef CONFIG_HAVE_IMA_KEXEC
+ int __init ima_free_kexec_buffer(void);
+ int __init ima_get_kexec_buffer(void **addr, size_t *size);
++int ima_validate_range(phys_addr_t phys, size_t size);
+ #endif
+ 
+ #ifdef CONFIG_IMA_SECURE_AND_OR_TRUSTED_BOOT
+diff --git a/security/integrity/ima/ima_kexec.c b/security/integrity/ima/ima_kexec.c
+index ad133fe120db..d7c18d8a3103 100644
+--- a/security/integrity/ima/ima_kexec.c
++++ b/security/integrity/ima/ima_kexec.c
+@@ -12,6 +12,8 @@
+ #include <linux/kexec.h>
+ #include <linux/of.h>
+ #include <linux/ima.h>
++#include <linux/mm.h>
++#include <linux/overflow.h>
+ #include "ima.h"
+ 
+ #ifdef CONFIG_IMA_KEXEC
+@@ -164,3 +166,36 @@ void __init ima_load_kexec_buffer(void)
+ 		pr_debug("Error restoring the measurement list: %d\n", rc);
+ 	}
+ }
++
++/*
++ * ima_validate_range - verify a physical buffer lies in addressable RAM
++ * @phys: physical start address of the buffer from previous kernel
++ * @size: size of the buffer
++ *
++ * On success return 0. On failure returns -EINVAL so callers can skip
++ * restoring.
++ */
++int ima_validate_range(phys_addr_t phys, size_t size)
++{
++	unsigned long start_pfn, end_pfn;
++	phys_addr_t end_phys;
++
++	if (check_add_overflow(phys, (phys_addr_t)size - 1, &end_phys))
++		return -EINVAL;
++
++	start_pfn = PHYS_PFN(phys);
++	end_pfn = PHYS_PFN(end_phys);
++
++#ifdef CONFIG_X86
++	if (!pfn_range_is_mapped(start_pfn, end_pfn))
++#else
++	if (!page_is_ram(start_pfn) || !page_is_ram(end_pfn))
++#endif
++	{
++		pr_warn("IMA: previous kernel measurement buffer %pa (size 0x%zx) lies outside available memory\n",
++			&phys, size);
++		return -EINVAL;
++	}
++
++	return 0;
++}
+-- 
+2.43.0
+
