@@ -1,151 +1,151 @@
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012021.outbound.protection.outlook.com [40.107.200.21])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48E4F373C00
-	for <stable@vger.kernel.org>; Wed,  3 Jun 2026 17:58:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.177
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780509492; cv=none; b=Teqy7h2Bg9QJoPQQAbfwqJj9SXrzE022wHSTQZV41M8k4H9mniVW+4BIGTmttolnjo+3q/eME43nS0bnXw9znISMwBVySv3GaeyJEY2tAIpME36L89OgsMywNxW3A8OgBZpLT3hxZL5QG19Fvv5ZufXz9zkEBNBw0kCROwIYCug=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780509492; c=relaxed/simple;
-	bh=8JgR3faeGlRVPEBTlS0J0PeFqUo9krPvX03s9XENbGg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=a4i8z6Vp16yi5WHeQkWd8xQF03wj9JjFvi2TlSZRH8mKJ1fYDF/dchoqM0Q9gYzr/TvrhxGS1HoTOKhmajUYajNBOBkb6lSPRdxykqMA5LZYJFx+VzFeSBHq0bW0DIKov03407cx9mTaiSBDlXCS+UuITlenhD2l1LyZ6X+My7w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=S9WUHN0R; arc=none smtp.client-ip=74.125.82.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12E3237EFF4;
+	Wed,  3 Jun 2026 17:59:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.21
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780509564; cv=fail; b=cUh1lcPlBZAkaUQftSf9D2FbmBZQyk/s7239ln3st0sfMSmtQVswqWj0koq6uOQBp0BFxjLDl+1hUf8y9rptsIZbVz0QZi5zYuPP18EZcym32eV0J3iHF+FLl9AklAXebX4mrwKZIZTe5NH45ZhFrUoC5uJg50bgjtHrzBGFlMA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780509564; c=relaxed/simple;
+	bh=JOOloDcCbjls5QJ3qKrV2lLIC+rpacgKs01Cx/SDxJc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=Cf3ItEaa9BCpBmD6/lax8tm8nwMykEa3gSwyIyCpgGX0jVC/7pAzXkah0Re6aGl2r5ju1Z0XtlSkCVIYG2nhe+vAggT75dGOO4fXoSrCKmRts00y4xA/+a+cT/nqxc5DBonD3g22X5vlhn7ieti9V2EYYHbEKm2vBEvA0DZr7MU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=ZT7Hbzrq; arc=fail smtp.client-ip=40.107.200.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S9WUHN0R"
-Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-304c520fe9aso2945538eec.0
-        for <stable@vger.kernel.org>; Wed, 03 Jun 2026 10:58:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780509488; x=1781114288; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
-         :date:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=KgSUwufu0DBM9d4er96QRPnvOskLS4/KoB1eLfgcG28=;
-        b=S9WUHN0RFlucny6IQUnGH9LQAFL3ejs90uZsfiyWqFipXfxGfbGztuuujtwfVipifO
-         fqn+Z4FGoNPEqLsxpOXb8RoGLChteD0j6H5/MOuDa1+iG5lf6zvtGvRR88cDhjo9m389
-         f3JR/VHVuXZOkBMYNN5rsISvXUzQ/Hc7MvQ7eYT3Z2sGSL83iNY1icOHrAmkBgfX7eUl
-         ID47n4AUQSDBgRJfJ9xQjoJzeotd1CzHvzqlmAg885Vkxrgoc4wE6r9hF53PZ3ioDGxh
-         cfAxzVwHA1tN2HlJTmW3rJP8oYepsoAgYl96UROlTQI/ebfZhmXZqLSHIwLQU1dYQ1XL
-         L63w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780509488; x=1781114288;
-        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
-         :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=KgSUwufu0DBM9d4er96QRPnvOskLS4/KoB1eLfgcG28=;
-        b=YSwn0ILybj3o4adaJ3EKMOdC1/1J97GQ+sdOos5NIxFlnT2KfKIsmiG8fxYZITR7nx
-         uaT+3DLvKRV57SupKbifv1sVgAQF65zHhblGedFN6XWigqD4ntQbgGqakX5ekhQqiRJD
-         OXjPru1SOT6EoYg36i7q2j4Z+AyBpEDfV7NO2T8PAud9zXlHCJxPpugS4yBmVMLN2Pl2
-         /ofx0rh7B2fC9icqKJzSVSGgSg1tyt5o55ydYzggv7C0CpCDeCKZidRrdPBL0I5YEOH/
-         Qpqw8XdtdOpGBzhY9KznUh6lz+BQ9tZfw6UwBz5+tm2/evlFSR7hO0yHt2WnppoRcl40
-         T6Xg==
-X-Forwarded-Encrypted: i=1; AFNElJ/F1X4phkjfVVz+UzJuAGgHf9pUJd0InJgDq0KTc4lrS6xW3+vexY8XquzQJ2GFQmbFKr7wuyI=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzpYF2J5dWPTlAmJtVicK8Y477MCQUjdU1X/dDI8KMRZcMxG19n
-	o8NiVO8OaR+QRfeaExVSU6yMMOmNM1085i1g7AtBuBSHa7+i4xz9G5s/djYfi9ci
-X-Gm-Gg: Acq92OGE2TjnWl4dRxkTwoj0HzHcvui1AvwuVEA6ZLkt8RrOk4hFIbIdHYxC6DrAHAI
-	1s1b1k9fJIVeaRZaQYTA38n1VjhPngNZJbJ7RyYYVtLSuuYWxF8R7qleZsTMxuM05Myg67kbMFm
-	1fo15/bLpScLK9gFUDYcgzD/md69djS6j1+oFxtAquUpjmE8oITZdOI6lTpQwSevbaNgINeoSlO
-	1D/Nw+AWxES6MZ8dzdbjlgo6nVUiDzcQqB4w+BuE4GRMNbDdPTWzkIFcfbiTzOHSqO5XFtoFutJ
-	TvoHXbcxsp9jvlwHMX2eMzkgzyXE3wbNQhtLASOBGDbZYZ2EkYiIw+w1P2sJjZ51ApzLOf5TAlK
-	qBXQNY0wJF/1dq1nFPTsekoOpeHG6rTZz8DlS5Tcqdi5ro9v3Qqg6TZ6NBEi+VaY+w+Z6FTJDm0
-	p2AoOSItorw1x0pEtaCIeoyhahfeTaSOrenxaPB5igjTmxyzC3E2mSwJxiR0F0+7rOWLpp7h+XP
-	59+Y0xBpHjA
-X-Received: by 2002:a05:7300:dc8c:b0:2df:7fe3:96a with SMTP id 5a478bee46e88-3074f843547mr2258920eec.0.1780509488123;
-        Wed, 03 Jun 2026 10:58:08 -0700 (PDT)
-Received: from [192.168.1.18] (177-4-161-23.user3p.v-tal.net.br. [177.4.161.23])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3074db56697sm2956046eec.2.2026.06.03.10.58.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 03 Jun 2026 10:58:07 -0700 (PDT)
-From: =?utf-8?q?C=C3=A1ssio_Gabriel?= <cassiogabrielcontato@gmail.com>
-Date: Wed, 03 Jun 2026 14:57:54 -0300
-Subject: [PATCH] ASoC: SOF: topology: validate vendor array size before
- parsing
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="ZT7Hbzrq"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Wn0A/XP2GQn0+FiYWbrsuYx1FYvhceNOwAVPcJNa3P6PhN2B20a2NV6fpsOZoHgghwgoKY5R2MxvbtzTfvFX4WtmIIYcN+oLTLELgA2UcnIuPxGWWuUIS7oWRtqsV/nMjgH7i7Dv/bVrHZbJa2zMemBq9tbOSGcq5TW6q9JlaiUNkPck6oEloC6iprnmVqgOqit6A8xQsilCLbnqeNJhrRXy7q7vV4rfPhy7O7AwrAHsV7L6Na7cbFpi3JVeiVwaN3VbRjbRDJrh6oee2gUYLFU+8qy7NGDkB1gaTejGHKkZu+qoq+1+FIplVal9vefhiE9h8yH9urnGeoAe6gs+5A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=nHltff4wwti48oc0xuW/KL7h7i5WPzzYroVnEcF2l58=;
+ b=yks2fMLnKcUbgApx1H1P3OdZJ1wU8HjU27YFO9CvRAn2LXc4oBksqtl21GM19tCoQgcvBNiJeVspOJsCvRhL5XPftMdbAUN9qEqbYeDy4Swb/PM5J0KA+OU4BqLwrc6wbvvaB8e3t7xS/7OJY978y/+UDlnWEF0vszBgIM7CJMsH1nv3R66UWEdEBdBKYFnkUrPmzNjkFWHKBbie2POFucOvEM4atpSCddOT41fC2MoiAXhkmEScbUIr4g4Sg2EweZEtgSU6xRCAPupKxqNBLMh/MMmIS/FdMugB6kxC2c7BMwGk+qUtWFQWpiqkd9FO0kr6mMUWW8+hfXC+/BM09A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=nHltff4wwti48oc0xuW/KL7h7i5WPzzYroVnEcF2l58=;
+ b=ZT7HbzrqAUpq1SSHo421gxgyBAvvieJSxttXV+7S6d2g+OumZuzIBziZ+81PiguvZQq5v5/NSe7rUTEYQaNwxc4UVZ8xzbiAy/kcRFZiblIAoUHb/kNusOfl4b+KPsjEygFFI7hP4Tr/VmrkTi6hoiUmfpAH4OA9A++cdZx15zfB6BTMpNpb5ojAtL9/iXxt+oGQY6Qm8vxhFwk8UFIzJXXBOwt8wOwoClkX85HV3SKCFS5kBEgUtRp2tc8x4VgBgKkPl5rRsbwGneyB8SfGNfwE2Xk4iKZGqvJfpVYfnuz4M7X7Rj/luG0zPsqj/Bs+fsn3tsm/iPy9jjJ/nQZM2g==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from LV8PR12MB9620.namprd12.prod.outlook.com (2603:10b6:408:2a1::19)
+ by DS0PR12MB7804.namprd12.prod.outlook.com (2603:10b6:8:142::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.7; Wed, 3 Jun 2026
+ 17:59:17 +0000
+Received: from LV8PR12MB9620.namprd12.prod.outlook.com
+ ([fe80::299d:f5e0:3550:1528]) by LV8PR12MB9620.namprd12.prod.outlook.com
+ ([fe80::299d:f5e0:3550:1528%4]) with mapi id 15.21.0092.006; Wed, 3 Jun 2026
+ 17:59:17 +0000
+Date: Wed, 3 Jun 2026 14:59:16 -0300
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: Yishai Hadas <yishaih@nvidia.com>
+Cc: leonro@nvidia.com, linux-rdma@vger.kernel.org, maorg@nvidia.com,
+	error27@gmail.com, stable@vger.kernel.org
+Subject: Re: [PATCH] RDMA/core: Validate cpu_id against nr_cpu_ids in DMAH
+ alloc
+Message-ID: <20260603175916.GA1558131@nvidia.com>
+References: <20260525142136.28165-1-yishaih@nvidia.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260525142136.28165-1-yishaih@nvidia.com>
+X-ClientProxiedBy: BLAPR03CA0050.namprd03.prod.outlook.com
+ (2603:10b6:208:32d::25) To LV8PR12MB9620.namprd12.prod.outlook.com
+ (2603:10b6:408:2a1::19)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260603-sof-topology-array-size-signed-v1-1-84f97879a4ef@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXNQQ6CMBCF4auQWTtJgcjCqxgX03aoY0xLZpCIh
- LtTdfOSb/O/DYxV2ODSbKC8iEnJFe2pgXCnnBglVkPnusGde4dWRpzLVJ4lrUiqtKLJh+ukzBH
- dQD5S8G2IAWpkUh7l/Tu43v62l39wmL9V2PcD3NazP4IAAAA=
-X-Change-ID: 20260530-sof-topology-array-size-signed-06abdacb1cdc
-To: Liam Girdwood <lgirdwood@gmail.com>, 
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, 
- Bard Liao <yung-chuan.liao@linux.intel.com>, 
- Daniel Baluta <daniel.baluta@nxp.com>, 
- Kai Vehmanen <kai.vehmanen@linux.intel.com>, 
- Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>, 
- Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.com>, 
- Jaroslav Kysela <perex@perex.cz>
-Cc: sound-open-firmware@alsa-project.org, linux-sound@vger.kernel.org, 
- linux-kernel@vger.kernel.org, notify@kernel.org, stable@vger.kernel.org, 
- =?utf-8?q?C=C3=A1ssio_Gabriel?= <cassiogabrielcontato@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2158;
- i=cassiogabrielcontato@gmail.com; h=from:subject:message-id;
- bh=8JgR3faeGlRVPEBTlS0J0PeFqUo9krPvX03s9XENbGg=;
- b=owGbwMvMwCV2IdZeKur/u2bG02pJDFkK2eqvr9u/OWZ8JK0wRPrenwvXg6cL833m9A+9dPrQ1
- DXnOVv+dZSyMIhxMciKKbKsTlpkuafrwdX6uBUeMHNYmUCGMHBxCsBEDLczMhyY/SXmeYvo/K3Z
- flenOqTr8HNN2f2iX3LJsSkLO4Wui6cz/JX96a2lbq2tcHO7393dR04EyOqaey6SNt627k77PjP
- 7F5wA
-X-Developer-Key: i=cassiogabrielcontato@gmail.com; a=openpgp;
- fpr=AB62A239BC8AE0D57F5EA848D05D3F1A5AFFEE83
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LV8PR12MB9620:EE_|DS0PR12MB7804:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0f81f660-0ee3-4ac7-2e72-08dec199d47a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|376014|1800799024|18002099003|22082099003|56012099006|11063799006|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	kfpIh41KdguSt0fo+l+xt8iANFfUjbfyBBBFju2gqc91/iMYS2BKgyxMEUv55cbP/yG96/cIiNCRPCZobKZ0M5k1jj68J2nMyhzBLQmrxxeimAZZuxrIlT4VymzWKuP8Y0HaRfFOlTrOzWByYSdfk33z9npKO9pxJWz0HxsbfJpxZDokdWEfAw7W+Cx1KA6ZhHaBqpMO0JlM4esWFfR8E7ZgOfnwDttOoqMOZFPPypSWtivvHIjoJ2hIwq5f2DRqBEjca5WlLiLM5uDhwvh3fkgRQu+kvOT71HFJHGrpxfDAmwba98E7ffrB+qIFx4qJyFwiCL5uEQJkZoPoR8R8QeALaq/q/srgAjmnfnCjvnDL4okX5P7jEi+cP4kMLbiPDPBYacDE7KWybFRsLRIm1UkJkgJBha4R46Q/UDVlwUAV1CsParKmKi7BE8uZwP+Wyp77+fpzH+xOwO/44B4i5bFmYdvYw9I6J9AwVKFAEZWyR6Pxdyt2NTAIH8qWqQLgQILc0R+nJpXiQW6vzftD+9DN4ZR6v+3zon/ODmTPp8KeRTLxy6BEXMEmZ/l3nbr9gDJO10GNwQcDlSQUerDyAB3jPhPTft0HXAZJgM4ozkpePCmk0fYUyFYNhV/iIAT14v9XnBbMUo1ImuPvJQ5CsGiCLFM7zJN0CY0Ckh+hRzsh3+G3d/mn9ob1rYQ+/y/wISvhT62rEELmYg/qbDvM2Q==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV8PR12MB9620.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(18002099003)(22082099003)(56012099006)(11063799006)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?CJ2JuRJhfTYjRbnvOQFeMCKleu2xaIQ4tiA8f2hk3bWZiGJioeR8I3devPJg?=
+ =?us-ascii?Q?kmkMKFN/nfb2moygv0xSnwgA97xASsgktMcavBiVTwFHODwFA0BDeCBiGSwC?=
+ =?us-ascii?Q?l02Hv3lR0XZ1bjxbhlpcW/8SYsabd3CNVHJNQIjYUZqk0kXhiAQn/80hs6o3?=
+ =?us-ascii?Q?qjUNozG9uqDm85ylQ4esuhUKEnrLobd2xHgSh2vpohJ2Y5H5krzHR53eG2Y8?=
+ =?us-ascii?Q?gofGesUjOjiMonNSy6015MwfwKsCDyNna+6UhbFCCsbANTkVUeBiRhG400IS?=
+ =?us-ascii?Q?MT+OafNW+sj0TdbvWp3NK1gC5sDKv8imgOSh4K/MsM8EkyCx1vBGnjq8XZul?=
+ =?us-ascii?Q?LhaxcJ+I7n3Df1DFZ22P4dUA4JLO5SCBAmAeg2JIaIpp0bHUIWa2bWEHKx3V?=
+ =?us-ascii?Q?pECn2p8SKr7xPZn80KlchylRdcRhsYZU4noYvh/tbp4zi05HiKMc6BZavecf?=
+ =?us-ascii?Q?P8ihLQ0qvRUwP4aOcEEg875B+P1CxvXlclgALzGjoZgw5Vt93lXXh7fl1GHn?=
+ =?us-ascii?Q?ImVT5axhcNCA1spZ1BbCh8eq4W7enMuYHlmQzWZi8LiGHkEWI93+kiXUQ85V?=
+ =?us-ascii?Q?zl1NVFx1hUE11nI6iBADqLejlpTPK7aO+NsTfefa05UlrWfMKLdCyzWcNxhQ?=
+ =?us-ascii?Q?lWc/7AzNJuggT+2b+8myaZlnQSLn0OAF5m5qE7EJyQRKOm0PLJroewtT4Dn5?=
+ =?us-ascii?Q?Run4gseauCGd2Ok75rp4igQ/MUnZxfQmLAV30GxxTBX7SXzdGUj1mAe2q771?=
+ =?us-ascii?Q?Dpw8jA79SlqyFungdPBab57//a2nN6zfEVjP242h+1OKn/dQCp/o9HMq0a2F?=
+ =?us-ascii?Q?g5CR7cPuEG3szz5aeHk3lT069rI/HJWluUMZZDdEaiMmJQa/CjTvdpyUN7D4?=
+ =?us-ascii?Q?g2sJeTbEj6sJWnB5xNHvoMMwzz6fExwRXpG8LRt1nbhP24xjalSwejYPvEZV?=
+ =?us-ascii?Q?BR03oR8ipQbMjPFOZIZ/w8m+SPviKBLz6CJ4BxOJCVPA0H+l42jqyOkWTi7m?=
+ =?us-ascii?Q?4E2ku7oS5BUl8DRl7WTmI8s+9w6wGjclu9SlloTjp6yiMn5l+ciRPlyiIFvt?=
+ =?us-ascii?Q?PPWGo8RBf7o7P+cNz8/V2TchmOTjBRY0DysCOkhBFe6pDyNw9odZMlr+Ub3N?=
+ =?us-ascii?Q?JLE3KJ/JbgkU6pt3vPAKxD441wf0DnEwFLyWaVobgsUGvVPZxergU+Hkq8en?=
+ =?us-ascii?Q?EVL8AIoX384nGAkeOopmQc8UOow4J8TPge/KjyF+AhFOTK8BZJeEZr0ap9YS?=
+ =?us-ascii?Q?PzE2Kqd46yFoC9skO7jTEZYWhwRqV83dVdEwriZwamXZaRVjlC9Cp3P3l4gp?=
+ =?us-ascii?Q?h63xJCzL2jqu0SraoJlv4Xnzt3FeUyQP8hM1NC5HPeycLMWXYlGvjAhSDFRb?=
+ =?us-ascii?Q?OO/88+gS8pSixUnmy985xod3H8xIxOp1psVRPs8dQ1gBaPqFVefqUbV/iYAR?=
+ =?us-ascii?Q?KNsrp71MpbTBl4xc35OBK4GW5hJFXIMBbxFHMhDegiJQSv259HeI2dCaEelH?=
+ =?us-ascii?Q?+tb2oN9/UVKDBMAjfrb9ROr1UNctS1ALfpcmn+NQfOrj8TZi3cJA5dr04e89?=
+ =?us-ascii?Q?by01pymbC/z+q/VJmNuP3D+SDjE6SKwVQ8Y4rqwyvIAxtBNpJQukQFX1QG1a?=
+ =?us-ascii?Q?HEuQMKqDwwzA16O5WD56/iRz5ExpekjZ2EjClKtMSeB9VKy8hmhUbnpUbLbD?=
+ =?us-ascii?Q?f581srvucmx/I0RsoCGTIWlIjQz6oOman7Dgtn9BDreV9CTD?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0f81f660-0ee3-4ac7-2e72-08dec199d47a
+X-MS-Exchange-CrossTenant-AuthSource: LV8PR12MB9620.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jun 2026 17:59:17.4367
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 7rs5zUAIQWZVht2dA48fas9jZnkR92/mBcQUsTaZgjA6pW/NzKAovpij0ryXV9j/
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7804
 
-sof_parse_token_sets() reads array->size while iterating over topology
-private data. The loop condition only checks that some data remains, so a
-malformed topology with a truncated trailing vendor array can make the
-parser read the size field before a full vendor-array header is available.
+On Mon, May 25, 2026 at 05:21:36PM +0300, Yishai Hadas wrote:
+> The cpu_id attribute supplied by user space through
+> UVERBS_ATTR_ALLOC_DMAH_CPU_ID is passed directly to cpumask_test_cpu()
+> without first verifying that the value is within the valid CPU range.
+> 
+> Passing such untrusted data to cpumask_test_cpu() may lead to an
+> out-of-bounds read of the underlying cpumask bitmap: the helper expands
+> to a test_bit() that indexes the bitmap by cpu_id / BITS_PER_LONG with
+> no bound check.
+> 
+> In addition, on kernels built with CONFIG_DEBUG_PER_CPU_MAPS it trips
+> the WARN_ON_ONCE() in cpumask_check(); combined with panic_on_warn this
+> turns a bad user input into a machine reboot.
+> 
+> Reject any cpu_id that is not smaller than nr_cpu_ids with -EINVAL
+> before it is used.
+> 
+> Reported by Smatch.
+> 
+> Fixes: d83edab562a4 ("RDMA/core: Introduce a DMAH object and its alloc/free APIs")
+> Cc: stable@vger.kernel.org
+> Reported-by: Dan Carpenter <error27@gmail.com>
+> Closes: https://lore.kernel.org/r/ag68qoAW3P04J7pT@stanley.mountain/
+> Signed-off-by: Yishai Hadas <yishaih@nvidia.com>
+> ---
+>  drivers/infiniband/core/uverbs_std_types_dmah.c | 5 +++++
+>  1 file changed, 5 insertions(+)
 
-Validate that the remaining private data contains a complete
-snd_soc_tplg_vendor_array header before reading array->size.
+Applied to for-rc
 
-The declared array size check also needs to remain signed. asize is an int,
-but sizeof(*array) has type size_t, so comparing them directly promotes
-negative asize values to unsigned and lets them pass the check,
-as reported in the stable review thread reference below.
-
-Cast sizeof(*array) to int when validating the declared array size. This
-rejects negative, zero and otherwise too-small sizes before the parser
-dispatches to the tuple-specific code.
-
-Link: https://lore.kernel.org/stable/CANiDSCsjR5NHqu_Ui5cOqWdJgFqmYsQ9WR8O7m0WOhngaYXFpw@mail.gmail.com/t/#m9b3be379221e79327cc13fd71009287368ef4f23
-Fixes: 215e5fe75881 ("ASoC: SOF: topology: reject invalid vendor array size in token parser")
-Cc: stable@vger.kernel.org
-Signed-off-by: Cássio Gabriel <cassiogabrielcontato@gmail.com>
----
- sound/soc/sof/topology.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
-
-diff --git a/sound/soc/sof/topology.c b/sound/soc/sof/topology.c
-index 8fc7726aec29..bb6b981e55d1 100644
---- a/sound/soc/sof/topology.c
-+++ b/sound/soc/sof/topology.c
-@@ -740,10 +740,13 @@ static int sof_parse_token_sets(struct snd_soc_component *scomp,
- 	int ret;
- 
- 	while (array_size > 0 && total < count * token_instance_num) {
-+		if (array_size < (int)sizeof(*array))
-+			return -EINVAL;
-+
- 		asize = le32_to_cpu(array->size);
- 
- 		/* validate asize */
--		if (asize < sizeof(*array)) {
-+		if (asize < (int)sizeof(*array)) {
- 			dev_err(scomp->dev, "error: invalid array size 0x%x\n",
- 				asize);
- 			return -EINVAL;
-
----
-base-commit: bb451bc01ea42c9e47557638400708e20df34178
-change-id: 20260530-sof-topology-array-size-signed-06abdacb1cdc
-
-Best regards,
---  
-Cássio Gabriel <cassiogabrielcontato@gmail.com>
-
+Thanks,
+Jason
