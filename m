@@ -1,125 +1,88 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3CA042314C;
-	Wed,  3 Jun 2026 16:30:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52A0D3E16BB
+	for <stable@vger.kernel.org>; Wed,  3 Jun 2026 16:35:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780504242; cv=none; b=W5d7o0WegjzaKK3qcCHKie7Id62S+PMGC1untgJnZ0IAbijVo3BmVpL+BsuVw/Gr3rJyEGzIEPKg+AlY10qnxfMqOfrx9GmDB5kdwTEECzMaiPR9U+kuHxfNiNLjjTCX01OMs66tL5FjuyCvW5H6dSC0cpCtVHUnMum6m8j3KYs=
+	t=1780504550; cv=none; b=saa5FxoMZqAaB69c1ynbGwmqP8qMgW8zVy9CvFPGXLZqrdcD3xoGu4pX00M/wVw/0Iedx4j2p3M2Tl1/OKJgSN2zPT4dW1QMHd59PYzxVBMJOVYiRXBXB/ToNasrvQBMSTqnk49oT3eaLdH51M8lzndB84van0vq7WQ1VaYTN9Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780504242; c=relaxed/simple;
-	bh=L71zNkxKIc2cN4QhXX97Ir6UXCUtsxvCPRvQMRwrvbg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QNdlHS4kzccvvNWaUzIBDHdWVXqhQzFGfpGSscvq46Z3J4u4kXZD4OzF/LIOphqH+ihlsqIPwAy0ZK8l/0hr3q6wekl4emYxfNfwf1qzkyynU5wu55xuDNAQY3j0/ouelouYYeZePgmj9RcDlusc5xQKliKbhcbsOA+Lw3Q66X4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Vmnp91rf; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780504550; c=relaxed/simple;
+	bh=qU8KjorMFSCGfaBYoqMdn7y1itPV8ycA5Ml2oxKrIgM=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=IKEepnjol45lBn/Ry6uXOlwkRRmP23EgN5DsZK+5/lmOWoyI9AAurh9tRrwd2UhNsKcmjuE7UOclYZ3nILGNZDrB4DZYeISBHrEy5/QBZefKM1RbI6nSc0wHyrGD2pPQClKN6s60TswWDx5h++P+W9Rl7HaLr5lkPDzPCmA2Hpo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=pTSkEWWz; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Vmnp91rf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 485DB1F00898;
-	Wed,  3 Jun 2026 16:30:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780504241;
-	bh=38hSkNo5fRx0Ch4qTSwSTf+7TR9zAnLVta6lrlP9w5E=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Vmnp91rfAu9gO8/gbBdgvOdn1typadHonqZCQ1OPhECUkJbCkub2xTDuhEfzd1olc
-	 OwUxWAd3pEmZz5oh9OSSyh4N4kFUr4l0hqr4LvdWuLpV7H/DaYjZfiTkldl71QtDyK
-	 rAIUrQPH1Ehot3ZIG9JBfILAzswSbzfhH2RtNb13FNBqx0z7eztBimIEXfkd2RaG42
-	 QPWzwSMSa9+2488OZ2WZ1nSOXr48G2Ds9NMzclH66RmCurjhl2S/fy7fCArcVULyKH
-	 OGekIQQE1vq8M5QcqtP3Ss27dB2/Qzw17gA16CBV3F547de1wG7R8bBdw5iJQBEeio
-	 9QCbFCOozjGZA==
-From: Lee Jones <lee@kernel.org>
-To: lee@kernel.org,
-	Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <benjamin.tissoires@redhat.com>,
-	=?UTF-8?q?Filipe=20La=C3=ADns?= <lains@riseup.net>,
-	Bastien Nocera <hadess@hadess.net>,
-	Ping Cheng <ping.cheng@wacom.com>,
-	Jason Gerecke <jason.gerecke@wacom.com>,
-	Viresh Kumar <vireshk@kernel.org>,
-	Johan Hovold <johan@kernel.org>,
-	Alex Elder <elder@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	greybus-dev@lists.linaro.org,
-	linux-staging@lists.linux.dev
-Cc: stable@vger.kernel.org,
-	Nathan Chancellor <nathan@kernel.org>,
-	Miguel Ojeda <ojeda@kernel.org>,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [linux-6.1.y 3/3] HID: core: Fix size_t specifier in hid_report_raw_event()
-Date: Wed,  3 Jun 2026 17:30:14 +0100
-Message-ID: <20260603163022.3301081-3-lee@kernel.org>
-X-Mailer: git-send-email 2.54.0.1032.g2f8565e1d1-goog
-In-Reply-To: <20260603163022.3301081-1-lee@kernel.org>
-References: <20260603163022.3301081-1-lee@kernel.org>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="pTSkEWWz"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id E30151A011C;
+	Wed,  3 Jun 2026 16:35:46 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id A75F65FA0F;
+	Wed,  3 Jun 2026 16:35:46 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 214D110888CCD;
+	Wed,  3 Jun 2026 18:35:40 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1780504545; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=qU8KjorMFSCGfaBYoqMdn7y1itPV8ycA5Ml2oxKrIgM=;
+	b=pTSkEWWzfyLOuLrHtm97ZF7/TeK/p7taRdgGhaKvoO1zf6872KsfitNyeAFsIrXJtJ4rV4
+	U6gXeUM2+2FHFw2bdwYln9ZH/XKLvLlScIlv56+mefGoda95Uyz/TcOcU5RFD88KYqfekq
+	1uCHhp2UQEkdIcbbyLXyVL7N/gkhM7zG8kUg2wPKDRY/xdGak2IUBVa4aSj0A1c8vSzRnU
+	B8tQzadHLNsZrz4iKLZ4ZBUyloGCCBtN8v40CiNEVVbdhhgMiyxpJP/J8m646QzO4I1lHk
+	twGw990PkXXyqsuKnP74dtgfK49ryzL2WHIaxk5jnu0EjQ1ba2jL9eN4UCKR8g==
+Date: Wed, 3 Jun 2026 18:35:38 +0200
+From: Kory Maincent <kory.maincent@bootlin.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>, Rodrigo Vivi
+ <rodrigo.vivi@intel.com>, Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Chris
+ Wilson <chris@chris-wilson.co.uk>, Eric Anholt <eric@anholt.net>, Dave
+ Airlie <airlied@redhat.com>, Jesse Barnes <jbarnes@virtuousgeek.org>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Louis Chauvet
+ <louis.chauvet@bootlin.com>, Mark Yacoub <markyacoub@google.com>, Sean Paul
+ <seanpaul@google.com>, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Simona Vetter <simona.vetter@ffwll.ch>,
+ stable@vger.kernel.org
+Subject: Re: [PATCH 0/3] drm/i915: Fix double cleanup in error paths
+Message-ID: <20260603183538.656b6444@kmaincent-XPS-13-7390>
+In-Reply-To: <20260603-fix_i915-v1-0-7479ff64e705@bootlin.com>
+References: <20260603-fix_i915-v1-0-7479ff64e705@bootlin.com>
+Organization: bootlin
+X-Mailer: Claws Mail 4.2.0 (GTK 3.24.41; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
-From: Nathan Chancellor <nathan@kernel.org>
+On Wed, 03 Jun 2026 10:59:51 +0200
+Kory Maincent <kory.maincent@bootlin.com> wrote:
 
-[ Upstream commit 4d3a2a466b8d68d852a1f3bbf11204b718428dc4 ]
+> Several error paths in the i915 driver incorrectly invoke cleanup
+> functions multiple times, potentially causing double-free errors.
+> This series corrects these paths to ensure cleanup is performed
+> only once.
+>=20
+> Testing note: Only the DisplayPort fix has been hardware tested due
+> to lack of available hardware for the other components.
 
-When building for 32-bit platforms, for which 'size_t' is
-'unsigned int', there are warnings around using the incorrect format
-specifier to print bsize in hid_report_raw_event():
+Don't pay attention to this series.
+I missed the point that if drm_encoder/connector_cleanup() are called it wi=
+ll
+remove the encoder/connector from the DRM core list, therefore the destroy
+callback will be never called. Which means no double cleanup path.
+Sorry for the noise.
 
-  drivers/hid/hid-core.c:2054:29: error: format specifies type 'long' but the argument has type 'size_t' (aka 'unsigned int') [-Werror,-Wformat]
-   2053 |                 hid_warn_ratelimited(hid, "Event data for report %d is incorrect (%d vs %ld)\n",
-        |                                                                                         ~~~
-        |                                                                                         %zu
-   2054 |                                      report->id, csize, bsize);
-        |                                                         ^~~~~
-  drivers/hid/hid-core.c:2076:29: error: format specifies type 'long' but the argument has type 'size_t' (aka 'unsigned int') [-Werror,-Wformat]
-   2075 |                 hid_warn_ratelimited(hid, "Event data for report %d was too short (%d vs %ld)\n",
-        |                                                                                          ~~~
-        |                                                                                          %zu
-   2076 |                                      report->id, rsize, bsize);
-        |                                                         ^~~~~
-
-Use the proper 'size_t' format specifier, '%zu', to clear up the
-warnings.
-
-Cc: stable@vger.kernel.org
-Fixes: 2c85c61d1332 ("HID: pass the buffer size to hid_report_raw_event")
-Reported-by: Miguel Ojeda <ojeda@kernel.org>
-Closes: https://lore.kernel.org/20260516020430.110135-1-ojeda@kernel.org/
-Signed-off-by: Nathan Chancellor <nathan@kernel.org>
-Signed-off-by: Linus Torvalds <torvalds@linux-foundation.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
-(cherry picked from commit 3ab135238832446399614e7a4bb796d620717806)
-Signed-off-by: Lee Jones <lee@kernel.org>
----
- drivers/hid/hid-core.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/hid/hid-core.c b/drivers/hid/hid-core.c
-index 346c5554da5c..1620a13c89c0 100644
---- a/drivers/hid/hid-core.c
-+++ b/drivers/hid/hid-core.c
-@@ -2003,7 +2003,7 @@ int hid_report_raw_event(struct hid_device *hid, enum hid_report_type type, u8 *
- 		return 0;
- 
- 	if (unlikely(bsize < csize)) {
--		hid_warn_ratelimited(hid, "Event data for report %d is incorrect (%d vs %ld)\n",
-+		hid_warn_ratelimited(hid, "Event data for report %d is incorrect (%d vs %zu)\n",
- 				     report->id, csize, bsize);
- 		return -EINVAL;
- 	}
-@@ -2025,7 +2025,7 @@ int hid_report_raw_event(struct hid_device *hid, enum hid_report_type type, u8 *
- 		rsize = max_buffer_size;
- 
- 	if (bsize < rsize) {
--		hid_warn_ratelimited(hid, "Event data for report %d was too short (%d vs %ld)\n",
-+		hid_warn_ratelimited(hid, "Event data for report %d was too short (%d vs %zu)\n",
- 				     report->id, rsize, bsize);
- 		return -EINVAL;
- 	}
--- 
-2.54.0.1032.g2f8565e1d1-goog
-
+Regards,
+--=20
+K=C3=B6ry Maincent, Bootlin
+Embedded Linux and kernel engineering
+https://bootlin.com
