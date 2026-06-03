@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CB563328FA;
-	Wed,  3 Jun 2026 23:26:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DED684C0433;
+	Wed,  3 Jun 2026 23:26:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780529183; cv=none; b=AIZT/k0tzD4a535Xg8FZLXMzqjzEFifgtfosg/hM5bkImJjoULF6eEjKwjbIcVvKvuceK5RQwvHX1eAdgxYLEBds0BCDxCXOu+1ztivLGEwVtVLTNUAJroIV9Riyytx9K8nMppS9k7CEiW5j9BYNcncDgQJs1EkItWu6JzDxyUA=
+	t=1780529187; cv=none; b=TnQlKDYexVVQrOUcey+1vf27H8SGTVq2hT+/0//AyRQbISZQ+TD1Z+EbYfTEr6BZzeeZzSjQA1xn1W7iaZMsgZv6rfRGkXFzdBE8sbo0JUCjzD0utofD4dN3uH3mjKllCVcWpNegGs/HKDJ/8NAbmn5I3e4KLUDyw2Vt3aZFiD8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780529183; c=relaxed/simple;
-	bh=BDizDcnfvDeAD3OjRv6YP879+woxJL60sXILJVdd3jc=;
-	h=Date:To:From:Subject:Message-Id; b=aQRbZi84RZNybFRML5R+o1qvujss5Yll6PR2XPA93AViEvCVXwbBGQZFy/c0VHsMW50dkGrTKxvwV9FwSGW38ltT7U6aDQgf0lvYk0wvl2Yls5IJI0ZHJXbPEsb3EqwxChQhHKVlQ48Ju1AklxS/5C18XSH1tnracbuE/2Wpjjs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=axqAcJ16; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780529187; c=relaxed/simple;
+	bh=O7H7zQc9ntX63UVNJqCr5GXsxTpYkFpbk7HG70sjQIQ=;
+	h=Date:To:From:Subject:Message-Id; b=oh98wv5aAYkxhTa1fypKgddNUBECXKfMxrIslMiu+j+2/2pN/y27zb/jjMDdsj8385pBLTDNuGDzWbrHp9MWvSyDlCp5NXx6bxoto1awsoKz/Mpehvmdmp82pKLPnHJ/0IJaZg3OmWKfAniguwhH45L+X7z+ETfgLOW9kGmv48Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=vr1KkSGR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="axqAcJ16"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 997DA1F00893;
-	Wed,  3 Jun 2026 23:26:21 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="vr1KkSGR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8262B1F00893;
+	Wed,  3 Jun 2026 23:26:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1780529181;
-	bh=vEgT73UytRP8pvRdIZ5COzDiisSo9MqChk1i0IHZ5xY=;
+	d=linux-foundation.org; s=korg; t=1780529186;
+	bh=bl0sINzJsbrpBy6RKgwjbXVVCIJ/olIhsNM2rBEqoEk=;
 	h=Date:To:From:Subject;
-	b=axqAcJ16W9V+/VsybGU+VBthwhqEvnYO2MVX7wSyJUWDNqTvuJRhCaM8dO7prlS5m
-	 4AxzLTHjCT2fmBQ2rBFzc0dMsF/GzUyrIFe65QL+th61DhGu8c2QFOMTngbe+/0UxA
-	 lF8m+yXBu4YFFmv6oet5YveFIfmUqhE0LT6drxbA=
-Date: Wed, 03 Jun 2026 16:26:21 -0700
-To: mm-commits@vger.kernel.org,yuantan098@gmail.com,yifanwucs@gmail.com,tomapufckgml@gmail.com,stable@vger.kernel.org,sergeh@kernel.org,serge@hallyn.com,segoon@openwall.com,oleg@redhat.com,n05ec@lzu.edu.cn,ljs@kernel.org,liam@infradead.org,kees@kernel.org,dave@stgolabs.net,brauner@kernel.org,bird@lzu.edu.cn,aha310510@gmail.com,zylzyl2333@gmail.com,akpm@linux-foundation.org
+	b=vr1KkSGRIosKz1i4BIW7LhVaeELOzM8u20/nOJUA4BPCgaN/ha9hs1MBfYc5kRlJb
+	 OfOdodjQj5zAoPJhmlW6zv5VXw/sSfup/PCN8+/LDInpRWmJvrzprDo0RUfe//pIft
+	 O7iLCBNJ0NDrFt4sbQ+ZcWPDBT3qlc/zOq5HjySs=
+Date: Wed, 03 Jun 2026 16:26:26 -0700
+To: mm-commits@vger.kernel.org,xieyisheng1@huawei.com,stable@vger.kernel.org,senozhatsky@chromium.org,minchan@kernel.org,hch@lst.de,axboe@kernel.dk,shenxiaogll@gmail.com,akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-hotfixes-stable] ipc-shm-serialize-orphan-cleanup-with-shm_nattch-updates.patch removed from -mm tree
-Message-Id: <20260603232621.997DA1F00893@smtp.kernel.org>
+Subject: [merged mm-hotfixes-stable] zram-fix-use-after-free-in-zram_bvec_write_partial.patch removed from -mm tree
+Message-Id: <20260603232626.8262B1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,79 +35,59 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 
 
 The quilt patch titled
-     Subject: ipc/shm: serialize orphan cleanup with shm_nattch updates
+     Subject: zram: fix use-after-free in zram_bvec_write_partial()
 has been removed from the -mm tree.  Its filename was
-     ipc-shm-serialize-orphan-cleanup-with-shm_nattch-updates.patch
+     zram-fix-use-after-free-in-zram_bvec_write_partial.patch
 
 This patch was dropped because it was merged into the mm-hotfixes-stable branch
 of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
 ------------------------------------------------------
-From: Yilin Zhu <zylzyl2333@gmail.com>
-Subject: ipc/shm: serialize orphan cleanup with shm_nattch updates
-Date: Thu, 30 Apr 2026 13:21:34 +0800
+From: Cunlong Li <shenxiaogll@gmail.com>
+Subject: zram: fix use-after-free in zram_bvec_write_partial()
+Date: Thu, 28 May 2026 10:48:44 +0800
 
-shm_destroy_orphaned() walks the shm idr under shm_ids(ns).rwsem, but that
-does not serialize all fields tested by shm_may_destroy().  In particular,
-shm_nattch is updated while holding shm_perm.lock, and attach paths can do
-that without holding the rwsem.
+zram_read_page() picks the sync or async backing device read path based on
+whether the parent bio is NULL.  zram_bvec_write_partial() passes its
+parent bio down, so for ZRAM_WB slots the read is dispatched
+asynchronously and zram_read_page() returns 0 while the bio is still in
+flight.  The caller then runs memcpy_from_bvec(), zram_write_page() and
+__free_page() on the buffer, leaving the async read to write into a freed
+page.
 
-Do not decide that an orphaned segment is unused before taking the object
-lock.  Move the shm_may_destroy() check under shm_perm.lock, matching the
-other destroy paths, and unlock the segment when it no longer qualifies
-for removal.
+zram_bvec_read_partial() was switched to NULL in commit 4e3c87b9421d
+("zram: fix synchronous reads") for the same reason; the write_partial
+counterpart was missed.
 
-Link: https://lore.kernel.org/9d97cc1031de2d0bace0edf3a668818aa2f4eca6.1777410234.git.zylzyl2333@gmail.com
-Fixes: 4c677e2eefdb ("shm: optimize locking and ipc_namespace getting")
-Reported-by: Yuan Tan <yuantan098@gmail.com>
-Reported-by: Yifan Wu <yifanwucs@gmail.com>
-Reported-by: Juefei Pu <tomapufckgml@gmail.com>
-Reported-by: Xin Liu <bird@lzu.edu.cn>
-Signed-off-by: Yilin Zhu <zylzyl2333@gmail.com>
-Signed-off-by: Ren Wei <n05ec@lzu.edu.cn>
-Cc: Christian Brauner <brauner@kernel.org>
-Cc: Jeongjun Park <aha310510@gmail.com>
-Cc: Kees Cook <kees@kernel.org>
-Cc: Liam Howlett <liam@infradead.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Serge Hallyn <sergeh@kernel.org>
-Cc: Vasiliy Kulikov <segoon@openwall.com>
-Cc: Davidlohr Bueso <dave@stgolabs.net>
-Cc: Oleg Nesterov <oleg@redhat.com>
-Cc: Serge Hallyn <serge@hallyn.com>
+Link: https://lore.kernel.org/20260528-zram-v3-1-cab86eef8764@gmail.com
+Fixes: 8e654f8fbff5 ("zram: read page from backing device")
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Reviewed-by: Sergey Senozhatsky <senozhatsky@chromium.org>
+Signed-off-by: Cunlong Li <shenxiaogll@gmail.com>
+Cc: Jens Axboe <axboe@kernel.dk>
+Cc: Minchan Kim <minchan@kernel.org>
+Cc: Yisheng Xie <xieyisheng1@huawei.com>
 Cc: <stable@vger.kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 ---
 
- ipc/shm.c |   10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+ drivers/block/zram/zram_drv.c |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
---- a/ipc/shm.c~ipc-shm-serialize-orphan-cleanup-with-shm_nattch-updates
-+++ a/ipc/shm.c
-@@ -418,15 +418,17 @@ static int shm_try_destroy_orphaned(int
- 	 * We want to destroy segments without users and with already
- 	 * exit'ed originating process.
- 	 *
--	 * As shp->* are changed under rwsem, it's safe to skip shp locking.
-+	 * shm_nattch can be changed under shm_perm.lock without holding the
-+	 * rwsem, so take the object lock before checking shm_may_destroy().
- 	 */
- 	if (!list_empty(&shp->shm_clist))
- 		return 0;
+--- a/drivers/block/zram/zram_drv.c~zram-fix-use-after-free-in-zram_bvec_write_partial
++++ a/drivers/block/zram/zram_drv.c
+@@ -2337,7 +2337,7 @@ static int zram_bvec_write_partial(struc
+ 	if (!page)
+ 		return -ENOMEM;
  
--	if (shm_may_destroy(shp)) {
--		shm_lock_by_ptr(shp);
-+	shm_lock_by_ptr(shp);
-+	if (shm_may_destroy(shp))
- 		shm_destroy(ns, shp);
--	}
-+	else
-+		shm_unlock(shp);
- 	return 0;
- }
- 
+-	ret = zram_read_page(zram, page, index, bio);
++	ret = zram_read_page(zram, page, index, NULL);
+ 	if (!ret) {
+ 		memcpy_from_bvec(page_address(page) + offset, bvec);
+ 		ret = zram_write_page(zram, page, index);
 _
 
-Patches currently in -mm which might be from zylzyl2333@gmail.com are
+Patches currently in -mm which might be from shenxiaogll@gmail.com are
 
+zram-drop-unused-bio-parameter-from-write-helpers.patch
 
