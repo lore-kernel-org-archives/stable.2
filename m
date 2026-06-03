@@ -1,326 +1,423 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f46.google.com (mail-yx1-f46.google.com [74.125.224.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EADD51CEAC2;
-	Wed,  3 Jun 2026 17:27:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780507627; cv=none; b=J/DQ7sJEHSYlyb0DJ49QZ8aJOEQLNUZaWyO2hQPqglvE5zbhanNLyi1xDAHHpdir8JmiujqO6fEDUO4pdm9tgLlCk1xa8bXmAOaaZG2vfSHwTBk3WzhTtA5qDyMPFx9bVa0Ik7s0ph3tERZGqrZbEjbOCSvI2AaQH48MEk1fLkM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780507627; c=relaxed/simple;
-	bh=UVvNrn/3xlqp1WnAhDjUrcaAgH2tqNYL66yMuvxS2RQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=q07QVZuY7SNLCq3Xi0ecXHIc7WcNSu8J4d7/XEzpx0c30ZnBVkX1wsRSD1JzjcJEzPYN++PwTZRK+BjKxgR7sUruwx+/YDsrqY5zUgB+senOyLr4aWBaauEpUxI3lSGHkzXMBDDPkqjn9wHTZcQwOlyknP329rHyCRuc4Z2Dbos=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K0JLZJ+P; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A851437204C
+	for <stable@vger.kernel.org>; Wed,  3 Jun 2026 17:31:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.46
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780507903; cv=pass; b=YUfMehIxeahcYARJ7XBb95QqcQPspEFm8pZPE7vCzVjvYeXQ3nszS8BdGdZejZ/4+WKVX/NMDqUu2DS2+SfyVOrDqpgm7dWtLbB0+AbS2wU42NWFiKFVGSF/eQ5gQlWtKqTIP4I25tezMq2HhPju/KQtqJZCv/T6wjjtJncJ9eg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780507903; c=relaxed/simple;
+	bh=puqxbyzt7x+OQz+0JxQ19LiJhiH9dXCN5KF9CiMBNOs=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=LUyOfUU3GIEJmBOt8Udb7985Gh/NpaVlBnkLvhMkvBfQf5YvdKIU3/NyPpZ/S+Belb/j8Z6Ipvs+FQqxohn8w/DPYDVVxnDqe5VjhrL9o1sySDvIhmT0SAVQJuwOpCNLAfMGT0z/K8ypkJG59hcxoy9gh/3sqGPVY+cTB9OBpYk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bGTk4N6t; arc=pass smtp.client-ip=74.125.224.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K0JLZJ+P"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 646AD1F00893;
-	Wed,  3 Jun 2026 17:27:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780507625;
-	bh=xcmJvqISsNraB/smBz/xdAVYY/K30DCW6Tna1tXZpkg=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=K0JLZJ+Pcd+Ryu1Ecw9KWzuM7Bn73VQz3sJnVstxF7HTlu/gpJZU7I2TYaYjntY1j
-	 m0b6tayoFakFfSeAmmXRd6KkwkhX3WNJs+LhFGf/S4R+iHpk5y+hNDt8F1So5waIYh
-	 NlYG4AlJhQDwl1kgqhMWn6cpA2wn8wDpN9hnEgZoIxRfM4xS/NbXek1+QKuDsDQY/z
-	 V1ZDbFhOvLDq6JWtpPg/zTigAkWjLYg9Q1aV7tGqbLCNxz1B7fv0uEEt7OXoREXlOU
-	 5hMEm7a6BuXEl2o7P8BbrYL+6Wx66+3p/YXOt1WtQhwKpso4cFONCDr/X519wZ7qy8
-	 k2Jtl5h0Xf0xw==
-Date: Wed, 3 Jun 2026 18:26:58 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Matti Vaittinen <mazziesaccount@gmail.com>
-Cc: Stepan Ionichev <sozdayvek@gmail.com>, dlechner@baylibre.com,
- nuno.sa@analog.com, andy@kernel.org, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2] iio: pressure: rohm-bm1390: notify trigger on all
- error paths
-Message-ID: <20260603182658.2c3c6efa@jic23-huawei>
-In-Reply-To: <aa2c2f98-454d-489c-a652-b8023b0773bf@gmail.com>
-References: <20260517160801.269-1-sozdayvek@gmail.com>
-	<20260518094238.1986-1-sozdayvek@gmail.com>
-	<20260518161516.53f21777@jic23-huawei>
-	<61d9cec3-6aed-416f-9604-94fe94cb2e3b@gmail.com>
-	<20260520120822.351aa58f@jic23-huawei>
-	<0d58842a-aa5c-4d12-9435-3264070038cc@gmail.com>
-	<aa2c2f98-454d-489c-a652-b8023b0773bf@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bGTk4N6t"
+Received: by mail-yx1-f46.google.com with SMTP id 956f58d0204a3-66077f6c438so4189291d50.2
+        for <stable@vger.kernel.org>; Wed, 03 Jun 2026 10:31:40 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1780507900; cv=none;
+        d=google.com; s=arc-20240605;
+        b=Kdk0ZQ5CPjoJtGeRb1xlpACN36jpuLWDNSPCmE+phS51e/Fxd+nV1aM/TBoyT/j+43
+         I3fONBgpcouPewJsThQMqGJp8kFe5jTR1GEpytiMFWnitdWJuctvk9QndlzZlCazGLBV
+         iDVaiCsWMn5yaRNTDvrOMd9eBxvXqeNCu0E1EopMONO11uycHf5rwCNE1k+OMBp82QYA
+         Tbn2gimcf+LjwCVNfcmLwd3nV1rol6TwAZj565pg6G9m6XZ4dxH0Hn1708WKExJ8bWRL
+         jgr05TwukhF+aSpsKm1RBx687swi3bVTJYKbzSi5+5dUxaQriGEp+1e9/xjM4MVg4aVu
+         RFcQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=TbrJayTIcQHeNkq60icRC6cqZUt5TN6r4XDVtlHiGvY=;
+        fh=1i3f3nc9zKsEckt3w1gYtiJb/qcKXG6hT1OZN1/C5Hw=;
+        b=lasiEU8sP65lSRz4BLI0OS2YXZWuPKU1/5VEx1ci08nLYVNSxxhweMjY1BfIe/3sMQ
+         ZsDXL2qIFATH2s3oRc9SVswb9unNNSj+swJtR3tWMIoCbMe/Z/526sOIo3gjj+k6FfBS
+         6vG/AEDnFMSQb2FSqa4/209LDIBFC2OdUD6nIniyko9rKonvkCMECxtctkOtXF3qoskN
+         AMIWSOyWeV/QdMvtCqmyPljpVN/VlhVmi3aYvvJPhspprXcowCztCM3tXG2krFmd1gG1
+         kJgP1Gl9jAhtTAKhVkVza/+L1uNCwFKVB0XlTobn5TX+YEBQp0lTl4xZ6vJP57tStWgf
+         CQmg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780507900; x=1781112700; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=TbrJayTIcQHeNkq60icRC6cqZUt5TN6r4XDVtlHiGvY=;
+        b=bGTk4N6t+KWBK7Chb2cTR3u6sKfRzrwE7n5Cr/z267jzXEzhiVuQcbcmiW3A0v69JO
+         hax46WedkaWkaN0fHynJ1B9/w5zYajQBk1dR+xD1MYhC0MhbD520lM/IFymk/b6gA8BT
+         uby9sD0OElUbEMpDYXMsx03fE1RRf0yW4zPuFP23naOPYc+zD+ZvM35k6DtYDThLGrG6
+         iCpRP5o2gWPqs93Cyeyg29rJ2n0Zy13UgnGQH4sNZIVGLI4aFb1y2WdOoN/rUsIUksRT
+         Q3ZNv5csyTIogt/pBMshrbOvWSDkTqCM6IisRLA5TAkJ7TfWnbI3EeIkeWA+UmKzLM6x
+         46fQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780507900; x=1781112700;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=TbrJayTIcQHeNkq60icRC6cqZUt5TN6r4XDVtlHiGvY=;
+        b=nHNzLOwo6CQdYOdzrDYmNaIE/WcZ1eLMCur2Gnte58HTKadEO/FhzPWTNlqUorgnCR
+         cIndKR50QpfddwEy2J8qvSM7GZUh6AEwEUygXYnf29e/gre9NCNwBV49mukmlZc1+HVq
+         U6lVH9zsyb2ID2Ut3JP29nbIydqZzsXqjNPy4VDa8hNrysYkYhGAxpAE+7XbsAvzqlOT
+         A6LEnzVecVKnlttVCuXslxwIRJfoSNzD16Niaror8JUWsS0BUe1cWIFkU5t3QE4kFqzJ
+         tPPgyj5ISOsuqFR58NSHBWeH1lFLEle4jjteYrvx9hv23vtSaOjMg221jbeih9q1gcbA
+         3x/w==
+X-Forwarded-Encrypted: i=1; AFNElJ/KmI8Iz386L0g1Rix7yRrN/My9SyB+0p2nX66uqikwYjqDpavcBzj+m2jPnnQoKfMLdYTZlvc=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwXEAw/aE4Zdfi3FpkbknnGgOEnd1r5/cCpgVvNiq6AqDdArRZ0
+	ZPf+fm+R8T501y6zdA7CTiPReBRdofqdCDlolRZSpVQqJ7IlCvMWLBuioSGUYfoLrbXyiGMz5iM
+	WIpjyR6ftXYxX2KhelshxLQc6gJTMJZY=
+X-Gm-Gg: Acq92OFLQfrJKb3DdwDcrACT1kSpco3lqKGT3FfLR9YxHGBRsbPUpQGdgJCztW5iiJR
+	w/z1ZrwG8APA4bP+A86vPfucNxSSmdOLgj1+cXGMjBJUK/p11mtLJi1dyvkKZDHzds7EfXQsHXs
+	1Stvf0//WLEkHX9MyNb1m+vHQ7tAHsbeJDlO/aIW204jS5OhTmnChyGeD1styyaHdzucUpoXdZo
+	DYkCGWPzN58GhjqWQthhthRmck+OK009aQgKMh7hAEzppn1Xoz1GFT+efFWZTSDoa46XCGUup1X
+	dcfbnI3DgD/uaeV6yUSrueaPtHF8zd8JCbD6StsbNjtiUpM/y10bIgFuu84CFaWXGYaeUfhPi1Z
+	qh91I
+X-Received: by 2002:a53:d202:0:b0:660:5df1:f23e with SMTP id
+ 956f58d0204a3-660dc62f0ccmr3279826d50.64.1780507899447; Wed, 03 Jun 2026
+ 10:31:39 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+References: <20260603123111.2334409-1-elver@google.com> <CANpmjNPQCx8rynFhOUfqgagP-KBh0pJsXz6PQt6G3LomdzVJYw@mail.gmail.com>
+In-Reply-To: <CANpmjNPQCx8rynFhOUfqgagP-KBh0pJsXz6PQt6G3LomdzVJYw@mail.gmail.com>
+From: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+Date: Wed, 3 Jun 2026 13:31:27 -0400
+X-Gm-Features: AVHnY4L4IF-RSYMwA74cD4Txa8FvJHDKQxUpN_2oSS-3ijs-kM0lYTzXrlUKXgU
+Message-ID: <CABBYNZL9tH1Tc+jbc6fJ-Y1EtX+_QUk_P3ghDmdOaXY0gdqtnQ@mail.gmail.com>
+Subject: Re: [PATCH] Bluetooth: L2CAP: Fix UAF in l2cap_chan_timeout
+To: Marco Elver <elver@google.com>
+Cc: Marcel Holtmann <marcel@holtmann.org>, linux-bluetooth@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, kasan-dev@googlegroups.com, 
+	stable@vger.kernel.org, Siwei Zhang <oss@fourdim.xyz>, 
+	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, 29 May 2026 11:21:40 +0300
-Matti Vaittinen <mazziesaccount@gmail.com> wrote:
+Hi Marco,
 
-> On 22/05/2026 15:38, Matti Vaittinen wrote:
-> > On 20/05/2026 14:08, Jonathan Cameron wrote: =20
-> >> On Tue, 19 May 2026 08:48:13 +0300
-> >> Matti Vaittinen <mazziesaccount@gmail.com> wrote:
-> >> =20
-> >>> Thanks Jonathan,
-> >>>
-> >>> Your post give me something to think about ;) =20
-> >>
-> >> This is a can of worms.=C2=A0 More below.
-> >>
-> >> I'm unconcerned as long as (and ideally someone should check it)
-> >> we can get of being stuck by unbind/rebind of driver.=C2=A0 Anything
-> >> else is best effort.
-> >>
-> >> =20
-> >>>
-> >>> On 18/05/2026 18:15, Jonathan Cameron wrote: =20
-> >>>> On Mon, 18 May 2026 14:42:38 +0500
-> >>>> Stepan Ionichev <sozdayvek@gmail.com> wrote: =20
-> >>>>> bm1390_trigger_handler() returns from three error paths without
-> >>>>> calling iio_trigger_notify_done(). The success path at the end
-> >>>>> does, so on a single transient regmap or read failure the trigger
-> >>>>> use_count is never decremented, and the !atomic_read(&trig->use_cou=
-nt)
-> >>>>> guard in iio_trigger_poll_chained() drops every subsequent dispatch.
-> >>>>> The buffered-data flow stays wedged until the trigger is detached.
-> >>>>>
-> >>>>> Funnel all returns through a single done label that calls
-> >>>>> iio_trigger_notify_done() and reports the outcome via IRQ_RETVAL().
-> >>>>>
-> >>>>> Fixes: 81ca5979b6ed ("iio: pressure: Support ROHM BU1390")
-> >>>>> Cc: stable@vger.kernel.org
-> >>>>> Signed-off-by: Stepan Ionichev <sozdayvek@gmail.com> =20
-> >>>>
-> >>>> These error path 'fixes' are fixes for hardware failure - so if=20
-> >>>> anything
-> >>>> they are hardending=C2=A0 against a possible error condition. I don'=
-t mind
-> >>>> that bit it's not a bug to not do this so fixes tag an stable are not
-> >>>> appropriate for any of these.
-> >>>>
-> >>>> Note however that hardening against these conditions is not this=20
-> >>>> simple.
-> >>>> It takes careful analysis of exactly how the hardware behaves and wh=
-at
-> >>>> each error condition 'might' mean.=C2=A0 Whilst they are probably ha=
-rmless
-> >>>> I'm also very dubious about taking them without comprehensive testing
-> >>>> on the particular device. =20
-> >>>>> --- =20
-> >=20
-> > //snip
-> >  =20
-> >>>>> @@ -639,7 +642,8 @@ static irqreturn_t bm1390_trigger_handler(int=20
-> >>>>> irq, void *p)
-> >>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ret =
-=3D bm1390_pressure_read(data, &data->buf.pressure);
-> >>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (re=
-t) {
-> >>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 dev_warn(data->dev, "sample read failed %d\n", ret);
-> >>>>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- return IRQ_NONE;
-> >>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- handled =3D false;
-> >>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- goto done; =20
-> >>>>
-> >>>> Hopefully all this stuff is unrelated to the trigger.=C2=A0 For thes=
-e it=20
-> >>>> is fair to
-> >>>> ack the trigger and the interrupt.=C2=A0 Curiously the driver does i=
-t=20
-> >>>> partly for the
-> >>>> next one (IRQ_HANDLED). =20
-> >>>
-> >>> I would keep the IRQ_NONE here because, if we keep constantly failing
-> >>> the reads, then the bus is likely to be unerliable - and disabling the
-> >>> useless IRQ is probably very sane thing to do. It should help debuggi=
-ng.
-> >>> What comes to acking the trigger - I am starting to agree with Stepan,
-> >>> we should probably ack the trigger in any case. If we don't ack the
-> >>> trigger, then the IRQ_NONE does not serve the purpose it is intended=
-=20
-> >>> for. =20
-> >>
-> >> The interrupt that we'd get spurious detection on here would not be=20
-> >> the device
-> >> one it would be the software emulated one deep in the iio trigger stuf=
-f.
-> >>
-> >> Might still be useful for debug. Anyone fancy hacking an error in and=
-=20
-> >> reporting
-> >> back what we actually get from the debug hardware?=C2=A0 (with that tr=
-igger=20
-> >> acked
-> >> as you suggest?) =20
-> >=20
-> > No promises but I'll see if I can try out something next week... =20
->=20
-> The week has been horrible... I only had around half an hour for this=20
-> (just now). Quick:
->=20
-> +++ b/drivers/iio/pressure/rohm-bm1390.c
-> @@ -621,6 +621,16 @@ static const struct iio_buffer_setup_ops=20
-> bm1390_buffer_ops =3D {
->          .predisable =3D bm1390_buffer_predisable,
->   };
->=20
-> +/*
-> + * Test case where IRQ status is nopt read (acked). Useful for=20
-> evaluating the
-> + * impact of returning the IRQ_NONE from the trigger handler. define=20
-> also the
-> + * TEST_FORCE_IRQ_NOTIFY if you wish to cause the trigger to be notified.
-> + *
-> + * Note, in case it is not obvious, this will cause IRQ storm.
-> + */
-> +#define TEST_FORCE_IRQ_NONE
-> +#define TEST_FORCE_IRQ_NOTIFY
-> +
->   static irqreturn_t bm1390_trigger_handler(int irq, void *p)
->   {
->          struct iio_poll_func *pf =3D p;
-> @@ -628,12 +638,27 @@ static irqreturn_t bm1390_trigger_handler(int irq,=
-=20
-> void *p)
->          struct bm1390_data *data =3D iio_priv(idev);
->          int ret, status;
->=20
-> +#ifdef TEST_FORCE_IRQ_NONE
-> +       static unsigned long int first =3D 1, first2 =3D 0;
-> +       ret =3D 0;
-> +
-> +       if (first) {
-> +               pr_info("Skip read\n");
-> +               first =3D 0;
-> +       }
-> +       #ifdef TEST_FORCE_IRQ_NOTIFY
-> +       status =3D BIT(BM1390_CHAN_PRESSURE);
-> +       #else
-> +       status =3D 0;
-> +       #endif
-> +#else
->          /* DRDY is acked by reading status reg */
->          ret =3D regmap_read(data->regmap, BM1390_REG_STATUS, &status);
->          if (ret || !status)
->                  return IRQ_NONE;
-> +#endif
->=20
-> -       dev_dbg(data->dev, "DRDY trig status 0x%x\n", status);
-> +//     dev_dbg(data->dev, "DRDY trig status 0x%x\n", status);
->=20
->          if (test_bit(BM1390_CHAN_PRESSURE, idev->active_scan_mask)) {
->                  ret =3D bm1390_pressure_read(data, &data->buf.pressure);
-> @@ -656,7 +681,17 @@ static irqreturn_t bm1390_trigger_handler(int irq,=20
-> void *p)
->                                      data->timestamp);
->          iio_trigger_notify_done(idev->trig);
->=20
-> +#ifdef TEST_FORCE_IRQ_NONE
-> +       /* HACK, return IRQ_NONE and see if IRQ gets disabled */
-> +       if (!(first2 % 1000))
-> +               pr_info("Hack, return IRQ_NONE (%lu th)\n", first2);
-> +
-> +       first2++;
-> +
-> +       return IRQ_NONE;
-> +#else
->          return IRQ_HANDLED;
-> +#endif
->   }
->=20
->   /* Get timestamps and wake the thread if we need to read data */
->=20
->=20
->=20
-> resulted:
-> root@arm:/home/debian# /iio_generic_buffer -a -c1000000 --device-name=20
-> bm1390 -T0 > /dev/null
-> Enabling all channels
-> [  115.098819] Skip read
-> [  115.102442] Hack, return IRQ_NONE (0 th)
-> [  116.459049] Hack, return IRQ_NONE (1000 th)
-> [  117.851037] Hack, return IRQ_NONE (2000 th)
-> [  119.214843] Hack, return IRQ_NONE (3000 th)
-> [  120.598114] Hack, return IRQ_NONE (4000 th)
-> [  121.960255] Hack, return IRQ_NONE (5000 th)
-> [  123.322424] Hack, return IRQ_NONE (6000 th)
->=20
-> //snip
->=20
-> [  237.726666] Hack, return IRQ_NONE (90000 th)
-> [  239.095910] Hack, return IRQ_NONE (91000 th)
-> [  240.481233] Hack, return IRQ_NONE (92000 th)
-> [  241.846072] Hack, return IRQ_NONE (93000 th)
-> [  243.206432] Hack, return IRQ_NONE (94000 th)
-> [  244.570636] Hack, return IRQ_NONE (95000 th)
-> [  245.928964] Hack, return IRQ_NONE (96000 th)
-> [  247.286839] Hack, return IRQ_NONE (97000 th)
-> [  248.647986] Hack, return IRQ_NONE (98000 th)
-> [  250.011214] Hack, return IRQ_NONE (99000 th)
-> [  251.368583] irq 64: nobody cared (try booting with the "irqpoll" optio=
-n)
-> [  251.375463] CPU: 0 UID: 0 PID: 835 Comm: irq/63-2-005d-b Tainted: G=20
->          O        7.1.0-rc1-00002-g3b459deb7222-dirty #249 VOLUNTARY
-> [  251.375501] Tainted: [O]=3DOOT_MODULE
-> [  251.375511] Hardware name: Generic AM33XX (Flattened Device Tree)
-> [  251.375525] Call trace:
-> [  251.375545]  unwind_backtrace from show_stack+0x10/0x14
-> [  251.375607]  show_stack from dump_stack_lvl+0x50/0x64
-> [  251.375646]  dump_stack_lvl from __report_bad_irq+0x30/0xbc
-> [  251.375680]  __report_bad_irq from note_interrupt+0x2b4/0x32c
-> [  251.375722]  note_interrupt from handle_nested_irq+0x13c/0x14c
-> [  251.375758]  handle_nested_irq from iio_trigger_poll_nested+0x4c/0x68=
-=20
-> [industrialio]
-> [  251.375917]  iio_trigger_poll_nested [industrialio] from=20
-> bm1390_irq_thread_handler+0x54/0x7c [rohm_bm1390]
-> [  251.375994]  bm1390_irq_thread_handler [rohm_bm1390] from=20
-> irq_thread_fn+0x1c/0x78
-> [  251.376028]  irq_thread_fn from irq_thread+0x18c/0x324
-> [  251.376057]  irq_thread from kthread+0xf8/0x130
-> [  251.376091]  kthread from ret_from_fork+0x14/0x20
-> [  251.376114] Exception stack(0xe0355fb0 to 0xe0355ff8)
-> [  251.376136] 5fa0:                                     00000000=20
-> 00000000 00000000 00000000
-> [  251.376156] 5fc0: 00000000 00000000 00000000 00000000 00000000=20
-> 00000000 00000000 00000000
-> [  251.376175] 5fe0: 00000000 00000000 00000000 00000000 00000013 00000000
-> [  251.376189] handlers:
-> [  251.498714] [<2ec7a5d9>] iio_pollfunc_store_time [industrialio]=20
-> threaded [<7f4268a2>] bm1390_trigger_handler [rohm_bm1390]
-> [  251.509974] Disabling IRQ #64
->=20
-> Message from syslogd@arm at Jan  1 01:17:33 ...
->   kernel:[  251.509974] Disabling IRQ #64
-> [  252.822500] sched: RT throttling activated
->=20
->=20
-> Things I very hastly picked up:
->=20
-> 1. The throttling mechanism works even though the handling is invoked=20
-> via iio_trigger_poll_nested(), Probably because this propagates the call=
-=20
-> to the handle_nested_irq() - which does bookkeeping.
+On Wed, Jun 3, 2026 at 9:16=E2=80=AFAM Marco Elver <elver@google.com> wrote=
+:
+>
+> On Wed, 3 Jun 2026 at 14:31, Marco Elver <elver@google.com> wrote:
+> >
+> > l2cap_chan_timeout() accesses chan->conn without holding a reference to
+> > the connection object. If l2cap_conn_del() races and tears down the
+> > connection while the timer is waiting for locks, it can result in a
+> > use-after-free when the timer wakes up and attempts to acquire
+> > conn->lock:
+> >
+> > | BUG: KASAN: slab-use-after-free in instrument_atomic_read_write inclu=
+de/linux/instrumented.h:112 [inline]
+> > | BUG: KASAN: slab-use-after-free in atomic_long_try_cmpxchg_acquire in=
+clude/linux/atomic/atomic-instrumented.h:4456 [inline]
+> > | BUG: KASAN: slab-use-after-free in __mutex_trylock_fast kernel/lockin=
+g/mutex.c:161 [inline]
+> > | BUG: KASAN: slab-use-after-free in mutex_lock+0x4f/0xa0 kernel/lockin=
+g/mutex.c:318
+> > | Write of size 8 at addr ffff8881298d9550 by task kworker/2:1/83
+> > |
+> > | CPU: 2 UID: 0 PID: 83 Comm: kworker/2:1 Not tainted 7.1.0-rc6-next-20=
+260601-dirty #6 PREEMPT(full)
+> > | Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.17.0-de=
+bian-1.17.0-1 04/01/2014
+> > | Workqueue: events l2cap_chan_timeout
+> > | Call Trace:
+> > |  <TASK>
+> > |  instrument_atomic_read_write include/linux/instrumented.h:112 [inlin=
+e]
+> > |  atomic_long_try_cmpxchg_acquire include/linux/atomic/atomic-instrume=
+nted.h:4456 [inline]
+> > |  __mutex_trylock_fast kernel/locking/mutex.c:161 [inline]
+> > |  mutex_lock+0x4f/0xa0 kernel/locking/mutex.c:318
+> > |  l2cap_chan_timeout+0x5d/0x1b0 net/bluetooth/l2cap_core.c:422
+> > |  process_one_work kernel/workqueue.c:3326 [inline]
+> > |  process_scheduled_works+0x7c8/0xfb0 kernel/workqueue.c:3409
+> > |  worker_thread+0x8a9/0xcf0 kernel/workqueue.c:3490
+> > |  kthread+0x346/0x430 kernel/kthread.c:436
+> > |  ret_from_fork+0x1a3/0x470 arch/x86/kernel/process.c:158
+> > |  ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+> > |  </TASK>
+> > |
+> > | Allocated by task 320:
+> > |  l2cap_conn_add+0xa7/0x820 net/bluetooth/l2cap_core.c:7075
+> > |  l2cap_connect_cfm+0xdb/0xd70 net/bluetooth/l2cap_core.c:7452
+> > |  hci_connect_cfm include/net/bluetooth/hci_core.h:2139 [inline]
+> > |  hci_remote_features_evt+0x52f/0x9f0 net/bluetooth/hci_event.c:3760
+> > |  hci_event_func net/bluetooth/hci_event.c:7796 [inline]
+> > |  hci_event_packet+0x561/0xa70 net/bluetooth/hci_event.c:7847
+> > |  hci_rx_work+0x370/0x890 net/bluetooth/hci_core.c:4040
+> > |  process_one_work kernel/workqueue.c:3326 [inline]
+> > |  process_scheduled_works+0x7c8/0xfb0 kernel/workqueue.c:3409
+> > |  worker_thread+0x8a9/0xcf0 kernel/workqueue.c:3490
+> > |  kthread+0x346/0x430 kernel/kthread.c:436
+> > |  ret_from_fork+0x1a3/0x470 arch/x86/kernel/process.c:158
+> > |  ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+> > |
+> > | Freed by task 322:
+> > |  hci_disconn_cfm include/net/bluetooth/hci_core.h:2154 [inline]
+> > |  hci_conn_hash_flush+0x101/0x1f0 net/bluetooth/hci_conn.c:2736
+> > |  hci_dev_close_sync+0x889/0xde0 net/bluetooth/hci_sync.c:5405
+> > |  hci_dev_do_close net/bluetooth/hci_core.c:502 [inline]
+> > |  hci_unregister_dev+0x1f7/0x370 net/bluetooth/hci_core.c:2679
+> > |  vhci_release+0x12a/0x180 drivers/bluetooth/hci_vhci.c:690
+> > |  __fput+0x369/0x890 fs/file_table.c:510
+> > |  task_work_run+0x160/0x1d0 kernel/task_work.c:233
+> > |  get_signal+0xf5b/0x1120 kernel/signal.c:2810
+> > |  arch_do_signal_or_restart+0x4d/0x600 arch/x86/kernel/signal.c:337
+> > |  __exit_to_user_mode_loop kernel/entry/common.c:64 [inline]
+> > |  exit_to_user_mode_loop+0x85/0x510 kernel/entry/common.c:98
+> > |  __exit_to_user_mode_prepare include/linux/irq-entry-common.h:207 [in=
+line]
+> > |  syscall_exit_to_user_mode_prepare include/linux/irq-entry-common.h:2=
+30 [inline]
+> > |  syscall_exit_to_user_mode include/linux/entry-common.h:318 [inline]
+> > |  do_syscall_64+0x263/0x3d0 arch/x86/entry/syscall_64.c:100
+> > |  entry_SYSCALL_64_after_hwframe+0x77/0x7f
+> > |
+> > | Last potentially related work creation:
+> > |  hci_connect_cfm include/net/bluetooth/hci_core.h:2139 [inline]
+> > |  hci_remote_features_evt+0x52f/0x9f0 net/bluetooth/hci_event.c:3760
+> > |  hci_event_func net/bluetooth/hci_event.c:7796 [inline]
+> > |  hci_event_packet+0x561/0xa70 net/bluetooth/hci_event.c:7847
+> > |  hci_rx_work+0x370/0x890 net/bluetooth/hci_core.c:4040
+> > |  process_one_work kernel/workqueue.c:3326 [inline]
+> > |  process_scheduled_works+0x7c8/0xfb0 kernel/workqueue.c:3409
+> > |  worker_thread+0x8a9/0xcf0 kernel/workqueue.c:3490
+> > |  kthread+0x346/0x430 kernel/kthread.c:436
+> > |  ret_from_fork+0x1a3/0x470 arch/x86/kernel/process.c:158
+> > |  ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+> > |
+> > | The buggy address belongs to the object at ffff8881298d9400
+> > |  which belongs to the cache kmalloc-512 of size 512
+> > | The buggy address is located 336 bytes inside of
+> > |  freed 512-byte region [ffff8881298d9400, ffff8881298d9600)
+> >
+> > Fix it by holding a reference to the connection when the channel timer
+> > is scheduled, and releasing it when the timer is either canceled or
+> > executes to completion.
+> >
+> > Since l2cap_chan_del() nullifies chan->conn to disassociate the channel
+> > during teardown, the timer handler might read NULL from chan->conn even
+> > if it held a reference. To address this, introduce a `timer_conn` field
+> > to `struct l2cap_chan` to store the connection pointer associated with
+> > the active timer. The timer handler uses this field to acquire locks an=
+d
+> > release the connection reference, and skips channel closing operations
+> > if chan->conn has already been nullified by teardown.
+> >
+> > Fixes: 75780ca4c6a8 ("Bluetooth: L2CAP: use chan timer to close channel=
+s in cleanup_listen()")
+> > Cc: <stable@vger.kernel.org>
+> > Cc: Siwei Zhang <oss@fourdim.xyz>
+> > Cc: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+> > Assisted-by: Gemini:gemini-3.1-pro-preview
+> > Reported-by: https://sashiko.dev/#/patchset/20260521021249.3258069-1-os=
+s%40fourdim.xyz
+> > Signed-off-by: Marco Elver <elver@google.com>
+>
+> Sigh, Sashiko points out more problems here:
+> https://sashiko.dev/#/patchset/20260603123111.2334409-1-elver%40google.co=
+m
+>
+> > Can this lockless read of chan->timer_conn cause a use-after-free or do=
+uble
+> > free if another thread re-arms the timer concurrently?
+>
+> I haven't analyzed this further yet, so consider this patch a
+> bug-report-only. If anyone finds a better fix sooner, please go ahead.
 
-Great.  At least it squashes something.
+I was thinking or something like the following:
 
->=20
-> 2. For some reason (which I didn't have time to check yet), the=20
-> beaglebone black which I used to run this, was not completely blocked by=
-=20
-> the IRQ. We can see the "Hack, return IRQ_NONE (xxx th)" -prints=20
-> emerging just fine.
+diff --git a/net/bluetooth/l2cap_core.c b/net/bluetooth/l2cap_core.c
+index c4ccfbda9d78..dfe9318272f3 100644
+--- a/net/bluetooth/l2cap_core.c
++++ b/net/bluetooth/l2cap_core.c
+@@ -406,17 +406,39 @@ static void l2cap_chan_timeout(struct work_struct *wo=
+rk)
+ {
+        struct l2cap_chan *chan =3D container_of(work, struct l2cap_chan,
+                                               chan_timer.work);
+-       struct l2cap_conn *conn =3D chan->conn;
++       struct l2cap_conn *conn;
+        int reason;
 
-After the Disabling IRQ #64 message?
+        BT_DBG("chan %p state %s", chan, state_to_string(chan->state));
 
->=20
-> And now I must run. I hope to be able to dig some more details next week.
->=20
-> Yours,
-> 	-- Matti
->=20
->=20
++       /* Hold a reference to the connection while we are processing this
++        * timeout, to prevent it from being freed out from under us by
++        * l2cap_conn_del().
++        */
++       conn =3D l2cap_conn_hold_unless_zero(chan->conn);
+        if (!conn) {
+                l2cap_chan_put(chan);
+                return;
+        }
 
+        mutex_lock(&conn->lock);
++
++       /* If l2cap_chan_del() was called while waiting for conn->lock the
++        * channel shall be considered already closed and its last referenc=
+e
++        * shall be released with l2cap_chan_put(chan) here.
++        *
++        * l2cap_conn_del() doesn't wait the channel's works and instead ju=
+st
++        * leaves the timer reference behind which needs to be released her=
+e in
++        * order to free the channel and then l2cap_conn_put() to finally f=
+ree
++        * the connection.
++        */
++       if (!chan->conn) {
++               mutex_unlock(&conn->lock);
++               l2cap_chan_put(chan);
++               l2cap_conn_put(conn);
++               return;
++       }
++
+        /* __set_chan_timer() calls l2cap_chan_hold(chan) while scheduling
+         * this work. No need to call l2cap_chan_hold(chan) here again.
+         */
+@@ -438,6 +460,8 @@ static void l2cap_chan_timeout(struct work_struct *work=
+)
+        l2cap_chan_put(chan);
+
+        mutex_unlock(&conn->lock);
++
++       l2cap_conn_put(conn);
+ }
+
+ struct l2cap_chan *l2cap_chan_create(void)
+
+
+> > ---
+> >  include/net/bluetooth/l2cap.h | 18 ++++++++++++++++--
+> >  net/bluetooth/l2cap_core.c    | 26 +++++++++++++++-----------
+> >  2 files changed, 31 insertions(+), 13 deletions(-)
+> >
+> > diff --git a/include/net/bluetooth/l2cap.h b/include/net/bluetooth/l2ca=
+p.h
+> > index e0a1f2293679..83719777512e 100644
+> > --- a/include/net/bluetooth/l2cap.h
+> > +++ b/include/net/bluetooth/l2cap.h
+> > @@ -514,6 +514,7 @@ struct l2cap_seq_list {
+> >
+> >  struct l2cap_chan {
+> >         struct l2cap_conn       *conn;
+> > +       struct l2cap_conn       *timer_conn; /* for chan_timer */
+> >         struct kref     kref;
+> >         atomic_t        nesting;
+> >
+> > @@ -835,6 +836,9 @@ static inline void l2cap_chan_unlock(struct l2cap_c=
+han *chan)
+> >         mutex_unlock(&chan->lock);
+> >  }
+> >
+> > +struct l2cap_conn *l2cap_conn_get(struct l2cap_conn *conn);
+> > +void l2cap_conn_put(struct l2cap_conn *conn);
+> > +
+> >  static inline void l2cap_set_timer(struct l2cap_chan *chan,
+> >                                    struct delayed_work *work, long time=
+out)
+> >  {
+> > @@ -843,8 +847,13 @@ static inline void l2cap_set_timer(struct l2cap_ch=
+an *chan,
+> >
+> >         /* If delayed work cancelled do not hold(chan)
+> >            since it is already done with previous set_timer */
+> > -       if (!cancel_delayed_work(work))
+> > +       if (!cancel_delayed_work(work)) {
+> >                 l2cap_chan_hold(chan);
+> > +               if (work =3D=3D &chan->chan_timer && chan->conn) {
+> > +                       l2cap_conn_get(chan->conn);
+> > +                       chan->timer_conn =3D chan->conn;
+> > +               }
+> > +       }
+> >
+> >         schedule_delayed_work(work, timeout);
+> >  }
+> > @@ -857,8 +866,13 @@ static inline bool l2cap_clear_timer(struct l2cap_=
+chan *chan,
+> >         /* put(chan) if delayed work cancelled otherwise it
+> >            is done in delayed work function */
+> >         ret =3D cancel_delayed_work(work);
+> > -       if (ret)
+> > +       if (ret) {
+> > +               if (work =3D=3D &chan->chan_timer && chan->timer_conn) =
+{
+> > +                       l2cap_conn_put(chan->timer_conn);
+> > +                       chan->timer_conn =3D NULL;
+> > +               }
+> >                 l2cap_chan_put(chan);
+> > +       }
+> >
+> >         return ret;
+> >  }
+> > diff --git a/net/bluetooth/l2cap_core.c b/net/bluetooth/l2cap_core.c
+> > index c4ccfbda9d78..491b03bf6903 100644
+> > --- a/net/bluetooth/l2cap_core.c
+> > +++ b/net/bluetooth/l2cap_core.c
+> > @@ -406,7 +406,7 @@ static void l2cap_chan_timeout(struct work_struct *=
+work)
+> >  {
+> >         struct l2cap_chan *chan =3D container_of(work, struct l2cap_cha=
+n,
+> >                                                chan_timer.work);
+> > -       struct l2cap_conn *conn =3D chan->conn;
+> > +       struct l2cap_conn *conn =3D chan->timer_conn;
+> >         int reason;
+> >
+> >         BT_DBG("chan %p state %s", chan, state_to_string(chan->state));
+> > @@ -421,23 +421,27 @@ static void l2cap_chan_timeout(struct work_struct=
+ *work)
+> >          * this work. No need to call l2cap_chan_hold(chan) here again.
+> >          */
+> >         l2cap_chan_lock(chan);
+> > +       chan->timer_conn =3D NULL;
+> > +
+> > +       if (chan->conn) {
+> > +               if (chan->state =3D=3D BT_CONNECTED || chan->state =3D=
+=3D BT_CONFIG)
+> > +                       reason =3D ECONNREFUSED;
+> > +               else if (chan->state =3D=3D BT_CONNECT &&
+> > +                        chan->sec_level !=3D BT_SECURITY_SDP)
+> > +                       reason =3D ECONNREFUSED;
+> > +               else
+> > +                       reason =3D ETIMEDOUT;
+> >
+> > -       if (chan->state =3D=3D BT_CONNECTED || chan->state =3D=3D BT_CO=
+NFIG)
+> > -               reason =3D ECONNREFUSED;
+> > -       else if (chan->state =3D=3D BT_CONNECT &&
+> > -                chan->sec_level !=3D BT_SECURITY_SDP)
+> > -               reason =3D ECONNREFUSED;
+> > -       else
+> > -               reason =3D ETIMEDOUT;
+> > -
+> > -       l2cap_chan_close(chan, reason);
+> > +               l2cap_chan_close(chan, reason);
+> >
+> > -       chan->ops->close(chan);
+> > +               chan->ops->close(chan);
+> > +       }
+> >
+> >         l2cap_chan_unlock(chan);
+> >         l2cap_chan_put(chan);
+> >
+> >         mutex_unlock(&conn->lock);
+> > +       l2cap_conn_put(conn);
+> >  }
+> >
+> >  struct l2cap_chan *l2cap_chan_create(void)
+> > --
+> > 2.54.0.1013.g208068f2d8-goog
+> >
+
+
+
+--=20
+Luiz Augusto von Dentz
