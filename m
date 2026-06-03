@@ -1,128 +1,77 @@
-Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com [209.85.215.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.ispras.ru (mail.ispras.ru [83.149.199.84])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B75423B38AC
-	for <stable@vger.kernel.org>; Wed,  3 Jun 2026 15:24:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2F073D79E8;
+	Wed,  3 Jun 2026 15:24:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=83.149.199.84
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780500260; cv=none; b=HfRzlo5muyIs1hM47poC5hVuc8B7LTy+Iaq0jW0phHgMwIL19k7MnPAD8k2HXSO/bSiQPJs2Pg47G0fKMj/sz0Sd97gKJnauI6r4xhtBQlXkqf/Qo0o4F075kBHrPoMcW5GurqHRY7SFxq6LKtBpA1FsFSaFR5lLcVTbNOouxJY=
+	t=1780500272; cv=none; b=lRQxb8MEYF45fRavLbudw3T2dIShin/77+54MwOsyOVNgLLgXMZeidxAgvQXrwZjw/uJDNenpQciDJJQjEwvKAXRohnujebBwDKlsphzJ48tqTFR/+gWwO2I0tH2fmieXByGVuaCJgD9+kulu1Hz4d4CvqLAc8WAO6I5OGCL3Y8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780500260; c=relaxed/simple;
-	bh=y2MzPoG0MBmV9/S2CGOi17yiKJyXbHXPrURfp3Atgkc=;
-	h=From:To:Cc:Subject:In-Reply-To:Date:Message-ID:References; b=f/AF4/0NMx1VvzNPf/xPZ45jAxopO68B0eCqgcaW+iL2USPsazL16LXLl4tkFqKu576HEhpABt0MqgP1gWGmJQhi9EbmeyHGT1R5YiTWdvZ7WjdK5HXrU2UNaMn0Eh/RE4P09A5jMD6OZlHMsOaaxwdDqljo7QFqI5suxPcAojk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=n+ZSKX4Z; arc=none smtp.client-ip=209.85.215.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1780500272; c=relaxed/simple;
+	bh=VYGbKoBU1kgJ8/HqyzVh46Bxs708cg3YePpBv9k6/7w=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YUPutO5s5DN9NALlMfSxW/5Z9PfVgb68ns6qn2UIiuQ2/VFQ3pXTy3X4pzWtSn8AUpaQvb2blqGWNwW9fIsFcPDVouGS7miRa7XzEH8UCwmL2lhW83W4aqX18ZmCq8/a0JCTSqwH71/cixaobGteACbLL5TpAaD4EVWE8VFTFCg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ispras.ru; spf=pass smtp.mailfrom=ispras.ru; dkim=pass (1024-bit key) header.d=ispras.ru header.i=@ispras.ru header.b=hq6LbCY4; arc=none smtp.client-ip=83.149.199.84
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ispras.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ispras.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="n+ZSKX4Z"
-Received: by mail-pg1-f178.google.com with SMTP id 41be03b00d2f7-c858d69bde9so1991471a12.1
-        for <stable@vger.kernel.org>; Wed, 03 Jun 2026 08:24:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780500259; x=1781105059; darn=vger.kernel.org;
-        h=references:message-id:date:in-reply-to:subject:cc:to:from:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=acwBnprFgwqGQFKcy6Zu5y1vKCe+2/zpivoZrYetfHk=;
-        b=n+ZSKX4ZO6fXZWVJSLJCCrokYWO2iillfnIsrkhOqSFVlrdcKMjqoIe79+KCX+34bd
-         8CUXsh9ne1F7TyOtZ+mZocplQ+K+GEvo/N3CdkxOWe486ftFobP8i+ccQckIzlnpMmIM
-         mWO1IkO7n89CKudClVO1Uxackh7QON0sX3F3BhiYc5eJvXx4eXLI3xMkG8UMwUgFw6Oc
-         8sfX8vJ4WqiXyz//Cy5iy/K4i/Ocgz+SB1Uske50mTjWHcW5NL8W0ZRJDVXPkk2y2FvN
-         Y1gIfVWXa9MfHZnmWIbfHss0NFmIVo/TZpl4osk9azJhAjtlyAfdl38yJewkUI58rD2K
-         37uQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780500259; x=1781105059;
-        h=references:message-id:date:in-reply-to:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=acwBnprFgwqGQFKcy6Zu5y1vKCe+2/zpivoZrYetfHk=;
-        b=ZYq+VbpsYBemE2/8Tckb4wR9j55mEto5BOgeYwcP4vARVBDWCyUd5aWpygRax0E/41
-         4fqN2qM+IIkfyGsyfNw1T5j3VYmrTcYncKGTguqWBytlKyjYo+3BAsw5P9WaYjLh3FMU
-         TVxTSxAi2jNFJ9nthWq/SdOchra/rNBXEzsCut+AF8Q6/Y5GktGQDXWsj54rxSCcKG7m
-         aEPkY4zanlewxekdSkRg/sF6BdpWGx/+jTTfc+c6KGiT2kxpaqg6qedQfqN0w2il8Iyh
-         nCkrDWvsWVQIi7aGtGacFl0bl+Tl7o73lXaRboZ2T1Senyn3uM6SCDpQ01px2aDhZK1n
-         adAQ==
-X-Forwarded-Encrypted: i=1; AFNElJ/n9lAIlsBGHIuD1jnuAPff4QSefrp55X403WsB/A0P26E/REimLmuEh5RBYflsi3odBKuNjuE=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxRC95//4wOuda6s7rM5hS+WfrHop8idOLf40FriAYs/nfCuzca
-	Cwmu3LACa3cFrpSCSsYm5Juf4JukL1k3VjbWfffpis4BY86daWV8Bx6E
-X-Gm-Gg: Acq92OHkK0iwW7B00o7ZaZpraLWOmvdULg6k906xLl/Mpv7z7ig05WRWpzZpAhqfvXl
-	RWrXx+4SveZindkLMJ2yWezQPLycDhFuNIxv551Z9LwJ+SB4GVKQX0htMR4S3BbDPq83ZtLY5N5
-	mcYotJYU8CHznCjvYvucczKV4PlEUWS1OzxSyfISZ5FeKtVzLmXiLycY2fuBCsbtKTcLDt7TK+X
-	gJkfqBG2Frvlo3QM37tZq8yX2MKi/LA4y2jQpR+cb5gIVWVKnDJ7f7qCEA66hA/YSTou36MSC9b
-	cNmMZLC6/qorc41B7X49Y26eOuJVJoNOU6uYHupp0BitLXE6pajpZ9sJzNFnUMyTu+1W35bXYK0
-	cH/3w6s3+dcG2gpSerbPWmGRpiXgyfYn5O1ORawBtIcJX7pYUKaoEWaIms5OhDlx5iqXU8XqyXT
-	mM50JgV8E0cBMJblL64ydj7Jc+dD+fFqCu
-X-Received: by 2002:a05:6a21:691:b0:3a2:d68d:9e78 with SMTP id adf61e73a8af0-3b49732971emr4778730637.4.1780500258903;
-        Wed, 03 Jun 2026 08:24:18 -0700 (PDT)
-Received: from pve-server ([49.205.216.49])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c85df043ce0sm2671767a12.11.2026.06.03.08.24.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 03 Jun 2026 08:24:18 -0700 (PDT)
-From: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
-To: Amit Machhiwal <amachhiw@linux.ibm.com>, linuxppc-dev@lists.ozlabs.org, Madhavan Srinivasan <maddy@linux.ibm.com>
-Cc: Amit Machhiwal <amachhiw@linux.ibm.com>, Vaibhav Jain <vaibhav@linux.ibm.com>, Harsh Prateek Bora <harshpb@linux.ibm.com>, Anushree Mathur <anushree.mathur@linux.ibm.com>, Nicholas Piggin <npiggin@gmail.com>, Michael Ellerman <mpe@ellerman.id.au>, "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, kvm@vger.kernel.org, stable@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] KVM: PPC: Book3S HV: Validate arch_compat against host compatibility mode
-In-Reply-To: <20260603141539.47620-1-amachhiw@linux.ibm.com>
-Date: Wed, 03 Jun 2026 20:41:15 +0530
-Message-ID: <pl278xrg.ritesh.list@gmail.com>
-References: <20260603141539.47620-1-amachhiw@linux.ibm.com>
+	dkim=pass (1024-bit key) header.d=ispras.ru header.i=@ispras.ru header.b="hq6LbCY4"
+Received: from localhost (unknown [10.10.165.2])
+	by mail.ispras.ru (Postfix) with ESMTPSA id A754B45F7992;
+	Wed,  3 Jun 2026 15:24:28 +0000 (UTC)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.ispras.ru A754B45F7992
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ispras.ru;
+	s=default; t=1780500268;
+	bh=dDezscWghLoipjsue1MQr5iD2rpVXv26dElJr8ULXHQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=hq6LbCY4N1O+D8J3Nccr51xNzAnl2JGwoqOdtHVAJHdJjsIqLNBlvIuAYVLYcwMj4
+	 Qt73OtQ/c5ktuEHoz1WSsXJA4nhgBvJvE6noFbE3n9bVkyn4qmMDs0wavz6eLNRQFp
+	 jnGgcx3M6r/YOuhFB4DJqezrSBaodTV7D0PXqVxM=
+Date: Wed, 3 Jun 2026 18:24:28 +0300
+From: Fedor Pchelkin <pchelkin@ispras.ru>
+To: Vladislav Nikolaev <vlad102nikolaev@gmail.com>
+Cc: stable@vger.kernel.org, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Sasha Levin <sashal@kernel.org>, 
+	Zhu Yanjun <zyjzyj2000@gmail.com>, Doug Ledford <dledford@redhat.com>, 
+	Jason Gunthorpe <jgg@ziepe.ca>, Haggai Eran <haggaie@mellanox.com>, 
+	Leon Romanovsky <leon@kernel.org>, linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	lvc-project@linuxtesting.org
+Subject: Re: [PATCH 6.1] RDMA/rxe: Complete the rxe_cleanup_task backport
+Message-ID: <20260603180641-95dcfccf487143d39ac329a8-pchelkin@ispras>
+References: <20260603132729.423-1-vlad102nikolaev@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260603132729.423-1-vlad102nikolaev@gmail.com>
 
-Amit Machhiwal <amachhiw@linux.ibm.com> writes:
+On Wed, 03. Jun 16:27, Vladislav Nikolaev wrote:
+> No upstream commit exists for this patch.
+> 
+> The issue was introduced with backporting upstream commit b2b1ddc45745
+> ("RDMA/rxe: Fix the error "trying to register non-static key in
+> rxe_cleanup_task"") to the 6.1 stable tree as commit 3236221bb8e4
+> ("RDMA/rxe: Fix the error "trying to register non-static key in
+> rxe_cleanup_task"").
 
-> On IBM POWER systems, newer processor generations can operate in
-> compatibility modes corresponding to earlier generations. This becomes
-> relevant for nested virtualization, where nested KVM guests may need to
-> run with a specific processor compatibility level.
->
-> Currently, when running a nested KVM guest (L2) inside a Power11 pSeries
-> logical partition (L1) booted in Power10 compatibility mode, the guest
-> fails to boot while setting 'arch_compat'. This happens because the CPU
-> class is derived from the hardware PVR (via mfspr()), which reflects the
-> physical processor generation (Power11), rather than the effective
-> compatibility mode (Power10).
->
-> As a result, userspace may request a Power11 arch_compat for the L2
-> guest. However, the L1 partition, running in Power10 compatibility, has
-> only negotiated support up to Power10 with the Power Hypervisor (L0).
-> When H_GUEST_SET_STATE is invoked with a Power11 Logical PVR, the
-> hypervisor rejects the request, leading to a late guest boot failure:
->
->   KVM-NESTEDv2: couldn't set guest wide elements
->   [..KVM reg dump..]
->
+I may be wrong and then the stable kernel maintainers might correct me,
+but there's been some consensus established in at least recent stable
+patches workflow that if the backport version of the upstream commit is
+incorrect or, in this particular case, incomplete - the corresponding
+patches should be reverted from the affected stable branches and ported
+properly once again.  That would make it easier to follow in future.
 
-Thanks! It make sense to return a proper error code to the user (VMM)
-while the VM/VCPU are being initialized, rather then the guest failing
-to boot with a weird error like this, at the time when kernel makes this
-H_GUEST_SET_STATE hcall.
+See [1] or [2] for reference.
 
-> This situation should be detected earlier. Rejecting unsupported
-> 'arch_compat' values in 'kvmppc_set_arch_compat()' avoids issuing an
-> invalid H_GUEST_SET_STATE hcall and provides a clearer failure mode.
->
-> Add a check to reject Power11 'arch_compat' requests when the host is
-> running in Power10 compatibility mode, returning -EINVAL early instead
-> of deferring the failure to the hypervisor.
->
-> Suggested-by: Vaibhav Jain <vaibhav@linux.ibm.com>
-> Tested-by: Anushree Mathur <anushree.mathur@linux.ibm.com>
-> Cc: <stable@vger.kernel.org> # v6.13+
+[1]: https://lore.kernel.org/stable/20260402-tavern-keen-2b4fa6b9@mheyne-amazon/T/#u
+[2]: https://lore.kernel.org/stable/ahgiBNbwo7FudH9r@decadent.org.uk/
 
-Sure, v6.13 sounds fair as you pointed out.
+P.S: consider porting 1c7eec4d5f3b ("RDMA/rxe: Fix "trying to register
+non-static key in rxe_qp_do_cleanup" bug") as well to 6.1/6.6 and other
+relevant stables (if tinkering with this code anyway) ?
 
-> Signed-off-by: Amit Machhiwal <amachhiw@linux.ibm.com>
-> ---
-> Changelog:
->
-> * Moved this patch out of the v3 series [1] as discussed here [2]
-> * Addressed below review comments from Ritesh:
->   - Based the PVR validation on cpu features
->   - Fixed hcall name typo
->   - Stable backport
-
-The changes looks good to me. Please feel free to add:
-
-Reviewed-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
-
+Thanks.
