@@ -1,190 +1,193 @@
-Received: from mail-oo1-f52.google.com (mail-oo1-f52.google.com [209.85.161.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAF433DF017
-	for <stable@vger.kernel.org>; Wed,  3 Jun 2026 20:51:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.161.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A06437F73A;
+	Wed,  3 Jun 2026 20:52:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.112
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780519897; cv=pass; b=WzrPJo+Ley49QJeqn8NmDQtBckZabhJIS34jBeiFhQsXKB5CgwQ5w8wLm6vCOBPeeabPwP74DN5u3s2Kym9JXrVZXjo5+oJiclPFBgXj3MgATs3lsvz+59XN+UiJsYiupoVgvoOZEMlA/VYsPLBqTilfIRLsL2L1015wzvo042E=
+	t=1780519976; cv=pass; b=j3eYglDUTMoru5W9PJ+2k2jeqSzD5qbH9y0tYfXfx9yNroVJRGzhdG+cr9WbNHGzLGq3JEyRLWUKIV5QqULCl3hGTuJsfOgb5HYUo6eu5JlgvnRxKPVB3PK86wucJF+4y1OXsE1UGUZdrJ5SCCkiU5jCh1LoPIFBZ8yx8kyARTE=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780519897; c=relaxed/simple;
-	bh=faanJKe8rIUqjysBcTbPF8u9knLNhZ6mBd4V8VpbAPw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=AbWPnb4XgzZRAYfoiJUvBKI4yETuu6qY8DDGsI80ynJr9TmjB6DA43Z/fN2wp8dxbMeB+kI8y6Bu5nf4OxOzitxXVy3IYl2Gt0O9mKooPaXsp0I0e/jWnIhWtFRpcWaFmN+sy2a6nI/m41+SdA3civsih01cNyCvW6s8CJAbBsc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gD8QRV55; arc=pass smtp.client-ip=209.85.161.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1780519976; c=relaxed/simple;
+	bh=NyyNvCZLStQ7ErkxEtTreoF8w2A0bc4Lc6JxEGQXK/o=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=l55yl86XiM/YonQEhidKxytYtxgLcauX4y2A4f5Den3bS5KEPqeZuiO5jQVLzBuvpZj6kbr1P9qAvmvYP+z4MKEyw4aDTIzND+6tIl0yrqx99xVH+/wDM7mPPaOswVZofxIlGM9dtOQihXh8qCHBTkRj8UIHhWK/dKXz0c4Q0KY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b=gmpnMfVu; arc=pass smtp.client-ip=136.143.188.112
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gD8QRV55"
-Received: by mail-oo1-f52.google.com with SMTP id 006d021491bc7-69dc2c38f6dso5702eaf.2
-        for <stable@vger.kernel.org>; Wed, 03 Jun 2026 13:51:35 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1780519895; cv=none;
-        d=google.com; s=arc-20240605;
-        b=auK8Qkd5RRHns4LkCSSHWPED3j1jkj56M8mcCXUYPHmP9JUS20fKqOBejJYEUtyWzv
-         E9u6h2R8kigZ4XVfp3RUvmp+VwBgTw6BmD0gcY8Oj+leka71Ak6MrurnKrURSCcGrg0z
-         mkDPHUmTo+RRYayC1lg/VUQ5ukU5V8ac/dP4K6tNXE33ScwY5VjG3fH8Se+fGupdlo/9
-         Tip7nL/3rWC3s5sYY/ndDQfHXl/4dQsTezzKMafTTVrBFGXOGIi7POOmFDXMzB/np4Dp
-         aa/ibB1zrZzTaVpqtRRxhV9EC9pi8v12tZSoD9Yh3aj3eFvAamMQ3oR1R1nWB1mTQhRw
-         uDiw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=2hTxm6EsNp3ZZn91hRFR6ginSU70UVDxdZM5vbNNjfA=;
-        fh=T/cLFrInWDVcTIUps/tGDGWLJLW9hE1qoBFa0KhDNms=;
-        b=fDfVgTLMR83iJTijMnAMjnZumzsfNVV8Al7sjcW3LLMP+VPQZuVLA+Zyv0m5WYhH/2
-         1nu9pudbfTgQ9wiAnRi920CUkO2qGDB3ALbAvfW6bdmyaczZ0e+Ccv2BM6dzJOjQgPPh
-         LIOKlCCfXFy/gEIZJQKU5dKc9cWldA6TnWwRI5nALBjH5SrR8a5/vD/UFLK9osF2fwr9
-         BKV9JsN4a+ajPQ6Gt3nxfujRUabLE3ghP9akj09wxXyN+x8Lp3wx2fp7Dm/qoFb5qxkV
-         xzcSHGXmZzzPKnIQTaYZFE4yFrwbmZcxfOdAVgjr9P7TjIFuxrt4jjj0FJkZtOKrTPzV
-         wy5A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780519895; x=1781124695; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=2hTxm6EsNp3ZZn91hRFR6ginSU70UVDxdZM5vbNNjfA=;
-        b=gD8QRV55aLRAF/6iD1e1J2Sq1ftAVREq7/Kw621ncxG5fVrDs1U2lDaDFREfL0KIY9
-         ucs12QzLf5jIQA0QQDo6/EwwWBAE7mZXlP+KYHQX8bQRwhGCkclI2JvUij2KMUfAHEkd
-         7x9hbux6gES20tH40N1wTkIthbwC02LiySkTwlb9MVzNkKawQM4NuhxmMXlY70fBv9pf
-         8sbt+Bdhl0qxNKCQHy1qyf8Rhvve9LYu0eLcUiPvKRvonrYWtGxTSj9eKFtmM+5qOoZK
-         5DyaOx3CDB2Ve+M57nmKk1KXuB2iY1WYEtmfyAIWYcwH45XOHxjEASjyOYhRpUyhig8v
-         zTJg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780519895; x=1781124695;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=2hTxm6EsNp3ZZn91hRFR6ginSU70UVDxdZM5vbNNjfA=;
-        b=IWGKPfg+dbXXFAirg2giSw/B27aky20lIrL+Im+cXDNvNQX2d2BVBIthCHm+wzDb6c
-         NDxINHL3tWZVn1fR8fluKyp20WmRajJDgattqvG2yxplxgkVXKBTIRDx85+RPmpPpg3D
-         rCovOPBQYJj9hvrNJJxq9Uc7wwy+7z1Hu/DRmxvZ0wP0P7kh6v2X62wCwy55UAdnRjio
-         QZsIecokK5OB2QM9ErzcC/bxFSzNejUxHTDa3xU9UNX3kx7sllo0dxXv0CNWFUR0uNvk
-         50cKHOB3T4c5zDSJfTBginIcHKrzGqN41kUJtMpuMTUIDCr4IhadIqlEDVlp8TcAzF7M
-         A2bA==
-X-Forwarded-Encrypted: i=1; AFNElJ9M3pV5WkqN/IsdBwrk+AhJhsqKoTfP5ZmnocJdgR0rhy95nWUy+MPdgkIEXJlp2t/fNXBRU6k=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy2wod32FLo2buqgBMqgw/Pxp/FpweJSkNYYSNqu9+Z7DClbjDS
-	RVj5LeZ7SoTw2NfXMzrr8EMrJ5wckrbDHHt55N3Y73kzUXA76LfJMWTdACV0bYK35ufuXG3Qez6
-	qWDcSPt4YGHv5ROwRRVXKxzXEdYJ321k=
-X-Gm-Gg: Acq92OGXGoqSSnDfOFMlhf2OILkVmzcG5Gi9vc3OJ6oSbDkTzC5j1SnZk1bo63Qe1H7
-	JMuw59XqVJElOGvQE2J6f9IcqUjPQ8gYQh7EAQHSw70dpIN1pyBwNxDQKdy89TfeXOJ8ihnC+4P
-	ghiqnUsLKo7xjAQ/dElmVguldMsh0kdGK16vOjEPPUqdGQRJXOzDv3bL/NWVezPHTsdGfWFWirm
-	I9HZeBGVXgfpyU1DYUS7ArIxRBu/exzLROljGbHyRvWNkZVkDsb9Rws3ObfZZlTYhricW7NEvuw
-	XaIXH+opPUj5rWuBQamlmFEyxYOs3yJ2KIouJ+HRgw1/ATI0
-X-Received: by 2002:a4a:db45:0:b0:69e:14a:f30f with SMTP id
- 006d021491bc7-69e4809197amr2037947eaf.41.1780519894809; Wed, 03 Jun 2026
- 13:51:34 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="gmpnMfVu"
+ARC-Seal: i=1; a=rsa-sha256; t=1780519967; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=LH1TywtGSM2yBD59YBPqG4mOooo7TNsWtH7E85DamtLyKXLnqdGIkWXq44mtiGyPLwgs+qStTbtf4t+Z+EBHWRe77KqGY1/I9w125h6f6UrkYM5gA8w4mMz2GllimIYcibME415ZSl7MpFFoCyGjYMGNZcUn6eiPbxNkGVVTr/c=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1780519967; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=VNfJORKyS7S4SxK6S3Pb5UD1hlxgi4qwhkVoop1KbQU=; 
+	b=Yl1FmUn8igFbGGKsWGZnQY24tpODfDIYZ4R+bTQlhWYy+FZ0nIPu/RDIsG57fdZMvEjPwqfD0LfDDrhuyNB/9FTOhDS5fawS6oOQgU3kMsnBohhNJJkENuy0tvqdYHhcgiXeo63Yfgg1e6SVJufqMOJkOmogUpgt5bBgdQtJZAU=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
+	dmarc=pass header.from=<sebastian.reichel@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1780519967;
+	s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
+	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:References:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
+	bh=VNfJORKyS7S4SxK6S3Pb5UD1hlxgi4qwhkVoop1KbQU=;
+	b=gmpnMfVuLQC+GJ+KgNDa9iOiCraF99/LkT3ec93x49iNNJ8+wdfOYUiZTq/DJctp
+	MWoA9wyqKU8El0YwXDt8PTCw+X2CFrAsDrMrKwP/TTtvBZ8wrEpO3dKMv59BfHvexhV
+	N60r7xyqcU13sKvcXlARgdS50uuTdcy4fgb/XtOQ=
+Received: by mx.zohomail.com with SMTPS id 1780519965106860.4530380480584;
+	Wed, 3 Jun 2026 13:52:45 -0700 (PDT)
+Received: by venus (Postfix, from userid 1000)
+	id 6F6CC180C6E; Wed, 03 Jun 2026 22:52:41 +0200 (CEST)
+Date: Wed, 3 Jun 2026 22:52:41 +0200
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+To: Alexey Charkov <alchark@flipper.net>
+Cc: Chris Morgan <macromorgan@hotmail.com>, 
+	Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, Lee Jones <lee@kernel.org>, 
+	linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v7 0/7] Add support for the TI BQ25792 battery charger
+Message-ID: <aiCTYizaduoHLAI7@venus>
+References: <20260603-bq25792-v7-0-d487bed276d0@flipper.net>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260602222358.49061-1-devnexen@gmail.com> <CAMgjq7B5sSjJPG7bMyEf0=c-W9heiPL6SQsedicyp8ahXWrYPA@mail.gmail.com>
-In-Reply-To: <CAMgjq7B5sSjJPG7bMyEf0=c-W9heiPL6SQsedicyp8ahXWrYPA@mail.gmail.com>
-From: David CARLIER <devnexen@gmail.com>
-Date: Wed, 3 Jun 2026 21:51:23 +0100
-X-Gm-Features: AVHnY4KZMwp3hNbhdoqPob52kWdksNuiEmIpeP5tzG-_RR9C6TEd2POiAAL4W6k
-Message-ID: <CA+XhMqwwXCaOBc2a7umw1EPKPX-Nz8vJgwdYL1VDp5r=_zs7=A@mail.gmail.com>
-Subject: Re: [PATCH] mm, swap: free the cluster extend table on teardown
-To: Kairui Song <ryncsn@gmail.com>
-Cc: akpm@linux-foundation.org, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, 
-	syzbot+deedf22929084640666f@syzkaller.appspotmail.com, stable@vger.kernel.org, 
-	Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>, 
-	Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>, 
-	Youngjun Park <youngjun.park@lge.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="uo3wokkeue64jygb"
+Content-Disposition: inline
+In-Reply-To: <20260603-bq25792-v7-0-d487bed276d0@flipper.net>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.2.1.5.2/280.501.96
+X-ZohoMailClient: External
+
+
+--uo3wokkeue64jygb
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v7 0/7] Add support for the TI BQ25792 battery charger
+MIME-Version: 1.0
 
-On Wed, 3 Jun 2026 at 03:42, Kairui Song <ryncsn@gmail.com> wrote:
->
-> On Wed, Jun 3, 2026 at 6:27=E2=80=AFAM David Carlier <devnexen@gmail.com>=
- wrote:
-> >
-> > swap_cluster_free_table() frees every per-cluster side table but
-> > ci->extend_table. That table is only released by
-> > swap_extend_table_try_free(), which the teardown path never calls, so a
-> > cluster can be freed with an extend table still attached.
-> >
-> > It can also linger while the cluster is live. swap_dup_entries_cluster(=
-)
-> > drops the lock to allocate an extend table when a slot reaches
-> > SWP_TB_COUNT_MAX - 1, then retries. If the count dropped in the meantim=
-e,
-> > the retry takes the normal path and leaves the table behind, all entrie=
-s
-> > zero; only the failure path frees it.
-> >
-> > Since a swap_cluster_info is reused in place and swap_extend_table_allo=
-c()
-> > skips allocation when ci->extend_table is set, the next user of the
-> > cluster inherits the stale table and its leftover counts, corrupting th=
-e
-> > swap count of any slot that overflows. CONFIG_DEBUG_VM catches the
->
-> There won't be a corruption, extend_table is all zero at this point,
-> the leak on swapoff is real though.
->
-> > dangling table in swap_cluster_assert_empty(); otherwise it is silent.
-> >
-> > Free it in swap_cluster_free_table(), and also on the
-> > swap_dup_entries_cluster() success path to match the failure path.
-> >
-> > Reported-by: syzbot+deedf22929084640666f@syzkaller.appspotmail.com
-> > Closes: https://syzkaller.appspot.com/bug?extid=3Ddeedf22929084640666f
-> > Fixes: 0d6af9bcf383 ("mm, swap: use the swap table to track the swap co=
-unt")
-> > Cc: <stable@vger.kernel.org>
-> > Signed-off-by: David Carlier <devnexen@gmail.com>
-> > ---
-> >  mm/swapfile.c | 4 ++++
-> >  1 file changed, 4 insertions(+)
-> >
-> > diff --git a/mm/swapfile.c b/mm/swapfile.c
-> > index 615d90867111..a69a26aec4c0 100644
-> > --- a/mm/swapfile.c
-> > +++ b/mm/swapfile.c
-> > @@ -432,6 +432,9 @@ static void swap_cluster_free_table(struct swap_clu=
-ster_info *ci)
-> >         ci->zero_bitmap =3D NULL;
-> >  #endif
-> >
-> > +       kfree(ci->extend_table);
-> > +       ci->extend_table =3D NULL;
-> > +
->
-> Still a bit too late to avoid the WARN? The WARN is already triggered
-> at this point, swap_cluster_free_table is called after
-> swap_cluster_assert_empty.
->
-> >         table =3D (struct swap_table *)rcu_access_pointer(ci->table);
-> >         if (!table)
-> >                 return;
-> > @@ -1711,6 +1714,7 @@ static int swap_dup_entries_cluster(struct swap_i=
-nfo_struct *si,
-> >                         goto failed;
-> >                 }
-> >         } while (++ci_off < ci_end);
-> > +       swap_extend_table_try_free(ci);
-> >         swap_cluster_unlock(ci);
-> >         return 0;
-> >  failed:
-> > --
-> > 2.53.0
->
-> I think we have already fixed this?
-> https://lore.kernel.org/all/6a1eac8e.fbc46276.3c3783.0008.GAE@google.com/=
-T/
+Hi,
 
+On Wed, Jun 03, 2026 at 12:10:48AM +0400, Alexey Charkov wrote:
+> This adds support for the TI BQ25792 battery charger, which is similar in
+> overall logic to the BQ25703A, but has a different register layout and
+> slightly different lower-level programming logic.
+>=20
+> Signed-off-by: Alexey Charkov <alchark@flipper.net>
+> ---
+> Changes in v7:
+> - Rebase onto recent -next and dropped patches already applied by Mark an=
+d Lee
+> - Enable the Input Current Optimizer to improve reliability with unrecogn=
+ized chargers
+> - Explicitly program the battery cell count at init time to alleviate tra=
+nsient glitches
+>   with the charger going into spurious battery overvoltage state due to m=
+isdetected
+>   battery cell count
+> - Handle return values of all regmap writes in the init function
+> - Link to v6: https://lore.kernel.org/r/20260331-bq25792-v6-0-0278fba33eb=
+9@flipper.net
+>=20
+> Changes in v6:
+> - Changed -EINVAL to -ENODEV for non-match cases in the MFD driver, to st=
+ay
+>   in line with what other drivers do in similar situations (Lee Jones)
+> - Link to v5: https://lore.kernel.org/r/20260324-bq25792-v5-0-0a2eb58cf11=
+d@flipper.net
+>=20
+> Changes in v5:
+> - Added non-OF match data and switched to i2c_get_match_data() to support
+>   non-OF platforms (Lee Jones)
+> - Shifted the types in the enum to start at 1 to avoid confusion with
+>   zero-initialized data and non-match cases (Lee Jones)
+> - Reinstated the const qualifier on the MFD cell array (Lee Jones)
+> - Link to v4: https://lore.kernel.org/r/20260311-bq25792-v4-0-7213415d9ee=
+c@flipper.net
+>=20
+> Changes in v4:
+> - Avoid additional data structures and pass 'type' within the existing
+>   struct bq257xx_device instead (Lee Jones)
+> - Move comments for new struct fields to the patches where those fields
+>   are added (Sebastian Reichel)
+> - Collect tags from Sebastian Reichel (thanks!)
+> - Link to v3: https://lore.kernel.org/r/20260310-bq25792-v3-0-02f8e232d63=
+b@flipper.net
+>=20
+> Changes in v3:
+> - Move MFD cell definitions back out of the probe function (Lee Jones)
+> - Collect tags from Mark Brown, Krzysztof Kozlowski and Chris Morgan (tha=
+nks!)
+> - Enable ship FET functionality at init for BQ25792
+> - Link to v2: https://lore.kernel.org/r/20260306-bq25792-v2-0-6595249d6e6=
+f@flipper.net
+>=20
+> Changes in v2:
+> - Fix an error in DT schema (thanks Rob's bot)
+> - Ensure the broadest constraints for all variants remain in the common
+>   part of the schema, per writing-schema doc (thanks Krzysztof)
+> - Link to v1: https://lore.kernel.org/r/20260303-bq25792-v1-0-e6e5e003345=
+8@flipper.net
+>=20
+> ---
+> Alexey Charkov (7):
+>       regulator: bq257xx: Drop the regulator_dev from the driver data
+>       power: supply: bq257xx: Fix VSYSMIN clamping logic
+>       power: supply: bq257xx: Make the default current limit a per-chip a=
+ttribute
+>       power: supply: bq257xx: Consistently use indirect get/set helpers
+>       power: supply: bq257xx: Add fields for 'charging' and 'overvoltage'=
+ states
 
- Thanks for the review.
+I merged patches 2-5.
 
-  Agreed on all counts. 0475fde0f68d already addresses both the warning
-  and the swapoff leak at the allocation site, so this patch is
-  redundant. Please drop it.
+>       regulator: bq257xx: Add support for BQ25792
+>       power: supply: bq257xx: Add support for BQ25792
 
-  Andrew, you're right that no cc:stable was warranted here.
+This one updates the MFD header and does not apply to me tree. It
+will have to wait a cycle, as there is not enough time to sync with
+Lee how to proceed :)
 
-Cheers.
+Greetings,
+
+-- Sebastian
+
+>=20
+>  drivers/power/supply/bq257xx_charger.c | 580 +++++++++++++++++++++++++++=
++++++-
+>  drivers/regulator/bq257xx-regulator.c  | 106 +++++-
+>  include/linux/mfd/bq257xx.h            |  14 +
+>  3 files changed, 681 insertions(+), 19 deletions(-)
+> ---
+> base-commit: 08484c504b55a98bd100527fbe10a3caf55ff3ff
+> change-id: 20260303-bq25792-0132ac86846d
+>=20
+> Best regards,
+> -- =20
+> Alexey Charkov <alchark@flipper.net>
+>=20
+
+--uo3wokkeue64jygb
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmoglBkACgkQ2O7X88g7
++ppdGg//fyapOHU/WCudCf99OxRvCRFlbh3Rg5wqnMXWDx9UeI5RRTg7LtV0OO2T
+EDek1rkCyRihGHBit3SYIwotIyrgk872Vyx5kj+LXqIEdVU+gnydZyhrZEvlnTTO
+VGOyvdtDd2LHnXQbQdUglD+FG/PkcwSLs/L+5Q77dTXr/c6Ha4KEFh40+WNqbJQY
+CYulSv653PXynZSTXiK7y0qr7HxVR5T5mxErbDMmHyW5fixKL7msTiJcaIQhjG41
+CwfhA59BcihL1jTb8kgj8eDAoNAu+Dhro/wCvF4aqLbY3vI7OqRFSNkulWhoEdR+
+ZF+y/OGpSN1IVPMpo71WXU/HIR7BosOBMVwL7GtRV53R3NwlVXN75zxve5jSPW4i
+PTTWlBSlkq+6qt7w+9T/TIIFtm9og8cY5lMVl/cLOYsOPCwm5xIG/uJszZI2tiG5
+dIOzHLdonCZvNJSb7f7ar2OChdLaIIsdySZHh69tZQIu2lUaoofYV6NIW4603fTe
+eyL6YkwKfiyXLQhfI55/D+Ujdsi901EJLVjIR/gOmh7tvdxdMRi/ebYYoOAxU4qX
+jurvOZk3eQNKeJSst+gJF1taeajy/PKp/gs4O/+jRQlnkpHfrPjwV7gxmdlyYV+Y
+gmd/6ekczIuuJWLKwXy5sTmMCNNrRwBxXuf+A2ZiZRdDhKBESCQ=
+=IcDc
+-----END PGP SIGNATURE-----
+
+--uo3wokkeue64jygb--
