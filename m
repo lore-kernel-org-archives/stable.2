@@ -1,279 +1,138 @@
-Received: from mail-wm1-f74.google.com (mail-wm1-f74.google.com [209.85.128.74])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012027.outbound.protection.outlook.com [52.101.43.27])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49D8B47CC63
-	for <stable@vger.kernel.org>; Wed,  3 Jun 2026 12:31:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.74
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780489910; cv=none; b=fSJ7bmpsEhRG7/y26P/hvNg5an9fMpQFdiAhPwYcW2OqfC6h1Un3GCFuO1ScPR8+ZocsQdG9S+DMQ7Zabx7bLx3wIoTK9+3r7+0nHAVb5AvOQzwYcSFzO959SvSLHlSQt5FQ2eoyZZBdcL1+7mSc7MpFqxJ0OJCBlbnuLdDC9aw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780489910; c=relaxed/simple;
-	bh=OBqzlD9jfV/N6cxv35diWNJEsY2b1p853Lmf3bTfNK0=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=ZRM6MGSj/ezR9P8edX8TVQOEki5iHxw7075n1YFyxo/YmzFUzpCcZJCiTy1fePjvWaaCxFt+yQ7RRiquRtQLuo9GQn2Nyj0c87myEPqzJXEJquZVUjoWPFxv8hw2xi0LuqZa5Xsc4IIr1NbuCtc71YzDkmU0OuDHhn1CEI6My78=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--elver.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=bqZJtwXA; arc=none smtp.client-ip=209.85.128.74
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--elver.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90C5347DFBD;
+	Wed,  3 Jun 2026 12:41:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.27
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780490474; cv=fail; b=bHgYvObfzoyDjHwtGIbYLh5CrAOrbg/iXCsHa3oWbVhtf0H20NEZQI1cVdlRQEL5eOBtkNO/2HIC8CimhkTdYAh0CFogXjk/OLDRDZySiEPID85Z8cMH6ug0qEEs+7IvJodtUq2P7cj5et5FgdwC1sUV7fI+pCV4lwbbB6ODO1w=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780490474; c=relaxed/simple;
+	bh=/NCoc/BuwhpVlSUPmTfLgw5vMVdHpmBKr101w+YfYMA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=CTyQhDJA4UWXJRn3+Jpxsw4DdbqUKT/YCqVqT5izYESKEpIgaJFyNbXpw22SUK0Ao5EflHVxjelalIQp8wTQ2RXvWEjeOZPQTMUGWUPwco5HvyCG/KIO+B/J6T/H3ZQK5phA0iQw0BjkpY8uRQv7SowrZz0vdim+sK07itozypc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Y6aZzlpu; arc=fail smtp.client-ip=52.101.43.27
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="bqZJtwXA"
-Received: by mail-wm1-f74.google.com with SMTP id 5b1f17b1804b1-490ae016853so18438205e9.2
-        for <stable@vger.kernel.org>; Wed, 03 Jun 2026 05:31:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1780489908; x=1781094708; darn=vger.kernel.org;
-        h=cc:to:from:subject:message-id:mime-version:date:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=X6divYi1rxsu/Q6KgNUKm4DM1iqc6TwjvJ7uBYHIwk4=;
-        b=bqZJtwXAk3s3eGtCr5M4Aqzt+y0urRRqifm+GQlHHlc9LNqXA0MHW+hGiUqtqb4AO5
-         HVtiSHTZmhVtiuSY1sSqJyUSDN8Jwm4UN7XgG0yFgtDshxmFkcQbfVeAuVMAeiMSoffW
-         HLhCbNovcuGTJ8n7fyDXyRv/QYlHV4M+YydcPaUQUUbyhy3KCd2QpaftFWj1VadxtETN
-         qqt16XjLEp+Gw/5l4NhIK0IXYt//Q1mfhNe3ObiWwNgBrjn+A/egbM8mT5nHzfzDoURW
-         lYSWHD5oNj21YwmCninRBzIPwZ8gE6L+VQ9LfSsLNLLluuVAnIJIaEJL7jXAoUumrc99
-         nxTg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780489908; x=1781094708;
-        h=cc:to:from:subject:message-id:mime-version:date:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=X6divYi1rxsu/Q6KgNUKm4DM1iqc6TwjvJ7uBYHIwk4=;
-        b=c4AK/5r5/ZAPvOWwINE7qVjBG6OFjzu2/KrlpLcKox9GIF1GfD8oYTvoX5jWlZgy6W
-         aUvqGP39OgnyhUMs14VYC65tyb8fmZ97+i82ryoG1R4Ih7FKvAAOCnyLwe+DvahHdGEQ
-         uJsBkkTkRKhfwHLBJjVirSzpzcyHIERwFn8XmtcBBE4empCubUYrjpmLRZyv5uQAwkxj
-         oC3iqO7rSUUrXLV47CMLcBu4ULZDIj602u9vYE5w+XpSF3k5ZTmwq3oCL9O1BkgvSoV5
-         kvjDGswyvs+FUQ2GNQ4OLR2sym3+Ar/wOoxTTMeSlOzkGZNNN/rzrFGLaLP2k9FJPKja
-         9xKw==
-X-Forwarded-Encrypted: i=1; AFNElJ9dA6eqFx1rlrI9WDwnKZ/nR4zGHz8N5l2gnZ2bl7AOj0eSxCA5ZAffM97cKysTUIvg1Hjskn8=@vger.kernel.org
-X-Gm-Message-State: AOJu0YywiO/YZJQpm5fAplRfJi92+3Gu6xNrxwsbk+3vXNiVWWpon0rK
-	5ndi0h0bPvkHdykgUbAhQsH4XUe7avRvdfbFsjnlu2Ts2nIMIcMN9vmkb3GBzEhgDHi0YZP65ft
-	7PA==
-X-Received: from wmbje15.prod.google.com ([2002:a05:600c:1f8f:b0:488:81f0:1a27])
- (user=elver job=prod-delivery.src-stubby-dispatcher) by 2002:a05:600c:8b86:b0:490:b58b:a8cb
- with SMTP id 5b1f17b1804b1-490b60f87a7mr55948125e9.26.1780489907530; Wed, 03
- Jun 2026 05:31:47 -0700 (PDT)
-Date: Wed,  3 Jun 2026 14:27:34 +0200
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Y6aZzlpu"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=kIn/dFLj1OnhJcUFnC0hvLCYLZp6ziYzvUeEnYKWzFqseMhvAy2KzTREt9EVOywuOIMqVec/srSENzLe5QrOtC6uCnS5VYAboSipLSj0HZUkaYz+XHZww/s0HMh3YLTCwvAQUr3uBuq5AuNXrqwV7/S43DNJ2ZzX5S4qoT71YpxHZJxKCYWagRIUTuCVq2uyM3uw+695VVoTQNS3inbgejO9/1v/otnpboL6xdHC+QDZg9wgjSR3ZtVtVKnU9FMR12lii/1/eSiaRzxaUBU1xbSoKS3L1+wFoRDvoEfC6ZeoFUXeOu9WPUDaLTWh/GnzDV/E859VxHE6DNqq11FUaA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Fs+viUNUi1tTatwkudodvgiODnUHr/JxZHEU0HBw1hE=;
+ b=KGaKJ+nlBlwwtgeweg0nu+NB7MxvRzOHzrnoszSsGFcsL+nWFLpaokOjGuRPymn2mm3PF/K1IO2jPnj4+B+UQChmO2UC/lnBe9OXMeuszMuR1Chf8ZHGchNEHYGV1dgExTNqQk1FkyoDam2r/FvRINVA/WPeWZYFNPCgdBrNMNmub96pwXRWPUhYKDCMgcaFB87H4kGcbdB28eO0Zr/0gPMheEo8vsAKMBjcUXepPa3tu9gaqFEAycLtXqXqzGrxWpUsTBlPUBQ680pKwYnetu8JH2cAQLfDZRXtkZIxh9HvlhWY864YWfIuRMDBG2pXx6wgEHr462jCkssuTUbD3w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Fs+viUNUi1tTatwkudodvgiODnUHr/JxZHEU0HBw1hE=;
+ b=Y6aZzlpu7+/GFsFvEvIIov2fqgiqxseqIH7+HExFnj4eisFEtw9E7iX6Y7BMh40ip9W2Y2wOnxWhMpjuSm3Bs9pQQEgSEQus8rMXTee4cZT5ZexRBkSfGD2Cgnb8uIJcU6E1BaFtd6GHOturDN+PqoW6oh4mF4mXls3+JStY3lFTLlSMsnPb1WGxuFftXfoOrQ1wScIfcAK9JwKDGSJbnC40n03AXr//K+sl6MBdr8tUOz0cki24Wo42KjBP8JpcHyXKcwOKuaQueWr00dqEuZz8cH3u6rz6cv7gKbzRlZnCWBc9ZRqwrZc4sg4LzcGOlV5cOC/5alW9LJ79/bX8Ig==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from LV8PR12MB9620.namprd12.prod.outlook.com (2603:10b6:408:2a1::19)
+ by BY5PR12MB4036.namprd12.prod.outlook.com (2603:10b6:a03:210::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.13; Wed, 3 Jun 2026
+ 12:41:07 +0000
+Received: from LV8PR12MB9620.namprd12.prod.outlook.com
+ ([fe80::299d:f5e0:3550:1528]) by LV8PR12MB9620.namprd12.prod.outlook.com
+ ([fe80::299d:f5e0:3550:1528%4]) with mapi id 15.21.0092.006; Wed, 3 Jun 2026
+ 12:41:07 +0000
+Date: Wed, 3 Jun 2026 09:41:06 -0300
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: Leon Romanovsky <leon@kernel.org>, linux-rdma@vger.kernel.org
+Cc: patches@lists.linux.dev, Shiraz Saleem <shiraz.saleem@intel.com>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 0/3] Fix typing issues in the umem code
+Message-ID: <20260603124106.GA1429219@nvidia.com>
+References: <0-v1-88303e9e509f+f7-ib_umem_types_jgg@nvidia.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <0-v1-88303e9e509f+f7-ib_umem_types_jgg@nvidia.com>
+X-ClientProxiedBy: BL1PR13CA0226.namprd13.prod.outlook.com
+ (2603:10b6:208:2bf::21) To LV8PR12MB9620.namprd12.prod.outlook.com
+ (2603:10b6:408:2a1::19)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.54.0.1013.g208068f2d8-goog
-Message-ID: <20260603123111.2334409-1-elver@google.com>
-Subject: [PATCH] Bluetooth: L2CAP: Fix UAF in l2cap_chan_timeout
-From: Marco Elver <elver@google.com>
-To: elver@google.com
-Cc: Marcel Holtmann <marcel@holtmann.org>, Luiz Augusto von Dentz <luiz.dentz@gmail.com>, 
-	linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	kasan-dev@googlegroups.com, stable@vger.kernel.org, 
-	Siwei Zhang <oss@fourdim.xyz>, Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LV8PR12MB9620:EE_|BY5PR12MB4036:EE_
+X-MS-Office365-Filtering-Correlation-Id: 545debd5-24ed-4ce7-3e31-08dec16d61ce
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|376014|22082099003|18002099003|56012099006|11063799006|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	Q4areJ1gszdbs2cvW9lhESK5DSpQoFSm9TU7IvaAdQ2/DRe6E7nZnD9HbNxg/UJT+H4MtnTlDe4K/5zNWLUrCIS7Idff/uNjdrrB3JVUhCHOcWhfsDfp7wJdeNmTfeJoj2uErbzekZpGfmLWbOqpmBzUAk+0LmDRZ8WaQWiRMlQ3p2SIOG3UJU0V5zoErKPtlo8WBfKHwsLy+AKCT0mJKhADmlUk7UXBojN+Y/6x7SNi0bRTxBLqUnSRnU/gyt4Skb1ibBBPsyd0BmfLtv2WRU7+LXRtGlln2BuI+UhHjeqaRArbReh05DDM7ZBJU3FFHt1j2Yot8LpkaK5/c7K3Pti3TOlQRufYY99BaxTLZMlau4mvhEVKwR7gJp5jLMwL1/lDYp9Ep0jQwkddbq9E9nFJei4eMLzXBDgrgBYO7UJ/6+Bj6EaCdI5Ap8m/wHBB1aLZL+2Bc54pZA3aU0RUPvGI/IMGdYPcxQxHZ4Ep10bfafRoFpbrlziq5wbktRhYlmbw/Z+0tri3Z1yLvX2JlxV4MyC/5bGfgyXkicOIEWajRg7fkZ+cEj6tyn1wAz8ZvzlttzSTRIQJ5sPW/6K5p5ogIRyW9Hq7+NK5akIxnIuwi4ENgKYWKu8GvqsQfEXrzcDwLkFALKfGldQu8IG9/29IgniGYHGzhZaoDoyBSH4bT8sDAyQLmIeN52Fvfwlc
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV8PR12MB9620.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(22082099003)(18002099003)(56012099006)(11063799006)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?smoi2rn5ZBj6xq2j1F/+uT1E1aPiYxYCUIh4zIbGnCJZnZZaAvfbiwGNw8xC?=
+ =?us-ascii?Q?/0i1FZ4NSZGO0AaBMjbFPVsOsytbq9w88dwUkQHaF4AnUL+NETstD76GDGFp?=
+ =?us-ascii?Q?FdK1Tak7mGygyXRGw2xW77qHKlu3wMk5aKM9CkKlZWh5b1nsTNJWjwqry9/a?=
+ =?us-ascii?Q?bkYEmnekrEiLtwAJ7oVF2k1QbBjAcTTq6cY+cFfL6PuZ8ituZx4z6gXbtK+y?=
+ =?us-ascii?Q?Pe43WOKkLy0HhotfnHeaiRLDYSUaP5tQCooH5LsZ3VQ4cKoy12o8W3xafzUp?=
+ =?us-ascii?Q?1pGzFokrW1ZVSQBB8Dcyr7R6PoKVOAwiLOdLkeJs6AorkIywRRa7IGi1UYwz?=
+ =?us-ascii?Q?uJ9bozD6RGR7figcu3VtywPTjkjOBjPUvLq6f5S9zwwEhtzAzyba+bfR0ajH?=
+ =?us-ascii?Q?Gf92B/YBxQvlvWm7sbZqVr/WTJ/zqMlrebYw/YMlQrmaHhpOHja6iO5cGuOf?=
+ =?us-ascii?Q?MjZg50oodp/capoblHml734TqO6kDLosOPJ+kwQ90+UNcMy+3FNLMrUjEwAn?=
+ =?us-ascii?Q?ek2n3+UWlxn71Evd64s+8Nbx/6vwpfU4ol4VoX9Rj8LddNisD3FEvdwnPpJ0?=
+ =?us-ascii?Q?Cxtv6YfiKEds1jD6lyxwmvegLh1Gygi8IkcRXjPzQ15rRF01/0EqCSFCd8eq?=
+ =?us-ascii?Q?0KK2TaR6G0kJv374Mypy8U4afVh1QB0vKs7TY1INL5BHBLElCcUFzuVjRiZ0?=
+ =?us-ascii?Q?fR9Ch6kVvzUidoxicRkcaau8i+XE5KSEzGYnZhIsMXJvYFwtV8N2JQYJb6Nv?=
+ =?us-ascii?Q?Ihg7/7lYpsiaQJaTUgz5+tTLgOnKfsmy/ljWRCUy5OqG2U+Sxswv+0pDwQPl?=
+ =?us-ascii?Q?BIugodXrmORtEqeJUey30tJVWCtjpvGdI8uUX0pJ5v3L7C9AAbRzsYtnq02K?=
+ =?us-ascii?Q?DqJC5Fym6vAUaJyPN65Tv/VqZpYQC3we8pYOoSLs0I0tG1tK8ozHBR4Sdayl?=
+ =?us-ascii?Q?9B/7yERNKWv55VnGz1Qa4rTYo9dUlcd5q3x8dvdEZXjKZlzosYVH+anqJWIu?=
+ =?us-ascii?Q?qLNr9f1b22wUOELbKZQUqQkSQYtTIzprVfSQLRcvDbYmXqKDc8KSWFl6l/0c?=
+ =?us-ascii?Q?DzZQIBDKkKfkyz7sepPKZbjrKi9wPiCH152GfnG1BkrDcq4xnoxw5fKvrjbd?=
+ =?us-ascii?Q?SBzs8TPTpBgGnWsnnCEmkFgvV+AUXbPvApDik8VWklZEAQh7BnSvWLbobd8Z?=
+ =?us-ascii?Q?nE/1pZBkqyZI8mqIUFVN6p3OVLRHNx6uzv+stj318EzZSTqQFFzDfybiok/p?=
+ =?us-ascii?Q?UThegONmf+J0S2z+nyCxW6c1HIeexgxpuhGpZ81WvpongOyjGQe5ZX/hd+nr?=
+ =?us-ascii?Q?Y4C8L/RUQKCU6VZAK5GCI/sn7fFKrNyb2FQAtj/fAFBd4/KLjgmHzckjgfNO?=
+ =?us-ascii?Q?o4bz5xWOTz9efOE6bVwoZCpVnMvdb/daMksAC2ujdXKgbUeZvgLng6TMjU04?=
+ =?us-ascii?Q?4g6W83F7e2tDwBKvcH7LFECdBP8szVbytbbg7zVHaV2ZCOgyJzq7KVb+Bvus?=
+ =?us-ascii?Q?VP5HgkYeCGQ/HptbCmAO+1xY+t4Tz9nibhqI9ffC+cqyM5NdlWwvr4vGaTYj?=
+ =?us-ascii?Q?lnCdEAb1STC3lBi2z6r7qZgvpqMlvybvY0FWbiDR9aBxlZewa+K2xSXzE9G4?=
+ =?us-ascii?Q?KBN4+XldXISj/Hhhqd7qwS4QUgloZkv4OLqbGCIkBcc3xvHmHPAHEvWAQSSG?=
+ =?us-ascii?Q?YUh2r9AdYhKxxWJ9TfEcWfwutvKKD7CntXYR7Hz8PSqldiQP?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 545debd5-24ed-4ce7-3e31-08dec16d61ce
+X-MS-Exchange-CrossTenant-AuthSource: LV8PR12MB9620.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jun 2026 12:41:07.1848
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 3wfP/hVyF4I33ifptB6kwomT1KFICg+CAzj82ylcAAsUimn7Z9AzwwpANxfeb5K8
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4036
 
-l2cap_chan_timeout() accesses chan->conn without holding a reference to
-the connection object. If l2cap_conn_del() races and tears down the
-connection while the timer is waiting for locks, it can result in a
-use-after-free when the timer wakes up and attempts to acquire
-conn->lock:
+On Mon, Jun 01, 2026 at 01:52:30PM -0300, Jason Gunthorpe wrote:
+> The types are tricky here as we have a mixture of u64, dma_addr_t and
+> unsigned long used purposefully for different things:
+>  - The on-the-wire IOVA address of the MR is u64
+>  - The dma address is dma_addr_t which can be u32 or u64
+>  - unsigned long is used for pgsize, mostly because a bunch of bit math
+>    helper functions are used and they are obnoxious to use u64
+> 
+> Fix various silent truncations, issues on 32 bit compiles and
+> understandability.
+> 
+> Jason Gunthorpe (3):
+>   RDMA/umem: Fix truncation for block sizes >= 4G
+>   RDMA/umem: Be careful about boundary conditions in
+>     ib_umem_find_best_pgsz()
+>   RDMA/umem: Make ib_umem_is_contiguous() safe on 32 bit
 
-| BUG: KASAN: slab-use-after-free in instrument_atomic_read_write include/linux/instrumented.h:112 [inline]
-| BUG: KASAN: slab-use-after-free in atomic_long_try_cmpxchg_acquire include/linux/atomic/atomic-instrumented.h:4456 [inline]
-| BUG: KASAN: slab-use-after-free in __mutex_trylock_fast kernel/locking/mutex.c:161 [inline]
-| BUG: KASAN: slab-use-after-free in mutex_lock+0x4f/0xa0 kernel/locking/mutex.c:318
-| Write of size 8 at addr ffff8881298d9550 by task kworker/2:1/83
-|
-| CPU: 2 UID: 0 PID: 83 Comm: kworker/2:1 Not tainted 7.1.0-rc6-next-20260601-dirty #6 PREEMPT(full)
-| Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.17.0-debian-1.17.0-1 04/01/2014
-| Workqueue: events l2cap_chan_timeout
-| Call Trace:
-|  <TASK>
-|  instrument_atomic_read_write include/linux/instrumented.h:112 [inline]
-|  atomic_long_try_cmpxchg_acquire include/linux/atomic/atomic-instrumented.h:4456 [inline]
-|  __mutex_trylock_fast kernel/locking/mutex.c:161 [inline]
-|  mutex_lock+0x4f/0xa0 kernel/locking/mutex.c:318
-|  l2cap_chan_timeout+0x5d/0x1b0 net/bluetooth/l2cap_core.c:422
-|  process_one_work kernel/workqueue.c:3326 [inline]
-|  process_scheduled_works+0x7c8/0xfb0 kernel/workqueue.c:3409
-|  worker_thread+0x8a9/0xcf0 kernel/workqueue.c:3490
-|  kthread+0x346/0x430 kernel/kthread.c:436
-|  ret_from_fork+0x1a3/0x470 arch/x86/kernel/process.c:158
-|  ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-|  </TASK>
-|
-| Allocated by task 320:
-|  l2cap_conn_add+0xa7/0x820 net/bluetooth/l2cap_core.c:7075
-|  l2cap_connect_cfm+0xdb/0xd70 net/bluetooth/l2cap_core.c:7452
-|  hci_connect_cfm include/net/bluetooth/hci_core.h:2139 [inline]
-|  hci_remote_features_evt+0x52f/0x9f0 net/bluetooth/hci_event.c:3760
-|  hci_event_func net/bluetooth/hci_event.c:7796 [inline]
-|  hci_event_packet+0x561/0xa70 net/bluetooth/hci_event.c:7847
-|  hci_rx_work+0x370/0x890 net/bluetooth/hci_core.c:4040
-|  process_one_work kernel/workqueue.c:3326 [inline]
-|  process_scheduled_works+0x7c8/0xfb0 kernel/workqueue.c:3409
-|  worker_thread+0x8a9/0xcf0 kernel/workqueue.c:3490
-|  kthread+0x346/0x430 kernel/kthread.c:436
-|  ret_from_fork+0x1a3/0x470 arch/x86/kernel/process.c:158
-|  ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-|
-| Freed by task 322:
-|  hci_disconn_cfm include/net/bluetooth/hci_core.h:2154 [inline]
-|  hci_conn_hash_flush+0x101/0x1f0 net/bluetooth/hci_conn.c:2736
-|  hci_dev_close_sync+0x889/0xde0 net/bluetooth/hci_sync.c:5405
-|  hci_dev_do_close net/bluetooth/hci_core.c:502 [inline]
-|  hci_unregister_dev+0x1f7/0x370 net/bluetooth/hci_core.c:2679
-|  vhci_release+0x12a/0x180 drivers/bluetooth/hci_vhci.c:690
-|  __fput+0x369/0x890 fs/file_table.c:510
-|  task_work_run+0x160/0x1d0 kernel/task_work.c:233
-|  get_signal+0xf5b/0x1120 kernel/signal.c:2810
-|  arch_do_signal_or_restart+0x4d/0x600 arch/x86/kernel/signal.c:337
-|  __exit_to_user_mode_loop kernel/entry/common.c:64 [inline]
-|  exit_to_user_mode_loop+0x85/0x510 kernel/entry/common.c:98
-|  __exit_to_user_mode_prepare include/linux/irq-entry-common.h:207 [inline]
-|  syscall_exit_to_user_mode_prepare include/linux/irq-entry-common.h:230 [inline]
-|  syscall_exit_to_user_mode include/linux/entry-common.h:318 [inline]
-|  do_syscall_64+0x263/0x3d0 arch/x86/entry/syscall_64.c:100
-|  entry_SYSCALL_64_after_hwframe+0x77/0x7f
-|
-| Last potentially related work creation:
-|  hci_connect_cfm include/net/bluetooth/hci_core.h:2139 [inline]
-|  hci_remote_features_evt+0x52f/0x9f0 net/bluetooth/hci_event.c:3760
-|  hci_event_func net/bluetooth/hci_event.c:7796 [inline]
-|  hci_event_packet+0x561/0xa70 net/bluetooth/hci_event.c:7847
-|  hci_rx_work+0x370/0x890 net/bluetooth/hci_core.c:4040
-|  process_one_work kernel/workqueue.c:3326 [inline]
-|  process_scheduled_works+0x7c8/0xfb0 kernel/workqueue.c:3409
-|  worker_thread+0x8a9/0xcf0 kernel/workqueue.c:3490
-|  kthread+0x346/0x430 kernel/kthread.c:436
-|  ret_from_fork+0x1a3/0x470 arch/x86/kernel/process.c:158
-|  ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-|
-| The buggy address belongs to the object at ffff8881298d9400
-|  which belongs to the cache kmalloc-512 of size 512
-| The buggy address is located 336 bytes inside of
-|  freed 512-byte region [ffff8881298d9400, ffff8881298d9600)
+I picked up t he first patch to -rc
 
-Fix it by holding a reference to the connection when the channel timer
-is scheduled, and releasing it when the timer is either canceled or
-executes to completion.
-
-Since l2cap_chan_del() nullifies chan->conn to disassociate the channel
-during teardown, the timer handler might read NULL from chan->conn even
-if it held a reference. To address this, introduce a `timer_conn` field
-to `struct l2cap_chan` to store the connection pointer associated with
-the active timer. The timer handler uses this field to acquire locks and
-release the connection reference, and skips channel closing operations
-if chan->conn has already been nullified by teardown.
-
-Fixes: 75780ca4c6a8 ("Bluetooth: L2CAP: use chan timer to close channels in cleanup_listen()")
-Cc: <stable@vger.kernel.org>
-Cc: Siwei Zhang <oss@fourdim.xyz>
-Cc: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
-Assisted-by: Gemini:gemini-3.1-pro-preview
-Reported-by: https://sashiko.dev/#/patchset/20260521021249.3258069-1-oss%40fourdim.xyz
-Signed-off-by: Marco Elver <elver@google.com>
----
- include/net/bluetooth/l2cap.h | 18 ++++++++++++++++--
- net/bluetooth/l2cap_core.c    | 26 +++++++++++++++-----------
- 2 files changed, 31 insertions(+), 13 deletions(-)
-
-diff --git a/include/net/bluetooth/l2cap.h b/include/net/bluetooth/l2cap.h
-index e0a1f2293679..83719777512e 100644
---- a/include/net/bluetooth/l2cap.h
-+++ b/include/net/bluetooth/l2cap.h
-@@ -514,6 +514,7 @@ struct l2cap_seq_list {
- 
- struct l2cap_chan {
- 	struct l2cap_conn	*conn;
-+	struct l2cap_conn	*timer_conn; /* for chan_timer */
- 	struct kref	kref;
- 	atomic_t	nesting;
- 
-@@ -835,6 +836,9 @@ static inline void l2cap_chan_unlock(struct l2cap_chan *chan)
- 	mutex_unlock(&chan->lock);
- }
- 
-+struct l2cap_conn *l2cap_conn_get(struct l2cap_conn *conn);
-+void l2cap_conn_put(struct l2cap_conn *conn);
-+
- static inline void l2cap_set_timer(struct l2cap_chan *chan,
- 				   struct delayed_work *work, long timeout)
- {
-@@ -843,8 +847,13 @@ static inline void l2cap_set_timer(struct l2cap_chan *chan,
- 
- 	/* If delayed work cancelled do not hold(chan)
- 	   since it is already done with previous set_timer */
--	if (!cancel_delayed_work(work))
-+	if (!cancel_delayed_work(work)) {
- 		l2cap_chan_hold(chan);
-+		if (work == &chan->chan_timer && chan->conn) {
-+			l2cap_conn_get(chan->conn);
-+			chan->timer_conn = chan->conn;
-+		}
-+	}
- 
- 	schedule_delayed_work(work, timeout);
- }
-@@ -857,8 +866,13 @@ static inline bool l2cap_clear_timer(struct l2cap_chan *chan,
- 	/* put(chan) if delayed work cancelled otherwise it
- 	   is done in delayed work function */
- 	ret = cancel_delayed_work(work);
--	if (ret)
-+	if (ret) {
-+		if (work == &chan->chan_timer && chan->timer_conn) {
-+			l2cap_conn_put(chan->timer_conn);
-+			chan->timer_conn = NULL;
-+		}
- 		l2cap_chan_put(chan);
-+	}
- 
- 	return ret;
- }
-diff --git a/net/bluetooth/l2cap_core.c b/net/bluetooth/l2cap_core.c
-index c4ccfbda9d78..491b03bf6903 100644
---- a/net/bluetooth/l2cap_core.c
-+++ b/net/bluetooth/l2cap_core.c
-@@ -406,7 +406,7 @@ static void l2cap_chan_timeout(struct work_struct *work)
- {
- 	struct l2cap_chan *chan = container_of(work, struct l2cap_chan,
- 					       chan_timer.work);
--	struct l2cap_conn *conn = chan->conn;
-+	struct l2cap_conn *conn = chan->timer_conn;
- 	int reason;
- 
- 	BT_DBG("chan %p state %s", chan, state_to_string(chan->state));
-@@ -421,23 +421,27 @@ static void l2cap_chan_timeout(struct work_struct *work)
- 	 * this work. No need to call l2cap_chan_hold(chan) here again.
- 	 */
- 	l2cap_chan_lock(chan);
-+	chan->timer_conn = NULL;
-+
-+	if (chan->conn) {
-+		if (chan->state == BT_CONNECTED || chan->state == BT_CONFIG)
-+			reason = ECONNREFUSED;
-+		else if (chan->state == BT_CONNECT &&
-+			 chan->sec_level != BT_SECURITY_SDP)
-+			reason = ECONNREFUSED;
-+		else
-+			reason = ETIMEDOUT;
- 
--	if (chan->state == BT_CONNECTED || chan->state == BT_CONFIG)
--		reason = ECONNREFUSED;
--	else if (chan->state == BT_CONNECT &&
--		 chan->sec_level != BT_SECURITY_SDP)
--		reason = ECONNREFUSED;
--	else
--		reason = ETIMEDOUT;
--
--	l2cap_chan_close(chan, reason);
-+		l2cap_chan_close(chan, reason);
- 
--	chan->ops->close(chan);
-+		chan->ops->close(chan);
-+	}
- 
- 	l2cap_chan_unlock(chan);
- 	l2cap_chan_put(chan);
- 
- 	mutex_unlock(&conn->lock);
-+	l2cap_conn_put(conn);
- }
- 
- struct l2cap_chan *l2cap_chan_create(void)
--- 
-2.54.0.1013.g208068f2d8-goog
-
+Jason
