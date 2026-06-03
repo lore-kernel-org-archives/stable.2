@@ -1,78 +1,81 @@
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 053463B6363
-	for <stable@vger.kernel.org>; Wed,  3 Jun 2026 11:29:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21ECB46AEE5;
+	Wed,  3 Jun 2026 11:36:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780486163; cv=none; b=FvcPnJ1cpRmXLECsjR9S/o/PLrlhZqYD5h/4nP83dWNGetGO1Z74z5SZFCqDKPZHIvRRaUJmr8GbUWYiqW7yJ+5ifNCv5P7NbJiH8cLNmb/CWqsr35OXJA98lbEOunQvY5aac4iLi52yti3TXMMIw7ezYGUEU+iLD0ZbjmRgI9U=
+	t=1780486618; cv=none; b=Icbth+7waE+5y04Cu9h/eNsqgZFr59L0vhYTWDNQMBtXVjfJp0mXNBl77DBmBCclZxRjC4HG+EKtW2DEcUJJrA1xRzRt8sMDtd9K+CIlwiy4cJE92TCtlzZ7ohqWUeyRSqBmd/OHQcCeIbUszhJ2nUxf1yy4Oi8ctfcqhqq50ks=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780486163; c=relaxed/simple;
-	bh=EzgO7LomJ/NnedQH0f+oMIVugNuiq7tvJGss4s4zaBo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=J6EtwfYeZ7HXjf0KgqMmX2PymXDkFYvljWMciPNNqSjRq01BgaAezKxrW/OumfymM7FSljlqjENnQjFaIZR029QJoL9sWbegzrLzZY7LJ+iTYRzziQpfmbnDRK9frM+S0GNXL5nFwKY9mQUtj0IxfaphM7VXyId38YOgPFcW1i0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=F7jHwa4c; arc=none smtp.client-ip=213.97.179.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	s=arc-20240116; t=1780486618; c=relaxed/simple;
+	bh=GXtemVvQe32JT57DRWEfRbfG3iQHNFXNIcdyeU1cKKs=;
+	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
+	 Subject:From:To:Cc:Date; b=uVYHho0o2nFlXUh+9fIpruZcDD1pX3o85rYAm6e9xWiWG2Oth98/4YoZNxPXApGi8QzWboJorke2Yio5g9fG9bFkPkeHDmA2plDUlgWWoZIOiVTyWMBJZjAkZ93pj6p4wRcPB7a+l9v+CR4iJPHYBe9obHaGERu+1V0FcP3Hc30=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P+l+YvhR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="F7jHwa4c"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
-	In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
-	List-Post:List-Owner:List-Archive;
-	bh=mLrKlo1LN8FKrEJ/SnHUH3VZeJqUrTK6SvkjrFmBAno=; b=F7jHwa4c8+ka8n0arJDaLRc/Qm
-	/d1nPhPbbkKWAkNKvj/yyB9lt4vvrqHHCHRv/nq+DIglvfr+sKz6StbxhW00XMIJNgCMf239jA3Bp
-	q5UlI33/ZXvzRAlwxa4XQbPBA6Gw5nPKfr8U68Fo2f69nYHB4ebbmUwxd0LZL2Fjt2BUKulSo63PI
-	ASMPVSRGx0BMXkiCgDZS4pISVLGbSla4ClLmLeFtvad98d7nhPJrN3zRudsZPPfpOpdoPcMVp8eWe
-	p2biKISK3m9YBdF87EtvIMiNHKymMBh63RRsD4OYAoODEsriM0JuQPyn66E7CUze2B+z7vNrF8I+s
-	XxMPPRpw==;
-Received: from [189.7.87.67] (helo=prince)
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
-	id 1wUjme-00C95u-NK; Wed, 03 Jun 2026 13:29:17 +0200
-From: =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>
-To: Melissa Wen <mwen@igalia.com>,
-	Iago Toral Quiroga <itoral@igalia.com>,
-	Jose Maria Casanova Crespo <jmcasanova@igalia.com>,
-	=?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>
-Cc: kernel-dev@igalia.com,
-	dri-devel@lists.freedesktop.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v4 0/2] drm/v3d: Fix indirect CSD jobs with zeroed workgroups
-Date: Wed,  3 Jun 2026 08:28:25 -0300
-Message-ID: <178048610287.3112865.4242414505352419021.b4-ty@igalia.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260602-v3d-fix-indirect-csd-v4-0-654309e32bc0@igalia.com>
-References: <20260602-v3d-fix-indirect-csd-v4-0-654309e32bc0@igalia.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P+l+YvhR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7631F1F00898;
+	Wed,  3 Jun 2026 11:36:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780486616;
+	bh=/4A0xCv5HhFvDirt4xZLIckm0i7h6JzjZugBoUcXNR8=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=P+l+YvhRqoYRYIAnghXWuK9AxYaXE4i6xfGgRj1kReI1WPD713ebrzqioVUAB9pob
+	 ckNkTBKOuK16GgariWjKzTzEhDnZYa0gRtNsuiiiJJ0djwTF8baMi6SfHgeJiFwgOu
+	 w0LdbrHDdyNJKEQcanJq36RqcJhZnDM8Iyh4SZSozY80qY1N0oEQ45zrnfV3u2uz3d
+	 1yF/RvE0iJO7kg1qbt3PM1oJCxesQI74UWx2R0FohIU8SqYInPG+xAJoCsqFi1S2eA
+	 EGR8uW9/ljh4vTXT9VyNXTTIYZzAvpxVYtbxKoGsiBM/Rp1P0eLsxRqEoWms0pt1vp
+	 V2xcaWr+y78QA==
+Content-Type: multipart/mixed; boundary="===============3363437374747764375=="
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Message-Id: <01ff25bf2f60666db05099be88f1a67bea2dd97fe7114a9bbe7c190252eebe3a@mail.kernel.org>
+In-Reply-To: <20260603105317.944304-4-dawei.feng@seu.edu.cn>
+References: <20260603105317.944304-4-dawei.feng@seu.edu.cn>
+Subject: Re: [PATCH v3 3/3] bpf: Restore sysctl new-value from 1 to 0
+From: bot+bpf-ci@kernel.org
+To: dawei.feng@seu.edu.cn,martin.lau@linux.dev
+Cc: emil@etsalapatis.com,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,kees@kernel.org,joel.granados@kernel.org,bpf@vger.kernel.org,linux-kernel@vger.kernel.org,linux-fsdevel@vger.kernel.org,jianhao.xu@seu.edu.cn,dawei.feng@seu.edu.cn,stable@vger.kernel.org,zilin@seu.edu.cn,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,clm@meta.com,ihor.solodrai@linux.dev
+Date: Wed,  3 Jun 2026 11:36:56 +0000 (UTC)
+
+--===============3363437374747764375==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+> diff --git a/kernel/bpf/cgroup.c b/kernel/bpf/cgroup.c
+> index 4bf0ec94e719..35d1f1428ef3 100644
+> --- a/kernel/bpf/cgroup.c
+> +++ b/kernel/bpf/cgroup.c
+> @@ -1936,7 +1936,7 @@ int __cgroup_bpf_run_filter_sysctl(struct ctl_table_header *head,
+>
+>  	kfree(ctx.cur_val);
+>
+> -	if (ret == 1 && ctx.new_updated) {
+> +	if (!ret && ctx.new_updated) {
+
+The success check now tests !ret, but the kerneldoc above
+__cgroup_bpf_run_filter_sysctl() still describes the old convention:
+
+kernel/bpf/cgroup.c:
+ * This function will return %-EPERM if an attached program is found and
+ * returned value != 1 during execution. In all other cases 0 is returned.
+
+Since bpf_prog_run_array_cg() returns 0 on success rather than 1, should
+that line read "returned value != 0" to match the new check?
+
+This was raised by the bpf-ci reviewer on both v1 and v2
+(https://lore.kernel.org/all/45201482368d330f6301ea4d90e29fa1585bf985c12a191d9fcd975087eb0649@mail.kernel.org/)
+but the wording does not appear to have changed in v3.
 
 
-On Tue, 02 Jun 2026 14:50:13 -0300, Maíra Canal wrote:
-> Indirect CSD lets userspace defer the workgroup counts to a GPU buffer
-> that is only filled at runtime, so the counts are unknown at submission
-> time and can legitimately turn out to be zero.
-> 
-> However, exercing this case exposed two issues in the CSD path.
-> 
->   1. Virtual address leaks when the indirect CSD has zeroed workgroups.
-> 
-> [...]
+---
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
 
-Applied, thanks!
-
-[1/2] drm/v3d: Fix vaddr leak when indirect CSD has zeroed workgroups
-      commit: ae7676952790f421c40918e2586a2c9f12a682b6
-[2/2] drm/v3d: Skip CSD when it has zeroed workgroups
-      commit: 7f93fad5ea0affc9e1505dd0f7596c0fdb496213
-
-Best regards,
-- Maíra
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/26881443787
+--===============3363437374747764375==--
