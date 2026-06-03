@@ -1,69 +1,69 @@
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013016.outbound.protection.outlook.com [40.107.162.16])
+Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010065.outbound.protection.outlook.com [52.101.201.65])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEB2E3AC0FA;
-	Wed,  3 Jun 2026 18:25:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C2363F787B;
+	Wed,  3 Jun 2026 18:41:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.65
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780511158; cv=fail; b=WPV+bAW+2BxJ4wzSQEJoEJZPw0ThHOunv3Gtprd6izeTYN/4F0Qy7RkeP0utEFDRS2f5slEgqRPLlMHPKNJHf8dBd7RuiV5YPKTPmPNWeW+6J1Yy+c8MZNt3w/AK+IDBpfz5jzp4Z8N7b9x9dqaSSEdOsinF4Q12JwNgE8CKE6k=
+	t=1780512089; cv=fail; b=Ksm9qdYYTH9+GV2/Mok0xPQf7gbk9LoYeE5s4j7Ep3UJrmMPAF3e3uFVB1LwisnHCWXRxIVPBHcAed72ZvTjoYQBwizeJCgLgXVry2fmCByHnASfx1wzPVEy2kWwanvYbV9y1Zhj/tUKTKGg48lAJDZayQEGSU+dc6X3Wu6kuZM=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780511158; c=relaxed/simple;
-	bh=Cte4IibdxZvE+5HLuwt978erQCM4QScIWC7wULxv1Mw=;
+	s=arc-20240116; t=1780512089; c=relaxed/simple;
+	bh=u/S4oPsNcLOcn8+xd5YaPho0PrLRkjUGBg9yoC8TFZc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=Gt4IuvJtgKdmtTMLDEeOmZ7MNGChosA5ELffdyt/CSRrtFVDbsEJv0B89IHkwVSZjE8I3Hpu2/bNlHAWyzsPj0R/Ea+WYAS0NLO8Ae/8kf1mOZ0MX0Vopg0/Km4Gkos9TiVJB0hYnpQTyz6CbKOHz312TlssUQbyaVE+o0Yh2FY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=OL70jeNR; arc=fail smtp.client-ip=40.107.162.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	 Content-Disposition:In-Reply-To:MIME-Version; b=pURmsfx1CuexdRGpVFz7xu2v7B/u9Dvk4TdTreC/RXzuaFpp4OuGYmE1urBxpx+7haY4BSH0shM0efMDYjpCMpUEWS+uoEogR+bA2wpfaXB4qr93QTC9cwIZ/44VedMRDavT0DJxsNJ7lZMQ31YGnFZXc0nUpLfEqnwvVqDbcvo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=b9nd2RdQ; arc=fail smtp.client-ip=52.101.201.65
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="OL70jeNR"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="b9nd2RdQ"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hQRwmqSr2UoazxyyXz8vaJVzMLcPHcMxne3tO+9vL0abDoCjP64NUi+31ONl37IssP2hUd/DdD8DYRX1KzUBLeaP2KOiW3uZIB9J1mV1LgtctZSfCWLgnh7HZhHRUY1DlGZAgSnve176w0lRXkxxTxueqEeapxusY7L0HLi4CxTdS+IGw9mvl9Zy9QTxdGJBotcY/+GBNMtOexq1TdPxeJxM6Uesrq8jjW7WPwtUyfjAZZAaeZmIckynFkxlLHWzZkfHL1WAUcAPD01C+jemzp0O3CXyltP7hgs5923R9Ju6p80Kf3s7qUydNk5vQG0BV4fWZWUANHAhz6UiywYHKg==
+ b=if6veWZBPTl6Ex5o4LRuJGKSceR5SqiS/zVbxmilfT7gP4WkNeA9FJmmiWtF6z9YCJlXCO1rmjHpVEnMrCO6SXkQAV1bJLPbWVCAqWstqamDXqrIxWxoZeclzm2frPegDRnJQY/9O4lWwD17FxEvBw77xgo5Vq2nrhJqosvvq3b138XBskd9HCqJlz/3/S8KKZNoaqdDLuvoCoLcG1tRPL3pGrPpeOakQGNmnCjcsN7EbQCxrJqXu6rYX7qqFjse3psZuiCDiYhugSp1gjOsceaCfTJhsN29vccQa8Ih8vTYZO+LWFYVedkEYCNrMIl/1A8idbRTGusR5FBeLLCXeg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JYf9zqAkwe4A/uwWbD1D1D08fPtGbuiKj6p4y3N/f9A=;
- b=TnJoTGuWFh/8kjd7crlu1V3USJqymzmjVzva4S7tdA3fUEz7odCOAGXD9k20prLaNze4VrrvDoObFpSFLtM7eFU9yju73hlfKlFLx+L/4Fx0dbRNBiO5LHX9/OqrTL1vgNA39CcEVTvQLJkvk6lqPZi+oI8ofkR/nWxQ4IaIfdBVjfys5Vhr4HPye9/cJvTtFgNy7qpvNBd/NMwdRrbDR/aSyhiLstYxmwz/aZdxeq4zMOEDkWhtlLxsFulryDVPYt5LbH8/w+SH2fsbV31c4LpXvSnk11e08Vu246AB7gPL39tHjc8IZz19Nzld7FKz10XcMOtklmiNZVdT9+Ozrg==
+ bh=92vNOiRa/wqk3+QR+8hY8d260YPIavT/pyBYCHmeq28=;
+ b=mD4J/xDEVcCIOzetHQ70Ia3heMrqZZuOkjewY+JYiYCukeFIQIzVNDMbL7BzRyfYOW1jXF+qb/4XfAIaw3QxsNJvu2ZqQT4cc043TJP8IAtNeALVCUaViT5J56cgHy+Mb/LEPMyeGAC7+kwlAOymJD0h0ScZpZSX3BVExaq90CsIs74CxZVa727nPz5/HYbJc18zOOUlz4CW1DFXTaECISdv5U7FNpU+CHgT/m56Zq8nf4ITgIMrCXw0FcdHZ2qDeRqQlAmi7e1dzfxKEzt/wPB4XdVNvfM+INZZadPohZuTCRzKAg+GbhvfJHoZXoEWSbrqLtapn1JaADjExt+a4A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JYf9zqAkwe4A/uwWbD1D1D08fPtGbuiKj6p4y3N/f9A=;
- b=OL70jeNRkKBPc5tFBb/jbs4FRGNrBQZ6U842TfBX3fnLmx/TYOPSW4ATOwpiICO+XkEkSMQjbU0X2lZwrsqxA/jU6qShyZWyezlUbxxlG0y0sD1y4ZI5P+YblkjpfHx1vPQ9n3iX/3qtZISFnalEbQKe2oNh2J754wieF+9T4Nx8mF+4r4LFdFh5EsUAj26o5OpMuL7+9pNUJVgowb4ng9bIjR+a5Cw1sySlHZ20uB8yoaBGO5ENxYcO7a7zBpYrWZ47RLkw2t3bAxi3puSeDTjvKIbxuT6eThGNNrylQYmeN2HkdpeJAHSrwUeNW9L+MkZtAW9hIh3jKG8ScZ5ZDw==
+ bh=92vNOiRa/wqk3+QR+8hY8d260YPIavT/pyBYCHmeq28=;
+ b=b9nd2RdQ0MxliBWueFJblmPfT3pWflajilsigHZaez9uO+oPS9nyMZnC/D0IjrWtHYhfkpSRPTlRsfO7FitcJ1zLLs9eOUN70GIhGGWXd0ChsHOQz1SbIfT1WGk5DTLJTK6LUcRE9+rgPuF2919YIszLJRLQcOUGlBpjUlF7K1PGDTC+1vwij+PvoHfQWXbE9hheQt3RvJUVDvURhfaVxtaQ0JGyOynYke5ljkfUTJNsVo++AO02DhVKWmCuwWICGq113MgmVAAB9CEntQ7x1I++slrPmWmg4Fpw+6XZ6wfIHPQqV6EAKQYmcr01dJwdjBaMSpnlM7ght0m023kdEA==
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from PA4PR04MB9366.eurprd04.prod.outlook.com (2603:10a6:102:2a9::8)
- by AMCPR04MB12669.eurprd04.prod.outlook.com (2603:10a6:20b:76f::15) with
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from LV8PR12MB9620.namprd12.prod.outlook.com (2603:10b6:408:2a1::19)
+ by IA1PR12MB6042.namprd12.prod.outlook.com (2603:10b6:208:3d6::12) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.7; Wed, 3 Jun 2026
- 18:25:53 +0000
-Received: from PA4PR04MB9366.eurprd04.prod.outlook.com
- ([fe80::75e4:8143:ddbc:6588]) by PA4PR04MB9366.eurprd04.prod.outlook.com
- ([fe80::75e4:8143:ddbc:6588%3]) with mapi id 15.21.0092.006; Wed, 3 Jun 2026
- 18:25:52 +0000
-Date: Wed, 3 Jun 2026 14:25:46 -0400
-From: Frank Li <Frank.li@nxp.com>
-To: Xu Yang <xu.yang_2@oss.nxp.com>
-Cc: Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Jun Li <jun.li@nxp.com>,
-	linux-phy@lists.infradead.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Felix Gu <ustc.gu@gmail.com>, stable@vger.kernel.org,
-	Xu Yang <xu.yang_2@nxp.com>
-Subject: Re: [PATCH v3 1/5] phy: fsl-imx8mq-usb: fix typec switch leak on
- probe error path
-Message-ID: <aiBxqjm5lsPDXEtW@lizhi-Precision-Tower-5810>
-References: <20260603-imx8mp-usb-phy-improvement-v3-0-7afb8f89abc6@nxp.com>
- <20260603-imx8mp-usb-phy-improvement-v3-1-7afb8f89abc6@nxp.com>
-Content-Type: text/plain; charset=us-ascii
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.16; Wed, 3 Jun 2026
+ 18:41:20 +0000
+Received: from LV8PR12MB9620.namprd12.prod.outlook.com
+ ([fe80::299d:f5e0:3550:1528]) by LV8PR12MB9620.namprd12.prod.outlook.com
+ ([fe80::299d:f5e0:3550:1528%4]) with mapi id 15.21.0092.006; Wed, 3 Jun 2026
+ 18:41:20 +0000
+Date: Wed, 3 Jun 2026 15:41:19 -0300
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: Michael Bommarito <michael.bommarito@gmail.com>
+Cc: Leon Romanovsky <leonro@nvidia.com>, linux-rdma@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+	Vlad Dumitrescu <vdumitrescu@nvidia.com>,
+	Or Har-Toov <ohartoov@nvidia.com>,
+	Bob Pearson <rpearsonhpe@gmail.com>, Sean Hefty <shefty@nvidia.com>,
+	Kees Cook <kees@kernel.org>
+Subject: Re: [PATCH v2] IB/mad: cap RMPP reassembly window size
+Message-ID: <20260603184119.GE1170766@nvidia.com>
+References: <20260518212336.337104-1-michael.bommarito@gmail.com>
+ <20260520154715.1457495-1-michael.bommarito@gmail.com>
+ <20260603175455.GA1554392@nvidia.com>
+ <CAJJ9bXyva8La+ZLbG5cwaE87AR3GizLH9U37XKgKR1xxOHB6kg@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260603-imx8mp-usb-phy-improvement-v3-1-7afb8f89abc6@nxp.com>
-X-ClientProxiedBy: SA0PR13CA0030.namprd13.prod.outlook.com
- (2603:10b6:806:130::35) To PA4PR04MB9366.eurprd04.prod.outlook.com
- (2603:10a6:102:2a9::8)
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAJJ9bXyva8La+ZLbG5cwaE87AR3GizLH9U37XKgKR1xxOHB6kg@mail.gmail.com>
+X-ClientProxiedBy: MN2PR22CA0013.namprd22.prod.outlook.com
+ (2603:10b6:208:238::18) To LV8PR12MB9620.namprd12.prod.outlook.com
+ (2603:10b6:408:2a1::19)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -71,155 +71,120 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PA4PR04MB9366:EE_|AMCPR04MB12669:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6a824984-e165-49d9-181d-08dec19d8b7b
+X-MS-TrafficTypeDiagnostic: LV8PR12MB9620:EE_|IA1PR12MB6042:EE_
+X-MS-Office365-Filtering-Correlation-Id: a9193297-53a2-4efc-094c-08dec19fb460
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|19092799006|7416014|376014|52116014|4143699003|22082099003|18002099003|56012099006|11063799006|38350700014;
+	BCL:0;ARA:13230040|366016|1800799024|376014|22082099003|18002099003|56012099006|4143699003|11063799006;
 X-Microsoft-Antispam-Message-Info:
-	ULK+BLQ1rTPqeg7nCzM3SgafC0qle0ceDcMxhYLOXg+Ihp9196NVg4Bg1Q2DX47LaKyeCcMhgt3aGQ2PddxKmI4PljwXSf5MUsorWc+/PP3Q3wLuOw+yZtU97A4ymKmVS60YlP5CxdDPMTdl9aIgcobYJw57xKDIPcvj5b8ON1pxoFqFIR6MGjL2iqO6XQqXRDstroj+MdBhX20+NaHlxy7DK+DjiB9q2VLKuFm/QOTh01pBFZ6JoORuChwV7PVmdpd33pOFaAhj52yPLxSKwdYpAZr5VEC1SIw43KBxItta+Jfp4CdhdGRfkN6Ni4XxeNfmzeFv9P/GXagkYJvivkeasbJFZWNg2Pz8n1YUri2iaSe10Nbz7tB0/6No57yz5pr8I0ieeUgqIeRRI4T7oUYqwCRDaBn+NbAIhmEJN+iXqE2sA3Avw+3OJ3RJ72QZIReogPsdyFzdeNrmBk5N9ehTiPkfufMU9DKx7F8SOvTzB9GMZUm20ex2FaVcO8v7GDMqFmqcaQHFN3vnrMXTFf0fdELLqZ2nTcNsi9PEElzba1ExTG1DZKFF2YT+n3TG1/9YddpOaJu7eckrSnSsPVHiJjWZ25CeqwxKYnjzN6G8mNob7AIeMgdcAOoc+9pTYaFgjpgmxhvE5Pz42RmmgIZT/D5/g/Rz/jUk+1NDCWNnA1TVHQf6og3Dq4FyZbGmpz9S04LV1G55NhEOWz7uTKY8tRfywVjOoeKaP9hZ0NezNR8Xpl0xsHEoo2Yef/6Q
+	1QPs+Xxr9khj16GwRXv0qT8Z+GFM0UXp1u1BnbphcGy3VjunYPxS4OY6oauWFHEvvzP8jcepJ5V+O7facMBfmKm30LvcRCTgsWlsiolGVYNQ65hATcufBZKAgR/dNn0atpmgYYvv1iKejLXYCpI1apF91WYzilqXGwX24Dj/tkz5zjPlKw5okC7PG/Q+eC3sKzGIc1npZY6Hkm0zwKI1ucJZ6JH5wlrQzvbNOJScF/ydo5jPM1pVetHSU6EmVNTaHTQA6XQNB2ZDloFEVeGm2keNSQPMSkokQuz5FFdcGfzK1HFvtICOLIkMzon8KaulNw6/ETNpgye8v4iY9TKWHBEQsYKO52XCeTs/+6OD/plHDnKuLJIcwt28r8zyLBGQ18vaX2zACn+CbWqL17HqPl4oeNAOxbfu7B6GTHh0grSDA8TmyRXAKinWYo8JHh1lZI66Z8ocyCKnh5HaeqQNt3HWpM5wQbdtpvETQzUJuEaNeniJVLSZiHN/BUSvfHtJRZrNC7C7TYGcLAqhoGqnFMKbaJ58HwtHwfO9rJtFzQ2kmkh51a5KCvyTfa8lA03Hm0ZxLyaG3H3NhNrYZHId7cYtX1IxR6FvDR8VlTSyspNoSFaA/ptk4NIdCosdMJRxsxGGA089a410SH7CIV+NHO8Ybc6AgwjjGAZJ9tGtRgiqcjjhdXYMHq4jLeNUjnKv
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR04MB9366.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(19092799006)(7416014)(376014)(52116014)(4143699003)(22082099003)(18002099003)(56012099006)(11063799006)(38350700014);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV8PR12MB9620.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(22082099003)(18002099003)(56012099006)(4143699003)(11063799006);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?VJv8cZLQWMYJb7WyIK6xM1/tJbcrnjl8wM1h3me8qmq36ap9dPH6njqjQQig?=
- =?us-ascii?Q?KQfxCXTM5b6J8u/tPdW04Hwczfr25arYn8y7gkLKdDZzCbV9BKZHjoHqqV2M?=
- =?us-ascii?Q?UD8vK7/+UpOYc6gqPF1uKC/aLjyTQSG9mSVzmejhXPjVH+wT/CRzUgojWJxb?=
- =?us-ascii?Q?VwnEGpozETobxxpNQ2G9plB6nfK/VW3wSPfqpJuQh2tIQThrGDvgM1SQZF4A?=
- =?us-ascii?Q?GSzjAewocRuR+oJPBPh3D8T28ypRcpC6mKO3x/ENejjbUe07sWzBIlsq8Z7W?=
- =?us-ascii?Q?53RUik9cg82YprNngvixAcPO+0XJLNSA+p54iYF5CkNi8pqBWq8bDy/1g12Y?=
- =?us-ascii?Q?M++P+nLQmPhPTGqHcWXxNlWszwSJvTFdSSGUJ7CWMv+mVayQncjPWqZMuSgM?=
- =?us-ascii?Q?SXNiohblbBo3hZ9/ZC62DWc7Cft4MC2ATVXmouLzFw+6Ucna9e0IQRs27sYf?=
- =?us-ascii?Q?r+xOR/7+NHObjNDidAaxFB6PEO3xSJP/lP8H3qQz45xKdnpf2h0W8f96k5vk?=
- =?us-ascii?Q?NyYw7auYyvxi/jo9w2aCTipU+0dH0TIycl0rQJchhMh/UNGIsnGgFhoMkfgL?=
- =?us-ascii?Q?TrW9cpcsrasNPmWlIAhpBFhjSZaRo2zFVKR1IVjjoeVchnK7wBKpIhKVE6lz?=
- =?us-ascii?Q?hsAl72uctWhNRiryX1jbSGmihAv6ahTjxTq4psyUwjrbfristFKNA4b71PUc?=
- =?us-ascii?Q?FKAlGTBWkOF9e09UV1p1fPYRriT4yOfdXozewla9cnEKCdXC2v85urVPMC26?=
- =?us-ascii?Q?Ayjeu2iBL5zvfWW94z+efuU7z/kVKYF/SoWiVHj3rRVRiYeVqLcettlx3mvy?=
- =?us-ascii?Q?y/o7u7U9vpJ4APxB0q3SXQrOr8DcduakacwcWXu8ZPF07XuUlyWnm5RPped8?=
- =?us-ascii?Q?RGP6GT5PxPnNlb3OmPRHATD/BBvda96Lyqmiuz9+ScDS8UyYLlSelO/Y0bA+?=
- =?us-ascii?Q?AW0hOtf9hIUqJYI7C8vrGCHeYFWurI4HpXA0p1AHsa5KL7Tz59zeC7olEGm8?=
- =?us-ascii?Q?RgKSYcmW9VnyDjYuwy+iygPKB2jhhD7jIj4IXKDEfTGUmqHtV2QkIlWV84lA?=
- =?us-ascii?Q?5mNy+woyqPnQblhgBRYxLtz7Go+T+shmGR9QvpsqNFfeein9wgO2+DgjWZdw?=
- =?us-ascii?Q?6iBgWlWZgR1Ql83BtJkbLhvO9+++Zk9A1fS521Hh6fbieWLnDYVCGePirCme?=
- =?us-ascii?Q?ukUSfNNa1+2v/5ODJa274LO2D5G9STdyKNCqfcMrieWsONeZuWbsbMatJc+0?=
- =?us-ascii?Q?P7FGjlwCh6QD9omdquMRaGrOBN/zEK3wywx3Vd4U5ZwQkEoAL9mENEiC7c10?=
- =?us-ascii?Q?Y3nKUIsHeXqbeti7WM8XRS+6fI6ciFIznL0HzhnoYk6+yeMnTNmVcwYxCBXB?=
- =?us-ascii?Q?JNpCkOrrUR6CKYbZHyiYML1Rs4pH4WLkEcjdhXiT6pTqY0rRXDLhR673MVx4?=
- =?us-ascii?Q?FRnYJ0cpHDzbKTJZ+xO6XR0uOSZDQ7qACwIAJUScB5AqzWzyUDhInDJiyZpy?=
- =?us-ascii?Q?gSkRmgCpFuUjUlWVS3LhkJHpenuzPyzfg0bY8zoEx4aIo0vx83h4grscgEW3?=
- =?us-ascii?Q?UjoTWSHEVebhDvaD4w3hQoh3xjG1ZfhEuOM9kjI+XeF+GO6v677Mnk7wpqNQ?=
- =?us-ascii?Q?D3Y+lfVdNMlOTkCdsDoC1mAKCmUv+OWO3r/0qZeK4zIHe+PJrsZJ1fAjZfrr?=
- =?us-ascii?Q?CVZsECsIlXgGsRsY4ST/5XyxabV0QHB3uNxxdXag+Ys4SopH+sHW4l8ndvSC?=
- =?us-ascii?Q?LGpMsXORMA=3D=3D?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6a824984-e165-49d9-181d-08dec19d8b7b
-X-MS-Exchange-CrossTenant-AuthSource: PA4PR04MB9366.eurprd04.prod.outlook.com
+	=?utf-8?B?cXoxblpMT0RpdG1DdkhUR1E5Z2tVNm1uaXZoUlZYQ1dBekJGcldmSExhY0Uz?=
+ =?utf-8?B?T3ZvdVIyb1ZIZElKY1VjQzlOVjQzVUhWOHBGLzQvUk1yRjUzMnkvMEpZc3lq?=
+ =?utf-8?B?OEl4bXpMTWx6UHR2V1RLS0xhL1JpTlA5cVBFWGZ6N1RianpCMzQ4M3ozWmxj?=
+ =?utf-8?B?NlpYSmhHaERvU0dMd3ROSWE2dE91OVBkcmJSTk5uRlJPUzNlQkZWdndyWENx?=
+ =?utf-8?B?WmIvaDEvVS94aHNFMTBQRDg2RWFpR2ZWM3hvcHY1S2xWb29zdCtUeW1ETlNj?=
+ =?utf-8?B?SUZDQlZHbGZleThzQ0RpcU4vN1NHN3dWZmdOUXNhTHAwVEZ0cTRtMzR4UFU3?=
+ =?utf-8?B?cjBGa1RjNWFQeUpLcXlzMlJvWER1bVNJd3NGekwzVG96c3luNzM3NjBycGlT?=
+ =?utf-8?B?MVNPT1NvNHM5Y3haTmRoWStLMERGNG5aOWNlUGtuQXpQWWYwWjNHMlRIekV6?=
+ =?utf-8?B?QVp0YitVT2Ria3NZUHR5MDlDbWpEYmRjbVpTZHU1Sjg3bjVBN1NnSkMxUkti?=
+ =?utf-8?B?WmYxdHlScHQ5NzNaUjh5TlJRNU5ZaDdkeHlidkFSbEhJU0ozci9XTXM2MnFo?=
+ =?utf-8?B?TmFzU1lsVnJyT0RueGR3TEdMWlNyV2ZtcW10UGhVYlZIMUgwVWxrTkt0NXFV?=
+ =?utf-8?B?VldlREpFL3c4YVliS05od1daZXRBbHBPYnd2VTRKbHhDZ0ZhV1I0MnNadHJq?=
+ =?utf-8?B?NS9uMEVTdHpicnI3RjdyREJBanlnRGNLbi9JbnVvZVJGaXdKZm1YcU5WcHNM?=
+ =?utf-8?B?VTBJSDM4Vk9KSTVFR0kxNk9uUDUzNEhwTnk5N3BwQjg5VWxDbGJMeTJGcjgz?=
+ =?utf-8?B?ODVZVWRpbHM1SjJONzdhZ21yTEI4MEdXbjFMb1Y1SnNJaWJlZEgwVU1SaU9o?=
+ =?utf-8?B?SGxjWU43UEY1MFdiYjNqaVVCUHBHYWRaMXhZMUFoN09nWEVtYzZWS0k5b2FS?=
+ =?utf-8?B?d21oRGVacC8veFVEdFJWWDE4M0VqZ0lUV3dSY0x0ZUFVRllScktYVFBvRGFG?=
+ =?utf-8?B?cjlPNi9UQ29oTFF5T1h1MDdTRkY1bWdsM1M2VEdpQTZjbUN0VHFaanFpUTM2?=
+ =?utf-8?B?QW8rNHlYVVhodnlQUDNkOVVaUExRMmpzak0wYlUrY2p0TDFpTVJlZnRUVVNQ?=
+ =?utf-8?B?UEExWDZnUmNqVGwrVXdhY3BkSlA1ZnhyNmdIZGhlME9kY1BZbmJJZTdubjZ2?=
+ =?utf-8?B?YTc5VWlDUFMyeTJaOXRJNG8vRlNPRVJPTUZqUjVPYXl3eXNFakk1L1gyblpG?=
+ =?utf-8?B?RzJna1hCbjN4WlROeUprRSsxZ0ZOZnc5U1VTdDcramx2Zkx6Q1JydC9FOVVy?=
+ =?utf-8?B?Wi9nZVBFQ3N3RWJLK25lRHdSVTZQTnNRNjkyUWhjZUo2MmpJT1J6Wlh4ZlhY?=
+ =?utf-8?B?Qk1wRE1pbWpHVWhqV28vU1A1WmorSSthek5FdU5kdFV6NVJTenduZlk2M1Bn?=
+ =?utf-8?B?MlNZdUU4YS80eGlRUWlhT2xNMTVmc0phb1JpUWVSNmJxeUFDV1Qxd0c5NmI1?=
+ =?utf-8?B?S2pzQjZjUnN1eW5NeHdzUklWUWtWSWgyeTB4NU9jTmZhOVZpdkZBZ3JkQnVi?=
+ =?utf-8?B?NDVpNXdWUEhMNytRT2d1OFV6dVFoYnh3bDFXWU1xS1prYkYwUEZ4NHlYNmlW?=
+ =?utf-8?B?UGU4dnVTdWZvUDhQMTJ1WFdEN2czSWlRZlFKWmdETWt6ZGVFejVpbjcxelJV?=
+ =?utf-8?B?bEE4Ui9CWGluc3BheFdwMGlFL2V4NnBaZExkZFAzTDkrcFo0cDR0b2ZRM2Q0?=
+ =?utf-8?B?aHpmeTg3TDg4VjdMMUZhczV6WGtLZ0lyN0JwQVBVWjJWMUpvR1V6eXhFYk9w?=
+ =?utf-8?B?SUd2dzMzV3ZSSnNmVkJFZFFvckdDeEsyRUluaU4wNktQSlRISXN1Vk9CQVlC?=
+ =?utf-8?B?bEduS05vR3RlNmRjRVRlTTZlSVhpVTJNOFJOZFJhZmtYZTZxR25pQWtwZHV0?=
+ =?utf-8?B?Snh3SlFxR042YXJsYUNZelptUU9GZXJmVlovNFhnbWZTTE5hWThoQlZRWGdq?=
+ =?utf-8?B?enRCMjlxeW9rS0liR1B4OUdSTkFoODRxQWJFMEFXMlVoYTI5aWhzZUpTajBj?=
+ =?utf-8?B?MXFlTHY1b0hzRW9WV2NXMHJabktjQkNleWtQSE50OFliQnlockJGT05Gc1Nl?=
+ =?utf-8?B?eXVZbEtaY090aE90MndKNDJQUzRBZjBoNUZZZ2FmS3J3VEtUT3U5ODZ0ZHgx?=
+ =?utf-8?B?TmFMck01enJsRTg1OGhRUG5MWGg2RVlMc21VSmV0SzArQ2U4czd6SzZiem9X?=
+ =?utf-8?B?OFhjVVFnTTB6NzFvYlkzazdmUVl4b1pVNzE4Y2FoUkJDSDNncWxXdmh0K3U4?=
+ =?utf-8?Q?CtpiMwKZNH1CvPJibN?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a9193297-53a2-4efc-094c-08dec19fb460
+X-MS-Exchange-CrossTenant-AuthSource: LV8PR12MB9620.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jun 2026 18:25:52.8951
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jun 2026 18:41:20.5056
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: fQBd2i8Heqls0hkthQaHP8KH0ZjC9nvXrOQx7EdsWDSOvXinu6U1WrCGfJDYswUL81ogv+Rv5l8tMAZXctzdVw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AMCPR04MB12669
+X-MS-Exchange-CrossTenant-UserPrincipalName: qh0rNDGVH7jbo3GFkGiCVt3m8HYh2m7dLXm8U86yXoM+trJYAnppSob8jTrr0qYn
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6042
 
-On Wed, Jun 03, 2026 at 01:37:14PM +0800, Xu Yang wrote:
-> From: Felix Gu <ustc.gu@gmail.com>
->
-> If probe fails after imx95_usb_phy_get_tca() succeeds, the typec
-> switch leaks because the only cleanup path was in .remove, which
-> never runs on probe failure.
->
-> Use devm_add_action_or_reset() so the switch is cleaned up on both
-> probe failure and driver removal.  The .remove callback and
-> imx95_usb_phy_put_tca() are no longer needed.
->
-> Fixes: b58f0f86fd61 ("phy: fsl-imx8mq-usb: add tca function driver for imx95")
-> Cc: stable@vger.kernel.org
-> Reviewed-by: Frank Li <Frank.Li@nxp.com>
-> Reviewed-by: Xu Yang <xu.yang_2@nxp.com>
-> Signed-off-by: Felix Gu <ustc.gu@gmail.com>
+On Wed, Jun 03, 2026 at 02:20:03PM -0400, Michael Bommarito wrote:
+> On Wed, Jun 3, 2026 at 1:55 PM Jason Gunthorpe <jgg@nvidia.com> wrote:
+> > Why do you think it is OK to only search back 64? Where do these
+> > numbers come from?
+> 
+> 512 >> 3 from IB_MAD_QP_RECV_SIZE in mad_priv.h and max_active.
 
-Xu yang, if you send out patch, need your s-o-b tag
+I mean from the real world - the purpose of this window is to deal
+with network re-ordering, by changing it like this we are reducing the
+kinds of re-ordering the network can perform.
 
-Frank
+I think reordering is basically something that should never happen on
+IB, yet 20 years ago someone decided to have huge reorder windows..
 
->
-> ---
-> Changes in v3:
->  - add R-b tag
->  - cc statble
->  - drop "sw = data" conversion
-> ---
->  drivers/phy/freescale/phy-fsl-imx8mq-usb.c | 27 +++++++--------------------
->  1 file changed, 7 insertions(+), 20 deletions(-)
->
-> diff --git a/drivers/phy/freescale/phy-fsl-imx8mq-usb.c b/drivers/phy/freescale/phy-fsl-imx8mq-usb.c
-> index b05d80e849a1..88b804b2c982 100644
-> --- a/drivers/phy/freescale/phy-fsl-imx8mq-usb.c
-> +++ b/drivers/phy/freescale/phy-fsl-imx8mq-usb.c
-> @@ -173,9 +173,9 @@ static struct typec_switch_dev *tca_blk_get_typec_switch(struct platform_device
->  	return sw;
->  }
->
-> -static void tca_blk_put_typec_switch(struct typec_switch_dev *sw)
-> +static void tca_blk_put_typec_switch(void *data)
->  {
-> -	typec_switch_unregister(sw);
-> +	typec_switch_unregister(data);
->  }
->
->  static void tca_blk_orientation_set(struct tca_blk *tca,
-> @@ -248,6 +248,7 @@ static struct tca_blk *imx95_usb_phy_get_tca(struct platform_device *pdev,
->  	struct device *dev = &pdev->dev;
->  	struct resource *res;
->  	struct tca_blk *tca;
-> +	int ret;
->
->  	res = platform_get_resource(pdev, IORESOURCE_MEM, 1);
->  	if (!res)
-> @@ -266,17 +267,11 @@ static struct tca_blk *imx95_usb_phy_get_tca(struct platform_device *pdev,
->  	tca->orientation = TYPEC_ORIENTATION_NORMAL;
->  	tca->sw = tca_blk_get_typec_switch(pdev, imx_phy);
->
-> -	return tca;
-> -}
-> -
-> -static void imx95_usb_phy_put_tca(struct imx8mq_usb_phy *imx_phy)
-> -{
-> -	struct tca_blk *tca = imx_phy->tca;
-> -
-> -	if (!tca)
-> -		return;
-> +	ret = devm_add_action_or_reset(&pdev->dev, tca_blk_put_typec_switch, tca->sw);
-> +	if (ret)
-> +		return ERR_PTR(ret);
->
-> -	tca_blk_put_typec_switch(tca->sw);
-> +	return tca;
->  }
->
->  static u32 phy_tx_vref_tune_from_property(u32 percent)
-> @@ -739,16 +734,8 @@ static int imx8mq_usb_phy_probe(struct platform_device *pdev)
->  	return PTR_ERR_OR_ZERO(phy_provider);
->  }
->
-> -static void imx8mq_usb_phy_remove(struct platform_device *pdev)
-> -{
-> -	struct imx8mq_usb_phy *imx_phy = platform_get_drvdata(pdev);
-> -
-> -	imx95_usb_phy_put_tca(imx_phy);
-> -}
-> -
->  static struct platform_driver imx8mq_usb_phy_driver = {
->  	.probe	= imx8mq_usb_phy_probe,
-> -	.remove = imx8mq_usb_phy_remove,
->  	.driver = {
->  		.name	= "imx8mq-usb-phy",
->  		.of_match_table	= imx8mq_usb_phy_of_match,
->
-> --
-> 2.34.1
->
+> > Is this a real issue?  It looks to me like all this code is gated by
+> > IB_USER_MAD_USER_RMPP and no in-kernel user makes use of RMPP.
+> 
+> I originally found these issues looking for reachable quadratic
+> runtimes with libclang+Claude, and these are in my notes on
+> reachability.
+> <CLAUDE>
+>   - sa_query.c:2436: the in-kernel SA client registers its GSI agent
+> with rmpp_version = IB_MGMT_RMPP_VERSION and flags = 0. So
+> ib_mad_kernel_rmpp_agent() (mad.c:856) is true for it, and
+> ib_process_rmpp_recv_wc()
+>   → find_seg_location runs on its receive path. ib_sa is always
+> loaded. Not a umad-only path.
+> </CLAUDE>
+> 
+> So I think the reachability is wider than you expect.  Perhaps that's
+> the real fix you'd prefer.
+
+Hmmm, I didn't remember SA left it turned on. AI says it is only used
+by SA IB CM service resolution which is so obscure and rarely used in
+modern systems. Yet it opens this whole scary bit of code.
+
+> > So I don't see why we should be changing this and risking regressions
+> > with the window reduction?
+> 
+> It's obviously your choice as maintainers, but I'd encourage you to
+> test the pathological worst case from an unprivileged peer to see the
+> impact before totally writing it off.
+
+I'm sure the pathological case is bad, but I don't know if lowering
+the window size will somehow break something someone is using.
+
+If it could be fixed without changing the behavior that would be more
+interesting..
+
+Also the way this works the peer sending into this isn't
+unpriviledged.  On IB it is using a restricted qkey so it is supposed
+to be trusted software under the 1990's security model IB uses..
+
+Jason
