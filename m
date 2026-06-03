@@ -1,403 +1,256 @@
-Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010020.outbound.protection.outlook.com [52.101.84.20])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FAEF481FAA;
-	Wed,  3 Jun 2026 19:26:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.20
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780514794; cv=fail; b=TFgnN7ciFFLcyB3wf3w51V31DGdQPuSace+wSOkNdpw5maFJQKBxVgUKS7Y/mL7Gjn4avlwsogp6LkCGr+dM9pSTe9D1Fj4TPMdDnky1TICLj+Bxb+GJow9zc18qCVWFv2GYrJMIW7Bhxhd6mbnu1U094zAcgqUyyjqCAp+nlKs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780514794; c=relaxed/simple;
-	bh=SLYfQGvKLOJGAhD4fmxUw6Dny6gRxg8o4Dqa0AuKQms=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=mE4fODSzIuymrdGjiNF+hE7FN66xVQR385Xffe3OSnHxAa4rSXQ1UhcLEEvoO4tP5hG2Yj/uixZk3S4CEOrx3BEdkrggpYNFUX3UotKhZhxxTy2lhBDkQ6hlgYSAv/rkIUgYediQlgO9zI+Yk3uU4rcxuPUYKrqwmX4vX/4TS5U=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=nO/BDpz6; arc=fail smtp.client-ip=52.101.84.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAB1448BD57
+	for <stable@vger.kernel.org>; Wed,  3 Jun 2026 19:32:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780515127; cv=none; b=A4v/vxv9+HRDneIoE3rt9fDvCC16ijRSTiAK2EPWjXJRUpl12gNDuDUhhzAta8gONCrSBkfFLbsAXI57tmpf+kRw/IwcmF1G36PHfYfrtk8tNEUeK589AbMNMPRcaqIl445bN2MjsBYocpGr24kcKOyBCU0mRBQj0gzH6aOKPYQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780515127; c=relaxed/simple;
+	bh=TQxe3lxjnun8hagmZm/MNZUEw9/HolUDis/d92awEoY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=iezwn8kOHRWzVdpBTcj2FwtHuG5X9lsI2iCoWmC3O3uMG3wnFTkQvntQ9yekjMX2dhOzasJCQ52OqxLoEH5x84zhdCG33MxK1zNdN3aO2cojUQedVRVleyT6j6miD73sh9tuw/po0oez006cpvuvnqITebpc2Bm1zg4TDEz8JEU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=YLFdbCai; arc=none smtp.client-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="nO/BDpz6"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ptXJIMDVeUvTjNyBqibHZqWNq26xyjmWGNraoRyhVZnqQfyEWC2yBcNFaq0zw4XWRjBfE0MYulBJeocALbDoROF/GHUEuETpTQ6P220PYnBXqu/tEspjtyQLTd+Sk9pEPJ14fVrXpEiapd09a7Sl+oO/IBlNqZNgmdrv1BhOx6yHC/zKOpSQRzGYNF4K0QyZy68YhZurVcyumycq0YbNEbfW58qs37r6ylKyarQAbN1jdVTcU/PXTCnjmZRpoQBjlus3/g8upWI3XcVKSOvUULyCNWqqZnKlFf2oi4BBtdh4WLrp2jeds59bq8oD/nLUq5dzBSJsFovwCcrgJRWJmg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JJgSkF4SziIRczhYR3iStgFv0Et7BKhVCLtmnOgKLpY=;
- b=jvWMVe0AiRf5A18PjKmc22Tmdn9vaRpsstBGFYmO+ethUUGXn3+V7SdIhyAtrspl2dzyoIGpO9z8AlHy1BZDqkOI5K2YxpPHYFtd4EOzEBDr//OKQSlxPu7/KEgHA3snF09PZWHuTZsJgpRkxjfK3Af5MmZXARv3Vu1X8cQkTfWLZqAud4lI7rGWPX+H0Ey7fT1ThfUsHvqtBtgjx11i5FejmRQTQcIvmv5JkMSYGn1F52OUVxoIo7pesm55DUa0GpbU2qdSEcuX2RtA3pGs5f5/HSg6l2clpSxlH4x6BzqvGHozL/JqL4f1vJ9XBI5JH4AbT12dTzx8glMf3bVE5g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JJgSkF4SziIRczhYR3iStgFv0Et7BKhVCLtmnOgKLpY=;
- b=nO/BDpz6Z2U4E6C5xm/xXCejIFmyDisNa40icxK9Td5L46k9ZuVsAllnoQ4HyUME22pvLXrVHAF9Jb+ucjg6Kb+QDPPUVrtXVwVLRS5I4DW8b5bsaEm5TewvuNDcWTfzquym5/hwEFKvbBAdgVwrUXIrr6GrzcPvWXkJo6bQBWCTSkfBBKc8gL0lRzn9nrPHGZS8T8KP5PZk5kokTqS2E07rkdEAi8OnyDDoebxua2qa2AnCPWlC9NftGsgbMZ4JEoTy+QUv7JbDBrXMK3GaGPNpk8xp8ayu4hAXtLZPALonf09s/dlcenEGCQMCisSLjCihdSrHtggDoXRdRnb2Cg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from PA4PR04MB9366.eurprd04.prod.outlook.com (2603:10a6:102:2a9::8)
- by AM8PR04MB7940.eurprd04.prod.outlook.com (2603:10a6:20b:240::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.7; Wed, 3 Jun 2026
- 19:26:29 +0000
-Received: from PA4PR04MB9366.eurprd04.prod.outlook.com
- ([fe80::75e4:8143:ddbc:6588]) by PA4PR04MB9366.eurprd04.prod.outlook.com
- ([fe80::75e4:8143:ddbc:6588%3]) with mapi id 15.21.0092.006; Wed, 3 Jun 2026
- 19:26:29 +0000
-Date: Wed, 3 Jun 2026 15:26:22 -0400
-From: Frank Li <Frank.li@nxp.com>
-To: Claudiu Beznea <claudiu.beznea@kernel.org>
-Cc: wsa+renesas@sang-engineering.com, tommaso.merciai.xr@bp.renesas.com,
-	alexandre.belloni@bootlin.com, p.zabel@pengutronix.de,
-	claudiu.beznea@tuxon.dev, linux-i3c@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2 06/17] i3c: renesas: Perform Dynamic Address
- Assignment on resume
-Message-ID: <aiB_3kneo2Scy5bB@lizhi-Precision-Tower-5810>
-References: <20260602132824.3541151-1-claudiu.beznea@kernel.org>
- <20260602132824.3541151-7-claudiu.beznea@kernel.org>
- <ah85RaUXmaBVFkYk@lizhi-Precision-Tower-5810>
- <8687d3cb-628a-477b-9dfd-2db8c412b277@kernel.org>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <8687d3cb-628a-477b-9dfd-2db8c412b277@kernel.org>
-X-ClientProxiedBy: PH5P220CA0012.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:510:34a::9) To PA4PR04MB9366.eurprd04.prod.outlook.com
- (2603:10a6:102:2a9::8)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="YLFdbCai"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4891b4934ffso15715e9.0
+        for <stable@vger.kernel.org>; Wed, 03 Jun 2026 12:32:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1780515124; x=1781119924; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+         :date:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=WyYYbe9n0CflRt4VnvQU2N03ZiDpY3ZgwW7PfjETq5w=;
+        b=YLFdbCaiajgSxtTu2+rCX/PlPlM0MAC4q4NHlEM/vQD2jLpBMcKIF81QQpbjXNChc6
+         6aaBKrVwi9r+qR+8/de2fh9tBXepP2szaJrOlpclIHkM/XLmbldwkRUKM9d6AIobxq5R
+         Qpr2UWbWHPfvNiNDVeY5N/DfyqcJZxPF7D217bc64rfwHhXJ50rfNqFnEKrc0OvYlHkY
+         r7uxSP3Wv314cxrQFlj9J3EuFXhHwjXW0xim/YirWHwXIy5gCxnNcO9LGUiy1L3eF8GM
+         pWUJzUr8aONDpl6lcJiAlrlkpJBGY9jUSJ4LgfKofeLcVB6YrO9KPLAM0EJBpP2kcexC
+         GEtg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780515124; x=1781119924;
+        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+         :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=WyYYbe9n0CflRt4VnvQU2N03ZiDpY3ZgwW7PfjETq5w=;
+        b=TvMDH9iEaAJMcJdCQ87wMnyzm1oK7obuDzxT7IMmyCpNK8gvexZgzhBSe1Hy3o8jAH
+         +1yQQRvCOFfsmzte21+d18MNpInoRAMaQgnQGO+pCvf52BQ8WdqWkK/wwZ3xyShONFFG
+         BT0Q6Mk3ZK0oZxDaubrLcjroLDKiFlVYHN+Ywil8L6/H547T/d9E3O40adxvga2+MQYF
+         izbuiazABLQw0AvUzuZOmgA03IKI87cBZDpic+xqIGfpTeE91nbIed3wYA6FtRvE+E90
+         oxVppiDQu7mTKgc8CE22mMoRH39+v3GqxsZcvWofmwPNccpw7QHBxDBCvj5EA7xMw2eS
+         /aOQ==
+X-Forwarded-Encrypted: i=1; AFNElJ8ju55zmmCUDJCrjqVmIuGOBPe6GHt9C4UCkjBGkR5Ns8n3aZte6hlK2hHHM4umlqYvKJ8OdLw=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxmWQD0tFRd4vpbaeoCucFsopqsimdHXD7We1NaeKca04nhe8DS
+	Pykf87JT3a8mZWoUyG8kxSs9Z2QSCNNVJlKLmKswV4WDWXIC8vKrZA7XUr/2/kSJ/A==
+X-Gm-Gg: Acq92OGjx+xgPjrtABW6Qxp3PVo/5tSJ0ZV8mTpttsiPg5gr6MK5IvJZ9byeEopi+iO
+	/khIdDH5/KiBqncH3OucXSzXBTT5GVIyCRFjcD4QT7knOYxLXnDDkmoVedLqeCrPoSDMp6kC8cQ
+	RmVcsqnDV0AiC94Ct75cSYU8V0GBG2x49RGU1lzcdGCNlYrCwElci7tWGqE9l+VY9Td9TbPMVXq
+	4qPIQpB3p7NI2BArrYtu2fBsAP2CvA/6QLHY2NyUiaCp17wvLc2MZN1x3/7yfIt5/3+gvcKbF4K
+	PEKSqMcNTr5jmKExFS5mOdeRtGZAr24Fn+VAL3YnCri2vFp9+Z6hJFRy364HXAtwfkQSAhi3/MV
+	ORJ6my4p8odUku1HLPO6N9+LCAfuD13P7/ax6JY3r1JJbELEXxeTZrgCHJOVHj2oMXdaBMyHJJI
+	fZNmBehnX/+TFoDsHPt1b7cCTW9UeoHi++W0gGlw3N7i4hAftsd/T1iK6d1CbNww==
+X-Received: by 2002:a05:600d:18:b0:490:b2ae:44e1 with SMTP id 5b1f17b1804b1-490bcbea733mr114005e9.5.1780515123978;
+        Wed, 03 Jun 2026 12:32:03 -0700 (PDT)
+Received: from localhost ([2a00:79e0:288a:8:ac5a:f71c:9e28:abca])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4601f35fd33sm10773167f8f.35.2026.06.03.12.32.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 03 Jun 2026 12:32:03 -0700 (PDT)
+From: Jann Horn <jannh@google.com>
+Date: Wed, 03 Jun 2026 21:31:57 +0200
+Subject: [PATCH v2] fhandle: fix UAF due to unlocked ->mnt_ns read in
+ may_decode_fh()
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PA4PR04MB9366:EE_|AM8PR04MB7940:EE_
-X-MS-Office365-Filtering-Correlation-Id: b8851293-d61c-4ee2-5dff-08dec1a602e1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|19092799006|376014|7416014|52116014|366016|38350700014|11063799006|4143699003|5023799004|56012099006|18002099003|6133799003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	/UeRAbVlD9AT6bUsfG7lZNZtQqXSwLevj/VAJF6HBfuoJiqSneG9cb6ixJrV0W8NhDqSfsTCJfPdkmzhO8+Tc+INV+rpakjTSrzkGTImAOij8UT+8gb8f3sMXNrwedwoZnfP+bp/VjoZSwnqJtEAzC4JYFVxNfg+V4F4+TtlThTss4XffdsSw6gXxIZquCpBEWqNQ0K4MdwZFzuJn5YvX/v1MRxVl4MVIMqs3BhnOeVPeVWD8Qz0cMhVt5jHTbqXNBhkEFhwJOrW5G06ilU4tiqbgSpo/DJWI1T67Dy/8oo+AkgFNAjReOJpV0qlOcn0pwQdvn5IliN88f8j5Ggqw2oafzANK/9R89RQd806t7Qa3U5C4qTzQfoz+EkDtNnJ7FOFnD9oGrYnO1+UzQJQmYiGNinCOHfpldOhyK3jKg6pVTmEbV/ByRsjLzazMmI7WunSXSNz5ULERce8VGvP6v/c2VuHnEYiQq7h1fJT6OUZPKNAy3WPgvk+UAlTS57agKgMdu91WV8FP8VVUJWw9HWjujM63SgNkpbYYBquP3+zGNRcs0qOE9NVMCUeJbOqlkImb7zqZdMwx5S88nExilGtkU1u1iRYm9SkQqtlC3ndEe/+8cZ6WwZ6metV5H5L0DHmb77sSU4iDohAau6m4F3iRPVL3SGNe3S53Ln0kZBu6EGfbQA3q8x5NxnoYGsy
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR04MB9366.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(19092799006)(376014)(7416014)(52116014)(366016)(38350700014)(11063799006)(4143699003)(5023799004)(56012099006)(18002099003)(6133799003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?AFaLv9MkthH/6Lyj2bI1Q5Q6QgWK8lFejjt4NwqKuED1OKHY2gRVxnBPhWXe?=
- =?us-ascii?Q?L2OXrnLOfpZ6RncWTwr8361WHkPHlSZ5Uk6/D8czQUa+oEqJtiM1nDIqRQNc?=
- =?us-ascii?Q?U/Ab4NCdx9smW0ykBD1nwXswM2rtOvd54T6Pv1J02ryYvAIwrn2WJaEfEWdz?=
- =?us-ascii?Q?KVerCE+k7pCZFFAFZD8rDbUsdNOR5WRIEvH1gKY2QgwknHtBayjR+GBAh/52?=
- =?us-ascii?Q?yPY5bzpQknvMkbVZQSEIlNvffxanMX7H3ImkdIip3QzrycLyDIIsY6NUPbxh?=
- =?us-ascii?Q?1AgUcT9rrASOVEJpDS+nz+455sDNOr8mXqLG/wMEOaLZ0DgtnBanLFIv4XWF?=
- =?us-ascii?Q?Vny5xggkMX8eTuReSX0eR+87DYeIvWV8TZYsT5mPfk7rl0UiDUpvrgazaAjz?=
- =?us-ascii?Q?nDQs8MBaS8n/M2j5r9WGg67aHtEBvk6T+4EgC5HeKTy5SDdv5PhLG6SgALkK?=
- =?us-ascii?Q?B6pUDurf7g8vQS/lHU+vG+EnFevBgYiYHA2/LknwCEzVc+zfELtrDwTejO4l?=
- =?us-ascii?Q?lRbmeQwbOXckmcRVUlF2Pqj20GG4lZ/OeqlhDNgEJtfuDNtVY77+hkXZHTdN?=
- =?us-ascii?Q?FrsUUthCPeGPWzlyEsJl2yJ2NYHN/0Xa1XpTuHlvnM7rSERMgI2dhKzKf4uc?=
- =?us-ascii?Q?OHx+R5RSw3dHPDKHE3PyNbHH9i86BuyZ/krwhCxS++0f3y3Yl5YQJKE+eD8W?=
- =?us-ascii?Q?eNicnZGeAsmSdeSXKY8VCmUuSWc2cZBhP7IQWckXB48rY3ucTTQ/P/JIePHf?=
- =?us-ascii?Q?WBD2mAhLzxlO5VPi1V9u5MQ/nveDkJhEd6ddbWCZDyNu6YugO/+8bFpU0Cjw?=
- =?us-ascii?Q?Gr6GnzamUVlixwm4Ysh/wQZXFEfZedclJZG9jSYS3CXvj98r7HqS8l7l4rIK?=
- =?us-ascii?Q?emhpLLH/lVA048KvbLD53iQwnlfstL3hdL0uQZFJyOXWf/RiAsSL6Vi400sv?=
- =?us-ascii?Q?MFPWq0jTelNqVmXl0BPKOIp8BxEE69Hn2QfdkBYFhbHjwMSDxNLi6LhKl3Ka?=
- =?us-ascii?Q?HGW/n7D8JLtGdc23ulSSjTgDaK0PYUZMaJffiy+Y7C+KhONXKsRZujYWgkMr?=
- =?us-ascii?Q?vsGLQwIIysL2s4wu5pf8ArtjyEVdTyXwimM5KLxQ/UlRpJlIq5HSAuCKif0V?=
- =?us-ascii?Q?SmW/3Q/P4gmgEKh3F4AFuvaTO5GfEQvzbYKgs1FIPRJer2YFijco3VT5WVyu?=
- =?us-ascii?Q?Xfy/LOCY9lisE5fxA0lcvV16LrwEkMf+mgb1fLOWKI7aIQ/8YslmJ9KTIW17?=
- =?us-ascii?Q?9sOeU1FoR37vStH43d+AifgSOah1SDFSCrN+RBWPUSWo+iqky/UxYcmYbXI8?=
- =?us-ascii?Q?eIdlAz6LKlYAdJSjNmP4nu++aizD1fbZIRwwr/w19+MMzw1k16aWXonll0kq?=
- =?us-ascii?Q?8LrWcs285LUsqEp2evQFeS6jh1ufEl7/Rm1GbbK9uSp2K4VbqddZhjkSDk4d?=
- =?us-ascii?Q?Ip2tRhxdk+6BOiF7zogfLsWAkTM3m1SBMXkTFPi7QUc/pL4r0sgrLZhPYV3g?=
- =?us-ascii?Q?Lj+ahen5/kAU7UOEXp5Lw03qo+yp2JOoy5jaZkAg2bmuR1nV+pqRMbqhT8DU?=
- =?us-ascii?Q?LQHt5sLh6oPBhyMrWrN2uVEpp7j52iy4T6JeDn5df4ovK5yk3ejCvE79QDSW?=
- =?us-ascii?Q?kLxvnoqjabrv/Lj6K2fBUExYKRbnIWv8eH9n6awV8q27DSzIuCUGyo+6RDcy?=
- =?us-ascii?Q?kqmA3x3JjVkdimcI0V0VDA999WOkNbJ+Ny27QmFqh/koR2ArVtKXT2M3Mg0g?=
- =?us-ascii?Q?wL/0lAZnJw=3D=3D?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b8851293-d61c-4ee2-5dff-08dec1a602e1
-X-MS-Exchange-CrossTenant-AuthSource: PA4PR04MB9366.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jun 2026 19:26:29.2951
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 70TtptEKWPNc+srUvm5Gs78FuClQuQssMEWTZMvVhU1Kw/VQgVvVYRQBdePgWvpaVFldJU2NsVaCVeePfPgYcw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR04MB7940
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260603-vfs-fhandle-uaf-fix-v2-1-d05db76a5084@google.com>
+X-B4-Tracking: v=1; b=H4sIACyBIGoC/32NSw6CMBCGr0Jm7ZjSQlFW3sOwADqFGqSmhUZDu
+ Lst7l1+/3MDT86QhzrbwFEw3tg5Aj9l0I/tPBAaFRk445JJJjBojzo6aiJcW43avFFwXl1V2fG
+ qvEBsvhxF+Vi9Nz/2a/egfklTKTEav1j3OW5DnnL/H0KOOWotCyIhKyrUbbB2mOjc2yc0+75/A
+ aB7oQrJAAAA
+X-Change-ID: 20260603-vfs-fhandle-uaf-fix-32279d5b2758
+To: Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
+ Chuck Lever <chuck.lever@oracle.com>, Jeff Layton <jlayton@kernel.org>, 
+ Amir Goldstein <amir73il@gmail.com>
+Cc: linux-fsdevel@vger.kernel.org, linux-nfs@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ Jann Horn <jannh@google.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1780515120; l=6036;
+ i=jannh@google.com; s=20240730; h=from:subject:message-id;
+ bh=TQxe3lxjnun8hagmZm/MNZUEw9/HolUDis/d92awEoY=;
+ b=K+4of6TqNWTyWzKPNAp9t6KhlWoMPKZ8N6RslxyIcl5G/CVP0yN5DB2rP9fkDSdzg39pgsZDq
+ Ga5TomOHFV0AbRGKlkO9Mss5adscN2S+yIo9aKIeptmxtyDNWKoGKXH
+X-Developer-Key: i=jannh@google.com; a=ed25519;
+ pk=AljNtGOzXeF6khBXDJVVvwSEkVDGnnZZYqfWhP1V+C8=
 
-On Wed, Jun 03, 2026 at 05:23:06PM +0300, Claudiu Beznea wrote:
-> Hi, Frank, I3C maintainers,
->
-> I've inlined the sashiko comments here to discuss them:
->
-> On 6/2/26 23:12, Frank Li wrote:
-> > On Tue, Jun 02, 2026 at 04:28:13PM +0300, Claudiu Beznea wrote:
-> > > From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
-> > >
-> > > The Renesas RZ/G3S SoC supports a power saving mode where power to most
-> > > SoC components, including I3C, is turned off.
-> > >
-> > > On systems where the I3C devices also loses power during suspend (e.g. NXP
-> > > P3T1085UK-ARD connected to the PMOD1_6A connector of the RZ SMARC Carrier
-> > > 2 + Renesas RZ/G3S SMARC SOM), the devices becomes unreachable after
-> > > resume.
-> > >
-> > > Running DAA in the controller resume path restores communication. However,
-> > > DAA relies on interrupts for TX/RX, which are not available in the noirq
-> > > suspend/resume phase (unless they are wakeup interrupts). For this, the
-> > > suspend/resume callbacks were moved out of the noirq phase. Currently,
-> > > there is no identified use case on either the Renesas RZ/G3S or Renesas
-> > > RZ/G3E SoCs that requires the controller suspend/resume hooks to be part of
-> > > the noirq suspend/resume phase.
-> > >
-> > > Since renesas_i3c_reset() is not called anymore in atomic context
-> > > update it to use read_poll_timeout().
-> > >
-> > > To cover the case where the controller had already attached all the
-> > > i3c->maxdevs devices before a suspend/resume cycle and i3c->free_pos is
-> > > zero, struct renesas_i3c::resuming flag was introduced.
-> > >
-> > > The flag is set in renesas_i3c_resume() before calling
-> > > i3c_master_do_daa_ext() and checked in renesas_i3c_daa(). In case it is
-> > > set the previous saved DATBAS register values are used for the slots
-> > > already occupied before suspend. This allows keeping alive the connection
-> > > to the I3C devices when all the supported slots are occupied before
-> > > suspend.
-> > >
-> > > When resuming from suspend, renesas_i3c_daa() re-runs DAA for al
-> > > slots except those used by I2C devices. I2C devices are attached during
-> > > probe, at bus initialization time, and always occupy the first positions in
-> > > i3c->free_pos. In addition, there are no DATBAS register settings
-> > > associated with them.
-> > >
-> > > Fixes: e7218986319b ("i3c: renesas: Add suspend/resume support")
-> > > Cc: stable@vger.kernel.org
-> > > Signed-off-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
-> > > ---
-> >
-> > Please check sashiko review result
-> >
-> > https://sashiko.dev/#/patchset/20260602132824.3541151-1-claudiu.beznea%40kernel.org
-> >
-> >commit 6783acf82418dd115df661f4dc9d5758f653b084
-> >Author: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
-> >Date:   Tue Jun 2 13:28:13 2026 +0000
-> >    i3c: renesas: Perform Dynamic Address Assignment on resume
-> >    The Renesas RZ/G3S SoC supports a power saving mode where power to most
-> >    SoC components, including I3C, is turned off.
-> >
-> >    On systems where the I3C devices also loses power during suspend (e.g. NXP
-> >    P3T1085UK-ARD connected to the PMOD1_6A connector of the RZ SMARC Carrier
-> >    2 + Renesas RZ/G3S SMARC SOM), the devices becomes unreachable after
-> >    resume.
-> >
-> >    Running DAA in the controller resume path restores communication. However,
-> >    DAA relies on interrupts for TX/RX, which are not available in the noirq
-> >    suspend/resume phase (unless they are wakeup interrupts). For this, the
-> >    suspend/resume callbacks were moved out of the noirq phase. Currently,
-> >    there is no identified use case on either the Renesas RZ/G3S or Renesas
-> >    RZ/G3E SoCs that requires the controller suspend/resume hooks to be part of
-> >    the noirq suspend/resume phase.
-> >    Fixes: e7218986319b ("i3c: renesas: Add suspend/resume support")
-> >    Cc: stable@vger.kernel.org
-> >> --- a/drivers/i3c/master/renesas-i3c.c
-> >> +++ b/drivers/i3c/master/renesas-i3c.c
-> >[ ... ]
-> >> @@ -657,14 +664,33 @@ static int renesas_i3c_daa(struct
-> i3c_master_controller *m)
-> >>
-> >>      /* Setting DATBASn registers for target devices. */
-> >>      for (pos = 0; pos < i3c->maxdevs; pos++) {
-> >> -            if (olddevs & BIT(pos))
-> >> +            if (olddevs & BIT(pos)) {
-> >> +                    /*
-> >> +                     * In case of resume, reassign DAs for all devices on the
-> >> +                     * bus to avoid failures when all i3c->maxdevs slots were
-> >> +                     * already occupied before suspend.
-> >> +                     *
-> >> +                     * Exclude I2C devices, as they are attached during probe,
-> >> +                     * at bus initialization time, and there are currently no
-> >> +                     * register updates associated with them.
-> >> +                     */
-> >> +                    if (i3c->resuming) {
-> >> +                            if (i3c->addrs[pos].is_i2c) {
-> >> +                                    last_i2c_pos = pos;
-> >> +                            } else {
-> >> +                                    renesas_writel(i3c->regs, DATBAS(pos),
-> >> +                                                   i3c->DATBASn[pos]);
-> >> +                            }
-> >> +                    }
-> >Does restoring these blindly from the saved state cement addresses for future
-> >ENTDAA, bypassing normal device assignment?
-> >If a device is removed, hot-plugged, or wakes up slowly, couldn't a different
-> >device win arbitration and be assigned an address from an unrelated DATBASn
-> >slot?
->
-> Currently, the driver don't support hot-plug.
->
-> I presumed the remove in suspend is not actually a valid use-case, but with
-> this scenario, if that happens, the device still remains attached in the
-> software data structures. After this sequence:
-> 1/ suspend
-> 2/ disconnect an I3C device
-> 3/ resume
-> 4/ suspend
-> 5/ re-connect the I3C devices
-> 6/ resume
->
-> the reconnected I3C device works again after step 6 (according to my testing).
->
-> Waking up may happen slowly, indeed. So, I presume this is a valid use case.
->
-> Now, I have few question (if my I3C understanding is right):
->
-> I noticed none of the I3C drivers are taking care of the use case where the
-> bus is fully populated after resume (and we are after a resume with power
-> lost, for both the controller and the devices). That looks a bit tricky
-> scenario to cover, to be honest, as all the drivers check for a free slot in
-> ->attach_i3c_dev(), and, for a fully populated bus, that will not update the
-> newly assigned addresses in the subsystem data structure.
->
-> If the ->attach_i3c_dev() called though the i3c_master_add_i3c_dev_locked()
-> fails then nothing is continued so, the device address changes are not
-> propagated in all the software data structures.
->
-> In case we re-use the DATBAS() register values as proposed in this patch, we
-> have the changes that the driver software data caches (i3c->addrs[].addr)
-> and the subsystem I3C devices addresses to match. But, that may not be true
-> all the time.
->
-> If we re-assign new addresses to i3c->addrs[].addr in the DAA API, then
-> write those values to DATBAS() registers, but the bus is fully populated, or
-> no new devices are discovered as the indices remains the same, then, since
-> we execute i3c_master_add_i3c_dev_locked() only for the newly attached
-> devices, then the subsystem and the driver addresses don't match anymore. I
-> couldn't found a global API similar to i3c_master_add_i3c_dev_locked() to
-> work for removing devices and re-attaching at resume, for such scenario. I'm
-> not sure that's good to do, though. If we call
-> i3c_master_add_i3c_dev_locked() unconditionally, then it will still not work
-> on a full previously occupied bus.
->
-> If I'm not wrong with all these, could you please let me know how would you
-> consider covering this scenario? This is what I've tried to address with the
-> approach in this patch. I currently don't have a testing setup for this, I
-> only simulated it by setting i3c->free_pos = 0 before calling
-> i3c_master_do_daa_ext().
->
-> Would the usage of i3c_device_do_setdasa() being called from a master driver
-> be something acceptable? Though, I currently haven't played around with it.
->
-> As I don't have a real setup to test this, would it be OK to restore the
-> approach in this patch as proposed in v1?
+may_decode_fh() accesses mount::mnt_ns without holding any locks; that
+means the mount can concurrently be unmounted, and the mnt_namespace can
+concurrently be freed after an RCU grace period.
 
-This case is quite complex, and many people try to resolve simialar
-problems, you may want to reattach device because controller lost state.
+This race can happens as follows, assuming that the mount point was
+created by open_tree(..., OPEN_TREE_CLONE):
 
-hub have similar requirement, which need reattach devices.
+thread 1            thread 2            RCU
+                    __do_sys_open_by_handle_at
+                      do_handle_open
+                        handle_to_path
+                          may_decode_fh
+                            is_mounted
+                              [mount::mnt_ns access]
+                            [mount::mnt_ns access]
+__do_sys_close
+  fput_close_sync
+    __fput
+      dissolve_on_fput
+        umount_tree
+        class_namespace_excl_destructor
+          namespace_unlock
+            free_mnt_ns
+              mnt_ns_tree_remove
+                call_rcu(mnt_ns_release_rcu)
+                                        mnt_ns_release_rcu
+                                          mnt_ns_release
+                                            kfree
+                            [mnt_namespace::user_ns access] **UAF**
 
-https://lore.kernel.org/linux-i3c/20260525064209.2263045-1-lakshay.piplani@nxp.com/T/#ma99fa92cb3aac770995350e0fc22c144b974a038
+Fix it by taking rcu_read_lock() around the mount::mnt_ns access, like
+in __prepend_path().
+Additionally, document the semantics of mount::mnt_ns, and use WRITE_ONCE()
+for writers that can race with lockless readers.
 
-controller lost state, but may i3c devices still alive and they dynamtic
-address during suspend. Does reattach to the old address help your case?
+This bug is unreachable unless one of the following is set:
 
-Frank
+ - CONFIG_PREEMPTION
+ - CONFIG_RCU_STRICT_GRACE_PERIOD
 
+because it requires an RCU grace period to happen during a syscall without
+an explicit preemption.
 
->
-> Please let me know. Thank you!
->
-> >> +
-> >>                      continue;
-> >> +            }
-> >>
-> >>              ret = i3c_master_get_free_addr(m, last_addr + 1);
-> >[ ... ]
-> >> @@ -674,9 +700,21 @@ static int renesas_i3c_daa(struct i3c_master_controller *m)
-> >>      cmd = xfer->cmds;
-> >>      cmd->rx_count = 0;
-> >>
-> >> -    ret = renesas_i3c_get_free_pos(i3c);
-> >> -    if (ret < 0)
-> >> -            return ret;
-> >> +    if (i3c->resuming) {
-> >> +            /* Nothing to do if all slots are ocupied by I2C devices. */
-> >> +            if (last_i2c_pos == i3c->maxdevs - 1)
-> >> +                    return 0;
-> >> +
-> >> +            /*
-> >> +             * Do DAA for all the devices on the bus, if resuming, except
-> >> +             * the I2C ones.
-> >> +             */
-> >> +            ret = last_i2c_pos < 0 ? 0 : last_i2c_pos + 1;
-> >Does this incorrectly assume that all I2C devices occupy contiguous slots at
-> >the beginning of the device array?
->
-> I wasn't aware of the notifier used to add I2C devices to the bus.
->
-> >If an I2C device is attached dynamically at a higher slot while lower slots
-> >are occupied by I3C devices, will DAA start at a higher index, skipping the
-> >lower I3C devices? The hardware would assign new addresses from the higher
-> >offset, duplicating devices and breaking communication.
-> >> +    } else {
-> >> +            ret = renesas_i3c_get_free_pos(i3c);
-> >> +            if (ret < 0)
-> >> +                    return ret;
-> >> +    }
-> >>
-> >>      /*
-> >>       * Setup the command descriptor to start the ENTDAA command
-> >> @@ -694,7 +732,7 @@ static int renesas_i3c_daa(struct i3c_master_controller *m)
-> >>
-> >>      for (pos = 0; pos < i3c->maxdevs; pos++) {
-> >>              if (newdevs & BIT(pos))
-> >> -                    i3c_master_add_i3c_dev_locked(m, i3c->addrs[pos]);
-> >> +                    i3c_master_add_i3c_dev_locked(m, i3c->addrs[pos].addr);
-> >>      }
-> >Since olddevs are masked out from newdevs prior to this loop in renesas_i3c_daa
-> >(newdevs &= ~olddevs), is the I3C framework prevented from being notified of
-> >shifted dynamic addresses landing in previously occupied slots?
-> >Because i3c_master_add_i3c_dev_locked() is never called for these, the
-> >framework could remain unaware of identity shifts and continue communicating
-> >with devices using mismatched PIDs, risking data corruption.
->
-> That is a previously existing problem that may happen. However, I am not
-> sure how we should deal with the case when this is called after resume, on a
-> fully populated bus.
->
-> Frank, I3C maintainers, should we cover this case for now? Do you have some
-> hints on how to go forward with it?
->
-> >[ ... ]
-> >> @@ -1435,7 +1475,7 @@ static void renesas_i3c_remove(struct
-> platform_device *pdev)
-> >>      i3c_master_unregister(&i3c->base);
-> >>  }
-> >>
-> >> -static int renesas_i3c_suspend_noirq(struct device *dev)
-> >> +static int renesas_i3c_suspend(struct device *dev)
-> >>  {
-> >>      struct renesas_i3c *i3c = dev_get_drvdata(dev);
-> >>      int i, ret;
-> >[ ... ]
-> >> +    ret = reset_control_assert(i3c->tresetn);
-> >> +    if (ret)
-> >> +            goto err_presetn;
-> >> +
-> >> +    clk_bulk_disable(i3c->num_clks, i3c->clks);
-> >> +
-> >> +    return 0;
-> >Since this callback is being moved out of the noirq phase where interrupts are
-> >still enabled, is it safe to disable clocks and assert hardware resets without
-> >first disabling the device interrupts (e.g., via disable_irq())?
-> >If an interrupt fires during this time, the ISR might access unclocked MMIO
-> >registers belonging to a reset IP, which could trigger a synchronous external
-> >abort.
->
-> That may have happen even previously if the interrupts were configured as
-> wakeup sources. However, at this point, all the clients should be suspended
-> and thus, they shouldn't generate interrupts.
->
->
-> --
-> Thank you,
-> Claudiu
->
+This doesn't seem to have interesting security impact; worst-case, it could
+leak the result of an integer comparison to userspace (from the level
+check in cap_capable()), cause an endless loop, or crash the kernel by
+dereferencing an invalid address.
+
+Fixes: 620c266f3949 ("fhandle: relax open_by_handle_at() permission checks")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jann Horn <jannh@google.com>
+---
+I used custom tooling to force this race condition to occur and check
+that it leads to a KASAN splat - let me know if you want me to create a
+kernel patch to force the race condition and a reproducer you can run.
+
+I remember Christian asking me for feedback on the patch that introduced
+the bug, and I missed the bug because I didn't realize what the semantics
+of mount::mnt_ns are...
+---
+Changes in v2:
+- improve comment on mnt_ns semantics based on discussion with viro@
+- Link to v1: https://patch.msgid.link/20260603-vfs-fhandle-uaf-fix-v1-1-ff64ee367e4d@google.com
+---
+ fs/fhandle.c   | 16 ++++++++++++++--
+ fs/mount.h     | 10 +++++++++-
+ fs/namespace.c |  6 +++---
+ 3 files changed, 26 insertions(+), 6 deletions(-)
+
+diff --git a/fs/fhandle.c b/fs/fhandle.c
+index 642e3d569497..1ca7eb3a6cb5 100644
+--- a/fs/fhandle.c
++++ b/fs/fhandle.c
+@@ -285,6 +285,19 @@ static int do_handle_to_path(struct file_handle *handle, struct path *path,
+ 	return 0;
+ }
+ 
++static bool capable_wrt_mount(struct mount *mount)
++{
++	struct mnt_namespace *mnt_ns;
++
++	/*
++	 * For ->mnt_ns access.
++	 * The following READ_ONCE() is semantically rcu_dereference().
++	 */
++	guard(rcu)();
++	mnt_ns = READ_ONCE(mount->mnt_ns);
++	return ns_capable(mnt_ns->user_ns, CAP_SYS_ADMIN);
++}
++
+ static inline int may_decode_fh(struct handle_to_path_ctx *ctx,
+ 				unsigned int o_flags)
+ {
+@@ -320,8 +333,7 @@ static inline int may_decode_fh(struct handle_to_path_ctx *ctx,
+ 	if (ns_capable(root->mnt->mnt_sb->s_user_ns, CAP_SYS_ADMIN))
+ 		ctx->flags = HANDLE_CHECK_PERMS;
+ 	else if (is_mounted(root->mnt) &&
+-		 ns_capable(real_mount(root->mnt)->mnt_ns->user_ns,
+-			    CAP_SYS_ADMIN) &&
++		 capable_wrt_mount(real_mount(root->mnt)) &&
+ 		 !has_locked_children(real_mount(root->mnt), root->dentry))
+ 		ctx->flags = HANDLE_CHECK_PERMS | HANDLE_CHECK_SUBTREE;
+ 	else
+diff --git a/fs/mount.h b/fs/mount.h
+index e0816c11a198..5c120f8361bd 100644
+--- a/fs/mount.h
++++ b/fs/mount.h
+@@ -71,7 +71,15 @@ struct mount {
+ 	struct hlist_head mnt_slave_list;/* list of slave mounts */
+ 	struct hlist_node mnt_slave;	/* slave list entry */
+ 	struct mount *mnt_master;	/* slave is on master->mnt_slave_list */
+-	struct mnt_namespace *mnt_ns;	/* containing namespace */
++	/*
++	 * Containing namespace (active or deactivating, non-refcounted).
++	 * Normally protected by namespace_sem.
++	 * Can also be accessed locklessly under RCU. RCU readers can't rely on
++	 * the namespace still being active, but implicitly hold a passive
++	 * reference (because an RCU delay happens between a namespace being
++	 * deactivated and the corresponding passive refcount drop).
++	 */
++	struct mnt_namespace *mnt_ns;
+ 	struct mountpoint *mnt_mp;	/* where is it mounted */
+ 	union {
+ 		struct hlist_node mnt_mp_list;	/* list mounts with the same mountpoint */
+diff --git a/fs/namespace.c b/fs/namespace.c
+index fe919abd2f01..f5905f4ec560 100644
+--- a/fs/namespace.c
++++ b/fs/namespace.c
+@@ -1079,7 +1079,7 @@ static void mnt_add_to_ns(struct mnt_namespace *ns, struct mount *mnt)
+ 	bool mnt_first_node = true, mnt_last_node = true;
+ 
+ 	WARN_ON(mnt_ns_attached(mnt));
+-	mnt->mnt_ns = ns;
++	WRITE_ONCE(mnt->mnt_ns, ns);
+ 	while (*link) {
+ 		parent = *link;
+ 		if (mnt->mnt_id_unique < node_to_mount(parent)->mnt_id_unique) {
+@@ -1434,7 +1434,7 @@ EXPORT_SYMBOL(mntget);
+ void mnt_make_shortterm(struct vfsmount *mnt)
+ {
+ 	if (mnt)
+-		real_mount(mnt)->mnt_ns = NULL;
++		WRITE_ONCE(real_mount(mnt)->mnt_ns, NULL);
+ }
+ 
+ /**
+@@ -1806,7 +1806,7 @@ static void umount_tree(struct mount *mnt, enum umount_tree_flags how)
+ 			ns->nr_mounts--;
+ 			__touch_mnt_namespace(ns);
+ 		}
+-		p->mnt_ns = NULL;
++		WRITE_ONCE(p->mnt_ns, NULL);
+ 		if (how & UMOUNT_SYNC)
+ 			p->mnt.mnt_flags |= MNT_SYNC_UMOUNT;
+ 
+
+---
+base-commit: ba3e43a9e601636f5edb54e259a74f96ca3b8fd8
+change-id: 20260603-vfs-fhandle-uaf-fix-32279d5b2758
+
+Best regards,
+--  
+Jann Horn <jannh@google.com>
+
