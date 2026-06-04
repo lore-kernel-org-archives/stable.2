@@ -1,398 +1,143 @@
-Received: from pdx-out-002.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-002.esa.us-west-2.outbound.mail-perimeter.amazon.com [44.246.1.125])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E71A3E3C7C
-	for <stable@vger.kernel.org>; Thu,  4 Jun 2026 08:40:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=44.246.1.125
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 198753E63B5
+	for <stable@vger.kernel.org>; Thu,  4 Jun 2026 08:40:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780562461; cv=none; b=A3LhOML9pVK0ZTOkfwAetFdUW+1FL3OOnlcBFcsItA6Fe+dSdGfH1zgnXmxFmObq9y9x695XOgNSrvZF0SRjP56HUtoYC7TprjTk4rFqxTRxBsiEPGDR0ONVpmxB3W5HZgJz0hgN5PUBriEzYEHZLyIVS7jm89eJt+cu8ui/yXM=
+	t=1780562464; cv=none; b=W6nHHpJ2bicyXVNvC/ufSa9KoA/SgekhZg4B3825iJ4kQhJXgEHk4F6RUQ+UBuMGkeQ0iIKDnkyS9peuUkwX1zvAp4TiAuuNzCtYS2+rAgDSTleh7/1PxIiJ1V8nrY1Ipt+gzM7GH9R0QrF8dEANNp3267vRBDj+kMAMMO7OVPc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780562461; c=relaxed/simple;
-	bh=jsqN/Xl5jrOb8RnSmedKH0pF5k+Tfl8/peJUJt/hteo=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=CgW3SGZlp9H7Sgl+dFNNsooJYICPLxK8UzIRGh2md1otVvDecUegpJwBYWrQYGHUNwrsAEIMh0wHS9aHioXlunO1HfHBNOKMWPVRCzqeOChdrdSF3EGz3W1xbkn+DMJV+peqcvcgus+yL+4h6AYHrlKk8grMaRCZRLYM++4/OzY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de; spf=pass smtp.mailfrom=amazon.de; dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b=NTacGvZe; arc=none smtp.client-ip=44.246.1.125
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
+	s=arc-20240116; t=1780562464; c=relaxed/simple;
+	bh=+FVjQH9ME/3hxzIB23RryAQBjWyQfNOtKe2JIfFCIJM=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=W8pI/GIxtk4dzwxa3f5wQNlyOCUMtr7MXdD28CHGIjvSJ6Db6P2kZ9yzPE36MxliPdVl0PYuARZ3i5Hqqq+MQr8XO2ynw5Bheze90PxEk5/RLj/igEbNYktt2b0jLNZPboFVjb17ZAzXcWTY7wKcjbFb0YwsS5XymVknHozGcq0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=E+Yz6IkC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b="NTacGvZe"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
-  t=1780562449; x=1812098449;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=aTIVnNdYVH99OF37jatbMp+0q1ED3mHPwmi+WWnnrxQ=;
-  b=NTacGvZe1wIiLqMg2WI+rU6GgTfSFbpmP4jKY0l05vkpVLicSGzwPpPh
-   GCr9+WvF/Svxe2E6Xv5WSAesk0EzoRTW0T1dIL4hFXnkz20wUe0DpoIgI
-   277PvCBFldEI4qkHCIwdxohYHKs0vYTGef6qsPwfgWo8HaA8kD5ApLmDa
-   BqBa0EkQpophcEvANj7jscs4eCbBDrNa938VT6kDQDabRyXB8dX14NTfn
-   ccwOpkk38givLywkZqJ0x5yKGDIjQNMgpczmWVj2EvrmRy8u7B7si+mkv
-   nNmGSRrn9qQNaYWOcF09SZTAebtS0fxsImFpHlsnrs2H9G3JLHmxYXHV8
-   Q==;
-X-CSE-ConnectionGUID: setBYYrlQn+pmg/bkZBXWg==
-X-CSE-MsgGUID: bjP1LftXQ7Cwksc2BFRjlg==
-X-IronPort-AV: E=Sophos;i="6.24,186,1774310400"; 
-   d="scan'208";a="21080223"
-Received: from ip-10-5-6-203.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.6.203])
-  by internal-pdx-out-002.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Jun 2026 08:40:45 +0000
-Received: from EX19MTAUWB002.ant.amazon.com [205.251.233.111:12254]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.19.88:2525] with esmtp (Farcaster)
- id f58f6ddb-e8de-4d9a-905a-1b9408ad6fda; Thu, 4 Jun 2026 08:40:45 +0000 (UTC)
-X-Farcaster-Flow-ID: f58f6ddb-e8de-4d9a-905a-1b9408ad6fda
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWB002.ant.amazon.com (10.250.64.231) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.37;
- Thu, 4 Jun 2026 08:40:44 +0000
-Received: from dev-dsk-acsjakub-1b-6f9934e2.eu-west-1.amazon.com
- (172.19.75.107) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.37; Thu, 4 Jun 2026
- 08:40:43 +0000
-From: Jakub Acs <acsjakub@amazon.de>
-To: <stable@vger.kernel.org>
-CC: <acsjakub@amazon.de>, Pablo Neira Ayuso <pablo@netfilter.org>, "Vegard
- Nossum" <vegard.nossum@oracle.com>, Greg Kroah-Hartman
-	<gregkh@linuxfoundation.org>
-Subject: [PATCH 6.1.y] netfilter: nf_tables: restore set elements when delete set fails
-Date: Thu, 4 Jun 2026 08:32:45 +0000
-Message-ID: <20260604083245.77985-1-acsjakub@amazon.de>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="E+Yz6IkC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF83F1F0089B;
+	Thu,  4 Jun 2026 08:40:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1780562453;
+	bh=T6322EfmIirXuUsK0zjIC7iaMNRod9GpyLnvlQUbaec=;
+	h=Subject:To:Cc:From:Date;
+	b=E+Yz6IkCa/or3FSWUvoqGO/rLp4Sh/tuWLu5KwO8Ry1VWbyUO299aDzhcM26ZaxMt
+	 8qV3pVCXJ3uyIPq3k9fH6JnPb5O7g7YqM0SVBllxBHst9eHjKKntEblM2pRzGjIK2I
+	 QCJJi+JdUh09rhfKhPPP9Y8843vCk+rwuTMWVp0I=
+Subject: FAILED: patch "[PATCH] KVM: SVM: Flush the current TLB when transitioning from xAVIC" failed to apply to 6.1-stable tree
+To: seanjc@google.com,naveen@kernel.org
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Thu, 04 Jun 2026 10:39:56 +0200
+Message-ID: <2026060456-distinct-jockstrap-0b3b@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ClientProxiedBy: EX19D041UWA004.ant.amazon.com (10.13.139.9) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
 
-From: Pablo Neira Ayuso <pablo@netfilter.org>
 
-[ Upstream commit e79b47a8615d42c68aaeb68971593333667382ed ]
+The patch below does not apply to the 6.1-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-From abort path, nft_mapelem_activate() needs to restore refcounters to
-the original state. Currently, it uses the set->ops->walk() to iterate
-over these set elements. The existing set iterator skips inactive
-elements in the next generation, this does not work from the abort path
-to restore the original state since it has to skip active elements
-instead (not inactive ones).
+To reproduce the conflict and resubmit, you may use the following commands:
 
-This patch moves the check for inactive elements to the set iterator
-callback, then it reverses the logic for the .activate case which
-needs to skip active elements.
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git checkout FETCH_HEAD
+git cherry-pick -x a9e18aa3263f356edae305e29830e5fe63d8597a
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026060456-distinct-jockstrap-0b3b@gregkh' --subject-prefix 'PATCH 6.1.y' HEAD^..
 
-Toggle next generation bit for elements when delete set command is
-invoked and call nft_clear() from .activate (abort) path to restore the
-next generation bit.
+Possible dependencies:
 
-The splat below shows an object in mappings memleak:
 
-[43929.457523] ------------[ cut here ]------------
-[43929.457532] WARNING: CPU: 0 PID: 1139 at include/net/netfilter/nf_tables.h:1237 nft_setelem_data_deactivate+0xe4/0xf0 [nf_tables]
-[...]
-[43929.458014] RIP: 0010:nft_setelem_data_deactivate+0xe4/0xf0 [nf_tables]
-[43929.458076] Code: 83 f8 01 77 ab 49 8d 7c 24 08 e8 37 5e d0 de 49 8b 6c 24 08 48 8d 7d 50 e8 e9 5c d0 de 8b 45 50 8d 50 ff 89 55 50 85 c0 75 86 <0f> 0b eb 82 0f 0b eb b3 0f 1f 40 00 90 90 90 90 90 90 90 90 90 90
-[43929.458081] RSP: 0018:ffff888140f9f4b0 EFLAGS: 00010246
-[43929.458086] RAX: 0000000000000000 RBX: ffff8881434f5288 RCX: dffffc0000000000
-[43929.458090] RDX: 00000000ffffffff RSI: ffffffffa26d28a7 RDI: ffff88810ecc9550
-[43929.458093] RBP: ffff88810ecc9500 R08: 0000000000000001 R09: ffffed10281f3e8f
-[43929.458096] R10: 0000000000000003 R11: ffff0000ffff0000 R12: ffff8881434f52a0
-[43929.458100] R13: ffff888140f9f5f4 R14: ffff888151c7a800 R15: 0000000000000002
-[43929.458103] FS:  00007f0c687c4740(0000) GS:ffff888390800000(0000) knlGS:0000000000000000
-[43929.458107] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-[43929.458111] CR2: 00007f58dbe5b008 CR3: 0000000123602005 CR4: 00000000001706f0
-[43929.458114] Call Trace:
-[43929.458118]  <TASK>
-[43929.458121]  ? __warn+0x9f/0x1a0
-[43929.458127]  ? nft_setelem_data_deactivate+0xe4/0xf0 [nf_tables]
-[43929.458188]  ? report_bug+0x1b1/0x1e0
-[43929.458196]  ? handle_bug+0x3c/0x70
-[43929.458200]  ? exc_invalid_op+0x17/0x40
-[43929.458211]  ? nft_setelem_data_deactivate+0xd7/0xf0 [nf_tables]
-[43929.458271]  ? nft_setelem_data_deactivate+0xe4/0xf0 [nf_tables]
-[43929.458332]  nft_mapelem_deactivate+0x24/0x30 [nf_tables]
-[43929.458392]  nft_rhash_walk+0xdd/0x180 [nf_tables]
-[43929.458453]  ? __pfx_nft_rhash_walk+0x10/0x10 [nf_tables]
-[43929.458512]  ? rb_insert_color+0x2e/0x280
-[43929.458520]  nft_map_deactivate+0xdc/0x1e0 [nf_tables]
-[43929.458582]  ? __pfx_nft_map_deactivate+0x10/0x10 [nf_tables]
-[43929.458642]  ? __pfx_nft_mapelem_deactivate+0x10/0x10 [nf_tables]
-[43929.458701]  ? __rcu_read_unlock+0x46/0x70
-[43929.458709]  nft_delset+0xff/0x110 [nf_tables]
-[43929.458769]  nft_flush_table+0x16f/0x460 [nf_tables]
-[43929.458830]  nf_tables_deltable+0x501/0x580 [nf_tables]
 
-Fixes: 628bd3e49cba ("netfilter: nf_tables: drop map element references from preparation phase")
-Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
-(cherry picked from commit e79b47a8615d42c68aaeb68971593333667382ed)
-[Vegard: CVE-2024-27012; fixed conflicts due to missing commits
- 0e1ea651c9717ddcd8e0648d8468477a31867b0a ("netfilter: nf_tables: shrink
- memory consumption of set elements") and
- 9dad402b89e81a0516bad5e0ac009b7a0a80898f ("netfilter: nf_tables: expose
- opaque set element as struct nft_elem_priv") so we pass the correct types
- and values to nft_setelem_data_deactivate(), nft_setelem_validate(),
- nft_set_elem_ext(), etc.]
-Signed-off-by: Vegard Nossum <vegard.nossum@oracle.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-[acsjakub: clean cherry-pick of the commit 164936b2fc88 
- ("netfilter: nf_tables: restore set elements when delete set fails")
- from 6.6.y. Plus, add "[ Upstream commit .." header to the message]
-Signed-off-by: Jakub Acs <acsjakub@amazon.de>
----
- net/netfilter/nf_tables_api.c  | 41 ++++++++++++++++++++++++++++++----
- net/netfilter/nft_set_bitmap.c |  4 +---
- net/netfilter/nft_set_hash.c   |  8 ++-----
- net/netfilter/nft_set_pipapo.c |  5 +----
- net/netfilter/nft_set_rbtree.c |  4 +---
- 5 files changed, 42 insertions(+), 20 deletions(-)
+thanks,
 
-diff --git a/net/netfilter/nf_tables_api.c b/net/netfilter/nf_tables_api.c
-index fb3d529ebf5ab..b248ec62d1f6f 100644
---- a/net/netfilter/nf_tables_api.c
-+++ b/net/netfilter/nf_tables_api.c
-@@ -594,6 +594,12 @@ static int nft_mapelem_deactivate(const struct nft_ctx *ctx,
- 				  const struct nft_set_iter *iter,
- 				  struct nft_set_elem *elem)
- {
-+	struct nft_set_ext *ext = nft_set_elem_ext(set, elem->priv);
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From a9e18aa3263f356edae305e29830e5fe63d8597a Mon Sep 17 00:00:00 2001
+From: Sean Christopherson <seanjc@google.com>
+Date: Fri, 15 May 2026 10:15:36 -0700
+Subject: [PATCH] KVM: SVM: Flush the current TLB when transitioning from xAVIC
+ => x2AVIC
+
+Flush the current TLB when xAVIC *or* x2AVIC is activated, as KVM is
+(apparently) responsible for purging TLB entries when transitioning from
+xAVIC to x2AVIC.  The APM says a whole lot of nothing about TLB flushing
+with respect to (x2)AVIC, but empirical data strongly suggests hardware
+also does a whole lot of nothing.
+
+Failure to flush the TLB when enabling x2AVIC can lead to guest accesses
+to the APIC base address getting incorrectly redirected to the virtual
+APIC page.  The flaw most visibly manifests as failures in KVM-Unit-Test's
+verify_disabled_apic_mmio() testcase when x2APIC is enabled (though for
+reasons unknown, the test only reliably fails with EFI builds).
+
+Fixes: 0ccf3e7cb95a ("KVM: SVM: Flush the "current" TLB when activating AVIC")
+Fixes: 4d1d7942e36a ("KVM: SVM: Introduce logic to (de)activate x2AVIC mode")
+Cc: stable@vger.kernel.org
+Cc: Naveen N Rao (AMD) <naveen@kernel.org>
+Link: https://patch.msgid.link/20260515171536.1841645-1-seanjc@google.com
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+
+diff --git a/arch/x86/kvm/svm/avic.c b/arch/x86/kvm/svm/avic.c
+index adf211860949..e8bd60156941 100644
+--- a/arch/x86/kvm/svm/avic.c
++++ b/arch/x86/kvm/svm/avic.c
+@@ -206,6 +206,35 @@ static void avic_activate_vmcb(struct vcpu_svm *svm)
+ 
+ 	svm_clr_intercept(svm, INTERCEPT_CR8_WRITE);
+ 
++	/*
++	 * Flush the TLB when enabling (x2)AVIC and when transitioning between
++	 * xAVIC and x2AVIC, as the CPU may have inserted a TLB entry for the
++	 * "wrong" mapping.
++	 *
++	 * KVM uses a per-VM "scratch" page to back the APIC memslot, because
++	 * KVM also uses per-VM page tables *and* maintains the page table (NPT
++	 * or shadow page) mappings for said memslot even if one or more vCPUs
++	 * have their local APIC hardware-disabled or are in x2APIC mode, i.e.
++	 * even if one or more vCPUs' APIC MMIO BAR is effectively disabled.
++	 *
++	 * If xAVIC is fully enabled, hardware ignores the physical address in
++	 * KVM's page tables, i.e. in the leaf SPTE for the APIC memslot, and
++	 * instead redirects the access to the AVIC backing page, i.e. to the
++	 * vCPU's virtual APIC page.  If xAVIC is not enabled (APIC is either
++	 * hardware-disabled or in x2APIC mode), then guest accesses will use
++	 * the page table mapping verbatim, i.e. will access the per-VM scratch
++	 * page, as normal memory.
++	 *
++	 * In both cases, the CPU is allowed to cache TLB entries for the APIC
++	 * base GPA.  So, KVM needs to flush the TLB when enabling xAVIC, as
++	 * accesses need to be redirected to the virtual APIC page, but the TLB
++	 * may contain entries pointing at the scratch page.  KVM also needs to
++	 * flush the TLB when enabling x2AVIC, as accesses need to go to the
++	 * scratch page, but the TLB may contain entries tagged as xAVIC, i.e.
++	 * entries pointing to the vCPU's virtual APIC page.
++	 */
++	kvm_make_request(KVM_REQ_TLB_FLUSH_CURRENT, &svm->vcpu);
 +
-+	if (!nft_set_elem_active(ext, iter->genmask))
-+		return 0;
-+
-+	nft_set_elem_change_active(ctx->net, set, ext);
- 	nft_setelem_data_deactivate(ctx->net, set, elem);
- 
- 	return 0;
-@@ -619,6 +625,7 @@ static void nft_map_catchall_deactivate(const struct nft_ctx *ctx,
- 			continue;
- 
- 		elem.priv = catchall->elem;
-+		nft_set_elem_change_active(ctx->net, set, ext);
- 		nft_setelem_data_deactivate(ctx->net, set, &elem);
- 		break;
- 	}
-@@ -3593,6 +3600,9 @@ int nft_setelem_validate(const struct nft_ctx *ctx, struct nft_set *set,
- 	const struct nft_data *data;
- 	int err;
- 
-+	if (!nft_set_elem_active(ext, iter->genmask))
-+		return 0;
-+
- 	if (nft_set_ext_exists(ext, NFT_SET_EXT_FLAGS) &&
- 	    *nft_set_ext_flags(ext) & NFT_SET_ELEM_INTERVAL_END)
- 		return 0;
-@@ -3616,19 +3626,22 @@ int nft_setelem_validate(const struct nft_ctx *ctx, struct nft_set *set,
- 
- int nft_set_catchall_validate(const struct nft_ctx *ctx, struct nft_set *set)
- {
--	u8 genmask = nft_genmask_next(ctx->net);
-+	struct nft_set_iter dummy_iter = {
-+		.genmask	= nft_genmask_next(ctx->net),
-+	};
- 	struct nft_set_elem_catchall *catchall;
- 	struct nft_set_elem elem;
-+
- 	struct nft_set_ext *ext;
- 	int ret = 0;
- 
- 	list_for_each_entry_rcu(catchall, &set->catchall_list, list) {
- 		ext = nft_set_elem_ext(set, catchall->elem);
--		if (!nft_set_elem_active(ext, genmask))
-+		if (!nft_set_elem_active(ext, dummy_iter.genmask))
- 			continue;
- 
- 		elem.priv = catchall->elem;
--		ret = nft_setelem_validate(ctx, set, NULL, &elem);
-+		ret = nft_setelem_validate(ctx, set, &dummy_iter, &elem);
- 		if (ret < 0)
- 			return ret;
- 	}
-@@ -5103,6 +5116,11 @@ static int nf_tables_bind_check_setelem(const struct nft_ctx *ctx,
- 					const struct nft_set_iter *iter,
- 					struct nft_set_elem *elem)
- {
-+	const struct nft_set_ext *ext = nft_set_elem_ext(set, elem->priv);
-+
-+	if (!nft_set_elem_active(ext, iter->genmask))
-+		return 0;
-+
- 	return nft_setelem_data_validate(ctx, set, elem);
- }
- 
-@@ -5197,6 +5215,13 @@ static int nft_mapelem_activate(const struct nft_ctx *ctx,
- 				const struct nft_set_iter *iter,
- 				struct nft_set_elem *elem)
- {
-+	struct nft_set_ext *ext = nft_set_elem_ext(set, elem->priv);
-+
-+	/* called from abort path, reverse check to undo changes. */
-+	if (nft_set_elem_active(ext, iter->genmask))
-+		return 0;
-+
-+	nft_clear(ctx->net, ext);
- 	nft_setelem_data_activate(ctx->net, set, elem);
- 
- 	return 0;
-@@ -5215,6 +5240,7 @@ static void nft_map_catchall_activate(const struct nft_ctx *ctx,
- 		if (nft_set_elem_active(ext, genmask))
- 			continue;
- 
-+		nft_clear(ctx->net, ext);
- 		elem.priv = catchall->elem;
- 		nft_setelem_data_activate(ctx->net, set, &elem);
- 		break;
-@@ -5488,6 +5514,9 @@ static int nf_tables_dump_setelem(const struct nft_ctx *ctx,
- 	const struct nft_set_ext *ext = nft_set_elem_ext(set, elem->priv);
- 	struct nft_set_dump_args *args;
- 
-+	if (!nft_set_elem_active(ext, iter->genmask))
-+		return 0;
-+
- 	if (nft_set_elem_expired(ext) || nft_set_elem_is_dead(ext))
- 		return 0;
- 
-@@ -6220,7 +6249,7 @@ static void nft_setelem_activate(struct net *net, struct nft_set *set,
- 	struct nft_set_ext *ext = nft_set_elem_ext(set, elem->priv);
- 
- 	if (nft_setelem_is_catchall(set, elem)) {
--		nft_set_elem_change_active(net, set, ext);
-+		nft_clear(net, ext);
+ 	/*
+ 	 * Note: KVM supports hybrid-AVIC mode, where KVM emulates x2APIC MSR
+ 	 * accesses, while interrupt injection to a running vCPU can be
+@@ -219,12 +248,6 @@ static void avic_activate_vmcb(struct vcpu_svm *svm)
+ 		/* Disabling MSR intercept for x2APIC registers */
+ 		avic_set_x2apic_msr_interception(svm, false);
  	} else {
- 		set->ops->activate(net, set, elem);
- 	}
-@@ -6902,9 +6931,13 @@ static int nft_setelem_flush(const struct nft_ctx *ctx,
- 			     const struct nft_set_iter *iter,
- 			     struct nft_set_elem *elem)
- {
-+	const struct nft_set_ext *ext = nft_set_elem_ext(set, elem->priv);
- 	struct nft_trans *trans;
- 	int err;
- 
-+	if (!nft_set_elem_active(ext, iter->genmask))
-+		return 0;
-+
- 	trans = nft_trans_alloc_gfp(ctx, NFT_MSG_DELSETELEM,
- 				    sizeof(struct nft_trans_elem), GFP_ATOMIC);
- 	if (!trans)
-diff --git a/net/netfilter/nft_set_bitmap.c b/net/netfilter/nft_set_bitmap.c
-index 1e5e7a181e0bc..cbf7f7825f1b8 100644
---- a/net/netfilter/nft_set_bitmap.c
-+++ b/net/netfilter/nft_set_bitmap.c
-@@ -171,7 +171,7 @@ static void nft_bitmap_activate(const struct net *net,
- 	nft_bitmap_location(set, nft_set_ext_key(&be->ext), &idx, &off);
- 	/* Enter 11 state. */
- 	priv->bitmap[idx] |= (genmask << off);
--	nft_set_elem_change_active(net, set, &be->ext);
-+	nft_clear(net, &be->ext);
- }
- 
- static bool nft_bitmap_flush(const struct net *net,
-@@ -223,8 +223,6 @@ static void nft_bitmap_walk(const struct nft_ctx *ctx,
- 	list_for_each_entry_rcu(be, &priv->list, head) {
- 		if (iter->count < iter->skip)
- 			goto cont;
--		if (!nft_set_elem_active(&be->ext, iter->genmask))
--			goto cont;
- 
- 		elem.priv = be;
- 
-diff --git a/net/netfilter/nft_set_hash.c b/net/netfilter/nft_set_hash.c
-index 9ea4a09903186..5a74ee4b7dfb3 100644
---- a/net/netfilter/nft_set_hash.c
-+++ b/net/netfilter/nft_set_hash.c
-@@ -196,7 +196,7 @@ static void nft_rhash_activate(const struct net *net, const struct nft_set *set,
- {
- 	struct nft_rhash_elem *he = elem->priv;
- 
--	nft_set_elem_change_active(net, set, &he->ext);
-+	nft_clear(net, &he->ext);
- }
- 
- static bool nft_rhash_flush(const struct net *net,
-@@ -285,8 +285,6 @@ static void nft_rhash_walk(const struct nft_ctx *ctx, struct nft_set *set,
- 
- 		if (iter->count < iter->skip)
- 			goto cont;
--		if (!nft_set_elem_active(&he->ext, iter->genmask))
--			goto cont;
- 
- 		elem.priv = he;
- 
-@@ -615,7 +613,7 @@ static void nft_hash_activate(const struct net *net, const struct nft_set *set,
- {
- 	struct nft_hash_elem *he = elem->priv;
- 
--	nft_set_elem_change_active(net, set, &he->ext);
-+	nft_clear(net, &he->ext);
- }
- 
- static bool nft_hash_flush(const struct net *net,
-@@ -669,8 +667,6 @@ static void nft_hash_walk(const struct nft_ctx *ctx, struct nft_set *set,
- 		hlist_for_each_entry_rcu(he, &priv->table[i], node) {
- 			if (iter->count < iter->skip)
- 				goto cont;
--			if (!nft_set_elem_active(&he->ext, iter->genmask))
--				goto cont;
- 
- 			elem.priv = he;
- 
-diff --git a/net/netfilter/nft_set_pipapo.c b/net/netfilter/nft_set_pipapo.c
-index cfd0d020f3382..11473275c6e26 100644
---- a/net/netfilter/nft_set_pipapo.c
-+++ b/net/netfilter/nft_set_pipapo.c
-@@ -1849,7 +1849,7 @@ static void nft_pipapo_activate(const struct net *net,
- {
- 	struct nft_pipapo_elem *e = elem->priv;
- 
--	nft_set_elem_change_active(net, set, &e->ext);
-+	nft_clear(net, &e->ext);
- }
- 
- /**
-@@ -2151,9 +2151,6 @@ static void nft_pipapo_walk(const struct nft_ctx *ctx, struct nft_set *set,
- 
- 		e = f->mt[r].e;
- 
--		if (!nft_set_elem_active(&e->ext, iter->genmask))
--			goto cont;
+-		/*
+-		 * Flush the TLB, the guest may have inserted a non-APIC
+-		 * mapping into the TLB while AVIC was disabled.
+-		 */
+-		kvm_make_request(KVM_REQ_TLB_FLUSH_CURRENT, &svm->vcpu);
 -
- 		elem.priv = e;
- 
- 		iter->err = iter->fn(ctx, set, iter, &elem);
-diff --git a/net/netfilter/nft_set_rbtree.c b/net/netfilter/nft_set_rbtree.c
-index 426becaad1b94..23e4e656f7f0c 100644
---- a/net/netfilter/nft_set_rbtree.c
-+++ b/net/netfilter/nft_set_rbtree.c
-@@ -548,7 +548,7 @@ static void nft_rbtree_activate(const struct net *net,
- {
- 	struct nft_rbtree_elem *rbe = elem->priv;
- 
--	nft_set_elem_change_active(net, set, &rbe->ext);
-+	nft_clear(net, &rbe->ext);
- }
- 
- static bool nft_rbtree_flush(const struct net *net,
-@@ -618,8 +618,6 @@ static void nft_rbtree_walk(const struct nft_ctx *ctx,
- 
- 		if (iter->count < iter->skip)
- 			goto cont;
--		if (!nft_set_elem_active(&rbe->ext, iter->genmask))
--			goto cont;
- 
- 		elem.priv = rbe;
- 
--- 
-2.47.3
-
-
-
-
-Amazon Web Services Development Center Germany GmbH
-Tamara-Danz-Str. 13
-10243 Berlin
-Geschaeftsfuehrung: Christof Hellmis, Andreas Stieger
-Eingetragen am Amtsgericht Charlottenburg unter HRB 257764 B
-Sitz: Berlin
-Ust-ID: DE 365 538 597
+ 		/* Enabling MSR intercept for x2APIC registers */
+ 		avic_set_x2apic_msr_interception(svm, true);
+ 	}
 
