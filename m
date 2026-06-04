@@ -1,152 +1,157 @@
-Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 282D83ED3A9
-	for <stable@vger.kernel.org>; Thu,  4 Jun 2026 09:37:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.172
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780565842; cv=pass; b=QKvswtNfvcfo5LyJ0v0v3+xNY4puHY/z3O6DOvs4B0gohn7yolEPTSKaFQq/FE9L4BHksV2f5GUlQEs2OnwDH63N2AXzcbYm9WQUlWxse0xBIp6JwbH0wLTFo+OH6K797AnqI5V/Ilsyq1+TU//xlIf/KlKhNOt6U26KypkHbD0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780565842; c=relaxed/simple;
-	bh=q5T9rZM3Aio5noPxLVxqh4TcJRM+o6ZrEdGuHWqUiHU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=LjgSDm085pK0UGJYmBKk3oXnj2/ZlTRPs5mWVxUjP6ZnkWeKEGmzt/4swvVu8ES7Zd03yldg1N/Nclky60dcN0Pu4VxnS+o+2T2TbJysjMLNZP6jGYSZp4zmuYXnmmiXq4r6y9YqYlHK9v/bzLxR4WjWcq0vJxdry+g4i3IfHAE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nzzzSDIl; arc=pass smtp.client-ip=209.85.210.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9A4937267E
+	for <stable@vger.kernel.org>; Thu,  4 Jun 2026 09:37:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780565860; cv=none; b=uvFiXTb1Ki4qY08YxR3zUde3KOPM6kX5JZXNnRMSh+en3D07eTcK0e0BpCtDM7F/4cnB6oecQ6ersoI0nWshK4LYYpLh/70VzDyKTZQSbQzhcc485XQrcUw6el1IUvuI6GvAsx1TW7xI8HAVjUukeTQCtptzbPNXbFU+SoFQVMU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780565860; c=relaxed/simple;
+	bh=ZNXFj+lBY/ZA+sd78CU6mFu0Q19wS9znQBroSrv1/OQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Q6ldgi3h9phVxsXYsX+suy8QkMZmzupw9nskzU/OhoViPxoCb6GHZ2pL8PQjc97zukt4xf8+I+QbNMFlMMANMj0DZbALigBNXWT+TSpB/pSjTMl+LgOXiUMvLAKe/fuA4fWcKRL6XUsYbjWHRFsMjAAKWCxtLkXFHq3OkuS89Yc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=NYpDv2vX; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nzzzSDIl"
-Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-8423efd76c8so348002b3a.0
-        for <stable@vger.kernel.org>; Thu, 04 Jun 2026 02:37:20 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1780565839; cv=none;
-        d=google.com; s=arc-20240605;
-        b=ZViD1/jGLxoOrxncWfPfVqHZHwVwi/qjZzI6CQqoMf9W7z7ns1+VhqfH1ApgqX5gY+
-         lJ0tlYtkNW+CzbBkZHnLYzXhITNuoyXlfhYSMnwM2oNQ9hDMdkCkUbH6PEGJ2Bqo35Tz
-         2OnaGLelm+7P0wibs+m6B5Q60r3PrQGMO7SyRHNPp+ay8f3eW298mVjO3FaDgQe156sy
-         oafpeJFDb+cD+kT+jylviPIu0QPGhdk8t0lTutn4sIj+zYGrkXNWB1v1aqqrb1VWE6DF
-         Fk9OPFhXFhEsCOedlXEw0Afrfl1e6nNxnh4x9qGQarcBA0WFd3X5uDL/ZuM7cAxbVbSm
-         2IhQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=WAE5dsUcOf+50j6c1n0GmreYE4E4GrWSX2T6ZZrsAus=;
-        fh=fwA1UE9oJLIJb8uOW01x7V3SaW9wndjWzGSlL0UrzTw=;
-        b=XaQHYz44wywos46najOTadm3oiDOVx/kednrXW6eSOfOF2POJdiUbIdPODH3Lg5CGQ
-         GUho/2acDH0gIR35wh9Sga+XBB2ATAhyXS3dWPRlydnBzy66IMQnRxmQqqUmMaS4sFny
-         8HiIbcyNgkXtfHSWzWD3lOS7Tm2zpYXBNZ05gIOREdVlYnzcE+SZndRdfGsXn/1jWMaK
-         kRKIWYdQkx721C9cxNbBNmXmkHDdZ88Qlg2bRDuyiEVzC9jaPGsFePDePbyhM0prcoU/
-         +wjDRpT5DakBQT/+lLZourU3UkJrLN2Dx1giIYf6KBDNdhLlaD0np0sCssJgOqSFxvLG
-         n40g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780565839; x=1781170639; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=WAE5dsUcOf+50j6c1n0GmreYE4E4GrWSX2T6ZZrsAus=;
-        b=nzzzSDIloSEfI7GLh2+Jy4hatV70I31t1iqG/JJlwGXRBXW2ryRqApFFrkZBSHUP85
-         no5DNe6eLGDStWVTLjX8VJM2slXt9vQ88jfT+5USX7FMrjIUMjVijSM64u9o7WzJ+yRP
-         KJ1OXb+rQPjiBOES7rqKLqFbfkwdclgjU27HO61JqgFFPOViiPW3GjjCV+8MCYEWT9tB
-         2gfu5MTmjfvQXbK9xSj2BOMzA7/Dj6myIscyxs/VfNgmp1ADOWdafXg0CoE7vVsvB9SB
-         1bovLiGXoexnP+zpsJx0lYwxZEhRqnQ4SCMewep5NmKocop+VFn9Em5bd6ggeXh5F3hA
-         9a5Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780565839; x=1781170639;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=WAE5dsUcOf+50j6c1n0GmreYE4E4GrWSX2T6ZZrsAus=;
-        b=D9RSJgODoCVjQDj5up1Hnu/xPh83+iuWUZ8wGpXDismJclQVrhPjShnVHQf0Jql//u
-         793AMc3X1/y2zLCDuhUZY2TtQufntV/eTka6y5/18fOZAOeZ9kmYM39tugfwFjZ3PNqH
-         k73ma/ie8mj5TGXXFum26pyLWB7HX0Nd1Ogch7MLHcNYSPb+ezN9eHkJ8X7YdkHfaHCl
-         k2ov5R4j4O7psBdhzYArAsqJKIy/KH6lwAe0UfS7X7md12EpBr3U14eOZOQkqqDu5j4r
-         T7Z9owW/LtnqPmTJdlaJa5aozS4rUufVcvWeCO/I0G+IQV9+bjl1bvt+japkp/KfMtad
-         Ax6w==
-X-Forwarded-Encrypted: i=1; AFNElJ+8IPqKkExVrnTMj4bfBmDWTtjHOAaPsB3aD9DkABzayXv440jy5BQfpltdL+xVt6xGVme+QLA=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyJpJhrO3M6pvihOuVlUmubEzSEGCMvHKb7bGXXn4iOIK98Q67/
-	W0BiRsuP3LIMd8UjQZgR0hfJZPleT2AKXIlBvTaX9AGsTUUflgO2c1Q5X2jU2hvNlLY9fijUeE1
-	VDbDyFxJuikBjkYJgVp4lqGyFjEkLQyo=
-X-Gm-Gg: Acq92OG/DZSKLMLCQM/ReipFqSR8RSL6qmjSo+j4DYTbBW3d6j92dfR/T9G8PosoGe/
-	bdIWyMJCl4+IxkgBPprhpWNu/TkxsdaFNpqFIHnKud+SB5I+EfgVt351aF/gzV2r2V0QuSm04Ms
-	3r2lE+xdkix3aQhE7jmrcotjK21IgRz50z5hs3wLMJDmjzIRF6oU31piT4mFqAMeaneJIGNk/Tf
-	LeprhgAJLVhpiV7HmgIeuuMeANmj/maDl6+1CvF4FvDHSGkvYPQP1QHDKp4bLcJ9dEQWNdeJ62K
-	lDigqrF6bgUk2B0bOQ==
-X-Received: by 2002:a05:6a00:4191:b0:842:65f8:bb3a with SMTP id
- d2e1a72fcca58-84284dc1e20mr7432079b3a.19.1780565839303; Thu, 04 Jun 2026
- 02:37:19 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="NYpDv2vX"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1780565858;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=yGvMDGbkUWB6PfoK/qtXuxYDjah0KrGjD6R1mURW5f0=;
+	b=NYpDv2vXUj5860QaUZNGnI9mHiD0ACZRITR+6P2YX0EHn/AuUPHwUjqVxx6AVUL7jsmdjn
+	kxvzd1LfORdTwrk5wsbjDcqkKDGox1X7hnY2Mksiii5hybB4A14sZQnX7A6RJhOQ97TpXS
+	EBrSyYvGru/NaNsQDYTp2Qy4t3KZa7U=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-567-f3yYyOMsO6u66abMkbOj8w-1; Thu,
+ 04 Jun 2026 05:37:32 -0400
+X-MC-Unique: f3yYyOMsO6u66abMkbOj8w-1
+X-Mimecast-MFC-AGG-ID: f3yYyOMsO6u66abMkbOj8w_1780565850
+Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 6F52B180048E;
+	Thu,  4 Jun 2026 09:37:30 +0000 (UTC)
+Received: from gerbillo.redhat.com (unknown [10.44.49.23])
+	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id D7FB930001A1;
+	Thu,  4 Jun 2026 09:37:25 +0000 (UTC)
+From: Paolo Abeni <pabeni@redhat.com>
+To: moonafterrain@outlook.com
+Cc: sgoutham@marvell.com,
+	lcherian@marvell.com,
+	gakula@marvell.com,
+	hkelam@marvell.com,
+	sbhatta@marvell.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	danisjiang@gmail.com,
+	stable@vger.kernel.org
+Subject: Re: [PATCH net v2] octeontx2-af: cn10k: restrict VF LMTLINE sharing to its own PF
+Date: Thu,  4 Jun 2026 11:37:21 +0200
+Message-ID: <20260604093721.110635-1-pabeni@redhat.com>
+In-Reply-To: <SYBPR01MB788101745A9E36F6FD81CD7AAF152@SYBPR01MB7881.ausprd01.prod.outlook.com>
+References: <SYBPR01MB788101745A9E36F6FD81CD7AAF152@SYBPR01MB7881.ausprd01.prod.outlook.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260601083327.1535185-1-chancel.liu@oss.nxp.com>
-In-Reply-To: <20260601083327.1535185-1-chancel.liu@oss.nxp.com>
-From: Shengjiu Wang <shengjiu.wang@gmail.com>
-Date: Thu, 4 Jun 2026 17:37:07 +0800
-X-Gm-Features: AVHnY4K0i1x-lAIE5B37fSqEfd9RBkopGxh1S9hjIVvMEyOSCUjsLJScERtWN3E
-Message-ID: <CAA+D8AMEv4++ZC_xgXxiLrWWBmJS2Xo10Bj9pboDQ3mFh9STfw@mail.gmail.com>
-Subject: Re: [PATCH v3] ASoC: fsl_sai: Fix 32 slots TDM broken by integer
- shift UB in xMR write
-To: chancel.liu@oss.nxp.com
-Cc: Xiubo.Lee@gmail.com, festevam@gmail.com, nicoleotsuka@gmail.com, 
-	lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com, 
-	linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
-	linux-sound@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
 
-On Mon, Jun 1, 2026 at 4:33=E2=80=AFPM <chancel.liu@oss.nxp.com> wrote:
->
-> From: Chancel Liu <chancel.liu@nxp.com>
->
-> When configuring 32 slots TDM (channels =3D=3D slots =3D=3D 32), the xMR
-> (Mask Register) write used:
-> ~0UL - ((1 << min(channels, slots)) - 1)
->
-> The literal "1" is a signed 32-bit int. Shifting it by 32 positions is
-> undefined behaviour which may set this register to 0xFFFFFFFF, masking
-> all 32 slots.
->
-> Use GENMASK_U32() macro instead. For 32 slots this produces a zero mask:
-> ~GENMASK_U32(31, 0) =3D ~0xFFFFFFFF =3D 0x00000000
-> Behaviour for fewer than 32 slots is unchanged.
->
-> Fixes: 770f58d7d2c5 ("ASoC: fsl_sai: Support multiple data channel enable=
- bits")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Chancel Liu <chancel.liu@nxp.com>
+This is an AI-generated review of your patch. The human sending this
+email has considered the AI review valid, or at least plausible.
+---
+octeontx2-af: cn10k: restrict VF LMTLINE sharing to its own PF
 
-Reviewed-by: Shengjiu Wang <shengjiu.wang@gmail.com>
+This patch tries to plug a privilege boundary in the LMTLINE setup
+mailbox by rejecting -EPERM when a VF caller's parent PF differs from
+the parent PF of req->base_pcifunc. It carries Fixes: 893ae97214c3
+and Cc: stable@vger.kernel.org.
 
-Best regards
-Shengjiu Wang
-> ---
-> Changes in v3
-> - Fix patch can't be applied
->
-> Changes in v2
-> - Use GENMASK_U32() macro instead to make it clearer and safer
->
->  sound/soc/fsl/fsl_sai.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/sound/soc/fsl/fsl_sai.c b/sound/soc/fsl/fsl_sai.c
-> index d6dd95680892..9661602b53c5 100644
-> --- a/sound/soc/fsl/fsl_sai.c
-> +++ b/sound/soc/fsl/fsl_sai.c
-> @@ -797,7 +797,7 @@ static int fsl_sai_hw_params(struct snd_pcm_substream=
- *substream,
->                                    FSL_SAI_CR4_FSD_MSTR, FSL_SAI_CR4_FSD_=
-MSTR);
->
->         regmap_write(sai->regmap, FSL_SAI_xMR(tx),
-> -                    ~0UL - ((1 << min(channels, slots)) - 1));
-> +                    ~GENMASK_U32(min(channels, slots) - 1, 0));
->
->         return 0;
->  }
-> --
-> 2.50.1
->
+> diff --git a/drivers/net/ethernet/marvell/octeontx2/af/rvu_cn10k.c b/drivers/net/ethernet/marvell/octeontx2/af/rvu_cn10k.c
+> index d2163da28d18..33f25e2fc262 100644
+> --- a/drivers/net/ethernet/marvell/octeontx2/af/rvu_cn10k.c
+> +++ b/drivers/net/ethernet/marvell/octeontx2/af/rvu_cn10k.c
+> @@ -178,6 +178,14 @@ int rvu_mbox_handler_lmtst_tbl_setup(struct rvu *rvu,
+>  	 * pcifunc (will be the one who is calling this mailbox).
+>  	 */
+>  	if (req->base_pcifunc) {
+> +		/* A VF is untrusted and must not redirect its LMTLINE to
+> +		 * another PF's region, so confine VF callers to their own PF.
+> +		 */
+> +		if (is_vf(req->hdr.pcifunc) &&
+> +		    rvu_get_pf(rvu->pdev, req->hdr.pcifunc) !=
+> +		    rvu_get_pf(rvu->pdev, req->base_pcifunc))
+> +			return -EPERM;
+> +
+
+[Critical]
+Can this check still be bypassed via the FUNC bits of base_pcifunc?
+
+rvu_get_pf() only inspects the upper PF bits of the pcifunc (shift 10
+on OTX2, shift 9 on CN20K), but RVU_PFVF_FUNC_MASK is 0x3FF, so the
+FUNC field a VF can set in req->base_pcifunc spans 0..1023:
+
+  static inline int rvu_get_pf(struct pci_dev *pdev, u16 pcifunc)
+  {
+          if (is_cn20k(pdev))
+                  return (pcifunc >> RVU_CN20K_PFVF_PF_SHIFT) &
+                          RVU_CN20K_PFVF_PF_MASK;
+          else
+                  return (pcifunc >> RVU_OTX2_PFVF_PF_SHIFT) &
+                          RVU_OTX2_PFVF_PF_MASK;
+  }
+
+After the new check passes, base_pcifunc is fed straight into
+rvu_get_lmtst_tbl_index(), where the index is computed from the full
+FUNC field and LMT_MAX_VFS = 256:
+
+  #define LMT_MAX_VFS             256
+
+  static u32 rvu_get_lmtst_tbl_index(struct rvu *rvu, u16 pcifunc)
+  {
+          return ((rvu_get_pf(rvu->pdev, pcifunc) * LMT_MAX_VFS) +
+                  (pcifunc & RVU_PFVF_FUNC_MASK)) * LMT_MAPTBL_ENTRY_SIZE;
+  }
+
+So a FUNC value >= 256 wraps into the next PF's slot range. Worked
+example on OTX2: a VF on PF=0 (req->hdr.pcifunc = 0x0001) sets
+req->base_pcifunc = 0x012C (300). is_vf() is true, and
+rvu_get_pf(0x012C) = (300 >> 10) & PF_MASK = 0, equal to the caller's
+PF, so the new -EPERM path is not taken.
+
+rvu_get_lmtst_tbl_index() then yields (0 * 256 + 300) * 16 = 4800,
+which is the slot for PF=1 FUNC=44 (1 * 256 + 44 = 300).
+
+  pri_tbl_idx = rvu_get_lmtst_tbl_index(rvu, req->base_pcifunc);
+  err = lmtst_map_table_ops(rvu, pri_tbl_idx, &val, LMT_TBL_OP_READ);
+  ...
+  err = rvu_update_lmtaddr(rvu, req->hdr.pcifunc, val);
+
+That reads PF=1's physical LMT base address and copies it into the
+attacker VF's own LMT map entry, which is the cross-PF redirection the
+patch is intended to prevent.
+
+The same wrap is reachable on CN20K, e.g. base_pcifunc = 511 lands in
+PF=1 FUNC=255's slot since PF_SHIFT is 9 there.
+
+Would it make sense to also reject base_pcifunc whose FUNC field is
+out of range, for example by additionally requiring
+(req->base_pcifunc & RVU_PFVF_FUNC_MASK) < LMT_MAX_VFS, or by looking
+base_pcifunc up via rvu_get_pfvf() / is_pffunc_map_valid() and
+confirming it is a real attached function under the same parent PF?
+
