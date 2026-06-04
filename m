@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A119D406272
-	for <stable@vger.kernel.org>; Thu,  4 Jun 2026 10:45:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E417440802B
+	for <stable@vger.kernel.org>; Thu,  4 Jun 2026 10:45:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780569925; cv=none; b=h0ICcjN2nfcEYEJmkhrBLEH6zhrGtIHKDjzWs9YAbljOPTsL9oN7dyA+S+0Ax2MoSdCqRyduOFTxSMP2nrPETPZwOFUIfLTD18CrbcGNrrNxgKZAFYm344swHQGee7FGIm9sF48Q2l2kOFdzbw1JaL8hTk/5CHiMw/USwUQkZcM=
+	t=1780569929; cv=none; b=I5x6nr8VpjySANwmQYy25AVvVunxZEQqmmjGvSCt5XGvveJEkdl3QnYXQ2yujUHUQCQJk3TawyYP6NzdOQ4UZVtmICzpGTMXjscu9PxRaPMduKtP7U4G0LP/J+TjyFnWPKSG1KMtOdk97a9BaiRYTn04kJfGbDRUnPBd+R41e7A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780569925; c=relaxed/simple;
-	bh=zaASPrhworAzunqFAetP76gN1toOTMzIoP9UliXgWAg=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=EzE9fZ0FKncL0r0iJ5HHZe4Jy20Ym+lZSwIRXGpTurkIrvq6x70UvH9f97u+uT7IqBDwj9Ar03tiKHwkhzVdCymdAdnxYcElCRGBp5JWUmsesuXC9e7sKTOtNVo5d1Z5PFBbk8OUOSbT+oTXtj/QTXYPBv8aqwfaRDnJDH042aM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=fL0dgSCT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780569929; c=relaxed/simple;
+	bh=vKdPzmD8+oa6B/XFdmHFJFvkCzF/LWK4fEzaVgWAb1I=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=msxM16LtegwdZEZ16Ii7IOXpCf60aH3ItWXi3T8Mq1kn7w4hTY5T4479GrcciWHlA/26hI4E3dslmqK0hO+q1cc5rE6Sx//xNKwoxi6FSEyetpVohRBmTolhi5brWniP0bv/3F5RQPVJRfNAykgWfhwkYD4kMzlHXwQ8wTa/DuU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=fy2oAwwm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="fL0dgSCT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD54A1F00893;
-	Thu,  4 Jun 2026 10:45:23 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="fy2oAwwm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F1391F00893;
+	Thu,  4 Jun 2026 10:45:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1780569924;
-	bh=SGNiYdSctHlJ/S/W+QhDu41LbYduGDFGxPzPAKZiDDE=;
+	s=korg; t=1780569927;
+	bh=vJrC9tGTFWIinbWpKp9e5NQEkfWURWX/don4M2de22s=;
 	h=Subject:To:Cc:From:Date;
-	b=fL0dgSCTdDVEMKkjrUiT/EQC0gB8ik6C5xRU3f12TvwRVjSNuEm2ISpmYtBJ5lDuh
-	 Fq9Ev/Ek7KcWpX+Z8/Wr6S0uuV9BgKxW2wjl0Fxw8FOPbLljyiVL70MT4afsyWvlCC
-	 Z9aATfIULrc+w2eR70SK9ct1M89WoGbXOIBbaMro=
-Subject: FAILED: patch "[PATCH] usb: typec: ucsi: Check if power role change actually" failed to apply to 6.1-stable tree
+	b=fy2oAwwmY5yRQBrJoEey9gGJGb5Iu59d/pGNYVU+DU48j02p/3SGPcDBXchDXGnhQ
+	 z74Xv7/W8MkPcUXbbhE5UDfJdBj6yxgznz624zQ76O/I4IC7YwxkKiu6fYdqXt/KUQ
+	 CHHDuSnKHYI0lRM6nruZVA0hSiBnC4qEFcZn0GCY=
+Subject: FAILED: patch "[PATCH] usb: typec: ucsi: Check if power role change actually" failed to apply to 5.10-stable tree
 To: myrrhperiwinkle@qtmlabs.xyz,gregkh@linuxfoundation.org,heikki.krogerus@linux.intel.com,senozhatsky@chromium.org,stable@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 04 Jun 2026 12:44:18 +0200
-Message-ID: <2026060418-vanquish-saga-213f@gregkh>
+Date: Thu, 04 Jun 2026 12:44:19 +0200
+Message-ID: <2026060419-refold-strategic-2d2c@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x b80e7d34c7ea6a564525119d6138fbb577a23dba
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026060418-vanquish-saga-213f@gregkh' --subject-prefix 'PATCH 6.1.y' HEAD^..
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026060419-refold-strategic-2d2c@gregkh' --subject-prefix 'PATCH 5.10.y' HEAD^..
 
 Possible dependencies:
 
