@@ -1,87 +1,150 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3BC7B3DF018;
-	Thu,  4 Jun 2026 08:20:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BA1E20D4FC
+	for <stable@vger.kernel.org>; Thu,  4 Jun 2026 08:25:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780561255; cv=none; b=Q4Ykkk1xyLeIWopnWgIt5OIRiqiEGiFjWYLbzgiMWTRXXzPUEuFVlmgQihQmzFrH9Fva/5bNnhU0wbaMuAtITBFv4MixRR7vr3qv0cyFo7dxVE4k+ZJVxAv1AFOmJxFdNNyd2OF2KP6YwHqFVwWypm1XSv+zAwaYnJ9dF3eRcws=
+	t=1780561523; cv=none; b=o8Biq90NkDzNXSu61/1BEi0wcmFB8hnu6hfT1N2if18pQgoCU/GgWNC3oYkuQy4qNWH3JjA3AZSvcTjhJPWLwnjvpso7XJ1En0raRu83yzO2ZemiSckohibzGJEcDGW0faAKCb7vRN5YjuU/8VE/BdxYTqEnj58II0Ai/Ujzq9M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780561255; c=relaxed/simple;
-	bh=xx4q8zA0SDvN+Zn0mJt/nZF2yaNi8H3ZSogpxfNtLDY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cxmrrBWyt13HEk2ybD/bqePQ/X8JGkUnUiZoJOrxyGt+gTdF1L8WYexop23KXSK3IAL81cAhHhIlx1fVHWJrDBoWDM4n1z4c2cJqsFZSmtPsEhlMKW98WHI8I/AkS1L5JlbEbytW6aAjPIA/KSnH9VcVJmGtHP63RAhrz4QpU8U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=HBXd5CG+; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1780561523; c=relaxed/simple;
+	bh=BwIxjXMhAc84AZCF5M2JG/qlxV4zfWZzZVUPUlH9L8I=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=KDib5awOS6wcWZeySSS1HYlRQ7U4qtiqQE7XfHrznWj5iHEPuevG8g6+z7xvOwc6Oj4lCzQ6Q6kUZh82TUvyy8ba0DAenSRTULIivse4YeJX76ralwObuslMkXNh0gwI7VZo1ZRhpcI3ucOo1R+cReoF7w8J+8nYKiGsTJQQUk0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=JFXqlXDY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="HBXd5CG+"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A3D013297;
-	Thu,  4 Jun 2026 01:20:45 -0700 (PDT)
-Received: from localhost (e132581.arm.com [10.1.196.87])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id EE7FD3F7D8;
-	Thu,  4 Jun 2026 01:20:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1780561250; bh=xx4q8zA0SDvN+Zn0mJt/nZF2yaNi8H3ZSogpxfNtLDY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=HBXd5CG+Kw6LL3Z4p7LfEbspjPtluKqFtPwlqSvB7gMo+FkOMRXEUzIzw8YIkodTH
-	 5cfr6vGu5hfm2waGS4loALDrp8AsIwkxiZPthmIUwEjoK01BV2uy+NuQT4FHx7Zp2C
-	 2NcAeygFzCwWLdxy4tNOTyHo+5qDb5CzLEAqoEHA=
-Date: Thu, 4 Jun 2026 09:20:47 +0100
-From: Leo Yan <leo.yan@arm.com>
-To: Amir Ayupov <aaupov@meta.com>
-Cc: James Clark <james.clark@linaro.org>, stable@vger.kernel.org,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Mike Leach <mike.leach@arm.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	John Garry <john.g.garry@oracle.com>, Will Deacon <will@kernel.org>,
-	coresight@lists.linaro.org, linux-arm-kernel@lists.infradead.org,
-	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] perf cs-etm: stamp pid/tid/EL on each buffered packet to
- fix cross-pid attribution
-Message-ID: <20260604082047.GL101133@e132581.arm.com>
-References: <20260515021135.1729028-1-aaupov@meta.com>
- <f767dc3b-9796-4b12-a776-1de6a9ff3f99@linaro.org>
- <CAMOD+7+_HE3E+FFg6GPfG31GzVBzF1qhcQ=i-eiEgiGcn3WRvw@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="JFXqlXDY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16DE91F00893;
+	Thu,  4 Jun 2026 08:25:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1780561521;
+	bh=MoOU8ATs2So0SoRxzNKxyXqAafVp6213vc2z7Oq3quw=;
+	h=Subject:To:Cc:From:Date;
+	b=JFXqlXDYJ8atPGmsp9ph88RORIrJFsKdPkZA0cLVNcWyTPfK0eb3nxyi5VknY/Zg3
+	 WuzEPFqmK0wrjiGCFhTSy4PWXEkObEBVUftmmQMNnI+/2ahHQvpD+7zdQm7wK5w5Wh
+	 G3NRO3ihO6JJY40FPcjWeJ+XXtmehWU44TC4+Fnc=
+Subject: FAILED: patch "[PATCH] mm/damon/sysfs-schemes: delete tried region in" failed to apply to 6.12-stable tree
+To: sj@kernel.org,akpm@linux-foundation.org,stable@vger.kernel.org
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Thu, 04 Jun 2026 10:24:24 +0200
+Message-ID: <2026060424-tranquil-chewable-b88b@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAMOD+7+_HE3E+FFg6GPfG31GzVBzF1qhcQ=i-eiEgiGcn3WRvw@mail.gmail.com>
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
 
-Hi Amir,
 
-On Wed, Jun 03, 2026 at 01:10:17PM -0700, Amir Ayupov wrote:
-> Hi James,
-> 
-> Thank you for picking it up.
-> 
-> I tested the v2 patch series and it looks good. There was a minor
-> difference in 2/39 tested perf data files: the number of brstack samples
-> differs by one, however, there was no loss of binary profile. The resulting
-> BOLT profile converted from the perf script output was identical, so I'm OK
-> with v2 patch as-is.
+The patch below does not apply to the 6.12-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-Sorry jumping in as brstack is mentioned.
+To reproduce the conflict and resubmit, you may use the following commands:
 
-Now branch stack is maintained per-CPU wise, it mixes up branch stack
-cross threads. The patch 03 in the series [1] refactors branch stack
-per-thread by using common code.
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git checkout FETCH_HEAD
+git cherry-pick -x 441f92f7d386b85bad16de49db95a307cba048a2
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026060424-tranquil-chewable-b88b@gregkh' --subject-prefix 'PATCH 6.12.y' HEAD^..
 
-Hope this can benefit a bit the profiling data quality and in case
-you are interested in.
+Possible dependencies:
 
-Thanks,
-Leo
 
-[1] https://lore.kernel.org/linux-perf-users/20260526-b4-arm_cs_callchain_support_v1-v6-3-f9f49f53c9dd@arm.com/
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 441f92f7d386b85bad16de49db95a307cba048a2 Mon Sep 17 00:00:00 2001
+From: SeongJae Park <sj@kernel.org>
+Date: Mon, 18 May 2026 08:25:58 -0700
+Subject: [PATCH] mm/damon/sysfs-schemes: delete tried region in
+ regions_rmdirs()
+
+DAMON sysfs maintains the DAMOS tried region directory objects via a
+linked list.  When the user requests refresh of the directories, DAMON
+sysfs removes all the region directories first, and then generate updated
+regions directory on the empty space.  The removal function
+(damon_sysfs_scheme_regions_rm_dirs()) only puts the kobj objects.
+Deletion of the container region object from the linked list is done
+inside the kobj release callback function.
+
+If somehow the callback invocation is delayed, the list will contain
+regions list that gonna be freed.  If the updated region directories
+creation is started in this situation, the list can be corrupted and
+use-after-free can happen.
+
+Because the kobj objects are managed by only DAMON sysfs, the issue cannot
+happen in normal situation.  But, such delays can be made on kernels that
+built with CONFIG_DEBUG_KOBJECT_RELEASE.  On the kernel, the issue can
+indeed be reproduced like below.
+
+    # damo start --damos_action stat
+    # cd /sys/kernel/mm/damon/admin/kdamonds/0/
+    # for i in {1..10}; do echo update_schemes_tried_regions > state; done
+    # dmesg | grep underflow
+    [   89.296152] refcount_t: underflow; use-after-free.
+
+Fix the issue by removing the region object from the list when
+decrementing the reference count.
+
+Also update damos_sysfs_populate_region_dir() to add the region object to
+the list only after the kobject_init_and_add() is success, so that fail of
+kobject_init_and_add() is not leaving the deallocated object on the list.
+
+The issue was discovered [1] by Sashiko.
+
+Link: https://lore.kernel.org/20260518152559.93038-1-sj@kernel.org
+Link: https://lore.kernel.org/20260513011920.119183-1-sj@kernel.org [1]
+Fixes: 9277d0367ba1 ("mm/damon/sysfs-schemes: implement scheme region directory")
+Signed-off-by: SeongJae Park <sj@kernel.org>
+Cc: <stable@vger.kernel.org> # 6.2.x
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+
+diff --git a/mm/damon/sysfs-schemes.c b/mm/damon/sysfs-schemes.c
+index 04746cbb3327..a8014780edae 100644
+--- a/mm/damon/sysfs-schemes.c
++++ b/mm/damon/sysfs-schemes.c
+@@ -88,7 +88,6 @@ static void damon_sysfs_scheme_region_release(struct kobject *kobj)
+ 	struct damon_sysfs_scheme_region *region = container_of(kobj,
+ 			struct damon_sysfs_scheme_region, kobj);
+ 
+-	list_del(&region->list);
+ 	kfree(region);
+ }
+ 
+@@ -164,7 +163,7 @@ static void damon_sysfs_scheme_regions_rm_dirs(
+ 	struct damon_sysfs_scheme_region *r, *next;
+ 
+ 	list_for_each_entry_safe(r, next, &regions->regions_list, list) {
+-		/* release function deletes it from the list */
++		list_del(&r->list);
+ 		kobject_put(&r->kobj);
+ 		regions->nr_regions--;
+ 	}
+@@ -2928,14 +2927,15 @@ void damos_sysfs_populate_region_dir(struct damon_sysfs_schemes *sysfs_schemes,
+ 	if (!region)
+ 		return;
+ 	region->sz_filter_passed = sz_filter_passed;
+-	list_add_tail(&region->list, &sysfs_regions->regions_list);
+-	sysfs_regions->nr_regions++;
+ 	if (kobject_init_and_add(&region->kobj,
+ 				&damon_sysfs_scheme_region_ktype,
+ 				&sysfs_regions->kobj, "%d",
+ 				sysfs_regions->nr_regions++)) {
+ 		kobject_put(&region->kobj);
++		return;
+ 	}
++	list_add_tail(&region->list, &sysfs_regions->regions_list);
++	sysfs_regions->nr_regions++;
+ }
+ 
+ int damon_sysfs_schemes_clear_regions(
+
