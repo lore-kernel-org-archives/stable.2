@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF8C13E5A2E
-	for <Stable@vger.kernel.org>; Thu,  4 Jun 2026 08:44:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7D843F210B
+	for <Stable@vger.kernel.org>; Thu,  4 Jun 2026 08:44:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780562671; cv=none; b=tSy20o25DDnoj9c187n0974jhInnsEyd3pyDXG6Y5SHJScoF/SrgX49MEwmXvSyO7V6S8fE9WxNEHuxf1zd5qN0EgW0VQ5211sFEnvX+mHH2lTNz1wCm/u2DY01usmWJ+44Aeggp5WqFyqEIAAyWlAN0yef98fyPfoXi5Q32nME=
+	t=1780562701; cv=none; b=mW9ZH0Q9XHuny2x3ScMQYlV9pHimAOwuajfliiwqSeZ1St08cTlXBzEoTObrjIAQlyhkIDDcST9J0jS6Z77eA48PwRcPAy53G7zqYoy2j/lQdBCsKayDwjvzdRgy56DIPUSOwp5JJzXmm8lHEYmsSYIpV2GbfeX82uGvmVgDomE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780562671; c=relaxed/simple;
-	bh=5QTHyee0MMMMH6NAkwamLV+VDjw1jvOKsjS4jBAbcBc=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=rAWMacCpHJK1VM1cAPVAyjPOmtukIAzu5b75EwZ2tdroZ5a58wC40nZ3KIv78cIbQR7NCRajwRps/hdpApfUGqHBYMBH+xG3dLMLR3fVQd2tPdrfes9dumO834X+GMCx6azhHr8S2ArPRFa0WtwJ1+PdGo9RltmRXiBJrzBKC5c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=z0etf8mh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780562701; c=relaxed/simple;
+	bh=PsvYz98ow9p+gLHN4HhrYEH2A/ahXOjy5qU96H3M+3I=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=irbkzyrOt/4LCSi0mTVJDGoYTdTBbyzM7LXIQwLFec7LCBF3UVKS1Rf4v94YQFAS6s6+ij0OK23+OmAXs65EkchamjyXnn6qhTq3Ebx6qEEUUlAwomStJsMTIgYajQbkkGlaKHmZnXHjA7XlqOWLYignSthgI/ndtuoA/rbS+Fw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ZL9mjDHn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="z0etf8mh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCCBD1F00893;
-	Thu,  4 Jun 2026 08:44:29 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ZL9mjDHn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D21F21F00893;
+	Thu,  4 Jun 2026 08:44:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1780562670;
-	bh=ypR6ghzXEC5kjZLoB0w98FzARJ4Md+UU8ojAlF5hIIo=;
+	s=korg; t=1780562698;
+	bh=JMFi8CmepgoqJz70S1V72of1HuZ0VWlGvY4QHff6lDw=;
 	h=Subject:To:Cc:From:Date;
-	b=z0etf8mh0GoUjvust7/iKyxJ4hPbLaAeuuNLLhkP/MYObM5SLU/EX+mKy+QthzeAS
-	 RlF5JQa3Gx46WbTaDUb4ARqHNV++8RMTzgW4tiC0wdtC6yQDzVZujo8aTCVS/J31hu
-	 te+spcDXksJaFJCl7EiJGbCoSOeSCrKnyPlP4GHE=
-Subject: FAILED: patch "[PATCH] iio: adc: npcm: fix unbalanced clk_disable_unprepare()" failed to apply to 5.10-stable tree
-To: devnexen@gmail.com,Stable@vger.kernel.org,andriy.shevchenko@intel.com,jic23@kernel.org
+	b=ZL9mjDHnjOccfy5tfMsoTXK6uFx2xvvj9omcVHPiVOLQkOquT5WdibwzoSgPqfkL+
+	 5QY+8SIb82HBFfIsyOGdsy/M2tlG1BpfsXp8BwwoexSRv1sbK8Cqsl3gZnp24zHWju
+	 iPE89BAvv8iKX+zbp5vrkgX/Qngka88lw7exZw5s=
+Subject: FAILED: patch "[PATCH] iio: dac: ad5686: fix ref bit initialization for" failed to apply to 6.12-stable tree
+To: rodrigo.alencar@analog.com,Stable@vger.kernel.org,andriy.shevchenko@intel.com,jic23@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 04 Jun 2026 10:43:20 +0200
-Message-ID: <2026060420-falcon-onlooker-44bb@gregkh>
+Date: Thu, 04 Jun 2026 10:44:01 +0200
+Message-ID: <2026060401-dislodge-unlovely-c2aa@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 0d42e2c0bd6ceb89e44c6e065f9bdf9b1df3ef0c
+git cherry-pick -x ecae2ae606d493cf11457946436335bd0e726663
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026060420-falcon-onlooker-44bb@gregkh' --subject-prefix 'PATCH 5.10.y' HEAD^..
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026060401-dislodge-unlovely-c2aa@gregkh' --subject-prefix 'PATCH 6.12.y' HEAD^..
 
 Possible dependencies:
 
@@ -62,106 +62,60 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 0d42e2c0bd6ceb89e44c6e065f9bdf9b1df3ef0c Mon Sep 17 00:00:00 2001
-From: David Carlier <devnexen@gmail.com>
-Date: Tue, 14 Apr 2026 13:30:06 +0100
-Subject: [PATCH] iio: adc: npcm: fix unbalanced clk_disable_unprepare()
+From ecae2ae606d493cf11457946436335bd0e726663 Mon Sep 17 00:00:00 2001
+From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+Date: Fri, 1 May 2026 10:14:54 +0100
+Subject: [PATCH] iio: dac: ad5686: fix ref bit initialization for
+ single-channel parts
 
-The driver acquired the ADC clock with devm_clk_get() and read its
-rate, but never called clk_prepare_enable(). The probe error path and
-npcm_adc_remove() both called clk_disable_unprepare() unconditionally,
-causing the clk framework's enable/prepare counts to underflow on
-probe failure or module unbind.
+The reference bit position was ignored when writing the register at the
+probe() function (!!val was used). When such bit is 1, internal voltage
+reference is disabled so that an external one can be used. For
+multi-channel devices, bit 0 of the Internal Reference Setup command
+behaves the same way, so AD5686_REF_BIT_MSK is created. The issue exists
+since support for single-channel devices were first introduced.
 
-The issue went unnoticed because NPCM BMC firmware leaves the ADC
-clock enabled at boot, so the driver happened to work in practice.
-
-Switch to devm_clk_get_enabled() so the clock is properly enabled
-during probe and automatically released by the device-managed
-cleanup, and drop the now-redundant clk_disable_unprepare() from
-both the probe error path and remove().
-
-While at it, drop the duplicate error message on devm_request_irq()
-failure since the IRQ core already logs it.
-
-Fixes: 9bf85fbc9d8f ("iio: adc: add NPCM ADC driver")
-Signed-off-by: David Carlier <devnexen@gmail.com>
+Fixes: be1b24d24541 ("iio:dac:ad5686: Add AD5691R/AD5692R/AD5693/AD5693R support")
 Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
 Cc: <Stable@vger.kernel.org>
 Signed-off-by: Jonathan Cameron <jic23@kernel.org>
 
-diff --git a/drivers/iio/adc/npcm_adc.c b/drivers/iio/adc/npcm_adc.c
-index ddabb9600d46..61c8b825bda1 100644
---- a/drivers/iio/adc/npcm_adc.c
-+++ b/drivers/iio/adc/npcm_adc.c
-@@ -231,7 +231,7 @@ static int npcm_adc_probe(struct platform_device *pdev)
- 	if (IS_ERR(info->reset))
- 		return PTR_ERR(info->reset);
+diff --git a/drivers/iio/dac/ad5686.c b/drivers/iio/dac/ad5686.c
+index 4b18498aa074..b85d5c5a864b 100644
+--- a/drivers/iio/dac/ad5686.c
++++ b/drivers/iio/dac/ad5686.c
+@@ -509,7 +509,7 @@ int ad5686_probe(struct device *dev,
+ 		break;
+ 	case AD5686_REGMAP:
+ 		cmd = AD5686_CMD_INTERNAL_REFER_SETUP;
+-		ref_bit_msk = 0;
++		ref_bit_msk = AD5686_REF_BIT_MSK;
+ 		break;
+ 	case AD5693_REGMAP:
+ 		cmd = AD5686_CMD_CONTROL_REG;
+@@ -520,9 +520,9 @@ int ad5686_probe(struct device *dev,
+ 		return -EINVAL;
+ 	}
  
--	info->adc_clk = devm_clk_get(&pdev->dev, NULL);
-+	info->adc_clk = devm_clk_get_enabled(&pdev->dev, NULL);
- 	if (IS_ERR(info->adc_clk)) {
- 		dev_warn(&pdev->dev, "ADC clock failed: can't read clk\n");
- 		return PTR_ERR(info->adc_clk);
-@@ -244,17 +244,13 @@ static int npcm_adc_probe(struct platform_device *pdev)
- 	info->adc_sample_hz = clk_get_rate(info->adc_clk) / ((div + 1) * 2);
+-	val = (has_external_vref | ref_bit_msk);
++	val = has_external_vref ? ref_bit_msk : 0;
  
- 	irq = platform_get_irq(pdev, 0);
--	if (irq < 0) {
--		ret = irq;
--		goto err_disable_clk;
--	}
-+	if (irq < 0)
-+		return irq;
+-	ret = st->write(st, cmd, 0, !!val);
++	ret = st->write(st, cmd, 0, val);
+ 	if (ret)
+ 		return ret;
  
- 	ret = devm_request_irq(&pdev->dev, irq, npcm_adc_isr, 0,
- 			       "NPCM_ADC", indio_dev);
--	if (ret < 0) {
--		dev_err(dev, "failed requesting interrupt\n");
--		goto err_disable_clk;
--	}
-+	if (ret < 0)
-+		return ret;
+diff --git a/drivers/iio/dac/ad5686.h b/drivers/iio/dac/ad5686.h
+index e7d36bae3e59..36e16c5c4581 100644
+--- a/drivers/iio/dac/ad5686.h
++++ b/drivers/iio/dac/ad5686.h
+@@ -46,6 +46,7 @@
  
- 	reg_con = ioread32(info->regs + NPCM_ADCCON);
- 	info->vref = devm_regulator_get_optional(&pdev->dev, "vref");
-@@ -262,7 +258,7 @@ static int npcm_adc_probe(struct platform_device *pdev)
- 		ret = regulator_enable(info->vref);
- 		if (ret) {
- 			dev_err(&pdev->dev, "Can't enable ADC reference voltage\n");
--			goto err_disable_clk;
-+			return ret;
- 		}
+ #define AD5310_REF_BIT_MSK			BIT(8)
+ #define AD5683_REF_BIT_MSK			BIT(12)
++#define AD5686_REF_BIT_MSK			BIT(0)
+ #define AD5693_REF_BIT_MSK			BIT(12)
  
- 		iowrite32(reg_con & ~NPCM_ADCCON_REFSEL,
-@@ -272,10 +268,8 @@ static int npcm_adc_probe(struct platform_device *pdev)
- 		 * Any error which is not ENODEV indicates the regulator
- 		 * has been specified and so is a failure case.
- 		 */
--		if (PTR_ERR(info->vref) != -ENODEV) {
--			ret = PTR_ERR(info->vref);
--			goto err_disable_clk;
--		}
-+		if (PTR_ERR(info->vref) != -ENODEV)
-+			return PTR_ERR(info->vref);
- 
- 		/* Use internal reference */
- 		iowrite32(reg_con | NPCM_ADCCON_REFSEL,
-@@ -314,8 +308,6 @@ static int npcm_adc_probe(struct platform_device *pdev)
- 	iowrite32(reg_con & ~NPCM_ADCCON_ADC_EN, info->regs + NPCM_ADCCON);
- 	if (!IS_ERR(info->vref))
- 		regulator_disable(info->vref);
--err_disable_clk:
--	clk_disable_unprepare(info->adc_clk);
- 
- 	return ret;
- }
-@@ -332,7 +324,6 @@ static void npcm_adc_remove(struct platform_device *pdev)
- 	iowrite32(regtemp & ~NPCM_ADCCON_ADC_EN, info->regs + NPCM_ADCCON);
- 	if (!IS_ERR(info->vref))
- 		regulator_disable(info->vref);
--	clk_disable_unprepare(info->adc_clk);
- }
- 
- static struct platform_driver npcm_adc_driver = {
+ /**
 
