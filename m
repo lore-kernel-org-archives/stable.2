@@ -1,129 +1,94 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BD213D7A14
-	for <stable@vger.kernel.org>; Thu,  4 Jun 2026 08:37:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A683E369D7A
+	for <stable@vger.kernel.org>; Thu,  4 Jun 2026 08:37:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780562236; cv=none; b=MQLSS1G00hSZ9JKOMEDOBbmkDtUwDJOWbgzokt8103jJH5iV8F03OqmXxu0dIgYSPlrn3XNG8BTCdgzvXNKRRGm8co+vT6jw3LW6KP7cZNExqMX9bG8J48py3A/47x3sDPpv8PbXOjNkVpQ+jiZtUGspRqJgIBRMXD7FcfnbNss=
+	t=1780562241; cv=none; b=bTmGKXIPgRzR9Hn60yxLbJy0tfDf8xU8v84YB7x8cgNOl8aauXr0MEyqz34FHoHSygAJZQbFKZV8FQb6A5WBAP9SecWPZA4htxT9rhwsFUr5D4+hGQ/LfSq6rHCW/WwA/kcJbSY0oYe9agG3vmUJekiPzgoJCmU3hMKj2K7Oe8M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780562236; c=relaxed/simple;
-	bh=lgmbY3QlyxxlkXx/2zn6PKpQl9XkqLGWAWD4qjo6kS0=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=MI+nS1BgWgTZD/Otcpk+Vsua54DyVV7kgLVr752w0Gpt66OtEes89c5LBijfn4HITOVA0/5Gappd7CwUWKFDCa9JT3ROAYKpa6tdUDBteIfuFhWLpy7gxuNGO4keRXMyJuTXsWP/YH9KE0+0C9Anyfeubhd/AwujeNY3V5rbsOI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=I3GdWh/P; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780562241; c=relaxed/simple;
+	bh=ZCY+IOuiVdsZazfSLPCfkgoRPfouuZCc8XLFx247yvM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=j70xdL5Jex6vzGVG3R31UYkgbMzDu4sLiV3RG2tzhIrQBxDfmJMAo8H76Wr5YL4I9Zg5ap1IPJXU7jZjFbV0WNMNE/dnTTuAUX1PGF7w4VKbdo4UOP/pDIfz9Dh52P6WguMPMbF8KgoU9pEvGQKaRfHp+S0p+I9zmenQKc7J7aw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fpd6cddL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="I3GdWh/P"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A40A81F00898;
-	Thu,  4 Jun 2026 08:37:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1780562235;
-	bh=zv3vYc6miqREUDLqYB1ps9gkH9V4EDOdKopis5mULOU=;
-	h=Subject:To:Cc:From:Date;
-	b=I3GdWh/PiRAOJrpIoA6hUVO4XXiz2x+8RwZzd2hYmxaZ/X1yKtapJXn8IfFHL/hv0
-	 n6Ucmv/mrpu1fGoPqFg9eytWemn4FNDRernp9QT7tfrKqEvRdTsr8vXXiPG1/7MsQ7
-	 NPuzrvU883mR07IBZX08FYWi3XRd3v3AfgrZq86A=
-Subject: FAILED: patch "[PATCH] Bluetooth: L2CAP: use chan timer to close channels in" failed to apply to 5.10-stable tree
-To: oss@fourdim.xyz,luiz.von.dentz@intel.com,stable@vger.kernel.org
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Thu, 04 Jun 2026 10:36:10 +0200
-Message-ID: <2026060410-arousal-fasting-6cae@gregkh>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fpd6cddL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5138B1F00893;
+	Thu,  4 Jun 2026 08:37:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780562240;
+	bh=5yFZW12fo8Pbe/X7ZrhMk+4ym/tFkZqNK27mdB8y8I0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=fpd6cddLmN6N/U/XHJPkscNI8MoCe2BeiQfXQ2WRffmH3QCq7jMPaK0kdxU4QXiPK
+	 2zQqCFZz0ON1ot1yzZRyD8IfKo5XFyWTQEk+OXd3CSzBe0UNvyfZXJgbGgfJeq1tIl
+	 FSjfEbQRi7TPBpnfiy92kA8X26sCyqgE/AesfrAVC+DWSC5+/F1RCq86cBRcalx91s
+	 xXq43SBwn30RKpPyLvypgZppfw0Smy07BS5jIjhHKZEVP4ysx+UkYwGT3sQMPgui26
+	 uOLLt8q96Yk9xSlMTY3k/ZLZ/pxHMQK9ttziCkXXdv+n9pSO18wr1t02nLAByHF1UP
+	 gfcLD5esbs0eQ==
+Received: from johan by xi.lan with local (Exim 4.99.3)
+	(envelope-from <johan@kernel.org>)
+	id 1wV3Zm-0000000B7Sf-1Jpe;
+	Thu, 04 Jun 2026 10:37:18 +0200
+From: Johan Hovold <johan@kernel.org>
+To: stable@vger.kernel.org
+Cc: Johan Hovold <johan@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Subject: [PATCH 6.18.y] USB: serial: cypress_m8: fix memory corruption with small endpoint
+Date: Thu,  4 Jun 2026 10:36:36 +0200
+Message-ID: <20260604083636.2650249-1-johan@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026060436-outcome-uptight-239a@gregkh>
+References: <2026060436-outcome-uptight-239a@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
+commit e1a9d791fd66ab2431b9e6f6f835823809869047 upstream.
 
-The patch below does not apply to the 5.10-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+Make sure that the interrupt-out endpoint max packet size is at least
+eight bytes to avoid user-controlled slab corruption or NULL-pointer
+dereference should a malicious device report a smaller size.
 
-To reproduce the conflict and resubmit, you may use the following commands:
+Fixes: 3416eaa1f8f8 ("USB: cypress_m8: Packet format is separate from characteristic size")
+Cc: stable@vger.kernel.org	# 2.6.26
+Reviewed-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Johan Hovold <johan@kernel.org>
+[ johan: adjust context for 6.18 ]
+Signed-off-by: Johan Hovold <johan@kernel.org>
+---
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
-git checkout FETCH_HEAD
-git cherry-pick -x 8c8e620467a7b51562dbcefbd1f09f288d7d710d
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026060410-arousal-fasting-6cae@gregkh' --subject-prefix 'PATCH 5.10.y' HEAD^..
+This one should apply to 6.18 and earlier trees that lack kzalloc_obj().
 
-Possible dependencies:
+Johan
 
 
+ drivers/usb/serial/cypress_m8.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 8c8e620467a7b51562dbcefbd1f09f288d7d710d Mon Sep 17 00:00:00 2001
-From: Siwei Zhang <oss@fourdim.xyz>
-Date: Wed, 20 May 2026 22:12:20 -0400
-Subject: [PATCH] Bluetooth: L2CAP: use chan timer to close channels in
- cleanup_listen()
-
-l2cap_chan_close() removes the channel from conn->chan_l, which
-must be done under conn->lock.  cleanup_listen() runs under the
-parent sk_lock, so acquiring conn->lock would invert the
-established conn->lock -> chan->lock -> sk_lock order.
-
-Instead of calling l2cap_chan_close() directly, schedule
-l2cap_chan_timeout with delay 0 to close the channel
-asynchronously.  The timeout handler already acquires conn->lock
-and chan->lock in the correct order.
-
-The timer is only armed when chan->conn is still set: if it is
-already NULL, l2cap_conn_del() has already processed this channel
-(l2cap_chan_del + l2cap_sock_teardown_cb + l2cap_sock_close_cb),
-so there is nothing left to do.  If l2cap_conn_del() races in
-after the timer is armed, __clear_chan_timer() inside
-l2cap_chan_del() cancels it; if the timer has already fired, the
-handler returns harmlessly because chan->conn was cleared.
-
-Fixes: 3df91ea20e74 ("Bluetooth: Revert to mutexes from RCU list")
-Cc: <stable@vger.kernel.org> # 0b58004: Bluetooth: fix UAF in l2cap_sock_cleanup_listen() vs l2cap_conn_del()
-Signed-off-by: Siwei Zhang <oss@fourdim.xyz>
-Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
-
-diff --git a/net/bluetooth/l2cap_sock.c b/net/bluetooth/l2cap_sock.c
-index b34e7da8d906..c138aa4ae266 100644
---- a/net/bluetooth/l2cap_sock.c
-+++ b/net/bluetooth/l2cap_sock.c
-@@ -1499,6 +1499,10 @@ static void l2cap_sock_cleanup_listen(struct sock *parent)
- 	 * pin it (hold_unless_zero() additionally skips a chan already past
- 	 * its last reference).  We then drop the sk lock before taking
- 	 * chan->lock, so sk and chan locks are never held together.
-+	 *
-+	 * Since we cannot call l2cap_chan_close() without conn->lock,
-+	 * schedule l2cap_chan_timeout to close the channel; it already
-+	 * acquires conn->lock -> chan->lock in the correct order.
- 	 */
- 	while ((sk = bt_accept_dequeue(parent, NULL))) {
- 		struct l2cap_chan *chan;
-@@ -1516,14 +1520,12 @@ static void l2cap_sock_cleanup_listen(struct sock *parent)
- 		       state_to_string(chan->state));
+diff --git a/drivers/usb/serial/cypress_m8.c b/drivers/usb/serial/cypress_m8.c
+index e29569d65991..53f27dee35e6 100644
+--- a/drivers/usb/serial/cypress_m8.c
++++ b/drivers/usb/serial/cypress_m8.c
+@@ -445,6 +445,14 @@ static int cypress_generic_port_probe(struct usb_serial_port *port)
+ 		return -ENODEV;
+ 	}
  
- 		l2cap_chan_lock(chan);
--		__clear_chan_timer(chan);
--		l2cap_chan_close(chan, ECONNRESET);
--		/* l2cap_conn_del() may already have killed this socket
--		 * (it sets SOCK_DEAD); skip the duplicate to avoid a
--		 * double sock_put()/l2cap_chan_put().
-+		/* Since we cannot call l2cap_chan_close() without
-+		 * conn->lock, schedule its timer to trigger the close
-+		 * and cleanup of this channel.
- 		 */
--		if (!sock_flag(sk, SOCK_DEAD))
--			l2cap_sock_kill(sk);
-+		if (chan->conn)
-+			__set_chan_timer(chan, 0);
- 		l2cap_chan_unlock(chan);
- 
- 		l2cap_chan_put(chan);
++	/*
++	 * The buffer must be large enough for the one or two-byte header (and
++	 * following data), but assume anything smaller than eight bytes is
++	 * broken.
++	 */
++	if (port->interrupt_out_size < 8)
++		return -EINVAL;
++
+ 	priv = kzalloc(sizeof(struct cypress_private), GFP_KERNEL);
+ 	if (!priv)
+ 		return -ENOMEM;
+-- 
+2.53.0
 
