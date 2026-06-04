@@ -1,56 +1,56 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E31D3911BC
-	for <stable@vger.kernel.org>; Thu,  4 Jun 2026 10:30:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE5283C09EB
+	for <stable@vger.kernel.org>; Thu,  4 Jun 2026 10:32:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780569048; cv=none; b=DPH66JGBWmIgVv6pGWD45vKsTV22etggGbiN/hSIgyiyRANr3hbTYFWhqq6mVDzRb/zuezR50KVigRq7MhJAtePo1hv2I91MthFEM249AmY/MUCByW5HqHIqVTiOvvCNMr8zIoJQwCV/AF4n3Urs2XGe/CI+iqaCGpMuSYP38wY=
+	t=1780569154; cv=none; b=O8NrmV+y8OlE3bc0Deb7jLbW9rvHnjf41mF/r8//5hteCSn8idY6actPRQh8S85Oem/sw58Cji7e/ZTYTSHeHNA/5ZY/L2shhp54/SjBbaZPEoB60d/qysLF+TlSWZUUpcAlzpX00llKpXVQbwmWD7v/cd8xUkGbAMkHzOnA4N4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780569048; c=relaxed/simple;
-	bh=Yv5T0FYXOoHL9RCsM/vg38GilOtoqIPPQs79AoW7oAY=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=j+P4EiEtgae7fjdsPX6yKYo2TbkYnrcow5roEOCwfDZfviZzMmLzlb9ICIQlGgyPqSN3XFHggwEZ8OAeybGzdJQk23N2ILiVuPf8KdULIn1Aekm4Kgy+DX/ttwBnviXXXshPqTdnr7rMk9wBAKggSERlqZ93MF4qn3AsMX/Zqpk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Ot/xzJ/e; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780569154; c=relaxed/simple;
+	bh=y0gUNh3OEoPH9V6GRgQ9Kskr11ZKUDW5nmkGN+WIgOc=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=eJHfnpRGpI52oYWAMzBy1YX1/uw9zCtI4+dGFrp1ZFgN+cA9F9AQTqkz1o09xNJfKzekWImjJfz467EtYZAb2IyxxXCSD/VjlyombNtz2kpZKmms8vaQgpq9300JSpTckg/zO6srWUEVts4BHR8DJ/SgM7FWgVi0c4cxIB0Q4Cc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=tXrGJcqx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Ot/xzJ/e"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 544B91F00893;
-	Thu,  4 Jun 2026 10:30:46 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="tXrGJcqx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8EFCA1F00893;
+	Thu,  4 Jun 2026 10:32:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1780569046;
-	bh=GGIa4KDrobuRAC4eDgYboQtaXsK8D1Vrxojl96laSJo=;
+	s=korg; t=1780569153;
+	bh=eB2eznbY2IYMROFmQ7DDbIOKvJ2AhqK7AWIlkIwPaec=;
 	h=Subject:To:Cc:From:Date;
-	b=Ot/xzJ/eL8LcGFWYtH0Jxyhk6ujQhf8v8Nv3cFatGZumOs654ZTMuWNDD4X7x0bhO
-	 XY0NP/93ocs1Na5Xh6IXmWeJ7ZLef8NrTxBeb8dZpyp21qOLVX8HnCmkHGLyT82+lX
-	 1r1SHlQyhUCUDnKqEs3MUgxHsfBgsXmIJvVKayWU=
-Subject: FAILED: patch "[PATCH] net: skbuff: fix missing zerocopy reference in pskb_carve" failed to apply to 5.10-stable tree
-To: minhnguyen.080505@gmail.com,pabeni@redhat.com,willemb@google.com
+	b=tXrGJcqxCaeGVxp/1+n6GGXdq8B+2FnBGmNhUAe/CTSJuDMHdNywNq6QOOn/j92oB
+	 IoWRr67Jvimt5WdVzDag0H+I5H12PcI4+9Ouo9xWCU0OpH9mSKB9DTw/9o9DmOS8Jj
+	 eFrmRlmqfAkEwSSpEdoasTaSwSY3N3RbTkwwl7q0=
+Subject: FAILED: patch "[PATCH] ALSA: firewire-motu: Protect register DSP event queue" failed to apply to 6.12-stable tree
+To: cassiogabrielcontato@gmail.com,o-takashi@sakamocchi.jp,tiwai@suse.de
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 04 Jun 2026 12:29:42 +0200
-Message-ID: <2026060442-premium-area-c1fd@gregkh>
+Date: Thu, 04 Jun 2026 12:31:36 +0200
+Message-ID: <2026060436-lumpish-nemeses-2d25@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 98d0912e9f841e5529a5b89a972805f34cb1c69d
+git cherry-pick -x 98fb1c1bb11e29eb609b7200a25e136e05aa4498
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026060442-premium-area-c1fd@gregkh' --subject-prefix 'PATCH 5.10.y' HEAD^..
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026060436-lumpish-nemeses-2d25@gregkh' --subject-prefix 'PATCH 6.12.y' HEAD^..
 
 Possible dependencies:
 
@@ -62,87 +62,62 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 98d0912e9f841e5529a5b89a972805f34cb1c69d Mon Sep 17 00:00:00 2001
-From: Minh Nguyen <minhnguyen.080505@gmail.com>
-Date: Tue, 26 May 2026 11:12:39 +0700
-Subject: [PATCH] net: skbuff: fix missing zerocopy reference in pskb_carve
- helpers
+From 98fb1c1bb11e29eb609b7200a25e136e05aa4498 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?C=C3=A1ssio=20Gabriel?= <cassiogabrielcontato@gmail.com>
+Date: Thu, 21 May 2026 08:01:23 -0300
+Subject: [PATCH] ALSA: firewire-motu: Protect register DSP event queue
+ positions
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-pskb_carve_inside_header() and pskb_carve_inside_nonlinear() both copy
-the old skb_shared_info header into a new buffer via memcpy(), which
-includes the destructor_arg pointer (uarg) for MSG_ZEROCOPY skbs.
-Neither function calls net_zcopy_get() for the new shinfo, creating an
-unaccounted holder: every skb_shared_info with destructor_arg set will
-call skb_zcopy_clear() once when freed, but the corresponding
-net_zcopy_get() was never called for the new copy. Repeated calls
-drive uarg->refcnt to zero prematurely, freeing ubuf_info_msgzc while
-TX skbs still hold live destructor_arg pointers.
+The register DSP event queue is updated under parser->lock, but
+snd_motu_register_dsp_message_parser_count_event() reads pull_pos and
+push_pos without the lock.
+snd_motu_register_dsp_message_parser_copy_event() also reads both queue
+positions before taking the lock.
 
-KASAN reports use-after-free on a freed ubuf_info_msgzc:
+Protect these accesses with parser->lock as well. This keeps the hwdep
+poll/read path consistent with the producer side and with the cached
+meter/parameter accessors.
 
-  BUG: KASAN: slab-use-after-free in skb_release_data+0x77b/0x810
-  Read of size 8 at addr ffff88801574d3e8 by task poc/220
-
-  Call Trace:
-   skb_release_data+0x77b/0x810
-   kfree_skb_list_reason+0x13e/0x610
-   skb_release_data+0x4cd/0x810
-   sk_skb_reason_drop+0xf3/0x340
-   skb_queue_purge_reason+0x282/0x440
-   rds_tcp_inc_free+0x1e/0x30
-   rds_recvmsg+0x354/0x1780
-   __sys_recvmsg+0xdf/0x180
-
-  Allocated by task 219:
-   msg_zerocopy_realloc+0x157/0x7b0
-   tcp_sendmsg_locked+0x2892/0x3ba0
-
-  Freed by task 219:
-   ip_recv_error+0x74a/0xb10
-   tcp_recvmsg+0x475/0x530
-
-The skb consuming the late access still referenced the same uarg via
-shinfo->destructor_arg copied by pskb_carve_inside_nonlinear() without
-a refcount bump. This has been verified to be reliably exploitable: a
-working proof-of-concept achieves full root privilege escalation from
-an unprivileged local user on a default kernel configuration.
-
-The fix follows the pattern of pskb_expand_head() which has the same
-memcpy/cloned structure. For pskb_carve_inside_header(), net_zcopy_get()
-is placed after skb_orphan_frags() succeeds, so the orphan error path
-needs no cleanup. For pskb_carve_inside_nonlinear(), net_zcopy_get() is
-placed after all failure points and just before skb_release_data(), so
-no error path needs cleanup at all -- matching pskb_expand_head() more
-closely and avoiding the need for a balancing net_zcopy_put().
-
-Fixes: 6fa01ccd8830 ("skbuff: Add pskb_extract() helper function")
+Fixes: 634ec0b2906e ("ALSA: firewire-motu: notify event for parameter change in register DSP model")
 Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-sonnet-4-6
-Signed-off-by: Minh Nguyen <minhnguyen.080505@gmail.com>
-Reviewed-by: Willem de Bruijn <willemb@google.com>
-Link: https://patch.msgid.link/20260526041240.329462-1-minhnguyen.080505@gmail.com
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+Signed-off-by: Cássio Gabriel <cassiogabrielcontato@gmail.com>
+Reviewed-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Link: https://patch.msgid.link/20260521-alsa-firewire-motu-event-locking-v1-1-708e1c2b5e56@gmail.com
 
-diff --git a/net/core/skbuff.c b/net/core/skbuff.c
-index d247acd447e4..0d3cc115f2e7 100644
---- a/net/core/skbuff.c
-+++ b/net/core/skbuff.c
-@@ -6833,6 +6833,8 @@ static int pskb_carve_inside_header(struct sk_buff *skb, const u32 off,
- 			skb_kfree_head(data);
- 			return -ENOMEM;
- 		}
-+		if (skb_zcopy(skb))
-+			net_zcopy_get(skb_zcopy(skb));
- 		for (i = 0; i < skb_shinfo(skb)->nr_frags; i++)
- 			skb_frag_ref(skb, i);
- 		if (skb_has_frag_list(skb))
-@@ -6976,6 +6978,8 @@ static int pskb_carve_inside_nonlinear(struct sk_buff *skb, const u32 off,
- 		skb_kfree_head(data);
- 		return -ENOMEM;
- 	}
-+	if (skb_zcopy(skb))
-+		net_zcopy_get(skb_zcopy(skb));
- 	skb_release_data(skb, SKB_CONSUMED);
+diff --git a/sound/firewire/motu/motu-register-dsp-message-parser.c b/sound/firewire/motu/motu-register-dsp-message-parser.c
+index a8053e3ef065..4ec23e6880d9 100644
+--- a/sound/firewire/motu/motu-register-dsp-message-parser.c
++++ b/sound/firewire/motu/motu-register-dsp-message-parser.c
+@@ -386,6 +386,8 @@ unsigned int snd_motu_register_dsp_message_parser_count_event(struct snd_motu *m
+ {
+ 	struct msg_parser *parser = motu->message_parser;
  
- 	skb->head = data;
++	guard(spinlock_irqsave)(&parser->lock);
++
+ 	if (parser->pull_pos > parser->push_pos)
+ 		return EVENT_QUEUE_SIZE - parser->pull_pos + parser->push_pos;
+ 	else
+@@ -395,13 +397,14 @@ unsigned int snd_motu_register_dsp_message_parser_count_event(struct snd_motu *m
+ bool snd_motu_register_dsp_message_parser_copy_event(struct snd_motu *motu, u32 *event)
+ {
+ 	struct msg_parser *parser = motu->message_parser;
+-	unsigned int pos = parser->pull_pos;
+-
+-	if (pos == parser->push_pos)
+-		return false;
++	unsigned int pos;
+ 
+ 	guard(spinlock_irqsave)(&parser->lock);
+ 
++	if (parser->pull_pos == parser->push_pos)
++		return false;
++
++	pos = parser->pull_pos;
+ 	*event = parser->event_queue[pos];
+ 
+ 	++pos;
 
