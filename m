@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1FB927732
-	for <stable@vger.kernel.org>; Thu,  4 Jun 2026 23:49:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CEE427732
+	for <stable@vger.kernel.org>; Thu,  4 Jun 2026 23:49:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780616957; cv=none; b=omG5ylASCILIDBb06wGhitlMJnpLZBPnEEu1AbuQi6tp+olWR0qnI72Bbml3wOP9Wf6OBs9zzaoIQRcP+gRdXUTzyNlhi1TFzTw/cZhtVSJXPBHEHS/CGm9bLvDYTg4NOcPDM/UQYPmlgfCuke1ctzOTRvZdQ3vNHfz9PE8CRqE=
+	t=1780616971; cv=none; b=FHsIekIJe1CWVbL9+LZM5it9auH3GnMLGiLvB5YhUleFRtf2yB0S5Zp9T7dCakn0BaIUza8ra0vPNDYsmdBRa/48AdjR1GIOxbkTeYqoPoBV1oS/xgrwMbxG2zdY1ne8sovj6eBGZ/x1bHNUXAQGWOABr+dpOmjPtOZS9iR0rFY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780616957; c=relaxed/simple;
-	bh=GervpOhcbLovYdvxl3GYecXfGAyIrfZDzldMrZhfZKI=;
+	s=arc-20240116; t=1780616971; c=relaxed/simple;
+	bh=pIolN5570spNUdNQsCklhSm0ztp2kaKLZj1BZAptKJI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=juBMKebXURuDCcikS7dAgl7RfJs2FEohj1Rbx7xzT9eSfgDCbvF87/lYNpEme5iGu0U4Z48v2ijWQX3TuZdXb5lqHy018HXdZecxphORdYvEiJgxVde/DyxS36BJRMcRHLOcuiomTLkodDbL/Ackg62JepLtECqrBJQaoVPn3pM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b9Ha3BmM; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=bQCZxY7sbSa85H596bKOXdTwUbAmuS/q+WTiW1d1jhV6m2MGqoQui3hhxEXXemlgQivdyhOi7CiG9I53A9KiDI5DE/fNlCUU6FqtdH+4RG8AaA1r5rGlqy/OgM7DGYjA2UdVb3oIYRjPTTRfiA6QC8HXwfNm0T6r5odC/pOy0oc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lylJumZR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b9Ha3BmM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5E7B1F00893;
-	Thu,  4 Jun 2026 23:49:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lylJumZR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 966081F00893;
+	Thu,  4 Jun 2026 23:49:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780616955;
-	bh=8hu6HD585vgoYLshOhKyTpb+F4upu5kJBiaPENpojdo=;
+	s=k20260515; t=1780616970;
+	bh=oxirtgLsJutk74g6gc8hAyOb21XceFC09uswNbHNOiQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=b9Ha3BmMI391rc+/bcBMDOIzFbIP/Kski4WO+GNk8DJmCqR/cpi+H8zogCqi6F9E/
-	 ie0iLxuY+XATthK6cbVLmxO2qiHzjt2R/QP0Xr/lC4g8gEYaCpIz1wcofFbBDNBjKt
-	 OAmfnJ68PBtIfWJZx4NRKaMguvgi8MXcuPvhl2TDt0t9LBWtG/XkIv5b3qfQObWeBN
-	 ab6tTVa60Pz7toGutaVa53YqSGaeOeEPlYxzkRK/UIYcD1iy6/HCiFKPxU0hfIsrki
-	 jX1MbrcpW2TneIg0M3raqgWiUBq+dndCOM9EEvq0Q4ci6S/Kc7whZYF/7Rs1d2qUie
-	 40AtfHCS5fcww==
+	b=lylJumZRKzcLPwAv3/WrjObFzloi8VJ9zKs20BdXy1BCl9Dkcl1WwOGJ2vNPV4kpB
+	 qaui2EZyqYqoOSNGdDWmJPVwPMY6O2IG8Hsx4Gjmvt1r3loehB7YSZlqSsMZdqWhYQ
+	 jFaYDllzV2IHRhEzSPJIdUi1OZmBKTJlTUeuiEZvsU/kpMFKPOycvXa2PWS1i2C9Dz
+	 1C0i0yXTJe52ThiqolZgRyl0p2wv/hCQXz9pNX40g2zLrvbq16E09DO4weSszJj+zk
+	 NI+a++Nbm7VxtuwXKrJjTdzYfL4t2H7N7VmvjayHHh5mBL8fOTiG6bjv2k0vfxQ+Ip
+	 iHpT0zEUacbxQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Peter Chen <peter.chen@cixtech.com>,
-	stable <stable@kernel.org>,
-	sashiko-bot <sashiko-bot@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+Cc: Rodrigo Alencar <rodrigo.alencar@analog.com>,
+	Andy Shevchenko <andriy.shevchenko@intel.com>,
+	Stable@vger.kernel.org,
+	Jonathan Cameron <jic23@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] usb: cdns3: plat: fix leaked usb2_phy initialization on usb3_phy acquisition failure
-Date: Thu,  4 Jun 2026 19:49:13 -0400
-Message-ID: <20260604234913.2468901-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] iio: dac: ad5686: fix ref bit initialization for single-channel parts
+Date: Thu,  4 Jun 2026 19:49:27 -0400
+Message-ID: <20260604234928.2470788-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026060428-tackle-screen-6157@gregkh>
-References: <2026060428-tackle-screen-6157@gregkh>
+In-Reply-To: <2026060401-dislodge-unlovely-c2aa@gregkh>
+References: <2026060401-dislodge-unlovely-c2aa@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,47 +47,66 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Peter Chen <peter.chen@cixtech.com>
+From: Rodrigo Alencar <rodrigo.alencar@analog.com>
 
-[ Upstream commit e6970cda63fd4b4546aeed9d0e2f53a7c95cd09c ]
+[ Upstream commit ecae2ae606d493cf11457946436335bd0e726663 ]
 
-Move usb2_phy initialization after usb3_phy acquisition.
+The reference bit position was ignored when writing the register at the
+probe() function (!!val was used). When such bit is 1, internal voltage
+reference is disabled so that an external one can be used. For
+multi-channel devices, bit 0 of the Internal Reference Setup command
+behaves the same way, so AD5686_REF_BIT_MSK is created. The issue exists
+since support for single-channel devices were first introduced.
 
-Fixes: f738957277ba ("usb: cdns3: Split core.c into cdns3-plat and core.c file")
-Cc: stable <stable@kernel.org>
-Reported-by: sashiko-bot <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/linux-devicetree/agKaEePSFknhDBg2@nchen-desktop/T/#m21e1d9c1574eb127ce03c0c2a1a49002ce435b52
-Signed-off-by: Peter Chen <peter.chen@cixtech.com>
-Link: https://patch.msgid.link/20260513085310.2217547-2-peter.chen@cixtech.com
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Fixes: be1b24d24541 ("iio:dac:ad5686: Add AD5691R/AD5692R/AD5693/AD5693R support")
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
+Cc: <Stable@vger.kernel.org>
+Signed-off-by: Jonathan Cameron <jic23@kernel.org>
+[ adapted `has_external_vref` to the in-tree equivalent `voltage_uv` variable in the `val =` computation ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/usb/cdns3/cdns3-plat.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/iio/dac/ad5686.c | 6 +++---
+ drivers/iio/dac/ad5686.h | 1 +
+ 2 files changed, 4 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/usb/cdns3/cdns3-plat.c b/drivers/usb/cdns3/cdns3-plat.c
-index 2c1aca84f2264d..bad619d25987bd 100644
---- a/drivers/usb/cdns3/cdns3-plat.c
-+++ b/drivers/usb/cdns3/cdns3-plat.c
-@@ -121,14 +121,14 @@ static int cdns3_plat_probe(struct platform_device *pdev)
- 	if (IS_ERR(cdns->usb2_phy))
- 		return PTR_ERR(cdns->usb2_phy);
+diff --git a/drivers/iio/dac/ad5686.c b/drivers/iio/dac/ad5686.c
+index 4c9f7ade52b32d..39c76e9dcb498c 100644
+--- a/drivers/iio/dac/ad5686.c
++++ b/drivers/iio/dac/ad5686.c
+@@ -520,7 +520,7 @@ int ad5686_probe(struct device *dev,
+ 		break;
+ 	case AD5686_REGMAP:
+ 		cmd = AD5686_CMD_INTERNAL_REFER_SETUP;
+-		ref_bit_msk = 0;
++		ref_bit_msk = AD5686_REF_BIT_MSK;
+ 		break;
+ 	case AD5693_REGMAP:
+ 		cmd = AD5686_CMD_CONTROL_REG;
+@@ -532,9 +532,9 @@ int ad5686_probe(struct device *dev,
+ 		goto error_disable_reg;
+ 	}
  
--	ret = phy_init(cdns->usb2_phy);
--	if (ret)
--		return ret;
--
- 	cdns->usb3_phy = devm_phy_optional_get(dev, "cdns3,usb3-phy");
- 	if (IS_ERR(cdns->usb3_phy))
- 		return PTR_ERR(cdns->usb3_phy);
+-	val = (voltage_uv | ref_bit_msk);
++	val = voltage_uv ? ref_bit_msk : 0;
  
-+	ret = phy_init(cdns->usb2_phy);
-+	if (ret)
-+		return ret;
-+
- 	ret = phy_init(cdns->usb3_phy);
+-	ret = st->write(st, cmd, 0, !!val);
++	ret = st->write(st, cmd, 0, val);
  	if (ret)
- 		goto err_phy3_init;
+ 		goto error_disable_reg;
+ 
+diff --git a/drivers/iio/dac/ad5686.h b/drivers/iio/dac/ad5686.h
+index 760f852911df76..182d951912d847 100644
+--- a/drivers/iio/dac/ad5686.h
++++ b/drivers/iio/dac/ad5686.h
+@@ -46,6 +46,7 @@
+ 
+ #define AD5310_REF_BIT_MSK			BIT(8)
+ #define AD5683_REF_BIT_MSK			BIT(12)
++#define AD5686_REF_BIT_MSK			BIT(0)
+ #define AD5693_REF_BIT_MSK			BIT(12)
+ 
+ /**
 -- 
 2.53.0
 
