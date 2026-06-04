@@ -1,123 +1,109 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2D163E275F
-	for <stable@vger.kernel.org>; Thu,  4 Jun 2026 12:11:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88D3643DA55;
+	Thu,  4 Jun 2026 12:15:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780575104; cv=none; b=BGmP71/JNoa24AJJHIaq8Z+y5JKW9kejmtXzLEpXurcTA2U1QmDG0Fz8I2ToQmsbof9JVoI1o2xzyNaoFR4uteSSVKB0/Jxwvpvg2SJ8fPhxhI5c0b80+wpYD02HgbDft7wKk9iuQr9CuY8l0bjJuvuP2kIa/WnOr6xrx1Dfh/Q=
+	t=1780575326; cv=none; b=S+mHfvG2AeXahEGxrlItl3+BCrC2n0pTKqUmTTyMyaWo4B1Dn1l31kurXAB7wDn1c7WP6GMpL/BhL9uDVT/mnjZdZbl5CnU2urDNxM8b8ZkT/ymacAXHojc3aGdm2Vq/vtaoniD52N+ptO0n8PGjzz2SVxMhXWwq0CjR3m/oJEA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780575104; c=relaxed/simple;
-	bh=MATNYRjbOQHWoQWtTBzRQXdf7Ds7t7sQzUaUTlaSSuA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bENSuPFrCDhv6kVz/xxA1HKO23OV8XU/J8l+sh0+/1WqHGmMK03RfPBhNHJtZdOSnxGVgLj09enGjmh1CbW+RWPnKa2hiYMOnMj3vUEPWXrkGx2mARZAXdzdkTfVlCsjFF1nyY1a0b0RaCFOmwI/rUOomD9/PRsvaM+YSfc3bx8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DbVU/Upc; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780575326; c=relaxed/simple;
+	bh=EkyWnoWUzPKbnh692cDu96itTwqxnfJoZ0AlSUbA7fA=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 MIME-Version:Message-ID; b=SrAzj8+UotxvWtJa+E2E6Odf/yxO+kTyo3bdLBrvg515zTrF0H2VKvT1rAn+uprQjv3hBYWvqQR7vD5sXRWL428RY2nj6eyENywewvBWwmresRdI+yCon6RNBDU2tB9W+aSQaWx7MaFf33l1WAFXMJR5dt3Kfa72y6RNgoi2OPs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=UkVOW6BE; arc=none smtp.client-ip=220.197.31.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DbVU/Upc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C7601F00893;
-	Thu,  4 Jun 2026 12:11:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780575103;
-	bh=y5/Ml3r7ezO5x6yZw9e2cVnqJ2v+OLdac6V7BRUJqAg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DbVU/UpcgsxEpZEeuD81NKtCy/5e6FJxn+RLKTY72MvEwVOYvSmD5FolO9ZUapgV5
-	 kpFuEzmch7ByQ4nWtHDpy06UbU6OTaytF61+KXPpshhRbyCkga+CCAc1H4v7Ej4xMb
-	 M6dse6XpOP9ljj5V49PUKh0Ncv5pKljh4lbec296FuwSw+l3+sIjDO7whqUA8ts7ZQ
-	 2Fnl1g2jQLydWtdVb8BhQe5fckZDWLHWUcUw+rxZVBOunefyBa9MbJfvXQlRDWytjK
-	 WBrAnrdy2nWEb+9ohzPbKfITzso5/pcgSsVyf9H70Js1YN++1RMXqVtadclgzgADTH
-	 1BCtVBfXUA9qQ==
-Received: from johan by xi.lan with local (Exim 4.99.3)
-	(envelope-from <johan@kernel.org>)
-	id 1wV6vF-0000000Bd4q-1gxQ;
-	Thu, 04 Jun 2026 14:11:41 +0200
-From: Johan Hovold <johan@kernel.org>
-To: stable@vger.kernel.org
-Cc: Johan Hovold <johan@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: [PATCH 6.18.y] USB: serial: mct_u232: fix memory corruption with small endpoint
-Date: Thu,  4 Jun 2026 14:11:33 +0200
-Message-ID: <20260604121133.2771807-1-johan@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026060400-renewal-coagulant-3a75@gregkh>
-References: <2026060400-renewal-coagulant-3a75@gregkh>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="UkVOW6BE"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+	Message-ID; bh=EkyWnoWUzPKbnh692cDu96itTwqxnfJoZ0AlSUbA7fA=; b=U
+	kVOW6BEXgNTFh55qFVh962tXhzF8cpomJd1/K5sPZn3tqPaWHyz/4Ge7SRu2vzrp
+	yM3IX6nNoLiyXju+/MLODHGn/mkLzLNWidjayMKvBNIrjoCqR2laeVR5V99S34zd
+	mt0vHlb2NvQaW2zmpAco74GgmKg8DxNSC8FrpNxUws=
+Received: from w15303746062$163.com ( [113.200.174.80] ) by
+ ajax-webmail-wmsvr-40-139 (Coremail) ; Thu, 4 Jun 2026 20:14:52 +0800 (CST)
+Date: Thu, 4 Jun 2026 20:14:52 +0800 (CST)
+From: w15303746062  <w15303746062@163.com>
+To: jdelvare@suse.com, andi.shyti@kernel.org
+Cc: linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org,
+	"Mingyu Wang" <25181214217@stu.xidian.edu.cn>,
+	stable@vger.kernel.org
+Subject: Re:[PATCH v2] i2c: i801: fix hardware state machine corruption in
+ error path
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260403(27802f6d) Copyright (c) 2002-2026 www.mailtech.cn 163com
+In-Reply-To: <20260512093534.348655-1-w15303746062@163.com>
+References: <20260512093534.348655-1-w15303746062@163.com>
+X-NTES-SC: AL_Qu2TAvmcukoi5CKRYOkfmU0Qguw9Xcq5uPkj34FWN5t8jBHo5DwgRW1dDETv98+JMgaTmhKYQh1n599XY4JFX4E5lNHAY++hl+xq5hpLf+nRrw==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=GBK
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Message-ID: <47aa218a.9e42.19e928ecb94.Coremail.w15303746062@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:iygvCgDXXwo8bCFq2qMCAA--.3910W
+X-CM-SenderInfo: jzrvjiatxuliiws6il2tof0z/xtbC4xwN8GohbDzpgwAA3z
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 
-commit 915b36d701950503c4ea0f6e314b10868e59fce3 upstream.
-
-The driver overrides the maximum transfer size for a specific device
-which only accepts 16 byte packets for its 32 byte bulk-out endpoint.
-
-Make sure to never increase the maximum transfer size to prevent slab
-corruption should a malicious device report a smaller endpoint max
-packet size than expected.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Reviewed-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Signed-off-by: Johan Hovold <johan@kernel.org>
----
- drivers/usb/serial/mct_u232.c | 21 +++++++++++----------
- 1 file changed, 11 insertions(+), 10 deletions(-)
-
-diff --git a/drivers/usb/serial/mct_u232.c b/drivers/usb/serial/mct_u232.c
-index 2bce8cc03aca..b0b299c5e8a3 100644
---- a/drivers/usb/serial/mct_u232.c
-+++ b/drivers/usb/serial/mct_u232.c
-@@ -378,6 +378,7 @@ static int mct_u232_port_probe(struct usb_serial_port *port)
- {
- 	struct usb_serial *serial = port->serial;
- 	struct mct_u232_private *priv;
-+	u16 pid;
- 
- 	/* check first to simplify error handling */
- 	if (!serial->port[1] || !serial->port[1]->interrupt_in_urb) {
-@@ -385,6 +386,16 @@ static int mct_u232_port_probe(struct usb_serial_port *port)
- 		return -ENODEV;
- 	}
- 
-+	/*
-+	 * Compensate for a hardware bug: although the Sitecom U232-P25
-+	 * device reports a maximum output packet size of 32 bytes,
-+	 * it seems to be able to accept only 16 bytes (and that's what
-+	 * SniffUSB says too...)
-+	 */
-+	pid = le16_to_cpu(serial->dev->descriptor.idProduct);
-+	if (pid == MCT_U232_SITECOM_PID)
-+		port->bulk_out_size = min(16, port->bulk_out_size);
-+
- 	priv = kzalloc(sizeof(*priv), GFP_KERNEL);
- 	if (!priv)
- 		return -ENOMEM;
-@@ -410,7 +421,6 @@ static void mct_u232_port_remove(struct usb_serial_port *port)
- 
- static int  mct_u232_open(struct tty_struct *tty, struct usb_serial_port *port)
- {
--	struct usb_serial *serial = port->serial;
- 	struct mct_u232_private *priv = usb_get_serial_port_data(port);
- 	int retval = 0;
- 	unsigned int control_state;
-@@ -418,15 +428,6 @@ static int  mct_u232_open(struct tty_struct *tty, struct usb_serial_port *port)
- 	unsigned char last_lcr;
- 	unsigned char last_msr;
- 
--	/* Compensate for a hardware bug: although the Sitecom U232-P25
--	 * device reports a maximum output packet size of 32 bytes,
--	 * it seems to be able to accept only 16 bytes (and that's what
--	 * SniffUSB says too...)
--	 */
--	if (le16_to_cpu(serial->dev->descriptor.idProduct)
--						== MCT_U232_SITECOM_PID)
--		port->bulk_out_size = 16;
--
- 	/* Do a defined restart: the normal serial device seems to
- 	 * always turn on DTR and RTS here, so do the same. I'm not
- 	 * sure if this is really necessary. But it should not harm
--- 
-2.53.0
-
+CgpIaSBKZWFuLCBBbmRpLAoKSnVzdCBhIGdlbnRsZSBwaW5nIG9uIHRoaXMgdjIgcGF0Y2guIEl0
+IHJldXNlcyB0aGUgZXhpc3RpbmcgJ291dCcgbGFiZWwgdG8gZml4IAp0aGUgdW51c2VkIGxhYmVs
+IHdhcm5pbmcgYW5kIHVwZGF0ZXMgdGhlIGNvbW1pdCBtZXNzYWdlIGV4YWN0bHkgYXMgSmVhbiBz
+dWdnZXN0ZWQuCgpQbGVhc2UgbGV0IG1lIGtub3cgaWYgdGhlcmUgaXMgYW55dGhpbmcgZWxzZSBu
+ZWVkZWQgZnJvbSBteSBzaWRlLCBvciBpZiAKaXQgaXMgZ29vZCB0byBiZSBxdWV1ZWQgdXAuCgpU
+aGFua3MsCk1pbmd5dQoKQXQgMjAyNi0wNS0xMiAxNzozNTozNCwgdzE1MzAzNzQ2MDYyQDE2My5j
+b20gd3JvdGU6Cj5Gcm9tOiBNaW5neXUgV2FuZyA8MjUxODEyMTQyMTdAc3R1LnhpZGlhbi5lZHUu
+Y24+Cj4KPkEgc2V2ZXJlIGxpdmVsb2NrIGFuZCBzdWJzZXF1ZW50IEh1bmcgVGFzayBwYW5pYyB3
+ZXJlIG9ic2VydmVkIGluIHRoZQo+aTJjLWk4MDEgZHJpdmVyIGR1cmluZyBjb25jdXJyZW50IEZ1
+enppbmcuIFRoZSBjcmFzaCBpcyBjYXVzZWQgYnkgYW4KPnVuY29uZGl0aW9uYWwgaGFyZHdhcmUg
+cmVnaXN0ZXIgY2xlYW51cCBpbiB0aGUgZXJyb3IgaGFuZGxpbmcgcGF0aCBvZgo+aTgwMV9hY2Nl
+c3MoKS4KPgo+V2hlbiBpODAxX2NoZWNrX3ByZSgpIGZhaWxzIChlLmcuLCByZXR1cm5pbmcgLUVC
+VVNZIGJlY2F1c2UgdGhlIFNNQnVzCj5jb250cm9sbGVyIGlzIGFjdGl2ZWx5IHVzZWQgYnkgQklP
+Uy9BQ1BJKSwgdGhlIGtlcm5lbCBkb2VzIG5vdCBhY3R1YWxseQo+YWNxdWlyZSB0aGUgaGFyZHdh
+cmUgb3duZXJzaGlwLiBIb3dldmVyLCB0aGUgY29kZSBqdW1wcyB0byB0aGUgJ291dCcKPmxhYmVs
+IGFuZCBleGVjdXRlczoKPgo+ICAgIGlvd3JpdGU4KFNNQkhTVFNUU19JTlVTRV9TVFMgfCBTVEFU
+VVNfRkxBR1MsIFNNQkhTVFNUUyhwcml2KSk7Cj4KPlRoaXMgZm9yY2VmdWxseSBjbGVhcnMgdGhl
+IElOVVNFX1NUUyBsb2NrIGFuZCByZXNldHMgdGhlIGhhcmR3YXJlIHN0YXR1cwo+ZmxhZ3Mgd2l0
+aG91dCBvd25pbmcgdGhlIGNvbnRyb2xsZXIuIERvaW5nIHNvIGludGVycnVwdHMgb25nb2luZyBC
+SU9TL0FDUEkKPnRyYW5zYWN0aW9ucyBhbmQgdG90YWxseSBjb3JydXB0cyB0aGUgU01CdXMgaGFy
+ZHdhcmUgc3RhdGUgbWFjaGluZS4KPgo+Q29uc2VxdWVudGx5LCBhbGwgc3Vic2VxdWVudCBpODAx
+X2FjY2VzcygpIGNhbGxzIGZhaWwgYXQgdGhlIHByZS1jaGVjawo+c3RhZ2UsIHRyaWdnZXJpbmcg
+YW4gZW5kbGVzcyBzdHJlYW0gb2YgIlNNQnVzIGlzIGJ1c3ksIGNhbid0IHVzZSBpdCEiCj5lcnJv
+ciBsb2dzLiBPdmVyIGEgc2xvdyBzZXJpYWwgY29uc29sZSwgdGhpcyBwcmludGsgZmxvb2QgbW9u
+b3BvbGl6ZXMKPnRoZSBDUFUgKENvbnNvbGUgTGl2ZWxvY2spLCBzdGFydmluZyBvdGhlciBwcm9j
+ZXNzZXMgdHJ5aW5nIHRvIGFjcXVpcmUKPnRoZSBtbWFwX2xvY2sgZG93bl9yZWFkIHNlbWFwaG9y
+ZSwgdWx0aW1hdGVseSB0cmlnZ2VyaW5nIHRoZSBodW5nIHRhc2sKPndhdGNoZG9nLgo+Cj5GaXgg
+dGhpcyBieSBtb3ZpbmcgdGhlICdvdXQnIGxhYmVsIGJlbG93IHRoZSBoYXJkd2FyZSByZWdpc3Rl
+ciBjbGVhbnVwLgo+SWYgaTgwMV9jaGVja19wcmUoKSBmYWlscywgd2Ugc2FmZWx5IGJ5cGFzcyB0
+aGUgaW93cml0ZTgoKSBhbmQgb25seQo+cmVsZWFzZSB0aGUgc29mdHdhcmUgbG9ja3MgKHBtX3J1
+bnRpbWUgYW5kIG11dGV4KSwgc3RyaWN0bHkgYWRoZXJpbmcgdG8KPnRoZSBydWxlIG9mIG5vdCBy
+ZWxlYXNpbmcgcmVzb3VyY2VzIHRoYXQgd2VyZSBuZXZlciBhY3F1aXJlZC4KPgo+Rml4ZXM6IDFm
+NzYwYjg3ZTU0YyAoImkyYzogaTgwMTogQ2FsbCBpODAxX2NoZWNrX3ByZSgpIGZyb20gaTgwMV9h
+Y2Nlc3MoKSIpCj5DYzogc3RhYmxlQHZnZXIua2VybmVsLm9yZyAjIHY2LjMrCj4KPlNpZ25lZC1v
+ZmYtYnk6IE1pbmd5dSBXYW5nIDwyNTE4MTIxNDIxN0BzdHUueGlkaWFuLmVkdS5jbj4KPi0tLQo+
+Q2hhbmdlcyBpbiB2MjoKPiAtIFJldXNlZCBhbmQgbW92ZWQgdGhlIGV4aXN0aW5nICdvdXQnIGxh
+YmVsIGluc3RlYWQgb2YgYWRkaW5nIGEgbmV3IG9uZSwKPiAgIGZpeGluZyBhIGJ1aWxkIHdhcm5p
+bmcgcmVnYXJkaW5nIGFuIHVudXNlZCBsYWJlbC4KPiAtIERyb3BwZWQgdGhlIGluYWNjdXJhdGUg
+bWVudGlvbiBvZiAiYW5vdGhlciB0aHJlYWQiIGluIHRoZSBjb21taXQgbWVzc2FnZSwKPiAgIGFz
+IGk4MDFfYWNjZXNzKCkgaXMgc2VyaWFsaXplZCBieSBhIG11dGV4Lgo+IC0gQWRkZWQgRml4ZXMg
+YW5kIENjIHN0YWJsZSB0YWdzIGFzIHN1Z2dlc3RlZC4KPgo+IGRyaXZlcnMvaTJjL2J1c3Nlcy9p
+MmMtaTgwMS5jIHwgMiArLQo+IDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKSwgMSBkZWxl
+dGlvbigtKQo+Cj5kaWZmIC0tZ2l0IGEvZHJpdmVycy9pMmMvYnVzc2VzL2kyYy1pODAxLmMgYi9k
+cml2ZXJzL2kyYy9idXNzZXMvaTJjLWk4MDEuYwo+aW5kZXggMzJhM2NlZjAyYzdiLi5iMjljOTll
+ZDM4ODMgMTAwNjQ0Cj4tLS0gYS9kcml2ZXJzL2kyYy9idXNzZXMvaTJjLWk4MDEuYwo+KysrIGIv
+ZHJpdmVycy9pMmMvYnVzc2VzL2kyYy1pODAxLmMKPkBAIC05MzEsMTMgKzkzMSwxMyBAQCBzdGF0
+aWMgczMyIGk4MDFfYWNjZXNzKHN0cnVjdCBpMmNfYWRhcHRlciAqYWRhcCwgdTE2IGFkZHIsCj4g
+CSAqLwo+IAlpZiAoaHdwZWMpCj4gCQlpb3dyaXRlOChpb3JlYWQ4KFNNQkFVWENUTChwcml2KSkg
+JiB+U01CQVVYQ1RMX0NSQywgU01CQVVYQ1RMKHByaXYpKTsKPi1vdXQ6Cj4gCS8qCj4gCSAqIFVu
+bG9jayB0aGUgU01CdXMgZGV2aWNlIGZvciB1c2UgYnkgQklPUy9BQ1BJLAo+IAkgKiBhbmQgY2xl
+YXIgc3RhdHVzIGZsYWdzIGlmIG5vdCBkb25lIGFscmVhZHkuCj4gCSAqLwo+IAlpb3dyaXRlOChT
+TUJIU1RTVFNfSU5VU0VfU1RTIHwgU1RBVFVTX0ZMQUdTLCBTTUJIU1RTVFMocHJpdikpOwo+IAo+
+K291dDoKPiAJcG1fcnVudGltZV9wdXRfYXV0b3N1c3BlbmQoJnByaXYtPnBjaV9kZXYtPmRldik7
+Cj4gCW11dGV4X3VubG9jaygmcHJpdi0+YWNwaV9sb2NrKTsKPiAJcmV0dXJuIHJldDsKPi0tIAo+
+Mi4zNC4xCg==
