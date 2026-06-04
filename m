@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8E4E2D8DC2
-	for <stable@vger.kernel.org>; Thu,  4 Jun 2026 10:49:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01A6125228D
+	for <stable@vger.kernel.org>; Thu,  4 Jun 2026 10:49:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780570158; cv=none; b=nqd27VEx7yNrOFazH92mUjKsr23c7loiSQHUhyblIlBFniH6Ahva/dZ+U+gQfJhxZF98NbqJmD/v6jfXoedH1D5qVh2UDoveS48OVe2LfxGNh1OIQwVOB3cXKKrm1n+9KPTaUrfkm9SOgpDBraMSgs7bhfdJwyB7ven5pje8F8k=
+	t=1780570163; cv=none; b=QuVXpvFV96lYZjFQs5ekGwM2b5wynRv4ntVclxFaCLIWvlAGAX4wKq6xjyib/Hs9E0tkL4VErmkX0HyoBmD85I+zq9jzdeOpKnDQbZxBoiEwXEsRIFLFqtgNMcG2AnBSlYFR1WDYvKPsnUgG3O3VjBl3BUPZUlDpXashz64nVjI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780570158; c=relaxed/simple;
-	bh=TM7V5aP59FCSNSIdd3oiIIY0t/YXBSVa9SQM/uKfdPc=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=OHCFlNDoTNQRCkQr/FvMTW4QuM6eZi672N4zzlS/hGkwQ79ZPcx65Ay8YrIqpoqZ31sRgqKpY3w0nNrhR58dODW4dmRQBwVZiMbqV0cFDfyJdOXAg0qtsl0SkFBpX37Z7ZS1nuBYl4/nIIi/2w9kkkevtl4RKLhC03FcBZDUB6Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=QOp8IMaF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780570163; c=relaxed/simple;
+	bh=WWXOzENIVz8DhY3xdScoNTUKazrAyifkHwc73r/MCrM=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Ez/wsE7LaEniXIsSP5R2F3FUokSqqbqazLAtq/fOwLj2GCjkCNdUIBf/scibq0HmfvHDhbqN7UjOSFpVWK+5tXfdL63wGxfj+YkmDCL8I0U2+hPBfvSXRZ2mdSUWdwDrEEaq3hA9DtIhr3xg9WYFJ9G1lah+cjOBvSPXCTZWPLs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=FRa5ljod; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="QOp8IMaF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A31711F00893;
-	Thu,  4 Jun 2026 10:49:16 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="FRa5ljod"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 120151F00893;
+	Thu,  4 Jun 2026 10:49:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1780570157;
-	bh=XywwGlGwK1TZkBW6bWKLwwCaWjtGlTIuDfOuV1VPQ0U=;
+	s=korg; t=1780570161;
+	bh=zJGnAZqyHA7AuYIOFZwe5PDD+WUDRv1XDAV9DF9Z7Q4=;
 	h=Subject:To:Cc:From:Date;
-	b=QOp8IMaF2e6NvZTUhDP+q/Yv0CBthHz5MLmGwTYxA6vmvP5oFXGcMWmh3a8xTpxBX
-	 MbosXaOlgwRVIiZA3kmGu3w0eFtcOocParTFm4HBhmzwbKGru+WhXTQHheuOi2+fAM
-	 sc+YkHZHey76w8JySpbfW8yrJaliOmvnXIKDha2o=
-Subject: FAILED: patch "[PATCH] thunderbolt: property: Cap recursion depth in" failed to apply to 5.15-stable tree
+	b=FRa5ljod30XZt0i+18FTS9oHlh9HerIKgP3zYlt5/jUaGUfhqX/BBZREHlldc9zdG
+	 ueBZcUWfsuFOMOSI9MOK7WktnZ6/LjZIrMA3W9vyyYRD30pfVtAOlJkuePBJIEj7Pv
+	 WZT6P3qX8I4DsYpA0tAUWPqtcnKWpgHxXeOQYVmE=
+Subject: FAILED: patch "[PATCH] thunderbolt: property: Cap recursion depth in" failed to apply to 5.10-stable tree
 To: michael.bommarito@gmail.com,mika.westerberg@linux.intel.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 04 Jun 2026 12:48:09 +0200
-Message-ID: <2026060409-plot-clatter-8e2c@gregkh>
+Date: Thu, 04 Jun 2026 12:48:10 +0200
+Message-ID: <2026060410-caloric-peculiar-b695@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x 928abe19fbf0127003abcb1ea69cabc1c897d0ab
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026060409-plot-clatter-8e2c@gregkh' --subject-prefix 'PATCH 5.15.y' HEAD^..
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026060410-caloric-peculiar-b695@gregkh' --subject-prefix 'PATCH 5.10.y' HEAD^..
 
 Possible dependencies:
 
