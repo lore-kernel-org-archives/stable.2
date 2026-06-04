@@ -1,115 +1,165 @@
-Received: from mail-wr1-f74.google.com (mail-wr1-f74.google.com [209.85.221.74])
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E63DE33CEA5
-	for <stable@vger.kernel.org>; Thu,  4 Jun 2026 15:12:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.74
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22D523112BC
+	for <stable@vger.kernel.org>; Thu,  4 Jun 2026 15:21:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780585944; cv=none; b=aUKNeMT4gSvR9rL12pFqyM5MSLl7hgtcKpBtuTMp0R9/6ArPfvXshbknkYO+XyHdIuuegrd9uFPzoV/Nyl61dhDOmAggPzXCf/H6YIffz7Dt6g1z2onsgNQsmoMOue1+fsslTJB22aJONacvZ2jHB8Lxwf6C34F92YEVT5mav8E=
+	t=1780586507; cv=none; b=W8xxIHnt0fpfMbRdkQa9h5xH/K3gVACoupPldyb6itHoKrlgFjPD+ZW24M5A4eKjibx/dP3zIDtd0YtzzKCFnZrdcTE45m1pGgV1lxBKfILtcWBoVR40TE2dyRmf9aGP57IaOG8NpBjz9xFU8rJM0UybZHPExDfsfhGH/XtZ07E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780585944; c=relaxed/simple;
-	bh=VOtZe9auUIFqOGjFKwEy505Yv47yMzIefquCiVyONS0=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=TRkXK0v2dFQlEAGKDaQdMaRwzuztRWw3Y7U7ca8zMLXtBwcxJM1IFBEfw+h8VNfEANOqjSGSt09Xdj6SqErUBrX0VNo9Rabc3jnEnTorQ8M1PL+3+YXQzu9qoXGHmLGNDA+fQOgnIR/dWbtDOYd7uXN41kBf9dXZc5LTjrnuF18=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--ardb.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=wA9qdrxo; arc=none smtp.client-ip=209.85.221.74
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--ardb.bounces.google.com
+	s=arc-20240116; t=1780586507; c=relaxed/simple;
+	bh=aOZX+QFamvnY+Frb6Q0jmYzs679Vqgk82cKkdMo3AbY=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version; b=LCYpSfkzmqFmuAdgCl4Nn4umcpY/+NXtqnX0BIXTx1LsdGYnQQuqE/yv24NSznwgQqg6xDFvX5lXNSVRV8A3Af7A9ThBWRtk9sh+UVzOyIbbHrHpf1TOBnVdmp/iXZX0kfK1RVU+mPw0TF1NTnpaz2R9/pWP95MKTtB49uFATkI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pUJqzeg6; arc=none smtp.client-ip=209.85.221.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="wA9qdrxo"
-Received: by mail-wr1-f74.google.com with SMTP id ffacd0b85a97d-460198535bcso586918f8f.3
-        for <stable@vger.kernel.org>; Thu, 04 Jun 2026 08:12:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pUJqzeg6"
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-45ef56d9b67so702012f8f.2
+        for <stable@vger.kernel.org>; Thu, 04 Jun 2026 08:21:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1780585941; x=1781190741; darn=vger.kernel.org;
-        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
-         :date:from:to:cc:subject:date:message-id:reply-to;
-        bh=oEYxqRws0IUSMm1LUk7BAiLRYO6LZtAhsNNeVVpZ2Ss=;
-        b=wA9qdrxoiHSkA8ve72Ph2nPURaulcS31GnwhRjWm37i6B5nXbr0kIvIFUSjKIEtAqb
-         Zy+PQg/ESXfu4L3n31dyTPHVYyi3505oLvMKQmKzQ/VzooEEeIIHuKiZzPlSJWexNunI
-         jP27W23GenIzM0m4h+jXp6fPWzYNSR6S7KUiq0E0H1ukJcMZZKfUuxTK7+eHNrI46jVy
-         Lv/FidaoXwT6BoVu0+MDMhYGjclOQvTlRVGvzsoP2CSr91mWZNnhKfkJRNLbPNBFYi+f
-         CqLPmXMYZoqQObsyTGf7TBmWVD0WWqB4alfFIXLoB/Py2b/Qs2StVTxv5+PSkVulY4Da
-         QH7g==
+        d=gmail.com; s=20251104; t=1780586504; x=1781191304; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:from:to:cc:subject:date:message-id:reply-to;
+        bh=LfIemd9P8F0K810nDdqrmnwRzhWzEDP+Ov9sYoYEEMk=;
+        b=pUJqzeg68+7HfKYR8E5rzkNlyWJl84QrYBm/0oxG5lRq/U1zXFoRCwCMftJk5Na2iR
+         f42NLbFMSDlqUtr0XqBFjtOOS/9rloKQKLuO9CrM9EVDPUX/SfZ5SpUCJCPzgPOyJ9li
+         7kQmeeAxD1QMkbJZ28VkPVUvnjx7MzKvo5WmngOI8+sV4loBQqJsDYqbG2MrPoYx7/+P
+         EEYx1QpWgd/BA2DIFLi1yEhNqIRIe8nUmhb65GCJwNr+zIihOecyuhdnJQFhg2rtRPOw
+         Lt7hbEstXbY7AYJ2nXiXybHhrMydGiekkUao7ZH7yGF/iCI+orLT5xvo7I8RVDJf4jxr
+         2dZQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780585941; x=1781190741;
-        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
-         :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=oEYxqRws0IUSMm1LUk7BAiLRYO6LZtAhsNNeVVpZ2Ss=;
-        b=XmBiihs6RM0449p8ayIsp2n27Yfsr4c8e5parFjaav15EG8XZ/3ofDfMhsGeLKOvMW
-         5rOgdBUUdmTRs6Rr1zIdWD2YkR5oSbzW1zQ6HcarzAnfja2pPt+oh1HcU29wR52oUd2z
-         bonh0X5hE22UOzeglGd4Dhwj009kFOA1EleGnUF552DIWu13VXlVnfMNaL6XpY5omnpL
-         NI+WLPB62Ji5qWQZ0R1y1yKcPgoLM4TiAkDZdtgrFdExlsBOiK1fuScGeBNFWvlIkVsz
-         4FwVOf4VmxtDr8MErorUtlD9T5XckryNbPKBbhrK38MeZlsWcHIPwrsox+hcjTwO4fUR
-         Dq0w==
-X-Forwarded-Encrypted: i=1; AFNElJ9CPUgdLbkMif2247cHsDMZiX30JCFmJjT7c2kIh68f0AciJr/83+pV1cuM0xBSymzlERYuu8M=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxM0Y8sPEu3kGe2AqVq7LWn9J8/w0zeEoaNmpYTGARJApDZspRV
-	e4c2ysn5sQnHEogEnyyMI4XImaehpnqbfxlptB2WGh8wdubSpdGrIy7lMQ2bINVHi4ubXl2w5A=
-	=
-X-Received: from wrxa17.prod.google.com ([2002:a05:6000:1011:b0:45e:f34b:e7e2])
- (user=ardb job=prod-delivery.src-stubby-dispatcher) by 2002:a5d:508c:0:b0:45e:e513:f451
- with SMTP id ffacd0b85a97d-460216bdfc2mr10238730f8f.7.1780585940926; Thu, 04
- Jun 2026 08:12:20 -0700 (PDT)
-Date: Thu,  4 Jun 2026 17:11:56 +0200
-In-Reply-To: <20260604151151.150377-7-ardb+git@google.com>
+        d=1e100.net; s=20251104; t=1780586504; x=1781191304;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=LfIemd9P8F0K810nDdqrmnwRzhWzEDP+Ov9sYoYEEMk=;
+        b=gCHhtAXmaJUIJf77qtCwbb8WndM1vwC5BwwkUjXhOZGTbYWKCFHhtg7uLImoq1saFp
+         7u1C0HygY48iZJ5mST+AY8GWw3cQrjIvz3J/YBbbFlMGWM9uUy00Kyp/FzVZBX553KIr
+         Uuo5c1VoSlunizD93QXQl/D1jcIsKqHcqybuPPpiZfThiJ2lkghNJtQwwjvG63n3Lary
+         +VEow3i2hqeennIqrr9+akqG9x6DkQBWKFmEHldgxX/z60ScNmG0RSf7Yd6omxF7vTrv
+         yDgvZgLDg0x++fur9+sFtJSymjEDxjLRR2Nh2I4rfxd+jHJv5DP/E4MWsZOztvw8bQgs
+         K4SA==
+X-Gm-Message-State: AOJu0YzZUKabKbbgiEVE82AUO4PljPthcVtiS3fsmtdlwsEb2ALz5ngi
+	4cGiorP+UEV5RgQubgJo6oFK3Ev/NxJxfLrgiC9NwNF6Q+XoYdXnDU+BB1JJfA==
+X-Gm-Gg: Acq92OH+pxV3x74EaDvlRznaSO0H+1Gz4XAcfuFtxacek6kD077vErWQJqDj8oB00nD
+	QhpWm/eZ7cAR+rXj7tXUFFV6JT/xl2sliYBqlEF1O+8lYWhtuZyVgqex9ngkc3sLtd2Aa1zM7Es
+	qvLZ/sbg40UveR4WreugejmNgu9jjMx91hIKMug6UQdYO5M+SkIuDEVErKfPq75e1FR6BoeX8O6
+	zF6HGI3NHg8ro9QwKy5/iDEwXl6V76dZcT4Jyu4SdeNzTkcPeJPbY2+1Nty6LWAfoh885HO01Qo
+	VIC6J6LY5BNfWLegZtXsLFWkrkvDkrNmRDITUCB9GQdXhv1npzPIrtNc7ZPIa6BGz664o+fzBgt
+	TZn0fD03dnH4mw7XAXfBQNRWHPjIX+5VtID7Ta9Bxa0zKdHOVuKtBl/RtDEJ1y5sAST50KENRtH
+	dfFxbMhAAiZLeurv2lKdgOQuztf82tDMlJKqeXW6WFQp6AytMRXXfnZ0XdazWf6KWFXdNqvqrfU
+	4Td2+G62nygkuvN9TwHlcdbGaeZtA+u77KNHa1Y
+X-Received: by 2002:a05:6000:2210:b0:45e:f684:7347 with SMTP id ffacd0b85a97d-460218e7e63mr13165346f8f.12.1780586504359;
+        Thu, 04 Jun 2026 08:21:44 -0700 (PDT)
+Received: from localhost.localdomain ([192.129.190.145])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4601f34413csm16732650f8f.21.2026.06.04.08.21.42
+        for <stable@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 04 Jun 2026 08:21:44 -0700 (PDT)
+From: Shaomin Chen <eeesssooo020@gmail.com>
+To: stable@vger.kernel.org
+Subject: [PATCH 6.18.y] xfrm: iptfs: reset runtime state when cloning SAs
+Date: Thu,  4 Jun 2026 23:21:19 +0800
+Message-ID: <20260604152119.1694883-1-eeesssooo020@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260604151151.150377-7-ardb+git@google.com>
-X-Developer-Key: i=ardb@kernel.org; a=openpgp; fpr=F43D03328115A198C90016883D200E9CA6329909
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1172; i=ardb@kernel.org;
- h=from:subject; bh=dgwiIv5ocMLxRg+g7B0P7cuef9P7d1jooOl8YYuWFh8=;
- b=owGbwMvMwCVmkMcZplerG8N4Wi2JIUtx6j7/xBdu7ww3VF8umHhOrTxmv1X/ehmmq7us1DyOv
- i0p29bWUcrCIMbFICumyCIw+++7nacnStU6z5KFmcPKBDKEgYtTACaiuJuRoTl9/jm1B92rg88s
- qn5ctuPIxa2HebZOu21xL9pGok+oyYThv/c2me2fBNfc1z/w6F3xuZ0hWWpsYfkRcSH9aW1urJd 4WAE=
-X-Mailer: git-send-email 2.54.0.1032.g2f8565e1d1-goog
-Message-ID: <20260604151151.150377-11-ardb+git@google.com>
-Subject: [PATCH v2 4/5] KVM: arm64: Omit tag sync on stage-2 mappings of the
- zero page
-From: Ard Biesheuvel <ardb+git@google.com>
-To: linux-arm-kernel@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org, will@kernel.org, catalin.marinas@arm.com, 
-	Ard Biesheuvel <ardb@kernel.org>, Kevin Brodsky <kevin.brodsky@arm.com>, Mark Brown <broonie@kernel.org>, 
-	Marc Zyngier <maz@kernel.org>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-From: Ard Biesheuvel <ardb@kernel.org>
+commit 7f83d174073234839aea176f265e517e0d50a1d2 upstream.
 
-Commit
+iptfs_clone_state() clones the IPTFS mode data with kmemdup(). This
+copies runtime objects which must not be shared with the original SA,
+including the embedded sk_buff_head, hrtimers, spinlock, and in-flight
+reassembly/reorder state.
 
-   f620d66af316 ("arm64: mte: Do not flag the zero page as PG_mte_tagged")
+If xfrm_state_migrate() fails after clone_state() but before the later
+init_state() call has reinitialized those fields, the cloned state can be
+destroyed by xfrm_state_gc_task() with list and timer state copied from the
+original SA. With queued packets this lets the clone splice and free skbs
+owned by the original IPTFS queue, leading to use-after-free and
+double-free reports in iptfs_destroy_state() and skb release paths.
 
-removed the PG_mte_tagged flag from the zero page, but missed a KVM code
-path that may set this flag on the zero page when it is used in a
-stage-2 CoW mapping of anonymous memory.
+Reinitialize the clone runtime state before publishing it through
+x->mode_data. Because clone_state() now publishes a destroyable mode_data
+object before init_state(), take the mode callback module reference there.
+Avoid taking it again from __iptfs_init_state() for the same object.
 
-So disregard the zero page explicitly in sanitise_mte_tags().
+The 6.18.y backport keeps the existing kcalloc() allocation and adjusts
+the context for d849a2f7309f ("xfrm: iptfs: only publish mode_data after
+clone setup").
 
-Fixes: f620d66af316 ("arm64: mte: Do not flag the zero page as PG_mte_tagged")
-Cc: <stable@vger.kernel.org> # 5.10.x
-Suggested-by: Catalin Marinas <catalin.marinas@arm.com>
-Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
+Fixes: 0e4fbf013fa5 ("xfrm: iptfs: add user packet (tunnel ingress) handling")
+Cc: stable@vger.kernel.org
+Signed-off-by: Shaomin Chen <eeesssooo020@gmail.com>
 ---
- arch/arm64/kvm/mmu.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ net/xfrm/xfrm_iptfs.c | 29 ++++++++++++++++++++++++-----
+ 1 file changed, 24 insertions(+), 5 deletions(-)
 
-diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
-index d089c107d9b7..445d6cf035c9 100644
---- a/arch/arm64/kvm/mmu.c
-+++ b/arch/arm64/kvm/mmu.c
-@@ -1479,6 +1479,11 @@ static void sanitise_mte_tags(struct kvm *kvm, kvm_pfn_t pfn,
- 	if (!kvm_has_mte(kvm))
- 		return;
+diff --git a/net/xfrm/xfrm_iptfs.c b/net/xfrm/xfrm_iptfs.c
+index 7cd97c1dcd11..e11e4f7411fd 100644
+--- a/net/xfrm/xfrm_iptfs.c
++++ b/net/xfrm/xfrm_iptfs.c
+@@ -2650,7 +2650,8 @@ static void __iptfs_init_state(struct xfrm_state *x,
+ 	x->props.enc_hdr_len = sizeof(struct ip_iptfs_hdr);
  
-+	if (is_zero_pfn(pfn)) {
-+		WARN_ON_ONCE(nr_pages != 1);
-+		return;
-+	}
+ 	/* Always keep a module reference when x->mode_data is set */
+-	__module_get(x->mode_cbs->owner);
++	if (x->mode_data != xtfs)
++		__module_get(x->mode_cbs->owner);
+ 
+ 	x->mode_data = xtfs;
+ 	xtfs->x = x;
+@@ -2658,22 +2659,40 @@ static void __iptfs_init_state(struct xfrm_state *x,
+ 
+ static int iptfs_clone_state(struct xfrm_state *x, struct xfrm_state *orig)
+ {
++	struct skb_wseq *w_saved = NULL;
+ 	struct xfrm_iptfs_data *xtfs;
+ 
+ 	xtfs = kmemdup(orig->mode_data, sizeof(*xtfs), GFP_KERNEL);
+ 	if (!xtfs)
+ 		return -ENOMEM;
+ 
+-	xtfs->ra_newskb = NULL;
+ 	if (xtfs->cfg.reorder_win_size) {
+-		xtfs->w_saved = kcalloc(xtfs->cfg.reorder_win_size,
+-					sizeof(*xtfs->w_saved), GFP_KERNEL);
+-		if (!xtfs->w_saved) {
++		w_saved = kcalloc(xtfs->cfg.reorder_win_size,
++				  sizeof(*w_saved), GFP_KERNEL);
++		if (!w_saved) {
+ 			kfree_sensitive(xtfs);
+ 			return -ENOMEM;
+ 		}
+ 	}
++	xtfs->w_saved = w_saved;
 +
- 	if (folio_test_hugetlb(folio)) {
- 		/* Hugetlb has MTE flags set on head page only */
- 		if (folio_try_hugetlb_mte_tagging(folio)) {
++	__skb_queue_head_init(&xtfs->queue);
++	xtfs->queue_size = 0;
++	hrtimer_setup(&xtfs->iptfs_timer, iptfs_delay_timer, CLOCK_MONOTONIC,
++		      IPTFS_HRTIMER_MODE);
++
++	spin_lock_init(&xtfs->drop_lock);
++	hrtimer_setup(&xtfs->drop_timer, iptfs_drop_timer, CLOCK_MONOTONIC,
++		      IPTFS_HRTIMER_MODE);
+ 
++	xtfs->w_seq_set = false;
++	xtfs->w_wantseq = 0;
++	xtfs->w_savedlen = 0;
++	xtfs->ra_newskb = NULL;
++	xtfs->ra_wantseq = 0;
++	xtfs->ra_runtlen = 0;
++
++	__module_get(x->mode_cbs->owner);
+ 	x->mode_data = xtfs;
+ 	xtfs->x = x;
+ 
 -- 
-2.54.0.1032.g2f8565e1d1-goog
+2.47.3
 
