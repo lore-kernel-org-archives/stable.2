@@ -1,42 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F142F480DC6
-	for <stable@vger.kernel.org>; Thu,  4 Jun 2026 13:55:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F96F42314F
+	for <stable@vger.kernel.org>; Thu,  4 Jun 2026 13:58:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780581306; cv=none; b=axX99aI5O6qXor1f9biVZbEcQAxdZ323arPMHmj4/e7F6GBFmilEN7mE5rXFfcgXNR8AxPU2QdxWlNAJ3c70mZzkz07tSCoaQCRQ/+5v2mCTZ2uYT02+OCBWWESUvmOXFuYGe8o0VIQTpVl4Rp3+ai2Wmw6tVZg81NormumbVkU=
+	t=1780581499; cv=none; b=pCR6r1CDvpQukt7GYp3rSThaRBMcs6wfK+NX0PtmxBwNvBi2tV1eLzGas/mdkP2LT2k8AMp849FU09f1u6IlRUMnI17QLONiyLUvcU4NUacTT2s5c63W1gUz+JOm0+PbYv5cNYkmTB3FYw/DBjfu9QfCcGOjJOQtr2n7uJbFGf8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780581306; c=relaxed/simple;
-	bh=ahwY0mo7nj38JbvOSS27DVdv7w503GVt/q5wtKMtv9w=;
+	s=arc-20240116; t=1780581499; c=relaxed/simple;
+	bh=ENgYcvN9O2d4UTLvvvhPXNSaFtfLXLuqibB8pKCbW1A=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=R6dP11DIvjOEveaBQpZDp8CfRhpo+6IjvKt/I5wqs/KbEXAru5I9eTz0sQEAADcGEF8IoOQTkYn0QkJbH4j+LK4YHjLwJ/PTu++dRrUHWiPxR0VZ7MJScIzbBO0Ke5ZcUzPNpUGLuT1nXXy5r0pPyUqu7ACfiiYHK433ms7Ny2U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BB8nLwZG; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=jWK1AkmbO/KCVtvtGUFZAs+ehrjQHS2ZtvdBKXrQVK4l3Hnz3xVYlb3wPV7lSrIyhxTLvpcOQbL1QdaDmNZh1UgdTVC7VUpSp0aHQimhm3xzC0jL8LXVFa6c91tFBHwhntjikHJXQnSRxmqpldUrx5UwVo7BTYiGm2ccs0uDtro=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KaKnks1H; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BB8nLwZG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 288BA1F00893;
-	Thu,  4 Jun 2026 13:55:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KaKnks1H"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 029631F00893;
+	Thu,  4 Jun 2026 13:58:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780581304;
-	bh=mLEf8AF3GUQqFeTecbf8z690NrO+UZIWTLct2P4pf4U=;
+	s=k20260515; t=1780581498;
+	bh=dhzzd1HTIcy8covyzvvMvOFjY1rZ4MA3AvUYkRTxR9E=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BB8nLwZGsfW2lkf0+wrLsgnv2i/W0Ka3O+EOrARlL4FKgbnnflXsTxl8ns3taEOEn
-	 tuz1BArIJXLrCptlHo0Ki+Vji4FWgKdEf4K8/I6NAHet8F3F4uwj1VHmiUZR2dVVup
-	 VlE/4Gam967KsVjJLn0Fu/qzy6YJN9Yr0Q5evwXDszMWNJEvMJw3QlskAgwNCY2EFk
-	 Iseg5vEt3u8BEo/HomXMNr898X5NZa5MyeDxNtAc0+zkikxNn8pr5OzYqe4hpQMgUg
-	 Rur9PWkWnovcRb0AprxKxLrQuqv134C0XE25olExO4IvXXpMH/as6qS5oLU9O53Nz5
-	 oEGztC33klKlw==
+	b=KaKnks1HqpQfR1qaSd3fS/n9vLp8GqEygKN0qY2lcyTb0mXBlUlDmlZ0ogHvyk9Ow
+	 opqfJJeiL+OdUZD7N00ETISy94+anRXI8p409a9NH2Ii59t5KHpmTX0GarGutb62Cy
+	 Upk8ffm7RPoE5a9Nd3Ev4sq0qK/n4q5bMBeMbRWYZeapWPjsiwZCwzTZ7emvUne6gy
+	 FhPMUrDzxcgWzHjrJ9R+TIv6wpe+jVCRP4lkNQRZV98WUSh5ORb01KGdj5xM7hLE8K
+	 NScauqWYaGmNfLt0mV9rvHF0Q8KSAC95Ar4W49ps2wj5K4JM3HXYAM5/SpWQIe2gLD
+	 KntSeizNx+MjA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Johan Hovold <johan@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+Cc: SeongJae Park <sj@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] USB: serial: cypress_m8: fix memory corruption with small endpoint
-Date: Thu,  4 Jun 2026 09:55:02 -0400
-Message-ID: <20260604135502.3494174-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] mm/damon/sysfs-schemes: delete tried region in regions_rmdirs()
+Date: Thu,  4 Jun 2026 09:58:16 -0400
+Message-ID: <20260604135816.3505741-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026060436-tubby-pancreas-41ef@gregkh>
-References: <2026060436-tubby-pancreas-41ef@gregkh>
+In-Reply-To: <2026060424-tranquil-chewable-b88b@gregkh>
+References: <2026060424-tranquil-chewable-b88b@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,42 +45,93 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Johan Hovold <johan@kernel.org>
+From: SeongJae Park <sj@kernel.org>
 
-[ Upstream commit e1a9d791fd66ab2431b9e6f6f835823809869047 ]
+[ Upstream commit 441f92f7d386b85bad16de49db95a307cba048a2 ]
 
-Make sure that the interrupt-out endpoint max packet size is at least
-eight bytes to avoid user-controlled slab corruption or NULL-pointer
-dereference should a malicious device report a smaller size.
+DAMON sysfs maintains the DAMOS tried region directory objects via a
+linked list.  When the user requests refresh of the directories, DAMON
+sysfs removes all the region directories first, and then generate updated
+regions directory on the empty space.  The removal function
+(damon_sysfs_scheme_regions_rm_dirs()) only puts the kobj objects.
+Deletion of the container region object from the linked list is done
+inside the kobj release callback function.
 
-Fixes: 3416eaa1f8f8 ("USB: cypress_m8: Packet format is separate from characteristic size")
-Cc: stable@vger.kernel.org	# 2.6.26
-Reviewed-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Signed-off-by: Johan Hovold <johan@kernel.org>
+If somehow the callback invocation is delayed, the list will contain
+regions list that gonna be freed.  If the updated region directories
+creation is started in this situation, the list can be corrupted and
+use-after-free can happen.
+
+Because the kobj objects are managed by only DAMON sysfs, the issue cannot
+happen in normal situation.  But, such delays can be made on kernels that
+built with CONFIG_DEBUG_KOBJECT_RELEASE.  On the kernel, the issue can
+indeed be reproduced like below.
+
+    # damo start --damos_action stat
+    # cd /sys/kernel/mm/damon/admin/kdamonds/0/
+    # for i in {1..10}; do echo update_schemes_tried_regions > state; done
+    # dmesg | grep underflow
+    [   89.296152] refcount_t: underflow; use-after-free.
+
+Fix the issue by removing the region object from the list when
+decrementing the reference count.
+
+Also update damos_sysfs_populate_region_dir() to add the region object to
+the list only after the kobject_init_and_add() is success, so that fail of
+kobject_init_and_add() is not leaving the deallocated object on the list.
+
+The issue was discovered [1] by Sashiko.
+
+Link: https://lore.kernel.org/20260518152559.93038-1-sj@kernel.org
+Link: https://lore.kernel.org/20260513011920.119183-1-sj@kernel.org [1]
+Fixes: 9277d0367ba1 ("mm/damon/sysfs-schemes: implement scheme region directory")
+Signed-off-by: SeongJae Park <sj@kernel.org>
+Cc: <stable@vger.kernel.org> # 6.2.x
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/usb/serial/cypress_m8.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ mm/damon/sysfs-schemes.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/usb/serial/cypress_m8.c b/drivers/usb/serial/cypress_m8.c
-index e29569d65991b3..53f27dee35e6bc 100644
---- a/drivers/usb/serial/cypress_m8.c
-+++ b/drivers/usb/serial/cypress_m8.c
-@@ -445,6 +445,14 @@ static int cypress_generic_port_probe(struct usb_serial_port *port)
- 		return -ENODEV;
- 	}
+diff --git a/mm/damon/sysfs-schemes.c b/mm/damon/sysfs-schemes.c
+index b550d1a175074e..a84a633e792412 100644
+--- a/mm/damon/sysfs-schemes.c
++++ b/mm/damon/sysfs-schemes.c
+@@ -79,7 +79,6 @@ static void damon_sysfs_scheme_region_release(struct kobject *kobj)
+ 	struct damon_sysfs_scheme_region *region = container_of(kobj,
+ 			struct damon_sysfs_scheme_region, kobj);
  
-+	/*
-+	 * The buffer must be large enough for the one or two-byte header (and
-+	 * following data), but assume anything smaller than eight bytes is
-+	 * broken.
-+	 */
-+	if (port->interrupt_out_size < 8)
-+		return -EINVAL;
-+
- 	priv = kzalloc(sizeof(struct cypress_private), GFP_KERNEL);
- 	if (!priv)
- 		return -ENOMEM;
+-	list_del(&region->list);
+ 	kfree(region);
+ }
+ 
+@@ -197,7 +196,7 @@ static void damon_sysfs_scheme_regions_rm_dirs(
+ 	struct damon_sysfs_scheme_region *r, *next;
+ 
+ 	list_for_each_entry_safe(r, next, &regions->regions_list, list) {
+-		/* release function deletes it from the list */
++		list_del(&r->list);
+ 		kobject_put(&r->kobj);
+ 		regions->nr_regions--;
+ 	}
+@@ -2186,14 +2185,15 @@ static int damon_sysfs_before_damos_apply(struct damon_ctx *ctx,
+ 	region = damon_sysfs_scheme_region_alloc(r);
+ 	if (!region)
+ 		return 0;
+-	list_add_tail(&region->list, &sysfs_regions->regions_list);
+-	sysfs_regions->nr_regions++;
+ 	if (kobject_init_and_add(&region->kobj,
+ 				&damon_sysfs_scheme_region_ktype,
+ 				&sysfs_regions->kobj, "%d",
+ 				damon_sysfs_schemes_region_idx++)) {
+ 		kobject_put(&region->kobj);
++		return 0;
+ 	}
++	list_add_tail(&region->list, &sysfs_regions->regions_list);
++	sysfs_regions->nr_regions++;
+ 	return 0;
+ }
+ 
 -- 
 2.53.0
 
