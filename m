@@ -1,536 +1,164 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from TYVP286CU001.outbound.protection.outlook.com (mail-japaneastazon11011060.outbound.protection.outlook.com [52.101.125.60])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56C4A356768
-	for <stable@vger.kernel.org>; Thu,  4 Jun 2026 10:57:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780570674; cv=none; b=noZe7SqEWHdsYUP1YZr+M/rRvvA1+4hcwZ8Wo4Q0PSrlQJkXhtcIja51ydJvQpj/I5gGA25bcCOhH1e/zE3eaHDBGU0CPgrjZaoBSFXW6cDm0DzsjjZ0G3S0eo1FcX7r++CtL0lhO5owxGxxZZ/Eg7OuSqofWQzCoRexO7+axSU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780570674; c=relaxed/simple;
-	bh=vmsozhdIhbpHz8Jg3rqDoAaNQOKYfXpkU8c17jCdQiQ=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=jOmgSDFGrrOKDSblcfSmEmqNIsUGr1U554vu1AtKKxjNK7+3bcYjKJ0EVSwHiYHpv+G++XPh9LhY+0QHGL6xW33Mlrd8MIrs8XdVlzBlQm502eDGKQ9k2+wpnlrDPpauQ2+t5nqsXHvOSXwMng8HIxM28bkLTz6NeT7QIJ1xvuE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=mVaVe6eL; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C9C7406297;
+	Thu,  4 Jun 2026 10:58:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.125.60
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780570706; cv=fail; b=a8PppsLLlkguAiY++8GGfcfvwFj5EH5ip0UOpqKCFLmO+FqHMGnL4LYdXg0B8zcwixZluS+n8DNh4hmAzxD3PgBRUhiKF1rSY9Bg1bX6IDGeARZ5YK9Jz7my6hnmieLL/cWWsM+S+dD/8DyexAth1aUHPChh90aVptrTIW34NjI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780570706; c=relaxed/simple;
+	bh=ALAQkmzLaW5ZOQcOuF1abHMVG2SwIOSxYN9UgsN+Tbo=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=LijR5waAbdRke/RUEs8NTPHT4bzvtNY5sY9w0vKM/vqD1XwLKjzYQeWVhqehwYD+p58rbP5FCzKdCSDsjfD4LZWODEGi/ofd1lydlPTuww1l4syPkbvwS4vu4me1Unn1M/rv9pq1bVPbf2aNtiQI58NdxV2Iofnxsn815vZhcO8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=S71bIEXG; arc=fail smtp.client-ip=52.101.125.60
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="mVaVe6eL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6307F1F00898;
-	Thu,  4 Jun 2026 10:57:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1780570670;
-	bh=QfomgBp0aJ7XlH4H6VwdoD1pcnZmdB1yPqxAyReyylM=;
-	h=Subject:To:Cc:From:Date;
-	b=mVaVe6eLmpgn/aMxn88HXVmr/hTSMaNg3ph1UmaKeH3QKx+3GSSFNg3OT4IcyawYU
-	 ZgDFLwPOIgPUzRyEhXAUg+fMmY1XFVjBs51WTe4zfWXDhzOSPQR2bv99nhNuoni9nR
-	 jTcxcr5MSGVeIbWma5Xt7fkB7kyj1K6HZuOnBoYs=
-Subject: FAILED: patch "[PATCH] serial: zs: Convert to use a platform device" failed to apply to 6.6-stable tree
-To: macro@orcam.me.uk,gregkh@linuxfoundation.org
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Thu, 04 Jun 2026 12:56:52 +0200
-Message-ID: <2026060452-drop-down-throbbing-6473@gregkh>
+	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="S71bIEXG"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ylIdN8YpKebtG0AWofITH88aGpaJNFqcCZcLauFE5wZSWM4pecsOR53ta0WTCwlsDzanxq5vYGFHakjwLwdqn1ymzo0WP/SccwD6n+hGKJKFy4BGX59tBMOKBogC1KvzjMcdVe1CAjFPDiu/oku43qDePwlXS0iMHtj1tCKuSxE/YaH9htxV0k7xt+jNjV+ubV/VIpuB6lhlNaNJbIjyuqxf3Jp6/lYiCgKvI+BS/NrTl9FFecEiSr3ElJ/TGmQNza59+Hq1Z2sPIkatnYaVh3VeHRRJzNbDMkhU5mOyHBhzCW2GnEdF5zdOtNHk5FJ7aDqnXWU+yiFX6JkpUslDPw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ALAQkmzLaW5ZOQcOuF1abHMVG2SwIOSxYN9UgsN+Tbo=;
+ b=qb0cPKTJZ39SNa81p80IBUlxEg2LhHhZPWm/p8bgjLytqNXcgRDnY3ER7sFxcLMGL02W5vIc7MdNO/68E4sMgNnHcMousf00t7p9/5lVsqd7xUdiem4MHylxOze93ccnz1tSwjAnxAvz/GNue/A/xQ6zThFCpxEgQ9t2MupWJN+AySlH1fn+dAeXM0MR9pBOkFHoSgAnaB7CP71kIAHRTxoTQX7MNRmEv4K+BlBEnDla54Bmb9E8cFzAC24/ghYZ1LfLF0OJTWROognFYPv80YMukD4muYb8gM0lN3bdBIkNnRBl1unynE2ohXSEmUxGCyOC1LuNDADrFImjTCHiHg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ALAQkmzLaW5ZOQcOuF1abHMVG2SwIOSxYN9UgsN+Tbo=;
+ b=S71bIEXGWxxZUp6o0CPvPZ37xEJK/EqmLBU0xcvZfUb2gx+UuBiiBGg4HB5gQC4TC9bMC1bRNb/+UOOor65JeVLrTGc6segNtjTsGgVlOLiTP8E48U2x/KS+NrfiJ42OW586rLM4dovt+eLtefdQsLC52TOBzv17hKHfql51d7E=
+Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com (2603:1096:400:3d0::7)
+ by TY7PR01MB14909.jpnprd01.prod.outlook.com (2603:1096:405:252::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.15; Thu, 4 Jun 2026
+ 10:58:21 +0000
+Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com
+ ([fe80::87d1:4928:d55:97de]) by TY3PR01MB11346.jpnprd01.prod.outlook.com
+ ([fe80::87d1:4928:d55:97de%4]) with mapi id 15.21.0092.006; Thu, 4 Jun 2026
+ 10:58:21 +0000
+From: Biju Das <biju.das.jz@bp.renesas.com>
+To: geert <geert@linux-m68k.org>, Claudiu Beznea <claudiu.beznea@kernel.org>
+CC: "geert+renesas@glider.be" <geert+renesas@glider.be>, "linusw@kernel.org"
+	<linusw@kernel.org>, "robh@kernel.org" <robh@kernel.org>,
+	"krzk+dt@kernel.org" <krzk+dt@kernel.org>, "conor+dt@kernel.org"
+	<conor+dt@kernel.org>, magnus.damm <magnus.damm@gmail.com>, Prabhakar Mahadev
+ Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>, Claudiu.Beznea
+	<claudiu.beznea@tuxon.dev>, "linux-renesas-soc@vger.kernel.org"
+	<linux-renesas-soc@vger.kernel.org>, "linux-gpio@vger.kernel.org"
+	<linux-gpio@vger.kernel.org>, "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, Claudiu Beznea
+	<claudiu.beznea.uj@bp.renesas.com>, "stable@vger.kernel.org"
+	<stable@vger.kernel.org>
+Subject: RE: [PATCH v3 1/6] pinctrl: renesas: rzg2l: Use
+ raw_spinlock_irqsave() on power source update
+Thread-Topic: [PATCH v3 1/6] pinctrl: renesas: rzg2l: Use
+ raw_spinlock_irqsave() on power source update
+Thread-Index: AQHc82wIl3xaircai06rtQdp8q6PcrYuJ9KAgAASdPA=
+Date: Thu, 4 Jun 2026 10:58:21 +0000
+Message-ID:
+ <TY3PR01MB11346903E1B762B66EDB8CB8486102@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+References: <20260603151642.4075678-1-claudiu.beznea@kernel.org>
+ <20260603151642.4075678-2-claudiu.beznea@kernel.org>
+ <CAMuHMdU_T=G7os6KBG6xTnphnhQ9pQtd88BUkg61S7286bZmFw@mail.gmail.com>
+In-Reply-To:
+ <CAMuHMdU_T=G7os6KBG6xTnphnhQ9pQtd88BUkg61S7286bZmFw@mail.gmail.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TY3PR01MB11346:EE_|TY7PR01MB14909:EE_
+x-ms-office365-filtering-correlation-id: b47f3116-2031-4a30-93fe-08dec2283144
+x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|376014|7416014|366016|1800799024|11063799006|56012099006|4143699003|18002099003|22082099003|38070700021;
+x-microsoft-antispam-message-info:
+ YNY1TtbAGImaFIEJXzyVjOBqQV4Fk8BrZcJoXJ5mCuW0kDIpa8Yfpc0KQTRgXijCsIGq/YKBMauk7Wb3uzRA7hckgW4HBDhxS/A0RWRaLDa1oW99ggigyTENf1XzeIhN3QuHpo6UnUQffeW0BIUexXsXYBTN7RDX3J4cwGF8WyumRgVN0AJIxbfdE7huiB3rVrKtkeqf50YnOYEgfbWjN6MTIzGDqVsoAOlb5JoASTHMiEFaMc4VQGX29vQU6sIX4O2bUwj2m85G7pTFjw7hzW4qnIss4fWswSEguKzfkj4lTtFuUGAvGAZBPS89xq1hL833bqfRhJ7asTrT3tboneXa94LWW52stBAsKe/3YodSa9kUvsNUKrUs9rwguWKXnBevJjjPpjTszghwXSYFzAN2/iI03mBAi6Rp1BcFhJdYbR/BMCeqUyWvrgKRzAMsnanx9C6LuGFgeUP+Xw/sD4zF7DmS/2bFf9SjW3E1wH46cXmBOrFhNfjC0zGy3LwT2WpDS+CHqACXJxFwZTbfXpschyujAXGfDBiv7Z532yjYmNfG23Audzx565cACUGb38wUvdBCd1BGfPvrAph5V0Oxmh0+44KKjVGj0+i2ZZgaKYg4W2nnA0514EPdv6lW3SjYdD8PmzD8uRUdZiCuaPGeMdohTx4HoU2aVKU15fJ5DYX5TkDGvCMwcEuPYS4IferNo/CXZEZ0lz7l+OaLpIGAZwsQyIxw9WQoN+Swkl7Izf8mRWVpu2BI5CQ2xsO1
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY3PR01MB11346.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(366016)(1800799024)(11063799006)(56012099006)(4143699003)(18002099003)(22082099003)(38070700021);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?b0FVTTZMcmxBVVVaNTMxaDc1YXZJaTg1eGRnMUxaK3F4ODVnQStGQTltZkRO?=
+ =?utf-8?B?N0VCSG9WZFhQV3ZsMmhybFVrbXRQV2FkUXc3K1p5MlNsY1pGbktvS3RsczIy?=
+ =?utf-8?B?SERhMDVMSll4aHJ2WTAyNk50bDVCUzhTeVBGUzRiZXdxNnZrcEFKcUs1ckJq?=
+ =?utf-8?B?ckFtOXYwOFcydmEzTGRkUHJuMW1keWNXUkN2SkJXdW5OUUNYblJROGdqdDVT?=
+ =?utf-8?B?UU9LRGRod3R2M2t6ak5zSGNSenNiR29FSitjYWlGTHJqR0s0V3ZRN0Q4RWFh?=
+ =?utf-8?B?cVlGMjlpMXNmMVArLzdld20vck16UG4wMVVLTUtKS0M0QU5KcG4yNVFmRm1r?=
+ =?utf-8?B?OWoyRTNYNS9DQjFPRlhhWXR5ZjlMMUdERUxuVlY5QlBBMlp6WmdwaXFYaXZU?=
+ =?utf-8?B?emRlcWtpNDd3WHRvL25GVkMzcVl0bGh2N3JNYlplcHZKcyt3WEYvM2pCOEIz?=
+ =?utf-8?B?Z1F5Y1BZNXZhS29FdlBJdElYQXVTU3BwVk50QkU1VUdzRzAyZjdmbHU0NEw0?=
+ =?utf-8?B?eldaeHJQRXo1V2UvbkVTN0lLUVdYS0R4SzJ3WjJZNFdnZVowQm96UW9FcFRC?=
+ =?utf-8?B?K1dNZTVrSjVVZks3cDJ0SkhSSUk1eFpzTi9uNExmd2g0aUc3OENYQzYzdlMw?=
+ =?utf-8?B?aXl1SHQ4UWE1T0ptSy9KakpadjFNbFBuTk5uLzBsNUsyQm9vNWhNQ1RpZXdX?=
+ =?utf-8?B?OVlsV2d6ekkyb2JJb1dLdGNPcXByT0JyOUduMXNtYjFhV0lmL2diczN6REZU?=
+ =?utf-8?B?ZWJrcE9kVmw5SDllbk92VHRDeTd3WmRBOTdRbjMxOXE3dGFzbGVUM1EzSzhI?=
+ =?utf-8?B?L0tIWE9DUkViTFBwdmRyMnBaU2dKRTVtU2VpR1N0VDBDYmtudU1vRmRQNVo1?=
+ =?utf-8?B?VU5XS25sZlhiZnltUGlSRWZScitIT1lSUzBGNkJMMGhYV3RMSDdzV1NFTlRX?=
+ =?utf-8?B?TExaT2htd2owTEQ1dW5YZGRtNUplWmI2dUhpOS9GWW9zb3FHTER1aHd3bzgz?=
+ =?utf-8?B?cEpDbVlaM1VHZ212T0tIeGgxWnIyS24rK2tReTgxdVlkb1U3M0hNNlAxYktN?=
+ =?utf-8?B?MFpxWEFIUkxUb3pvaTYwMERyNCt0YzEydFBhUnBXZHVFTGF2d1pJWU5xakl4?=
+ =?utf-8?B?QzNKWWtKZi9Wb3dsdFVKVmh2QmFMa3ZhVE1vektHVk5XQ1p5VnM1VElnRElZ?=
+ =?utf-8?B?Q3pnOEl0L0xVVWRQR0NSZ09zOHVLbVZ3WU02anlDdzBMV0Zod3RUM0ZGbTU2?=
+ =?utf-8?B?Sy9IQTRjR040ZUx6anB4WERidEJrWXpCQ0NPT3dYZzhsRmpxOWdKQnRlYmpN?=
+ =?utf-8?B?a1hBN3VyTGhrTm1TRWJ0UHY0N2lFUGdLdGk0ejZzcG1xRTZXY2h5WThOd1JR?=
+ =?utf-8?B?aUpxUjY3MnRzTmZ2TjdvWGJ0S1g4WWlMaUo5Z1pmVXhsWVpUZEFDeWxVa1dV?=
+ =?utf-8?B?NS9LMUVTcXdoRnJPeFR4YVlSeTQwcnZaeXpZMUp5aUtxdm40bk9KQk8vN0ND?=
+ =?utf-8?B?SG1FTlZKVzZ0ZXFadktkZFdyV09wUEU3dlg1UEtCMDZDcnlIeEJDVThZM0Rw?=
+ =?utf-8?B?cnlUdWU0SjRLRTdNNTIxSERDWUZCamJpay9oYWJCU2o4QTAvaHhWRVpzcWYy?=
+ =?utf-8?B?VXZhYncza1RRT0cyWFRTUEZ1YzNBd3h4MUtKeERwL0ZCZTJuQlduL1FGNHVL?=
+ =?utf-8?B?aDg5ZGlBWkQ0eU4xd2xtdjNWQ1lsNnNlT1JxRjlLNDBrR25TdUVmaGs3MVdp?=
+ =?utf-8?B?aDJwajQxbUZuY3JyV0VzMUVDcGZDWWtkcm03YzJPdS9zNzM2Zy9XaU5lc2p2?=
+ =?utf-8?B?YXE5ZGRNKy9hVVFUeHdLRHltM1VrYnhJUzJJanRTY3J2c3JmSWlQRGhYc1lG?=
+ =?utf-8?B?czFGYVRCV1V1dythcnN2UW16MXFFRDRlb0FzYjhoSjBqdnJXYk5lbTJ6ckxq?=
+ =?utf-8?B?WFBJbEJpV0x0OUJ1bWw0dy9mRnNIb1BJWmMxL0psV25FNkdOYmlDUnpoakkx?=
+ =?utf-8?B?SVdOdVF5TW5LWENHNUhDeFl5aDhidExJWElLUVlwWUdQOFVCNWRuR1pzWUFO?=
+ =?utf-8?B?UlJVWS9ERWdHOVJrWTRtQUE2SG1qY3ZmajY5eGlBQ2RWTlBKWHA4anVuR0Rm?=
+ =?utf-8?B?WkltVG1LcS80ZkNNWUIrRUJvcnRUSjBtcDJZN1Y2MnNaVFV1bGpqc1lrb3Iv?=
+ =?utf-8?B?N1YzZURDN3dCWFNrb3kzTjlGWGxoOS91VnpKeGJwQ1FKNEtac21TSEVjc2FJ?=
+ =?utf-8?B?QVV4d3VoN012WWZ3SFQ4Q0FBdkE0My9oQVNyTXpkUmFUVkZjK1FuZVhYM1JN?=
+ =?utf-8?B?ZDVIVmExbTMwZVI0akF2U20xdndWcllDY3MybysraEx5RXE0TnMrQT09?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11346.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b47f3116-2031-4a30-93fe-08dec2283144
+X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Jun 2026 10:58:21.3979
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: dC+ivkIuwIyplAy0b4y3RQQmMAbDdDUt0R3s+QZyCm2PpTAzCeYCF9BtPgri5bwaYR5PJTU/lkk/5CByrMwP93CGPzKYzIJ9tRMzf86k3c0=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY7PR01MB14909
 
-
-The patch below does not apply to the 6.6-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
-
-To reproduce the conflict and resubmit, you may use the following commands:
-
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
-git checkout FETCH_HEAD
-git cherry-pick -x 7cac59d08a73cb866ec51a483a6f3fe0f531947c
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026060452-drop-down-throbbing-6473@gregkh' --subject-prefix 'PATCH 6.6.y' HEAD^..
-
-Possible dependencies:
-
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 7cac59d08a73cb866ec51a483a6f3fe0f531947c Mon Sep 17 00:00:00 2001
-From: "Maciej W. Rozycki" <macro@orcam.me.uk>
-Date: Wed, 6 May 2026 23:42:52 +0100
-Subject: [PATCH] serial: zs: Convert to use a platform device
-
-Prevent a crash from happening as the first serial port is initialised:
-
-  Console: switching to mono frame buffer device 160x64
-  fb0: PMAG-AA frame buffer device at tc0
-  DECstation Z85C30 serial driver version 0.10
-  CPU 0 Unable to handle kernel paging request at virtual address 0000002c, epc == 803ab00c, ra == 803aafe0
-  Oops[#1]:
-  CPU: 0 PID: 1 Comm: swapper Not tainted 6.4.0-rc3-00031-g84a9582fd203-dirty #57
-  $ 0   : 00000000 10012c00 803aaeb0 00000000
-  $ 4   : 80e12f60 80e12f50 80e12f58 81000030
-  $ 8   : 00000000 805ff37c 00000000 33433538
-  $12   : 65732030 00000006 80c2915d 6c616972
-  $16   : 80e12f00 807b7630 00000000 00000000
-  $20   : 00000004 00000348 000001a0 807623b8
-  $24   : 00000018 00000000
-  $28   : 80c24000 80c25d60 8078b148 803aafe0
-  Hi    : 00000000
-  Lo    : 00000000
-  epc   : 803ab00c serial_base_ctrl_add+0x78/0xf4
-  ra    : 803aafe0 serial_base_ctrl_add+0x4c/0xf4
-  Status: 10012c03	KERNEL EXL IE
-  Cause : 00000008 (ExcCode 02)
-  BadVA : 0000002c
-  PrId  : 00000440 (R4400SC)
-  Modules linked in:
-  Process swapper (pid: 1, threadinfo=(ptrval), task=(ptrval), tls=00000000)
-  Stack : 80760000 00000cc0 00400044 00400040 803aa02c 80d61ab8 00000000 807b7630
-          80760000 807623b8 807b7628 803aa644 80386998 00000000 80e17780 80220f68
-          80e17780 80d61ab8 80c17d80 80e17780 80e17780 8063c798 80e17780 80383fa0
-          00000010 80e17780 00000000 80386998 807a0000 00000000 00400040 8038f848
-          807623b8 80d61ab8 00000004 80e17780 00000000 803a68e4 80c25e2c 803bb884
-          ...
-  Call Trace:
-  [<803ab00c>] serial_base_ctrl_add+0x78/0xf4
-  [<803aa644>] serial_core_register_port+0x174/0x69c
-  [<8077e9ac>] zs_init+0xc8/0xfc
-  [<800404d4>] do_one_initcall+0x40/0x2ac
-  [<8076cecc>] kernel_init_freeable+0x1e4/0x270
-  [<80605bec>] kernel_init+0x20/0x108
-  [<800431e8>] ret_from_kernel_thread+0x14/0x1c
-
-  Code: 2442aeb0  ae120024  ae0200d0 <8c67002c> 50e00001  8c670000  3c06806e  3c05806e  afb30010
-
-  ---[ end trace 0000000000000000 ]---
-
-(report at the offending commit) -- where a pointer is dereferenced that
-has been derived from a null pointer to the port's parent device.
-
-Since no device is available with legacy probing and it's not anymore a
-preferable way to discover devices anyway, switch the driver to using a
-platform device and use it as the port's parent device.  Update resource
-handling accordingly and only request the actual span of addresses used
-within the slot, which will have had its resource already requested by
-generic platform device code.
-
-Use platform_driver_probe() not just because SCC devices are fixed with
-solder on board and not straightforward to remove, but foremost because
-the associated TTY's major device number is the same as used by the dz
-driver and the first driver to claim it will prevent the other one from
-using it.  Either one DZ device or some SCC devices will be present in a
-given system but never both at a time, and therefore we want the major
-device number to be claimed by the first driver to actually successfully
-bind to its device and platform_driver_probe() is a way to fulfil that.
-
-An unfortunate consequence of the switch to a platform device is we now
-hand the console over from the bootconsole much later in the bootstrap.
-The firmware console handler appears good enough though to work so late
-and in particular with interrupts enabled.
-
-Since there is one way only remaining to reach zs_reset() now, remove
-the port initialisation marker as no longer needed and go through the
-channel reset unconditionally.
-
-Fixes: 84a9582fd203 ("serial: core: Start managing serial controllers to enable runtime PM")
-Signed-off-by: Maciej W. Rozycki <macro@orcam.me.uk>
-Cc: stable@vger.kernel.org # needs to use .remove_new for <= 6.10
-Link: https://patch.msgid.link/alpine.DEB.2.21.2605062328480.46195@angie.orcam.me.uk
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-
-diff --git a/arch/mips/dec/platform.c b/arch/mips/dec/platform.c
-index fdecc91ee22a..723ce16cbfc0 100644
---- a/arch/mips/dec/platform.c
-+++ b/arch/mips/dec/platform.c
-@@ -13,6 +13,7 @@
- #include <asm/bootinfo.h>
- 
- #include <asm/dec/interrupts.h>
-+#include <asm/dec/ioasic_addrs.h>
- #include <asm/dec/kn01.h>
- #include <asm/dec/kn02.h>
- #include <asm/dec/system.h>
-@@ -53,10 +54,37 @@ static struct platform_device *dec_dz_devices[] __initdata = {
- 	&dec_dz_device,
- };
- 
-+static struct resource dec_zs_resources[][2] = {
-+	{
-+		{ .name = "scc0", .flags = IORESOURCE_MEM, },
-+		{ .name = "scc0", .flags = IORESOURCE_IRQ, },
-+	},
-+	{
-+		{ .name = "scc1", .flags = IORESOURCE_MEM, },
-+		{ .name = "scc1", .flags = IORESOURCE_IRQ, },
-+	},
-+};
-+
-+static struct platform_device dec_zs_device[] = {
-+	{
-+		.name = "zs",
-+		.id = 0,
-+		.resource = dec_zs_resources[0],
-+		.num_resources = ARRAY_SIZE(dec_zs_resources[0]),
-+	},
-+	{
-+		.name = "zs",
-+		.id = 1,
-+		.resource = dec_zs_resources[1],
-+		.num_resources = ARRAY_SIZE(dec_zs_resources[1]),
-+	},
-+};
-+
- static int __init dec_add_devices(void)
- {
--	int ret1, ret2;
--	int num_dz;
-+	struct platform_device *dec_zs_devices[ARRAY_SIZE(dec_zs_device)];
-+	int ret1, ret2, ret3;
-+	int num_dz, num_zs;
- 	int irq, i;
- 
- 	dec_rtc_resources[0].start = RTC_PORT(0);
-@@ -84,10 +112,36 @@ static int __init dec_add_devices(void)
- 	}
- 	num_dz = i;
- 
-+	i = 0;
-+	irq = dec_interrupt[DEC_IRQ_SCC0];
-+	if (irq >= 0) {
-+		resource_size_t base = dec_kn_slot_base + IOASIC_SCC0;
-+
-+		dec_zs_device[i].resource[0].start = base;
-+		dec_zs_device[i].resource[0].end = base + dec_kn_slot_size - 1;
-+		dec_zs_device[i].resource[1].start = irq;
-+		dec_zs_device[i].resource[1].end = irq;
-+		dec_zs_devices[i] = &dec_zs_device[i];
-+		i++;
-+	}
-+	irq = dec_interrupt[DEC_IRQ_SCC1];
-+	if (irq >= 0) {
-+		resource_size_t base = dec_kn_slot_base + IOASIC_SCC1;
-+
-+		dec_zs_device[i].resource[0].start = base;
-+		dec_zs_device[i].resource[0].end = base + dec_kn_slot_size - 1;
-+		dec_zs_device[i].resource[1].start = irq;
-+		dec_zs_device[i].resource[1].end = irq;
-+		dec_zs_devices[i] = &dec_zs_device[i];
-+		i++;
-+	}
-+	num_zs = i;
-+
- 	ret1 = platform_device_register(&dec_rtc_device);
- 	ret2 = IS_ENABLED(CONFIG_32BIT) ?
- 	       platform_add_devices(dec_dz_devices, num_dz) : 0;
--	return ret1 ? ret1 : ret2;
-+	ret3 = platform_add_devices(dec_zs_devices, num_zs);
-+	return ret1 ? ret1 : ret2 ? ret2 : ret3;
- }
- 
- device_initcall(dec_add_devices);
-diff --git a/drivers/tty/serial/zs.c b/drivers/tty/serial/zs.c
-index 71cab10a33c3..8f92b4129a38 100644
---- a/drivers/tty/serial/zs.c
-+++ b/drivers/tty/serial/zs.c
-@@ -56,6 +56,7 @@
- #include <linux/kernel.h>
- #include <linux/module.h>
- #include <linux/major.h>
-+#include <linux/platform_device.h>
- #include <linux/serial.h>
- #include <linux/serial_core.h>
- #include <linux/spinlock.h>
-@@ -66,10 +67,6 @@
- 
- #include <linux/atomic.h>
- 
--#include <asm/dec/interrupts.h>
--#include <asm/dec/ioasic_addrs.h>
--#include <asm/dec/system.h>
--
- #include "zs.h"
- 
- 
-@@ -79,7 +76,7 @@ MODULE_LICENSE("GPL");
- 
- 
- static char zs_name[] __initdata = "DECstation Z85C30 serial driver version ";
--static char zs_version[] __initdata = "0.10";
-+static char zs_version[] __initdata = "0.11";
- 
- /*
-  * It would be nice to dynamically allocate everything that
-@@ -98,12 +95,8 @@ static char zs_version[] __initdata = "0.10";
- 
- #define to_zport(uport) container_of(uport, struct zs_port, port)
- 
--struct zs_parms {
--	resource_size_t scc[ZS_NUM_SCCS];
--	int irq[ZS_NUM_SCCS];
--};
--
- static struct zs_scc zs_sccs[ZS_NUM_SCCS];
-+static struct uart_driver zs_reg;
- 
- /*
-  * Set parameters in WR5, WR12, WR13 such as not to interfere
-@@ -839,16 +832,15 @@ static void zs_reset(struct zs_port *zport)
- 
- 	spin_lock_irqsave(&scc->zlock, flags);
- 	irq = !irqs_disabled_flags(flags);
--	if (!zport->initialised) {
--		/* Reset the pointer first, just in case...  */
--		read_zsreg(zport, R0);
--		/* And let the current transmission finish.  */
--		zs_line_drain(zport, irq);
--		write_zsreg(zport, R9, zport == zport_a ? CHRA : CHRB);
--		udelay(10);
--		write_zsreg(zport, R9, 0);
--		zport->initialised = 1;
--	}
-+
-+	/* Reset the pointer first, just in case...  */
-+	read_zsreg(zport, R0);
-+	/* And let the current transmission finish.  */
-+	zs_line_drain(zport, irq);
-+	write_zsreg(zport, R9, zport == zport_a ? CHRA : CHRB);
-+	udelay(10);
-+	write_zsreg(zport, R9, 0);
-+
- 	load_zsregs(zport, zport->regs, irq);
- 	spin_unlock_irqrestore(&scc->zlock, flags);
- }
-@@ -1055,63 +1047,62 @@ static const struct uart_ops zs_ops = {
- /*
-  * Initialize Z85C30 port structures.
-  */
--static int __init zs_probe_sccs(void)
-+static int __init zs_probe(struct platform_device *pdev)
- {
--	static int probed;
--	struct zs_parms zs_parms;
--	int chip, side, irq;
--	int n_chips = 0;
-+	struct resource *mem_resource, *irq_resource;
-+	int chip, side;
- 	int i;
- 
--	if (probed)
--		return 0;
-+	mem_resource = platform_get_resource(pdev, IORESOURCE_MEM, 0);
-+	irq_resource = platform_get_resource(pdev, IORESOURCE_IRQ, 0);
-+	if (!mem_resource || !irq_resource)
-+		return -ENODEV;
- 
--	irq = dec_interrupt[DEC_IRQ_SCC0];
--	if (irq >= 0) {
--		zs_parms.scc[n_chips] = IOASIC_SCC0;
--		zs_parms.irq[n_chips] = dec_interrupt[DEC_IRQ_SCC0];
--		n_chips++;
--	}
--	irq = dec_interrupt[DEC_IRQ_SCC1];
--	if (irq >= 0) {
--		zs_parms.scc[n_chips] = IOASIC_SCC1;
--		zs_parms.irq[n_chips] = dec_interrupt[DEC_IRQ_SCC1];
--		n_chips++;
--	}
--	if (!n_chips)
--		return -ENXIO;
-+	chip = pdev->id;
-+	spin_lock_init(&zs_sccs[chip].zlock);
-+	for (side = 0; side < ZS_NUM_CHAN; side++) {
-+		struct zs_port *zport = &zs_sccs[chip].zport[side];
-+		struct uart_port *uport = &zport->port;
- 
--	probed = 1;
-+		zport->scc	= &zs_sccs[chip];
-+		zport->clk_mode	= 16;
- 
--	for (chip = 0; chip < n_chips; chip++) {
--		spin_lock_init(&zs_sccs[chip].zlock);
--		for (side = 0; side < ZS_NUM_CHAN; side++) {
--			struct zs_port *zport = &zs_sccs[chip].zport[side];
--			struct uart_port *uport = &zport->port;
-+		uport->dev	= &pdev->dev;
-+		uport->has_sysrq = IS_ENABLED(CONFIG_SERIAL_ZS_CONSOLE);
-+		uport->irq	= irq_resource->start;
-+		uport->uartclk	= ZS_CLOCK;
-+		uport->fifosize	= 1;
-+		uport->iotype	= UPIO_MEM;
-+		uport->flags	= UPF_BOOT_AUTOCONF;
-+		uport->ops	= &zs_ops;
-+		uport->line	= chip * ZS_NUM_CHAN + side;
-+		uport->mapbase	= mem_resource->start +
-+				  (side ^ ZS_CHAN_B) * ZS_CHAN_IO_SIZE;
- 
--			zport->scc	= &zs_sccs[chip];
--			zport->clk_mode	= 16;
-+		for (i = 0; i < ZS_NUM_REGS; i++)
-+			zport->regs[i] = zs_init_regs[i];
- 
--			uport->has_sysrq = IS_ENABLED(CONFIG_SERIAL_ZS_CONSOLE);
--			uport->irq	= zs_parms.irq[chip];
--			uport->uartclk	= ZS_CLOCK;
--			uport->fifosize	= 1;
--			uport->iotype	= UPIO_MEM;
--			uport->flags	= UPF_BOOT_AUTOCONF;
--			uport->ops	= &zs_ops;
--			uport->line	= chip * ZS_NUM_CHAN + side;
--			uport->mapbase	= dec_kn_slot_base +
--					  zs_parms.scc[chip] +
--					  (side ^ ZS_CHAN_B) * ZS_CHAN_IO_SIZE;
--
--			for (i = 0; i < ZS_NUM_REGS; i++)
--				zport->regs[i] = zs_init_regs[i];
--		}
-+		if (uart_add_one_port(&zs_reg, uport))
-+			uport->dev = NULL;
- 	}
- 
- 	return 0;
- }
- 
-+static void __exit zs_remove(struct platform_device *pdev)
-+{
-+	int chip, side;
-+
-+	chip = pdev->id;
-+	for (side = ZS_NUM_CHAN - 1; side >= 0; side--) {
-+		struct zs_port *zport = &zs_sccs[chip].zport[side];
-+		struct uart_port *uport = &zport->port;
-+
-+		if (uport->dev)
-+			uart_remove_one_port(&zs_reg, uport);
-+	}
-+}
-+
- 
- #ifdef CONFIG_SERIAL_ZS_CONSOLE
- static void zs_console_putchar(struct uart_port *uport, unsigned char ch)
-@@ -1192,20 +1183,14 @@ static int __init zs_console_setup(struct console *co, char *options)
- 	int bits = 8;
- 	int parity = 'n';
- 	int flow = 'n';
--	int ret;
--
--	ret = zs_map_port(uport);
--	if (ret)
--		return ret;
--
--	zs_reset(zport);
- 
-+	if (!zport->scc)
-+		return -ENODEV;
- 	if (options)
- 		uart_parse_options(options, &baud, &parity, &bits, &flow);
- 	return uart_set_options(uport, co, baud, parity, bits, flow);
- }
- 
--static struct uart_driver zs_reg;
- static struct console zs_console = {
- 	.name	= "ttyS",
- 	.write	= zs_console_write,
-@@ -1216,23 +1201,6 @@ static struct console zs_console = {
- 	.data	= &zs_reg,
- };
- 
--/*
-- *	Register console.
-- */
--static int __init zs_serial_console_init(void)
--{
--	int ret;
--
--	ret = zs_probe_sccs();
--	if (ret)
--		return ret;
--	register_console(&zs_console);
--
--	return 0;
--}
--
--console_initcall(zs_serial_console_init);
--
- #define SERIAL_ZS_CONSOLE	&zs_console
- #else
- #define SERIAL_ZS_CONSOLE	NULL
-@@ -1248,47 +1216,31 @@ static struct uart_driver zs_reg = {
- 	.cons			= SERIAL_ZS_CONSOLE,
- };
- 
-+static struct platform_driver zs_driver = {
-+	.remove = __exit_p(zs_remove),
-+	.driver = { .name = "zs" },
-+};
-+
- /* zs_init inits the driver. */
- static int __init zs_init(void)
- {
--	int i, ret;
-+	int ret;
- 
- 	pr_info("%s%s\n", zs_name, zs_version);
- 
--	/* Find out how many Z85C30 SCCs we have.  */
--	ret = zs_probe_sccs();
--	if (ret)
--		return ret;
--
- 	ret = uart_register_driver(&zs_reg);
- 	if (ret)
- 		return ret;
-+	ret = platform_driver_probe(&zs_driver, zs_probe);
-+	if (ret)
-+		uart_unregister_driver(&zs_reg);
- 
--	for (i = 0; i < ZS_NUM_SCCS * ZS_NUM_CHAN; i++) {
--		struct zs_scc *scc = &zs_sccs[i / ZS_NUM_CHAN];
--		struct zs_port *zport = &scc->zport[i % ZS_NUM_CHAN];
--		struct uart_port *uport = &zport->port;
--
--		if (zport->scc)
--			uart_add_one_port(&zs_reg, uport);
--	}
--
--	return 0;
-+	return ret;
- }
- 
- static void __exit zs_exit(void)
- {
--	int i;
--
--	for (i = ZS_NUM_SCCS * ZS_NUM_CHAN - 1; i >= 0; i--) {
--		struct zs_scc *scc = &zs_sccs[i / ZS_NUM_CHAN];
--		struct zs_port *zport = &scc->zport[i % ZS_NUM_CHAN];
--		struct uart_port *uport = &zport->port;
--
--		if (zport->scc)
--			uart_remove_one_port(&zs_reg, uport);
--	}
--
-+	platform_driver_unregister(&zs_driver);
- 	uart_unregister_driver(&zs_reg);
- }
- 
-diff --git a/drivers/tty/serial/zs.h b/drivers/tty/serial/zs.h
-index 8e51f847bc03..e0d3c189b33f 100644
---- a/drivers/tty/serial/zs.h
-+++ b/drivers/tty/serial/zs.h
-@@ -22,7 +22,6 @@
- struct zs_port {
- 	struct zs_scc	*scc;			/* Containing SCC.  */
- 	struct uart_port port;			/* Underlying UART.  */
--	int		initialised;		/* For the console port.  */
- 
- 	int		clk_mode;		/* May be 1, 16, 32, or 64.  */
- 
-
+SGkgR2VlcnQvQ2xhdWRpdSwNCg0KPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9t
+OiBHZWVydCBVeXR0ZXJob2V2ZW4gPGdlZXJ0QGxpbnV4LW02OGsub3JnPg0KPiBTZW50OiAwNCBK
+dW5lIDIwMjYgMTA6NDkNCj4gU3ViamVjdDogUmU6IFtQQVRDSCB2MyAxLzZdIHBpbmN0cmw6IHJl
+bmVzYXM6IHJ6ZzJsOiBVc2UgcmF3X3NwaW5sb2NrX2lycXNhdmUoKSBvbiBwb3dlciBzb3VyY2Ug
+dXBkYXRlDQo+IA0KPiBPbiBXZWQsIDMgSnVuIDIwMjYgYXQgMTc6MTcsIENsYXVkaXUgQmV6bmVh
+IDxjbGF1ZGl1LmJlem5lYUBrZXJuZWwub3JnPiB3cm90ZToNCj4gPiBGcm9tOiBDbGF1ZGl1IEJl
+em5lYSA8Y2xhdWRpdS5iZXpuZWEudWpAYnAucmVuZXNhcy5jb20+DQo+ID4NCj4gPiBUaGUgcmVz
+dCBvZiB0aGUgZHJpdmVyIHVzZXMNCj4gPiByYXdfc3Bpbl9sb2NrX2lycXNhdmUoKS9yYXdfc3Bp
+bl91bmxvY2tfaXJxcmVzdG9yZSgpIGZvciBsb2NraW5nLiBUbw0KPiA+IGF2b2lkIGNvbmN1cnJl
+bmN5IGlzc3VlcyBvciBkZWFkbG9ja3MsIHVzZSByYXdfc3BpbmxvY2tfaXJxc2F2ZSgpIHZpYQ0K
+PiA+IHRoZSBzY29wZWRfZ3VhcmQoKSBoZWxwZXIgZm9yIHBvd2VyIHNvdXJjZSB1cGRhdGVzIGFz
+IHdlbGwuDQoNCkp1c3QgYSBxdWVzdGlvbiwgd2lsbCByemcybF9zZXRfcG93ZXJfc291cmNlKCkg
+Y2FsbGVkIGZyb20gSVJRIGNvbnRleHQ/DQoNClRoaXMgZHJpdmVyIGRvZXMgbm90IGhhdmUgSVJR
+LiBJZiBhbnkgY29uc3VtZXIgY2FsbHMgcnpnMmxfc2V0X3Bvd2VyX3NvdXJjZSgpDQppbiBJUlEg
+Y29udGVzdD8NCg0KSGF2ZSB3ZSBzZWVuIGFueSBzdWNoIGRlYWQgbG9ja3MvY29uY3VycmVuY3kg
+aXNzdWUgZHVyaW5nIGFueSB0ZXN0aW5nPw0KDQpDaGVlcnMsDQpCaWp1DQo=
