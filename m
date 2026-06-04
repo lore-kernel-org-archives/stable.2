@@ -1,43 +1,80 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D3102116F4
-	for <stable@vger.kernel.org>; Thu,  4 Jun 2026 16:51:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 803D239D3F1
+	for <stable@vger.kernel.org>; Thu,  4 Jun 2026 16:59:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780591864; cv=none; b=dEtQ8qlLUsqz+pQwzuAUduOBcEQ/iGYPGBYO/APs9F7fS+0AJWEqdquOY2t2LRK2e8ULixUQOt7F3hZD5I2k/Ke9N96Oyqcwgwz+itofjZHHc0IZiwMFEGy4spXuRonu+kiuArWHwgQuuL8yRa9qmpE+kLTMGR6cabz6TqKj5BE=
+	t=1780592379; cv=none; b=W0I33K1PVfp/rbGrD6qUOD5oA9SivQjH6jl5o1fL9uwN+rMf0Zp9CBiuw41DIXx/ONYVC0tK1b5UOfAOgas88ZFN+mKRb54Gz2PLx+hfGv8hM68yiYCMWEYl+k+QoV8vnE1QMCXhTRds8GXqLFAYo5+jTR0J3wAEX1TbolzL3Gw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780591864; c=relaxed/simple;
-	bh=a8UgwlT7jOTTnC3dSUlx2lm/6Uw0OW4vtIE2FnXl3bg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=joRv5fccaJkwcA7Ys0NiZiTRTsxZmOSRJF2apnzHfnDSGlhhY3EbKtqXpol8C3FTjgivQmnolfOcgAM0+MMjpU5I2KADVOALS9uRPnaxU1XF16h1wTq6PYEUxfLuiNjC8aYwW+4ORrgoYEO/uMcJNXWGN5fR4ZWMx/JN1w72MBk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kpvrUHG2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780592379; c=relaxed/simple;
+	bh=yUtTpJHdzEWbgTjsiuCj893qdVCNtyL0l8/2vu8sS4E=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ZVddIjXXkMrYjOpuiIcDwO8T1gcmxze9DPM/htJPhAxDICb5SiKNsNSqG8SlOgkhb6wjTvPtwJ9D8PcvsVF1Q/lMtdBPUE+MGj28zDI0BhIF85ISO4FI+1Qai6pcHhyS9ozRnCqlIPPZTWXTA75V7aBXu1eSegZO9xiQB4qxIhM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=l3azZzTf; arc=none smtp.client-ip=209.85.221.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kpvrUHG2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 350211F00893;
-	Thu,  4 Jun 2026 16:51:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780591862;
-	bh=wFyUds3bgA+9cGOjxE3fbAze7Ygq6iX6jXKUQH9YGRI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kpvrUHG2FvLdf3Oi1HiwI5EAzBNHJNefVf830bsOivdDpIg0rparguMfWAdxo88Jo
-	 ln6ZawwMu2bVdSZaVxDuSEAWJRVmprlTnoZNAJmjjw6bzSlh1gLuix5RR3nkhqOvVi
-	 3LjkoLENA5Hf+pDogZYYb3mZUVIuH3r7v5VNQAtqmEomtiYldm7YfBPQFbARZRxzGA
-	 NolaRgaJd+lop9rbxrbweaeVGBOxXmKQanAOLx/GAAS2sll27G9OqoMfPjkUFwL5oQ
-	 FHlHSCo5ZDImQEpibzU9xOzgOZle4YCqh0FXlkqo3cRQv5SHECJ+wdiG98/ScWfRy1
-	 8qSIkR1sKKcFg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Rodrigo Alencar <rodrigo.alencar@analog.com>,
-	Stable@vger.kernel.org,
-	Jonathan Cameron <jic23@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] iio: dac: ad5686: fix powerdown control on dual-channel devices
-Date: Thu,  4 Jun 2026 12:50:59 -0400
-Message-ID: <20260604165100.3876351-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026060442-rink-repose-7887@gregkh>
-References: <2026060442-rink-repose-7887@gregkh>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="l3azZzTf"
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-45ef779c1c2so681948f8f.1
+        for <stable@vger.kernel.org>; Thu, 04 Jun 2026 09:59:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780592376; x=1781197176; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=5pGoeEOr9RRtwxMbbZF4kryR7MSLvpeOOpDT4EcPNUk=;
+        b=l3azZzTf4EZCVX985MITEzwnHVrxpYoDZ+7GeOT75J6Yl7pzlRp9z8FUksGklfxSfO
+         FbyEgSyOH78cyvMnipX1G3pn16hEUjqzmp4K6lQ6+zxb4N3jp23zpFsE1dencmxyCm/V
+         jlLMQ/efXxRDXqhKS3khhnx02Oe4IqWSOFe9Oh5sWnQ0lnY0oOUFaX7qShd4hd9Ua/8/
+         /nACZ9JrUUSq5exUxtua1rkY09rzwdoVhnEyoKR46+KxmEM3CsSPfsH+U4oA8mttTjnf
+         4eh8J+T6uf3wTdxC8XE5fCV/PjNLBrTuM1dobmKR8diC3jADYl0Ihh2aLSkYC4k9tt6r
+         e/CA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780592376; x=1781197176;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=5pGoeEOr9RRtwxMbbZF4kryR7MSLvpeOOpDT4EcPNUk=;
+        b=hvMSOeqCwa4L7+QcJLOVz5o/CPFpeWHyD2m4zshZgZCZ7m6tjACkqXtwEc70qM6cUm
+         II+PBWEWiiOH634IEZluzxo4bAfFIEgvZJ84yBgCFKrWzvrbcsENOoe+YItgrXBJhqBA
+         qfxljRSHdnoEXNzcrRt5oBa85LnZ3AUIvUuylNGIeTnJJ67/7/7BkBoApYiJh02oB3YR
+         kEuk4Hc9DPFePH64mFh0kh2ouzbTawdUsTeaBX7fKw/20jXH5fWjwDOg3tMcRvy+IMuY
+         QcVu+c7OmxyeJvW27Eo76w8eauL2FiiILhehzjefN8mQJf03e4dqlA0xkZyljcJbdyeG
+         C7xA==
+X-Forwarded-Encrypted: i=1; AFNElJ8nc7gG1WntT3Tx4ucqjNP1a/UXa237Fdxs0jqhqZ0gdkdPrf9f/ev/HVyh8Ag0ZAoK1NRU3uU=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxbBZtgo260FOj/iXGI46i1rZT0nBMhh6o8jbVJntb1kpimXUOn
+	gxSeyYq+v/Xsg2ASlMYqJjv3f1K/Dd5ZayuGktL42OSrui0h16nk0S0X
+X-Gm-Gg: Acq92OEFQIIRfTwTtWStexbl3HzESh2JLumut8JdIWHmRWBqpkjn4S1p/9p2KSYJei5
+	lMym1GlSI3/AhC4RCNuTwnqBiFZ7I/pBZ8MrxX9+b923a9Q2FoeyMOfyIWv7reuIXTngaeRgLyX
+	Ihk8VOOU4Jj9FL89/mTRPYF6Ak5UZE1SP7qWQMrtKMeLTzh2MJ4pNR3FFcVL//eQ4dByte3jeDp
+	+J+IwY4Xbm3eD2mTzwiNxAedZbKiRWYwEzulgBIWSi9AYFKPNFXMNetA4eLn/bG4zF3lKnQR7IR
+	7io7saMoYQ17xK5Z7N+eGXde8RNGHjCpUmTdVD3pRL/N0QjC5RaolBx9WW/GIVHdtqGiatzYZW4
+	jwT8DOEBDl1F0YTrjyA8f18nF/t0wpYKmAogD+sdM0aeJqS7k6geJSgmRNboePyqbzvh4RKm5wS
+	Wflgj1zhqdak+rBQD5dU7SZyUGCt1F5SstNRXuIn2kizTGqiF9+c9K621vbdWHAEUXu3Y=
+X-Received: by 2002:adf:ef0a:0:b0:43d:7c1b:b8c7 with SMTP id ffacd0b85a97d-4602183267cmr11729522f8f.21.1780592375658;
+        Thu, 04 Jun 2026 09:59:35 -0700 (PDT)
+Received: from localhost.localdomain ([5.165.242.139])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4601f34413csm17376308f8f.21.2026.06.04.09.59.33
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 04 Jun 2026 09:59:35 -0700 (PDT)
+From: Anton Leontev <leontyevantony@gmail.com>
+To: netdev@vger.kernel.org
+Cc: linux-hyperv@vger.kernel.org,
+	haiyangz@microsoft.com,
+	kys@microsoft.com,
+	wei.liu@kernel.org,
+	decui@microsoft.com,
+	longli@microsoft.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	edumazet@google.com,
+	davem@davemloft.net,
+	stable@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Anton Leontev <leontyevantony@gmail.com>
+Subject: [PATCH net v3] hv_netvsc: use kmap_local_page in netvsc_copy_to_send_buf
+Date: Thu,  4 Jun 2026 19:59:38 +0300
+Message-ID: <20260604165938.32033-1-leontyevantony@gmail.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,133 +83,95 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+netvsc_copy_to_send_buf() copies page buffer entries into the VMBus
+send buffer using phys_to_virt() on the entry PFN. Entries for the
+RNDIS header and the skb linear data come from kmalloc'd memory and
+are always in the kernel direct map, but entries for skb fragments
+reference page cache or user pages, which on 32-bit x86 with
+CONFIG_HIGHMEM=y can live above the LOWMEM boundary. For such a page
+phys_to_virt() returns an address outside the direct map and the
+subsequent memcpy() faults on the transmit softirq path, which is
+fatal.
 
-[ Upstream commit 8aeaf25a85263a7a43357e16ad78ab969f6f8aeb ]
+Map the pages with kmap_local_page() instead, handling two properties
+of the page buffer entries:
 
-Fix powerdown control by using a proper bit shift for the powerdown mask
-values. During initialization, powerdown bits are initialized so that
-unused bits are set to 1 and the correct bit shift is used. Dual-channel
-devices use one-hot encoding in the address and that reflects on the
-position of the powerdown bits, which are not channel-index based
-for that case. Quad-channel devices also use one-hot encoding for the
-channel address but the result of log2(address) coincides with the channel
-index value. Mask as 0x3U is used rather than 0x3, because shift can reach
-value of 30 (last channel of a 16-channel device), which would mess with
-the sign bit. The issue was introduced when first adding support for
-dual-channel devices, which overlooked powerdown control differences.
+ - pb[i].pfn is a Hyper-V PFN at HV_HYP_PAGE_SIZE (4K) granularity,
+   not a native PFN. Reconstruct the physical address first and derive
+   the native page from it, so the mapping stays correct where
+   PAGE_SIZE > HV_HYP_PAGE_SIZE (e.g. arm64 with 64K pages).
 
-Fixes: 7dc8faeab3e3 ("iio: dac: ad5686: add support for AD5338R")
-Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
-Cc: <Stable@vger.kernel.org>
-Signed-off-by: Jonathan Cameron <jic23@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+ - Since commit 41a6328b2c55 ("hv_netvsc: Preserve contiguous PFN
+   grouping in the page buffer array"), an entry describes a full
+   physically contiguous fragment and pb[i].len can exceed PAGE_SIZE,
+   while kmap_local_page() maps a single page. Copy page by page,
+   splitting at native page boundaries.
+
+The copy path only handles packets smaller than the send section size
+(6144 bytes by default); larger packets take the cp_partial path where
+only the RNDIS header is copied. So entries here are bounded by the
+section size and a copy is split at most once on 4K-page systems. On
+!CONFIG_HIGHMEM configs kmap_local_page() folds to page_address() and
+no mapping work is added.
+
+Fixes: c25aaf814a63 ("hyperv: Enable sendbuf mechanism on the send path")
+Cc: stable@vger.kernel.org
+Signed-off-by: Anton Leontev <leontyevantony@gmail.com>
 ---
- drivers/iio/dac/ad5686.c | 46 +++++++++++++++++++++++++++++++---------
- 1 file changed, 36 insertions(+), 10 deletions(-)
+v3:
+ - Copy page by page: since 41a6328b2c55 a pb entry describes a full
+   contiguous fragment and pb[i].len can exceed PAGE_SIZE, while
+   kmap_local_page() maps a single page. Split copies at native page
+   boundaries.
+v2:
+ - Derive the native page and in-page offset from the physical
+   address instead of passing the Hyper-V 4K PFN to pfn_to_page(),
+   correct where PAGE_SIZE > 4K (e.g. arm64 64K pages).
 
-diff --git a/drivers/iio/dac/ad5686.c b/drivers/iio/dac/ad5686.c
-index 7d1b2b83172de9..7e41fa03d72dec 100644
---- a/drivers/iio/dac/ad5686.c
-+++ b/drivers/iio/dac/ad5686.c
-@@ -25,22 +25,37 @@ static const char * const ad5686_powerdown_modes[] = {
- 	"three_state"
- };
+I do not have a 32-bit HIGHMEM Hyper-V setup to exercise this path;
+testing help from the Hyper-V folks would be much appreciated.
+ drivers/net/hyperv/netvsc.c | 19 +++++++++++++++----
+ 1 file changed, 15 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/net/hyperv/netvsc.c b/drivers/net/hyperv/netvsc.c
+index 59e95341f9b1..4d319c50955e 100644
+--- a/drivers/net/hyperv/netvsc.c
++++ b/drivers/net/hyperv/netvsc.c
+@@ -12,6 +12,7 @@
+ #include <linux/sched.h>
+ #include <linux/wait.h>
+ #include <linux/mm.h>
++#include <linux/highmem.h>
+ #include <linux/delay.h>
+ #include <linux/io.h>
+ #include <linux/slab.h>
+@@ -965,12 +966,22 @@ static void netvsc_copy_to_send_buf(struct netvsc_device *net_device,
+ 	}
  
-+static inline unsigned int ad5686_pd_mask_shift(const struct iio_chan_spec *chan)
-+{
-+	if (chan->channel == chan->address)
-+		return chan->channel * 2;
+ 	for (i = 0; i < page_count; i++) {
+-		char *src = phys_to_virt(pb[i].pfn << HV_HYP_PAGE_SHIFT);
+-		u32 offset = pb[i].offset;
++		phys_addr_t paddr = (pb[i].pfn << HV_HYP_PAGE_SHIFT) +
++				    pb[i].offset;
+ 		u32 len = pb[i].len;
+ 
+-		memcpy(dest, (src + offset), len);
+-		dest += len;
++		while (len) {
++			struct page *page = phys_to_page(paddr);
++			u32 off = offset_in_page(paddr);
++			u32 chunk = min_t(u32, len, PAGE_SIZE - off);
++			char *src = kmap_local_page(page);
 +
-+	/* one-hot encoding is used in dual/quad channel devices */
-+	return __ffs(chan->address) * 2;
-+}
-+
- static int ad5686_get_powerdown_mode(struct iio_dev *indio_dev,
- 				     const struct iio_chan_spec *chan)
- {
-+	unsigned int shift = ad5686_pd_mask_shift(chan);
- 	struct ad5686_state *st = iio_priv(indio_dev);
++			memcpy(dest, src + off, chunk);
++			kunmap_local(src);
++			dest += chunk;
++			paddr += chunk;
++			len -= chunk;
++		}
+ 	}
  
--	return ((st->pwr_down_mode >> (chan->channel * 2)) & 0x3) - 1;
-+	guard(mutex)(&st->lock);
-+
-+	return ((st->pwr_down_mode >> shift) & 0x3U) - 1;
- }
- 
- static int ad5686_set_powerdown_mode(struct iio_dev *indio_dev,
- 				     const struct iio_chan_spec *chan,
- 				     unsigned int mode)
- {
-+	unsigned int shift = ad5686_pd_mask_shift(chan);
- 	struct ad5686_state *st = iio_priv(indio_dev);
- 
--	st->pwr_down_mode &= ~(0x3 << (chan->channel * 2));
--	st->pwr_down_mode |= ((mode + 1) << (chan->channel * 2));
-+	guard(mutex)(&st->lock);
-+
-+	st->pwr_down_mode &= ~(0x3U << shift);
-+	st->pwr_down_mode |= (mode + 1) << shift;
- 
- 	return 0;
- }
-@@ -55,10 +70,12 @@ static const struct iio_enum ad5686_powerdown_mode_enum = {
- static ssize_t ad5686_read_dac_powerdown(struct iio_dev *indio_dev,
- 		uintptr_t private, const struct iio_chan_spec *chan, char *buf)
- {
-+	unsigned int shift = ad5686_pd_mask_shift(chan);
- 	struct ad5686_state *st = iio_priv(indio_dev);
- 
--	return sysfs_emit(buf, "%d\n", !!(st->pwr_down_mask &
--				       (0x3 << (chan->channel * 2))));
-+	guard(mutex)(&st->lock);
-+
-+	return sysfs_emit(buf, "%d\n", !!(st->pwr_down_mask & (0x3U << shift)));
- }
- 
- static ssize_t ad5686_write_dac_powerdown(struct iio_dev *indio_dev,
-@@ -78,9 +95,9 @@ static ssize_t ad5686_write_dac_powerdown(struct iio_dev *indio_dev,
- 		return ret;
- 
- 	if (readin)
--		st->pwr_down_mask |= (0x3 << (chan->channel * 2));
-+		st->pwr_down_mask |= 0x3U << ad5686_pd_mask_shift(chan);
- 	else
--		st->pwr_down_mask &= ~(0x3 << (chan->channel * 2));
-+		st->pwr_down_mask &= ~(0x3U << ad5686_pd_mask_shift(chan));
- 
- 	switch (st->chip_info->regmap_type) {
- 	case AD5310_REGMAP:
-@@ -453,7 +470,7 @@ int ad5686_probe(struct device *dev,
- {
- 	struct ad5686_state *st;
- 	struct iio_dev *indio_dev;
--	unsigned int val, ref_bit_msk;
-+	unsigned int val, ref_bit_msk, shift;
- 	u8 cmd;
- 	int ret, i, voltage_uv = 0;
- 
-@@ -488,9 +505,18 @@ int ad5686_probe(struct device *dev,
- 	else
- 		st->vref_mv = st->chip_info->int_vref_mv;
- 
-+	/* Initialize masks to all ones provided the max shift (last channel) */
-+	shift = ad5686_pd_mask_shift(&st->chip_info->channels[st->chip_info->num_channels - 1]);
-+	st->pwr_down_mask = GENMASK(shift + 1, 0);
-+	st->pwr_down_mode = GENMASK(shift + 1, 0);
-+
- 	/* Set all the power down mode for all channels to 1K pulldown */
--	for (i = 0; i < st->chip_info->num_channels; i++)
--		st->pwr_down_mode |= (0x01 << (i * 2));
-+	for (i = 0; i < st->chip_info->num_channels; i++) {
-+		shift = ad5686_pd_mask_shift(&st->chip_info->channels[i]);
-+		st->pwr_down_mask &= ~(0x3U << shift); /* powered up state */
-+		st->pwr_down_mode &= ~(0x3U << shift);
-+		st->pwr_down_mode |= 0x01U << shift;
-+	}
- 
- 	indio_dev->name = name;
- 	indio_dev->info = &ad5686_info;
+ 	if (padding)
 -- 
-2.53.0
+2.43.0
 
