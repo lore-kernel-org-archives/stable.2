@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30A95298CAB
-	for <stable@vger.kernel.org>; Thu,  4 Jun 2026 10:44:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06A4A404895
+	for <stable@vger.kernel.org>; Thu,  4 Jun 2026 10:44:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780569857; cv=none; b=Rk4vTnoxcahF4SrfQ41jVnuGUgj3x2u2zhRwtZ6zDiGDn0rslGOuDDdTa2s+mJGwgsurPKWanUzsFNdNQfnF1Vu9DxyY6n7CZBG/4wwzYohNJsrxZcakmU9NlQt6H2dSClPdOsCslayBaPS0WU0ywbDJtOO40WTuT5ja7fWLFXs=
+	t=1780569861; cv=none; b=E0VHutHrdAQNVMyMLdR4CziXQVHDufKu00+YLg7ZjgA4Zr/Pn7cz7Y0ibTF0CojTYC5H16vZpa8yYRqPiStsnkmieUR+zABQey+tFuC9fGIp8Zzkg9QJeSkrybKMhFtEXiJ+98PaQ1JSkmi970RMLIuguFxMyfWdW1jkuUVFI1M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780569857; c=relaxed/simple;
-	bh=MyV1yWtzlGy/Zb3Baa1fE62CuLOeGGmdM0C4qiiLa9c=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=gjhu9PCOnrGQtLtI/ShtLTbw3WogGwZ+gTN7n2HiSPHDNNBD18xPcXsTXKMF6paVQlReyiU3T9VTetWBalp1vPIGH2d2Zpim1EZoo4ul/KF/j2cCY7Z98OGBfPuKl2ejD9gKDx5dXhACJMjPjBLrJbZqnKv0yXdBwcg6H3IGoeA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Is0BuqNH; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780569861; c=relaxed/simple;
+	bh=OpN5ZCTta+2CFDTOPTnMiuIvtpw6F+hyxNYkfa8jiKI=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=VQI86lRpdOBBN5TP1DOsIBjUYjb9bprl6Rj2kPVipc70/Cik//wArU/UnVfsUkLz7Hw8nXyZcTp6tMgZqlQNfP/IdyNvBbObQJDpXaObd0Ty2oegZ4URaUsIxZlVIFrq3JtnwzyCUot3tymYPeBxv62v5GlRQ6DxrpFS2mby2D4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Z9ioRrLw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Is0BuqNH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5ADE51F00893;
-	Thu,  4 Jun 2026 10:44:15 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Z9ioRrLw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 278D71F00893;
+	Thu,  4 Jun 2026 10:44:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1780569856;
-	bh=BXayihn6+TY62mi2hwe+KpprNqsucpT/+f+ca6tTz2U=;
+	s=korg; t=1780569859;
+	bh=mEonAA0GE+4xsmjyLmatBr08jWAYGRkB+jpFF8lj5KY=;
 	h=Subject:To:Cc:From:Date;
-	b=Is0BuqNHNO76H3gpY+wU+1wMP8fcMocoMBfwUk+Q8Mv8YkhtHuPNr9oRbZ5Kp9eMA
-	 yQkde1HwMryrwbXO96xY8JxPE9i4t7NLKmq+vxWFQ14e2gjsxCr3FPEMn/OU2MV/DR
-	 IxaMVVg3gIHC/u1MLzEfr2COhhR2etd+ZzWbAye0=
-Subject: FAILED: patch "[PATCH] tty: serial: samsung: Remove redundant port lock acquisition" failed to apply to 6.6-stable tree
+	b=Z9ioRrLwTk1tLxV4m2OQBt6oeJkN2UIAzDSSKxMhhwtO4fwh1NZ2EfgzIu/n2mWwr
+	 DhuULNDrblBfOkATtO7hMpwyRiA0CebKqGWudxztwJ1b/QsKerBsXWjca+85H1NaYf
+	 Xos705ihwXw4AMyBITTB3nWONtDA7ZR9yHoYkQqM=
+Subject: FAILED: patch "[PATCH] tty: serial: samsung: Remove redundant port lock acquisition" failed to apply to 6.1-stable tree
 To: tudor.ambarus@linaro.org,gregkh@linuxfoundation.org,john.ogness@linutronix.de,stable@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 04 Jun 2026 12:41:27 +0200
-Message-ID: <2026060427-payroll-estimator-0ec1@gregkh>
+Date: Thu, 04 Jun 2026 12:41:28 +0200
+Message-ID: <2026060428-showdown-storeroom-5e99@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
 git cherry-pick -x a3bb136bff5e6a5e48cdd813246c9c4686feaaa9
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026060427-payroll-estimator-0ec1@gregkh' --subject-prefix 'PATCH 6.6.y' HEAD^..
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026060428-showdown-storeroom-5e99@gregkh' --subject-prefix 'PATCH 6.1.y' HEAD^..
 
 Possible dependencies:
 
