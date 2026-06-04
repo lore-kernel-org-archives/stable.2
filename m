@@ -1,24 +1,24 @@
 Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9196A385D64;
-	Thu,  4 Jun 2026 03:58:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A17D72617;
+	Thu,  4 Jun 2026 03:58:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780545492; cv=none; b=V7XTQ2m/K7X1M9boFJK1lmcn2C1ZijAO8LfdP3zDYiTO0iMSeDwq7DGbwcNo8X2VJoCVWCTRP4EHPwBe9ozlgLx2xSQsRsDrikVSBD8TnLu8b0/FPrz4DgoGJDcY+GDcn+cBiXiEn+P55PJsmQx4lda31L5AizEtVJ3KeShw4cc=
+	t=1780545493; cv=none; b=AwbVnnLPQBLEFE2GxMAwt5L/1GUEbqxmmkjBPJb5LHT1VcAq7bIDksZmKomOyHZb3zzW761sbk95Re9QuPp/d2pXd9k1hK4kWa1xoS6wSLxvsP2aCEKcBdQ+x+mCZg+oUOwDLRYXpVHqDjJI/XHyi36nk+XLMkCtUrlFSLwjZCk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780545492; c=relaxed/simple;
-	bh=SMAFTtvZKj1tGxbRkVNkrcfNuKUXUgt/xlwD1tg2SEo=;
+	s=arc-20240116; t=1780545493; c=relaxed/simple;
+	bh=aZLwY/9EDQ02XdFP+3inxUVP43n/84nghC9Ko7Zn+tA=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=ggSZ2Vx1lWENjbMhAJuKQsxWbUTwQWhRoTBXvQ7uhd+KWFKodJQUofgXx/9KtgcfMzVEzyPlLcJeLpTFWSwraqp6bj/toVxNGaNXohYabfq/dyUjQ/7tPlCQAVtcqNzypviI2nSFd8TIc6ELmY3qvp2LH/D57MTxQDzaMJIlHBc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=Z+ZpfeIl; arc=none smtp.client-ip=45.254.49.198
+	 MIME-Version; b=jeSu9bc0rSifw5nEsUHK0C+WWICpEzIn2XHf4VBebIb18GLB4rkWgOISpjpR4xs78zsy3+hy6lAOV7EK+kloqtlJWLwJAnBltoxPqWjY/7WmoH9B279Uyt40BN3cSXGJsRsC++uDjOn38ySal6zyHoQI7Y8ev8Ch4O93IZQWB0M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=L0ePJB2Z; arc=none smtp.client-ip=45.254.49.198
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="Z+ZpfeIl"
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="L0ePJB2Z"
 Received: from PC-202605011814.localdomain (unknown [221.228.238.82])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4103cca53;
-	Thu, 4 Jun 2026 11:52:50 +0800 (GMT+08:00)
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4103cca57;
+	Thu, 4 Jun 2026 11:52:56 +0800 (GMT+08:00)
 From: Runyu Xiao <runyu.xiao@seu.edu.cn>
 To: gregkh@linuxfoundation.org,
 	rafael@kernel.org
@@ -41,9 +41,9 @@ Cc: dakr@kernel.org,
 	jianhao.xu@seu.edu.cn,
 	runyu.xiao@seu.edu.cn,
 	stable@vger.kernel.org
-Subject: [PATCH v2 2/4] rpmsg: core: use generic driver_override infrastructure
-Date: Thu,  4 Jun 2026 11:52:37 +0800
-Message-Id: <20260604035239.1711889-3-runyu.xiao@seu.edu.cn>
+Subject: [PATCH v2 4/4] cdx: use generic driver_override infrastructure
+Date: Thu,  4 Jun 2026 11:52:39 +0800
+Message-Id: <20260604035239.1711889-5-runyu.xiao@seu.edu.cn>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260604035239.1711889-1-runyu.xiao@seu.edu.cn>
 References: <20260602160829.560904-1-runyu.xiao@seu.edu.cn>
@@ -55,65 +55,101 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9e90c32b3b03a1kunm0f81216d28d0c
+X-HM-Tid: 0a9e90c3458003a1kunm0f81216d28d1b
 X-HM-MType: 10
 X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCQ01KVk5CSBhIGEwZTktMSlYeHw
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZTEsdVkoYGh8eHkMaQ0NPSVYeHw
 	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUpVSUlDVUlIQ1VDSVlXWRYaDxIVHRRZQVlPS0hVSktISk
 	9ITFVKS0tVSkJLS1kG
 DKIM-Signature: a=rsa-sha256;
-	b=Z+ZpfeIlcsyakIp+2dJdmyLiafu+Q1ewvgfSJUPRMq1+iFblMZVbCm2i+mrbvCaWqy5XqZJY3RnWSI4Mb2tDiE/1iHtdla+5Lxr8GEAO+YCShf0DEbXws4w8FrzBlYSjYrbRrsK2uariKlpARqKL0qqAPE6XxKIFH7QlFE6qsh0=; s=default; c=relaxed/relaxed; d=seu.edu.cn; v=1;
-	bh=4m5lAv5Y2vm0X6WsxxKQwzOypiG0pQhWs1EBrVLkQNM=;
+	b=L0ePJB2Zgla5W6w8PmnPsi0MIHdQdH/3TgkcwGvhOJdJw8MD7UEzgg0Vyn3r8/0Rf97EMJrK8ONmOTIxiNTNsqcguPSKNzBsF/cbNK1YOc41xQsIelpXuxocnGbCywF7j3u4MNjSb1/THblDMq/4qp4AMtXXF6skWSjr6g9aQkQ=; s=default; c=relaxed/relaxed; d=seu.edu.cn; v=1;
+	bh=0XPOIhxg2F68hBRjE6rRRrqxSXoozAE1hg6WZ/Tun+U=;
 	h=date:mime-version:subject:message-id:from;
 
-RPMSG still keeps driver_override in bus-private storage.
+CDX devices still keep driver_override in bus-private storage.
 
-That private pointer can be updated from the sysfs driver_override
-attribute, and also from rpmsg_register_device_override(). Both paths
-replace the pointer and can free the old value.
+The sysfs write side updates that string through driver_set_override(),
+which replaces the pointer and frees the old value. However,
+driver_match_device() can call cdx_bus_match() from __driver_attach()
+without holding the device lock, and cdx_bus_match() still dereferences
+that private pointer directly.
 
-However, driver_match_device() can call rpmsg_dev_match() from
-__driver_attach() without holding the device lock, and rpmsg_dev_match()
-still dereferences that private pointer directly.
+That means the CDX match path can race with a concurrent
+driver_override update and compare against freed memory.
 
-This leaves the match path racing with concurrent driver_override
-updates, with the usual risk of comparing against freed memory.
+Switch CDX to the driver-core driver_override infrastructure. This
+removes the private driver_override storage, lets the core provide the
+sysfs attribute, and uses device_match_driver_override() for the locked
+read in cdx_bus_match().
 
-Switch rpmsg to the driver-core driver_override infrastructure. This
-removes the private storage, uses device_match_driver_override() for the
-locked read in rpmsg_dev_match(), and converts
-rpmsg_register_device_override() to device_set_driver_override() so the
-in-kernel override path uses the same core-managed storage. With that
-storage now owned by struct device, drop the remaining rpmsg transport
-release-path frees of rpdev->driver_override as well.
+Preserve the existing CDX override_only semantics: entries marked
+override_only still require a matching driver_override, but ordinary ID
+matches continue to work unchanged.
 
 Link: https://lore.kernel.org/driver-core/DGRGTIRHA62X.3RY09D9SOK77P@kernel.org/
-Fixes: 39e47767ec9b ("rpmsg: Add driver_override device attribute for rpmsg_device")
+Fixes: 48a6c7bced2a ("cdx: add device attributes")
 Cc: stable@vger.kernel.org
 Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
 ---
-drivers/rpmsg/qcom_glink_native.c |  2 --
-drivers/rpmsg/rpmsg_core.c        | 41 ++++++--------------------------------
-drivers/rpmsg/virtio_rpmsg_bus.c  |  1 -
-include/linux/rpmsg.h             |  4 ----
- 4 files changed, 6 insertions(+), 42 deletions(-)
+drivers/cdx/cdx.c           | 40 +++++--------------------------------
+include/linux/cdx/cdx_bus.h |  1 -
+ 2 files changed, 5 insertions(+), 36 deletions(-)
 
-diff --git a/drivers/rpmsg/rpmsg_core.c b/drivers/rpmsg/rpmsg_core.c
-index e7f7831d37f8..11d3007db5cd 100644
---- a/drivers/rpmsg/rpmsg_core.c
-+++ b/drivers/rpmsg/rpmsg_core.c
-@@ -358,33 +358,6 @@ rpmsg_show_attr(src, src, "0x%x\n");
- rpmsg_show_attr(dst, dst, "0x%x\n");
- rpmsg_show_attr(announce, announce ? "true" : "false", "%s\n");
+diff --git a/drivers/cdx/cdx.c b/drivers/cdx/cdx.c
+index 9196dc50a48d..d3d230247262 100644
+--- a/drivers/cdx/cdx.c
++++ b/drivers/cdx/cdx.c
+@@ -156,8 +156,6 @@ static int cdx_unregister_device(struct device *dev,
+ 	} else {
+ 		cdx_destroy_res_attr(cdx_dev, MAX_CDX_DEV_RESOURCES);
+ 		debugfs_remove_recursive(cdx_dev->debugfs_dir);
+-		kfree(cdx_dev->driver_override);
+-		cdx_dev->driver_override = NULL;
+ 	}
+ 
+ 	/*
+@@ -268,6 +266,7 @@ static int cdx_bus_match(struct device *dev, const struct device_driver *drv)
+ 	const struct cdx_driver *cdx_drv = to_cdx_driver(drv);
+ 	const struct cdx_device_id *found_id = NULL;
+ 	const struct cdx_device_id *ids;
++	int ret;
+ 
+ 	if (cdx_dev->is_bus)
+ 		return false;
+@@ -275,7 +274,8 @@ static int cdx_bus_match(struct device *dev, const struct device_driver *drv)
+ 	ids = cdx_drv->match_id_table;
+ 
+ 	/* When driver_override is set, only bind to the matching driver */
+-	if (cdx_dev->driver_override && strcmp(cdx_dev->driver_override, drv->name))
++	ret = device_match_driver_override(dev, drv);
++	if (ret == 0)
+ 		return false;
+ 
+ 	found_id = cdx_match_id(ids, cdx_dev);
+@@ -289,7 +289,7 @@ static int cdx_bus_match(struct device *dev, const struct device_driver *drv)
+ 		 */
+ 		if (!found_id->override_only)
+ 			return true;
+-		if (cdx_dev->driver_override)
++		if (ret > 0)
+ 			return true;
+ 
+ 		ids = found_id + 1;
+@@ -453,36 +453,6 @@ static ssize_t modalias_show(struct device *dev, struct device_attribute *attr,
+ }
+ static DEVICE_ATTR_RO(modalias);
  
 -static ssize_t driver_override_store(struct device *dev,
 -				     struct device_attribute *attr,
 -				     const char *buf, size_t count)
 -{
--	struct rpmsg_device *rpdev = to_rpmsg_device(dev);
+-	struct cdx_device *cdx_dev = to_cdx_device(dev);
 -	int ret;
 -
--	ret = driver_set_override(dev, &rpdev->driver_override, buf, count);
+-	if (WARN_ON(dev->bus != &cdx_bus_type))
+-		return -EINVAL;
+-
+-	ret = driver_set_override(dev, &cdx_dev->driver_override, buf, count);
 -	if (ret)
 -		return ret;
 -
@@ -123,122 +159,46 @@ index e7f7831d37f8..11d3007db5cd 100644
 -static ssize_t driver_override_show(struct device *dev,
 -				    struct device_attribute *attr, char *buf)
 -{
--	struct rpmsg_device *rpdev = to_rpmsg_device(dev);
+-	struct cdx_device *cdx_dev = to_cdx_device(dev);
 -	ssize_t len;
 -
 -	device_lock(dev);
--	len = sysfs_emit(buf, "%s\n", rpdev->driver_override);
+-	len = sysfs_emit(buf, "%s\n", cdx_dev->driver_override);
 -	device_unlock(dev);
 -	return len;
 -}
 -static DEVICE_ATTR_RW(driver_override);
 -
- static ssize_t modalias_show(struct device *dev,
- 			     struct device_attribute *attr, char *buf)
+ static ssize_t enable_store(struct device *dev, struct device_attribute *attr,
+ 			    const char *buf, size_t count)
  {
-@@ -405,7 +378,6 @@ static struct attribute *rpmsg_dev_attrs[] = {
- 	&dev_attr_dst.attr,
- 	&dev_attr_src.attr,
- 	&dev_attr_announce.attr,
+@@ -552,7 +522,6 @@ static struct attribute *cdx_dev_attrs[] = {
+ 	&dev_attr_class.attr,
+ 	&dev_attr_revision.attr,
+ 	&dev_attr_modalias.attr,
 -	&dev_attr_driver_override.attr,
  	NULL,
  };
- ATTRIBUTE_GROUPS(rpmsg_dev);
-@@ -424,9 +396,11 @@ static int rpmsg_dev_match(struct device *dev, const struct device_driver *drv)
- 	const struct rpmsg_driver *rpdrv = to_rpmsg_driver(drv);
- 	const struct rpmsg_device_id *ids = rpdrv->id_table;
- 	unsigned int i;
-+	int ret;
  
--	if (rpdev->driver_override)
--		return !strcmp(rpdev->driver_override, drv->name);
-+	ret = device_match_driver_override(dev, drv);
-+	if (ret >= 0)
-+		return ret;
+@@ -646,6 +615,7 @@ ATTRIBUTE_GROUPS(cdx_bus);
  
- 	if (ids)
- 		for (i = 0; ids[i].name[0]; i++)
-@@ -533,6 +507,7 @@ static void rpmsg_dev_remove(struct device *dev)
- 
- static const struct bus_type rpmsg_bus = {
- 	.name		= "rpmsg",
+ const struct bus_type cdx_bus_type = {
+ 	.name		= "cdx",
 +	.driver_override = true,
- 	.match		= rpmsg_dev_match,
- 	.dev_groups	= rpmsg_dev_groups,
- 	.uevent		= rpmsg_uevent,
-@@ -560,9 +535,7 @@ int rpmsg_register_device_override(struct rpmsg_device *rpdev,
- 
- 	device_initialize(dev);
- 	if (driver_override) {
--		ret = driver_set_override(dev, &rpdev->driver_override,
--					  driver_override,
--					  strlen(driver_override));
-+		ret = device_set_driver_override(dev, driver_override);
- 		if (ret) {
- 			dev_err(dev, "device_set_override failed: %d\n", ret);
- 			put_device(dev);
-@@ -573,8 +546,6 @@ int rpmsg_register_device_override(struct rpmsg_device *rpdev,
- 	ret = device_add(dev);
- 	if (ret) {
- 		dev_err(dev, "device_add failed: %d\n", ret);
--		kfree(rpdev->driver_override);
--		rpdev->driver_override = NULL;
- 		put_device(dev);
- 	}
- 
-diff --git a/drivers/rpmsg/qcom_glink_native.c b/drivers/rpmsg/qcom_glink_native.c
-index 401a4ece0c97..d9d4468e4cbd 100644
---- a/drivers/rpmsg/qcom_glink_native.c
-+++ b/drivers/rpmsg/qcom_glink_native.c
-@@ -1626,7 +1626,6 @@ static void qcom_glink_rpdev_release(struct device *dev)
- {
- 	struct rpmsg_device *rpdev = to_rpmsg_device(dev);
- 
--	kfree(rpdev->driver_override);
- 	kfree(rpdev);
- }
- 
-@@ -1862,7 +1861,6 @@ static void qcom_glink_device_release(struct device *dev)
- 
- 	/* Release qcom_glink_alloc_channel() reference */
- 	kref_put(&channel->refcount, qcom_glink_channel_release);
--	kfree(rpdev->driver_override);
- 	kfree(rpdev);
- }
- 
-diff --git a/drivers/rpmsg/virtio_rpmsg_bus.c b/drivers/rpmsg/virtio_rpmsg_bus.c
-index 5ae15111fb4f..1b8bb05924af 100644
---- a/drivers/rpmsg/virtio_rpmsg_bus.c
-+++ b/drivers/rpmsg/virtio_rpmsg_bus.c
-@@ -374,7 +374,6 @@ static void virtio_rpmsg_release_device(struct device *dev)
- 	struct rpmsg_device *rpdev = to_rpmsg_device(dev);
- 	struct virtio_rpmsg_channel *vch = to_virtio_rpmsg_channel(rpdev);
- 
--	kfree(rpdev->driver_override);
- 	kfree(vch);
- }
- 
-diff --git a/include/linux/rpmsg.h b/include/linux/rpmsg.h
-index 83266ce14642..2e40eb54155e 100644
---- a/include/linux/rpmsg.h
-+++ b/include/linux/rpmsg.h
-@@ -41,9 +41,6 @@ struct rpmsg_channel_info {
-  * rpmsg_device - device that belong to the rpmsg bus
-  * @dev: the device struct
-  * @id: device id (used to match between rpmsg drivers and devices)
-- * @driver_override: driver name to force a match; do not set directly,
-- *                   because core frees it; use driver_set_override() to
-- *                   set or clear it.
-  * @src: local address
-  * @dst: destination address
-  * @ept: the rpmsg endpoint of this channel
-@@ -53,7 +50,6 @@ struct rpmsg_channel_info {
- struct rpmsg_device {
- 	struct device dev;
- 	struct rpmsg_device_id id;
+ 	.match		= cdx_bus_match,
+ 	.probe		= cdx_probe,
+ 	.remove		= cdx_remove,
+diff --git a/include/linux/cdx/cdx_bus.h b/include/linux/cdx/cdx_bus.h
+index b1ba97f6c9ad..f1a107b232da 100644
+--- a/include/linux/cdx/cdx_bus.h
++++ b/include/linux/cdx/cdx_bus.h
+@@ -165,7 +165,6 @@ struct cdx_device {
+ 	bool enabled;
+ 	u32 msi_dev_id;
+ 	u32 num_msi;
 -	const char *driver_override;
- 	u32 src;
- 	u32 dst;
- 	struct rpmsg_endpoint *ept;
+ 	struct mutex irqchip_lock;
+ 	bool msi_write_pending;
+ };
 -- 
 2.34.1
