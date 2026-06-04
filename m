@@ -1,92 +1,93 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95D793CF677;
-	Thu,  4 Jun 2026 06:41:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47A8D33B96B;
+	Thu,  4 Jun 2026 06:43:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780555306; cv=none; b=Ng3PBdTHFfJmV9SbORsz53xIJlyU09jjU65EQnnMdducgRIFZ5HelYtNGg7Gj2PvFGepx50CxdNGjKP6toR8BBW0Zg/kKoW9t7TwgtKSlO3GnhzUMgxZqaBQkWagBjy9omPZ9bSzxV5/ggfbEiMKdCZpXcOlZImmhdJ+gek67fA=
+	t=1780555417; cv=none; b=u6iHQcuzRE+UD+vOzRnOuM3emhn71+D3WqBGWD+4/6qMb/b2gf41YWcq/frZXEAli00Z7Z94GMsDccV7oNLD5N5laOHUlANse7xkZZdf/yWVZc0KBvaN4Ib3QqCCiyitvwITnJwM8uSNn1O80XOkE1pSvtbGgd7EPpOfpiBwA1Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780555306; c=relaxed/simple;
-	bh=4Oo83pfWxxz500o86x4DgBAtJ2tDHel8DNMTbUCbJAo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VAPPlN+DRtEw6fEh3MmWVLml8yutKMFB17zAo96Tj2U2LuDSFae/7pLzvuB0jmF5KFbIK2rTCbybvKGBOoJQhC5Kj2N8IU16Hl/VftR+AqG71V8Alz8SWf7PMvCVajfGVKrixIWvcaExE5BDXl1uja2Pl1FBEmTa2fcoKU6d0mM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fTrBy21N; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fTrBy21N"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39D201F00893;
-	Thu,  4 Jun 2026 06:41:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780555305;
-	bh=Xsy9WUBW3BCpZbwwOyakkEGoxoD/uwZq2V/PrCveiYI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=fTrBy21NZTvPYvmaC8/3c236EhKZ3MVK98Tcb/tlDr0B1rF2zurtx86QawtsoSFNA
-	 e8wNjWYP7r0PM/g/n0AlJIfubHqT2nUUtEq0hk7wTAoDnT7CBWr/i/N0OSUmBqA4aZ
-	 ZdKViTzTGWheXd3Hx42g5E1LKp52gOGUGVWQOnSEFO+As4+M3NvG23MVniUScFrWnn
-	 GWngQeKiPUakEiWu7vKj1A/vquwFTR9S6H0IgkVA4Q1Hj9BYPfFhw5n6Bd5VaizOvl
-	 HwWYwz7xr9jDKxIqJMb3hr2tJThq+M9PitXLimkOiJVy7ae/ArCV8INpEH9Dr0CiPr
-	 YNkL79u4OXwDA==
-Received: from johan by xi.lan with local (Exim 4.99.3)
-	(envelope-from <johan@kernel.org>)
-	id 1wV1lv-0000000AtEJ-0kyF;
-	Thu, 04 Jun 2026 08:41:43 +0200
-Date: Thu, 4 Jun 2026 08:41:43 +0200
-From: Johan Hovold <johan@kernel.org>
-To: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-Cc: Marcel Holtmann <marcel@holtmann.org>, linux-bluetooth@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-	Rajat Jain <rajatja@google.com>
-Subject: Re: [PATCH v3 RESEND 3/5] Bluetooth: btusb: fix wakeup source leak
- on probe failure
-Message-ID: <aiEeJ8PscwEOFWDc@hovoldconsulting.com>
-References: <20260603143643.2514595-1-johan@kernel.org>
- <20260603143643.2514595-4-johan@kernel.org>
- <CABBYNZLr+kLHkjRGOEgyVK7RSfvu0KGjJNrnp5mh-sM66i=5WQ@mail.gmail.com>
+	s=arc-20240116; t=1780555417; c=relaxed/simple;
+	bh=1A2IlRhNKKK12gaOIo7EQoqQHSCpbZ2M+LQFF3VGAU4=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=qnY+eO98KusyFhCEdl3Huw/rGBWAd848viM6Ak5Qo4dIWAe/UI2hBejmTJV12r3hEK1PnrO50qGnmqwf2PZLunL8aL1GLrcaQsWzL7iGgtoJ3TM11xKY8ZHq+ul4HESl5NAuv4XiZZ9ORgQHlnd3979PYJ7FPn2eZ9Fzl5nJpJI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-03 (Coremail) with SMTP id rQCowADnBt6LHiFqGq2UEw--.7116S2;
+	Thu, 04 Jun 2026 14:43:23 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: kernel@esmil.dk,
+	hal.feng@starfivetech.com,
+	mturquette@baylibre.com,
+	sboyd@kernel.org
+Cc: bmasney@redhat.com,
+	linux-clk@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] clk: starfive: jh7110-isp: fix refcount leak in jh7110_ispcrg_probe()
+Date: Thu,  4 Jun 2026 06:43:14 +0000
+Message-Id: <20260604064314.3772678-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CABBYNZLr+kLHkjRGOEgyVK7RSfvu0KGjJNrnp5mh-sM66i=5WQ@mail.gmail.com>
+X-CM-TRANSID:rQCowADnBt6LHiFqGq2UEw--.7116S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Kw15Kr4ktr13uw48Jr4kCrg_yoW8XFW5pr
+	s8AF9YyFy3Xr4xJa90yr4qvFyru3yDKFy7XFs7Zw1qvw1rG3WUtw10k3sIgFn2yrWkJan8
+	Jan2va13AF4UtFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUkK14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7v_Jr
+	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v2
+	6r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrV
+	AFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCI
+	c40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267
+	AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_
+	Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VUbtl1P
+	UUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwsIA2og-aBxuAAAsZ
 
-On Wed, Jun 03, 2026 at 02:06:08PM -0400, Luiz Augusto von Dentz wrote:
-> On Wed, Jun 3, 2026 at 10:37 AM Johan Hovold <johan@kernel.org> wrote:
+In jh7110_ispcrg_probe(), the error path for pm_runtime_get_sync()
+failure directly returns without releasing the runtime PM reference
+count. The call to __pm_runtime_resume() increments the usage count
+unconditionally before attempting to resume, and does not decrement it
+on failure. Thus the leaked reference makes it impossible to suspend
+the device later.
 
-> > @@ -4181,7 +4181,7 @@ static int btusb_probe(struct usb_interface *intf,
-> >         if (id->driver_info & BTUSB_MARVELL && data->oob_wake_irq) {
-> >                 err = marvell_config_oob_wake(hdev);
-> >                 if (err)
-> > -                       goto out_free_dev;
-> > +                       goto err_disable_wakeup;
-> >         }
-> >  #endif
-> >         if (id->driver_info & BTUSB_CW6622)
-> > @@ -4427,6 +4427,9 @@ static int btusb_probe(struct usb_interface *intf,
-> >         }
-> >  err_kill_tx_urbs:
-> >         usb_kill_anchored_urbs(&data->tx_anchor);
-> > +err_disable_wakeup:
-> > +       if (data->oob_wake_irq)
-> > +               device_init_wakeup(&data->udev->dev, false);
-> >  out_free_dev:
-> >         if (data->reset_gpio)
-> >                 gpiod_put(data->reset_gpio);
-> > --
-> > 2.53.0
-> 
-> This seem to trigger a compilation problem according to sashiko:
-> 
-> The goto statement targeting err_disable_wakeup is wrapped in an ifdef
-> CONFIG_PM block earlier in the function, but this label is defined
-> unconditionally here.
-> []https://sashiko.dev/#/patchset/20260603143643.2514595-1-johan%40kernel.org
+All other error paths correctly jump to err_exit and call
+pm_runtime_put_sync(). Fix this by replacing pm_runtime_get_sync()
+with pm_runtime_resume_and_get(), which properly balances the
+reference count on error.
 
-Indeed. Sorry about that. I just sent a v4 addressing this here:
+Cc: stable@vger.kernel.org
+Fixes: 81279f5d0812 ("clk: starfive: Add StarFive JH7110 Image-Signal-Process clock driver")
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/clk/starfive/clk-starfive-jh7110-isp.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-	https://lore.kernel.org/lkml/20260604063740.2595260-1-johan@kernel.org/
+diff --git a/drivers/clk/starfive/clk-starfive-jh7110-isp.c b/drivers/clk/starfive/clk-starfive-jh7110-isp.c
+index f3fa069db193..c02c8b29a123 100644
+--- a/drivers/clk/starfive/clk-starfive-jh7110-isp.c
++++ b/drivers/clk/starfive/clk-starfive-jh7110-isp.c
+@@ -130,7 +130,7 @@ static int jh7110_ispcrg_probe(struct platform_device *pdev)
+ 
+ 	/* enable power domain and clocks */
+ 	pm_runtime_enable(priv->dev);
+-	ret = pm_runtime_get_sync(priv->dev);
++	ret = pm_runtime_resume_and_get(priv->dev);
+ 	if (ret < 0)
+ 		return dev_err_probe(priv->dev, ret, "failed to turn on power\n");
+ 
+-- 
+2.34.1
 
-Johan
