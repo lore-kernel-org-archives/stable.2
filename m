@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71D6C3F5BC5
-	for <Stable@vger.kernel.org>; Thu,  4 Jun 2026 08:45:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5A983FAE1F
+	for <Stable@vger.kernel.org>; Thu,  4 Jun 2026 08:45:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780562719; cv=none; b=WouO2Qn+HG28rVJhyvYEeT3ITw6vOlWJ/C6lm6y0cxXWRxW9CkrLhurw/aKp2tD5OyVQR07fhdoY4C2tDT8oR0fUFzCvFIueWZxMf3wowKABwu12TOtXkmM9CSZcYEHQXR+A71rVu073hLIR1Mf9IQYkUa3JSKaVqv+i1W2sYV4=
+	t=1780562727; cv=none; b=Cf7VmIpxAOACptH9l2rzf6nCz/ANbZxcOV6mLHS6JUKMyDBC31dyPe3kkV/Tvb6wk1B2I+a6CwXVVkzTYrxVytbLgnQdOEMVaJbHEQSPSHVlThYJYlWIBGqXLA0fRZCh+1IPgPsw0SwLnjux9+4LjlZpOUtEDbL+IC36uXqIIws=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780562719; c=relaxed/simple;
-	bh=JuZn+KCKVxABXQHR0zNG6hFuoXtLgVZdKOmUvs9iOaI=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=eyGlHhDWnXXiW29ZagsNPnVY/2qONiMEfKOoW+EfhCj4r9q4P3LE5/PGuaBXysiQ2FwT9KGxaVJg++LKB3TYJB4rBNPr0YXzLHZEEIIlspwR4IEo3wOENWwaFwTlVLopzk1SR9M6VJTGzYIPN4AEtx83A8JY9Ig7nP/T/wZmBBs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=RS+mwpDW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780562727; c=relaxed/simple;
+	bh=MhRZ3VAu2oEHGeQICZgpM7TyVP5+ZmGhDg3RVQOMBQk=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=fyLXxEBKx2XH8MB/rm7KrVGNENJxD68LBpTRYCrjE3M2XzphM7neT1c3S9BXytSatQbYZfkE/zMBClB9PMkFmOtX4G5h0gpSksqDuxH5+Qla6wvE8lJOz+/DLMkKU/yEZG5giAaHxdIo9/57CcH3YzejTyyuDq4FjQJCHBImKkI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=xGQatzS2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="RS+mwpDW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3189D1F00893;
-	Thu,  4 Jun 2026 08:45:16 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="xGQatzS2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D9C81F00893;
+	Thu,  4 Jun 2026 08:45:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1780562718;
-	bh=zYV6yqI5M8cynKC+/HsE4SSZmi3ED03iW6qkscRiulk=;
+	s=korg; t=1780562726;
+	bh=1+S/RypXQIfTo8ZN4YTtBXVrNHxlpObOmoCSvvcaq0Y=;
 	h=Subject:To:Cc:From:Date;
-	b=RS+mwpDWcadAbxCA5aOcwmsWFdxVdG7K879hH6zYcyf5hSyRztHh1fAdXFyqL4WD2
-	 G0uuS8DhL/I9zpZq+D+MZw3urz9sm37hMjcbEAwpvbIYMpe7tn/ZhspB5KqdiIqJ4C
-	 rLEXkJwhaacPaYZTMQSfKoqxyPMnfIg/Qt8l4YTA=
-Subject: FAILED: patch "[PATCH] iio: dac: ad5686: fix ref bit initialization for" failed to apply to 5.15-stable tree
-To: rodrigo.alencar@analog.com,Stable@vger.kernel.org,andriy.shevchenko@intel.com,jic23@kernel.org
+	b=xGQatzS2z0ZfPQtZ77xaFiOEYaHhysBw7n9l2BlPbO6bg139U8XEYx2digaSEGkXf
+	 jd4s+kHVVW0TDUf7d0jxbjKOHBUYccW20ZnBiZ1wAO/ZDeIj8re7FMkhrZbKDuLD6t
+	 tFEUynvWmI8IKrF2+NTscKnWNatCTXZCi4pZlWuk=
+Subject: FAILED: patch "[PATCH] iio: dac: ad5686: acquire lock when doing powerdown control" failed to apply to 5.10-stable tree
+To: rodrigo.alencar@analog.com,Stable@vger.kernel.org,jic23@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 04 Jun 2026 10:44:04 +0200
-Message-ID: <2026060403-trembling-dragster-73ee@gregkh>
+Date: Thu, 04 Jun 2026 10:44:29 +0200
+Message-ID: <2026060429-struggle-judiciary-4ace@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x ecae2ae606d493cf11457946436335bd0e726663
+git cherry-pick -x 5237c3175cae5ab05f18878cec3301a04403859e
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026060403-trembling-dragster-73ee@gregkh' --subject-prefix 'PATCH 5.15.y' HEAD^..
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026060429-struggle-judiciary-4ace@gregkh' --subject-prefix 'PATCH 5.10.y' HEAD^..
 
 Possible dependencies:
 
@@ -62,60 +62,61 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From ecae2ae606d493cf11457946436335bd0e726663 Mon Sep 17 00:00:00 2001
+From 5237c3175cae5ab05f18878cec3301a04403859e Mon Sep 17 00:00:00 2001
 From: Rodrigo Alencar <rodrigo.alencar@analog.com>
-Date: Fri, 1 May 2026 10:14:54 +0100
-Subject: [PATCH] iio: dac: ad5686: fix ref bit initialization for
- single-channel parts
+Date: Tue, 5 May 2026 13:35:04 +0100
+Subject: [PATCH] iio: dac: ad5686: acquire lock when doing powerdown control
 
-The reference bit position was ignored when writing the register at the
-probe() function (!!val was used). When such bit is 1, internal voltage
-reference is disabled so that an external one can be used. For
-multi-channel devices, bit 0 of the Internal Reference Setup command
-behaves the same way, so AD5686_REF_BIT_MSK is created. The issue exists
-since support for single-channel devices were first introduced.
+Protect access of pwr_down_mode and pwr_down_mask fields with existing
+mutex lock. Each channel exposes their own attributes for controlling
+powerdown modes and powerdown state. This fixes potential race conditions
+as those the write functions perform non-atomic read-modify-write
+operations to those pwr_down_* fields. This issue exists since the ad5686
+driver was first introduced.
 
-Fixes: be1b24d24541 ("iio:dac:ad5686: Add AD5691R/AD5692R/AD5693/AD5693R support")
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Fixes: c2f37c8dcadc ("iio: dac: New driver for AD5686R, AD5685R, AD5684R Digital to analog converters")
 Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
 Cc: <Stable@vger.kernel.org>
 Signed-off-by: Jonathan Cameron <jic23@kernel.org>
 
 diff --git a/drivers/iio/dac/ad5686.c b/drivers/iio/dac/ad5686.c
-index 4b18498aa074..b85d5c5a864b 100644
+index 27878a6318ff..2e443fcfeb39 100644
 --- a/drivers/iio/dac/ad5686.c
 +++ b/drivers/iio/dac/ad5686.c
-@@ -509,7 +509,7 @@ int ad5686_probe(struct device *dev,
- 		break;
- 	case AD5686_REGMAP:
- 		cmd = AD5686_CMD_INTERNAL_REFER_SETUP;
--		ref_bit_msk = 0;
-+		ref_bit_msk = AD5686_REF_BIT_MSK;
- 		break;
- 	case AD5693_REGMAP:
- 		cmd = AD5686_CMD_CONTROL_REG;
-@@ -520,9 +520,9 @@ int ad5686_probe(struct device *dev,
- 		return -EINVAL;
- 	}
+@@ -30,6 +30,8 @@ static int ad5686_get_powerdown_mode(struct iio_dev *indio_dev,
+ {
+ 	struct ad5686_state *st = iio_priv(indio_dev);
  
--	val = (has_external_vref | ref_bit_msk);
-+	val = has_external_vref ? ref_bit_msk : 0;
++	guard(mutex)(&st->lock);
++
+ 	return ((st->pwr_down_mode >> (chan->channel * 2)) & 0x3) - 1;
+ }
  
--	ret = st->write(st, cmd, 0, !!val);
-+	ret = st->write(st, cmd, 0, val);
+@@ -39,6 +41,8 @@ static int ad5686_set_powerdown_mode(struct iio_dev *indio_dev,
+ {
+ 	struct ad5686_state *st = iio_priv(indio_dev);
+ 
++	guard(mutex)(&st->lock);
++
+ 	st->pwr_down_mode &= ~(0x3 << (chan->channel * 2));
+ 	st->pwr_down_mode |= ((mode + 1) << (chan->channel * 2));
+ 
+@@ -57,6 +61,8 @@ static ssize_t ad5686_read_dac_powerdown(struct iio_dev *indio_dev,
+ {
+ 	struct ad5686_state *st = iio_priv(indio_dev);
+ 
++	guard(mutex)(&st->lock);
++
+ 	return sysfs_emit(buf, "%d\n", !!(st->pwr_down_mask &
+ 				       (0x3 << (chan->channel * 2))));
+ }
+@@ -77,6 +83,8 @@ static ssize_t ad5686_write_dac_powerdown(struct iio_dev *indio_dev,
  	if (ret)
  		return ret;
  
-diff --git a/drivers/iio/dac/ad5686.h b/drivers/iio/dac/ad5686.h
-index e7d36bae3e59..36e16c5c4581 100644
---- a/drivers/iio/dac/ad5686.h
-+++ b/drivers/iio/dac/ad5686.h
-@@ -46,6 +46,7 @@
- 
- #define AD5310_REF_BIT_MSK			BIT(8)
- #define AD5683_REF_BIT_MSK			BIT(12)
-+#define AD5686_REF_BIT_MSK			BIT(0)
- #define AD5693_REF_BIT_MSK			BIT(12)
- 
- /**
++	guard(mutex)(&st->lock);
++
+ 	if (readin)
+ 		st->pwr_down_mask |= (0x3 << (chan->channel * 2));
+ 	else
 
