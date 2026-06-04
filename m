@@ -1,117 +1,99 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B39047DD55
-	for <stable@vger.kernel.org>; Thu,  4 Jun 2026 13:37:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CED1147DD4A
+	for <stable@vger.kernel.org>; Thu,  4 Jun 2026 13:38:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780580251; cv=none; b=KLreMiK7xbDmxCxlq+CTJ9Nnpk8AGKLoJ9Q8MMFME0SxDmuwMk30ol1abHBxK5+ZAA2f6uk6cCtTQfDzPPbyUA1E0bS/iDzqSswPSJd820Xj+2pZ7G43gB5ghZl9TYblKGUdFhRFC4J0GwRVWG9p11y1js4Xs/AW8NbZEsYTheA=
+	t=1780580334; cv=none; b=ctRGLOxOtcqsJJmMhsFuzWMvvmAvAqKJh7YijAsy7BUfmTN2iSBBiB3Dvbl4hM4U7D1Q340APQJ7OtQxSJ0YWIputsY3o9wcZsseA6f4dXaiEpW1wg6qW81EGtC5bz2Ux2O8iaFIBI9VimmKBovlgYThaeVoPVGuwL9ImilPGvM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780580251; c=relaxed/simple;
-	bh=BNLq8AU/dYecCWvovvORTgOVGCSFtPi/WDO5/sd1nTs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qP4toMl+3Iu3bjLLrt0iOmIlukPr1q83/t9vx7pWDqjuH/ILTmLUMHC9F1cxz9HH1onukPxdgFpJT5zWUDDflnS/QPk5fShTC5BLjZtUwx0x+0g+db/ZpbXKnN/wXcVcbGlzCgchF0b+tb1zwRFlvIMCjaLUDcg0oEKEanD7U0s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kBd0Tq28; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780580334; c=relaxed/simple;
+	bh=WOej8V0jS2hif/IqaJuxyEnOwqeHlse8TzLN/1GKs/w=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=FSgTeNkbll6CII+lTTi0vxLChcqG3xDlFU39YIZ5jDIMhVacwp/1osL2Vq0Vm/xZRllMSlHeJ3CaisJ9KD0STzkUNdnbv513A3Thx7s0fBcPM4SDzRE6SaSjtAnCvHqujxVZekheV4kh0rUI1vdL6rObsXcwsQ/o0tqpu9gpYbQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C5ErR04z; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kBd0Tq28"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 653041F00898;
-	Thu,  4 Jun 2026 13:37:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C5ErR04z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A9A21F008A0
+	for <stable@vger.kernel.org>; Thu,  4 Jun 2026 13:38:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780580249;
-	bh=+2XW4LKfC3/PSuR3p22u7mn2v99Ht/do2w6T9b3lkoA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kBd0Tq2878ywiuuSHH1OZ5KkcfTHeiK0cM3eYR140vqR8M1mY/HvkA6CWXYEJu5D8
-	 bc6AB4DfO94Q/kUo9uj5cge+MiXw2qPmeJPVstg1mRqJqeZ/02xnq8W2kJ7uC2Sgd9
-	 FaggzsPvr/eakwQZ8H87MWB0E8UD1t2H8BBGyi1lpKcGNzlyyPmG22V2JLfNImiULv
-	 ZcqodFHU0vs3yhyeQlAkM7w7TFNUlJBv/wRzvf++SuVjLHnM/5co/8r7y33ZTPeMq1
-	 dh1d6eNInbVmMQwjFiZVuKvVgRad2PaAbLEWbOgw+PKOAyVdq927A2je5n+Mjcj5yX
-	 HnEKtwqkZiYaQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Siwei Zhang <oss@fourdim.xyz>,
-	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 2/2] Bluetooth: L2CAP: use chan timer to close channels in cleanup_listen()
-Date: Thu,  4 Jun 2026 09:37:26 -0400
-Message-ID: <20260604133726.3434716-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260604133726.3434716-1-sashal@kernel.org>
-References: <2026060410-livable-earshot-8a13@gregkh>
- <20260604133726.3434716-1-sashal@kernel.org>
+	s=k20260515; t=1780580333;
+	bh=WOej8V0jS2hif/IqaJuxyEnOwqeHlse8TzLN/1GKs/w=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=C5ErR04zPbJcnzhF1uVpb6SpyO0uGcNB1QKenutCnM0FsXMcne4LWJF63unZZ4dQ1
+	 /Ol8FyQ4XS57fRII3ZZiQRjcpWCjORPtxXYXsceHTAiinRubrGf09Kw7kc+BEBNKoA
+	 k08vdn45OYQHms1brdV0jMJfD5rMbnAXaVr4HApl+CpA5CVv8m39W/SfmHb9vLH9Gi
+	 hT1V/vAYC64+l4+qUVvDetMYEieQPCcaSQ6XCVtK+DC65UvzrGMPoIw5f4CLI7GolH
+	 iEMdK40b3T3YUwxEuQlK59WjaFgBVjuBid3ASAeRs67jaBSSWFIO0959oSf1rt6PsB
+	 XQb9y5NrVORmA==
+Received: by mail-lj1-f173.google.com with SMTP id 38308e7fff4ca-39661f81eacso8950601fa.0
+        for <stable@vger.kernel.org>; Thu, 04 Jun 2026 06:38:53 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ9MHr8ERTAvFvJy95Gx9Xxxso4ZdzGVCeFxb4EeZN8PBhZn8S4SFZzgB5Jw6gIyOG+qFYV9pCU=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwI7g0lTJY1UXvzLAPP7fQ5Faw/iyioZiX72gwkgCstruEk1Wnd
+	MzgP3IN7N8kpni7O6Ox5cKnpK7sBn9q69FibWHObfwVawRp3p5K+0eX0OwLuaM1ga1mqzFcshg3
+	5jBKDoj4gSzjv+es4fJxXzn9JpCDmmhAdUyjsAxDZMQ==
+X-Received: by 2002:a05:651c:b2a:b0:38e:94c6:b706 with SMTP id
+ 38308e7fff4ca-396bb98b98amr9711651fa.7.1780580332277; Thu, 04 Jun 2026
+ 06:38:52 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 4 Jun 2026 06:38:50 -0700
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 4 Jun 2026 06:38:50 -0700
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <6j2yk2x23mmtr2xbwkp3ind76qyy3mu7y23psseqqvbjlqepld@n4nsvswt2euz>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260603-fixes_fwnode_iteration-v2-0-0ae381f8b7b9@nxp.com>
+ <ah_3KmASlE44X4Xw@ashevche-desk.local> <6j2yk2x23mmtr2xbwkp3ind76qyy3mu7y23psseqqvbjlqepld@n4nsvswt2euz>
+Date: Thu, 4 Jun 2026 06:38:50 -0700
+X-Gmail-Original-Message-ID: <CAMRc=Mfd6CQO8SLLzP+ggmSYzSwvsxuNUz4rwmT1JskXc_ZAYg@mail.gmail.com>
+X-Gm-Features: AVHnY4Jx-zlwECM-UOEsi3xTgeeIQ7EP0o-ZpK4NuYcXo8WYQV9kBKSsNaho8kM
+Message-ID: <CAMRc=Mfd6CQO8SLLzP+ggmSYzSwvsxuNUz4rwmT1JskXc_ZAYg@mail.gmail.com>
+Subject: Re: [PATCH v2 0/2] device property: fix child iteration issues with
+ secondary fwnodes
+To: Xu Yang <xu.yang_2@oss.nxp.com>
+Cc: Bartosz Golaszewski <brgl@kernel.org>, Daniel Scally <djrscally@gmail.com>, 
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Danilo Krummrich <dakr@kernel.org>, Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, 
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, linux-acpi@vger.kernel.org, 
+	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	Xu Yang <xu.yang_2@nxp.com>, stable@vger.kernel.org, 
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"
 
-From: Siwei Zhang <oss@fourdim.xyz>
+On Thu, 4 Jun 2026 12:58:41 +0200, Xu Yang <xu.yang_2@oss.nxp.com> said:
+> On Wed, Jun 03, 2026 at 12:43:06PM +0300, Andy Shevchenko wrote:
+>> On Wed, Jun 03, 2026 at 04:44:30PM +0800, Xu Yang wrote:
+>> > This series fixes two issues in the fwnode child iteration logic when
+>> > a secondary fwnode is present.
+>> >
+>> > The first patch addresses a refcount imbalance in
+>> > software_node_get_next_child(). When a software node is used as a
+>> > secondary fwnode, the iteration code may incorrectly decrement the
+>> > refcount of child nodes that do not belong to the software node
+>> > hierarchy. This results in refcount underflow and possible use-after-free.
+>> >
+>> > The second patch fixes an infinite loop in
+>> > fwnode_for_each_child_node(), caused by improper handling of iteration
+>> > state across primary and secondary fwnodes. When iterating over children
+>> > from both primary and secondary fwnodes, the code may incorrectly
+>> > resume iteration from the primary fwnode even when the current child
+>> > belongs to the secondary, leading to repeated traversal and a loop.
+>> >
+>> > Both issues are triggered when mixing different fwnode types through the
+>> > secondary mechanism, and stem from incorrect assumptions about ownership
+>> > and traversal context of child nodes.
+>>
+>> Please, Cc Bart who is heavily working on software nodes these days.
+>
 
-[ Upstream commit 8c8e620467a7b51562dbcefbd1f09f288d7d710d ]
+Should I propose myself as reviewer? We can't demand people to Cc random
+addresses otherwise.
 
-l2cap_chan_close() removes the channel from conn->chan_l, which
-must be done under conn->lock.  cleanup_listen() runs under the
-parent sk_lock, so acquiring conn->lock would invert the
-established conn->lock -> chan->lock -> sk_lock order.
-
-Instead of calling l2cap_chan_close() directly, schedule
-l2cap_chan_timeout with delay 0 to close the channel
-asynchronously.  The timeout handler already acquires conn->lock
-and chan->lock in the correct order.
-
-The timer is only armed when chan->conn is still set: if it is
-already NULL, l2cap_conn_del() has already processed this channel
-(l2cap_chan_del + l2cap_sock_teardown_cb + l2cap_sock_close_cb),
-so there is nothing left to do.  If l2cap_conn_del() races in
-after the timer is armed, __clear_chan_timer() inside
-l2cap_chan_del() cancels it; if the timer has already fired, the
-handler returns harmlessly because chan->conn was cleared.
-
-Fixes: 3df91ea20e74 ("Bluetooth: Revert to mutexes from RCU list")
-Cc: <stable@vger.kernel.org> # 0b58004: Bluetooth: fix UAF in l2cap_sock_cleanup_listen() vs l2cap_conn_del()
-Signed-off-by: Siwei Zhang <oss@fourdim.xyz>
-Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- net/bluetooth/l2cap_sock.c | 16 +++++++++-------
- 1 file changed, 9 insertions(+), 7 deletions(-)
-
-diff --git a/net/bluetooth/l2cap_sock.c b/net/bluetooth/l2cap_sock.c
-index 8493207cedaaa4..5ca96cfe9611a4 100644
---- a/net/bluetooth/l2cap_sock.c
-+++ b/net/bluetooth/l2cap_sock.c
-@@ -1468,6 +1468,10 @@ static void l2cap_sock_cleanup_listen(struct sock *parent)
- 	 * pin it (hold_unless_zero() additionally skips a chan already past
- 	 * its last reference).  We then drop the sk lock before taking
- 	 * chan->lock, so sk and chan locks are never held together.
-+	 *
-+	 * Since we cannot call l2cap_chan_close() without conn->lock,
-+	 * schedule l2cap_chan_timeout to close the channel; it already
-+	 * acquires conn->lock -> chan->lock in the correct order.
- 	 */
- 	while ((sk = bt_accept_dequeue(parent, NULL))) {
- 		struct l2cap_chan *chan;
-@@ -1485,14 +1489,12 @@ static void l2cap_sock_cleanup_listen(struct sock *parent)
- 		       state_to_string(chan->state));
- 
- 		l2cap_chan_lock(chan);
--		__clear_chan_timer(chan);
--		l2cap_chan_close(chan, ECONNRESET);
--		/* l2cap_conn_del() may already have killed this socket
--		 * (it sets SOCK_DEAD); skip the duplicate to avoid a
--		 * double sock_put()/l2cap_chan_put().
-+		/* Since we cannot call l2cap_chan_close() without
-+		 * conn->lock, schedule its timer to trigger the close
-+		 * and cleanup of this channel.
- 		 */
--		if (!sock_flag(sk, SOCK_DEAD))
--			l2cap_sock_kill(sk);
-+		if (chan->conn)
-+			__set_chan_timer(chan, 0);
- 		l2cap_chan_unlock(chan);
- 
- 		l2cap_chan_put(chan);
--- 
-2.53.0
-
+Bart
