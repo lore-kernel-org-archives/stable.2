@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E919F13D51E
-	for <stable@vger.kernel.org>; Thu,  4 Jun 2026 08:49:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68FF0373BEB
+	for <stable@vger.kernel.org>; Thu,  4 Jun 2026 08:49:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780562950; cv=none; b=ZTt34Bnbg2a5jh5BBL/P8xBeI0Y29ham2+RdHS8cH3E9eIaw6Tc/Qa4ZqCECL2/Er8VHSROD1/+E7PrrPG1g98DZv1hIu3iEj04t+X87a8sM4Oq3g4OPMV5IhDvlbkN6aXQPjbXmCFtxRH5PT5flBo3pEPcyPf39rE0mqP2W0W8=
+	t=1780562966; cv=none; b=bzQah1czICjFsrD0W/PkWpPYKHzN5YJDG5YTHgVdg/Lc6lzrmPeHoOQVNx9B7c5/WfeAeSHpesiriKnMEfgA5PC68XlEYMeyEUwH7MKdXMQe+YMj9NZfjb9IOxC0CRH83UshUdXEkHLAWKy0rsZghu242PVLvvgkgj+fxR/8GjY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780562950; c=relaxed/simple;
-	bh=QlF08SIHMBk2KhYMI4g5l2NIfFD9oSh/lO9JqZvx5CA=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=NX/H/LCuPc9yEsVVIeYFcvxXyVEw2xlwMSj0V9/806oIlHt+twcbhziJxhF8bfY4j0OiqnlY/0zAtw24mB1t0DyFihnnDjK9hKJ4oDQNUu7nUWhBvYxiIazDLSoRTfDQB7ik1Nmsg6bUJmyXfTmoqDyw/HdbQRMgixyUEmkbFxo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Nfmp405j; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780562966; c=relaxed/simple;
+	bh=QB/DPSBq8wk65RKrXtiY3LN0xYiy+EKii9iHTn1Y0Vk=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=hQG9JxtCglwMIqI0Ji8axQy2piBe24Yh1VLPKPvHZ3bepDnCqdPS/ELKKV7X0+dd2JPDCjoE5wIri2+Je1j8kn7+XU7YnJw5abLCY8l83QM6bW+2VlGRJmzW4sTpteNGCaNDOp4r1znYp38Qmj/QQF0QCiyYf9+UKzTz0jJYxv8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=sLxgD9fY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Nfmp405j"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E9F81F00893;
-	Thu,  4 Jun 2026 08:49:07 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="sLxgD9fY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD6CB1F00893;
+	Thu,  4 Jun 2026 08:49:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1780562948;
-	bh=dqfqk7LfYLOSqhBKWRAt/XwAkIUGOpmj0om0qB291JU=;
+	s=korg; t=1780562965;
+	bh=hOPQSny3GLB1Z+XoG9yFWRh84H+pwLK8CzDcNP02Hug=;
 	h=Subject:To:Cc:From:Date;
-	b=Nfmp405jfl6SivqDvyonTBXISVSgNGq1VW1OdpSIt14BpORfNQV8LbcBPEIR515fv
-	 yoPZWRHLxO+2Tj8eNWLzmApuxE3ocP7kzyRU/CsmUREC1Gz3K0/a0/SJjrm5r06Q04
-	 xZ32L7nIaEHOOTNgjY7FQkVqtInU7wentgIwn7n0=
-Subject: FAILED: patch "[PATCH] usb: cdns3: gadget: fix request skipping after clearing halt" failed to apply to 5.10-stable tree
-To: yongchao.wu@autochips.com,gregkh@linuxfoundation.org,peter.chen@kernel.org,stable@kernel.org
+	b=sLxgD9fY/kN6yN9df0Emab1GBcg14CK2PB1JSA5/sFu45hAmAvO3nIuApweRImEyz
+	 Duw5h9n6oIS8b0bTQdcWS5VQUA/HofmZvSnCpAtIVecZWhy8GwawS83qcbBOl5a78D
+	 UJi7pAFqx2fxc1LZs2BDhbBP6j6p389ge1SsJ23c=
+Subject: FAILED: patch "[PATCH] usb: cdns3: plat: fix leaked usb2_phy initialization on" failed to apply to 6.6-stable tree
+To: peter.chen@cixtech.com,gregkh@linuxfoundation.org,sashiko-bot@kernel.org,stable@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 04 Jun 2026 10:48:11 +0200
-Message-ID: <2026060411-untoasted-urologist-7591@gregkh>
+Date: Thu, 04 Jun 2026 10:48:28 +0200
+Message-ID: <2026060428-tackle-screen-6157@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x c8778ff817a7047d6848fefba99dcb27b1bf01fe
+git cherry-pick -x e6970cda63fd4b4546aeed9d0e2f53a7c95cd09c
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026060411-untoasted-urologist-7591@gregkh' --subject-prefix 'PATCH 5.10.y' HEAD^..
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026060428-tackle-screen-6157@gregkh' --subject-prefix 'PATCH 6.6.y' HEAD^..
 
 Possible dependencies:
 
@@ -62,65 +62,44 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From c8778ff817a7047d6848fefba99dcb27b1bf01fe Mon Sep 17 00:00:00 2001
-From: Yongchao Wu <yongchao.wu@autochips.com>
-Date: Thu, 14 May 2026 00:00:12 +0800
-Subject: [PATCH] usb: cdns3: gadget: fix request skipping after clearing halt
+From e6970cda63fd4b4546aeed9d0e2f53a7c95cd09c Mon Sep 17 00:00:00 2001
+From: Peter Chen <peter.chen@cixtech.com>
+Date: Wed, 13 May 2026 16:53:09 +0800
+Subject: [PATCH] usb: cdns3: plat: fix leaked usb2_phy initialization on
+ usb3_phy acquisition failure
 
-According to the cdns3 datasheet, the EPRST (Endpoint Reset) command
-causes the DMA engine to reposition its internal pointer to the next
-Transfer Descriptor (TD) if it was already processing one.
+Move usb2_phy initialization after usb3_phy acquisition.
 
-This issue is consistently observed during the ADB identification
-process on macOS hosts, where the host issues a Clear_Halt. Although
-commit 4bf2dd65135a ("usb: cdns3: gadget: toggle cycle bit before reset
-endpoint") attempted to avoid DMA advance by toggling the cycle bit,
-trace logs show that on certain hosts like macOS, the DMA pointer
-(EP_TRADDR) still shifts after EPRST:
-
-  cdns3_ctrl_req: Clear Endpoint Feature(Halt ep1out)
-  cdns3_doorbell_epx: ep1out, ep_trbaddr f9c04030  <-- Should be f9c04000
-  cdns3_gadget_giveback: ep1out: req: ... length: 16384/16384
-
-As shown above, the DMA pointer jumped to the next TD, causing
-the controller to skip the initial TRBs of the request. This leads to
-data misalignment and ADB protocol hangs on macOS.
-
-Fix this by manually restoring the EP_TRADDR register to the starting
-physical address of the current request after the EPRST operation is
-complete.
-
-Fixes: 7733f6c32e36 ("usb: cdns3: Add Cadence USB3 DRD Driver")
+Fixes: f738957277ba ("usb: cdns3: Split core.c into cdns3-plat and core.c file")
 Cc: stable <stable@kernel.org>
-Cc: Peter Chen <peter.chen@kernel.org>
-Signed-off-by: Yongchao Wu <yongchao.wu@autochips.com>
-Acked-by: Peter Chen <peter.chen@kernel.org>
-Link: https://patch.msgid.link/20260513160012.2547894-1-yongchao.wu@autochips.com
+Reported-by: sashiko-bot <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/linux-devicetree/agKaEePSFknhDBg2@nchen-desktop/T/#m21e1d9c1574eb127ce03c0c2a1a49002ce435b52
+Signed-off-by: Peter Chen <peter.chen@cixtech.com>
+Link: https://patch.msgid.link/20260513085310.2217547-2-peter.chen@cixtech.com
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
-diff --git a/drivers/usb/cdns3/cdns3-gadget.c b/drivers/usb/cdns3/cdns3-gadget.c
-index 8382231af357..1db8db1b7cc3 100644
---- a/drivers/usb/cdns3/cdns3-gadget.c
-+++ b/drivers/usb/cdns3/cdns3-gadget.c
-@@ -2817,9 +2817,19 @@ int __cdns3_gadget_ep_clear_halt(struct cdns3_endpoint *priv_ep)
- 	priv_ep->flags &= ~(EP_STALLED | EP_STALL_PENDING);
+diff --git a/drivers/usb/cdns3/cdns3-plat.c b/drivers/usb/cdns3/cdns3-plat.c
+index 735df88774e4..d2e8d1e9007b 100644
+--- a/drivers/usb/cdns3/cdns3-plat.c
++++ b/drivers/usb/cdns3/cdns3-plat.c
+@@ -126,15 +126,15 @@ static int cdns3_plat_probe(struct platform_device *pdev)
+ 		return dev_err_probe(dev, PTR_ERR(cdns->usb2_phy),
+ 				     "Failed to get cdn3,usb2-phy\n");
  
- 	if (request) {
--		if (trb)
-+		if (trb) {
- 			*trb = trb_tmp;
+-	ret = phy_init(cdns->usb2_phy);
+-	if (ret)
+-		return ret;
+-
+ 	cdns->usb3_phy = devm_phy_optional_get(dev, "cdns3,usb3-phy");
+ 	if (IS_ERR(cdns->usb3_phy))
+ 		return dev_err_probe(dev, PTR_ERR(cdns->usb3_phy),
+ 				     "Failed to get cdn3,usb3-phy\n");
  
-+			/*
-+			 * Per datasheet, EPRST causes DMA to reposition to the next TD.
-+			 * Manually reset EP_TRADDR to the current TRB to prevent
-+			 * the hardware from skipping the interrupted request.
-+			 */
-+			writel(EP_TRADDR_TRADDR(priv_ep->trb_pool_dma +
-+						priv_req->start_trb * TRB_SIZE),
-+						&priv_dev->regs->ep_traddr);
-+		}
++	ret = phy_init(cdns->usb2_phy);
++	if (ret)
++		return ret;
 +
- 		cdns3_rearm_transfer(priv_ep, 1);
- 	}
- 
+ 	ret = phy_init(cdns->usb3_phy);
+ 	if (ret)
+ 		goto err_phy3_init;
 
