@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D278403EB6
-	for <stable@vger.kernel.org>; Thu,  4 Jun 2026 10:44:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AC1B405852
+	for <stable@vger.kernel.org>; Thu,  4 Jun 2026 10:44:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780569877; cv=none; b=SIhWwrS903UkNcO8TSheCNP+S+3oRzXiWU7DLqRKlh4RyssJPNldYPQMenIV/OlTKobyJWfJ2cVOU3yoUjwXsc7fFnbODgaobiNTEDP3GkFQhtjSQitpCy/mdDHjAFta+Pv+YnXTDQjVZE8R2oLQMVFTQFawMOtDLhWNEJJ1V/o=
+	t=1780569881; cv=none; b=YrAnsmqyBdmQ35x1PASOh5hQWeznPAOt2qNM9kvnI+RTZPkGbgDx7A3keCw9QJni3rrdFbgv5EPX3nzA+nTgaZNA9jvzEESNckkZcWGIZcGWDJ4hkUKKoGzpadA7orBg3CQik9oaBUDMhkj+tB6nWgiuy8R4Sj3W6pX4po9FYwM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780569877; c=relaxed/simple;
-	bh=wk/UXVzgYZjsUETnJeSIEhJNkzhV+ixTSy6Gm25QoPA=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=RsRlV8/ERVvA/djYwQb7y42k1NkDGt0P31etap/rBDw8jl5/kR2BbkuBKlS4HZC7sDEDP4q0/of23+lB8nZqA7S+dxAUwpShFbeKtZkj6k6GNR5mySQGAAuGxcmaJ7wg85hhnagiSNsbrmf7p/8erhySmnI0c7oYpuSlMtPJuuk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=jMWg5JFW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780569881; c=relaxed/simple;
+	bh=ONoQZrClqda3hO3vpldTvIhU1xFYN4Q/EbsIT37rYmI=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=uKNKgX3aZFhgLYTgtojBB3LAj/YXPmQlYsl6Al5qgFMjAKk76pSgPorDpzgLKof7oKgeP7zLLC/kzMyKtvTXVmE0lWY8fdUooyr2ZS2gbnJ6kTPjuq+atPX5f6zhdC6ue8af5+wSuHz/tjMRBGBpiryagDCTMcZS3zVso+hKhKk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=g/eJcuiz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="jMWg5JFW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6B2A1F00893;
-	Thu,  4 Jun 2026 10:44:35 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="g/eJcuiz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C59C1F00893;
+	Thu,  4 Jun 2026 10:44:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1780569876;
-	bh=oBAo5q8RxNE44k7UmQBwOit8rQUGLWP8U5E1FpbreRw=;
+	s=korg; t=1780569880;
+	bh=HLmuXJlsg/YqM96191vTlagA0uKBim/0oQNzdIqtWt4=;
 	h=Subject:To:Cc:From:Date;
-	b=jMWg5JFWF8OOe0DemirJYtx7rmlYmCBJx9LcGTsE5XB0Rxbq8JmiTf367mP8iKBZz
-	 umJIK7lCsGoaFfg68J7S8KykZgW/vPWqMvhvOPmghVfUc/2OewNmNY/sCEt5yDpekZ
-	 5ovWbck78mAJyLzvAplPSnwT1stZzygOnEMwEOMM=
-Subject: FAILED: patch "[PATCH] usb: dwc3: xilinx: fix error handling in zynqmp init error" failed to apply to 6.12-stable tree
+	b=g/eJcuizbc9R4HOw+G3kdHsXuN4PTYyI0JIWDzKHCqMqB6VUL0iQB/qpo+3YCmGGo
+	 1PGa/xEAymtXkR/hWOm3pvjgSunSmAMMahQwbI6SwrUhFojAsWUfld7n46Mor8hmGp
+	 lV3yDDcNp5fDyPLajowx82mrxJBp2Wr2ontA6+mg=
+Subject: FAILED: patch "[PATCH] usb: dwc3: xilinx: fix error handling in zynqmp init error" failed to apply to 6.6-stable tree
 To: radhey.shyam.pandey@amd.com,Thinh.Nguyen@synopsys.com,gregkh@linuxfoundation.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 04 Jun 2026 12:42:15 +0200
-Message-ID: <2026060415-seismic-transpose-4d27@gregkh>
+Date: Thu, 04 Jun 2026 12:42:16 +0200
+Message-ID: <2026060416-utility-unlucky-a9e7@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
 git cherry-pick -x c1a0ecbf32c4b397353204e2ec94c5bb9f3300ed
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026060415-seismic-transpose-4d27@gregkh' --subject-prefix 'PATCH 6.12.y' HEAD^..
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026060416-utility-unlucky-a9e7@gregkh' --subject-prefix 'PATCH 6.6.y' HEAD^..
 
 Possible dependencies:
 
