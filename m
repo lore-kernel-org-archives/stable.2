@@ -1,109 +1,97 @@
-Received: from mail-vk1-f193.google.com (mail-vk1-f193.google.com [209.85.221.193])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAF40222597
-	for <stable@vger.kernel.org>; Thu,  4 Jun 2026 01:58:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.193
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 96CA92BD59C;
+	Thu,  4 Jun 2026 01:59:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780538325; cv=none; b=JWQKmNpW444oZufjFhFjTK1JWANM4MjVfglrIPG/C6tcoyyz9soP4lzfNXShIw+9/4+MjycBdRdjHINRrEwblvfZVp4Alu4mvpCZ4r7zXCT5KLNAYMo6pOvaHb72BeurHKeT6VM6gKg2NUot8wUfrMlYs17A09BtdCALG20TNTE=
+	t=1780538397; cv=none; b=TZ3cewgIl8R59kYjxRC/15hn2Iz5o80x2+QhiR4SYwEGeM28xaiDS6AOX5Wwc85OVPBa4vemcU9YDZELX3CSAK2OV8D2Tylk7epTC6Irrj4vgdJpAncTCXNKhk00++IlkwMzFy97cjAD857kwzyP9LFZzlJqzudUTDdDHATiv4Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780538325; c=relaxed/simple;
-	bh=hkZmL/iYek817aCTuWFm67KhXsOFfYP8ByDm0C5xZp4=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type; b=a5aNIE34RrLHGb+8Pw50/Rc3OrENnyOAO9LOWx8+rSOLLtLcjy/594cl/1uUnjDXkFTYJbjeyiNhWHtOBwqOWnKUM1rN72vuTECa/wL/KeSOEGs+njvyzBYRF+Kf2pcE3evkWLXPX5GaE4Yji3y5PhmRlqaWtVBUjrh7f1VLUV8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gN8CmsW/; arc=none smtp.client-ip=209.85.221.193
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gN8CmsW/"
-Received: by mail-vk1-f193.google.com with SMTP id 71dfb90a1353d-59cfbfe64baso40953e0c.2
-        for <stable@vger.kernel.org>; Wed, 03 Jun 2026 18:58:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780538323; x=1781143123; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:from:to:cc:subject:date:message-id:reply-to;
-        bh=gN5MY+IL4XBY0Bh8wFWiSfPnh4J40HsCgGJmRlj6QYA=;
-        b=gN8CmsW/QVVplB9gTQdwq8T8lu384IMgpE2uE3BvsRKdM/w/Uo15ERMDnv9xil54pL
-         ghDhSrGqLMDADVl12lgwkZQSvsicIaKW7KJgsXkzleTBvkBLcQCK236jIJimVoMLN5EL
-         shWyclgGS0cyU7qSUbvAC6Ep2Rx1Hs9oaigiCM+01mu10LLYb+cr52yHa7xENDXxbzLr
-         LNKjl+0kp/XS6eiZxzcqZegVbxaAkbm7PoraefFl//nv1Kvvwl0NFYxjhTl+lwc+VcT0
-         XzwXKoWauKp8K1vc7oGtQtJeH63IZE8B6LF5h5A4ScWSiQC5CaStPrrk5L3JXD8AMnyp
-         txMQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780538323; x=1781143123;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=gN5MY+IL4XBY0Bh8wFWiSfPnh4J40HsCgGJmRlj6QYA=;
-        b=QNSZV+CkXWbnXSGqQemWufZhu5FsLwh4fGbofQAZbVzUutB7vZ0ZClhmvvJFftACrk
-         K8hPMH7KJcQ51iDI6YlzFnLRXTtVtpm0sPnOUVjnGQyIYsoZ/Todj56Gu3XayoWMpx5Z
-         iwEMYTOEFxz1DVpwZ0jd0YnVgCpZw8WLjjmbGwV4Bi5HO4HcH/CNd1ujxlfy2RZCFX4D
-         xjAeYGT4lOcq/e3pKeW6CIIwAnTr2iEqOvFL4H0APXBsAF+O/1eppl9gY7HUAXBkJ8y8
-         4HbnEZOvTo/wAa9gXc+P/xmOw11ZBqKzzTGtX7WISqikZQubaj8dpR2YWuM68ZCZEAlm
-         v1mg==
-X-Gm-Message-State: AOJu0YwlHo4e/QxJqZgCW5O0GjBmE4NRRojIJIshfsKRWSzyLExxoWck
-	uMcYwxSIJQUoB5YuTrSDH95Jzzpgq026KzuutulZDlZ64Kw/RQlSgreKOQuTsgm/Fj6d
-X-Gm-Gg: Acq92OHeRGgGlJS1+HR7K4NMIPQsQxOJNKjzJnMhIwWzEjJOPpMyfh2/3TPl6WkIU+1
-	dDQDL8EdA9XEjzrfetme4FQImXfNVlecF01NVL7yGqimrEe3kdw6KwIUS1fJu/WjhuQevMUgeVj
-	b6KPSPvCTAkkX77C7xr+SmHr2MYhPaVOfEMENCh/1VgUH0FDCwXbGOO+2Cof0SO/UkNxSFfYSvC
-	j0AYbS0AHXSdFHY13iFmscKKfn4b2MLv8vD0it47xTSOyAlZ7pcW7Z8uV7xTPDGBtcTBMPpu8Qk
-	ZZYl+dy14OQTS6esjKSoAg6tOwcXOjP0BXkixQNGAW+FBlzzQAOcP3wr9oSjwsiVosI7AYmmIxv
-	ERstRLYxnJMu7kOSc46dUwPxllFd8ccNJTXZ9yuKhKR2b+9t2JCdOWss8IGbl3F2kaCo9x/68YI
-	hTJLB97mPvd7QOVG0OPERfqknphiAFn4RWVvgwJEG1+xhWdT/T++lREKsB5SfvPzk9qXrf1AB2U
-	iXdbtaywvFQ3ykIGHzU7milqA==
-X-Received: by 2002:a05:6122:829f:b0:575:44b3:300d with SMTP id 71dfb90a1353d-5a6e8b0d0f6mr3629270e0c.10.1780538322875;
-        Wed, 03 Jun 2026 18:58:42 -0700 (PDT)
-Received: from rainbow (2603-900b-4600-2f85-a2b6-fdfc-263f-5578.inf6.spectrum.com. [2603:900b:4600:2f85:a2b6:fdfc:263f:5578])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5a6dc44d233sm3995088e0c.10.2026.06.03.18.58.41
-        for <stable@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 03 Jun 2026 18:58:42 -0700 (PDT)
-From: Jordan Walters <jaggyaur@gmail.com>
-To: stable@vger.kernel.org
-Subject: [PATCH 6.1.y] Bluetooth: hci_core: Fix UAF in hci_unregister_dev()
-Date: Wed,  3 Jun 2026 21:56:14 -0400
-Message-ID: <20260604015614.123281-1-jaggyaur@gmail.com>
-X-Mailer: git-send-email 2.54.0
+	s=arc-20240116; t=1780538397; c=relaxed/simple;
+	bh=oL/KIUF/rvpfZrt0+5eZKtP2YMc3tCS0xA9cLrUHvow=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=ivyJREKlmsmijFYhaShKNVjvBwDXzryH17Erjg8kWQn/VpsSqW2OcMHme3L0wA6j9mgRlZSySEB2j7hkpbyVyZX/VHSZUjUgssY6yTt/KkuRU3sMYs9Qh8zGdnwJEtGMsrWvWo0RDVshNBaWmuw+SNvpznX71SY0B5F2Lf0HGhI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [10.20.42.101])
+	by gateway (Coremail) with SMTP id _____8Cx3eka3CBq4V8QAA--.45251S3;
+	Thu, 04 Jun 2026 09:59:54 +0800 (CST)
+Received: from loongson-pc.loongson.cn (unknown [10.20.42.101])
+	by front1 (Coremail) with SMTP id qMiowJDxSMEV3CBqvESbAA--.17953S3;
+	Thu, 04 Jun 2026 09:59:53 +0800 (CST)
+From: Hongliang Wang <wanghongliang@loongson.cn>
+To: Hongliang Wang <wanghongliang@loongson.cn>,
+	Binbin Zhou <zhoubinbin@loongson.cn>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Wolfram Sang <wsa+renesas@sang-engineering.com>
+Cc: linux-i2c@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	loongarch@lists.linux.dev,
+	stable@vger.kernel.org,
+	Conor Dooley <conor.dooley@microchip.com>
+Subject: [PATCH v5 1/2] dt-bindings: i2c: ls2x-i2c: Add clocks and clock-frequency properties
+Date: Thu,  4 Jun 2026 09:58:47 +0800
+Message-Id: <20260604015848.18643-2-wanghongliang@loongson.cn>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20260604015848.18643-1-wanghongliang@loongson.cn>
+References: <20260604015848.18643-1-wanghongliang@loongson.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qMiowJDxSMEV3CBqvESbAA--.17953S3
+X-CM-SenderInfo: pzdqwxxrqjzxhdqjqz5rrqw2lrqou0/
+X-Coremail-Antispam: 1Uk129KBj9xXoWrZF45WryfKr4fKr4UuFWkKrX_yoWkAFgEya
+	4xAw18JrsxAFyFg3yqvF4xJr13Ja42y3WrC3W7AF4vy34Ut345KF97J34ayr4fWrsxuF13
+	uFs7CrZ3Za1xKosvyTuYvTs0mTUanT9S1TB71UUUUjUqnTZGkaVYY2UrUUUUj1kv1TuYvT
+	s0mT0YCTnIWjqI5I8CrVACY4xI64kE6c02F40Ex7xfYxn0WfASr-VFAUDa7-sFnT9fnUUI
+	cSsGvfJTRUUUbfkYFVCjjxCrM7AC8VAFwI0_Jr0_Gr1l1xkIjI8I6I8E6xAIw20EY4v20x
+	vaj40_Wr0E3s1l1IIY67AEw4v_Jrv_JF1l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxS
+	w2x7M28EF7xvwVC0I7IYx2IY67AKxVW8JVW5JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxV
+	W8JVWxJwA2z4x0Y4vEx4A2jsIE14v26r4j6F4UM28EF7xvwVC2z280aVCY1x0267AKxVW8
+	JVW8Jr1ln4kS14v26r1Y6r17M2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2
+	x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1q6rW5
+	McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr4
+	1lc7CjxVAaw2AFwI0_JF0_Jw1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_
+	Gr1l4IxYO2xFxVAFwI0_Jrv_JF1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67
+	AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8I
+	cVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI
+	8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v2
+	6r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxU489NUUUUU
 
-commit eec3deaeaafe upstream.
+Add clocks and clock-frequency properties to examples.
 
-[manual backport: 6.1.y uses cancel_*_work_sync() instead of
- disable_*_work_sync() which was introduced in a later cycle]
-
-hci_unregister_dev() does not cancel cmd_timer and ncmd_timer
-before the hci_dev structure is freed. If a timeout fires
-during device teardown, the callback dereferences freed memory
-(including the hdev->reset function pointer), leading to a
-use-after-free.
-
-Add cancel_delayed_work_sync() calls alongside the existing
-cancel_work_sync() calls to ensure both timers are fully
-quiesced before teardown proceeds.
-
-Signed-off-by: Jordan Walters <jaggyaur@gmail.com>
+Cc: stable@vger.kernel.org
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Signed-off-by: Hongliang Wang <wanghongliang@loongson.cn>
 ---
- net/bluetooth/hci_core.c | 2 ++
- 1 file changed, 2 insertions(+)
+ Documentation/devicetree/bindings/i2c/loongson,ls2x-i2c.yaml | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/net/bluetooth/hci_core.c b/net/bluetooth/hci_core.c
-index c6dec3c82f7..7ad3168c92d 100644
---- a/net/bluetooth/hci_core.c
-+++ b/net/bluetooth/hci_core.c
-@@ -2723,6 +2723,8 @@ void hci_unregister_dev(struct hci_dev *hdev)
- 	cancel_work_sync(&hdev->tx_work);
- 	cancel_work_sync(&hdev->power_on);
- 	cancel_work_sync(&hdev->error_reset);
-+	cancel_delayed_work_sync(&hdev->cmd_timer);
-+	cancel_delayed_work_sync(&hdev->ncmd_timer);
+diff --git a/Documentation/devicetree/bindings/i2c/loongson,ls2x-i2c.yaml b/Documentation/devicetree/bindings/i2c/loongson,ls2x-i2c.yaml
+index ee09c6d9c5f0..0beb7f2515c8 100644
+--- a/Documentation/devicetree/bindings/i2c/loongson,ls2x-i2c.yaml
++++ b/Documentation/devicetree/bindings/i2c/loongson,ls2x-i2c.yaml
+@@ -37,11 +37,14 @@ unevaluatedProperties: false
  
- 	hci_cmd_sync_clear(hdev);
+ examples:
+   - |
++    #include <dt-bindings/clock/loongson,ls2k-clk.h>
+     #include <dt-bindings/interrupt-controller/irq.h>
  
+     i2c0: i2c@1fe21000 {
+         compatible = "loongson,ls2k-i2c";
+         reg = <0x1fe21000 0x8>;
++        clock-frequency = <100000>;
++        clocks = <&clk LOONGSON2_APB_CLK>;
+         interrupt-parent = <&extioiic>;
+         interrupts = <22 IRQ_TYPE_LEVEL_LOW>;
+         #address-cells = <1>;
 -- 
-2.49.0
+2.47.2
+
