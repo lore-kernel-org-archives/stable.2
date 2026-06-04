@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD84123D2B1
-	for <stable@vger.kernel.org>; Thu,  4 Jun 2026 23:49:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1FB927732
+	for <stable@vger.kernel.org>; Thu,  4 Jun 2026 23:49:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780616944; cv=none; b=EO+02dse74H93RtSjUVurd94WC8SfVdaWT4fkgBQBOfphwVxOmW6WXBLXuZ0VhJpbPFfJ3uJPpOYCfQ7+/RiEDDjOa48jSY0uMxiObrqUORHGOn9nPADFIR6Frwo93QNabOsKt/HnLEuYJKRhioDLIAsA8hj8qG7RuRkQqPgwdU=
+	t=1780616957; cv=none; b=omG5ylASCILIDBb06wGhitlMJnpLZBPnEEu1AbuQi6tp+olWR0qnI72Bbml3wOP9Wf6OBs9zzaoIQRcP+gRdXUTzyNlhi1TFzTw/cZhtVSJXPBHEHS/CGm9bLvDYTg4NOcPDM/UQYPmlgfCuke1ctzOTRvZdQ3vNHfz9PE8CRqE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780616944; c=relaxed/simple;
-	bh=O4PDZbDnXWuNAYquRFCuqIe7IszbssvURL9HaT1KG5Q=;
+	s=arc-20240116; t=1780616957; c=relaxed/simple;
+	bh=GervpOhcbLovYdvxl3GYecXfGAyIrfZDzldMrZhfZKI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DWoI935rs31bJe5ZBlcYIImKcnsfRLn8nhtutteKiYDVt1ksnRe5KJM6E+01Hy8+W48kHRqUgoEdbt2/iLMydUmECkna8KbR5Sl4AM3v9K1+SZNg9jgfHqCLXvusHk6MvCSZsFCXHiVJoluJSo8b49QuIm7BXU9xCyS2pi2csyc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QC7xqhSH; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=juBMKebXURuDCcikS7dAgl7RfJs2FEohj1Rbx7xzT9eSfgDCbvF87/lYNpEme5iGu0U4Z48v2ijWQX3TuZdXb5lqHy018HXdZecxphORdYvEiJgxVde/DyxS36BJRMcRHLOcuiomTLkodDbL/Ackg62JepLtECqrBJQaoVPn3pM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b9Ha3BmM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QC7xqhSH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 283441F00898;
-	Thu,  4 Jun 2026 23:49:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b9Ha3BmM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5E7B1F00893;
+	Thu,  4 Jun 2026 23:49:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780616943;
-	bh=gAtqo9cjLqEFmXHTps0e0su8tHFGAIt/h9zkXch/fZ4=;
+	s=k20260515; t=1780616955;
+	bh=8hu6HD585vgoYLshOhKyTpb+F4upu5kJBiaPENpojdo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QC7xqhSHUKFWEhSOoa+kMJ+KcU1MtGyRGcMLOtq4rCuu6tWByr3Vc3/J8RIr95GhY
-	 foXZGnYpImoOGVKMbSqyHrHRzZVJoNvjHy+7nUG8uRgFtS2pjhXaviyApiH4T3qiYb
-	 WSdpCFdBK1OkPY4Fw8zzsIQ6UNIwiVZfXS0lMXKuwc71Mck0+jLwF5GKkRZ4R6ZJwQ
-	 R9peAA5PyirYpQU6RRzLNS2ENCQygWk4FCccOOeV/UFbAR6tp3+frvfeIXZ3tuPSCU
-	 KcgeFr4Cm29b/GDnLehuPPT1fp4YYEktWmHCWSMhFo5guXmqBdFuV0hDj/IBaNiyV9
-	 WGzBnL5AEuqWQ==
+	b=b9Ha3BmMI391rc+/bcBMDOIzFbIP/Kski4WO+GNk8DJmCqR/cpi+H8zogCqi6F9E/
+	 ie0iLxuY+XATthK6cbVLmxO2qiHzjt2R/QP0Xr/lC4g8gEYaCpIz1wcofFbBDNBjKt
+	 OAmfnJ68PBtIfWJZx4NRKaMguvgi8MXcuPvhl2TDt0t9LBWtG/XkIv5b3qfQObWeBN
+	 ab6tTVa60Pz7toGutaVa53YqSGaeOeEPlYxzkRK/UIYcD1iy6/HCiFKPxU0hfIsrki
+	 jX1MbrcpW2TneIg0M3raqgWiUBq+dndCOM9EEvq0Q4ci6S/Kc7whZYF/7Rs1d2qUie
+	 40AtfHCS5fcww==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Antoniu Miclaus <antoniu.miclaus@analog.com>,
-	Stable@vger.kernel.org,
-	Jonathan Cameron <jic23@kernel.org>,
+Cc: Peter Chen <peter.chen@cixtech.com>,
+	stable <stable@kernel.org>,
+	sashiko-bot <sashiko-bot@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 2/2] iio: chemical: scd30: fix division by zero in write_raw
-Date: Thu,  4 Jun 2026 19:49:00 -0400
-Message-ID: <20260604234900.2467781-2-sashal@kernel.org>
+Subject: [PATCH 6.6.y] usb: cdns3: plat: fix leaked usb2_phy initialization on usb3_phy acquisition failure
+Date: Thu,  4 Jun 2026 19:49:13 -0400
+Message-ID: <20260604234913.2468901-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260604234900.2467781-1-sashal@kernel.org>
-References: <2026060457-rubdown-rival-345e@gregkh>
- <20260604234900.2467781-1-sashal@kernel.org>
+In-Reply-To: <2026060428-tackle-screen-6157@gregkh>
+References: <2026060428-tackle-screen-6157@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,37 +47,47 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Antoniu Miclaus <antoniu.miclaus@analog.com>
+From: Peter Chen <peter.chen@cixtech.com>
 
-[ Upstream commit 5aba4f94b225617a55fed442a70329b2ee19c0a5 ]
+[ Upstream commit e6970cda63fd4b4546aeed9d0e2f53a7c95cd09c ]
 
-Add a zero check for val2 before using it as a divisor when setting the
-sampling frequency. A user writing a zero fractional part to the
-sampling_frequency sysfs attribute triggers a division by zero in the
-kernel.
+Move usb2_phy initialization after usb3_phy acquisition.
 
-Fixes: 64b3d8b1b0f5 ("iio: chemical: scd30: add core driver")
-Signed-off-by: Antoniu Miclaus <antoniu.miclaus@analog.com>
-Cc: <Stable@vger.kernel.org>
-Signed-off-by: Jonathan Cameron <jic23@kernel.org>
+Fixes: f738957277ba ("usb: cdns3: Split core.c into cdns3-plat and core.c file")
+Cc: stable <stable@kernel.org>
+Reported-by: sashiko-bot <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/linux-devicetree/agKaEePSFknhDBg2@nchen-desktop/T/#m21e1d9c1574eb127ce03c0c2a1a49002ce435b52
+Signed-off-by: Peter Chen <peter.chen@cixtech.com>
+Link: https://patch.msgid.link/20260513085310.2217547-2-peter.chen@cixtech.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/iio/chemical/scd30_core.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/usb/cdns3/cdns3-plat.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/iio/chemical/scd30_core.c b/drivers/iio/chemical/scd30_core.c
-index 10d44a14ac62f8..1f1b93f722cd2d 100644
---- a/drivers/iio/chemical/scd30_core.c
-+++ b/drivers/iio/chemical/scd30_core.c
-@@ -257,7 +257,7 @@ static int scd30_write_raw(struct iio_dev *indio_dev, struct iio_chan_spec const
- 	guard(mutex)(&state->lock);
- 	switch (mask) {
- 	case IIO_CHAN_INFO_SAMP_FREQ:
--		if (val)
-+		if (val || !val2)
- 			return -EINVAL;
+diff --git a/drivers/usb/cdns3/cdns3-plat.c b/drivers/usb/cdns3/cdns3-plat.c
+index 2c1aca84f2264d..bad619d25987bd 100644
+--- a/drivers/usb/cdns3/cdns3-plat.c
++++ b/drivers/usb/cdns3/cdns3-plat.c
+@@ -121,14 +121,14 @@ static int cdns3_plat_probe(struct platform_device *pdev)
+ 	if (IS_ERR(cdns->usb2_phy))
+ 		return PTR_ERR(cdns->usb2_phy);
  
- 		val = 1000000000 / val2;
+-	ret = phy_init(cdns->usb2_phy);
+-	if (ret)
+-		return ret;
+-
+ 	cdns->usb3_phy = devm_phy_optional_get(dev, "cdns3,usb3-phy");
+ 	if (IS_ERR(cdns->usb3_phy))
+ 		return PTR_ERR(cdns->usb3_phy);
+ 
++	ret = phy_init(cdns->usb2_phy);
++	if (ret)
++		return ret;
++
+ 	ret = phy_init(cdns->usb3_phy);
+ 	if (ret)
+ 		goto err_phy3_init;
 -- 
 2.53.0
 
