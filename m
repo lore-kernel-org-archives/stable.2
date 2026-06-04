@@ -1,109 +1,109 @@
-Received: from out-173.mta1.migadu.com (out-173.mta1.migadu.com [95.215.58.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vk1-f194.google.com (mail-vk1-f194.google.com [209.85.221.194])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0A28282F18
-	for <stable@vger.kernel.org>; Thu,  4 Jun 2026 01:49:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB0A8242D6C
+	for <stable@vger.kernel.org>; Thu,  4 Jun 2026 01:50:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.194
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780537787; cv=none; b=HvNK4tuIFSLTUPR+rB6fNf6m9AUkvpPUdVsbbQfxxHPc3YLkYD59xaFDBDdtTH52w0J888nLEBiwxwVd+WGOMVz+LoyR9eik61E2T0iZhiN+QEVXP7y5VodTjNywyaSCcHKDCJ4+lWy+NxNTzac9Pt5RohQfsWmAKLngtqNCKWg=
+	t=1780537846; cv=none; b=AiAioNejdze9nCfkvVLyNbW6EMxnj8lnWVyPXx9hIRfiE3w8I/7/yz8QlNJpa+OF/q4ivIIu+VJDCq+HDS5luXSpHaxRcuaDxM9bCqDLZoB6m0Ntr23sh0kPhjnsGVAno6GSDleO+D1En7YFJdurlA2/iBxAN0oQuHAz48JcEcA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780537787; c=relaxed/simple;
-	bh=OX4o3VwOCHAm8jFp1kQNUQIxFVl9dHNR7Zh2V2xqjOw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=XR11T/zVbBxHjsTmIM8AVCWOoVB4DPDhkV+/5hs53z6apjj4n0RsFNtibkb9JvgqXsaQ0DgAVW634xl6SVtGYaqWflf2Qd5ghz+LrhynsEFii2GbpGUaLWmyHLtxpNlyPou+kXxdWvV5Iq7c47tvsY//Vk2q7BhhDtmpbxDLO8Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Rwvn2McC; arc=none smtp.client-ip=95.215.58.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1780537846; c=relaxed/simple;
+	bh=kBaky05/bWEVwGI5MJ9Md+7nCGhGs2CIFcJwiy5RU+4=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version; b=qQGDrnBrOS+iDGxTJmiNU2sFc3y9mwQVsjp0q/iUnBw+wSQiMOS4fJM5IENjNDe01qFjr/OPNyDVQ/Ws+ePJ6q5Fvr+n+RO2ACro/xHS9H5bCovw1dEKzCafTAXSqhFXDWx9vzLkABtVeYsV4hnoxEx2LT94f+eOyyKBp4PdQ7c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cYXsOOYJ; arc=none smtp.client-ip=209.85.221.194
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Rwvn2McC"
-Message-ID: <b5d4d726-c32f-45e4-9ea7-28f7b6a1f8d7@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1780537783;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+vqCvh2xw2aQFNQtW/09BhvWce5f0QABhvDIVT33PA8=;
-	b=Rwvn2McCO4NKxMfzFd7tpQBFtHMeAedHt/yS9QQNkmviLphWwQf0FGrREacTiTRHwqeLn6
-	uqCLAF3CY403FaSZShF2ysPWqIrVVqtIGUy1I2tSJWLL1vc5mgEeJdZ/RxQ/KBXWyqNq7n
-	CufzrTzb5nYHYM6oWEbWMMHXS0qsT0M=
-Date: Thu, 4 Jun 2026 09:49:21 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cYXsOOYJ"
+Received: by mail-vk1-f194.google.com with SMTP id 71dfb90a1353d-59ccf81e6feso40396e0c.2
+        for <stable@vger.kernel.org>; Wed, 03 Jun 2026 18:50:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780537844; x=1781142644; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:from:to:cc:subject:date:message-id:reply-to;
+        bh=dZjw5LqBCsF6LARZeB6KcPRWHBTEy3/2seNDJkjrDqk=;
+        b=cYXsOOYJaOGQCQCqVC2/0B6Zj0I8qnnTf9ZVsLjqUedyxnfuXxsv6IQK2OgUdGtuMf
+         8wNT/syE2DDugJ+NqkJp1MrSy2HvpUVkxbFL85Kv6PzOvketUiEs/a4SWlaXoIKDnXIZ
+         bh0UGD5wA0cATHPACD9ditmVTPj7LTJOQXP5TREPu51bGndIX4BginFyqi6Cl05iYM1Q
+         6/0k8Ai08fBnl1AE/tQ+3ZU+ZZZxLwiFkzcFBrAw6F26IRV/YS18KHlsSkevaCM2VJNq
+         hSd5+wKg/2VcNvtokZ1foPYiVbmsl0MUJr5hiwRIsq6Tv4jTTl8ahDoU0OUoSzH8wx1k
+         zDfQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780537844; x=1781142644;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=dZjw5LqBCsF6LARZeB6KcPRWHBTEy3/2seNDJkjrDqk=;
+        b=hiFoSUIvoOcm8ouI6F6vl+3w2jscxTsXy8Ezo1Y7eeZAiFGHSdaHqlZpcv/h8Uu2VO
+         qfbaN9jkCrF14XtR39c+imro2rn7ZlsUT/KtlZfNASONKVFh3JI67+iXLOEoT944Rplu
+         kXxl7Tr/1a6ElHij2dAQ5RZrVg56LKuXFoMLG2bJUFNDDmNvX3tUT4vA0Bgs5O89rXwR
+         aIIO4/Xx7FRNLWpQZUHJ4wjTU7N52wW8joatLwgLxrLlobXMs5TOdpt0wZBHoMnPvoGx
+         tS8splclxFP15BhgB+ezksN9DeU6JuA+L5AyF5mWC4R9B8JUI5A0334lV51yLBJ4mS/h
+         rkkg==
+X-Gm-Message-State: AOJu0Yykh0GmGzRsZ1pDoQeaq1KRjq5IaoPuXq2O9q34XXMsn3vEIE6g
+	aQiT2vO04mKCwsMEBEy+tBUaxe8ryNjY3fuwUjyGpcQacAQcN/slg7+N7P4NOPQe0qvh
+X-Gm-Gg: Acq92OEFr8jaYMk4jGKnC+QOaCKwbda/VCGXmrEd9ZkRaaC4886+tBy10LiS7HP+hKA
+	61FJRLu/bCgRLquRt4XbOH3ziiqxxJNgF1xTDZSvlt2DUC8/JBEuDMfvClC3imN56BZEaAyxznQ
+	PGblo2A+3Zvl3YOZnk+0odJcFemUjEoMVLFkGlv9KGNbWW5h9RqAQGfszVlJ+dECVqAtsWdoPFr
+	DbLBmJytC8laVD/aWnPZSe7FuxXyunaAEmw5NYXXgwW41v6I5yWvanwEEMLUgmdXLaFdyuXUMMP
+	4GMcQx4USaJuvLEOe9xhXq6lHOp83AU0vsCSpQ9cVFR3w0mGwRBErweoEvy4hkMStZZukD0sD6o
+	nhUtmTvxxnXjNQkjJdAuobsKK2ygumW6reKP0EiUTA0NhvB7DF0TfGM1ct5hYWGDifp/e85H4tE
+	KzQMoBKHM7pR0N/6pfCsipU3TgNLyzj7e6kX2KOJO+XcjsQw9CEiaajJG5H91Pzj/ud1CapfCv0
+	NGJmrXgyO7HV911YSnlEtvyDQ==
+X-Received: by 2002:a05:6122:1c8b:b0:59f:4c56:9d0e with SMTP id 71dfb90a1353d-5a6e5417d1cmr3590696e0c.5.1780537843926;
+        Wed, 03 Jun 2026 18:50:43 -0700 (PDT)
+Received: from rainbow (2603-900b-4600-2f85-a2b6-fdfc-263f-5578.inf6.spectrum.com. [2603:900b:4600:2f85:a2b6:fdfc:263f:5578])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5a6dc1696d0sm4045908e0c.12.2026.06.03.18.50.41
+        for <stable@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 03 Jun 2026 18:50:42 -0700 (PDT)
+From: Jordan Walters <jaggyaur@gmail.com>
+To: stable@vger.kernel.org
+Subject: [PATCH 6.6.y] Bluetooth: hci_core: Fix UAF in hci_unregister_dev()
+Date: Wed,  3 Jun 2026 21:48:09 -0400
+Message-ID: <20260604014809.121934-1-jaggyaur@gmail.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [PATCH net v2] udp: clear skb->dev before running a sockmap
- verdict
-To: Sechang Lim <rhkrqnwk98@gmail.com>, willemdebruijn.kernel@gmail.com,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com
-Cc: horms@kernel.org, daniel@iogearbox.net, john.fastabend@gmail.com,
- jakub@cloudflare.com, aleksander.lobakin@intel.com, netdev@vger.kernel.org,
- bpf@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260603162737.697215-1-rhkrqnwk98@gmail.com>
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-In-Reply-To: <20260603162737.697215-1-rhkrqnwk98@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Migadu-Flow: FLOW_OUT
+Content-Transfer-Encoding: 8bit
 
+commit eec3deaeaafe upstream.
 
-On 6/4/26 12:27 AM, Sechang Lim wrote:
-> On the UDP receive path skb->dev is repurposed as dev_scratch (the
-> truesize/state cache set by udp_set_dev_scratch()), through the
-> union { struct net_device *dev; unsigned long dev_scratch; } in sk_buff.
->
-> When a UDP socket is in a sockmap, sk_data_ready is
-> sk_psock_verdict_data_ready(), which calls udp_read_skb() -> recv_actor()
-> (sk_psock_verdict_recv) to run the attached SK_SKB verdict program in softirq.
-> If that program calls a socket-lookup helper (bpf_sk_lookup_tcp/udp,
-> bpf_skc_lookup_tcp), bpf_skc_lookup() does:
->
-> 	if (skb->dev)
-> 		caller_net = dev_net(skb->dev);
->
-> skb->dev still holds the dev_scratch value (a non-NULL integer), so dev_net()
-> dereferences it as a struct net_device * and the kernel takes a general
-> protection fault on a non-canonical address in softirq:
->
->    Oops: general protection fault, probably for non-canonical address 0x1010000800004a0
->    CPU: 1 UID: 0 PID: 1406 Comm: syz.2.19 Not tainted 7.1.0-rc6 #1 PREEMPT(full)
->    RIP: 0010:bpf_skc_lookup net/core/filter.c:7033 [inline]
->    RIP: 0010:bpf_sk_lookup+0x45/0x160 net/core/filter.c:7047
->    Call Trace:
->     <IRQ>
->     bpf_prog_4675cb904b7071f8+0x12e/0x14e
->     bpf_prog_run_pin_on_cpu+0xc6/0x1f0
->     sk_psock_verdict_recv+0x1ba/0x350
->     udp_read_skb+0x31a/0x370
->     sk_psock_verdict_data_ready+0x2e3/0x600
->     __udp_enqueue_schedule_skb+0x4c8/0x650
->     udpv6_queue_rcv_one_skb+0x3ec/0x740
->     udp6_unicast_rcv_skb+0x11d/0x140
->     ip6_protocol_deliver_rcu+0x61e/0x950
->     ip6_input_finish+0xa9/0x150
->     NF_HOOK+0x286/0x2f0
->     ip6_input+0x117/0x220
->     NF_HOOK+0x286/0x2f0
->     __netif_receive_skb+0x85/0x200
->     process_backlog+0x374/0x9a0
->     __napi_poll+0x4f/0x1c0
->     net_rx_action+0x3b0/0x770
->     handle_softirqs+0x15a/0x460
->     do_softirq+0x57/0x80
->     </IRQ>
->
-> The rmem charge that dev_scratch accounted for is released by skb_recv_udp() on
-> dequeue, just above, so the scratch is dead by the time recv_actor() runs. Clear
-> skb->dev so bpf_skc_lookup() falls back to sock_net(skb->sk), which
-> skb_set_owner_sk_safe() set just above.
->
-> Fixes: 965b57b469a5 ("net: Introduce a new proto_ops ->read_skb()")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Sechang Lim <rhkrqnwk98@gmail.com>
+[manual backport: 6.6.y uses cancel_*_work_sync() instead of
+ disable_*_work_sync() which was introduced in a later cycle]
 
+hci_unregister_dev() does not cancel cmd_timer and ncmd_timer
+before the hci_dev structure is freed. If a timeout fires
+during device teardown, the callback dereferences freed memory
+(including the hdev->reset function pointer), leading to a
+use-after-free.
 
-Reviewed-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+Add cancel_delayed_work_sync() calls alongside the existing
+cancel_work_sync() calls to ensure both timers are fully
+quiesced before teardown proceeds.
+
+Signed-off-by: Jordan Walters <jaggyaur@gmail.com>
+---
+ net/bluetooth/hci_core.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/net/bluetooth/hci_core.c b/net/bluetooth/hci_core.c
+index 824208a53c2..b0e0a553892 100644
+--- a/net/bluetooth/hci_core.c
++++ b/net/bluetooth/hci_core.c
+@@ -2701,6 +2701,8 @@ void hci_unregister_dev(struct hci_dev *hdev)
+ 	cancel_work_sync(&hdev->tx_work);
+ 	cancel_work_sync(&hdev->power_on);
+ 	cancel_work_sync(&hdev->error_reset);
++	cancel_delayed_work_sync(&hdev->cmd_timer);
++	cancel_delayed_work_sync(&hdev->ncmd_timer);
+ 
+ 	hci_cmd_sync_clear(hdev);
+ 
+-- 
+2.43.0
 
