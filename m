@@ -1,154 +1,87 @@
-Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48405F9C0;
-	Thu,  4 Jun 2026 07:42:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F268B2E65D;
+	Thu,  4 Jun 2026 07:56:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780558957; cv=none; b=tpz67xQzwGLERK/F+hFRmhyPNraG8BeNwywliNpP2LlY1CUIRrRdEmfomCUuLlG4fKm5TwED80da3Qcx0g5EJObKHDua+/vOP/zTpvR11Nz/fG4Gbjzuc3qwaLwVQWRyWx+w/eqwARKRq5T3TWF1TeM/9aH2VhERcxa+WwcukrE=
+	t=1780559788; cv=none; b=gjVxuKP6wCFUuLDveCxDTZZrVkAD7xe/RzWu6yIH4sI3Ndzk74/yGvUT2tbVaRCjs3tQ0PsPIqvcYGY3g0EG9wzV5VDtjJVra5s0Y+OztPPuTyqM+1Zi5EinwnWrirEtGFOb8y1JvK54+da9UBRrKRZ95Zih0U/hAjmb8pvzQt4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780558957; c=relaxed/simple;
-	bh=w5oaby0SPI5qC9TlQ2yiuX5RUisIf1q+2ZdyvYG5Idc=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=mqe8dd+eVXXSwjll8Hcn8CDJxUOX+yS1NtlAO1959ARLnZTpdehtshfpbS+IkVh6lAQvC8j8MUFWK58N36lmUri1o2RmAc+pYOobI3K1SDcfyE7p5kEpOyoKUKuFxqqMviyweFe78YzRMQCX6ZGlqWjMS/StUl1ZEkAHqS1qcqc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=i8dlY3g1; arc=none smtp.client-ip=101.71.155.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	s=arc-20240116; t=1780559788; c=relaxed/simple;
+	bh=5okoBXguTQpUNwRV89WZmaRvx9VW9Kn9J48WudylOf0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FdeOXMznEcJun7pmD7xF6HRZVzdY/sM+NwKy5fkDOY/nSy6TlvbkyBo5z+dxoJd+WALetqtiAJoe/YWlRbudUOxgSFBl72EkqmpOvCc0LTuW39mVBzHjtL+r4LUL9OFDzkVSen2WAimyr0h8Cej1/8LBPlUvcEODVCC8+Gb+Jhs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dO6xrlsV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="i8dlY3g1"
-Received: from DESKTOP-SUEFNF9.taila7e912.ts.net (unknown [223.112.146.162])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 410b6c866;
-	Thu, 4 Jun 2026 15:37:15 +0800 (GMT+08:00)
-From: Dawei Feng <dawei.feng@seu.edu.cn>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-media@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	jianhao.xu@seu.edu.cn,
-	Dawei Feng <dawei.feng@seu.edu.cn>,
-	stable@vger.kernel.org,
-	Zilin Guan <zilin@seu.edu.cn>
-Subject: [PATCH] media: renesas: vsp1: fix CLU/LUT entity leaks upon pool allocation failure
-Date: Thu,  4 Jun 2026 15:36:54 +0800
-Message-Id: <20260604073654.1365717-1-dawei.feng@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dO6xrlsV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F40051F00893;
+	Thu,  4 Jun 2026 07:56:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780559787;
+	bh=gssK3Igts23GBW8l1/QhOpdL8Nb7U9OZ+p2rM8MYVDM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=dO6xrlsVhSr/kXZNxLK6vc5xKYszLTR4kKXPt3qdBZdX/7Ix52OkT2TxT9d87uAMz
+	 67UfSnVMuqha2Fz3fmZYqc2OzAdM9yMlBMhYq5txTxC2ziFEGiBuCGU0iCT84iJhlv
+	 L2pQjJEZclQ6yKhpgEU4YRSPxZvKg3b1qBlIjQ2Ugh2ZWM/xseFjadiDjjqdyUszeI
+	 ER5wwKBSLwdIZXPEm7WJRA6DRZicEsLIJ0ScpDPmhOcZaWOjXFbWE8XChkvqi3jTCb
+	 IPFmdeHt9bcmfOCfrWPHCly5UyuIP0kybTriegilbA6Dog8wuZEXkXhmP/KTxuvvN9
+	 HbbuelrXNSFGg==
+Date: Thu, 4 Jun 2026 09:56:22 +0200
+From: Christian Brauner <brauner@kernel.org>
+To: Jann Horn <jannh@google.com>
+Cc: Al Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
+	Chuck Lever <chuck.lever@oracle.com>, Jeff Layton <jlayton@kernel.org>, 
+	Amir Goldstein <amir73il@gmail.com>, linux-fsdevel@vger.kernel.org, linux-nfs@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] fhandle: fix UAF due to unlocked ->mnt_ns read in
+ may_decode_fh()
+Message-ID: <20260604-vorboten-gebilde-entbunden-1c6652465d69@brauner>
+References: <20260603-vfs-fhandle-uaf-fix-v1-1-ff64ee367e4d@google.com>
+ <20260603181523.GW2636677@ZenIV>
+ <20260603182454.GX2636677@ZenIV>
+ <CAG48ez0Jte3UE8wn9Ljs3o2uVDFB24Zbp9zBdaj+D5c4R0+TSQ@mail.gmail.com>
+ <20260603185324.GA2636677@ZenIV>
+ <20260603190225.GB2636677@ZenIV>
+ <CAG48ez34NaE5DCdC=VQWFRPds6JHwGq2YJDF5e6XUtGPNfQq+g@mail.gmail.com>
+ <CAG48ez2kK2dB4Tva0aNdWphV6BS021A4bf6a_cu_yOEJ8Uy=PQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9e9190a0da03a2kunme5b26b902e207
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCTh5IVh0YSx9PGUMdGUNOH1YeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUhVSkpJVUpPTVVKTUlZV1kWGg8SFR0UWUFZT0tIVUpLSU
-	hOQ0NVSktLVUtZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=i8dlY3g13MQUIcyyVPK3Gm9ioJlLU2k6lH1XnzTdGrTmAk85MiR2nPFK7bOeTb7OqJCKB98CUgpErksh4O07dlzCBEzXWZ3MRbGZjUFKLzv1SqlXfI6onPdIyyRXXdqiQZCVqS0RTp9z882TkL/KwaGzrIW9F4QYqdvsGDJDF74=; s=default; c=relaxed/relaxed; d=seu.edu.cn; v=1;
-	bh=dVP7aGhm5Y6ETPyy+1U9AX4lsoQ7z8C/PeEiQ5iVth0=;
-	h=date:mime-version:subject:message-id:from;
+In-Reply-To: <CAG48ez2kK2dB4Tva0aNdWphV6BS021A4bf6a_cu_yOEJ8Uy=PQ@mail.gmail.com>
 
-In vsp1_clu_create() and vsp1_lut_create(), VSP1 entities are initialized
-prior to allocating the body pools. If vsp1_dl_body_pool_create() fails,
-both functions return -ENOMEM directly. This skips the necessary cleanup
-for the already initialized entities, leading to resource leaks.
+On Wed, Jun 03, 2026 at 09:14:25PM +0200, Jann Horn wrote:
+> On Wed, Jun 3, 2026 at 9:08 PM Jann Horn <jannh@google.com> wrote:
+> > (And there's also that weird detail of how, for anonymous namespaces,
+> > the active refcount isn't used and AFAICS never actually drops to
+> > zero...)
+> 
+> (Er, nevermind, I missed that anonymous namespaces just have their
+> active refcount set to 0 from the start already.)
 
-Fix this by introducing a common error label to consolidate the error
-handling. Route the pool allocation failures to this label to ensure
-vsp1_entity_destroy() is properly invoked.
+Let's distinguish a few things:
 
-The bug was first flagged by an experimental analysis tool we are
-developing for kernel memory-management bugs while analyzing
-v6.13-rc1. The tool is still under development and is not yet publicly
-available. Manual inspection confirms that both bugs are still present
-in v7.1-rc6.
+(1) generic reference count of namespaces in general: __ns_ref
+    - for mntns: keeps the mount namespace and the mounts attached to it alive
+(2) active reference count of namespaces in general: __ns_ref_active.
+    - always a subset of (1)
+    - only regulates userspace visibility of the namespace and has no
+      lifetime implications per se. "active" just means "reachable from
+      userspace". It's nothing that the mount layer itself should care
+      about at all.
+(3) passive reference count of struct mnt_namespace
+    - keeps the mount namespace alive but not the mounts attached to it
 
-An x86_64 allyesconfig build of vsp1_clu.o and vsp1_lut.o showed no new
-warnings. As we do not have access to a Renesas R-Car system with a
-VSP1 instance to test with, and no available emulated platform exposes
-one, no runtime testing was able to be performed.
-
-Fixes: 5d7936b8e27d ("media: vsp1: Convert display lists to use new body pool")
-Cc: stable@vger.kernel.org
-
-Signed-off-by: Zilin Guan <zilin@seu.edu.cn>
-Signed-off-by: Dawei Feng <dawei.feng@seu.edu.cn>
----
- drivers/media/platform/renesas/vsp1/vsp1_clu.c | 13 +++++++++----
- drivers/media/platform/renesas/vsp1/vsp1_lut.c | 13 +++++++++----
- 2 files changed, 18 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/media/platform/renesas/vsp1/vsp1_clu.c b/drivers/media/platform/renesas/vsp1/vsp1_clu.c
-index 04c466c4da81..46b90c7b955a 100644
---- a/drivers/media/platform/renesas/vsp1/vsp1_clu.c
-+++ b/drivers/media/platform/renesas/vsp1/vsp1_clu.c
-@@ -236,8 +236,10 @@ struct vsp1_clu *vsp1_clu_create(struct vsp1_device *vsp1)
- 	 */
- 	clu->pool = vsp1_dl_body_pool_create(clu->entity.vsp1, 3, CLU_SIZE + 1,
- 					     0);
--	if (!clu->pool)
--		return ERR_PTR(-ENOMEM);
-+	if (!clu->pool) {
-+		ret = -ENOMEM;
-+		goto error;
-+	}
- 
- 	/* Initialize the control handler. */
- 	v4l2_ctrl_handler_init(&clu->ctrls, 2);
-@@ -249,11 +251,14 @@ struct vsp1_clu *vsp1_clu_create(struct vsp1_device *vsp1)
- 	if (clu->ctrls.error) {
- 		dev_err(vsp1->dev, "clu: failed to initialize controls\n");
- 		ret = clu->ctrls.error;
--		vsp1_entity_destroy(&clu->entity);
--		return ERR_PTR(ret);
-+		goto error;
- 	}
- 
- 	v4l2_ctrl_handler_setup(&clu->ctrls);
- 
- 	return clu;
-+
-+error:
-+	vsp1_entity_destroy(&clu->entity);
-+	return ERR_PTR(ret);
- }
-diff --git a/drivers/media/platform/renesas/vsp1/vsp1_lut.c b/drivers/media/platform/renesas/vsp1/vsp1_lut.c
-index 94bdedcc5c92..d508bcbc7a6e 100644
---- a/drivers/media/platform/renesas/vsp1/vsp1_lut.c
-+++ b/drivers/media/platform/renesas/vsp1/vsp1_lut.c
-@@ -195,8 +195,10 @@ struct vsp1_lut *vsp1_lut_create(struct vsp1_device *vsp1)
- 	 * both the queued and pending dl entries.
- 	 */
- 	lut->pool = vsp1_dl_body_pool_create(vsp1, 3, LUT_SIZE, 0);
--	if (!lut->pool)
--		return ERR_PTR(-ENOMEM);
-+	if (!lut->pool) {
-+		ret = -ENOMEM;
-+		goto error;
-+	}
- 
- 	/* Initialize the control handler. */
- 	v4l2_ctrl_handler_init(&lut->ctrls, 1);
-@@ -207,11 +209,14 @@ struct vsp1_lut *vsp1_lut_create(struct vsp1_device *vsp1)
- 	if (lut->ctrls.error) {
- 		dev_err(vsp1->dev, "lut: failed to initialize controls\n");
- 		ret = lut->ctrls.error;
--		vsp1_entity_destroy(&lut->entity);
--		return ERR_PTR(ret);
-+		goto error;
- 	}
- 
- 	v4l2_ctrl_handler_setup(&lut->ctrls);
- 
- 	return lut;
-+
-+error:
-+	vsp1_entity_destroy(&lut->entity);
-+	return ERR_PTR(ret);
- }
--- 
-2.34.1
-
+With (3) you can grab a reference to the mount namespaces without
+pinning the mounts in it. Then do other stuff that you want and then you
+can grab namespace_sem which allows you to see whether the namespace is
+still alive via mnt_ns_empty(). At no point does the caller need to
+artificially prolong the lifetime of a mount namespaces by grabbing a
+__ns_ref reference count. This is especially useful if the caller needs
+to do a bunch of sleeping operations before they can actually do the
+meat of the work they need.
