@@ -1,288 +1,184 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6096C245019;
-	Thu,  4 Jun 2026 04:39:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780547974; cv=none; b=V6Zt9wkxSVg/EgM3vsEOD+sxSUDhqdPwom/Lv/RXqY6Nxa5QPjXi7SFtEN3Lc75QS/j3TKVtLefkHHAh8G8wqLnP2oirihoZivSXPusjwpLDrtY6aWLe2YWJ/Hct4gjeE5VwBkaU3nzUB4hV6J/JJUqxtVyQPLSf6fcgf9pdtlU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780547974; c=relaxed/simple;
-	bh=3TD/EbWlUgw5Oxp6TsO4T2zyEASvjXycXPbXPXSTw2E=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IwtHwCpxYqGivxpwQBXr4z6pluAU3lExNNhfsgcDc2lQWPZQz3N2r5FUWr16eNyPGLplX30Q2j9KhNFAh1zZWjGB30hSSMiR6HtG9AtfiYEIiVQem236mp6wAe/6lcBBAzt3Bi7bAaAVMkBiBmuh5VlEy2XhBDo6Rdkkt5Eeusg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=UglmN5g9; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0208A1A23B1
+	for <stable@vger.kernel.org>; Thu,  4 Jun 2026 04:43:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.171
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780548200; cv=pass; b=JVHd18wIM3hzQVruKmWCJjM13n9q/3pw+MGfdL/44Suy2bp3ilQm8MmAWHuJNVK1fpsIBh3G0QRCbralFeP40IbTzdeMIsNAKVQD/vYUO8WDMrF1qLcbR9mrc8z+t6RoyOzU6DXe1L6aQ4gZNqTu02GDyi2GctKynsn3dRYbaiY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780548200; c=relaxed/simple;
+	bh=3RJe6dpSrTJydc+DARNysumViUAgzuKZGzr+hdLqGJ8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=g5AzJ4AIzmOJmVWkEqIBRqzHP2iw1lWvgFJR/hzm0OM36ayYqoxUEO3f61JWGCtof/Snea/QZR7A3i7VmDPOmbzU7P0j+OHmO9ol4+f7PI7i14Zw79N8Jk1Lqk4KqnxvUN4RCA1QyfYYLuEc8SxcaJe3fYLp/lmQbVLf8HELW9U=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h7AbE/1z; arc=pass smtp.client-ip=209.85.214.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="UglmN5g9"
-Received: by linux.microsoft.com (Postfix, from userid 1134)
-	id 9C1FA20B7168; Wed,  3 Jun 2026 21:39:18 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 9C1FA20B7168
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1780547958;
-	bh=rS4jtbTUUzAmQ4oxR78vqTVOwiU0QMyHLpZQiXKQYyY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=UglmN5g9gwJz1zQfFDWNUaTZpokmsFN+TAoL05Tx43anuQpgeSZfiEti18jBIFDXn
-	 /hHds2ZlNKGBBDr9zUZ2QiZdj59Tt1Kq8dcXQvMU2iP5vwmdY+6Lng6FTojP293BPe
-	 coiGkZ/ewOoS+qsNGUi9wUHaAxA+KigeHbAalsUo=
-Date: Wed, 3 Jun 2026 21:39:18 -0700
-From: Shradha Gupta <shradhagupta@linux.microsoft.com>
-To: Jacob Keller <jacob.e.keller@intel.com>
-Cc: Dexuan Cui <decui@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	"K. Y. Srinivasan" <kys@microsoft.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Konstantin Taranov <kotaranov@microsoft.com>,
-	Simon Horman <horms@kernel.org>,
-	Erni Sri Satya Vennela <ernis@linux.microsoft.com>,
-	Dipayaan Roy <dipayanroy@linux.microsoft.com>,
-	Shiraz Saleem <shirazsaleem@microsoft.com>,
-	Michael Kelley <mhklinux@outlook.com>,
-	Long Li <longli@microsoft.com>, Yury Norov <yury.norov@gmail.com>,
-	linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org, Paul Rosswurm <paulros@microsoft.com>,
-	Shradha Gupta <shradhagupta@microsoft.com>,
-	Saurabh Singh Sengar <ssengar@microsoft.com>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH net v3] net: mana: Optimize irq affinity for low vcpu
- configs
-Message-ID: <aiEBdsP7NTBd0+ah@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
-References: <20260601102749.1768304-1-shradhagupta@linux.microsoft.com>
- <10988db9-8a8d-4ad0-917e-317dd4b20253@intel.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h7AbE/1z"
+Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2bf3781ca51so2959455ad.0
+        for <stable@vger.kernel.org>; Wed, 03 Jun 2026 21:43:19 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1780548198; cv=none;
+        d=google.com; s=arc-20240605;
+        b=F7BdqzlleQUf9drtkD73IdzIlcighfkuSsnaooiWUrfkqfoRXdVIkt+TJy93eTOYuD
+         1M1rGRFmR1i33zjxS1K/KLcoasPGgAE6c/mB/pp1Go5d3CF2qQQHVpf63PnPqsGMSwe6
+         Q88JFZc5vf9XAn0I0POcxlEHVwKIxPoKNw6EQ8+sdDw9Mb2ewJgAEfL8ra1gMXh8t0Yl
+         JZ+Ewsoris/wf0xA1rjKQV9XZA9At043py4nmntHx34DQl/zKBjwi+9mrdz/oQh0TffT
+         kkk7UUy5Kb4HXZk6/BQTVFHge9ezGh4K5ArdjrljJqz7USLO95JnMoQuHWq1V4QNA4N2
+         5Byg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=4Q8fUzt52Ok5HtP82gixM3w+SOLiXtsoejdjp6H3nNk=;
+        fh=fRZXZkPelf5cr+QNnNj2pDd2Cxmv/7SLtc/EQvW0+Fg=;
+        b=CmkzDnU62NxzopeEMLu5c53LqQghqs2hmXoXsXPIffGGIjyq7q7oGL3VgFRZCNBuVa
+         EOYGwby4Y8Ckbt6jKhCizqDUMsGoK4dL0nFPiEdRSdKo73BLqcMzcxA73zMAhDm6iB8X
+         P3yfzDeKdBpycTiooAB/cPhsm1ouMdUishYv57fB+zDLF9KG82GzLDyE7G80v8QWBYo8
+         ZQJQo3XRHez9ulHyfzYfRFyNnN4Z707ELZ0Wb8nQRJ7VY4H1ULfMD4vkDzYpN8tPdrfz
+         xET5OV1p4fJwxi38oVWpIl1awAq+MdAmKBiIADSLu7OCfPonB7VS0u64uiGwwWG1moxy
+         eOxw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780548198; x=1781152998; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=4Q8fUzt52Ok5HtP82gixM3w+SOLiXtsoejdjp6H3nNk=;
+        b=h7AbE/1zzeaWzU5skp7+nIhxP2T1ptX4xMqBkdqESxMnCtYGKErBmSpabh3svY/Quy
+         2yHY+SiyW5P2JrFTa129N/3lTyoh7/yyE50J+4y6dDibL78Y3jmvCB13nM1H6MJKJpKv
+         H7BPIgnmUdFIw1Lfyz1TqNqLs8nhGvRKGw2/xknQ1sFaPnloTxdabydUhdBZaGJsTB2N
+         l24V1EqCUQqEcAXULd0EyNdxAhnVau0+bxagnPDP4q1kqigllDZJuwq2ah7994eQgeyZ
+         cXAP8D6nPIJH1FzDka8Dbo2Xi+I9u/XPJRZh7+JD6EL6q8B0V7lLSCqfpDtwgAztcn4A
+         SxmA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780548198; x=1781152998;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=4Q8fUzt52Ok5HtP82gixM3w+SOLiXtsoejdjp6H3nNk=;
+        b=I+ldw1f23VfiHmg4diJHW7xUfdkuCGq0NdKsN6ZqwVXs8J49tfKCK3mZG+E5Uq8jvJ
+         BAc12SP5+bRODw2tkq2uwTcDT/04dICUtJLKMKji+xqzZykswwxaeZJhORXIPXG7taTi
+         8KjSrwayVCf0zGneJwqsz3b2goJL5pfoR9GQT1Z4Ke4kprOf/q8ruI4ky4pJrHXelIfA
+         5hJuKRCbI5s/AxJQ+Ay5rmogu+KE1aiDsmHtJ/W0KZ5oH0Cu3QayZM2ZAz8cnaZKLJDU
+         bKanftqSTFDTQhD8/3Pi1LBky9ppWbMzfszYx4bz1FFgzaOJ2rwWYMAJx7NaPPjpnhI+
+         Ffhw==
+X-Forwarded-Encrypted: i=1; AFNElJ8RPpY8pBVR97/P2dJ6xvZjux6NoLBi+iSAMnz1M4yiEayCoBCuuToB/0E8kuBF57cJpJ5uDg4=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzKWmUgAZcrk/Lmn2324NvUEnODTPQwX8xytU1yzHfU4H2IqHO4
+	m4bsKvaddgEeQ55fSE2ovnFTWM8jRvhfuSZ6OQg81Jb4X38jwjsnDxfzeUXfbi7jsV+dzDdeKrq
+	S9p+7L1eMh2LqRbwU91jJYvmQ3E0gLw==
+X-Gm-Gg: Acq92OHLoS/faLDVYcn3GxunAOX9ECuL6UmaEFEgfyuVtuyDgybFPQ370hISgwF/qGD
+	gXaif59nqwUpFUtc/yZIVTTne20Oyqqh4bfv3wHuy4q52tSEopqMFLBhceMEr8mJGuWU26YGkPk
+	HlpNqcmhI/u/irzHbsqdn774DM4Jo+dDOPSZR4LQh/lLdosiq8GXj5EwRgNLO//nhVdtQ0mT9nS
+	sZZ92/FVfvoZMHYEiEXtnRr1lNtdypxFl3/AziGLYo3UCbtnrVggiNqg9AVkGmoNVv8YYoXYVsR
+	yys6Nw5ECaVVAJmThNLk+Yl1Tkl6mxoQeJW1ZqhljStrTEJF46SvuvJv1bo=
+X-Received: by 2002:a17:903:2446:b0:2bf:305a:312a with SMTP id
+ d9443c01a7336-2c163fa8208mr68644605ad.22.1780548198268; Wed, 03 Jun 2026
+ 21:43:18 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <10988db9-8a8d-4ad0-917e-317dd4b20253@intel.com>
+References: <20260524175552.1973-1-mhun512@gmail.com> <ahdE9G8I7kd_OoGW@google.com>
+ <nr568s88-77o5-p5pn-5r1n-236371989rn0@xreary.bet>
+In-Reply-To: <nr568s88-77o5-p5pn-5r1n-236371989rn0@xreary.bet>
+From: Myeonghun Pak <mhun512@gmail.com>
+Date: Thu, 4 Jun 2026 13:43:01 +0900
+X-Gm-Features: AVHnY4ITieUM9oAw8Yb2dovzKSILbIbJGByWFFRmd3Q98L5EffP8CtXRVS1zhQ8
+Message-ID: <CAGEsz8HDzf62R016fJ9Wn_M+_pmWCT8Rk3OQJm3-MihS0MVqbA@mail.gmail.com>
+Subject: Re: [PATCH] HID: wacom: stop hardware after post-start probe failures
+To: Jiri Kosina <jikos@kernel.org>
+Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>, Ping Cheng <ping.cheng@wacom.com>, 
+	Jason Gerecke <jason.gerecke@wacom.com>, Benjamin Tissoires <bentiss@kernel.org>, 
+	linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org, Ijae Kim <ae878000@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Jun 03, 2026 at 02:49:24PM -0700, Jacob Keller wrote:
-> On 6/1/2026 3:27 AM, Shradha Gupta wrote:
-> > In mana driver, the number of IRQs allocated is capped by the
-> > min(num_cpu + 1, queue count). In cases, where the IRQ count is greater
-> > than the vcpu count, we want to utilize all the vCPUs, irrespective of
-> > their NUMA/core bindings.
-> > 
-> > This is important, especially in the envs where number of vCPUs are so
-> > few that the softIRQ handling overhead on two IRQs on the same vCPU is
-> > much more than their overheads if they were spread across sibling vCPUs.
-> > 
-> > This behaviour is more evident with dynamic IRQ allocation. Since MANA
-> > IRQs are assigned at a later stage compared to static allocation, other
-> > device IRQs may already be affinitized to the vCPUs. As a result, IRQ
-> > weights become imbalanced, causing multiple MANA IRQs to land on the
-> > same vCPU, while some vCPUs have none.
-> > 
-> > In such cases when many parallel TCP connections are tested, the
-> > throughput drops significantly.
-> > 
-> > Test envs:
-> > =======================================================
-> > Case 1: without this patch
-> > =======================================================
-> > 4 vcpu(2 cores), 5 MANA IRQs (1 HWC + 4 Queue)
-> > 
-> > 	TYPE		effective vCPU aff
-> > =======================================================
-> > IRQ0:	HWC		0
-> > IRQ1:	mana_q1		0
-> > IRQ2:	mana_q2		2
-> > IRQ3:	mana_q3		0
-> > IRQ4:	mana_q4		3
-> > 
-> > %soft on each vCPU(mpstat -P ALL 1) on receiver
-> > vCPU		0	1	2	3
-> > =======================================================
-> > pass 1:		38.85	0.03	24.89	24.65
-> > pass 2:		39.15	0.03	24.57	25.28
-> > pass 3:		40.36	0.03	23.20	23.17
-> > 
-> > =======================================================
-> > Case 2: with this patch
-> > =======================================================
-> > 4 vcpu(2 cores), 5 MANA IRQs (1 HWC + 4 Queue)
-> > 
-> >         TYPE            effective vCPU aff
-> > =======================================================
-> > IRQ0:   HWC             0
-> > IRQ1:   mana_q1         0
-> > IRQ2:   mana_q2         1
-> > IRQ3:   mana_q3         2
-> > IRQ4:   mana_q4         3
-> > 
-> > %soft on each vCPU(mpstat -P ALL 1) on receiver
-> > vCPU            0       1       2       3
-> > =======================================================
-> > pass 1:         15.42	15.85	14.99	14.51
-> > pass 2:         15.53	15.94	15.81	15.93
-> > pass 3:         16.41	16.35	16.40	16.36
-> > 
-> > =======================================================
-> > Throughput Impact(in Gbps, same env)
-> > =======================================================
-> > TCP conn	with patch	w/o patch
-> > 20480		15.65		7.73
-> > 10240		15.63		8.93
-> > 8192		15.64		9.69
-> > 6144		15.64		13.16
-> > 4096		15.69		15.75
-> > 2048		15.69		15.83
-> > 1024		15.71		15.28
-> > 
-> > Fixes: 755391121038 ("net: mana: Allocate MSI-X vectors dynamically")
-> > Cc: stable@vger.kernel.org
-> > Co-developed-by: Erni Sri Satya Vennela <ernis@linux.microsoft.com>
-> > Signed-off-by: Erni Sri Satya Vennela <ernis@linux.microsoft.com>
-> > Signed-off-by: Shradha Gupta <shradhagupta@linux.microsoft.com>
-> > Reviewed-by: Haiyang Zhang <haiyangz@microsoft.com>
-> > Reviewed-by: Simon Horman <horms@kernel.org>
-> > ---
-> > Changes in v3
-> >  * Optimize the comments in mana_gd_setup_dyn_irqs()
-> >  * add more details in the dev_dbg for extra IRQs 
-> > ---
-> > Changes in v2
-> >  * Removed the unused skip_first_cpu variable
-> >  * fixed exit condition in irq_setup_linear() with len == 0
-> >  * changed return type of irq_setup_linear() as it will always be 0
-> >  * removed the unnecessary rcu_read_lock() in irq_setup_linear()
-> >  * added appropriate comments to indicate expected behaviour when
-> >    IRQs are more than or equal to num_online_cpus()
-> > ---
-> >  .../net/ethernet/microsoft/mana/gdma_main.c   | 60 ++++++++++++++++---
-> >  1 file changed, 53 insertions(+), 7 deletions(-)
-> > 
-> > diff --git a/drivers/net/ethernet/microsoft/mana/gdma_main.c b/drivers/net/ethernet/microsoft/mana/gdma_main.c
-> > index 712a0881d720..00a28b3ca0a6 100644
-> > --- a/drivers/net/ethernet/microsoft/mana/gdma_main.c
-> > +++ b/drivers/net/ethernet/microsoft/mana/gdma_main.c
-> > @@ -197,6 +197,8 @@ static int mana_gd_query_max_resources(struct pci_dev *pdev)
-> >  	} else {
-> >  		/* If dynamic allocation is enabled we have already allocated
-> >  		 * hwc msi
-> > +		 * Also, we make sure in this case the following is always true
-> > +		 * (num_msix_usable - 1 HWC) <= num_online_cpus()
-> >  		 */
-> >  		gc->num_msix_usable = min(resp.max_msix, num_online_cpus() + 1);
-> >  	}
-> > @@ -1717,11 +1719,24 @@ static int irq_setup(unsigned int *irqs, unsigned int len, int node,
-> >  	return 0;
-> >  }
-> >  
-> > +/* should be called with cpus_read_lock() held */
-> > +static void irq_setup_linear(unsigned int *irqs, unsigned int len)
-> > +{
-> > +	int cpu;
-> > +
-> > +	for_each_online_cpu(cpu) {
-> > +		if (len == 0)
-> > +			break;
-> > +
-> > +		irq_set_affinity_and_hint(*irqs++, cpumask_of(cpu));
-> > +		len--;
-> > +	}
-> > +}
-> 
-> I would find all of this a bit easier to follow if irq_setup_linear()
-> and irq_setup() had a mana prefix so it was more obvious these are
-> specific to the driver. Of course irq_setup is pre-existing, and its not
-> my driver so do as you will :)
-> 
-> > +
-> >  static int mana_gd_setup_dyn_irqs(struct pci_dev *pdev, int nvec)
-> >  {
-> >  	struct gdma_context *gc = pci_get_drvdata(pdev);
-> >  	struct gdma_irq_context *gic;
-> > -	bool skip_first_cpu = false;
-> >  	int *irqs, irq, err, i;
-> >  
-> >  	irqs = kmalloc_objs(int, nvec);
-> > @@ -1729,6 +1744,8 @@ static int mana_gd_setup_dyn_irqs(struct pci_dev *pdev, int nvec)
-> >  		return -ENOMEM;
-> >  
-> >  	/*
-> > +	 * In this function, num_msix_usable = HWC IRQ + Queue IRQ.
-> > +	 * nvec is only Queue IRQ (HWC already setup).
-> >  	 * While processing the next pci irq vector, we start with index 1,
-> >  	 * as IRQ vector at index 0 is already processed for HWC.
-> >  	 * However, the population of irqs array starts with index 0, to be
-> > @@ -1767,13 +1784,42 @@ static int mana_gd_setup_dyn_irqs(struct pci_dev *pdev, int nvec)
-> >  	 * first CPU sibling group since they are already affinitized to HWC IRQ
-> >  	 */
-> >  	cpus_read_lock();
-> > -	if (gc->num_msix_usable <= num_online_cpus())
-> > -		skip_first_cpu = true;
-> > +	if (gc->num_msix_usable <= num_online_cpus()) {
-> > +		err = irq_setup(irqs, nvec, gc->numa_node, true);
-> > +		if (err) {
-> > +			cpus_read_unlock();
-> > +			goto free_irq;
-> > +		}
-> > +	} else {
-> > +		/*
-> > +		 * When num_msix_usable are more than num_online_cpus, our
-> > +		 * queue IRQs should be equal to num of online vCPUs.
-> > +		 * We try to make sure queue IRQs spread across all vCPUs.
-> > +		 * In such a case NUMA or CPU core affinity does not matter.
-> > +		 * Note: in this case the total mana IRQ should always be
-> > +		 * num_online_cpus + 1. The first HWC IRQ is already handled
-> > +		 * in HWC setup calls
-> > +		 * However, if CPUs went offline since num_msix_usable was
-> > +		 * computed, queue IRQs will be more than num_online_cpus().
-> > +		 * In such cases remaining extra IRQs will retain their default
-> > +		 * affinity.
-> > +		 */
-> > +		int first_unassigned = num_online_cpus();
-> > +		if (nvec > first_unassigned) {
-> > +			char buf[32];
-> > +
-> > +			if (first_unassigned == nvec - 1)
-> > +				snprintf(buf, sizeof(buf), "%d",
-> > +					 first_unassigned);
-> > +			else
-> > +				snprintf(buf, sizeof(buf), "%d-%d",
-> > +					 first_unassigned, nvec - 1);
-> > +
-> > +			dev_dbg(&pdev->dev,
-> > +				"MANA IRQ indices #%s will retain the default CPU affinity\n", buf);
-> > +		}
-> >  
-> > -	err = irq_setup(irqs, nvec, gc->numa_node, skip_first_cpu);
-> > -	if (err) {
-> > -		cpus_read_unlock();
-> > -		goto free_irq;
-> > +		irq_setup_linear(irqs, nvec);
-> 
-> irq_setup() doesn't have a driver prefix, but is actually a static
-> function in gdma_main.c, so its implementation is specific to this
-> driver despite its name.
-> 
-> So if I understand this change correctly, if the number of usable MSI-X
-> vectors is smaller than the number of CPUs, you contineu to use the
-> current irq_setup logic.. otherwise you switch to the simpler "linear"
-> logic.
-> 
-> I guess this means the logic and heuristic used in irq_setup() breaks
-> down when the number of vectors is large and number of vCPU is small?
-> 
-> Makes sense.
-> 
+Hi Jiri and Dmitry,
 
-Hi Jacob,
+Thank you both for the review. I agree with Dmitry's suggestion to
+remove 'fail_quirks' and use 'fail_hw_stop' throughout the probe path.
+I will send out v2 with this change shortly.
 
-Yes, that's the right understanding. 
-Regarding the function names, let me take that up in a seperate patch to
-add prefixes to all such functions.
+Best regards,
+Myeonghun Pak
 
-Thanks.
-
-> >  	}
-> >  
-> >  	cpus_read_unlock();
-> > 
-> > base-commit: 8415598365503ced2e3d019491b0a2756c85c494
+2026=EB=85=84 6=EC=9B=94 3=EC=9D=BC (=EC=88=98) =EC=98=A4=ED=9B=84 9:23, Ji=
+ri Kosina <jikos@kernel.org>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
+>
+> On Wed, 27 May 2026, Dmitry Torokhov wrote:
+>
+> > > wacom_parse_and_register() starts HID hardware before registering inp=
+uts
+> > > and initializing pad LEDs/remotes. Those later steps can fail, but th=
+eir
+> > > error paths currently release Wacom resources without stopping the HI=
+D
+> > > hardware.
+> > >
+> > > Route post-hid_hw_start() failures through hid_hw_stop() before
+> > > releasing driver resources.
+> > >
+> > > This issue was identified during our ongoing static-analysis research=
+ while
+> > > reviewing kernel code.
+> > >
+> > > Fixes: c1d6708bf0d3 ("HID: wacom: Do not register input devices until=
+ after hid_hw_start")
+> > > Cc: stable@vger.kernel.org
+> > > Co-developed-by: Ijae Kim <ae878000@gmail.com>
+> > > Signed-off-by: Ijae Kim <ae878000@gmail.com>
+> > > Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+> > > ---
+> > >  drivers/hid/wacom_sys.c | 7 ++++---
+> > >  1 file changed, 4 insertions(+), 3 deletions(-)
+> > >
+> > > diff --git a/drivers/hid/wacom_sys.c b/drivers/hid/wacom_sys.c
+> > > index 0d1c6d90fe..c824d9c224 100644
+> > > --- a/drivers/hid/wacom_sys.c
+> > > +++ b/drivers/hid/wacom_sys.c
+> > > @@ -2456,16 +2456,16 @@ static int wacom_parse_and_register(struct wa=
+com *wacom, bool wireless)
+> > >
+> > >     error =3D wacom_register_inputs(wacom);
+> > >     if (error)
+> > > -           goto fail;
+> > > +           goto fail_hw_stop;
+> > >
+> > >     if (wacom->wacom_wac.features.device_type & WACOM_DEVICETYPE_PAD)=
+ {
+> > >             error =3D wacom_initialize_leds(wacom);
+> > >             if (error)
+> > > -                   goto fail;
+> > > +                   goto fail_hw_stop;
+> > >
+> > >             error =3D wacom_initialize_remotes(wacom);
+> > >             if (error)
+> > > -                   goto fail;
+> > > +                   goto fail_hw_stop;
+> > >     }
+> > >
+> > >     if (!wireless) {
+> > > @@ -2496,6 +2496,7 @@ static int wacom_parse_and_register(struct waco=
+m *wacom, bool wireless)
+> > >     return 0;
+> > >
+> > >  fail_quirks:
+> > > +fail_hw_stop:
+> > >     hid_hw_stop(hdev);
+> > >  fail:
+> > >     wacom_release_resources(wacom);
+> >
+> > I'd get rid of 'fail_quirks' and use 'fail_hw_stop' everywhere,
+>
+> Agreed. Myeonghun, will you send v2 please?
+>
+> Thanks,
+>
+> --
+> Jiri Kosina
+> SUSE Labs
+>
