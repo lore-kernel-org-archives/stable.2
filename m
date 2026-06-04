@@ -1,128 +1,132 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B043B477E4C
-	for <stable@vger.kernel.org>; Thu,  4 Jun 2026 12:37:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 179D4477998;
+	Thu,  4 Jun 2026 12:38:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780576666; cv=none; b=bi1QsU4xnEbp4kms/RcssDsSB9oIwdzPBLZ0zj9OwCc3b8WN9ahPGEmNDA6UnqFEA0DuXAFsx7g60MCLw9d+thcdtT+JNzUWu8LT4T7HupsJCABynJS3tLbOVHuC4siKmGySh/URguXkwa4mW4+DF1RkEWkj9juqoCbKuuxUCAo=
+	t=1780576698; cv=none; b=GquGXLm+2NOV6CPNmgNBt4QWDaPNAs9nSFUvUO3H+gRd9oz4DzT+Tuvx7XR+X3gz1jauipgYiOZsrN975azXc3LjCIz5gDj1PTTJ4PB+9Q/T6csILMjYeUQLCnRTfAJ6u3Ro3y0RwAG1oiBt8o7qbRWibcl5MHIFtlDbRKH6EEM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780576666; c=relaxed/simple;
-	bh=OLXEt5OdYDqmqIFWkc7g+qGatoVE1nQg/rQWaLcMQGU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=X73XOL/v/iZAHow0j7fNo6ax6i6UzMbWv0jo+5SRz1FI+UbT8lOnaOQ4QCaybgLhJ/IEMl8N6kf3Vt4xfnnhmH8bt4h6uz0npA8zHSTCdwVAEOK+uMi0zUjjkmpXsiMb64hSoWojTjLtaW6mxYmwoJSPvVGflyH+qhGLzlem+Gw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=sX1iF088; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1780576698; c=relaxed/simple;
+	bh=we47YYaE6BYyUxQ1wet770jWCAm2yCbUyoIKyySk65E=;
+	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
+	 Message-ID:Content-Type; b=ZpUf8LdRU/Yi2x2jqYq2bZOGuc2ktTLB602dPGbQX1k4AHfKseOk8f6hQ7XoUTfQfPHT2AZDvjZN7GskCHZ9bua5ygzbsdna0nhuLHDspvd4twT7BGbcsnswdEKqLtO7iMTN6hfsVRCtO/mfSf36XMcdtFEWy2A/2FO7vz3JqWE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=Is0+Vxt4; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=H561HnD+; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="sX1iF088"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id CA8BF1570;
-	Thu,  4 Jun 2026 05:37:35 -0700 (PDT)
-Received: from thinkpad-e142931.arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E0B693F7D8;
-	Thu,  4 Jun 2026 05:37:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1780576660; bh=OLXEt5OdYDqmqIFWkc7g+qGatoVE1nQg/rQWaLcMQGU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=sX1iF088rZLldCYYKpJvWYqmQHTkJEP+JmwxVAF6k/SUxSjWqdZmaVojJufze24oZ
-	 aDrVKF0zurbhmTZqpfRnlHXRi2QEE1ZRYQBluukz7+7sDqkw3EHCwBIyKHb2AiHzxF
-	 8a/CH6u+vpBRjavgKbeJTo9WOKCrEa+Nmix1+Dcg=
-Date: Thu, 4 Jun 2026 13:37:32 +0100
-From: Wei-Lin Chang <weilin.chang@arm.com>
-To: Oliver Upton <oupton@kernel.org>
-Cc: kvmarm@lists.linux.dev, Marc Zyngier <maz@kernel.org>, 
-	Joey Gouly <joey.gouly@arm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
-	Zenghui Yu <yuzenghui@huawei.com>, stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] KVM: arm64: nv: Fix handling of XN[0] when
- !FEAT_XNX
-Message-ID: <xbkllyg55nyobj7367wdgbznxtdacdajdkqnoli2dutpj6wvvq@ksfdfkflfocw>
-References: <20260602165901.52800-1-oupton@kernel.org>
- <20260602165901.52800-2-oupton@kernel.org>
- <zzprmfdgkd4sfxjuvbj65ssmdbcxvb2lrdv7lgywysuthx6t4i@ffehlydwbwy7>
- <aiCzYWoSmKIRpMre@kernel.org>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="Is0+Vxt4";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="H561HnD+"
+Date: Thu, 04 Jun 2026 12:38:10 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1780576692;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=/y7XyB8fb80ukOrz2u8tkp2EKPbJfiUwvRSitI7jk60=;
+	b=Is0+Vxt4WMKzyPjnD+sPwMB4xl2JVuPv40PEJ9QvyILaip6APFbGIzYDYR5gBMuAnHnC18
+	G2nBAj6lR6tejveo1bhxkp+DyMMK638Ga4DjPX8MatS55+J6mXktnU1vmwR4nulqXoq+cs
+	hM22HT/Jvjar2pUlZuWxkNnw31REaUHx4wa6HrhMH/apE9oU1SOxKnkjDkliH2tXm8x94j
+	dzBzgB3b/y/pN+AgRNj/3NkeqVIqINNbHSvlTXdHN7bP0alp1aw099wOXQXJLXGMf9WGda
+	y1fUAcJsjF4U3JChPPeQKIpqWlDz4lYSEOKjPpLJSTz2nO32+14poVOY2NBAQA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1780576692;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=/y7XyB8fb80ukOrz2u8tkp2EKPbJfiUwvRSitI7jk60=;
+	b=H561HnD+8YpDBKNpC/eFrqXawrSZbf4hpTXAjZquVhdh+psYeuX4kVNoV/x/AVVqhbYW1U
+	Jvg1sYbM/4tOzbDQ==
+From: "tip-bot2 for Amit Matityahu" <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject: [tip: timers/urgent] timers/migration: Fix livelock in
+ tmigr_handle_remote_up()
+Cc: Alon Kariv <alonka@amazon.com>, Amit Matityahu <amitmat@amazon.com>,
+ Thomas Gleixner <tglx@kernel.org>, stable@vger.kernel.org, x86@kernel.org,
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20260603170139.33628-1-amitmat@amazon.com>
+References: <20260603170139.33628-1-amitmat@amazon.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aiCzYWoSmKIRpMre@kernel.org>
+Message-ID: <178057669029.710.16956490801880312395.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Jun 03, 2026 at 04:06:09PM -0700, Oliver Upton wrote:
-> Hey Wei-Lin,
-> 
-> Thanks for the review.
-> 
-> On Wed, Jun 03, 2026 at 11:57:20PM +0100, Wei-Lin Chang wrote:
-> > Hi Oliver,
-> > 
-> > On Tue, Jun 02, 2026 at 09:59:00AM -0700, Oliver Upton wrote:
-> > > XN has already been extracted from its bitfield position so using
-> > > FIELD_PREP() on the mask that clears XN[0] is completely broken, having
-> > > the effect of unconditionally granting execute permissions...
-> > > 
-> > > Fix the obvious mistake by manipulating the right bit.
-> > > 
-> > > Cc: stable@vger.kernel.org
-> > > Fixes: d93febe2ed2e ("KVM: arm64: nv: Forward FEAT_XNX permissions to the shadow stage-2")
-> > > Reviewed-by: Wei-Lin Chang <weilin.chang@arm.com>
-> > > Signed-off-by: Oliver Upton <oupton@kernel.org>
-> > > ---
-> > >  arch/arm64/include/asm/kvm_nested.h | 4 ++--
-> > >  1 file changed, 2 insertions(+), 2 deletions(-)
-> > > 
-> > > diff --git a/arch/arm64/include/asm/kvm_nested.h b/arch/arm64/include/asm/kvm_nested.h
-> > > index 091544e6af44..a0eb83319c2e 100644
-> > > --- a/arch/arm64/include/asm/kvm_nested.h
-> > > +++ b/arch/arm64/include/asm/kvm_nested.h
-> > > @@ -131,7 +131,7 @@ static inline bool kvm_s2_trans_exec_el0(struct kvm *kvm, struct kvm_s2_trans *t
-> > >  	u8 xn = FIELD_GET(KVM_PTE_LEAF_ATTR_HI_S2_XN, trans->desc);
-> > >  
-> > >  	if (!kvm_has_xnx(kvm))
-> > > -		xn &= FIELD_PREP(KVM_PTE_LEAF_ATTR_HI_S2_XN, 0b10);
-> > > +		xn &= 0b10;
-> > >  
-> > >  	switch (xn) {
-> > >  	case 0b00:
-> > > @@ -147,7 +147,7 @@ static inline bool kvm_s2_trans_exec_el1(struct kvm *kvm, struct kvm_s2_trans *t
-> > >  	u8 xn = FIELD_GET(KVM_PTE_LEAF_ATTR_HI_S2_XN, trans->desc);
-> > >  
-> > >  	if (!kvm_has_xnx(kvm))
-> > > -		xn &= FIELD_PREP(KVM_PTE_LEAF_ATTR_HI_S2_XN, 0b10);
-> > > +		xn &= 0b10;
-> > >  
-> > 
-> > Now that the other patch brings up kvm_pgtable_stage2_pte_prot(), what
-> > do you think about also using that here? It can save a little bit of
-> > duplicated decode logic.
-> > 
-> > Other than this being in a header and we'll have to move the code
-> > around for this to work, I'm curious are there any other issues with
-> > this idea?
-> 
-> No issues with your suggestion but I plan on nuking the kvm_s2_trans*()
-> accessors soon :)
+The following commit has been merged into the timers/urgent branch of tip:
 
-Ah, cool cool.
+Commit-ID:     d486b4934a8e504376b85cdb3766f306d57aff5b
+Gitweb:        https://git.kernel.org/tip/d486b4934a8e504376b85cdb3766f306d57=
+aff5b
+Author:        Amit Matityahu <amitmat@amazon.com>
+AuthorDate:    Wed, 03 Jun 2026 17:01:39=20
+Committer:     Thomas Gleixner <tglx@kernel.org>
+CommitterDate: Thu, 04 Jun 2026 14:35:33 +02:00
 
-> 
-> Ultimately kvm_s2_trans should just contain pre-computed permissions,
-> which matters more when dealing with descriptor fields that require the
-> MMU context to make sense of (like DBM). On top of that, getters for
-> obviously named fields isn't adding a whole lot.
+timers/migration: Fix livelock in tmigr_handle_remote_up()
 
-I see, makes sense to me.
+tmigr_handle_remote_cpu() skips timer_expire_remote() when cpu =3D=3D
+smp_processor_id(), assuming the local softirq path already handled this
+CPU's timers.
 
-> 
-> Any concerns with leaving as-is for now?
+This assumption is wrong because jiffies can advance after the handling of
+the CPU's global timers in run_timer_base(BASE_GLOBAL) and before
+tmigr_handle_remote() evaluates the expiry times.
 
-No, and thanks for sharing!
+As a consequence a timer which expires after the CPU local timer wheel
+advanced and becomes expired in the remote handling is ignored and the
+callback is never invoked and removed from the timer wheel.
 
-Thanks,
-Wei-Lin Chang
+What's worse is that fetch_next_timer_interrupt_remote() keeps reporting it
+as expired, and the event is re-queued with expires =3D=3D now on each
+iteration.  The goto-again loop spins indefinitely.
 
-> 
-> -- 
-> Thanks,
-> Oliver
+Fix this by calling timer_expire_remote() unconditionally. That's minimal
+overhead for the common case as __run_timer_base() returns immediately if
+there is nothing to expire in the local wheel.
+
+[ tglx: Amend change log and add a comment ]
+
+Fixes: 7ee988770326 ("timers: Implement the hierarchical pull model")
+Reported-by: Alon Kariv <alonka@amazon.com>
+Signed-off-by: Amit Matityahu <amitmat@amazon.com>
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20260603170139.33628-1-amitmat@amazon.com
+---
+ kernel/time/timer_migration.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
+
+diff --git a/kernel/time/timer_migration.c b/kernel/time/timer_migration.c
+index 1d0d3a4..52c15af 100644
+--- a/kernel/time/timer_migration.c
++++ b/kernel/time/timer_migration.c
+@@ -978,8 +978,12 @@ static void tmigr_handle_remote_cpu(unsigned int cpu, u6=
+4 now,
+ 	/* Drop the lock to allow the remote CPU to exit idle */
+ 	raw_spin_unlock_irq(&tmc->lock);
+=20
+-	if (cpu !=3D smp_processor_id())
+-		timer_expire_remote(cpu);
++	/*
++	 * This can't exclude the local CPU because jiffies might have advanced
++	 * after the timer softirq invoked run_timer_base(BASE_GLOBAL) and the
++	 * point where the jiffies snapshot @jif was taken in tmigr_handle_remote().
++	 */
++	timer_expire_remote(cpu);
+=20
+ 	/*
+ 	 * Lock ordering needs to be preserved - timer_base locks before tmigr
