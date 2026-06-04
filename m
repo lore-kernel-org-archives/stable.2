@@ -1,159 +1,104 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 493463BFAF7;
-	Thu,  4 Jun 2026 05:06:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1653B25228D;
+	Thu,  4 Jun 2026 05:42:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780549580; cv=none; b=a5Fm78rfLf9INXZU3VC3HhbWxLJZelaQKdsJ5qwRfJDiWsjITI04u5gDd43XF2/TqzIHO+nfMQw8zqSLVoR+6FYR1O7LXCQM8exomz/VqSS/3B/v/pz+BgjEAbovdRSzcBls6lT5S/M9+kv4QE7J6U4dhhAo7tx4EGQpu7VkOaQ=
+	t=1780551772; cv=none; b=FYY7Mtk0wBnp07D5LclJVi0hSXScnk6EYOKTqsX4dfPO2t/ZBHagBIt/AIt2vxV7ZbM6C5apS60qfPH8bl0lViJ5IoMYeJegzkSQv002IdBWpkszrIu3KfLS6cIb6Nm70CtbQE+71pngGhkpKmWvG0oTp4zpKiyfL5jKt8gOhx8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780549580; c=relaxed/simple;
-	bh=2X7FdL3iJviZbY2cMs1TSIGKgzX1YWQLzaeOnV6C59U=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=aAbdZvt6o+vdZ/ldBm9mmFLtvBt+NDUGqdq4TlePrnjB3WvcnSkp3lq0UCboo60nCDdga+f0pvr1EN89cvJY4dRoOfl7pylvnjCm4z63Bv1n6JtOrDwX+/3gRfgvtSTsYRKg/2+aHCRjjVVkpUVDBVuKu/CgY2kM5F0G8eDjfiA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=CwGLz9IG; arc=none smtp.client-ip=192.198.163.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1780551772; c=relaxed/simple;
+	bh=kllpQdJk7f30xvh3IYaPyj8ADd2Ln5TrG2yStupVJ9Y=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=KFT7hjEwpN8FY6MrskxTCSjd3Fmhdoy5gl+T88wC25iiP4UVLzB8WpQ63OpChtMrEr+ogtBE4cPocbHO94Hidk87TQYojoMkFW5wEhebANamEX886zDicexJsrX++zhx+Ad1Z15TSTAV6A3TaiZHJttvtFarKMlBIUFEZzoGXAs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OQpIAaOL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="CwGLz9IG"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1780549578; x=1812085578;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=2X7FdL3iJviZbY2cMs1TSIGKgzX1YWQLzaeOnV6C59U=;
-  b=CwGLz9IGGWrtGRhTCtOPgKPHnMpXOO0a4vLQVlFpvLXwj0GzJfFGDBBw
-   V08O8SHVWxACTax4QSxKYTvT5kPJwhF598nXhF9tZ1VIubGXCFPSQOZ9j
-   y+pBMbPhK2gT61NPtPOdOQ1HsLhICS3cYdg/CsSHrqDyy1vKFXULFEUyP
-   nSPtQZu5fKyYzFF+ILRfgSsZAuz7gxE3K+PCuLgUPZTvDYPK4GNyxVV8L
-   BuypR+zcQYsXHOBEfALH1OevmnytQVUR6FWv6cfNDSKJhtYfTeXjJQJyu
-   ppiLIpNfGrTTX4Y4kJ6yO2XunQp1BVaYoEoDkOsJJM0TV7pdWyku9Izg6
-   A==;
-X-CSE-ConnectionGUID: IYGVfhxwQPGfdEJIleZ5bw==
-X-CSE-MsgGUID: 3QhlQlMIRlida0/Ly4AKHw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11806"; a="91943458"
-X-IronPort-AV: E=Sophos;i="6.24,186,1774335600"; 
-   d="scan'208";a="91943458"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Jun 2026 22:06:17 -0700
-X-CSE-ConnectionGUID: +nCjJ2P+RuWmSECo3xtRzw==
-X-CSE-MsgGUID: Emlvv+e4QRKTRExI3169mQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,186,1774335600"; 
-   d="scan'208";a="246266420"
-Received: from ktian1-pkvm.sh.intel.com ([10.239.48.205])
-  by fmviesa004.fm.intel.com with ESMTP; 03 Jun 2026 22:06:14 -0700
-From: Kevin Tian <kevin.tian@intel.com>
-To: Lu Baolu <baolu.lu@linux.intel.com>,
-	Joerg Roedel <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>
-Cc: Kevin Tian <kevin.tian@intel.com>,
-	Joerg Roedel <jroedel@suse.de>,
-	Mika Westerberg <mika.westerberg@linux.intel.com>,
-	Ashok Raj <ashok.raj@intel.com>,
-	Chris Wright <chrisw@sous-sol.org>,
-	Jesse Barnes <jbarnes@virtuousgeek.org>,
-	Asit Mallick <asit.k.mallick@intel.com>,
-	iommu@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OQpIAaOL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61B9E1F00893;
+	Thu,  4 Jun 2026 05:42:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780551770;
+	bh=q9tmiXPVsIPEQKPNVR5tyYF9BeAqrl1kj2A/uE9ti9s=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=OQpIAaOL83BtmMFptyFRwIIFDmWLzhMF3sw9GuM3J1mNaZ8qfQm2t9to4sar6QyMN
+	 gvASAtks0oVD1+I9JGSuLZnY76QUgfzOFzkKHXzi4S9ojSNJ8WJVMyvrNJsPn7YMK/
+	 DCBVVnWthip4IslwNZp6hCUTxlPVNr6GiXP0fFcizRvA5KvFFE6JBXSZfcD47MkLaX
+	 216v+ZEY9502vzVW+lmMaxoIIfxTBjsqEaoA3Jf+rIrbVlZXKEj9alGZ08liZGQOzI
+	 9s32oW6Rog/ymE5c/3bBMi3OVRtJYTK2dvazsXMD5IwBdhepXkQVpK3WY9PzGELLiY
+	 zeBsbIV+f6d5w==
+Date: Thu, 4 Jun 2026 05:42:48 +0000
+From: Eric Biggers <ebiggers@kernel.org>
+To: Neeraj Soni <neeraj.soni@oss.qualcomm.com>
+Cc: linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Om Prakash Singh <quic_omprsing@quicinc.com>,
+	Bjorn Andersson <quic_bjorande@quicinc.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	linux-arm-msm@vger.kernel.org, Olivia Mackall <olivia@selenic.com>,
 	stable@vger.kernel.org
-Subject: [PATCH 2/9] iommu/vt-d: Force requesting ACS when tboot is enabled
-Date: Thu,  4 Jun 2026 05:15:33 +0000
-Message-ID: <20260604051540.592925-3-kevin.tian@intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260604051540.592925-1-kevin.tian@intel.com>
-References: <20260604051540.592925-1-kevin.tian@intel.com>
+Subject: Re: [PATCH 3/4] crypto: qcom-rng - Remove crypto_rng interface
+Message-ID: <20260604054248.GA3999742@google.com>
+References: <20260530020332.143058-1-ebiggers@kernel.org>
+ <20260530020332.143058-4-ebiggers@kernel.org>
+ <021127c9-baff-816d-e053-897a7d4043d8@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <021127c9-baff-816d-e053-897a7d4043d8@oss.qualcomm.com>
 
-Currently the conditions of requesting ACS in detect_intel_iommu()
-don't include tboot, leading to a possible misconfiguration with ACS
-disabled (e.g. due to user opts) while iommu is later forced on by
-tboot_force_iommu().
+On Thu, Jun 04, 2026 at 10:20:38AM +0530, Neeraj Soni wrote:
+> On 5/30/2026 7:33 AM, Eric Biggers wrote:
+> > qcom-rng.c exposes the same hardware through two completely separate
+> > interfaces, crypto_rng and hwrng.  However, the implementation of this
+> > is buggy because it permits generation operations from these interfaces
+> > to run concurrently with each other, accessing the same registers.  That
+> > is, qcom_rng_generate() synchronizes with itself but not with
+> > qcom_hwrng_read().  This results in potential repetition of output from
+> > the RNG, output of non-random values, etc.
+> > 
+> > Fortunately, there's actually no point in hardware RNG drivers
+> > implementing the crypto_rng interface.  It's not actually used by
+> > anything besides the "rng" algorithm type of AF_ALG, which in turn is
+> > not actually used in practice.  Other crypto_rng hardware drivers are
+> 
+> How it was established that there are no active users/clints for qcom-rng
+> using crypto_rng interface? If there is no concrete way to do then this
+> patch breaks backward compatibility.
 
-Fix it by checking tboot in detect_intel_iommu().
+The only in-kernel user of crypto_rng uses it to access
+"drbg_nopr_hmac_sha512" on "FIPS-enabled" systems.  So, the only
+possibility for a user of "qcom-rng" would be userspace via AF_ALG.  But
+I've never heard of that being done.  It would be a really odd and
+pointless thing to do when the much easier to use UAPIs /dev/random and
+/dev/hwrng already exist.  And broken too, as I pointed out.
 
-Fixes: 5d990b627537 ("PCI: add pci_request_acs")
-Cc: stable@vger.kernel.org
-Signed-off-by: Kevin Tian <kevin.tian@intel.com>
----
- drivers/iommu/intel/dmar.c  | 15 +++++++++++++--
- drivers/iommu/intel/iommu.c |  2 +-
- drivers/iommu/intel/iommu.h |  2 ++
- 3 files changed, 16 insertions(+), 3 deletions(-)
+AF_ALG as a whole is rarely used and is a mistake.  It exposes a massive
+amount of unused and broken functionality to userspace, including every
+single implementation of every single crypto algorithm by name, which
+never should have been done in the way it was.  We don't have much
+choice but to continue removing algorithms/drivers from it to keep Linux
+maintainable, as has already been happening successfully for many years.
 
-diff --git a/drivers/iommu/intel/dmar.c b/drivers/iommu/intel/dmar.c
-index d33c119a935e..e8f01e56cf46 100644
---- a/drivers/iommu/intel/dmar.c
-+++ b/drivers/iommu/intel/dmar.c
-@@ -915,6 +915,18 @@ dmar_validate_one_drhd(struct acpi_dmar_header *entry, void *arg)
- 	return 0;
- }
- 
-+static bool dmar_required(void)
-+{
-+	/* tboot supersedes any user/platform opt */
-+	if (!intel_iommu_tboot_noforce && tboot_enabled())
-+		return true;
-+
-+	if (!no_iommu && (!dmar_disabled || dmar_platform_optin()))
-+		return true;
-+
-+	return false;
-+}
-+
- void __init detect_intel_iommu(void)
- {
- 	int ret;
-@@ -928,8 +940,7 @@ void __init detect_intel_iommu(void)
- 	if (!ret)
- 		ret = dmar_walk_dmar_table((struct acpi_table_dmar *)dmar_tbl,
- 					   &validate_drhd_cb);
--	if (!ret && !no_iommu && !iommu_detected &&
--	    (!dmar_disabled || dmar_platform_optin())) {
-+	if (!ret && !iommu_detected && dmar_required()) {
- 		iommu_detected = 1;
- 		/* Make sure ACS will be enabled */
- 		pci_request_acs();
-diff --git a/drivers/iommu/intel/iommu.c b/drivers/iommu/intel/iommu.c
-index 9584ac0ed02f..0365ff4e5092 100644
---- a/drivers/iommu/intel/iommu.c
-+++ b/drivers/iommu/intel/iommu.c
-@@ -57,7 +57,7 @@ static int rwbf_quirk;
-  * (used when kernel is launched w/ TXT)
-  */
- static int force_on = 0;
--static int intel_iommu_tboot_noforce;
-+int intel_iommu_tboot_noforce;
- static int no_platform_optin;
- 
- #define ROOT_ENTRY_NR (VTD_PAGE_SIZE/sizeof(struct root_entry))
-diff --git a/drivers/iommu/intel/iommu.h b/drivers/iommu/intel/iommu.h
-index ef145560aa98..e0ac9efa1aa9 100644
---- a/drivers/iommu/intel/iommu.h
-+++ b/drivers/iommu/intel/iommu.h
-@@ -1343,6 +1343,7 @@ static inline bool ecmd_has_pmu_essential(struct intel_iommu *iommu)
- 
- extern int dmar_disabled;
- extern int intel_iommu_enabled;
-+extern int intel_iommu_tboot_noforce;
- #else
- static inline int iommu_calculate_agaw(struct intel_iommu *iommu)
- {
-@@ -1355,6 +1356,7 @@ static inline int iommu_calculate_max_sagaw(struct intel_iommu *iommu)
- #define dmar_disabled	(1)
- #define intel_iommu_enabled (0)
- #define intel_iommu_sm (0)
-+#define intel_iommu_tboot_noforce (0)
- #endif
- 
- static inline const char *decode_prq_descriptor(char *str, size_t size,
--- 
-2.43.0
+The AF_ALG hardware RNG support is especially pointless, given the
+redundancy with /dev/random and /dev/hwrng.  As far as I can tell the
+main purpose of it is just to confuse RNG driver authors into thinking
+that they are making Linux utilize their RNG.
 
+Keep in mind that for AF_ALG there's also a compatibility trick
+available to be implemented if it ever needs to: the kernel could
+automatically remap requests for a particular driver name, like
+"qcom-rng", to a different one like "drbg_nopr_hmac_sha512".
+
+However, it's never actually been necessary to use that trick in *any*
+of the times that crypto drivers have been removed or renamed.  No one
+has ever cared.  There's some AF_ALG functionality we know that a few
+programs use, but this isn't part of that.
+
+So I think we can be quite confident in proceeding with this patch even
+without proactively putting in the name remapping.
+
+- Eric
