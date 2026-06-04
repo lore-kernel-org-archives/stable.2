@@ -1,116 +1,283 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0BF53C2BAC
-	for <stable@vger.kernel.org>; Thu,  4 Jun 2026 19:45:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D8F72472B6
+	for <stable@vger.kernel.org>; Thu,  4 Jun 2026 20:29:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780602306; cv=none; b=mqhsfjNM+4tZEzqepCnAeq1lmsxmGMQ46P+kk3O8AR69hYOxh6TF0JCuLVjzh49ZNmBJhXp+w3FOs3Lv1SkaQ+YSiXGsmAmCuY5W2b8t0MTh+f9fCJppTb0CfOuiylA9h8IUPLQkTGaRoSPRn6C4JQS0o8aKlI2EiLRR7qDgDlg=
+	t=1780604990; cv=none; b=b6Y+d9qaUGaV01jTJyyQC5WetLV9NROqrzC8YlcBhp0WrCZ5G3bwQuJuNqXuHX+OgrnjiM1xwXV9VqmuGk4rswpMXv8RkdiQP5/CEc6YFGX6sSpABWUHlu2LVgUE9P8E4ibCo5gtX5yt3KqpNPG4kc7o7WGZx/sVCkW4e4CfDGs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780602306; c=relaxed/simple;
-	bh=/gmoLLMAo/GzhQ22tgCWXKjw1JudXuylbXpEcniuoVo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ntvElQBQjMuTceUnFDB0De770H50tkzEh05twExEv4WVCD0U1PZnKESBeFXKY148GKbnWVkTqDufOYzRXf/Zbit3Uvln86D0KnkefVLOSikEYWRrsRGxEHMZojnTyfcOZb5LPY3f9aKyGS1A7tkpB7gbzTjAe9qdtkYKRqqgGKo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GRjt6TZh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780604990; c=relaxed/simple;
+	bh=WwF9kneiM/uOlsPniH/806iitOI9mDsH1n+ToX2JvR0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=KXykx1kHK+yBuZ6rmki8eC+tYFqrNzCvb251cQP9K6qBxXYF4DmW4ckz8cPnQAWedM2Qx//WQz359p4foYozaKfV8JZmrObs8owc49F/bEZw4gpw/tjQj1hFthBhGri7vgLykdRU1wWG0Y1DJsluqFl0PryWVx/77yXdrCN64lk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=nGmg60rW; arc=none smtp.client-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GRjt6TZh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99A9A1F00893;
-	Thu,  4 Jun 2026 19:45:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780602305;
-	bh=DCIOFqRh7492p3bRzXXUy3Lb6TkWbrG93PEciHUCx0U=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=GRjt6TZhl66lJUgu6SkdUUgv7p+YgcYFEmOUBoPLqwH5wYRNs39Ildu9lTrfI2B7+
-	 Y49BZdEqnyY9sxAODo0DTdZgJQqdfFt98aJAiFP5B8fUjTNP0M5OsF1Zi5ncRMJJHY
-	 98/Wl2fZSlfzNcIzoIx2iXk4lpbtQLrrwrkliF+bEV6A5m/u6imI3XvT0FTW/jSIvn
-	 7h0J1koMjPM6faPux8zNHVpvu2W8YQV+hOIm5MKWiENJShFuCDcNy80cgjH1J7atHH
-	 +dORQfDk/tUSl5kv8lJXkgx2cc0Q1/zaARKply0AjLv1esWzmpRYtnLaMhbVvAY8qY
-	 UqNqectXOO9ag==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Yongchao Wu <yongchao.wu@autochips.com>,
-	stable <stable@kernel.org>,
-	Peter Chen <peter.chen@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] usb: cdns3: gadget: fix request skipping after clearing halt
-Date: Thu,  4 Jun 2026 15:45:00 -0400
-Message-ID: <20260604194501.920866-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026060411-untoasted-urologist-7591@gregkh>
-References: <2026060411-untoasted-urologist-7591@gregkh>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="nGmg60rW"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1780604988; x=1812140988;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=WwF9kneiM/uOlsPniH/806iitOI9mDsH1n+ToX2JvR0=;
+  b=nGmg60rWofAW062puvgfUqp2HOeybI6RLDlJojmqRkOQlQjZSXTTIFak
+   xe0Qsbrdyl9EXXkqmVUA4OrEHnZDpe7aK3vapmYdRPmpvFO62/203TCTh
+   OfqLGfnmV4qWQgps1I3AYMwh4U0fcCleks6FWzS+6ZPENvrwHGVqT5pBL
+   e/7TSHBKDDxfQfu0hYS5uxraoUpzLwooq0ePnr/I/8CKdar3allYh5hEe
+   ImnPdtUcbq1rdCQ8S8SjI9oSe2qOKmTOXXMqGWV8oI47rZnb+T1hpXbBd
+   vbrM2K8isIVTu0x/F0IE6sV7UEdH5/YDAhePVGlEz5T5I+PUc56ULq5cv
+   A==;
+X-CSE-ConnectionGUID: GsMGbI4OQQidm8VJuuGYNw==
+X-CSE-MsgGUID: q7QvFFbRTQuB0XOQ31J+zw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11807"; a="104102181"
+X-IronPort-AV: E=Sophos;i="6.24,187,1774335600"; 
+   d="scan'208";a="104102181"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Jun 2026 13:29:48 -0700
+X-CSE-ConnectionGUID: eDmBNECdRCKvZLC0yJjcLw==
+X-CSE-MsgGUID: WyzoJsheT3ejlCk1UwWSOQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,187,1774335600"; 
+   d="scan'208";a="274897828"
+Received: from slindbla-desk.ger.corp.intel.com (HELO [10.245.245.156]) ([10.245.245.156])
+  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Jun 2026 13:29:45 -0700
+Message-ID: <ab2c8c81-8ab6-4a93-93c9-31445454421a@linux.intel.com>
+Date: Thu, 4 Jun 2026 22:29:45 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/gem: Try to fix change_handle ioctl, attempt 4
+To: Simona Vetter <simona.vetter@ffwll.ch>,
+ DRI Development <dri-devel@lists.freedesktop.org>
+Cc: "DARKNAVY (@DarkNavyOrg)" <vr@darknavy.com>,
+ syzbot+d7c9eed171647e421013@syzkaller.appspotmail.com,
+ stable@vger.kernel.org, Edward Adam Davis <eadavis@qq.com>,
+ Dave Airlie <airlied@redhat.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Francis <David.Francis@amd.com>,
+ Puttimet Thammasaeng <pwn8official@gmail.com>,
+ Christian Koenig <Christian.Koenig@amd.com>,
+ Zhenghang Xiao <kipreyyy@gmail.com>
+References: <20260604191916.1713387-1-simona.vetter@ffwll.ch>
+ <20260604194437.1725314-1-simona.vetter@ffwll.ch>
+Content-Language: en-US
+From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+In-Reply-To: <20260604194437.1725314-1-simona.vetter@ffwll.ch>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Yongchao Wu <yongchao.wu@autochips.com>
+Hey,
 
-[ Upstream commit c8778ff817a7047d6848fefba99dcb27b1bf01fe ]
+On 6/4/26 21:44, Simona Vetter wrote:
+> On-list because the cat is out of the bag and we're clearly not good
+> enough to figure this out in private. The story thus far:
+> 
+> 5e28b7b94408 ("drm: Set old handle to NULL before prime swap in
+> change_handle") tried to fix a race condition between the gem_close and
+> gem_change_handle ioctls, but got a few things wrong:
+> 
+> - There's a confusion with the local variable handle, which is actually
+>   the new handle, and so the two-stage trick was actually applied to the
+>   wrong idr slot. 7164d78559b0 ("drm/gem: fix race between
+>   change_handle and handle_delete") tried to fix that by adding yet
+>   another code block, but forgot to add the error handling. Which meant
+>   we now have two paths, both kinda wrong.
+> 
+> - dc366607c41c ("drm: Replace old pointer to new idr") tried to apply
+>   another fix, but inconsistently, again because of the handle confusion
+>   - this would be the right fix (kinda, somewhat, it's a mess) if we'd
+>   do the two-stage approach for the new handle. Except that wasn't the
+>   intent of the original fix.
+> 
+> We also didn't have an igt merged for the original ioctl, which is a big
+> no-go. This was attempted to address off-list in the original bugfix,
+> and amd QA people claimed the bug was fixed now. Very clearly that's not
+> the case. Here's my attempt to sort this out:
+> 
+> - Rename the local variable to new_handle, the old aliasing with
+>   args->handle is just too dangerously confusing.
+> 
+> - Merge the gem obj lookup with the two-stage idr_replace so that we
+>   avoid getting ourselves confused there.
+> 
+> - This means we don't have a surplus temporary reference anymore, only
+>   an inherited from the idr. A concurrent gem_close on the new_handle
+>   could steal that. Fix that with the same two-stage approach
+>   create_tail uses. This is a bit overkill as documented in the comment,
+>   but I also don't trust my ability to understand this all correctly, so
+>   go with the established pattern we have from other ioctls instead for
+>   maximum paranoia.
+> 
+> - Adjust error paths. I've tried to make the error and success paths
+>   common, because they are identical except for which handle is removed
+>   and on which we call idr_replace to (re)install the object again. But
+>   that made things messier to read, so I've left it at the more verbose
+>   version, which unfortunately hides the symmetry in the entire code
+>   flow a bit.
+> 
+> - While at it, also replace the 7 space indent with 1 tab.
+> 
+> And finally, because I flat out don't trust my abilities here at all
+> anymore:
+> 
+> - Disable the ioctl until we have the igt situation and everything else
+>   sorted out on-list and with full consensus.
+> 
 
-According to the cdns3 datasheet, the EPRST (Endpoint Reset) command
-causes the DMA engine to reposition its internal pointer to the next
-Transfer Descriptor (TD) if it was already processing one.
-
-This issue is consistently observed during the ADB identification
-process on macOS hosts, where the host issues a Clear_Halt. Although
-commit 4bf2dd65135a ("usb: cdns3: gadget: toggle cycle bit before reset
-endpoint") attempted to avoid DMA advance by toggling the cycle bit,
-trace logs show that on certain hosts like macOS, the DMA pointer
-(EP_TRADDR) still shifts after EPRST:
-
-  cdns3_ctrl_req: Clear Endpoint Feature(Halt ep1out)
-  cdns3_doorbell_epx: ep1out, ep_trbaddr f9c04030  <-- Should be f9c04000
-  cdns3_gadget_giveback: ep1out: req: ... length: 16384/16384
-
-As shown above, the DMA pointer jumped to the next TD, causing
-the controller to skip the initial TRBs of the request. This leads to
-data misalignment and ADB protocol hangs on macOS.
-
-Fix this by manually restoring the EP_TRADDR register to the starting
-physical address of the current request after the EPRST operation is
-complete.
-
-Fixes: 7733f6c32e36 ("usb: cdns3: Add Cadence USB3 DRD Driver")
-Cc: stable <stable@kernel.org>
-Cc: Peter Chen <peter.chen@kernel.org>
-Signed-off-by: Yongchao Wu <yongchao.wu@autochips.com>
-Acked-by: Peter Chen <peter.chen@kernel.org>
-Link: https://patch.msgid.link/20260513160012.2547894-1-yongchao.wu@autochips.com
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Can you push the revert first, and then worry about fixing change_handle
+parts of the ioctl properly later, so that part can be merged ASAP?
 ---
- drivers/usb/cdns3/gadget.c | 12 +++++++++++-
- 1 file changed, 11 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/usb/cdns3/gadget.c b/drivers/usb/cdns3/gadget.c
-index 45b5a909e19017..61388e2089f5f7 100644
---- a/drivers/usb/cdns3/gadget.c
-+++ b/drivers/usb/cdns3/gadget.c
-@@ -2798,9 +2798,19 @@ int __cdns3_gadget_ep_clear_halt(struct cdns3_endpoint *priv_ep)
- 	priv_ep->flags &= ~(EP_STALLED | EP_STALL_PENDING);
- 
- 	if (request) {
--		if (trb)
-+		if (trb) {
- 			*trb = trb_tmp;
- 
-+			/*
-+			 * Per datasheet, EPRST causes DMA to reposition to the next TD.
-+			 * Manually reset EP_TRADDR to the current TRB to prevent
-+			 * the hardware from skipping the interrupted request.
-+			 */
-+			writel(EP_TRADDR_TRADDR(priv_ep->trb_pool_dma +
-+						priv_req->start_trb * TRB_SIZE),
-+						&priv_dev->regs->ep_traddr);
-+		}
-+
- 		cdns3_rearm_transfer(priv_ep, 1);
- 	}
- 
--- 
-2.53.0
+> v2:
+> 
+> Sashiko noticed that I didn't handle the error path for idr_replace
+> correctly, it must be checked with IS_ERR_OR_NULL like in
+> gem_handle_delete. So yeah, definitely should just the existing paths
+> 1:1 because this is endless amounts of tricky.
+> 
+> Also add the Fixes: line for the original ioctl, I forgot that too.
+> 
+> Reported-by: DARKNAVY (@DarkNavyOrg) <vr@darknavy.com>
+> Signed-off-by: Simona Vetter <simona.vetter@ffwll.ch>
+> Fixes: dc366607c41c ("drm: Replace old pointer to new idr")
+> Cc: syzbot+d7c9eed171647e421013@syzkaller.appspotmail.com
+> Cc: stable@vger.kernel.org
+> Cc: Edward Adam Davis <eadavis@qq.com>
+> Cc: Dave Airlie <airlied@redhat.com>
+> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> Cc: Maxime Ripard <mripard@kernel.org>
+> Cc: Thomas Zimmermann <tzimmermann@suse.de>
+> Fixes: 5e28b7b94408 ("drm: Set old handle to NULL before prime swap in change_handle")
+> Cc: David Francis <David.Francis@amd.com>
+> Cc: Puttimet Thammasaeng <pwn8official@gmail.com>
+> Cc: Christian Koenig <Christian.Koenig@amd.com>
+> Fixes: 7164d78559b0 ("drm/gem: fix race between change_handle and handle_delete")
+> Cc: Zhenghang Xiao <kipreyyy@gmail.com>
+> Fixes: 5e28b7b94408 ("drm: Set old handle to NULL before prime swap in change_handle")
+> ---
+>  drivers/gpu/drm/drm_gem.c   | 62 +++++++++++++------------------------
+>  drivers/gpu/drm/drm_ioctl.c |  2 +-
+>  2 files changed, 23 insertions(+), 41 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
+> index e12cdf91f4dc..f49f1724eda5 100644
+> --- a/drivers/gpu/drm/drm_gem.c
+> +++ b/drivers/gpu/drm/drm_gem.c
+> @@ -1019,8 +1019,8 @@ int drm_gem_change_handle_ioctl(struct drm_device *dev, void *data,
+>  				struct drm_file *file_priv)
+>  {
+>  	struct drm_gem_change_handle *args = data;
+> -	struct drm_gem_object *obj, *idrobj;
+> -	int handle, ret;
+> +	struct drm_gem_object *obj;
+> +	int new_handle, ret;
+>  
+>  	if (!drm_core_check_feature(dev, DRIVER_GEM))
+>  		return -EOPNOTSUPP;
+> @@ -1028,52 +1028,36 @@ int drm_gem_change_handle_ioctl(struct drm_device *dev, void *data,
+>  	/* idr_alloc() limitation. */
+>  	if (args->new_handle > INT_MAX)
+>  		return -EINVAL;
+> -	handle = args->new_handle;
+> -
+> -	obj = drm_gem_object_lookup(file_priv, args->handle);
+> -	if (!obj)
+> -		return -ENOENT;
+> +	new_handle = args->new_handle;
+>  
+> -	if (args->handle == handle) {
+> -		ret = 0;
+> -		goto out;
+> -	}
+> +	if (args->handle == new_handle)
+> +		return 0;
+>  
+>  	mutex_lock(&file_priv->prime.lock);
+> -
+>  	spin_lock(&file_priv->table_lock);
+> -
+> -       /* When create_tail allocs an obj idr, it needs to first alloc as NULL,
+> -	* then later replace with the correct object. This is not necessary
+> -	* here, because the only operations that could race are drm_prime
+> -	* bookkeeping, and we hold the prime lock.
+> -	*/
+> -	ret = idr_alloc(&file_priv->object_idr, obj, handle, handle + 1,
+> +	ret = idr_alloc(&file_priv->object_idr, NULL, new_handle, new_handle + 1,
+>  			GFP_NOWAIT);
+>  
+> -       if (ret < 0) {
+> -	       spin_unlock(&file_priv->table_lock);
+> -	       goto out_unlock;
+> -       }
+> -
+> -       idrobj = idr_replace(&file_priv->object_idr, NULL, handle);
+> -       if (idrobj != obj) {
+> -	       idr_replace(&file_priv->object_idr, idrobj, handle);
+> -	       idr_remove(&file_priv->object_idr, args->new_handle);
+> -	       spin_unlock(&file_priv->table_lock);
+> -	       ret = -ENOENT;
+> -	       goto out_unlock;
+> -       }
+> -
+> -	idr_replace(&file_priv->object_idr, NULL, args->handle);
+> +	if (ret < 0) {
+> +		spin_unlock(&file_priv->table_lock);
+> +		goto out_unlock;
+> +	}
+> +
+> +	obj = idr_replace(&file_priv->object_idr, NULL, args->handle);
+> +	if (IS_ERR_OR_NULL(obj)) {
+> +		idr_remove(&file_priv->object_idr, new_handle);
+> +		spin_unlock(&file_priv->table_lock);
+> +		ret = -ENOENT;
+> +		goto out_unlock;
+> +	}
+>  	spin_unlock(&file_priv->table_lock);
+>  
+>  	if (obj->dma_buf) {
+>  		ret = drm_prime_add_buf_handle(&file_priv->prime, obj->dma_buf,
+> -					       handle);
+> +					       new_handle);
+>  		if (ret < 0) {
+>  			spin_lock(&file_priv->table_lock);
+> -			idr_remove(&file_priv->object_idr, handle);
+> +			idr_remove(&file_priv->object_idr, new_handle);
+>  			idr_replace(&file_priv->object_idr, obj, args->handle);
+>  			spin_unlock(&file_priv->table_lock);
+>  			goto out_unlock;
+> @@ -1086,14 +1070,12 @@ int drm_gem_change_handle_ioctl(struct drm_device *dev, void *data,
+>  
+>  	spin_lock(&file_priv->table_lock);
+>  	idr_remove(&file_priv->object_idr, args->handle);
+> -	idrobj = idr_replace(&file_priv->object_idr, obj, handle);
+> +	obj = idr_replace(&file_priv->object_idr, obj, new_handle);
+>  	spin_unlock(&file_priv->table_lock);
+> -	WARN_ON(idrobj != NULL);
+> +	WARN_ON(obj != NULL);
+>  
+>  out_unlock:
+>  	mutex_unlock(&file_priv->prime.lock);
+> -out:
+> -	drm_gem_object_put(obj);
+>  
+>  	return ret;
+>  }
+> diff --git a/drivers/gpu/drm/drm_ioctl.c b/drivers/gpu/drm/drm_ioctl.c
+> index ff193155129e..937fc1e2c017 100644
+> --- a/drivers/gpu/drm/drm_ioctl.c
+> +++ b/drivers/gpu/drm/drm_ioctl.c
+> @@ -660,7 +660,7 @@ static const struct drm_ioctl_desc drm_ioctls[] = {
+>  	DRM_IOCTL_DEF(DRM_IOCTL_GEM_CLOSE, drm_gem_close_ioctl, DRM_RENDER_ALLOW),
+>  	DRM_IOCTL_DEF(DRM_IOCTL_GEM_FLINK, drm_gem_flink_ioctl, DRM_AUTH),
+>  	DRM_IOCTL_DEF(DRM_IOCTL_GEM_OPEN, drm_gem_open_ioctl, DRM_AUTH),
+> -	DRM_IOCTL_DEF(DRM_IOCTL_GEM_CHANGE_HANDLE, drm_gem_change_handle_ioctl, DRM_RENDER_ALLOW),
+> +	DRM_IOCTL_DEF(DRM_IOCTL_GEM_CHANGE_HANDLE, drm_invalid_op, DRM_RENDER_ALLOW),
+>  
+>  	DRM_IOCTL_DEF(DRM_IOCTL_MODE_GETRESOURCES, drm_mode_getresources, 0),
+>  
 
