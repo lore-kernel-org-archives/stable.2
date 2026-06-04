@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70B2C37DAA4
-	for <stable@vger.kernel.org>; Thu,  4 Jun 2026 08:26:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D57F730F54B
+	for <stable@vger.kernel.org>; Thu,  4 Jun 2026 08:26:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780561578; cv=none; b=MWPkSACO+FzrFfePBXeZJySafBrfzYgRtKWVqyR3mD97l7gPVCg+IWBPKrfS6P1/NPK5ur1NmIMSRByLPT4HzgSWMAh9sS8kC/aLoNQDLC5b/noz4DQq5cQ2H9mcehXlbrHy8PLdbW2Up9x8LeFCVrRaehcSRZzHUW5pdEGuuKU=
+	t=1780561594; cv=none; b=qMdyQU/EZvAU2n3QT56n1jsuy+w+08ulz3HJ/syolexgrT4N0iipVjJn/h5JO/xKYqjoTTEMOUk2qZWTWUH9HS9/2vGc86cwsYg1pH0Qj9IyO9J+bX8c8+EcKtmDJWRSqkBbxSJPzLKk5U7U4WopmO7yfkZ0O7ppcwo+Qnjg7rg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780561578; c=relaxed/simple;
-	bh=3xMv78LAxPRQBwTxUb63fHuHDw2kahISTZ5GUdO+MGo=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=LBov1HBl6RjS29khB/PYIM8Bl5yt8L1+CZDX8lmjOq6lxE+fTa/PxhRXPn3SKsWW8ehN+g8xZF4hKlUyehhzIscEeqyrUVqFZJJgjsDVN6wZx12hseNE03q0wNm/To/u8CycrnkTATzk0JUlFXUOF+NwqwGyWPAXHs9Gt3/aTWc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=COnqvPGH; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780561594; c=relaxed/simple;
+	bh=NnQT5Wy41roELXK2VAVFcf1GEAVtc19UpL2nly4nowY=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=AJSA8IjSeglErLya5zadLI2GZ9TeFWmNN7EaA1Mfrjw1EZT/FyozBvRMX0UC3qw6GZn1LjEAND+1LgGheddjLpXJEWGJuYrNYQBbchxrZMa7R484succEqQVSapLIfXoByVjpyZKHdyyaM4dGQ49hjMKaZ24xUjw0RR6fAti/As=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=uZjW/x3S; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="COnqvPGH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63C571F00893;
-	Thu,  4 Jun 2026 08:26:16 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="uZjW/x3S"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD3D61F00893;
+	Thu,  4 Jun 2026 08:26:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1780561577;
-	bh=/MQJ78ZHo4Z4zl+2aN8j8/EyHwC/VlG5J56U/gMgtl8=;
+	s=korg; t=1780561592;
+	bh=i9XgB0/1vwoVaCiwjNi8IncLrLgLlv/aWOn00ZQ7+2c=;
 	h=Subject:To:Cc:From:Date;
-	b=COnqvPGHe8vndXzm/S1xL+6kydr6VNLoGnju8q/4NdQhGDncnlZFc4qFqd5Q2Veql
-	 bFflDerV8TYaY0q51H3joprG4Pp+fxWcLYPPMGzGtDg5UFzfLwuY1mutf7G6R3Q248
-	 UCG9OY7iKFc6gnuX/SCL52y1FEl9J5eTYNErmTjo=
-Subject: FAILED: patch "[PATCH] memfd: deny writeable mappings when implying SEAL_WRITE" failed to apply to 6.6-stable tree
-To: pratyush@kernel.org,akpm@linux-foundation.org,baolin.wang@linux.alibaba.com,david@kernel.org,gthelen@google.com,hughd@google.com,jackmanb@google.com,jeffxu@google.com,kees@kernel.org,pasha.tatashin@soleen.com,stable@vger.kernel.org
+	b=uZjW/x3SyIbDEITotVNH6B2jy5ZGVubPypbgY0VGC1EEdR8I4NitZmuVQSgd7kFoC
+	 uTA/rkCgpUPVMXP09f5JuY1sSQ/vOyrR4OjsMiDySad6CNsDZ3zdosEImPGqVAGkA2
+	 mvAJu00dyqNsXTY68K2Or9dWdJUPujd4K8c6Ps4A=
+Subject: FAILED: patch "[PATCH] Revert "mm/hugetlbfs: update hugetlbfs to use mmap_prepare"" failed to apply to 7.0-stable tree
+To: ljs@kernel.org,25181214217@stu.xidian.edu.cn,akpm@linux-foundation.org,david@kernel.org,liam@infradead.org,muchun.song@linux.dev,osalvador@suse.de,pfalcato@suse.de,stable@vger.kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 04 Jun 2026 10:25:09 +0200
-Message-ID: <2026060409-tightness-iodize-c0fc@gregkh>
+Date: Thu, 04 Jun 2026 10:25:34 +0200
+Message-ID: <2026060434-pacemaker-uncle-b394@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 7.0-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.0.y
 git checkout FETCH_HEAD
-git cherry-pick -x 3b041514cb6eae45869b020f743c14d983363222
+git cherry-pick -x 83f9efcce93f8574be2279090ee2aec58b86cda7
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026060409-tightness-iodize-c0fc@gregkh' --subject-prefix 'PATCH 6.6.y' HEAD^..
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026060434-pacemaker-uncle-b394@gregkh' --subject-prefix 'PATCH 7.0.y' HEAD^..
 
 Possible dependencies:
 
@@ -62,65 +62,413 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 3b041514cb6eae45869b020f743c14d983363222 Mon Sep 17 00:00:00 2001
-From: "Pratyush Yadav (Google)" <pratyush@kernel.org>
-Date: Tue, 5 May 2026 15:39:20 +0200
-Subject: [PATCH] memfd: deny writeable mappings when implying SEAL_WRITE
+From 83f9efcce93f8574be2279090ee2aec58b86cda7 Mon Sep 17 00:00:00 2001
+From: Lorenzo Stoakes <ljs@kernel.org>
+Date: Tue, 12 May 2026 17:06:43 +0100
+Subject: [PATCH] Revert "mm/hugetlbfs: update hugetlbfs to use mmap_prepare"
 
-When SEAL_EXEC is added, SEAL_WRITE is implied to make W^X.  But the
-implied seal is set after the check that makes sure the memfd can not have
-any writable mappings.  This means one can use SEAL_EXEC to apply
-SEAL_WRITE while having writeable mappings.
+This reverts commit ea52cb24cd3f ("mm/hugetlbfs: update hugetlbfs to use
+mmap_prepare") with conflict resolution to account for changes in commit
+ea52cb24cd3f ("mm/hugetlbfs: update hugetlbfs to use mmap_prepare").
 
-This breaks the contract that SEAL_WRITE provides and can be used by an
-attacker to pass a memfd that appears to be write sealed but can still be
-modified arbitrarily.
+The patch incorrectly handled hugetlb VMA lock allocation at the
+mmap_prepare stage, where a failed allocation occurring after mmap_prepare
+is called might result in the lock leaking.
 
-Fix this by adding the implied seals before the call for
-mapping_deny_writable() is done.
+There is no risk of a merge causing a similar issues, as
+VMA_DONTEXPAND_BIT is set for hugetlb mappings.
 
-Link: https://lore.kernel.org/20260505133922.797635-1-pratyush@kernel.org
-Fixes: c4f75bc8bd6b ("mm/memfd: add write seals when apply SEAL_EXEC to executable memfd")
-Signed-off-by: Pratyush Yadav (Google) <pratyush@kernel.org>
-Reviewed-by: Pasha Tatashin <pasha.tatashin@soleen.com>
-Acked-by: Jeff Xu <jeffxu@google.com>
-Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: Brendan Jackman <jackmanb@google.com>
-Cc: Greg Thelen <gthelen@google.com>
-Cc: Hugh Dickins <hughd@google.com>
-Cc: Kees Cook <kees@kernel.org>
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>
+As a first step in addressing this issue, simply revert the change so we
+can rework how we do this having corrected the underlying issues.
+
+We maintain the VMA flags changes as best we can, accounting for the fact
+that we were working with a VMA descriptor previously and propagating
+like-for-like changes for this.
+
+Note that we invoke vma_set_flags() and do not call vma_start_write() as
+vm_flags_set() does.  This is OK as it's being done in an .mmap hook where
+the VMA is not yet linked into the tree so nobody else can be accessing
+it.
+
+Link: https://lore.kernel.org/20260512160643.266960-1-ljs@kernel.org
+Fixes: ea52cb24cd3f ("mm/hugetlbfs: update hugetlbfs to use mmap_prepare")
+Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
+Reported-by: Mingyu Wang <25181214217@stu.xidian.edu.cn>
+Closes: https://lore.kernel.org/linux-mm/20260425070700.562229-1-25181214217@stu.xidian.edu.cn/
+Acked-by: Muchun Song <muchun.song@linux.dev>
+Acked-by: Oscar Salvador <osalvador@suse.de>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Pedro Falcato <pfalcato@suse.de>
 Cc: <stable@vger.kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 
-diff --git a/mm/memfd.c b/mm/memfd.c
-index fb425f4e315f..abe13b291ddc 100644
---- a/mm/memfd.c
-+++ b/mm/memfd.c
-@@ -283,6 +283,12 @@ int memfd_add_seals(struct file *file, unsigned int seals)
- 		goto unlock;
+diff --git a/fs/hugetlbfs/inode.c b/fs/hugetlbfs/inode.c
+index 8b05bec08e04..78d61bf2bd9b 100644
+--- a/fs/hugetlbfs/inode.c
++++ b/fs/hugetlbfs/inode.c
+@@ -96,15 +96,8 @@ static const struct fs_parameter_spec hugetlb_fs_parameters[] = {
+ #define PGOFF_LOFFT_MAX \
+ 	(((1UL << (PAGE_SHIFT + 1)) - 1) <<  (BITS_PER_LONG - (PAGE_SHIFT + 1)))
+ 
+-static int hugetlb_file_mmap_prepare_success(const struct vm_area_struct *vma)
++static int hugetlbfs_file_mmap(struct file *file, struct vm_area_struct *vma)
+ {
+-	/* Unfortunate we have to reassign vma->vm_private_data. */
+-	return hugetlb_vma_lock_alloc((struct vm_area_struct *)vma);
+-}
+-
+-static int hugetlbfs_file_mmap_prepare(struct vm_area_desc *desc)
+-{
+-	struct file *file = desc->file;
+ 	struct inode *inode = file_inode(file);
+ 	loff_t len, vma_len;
+ 	int ret;
+@@ -119,8 +112,8 @@ static int hugetlbfs_file_mmap_prepare(struct vm_area_desc *desc)
+ 	 * way when do_mmap unwinds (may be important on powerpc
+ 	 * and ia64).
+ 	 */
+-	vma_desc_set_flags(desc, VMA_HUGETLB_BIT, VMA_DONTEXPAND_BIT);
+-	desc->vm_ops = &hugetlb_vm_ops;
++	vma_set_flags(vma, VMA_HUGETLB_BIT, VMA_DONTEXPAND_BIT);
++	vma->vm_ops = &hugetlb_vm_ops;
+ 
+ 	/*
+ 	 * page based offset in vm_pgoff could be sufficiently large to
+@@ -129,16 +122,16 @@ static int hugetlbfs_file_mmap_prepare(struct vm_area_desc *desc)
+ 	 * sizeof(unsigned long).  So, only check in those instances.
+ 	 */
+ 	if (sizeof(unsigned long) == sizeof(loff_t)) {
+-		if (desc->pgoff & PGOFF_LOFFT_MAX)
++		if (vma->vm_pgoff & PGOFF_LOFFT_MAX)
+ 			return -EINVAL;
+ 	}
+ 
+ 	/* must be huge page aligned */
+-	if (desc->pgoff & (~huge_page_mask(h) >> PAGE_SHIFT))
++	if (vma->vm_pgoff & (~huge_page_mask(h) >> PAGE_SHIFT))
+ 		return -EINVAL;
+ 
+-	vma_len = (loff_t)vma_desc_size(desc);
+-	len = vma_len + ((loff_t)desc->pgoff << PAGE_SHIFT);
++	vma_len = (loff_t)(vma->vm_end - vma->vm_start);
++	len = vma_len + ((loff_t)vma->vm_pgoff << PAGE_SHIFT);
+ 	/* check for overflow */
+ 	if (len < vma_len)
+ 		return -EINVAL;
+@@ -148,7 +141,7 @@ static int hugetlbfs_file_mmap_prepare(struct vm_area_desc *desc)
+ 
+ 	ret = -ENOMEM;
+ 
+-	vma_flags = desc->vma_flags;
++	vma_flags = vma->flags;
+ 	/*
+ 	 * for SHM_HUGETLB, the pages are reserved in the shmget() call so skip
+ 	 * reserving here. Note: only for SHM hugetlbfs file, the inode
+@@ -158,30 +151,17 @@ static int hugetlbfs_file_mmap_prepare(struct vm_area_desc *desc)
+ 		vma_flags_set(&vma_flags, VMA_NORESERVE_BIT);
+ 
+ 	if (hugetlb_reserve_pages(inode,
+-			desc->pgoff >> huge_page_order(h),
+-			len >> huge_page_shift(h), desc,
+-			vma_flags) < 0)
++				vma->vm_pgoff >> huge_page_order(h),
++				len >> huge_page_shift(h), vma,
++				vma_flags) < 0)
+ 		goto out;
+ 
+ 	ret = 0;
+-	if (vma_desc_test(desc, VMA_WRITE_BIT) && inode->i_size < len)
++	if (vma_test(vma, VMA_WRITE_BIT) && inode->i_size < len)
+ 		i_size_write(inode, len);
+ out:
+ 	inode_unlock(inode);
+ 
+-	if (!ret) {
+-		/* Allocate the VMA lock after we set it up. */
+-		desc->action.success_hook = hugetlb_file_mmap_prepare_success;
+-		/*
+-		 * We cannot permit the rmap finding this VMA in the time
+-		 * between the VMA being inserted into the VMA tree and the
+-		 * completion/success hook being invoked.
+-		 *
+-		 * This is because we establish a per-VMA hugetlb lock which can
+-		 * be raced by rmap.
+-		 */
+-		desc->action.hide_from_rmap_until_complete = true;
+-	}
+ 	return ret;
+ }
+ 
+@@ -1227,7 +1207,7 @@ static void init_once(void *foo)
+ 
+ static const struct file_operations hugetlbfs_file_operations = {
+ 	.read_iter		= hugetlbfs_read_iter,
+-	.mmap_prepare		= hugetlbfs_file_mmap_prepare,
++	.mmap			= hugetlbfs_file_mmap,
+ 	.fsync			= noop_fsync,
+ 	.get_unmapped_area	= hugetlb_get_unmapped_area,
+ 	.llseek			= default_llseek,
+diff --git a/include/linux/hugetlb.h b/include/linux/hugetlb.h
+index 93418625d3c5..5957bc25efa8 100644
+--- a/include/linux/hugetlb.h
++++ b/include/linux/hugetlb.h
+@@ -148,7 +148,7 @@ int hugetlb_mfill_atomic_pte(pte_t *dst_pte,
+ 			     struct folio **foliop);
+ #endif /* CONFIG_USERFAULTFD */
+ long hugetlb_reserve_pages(struct inode *inode, long from, long to,
+-			   struct vm_area_desc *desc, vma_flags_t vma_flags);
++			   struct vm_area_struct *vma, vma_flags_t vma_flags);
+ long hugetlb_unreserve_pages(struct inode *inode, long start, long end,
+ 						long freed);
+ bool folio_isolate_hugetlb(struct folio *folio, struct list_head *list);
+@@ -276,7 +276,6 @@ long hugetlb_change_protection(struct vm_area_struct *vma,
+ void hugetlb_unshare_all_pmds(struct vm_area_struct *vma);
+ void fixup_hugetlb_reservations(struct vm_area_struct *vma);
+ void hugetlb_split(struct vm_area_struct *vma, unsigned long addr);
+-int hugetlb_vma_lock_alloc(struct vm_area_struct *vma);
+ 
+ unsigned int arch_hugetlb_cma_order(void);
+ 
+@@ -469,11 +468,6 @@ static inline void fixup_hugetlb_reservations(struct vm_area_struct *vma)
+ 
+ static inline void hugetlb_split(struct vm_area_struct *vma, unsigned long addr) {}
+ 
+-static inline int hugetlb_vma_lock_alloc(struct vm_area_struct *vma)
+-{
+-	return 0;
+-}
+-
+ #endif /* !CONFIG_HUGETLB_PAGE */
+ 
+ #ifndef pgd_write
+diff --git a/include/linux/hugetlb_inline.h b/include/linux/hugetlb_inline.h
+index 565b473fd135..5c29cd3223a1 100644
+--- a/include/linux/hugetlb_inline.h
++++ b/include/linux/hugetlb_inline.h
+@@ -6,23 +6,13 @@
+ 
+ #ifdef CONFIG_HUGETLB_PAGE
+ 
+-static inline bool is_vm_hugetlb_flags(vm_flags_t vm_flags)
+-{
+-	return !!(vm_flags & VM_HUGETLB);
+-}
+-
+ static inline bool is_vma_hugetlb_flags(const vma_flags_t *flags)
+ {
+-	return vma_flags_test_any(flags, VMA_HUGETLB_BIT);
++	return vma_flags_test(flags, VMA_HUGETLB_BIT);
+ }
+ 
+ #else
+ 
+-static inline bool is_vm_hugetlb_flags(vm_flags_t vm_flags)
+-{
+-	return false;
+-}
+-
+ static inline bool is_vma_hugetlb_flags(const vma_flags_t *flags)
+ {
+ 	return false;
+@@ -32,7 +22,7 @@ static inline bool is_vma_hugetlb_flags(const vma_flags_t *flags)
+ 
+ static inline bool is_vm_hugetlb_page(const struct vm_area_struct *vma)
+ {
+-	return is_vm_hugetlb_flags(vma->vm_flags);
++	return is_vma_hugetlb_flags(&vma->flags);
+ }
+ 
+ #endif
+diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+index f24bf49be047..4b80b167cc9c 100644
+--- a/mm/hugetlb.c
++++ b/mm/hugetlb.c
+@@ -116,6 +116,7 @@ struct mutex *hugetlb_fault_mutex_table __ro_after_init;
+ /* Forward declaration */
+ static int hugetlb_acct_memory(struct hstate *h, long delta);
+ static void hugetlb_vma_lock_free(struct vm_area_struct *vma);
++static void hugetlb_vma_lock_alloc(struct vm_area_struct *vma);
+ static void __hugetlb_vma_unlock_write_free(struct vm_area_struct *vma);
+ static void hugetlb_unshare_pmds(struct vm_area_struct *vma,
+ 		unsigned long start, unsigned long end, bool take_locks);
+@@ -413,21 +414,17 @@ static void hugetlb_vma_lock_free(struct vm_area_struct *vma)
+ 	}
+ }
+ 
+-/*
+- * vma specific semaphore used for pmd sharing and fault/truncation
+- * synchronization
+- */
+-int hugetlb_vma_lock_alloc(struct vm_area_struct *vma)
++static void hugetlb_vma_lock_alloc(struct vm_area_struct *vma)
+ {
+ 	struct hugetlb_vma_lock *vma_lock;
+ 
+ 	/* Only establish in (flags) sharable vmas */
+ 	if (!vma || !(vma->vm_flags & VM_MAYSHARE))
+-		return 0;
++		return;
+ 
+ 	/* Should never get here with non-NULL vm_private_data */
+ 	if (vma->vm_private_data)
+-		return -EINVAL;
++		return;
+ 
+ 	vma_lock = kmalloc_obj(*vma_lock);
+ 	if (!vma_lock) {
+@@ -442,15 +439,13 @@ int hugetlb_vma_lock_alloc(struct vm_area_struct *vma)
+ 		 * allocation failure.
+ 		 */
+ 		pr_warn_once("HugeTLB: unable to allocate vma specific lock\n");
+-		return -EINVAL;
++		return;
+ 	}
+ 
+ 	kref_init(&vma_lock->refs);
+ 	init_rwsem(&vma_lock->rw_sema);
+ 	vma_lock->vma = vma;
+ 	vma->vm_private_data = vma_lock;
+-
+-	return 0;
+ }
+ 
+ /* Helper that removes a struct file_region from the resv_map cache and returns
+@@ -1147,30 +1142,22 @@ static struct resv_map *vma_resv_map(struct vm_area_struct *vma)
+ 	}
+ }
+ 
++static void set_vma_resv_map(struct vm_area_struct *vma, struct resv_map *map)
++{
++	VM_WARN_ON_ONCE_VMA(!is_vm_hugetlb_page(vma), vma);
++	VM_WARN_ON_ONCE_VMA(vma_test(vma, VMA_MAYSHARE_BIT), vma);
++
++	set_vma_private_data(vma, (unsigned long)map);
++}
++
+ static void set_vma_resv_flags(struct vm_area_struct *vma, unsigned long flags)
+ {
+ 	VM_WARN_ON_ONCE_VMA(!is_vm_hugetlb_page(vma), vma);
+-	VM_WARN_ON_ONCE_VMA(vma->vm_flags & VM_MAYSHARE, vma);
++	VM_WARN_ON_ONCE_VMA(vma_test(vma, VMA_MAYSHARE_BIT), vma);
+ 
+ 	set_vma_private_data(vma, get_vma_private_data(vma) | flags);
+ }
+ 
+-static void set_vma_desc_resv_map(struct vm_area_desc *desc, struct resv_map *map)
+-{
+-	VM_WARN_ON_ONCE(!is_vma_hugetlb_flags(&desc->vma_flags));
+-	VM_WARN_ON_ONCE(vma_desc_test(desc, VMA_MAYSHARE_BIT));
+-
+-	desc->private_data = map;
+-}
+-
+-static void set_vma_desc_resv_flags(struct vm_area_desc *desc, unsigned long flags)
+-{
+-	VM_WARN_ON_ONCE(!is_vma_hugetlb_flags(&desc->vma_flags));
+-	VM_WARN_ON_ONCE(vma_desc_test(desc, VMA_MAYSHARE_BIT));
+-
+-	desc->private_data = (void *)((unsigned long)desc->private_data | flags);
+-}
+-
+ static int is_vma_resv_set(struct vm_area_struct *vma, unsigned long flag)
+ {
+ 	VM_BUG_ON_VMA(!is_vm_hugetlb_page(vma), vma);
+@@ -1178,13 +1165,6 @@ static int is_vma_resv_set(struct vm_area_struct *vma, unsigned long flag)
+ 	return (get_vma_private_data(vma) & flag) != 0;
+ }
+ 
+-static bool is_vma_desc_resv_set(struct vm_area_desc *desc, unsigned long flag)
+-{
+-	VM_WARN_ON_ONCE(!is_vma_hugetlb_flags(&desc->vma_flags));
+-
+-	return ((unsigned long)desc->private_data) & flag;
+-}
+-
+ bool __vma_private_lock(struct vm_area_struct *vma)
+ {
+ 	return !(vma->vm_flags & VM_MAYSHARE) &&
+@@ -6553,7 +6533,7 @@ next:
+ 
+ long hugetlb_reserve_pages(struct inode *inode,
+ 		long from, long to,
+-		struct vm_area_desc *desc,
++		struct vm_area_struct *vma,
+ 		vma_flags_t vma_flags)
+ {
+ 	long chg = -1, add = -1, spool_resv, gbl_resv;
+@@ -6570,6 +6550,12 @@ long hugetlb_reserve_pages(struct inode *inode,
+ 		return -EINVAL;
  	}
  
 +	/*
-+	 * SEAL_EXEC implies SEAL_WRITE, making W^X from the start.
++	 * vma specific semaphore used for pmd sharing and fault/truncation
++	 * synchronization
 +	 */
-+	if (seals & F_SEAL_EXEC && inode->i_mode & 0111)
-+		seals |= F_SEAL_SHRINK|F_SEAL_GROW|F_SEAL_WRITE|F_SEAL_FUTURE_WRITE;
++	hugetlb_vma_lock_alloc(vma);
 +
- 	if ((seals & F_SEAL_WRITE) && !(*file_seals & F_SEAL_WRITE)) {
- 		error = mapping_deny_writable(file->f_mapping);
- 		if (error)
-@@ -295,12 +301,6 @@ int memfd_add_seals(struct file *file, unsigned int seals)
- 		}
+ 	/*
+ 	 * Only apply hugepage reservation if asked. At fault time, an
+ 	 * attempt will be made for VM_NORESERVE to allocate a page
+@@ -6582,9 +6568,9 @@ long hugetlb_reserve_pages(struct inode *inode,
+ 	 * Shared mappings base their reservation on the number of pages that
+ 	 * are already allocated on behalf of the file. Private mappings need
+ 	 * to reserve the full area even if read-only as mprotect() may be
+-	 * called to make the mapping read-write. Assume !desc is a shm mapping
++	 * called to make the mapping read-write. Assume !vma is a shm mapping
+ 	 */
+-	if (!desc || vma_desc_test(desc, VMA_MAYSHARE_BIT)) {
++	if (!vma || vma_test(vma, VMA_MAYSHARE_BIT)) {
+ 		/*
+ 		 * resv_map can not be NULL as hugetlb_reserve_pages is only
+ 		 * called for inodes for which resv_maps were created (see
+@@ -6603,8 +6589,8 @@ long hugetlb_reserve_pages(struct inode *inode,
+ 
+ 		chg = to - from;
+ 
+-		set_vma_desc_resv_map(desc, resv_map);
+-		set_vma_desc_resv_flags(desc, HPAGE_RESV_OWNER);
++		set_vma_resv_map(vma, resv_map);
++		set_vma_resv_flags(vma, HPAGE_RESV_OWNER);
  	}
  
--	/*
--	 * SEAL_EXEC implies SEAL_WRITE, making W^X from the start.
--	 */
--	if (seals & F_SEAL_EXEC && inode->i_mode & 0111)
--		seals |= F_SEAL_SHRINK|F_SEAL_GROW|F_SEAL_WRITE|F_SEAL_FUTURE_WRITE;
--
- 	*file_seals |= seals;
- 	error = 0;
+ 	if (chg < 0) {
+@@ -6618,7 +6604,7 @@ long hugetlb_reserve_pages(struct inode *inode,
+ 	if (err < 0)
+ 		goto out_err;
  
+-	if (desc && !vma_desc_test(desc, VMA_MAYSHARE_BIT) && h_cg) {
++	if (vma && !vma_test(vma, VMA_MAYSHARE_BIT) && h_cg) {
+ 		/* For private mappings, the hugetlb_cgroup uncharge info hangs
+ 		 * of the resv_map.
+ 		 */
+@@ -6655,7 +6641,7 @@ long hugetlb_reserve_pages(struct inode *inode,
+ 	 * consumed reservations are stored in the map. Hence, nothing
+ 	 * else has to be done for private mappings here
+ 	 */
+-	if (!desc || vma_desc_test(desc, VMA_MAYSHARE_BIT)) {
++	if (!vma || vma_test(vma, VMA_MAYSHARE_BIT)) {
+ 		add = region_add(resv_map, from, to, regions_needed, h, h_cg);
+ 
+ 		if (unlikely(add < 0)) {
+@@ -6719,15 +6705,16 @@ out_uncharge_cgroup:
+ 	hugetlb_cgroup_uncharge_cgroup_rsvd(hstate_index(h),
+ 					    chg * pages_per_huge_page(h), h_cg);
+ out_err:
+-	if (!desc || vma_desc_test(desc, VMA_MAYSHARE_BIT))
++	hugetlb_vma_lock_free(vma);
++	if (!vma || vma_test(vma, VMA_MAYSHARE_BIT))
+ 		/* Only call region_abort if the region_chg succeeded but the
+ 		 * region_add failed or didn't run.
+ 		 */
+ 		if (chg >= 0 && add < 0)
+ 			region_abort(resv_map, from, to, regions_needed);
+-	if (desc && is_vma_desc_resv_set(desc, HPAGE_RESV_OWNER)) {
++	if (vma && is_vma_resv_set(vma, HPAGE_RESV_OWNER)) {
+ 		kref_put(&resv_map->refs, resv_map_release);
+-		set_vma_desc_resv_map(desc, NULL);
++		set_vma_resv_map(vma, NULL);
+ 	}
+ 	return err;
+ }
 
