@@ -1,123 +1,152 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC9D23FD159;
-	Thu,  4 Jun 2026 09:27:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780565237; cv=none; b=AR2w3+s1WmvVJErTTgeRWV9uwYMcAGLglbjVxrQ7TJeC4D2d8EIY774N7zxifoAu9Y4Bkq0Bj6cYy8M9k3eRGdxvrLQ8ursZzm1KMnvPW56XKzRKF2KJ1rvKsznbLmAFr7TgM2rRj2Ow2X/oFBGh6c6HE2tNCrrOr0ZpMFC7dOc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780565237; c=relaxed/simple;
-	bh=SjM/U004WGDu9lfGjIked+BXK+dA1fpvoD+6Cieo/iI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ngpZ2UnX1/zFoyjvfr71WpycxAMQVNhzqF+eKlmAOneVSEJd1NmTfimCQAHySNU85y2AvulEauHY7LEXG86tWtQ76/ALer46qrynptOInfTDwjPa00hq9XnQGR8i4Q+//l3omqFO6vl7uJOsGyq8KRG5koGxUtJ3x9NekYD+v9M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m6fdk5Q2; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 282D83ED3A9
+	for <stable@vger.kernel.org>; Thu,  4 Jun 2026 09:37:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.172
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780565842; cv=pass; b=QKvswtNfvcfo5LyJ0v0v3+xNY4puHY/z3O6DOvs4B0gohn7yolEPTSKaFQq/FE9L4BHksV2f5GUlQEs2OnwDH63N2AXzcbYm9WQUlWxse0xBIp6JwbH0wLTFo+OH6K797AnqI5V/Ilsyq1+TU//xlIf/KlKhNOt6U26KypkHbD0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780565842; c=relaxed/simple;
+	bh=q5T9rZM3Aio5noPxLVxqh4TcJRM+o6ZrEdGuHWqUiHU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=LjgSDm085pK0UGJYmBKk3oXnj2/ZlTRPs5mWVxUjP6ZnkWeKEGmzt/4swvVu8ES7Zd03yldg1N/Nclky60dcN0Pu4VxnS+o+2T2TbJysjMLNZP6jGYSZp4zmuYXnmmiXq4r6y9YqYlHK9v/bzLxR4WjWcq0vJxdry+g4i3IfHAE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nzzzSDIl; arc=pass smtp.client-ip=209.85.210.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m6fdk5Q2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 012211F00893;
-	Thu,  4 Jun 2026 09:27:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780565236;
-	bh=Y/ISGDFhn+Nt3MpYi8Wixou+ghY4kt+aKNp5hNGAjcs=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=m6fdk5Q2fE7svINVgrt1IItTH3rpvPN93kkLp6tn+82SRM59esIdUqdfq/Zye6Kdk
-	 CjzcM7GJAeEwf+m4sEkFY0HvklFW/CQEUrQk0ETa7Vodw8aypm6upLa6d/d1KdRLbT
-	 ixC2HpYhySo3jcak8Fm47Vr8tX4q9BAyx9tvTHgqfb4bgOpDyF+8ogYPkWooSepT2P
-	 36QEfwfY3KZeQjyOFBWmt13+sPyURzkR77po5tHIrODb/dEAzRH23GjeIgdNfRBhLx
-	 aE9/yIMPrO7ESo38mGlXKH2cvziIQJ17tu6ENsntvb6CfKTIAiZUg5U8HJCX7VO1GP
-	 O8qBsgDZ60wlw==
-From: Lee Jones <lee@kernel.org>
-To: lee@kernel.org,
-	Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <benjamin.tissoires@redhat.com>,
-	Viresh Kumar <vireshk@kernel.org>,
-	Johan Hovold <johan@kernel.org>,
-	Alex Elder <elder@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	greybus-dev@lists.linaro.org,
-	linux-staging@lists.linux.dev
-Cc: stable@vger.kernel.org,
-	Nathan Chancellor <nathan@kernel.org>,
-	Miguel Ojeda <ojeda@kernel.org>,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [linux-5.15.y 3/3] HID: core: Fix size_t specifier in hid_report_raw_event()
-Date: Thu,  4 Jun 2026 10:26:52 +0100
-Message-ID: <20260604092659.3953067-3-lee@kernel.org>
-X-Mailer: git-send-email 2.54.0.1032.g2f8565e1d1-goog
-In-Reply-To: <20260604092659.3953067-1-lee@kernel.org>
-References: <20260604092659.3953067-1-lee@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nzzzSDIl"
+Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-8423efd76c8so348002b3a.0
+        for <stable@vger.kernel.org>; Thu, 04 Jun 2026 02:37:20 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1780565839; cv=none;
+        d=google.com; s=arc-20240605;
+        b=ZViD1/jGLxoOrxncWfPfVqHZHwVwi/qjZzI6CQqoMf9W7z7ns1+VhqfH1ApgqX5gY+
+         lJ0tlYtkNW+CzbBkZHnLYzXhITNuoyXlfhYSMnwM2oNQ9hDMdkCkUbH6PEGJ2Bqo35Tz
+         2OnaGLelm+7P0wibs+m6B5Q60r3PrQGMO7SyRHNPp+ay8f3eW298mVjO3FaDgQe156sy
+         oafpeJFDb+cD+kT+jylviPIu0QPGhdk8t0lTutn4sIj+zYGrkXNWB1v1aqqrb1VWE6DF
+         Fk9OPFhXFhEsCOedlXEw0Afrfl1e6nNxnh4x9qGQarcBA0WFd3X5uDL/ZuM7cAxbVbSm
+         2IhQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=WAE5dsUcOf+50j6c1n0GmreYE4E4GrWSX2T6ZZrsAus=;
+        fh=fwA1UE9oJLIJb8uOW01x7V3SaW9wndjWzGSlL0UrzTw=;
+        b=XaQHYz44wywos46najOTadm3oiDOVx/kednrXW6eSOfOF2POJdiUbIdPODH3Lg5CGQ
+         GUho/2acDH0gIR35wh9Sga+XBB2ATAhyXS3dWPRlydnBzy66IMQnRxmQqqUmMaS4sFny
+         8HiIbcyNgkXtfHSWzWD3lOS7Tm2zpYXBNZ05gIOREdVlYnzcE+SZndRdfGsXn/1jWMaK
+         kRKIWYdQkx721C9cxNbBNmXmkHDdZ88Qlg2bRDuyiEVzC9jaPGsFePDePbyhM0prcoU/
+         +wjDRpT5DakBQT/+lLZourU3UkJrLN2Dx1giIYf6KBDNdhLlaD0np0sCssJgOqSFxvLG
+         n40g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780565839; x=1781170639; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=WAE5dsUcOf+50j6c1n0GmreYE4E4GrWSX2T6ZZrsAus=;
+        b=nzzzSDIloSEfI7GLh2+Jy4hatV70I31t1iqG/JJlwGXRBXW2ryRqApFFrkZBSHUP85
+         no5DNe6eLGDStWVTLjX8VJM2slXt9vQ88jfT+5USX7FMrjIUMjVijSM64u9o7WzJ+yRP
+         KJ1OXb+rQPjiBOES7rqKLqFbfkwdclgjU27HO61JqgFFPOViiPW3GjjCV+8MCYEWT9tB
+         2gfu5MTmjfvQXbK9xSj2BOMzA7/Dj6myIscyxs/VfNgmp1ADOWdafXg0CoE7vVsvB9SB
+         1bovLiGXoexnP+zpsJx0lYwxZEhRqnQ4SCMewep5NmKocop+VFn9Em5bd6ggeXh5F3hA
+         9a5Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780565839; x=1781170639;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=WAE5dsUcOf+50j6c1n0GmreYE4E4GrWSX2T6ZZrsAus=;
+        b=D9RSJgODoCVjQDj5up1Hnu/xPh83+iuWUZ8wGpXDismJclQVrhPjShnVHQf0Jql//u
+         793AMc3X1/y2zLCDuhUZY2TtQufntV/eTka6y5/18fOZAOeZ9kmYM39tugfwFjZ3PNqH
+         k73ma/ie8mj5TGXXFum26pyLWB7HX0Nd1Ogch7MLHcNYSPb+ezN9eHkJ8X7YdkHfaHCl
+         k2ov5R4j4O7psBdhzYArAsqJKIy/KH6lwAe0UfS7X7md12EpBr3U14eOZOQkqqDu5j4r
+         T7Z9owW/LtnqPmTJdlaJa5aozS4rUufVcvWeCO/I0G+IQV9+bjl1bvt+japkp/KfMtad
+         Ax6w==
+X-Forwarded-Encrypted: i=1; AFNElJ+8IPqKkExVrnTMj4bfBmDWTtjHOAaPsB3aD9DkABzayXv440jy5BQfpltdL+xVt6xGVme+QLA=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyJpJhrO3M6pvihOuVlUmubEzSEGCMvHKb7bGXXn4iOIK98Q67/
+	W0BiRsuP3LIMd8UjQZgR0hfJZPleT2AKXIlBvTaX9AGsTUUflgO2c1Q5X2jU2hvNlLY9fijUeE1
+	VDbDyFxJuikBjkYJgVp4lqGyFjEkLQyo=
+X-Gm-Gg: Acq92OG/DZSKLMLCQM/ReipFqSR8RSL6qmjSo+j4DYTbBW3d6j92dfR/T9G8PosoGe/
+	bdIWyMJCl4+IxkgBPprhpWNu/TkxsdaFNpqFIHnKud+SB5I+EfgVt351aF/gzV2r2V0QuSm04Ms
+	3r2lE+xdkix3aQhE7jmrcotjK21IgRz50z5hs3wLMJDmjzIRF6oU31piT4mFqAMeaneJIGNk/Tf
+	LeprhgAJLVhpiV7HmgIeuuMeANmj/maDl6+1CvF4FvDHSGkvYPQP1QHDKp4bLcJ9dEQWNdeJ62K
+	lDigqrF6bgUk2B0bOQ==
+X-Received: by 2002:a05:6a00:4191:b0:842:65f8:bb3a with SMTP id
+ d2e1a72fcca58-84284dc1e20mr7432079b3a.19.1780565839303; Thu, 04 Jun 2026
+ 02:37:19 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260601083327.1535185-1-chancel.liu@oss.nxp.com>
+In-Reply-To: <20260601083327.1535185-1-chancel.liu@oss.nxp.com>
+From: Shengjiu Wang <shengjiu.wang@gmail.com>
+Date: Thu, 4 Jun 2026 17:37:07 +0800
+X-Gm-Features: AVHnY4K0i1x-lAIE5B37fSqEfd9RBkopGxh1S9hjIVvMEyOSCUjsLJScERtWN3E
+Message-ID: <CAA+D8AMEv4++ZC_xgXxiLrWWBmJS2Xo10Bj9pboDQ3mFh9STfw@mail.gmail.com>
+Subject: Re: [PATCH v3] ASoC: fsl_sai: Fix 32 slots TDM broken by integer
+ shift UB in xMR write
+To: chancel.liu@oss.nxp.com
+Cc: Xiubo.Lee@gmail.com, festevam@gmail.com, nicoleotsuka@gmail.com, 
+	lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com, 
+	linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
+	linux-sound@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Nathan Chancellor <nathan@kernel.org>
+On Mon, Jun 1, 2026 at 4:33=E2=80=AFPM <chancel.liu@oss.nxp.com> wrote:
+>
+> From: Chancel Liu <chancel.liu@nxp.com>
+>
+> When configuring 32 slots TDM (channels =3D=3D slots =3D=3D 32), the xMR
+> (Mask Register) write used:
+> ~0UL - ((1 << min(channels, slots)) - 1)
+>
+> The literal "1" is a signed 32-bit int. Shifting it by 32 positions is
+> undefined behaviour which may set this register to 0xFFFFFFFF, masking
+> all 32 slots.
+>
+> Use GENMASK_U32() macro instead. For 32 slots this produces a zero mask:
+> ~GENMASK_U32(31, 0) =3D ~0xFFFFFFFF =3D 0x00000000
+> Behaviour for fewer than 32 slots is unchanged.
+>
+> Fixes: 770f58d7d2c5 ("ASoC: fsl_sai: Support multiple data channel enable=
+ bits")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Chancel Liu <chancel.liu@nxp.com>
 
-[ Upstream commit 4d3a2a466b8d68d852a1f3bbf11204b718428dc4 ]
+Reviewed-by: Shengjiu Wang <shengjiu.wang@gmail.com>
 
-When building for 32-bit platforms, for which 'size_t' is
-'unsigned int', there are warnings around using the incorrect format
-specifier to print bsize in hid_report_raw_event():
-
-  drivers/hid/hid-core.c:2054:29: error: format specifies type 'long' but the argument has type 'size_t' (aka 'unsigned int') [-Werror,-Wformat]
-   2053 |                 hid_warn_ratelimited(hid, "Event data for report %d is incorrect (%d vs %ld)\n",
-        |                                                                                         ~~~
-        |                                                                                         %zu
-   2054 |                                      report->id, csize, bsize);
-        |                                                         ^~~~~
-  drivers/hid/hid-core.c:2076:29: error: format specifies type 'long' but the argument has type 'size_t' (aka 'unsigned int') [-Werror,-Wformat]
-   2075 |                 hid_warn_ratelimited(hid, "Event data for report %d was too short (%d vs %ld)\n",
-        |                                                                                          ~~~
-        |                                                                                          %zu
-   2076 |                                      report->id, rsize, bsize);
-        |                                                         ^~~~~
-
-Use the proper 'size_t' format specifier, '%zu', to clear up the
-warnings.
-
-Cc: stable@vger.kernel.org
-Fixes: 2c85c61d1332 ("HID: pass the buffer size to hid_report_raw_event")
-Reported-by: Miguel Ojeda <ojeda@kernel.org>
-Closes: https://lore.kernel.org/20260516020430.110135-1-ojeda@kernel.org/
-Signed-off-by: Nathan Chancellor <nathan@kernel.org>
-Signed-off-by: Linus Torvalds <torvalds@linux-foundation.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
-(cherry picked from commit 3ab135238832446399614e7a4bb796d620717806)
-Signed-off-by: Lee Jones <lee@kernel.org>
-(cherry picked from commit 0f77a993b5426cca1b046c9ab4b2f8355a4d45dc)
-Signed-off-by: Lee Jones <lee@kernel.org>
----
- drivers/hid/hid-core.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/hid/hid-core.c b/drivers/hid/hid-core.c
-index a8d4673c7b8e..e106b59b55da 100644
---- a/drivers/hid/hid-core.c
-+++ b/drivers/hid/hid-core.c
-@@ -1793,7 +1793,7 @@ int hid_report_raw_event(struct hid_device *hid, int type, u8 *data,
- 		return 0;
- 
- 	if (unlikely(bsize < csize)) {
--		hid_warn_ratelimited(hid, "Event data for report %d is incorrect (%d vs %ld)\n",
-+		hid_warn_ratelimited(hid, "Event data for report %d is incorrect (%d vs %zu)\n",
- 				     report->id, csize, bsize);
- 		return -EINVAL;
- 	}
-@@ -1815,7 +1815,7 @@ int hid_report_raw_event(struct hid_device *hid, int type, u8 *data,
- 		rsize = max_buffer_size;
- 
- 	if (bsize < rsize) {
--		hid_warn_ratelimited(hid, "Event data for report %d was too short (%d vs %ld)\n",
-+		hid_warn_ratelimited(hid, "Event data for report %d was too short (%d vs %zu)\n",
- 				     report->id, rsize, bsize);
- 		return -EINVAL;
- 	}
--- 
-2.54.0.1032.g2f8565e1d1-goog
-
+Best regards
+Shengjiu Wang
+> ---
+> Changes in v3
+> - Fix patch can't be applied
+>
+> Changes in v2
+> - Use GENMASK_U32() macro instead to make it clearer and safer
+>
+>  sound/soc/fsl/fsl_sai.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/sound/soc/fsl/fsl_sai.c b/sound/soc/fsl/fsl_sai.c
+> index d6dd95680892..9661602b53c5 100644
+> --- a/sound/soc/fsl/fsl_sai.c
+> +++ b/sound/soc/fsl/fsl_sai.c
+> @@ -797,7 +797,7 @@ static int fsl_sai_hw_params(struct snd_pcm_substream=
+ *substream,
+>                                    FSL_SAI_CR4_FSD_MSTR, FSL_SAI_CR4_FSD_=
+MSTR);
+>
+>         regmap_write(sai->regmap, FSL_SAI_xMR(tx),
+> -                    ~0UL - ((1 << min(channels, slots)) - 1));
+> +                    ~GENMASK_U32(min(channels, slots) - 1, 0));
+>
+>         return 0;
+>  }
+> --
+> 2.50.1
+>
