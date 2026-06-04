@@ -1,358 +1,368 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f73.google.com (mail-wr1-f73.google.com [209.85.221.73])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 891B24219E9
-	for <stable@vger.kernel.org>; Thu,  4 Jun 2026 11:32:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1369037F74C
+	for <stable@vger.kernel.org>; Thu,  4 Jun 2026 11:37:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.73
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780572757; cv=none; b=I2Oe1vuW8IhboFCh96k4NGhky/zYPbDB4gznX3/Fvlf2eiiuy50DYY6vjIfpJJXaoQtL/96OrXS9ugtsXfTk3U2Jvb/uwPVsKyyRa14axOnmEnZEd70aNv4EKFvlWc1Gqp0PNjMwUt7Z+vkKHobsn6zqGB9kSJeI/RbOhk3GNIg=
+	t=1780573048; cv=none; b=byFp5MO32hhp89CZSWG1KlCUjbSPNRNO2bjvZ7hh9Yg3nOliWz+t/i2i6UGXF63a83A8Zw0cXLGKiq4mBRDBy06GYtlmZc5nZAvUxIvqGiVH4+R8kEPKnKXBTtesuadjyatsc7BCJZQz9Oa636TdL5shR1j0xASOtsvzMHnaSV4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780572757; c=relaxed/simple;
-	bh=KP5L3T5uPqbd53j7pFXmfAoo96kovomNPitjY4tgJqs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=NQ0nVRgHD0aa1e5rHUHPDMZsNtP5414D/QMbd5l8DEfdw60cZOmXHjRnUbh0toGDJVjsICMO7x1I6eCwkqFZW83frBB86J4n0jLUpfpiYej8PpKSpJVhbQ3FhAXk2SJXPCt6v1Wv2/yagoziEWNJhARZMeR24WwUlqnpFvqPsas=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=FfelrWJ8; arc=none smtp.client-ip=192.198.163.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1780573048; c=relaxed/simple;
+	bh=irE7P0EvhrLM851/VIzMflx+0DT1rrsQqwBqQK69O38=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=jzSIniwZ6ijehzbqI2TaMEuUta3a5B+Ibawlk9l/0iXtf5yxdtmz+HnwzY0GCJ48HjIGeWFziywN3wzNVmwZzXwnVCWyJqJGEOtp3p80MW6Nttlgoynzn89umvy3/qho87AwKuViMpRUhHNZbsFwYa0aVlArNcdX1LswqSdgMsc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=H19jR1hV; arc=none smtp.client-ip=209.85.221.73
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="FfelrWJ8"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1780572756; x=1812108756;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=KP5L3T5uPqbd53j7pFXmfAoo96kovomNPitjY4tgJqs=;
-  b=FfelrWJ8XehPKcfzeWpCRhuM2GeScdFf3zbRdjFmHmuzhKumNrCB8bEN
-   irM5tX3aO9WptcJapRFvUHlGsdGVZSisPQjb+qUVNJFa0yNqMu8VDQjap
-   agsojiwVCwGYuXhRZQSqo6WcR0qRnloHBeeTers/y2S3MQGSmBJo/SwCu
-   VeYHcwjb4bzT/GUsQxiOLYQONgLWUI8KgdBgnlQ5aysZ0ZrakKvIO+YfN
-   n3Iy+aH904IM9gh07T763YathQeRP0vVIOPA37mBghEyPCHgomCK3Unp2
-   hLv6FDqvpHmiiQHc8zVtM+V2aEiS4lbcC9QxNSwICfeg9odTVQRON2fRm
-   w==;
-X-CSE-ConnectionGUID: DcZLWJ42RI+/b21rSuZiVA==
-X-CSE-MsgGUID: 0uuiskMBRCmgLXna4pYgVg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11806"; a="85251667"
-X-IronPort-AV: E=Sophos;i="6.24,187,1774335600"; 
-   d="scan'208";a="85251667"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Jun 2026 04:32:35 -0700
-X-CSE-ConnectionGUID: ssF7PsHHRraadLi5uA3nbw==
-X-CSE-MsgGUID: x3JlOGNzTr+0eHMMaAYK0Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,187,1774335600"; 
-   d="scan'208";a="249440351"
-Received: from vpanait-mobl.ger.corp.intel.com (HELO [10.245.245.94]) ([10.245.245.94])
-  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Jun 2026 04:32:32 -0700
-Message-ID: <7269ac80-1470-46d6-bf2d-75b5ab7acf91@intel.com>
-Date: Thu, 4 Jun 2026 12:32:29 +0100
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="H19jR1hV"
+Received: by mail-wr1-f73.google.com with SMTP id ffacd0b85a97d-45ef2bd566bso364219f8f.0
+        for <stable@vger.kernel.org>; Thu, 04 Jun 2026 04:37:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1780573042; x=1781177842; darn=vger.kernel.org;
+        h=cc:to:from:subject:message-id:mime-version:date:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=Z4SYEfldQ6Lx1qsEjeHpP7N2ec+VzKxXBxUTO3EAbW4=;
+        b=H19jR1hVBgnfS8U7ENcu2kEoqWLhGHYVUALWw1BVnjUHqP21r3alPXmLT7s4aLrgfO
+         kYFDjRT7CBrZD8v9tu4yxDcwa2OSDWlLVxg2hLOhweqc3l0CP4pyYYot/OOMPqsvZDCc
+         XAtsTOJNCGL4ah6WEwXihq/uO3cV5CXF9BOAeFWp7ol3daMxba2Z5S1YxayQcOQ/UFML
+         57CR81AFznwgxFwM1Cvfh+/mZoyTDaJ6sDcsLjKagbrIuhvrP9nwp3LAFBrKF1hBmfLP
+         m+ZxgchlADkZjvY4MRC8J0I85MnZHhShzPgNYgAxPP3yXyWqm4AKMhsiJj0QmrkcHp15
+         v1mg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780573042; x=1781177842;
+        h=cc:to:from:subject:message-id:mime-version:date:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=Z4SYEfldQ6Lx1qsEjeHpP7N2ec+VzKxXBxUTO3EAbW4=;
+        b=EKo2STuS+IHaNey1fWkLxk130Kjd5+xZeV2rlD8aULy9+nOCo1GHzyWmowsh2FBfWS
+         ydfpcN3YkbArIuMKqOCkQ8n8DSniCB+tmb9NqMsxF1yyPhfA3gIW/67yc4hjp4/jelho
+         QvqerdkTZczm85QF3hR7zEYLvAW8P2aLokel/E2Ig8z1asTDVw1KapR7UZEmbESIVjlh
+         7khaMLYkU8g63qBGI8xii8dGxdyyUGsD0exHuXlpb+4xwAzKuT6V7WTzNLdBDu5Y0S+D
+         5gNP+ZcjWbJEYKwAoRBgGAZj8AmGanMcPPUxPNiCQbSiSkC9rPb9+7IrlI3hGYC0yDNY
+         uL9g==
+X-Forwarded-Encrypted: i=1; AFNElJ9S6ZALaH4v5URlMI9KxXKcxfhDJZhkAZCp4dHAOPNWmc26BZfJsCGI2VtVN1rXuR3+sUPmkhk=@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywlapdpl2vXZmN8xWVG/9uaNGqz0Veg+HWENKnxSVyYLiG/f+xj
+	kNWEVrgfwpsYKcQZusPxNMy07oh6C5Z7BC7a/MgXEE6nPEDhj9Cb6zclEiu6YJ6OshCY61oUNwu
+	/rWT405KQjupQFYedWg==
+X-Received: from wmbjp4.prod.google.com ([2002:a05:600c:5584:b0:490:1aca:caa3])
+ (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:600c:a09:b0:490:4e3e:b483 with SMTP id 5b1f17b1804b1-490b5fe66ebmr124526735e9.22.1780573042354;
+ Thu, 04 Jun 2026 04:37:22 -0700 (PDT)
+Date: Thu, 04 Jun 2026 11:37:07 +0000
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/xe: Fix UAF in xe_gem_prime_import() on attach
- failure
-To: =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- "Gote, Nitin R" <nitin.r.gote@intel.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-Cc: "stable@vger.kernel.org" <stable@vger.kernel.org>,
- "Brost, Matthew" <matthew.brost@intel.com>,
- "Prosyak, Vitaly" <Vitaly.Prosyak@amd.com>
-References: <20260601101536.1333480-2-nitin.r.gote@intel.com>
- <ff4a02f0-5a59-4bad-af76-3d71146f136e@intel.com>
- <5e3854dd-d6ad-4110-966e-9029ef7c2374@amd.com>
- <b9b9e20f-703d-4e43-bd1a-17d8bbcead70@intel.com>
- <157c5cfc-b0a5-4ee9-b91a-909e87df3080@amd.com>
- <SA3PR11MB8118477615C02DD99CA966F7D0152@SA3PR11MB8118.namprd11.prod.outlook.com>
- <SA3PR11MB8118C54C085BCAF117582849D0102@SA3PR11MB8118.namprd11.prod.outlook.com>
- <9d26ec14323cb5a54e2b6e58cb177a4a7eb3652a.camel@linux.intel.com>
-Content-Language: en-GB
-From: Matthew Auld <matthew.auld@intel.com>
-In-Reply-To: <9d26ec14323cb5a54e2b6e58cb177a4a7eb3652a.camel@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+X-B4-Tracking: v=1; b=H4sIAGNjIWoC/32NQQ6CMBBFr0Jm7ZhSoI2uvIdhAfRbmig1U0Iwh
+ LtbOYDL95L//kYJEpDoWmwkWEIKccqgTwUNYzd5cHCZSSttVKMtJ8yMdcbk4BgiURh66CoLZS7 GUR6+BY+wHtF7m3kMaY7yOT6W8mf/5paSS66V7eu+NkZVzc3H6J84D/FF7b7vXx2JN4W1AAAA
+X-Change-Id: 20260527-set-extended-error-e2ca37e0696d
+X-Developer-Key: i=aliceryhl@google.com; a=openpgp; fpr=49F6C1FAA74960F43A5B86A1EE7A392FDE96209F
+X-Developer-Signature: v=1; a=openpgp-sha256; l=11686; i=aliceryhl@google.com;
+ h=from:subject:message-id; bh=irE7P0EvhrLM851/VIzMflx+0DT1rrsQqwBqQK69O38=;
+ b=owEBbQKS/ZANAwAKAQRYvu5YxjlGAcsmYgBqIWNsve9gZtqM5uUt+N2Q4G+IS0EkDsd0v69LJ
+ exoO2F4XEuJAjMEAAEKAB0WIQSDkqKUTWQHCvFIvbIEWL7uWMY5RgUCaiFjbAAKCRAEWL7uWMY5
+ RrwJEACbeiugrl1gmmmcNTUBljKpzv3lyXSJmZ1maRBav1Jz+c24KkqZ7QqJA1pm0bR0ALf2QjQ
+ BV00PXXtAcn3sStLE6jcUX5CVPntHGn6dgC5w8FuSoAGS1jEI/jGyvAXS0zl1/PIXEZHbYEsmkd
+ iUkQIznp342qWzsNuDeTwlT5cVadnbuNZDeZd1KAZe9nPsOZLhqs0wltWd/CxNvJIXNIMR5ZSpv
+ 088JvsKUV06wnTYQfgYshZ/nrOjVrZeUrgFEWzcdJm7AF1/wxtW7GwtFBT0ekDpei1Qz9WBZAv9
+ RbCo82gV14r6hbh+dH7t+VcSSpboV0lXePcm8rTOZfVyeM2owMmBUHeARlew6oQtY5tJBuGnRns
+ NNACEqkKC+bkGce4doRtXT9ppaoldcfjKXXvJXNjLoyCY9XjoOhp+LiRuAuxX6bMGyj1URDIbBE
+ p0Ex1UMoSmxbIW8ikOVv/YOAgGwDL1METWuCOeq3bDPA/jX4/rdmKLw4XdHfANQYN5yM2goVezO
+ ffNgWCXmcb3CZWhpyHJdQ8Aa1o1XhVe9WWeMy3Ly0lySpivvr/4AnwihdaRXYHaTSsBxgjAl4GV
+ 4yHJSRZTb8N/M2+l5JIMmVCIwLXtPUxhMDmon45xb9g0FgQtsXwz2Av+Ud1sWEGf3RXtO92V5Wv gxXL5PeBndwXJyw==
+X-Mailer: b4 0.14.3
+Message-ID: <20260604-set-extended-error-v2-1-fb0753e7ab53@google.com>
+Subject: [PATCH v2] rust_binder: fix BINDER_GET_EXTENDED_ERROR
+From: Alice Ryhl <aliceryhl@google.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Carlos Llamas <cmllamas@google.com>
+Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	"=?utf-8?q?Bj=C3=B6rn_Roy_Baron?=" <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
+	Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
+	Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, rust-for-linux@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
 
-On 04/06/2026 12:14, Thomas Hellström wrote:
-> Hi,
-> 
-> On Thu, 2026-06-04 at 04:54 +0000, Gote, Nitin R wrote:
->> Hi,
->>
->>> -----Original Message-----
->>> From: Intel-xe <intel-xe-bounces@lists.freedesktop.org> On Behalf
->>> Of Gote, Nitin
->>> R
->>> Sent: Monday, June 1, 2026 8:57 PM
->>> To: Christian König <christian.koenig@amd.com>; Auld, Matthew
->>> <matthew.auld@intel.com>; intel-xe@lists.freedesktop.org; Christian
->>> König
->>> <ckoenig.leichtzumerken@gmail.com>
->>> Cc: stable@vger.kernel.org; Thomas Hellstrom
->>> <thomas.hellstrom@linux.intel.com>; Brost, Matthew
->>> <matthew.brost@intel.com>; Prosyak, Vitaly <Vitaly.Prosyak@amd.com>
->>> Subject: RE: [PATCH] drm/xe: Fix UAF in xe_gem_prime_import() on
->>> attach failure
->>>
->>> Hi Christian,
->>>
->>>> -----Original Message-----
->>>> From: Christian König <christian.koenig@amd.com>
->>>> Sent: Monday, June 1, 2026 5:47 PM
->>>> To: Auld, Matthew <matthew.auld@intel.com>; Gote, Nitin R
->>>> <nitin.r.gote@intel.com>; intel-xe@lists.freedesktop.org;
->>>> Christian
->>>> König <ckoenig.leichtzumerken@gmail.com>
->>>> Cc: stable@vger.kernel.org; Thomas Hellstrom
->>>> <thomas.hellstrom@linux.intel.com>; Brost, Matthew
->>>> <matthew.brost@intel.com>; Prosyak, Vitaly
->>>> <Vitaly.Prosyak@amd.com>
->>>> Subject: Re: [PATCH] drm/xe: Fix UAF in xe_gem_prime_import() on
->>>> attach failure
->>>>
->>>> On 6/1/26 14:01, Matthew Auld wrote:
->>>>> On 01/06/2026 12:39, Christian König wrote:
->>>>>>
->>>>>>
->>>>>> On 6/1/26 12:46, Matthew Auld wrote:
->>>>>>> On 01/06/2026 11:15, Nitin Gote wrote:
->>>>>>>> xe_dma_buf_create_obj() creates the importer BO with obj-
->>>>>>>>> resv
->>>>>>>> pointing at the exporter's dma_buf->resv. When
->>>>>>>> dma_buf_dynamic_attach() fails, no dma_buf reference is
->>>>>>>> held so
->>>>>>>> the exporter can be freed immediately. Since
->>>>>>>> ttm_bo_release() now
->>>>>>>> always defers cleanup for ttm_bo_type_sg BOs to the TTM
->>>>>>>> workqueue, the worker later calls
->>>>>>>> dma_resv_lock() on the already-freed exporter resv,
->>>>>>>> causing a UAF.
->>>>>>>>
->>>>>>>> Reset obj->resv to the BO's private _resv before calling
->>>>>>>> xe_bo_put() in the error path. The BO is not yet
->>>>>>>> published
->>>>>>>> (attach
->>>>>>>> failed) and carries no fences, so the switch is safe.
->>>>>>>>
->>>>>>>> Observed with igt@xe_live_ktest@xe_dma_buf_kunit on BMG
->>>>>>>> (QEMU):
->>>>>>>>
->>>>>>>>      Oops: general protection fault, probably for non-
->>>>>>>> canonical
->>>>>>>> address 0x6b6b6b6b6b6b6b9c
->>>>>>>>      Workqueue: ttm ttm_bo_delayed_delete [ttm]
->>>>>>>>      RIP: 0010:mutex_can_spin_on_owner+0x3f/0xc0
->>>>>>>>      Call Trace:
->>>>>>>>       <TASK>
->>>>>>>>       ? __ww_mutex_lock.constprop.0+0x2dd/0x18e0
->>>>>>>>       ? ttm_bo_delayed_delete+0x41/0xc0 [ttm]
->>>>>>>>       ww_mutex_lock+0x3c/0xb0
->>>>>>>>       ttm_bo_delayed_delete+0x41/0xc0 [ttm]
->>>>>>>>       process_one_work+0x239/0x740
->>>>>>>>       worker_thread+0x200/0x3f0
->>>>>>>>       kthread+0x10d/0x150
->>>>>>>>       ret_from_fork+0x3bd/0x470
->>>>>>>>       ret_from_fork_asm+0x1a/0x30
->>>>>>>>       </TASK>
->>>>>>>>
->>>>>>>> Closes:
->>>>>>>> https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8023
->>>>>>>> Fixes: d99fbd9aab62 ("drm/ttm: Always take the bo delayed
->>>>>>>> cleanup
->>>>>>>> path for imported bos")
->>>>>>>> Cc: stable@vger.kernel.org # v6.8+
->>>>>>>> Cc: Thomas Hellstrom <thomas.hellstrom@linux.intel.com>
->>>>>>>> Cc: Matthew Brost <matthew.brost@intel.com>
->>>>>>>> Cc: Matthew Auld <matthew.auld@intel.com>
->>>>>>>> Signed-off-by: Nitin Gote <nitin.r.gote@intel.com>
->>>>>>>> ---
->>>>>>>>     drivers/gpu/drm/xe/xe_dma_buf.c | 8 ++++++++
->>>>>>>>     1 file changed, 8 insertions(+)
->>>>>>>>
->>>>>>>> diff --git a/drivers/gpu/drm/xe/xe_dma_buf.c
->>>>>>>> b/drivers/gpu/drm/xe/xe_dma_buf.c index
->>>>>>>> 8a920e58245c..6d944bd4065c
->>>>>>>> 100644
->>>>>>>> --- a/drivers/gpu/drm/xe/xe_dma_buf.c
->>>>>>>> +++ b/drivers/gpu/drm/xe/xe_dma_buf.c
->>>>>>>> @@ -384,6 +384,14 @@ struct drm_gem_object
->>>>>>>> *xe_gem_prime_import(struct drm_device *dev,
->>>>>>>>           attach = dma_buf_dynamic_attach(dma_buf, dev-
->>>>>>>>> dev,
->>>>>>>> attach_ops, obj);
->>>>>>>>         if (IS_ERR(attach)) {
->>>>>>>> +        /*
->>>>>>>> +         * The BO was created with resv = dma_buf->resv
->>>>>>>> +(exporter's
->>>>>>>> +         * resv). Since attach failed, no dma_buf
->>>>>>>> reference is
->>>>>>>> +held and
->>>>>>>> +         * the exporter may be freed before TTM's
->>>>>>>> delayed_delete
->>>>>>>> +worker
->>>>>>>> +         * runs. Switch to the BO's own resv to prevent
->>>>>>>> a UAF
->>>>>>>> +when
->>>>>>>> +         * ttm_bo_delayed_delete() tries to lock the
->>>>>>>> stale pointer.
->>>>>>>> +         */
->>>>>>>> +        obj->resv = &obj->_resv;
->>>>>>>
->>>>>>> +Christian, does amdgpu not have the type of same issue
->>>>>>> here? Also
->>>>>>> +any
->>>> thoughts here?
->>>>>>
->>>>>> Oh, good catch. Yeah I think we have the same problem on
->>>>>> amdgpu as well.
->>>>>
->>>>> Maybe dumb question, but why does the
->>>>> ttm_bo_individualize_resv()
->>>>> skip the
->>>> final switch of the resv for type_sg?
->>>>
->>>> Because we need the original resv object for cleaning up the
->>>> mapping
->>>> should the initial attach and then map have succeed.
->>>>
->>>>> It goes through the trouble of copying the fences across?
->>>>
->>>> Because we need to know when the import can be cleaned up.
->>>>
->>>> In other words TTM takes a copy of the current fences and only
->>>> unmap,
->>>> detach and then do the final cleanup after we are sure that the
->>>> set of
->>>> fences which was active on destruction is now signaled.
->>>>
->>>> If new fences are added to the resv object (maybe by the exporter
->>>> itself or other
->>>> importers) after our reference count got down to zero then we
->>>> don't
->>>> care about that.
->>>>> If we do need to handle this here, do we also need to grab the
->>>>> lru
->>>>> lock, like we
->>>> do in ttm_bo_individualize_resv() when doing the swap?
->>>>
->>>> Good question, of hand I would say yes but I clearly need to
->>>> check the
->>>> source code as well.
->>>>
->>>> Might be better to switch the type of the BO on error so that the
->>>> normal cleanup will just switch over to the local dma_resv
->>>> object.
->>>>
->>>
->>> -               obj->resv = &obj->_resv;
->>> +               gem_to_xe_bo(obj)->ttm.type = ttm_bo_type_kernel;
->>>
->>> Switching the type to ttm_bo_type_kernel lets
->>> ttm_bo_individualize_resv() swap
->>> resv to the BO's private _resv under lru_lock, which prevents UAF
->>> without
->>> needing any manual locking.
-> 
-> The lru lock is IIRC only needed and safe when the ttm refcount is zero
-> (in the TTM destruction path) to protect against a racing LRU walk
-> trylock succeeds against the incorrect resv.
-> 
-> I wonder whether this was actually why xe code initially took care not
-> to publish the bo on the LRUs until the attachment succeeded.
-> 
-> A TTM LRU walker may pick up the exporting resv as soon as the resource
-> is published on the LRU, and then try to lock it using
-> ttm_lru_walk_ticketlock(). The lru lock doesn't protect against that.
->   
-> So we have a sort of moment22, since with that approach move_notify()
-> could be called without the bo being fully initialized.
-> 
-> One way to move forward would perhaps be to, for now, reinstate that
-> and have move_notify check if the bo is a stub or fully initialized
-> before doing anything.
-> 
-> Also perhaps we should in the future consider allowing dma-buf
-> attachment removal under a separate lower-level lock than the resv.
+This code currently copies the ExtendedError struct to the stack,
+modifies the copy, and then doesn't modify the original. Thus, fix it.
 
-Is it plausible to check for drm_gem_is_imported() in 
-ttm_bo_individualize_resv()? If sg && !imported then it should be safe 
-to swap out the resv?
+Furthermore, errors when replying must be delivered directly to the
+remote thread, so update deliver_reply() to take an extended error
+argument.
 
-> 
-> Thanks,
-> Thomas
-> 
-> 
->>
->> Checked all bo->type readers (xe_evict_flags(), xe_bo_move(),
->> xe_bo_can_migrate()) and found they can be called concurrently by the
->> shrinker or eviction paths without any synchronization, making the
->> bo->type change unsafe.
->>
->> Switching resv to &obj->_resv under lru_lock, mirroring
->> ttm_bo_individualize_resv(), is the more reasonable.
->> I'll send this as v2, along with a separate patch fixing the same
->> issue in amdgpu.
->>
->> - Nitin
->>
->>>> Since we don't need the original dma_resv for the cleanup that
->>>> should work
->>> fine.
->>>>
->>>>> Ideally xe and amdgpu can just have identical solutions here.
->>>>
->>>> Yeah completely agree.
->>>>
->>>> Regards,
->>>> Christian.
->>>>
->>>>>
->>>>>>
->>>>>> How the heck did you found that? Do we have a dummy driver
->>>>>> (VGEM?)
->>>>>> which
->>>> could be made to always fail attachment for a test case?
->>>
->>> The bug was found via the existing KUnit test (xe_dma_buf_kunit),
->>> which was
->>> failing on a BMG VM device. The test runs 20 parameter
->>> combinations.
->>> the failing ones use force_different_devices=true +
->>> mem_mask=XE_BO_FLAG_VRAM0 + nop2p_attach_ops, where
->>> dma_buf_dynamic_attach() returns -EOPNOTSUPP, hitting the error
->>> path.
->>>
->>> On bare metal BMG the race window is too narrow to hit the issue.
->>> To make it
->>> more deterministic, added a small msleep(100) in
->>> ttm_bo_delayed_delete() just
->>> before the dma_resv_lock() call, which widened the race window.
->>> With KASAN enabled, that gave a clear slab-use-after-free in
->>> __ww_mutex_lock
->>> — the 0x6b6b6b6b SLUB poison pattern in the faulting address
->>> confirmed the
->>> UAF.
->>>
->>> Thanks,
->>> Nitin
->>>
->>>>>>
->>>>>> @Vitaly can you take a look and try to come up with a test
->>>>>> case for that?
->>>> Thanks in advance.
->>>>>>
->>>>>> Thanks for the notice,
->>>>>> Christian.
->>>>>>
->>>>>>>
->>>>>>>>             xe_bo_put(gem_to_xe_bo(obj));
->>>>>>>>             return ERR_CAST(attach);
->>>>>>>>         }
->>>>>>>
->>>>>>
->>>>>
+Cc: stable@vger.kernel.org
+Fixes: eafedbc7c050 ("rust_binder: add Rust Binder driver")
+Signed-off-by: Alice Ryhl <aliceryhl@google.com>
+---
+Changes in v2:
+- Also handle extended error for replies.
+- Link to v1: https://lore.kernel.org/r/20260527-set-extended-error-v1-1-407b4b466035@google.com
+---
+ drivers/android/binder/error.rs       | 13 +++----
+ drivers/android/binder/thread.rs      | 65 +++++++++++++++++++++++++----------
+ drivers/android/binder/transaction.rs | 15 ++++----
+ 3 files changed, 58 insertions(+), 35 deletions(-)
+
+diff --git a/drivers/android/binder/error.rs b/drivers/android/binder/error.rs
+index 45d85d4c2815..63c8d90c409a 100644
+--- a/drivers/android/binder/error.rs
++++ b/drivers/android/binder/error.rs
+@@ -73,20 +73,17 @@ impl fmt::Debug for BinderError {
+     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+         match self.reply {
+             BR_FAILED_REPLY => match self.source.as_ref() {
+-                Some(source) => f
+-                    .debug_struct("BR_FAILED_REPLY")
+-                    .field("source", source)
+-                    .finish(),
++                Some(source) => source.fmt(f),
+                 None => f.pad("BR_FAILED_REPLY"),
+             },
+             BR_DEAD_REPLY => f.pad("BR_DEAD_REPLY"),
+             BR_FROZEN_REPLY => f.pad("BR_FROZEN_REPLY"),
+             BR_TRANSACTION_PENDING_FROZEN => f.pad("BR_TRANSACTION_PENDING_FROZEN"),
+             BR_TRANSACTION_COMPLETE => f.pad("BR_TRANSACTION_COMPLETE"),
+-            _ => f
+-                .debug_struct("BinderError")
+-                .field("reply", &self.reply)
+-                .finish(),
++            _ => match self.source.as_ref() {
++                Some(source) => source.fmt(f),
++                None => f.pad("OTHER_ERROR"),
++            },
+         }
+     }
+ }
+diff --git a/drivers/android/binder/thread.rs b/drivers/android/binder/thread.rs
+index 97d5f31e8fe3..334f4b49511d 100644
+--- a/drivers/android/binder/thread.rs
++++ b/drivers/android/binder/thread.rs
+@@ -495,9 +495,16 @@ pub(crate) fn debug_print(self: &Arc<Self>, m: &SeqFile, print_all: bool) -> Res
+         Ok(())
+     }
+ 
++    pub(crate) fn clear_extended_error(&self, debug_id: usize) {
++        self.inner.lock().extended_error = ExtendedError::new(debug_id as u32, BR_OK, 0);
++    }
++
+     pub(crate) fn get_extended_error(&self, data: UserSlice) -> Result {
+         let mut writer = data.writer();
+-        let ee = self.inner.lock().extended_error;
++        let mut inner = self.inner.lock();
++        let ee = inner.extended_error;
++        inner.extended_error = ExtendedError::new(0, BR_OK, 0);
++        drop(inner);
+         writer.write(&ee)?;
+         Ok(())
+     }
+@@ -1109,7 +1116,10 @@ fn unwind_transaction_stack(self: &Arc<Self>) {
+             inner.pop_transaction_to_reply(thread.as_ref())
+         } {
+             let reply = Err(BR_DEAD_REPLY);
+-            if !transaction.from.deliver_single_reply(reply, &transaction) {
++            if !transaction
++                .from
++                .deliver_single_reply(reply, &transaction, None)
++            {
+                 break;
+             }
+ 
+@@ -1121,8 +1131,9 @@ pub(crate) fn deliver_reply(
+         &self,
+         reply: Result<DLArc<Transaction>, u32>,
+         transaction: &DArc<Transaction>,
++        extended_error: Option<ExtendedError>,
+     ) {
+-        if self.deliver_single_reply(reply, transaction) {
++        if self.deliver_single_reply(reply, transaction, extended_error) {
+             transaction.from.unwind_transaction_stack();
+         }
+     }
+@@ -1136,6 +1147,7 @@ fn deliver_single_reply(
+         &self,
+         reply: Result<DLArc<Transaction>, u32>,
+         transaction: &DArc<Transaction>,
++        extended_error: Option<ExtendedError>,
+     ) -> bool {
+         if let Ok(transaction) = &reply {
+             crate::trace::trace_transaction(true, transaction, Some(&self.task));
+@@ -1152,6 +1164,12 @@ fn deliver_single_reply(
+                 return true;
+             }
+ 
++            if let Some(ee) = extended_error {
++                if inner.extended_error.command == BR_OK {
++                    inner.extended_error = ee;
++                }
++            }
++
+             match reply {
+                 Ok(work) => {
+                     inner.push_work(work);
+@@ -1222,6 +1240,9 @@ fn read_transaction_info(
+         info.buffers_size = td.buffers_size as usize;
+         // SAFETY: Above `read` call initializes all bytes, so this union read is ok.
+         info.target_handle = unsafe { td.transaction_data.target.handle };
++
++        info.debug_id = super::next_debug_id();
++
+         Ok(())
+     }
+ 
+@@ -1230,6 +1251,8 @@ fn transaction(self: &Arc<Self>, cmd: u32, reader: &mut UserSliceReader) -> Resu
+         let mut info = TransactionInfo::zeroed();
+         self.read_transaction_info(cmd, reader, &mut info)?;
+ 
++        self.clear_extended_error(info.debug_id);
++
+         let ret = if info.is_reply {
+             self.reply_inner(&mut info)
+         } else if info.is_oneway() {
+@@ -1239,23 +1262,21 @@ fn transaction(self: &Arc<Self>, cmd: u32, reader: &mut UserSliceReader) -> Resu
+         };
+ 
+         if let Err(err) = ret {
+-            if err.reply != BR_TRANSACTION_COMPLETE {
+-                info.reply = err.reply;
+-            }
+-
+             self.push_return_work(err.reply);
+-            if let Some(source) = &err.source {
+-                info.errno = source.to_errno();
++            if err.reply != BR_TRANSACTION_COMPLETE {
+                 info.reply = err.reply;
++                if let Some(source) = &err.source {
++                    info.errno = source.to_errno();
+ 
+-                {
+-                    let mut ee = self.inner.lock().extended_error;
+-                    ee.command = err.reply;
+-                    ee.param = source.to_errno();
++                    {
++                        let mut inner = self.inner.lock();
++                        inner.extended_error =
++                            ExtendedError::new(info.debug_id as u32, err.reply, source.to_errno());
++                    }
+                 }
+ 
+                 pr_warn!(
+-                    "{}:{} transaction to {} failed: {source:?}",
++                    "{}:{} transaction to {} failed: {err:?}",
+                     info.from_pid,
+                     info.from_tid,
+                     info.to_pid
+@@ -1320,18 +1341,24 @@ fn reply_inner(self: &Arc<Self>, info: &mut TransactionInfo) -> BinderResult {
+             let allow_fds = orig.flags & TF_ACCEPT_FDS != 0;
+             let reply = Transaction::new_reply(self, process, info, allow_fds)?;
+             self.inner.lock().push_work(completion);
+-            orig.from.deliver_reply(Ok(reply), &orig);
++            orig.from.deliver_reply(Ok(reply), &orig, None);
+             Ok(())
+         })()
+         .map_err(|mut err| {
+             // At this point we only return `BR_TRANSACTION_COMPLETE` to the caller, and we must let
+             // the sender know that the transaction has completed (with an error in this case).
++
+             pr_warn!(
+-                "Failure {:?} during reply - delivering BR_FAILED_REPLY to sender.",
+-                err
++                "{}:{} reply to {} failed: {err:?}",
++                info.from_pid,
++                info.from_tid,
++                info.to_pid
+             );
+-            let reply = Err(BR_FAILED_REPLY);
+-            orig.from.deliver_reply(reply, &orig);
++
++            let param = err.source.as_ref().map_or(0, |e| e.to_errno());
++            let ee = ExtendedError::new(orig.debug_id as u32, err.reply, param);
++            orig.from
++                .deliver_reply(Err(BR_FAILED_REPLY), &orig, Some(ee));
+             err.reply = BR_TRANSACTION_COMPLETE;
+             err
+         });
+diff --git a/drivers/android/binder/transaction.rs b/drivers/android/binder/transaction.rs
+index 1d9b66920a21..0e5d07b7e6f0 100644
+--- a/drivers/android/binder/transaction.rs
++++ b/drivers/android/binder/transaction.rs
+@@ -42,6 +42,7 @@ pub(crate) struct TransactionInfo {
+     pub(crate) reply: u32,
+     pub(crate) oneway_spam_suspect: bool,
+     pub(crate) is_reply: bool,
++    pub(crate) debug_id: usize,
+ }
+ 
+ impl TransactionInfo {
+@@ -93,7 +94,6 @@ pub(crate) fn new(
+         from: &Arc<Thread>,
+         info: &mut TransactionInfo,
+     ) -> BinderResult<DLArc<Self>> {
+-        let debug_id = super::next_debug_id();
+         let allow_fds = node_ref.node.flags & FLAT_BINDER_FLAG_ACCEPTS_FDS != 0;
+         let txn_security_ctx = node_ref.node.flags & FLAT_BINDER_FLAG_TXN_SECURITY_CTX != 0;
+         let mut txn_security_ctx_off = if txn_security_ctx { Some(0) } else { None };
+@@ -101,7 +101,7 @@ pub(crate) fn new(
+         let mut alloc = match from.copy_transaction_data(
+             to.clone(),
+             info,
+-            debug_id,
++            info.debug_id,
+             allow_fds,
+             txn_security_ctx_off.as_mut(),
+         ) {
+@@ -128,7 +128,7 @@ pub(crate) fn new(
+         let data_address = alloc.ptr;
+ 
+         Ok(DTRWrap::arc_pin_init(pin_init!(Transaction {
+-            debug_id,
++            debug_id: info.debug_id,
+             target_node: Some(target_node),
+             from_parent,
+             sender_euid: Kuid::current_euid(),
+@@ -152,9 +152,8 @@ pub(crate) fn new_reply(
+         info: &mut TransactionInfo,
+         allow_fds: bool,
+     ) -> BinderResult<DLArc<Self>> {
+-        let debug_id = super::next_debug_id();
+         let mut alloc =
+-            match from.copy_transaction_data(to.clone(), info, debug_id, allow_fds, None) {
++            match from.copy_transaction_data(to.clone(), info, info.debug_id, allow_fds, None) {
+                 Ok(alloc) => alloc,
+                 Err(err) => {
+                     pr_warn!("Failure in copy_transaction_data: {:?}", err);
+@@ -165,7 +164,7 @@ pub(crate) fn new_reply(
+             alloc.set_info_clear_on_drop();
+         }
+         Ok(DTRWrap::arc_pin_init(pin_init!(Transaction {
+-            debug_id,
++            debug_id: info.debug_id,
+             target_node: None,
+             from_parent: None,
+             sender_euid: Kuid::current_euid(),
+@@ -394,7 +393,7 @@ fn do_work(
+         let send_failed_reply = ScopeGuard::new(|| {
+             if self.target_node.is_some() && self.flags & TF_ONE_WAY == 0 {
+                 let reply = Err(BR_FAILED_REPLY);
+-                self.from.deliver_reply(reply, &self);
++                self.from.deliver_reply(reply, &self, None);
+             }
+             self.drop_outstanding_txn();
+         });
+@@ -478,7 +477,7 @@ fn cancel(self: DArc<Self>) {
+         // If this is not a reply or oneway transaction, then send a dead reply.
+         if self.target_node.is_some() && self.flags & TF_ONE_WAY == 0 {
+             let reply = Err(BR_DEAD_REPLY);
+-            self.from.deliver_reply(reply, &self);
++            self.from.deliver_reply(reply, &self, None);
+         }
+ 
+         self.drop_outstanding_txn();
+
+---
+base-commit: da61573f783897ae5a96c8f1c71aad6242344feb
+change-id: 20260527-set-extended-error-e2ca37e0696d
+
+Best regards,
+-- 
+Alice Ryhl <aliceryhl@google.com>
 
