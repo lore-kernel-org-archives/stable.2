@@ -1,154 +1,107 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com [209.85.222.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4071B380FEC
-	for <stable@vger.kernel.org>; Thu,  4 Jun 2026 09:52:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B28C3D7D63
+	for <stable@vger.kernel.org>; Thu,  4 Jun 2026 09:54:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780566754; cv=none; b=RsLEG80sKpzeESwqMJKHJAabQd93Lu3c869ctIoySwYnLmMiwd+2Xx4bCejZOwYFBojhgWr9DmdOQJvhJ4+SCI04ZoU++W1+UEQtTUdHZxl9F8fHz4IGSaWZn9G3R70jRWE7JmnRTBStqQSl4GlgHkTWveAcay922xP2FE57jnA=
+	t=1780566900; cv=none; b=EHiZn6YqnpO+2G7dvBqhcOm1RJWQrPk/nTtNREdH3i5kfVjqfyZ7QJznBjq206sMjALkp3U6EjvZKeffnGYupleS4WrPQl8BbQ8lI7zwl3cezem8v5+lGQ3ma6JdWjnvyb6EFSbR24UqJbxHFXX+5cjb0N3MBJN9MLi2OH4QDYM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780566754; c=relaxed/simple;
-	bh=Qri2tQQoikuTBDh/3QB/5DNH1tS3MxYe/EMDCMuTcGM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=jLDiZpHo3PxqGgW07F1K68DYk2jQRxgqYrt2UY/UzEQWqNO7K1GHVZ5tDQ+uXv4yTXL12/s7Y9AQTW4+8CKZVfWwry7L265PDa/I1gTzui5ZudSEtDWb6eIlUAvKalhADRKhlpiQ2cdtovSkyC/4bJl8bNKYuR5WVH1kVcc3aYM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0sec.ai; spf=pass smtp.mailfrom=0sec.ai; dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b=JI15J6X2; arc=none smtp.client-ip=209.85.128.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0sec.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=0sec.ai
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b="JI15J6X2"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4906869f0cbso6197175e9.1
-        for <stable@vger.kernel.org>; Thu, 04 Jun 2026 02:52:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=0sec.ai; s=google; t=1780566752; x=1781171552; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=VwxSLyn6dJRTg6X7nSil4L1bPyMT0DjhI+T1x/a8iIc=;
-        b=JI15J6X2fT+PkK5uk7YjwDWamakEP8Wio84KiYlPdDlZqYOQCEp24qzVnPlkueuP+3
-         d5HhVtkfS3KH36LanB+HEVXJMQrofbkd09SOjiZSChcL0Ikyv1dpk1ug/mQ0dPZWg+13
-         z0QhjpYFaNI/6Jqu/B4EZDlK66MmgR366nWZ3iHx41cX/eA8kAYHofErckrcPCRxVgBr
-         yumnGGT5CdZv4Uz3qqDA8nJIkk33MBX7Qsrzat/xaHbB3B8DntwWY4YC3I+sZpqvmms8
-         akVO/Z6cliInFdDG9g1lGyTNXb1IEv1d2H6I2K1NUPYf+h1fw0KOhK80ccfP+PWhzRGM
-         oprQ==
+	s=arc-20240116; t=1780566900; c=relaxed/simple;
+	bh=9ccdKlMLp3ktq3NWcjK3eTgouh7Xi9aiQybPD3Ap1o8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Cmpb9Fzo1nn0OsPotKuKOq1EJYpcKgqXS4uGg0dfyZBvEOpf1PmjKHxjcxFmJAyoBuuN/oN4MFT7xDu75/19Y/7wt8C9J1VRUvPEZFJRvbWuHECWYftEUP3Dy/JYQkfeA/BMkMcvy+q4c1HYCIbgCEHt58DCuaDWDS7h8B7ICXo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.222.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-qk1-f173.google.com with SMTP id af79cd13be357-9159f631656so48599485a.1
+        for <stable@vger.kernel.org>; Thu, 04 Jun 2026 02:54:58 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780566752; x=1781171552;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=VwxSLyn6dJRTg6X7nSil4L1bPyMT0DjhI+T1x/a8iIc=;
-        b=hOLf3gThciRxDH7xXpzoHMCaYwdUklZVHeHGjsfPVObdc44zYkbR2ApT8mlZpClnpt
-         ElSvI5vbSxcoE1f5VrojquJSV4+/3cjT1q+JDfNAR8vAO3Nu9fLs/hY3dq8t3BrgUQCP
-         S8nSQiX68whmiu/cJm9HaQynatucZNmtTi+KqpycIFmenLSJcnlfjfZuGX8FRfMn9ETd
-         YDyrlqbHPxZfj5Hrj7el1EpVvYcNM+c9+uXxiRHEaCc0RCr3Wjxf7Iimc4nlzJUHXSHW
-         WLL6B+cVixjOa5E2H35NUtngXR3+Vb8trEW2eUYNMAlQtI+0RZ71zTXE8Oy3iu8dJtKS
-         9NUA==
-X-Gm-Message-State: AOJu0Yw5PMR6Ftptkh13FXaOyqZ/AaQVf1qu6LZzuuxAhQU25/5693dW
-	9JUZzDeyAiN2qkklbUui6C8kuS6JGcpKSHx+QFbcYk6lbO/66llbMHDNOUoj58Ucv+Mxx0perKF
-	JNDYy3zsb8aI=
-X-Gm-Gg: Acq92OHsGHzPZvbEgWNgae8tKj3hfYt6NTO+WgzC1Pds5Kpp5fAevgyH6zVAM2UCbOW
-	mC5Ko1ylkGYKd+EAop8YhJ+B5mJMVpGU32jcsR9TiL5wFk2IVVgEsgh6Tqx5moSzUDaIcufdEMy
-	3lqFwrvVmZeF/IPVgq587CozwNLQw6UJrIOHD9QnYTRg0GV/M5Prs4c+LrGaJtJlhAnYiGWTNcS
-	5xoDIwea5ZoPOyv1tspyykPjZ3pcwMtcZ/mKbK7fH+FqsNmlUy7HlX1IbQEBoM9RQsTEkThixxv
-	J+jXOF8WtDZ/f9y8HcxT41BGRofoIbOvjUYs0B2GRFdX9ZqkucISPWb7F+aG181lr27ao4EJykb
-	3OsuuJZGI05+F0HS4jnpD8JAR3DLQtK5A0o0tulORYccvVS6lSWDnt//o+u/4TAzxmbIxXPUlwJ
-	koL3WERjuL2ukhLiPhf9l1avA+W3y0YyZ+MmOcfM2uUUVzCU+H0IFrerAJPckl89EeQi8fDsg4e
-	29Br1D50mq6FIdVCZBO8MrLHtoy31XPGhWOYHvhj7FQMeBaFw==
-X-Received: by 2002:a05:600c:198a:b0:490:bb45:79ee with SMTP id 5b1f17b1804b1-490bb457a7bmr68183905e9.0.1780566751314;
-        Thu, 04 Jun 2026 02:52:31 -0700 (PDT)
-Received: from PeakBook-Mini.tail8e484.ts.net ([178.197.223.24])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490bc3918fcsm65784445e9.3.2026.06.04.02.52.30
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 04 Jun 2026 02:52:30 -0700 (PDT)
-From: Doruk Tan Ozturk <doruk@0sec.ai>
-To: stable@vger.kernel.org
-Cc: luiz.von.dentz@intel.com
-Subject: [PATCH 6.6.y] Bluetooth: hci_sync: fix UAF in hci_le_create_cis_sync
-Date: Thu,  4 Jun 2026 11:52:29 +0200
-Message-ID: <20260604095229.69087-1-doruk@0sec.ai>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026060418-factsheet-oversold-deba@gregkh>
-References: <2026060418-factsheet-oversold-deba@gregkh>
+        d=1e100.net; s=20251104; t=1780566897; x=1781171697;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=KPyZKtpWg5qnni2e5fD9GWWB7qem8w+cCv5HCayF8qI=;
+        b=LSU1mwxvQdTepNASGu4WEBV1Kz3K6/E9X4Le/OsyE69PIId8RHuGSUmrzODXkaXs1q
+         KXAFr+18RwWZoXTnjeX2pYOUE4na0X7+GtZzWBcynfvWPKXHiQaxgyJUlJYFlVA/4zCo
+         oA9ch4T4ajvrCdoB0x0+ONkgi6PwRRao38T0XCuHjMk1mAvQKTsw8vwCZsrFYR/SvLw8
+         vWmuG9sLBIGDoDqgU8gdPENonTphrqKseBkSC3GxhfqMIuMKK17/ply8rhhe0+XGJONE
+         u1hzxpCU3ZMLvt5hiwoR49xVxrr8ZQ2u+iLJVrVATR0W4uea6HTl3+DbH+FHLNwojyW5
+         3YfQ==
+X-Forwarded-Encrypted: i=1; AFNElJ/5lmnLcnGzMc2vXrMrLPh6YuAYleiXm97BMyo4BNx49jQ50vA3dVQhQqFY5iXl8H9vNNrqLjg=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyR4ASWANuPK4oClweTq2/ncBO7r3BNnSusqFd7zokFzlLSFFeH
+	4h6kAd/HeQOuoku7Vg4OBMBRSGND2P2uAGAmV5F5gOLGKTgb0wsny8fPKcCYvwOUnPg=
+X-Gm-Gg: Acq92OHWcYiN+1jF8UJDE6FaYtVctsOW9pIUQwM07WzOJOikHVM8FnYk/O2vafwOcrw
+	AxPEZtkOSLl9cKpfeT/0oevhjQtXCCnQT1JR/HKInUK+elVhsF+U95FxSsfyG6nrUsxyENigkGB
+	yTcPPmIsvqHW57xw1c3PUgVj/eRtg2L5OjmfGmqekog9fRTzvKlH/idfjYtw/Ck7i50IGBkiXhe
+	6CpsBm33/KTbHE89Gd2Pt4CAgnZ94XhOcveL5Y2gLLDh/fdq+s6Y1fmw04wdWe0Dvv0UIzT5kYv
+	K9iGa6O+NqAT7EPSTV8B6KIDr3Nuhrii+H1vWkJ2oGBKKsJ9n2KG7/kZrtxlTujUZN3gQypBMEb
+	5IgWGxou/KsQ6Mhaq5cjFo/xnDrCSVBQp7KLT2Ul8TdCv/utcVAZhmIpQJmwOX/6r1PzLouNNE5
+	3JFMgfzdEOiEeX8OizY+fK5Uf8XrAp4Mo5SJ/qmFu5dUHwkeTvE5g86p/inZiOPOBkFXzwNH83w
+	9CVgZn5l0mJeA==
+X-Received: by 2002:a05:620a:40d6:b0:915:9931:3a39 with SMTP id af79cd13be357-9159afa478cmr435114985a.34.1780566896959;
+        Thu, 04 Jun 2026 02:54:56 -0700 (PDT)
+Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com. [209.85.160.177])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8ceccd9fa53sm47635936d6.8.2026.06.04.02.54.56
+        for <stable@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 04 Jun 2026 02:54:56 -0700 (PDT)
+Received: by mail-qt1-f177.google.com with SMTP id d75a77b69052e-517907feed0so54571cf.1
+        for <stable@vger.kernel.org>; Thu, 04 Jun 2026 02:54:56 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ/66/pTJ+Sm0iYt1P9NJeMnbAfjKVbjoG6kTHcaJkY5XHSrQzxjq6tL3CqHXIpXi5TFron7zu4=@vger.kernel.org
+X-Received: by 2002:a67:f889:0:b0:6cb:b3db:c31c with SMTP id
+ ada2fe7eead31-6f52c84f821mr959856137.0.1780566537239; Thu, 04 Jun 2026
+ 02:48:57 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20260603151642.4075678-1-claudiu.beznea@kernel.org> <20260603151642.4075678-2-claudiu.beznea@kernel.org>
+In-Reply-To: <20260603151642.4075678-2-claudiu.beznea@kernel.org>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Thu, 4 Jun 2026 11:48:45 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdU_T=G7os6KBG6xTnphnhQ9pQtd88BUkg61S7286bZmFw@mail.gmail.com>
+X-Gm-Features: AVVi8CdhQoz1FuQPTz5BSOMe5fOJfBS7YW1L8CNma8uYS8HEHOx4e8eahLsemts
+Message-ID: <CAMuHMdU_T=G7os6KBG6xTnphnhQ9pQtd88BUkg61S7286bZmFw@mail.gmail.com>
+Subject: Re: [PATCH v3 1/6] pinctrl: renesas: rzg2l: Use raw_spinlock_irqsave()
+ on power source update
+To: Claudiu Beznea <claudiu.beznea@kernel.org>
+Cc: geert+renesas@glider.be, linusw@kernel.org, robh@kernel.org, 
+	krzk+dt@kernel.org, conor+dt@kernel.org, magnus.damm@gmail.com, 
+	prabhakar.mahadev-lad.rj@bp.renesas.com, biju.das.jz@bp.renesas.com, 
+	claudiu.beznea@tuxon.dev, linux-renesas-soc@vger.kernel.org, 
+	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, 
+	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-hci_le_create_cis_sync() dereferences conn->conn_timeout after releasing
-both rcu_read_lock() and hci_dev_lock(hdev).  The conn pointer was
-obtained from an RCU-protected iteration over hdev->conn_hash.list and
-is not valid once these locks are dropped.  A concurrent disconnect can
-free the hci_conn between the unlock and the dereference, causing a
-use-after-free read.
+On Wed, 3 Jun 2026 at 17:17, Claudiu Beznea <claudiu.beznea@kernel.org> wrote:
+> From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+>
+> The rest of the driver uses
+> raw_spin_lock_irqsave()/raw_spin_unlock_irqrestore() for locking. To
+> avoid concurrency issues or deadlocks, use raw_spinlock_irqsave() via
+> the scoped_guard() helper for power source updates as well.
+>
+> Fixes: bbe2277dedbe ("pinctrl: renesas: rzg2l: Add support for selecting power source for {WDT,AWO,ISO}")
+> Cc: stable@vger.kernel.org
 
-The cancellation mechanism in hci_conn_del() cannot prevent this because
-hci_le_create_cis_pending() queues hci_create_cis_sync with data=NULL:
+No need to CC stable, as the bad commit is not yet upstream.
 
-    hci_cmd_sync_queue(hdev, hci_create_cis_sync, NULL, NULL);
+> Signed-off-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
 
-While hci_conn_del() dequeues with data=conn:
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+i.e. will queue in renesas-pinctrl for v7.2.
 
-    hci_cmd_sync_dequeue(hdev, NULL, conn, NULL);
+Gr{oetje,eeting}s,
 
-Since NULL != conn, the lookup in _hci_cmd_sync_lookup_entry() never
-matches, and the pending work item is not cancelled.
+                        Geert
 
-Fix this by saving conn->conn_timeout into a local variable while the
-locks are still held, so the stale conn pointer is never dereferenced
-after unlock.
-
-This is the same class of bug as the one fixed by commit 035c25007c9e
-("Bluetooth: hci_sync: Fix UAF on le_read_features_complete") which
-addressed the identical pattern in a different function.
-
-This vulnerability was identified using 0sec.ai, an open-source
-automated security auditing platform (https://github.com/0sec-labs).
-
-Fixes: c09b80be6ffc ("Bluetooth: hci_conn: Fix not waiting for HCI_EVT_LE_CIS_ESTABLISHED")
-Cc: stable@vger.kernel.org
-Reported-by: Doruk Tan Ozturk <doruk@0sec.ai>
-Signed-off-by: Doruk Tan Ozturk <doruk@0sec.ai>
-Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
-(cherry picked from commit bfea6091e0fffb270c20e74384b660910277eb6c)
-[doruk: adjust context for 6.6 — open-coded cmd struct instead of
- DEFINE_FLEX, num_cis tracked via cmd.cp.num_cis]
-Signed-off-by: Doruk Tan Ozturk <doruk@0sec.ai>
----
- net/bluetooth/hci_sync.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/net/bluetooth/hci_sync.c b/net/bluetooth/hci_sync.c
-index a41cfc76e..7cba461b2 100644
---- a/net/bluetooth/hci_sync.c
-+++ b/net/bluetooth/hci_sync.c
-@@ -6631,6 +6631,7 @@ int hci_le_create_cis_sync(struct hci_dev *hdev)
- 		struct hci_cis cis[0x1f];
- 	} cmd;
- 	struct hci_conn *conn;
-+	u16 timeout = 0;
- 	u8 cig = BT_ISO_QOS_CIG_UNSET;
- 
- 	/* The spec allows only one pending LE Create CIS command at a time. If
-@@ -6703,6 +6704,7 @@ int hci_le_create_cis_sync(struct hci_dev *hdev)
- 		set_bit(HCI_CONN_CREATE_CIS, &conn->flags);
- 		cis->acl_handle = cpu_to_le16(conn->parent->handle);
- 		cis->cis_handle = cpu_to_le16(conn->handle);
-+		timeout = conn->conn_timeout;
- 		cmd.cp.num_cis++;
- 
- 		if (cmd.cp.num_cis >= ARRAY_SIZE(cmd.cis))
-@@ -6722,7 +6724,7 @@ int hci_le_create_cis_sync(struct hci_dev *hdev)
- 					sizeof(cmd.cp) + sizeof(cmd.cis[0]) *
- 					cmd.cp.num_cis, &cmd,
- 					HCI_EVT_LE_CIS_ESTABLISHED,
--					conn->conn_timeout, NULL);
-+					timeout, NULL);
- }
- 
- int hci_le_remove_cig_sync(struct hci_dev *hdev, u8 handle)
 -- 
-2.53.0
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
