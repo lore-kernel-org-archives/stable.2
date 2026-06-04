@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AE2E3FF1DB
-	for <stable@vger.kernel.org>; Thu,  4 Jun 2026 10:53:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 676783FF1DB
+	for <stable@vger.kernel.org>; Thu,  4 Jun 2026 10:53:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780570409; cv=none; b=l1ELAX6Nn7Xfa3keGcbZa4UNoO/tKtJH/ZggIzDcJclD8lRb8wlaNBGys0AyHmkyJS3zCX9ZQrZJXyQHBkwknhnR71eCOTZnp/1lZxBz9uq6Y1B84pghhBSSXc9PCjp6093bdP+JeLsKStGOAKEKkq8M4u4jNHC4pqoIMH6PBLY=
+	t=1780570428; cv=none; b=R3r26GzlJh3G/5NkFiCAHrXOTRHFYRR00owb1k1yeO6o+svfuNlOAiUn/yvT/ZOBjWAP/KUoEfiTehKNHupHq440gguGBKlznomuufQhmziYDoKXdxwPvQCNNkttw6z0D0kXojbVIVMKQ/4MaeUfWXBTGjbc6B983lec0sATbn8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780570409; c=relaxed/simple;
-	bh=m9idKmc58Bm5QVNzuaNcB3VBL+/HXdxHW2KezkWwnTc=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=alAmbTrv58nq0HjlkiRYmy89BJLf5l6kqHlwrIRHoNKSEE765vCxTs1HV5UJk1VeEnV/Of+koQ3kQnEWxKB2S36i44j6tzcL7feItG3UeFIa3SrykVYGxKUks612fEHplxQ11BFE3u41IZCoJu9KdgceG+jYBaJGBdvel2fDPI0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=OIdH9Rsy; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780570428; c=relaxed/simple;
+	bh=XSSgqcFelRSEvUg7doXeFUuEsD5mOUmmUIxQFv5BpEQ=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=J197PH7/WSeMFl8l/IRhufhWuxj+nknVAtHqqlAQU9cHG++J/9his2w+FMOMFov+r6jhwxiShdoxICOHUhVwh7pe6q0cYzCKSncSMCb+iM7Tx14Rk6It01ZBF+jtCnNet7zaSauxXodksESOpiBWX9twqwmwJ8uMXuliWISauLQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Bz/6SGGg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="OIdH9Rsy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 667301F00893;
-	Thu,  4 Jun 2026 10:53:27 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Bz/6SGGg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A36341F00893;
+	Thu,  4 Jun 2026 10:53:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1780570408;
-	bh=8rtu2JAt6tzO4vfHF2poSBRnCUVpnZ9l2aDzZe1iDJA=;
+	s=korg; t=1780570427;
+	bh=s8FAhUdNgGV05mbFodTlJrysGMD0RHSm/jI8pUquhi8=;
 	h=Subject:To:Cc:From:Date;
-	b=OIdH9RsyBZNE3tKXQIkj88JDK8J1ZhJqiOcR8BW5HIaCJ1jmrGe4nSPN9sB4+Q7bO
-	 n0bFu2it4oWOciZ2qFAcmDUT0dBhAtoDYyFuEoUOZECg/UuGSOQELNcWvCekbeiv0b
-	 Me+Bo2AxnQxtx1rKhpQE7R77E115HyxW2FyQ6+ow=
-Subject: FAILED: patch "[PATCH] serial: altera_jtaguart: handle uart_add_one_port() failures" failed to apply to 5.10-stable tree
-To: mhun512@gmail.com,ae878000@gmail.com,gregkh@linuxfoundation.org,stable@kernel.org
+	b=Bz/6SGGgfW/C+PHhmgKUoLUclY7byggDCpt4PQOTRYhc5dqXgE1vM2YuM1c5kZo4X
+	 Gbwzm1mR39wg28ljmH2bdF0mkPPTmxyN32hf+QeKrphyUT8Uz9OutepGRBowRrj3nk
+	 ICVIOOMipd2Ma8Vx57dqurrMCyrDz4aMnQljBf7c=
+Subject: FAILED: patch "[PATCH] serial: qcom-geni: fix UART_RX_PAR_EN bit position" failed to apply to 6.1-stable tree
+To: prasanna.s@oss.qualcomm.com,gregkh@linuxfoundation.org,konrad.dybcio@oss.qualcomm.com,stable@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 04 Jun 2026 12:52:23 +0200
-Message-ID: <2026060423-confiding-sandpit-f19a@gregkh>
+Date: Thu, 04 Jun 2026 12:52:50 +0200
+Message-ID: <2026060450-emphatic-dictator-79c4@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x ea66be25f0e934f49d24cd0c5845d13cdba3520b
+git cherry-pick -x ca2584d841b69391ffc4144840563d2e1a0018df
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026060423-confiding-sandpit-f19a@gregkh' --subject-prefix 'PATCH 5.10.y' HEAD^..
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026060450-emphatic-dictator-79c4@gregkh' --subject-prefix 'PATCH 6.1.y' HEAD^..
 
 Possible dependencies:
 
@@ -62,53 +62,36 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From ea66be25f0e934f49d24cd0c5845d13cdba3520b Mon Sep 17 00:00:00 2001
-From: Myeonghun Pak <mhun512@gmail.com>
-Date: Tue, 12 May 2026 15:56:57 +0900
-Subject: [PATCH] serial: altera_jtaguart: handle uart_add_one_port() failures
+From ca2584d841b69391ffc4144840563d2e1a0018df Mon Sep 17 00:00:00 2001
+From: Prasanna S <prasanna.s@oss.qualcomm.com>
+Date: Tue, 28 Apr 2026 09:56:13 +0530
+Subject: [PATCH] serial: qcom-geni: fix UART_RX_PAR_EN bit position
 
-altera_jtaguart_probe() maps the register window before registering the
-UART port, but it ignores failures from uart_add_one_port(). If port
-registration fails, probe still returns success and the mapping remains
-live until a later remove path that is not part of probe failure cleanup.
+UART_RX_PAR_EN is incorrectly defined as bit 3, which triggers false
+framing errors (S_GP_IRQ_1_EN) and causes received data to be dropped
+when parity is enabled and the parity bit is 0.
 
-Return the uart_add_one_port() error and unmap the register window on
-that failure path.
+Define UART_RX_PAR_EN as bit 4 of the SE_UART_RX_TRANS_CFG register, as
+specified in the reference manual.
 
-This issue was identified during our ongoing static-analysis research while
-reviewing kernel code.
-
-Fixes: 5bcd601049c6 ("serial: Add driver for the Altera JTAG UART")
+Fixes: c4f528795d1a ("tty: serial: msm_geni_serial: Add serial driver support for GENI based QUP")
 Cc: stable <stable@kernel.org>
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
-Link: https://patch.msgid.link/20260512065837.79528-1-mhun512@gmail.com
+Signed-off-by: Prasanna S <prasanna.s@oss.qualcomm.com>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Link: https://patch.msgid.link/20260428-serial-bit-correct-v1-1-9131ad5b97d8@oss.qualcomm.com
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
-diff --git a/drivers/tty/serial/altera_jtaguart.c b/drivers/tty/serial/altera_jtaguart.c
-index d47a62d1c9f7..20f079fe11d8 100644
---- a/drivers/tty/serial/altera_jtaguart.c
-+++ b/drivers/tty/serial/altera_jtaguart.c
-@@ -379,6 +379,7 @@ static int altera_jtaguart_probe(struct platform_device *pdev)
- 	struct resource *res_mem;
- 	int i = pdev->id;
- 	int irq;
-+	int ret;
+diff --git a/drivers/tty/serial/qcom_geni_serial.c b/drivers/tty/serial/qcom_geni_serial.c
+index b365dd5da3cb..5139a9d21b2b 100644
+--- a/drivers/tty/serial/qcom_geni_serial.c
++++ b/drivers/tty/serial/qcom_geni_serial.c
+@@ -50,7 +50,7 @@
+ #define TX_STOP_BIT_LEN_2		2
  
- 	/* -1 emphasizes that the platform must have one port, no .N suffix */
- 	if (i == -1)
-@@ -418,7 +419,11 @@ static int altera_jtaguart_probe(struct platform_device *pdev)
- 	port->flags = UPF_BOOT_AUTOCONF;
- 	port->dev = &pdev->dev;
+ /* SE_UART_RX_TRANS_CFG */
+-#define UART_RX_PAR_EN			BIT(3)
++#define UART_RX_PAR_EN			BIT(4)
  
--	uart_add_one_port(&altera_jtaguart_driver, port);
-+	ret = uart_add_one_port(&altera_jtaguart_driver, port);
-+	if (ret) {
-+		iounmap(port->membase);
-+		return ret;
-+	}
- 
- 	return 0;
- }
+ /* SE_UART_RX_WORD_LEN */
+ #define RX_WORD_LEN_MASK		GENMASK(9, 0)
 
