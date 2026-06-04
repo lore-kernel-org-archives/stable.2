@@ -1,43 +1,43 @@
-Received: from mail-244121.protonmail.ch (mail-244121.protonmail.ch [109.224.244.121])
+Received: from mail-24418.protonmail.ch (mail-24418.protonmail.ch [109.224.244.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A767307AC7
-	for <stable@vger.kernel.org>; Thu,  4 Jun 2026 23:17:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.121
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EE5F2C187
+	for <stable@vger.kernel.org>; Thu,  4 Jun 2026 23:17:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780615036; cv=none; b=Z4uv1llRNZtx3muNjozb38w/P4RZVMlJXFuLIPSoaMoT4/Y7By5dLw6qeeOkNW1hFlE009TkRbZtKw58ewgB3YDoebZgW9Q8WTLoPcKRUSxyj02hlpTqcY1JFliBk9wE8F1GnxQafFLP9V/FYKz3rj3sWA87PSLeHoeY3LvSBZ4=
+	t=1780615040; cv=none; b=d+5efzhbXfjTCEoXiI5ITtu/f3dFklHa6tJFTAVVJFy+YvxLfM9qrRyBRr2BkZLCjLZhQR4UZicK8Iil3HQGQUucR56SisDyGh3RBX2vwoDwsISVuIBTt8fXsGVsMGgXn2LGm9nADs/BykdU6yMDX0ayi++uWYs7JFsY1UyrRw0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780615036; c=relaxed/simple;
-	bh=vYhMDrBpV7wOSjocHi8K3ga4voNaT8tKsxyCR9Ta0LM=;
+	s=arc-20240116; t=1780615040; c=relaxed/simple;
+	bh=9Y9Q3Oq/g2HsbSWx5NVzvzfWZLMDBobgubpbg/JDEYs=;
 	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=bnZduyzoElOoZcmRpHoKFx0LZEkqu88rtl1NX3NaBlQU02eOPW1H/atMyzsdfcgzB8LolSdIcrkAn7d7LZoyk3T6CJ70/O7Jx0l2dYZNTazw5VEIfnrAHJsILIF8pmQSd6LGhbv69D4wuCDNn3su4/npokRi7q1VYDky8epz5I8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=Dbg/P6Wy; arc=none smtp.client-ip=109.224.244.121
+	 MIME-Version:Content-Type; b=dOpRv44qf9fuH9bE65BN9FcNXpcYmx0aGEZsddzpdkWeb4ctyXUPL8fFHP9wLcOHvwf2ZbTFIMUeMjnD/9omIhLFEod/6tKaRCJJN3GZWAGxc9YQMOv1/5ws0/8O8p8VoHyhLUkdMlbV36JqEjFqoSPOuKFFEcBLWbFdqscLZ64=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=IXImmDNk; arc=none smtp.client-ip=109.224.244.18
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="Dbg/P6Wy"
+	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="IXImmDNk"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1780615021; x=1780874221;
-	bh=F38WRE3pbuiYboY8ELg0IIsOnygtwhytVmx/MH3Tm+4=;
+	s=protonmail; t=1780615030; x=1780874230;
+	bh=LXhUaratdOjfuU2bCMULOdZjqvbpqRpbGJZQuxWj6C0=;
 	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
 	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
 	 Message-ID:BIMI-Selector;
-	b=Dbg/P6WyQLn5/eMHXAniu8NFb2n0Pqjk19WGonQVHb0R943KIWXox4/cACP7F8V9S
-	 Wqx64/ZyraKsU8A8jVVIPc9X0FMWzVndmwC7afl5Of1OsFQ+PFES5uBgjTWXmAqBB9
-	 7MUWKMNyHmFmfXiHe/+MXVTdw4yDvNgsJjOnBpiVekZt29n2IIPSc2u/JW3XvTaQ2P
-	 Owm4v+GS42LRDuZl4SoZT7LAyGY0icEYfqrivAgo5Yln9y1VIdxzJ0my9f/rdNx+5Z
-	 fs/UbrpyZ6ttV/Ibt9OjdO/2YJGZMGMC/hu1wydktUGOBZtMifnfN3RW2cCyoycULV
-	 /sFhFMYGVj/1g==
-Date: Thu, 04 Jun 2026 23:16:56 +0000
+	b=IXImmDNkVEwpwxQS0+ErAYFnisgPyEz6hXK5p1nfNAqQHQe2Fm83KgewFIS862o8E
+	 geF2kU5zU/GtpBhtWJYAEIj/hM1P/WnSA6dXLoerjKyg1czZwPfQnsirxjIXvoUB4L
+	 jOjfhus8DdU2vI/DQz3qBbqr7lUd3IXl1Pc4B+DyU00X0811tg9OlXMcQoXdg9Axr1
+	 mv9m8V1/V/NuVLX8nOIfij2R+N/DF3LDzta8ayCcHcf4ZKw+t2Lj6L/ovXfsVWAN0f
+	 dOl8bUVkYmtK1F0gpft6KuhhllyCwvhZRP97i3jvfAgahyEFKS0kTMHuXYNyQXm3aW
+	 sX05uWMKg60Pg==
+Date: Thu, 04 Jun 2026 23:17:05 +0000
 To: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>, =?utf-8?Q?G=C3=BCnther_Noack?= <gnoack@google.com>
 From: Bryam Vargas <hexlabsecurity@proton.me>
 Cc: Justin Suess <utilityemal77@gmail.com>, Christian Brauner <brauner@kernel.org>, Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>, "Serge E . Hallyn" <serge@hallyn.com>, linux-security-module@vger.kernel.org, stable@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v5 1/2] landlock: fix LANDLOCK_SCOPE_SIGNAL bypass on the SIGIO path
-Message-ID: <56bffc24f3d0d08b45a686a48e99766b0a0821fa.1780614610.git.hexlabsecurity@proton.me>
+Subject: [PATCH v5 2/2] selftests/landlock: test SCOPE_SIGNAL on the SIGIO/fowner pgid path
+Message-ID: <43370e89f7a896a583bf33d1cd171d02630e61bf.1780614610.git.hexlabsecurity@proton.me>
 In-Reply-To: <cover.1780614610.git.hexlabsecurity@proton.me>
 References: <cover.1780614610.git.hexlabsecurity@proton.me>
 Feedback-ID: 199661219:user:proton
-X-Pm-Message-ID: 32d7ab5ca986a1270ab561b78aecd653e0abfe31
+X-Pm-Message-ID: 11b9b891da285b59e3bd5d7a4ca76dcedfdc361b
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,163 +47,236 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-LANDLOCK_SCOPE_SIGNAL must prevent a sandboxed process from signaling
-processes outside its Landlock domain.  It can be bypassed through the
-asynchronous SIGIO delivery path.
+Add regression tests for the LANDLOCK_SCOPE_SIGNAL handling of the
+asynchronous SIGIO delivery path (fcntl(F_SETOWN)) with a process-group
+owner.
 
-A sandboxed process that owns any file or socket can arm it with
-fcntl(F_SETOWN, fd, -pgid), fcntl(F_SETSIG, fd, SIGKILL) and O_ASYNC, so
-that an I/O event makes the kernel deliver the chosen signal to the whole
-process group.  As the head of its own process group -- the default right
-after fork() -- that group also holds the non-sandboxed process that
-launched it, e.g. a supervisor or a security monitor.  The sandbox can
-thus kill or repeatedly signal exactly the processes SCOPE_SIGNAL is meant
-to protect from it.
+sigio_to_pgid_members covers the bypass: a sandboxed process at the head
+of its process group's PID hlist (the default after fork()) arms
+F_SETOWN(-pgrp) + O_ASYNC and triggers the fan-out; the in-domain owner
+must be signaled (proving the trigger fired) while the non-sandboxed
+member of the group, outside the domain, must not.
 
-The scope is enforced in hook_file_send_sigiotask() against the Landlock
-domain recorded at F_SETOWN time, not the live domain of the sender.
-control_current_fowner() decides whether to record that domain and skips
-recording it when the fowner target is in the caller's thread group --
-safe only when the target is a single process sharing the caller's
-credentials (PIDTYPE_PID, PIDTYPE_TGID).  For a process group
-(PIDTYPE_PGID) the target resolves to the caller itself when it is the
-group head, recording is skipped, and hook_file_send_sigiotask() then lets
-the signal fan out to the whole group unchecked.
+sigio_to_pgid_self covers the same-process guarantee: the owner is
+registered from a sandboxed non-leader thread, whose domain differs from
+the thread-group leader the kernel signals for a process-group owner.
+That leader belongs to the owner's own process and must still be signaled.
 
-Record the domain for every non single-process target so the scope is
-enforced against each group member at delivery time.
+Without the fix the first test sees the out-of-domain member signaled and
+the second sees the owner's own leader denied.
 
-That recording is necessary but not sufficient on its own: the kernel
-signals a process group through its members' thread-group leaders, and the
-leader of the registrant's own process can carry a different Landlock
-domain than the sibling thread that armed the owner.  domain_is_scoped()
-would then deny that leader, even though commit 18eb75f3af40 ("landlock:
-Always allow signals between threads of the same process") requires
-same-process delivery to be allowed.  hook_task_kill() avoids this by
-evaluating same_thread_group() live, per recipient; the SIGIO path instead
-delegates the whole decision to a single registration-time check, which a
-process-group fan-out cannot honor.
-
-So also record the registrant's thread group next to its domain and exempt
-it at delivery: hook_file_send_sigiotask() allows the signal whenever the
-recipient belongs to the registrant's own process, restoring the
-same-process guarantee while keeping out-of-domain group members blocked.
-The direct kill() path (hook_task_kill) already evaluates the live domain
-and is unaffected.
-
-Fixes: 18eb75f3af40 ("landlock: Always allow signals between threads of the=
- same process")
-Cc: stable@vger.kernel.org
 Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
 ---
- security/landlock/fs.c   | 15 +++++++++++++++
- security/landlock/fs.h   | 10 ++++++++++
- security/landlock/task.c | 11 +++++++++++
- 3 files changed, 36 insertions(+)
+ .../selftests/landlock/scoped_signal_test.c   | 183 ++++++++++++++++++
+ 1 file changed, 183 insertions(+)
 
-diff --git a/security/landlock/fs.c b/security/landlock/fs.c
-index c1ecfe239032..ff2c12e38bfc 100644
---- a/security/landlock/fs.c
-+++ b/security/landlock/fs.c
-@@ -1909,6 +1909,15 @@ static bool control_current_fowner(struct fown_struc=
-t *const fown)
- =09if (!p)
- =09=09return true;
+diff --git a/tools/testing/selftests/landlock/scoped_signal_test.c b/tools/=
+testing/selftests/landlock/scoped_signal_test.c
+index d8bf33417619..4359e0262dcf 100644
+--- a/tools/testing/selftests/landlock/scoped_signal_test.c
++++ b/tools/testing/selftests/landlock/scoped_signal_test.c
+@@ -559,4 +559,187 @@ TEST_F(fown, sigurg_socket)
+ =09=09_metadata->exit_code =3D KSFT_FAIL;
+ }
 =20
-+=09/*
-+=09 * A process-group fowner fans the signal out to every member at
-+=09 * delivery time, so record the domain for any non single-process
-+=09 * target -- even when it resolves to current as the group head -- and
-+=09 * let hook_file_send_sigiotask() check the live scope per recipient.
-+=09 */
-+=09if (fown->pid_type !=3D PIDTYPE_PID && fown->pid_type !=3D PIDTYPE_TGID=
-)
-+=09=09return true;
++/*
++ * Checks that LANDLOCK_SCOPE_SIGNAL is enforced on the asynchronous SIGIO
++ * delivery path (fcntl(F_SETOWN)) when the file owner is a process group.
++ *
++ * A sandboxed process sitting at the head of its process group's PID hlis=
+t
++ * (the default position right after fork()) used to escape the
++ * fcntl(F_SETOWN, -pgrp) domain recording: pid_task(pgrp, PIDTYPE_PGID)
++ * resolved to the process itself, so the same-thread-group exemption skip=
+ped
++ * recording its Landlock domain.  At SIGIO time that domain was then unse=
+t and
++ * the signal fanned out to every group member, including non-sandboxed
++ * processes outside the domain.
++ */
++TEST(sigio_to_pgid_members)
++{
++=09int trigger[2], sync_child[2];
++=09char buf;
++=09pid_t child;
++=09int status, i;
 +
- =09return !same_thread_group(p, current);
- }
-=20
-@@ -1916,6 +1925,7 @@ static void hook_file_set_fowner(struct file *file)
- {
- =09struct landlock_ruleset *prev_dom;
- =09struct landlock_cred_security fown_subject =3D {};
-+=09struct pid *prev_tg, *fown_tg =3D NULL;
- =09size_t fown_layer =3D 0;
-=20
- =09if (control_current_fowner(file_f_owner(file))) {
-@@ -1928,21 +1938,26 @@ static void hook_file_set_fowner(struct file *file)
- =09=09if (new_subject) {
- =09=09=09landlock_get_ruleset(new_subject->domain);
- =09=09=09fown_subject =3D *new_subject;
-+=09=09=09fown_tg =3D get_pid(task_tgid(current));
- =09=09}
- =09}
-=20
- =09prev_dom =3D landlock_file(file)->fown_subject.domain;
-+=09prev_tg =3D landlock_file(file)->fown_tg;
- =09landlock_file(file)->fown_subject =3D fown_subject;
-+=09landlock_file(file)->fown_tg =3D fown_tg;
- #ifdef CONFIG_AUDIT
- =09landlock_file(file)->fown_layer =3D fown_layer;
- #endif /* CONFIG_AUDIT*/
-=20
- =09/* May be called in an RCU read-side critical section. */
- =09landlock_put_ruleset_deferred(prev_dom);
-+=09put_pid(prev_tg);
- }
-=20
- static void hook_file_free_security(struct file *file)
- {
-+=09put_pid(landlock_file(file)->fown_tg);
- =09landlock_put_ruleset_deferred(landlock_file(file)->fown_subject.domain)=
-;
- }
-=20
-diff --git a/security/landlock/fs.h b/security/landlock/fs.h
-index bf9948941f2f..911b83669e20 100644
---- a/security/landlock/fs.h
-+++ b/security/landlock/fs.h
-@@ -78,6 +78,16 @@ struct landlock_file_security {
- =09 * euid.
- =09 */
- =09struct landlock_cred_security fown_subject;
-+=09/**
-+=09 * @fown_tg: Thread group of the task that set the file owner, pinned
-+=09 * while @fown_subject holds a domain.  It lets
-+=09 * hook_file_send_sigiotask() always allow a SIGIO delivered to the
-+=09 * owner's own process -- e.g. the thread-group leader reached through =
-a
-+=09 * process-group owner -- matching the same-process exemption of
-+=09 * hook_task_kill().  NULL when no domain is recorded.  Protected by
-+=09 * file->f_owner->lock, like @fown_subject.
-+=09 */
-+=09struct pid *fown_tg;
- };
-=20
- #ifdef CONFIG_AUDIT
-diff --git a/security/landlock/task.c b/security/landlock/task.c
-index 6d46042132ce..7ddf211f75c3 100644
---- a/security/landlock/task.c
-+++ b/security/landlock/task.c
-@@ -411,6 +411,17 @@ static int hook_file_send_sigiotask(struct task_struct=
- *tsk,
- =09if (!subject->domain)
- =09=09return 0;
-=20
-+=09/*
-+=09 * Always allow delivery to the file owner's own process, including a
-+=09 * thread-group leader reached through a process-group owner.  This
-+=09 * mirrors hook_task_kill()'s same-process exemption and preserves the
-+=09 * guarantee of commit 18eb75f3af40 ("landlock: Always allow signals
-+=09 * between threads of the same process"), which the registration-time
-+=09 * check cannot honor for a process-group target.
-+=09 */
-+=09if (task_tgid(tsk) =3D=3D landlock_file(fown->file)->fown_tg)
-+=09=09return 0;
++=09drop_caps(_metadata);
 +
- =09scoped_guard(rcu)
- =09{
- =09=09is_scoped =3D domain_is_scoped(subject->domain,
++=09/*
++=09 * Isolates the test in its own process group so the SIGIO fan-out stay=
+s
++=09 * bounded to this parent and the child forked below.
++=09 */
++=09ASSERT_EQ(0, setpgid(0, 0));
++
++=09/* The non-sandboxed parent is the protected (out-of-domain) target. */
++=09ASSERT_EQ(0, setup_signal_handler(SIGURG));
++=09signal_received =3D 0;
++
++=09ASSERT_EQ(0, pipe2(trigger, O_CLOEXEC));
++=09ASSERT_EQ(0, pipe2(sync_child, O_CLOEXEC));
++
++=09child =3D fork();
++=09ASSERT_LE(0, child);
++=09if (child =3D=3D 0) {
++=09=09/*
++=09=09 * The child inherits the parent's new process group and, just
++=09=09 * attached with hlist_add_head_rcu(), is now the head of the
++=09=09 * pgid hlist: this is the case that used to skip the recording.
++=09=09 */
++=09=09EXPECT_EQ(0, close(sync_child[0]));
++
++=09=09/* In-domain positive control: the child must be signaled. */
++=09=09ASSERT_EQ(0, setup_signal_handler(SIGURG));
++=09=09signal_received =3D 0;
++
++=09=09create_scoped_domain(_metadata, LANDLOCK_SCOPE_SIGNAL);
++
++=09=09/* Owns the SIGIO source for the whole process group. */
++=09=09ASSERT_EQ(0, fcntl(trigger[0], F_SETSIG, SIGURG));
++=09=09ASSERT_EQ(0, fcntl(trigger[0], F_SETOWN, -getpgrp()));
++=09=09ASSERT_EQ(0, fcntl(trigger[0], F_SETFL, O_ASYNC));
++
++=09=09/* Fans SIGURG out to every member of the process group. */
++=09=09ASSERT_EQ(1, write(trigger[1], ".", 1));
++
++=09=09/*
++=09=09 * The sandboxed child is in its own domain and must always be
++=09=09 * signaled: this proves the SIGIO actually fired.
++=09=09 */
++=09=09for (i =3D 0; i < 1000 && !signal_received; i++)
++=09=09=09usleep(1000);
++=09=09EXPECT_EQ(1, signal_received);
++
++=09=09ASSERT_EQ(1, write(sync_child[1], ".", 1));
++=09=09EXPECT_EQ(0, close(sync_child[1]));
++
++=09=09_exit(_metadata->exit_code);
++=09=09return;
++=09}
++=09EXPECT_EQ(0, close(sync_child[1]));
++=09EXPECT_EQ(0, close(trigger[0]));
++=09EXPECT_EQ(0, close(trigger[1]));
++
++=09/* Waits for the child to generate the SIGIO. */
++=09ASSERT_EQ(1, read(sync_child[0], &buf, 1));
++=09EXPECT_EQ(0, close(sync_child[0]));
++
++=09/* Lets a delivered-but-pending signal run our handler, if any. */
++=09for (i =3D 0; i < 100 && !signal_received; i++)
++=09=09usleep(1000);
++
++=09/*
++=09 * SCOPE_SIGNAL must block the fan-out to this non-sandboxed parent,
++=09 * which is outside the child's Landlock domain.  Before the fix the
++=09 * parent was signaled here.
++=09 */
++=09EXPECT_EQ(0, signal_received);
++
++=09ASSERT_EQ(child, waitpid(child, &status, 0));
++=09if (WIFSIGNALED(status) || !WIFEXITED(status) ||
++=09    WEXITSTATUS(status) !=3D EXIT_SUCCESS)
++=09=09_metadata->exit_code =3D KSFT_FAIL;
++}
++
++static void *thread_setown_scoped(void *arg)
++{
++=09const int fd =3D *(int *)arg;
++=09int ruleset_fd;
++=09const struct landlock_ruleset_attr ruleset_attr =3D {
++=09=09.scoped =3D LANDLOCK_SCOPE_SIGNAL,
++=09};
++
++=09/* Sandboxes only this non-leader thread (no thread syncing). */
++=09ruleset_fd =3D
++=09=09landlock_create_ruleset(&ruleset_attr, sizeof(ruleset_attr), 0);
++=09if (ruleset_fd < 0)
++=09=09return (void *)THREAD_ERROR;
++=09if (prctl(PR_SET_NO_NEW_PRIVS, 1, 0, 0, 0) ||
++=09    landlock_restrict_self(ruleset_fd, 0)) {
++=09=09close(ruleset_fd);
++=09=09return (void *)THREAD_ERROR;
++=09}
++=09close(ruleset_fd);
++
++=09/* Makes this process group own the SIGIO source. */
++=09if (fcntl(fd, F_SETSIG, SIGURG) || fcntl(fd, F_SETOWN, -getpgrp()) ||
++=09    fcntl(fd, F_SETFL, O_ASYNC))
++=09=09return (void *)THREAD_ERROR;
++
++=09return (void *)THREAD_SUCCESS;
++}
++
++/*
++ * Checks that the SIGIO fan-out is still delivered to the file owner's ow=
+n
++ * process when fcntl(F_SETOWN, -pgrp) was issued from a sandboxed non-lea=
+der
++ * thread.
++ *
++ * The Landlock domain is recorded for a process-group owner (so out-of-do=
+main
++ * members stay blocked, see sigio_to_pgid_members), but the kernel signal=
+s a
++ * process group through its members' thread-group leaders.  Here the lead=
+er is
++ * not sandboxed and thus has a different domain than the registering thre=
+ad, so
++ * the registration-time check cannot tell that it belongs to the owner's =
+own
++ * process.  hook_file_send_sigiotask() must recognize it through the reco=
+rded
++ * thread group and allow the delivery, matching the same-process guarante=
+e of
++ * commit 18eb75f3af40.  Without that exemption the leader is wrongly deni=
+ed and
++ * never signaled.
++ */
++TEST(sigio_to_pgid_self)
++{
++=09int trigger[2];
++=09pthread_t thread;
++=09enum thread_return ret =3D THREAD_INVALID;
++=09int i;
++
++=09drop_caps(_metadata);
++
++=09/* Bounds the SIGIO fan-out to this process. */
++=09ASSERT_EQ(0, setpgid(0, 0));
++
++=09/* The non-sandboxed thread-group leader is the SIGIO target. */
++=09ASSERT_EQ(0, setup_signal_handler(SIGURG));
++=09signal_received =3D 0;
++
++=09ASSERT_EQ(0, pipe2(trigger, O_CLOEXEC));
++
++=09/*
++=09 * Registers the process-group fowner from a sibling thread that
++=09 * sandboxes only itself, so its domain differs from the leader's.
++=09 */
++=09ASSERT_EQ(0, pthread_create(&thread, NULL, thread_setown_scoped,
++=09=09=09=09    &trigger[0]));
++=09ASSERT_EQ(0, pthread_join(thread, (void **)&ret));
++=09ASSERT_EQ(THREAD_SUCCESS, ret);
++
++=09/* Fans SIGURG out to the process group. */
++=09ASSERT_EQ(1, write(trigger[1], ".", 1));
++
++=09for (i =3D 0; i < 1000 && !signal_received; i++)
++=09=09usleep(1000);
++
++=09/*
++=09 * Same-process delivery must always be allowed, even though the owner
++=09 * was registered from a sandboxed sibling thread.
++=09 */
++=09EXPECT_EQ(1, signal_received);
++
++=09EXPECT_EQ(0, close(trigger[0]));
++=09EXPECT_EQ(0, close(trigger[1]));
++}
++
+ TEST_HARNESS_MAIN
 --=20
 2.43.0
 
