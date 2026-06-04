@@ -1,137 +1,171 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from fout-a2-smtp.messagingengine.com (fout-a2-smtp.messagingengine.com [103.168.172.145])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAB68413246
-	for <stable@vger.kernel.org>; Thu,  4 Jun 2026 16:07:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A03223C503
+	for <stable@vger.kernel.org>; Thu,  4 Jun 2026 16:18:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.145
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780589264; cv=none; b=CfBQiwBvNsToPBaWLASNEaxje6HdsDq09KYEfNA6yvHU2WJDmvkvVmEbqIO834LOmNZMNngCbdpgpOtf4Hk/s4Jw7EQt8Yz9+G7tYOvUECZGCIYwJXtdXkAXymxh16qS5icBZgOmADGsAKjFFZE2d73cUrZXzQY61teCZhRILjI=
+	t=1780589884; cv=none; b=gsH+T894obi9tqTOKzq7BY/mtpdzhxAAtx283qGYfLnl90JXULU5/msLaOUcICg3SJ+zSvur4vIqP334MYmnGhfBNRYr0enQFNM4I8Z0BbXWmY39uXAO97Vs0fZe1ViGdF0tMWOvvKirl98uUIZc9r2NG70c7V6aIZZRM7U5e0E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780589264; c=relaxed/simple;
-	bh=J5tZ9NNEIM9T2w2xibNmTr36mtNoOPW2WDlOYovucJQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=U+TjAJ0xTcE0xh7bRfK+dyouMFoXVaFjH3yMmatqtFiHtS4mOh1iO8YAYf+ZvEMzi6orKCw1kFTH32H6Kd+Ln9fNwVCBa5ktwS/ftVka+41C+QDaPQEdHlD4SAx1Ssvu9XVceO7D3C3UUiB8aUOeGgxbsAcgEBpIWJWm4Fe2YTg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=YwttSjS/; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1780589884; c=relaxed/simple;
+	bh=eO9Qi2Cm2TNPt5aydFXh9P/dOOrSYAofeQj5U5prHKs=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=eU7xfvq4H1cb9R+71h99d4r/IP7D6HCfTY1aU4EQYXHpSmw54bwvvDv5TOZbLuS+6UlwEAfm7ufZSrChCK5N/OjUPtFvfSMPN4nSovlXFj6LqCSDIBNdlsXK/g5sSvxenrg8T/XtO0JhCvUxPRZSR4Kb0BEmJetuEZkQSpMaJjk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fourdim.xyz; spf=pass smtp.mailfrom=fourdim.xyz; dkim=pass (2048-bit key) header.d=fourdim.xyz header.i=@fourdim.xyz header.b=Vp1kqCzg; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=S5EPSVHZ; arc=none smtp.client-ip=103.168.172.145
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fourdim.xyz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fourdim.xyz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="YwttSjS/"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1780589260;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=3+/3qq3vcNnMSlbovUtLsbCgSAA5l6kz17jqK9FXU+0=;
-	b=YwttSjS/5uPSrA8DWVbL+X7DX9RL8rYVDpKX3U68OrH2GJ59M2t+SVSplf5qhhNNsNkiMk
-	YLsNge7gcRun5tAtzf3yZ8pvfszp9LaXu+nUb/62VT400d/qIXXsZL4Fq9dXiD327SVlzf
-	4XQRicTw3+Ob9okWktPP4JDq+3+94yk=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-557-vNOPzmBhNGGYrQaRoVI2SA-1; Thu,
- 04 Jun 2026 12:07:36 -0400
-X-MC-Unique: vNOPzmBhNGGYrQaRoVI2SA-1
-X-Mimecast-MFC-AGG-ID: vNOPzmBhNGGYrQaRoVI2SA_1780589255
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 25729195608E;
-	Thu,  4 Jun 2026 16:07:35 +0000 (UTC)
-Received: from virtlab1023.lab.eng.rdu2.redhat.lab.eng.rdu2.redhat.com (virtlab1023.lab.eng.rdu2.redhat.com [10.8.1.187])
-	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id A14BB1800347;
-	Thu,  4 Jun 2026 16:07:34 +0000 (UTC)
-From: Paolo Bonzini <pbonzini@redhat.com>
-To: linux-kernel@vger.kernel.org,
-	kvm@vger.kernel.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH 1/3] KVM: nVMX: unwind PDPTR load if processor triggers a nested VMFail
-Date: Thu,  4 Jun 2026 12:07:31 -0400
-Message-ID: <20260604160733.12555-2-pbonzini@redhat.com>
-In-Reply-To: <20260604160733.12555-1-pbonzini@redhat.com>
-References: <20260604160733.12555-1-pbonzini@redhat.com>
+	dkim=pass (2048-bit key) header.d=fourdim.xyz header.i=@fourdim.xyz header.b="Vp1kqCzg";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="S5EPSVHZ"
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailfout.phl.internal (Postfix) with ESMTP id 771CAEC01B4;
+	Thu,  4 Jun 2026 12:18:01 -0400 (EDT)
+Received: from phl-imap-10 ([10.202.2.85])
+  by phl-compute-03.internal (MEProxy); Thu, 04 Jun 2026 12:18:01 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fourdim.xyz; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1780589881;
+	 x=1780676281; bh=Jk/ejdTUG3fUT9bWQptHorSCz30HaRUThr+lwxTvrCo=; b=
+	Vp1kqCzgtQV5mwqHsTCeTcNnFb3uLte5tsQaRrazcdlLfKZwktK0Gh0Of9M5GF8o
+	OTlqKg+9F7VMWeEr6T0JOq4lpmDjhGQhSH3hi5wd/UQpiIUE1kbVDORR3DiP2z1+
+	ovVvyV2+LwpvX2czIStE7OZ+eE+Ead6Iv2KjdccHpk/FhHyBiJN97wb8BfUcy3UW
+	FSFboyzs+adWKhRhPL6V+JYFi9ZDJsz4O+P7zjaXS1JZdIb+UiZn7DBAMiK/KmzH
+	Obo/VdsBBkzN/XAj3RemCLrw2DKPKGtCD+2yqgemzeopWhYgGyaOI+v8JnJM9hq4
+	EGoWE5rwXuhzOYbGxe36kg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1780589881; x=
+	1780676281; bh=Jk/ejdTUG3fUT9bWQptHorSCz30HaRUThr+lwxTvrCo=; b=S
+	5EPSVHZ7OKRSWg4aYnaLqYZxoEIBa4pLJ9OjfVW8D9lQYddto4M8pDXvQgo36CGE
+	IuIi6hnNfuYkB3krjjjCc87b8/vTWKtUfObocVAldqnvyZ+a5NuE2nzjDyXUREGj
+	S5o/tUcCHwWMDTUIs/GRAroLYCXXs9f8qLHwRi9heFyaT8nhevLvORzSiKRDlj+p
+	ArXaPhqqZkgzSy5oQph27KUzTayQTqvkRxuGhzPn0HMbH98IT8aXFK6WuXG+7nlL
+	LAkiy3yq04NFzP46Y3UZqtuGS/pjlpaN3SoGixO8Ouc4lCUq4NyVnedD4pKU7hMc
+	oh/cGcA+PKdEC7UqACndQ==
+X-ME-Sender: <xms:OaUhaphD5pbEWJSBtVmkH52jmd7mcRICn9-6t-_n29bdO9BL-ejEYg>
+    <xme:OaUhao0rdBwU4daTOElDtjAJ1lDr7Y-elvzHektUN3w9SCrUpUbVU6DZsjn1aPu14
+    DbBM_irnS2DahGmdQeZT09RqSPq6EzHmchu4b_jMJzdndMASjg56hw>
+X-ME-Proxy-Cause: dmFkZTEq8jR2O0KN3mzl0D2IhxIIn9fZMsNA880ILYO6LhmUlqTmsvtXYXXXUMIyvLxhgi
+    ejfGlhp5uQNTwUbKd4gBRMTUlpo2rFuXKMxds71/jK03yo5DS6ME1plDHtC/9PwHEf9u8B
+    AN8BY2Hs7lzQNu0CCj7ubCHq3Jovbve1Cr9eNIY/Nce7rz7gklq04cuSE80+tkVu3Xal27
+    h460m5IULe7FRllFkQQTKa6unyZMq7v3xZciV+/nZ/gmQfTaIJ2j7hmInSXyy/AnGToZAB
+    TPTBOa95OP5H/McdM9WqS0VvBKLBdmu8fG2iJ0VJtbUacER+TYPMTKwi1ixTwIIY7kV1Rw
+    79rltZpeSB81gwwQdw+9Cm93nHFoGFtXf0Ih2J057Dzkjb29F39IDBKTCOgTcb7vu0brST
+    7AYAoqjNVgklZNcNZ36SRuD44WvRVJ0vPOoNc4ZSp8Hu53FMfCmy6eKO7MrB6LESk38ei7
+    6fnrQ7ynzSeGW86K0118W7Q+P8TsazkX2Y+3wleWm0QRWmBhGeHW6JB1mtyo0NtUsTZMsF
+    i7OVjmBhk8lPiTmRd+lQp6TI4GR2UnVbaccMMte7hqnV0e2rx0L0Fns56oweMQK8rd0GqV
+    TG5K5BxwcTm/ygiT5+YJOowcxzpTO027GlUbQypwDVy6s1469C0zKajAceiw
+X-ME-Proxy: <xmx:OaUhai-6c_ev44AF9jwTNedyvoINBimdSZZ5bkKncaEsZ-s8bHOGeg>
+    <xmx:OaUhaqcDq6PunW5_5KjF-CtZyFEcOArPJX-e7tuxvfEwPmy81p8UAQ>
+    <xmx:OaUharETbu-EfyhxlZU9O6Pb9QmWyE1XxMBClgyD3IimX9LOyC2Jpg>
+    <xmx:OaUhaofpTIclMrZK4RCY51kNUCxo5Tovc7zY67Jm-mG1VjPaIq24Nw>
+    <xmx:OaUharP4VRr0awYbMx-4FbtgclG0wsb3OkKPrfRgjiQvLApL8LyfQvRz>
+Feedback-ID: if72e4b10:Fastmail
+Received: by mailuser.phl.internal (Postfix, from userid 501)
+	id 3F0D6216008A; Thu,  4 Jun 2026 12:18:01 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-ThreadId: AGEhOIfceYI-
+Date: Thu, 04 Jun 2026 12:17:25 -0400
+From: "Siwei Zhang" <oss@fourdim.xyz>
+To: "Sasha Levin" <sashal@kernel.org>
+Cc: "Luiz Augusto von Dentz" <luiz.von.dentz@intel.com>,
+ stable@vger.kernel.org
+Message-Id: <44dc3931-4863-4291-a239-30cc9405744c@app.fastmail.com>
+In-Reply-To: <20260604134538.3463737-2-sashal@kernel.org>
+References: <2026060410-arousal-fasting-6cae@gregkh>
+ <20260604134538.3463737-1-sashal@kernel.org>
+ <20260604134538.3463737-2-sashal@kernel.org>
+Subject: Re: [PATCH 5.10.y 2/2] Bluetooth: L2CAP: use chan timer to close channels in
+ cleanup_listen()
 Content-Type: text/plain
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
+Content-Transfer-Encoding: 7bit
 
-Upon a VM-entry failure that is caught by the processor rather than
-KVM, nested_vmx_restore_host_state() restores L1's CR3 but not the
-PDPTRs.  If shadow paging is used (enable_ept is false), the L2
-PDPTRs loaded during the aborted entry attempt remain in
-vcpu->arch.mmu->pdptrs[].
+Hi Sasha,
 
-Note that the fact that the PDPTRs are stored in the MMU does not
-save the day, because KVM only uses root_mmu if enable_ept is false.
+On Thu, Jun 4, 2026, at 9:45 AM, Sasha Levin wrote:
+> From: Siwei Zhang <oss@fourdim.xyz>
+>
+> [ Upstream commit 8c8e620467a7b51562dbcefbd1f09f288d7d710d ]
+>
+> l2cap_chan_close() removes the channel from conn->chan_l, which
+> must be done under conn->lock.  cleanup_listen() runs under the
+> parent sk_lock, so acquiring conn->lock would invert the
+> established conn->lock -> chan->lock -> sk_lock order.
+>
+> Instead of calling l2cap_chan_close() directly, schedule
+> l2cap_chan_timeout with delay 0 to close the channel
+> asynchronously.  The timeout handler already acquires conn->lock
+> and chan->lock in the correct order.
+>
+> The timer is only armed when chan->conn is still set: if it is
+> already NULL, l2cap_conn_del() has already processed this channel
+> (l2cap_chan_del + l2cap_sock_teardown_cb + l2cap_sock_close_cb),
+> so there is nothing left to do.  If l2cap_conn_del() races in
+> after the timer is armed, __clear_chan_timer() inside
+> l2cap_chan_del() cancels it; if the timer has already fired, the
+> handler returns harmlessly because chan->conn was cleared.
+>
+> Fixes: 3df91ea20e74 ("Bluetooth: Revert to mutexes from RCU list")
+> Cc: <stable@vger.kernel.org> # 0b58004: Bluetooth: fix UAF in 
+> l2cap_sock_cleanup_listen() vs l2cap_conn_del()
+> Signed-off-by: Siwei Zhang <oss@fourdim.xyz>
+> Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
+> ---
+>  net/bluetooth/l2cap_sock.c | 16 +++++++++-------
+>  1 file changed, 9 insertions(+), 7 deletions(-)
+>
+> diff --git a/net/bluetooth/l2cap_sock.c b/net/bluetooth/l2cap_sock.c
+> index 634ee15cb71558..db8a90fec98e9d 100644
+> --- a/net/bluetooth/l2cap_sock.c
+> +++ b/net/bluetooth/l2cap_sock.c
+> @@ -1456,6 +1456,10 @@ static void l2cap_sock_cleanup_listen(struct 
+> sock *parent)
+>  	 * pin it (hold_unless_zero() additionally skips a chan already past
+>  	 * its last reference).  We then drop the sk lock before taking
+>  	 * chan->lock, so sk and chan locks are never held together.
+> +	 *
+> +	 * Since we cannot call l2cap_chan_close() without conn->lock,
+> +	 * schedule l2cap_chan_timeout to close the channel; it already
+> +	 * acquires conn->lock -> chan->lock in the correct order.
+>  	 */
+>  	while ((sk = bt_accept_dequeue(parent, NULL))) {
+>  		struct l2cap_chan *chan;
+> @@ -1473,14 +1477,12 @@ static void l2cap_sock_cleanup_listen(struct 
+> sock *parent)
+>  		       state_to_string(chan->state));
+> 
+>  		l2cap_chan_lock(chan);
+> -		__clear_chan_timer(chan);
+> -		l2cap_chan_close(chan, ECONNRESET);
+> -		/* l2cap_conn_del() may already have killed this socket
+> -		 * (it sets SOCK_DEAD); skip the duplicate to avoid a
+> -		 * double sock_put()/l2cap_chan_put().
+> +		/* Since we cannot call l2cap_chan_close() without
+> +		 * conn->lock, schedule its timer to trigger the close
+> +		 * and cleanup of this channel.
+>  		 */
+> -		if (!sock_flag(sk, SOCK_DEAD))
+> -			l2cap_sock_kill(sk);
+> +		if (chan->conn)
+> +			__set_chan_timer(chan, 0);
+>  		l2cap_chan_unlock(chan);
+> 
+>  		l2cap_chan_put(chan);
+> -- 
+> 2.53.0
 
-To fix this, use nested_vmx_load_cr3() instead of open coding
-just the load of vcpu->arch.cr3, in the same guise as
-load_vmcs12_host_state().  nested_vmx_load_cr3() will mark the
-register as dirty rather than available, but this is only a
-very minor pessimization.
+Thank you for doing these for me.
 
-If EPT *is* in use, do not load the PDPTRs and rely solely on
-ept_save_pdptrs() to reload them from VMCS01.  When vmx_load_mmu_pgd()
-runs on the next entry, the PDPTRs are available---meaning they are
-not incorrectly reloaded from memory.
-
-kvm_mmu_unload() is preserved to keep the paths from the old
-kvm_mmu_reset_context(), but is actually unnecessary.  It can
-be removed as a separate patch.
-
-Cc: stable@vger.kernel.org
-Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
----
- arch/x86/kvm/vmx/nested.c | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
-
-diff --git a/arch/x86/kvm/vmx/nested.c b/arch/x86/kvm/vmx/nested.c
-index 4690a4d23709..d612a5d071fc 100644
---- a/arch/x86/kvm/vmx/nested.c
-+++ b/arch/x86/kvm/vmx/nested.c
-@@ -4947,6 +4947,7 @@ static inline u64 nested_vmx_get_vmcs01_guest_efer(struct vcpu_vmx *vmx)
- 
- static void nested_vmx_restore_host_state(struct kvm_vcpu *vcpu)
- {
-+	enum vm_entry_failure_code ignored;
- 	struct vmcs12 *vmcs12 = get_vmcs12(vcpu);
- 	struct vcpu_vmx *vmx = to_vmx(vcpu);
- 	struct vmx_msr_entry g, h;
-@@ -4984,20 +4985,19 @@ static void nested_vmx_restore_host_state(struct kvm_vcpu *vcpu)
- 	vmx_set_cr4(vcpu, vmcs_readl(CR4_READ_SHADOW));
- 
- 	nested_ept_uninit_mmu_context(vcpu);
--	vcpu->arch.cr3 = vmcs_readl(GUEST_CR3);
--	kvm_register_mark_available(vcpu, VCPU_REG_CR3);
- 
- 	/*
--	 * Use ept_save_pdptrs(vcpu) to load the MMU's cached PDPTRs
--	 * from vmcs01 (if necessary).  The PDPTRs are not loaded on
--	 * VMFail, like everything else we just need to ensure our
--	 * software model is up-to-date.
-+	 * Now that nested EPT has been disabled, load the MMU's CR3 and
-+	 * possibly PDPTRs from vmcs01 (if necessary).  This should not
-+	 * happen for VMFail, but we get here if the check was caught by
-+	 * the processor and therefore the guest CR3 was loaded prematurely.
- 	 */
-+	kvm_mmu_unload(vcpu);
-+	if (nested_vmx_load_cr3(vcpu, vmcs_readl(GUEST_CR3), false, !enable_ept, &ignored))
-+		nested_vmx_abort(vcpu, VMX_ABORT_LOAD_HOST_PDPTE_FAIL);
- 	if (enable_ept && is_pae_paging(vcpu))
- 		ept_save_pdptrs(vcpu);
- 
--	kvm_mmu_reset_context(vcpu);
--
- 	/*
- 	 * This nasty bit of open coding is a compromise between blindly
- 	 * loading L1's MSRs using the exit load lists (incorrect emulation
--- 
-2.52.0
-
-
+Best,
+Siwei
