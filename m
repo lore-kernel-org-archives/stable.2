@@ -1,139 +1,106 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A18473DDDDE
-	for <stable@vger.kernel.org>; Thu,  4 Jun 2026 07:10:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBFED39769D;
+	Thu,  4 Jun 2026 07:25:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780557049; cv=none; b=nQ49qrYzudWJ2YSx1TemMArwvcPPIa+R+yox2uRHZtNLH9KMDrmvMA2KPVUqvGZhA9TaJuxB3QzC8XNP+cIiv0TTZYkrygI0DHn3BKVgxrIm9YxhrphEdnMBzyJsNLwMz2eGwZJy1I+1f0rH+2pn7RSY9L/qi+AMSCAE87jVW7A=
+	t=1780557911; cv=none; b=lsAEIgdEuk9QZD4jjxuBa1oPcMXd9sxxpD5hMOC4FZGLKfVDcFS2MZ97awhUWrJWpt9UIhyWaFBKn0t2pBOFxd9coMorugjmLhSOTJnkMhQoJEL1HhmaKOEQL21hDZX3m04Ym4wHGUaxrMkLzhWw9ZJjoQJpUivOSGj+XtQdDt4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780557049; c=relaxed/simple;
-	bh=7CmgCK+8i1RhMflFWXTqEzDGsuIRmXaOuuz+fr00HmE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BLJlnzXfrTFmzuOX95G1UyXQCyaA4yVle6hJILU8vHU9UET8jtzwOsD5z4Ev0TTKmwRluyDk8AwdcXtwaniHaRCMDuR/GDkGjQ+4rwH2x7Ovy9aos1j3H0t4hXIrgj/zf9IXDDP00+JFRuOPfHwqniZr/h7sLVhOM4ahps3lFAI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=IQXJ8BKG; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1780557911; c=relaxed/simple;
+	bh=yvdnK45/2ULXuJ9loITvJK08YLsCQKIUuwOQgcGC5A8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=O8djKLm1PyPzNDodCW988o7OUocNsfJtk4Wi7C658+tUkQSVk3SDsddgf8qQDs+Rs0uC1tzMqpw5jJ9FYEyLfPKUvxDs4QTEj9BzfwRhSvvgwWDiefiZyMcvpH5pl0Qtmk0xkVRumcUOmB5Etin+EReTpnrEcaHjrf0EbTFCJHk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=g5ANhH4J; arc=none smtp.client-ip=192.198.163.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="IQXJ8BKG"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1780557046;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=TTx7iJcEYQPNF0fLP9iIlrZJ+hGEW1AJgAn2YYrO6Tk=;
-	b=IQXJ8BKG0+CPEpbkjS35rHqJo7cJ9AgdxEwbW65ECAqczNnGEN0Mdpf77yxdSs8YoSzN6z
-	2SFobd95fJfzF/aoovcpZ/NJruuZqgjIbOHmccxdyEe8F1TYUzTP4kSP1vgpHDHbteJjjN
-	4A/0Nt/uSrHq88ULkJunWy+Uxem0doM=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-68-2myNmU-MPgSRWm_ZsUO4mg-1; Thu,
- 04 Jun 2026 03:10:41 -0400
-X-MC-Unique: 2myNmU-MPgSRWm_ZsUO4mg-1
-X-Mimecast-MFC-AGG-ID: 2myNmU-MPgSRWm_ZsUO4mg_1780557040
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id D88FB19560AD;
-	Thu,  4 Jun 2026 07:10:39 +0000 (UTC)
-Received: from fedora.redhat.com (unknown [10.44.32.54])
-	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 291A830001A1;
-	Thu,  4 Jun 2026 07:10:36 +0000 (UTC)
-From: Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
-To: jjohnson@kernel.org
-Cc: linux-wireless@vger.kernel.org,
-	ath12k@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Jose Ignacio Tornos Martinez <jtornosm@redhat.com>,
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="g5ANhH4J"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1780557910; x=1812093910;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=yvdnK45/2ULXuJ9loITvJK08YLsCQKIUuwOQgcGC5A8=;
+  b=g5ANhH4J7VemSHZTNOAg6uBp4XvfXmKqTCtHOpxy3IW0SSgHffYzOSOU
+   iRI8vwaVYvYCoENzr7W625bibejzSI6JsEOIrwMN2PbaV32joNKPc6YBu
+   GXu55B5XIszLufX4Y9NX5LCxe25BpN5lB5/vi+HnY1XGErYTl1kIi2vLr
+   Fdha3VqOFuAz/0rKUJyZtuyK50hi7BAdL4NGJ7nn70DG+QekufV2XsjKi
+   D2ncGmk7/7huJUuo8PBz999sFRdHzSQU60J8N+V+Gil49mkIscsXSGbyt
+   YWuO5WGlKP0uY1ptdWRmPbduniR7anmcs63OQSv29J3IUk/4LM6IBtMGi
+   g==;
+X-CSE-ConnectionGUID: h9UnxOx2TzqsJf/13xf1UA==
+X-CSE-MsgGUID: aBLED/kIQZOkj9XNe0Jn/Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11806"; a="92064263"
+X-IronPort-AV: E=Sophos;i="6.24,186,1774335600"; 
+   d="scan'208";a="92064263"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Jun 2026 00:25:09 -0700
+X-CSE-ConnectionGUID: QL71U5ZSSlCQiHXUqQ9JBg==
+X-CSE-MsgGUID: pzvzDjtxTYCdL51HOz8OIQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,186,1774335600"; 
+   d="scan'208";a="241969511"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.47])
+  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Jun 2026 00:25:07 -0700
+Date: Thu, 4 Jun 2026 10:25:04 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: Stepan Ionichev <sozdayvek@gmail.com>, dlechner@baylibre.com,
+	nuno.sa@analog.com, andy@kernel.org, hcazarim@yahoo.com,
+	joshua.crofts1@gmail.com, gregkh@linuxfoundation.org,
+	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH] ath12k: fix NULL pointer dereference in rhash table destroy
-Date: Thu,  4 Jun 2026 09:10:32 +0200
-Message-ID: <20260604071032.659009-1-jtornosm@redhat.com>
+Subject: Re: [PATCH v2] iio: light: tsl2591: return actual error from probe
+ IRQ failure
+Message-ID: <aiEoULtZmGpDd3cy@ashevche-desk.local>
+References: <20260517181042.668-1-sozdayvek@gmail.com>
+ <20260518094311.2000-1-sozdayvek@gmail.com>
+ <20260518163647.3b4966fb@jic23-huawei>
+ <20260518164309.04ed238f@jic23-huawei>
+ <20260603182345.5fdb66b5@jic23-huawei>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260603182345.5fdb66b5@jic23-huawei>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-When unbinding the ath12k driver, kernel NULL pointer dereferences
-occur in irq_work_sync() called from rhashtable_destroy().
+On Wed, Jun 03, 2026 at 06:23:45PM +0100, Jonathan Cameron wrote:
+> On Mon, 18 May 2026 16:43:09 +0100
+> Jonathan Cameron <jic23@kernel.org> wrote:
+> > On Mon, 18 May 2026 16:40:48 +0100
+> > Jonathan Cameron <jic23@kernel.org> wrote:
 
-Two hash tables are affected:
-1. ath12k_link_sta hash table in ath12k_base
-2. ath12k_dp_link_peer hash table in ath12k_dp
+...
 
-The issue happens because the destroy functions are called unconditionally
-in cleanup paths, but the hash tables are only initialized late in their
-respective init functions. If the device was never fully started or if the
-init functions failed before initializing the hash tables, the pointers
-will be NULL. The issues are always reproducible from a VM because the MSI
-addressing initialization is failing.
+> > https://sashiko.dev/#/patchset/20260518094311.2000-1-sozdayvek%40gmail.com
+> > 
+> > Does completely removing dev_err_probe() here drop the deferred probe reason
+> > tracking?
+> > While this patch successfully fixes the return code, dev_err_probe() also
+> > records the deferral reason in debugfs via device_set_deferred_probe_reason()
+> > when ret is -EPROBE_DEFER.
+> > Could we keep the diagnostic tracking by returning the result of
+> > dev_err_probe() directly instead?
+> >         if (ret)
+> >                 return dev_err_probe(&client->dev, ret, "IRQ request error\n");
+> > 
+> > Andy, what do you think?
+> Andy?
+> 
+> This is a change you might have asked for, but sashiko is correctly noting
+> that we might loose a deferred reason even if the print is otherwise useless.
 
-Call trace for ath12k_link_sta_rhash_tbl_destroy:
- RIP: irq_work_sync+0x1e/0x70
- rhashtable_destroy+0x12/0x60
- ath12k_link_sta_rhash_tbl_destroy+0x19/0x40 [ath12k]
- ath12k_core_stop+0xe/0x80 [ath12k]
- ath12k_core_hw_group_cleanup+0x6b/0xb0 [ath12k]
- ath12k_pci_remove+0x60/0x110 [ath12k]
+Incorrectly. IRQ core prints an error via dev_err_probe(). Did I miss something?
 
-Call trace for ath12k_dp_link_peer_rhash_tbl_destroy:
- RIP: irq_work_sync+0x1e/0x70
- rhashtable_destroy+0x12/0x60
- ath12k_dp_link_peer_rhash_tbl_destroy+0x29/0x50 [ath12k]
- ath12k_dp_cmn_device_deinit+0x21/0x140 [ath12k]
- ath12k_core_hw_group_cleanup+0x6b/0xb0 [ath12k]
- ath12k_pci_remove+0x60/0x110 [ath12k]
-
-Fix this by adding NULL checks before calling rhashtable_destroy() in
-both destroy functions.
-
-Fixes: 57ccca410237 ("wifi: ath12k: Add hash table for ath12k_link_sta in ath12k_base")
-Fixes: a88cf5f71adf ("wifi: ath12k: Add hash table for ath12k_dp_link_peer")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
----
- drivers/net/wireless/ath/ath12k/dp_peer.c | 5 +++++
- drivers/net/wireless/ath/ath12k/peer.c    | 3 +++
- 2 files changed, 8 insertions(+)
-
-diff --git a/drivers/net/wireless/ath/ath12k/dp_peer.c b/drivers/net/wireless/ath/ath12k/dp_peer.c
-index a1100782d45e..38045564e223 100644
---- a/drivers/net/wireless/ath/ath12k/dp_peer.c
-+++ b/drivers/net/wireless/ath/ath12k/dp_peer.c
-@@ -275,9 +275,14 @@ int ath12k_dp_link_peer_rhash_tbl_init(struct ath12k_dp *dp)
- void ath12k_dp_link_peer_rhash_tbl_destroy(struct ath12k_dp *dp)
- {
- 	mutex_lock(&dp->link_peer_rhash_tbl_lock);
-+	if (!dp->rhead_peer_addr)
-+		goto unlock;
-+
- 	rhashtable_destroy(dp->rhead_peer_addr);
- 	kfree(dp->rhead_peer_addr);
- 	dp->rhead_peer_addr = NULL;
-+
-+unlock:
- 	mutex_unlock(&dp->link_peer_rhash_tbl_lock);
- }
- 
-diff --git a/drivers/net/wireless/ath/ath12k/peer.c b/drivers/net/wireless/ath/ath12k/peer.c
-index 2e875176baaa..80fee2ce68f1 100644
---- a/drivers/net/wireless/ath/ath12k/peer.c
-+++ b/drivers/net/wireless/ath/ath12k/peer.c
-@@ -444,6 +444,9 @@ int ath12k_link_sta_rhash_tbl_init(struct ath12k_base *ab)
- 
- void ath12k_link_sta_rhash_tbl_destroy(struct ath12k_base *ab)
- {
-+	if (!ab->rhead_sta_addr)
-+		return;
-+
- 	rhashtable_destroy(ab->rhead_sta_addr);
- 	kfree(ab->rhead_sta_addr);
- 	ab->rhead_sta_addr = NULL;
 -- 
-2.54.0
+With Best Regards,
+Andy Shevchenko
+
 
