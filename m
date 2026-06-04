@@ -1,56 +1,56 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7355A3F44CB
-	for <stable@vger.kernel.org>; Thu,  4 Jun 2026 10:32:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECF363CEB9B
+	for <stable@vger.kernel.org>; Thu,  4 Jun 2026 10:34:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780569169; cv=none; b=iQBFgTYvLDhAF2xmDN5y7nMp7r6kqOxDc9mKojgKtp7Csbsu99sHYmqpUwZdoUj/UZk16WzvOB92w3USiAq9KN1fn31lw8V1I4QKREuPC1cM4OT6bVatHM/ev+fZptHEJ3ABBayLrMjNythZ3S4WXUND8elPAIOKQD2gsbWQcdE=
+	t=1780569243; cv=none; b=EgIrMDdh9G0QkuaoO6oe0p9Pa5OD1q0M6hhSKcGFrlGZqbRQEdvsF3Rn61/Ch4yekI2Lm1J6ChggWr03fVNydlv+gA0P37kQn0oMHc9A+7TFmEZckWU/oWdlIQorzNsNhJcXnCrBUn00h4recI1qDjzn/outoNuDbAbD7GWk7jQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780569169; c=relaxed/simple;
-	bh=FZeon4cYnQkIdCedKSXwnfJKsoiGDAlFoIQNSoUITH0=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=QrGsLLNMJb58R8mu13UF9EyzmH10sYLZRj2Vqe+l/caL4viFMrtpuEn4inp4sJcVQoxM4vLHJAw55UEQM7hnyh9tNY1AKkcVqtETyMrRXGG0fhy0X6PlVb3vr3pt2KwIrJRG13rPUgwgUCJhNHvJ2fP/1tfDB86OuaHjYCjwNNk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=KjIwAT3r; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780569243; c=relaxed/simple;
+	bh=XFNGI5/3UKgORMhtddETa6uLQOAGz0IRbL32oy0tYKE=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=b+We4mWGPp/FbqxVYQDhBTzkBmRZIVQvSwN6fHSdiDZQSf7f3n60x74e/H1ec190Hp8zj7t41LVtbQa/KS8m2bZU1t0v+BN7QuyrcpTmJ7FEJhjCbfxIg8CVYdvJmFSTohDCAWWzdWYRD0xIEJBXamcCfXqY/h5CQX2dKumh6VM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=A74g6gde; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="KjIwAT3r"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBA981F00893;
-	Thu,  4 Jun 2026 10:32:44 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="A74g6gde"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3A161F00893;
+	Thu,  4 Jun 2026 10:34:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1780569165;
-	bh=S0ED8A9Syo2n50osfiRsOudJKjvbwg0NrbTBNOdMtpU=;
+	s=korg; t=1780569241;
+	bh=jXlcD2pSKWSvK9OQ/ouGyaWjFAAX23iPAZnnryhwg+U=;
 	h=Subject:To:Cc:From:Date;
-	b=KjIwAT3rjTn6jeacnMJOBsifYE/ziLhyjD4+XHNHNRw1mnXtorZklxkWpEPysZOia
-	 1Esp0ZYJIgTlWGZwR3eWkv6pioEbHTnFi5ZET4O7WufyyYV1qvqwOWWKRFePa69W/X
-	 lQ9/nJKB5BVwDLIo3t63f+ZuNiET56xVni70hrUg=
-Subject: FAILED: patch "[PATCH] ALSA: firewire-motu: Protect register DSP event queue" failed to apply to 6.1-stable tree
-To: cassiogabrielcontato@gmail.com,o-takashi@sakamocchi.jp,tiwai@suse.de
+	b=A74g6gdeiO5Slr46GrpbR/gPSdJ1O04YBExEiA4txS9Zhlq7LhAFhdYXAtTJ6b7Hk
+	 025UsHPwuB3mvWmI2mytxEnX4SdqDA3fCxD+EOMLGpmtapIUYNrBM4OAe3g+Kq8IbP
+	 mjp+Wj9xlNNE6M/HECL8Qi8Lu3p1LoY6bOMVgUk8=
+Subject: FAILED: patch "[PATCH] xfrm: iptfs: reset runtime state when cloning SAs" failed to apply to 6.18-stable tree
+To: eeesssooo020@gmail.com,steffen.klassert@secunet.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 04 Jun 2026 12:31:37 +0200
-Message-ID: <2026060437-throttle-colossal-060d@gregkh>
+Date: Thu, 04 Jun 2026 12:33:04 +0200
+Message-ID: <2026060404-supply-unglazed-218f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 98fb1c1bb11e29eb609b7200a25e136e05aa4498
+git cherry-pick -x 7f83d174073234839aea176f265e517e0d50a1d2
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026060437-throttle-colossal-060d@gregkh' --subject-prefix 'PATCH 6.1.y' HEAD^..
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026060404-supply-unglazed-218f@gregkh' --subject-prefix 'PATCH 6.18.y' HEAD^..
 
 Possible dependencies:
 
@@ -62,62 +62,89 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 98fb1c1bb11e29eb609b7200a25e136e05aa4498 Mon Sep 17 00:00:00 2001
-From: =?UTF-8?q?C=C3=A1ssio=20Gabriel?= <cassiogabrielcontato@gmail.com>
-Date: Thu, 21 May 2026 08:01:23 -0300
-Subject: [PATCH] ALSA: firewire-motu: Protect register DSP event queue
- positions
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From 7f83d174073234839aea176f265e517e0d50a1d2 Mon Sep 17 00:00:00 2001
+From: Shaomin Chen <eeesssooo020@gmail.com>
+Date: Thu, 21 May 2026 02:07:23 +0800
+Subject: [PATCH] xfrm: iptfs: reset runtime state when cloning SAs
 
-The register DSP event queue is updated under parser->lock, but
-snd_motu_register_dsp_message_parser_count_event() reads pull_pos and
-push_pos without the lock.
-snd_motu_register_dsp_message_parser_copy_event() also reads both queue
-positions before taking the lock.
+iptfs_clone_state() clones the IPTFS mode data with kmemdup(). This
+copies runtime objects which must not be shared with the original SA,
+including the embedded sk_buff_head, hrtimers, spinlock, and in-flight
+reassembly/reorder state.
 
-Protect these accesses with parser->lock as well. This keeps the hwdep
-poll/read path consistent with the producer side and with the cached
-meter/parameter accessors.
+If xfrm_state_migrate() fails after clone_state() but before the later
+init_state() call has reinitialized those fields, the cloned state can be
+destroyed by xfrm_state_gc_task() with list and timer state copied from the
+original SA. With queued packets this lets the clone splice and free skbs
+owned by the original IPTFS queue, leading to use-after-free and
+double-free reports in iptfs_destroy_state() and skb release paths.
 
-Fixes: 634ec0b2906e ("ALSA: firewire-motu: notify event for parameter change in register DSP model")
+Reinitialize the clone's runtime state before publishing it through
+x->mode_data. Because clone_state() now publishes a destroyable mode_data
+object before init_state(), take the mode callback module reference there.
+Avoid taking it again from __iptfs_init_state() for the same object.
+
+Fixes: 0e4fbf013fa5 ("xfrm: iptfs: add user packet (tunnel ingress) handling")
 Cc: stable@vger.kernel.org
-Signed-off-by: Cássio Gabriel <cassiogabrielcontato@gmail.com>
-Reviewed-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
-Link: https://patch.msgid.link/20260521-alsa-firewire-motu-event-locking-v1-1-708e1c2b5e56@gmail.com
+Signed-off-by: Shaomin Chen <eeesssooo020@gmail.com>
+Signed-off-by: Steffen Klassert <steffen.klassert@secunet.com>
 
-diff --git a/sound/firewire/motu/motu-register-dsp-message-parser.c b/sound/firewire/motu/motu-register-dsp-message-parser.c
-index a8053e3ef065..4ec23e6880d9 100644
---- a/sound/firewire/motu/motu-register-dsp-message-parser.c
-+++ b/sound/firewire/motu/motu-register-dsp-message-parser.c
-@@ -386,6 +386,8 @@ unsigned int snd_motu_register_dsp_message_parser_count_event(struct snd_motu *m
+diff --git a/net/xfrm/xfrm_iptfs.c b/net/xfrm/xfrm_iptfs.c
+index 97bc979e55ba..6c6bbc040517 100644
+--- a/net/xfrm/xfrm_iptfs.c
++++ b/net/xfrm/xfrm_iptfs.c
+@@ -2650,7 +2650,8 @@ static void __iptfs_init_state(struct xfrm_state *x,
+ 	x->props.enc_hdr_len = sizeof(struct ip_iptfs_hdr);
+ 
+ 	/* Always keep a module reference when x->mode_data is set */
+-	__module_get(x->mode_cbs->owner);
++	if (x->mode_data != xtfs)
++		__module_get(x->mode_cbs->owner);
+ 
+ 	x->mode_data = xtfs;
+ 	xtfs->x = x;
+@@ -2658,22 +2659,39 @@ static void __iptfs_init_state(struct xfrm_state *x,
+ 
+ static int iptfs_clone_state(struct xfrm_state *x, struct xfrm_state *orig)
  {
- 	struct msg_parser *parser = motu->message_parser;
++	struct skb_wseq *w_saved = NULL;
+ 	struct xfrm_iptfs_data *xtfs;
  
-+	guard(spinlock_irqsave)(&parser->lock);
+ 	xtfs = kmemdup(orig->mode_data, sizeof(*xtfs), GFP_KERNEL);
+ 	if (!xtfs)
+ 		return -ENOMEM;
+ 
+-	xtfs->ra_newskb = NULL;
+ 	if (xtfs->cfg.reorder_win_size) {
+-		xtfs->w_saved = kzalloc_objs(*xtfs->w_saved,
+-					     xtfs->cfg.reorder_win_size);
+-		if (!xtfs->w_saved) {
++		w_saved = kzalloc_objs(*w_saved, xtfs->cfg.reorder_win_size);
++		if (!w_saved) {
+ 			kfree_sensitive(xtfs);
+ 			return -ENOMEM;
+ 		}
+ 	}
++	xtfs->w_saved = w_saved;
+ 
++	__skb_queue_head_init(&xtfs->queue);
++	xtfs->queue_size = 0;
++	hrtimer_setup(&xtfs->iptfs_timer, iptfs_delay_timer, CLOCK_MONOTONIC,
++		      IPTFS_HRTIMER_MODE);
 +
- 	if (parser->pull_pos > parser->push_pos)
- 		return EVENT_QUEUE_SIZE - parser->pull_pos + parser->push_pos;
- 	else
-@@ -395,13 +397,14 @@ unsigned int snd_motu_register_dsp_message_parser_count_event(struct snd_motu *m
- bool snd_motu_register_dsp_message_parser_copy_event(struct snd_motu *motu, u32 *event)
- {
- 	struct msg_parser *parser = motu->message_parser;
--	unsigned int pos = parser->pull_pos;
--
--	if (pos == parser->push_pos)
--		return false;
-+	unsigned int pos;
- 
- 	guard(spinlock_irqsave)(&parser->lock);
- 
-+	if (parser->pull_pos == parser->push_pos)
-+		return false;
++	spin_lock_init(&xtfs->drop_lock);
++	hrtimer_setup(&xtfs->drop_timer, iptfs_drop_timer, CLOCK_MONOTONIC,
++		      IPTFS_HRTIMER_MODE);
 +
-+	pos = parser->pull_pos;
- 	*event = parser->event_queue[pos];
++	xtfs->w_seq_set = false;
++	xtfs->w_wantseq = 0;
++	xtfs->w_savedlen = 0;
++	xtfs->ra_newskb = NULL;
++	xtfs->ra_wantseq = 0;
++	xtfs->ra_runtlen = 0;
++
++	__module_get(x->mode_cbs->owner);
+ 	x->mode_data = xtfs;
+ 	xtfs->x = x;
  
- 	++pos;
 
