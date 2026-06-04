@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06AC83803D2
-	for <stable@vger.kernel.org>; Thu,  4 Jun 2026 08:26:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 997933803D2
+	for <stable@vger.kernel.org>; Thu,  4 Jun 2026 08:26:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780561566; cv=none; b=W+Hwt/4XISRen/rBUd+vSuNospg3V19Hh0S9elComTwAQyxkmIZqxF/y5zopX+beOTjKvjl7ZAm33yYMRjsWbDjeVjmFYcGo7ox1XPorMCS/3O+FlX22zD4WRXfVmrEaqPOMwWtROitNH2f6b11ipPtczoTnIxFdugSeeH/5hFA=
+	t=1780561574; cv=none; b=YpM89QhHu1J2laqWueXMUVSYkkVIP6Q9cnHcjW/1RQzPNYpsalpPsdb/R7jCiZO3FOuiZpOF+55B80FQFHyhbsW/AQINh1L3RfATOtGdfNa/0iHi0f12rFjskLDRJVDzHy/I6WQ7tFqIdXnzxCnZ2wj11HGlFqnqU4MJ85aHSxA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780561566; c=relaxed/simple;
-	bh=kt0TAidJQkW+lDtQtfcduDffa6Qx39+5bIDrfWz6ksQ=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=lr4xQaVCHXUDW7NUYYmwN/CLfAzal4YBb1BRtX7V9HuyML8Aw1SMt7eZdO9TxyfEu8A8oRJtJT+FlP1sh11WXL3+LPixEcEdCH5dZZckdmDo7oHVIqw7W3JD9BRoeWMI1F4wxXXuHIfV8xiDduorZeQhf01JkU91UHJXsk7HauU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=qs5k+CIJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780561574; c=relaxed/simple;
+	bh=lYI+60DjsCryHFjfmv8QOPm5PkZzdWSkrqCq8Nqid+8=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=plcO7AdjC7Dr4PRcLIn38c38cC7rIkH9IpPggaltdhvHU1tfLGpjZ5TU27YfkiBRqCE7VJ1aIueiywu/IWT1fhY+kuZl36BgOY4Pb1vl4P0pNGQNdUliOJpMllpt71lKmGlSLlsZW5yzt4fbRdHJzmOaOpezSv2xI7GO1AE1SdQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=vQig4RNm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="qs5k+CIJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03F5D1F00893;
-	Thu,  4 Jun 2026 08:26:03 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="vQig4RNm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA98E1F00893;
+	Thu,  4 Jun 2026 08:26:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1780561564;
-	bh=Cmy/rz8BOfPbLmPUB+f3VT+zBL+x7XYRaDBhfdISZVs=;
+	s=korg; t=1780561573;
+	bh=e/0zbUE118y6P4iFpln0cQ6u4kNt5gkemX7Ze1dAFxM=;
 	h=Subject:To:Cc:From:Date;
-	b=qs5k+CIJo6yHAZKHqZ4hXKp5gpBe8/9FdaoTTNQ0uqcm0ggxA9fIwxeS7ZffwWXY2
-	 BXAzxB1+c/TYEPQqlP3P6AB6rCwU1jFGt/z5fPEcDdUuF7S+GNy6EH93bZwYeMzNDP
-	 xeRFrJCAXZCYn1/9zo3xnIPdQ6o+eKUlRmsdXBcQ=
-Subject: FAILED: patch "[PATCH] memfd: deny writeable mappings when implying SEAL_WRITE" failed to apply to 6.18-stable tree
+	b=vQig4RNmG/U+5dKo7v0AGhDMNuNO+ddj2Z9w6GpT6/cFOTVmeAmOEBxPsJl6mSmNz
+	 XD9UM3Jeo/6ND8FsuX8APWt0lFbpNQ1w7aOdD2pdWb8HWfh/zSZWRjOW6eKBSqIeDr
+	 qNmOCflPHlOdIwaNJvvr7QP/mM95va2DxX24MzmY=
+Subject: FAILED: patch "[PATCH] memfd: deny writeable mappings when implying SEAL_WRITE" failed to apply to 6.12-stable tree
 To: pratyush@kernel.org,akpm@linux-foundation.org,baolin.wang@linux.alibaba.com,david@kernel.org,gthelen@google.com,hughd@google.com,jackmanb@google.com,jeffxu@google.com,kees@kernel.org,pasha.tatashin@soleen.com,stable@vger.kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 04 Jun 2026 10:25:07 +0200
-Message-ID: <2026060407-bust-ashes-06a9@gregkh>
+Date: Thu, 04 Jun 2026 10:25:08 +0200
+Message-ID: <2026060408-corrosive-dental-a22b@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
 git cherry-pick -x 3b041514cb6eae45869b020f743c14d983363222
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026060407-bust-ashes-06a9@gregkh' --subject-prefix 'PATCH 6.18.y' HEAD^..
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026060408-corrosive-dental-a22b@gregkh' --subject-prefix 'PATCH 6.12.y' HEAD^..
 
 Possible dependencies:
 
