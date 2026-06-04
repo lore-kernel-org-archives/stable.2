@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D7E348C8BD
-	for <stable@vger.kernel.org>; Thu,  4 Jun 2026 17:10:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 924AD47F2CB
+	for <stable@vger.kernel.org>; Thu,  4 Jun 2026 17:12:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780593007; cv=none; b=QFTIPHvDQOTrmazDdy9hd+H+qqXzAHHMtUQA9sKFxfLc6yGVifNMo3U6mklFLHJ0+lwFbC5E+2ByjG07rDbv4AqwJ7HBCUy5/7Socl79hxanerdVrjfHp6E1Xz1KkwMAHHmA9ffg4U1EVeMBLKp3PgZmdQnv26WTo4BW9x8ltBI=
+	t=1780593121; cv=none; b=ZLgiRjksFHLuD5H6jRKVa/i+jRKE1g/C21mKLViJRPmcGVCdPYNS/UkixmMwdZxaCdGQ9uncmp5ThMBLc4Uj0uq1B0kufMnbIT8/dURtrWHKnJ9YkHfeVVeFXQOBUArAcLG7+PgKUxHU0nUkZ6cS8YGZg0hcx48XEPAXIie4ibk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780593007; c=relaxed/simple;
-	bh=+ZF9IzaQpwC0XZ+xT78JZ0zbZYMNPWGEVTL1j3BOpw4=;
+	s=arc-20240116; t=1780593121; c=relaxed/simple;
+	bh=jHiGYah9eJD22DhEQto0HYvl1A57BcoQBnAKL//N2xA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rMrMy6+Ne4EY3KEIpDzI7r6AaFAri12QlnZQf82sH3q6tLB6cQM0rsBeIX2/1xp0jvddv/68vvF729PvbbDlcwRh7LfwlEJZJxkjbHTV7IJ9pgaq0QcuVQawXPU4vq4daY3BjS/tJmR16Tt5XlHHSZPS4RfBspaeOAf0v83WudA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Tew3MkVf; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=tz/lF5mnhpTrUfhgLuvUSBp3spKdyn6gBEn/5Hz9HZ9bUglmxoVYHmUplUBhEAbjsnl8vtcL81izSMUhSoZ/D1C/Wg6jGmCS/VwfJEmP3ArzaDmBYORofQ+WV4TD8KKNfgA7nfytrRSPJLN2IplPbWF68gQGjbxZKykcAXs5OUM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nr+aUajD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Tew3MkVf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8305A1F00893;
-	Thu,  4 Jun 2026 17:10:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nr+aUajD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 878111F00893;
+	Thu,  4 Jun 2026 17:11:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780593006;
-	bh=9pqPXtKJKGTnLbBhrWyvwb4AtViNUjLUdT/KMU4Ibp8=;
+	s=k20260515; t=1780593120;
+	bh=+KfencWrqOin6sU25jTmppmAZ4EVudRSg2Q1fZ+LYCY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Tew3MkVfxa4AAzALyXdUAwqM1LoZMu936Jbf9FyPomrlCGXYPYTcG2lYqgk4LyNap
-	 OmPqm5iJhMdZyy58MXDEDUaX6HCFFrUse3lPElSbA1qHCT0xsxhvaQcfBiCqU3b69I
-	 +jMcobM2/lS1c+Gg7OEopeaWyzRR+2Yp11dIXJxNDKRrLMG5y/WGPUVadwya3p2aYO
-	 UqDl8PENCaUqouoPhNAGoc5T3Dr7pxSB/Zjkx0ppHA6rSnNneokdwYo1bQcAF8XzED
-	 VUxE+AfMo0Ui7O0v7CcJDpzLCrmvA9JiuxMWVTrV6LFKNhEtB26n7WjjOpiYia/uog
-	 cCbddK2Li8L8g==
+	b=nr+aUajD/aKAiJk++bpzdqR/yYQBh+UIz0x7kZd09+nAIR7YpLcyvgqArFGhBofEF
+	 rBQ8ZxhypYEtXlQdp0CsehuqUH3fLlHjU4LWevD0GsEcQT/b/vQtx9LIHtNcH9dK45
+	 pqFCMVYEcIMIEm+SY7/+6Votp2CG5u1Bx44yLoN2btOhpLepaHtcV/YmUeAPJrhVju
+	 zfQVYPhZVzkKlKqZ8y2jDCuGedk4rxBF21b8zezvbkWuiIHOh3O3yV1eOCl/76SANN
+	 8QgF7supVUNXygqEMY3tRTFNEguvp8M19qzFHsH1mhb+PkGkVJ4kcPWD/HghRK7tbV
+	 glkL2Srt3Yb5g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Rodrigo Alencar <rodrigo.alencar@analog.com>,
+Cc: David Carlier <devnexen@gmail.com>,
+	Andy Shevchenko <andriy.shevchenko@intel.com>,
 	Stable@vger.kernel.org,
 	Jonathan Cameron <jic23@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] iio: dac: ad5686: fix powerdown control on dual-channel devices
-Date: Thu,  4 Jun 2026 13:10:02 -0400
-Message-ID: <20260604171002.4023757-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] iio: adc: npcm: fix unbalanced clk_disable_unprepare()
+Date: Thu,  4 Jun 2026 13:11:57 -0400
+Message-ID: <20260604171157.4039872-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026060443-oxygen-unscathed-a75b@gregkh>
-References: <2026060443-oxygen-unscathed-a75b@gregkh>
+In-Reply-To: <2026060420-falcon-onlooker-44bb@gregkh>
+References: <2026060420-falcon-onlooker-44bb@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,133 +47,119 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+From: David Carlier <devnexen@gmail.com>
 
-[ Upstream commit 8aeaf25a85263a7a43357e16ad78ab969f6f8aeb ]
+[ Upstream commit 0d42e2c0bd6ceb89e44c6e065f9bdf9b1df3ef0c ]
 
-Fix powerdown control by using a proper bit shift for the powerdown mask
-values. During initialization, powerdown bits are initialized so that
-unused bits are set to 1 and the correct bit shift is used. Dual-channel
-devices use one-hot encoding in the address and that reflects on the
-position of the powerdown bits, which are not channel-index based
-for that case. Quad-channel devices also use one-hot encoding for the
-channel address but the result of log2(address) coincides with the channel
-index value. Mask as 0x3U is used rather than 0x3, because shift can reach
-value of 30 (last channel of a 16-channel device), which would mess with
-the sign bit. The issue was introduced when first adding support for
-dual-channel devices, which overlooked powerdown control differences.
+The driver acquired the ADC clock with devm_clk_get() and read its
+rate, but never called clk_prepare_enable(). The probe error path and
+npcm_adc_remove() both called clk_disable_unprepare() unconditionally,
+causing the clk framework's enable/prepare counts to underflow on
+probe failure or module unbind.
 
-Fixes: 7dc8faeab3e3 ("iio: dac: ad5686: add support for AD5338R")
-Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
+The issue went unnoticed because NPCM BMC firmware leaves the ADC
+clock enabled at boot, so the driver happened to work in practice.
+
+Switch to devm_clk_get_enabled() so the clock is properly enabled
+during probe and automatically released by the device-managed
+cleanup, and drop the now-redundant clk_disable_unprepare() from
+both the probe error path and remove().
+
+While at it, drop the duplicate error message on devm_request_irq()
+failure since the IRQ core already logs it.
+
+Fixes: 9bf85fbc9d8f ("iio: adc: add NPCM ADC driver")
+Signed-off-by: David Carlier <devnexen@gmail.com>
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 Cc: <Stable@vger.kernel.org>
 Signed-off-by: Jonathan Cameron <jic23@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/iio/dac/ad5686.c | 46 +++++++++++++++++++++++++++++++---------
- 1 file changed, 36 insertions(+), 10 deletions(-)
+ drivers/iio/adc/npcm_adc.c | 26 ++++++++------------------
+ 1 file changed, 8 insertions(+), 18 deletions(-)
 
-diff --git a/drivers/iio/dac/ad5686.c b/drivers/iio/dac/ad5686.c
-index be705f8148cc39..315d213be83a8e 100644
---- a/drivers/iio/dac/ad5686.c
-+++ b/drivers/iio/dac/ad5686.c
-@@ -25,22 +25,37 @@ static const char * const ad5686_powerdown_modes[] = {
- 	"three_state"
- };
+diff --git a/drivers/iio/adc/npcm_adc.c b/drivers/iio/adc/npcm_adc.c
+index d9d105920001e9..c06de95716c81c 100644
+--- a/drivers/iio/adc/npcm_adc.c
++++ b/drivers/iio/adc/npcm_adc.c
+@@ -180,7 +180,6 @@ static int npcm_adc_probe(struct platform_device *pdev)
+ 	u32 reg_con;
+ 	struct npcm_adc *info;
+ 	struct iio_dev *indio_dev;
+-	struct device *dev = &pdev->dev;
  
-+static inline unsigned int ad5686_pd_mask_shift(const struct iio_chan_spec *chan)
-+{
-+	if (chan->channel == chan->address)
-+		return chan->channel * 2;
-+
-+	/* one-hot encoding is used in dual/quad channel devices */
-+	return __ffs(chan->address) * 2;
-+}
-+
- static int ad5686_get_powerdown_mode(struct iio_dev *indio_dev,
- 				     const struct iio_chan_spec *chan)
- {
-+	unsigned int shift = ad5686_pd_mask_shift(chan);
- 	struct ad5686_state *st = iio_priv(indio_dev);
+ 	indio_dev = devm_iio_device_alloc(&pdev->dev, sizeof(*info));
+ 	if (!indio_dev)
+@@ -197,7 +196,7 @@ static int npcm_adc_probe(struct platform_device *pdev)
+ 	if (IS_ERR(info->reset))
+ 		return PTR_ERR(info->reset);
  
--	return ((st->pwr_down_mode >> (chan->channel * 2)) & 0x3) - 1;
-+	guard(mutex)(&st->lock);
-+
-+	return ((st->pwr_down_mode >> shift) & 0x3U) - 1;
+-	info->adc_clk = devm_clk_get(&pdev->dev, NULL);
++	info->adc_clk = devm_clk_get_enabled(&pdev->dev, NULL);
+ 	if (IS_ERR(info->adc_clk)) {
+ 		dev_warn(&pdev->dev, "ADC clock failed: can't read clk\n");
+ 		return PTR_ERR(info->adc_clk);
+@@ -210,17 +209,13 @@ static int npcm_adc_probe(struct platform_device *pdev)
+ 	info->adc_sample_hz = clk_get_rate(info->adc_clk) / ((div + 1) * 2);
+ 
+ 	irq = platform_get_irq(pdev, 0);
+-	if (irq <= 0) {
+-		ret = -EINVAL;
+-		goto err_disable_clk;
+-	}
++	if (irq <= 0)
++		return -EINVAL;
+ 
+ 	ret = devm_request_irq(&pdev->dev, irq, npcm_adc_isr, 0,
+ 			       "NPCM_ADC", indio_dev);
+-	if (ret < 0) {
+-		dev_err(dev, "failed requesting interrupt\n");
+-		goto err_disable_clk;
+-	}
++	if (ret < 0)
++		return ret;
+ 
+ 	reg_con = ioread32(info->regs + NPCM_ADCCON);
+ 	info->vref = devm_regulator_get_optional(&pdev->dev, "vref");
+@@ -228,7 +223,7 @@ static int npcm_adc_probe(struct platform_device *pdev)
+ 		ret = regulator_enable(info->vref);
+ 		if (ret) {
+ 			dev_err(&pdev->dev, "Can't enable ADC reference voltage\n");
+-			goto err_disable_clk;
++			return ret;
+ 		}
+ 
+ 		iowrite32(reg_con & ~NPCM_ADCCON_REFSEL,
+@@ -238,10 +233,8 @@ static int npcm_adc_probe(struct platform_device *pdev)
+ 		 * Any error which is not ENODEV indicates the regulator
+ 		 * has been specified and so is a failure case.
+ 		 */
+-		if (PTR_ERR(info->vref) != -ENODEV) {
+-			ret = PTR_ERR(info->vref);
+-			goto err_disable_clk;
+-		}
++		if (PTR_ERR(info->vref) != -ENODEV)
++			return PTR_ERR(info->vref);
+ 
+ 		/* Use internal reference */
+ 		iowrite32(reg_con | NPCM_ADCCON_REFSEL,
+@@ -280,8 +273,6 @@ static int npcm_adc_probe(struct platform_device *pdev)
+ 	iowrite32(reg_con & ~NPCM_ADCCON_ADC_EN, info->regs + NPCM_ADCCON);
+ 	if (!IS_ERR(info->vref))
+ 		regulator_disable(info->vref);
+-err_disable_clk:
+-	clk_disable_unprepare(info->adc_clk);
+ 
+ 	return ret;
  }
- 
- static int ad5686_set_powerdown_mode(struct iio_dev *indio_dev,
- 				     const struct iio_chan_spec *chan,
- 				     unsigned int mode)
- {
-+	unsigned int shift = ad5686_pd_mask_shift(chan);
- 	struct ad5686_state *st = iio_priv(indio_dev);
- 
--	st->pwr_down_mode &= ~(0x3 << (chan->channel * 2));
--	st->pwr_down_mode |= ((mode + 1) << (chan->channel * 2));
-+	guard(mutex)(&st->lock);
-+
-+	st->pwr_down_mode &= ~(0x3U << shift);
-+	st->pwr_down_mode |= (mode + 1) << shift;
+@@ -298,7 +289,6 @@ static int npcm_adc_remove(struct platform_device *pdev)
+ 	iowrite32(regtemp & ~NPCM_ADCCON_ADC_EN, info->regs + NPCM_ADCCON);
+ 	if (!IS_ERR(info->vref))
+ 		regulator_disable(info->vref);
+-	clk_disable_unprepare(info->adc_clk);
  
  	return 0;
  }
-@@ -55,10 +70,12 @@ static const struct iio_enum ad5686_powerdown_mode_enum = {
- static ssize_t ad5686_read_dac_powerdown(struct iio_dev *indio_dev,
- 		uintptr_t private, const struct iio_chan_spec *chan, char *buf)
- {
-+	unsigned int shift = ad5686_pd_mask_shift(chan);
- 	struct ad5686_state *st = iio_priv(indio_dev);
- 
--	return sysfs_emit(buf, "%d\n", !!(st->pwr_down_mask &
--				       (0x3 << (chan->channel * 2))));
-+	guard(mutex)(&st->lock);
-+
-+	return sysfs_emit(buf, "%d\n", !!(st->pwr_down_mask & (0x3U << shift)));
- }
- 
- static ssize_t ad5686_write_dac_powerdown(struct iio_dev *indio_dev,
-@@ -78,9 +95,9 @@ static ssize_t ad5686_write_dac_powerdown(struct iio_dev *indio_dev,
- 		return ret;
- 
- 	if (readin)
--		st->pwr_down_mask |= (0x3 << (chan->channel * 2));
-+		st->pwr_down_mask |= 0x3U << ad5686_pd_mask_shift(chan);
- 	else
--		st->pwr_down_mask &= ~(0x3 << (chan->channel * 2));
-+		st->pwr_down_mask &= ~(0x3U << ad5686_pd_mask_shift(chan));
- 
- 	switch (st->chip_info->regmap_type) {
- 	case AD5310_REGMAP:
-@@ -453,7 +470,7 @@ int ad5686_probe(struct device *dev,
- {
- 	struct ad5686_state *st;
- 	struct iio_dev *indio_dev;
--	unsigned int val, ref_bit_msk;
-+	unsigned int val, ref_bit_msk, shift;
- 	u8 cmd;
- 	int ret, i, voltage_uv = 0;
- 
-@@ -488,9 +505,18 @@ int ad5686_probe(struct device *dev,
- 	else
- 		st->vref_mv = st->chip_info->int_vref_mv;
- 
-+	/* Initialize masks to all ones provided the max shift (last channel) */
-+	shift = ad5686_pd_mask_shift(&st->chip_info->channels[st->chip_info->num_channels - 1]);
-+	st->pwr_down_mask = GENMASK(shift + 1, 0);
-+	st->pwr_down_mode = GENMASK(shift + 1, 0);
-+
- 	/* Set all the power down mode for all channels to 1K pulldown */
--	for (i = 0; i < st->chip_info->num_channels; i++)
--		st->pwr_down_mode |= (0x01 << (i * 2));
-+	for (i = 0; i < st->chip_info->num_channels; i++) {
-+		shift = ad5686_pd_mask_shift(&st->chip_info->channels[i]);
-+		st->pwr_down_mask &= ~(0x3U << shift); /* powered up state */
-+		st->pwr_down_mode &= ~(0x3U << shift);
-+		st->pwr_down_mode |= 0x01U << shift;
-+	}
- 
- 	indio_dev->name = name;
- 	indio_dev->info = &ad5686_info;
 -- 
 2.53.0
 
