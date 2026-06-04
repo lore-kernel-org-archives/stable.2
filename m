@@ -1,54 +1,55 @@
-Received: from smtpbgeu2.qq.com (smtpbgeu2.qq.com [18.194.254.142])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF1693B8D5C;
-	Thu,  4 Jun 2026 07:04:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.194.254.142
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A18473DDDDE
+	for <stable@vger.kernel.org>; Thu,  4 Jun 2026 07:10:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780556673; cv=none; b=AM+V37L4cdcEmaUQkgp4xtI8QWGaLmr1GFCS/KFmTN5Ly8fzdC+J1NgpTBsmE0RE6A24pZMy75oYgfaJINoyhiqPRsYY2sAjAsNRYDgm1WJwPnLSm28bMxiM8nMmHlk7fbjLYWRgJYSEYwzhLjJ3srzZz5dwjZAgNbUhe+tlfdc=
+	t=1780557049; cv=none; b=nQ49qrYzudWJ2YSx1TemMArwvcPPIa+R+yox2uRHZtNLH9KMDrmvMA2KPVUqvGZhA9TaJuxB3QzC8XNP+cIiv0TTZYkrygI0DHn3BKVgxrIm9YxhrphEdnMBzyJsNLwMz2eGwZJy1I+1f0rH+2pn7RSY9L/qi+AMSCAE87jVW7A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780556673; c=relaxed/simple;
-	bh=yywu8ZxTRtIH1pOnd1WALrDXQCMv0OTT03m35HlcjAI=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=P8rz1ZLSloKyKo41QzfR7O2mlWMU03v8pVU2dshb1D4sQZUupJ8HriC/WfLLch6MrZpynws4GevA2/2l0L7DBKZbLjNi1XfRnXzGihXRT1Qtq8grEGKU9AVitvsxesEIdgvtIs5vvr7iCOZSqEy4Aj9umR3d3W+6vC+5LlnGYck=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=NNOsg0iJ; arc=none smtp.client-ip=18.194.254.142
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	s=arc-20240116; t=1780557049; c=relaxed/simple;
+	bh=7CmgCK+8i1RhMflFWXTqEzDGsuIRmXaOuuz+fr00HmE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BLJlnzXfrTFmzuOX95G1UyXQCyaA4yVle6hJILU8vHU9UET8jtzwOsD5z4Ev0TTKmwRluyDk8AwdcXtwaniHaRCMDuR/GDkGjQ+4rwH2x7Ovy9aos1j3H0t4hXIrgj/zf9IXDDP00+JFRuOPfHwqniZr/h7sLVhOM4ahps3lFAI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=IQXJ8BKG; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="NNOsg0iJ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1780556658;
-	bh=P57iD2S9EPfRAP36gj0JdTbFwtXxilaoUSFYn5CFF2o=;
-	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=NNOsg0iJWo8zMQ06kcpPsnFGMsZw2Z+b2uN1+w9qHDateWfQY9qQqxeJ5rpkybcpX
-	 qe2f+H0mTDTzyJGknNlcX/ZFKU9rs5CL8lsdW9ai0T7kN29CfImD5qZe+MiFYOB5eL
-	 n6RSewXLjdhkIYFMFmG3RJUeEMd6XdrUbqlg14+8=
-X-QQ-mid: zesmtpsz4t1780556654tb32bb824
-X-QQ-Originating-IP: PPa2v+lkVt/vNsQ6iSmnuR6BrhfKhuX7ejWkLBDo3GQ=
-Received: from localhost.localdomain ( [124.126.19.250])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Thu, 04 Jun 2026 15:03:56 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 6328800719262846295
-EX-QQ-RecipientCnt: 13
-From: ZhaoJinming <zhaojinming@uniontech.com>
-To: lorenzo@kernel.org,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com
-Cc: horms@kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
-	netdev@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="IQXJ8BKG"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1780557046;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=TTx7iJcEYQPNF0fLP9iIlrZJ+hGEW1AJgAn2YYrO6Tk=;
+	b=IQXJ8BKG0+CPEpbkjS35rHqJo7cJ9AgdxEwbW65ECAqczNnGEN0Mdpf77yxdSs8YoSzN6z
+	2SFobd95fJfzF/aoovcpZ/NJruuZqgjIbOHmccxdyEe8F1TYUzTP4kSP1vgpHDHbteJjjN
+	4A/0Nt/uSrHq88ULkJunWy+Uxem0doM=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-68-2myNmU-MPgSRWm_ZsUO4mg-1; Thu,
+ 04 Jun 2026 03:10:41 -0400
+X-MC-Unique: 2myNmU-MPgSRWm_ZsUO4mg-1
+X-Mimecast-MFC-AGG-ID: 2myNmU-MPgSRWm_ZsUO4mg_1780557040
+Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id D88FB19560AD;
+	Thu,  4 Jun 2026 07:10:39 +0000 (UTC)
+Received: from fedora.redhat.com (unknown [10.44.32.54])
+	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 291A830001A1;
+	Thu,  4 Jun 2026 07:10:36 +0000 (UTC)
+From: Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
+To: jjohnson@kernel.org
+Cc: linux-wireless@vger.kernel.org,
+	ath12k@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	ZhaoJinming <zhaojinming@uniontech.com>
-Subject: [PATCH net] net: airoha: Add NULL check for of_reserved_mem_lookup() in airoha_qdma_init_hfwd_queues()
-Date: Thu,  4 Jun 2026 15:03:52 +0800
-Message-Id: <20260604070352.2603077-1-zhaojinming@uniontech.com>
-X-Mailer: git-send-email 2.20.1
+	Jose Ignacio Tornos Martinez <jtornosm@redhat.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] ath12k: fix NULL pointer dereference in rhash table destroy
+Date: Thu,  4 Jun 2026 09:10:32 +0200
+Message-ID: <20260604071032.659009-1-jtornosm@redhat.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -56,61 +57,83 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpsz:uniontech.com:qybglogicsvrsz:qybglogicsvrsz4b-0
-X-QQ-XMAILINFO: N0mS+7D7RQfjnescUnQL6LLlhipBV6toT1YvXzbhTDKTucpfLuyjWHph
-	CsZjaMgAT5Y7V1nIKAdtyBntQtyLlPdORxe3RYI8d71cNfSXjZxgBi0CyJ0KyB7aNNjIm6G
-	JdRRgKuT3Ts6/Vbz0/tXHtTEmGtaGaui9Nb1yHz5ThdHf/jC47iEb5I9NQmKM8zAm0q3X6p
-	6Jvn04qF+/7VFjlV6CmkexoJRw6K7li/Hes5BycD69RkLAfssbJ3czGvA204XwJRksU/Fip
-	ok4h4F+tH9cWD4Gm9CJ55lzxMZt9dgxdHxZX9lLJ4gl5+utaYIeyD009mfozXz4+AHOSkoF
-	pTY4cOw7PuZsRt1GVGWGX9szwVVL+9lGS/0aoioxCXgl0bQ/iDDW0YpXfUCl3P3ct8hUguI
-	HDHwWKMTkkZB2piOJ/aEXldaEOdISHTLCP92t9NFs1ilVZJacq+XhzjqYB30aGwXOp3y/yr
-	FNjIpKzUpWZhjyK5WD05C2sLnigdX+BOrixr8QTHkUvq/QAJGnxnW05lYVydffwhj/NgO5j
-	9FnEZzamTSxhMZzm9FitFlMPnpGGiajXubw1lUjxrrdviu6jW07KpPR3P9nehbSE85Ex1Zl
-	ar/Hgw8k+fEIZqZXPInIBjhLLomNNBLjGt0xdQ2z8xs7cWLyYH15P2eQsW8VspKjbNimepT
-	B4wZ/MlN/dwknA8tpcMpCqhP9brKbCvjuj0Ey/f4efv0fxN9mG3jT0I4n7Y+aFXVaZ7GWpu
-	Pr48Lram0lz0RvgVc7LP7PAbNjGAY0m9IJBHd3ywS4Rzmftk/c0pVm0C6cVpuSFRHM/dwyn
-	/5MjYwp2fI8TBgryB+/QfCY3ue3IAWxBvKSaYKIyfCyJcbkmrYW6ouIuTaIXYz3QBPBqMXj
-	700IsAYrN1yk+K2sDIMYDQhE38NB4gJ+G5hipL2OoHbpdWhebWrcMl4TK5H3eY/zECXQKEE
-	DWDi6r26+TQTiKWPAENMQvo8E//6elCWSEJEnShkD4PIpG+8jHRy3FK9xfV4B8Wk8ZFwOnw
-	ZwfjAQF292JNyaZPCS
-X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
-X-QQ-RECHKSPAM: 0
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
 
-of_reserved_mem_lookup() may return NULL if the reserved memory region
-referenced by the "memory-region" phandle is not found in the reserved
-memory table (e.g. due to a misconfigured DTS or a removed
-memory-region node).  The current code dereferences the returned
-pointer without checking for NULL, leading to a kernel NULL pointer
-dereference at the following lines:
+When unbinding the ath12k driver, kernel NULL pointer dereferences
+occur in irq_work_sync() called from rhashtable_destroy().
 
-    dma_addr = rmem->base;                          // line 1156
-    num_desc = div_u64(rmem->size, buf_size);       // line 1160
+Two hash tables are affected:
+1. ath12k_link_sta hash table in ath12k_base
+2. ath12k_dp_link_peer hash table in ath12k_dp
 
-Add a NULL check after of_reserved_mem_lookup() and return -ENODEV if
-the lookup fails, which is consistent with the existing error handling
-for of_parse_phandle() failure in the same code block.
+The issue happens because the destroy functions are called unconditionally
+in cleanup paths, but the hash tables are only initialized late in their
+respective init functions. If the device was never fully started or if the
+init functions failed before initializing the hash tables, the pointers
+will be NULL. The issues are always reproducible from a VM because the MSI
+addressing initialization is failing.
 
-Fixes: 3a1ce9e3d01b ("net: airoha: Add the capability to allocate hwfd buffers via reserved-memory")
+Call trace for ath12k_link_sta_rhash_tbl_destroy:
+ RIP: irq_work_sync+0x1e/0x70
+ rhashtable_destroy+0x12/0x60
+ ath12k_link_sta_rhash_tbl_destroy+0x19/0x40 [ath12k]
+ ath12k_core_stop+0xe/0x80 [ath12k]
+ ath12k_core_hw_group_cleanup+0x6b/0xb0 [ath12k]
+ ath12k_pci_remove+0x60/0x110 [ath12k]
+
+Call trace for ath12k_dp_link_peer_rhash_tbl_destroy:
+ RIP: irq_work_sync+0x1e/0x70
+ rhashtable_destroy+0x12/0x60
+ ath12k_dp_link_peer_rhash_tbl_destroy+0x29/0x50 [ath12k]
+ ath12k_dp_cmn_device_deinit+0x21/0x140 [ath12k]
+ ath12k_core_hw_group_cleanup+0x6b/0xb0 [ath12k]
+ ath12k_pci_remove+0x60/0x110 [ath12k]
+
+Fix this by adding NULL checks before calling rhashtable_destroy() in
+both destroy functions.
+
+Fixes: 57ccca410237 ("wifi: ath12k: Add hash table for ath12k_link_sta in ath12k_base")
+Fixes: a88cf5f71adf ("wifi: ath12k: Add hash table for ath12k_dp_link_peer")
 Cc: stable@vger.kernel.org
-Signed-off-by: ZhaoJinming<zhaojinming@uniontech.com>
+Signed-off-by: Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
 ---
- drivers/net/ethernet/airoha/airoha_eth.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/net/wireless/ath/ath12k/dp_peer.c | 5 +++++
+ drivers/net/wireless/ath/ath12k/peer.c    | 3 +++
+ 2 files changed, 8 insertions(+)
 
-diff --git a/drivers/net/ethernet/airoha/airoha_eth.c b/drivers/net/ethernet/airoha/airoha_eth.c
-index cecd66251dba..2444d3275a81 100644
---- a/drivers/net/ethernet/airoha/airoha_eth.c
-+++ b/drivers/net/ethernet/airoha/airoha_eth.c
-@@ -1153,6 +1153,9 @@ static int airoha_qdma_init_hfwd_queues(struct airoha_qdma *qdma)
- 
- 		rmem = of_reserved_mem_lookup(np);
- 		of_node_put(np);
-+		if (!rmem)
-+			return -ENODEV;
+diff --git a/drivers/net/wireless/ath/ath12k/dp_peer.c b/drivers/net/wireless/ath/ath12k/dp_peer.c
+index a1100782d45e..38045564e223 100644
+--- a/drivers/net/wireless/ath/ath12k/dp_peer.c
++++ b/drivers/net/wireless/ath/ath12k/dp_peer.c
+@@ -275,9 +275,14 @@ int ath12k_dp_link_peer_rhash_tbl_init(struct ath12k_dp *dp)
+ void ath12k_dp_link_peer_rhash_tbl_destroy(struct ath12k_dp *dp)
+ {
+ 	mutex_lock(&dp->link_peer_rhash_tbl_lock);
++	if (!dp->rhead_peer_addr)
++		goto unlock;
 +
- 		dma_addr = rmem->base;
- 		/* Compute the number of hw descriptors according to the
- 		 * reserved memory size and the payload buffer size
+ 	rhashtable_destroy(dp->rhead_peer_addr);
+ 	kfree(dp->rhead_peer_addr);
+ 	dp->rhead_peer_addr = NULL;
++
++unlock:
+ 	mutex_unlock(&dp->link_peer_rhash_tbl_lock);
+ }
+ 
+diff --git a/drivers/net/wireless/ath/ath12k/peer.c b/drivers/net/wireless/ath/ath12k/peer.c
+index 2e875176baaa..80fee2ce68f1 100644
+--- a/drivers/net/wireless/ath/ath12k/peer.c
++++ b/drivers/net/wireless/ath/ath12k/peer.c
+@@ -444,6 +444,9 @@ int ath12k_link_sta_rhash_tbl_init(struct ath12k_base *ab)
+ 
+ void ath12k_link_sta_rhash_tbl_destroy(struct ath12k_base *ab)
+ {
++	if (!ab->rhead_sta_addr)
++		return;
++
+ 	rhashtable_destroy(ab->rhead_sta_addr);
+ 	kfree(ab->rhead_sta_addr);
+ 	ab->rhead_sta_addr = NULL;
 -- 
-2.25.1
+2.54.0
+
