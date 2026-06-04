@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79F963E2AC8
-	for <Stable@vger.kernel.org>; Thu,  4 Jun 2026 08:46:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB8A03CC7D1
+	for <Stable@vger.kernel.org>; Thu,  4 Jun 2026 08:47:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780562822; cv=none; b=Ih090NqhnFnknZn/r9dy3Si7T2E+dCHyQfSlQTOMx9QT9hWydo5j/7b0uBvFkLT49k4RK9LIjPpTj5u4aJjwE+eqdHoEU636n0vBkP3nL6wz97u5ra9jM+b8uqphI+1VsLskBuLRKu4byWidg6UVa6rAA1wJqna+qa9S8ANxaKM=
+	t=1780562824; cv=none; b=huT41fhhDA9zEBUcdBeC1b0f27gn+R41auTvExFQrxj8IIcKERhCioeltjA9HXLpDmLmIpnPgVTBRkiIChELIhvAq9BQrK812xvBYtwsHGLg9zvZZOZGgx5piwMywE+SQVMx0Cc9KQb2wnzlgLabGvdymxWnZJzI1WL2bA0dGdE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780562822; c=relaxed/simple;
-	bh=FzY7p9cDQ7ix/aqMn7dPtTv3HJBKD508QxAGyjDj+Q0=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=ZwP0u5/0Ycga0eez5w06ZcuuLOlVSzU/qgUxdS+3d4tluMQ5L9QuPiqd4Zcss89pe6sQINqaA70VA1EkztbbwXV7le+JJqomK4fXF7mqaTAEoPZHSkqouf0yWieVbwhBIu8lHqSCizCOtfCUX4JBDA/8GWwELk/hrO2iDQYoLdQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=v2AyDd6l; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780562824; c=relaxed/simple;
+	bh=9rGvw/BGLvP3bW2wwAZAH+P00HitYb2Y+izZzM3tciQ=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=LcgMk/u0MA5Hh1FCBd0/n2QKN1EJyN41L6zDBWu8ZLcNPNSbR2mDAx+wiUNMASl5dca5eA1gCCfSRB4/25U7Hj4cDIY5DxiIbyTfXOLUUpX/rhV4dDut/bcgHV8ZBHdaLU7e7EOhqBbWzZhzLj/9RvObEQA+i/vGMmu3ROvP+5c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=TS8jPTfZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="v2AyDd6l"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2EFD71F00898;
-	Thu,  4 Jun 2026 08:46:56 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="TS8jPTfZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D618D1F00893;
+	Thu,  4 Jun 2026 08:47:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1780562817;
-	bh=c2HJEJrRXsw1EM9RqX258IrLHLtkHyTMUlXkAveQvDo=;
+	s=korg; t=1780562821;
+	bh=MoYp41JkymWC1WdeoqRH1kux85OUDukdbR7f7FS/W2I=;
 	h=Subject:To:Cc:From:Date;
-	b=v2AyDd6l5mlNFFNOg4zoPGtwpILSoJ3FCyzbsL88mh2RSTRZzVOhqUy/DDItjWcDz
-	 PmQCu8yzmwLWifqZDuAWr9xx5Cfi11vKjDFeTpnmQVI1M2BG8RJiZEVUGRj9zsUo57
-	 pcPiwX2lNL9hbgKYY688FYQ90q01T6bf1pc5VN6U=
-Subject: FAILED: patch "[PATCH] iio: gyro: adis16260: fix division by zero in write_raw" failed to apply to 6.1-stable tree
+	b=TS8jPTfZyAz49J/oIksgT/n6WoCfsJaCh+c2LBCR/Fo5uIshaVukrZ4ZuPIDHP9nV
+	 Q1x+Qm1A+5VCboNnxWlq9BnKZwRMyWwWucMgiIMLXIOhJYrE5uECEmpt22YD3AEgQT
+	 +T4uPMjGPVBnD9XmyHTyzqavHfJt62wGNvdJuIw0=
+Subject: FAILED: patch "[PATCH] iio: gyro: adis16260: fix division by zero in write_raw" failed to apply to 5.15-stable tree
 To: antoniu.miclaus@analog.com,Jonathan.Cameron@huawei.com,Stable@vger.kernel.org,nuno.sa@analog.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 04 Jun 2026 10:45:52 +0200
-Message-ID: <2026060452-spectrum-purchase-6074@gregkh>
+Date: Thu, 04 Jun 2026 10:45:53 +0200
+Message-ID: <2026060453-definite-discolor-7a9f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
 git cherry-pick -x 761e8b489e6cf166c574034b70637f8a7eadd0ee
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026060452-spectrum-purchase-6074@gregkh' --subject-prefix 'PATCH 6.1.y' HEAD^..
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026060453-definite-discolor-7a9f@gregkh' --subject-prefix 'PATCH 5.15.y' HEAD^..
 
 Possible dependencies:
 
