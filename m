@@ -1,202 +1,154 @@
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013031.outbound.protection.outlook.com [40.107.162.31])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 583183112BC;
-	Thu,  4 Jun 2026 15:22:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.31
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780586567; cv=fail; b=J+FvHJweuFo4qPlkBAN9276DlQSAdU6+BgJk63ili/nQHRaoo4RGbxZ6YpSgDTlFQrkdX2wxKNkfMla6R+WEXeZh9naFdLCEA0ObZqBqO6b813jxCSLsy/C516YDd//cKgQ4FOgzgQTXNk5/O8BWCZIAJN3DkP/lxHjga8EPud8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780586567; c=relaxed/simple;
-	bh=mHd9YEhRRlOzxShcomAanDfb7gyMpRRo7y8S6g9LaSo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=AXThrdlktbBioSqyN6EmHBubXwgOlggWkGIi3Vfbk5lNpCRo9K82julebtO5gBFBX7+wo4+zj2u/L2P2MR2ayoX1cE5Gk68HKxMD7HkNWUdSIANO9CEVu5zcGPmJFf0Oq3y0BY0r3n1guwaFLVwSAHpI9zeRF6Sd4ADqQB0EoXw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=rz4mhFni; arc=fail smtp.client-ip=40.107.162.31
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38D16293458
+	for <stable@vger.kernel.org>; Thu,  4 Jun 2026 15:23:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780586626; cv=none; b=b6UCOoVIR1FTtbixD3LItIvNRnU3b0i52yVkMMFPHYinEGkzAwxgIUddR18bjkYE2hPXXkAFs9fqQE7FzXPF1wzWJa5k3ux7l1kOIhCgSf6Ee6k8NGEGV+LoSA+Zs3e3DPsKre5CjvDxoEipBmoNSl5B0H80AFQvBSWmB6TFKZc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780586626; c=relaxed/simple;
+	bh=z7zgnozPqp2m+PHZytRQdE4wyFtfKrO9YQwTyexCFQM=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ZWnYIIkdz+sXbj/HgD0C6P3R0wgLxIM45+3anwikj0TuFtqKhYd2lmZrey09faahr4EV0Ai/cLtUWovrbco4V5mdYK4JYHGnSc7Myb4kXENj0cMtf3B2DoFhxpRJy7LN2O9h46I4kpshf7G++eMpfe0D9TPDj6PqSP6VpQgRalw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=swf01uPE; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=7Fu22zoa; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=swf01uPE; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=7Fu22zoa; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="rz4mhFni"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jMHnqgJnFpCIYpe36Emqm4Exee/1nSvoM1XIWv+a/KNkGgRP0BQuyAZdtv995SA62BAHepDXkgFBWclXRPLRO5utxyb1QTsbhaRATH4PhDBxjRm1bsCbOLUh2p+Uwbux5d6rrZHN2VyBVsJcTQH/9ZktsWWPu/uVYdNtgoa6KA7D4miufzT4p/CYcQOF/0mOWWQGhQud4zKwCAqGY7P9Y5biQiMHlX/8j0a5oQPdsSu4ZURbDOsaq56s1bF3zPyVhQLuE4TcCnKRWDhRgBnOWqfDgcw1Jvkhl6qAJWbLbLL1kRLyUX89jula9e5Jk4AE8+jZQ1HJL7958KGz7b+4aA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8CLHKDjyG7xXNQ3uJdukg5xiQokKOtbGTdOPO1LWpG4=;
- b=YMsqPvwrjwqIyxXnF/YXbIFy87OuHxDIJpbRqEz3tAUm+B5ZRdrB7mG9LPnX2/5GcwYMjQXK34lJHDL0NtHd8xtGsd0ZTyT3JD03gKfqHPQWZH6X+SXL11v0Ju+e3TiY9jRR/uVdqVkFAOtxvG/X2embUl7ankWYjBXhu/ujsHpj+aJsef0qBY0TudbH9PDqhquRqvz7YBALMKN8iNTOJMBZEgXKLMB9TP2wvsFG7JthOdzXzOAFvY0uw05z9h3IcngO/lQilfUqM1EbD29opS2F3eNfzggWPL2hSfl31dSTfkA4zJfiW0grsoTY0lnFVRXKGWcM3Ur63JxNNVDNXQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8CLHKDjyG7xXNQ3uJdukg5xiQokKOtbGTdOPO1LWpG4=;
- b=rz4mhFni8o30bvLTQ3dZcNAyITUielmcspAZV1ZBRTcSPZmsg4c7x62w9fiG9zL6EZlcsu+/jGCK7+WO0mTk40HRaqo1r0YEfMhSy5jpjvmn79sP03k9hpGLgvszwFp4YsuwDen71uJGVuDRzw71ILiovSkFz0GAe3qWQagxuaF/7HYla/9hqEKPfAXzVSb/a7s+CooKAV5IlCkULPDiNaWwjG9UaLJ5qp/LCVG+AHDyMJr9npyYGxZcj6vhZfrY6elM/QlhbESOZpRzz9kvYc4IwbNlsYaXs+gEHpi7ecPlVStllQew1OL8O4IemNt41Qs5iTN2fr507VC4bs+e6A==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from PAXPR04MB9422.eurprd04.prod.outlook.com (2603:10a6:102:2b4::21)
- by GV1PR04MB10941.eurprd04.prod.outlook.com (2603:10a6:150:201::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.7; Thu, 4 Jun 2026
- 15:22:41 +0000
-Received: from PAXPR04MB9422.eurprd04.prod.outlook.com
- ([fe80::54e:28bf:aa85:d25d]) by PAXPR04MB9422.eurprd04.prod.outlook.com
- ([fe80::54e:28bf:aa85:d25d%4]) with mapi id 15.21.0092.006; Thu, 4 Jun 2026
- 15:22:41 +0000
-Date: Thu, 4 Jun 2026 23:21:38 +0800
-From: Xu Yang <xu.yang_2@oss.nxp.com>
-To: Bartosz Golaszewski <brgl@kernel.org>
-Cc: Daniel Scally <djrscally@gmail.com>, 
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Danilo Krummrich <dakr@kernel.org>, Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, 
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, Xu Yang <xu.yang_2@nxp.com>, stable@vger.kernel.org, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Subject: Re: [PATCH v2 2/2] device property: fix infinite loop in
- fwnode_for_each_child_node()
-Message-ID: <o3ag4fwtan7ig2upiahin446tjekdbkgrlunejqfsnvs6rxsed@lk5plqjkzcyc>
-References: <20260603-fixes_fwnode_iteration-v2-0-0ae381f8b7b9@nxp.com>
- <20260603-fixes_fwnode_iteration-v2-2-0ae381f8b7b9@nxp.com>
- <ah_5NgZPc2U0_FPO@ashevche-desk.local>
- <x5liep46c3yzqh3wfsfa2euku6j6yka32clpiwf2zkqdm6czds@b2rll3k67yhd>
- <CAMRc=MeV=FcojNs6rJoBcCwWoDKe5Dwc4MXrHSzEMdHin6j+BQ@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAMRc=MeV=FcojNs6rJoBcCwWoDKe5Dwc4MXrHSzEMdHin6j+BQ@mail.gmail.com>
-X-ClientProxiedBy: AS4P190CA0052.EURP190.PROD.OUTLOOK.COM
- (2603:10a6:20b:656::24) To PAXPR04MB9422.eurprd04.prod.outlook.com
- (2603:10a6:102:2b4::21)
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="swf01uPE";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="7Fu22zoa";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="swf01uPE";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="7Fu22zoa"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 960266B1FD;
+	Thu,  4 Jun 2026 15:23:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1780586623; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=uYRZ+oBNg3lTdL9+i272m7bjHMQY5meB9azcfe+HaK0=;
+	b=swf01uPEWcHfRI+nqd6EXHGqyewEVbz4PNsh2m7Z20TtGwS9wrpTDGrImmYhWoBs23KKDp
+	Tb8UKeMBlqs4n0jvNvP7agQnjoEAyB1gAqLIEygpvu/v8iT3qZEVFJBUocFlRJBkBDv+7O
+	Tmbswsp+YM44zApJRTOSCJbIqO03mh4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1780586623;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=uYRZ+oBNg3lTdL9+i272m7bjHMQY5meB9azcfe+HaK0=;
+	b=7Fu22zoaKz3a1GM7tehu1W9Q7eGN29g+m3xcXGxwxvokNQAJLI/IflWYSPlkEgm0ObVPYx
+	nzwhcAEdOwG4/HCA==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1780586623; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=uYRZ+oBNg3lTdL9+i272m7bjHMQY5meB9azcfe+HaK0=;
+	b=swf01uPEWcHfRI+nqd6EXHGqyewEVbz4PNsh2m7Z20TtGwS9wrpTDGrImmYhWoBs23KKDp
+	Tb8UKeMBlqs4n0jvNvP7agQnjoEAyB1gAqLIEygpvu/v8iT3qZEVFJBUocFlRJBkBDv+7O
+	Tmbswsp+YM44zApJRTOSCJbIqO03mh4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1780586623;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=uYRZ+oBNg3lTdL9+i272m7bjHMQY5meB9azcfe+HaK0=;
+	b=7Fu22zoaKz3a1GM7tehu1W9Q7eGN29g+m3xcXGxwxvokNQAJLI/IflWYSPlkEgm0ObVPYx
+	nzwhcAEdOwG4/HCA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 629B0779A8;
+	Thu,  4 Jun 2026 15:23:43 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id MOQDFn+YIWqTJAAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Thu, 04 Jun 2026 15:23:43 +0000
+Date: Thu, 04 Jun 2026 17:23:42 +0200
+Message-ID: <87wlweuy69.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Denis Batishchev <ii343hbka@gmail.com>
+Cc: perex@perex.cz,
+	tiwai@suse.com,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] ALSA: hda/realtek: Enable micmute LED on HP EliteBook 6 G1a
+In-Reply-To: <20260604131518.45993-1-ii343hbka@gmail.com>
+References: <20260604131518.45993-1-ii343hbka@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PAXPR04MB9422:EE_|GV1PR04MB10941:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1543d84b-28ec-4238-0339-08dec24d1e93
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
- BCL:0;ARA:13230040|366016|1800799024|376014|7416014|19092799006|56012099006|18002099003|3023799007|4143699003|11063799006|22082099003;
-X-Microsoft-Antispam-Message-Info:
- scdk/lG7dQVGURU0Z4y4lACZhKqW4F4sL+vd3utgLHA1DQ2Z583rb5+KKl3nCO/7ofEz8y1IKbr3aAgFYmz4LXltWaWKYV3KNG6kuLdlHDSpfCcc3Fl1v5lYJgvyl3EjUPT3OjOYNxExbSjGHU65qJrKOamaa2X8codIW/j6xQfZhj4hPdvy9WqYVD3W1RUsDT7jWEuNbmnvxuTTD4NFeMNYPL6m5va6oTwYDmN5Uk+b389bq5F0lzfKATJO0DNh0acTHqL4I9HMTJ4e0IsnAM2g7NEXBaVoJc7U9rwtFoeg/BI+GfCu2qdz1ULHuDP7jiImd7mv00H2DWJEK+SmfKFy/4ixfmDCHj52Ls+8KDl+f2RNzVJ0ifIthqVczJKX6k23MFrXTOBu6YzCpLp6AJR+l2SevlkP/4D88/JZphM6mhngyKm5CmlYFBG/Q3qwUH+5HcEBPw5NBllU7sC1/Mdi+CeP8xYCDxX0kVw5RL0/SlnuOhzmZENpe4s/BOTs3aHUKim7JWeNaVmYMzQiRnYI/zI8EEjrC57C0N3VGcT0ci58wvv5qpMkLliKuHbiLEK4HuIqzhnYI8g1VEhs0cj8NeZHgwnrfFXxvIp9GXGJnQ6e66kjrvKsNNNhKN5kTk/GkTk4iWwAulm0E6H5kR74kEJdxvZGsOiV5IlrvQq9iqltxVxYwMz0zy9xEI5n
-X-Forefront-Antispam-Report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAXPR04MB9422.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(7416014)(19092799006)(56012099006)(18002099003)(3023799007)(4143699003)(11063799006)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
- =?utf-8?B?ZG9LbkJ2aWtIZWRHWmtUdXRTQ2dsRVlLeHMzTkRMQ1ozeGZla1pLUHFxcXZB?=
- =?utf-8?B?MnMzOHFXZHdRVE9pRzJLNk00c2pIMURvcXNRR3ZUQ1hlVTNjR3MwMVI3b1RU?=
- =?utf-8?B?NG9PUGRzTmplc0hJOFhEMVV6dEtFdkdsem5jaUZuSStCa2FESzA5RTVsR0c5?=
- =?utf-8?B?aDNQZ3dWZ1Z5S2Izc25YYmU3dmU0dHY5N2pWbUJZWWZKWDBZMWNnajB0dThs?=
- =?utf-8?B?V0p0dlVqL0VkNkNqeGVrV0pjQVVnWE8wTE5OMjVJRldVbzE0cjl1S01iQTFZ?=
- =?utf-8?B?b3YrV1gvZW9aSURkMlNjb3IwbXpjcUZpZzJYYjJBMC9Zc05yYlkyMHgvdTEv?=
- =?utf-8?B?UjAzMnB2bGZVa1JzeWR0MVMxd1JZbFNsREhLa2VDQnEzdjRjTHNCTXZBWFhV?=
- =?utf-8?B?T0hKcnBDSVZBZXBuTXdyWUpld2I5SWZNVk1IVzdYZU1kc2VkMW54K3YwZkRS?=
- =?utf-8?B?Mm53RFdNcG04eTQxVS9XT2NUWFRxbE5abE9iSmw0cmZkbVBmeVBVVmJCNVU2?=
- =?utf-8?B?U3pYSElGdGh1TkJGWmFNaGE2Wkp0RWZNckhjUXpEV0htLzBjOTlUZkxseTF2?=
- =?utf-8?B?SlZBc0V0T0p6TGNZaG84b3o5ZmlnZSs5TjFZb2NXOG5wbCtpeG9oQjE0RnVs?=
- =?utf-8?B?VWhLaU53VmJING1GT1dENGM5a3NKSmIrdzhoSmt2M1g0KzRaSWZvR09GQ1NG?=
- =?utf-8?B?cThjczk1QTVnYmJLZjFxRTkralpYaUdZZHRqOWp1K0haK3ZlTDdheVNJV0Jk?=
- =?utf-8?B?dWF2aGRteU0wdXFQdEpEbVorOTR2Tm1weCt6NDdsVkZ2RmduN2JzeWEzK2Fw?=
- =?utf-8?B?M05PVVNmMEF6SDI0SHpFWWNrNmR4VnZ1KzRocG1zTDRjS3BTTmFIc0JsTGRR?=
- =?utf-8?B?SFM1b2Jvak83S0IvZWdrNDVoUlZsUzJsRUlKUjFZZXNBc295U29FMDNIeTlq?=
- =?utf-8?B?TitHeVlpWU5OVldBWUFpd3JaTDZab3RhUnVSaE9RYThwMXpwMjE5cEN0OHZv?=
- =?utf-8?B?K3lkTFZxT1I3TzBOUVpKMEZQMnBrVGpwSUlLcWZUcUNqc2ZVUXBUYXRsN0o1?=
- =?utf-8?B?WHdzS3RUMm9PWTZJS05Pd29VTDZqSk1YTDAzYzhXYkZBc1k5aUQwVWNwM1BK?=
- =?utf-8?B?ekJSUE1lVFpaVXNSTyt5V1ppMXo1NVMyRjQ0bmczQ2xTUEd0MnFTaUxrTnhW?=
- =?utf-8?B?ZG91VTI5SEFRMG1PZ0FNQmI0RE85UFlKMTdCTzdrelZndmlNeDh6TUpNOUdF?=
- =?utf-8?B?V2RYMUNrWUd0azFVYWthaTVlUXBUcUZSNGZEeWJqbnZ4bXJjQml2eGtmbWd5?=
- =?utf-8?B?U2xPLzl6cGhxUXJrZTJmaEFPK1lWcXB2UitJQzNvVG9JbFduRjB2ZUNGYzJs?=
- =?utf-8?B?SVRRQkMrMk93YVdaSVVraDdrdXlMRnFjWGo3bjlqNlFyMWJ2MVk4MzhOVXAv?=
- =?utf-8?B?YWJLTGxqRTZrZWtKc05SYkJVRWlyWGNJZ0tyYW1XUm9ISW9SZTlxTXR2L2l3?=
- =?utf-8?B?WjVXTEhQSFpEWmJlZ3ljaTQzZHJYTmpHS0JSb2R2SGdrNmx3MkxneTVwRUcy?=
- =?utf-8?B?bjl6MUw0NlZpRmpxcjlGc0tsdmVNL0dJYXU0alZyM01lTjNURWhoK1RiWU1Y?=
- =?utf-8?B?TlBLdWxHRHRFZWNJS3czZUl5MC9ML3hmYzFWbm5wZlFPTzAxeEpxOStNVHpL?=
- =?utf-8?B?UmZiNWRaQjM1bTdUaERBVHFJbitaSmlxcFFILzZjMHozU0FkRWJCWG8vVlR5?=
- =?utf-8?B?bGZMVXl1bWRYdjkwZHJDUlFxTStqekJUOFhHSU5LZGlzMSs2WTFUaDc2WFJp?=
- =?utf-8?B?ZlZJSjZyVzdtSXV5dDdhZG8xa0ZLLzZpUGZiWjJwYm5yeTk1UzVUdnVuTmNn?=
- =?utf-8?B?MGZnT2Mxbm1OTmNpYVlmMFB4QXo3bktmUk10d203bEhnSXpyeFp0bW94WjFj?=
- =?utf-8?B?K0xET2p3U2w3VFdpV2g0VVRHcExnUHpIbWNXcmMxQnJScjJ2dVVBM0gyS3dq?=
- =?utf-8?B?ZTVSa0pERjhkcjlPTFV1ZWk0T1EreEZqREFCQmx2bE1CR2VyNHlkUFJGMkJo?=
- =?utf-8?B?SGIvZTMzSzJWS3hWQzBaZ2d3UkpEVDBaVTRyZmVjd0dEMkJlRmJTaURHSWhO?=
- =?utf-8?B?Z3ZGcnJ6ZjNDeGpTeTZISzBLWVdqNDdUYmJHK2h2Vkg4d2tmWC8zb2hhU0pK?=
- =?utf-8?B?YjhhclFoK21qN01rY3lZTzJnTmprUjROcHBwWmRiaHh2VUo1ZEk2dklQQlFG?=
- =?utf-8?B?QjVrejkrc1JMT2dWZ0tPZzMzcGNLa1VudmpSNkVGSWlTaFYyeENxOXNWWElz?=
- =?utf-8?B?cHhGVU16Y2h5cFBQY1Q1MGdCQnVNWXl3eC9MZ0ZUaFBiRnB3TFJuYlZtYnVp?=
- =?utf-8?Q?gNSBP9CCWEprlVKYnSj7dk5PG5w1cqk3YpUy/?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1543d84b-28ec-4238-0339-08dec24d1e93
-X-MS-Exchange-CrossTenant-AuthSource: PAXPR04MB9422.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jun 2026 15:22:41.7422
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 1Uc5bRifh8Von9AhIXCl3hfbLN3PRiZAGcGH84QVp0fMnzAqcFMx784DI++4YQI9PjGS2o3n7IoRVG3ULMi6Q9eXCeJ93MLO6VmOsCvwW7Ulc6fD8ygTh3oL4TLiBsVs
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR04MB10941
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spam-Flag: NO
+X-Spam-Score: -3.30
+X-Spamd-Result: default: False [-3.30 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-0.991];
+	MIME_GOOD(-0.10)[text/plain];
+	FUZZY_RATELIMITED(0.00)[rspamd.com];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	RCVD_TLS_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:mid]
+X-Spam-Level: 
 
-On Thu, Jun 04, 2026 at 06:43:38AM -0700, Bartosz Golaszewski wrote:
-> On Thu, 4 Jun 2026 13:05:23 +0200, Xu Yang <xu.yang_2@oss.nxp.com> said:
-> > On Wed, Jun 03, 2026 at 12:51:50PM +0300, Andy Shevchenko wrote:
-> >> On Wed, Jun 03, 2026 at 04:44:32PM +0800, Xu Yang wrote:
-> >>
-> >> > When iterate over children of a fwnode that has a secondary fwnode,
-> >> > fwnode_get_next_child_node() can enter an infinite loop if the secondary
-> >> > fwnode has more than one child.
-> >> >
-> >> >                        Parent        Child
-> >> >       (Primary fwnode)   FWa:   {FWa1, FWa2, FWa3}
-> >> >     (Secondary fwnode)   FWb:   {FWb1, FWb2}
-> >> >
-> >> > In this case:
-> >> >
-> >> >  ┌─> fwnode_get_next_child_node(FWa, FWa1)
-> >> >  │    - fwnode_call_ptr_op(FWa, get_next_child_node, FWa1) returns FWa2
-> >> >  │
-> >> >  │   ...
-> >> >  │
-> >> >  │   fwnode_get_next_child_node(FWa, FWa3)
-> >> >  │    - fwnode_call_ptr_op(FWa, get_next_child_node, FWa3) returns NULL
-> >> >  │    - fwnode_call_ptr_op(FWb, get_next_child_node, FWa3) returns FWb1
-> >> >  │
-> >> >  │   fwnode_get_next_child_node(FWa, FWb1)
-> >> >  │    - fwnode_call_ptr_op(FWa, get_next_child_node, FWb1) returns FWa1
-> >> >  └────┘
-> >> >
-> >> > This cause fwnode_for_each_child_node() to loop indefinitely, reapeatedly
-> >> > output {FWa1, FWa2, FWa3, FWb1, FWa1, ...}.
-> >> >
-> >> > The root cause is that when the current child (FWb1) belongs to the
-> >> > secondary fwnode, calling get_next_child_node() on the parimary fwnode
-> >> > incorrectly returns the first child (FWa1) again instead of NULL.
-> >> >
-> >> > Fix this by dynamically checking the parent fwnode of the current child
-> >> > before calling get_next_child_node(). This approach follows the pattern
-> >> > established in commit b5b41ab6b0c1 ("device property: Check
-> >> > fwnode->secondary in fwnode_graph_get_next_endpoint()").
-> >>
-> >> ...
-> >>
-> >> TBH, this code becomes twisted and complicated. Can we add some test cases to
-> >> show the problem? Also we need to add other possible combinations (somewhat
-> >> about ~5-6) of the different types of fwnode in a relationship.
-> >
-> > I agree that adding test cases would be helpful. But It's not straightforward to
-> > get swnode refcount as swnode is an internal structure. Any suggestions on this?
-> >
+On Thu, 04 Jun 2026 15:15:18 +0200,
+Denis Batishchev wrote:
 > 
-> You should be able to replicate the problem with the firmware node API without
-> accessing the internal swnode structure. You can use dummy OF nodes as the
-> primary fwnodes.
-
-Got it. I thought it's the refcount leak one. Then no needs to get refcount.
-
-Thanks,
-Xu Yang
-
+> The HP EliteBook 6 G1a (SSID 103c:8e0d) uses a Realtek ALC236 codec.
+> Without a quirk no fixup is selected and the mic-mute LED stays off.
+> It needs the same ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF quirk as the
+> already-supported 14" variant (SSID 103c:8dfb), so add it.
 > 
-> Bart
+> Note: I don't know how to fix sound-mute LED though.
+
+What does this mean?  Is this patch confirmed to work or not?
+
+> Signed-off-by: Denis Batishchev <ii343hbka@gmail.com>
+> Cc: <stable@vger.kernel.org>
+> ---
+>  sound/hda/codecs/realtek/alc269.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
+> index 78a865709..8eebf9159 100644
+> --- a/sound/hda/codecs/realtek/alc269.c
+> +++ b/sound/hda/codecs/realtek/alc269.c
+> @@ -7274,6 +7274,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
+>  	SND_PCI_QUIRK(0x103c, 0x8df1, "HP EliteBook 630 G12", ALC236_FIXUP_HP_GPIO_LED),
+>  	SND_PCI_QUIRK(0x103c, 0x8df7, "HP Z66 G6", ALC236_FIXUP_HP_GPIO_LED),
+>  	SND_PCI_QUIRK(0x103c, 0x8dfb, "HP EliteBook 6 G1a 14", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF),
+> +	SND_PCI_QUIRK(0x103c, 0x8e0d, "HP EliteBook 6 G1a 14", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF),
+>  	SND_PCI_QUIRK(0x103c, 0x8dfc, "HP EliteBook 645 G12", ALC236_FIXUP_HP_GPIO_LED),
+>  	SND_PCI_QUIRK(0x103c, 0x8dfd, "HP EliteBook 6 G1a 16", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF),
+>  	SND_PCI_QUIRK(0x103c, 0x8dfe, "HP EliteBook 665 G12", ALC236_FIXUP_HP_GPIO_LED),
+
+The table is sorted in PCI SSID order.  Please try to put the entry at
+the right position.
+
+
+thanks,
+
+Takashi
