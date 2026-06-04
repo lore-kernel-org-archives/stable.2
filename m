@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D75F3BBFAE;
-	Thu,  4 Jun 2026 21:50:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2A473BBFAE;
+	Thu,  4 Jun 2026 21:50:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780609804; cv=none; b=r0Lo0mbmj4KsUeVQcfsrpuyBgEbzC8vK2oxu+J0Lx3SK+0FXETKWuf1Ju4uoaAEvdr3wr+OjpNE4bKCg2jJZ/gJ3LGJFG6IOrsSSHuzaUBGO5BPVEsK6kvk3hoFkXFY4LGZrcxoNHXPJBZFsdkgtNpFbC/gJOkGzGLZB2ZERgTo=
+	t=1780609807; cv=none; b=fyxSEeaTVRJux9izDAdgW72yawq0zQ5uMJDp/NtdN2lK7XLMou5tSjMGy1sNsW/nbJSihYn9ytTVr53SEhftI/WuoR19KyBwgz1NKgsJjSLre9WAAo9TRxC0MGNpEGNiIzUZRO5qE6x7+RQwJyqZqQiok34RjwdG5GxX6vCSx9U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780609804; c=relaxed/simple;
-	bh=7d6TCybTx7z/fLuRuYdFANx2aQumdGNjZ06RTL1x2Wg=;
-	h=Date:To:From:Subject:Message-Id; b=TJ/+zU69FBkM6kF431OVk3rxaFZoLF0+NXkfEY7AX15rL36eyOsCiLLsIRUUmqAruaxg7Bn0SDL0yr08rm2YiO2npr6A/2SwYBFRknxPxyVu1NxKoh98xBnqemKOj4FZhTQrLu2uNE1hkWxaZ175ube+wZNoJtVcWHcFPKFmItE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=ZzGxy2oI; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780609807; c=relaxed/simple;
+	bh=TNpx1K+htCo65MhO9MAiEw/miRDUqg+JFNOrYMY+D1M=;
+	h=Date:To:From:Subject:Message-Id; b=iljEph4fGY3X2sirkgdJDDi+FpT2euo8aZB4cFYfwb+0OhBYTKcZL9cNud8U8GLPa8szfzoQb9jhTn+r87Xv60Ge08wERX5yX2fki2prt3R1aK3lxUZEr+M6x6hMAieWkuUwShDnyiokeZhQYkbnsuFiQ74vP8wQrn5AEaG1XXk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=ZcFExjFA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="ZzGxy2oI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA0FC1F00893;
-	Thu,  4 Jun 2026 21:50:02 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="ZcFExjFA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 677E21F00899;
+	Thu,  4 Jun 2026 21:50:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1780609803;
-	bh=A5dV5Cgg54SS1lXbRzOTNOFjXScvZcPmKpVErSlNiNU=;
+	d=linux-foundation.org; s=korg; t=1780609805;
+	bh=YaCYfNZizf4cVK0y0X2yY9szdjscwASYS6s4Xh/n8bw=;
 	h=Date:To:From:Subject;
-	b=ZzGxy2oIDE4qUq0vxAWwNWcS66XDDnZJetLyPaqRAx1z4Aj904eWX5Hgdd+x70ymK
-	 8wzIWLDjSJ0NaIwQgEdlQhKeQMCsk+pXe/JGQ4ryHY1kPeUYqrt729Ni9OGUHhckuj
-	 Z3yBCYrrsialoqBhAEnTxEgJOdgyRq77Ly9GzZUY=
-Date: Thu, 04 Jun 2026 14:50:02 -0700
-To: mm-commits@vger.kernel.org,tamird@kernel.org,stable@vger.kernel.org,nathan@kernel.org,hca@linux.ibm.com,gor@linux.ibm.com,ansuelsmth@gmail.com,andriy.shevchenko@linux.intel.com,andersson@kernel.org,aleksander.lobakin@intel.com,agordeev@linux.ibm.com,arnd@arndb.de,akpm@linux-foundation.org
+	b=ZcFExjFAa+WnNEBErkylhqZv6axXXqUOY3kQfkugiuRVAftpZUEVJ//J9r93er20z
+	 4K7H38c7zexoS4OyDSkDCOJtNfjetPCgFRf0ZKm9kmr7NE73oBMD1IJpSMW4MzqOLF
+	 OUdh+0wuc84VfhOGhMX9jyXn7UV0z0aJgb5FPmgE=
+Date: Thu, 04 Jun 2026 14:50:05 -0700
+To: mm-commits@vger.kernel.org,stable@vger.kernel.org,piaojun@huawei.com,mark@fasheh.com,junxiao.bi@oracle.com,joseph.qi@linux.alibaba.com,jlbec@evilplan.org,heming.zhao@suse.com,gechangwei@live.cn,rollkingzzc@gmail.com,akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-nonmm-stable] errh-use-__always_inline-on-all-error-pointer-helpers.patch removed from -mm tree
-Message-Id: <20260604215002.DA0FC1F00893@smtp.kernel.org>
+Subject: [merged mm-nonmm-stable] ocfs2-reject-oversized-group-bitmap-descriptors.patch removed from -mm tree
+Message-Id: <20260604215005.677E21F00899@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,107 +35,139 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 
 
 The quilt patch titled
-     Subject: err.h: use __always_inline on all error pointer helpers
+     Subject: ocfs2: reject oversized group bitmap descriptors
 has been removed from the -mm tree.  Its filename was
-     errh-use-__always_inline-on-all-error-pointer-helpers.patch
+     ocfs2-reject-oversized-group-bitmap-descriptors.patch
 
 This patch was dropped because it was merged into the mm-nonmm-stable branch
 of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
 ------------------------------------------------------
-From: Arnd Bergmann <arnd@arndb.de>
-Subject: err.h: use __always_inline on all error pointer helpers
-Date: Tue, 26 May 2026 12:18:41 +0200
+From: Zhang Cen <rollkingzzc@gmail.com>
+Subject: ocfs2: reject oversized group bitmap descriptors
+Date: Sun, 24 May 2026 19:12:48 +0800
 
-While testing randconfig builds on s390, I came across a link failure with
-CONFIG_DMA_SHARED_BUFFER disabled:
+ocfs2_validate_gd_parent() only bounds bg_bits against the parent
+allocator's chain geometry.  A malicious descriptor can still claim a
+bg_size/bg_bits pair that exceeds the bitmap bytes that physically fit in
+the group descriptor block, so later bitmap scans and bit updates can run
+past bg_bitmap.
 
-ERROR: modpost: "dma_buf_put" [drivers/iommu/iommufd/iommufd.ko] undefined!
+Add a physical-cap check based on ocfs2_group_bitmap_size() for the parent
+allocator type and reject descriptors whose bg_size or bg_bits exceed that
+capacity.  Keep the existing chain geometry check so both the on-disk
+bitmap layout and the allocator metadata must agree before the descriptor
+is used.
 
-The problem here is that IS_ERR() is not inlined and dead code elimination
-fails as a consequence.
+Validation reproduced this kernel report:
+KASAN use-after-free in _find_next_bit+0x7f/0xc0
+Read of size 8
+Call trace:
+  dump_stack_lvl+0x66/0xa0 (?:?)
+  print_report+0xd0/0x630 (?:?)
+  _find_next_bit+0x7f/0xc0 (?:?)
+  srso_alias_return_thunk+0x5/0xfbef5 (?:?)
+  __virt_addr_valid+0x188/0x2f0 (?:?)
+  kasan_report+0xe4/0x120 (?:?)
+  ocfs2_find_max_contig_free_bits+0x35/0x70 (fs/ocfs2/suballoc.c:1375)
+  ocfs2_block_group_set_bits+0x472/0x4b0 (fs/ocfs2/suballoc.c:1457)
+  ocfs2_cluster_group_search+0x16b/0x440 (fs/ocfs2/suballoc.c:86)
+  ocfs2_bg_discontig_fix_result+0x1ef/0x230 (fs/ocfs2/suballoc.c:1786)
+  ocfs2_search_chain+0x8f8/0x10a0 (fs/ocfs2/suballoc.c:1886)
+  get_page_from_freelist+0x70e/0x2370 (?:?)
+  lock_release+0xc6/0x290 (?:?)
+  do_raw_spin_unlock+0x9a/0x100 (?:?)
+  kasan_unpoison+0x27/0x60 (?:?)
+  __bfs+0x147/0x240 (?:?)
+  get_page_from_freelist+0x83d/0x2370 (?:?)
+  ocfs2_claim_suballoc_bits+0x38c/0xe70 (fs/ocfs2/suballoc.c:96)
+  sched_domains_numa_masks_clear+0x70/0xd0 (?:?)
+  check_irq_usage+0xe8/0xb70 (?:?)
+  __ocfs2_claim_clusters+0x18d/0x4c0 (fs/ocfs2/suballoc.c:2497)
+  check_path+0x24/0x50 (?:?)
+  rcu_is_watching+0x20/0x50 (?:?)
+  check_prev_add+0xfd/0xd00 (?:?)
+  ocfs2_add_clusters_in_btree+0x17d/0x810 (fs/ocfs2/suballoc.c:?)
+  __folio_batch_add_and_move+0x1f5/0x3d0 (?:?)
+  ocfs2_add_inode_data+0xd9/0x120 (fs/ocfs2/suballoc.c:?)
+  filemap_add_folio+0x105/0x1f0 (?:?)
+  ocfs2_write_begin_nolock+0x29f7/0x2f80 (fs/ocfs2/suballoc.c:3043)
+  ocfs2_read_inode_block+0xb5/0x110 (fs/ocfs2/suballoc.c:?)
+  down_write+0xf5/0x180 (?:?)
+  ocfs2_write_begin+0x180/0x240 (fs/ocfs2/suballoc.c:?)
+  __mark_inode_dirty+0x758/0x9a0 (?:?)
+  inode_to_bdi+0x41/0x90 (?:?)
+  balance_dirty_pages_ratelimited_flags+0xf8/0x1d0 (?:?)
+  generic_perform_write+0x252/0x440 (?:?)
+  mnt_put_write_access_file+0x16/0x70 (?:?)
+  file_update_time_flags+0xe4/0x200 (?:?)
+  ocfs2_file_write_iter+0x80a/0x1320 (fs/ocfs2/suballoc.c:?)
+  lock_acquire+0x184/0x2f0 (?:?)
+  ksys_write+0xd2/0x170 (?:?)
+  apparmor_file_permission+0xf5/0x310 (?:?)
+  read_zero+0x8d/0x140 (?:?)
+  lock_is_held_type+0x8f/0x100 (?:?)
 
-The err.h helpers all turn into a trivial assignment of a bit mask and
-should never result in a function call, so force them to always be inline.
-This should generally result in better object code aside from avoiding
-the link failure above.
-
-Link: https://lore.kernel.org/20260526101851.2495110-1-arnd@kernel.org
-Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-Reviewed-by: Alexander Lobakin <aleksander.lobakin@intel.com>
-Reviewed-by: Nathan Chancellor <nathan@kernel.org>
-Tested-by: Tamir Duberstein <tamird@kernel.org>
-Cc: Alexander Gordeev <agordeev@linux.ibm.com>
-Cc: Andriy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Ansuel Smith <ansuelsmth@gmail.com>
-Cc: Bjorn Andersson <andersson@kernel.org>
-Cc: Heiko Carstens <hca@linux.ibm.com>
-Cc: Vasily Gorbik <gor@linux.ibm.com>
+Link: https://lore.kernel.org/20260524111248.1429884-1-rollkingzzc@gmail.com
+Fixes: ccd979bdbce9 ("[PATCH] OCFS2: The Second Oracle Cluster Filesystem")
+Assisted-by: Codex:gpt-5.5
+Signed-off-by: Zhang Cen <rollkingzzc@gmail.com>
+Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+Cc: Mark Fasheh <mark@fasheh.com>
+Cc: Joel Becker <jlbec@evilplan.org>
+Cc: Junxiao Bi <junxiao.bi@oracle.com>
+Cc: Changwei Ge <gechangwei@live.cn>
+Cc: Jun Piao <piaojun@huawei.com>
+Cc: Heming Zhao <heming.zhao@suse.com>
 Cc: <stable@vger.kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 ---
 
- include/linux/err.h |   12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ fs/ocfs2/suballoc.c |   22 ++++++++++++++++++++++
+ 1 file changed, 22 insertions(+)
 
---- a/include/linux/err.h~errh-use-__always_inline-on-all-error-pointer-helpers
-+++ a/include/linux/err.h
-@@ -36,7 +36,7 @@
-  *
-  * Return: A pointer with @error encoded within its value.
-  */
--static inline void * __must_check ERR_PTR(long error)
-+static __always_inline void * __must_check ERR_PTR(long error)
+--- a/fs/ocfs2/suballoc.c~ocfs2-reject-oversized-group-bitmap-descriptors
++++ a/fs/ocfs2/suballoc.c
+@@ -231,8 +231,16 @@ static int ocfs2_validate_gd_parent(stru
+ 				    int resize)
  {
- 	return (void *) error;
- }
-@@ -60,7 +60,7 @@ static inline void * __must_check ERR_PT
-  * @ptr: An error pointer.
-  * Return: The error code within @ptr.
-  */
--static inline long __must_check PTR_ERR(__force const void *ptr)
-+static __always_inline long __must_check PTR_ERR(__force const void *ptr)
- {
- 	return (long) ptr;
- }
-@@ -73,7 +73,7 @@ static inline long __must_check PTR_ERR(
-  * @ptr: The pointer to check.
-  * Return: true if @ptr is an error pointer, false otherwise.
-  */
--static inline bool __must_check IS_ERR(__force const void *ptr)
-+static __always_inline bool __must_check IS_ERR(__force const void *ptr)
- {
- 	return IS_ERR_VALUE((unsigned long)ptr);
- }
-@@ -87,7 +87,7 @@ static inline bool __must_check IS_ERR(_
-  *
-  * Like IS_ERR(), but also returns true for a null pointer.
-  */
--static inline bool __must_check IS_ERR_OR_NULL(__force const void *ptr)
-+static __always_inline bool __must_check IS_ERR_OR_NULL(__force const void *ptr)
- {
- 	return unlikely(!ptr) || IS_ERR_VALUE((unsigned long)ptr);
- }
-@@ -99,7 +99,7 @@ static inline bool __must_check IS_ERR_O
-  * Explicitly cast an error-valued pointer to another pointer type in such a
-  * way as to make it clear that's what's going on.
-  */
--static inline void * __must_check ERR_CAST(__force const void *ptr)
-+static __always_inline void * __must_check ERR_CAST(__force const void *ptr)
- {
- 	/* cast away the const */
- 	return (void *) ptr;
-@@ -122,7 +122,7 @@ static inline void * __must_check ERR_CA
-  *
-  * Return: The error code within @ptr if it is an error pointer; 0 otherwise.
-  */
--static inline int __must_check PTR_ERR_OR_ZERO(__force const void *ptr)
-+static __always_inline int __must_check PTR_ERR_OR_ZERO(__force const void *ptr)
- {
- 	if (IS_ERR(ptr))
- 		return PTR_ERR(ptr);
+ 	unsigned int max_bits;
++	unsigned int max_bitmap_bits;
++	unsigned int max_bitmap_size;
++	int suballocator;
+ 	struct ocfs2_group_desc *gd = (struct ocfs2_group_desc *)bh->b_data;
+ 
++	suballocator = le64_to_cpu(di->i_blkno) != OCFS2_SB(sb)->bitmap_blkno;
++	max_bitmap_size = ocfs2_group_bitmap_size(sb, suballocator,
++						  OCFS2_SB(sb)->s_feature_incompat);
++	max_bitmap_bits = max_bitmap_size * 8;
++
+ 	if (di->i_blkno != gd->bg_parent_dinode) {
+ 		do_error("Group descriptor #%llu has bad parent pointer (%llu, expected %llu)\n",
+ 			 (unsigned long long)bh->b_blocknr,
+@@ -240,6 +248,20 @@ static int ocfs2_validate_gd_parent(stru
+ 			 (unsigned long long)le64_to_cpu(di->i_blkno));
+ 	}
+ 
++	if (le16_to_cpu(gd->bg_size) > max_bitmap_size) {
++		do_error("Group descriptor #%llu has bitmap size %u but physical max of %u\n",
++			 (unsigned long long)bh->b_blocknr,
++			 le16_to_cpu(gd->bg_size),
++			 max_bitmap_size);
++	}
++
++	if (le16_to_cpu(gd->bg_bits) > max_bitmap_bits) {
++		do_error("Group descriptor #%llu has bit count %u but physical max of %u\n",
++			 (unsigned long long)bh->b_blocknr,
++			 le16_to_cpu(gd->bg_bits),
++			 max_bitmap_bits);
++	}
++
+ 	max_bits = le16_to_cpu(di->id2.i_chain.cl_cpg) * le16_to_cpu(di->id2.i_chain.cl_bpc);
+ 	if (le16_to_cpu(gd->bg_bits) > max_bits) {
+ 		do_error("Group descriptor #%llu has bit count of %u\n",
 _
 
-Patches currently in -mm which might be from arnd@arndb.de are
+Patches currently in -mm which might be from rollkingzzc@gmail.com are
 
 
