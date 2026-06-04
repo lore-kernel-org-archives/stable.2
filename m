@@ -1,168 +1,134 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5B9E37CD32;
-	Thu,  4 Jun 2026 09:43:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A1083D6663;
+	Thu,  4 Jun 2026 09:45:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780566231; cv=none; b=owINCJ3v6eYGD9Hf7OrBPfAYEUfDuRDbMbNxhSLIlC6sxdo0qP/LjPg7DlhcneO7H1tHukkiuDZNhu4PMMC+z0VcCJGoO6nsvW1kee/x4gimSWRyLp8MfPC02OdWuOUL3HByVHDBo4h6reTNH3JVl5FWFAosv2zNCbNxM4rqZts=
+	t=1780566322; cv=none; b=GK40KfHRQY8bzKlGxiFYLc3GPpCv0Hz/VWpYCwu5nKvqsxlplbBu0GdOTpUSvU6EW+e3xmFzLX4UjE0TheyyU/KZJtwyrwUTEqXaNYLb01pOP8w5gSDUoQpFD2yXWC5cb4RRzGOlnLTKgKclJ9gKasc18YXCVFhEWfj8DpTn7ss=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780566231; c=relaxed/simple;
-	bh=ugAYUrOSn44FtMqewdCK1F2clAAfSMRLFIpCzrvFaWI=;
+	s=arc-20240116; t=1780566322; c=relaxed/simple;
+	bh=uWPYqwAIeWq9LA2hGNbF5VYO0LCMtPcVW339ZDlXh7g=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jq+Pizp1eZAtZom6YFa+/oT2T4VesiBtyahgKievUlNW2cgId9CQddzcSyevZWoslYKODggPLFswJT4yIY0oTheRErGumwd03dD3HOQueOX2pxn7W/MU/VpZsNYxmVBFSNIDPZQyK7JUlTySkC1sTyxleJe+xKpvV8H/5q/VSzk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=niblaG2N; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=Nm9PkEZlFmXJxJBPDcEwne4H8lmvpdv9Ey/bAD74E5HU1pGt0cyFTQi9QGyvqabzxpA149Qds1ZCOtZcr8+cfdzPcmZbGpeG5d5e89jn2S5eDKNRLGZzSJDQFe62jy6l7AvMvuLiYivNWqQPGCCQTXvlUedm8/WnUIE/4gsUQ5c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G9JhUyhO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="niblaG2N"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DA221F00893;
-	Thu,  4 Jun 2026 09:43:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G9JhUyhO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87DBF1F00893;
+	Thu,  4 Jun 2026 09:45:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780566230;
-	bh=Jr5p7L025l5AeOyYY0OiYrQNKQ4cBVm4lneQmDi1MpU=;
+	s=k20260515; t=1780566321;
+	bh=4gI8mD8pV6k1RYY2Wo8KeiJELh7kTkv3Ol2p2Vg4X6s=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=niblaG2NeNcheETDbWROWRN2EC8gUaeqU+V2iVk/GSdhP8Z5E3h/Gqpa5xH9cOpQ1
-	 v6hrbB7Jus7K1nshEC5tnaXEu/x8R0Ps4MUAXWUUwT0v92mDO1wuGIP+A09ewkQc3R
-	 fewRlDncxRlqrzoTxEvDeXuP3fJVL9FX+trLyhY92vve5JphyKdwYusPG+7U/3wQ9z
-	 2vJgIhyrAkFhIBA1MXydcQxfKlKZZc4vg+gsKTiHeslcVTAbWNka86r8xtj34X4OJd
-	 JPg5dlYSt4RSFaXGFT+erozr6bJfWrCgR4+GV5uKZqspaOb3D1WgDUAG9cSmTV8MK3
-	 Q5HIolmsKCCkw==
-Date: Thu, 4 Jun 2026 12:43:44 +0300
-From: Leon Romanovsky <leon@kernel.org>
-To: David Hu <xuehaohu@google.com>
-Cc: Sumit Semwal <sumit.semwal@linaro.org>,
-	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>, Nicolin Chen <nicolinc@nvidia.com>,
-	Kevin Tian <kevin.tian@intel.com>,
-	Ankit Agrawal <ankita@nvidia.com>,
-	Alex Williamson <alex@shazbot.org>, linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
-	linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
-	jmoroni@google.com, praan@google.com, stable@vger.kernel.org
-Subject: Re: [PATCH v5] dma-buf: Fix silent overflow for phys vec to sgt
-Message-ID: <20260604094344.GB245424@unreal>
-References: <20260601200012.3872274-1-xuehaohu@google.com>
+	b=G9JhUyhO3Qv+dYNWdEn8rWiK0J5nZC2FNsRT9Xp6vlDR/zNMvlINAjg64xxZYYqPV
+	 6Nbn5fjuVsbNrAGe3q44tTLNV/H+jUqBX0JTZQv/FSZ7rfBTq3cQq42r84BVwDoM8m
+	 9ZsPVrdesGnvqulog0iNVdix30fSd1EDxwNRQxK/RYnSE0BOcM5b60ottXImRlGwFn
+	 3QQoauw1uOZMCSdIiLaeOxgxBpvZtHneksAH0T5LtOHP/rKAvA673fSBw8apkKr2MM
+	 nJwYoQeK7rBzMgDjdL53PZ/OBi7tsOHJsuC+j3mWlBYiEv/NpVJNJZRQUJ62/CTwAZ
+	 WCXo2s5XmOJhg==
+Date: Thu, 4 Jun 2026 11:45:18 +0200
+From: Frederic Weisbecker <frederic@kernel.org>
+To: Amit Matityahu <amitmat@amazon.com>
+Cc: tglx@kernel.org, anna-maria@linutronix.de, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org, dwmw@amazon.co.uk, jonnyc@amazon.com,
+	abaransi@amazon.com, alonka@amazon.com, ronenk@amazon.com,
+	farbere@amazon.com
+Subject: Re: [PATCH] timers/migration: Fix livelock in
+ tmigr_handle_remote_up()
+Message-ID: <aiFJLiWDIVaMQOoV@localhost.localdomain>
+References: <20260603170139.33628-1-amitmat@amazon.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <20260601200012.3872274-1-xuehaohu@google.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260603170139.33628-1-amitmat@amazon.com>
 
-On Mon, Jun 01, 2026 at 08:00:12PM +0000, David Hu wrote:
-> In case MMIO size is bigger than 4G and peer2peer DMA goes
-> through host bridge, we trigger a code path that assigns the
-> total linked IOVA (which is greater than 4G) to mapped_len.
+Le Wed, Jun 03, 2026 at 05:01:39PM +0000, Amit Matityahu a écrit :
+> tmigr_handle_remote_cpu() skips timer_expire_remote() when cpu ==
+> smp_processor_id(), assuming the local softirq path already handled
+> this CPU's timers.
 > 
-> Previously, `mapped_len` was declared as 32-bit `unsigned int`.
-> When accumulating `size_t` lengths, this leads to a silent wrap-around.
-> This truncation causes truncated lengths to be passed to functions
-> like `fill_sg_entry()`.
+> This assumption breaks when jiffies advances between
+> run_timer_base(BASE_GLOBAL) and tmigr_handle_remote() in the same
+> softirq invocation - a timer expires after the wheel ran but before
+> the hierarchy snapshot is taken.
 > 
-> Fix this by changing `mapped_len` to `size_t` (64-bit). While
-> at it, fix similar potential overflow issues in `calc_sg_nents`
-> by using `size_t` for `nents` and checking against `UINT_MAX`
-> and using `unsigned int` for the loop iterator in `fill_sg_entry`
-> to match.
+> The stranded timer is never collected,
+> fetch_next_timer_interrupt_remote() keeps reporting it as expired,
+> and the event is re-queued with expires == now on each iteration.
+> The goto-again loop spins indefinitely.
 > 
-> Fixes: 3aa31a8bb11e ("dma-buf: provide phys_vec to scatter-gather mapping routine")
+> Fix by calling timer_expire_remote() unconditionally.
+> __run_timer_base() already returns early when there is nothing to
+> expire, making this a no-op in the common case.
+> 
+> Fixes: 7ee988770326 ("timers: Implement the hierarchical pull model")
 > Cc: stable@vger.kernel.org
-> Cc: iommu@lists.linux.dev
-> Reviewed-by: Pranjal Shrivastava <praan@google.com>
-> Signed-off-by: David Hu <xuehaohu@google.com>
+> Reported-by: Alon Kariv <alonka@amazon.com>
+> Cc: Jonathan Chocron <jonnyc@amazon.com>
+> Cc: Akram Baransi <abaransi@amazon.com>
+> Cc: David Woodhouse <dwmw@amazon.co.uk>
+> Signed-off-by: Amit Matityahu <amitmat@amazon.com>
+
+That's quite serious indeed!
+
 > ---
-> Changes in v5:
->  - Removed WARN_ON_ONCE from calc_sg_nents() to avoid log noise (Jason).
->  - Added explicit check for `!nents` in dma_buf_phys_vec_to_sgt() to
->    cleanly return -EINVAL on overflow (Jason).
 > 
-> Changes in v4:
->  - Added WARN_ON_ONCE() to the nents overflow check to prevent silent
->    failures (Claude Bot).
+> Questions for maintainers:
 > 
-> Changes in v3:
->  - Removed leftover sentence fragment from the commit message.
->  - Kept `nents = 0` initialization (previously stated as removed in the
->    v2 changelog) as it is strictly required for the `+=` accumulation
->    loop in `calc_sg_nents()`.
+> 1. What was the original rationale for the cpu != smp_processor_id()
+>    check? There is no code comment, commit message explanation or anything
+>    in the original patch's email discussion as to why
+>    timer_expire_remote() is skipped for the local CPU.
+
+The rationale was about assuming that such an expired timerqueue actually
+reflected a timer that was handled locally already and so it could be safely
+discarded. So we could spare some locking.
+
 > 
-> Changes in v2:
->  - Fixed 'IVOA' -> 'IOVA' typo and expanded commit message (Claude Bot).
->  - Added Reverse Xmas tree formatting (Pranjal).
->  - Folded in extra bounds checking for calc_sg_nents() (Pranjal).
->  - Folded in type consistency fix for fill_sg_entry() (Pranjal).
+> 2. There seems to be a design tension where a CPU can have timers
+>    visible in the migration hierarchy while simultaneously running its
+>    own local softirq. Is the expectation that run_timer_base() always
+>    drains everything before tmigr_handle_remote() sees it, or should
+>    the remote path handle local-CPU timers as a fallback?
+
+That's not easy to defer all global timers handling to remote expiration
+because the current CPU may or may not be the migrator.
+
 > 
->  drivers/dma-buf/dma-buf-mapping.c | 15 ++++++++++++---
->  1 file changed, 12 insertions(+), 3 deletions(-)
+>  kernel/time/timer_migration.c | 3 +--
+>  1 file changed, 1 insertion(+), 2 deletions(-)
 > 
-> diff --git a/drivers/dma-buf/dma-buf-mapping.c b/drivers/dma-buf/dma-buf-mapping.c
-> index 794acff2546a..607b7998463d 100644
-> --- a/drivers/dma-buf/dma-buf-mapping.c
-> +++ b/drivers/dma-buf/dma-buf-mapping.c
-> @@ -10,7 +10,7 @@ static struct scatterlist *fill_sg_entry(struct scatterlist *sgl, size_t length,
->  					 dma_addr_t addr)
->  {
->  	unsigned int len, nents;
-> -	int i;
-> +	unsigned int i;
+> diff --git a/kernel/time/timer_migration.c b/kernel/time/timer_migration.c
+> index 1d0d3a4058d5..298c34c942ae 100644
+> --- a/kernel/time/timer_migration.c
+> +++ b/kernel/time/timer_migration.c
+> @@ -978,8 +978,7 @@ static void tmigr_handle_remote_cpu(unsigned int cpu, u64 now,
+>  	/* Drop the lock to allow the remote CPU to exit idle */
+>  	raw_spin_unlock_irq(&tmc->lock);
 >  
->  	nents = DIV_ROUND_UP(length, UINT_MAX);
->  	for (i = 0; i < nents; i++) {
-> @@ -36,7 +36,7 @@ static unsigned int calc_sg_nents(struct dma_iova_state *state,
->  				  struct phys_vec *phys_vec, size_t nr_ranges,
->  				  size_t size)
->  {
-> -	unsigned int nents = 0;
-> +	size_t nents = 0;
->  	size_t i;
+> -	if (cpu != smp_processor_id())
+> -		timer_expire_remote(cpu);
+> +	timer_expire_remote(cpu);
+
+Reviewed-by: Frederic Weisbecker <frederic@kernel.org>
+
+Thanks!
+
 >  
->  	if (!state || !dma_use_iova(state)) {
-> @@ -51,6 +51,9 @@ static unsigned int calc_sg_nents(struct dma_iova_state *state,
->  		nents = DIV_ROUND_UP(size, UINT_MAX);
->  	}
->  
-> +	if (nents > UINT_MAX)
-
-I would suggest to use check_add_overflow() while calculating nents
-instead of this check.
-
-> +		return 0;
-> +
->  	return nents;
->  }
->  
-> @@ -95,9 +98,10 @@ struct sg_table *dma_buf_phys_vec_to_sgt(struct dma_buf_attachment *attach,
->  					 size_t nr_ranges, size_t size,
->  					 enum dma_data_direction dir)
->  {
-> -	unsigned int nents, mapped_len = 0;
->  	struct dma_buf_dma *dma;
->  	struct scatterlist *sgl;
-> +	size_t mapped_len = 0;
-> +	unsigned int nents;
->  	dma_addr_t addr;
->  	size_t i;
->  	int ret;
-> @@ -133,6 +137,11 @@ struct sg_table *dma_buf_phys_vec_to_sgt(struct dma_buf_attachment *attach,
->  	}
->  
->  	nents = calc_sg_nents(dma->state, phys_vec, nr_ranges, size);
-> +	if (!nents) {
-> +		ret = -EINVAL;
-> +		goto err_free_state;
-> +	}
-
-Technically, this hunk is not necessary, since sg_alloc_table() will
-return -EINVAL when nents == 0. At least, that is the behavior I relied on.
-
-Thanks
-
-> +
->  	ret = sg_alloc_table(&dma->sgt, nents, GFP_KERNEL | __GFP_ZERO);
->  	if (ret)
->  		goto err_free_state;
+>  	/*
+>  	 * Lock ordering needs to be preserved - timer_base locks before tmigr
+> 
+> base-commit: e43ffb69e0438cddd72aaa30898b4dc446f664f8
 > -- 
-> 2.54.0.929.g9b7fa37559-goog
+> 2.47.3
 > 
+
+-- 
+Frederic Weisbecker
+SUSE Labs
