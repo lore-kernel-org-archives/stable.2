@@ -1,189 +1,103 @@
-Received: from SLXP216CU001.outbound.protection.outlook.com (mail-koreacentralazon11021077.outbound.protection.outlook.com [40.107.42.77])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 484672EC0A4;
-	Thu,  4 Jun 2026 02:02:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.42.77
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780538539; cv=fail; b=r/YgihER0yOtO6Y7Tl3e6fjy/LfnvPo1Gtmya2Kt+PA6aaXtnEvIJEMNkSUfoMDz3Mzn6TqqIBFLz85zCs2jM26PSYrlsH5kfTl+LNAzkMiE6D66EpmcC7G46y/yfeVO0ul07sHA9OXi8QsgNrY5SMG+3s87p+iFC4z6yOJJcio=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780538539; c=relaxed/simple;
-	bh=m32EHftW5D9Nj37kbAF7GpsDLXeHTpsV8LSkdFQHdjM=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=FEsTSN8fJJaMwQW8PmIm1IsbCG4e1xH+oZA9QgpcivRuxPBXmteVWH33aMbrJNeSQxCtTCdO/sOkrSFfE4vcwFlOtlkaaGhmSnlDjgMfFNAyk+nFXZisGSqsOeyZ0sB+ol2hno+38PDLTa12eY6nSHHpZtskuSWyXKXY/4UaxxI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=chipsnmedia.com; spf=fail smtp.mailfrom=chipsnmedia.com; dkim=pass (1024-bit key) header.d=chipsnmedia.com header.i=@chipsnmedia.com header.b=PHr64MAX; arc=fail smtp.client-ip=40.107.42.77
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=chipsnmedia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=chipsnmedia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A8F71B4224;
+	Thu,  4 Jun 2026 02:10:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780539026; cv=none; b=ICogqLVXXWLx2nIwCMHxZI01k33GIzOH27OS5swymTvq9dXIthiiJDYVz0QeA6iYyOYfN5NpLVz9JLtvfzEiTYDjxsshRsm4yqt2Fdr/OIidRowmWlrwE0Vq0udJuCcpmikZMPpRW89Ky6ICRrpmQrTL3lqzduMo8yvzX0cyvjw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780539026; c=relaxed/simple;
+	bh=4DLDconD/2DGw3LHooyZ8PUWvQ0OAuqVemZ6dg8/ag0=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=eOtL8M5pZRY6v6VcwQeomJUJeyMCJ7b/Atxfmk2bZSW7y7YdzIeLMklMvw/Ck2W1hTCKyqRIIB1j6Rhh7O6q6SbjxA3hWmRjd416rVu/O1o8y3m3XmVZT1CtdU33W0ZMFD4AcTdDG0RxApq7slb1/Vy/9RaWNezoyYWQRsc+GQ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HfpdbyGw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chipsnmedia.com header.i=@chipsnmedia.com header.b="PHr64MAX"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=C/AcQw2zj2+E46xvPM4/mS7I/zmT3kasopjrn2H6KgfREjVnixlqIqrqy1YKVzQFwHWVziPAVYG/Dl6fkWwA9QhNA/TLJyIhd4+ieuwtV3XQIWhtitTa2qwv02BN/jA7la8AdwqheMWBl9txj/Jc8CUsVYE0B/afRBzLpW/pbvRVwJCSmR7aPqhSHoimP0aA73Oh8nlMqv1cJ6jM5/bcBRqzPjyI28Q93jHKM6f5z2huQPKDQO3kmHf3Er1HOG9TM5oMi+3kn1jzHfHCqjPlEKGJGA7iytzCZNaJb+PI2SUh2RtptYqeYNbMKEdsl56x1VC9yO1AiU56lhz7Yy2f/A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0Hzd7yz77ca24/wR0auQx2gI4O205MuAlPRgseqmlpY=;
- b=hm5e7+xHd5vompfAki9LKfUmTWvgdTzKC85LzOqbFHfxFBksagNM32o5tAwI33KX9d6KTVsF8xjktx97NZjWIZvKihUYsFI9L9fsGWcye0O8kJhFz8iOCVZr69KoLAxJe/Ep+tc2ge/k8Nxm/rIBekEm8jh4Y9d9LZfaCzpAPG+rutbK7/LG9Z+hbdOOGzDiC9GnI/Is/SaVpu4e51/GCyCXQ1NzofJZN0zUL7HvaZLQFNKlNg0cCUPVOgnRsDMhQinwHNX0IaNx3lj9f/Hn1bmG7E2r8U1sdiAx8CtVkuW29YsWhhNmNboCiOI+qqOjdoIwM1wyo270UbJDbBY20g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=chipsnmedia.com; dmarc=pass action=none
- header.from=chipsnmedia.com; dkim=pass header.d=chipsnmedia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chipsnmedia.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0Hzd7yz77ca24/wR0auQx2gI4O205MuAlPRgseqmlpY=;
- b=PHr64MAX+tfhxSfimSQGwA9S1K7bKQLY8w6jxV+IahWfIfQOO8p8hR0Sh9UMU0jmk15o/V6I8Olja+BJxMNX0RJwdnmxTnv5gKMK64zFHHQAohueJ8JqF1NuzowC8smSPobFa7BZ67sy4l8z6a44+dCLe7d3D2W9rxMTRK20D74=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=chipsnmedia.com;
-Received: from SLXP216MB1148.KORP216.PROD.OUTLOOK.COM (2603:1096:101:f::14) by
- SE5P216MB3229.KORP216.PROD.OUTLOOK.COM (2603:1096:101:2fe::23) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.92.7; Thu, 4 Jun 2026 02:02:06 +0000
-Received: from SLXP216MB1148.KORP216.PROD.OUTLOOK.COM
- ([fe80::8f6c:834c:6cef:7be]) by SLXP216MB1148.KORP216.PROD.OUTLOOK.COM
- ([fe80::8f6c:834c:6cef:7be%4]) with mapi id 15.21.0092.006; Thu, 4 Jun 2026
- 02:02:06 +0000
-From: "Jackson.lee" <jackson.lee@chipsnmedia.com>
-To: mchehab@kernel.org,
-	hverkuil-cisco@xs4all.nl,
-	nicolas.dufresne@collabora.com,
-	bob.beckett@collabora.com
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	jackson.lee@chipsnmedia.com,
-	lafley.kim@chipsnmedia.com,
-	b-brnich@ti.com,
-	hverkuil@xs4all.nl,
-	nas.chung@chipsnmedia.com,
-	stable@vger.kernel.org
-Subject: [PATCH v0 1/4] media: chips-media: wave5: Guard bit depth check with initial_info_obtained
-Date: Thu,  4 Jun 2026 11:01:52 +0900
-Message-Id: <20260604020155.77-2-jackson.lee@chipsnmedia.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260604020155.77-1-jackson.lee@chipsnmedia.com>
-References: <20260604020155.77-1-jackson.lee@chipsnmedia.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SEWP216CA0024.KORP216.PROD.OUTLOOK.COM
- (2603:1096:101:2b6::6) To SLXP216MB1148.KORP216.PROD.OUTLOOK.COM
- (2603:1096:101:f::14)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HfpdbyGw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32FA21F00893;
+	Thu,  4 Jun 2026 02:10:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780539025;
+	bh=pG79E8kqKE0hDvq0vf8BpvVSi3rFLjhO+VC4wu7V3go=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=HfpdbyGwKQokHbllafN4TwAung9wwtQg/MLIVNKYj1dsiFc635nQBUUEUpc3S6GdO
+	 qZiIiaxq2ld2N9V2rEPeQTnnw+h8VKeiKzLhC8PfT43z6LtdwLMI/tqs9IJaEeclWb
+	 N78Sy7RYvjRmtZO+NZiIMVugT4r8hXrC1q4UchdMdcakdBr5l3ixtvk5mSEHeXKngb
+	 H/+isGn7crOt3eEew153jeehsS+OLZgq08RnP3r8YKVofAEyCbvRm2ZI+MsiipQ2JE
+	 WIOyeFnINnfMdtjwBybvGmfovc9MTbds6DRMA8l50wbveSXBCozUdsxHHphqeVQQL5
+	 us2Me+wcG0U4A==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 93AC839308E0;
+	Thu,  4 Jun 2026 02:10:27 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SLXP216MB1148:EE_|SE5P216MB3229:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4a746d89-1d95-4432-8715-08dec1dd4761
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|52116014|376014|366016|1800799024|38350700014|6133799003|18002099003|22082099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	PkeRbDe/h8cnLsu29rZLPzfUpVzDpIsc9ydppvVKAR7/UdJBLKjteAgEPVvqcf0gB5mXZa4crI/HDD+ITMB/Hy7Ycws6yqz7SRnDkJZa1oFNCXoTr5zPoAxKPHZatgWTzEJohxbHOIy1MyrxNjP2RPBEqz2tNTXk9zUKkLHCR/5VczmSNs2ZNzGB0lWiHrQlqrJE9mjbhW3s8Boi4UaDCQwJ6OAc2kh6Vo55z1sLNH46jqSagFj7HmM7aO0KBsmrXK25MQf3xstqAxpNFiuzcOr0P5lTOs2H9CYRnH8YoSd+8eBBmoyI8qsCvHNFzOsS29rRMPX4EJUvqFVLIEX33kqX/M6d659du2zIp2vh5ehCb9pyJJpy717pMHm6ccaLxtEbQwhTBmfqfPVCbInZ0Wa3I1CXUeBAezivg8rKy4GaGEg43FYHZCiJ9t+qFZw6Ujhzjgau7IIjk2B964NALh1QdVbI44OptAz+AOV+Zbjf7G2KSR3kLHXP9422ll3kLvX8CYkJ5kHMWyqBC/PEQDb+4t2xwJl+FFjPA+T3GP6EPiUEyJc6zX4TwHhMUSMTwCZfmuTbIETLPuvR4sND1CvDCex5An44+gSfZ753pJtqQK6wJZh2ZxlG1wmzdcYnOxZiEqHadbcKYIKFmw6oaPvm+kNq353EYGmvD8hnwPfJp8T/x+Y1QYOzA10Ms5jANV5gD2c/G2zmDs6+dyIiRw1nDP0ut7UvvvrHXj67jlQinWMYlSbarNPLSgx05VKi
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SLXP216MB1148.KORP216.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(52116014)(376014)(366016)(1800799024)(38350700014)(6133799003)(18002099003)(22082099003)(56012099006);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?WdguLEwh7USCt7plaFXR7Vo1POCFnYzmobw4TebVanzzB/83LASmdlsXFKwp?=
- =?us-ascii?Q?YyOaCvKVTQwY+QT/j1NsYhumYQZ0nTikKnIGXDZV0xIbl1MM4RoWyckWav/J?=
- =?us-ascii?Q?b3KJXZFb2w0deBdnmZDoFe/I/HbOC2YU4AKbi6iWRuRXgkZPPEhFh5S8MT47?=
- =?us-ascii?Q?18DlTnbSY2pGh9pEOVnbbFagidLdXcfSpEyUTx8X7ipkTEs6pXhT8bkkqNsY?=
- =?us-ascii?Q?16CEvA+TNMEANNzgyi4Q5KWQlRrPvg8zQNiuXvd42SHpGwTpTnZJT3g9TRPv?=
- =?us-ascii?Q?11CYXhuT8CvtvifVkH5FdTknGJxlApFJRBmyTcfFATAx8+5KNv1NhgepCChD?=
- =?us-ascii?Q?RT/1/y2qhT9/p27qo7uiu43JHnEhPMIXIdvBGXGlz0MfzmipBC296sato6Pr?=
- =?us-ascii?Q?bx1MtoBw/thWRRPMljfinRM/vRmWrx6uc+vzu7JovN7twYPwTWCHab0R6aHQ?=
- =?us-ascii?Q?z6obqss6sd6NL9HsHHDDPGIbGhAfTXCuDd1wxj1Ko/UDOVGQYhu8NTIxNLF7?=
- =?us-ascii?Q?tUEMy45nj2tMUUqAQUiY8tHWQ3DFY0kdMe0u4mfzo553qJ2CfLoh7rI6QJyH?=
- =?us-ascii?Q?4CfL57OseKt/kHzNqLJDwTgZVmV+0mqt7/ad8rnoXNNFahxjBIdbb2eB5jO9?=
- =?us-ascii?Q?qJnmHzoGYbAVQjfLjRxBrKR9H9ZSoWJRsnGdGAmElvhD5+ZUME9leM95atV2?=
- =?us-ascii?Q?BfzXCrwpi+Ooog0Pdk5KDgALXPk6Fz+bi3rQDLh5NtNjyRPi7xFRyyBIG0Gv?=
- =?us-ascii?Q?9PWih3RO3s+On2z13+ytNn7fPrcsFr49jGpcqygwbvYCR8vZp180IKkKWVfA?=
- =?us-ascii?Q?fxHOyNPBjfRG1fjsVSAqZ5e5VF3LZHR38JVn6H+2eRv/A8c9n8Ui76ajbWXG?=
- =?us-ascii?Q?n6ckaA3Sfs5k1PmK3wQbYGWi/AC1VTr0V9TzpU98cahGJsxUzFmHe9vF01WO?=
- =?us-ascii?Q?YOIetfPKHonHnvEJdMQmh4WqiRqSAcr5E58lAzus48GxM1s/HMBDOrYQE/g3?=
- =?us-ascii?Q?JrL6mwSXknO3WuTOxj2Ue8ejNJmClsA/Gya6zXlHDCFEh18L5jv4dSz84G2o?=
- =?us-ascii?Q?CgMiTogwBOMcZ3qXkKIl2UASA0kGhJGYI54fDx1KbLTH7iprgtzKDjvWLB8C?=
- =?us-ascii?Q?NdFQqpK4FOZ18WoCZS1thncurCrn/ZKrDiC4Iwfjr1mypxtB06JX6n1bRCYH?=
- =?us-ascii?Q?ZVrWaml+uhFo83v/eVSa/NKOcZtK9GuFnTJLDlddn9VKiRTmgUHRGHP7UIgo?=
- =?us-ascii?Q?3mnnQN/vzGQfFC+QCStatbbpmzMmJyBaJpLF7o5aQguZtF41GrwK0VW2C2Rk?=
- =?us-ascii?Q?uhNOf53fXCKEvvAfmpwtxmiFKiHKu3uJwA/TqWoaOjidAQ8gGMPKLNGVsS6l?=
- =?us-ascii?Q?11gGxqPBQdDseYg0S/0TE+Nin7of/MHM8BKnM99O0LSGdbjbRbaeAXzMCcRm?=
- =?us-ascii?Q?9iE/vS+X1M8c4BZWtrKazoF+VVKZGmmtYuRtKlb3oHj6ndRYH3ID9Bfce+DU?=
- =?us-ascii?Q?stDfwrVgP2EX6Of5echuNTSl7H1sQxtFUGcSDhYTRjdnClxVMIQg6ZNGCCNe?=
- =?us-ascii?Q?pr+8U2zZnJRZSQELVpc9DvnR4dld/GYjwCm4toNdMlLe/U03SGxDX7mq0R7e?=
- =?us-ascii?Q?c/XWTrC465IR5+XUhHCp9KfjfCsWvO3tvX2luKC/1mVHGAxJmK7Q9kPbJN3v?=
- =?us-ascii?Q?+4GLKwu1lxVilcuWRGGPpjYXLO88mUFk+WdAyE5McOpYteDQHWJSw7sPop6N?=
- =?us-ascii?Q?sK/ABHhX+GN+C/Ey902BzcVjmqlE9ic=3D?=
-X-OriginatorOrg: chipsnmedia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4a746d89-1d95-4432-8715-08dec1dd4761
-X-MS-Exchange-CrossTenant-AuthSource: SLXP216MB1148.KORP216.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jun 2026 02:02:06.5051
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4d70c8e9-142b-4389-b7f2-fa8a3c68c467
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ZsjWjTLnFkazRkmra/s5Fcv5HKsfB5QzEQV2bM9lZdUA8gRW83AAjUUsg6KSYVciK8umxDXEBPhDlAY/2Po0eFAZEngWgi1kydoCMRaVw4Y=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SE5P216MB3229
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net v2 00/11] mptcp: misc fixes for v7.1-rc7
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <178053902614.2204548.2424372511848234047.git-patchwork-notify@kernel.org>
+Date: Thu, 04 Jun 2026 02:10:26 +0000
+References: 
+ <20260602-net-mptcp-misc-fixes-7-1-rc7-v2-0-856831229976@kernel.org>
+In-Reply-To: 
+ <20260602-net-mptcp-misc-fixes-7-1-rc7-v2-0-856831229976@kernel.org>
+To: Matthieu Baerts <matttbe@kernel.org>
+Cc: martineau@kernel.org, geliang@kernel.org, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ fw@strlen.de, netdev@vger.kernel.org, mptcp@lists.linux.dev,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ stable@vger.kernel.org, cuitao@kylinos.cn, shuah@kernel.org,
+ willemdebruijn.kernel@gmail.com, yangang@kylinos.cn,
+ syzbot+ff020673c5e3d94d9478@syzkaller.appspotmail.com
 
-From: Jackson Lee <jackson.lee@chipsnmedia.com>
+Hello:
 
-When CAPTURE STREAMON is called before the VPU has completed sequence
-initialization (initial_info_obtained == false), the initial_info fields
-contain uninitialized data. The driver checks
-luma_bitdepth and rejects anything other than 8-bit, so garbage values
-(e.g. 15) cause STREAMON to fail spuriously.
+This series was applied to netdev/net.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-This is reproducible with the following multi-threaded test scenario:
-  1. Allocate 2 CAPTURE buffers.
-  2. Call STREAMON on the CAPTURE queue.
-  3. Call DQBUF, which blocks waiting for a decoded frame.
-  4. A second thread calls STREAMOFF on the CAPTURE queue.
-  5. The blocked DQBUF should be released, allowing graceful termination.
+On Tue, 02 Jun 2026 22:14:07 +1000 you wrote:
+> Here are various unrelated fixes:
+> 
+> - Patch 1: fix missing wakeups when multiple threads are reading from
+>   the same fd. A fix for v5.7.
+> 
+> - Patch 2: fix retransmission loop when MPTCP checksum is enabled. A fix
+>   for v5.14.
+> 
+> [...]
 
-At step 2, STREAMON reads uninitialized luma_bitdepth and rejects the
-stream, causing the test to fail.
+Here is the summary with links:
+  - [net,v2,01/11] mptcp: fix missing wakeups in edge scenarios
+    https://git.kernel.org/netdev/net/c/9d8d28738f24
+  - [net,v2,02/11] mptcp: fix retransmission loop when csum is enabled
+    https://git.kernel.org/netdev/net/c/d1918b36edca
+  - [net,v2,03/11] mptcp: close TOCTOU race while computing rcv_wnd
+    https://git.kernel.org/netdev/net/c/8ab24fdebc36
+  - [net,v2,04/11] mptcp: allow subflow rcv wnd to shrink
+    https://git.kernel.org/netdev/net/c/da23be77e129
+  - [net,v2,05/11] mptcp: pm: fix extra_subflows underflow on userspace PM subflow creation
+    https://git.kernel.org/netdev/net/c/14e9fea30b68
+  - [net,v2,06/11] selftests: mptcp: add test for extra_subflows underflow on userspace PM
+    https://git.kernel.org/netdev/net/c/06fd2bec7aeb
+  - [net,v2,07/11] mptcp: sockopt: check timestamping ret value
+    https://git.kernel.org/netdev/net/c/57132affbc89
+  - [net,v2,08/11] mptcp: sockopt: set sockopt on all subflows
+    https://git.kernel.org/netdev/net/c/7690137e70ab
+  - [net,v2,09/11] mptcp: check desc->count in read_sock
+    https://git.kernel.org/netdev/net/c/c378b1a6f8dd
+  - [net,v2,10/11] mptcp: fix uninit-value in mptcp_established_options
+    https://git.kernel.org/netdev/net/c/5e939544f9d2
+  - [net,v2,11/11] mptcp: add-addr: always drop other suboptions
+    https://git.kernel.org/netdev/net/c/bd34fa025726
 
-Fix this by checking initial_info_obtained before accessing the bit
-depth fields, so the validation is only performed when the sequence
-info has actually been parsed by the VPU.
-
-Fixes: 035371c9e509 ("media: chips-media: wave5: Fix timeout while testing 10bit hevc fluster")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jackson Lee <jackson.lee@chipsnmedia.com>
-Signed-off-by: Nas Chung <nas.chung@chipsnmedia.com>
----
- drivers/media/platform/chips-media/wave5/wave5-vpu-dec.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/media/platform/chips-media/wave5/wave5-vpu-dec.c b/drivers/media/platform/chips-media/wave5/wave5-vpu-dec.c
-index bb2ba9204a83..01d1368b2965 100644
---- a/drivers/media/platform/chips-media/wave5/wave5-vpu-dec.c
-+++ b/drivers/media/platform/chips-media/wave5/wave5-vpu-dec.c
-@@ -1403,6 +1403,7 @@ static int wave5_vpu_dec_start_streaming(struct vb2_queue *q, unsigned int count
- 	} else if (q->type == V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE) {
- 		struct dec_initial_info *initial_info =
- 			&inst->codec_info->dec_info.initial_info;
-+		struct dec_info *p_dec_info = &inst->codec_info->dec_info;
- 
- 		if (inst->state == VPU_INST_STATE_STOP)
- 			ret = switch_state(inst, VPU_INST_STATE_INIT_SEQ);
-@@ -1410,6 +1411,7 @@ static int wave5_vpu_dec_start_streaming(struct vb2_queue *q, unsigned int count
- 			goto return_buffers;
- 
- 		if (inst->state == VPU_INST_STATE_INIT_SEQ &&
-+		    p_dec_info->initial_info_obtained &&
- 		    inst->dev->product_code == WAVE521C_CODE) {
- 			if (initial_info->luma_bitdepth != 8) {
- 				dev_info(inst->dev->dev, "%s: no support for %d bit depth",
-@@ -1418,7 +1420,6 @@ static int wave5_vpu_dec_start_streaming(struct vb2_queue *q, unsigned int count
- 				goto return_buffers;
- 			}
- 		}
--
- 	}
- 	pm_runtime_put_autosuspend(inst->dev->dev);
- 	return ret;
+You are awesome, thank you!
 -- 
-2.43.0
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
 
