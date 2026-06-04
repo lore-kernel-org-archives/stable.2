@@ -1,35 +1,33 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A8F71B4224;
-	Thu,  4 Jun 2026 02:10:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B08D340403;
+	Thu,  4 Jun 2026 02:20:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780539026; cv=none; b=ICogqLVXXWLx2nIwCMHxZI01k33GIzOH27OS5swymTvq9dXIthiiJDYVz0QeA6iYyOYfN5NpLVz9JLtvfzEiTYDjxsshRsm4yqt2Fdr/OIidRowmWlrwE0Vq0udJuCcpmikZMPpRW89Ky6ICRrpmQrTL3lqzduMo8yvzX0cyvjw=
+	t=1780539617; cv=none; b=Jy0nBNbQeZU93Jx5mUKytgvn5z8YRYxg0J3mp1kw4OMxfSfH+Fe/QW8QXlqMOZthf0Kc+7TSLConXItFMmblhlD+pq5+eZgPFjoc2KVygXdpOKIcadpo9RGnQ/yAvqOBVlpwzawCpgKGHRj/tNE9Kkd3BbU/HthIlrkj5QZyinc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780539026; c=relaxed/simple;
-	bh=4DLDconD/2DGw3LHooyZ8PUWvQ0OAuqVemZ6dg8/ag0=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=eOtL8M5pZRY6v6VcwQeomJUJeyMCJ7b/Atxfmk2bZSW7y7YdzIeLMklMvw/Ck2W1hTCKyqRIIB1j6Rhh7O6q6SbjxA3hWmRjd416rVu/O1o8y3m3XmVZT1CtdU33W0ZMFD4AcTdDG0RxApq7slb1/Vy/9RaWNezoyYWQRsc+GQ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HfpdbyGw; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HfpdbyGw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32FA21F00893;
-	Thu,  4 Jun 2026 02:10:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780539025;
-	bh=pG79E8kqKE0hDvq0vf8BpvVSi3rFLjhO+VC4wu7V3go=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=HfpdbyGwKQokHbllafN4TwAung9wwtQg/MLIVNKYj1dsiFc635nQBUUEUpc3S6GdO
-	 qZiIiaxq2ld2N9V2rEPeQTnnw+h8VKeiKzLhC8PfT43z6LtdwLMI/tqs9IJaEeclWb
-	 N78Sy7RYvjRmtZO+NZiIMVugT4r8hXrC1q4UchdMdcakdBr5l3ixtvk5mSEHeXKngb
-	 H/+isGn7crOt3eEew153jeehsS+OLZgq08RnP3r8YKVofAEyCbvRm2ZI+MsiipQ2JE
-	 WIOyeFnINnfMdtjwBybvGmfovc9MTbds6DRMA8l50wbveSXBCozUdsxHHphqeVQQL5
-	 us2Me+wcG0U4A==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 93AC839308E0;
-	Thu,  4 Jun 2026 02:10:27 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	s=arc-20240116; t=1780539617; c=relaxed/simple;
+	bh=aJWleBx/5Dcu19+quRXRZYQfmXahNHmM0M9vSy1P+vw=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Mw0GxPVzyJb2Xi6rTimEVyE3v528eIO1nnlFp/3hrJGaCGKTRDuIN31rHB76y8tmTopYanhwbwqDuo2FMqfKPv7O1hmDtcG26pulUAy5WF8+9zpKZa3qZfz5gmBSFLyF0x/A6gOLQhLXwCa0OgSzjCrzsRmskqU4gdQrVpVMiRw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-01 (Coremail) with SMTP id qwCowACnR9DX4CBqcMaQAA--.8961S2;
+	Thu, 04 Jun 2026 10:20:07 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: idryomov@gmail.com,
+	amarkuze@redhat.com,
+	slava@dubeyko.com
+Cc: ceph-devel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH v4] ceph: fix writeback_count leak in write_folio_nounlock()
+Date: Thu,  4 Jun 2026 02:19:51 +0000
+Message-Id: <20260604021951.3761714-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -37,67 +35,86 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net v2 00/11] mptcp: misc fixes for v7.1-rc7
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <178053902614.2204548.2424372511848234047.git-patchwork-notify@kernel.org>
-Date: Thu, 04 Jun 2026 02:10:26 +0000
-References: 
- <20260602-net-mptcp-misc-fixes-7-1-rc7-v2-0-856831229976@kernel.org>
-In-Reply-To: 
- <20260602-net-mptcp-misc-fixes-7-1-rc7-v2-0-856831229976@kernel.org>
-To: Matthieu Baerts <matttbe@kernel.org>
-Cc: martineau@kernel.org, geliang@kernel.org, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- fw@strlen.de, netdev@vger.kernel.org, mptcp@lists.linux.dev,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
- stable@vger.kernel.org, cuitao@kylinos.cn, shuah@kernel.org,
- willemdebruijn.kernel@gmail.com, yangang@kylinos.cn,
- syzbot+ff020673c5e3d94d9478@syzkaller.appspotmail.com
+X-CM-TRANSID:qwCowACnR9DX4CBqcMaQAA--.8961S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxJr4UXF4xKw4fKrWDtrW3Awb_yoW8Kry8pr
+	Wjk34DKr40vr1xGr9xCasYq3WYk3y8Cr4fKF4UXF13uFn5Xr42ga4jq3yYqF13AryfJa9a
+	qF4vkrykuayDAFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUkK14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVWxJr
+	0_GcWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+	2Ix0cI8IcVAFwI0_JF0_Jw1lYx0Ex4A2jsIE14v26r4UJVWxJr1lOx8S6xCaFVCjc4AY6r
+	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AK
+	xVWUAVWUtwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F4
+	0E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1l
+	IxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxV
+	AFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j
+	6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa7VUbLiSJ
+	UUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgoIA2ogubF-3gABsl
 
-Hello:
+write_folio_nounlock() increments fsc->writeback_count to track
+in-flight writeback operations. On several error paths where the
+function returns early (folio lookup failure, snapshot context
+allocation failure, and writepages submission failure), the function
+returns without calling atomic_long_dec_return() to decrement the
+counter.
 
-This series was applied to netdev/net.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+Each leaked increment keeps the counter above zero, which can prevent
+the filesystem from cleanly unmounting or suspending writes.
 
-On Tue, 02 Jun 2026 22:14:07 +1000 you wrote:
-> Here are various unrelated fixes:
-> 
-> - Patch 1: fix missing wakeups when multiple threads are reading from
->   the same fd. A fix for v5.7.
-> 
-> - Patch 2: fix retransmission loop when MPTCP checksum is enabled. A fix
->   for v5.14.
-> 
-> [...]
+Add atomic_long_dec_return() calls on all error paths that currently
+return without decrementing the counter.
 
-Here is the summary with links:
-  - [net,v2,01/11] mptcp: fix missing wakeups in edge scenarios
-    https://git.kernel.org/netdev/net/c/9d8d28738f24
-  - [net,v2,02/11] mptcp: fix retransmission loop when csum is enabled
-    https://git.kernel.org/netdev/net/c/d1918b36edca
-  - [net,v2,03/11] mptcp: close TOCTOU race while computing rcv_wnd
-    https://git.kernel.org/netdev/net/c/8ab24fdebc36
-  - [net,v2,04/11] mptcp: allow subflow rcv wnd to shrink
-    https://git.kernel.org/netdev/net/c/da23be77e129
-  - [net,v2,05/11] mptcp: pm: fix extra_subflows underflow on userspace PM subflow creation
-    https://git.kernel.org/netdev/net/c/14e9fea30b68
-  - [net,v2,06/11] selftests: mptcp: add test for extra_subflows underflow on userspace PM
-    https://git.kernel.org/netdev/net/c/06fd2bec7aeb
-  - [net,v2,07/11] mptcp: sockopt: check timestamping ret value
-    https://git.kernel.org/netdev/net/c/57132affbc89
-  - [net,v2,08/11] mptcp: sockopt: set sockopt on all subflows
-    https://git.kernel.org/netdev/net/c/7690137e70ab
-  - [net,v2,09/11] mptcp: check desc->count in read_sock
-    https://git.kernel.org/netdev/net/c/c378b1a6f8dd
-  - [net,v2,10/11] mptcp: fix uninit-value in mptcp_established_options
-    https://git.kernel.org/netdev/net/c/5e939544f9d2
-  - [net,v2,11/11] mptcp: add-addr: always drop other suboptions
-    https://git.kernel.org/netdev/net/c/bd34fa025726
+Fixes: d55207717ded ("ceph: add encryption support to writepage and writepages")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 
-You are awesome, thank you!
+---
+Changes in v4:
+- Also clear write_congested flag when decrementing writeback_count
+  on error paths, as suggested by Viacheslav Dubeyko.
+- Fix typo error.
+- Fix diff error
+---
+ fs/ceph/addr.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/fs/ceph/addr.c b/fs/ceph/addr.c
+index 0a86f672cc09..7fab73874068 100644
+--- a/fs/ceph/addr.c
++++ b/fs/ceph/addr.c
+@@ -790,6 +790,9 @@ static int write_folio_nounlock(struct folio *folio,
+ 				    ceph_wbc.truncate_size, true);
+ 	if (IS_ERR(req)) {
+ 		folio_redirty_for_writepage(wbc, folio);
++		if (atomic_long_dec_return(&fsc->writeback_count) <
++				CONGESTION_OFF_THRESH(fsc->mount_options->congestion_kb))
++			fsc->write_congested = false;
+ 		return PTR_ERR(req);
+ 	}
+ 
+@@ -809,6 +812,9 @@ static int write_folio_nounlock(struct folio *folio,
+ 			folio_redirty_for_writepage(wbc, folio);
+ 			folio_end_writeback(folio);
+ 			ceph_osdc_put_request(req);
++			if (atomic_long_dec_return(&fsc->writeback_count) <
++					CONGESTION_OFF_THRESH(fsc->mount_options->congestion_kb))
++				fsc->write_congested = false;
+ 			return PTR_ERR(bounce_page);
+ 		}
+ 	}
+@@ -847,6 +853,9 @@ static int write_folio_nounlock(struct folio *folio,
+ 			      ceph_vinop(inode), folio);
+ 			folio_redirty_for_writepage(wbc, folio);
+ 			folio_end_writeback(folio);
++			if (atomic_long_dec_return(&fsc->writeback_count) <
++					CONGESTION_OFF_THRESH(fsc->mount_options->congestion_kb))
++				fsc->write_congested = false;
+ 			return err;
+ 		}
+ 		if (err == -EBLOCKLISTED)
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+2.34.1
 
