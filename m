@@ -1,71 +1,50 @@
-Received: from mail-lj1-f179.google.com (mail-lj1-f179.google.com [209.85.208.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE1624014A1
-	for <stable@vger.kernel.org>; Thu,  4 Jun 2026 13:50:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8789E34F24B
+	for <stable@vger.kernel.org>; Thu,  4 Jun 2026 13:54:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780581054; cv=none; b=Y2aDSr6jL+95w/aMWYt4VG5l+ww1Z3zC7xl4QSpGBNt+HP7qTdq6jxyn+LUPD8GsvNk/+YFQdb/Raa9XLV3T61/MAnWid1z7ddtuvYPkbg6gmErMLVAOGDj71HEo3Rd+9fd9mpQL7GUtaGAzycjqRosFCb7XqZDUoHHEQ0DDjpI=
+	t=1780581265; cv=none; b=dNzrhohX14oEVxblsj0qtvlxDNDLKXw7yLuuOy1oosTwj9Laa4eYnfzJD/FBjh2kVWb6Bz0JsXVj7hm/A24P2cP2btsOYXMdfQ7cO/l8cVrVvQLsc9e+WFrBbvQIorNrlOQBWsGcCNfTQhLSe48kjtXx/Pl2y0n/uAH+3muXiCg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780581054; c=relaxed/simple;
-	bh=/jdjsxvL4aeTdyRjLTf+GIij/Stt3VATxC7ctZWpQBE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KXrD0fJIIB4OxhJswCyFCC2oRK3SKhPXitSYrr8A4EztqelRyOJv7SD+PauTVkp1PkmtVjgj8Sujk3AWlWaly/5CG7pNjcO1oKqnxuhOjxFg64SwCxkWq5UU2Ht8j3Gwn9fDzk1OTMPDrfWqIu2wNKe0bH8xMLJi/4wzf0/vbH4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=I3T6SXkB; arc=none smtp.client-ip=209.85.208.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1780581265; c=relaxed/simple;
+	bh=EAdPE5tTsS8gNuKA/TVCfEN8WoaOc963KIs8hO/7xQA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=cD1N3Pm1K8m2I75uorkmKWYiL6qZDA+w73cbVnTWvYH96b3/Cnn8NOYEUuK/aoY/KcG3kfjYmUw8pLEIuFrLP4ttP2kRqGyYH/QuwqQMbtXNHmfX2g8MpS3Uo5h6FQ1JXJKq0tjcA5syuYRPHc5Ig2iOX1CEGf29XlIsmcukZQg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oyrWm5Et; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="I3T6SXkB"
-Received: by mail-lj1-f179.google.com with SMTP id 38308e7fff4ca-395f24a5f2cso6635341fa.2
-        for <stable@vger.kernel.org>; Thu, 04 Jun 2026 06:50:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780581051; x=1781185851; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=mLp8sJf8fzDOqqtj5uwx1QYbggbPxRQslMsoXQj9LcU=;
-        b=I3T6SXkBJtSDYCdxjpb+Efp2vUCoJIT7QLEqybbV7u83QzaoUjvsvRm1lw95ZTi5um
-         AwdYaiQLVY1h1yfr/3nU/164ZeRq5Y6XFOgh71ydAvBYiupcXizwDrISC/DvRYXoHafs
-         NhYlDlyJdOCbQlqufrLPp+Zl1xFijRGF/A8HwpQ2SJDuxPrieS5/VBEfCIk6EisflSHv
-         /gDUVv3wMk/FFa0i+t85HhgAhGNKvUWQM+uyFfHf7R99HdLDsqTVu1OdKxHUpGmPjMOt
-         mNMttCjZpU70WimMKmHPGsmBlNy6yey3olFwZuy9rwi7LqxkCfuZLeeZYqtRYeA8Mdgs
-         jhGw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780581051; x=1781185851;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=mLp8sJf8fzDOqqtj5uwx1QYbggbPxRQslMsoXQj9LcU=;
-        b=SZE1F2tDj4rNDKQ8OcBcy1uSLlEJIADWQE4FCj68yNlaTqkaTg1qrAx4i0QCQi8/SI
-         NO+Og+4Gx4Dtv3qxHAlU73SRDkhKBS5TZEdQ7hLzuyQzzHEbwfHi2ETMKsuLeQafxnnI
-         3sOb349yStbvpuZ15wm0Ade6+GoWWWNBfPkZe4GCAiXPu5QasIH8bffBja4GdWXWtLMO
-         XaQjJ7xS2lFcPhj7bwpBR1V3gpMtDV2bWN0pJ01btu36DG7o5zUgLCKz1M7Gt/5mXQK5
-         C04agTTP11PIYTl1zHIZBIfL8rBl1DoxCsU5k3Aa6uVm5S/P/fAgaB4296tudMP8RimO
-         31Hg==
-X-Gm-Message-State: AOJu0YyjChm9T85hUCO6YRRrrm1YaLC/2bQwm+ydLbwknkpQJgXPl+WG
-	e/iwze6WDCTmHjdBqkz/fu6Ny6teQDLi+yprbXZykpfwmKaHTZFpr5mGfWVCv7W+
-X-Gm-Gg: Acq92OEd+5BHsOodL9IB4tVFWTKzI/WOBR3+10Iuen3dSmvJAVZM9akZPYXqPO/cB6w
-	9Tj+8poCgN4+IH2zG6qmta5Mui6FJK6cUAOHVc22V2Ba6iHqeOI9gza2JETT08Fu840BElr0spT
-	yQhEfQ/EhkY2g6wknEpDtmEbQTqKSbLGeTZW+jhxWBty17WUIRfqjiYZcUj+4lQ3YyAPnnbyBCC
-	wKg1Xl211Xtgnxxi8yoJNoHjHtL1uTTq2ky/7/xyj/7WPP24kjGT3bNmvDc4xeBTNMEZ+9rRH/L
-	bdNl5MkBDpYH1mXffhMPTXavlhA98T9HTAgILfSe4EvaVHZLBY1PKsmPj/eAA/L/tWJz1ED5cBL
-	rBnuhoeXCLw91rGuKs2bH9bgB9u/OvZk8Km2cFYRbFUpB3Lc28koBo94OmTAKp35VChD9OfED+P
-	4aXi/cyo4Z6rpOXDpkqROwsQR0Az8LmcQs33eoY1EOFtQh2UZuQg==
-X-Received: by 2002:a05:651c:2226:b0:38d:e220:8daa with SMTP id 38308e7fff4ca-396af063d37mr26758341fa.3.1780581050660;
-        Thu, 04 Jun 2026 06:50:50 -0700 (PDT)
-Received: from dschervov-lin.yandex.net ([2a02:6bf:8009:1404:e250:47f1:a6b5:92c5])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-396ac2e9a9esm16038051fa.36.2026.06.04.06.50.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 04 Jun 2026 06:50:50 -0700 (PDT)
-From: Dmitrii Chervov <fary.ru@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oyrWm5Et"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECD481F00893;
+	Thu,  4 Jun 2026 13:54:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780581264;
+	bh=/b4nVeJN2nykSyZgLuapqnrO7SFkDHJSu/52ALBpZw8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=oyrWm5Et3XINm7eU44U4PPplXUMwOz2otnpW7hTNzNKVGCL71/W6t+JQhAmvWPFri
+	 OVgdFZZRKF1alyWpL2bHJKlNKvvYh+BnS+UdHZ/mw60KlD7Flx4LRgGB37dU+Gwyvm
+	 8bCcbiFF2NLiY2JL0wwkTymMKzk/1DVgbdF4FD5IrHyBqPxVDr+NhIzKnKCXuvemAb
+	 zaIy0m/TtNg2G8eYaMUrLFdlnejTS1QGhhJHIeZWnCW0CqBiQ1nybjZEUQWYbLBQRY
+	 YXM1V1AWzKCcFXOQniXgIgBI2cI8zi7pHZlSxhiB5IxsDQqR2FsX5vyXGVMNun3bug
+	 tjOxwSO6kItlw==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: iommu@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	joro@8bytes.org,
-	will@kernel.org,
-	robin.murphy@arm.com
-Subject: [PATCH 6.12] iommu: Skip PASID validation for devices without PASID capability
-Date: Thu,  4 Jun 2026 16:47:53 +0300
-Message-ID: <20260604134753.57739-1-fary.ru@gmail.com>
-X-Mailer: git-send-email 2.43.0
+Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+	"Isaac J. Manjarres" <isaacmanjarres@google.com>,
+	Hugh Dickins <hughd@google.com>,
+	Jann Horn <jannh@google.com>,
+	Kalesh Singh <kaleshsingh@google.com>,
+	"Liam R. Howlett" <Liam.Howlett@Oracle.com>,
+	Muchun Song <muchun.song@linux.dev>,
+	Vlastimil Babka <vbabka@suse.cz>,
+	Jeff Xu <jeffxu@chromium.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/3] mm: perform all memfd seal checks in a single place
+Date: Thu,  4 Jun 2026 09:54:19 -0400
+Message-ID: <20260604135421.3490773-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026060408-corrosive-dental-a22b@gregkh>
+References: <2026060408-corrosive-dental-a22b@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -74,108 +53,308 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Tushar Dave <tdave@nvidia.com>
+From: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
 
-[ Upstream commit b3f6fcd8404f9f92262303369bb877ec5d188a81 ]
+[ Upstream commit fa00b8ef1803fe133b4897c25227aa0d298dd093 ]
 
-Generally PASID support requires ACS settings that usually create
-single device groups, but there are some niche cases where we can get
-multi-device groups and still have working PASID support. The primary
-issue is that PCI switches are not required to treat PASID tagged TLPs
-specially so appropriate ACS settings are required to route all TLPs to
-the host bridge if PASID is going to work properly.
+We no longer actually need to perform these checks in the f_op->mmap()
+hook any longer.
 
-pci_enable_pasid() does check that each device that will use PASID has
-the proper ACS settings to achieve this routing.
+We already moved the operation which clears VM_MAYWRITE on a read-only
+mapping of a write-sealed memfd in order to work around the restrictions
+imposed by commit 5de195060b2e ("mm: resolve faulty mmap_region() error
+path behaviour").
 
-However, no-PASID devices can be combined with PASID capable devices
-within the same topology using non-uniform ACS settings. In this case
-the no-PASID devices may not have strict route to host ACS flags and
-end up being grouped with the PASID devices.
+There is no reason for us not to simply go ahead and additionally check to
+see if any pre-existing seals are in place here rather than defer this to
+the f_op->mmap() hook.
 
-This configuration fails to allow use of the PASID within the iommu
-core code which wrongly checks if the no-PASID device supports PASID.
+By doing this we remove more logic from shmem_mmap() which doesn't belong
+there, as well as doing the same for hugetlbfs_file_mmap().  We also
+remove dubious shared logic in mm.h which simply does not belong there
+either.
 
-Fix this by ignoring no-PASID devices during the PASID validation. They
-will never issue a PASID TLP anyhow so they can be ignored.
+It makes sense to do these checks at the earliest opportunity, we know
+these are shmem (or hugetlbfs) mappings whose relevant VMA flags will not
+change from the invoking do_mmap() so there is simply no need to wait.
 
-Fixes: c404f55c26fc ("iommu: Validate the PASID in iommu_attach_device_pasid()")
-Cc: stable@vger.kernel.org
-Signed-off-by: Tushar Dave <tdave@nvidia.com>
-Reviewed-by: Lu Baolu <baolu.lu@linux.intel.com>
-Reviewed-by: Vasant Hegde <vasant.hegde@amd.com>
-Link: https://lore.kernel.org/r/20250520011937.3230557-1-tdave@nvidia.com
-Signed-off-by: Joerg Roedel <jroedel@suse.de>
+This also means the implementation of further memfd seal flags can be done
+within mm/memfd.c and also have the opportunity to modify VMA flags as
+necessary early in the mapping logic.
 
-[ Refactored to apply cleanly without support attaching PASID to the blocked domain ]
-Signed-off-by: Dmitrii Chervov <fary.ru@gmail.com>
+[lorenzo.stoakes@oracle.com: fix typos in !memfd inline stub]
+  Link: https://lkml.kernel.org/r/7dee6c5d-480b-4c24-b98e-6fa47dbd8a23@lucifer.local
+Link: https://lkml.kernel.org/r/20241206212846.210835-1-lorenzo.stoakes@oracle.com
+Signed-off-by: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+Tested-by: Isaac J. Manjarres <isaacmanjarres@google.com>
+Cc: Hugh Dickins <hughd@google.com>
+Cc: Jann Horn <jannh@google.com>
+Cc: Kalesh Singh <kaleshsingh@google.com>
+Cc: Liam R. Howlett <Liam.Howlett@Oracle.com>
+Cc: Muchun Song <muchun.song@linux.dev>
+Cc: Vlastimil Babka <vbabka@suse.cz>
+Cc: Jeff Xu <jeffxu@chromium.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Stable-dep-of: 3b041514cb6e ("memfd: deny writeable mappings when implying SEAL_WRITE")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-My greeting to you LTS maintainers! This is my first kernel patch.
-I did a manual backport because cherry-pick failed (6.12 LTS did not have
-this series: https://lore.kernel.org/all/20241204122928.11987-1-yi.l.liu@intel.com/).
-This patch is tremendously helpful for Nvidia Grace servers. Without it
-their GPU direct technology did not work.
+ fs/hugetlbfs/inode.c  |  5 ----
+ include/linux/memfd.h | 23 +++++++++---------
+ include/linux/mm.h    | 55 -------------------------------------------
+ mm/memfd.c            | 44 +++++++++++++++++++++++++++++++++-
+ mm/mmap.c             | 12 +++++++---
+ mm/shmem.c            |  6 -----
+ 6 files changed, 63 insertions(+), 82 deletions(-)
 
- kdrivers/iommu/iommu.c | 25 ++++++++++++++++++-------
- 1 file changed, 18 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/iommu/iommu.c b/drivers/iommu/iommu.c
-index 0ad55649e2d0..62e1d6372503 100644
---- a/drivers/iommu/iommu.c
-+++ b/drivers/iommu/iommu.c
-@@ -3341,9 +3341,11 @@ static int __iommu_set_group_pasid(struct iommu_domain *domain,
+diff --git a/fs/hugetlbfs/inode.c b/fs/hugetlbfs/inode.c
+index 4aa9a1428dd583..b0c3b4399a7937 100644
+--- a/fs/hugetlbfs/inode.c
++++ b/fs/hugetlbfs/inode.c
+@@ -96,7 +96,6 @@ static const struct fs_parameter_spec hugetlb_fs_parameters[] = {
+ static int hugetlbfs_file_mmap(struct file *file, struct vm_area_struct *vma)
+ {
+ 	struct inode *inode = file_inode(file);
+-	struct hugetlbfs_inode_info *info = HUGETLBFS_I(inode);
+ 	loff_t len, vma_len;
  	int ret;
+ 	struct hstate *h = hstate_file(file);
+@@ -113,10 +112,6 @@ static int hugetlbfs_file_mmap(struct file *file, struct vm_area_struct *vma)
+ 	vm_flags_set(vma, VM_HUGETLB | VM_DONTEXPAND);
+ 	vma->vm_ops = &hugetlb_vm_ops;
  
- 	for_each_group_device(group, device) {
--		ret = domain->ops->set_dev_pasid(domain, device->dev, pasid);
--		if (ret)
--			goto err_revert;
-+		if (device->dev->iommu->max_pasids > 0) {
-+			ret = domain->ops->set_dev_pasid(domain, device->dev, pasid);
-+			if (ret)
-+				goto err_revert;
-+		}
- 	}
+-	ret = seal_check_write(info->seals, vma);
+-	if (ret)
+-		return ret;
+-
+ 	/*
+ 	 * page based offset in vm_pgoff could be sufficiently large to
+ 	 * overflow a loff_t when converted to byte offset.  This can
+diff --git a/include/linux/memfd.h b/include/linux/memfd.h
+index d437e30708502e..246daadbfde824 100644
+--- a/include/linux/memfd.h
++++ b/include/linux/memfd.h
+@@ -7,7 +7,14 @@
+ #ifdef CONFIG_MEMFD_CREATE
+ extern long memfd_fcntl(struct file *file, unsigned int cmd, unsigned int arg);
+ struct folio *memfd_alloc_folio(struct file *memfd, pgoff_t idx);
+-unsigned int *memfd_file_seals_ptr(struct file *file);
++/*
++ * Check for any existing seals on mmap, return an error if access is denied due
++ * to sealing, or 0 otherwise.
++ *
++ * We also update VMA flags if appropriate by manipulating the VMA flags pointed
++ * to by vm_flags_ptr.
++ */
++int memfd_check_seals_mmap(struct file *file, unsigned long *vm_flags_ptr);
+ #else
+ static inline long memfd_fcntl(struct file *f, unsigned int c, unsigned int a)
+ {
+@@ -17,19 +24,11 @@ static inline struct folio *memfd_alloc_folio(struct file *memfd, pgoff_t idx)
+ {
+ 	return ERR_PTR(-EINVAL);
+ }
+-
+-static inline unsigned int *memfd_file_seals_ptr(struct file *file)
++static inline int memfd_check_seals_mmap(struct file *file,
++					 unsigned long *vm_flags_ptr)
+ {
+-	return NULL;
++	return 0;
+ }
+ #endif
  
+-/* Retrieve memfd seals associated with the file, if any. */
+-static inline unsigned int memfd_file_seals(struct file *file)
+-{
+-	unsigned int *sealsp = memfd_file_seals_ptr(file);
+-
+-	return sealsp ? *sealsp : 0;
+-}
+-
+ #endif /* __LINUX_MEMFD_H */
+diff --git a/include/linux/mm.h b/include/linux/mm.h
+index 01d53e7fdcce5f..544ee79faf37f8 100644
+--- a/include/linux/mm.h
++++ b/include/linux/mm.h
+@@ -4140,61 +4140,6 @@ void mem_dump_obj(void *object);
+ static inline void mem_dump_obj(void *object) {}
+ #endif
+ 
+-static inline bool is_write_sealed(int seals)
+-{
+-	return seals & (F_SEAL_WRITE | F_SEAL_FUTURE_WRITE);
+-}
+-
+-/**
+- * is_readonly_sealed - Checks whether write-sealed but mapped read-only,
+- *                      in which case writes should be disallowing moving
+- *                      forwards.
+- * @seals: the seals to check
+- * @vm_flags: the VMA flags to check
+- *
+- * Returns whether readonly sealed, in which case writess should be disallowed
+- * going forward.
+- */
+-static inline bool is_readonly_sealed(int seals, vm_flags_t vm_flags)
+-{
+-	/*
+-	 * Since an F_SEAL_[FUTURE_]WRITE sealed memfd can be mapped as
+-	 * MAP_SHARED and read-only, take care to not allow mprotect to
+-	 * revert protections on such mappings. Do this only for shared
+-	 * mappings. For private mappings, don't need to mask
+-	 * VM_MAYWRITE as we still want them to be COW-writable.
+-	 */
+-	if (is_write_sealed(seals) &&
+-	    ((vm_flags & (VM_SHARED | VM_WRITE)) == VM_SHARED))
+-		return true;
+-
+-	return false;
+-}
+-
+-/**
+- * seal_check_write - Check for F_SEAL_WRITE or F_SEAL_FUTURE_WRITE flags and
+- *                    handle them.
+- * @seals: the seals to check
+- * @vma: the vma to operate on
+- *
+- * Check whether F_SEAL_WRITE or F_SEAL_FUTURE_WRITE are set; if so, do proper
+- * check/handling on the vma flags.  Return 0 if check pass, or <0 for errors.
+- */
+-static inline int seal_check_write(int seals, struct vm_area_struct *vma)
+-{
+-	if (!is_write_sealed(seals))
+-		return 0;
+-
+-	/*
+-	 * New PROT_WRITE and MAP_SHARED mmaps are not allowed when
+-	 * write seals are active.
+-	 */
+-	if ((vma->vm_flags & VM_SHARED) && (vma->vm_flags & VM_WRITE))
+-		return -EPERM;
+-
+-	return 0;
+-}
+-
+ #ifdef CONFIG_ANON_VMA_NAME
+ int madvise_set_anon_name(struct mm_struct *mm, unsigned long start,
+ 			  unsigned long len_in,
+diff --git a/mm/memfd.c b/mm/memfd.c
+index 119467307bff1f..190f07b6b98af3 100644
+--- a/mm/memfd.c
++++ b/mm/memfd.c
+@@ -197,7 +197,7 @@ static int memfd_wait_for_pins(struct address_space *mapping)
+ 	return error;
+ }
+ 
+-unsigned int *memfd_file_seals_ptr(struct file *file)
++static unsigned int *memfd_file_seals_ptr(struct file *file)
+ {
+ 	if (shmem_file(file))
+ 		return &SHMEM_I(file_inode(file))->seals;
+@@ -354,6 +354,48 @@ static int check_sysctl_memfd_noexec(unsigned int *flags)
  	return 0;
-@@ -3355,7 +3357,8 @@ static int __iommu_set_group_pasid(struct iommu_domain *domain,
- 
- 		if (device == last_gdev)
- 			break;
--		ops->remove_dev_pasid(device->dev, pasid, domain);
-+		if (device->dev->iommu->max_pasids > 0)
-+			ops->remove_dev_pasid(device->dev, pasid, domain);
- 	}
- 	return ret;
- }
-@@ -3368,8 +3371,10 @@ static void __iommu_remove_group_pasid(struct iommu_group *group,
- 	const struct iommu_ops *ops;
- 
- 	for_each_group_device(group, device) {
--		ops = dev_iommu_ops(device->dev);
--		ops->remove_dev_pasid(device->dev, pasid, domain);
-+		if (device->dev->iommu->max_pasids > 0) {
-+			ops = dev_iommu_ops(device->dev);
-+			ops->remove_dev_pasid(device->dev, pasid, domain);
-+		}
- 	}
  }
  
-@@ -3403,7 +3408,13 @@ int iommu_attach_device_pasid(struct iommu_domain *domain,
++static inline bool is_write_sealed(unsigned int seals)
++{
++	return seals & (F_SEAL_WRITE | F_SEAL_FUTURE_WRITE);
++}
++
++static int check_write_seal(unsigned long *vm_flags_ptr)
++{
++	unsigned long vm_flags = *vm_flags_ptr;
++	unsigned long mask = vm_flags & (VM_SHARED | VM_WRITE);
++
++	/* If a private matting then writability is irrelevant. */
++	if (!(mask & VM_SHARED))
++		return 0;
++
++	/*
++	 * New PROT_WRITE and MAP_SHARED mmaps are not allowed when
++	 * write seals are active.
++	 */
++	if (mask & VM_WRITE)
++		return -EPERM;
++
++	/*
++	 * This is a read-only mapping, disallow mprotect() from making a
++	 * write-sealed mapping writable in future.
++	 */
++	*vm_flags_ptr &= ~VM_MAYWRITE;
++
++	return 0;
++}
++
++int memfd_check_seals_mmap(struct file *file, unsigned long *vm_flags_ptr)
++{
++	int err = 0;
++	unsigned int *seals_ptr = memfd_file_seals_ptr(file);
++	unsigned int seals = seals_ptr ? *seals_ptr : 0;
++
++	if (is_write_sealed(seals))
++		err = check_write_seal(vm_flags_ptr);
++
++	return err;
++}
++
+ SYSCALL_DEFINE2(memfd_create,
+ 		const char __user *, uname,
+ 		unsigned int, flags)
+diff --git a/mm/mmap.c b/mm/mmap.c
+index d361b1058da109..e5ddc9c2af4923 100644
+--- a/mm/mmap.c
++++ b/mm/mmap.c
+@@ -369,8 +369,8 @@ unsigned long do_mmap(struct file *file, unsigned long addr,
  
- 	mutex_lock(&group->mutex);
- 	for_each_group_device(group, device) {
--		if (pasid >= device->dev->iommu->max_pasids) {
-+		/*
-+		 * Skip PASID validation for devices without PASID support
-+		 * (max_pasids = 0). These devices cannot issue transactions
-+		 * with PASID, so they don't affect group's PASID usage.
-+		 */
-+		if ((device->dev->iommu->max_pasids > 0) &&
-+		    (pasid >= device->dev->iommu->max_pasids)) {
- 			ret = -EINVAL;
- 			goto out_unlock;
+ 	if (file) {
+ 		struct inode *inode = file_inode(file);
+-		unsigned int seals = memfd_file_seals(file);
+ 		unsigned long flags_mask;
++		int err;
+ 
+ 		if (!file_mmap_ok(file, inode, pgoff, len))
+ 			return -EOVERFLOW;
+@@ -410,8 +410,6 @@ unsigned long do_mmap(struct file *file, unsigned long addr,
+ 			vm_flags |= VM_SHARED | VM_MAYSHARE;
+ 			if (!(file->f_mode & FMODE_WRITE))
+ 				vm_flags &= ~(VM_MAYWRITE | VM_SHARED);
+-			else if (is_readonly_sealed(seals, vm_flags))
+-				vm_flags &= ~VM_MAYWRITE;
+ 			fallthrough;
+ 		case MAP_PRIVATE:
+ 			if (!(file->f_mode & FMODE_READ))
+@@ -431,6 +429,14 @@ unsigned long do_mmap(struct file *file, unsigned long addr,
+ 		default:
+ 			return -EINVAL;
  		}
++
++		/*
++		 * Check to see if we are violating any seals and update VMA
++		 * flags if necessary to avoid future seal violations.
++		 */
++		err = memfd_check_seals_mmap(file, &vm_flags);
++		if (err)
++			return (unsigned long)err;
+ 	} else {
+ 		switch (flags & MAP_TYPE) {
+ 		case MAP_SHARED:
+diff --git a/mm/shmem.c b/mm/shmem.c
+index c92af39eebdd8a..51a0f94e6d9fe5 100644
+--- a/mm/shmem.c
++++ b/mm/shmem.c
+@@ -2820,12 +2820,6 @@ int shmem_lock(struct file *file, int lock, struct ucounts *ucounts)
+ static int shmem_mmap(struct file *file, struct vm_area_struct *vma)
+ {
+ 	struct inode *inode = file_inode(file);
+-	struct shmem_inode_info *info = SHMEM_I(inode);
+-	int ret;
+-
+-	ret = seal_check_write(info->seals, vma);
+-	if (ret)
+-		return ret;
+ 
+ 	file_accessed(file);
+ 	/* This is anonymous shared memory if it is unlinked at the time of mmap */
 -- 
-2.43.0
+2.53.0
 
