@@ -1,45 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1F0F480965
-	for <stable@vger.kernel.org>; Thu,  4 Jun 2026 13:54:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F142F480DC6
+	for <stable@vger.kernel.org>; Thu,  4 Jun 2026 13:55:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780581292; cv=none; b=LUUeO2xHegz6ywJoXpxMY7NjNH+ED3hxVZZPEUcfRiolKt/YQHboVWh+k63k0y4OnbmB923m16duCt0fqWC/OefhV6BhnB83aJAJcuNcmLZJO6A7rcFyG2BWdaUfjLtEaBOQs+6Qtn/3ac8NkqFnn5p7dH3bEKaH9UekIPVIqnw=
+	t=1780581306; cv=none; b=axX99aI5O6qXor1f9biVZbEcQAxdZ323arPMHmj4/e7F6GBFmilEN7mE5rXFfcgXNR8AxPU2QdxWlNAJ3c70mZzkz07tSCoaQCRQ/+5v2mCTZ2uYT02+OCBWWESUvmOXFuYGe8o0VIQTpVl4Rp3+ai2Wmw6tVZg81NormumbVkU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780581292; c=relaxed/simple;
-	bh=swLtrDZwC+utkyy8X5iNJ7Q6q840hnfzNr7USuEpQrE=;
+	s=arc-20240116; t=1780581306; c=relaxed/simple;
+	bh=ahwY0mo7nj38JbvOSS27DVdv7w503GVt/q5wtKMtv9w=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kEOyOSvgm+7gSIxgWPeNRFehmj/b235cnKTxX43THQCPyveQV6AXJWFaXvR2Vzt40pfqqtvGixu3yxHzjrJHM9Lyx4AZ1zeaxIpswj160LcF0GFEBck4spKXU+bWztyJYZlJahH2MeCa4CS3kzLyxfVx8QnQ75ECLFR5cCOXDV4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=orcicL/J; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=R6dP11DIvjOEveaBQpZDp8CfRhpo+6IjvKt/I5wqs/KbEXAru5I9eTz0sQEAADcGEF8IoOQTkYn0QkJbH4j+LK4YHjLwJ/PTu++dRrUHWiPxR0VZ7MJScIzbBO0Ke5ZcUzPNpUGLuT1nXXy5r0pPyUqu7ACfiiYHK433ms7Ny2U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BB8nLwZG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="orcicL/J"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2B1E1F00899;
-	Thu,  4 Jun 2026 13:54:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BB8nLwZG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 288BA1F00893;
+	Thu,  4 Jun 2026 13:55:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780581291;
-	bh=LtOn8sCBG3bF7XcWZ/trwhNuBWmMfJaHiY033fLgy/k=;
+	s=k20260515; t=1780581304;
+	bh=mLEf8AF3GUQqFeTecbf8z690NrO+UZIWTLct2P4pf4U=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=orcicL/JkZjKD0ICiQHD3plOq1AaJ6qw1qTGO30zZki6ZkOO84mfM78ecm/XzEYY4
-	 a0BVqOM8XVOigT2e33phS2UGkiuvNj2mTSUCsD9OSkYgB6a572Y0V45wGlDr5L1JZb
-	 FN/xDFPwLzLCHnShHycJ1Wt/Uzzr1NWyXMY83w3u8TtjIAidlvpGoRiXiukM5KpW6h
-	 CTtAcJC0sVqLkDzfDwHmuI8VwwnYqhd/E2MRV96ri+gRCQCOQF2PtHo8Nzj5Ux3kiM
-	 01zC6+6dotsAgj4kbIqwLpXDWY10yxZfVEMB/Lzt+vfaPvpLNcy+UuphcfvHY6YTfl
-	 LYhbFdTQr6hPg==
+	b=BB8nLwZGsfW2lkf0+wrLsgnv2i/W0Ka3O+EOrARlL4FKgbnnflXsTxl8ns3taEOEn
+	 tuz1BArIJXLrCptlHo0Ki+Vji4FWgKdEf4K8/I6NAHet8F3F4uwj1VHmiUZR2dVVup
+	 VlE/4Gam967KsVjJLn0Fu/qzy6YJN9Yr0Q5evwXDszMWNJEvMJw3QlskAgwNCY2EFk
+	 Iseg5vEt3u8BEo/HomXMNr898X5NZa5MyeDxNtAc0+zkikxNn8pr5OzYqe4hpQMgUg
+	 Rur9PWkWnovcRb0AprxKxLrQuqv134C0XE25olExO4IvXXpMH/as6qS5oLU9O53Nz5
+	 oEGztC33klKlw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: David Carlier <devnexen@gmail.com>,
-	Andy Shevchenko <andriy.shevchenko@intel.com>,
-	Stable@vger.kernel.org,
-	Jonathan Cameron <jic23@kernel.org>,
+Cc: Johan Hovold <johan@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 3/3] iio: adc: npcm: fix unbalanced clk_disable_unprepare()
-Date: Thu,  4 Jun 2026 09:54:47 -0400
-Message-ID: <20260604135447.3493139-3-sashal@kernel.org>
+Subject: [PATCH 6.12.y] USB: serial: cypress_m8: fix memory corruption with small endpoint
+Date: Thu,  4 Jun 2026 09:55:02 -0400
+Message-ID: <20260604135502.3494174-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260604135447.3493139-1-sashal@kernel.org>
-References: <2026060418-roving-osmosis-79bc@gregkh>
- <20260604135447.3493139-1-sashal@kernel.org>
+In-Reply-To: <2026060436-tubby-pancreas-41ef@gregkh>
+References: <2026060436-tubby-pancreas-41ef@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,111 +45,42 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: David Carlier <devnexen@gmail.com>
+From: Johan Hovold <johan@kernel.org>
 
-[ Upstream commit 0d42e2c0bd6ceb89e44c6e065f9bdf9b1df3ef0c ]
+[ Upstream commit e1a9d791fd66ab2431b9e6f6f835823809869047 ]
 
-The driver acquired the ADC clock with devm_clk_get() and read its
-rate, but never called clk_prepare_enable(). The probe error path and
-npcm_adc_remove() both called clk_disable_unprepare() unconditionally,
-causing the clk framework's enable/prepare counts to underflow on
-probe failure or module unbind.
+Make sure that the interrupt-out endpoint max packet size is at least
+eight bytes to avoid user-controlled slab corruption or NULL-pointer
+dereference should a malicious device report a smaller size.
 
-The issue went unnoticed because NPCM BMC firmware leaves the ADC
-clock enabled at boot, so the driver happened to work in practice.
-
-Switch to devm_clk_get_enabled() so the clock is properly enabled
-during probe and automatically released by the device-managed
-cleanup, and drop the now-redundant clk_disable_unprepare() from
-both the probe error path and remove().
-
-While at it, drop the duplicate error message on devm_request_irq()
-failure since the IRQ core already logs it.
-
-Fixes: 9bf85fbc9d8f ("iio: adc: add NPCM ADC driver")
-Signed-off-by: David Carlier <devnexen@gmail.com>
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: <Stable@vger.kernel.org>
-Signed-off-by: Jonathan Cameron <jic23@kernel.org>
+Fixes: 3416eaa1f8f8 ("USB: cypress_m8: Packet format is separate from characteristic size")
+Cc: stable@vger.kernel.org	# 2.6.26
+Reviewed-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Johan Hovold <johan@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/iio/adc/npcm_adc.c | 25 ++++++++-----------------
- 1 file changed, 8 insertions(+), 17 deletions(-)
+ drivers/usb/serial/cypress_m8.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/drivers/iio/adc/npcm_adc.c b/drivers/iio/adc/npcm_adc.c
-index 3a55465951e793..84f306b76c57d3 100644
---- a/drivers/iio/adc/npcm_adc.c
-+++ b/drivers/iio/adc/npcm_adc.c
-@@ -231,7 +231,7 @@ static int npcm_adc_probe(struct platform_device *pdev)
- 	if (IS_ERR(info->reset))
- 		return PTR_ERR(info->reset);
+diff --git a/drivers/usb/serial/cypress_m8.c b/drivers/usb/serial/cypress_m8.c
+index e29569d65991b3..53f27dee35e6bc 100644
+--- a/drivers/usb/serial/cypress_m8.c
++++ b/drivers/usb/serial/cypress_m8.c
+@@ -445,6 +445,14 @@ static int cypress_generic_port_probe(struct usb_serial_port *port)
+ 		return -ENODEV;
+ 	}
  
--	info->adc_clk = devm_clk_get(&pdev->dev, NULL);
-+	info->adc_clk = devm_clk_get_enabled(&pdev->dev, NULL);
- 	if (IS_ERR(info->adc_clk)) {
- 		dev_warn(&pdev->dev, "ADC clock failed: can't read clk\n");
- 		return PTR_ERR(info->adc_clk);
-@@ -244,17 +244,13 @@ static int npcm_adc_probe(struct platform_device *pdev)
- 	info->adc_sample_hz = clk_get_rate(info->adc_clk) / ((div + 1) * 2);
- 
- 	irq = platform_get_irq(pdev, 0);
--	if (irq < 0) {
--		ret = irq;
--		goto err_disable_clk;
--	}
-+	if (irq < 0)
-+		return irq;
- 
- 	ret = devm_request_irq(&pdev->dev, irq, npcm_adc_isr, 0,
- 			       "NPCM_ADC", indio_dev);
--	if (ret < 0) {
--		dev_err(dev, "failed requesting interrupt\n");
--		goto err_disable_clk;
--	}
-+	if (ret < 0)
-+		return ret;
- 
- 	reg_con = ioread32(info->regs + NPCM_ADCCON);
- 	info->vref = devm_regulator_get_optional(&pdev->dev, "vref");
-@@ -262,7 +258,7 @@ static int npcm_adc_probe(struct platform_device *pdev)
- 		ret = regulator_enable(info->vref);
- 		if (ret) {
- 			dev_err(&pdev->dev, "Can't enable ADC reference voltage\n");
--			goto err_disable_clk;
-+			return ret;
- 		}
- 
- 		iowrite32(reg_con & ~NPCM_ADCCON_REFSEL,
-@@ -272,10 +268,8 @@ static int npcm_adc_probe(struct platform_device *pdev)
- 		 * Any error which is not ENODEV indicates the regulator
- 		 * has been specified and so is a failure case.
- 		 */
--		if (PTR_ERR(info->vref) != -ENODEV) {
--			ret = PTR_ERR(info->vref);
--			goto err_disable_clk;
--		}
-+		if (PTR_ERR(info->vref) != -ENODEV)
-+			return PTR_ERR(info->vref);
- 
- 		/* Use internal reference */
- 		iowrite32(reg_con | NPCM_ADCCON_REFSEL,
-@@ -314,8 +308,6 @@ static int npcm_adc_probe(struct platform_device *pdev)
- 	iowrite32(reg_con & ~NPCM_ADCCON_ADC_EN, info->regs + NPCM_ADCCON);
- 	if (!IS_ERR(info->vref))
- 		regulator_disable(info->vref);
--err_disable_clk:
--	clk_disable_unprepare(info->adc_clk);
- 
- 	return ret;
- }
-@@ -332,7 +324,6 @@ static void npcm_adc_remove(struct platform_device *pdev)
- 	iowrite32(regtemp & ~NPCM_ADCCON_ADC_EN, info->regs + NPCM_ADCCON);
- 	if (!IS_ERR(info->vref))
- 		regulator_disable(info->vref);
--	clk_disable_unprepare(info->adc_clk);
- }
- 
- static struct platform_driver npcm_adc_driver = {
++	/*
++	 * The buffer must be large enough for the one or two-byte header (and
++	 * following data), but assume anything smaller than eight bytes is
++	 * broken.
++	 */
++	if (port->interrupt_out_size < 8)
++		return -EINVAL;
++
+ 	priv = kzalloc(sizeof(struct cypress_private), GFP_KERNEL);
+ 	if (!priv)
+ 		return -ENOMEM;
 -- 
 2.53.0
 
