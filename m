@@ -1,109 +1,254 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D239B37DE84
-	for <stable@vger.kernel.org>; Thu,  4 Jun 2026 10:44:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F33E405C42
+	for <stable@vger.kernel.org>; Thu,  4 Jun 2026 10:45:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780569900; cv=none; b=ApdUcA5fvELyz1yuDIAmQkSK94zdKET2fa/DrIeJMsdvEfcass6CVQhM6ksnkcbHM/2VkdX75ZTUnz+y9PjFRL05rWwlt5OUMc+OtJ6YCNpJ4Q1t/2tf7E/mYfpyBHNjTClE5yeCTtFwGO+4AVNtjMg0pu6h27dMGea1nimMyBM=
+	t=1780569911; cv=none; b=N9bEuy5sCSIvy5X0ebJ09M3IOq0g4i2QBuMfXvkry21EijZ8SV5InGtnN2voP24wfK4RB8R3dHQBBIwAGrIUSJqxaMnycmrzvXoX8qvdMa2iRXv/pu5rHJPFarfnvj3Tc/S+CX9Bm77YGhsiM5ZqZF3mgIsbMjF3msHG9GIBwjE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780569900; c=relaxed/simple;
-	bh=w11NFk0tB9XcI0K5nLVZWmLAtgfwxjKj7NOmdQdC25k=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=QL9SA1z651zBabV45ANEYp1LXXVECPukGziqEEDKPqTpzMw1EpRvjtBVycm8vJniZB/Y20SfA+TfRljVBlGecyHBnvUeBvyuictFnVt9XdzQpRoeCT3wFBf4Frlrjml631am7EmMTWiJxwI8mlzn1lVS0TUXOEkr9YCeBQjBaVM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=f9oXC1D0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780569911; c=relaxed/simple;
+	bh=pXOC3ieQ42cIu2RuSkFAP20upsmn2zTEUHKrLTllEys=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=LGSyC81cOkmk51/Te4DXcr1S9i9Sz8owNCXnEzPGrowhG9peF0l9lXRmSg1BYKjdZC70WPaYdHi5m2euMOuN0dxFz7hnMzPga9SuQ0N/uqO9lWz3oEYD3Uj8RxGcaIyrUJBdAl97eL98mZ+alH1Wp0OyAjnIe4Pb1Q8CdApJZPs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=B82TNq9C; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=RYDH67KF; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="f9oXC1D0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C1FD1F00893;
-	Thu,  4 Jun 2026 10:44:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1780569899;
-	bh=Egy3pHRv9Mlui1wDtj607CHuv6J+DgOJdu/6WdBuSvo=;
-	h=Subject:To:Cc:From:Date;
-	b=f9oXC1D0Zk6wejq/IVNM4XYerenIS3juO3Hyk3vb0ouEVgOSM92TgX0o+/QyutLrh
-	 c4jZ+LNKU6SDSVSgTA3uiUa74gYbBv0euAEyi60Ulmdgld0MWF97gVSEtvrTxyXtOR
-	 9jy6jROPh8pc7QGzCql4VbC9qqGPE4ZgG+Vo/+r8=
-Subject: FAILED: patch "[PATCH] usb: musb: omap2430: Fix use-after-free in omap2430_probe()" failed to apply to 6.6-stable tree
-To: vulab@iscas.ac.cn,gregkh@linuxfoundation.org,stable@kernel.org
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Thu, 04 Jun 2026 12:42:38 +0200
-Message-ID: <2026060438-hedging-paycheck-ec7a@gregkh>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="B82TNq9C";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="RYDH67KF"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1780569909;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=wbsaCU5Vs3pFhS9fw5gs64Im6dVDjZtVePKSfJVpfmE=;
+	b=B82TNq9C7CU9wajSDKTsX9f6HT6Sd8VD3QhviMzJjQhy4tEOM3lgvatP8/cxpvkgzBpB5e
+	I5b5KGewjnC7zpBVEIy54vg8QIP3yNZStLzqKk3UZYZtjHJzs83kWvwvY8mSaVBGMjm4Dp
+	UKdrTLnsblnNee2D/oobRt9y0kIsK1M=
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
+ [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-196-_YJl2PvENj6ZmZLn0Z_qjA-1; Thu, 04 Jun 2026 06:45:07 -0400
+X-MC-Unique: _YJl2PvENj6ZmZLn0Z_qjA-1
+X-Mimecast-MFC-AGG-ID: _YJl2PvENj6ZmZLn0Z_qjA_1780569907
+Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-4601daf4c65so363923f8f.2
+        for <stable@vger.kernel.org>; Thu, 04 Jun 2026 03:45:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1780569906; x=1781174706; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:content-language:from
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=wbsaCU5Vs3pFhS9fw5gs64Im6dVDjZtVePKSfJVpfmE=;
+        b=RYDH67KFRkeI/Rx5xKDrJSt6mX+ruPR8jRHHwDxrvbsv3zwHhNVS1KF7m5RuupNqqO
+         IBl2YLRfYKYZwMXgy5vKESkAQKOnYVxn46BvsrmkdIIjGykX1vCcXvibSsmLRLcoOIav
+         KfLNzZcQ9q/cb0zc86dOwXtVNseqyiiaHxviFmIv74nZS2MSXdcECSm7kSDD290Oa2d2
+         tuKsuqJUkRC68OOTxZN+QC8Lr2rWzXWvDWyo/ML/Emn+3dX1itBjC/y26ODHNY1gWdiU
+         0rNtx81VP8HILA7XMF8m0MODyPRhdkNfE038/3BofRYgHArZ3rJgyy4mfW/Qp60v7pZW
+         G05A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780569906; x=1781174706;
+        h=content-transfer-encoding:in-reply-to:content-language:from
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=wbsaCU5Vs3pFhS9fw5gs64Im6dVDjZtVePKSfJVpfmE=;
+        b=D/Du+vajnt6sDoeD53gGwJpeb0b+n2oC8nFvND+xD/KXckWpCSH6t9WbkoJte15DIh
+         P5VyDO7V4K53/gEPB94zupgjuKDlm3cTzC3eRtH6HtU4PMtLS6yMP9xWxtROr/oQOeeO
+         CwC/Y2UNYkOKM+aOPwGgMjbIp6+LmoX6wleKZ9V6KX58hu+PHHLHy7hcXwZqcQaRXTBt
+         tlm/ZqEWrMM/DpbYzZPcWpyDfO5hwA1ziI0h0xQr8GO2cdv6DHrpOXSqWMkEeKHpe74Z
+         BxnYBtkjeHXEz+NpSItAB2euNz43L2rIx8LJn7Fw1esHpnhd3+ng/oH26mRl8suw/x65
+         eJcA==
+X-Forwarded-Encrypted: i=1; AFNElJ8jP6R06AzCcJtXgXpHi7tUhwWTuPAu3cBx0XxellHPNsw8v8dvbagfZ/xzbdIWgS6/BzT91Y4=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzehxqpu7gOkmOyUMdCeQY8CqofA8YD0QuBV9kszU1++OMaQi9g
+	iFgX4aLxF87Eo0LJcxeg36NIAr37SA8NEAn3Q6jiLxVdkKjQRIQbKg639wGaiv1J8yVqABMCD+L
+	2ChibpgbEGHc3QZzF12g7tLNLgcy+fATbpPsai9He+qH19gGaE5yYyxWdjw==
+X-Gm-Gg: Acq92OGEtwRZoVimYtoJI8MRnLnTGslekf1hCcQeEZpaCYUwQvfY/oye1HyzYcwfZ2E
+	r9wyudeYopTIEfJIWy70IoovqBS9+Mgv0yeMPKJeaenQcEVe/fPNrndZwJOtrn/SCOnUESLVJ3U
+	O+wrBDrEhMKQZ1uz8zi0fiFrOQGJ7LX7foNi3Gn+FRyq+NasP2Ulrx7+e8lJ3YoQZ7ggAiho0wF
+	Jkie7n2N6kgfLFlCo3W8Ir9nWSMjnBnc7oMAyGm0qhhDNR4MiR7rgVqKDiv2GCF9cMcp3LkQDE1
+	HPVYQVSMD40kd1lebbclQvbnbos6JxGOzhW4nlSpRlpbUKwIDpcgX935m+OtV0AEMwPRcQK/NPn
+	DTZNm8fLsZKW3ymAz1Cqm2pL8iZEduoxApWYDRBnU5xUuHhZ4s9XzHrWlOYrN7d77AwE=
+X-Received: by 2002:a5d:630a:0:b0:45e:e44b:3147 with SMTP id ffacd0b85a97d-4602178318cmr7176624f8f.5.1780569906574;
+        Thu, 04 Jun 2026 03:45:06 -0700 (PDT)
+X-Received: by 2002:a5d:630a:0:b0:45e:e44b:3147 with SMTP id ffacd0b85a97d-4602178318cmr7176572f8f.5.1780569906004;
+        Thu, 04 Jun 2026 03:45:06 -0700 (PDT)
+Received: from [192.168.88.32] ([212.105.155.59])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4601f2dcad5sm16588064f8f.5.2026.06.04.03.45.04
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 04 Jun 2026 03:45:05 -0700 (PDT)
+Message-ID: <6d1fa9d9-73c2-48b5-95a1-51710d81b3ed@redhat.com>
+Date: Thu, 4 Jun 2026 12:45:03 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v3] net: mana: Optimize irq affinity for low vcpu
+ configs
+To: Shradha Gupta <shradhagupta@linux.microsoft.com>,
+ Dexuan Cui <decui@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
+ Haiyang Zhang <haiyangz@microsoft.com>, "K. Y. Srinivasan"
+ <kys@microsoft.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>,
+ Konstantin Taranov <kotaranov@microsoft.com>, Simon Horman
+ <horms@kernel.org>, Erni Sri Satya Vennela <ernis@linux.microsoft.com>,
+ Dipayaan Roy <dipayanroy@linux.microsoft.com>,
+ Shiraz Saleem <shirazsaleem@microsoft.com>,
+ Michael Kelley <mhklinux@outlook.com>, Long Li <longli@microsoft.com>,
+ Yury Norov <yury.norov@gmail.com>
+Cc: linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org,
+ netdev@vger.kernel.org, Paul Rosswurm <paulros@microsoft.com>,
+ Shradha Gupta <shradhagupta@microsoft.com>,
+ Saurabh Singh Sengar <ssengar@microsoft.com>, stable@vger.kernel.org
+References: <20260601102749.1768304-1-shradhagupta@linux.microsoft.com>
+From: Paolo Abeni <pabeni@redhat.com>
+Content-Language: en-US
+In-Reply-To: <20260601102749.1768304-1-shradhagupta@linux.microsoft.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
+On 6/1/26 12:27 PM, Shradha Gupta wrote:
+> In mana driver, the number of IRQs allocated is capped by the
+> min(num_cpu + 1, queue count). In cases, where the IRQ count is greater
+> than the vcpu count, we want to utilize all the vCPUs, irrespective of
+> their NUMA/core bindings.
+> 
+> This is important, especially in the envs where number of vCPUs are so
+> few that the softIRQ handling overhead on two IRQs on the same vCPU is
+> much more than their overheads if they were spread across sibling vCPUs.
+> 
+> This behaviour is more evident with dynamic IRQ allocation. Since MANA
+> IRQs are assigned at a later stage compared to static allocation, other
+> device IRQs may already be affinitized to the vCPUs. As a result, IRQ
+> weights become imbalanced, causing multiple MANA IRQs to land on the
+> same vCPU, while some vCPUs have none.
+> 
+> In such cases when many parallel TCP connections are tested, the
+> throughput drops significantly.
+> 
+> Test envs:
+> =======================================================
+> Case 1: without this patch
+> =======================================================
+> 4 vcpu(2 cores), 5 MANA IRQs (1 HWC + 4 Queue)
+> 
+> 	TYPE		effective vCPU aff
+> =======================================================
+> IRQ0:	HWC		0
+> IRQ1:	mana_q1		0
+> IRQ2:	mana_q2		2
+> IRQ3:	mana_q3		0
+> IRQ4:	mana_q4		3
+> 
+> %soft on each vCPU(mpstat -P ALL 1) on receiver
+> vCPU		0	1	2	3
+> =======================================================
+> pass 1:		38.85	0.03	24.89	24.65
+> pass 2:		39.15	0.03	24.57	25.28
+> pass 3:		40.36	0.03	23.20	23.17
+> 
+> =======================================================
+> Case 2: with this patch
+> =======================================================
+> 4 vcpu(2 cores), 5 MANA IRQs (1 HWC + 4 Queue)
+> 
+>         TYPE            effective vCPU aff
+> =======================================================
+> IRQ0:   HWC             0
+> IRQ1:   mana_q1         0
+> IRQ2:   mana_q2         1
+> IRQ3:   mana_q3         2
+> IRQ4:   mana_q4         3
+> 
+> %soft on each vCPU(mpstat -P ALL 1) on receiver
+> vCPU            0       1       2       3
+> =======================================================
+> pass 1:         15.42	15.85	14.99	14.51
+> pass 2:         15.53	15.94	15.81	15.93
+> pass 3:         16.41	16.35	16.40	16.36
+> 
+> =======================================================
+> Throughput Impact(in Gbps, same env)
+> =======================================================
+> TCP conn	with patch	w/o patch
+> 20480		15.65		7.73
+> 10240		15.63		8.93
+> 8192		15.64		9.69
+> 6144		15.64		13.16
+> 4096		15.69		15.75
+> 2048		15.69		15.83
+> 1024		15.71		15.28
+> 
+> Fixes: 755391121038 ("net: mana: Allocate MSI-X vectors dynamically")
+> Cc: stable@vger.kernel.org
+> Co-developed-by: Erni Sri Satya Vennela <ernis@linux.microsoft.com>
+> Signed-off-by: Erni Sri Satya Vennela <ernis@linux.microsoft.com>
+> Signed-off-by: Shradha Gupta <shradhagupta@linux.microsoft.com>
+> Reviewed-by: Haiyang Zhang <haiyangz@microsoft.com>
+> Reviewed-by: Simon Horman <horms@kernel.org>
 
-The patch below does not apply to the 6.6-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+Why do you consider this patch a fix? To me is a configuration
+improvement and should land on net-next.
 
-To reproduce the conflict and resubmit, you may use the following commands:
+> @@ -1717,11 +1719,24 @@ static int irq_setup(unsigned int *irqs, unsigned int len, int node,
+>  	return 0;
+>  }
+>  
+> +/* should be called with cpus_read_lock() held */
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
-git checkout FETCH_HEAD
-git cherry-pick -x e194ce048f5a6c549b3a23a8c568c6470f40f772
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026060438-hedging-paycheck-ec7a@gregkh' --subject-prefix 'PATCH 6.6.y' HEAD^..
+Minor nit: s/should/must/ or just drop the comment, as
+`for_each_online_cpu()` usage implies that.
 
-Possible dependencies:
+> +static void irq_setup_linear(unsigned int *irqs, unsigned int len)
+> +{
+> +	int cpu;
+> +
+> +	for_each_online_cpu(cpu) {
+> +		if (len == 0)
+> +			break;
+> +
+> +		irq_set_affinity_and_hint(*irqs++, cpumask_of(cpu));
+> +		len--;
+> +	}
 
+As this is another heuristic regarding irq spreading, why don't you
+implement that inside irq_setup()?
 
+> @@ -1767,13 +1784,42 @@ static int mana_gd_setup_dyn_irqs(struct pci_dev *pdev, int nvec)
+>  	 * first CPU sibling group since they are already affinitized to HWC IRQ
+>  	 */
+>  	cpus_read_lock();
+> -	if (gc->num_msix_usable <= num_online_cpus())
+> -		skip_first_cpu = true;
+> +	if (gc->num_msix_usable <= num_online_cpus()) {
+> +		err = irq_setup(irqs, nvec, gc->numa_node, true);
+> +		if (err) {
+> +			cpus_read_unlock();
+> +			goto free_irq;
+> +		}
+> +	} else {
+> +		/*
+> +		 * When num_msix_usable are more than num_online_cpus, our
+> +		 * queue IRQs should be equal to num of online vCPUs.
+> +		 * We try to make sure queue IRQs spread across all vCPUs.
+> +		 * In such a case NUMA or CPU core affinity does not matter.
+> +		 * Note: in this case the total mana IRQ should always be
+> +		 * num_online_cpus + 1. The first HWC IRQ is already handled
+> +		 * in HWC setup calls
+> +		 * However, if CPUs went offline since num_msix_usable was
+> +		 * computed, queue IRQs will be more than num_online_cpus().
+> +		 * In such cases remaining extra IRQs will retain their default
+> +		 * affinity.
+> +		 */
+> +		int first_unassigned = num_online_cpus();
+> +		if (nvec > first_unassigned) {
 
-thanks,
+An empty line is needed between the variable declaration and the code.
 
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From e194ce048f5a6c549b3a23a8c568c6470f40f772 Mon Sep 17 00:00:00 2001
-From: Wentao Liang <vulab@iscas.ac.cn>
-Date: Thu, 9 Apr 2026 10:11:04 +0000
-Subject: [PATCH] usb: musb: omap2430: Fix use-after-free in omap2430_probe()
-
-In omap2430_probe(), of_node_put(np) is called prematurely before the
-last access to np, leading to a use-after-free if the node's reference
-count drops to zero. Move the of_node_put() calls after the last use of
-np in both the success and error paths.
-
-Fixes: ffbe2feac59b ("usb: musb: omap2430: Fix probe regression for missing resources")
-Cc: stable <stable@kernel.org>
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-Link: https://patch.msgid.link/20260409101104.480623-1-vulab@iscas.ac.cn
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-
-diff --git a/drivers/usb/musb/omap2430.c b/drivers/usb/musb/omap2430.c
-index 48bb9bfb2204..333ab79f0ca9 100644
---- a/drivers/usb/musb/omap2430.c
-+++ b/drivers/usb/musb/omap2430.c
-@@ -337,7 +337,6 @@ static int omap2430_probe(struct platform_device *pdev)
- 	} else {
- 		device_set_of_node_from_dev(&musb->dev, &pdev->dev);
- 	}
--	of_node_put(np);
- 
- 	glue->dev			= &pdev->dev;
- 	glue->musb			= musb;
-@@ -455,6 +454,7 @@ static int omap2430_probe(struct platform_device *pdev)
- 		dev_err(&pdev->dev, "failed to register musb device\n");
- 		goto err_disable_rpm;
- 	}
-+	of_node_put(np);
- 
- 	return 0;
- 
-@@ -464,6 +464,7 @@ static int omap2430_probe(struct platform_device *pdev)
- 	if (!IS_ERR(glue->control_otghs))
- 		put_device(glue->control_otghs);
- err_put_musb:
-+	of_node_put(np);
- 	platform_device_put(musb);
- 
- 	return ret;
+/P
 
