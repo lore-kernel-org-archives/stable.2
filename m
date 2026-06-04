@@ -1,47 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B80FA8462
-	for <stable@vger.kernel.org>; Thu,  4 Jun 2026 00:05:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B182846A
+	for <stable@vger.kernel.org>; Thu,  4 Jun 2026 00:05:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780531551; cv=none; b=njpgMqDneIWMDCIs48QVoq4rogRurNMFzb7LXpSiPCExVOxQPpe3ahHp1eXA2Ok0ZXvSvXTCrLoGBdtoXVws7QIv/ATG+bQebjI+IiQIdPG1HSwnoNg6xWXnPIfEcDHZ59f4m/3vGugqp2WzL38kUlFz7x1kxP5Pjb8iDKKPdi4=
+	t=1780531552; cv=none; b=aXevZpRyHkCMEO/GcD58t928m8yWaNgp926NnieGEjC7kXU0vkbGejELpJp8pWku7MgC0Rf+jXBEnYDPhl0ngtOxNfe3NY8xCLT+WvgHYBGX9fNw5jcGBaKWpfSnY+HINX8vIN0PBtPdSJ+gk8SHEXJdkuAE2HcsOn3pQA66bI4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780531551; c=relaxed/simple;
-	bh=l9PFath+liIYfdRq9UBMC/9bi/+mnaPL/9aYDRA9Bmc=;
+	s=arc-20240116; t=1780531552; c=relaxed/simple;
+	bh=Lokx9tWcu3ZzjuR1RR6L4wD1itfA8HkL4WSZlCcXCPA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=beSQ1nazaf2u8U5PGzu5I1UTcunf7E6gJjDrJ7Hm4cuX9yMgz0kmt8pX8ykLVUz+IwssegjlrpBkoEv3Twiw99FNHGDoVkZzHHn4mC9kOBROezBFR3EFfZAX2NyqfYd/bKN0vGyXamSTgcltE2YPc5DJeMDR5DHvFnETCUIQLlk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j6Ncll3Y; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=d2SHncwqdJnNG5pvT1sGBqZhgs4cLym60QM4IjxOd3LE/nI8cFX8zOJWVB73NhL654IZwGe4KebbifRc8l7K8Cnn0qTYr8vzkISy4HVb31sTjrMnTq57vWtoOobRo3JBsb5qsby5Q9jf3FPH3QZ3ES62vSpvjOAhbcNukg21qUs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Rmjzw8Fm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j6Ncll3Y"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F2771F00893;
-	Thu,  4 Jun 2026 00:05:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Rmjzw8Fm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85A551F00898;
+	Thu,  4 Jun 2026 00:05:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780531550;
-	bh=NrVOiw+1se7mMUbShZpRXB1hUvmQ385ArgMq0tw7HDw=;
+	s=k20260515; t=1780531551;
+	bh=8ja6ZFk2OXwfX7Ldxwk6O3Y6wlqXJ9sVKst+Iu/Rw0M=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=j6Ncll3YPTDsMbOVjnc6GhgAhjhWeN5FR0jVkde0dUDpYKnL1Fkr/HFHdc5DeLamI
-	 +QvXyLiStaVE7dht1oV4nMyFoeMX4ZGpG/jUHTLe9dcM5WR820HGmXf/V08A9xwmO8
-	 aLNZIGN3dPjRpDk1KVdrEX1TyqVedliafvhg0KQG/Mr3tdU7SZNa8rwbbpqUrjKhtD
-	 QB/g/VmK5wyZXJLzdyM4qoyLHrIALRbbU/Of4Mal65SfYhe+dPIK2xkwb++m+jg7kL
-	 8WGLv592w9TdWy6VWUTXMDA6mH/gWy26n4PveLxL4w1iAYZ8GXmmXavcLQwxwpK2mZ
-	 PBFCL/oX0gSLQ==
+	b=Rmjzw8FmjNht11OHXoXXi4ycFSUm30NsUA/kqs+iOnUDv8f/BiCcsMULGUO4kdULi
+	 aiqDdu31UjGQQrVUwEY3Jl06YtO/gNHnuGJGejOzM5/7WiJsxWzrvlvlb8hem4MzEp
+	 33JPi1eN2JLQzhmxhwJzYvBI7iKQX91zHmclW09LeUIFnljcz++oML9mYxfTcoM93Y
+	 26B01PBpl20fpWUpMssTSVHCPlBqpFUpgpsbgu6T7cbVSQscLGlInAJo9+hXctTzk8
+	 0bgUzMZSEeNmzVGIYHsZKqRwQRWyvPnYbMfZxddHeXTX9vU2ionc2HVMM7mwoENVkI
+	 8GQPMHTNxX5LQ==
 From: Sasha Levin <sashal@kernel.org>
-To: stable <stable@vger.kernel.org>
+To: catalin.marinas@arm.com,
+	gregkh@linuxfoundation.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sabrina Dubroca <sd@queasysnail.net>,
-	Huzaifa Sidhpurwala <huzaifas@redhat.com>,
-	Willem de Bruijn <willemb@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Ben Hutchings <ben@decadent.org.uk>,
-	Salvatore Bonaccorso <carnil@debian.org>
-Subject: Re: Please apply commit 4db79a322db8 ("net: gro: don't merge zcopy skbs") to 6.1.y
-Date: Wed,  3 Jun 2026 20:05:36 -0400
-Message-ID: <20260603210831.item002@kernel.org>
+	stable@vger.kernel.org,
+	will@kernel.org,
+	Xiangyu Chen <xiangyu.chen@windriver.com>
+Subject: Re: [PATCH v2 6.12.y 0/2] proposal to fix CVE-2026-23346 on 6.12 or older kernel
+Date: Wed,  3 Jun 2026 20:05:37 -0400
+Message-ID: <20260603210831.item003a@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <ah8-6irgXpRvuZ8T@eldamar.lan>
-References: <ah8-6irgXpRvuZ8T@eldamar.lan>
+In-Reply-To: <20260603012314.4100773-1-xiangyu.chen@windriver.com>
+References: <20260603012314.4100773-1-xiangyu.chen@windriver.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -50,11 +47,12 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> Please apply commit 4db79a322db8 ("net: gro: don't merge zcopy skbs")
-> to 6.1.y. The mainline commit does not apply cleanly there, so a
-> hand-crafted backport is inlined below.
+> [PATCH v2 6.12.y 0/2] arm64: io: ioremap_prot() rename + extract user
+> memory type (CVE-2026-23346)
+>   1/2 arm64: io: Rename ioremap_prot() to __ioremap_prot()
+>   2/2 arm64: io: Extract user memory type in ioremap_prot()
 
-Queued for 6.1.y, thanks.
+Both queued for 6.12.y, thanks (and thanks to Catalin for the review).
 
 -- 
 Thanks,
