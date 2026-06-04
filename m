@@ -1,70 +1,178 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 39FC8492506;
-	Thu,  4 Jun 2026 16:50:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D3102116F4
+	for <stable@vger.kernel.org>; Thu,  4 Jun 2026 16:51:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780591822; cv=none; b=m/odLRcpyFP94QDBpRiYiWlPaZvLdesEzqV1hvwupZ59JfP+2IFlRmRRvNDgzbXOeb9dMbE4gXJyUa6Ju5T20mTmVlleNPgZpZMlR6NeuuhfWSUVeH3lo1hWbmKfDBm3czV4zKbgsYJlGU8qafqRJPnhApbVWgy2AINJCe5K47s=
+	t=1780591864; cv=none; b=dEtQ8qlLUsqz+pQwzuAUduOBcEQ/iGYPGBYO/APs9F7fS+0AJWEqdquOY2t2LRK2e8ULixUQOt7F3hZD5I2k/Ke9N96Oyqcwgwz+itofjZHHc0IZiwMFEGy4spXuRonu+kiuArWHwgQuuL8yRa9qmpE+kLTMGR6cabz6TqKj5BE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780591822; c=relaxed/simple;
-	bh=38JUf3SZ3VZqsjB6ynqgMt4h1xyvY4kOLChEDF6u4d8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hHz410P5ACyc+VTmS5L9+S+yqU8I8Stl7VTITBV+WaBJGzrkhaFqueUn96w2IJUEIQOxyKVP5/iF528xf6FoM8BpZdVpVkCasZzC2vOT+tN31Ei+IgWyGpCHk8zQ3OFBVYGCmRh/D71kxgq1/s0/W/W5JKmplz6l4uxULiW+9z4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=s9dQ6haN; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1780591864; c=relaxed/simple;
+	bh=a8UgwlT7jOTTnC3dSUlx2lm/6Uw0OW4vtIE2FnXl3bg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=joRv5fccaJkwcA7Ys0NiZiTRTsxZmOSRJF2apnzHfnDSGlhhY3EbKtqXpol8C3FTjgivQmnolfOcgAM0+MMjpU5I2KADVOALS9uRPnaxU1XF16h1wTq6PYEUxfLuiNjC8aYwW+4ORrgoYEO/uMcJNXWGN5fR4ZWMx/JN1w72MBk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kpvrUHG2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="s9dQ6haN"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B09104973;
-	Thu,  4 Jun 2026 09:50:14 -0700 (PDT)
-Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 69B6A3F7D8;
-	Thu,  4 Jun 2026 09:50:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1780591819; bh=38JUf3SZ3VZqsjB6ynqgMt4h1xyvY4kOLChEDF6u4d8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=s9dQ6haN/Phb4x7EJ9nXX4Ifq3IDaQ6kHbMraTI54HI8i1ea/p2XV+NUMIvr4+DsI
-	 kV8Cwns9sWiYe2i+9JVDFs5JS4LLzzfPD/NLHnfYe88SopVvS5wDynFR6tg9lnoIWl
-	 F9TIr62X0u7ngaCkrZ3JjstbwZ3B11i9jkTU+d1E=
-Date: Thu, 4 Jun 2026 17:50:15 +0100
-From: Catalin Marinas <catalin.marinas@arm.com>
-To: Ard Biesheuvel <ardb+git@google.com>
-Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	will@kernel.org, Ard Biesheuvel <ardb@kernel.org>,
-	Kevin Brodsky <kevin.brodsky@arm.com>,
-	Mark Brown <broonie@kernel.org>, Marc Zyngier <maz@kernel.org>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2 4/5] KVM: arm64: Omit tag sync on stage-2 mappings of
- the zero page
-Message-ID: <aiGsx2Ls676t7-iJ@arm.com>
-References: <20260604151151.150377-7-ardb+git@google.com>
- <20260604151151.150377-11-ardb+git@google.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kpvrUHG2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 350211F00893;
+	Thu,  4 Jun 2026 16:51:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780591862;
+	bh=wFyUds3bgA+9cGOjxE3fbAze7Ygq6iX6jXKUQH9YGRI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=kpvrUHG2FvLdf3Oi1HiwI5EAzBNHJNefVf830bsOivdDpIg0rparguMfWAdxo88Jo
+	 ln6ZawwMu2bVdSZaVxDuSEAWJRVmprlTnoZNAJmjjw6bzSlh1gLuix5RR3nkhqOvVi
+	 3LjkoLENA5Hf+pDogZYYb3mZUVIuH3r7v5VNQAtqmEomtiYldm7YfBPQFbARZRxzGA
+	 NolaRgaJd+lop9rbxrbweaeVGBOxXmKQanAOLx/GAAS2sll27G9OqoMfPjkUFwL5oQ
+	 FHlHSCo5ZDImQEpibzU9xOzgOZle4YCqh0FXlkqo3cRQv5SHECJ+wdiG98/ScWfRy1
+	 8qSIkR1sKKcFg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Rodrigo Alencar <rodrigo.alencar@analog.com>,
+	Stable@vger.kernel.org,
+	Jonathan Cameron <jic23@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y] iio: dac: ad5686: fix powerdown control on dual-channel devices
+Date: Thu,  4 Jun 2026 12:50:59 -0400
+Message-ID: <20260604165100.3876351-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026060442-rink-repose-7887@gregkh>
+References: <2026060442-rink-repose-7887@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260604151151.150377-11-ardb+git@google.com>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Jun 04, 2026 at 05:11:56PM +0200, Ard Biesheuvel wrote:
-> From: Ard Biesheuvel <ardb@kernel.org>
-> 
-> Commit
-> 
->    f620d66af316 ("arm64: mte: Do not flag the zero page as PG_mte_tagged")
-> 
-> removed the PG_mte_tagged flag from the zero page, but missed a KVM code
-> path that may set this flag on the zero page when it is used in a
-> stage-2 CoW mapping of anonymous memory.
-> 
-> So disregard the zero page explicitly in sanitise_mte_tags().
-> 
-> Fixes: f620d66af316 ("arm64: mte: Do not flag the zero page as PG_mte_tagged")
-> Cc: <stable@vger.kernel.org> # 5.10.x
-> Suggested-by: Catalin Marinas <catalin.marinas@arm.com>
-> Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
+From: Rodrigo Alencar <rodrigo.alencar@analog.com>
 
-Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
+[ Upstream commit 8aeaf25a85263a7a43357e16ad78ab969f6f8aeb ]
+
+Fix powerdown control by using a proper bit shift for the powerdown mask
+values. During initialization, powerdown bits are initialized so that
+unused bits are set to 1 and the correct bit shift is used. Dual-channel
+devices use one-hot encoding in the address and that reflects on the
+position of the powerdown bits, which are not channel-index based
+for that case. Quad-channel devices also use one-hot encoding for the
+channel address but the result of log2(address) coincides with the channel
+index value. Mask as 0x3U is used rather than 0x3, because shift can reach
+value of 30 (last channel of a 16-channel device), which would mess with
+the sign bit. The issue was introduced when first adding support for
+dual-channel devices, which overlooked powerdown control differences.
+
+Fixes: 7dc8faeab3e3 ("iio: dac: ad5686: add support for AD5338R")
+Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
+Cc: <Stable@vger.kernel.org>
+Signed-off-by: Jonathan Cameron <jic23@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/iio/dac/ad5686.c | 46 +++++++++++++++++++++++++++++++---------
+ 1 file changed, 36 insertions(+), 10 deletions(-)
+
+diff --git a/drivers/iio/dac/ad5686.c b/drivers/iio/dac/ad5686.c
+index 7d1b2b83172de9..7e41fa03d72dec 100644
+--- a/drivers/iio/dac/ad5686.c
++++ b/drivers/iio/dac/ad5686.c
+@@ -25,22 +25,37 @@ static const char * const ad5686_powerdown_modes[] = {
+ 	"three_state"
+ };
+ 
++static inline unsigned int ad5686_pd_mask_shift(const struct iio_chan_spec *chan)
++{
++	if (chan->channel == chan->address)
++		return chan->channel * 2;
++
++	/* one-hot encoding is used in dual/quad channel devices */
++	return __ffs(chan->address) * 2;
++}
++
+ static int ad5686_get_powerdown_mode(struct iio_dev *indio_dev,
+ 				     const struct iio_chan_spec *chan)
+ {
++	unsigned int shift = ad5686_pd_mask_shift(chan);
+ 	struct ad5686_state *st = iio_priv(indio_dev);
+ 
+-	return ((st->pwr_down_mode >> (chan->channel * 2)) & 0x3) - 1;
++	guard(mutex)(&st->lock);
++
++	return ((st->pwr_down_mode >> shift) & 0x3U) - 1;
+ }
+ 
+ static int ad5686_set_powerdown_mode(struct iio_dev *indio_dev,
+ 				     const struct iio_chan_spec *chan,
+ 				     unsigned int mode)
+ {
++	unsigned int shift = ad5686_pd_mask_shift(chan);
+ 	struct ad5686_state *st = iio_priv(indio_dev);
+ 
+-	st->pwr_down_mode &= ~(0x3 << (chan->channel * 2));
+-	st->pwr_down_mode |= ((mode + 1) << (chan->channel * 2));
++	guard(mutex)(&st->lock);
++
++	st->pwr_down_mode &= ~(0x3U << shift);
++	st->pwr_down_mode |= (mode + 1) << shift;
+ 
+ 	return 0;
+ }
+@@ -55,10 +70,12 @@ static const struct iio_enum ad5686_powerdown_mode_enum = {
+ static ssize_t ad5686_read_dac_powerdown(struct iio_dev *indio_dev,
+ 		uintptr_t private, const struct iio_chan_spec *chan, char *buf)
+ {
++	unsigned int shift = ad5686_pd_mask_shift(chan);
+ 	struct ad5686_state *st = iio_priv(indio_dev);
+ 
+-	return sysfs_emit(buf, "%d\n", !!(st->pwr_down_mask &
+-				       (0x3 << (chan->channel * 2))));
++	guard(mutex)(&st->lock);
++
++	return sysfs_emit(buf, "%d\n", !!(st->pwr_down_mask & (0x3U << shift)));
+ }
+ 
+ static ssize_t ad5686_write_dac_powerdown(struct iio_dev *indio_dev,
+@@ -78,9 +95,9 @@ static ssize_t ad5686_write_dac_powerdown(struct iio_dev *indio_dev,
+ 		return ret;
+ 
+ 	if (readin)
+-		st->pwr_down_mask |= (0x3 << (chan->channel * 2));
++		st->pwr_down_mask |= 0x3U << ad5686_pd_mask_shift(chan);
+ 	else
+-		st->pwr_down_mask &= ~(0x3 << (chan->channel * 2));
++		st->pwr_down_mask &= ~(0x3U << ad5686_pd_mask_shift(chan));
+ 
+ 	switch (st->chip_info->regmap_type) {
+ 	case AD5310_REGMAP:
+@@ -453,7 +470,7 @@ int ad5686_probe(struct device *dev,
+ {
+ 	struct ad5686_state *st;
+ 	struct iio_dev *indio_dev;
+-	unsigned int val, ref_bit_msk;
++	unsigned int val, ref_bit_msk, shift;
+ 	u8 cmd;
+ 	int ret, i, voltage_uv = 0;
+ 
+@@ -488,9 +505,18 @@ int ad5686_probe(struct device *dev,
+ 	else
+ 		st->vref_mv = st->chip_info->int_vref_mv;
+ 
++	/* Initialize masks to all ones provided the max shift (last channel) */
++	shift = ad5686_pd_mask_shift(&st->chip_info->channels[st->chip_info->num_channels - 1]);
++	st->pwr_down_mask = GENMASK(shift + 1, 0);
++	st->pwr_down_mode = GENMASK(shift + 1, 0);
++
+ 	/* Set all the power down mode for all channels to 1K pulldown */
+-	for (i = 0; i < st->chip_info->num_channels; i++)
+-		st->pwr_down_mode |= (0x01 << (i * 2));
++	for (i = 0; i < st->chip_info->num_channels; i++) {
++		shift = ad5686_pd_mask_shift(&st->chip_info->channels[i]);
++		st->pwr_down_mask &= ~(0x3U << shift); /* powered up state */
++		st->pwr_down_mode &= ~(0x3U << shift);
++		st->pwr_down_mode |= 0x01U << shift;
++	}
+ 
+ 	indio_dev->name = name;
+ 	indio_dev->info = &ad5686_info;
+-- 
+2.53.0
+
