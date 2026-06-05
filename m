@@ -1,167 +1,111 @@
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D17E745039;
-	Fri,  5 Jun 2026 06:31:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BC7040149E;
+	Fri,  5 Jun 2026 06:42:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780641075; cv=none; b=PZt9pNqEeBa1sftBFtzQC0j7tiEpLKgfSsxf75mrqITBUoCM4nb/LuQIPmRcIXHuUoTs8p80k1MzpUStDVIn7R2m5FBcyNoAfjl408tBp3F1ZuokqvNF/mwtPogFwLE6zg3dlC7TrXgtJMT4yEfSlMgcNy0yLJ5EbmELS7N7L94=
+	t=1780641751; cv=none; b=Q8cT3ViVsnYKhh5OHvhAzI9fYg8qDzvftaDSX9eyYPDtcZKsQ6zjOQtMfQVeM4ccbFnf74cXoJOPq4m1wbnByftVK90/YqwXAyK5Y3ymnf1g0sA9KbjN8It1uR2MUTjzwMgo3TAaEWHQhGgyMFpcy3FexPP4Ep/HG+KFW/WVkC4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780641075; c=relaxed/simple;
-	bh=kGmpVHGql2LZGI7p7pJWXq7/ggZJ/cvE5E3yok4Gh+k=;
-	h=Subject:To:Cc:References:From:Message-ID:Date:MIME-Version:
-	 In-Reply-To:Content-Type; b=H2LHnPV8tdSRi+0u0FJwzyEg72amc043HM+sRySHMI5yuZbqUyOebTX3qMmbdZpLyOmCt1xOY6G6hsVVo0hVLRPRiWQfVKsEYgh72aTYHH9E71kkQHKTtKHUhcKL7USCbtt5Pf2jdsu19hKsZ+bPS9uXu5ZVZHi7KTx85qSeXu4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [10.20.42.62])
-	by gateway (Coremail) with SMTP id _____8CxncAobSJqbNoQAA--.22338S3;
-	Fri, 05 Jun 2026 14:31:04 +0800 (CST)
-Received: from [10.20.42.62] (unknown [10.20.42.62])
-	by front1 (Coremail) with SMTP id qMiowJCxfcImbSJqkKScAA--.32857S3;
-	Fri, 05 Jun 2026 14:31:03 +0800 (CST)
-Subject: Re: [PATCH] LoongArch: KVM: return full old CSR value from
- kvm_emu_xchg_csr()
-To: Qiang Ma <maqianga@uniontech.com>, zhaotianrui@loongson.cn,
- chenhuacai@kernel.org, kernel@xen0n.name
-Cc: kvm@vger.kernel.org, loongarch@lists.linux.dev,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260604123433.3182173-1-maqianga@uniontech.com>
- <08d3b817-9de6-746d-2b2c-acc4a578f95a@loongson.cn>
- <4CD61A5AB07B2388+7fa119a1-af5f-4def-b2c4-6073fc397b10@uniontech.com>
-From: Bibo Mao <maobibo@loongson.cn>
-Message-ID: <519ffada-5f2b-2896-30a8-9546d3795f62@loongson.cn>
-Date: Fri, 5 Jun 2026 14:27:58 +0800
-User-Agent: Mozilla/5.0 (X11; Linux loongarch64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+	s=arc-20240116; t=1780641751; c=relaxed/simple;
+	bh=ZiFtKQZZSzaa6La/dIlsHqg4rVW+JmWCuMSQ5VwN9HU=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 MIME-Version:Message-ID; b=Jm2JSn1h5NrGr7jXeBd7LmlYHKKYI2rQxVtNOU61CDM6ALX4XmzvjDButtIwgqpweLH2tvWNLJ6358jqi9OKOAEEk/JULUhKUFO6RxP0cORWYpzyVfeCB99P8acIL/sV9t3tBSODBzJ5r93f5jzpRurjCB6rDv0OFIDM8AY7SDw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=fDFAxgqZ; arc=none smtp.client-ip=117.135.210.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="fDFAxgqZ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+	Message-ID; bh=ZiFtKQZZSzaa6La/dIlsHqg4rVW+JmWCuMSQ5VwN9HU=; b=f
+	DFAxgqZHY/kfSehR3hoVmCDc7zg91YBtJTjZryLn4RrQYnSxeLAoin2r3RxiGxhS
+	xoVfgzI1u/q9BoONAXk5j58A1qzRc0CJsLMcjlmt9/bxm9ddzanxWIAFfH1FtKBH
+	xgRNI+arPfH3uN0PGwAnSvgx7wpnhIPhsgUuqeNjXk=
+Received: from w15303746062$163.com ( [113.200.174.80] ) by
+ ajax-webmail-wmsvr-40-113 (Coremail) ; Fri, 5 Jun 2026 14:41:26 +0800 (CST)
+Date: Fri, 5 Jun 2026 14:41:26 +0800 (CST)
+From: w15303746062  <w15303746062@163.com>
+To: maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+	tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch
+Cc: zack.rusin@broadcom.com, bcm-kernel-feedback-list@broadcom.com,
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	"Mingyu Wang" <25181214217@stu.xidian.edu.cn>
+Subject: Re:[PATCH v2] drm/vblank: Reject 0-period timers to prevent hrtimer
+ storm
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260403(27802f6d) Copyright (c) 2002-2026 www.mailtech.cn 163com
+In-Reply-To: <20260523025447.581709-1-w15303746062@163.com>
+References: <fa91ccc0-7660-44fc-92a8-ab569ebe3a7c@suse.de>
+ <20260523025447.581709-1-w15303746062@163.com>
+X-NTES-SC: AL_Qu2TAvqfvk4j4CWfbOkfmU0Qguw9Xcq5uPkj34FWN5t8jDrp5QodX0JFHVfbys6/Dy2ItRqsex1+1f9nQoZgZZ0Jt3we5vz6boNvjzdYaiQPEw==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=GBK
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <4CD61A5AB07B2388+7fa119a1-af5f-4def-b2c4-6073fc397b10@uniontech.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJCxfcImbSJqkKScAA--.32857S3
-X-CM-SenderInfo: xpdruxter6z05rqj20fqof0/
-X-Coremail-Antispam: 1Uk129KBj93XoWxAry5XF4DKF1rKryrZr1xCrX_yoWrXr1kpr
-	Z3tF1jkrWvqr18Xry2gwn8JFn8ArsrA3WIqryqqF1UZr4Yk3WIgF1Fqryv9FsFvw4fKryI
-	qrWDJa10vw45AabCm3ZEXasCq-sJn29KB7ZKAUJUUUU5529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUU9ab4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r106r15M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv6xkF7I0E14v2
-	6r4UJVWxJr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjxCEc2xF0cIa020Ex4CE44I27w
-	Aqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jrv_JF1lYx0Ex4A2jsIE
-	14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwCYjI0SjxkI62AI1c
-	AE67vIY487MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMxCIbckI1I0E
-	14v26r1Y6r17MI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4
-	CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1x
-	MIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF
-	4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsG
-	vfC2KfnxnUUI43ZEXa7IU8r9N3UUUUU==
+Message-ID: <33239270.5344.19e9683e439.Coremail.w15303746062@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:cSgvCgDXf0yWbyJqdkoDAA--.27889W
+X-CM-SenderInfo: jzrvjiatxuliiws6il2tof0z/xtbC-xYkCGoib5bOVQAA3v
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 
-
-
-On 2026/6/5 下午2:08, Qiang Ma wrote:
-> 
-> 在 2026/6/5 09:41, Bibo Mao 写道:
->>
->>
->> On 2026/6/4 下午8:34, Qiang Ma wrote:
->>> The LoongArch CSRXCHG instruction returns the full old CSR value in rd
->>> after applying the masked update. kvm_emu_xchg_csr() currently masks
->>> the saved value before returning it to the guest, so rd receives only
->>> the bits selected by the write mask.
->>>
->>> That breaks the architectural behavior and makes a zero mask return 0
->>> instead of the previous CSR value. Keep the masked CSR update, but
->>> return the unmodified old CSR value.
->>>
->>> Fixes: da50f5a693ff ("LoongArch: KVM: Implement handle csr exception")
->>> Cc: stable@vger.kernel.org
->>> Signed-off-by: Qiang Ma <maqianga@uniontech.com>
->>> ---
->>>   arch/loongarch/kvm/exit.c | 1 -
->>>   1 file changed, 1 deletion(-)
->>>
->>> diff --git a/arch/loongarch/kvm/exit.c b/arch/loongarch/kvm/exit.c
->>> index 3b95cd0f989b..264813d45cbe 100644
->>> --- a/arch/loongarch/kvm/exit.c
->>> +++ b/arch/loongarch/kvm/exit.c
->>> @@ -103,7 +103,6 @@ static unsigned long kvm_emu_xchg_csr(struct 
->>> kvm_vcpu *vcpu, int csrid,
->>>           old = kvm_read_sw_gcsr(csr, csrid);
->>>           val = (old & ~csr_mask) | (val & csr_mask);
->>>           kvm_write_sw_gcsr(csr, csrid, val);
->>> -        old = old & csr_mask;
->>
->> Hi Qiang Ma
->>
->> This is correct from the manual. Is there any test case or problem in 
->> practice?  I want to evaluate severity about this problem.
-> 
-> Yes, I have written a selftest for this. Below are the test results 
-> comparing without and with the patch.
-> 
-> I have not encountered this problem in an actual operating environment.
-> 
-> without this patch:
-> 
-> [root@node1 loongarch]# ./csrxchg_testRandom seed: 0x6b8b4567Testing 
-> guest mode: PA-bits:47, VA-bits:47, 16K pagesTesting CSR: IMPCTL1 
-> (implementation-specific control 1)Initial guest CSR value: 
-> 0x10000100Checking that CSRXCHG updates the CSR per mask and returnsthe 
-> full old CSR value in rd.
-> 
-> Case: zero-maskwrite value : 0xffffffffffffffffwrite mask : 0returned 
-> old CSR value : 0expected old CSR value : 0x10000100CSR value after 
-> update : 0x10000100expected CSR after update: 0x10000100result : FAIL
-> 
-> Case: partial-maskwrite value : 0write mask : 0x100returned old CSR 
-> value : 0x100expected old CSR value : 0x10000100CSR value after update : 
-> 0x10000000expected CSR after update: 0x10000000result : FAIL
-> 
-> CSRXCHG test FAILED
-> 
-> with this patch:
-> 
-> [root@node1 loongarch]# ./csrxchg_testRandom seed: 0x6b8b4567Testing 
-> guest mode: PA-bits:47, VA-bits:47, 16K pagesTesting CSR: IMPCTL1 
-> (implementation-specific control 1)Initial guest CSR value: 
-> 0x10000100Checking that CSRXCHG updates the CSR per mask and returnsthe 
-> full old CSR value in rd.
-> 
-> Case: zero-maskwrite value : 0xffffffffffffffffwrite mask : 0returned 
-> old CSR value : 0x10000100expected old CSR value : 0x10000100CSR value 
-> after update : 0x10000100expected CSR after update: 0x10000100result : PASS
-> 
-> Case: partial-maskwrite value : 0write mask : 0x100returned old CSR 
-> value : 0x10000100expected old CSR value : 0x10000100CSR value after 
-> update : 0x10000000expected CSR after update: 0x10000000result : PASS
-> 
-> CSRXCHG test PASSED
-> 
-> Should this selftest case be included as a patch and sent along with 
-> version 2?
-No, it is not necessary. I test csrxchg instruction by myself, the 
-manual is right, return value should be the whole old value.
-
-My meaning is that what is the scenery where CSR register is SW emulated 
-in KVM mode, or this problem is found by code browsing.
-
-Regards
-Bibo Mao
-
-> 
->>
->> Regards
->> Bibo Mao
->>>       } else
->>>           pr_warn_once("Unsupported csrxchg 0x%x with pc %lx\n", 
->>> csrid, vcpu->arch.pc);
->>>
->>
->>
-
+CkhpIE1hYXJ0ZW4sIE1heGltZSwgVGhvbWFzLCBhbmQgYWxsLAoKQSBnZW50bGUgcGluZyBvbiB0
+aGlzIHYyIHBhdGNoLgoKSXQgaGFzIGJlZW4gYWJvdXQgdHdvIHdlZWtzIHNpbmNlIHN1Ym1pc3Np
+b24uIEFzIGEgcXVpY2sgcmVtaW5kZXIsIHRoaXMgdjIgCmFkZHJlc3NlcyB0aGUgcHJldmlvdXMg
+ZmVlZGJhY2sgYnkgbW92aW5nIHRoZSB6ZXJvLXBlcmlvZCB2YWxpZGF0aW9uIApkaXJlY3RseSBp
+bnRvIHRoZSBEUk0gY29yZSAoYGRybV92YmxhbmsuY2ApLiBUaGlzIHByb3RlY3RzIGFsbCB2aXJ0
+dWFsIApkcml2ZXJzIHJlbHlpbmcgb24gdGhlIHNvZnR3YXJlIHZibGFuayB0aW1lciBmcm9tIHRo
+ZSBocnRpbWVyIHN0b3JtIERvUy4gCkl0IGFsc28gZHJvcHMgdGhlIFdBUk5fT05fT05DRSgpIHRv
+IHByZXZlbnQgdW5wcml2aWxlZ2VkIHVzZXJzcGFjZSBmcm9tIAp0cmlnZ2VyaW5nIHBhbmljcy4K
+CkNvdWxkIGFueW9uZSBwbGVhc2UgdGFrZSBhIGxvb2sgd2hlbiB5b3UgaGF2ZSBhIG1vbWVudCwg
+b3IgbGV0IG1lIGtub3cgCmlmIGFueSBmdXJ0aGVyIGFkanVzdG1lbnRzIGFyZSBuZWVkZWQ/CgpC
+ZXN0IHJlZ2FyZHMsCk1pbmd5dQoKQXQgMjAyNi0wNS0yMyAxMDo1NDo0NywgdzE1MzAzNzQ2MDYy
+QDE2My5jb20gd3JvdGU6Cj5Gcm9tOiBNaW5neXUgV2FuZyA8MjUxODEyMTQyMTdAc3R1LnhpZGlh
+bi5lZHUuY24+Cj4KPkZ1enplcnMgbGlrZSBTeXprYWxsZXIgY2FuIHN1Ym1pdCBleHRyZW1lbHkg
+bWFsaWNpb3VzIGRpc3BsYXkgbW9kZXMKPnRocm91Z2ggRFJNX0lPQ1RMX01PREVfU0VUQ1JUQy4g
+SWYgdXNlcnNwYWNlIHBhc3NlcyBhIG1vZGUgd2l0aCBhCj5tYXNzaXZlIHBpeGVsIGNsb2NrIChj
+cnRjX2Nsb2NrKSBhbmQgc21hbGwgcmVzb2x1dGlvbiAoaHRvdGFsL3Z0b3RhbCksCj50aGUgaW50
+ZWdlciBkaXZpc2lvbiBpbiBkcm1fY2FsY190aW1lc3RhbXBpbmdfY29uc3RhbnRzKCkgdHJ1bmNh
+dGVzCj50aGUgcmVzdWx0aW5nIGZyYW1lIGR1cmF0aW9uICh2YmxhbmstPmZyYW1lZHVyX25zKSB0
+byAwLgo+Cj5XaGVuIHZpcnR1YWwgZGlzcGxheSBkcml2ZXJzIChzdWNoIGFzIHZtd2dmeCBvciB2
+a21zKSByZWx5IG9uIHRoZSBEUk0KPmNvcmUncyBzb2Z0d2FyZSB2Ymxhbmsgc2ltdWxhdGlvbiwg
+ZHJtX2NydGNfdmJsYW5rX3N0YXJ0X3RpbWVyKCkgaXMKPmNhbGxlZC4gSXQgYmxpbmRseSBjb252
+ZXJ0cyB0aGlzIDAtbnMgZnJhbWVkdXJfbnMgaW50byBhIGt0aW1lIGludGVydmFsCj5hbmQgc3Rh
+cnRzIHRoZSBocnRpbWVyLiBBbiBocnRpbWVyIHdpdGggYSAwLXBlcmlvZCBmaXJlcyBpbnN0YW50
+bHkgYW5kCj5jb250aW51b3VzbHkuIFNpbmNlIGhydGltZXJfZm9yd2FyZF9ub3coKSBjYW5ub3Qg
+YWR2YW5jZSB0aW1lIGZvciBhCj4wLXBlcmlvZCwgdGhlIENQVSBnZXRzIGxvY2tlZCBpbiBhbiBp
+bmZpbml0ZSBoYXJkLUlSUSBsb29wLCBzdGFydmluZwo+dGhlIHN5c3RlbSBhbmQgY2F1c2luZyBt
+YXNzaXZlIFJDVSBzdGFsbHMuCj4KPkZpeCB0aGlzIERvUyB2dWxuZXJhYmlsaXR5IGJ5IGFkZGlu
+ZyBhIGRlZmVuc2l2ZSBzYW5pdHkgY2hlY2sgaW4KPmRybV9jcnRjX3ZibGFua19zdGFydF90aW1l
+cigpIHRvIHJlamVjdCBhIDAtbnMgZnJhbWUgZHVyYXRpb24sIGFsbG93aW5nCj50aGUgRFJNIGNv
+cmUgdG8gZ3JhY2VmdWxseSByZWplY3QgdGhlIG1hbGljaW91cyBtb2RlLgo+Cj5TaWduZWQtb2Zm
+LWJ5OiBNaW5neXUgV2FuZyA8MjUxODEyMTQyMTdAc3R1LnhpZGlhbi5lZHUuY24+Cj4tLS0KPkNo
+YW5nZXMgaW4gdjI6Cj4tIE1vdmVkIHRoZSBkZWZlbnNpdmUgY2hlY2sgZnJvbSB2bXdnZnggdG8g
+ZHJtX3ZibGFuay5jLiBUaGUgdGltZXIKPiAgbG9naWMgd2FzIHJlZmFjdG9yZWQgaW50byB0aGUg
+RFJNIGNvcmUsIHNvIHBsYWNpbmcgdGhlIGNoZWNrIGhlcmUKPiAgcHJvdGVjdHMgYWxsIGRyaXZl
+cnMgcmVseWluZyBvbiB0aGUgY29yZSBzb2Z0d2FyZSB2YmxhbmsgdGltZXIuCj4tIERyb3BwZWQg
+V0FSTl9PTl9PTkNFKCkgdG8gcHJldmVudCB1bnByaXZpbGVnZWQgdXNlcnNwYWNlIGZyb20gZWFz
+aWx5Cj4gIHRyaWdnZXJpbmcga2VybmVsIHBhbmljcyBvbiBzeXN0ZW1zIHdpdGggcGFuaWNfb25f
+d2FybiBlbmFibGVkLgo+Cj4gZHJpdmVycy9ncHUvZHJtL2RybV92YmxhbmsuYyB8IDEwICsrKysr
+KysrKysKPiAxIGZpbGUgY2hhbmdlZCwgMTAgaW5zZXJ0aW9ucygrKQo+Cj5kaWZmIC0tZ2l0IGEv
+ZHJpdmVycy9ncHUvZHJtL2RybV92YmxhbmsuYyBiL2RyaXZlcnMvZ3B1L2RybS9kcm1fdmJsYW5r
+LmMKPmluZGV4IGY5MGZiMmQxM2U0Mi4uYjM4ZDBiMzBhNjUxIDEwMDY0NAo+LS0tIGEvZHJpdmVy
+cy9ncHUvZHJtL2RybV92YmxhbmsuYwo+KysrIGIvZHJpdmVycy9ncHUvZHJtL2RybV92Ymxhbmsu
+Ywo+QEAgLTIyNDEsNiArMjI0MSwxNiBAQCBpbnQgZHJtX2NydGNfdmJsYW5rX3N0YXJ0X3RpbWVy
+KHN0cnVjdCBkcm1fY3J0YyAqY3J0YykKPiAKPiAJZHJtX2NhbGNfdGltZXN0YW1waW5nX2NvbnN0
+YW50cyhjcnRjLCAmY3J0Yy0+bW9kZSk7Cj4gCj4rCS8qCj4rCSAqIERFRkVOU0lWRSBDSEVDSzoK
+PisJICogZHJtX2NhbGNfdGltZXN0YW1waW5nX2NvbnN0YW50cygpIHRydW5jYXRlcyBmcmFtZWR1
+cl9ucyB0byAwIGlmCj4rCSAqIHVzZXJzcGFjZSBwcm92aWRlcyBhIG1hbGljaW91cyBtb2RlIHdp
+dGggYSBodWdlIGNydGNfY2xvY2sgYW5kCj4rCSAqIHNtYWxsIGh0b3RhbC92dG90YWwuIFByZXZl
+bnQgYW4gaW5maW5pdGUgaGFyZC1JUlEgbG9vcCBmcm9tIGEKPisJICogMC1wZXJpb2QgaHJ0aW1l
+ciBieSByZWplY3Rpbmcgc3VjaCBtb2Rlcy4KPisJICovCj4rCWlmICh1bmxpa2VseSh2Ymxhbmst
+PmZyYW1lZHVyX25zID09IDApKQo+KwkJcmV0dXJuIC1FSU5WQUw7Cj4rCj4gCXNwaW5fbG9ja19p
+cnFzYXZlKCZ2dGltZXItPmludGVydmFsX2xvY2ssIGZsYWdzKTsKPiAJdnRpbWVyLT5pbnRlcnZh
+bCA9IG5zX3RvX2t0aW1lKHZibGFuay0+ZnJhbWVkdXJfbnMpOwo+IAlzcGluX3VubG9ja19pcnFy
+ZXN0b3JlKCZ2dGltZXItPmludGVydmFsX2xvY2ssIGZsYWdzKTsKPi0tIAo+Mi4zNC4xCg==
