@@ -1,137 +1,154 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B88743FFFB9;
-	Fri,  5 Jun 2026 15:20:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 733BC3438B5;
+	Fri,  5 Jun 2026 15:23:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780672860; cv=none; b=hiqzkVhCqMa5LDIrip8mcxntmtuPrRkTCk2tDFDGbeXWR1fvMR4WyoVge2pejEGE3uewlzZnF0H9lW5l0/jcL1fZgXkOGiPNGGSUT7J3mAQnZLqobHFU2gjJh3nTD1mRvxfg+Rq6kQjbxkFQ9MiCnAkanJdhcNpSNYnJ1Ltd6+c=
+	t=1780672988; cv=none; b=uF6RBfViPBDY4Ahze8fOjieSwykHXbpsp0hwCODZfIjiAIe7fP9AxBa7vUegvd41c/vHHyJCsOG36nVVisF/4OyS9bJdcDqlHJVam+1IEsjM8s4+pSLQlw5jVLHa+R9k8res7WveXsCppHd+L/e4SOF1jtYeF4M6Trty6WXWWxo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780672860; c=relaxed/simple;
-	bh=OmArnAhkQIeJyjgo9y32otIfNDJ7MZbWItZkKOm7I9E=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Y6YqdiIf7ugjCNkX3xJ0keOuuYHMy+ZrhHiJPfH2KSIwAsNQLinlvqt/yhcmRnyEtH3AVsR4VkM5Rd5xEmfjJyE2aj+ynWzNsDlAEqJ5O9dibaYz7CUsDVF67arFkaA4+55RU3F3nmp5XeaEcZfqE+4kcsBsh2XMwkutqqGEZiY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=PdEAicgy; arc=none smtp.client-ip=192.198.163.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1780672988; c=relaxed/simple;
+	bh=nbRSvaat5VGspnNLU4aZRpu6SrqS62GVtLyLDSOGZmQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=PL3hA89+R4D/leqXE6MsmnDGKyawKVjiQpUw/iGR0IUxTMTxddvlALeno2uP1pvRvkR+fipuSIOdf8WoMIQA6t2Hl8dh1Xh5r7uVt01NE3RQtSQSMF7k/WS6lq2AvWnDn8KqMgyaEuRZoKV+bgHABiPJwG96Eyhmn/lkdwppRhs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lld5KT01; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="PdEAicgy"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1780672859; x=1812208859;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=OmArnAhkQIeJyjgo9y32otIfNDJ7MZbWItZkKOm7I9E=;
-  b=PdEAicgyRWR6bVPZNIcn1NDHiMLHkjjI2G5tiJFbJKnNpy7/hUSunYgf
-   gShFDnlb1OR/bJiAGNLMHWBlFKSAcorl6FeE08Va1y4RqlO94yN4UGUBL
-   A/Gnr+UKRMfnLNABVR+sZbNijlVHS1Wgegu7IZrfVpyR/BEa+VeBYzG6X
-   cxJYJnbaSnSkxVwCTBLFI3FPVyPeK7SL8f95Lf2LvzbNZTjTqKmBu39dX
-   gH6rcIYScOtYmgYY2g3a2MjDjfBjWPK6csvKVbtC41+6/wC19Na4RmRct
-   gkoeJ7X+AtBE3H9egXGd95fGDi99UVDDjbSzzX9Xg+stS5JdrAMEXu5E8
-   w==;
-X-CSE-ConnectionGUID: fLn4Y/SGQjiL48QoZOIJTg==
-X-CSE-MsgGUID: aU+Luc8/TIaVxmNzlvW7mg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11807"; a="92881826"
-X-IronPort-AV: E=Sophos;i="6.24,188,1774335600"; 
-   d="scan'208";a="92881826"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Jun 2026 08:20:58 -0700
-X-CSE-ConnectionGUID: k9VI6hpJST+hcGFF3dbpNw==
-X-CSE-MsgGUID: DtJ8HAlWSnaN/H7u6L6j+g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,188,1774335600"; 
-   d="scan'208";a="244984658"
-Received: from ettammin-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.178])
-  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Jun 2026 08:20:55 -0700
-Date: Fri, 5 Jun 2026 18:20:52 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Xu Yang <xu.yang_2@oss.nxp.com>
-Cc: Daniel Scally <djrscally@gmail.com>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	linux-acpi@vger.kernel.org, driver-core@lists.linux.dev,
-	linux-kernel@vger.kernel.org, Xu Yang <xu.yang_2@nxp.com>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] software node: fix refcount leak in
- software_node_get_next_child()
-Message-ID: <aiLpVIjws1DO9l4J@ashevche-desk.local>
-References: <20260603-fixes_fwnode_iteration-v2-0-0ae381f8b7b9@nxp.com>
- <20260603-fixes_fwnode_iteration-v2-1-0ae381f8b7b9@nxp.com>
- <ah_2i-jWq2kBRJpe@ashevche-desk.local>
- <soxsu3t7ntgnbeeic5mygklzdpohyic7echo5trnzuphbpe6b6@avr5wwkbojvm>
- <aiG62GXa3tYhhMBQ@ashevche-desk.local>
- <6keyevnyndjeovbpiiufp7ejrtz6sfelu65evhg7odgb2tyxrf@xtmiqmko2kuo>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lld5KT01"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F21FF1F00893;
+	Fri,  5 Jun 2026 15:23:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780672987;
+	bh=4wOr+NvrPlKYULhjCbciaU+Y1LY+GHa/b5I1+X3BL6Q=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=lld5KT01regBZ465fs7NoQrwEnUy7oqvFb0aRZOf704ugy+VqdGshjAOPQ09DmJKQ
+	 ov6rIEYAmxuAuDm9c9HQS6Z32Nqfp83V1tVOlSvyqckeh/uEy5sjFmcp5cf1sCYVoT
+	 eKh0C9+h9dE1JPBCPP3Xl8bmCMdGA+HDveybSt+Earil/JVfMZbvSOFar/+pH4Q5tM
+	 6Jip2iRfxXBPu3YNL6/SwsOW9f/aBN7ZWNqToEHT6o2UfBgwy0tfc9AoxLmFhTwN2H
+	 cPcqttEbmx9ipsbilGaXHGycV5pf9l07+RqHrcsj1IXg2nqwPLse2mJaNsVk2Sedr3
+	 XM3m/qmEs3xpw==
+Message-ID: <92780fad-f0c3-4048-a89f-171c46cba212@kernel.org>
+Date: Fri, 5 Jun 2026 17:23:03 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <6keyevnyndjeovbpiiufp7ejrtz6sfelu65evhg7odgb2tyxrf@xtmiqmko2kuo>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/compaction: guard move_freelist_head() against invalid
+ freepage
+Content-Language: en-US
+To: Giorgi Tchankvetadze <giorgitchankvetadze1997@gmail.com>,
+ akpm@linux-foundation.org
+Cc: surenb@google.com, mhocko@suse.com, jackmanb@google.com,
+ hannes@cmpxchg.org, ziy@nvidia.com, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260601133941.111989-2-giorgitchankvetadze1997@gmail.com>
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Autocrypt: addr=vbabka@kernel.org; keydata=
+ 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
+In-Reply-To: <20260601133941.111989-2-giorgitchankvetadze1997@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Fri, Jun 05, 2026 at 05:16:32PM +0800, Xu Yang wrote:
-> On Thu, Jun 04, 2026 at 08:50:16PM +0300, Andy Shevchenko wrote:
-> > On Thu, Jun 04, 2026 at 07:15:26PM +0800, Xu Yang wrote:
-> > > On Wed, Jun 03, 2026 at 12:40:27PM +0300, Andy Shevchenko wrote:
-> > > > On Wed, Jun 03, 2026 at 04:44:31PM +0800, Xu Yang wrote:
-
-...
-
-> > > > >  	struct swnode *p = to_swnode(fwnode);
-> > > > >  	struct swnode *c = to_swnode(child);
-> > > > >  
-> > > > > -	if (!p || list_empty(&p->children) ||
-> > > > > -	    (c && list_is_last(&c->entry, &p->children))) {
-> > > > > -		fwnode_handle_put(child);
-> > > > 
-> > > > Wouldn't be better to use swnode_get() / swnode_put() instead?
-> > > > *Yes, we might need to add some NULL checks there.
-> > > 
-> > > It's not newly added by me. The software_node_get_next_child() has been using
-> > > fwnode_handle_get() / fwnode_handle_put() before. In my opinion, this should
-> > > be fine since they do the same thing here for a swnode.
-> > 
-> > It doesn't matter who added that. But according to the point of this patch
-> > (correct me if I am wrong) is to avoid bumping or dropping reference count for
-> > the nodes that are *not* of swnode type. Moving away from fwnode_handle_*()
-> > loop we make the point clear.
+On 6/1/26 15:39, Giorgi Tchankvetadze wrote:
+> In fast_isolate_freepages(), freepage is declared uninitialized and
+> is only assigned a valid page pointer if list_for_each_entry_reverse
+> exits via break. If the loop runs to completion (all pages in the
+> freelist have pfn < min_pfn), freepage holds the list head sentinel
+> and high_pfn remains zero, so the high_pfn fallback does not update
+> it either.
 > 
-> Yes.
+> The subsequent unconditional call to move_freelist_head(freelist,
+> freepage) then passes the sentinel as a page pointer, which is
+> invalid.
+
+I was wondering why we're not crashing horribly ever since the code was
+written, as those condition have to happen a lot.
+
+Looking at move_freelist_head() "if (!list_is_first(...))" will be true,
+unless the freelist is empty.
+Then luckily list_cut_before() has this very helpful comment:
+
+ * If @entry == @head, all entries on @head are moved to
+ * @list.
+
+AFAICS that's what should be true here when freelist points to the sentinel.
+I'll trust the comment and not try to reconstruct what the code is doing.
+
+Back in move_freelist_head(), so we isolate all of freelist on the sublist,
+then splice it back on the (temporarily empty) freelist.
+
+I.e. I think it's harmless, but just accidentally, and it's useless pointer
+churn. So very much worth a cleanup, but we don't need to rush a stable fix
+here.
+
+> Guard move_freelist_head() inside the existing 'if (page)' block
+> where freepage is guaranteed to refer to a real page.
 > 
-> > See the of_get_next_status_child() implementation, it does *not* use
-> > fwnode_handle_*() at all. So, making it here to use same approach should
-> > fix your issue, no?
+> This issue was identified via Coccinelle (use_after_iter.cocci).
 > 
-> You are right. I had also noticed this before. Actually, the difference between
-> OF node and swnode is that OF node uses to_of_node() to filter out non-OF type
-> fwnodes. Similarly, swnode uses to_swnode() to filter out non-swnode type fwnodes.
-> So replace fwnode_handle_get() / fwnode_handle_put() with software_node_get() /
-> software_node_put() does fix the issue.
+> Fixes: 5a811889de10 ("mm, compaction: use free lists to quickly locate a migration target")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Giorgi Tchankvetadze <giorgitchankvetadze1997@gmail.com>
+> ---
+>  mm/compaction.c | 7 +++----
+>  1 file changed, 3 insertions(+), 4 deletions(-)
 > 
-> When I reviewed patch #1 again, I found it already fixes the refcount leak issue
-> because when it switches to the secondary fwnode, it no longer passes the primary
-> child to secondary fwnode. So the patch #1 is not needed anymore. I will remove
-> it in v3.
-
-I'm lost in here. My expectation that patch 1 should fix the issue as it won't
-let the fwnode_handle_*() be called against wrong type of fwnode. What did I
-miss?
-
-> > > > > +	if (!p || list_empty(&p->children))
-> > > > >  		return NULL;
-> > > > > -	}
-
--- 
-With Best Regards,
-Andy Shevchenko
-
+> diff --git a/mm/compaction.c b/mm/compaction.c
+> index 8f664fb09f24..320c082420fd 100644
+> --- a/mm/compaction.c
+> +++ b/mm/compaction.c
+> @@ -1611,11 +1611,10 @@ static void fast_isolate_freepages(struct compact_control *cc)
+>  			freepage = page;
+>  		}
+>  
+> -		/* Reorder to so a future search skips recent pages */
+> -		move_freelist_head(freelist, freepage);
+> -
+> -		/* Isolate the page if available */
+>  		if (page) {
+> +			/* Reorder so a future search skips recent pages */
+> +			move_freelist_head(freelist, freepage);
+> +			/* Isolate the page if available */
+>  			if (__isolate_free_page(page, order)) {
+>  				set_page_private(page, order);
+>  				nr_isolated = 1 << order;
 
