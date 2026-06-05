@@ -1,66 +1,37 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1588F3B7B6B;
-	Fri,  5 Jun 2026 15:07:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 049EA3E5564;
+	Fri,  5 Jun 2026 15:08:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780672063; cv=none; b=gx5cHs6rjuToWb/SX4DLxM8i4v+r7tucpHuJg1glcYmTpU0VB8cRyTSUY+PmX6f9dFB2yedd6bPwIF4J4CHfBcoxc+gS3a67RjgBam1fELiro6V4BLv8+UjU9e2yN7uJ1FSQoljAajXqlWhhxxLhXBXgsJqFdnjsUFNrt/ZQ2xQ=
+	t=1780672130; cv=none; b=MTTxJCYwpBeaKYCmmJe5AMOrCwTVTiznIYHWgrkPtmRTJLaytyz8B7qv9NjuoECsEGwdTGMt28zMYRKZOfTSuKpH6fMWG8pbgT/m9Knv2A6xWSn0qAouDWAJYECO1qjsXtJ77Z8oe6I+CTRaafUDWIlbQZCj3T3cGl8ioTLNAo8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780672063; c=relaxed/simple;
-	bh=5atTLPjnE9S852x4PJXNKcq2v1uDEWn+k9gepXfoAOg=;
+	s=arc-20240116; t=1780672130; c=relaxed/simple;
+	bh=UJHREpDeIob2u3UyEwalJQx5zfb1tBSJ5dQ/an4MA1w=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uTb2Ip17Za7WuNNUK+CNaIRBLwsKupaxCx/lMz8uvUuFaugVDXSqm9v7i0wAdHouDaf/EzO3P+D7BbQ6hea2IFTtVwcuRE3/zNaqGclzElWKN+lmz7TEJVT6KImirHHY4EIfpqmNQF3HQ+Go5o3131elc+KTyWvK8YYmtiTW1yQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=aobjTqUF; arc=none smtp.client-ip=192.198.163.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=bBFgmd2LDiqJB67f2wyNEJEXnfNuGLb0R3ISMKWPfsHurqBwcO9yUQlj+ftz+Ibft8lLLbNE3fcBTQx2D1NUPzvu+/IztESwHQzcxrVz/QgPj3VoF9FnKynQXYFUOm9KbZ7I8ITC+jFwAHBsfZte40GFru6i8tbL34FXOkGxZLI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=QgAgqxeU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="aobjTqUF"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1780672062; x=1812208062;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=5atTLPjnE9S852x4PJXNKcq2v1uDEWn+k9gepXfoAOg=;
-  b=aobjTqUFgoxztC5SSNoX48u75lMqQsMVkXA7Pjjix+3s8Mbtj40BJ6qD
-   3QRF9tm7Kn+zb1B9nUpVVDqUiUMsMutPcYg591jW4tNX7c7zmsLeLiRfh
-   89qKihaYrA3hob+IFaCX9X7VVWKRsP0LlhbzuMQ9J4CYnaboh6j5ELeGq
-   rb8o0ylQleuR8hEvE4MJWKW3PMQLSXb/cU+23OYCbOJRGyXMTmYyTFumS
-   aObXahE3M9fmSqzhyIuqTXC6TzOJB0Z/FLzR+zIJ34i6KIrZcVJerIRkJ
-   gfK1Hqd8l/aAhJxRZ6aiXOAuFKIZFQSz6k+uMzDrgivaKkTpcoWg6V2hL
-   A==;
-X-CSE-ConnectionGUID: D2l4m9YUT4+Dw4/F2q83Tg==
-X-CSE-MsgGUID: ETCUyBnZSRC4drEbUeaqsg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11807"; a="81539538"
-X-IronPort-AV: E=Sophos;i="6.24,188,1774335600"; 
-   d="scan'208";a="81539538"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Jun 2026 08:07:42 -0700
-X-CSE-ConnectionGUID: fh00xKyeQYqVjPTQXqOXZw==
-X-CSE-MsgGUID: Ov4szmWHR+2Msk3Ka0oe2Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,188,1774335600"; 
-   d="scan'208";a="248793546"
-Received: from ettammin-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.178])
-  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Jun 2026 08:07:37 -0700
-Date: Fri, 5 Jun 2026 18:07:35 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Xu Yang <xu.yang_2@oss.nxp.com>
-Cc: Daniel Scally <djrscally@gmail.com>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	linux-acpi@vger.kernel.org, driver-core@lists.linux.dev,
-	linux-kernel@vger.kernel.org, Bartosz Golaszewski <brgl@kernel.org>,
-	Xu Yang <xu.yang_2@nxp.com>, stable@vger.kernel.org
-Subject: Re: [PATCH v3 0/2] device property: fix child iteration issues with
- secondary fwnodes
-Message-ID: <aiLmN2yUsqLadbSo@ashevche-desk.local>
-References: <20260605-fixes_fwnode_iteration-v3-0-44c18472e1d1@nxp.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="QgAgqxeU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5597B1F00893;
+	Fri,  5 Jun 2026 15:08:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1780672129;
+	bh=KwnobDycUoeaG1IWloTQkcMfkvmcZSblONxcFsLEbZI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=QgAgqxeUL6dLtlMll8pVENTIkHWVKMQXpzFQrw82adMgfO2+VOfMw6rviQVuOm85/
+	 p+uYNu5ceOAtKIIpWrlUgzNRXNdfQqOVcDTIvwVdLAKjKHHHLAeccVXZ26ZbRCo7bI
+	 JevuEq4sTFrqQIgQZmQqg95QV1T8WI/IBm9hVZLo=
+Date: Fri, 5 Jun 2026 16:57:35 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Nguyen Minh Tien <zizuzacker@gmail.com>
+Cc: stable@vger.kernel.org, Woojung Huh <woojung.huh@microchip.com>,
+	UNGLinuxDriver@microchip.com, netdev@vger.kernel.org
+Subject: Re: [PATCH 6.6.y] net: usb: lan78xx: program MAC_CR for LAN7801
+ fixed-PHY link
+Message-ID: <2026060535-subpanel-proven-595a@gregkh>
+References: <20260605121535.51414-1-zizuzacker@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,45 +40,37 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260605-fixes_fwnode_iteration-v3-0-44c18472e1d1@nxp.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20260605121535.51414-1-zizuzacker@gmail.com>
 
-On Fri, Jun 05, 2026 at 06:31:16PM +0800, Xu Yang wrote:
-> This series fixes two issues in the fwnode child iteration logic when
-> a secondary fwnode is present.
+On Fri, Jun 05, 2026 at 07:15:35PM +0700, Nguyen Minh Tien wrote:
+> While bringing up a LAN7801 wired over RGMII to an MDIO-less switch, I
+> hit a link that the fixed PHY reported as "up" but that could not pass a
+> single packet: every frame came out corrupted at the switch and no ARP
+> reply ever made it back.
 > 
-> The first issue is  a refcount imbalance in software_node_get_next_child().
-> When a software node is used as a secondary fwnode, the iteration code may
-> incorrectly decrement the refcount of child nodes that do not belong to the
-> software node hierarchy. This results in refcount underflow and possible
-> use-after-free.
+> It turned out the MAC_CR speed/duplex bits are never set on this path.
+> lan7801_phy_init() registers a fixed PHY at SPEED_1000/DUPLEX_FULL, but
+> nothing programs the MAC to match: there is no PHY state machine for a
+> fixed link, and lan78xx_reset() only sets the auto speed/duplex bits for
+> the 7800.  So the 7801 comes up at 10M/half, clocks RGMII TXC at 2.5 MHz
+> instead of 125 MHz, and mangles everything it transmits.
 > 
-> The second issue is an infinite loop in fwnode_for_each_child_node(), caused
-> by improper handling of iteration state across primary and secondary fwnodes.
-> When iterating over children from both primary and secondary fwnodes, the code
-> may incorrectly resume iteration from the primary fwnode even when the current
-> child belongs to the secondary, leading to repeated traversal and a loop.
+> Fix it by programming MAC_CR to 1G/full in the fixed-PHY branch, to match
+> fphy_status.  Only that branch is touched, so boards with a real external
+> PHY (and the 7800/7850) are unaffected.
 > 
-> Both issues are triggered when mixing different fwnode types through the
-> secondary mechanism, and stem from incorrect assumptions about ownership
-> and traversal context of child nodes.
+> Mainline fixes this differently via the phylink conversion in v6.16,
+> commit e110bc825897 ("net: usb: lan78xx: Convert to PHYLINK for improved
+> PHY and MAC management"), which is far too large to backport, so this is
+> a small fix for stable only.
 
-> ---
-> Changes in v3:
-> - remove software node patch 
+Why is that too large?  If we take this, we then diverge and any future
+fixes will not apply here :(
 
-Hmm... Maybe I was unclear. My question was to investigate the way to actually
-move software node to use the swnode APIs (and not fwnode ones) and be on par
-with what OF code does. This series does the opposite and adds a hack to the
-next_child implementation.
+Please backport exactly what is in the mainline tree, otherwise odds
+are, this one-off fix will be found incorrect (we always get it
+wrong...)
 
-> - add a kunit test case suggested by Andy Shevchenko
+thanks,
 
-But thanks for the test case!
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+greg k-h
