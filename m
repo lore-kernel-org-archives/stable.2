@@ -1,207 +1,183 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F10A44B66B
-	for <stable@vger.kernel.org>; Fri,  5 Jun 2026 20:19:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780690754; cv=none; b=cR8iKUX+SlN3k+He4j8ELDqfX0SXAbLDCio1fWtMm4EH8GYV7RyDK5us2bpkWCu/D6KiHpr4471eHI886SflEQWYKjfrf2ZT8P8KK20vSbB5YIj1OLbKleVFnJ9P29VfKFCQaNe6pd+bctCX0aUQ+umt3nemfeyfRCqHokh2+RE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780690754; c=relaxed/simple;
-	bh=HRCZhVoWK0niODWt+XbH4EjpgqnXLW23jOkUBvgIqgQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=tWSR36/5CShQMW/eObCa1UkPAJusqamJK3MaQBocbqiQ9qA4l9gYFRvHVkK31CTC57xv02S/Jh8fObe8Cl1ZbInKDozv4DRMOddnNf1YWW+hoZLb7CGoXRNyUXv2aZwGdNSaslhp7tPKeahuKurx1EwcXeo5FkLT//gM+IazN2c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=sU5fyK5g; arc=none smtp.client-ip=209.85.128.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2131388382
+	for <stable@vger.kernel.org>; Fri,  5 Jun 2026 20:22:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.42
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780690943; cv=pass; b=Xy+QXRFlfwT5/Gg9cBwHw7dXM+fF7IpbGXmxdAPTJbrijW3IEVwWGii1eKQk8PVHIf372Q4Cf3crJ+zAIn6Rzwy191pjZlptPXb089zTJx3HJVsHxXJSW0F7q65NsGYr/3uqb+HdNlB4bVj4xqtRsDwSkthHY9l5rl83MzZWR40=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780690943; c=relaxed/simple;
+	bh=ntVHIrDqdpVdp00P0BNYVr6jVg4MJUDRyW7ggEFOpn4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=bo0jTK8IR/FbUXmTCRbR7s9nvWIeWTU35yY6btpGvVwGKHNZZrSna7wY/+FUPIaRCjzdRtkI09FM1RWC1OzVSg+P/DPkM3LANVEPTi/pQHZfguNnaryU7ANhuhdyAs6eKBQajf92To22Ra0nkYr6i+T5mwC8OkusnAk9t9m1Ilg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HZXqFebk; arc=pass smtp.client-ip=74.125.82.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="sU5fyK5g"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-490b4a8e28bso19162135e9.1
-        for <stable@vger.kernel.org>; Fri, 05 Jun 2026 13:19:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HZXqFebk"
+Received: by mail-dl1-f42.google.com with SMTP id a92af1059eb24-137dd3bb44eso47492c88.0
+        for <stable@vger.kernel.org>; Fri, 05 Jun 2026 13:22:22 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1780690942; cv=none;
+        d=google.com; s=arc-20240605;
+        b=Y7zm+xSqJgzbo/wkSU0T47btvxm6zMPvmO1J/YEESUhOqa0GyVPnjHRdKvSGBdJHMm
+         ExtulEVF0J8VVwGXkasLqYbgMhMd9jZJSfAplSNCPoF0p9VAebKqKC+RCO7cPDdHy83Z
+         6EW1IMqzMKkChb52CXSwk4+8/O/0Z/NRVXlCfJhel+d+cimFCKeUCmzs27t/fkLMl48v
+         DFqjy/cBsj3vLIaeQ5zcs4Zp6GwHAriz6R0kF0swRcKwYNsE1oev3d5Xnvqf87eQd9xc
+         GJ0iNKWvEvmUAGd/gplQco0PLq2BF0pDljyCWgKSYAwvrNW7YL+Mw8zpAnO/b/J6V5yM
+         dNjQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Jd8zZoj15MB4D27exy0vziD0YMpZOpqLLJrmgLP/VUs=;
+        fh=wdfYIt3HJwD5qWDIiSF37mWu1Q/xD+9oa/9sgS278cE=;
+        b=A26aroK6VokTPAzhjAhcN2RfIv6B1sj5/+nqD9+6/0GYn/2ZbPTjXfgrCl/4mhkLoI
+         VXUhJLp90aTCdwlrKtRNxdgLzbHX4UAoOdRQRLLTapWECJLGUCtgSdpY0MQ9p0R4hYSG
+         GWFxj6wewgOnMO/k7XO5Lt/JfctU5vHDKEU9vJZwXqkUaIeJKKcQT8PgBVulF8z7hjoa
+         Dv82v4SEOjl3y5t+vm8JoXNTroE6mNM11ysa9Cjsa3ELItSxHRrLKItG0J1SoODz3s3Y
+         k9+faqUmMAssGuuCokITtGxuuZiiJ1vI3QmUi5znmkj126VsxlcO516KBkY2SaVQGd84
+         PXIw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1780690752; x=1781295552; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=POfwTOxPePIR+bzQ/YWTWSHHwFIOZT4YImIC9EJ68WE=;
-        b=sU5fyK5gYcSzWubJr35fK1H0jTC4PhI3utTSRW1psYPWa4dMe5GduD5nwK1Vw6zvQZ
-         uprW1ahtwIHLn0Dzlbrd14IA3QJzIEnjURC/nvxHizO+rCy8J4hqhk5JEMv/+JH4c9ri
-         x9kNPVydvRsiT5nmO8YHbU4RYpwQ7h4HtVfBe+1esqI7J9cQ5cywUrxR/onbnisyJIvx
-         hyQGSbLWDkLxKCXkFI0ogXt8gmOWnkuru87iV68P8/y9J8E/e6ojX4rcHSgpPHHW0yJT
-         VCRDqtPboZcTLqe4BkIVCXCJNPxgTdUtoeLx1TwXLWH6C53YJZwNtVOOWO1oq3jsPxgv
-         WV/Q==
+        d=gmail.com; s=20251104; t=1780690942; x=1781295742; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Jd8zZoj15MB4D27exy0vziD0YMpZOpqLLJrmgLP/VUs=;
+        b=HZXqFebkT65uBuy+8vdYxDHmgysVaZxYi0jxeJkNTHuodXXEHEl8APKxa9twe+NUe2
+         iaAV9tCGWjUioNSlvMO6Ou2SHInT/C9kD88jTk4LflCzqXlFRwzD3+XgeOo3R20Ga0N0
+         03mXKO1o8kxzb1NODTGkBF2rODasB9xVktDYOYVrnH8wRJfgrJE/828kLjG++iXvl5AM
+         xD7g/860ku+C+G1qYKcM8zTA4RMSkxMP4p5829KHKc11Our7Jn5y+k5Jm9rTv6b7FvY4
+         qzM+ty0jm1jvLfYqWBaeunc6CGUbiLJDpmOwKlv2ZQL22NPqEzn9L+6cJRXTXZb86IvC
+         adLA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780690752; x=1781295552;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=POfwTOxPePIR+bzQ/YWTWSHHwFIOZT4YImIC9EJ68WE=;
-        b=BMCy7WImWBozktV47381tM4Dsv9nXKG0XcHVD/La3kJiRinMiW7ake5dy+Nf7BCKe8
-         X1qzK4f4r3lmL/vR7Sxvs6stUJOE8gLFoZWQ66O2w4TNTt9rSgWAF66nrhVkOsV25sT8
-         Xp4kgtEDEOgPKgcTqNRg7ZQCfvuBnV1rAcIwDhj25+cGuDgN29lRehmucSkO9iTrBiEl
-         k/98czoI6almMnVSt+wF1RU7ANZh6ZtHAduORWX/W8XKeNPkONIQA/6dQqZ3wL91bR+l
-         710di/Pwt9qiF5QDOgAFuvt+esBjx0OwSkqT612PBDBsWqD5GEHT0end+hm5C9CnkJvt
-         WPVg==
-X-Forwarded-Encrypted: i=1; AFNElJ+SBQs085fDQcG4WFnYqg5nikCdB6WFhvuVxlFRB0hlM5QEeJm19Bqx4JsLDw2WkP0MduImq0E=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyLuhODI++H1HEyPwFVej9JhW/63Cki2+p+hHyVcNylV+GtTW4G
-	gM8DmyoNtkA1kE7LahCDzfUyp9BphnYoWllYy9jhF45m4uwXYj+de5TdSNDIUumpIO4=
-X-Gm-Gg: Acq92OGlHNerfZfpVDa/R0aFZ1glaVJyllMuv8w4sWO7QizPIAgRxSQKKYRuPvV8lj7
-	nIwmC7CG6/AG4bZLzQUy9gpHMN5bkKwQYQsh/dzZ37x/jxCNxjNWjBgCnz1lkuHPYNon41r1xBO
-	Hvkokz3ZwAqidetSwzFph7h71grrcobXreEtCEd9p0/XU4nenJj6R4EUPWwxdpEoVCYRl3kyUGa
-	6Am81enZFsjDkpFBH13NWD5DJAd0ifk2Da0ghOYIOAdT9lxEqJnUJk3Swn7UUsAFO7vh+VxxIMm
-	v5b/zFsJxuQEI+9JOS60GDgUSGQAzTnWQe87ZmBnFYKli3d23lwYD5mt3ow3oiJ8UH4qQ8wok/n
-	dtXsY0xsaYgKt/yyP1FLPAFd2eQsKPzMNY6ltVun3n6DIwQW9S1mkdgAn2uJslgp5zaQoo7VyX2
-	KOInc4pU49blVDxa/9MLbUbZ+Q7Br9JI3EF3bK5lIaEFoNWSmpYe8OujHuljE4qSxOpWDS/GH1i
-	IqnG9QX2wejOu9q5NoX5kr+Pm0=
-X-Received: by 2002:a05:600c:8705:b0:488:ac01:72de with SMTP id 5b1f17b1804b1-490c25898efmr107486035e9.5.1780690751755;
-        Fri, 05 Jun 2026 13:19:11 -0700 (PDT)
-Received: from [127.0.1.1] ([94.4.195.193])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490bc413541sm190533895e9.14.2026.06.05.13.19.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 05 Jun 2026 13:19:10 -0700 (PDT)
-From: Alexey Klimov <alexey.klimov@linaro.org>
-Date: Fri, 05 Jun 2026 21:18:52 +0100
-Subject: [PATCH 3/3] soc: samsung: exynos-pmu: fix error paths in
- cpuhotplug/idle states setup
+        d=1e100.net; s=20251104; t=1780690942; x=1781295742;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=Jd8zZoj15MB4D27exy0vziD0YMpZOpqLLJrmgLP/VUs=;
+        b=eKvjn/WbqdkDI3a3sHbxeDI3ayC5mpl/RlGagi5OCag68bPjLUPkQN7afta/DJZg3o
+         tXViJTMbJEUp8Ar//RemyuSAkBqLTkYTHNgP1qc9/Sp+Nwfz+71pxaiKFthKr1y0BuI/
+         iH+ThYjh7ut+K8bXdVE8SCjRtBFtZbx3QxIHrSx0aKe7ffzVCiS+IbpgvaXtauCGopIb
+         PRjQ0/u0mXZDFasyVnuNBJEO8j4Ok7hCseKOEtwi5D3ri6GjxG/EzsqC2cz31g2hO55d
+         ywQ6kDyJe3OxUlHBM8h7pnrRSHdI+YyI4uG1l4YUyh52sed0YS4buUdNh9rX2xV9lQkB
+         YVOQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+xG+VcIyPf89KUN9KPoW/GStlyqItPRaNl32XLmfkDzdUApf26vITRe1/IGpz2rpRTppr3wKw=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwNzwpNV5DCTBMRSfftA7vTs7k/lfY/KZsn7ECwRKu/M+EIEXWz
+	LUY34tZValSr/AoojtPZIY29jtqiUHIQRbSMTFbLw5CO9RGgUev3j94jOeEmA7tFgPUk+wlp50C
+	FpIDqJD6ZJPeaN2il0tL8r4oDvPhiz1w=
+X-Gm-Gg: Acq92OHbFIcPYyZH6P5EJvoEllBJW5phH9J8EyK7AjEhaGe9rK3en5ECHrr486f6IXS
+	FXGHaMhRM48ZwiH0ek1x5XG23QC+fRP86P5GqF0cI03cLvdLgTqDo/NK/+sh1av6vVvTLK91wqJ
+	DEcWi7mDhVb/eDePc7p91ZSpaScOYQwMsAOK6ElRKKq8FvZ42/DLS6EoAIWvR9d52584DhW+Q8r
+	FtKEYEE7iPWe7OdCfPQRZu8pQ9GivzpwopiK38/QsQ4UMZ6UJINQY7778Sdd5BbRVwii/s6aE20
+	DY36A78TohLRwqbXKLqIBHuzoiQbLZjxr/hNKPNQy34E0nxfF3Xd3e+dK8zWzBMe34X0IV8ejcf
+	AE3m8
+X-Received: by 2002:a05:7022:423:b0:137:fdce:fec2 with SMTP id
+ a92af1059eb24-138067f0b96mr1031445c88.4.1780690941599; Fri, 05 Jun 2026
+ 13:22:21 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260605-exynos-pmu-cpuhp-idle-fixes-v1-3-0cd05c81a82d@linaro.org>
-References: <20260605-exynos-pmu-cpuhp-idle-fixes-v1-0-0cd05c81a82d@linaro.org>
-In-Reply-To: <20260605-exynos-pmu-cpuhp-idle-fixes-v1-0-0cd05c81a82d@linaro.org>
-To: Krzysztof Kozlowski <krzk@kernel.org>, 
- Alim Akhtar <alim.akhtar@samsung.com>, 
- Peter Griffin <peter.griffin@linaro.org>
-Cc: Sam Protsenko <semen.protsenko@linaro.org>, 
- linux-samsung-soc@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- Sashiko <sashiko-bot@kernel.org>
-X-Mailer: b4 0.14.3
+References: <20260605091803.6018-1-vulab@iscas.ac.cn>
+In-Reply-To: <20260605091803.6018-1-vulab@iscas.ac.cn>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 5 Jun 2026 16:22:09 -0400
+X-Gm-Features: AVHnY4Itf_LGBLOFfworAGpTyhoHXZvSw8OTwPFhRJI4fD0sd3Y6MHVuNEzj0Ic
+Message-ID: <CADnq5_PejRC_QGGYvph_0jAyGWX475LvxTVHZVo3qvH7ZVgv+A@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: fix fence reference leak in amdgpu_gfx_run_cleaner_shader_job
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com, 
+	simona@ffwll.ch, lijo.lazar@amd.com, aurabindo.pillai@amd.com, 
+	superm1@kernel.org, Hawking.Zhang@amd.com, amd-gfx@lists.freedesktop.org, 
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The setup_cpuhp_and_cpuidle() initialisation sequence currently ignores
-the return values of cpuhp_setup_state(), cpu_pm_register_notifier(), and
-register_reboot_notifier(). If any of these registrations fail during
-probe() routine, the driver returns 0, leaving the driver partially
-configured.
+On Fri, Jun 5, 2026 at 5:24=E2=80=AFAM Wentao Liang <vulab@iscas.ac.cn> wro=
+te:
+>
+> In amdgpu_gfx_run_cleaner_shader_job(), amdgpu_job_submit() returns a
+> dma_fence with an elevated reference count. The function correctly
+> releases this reference on the success path after dma_fence_wait().
+> However, if dma_fence_wait() fails (e.g., due to a signal interruption),
+> the code jumps to the error label without calling dma_fence_put(),
+> resulting in a reference leak.
+>
+> Fix the leak by adding dma_fence_put(f) before the goto err when
+> dma_fence_wait() returns an error.
+>
+> Fixes: 559a285816af ("drm/amdgpu: Replace 'amdgpu_job_submit_direct' with=
+ 'drm_sched_entity' in cleaner shader")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_gfx.c
+> index b8ca876694ff..88bec4e93712 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> @@ -1686,8 +1686,10 @@ static int amdgpu_gfx_run_cleaner_shader_job(struc=
+t amdgpu_ring *ring)
+>         f =3D amdgpu_job_submit(job);
+>
+>         r =3D dma_fence_wait(f, false);
+> -       if (r)
+> +       if (r) {
+> +               dma_fence_put(f);
+>                 goto err;
+> +       }
 
-Furthermore, if anything after setup_cpuhp_and_cpuidle() fails in probe()
-routine, for instance devm_mfd_add_devices(), the probe() lacks an error
-path and leaves notifiers and cpu hotplug states registered.
+I think all of the clean up paths have issues.  How about something like th=
+is:
 
-Introduce variables for the cpu hotplug state IDs in exynos_pmu_context
-struct, that should be initialised to CPUHP_INVALID by default. Check all
-return codes in setup_cpuhp_and_cpuidle(), and add an error path to remove
-registered states on failure. Finally, add destroy_cpuhp_and_cpuidle()
-helper to safely tear down notifiers and cpu hotplug states.
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+index 321d7aa52f042..848846ac9391e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+@@ -1701,7 +1701,7 @@ static int
+amdgpu_gfx_run_cleaner_shader_job(struct amdgpu_ring *ring)
+                                  &sched, 1, NULL);
+        if (r) {
+                dev_err(adev->dev, "Failed setting up GFX kernel entity.\n"=
+);
+-               goto err;
++               return r;
+        }
 
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20260513-exynos850-cpuhotplug-v4-0-54fec5f65362@linaro.org?part=3
-Fixes: 78b72897a5c8 ("soc: samsung: exynos-pmu: Enable CPU Idle for gs101")
-Cc: stable@vger.kernel.org
-Signed-off-by: Alexey Klimov <alexey.klimov@linaro.org>
----
- drivers/soc/samsung/exynos-pmu.c | 57 ++++++++++++++++++++++++++++++++++------
- 1 file changed, 49 insertions(+), 8 deletions(-)
+        /*
+@@ -1729,16 +1729,12 @@ static int
+amdgpu_gfx_run_cleaner_shader_job(struct amdgpu_ring *ring)
+        f =3D amdgpu_job_submit(job);
 
-diff --git a/drivers/soc/samsung/exynos-pmu.c b/drivers/soc/samsung/exynos-pmu.c
-index 9636287f6794..846313a28e9a 100644
---- a/drivers/soc/samsung/exynos-pmu.c
-+++ b/drivers/soc/samsung/exynos-pmu.c
-@@ -38,6 +38,8 @@ struct exynos_pmu_context {
- 	unsigned long *in_cpuhp;
- 	bool sys_insuspend;
- 	bool sys_inreboot;
-+	int cpuhp_prepare_state;
-+	int cpuhp_online_state;
- };
- 
- void __iomem *pmu_base_addr;
-@@ -404,6 +406,17 @@ static struct notifier_block exynos_cpupm_reboot_nb = {
- 	.notifier_call = exynos_cpupm_reboot_notifier,
- };
- 
-+static void destroy_cpuhp_and_cpuidle(void)
-+{
-+	cpu_pm_unregister_notifier(&gs101_cpu_pm_notifier);
-+	unregister_reboot_notifier(&exynos_cpupm_reboot_nb);
-+
-+	if (pmu_context->cpuhp_prepare_state != CPUHP_INVALID)
-+		cpuhp_remove_state(pmu_context->cpuhp_prepare_state);
-+	if (pmu_context->cpuhp_online_state != CPUHP_INVALID)
-+		cpuhp_remove_state(pmu_context->cpuhp_online_state);
-+}
-+
- static int setup_cpuhp_and_cpuidle(struct device *dev)
- {
- 	struct device_node *intr_gen_node;
-@@ -465,16 +478,42 @@ static int setup_cpuhp_and_cpuidle(struct device *dev)
- 		gs101_cpuhp_pmu_online(cpu);
- 
- 	/* register CPU hotplug callbacks */
--	cpuhp_setup_state(CPUHP_BP_PREPARE_DYN,	"soc/exynos-pmu:prepare",
--			  gs101_cpuhp_pmu_online, NULL);
-+	pmu_context->cpuhp_prepare_state = CPUHP_INVALID;
-+	pmu_context->cpuhp_online_state = CPUHP_INVALID;
- 
--	cpuhp_setup_state(CPUHP_AP_ONLINE_DYN, "soc/exynos-pmu:online",
--			  NULL, gs101_cpuhp_pmu_offline);
-+	ret = cpuhp_setup_state(CPUHP_BP_PREPARE_DYN, "soc/exynos-pmu:prepare",
-+				gs101_cpuhp_pmu_online, NULL);
-+	if (ret < 0)
-+		return ret;
-+
-+	pmu_context->cpuhp_prepare_state = ret;
-+
-+	ret = cpuhp_setup_state(CPUHP_AP_ONLINE_DYN, "soc/exynos-pmu:online",
-+				NULL, gs101_cpuhp_pmu_offline);
-+	if (ret < 0)
-+		goto clean_cpuhp_states;
-+
-+	pmu_context->cpuhp_online_state = ret;
- 
- 	/* register CPU PM notifiers for cpuidle */
--	cpu_pm_register_notifier(&gs101_cpu_pm_notifier);
--	register_reboot_notifier(&exynos_cpupm_reboot_nb);
--	return 0;
-+	ret = cpu_pm_register_notifier(&gs101_cpu_pm_notifier);
-+	if (ret)
-+		goto clean_cpuhp_states;
-+
-+	ret = register_reboot_notifier(&exynos_cpupm_reboot_nb);
-+	if (!ret)
-+		/* Success */
-+		return ret;
-+
-+	cpu_pm_unregister_notifier(&gs101_cpu_pm_notifier);
-+
-+clean_cpuhp_states:
-+	if (pmu_context->cpuhp_prepare_state != CPUHP_INVALID)
-+		cpuhp_remove_state(pmu_context->cpuhp_prepare_state);
-+	if (pmu_context->cpuhp_online_state != CPUHP_INVALID)
-+		cpuhp_remove_state(pmu_context->cpuhp_online_state);
-+
-+	return ret;
+        r =3D dma_fence_wait(f, false);
+-       if (r)
+-               goto err;
+
+        dma_fence_put(f);
+
++err:
+        /* Clean up the scheduler entity */
+        drm_sched_entity_destroy(&entity);
+-       return 0;
+-
+-err:
+        return r;
  }
- 
- static int exynos_pmu_probe(struct platform_device *pdev)
-@@ -548,8 +587,10 @@ static int exynos_pmu_probe(struct platform_device *pdev)
- 
- 	ret = devm_mfd_add_devices(dev, PLATFORM_DEVID_NONE, exynos_pmu_devs,
- 				   ARRAY_SIZE(exynos_pmu_devs), NULL, 0, NULL);
--	if (ret)
-+	if (ret) {
-+		destroy_cpuhp_and_cpuidle();
- 		return ret;
-+	}
- 
- 	if (devm_of_platform_populate(dev))
- 		dev_err(dev, "Error populating children, reboot and poweroff might not work properly\n");
 
--- 
-2.51.0
 
+
+>
+>         dma_fence_put(f);
+>
+> --
+> 2.34.1
+>
