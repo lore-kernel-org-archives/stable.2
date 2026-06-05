@@ -1,191 +1,167 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCEC437AA72
-	for <stable@vger.kernel.org>; Fri,  5 Jun 2026 06:21:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D17E745039;
+	Fri,  5 Jun 2026 06:31:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780640493; cv=none; b=ocQEE6rxl5Z5hOqzTWNo7JEe3+s3xg31Baah9gvW2hYHFtQrwnhI5Iwo5IwYQXNrK1PGDWS8dgy0MOucc8G5meVaPWEGNNAEb9zhezl/MTItVYvVP0tVi8xMBuEKZ/EczC/7Ksx9MeY9M3G2YB2jx+ylrT1FhQ+0Xxmcer8w/IM=
+	t=1780641075; cv=none; b=PZt9pNqEeBa1sftBFtzQC0j7tiEpLKgfSsxf75mrqITBUoCM4nb/LuQIPmRcIXHuUoTs8p80k1MzpUStDVIn7R2m5FBcyNoAfjl408tBp3F1ZuokqvNF/mwtPogFwLE6zg3dlC7TrXgtJMT4yEfSlMgcNy0yLJ5EbmELS7N7L94=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780640493; c=relaxed/simple;
-	bh=vJuN75ePJNdAimTAtBXvVWkWYNf3JzdqYu+jhWczq+A=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Eoq9v1/poLN/9296FaJsLQPYgMYzJ8uZKAxBnBT9c4wnlPsobfDAz6CUc5dsmcvpFWYHhtd/xf28xh2df4bDg4EBZgp4weql+5RwOU8kHfho72KPD+RsXe5iZ70J0EccA/fSC0AeJyDQHXJi+k4Cy8ksIQoI6a0XsOU6jOlZueo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=Y7CVpmY+; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=q+XDvNR6; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=PterZcNA; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=H9Rx3nfN; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Y7CVpmY+";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="q+XDvNR6";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="PterZcNA";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="H9Rx3nfN"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 0E54975812;
-	Fri,  5 Jun 2026 06:21:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1780640489; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qlzsNd4cfcjbhN1BWnI0HecRK1ibNVBbmVHx+I2mxbo=;
-	b=Y7CVpmY+bQ9+9hDYsyILKg6+9hcwbNKRhpvl3Aejk4NKVPOC9OgF/WsI5o1W4T6IO4Dmnl
-	gFmhu8aC6PSuKE/fucduIJCyUNPnYCmp1RFJh3Uf9ZIebYZcz+Oc22F2aW7RTybjyu6227
-	4rxOPb1uDOQzkLV98XK/bjT1ezczReo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1780640489;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qlzsNd4cfcjbhN1BWnI0HecRK1ibNVBbmVHx+I2mxbo=;
-	b=q+XDvNR6N+JclcapgRi5gQXGhcWCb+CRODZX4ylzkl7yEUBeIzhNmUD+6+UCEdMBhtKg2U
-	AWC6PmsIaAzPe3Dw==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1780640488; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qlzsNd4cfcjbhN1BWnI0HecRK1ibNVBbmVHx+I2mxbo=;
-	b=PterZcNA7PyWryeW8bzWtLrKU89CpfYjRt0rmA5xXsNIUQ58AJruwCzQaIa57vJ8Y142aP
-	3Sz0kxvPEcmo8M0o8bhuZPAxQEVd95kh5ZcZ0rKzh2oXpwJCUANezajIQEzzoNSd4Bo9zp
-	MEZESWYP0Ej7Lu5ojhJCxI2dFDHhgDU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1780640488;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qlzsNd4cfcjbhN1BWnI0HecRK1ibNVBbmVHx+I2mxbo=;
-	b=H9Rx3nfNV/qVbv6lgFFIqRRgqmrGHtT4VGtDaLCnQ4C+k05o99Yzl/8I2gzJC8avdXDblr
-	RV5AGCZi0mhxvbDw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C1B5F779A8;
-	Fri,  5 Jun 2026 06:21:27 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id mXAALudqImolbwAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Fri, 05 Jun 2026 06:21:27 +0000
-Date: Fri, 05 Jun 2026 08:21:27 +0200
-Message-ID: <87o6hpv76g.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Denis Batishchev <ii343hbka@gmail.com>
-Cc: Takashi Iwai <tiwai@suse.de>,
-	perex@perex.cz,
-	tiwai@suse.com,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] ALSA: hda/realtek: Enable micmute LED on HP EliteBook 6 G1a
-In-Reply-To: <CA+W-NrXBVkm6bvTT8+Ri=1y11A0zBK7fFVmb5m_nKHjTu9O51g@mail.gmail.com>
-References: <20260604131518.45993-1-ii343hbka@gmail.com>
-	<87wlweuy69.wl-tiwai@suse.de>
-	<CA+W-NrXBVkm6bvTT8+Ri=1y11A0zBK7fFVmb5m_nKHjTu9O51g@mail.gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	s=arc-20240116; t=1780641075; c=relaxed/simple;
+	bh=kGmpVHGql2LZGI7p7pJWXq7/ggZJ/cvE5E3yok4Gh+k=;
+	h=Subject:To:Cc:References:From:Message-ID:Date:MIME-Version:
+	 In-Reply-To:Content-Type; b=H2LHnPV8tdSRi+0u0FJwzyEg72amc043HM+sRySHMI5yuZbqUyOebTX3qMmbdZpLyOmCt1xOY6G6hsVVo0hVLRPRiWQfVKsEYgh72aTYHH9E71kkQHKTtKHUhcKL7USCbtt5Pf2jdsu19hKsZ+bPS9uXu5ZVZHi7KTx85qSeXu4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [10.20.42.62])
+	by gateway (Coremail) with SMTP id _____8CxncAobSJqbNoQAA--.22338S3;
+	Fri, 05 Jun 2026 14:31:04 +0800 (CST)
+Received: from [10.20.42.62] (unknown [10.20.42.62])
+	by front1 (Coremail) with SMTP id qMiowJCxfcImbSJqkKScAA--.32857S3;
+	Fri, 05 Jun 2026 14:31:03 +0800 (CST)
+Subject: Re: [PATCH] LoongArch: KVM: return full old CSR value from
+ kvm_emu_xchg_csr()
+To: Qiang Ma <maqianga@uniontech.com>, zhaotianrui@loongson.cn,
+ chenhuacai@kernel.org, kernel@xen0n.name
+Cc: kvm@vger.kernel.org, loongarch@lists.linux.dev,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260604123433.3182173-1-maqianga@uniontech.com>
+ <08d3b817-9de6-746d-2b2c-acc4a578f95a@loongson.cn>
+ <4CD61A5AB07B2388+7fa119a1-af5f-4def-b2c4-6073fc397b10@uniontech.com>
+From: Bibo Mao <maobibo@loongson.cn>
+Message-ID: <519ffada-5f2b-2896-30a8-9546d3795f62@loongson.cn>
+Date: Fri, 5 Jun 2026 14:27:58 +0800
+User-Agent: Mozilla/5.0 (X11; Linux loongarch64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=KOI8-R
+MIME-Version: 1.0
+In-Reply-To: <4CD61A5AB07B2388+7fa119a1-af5f-4def-b2c4-6073fc397b10@uniontech.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
 Content-Transfer-Encoding: 8bit
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-3.26 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.16)[-0.777];
-	MIME_GOOD(-0.10)[text/plain];
-	ARC_NA(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FUZZY_RATELIMITED(0.00)[rspamd.com];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_TO(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:email,suse.de:mid]
-X-Spam-Level: 
-X-Spam-Score: -3.26
+X-CM-TRANSID:qMiowJCxfcImbSJqkKScAA--.32857S3
+X-CM-SenderInfo: xpdruxter6z05rqj20fqof0/
+X-Coremail-Antispam: 1Uk129KBj93XoWxAry5XF4DKF1rKryrZr1xCrX_yoWrXr1kpr
+	Z3tF1jkrWvqr18Xry2gwn8JFn8ArsrA3WIqryqqF1UZr4Yk3WIgF1Fqryv9FsFvw4fKryI
+	qrWDJa10vw45AabCm3ZEXasCq-sJn29KB7ZKAUJUUUU5529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUU9ab4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r106r15M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv6xkF7I0E14v2
+	6r4UJVWxJr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjxCEc2xF0cIa020Ex4CE44I27w
+	Aqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jrv_JF1lYx0Ex4A2jsIE
+	14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwCYjI0SjxkI62AI1c
+	AE67vIY487MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMxCIbckI1I0E
+	14v26r1Y6r17MI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4
+	CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1x
+	MIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF
+	4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsG
+	vfC2KfnxnUUI43ZEXa7IU8r9N3UUUUU==
 
-On Thu, 04 Jun 2026 21:52:41 +0200,
-Denis Batishchev wrote:
+
+
+On 2026/6/5 ä¸‹åˆ2:08, Qiang Ma wrote:
 > 
+> åœ¨ 2026/6/5 09:41, Bibo Mao å†™é“:
+>>
+>>
+>> On 2026/6/4 ä¸‹åˆ8:34, Qiang Ma wrote:
+>>> The LoongArch CSRXCHG instruction returns the full old CSR value in rd
+>>> after applying the masked update. kvm_emu_xchg_csr() currently masks
+>>> the saved value before returning it to the guest, so rd receives only
+>>> the bits selected by the write mask.
+>>>
+>>> That breaks the architectural behavior and makes a zero mask return 0
+>>> instead of the previous CSR value. Keep the masked CSR update, but
+>>> return the unmodified old CSR value.
+>>>
+>>> Fixes: da50f5a693ff ("LoongArch: KVM: Implement handle csr exception")
+>>> Cc: stable@vger.kernel.org
+>>> Signed-off-by: Qiang Ma <maqianga@uniontech.com>
+>>> ---
+>>> Â  arch/loongarch/kvm/exit.c | 1 -
+>>> Â  1 file changed, 1 deletion(-)
+>>>
+>>> diff --git a/arch/loongarch/kvm/exit.c b/arch/loongarch/kvm/exit.c
+>>> index 3b95cd0f989b..264813d45cbe 100644
+>>> --- a/arch/loongarch/kvm/exit.c
+>>> +++ b/arch/loongarch/kvm/exit.c
+>>> @@ -103,7 +103,6 @@ static unsigned long kvm_emu_xchg_csr(struct 
+>>> kvm_vcpu *vcpu, int csrid,
+>>> Â Â Â Â Â Â Â Â Â  old = kvm_read_sw_gcsr(csr, csrid);
+>>> Â Â Â Â Â Â Â Â Â  val = (old & ~csr_mask) | (val & csr_mask);
+>>> Â Â Â Â Â Â Â Â Â  kvm_write_sw_gcsr(csr, csrid, val);
+>>> -Â Â Â Â Â Â Â  old = old & csr_mask;
+>>
+>> Hi Qiang Ma
+>>
+>> This is correct from the manual. Is there any test case or problem in 
+>> practice?Â  I want to evaluate severity about this problem.
 > 
-> This patch fixes the mic-mute led at HP Elitebook 6 g1a.
-
-Ah, so you mean there is another LED for the audio-mute and it's not
-covered by this patch?  Please make the description a bit more
-clearer.
-
-
-thanks,
-
-Takashi
-
-
-> On Thu, Jun 4, 2026, 17:23 Takashi Iwai <tiwai@suse.de> wrote:
+> Yes, I have written a selftest for this. Below are the test results 
+> comparing without and with the patch.
 > 
->     On Thu, 04 Jun 2026 15:15:18 +0200,
->     Denis Batishchev wrote:
->     >
->     > The HP EliteBook 6 G1a (SSID 103c:8e0d) uses a Realtek ALC236 codec.
->     > Without a quirk no fixup is selected and the mic-mute LED stays off.
->     > It needs the same ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF quirk as the
->     > already-supported 14" variant (SSID 103c:8dfb), so add it.
->     >
->     > Note: I don't know how to fix sound-mute LED though.
->    
->     What does this mean?š Is this patch confirmed to work or not?
->    
->     > Signed-off-by: Denis Batishchev <ii343hbka@gmail.com>
->     > Cc: <stable@vger.kernel.org>
->     > ---
->     >š sound/hda/codecs/realtek/alc269.c | 1 +
->     >š 1 file changed, 1 insertion(+)
->     >
->     > diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/
->     realtek/alc269.c
->     > index 78a865709..8eebf9159 100644
->     > --- a/sound/hda/codecs/realtek/alc269.c
->     > +++ b/sound/hda/codecs/realtek/alc269.c
->     > @@ -7274,6 +7274,7 @@ static const struct hda_quirk alc269_fixup_tbl[] =
->     {
->     >š š š šSND_PCI_QUIRK(0x103c, 0x8df1, "HP EliteBook 630 G12",
->     ALC236_FIXUP_HP_GPIO_LED),
->     >š š š šSND_PCI_QUIRK(0x103c, 0x8df7, "HP Z66 G6",
->     ALC236_FIXUP_HP_GPIO_LED),
->     >š š š šSND_PCI_QUIRK(0x103c, 0x8dfb, "HP EliteBook 6 G1a 14",
->     ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF),
->     > +š š šSND_PCI_QUIRK(0x103c, 0x8e0d, "HP EliteBook 6 G1a 14",
->     ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF),
->     >š š š šSND_PCI_QUIRK(0x103c, 0x8dfc, "HP EliteBook 645 G12",
->     ALC236_FIXUP_HP_GPIO_LED),
->     >š š š šSND_PCI_QUIRK(0x103c, 0x8dfd, "HP EliteBook 6 G1a 16",
->     ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF),
->     >š š š šSND_PCI_QUIRK(0x103c, 0x8dfe, "HP EliteBook 665 G12",
->     ALC236_FIXUP_HP_GPIO_LED),
->    
->     The table is sorted in PCI SSID order.š Please try to put the entry at
->     the right position.
+> I have not encountered this problem in an actual operating environment.
 > 
->     thanks,
->    
->     Takashi
+> without this patch:
 > 
-> -- äÅÎÉÓ
+> [root@node1 loongarch]# ./csrxchg_testRandom seed: 0x6b8b4567Testing 
+> guest mode: PA-bits:47, VA-bits:47, 16K pagesTesting CSR: IMPCTL1 
+> (implementation-specific control 1)Initial guest CSR value: 
+> 0x10000100Checking that CSRXCHG updates the CSR per mask and returnsthe 
+> full old CSR value in rd.
 > 
+> Case: zero-maskwrite value : 0xffffffffffffffffwrite mask : 0returned 
+> old CSR value : 0expected old CSR value : 0x10000100CSR value after 
+> update : 0x10000100expected CSR after update: 0x10000100result : FAIL
+> 
+> Case: partial-maskwrite value : 0write mask : 0x100returned old CSR 
+> value : 0x100expected old CSR value : 0x10000100CSR value after update : 
+> 0x10000000expected CSR after update: 0x10000000result : FAIL
+> 
+> CSRXCHG test FAILED
+> 
+> with this patch:
+> 
+> [root@node1 loongarch]# ./csrxchg_testRandom seed: 0x6b8b4567Testing 
+> guest mode: PA-bits:47, VA-bits:47, 16K pagesTesting CSR: IMPCTL1 
+> (implementation-specific control 1)Initial guest CSR value: 
+> 0x10000100Checking that CSRXCHG updates the CSR per mask and returnsthe 
+> full old CSR value in rd.
+> 
+> Case: zero-maskwrite value : 0xffffffffffffffffwrite mask : 0returned 
+> old CSR value : 0x10000100expected old CSR value : 0x10000100CSR value 
+> after update : 0x10000100expected CSR after update: 0x10000100result : PASS
+> 
+> Case: partial-maskwrite value : 0write mask : 0x100returned old CSR 
+> value : 0x10000100expected old CSR value : 0x10000100CSR value after 
+> update : 0x10000000expected CSR after update: 0x10000000result : PASS
+> 
+> CSRXCHG test PASSED
+> 
+> Should this selftest case be included as a patch and sent along with 
+> version 2?
+No, it is not necessary. I test csrxchg instruction by myself, the 
+manual is right, return value should be the whole old value.
+
+My meaning is that what is the scenery where CSR register is SW emulated 
+in KVM mode, or this problem is found by code browsing.
+
+Regards
+Bibo Mao
+
+> 
+>>
+>> Regards
+>> Bibo Mao
+>>> Â Â Â Â Â  } else
+>>> Â Â Â Â Â Â Â Â Â  pr_warn_once("Unsupported csrxchg 0x%x with pc %lx\n", 
+>>> csrid, vcpu->arch.pc);
+>>>
+>>
+>>
+
