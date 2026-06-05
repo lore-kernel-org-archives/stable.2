@@ -1,96 +1,133 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from forward202a.mail.yandex.net (forward202a.mail.yandex.net [178.154.239.91])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1C1641360A;
-	Fri,  5 Jun 2026 10:34:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBB33466B72;
+	Fri,  5 Jun 2026 10:43:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.154.239.91
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780655662; cv=none; b=iCB2XDjKtHmJG0et7/0gNrzJFimACyWtsBctQl3sRTrvEGInvk84yYkFvDRhQAT+kLfeYmRgBKLmKa8kVGivSE8HlS/OReq5ncJVyHuUyNpu6Y2A26bVFxZx+XJjMVUiJ/MkeUjWfT43XcTfZg/+y8LhbUkeKeCnE1aoxZz7BIc=
+	t=1780656246; cv=none; b=OBtLaVK3kaJo5j+7QEMrch4/KPEzjp0U4ZT4pCw8bWtb46dX0x76SKJoMQlm1bvkCihku1wsPhwHIsa+EUb2Zcw/TpzqbLz3drKVzQ2KL4cmKxoowL4NCustmajB1ndgvrvlCcrz7fuECmQlqAidsKK3t66fOmv6iA5iQHaoImo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780655662; c=relaxed/simple;
-	bh=/QBL8Rrtj3/ANIhn2T/9EgMK8vC9kj8pb5ccU6UveZM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MBfjxtSLLXPclnkPEx1CqVIDu3zSFyGxXIkAAJ2ME0f/Ro0UetVqFZs+5hoGhTV+DZB004TxtC0Oj7AeOwddmoI0EqTuMXhBvdfvHeC428aoxIdDlzaxgV9wV7f4VM6NDpZjLrSIv5K3YJK+nuVqQ0IH+M1F7OYBuPkk5UtQUjg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=EmzbRT9M; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=vIqlNdMd; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1780656246; c=relaxed/simple;
+	bh=LkYqiCDqco6mevM8zai4datk6nmQUALOCQEH0MFK+NI=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=V6cK4VhiLFbF45An6WEABsbBnfqcH9b0MjDyBwiPa5AXEDrH7yzo4s3MDK0kehvb81Rwu6tegvx1MMBa/CcGMoTEetalC4kr1lGHdS/t3/F5WNt9gQ+K7CJliWPu6kZDenTZI8/3U0JuKDaNSIrS+sqJSsbbYOQbjxydKFQtbik=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rosa.ru; spf=pass smtp.mailfrom=rosa.ru; dkim=pass (1024-bit key) header.d=rosa.ru header.i=@rosa.ru header.b=knUqC+WD; arc=none smtp.client-ip=178.154.239.91
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rosa.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rosa.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="EmzbRT9M";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="vIqlNdMd"
-Date: Fri, 5 Jun 2026 12:34:18 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1780655660;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=coz5Aq1MFuTl4CmPGM62Pax2a8nLKkK++EZHbMRVyss=;
-	b=EmzbRT9Mm4e2ql6Oj5DfMtLB+PFBJu0R8GIq2m6z4Fc2zgC5JYViicPLmY5oMGcfBNzvFl
-	F3OWTQs2beg8lC6MCZzzbKpwR3ikf0dI2gXBPqH2m2NWtDuTqaDvjG/qI/b2xIzctc4aAS
-	XUudb6NwQq9l3OKaMRUDKUHpeXjLPgCD68eU456QHUmZII+XUQSLDe7pottJ1XfH3U2SaI
-	wRpfOmJPMgNTsVbk5qOUXtBkXtvbw+QvHA4C8tEj81/cKRtwkcWFfb39ch0LwYppUpT8A8
-	o5zMmY0zVAuGJ+ybqU1Bf3Kdg/jeWSW+0tUYoNg7BRRb1dvB2jpAIslD5h40rQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1780655660;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=coz5Aq1MFuTl4CmPGM62Pax2a8nLKkK++EZHbMRVyss=;
-	b=vIqlNdMdL3j6GgLjDN+1ji+hIacjZZSG6YSKCk30pxhEKI2RR8KTjCx++OUY9IidbNu4RX
-	GDIxG24sNlBqUmBg==
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: Jonas Jelonek <jelonek.jonas@gmail.com>
-Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	linux-mips@vger.kernel.org, Clark Williams <clrkwllms@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Jiayuan Chen <jiayuan.chen@linux.dev>,
-	linux-rt-devel@lists.linux.dev, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] MIPS: smp: report dying CPU to RCU in stop_this_cpu()
-Message-ID: <20260605103418.tH3rlwmO@linutronix.de>
-References: <20260604182407.3109536-1-jelonek.jonas@gmail.com>
- <20260605064250.q0aRKkon@linutronix.de>
- <02b1e77e-5b7e-41cb-95b6-731ed00d9e74@gmail.com>
+	dkim=pass (1024-bit key) header.d=rosa.ru header.i=@rosa.ru header.b="knUqC+WD"
+Received: from forward103a.mail.yandex.net (forward103a.mail.yandex.net [IPv6:2a02:6b8:c0e:500:1:45:d181:d103])
+	by forward202a.mail.yandex.net (Yandex) with ESMTPS id C1261845BA;
+	Fri, 05 Jun 2026 13:38:46 +0300 (MSK)
+Received: from mail-nwsmtp-smtp-production-main-60.vla.yp-c.yandex.net (mail-nwsmtp-smtp-production-main-60.vla.yp-c.yandex.net [IPv6:2a02:6b8:c0f:4c18:0:640:5600:0])
+	by forward103a.mail.yandex.net (Yandex) with ESMTPS id C1E9F804C0;
+	Fri, 05 Jun 2026 13:38:38 +0300 (MSK)
+Received: by mail-nwsmtp-smtp-production-main-60.vla.yp-c.yandex.net (smtp) with ESMTPSA id ZcffmqLe7a60-kaRNz9XR;
+	Fri, 05 Jun 2026 13:38:37 +0300
+X-Yandex-Fwd: 1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rosa.ru; s=mail;
+	t=1780655918; bh=roqDwFCKSOfqoEvMH3HcV0q1plvbGQsfEEkLVszHKiA=;
+	h=Message-Id:Date:Cc:Subject:To:From;
+	b=knUqC+WDUAgnqxDKtEh2dL3DL5dQWXYQLusjUQPo7MUozKS5ebwl+3MFZW/HGzuUp
+	 mM+9j+8wjSbropEF3yhxkZ6LbDLvPa1kBwQhOa82kf0UcoCI+z3A33aL1bQ42RAUe1
+	 m6Ona2oyCubeeWta9gejEwsVQTeY9p9AcgP0bT7U=
+Authentication-Results: mail-nwsmtp-smtp-production-main-60.vla.yp-c.yandex.net; dkim=pass header.i=@rosa.ru
+From: Mikhail Lobanov <m.lobanov@rosa.ru>
+To: jaegeuk@kernel.org,
+	Chao Yu <chao@kernel.org>
+Cc: daehojeong@google.com,
+	linux-f2fs-devel@lists.sourceforge.net,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	lvc-project@linuxtesting.org
+Subject: [PATCH] f2fs: read COW data with the original inode during atomic write
+Date: Fri,  5 Jun 2026 13:38:34 +0300
+Message-Id: <20260605103834.14894-1-m.lobanov@rosa.ru>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <02b1e77e-5b7e-41cb-95b6-731ed00d9e74@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On 2026-06-05 09:12:09 [+0200], Jonas Jelonek wrote:
-> Hi Sebastian,
-Hi,
+When updating an atomic-write file, f2fs_write_begin() may read the
+previously written data back from the COW inode:
+prepare_atomic_write_begin() locates the block in the COW inode and sets
+use_cow, and the read bio is then built with the COW inode:
 
-> >> Call rcutree_report_cpu_dead() once interrupts are disabled, mirroring the
-> >> generic CPU-hotplug offline path (and arm64's stop handling), so RCU stops
-> >> waiting on the parked CPUs and grace periods can still complete.
-> > This is part of cpuhp_report_idle_dead(). Is it now invoked twice? Or is
-> > something else missing/ different? 
-> 
-> Those seem to be two different paths. To be honest I'm not confident
-> under which circumstances which of those paths is used to take down
-> a CPU. In my case, issuing a reboot command reaches smp_send_stop()
-> where the issue explained in the patch message then happens.
-> 
+	f2fs_submit_page_read(use_cow ? F2FS_I(inode)->cow_inode : inode,
+			      ...);
 
-Does 
-	echo 0 > /sys/devices/system/cpu/cpu1/online
+and f2fs_grab_read_bio() decides whether to schedule fs-layer decryption
+(STEP_DECRYPT) for the bio based on that inode via
+fscrypt_inode_uses_fs_layer_crypto().
 
-lead to the same problem?
+However, the folio being filled belongs to the original inode
+(folio->mapping->host == inode), and the data stored in the COW block was
+encrypted (or left as plaintext) using the original inode's context, not
+the COW inode's -- see f2fs_encrypt_one_page(), which keys off
+fio->page->mapping->host.  fscrypt_decrypt_pagecache_blocks() likewise
+operates on folio->mapping->host.
 
-I missed that arm64 has also this but only if the online path fails kind
-of early, see
-	04e613ded8c26 ("arm64: smp: Tell RCU about CPUs that fail to come online")
+The COW inode is created as a tmpfile in the parent directory and inherits
+its encryption policy from there.  With test_dummy_encryption the newly
+created COW inode gets the dummy policy and becomes encrypted, while a
+pre-existing regular file -- created before the policy applied, e.g.
+already present in the on-disk image -- stays unencrypted.  The read
+path then sets STEP_DECRYPT based on the encrypted COW inode and calls
+fscrypt_decrypt_pagecache_blocks() on a folio whose host (the unencrypted
+original inode) has a NULL ->i_crypt_info, dereferencing it:
 
-so this not the "normal" case but an exception. Mips seems to be doing
-something different here. I am not sure if this is the only thing that
-is missing.
+  Oops: general protection fault, probably for non-canonical address ...
+  KASAN: null-ptr-deref in range [0x0000000000000008-0x000000000000000f]
+  RIP: 0010:fscrypt_decrypt_pagecache_blocks+0xa0/0x310
+  Workqueue: f2fs_post_read_wq f2fs_post_read_work
+  Call Trace:
+   fscrypt_decrypt_bio+0x1eb/0x340
+   f2fs_post_read_work+0xba/0x140
+   process_one_work+0x91c/0x1a40
+   worker_thread+0x677/0xe90
+   kthread+0x2bc/0x3a0
 
-> Best,
-> Jonas
+The COW inode is only needed to locate the on-disk block, and that block
+address is already resolved into @blkaddr; the data's crypto state belongs
+to the original inode.  Read with the original inode so the post-read
+decryption decision matches the folio's owner.  This also makes the inline
+crypto path use the correct (original inode's) key.
 
-Sebastian
+Fixes: 591fc34e1f98 ("f2fs: use cow inode data when updating atomic write")
+Cc: stable@vger.kernel.org
+Signed-off-by: Mikhail Lobanov <m.lobanov@rosa.ru>
+---
+ fs/f2fs/data.c | 14 ++++++++++++--
+ 1 file changed, 12 insertions(+), 2 deletions(-)
+
+diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
+index cf05014fa5e3..8f6c22537e9f 100644
+--- a/fs/f2fs/data.c
++++ b/fs/f2fs/data.c
+@@ -3961,8 +3961,18 @@ static int f2fs_write_begin(const struct kiocb *iocb,
+ 			err = -EFSCORRUPTED;
+ 			goto put_folio;
+ 		}
+-		f2fs_submit_page_read(use_cow ? F2FS_I(inode)->cow_inode :
+-						inode,
++		/*
++		 * Although the block is stored in the COW inode, the folio
++		 * belongs to @inode and its data was encrypted (or left as
++		 * plaintext) using @inode's context, not the COW inode's; see
++		 * f2fs_encrypt_one_page(), which keys off fio->page->mapping->
++		 * host.  fscrypt_decrypt_pagecache_blocks() likewise operates
++		 * on folio->mapping->host.  Read with @inode so the post-read
++		 * decryption decision matches the folio's owner; otherwise an
++		 * unencrypted @inode whose COW inode is encrypted would hit a
++		 * NULL ->i_crypt_info during decryption.
++		 */
++		f2fs_submit_page_read(inode,
+ 				      NULL, /* can't write to fsverity files */
+ 				      folio, blkaddr, 0, true);
+ 
+-- 
+2.39.5 (Apple Git-154)
+
