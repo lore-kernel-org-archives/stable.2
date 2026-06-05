@@ -1,130 +1,83 @@
-Received: from angie.orcam.me.uk (angie.orcam.me.uk [78.133.224.34])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B4641221FBD
-	for <stable@vger.kernel.org>; Fri,  5 Jun 2026 03:07:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=78.133.224.34
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C7E13B5843;
+	Fri,  5 Jun 2026 03:09:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780628843; cv=none; b=u1JoMZvAIrUhNCPBBnRD5NxnNMV/8jzsTVDmtqKkTKnoplUzIiuKcU1ww87OazXN3GsOJIGePeRSYcaNtcHWwv1+rWPljDbzN72gf8kmtbcmPJKBAcXLGNOXbaDzQolI8mFsLsNEAEkgjWBRMfaNnIMunzc9ob/srLYMoETZBHs=
+	t=1780628954; cv=none; b=LND4f1oSf75ruGrBHhEGYrKD0IW3wlXj+2Fpln3eObkEQZK+XMhbMsHjDsBjviXd0u9r1O/+RZKfpmxe84gI3UQPHcgw1fun3qJIjTq4PglYyeKv3ZEpFtQLb/9oznFZ72VShhotXV7JgBJkyiEsYTY/+zVjDOL4rh4Nex+8+ek=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780628843; c=relaxed/simple;
-	bh=2BNUKF/yMC4cW3duOKVFGOOroDeFLQDAMu7xn+sruRQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=bfaDBsWt3PuN0x1lo8Q6xDsups67wecJPLvw3QQ6v/0SoSPDfCUCtquyeOChnrD96Bf6fXI0Wa576Qz3higT62dA3+awZOqgWXiDDBfj+1R4XIcH1A0bDYv9nryw06QNEQT/9XKEpgLt3o927N7S6jWVjAQQjNVJtBJ83E3UQ2Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=orcam.me.uk; spf=none smtp.mailfrom=orcam.me.uk; arc=none smtp.client-ip=78.133.224.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=orcam.me.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=orcam.me.uk
-Received: by angie.orcam.me.uk (Postfix, from userid 500)
-	id 7849292009E; Fri,  5 Jun 2026 05:07:19 +0200 (CEST)
-From: "Maciej W. Rozycki" <macro@orcam.me.uk>
-To: stable@vger.kernel.org
-Cc: "Maciej W. Rozycki" <macro@orcam.me.uk>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: [PATCH 6.1.y] serial: dz: Fix bootconsole handover lockup
-Date: Fri,  5 Jun 2026 04:07:17 +0100
-Message-Id: <20260605030717.6724-1-macro@orcam.me.uk>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <2026060443-mousy-civil-7064@gregkh>
-References: <2026060443-mousy-civil-7064@gregkh>
+	s=arc-20240116; t=1780628954; c=relaxed/simple;
+	bh=Ou77IkkPnxmgYxU4tvdPlK2a1YNoyWDmXUWGGI4oTr8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=UrVcrZv91oMdlB2m+8taqQAKixO+5ArlH18l+qfosdqTMWRJQRkjP9OufBl4aqkgI4V+oCudwKp/A+4tL0hUbCUeXQZE3k9UwhCq0MWDrbRXxzx4/MKpUIq4unMWEmuRJqGA00lryGCGXtYDRbtVL7dO9D7KZ7XCj0hI+TkLtmE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Gy/68dDg; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Gy/68dDg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AAB5D1F00893;
+	Fri,  5 Jun 2026 03:09:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780628951;
+	bh=RF7lld1C2j/U8LrOMMtbKUk9ujiZNci+5Q5/wnVxTXw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Gy/68dDgaDno8qYLeW7EdfzybY0fEbvhms/oitXKcuUYAGo5IJl6CI6Pyy8UZsMia
+	 5cP2d5g7GQUYn43QvItriCrXDBpQ0lc5SD1BX/wheuVMnHerhvpHgN80szcnBU9td7
+	 +CdAJ63hTwyVb/tmYjNjX9B+EW4ZikzCzFBesQ2utvUm6IiP32ZlVELPq8L+ApmJ2x
+	 qzsypjjJTOl2NKATmMjI4b/G1amYmvy3oCszwX5Avfa8bhoOR/jHzyk5kBFDn5dFrt
+	 Ln447Yb8PvNCtT+pWRxOvqDkSH4OM+RdsFq6r8x6B8SfwNyQ4hNLSsdnZ1cckXoeOh
+	 YQKipZw4nIkrA==
+Date: Thu, 4 Jun 2026 22:09:10 -0500
+From: Rob Herring <robh@kernel.org>
+To: Muhammad Bilal <meatuni001@gmail.com>
+Cc: tomeu@tomeuvizoso.net, ogabbay@kernel.org, tzimmermann@suse.de,
+	Frank.Li@nxp.com, dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] accel/ethosu: fix IFM region index out-of-bounds in
+ command stream parser
+Message-ID: <20260605030910.GA1800024-robh@kernel.org>
+References: <20260523195159.55801-1-meatuni001@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260523195159.55801-1-meatuni001@gmail.com>
 
-commit 7f127b2208e5e2b817243cad41fe4211a6d5a7a3 upstream.
+On Sat, May 23, 2026 at 07:51:59PM +0000, Muhammad Bilal wrote:
+> NPU_SET_IFM_REGION extracts the region index with param & 0x7f, giving
+> a maximum value of 127. However region_size[] and output_region[] in
+> struct ethosu_validated_cmdstream_info are both sized to
+> NPU_BASEP_REGION_MAX (8), giving valid indices [0..7].
+> 
+> Every other region assignment in the same switch uses param & 0x7:
+>   NPU_SET_OFM_REGION:  st.ofm.region  = param & 0x7;
+>   NPU_SET_IFM2_REGION: st.ifm2.region = param & 0x7;
+>   NPU_SET_WEIGHT_REGION: st.weight[0].region = param & 0x7;
+>   NPU_SET_SCALE_REGION:  st.scale[0].region  = param & 0x7;
+> 
+> The 0x7f mask on IFM is inconsistent and appears to be a typo.
+> 
+> feat_matrix_length() and calc_sizes() use the region index directly
+> as an array subscript into the kzalloc'd info struct:
+>   info->region_size[fm->region] = max(...);
+> 
+> A userspace caller supplying NPU_SET_IFM_REGION with param > 7 causes
+> a write up to 127*8 = 1016 bytes past the start of region_size[],
+> corrupting adjacent kernel heap data.
+> 
+> Fix by applying the same & 0x7 mask used by all other region
+> assignments.
+> 
+> Fixes: 5a5e9c0228e6 ("accel: Add Arm Ethos-U NPU driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
+> ---
+>  drivers/accel/ethosu/ethosu_gem.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 
-Calling dz_reset() in the course of setting up the serial device causes
-line parameters to be reset and the transmitter disabled.  We've been
-lucky in that no message is usually produced to the kernel log between
-this call and the later call to uart_set_options() in the course of
-console setup done by dz_serial_console_init(), or the system would hang
-as the console output handler in the firmware tried to access a port the
-transmitter of which has been disabled and line parameters messed up.
+I've applied this and the rest of the patches you sent.
 
-This will change with the next change to the driver, so fix dz_reset()
-such that line parameters are set for 9600n8 console operation as with
-the system firmware and the transmitter re-enabled after reset.  This
-also means dz_pm() serves no purpose anymore, so drop it.
-
-Fixes: e6ee512f5a77 ("dz.c: Resource management")
-Signed-off-by: Maciej W. Rozycki <macro@orcam.me.uk>
-Cc: stable@vger.kernel.org # v2.6.25+
-Link: https://patch.msgid.link/alpine.DEB.2.21.2605062302010.46195@angie.orcam.me.uk
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- drivers/tty/serial/dz.c | 36 ++++++++++++------------------------
- 1 file changed, 12 insertions(+), 24 deletions(-)
-
-diff --git a/drivers/tty/serial/dz.c b/drivers/tty/serial/dz.c
-index a16738799418..d80bbd95a7f7 100644
---- a/drivers/tty/serial/dz.c
-+++ b/drivers/tty/serial/dz.c
-@@ -573,6 +573,18 @@ static void dz_reset(struct dz_port *dport)
- 	while (dz_in(dport, DZ_CSR) & DZ_CLR);
- 	iob();
- 
-+	/*
-+	 * Set parameters across all lines such as not to interfere
-+	 * with the initial PROM-based console.  Otherwise any output
-+	 * produced before the console handover would cause the system
-+	 * firmware to produce rubbish.
-+	 */
-+	for (int line = 0; line < DZ_NB_PORT; line++)
-+		dz_out(dport, DZ_LPR, DZ_B9600 | DZ_CS8 | line);
-+
-+	/* Re-enable transmission for the initial PROM-based console.  */
-+	dz_out(dport, DZ_TCR, tcr);
-+
- 	/* Enable scanning.  */
- 	dz_out(dport, DZ_CSR, DZ_MSE);
- 
-@@ -656,26 +668,6 @@ static void dz_set_termios(struct uart_port *uport, struct ktermios *termios,
- 	spin_unlock_irqrestore(&dport->port.lock, flags);
- }
- 
--/*
-- * Hack alert!
-- * Required solely so that the initial PROM-based console
-- * works undisturbed in parallel with this one.
-- */
--static void dz_pm(struct uart_port *uport, unsigned int state,
--		  unsigned int oldstate)
--{
--	struct dz_port *dport = to_dport(uport);
--	unsigned long flags;
--
--	spin_lock_irqsave(&dport->port.lock, flags);
--	if (state < 3)
--		dz_start_tx(&dport->port);
--	else
--		dz_stop_tx(&dport->port);
--	spin_unlock_irqrestore(&dport->port.lock, flags);
--}
--
--
- static const char *dz_type(struct uart_port *uport)
- {
- 	return "DZ";
-@@ -771,7 +763,6 @@ static const struct uart_ops dz_ops = {
- 	.startup	= dz_startup,
- 	.shutdown	= dz_shutdown,
- 	.set_termios	= dz_set_termios,
--	.pm		= dz_pm,
- 	.type		= dz_type,
- 	.release_port	= dz_release_port,
- 	.request_port	= dz_request_port,
-@@ -896,10 +887,7 @@ static int __init dz_console_setup(struct console *co, char *options)
- 	if (ret)
- 		return ret;
- 
--	spin_lock_init(&dport->port.lock);	/* For dz_pm().  */
--
- 	dz_reset(dport);
--	dz_pm(uport, 0, -1);
- 
- 	if (options)
- 		uart_parse_options(options, &baud, &parity, &bits, &flow);
--- 
-2.20.1
-
+Rob
