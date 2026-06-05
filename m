@@ -1,123 +1,155 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa1-f48.google.com (mail-oa1-f48.google.com [209.85.160.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C256C3B19AB;
-	Fri,  5 Jun 2026 03:35:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780630525; cv=none; b=axtdwSugkqWD7kTLtRGtJruvXI/U85MWMHctCLJG8gogkBS/mHgQRkCvw6r4nX6YbIlonQzQq4d3LkqBfmBLH44Mumy3RSX5ykkTj8cHjdL8+mX6SOGnP4MaxdkYd2Wyg2XCG5/mwoRNoawJsb49KAak41LRmm3nBNvCRs5UdyQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780630525; c=relaxed/simple;
-	bh=SvJvA/e9k9vGe4aXJUlBcZXnljr/0vPmGwJ4jUWSqW0=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-ID; b=RzZVR2phHT7vwLiC9SqyOSxkBpILZdnLmjdHnIhAhe6kz9xGoccxuNiL+jQwHHJCcvFwCmmbDB/VoaZA3AjhAMpAreqJAMemAXZhRKpAzHxOsjjPr3200jlmxzjGjxXQohvL/7KU+l5KgO/1E6JtvdYb8bSKWDXEqUrfXNFnnI0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=ZDUQcx+I; arc=none smtp.client-ip=220.197.31.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 636111FF7C7
+	for <stable@vger.kernel.org>; Fri,  5 Jun 2026 04:04:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.48
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780632253; cv=pass; b=ainTYrcnThYMPWXla4hzuvCICKH7oWavTIhebqkcu1GyVcxv2cyx76vwdusQ3Qzuw4eiWpJaQehX0n0kwCQm9kJXFdyFFtU6K0guInsrFRmk75cPJtd/lAMIt7NKve+YpHLiHq6Wb+vplWDW+n6ytubWWfIdDpoOF+rHMkaf5AE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780632253; c=relaxed/simple;
+	bh=SMu4Bnd9qcF0Ipjxn09C+Ag2Z7SqqmA3tmv+df2kGTw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=rsXtTpskeF1TsuybjZ1EPdyBez93AESjsoTREwAjo/OXLTfLha+ceRP4Q4QREnyQOo94O3qeEqyc2j7e71WDFKMzWCXGhZ+7tR79zMtKNZL3zTIJHG0Ony05QDVnkwq2skRxrHIyVmrqyJeRot76CO6V+ZkN4TbyvqbOA5VRvZk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=R3M1lxtL; arc=pass smtp.client-ip=209.85.160.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="ZDUQcx+I"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=SvJvA/e9k9vGe4aXJUlBcZXnljr/0vPmGwJ4jUWSqW0=; b=Z
-	DUQcx+IHbLlU4W0m370Vraf6wd4ojU81nTyn5V+xXDr8MEddJms5lRZlfRAJ9MLG
-	r9QMJvc4DgR74320qcAaJd4vWiFkSqEAg0+wzAk5TQTwOw+HUT3y1YDOyPrG6NEd
-	p8HrNQjksqe4U3xN6NDj7q4OYG2CNEnlGK/khacesw=
-Received: from w15303746062$163.com ( [113.200.174.80] ) by
- ajax-webmail-wmsvr-40-113 (Coremail) ; Fri, 5 Jun 2026 11:33:51 +0800 (CST)
-Date: Fri, 5 Jun 2026 11:33:51 +0800 (CST)
-From: w15303746062  <w15303746062@163.com>
-To: simona@ffwll.ch, deller@gmx.de
-Cc: tzimmermann@suse.de, ville.syrjala@linux.intel.com, sam@ravnborg.org,
-	kees@kernel.org, yanquanmin1@huawei.com, syoshida@redhat.com,
-	linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	"Mingyu Wang" <25181214217@stu.xidian.edu.cn>,
-	stable@vger.kernel.org
-Subject: Re:[PATCH 7.0] fbdev: fbcon: fix memory leak in error path of
- fbcon_do_set_font()
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260403(27802f6d) Copyright (c) 2002-2026 www.mailtech.cn 163com
-In-Reply-To: <20260525082741.600003-1-w15303746062@163.com>
-References: <20260525082741.600003-1-w15303746062@163.com>
-X-NTES-SC: AL_Qu2TAvqYv0wo5yKaYukfmU0Qguw9Xcq5uPkj34FWN5t8jDrp5QodX0JFHVfbys6/Dy2ItRqsex1+1f9nQoZgZZ0JCInp9NpD3NFD8/e0sH7bUQ==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=GBK
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="R3M1lxtL"
+Received: by mail-oa1-f48.google.com with SMTP id 586e51a60fabf-43d34292872so734915fac.0
+        for <stable@vger.kernel.org>; Thu, 04 Jun 2026 21:04:11 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1780632250; cv=none;
+        d=google.com; s=arc-20240605;
+        b=Gf+vanVbR9DvM63L9FlROGZuTz2zPBgWl9pEPNBX/oqbaP9MZPECfN/R2eVk6/8z65
+         GyHgZil+Jft6PKQWmqbo2owATDQthvIeeAxaqr2mBpTGGUG5cdDUzwxgpItwTVRT1zgH
+         P5Y0tqdTjMI55NPRwq+/IhkdMNmg/KKwKagVrkvoza14OMfJ12tFZiJTmZVCv4QyDO3E
+         hmfBntR8Ezp8kc0V2vcnw2nnNhZ0Zd4dBoEQ19f5URexC/HGOw90QN63mZgROcpK55uz
+         lOVkctsWp4tBKNrwPymbwuZP6b9fLsNJTI4ZqJ6dxHIJsDxi8H8G37195o8GbYnbs62n
+         3ziA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=WU2MZ9gTzdCxj3z3pNHIH3hYvAv4mvLkS53mP/Ms51g=;
+        fh=G3jU7e5zzN6umS4eiwZmklrEn+5SVKMbtoubLpWWEhQ=;
+        b=FpO9EVUe4kua1Fg0GUHAo+/LBvIzpYm7wDfO9RdmoN9mtheT+kUMOfutAFrwJ/8GT4
+         WBB+BAg0ul08OqfdzNB12iqVp4U5okX5lBT5fjvSEVkjSjctE7LuyItPUZFVlcYBEfSf
+         zmt8fIgm6kbh1BKMCzKrY+r6dYMIeNFzgjV9WuQU6M5PrYLxPr1Yo+WSf5kUde2CN+6+
+         hC6+bgY7P3kNSgTcPx+8zD4VtqaNTSXhKZCWFCumSoQsLz/Sr3RkgUY0ZS3jJAwKKLeJ
+         GqZPeiB+RtuGbXm2I21frmC/4SgC4JP9qhSPHfSmsXtUzzTPYF5oUGlukQqfYHC++uxx
+         MeAA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=bytedance.com; s=google; t=1780632250; x=1781237050; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=WU2MZ9gTzdCxj3z3pNHIH3hYvAv4mvLkS53mP/Ms51g=;
+        b=R3M1lxtLxIX3XP5deIQo0jvwveq3rzNqnAc8MhljdfR1W2aQ22iD/2nHt9vj5oaEgB
+         Zbfl1C51RsBZXlAgs7PZeXOYRKc8bIMcrZ+/Md7Rt8kqRq2sBh1LejVP6Uzw3eNVxMNm
+         3uaExvugUf4u9LsAtBfrubWuA1D+hHYU1TkEK7MkfPj8a6AJuNwJE4r5iviCv6AMIvVJ
+         o+mkgEJ0DMgpRxaHB/WNhCLmTHHtLWwMnpC0MLI1tqKCkRKl0WFBepuWs3fHUFNRcUyA
+         Xg+NPUz3U5Wr8h5gynutXPIbDElVMJy4MJwJU4LifVsuEthi8nND+Snoo6Ru1KWN2ULo
+         WblQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780632250; x=1781237050;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=WU2MZ9gTzdCxj3z3pNHIH3hYvAv4mvLkS53mP/Ms51g=;
+        b=TSzWnLpKggA23aC4yLV5pra3P0yfVM/nw3X1TQDv5oKuJmtgWU7RrVeImihInmm6ws
+         k9EM1FBxxzQZqkflN3jU1qak/cQLZhTNXSn1elmyH/jq9dElGLOPpLa7sBb6vL81F97O
+         NvDG1CmTNR0u2TcX2ZViihrem2VGk9PrBh14UzK66Velz6NPi9d0hL7BDETgshcudoDj
+         +2Wxar4E4Si2Kwg4di2oF/9y8OKO3aatZuJPgIxURgqiQRdZnINx6fVWq+7YM9h/wDOD
+         MgtkHcwD6weMzrllLiNL+N5vNeql2x6HUnPFCTVVEZe3y95yoDOaEmQNCQETGL38py3X
+         LlZQ==
+X-Forwarded-Encrypted: i=1; AFNElJ/GWPSr8fiXJB30oxU9qy0GXTtUClWw46whoRoyrO+u1hVIpS8QA0BiKZUQMukx/vSGJ+2+DAk=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxRg5e6Fz5osmhq30iwKeg86alBAPlubb6SBIQUpvDj5hZbNz6N
+	a2joDewsvk+dYWuvDljQFGHZVmZ11gx9vQ2wObPSX4re9+MlcXN25sPgJkUCGPRkJpHCVUnp8za
+	05+k6tvVmGi0w23RUhYjXnNIgvRzu2lXHecU4c+0v8Q==
+X-Gm-Gg: Acq92OGgL8mjOqZTqhgsteNMVPEPAdjYtN70qJEodjmN3ofN9jSl6la/8UVHc+SbgZW
+	RWcXX9OhpG1/OPduRgWgJy4EnYRo4LvKXBX95Pnd7D0mxzOaSTEmbud08voH10zTzaaLwGYShFZ
+	r191CXUPvdaP2hz7eeP9yHpxHdet07LZMb+tWknOi5/HYJV7fSybBOY6LQyZogS8osw+VtQ/avs
+	oYJTMpUphvvWmx7xPyT6OA4WznKJh/FkJ41kf6/hyDdQiKv/LSM4bZHA0MTr+lx2sOBlz3k+3B8
+	ZbMg3LH+KZdoOkd+3wPR
+X-Received: by 2002:a05:6871:729:b0:440:e18f:c17b with SMTP id
+ 586e51a60fabf-4413d8c1927mr1043972fac.14.1780632250264; Thu, 04 Jun 2026
+ 21:04:10 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <5b288246.378d.19e95d82602.Coremail.w15303746062@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:cSgvCgD3lz6fQyJqvyQDAA--.30408W
-X-CM-SenderInfo: jzrvjiatxuliiws6il2tof0z/xtbC4x8b-moiQ5+8hQAA30
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+References: <20260515065048.94564-1-cuiyunhui@bytedance.com> <252be770-4d9f-954a-9388-8f7b52a92d90@kernel.org>
+In-Reply-To: <252be770-4d9f-954a-9388-8f7b52a92d90@kernel.org>
+From: yunhui cui <cuiyunhui@bytedance.com>
+Date: Fri, 5 Jun 2026 12:03:57 +0800
+X-Gm-Features: AVVi8CfJzfw8QQiRtunxFq-NUfTJkIEqAOk44niae1WxngDtB7-RHX2XNxBPT3Y
+Message-ID: <CAEEQ3wmnZnoDm_YvHTwSdTs1RJTt009tVFQM-TtS+6O8TJpG2w@mail.gmail.com>
+Subject: Re: [External] Re: [PATCH] riscv: mm: exclude invalid THP PMDs from
+ page table check
+To: Paul Walmsley <pjw@kernel.org>
+Cc: paul.walmsley@sifive.com, palmer@dabbelt.com, aou@eecs.berkeley.edu, 
+	tongtiangen@huawei.com, akpm@linux-foundation.org, pasha.tatashin@soleen.com, 
+	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-CkhpIEhlbGdlLCBTaW1vbmEsIGFuZCBhbGwsCgpBIGdlbnRsZSBwaW5nIG9uIHRoaXMgcGF0Y2gu
-CgpTaW5jZSB0aGlzIGlzc3VlIHdhcyBpbmhlcmVudGx5IHJlc29sdmVkIGluIHRoZSBtYWlubGlu
-ZSB0cmVlIHZpYSBhIHJlY2VudCByZWZhY3RvciwgdGhpcyBzcGVjaWZpYyBmaXggaXMgaW50ZW5k
-ZWQgb25seSBmb3IgdGhlIDcuMCBhbmQgb2xkZXIgc3RhYmxlIGJyYW5jaGVzIHdoZXJlIHRoZSBs
-ZWdhY3kgdXNlcmZvbnQgbG9naWMgaXMgc3RpbGwgcHJlc2VudCBhbmQgdnVsbmVyYWJsZSB0byB0
-aGlzIG1lbW9yeSBsZWFrLgoKQ291bGQgdGhlIGZiZGV2IG1haW50YWluZXJzIHBsZWFzZSB0YWtl
-IGEgbG9vayBhbmQgcHJvdmlkZSBhbiBBY2tlZC1ieT8gVGhpcyB3aWxsIGFsbG93IHRoZSBzdGFi
-bGUgdGVhbSB0byBzYWZlbHkgcGljayBpdCB1cCBmb3IgdGhlIG9sZGVyIHRyZWVzLgoKKCtDYyBz
-dGFibGVAdmdlci5rZXJuZWwub3JnKQoKQmVzdCByZWdhcmRzLApNaW5neXUKCkF0IDIwMjYtMDUt
-MjUgMTY6Mjc6NDEsIHcxNTMwMzc0NjA2MkAxNjMuY29tIHdyb3RlOgo+RnJvbTogTWluZ3l1IFdh
-bmcgPDI1MTgxMjE0MjE3QHN0dS54aWRpYW4uZWR1LmNuPgo+Cj5bIE5vdGU6IFRoaXMgaXNzdWUg
-d2FzIGRpc2NvdmVyZWQgb24gdGhlIDcuMCBrZXJuZWwuIFdoaWxlIHRoZSBjdXJyZW50Cj4gIG1h
-aW5saW5lIGhhcyBhbHJlYWR5IGJlZW4gcmVmYWN0b3JlZCB0byB1c2UgYGZvbnRfZGF0YV90YCAo
-d2hpY2ggCj4gIGluYWR2ZXJ0ZW50bHkgcmVzb2x2ZWQgdGhpcyBidWcpLCB0aGlzIHZ1bG5lcmFi
-aWxpdHkgc3RpbGwgYWN0aXZlbHkgCj4gIGFmZmVjdHMgdGhlIDcuMCBicmFuY2ggYW5kIG9sZGVy
-IHN0YWJsZSB0cmVlcyB0aGF0IHJlbHkgb24gdGhlIGxlZ2FjeSAKPiAgdXNlcmZvbnQgbG9naWMu
-IFRoaXMgcGF0Y2ggcHJvdmlkZXMgYSB0YXJnZXRlZCBmaXggZm9yIHRoZXNlIHN0YWJsZSAKPiAg
-YnJhbmNoZXMuIF0KPgo+V2hlbiBmYmNvbl9kb19zZXRfZm9udCgpIGZhaWxzIChlLmcuLCBkdWUg
-dG8gYSB2Y19yZXNpemUoKSBmYWlsdXJlIHVuZGVyCj5mYXVsdCBpbmplY3Rpb24pLCBpdCBqdW1w
-cyB0byB0aGUgYGVycl9vdXRgIGxhYmVsIHRvIHJvbGwgYmFjayB0aGUKPmNvbnNvbGUgc3RhdGUu
-Cj4KPkhvd2V2ZXIsIHRoZSByZXN0b3JhdGlvbiBvZiB0aGUgcHJldmlvdXMgZm9udCBzdGF0ZSAo
-YHAtPnVzZXJmb250ID0KPm9sZF91c2VyZm9udGApIGlzIGVycm9uZW91c2x5IHBsYWNlZCBpbnNp
-ZGUgdGhlIGBpZiAodXNlcmZvbnQpYCBibG9jay4KPklmIHRoZSBmYWlsZWQgb3BlcmF0aW9uIHdh
-cyBhdHRlbXB0aW5nIHRvIHNldCB0aGUgZGVmYXVsdCBidWlsdGluIGZvbnQKPihgdXNlcmZvbnQg
-PT0gMGApLCB0aGUgcmVzdG9yYXRpb24gaXMgY29tcGxldGVseSBza2lwcGVkLgo+Cj5UaGlzIGNh
-dXNlcyBhIHN0YXRlIG1hY2hpbmUgY29ycnVwdGlvbiB3aGVyZSBgcC0+dXNlcmZvbnRgIHJlbWFp
-bnMgYDBgCj53aGlsZSBgcC0+Zm9udGRhdGFgIHN0aWxsIHBvaW50cyB0byB0aGUgcHJldmlvdXNs
-eSBhbGxvY2F0ZWQgdXNlciBmb250Cj5tZW1vcnkuIExhdGVyLCB3aGVuIHRoZSBjb25zb2xlIGlz
-IGRlc3Ryb3llZCAoZS5nLiwgdmlhIFZUX0RJU0FMTE9DQVRFKSwKPmZiY29uX2ZyZWVfZm9udCgp
-IGZhaWxzIHRvIGZyZWUgdGhpcyBtZW1vcnkgYmVjYXVzZSBpdHMgYGlmIChwLT51c2VyZm9udClg
-Cj5jaGVjayBmYWlscywgcmVzdWx0aW5nIGluIGEgbWVtb3J5IGxlYWsgY2F1Z2h0IGJ5IGttZW1s
-ZWFrOgo+Cj4gIHVucmVmZXJlbmNlZCBvYmplY3QgMHhmZmZmODg4MTI3ZWEwMDAwIChzaXplIDMz
-Mjk2KToKPiAgICBjb21tICJzeXouMC44NzI2IiwgcGlkIDMzMjI0LCBqaWZmaWVzIDQyOTc3NTQ2
-NDMKPiAgICBoZXggZHVtcCAoZmlyc3QgMzIgYnl0ZXMpOgo+ICAgICAgYTYgZTQgZjkgZGQgMDAg
-MDAgMDAgMDAgMDAgODIgMDAgMDAgMDEgMDAgMDAgMDAgIC4uLi4uLi4uLi4uLi4uLi4KPiAgICAg
-IGQyIDA5IDZjIGJmIDUyIDhhIDdkIGQ0IGVmIDFkIDU5IDE2IDUxIDg2IDMyIGJmICAuLmwuUi59
-Li4uWS5RLjIuCj4gICAgYmFja3RyYWNlIChjcmMgNGEwYTU3ZGQpOgo+ICAgICAgX19fa21hbGxv
-Y19sYXJnZV9ub2RlKzB4ZTcvMHgxODAgbW0vc2x1Yi5jOjUyMTQKPiAgICAgIF9fa21hbGxvY19s
-YXJnZV9ub2RlX25vcHJvZisweDI5LzB4MTMwIG1tL3NsdWIuYzo1MjMyCj4gICAgICBfX2RvX2tt
-YWxsb2Nfbm9kZSBtbS9zbHViLmM6NTI0OCBbaW5saW5lXQo+ICAgICAgX19rbWFsbG9jX25vcHJv
-ZisweDVmYy8weDdjMCBtbS9zbHViLmM6NTI3Mgo+ICAgICAga21hbGxvY19ub3Byb2YgaW5jbHVk
-ZS9saW51eC9zbGFiLmg6OTU0IFtpbmxpbmVdCj4gICAgICBmYmNvbl9zZXRfZm9udCsweDQzMS8w
-eGE2MCBkcml2ZXJzL3ZpZGVvL2ZiZGV2L2NvcmUvZmJjb24uYzoyNTI1Cj4gICAgICBjb25fZm9u
-dF9zZXQgZHJpdmVycy90dHkvdnQvdnQuYzo0OTE4IFtpbmxpbmVdCj4gICAgICBjb25fZm9udF9v
-cCsweDk0ZC8weGU4MCBkcml2ZXJzL3R0eS92dC92dC5jOjQ5NTgKPiAgICAgIHZ0X2tfaW9jdGwg
-ZHJpdmVycy90dHkvdnQvdnRfaW9jdGwuYzo0NzIgW2lubGluZV0KPiAgICAgIHZ0X2lvY3RsKzB4
-NjNjLzB4MmVlMCBkcml2ZXJzL3R0eS92dC92dF9pb2N0bC5jOjc0Mwo+Cj5GaXggdGhpcyBieSBt
-b3ZpbmcgdGhlIGBwLT51c2VyZm9udCA9IG9sZF91c2VyZm9udGAgYXNzaWdubWVudCBvdXRzaWRl
-Cj50aGUgYGlmICh1c2VyZm9udClgIGJsb2NrIHNvIHRoYXQgdGhlIHRlcm1pbmFsIHN0YXRlIGlz
-IHVuY29uZGl0aW9uYWxseQo+YW5kIGNvcnJlY3RseSByZXN0b3JlZCByZWdhcmRsZXNzIG9mIHdo
-aWNoIGZvbnQgc2V0dGluZyB0cmlnZ2VyZWQgdGhlCj5lcnJvci4KPgo+Rml4ZXM6IGE1YTkyMzAz
-OGQ3MCAoImZiZGV2OiBmYmNvbjogUHJvcGVybHkgcmV2ZXJ0IGNoYW5nZXMgd2hlbiB2Y19yZXNp
-emUoKSBmYWlsZWQiKQo+U2lnbmVkLW9mZi1ieTogTWluZ3l1IFdhbmcgPDI1MTgxMjE0MjE3QHN0
-dS54aWRpYW4uZWR1LmNuPgo+LS0tCj4gZHJpdmVycy92aWRlby9mYmRldi9jb3JlL2ZiY29uLmMg
-fCA0ICsrKy0KPiAxIGZpbGUgY2hhbmdlZCwgMyBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9uKC0p
-Cj4KPmRpZmYgLS1naXQgYS9kcml2ZXJzL3ZpZGVvL2ZiZGV2L2NvcmUvZmJjb24uYyBiL2RyaXZl
-cnMvdmlkZW8vZmJkZXYvY29yZS9mYmNvbi5jCj5pbmRleCA2NjYyNjFhZTU5ZDguLmEzODU0NWRj
-ODQxNiAxMDA2NDQKPi0tLSBhL2RyaXZlcnMvdmlkZW8vZmJkZXYvY29yZS9mYmNvbi5jCj4rKysg
-Yi9kcml2ZXJzL3ZpZGVvL2ZiZGV2L2NvcmUvZmJjb24uYwo+QEAgLTI0NjEsOCArMjQ2MSwxMCBA
-QCBzdGF0aWMgaW50IGZiY29uX2RvX3NldF9mb250KHN0cnVjdCB2Y19kYXRhICp2YywgaW50IHcs
-IGludCBoLCBpbnQgY2hhcmNvdW50LAo+IAlwLT5mb250ZGF0YSA9IG9sZF9kYXRhOwo+IAl2Yy0+
-dmNfZm9udC5kYXRhID0gb2xkX2RhdGE7Cj4gCj4rCS8qIFVuY29uZGl0aW9uYWxseSByZXN0b3Jl
-IHRoZSBwcmV2aW91cyB1c2VyZm9udCBzdGF0ZSAqLwo+KwlwLT51c2VyZm9udCA9IG9sZF91c2Vy
-Zm9udDsKPisKPiAJaWYgKHVzZXJmb250KSB7Cj4tCQlwLT51c2VyZm9udCA9IG9sZF91c2VyZm9u
-dDsKPiAJCWlmICgtLVJFRkNPVU5UKGRhdGEpID09IDApCj4gCQkJa2ZyZWUoZGF0YSAtIEZPTlRf
-RVhUUkFfV09SRFMgKiBzaXplb2YoaW50KSk7Cj4gCX0KPi0tIAo+Mi4zNC4xCg==
+Hi Paul,
+
+On Sat, May 23, 2026 at 7:10=E2=80=AFAM Paul Walmsley <pjw@kernel.org> wrot=
+e:
+>
+> On Fri, 15 May 2026, Yunhui Cui wrote:
+>
+> > RISC-V THP splitting uses a temporary invalid PMD state where
+> > pmd_mkinvalid() clears _PAGE_PRESENT and _PAGE_PROT_NONE but leaves
+> > _PAGE_LEAF set so the MM code can still recognize the PMD as a THP spli=
+t
+> > in-progress entry.
+> >
+> > That temporary state no longer describes a user-accessible mapping, but
+> > page_table_check currently treats it as one because the RISC-V PMD
+> > user-accessibility test only checks whether the PMD is a leaf and has
+> > user permissions.
+> >
+> > As a result, when a PMD-sized anonymous THP is split during a COW fault=
+,
+> > page_table_check can account the invalid intermediate PMD as a live PMD
+> > mapping, and then account the replacement PTE mappings again when the
+> > split installs the PTE table. This leaves stale PMD accounting behind a=
+nd
+> > later triggers page_table_check failures such as a non-zero
+> > anon_map_count when the folio is freed.
+> >
+> > Fix this by tightening pmd_user_accessible_page() so PMD page-table-che=
+ck
+> > accounting only considers leaf PMDs that still carry either
+> > _PAGE_PRESENT or _PAGE_PROT_NONE. This preserves the THP split semantic=
+s
+> > required by the MM code while preventing page_table_check from treating
+> > invalid split PMDs as live user mappings.
+> >
+> > With CONFIG_PAGE_TABLE_CHECK=3Dy and CONFIG_PAGE_TABLE_CHECK_ENFORCED=
+=3Dy,
+> > tools/testing/selftests/mm/cow completes successfully on RISC-V after
+> > this change.
+> >
+> > Fixes: 3fee229a8eb9 ("riscv/mm: enable ARCH_SUPPORTS_PAGE_TABLE_CHECK")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Yunhui Cui <cuiyunhui@bytedance.com>
+>
+> Thanks for the patch, but it doesn't apply as-is.  Could you fix it and
+> resend?
+
+Thanks for the heads-up. I have fixed the apply issue and resent it here:
+https://lore.kernel.org/all/20260523042052.35476-1-cuiyunhui@bytedance.com/
+
+>
+>
+> - Paul
+
+ Thanks,
+ Yunhui
