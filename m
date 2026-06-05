@@ -1,103 +1,117 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDFCF48C400;
-	Fri,  5 Jun 2026 08:06:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9844C48BD2F;
+	Fri,  5 Jun 2026 08:08:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780646765; cv=none; b=Ygeij74iidILKzxXx9vC3ypwTGoHRu4MEoi3DnO+Y/tGJVl0pyE4ERIgdCKWUvrv+bYbMH+TEMsVF9RsVeqxQIHoixXFm6PRY6kov450kRE4lEAxKLibxoL6Um0e4RD9PYlub0AAb5M3mVps3a4R7GfaT1r3LcYbMuWz3IQiv5Y=
+	t=1780646896; cv=none; b=etxl0Xrsu5liCcHVF0SbSepoLWTdm8D4LMFuudAvmYQP4ob1Rrh4tzQep5uWjQFgkWrkz/s02qZbX97cs90aPKm/Kj1xhCqjS2FmdVIqLOg73fBcx4z0a/pKySC4pnAupNKEZz+S6G9dPpFBQyAZ1gKveoafYjcGGbZIiTEiKnk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780646765; c=relaxed/simple;
-	bh=wsPcsv1Rlk8Exr83gLFbf0eLXcpjaAButbXIuRPDIGg=;
+	s=arc-20240116; t=1780646896; c=relaxed/simple;
+	bh=0CCvZFCoz8MQYHFETcZzaIs2wCrCUe0u91eQVSo2Cv8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RG0WujvsRyhbNtswdGb4auI0g5TsJRws32xfA7t4uegFTxkyk+QVPQHdyRMHxAjdHhC3WdPM2Ytht4A82By+/6k1Wlcqc1J3PEDpeUZcT1d2fM0e6rhNZKZMNS5C/oitCBV5l6IJCJmFtkigvzfbQ/+0rATxHlBJs1yi6X+HpE4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=aWfZGB11; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=bL0BaruYxHMWrF0grPwDnRn3c1jPf+8mH6UJFOikf8tV/+c9WHnpNNGv9PcJ4VZ1GdyzdxEaNjC44SIWXli2HpFYFFCfE1yA0u8ZKHqmKA2qaAWkAjJStOk6HC158sGE+wo5W7AR8tblsIwNM+bIutTUxAzRkkLnsdXwNGWuO2M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=R8qErh0h; arc=none smtp.client-ip=198.175.65.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="aWfZGB11"
-Received: from ideasonboard.com (net-93-65-100-155.cust.vodafonedsl.it [93.65.100.155])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 6D1DE56D;
-	Fri,  5 Jun 2026 10:05:37 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1780646737;
-	bh=wsPcsv1Rlk8Exr83gLFbf0eLXcpjaAButbXIuRPDIGg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=aWfZGB11TproYIocTNAMIB9odtVQarA7JdxNtJnBSI2my4qv8DRAYQoaH99U2ICBw
-	 cESzqcs15ATzU0zn4e4QRVwInZr1uDJcq1eGRVOx8lNSyYvtSCNnQJ8pr0xywZAn3S
-	 LWzcWuTtqieXNSOZFfmP+feSfF3ryddmH0K8NhM0=
-Date: Fri, 5 Jun 2026 10:05:59 +0200
-From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-To: David Carlier <devnexen@gmail.com>
-Cc: Daniel Scally <dan.scally@ideasonboard.com>, 
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Nayden Kanchev <nayden.kanchev@arm.com>, Hans Verkuil <hverkuil+cisco@kernel.org>, 
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] media: mali-c55: fix dropped last AEC histogram zone
- weight
-Message-ID: <aiKC3PQ4fJyUyq_A@zed>
-References: <20260602185305.30759-1-devnexen@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="R8qErh0h"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1780646895; x=1812182895;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=0CCvZFCoz8MQYHFETcZzaIs2wCrCUe0u91eQVSo2Cv8=;
+  b=R8qErh0hYA+by6VcfrDmIk1jqv/eJD1Px4/KrMassTe9ofxEdNu28Fni
+   AZ5I4Owy96E0sBFOx+1+K/5Ni/MMWVsfsLp1O54uXh5bKUI6qKxzvPEUm
+   41MNjyVN/f8rnicGwZFM3DkMjAh8J7yRKO3MVHddhi0kCydxJWPKppCan
+   5FdYsA72RAIDhxzWBYOP2/ynrm1JMMXzCNtzaDYTXobhdaf+HBMo6/97b
+   r7Wwbfp66QILu71MIBxfANfeS7s8fmGc9nhPS5XHOCPfxRXkoVhXDJFU4
+   POeo6SLG7FYLRxllRKJvooAyYwinwphDj55c6SeP4aS9ZhCJHCkMvsPNQ
+   g==;
+X-CSE-ConnectionGUID: x5BbC/uJRn69WxYuBejlJA==
+X-CSE-MsgGUID: LY1ETgTBTkSdTuXhe4epLg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11807"; a="92965797"
+X-IronPort-AV: E=Sophos;i="6.24,188,1774335600"; 
+   d="scan'208";a="92965797"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Jun 2026 01:08:15 -0700
+X-CSE-ConnectionGUID: Nl+72zvvSDGF2AEiyZlixQ==
+X-CSE-MsgGUID: aZH4O/5ZS+KMnMhXfE5Jag==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,188,1774335600"; 
+   d="scan'208";a="282867931"
+Received: from igk-lkp-server01.igk.intel.com (HELO 892db79562d4) ([10.211.93.152])
+  by orviesa001.jf.intel.com with ESMTP; 05 Jun 2026 01:08:11 -0700
+Received: from kbuild by 892db79562d4 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1wVPb7-000000002Vt-0A7U;
+	Fri, 05 Jun 2026 08:08:09 +0000
+Date: Fri, 5 Jun 2026 10:07:10 +0200
+From: kernel test robot <lkp@intel.com>
+To: Cheng Ming Lin <linchengming884@gmail.com>,
+	Pratyush Yadav <pratyush@kernel.org>,
+	Michael Walle <mwalle@kernel.org>,
+	Takahiro Kuwano <takahiro.kuwano@infineon.com>,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
+	Richard Weinberger <richard@nod.at>,
+	Vignesh Raghavendra <vigneshr@ti.com>
+Cc: oe-kbuild-all@lists.linux.dev, linux-mtd@lists.infradead.org,
+	linux-kernel@vger.kernel.org, alvinzhou@mxic.com.tw,
+	Cheng Ming Lin <chengminglin@mxic.com.tw>, stable@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] mtd: spi-nor: macronix: Restore fallback
+ parameters for MX25L12805D
+Message-ID: <202606051000.gRYPMoXy-lkp@intel.com>
+References: <20260605005720.1857413-3-linchengming884@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260602185305.30759-1-devnexen@gmail.com>
+In-Reply-To: <20260605005720.1857413-3-linchengming884@gmail.com>
 
-Hi David
+Hi Cheng,
 
-On Tue, Jun 02, 2026 at 07:53:05PM +0100, David Carlier wrote:
-> The 15x15 AEC histogram metering grid has 225 per-zone weights, packed
-> by userspace as a u8 array. The driver writes the first 56 registers
-> (zones 0 through 223) in a loop, then handles the final register on its
-> own to keep static analysers from flagging the array access.
->
-> That separate path computes the address and value for the 225th weight
-> (the bottom-right zone) but never issues the register write, so the zone
-> keeps its stale or default weight. Any non-default weight userspace sets
-> for the last zone is silently ignored, skewing auto-exposure metering.
-> Both the AEXP_HIST_WEIGHTS and AEXP_IHIST_WEIGHTS blocks are affected as
-> they share this handler.
->
-> Issue the missing write, masking the value as the loop does.
->
-> Fixes: 01535ea08674 ("media: platform: Add mali-c55 parameters video node")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Claude:claude-opus-4-8
-> Signed-off-by: David Carlier <devnexen@gmail.com>
-> ---
->  drivers/media/platform/arm/mali-c55/mali-c55-params.c | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-params.c b/drivers/media/platform/arm/mali-c55/mali-c55-params.c
-> index de0e9d898db7..33e2232ec8f5 100644
-> --- a/drivers/media/platform/arm/mali-c55/mali-c55-params.c
-> +++ b/drivers/media/platform/arm/mali-c55/mali-c55-params.c
-> @@ -212,6 +212,7 @@ mali_c55_params_aexp_hist_weights(struct mali_c55 *mali_c55,
->
->  	val = params->zone_weights[MALI_C55_MAX_ZONES - 1];
->  	addr = base + MALI_C55_AEXP_HIST_ZONE_WEIGHTS_OFFSET + (4 * 56);
-> +	mali_c55_ctx_write(mali_c55, addr, val & MALI_C55_AEXP_HIST_ZONE_WEIGHT_MASK);
+kernel test robot noticed the following build errors:
 
-Indeed!
+[auto build test ERROR on mtd/spi-nor/next]
+[also build test ERROR on linus/master v7.1-rc6 next-20260604]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-You could also mask val with 0xf0 when assigning it if you prefer, as
-we really only care about the lower byte for zone 255.
+url:    https://github.com/intel-lab-lkp/linux/commits/Cheng-Ming-Lin/mtd-spi-nor-Add-support-for-MX25L12833F-and-MX25L12845G/20260605-090612
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/mtd/linux.git spi-nor/next
+patch link:    https://lore.kernel.org/r/20260605005720.1857413-3-linchengming884%40gmail.com
+patch subject: [PATCH v2 2/2] mtd: spi-nor: macronix: Restore fallback parameters for MX25L12805D
+config: x86_64-rhel-9.4-func (https://download.01.org/0day-ci/archive/20260605/202606051000.gRYPMoXy-lkp@intel.com/config)
+compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260605/202606051000.gRYPMoXy-lkp@intel.com/reproduce)
 
-Shouldn't make any difference though
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202606051000.gRYPMoXy-lkp@intel.com/
 
-Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+All errors (new ones prefixed by >>):
 
-Thanks
-  j
+>> drivers/mtd/spi-nor/macronix.c:119:22: error: initialization of 'int (*)(struct spi_nor *, const struct sfdp_parameter_header *, const struct sfdp_bfpt *)' from incompatible pointer type 'int (*)(struct spi_nor *)' [-Wincompatible-pointer-types]
+     119 |         .post_bfpt = mx25l12805d_4pp3b_post_bfpt_fixups,
+         |                      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   drivers/mtd/spi-nor/macronix.c:119:22: note: (near initialization for 'mx25l12805d_4pp3b_fixups.post_bfpt')
 
->  }
->
->  static void mali_c55_params_digital_gain(struct mali_c55 *mali_c55,
-> --
-> 2.53.0
->
->
+
+vim +119 drivers/mtd/spi-nor/macronix.c
+
+   117	
+   118	static const struct spi_nor_fixups mx25l12805d_4pp3b_fixups = {
+ > 119		.post_bfpt = mx25l12805d_4pp3b_post_bfpt_fixups,
+   120	};
+   121	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
