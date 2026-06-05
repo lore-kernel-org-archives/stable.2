@@ -1,125 +1,117 @@
-Received: from mail-106111.protonmail.ch (mail-106111.protonmail.ch [79.135.106.111])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 684D346AEDD
-	for <stable@vger.kernel.org>; Fri,  5 Jun 2026 07:11:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.111
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 885F82EC0A7
+	for <stable@vger.kernel.org>; Fri,  5 Jun 2026 07:12:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780643482; cv=none; b=BJNrjx2mn7BN/O8F4C3Zz92FD4xD64LJ8RzDRbi/yVFS7i4sICRj0qGp3l6SGQvIAXgBvl0LQBFn7fgrx5LdHp9FLluCUKd7R9sPd3aRkBhpZtBAvhk2VapkhmSxL4ozcqb2UPngN4+zWdXYWax1xywcqQQAi1chlrS0WbnIBoo=
+	t=1780643533; cv=none; b=rzSwLMNWosgrc2n73rnEXy8OhWI3O5IISFxWFyUTSVT/ZRO86rc/AtozeNMyOs1k+I2kME7EqEqi5vZclEwViQCbue2v+tZS2uq3t/KXsJ+SB7AdmblO95LuxPcyqY7MSCaZcSFt3jgKLVQddAqGZNWvJrII7qXz0iUHErcv00I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780643482; c=relaxed/simple;
-	bh=MkpAuI2e1V0LrUw0T+NyS+K//sMJyhCdoUUgU9DpQZk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=dryA/G013CMXz7POLv3u0ITq32l+/DZWhAsVBLOtMhtDx6u7wTOpO+eJTMqP0PuGHsjzCE4Cwxj066J2mC73SZungML068hh4Bv36TNdGapEVHry1vT+DYQ9yNa+9pH8O1edqyDsjD4Dm9qPv+PppTU0dZJLKiIYJh3Dyo+Iunc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=onurozkan.dev; spf=pass smtp.mailfrom=onurozkan.dev; dkim=pass (2048-bit key) header.d=onurozkan.dev header.i=@onurozkan.dev header.b=L88vBS0/; arc=none smtp.client-ip=79.135.106.111
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=onurozkan.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=onurozkan.dev
+	s=arc-20240116; t=1780643533; c=relaxed/simple;
+	bh=LTLQc7ME7J7eUP93Wq//rFEEyGgeOk62Srx02OHipjI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=JYt2UrSTslwtoKe4TqrEpqI6896NS7zPvlbJNm5/Asa/kAL8wd5EJYb1MwdYkoe2FaWsNUdfQ9mpuhkMa1JkqpO8PFid0f6L5WmP8aUyDMesu6VGbhJrpvy5W8fg3QtC2YXWKSXZwdcLDTBs5IME07PZqNkSgXuFq3ZDz/UOyAM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ps89oNVR; arc=none smtp.client-ip=209.85.221.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=onurozkan.dev header.i=@onurozkan.dev header.b="L88vBS0/"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=onurozkan.dev;
-	s=protonmail; t=1780643469; x=1780902669;
-	bh=HRxhzyxOHY3JBnWyUgtazruryDamO6m96XNGDJqD/1Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=L88vBS0/A2etLt7bm5lIyWM6ctWnI/wqiz4/+5pjnlDKEY8X3nEcGVWVeCCM7Z8uz
-	 zaIPh5lhn/4LtJtRF5qojLJ8wcWYJnzJUe1asiVX3mF3z/oQzsYPdxgNzbtmUuKFxk
-	 q+B+YER7weIhR+wzARYFhQK2Okq8p/YyCaM+uem4/rZsqJj753e2AHwHQ6fXO+zyBi
-	 6mD7Y+yVqWf++C8FYNErrCzVEi0QLTuG3cPU909wLDCN+ixEAYTB0AAM19tJ9wtt8j
-	 /kpHhen3hzGLytnrtXIfjAPbnnKe+9eTO6LRx9mJJ0pRyimkU24/MCJqKocpCl8jv1
-	 p1a0vkUieWBBg==
-X-Pm-Submission-Id: 4gWszY0tVJz1DF6h
-From: =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
-To: Yuan Tan <ytan089@ucr.edu>
-Cc: ojeda@kernel.org,
-	boqun@kernel.org,
-	rust-for-linux@vger.kernel.org,
-	zhiyunq@cs.ucr.edu,
-	ardalan@uci.edu,
-	pgovind2@uci.edu,
-	dzueck@uci.edu,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] rust: firmware: return empty slice for zero-size firmware
-Date: Fri,  5 Jun 2026 10:10:42 +0300
-Message-ID: <20260605071104.135675-1-work@onurozkan.dev>
-X-Mailer: git-send-email 2.51.2
-In-Reply-To: <20260605041134.38290-1-ytan089@ucr.edu>
-References: <20260605041134.38290-1-ytan089@ucr.edu>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ps89oNVR"
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-460166910e6so835815f8f.2
+        for <stable@vger.kernel.org>; Fri, 05 Jun 2026 00:12:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780643531; x=1781248331; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=ayZZoFINc62/YbxwsJhIjKy4nCpiHkUbwPnuNcQomCM=;
+        b=Ps89oNVRaZn5rmNq6doJt7zy/0DrYF9JhbwicNE+Arvwr/QS1dll52VQdATXxAl48g
+         vJa3dIJuLWcz9Z+1UqLWbuec5xfR8G9UTJEdP/g0E0+bRhq5wJYc4O0EZ25CO74oXFrA
+         ZJGMYMQkh99t3sgdCc5krpCpSVmBI1xsnLaxJz4dRrn4OaeNwBR2BICfsCa44Cw28Rfp
+         jhFVXxK2hx9Pzn1H27o80FXr/LOoeOSMlb1ClJBWz0GW6yP07MqpftLhWzl7rapOl4lk
+         zlPP0XJR+u8Dc48d3/jTu+GnODEcYz6kcZyP+INTfahdmu7YAf7gu5uqx0Z8SLIcNscR
+         pB1g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780643531; x=1781248331;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=ayZZoFINc62/YbxwsJhIjKy4nCpiHkUbwPnuNcQomCM=;
+        b=Njr/DHKLIsfac04rNF4/PmV2tWHNO/hmCtneeDbV0aNaaYKYNcsvUNsDEm8kR6pxdV
+         F5cipDyisoBWcmbaKUCzcNscJfXrEXqS1U43fyisUF2+UnKRiIi+nLvoBhWV0LZbiVam
+         OFT9KXQMPnu7hBKYj6KVHV0a7PtcKILt00aB4NY5++qlr7umNWxeaHpylmCDBD58Ls+K
+         GLwWNj+W/HX24bK7wiQ2n7Mn8ldhV/YGvcKZtXPWf12or4cfkq0xvaQTj+loWV6morl7
+         WfksdHK5nwjmpbVOlNCrkRws+tmvk8JH8KpVgkWmlYoloWb0N4q8CTig7aghy8Mq4+cw
+         CA/A==
+X-Forwarded-Encrypted: i=1; AFNElJ8uRJaT8ljrTVuYxffk+RH4tTuIhDoZZkIVd56HL0jv5i6kbuoiYbsloUuIqusYLvKkaQThKN4=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxUeyp/gIjXFFpebibe/tWd1gDSMf4pcAeFz+fbk48fO4J05jlb
+	pdoAxKSeOAJwvgk9v7KyHpx0Jsrq8uvx86WWfLmzg5HzRQEyG5zj8Hbp
+X-Gm-Gg: Acq92OFxpQavOQnvLtu3pl/GAA77oQsqWR09uXQ2fGJAmlCeF6LBKSK7pf7G09UFSA2
+	PZM/oqFX2oeLhb+c693Qatln7rxMKlZwLdvfE6pbm7bywAPbnV6NdxnmA9FjgW4kTWQ7il9YY7O
+	yfoxbw8l87VTcsEQCippgXeRC8vd8331uCGpDEnAXeFh0t1okY3uqWcB96Ohvc9d305NhXwNlSg
+	VVdL3kElko/qKDgcDEVqHAEsQP0ndMQnEoWG4bpV/juDZ1UFYbFtcFwARxMmP+R0jUN4r4nxOVx
+	Zb/gwHda/i1i4+ONaRiwQw9uzrO296xz5/WR6FDwJyOPtW5RAtEu6f7TI2EJuvE42ObGLDjevIp
+	H6IvFsgc0pgyc8gO00beZb/LS+JEWJ3UBptX2EacVGvJTXhfv89l1sQilEHiaDS/hjgHRuW7DRi
+	dGoXrfPWASRMpZFYOtWB3CjGWRk7eCfp4rXJ1TPPOzSUdETW9z4n+bY33VYzxOAeWJyswsl2peP
+	yCRm3gvSUfx6V4NMxPif1vS3mK4RXuGkSm8bB3+21TzSU4=
+X-Received: by 2002:a5d:4e09:0:b0:45e:ea68:523e with SMTP id ffacd0b85a97d-460304fe066mr2960398f8f.21.1780643530812;
+        Fri, 05 Jun 2026 00:12:10 -0700 (PDT)
+Received: from ?IPV6:2001:9e8:f133:a901:840b:2bf2:919c:cec5? ([2001:9e8:f133:a901:840b:2bf2:919c:cec5])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4601f2f5612sm22213455f8f.15.2026.06.05.00.12.10
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 05 Jun 2026 00:12:10 -0700 (PDT)
+Message-ID: <02b1e77e-5b7e-41cb-95b6-731ed00d9e74@gmail.com>
+Date: Fri, 5 Jun 2026 09:12:09 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] MIPS: smp: report dying CPU to RCU in stop_this_cpu()
+Content-Language: en-US
+To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+ linux-mips@vger.kernel.org, Clark Williams <clrkwllms@kernel.org>,
+ Steven Rostedt <rostedt@goodmis.org>, Thomas Gleixner <tglx@kernel.org>,
+ Jiayuan Chen <jiayuan.chen@linux.dev>, linux-rt-devel@lists.linux.dev,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260604182407.3109536-1-jelonek.jonas@gmail.com>
+ <20260605064250.q0aRKkon@linutronix.de>
+From: Jonas Jelonek <jelonek.jonas@gmail.com>
+In-Reply-To: <20260605064250.q0aRKkon@linutronix.de>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Thu, 04 Jun 2026 21:11:34 -0700=0D
-Yuan Tan <ytan089@ucr.edu> wrote:=0D
-=0D
-> Firmware::data() builds a Rust slice with core::slice::from_raw_parts().=
-=0D
-> Unlike many C APIs, from_raw_parts() requires its pointer argument to be=
-=0D
-> non-NULL even when the length is zero.=0D
-> =0D
-> The firmware loader can represent an empty firmware image with size =3D=
-=3D 0=0D
-=0D
-=0D
-I haven't checked in detail yet but "empty firmware image with size =3D=3D =
-0"=0D
-sounds like an invalid image. Can such an image actually make it all the wa=
-y=0D
-to Firmware::data()? I would be surprised if the loader accepted it.=0D
-=0D
-Thanks,=0D
-Onur=0D
-=0D
-> and data =3D=3D NULL. Passing that pointer to from_raw_parts() would be=0D
-> undefined behavior.=0D
-> =0D
-> Return an empty slice before constructing the raw slice. For non-zero=0D
-> firmware sizes, the existing firmware API guarantee that data has size=0D
-> bytes also means that the pointer is non-NULL.=0D
-> =0D
-> Fixes: de6582833db0 ("rust: add firmware abstractions")=0D
-> Cc: stable@vger.kernel.org=0D
-> Reported-by: Priya Bala Govindasamy <pgovind2@uci.edu>=0D
-> Reported-by: Dylan Zueck <dzueck@uci.edu>=0D
-> Signed-off-by: Yuan Tan <ytan089@ucr.edu>=0D
-> ---=0D
->  rust/kernel/firmware.rs | 9 ++++++++-=0D
->  1 file changed, 8 insertions(+), 1 deletion(-)=0D
-> =0D
-> diff --git a/rust/kernel/firmware.rs b/rust/kernel/firmware.rs=0D
-> index 71168d8004e2..5e22a574a91e 100644=0D
-> --- a/rust/kernel/firmware.rs=0D
-> +++ b/rust/kernel/firmware.rs=0D
-> @@ -106,10 +106,17 @@ pub fn size(&self) -> usize {=0D
->  =0D
->      /// Returns the requested firmware as `&[u8]`.=0D
->      pub fn data(&self) -> &[u8] {=0D
-> +        let size =3D self.size();=0D
-> +=0D
-> +        if size =3D=3D 0 {=0D
-> +            return &[];=0D
-> +        }=0D
-> +=0D
->          // SAFETY: `self.as_raw()` is valid by the type invariant. Addit=
-ionally,=0D
->          // `bindings::firmware` guarantees, if successfully requested, t=
-hat=0D
->          // `bindings::firmware::data` has a size of `bindings::firmware:=
-:size` bytes.=0D
-> -        unsafe { core::slice::from_raw_parts((*self.as_raw()).data, self=
-.size()) }=0D
-> +        // For non-zero `size`, this also means `bindings::firmware::dat=
-a` is not NULL.=0D
-> +        unsafe { core::slice::from_raw_parts((*self.as_raw()).data, size=
-) }=0D
->      }=0D
->  }=0D
->  =0D
-> -- =0D
-> 2.43.2=0D
-> =0D
+Hi Sebastian,
+
+I'm not an expert in this area so please correct me if some claim or
+explanation is wrong.
+
+On 05.06.26 08:42, Sebastian Andrzej Siewior wrote:
+> On 2026-06-04 18:24:07 [+0000], Jonas Jelonek wrote:
+> …
+>> This issue popped up during kernel bump downstream in OpenWrt from
+>> 6.18.33 to 6.18.34, since the suspected change has been backported to
+>> 6.18 stable branch [1].
+> I would avoid the link and simply write after the backport of the patch
+> or so.
+
+Fine with that, I can adjust that in a v2.
+
+>> Call rcutree_report_cpu_dead() once interrupts are disabled, mirroring the
+>> generic CPU-hotplug offline path (and arm64's stop handling), so RCU stops
+>> waiting on the parked CPUs and grace periods can still complete.
+> This is part of cpuhp_report_idle_dead(). Is it now invoked twice? Or is
+> something else missing/ different? 
+
+Those seem to be two different paths. To be honest I'm not confident
+under which circumstances which of those paths is used to take down
+a CPU. In my case, issuing a reboot command reaches smp_send_stop()
+where the issue explained in the patch message then happens.
+
+> Sebastian
+
+Best,
+Jonas
