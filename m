@@ -1,117 +1,274 @@
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 885F82EC0A7
-	for <stable@vger.kernel.org>; Fri,  5 Jun 2026 07:12:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D0F9376BF4
+	for <stable@vger.kernel.org>; Fri,  5 Jun 2026 07:14:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780643533; cv=none; b=rzSwLMNWosgrc2n73rnEXy8OhWI3O5IISFxWFyUTSVT/ZRO86rc/AtozeNMyOs1k+I2kME7EqEqi5vZclEwViQCbue2v+tZS2uq3t/KXsJ+SB7AdmblO95LuxPcyqY7MSCaZcSFt3jgKLVQddAqGZNWvJrII7qXz0iUHErcv00I=
+	t=1780643660; cv=none; b=e763+74FqsiBiFfFLyS7Py9YHXsTQ1tYCi6nSIrSNRr8bWkJNje0csWRB2HdZr4IXZyfIAzmpcUlYCedja8y/fFpDP4dmJnmLeHzdQI0+1Y7jy7+bVqeK4DZOyO9+McW6kaoHBT7vl67qx3f3melR7paqknTOQUnEa++IHwoD2Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780643533; c=relaxed/simple;
-	bh=LTLQc7ME7J7eUP93Wq//rFEEyGgeOk62Srx02OHipjI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=JYt2UrSTslwtoKe4TqrEpqI6896NS7zPvlbJNm5/Asa/kAL8wd5EJYb1MwdYkoe2FaWsNUdfQ9mpuhkMa1JkqpO8PFid0f6L5WmP8aUyDMesu6VGbhJrpvy5W8fg3QtC2YXWKSXZwdcLDTBs5IME07PZqNkSgXuFq3ZDz/UOyAM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ps89oNVR; arc=none smtp.client-ip=209.85.221.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1780643660; c=relaxed/simple;
+	bh=goA+WujiJzZD1E+4+cZ0kaQn4KmKv14kYMMDn9/yFmI=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=hz4TLUYiTvir52yFfvzU3N/G66RiqdI53m0pmsa/wtG99OyAkuJFKgqx+jAre/JoDvNzrtPLQ2HOZ+sRJG5tzRiZKetefiO6GfZCfZb3MxYvRUFNScYPHI8JP5I+pZNekq6WQYrY/EXXpxFCqMJKjb0MQ1uOcNMqswdsgOtktQI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=xnuAHC2H; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=DnWykn8i; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=Mp7XF0el; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=VRS5KgM/; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ps89oNVR"
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-460166910e6so835815f8f.2
-        for <stable@vger.kernel.org>; Fri, 05 Jun 2026 00:12:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780643531; x=1781248331; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=ayZZoFINc62/YbxwsJhIjKy4nCpiHkUbwPnuNcQomCM=;
-        b=Ps89oNVRaZn5rmNq6doJt7zy/0DrYF9JhbwicNE+Arvwr/QS1dll52VQdATXxAl48g
-         vJa3dIJuLWcz9Z+1UqLWbuec5xfR8G9UTJEdP/g0E0+bRhq5wJYc4O0EZ25CO74oXFrA
-         ZJGMYMQkh99t3sgdCc5krpCpSVmBI1xsnLaxJz4dRrn4OaeNwBR2BICfsCa44Cw28Rfp
-         jhFVXxK2hx9Pzn1H27o80FXr/LOoeOSMlb1ClJBWz0GW6yP07MqpftLhWzl7rapOl4lk
-         zlPP0XJR+u8Dc48d3/jTu+GnODEcYz6kcZyP+INTfahdmu7YAf7gu5uqx0Z8SLIcNscR
-         pB1g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780643531; x=1781248331;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=ayZZoFINc62/YbxwsJhIjKy4nCpiHkUbwPnuNcQomCM=;
-        b=Njr/DHKLIsfac04rNF4/PmV2tWHNO/hmCtneeDbV0aNaaYKYNcsvUNsDEm8kR6pxdV
-         F5cipDyisoBWcmbaKUCzcNscJfXrEXqS1U43fyisUF2+UnKRiIi+nLvoBhWV0LZbiVam
-         OFT9KXQMPnu7hBKYj6KVHV0a7PtcKILt00aB4NY5++qlr7umNWxeaHpylmCDBD58Ls+K
-         GLwWNj+W/HX24bK7wiQ2n7Mn8ldhV/YGvcKZtXPWf12or4cfkq0xvaQTj+loWV6morl7
-         WfksdHK5nwjmpbVOlNCrkRws+tmvk8JH8KpVgkWmlYoloWb0N4q8CTig7aghy8Mq4+cw
-         CA/A==
-X-Forwarded-Encrypted: i=1; AFNElJ8uRJaT8ljrTVuYxffk+RH4tTuIhDoZZkIVd56HL0jv5i6kbuoiYbsloUuIqusYLvKkaQThKN4=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxUeyp/gIjXFFpebibe/tWd1gDSMf4pcAeFz+fbk48fO4J05jlb
-	pdoAxKSeOAJwvgk9v7KyHpx0Jsrq8uvx86WWfLmzg5HzRQEyG5zj8Hbp
-X-Gm-Gg: Acq92OFxpQavOQnvLtu3pl/GAA77oQsqWR09uXQ2fGJAmlCeF6LBKSK7pf7G09UFSA2
-	PZM/oqFX2oeLhb+c693Qatln7rxMKlZwLdvfE6pbm7bywAPbnV6NdxnmA9FjgW4kTWQ7il9YY7O
-	yfoxbw8l87VTcsEQCippgXeRC8vd8331uCGpDEnAXeFh0t1okY3uqWcB96Ohvc9d305NhXwNlSg
-	VVdL3kElko/qKDgcDEVqHAEsQP0ndMQnEoWG4bpV/juDZ1UFYbFtcFwARxMmP+R0jUN4r4nxOVx
-	Zb/gwHda/i1i4+ONaRiwQw9uzrO296xz5/WR6FDwJyOPtW5RAtEu6f7TI2EJuvE42ObGLDjevIp
-	H6IvFsgc0pgyc8gO00beZb/LS+JEWJ3UBptX2EacVGvJTXhfv89l1sQilEHiaDS/hjgHRuW7DRi
-	dGoXrfPWASRMpZFYOtWB3CjGWRk7eCfp4rXJ1TPPOzSUdETW9z4n+bY33VYzxOAeWJyswsl2peP
-	yCRm3gvSUfx6V4NMxPif1vS3mK4RXuGkSm8bB3+21TzSU4=
-X-Received: by 2002:a5d:4e09:0:b0:45e:ea68:523e with SMTP id ffacd0b85a97d-460304fe066mr2960398f8f.21.1780643530812;
-        Fri, 05 Jun 2026 00:12:10 -0700 (PDT)
-Received: from ?IPV6:2001:9e8:f133:a901:840b:2bf2:919c:cec5? ([2001:9e8:f133:a901:840b:2bf2:919c:cec5])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4601f2f5612sm22213455f8f.15.2026.06.05.00.12.10
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 05 Jun 2026 00:12:10 -0700 (PDT)
-Message-ID: <02b1e77e-5b7e-41cb-95b6-731ed00d9e74@gmail.com>
-Date: Fri, 5 Jun 2026 09:12:09 +0200
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="xnuAHC2H";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="DnWykn8i";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Mp7XF0el";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="VRS5KgM/"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 5F4606B19E;
+	Fri,  5 Jun 2026 07:14:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1780643657; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ttalvy82RVKEAyI4d2JDxdMHZAWXdtY3xt9QolxL3EU=;
+	b=xnuAHC2HY+G2N3iNOCmLpIOatBpNF+aXFWBPUYTDuiFNM328/ACqhH84Cy7msB84xSFNDN
+	9+xvv9Tlz+BbUeMq3flzVl+0i63zO0tO/H8ut07vfhNoIYNuxSzSH9p+jLARylZxezM7ko
+	1iVLLqwGsuCxX0/fnOlBiqaeUqI/5a8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1780643657;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ttalvy82RVKEAyI4d2JDxdMHZAWXdtY3xt9QolxL3EU=;
+	b=DnWykn8iD6Csfd+LUErPxGirIl1EWg+vlhnK7+rdUeOwkHOdO70ok/+elrkXEXl/Hboez7
+	oohGYNDgIg/2T9BQ==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1780643656; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ttalvy82RVKEAyI4d2JDxdMHZAWXdtY3xt9QolxL3EU=;
+	b=Mp7XF0el9kHYAnwy0OaxgS9Ske30EkssiEuxVAz1VYXEValSBxJEZkuQrg0EaTiGP7e/wF
+	cH2Y19UNdkDMy044SSPKhJSL0OY4zZLsqyTkzGnS7bw6GAQSebA2uvVdHlU1EhePVpMuzM
+	AtT3EW1Xy+qHLS90fH9cNQibGQuz5vI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1780643656;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ttalvy82RVKEAyI4d2JDxdMHZAWXdtY3xt9QolxL3EU=;
+	b=VRS5KgM/2L93UBn/6FbLeBwVqm+J/1Kh75WI5K5RRy7x1c5/HKHk5HoEHmIDC4bvFzx5Ga
+	4QZUt1EF95YmTADw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 22A31779A8;
+	Fri,  5 Jun 2026 07:14:16 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id d1QZB0h3ImrtIgAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Fri, 05 Jun 2026 07:14:16 +0000
+Date: Fri, 05 Jun 2026 09:14:15 +0200
+Message-ID: <87jysdv4qg.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Kailang <kailang@realtek.com>
+Cc: Takashi Iwai <tiwai@suse.de>,
+	Mike Karcic <mikekarcic@protonmail.com>,
+	Sean Rhodes
+	<sean@starlabs.systems>,
+	"stable@vger.kernel.org" <stable@vger.kernel.org>,
+	"regressions@lists.linux.dev" <regressions@lists.linux.dev>,
+	"linux-sound@vger.kernel.org" <linux-sound@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [REGRESSION] Speaker pop/chirp on Meteor Lake ALC287 (17aa:231e) -- 6.12.73 to 6.12.85
+In-Reply-To: <330931ee49624f2486f66e510271d80a@realtek.com>
+References: <O6pYAi7yf23du9ivLsL0QqrnTmodj2lDTL7Wviv7I_nhjVtvllO7Y5Ban0TeTqrastb1RWhJtlkqrM3quLMWSriai-YjjGy312MTcEhxyWs=@protonmail.com>
+	<CABtds-3GOyBr1H=c5aFV1uzfkhO3d1NHMPuon_cWDq0V=pFwUA@mail.gmail.com>
+	<wZmYozyav1sNx53nFr4ShKmcdLFVJp5bdUOJgUq1I57MX6kgyq7n8XvH-MWG9Fi4q2x4CQqjEQ3Q8ok5MClut8hNixnhVmVtXkhcOzH1sw8=@protonmail.com>
+	<87eciwukvy.wl-tiwai@suse.de>
+	<RfzfjlzeaeMgNNWNST_Zzx1v49rYjM63MvAV6O5_fFIoZJ73GcN69FDLJcwhJ3s6fl9TVD2l45YBh2n3hy95LM7rhLhoVt8dU9stMkuVJvE=@protonmail.com>
+	<87mrxjsk52.wl-tiwai@suse.de>
+	<bibLdgyll9YOEDANdCBy8WOqeOeJry1SnahLR-EhoGkttJ6BE2srDZ9jv0gjkt0bA19aKivruQs3nkMQWbdEXPaOrLT80xjzF4KJvDcB-IU=@protonmail.com>
+	<87cxyfs2vm.wl-tiwai@suse.de>
+	<833d600fdebd4aaeab6706185ce854e6@realtek.com>
+	<87wlwgygyf.wl-tiwai@suse.de>
+	<330931ee49624f2486f66e510271d80a@realtek.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] MIPS: smp: report dying CPU to RCU in stop_this_cpu()
-Content-Language: en-US
-To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
- linux-mips@vger.kernel.org, Clark Williams <clrkwllms@kernel.org>,
- Steven Rostedt <rostedt@goodmis.org>, Thomas Gleixner <tglx@kernel.org>,
- Jiayuan Chen <jiayuan.chen@linux.dev>, linux-rt-devel@lists.linux.dev,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260604182407.3109536-1-jelonek.jonas@gmail.com>
- <20260605064250.q0aRKkon@linutronix.de>
-From: Jonas Jelonek <jelonek.jonas@gmail.com>
-In-Reply-To: <20260605064250.q0aRKkon@linutronix.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-3.30 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_TLS_ALL(0.00)[];
+	FUZZY_RATELIMITED(0.00)[rspamd.com];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	FREEMAIL_ENVRCPT(0.00)[protonmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[suse.de,protonmail.com,starlabs.systems,vger.kernel.org,lists.linux.dev];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[realtek.com:email,protonmail.com:email,starlabs.systems:email,imap1.dmz-prg2.suse.org:helo,suse.de:email,suse.de:mid,linux.dev:email]
+X-Spam-Level: 
+X-Spam-Score: -3.30
 
-Hi Sebastian,
+On Fri, 05 Jun 2026 09:02:29 +0200,
+Kailang wrote:
+> 
+> 
+> Yes, it's the same codec and SSID. It's the same model of machine.
 
-I'm not an expert in this area so please correct me if some claim or
-explanation is wrong.
+Hrm, and still they show different behavior?  That's tough.
 
-On 05.06.26 08:42, Sebastian Andrzej Siewior wrote:
-> On 2026-06-04 18:24:07 [+0000], Jonas Jelonek wrote:
-> …
->> This issue popped up during kernel bump downstream in OpenWrt from
->> 6.18.33 to 6.18.34, since the suspected change has been backported to
->> 6.18 stable branch [1].
-> I would avoid the link and simply write after the backport of the patch
-> or so.
 
-Fine with that, I can adjust that in a v2.
+Takashi
 
->> Call rcutree_report_cpu_dead() once interrupts are disabled, mirroring the
->> generic CPU-hotplug offline path (and arm64's stop handling), so RCU stops
->> waiting on the parked CPUs and grace periods can still complete.
-> This is part of cpuhp_report_idle_dead(). Is it now invoked twice? Or is
-> something else missing/ different? 
-
-Those seem to be two different paths. To be honest I'm not confident
-under which circumstances which of those paths is used to take down
-a CPU. In my case, issuing a reboot command reaches smp_send_stop()
-where the issue explained in the patch message then happens.
-
-> Sebastian
-
-Best,
-Jonas
+> 
+> -----Original Message-----
+> From: Takashi Iwai <tiwai@suse.de> 
+> Sent: Wednesday, June 3, 2026 1:45 AM
+> To: Kailang <kailang@realtek.com>
+> Cc: Takashi Iwai <tiwai@suse.de>; Mike Karcic <mikekarcic@protonmail.com>; Sean Rhodes <sean@starlabs.systems>; stable@vger.kernel.org; regressions@lists.linux.dev; linux-sound@vger.kernel.org; linux-kernel@vger.kernel.org
+> Subject: Re: [REGRESSION] Speaker pop/chirp on Meteor Lake ALC287 (17aa:231e) -- 6.12.73 to 6.12.85
+> 
+> 
+> External mail : This email originated from outside the organization. Do not reply, click links, or open attachments unless you recognize the sender and know the content is safe.
+> 
+> 
+> 
+> On Tue, 02 Jun 2026 08:14:14 +0200,
+> Kailang wrote:
+> >
+> >
+> > There were the same SSID for two different symptoms.
+> > But this project was from 2025. This machine maybe didn't in our site.
+> 
+> Aha, that can explain the difference of the behavior, then.
+> Do both of them have the same codec ID and SSID, too?
+> 
+> 
+> Takashi
+> 
+> >
+> > -----Original Message-----
+> > From: Takashi Iwai <tiwai@suse.de>
+> > Sent: Friday, May 29, 2026 4:20 AM
+> > To: Mike Karcic <mikekarcic@protonmail.com>
+> > Cc: Kailang <kailang@realtek.com>; Takashi Iwai <tiwai@suse.de>; Sean 
+> > Rhodes <sean@starlabs.systems>; stable@vger.kernel.org; 
+> > regressions@lists.linux.dev; linux-sound@vger.kernel.org; 
+> > linux-kernel@vger.kernel.org
+> > Subject: Re: [REGRESSION] Speaker pop/chirp on Meteor Lake ALC287 
+> > (17aa:231e) -- 6.12.73 to 6.12.85
+> >
+> >
+> > External mail : This email originated from outside the organization. Do not reply, click links, or open attachments unless you recognize the sender and know the content is safe.
+> >
+> >
+> >
+> > On Thu, 28 May 2026 20:27:30 +0200,
+> > Mike Karcic wrote:
+> > >
+> > > Yes, I can confirm the patched kernel is running, and commenting out that line fixes the problem completely.
+> > >
+> > > Below is output with the added debug lines as requested:
+> > >
+> > > $ uname -r
+> > > 6.12.90-debug-no-discoefs
+> > >
+> > > $ sudo dmesg | grep -i "alc287_alc1318"
+> > > [  453.823528] snd_hda_codec_realtek ehdaudio0D0:
+> > > alc287_alc1318_playback_pcm_hook called action=0 [  453.871577] 
+> > > snd_hda_codec_realtek ehdaudio0D0: alc287_alc1318_playback_pcm_hook 
+> > > called action=1 [  459.605379] snd_hda_codec_realtek ehdaudio0D0:
+> > > alc287_alc1318_playback_pcm_hook called action=2 [  459.605497] 
+> > > snd_hda_codec_realtek ehdaudio0D0: alc287_alc1318_playback_pcm_hook 
+> > > called action=3
+> > >
+> > > $ grep -n -A5 -B2 "alc_process_coef_fw.*dis_coefs" sound/pci/hda/patch_realtek.c
+> > > 7918-           return;
+> > > 7919-   alc_update_coef_idx(codec, 0x10, 1<<11, 1<<11);
+> > > 7920:   /* alc_process_coef_fw(codec, dis_coefs); */ /* commented out for testing */
+> > > 7921-   alc_process_coef_fw(codec, coefs);
+> > > 7922-   spec->power_hook = alc287_s4_power_gpio3_default;
+> > > 7923-   spec->gen.pcm_playback_hook = alc287_alc1318_playback_pcm_hook;
+> > > 7924-}
+> >
+> > Hm, then the previous fix doesn't seem working, obviously.
+> > Kailang, could you check this in your side?
+> >
+> > Maybe we should apply the AMP-silence-detection disablement conditionally to certain models?
+> >
+> >
+> > thanks,
+> >
+> > Takashi
+> >
+> > >
+> > >
+> > >
+> > > Sent with Proton Mail secure email.
+> > >
+> > > On Thursday, May 28th, 2026 at 10:07 AM, Takashi Iwai <tiwai@suse.de> wrote:
+> > >
+> > > > On Thu, 28 May 2026 15:38:54 +0200, Mike Karcic wrote:
+> > > > >
+> > > > > I did test 46c862f5419e on 6.12.90. Chirp still present.
+> > > > >
+> > > > > I'm also on a ThinkPad X1 Carbon Gen 12 with ALC287 (17aa:231e), 
+> > > > > same as the original reporter. The fix resolved it for them but 
+> > > > > not for me.
+> > > > >
+> > > > > Only a full revert of 630fbc6e870e resolves the issue.
+> > > > >
+> > > > > Verification on the running kernel:
+> > > > >
+> > > > >   $ grep -c "dis_coefs" sound/pci/hda/patch_realtek.c
+> > > > >   2
+> > > > >
+> > > > >   $ grep -c "en_coefs" sound/pci/hda/patch_realtek.c
+> > > > >   0
+> > > > >
+> > > > >   $ sed -n '/alc287_alc1318_playback_pcm_hook/,/^}/p' sound/pci/hda/patch_realtek.c
+> > > > >   static void alc287_alc1318_playback_pcm_hook(struct hda_pcm_stream *hinfo,
+> > > > >                                      struct hda_codec *codec,
+> > > > >                                      struct snd_pcm_substream *substream,
+> > > > >                                      int action)
+> > > > >   {
+> > > > >           switch (action) {
+> > > > >           case HDA_GEN_PCM_ACT_OPEN:
+> > > > >                   alc_write_coefex_idx(codec, 0x5a, 0x00, 0x954f);
+> > > > >                   break;
+> > > > >           case HDA_GEN_PCM_ACT_CLOSE:
+> > > > >                   alc_write_coefex_idx(codec, 0x5a, 0x00, 0x554f);
+> > > > >                   break;
+> > > > >           }
+> > > > >   }
+> > > > >
+> > > > > Happy to test further patches.
+> > > >
+> > > > Just to be sure, could you verify that you've tested really the 
+> > > > patched kernel, e.g. by adding a debug print, etc?
+> > > > If yes and the problem is seen even with the patch, try to comment out
+> > > >   alc_process_coef_fw(codec, dis_coefs); and confirm that this 
+> > > > fixes the problem.
+> > > >
+> > > >
+> > > > Takashi
+> > > >
