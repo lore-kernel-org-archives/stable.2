@@ -1,42 +1,76 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 527E91FCF41
-	for <stable@vger.kernel.org>; Fri,  5 Jun 2026 19:33:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5965836D513
+	for <stable@vger.kernel.org>; Fri,  5 Jun 2026 19:33:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780687993; cv=none; b=ghOYa20njzmbVTbtiSSPTbXYpsVCf9SgTcn7bZj1DHGJmB45USKLLmnjhrueVZJthaPcgfM1d98cwp8MOUqsLW5aCuBRtyW9K6yBmZU+vy4lISO2Zmrni4ziU8G1JcduEliNpJfqphK4AUWmz1KTgSuCNry5f2YlepHUDOlFmo4=
+	t=1780688011; cv=none; b=ONtcf7gkHhGZ0u6T8FmEagS2Cx9cQeczl58JCpbHN2NNQOXZHSYIIlJ0F6xiEbEiEbv/JeRG8bYAi3od7Gy0Mtmfzu+pcT45F82ai/Nid3nsMDVOlg/VIOuz1yj3fszNpREBg6Zojw6A+6XThcacpnNvmL8YuF7JoQi9idDbDQw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780687993; c=relaxed/simple;
-	bh=eO1D/7HHimVESp06My8yXIZ+NjNeKEhSuAmyH1iNWuM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=W6E8htRJLp2MOuzBSbB4Ttd/R86Va2EuAlW1EVqnZqBPGEcQFv+rK3+AsGUNHvy5iNJfpgj07w8h3pVOLmby2i4/yKaGnmqV0e5qEABpn8irKXji8410yRRAb1V/2GVlNb58kCU4ovE3lp+Xt1zeiBdOc10YDlU+IsxwW6+8fwE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SouhojG0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780688011; c=relaxed/simple;
+	bh=GUDsSnSpwDj2maWrAQsgu4r9TY3KspdS34xPLDZRLOQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=W6AJixwunAtqDKN7nOpeO/U/atz80q/f9at5LXkXCvW5LBEAisN5+9NuejCukdZe/TJUJW44i+C2hJr9j8Z/c9I8ebiWdQ6gB02x/4tB86f/gnY9VdFqUc1c404A3hAfZpZP9aNxai56RIKeqlnCZ99yemsmnvrrBuS+ToevF2s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=C6W1Ttq0; arc=none smtp.client-ip=209.85.221.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SouhojG0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B640F1F00893;
-	Fri,  5 Jun 2026 19:33:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780687992;
-	bh=7lohqZ3Pz2MmjOECoBipy5pMiPHypi356NP1fy37EX8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=SouhojG0MXK0c6KBVgIiaCyal/SEXDnO6AevhkC20SuCChUHBkjbJEoeWcuamF9Gy
-	 eyp77LzsyMzJvV9Wfb+ryQ/vaDGYGzzZy1N2d/3tIUQVrmJ47Q1LOne4BswkFp+u6Q
-	 JklpkpPPEg9gZ2mMrdGhnQwK4UBXKxhDTpRw+gRbFXfkOJ8d6ndWoGI9sYYVlIRV/3
-	 mTcOtaRiWGtaEiRnx04QG2RwRAuWyWddO13/ZC18N7bTLLt7OQxUbfw/QX8Uc8eptd
-	 xfXnPmaeT52czj7m4ogKGWUSnS2z+cEgI5qlmCJXJSS8JW4QEjhdbxNhj8izVTVWnQ
-	 Nt04ftThIjxBg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Michael Bommarito <michael.bommarito@gmail.com>,
-	Mika Westerberg <mika.westerberg@linux.intel.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] thunderbolt: property: Cap recursion depth in __tb_property_parse_dir()
-Date: Fri,  5 Jun 2026 15:33:10 -0400
-Message-ID: <20260605193310.2159165-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026060406-submitter-repackage-5f5e@gregkh>
-References: <2026060406-submitter-repackage-5f5e@gregkh>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="C6W1Ttq0"
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-45ef779c1c2so1559998f8f.1
+        for <stable@vger.kernel.org>; Fri, 05 Jun 2026 12:33:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780688008; x=1781292808; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=pEZDD9TlhQlFNvL79/mxsSDb2Yxob9rJ9xhLRrOMmv4=;
+        b=C6W1Ttq05nG+qQnnIcTeTbtZrhKDkeMUXA2Dt9RmJX13SUFGKTA47fwJWTYDAboB1P
+         L8TVwJaDcC0qReK2Ov5eY16J/gLVIyjI5zVmrSchsC+EP404R29zEQYGsSfQiod5dz/G
+         GLFhcOvEosAUhW6sS8JqUFyH/rtw+qQXS8yrkQxDUDJpWrBgHplDTxF9R0by9wR551+U
+         wtIAziGtAUqjUg7BhRvng9LHc3ljFTIxkD7BoZ/iL9ynPpsIC+8Y2V08Iin8Nkbmr3J1
+         TOVbTquAsV8HmByCYSU3FyTDWqopecm3re3ASpriuzFz6ZmR0MhpD8JyPR9aRjL5NB6z
+         +Osg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780688008; x=1781292808;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=pEZDD9TlhQlFNvL79/mxsSDb2Yxob9rJ9xhLRrOMmv4=;
+        b=a/nHlpd+asnqsvL/pIYEKpNGRXEkoo8l+DKUd2VJaidrUqXu/k3FSs7qTGUaa9Vhd3
+         HBsrpiNQ+atbIjDsX2okPzUK8WdFJhURoSLCVZMApSgYP99QGxl5E7Y+M6xU6OpZC0jm
+         HUHsottQTK5GVOHrQMfpiRYjOnZs03ZWhOGhuH265aFmPduXKQ5MnsOYd4q6el1Bl0w0
+         gOCwbDxOD7kFbkqLNBY2ueuBFH1pph9aXjiSmuH7yjgFnOMOtvscCEokC+xolnCP5FXE
+         RsvEt/gWsVuy4nfSVW3b0GttcAFdIXDc2pmGDIcJes32BavZksuYUYnY4S5W+uru6JqM
+         uIzA==
+X-Forwarded-Encrypted: i=1; AFNElJ9nAdtRBaJbFZSaqzvKkygV3pO/vxFGfDw1MEJzirkX48Iy+yFDfr67blsvCOK9xY2zbcCZOGI=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyU4nECurj1caEwCzAj1G82ljTJKUvsDZTvNVEsF5H0rB8QFZzb
+	9tQzlrGr3LyCN1QFNakDQZyVoZNuFvaJskG8Y9aIYhUlP9+NBFuV1s+y
+X-Gm-Gg: Acq92OGzrnb9dYMJpQm+tU0jS3jujxUF2ko1q6qKbgfQFBnE/gOZOl3H9eq8hDN9kwF
+	G/hu/LYu0jn6+TnrivaTbuJ4c02K73dK9xkaxkHvCg2LbRKSsri7lI/4cCdLoJi1SxLJma7jJcB
+	lKxzlbp7Sc8PNZFBBJfJotvgXjwxWB2xSrojEaQkcfe2YWoYci3eA7fu0JGFn82ersteo9BRGDq
+	Du443ihGMw39Y1ImQ82Z743ewK2rsDDNxjXVoY70gtnL7jHBLK8zf4VEFmWyfo/eBD661l5UjYG
+	yIVKmtbMioslCfSyUz2fnTskPoarnXuhevpeVLaaooz0otv1datdwZWnpQERv3BK1p2pyiLZ7Nh
+	3cKEE+ATULY5BAXn8WEgRh0f4X8xwADDOGKh3Dvi3EftolA21ZoU8DQiZJsqQbPAxJtV29SJJil
+	V2t+BymDmkTiKn2AEJNOr7HzG4duRZ7ZiZ0HZecNbKCMz8yzaFzBgjosH7DilqW+BWaaPw/YcnR
+	aBkY4SUcx1h
+X-Received: by 2002:adf:e68f:0:b0:45f:f142:d55d with SMTP id ffacd0b85a97d-460307761e2mr6539957f8f.39.1780688007512;
+        Fri, 05 Jun 2026 12:33:27 -0700 (PDT)
+Received: from node ([202.47.63.86])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4601f345209sm28025464f8f.17.2026.06.05.12.33.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 05 Jun 2026 12:33:27 -0700 (PDT)
+From: Muhammad Bilal <meatuni001@gmail.com>
+To: robh@kernel.org
+Cc: tomeu@tomeuvizoso.net,
+	ogabbay@kernel.org,
+	tzimmermann@suse.de,
+	Frank.Li@nxp.com,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Muhammad Bilal <meatuni001@gmail.com>
+Subject: [PATCH] accel/ethosu: include secondary weight/scale extents in region_size[] accounting
+Date: Sat,  6 Jun 2026 00:33:11 +0500
+Message-ID: <20260605193311.48008-1-meatuni001@gmail.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,111 +79,69 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Michael Bommarito <michael.bommarito@gmail.com>
+calc_sizes() updates region_size[] with the extent of weight[0] and
+scale[0] within their hardware regions, but omits weight[1..3] and
+scale[1]. Since no NPU_SET_WEIGHT1_REGION, NPU_SET_WEIGHT2_REGION,
+NPU_SET_WEIGHT3_REGION, or NPU_SET_SCALE1_REGION commands exist in the
+command set, secondary buffers implicitly share the same hardware region
+as weight[0] and scale[0] respectively.
 
-[ Upstream commit 928abe19fbf0127003abcb1ea69cabc1c897d0ab ]
+The omission means region_size[] reflects only the primary buffer extent.
+If a secondary weight or scale buffer extends beyond the primary one,
+region_size[] may underestimate the required GEM buffer size.
 
-A DIRECTORY entry's value field is used as the dir_offset for a
-recursive call into __tb_property_parse_dir() with no depth counter.
-A crafted peer that chains DIRECTORY entries into a back-reference
-loop drives the parser until the kernel stack is exhausted and the
-guard page fires.  Any untrusted XDomain peer (cable, dock, in-line
-inspector, adjacent host) that reaches the PROPERTIES_REQUEST
-control-plane exchange can trigger this without authentication.
+Fix by extending the region_size[] update in calc_sizes() to cover
+weight[1..3] and scale[1], skipping entries that still hold the
+U64_MAX/U32_MAX sentinel values written by cmd_state_init().
 
-Thread a depth counter through tb_property_parse() and
-__tb_property_parse_dir(), and reject blocks that exceed
-TB_PROPERTY_MAX_DEPTH = 8.  That is comfortably larger than any
-observed legitimate XDomain layout.
-
-Operators who do not need XDomain host-to-host discovery can disable
-the path entirely with thunderbolt.xdomain=0 on the kernel command
-line.
-
-Fixes: cdae7c07e3e3 ("thunderbolt: Add support for XDomain properties")
+Fixes: 5a5e9c0228e6 ("accel: Add Arm Ethos-U NPU driver")
 Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-4-6
-Assisted-by: Codex:gpt-5-4
-Signed-off-by: Michael Bommarito <michael.bommarito@gmail.com>
-Signed-off-by: Mika Westerberg <mika.westerberg@linux.intel.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Suggested-by: Rob Herring <robh@kernel.org>
+Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
 ---
- drivers/thunderbolt/property.c | 18 ++++++++++++------
- 1 file changed, 12 insertions(+), 6 deletions(-)
+ drivers/accel/ethosu/ethosu_gem.c | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
 
-diff --git a/drivers/thunderbolt/property.c b/drivers/thunderbolt/property.c
-index dc555cda98e680..eaa808f3fbfcd3 100644
---- a/drivers/thunderbolt/property.c
-+++ b/drivers/thunderbolt/property.c
-@@ -34,10 +34,11 @@ struct tb_property_dir_entry {
- };
+diff --git a/drivers/accel/ethosu/ethosu_gem.c b/drivers/accel/ethosu/ethosu_gem.c
+index 7994e7073..152733b6a 100644
+--- a/drivers/accel/ethosu/ethosu_gem.c
++++ b/drivers/accel/ethosu/ethosu_gem.c
+@@ -271,6 +271,8 @@ static int calc_sizes(struct drm_device *ddev,
+ 	}
  
- #define TB_PROPERTY_ROOTDIR_MAGIC	0x55584401
-+#define TB_PROPERTY_MAX_DEPTH		8
- 
- static struct tb_property_dir *__tb_property_parse_dir(const u32 *block,
- 	size_t block_len, unsigned int dir_offset, size_t dir_len,
--	bool is_root);
-+	bool is_root, unsigned int depth);
- 
- static inline void parse_dwdata(void *dst, const void *src, size_t dwords)
- {
-@@ -93,7 +94,8 @@ tb_property_alloc(const char *key, enum tb_property_type type)
- }
- 
- static struct tb_property *tb_property_parse(const u32 *block, size_t block_len,
--					const struct tb_property_entry *entry)
-+					const struct tb_property_entry *entry,
-+					unsigned int depth)
- {
- 	char key[TB_PROPERTY_KEY_SIZE + 1];
- 	struct tb_property *property;
-@@ -114,7 +116,7 @@ static struct tb_property *tb_property_parse(const u32 *block, size_t block_len,
- 	switch (property->type) {
- 	case TB_PROPERTY_TYPE_DIRECTORY:
- 		dir = __tb_property_parse_dir(block, block_len, entry->value,
--					      entry->length, false);
-+					      entry->length, false, depth + 1);
- 		if (!dir) {
- 			kfree(property);
- 			return NULL;
-@@ -159,13 +161,17 @@ static struct tb_property *tb_property_parse(const u32 *block, size_t block_len,
- }
- 
- static struct tb_property_dir *__tb_property_parse_dir(const u32 *block,
--	size_t block_len, unsigned int dir_offset, size_t dir_len, bool is_root)
-+	size_t block_len, unsigned int dir_offset, size_t dir_len, bool is_root,
-+	unsigned int depth)
- {
- 	const struct tb_property_entry *entries;
- 	size_t i, content_len, nentries;
- 	unsigned int content_offset;
- 	struct tb_property_dir *dir;
- 
-+	if (depth > TB_PROPERTY_MAX_DEPTH)
-+		return NULL;
+ 	if (weight) {
++		int i;
 +
- 	dir = kzalloc(sizeof(*dir), GFP_KERNEL);
- 	if (!dir)
- 		return NULL;
-@@ -192,7 +198,7 @@ static struct tb_property_dir *__tb_property_parse_dir(const u32 *block,
- 	for (i = 0; i < nentries; i++) {
- 		struct tb_property *property;
+ 		dev_dbg(ddev->dev, "op %d: W:%d:0x%llx-0x%llx\n",
+ 			op, st->weight[0].region, st->weight[0].base,
+ 			st->weight[0].base + st->weight[0].length - 1);
+@@ -280,6 +282,14 @@ static int calc_sizes(struct drm_device *ddev,
+ 		info->region_size[st->weight[0].region] =
+ 			max(info->region_size[st->weight[0].region],
+ 			    st->weight[0].base + st->weight[0].length);
++		for (i = 1; i < ARRAY_SIZE(st->weight); i++) {
++			if (st->weight[i].base == U64_MAX ||
++			    st->weight[i].length == U32_MAX)
++				continue;
++			info->region_size[st->weight[0].region] =
++				max(info->region_size[st->weight[0].region],
++				    st->weight[i].base + st->weight[i].length);
++		}
+ 	}
  
--		property = tb_property_parse(block, block_len, &entries[i]);
-+		property = tb_property_parse(block, block_len, &entries[i], depth);
- 		if (!property) {
- 			tb_property_free_dir(dir);
- 			return NULL;
-@@ -229,7 +235,7 @@ struct tb_property_dir *tb_property_parse_dir(const u32 *block,
- 		return NULL;
+ 	if (scale) {
+@@ -292,6 +302,11 @@ static int calc_sizes(struct drm_device *ddev,
+ 		info->region_size[st->scale[0].region] =
+ 			max(info->region_size[st->scale[0].region],
+ 			    st->scale[0].base + st->scale[0].length);
++		if (st->scale[1].base != U64_MAX &&
++		    st->scale[1].length != U32_MAX)
++			info->region_size[st->scale[0].region] =
++				max(info->region_size[st->scale[0].region],
++				    st->scale[1].base + st->scale[1].length);
+ 	}
  
- 	return __tb_property_parse_dir(block, block_len, 0, rootdir->length,
--				       true);
-+				       true, 0);
- }
- 
- /**
+ 	len = feat_matrix_length(info, &st->ofm, st->ofm.width,
 -- 
-2.53.0
+2.54.0
 
