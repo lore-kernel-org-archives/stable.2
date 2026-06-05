@@ -1,62 +1,43 @@
-Received: from mail-gw02.astralinux.ru (mail-gw02.astralinux.ru [93.188.205.243])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 187BC7260D;
-	Fri,  5 Jun 2026 13:53:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=93.188.205.243
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D6133264DA
+	for <stable@vger.kernel.org>; Fri,  5 Jun 2026 13:53:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780667592; cv=none; b=oWPk8HcDcPYtsIS1ECCnr6yawSxsufm14ywfSbL+LQxlTmAK9kimq3zxCRBzM1RD7npVwYg8wFTGIxWZ/jcB/tYybJiYE8z4TdXVTF2iwBR0LNbVP2ygZiwaRUqNQuuj4sc0ULqJbs7mS1kVaSUjFnFfz91G8bqVaNHsWCDtdUE=
+	t=1780667609; cv=none; b=jA4FM7wIlf1UbAD6bKarGiaBT0wHnnvKoFsIqZ489Dl3MBezTDDlGeSYvsMlIuSAkMP3JMzsvMejylTwZMvU0hqw7ClDfb9eSZhskrrnmoepTn/nNS7pWax1iO8f94nAXBYIZW0KqVtGkXmtjAKzxRA6qUXsjnNN/SUrWHZCFKw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780667592; c=relaxed/simple;
-	bh=MWyOzsRoF6IgihNP4ZmOHjOp/+rGMyYr1WD9i/KTVT0=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=qXrTxq9osZMvhtCTyYovks7hDWa1VPs+LoqhoSa+zLJeZUCBayEcg0uU6//fOxw0hgkzil4shWogz5RFZ/44MBwmATGNgOEAUSuyM6vs+pykcY5b0TyfKXkHmdcKTf2tUZP2VJ1rDSBEuI7UqX0hnKGYy7ZaFkImMmMkBnVNU5c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru; spf=pass smtp.mailfrom=astralinux.ru; dkim=pass (2048-bit key) header.d=astralinux.ru header.i=@astralinux.ru header.b=c5hxqcEB; arc=none smtp.client-ip=93.188.205.243
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=astralinux.ru
+	s=arc-20240116; t=1780667609; c=relaxed/simple;
+	bh=mqEt80kSj8JumJFKhu7HQRKzEwEi80ftu1LQPW6s67k=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ZlI3/9xMC4HR7ZRNaEOC9/Y5Purl4KdcgF3cecCm6IcTWp6NbOQvuM9c39b4bJvkcoERzDKFxJFRCW847hMpPd3rAv4ya72OSYDpqTjg0+h4yL+yqqUL4YsxN+xjTfh5SnAmjKN0W4eJqyALGkPJW5osoNeucHuczcvBIUXbiUg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kb2K0rIu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=astralinux.ru header.i=@astralinux.ru header.b="c5hxqcEB"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=astralinux.ru;
-	s=mail; t=1780667235;
-	bh=MWyOzsRoF6IgihNP4ZmOHjOp/+rGMyYr1WD9i/KTVT0=;
-	h=From:To:Cc:Subject:Date:From;
-	b=c5hxqcEBwILGnS+Nh4mScyuqJtSzXmmRFZhf11dCeFthZKNSleQS/RsY3QXc3V5ES
-	 afTP2jl6tHP2hByqJ0HK18bOTiA3bZgNm2AJHXvyffnZY+xLtd6ubQg8K8yZaKE3UY
-	 S1tLTcsvCGBWYjBd2d0uLzVSoBoubK0qXdH1tzJn4XpdkxTu7s+/Dpmcxhk5NkblFZ
-	 Yi3sUVBiK7yQEo5rZb/B3BlCLK2FBkvjmdWps0rPkAAJt5YSo+y3QrevigDOg1t7pK
-	 57g0zv7jK+fFxA3ZNddjeZoD+4X1YTxzimi/ia/9obw9Iyv14cxq21LP3r1IfDuS2J
-	 WNK5rtbRoT55A==
-Received: from gca-msk-a-srv-ksmg01.astralinux.ru (localhost [127.0.0.1])
-	by mail-gw02.astralinux.ru (Postfix) with ESMTP id 486491F977;
-	Fri,  5 Jun 2026 16:47:15 +0300 (MSK)
-Received: from new-mail.astralinux.ru (unknown [10.205.207.8])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mail-gw02.astralinux.ru (Postfix) with ESMTPS;
-	Fri,  5 Jun 2026 16:47:10 +0300 (MSK)
-Received: from rbta-msk-lt-156703.astralinux.ru (unknown [10.198.16.171])
-	by new-mail.astralinux.ru (Postfix) with ESMTPA id 4gX2mY5n74zZdFK;
-	Fri, 05 Jun 2026 16:47:09 +0300 (MSK)
-From: Alexey Panov <apanov@astralinux.ru>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Alexey Panov <apanov@astralinux.ru>,
-	Jiri Pirko <jiri@resnulli.us>,
-	"David S. Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	Eric Dumazet <edumazet@google.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	lvc-project@linuxtesting.org,
-	syzbot+a2a3b519de727b0f7903@syzkaller.appspotmail.com,
-	"Nikola Z . Ivanov" <zlatistiv@gmail.com>,
-	Jiri Pirko <jiri@nvidia.com>
-Subject: [PATCH 5.10] team: Move team device type change at the end of team_port_add
-Date: Fri,  5 Jun 2026 16:47:00 +0300
-Message-Id: <20260605134700.23565-1-apanov@astralinux.ru>
-X-Mailer: git-send-email 2.30.2
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kb2K0rIu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E6161F00893;
+	Fri,  5 Jun 2026 13:53:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780667607;
+	bh=hOOl24Z75D8OczN5w2hbGNKgjcHhQnUQJW7AqaWOyag=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=kb2K0rIuUfVgurDcfBzJzMvDaSIz3KCAlZvUSVuF112eIDZaf9eOS/D4hqRl0Fmla
+	 9+zFjG9SzO3MsxyLjZkd88y96KaMIL0NHlV7tSYBVDrlj5ACCISjMpG9lxVgzScO9Z
+	 s6/2WvdFUfh3PMYoco4zsEVI+v75XFDvJp/8ajzRyrjSY1OekV+L4qqwKCXtiGVK5c
+	 mtbgJzvqhN14p3k50h6VYm/iG+VLYp7FldFqUHy39xRsVLirYWqbD7qZDy2Rq+uMEy
+	 fktUWiNG9UaTBwCvONuKysphrJ/J6SeuPMPEkxgg64BQJT9VvDJYVbkxsJrYY+a4OX
+	 XAfY6zA4tpXLg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Thomas Gleixner <tglx@linutronix.de>,
+	John Ogness <john.ogness@linutronix.de>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/3] serial: samsung_tty: Use port lock wrappers
+Date: Fri,  5 Jun 2026 09:53:22 -0400
+Message-ID: <20260605135324.928676-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026060427-payroll-estimator-0ec1@gregkh>
+References: <2026060427-payroll-estimator-0ec1@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -64,134 +45,254 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-KSMG-AntiPhishing: NotDetected, bases: 2026/06/05 13:22:00
-X-KSMG-AntiSpam-Auth: dkim=none
-X-KSMG-AntiSpam-Envelope-From: apanov@astralinux.ru
-X-KSMG-AntiSpam-Info: LuaCore: 107 0.3.107 575e75fe8e3b9d45c142d144823c5de38605099e, {date_rfc_vio_soft_silent}, {Tracking_uf_ne_domains}, {Tracking_internal2}, {Tracking_from_domain_doesnt_match_to}, new-mail.astralinux.ru:7.1.1;astralinux.ru:7.1.1;syzkaller.appspot.com:7.1.1,5.0.1;patch.msgid.link:7.1.1;127.0.0.199:7.1.2;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1, FromAlignment: s
-X-KSMG-AntiSpam-Interceptor-Info: scan successful
-X-KSMG-AntiSpam-Lua-Profiles: 203688 [Jun 05 2026]
-X-KSMG-AntiSpam-Method: none
-X-KSMG-AntiSpam-Rate: 0
-X-KSMG-AntiSpam-Status: not_detected
-X-KSMG-AntiSpam-Version: 6.1.1.22
-X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.1.0.7854, bases: 2026/06/05 12:57:00 #28217219
-X-KSMG-AntiVirus-Status: NotDetected, skipped
-X-KSMG-LinksScanning: NotDetected, bases: 2026/06/05 13:22:00
-X-KSMG-Message-Action: skipped
-X-KSMG-Rule-ID: 1
 
-From: Nikola Z. Ivanov <zlatistiv@gmail.com>
+From: Thomas Gleixner <tglx@linutronix.de>
 
-commit 0ae9cfc454ea5ead5f3ddbdfe2e70270d8e2c8ef upstream.
+[ Upstream commit 97d7a9aeba1d424c2359f1686d02c75d798ad184 ]
 
-Attempting to add a port device that is already up will expectedly fail,
-but not before modifying the team device header_ops.
+When a serial port is used for kernel console output, then all
+modifications to the UART registers which are done from other contexts,
+e.g. getty, termios, are interference points for the kernel console.
 
-In the case of the syzbot reproducer the gre0 device is
-already in state UP when it attempts to add it as a
-port device of team0, this fails but before that
-header_ops->create of team0 is changed from eth_header to ipgre_header
-in the call to team_dev_type_check_change.
+So far this has been ignored and the printk output is based on the
+principle of hope. The rework of the console infrastructure which aims to
+support threaded and atomic consoles, requires to mark sections which
+modify the UART registers as unsafe. This allows the atomic write function
+to make informed decisions and eventually to restore operational state. It
+also allows to prevent the regular UART code from modifying UART registers
+while printk output is in progress.
 
-Later when we end up in ipgre_header() struct ip_tunnel* points to nonsense
-as the private data of the device still holds a struct team.
+All modifications of UART registers are guarded by the UART port lock,
+which provides an obvious synchronization point with the console
+infrastructure.
 
-Example sequence of iproute2 commands to reproduce the hang/BUG():
-ip link add dev team0 type team
-ip link add dev gre0 type gre
-ip link set dev gre0 up
-ip link set dev gre0 master team0
-ip link set dev team0 up
-ping -I team0 1.1.1.1
+To avoid adding this functionality to all UART drivers, wrap the
+spin_[un]lock*() invocations for uart_port::lock into helper functions
+which just contain the spin_[un]lock*() invocations for now. In a
+subsequent step these helpers will gain the console synchronization
+mechanisms.
 
-Move team_dev_type_check_change down where all other checks have passed
-as it changes the dev type with no way to restore it in case
-one of the checks that follow it fail.
+Converted with coccinelle. No functional change.
 
-Also make sure to preserve the origial mtu assignment:
-  - If port_dev is not the same type as dev, dev takes mtu from port_dev
-  - If port_dev is the same type as dev, port_dev takes mtu from dev
-
-This is done by adding a conditional before the call to dev_set_mtu
-to prevent it from assigning port_dev->mtu = dev->mtu and instead
-letting team_dev_type_check_change assign dev->mtu = port_dev->mtu.
-The conditional is needed because the patch moves the call to
-team_dev_type_check_change past dev_set_mtu.
-
-Testing:
-  - team device driver in-tree selftests
-  - Add/remove various devices as slaves of team device
-  - syzbot
-
-Reported-by: syzbot+a2a3b519de727b0f7903@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=a2a3b519de727b0f7903
-Fixes: 1d76efe1577b ("team: add support for non-ethernet devices")
-Signed-off-by: Nikola Z. Ivanov <zlatistiv@gmail.com>
-Reviewed-by: Jiri Pirko <jiri@nvidia.com>
-Link: https://patch.msgid.link/20251122002027.695151-1-zlatistiv@gmail.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[ Alexey: backport to 5.10: adjust path from
-drivers/net/team/team_core.c to drivers/net/team/team.c ]
-Signed-off-by: Alexey Panov <apanov@astralinux.ru>
+Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
+Signed-off-by: John Ogness <john.ogness@linutronix.de>
+Link: https://lore.kernel.org/r/20230914183831.587273-54-john.ogness@linutronix.de
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Stable-dep-of: a3bb136bff5e ("tty: serial: samsung: Remove redundant port lock acquisition in rx helpers")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-Backport fix for CVE-2025-68340
- drivers/net/team/team.c | 23 +++++++++++++++--------
- 1 file changed, 15 insertions(+), 8 deletions(-)
+ drivers/tty/serial/samsung_tty.c | 50 ++++++++++++++++----------------
+ 1 file changed, 25 insertions(+), 25 deletions(-)
 
-diff --git a/drivers/net/team/team.c b/drivers/net/team/team.c
-index 03cc3da8c3c1..0b62e204c7bb 100644
---- a/drivers/net/team/team.c
-+++ b/drivers/net/team/team.c
-@@ -1180,10 +1180,6 @@ static int team_port_add(struct team *team, struct net_device *port_dev,
- 		return -EPERM;
+diff --git a/drivers/tty/serial/samsung_tty.c b/drivers/tty/serial/samsung_tty.c
+index 5a4d88e134715d..a82b65155f6ee9 100644
+--- a/drivers/tty/serial/samsung_tty.c
++++ b/drivers/tty/serial/samsung_tty.c
+@@ -248,7 +248,7 @@ static void s3c24xx_serial_rx_enable(struct uart_port *port)
+ 	unsigned int ucon, ufcon;
+ 	int count = 10000;
+ 
+-	spin_lock_irqsave(&port->lock, flags);
++	uart_port_lock_irqsave(port, &flags);
+ 
+ 	while (--count && !s3c24xx_serial_txempty_nofifo(port))
+ 		udelay(100);
+@@ -262,7 +262,7 @@ static void s3c24xx_serial_rx_enable(struct uart_port *port)
+ 	wr_regl(port, S3C2410_UCON, ucon);
+ 
+ 	ourport->rx_enabled = 1;
+-	spin_unlock_irqrestore(&port->lock, flags);
++	uart_port_unlock_irqrestore(port, flags);
+ }
+ 
+ static void s3c24xx_serial_rx_disable(struct uart_port *port)
+@@ -271,14 +271,14 @@ static void s3c24xx_serial_rx_disable(struct uart_port *port)
+ 	unsigned long flags;
+ 	unsigned int ucon;
+ 
+-	spin_lock_irqsave(&port->lock, flags);
++	uart_port_lock_irqsave(port, &flags);
+ 
+ 	ucon = rd_regl(port, S3C2410_UCON);
+ 	ucon &= ~S3C2410_UCON_RXIRQMODE;
+ 	wr_regl(port, S3C2410_UCON, ucon);
+ 
+ 	ourport->rx_enabled = 0;
+-	spin_unlock_irqrestore(&port->lock, flags);
++	uart_port_unlock_irqrestore(port, flags);
+ }
+ 
+ static void s3c24xx_serial_stop_tx(struct uart_port *port)
+@@ -344,7 +344,7 @@ static void s3c24xx_serial_tx_dma_complete(void *args)
+ 				dma->tx_transfer_addr, dma->tx_size,
+ 				DMA_TO_DEVICE);
+ 
+-	spin_lock_irqsave(&port->lock, flags);
++	uart_port_lock_irqsave(port, &flags);
+ 
+ 	uart_xmit_advance(port, count);
+ 	ourport->tx_in_progress = 0;
+@@ -353,7 +353,7 @@ static void s3c24xx_serial_tx_dma_complete(void *args)
+ 		uart_write_wakeup(port);
+ 
+ 	s3c24xx_serial_start_next_tx(ourport);
+-	spin_unlock_irqrestore(&port->lock, flags);
++	uart_port_unlock_irqrestore(port, flags);
+ }
+ 
+ static void enable_tx_dma(struct s3c24xx_uart_port *ourport)
+@@ -619,7 +619,7 @@ static void s3c24xx_serial_rx_dma_complete(void *args)
+ 	received  = dma->rx_bytes_requested - state.residue;
+ 	async_tx_ack(dma->rx_desc);
+ 
+-	spin_lock_irqsave(&port->lock, flags);
++	uart_port_lock_irqsave(port, &flags);
+ 
+ 	if (received)
+ 		s3c24xx_uart_copy_rx_to_tty(ourport, t, received);
+@@ -631,7 +631,7 @@ static void s3c24xx_serial_rx_dma_complete(void *args)
+ 
+ 	s3c64xx_start_rx_dma(ourport);
+ 
+-	spin_unlock_irqrestore(&port->lock, flags);
++	uart_port_unlock_irqrestore(port, flags);
+ }
+ 
+ static void s3c64xx_start_rx_dma(struct s3c24xx_uart_port *ourport)
+@@ -722,7 +722,7 @@ static irqreturn_t s3c24xx_serial_rx_chars_dma(void *dev_id)
+ 	utrstat = rd_regl(port, S3C2410_UTRSTAT);
+ 	rd_regl(port, S3C2410_UFSTAT);
+ 
+-	spin_lock(&port->lock);
++	uart_port_lock(port);
+ 
+ 	if (!(utrstat & S3C2410_UTRSTAT_TIMEOUT)) {
+ 		s3c64xx_start_rx_dma(ourport);
+@@ -751,7 +751,7 @@ static irqreturn_t s3c24xx_serial_rx_chars_dma(void *dev_id)
+ 	wr_regl(port, S3C2410_UTRSTAT, S3C2410_UTRSTAT_TIMEOUT);
+ 
+ finish:
+-	spin_unlock(&port->lock);
++	uart_port_unlock(port);
+ 
+ 	return IRQ_HANDLED;
+ }
+@@ -849,9 +849,9 @@ static irqreturn_t s3c24xx_serial_rx_chars_pio(void *dev_id)
+ 	struct s3c24xx_uart_port *ourport = dev_id;
+ 	struct uart_port *port = &ourport->port;
+ 
+-	spin_lock(&port->lock);
++	uart_port_lock(port);
+ 	s3c24xx_serial_rx_drain_fifo(ourport);
+-	spin_unlock(&port->lock);
++	uart_port_unlock(port);
+ 
+ 	return IRQ_HANDLED;
+ }
+@@ -932,11 +932,11 @@ static irqreturn_t s3c24xx_serial_tx_irq(int irq, void *id)
+ 	struct s3c24xx_uart_port *ourport = id;
+ 	struct uart_port *port = &ourport->port;
+ 
+-	spin_lock(&port->lock);
++	uart_port_lock(port);
+ 
+ 	s3c24xx_serial_tx_chars(ourport);
+ 
+-	spin_unlock(&port->lock);
++	uart_port_unlock(port);
+ 	return IRQ_HANDLED;
+ }
+ 
+@@ -1032,7 +1032,7 @@ static void s3c24xx_serial_break_ctl(struct uart_port *port, int break_state)
+ 	unsigned long flags;
+ 	unsigned int ucon;
+ 
+-	spin_lock_irqsave(&port->lock, flags);
++	uart_port_lock_irqsave(port, &flags);
+ 
+ 	ucon = rd_regl(port, S3C2410_UCON);
+ 
+@@ -1043,7 +1043,7 @@ static void s3c24xx_serial_break_ctl(struct uart_port *port, int break_state)
+ 
+ 	wr_regl(port, S3C2410_UCON, ucon);
+ 
+-	spin_unlock_irqrestore(&port->lock, flags);
++	uart_port_unlock_irqrestore(port, flags);
+ }
+ 
+ static int s3c24xx_serial_request_dma(struct s3c24xx_uart_port *p)
+@@ -1302,7 +1302,7 @@ static int s3c64xx_serial_startup(struct uart_port *port)
+ 	ourport->rx_enabled = 1;
+ 	ourport->tx_enabled = 0;
+ 
+-	spin_lock_irqsave(&port->lock, flags);
++	uart_port_lock_irqsave(port, &flags);
+ 
+ 	ufcon = rd_regl(port, S3C2410_UFCON);
+ 	ufcon |= S3C2410_UFCON_RESETRX | S5PV210_UFCON_RXTRIG8;
+@@ -1312,7 +1312,7 @@ static int s3c64xx_serial_startup(struct uart_port *port)
+ 
+ 	enable_rx_pio(ourport);
+ 
+-	spin_unlock_irqrestore(&port->lock, flags);
++	uart_port_unlock_irqrestore(port, flags);
+ 
+ 	/* Enable Rx Interrupt */
+ 	s3c24xx_clear_bit(port, S3C64XX_UINTM_RXD, S3C64XX_UINTM);
+@@ -1340,7 +1340,7 @@ static int apple_s5l_serial_startup(struct uart_port *port)
+ 	ourport->rx_enabled = 1;
+ 	ourport->tx_enabled = 0;
+ 
+-	spin_lock_irqsave(&port->lock, flags);
++	uart_port_lock_irqsave(port, &flags);
+ 
+ 	ufcon = rd_regl(port, S3C2410_UFCON);
+ 	ufcon |= S3C2410_UFCON_RESETRX | S5PV210_UFCON_RXTRIG8;
+@@ -1350,7 +1350,7 @@ static int apple_s5l_serial_startup(struct uart_port *port)
+ 
+ 	enable_rx_pio(ourport);
+ 
+-	spin_unlock_irqrestore(&port->lock, flags);
++	uart_port_unlock_irqrestore(port, flags);
+ 
+ 	/* Enable Rx Interrupt */
+ 	s3c24xx_set_bit(port, APPLE_S5L_UCON_RXTHRESH_ENA, S3C2410_UCON);
+@@ -1625,7 +1625,7 @@ static void s3c24xx_serial_set_termios(struct uart_port *port,
+ 		ulcon |= S3C2410_LCON_PNONE;
  	}
  
--	err = team_dev_type_check_change(dev, port_dev);
--	if (err)
--		return err;
--
- 	if (port_dev->flags & IFF_UP) {
- 		NL_SET_ERR_MSG(extack, "Device is up. Set it down before adding it as a team port");
- 		netdev_err(dev, "Device %s is up. Set it down before adding it as a team port\n",
-@@ -1201,10 +1197,16 @@ static int team_port_add(struct team *team, struct net_device *port_dev,
- 	INIT_LIST_HEAD(&port->qom_list);
+-	spin_lock_irqsave(&port->lock, flags);
++	uart_port_lock_irqsave(port, &flags);
  
- 	port->orig.mtu = port_dev->mtu;
--	err = dev_set_mtu(port_dev, dev->mtu);
--	if (err) {
--		netdev_dbg(dev, "Error %d calling dev_set_mtu\n", err);
--		goto err_set_mtu;
-+	/*
-+	 * MTU assignment will be handled in team_dev_type_check_change
-+	 * if dev and port_dev are of different types
-+	 */
-+	if (dev->type == port_dev->type) {
-+		err = dev_set_mtu(port_dev, dev->mtu);
-+		if (err) {
-+			netdev_dbg(dev, "Error %d calling dev_set_mtu\n", err);
-+			goto err_set_mtu;
-+		}
- 	}
+ 	dev_dbg(port->dev,
+ 		"setting ulcon to %08x, brddiv to %d, udivslot %08x\n",
+@@ -1683,7 +1683,7 @@ static void s3c24xx_serial_set_termios(struct uart_port *port,
+ 	if ((termios->c_cflag & CREAD) == 0)
+ 		port->ignore_status_mask |= RXSTAT_DUMMY_READ;
  
- 	memcpy(port->orig.dev_addr, port_dev->dev_addr, port_dev->addr_len);
-@@ -1279,6 +1281,10 @@ static int team_port_add(struct team *team, struct net_device *port_dev,
- 		}
- 	}
+-	spin_unlock_irqrestore(&port->lock, flags);
++	uart_port_unlock_irqrestore(port, flags);
+ }
  
-+	err = team_dev_type_check_change(dev, port_dev);
-+	if (err)
-+		goto err_set_dev_type;
-+
- 	if (dev->flags & IFF_UP) {
- 		netif_addr_lock_bh(dev);
- 		dev_uc_sync_multiple(port_dev, dev);
-@@ -1297,6 +1303,7 @@ static int team_port_add(struct team *team, struct net_device *port_dev,
+ static const char *s3c24xx_serial_type(struct uart_port *port)
+@@ -2375,14 +2375,14 @@ s3c24xx_serial_console_write(struct console *co, const char *s,
+ 	if (cons_uart->sysrq)
+ 		locked = false;
+ 	else if (oops_in_progress)
+-		locked = spin_trylock_irqsave(&cons_uart->lock, flags);
++		locked = uart_port_trylock_irqsave(cons_uart, &flags);
+ 	else
+-		spin_lock_irqsave(&cons_uart->lock, flags);
++		uart_port_lock_irqsave(cons_uart, &flags);
  
- 	return 0;
+ 	uart_console_write(cons_uart, s, count, s3c24xx_serial_console_putchar);
  
-+err_set_dev_type:
- err_set_slave_promisc:
- 	__team_option_inst_del_port(team, port);
+ 	if (locked)
+-		spin_unlock_irqrestore(&cons_uart->lock, flags);
++		uart_port_unlock_irqrestore(cons_uart, flags);
+ }
  
+ /* Shouldn't be __init, as it can be instantiated from other module */
 -- 
-2.47.3
+2.53.0
+
