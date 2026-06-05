@@ -1,119 +1,112 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 827CD277C9D
-	for <stable@vger.kernel.org>; Fri,  5 Jun 2026 00:59:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD1CE2F3C0E
+	for <stable@vger.kernel.org>; Fri,  5 Jun 2026 00:59:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780621162; cv=none; b=VUdt9uIPDiRd+qTAiPa5niCb8CtOkBo9eXNqzFZa1SvOWobRX05/331R6YR/KAl90UTHP0qRVVCNyFJU6CjR8e5K1/3IVyeynHWH02TMAnGCk6TFZgs2s7q9Lekj5CX9nWdz8hQz6d+64gy0krOI2GeIk4cyCa5hqpynS07Rks4=
+	t=1780621178; cv=none; b=HaTCYwpA52otZsQG1EwbF2xySxX1ucx5zRcH20LXp2UDSK7wD++HObDHlVuLV9+g8cV83fjSWS/MWpg0Luf9Ofs79PbxvfErWXTRvTjojFPmtrN+/YhPS2gxlTJZ3wvxMl9CNy41hrK3FZP29ou1MS6lDvBDfq3P6z57jZgyZ7Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780621162; c=relaxed/simple;
-	bh=FPtpuHA9u7qJg42Dd31A4iJduMxWGP9qZmd+50RZ0kE=;
+	s=arc-20240116; t=1780621178; c=relaxed/simple;
+	bh=lV+a5utCZbF4T8qfeHbhVsnAqPU5KBsfptgnsg/dAz0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=XSAGtJc6zIsmDoLoxcTDtdq6edsN4guvLRDOqtTb1s2tL+pVdzw5JqhNJirf6LsXkMGlB4jAPuIDKzgRer/yo9z9FbOPYPnItALAv5K9medOrCmFrBiTaN5B+Fy9+HU6dy6GU79WdF4ZQjGkaZMpGx+aYjRAi5E6PBsUb9FGaiw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K3vk6yuA; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=F5TyMitsDdL/maatsmGSQ77MDio8ehrrdff/qAG055PkJ5PGFHGp+17Kr8UzS2/GtUgoAFSigm0akqGbTCGaT3iv4gjNNqryOBxo2XkdveFo1r8j/eFCVNzCy4MroWZ6EDCFz7KQo33GCxORjEqvY2630xuQDLCNfwL2chPhML8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JVWakS8b; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K3vk6yuA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C2BA1F00893;
-	Fri,  5 Jun 2026 00:59:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JVWakS8b"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47B9A1F00898;
+	Fri,  5 Jun 2026 00:59:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780621145;
-	bh=Hgmp+5QsQzeFA4umCjMnwzAkl20i6Uwe7GqXW+1EOpo=;
+	s=k20260515; t=1780621158;
+	bh=1vrxIyOiVV/IEZP+3v3ogpkeWRvZs8QLt1SjDwAHeWE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=K3vk6yuAJzKm+YVwqP5Svh4R2/vmrjwrYEZSbv5mF3T1A1zZz8Lhw+o71qSa+5zyQ
-	 bJmBSBNCHxDHvXSg1oA26sIqz+4MPMYaL3Zvey8ZMeLxIH7/IX5iCgYF7bhxY0WHj5
-	 zZqXMPuyiIVWQlYi5bC1TWoQyPfvO41bC2/fy7E+wfjDZnN6mgqQnAvDe0gpnybDYO
-	 eDb92EikZit2PNitMQXcH9p/MUo+cZJva19iH9QdAgvGiuntzSoTNr/Xj06leFuQho
-	 2tv0lPNpgmJto+V19C7C1yF/6xd6zsFiqpjVfGuru9swnzPBOQ3P/E8IdgTbvnShAS
-	 EB4kGM85XWBSA==
+	b=JVWakS8bknwn24E6YvueMoc4I33DluOcgaaVLCw3dKJr9xYsmM4wiYQzqOikebf0T
+	 6LAi9/5fUhRjLXeSmUVblj0gxQNzzHhZoHLIkj643we/hQ+/QndGfocJjok2uceEtx
+	 dO4VGHV7Tb6BAazIQwb+ZGedQfXPPlBPpXNi8dLvgmQqdU7+quXjtq8UYfFuaQV38t
+	 RB4gTkO+r+VGMrjLQLeA4uesxTpJfAD6MqtHqHEO+H5qm5P2xwUMkGSt+oLwfPTsPn
+	 rP7PEqRTEAnZNhfGApqVHrvfPS0mmd0TEcfcKKNd20QUT7lVjUCivsJdPybrjG6w5D
+	 MOYMES35N03HA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: =?UTF-8?q?C=C3=A1ssio=20Gabriel?= <cassiogabrielcontato@gmail.com>,
-	Takashi Sakamoto <o-takashi@sakamocchi.jp>,
-	Takashi Iwai <tiwai@suse.de>,
+Cc: Rodrigo Alencar <rodrigo.alencar@analog.com>,
+	Andy Shevchenko <andriy.shevchenko@intel.com>,
+	Stable@vger.kernel.org,
+	Jonathan Cameron <jic23@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] ALSA: firewire-motu: Protect register DSP event queue positions
-Date: Thu,  4 Jun 2026 20:59:03 -0400
-Message-ID: <20260605005903.2802313-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] iio: dac: ad5686: fix ref bit initialization for single-channel parts
+Date: Thu,  4 Jun 2026 20:59:16 -0400
+Message-ID: <20260605005916.2803184-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026060436-lumpish-nemeses-2d25@gregkh>
-References: <2026060436-lumpish-nemeses-2d25@gregkh>
+In-Reply-To: <2026060403-gallon-annually-a48b@gregkh>
+References: <2026060403-gallon-annually-a48b@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Cássio Gabriel <cassiogabrielcontato@gmail.com>
+From: Rodrigo Alencar <rodrigo.alencar@analog.com>
 
-[ Upstream commit 98fb1c1bb11e29eb609b7200a25e136e05aa4498 ]
+[ Upstream commit ecae2ae606d493cf11457946436335bd0e726663 ]
 
-The register DSP event queue is updated under parser->lock, but
-snd_motu_register_dsp_message_parser_count_event() reads pull_pos and
-push_pos without the lock.
-snd_motu_register_dsp_message_parser_copy_event() also reads both queue
-positions before taking the lock.
+The reference bit position was ignored when writing the register at the
+probe() function (!!val was used). When such bit is 1, internal voltage
+reference is disabled so that an external one can be used. For
+multi-channel devices, bit 0 of the Internal Reference Setup command
+behaves the same way, so AD5686_REF_BIT_MSK is created. The issue exists
+since support for single-channel devices were first introduced.
 
-Protect these accesses with parser->lock as well. This keeps the hwdep
-poll/read path consistent with the producer side and with the cached
-meter/parameter accessors.
-
-Fixes: 634ec0b2906e ("ALSA: firewire-motu: notify event for parameter change in register DSP model")
-Cc: stable@vger.kernel.org
-Signed-off-by: Cássio Gabriel <cassiogabrielcontato@gmail.com>
-Reviewed-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
-Link: https://patch.msgid.link/20260521-alsa-firewire-motu-event-locking-v1-1-708e1c2b5e56@gmail.com
-[ converted copy_event() from manual spin_lock_irqsave/spin_unlock_irqrestore to guard(spinlock_irqsave) ]
+Fixes: be1b24d24541 ("iio:dac:ad5686: Add AD5691R/AD5692R/AD5693/AD5693R support")
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
+Cc: <Stable@vger.kernel.org>
+Signed-off-by: Jonathan Cameron <jic23@kernel.org>
+[ adapted `has_external_vref` to the in-tree equivalent `voltage_uv` variable in the `val =` computation ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../motu/motu-register-dsp-message-parser.c        | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
+ drivers/iio/dac/ad5686.c | 6 +++---
+ drivers/iio/dac/ad5686.h | 1 +
+ 2 files changed, 4 insertions(+), 3 deletions(-)
 
-diff --git a/sound/firewire/motu/motu-register-dsp-message-parser.c b/sound/firewire/motu/motu-register-dsp-message-parser.c
-index ef3b0b0f0dab9a..abafae59f365ba 100644
---- a/sound/firewire/motu/motu-register-dsp-message-parser.c
-+++ b/sound/firewire/motu/motu-register-dsp-message-parser.c
-@@ -393,6 +393,8 @@ unsigned int snd_motu_register_dsp_message_parser_count_event(struct snd_motu *m
- {
- 	struct msg_parser *parser = motu->message_parser;
+diff --git a/drivers/iio/dac/ad5686.c b/drivers/iio/dac/ad5686.c
+index 7d1b2b83172de9..b5ea1561a11332 100644
+--- a/drivers/iio/dac/ad5686.c
++++ b/drivers/iio/dac/ad5686.c
+@@ -513,7 +513,7 @@ int ad5686_probe(struct device *dev,
+ 		break;
+ 	case AD5686_REGMAP:
+ 		cmd = AD5686_CMD_INTERNAL_REFER_SETUP;
+-		ref_bit_msk = 0;
++		ref_bit_msk = AD5686_REF_BIT_MSK;
+ 		break;
+ 	case AD5693_REGMAP:
+ 		cmd = AD5686_CMD_CONTROL_REG;
+@@ -525,9 +525,9 @@ int ad5686_probe(struct device *dev,
+ 		goto error_disable_reg;
+ 	}
  
-+	guard(spinlock_irqsave)(&parser->lock);
-+
- 	if (parser->pull_pos > parser->push_pos)
- 		return EVENT_QUEUE_SIZE - parser->pull_pos + parser->push_pos;
- 	else
-@@ -402,14 +404,14 @@ unsigned int snd_motu_register_dsp_message_parser_count_event(struct snd_motu *m
- bool snd_motu_register_dsp_message_parser_copy_event(struct snd_motu *motu, u32 *event)
- {
- 	struct msg_parser *parser = motu->message_parser;
--	unsigned int pos = parser->pull_pos;
--	unsigned long flags;
-+	unsigned int pos;
+-	val = (voltage_uv | ref_bit_msk);
++	val = voltage_uv ? ref_bit_msk : 0;
  
--	if (pos == parser->push_pos)
--		return false;
-+	guard(spinlock_irqsave)(&parser->lock);
+-	ret = st->write(st, cmd, 0, !!val);
++	ret = st->write(st, cmd, 0, val);
+ 	if (ret)
+ 		goto error_disable_reg;
  
--	spin_lock_irqsave(&parser->lock, flags);
-+	if (parser->pull_pos == parser->push_pos)
-+		return false;
+diff --git a/drivers/iio/dac/ad5686.h b/drivers/iio/dac/ad5686.h
+index b7ade3a6b9b6c9..3657f45869b628 100644
+--- a/drivers/iio/dac/ad5686.h
++++ b/drivers/iio/dac/ad5686.h
+@@ -46,6 +46,7 @@
  
-+	pos = parser->pull_pos;
- 	*event = parser->event_queue[pos];
+ #define AD5310_REF_BIT_MSK			BIT(8)
+ #define AD5683_REF_BIT_MSK			BIT(12)
++#define AD5686_REF_BIT_MSK			BIT(0)
+ #define AD5693_REF_BIT_MSK			BIT(12)
  
- 	++pos;
-@@ -417,7 +419,5 @@ bool snd_motu_register_dsp_message_parser_copy_event(struct snd_motu *motu, u32
- 		pos = 0;
- 	parser->pull_pos = pos;
- 
--	spin_unlock_irqrestore(&parser->lock, flags);
--
- 	return true;
- }
+ /**
 -- 
 2.53.0
 
