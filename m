@@ -1,47 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B9723F482D
-	for <stable@vger.kernel.org>; Fri,  5 Jun 2026 13:05:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E1F23F4820
+	for <stable@vger.kernel.org>; Fri,  5 Jun 2026 13:05:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780664718; cv=none; b=G8JM/oipF4003TvRL0O0JX6r4N9H1mFc7OWipvbXwfBqyW8O5ZVVIxa+UxKzJ4n0g4p9SwNFstts4CbJG2aO0dnjDaAIhGQHbK9lQq0rH6sIdcD5dIzeQfaBkdLy5rdNkHgVKqGVkZ0qXN+LxXdVe8emNln7S64Idmmx7a7EjA8=
+	t=1780664729; cv=none; b=Bghnqtg5QDT9BhIBBnEpEZClycfBJTAaGcYcKpBvfxKlgc/govne1drB5rH+peqt2fG6yxDJEJY7RYrv3PzDzUATCE2Wty0MmrQtlDqtPmt60Gs3GSR7mkgArod16ABMtlJvrGFxV6Wh8rOOIGrOs1ylzVYCi3DwAYsm0Ia9UoE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780664718; c=relaxed/simple;
-	bh=7Y0n7QHpVv7Nw0bFsfTstE4MXhPALfEiort5yoWVCxA=;
+	s=arc-20240116; t=1780664729; c=relaxed/simple;
+	bh=GvpDfr2/TEYfatG9yuQ7voXnTWnRRgmeTY1sN99TQFo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CP/I+wj1/6tsZRCFOXp6ZrFv/HH4BTsmLW6CRYSyZHmyh524T2kCFq2JE7whNScSgUTULFveO+byf8TM4VdavsU9KWBIkzDjmRjPiyzhGGefOy5Kh7w5/Aj5orCfT58kIGqcgcUo+utZsRxHmavWjalhQWh8Q1sAYOWgMhyLmc8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J9IoPUuV; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=aSPz7s5LIUFqqtGXpyabwF+bptliQP+VLFMDIxfQheJOdW7JVPBwxKbTCuKoZqFAglFcdy8E1+Izdxsq6hmh61WEa/YiRtixyfKA0uB+xbfXAwG58VRzzYgwc7FrehgJWTGKEHq8gR843WIdELq/nfdwqIiYtycTOxgb6e/g5W8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ASxa5to2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J9IoPUuV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDC281F00893;
-	Fri,  5 Jun 2026 13:05:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ASxa5to2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A72F01F00893;
+	Fri,  5 Jun 2026 13:05:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780664716;
-	bh=IG4GpsUDS/TACICdWeWDVQ9nYDNvKCPI/gDS1qt7NqY=;
+	s=k20260515; t=1780664728;
+	bh=YS34djVUX4nj5nrStx6A6k31Yt/CZtvnjpEG0hxUYbc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=J9IoPUuVOpF+guiupgwxYmld239ppV9errAgUHKCEbeAj4HU67tONrcquIUGCMADc
-	 GQ7AwWrr0zWKhuMHWVKazlcYv94GG4zupuiMj4Hp0KofUrdCAiue6IW2Vz2cCNrHbZ
-	 XNI/+yJKQPeGA3d3OVDCk4Izv8OVITN31Hw8zUYwdvbrKoQhKJaiyKgiZkwAaWDDAJ
-	 3Q10ihVwohr0JSOTYdWakPP112Wh7cdJWSBQjdB/MPbYQkDx1juDkC3qy5w799YmHE
-	 Tu2ogUXTu06MjifpdMVd46qIdwWKv9mVHEXOnSuzSUMYgHmJIYi6Dg/sgYfq/jQ3J8
-	 9NyjmKdhkUakw==
+	b=ASxa5to24TRIPbESGLGX60ZvsG6U+OBmX6SOOWWnFaziI1ye72eFbgaMUMMxWGyv5
+	 8SShfS1Xqw7KUPWX5do0xR8tU91hYMTbAp7LTW9eCUwOddWNTm2hroUY21zQ9EdbE0
+	 5tsOK6nMiYmPg9+N78ZcL2gPFJNHU/nyhrW90ORpDGltsNpS7LiSECdFz9rGpiaz70
+	 T2aOuG1cah6SSdI39GtlPm17HI1x2qHkbUmAB7M6osfINH5ow5Sj8BWcnL1IvC+AiC
+	 11I6StIEQazU7SuMnjGsBqhK7NbZdEi6IzzQ+20+vF5/FCv+DLeMfXAceOu/a1vi6K
+	 tJkQQUJSqfCgA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Zhengchuan Liang <zcliangcn@gmail.com>,
-	stable@kernel.org,
-	Yuan Tan <yuantan098@gmail.com>,
-	Xin Liu <bird@lzu.edu.cn>,
-	Luxing Yin <tr0jan@lzu.edu.cn>,
-	Ren Wei <n05ec@lzu.edu.cn>,
-	Steffen Klassert <steffen.klassert@secunet.com>,
+Cc: Minh Nguyen <minhnguyen.080505@gmail.com>,
+	Willem de Bruijn <willemb@google.com>,
+	Paolo Abeni <pabeni@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] xfrm: input: hold netns during deferred transport reinjection
-Date: Fri,  5 Jun 2026 09:05:13 -0400
-Message-ID: <20260605130513.410471-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] net: skbuff: fix missing zerocopy reference in pskb_carve helpers
+Date: Fri,  5 Jun 2026 09:05:24 -0400
+Message-ID: <20260605130524.411589-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026060459-existing-wooing-a148@gregkh>
-References: <2026060459-existing-wooing-a148@gregkh>
+In-Reply-To: <2026060438-bullring-defrost-cf5a@gregkh>
+References: <2026060438-bullring-defrost-cf5a@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -50,78 +46,91 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Zhengchuan Liang <zcliangcn@gmail.com>
+From: Minh Nguyen <minhnguyen.080505@gmail.com>
 
-[ Upstream commit c16f74dc1d75d0e2e7670076d5375deda110ebeb ]
+[ Upstream commit 98d0912e9f841e5529a5b89a972805f34cb1c69d ]
 
-Transport-mode reinjection stores a struct net pointer in skb->cb and
-uses it later from xfrm_trans_reinject(). That pointer must stay valid
-until the deferred callback runs.
+pskb_carve_inside_header() and pskb_carve_inside_nonlinear() both copy
+the old skb_shared_info header into a new buffer via memcpy(), which
+includes the destructor_arg pointer (uarg) for MSG_ZEROCOPY skbs.
+Neither function calls net_zcopy_get() for the new shinfo, creating an
+unaccounted holder: every skb_shared_info with destructor_arg set will
+call skb_zcopy_clear() once when freed, but the corresponding
+net_zcopy_get() was never called for the new copy. Repeated calls
+drive uarg->refcnt to zero prematurely, freeing ubuf_info_msgzc while
+TX skbs still hold live destructor_arg pointers.
 
-Take a netns reference when queueing deferred reinjection work and drop
-it after the callback completes. Use maybe_get_net() so the queueing
-path does not revive a namespace that is already being torn down.
+KASAN reports use-after-free on a freed ubuf_info_msgzc:
 
-This keeps the existing workqueue design and fixes the netns lifetime
-handling in one place for all users of xfrm_trans_queue_net().
+  BUG: KASAN: slab-use-after-free in skb_release_data+0x77b/0x810
+  Read of size 8 at addr ffff88801574d3e8 by task poc/220
 
-Fixes: 7b3801927e52 ("xfrm: introduce xfrm_trans_queue_net")
-Cc: stable@kernel.org
-Reported-by: Yuan Tan <yuantan098@gmail.com>
-Reported-by: Xin Liu <bird@lzu.edu.cn>
-Co-developed-by: Luxing Yin <tr0jan@lzu.edu.cn>
-Signed-off-by: Luxing Yin <tr0jan@lzu.edu.cn>
-Signed-off-by: Zhengchuan Liang <zcliangcn@gmail.com>
-Signed-off-by: Ren Wei <n05ec@lzu.edu.cn>
-Assisted-by: Codex:gpt-5.4
-Signed-off-by: Steffen Klassert <steffen.klassert@secunet.com>
+  Call Trace:
+   skb_release_data+0x77b/0x810
+   kfree_skb_list_reason+0x13e/0x610
+   skb_release_data+0x4cd/0x810
+   sk_skb_reason_drop+0xf3/0x340
+   skb_queue_purge_reason+0x282/0x440
+   rds_tcp_inc_free+0x1e/0x30
+   rds_recvmsg+0x354/0x1780
+   __sys_recvmsg+0xdf/0x180
+
+  Allocated by task 219:
+   msg_zerocopy_realloc+0x157/0x7b0
+   tcp_sendmsg_locked+0x2892/0x3ba0
+
+  Freed by task 219:
+   ip_recv_error+0x74a/0xb10
+   tcp_recvmsg+0x475/0x530
+
+The skb consuming the late access still referenced the same uarg via
+shinfo->destructor_arg copied by pskb_carve_inside_nonlinear() without
+a refcount bump. This has been verified to be reliably exploitable: a
+working proof-of-concept achieves full root privilege escalation from
+an unprivileged local user on a default kernel configuration.
+
+The fix follows the pattern of pskb_expand_head() which has the same
+memcpy/cloned structure. For pskb_carve_inside_header(), net_zcopy_get()
+is placed after skb_orphan_frags() succeeds, so the orphan error path
+needs no cleanup. For pskb_carve_inside_nonlinear(), net_zcopy_get() is
+placed after all failure points and just before skb_release_data(), so
+no error path needs cleanup at all -- matching pskb_expand_head() more
+closely and avoiding the need for a balancing net_zcopy_put().
+
+Fixes: 6fa01ccd8830 ("skbuff: Add pskb_extract() helper function")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-sonnet-4-6
+Signed-off-by: Minh Nguyen <minhnguyen.080505@gmail.com>
+Reviewed-by: Willem de Bruijn <willemb@google.com>
+Link: https://patch.msgid.link/20260526041240.329462-1-minhnguyen.080505@gmail.com
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/xfrm/xfrm_input.c | 16 ++++++++++++----
- 1 file changed, 12 insertions(+), 4 deletions(-)
+ net/core/skbuff.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/net/xfrm/xfrm_input.c b/net/xfrm/xfrm_input.c
-index 0c3fa01ec67a71..7a2d7048a49112 100644
---- a/net/xfrm/xfrm_input.c
-+++ b/net/xfrm/xfrm_input.c
-@@ -777,9 +777,12 @@ static void xfrm_trans_reinject(unsigned long data)
- 	__skb_queue_head_init(&queue);
- 	skb_queue_splice_init(&trans->queue, &queue);
+diff --git a/net/core/skbuff.c b/net/core/skbuff.c
+index 8b05866e93b195..b901e6ff461e31 100644
+--- a/net/core/skbuff.c
++++ b/net/core/skbuff.c
+@@ -6407,6 +6407,8 @@ static int pskb_carve_inside_header(struct sk_buff *skb, const u32 off,
+ 			skb_kfree_head(data, size);
+ 			return -ENOMEM;
+ 		}
++		if (skb_zcopy(skb))
++			net_zcopy_get(skb_zcopy(skb));
+ 		for (i = 0; i < skb_shinfo(skb)->nr_frags; i++)
+ 			skb_frag_ref(skb, i);
+ 		if (skb_has_frag_list(skb))
+@@ -6551,6 +6553,8 @@ static int pskb_carve_inside_nonlinear(struct sk_buff *skb, const u32 off,
+ 		skb_kfree_head(data, size);
+ 		return -ENOMEM;
+ 	}
++	if (skb_zcopy(skb))
++		net_zcopy_get(skb_zcopy(skb));
+ 	skb_release_data(skb, SKB_CONSUMED, false);
  
--	while ((skb = __skb_dequeue(&queue)))
--		XFRM_TRANS_SKB_CB(skb)->finish(XFRM_TRANS_SKB_CB(skb)->net,
--					       NULL, skb);
-+	while ((skb = __skb_dequeue(&queue))) {
-+		struct net *net = XFRM_TRANS_SKB_CB(skb)->net;
-+
-+		XFRM_TRANS_SKB_CB(skb)->finish(net, NULL, skb);
-+		put_net(net);
-+	}
- }
- 
- int xfrm_trans_queue_net(struct net *net, struct sk_buff *skb,
-@@ -787,6 +790,7 @@ int xfrm_trans_queue_net(struct net *net, struct sk_buff *skb,
- 				       struct sk_buff *))
- {
- 	struct xfrm_trans_tasklet *trans;
-+	struct net *hold_net;
- 
- 	trans = this_cpu_ptr(&xfrm_trans_tasklet);
- 
-@@ -795,8 +799,12 @@ int xfrm_trans_queue_net(struct net *net, struct sk_buff *skb,
- 
- 	BUILD_BUG_ON(sizeof(struct xfrm_trans_cb) > sizeof(skb->cb));
- 
-+	hold_net = maybe_get_net(net);
-+	if (!hold_net)
-+		return -ENODEV;
-+
- 	XFRM_TRANS_SKB_CB(skb)->finish = finish;
--	XFRM_TRANS_SKB_CB(skb)->net = net;
-+	XFRM_TRANS_SKB_CB(skb)->net = hold_net;
- 	__skb_queue_tail(&trans->queue, skb);
- 	tasklet_schedule(&trans->tasklet);
- 	return 0;
+ 	skb->head = data;
 -- 
 2.53.0
 
