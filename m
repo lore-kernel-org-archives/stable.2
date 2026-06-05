@@ -1,44 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 087F443E9C8
-	for <stable@vger.kernel.org>; Fri,  5 Jun 2026 19:17:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C22738F636
+	for <stable@vger.kernel.org>; Fri,  5 Jun 2026 19:17:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780687041; cv=none; b=at4ycNYqgHpHnNMwPwvt+cSGt0Uxj1LlLHv6XoM4KcTqCtk9qA0rnF1JQP7nUyBsoSyj0fsa40Vl2LIzpLdy/lpFG4dV1nlmHz1IhY3EKNz6YprAPXYjKJ2MMORArsqvdW821/V8Yimu8u5ixqVrAJxF2gwDDcI1Xz4GhOPre+A=
+	t=1780687046; cv=none; b=siPMn7FKGPm7oiEbHwnrvFAiMH7SUd7c/5s+5P7U/QnsoJvgfpHJ+2oEtHAdHW5tISaK50mcxHQTFWDpKCKc7Wr3Uv/VybEbFwT8qYryCmf0MKyuZpRYwVK44CyXLS+704sEGoLUO0naFIAisJXyfPi899Gd2D241gpPppK/Zz8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780687041; c=relaxed/simple;
-	bh=C66hMKYXJN6Wt9g/lP8A/PepHy+sIK7qSfN7hPPZFEc=;
+	s=arc-20240116; t=1780687046; c=relaxed/simple;
+	bh=EM1JgTzzbjxuXKbdMgZx4743pzAHAS8JlY7n9hK0UiI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JgN9jZLNq40w4IgrmXRdVKZQHBA+WA5WhnB7r3mycFeErBAumAgEX74s/fCvGhc9jz6rLjEiM1F9Lcn6fHPKHqIxKh49MPSTKZ3NQoCBf46OlleaPHRdRZaRcSxS21VK2AivqdFTeEUOJfkGOtRj9zIEJPAkuSmIvjIWvvGP5gY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ayIUmMus; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=fwihpUoaQwwefbomd7DZlu6bWjZuUOsDbS4jYjQ4QqMd+ZPAReMOh0JQp+syKuFv1dyjR2umaSuYyP2SEMZ+iJ67aG6AlTy7K+O9vxHFuf7zIK7R1oAjTsO5RxYHWzHSQYTR3H7f1fCzVtNEy59TgQEuOILd2xK272T2GquCKNk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h7RhSMFK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ayIUmMus"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC13D1F00893;
-	Fri,  5 Jun 2026 19:17:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h7RhSMFK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44E4C1F00899;
+	Fri,  5 Jun 2026 19:17:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780687033;
-	bh=cBNd6c7Wctbh6iyxyY/rD8ZmOEkt5R4D0epNYidlk+4=;
+	s=k20260515; t=1780687039;
+	bh=IVziJgLBHc2t0/P97HwCuR9mgEon0lVdIgnisvDBs3o=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ayIUmMusOxJVOa4Lzkg5GtVFJ3tmoloUl2NR52Gyc+7SE9T3bYHkle9j68sNNVrdz
-	 zppF0Xe74lLUBehZip5Mv7gbbjKlQMo+yIbahlHUiM1SCenEWPrqoqdg06n88sNtUF
-	 BXSrtSBGfz//3qrPSxkrpg3OINpBDXlm+ARKG9VaTQ9NYGHY24xQ2TpI5MvtENhBH+
-	 4qV66O1yHzM5UiksSsnxnD3Lxl4MSv1WS9Be2vrsApZBAh1jOa9GedeoJISETeL110
-	 OYmjLuD7Oil+PAFjpuo8SbSS/IrkfTmQUGVOs3ypMWbfND8+h5HfkBeYwRNMCxf8K9
-	 1C3U7ikzKi5GQ==
+	b=h7RhSMFKXnVQPxilcCsUpTHTWshI4MhT7ryf4g3faSoaYflHYXW4oICnvRiWWBsi0
+	 C/zUzSUtfw8xL3HlBi+j8ELx5GAzyWlmIpzoEuIEVvR+aK1J99hXp9TI7K1x5iwIc1
+	 bSjoO2tMRXdmZh3YJbKjFUIOXEqbmwiBfUrbixwjOVRty4aS3WW6uFWUDjiP0meDp7
+	 S4k4SpK+/BvKdaDWhfR1inMIFBCYVVoDlDVtypDFFPdKmyZ4DY67uwGd7nOPt8ROxw
+	 G8W9J+X/zvwrEtTt2LFnuvyBch/UraUhWqeXD32jv/dh2y0GY6StnujPSQ3knrSase
+	 5pdKrUETq27Rg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: John Keeping <john@metanate.com>,
-	Lee Jones <lee@kernel.org>,
-	Andrzej Pietrasiewicz <andrzej.p@collabora.com>,
+Cc: Myrrh Periwinkle <myrrhperiwinkle@qtmlabs.xyz>,
+	stable <stable@kernel.org>,
+	Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 1/2] usb: gadget: f_hid: tidy error handling in hidg_alloc
-Date: Fri,  5 Jun 2026 15:17:10 -0400
-Message-ID: <20260605191711.2132578-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] usb: typec: ucsi: Check if power role change actually happened before handling
+Date: Fri,  5 Jun 2026 15:17:16 -0400
+Message-ID: <20260605191716.2134705-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026060452-vastness-hulk-8040@gregkh>
-References: <2026060452-vastness-hulk-8040@gregkh>
+In-Reply-To: <2026060417-headless-faceless-e4a9@gregkh>
+References: <2026060417-headless-faceless-e4a9@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,86 +48,67 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: John Keeping <john@metanate.com>
+From: Myrrh Periwinkle <myrrhperiwinkle@qtmlabs.xyz>
 
-[ Upstream commit 944fe915d00d3cb1bacb1e77cabfb6dc82e6f8b8 ]
+[ Upstream commit b80e7d34c7ea6a564525119d6138fbb577a23dba ]
 
-Unify error handling at the end of the function, reducing the risk of
-missing something on one of the error paths.
+The CrOS EC may send a connector status change event with the power
+direction changed flag set even if the power direction hasn't actually
+changed after initiating a SET_PDR command internally [1]. In practice
+this happens on every system suspend due to other changes performed by
+the EC [2][3][4], causing suspend to fail.
 
-Moving the increment of opts->refcnt later means there is no need to
-decrement it on the error path and is safe as this is guarded by
-opts->lock which is held for this entire section.
+Fix this by checking if the power role change actually happened before
+handling it.
 
-Tested-by: Lee Jones <lee@kernel.org>
-Reviewed-by: Andrzej Pietrasiewicz <andrzej.p@collabora.com>
-Reviewed-by: Lee Jones <lee@kernel.org>
-Signed-off-by: John Keeping <john@metanate.com>
-Link: https://lore.kernel.org/r/20221122123523.3068034-4-john@metanate.com
+[1]: https://source.chromium.org/chromiumos/chromiumos/codesearch/+/main:src/platform/ec/zephyr/subsys/pd_controller/pdc_power_mgmt.c;l=1689;drc=2d5a1cffce4e5ac8a39442cb3b764d2d5e1cf794
+[2]: https://source.chromium.org/chromiumos/chromiumos/codesearch/+/main:src/platform/ec/zephyr/subsys/pd_controller/pdc_power_mgmt.c;l=3923;drc=2d5a1cffce4e5ac8a39442cb3b764d2d5e1cf794
+[3]: https://source.chromium.org/chromiumos/chromiumos/codesearch/+/main:src/platform/ec/zephyr/subsys/pd_controller/pdc_power_mgmt.c;l=5094;drc=2d5a1cffce4e5ac8a39442cb3b764d2d5e1cf794
+[4]: https://source.chromium.org/chromiumos/chromiumos/codesearch/+/main:src/platform/ec/zephyr/subsys/pd_controller/pdc_power_mgmt.c;l=2229;drc=2d5a1cffce4e5ac8a39442cb3b764d2d5e1cf794
+
+Cc: stable <stable@kernel.org>
+Fixes: 7616f006db07 ("usb: typec: ucsi: Update power_supply on power role change")
+Signed-off-by: Myrrh Periwinkle <myrrhperiwinkle@qtmlabs.xyz>
+Reported-and-tested-by: Sergey Senozhatsky <senozhatsky@chromium.org>
+Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Link: https://patch.msgid.link/20260519-ucsi-fix-2-v1-1-6f1239535187@qtmlabs.xyz
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Stable-dep-of: 4f88d65def6f ("usb: gadget: f_hid: fix device reference leak in hidg_alloc()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/usb/gadget/function/f_hid.c | 21 +++++++++++----------
- 1 file changed, 11 insertions(+), 10 deletions(-)
+ drivers/usb/typec/ucsi/ucsi.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/usb/gadget/function/f_hid.c b/drivers/usb/gadget/function/f_hid.c
-index de00785fa183df..d44eb06d5a0a43 100644
---- a/drivers/usb/gadget/function/f_hid.c
-+++ b/drivers/usb/gadget/function/f_hid.c
-@@ -1265,7 +1265,6 @@ static struct usb_function *hidg_alloc(struct usb_function_instance *fi)
- 	opts = container_of(fi, struct f_hid_opts, func_inst);
+diff --git a/drivers/usb/typec/ucsi/ucsi.c b/drivers/usb/typec/ucsi/ucsi.c
+index b88f4e179a7ad8..3060a4a13cfc2e 100644
+--- a/drivers/usb/typec/ucsi/ucsi.c
++++ b/drivers/usb/typec/ucsi/ucsi.c
+@@ -884,7 +884,7 @@ static void ucsi_handle_connector_change(struct work_struct *work)
+ 	struct ucsi_connector *con = container_of(work, struct ucsi_connector,
+ 						  work);
+ 	struct ucsi *ucsi = con->ucsi;
+-	enum typec_role role;
++	enum typec_role role, prev_role;
+ 	u64 command;
+ 	int ret;
  
- 	mutex_lock(&opts->lock);
--	++opts->refcnt;
+@@ -892,6 +892,8 @@ static void ucsi_handle_connector_change(struct work_struct *work)
  
- 	spin_lock_init(&hidg->write_spinlock);
- 	spin_lock_init(&hidg->read_spinlock);
-@@ -1278,11 +1277,8 @@ static struct usb_function *hidg_alloc(struct usb_function_instance *fi)
- 	hidg->dev.class = hidg_class;
- 	hidg->dev.devt = MKDEV(major, opts->minor);
- 	ret = dev_set_name(&hidg->dev, "hidg%d", opts->minor);
--	if (ret) {
--		--opts->refcnt;
--		mutex_unlock(&opts->lock);
--		return ERR_PTR(ret);
--	}
-+	if (ret)
-+		goto err_unlock;
+ 	command = UCSI_GET_CONNECTOR_STATUS | UCSI_CONNECTOR_NUMBER(con->num);
  
- 	hidg->bInterfaceSubClass = opts->subclass;
- 	hidg->bInterfaceProtocol = opts->protocol;
-@@ -1293,14 +1289,13 @@ static struct usb_function *hidg_alloc(struct usb_function_instance *fi)
- 					    opts->report_desc_length,
- 					    GFP_KERNEL);
- 		if (!hidg->report_desc) {
--			put_device(&hidg->dev);
--			--opts->refcnt;
--			mutex_unlock(&opts->lock);
--			return ERR_PTR(-ENOMEM);
-+			ret = -ENOMEM;
-+			goto err_put_device;
- 		}
- 	}
- 	hidg->use_out_ep = !opts->no_out_endpoint;
- 
-+	++opts->refcnt;
- 	mutex_unlock(&opts->lock);
- 
- 	hidg->func.name    = "hid";
-@@ -1315,6 +1310,12 @@ static struct usb_function *hidg_alloc(struct usb_function_instance *fi)
- 	hidg->qlen	   = 4;
- 
- 	return &hidg->func;
++	prev_role = !!(con->status.flags & UCSI_CONSTAT_PWR_DIR);
 +
-+err_put_device:
-+	put_device(&hidg->dev);
-+err_unlock:
-+	mutex_unlock(&opts->lock);
-+	return ERR_PTR(ret);
- }
+ 	ret = ucsi_send_command_common(ucsi, command, &con->status,
+ 				       sizeof(con->status), true);
+ 	if (ret < 0) {
+@@ -908,7 +910,7 @@ static void ucsi_handle_connector_change(struct work_struct *work)
  
- DECLARE_USB_FUNCTION_INIT(hid, hidg_alloc_inst, hidg_alloc);
+ 	role = !!(con->status.flags & UCSI_CONSTAT_PWR_DIR);
+ 
+-	if (con->status.change & UCSI_CONSTAT_POWER_DIR_CHANGE) {
++	if ((con->status.change & UCSI_CONSTAT_POWER_DIR_CHANGE) && role != prev_role) {
+ 		typec_set_pwr_role(con->port, role);
+ 		ucsi_port_psy_changed(con);
+ 
 -- 
 2.53.0
 
