@@ -1,29 +1,29 @@
 Received: from angie.orcam.me.uk (angie.orcam.me.uk [78.133.224.34])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id EF34D372B57
-	for <stable@vger.kernel.org>; Fri,  5 Jun 2026 03:09:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5AAD12F0C62
+	for <stable@vger.kernel.org>; Fri,  5 Jun 2026 03:10:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=78.133.224.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780628962; cv=none; b=GR4hFP8CTIgA1PavJ0IW5yhxTJFPs9pnXzmbdZ0mBZfXQYCFB37yWpJP/1okvXrwYFlVs0pRQspeIjD0Bd+0eydciLVy8h/Ik+iq0WJPc3ok0NqbZvxPPpr411WjNkdGonD/saGzWMBq8C4+vWB1dKJeMf8o9EM1/8XJciOirl4=
+	t=1780629048; cv=none; b=mroAT2xqhDxNUC8/pmoOTvzSebO+OVO1kuE0mXnhQC5Q1u1lvaJ2sMbU086ldhx6PvyCzPTJFdbm9noagveLrJUVNayW1eZEIJEl0iHj34Q+sTtO/IqaVwBusmoOXAeiinWYD0BPhmXfyfgyK58MbN3JnUtNqVwsK2B6Zz4qh6A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780628962; c=relaxed/simple;
-	bh=POOmsfXRCyxquh7tTgUZ+HpTIdh4LwiqicF4etecAMU=;
+	s=arc-20240116; t=1780629048; c=relaxed/simple;
+	bh=FWcXxZalWRnctl6a5hwVvw6pY3BfbRgR223JJO4pV3w=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=PVS27Dg18NsrJkt2YT01Jz1W1fs6IhhmcACApwrDsUGWzMDHg66OXZ22Cct/tD7IYpn89SCkTPUcNk5WfnKyol8jLDBrxAgrrmEmIfQXoWRhLc8vNYwATyT+vPCHKsQmqoufotZ9kfO2Jp9DaQV9uxFQlRUM3hiNdbHaF8urNJA=
+	 MIME-Version; b=CEpzayTSbMN5db6yWTjBQWEQrk6E/MDe4FFXJW8x+SOI+kUbT7mrj4R/jOYZFQEbAYFo6RMNAMCNyAcUpCyk0KknwsaHLsusKcRE5/H1oL7CvSr5L/gJDz82z4GIyUB3H9omTEOGpUt4B/BE8Kvu0Glij/4HFVDTygdEfHWZOc0=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=orcam.me.uk; spf=none smtp.mailfrom=orcam.me.uk; arc=none smtp.client-ip=78.133.224.34
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=orcam.me.uk
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=orcam.me.uk
 Received: by angie.orcam.me.uk (Postfix, from userid 500)
-	id DEB4992009E; Fri,  5 Jun 2026 05:09:17 +0200 (CEST)
+	id 221A892009E; Fri,  5 Jun 2026 05:10:44 +0200 (CEST)
 From: "Maciej W. Rozycki" <macro@orcam.me.uk>
 To: stable@vger.kernel.org
 Cc: "Maciej W. Rozycki" <macro@orcam.me.uk>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: [PATCH 5.15.y] serial: dz: Fix bootconsole handover lockup
-Date: Fri,  5 Jun 2026 04:09:15 +0100
-Message-Id: <20260605030915.7061-1-macro@orcam.me.uk>
+Subject: [PATCH 5.10.y] serial: dz: Fix bootconsole handover lockup
+Date: Fri,  5 Jun 2026 04:10:42 +0100
+Message-Id: <20260605031042.7383-1-macro@orcam.me.uk>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <2026060444-flakily-publisher-c857@gregkh>
-References: <2026060444-flakily-publisher-c857@gregkh>
+In-Reply-To: <2026060445-upper-slapstick-c674@gregkh>
+References: <2026060445-upper-slapstick-c674@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -52,14 +52,14 @@ Signed-off-by: Maciej W. Rozycki <macro@orcam.me.uk>
 Cc: stable@vger.kernel.org # v2.6.25+
 Link: https://patch.msgid.link/alpine.DEB.2.21.2605062302010.46195@angie.orcam.me.uk
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-[ Avoid C99+ 'for' loop initial declaration for 5.15.y. ]
+[ Avoid C99+ 'for' loop initial declaration for 5.10.y. ]
 Signed-off-by: Maciej W. Rozycki <macro@orcam.me.uk>
 ---
  drivers/tty/serial/dz.c | 37 +++++++++++++------------------------
  1 file changed, 13 insertions(+), 24 deletions(-)
 
 diff --git a/drivers/tty/serial/dz.c b/drivers/tty/serial/dz.c
-index 6d74ba5a5a43..05f22e76a508 100644
+index fdd025c1b5e1..a4c7b5413100 100644
 --- a/drivers/tty/serial/dz.c
 +++ b/drivers/tty/serial/dz.c
 @@ -546,6 +546,7 @@ static void dz_reset(struct dz_port *dport)
