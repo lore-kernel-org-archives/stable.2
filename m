@@ -1,160 +1,336 @@
-Received: from n169-111.mail.139.com (n169-111.mail.139.com [120.232.169.111])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 854C73A63FB
-	for <stable@vger.kernel.org>; Fri,  5 Jun 2026 06:07:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=120.232.169.111
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24F813B9DB3
+	for <stable@vger.kernel.org>; Fri,  5 Jun 2026 06:19:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780639681; cv=none; b=Vb/aMbSQHRZGakjZdZV+gb34O8EWseIdKPnV8H80pXfzVIOPrL6ZSeCJD+JgHxFFIE8i2Y3DdGcdsQ7oOasBY/Psx3vxaEDEphVVG6OE6RZ6a4WNSVXgVDfO0SDrnau3vBO0aSA4+GYJ5UpQqZRE6wRLpvLguS0tDfCa7c9dums=
+	t=1780640360; cv=none; b=btZOQrnAkFL/3PNjos4sI77XcgWtxqKGHubwbZBZWA0ysq2Vnf5t+/LtdIYXD6LP0ib/WZEo0LWpfaqEfSw032D2O2Nbh/pjp44VrRarZJ8AMMvhP1RJ+1SIAUSWuq6YvjoTncBQ9+MLBqN3DgEypOsh243TmicStWOhpeng8W0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780639681; c=relaxed/simple;
-	bh=yxB2m+OFQtzn1U+xZTKXZRASb+69mpcQDVPZLMA7XFE=;
-	h=From:To:Cc:Subject:Date:Message-Id; b=c3CqH9LQ6jtCDj3bEU1MfkqkbC/LKgMCP4uCTZ5SiesAFLFz+GtV7Es5RY9qh4xFEl2x7lUL8z+oPazNS6aGcp5plEte9lTxJROVQb5r4kxraf3TxGTBqZVZaOumguT2RXAzB5rXhaxYskAhgikN0cTFIgqzD22wUNNVOKRuYqg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=139.com; spf=pass smtp.mailfrom=139.com; dkim=pass (1024-bit key) header.d=139.com header.i=@139.com header.b=i9G5nih5; arc=none smtp.client-ip=120.232.169.111
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=139.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=139.com
+	s=arc-20240116; t=1780640360; c=relaxed/simple;
+	bh=8JnUTTXacKL+iKTJwJJMZd3GepqsRyHwF0kXEWHAQTA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lD/4trr4b4VNsd4CiyrUMuadG1hJAqixu8Tx8/PMa3OYv39QDFnZT0Xf+Pe994+z6Etx6ip2H3jd4y6fcC2BAYDpkbJUO6VIvJ3zw0zG2cQ8X4d5ukjTWfKl5/483AMVvyeBJ91nQmsuHLs9sMShk6qnKt/0wGCR/DZzZXe3euk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch; spf=none smtp.mailfrom=ffwll.ch; dkim=pass (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b=JMGRCE5m; arc=none smtp.client-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=ffwll.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=139.com header.i=@139.com header.b="i9G5nih5"
+	dkim=pass (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="JMGRCE5m"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-490b3637b90so12927685e9.3
+        for <stable@vger.kernel.org>; Thu, 04 Jun 2026 23:19:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=139.com; s=dkim; l=0;
-	h=from:subject:message-id:to:cc;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=i9G5nih5ApwW5W94M/g6BYenPUKVjeboFiq9pvt7bdLHgsfaEeS0oivkaqIpocEukug37CXafeD9t
-	 Eno8lPJw6z+oGDDeh+mqqI5QLr8rt9SMvK2Od3zG7g3ea4BsVJtzCmMpn8HF1TkgdTLBV4pjo9GEZs
-	 TQVfCaPo/bRKIXk0=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM:                                                                                        
-X-RM-SPAM-FLAG:00000000
-Received:from NTT-kernel-dev (unknown[183.241.249.24])
-	by rmsmtp-lg-appmail-16-12015 (RichMail) with SMTP id 2eef6a2267b1cd4-f5b6d;
-	Fri, 05 Jun 2026 14:07:47 +0800 (CST)
-X-RM-TRANSID:2eef6a2267b1cd4-f5b6d
-From: Rajani Kantha <681739313@139.com>
-To: jiayuan.chen@shopee.com,
-	pabeni@redhat.com
-Cc: stable@vger.kernel.org
-Subject: [PATCH 6.1.y] bpf/bonding: reject vlan+srcmac xmit_hash_policy change when XDP is loaded
-Date: Fri,  5 Jun 2026 14:07:44 +0800
-Message-Id: <20260605060744.2302-1-681739313@139.com>
-X-Mailer: git-send-email 2.17.1
+        d=ffwll.ch; s=google; t=1780640356; x=1781245156; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=Kud96yB4lzvW7WHHFnyfSyasTJ4YMMkn9Qm9IZhFNIs=;
+        b=JMGRCE5mwg770bOu2UNz93Rhd9jyhibvgHrXnOFGMWnHqaJth6ANwt4pROMRy90O/V
+         m9Zd5lQC9Ru5OHn2Ngb7/lMKaNorG33BOXAr3hApkbwuLkVAUhHvmO5WXeNrs00zn7Ez
+         iRJHVxrqm2kMlePVTzUdPmJwMYl+gpBYZpeuQ=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780640356; x=1781245156;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=Kud96yB4lzvW7WHHFnyfSyasTJ4YMMkn9Qm9IZhFNIs=;
+        b=j9Cwnj3U8roQbiIFk7MSMwyBPrJbDnfeizLkrVQjWbLHK9BN5jIPYiMdGgfY7XEzJf
+         I9ZHOXWCH0C2YvqgpPNEi8JHXXPmKynXhwzTVmIIt+/4hfZuT7FnrPUeSEwB5fudkxqM
+         tceThnSYY1qL8JAIuUZnLYA0hhRvhKingjmSw20tuY3nQEIqTE7VSowm3dvvsSrBEd7i
+         nbvmD4GfiqZAUfCm5RbUPfV8m1RkyW1hi23+yIIR/kahLYWs4YHW3HvVP5LFVROmDmCu
+         NkO457RP+AZ9hMsjCyYrE+Xdzzz7f3goLUhCYBqXJ++mSHGYxsBkNMO49hWGQ9HbPih6
+         INeQ==
+X-Forwarded-Encrypted: i=1; AFNElJ8Xy5YLBLhIw2ULhT0ILgmqdMP24nMKeadtqYdXK48Wl+Y24/ilajV+hiyxxwDVrfYl3Po1TpI=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz0aOXZgFSE5Wgz+w9klJnDMSDDpJOToszzo5oI4VO2ZVZRQV0V
+	+mlk01D9rilHDiFoal2HgFM4LuzjfVw2Fytw+ovnHPaJovC2TLi8lmz4fgCqvEbv+gk=
+X-Gm-Gg: Acq92OGYUgmWzz9ufIzLidX/WHFHF6NYphSbag13o7LK7Gv40meIDslkIOyaDsqhr6c
+	H7VhqvvVY7trQni9doVDMCuP0aeKPjYSwEaDky2vgxgtjRfjdrGGwlmj+pq4YYqlqoXnWjh04bA
+	53mKY+3YKBOasqFCR3MY2q+7hbIa7GzaKI3qkJ+f5hwL9heLzO4WdDqYK9lBoLhjB+RUESy7xJx
+	ELyEsicB8d/NoSHc6YR8J1qnlXbljjUip+AkMZet93hwT4iF71zlA4c8rZcb1mNR4d71wSc6SdP
+	r4g/O82IdMY50lu5dndU9YwE3/FvgY5toFkIEOf/WPA2wqnokKDVsigICTDayxYjwYloBpD+HlG
+	/cEF1ZvfThBDnnxsk3P0ogEeR87qblXmmT6NdPbaadleZlOscF4maovo5FjFJkS1gk+D1kjiPr4
+	8J+c7dTwKze4q5O1quwRV5fpcwcOLfr92G8sCWk3CxM2pbXw==
+X-Received: by 2002:a05:600c:4708:b0:490:b06a:649e with SMTP id 5b1f17b1804b1-490c2602987mr26050765e9.25.1780640356335;
+        Thu, 04 Jun 2026 23:19:16 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:5485:d4b2:c087:b497])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490bc3c15cesm133603035e9.5.2026.06.04.23.19.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 04 Jun 2026 23:19:15 -0700 (PDT)
+Date: Fri, 5 Jun 2026 08:19:14 +0200
+From: Simona Vetter <simona.vetter@ffwll.ch>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Simona Vetter <simona.vetter@ffwll.ch>,
+	DRI Development <dri-devel@lists.freedesktop.org>,
+	"DARKNAVY (@DarkNavyOrg)" <vr@darknavy.com>,
+	syzbot+d7c9eed171647e421013@syzkaller.appspotmail.com,
+	stable@vger.kernel.org, Edward Adam Davis <eadavis@qq.com>,
+	Dave Airlie <airlied@redhat.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Francis <David.Francis@amd.com>,
+	Puttimet Thammasaeng <pwn8official@gmail.com>,
+	Christian Koenig <Christian.Koenig@amd.com>,
+	Zhenghang Xiao <kipreyyy@gmail.com>
+Subject: Re: [PATCH] drm/gem: Try to fix change_handle ioctl, attempt 4
+Message-ID: <aiJqYgnTekPoXK_q@phenom.ffwll.local>
+References: <20260604191916.1713387-1-simona.vetter@ffwll.ch>
+ <20260604194437.1725314-1-simona.vetter@ffwll.ch>
+ <ab2c8c81-8ab6-4a93-93c9-31445454421a@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ab2c8c81-8ab6-4a93-93c9-31445454421a@linux.intel.com>
+X-Operating-System: Linux phenom 6.19.10+deb14-amd64 
 
-From: Jiayuan Chen <jiayuan.chen@shopee.com>
+On Thu, Jun 04, 2026 at 10:29:45PM +0200, Maarten Lankhorst wrote:
+> Hey,
+> 
+> On 6/4/26 21:44, Simona Vetter wrote:
+> > On-list because the cat is out of the bag and we're clearly not good
+> > enough to figure this out in private. The story thus far:
+> > 
+> > 5e28b7b94408 ("drm: Set old handle to NULL before prime swap in
+> > change_handle") tried to fix a race condition between the gem_close and
+> > gem_change_handle ioctls, but got a few things wrong:
+> > 
+> > - There's a confusion with the local variable handle, which is actually
+> >   the new handle, and so the two-stage trick was actually applied to the
+> >   wrong idr slot. 7164d78559b0 ("drm/gem: fix race between
+> >   change_handle and handle_delete") tried to fix that by adding yet
+> >   another code block, but forgot to add the error handling. Which meant
+> >   we now have two paths, both kinda wrong.
+> > 
+> > - dc366607c41c ("drm: Replace old pointer to new idr") tried to apply
+> >   another fix, but inconsistently, again because of the handle confusion
+> >   - this would be the right fix (kinda, somewhat, it's a mess) if we'd
+> >   do the two-stage approach for the new handle. Except that wasn't the
+> >   intent of the original fix.
+> > 
+> > We also didn't have an igt merged for the original ioctl, which is a big
+> > no-go. This was attempted to address off-list in the original bugfix,
+> > and amd QA people claimed the bug was fixed now. Very clearly that's not
+> > the case. Here's my attempt to sort this out:
+> > 
+> > - Rename the local variable to new_handle, the old aliasing with
+> >   args->handle is just too dangerously confusing.
+> > 
+> > - Merge the gem obj lookup with the two-stage idr_replace so that we
+> >   avoid getting ourselves confused there.
+> > 
+> > - This means we don't have a surplus temporary reference anymore, only
+> >   an inherited from the idr. A concurrent gem_close on the new_handle
+> >   could steal that. Fix that with the same two-stage approach
+> >   create_tail uses. This is a bit overkill as documented in the comment,
+> >   but I also don't trust my ability to understand this all correctly, so
+> >   go with the established pattern we have from other ioctls instead for
+> >   maximum paranoia.
+> > 
+> > - Adjust error paths. I've tried to make the error and success paths
+> >   common, because they are identical except for which handle is removed
+> >   and on which we call idr_replace to (re)install the object again. But
+> >   that made things messier to read, so I've left it at the more verbose
+> >   version, which unfortunately hides the symmetry in the entire code
+> >   flow a bit.
+> > 
+> > - While at it, also replace the 7 space indent with 1 tab.
+> > 
+> > And finally, because I flat out don't trust my abilities here at all
+> > anymore:
+> > 
+> > - Disable the ioctl until we have the igt situation and everything else
+> >   sorted out on-list and with full consensus.
+> > 
+> 
+> Can you push the revert first, and then worry about fixing change_handle
+> parts of the ioctl properly later, so that part can be merged ASAP?
 
-[ Upstream commit 479d589b40b836442bbdadc3fdb37f001bb67f26 ]
+I've intentionally combined them, but I've only discussed the reasons with
+Dave in private chat.
 
-bond_option_mode_set() already rejects mode changes that would make a
-loaded XDP program incompatible via bond_xdp_check().  However,
-bond_option_xmit_hash_policy_set() has no such guard.
+In the original security report discussions off-list almost two months ago
+I've both suggested that we do the full two-stage removal&install, because
+that's the well-tested pattern. AMD folks convinced me that being more
+clever is ok, but they got it wrong.
 
-For 802.3ad and balance-xor modes, bond_xdp_check() returns false when
-xmit_hash_policy is vlan+srcmac, because the 802.1q payload is usually
-absent due to hardware offload.  This means a user can:
+I've also suggested that we just outright disable the ioctl since it's so
+new, and sort this all out on-list, least because the igt didn't land yet.
+The igt has still not yet landed.
 
-1. Attach a native XDP program to a bond in 802.3ad/balance-xor mode
-   with a compatible xmit_hash_policy (e.g. layer2+3).
-2. Change xmit_hash_policy to vlan+srcmac while XDP remains loaded.
+Furthermore the igt or AMD's testing seems busted - because of the handle
+confusion (which I didn't spot, because I've assumed that the code was
+tested) the new code actually installed NULL into the new_handle slot,
+which should have broken everything. It also resulted in an obvious leak,
+which syzcaller spotted and which one of the referenced patches fixes.
 
-This leaves bond->xdp_prog set but bond_xdp_check() now returning false
-for the same device.  When the bond is later destroyed, dev_xdp_uninstall()
-calls bond_xdp_set(dev, NULL, NULL) to remove the program, which hits
-the bond_xdp_check() guard and returns -EOPNOTSUPP, triggering:
+Which means this is an examplary case of how not to do a new ioctl, plus
+collective embarrassment of how to not fix a security bug. I've figured we
+need one patch which both a) disables this mess and b) puts down the draft
+of what I think it actually should look like.
 
-WARN_ON(dev_xdp_install(dev, mode, bpf_op, NULL, 0, NULL))
+But really, no re-enabling of any of this until we have an igt that is a)
+actually merged and b) actually tests something. Or maybe the issue was
+with AMD's testing infra, I haven't looked at the igt.
 
-Fix this by rejecting xmit_hash_policy changes to vlan+srcmac when an
-XDP program is loaded on a bond in 802.3ad or balance-xor mode.
+I did tell Dave that he can split it, if he wants to, but for backporting
+it shouldn't cause issues since all the 3 previous attempts at sorting
+this out have also been cc: stable. So should all apply without issues.
 
-commit 39a0876d595b ("net, bonding: Disallow vlan+srcmac with XDP")
-introduced bond_xdp_check() which returns false for 802.3ad/balance-xor
-modes when xmit_hash_policy is vlan+srcmac.  The check was wired into
-bond_xdp_set() to reject XDP attachment with an incompatible policy, but
-the symmetric path -- preventing xmit_hash_policy from being changed to an
-incompatible value after XDP is already loaded -- was left unguarded in
-bond_option_xmit_hash_policy_set().
+Cheers, Sima
 
-Note:
-commit 094ee6017ea0 ("bonding: check xdp prog when set bond mode")
-later added a similar guard to bond_option_mode_set(), but
-bond_option_xmit_hash_policy_set() remained unprotected.
+> ---
+> > v2:
+> > 
+> > Sashiko noticed that I didn't handle the error path for idr_replace
+> > correctly, it must be checked with IS_ERR_OR_NULL like in
+> > gem_handle_delete. So yeah, definitely should just the existing paths
+> > 1:1 because this is endless amounts of tricky.
+> > 
+> > Also add the Fixes: line for the original ioctl, I forgot that too.
+> > 
+> > Reported-by: DARKNAVY (@DarkNavyOrg) <vr@darknavy.com>
+> > Signed-off-by: Simona Vetter <simona.vetter@ffwll.ch>
+> > Fixes: dc366607c41c ("drm: Replace old pointer to new idr")
+> > Cc: syzbot+d7c9eed171647e421013@syzkaller.appspotmail.com
+> > Cc: stable@vger.kernel.org
+> > Cc: Edward Adam Davis <eadavis@qq.com>
+> > Cc: Dave Airlie <airlied@redhat.com>
+> > Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> > Cc: Maxime Ripard <mripard@kernel.org>
+> > Cc: Thomas Zimmermann <tzimmermann@suse.de>
+> > Fixes: 5e28b7b94408 ("drm: Set old handle to NULL before prime swap in change_handle")
+> > Cc: David Francis <David.Francis@amd.com>
+> > Cc: Puttimet Thammasaeng <pwn8official@gmail.com>
+> > Cc: Christian Koenig <Christian.Koenig@amd.com>
+> > Fixes: 7164d78559b0 ("drm/gem: fix race between change_handle and handle_delete")
+> > Cc: Zhenghang Xiao <kipreyyy@gmail.com>
+> > Fixes: 5e28b7b94408 ("drm: Set old handle to NULL before prime swap in change_handle")
+> > ---
+> >  drivers/gpu/drm/drm_gem.c   | 62 +++++++++++++------------------------
+> >  drivers/gpu/drm/drm_ioctl.c |  2 +-
+> >  2 files changed, 23 insertions(+), 41 deletions(-)
+> > 
+> > diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
+> > index e12cdf91f4dc..f49f1724eda5 100644
+> > --- a/drivers/gpu/drm/drm_gem.c
+> > +++ b/drivers/gpu/drm/drm_gem.c
+> > @@ -1019,8 +1019,8 @@ int drm_gem_change_handle_ioctl(struct drm_device *dev, void *data,
+> >  				struct drm_file *file_priv)
+> >  {
+> >  	struct drm_gem_change_handle *args = data;
+> > -	struct drm_gem_object *obj, *idrobj;
+> > -	int handle, ret;
+> > +	struct drm_gem_object *obj;
+> > +	int new_handle, ret;
+> >  
+> >  	if (!drm_core_check_feature(dev, DRIVER_GEM))
+> >  		return -EOPNOTSUPP;
+> > @@ -1028,52 +1028,36 @@ int drm_gem_change_handle_ioctl(struct drm_device *dev, void *data,
+> >  	/* idr_alloc() limitation. */
+> >  	if (args->new_handle > INT_MAX)
+> >  		return -EINVAL;
+> > -	handle = args->new_handle;
+> > -
+> > -	obj = drm_gem_object_lookup(file_priv, args->handle);
+> > -	if (!obj)
+> > -		return -ENOENT;
+> > +	new_handle = args->new_handle;
+> >  
+> > -	if (args->handle == handle) {
+> > -		ret = 0;
+> > -		goto out;
+> > -	}
+> > +	if (args->handle == new_handle)
+> > +		return 0;
+> >  
+> >  	mutex_lock(&file_priv->prime.lock);
+> > -
+> >  	spin_lock(&file_priv->table_lock);
+> > -
+> > -       /* When create_tail allocs an obj idr, it needs to first alloc as NULL,
+> > -	* then later replace with the correct object. This is not necessary
+> > -	* here, because the only operations that could race are drm_prime
+> > -	* bookkeeping, and we hold the prime lock.
+> > -	*/
+> > -	ret = idr_alloc(&file_priv->object_idr, obj, handle, handle + 1,
+> > +	ret = idr_alloc(&file_priv->object_idr, NULL, new_handle, new_handle + 1,
+> >  			GFP_NOWAIT);
+> >  
+> > -       if (ret < 0) {
+> > -	       spin_unlock(&file_priv->table_lock);
+> > -	       goto out_unlock;
+> > -       }
+> > -
+> > -       idrobj = idr_replace(&file_priv->object_idr, NULL, handle);
+> > -       if (idrobj != obj) {
+> > -	       idr_replace(&file_priv->object_idr, idrobj, handle);
+> > -	       idr_remove(&file_priv->object_idr, args->new_handle);
+> > -	       spin_unlock(&file_priv->table_lock);
+> > -	       ret = -ENOENT;
+> > -	       goto out_unlock;
+> > -       }
+> > -
+> > -	idr_replace(&file_priv->object_idr, NULL, args->handle);
+> > +	if (ret < 0) {
+> > +		spin_unlock(&file_priv->table_lock);
+> > +		goto out_unlock;
+> > +	}
+> > +
+> > +	obj = idr_replace(&file_priv->object_idr, NULL, args->handle);
+> > +	if (IS_ERR_OR_NULL(obj)) {
+> > +		idr_remove(&file_priv->object_idr, new_handle);
+> > +		spin_unlock(&file_priv->table_lock);
+> > +		ret = -ENOENT;
+> > +		goto out_unlock;
+> > +	}
+> >  	spin_unlock(&file_priv->table_lock);
+> >  
+> >  	if (obj->dma_buf) {
+> >  		ret = drm_prime_add_buf_handle(&file_priv->prime, obj->dma_buf,
+> > -					       handle);
+> > +					       new_handle);
+> >  		if (ret < 0) {
+> >  			spin_lock(&file_priv->table_lock);
+> > -			idr_remove(&file_priv->object_idr, handle);
+> > +			idr_remove(&file_priv->object_idr, new_handle);
+> >  			idr_replace(&file_priv->object_idr, obj, args->handle);
+> >  			spin_unlock(&file_priv->table_lock);
+> >  			goto out_unlock;
+> > @@ -1086,14 +1070,12 @@ int drm_gem_change_handle_ioctl(struct drm_device *dev, void *data,
+> >  
+> >  	spin_lock(&file_priv->table_lock);
+> >  	idr_remove(&file_priv->object_idr, args->handle);
+> > -	idrobj = idr_replace(&file_priv->object_idr, obj, handle);
+> > +	obj = idr_replace(&file_priv->object_idr, obj, new_handle);
+> >  	spin_unlock(&file_priv->table_lock);
+> > -	WARN_ON(idrobj != NULL);
+> > +	WARN_ON(obj != NULL);
+> >  
+> >  out_unlock:
+> >  	mutex_unlock(&file_priv->prime.lock);
+> > -out:
+> > -	drm_gem_object_put(obj);
+> >  
+> >  	return ret;
+> >  }
+> > diff --git a/drivers/gpu/drm/drm_ioctl.c b/drivers/gpu/drm/drm_ioctl.c
+> > index ff193155129e..937fc1e2c017 100644
+> > --- a/drivers/gpu/drm/drm_ioctl.c
+> > +++ b/drivers/gpu/drm/drm_ioctl.c
+> > @@ -660,7 +660,7 @@ static const struct drm_ioctl_desc drm_ioctls[] = {
+> >  	DRM_IOCTL_DEF(DRM_IOCTL_GEM_CLOSE, drm_gem_close_ioctl, DRM_RENDER_ALLOW),
+> >  	DRM_IOCTL_DEF(DRM_IOCTL_GEM_FLINK, drm_gem_flink_ioctl, DRM_AUTH),
+> >  	DRM_IOCTL_DEF(DRM_IOCTL_GEM_OPEN, drm_gem_open_ioctl, DRM_AUTH),
+> > -	DRM_IOCTL_DEF(DRM_IOCTL_GEM_CHANGE_HANDLE, drm_gem_change_handle_ioctl, DRM_RENDER_ALLOW),
+> > +	DRM_IOCTL_DEF(DRM_IOCTL_GEM_CHANGE_HANDLE, drm_invalid_op, DRM_RENDER_ALLOW),
+> >  
+> >  	DRM_IOCTL_DEF(DRM_IOCTL_MODE_GETRESOURCES, drm_mode_getresources, 0),
+> >  
+> 
 
-Reported-by: syzbot+5a287bcdc08104bc3132@syzkaller.appspotmail.com
-Closes: https://lore.kernel.org/all/6995aff6.050a0220.2eeac1.014e.GAE@google.com/T/
-Fixes: 39a0876d595b ("net, bonding: Disallow vlan+srcmac with XDP")
-Signed-off-by: Jiayuan Chen <jiayuan.chen@shopee.com>
-Link: https://patch.msgid.link/20260226080306.98766-2-jiayuan.chen@linux.dev
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-Signed-off-by: Rajani Kantha <681739313@139.com>
----
- drivers/net/bonding/bond_main.c    | 9 +++++++--
- drivers/net/bonding/bond_options.c | 2 ++
- include/net/bonding.h              | 1 +
- 3 files changed, 10 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/net/bonding/bond_main.c b/drivers/net/bonding/bond_main.c
-index e9e2dec1dcb1..7ce60b16df17 100644
---- a/drivers/net/bonding/bond_main.c
-+++ b/drivers/net/bonding/bond_main.c
-@@ -322,7 +322,7 @@ bool bond_sk_check(struct bonding *bond)
- 	}
- }
- 
--bool bond_xdp_check(struct bonding *bond, int mode)
-+bool __bond_xdp_check(int mode, int xmit_policy)
- {
- 	switch (mode) {
- 	case BOND_MODE_ROUNDROBIN:
-@@ -333,7 +333,7 @@ bool bond_xdp_check(struct bonding *bond, int mode)
- 		/* vlan+srcmac is not supported with XDP as in most cases the 802.1q
- 		 * payload is not in the packet due to hardware offload.
- 		 */
--		if (bond->params.xmit_policy != BOND_XMIT_POLICY_VLAN_SRCMAC)
-+		if (xmit_policy != BOND_XMIT_POLICY_VLAN_SRCMAC)
- 			return true;
- 		fallthrough;
- 	default:
-@@ -341,6 +341,11 @@ bool bond_xdp_check(struct bonding *bond, int mode)
- 	}
- }
- 
-+bool bond_xdp_check(struct bonding *bond, int mode)
-+{
-+	return __bond_xdp_check(mode, bond->params.xmit_policy);
-+}
-+
- /*---------------------------------- VLAN -----------------------------------*/
- 
- /* In the following 2 functions, bond_vlan_rx_add_vid and bond_vlan_rx_kill_vid,
-diff --git a/drivers/net/bonding/bond_options.c b/drivers/net/bonding/bond_options.c
-index 40731d180bb5..3d15b340b5c9 100644
---- a/drivers/net/bonding/bond_options.c
-+++ b/drivers/net/bonding/bond_options.c
-@@ -1590,6 +1590,8 @@ static int bond_option_fail_over_mac_set(struct bonding *bond,
- static int bond_option_xmit_hash_policy_set(struct bonding *bond,
- 					    const struct bond_opt_value *newval)
- {
-+	if (bond->xdp_prog && !__bond_xdp_check(BOND_MODE(bond), newval->value))
-+		return -EOPNOTSUPP;
- 	netdev_dbg(bond->dev, "Setting xmit hash policy to %s (%llu)\n",
- 		   newval->string, newval->value);
- 	bond->params.xmit_policy = newval->value;
-diff --git a/include/net/bonding.h b/include/net/bonding.h
-index 06a048d716b1..f2dee8cefa19 100644
---- a/include/net/bonding.h
-+++ b/include/net/bonding.h
-@@ -704,6 +704,7 @@ void bond_debug_register(struct bonding *bond);
- void bond_debug_unregister(struct bonding *bond);
- void bond_debug_reregister(struct bonding *bond);
- const char *bond_mode_name(int mode);
-+bool __bond_xdp_check(int mode, int xmit_policy);
- bool bond_xdp_check(struct bonding *bond, int mode);
- void bond_setup(struct net_device *bond_dev);
- unsigned int bond_get_num_tx_queues(void);
 -- 
-2.17.1
-
-
+Simona Vetter
+Software Engineer
+http://blog.ffwll.ch
