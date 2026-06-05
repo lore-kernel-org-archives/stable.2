@@ -1,117 +1,124 @@
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4148130E0EC
-	for <stable@vger.kernel.org>; Fri,  5 Jun 2026 11:15:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.174
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780658149; cv=pass; b=nKKzVB6a6Tauy79iYQMlBL2c9DJdHO4qimraEmCCQdJg+I2hVHYaY6TzhrQ1dz2OI3pvSTlYqi8bOmfY1guge/vMNIfVszck4aA92GpvGo28B/uClPin+e7bwWAFsTiu4iM56pz0ycxpTme2Y8Rg2xghpu1ROF+5x4AT9obm4wg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780658149; c=relaxed/simple;
-	bh=my64/1IBEIL43GuC3wT1kWWVvvLkggDAhttkWSBbVOM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=B3Xlko1oypyk4BUHoHx9BygJV5x7nrQ6qUcmhLXXzvv4C2xyGPCYwUi7P5XlGjjQv3Uo3u+1NQ3fc8tbHbGepEPBV/ZDfjyNZLKESGSX47X6fzonfcd4VlADj1h7cXxLyH3Ag87qwfNt4pwzBa+KGZhlVD7FDHynZQ2JL1vt/6g=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=epEirlnR; arc=pass smtp.client-ip=74.125.82.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 304904C900C;
+	Fri,  5 Jun 2026 11:41:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780659669; cv=none; b=uQPpb6jFf9WxlksLJaTqjGtk+6I1IpdWCgi+wbO0X6VJ/b1ectkPyYoVTHfbdiXyfM1s9JxYjj77UmvLA/VOUeRZCtuRzOq6F6lq+OYeLkjA+CcOdPqaICP9XcwK+HSTdH9hCto5gItRl/0p6dnbvj0L4zxepVg0411BfnGGyaU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780659669; c=relaxed/simple;
+	bh=ruvxWh86ohm4ms2IgQ1NLDnLGpVHthhXbP7XOqhzRMQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tniczYlUrjeOeJNYZVKiQP1YJXte85xjP3WHui/hQyAzzhRvUo78uhYxtpgW5ZOF4it4SMpZ/+7vkrwbZep+0yRaoSCRbwUgu7VCC62nAOC5I3NQxlgWrfLLxy6ht3wo4VlZc16UBZgbO2lLMvKVzkie9CRKXYR0f8fDbUbZxOU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=NDP3QGkF; arc=none smtp.client-ip=180.181.231.80
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="epEirlnR"
-Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-304e86ecebfso81963eec.0
-        for <stable@vger.kernel.org>; Fri, 05 Jun 2026 04:15:48 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1780658147; cv=none;
-        d=google.com; s=arc-20240605;
-        b=knvIWSuRq/gop+2NHRhvsnh/s7S/zPN1qqH8f5rZG9W5Lrq30o5pIqRQlQCKhdy2FK
-         H3xDt5rpziqoi+HXXR94JNkHw7KHuiSTcO57N5YZ726Kl6F3TMWxSVb5BpKuTq71TJtI
-         V1nyvfDi2PXygGEgrCs2vRZ2OH5lCEVj/qPoJ2+OK94HbHyRXfR8N4nLeUN9NJRlgWxi
-         sFa7Y2j/i1CcvsHdDjTWvqyihXDiv9WduQ9OggfoCYcVLmXwXShL/Eksr/48gZLQsrBd
-         kH5lpk/nSyz4nIJaoxvHJfkhPy4keGgOE1JBPNaT7V5Y0zNQHnhbVi09ajfh6nRyaGwl
-         SxAg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=my64/1IBEIL43GuC3wT1kWWVvvLkggDAhttkWSBbVOM=;
-        fh=gGBvqSkViMEbtulEt1/d27sAEES9lbQdZHjRE3CgUiE=;
-        b=h+6aAMiKIUxCqLQPmqK4qokaIpR8zcnkX6wQ4tSfBBSAjOdzQfUHZNTDQnMy/MDPYv
-         C0vNfRkYRTc5XcWza6g/zQ+xmD5F+a9NdY87c3g94w9weYRjo0KZAtSKuDj+mBgIkZh1
-         n1gG4ClO2pDdETxALbRnHegwhbTzD+WBQgPn88dw6xLdUyXFUlHhkGYR/XXlaYraMsD7
-         QZ6K6jk1Lgo+18eEblMLhsXRGvYCYY7Aq53I3z40Z7ujf8E//phIIjmKjHSFgswrMRUw
-         mSRAbg3K14lfG+4kgi/TcYRFmoB0jXViLz4XWN+4N9ik7bYUu+Wl+z0MQhOhE2Ya9AGP
-         lRIg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780658147; x=1781262947; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=my64/1IBEIL43GuC3wT1kWWVvvLkggDAhttkWSBbVOM=;
-        b=epEirlnRZot4ImqvNbrFaFW1b3l7g1/0FNHU8xDv9t0M9Dg+h+ef6ETySayjrCDpyk
-         seD6HyhA3cKQ6It0b1Fd6Ybnscvt1/6dAF75/7w8ItPnFj+TpN616hy+G2bCq5RGtRWd
-         C3OP9/Uis3tl++HjE1BsBEI5OVj8gPXjMnUx8/bpLHnGMsuyOxgyDScNj8DVT2fVYh9E
-         GdrjtDpnXjZAD1N100tDw8GKXUiOZDgU5YuaCeB8mKURkJdzCeFTEuwSrlWlx6WeZOLk
-         Dnfoov9aVYG+GKiHLLLeMU+jjRZoA0aY/1zdwQZIIadgi6/L+MXiD9PpiDyedMaHAcJQ
-         akSA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780658147; x=1781262947;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=my64/1IBEIL43GuC3wT1kWWVvvLkggDAhttkWSBbVOM=;
-        b=ZDcX7QQ7Q/cM619QfGu1icU5h1MB/xZe1N/XLokJHC4+Z2CfOy4tlFrpJuxgZGovOi
-         nyjo3fBV++/qr/r38YAnGHz9OOZJIXvsleVWFJlEGMq3ddXdQg9Wn50hSXaDT70EtrO9
-         j7nFG2Rzs3/TIGzMX1J+O9/3Uuy2u96+G9KceeUPc79eEKQI/dYV8uWgfrFsW4wsQx11
-         QDp4DjtIX+iGpgBPSz88l1sZJtEcki7KYDKYDiwRTe81fm/sigEilXH6UWw7+J0cztsB
-         XA2fizoOkoNhDkYEwCJuHdKQmK61ZUIXtlTyykTR/V1zw9PAXXCi/JWevBjDILOFzG0O
-         LyhQ==
-X-Forwarded-Encrypted: i=1; AFNElJ+Koc8WrnR9N1Tzq8QDBCjk51z91W/GAyqqAHrG8cdWBo7PueRkc9f/zAg6+JftMSOCljEaRdY=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyq23bC4n4gtXnHbUB0vmA2wHhSRiaVXmHCAvDjcyh143YS1C/y
-	TxUxzQwmu6qer12V7zCUIMNsKdwiaHYab71zoLvCsGS245zSRw4NJi2Q2taXceDzvmJAJH3mPoh
-	vdvQarrM3Mq70F5cqy1gV0xyksoMCPek=
-X-Gm-Gg: Acq92OFvteK+Vv9FykTM0HO3BIXGARoJhy+94CiUMKno/jSbEYRJRea9dxLHEogKK8K
-	0/o/lYgQabPScRUSnbEWt4YRSx3QqzX9P94SVACC6RD+WHH/hOjOTUIXmF4oyh4EMCvxt+I7Fsf
-	5TlVtmdkjxbBYlcdk3WKLdPxl5NduCMWR1DsZ+9Jg/Yv4ZmaNe/y2rl0G+kpAkDTgaeroVSsQP9
-	3C2IGyD8Ns+NMvYBEb4ftfPljHMdQP4EFG2z56plZAL2VtddtKIsD/jkI3Jl97oSP+1axD9xNGf
-	yyLjs0q1hWXaC8VV8ahp46mINHCs51sZZV5zMAHDHPiQ6ooLYfi0tsKsC4WFFGfJt5lpj1EPlzg
-	W3/O32xwKfIYmWD+ouOMlD33Mv021/q8WUA==
-X-Received: by 2002:a05:7300:134a:b0:304:4f23:4823 with SMTP id
- 5a478bee46e88-3077b326a5dmr659325eec.7.1780658147377; Fri, 05 Jun 2026
- 04:15:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="NDP3QGkF"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
+	from:content-type:reply-to; bh=lUIlwDRbVjok4ajTygSVNKHvLUaeGdfxBXTjvFFHo5M=; 
+	b=NDP3QGkFA4vtpHDzQ2UJGolDWjWukJR87ouH3CfqwnMcwyX38SSecaG2dCq0ldYwctFl8/2l0yD
+	BG2x9sEVJOHBYuxYIh43lNeDuM2zh5Ln9zSEZPzVLpMGF8JTNBrPxB6RP35dfuYoMvFgebBcAMGLP
+	oK0YAi33OwIugsdraTEJJQeFVTxD9IIvKt93Xv0J7GoJQes6m7nsL5iHQExpHd8qMNUgEp/8SA6mZ
+	dbICrcnwC0mM/w4ZvaHQya+k2L6JtVRifO3eDbuGEGeP+quV6zKLA5Jp9ZYF/iwZp2YN/WJpFMfkT
+	Sw8zpHTKBT6VZNBSUFD9OAX4hteqkyMKM64Q==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+	by formenos.hmeau.com with smtp (Exim 4.96 #2 (Debian))
+	id 1wVSuT-002olj-0h;
+	Fri, 05 Jun 2026 19:40:22 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Fri, 05 Jun 2026 19:40:21 +0800
+Date: Fri, 5 Jun 2026 19:40:21 +0800
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: Sam James <sam@gentoo.org>
+Cc: Breno =?iso-8859-1?Q?Leit=E3o?= <leitao@debian.org>,
+	Nayna Jain <nayna@linux.ibm.com>,
+	Paulo Flabiano Smorigo <pfsmorigo@gmail.com>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Ard Biesheuvel <ardb@kernel.org>,
+	Eric Biggers <ebiggers@google.com>,
+	Eric Biggers <ebiggers@kernel.org>, stable@vger.kernel.org,
+	Calvin Buckley <calvin@cmpct.info>,
+	Brad Spengler <brad.spengler@opensrcsec.com>,
+	linux-crypto@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] crypto: nx: fix nx_crypto_ctx_exit argument
+Message-ID: <aiK1pSrxD7bnQDy2@gondor.apana.org.au>
+References: <b8b1b6fe740187c70349cd04a820d57324e0f70c.1779509289.git.sam@gentoo.org>
+ <844faa8a75585e4088c95c052dd0ecd189bc3a64.1779695779.git.sam@gentoo.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260605041134.38290-1-ytan089@ucr.edu> <20260605071104.135675-1-work@onurozkan.dev>
- <DJ0YRJ6MHAU7.WVR4P2MQ4HIX@garyguo.net> <20260605091632.313084-1-work@onurozkan.dev>
- <DJ10CJ31GS5I.1ZD6WPPWGZTQN@garyguo.net>
-In-Reply-To: <DJ10CJ31GS5I.1ZD6WPPWGZTQN@garyguo.net>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Fri, 5 Jun 2026 13:15:32 +0200
-X-Gm-Features: AVVi8CfJonDrVd3vGam6duBD_2L2EfxY_kIzLcohD_P9GEpMXFyOnCWv175rJqk
-Message-ID: <CANiq72nE9H34DzEthWmRSmDxgaDW+XLLbrA=T6ywy=hB5FAMrg@mail.gmail.com>
-Subject: Re: [PATCH] rust: firmware: return empty slice for zero-size firmware
-To: Gary Guo <gary@garyguo.net>
-Cc: =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
-	Yuan Tan <ytan089@ucr.edu>, ojeda@kernel.org, boqun@kernel.org, 
-	rust-for-linux@vger.kernel.org, zhiyunq@cs.ucr.edu, ardalan@uci.edu, 
-	pgovind2@uci.edu, dzueck@uci.edu, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <844faa8a75585e4088c95c052dd0ecd189bc3a64.1779695779.git.sam@gentoo.org>
 
-On Fri, Jun 5, 2026 at 11:28=E2=80=AFAM Gary Guo <gary@garyguo.net> wrote:
->
-> Oh right. Arguably the wrong error code, but it does prevent the path fro=
-m being
-> hit. xz decompression always grow at least 1 page and thus won't hit NULL=
- case
-> as well.
->
-> So indeed under no paths we will have a sucessful `request_firmware` with
-> `buffer` is NULL.
+On Mon, May 25, 2026 at 08:56:19AM +0100, Sam James wrote:
+> nx_crypto_ctx_shash_exit calls nx_crypto_ctx_exit with crypto_shash_ctx(...)
+> but crypto_shash_ctx gives a nx_crypto_ctx *, not a crypto_tfm *.
+> 
+> Fix the type in nx_crypto_ctx_exit and drop the bogus crypto_tfm_ctx
+> call.
+> 
+> This fixes the following oops:
+> 
+>   BUG: Unable to handle kernel data access at 0xc0403effffffffc8
+>   Faulting instruction address: 0xc000000000396cb4
+>   Oops: Kernel access of bad area, sig: 11 [#15]
+>   Call Trace:
+>    nx_crypto_ctx_shash_exit+0x24/0x60
+>    crypto_shash_exit_tfm+0x28/0x40
+>    crypto_destroy_tfm+0x98/0x140
+>    crypto_exit_ahash_using_shash+0x20/0x40
+>    crypto_destroy_tfm+0x98/0x140
+>    hash_release+0x1c/0x30
+>    alg_sock_destruct+0x38/0x60
+>    __sk_destruct+0x48/0x2b0
+>    af_alg_release+0x58/0xb0
+>    __sock_release+0x68/0x150
+>    sock_close+0x20/0x40
+>    __fput+0x110/0x3a0
+>    sys_close+0x48/0xa0
+>    system_call_exception+0x140/0x2d0
+>    system_call_common+0xf4/0x258
+> 
+> .. which came from hardlink(1) opportunistically using AF_ALG.
+> 
+> The same problem exists with nx_crypto_ctx_skcipher_exit getting a context
+> it wasn't expecting, but apparently nobody hit that for years.
+> 
+> Cc: Eric Biggers <ebiggers@kernel.org>
+> Cc: stable@vger.kernel.org
+> Fixes: bfd9efddf990 ("crypto: nx - convert AES-ECB to skcipher API")
+> Fixes: 9420e628e7d8 ("crypto: nx - Use API partial block handling")
+> Acked-by: Breno Leitao <leitao@debian.org>
+> Reviewed-by: Eric Biggers <ebiggers@kernel.org>
+> Reported-by: Calvin Buckley <calvin@cmpct.info>
+> Tested-by: Calvin Buckley <calvin@cmpct.info>
+> Suggested-by: Brad Spengler <brad.spengler@opensrcsec.com>
+> Signed-off-by: Sam James <sam@gentoo.org>
+> ---
+> v3: Fix doc tag.
+> v2: Add stable cc, fix doc for tfm param.
+> 
+> v1: https://lore.kernel.org/all/a3e89c1e8342ffa415b0d29725a0571a4f355d34.1779472902.git.sam@gentoo.org/
+> v2: https://lore.kernel.org/all/b8b1b6fe740187c70349cd04a820d57324e0f70c.1779509289.git.sam@gentoo.org/
+> 
+>  drivers/crypto/nx/nx.c | 6 ++----
+>  drivers/crypto/nx/nx.h | 2 +-
+>  2 files changed, 3 insertions(+), 5 deletions(-)
 
-If we are not expecting it in practice, then at least a
-`debug_assert!` would be nice, or perhaps even making it an invariant?
-
-Cheers,
-Miguel
+Patch applied.  Thanks.
+-- 
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
