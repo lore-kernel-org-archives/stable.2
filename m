@@ -1,138 +1,111 @@
-Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011056.outbound.protection.outlook.com [52.101.52.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE6063CDBC8;
-	Fri,  5 Jun 2026 16:09:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.56
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780675777; cv=fail; b=ot0Y0HT4Zx+0BJozR9irc0/NoDzr4f9L7pJGDj0y2/ezrzUpY+rfQPkMoWzv5augghsZDOYHzyESw09SXvuq2p2LQHJBJQ7AtjJ5/CxJOeOv3kBvhTvWgTWPz1i9hfJb9Py4/iboRWXQrfLGXlzF3yZywiLhImIdWSecUXWoqIA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780675777; c=relaxed/simple;
-	bh=e7lHko1wIumcoRr5oM3Lvm6mZBexbOeJpky/VO20IN0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=ECbksNt3k6mS127AVv6tKwZdm6fepmCKyQUeLuWQ5kFJ5R1k9TXgvAtcHnuO/l/qUWy65556xv0AclNIxVWFTxsIoKb0qxHlqy6NIOnmGXU79lfwz39PeV5fQO+spbneJW9pqtX97LVS8TCVRPIpajQUZ5rP7RVv615uu4W9UiY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=IxC7U66U; arc=fail smtp.client-ip=52.101.52.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E47F3EC2C4;
+	Fri,  5 Jun 2026 16:18:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780676314; cv=none; b=mMVhoYxVtvfZPYP1vqWFzoCv6XEe+abIO/WFav/Wmb+wUKNbsgwi5LGSn/Dl8VO78ef5wlmALHdEBYlhLey8d9ZueO23UC3HifNvEVoicWd5F0ZeY92ME6gD9P/ZyVdtkEu1ZcfogHCFgvNR0euCh2N5mFQmxmHMjuW+1kgDDcw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780676314; c=relaxed/simple;
+	bh=0zDnckQwo3OyEOUTc6ZFIgTkloOPTw/hoEsuIkohg7c=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=CJ+wT22rrYPceifJ5UCQlJtmoDdvlRgmRbJNu5cuoRlX7jWt46Tkh0ZMmJuiKO5NeDpQQ7pp+Utjc58pbxgUXfoRrV5UV4yBiSpiY/lnj2HXVVbPgS0qroTY/k3nMqqtDtudEjuXuQkDORWiqyxRh7DZsNWSfa2C39/lBdU/57s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KRR9fExA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="IxC7U66U"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yaFaJmpt5+9jsCCBaEPR3BLYQjYauN9P5yizPH8SFBUIUEfeoSEeuoBUW1zlK1sT6bh8zozJkXDT1yBNAUz058Bk4I4tuAG0mJjeWfCkKWyEU9bRyax1IyNBbDd93wp5ILbju8VpLUusTGjSwvw3kwiao7bKGXrig5R/7tEoXI/f/lcDCE6ODRBQlpUU/4wp0Om33Nbih2qoURLKY7AyqQVuHHTU0mGbaWqAj3s2TeXZGRHrU06C7kCvwO9tSOGECVJFfDALNmXAp5W6L4zieqcaAoABWcLt1qSTX0ClPcQ8uWiSKve/qGLIpFOTjefWab3yZ5jqYcgWDXaKwuBAeQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IDfNLtcylePzNWLUPopOd//+BcXOUazsu21yikvOchk=;
- b=gwsvpsF7yQWr6zdGl5uJrOyj1Phu7fFXEL+QHJY8NGq7cvDEHt6Csl5YO/QdGqrPAG/yExehst/MV0oYQHK1jjbqFaKaFoznXcx6YmEVTSSPHdrV7LATzq1Ccm5v//DBujc3NNeU9R9V7c0PYdmPLDmXTUbPyr/kfLzCl+Ud4CLiWKzcdN90OujM83Ro9RdlT/6x80XtoMwtcLWIXtaDiREJFxNgVSDU6mI/N4d0XfQSNI/XI23ZIb5RfkjNs9GgyqnMuYwWSIJwUxDmO1PBTT07Ss8NWcfGUCdM5lOgGM5IDPyprxNyY8xckn+ii1suDXp3xwCpE59Dssaaeb7qng==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IDfNLtcylePzNWLUPopOd//+BcXOUazsu21yikvOchk=;
- b=IxC7U66USkYRMC7eRyILi+ctojJV/X6MC9tjYstnHOnNHELUlZmHhvwg9FHHwe41mERKJZDN9ElKKp8FEqrNdJOPAIpkF1+xYtICHCndptTwUKZOWYsoW2AfgEDMSZufi4PElm6A22XhgPkWNxjJs32YQ2oCVe6lU1ovqZVSV0a6tvdCshRC9GRyS4otY3LdlQi8whIEuntPgfQ9oZu5z3VOwNLByVnNC1KmV3H5FicV8bD5XNMDKcvyLDMBMSfHJUNCs5LB8JABZpeEjlWQazPkhVDrLMEPeyzWM6Gr1o/zHA2eUNmTndlTNXPvhA7stvDOF75aQ4IgHUC898LTqA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from LV8PR12MB9620.namprd12.prod.outlook.com (2603:10b6:408:2a1::19)
- by IA0PR12MB7752.namprd12.prod.outlook.com (2603:10b6:208:442::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.9; Fri, 5 Jun 2026
- 16:09:28 +0000
-Received: from LV8PR12MB9620.namprd12.prod.outlook.com
- ([fe80::299d:f5e0:3550:1528]) by LV8PR12MB9620.namprd12.prod.outlook.com
- ([fe80::299d:f5e0:3550:1528%4]) with mapi id 15.21.0092.007; Fri, 5 Jun 2026
- 16:09:28 +0000
-Date: Fri, 5 Jun 2026 13:09:26 -0300
-From: Jason Gunthorpe <jgg@nvidia.com>
-To: Leon Romanovsky <leon@kernel.org>, linux-rdma@vger.kernel.org
-Cc: patches@lists.linux.dev, Shiraz Saleem <shiraz.saleem@intel.com>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KRR9fExA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36B001F00893;
+	Fri,  5 Jun 2026 16:18:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780676313;
+	bh=nYScoSNB3jeAjdu79Y5o8uX0JVKrcUm3yPFfVKrfJhc=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=KRR9fExACnOGFbKp94dMiMDBasEsk6vuaaszVAdHMf+gGgv7/QIltw6tLHZjGHnP6
+	 wO+YU2JfejPZe0+Uy4MpVDCwI7AEOJwMwsQGcBFAAK7upNUS0oLkSu1JIkKu8Bq+6c
+	 UNS/k7DOurCxr6G0BSnIY5cY8Heisr9VgRdXvBdlMhZECOJNmPBmATHOQiDoUzaHtr
+	 Bb1v0mPP2vRJiiJKUiBpYH/3TVpoANdFxMHIZ/NSJDb1Dnok8xFiILJiSkxKbetLBa
+	 z9ZRymp8+cvj0BqU3J91G6j7g4gcVO6L9/P5Zd3xLE0s1UKfUF5jCZjYQ7PgObKWXf
+	 ld8GQfLdnSinw==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1wVXFf-00000009q2m-0clu;
+	Fri, 05 Jun 2026 16:18:31 +0000
+Date: Fri, 05 Jun 2026 17:18:30 +0100
+Message-ID: <86wlwdt0yx.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Ard Biesheuvel <ardb+git@google.com>
+Cc: linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	will@kernel.org,
+	catalin.marinas@arm.com,
+	Ard Biesheuvel <ardb@kernel.org>,
+	Kevin Brodsky <kevin.brodsky@arm.com>,
+	Mark Brown <broonie@kernel.org>,
 	stable@vger.kernel.org
-Subject: Re: [PATCH 0/3] Fix typing issues in the umem code
-Message-ID: <20260605160926.GC2728758@nvidia.com>
-References: <0-v1-88303e9e509f+f7-ib_umem_types_jgg@nvidia.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <0-v1-88303e9e509f+f7-ib_umem_types_jgg@nvidia.com>
-X-ClientProxiedBy: BN9PR03CA0703.namprd03.prod.outlook.com
- (2603:10b6:408:ef::18) To LV8PR12MB9620.namprd12.prod.outlook.com
- (2603:10b6:408:2a1::19)
+Subject: Re: [PATCH v2 4/5] KVM: arm64: Omit tag sync on stage-2 mappings of the zero page
+In-Reply-To: <20260604151151.150377-11-ardb+git@google.com>
+References: <20260604151151.150377-7-ardb+git@google.com>
+	<20260604151151.150377-11-ardb+git@google.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV8PR12MB9620:EE_|IA0PR12MB7752:EE_
-X-MS-Office365-Filtering-Correlation-Id: 53cee133-0d8b-49a4-2fed-08dec31cd1c0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|366016|22082099003|18002099003|6133799003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	1a906idieTtH2xKU4MdBEzzc57vBfQpyvri5kNxMoICNs0ijkWQsIkcaonv/FjS5Ea26pEscAE2G+pn1hX6Yr54Bsbekmy/XYfF+arwid1mWasgb5G1IMT8xp1xQ+pGT3nVOkrk8CvKRFQuQDUFs/hsSu2MT1mH2cKcUObhS8jOMr4sNTtl6T6nOL/HHEB8b2eLPgqNJE5wcyjx8qlkHsWf271VkMWLkGOW28mphOsrHClCdRL/qNohSnn+0WhnKUxfLqs4/ybDXNCnHeUaFg64OYTLuRWMFMkmIm77bEESod4GgZblmZ23VF7JcSB3OYd1ybZFlAqUmPnVbOOSgRgM/7dLry+folv9q8hoem6hnL4j4HwHhUk1nKZNxgL2Aj24WoYQY5W+RXOV5qRjAqg8FNiuymJE5czDx5q1bDomKS6PX/bMVHDLGNVG5iHj7qDqlvI11Psz6Oh+aZTAuc5LlS0QNWLeiT+hN7Tlc31r83Tp5Mj2p2v427fL4sPafw1eVW36e2QVBd9uZLeMkNaVMS3iC9ykiDZvj3oXFf5zrgOiybPwLm49+wZplslk1v1gMF2dEMvBySXFxwu58Z+ohzvmrbc6ZUlgZMXhfjzWYsMhOsN/Bg4eF+Dg1NpK1xH26IszCQiHbduMbmkUpwwrRczfoPvAOUjrRgdICwnK9SiH2ARgOBU2iszSrY/EF
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV8PR12MB9620.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(22082099003)(18002099003)(6133799003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?qSFO3qlOqGHD1HMuhbUVn2xwfNIuPN1ZJKe2KEWRssi4WEpLQuW0jVU2yFnf?=
- =?us-ascii?Q?oIwCDm0/BAMKB4MKahzKTVNfB23dq6qhe47zYXf7H5atY62RwIXpnJxRUdFO?=
- =?us-ascii?Q?I0xOuKrmxXS+ccCTeoFEd9j8aqarmd7IBH1zMGY72IiUdHC4qi6V0+FNElMV?=
- =?us-ascii?Q?2gILl34T/9Ejz1u08+OVUT2n/RiBkZUhmEv4Ysa9AofAErF1krqR9Yy2jOwK?=
- =?us-ascii?Q?V5lZyU47vdjJT29/5ICR6klebzGejUB+YyHiFVkWUf35AKhYoSqfvWUZiWhY?=
- =?us-ascii?Q?JOBzcQP9st+8tXBfBHhBhdxqeFqlb3AMpj+PZ1h6xyBO7LHTdTEMP0EWduQ9?=
- =?us-ascii?Q?9R8d9CrYrtgEz7ddhjv8V5n3B/TO9L7FROvgJqRU6+maCy3c+cXeabXtrY1U?=
- =?us-ascii?Q?zibQIq8yIhKe9hBzLMsH95ShRJFPJnt4JGpLkM5o/vr3qt2F9/TbVWl5SNNE?=
- =?us-ascii?Q?ostskKITaRIKX7yBzBYGWrIQZIXZBYEsh70+xaMUDcWwuDh2d2vrOBOZnghb?=
- =?us-ascii?Q?Q9eMAidqU/bQ1Yf7x76wcKwcET4c/KFvXqUYDAnRZaUVr1JLKtpxsXefIfDw?=
- =?us-ascii?Q?kMHrKP2foFccEiSWcIO4Iv0Re+28sZ87WI/b6if8riqtX+iUpHWZJfxXEAHs?=
- =?us-ascii?Q?OTobjweTbFtL2kvTiasrx6uY2jZzUpo32l7z9eRvAu22Cw0BH2Uda2iJ0GSy?=
- =?us-ascii?Q?EzaLICx9NMA5c278hNtdYgQgIvYCLzUAAp7hANmA2iEL1WynS4plnQAOm1ro?=
- =?us-ascii?Q?J24ayOObmEtH+qhfv1TUgEBZzHwLxcRH1T4tcKZdtiuRKiCZv9S8Y+AfeQeF?=
- =?us-ascii?Q?p5HqWqBmmRPhBLQ00MbAsyRe1tTV8Y+qFXRw79WKjIZrQsNjQ73D9+eJTlQ/?=
- =?us-ascii?Q?9ssIuNfKf/bOEr1NHhg0oahW7R2tkIbIjvfsUeeIHiO0fziJmKjSm4BMAsav?=
- =?us-ascii?Q?otuFIig8Lg8ENTsPolyHXCx26tMuNbPpEft8/1dB9MfnHjQcAfAIJmjaW4Oa?=
- =?us-ascii?Q?mLjJt0OJolIUEsju41XNASsI2aDPwFzI7nv38CpTrvciHHw5UTY7W8TspArC?=
- =?us-ascii?Q?pf4hPFX7jvP871rykAX8ffkrWj34pHExISxexBobC3YCVlfSnMqrtwb3VvY3?=
- =?us-ascii?Q?G9uI8p0i9lFyLA+wIfsNKK+JyszRMfeQEKICS6m7IxmhGviHPxHgV0F6gk3Q?=
- =?us-ascii?Q?tJqezuvL/BhHl1UD62gLO1b51DcPTJOprLvVAPmJj7DhrSjCq8adFUQTV+cB?=
- =?us-ascii?Q?Zl9lmBWtMxln+RqYB4BeeeK1EW8jXV/2+mWyo+PuzsLAzAEmQYZ+yWFrefvI?=
- =?us-ascii?Q?k5i8zc2PtLDvlkpZfxeMBvPd0dDs/zJ1lZhAW4P3sSnwyYLooHSsVjt1FyNw?=
- =?us-ascii?Q?uN1s3jgQONSgRmiQ5VavVqBpiLZfdxwpKWdEIXWXmp9XmbfbuiGuh9uMqVBD?=
- =?us-ascii?Q?Co67/IVpKlJ5d5AScR1AvnV+y6ZJCKnl0KNTjrfxcOE16nzWTwmJU+Q2f1gy?=
- =?us-ascii?Q?JxJ9L2Gz6KppkgvfruFUH18h9T6uw2CFck7Sp4asNWiCizkow0QiqvAaLHwD?=
- =?us-ascii?Q?OKW+BqAQmM/Ct4OhwW0t1glAyfFL3XIV5HG6ka/O2GZRGBxvIPe0QUClbEPg?=
- =?us-ascii?Q?s1bE9vyGBRr3OLGtz0oFiOF7mjEXZZto5vo0V+skRooeYjLD6PA6bLEw+gP6?=
- =?us-ascii?Q?d/mMPtwMjhP6hcn/HfX0BuS9yTICsrZ3J6nnL1R1X1SN4Gnz?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 53cee133-0d8b-49a4-2fed-08dec31cd1c0
-X-MS-Exchange-CrossTenant-AuthSource: LV8PR12MB9620.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jun 2026 16:09:28.0045
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: kDkn9xHjNdBJ6u7BHHrAd1jYRHBKEbwD51lIWi/JhOWB9ICNzNeo0+tJRH1vDdYF
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7752
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: ardb+git@google.com, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, will@kernel.org, catalin.marinas@arm.com, ardb@kernel.org, kevin.brodsky@arm.com, broonie@kernel.org, stable@vger.kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-On Mon, Jun 01, 2026 at 01:52:30PM -0300, Jason Gunthorpe wrote:
-> The types are tricky here as we have a mixture of u64, dma_addr_t and
-> unsigned long used purposefully for different things:
->  - The on-the-wire IOVA address of the MR is u64
->  - The dma address is dma_addr_t which can be u32 or u64
->  - unsigned long is used for pgsize, mostly because a bunch of bit math
->    helper functions are used and they are obnoxious to use u64
+On Thu, 04 Jun 2026 16:11:56 +0100,
+Ard Biesheuvel <ardb+git@google.com> wrote:
 > 
-> Fix various silent truncations, issues on 32 bit compiles and
-> understandability.
+> From: Ard Biesheuvel <ardb@kernel.org>
 > 
-> Jason Gunthorpe (3):
->   RDMA/umem: Be careful about boundary conditions in
->     ib_umem_find_best_pgsz()
->   RDMA/umem: Make ib_umem_is_contiguous() safe on 32 bit
+> Commit
+> 
+>    f620d66af316 ("arm64: mte: Do not flag the zero page as PG_mte_tagged")
+> 
+> removed the PG_mte_tagged flag from the zero page, but missed a KVM code
+> path that may set this flag on the zero page when it is used in a
+> stage-2 CoW mapping of anonymous memory.
+> 
+> So disregard the zero page explicitly in sanitise_mte_tags().
+> 
+> Fixes: f620d66af316 ("arm64: mte: Do not flag the zero page as PG_mte_tagged")
+> Cc: <stable@vger.kernel.org> # 5.10.x
+> Suggested-by: Catalin Marinas <catalin.marinas@arm.com>
+> Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
+> ---
+>  arch/arm64/kvm/mmu.c | 5 +++++
+>  1 file changed, 5 insertions(+)
+> 
+> diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
+> index d089c107d9b7..445d6cf035c9 100644
+> --- a/arch/arm64/kvm/mmu.c
+> +++ b/arch/arm64/kvm/mmu.c
+> @@ -1479,6 +1479,11 @@ static void sanitise_mte_tags(struct kvm *kvm, kvm_pfn_t pfn,
+>  	if (!kvm_has_mte(kvm))
+>  		return;
+>  
+> +	if (is_zero_pfn(pfn)) {
+> +		WARN_ON_ONCE(nr_pages != 1);
+> +		return;
+> +	}
+> +
+>  	if (folio_test_hugetlb(folio)) {
+>  		/* Hugetlb has MTE flags set on head page only */
+>  		if (folio_try_hugetlb_mte_tagging(folio)) {
 
-Applied
+Reviewed-by: Marc Zyngier <maz@kernel.org>
 
-Thanks,
-Jason
+	M.
+
+-- 
+Without deviation from the norm, progress is not possible.
