@@ -1,183 +1,172 @@
-Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out-173.mta0.migadu.com (out-173.mta0.migadu.com [91.218.175.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2131388382
-	for <stable@vger.kernel.org>; Fri,  5 Jun 2026 20:22:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.42
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780690943; cv=pass; b=Xy+QXRFlfwT5/Gg9cBwHw7dXM+fF7IpbGXmxdAPTJbrijW3IEVwWGii1eKQk8PVHIf372Q4Cf3crJ+zAIn6Rzwy191pjZlptPXb089zTJx3HJVsHxXJSW0F7q65NsGYr/3uqb+HdNlB4bVj4xqtRsDwSkthHY9l5rl83MzZWR40=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780690943; c=relaxed/simple;
-	bh=ntVHIrDqdpVdp00P0BNYVr6jVg4MJUDRyW7ggEFOpn4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=bo0jTK8IR/FbUXmTCRbR7s9nvWIeWTU35yY6btpGvVwGKHNZZrSna7wY/+FUPIaRCjzdRtkI09FM1RWC1OzVSg+P/DPkM3LANVEPTi/pQHZfguNnaryU7ANhuhdyAs6eKBQajf92To22Ra0nkYr6i+T5mwC8OkusnAk9t9m1Ilg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HZXqFebk; arc=pass smtp.client-ip=74.125.82.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19A7A3ABD96
+	for <stable@vger.kernel.org>; Fri,  5 Jun 2026 20:24:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.173
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780691057; cv=none; b=qXrQv3btXH81VUuWaQ44XElsKTsGd2ckQvP/mpc6pTbOn5VhhrzEjt2+JgrLxPb+krjI+DNG10/bmhZP43gyYV31fA4KKX2yaDdPe9NBmxinknzuwDq9AdOZYqq+NLVCG9pSnEIHjMf9oK5jDBnNf/thObuNZ69k5oQocssgrAY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780691057; c=relaxed/simple;
+	bh=0alPM7ZjfAMd/ki603E0PbGRvyrSgLB7F40WRIYVdF4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=JdE6yZlhHtfdJKj/5wzF8iJl0rvWCd1ralE4xFygGswn7VQ5CB/I3SZuEXAtgWQlvgZBxFndFunfj+x4XB67J6l1v4ZtmSKzxU8y+fJtrcmZyc0nyNusW7mOX48Gn85NTBAGk1O/GK2uT74qRRXxiPKM98ZlmCvOUfqjZBQ6o2c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=NzOuKHoK; arc=none smtp.client-ip=91.218.175.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HZXqFebk"
-Received: by mail-dl1-f42.google.com with SMTP id a92af1059eb24-137dd3bb44eso47492c88.0
-        for <stable@vger.kernel.org>; Fri, 05 Jun 2026 13:22:22 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1780690942; cv=none;
-        d=google.com; s=arc-20240605;
-        b=Y7zm+xSqJgzbo/wkSU0T47btvxm6zMPvmO1J/YEESUhOqa0GyVPnjHRdKvSGBdJHMm
-         ExtulEVF0J8VVwGXkasLqYbgMhMd9jZJSfAplSNCPoF0p9VAebKqKC+RCO7cPDdHy83Z
-         6EW1IMqzMKkChb52CXSwk4+8/O/0Z/NRVXlCfJhel+d+cimFCKeUCmzs27t/fkLMl48v
-         DFqjy/cBsj3vLIaeQ5zcs4Zp6GwHAriz6R0kF0swRcKwYNsE1oev3d5Xnvqf87eQd9xc
-         GJ0iNKWvEvmUAGd/gplQco0PLq2BF0pDljyCWgKSYAwvrNW7YL+Mw8zpAnO/b/J6V5yM
-         dNjQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Jd8zZoj15MB4D27exy0vziD0YMpZOpqLLJrmgLP/VUs=;
-        fh=wdfYIt3HJwD5qWDIiSF37mWu1Q/xD+9oa/9sgS278cE=;
-        b=A26aroK6VokTPAzhjAhcN2RfIv6B1sj5/+nqD9+6/0GYn/2ZbPTjXfgrCl/4mhkLoI
-         VXUhJLp90aTCdwlrKtRNxdgLzbHX4UAoOdRQRLLTapWECJLGUCtgSdpY0MQ9p0R4hYSG
-         GWFxj6wewgOnMO/k7XO5Lt/JfctU5vHDKEU9vJZwXqkUaIeJKKcQT8PgBVulF8z7hjoa
-         Dv82v4SEOjl3y5t+vm8JoXNTroE6mNM11ysa9Cjsa3ELItSxHRrLKItG0J1SoODz3s3Y
-         k9+faqUmMAssGuuCokITtGxuuZiiJ1vI3QmUi5znmkj126VsxlcO516KBkY2SaVQGd84
-         PXIw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780690942; x=1781295742; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Jd8zZoj15MB4D27exy0vziD0YMpZOpqLLJrmgLP/VUs=;
-        b=HZXqFebkT65uBuy+8vdYxDHmgysVaZxYi0jxeJkNTHuodXXEHEl8APKxa9twe+NUe2
-         iaAV9tCGWjUioNSlvMO6Ou2SHInT/C9kD88jTk4LflCzqXlFRwzD3+XgeOo3R20Ga0N0
-         03mXKO1o8kxzb1NODTGkBF2rODasB9xVktDYOYVrnH8wRJfgrJE/828kLjG++iXvl5AM
-         xD7g/860ku+C+G1qYKcM8zTA4RMSkxMP4p5829KHKc11Our7Jn5y+k5Jm9rTv6b7FvY4
-         qzM+ty0jm1jvLfYqWBaeunc6CGUbiLJDpmOwKlv2ZQL22NPqEzn9L+6cJRXTXZb86IvC
-         adLA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780690942; x=1781295742;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=Jd8zZoj15MB4D27exy0vziD0YMpZOpqLLJrmgLP/VUs=;
-        b=eKvjn/WbqdkDI3a3sHbxeDI3ayC5mpl/RlGagi5OCag68bPjLUPkQN7afta/DJZg3o
-         tXViJTMbJEUp8Ar//RemyuSAkBqLTkYTHNgP1qc9/Sp+Nwfz+71pxaiKFthKr1y0BuI/
-         iH+ThYjh7ut+K8bXdVE8SCjRtBFtZbx3QxIHrSx0aKe7ffzVCiS+IbpgvaXtauCGopIb
-         PRjQ0/u0mXZDFasyVnuNBJEO8j4Ok7hCseKOEtwi5D3ri6GjxG/EzsqC2cz31g2hO55d
-         ywQ6kDyJe3OxUlHBM8h7pnrRSHdI+YyI4uG1l4YUyh52sed0YS4buUdNh9rX2xV9lQkB
-         YVOQ==
-X-Forwarded-Encrypted: i=1; AFNElJ+xG+VcIyPf89KUN9KPoW/GStlyqItPRaNl32XLmfkDzdUApf26vITRe1/IGpz2rpRTppr3wKw=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwNzwpNV5DCTBMRSfftA7vTs7k/lfY/KZsn7ECwRKu/M+EIEXWz
-	LUY34tZValSr/AoojtPZIY29jtqiUHIQRbSMTFbLw5CO9RGgUev3j94jOeEmA7tFgPUk+wlp50C
-	FpIDqJD6ZJPeaN2il0tL8r4oDvPhiz1w=
-X-Gm-Gg: Acq92OHbFIcPYyZH6P5EJvoEllBJW5phH9J8EyK7AjEhaGe9rK3en5ECHrr486f6IXS
-	FXGHaMhRM48ZwiH0ek1x5XG23QC+fRP86P5GqF0cI03cLvdLgTqDo/NK/+sh1av6vVvTLK91wqJ
-	DEcWi7mDhVb/eDePc7p91ZSpaScOYQwMsAOK6ElRKKq8FvZ42/DLS6EoAIWvR9d52584DhW+Q8r
-	FtKEYEE7iPWe7OdCfPQRZu8pQ9GivzpwopiK38/QsQ4UMZ6UJINQY7778Sdd5BbRVwii/s6aE20
-	DY36A78TohLRwqbXKLqIBHuzoiQbLZjxr/hNKPNQy34E0nxfF3Xd3e+dK8zWzBMe34X0IV8ejcf
-	AE3m8
-X-Received: by 2002:a05:7022:423:b0:137:fdce:fec2 with SMTP id
- a92af1059eb24-138067f0b96mr1031445c88.4.1780690941599; Fri, 05 Jun 2026
- 13:22:21 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="NzOuKHoK"
+Message-ID: <8ae64c12-ee5b-4fec-a008-59eb82195331@linux.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1780691043;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ZclMYE4IkSoYpFS6tYNVUrhNnQaNYjUHDBmwWWKMtag=;
+	b=NzOuKHoKcfLKFv9tsNIN0ji6QZQCek08iUgMDSPnaIdiP8taf3rS/rJE0SDzz1ysFMprGl
+	0vDyWCxuESXl80XMeisjTr0IIMIsVyJ09Xy22kAnzsUwhrPLHmnP37SvkIMNzdJ86Q9PVK
+	fD8H7y0PXk1c9fDSO0G5+2vjxGhqoss=
+Date: Fri, 5 Jun 2026 13:23:50 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260605091803.6018-1-vulab@iscas.ac.cn>
-In-Reply-To: <20260605091803.6018-1-vulab@iscas.ac.cn>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 5 Jun 2026 16:22:09 -0400
-X-Gm-Features: AVHnY4Itf_LGBLOFfworAGpTyhoHXZvSw8OTwPFhRJI4fD0sd3Y6MHVuNEzj0Ic
-Message-ID: <CADnq5_PejRC_QGGYvph_0jAyGWX475LvxTVHZVo3qvH7ZVgv+A@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: fix fence reference leak in amdgpu_gfx_run_cleaner_shader_job
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com, 
-	simona@ffwll.ch, lijo.lazar@amd.com, aurabindo.pillai@amd.com, 
-	superm1@kernel.org, Hawking.Zhang@amd.com, amd-gfx@lists.freedesktop.org, 
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 6.6] RDMA/rxe: Fix "trying to register non-static key in
+ rxe_qp_do_cleanup" bug
+To: Vladislav Nikolaev <vlad102nikolaev@gmail.com>, stable@vger.kernel.org,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Zhu Yanjun <yanjun.zhu@linux.dev>
+Cc: Zhu Yanjun <zyjzyj2000@gmail.com>, Doug Ledford <dledford@redhat.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Haggai Eran <haggaie@mellanox.com>,
+ Kamal Heib <kamalh@mellanox.com>, Amir Vadai <amirv@mellanox.com>,
+ Moni Shoua <monis@mellanox.com>, Yonatan Cohen <yonatanc@mellanox.com>,
+ Leon Romanovsky <leon@kernel.org>, linux-rdma@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Zhu Yanjun <yanjunz@nvidia.com>,
+ lvc-project@linuxtesting.org,
+ syzbot+4edb496c3cad6e953a31@syzkaller.appspotmail.com
+References: <20260605165556.1082-1-vlad102nikolaev@gmail.com>
+Content-Language: en-US
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: "yanjun.zhu" <yanjun.zhu@linux.dev>
+In-Reply-To: <20260605165556.1082-1-vlad102nikolaev@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Migadu-Flow: FLOW_OUT
 
-On Fri, Jun 5, 2026 at 5:24=E2=80=AFAM Wentao Liang <vulab@iscas.ac.cn> wro=
-te:
->
-> In amdgpu_gfx_run_cleaner_shader_job(), amdgpu_job_submit() returns a
-> dma_fence with an elevated reference count. The function correctly
-> releases this reference on the success path after dma_fence_wait().
-> However, if dma_fence_wait() fails (e.g., due to a signal interruption),
-> the code jumps to the error label without calling dma_fence_put(),
-> resulting in a reference leak.
->
-> Fix the leak by adding dma_fence_put(f) before the goto err when
-> dma_fence_wait() returns an error.
->
-> Fixes: 559a285816af ("drm/amdgpu: Replace 'amdgpu_job_submit_direct' with=
- 'drm_sched_entity' in cleaner shader")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+On 6/5/26 9:55 AM, Vladislav Nikolaev wrote:
+> From: Zhu Yanjun <yanjun.zhu@linux.dev>
+> 
+> commit 1c7eec4d5f3b39cdea2153abaebf1b7229a47072 upstream.
+> 
+> Call Trace:
+>   <TASK>
+>   __dump_stack lib/dump_stack.c:94 [inline]
+>   dump_stack_lvl+0x116/0x1f0 lib/dump_stack.c:120
+>   assign_lock_key kernel/locking/lockdep.c:986 [inline]
+>   register_lock_class+0x4a3/0x4c0 kernel/locking/lockdep.c:1300
+>   __lock_acquire+0x99/0x1ba0 kernel/locking/lockdep.c:5110
+>   lock_acquire kernel/locking/lockdep.c:5866 [inline]
+>   lock_acquire+0x179/0x350 kernel/locking/lockdep.c:5823
+>   __timer_delete_sync+0x152/0x1b0 kernel/time/timer.c:1644
+>   rxe_qp_do_cleanup+0x5c3/0x7e0 drivers/infiniband/sw/rxe/rxe_qp.c:815
+>   execute_in_process_context+0x3a/0x160 kernel/workqueue.c:4596
+>   __rxe_cleanup+0x267/0x3c0 drivers/infiniband/sw/rxe/rxe_pool.c:232
+>   rxe_create_qp+0x3f7/0x5f0 drivers/infiniband/sw/rxe/rxe_verbs.c:604
+>   create_qp+0x62d/0xa80 drivers/infiniband/core/verbs.c:1250
+>   ib_create_qp_kernel+0x9f/0x310 drivers/infiniband/core/verbs.c:1361
+>   ib_create_qp include/rdma/ib_verbs.h:3803 [inline]
+>   rdma_create_qp+0x10c/0x340 drivers/infiniband/core/cma.c:1144
+>   rds_ib_setup_qp+0xc86/0x19a0 net/rds/ib_cm.c:600
+>   rds_ib_cm_initiate_connect+0x1e8/0x3d0 net/rds/ib_cm.c:944
+>   rds_rdma_cm_event_handler_cmn+0x61f/0x8c0 net/rds/rdma_transport.c:109
+>   cma_cm_event_handler+0x94/0x300 drivers/infiniband/core/cma.c:2184
+>   cma_work_handler+0x15b/0x230 drivers/infiniband/core/cma.c:3042
+>   process_one_work+0x9cc/0x1b70 kernel/workqueue.c:3238
+>   process_scheduled_works kernel/workqueue.c:3319 [inline]
+>   worker_thread+0x6c8/0xf10 kernel/workqueue.c:3400
+>   kthread+0x3c2/0x780 kernel/kthread.c:464
+>   ret_from_fork+0x45/0x80 arch/x86/kernel/process.c:153
+>   ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+>   </TASK>
+> 
+> The root cause is as below:
+> 
+> In the function rxe_create_qp, the function rxe_qp_from_init is called
+> to create qp, if this function rxe_qp_from_init fails, rxe_cleanup will
+> be called to handle all the allocated resources, including the timers:
+> retrans_timer and rnr_nak_timer.
+> 
+> The function rxe_qp_from_init calls the function rxe_qp_init_req to
+> initialize the timers: retrans_timer and rnr_nak_timer.
+> 
+> But these timers are initialized in the end of rxe_qp_init_req.
+> If some errors occur before the initialization of these timers, this
+> problem will occur.
+> 
+> The solution is to check whether these timers are initialized or not.
+> If these timers are not initialized, ignore these timers.
+> 
+> Fixes: 8700e3e7c485 ("Soft RoCE driver")
+> Reported-by: syzbot+4edb496c3cad6e953a31@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=4edb496c3cad6e953a31
+> Signed-off-by: Zhu Yanjun <yanjun.zhu@linux.dev>
+> Link: https://patch.msgid.link/20250419080741.1515231-1-yanjun.zhu@linux.dev
+> Signed-off-by: Leon Romanovsky <leon@kernel.org>
+> [ Vladislav: keep del_timer_sync() because linux-6.6.y has not renamed it
+>    to timer_delete_sync() yet. The actual fix is unchanged: check the timer
+>    .function fields before deleting the timers. ]
+> Signed-off-by: Vladislav Nikolaev <vlad102nikolaev@gmail.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_gfx.c
-> index b8ca876694ff..88bec4e93712 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> @@ -1686,8 +1686,10 @@ static int amdgpu_gfx_run_cleaner_shader_job(struc=
-t amdgpu_ring *ring)
->         f =3D amdgpu_job_submit(job);
->
->         r =3D dma_fence_wait(f, false);
-> -       if (r)
-> +       if (r) {
-> +               dma_fence_put(f);
->                 goto err;
-> +       }
+> Backport of upstream commit 1c7eec4d5f3b to linux-6.6.y.
+>   drivers/infiniband/sw/rxe/rxe_qp.c | 7 ++++++-
+>   1 file changed, 6 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/infiniband/sw/rxe/rxe_qp.c b/drivers/infiniband/sw/rxe/rxe_qp.c
+> index 287fc8b8f5ba..8426c261c263 100644
+> --- a/drivers/infiniband/sw/rxe/rxe_qp.c
+> +++ b/drivers/infiniband/sw/rxe/rxe_qp.c
+> @@ -817,7 +817,12 @@ static void rxe_qp_do_cleanup(struct work_struct *work)
+>   	spin_unlock_irqrestore(&qp->state_lock, flags);
+>   	qp->qp_timeout_jiffies = 0;
+>   
+> -	if (qp_type(qp) == IB_QPT_RC) {
+> +	/* In the function timer_setup, .function is initialized. If .function
+> +	 * is NULL, it indicates the function timer_setup is not called, the
+> +	 * timer is not initialized. Or else, the timer is initialized.
+> +	 */
+> +	if (qp_type(qp) == IB_QPT_RC && qp->retrans_timer.function &&
+> +		qp->rnr_nak_timer.function) {
+>   		del_timer_sync(&qp->retrans_timer);
+>   		del_timer_sync(&qp->rnr_nak_timer);
+>   	}
+Thanks a lot.
 
-I think all of the clean up paths have issues.  How about something like th=
-is:
+Sashiko:
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-index 321d7aa52f042..848846ac9391e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-@@ -1701,7 +1701,7 @@ static int
-amdgpu_gfx_run_cleaner_shader_job(struct amdgpu_ring *ring)
-                                  &sched, 1, NULL);
-        if (r) {
-                dev_err(adev->dev, "Failed setting up GFX kernel entity.\n"=
-);
--               goto err;
-+               return r;
-        }
+This isn't a bug introduced by this patch, but does this teardown sequence
+leave a window for the timer to be illegally re-armed?
+rxe_qp_do_cleanup() deletes the timers here before the asynchronous tasks
+(like the completer task) are fully stopped by rxe_cleanup_task() just below
+this block.
+If rxe_completer() is already executing and has passed the qp->valid check
+before it was cleared, del_timer_sync() will return immediately as the timer
+isn't pending.
+Then, rxe_completer() can process an incoming RNR NAK and reach
+COMPST_RNR_RETRY, where it calls mod_timer(&qp->rnr_nak_timer, ...) without
+holding the state_lock.
+When the cleanup task unblocks and finishes, ib_destroy_qp_user() frees the
+qp memory. Later, the newly armed rnr_nak_timer fires, and the
+rnr_nak_timer() callback attempts to acquire the freed qp->state_lock,
+resulting in a use-after-free.
+Additionally, if a timer fires concurrently with teardown while the refcount
+is already 0, it invokes rxe_sched_task(). The underlying rxe_get() fails
+silently on the 0-refcount, but the task is still queued. When the task
+finishes, it calls rxe_put(), triggering a refcount_t underflow.
 
-        /*
-@@ -1729,16 +1729,12 @@ static int
-amdgpu_gfx_run_cleaner_shader_job(struct amdgpu_ring *ring)
-        f =3D amdgpu_job_submit(job);
+I think it is not caused from this commit.
+I am fine with this patch.
 
-        r =3D dma_fence_wait(f, false);
--       if (r)
--               goto err;
-
-        dma_fence_put(f);
-
-+err:
-        /* Clean up the scheduler entity */
-        drm_sched_entity_destroy(&entity);
--       return 0;
--
--err:
-        return r;
- }
-
-
-
->
->         dma_fence_put(f);
->
-> --
-> 2.34.1
->
+Zhu Yanjun
