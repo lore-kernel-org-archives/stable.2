@@ -1,85 +1,105 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5500E23D2B1
-	for <stable@vger.kernel.org>; Thu,  4 Jun 2026 23:49:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAF341E5B63;
+	Fri,  5 Jun 2026 00:33:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780616981; cv=none; b=Qrvhnl5X0F7Hk3koB+sZtpcABovAF/WRIARw8RP456z8yOUn5s9wk8DbFjzUKzsFaUcsH1dBZ2pDiVNaKz40UWuYSHdBDd7KlRt0Ox9EZ8J2s3pFfy9ixgzcdRm54yB2EqzUz6D4RRt7k1V0eY3FhuVtTlsJBJ7AeZj1kNkdAok=
+	t=1780619614; cv=none; b=K4aAET5RNVqzNQwlbJ1oSN2L8exxysWazQQQcaH5RjdzCUt48eDs57pnSTmE0KAPBPykpNkfwYAS7IbKOwRJe9+nXOaQaWZLPkbP2MXml/9UFdqcIyEFmvVMriaWyI43ougIND3tCjlIb3Lp5ngSXyGLpnHKhqfEe2JyZFzUMts=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780616981; c=relaxed/simple;
-	bh=+whGo6ZIDIz8BUU7OxntGw4icXzKoi3EBmNyNHpp2Hg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=VbfDvsn5RddvzvLCd4NH/svtlrCfwMNYReGpG6aAGn2/vhXPf/dI7x6q1qQR4Inq/VFNywr2xrPxcrKfq5y8YG7FZQbVI0KfhnxZFl7ndpHs5djSe7+ESzIqG/Cta+cefyP7QJliAvMbvT6hk3pCKGZeDitMii/StejZ28ekwgw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Kvytv2an; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780619614; c=relaxed/simple;
+	bh=FiIhFTMpDiko60PkDxAKjTjhqyUO6mVmOJmI7hvwhKw=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=QN5QBGuQ5BFYTNWTLZtKbTcXLSqONANG5Yn3hTjI4GceTW6M2db/G2MFgBGyKTCS6eUPOVIiaS7ZQUJc5nZihzor80De95cXaa8JhfYe+aWqJ+yjJuDLeQsDd6VU08I6jkAKKx2juKJHTPyjj75pHOePYDmAuCV/DegQr7dTKDI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lW3boJ0L; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Kvytv2an"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5815E1F00893;
-	Thu,  4 Jun 2026 23:49:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lW3boJ0L"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96DDD1F00893;
+	Fri,  5 Jun 2026 00:33:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780616980;
-	bh=XB9gs2JbWkb0blcNCyuEBzv8mSgI+42BYzx60emjoaw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Kvytv2anteH9riwBUsga+dATzeq4LN6dCKcy9wfYqk+YEzspvxucPZi7w7YAG7tlf
-	 3gumoAbagVB3H/66NjoP+wB4BbVpJRpQeO8iZYwLYPqUEu0JQTz6QPUhnw/mRIH1Qw
-	 fWac6+2cZzv/6L1N2RmxPwPjdSx65mzIv1iOn9mOW3ZwWRhEUc49Fy2rUW2W1ouLZQ
-	 pKeaulEeB861mvFASJfCrdv5iHciyZpXVf0yoQTkprF6E1N3l83wBHRtv59Xzk5jF0
-	 DXrXMsXg1Q4od4yuKp90hY/nIl67rKheoEEP/3JndCm9abZoCsQQEuEl2+gAlTGCq2
-	 BaOChce5b8pRg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Antoniu Miclaus <antoniu.miclaus@analog.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Stable@vger.kernel.org,
-	Jonathan Cameron <Jonathan.Cameron@huawei.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] iio: gyro: adis16260: fix division by zero in write_raw
-Date: Thu,  4 Jun 2026 19:49:37 -0400
-Message-ID: <20260604234937.2471947-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026060454-applause-magnify-a2fc@gregkh>
-References: <2026060454-applause-magnify-a2fc@gregkh>
+	s=k20260515; t=1780619613;
+	bh=1Fql6FtY6DpZSGux+lI1tMeBBWlScRTWwhveUt8GEA8=;
+	h=From:Date:Subject:To:Cc;
+	b=lW3boJ0LmgfgckSGy6GxiEZ66O9yCvpVtIy4zFIoDMRauMJHDs5ORItzr40vvjVMd
+	 70wSR9XfFQgfhwdfAfhvyr/J2xZq7948718pDFIc6y348FFvv2ZUtLHClkfBp6tRGL
+	 0Mnub7QutkPZBeT5NXMhJXx4pxLuLpSxzZIQoiq+R45MySj95G+FvxkRin01J/mr/4
+	 s2CYClUhE4hkIHblTTVjsWOoqV+D61Uxjv/+YLD9i22UI9Z8BIUHtQrDfh68RkC9Jw
+	 nn7z6YyXjgorxAGSgABLGwlxzS4oR6VL3B5iAkR57KPYNJg+DbN9yu5xkWJKKBnNxp
+	 g+E0WuN3EJdSQ==
+From: Nathan Chancellor <nathan@kernel.org>
+Date: Thu, 04 Jun 2026 17:33:21 -0700
+Subject: [PATCH] cfi: Include uaccess.h for get_kernel_nofault()
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260604-tracing-fix-cfi-h-build-error-v1-1-b27015390901@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDMBBA0avIrDsQY5tCryJdmMlEp5QoExVBv
+ HujXT74/B0yq3CGV7WD8ipZxlRQ3yqgoUs9o4RisMY648wdZ+1IUo9RNqQoOKBf5BuQVUfFxpH
+ 1TPEZ6geUx6Rcwuvfvv/Oi/8wzecUjuMHvFNyQYEAAAA=
+X-Change-ID: 20260604-tracing-fix-cfi-h-build-error-36c2becf7d15
+To: Steven Rostedt <rostedt@goodmis.org>
+Cc: Sami Cclvanen <samitolvanen@google.com>, Kees Cook <kees@kernel.org>, 
+ Eva Kurchatova <eva.kurchatova@virtuozzo.com>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, llvm@lists.linux.dev, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ Nathan Chancellor <nathan@kernel.org>
+X-Mailer: b4 0.16-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1580; i=nathan@kernel.org;
+ h=from:subject:message-id; bh=FiIhFTMpDiko60PkDxAKjTjhqyUO6mVmOJmI7hvwhKw=;
+ b=owGbwMvMwCUmm602sfCA1DTG02pJDFlKktFNVepzVVgLy7iV/9TvTJmVO02uq6qQ58Ft+Uc1O
+ 9X/L27sKGVhEONikBVTZKl+rHrc0HDOWcYbpybBzGFlAhnCwMUpABNZfJHhfyHb30V27se2Xbez
+ evs7XS5EPqXHytRyiazdv7lXZ4ps3MbIsK//9LTdD159D56yfeHK/PiafvY7370nu09Zfm3umar
+ lG9kA
+X-Developer-Key: i=nathan@kernel.org; a=openpgp;
+ fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
 
-From: Antoniu Miclaus <antoniu.miclaus@analog.com>
+After commit 0652a3daa787 ("tracing: Fix CFI violation in probestub
+being called by tprobes"), there are many build errors when building
+ARCH=arm multi_v7_defconfig + CONFIG_CFI=y like:
 
-[ Upstream commit 761e8b489e6cf166c574034b70637f8a7eadd0ee ]
+  In file included from drivers/base/devres.c:17:
+  In file included from drivers/base/trace.h:16:
+  In file included from include/linux/tracepoint.h:23:
+  include/linux/cfi.h:44:6: error: call to undeclared function 'get_kernel_nofault'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+     44 |         if (get_kernel_nofault(hash, func - cfi_get_offset()))
+        |             ^
+  1 error generated.
 
-Add a validation check for the sampling frequency value before using it
-as a divisor. A user writing zero to the sampling_frequency sysfs
-attribute triggers a division by zero in the kernel.
+get_kernel_nofault() is called in the generic version of
+cfi_get_func_hash() but nothing ensures uaccess.h is always included for
+a proper expansion and prototype. Include uaccess.h in cfi.h to clear up
+the errors.
 
-Fixes: 089a41985c6c ("staging: iio: adis16260 digital gyro driver")
-Signed-off-by: Antoniu Miclaus <antoniu.miclaus@analog.com>
-Reviewed-by: Nuno Sá <nuno.sa@analog.com>
-Cc: <Stable@vger.kernel.org>
-Signed-off-by: Jonathan Cameron <Jonathan.Cameron@huawei.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Cc: stable@vger.kernel.org
+Fixes: 0652a3daa787 ("tracing: Fix CFI violation in probestub being called by tprobes")
+Signed-off-by: Nathan Chancellor <nathan@kernel.org>
 ---
- drivers/iio/gyro/adis16260.c | 3 +++
- 1 file changed, 3 insertions(+)
+ include/linux/cfi.h | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/iio/gyro/adis16260.c b/drivers/iio/gyro/adis16260.c
-index 1e45d93de5b7ca..27f5ee4148ff30 100644
---- a/drivers/iio/gyro/adis16260.c
-+++ b/drivers/iio/gyro/adis16260.c
-@@ -293,6 +293,9 @@ static int adis16260_write_raw(struct iio_dev *indio_dev,
- 		addr = adis16260_addresses[chan->scan_index][1];
- 		return adis_write_reg_16(adis, addr, val);
- 	case IIO_CHAN_INFO_SAMP_FREQ:
-+		if (val <= 0)
-+			return -EINVAL;
-+
- 		mutex_lock(&adis->state_lock);
- 		if (spi_get_device_id(adis->spi)->driver_data)
- 			t = 256 / val;
--- 
-2.53.0
+diff --git a/include/linux/cfi.h b/include/linux/cfi.h
+index 1fd22ea6eba4..0f220d29225c 100644
+--- a/include/linux/cfi.h
++++ b/include/linux/cfi.h
+@@ -9,6 +9,7 @@
+ 
+ #include <linux/bug.h>
+ #include <linux/module.h>
++#include <linux/uaccess.h>
+ #include <asm/cfi.h>
+ 
+ #ifdef CONFIG_CFI
+
+---
+base-commit: 0652a3daa78723f955b1ebeb621665ce72bec53e
+change-id: 20260604-tracing-fix-cfi-h-build-error-36c2becf7d15
+
+Best regards,
+--  
+Cheers,
+Nathan
 
