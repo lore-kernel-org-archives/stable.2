@@ -1,227 +1,122 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9880940242E;
-	Fri,  5 Jun 2026 07:02:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1742466B73;
+	Fri,  5 Jun 2026 07:08:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780642956; cv=none; b=AxpPWkefKKy+dq2waltTxVcPwEqKBhSxBY7luOms1YovhfTJ7P9ylI3lpaZq1xAH/nw2xES/d5w9F67sv0WPhR8iWNr2TF7S6lRLv9+KMW1pOjqn5yYZSCc/JUc/s2anfEcUvOnCQbbbNVPQSk9IZ/9B0qG3Z1LyCjGzHPe0Ofw=
+	t=1780643334; cv=none; b=UOGrDOxUbDFn4js85qA4Wv6xbO+zKRTstepenriws/O+dGPZlzu6VFbwzd8/KF+A87ydngBx2rGVrmNoaF7+ESfbC3K/i99I63rXdb4Zqu6VsItUlLze4Q7slR5iShyiub8L4qSItf2PAixnhZ66OLIC5Zo0MvOpaXLamBNW9Cs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780642956; c=relaxed/simple;
-	bh=EFGeluncc9bSfyM5uQew0OqVIBlrOBxS+F68KlRdc1Q=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=h1ZZGOyzTHeRvIWa5UpXfne/PFZHPr+2DkQ11dACNcJ3KHWJt3QgKvNdR+1EBG2bc15GYrH4tP1b3lX7uktODltOdaHGj4q9CaUKq72WFznGurlS7ZDC/MHQH3s6Bi1dDu9aK8zyWAzQSPBlJz59l4tnfzIWiZk3dgWh2iOsdBE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=KlO3B+Vp; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	s=arc-20240116; t=1780643334; c=relaxed/simple;
+	bh=QLYgE3faB0Y4ODsuMCvTJ5m9OPKO6/YajYcQVTdZyvc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=LubZnyFNVSFm0WKvmBNgLAYy358RuiSsRXpzo6jJPiTPjwRulooDlALCIGNZKr+M9nVZiGoVdzCtUjkxZKr0W7TuuzvQyzuoJFN74wmKIFDkk6BhFRtrA+tahIwXiEoaMLuvlf0Pz1cpIz0joVKAncWSPwGK5OenbBjrZJhjeP0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=XAYxB+ba; arc=none smtp.client-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="KlO3B+Vp"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 65572TyfC1208320, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1780642949; bh=3RLzl/J92jZyUCnh0oN9f4vGr8dbHrP0TQA45xxI5Hw=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=KlO3B+Vpp/lKIBLEvyIDDuQ23unqlcWlx4yIof8f/Ug99DDbP4UqTyBVETgyCKkq/
-	 WmPgwfPJe2IeYo46zfhVwjTuoUfx8kC8GARa007asCL/qXdz4rmI/ht9WpPtEq372K
-	 4YZz5LgKZuHQtsUj/oF8nxvTytw9KdRTGmdPMNnO2padUovOLZCquMvkSlhxm8G6PX
-	 CNz8hUMogDjZNSVQM0VVOvJ2OJdi492jkgQI3u3HDCxAAPTI8wsDyvgA5V4+UTvvVF
-	 8BXJR+zbwE7VkUVFxReJFImS4WbLuhDZiIvmFN6rody5R65HY5wwfhwIsehI3SXJMt
-	 QCnhv0AXaonyg==
-Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
-	by rtits2.realtek.com.tw (8.15.2/3.28/5.94) with ESMTPS id 65572TyfC1208320
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Fri, 5 Jun 2026 15:02:29 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.17; Fri, 5 Jun 2026 15:02:29 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::e6fd:5a3f:8946:92c4%10]) with mapi id
- 15.02.2562.017; Fri, 5 Jun 2026 15:02:29 +0800
-From: Kailang <kailang@realtek.com>
-To: Takashi Iwai <tiwai@suse.de>
-CC: Mike Karcic <mikekarcic@protonmail.com>, Sean Rhodes
-	<sean@starlabs.systems>, "stable@vger.kernel.org" <stable@vger.kernel.org>,
-	"regressions@lists.linux.dev" <regressions@lists.linux.dev>,
-	"linux-sound@vger.kernel.org" <linux-sound@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: RE: [REGRESSION] Speaker pop/chirp on Meteor Lake ALC287 (17aa:231e)
- -- 6.12.73 to 6.12.85
-Thread-Topic: [REGRESSION] Speaker pop/chirp on Meteor Lake ALC287 (17aa:231e)
- -- 6.12.73 to 6.12.85
-Thread-Index: AQHc7t9eJfAz3yPaB0G+XZXqEzNDFrYqzh7QgAA9JgCABITvsA==
-Date: Fri, 5 Jun 2026 07:02:29 +0000
-Message-ID: <330931ee49624f2486f66e510271d80a@realtek.com>
-References: <O6pYAi7yf23du9ivLsL0QqrnTmodj2lDTL7Wviv7I_nhjVtvllO7Y5Ban0TeTqrastb1RWhJtlkqrM3quLMWSriai-YjjGy312MTcEhxyWs=@protonmail.com>
-	<CABtds-3GOyBr1H=c5aFV1uzfkhO3d1NHMPuon_cWDq0V=pFwUA@mail.gmail.com>
-	<wZmYozyav1sNx53nFr4ShKmcdLFVJp5bdUOJgUq1I57MX6kgyq7n8XvH-MWG9Fi4q2x4CQqjEQ3Q8ok5MClut8hNixnhVmVtXkhcOzH1sw8=@protonmail.com>
-	<87eciwukvy.wl-tiwai@suse.de>
-	<RfzfjlzeaeMgNNWNST_Zzx1v49rYjM63MvAV6O5_fFIoZJ73GcN69FDLJcwhJ3s6fl9TVD2l45YBh2n3hy95LM7rhLhoVt8dU9stMkuVJvE=@protonmail.com>
-	<87mrxjsk52.wl-tiwai@suse.de>
-	<bibLdgyll9YOEDANdCBy8WOqeOeJry1SnahLR-EhoGkttJ6BE2srDZ9jv0gjkt0bA19aKivruQs3nkMQWbdEXPaOrLT80xjzF4KJvDcB-IU=@protonmail.com>
-	<87cxyfs2vm.wl-tiwai@suse.de>	<833d600fdebd4aaeab6706185ce854e6@realtek.com>
- <87wlwgygyf.wl-tiwai@suse.de>
-In-Reply-To: <87wlwgygyf.wl-tiwai@suse.de>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="XAYxB+ba"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1780643332; x=1812179332;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=QLYgE3faB0Y4ODsuMCvTJ5m9OPKO6/YajYcQVTdZyvc=;
+  b=XAYxB+ba01yS/bRteA3g4WUmi1Sn2OHivwNEXko3Q4M0Hbf7RRl7+Kg2
+   fYsc0toIDGY1Cseux1lsirchyyQbAqGoKndDruzE+rn3XkWLk9dLtsmm+
+   /DRPDLpFkWokK1l9rlyh5POXtCy3ShUXEFvukEcaA6sGFA8GP2O3O6Xex
+   JnUNRDkF9KSvfz0IlG1UpiSuBa9dZ83EhnX7s+BZSDDf/8BXgbtCLADJl
+   jNlcOyY2XafzR20ruzGy0tXsZNKQJhWuLbTInAZOmHypcaVxQ4Albj2FO
+   PSAEyTYm2pZeA+zSTZXF6DyCQwxKSdosZqoPYmfQXLnc/cqm6usrfd+0e
+   A==;
+X-CSE-ConnectionGUID: Of5pXinwTzG4tIoG1Wtacw==
+X-CSE-MsgGUID: Qrkby6PuSaSSil/Lwf6UhQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11807"; a="92850545"
+X-IronPort-AV: E=Sophos;i="6.24,188,1774335600"; 
+   d="scan'208";a="92850545"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Jun 2026 00:08:51 -0700
+X-CSE-ConnectionGUID: a8p7PPSQRjyJvTMi1Hb8lw==
+X-CSE-MsgGUID: 2HkUb3ZhR06wlAk7DXrOzQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,188,1774335600"; 
+   d="scan'208";a="268701891"
+Received: from binbinwu-mobl.ccr.corp.intel.com (HELO [10.124.241.59]) ([10.124.241.59])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Jun 2026 00:08:46 -0700
+Message-ID: <d3d30aba-a39c-4b8c-af35-5c238d530f96@linux.intel.com>
+Date: Fri, 5 Jun 2026 15:08:44 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 1/3] x86/tdx: Fix off-by-one in port I/O handling
+To: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+Cc: tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
+ dave.hansen@linux.intel.com, seanjc@google.com, pbonzini@redhat.com,
+ sathyanarayanan.kuppuswamy@linux.intel.com, kai.huang@intel.com,
+ xiaoyao.li@intel.com, rick.p.edgecombe@intel.com,
+ david.laight.linux@gmail.com, ak@linux.intel.com, djbw@kernel.org,
+ tsyrulnikov.borys@gmail.com, x86@kernel.org, kvm@vger.kernel.org,
+ linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <cover.1780584300.git.kas@kernel.org>
+ <e5a75bb68a6a778c95cac2ef77acd55cfd24d389.1780584300.git.kas@kernel.org>
+Content-Language: en-US
+From: Binbin Wu <binbin.wu@linux.intel.com>
+In-Reply-To: <e5a75bb68a6a778c95cac2ef77acd55cfd24d389.1780584300.git.kas@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
 
-Yes, it's the same codec and SSID. It's the same model of machine.
 
------Original Message-----
-From: Takashi Iwai <tiwai@suse.de>=20
-Sent: Wednesday, June 3, 2026 1:45 AM
-To: Kailang <kailang@realtek.com>
-Cc: Takashi Iwai <tiwai@suse.de>; Mike Karcic <mikekarcic@protonmail.com>; =
-Sean Rhodes <sean@starlabs.systems>; stable@vger.kernel.org; regressions@li=
-sts.linux.dev; linux-sound@vger.kernel.org; linux-kernel@vger.kernel.org
-Subject: Re: [REGRESSION] Speaker pop/chirp on Meteor Lake ALC287 (17aa:231=
-e) -- 6.12.73 to 6.12.85
+On 6/4/2026 10:46 PM, Kiryl Shutsemau (Meta) wrote:
+> handle_in() and handle_out() in arch/x86/coco/tdx/tdx.c use:
+> 
+>     u64 mask = GENMASK(BITS_PER_BYTE * size, 0);
+> 
+> GENMASK(h, l) includes bit h. For size=1 (INB), this produces
+> GENMASK(8, 0) = 0x1FF (9 bits) instead of GENMASK(7, 0) = 0xFF (8
+> bits). The mask is one bit too wide for all I/O sizes.
+> 
+> Fix the mask calculation.
+> 
+> Fixes: 03149948832a ("x86/tdx: Port I/O: Add runtime hypercalls")
+> Reported-by: Borys Tsyrulnikov <tsyrulnikov.borys@gmail.com>
+> Link: https://lore.kernel.org/all/CAKw_Dz96rfSQc6Rn+9QBcUFHhmkK+9zu+P=bxowfZwxrATCBRg@mail.gmail.com/
+> Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+> Reviewed-by: Kai Huang <kai.huang@intel.com>
+> Reviewed-by: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
+> Cc: stable@vger.kernel.org
 
+Reviewed-by: Binbin Wu <binbin.wu@linux.intel.com>
 
-External mail : This email originated from outside the organization. Do not=
- reply, click links, or open attachments unless you recognize the sender an=
-d know the content is safe.
+> ---
+>  arch/x86/coco/tdx/tdx.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/arch/x86/coco/tdx/tdx.c b/arch/x86/coco/tdx/tdx.c
+> index 186915a17c50..65119362f9a2 100644
+> --- a/arch/x86/coco/tdx/tdx.c
+> +++ b/arch/x86/coco/tdx/tdx.c
+> @@ -693,7 +693,7 @@ static bool handle_in(struct pt_regs *regs, int size, int port)
+>  		.r13 = PORT_READ,
+>  		.r14 = port,
+>  	};
+> -	u64 mask = GENMASK(BITS_PER_BYTE * size, 0);
+> +	u64 mask = GENMASK(BITS_PER_BYTE * size - 1, 0);
+>  	bool success;
+>  
+>  	/*
+> @@ -713,7 +713,7 @@ static bool handle_in(struct pt_regs *regs, int size, int port)
+>  
+>  static bool handle_out(struct pt_regs *regs, int size, int port)
+>  {
+> -	u64 mask = GENMASK(BITS_PER_BYTE * size, 0);
+> +	u64 mask = GENMASK(BITS_PER_BYTE * size - 1, 0);
+>  
+>  	/*
+>  	 * Emulate the I/O write via hypercall. More info about ABI can be found
 
-
-
-On Tue, 02 Jun 2026 08:14:14 +0200,
-Kailang wrote:
->
->
-> There were the same SSID for two different symptoms.
-> But this project was from 2025. This machine maybe didn't in our site.
-
-Aha, that can explain the difference of the behavior, then.
-Do both of them have the same codec ID and SSID, too?
-
-
-Takashi
-
->
-> -----Original Message-----
-> From: Takashi Iwai <tiwai@suse.de>
-> Sent: Friday, May 29, 2026 4:20 AM
-> To: Mike Karcic <mikekarcic@protonmail.com>
-> Cc: Kailang <kailang@realtek.com>; Takashi Iwai <tiwai@suse.de>; Sean=20
-> Rhodes <sean@starlabs.systems>; stable@vger.kernel.org;=20
-> regressions@lists.linux.dev; linux-sound@vger.kernel.org;=20
-> linux-kernel@vger.kernel.org
-> Subject: Re: [REGRESSION] Speaker pop/chirp on Meteor Lake ALC287=20
-> (17aa:231e) -- 6.12.73 to 6.12.85
->
->
-> External mail : This email originated from outside the organization. Do n=
-ot reply, click links, or open attachments unless you recognize the sender =
-and know the content is safe.
->
->
->
-> On Thu, 28 May 2026 20:27:30 +0200,
-> Mike Karcic wrote:
-> >
-> > Yes, I can confirm the patched kernel is running, and commenting out th=
-at line fixes the problem completely.
-> >
-> > Below is output with the added debug lines as requested:
-> >
-> > $ uname -r
-> > 6.12.90-debug-no-discoefs
-> >
-> > $ sudo dmesg | grep -i "alc287_alc1318"
-> > [  453.823528] snd_hda_codec_realtek ehdaudio0D0:
-> > alc287_alc1318_playback_pcm_hook called action=3D0 [  453.871577]=20
-> > snd_hda_codec_realtek ehdaudio0D0: alc287_alc1318_playback_pcm_hook=20
-> > called action=3D1 [  459.605379] snd_hda_codec_realtek ehdaudio0D0:
-> > alc287_alc1318_playback_pcm_hook called action=3D2 [  459.605497]=20
-> > snd_hda_codec_realtek ehdaudio0D0: alc287_alc1318_playback_pcm_hook=20
-> > called action=3D3
-> >
-> > $ grep -n -A5 -B2 "alc_process_coef_fw.*dis_coefs" sound/pci/hda/patch_=
-realtek.c
-> > 7918-           return;
-> > 7919-   alc_update_coef_idx(codec, 0x10, 1<<11, 1<<11);
-> > 7920:   /* alc_process_coef_fw(codec, dis_coefs); */ /* commented out f=
-or testing */
-> > 7921-   alc_process_coef_fw(codec, coefs);
-> > 7922-   spec->power_hook =3D alc287_s4_power_gpio3_default;
-> > 7923-   spec->gen.pcm_playback_hook =3D alc287_alc1318_playback_pcm_hoo=
-k;
-> > 7924-}
->
-> Hm, then the previous fix doesn't seem working, obviously.
-> Kailang, could you check this in your side?
->
-> Maybe we should apply the AMP-silence-detection disablement conditionally=
- to certain models?
->
->
-> thanks,
->
-> Takashi
->
-> >
-> >
-> >
-> > Sent with Proton Mail secure email.
-> >
-> > On Thursday, May 28th, 2026 at 10:07 AM, Takashi Iwai <tiwai@suse.de> w=
-rote:
-> >
-> > > On Thu, 28 May 2026 15:38:54 +0200, Mike Karcic wrote:
-> > > >
-> > > > I did test 46c862f5419e on 6.12.90. Chirp still present.
-> > > >
-> > > > I'm also on a ThinkPad X1 Carbon Gen 12 with ALC287 (17aa:231e),=20
-> > > > same as the original reporter. The fix resolved it for them but=20
-> > > > not for me.
-> > > >
-> > > > Only a full revert of 630fbc6e870e resolves the issue.
-> > > >
-> > > > Verification on the running kernel:
-> > > >
-> > > >   $ grep -c "dis_coefs" sound/pci/hda/patch_realtek.c
-> > > >   2
-> > > >
-> > > >   $ grep -c "en_coefs" sound/pci/hda/patch_realtek.c
-> > > >   0
-> > > >
-> > > >   $ sed -n '/alc287_alc1318_playback_pcm_hook/,/^}/p' sound/pci/hda=
-/patch_realtek.c
-> > > >   static void alc287_alc1318_playback_pcm_hook(struct hda_pcm_strea=
-m *hinfo,
-> > > >                                      struct hda_codec *codec,
-> > > >                                      struct snd_pcm_substream *subs=
-tream,
-> > > >                                      int action)
-> > > >   {
-> > > >           switch (action) {
-> > > >           case HDA_GEN_PCM_ACT_OPEN:
-> > > >                   alc_write_coefex_idx(codec, 0x5a, 0x00, 0x954f);
-> > > >                   break;
-> > > >           case HDA_GEN_PCM_ACT_CLOSE:
-> > > >                   alc_write_coefex_idx(codec, 0x5a, 0x00, 0x554f);
-> > > >                   break;
-> > > >           }
-> > > >   }
-> > > >
-> > > > Happy to test further patches.
-> > >
-> > > Just to be sure, could you verify that you've tested really the=20
-> > > patched kernel, e.g. by adding a debug print, etc?
-> > > If yes and the problem is seen even with the patch, try to comment ou=
-t
-> > >   alc_process_coef_fw(codec, dis_coefs); and confirm that this=20
-> > > fixes the problem.
-> > >
-> > >
-> > > Takashi
-> > >
