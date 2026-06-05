@@ -1,149 +1,120 @@
-Received: from mx-lax3-3.ucr.edu (mx-lax3-3.ucr.edu [169.235.156.38])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9961733E367
-	for <stable@vger.kernel.org>; Fri,  5 Jun 2026 04:12:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=169.235.156.38
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C857AEACD;
+	Fri,  5 Jun 2026 04:18:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780632772; cv=none; b=hUGg3JlH46lKxDWG5dYzRwCAhaM8XDTJtcwAEknrF++vqBjnr+TSOIQ7BbLh/F9R+4O9/gdaRA6NNr5QqojyFypLqqrQaJaJ4YlZiWfLjz/Bjl4Vvl731DE2oG5ZBIurgm9DshnNQpmpUYOIEC/8uU9IDD3UKtd27pcZgxO5OIw=
+	t=1780633135; cv=none; b=FCR8WMi91kA+e++FKaZsjjnDMfyU0P1o8qEXDCFID2KwoEiwyNPlKCYeKytESUeho8z0wRN2KI6sis+5UYrpU0sLQN+b+I8qsJjgos7AtAsZYaCjjrAYf1l4ePKzNNH1f1mVKP4XMjXQPz07ZGlEjUpYjCNfWVqkQIXdAnI1HgY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780632772; c=relaxed/simple;
-	bh=tF4VCUWMwA8I4mOEUXGPkwnpitmDIcvOstPj9/un8WQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cOJJ52whS44POHMNPbN8ONWtpZVmg/QebDE30E/xrfoQCc/cam5ibEbmD3IyDBcIhPosipVMVjZCJPPRzpHB90fgkrHnwlNYyrrPI7dGTrCjk7DLZ8E1bYfNE2gFKiegbwqBPbGvrI1M1jzrJuLQuR4Y8KXCZ9ZP5myWq+XXkO0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ucr.edu; spf=pass smtp.mailfrom=ucr.edu; dkim=pass (2048-bit key) header.d=ucr.edu header.i=@ucr.edu header.b=mBRYUpAr; dkim=pass (1024-bit key) header.d=ucr.edu header.i=@ucr.edu header.b=EomgBQkz; arc=none smtp.client-ip=169.235.156.38
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ucr.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ucr.edu
+	s=arc-20240116; t=1780633135; c=relaxed/simple;
+	bh=jfffhCahlQeEtjzWlHu6IYX6cg/xPBm7iisjqlx4HG4=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Eqh1Nw3ya5ennfCIWT5TcmSD0ThgkY9K33sKMtHaObDFAxSuiEzbovmec6XYTpnEqfkMo839fiF4e/ljGUnDzIje02ljWCAx6vn/QdxL79/6ToMTUvTa6hYQoXTrWvnNyZyzv+pN7hylOU0vkVqUVUeow4Zz11vlrYFuuUuRaic=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BXKP/nA4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ucr.edu header.i=@ucr.edu header.b="mBRYUpAr";
-	dkim=pass (1024-bit key) header.d=ucr.edu header.i=@ucr.edu header.b="EomgBQkz"
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=ucr.edu; i=@ucr.edu; q=dns/txt; s=selector3;
-  t=1780632770; x=1812168770;
-  h=dkim-signature:x-google-dkim-signature:
-   x-forwarded-encrypted:x-gm-message-state:x-gm-gg:from:to:
-   cc:subject:date:message-id:x-mailer:mime-version:
-   content-transfer-encoding:x-cse-connectionguid:
-   x-cse-msgguid;
-  bh=tF4VCUWMwA8I4mOEUXGPkwnpitmDIcvOstPj9/un8WQ=;
-  b=mBRYUpAr6bAiYhVRmHwv5V/H1SYHi2kRqkywyPUwy3r6M0o+rfHABovL
-   5igUODNQhZytDyQjRzNzS9g2yMBwhptGXyuzekeHt1dqahAb5oYUcTCJc
-   xNA+Ph8a/nL7tAs8QEZqABnaaHD+NpIMI5oHR2CAmwRMY+8UKD4ElWM2e
-   5f+0bcAbCSjWKr1S1Pxv9RsznG7ifA5WUCGm59KlnqStNmPWL/dtOf1h7
-   PPMeQPdfmyitrivGpHdrvBnKd50Xs72yoT916t31VENXelDqtrV8xAkFn
-   /fddhxPfOKxXzCFKS8W20p2t5wl8uGz0yjfuLeacVSZgfQmte/4TWjIWP
-   g==;
-X-CSE-ConnectionGUID: 9AUzBcetRCOtgXjT06Bn0A==
-X-CSE-MsgGUID: oN3oYU7XR3mpwBNA8VYXeQ==
-Received: from mail-dy1-f198.google.com ([74.125.82.198])
-  by smtp-lax3-3.ucr.edu with ESMTP/TLS/TLS_AES_256_GCM_SHA384; 04 Jun 2026 21:11:42 -0700
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-304d0d0b28eso3973177eec.0
-        for <stable@vger.kernel.org>; Thu, 04 Jun 2026 21:11:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ucr.edu; s=rmail; t=1780632701; x=1781237501; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=n2xSodZLUd/O6lqqf8zgeCW/DSEP+QUBHBJ8tI2sjPA=;
-        b=EomgBQkzelkvvbCa7b6UIhyco+Yog1IP8fhNBWl6wMNyn7I4p3ePUlwfaYRoqgzhgg
-         1ykredmk7TeA6UZN98wueKhZOaxw7cKM2v08S5ZR3VfhEYzydThcypuOLNLwj/Hoot7i
-         OnogIavNtptH1oQukwTvXLTIVskgeuVX8a54s=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780632701; x=1781237501;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=n2xSodZLUd/O6lqqf8zgeCW/DSEP+QUBHBJ8tI2sjPA=;
-        b=QbMN0Sh1UNic6eh83Hw+LkO86rG1VsNdtApDXwLQlnMV0h4hwL6QIl6yqXlKXSYXbT
-         qy3dx959xmYJE6aBtp9RJmhAzTrxUI3Z2qqeww7YxMYzNxNSjk5EGsdCpZWdcxzS1mrB
-         ZwrWw/moN14aFAaiOuLLmrb6b3fqjZnqIr+OuXuPVi2VAFaVoS5i/A2HFF0in+QfVQ2u
-         yPPnUoOWqXoN7tYQ7OjtIH5ZdnH/5OZQpK/P+IDKeTA4yqOZDxbc3XK4CZUe3HZJNSNK
-         vrt3S5MEKrroBa2njh8b+XN0/GhULTHmorc2GWNgQx8XfWo5Dd7TEktfoo9GiWJUnHPJ
-         9wJA==
-X-Forwarded-Encrypted: i=1; AFNElJ/rmk2h6Z42Qj5oYWp0xXcZ6RRxQXbRut6jjKyDURfiJF0kQwDFja63jpGFbwIAUlMWEUXvqj8=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwD4Gql+xyhJ9ga6D5Ry8vzXQtEZ0Dk9fUe0mGZ1aFli3i/t9z6
-	FfozseDFKNGs4lKuHEl2qkyRfEQfebZoouQxHqAuOnFF4Cupd9+2w6/j2mD/dUHV4N4N3GTJ2DP
-	JGCMNX5QlNmTynZTgq69Irq95Zbtcrm0eivPTI27w/9sXqNVfFNqqlhEKevY=
-X-Gm-Gg: Acq92OF6uG1+iAJH2K6Jcfe59ml46mL6CFkVbLcWcj16a/KvZR32Wi/ecxMu+tmDlvq
-	2WJnY/JRvNu34XPBm+iH55rIvWEh5L3TaxhzxHVhIIe8ptoLSC688n3YBPxIosv7A+SWpdUeGkM
-	YP4yg4CMvdYasRb2qc0vaW19Qp/cgaOmxAYLCA3Gah4ADnYxftOdipnRbj8VwPTDxrhSkkFCJ6m
-	I4bhKIrE5FNJuqjB5RC9BVwZd3gTWFv9xJ0C1w/DezigZPkkOzOtVKf+gNJMG+qvXpeBwS3dEyM
-	Weh9GR5zu7SeSycmZ3k1294DdT0r/9hD16Xa6bT4qRqXXTNtX7VuJ2F+mWFZniIhaMwQu5xv72D
-	wTzJ6uDTlTvHv89w3xgHenMTq085jnBB75W9SJUfuLJp1tJv71B0BF9FfoyKm7OXD5XL+k2wcJX
-	59pg9KnUGRMH7zPmbtzP/8mx+kZDg0gx0x+WelCLOOp8cdP2wee4TCmsgz9fj4zYyQS35KFuEOe
-	f9RIEKnxb8N
-X-Received: by 2002:a05:693c:69c4:b0:304:cefc:5fdd with SMTP id 5a478bee46e88-3077b7595demr498042eec.20.1780632701223;
-        Thu, 04 Jun 2026 21:11:41 -0700 (PDT)
-X-Received: by 2002:a05:693c:69c4:b0:304:cefc:5fdd with SMTP id 5a478bee46e88-3077b7595demr498034eec.20.1780632700764;
-        Thu, 04 Jun 2026 21:11:40 -0700 (PDT)
-Received: from ucr-secure-48-10-13-243-195.wnet.ucr.edu.net (ftd-border-nat-ucr-secure-v348.ucr.edu. [169.235.95.220])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3074dea8e8csm6723500eec.16.2026.06.04.21.11.39
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 04 Jun 2026 21:11:40 -0700 (PDT)
-From: Yuan Tan <ytan089@ucr.edu>
-To: ojeda@kernel.org,
-	boqun@kernel.org,
-	rust-for-linux@vger.kernel.org
-Cc: zhiyunq@cs.ucr.edu,
-	ardalan@uci.edu,
-	pgovind2@uci.edu,
-	dzueck@uci.edu,
-	Yuan Tan <ytan089@ucr.edu>,
-	stable@vger.kernel.org
-Subject: [PATCH] rust: firmware: return empty slice for zero-size firmware
-Date: Thu,  4 Jun 2026 21:11:34 -0700
-Message-ID: <20260605041134.38290-1-ytan089@ucr.edu>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BXKP/nA4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21CE01F00893;
+	Fri,  5 Jun 2026 04:18:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780633132;
+	bh=QtXkgBzgoalyqyfwddDrgqDOam+b3lalcp4gNfvQD4Y=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=BXKP/nA4iHg2N0lt7m+0QTuEUsi626BMz165Hx0eytH5HKfSpEbwX8gpztmxdfBAc
+	 g1k3Hoay3JiGFv/0vRsuR5GMNNtaP7W2ws3t8O2UyD3Z/Hvkb1gVGXGxJRqB6ur1qd
+	 NGto+oI9gdB5O7RtTLCgZzn9paudIp9NXJXYvfH+ApF1Z69+CGH4op70hYca3gbkBJ
+	 oB3akDEu7XXqFqoWVvOZ4pfNbZ6w4tGCiLoLHLuONzBvhjEZ7bughIuelA5702USDB
+	 MI7FZYpTpg9PvnJwu3fYuMETEMqlTKvC16kpl26aQ0tT3XIJYgsVDhnU0+xxfBVllm
+	 5h6wZvIaGkYxA==
+Message-ID: <5c97f096ec32c164ac36a8fc2daaf88bd2721014.camel@kernel.org>
+Subject: Re: [PATCH] xfs: fix unreachable BIGTIME check in dquot flush
+ validation
+From: Allison Henderson <achender@kernel.org>
+To: "Darrick J. Wong" <djwong@kernel.org>, Alexey Nepomnyashih <sdl@nppct.ru>
+Cc: Carlos Maiolino <cem@kernel.org>, Dave Chinner <dchinner@redhat.com>, 
+	linux-xfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	lvc-project@linuxtesting.org, stable@vger.kernel.org
+Date: Thu, 04 Jun 2026 21:18:51 -0700
+In-Reply-To: <20260603210811.GV6078@frogsfrogsfrogs>
+References: <20260603204148.232530-1-sdl@nppct.ru>
+	 <20260603210811.GV6078@frogsfrogsfrogs>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.52.3-0ubuntu1.1 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Firmware::data() builds a Rust slice with core::slice::from_raw_parts().
-Unlike many C APIs, from_raw_parts() requires its pointer argument to be
-non-NULL even when the length is zero.
+On Wed, 2026-06-03 at 14:08 -0700, Darrick J. Wong wrote:
+> [fix some addresses]
+>=20
+> On Wed, Jun 03, 2026 at 08:41:47PM +0000, Alexey Nepomnyashih wrote:
+> > The dqp->q_id =3D=3D 0 check inside the XFS_DQTYPE_BIGTIME block is
+> > unreachable because root dquots return successfully earlier. Reject roo=
+t
+> > dquots with XFS_DQTYPE_BIGTIME before that early return, preserving the
+> > intended validation and removing the unreachable condition.
+> >=20
+> > Found by Linux Verification Center (linuxtesting.org) with SVACE.
+> >=20
+> > Fixes: 4ea1ff3b4968 ("xfs: widen ondisk quota expiration timestamps to =
+handle y2038+")
+> > Cc: stable@vger.kernel.org # v5.10+
+> > Signed-off-by: Alexey Nepomnyashih <sdl@nppct.ru>
+Hi Alexey,
 
-The firmware loader can represent an empty firmware image with size == 0
-and data == NULL. Passing that pointer to from_raw_parts() would be
-undefined behavior.
+Looks good, thanks for catching this!
+Reviewed-by: Allison Henderson <achender@kernel.org>
 
-Return an empty slice before constructing the raw slice. For non-zero
-firmware sizes, the existing firmware API guarantee that data has size
-bytes also means that the pointer is non-NULL.
-
-Fixes: de6582833db0 ("rust: add firmware abstractions")
-Cc: stable@vger.kernel.org
-Reported-by: Priya Bala Govindasamy <pgovind2@uci.edu>
-Reported-by: Dylan Zueck <dzueck@uci.edu>
-Signed-off-by: Yuan Tan <ytan089@ucr.edu>
----
- rust/kernel/firmware.rs | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
-
-diff --git a/rust/kernel/firmware.rs b/rust/kernel/firmware.rs
-index 71168d8004e2..5e22a574a91e 100644
---- a/rust/kernel/firmware.rs
-+++ b/rust/kernel/firmware.rs
-@@ -106,10 +106,17 @@ pub fn size(&self) -> usize {
- 
-     /// Returns the requested firmware as `&[u8]`.
-     pub fn data(&self) -> &[u8] {
-+        let size = self.size();
-+
-+        if size == 0 {
-+            return &[];
-+        }
-+
-         // SAFETY: `self.as_raw()` is valid by the type invariant. Additionally,
-         // `bindings::firmware` guarantees, if successfully requested, that
-         // `bindings::firmware::data` has a size of `bindings::firmware::size` bytes.
--        unsafe { core::slice::from_raw_parts((*self.as_raw()).data, self.size()) }
-+        // For non-zero `size`, this also means `bindings::firmware::data` is not NULL.
-+        unsafe { core::slice::from_raw_parts((*self.as_raw()).data, size) }
-     }
- }
- 
--- 
-2.43.2
+>=20
+> Yeah, that looks like a screwup...
+> Reviewed-by: "Darrick J. Wong" <djwong@kernel.org>
+>=20
+> --D
+>=20
+> > ---
+> >  fs/xfs/xfs_dquot.c | 16 ++++++++--------
+> >  1 file changed, 8 insertions(+), 8 deletions(-)
+> >=20
+> > diff --git a/fs/xfs/xfs_dquot.c b/fs/xfs/xfs_dquot.c
+> > index 69e9bc588c8b..c311f61d9554 100644
+> > --- a/fs/xfs/xfs_dquot.c
+> > +++ b/fs/xfs/xfs_dquot.c
+> > @@ -1216,6 +1216,14 @@ xfs_qm_dqflush_check(
+> >  	    type !=3D XFS_DQTYPE_PROJ)
+> >  		return __this_address;
+> > =20
+> > +	/* bigtime flag should never be set on root dquots */
+> > +	if (dqp->q_type & XFS_DQTYPE_BIGTIME) {
+> > +		if (!xfs_has_bigtime(dqp->q_mount))
+> > +			return __this_address;
+> > +		if (dqp->q_id =3D=3D 0)
+> > +			return __this_address;
+> > +	}
+> > +
+> >  	if (dqp->q_id =3D=3D 0)
+> >  		return NULL;
+> > =20
+> > @@ -1231,14 +1239,6 @@ xfs_qm_dqflush_check(
+> >  	    !dqp->q_rtb.timer)
+> >  		return __this_address;
+> > =20
+> > -	/* bigtime flag should never be set on root dquots */
+> > -	if (dqp->q_type & XFS_DQTYPE_BIGTIME) {
+> > -		if (!xfs_has_bigtime(dqp->q_mount))
+> > -			return __this_address;
+> > -		if (dqp->q_id =3D=3D 0)
+> > -			return __this_address;
+> > -	}
+> > -
+> >  	return NULL;
+> >  }
+> > =20
+> > --=20
+> > 2.43.0
+> >=20
+> >=20
 
