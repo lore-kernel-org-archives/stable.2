@@ -1,140 +1,123 @@
-Received: from angie.orcam.me.uk (angie.orcam.me.uk [78.133.224.34])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5AAD12F0C62
-	for <stable@vger.kernel.org>; Fri,  5 Jun 2026 03:10:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=78.133.224.34
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C256C3B19AB;
+	Fri,  5 Jun 2026 03:35:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780629048; cv=none; b=mroAT2xqhDxNUC8/pmoOTvzSebO+OVO1kuE0mXnhQC5Q1u1lvaJ2sMbU086ldhx6PvyCzPTJFdbm9noagveLrJUVNayW1eZEIJEl0iHj34Q+sTtO/IqaVwBusmoOXAeiinWYD0BPhmXfyfgyK58MbN3JnUtNqVwsK2B6Zz4qh6A=
+	t=1780630525; cv=none; b=axtdwSugkqWD7kTLtRGtJruvXI/U85MWMHctCLJG8gogkBS/mHgQRkCvw6r4nX6YbIlonQzQq4d3LkqBfmBLH44Mumy3RSX5ykkTj8cHjdL8+mX6SOGnP4MaxdkYd2Wyg2XCG5/mwoRNoawJsb49KAak41LRmm3nBNvCRs5UdyQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780629048; c=relaxed/simple;
-	bh=FWcXxZalWRnctl6a5hwVvw6pY3BfbRgR223JJO4pV3w=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=CEpzayTSbMN5db6yWTjBQWEQrk6E/MDe4FFXJW8x+SOI+kUbT7mrj4R/jOYZFQEbAYFo6RMNAMCNyAcUpCyk0KknwsaHLsusKcRE5/H1oL7CvSr5L/gJDz82z4GIyUB3H9omTEOGpUt4B/BE8Kvu0Glij/4HFVDTygdEfHWZOc0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=orcam.me.uk; spf=none smtp.mailfrom=orcam.me.uk; arc=none smtp.client-ip=78.133.224.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=orcam.me.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=orcam.me.uk
-Received: by angie.orcam.me.uk (Postfix, from userid 500)
-	id 221A892009E; Fri,  5 Jun 2026 05:10:44 +0200 (CEST)
-From: "Maciej W. Rozycki" <macro@orcam.me.uk>
-To: stable@vger.kernel.org
-Cc: "Maciej W. Rozycki" <macro@orcam.me.uk>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: [PATCH 5.10.y] serial: dz: Fix bootconsole handover lockup
-Date: Fri,  5 Jun 2026 04:10:42 +0100
-Message-Id: <20260605031042.7383-1-macro@orcam.me.uk>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <2026060445-upper-slapstick-c674@gregkh>
-References: <2026060445-upper-slapstick-c674@gregkh>
+	s=arc-20240116; t=1780630525; c=relaxed/simple;
+	bh=SvJvA/e9k9vGe4aXJUlBcZXnljr/0vPmGwJ4jUWSqW0=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 MIME-Version:Message-ID; b=RzZVR2phHT7vwLiC9SqyOSxkBpILZdnLmjdHnIhAhe6kz9xGoccxuNiL+jQwHHJCcvFwCmmbDB/VoaZA3AjhAMpAreqJAMemAXZhRKpAzHxOsjjPr3200jlmxzjGjxXQohvL/7KU+l5KgO/1E6JtvdYb8bSKWDXEqUrfXNFnnI0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=ZDUQcx+I; arc=none smtp.client-ip=220.197.31.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="ZDUQcx+I"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+	Message-ID; bh=SvJvA/e9k9vGe4aXJUlBcZXnljr/0vPmGwJ4jUWSqW0=; b=Z
+	DUQcx+IHbLlU4W0m370Vraf6wd4ojU81nTyn5V+xXDr8MEddJms5lRZlfRAJ9MLG
+	r9QMJvc4DgR74320qcAaJd4vWiFkSqEAg0+wzAk5TQTwOw+HUT3y1YDOyPrG6NEd
+	p8HrNQjksqe4U3xN6NDj7q4OYG2CNEnlGK/khacesw=
+Received: from w15303746062$163.com ( [113.200.174.80] ) by
+ ajax-webmail-wmsvr-40-113 (Coremail) ; Fri, 5 Jun 2026 11:33:51 +0800 (CST)
+Date: Fri, 5 Jun 2026 11:33:51 +0800 (CST)
+From: w15303746062  <w15303746062@163.com>
+To: simona@ffwll.ch, deller@gmx.de
+Cc: tzimmermann@suse.de, ville.syrjala@linux.intel.com, sam@ravnborg.org,
+	kees@kernel.org, yanquanmin1@huawei.com, syoshida@redhat.com,
+	linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	"Mingyu Wang" <25181214217@stu.xidian.edu.cn>,
+	stable@vger.kernel.org
+Subject: Re:[PATCH 7.0] fbdev: fbcon: fix memory leak in error path of
+ fbcon_do_set_font()
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260403(27802f6d) Copyright (c) 2002-2026 www.mailtech.cn 163com
+In-Reply-To: <20260525082741.600003-1-w15303746062@163.com>
+References: <20260525082741.600003-1-w15303746062@163.com>
+X-NTES-SC: AL_Qu2TAvqYv0wo5yKaYukfmU0Qguw9Xcq5uPkj34FWN5t8jDrp5QodX0JFHVfbys6/Dy2ItRqsex1+1f9nQoZgZZ0JCInp9NpD3NFD8/e0sH7bUQ==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=GBK
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Message-ID: <5b288246.378d.19e95d82602.Coremail.w15303746062@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:cSgvCgD3lz6fQyJqvyQDAA--.30408W
+X-CM-SenderInfo: jzrvjiatxuliiws6il2tof0z/xtbC4x8b-moiQ5+8hQAA30
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 
-commit 7f127b2208e5e2b817243cad41fe4211a6d5a7a3 upstream.
-
-Calling dz_reset() in the course of setting up the serial device causes
-line parameters to be reset and the transmitter disabled.  We've been
-lucky in that no message is usually produced to the kernel log between
-this call and the later call to uart_set_options() in the course of
-console setup done by dz_serial_console_init(), or the system would hang
-as the console output handler in the firmware tried to access a port the
-transmitter of which has been disabled and line parameters messed up.
-
-This will change with the next change to the driver, so fix dz_reset()
-such that line parameters are set for 9600n8 console operation as with
-the system firmware and the transmitter re-enabled after reset.  This
-also means dz_pm() serves no purpose anymore, so drop it.
-
-Fixes: e6ee512f5a77 ("dz.c: Resource management")
-Signed-off-by: Maciej W. Rozycki <macro@orcam.me.uk>
-Cc: stable@vger.kernel.org # v2.6.25+
-Link: https://patch.msgid.link/alpine.DEB.2.21.2605062302010.46195@angie.orcam.me.uk
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-[ Avoid C99+ 'for' loop initial declaration for 5.10.y. ]
-Signed-off-by: Maciej W. Rozycki <macro@orcam.me.uk>
----
- drivers/tty/serial/dz.c | 37 +++++++++++++------------------------
- 1 file changed, 13 insertions(+), 24 deletions(-)
-
-diff --git a/drivers/tty/serial/dz.c b/drivers/tty/serial/dz.c
-index fdd025c1b5e1..a4c7b5413100 100644
---- a/drivers/tty/serial/dz.c
-+++ b/drivers/tty/serial/dz.c
-@@ -546,6 +546,7 @@ static void dz_reset(struct dz_port *dport)
- 	struct dz_mux *mux = dport->mux;
- 	unsigned short tcr;
- 	int loops = 10000;
-+	int line;
- 
- 	if (mux->initialised)
- 		return;
-@@ -573,6 +574,18 @@ static void dz_reset(struct dz_port *dport)
- 	while (dz_in(dport, DZ_CSR) & DZ_CLR);
- 	iob();
- 
-+	/*
-+	 * Set parameters across all lines such as not to interfere
-+	 * with the initial PROM-based console.  Otherwise any output
-+	 * produced before the console handover would cause the system
-+	 * firmware to produce rubbish.
-+	 */
-+	for (line = 0; line < DZ_NB_PORT; line++)
-+		dz_out(dport, DZ_LPR, DZ_B9600 | DZ_CS8 | line);
-+
-+	/* Re-enable transmission for the initial PROM-based console.  */
-+	dz_out(dport, DZ_TCR, tcr);
-+
- 	/* Enable scanning.  */
- 	dz_out(dport, DZ_CSR, DZ_MSE);
- 
-@@ -653,26 +666,6 @@ static void dz_set_termios(struct uart_port *uport, struct ktermios *termios,
- 	spin_unlock_irqrestore(&dport->port.lock, flags);
- }
- 
--/*
-- * Hack alert!
-- * Required solely so that the initial PROM-based console
-- * works undisturbed in parallel with this one.
-- */
--static void dz_pm(struct uart_port *uport, unsigned int state,
--		  unsigned int oldstate)
--{
--	struct dz_port *dport = to_dport(uport);
--	unsigned long flags;
--
--	spin_lock_irqsave(&dport->port.lock, flags);
--	if (state < 3)
--		dz_start_tx(&dport->port);
--	else
--		dz_stop_tx(&dport->port);
--	spin_unlock_irqrestore(&dport->port.lock, flags);
--}
--
--
- static const char *dz_type(struct uart_port *uport)
- {
- 	return "DZ";
-@@ -768,7 +761,6 @@ static const struct uart_ops dz_ops = {
- 	.startup	= dz_startup,
- 	.shutdown	= dz_shutdown,
- 	.set_termios	= dz_set_termios,
--	.pm		= dz_pm,
- 	.type		= dz_type,
- 	.release_port	= dz_release_port,
- 	.request_port	= dz_request_port,
-@@ -893,10 +885,7 @@ static int __init dz_console_setup(struct console *co, char *options)
- 	if (ret)
- 		return ret;
- 
--	spin_lock_init(&dport->port.lock);	/* For dz_pm().  */
--
- 	dz_reset(dport);
--	dz_pm(uport, 0, -1);
- 
- 	if (options)
- 		uart_parse_options(options, &baud, &parity, &bits, &flow);
--- 
-2.20.1
-
+CkhpIEhlbGdlLCBTaW1vbmEsIGFuZCBhbGwsCgpBIGdlbnRsZSBwaW5nIG9uIHRoaXMgcGF0Y2gu
+CgpTaW5jZSB0aGlzIGlzc3VlIHdhcyBpbmhlcmVudGx5IHJlc29sdmVkIGluIHRoZSBtYWlubGlu
+ZSB0cmVlIHZpYSBhIHJlY2VudCByZWZhY3RvciwgdGhpcyBzcGVjaWZpYyBmaXggaXMgaW50ZW5k
+ZWQgb25seSBmb3IgdGhlIDcuMCBhbmQgb2xkZXIgc3RhYmxlIGJyYW5jaGVzIHdoZXJlIHRoZSBs
+ZWdhY3kgdXNlcmZvbnQgbG9naWMgaXMgc3RpbGwgcHJlc2VudCBhbmQgdnVsbmVyYWJsZSB0byB0
+aGlzIG1lbW9yeSBsZWFrLgoKQ291bGQgdGhlIGZiZGV2IG1haW50YWluZXJzIHBsZWFzZSB0YWtl
+IGEgbG9vayBhbmQgcHJvdmlkZSBhbiBBY2tlZC1ieT8gVGhpcyB3aWxsIGFsbG93IHRoZSBzdGFi
+bGUgdGVhbSB0byBzYWZlbHkgcGljayBpdCB1cCBmb3IgdGhlIG9sZGVyIHRyZWVzLgoKKCtDYyBz
+dGFibGVAdmdlci5rZXJuZWwub3JnKQoKQmVzdCByZWdhcmRzLApNaW5neXUKCkF0IDIwMjYtMDUt
+MjUgMTY6Mjc6NDEsIHcxNTMwMzc0NjA2MkAxNjMuY29tIHdyb3RlOgo+RnJvbTogTWluZ3l1IFdh
+bmcgPDI1MTgxMjE0MjE3QHN0dS54aWRpYW4uZWR1LmNuPgo+Cj5bIE5vdGU6IFRoaXMgaXNzdWUg
+d2FzIGRpc2NvdmVyZWQgb24gdGhlIDcuMCBrZXJuZWwuIFdoaWxlIHRoZSBjdXJyZW50Cj4gIG1h
+aW5saW5lIGhhcyBhbHJlYWR5IGJlZW4gcmVmYWN0b3JlZCB0byB1c2UgYGZvbnRfZGF0YV90YCAo
+d2hpY2ggCj4gIGluYWR2ZXJ0ZW50bHkgcmVzb2x2ZWQgdGhpcyBidWcpLCB0aGlzIHZ1bG5lcmFi
+aWxpdHkgc3RpbGwgYWN0aXZlbHkgCj4gIGFmZmVjdHMgdGhlIDcuMCBicmFuY2ggYW5kIG9sZGVy
+IHN0YWJsZSB0cmVlcyB0aGF0IHJlbHkgb24gdGhlIGxlZ2FjeSAKPiAgdXNlcmZvbnQgbG9naWMu
+IFRoaXMgcGF0Y2ggcHJvdmlkZXMgYSB0YXJnZXRlZCBmaXggZm9yIHRoZXNlIHN0YWJsZSAKPiAg
+YnJhbmNoZXMuIF0KPgo+V2hlbiBmYmNvbl9kb19zZXRfZm9udCgpIGZhaWxzIChlLmcuLCBkdWUg
+dG8gYSB2Y19yZXNpemUoKSBmYWlsdXJlIHVuZGVyCj5mYXVsdCBpbmplY3Rpb24pLCBpdCBqdW1w
+cyB0byB0aGUgYGVycl9vdXRgIGxhYmVsIHRvIHJvbGwgYmFjayB0aGUKPmNvbnNvbGUgc3RhdGUu
+Cj4KPkhvd2V2ZXIsIHRoZSByZXN0b3JhdGlvbiBvZiB0aGUgcHJldmlvdXMgZm9udCBzdGF0ZSAo
+YHAtPnVzZXJmb250ID0KPm9sZF91c2VyZm9udGApIGlzIGVycm9uZW91c2x5IHBsYWNlZCBpbnNp
+ZGUgdGhlIGBpZiAodXNlcmZvbnQpYCBibG9jay4KPklmIHRoZSBmYWlsZWQgb3BlcmF0aW9uIHdh
+cyBhdHRlbXB0aW5nIHRvIHNldCB0aGUgZGVmYXVsdCBidWlsdGluIGZvbnQKPihgdXNlcmZvbnQg
+PT0gMGApLCB0aGUgcmVzdG9yYXRpb24gaXMgY29tcGxldGVseSBza2lwcGVkLgo+Cj5UaGlzIGNh
+dXNlcyBhIHN0YXRlIG1hY2hpbmUgY29ycnVwdGlvbiB3aGVyZSBgcC0+dXNlcmZvbnRgIHJlbWFp
+bnMgYDBgCj53aGlsZSBgcC0+Zm9udGRhdGFgIHN0aWxsIHBvaW50cyB0byB0aGUgcHJldmlvdXNs
+eSBhbGxvY2F0ZWQgdXNlciBmb250Cj5tZW1vcnkuIExhdGVyLCB3aGVuIHRoZSBjb25zb2xlIGlz
+IGRlc3Ryb3llZCAoZS5nLiwgdmlhIFZUX0RJU0FMTE9DQVRFKSwKPmZiY29uX2ZyZWVfZm9udCgp
+IGZhaWxzIHRvIGZyZWUgdGhpcyBtZW1vcnkgYmVjYXVzZSBpdHMgYGlmIChwLT51c2VyZm9udClg
+Cj5jaGVjayBmYWlscywgcmVzdWx0aW5nIGluIGEgbWVtb3J5IGxlYWsgY2F1Z2h0IGJ5IGttZW1s
+ZWFrOgo+Cj4gIHVucmVmZXJlbmNlZCBvYmplY3QgMHhmZmZmODg4MTI3ZWEwMDAwIChzaXplIDMz
+Mjk2KToKPiAgICBjb21tICJzeXouMC44NzI2IiwgcGlkIDMzMjI0LCBqaWZmaWVzIDQyOTc3NTQ2
+NDMKPiAgICBoZXggZHVtcCAoZmlyc3QgMzIgYnl0ZXMpOgo+ICAgICAgYTYgZTQgZjkgZGQgMDAg
+MDAgMDAgMDAgMDAgODIgMDAgMDAgMDEgMDAgMDAgMDAgIC4uLi4uLi4uLi4uLi4uLi4KPiAgICAg
+IGQyIDA5IDZjIGJmIDUyIDhhIDdkIGQ0IGVmIDFkIDU5IDE2IDUxIDg2IDMyIGJmICAuLmwuUi59
+Li4uWS5RLjIuCj4gICAgYmFja3RyYWNlIChjcmMgNGEwYTU3ZGQpOgo+ICAgICAgX19fa21hbGxv
+Y19sYXJnZV9ub2RlKzB4ZTcvMHgxODAgbW0vc2x1Yi5jOjUyMTQKPiAgICAgIF9fa21hbGxvY19s
+YXJnZV9ub2RlX25vcHJvZisweDI5LzB4MTMwIG1tL3NsdWIuYzo1MjMyCj4gICAgICBfX2RvX2tt
+YWxsb2Nfbm9kZSBtbS9zbHViLmM6NTI0OCBbaW5saW5lXQo+ICAgICAgX19rbWFsbG9jX25vcHJv
+ZisweDVmYy8weDdjMCBtbS9zbHViLmM6NTI3Mgo+ICAgICAga21hbGxvY19ub3Byb2YgaW5jbHVk
+ZS9saW51eC9zbGFiLmg6OTU0IFtpbmxpbmVdCj4gICAgICBmYmNvbl9zZXRfZm9udCsweDQzMS8w
+eGE2MCBkcml2ZXJzL3ZpZGVvL2ZiZGV2L2NvcmUvZmJjb24uYzoyNTI1Cj4gICAgICBjb25fZm9u
+dF9zZXQgZHJpdmVycy90dHkvdnQvdnQuYzo0OTE4IFtpbmxpbmVdCj4gICAgICBjb25fZm9udF9v
+cCsweDk0ZC8weGU4MCBkcml2ZXJzL3R0eS92dC92dC5jOjQ5NTgKPiAgICAgIHZ0X2tfaW9jdGwg
+ZHJpdmVycy90dHkvdnQvdnRfaW9jdGwuYzo0NzIgW2lubGluZV0KPiAgICAgIHZ0X2lvY3RsKzB4
+NjNjLzB4MmVlMCBkcml2ZXJzL3R0eS92dC92dF9pb2N0bC5jOjc0Mwo+Cj5GaXggdGhpcyBieSBt
+b3ZpbmcgdGhlIGBwLT51c2VyZm9udCA9IG9sZF91c2VyZm9udGAgYXNzaWdubWVudCBvdXRzaWRl
+Cj50aGUgYGlmICh1c2VyZm9udClgIGJsb2NrIHNvIHRoYXQgdGhlIHRlcm1pbmFsIHN0YXRlIGlz
+IHVuY29uZGl0aW9uYWxseQo+YW5kIGNvcnJlY3RseSByZXN0b3JlZCByZWdhcmRsZXNzIG9mIHdo
+aWNoIGZvbnQgc2V0dGluZyB0cmlnZ2VyZWQgdGhlCj5lcnJvci4KPgo+Rml4ZXM6IGE1YTkyMzAz
+OGQ3MCAoImZiZGV2OiBmYmNvbjogUHJvcGVybHkgcmV2ZXJ0IGNoYW5nZXMgd2hlbiB2Y19yZXNp
+emUoKSBmYWlsZWQiKQo+U2lnbmVkLW9mZi1ieTogTWluZ3l1IFdhbmcgPDI1MTgxMjE0MjE3QHN0
+dS54aWRpYW4uZWR1LmNuPgo+LS0tCj4gZHJpdmVycy92aWRlby9mYmRldi9jb3JlL2ZiY29uLmMg
+fCA0ICsrKy0KPiAxIGZpbGUgY2hhbmdlZCwgMyBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9uKC0p
+Cj4KPmRpZmYgLS1naXQgYS9kcml2ZXJzL3ZpZGVvL2ZiZGV2L2NvcmUvZmJjb24uYyBiL2RyaXZl
+cnMvdmlkZW8vZmJkZXYvY29yZS9mYmNvbi5jCj5pbmRleCA2NjYyNjFhZTU5ZDguLmEzODU0NWRj
+ODQxNiAxMDA2NDQKPi0tLSBhL2RyaXZlcnMvdmlkZW8vZmJkZXYvY29yZS9mYmNvbi5jCj4rKysg
+Yi9kcml2ZXJzL3ZpZGVvL2ZiZGV2L2NvcmUvZmJjb24uYwo+QEAgLTI0NjEsOCArMjQ2MSwxMCBA
+QCBzdGF0aWMgaW50IGZiY29uX2RvX3NldF9mb250KHN0cnVjdCB2Y19kYXRhICp2YywgaW50IHcs
+IGludCBoLCBpbnQgY2hhcmNvdW50LAo+IAlwLT5mb250ZGF0YSA9IG9sZF9kYXRhOwo+IAl2Yy0+
+dmNfZm9udC5kYXRhID0gb2xkX2RhdGE7Cj4gCj4rCS8qIFVuY29uZGl0aW9uYWxseSByZXN0b3Jl
+IHRoZSBwcmV2aW91cyB1c2VyZm9udCBzdGF0ZSAqLwo+KwlwLT51c2VyZm9udCA9IG9sZF91c2Vy
+Zm9udDsKPisKPiAJaWYgKHVzZXJmb250KSB7Cj4tCQlwLT51c2VyZm9udCA9IG9sZF91c2VyZm9u
+dDsKPiAJCWlmICgtLVJFRkNPVU5UKGRhdGEpID09IDApCj4gCQkJa2ZyZWUoZGF0YSAtIEZPTlRf
+RVhUUkFfV09SRFMgKiBzaXplb2YoaW50KSk7Cj4gCX0KPi0tIAo+Mi4zNC4xCg==
