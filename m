@@ -1,164 +1,148 @@
-Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011062.outbound.protection.outlook.com [52.101.62.62])
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011046.outbound.protection.outlook.com [40.93.194.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1724D276038;
-	Fri,  5 Jun 2026 18:20:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.62.62
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EDAA335081;
+	Fri,  5 Jun 2026 18:22:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.46
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780683634; cv=fail; b=RNBhbZvaNWj2p2EHCiEnQiwaWeLO7PL2rDRKiBbQIaKarohnFIq1TW7zFRB6NJQF6d9lutH6E/XsVVSpBokdqH6qMP6vK9cs+aniTsJR3ATOVCbnWWfUvWKQAuLr7JD1FyaNg0CgG9B8aPEWr81gjZmFq1pm7obTbRi+ez2BAXA=
+	t=1780683775; cv=fail; b=H+GaSzdbNBIBBVsQSg4kT1Hu7pKG+GPTxrhYywH+DUx5vnodVqjk+D7nv8VoE4LdzhhYNQq4HAPo3GyYXQy6PBBPfDxt+TibuDQXsCV5Pl0dhPRCgVnN+I5FTlvwwTaizTjSWM+SwAK8xxEs3BO3WqdCQ5Jn2FCzLCArvv3kPdo=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780683634; c=relaxed/simple;
-	bh=DRe7oNzuCA6WfvoBReKVUXtzENKostYJa8+2/l65lXs=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=scqCEnPeBGPbPTw8gyZR6iVXAj/7YzF24sUGXtAUgo0KaxxFETJ2Dd1wd/RqlkAM8MjjUad5M60dyOcJJRxm5KFA17g2AEEkxElr5tCHkwe8PdvpJqi79CXH1wQONHZmCcR/qtWEd/XNSJzqgZCun8d2LBYlj+OJulK5YbqyrJU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=MuYopQ2u; arc=fail smtp.client-ip=52.101.62.62
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	s=arc-20240116; t=1780683775; c=relaxed/simple;
+	bh=WnuHqSoEaLkFdRd72GkQfSxUh5QVT/9gIPgtDaXWLwI=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=nQZ26bfcBLwkAULC+gYcEzWESSMOmyyERXknIdkGVqvItjLRWKkDjO1r6ns8tsuKBKKjwz//CctgAtUYpHpIANZ7ltX8zQXK3q2wB4iOk73spLu+7I4spNU9/be/LkcBcK6BEga+blk6n5DdK2OfBQxSuVsWnjyY7xavIZ9uJEM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=I9Rfzneu; arc=fail smtp.client-ip=40.93.194.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="MuYopQ2u"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="I9Rfzneu"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=i3pytIHUIbyA3yRC1g+z3D5lM+EL8UEdK47lUHrltGPSeFrWfW1KeXTAXZjQUBj/NUcsXlQktHtTSxjpzEYPb1OXQLX1ZifMX4PHViZmBBm3D7cQMpSzNsSChi6yI7g861OBqp5F24MDenHHQWlGX8qVKD9dFgcVXVyMscwLnPeAnkLXvNbAIqceV86Lz5earF8bqTzuulM6VjnYuBfiog8vmFGSac04qA+8GtTQjLN6Bchsz3W5VFN5YKx+JnHEfj1fIonV95fkIQXN75SIXWJ7S5LRMaDz4IeX+hhvwRFq3jXY6lfSWkTOHNbpQyOVZovKLfOrZkuMDocIO63Whg==
+ b=o8LlLdVdGUAn16t18cNoGzhvax0Zpa7ATzh6eX54jiBA/sZldQ08/qxS66EfHNWiZeVqURTvnx59cHBlJpTFdtYhxLjnuUGT164Xgg97cZqcW5fr5i92sT0LTtmQKyqrEOYMhhw6uzfLnIdiPQHu8+2hPbJFq75kcNWi2/k1dAvfnyiPgTgKWp4xb65qp7ofWGRIQLPtatzepZW8B2YTeYKWOvjpLom+/E8rZrPbHpYz0UiGEl/ZpwCtQy3osLzHTysqcvix55zMRwTZXaFBoProf2WlXWBYRNBh5xZ9UdbBnl5zN2iCn2kQVpGp+2xxeFuMdctVZ0XSHOW2Rhst2w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=h3+bSBh9F8MbjGaT8JDae0GnxE3mI0ftdaRtlx/NiI0=;
- b=swnRCZ6xZHGDM+1S7hhKoKPt4A+QIFFj5QnbbEQpt9LETQg8ohBHg5fwcJouqJS8RsPtzXxwZ7+GS5xy/KwACdGYPH4VJJFT3uQiPnPN3/JioNngnLa3UfFzrdA4K7TjB38IehiqwXMb8nlAxO1QdBQWwexWdz5LD1UHZf1KpMhZBheEiiiLhTfx9+SkPdCmh4jiK3tz+4xeVHy7QNv2UAvX++jJRiOirmt7hx2Qtd+Lnk/gaHPFGu9rcDTnqnPA31Ue/KHyf0uDrq4lOlq33Fysry7rSMdJxaHDqRtS87gL6hvpREP5zfx7Ulg1gKGDOo8q9nhVZ/QluH+wA4UYFg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=stgolabs.net smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ bh=WnuHqSoEaLkFdRd72GkQfSxUh5QVT/9gIPgtDaXWLwI=;
+ b=pXPIbTBr08RDntVEmYd5wpbrzrFIVmCbb2kQojIqIOOH0yFtr/i80on3QG+o7mIf0O9MgBVGhHpjgTwbF41rDrG7SCExUlFktbTnbetTAfx8h4SUanLEMEtX1IubDujDTk7lCxVru46Cd0uf1nFqWUa2oMwgZBTYqjZ7ikekeigUbvH70H9axK8rQl4gWH9Gi1D2jBKrUN5ZM95AOMq+nkGg+4v+RfoMz1sR/sL5YZFD2ExOXc5PfrDgM4hyJOEqu1t6AJpNmFo3CeEf8P74qcqR+fPcZMNBvNmZqG3b5qn11BP+0IjBs6uk6Yu+pVGJxXuTEcIUi+BEVwkPtdHksQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=h3+bSBh9F8MbjGaT8JDae0GnxE3mI0ftdaRtlx/NiI0=;
- b=MuYopQ2uGeMrF9ylOkSXXkNLB+9/2Xz5Gzh+uJzrtdH944MRsseAxDDpgKkagCcKdnUWtB5Sma+pVzdikv0PXmj158puVZgc+EzfG6o2SslrP8F+phKAm+drRb1nvQqPIxJD+g72vw7Q6+CMMWECJsjqQ3731PVMSULLwixyUEA=
-Received: from PH8PR15CA0019.namprd15.prod.outlook.com (2603:10b6:510:2d2::21)
- by PH7PR12MB6860.namprd12.prod.outlook.com (2603:10b6:510:1b6::19) with
+ bh=WnuHqSoEaLkFdRd72GkQfSxUh5QVT/9gIPgtDaXWLwI=;
+ b=I9RfzneuzS2ZDphG4IilWYFGVehnMOEyFksiuHeYkZ1KQmPlVLssyehRfjl4QvnvfjetuxjfrdK6RxlrHRw7o9pw7I3wv4JQLhikV1E3BgNJ9P0aPzLl5u/ddpqdThvqvlfQrqnOSYxv6/Y8ZvyLQfkKEcAnF9Fhg3HibzoddbtzLF7T7ktgC7BUxvCT0f3Gw4MWOt5gBlucQOytKsCBzjntk0gfBJao8CQR5bsjuyzlX7f+s6ZRw2zkS4NG5bmO+aIuZ2sCrN8hmtQBE1rYtZyH+/a0AT3f+6Rs5/AR1ZooJbUv+3wYc9okQBWdjRfR4tZUFvI4uBle6ooaDKYoNg==
+Received: from CY8PR12MB8412.namprd12.prod.outlook.com (2603:10b6:930:6f::11)
+ by IA0PPF002462CFE.namprd12.prod.outlook.com (2603:10b6:20f:fc04::bc4) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.8; Fri, 5 Jun 2026
- 18:20:22 +0000
-Received: from CY4PEPF0000EE39.namprd03.prod.outlook.com
- (2603:10b6:510:2d2:cafe::88) by PH8PR15CA0019.outlook.office365.com
- (2603:10b6:510:2d2::21) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.92.9 via Frontend Transport; Fri, 5
- Jun 2026 18:20:22 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CY4PEPF0000EE39.mail.protection.outlook.com (10.167.242.11) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.92.5 via Frontend Transport; Fri, 5 Jun 2026 18:20:22 +0000
-Received: from ethanolx7ea3host.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 5 Jun
- 2026 13:20:20 -0500
-From: Terry Bowman <terry.bowman@amd.com>
-To: Davidlohr Bueso <dave@stgolabs.net>, Jonathan Cameron <jic23@kernel.org>,
-	Dave Jiang <dave.jiang@intel.com>, Alison Schofield
-	<alison.schofield@intel.com>, Vishal Verma <vishal.l.verma@intel.com>, "Ira
- Weiny" <ira.weiny@intel.com>, Dan Williams <djb@kernel.org>,
-	<PradeepVineshReddy.Kodamati@amd.com>, <Benjamin.Cheatham@amd.com>,
-	<rrichter@amd.com>
-CC: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>,
-	"Fabio M . De Francesco" <fabio.m.de.francesco@linux.intel.com>, Shiju Jose
-	<shiju.jose@huawei.com>, Smita Koralahalli
-	<Smita.KoralahalliChannabasappa@amd.com>, Li Ming <ming.li@zohomail.com>,
-	Tony Luck <tony.luck@intel.com>, <linux-cxl@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <terry.bowman@amd.com>,
-	<stable@vger.kernel.org>
-Subject: [PATCH] cxl/port: Fix missing port lock in cxl_dport_remove()
-Date: Fri, 5 Jun 2026 13:20:14 -0500
-Message-ID: <20260605182014.2254410-1-terry.bowman@amd.com>
-X-Mailer: git-send-email 2.34.1
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.7; Fri, 5 Jun 2026
+ 18:22:42 +0000
+Received: from CY8PR12MB8412.namprd12.prod.outlook.com
+ ([fe80::76e6:4d65:7ed1:6970]) by CY8PR12MB8412.namprd12.prod.outlook.com
+ ([fe80::76e6:4d65:7ed1:6970%5]) with mapi id 15.21.0092.007; Fri, 5 Jun 2026
+ 18:22:42 +0000
+From: Timur Tabi <ttabi@nvidia.com>
+To: "lyude@redhat.com" <lyude@redhat.com>, "dawei.feng@seu.edu.cn"
+	<dawei.feng@seu.edu.cn>
+CC: "jianhao.xu@seu.edu.cn" <jianhao.xu@seu.edu.cn>, "zilin@seu.edu.cn"
+	<zilin@seu.edu.cn>, "namcao@linutronix.de" <namcao@linutronix.de>,
+	"simona@ffwll.ch" <simona@ffwll.ch>, "dri-devel@lists.freedesktop.org"
+	<dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "nouveau@lists.freedesktop.org"
+	<nouveau@lists.freedesktop.org>, "dakr@kernel.org" <dakr@kernel.org>,
+	"maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
+	"stable@vger.kernel.org" <stable@vger.kernel.org>, "mripard@kernel.org"
+	<mripard@kernel.org>
+Subject: Re: [PATCH] nouveau/firmware: fix memory leak on BL load failure
+Thread-Topic: [PATCH] nouveau/firmware: fix memory leak on BL load failure
+Thread-Index: AQHc9QhQDYV/oMN/d02/Uz0YAF01qbYwRoUA
+Date: Fri, 5 Jun 2026 18:22:41 +0000
+Message-ID: <aa2e39a828634f20852d066f593f26510fbdc2d9.camel@nvidia.com>
+References: <20260605020752.1707562-1-dawei.feng@seu.edu.cn>
+In-Reply-To: <20260605020752.1707562-1-dawei.feng@seu.edu.cn>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+user-agent: Evolution 3.56.2-9 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CY8PR12MB8412:EE_|IA0PPF002462CFE:EE_
+x-ms-office365-filtering-correlation-id: f687b39f-f213-4c4a-ec71-08dec32f6e9e
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|366016|7416014|376014|1800799024|22082099003|56012099006|11063799006|18002099003|38070700021;
+x-microsoft-antispam-message-info:
+ eShHWpziUyBxNB9dP7PZVSY/TaM3BkhDXi4pZfnwdUkB+qeSPhNsonTgO7DcqFmepOIIXYeERSgbCFDOXegelolskqGGNKzIGxwiD2fPQIMsu11eZyZaODqiTHT8CkfuJPSBEoFyfWAtWcpeNvrlFbVMLaOy78AcYdqfejcHXPNVT9iLL2PryhDNwJ5CL3AlgFZRNhE7AmsrZeAGYcYqySXhIlBQc8wjX+SDUucm1CGLSEhNjPbp6OB+/shGM5bpjEKuV5NqI5ukfQn2FpxKEyArm0NZTgtX7lNIJpwiCFnezXUdrplzxdSyiKfGDy0Qtf27712E/4ofTFFvgW02HZ4RG+ct5R+LhzLf2u1OKn+0iaZQClfGtAX87yDSLznb83p0cCLGVcLHeXRQcOrRG9e56VF4GgpfjxeJ75E+yCsgSyAyUxLjgRvqCcBbBJeApWipb5WyQr/bl1fDedeCvrngJI7YuI9ugvtR5N8FatTiqWVle1akmTP54mD4xFlXqDSBZSwTMubTPOu8pqV0Ejz6XXm0Kj1icqpAzR+RN2Zf7EhMDwyIpzwmicYkRyZ89MJca7acboNu1nK4NSRHQYZGHO1IA0jDfYDaJr89EgVryJGYHl2Jw5Du0z6B+2YaVGPGwmBshVE85UwjzBm7tcGlrIZFoU53mppflQiIuefxlcfjKL6OXzcWFsIrbVRx58zbtzUHMONeKYKeoc2FkBFGt37/6UtQydmbBQGIfg9n3cAE2RYWd4CubbWazJ4U
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY8PR12MB8412.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(376014)(1800799024)(22082099003)(56012099006)(11063799006)(18002099003)(38070700021);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?ZWwzVThtNjdCQkxUTWc2SFhweEt1M21POEE1SjhEMVhYLzZxNUJSMWVEUDhL?=
+ =?utf-8?B?ejJTUlY2a1M2M0xuYkk5SDFad3V5Q0h6dm5MWGRTa3BWT3ZoOU9DSE9Ka2lq?=
+ =?utf-8?B?YmdVMlBLSE5rUXZGVVpYZDR5WVlTSjl6TGJsMlhVendvSWIvZk4vUTltaUZM?=
+ =?utf-8?B?WEx1UXh2K2toVWVKYjlaSUxPMVN2SmIxQlBBaGFnNWcxOGsrUTV1TDVGSHkv?=
+ =?utf-8?B?TUtJczhIMWd4eGpiYk1NalpVN2FZV3lab2RsYUlnbTlBNzEzaUxjVzhMY29j?=
+ =?utf-8?B?VXMveUlsUTlXWEZYRmxTQWxmd1dPZUE2b05pd3FaZDFYSWZXdU1EYkV4UGky?=
+ =?utf-8?B?NnVHa0Q1elpSUkt1VmxVcjJJdlQ3UTZ1MWpLQStSbkNURmo4TnhNa0JDOUxl?=
+ =?utf-8?B?ZDdRSFJzMXZCZzV2elpQaEI0a25vT2dONGQwOWpZVXpoZVFSUjFsZXBkWHJY?=
+ =?utf-8?B?eThwMmZSY1FZSkdQN0lkWG9MWkUyUW9haUgvL2lGb3JISW9KeER3Sng0ZkJG?=
+ =?utf-8?B?M0lFdysxK1Bka3FQYzRyWDhxMVZQTGdMQS9kaUdTc0FuL1Jua3h6bmNYZEoz?=
+ =?utf-8?B?Yzd4NW43akNmN1JBSzkwZFRqMy90RWxWem9vekhDS1Y5d1ZUVG1WUlp6ekNM?=
+ =?utf-8?B?eUVOS1FhRVBrNndiN1VMUlRrN2FxTnJtL1BHMlBlOE5zSHJEamtDamNBeE9m?=
+ =?utf-8?B?bThqVTh5QTFkYXFtZWFnTWRLWDhpd1UrSHZTUWFmKzhKZEM4VnprVENkQ3ZT?=
+ =?utf-8?B?OWFSRGgzYmNEeExTZHdHc3ZPblMrMHpteFVTT3RxWGx1VlNSc3p2Zytidnor?=
+ =?utf-8?B?dG5iK251dlNwZEhzL0xmUXRjUUR5TDBqRUNvY3F1TFZ3Ris3Yzg0N1BTVEpp?=
+ =?utf-8?B?cVZRSmU0R0hiS2ZMVEVQakQxQnp2YzFod1E1K2JXaytoTlczVTNXeXp6S1dB?=
+ =?utf-8?B?ZFd0NGh4WUVGRmtXKzFjMllkRFNnbjR5Ti9oYVk0b1BUbCswRG1nMFFUOUdP?=
+ =?utf-8?B?bXNDUjV1VS82dTQ0SnZ2MGladjBXb09EWDYremQrdzc5Z2VWNzdvYSttdTE0?=
+ =?utf-8?B?U1lQM3JGUFRSTHR0VUhhK2hWV1QxcUhrNlZoTmtFNVByUm1Vdkw3QThZc1lr?=
+ =?utf-8?B?eVhHK2ZGQTlyQnRSeVFDR2toKzRleHJCZnZqY0NabDE0bjg1WGoxUTByaXdI?=
+ =?utf-8?B?WjFYQ24xZ1BCcE1hOURNMlNWb1BHSjlwejVZdlhpM1ZoZTk3aW1sdDJVYUQr?=
+ =?utf-8?B?ZW9ESmhFK1VRTzRPdXhnL1EycjJhdCtIc3d5eENWeHhtTGZDTXozcWxtM0tx?=
+ =?utf-8?B?S3dNZitqYjJxcWx6MWRTamNaUmxybjM5SCsybEhnU1pOSFl4QkovaGQ0VDJ4?=
+ =?utf-8?B?K0NFYjBBT0M4TkpNUWpaRXZacUFGWlNFazB6VkxXbndyeENGYTlLdFZLRmNQ?=
+ =?utf-8?B?R1dxeHJ3L0x2QzFJRWhYTVdWV09xTVprK3V2V1ZxcTNmVzgvSURXanlFV3BR?=
+ =?utf-8?B?V2tJUFpvWUtGUnZseHZZZHp1czFFRnhHSTllOWUwRGU4alZTanNsaGd6OWQw?=
+ =?utf-8?B?OTRySzZhaW1YYk5NVEZlZUtUaFd3TGcxekZDQjVnRm9jVmduK0h6NlRLdTM2?=
+ =?utf-8?B?TStFS2lGM2U4REhSYkY2Q0FSb0JqQ2JCWEtwTkxqbXduOVZNemJjdzl3RGg4?=
+ =?utf-8?B?SlE3QkFvTFlyNU9KWWVBVkVMZFhpWkZ0KzNqeWdIMVlMazdITU0vQi85eGI1?=
+ =?utf-8?B?VGtna09qSHZTbk5UUGE5eWRQNkpkT1BOYWFQUWVDQjF6aFdPL0wycUxhdCtZ?=
+ =?utf-8?B?MGQ0Tkg0a05PdEN1aHlrSlNxS2gwVWEzMDhRdVJtNGtQcFJ1NlQ5R3hnUmp4?=
+ =?utf-8?B?bTQzbVF2TC9JTHptQjdUOWdWZnF2MU95MlJTWU45RzFVK2ZvMnZ4b3pMVVI3?=
+ =?utf-8?B?QzhGbUR2V3BTTk9ENEMwbm00cnZ1dmppMVlmQ3ZTaTY3N3NWMWF6dWtmaEtk?=
+ =?utf-8?B?a2JEblRab01URTlJZEFCcExvSHNXYXRQSkdrRFhXUENrckJmd0xrbkZOa0tY?=
+ =?utf-8?B?TnovbnVESVV5WEJqV29SbmtNUnVMSUFjckhFa0lYQzNPT2tvNit6UDlYZ2VP?=
+ =?utf-8?B?ZkVvV0dLbHVHQTkvaVpUd2RVRjN3c05rZnNXclNJV2hQUTNLUlJVRzZPdkdF?=
+ =?utf-8?B?MWdVR2FyMUtHWUVmK01tc0JTSkN2L2hlekkwampmZXhKUmtRUVpna3o2Qjl5?=
+ =?utf-8?B?V2Z3YlEwNE9nUGt4QXJGNis4WnJQLzBoSGF3MElzVmhVVGtRckp2K2lHZlp5?=
+ =?utf-8?B?cE5OZ0JGRW4wdFQ4MWJNV01jd2R2b25jc2tSY2d6RTQvSnN3aGJMdz09?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <11D9100BF1BE174B96A3E14C92BE211C@namprd12.prod.outlook.com>
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE39:EE_|PH7PR12MB6860:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0f54b008-665f-47d1-de63-08dec32f1b4a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|7416014|1800799024|376014|36860700016|18002099003|921020|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	pcJrzI1CNFhEbP6X5xhku3vR/+4bJo3f4Ql7H7Dk7tN7DsGMVRbn9qd8J+jI9aaz2bXMJsaYshUCOAdExpdHhZO6a6Ff9r2ruBLhkdnDYe3QG+eydYE74Du7MhHL1yHJMETXofZ7z7J3567qGASKtowbKVMjZKYjfI7dv+52J9smifPTPP80Z0HhBik5R8rngBRjKt3AUzB3jO1StmiKFBXUjoagDXqNfPDX2qhh4irISle7/HIQumC/eybY/OfxFw1b47dxBITWq3PPwtLjksx6DugeMgEnbKPw/UEix5WFl2vQsskTJwaF6oWcD1Vj9qBbNQVszHzACPnpNey9N0JyJzBM9PqojTF1viVA4spVlFzM9HILeQM1pfCMUHSixLSTGkIiU4bXAvobplP08lZ7lT/TM0Phx4EmQFzkHsYyr9XnjQC+HM+tGziLSSj0mil92w7G1THioMTm7SsKXFJ/CySECRG4wk3mKp2gSOxwuQDRVp4hrMeAysYPbdUMs3DxsJ1ndzHjXGsZKfAIJZCzJgf8BCOA9WpIILYI8EuJYXM0zy6z9f6vZo4+h5oerMqKZGAWZKFq2KJXayrnZj7L+FQMyQ1QMYzyF3L8MOSknHgSCCRUoJJBjYvnxKiHZARKzV3aAUv5qoQWM+pKrKxNOtaKvJfkohMAHdyWDysOPITooYzv9xMD+8cP6UCHzKenF6imJg3OsDy7tqXq07EyprIyv9N03d7JlVRHWBYcrlvuSezVh6RFyIInP4zGX78N1Rsvbzm/+KKDEPKrcA==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(7416014)(1800799024)(376014)(36860700016)(18002099003)(921020)(56012099006)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	Sqfe5UTeYttTZygwSdBDCjh15rDWi4z/W4YNxpyGWGeFro+SMVYG6/OSJy6K3a7YANszkJDaeFmFsUnqXp+tvdDSd2DUC0RFdJu9vEF6c7DDLoeUH1ETetT0bYZiLOHpA7jpSgnctcvzwJr0hpuO9pPY/BDZxG3WBjLOaCOLFm8p5xMrzJBlT8mHkoagX0LolrzTy0agatXHWHRWLlHE7pXg/rqxRN+kJNky6NYbbNNMCLK8WX0aPQXtBbimk0YPXPXlZLUmBMvXkyd41E8Y0DT9tYrIG67WonHT35uRf5qMCQouMX//IpzHjFA5AcBzH8tNkIZHxIID8hJyCAvY1F7LkezZQO3Zy/vyNyl+8rgl1K1497/fZC3KxALY4R6vnGkQtRgR5nXRZpblemBdwP/FR+x+B9TkIfxJ6lmrlQvBGi08vq1Dhjjig82/geYe
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jun 2026 18:20:22.1079
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB8412.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f687b39f-f213-4c4a-ec71-08dec32f6e9e
+X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Jun 2026 18:22:41.9629
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0f54b008-665f-47d1-de63-08dec32f1b4a
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CY4PEPF0000EE39.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6860
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: fW7cQmSFtSyniudcGtAhvikOG9iNQwmlhXwKzhI22qAKQEMgRMtx4py3X9jsLy+uZAh3i+L7ulUve+0c6ek9/Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PPF002462CFE
 
-xa_erase() in cxl_dport_remove() runs without the port device lock,
-creating a race with any caller that does xa_load() on port->dports
-and then dereferences the returned dport pointer. A concurrent
-cxl_dport_remove() can erase and free the dport between the xa_load()
-and the caller acquiring the port lock, causing a use-after-free.
-
-For non-root ports the port lock is already held by the caller on two
-paths:
-
-1. Driver unbind: devres_release_all() is called from
-   __device_release_driver() which holds port->dev.mutex.
-
-2. Dynamic endpoint removal: cxl_detach_ep() takes the port lock
-   before calling del_dports() -> del_dport() -> devres_release_group(),
-   which synchronously runs cxl_dport_remove().
-
-Use cond_cxl_root_lock/unlock(), which only acquires the port lock when
-the port is a root port and the lock is therefore not already held.
-This matches the pattern used in __devm_cxl_add_dport() for the same
-reason.
-
-Reported-by: Sashiko
-Fixes: 391785859e7e ("cxl/port: Move dport tracking to an xarray")
-Signed-off-by: Terry Bowman <terry.bowman@amd.com>
----
- drivers/cxl/core/port.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
-
-diff --git a/drivers/cxl/core/port.c b/drivers/cxl/core/port.c
-index 0c5957d1d329..80ce7c4d357c 100644
---- a/drivers/cxl/core/port.c
-+++ b/drivers/cxl/core/port.c
-@@ -1088,8 +1088,17 @@ static void cxl_dport_remove(void *data)
- 	struct cxl_dport *dport = data;
- 	struct cxl_port *port = dport->port;
- 
-+	/*
-+	 * For non-root ports the port lock is already held by the caller
-+	 * (driver unbind via devres_release_all(), or cxl_detach_ep() via
-+	 * devres_release_group()).  Acquiring it again unconditionally would
-+	 * deadlock.  Use cond_cxl_root_lock() which only acquires when the
-+	 * port is a root port and the lock is therefore not yet held.
-+	 */
-+	cond_cxl_root_lock(port);
- 	port->nr_dports--;
- 	xa_erase(&port->dports, (unsigned long) dport->dport_dev);
-+	cond_cxl_root_unlock(port);
- 	put_device(dport->dport_dev);
- }
- 
--- 
-2.34.1
-
+T24gRnJpLCAyMDI2LTA2LTA1IGF0IDEwOjA3ICswODAwLCBEYXdlaSBGZW5nIHdyb3RlOg0KPiDC
+oAlpZiAoYmwpIHsNCj4gwqAJCW52a21fZmlybXdhcmVfcHV0KGJsb2IpOw0KPiArCQlibG9iID0g
+TlVMTDsNCj4gwqANCg0KSSB0aGluayBpdCB3b3VsZCBiZSBjbGVhbmVyIHRvIGluc3RlYWQgZGVs
+ZXRlIHRoaXMgbnZrbV9maXJtd2FyZV9wdXQoYmxvYikgY2FsbCBoZXJlLCBhbmQganVzdCByZWx5
+DQpvbiB0aGUgY2FsbCB0byBudmttX2Zpcm13YXJlX3B1dCgpIGF0IHRoZSBlbmQgb2YgbnZrbV9m
+YWxjb25fZndfY3Rvcl9ocygpLiAgVGhlbiB5b3Ugd29uJ3QgbmVlZA0KImJsb2IgPSBOVUxMIi4N
+Cg==
