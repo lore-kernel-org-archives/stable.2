@@ -1,63 +1,63 @@
-Received: from mail-lj1-f178.google.com (mail-lj1-f178.google.com [209.85.208.178])
+Received: from mail-lj1-f180.google.com (mail-lj1-f180.google.com [209.85.208.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D0AD358D37
-	for <stable@vger.kernel.org>; Fri,  5 Jun 2026 17:04:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1516358D37
+	for <stable@vger.kernel.org>; Fri,  5 Jun 2026 17:04:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780679065; cv=none; b=pKHIG/j0ei9bgbTxJlLgFj2nSCWlsUv+kxlBIpTnSCwUMm/x2EDEZRUDeuam3uW5zf8dQz38LVR4pBAX+E4w1t5EdCaoomzZFA+IxQR7x8JzRWFSjMemkoD+TafGEpBwo3mRZDkpCn3BMPNNjLtl60F6KGUyz24XEiGoKYquXdc=
+	t=1780679076; cv=none; b=mdIFMTHGtLiepdWwNlTQavP8UtZZ3Jv1H8yw8Gj4bUclDQASfO4MUfdE/lWjXZ7/OHVwI5x0moBAHgWNc7SLLSBoLJpAFqv8wBKz8ZjoQ1qmQ4tsc6K4XgUGgGImzhp2hJNtQtGQfCRCeQWU/jV1GDeaHlWoAWV1Sd+0vudUm4c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780679065; c=relaxed/simple;
-	bh=qlOqJCumkmHJfJLiXXOXhCO/dxGSCrwCfvho3e9vArQ=;
+	s=arc-20240116; t=1780679076; c=relaxed/simple;
+	bh=D/nO13dQ1LzEazrrsrSdTSHRT/e4G5tqDnpjhZe/h5I=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=IDu9zBn/QjDIeuMc9iPDyIl/NDv/dGjAQYyaRQVWAyQ4S4/3ukqEac8UymkJLy4QIW3N/vZOGH2YL2R/0rVQrTTl3vBaHGroE7EZGE1sf24Sf7LuYObHkCZsTo3cF3BHtX1bUXAWd0Qdv3hry9w+z3dcvnEfd2/ghJ90dWpPA1Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=K+c8TiKF; arc=none smtp.client-ip=209.85.208.178
+	 MIME-Version; b=cXBacqF/VFPuzw0SrB5tY0L4f6RzGHmXmjKGhaOJZjTuVnVZvVyn0KD9qOlApNxXE2z2DANdmq/TQLGEJa7+tk3RdGl8EkYrKO+5logdzK0G/0vtwGNO7dseFm0tVAWvSGn6tZ/pwVJvAIuimKFTyDNC2UCRJ5eKVaSS7KMl5NM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gSr5j7DV; arc=none smtp.client-ip=209.85.208.180
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K+c8TiKF"
-Received: by mail-lj1-f178.google.com with SMTP id 38308e7fff4ca-39666ac91a2so32709801fa.1
-        for <stable@vger.kernel.org>; Fri, 05 Jun 2026 10:04:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gSr5j7DV"
+Received: by mail-lj1-f180.google.com with SMTP id 38308e7fff4ca-3965d76090bso19629431fa.2
+        for <stable@vger.kernel.org>; Fri, 05 Jun 2026 10:04:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780679062; x=1781283862; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1780679072; x=1781283872; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=EB08X2I3fy3wrkRM6VsdXZolE8SRqefSruMLGUvZ7UY=;
-        b=K+c8TiKFsFhtazVJVRNzywEeWp31xZHpogsefp63IVsiZNG0J3VMXaj5HLrErarTpK
-         melF8isolHsoW2o7ypPKwXLnVbfSbnuSWnwLOdeWc6p9ZY7MZK+pbfLm3maUTHG4zyl5
-         geyZjjPNhZdmbNDDXsnkSFDg5aTBbpiI+dm2S9UtFj8QNkQA00bd08+4S257XstnlFCj
-         RxbP4IdFiNJnU9T0SKkrt9SC+yXfCnUS7E7FDdvU4miqCzQai0qXN9nKqRp5zsJUjQ45
-         sDoZKGc4xMMBLLxtDZFv1HKtpnUaYCKa3iyUPdNz3I9LgvE1W/Ai9lZHh6232m9jklWb
-         4MGw==
+        bh=jD9HMBs1n8FhaIiEX38r99JB83FOqKTDd6pKw32kq/Y=;
+        b=gSr5j7DVpMIROAQqBlGzLeicC/1TzuYwZMKxbd+3cM8J/UNPqRDWeb/fR4YDOSVJtB
+         jibPUMY1kwpHi/KHeJH1fdD+NKg5OyMIen9CVYX8cPHcqltP8eBavubFNAFKUM9hR4ic
+         9iiuSMF8Mpu1//c8yhqf8SActmjy0oeEXmXYjFGH1WZhgBuceY4HvGvIfdd7GVxpfeTy
+         YHDgidohafn6x5JVWG0227kz25FYRe8CcOGhpHgLB1Jf/Apbj0AphacMClbrbYrvPZZ3
+         sgnJnI2FrM2kl0znnJYpLg7B/AuAFsaPGoLBmOSM0s8/4J17kx/88sCUKkuaU9Uxu+Zz
+         l9Xw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780679062; x=1781283862;
+        d=1e100.net; s=20251104; t=1780679072; x=1781283872;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=EB08X2I3fy3wrkRM6VsdXZolE8SRqefSruMLGUvZ7UY=;
-        b=cKslB64ipY9MTkI6xIrBYBVaeAfv6IC6C54PZzHyE9l7qQtiCFq+z9eIXyWbY4Y9AM
-         GZvLQlGs/XlgK3d3Tv9lLnrC3LsLFOsy7Kxb/nPvWZsFN2Uv9nrnp+D7uLCEXg7cFJXM
-         ci93sR/3sLEp0rviJ0K56VflGdIIYYmsSVXgCSsipqrX/MFHDHWPXzJ/flWBuhEDLuvz
-         xivIXa8Gham5qfAe79BODqCi50uw5td6LvxuMEu0CufAFOeiIL3U37U2KL+T53gjKcoZ
-         6PRDhLXfI8sIBp8PlTHVZZURkUo8gm1wvbSrDcXusTNuaqJjTbuf7caXsRpI1BFihuq4
-         jiIA==
-X-Gm-Message-State: AOJu0YylbZI8WGP4KiarfNsjeqsv97QxfC6UzRqM6fya442EWrT+Wb4r
-	W5C3Q4jQhKmbgT8BU5mkpNygeF2u1uHHrlqYwJsXwTzKJXFpOBrwKeqZwe3vdqCoNlU=
-X-Gm-Gg: Acq92OHBeQeV7YXl3TO0kCkUxhNnAYacevOSE/EoakSDdBQ7zSJGEorSAeWZgZc/YdL
-	ZaYTgHOjHwf6Yxrdl5Pko20tlx3xX32NPPEtghy/ogvRGGoZfH0+AP6YJo21eLJotPby8Pn0kqE
-	+YhPxje9lzBt7tBx7vLdo7cEXYEKCDpjqddx3/OSMc1Dr/J70/YwCjTcepndJ9EPGQAhyFlE8wh
-	cc/YS4BDKhm2obGm46sjGMHONzFn+Ml7OAxNZ8+/obaqhEDCTdbIBpZuRA+Q5nOkl4PVTYUdXKW
-	JDYuTUZLkYUUJvj0LTD7HGi0hx+QufTWWNQraIN+442sI9GsYECGQQCelNOcPrcyFp92icYVKn1
-	A3emtV/SOplRxwgnfxqxxelLfRu9p+qznWP6eEYiwgkkqsDj6dZ1uU7NZbt+3AAnQz1BNFrjFE1
-	YGEZ1EzocOj28I+dPUgchtY+STmPaUm3Aw8+SQ8Gy5Vy6n6mEHtRV63kEg+cglnXsDgtGpLYQ9K
-	BA2WgA=
-X-Received: by 2002:a2e:a58a:0:b0:394:8fc:8c3d with SMTP id 38308e7fff4ca-396d2892d2fmr10213551fa.4.1780679062303;
-        Fri, 05 Jun 2026 10:04:22 -0700 (PDT)
+        bh=jD9HMBs1n8FhaIiEX38r99JB83FOqKTDd6pKw32kq/Y=;
+        b=RYo8e2eQ1bOL7FE3kteoNhMLOVBnckYPF1RjwJX9vV7B6VDen6/4w4EluE+NT9iY9k
+         A4GavimsjpAGZW3REpQ9CIvTsvWRJMwX1pRWKXDfsiJk6cOahJpbDT9SE8zF77wVkXYh
+         U3K9adLo34BqJfDpOMqIfEPMl7WlKbJLpkrJ8qAkxYtFtrd6Uk2FnxnjJ1whdVc/65+n
+         pQK9x0D/01jScgiSWzoJeRImkaKMEalmN/9G5bHUmfXv8oIwkH4xNdoQpW9HFcXyA2eH
+         b3QijXMuhfnun3uCW9uATaxd4yQg7S50z0arffyJbXzmzOAa/lT6MB4pxIn3hgwx964E
+         kwkw==
+X-Gm-Message-State: AOJu0Yx7XWia7zmZ/kCigmhjYo55Bf6j8vK0g7AXaE8LGDudtUczO0yB
+	Ic84W0+7H6gLCu48nTlFmKXhFumpQG/Aeda8pRmeiQytZFa5ljGW3qtqiZ/mYSNGagc=
+X-Gm-Gg: Acq92OE9YzaB0IA76bp7/L/j3/2TBFptRfFUKKoYdYdzI7iZU3TN5tZz3yI+ZSW/LHK
+	GtPC9VRuwerWEpzd2+JVI+KLNfeiX3QuAgvsrAbFAH+nhIHWaSYlhDO/VE0yGS/DHb90Ur0BOJg
+	4tU/9ghHErELjAMu7qXoyfAybg8CkA0im8q2bcFanyVQrVQD9L6Ywg/I34Ikq8DxEiefMydUDNA
+	iGB3f/ysVWAukzxyx6Cjyg+nZ+qqylkrDItJhBAgE8uZuDjaFOqrFOPetAGLco4T/N0GEo6L9KG
+	AootvacCveEriEmS6DBuc0XUM0911MiQSyMpGSc0AcPl+j03mpuu4ZCIMISM261lDIV6lAbe87P
+	Hwc9w7NVgt4/l5JaCDUXxhl6OovhQB/SKt+X5uQBV/O2jnuV1x5CMAzkJFGVb+ktMOxa/cJ7KNk
+	hV3kSSlBr7jpTgT42B6NRk+CY9h5q5DZGaurUEBqf7V7MUnJguYE19NF6qMUcckigs+69oIcq/H
+	2U8+GA=
+X-Received: by 2002:a2e:bd10:0:b0:396:74ed:a7b1 with SMTP id 38308e7fff4ca-396d08e4001mr13247801fa.15.1780679071635;
+        Fri, 05 Jun 2026 10:04:31 -0700 (PDT)
 Received: from c0624c666cc5.devsec.astralinux.ru ([93.188.205.42])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-396ac07b66asm26931161fa.11.2026.06.05.10.04.19
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-396ac07b66asm26931161fa.11.2026.06.05.10.04.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 05 Jun 2026 10:04:20 -0700 (PDT)
+        Fri, 05 Jun 2026 10:04:29 -0700 (PDT)
 From: Vladislav Nikolaev <vlad102nikolaev@gmail.com>
 To: stable@vger.kernel.org,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
@@ -74,10 +74,12 @@ Cc: Vladislav Nikolaev <vlad102nikolaev@gmail.com>,
 	linux-rdma@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Zhu Yanjun <yanjunz@nvidia.com>,
-	lvc-project@linuxtesting.org
-Subject: [PATCH 6.1 1/3] Revert "RDMA/rxe: Fix the error "trying to register non-static key in rxe_cleanup_task""
-Date: Fri,  5 Jun 2026 20:03:27 +0300
-Message-ID: <20260605170349.1524-2-vlad102nikolaev@gmail.com>
+	lvc-project@linuxtesting.org,
+	syzbot+cfcc1a3c85be15a40cba@syzkaller.appspotmail.com,
+	Zhu Yanjun <yanjun.zhu@linux.dev>
+Subject: [PATCH 6.1 2/3] RDMA/rxe: Fix the error "trying to register non-static key in rxe_cleanup_task"
+Date: Fri,  5 Jun 2026 20:03:28 +0300
+Message-ID: <20260605170349.1524-3-vlad102nikolaev@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260605170349.1524-1-vlad102nikolaev@gmail.com>
 References: <20260605170349.1524-1-vlad102nikolaev@gmail.com>
@@ -89,34 +91,59 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This reverts commit 3236221bb8e4de8e3d0c8385f634064fb26b8e38.
+From: Zhu Yanjun <yanjun.zhu@linux.dev>
 
-The reverted commit is an incomplete backport of upstream
-commit b2b1ddc45745. It added guards for req.task and comp.task
-cleanup, but missed resp.task cleanup and left it before the RC timer
-cleanup, unlike the upstream fix. Revert it first so the correct
-backport can be applied cleanly in the following patch.
+commit b2b1ddc457458fecd1c6f385baa9fbda5f0c63ad upstream.
 
+In the function rxe_create_qp(), rxe_qp_from_init() is called to
+initialize qp, internally things like rxe_init_task are not setup until
+rxe_qp_init_req().
+
+If an error occurred before this point then the unwind will call
+rxe_cleanup() and eventually to rxe_qp_do_cleanup()/rxe_cleanup_task()
+which will oops when trying to access the uninitialized spinlock.
+
+If rxe_init_task is not executed, rxe_cleanup_task will not be called.
+
+Reported-by: syzbot+cfcc1a3c85be15a40cba@syzkaller.appspotmail.com
+Link: https://syzkaller.appspot.com/bug?id=fd85757b74b3eb59f904138486f755f71e090df8
+Fixes: 8700e3e7c485 ("Soft RoCE driver")
+Fixes: 2d4b21e0a291 ("IB/rxe: Prevent from completer to operate on non valid QP")
+Signed-off-by: Zhu Yanjun <yanjun.zhu@linux.dev>
+Link: https://lore.kernel.org/r/20230413101115.1366068-1-yanjun.zhu@intel.com
+Signed-off-by: Leon Romanovsky <leon@kernel.org>
+[ Vladislav: match upstream cleanup order and add the missing
+  resp.task.func check. ]
 Signed-off-by: Vladislav Nikolaev <vlad102nikolaev@gmail.com>
 ---
- drivers/infiniband/sw/rxe/rxe_qp.c | 7 ++-----
- 1 file changed, 2 insertions(+), 5 deletions(-)
+ drivers/infiniband/sw/rxe/rxe_qp.c | 11 ++++++++---
+ 1 file changed, 8 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/infiniband/sw/rxe/rxe_qp.c b/drivers/infiniband/sw/rxe/rxe_qp.c
-index 709c63e9773c..05e4a270084f 100644
+index 05e4a270084f..171c0f4dcbec 100644
 --- a/drivers/infiniband/sw/rxe/rxe_qp.c
 +++ b/drivers/infiniband/sw/rxe/rxe_qp.c
-@@ -788,11 +788,8 @@ static void rxe_qp_do_cleanup(struct work_struct *work)
+@@ -781,15 +781,20 @@ static void rxe_qp_do_cleanup(struct work_struct *work)
+ 
+ 	qp->valid = 0;
+ 	qp->qp_timeout_jiffies = 0;
+-	rxe_cleanup_task(&qp->resp.task);
+ 
+ 	if (qp_type(qp) == IB_QPT_RC) {
+ 		del_timer_sync(&qp->retrans_timer);
  		del_timer_sync(&qp->rnr_nak_timer);
  	}
  
--	if (qp->req.task.func)
--		rxe_cleanup_task(&qp->req.task);
--
--	if (qp->comp.task.func)
--		rxe_cleanup_task(&qp->comp.task);
-+	rxe_cleanup_task(&qp->req.task);
-+	rxe_cleanup_task(&qp->comp.task);
+-	rxe_cleanup_task(&qp->req.task);
+-	rxe_cleanup_task(&qp->comp.task);
++	if (qp->resp.task.func)
++		rxe_cleanup_task(&qp->resp.task);
++
++	if (qp->req.task.func)
++		rxe_cleanup_task(&qp->req.task);
++
++	if (qp->comp.task.func)
++		rxe_cleanup_task(&qp->comp.task);
  
  	/* flush out any receive wr's or pending requests */
  	if (qp->req.task.func)
