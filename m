@@ -1,38 +1,67 @@
-Received: from smtpbgjp3.qq.com (smtpbgjp3.qq.com [54.92.39.34])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 831904266A1;
-	Fri,  5 Jun 2026 06:51:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.92.39.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAC5D4219EF
+	for <stable@vger.kernel.org>; Fri,  5 Jun 2026 06:56:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780642305; cv=none; b=aGIwetevorRNzsPSCEtoLfqwhFABV1m8Du3m7sCU1rqwGU+SB4aOsUYmwTPnh38eo2sIJ4FGb4KQNGubSy7SZsznExkV2g7QDD3oJcS02A2QuvfPsSlubDVwoh89o7iDYIYN4ctOBNJfL8TvohL9v8QyJOm0b60W+YKReIWtcUE=
+	t=1780642591; cv=none; b=Gg34LPqEvdOsRKCmk29n271XycmngKgVM8vM2oGxajs0C4gIfnkNz6OFtfPpjqoVlUe+qrAHEC8OCsIxJ1/KODrXWTUuYDgXTQiwtPJ1mAiMIfvkMttm3hlHVq9j9hDrz/vWCNo26czmYlO3jAvwRAORyko8UgIZoS3mS6HEkDQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780642305; c=relaxed/simple;
-	bh=0GRND5Ewt6cXLnjmO6nyQPz6mj3/NACWiJfXWMDSpXM=;
+	s=arc-20240116; t=1780642591; c=relaxed/simple;
+	bh=ZDvo2JB+1+eOw28zDMz66JG84t71fIwb6lfT3Y+53hc=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=tc99jQGdRP/XP8D5C9lEncyIk2Ah5WgHv9xdeohl+BR39++hXZ+lDGKyWCEBOKRvtYWjToBbh29mI/l5Ocx7/OgKUaBvfA1X/46QBvYKqWtbqZR3apncTt3mpGqlh7Di/6kyUwpW4JIdKhyKui6xKmfrIfCicNDmwkf02PPWknU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=GMn0VyBk; arc=none smtp.client-ip=54.92.39.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	 In-Reply-To:Content-Type; b=K2PCo806XiP5rWeCh2rJHnG0ZyL7OSW/wcjh61/VpSPn/+vKKEXWugGJAzq+eVfPr7mvkym9XHE5MyzavNHEsABoO/81g16Xtb2KH+YlRGaFaNSxrnPBeeDFRpbwX4XsvDIOdOrECpsBoRpGQokcO5ongIHu2SbZwPMdkosqtCc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EQIGjZpy; arc=none smtp.client-ip=209.85.221.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="GMn0VyBk"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1780642252;
-	bh=fcCoLgbGRFsEscMKd9ACVxdk//KZN9GsWeew7GW6eiE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:From;
-	b=GMn0VyBkABQYJBLmo/dXtgavTtxIxvcI+uSjsZDtsL8hM8M772CxOsAo5UBLudfe7
-	 7olVCMLls+iTNoJy34i4TxLatbAtSFniQAugYOTU7lLFQtsNoh0Zmwwmww4mo2qMk/
-	 ZyyRUZaeMkS53Z+rk2EoYoGXMJ6LDBysfr15DUfk=
-X-QQ-mid: zesmtpsz3t1780642249t5482864b
-X-QQ-Originating-IP: 8+K/Zs9/X+TK3fr6lfPw+gApz3U20Ga2dKD/S6aS9P0=
-Received: from [10.10.73.115] ( [123.114.60.34])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Fri, 05 Jun 2026 14:50:47 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 6908254221687791739
-Message-ID: <18E186480A1197E1+43038b46-5635-4835-b01c-d64eacacea0f@uniontech.com>
-Date: Fri, 5 Jun 2026 14:50:47 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EQIGjZpy"
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-45eedcdaeaaso1059021f8f.3
+        for <stable@vger.kernel.org>; Thu, 04 Jun 2026 23:56:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780642587; x=1781247387; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=FCTmNu4jgb4r7pFyMhscOVe9W8lUl5WIYLcG+5Yn3NU=;
+        b=EQIGjZpyoAPkkcw+DI2ludlABPF7YBAfaO5u5q9WUzEwR9Au3BAIBfNI5JiymA3yHS
+         e4LLgDW54CbO71ZclsAExlKkkSB3Fv1CAY5YMahFyx0u+nGmbIkSh35qGFGI5RTGXfal
+         9jszspuhlcxaLz4yHDy6I425umatBDOqUhWpxfW+jwrK3G7HN54ls+o3ieiNZFlveti6
+         kpEZB+dAHhK6tVjkx5EGGSbyjpRHkczD7tr6FowAm8r8tnmkpkUx8l7ygL9QjjRt1EB8
+         R58ZS+9XSWHua2tiYtLLmE2CX+uOgqz+D3jg3rcCigECa5duPegtbObKCP/jlCPjFNKU
+         aFWQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780642587; x=1781247387;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=FCTmNu4jgb4r7pFyMhscOVe9W8lUl5WIYLcG+5Yn3NU=;
+        b=UxSRLfnirVdmRZLtxukmer1wN4qvt1k3Ny3QA3wU+pk7cPYlypLo/AajAqtDFFybES
+         pr3Cd+6StCZ2KVs7WiaPxmqph7GEcAjkJogPAFVTc00LM5H2joYeBYjN4d5mrxTqZZW5
+         YQ6gYKA1nrOLuUibod5Kn68W/F4Mzv0+RkuzUObK28w2xo72Tel+1enwor82gB7nP137
+         gk7HgUfV6m4rs/NvqieI1G4Uvrcaoki4al5MviSxijQJLq+K2NdZd9kD51xHyplXJt3d
+         DpCEEqo0rYOtRogszRYSQFoFDmr+ejlShI86tvcqNuUB2EfZeN107IctmK1qmHpLS1j3
+         mDGg==
+X-Forwarded-Encrypted: i=1; AFNElJ/k3a4RRG1iKIvFEPIs/cVGZiVS/13Wma+qDFOX5QfF+cqLwlZar4qcZ+Lwxp47n+ydPNRuqy0=@vger.kernel.org
+X-Gm-Message-State: AOJu0YySPbytx0JxD+q7qGbMQO8Sj15F4NwjueP5wEeTkjU7/EgHFlKL
+	R7HH4htc+DygyiYH20UF9bBdHgB5e0eU1sHJ+KuEOsB9Bj0MM6MFmqak
+X-Gm-Gg: Acq92OHS9Rx4Tqs1JHPTADkAf8xUnKENGjzlao5zKw30fQIZdiFO8+J982CzxpOXvi/
+	cy8jB5c2LOK1arKIU5hRNamG1MlpIW8ks9pwSHUv5f5vAs2iAnLFSbExXgXkShee32UXPI0t5S3
+	Lh80sszi9TEdAzFo3/0vYqHz/0ORHAoxN6I05tRX9i5CcdAi2rasV8Hrk7hCiqkcnfTX2HPwX1F
+	37VLJsip8mso33S+rYWCd6Bd1iNWOmsyoRxBq9X8jSPyZs+71RWberMuM+1fDMgfOWzUwa7TPk2
+	tdzzSCeNieimlT14ar9YEW8b4yf+5njBg9RAjQL9wDvhm+J2/2nqZAb+Ki1TGVmxe2HdnPpOHY1
+	L8lH2Ki6w+/Ss/yIzvCdn6X/jkbaLgk1VQ26Rs1xuLUTJzuHlq+OBbsgp+apA9hSGYrjQqObdfV
+	NzYrqdGmr3YW2eE58tv93WbwYpCwYtqx8s2R6Z0y8ZHvHestNlM+cW5zHS2FJJLKXSWxQwBUmD3
+	sY+DKgXPGRXo/O80TMP0OpopUybn1eNl3Mu
+X-Received: by 2002:adf:e006:0:20b0:441:1e8e:d8fd with SMTP id ffacd0b85a97d-46030658bc5mr2487297f8f.29.1780642586855;
+        Thu, 04 Jun 2026 23:56:26 -0700 (PDT)
+Received: from ?IPV6:2001:9e8:f133:a901:840b:2bf2:919c:cec5? ([2001:9e8:f133:a901:840b:2bf2:919c:cec5])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4601f2dcb13sm22537060f8f.2.2026.06.04.23.56.26
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 04 Jun 2026 23:56:26 -0700 (PDT)
+Message-ID: <e009fc98-73b7-4d3a-9b0b-7b6d37570dc5@gmail.com>
+Date: Fri, 5 Jun 2026 08:56:25 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -40,149 +69,98 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] LoongArch: KVM: return full old CSR value from
- kvm_emu_xchg_csr()
-To: Bibo Mao <maobibo@loongson.cn>, zhaotianrui@loongson.cn,
- chenhuacai@kernel.org, kernel@xen0n.name
-Cc: kvm@vger.kernel.org, loongarch@lists.linux.dev,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260604123433.3182173-1-maqianga@uniontech.com>
- <08d3b817-9de6-746d-2b2c-acc4a578f95a@loongson.cn>
- <4CD61A5AB07B2388+7fa119a1-af5f-4def-b2c4-6073fc397b10@uniontech.com>
- <519ffada-5f2b-2896-30a8-9546d3795f62@loongson.cn>
+Subject: Re: [PATCH] MIPS: smp: report dying CPU to RCU in stop_this_cpu()
 Content-Language: en-US
-From: Qiang Ma <maqianga@uniontech.com>
-In-Reply-To: <519ffada-5f2b-2896-30a8-9546d3795f62@loongson.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+To: Huacai Chen <chenhuacai@kernel.org>
+Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+ linux-mips@vger.kernel.org, Sebastian Andrzej Siewior
+ <bigeasy@linutronix.de>, Clark Williams <clrkwllms@kernel.org>,
+ Steven Rostedt <rostedt@goodmis.org>, Thomas Gleixner <tglx@kernel.org>,
+ Jiayuan Chen <jiayuan.chen@linux.dev>, linux-rt-devel@lists.linux.dev,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260604182407.3109536-1-jelonek.jonas@gmail.com>
+ <CAAhV-H6khmNSNLOpVzV2B9qmRVAZkY6w8nYVrJC6QBP5CrFd3w@mail.gmail.com>
+From: Jonas Jelonek <jelonek.jonas@gmail.com>
+In-Reply-To: <CAAhV-H6khmNSNLOpVzV2B9qmRVAZkY6w8nYVrJC6QBP5CrFd3w@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpsz:uniontech.com:qybglogicsvrsz:qybglogicsvrsz3b-0
-X-QQ-XMAILINFO: N4WhQbLQyIqSSc4Oc+Su76JEBnl0V2tgrOseoYUjpdfhjbfui4S4Eb2w
-	nLjXTuBsi35/k0A5U2CCVdpfDOTfufDB5khxUCpwzVwGBR0+6oV1ZR6ea7CW+YfOKbpk3DQ
-	y1Lk3puRx5N615c/qHneZkJfZkTQTRdUCJ10SrfdecT+NzJ6w79WIj8N6XU8T68qSf8Oyu6
-	TGnU5B0qrSNdAsjSWq4Up+IVXZ6sCRAnRCWkfWwOvL8wshdBhGZh0rxj0rpWawQWkpcFyGT
-	DzvxlmLH2iW/xY7VR0iUqQAssdeyvfpmkIQ4viIHAk3QHhjFryJ8KzzrstXSy1ncJiB9/ie
-	cH8nqxJPP20x4BBig3ucFmWWVqQtAvjodgGAlnaX89IuCXu2/lZ5yPQaFnstnsgDxHB6gpL
-	+FIfP/USpOgbAiuTeFc99d3EUG1m71LqFKB/UCqs/e9uw83ck4oLBphMRBnxkPHngtmkKCm
-	DwnHZLNPiiJ+n8QzuspjBdUgUnosZIwna3On/zzVWfpKmXLoDQ5BWXDWdLtnC+vzKZ66YPw
-	y5ekw4vOdZcwFMEz/sDymsy1DSY6mMK+qsVix4bXj6JkEAF2BPvLKAUXeAuiioP08Vuj77Y
-	Z0IxooJxabH4c4oNe9f16uOOYTF9+hrvCqoW5NFiEpwQy0NT8E9E9CKMVxB7kN0YiPrglgx
-	7XJP0z98ewr7/6zBD6jnt+ZC5hMqQbhOc8wXtzeKAATaYY/MWzz17U7fGaJS/tj9V1Pp5uP
-	IgW7udljtfdeczw/tSnh+S9dpLG30djL5uxeu/nL/qmN+Q93MoCfWgavRumagVrU9l1f9AD
-	S19ix9m0J03PQyu3HiHBMj94ihlkXIBlY5koC5SBdFeEQ2B6Ij15YQrj877zLxWqGqBp+gw
-	vYdJBJIBqndPaR26aGm6squqdNIyS1DTwqpnOJRH3YKjthdaTX2lyEj72gCc77MAB0lgQNL
-	rH10dT3RtRKCCHSlIx4hy6uvUZHRTkqeKYLWQuxBeIoUNsfqVx6eZvnI9PUe9eotQ55Jake
-	QMbKqwC85I63x3qPCYfqIq3e2bTXOm40Qt/vnBHIbPx1qfXkGvze3DrVmPLovXGZNtgD/3X
-	XcvJ+UhbLQTmT7wv2Sz4y8=
-X-QQ-XMRINFO: Mp0Kj//9VHAxErtib8qEEVA+DLqTo30zhQ==
-X-QQ-RECHKSPAM: 0
 
+Hi Huacai,
 
-在 2026/6/5 14:27, Bibo Mao 写道:
+On 05.06.26 05:01, Huacai Chen wrote:
+> Hi, Jonas,
 >
->
-> On 2026/6/5 下午2:08, Qiang Ma wrote:
+> On Fri, Jun 5, 2026 at 2:25 AM Jonas Jelonek <jelonek.jonas@gmail.com> wrote:
+>> smp_send_stop() parks all secondary CPUs in stop_this_cpu(). The function
+>> marks the CPU offline for the scheduler via set_cpu_online(false) but
+>> never informs RCU, so RCU keeps expecting a quiescent state from CPUs
+>> that are now spinning forever with interrupts disabled.
 >>
->> 在 2026/6/5 09:41, Bibo Mao 写道:
->>>
->>>
->>> On 2026/6/4 下午8:34, Qiang Ma wrote:
->>>> The LoongArch CSRXCHG instruction returns the full old CSR value in rd
->>>> after applying the masked update. kvm_emu_xchg_csr() currently masks
->>>> the saved value before returning it to the guest, so rd receives only
->>>> the bits selected by the write mask.
->>>>
->>>> That breaks the architectural behavior and makes a zero mask return 0
->>>> instead of the previous CSR value. Keep the masked CSR update, but
->>>> return the unmodified old CSR value.
->>>>
->>>> Fixes: da50f5a693ff ("LoongArch: KVM: Implement handle csr exception")
->>>> Cc: stable@vger.kernel.org
->>>> Signed-off-by: Qiang Ma <maqianga@uniontech.com>
->>>> ---
->>>>   arch/loongarch/kvm/exit.c | 1 -
->>>>   1 file changed, 1 deletion(-)
->>>>
->>>> diff --git a/arch/loongarch/kvm/exit.c b/arch/loongarch/kvm/exit.c
->>>> index 3b95cd0f989b..264813d45cbe 100644
->>>> --- a/arch/loongarch/kvm/exit.c
->>>> +++ b/arch/loongarch/kvm/exit.c
->>>> @@ -103,7 +103,6 @@ static unsigned long kvm_emu_xchg_csr(struct 
->>>> kvm_vcpu *vcpu, int csrid,
->>>>           old = kvm_read_sw_gcsr(csr, csrid);
->>>>           val = (old & ~csr_mask) | (val & csr_mask);
->>>>           kvm_write_sw_gcsr(csr, csrid, val);
->>>> -        old = old & csr_mask;
->>>
->>> Hi Qiang Ma
->>>
->>> This is correct from the manual. Is there any test case or problem 
->>> in practice?  I want to evaluate severity about this problem.
+>> As long as nothing waits for an RCU grace period after smp_send_stop()
+>> this is harmless, which is why it went unnoticed. Since commit
+>> 91840be8f710 ("irq_work: Fix use-after-free in irq_work_single() on PREEMPT_RT")
+>> however, irq_work_sync() calls synchronize_rcu() on architectures without
+>> an irq_work self-IPI, i.e. where arch_irq_work_has_interrupt() returns
+>> false. That is the asm-generic default used by MIPS. Any irq_work_sync()
+>> issued in the reboot/shutdown path after smp_send_stop() then blocks on
+>> a grace period that can never complete, hanging the reboot:
 >>
->> Yes, I have written a selftest for this. Below are the test results 
->> comparing without and with the patch.
+>>   WARNING: CPU: 0 PID: 15 at kernel/irq_work.c:144 irq_work_queue_on
+>>   ...
+>>   rcu: INFO: rcu_sched detected stalls on CPUs/tasks:
+>>   rcu: Offline CPU 1 blocking current GP.
+>>   rcu: Offline CPU 2 blocking current GP.
+>>   rcu: Offline CPU 3 blocking current GP.
 >>
->> I have not encountered this problem in an actual operating environment.
->>
->> without this patch:
->>
->> [root@node1 loongarch]# ./csrxchg_testRandom seed: 0x6b8b4567Testing 
->> guest mode: PA-bits:47, VA-bits:47, 16K pagesTesting CSR: IMPCTL1 
->> (implementation-specific control 1)Initial guest CSR value: 
->> 0x10000100Checking that CSRXCHG updates the CSR per mask and 
->> returnsthe full old CSR value in rd.
->>
->> Case: zero-maskwrite value : 0xffffffffffffffffwrite mask : 0returned 
->> old CSR value : 0expected old CSR value : 0x10000100CSR value after 
->> update : 0x10000100expected CSR after update: 0x10000100result : FAIL
->>
->> Case: partial-maskwrite value : 0write mask : 0x100returned old CSR 
->> value : 0x100expected old CSR value : 0x10000100CSR value after 
->> update : 0x10000000expected CSR after update: 0x10000000result : FAIL
->>
->> CSRXCHG test FAILED
->>
->> with this patch:
->>
->> [root@node1 loongarch]# ./csrxchg_testRandom seed: 0x6b8b4567Testing 
->> guest mode: PA-bits:47, VA-bits:47, 16K pagesTesting CSR: IMPCTL1 
->> (implementation-specific control 1)Initial guest CSR value: 
->> 0x10000100Checking that CSRXCHG updates the CSR per mask and 
->> returnsthe full old CSR value in rd.
->>
->> Case: zero-maskwrite value : 0xffffffffffffffffwrite mask : 0returned 
->> old CSR value : 0x10000100expected old CSR value : 0x10000100CSR 
->> value after update : 0x10000100expected CSR after update: 
->> 0x10000100result : PASS
->>
->> Case: partial-maskwrite value : 0write mask : 0x100returned old CSR 
->> value : 0x10000100expected old CSR value : 0x10000100CSR value after 
->> update : 0x10000000expected CSR after update: 0x10000000result : PASS
->>
->> CSRXCHG test PASSED
->>
->> Should this selftest case be included as a patch and sent along with 
->> version 2?
-> No, it is not necessary. I test csrxchg instruction by myself, the 
-> manual is right, return value should be the whole old value.
->
-> My meaning is that what is the scenery where CSR register is SW 
-> emulated in KVM mode, or this problem is found by code browsing.
-Understood. This was discovered while browsing the code.
->
-> Regards
-> Bibo Mao
->
->>
->>>
->>> Regards
->>> Bibo Mao
->>>>       } else
->>>>           pr_warn_once("Unsupported csrxchg 0x%x with pc %lx\n", 
->>>> csrid, vcpu->arch.pc);
->>>>
->>>
->>>
->
->
+>> This issue popped up during kernel bump downstream in OpenWrt from
+>> 6.18.33 to 6.18.34, since the suspected change has been backported to
+>> 6.18 stable branch [1].
+> Now 91840be8f710 ("irq_work: Fix use-after-free in irq_work_single()
+> on PREEMPT_RT") has been backported to as early as 6.1 LTS.
 
+Yes, as also pointed out by Sebastian I should adjust this paragraph
+to be more accurate.
+
+>> Call rcutree_report_cpu_dead() once interrupts are disabled, mirroring the
+>> generic CPU-hotplug offline path (and arm64's stop handling), so RCU stops
+>> waiting on the parked CPUs and grace periods can still complete.
+>>
+>> [1] https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?h=linux-6.18.y&id=18c0456ea2615b1a743a6db739c74411c3b42bc6
+>>
+>> Fixes: 91840be8f710 ("irq_work: Fix use-after-free in irq_work_single() on PREEMPT_RT")
+>> CC: stable@vger.kernel.org
+>> Signed-off-by: Jonas Jelonek <jelonek.jonas@gmail.com>
+>>
+>> diff --git a/arch/mips/kernel/smp.c b/arch/mips/kernel/smp.c
+>> index 4868e79f3b30..0f28b4a62e72 100644
+>> --- a/arch/mips/kernel/smp.c
+>> +++ b/arch/mips/kernel/smp.c
+>> @@ -20,6 +20,7 @@
+>>  #include <linux/sched/mm.h>
+>>  #include <linux/cpumask.h>
+>>  #include <linux/cpu.h>
+>> +#include <linux/rcupdate.h>
+>>  #include <linux/err.h>
+>>  #include <linux/ftrace.h>
+>>  #include <linux/irqdomain.h>
+>> @@ -422,6 +423,7 @@ static void stop_this_cpu(void *dummy)
+>>         set_cpu_online(smp_processor_id(), false);
+>>         calculate_cpu_foreign_map();
+>>         local_irq_disable();
+>> +       rcutree_report_cpu_dead();
+> I'm not sure but maybe it is better to before local_irq_disable()?
+
+rcutree_report_cpu_dead() starts with lockdep_assert_irqs_disabled() so
+it needs IRQs disabled already.
+
+> Huacai
+>>         while (1);
+>>  }
+>>
+>> --
+>> 2.51.0
+>>
+>>
+
+Best,
+Jonas
