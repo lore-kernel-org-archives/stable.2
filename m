@@ -1,166 +1,227 @@
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAC5D4219EF
-	for <stable@vger.kernel.org>; Fri,  5 Jun 2026 06:56:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9880940242E;
+	Fri,  5 Jun 2026 07:02:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780642591; cv=none; b=Gg34LPqEvdOsRKCmk29n271XycmngKgVM8vM2oGxajs0C4gIfnkNz6OFtfPpjqoVlUe+qrAHEC8OCsIxJ1/KODrXWTUuYDgXTQiwtPJ1mAiMIfvkMttm3hlHVq9j9hDrz/vWCNo26czmYlO3jAvwRAORyko8UgIZoS3mS6HEkDQ=
+	t=1780642956; cv=none; b=AxpPWkefKKy+dq2waltTxVcPwEqKBhSxBY7luOms1YovhfTJ7P9ylI3lpaZq1xAH/nw2xES/d5w9F67sv0WPhR8iWNr2TF7S6lRLv9+KMW1pOjqn5yYZSCc/JUc/s2anfEcUvOnCQbbbNVPQSk9IZ/9B0qG3Z1LyCjGzHPe0Ofw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780642591; c=relaxed/simple;
-	bh=ZDvo2JB+1+eOw28zDMz66JG84t71fIwb6lfT3Y+53hc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=K2PCo806XiP5rWeCh2rJHnG0ZyL7OSW/wcjh61/VpSPn/+vKKEXWugGJAzq+eVfPr7mvkym9XHE5MyzavNHEsABoO/81g16Xtb2KH+YlRGaFaNSxrnPBeeDFRpbwX4XsvDIOdOrECpsBoRpGQokcO5ongIHu2SbZwPMdkosqtCc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EQIGjZpy; arc=none smtp.client-ip=209.85.221.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1780642956; c=relaxed/simple;
+	bh=EFGeluncc9bSfyM5uQew0OqVIBlrOBxS+F68KlRdc1Q=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=h1ZZGOyzTHeRvIWa5UpXfne/PFZHPr+2DkQ11dACNcJ3KHWJt3QgKvNdR+1EBG2bc15GYrH4tP1b3lX7uktODltOdaHGj4q9CaUKq72WFznGurlS7ZDC/MHQH3s6Bi1dDu9aK8zyWAzQSPBlJz59l4tnfzIWiZk3dgWh2iOsdBE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=KlO3B+Vp; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EQIGjZpy"
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-45eedcdaeaaso1059021f8f.3
-        for <stable@vger.kernel.org>; Thu, 04 Jun 2026 23:56:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780642587; x=1781247387; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=FCTmNu4jgb4r7pFyMhscOVe9W8lUl5WIYLcG+5Yn3NU=;
-        b=EQIGjZpyoAPkkcw+DI2ludlABPF7YBAfaO5u5q9WUzEwR9Au3BAIBfNI5JiymA3yHS
-         e4LLgDW54CbO71ZclsAExlKkkSB3Fv1CAY5YMahFyx0u+nGmbIkSh35qGFGI5RTGXfal
-         9jszspuhlcxaLz4yHDy6I425umatBDOqUhWpxfW+jwrK3G7HN54ls+o3ieiNZFlveti6
-         kpEZB+dAHhK6tVjkx5EGGSbyjpRHkczD7tr6FowAm8r8tnmkpkUx8l7ygL9QjjRt1EB8
-         R58ZS+9XSWHua2tiYtLLmE2CX+uOgqz+D3jg3rcCigECa5duPegtbObKCP/jlCPjFNKU
-         aFWQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780642587; x=1781247387;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=FCTmNu4jgb4r7pFyMhscOVe9W8lUl5WIYLcG+5Yn3NU=;
-        b=UxSRLfnirVdmRZLtxukmer1wN4qvt1k3Ny3QA3wU+pk7cPYlypLo/AajAqtDFFybES
-         pr3Cd+6StCZ2KVs7WiaPxmqph7GEcAjkJogPAFVTc00LM5H2joYeBYjN4d5mrxTqZZW5
-         YQ6gYKA1nrOLuUibod5Kn68W/F4Mzv0+RkuzUObK28w2xo72Tel+1enwor82gB7nP137
-         gk7HgUfV6m4rs/NvqieI1G4Uvrcaoki4al5MviSxijQJLq+K2NdZd9kD51xHyplXJt3d
-         DpCEEqo0rYOtRogszRYSQFoFDmr+ejlShI86tvcqNuUB2EfZeN107IctmK1qmHpLS1j3
-         mDGg==
-X-Forwarded-Encrypted: i=1; AFNElJ/k3a4RRG1iKIvFEPIs/cVGZiVS/13Wma+qDFOX5QfF+cqLwlZar4qcZ+Lwxp47n+ydPNRuqy0=@vger.kernel.org
-X-Gm-Message-State: AOJu0YySPbytx0JxD+q7qGbMQO8Sj15F4NwjueP5wEeTkjU7/EgHFlKL
-	R7HH4htc+DygyiYH20UF9bBdHgB5e0eU1sHJ+KuEOsB9Bj0MM6MFmqak
-X-Gm-Gg: Acq92OHS9Rx4Tqs1JHPTADkAf8xUnKENGjzlao5zKw30fQIZdiFO8+J982CzxpOXvi/
-	cy8jB5c2LOK1arKIU5hRNamG1MlpIW8ks9pwSHUv5f5vAs2iAnLFSbExXgXkShee32UXPI0t5S3
-	Lh80sszi9TEdAzFo3/0vYqHz/0ORHAoxN6I05tRX9i5CcdAi2rasV8Hrk7hCiqkcnfTX2HPwX1F
-	37VLJsip8mso33S+rYWCd6Bd1iNWOmsyoRxBq9X8jSPyZs+71RWberMuM+1fDMgfOWzUwa7TPk2
-	tdzzSCeNieimlT14ar9YEW8b4yf+5njBg9RAjQL9wDvhm+J2/2nqZAb+Ki1TGVmxe2HdnPpOHY1
-	L8lH2Ki6w+/Ss/yIzvCdn6X/jkbaLgk1VQ26Rs1xuLUTJzuHlq+OBbsgp+apA9hSGYrjQqObdfV
-	NzYrqdGmr3YW2eE58tv93WbwYpCwYtqx8s2R6Z0y8ZHvHestNlM+cW5zHS2FJJLKXSWxQwBUmD3
-	sY+DKgXPGRXo/O80TMP0OpopUybn1eNl3Mu
-X-Received: by 2002:adf:e006:0:20b0:441:1e8e:d8fd with SMTP id ffacd0b85a97d-46030658bc5mr2487297f8f.29.1780642586855;
-        Thu, 04 Jun 2026 23:56:26 -0700 (PDT)
-Received: from ?IPV6:2001:9e8:f133:a901:840b:2bf2:919c:cec5? ([2001:9e8:f133:a901:840b:2bf2:919c:cec5])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4601f2dcb13sm22537060f8f.2.2026.06.04.23.56.26
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 04 Jun 2026 23:56:26 -0700 (PDT)
-Message-ID: <e009fc98-73b7-4d3a-9b0b-7b6d37570dc5@gmail.com>
-Date: Fri, 5 Jun 2026 08:56:25 +0200
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="KlO3B+Vp"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 65572TyfC1208320, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1780642949; bh=3RLzl/J92jZyUCnh0oN9f4vGr8dbHrP0TQA45xxI5Hw=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=KlO3B+Vpp/lKIBLEvyIDDuQ23unqlcWlx4yIof8f/Ug99DDbP4UqTyBVETgyCKkq/
+	 WmPgwfPJe2IeYo46zfhVwjTuoUfx8kC8GARa007asCL/qXdz4rmI/ht9WpPtEq372K
+	 4YZz5LgKZuHQtsUj/oF8nxvTytw9KdRTGmdPMNnO2padUovOLZCquMvkSlhxm8G6PX
+	 CNz8hUMogDjZNSVQM0VVOvJ2OJdi492jkgQI3u3HDCxAAPTI8wsDyvgA5V4+UTvvVF
+	 8BXJR+zbwE7VkUVFxReJFImS4WbLuhDZiIvmFN6rody5R65HY5wwfhwIsehI3SXJMt
+	 QCnhv0AXaonyg==
+Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
+	by rtits2.realtek.com.tw (8.15.2/3.28/5.94) with ESMTPS id 65572TyfC1208320
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Fri, 5 Jun 2026 15:02:29 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.17; Fri, 5 Jun 2026 15:02:29 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::e6fd:5a3f:8946:92c4%10]) with mapi id
+ 15.02.2562.017; Fri, 5 Jun 2026 15:02:29 +0800
+From: Kailang <kailang@realtek.com>
+To: Takashi Iwai <tiwai@suse.de>
+CC: Mike Karcic <mikekarcic@protonmail.com>, Sean Rhodes
+	<sean@starlabs.systems>, "stable@vger.kernel.org" <stable@vger.kernel.org>,
+	"regressions@lists.linux.dev" <regressions@lists.linux.dev>,
+	"linux-sound@vger.kernel.org" <linux-sound@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: RE: [REGRESSION] Speaker pop/chirp on Meteor Lake ALC287 (17aa:231e)
+ -- 6.12.73 to 6.12.85
+Thread-Topic: [REGRESSION] Speaker pop/chirp on Meteor Lake ALC287 (17aa:231e)
+ -- 6.12.73 to 6.12.85
+Thread-Index: AQHc7t9eJfAz3yPaB0G+XZXqEzNDFrYqzh7QgAA9JgCABITvsA==
+Date: Fri, 5 Jun 2026 07:02:29 +0000
+Message-ID: <330931ee49624f2486f66e510271d80a@realtek.com>
+References: <O6pYAi7yf23du9ivLsL0QqrnTmodj2lDTL7Wviv7I_nhjVtvllO7Y5Ban0TeTqrastb1RWhJtlkqrM3quLMWSriai-YjjGy312MTcEhxyWs=@protonmail.com>
+	<CABtds-3GOyBr1H=c5aFV1uzfkhO3d1NHMPuon_cWDq0V=pFwUA@mail.gmail.com>
+	<wZmYozyav1sNx53nFr4ShKmcdLFVJp5bdUOJgUq1I57MX6kgyq7n8XvH-MWG9Fi4q2x4CQqjEQ3Q8ok5MClut8hNixnhVmVtXkhcOzH1sw8=@protonmail.com>
+	<87eciwukvy.wl-tiwai@suse.de>
+	<RfzfjlzeaeMgNNWNST_Zzx1v49rYjM63MvAV6O5_fFIoZJ73GcN69FDLJcwhJ3s6fl9TVD2l45YBh2n3hy95LM7rhLhoVt8dU9stMkuVJvE=@protonmail.com>
+	<87mrxjsk52.wl-tiwai@suse.de>
+	<bibLdgyll9YOEDANdCBy8WOqeOeJry1SnahLR-EhoGkttJ6BE2srDZ9jv0gjkt0bA19aKivruQs3nkMQWbdEXPaOrLT80xjzF4KJvDcB-IU=@protonmail.com>
+	<87cxyfs2vm.wl-tiwai@suse.de>	<833d600fdebd4aaeab6706185ce854e6@realtek.com>
+ <87wlwgygyf.wl-tiwai@suse.de>
+In-Reply-To: <87wlwgygyf.wl-tiwai@suse.de>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] MIPS: smp: report dying CPU to RCU in stop_this_cpu()
-Content-Language: en-US
-To: Huacai Chen <chenhuacai@kernel.org>
-Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
- linux-mips@vger.kernel.org, Sebastian Andrzej Siewior
- <bigeasy@linutronix.de>, Clark Williams <clrkwllms@kernel.org>,
- Steven Rostedt <rostedt@goodmis.org>, Thomas Gleixner <tglx@kernel.org>,
- Jiayuan Chen <jiayuan.chen@linux.dev>, linux-rt-devel@lists.linux.dev,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260604182407.3109536-1-jelonek.jonas@gmail.com>
- <CAAhV-H6khmNSNLOpVzV2B9qmRVAZkY6w8nYVrJC6QBP5CrFd3w@mail.gmail.com>
-From: Jonas Jelonek <jelonek.jonas@gmail.com>
-In-Reply-To: <CAAhV-H6khmNSNLOpVzV2B9qmRVAZkY6w8nYVrJC6QBP5CrFd3w@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
-Hi Huacai,
 
-On 05.06.26 05:01, Huacai Chen wrote:
-> Hi, Jonas,
+Yes, it's the same codec and SSID. It's the same model of machine.
+
+-----Original Message-----
+From: Takashi Iwai <tiwai@suse.de>=20
+Sent: Wednesday, June 3, 2026 1:45 AM
+To: Kailang <kailang@realtek.com>
+Cc: Takashi Iwai <tiwai@suse.de>; Mike Karcic <mikekarcic@protonmail.com>; =
+Sean Rhodes <sean@starlabs.systems>; stable@vger.kernel.org; regressions@li=
+sts.linux.dev; linux-sound@vger.kernel.org; linux-kernel@vger.kernel.org
+Subject: Re: [REGRESSION] Speaker pop/chirp on Meteor Lake ALC287 (17aa:231=
+e) -- 6.12.73 to 6.12.85
+
+
+External mail : This email originated from outside the organization. Do not=
+ reply, click links, or open attachments unless you recognize the sender an=
+d know the content is safe.
+
+
+
+On Tue, 02 Jun 2026 08:14:14 +0200,
+Kailang wrote:
 >
-> On Fri, Jun 5, 2026 at 2:25 AM Jonas Jelonek <jelonek.jonas@gmail.com> wrote:
->> smp_send_stop() parks all secondary CPUs in stop_this_cpu(). The function
->> marks the CPU offline for the scheduler via set_cpu_online(false) but
->> never informs RCU, so RCU keeps expecting a quiescent state from CPUs
->> that are now spinning forever with interrupts disabled.
->>
->> As long as nothing waits for an RCU grace period after smp_send_stop()
->> this is harmless, which is why it went unnoticed. Since commit
->> 91840be8f710 ("irq_work: Fix use-after-free in irq_work_single() on PREEMPT_RT")
->> however, irq_work_sync() calls synchronize_rcu() on architectures without
->> an irq_work self-IPI, i.e. where arch_irq_work_has_interrupt() returns
->> false. That is the asm-generic default used by MIPS. Any irq_work_sync()
->> issued in the reboot/shutdown path after smp_send_stop() then blocks on
->> a grace period that can never complete, hanging the reboot:
->>
->>   WARNING: CPU: 0 PID: 15 at kernel/irq_work.c:144 irq_work_queue_on
->>   ...
->>   rcu: INFO: rcu_sched detected stalls on CPUs/tasks:
->>   rcu: Offline CPU 1 blocking current GP.
->>   rcu: Offline CPU 2 blocking current GP.
->>   rcu: Offline CPU 3 blocking current GP.
->>
->> This issue popped up during kernel bump downstream in OpenWrt from
->> 6.18.33 to 6.18.34, since the suspected change has been backported to
->> 6.18 stable branch [1].
-> Now 91840be8f710 ("irq_work: Fix use-after-free in irq_work_single()
-> on PREEMPT_RT") has been backported to as early as 6.1 LTS.
+>
+> There were the same SSID for two different symptoms.
+> But this project was from 2025. This machine maybe didn't in our site.
 
-Yes, as also pointed out by Sebastian I should adjust this paragraph
-to be more accurate.
+Aha, that can explain the difference of the behavior, then.
+Do both of them have the same codec ID and SSID, too?
 
->> Call rcutree_report_cpu_dead() once interrupts are disabled, mirroring the
->> generic CPU-hotplug offline path (and arm64's stop handling), so RCU stops
->> waiting on the parked CPUs and grace periods can still complete.
->>
->> [1] https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?h=linux-6.18.y&id=18c0456ea2615b1a743a6db739c74411c3b42bc6
->>
->> Fixes: 91840be8f710 ("irq_work: Fix use-after-free in irq_work_single() on PREEMPT_RT")
->> CC: stable@vger.kernel.org
->> Signed-off-by: Jonas Jelonek <jelonek.jonas@gmail.com>
->>
->> diff --git a/arch/mips/kernel/smp.c b/arch/mips/kernel/smp.c
->> index 4868e79f3b30..0f28b4a62e72 100644
->> --- a/arch/mips/kernel/smp.c
->> +++ b/arch/mips/kernel/smp.c
->> @@ -20,6 +20,7 @@
->>  #include <linux/sched/mm.h>
->>  #include <linux/cpumask.h>
->>  #include <linux/cpu.h>
->> +#include <linux/rcupdate.h>
->>  #include <linux/err.h>
->>  #include <linux/ftrace.h>
->>  #include <linux/irqdomain.h>
->> @@ -422,6 +423,7 @@ static void stop_this_cpu(void *dummy)
->>         set_cpu_online(smp_processor_id(), false);
->>         calculate_cpu_foreign_map();
->>         local_irq_disable();
->> +       rcutree_report_cpu_dead();
-> I'm not sure but maybe it is better to before local_irq_disable()?
 
-rcutree_report_cpu_dead() starts with lockdep_assert_irqs_disabled() so
-it needs IRQs disabled already.
+Takashi
 
-> Huacai
->>         while (1);
->>  }
->>
->> --
->> 2.51.0
->>
->>
-
-Best,
-Jonas
+>
+> -----Original Message-----
+> From: Takashi Iwai <tiwai@suse.de>
+> Sent: Friday, May 29, 2026 4:20 AM
+> To: Mike Karcic <mikekarcic@protonmail.com>
+> Cc: Kailang <kailang@realtek.com>; Takashi Iwai <tiwai@suse.de>; Sean=20
+> Rhodes <sean@starlabs.systems>; stable@vger.kernel.org;=20
+> regressions@lists.linux.dev; linux-sound@vger.kernel.org;=20
+> linux-kernel@vger.kernel.org
+> Subject: Re: [REGRESSION] Speaker pop/chirp on Meteor Lake ALC287=20
+> (17aa:231e) -- 6.12.73 to 6.12.85
+>
+>
+> External mail : This email originated from outside the organization. Do n=
+ot reply, click links, or open attachments unless you recognize the sender =
+and know the content is safe.
+>
+>
+>
+> On Thu, 28 May 2026 20:27:30 +0200,
+> Mike Karcic wrote:
+> >
+> > Yes, I can confirm the patched kernel is running, and commenting out th=
+at line fixes the problem completely.
+> >
+> > Below is output with the added debug lines as requested:
+> >
+> > $ uname -r
+> > 6.12.90-debug-no-discoefs
+> >
+> > $ sudo dmesg | grep -i "alc287_alc1318"
+> > [  453.823528] snd_hda_codec_realtek ehdaudio0D0:
+> > alc287_alc1318_playback_pcm_hook called action=3D0 [  453.871577]=20
+> > snd_hda_codec_realtek ehdaudio0D0: alc287_alc1318_playback_pcm_hook=20
+> > called action=3D1 [  459.605379] snd_hda_codec_realtek ehdaudio0D0:
+> > alc287_alc1318_playback_pcm_hook called action=3D2 [  459.605497]=20
+> > snd_hda_codec_realtek ehdaudio0D0: alc287_alc1318_playback_pcm_hook=20
+> > called action=3D3
+> >
+> > $ grep -n -A5 -B2 "alc_process_coef_fw.*dis_coefs" sound/pci/hda/patch_=
+realtek.c
+> > 7918-           return;
+> > 7919-   alc_update_coef_idx(codec, 0x10, 1<<11, 1<<11);
+> > 7920:   /* alc_process_coef_fw(codec, dis_coefs); */ /* commented out f=
+or testing */
+> > 7921-   alc_process_coef_fw(codec, coefs);
+> > 7922-   spec->power_hook =3D alc287_s4_power_gpio3_default;
+> > 7923-   spec->gen.pcm_playback_hook =3D alc287_alc1318_playback_pcm_hoo=
+k;
+> > 7924-}
+>
+> Hm, then the previous fix doesn't seem working, obviously.
+> Kailang, could you check this in your side?
+>
+> Maybe we should apply the AMP-silence-detection disablement conditionally=
+ to certain models?
+>
+>
+> thanks,
+>
+> Takashi
+>
+> >
+> >
+> >
+> > Sent with Proton Mail secure email.
+> >
+> > On Thursday, May 28th, 2026 at 10:07 AM, Takashi Iwai <tiwai@suse.de> w=
+rote:
+> >
+> > > On Thu, 28 May 2026 15:38:54 +0200, Mike Karcic wrote:
+> > > >
+> > > > I did test 46c862f5419e on 6.12.90. Chirp still present.
+> > > >
+> > > > I'm also on a ThinkPad X1 Carbon Gen 12 with ALC287 (17aa:231e),=20
+> > > > same as the original reporter. The fix resolved it for them but=20
+> > > > not for me.
+> > > >
+> > > > Only a full revert of 630fbc6e870e resolves the issue.
+> > > >
+> > > > Verification on the running kernel:
+> > > >
+> > > >   $ grep -c "dis_coefs" sound/pci/hda/patch_realtek.c
+> > > >   2
+> > > >
+> > > >   $ grep -c "en_coefs" sound/pci/hda/patch_realtek.c
+> > > >   0
+> > > >
+> > > >   $ sed -n '/alc287_alc1318_playback_pcm_hook/,/^}/p' sound/pci/hda=
+/patch_realtek.c
+> > > >   static void alc287_alc1318_playback_pcm_hook(struct hda_pcm_strea=
+m *hinfo,
+> > > >                                      struct hda_codec *codec,
+> > > >                                      struct snd_pcm_substream *subs=
+tream,
+> > > >                                      int action)
+> > > >   {
+> > > >           switch (action) {
+> > > >           case HDA_GEN_PCM_ACT_OPEN:
+> > > >                   alc_write_coefex_idx(codec, 0x5a, 0x00, 0x954f);
+> > > >                   break;
+> > > >           case HDA_GEN_PCM_ACT_CLOSE:
+> > > >                   alc_write_coefex_idx(codec, 0x5a, 0x00, 0x554f);
+> > > >                   break;
+> > > >           }
+> > > >   }
+> > > >
+> > > > Happy to test further patches.
+> > >
+> > > Just to be sure, could you verify that you've tested really the=20
+> > > patched kernel, e.g. by adding a debug print, etc?
+> > > If yes and the problem is seen even with the patch, try to comment ou=
+t
+> > >   alc_process_coef_fw(codec, dis_coefs); and confirm that this=20
+> > > fixes the problem.
+> > >
+> > >
+> > > Takashi
+> > >
