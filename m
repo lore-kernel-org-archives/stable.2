@@ -1,127 +1,99 @@
-Received: from out-173.mta0.migadu.com (out-173.mta0.migadu.com [91.218.175.173])
+Received: from mail-244117.protonmail.ch (mail-244117.protonmail.ch [109.224.244.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FA773BF682
-	for <stable@vger.kernel.org>; Fri,  5 Jun 2026 23:23:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C3C53F7A96
+	for <stable@vger.kernel.org>; Fri,  5 Jun 2026 23:43:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.117
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780701819; cv=none; b=NdDCsApyNrnCSogOAeQMJ23Re12ErTCv/DesNN2neoMEEEGxZ9JTZYILtWWOSC4n7KVAvcvJ90qKhIWmTeNjhlUYnEoG8lp8mPwi5J9VzJsrNLio3c+w932RcvQ9mdLEOnFLwqBmGOFVVsAOCotb56+3KpVB/l2a3tld0IubZVk=
+	t=1780703010; cv=none; b=YDUz+c6kbrzofHhUfTjcnjGACzFNhR79Wg2ENHz3muvqr+4ozxy7Qt2vKijjXFsUfCU9LleLK7aknozZJtqiMssn5wcDdnIcOx8ahBGshYAntuIX1sCsaIra/otvXBHvk6PiI+aA3gmnHaM4YLI/RiBd+1dNYEoL/gi3eIOgA4s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780701819; c=relaxed/simple;
-	bh=/Ea/aeIupKCEO4pO2KWHbZEpehfJpTKiLKJOUAan5ok=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=scGaaHnOt+hFExXbA57VszLMi/6jsFSHMSUF3qyH87kpTvTzdBsIkJS3XBDhel3bLhIMlJMStJGHsZWOxuehwGvXIfb0Xx95EYltMJipg+8Sro9UmLa3uBlXs5pCwd2rGWB22rAAhuzC4rxG1RuiZQZqYdYxv8ERwTVoZ+4nYDo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=uR6CEqK3; arc=none smtp.client-ip=91.218.175.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1780703010; c=relaxed/simple;
+	bh=XqaMC4QJHzJfNuNZl27qnxcRQ4zvu2haZ0ONbw2UfnQ=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=nVK/dXveOAWMWQhpDUXc4IWcxiqdLqrWmuPt11+BOASV3yQIT4oczyQE6cJOmG3DHJQHCYHR0wykNGG3uBKBVVr35EcB9IvD1GMJVtsgZjVWMJ7Rv3O6QzORqM4wEmUVnubb+rMj+DhRMl3Ykagx1F91KIlBpd7KPxpVmqIvlVw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=1g4.org; spf=pass smtp.mailfrom=1g4.org; dkim=pass (2048-bit key) header.d=1g4.org header.i=@1g4.org header.b=Jo7sFCSa; arc=none smtp.client-ip=109.224.244.117
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=1g4.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=1g4.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="uR6CEqK3"
-Message-ID: <a5830613-e905-413b-b654-4eebb37f3cf7@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1780701815;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=yuCTNxDecdcGFE4asUY4OVSF1SMCCc8v4lfYq3tvFAA=;
-	b=uR6CEqK36bo8oqVc9ZIAUKBPhbxIZOihGM1OxC2zahDBiTOxNZbVuTTGu/rpTZit0N3zx3
-	D61vU/XyFPWjhSlV3Rrq6T9Yq/k80jWEM0RqTrSfJvfykcv5Pp4xxEUVVp4m7Dv2Jjdk18
-	50rFouE1aWvSK7jxSXFsCxklxbQ05kw=
-Date: Fri, 5 Jun 2026 16:23:28 -0700
+	dkim=pass (2048-bit key) header.d=1g4.org header.i=@1g4.org header.b="Jo7sFCSa"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=1g4.org;
+	s=protonmail2; t=1780702998; x=1780962198;
+	bh=GDmaKRINflE3ApzE9mtFtjTCGWEOrjRY35R1+EIHEE8=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=Jo7sFCSaLkKMD99RW32Go7dh0dvoa4Eqxz862H9l14hmrd30Z+xH2V6QM4VBKhIr3
+	 44iXOEszHDv4ksCT9ozIc9KCmiMnNAWpm+WKBARxY+FSfRm+OfUltfF+GYJFOa9CO7
+	 4nP9E4pPPJAmMyLzTF3cUPxRtox8SoqmNCnsoyFIe8XNY5fpAaE3p9y/TLECkBiW1x
+	 7Q7RjBYfJQRu4Lbxrn+wXljl9crZNT6vVz2Op7ch5EWb778nu26HbXETkGZ3R6eSRx
+	 5IcFhNmVScl7v//ctvaycdv5W8wvvOrzSW/BMt5KGjTIxA9Hsgz49UM7UtM4zIq6WD
+	 y1q8w2cNq+siw==
+Date: Fri, 05 Jun 2026 23:43:09 +0000
+To: martin.lau@linux.dev, ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org, eddyz87@gmail.com, memxor@gmail.com, bpf@vger.kernel.org
+From: Paul Moses <p@1g4.org>
+Cc: song@kernel.org, yonghong.song@linux.dev, jolsa@kernel.org, houtao1@huawei.com, linux-kernel@vger.kernel.org, Paul Moses <p@1g4.org>, stable@vger.kernel.org
+Subject: [PATCH bpf] bpf: Validate BTF repeated field counts before expansion
+Message-ID: <20260605234301.1109063-1-p@1g4.org>
+Feedback-ID: 8253658:user:proton
+X-Pm-Message-ID: 152161ac773fdfeb69882a3579aec1226bef6a93
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [PATCH v3 5.10/5.15 1/2] RDMA/rxe: Fix the error "trying to
- register non-static key in rxe_cleanup_task"
-To: Vladislav Nikolaev <vlad102nikolaev@gmail.com>, stable@vger.kernel.org,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Zhu Yanjun <yanjun.zhu@linux.dev>
-Cc: Zhu Yanjun <zyjzyj2000@gmail.com>, Doug Ledford <dledford@redhat.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, Haggai Eran <haggaie@mellanox.com>,
- Kamal Heib <kamalh@mellanox.com>, Amir Vadai <amirv@mellanox.com>,
- Moni Shoua <monis@mellanox.com>, Yonatan Cohen <yonatanc@mellanox.com>,
- Leon Romanovsky <leon@kernel.org>, linux-rdma@vger.kernel.org,
- linux-kernel@vger.kernel.org, Zhu Yanjun <yanjunz@nvidia.com>,
- lvc-project@linuxtesting.org,
- syzbot+cfcc1a3c85be15a40cba@syzkaller.appspotmail.com
-References: <20260605171449.1760-1-vlad102nikolaev@gmail.com>
- <20260605171449.1760-2-vlad102nikolaev@gmail.com>
-Content-Language: en-US
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: "yanjun.zhu" <yanjun.zhu@linux.dev>
-In-Reply-To: <20260605171449.1760-2-vlad102nikolaev@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On 6/5/26 10:14 AM, Vladislav Nikolaev wrote:
-> From: Zhu Yanjun <yanjun.zhu@linux.dev>
-> 
-> commit b2b1ddc457458fecd1c6f385baa9fbda5f0c63ad upstream.
-> 
-> In the function rxe_create_qp(), rxe_qp_from_init() is called to
-> initialize qp, internally things like rxe_init_task are not setup until
-> rxe_qp_init_req().
-> 
-> If an error occurred before this point then the unwind will call
-> rxe_cleanup() and eventually to rxe_qp_do_cleanup()/rxe_cleanup_task()
-> which will oops when trying to access the uninitialized spinlock.
-> 
-> If rxe_init_task is not executed, rxe_cleanup_task will not be called.
-> 
-> Reported-by: syzbot+cfcc1a3c85be15a40cba@syzkaller.appspotmail.com
-> Link: https://syzkaller.appspot.com/bug?id=fd85757b74b3eb59f904138486f755f71e090df8
-> Fixes: 8700e3e7c485 ("Soft RoCE driver")
-> Fixes: 2d4b21e0a291 ("IB/rxe: Prevent from completer to operate on non valid QP")
-> Signed-off-by: Zhu Yanjun <yanjun.zhu@linux.dev>
-> Link: https://lore.kernel.org/r/20230413101115.1366068-1-yanjun.zhu@intel.com
-> Signed-off-by: Leon Romanovsky <leon@kernel.org>
-> [ Vladislav: add the missing resp.task.func check and keep the cleanup
-> order used by upstream after 960ebe97e523 ("RDMA/rxe: Remove
-> __rxe_do_task()"). Moving rxe_cleanup_task(&qp->resp.task) after the RC
-> timer cleanup is independent from that commit: timer deletion does not
-> depend on the responder task cleanup, and placing all task cleanup after
-> the timers matches the final upstream ordering while keeping this fix
-> minimal for 5.10/5.15. ]
-> Signed-off-by: Vladislav Nikolaev <vlad102nikolaev@gmail.com>
+btf_parse_struct_metas() walks user-supplied BTF during BPF_BTF_LOAD,
+and btf_repeat_fields() expands repeatable fields from array elements
+into the fixed BTF_FIELDS_MAX scratch array used by btf_parse_fields().
 
-Thanks a lot. I am fine with this.
+The remaining-capacity check performs the expanded field count calculation
+in u32. A malformed BTF can wrap that calculation, causing the check to
+pass even when the expanded field count exceeds the scratch array
+capacity. The following memcpy() can then write past the end of the
+array.
 
-Zhu Yanjun
+Use checked addition and multiplication before copying repeated fields
+and reject impossible counts.
 
-> ---
->   drivers/infiniband/sw/rxe/rxe_qp.c | 11 ++++++++---
->   1 file changed, 8 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/infiniband/sw/rxe/rxe_qp.c b/drivers/infiniband/sw/rxe/rxe_qp.c
-> index 4c938d841f76..0532c446760d 100644
-> --- a/drivers/infiniband/sw/rxe/rxe_qp.c
-> +++ b/drivers/infiniband/sw/rxe/rxe_qp.c
-> @@ -760,15 +760,20 @@ void rxe_qp_destroy(struct rxe_qp *qp)
->   {
->   	qp->valid = 0;
->   	qp->qp_timeout_jiffies = 0;
-> -	rxe_cleanup_task(&qp->resp.task);
->   
->   	if (qp_type(qp) == IB_QPT_RC) {
->   		del_timer_sync(&qp->retrans_timer);
->   		del_timer_sync(&qp->rnr_nak_timer);
->   	}
->   
-> -	rxe_cleanup_task(&qp->req.task);
-> -	rxe_cleanup_task(&qp->comp.task);
-> +	if (qp->resp.task.func)
-> +		rxe_cleanup_task(&qp->resp.task);
-> +
-> +	if (qp->req.task.func)
-> +		rxe_cleanup_task(&qp->req.task);
-> +
-> +	if (qp->comp.task.func)
-> +		rxe_cleanup_task(&qp->comp.task);
->   
->   	/* flush out any receive wr's or pending requests */
->   	if (qp->req.task.func)
+Fixes: 797d73ee232d ("bpf: Check the remaining info_cnt before repeating bt=
+f fields")
+Cc: stable@vger.kernel.org
+Signed-off-by: Paul Moses <p@1g4.org>
+---
+ kernel/bpf/btf.c | 9 ++++-----
+ 1 file changed, 4 insertions(+), 5 deletions(-)
+
+diff --git a/kernel/bpf/btf.c b/kernel/bpf/btf.c
+index a62d78581207..510aa32847da 100644
+--- a/kernel/bpf/btf.c
++++ b/kernel/bpf/btf.c
+@@ -3668,7 +3668,7 @@ static int btf_get_field_type(const struct btf *btf, =
+const struct btf_type *var_
+ static int btf_repeat_fields(struct btf_field_info *info, int info_cnt,
+ =09=09=09     u32 field_cnt, u32 repeat_cnt, u32 elem_size)
+ {
+-=09u32 i, j;
++=09u32 i, j, total_cnt, total_repeats;
+ =09u32 cur;
+=20
+ =09/* Ensure not repeating fields that should not be repeated. */
+@@ -3686,10 +3686,9 @@ static int btf_repeat_fields(struct btf_field_info *=
+info, int info_cnt,
+ =09=09}
+ =09}
+=20
+-=09/* The type of struct size or variable size is u32,
+-=09 * so the multiplication will not overflow.
+-=09 */
+-=09if (field_cnt * (repeat_cnt + 1) > info_cnt)
++=09if (check_add_overflow(repeat_cnt, 1, &total_repeats) ||
++=09    check_mul_overflow(field_cnt, total_repeats, &total_cnt) ||
++=09    total_cnt > (u32)info_cnt)
+ =09=09return -E2BIG;
+=20
+ =09cur =3D field_cnt;
+--=20
+2.54.0
+
 
