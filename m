@@ -1,45 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC2D23AD520
-	for <stable@vger.kernel.org>; Fri,  5 Jun 2026 18:31:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BECD364058
+	for <stable@vger.kernel.org>; Fri,  5 Jun 2026 18:31:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780684282; cv=none; b=tquMTi8TZ60EeSE5OSa96zljdBvrEABBIfyWWhh4uz3dHVMdUgjBxpdI+riuf/lgWfsvaCAE+dSwHr6NTLXpvM1K3jMTowfifmmtginEyjqIJyb8WSEqxQvp1dAc9HdrEe23HxpB2aspvPa6/L66/tA9Hks9nd42WX2fPK+ZbFo=
+	t=1780684284; cv=none; b=QTuD+IZM3xpbDBX+8ZuqJqP58svWyGFf/vWY3+mU5QXQZhZF1jxsJsiRCqSsKwgb+0r7ZtmgGw72pZYsHBWie4QPCi4o5WYRNbnBVtUcMFYPDAO1/88sxEBG7DlBUjKONnjMNqXdmoXANDNJplmgQmUIYMScO2FyYI2nBhT4LK8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780684282; c=relaxed/simple;
-	bh=R4RArynYaMLqaJaxE6s/+nTaH2UxWqY8l/X+kbsC/eU=;
+	s=arc-20240116; t=1780684284; c=relaxed/simple;
+	bh=+yuRW1lnggzQjPUFCP1a89BenIZNBnY0CuXmbkJJ9pA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hEwg7ECgDJKZRgosN5rpHe2t0Ofvq32PfrkrkinFnR8Ow64uvupTCmi7utwRgSTHI3fFQGhsaMhkP8HK1bsoL7kdICG9N7suC0NJKGHGJXJTDRxseD5SGmUtQYvlqOnh/0UYwFKBA3I2qyc++3d1X/M52/YW6rKGLYP5mnvBCvs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ixsphNn4; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=ptTm/uqKFQyIEDXhpj7qndQ3ZWCLudHsNlThGtr0Otyu4aCftfhnWxlHSfpiBX4KoIHgYSMeKuN5IODDQBMPRZOvJyCRnh9UsxGVaqqlZ7YjGWGo0qMxM3R51Np/ZBWLJ2yBnm3u4ur53ckbXpLTWYmwYi2/xQwrkUKeCoCWHaM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jaEnI6gX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ixsphNn4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2C651F00899;
-	Fri,  5 Jun 2026 18:31:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jaEnI6gX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA6D01F00893;
+	Fri,  5 Jun 2026 18:31:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780684279;
-	bh=ZtBc0YPkEZEODZ2FJ3gJzrsZbeIDVP2E1NObPKfA/Rw=;
+	s=k20260515; t=1780684280;
+	bh=D0mnS9R8rES/Mu89SFIw3QDL6Lgi0q46pPT0WD3CoOA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ixsphNn4icMCaG1O90L7F5gh6iw/0hR19pLzbNeNE5FAoGJ6oPDkY4KC6PrMvZfCO
-	 gwvQEVvn6hpxIPUxqzMKFQibRmD1PQ+oHBX6E7ViylW4VuWCmr9y+RQQ94SbOEcrqn
-	 GOnJAHjDlrqF4Mcj8gOJerJnfh/ijYY9FzmfyGcEI4lIFYx+L2lFyhC5+3bLa6KFZi
-	 Lr5ja/ownNNaWB7LU8m8QYJEQ+CmZZnI+vyrBgZV3WZG+p5G6/WvqhXxOLcpzcAi+N
-	 Nq0Z5qKeKdEz0h9I/58v85CDvZ70AAc1x1BuNVC2Olh+iPH6L4zTgb/7j++WA2sRZf
-	 pyISgaZ7CVAvA==
+	b=jaEnI6gXRT3KV8yGpMczMzqP1IEYWRXkzqjUjEYh1Eoea3Qw996wZg7Lwyy1vWGYt
+	 hdviEVqV/U//3qORRUr2L4GmJxDkpfSRKPnvMCfnPds0VycwIj0J08l55WTh5D4XUu
+	 +P9DyZL1xloDrWJeyEQAw6nm6RAi5953nwgxzCSiiMb0X++wqJoernozD+XhyouynJ
+	 wak7s39JFuh6aUF3sEtDGLaot2jOw4LsB4EKxiAVK6IqMTynQ/89ECMyNfTUob9yeP
+	 5qJJVI89oBOWnlU/rVxJ3Waox+LXCdDrCzh1MDNhFRhftHCiwSDUOtc5KEkoOT/PbK
+	 BD1Cfnn+/KfVw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Tudor Ambarus <tudor.ambarus@linaro.org>,
-	stable <stable@kernel.org>,
-	John Ogness <john.ogness@linutronix.de>,
+Cc: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>,
+	Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 3/3] tty: serial: samsung: Remove redundant port lock acquisition in rx helpers
-Date: Fri,  5 Jun 2026 14:31:15 -0400
-Message-ID: <20260605183115.2054750-3-sashal@kernel.org>
+Subject: [PATCH 6.1.y] usb: dwc3: xilinx: fix error handling in zynqmp init error paths
+Date: Fri,  5 Jun 2026 14:31:18 -0400
+Message-ID: <20260605183118.2054817-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260605183115.2054750-1-sashal@kernel.org>
-References: <2026060429-saddling-hacked-b97c@gregkh>
- <20260605183115.2054750-1-sashal@kernel.org>
+In-Reply-To: <2026060416-treadmill-placard-7b53@gregkh>
+References: <2026060416-treadmill-placard-7b53@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,84 +46,94 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Tudor Ambarus <tudor.ambarus@linaro.org>
+From: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
 
-[ Upstream commit a3bb136bff5e6a5e48cdd813246c9c4686feaaa9 ]
+[ Upstream commit c1a0ecbf32c4b397353204e2ec94c5bb9f3300ed ]
 
-Sashiko identified a deadlock when the console flow is engaged [1].
+Fix error handling and resource cleanup i.e remove invalid
+phy_exit() after failed phy_init(), route failures through
+proper cleanup paths and return 0 explicitly on success.
 
-When console flow control is enabled (UPF_CONS_FLOW),
-s3c24xx_serial_stop_tx() calls s3c24xx_serial_rx_enable() and
-s3c24xx_serial_start_tx() calls s3c24xx_serial_rx_disable().
-
-The serial core framework invokes the .stop_tx() and .start_tx()
-callbacks with the port->lock spinlock already held. Furthermore, all
-internal driver paths that invoke stop_tx (such as the DMA TX
-completion handler s3c24xx_serial_tx_dma_complete() or the PIO TX IRQ
-handler s3c24xx_serial_tx_irq()) also acquire port->lock prior to
-calling it. (Note that s3c24xx_serial_start_tx() is only invoked by the
-serial core).
-
-However, s3c24xx_serial_rx_enable() and s3c24xx_serial_rx_disable()
-unconditionally attempt to acquire port->lock again using
-uart_port_lock_irqsave(). Since spinlocks are not recursive, this
-causes a deadlock on the same CPU when console flow control is engaged.
-
-Remove the redundant lock acquisition from both rx helper functions.
-
-Cc: stable <stable@kernel.org>
-Fixes: b497549a035c ("[ARM] S3C24XX: Split serial driver into core and per-cpu drivers")
-Reported-by: John Ogness <john.ogness@linutronix.de>
-Closes: https://sashiko.dev/#/patchset/20260506121606.5805-1-john.ogness%40linutronix.de [1]
-Signed-off-by: Tudor Ambarus <tudor.ambarus@linaro.org>
-Link: https://patch.msgid.link/20260515-samsung-tty-flow-control-deadlock-v1-1-93255edbc9bc@linaro.org
+Fixes: 84770f028fab ("usb: dwc3: Add driver for Xilinx platforms")
+Cc: stable@vger.kernel.org
+Acked-by: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
+Signed-off-by: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
+Link: https://patch.msgid.link/20260519115529.2980421-1-radhey.shyam.pandey@amd.com
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/tty/serial/samsung_tty.c | 8 --------
- 1 file changed, 8 deletions(-)
+ drivers/usb/dwc3/dwc3-xilinx.c | 26 ++++++++++++++------------
+ 1 file changed, 14 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/tty/serial/samsung_tty.c b/drivers/tty/serial/samsung_tty.c
-index e83e39ea176a67..1d8f5d3f440b8d 100644
---- a/drivers/tty/serial/samsung_tty.c
-+++ b/drivers/tty/serial/samsung_tty.c
-@@ -242,12 +242,9 @@ static int s3c24xx_serial_txempty_nofifo(struct uart_port *port)
- static void s3c24xx_serial_rx_enable(struct uart_port *port)
- {
- 	struct s3c24xx_uart_port *ourport = to_ourport(port);
--	unsigned long flags;
- 	int count = 10000;
- 	u32 ucon, ufcon;
+diff --git a/drivers/usb/dwc3/dwc3-xilinx.c b/drivers/usb/dwc3/dwc3-xilinx.c
+index 8070c55c217036..cbc95df4798b21 100644
+--- a/drivers/usb/dwc3/dwc3-xilinx.c
++++ b/drivers/usb/dwc3/dwc3-xilinx.c
+@@ -171,15 +171,13 @@ static int dwc3_xlnx_init_zynqmp(struct dwc3_xlnx *priv_data)
+ 	}
  
--	uart_port_lock_irqsave(port, &flags);
--
- 	while (--count && !s3c24xx_serial_txempty_nofifo(port))
- 		udelay(100);
+ 	ret = phy_init(priv_data->usb3_phy);
+-	if (ret < 0) {
+-		phy_exit(priv_data->usb3_phy);
++	if (ret < 0)
+ 		goto err;
+-	}
  
-@@ -260,23 +257,18 @@ static void s3c24xx_serial_rx_enable(struct uart_port *port)
- 	wr_regl(port, S3C2410_UCON, ucon);
+ 	ret = reset_control_deassert(apbrst);
+ 	if (ret < 0) {
+ 		dev_err(dev, "Failed to release APB reset\n");
+-		goto err;
++		goto err_phy_exit;
+ 	}
  
- 	ourport->rx_enabled = 1;
--	uart_port_unlock_irqrestore(port, flags);
+ 	/* Set PIPE Power Present signal in FPD Power Present Register*/
+@@ -191,27 +189,25 @@ static int dwc3_xlnx_init_zynqmp(struct dwc3_xlnx *priv_data)
+ 	ret = reset_control_deassert(crst);
+ 	if (ret < 0) {
+ 		dev_err(dev, "Failed to release core reset\n");
+-		goto err;
++		goto err_phy_exit;
+ 	}
+ 
+ 	ret = reset_control_deassert(hibrst);
+ 	if (ret < 0) {
+ 		dev_err(dev, "Failed to release hibernation reset\n");
+-		goto err;
++		goto err_phy_exit;
+ 	}
+ 
+ 	ret = phy_power_on(priv_data->usb3_phy);
+-	if (ret < 0) {
+-		phy_exit(priv_data->usb3_phy);
+-		goto err;
+-	}
++	if (ret < 0)
++		goto err_phy_exit;
+ 
+ skip_usb3_phy:
+ 	/* ulpi reset via gpio-modepin or gpio-framework driver */
+ 	reset_gpio = devm_gpiod_get_optional(dev, "reset", GPIOD_OUT_HIGH);
+ 	if (IS_ERR(reset_gpio)) {
+-		return dev_err_probe(dev, PTR_ERR(reset_gpio),
+-				     "Failed to request reset GPIO\n");
++		ret = PTR_ERR(reset_gpio);
++		goto err_phy_power_off;
+ 	}
+ 
+ 	if (reset_gpio) {
+@@ -231,6 +227,12 @@ static int dwc3_xlnx_init_zynqmp(struct dwc3_xlnx *priv_data)
+ 		writel(reg, priv_data->regs + XLNX_USB_TRAFFIC_ROUTE_CONFIG);
+ 	}
+ 
++	return 0;
++
++err_phy_power_off:
++	phy_power_off(priv_data->usb3_phy);
++err_phy_exit:
++	phy_exit(priv_data->usb3_phy);
+ err:
+ 	return ret;
  }
- 
- static void s3c24xx_serial_rx_disable(struct uart_port *port)
- {
- 	struct s3c24xx_uart_port *ourport = to_ourport(port);
--	unsigned long flags;
- 	u32 ucon;
- 
--	uart_port_lock_irqsave(port, &flags);
--
- 	ucon = rd_regl(port, S3C2410_UCON);
- 	ucon &= ~S3C2410_UCON_RXIRQMODE;
- 	wr_regl(port, S3C2410_UCON, ucon);
- 
- 	ourport->rx_enabled = 0;
--	uart_port_unlock_irqrestore(port, flags);
- }
- 
- static void s3c24xx_serial_stop_tx(struct uart_port *port)
 -- 
 2.53.0
 
