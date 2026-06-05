@@ -1,133 +1,111 @@
-Received: from forward202a.mail.yandex.net (forward202a.mail.yandex.net [178.154.239.91])
+Received: from pdx-out-004.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-004.esa.us-west-2.outbound.mail-perimeter.amazon.com [44.246.77.92])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBB33466B72;
-	Fri,  5 Jun 2026 10:43:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.154.239.91
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A89E30C629;
+	Fri,  5 Jun 2026 10:58:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=44.246.77.92
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780656246; cv=none; b=OBtLaVK3kaJo5j+7QEMrch4/KPEzjp0U4ZT4pCw8bWtb46dX0x76SKJoMQlm1bvkCihku1wsPhwHIsa+EUb2Zcw/TpzqbLz3drKVzQ2KL4cmKxoowL4NCustmajB1ndgvrvlCcrz7fuECmQlqAidsKK3t66fOmv6iA5iQHaoImo=
+	t=1780657116; cv=none; b=M7qTgqZqPb5VoC32bwSIodZbsGwOr4ET2CasxVWPDnJYXTh0bZiD29qzforbz9l6n0JTY79YfiHFRBwRukT/kFdJwLyfsLRhTJGmdP0lmCEzgJ9SUa6Lc0/5xX3l2HobpP4cqE7qEAEnMtzThMgHh8e6DXqgHvkIJOPBgaVRTW8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780656246; c=relaxed/simple;
-	bh=LkYqiCDqco6mevM8zai4datk6nmQUALOCQEH0MFK+NI=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=V6cK4VhiLFbF45An6WEABsbBnfqcH9b0MjDyBwiPa5AXEDrH7yzo4s3MDK0kehvb81Rwu6tegvx1MMBa/CcGMoTEetalC4kr1lGHdS/t3/F5WNt9gQ+K7CJliWPu6kZDenTZI8/3U0JuKDaNSIrS+sqJSsbbYOQbjxydKFQtbik=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rosa.ru; spf=pass smtp.mailfrom=rosa.ru; dkim=pass (1024-bit key) header.d=rosa.ru header.i=@rosa.ru header.b=knUqC+WD; arc=none smtp.client-ip=178.154.239.91
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rosa.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rosa.ru
+	s=arc-20240116; t=1780657116; c=relaxed/simple;
+	bh=Gqi9R0eFicuWxjhq8ZwuJgsJhCL6FEZGhSG5H6xcELA=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=XvJ/qbmo8Wi+4gnSXiVfMWAxQK1lloNaa2Y67RhcZJ8zBnCLPqblTOBrxexKtnyXv/GXKPBxLXHcomg9eTY3V/A8sH4HCPPzE7cYAp1q7Mf3vT2ZHFYu7NzqVGgASD1V0BYeMuSYX4PDruAmGEcElAYxh9w/lSmyTRN3pYUGKsE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.it; spf=pass smtp.mailfrom=amazon.it; dkim=pass (2048-bit key) header.d=amazon.it header.i=@amazon.it header.b=QowFLh3h; arc=none smtp.client-ip=44.246.77.92
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rosa.ru header.i=@rosa.ru header.b="knUqC+WD"
-Received: from forward103a.mail.yandex.net (forward103a.mail.yandex.net [IPv6:2a02:6b8:c0e:500:1:45:d181:d103])
-	by forward202a.mail.yandex.net (Yandex) with ESMTPS id C1261845BA;
-	Fri, 05 Jun 2026 13:38:46 +0300 (MSK)
-Received: from mail-nwsmtp-smtp-production-main-60.vla.yp-c.yandex.net (mail-nwsmtp-smtp-production-main-60.vla.yp-c.yandex.net [IPv6:2a02:6b8:c0f:4c18:0:640:5600:0])
-	by forward103a.mail.yandex.net (Yandex) with ESMTPS id C1E9F804C0;
-	Fri, 05 Jun 2026 13:38:38 +0300 (MSK)
-Received: by mail-nwsmtp-smtp-production-main-60.vla.yp-c.yandex.net (smtp) with ESMTPSA id ZcffmqLe7a60-kaRNz9XR;
-	Fri, 05 Jun 2026 13:38:37 +0300
-X-Yandex-Fwd: 1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rosa.ru; s=mail;
-	t=1780655918; bh=roqDwFCKSOfqoEvMH3HcV0q1plvbGQsfEEkLVszHKiA=;
-	h=Message-Id:Date:Cc:Subject:To:From;
-	b=knUqC+WDUAgnqxDKtEh2dL3DL5dQWXYQLusjUQPo7MUozKS5ebwl+3MFZW/HGzuUp
-	 mM+9j+8wjSbropEF3yhxkZ6LbDLvPa1kBwQhOa82kf0UcoCI+z3A33aL1bQ42RAUe1
-	 m6Ona2oyCubeeWta9gejEwsVQTeY9p9AcgP0bT7U=
-Authentication-Results: mail-nwsmtp-smtp-production-main-60.vla.yp-c.yandex.net; dkim=pass header.i=@rosa.ru
-From: Mikhail Lobanov <m.lobanov@rosa.ru>
-To: jaegeuk@kernel.org,
-	Chao Yu <chao@kernel.org>
-Cc: daehojeong@google.com,
-	linux-f2fs-devel@lists.sourceforge.net,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	lvc-project@linuxtesting.org
-Subject: [PATCH] f2fs: read COW data with the original inode during atomic write
-Date: Fri,  5 Jun 2026 13:38:34 +0300
-Message-Id: <20260605103834.14894-1-m.lobanov@rosa.ru>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+	dkim=pass (2048-bit key) header.d=amazon.it header.i=@amazon.it header.b="QowFLh3h"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.it; i=@amazon.it; q=dns/txt; s=amazoncorp2;
+  t=1780657115; x=1812193115;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=LQWB1MRHO0Oh1cerb+7kF6+zS8TJPeY9gp4o8uPVemk=;
+  b=QowFLh3hkoGDb+pjRZ4KGc4H4Q0W8Tooqc1FtHPxIWzWD8iWIMvF6LIl
+   9b25HCzwSIt1/bpK+WH5Tl8luoPRUI0/Sho+GfsJHSYUQoavxTiSCElVm
+   kVYN4G8XXJ7dBznzL8zOPfMlZg0nIGU+khuKRQTp5i+HWgzfoBl+KDwxn
+   eauQ8zbd8vtplIWkALWynFImnT9y96TGmnszioJwK2+MsKCE0sgpefo/5
+   EiQCEE4omls1FjxmWwzncwu9aaJfYz2imgENYj1hL4h5np6aIRUJ2CLbu
+   Zn0Bdd4QZ7nk4X+eWj4oLG6QoH9H6Swm+nUdkUKrexN8gs1oYq4EWRMh0
+   g==;
+X-CSE-ConnectionGUID: otzO6A7JQ9m3VqZ7jJM4YA==
+X-CSE-MsgGUID: YbolRiWaRlWuZk/E8m1fAw==
+X-IronPort-AV: E=Sophos;i="6.24,188,1774310400"; 
+   d="scan'208";a="21175211"
+Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
+  by internal-pdx-out-004.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Jun 2026 10:58:31 +0000
+Received: from EX19MTAUWB001.ant.amazon.com [205.251.233.104:23098]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.63.253:2525] with esmtp (Farcaster)
+ id 78f04fa3-8d95-440e-8f7c-1128dfcf6f2a; Fri, 5 Jun 2026 10:58:31 +0000 (UTC)
+X-Farcaster-Flow-ID: 78f04fa3-8d95-440e-8f7c-1128dfcf6f2a
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWB001.ant.amazon.com (10.250.64.248) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.37;
+ Fri, 5 Jun 2026 10:58:30 +0000
+Received: from cdd-dev.amazon.com (172.22.139.101) by
+ EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.37;
+ Fri, 5 Jun 2026 10:58:30 +0000
+From: Salvatore Dipietro <dipiets@amazon.it>
+To: <kmanaouil.dev@gmail.com>
+CC: <abuehaze@amazon.com>, <akpm@linux-foundation.org>, <alisaidi@amazon.com>,
+	<blakgeof@amazon.com>, <brauner@kernel.org>, <dipietro.salvatore@gmail.com>,
+	<dipiets@amazon.it>, <djwong@kernel.org>, <linux-fsdevel@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <linux-mm@kvack.org>,
+	<linux-xfs@vger.kernel.org>, <ritesh.list@gmail.com>,
+	<stable@vger.kernel.org>, <vbabka@suse.com>, <willy@infradead.org>
+Subject: Re: [PATCH 1/1] iomap: avoid compaction for costly folio order allocation
+Date: Fri, 5 Jun 2026 10:58:26 +0000
+Message-ID: <20260605105826.3337-1-dipiets@amazon.it>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260531232929.mn6f76yrnc6e4cpf@wrangler>
+References: <20260531232929.mn6f76yrnc6e4cpf@wrangler>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: EX19D043UWA004.ant.amazon.com (10.13.139.41) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-When updating an atomic-write file, f2fs_write_begin() may read the
-previously written data back from the COW inode:
-prepare_atomic_write_begin() locates the block in the COW inode and sets
-use_cow, and the read bio is then built with the COW inode:
 
-	f2fs_submit_page_read(use_cow ? F2FS_I(inode)->cow_inode : inode,
-			      ...);
+On Sat, May 31, 2026 at 11:29:00PM +0000, Karim Manaouil wrote:
+> I am not very familiar with THPs in the page cache, but for anonymous
+> memory, we have /sys/kernel/mm/transparent_hugepages/defrag which
+> decides what to do in the event of a THP allocation failure, whether to
+> enter a synchronous compaction or wake up kcompactd.
 
-and f2fs_grab_read_bio() decides whether to schedule fs-layer decryption
-(STEP_DECRYPT) for the bio based on that inode via
-fscrypt_inode_uses_fs_layer_crypto().
+Thanks Karim for the suggestions. To clarify, THPs are not used and do not 
+have any performance change on this workload as reported in [1]. 
+The failing allocations are for high order file-backed folios in the 
+iomap buffered write path.
 
-However, the folio being filled belongs to the original inode
-(folio->mapping->host == inode), and the data stored in the COW block was
-encrypted (or left as plaintext) using the original inode's context, not
-the COW inode's -- see f2fs_encrypt_one_page(), which keys off
-fio->page->mapping->host.  fscrypt_decrypt_pagecache_blocks() likewise
-operates on folio->mapping->host.
+> I am just trying to think loudly here and address the root cause. The
+> real problem here is fragmentation due to unmovable pages, probably in
+> your case the page tables. We should work more on reducing pageblock
+> type mixing. Also page tables can actually be made movable so that
+> compaction can treat them as movable pages.
 
-The COW inode is created as a tmpfile in the parent directory and inherits
-its encryption policy from there.  With test_dummy_encryption the newly
-created COW inode gets the dummy policy and becomes encrypted, while a
-pre-existing regular file -- created before the policy applied, e.g.
-already present in the on-disk image -- stays unencrypted.  The read
-path then sets STEP_DECRYPT based on the encrypted COW inode and calls
-fscrypt_decrypt_pagecache_blocks() on a folio whose host (the unencrypted
-original inode) has a NULL ->i_crypt_info, dereferencing it:
+I agree that making PTEs movable could potentially resolve the
+fragmentation at its root, since page table pages are indeed the primary
+source of unmovable fragmentation in this workload. However, making page 
+tables movable has much broader implications.
 
-  Oops: general protection fault, probably for non-canonical address ...
-  KASAN: null-ptr-deref in range [0x0000000000000008-0x000000000000000f]
-  RIP: 0010:fscrypt_decrypt_pagecache_blocks+0xa0/0x310
-  Workqueue: f2fs_post_read_wq f2fs_post_read_work
-  Call Trace:
-   fscrypt_decrypt_bio+0x1eb/0x340
-   f2fs_post_read_work+0xba/0x140
-   process_one_work+0x91c/0x1a40
-   worker_thread+0x677/0xe90
-   kthread+0x2bc/0x3a0
 
-The COW inode is only needed to locate the on-disk block, and that block
-address is already resolved into @blkaddr; the data's crypto state belongs
-to the original inode.  Read with the original inode so the post-read
-decryption decision matches the folio's owner.  This also makes the inline
-crypto path use the correct (original inode's) key.
+[1] https://lore.kernel.org/all/20260428150240.3009-1-dipiets@amazon.it/
 
-Fixes: 591fc34e1f98 ("f2fs: use cow inode data when updating atomic write")
-Cc: stable@vger.kernel.org
-Signed-off-by: Mikhail Lobanov <m.lobanov@rosa.ru>
----
- fs/f2fs/data.c | 14 ++++++++++++--
- 1 file changed, 12 insertions(+), 2 deletions(-)
+--
+Salvatore
 
-diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-index cf05014fa5e3..8f6c22537e9f 100644
---- a/fs/f2fs/data.c
-+++ b/fs/f2fs/data.c
-@@ -3961,8 +3961,18 @@ static int f2fs_write_begin(const struct kiocb *iocb,
- 			err = -EFSCORRUPTED;
- 			goto put_folio;
- 		}
--		f2fs_submit_page_read(use_cow ? F2FS_I(inode)->cow_inode :
--						inode,
-+		/*
-+		 * Although the block is stored in the COW inode, the folio
-+		 * belongs to @inode and its data was encrypted (or left as
-+		 * plaintext) using @inode's context, not the COW inode's; see
-+		 * f2fs_encrypt_one_page(), which keys off fio->page->mapping->
-+		 * host.  fscrypt_decrypt_pagecache_blocks() likewise operates
-+		 * on folio->mapping->host.  Read with @inode so the post-read
-+		 * decryption decision matches the folio's owner; otherwise an
-+		 * unencrypted @inode whose COW inode is encrypted would hit a
-+		 * NULL ->i_crypt_info during decryption.
-+		 */
-+		f2fs_submit_page_read(inode,
- 				      NULL, /* can't write to fsverity files */
- 				      folio, blkaddr, 0, true);
- 
--- 
-2.39.5 (Apple Git-154)
+
+
+
+
+AMAZON DEVELOPMENT CENTER ITALY SRL, viale Monte Grappa 3/5, 20124 Milano, Italia, Registro delle Imprese di Milano Monza Brianza Lodi REA n. 2504859, Capitale Sociale: 10.000 EUR i.v., Cod. Fisc. e P.IVA 10100050961, Societa con Socio Unico
+
+
 
