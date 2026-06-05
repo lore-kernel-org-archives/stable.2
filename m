@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E1F23F4820
-	for <stable@vger.kernel.org>; Fri,  5 Jun 2026 13:05:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E94C23F4820
+	for <stable@vger.kernel.org>; Fri,  5 Jun 2026 13:05:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780664729; cv=none; b=Bghnqtg5QDT9BhIBBnEpEZClycfBJTAaGcYcKpBvfxKlgc/govne1drB5rH+peqt2fG6yxDJEJY7RYrv3PzDzUATCE2Wty0MmrQtlDqtPmt60Gs3GSR7mkgArod16ABMtlJvrGFxV6Wh8rOOIGrOs1ylzVYCi3DwAYsm0Ia9UoE=
+	t=1780664742; cv=none; b=TgTcuZn5tOtQaqqYYhLT7Z8jdxPkBCB8CBYHCv5aJsYnR877lQZh06nlDdd0lMjSxQuN+YXsjLYKARAESfaPsB5MXhtb82YBKZNYJbwH0/jA3pN7xAUW4pIW5yz9qqNoQlGIfPSKeOgE8lvv1KIgiLqfCWGEPEYiIhfj386fQNA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780664729; c=relaxed/simple;
-	bh=GvpDfr2/TEYfatG9yuQ7voXnTWnRRgmeTY1sN99TQFo=;
+	s=arc-20240116; t=1780664742; c=relaxed/simple;
+	bh=bZ0HxCwfnxr1l0WSgmRsHM+PRcJ83C62DjF2bVojP8Q=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=aSPz7s5LIUFqqtGXpyabwF+bptliQP+VLFMDIxfQheJOdW7JVPBwxKbTCuKoZqFAglFcdy8E1+Izdxsq6hmh61WEa/YiRtixyfKA0uB+xbfXAwG58VRzzYgwc7FrehgJWTGKEHq8gR843WIdELq/nfdwqIiYtycTOxgb6e/g5W8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ASxa5to2; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=I/sbbxT8JVXphH0rgfB5oSwOe0DxGFjQM8oSU0cJwYrgf5nOROcbKIt4YQyfCHFVfu3rttqVQLlSnFzU4pD9KatKCs4GSUHdWnknfKcUijsplaHlf6gRD3UxN/FKfDO0zF1/d+DRswMj/n2L+z6GEg3p7yXOCpSC2nGszhvOcWA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M7ZMwk9s; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ASxa5to2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A72F01F00893;
-	Fri,  5 Jun 2026 13:05:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M7ZMwk9s"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E47BC1F00893;
+	Fri,  5 Jun 2026 13:05:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780664728;
-	bh=YS34djVUX4nj5nrStx6A6k31Yt/CZtvnjpEG0hxUYbc=;
+	s=k20260515; t=1780664741;
+	bh=y2bsahdiQeZ0gTpHjcCIsWzf3H3tvLUgy/PvgDsDr2I=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ASxa5to24TRIPbESGLGX60ZvsG6U+OBmX6SOOWWnFaziI1ye72eFbgaMUMMxWGyv5
-	 8SShfS1Xqw7KUPWX5do0xR8tU91hYMTbAp7LTW9eCUwOddWNTm2hroUY21zQ9EdbE0
-	 5tsOK6nMiYmPg9+N78ZcL2gPFJNHU/nyhrW90ORpDGltsNpS7LiSECdFz9rGpiaz70
-	 T2aOuG1cah6SSdI39GtlPm17HI1x2qHkbUmAB7M6osfINH5ow5Sj8BWcnL1IvC+AiC
-	 11I6StIEQazU7SuMnjGsBqhK7NbZdEi6IzzQ+20+vF5/FCv+DLeMfXAceOu/a1vi6K
-	 tJkQQUJSqfCgA==
+	b=M7ZMwk9sMND1ubeipyG+sMF2gJtxNQf1/cNnoiCiGeCRdGQAhbuEqX045G+G49bXA
+	 CJeDVy5bfUPLM8REvBbeFpl+n9zIfyqAwEUowszDomIAkKNqqqH3UBOKr/4HFuI8Fd
+	 AobbTE70bBbqjp+GLctkZmse4QbmNEKoTNtOiw6znLdRSRQkJIHDfbnhUbijV/yefy
+	 1ljArLg6NXV3Od/bxyXGstBq6Zn3Nn6DLBBiserem0aoGpJTavN7GmZuFaeyqQzvb5
+	 nPrG1ioKIoeDkaqpamnSiluG9CZdMautfIMUU7ezZy4B3d52apmNuinjac8cZaxmci
+	 ztqiAOgN8FGng==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Minh Nguyen <minhnguyen.080505@gmail.com>,
-	Willem de Bruijn <willemb@google.com>,
-	Paolo Abeni <pabeni@redhat.com>,
+Cc: Peter Chen <peter.chen@cixtech.com>,
+	stable <stable@kernel.org>,
+	sashiko-bot <sashiko-bot@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] net: skbuff: fix missing zerocopy reference in pskb_carve helpers
-Date: Fri,  5 Jun 2026 09:05:24 -0400
-Message-ID: <20260605130524.411589-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] usb: cdns3: plat: fix leaked usb2_phy initialization on usb3_phy acquisition failure
+Date: Fri,  5 Jun 2026 09:05:37 -0400
+Message-ID: <20260605130538.413416-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026060438-bullring-defrost-cf5a@gregkh>
-References: <2026060438-bullring-defrost-cf5a@gregkh>
+In-Reply-To: <2026060429-trifocals-granddad-3d28@gregkh>
+References: <2026060429-trifocals-granddad-3d28@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,91 +47,47 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Minh Nguyen <minhnguyen.080505@gmail.com>
+From: Peter Chen <peter.chen@cixtech.com>
 
-[ Upstream commit 98d0912e9f841e5529a5b89a972805f34cb1c69d ]
+[ Upstream commit e6970cda63fd4b4546aeed9d0e2f53a7c95cd09c ]
 
-pskb_carve_inside_header() and pskb_carve_inside_nonlinear() both copy
-the old skb_shared_info header into a new buffer via memcpy(), which
-includes the destructor_arg pointer (uarg) for MSG_ZEROCOPY skbs.
-Neither function calls net_zcopy_get() for the new shinfo, creating an
-unaccounted holder: every skb_shared_info with destructor_arg set will
-call skb_zcopy_clear() once when freed, but the corresponding
-net_zcopy_get() was never called for the new copy. Repeated calls
-drive uarg->refcnt to zero prematurely, freeing ubuf_info_msgzc while
-TX skbs still hold live destructor_arg pointers.
+Move usb2_phy initialization after usb3_phy acquisition.
 
-KASAN reports use-after-free on a freed ubuf_info_msgzc:
-
-  BUG: KASAN: slab-use-after-free in skb_release_data+0x77b/0x810
-  Read of size 8 at addr ffff88801574d3e8 by task poc/220
-
-  Call Trace:
-   skb_release_data+0x77b/0x810
-   kfree_skb_list_reason+0x13e/0x610
-   skb_release_data+0x4cd/0x810
-   sk_skb_reason_drop+0xf3/0x340
-   skb_queue_purge_reason+0x282/0x440
-   rds_tcp_inc_free+0x1e/0x30
-   rds_recvmsg+0x354/0x1780
-   __sys_recvmsg+0xdf/0x180
-
-  Allocated by task 219:
-   msg_zerocopy_realloc+0x157/0x7b0
-   tcp_sendmsg_locked+0x2892/0x3ba0
-
-  Freed by task 219:
-   ip_recv_error+0x74a/0xb10
-   tcp_recvmsg+0x475/0x530
-
-The skb consuming the late access still referenced the same uarg via
-shinfo->destructor_arg copied by pskb_carve_inside_nonlinear() without
-a refcount bump. This has been verified to be reliably exploitable: a
-working proof-of-concept achieves full root privilege escalation from
-an unprivileged local user on a default kernel configuration.
-
-The fix follows the pattern of pskb_expand_head() which has the same
-memcpy/cloned structure. For pskb_carve_inside_header(), net_zcopy_get()
-is placed after skb_orphan_frags() succeeds, so the orphan error path
-needs no cleanup. For pskb_carve_inside_nonlinear(), net_zcopy_get() is
-placed after all failure points and just before skb_release_data(), so
-no error path needs cleanup at all -- matching pskb_expand_head() more
-closely and avoiding the need for a balancing net_zcopy_put().
-
-Fixes: 6fa01ccd8830 ("skbuff: Add pskb_extract() helper function")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-sonnet-4-6
-Signed-off-by: Minh Nguyen <minhnguyen.080505@gmail.com>
-Reviewed-by: Willem de Bruijn <willemb@google.com>
-Link: https://patch.msgid.link/20260526041240.329462-1-minhnguyen.080505@gmail.com
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+Fixes: f738957277ba ("usb: cdns3: Split core.c into cdns3-plat and core.c file")
+Cc: stable <stable@kernel.org>
+Reported-by: sashiko-bot <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/linux-devicetree/agKaEePSFknhDBg2@nchen-desktop/T/#m21e1d9c1574eb127ce03c0c2a1a49002ce435b52
+Signed-off-by: Peter Chen <peter.chen@cixtech.com>
+Link: https://patch.msgid.link/20260513085310.2217547-2-peter.chen@cixtech.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/core/skbuff.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/usb/cdns3/cdns3-plat.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/net/core/skbuff.c b/net/core/skbuff.c
-index 8b05866e93b195..b901e6ff461e31 100644
---- a/net/core/skbuff.c
-+++ b/net/core/skbuff.c
-@@ -6407,6 +6407,8 @@ static int pskb_carve_inside_header(struct sk_buff *skb, const u32 off,
- 			skb_kfree_head(data, size);
- 			return -ENOMEM;
- 		}
-+		if (skb_zcopy(skb))
-+			net_zcopy_get(skb_zcopy(skb));
- 		for (i = 0; i < skb_shinfo(skb)->nr_frags; i++)
- 			skb_frag_ref(skb, i);
- 		if (skb_has_frag_list(skb))
-@@ -6551,6 +6553,8 @@ static int pskb_carve_inside_nonlinear(struct sk_buff *skb, const u32 off,
- 		skb_kfree_head(data, size);
- 		return -ENOMEM;
- 	}
-+	if (skb_zcopy(skb))
-+		net_zcopy_get(skb_zcopy(skb));
- 	skb_release_data(skb, SKB_CONSUMED, false);
+diff --git a/drivers/usb/cdns3/cdns3-plat.c b/drivers/usb/cdns3/cdns3-plat.c
+index 9cb647203dcf2d..6c30de9ebcb2c7 100644
+--- a/drivers/usb/cdns3/cdns3-plat.c
++++ b/drivers/usb/cdns3/cdns3-plat.c
+@@ -120,14 +120,14 @@ static int cdns3_plat_probe(struct platform_device *pdev)
+ 	if (IS_ERR(cdns->usb2_phy))
+ 		return PTR_ERR(cdns->usb2_phy);
  
- 	skb->head = data;
+-	ret = phy_init(cdns->usb2_phy);
+-	if (ret)
+-		return ret;
+-
+ 	cdns->usb3_phy = devm_phy_optional_get(dev, "cdns3,usb3-phy");
+ 	if (IS_ERR(cdns->usb3_phy))
+ 		return PTR_ERR(cdns->usb3_phy);
+ 
++	ret = phy_init(cdns->usb2_phy);
++	if (ret)
++		return ret;
++
+ 	ret = phy_init(cdns->usb3_phy);
+ 	if (ret)
+ 		goto err_phy3_init;
 -- 
 2.53.0
 
