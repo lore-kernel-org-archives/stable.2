@@ -1,135 +1,130 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A99363D6CBE
-	for <stable@vger.kernel.org>; Fri,  5 Jun 2026 03:01:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from angie.orcam.me.uk (angie.orcam.me.uk [78.133.224.34])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0F7AC3B19AB
+	for <stable@vger.kernel.org>; Fri,  5 Jun 2026 03:03:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=78.133.224.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780628497; cv=none; b=FmxYkhptcOCRRO/I7HG2+h0YotYwDu11xbX6wGeHXqn196pW+xzfperBlfXw/JEAnRtbQzmxr0CDzXLGpHvpYvG4oTJi/n320d7+DQXxJv4g7hIMkXpk7aEIaGHaPpvEy8uBZwmNaGOXyMTxNj6/BkG6J09hNwL+bAXUiRwYui4=
+	t=1780628611; cv=none; b=JXRmExfiQ+9snXaJhsZ2buE8s7PIyQBDQX5Us6WgOZUbnxpQAsTpEjbU7aiMVeQw+JOoUpDojJipCe5MdYa04ErJ2p3e7ZOD5k3/qlrgtsV5H67ITf9qHJWCvw+9AIwaznLQnDJpUPfoiJVYhUocL2GFXKEr9MViH6QTqnFOseU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780628497; c=relaxed/simple;
-	bh=8oFkNBae0WeW+XySIH1TOUSpYWfTkzh/iTHSAUFFS/E=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=VnKqVgoHnOpDmj1RlCLBaJKG031tTSRUBgkPvxaD3SP7K+z7Qx8ObDhNtNIzUEcT/aLoQWpamXyVLVkHL4R3dw9y92nd6WXWHF2v195D8udf4U9qgDoCHln5LaWuDDOy+CMRqMdhGbuAlGzMW19Rv+YFMdAgU1H7MNOF9JXUZbU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cqNVU2vx; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cqNVU2vx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2154B1F0089B
-	for <stable@vger.kernel.org>; Fri,  5 Jun 2026 03:01:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780628492;
-	bh=Qot5MKbUL/+0V3hX55HDcvFA3oU5tA4W2gsnoTLBjzk=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=cqNVU2vxL4eaEV0/nqpzC3gpvg19r6Jy7XmFvYTbMBAIAp+DWAy9pbrPZKQe6xWzk
-	 GL+THwP9U4h3glbl63IUpsWpmbf7A0gJfoEyQxLz+tBmKA0cg5UU+1CztDt53mki2G
-	 K2HYiFUqWLXc9lY61zyL8uP/acdiLIzkFclr5KV3AWRrKLBwmbAQC15/W5pt/fqyKK
-	 v3kn4sKeZjfytGHvoPyKVhuq2WTJqpIMaThWGetRGalo6ksCqg4DwuyfpX0ZC2zJ0P
-	 pyp0Q3dxb+oXVN+vWITrlVLWNHJc2zPyTPyLTTNpO0quE5X/vPXHg7iNzcdzqqK2k7
-	 /IcyM9QwcxhbQ==
-Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-becfa735b9aso197336766b.1
-        for <stable@vger.kernel.org>; Thu, 04 Jun 2026 20:01:32 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ9mNN7OoI0JDO+OtavzTheemRwWj0OXSaArdPSp2uVBrCTaoBd8g15OfLiBHX1GpGf7c3bHmiY=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzEkR6Tez8jrNNHY/NT5Lz9GIvvqVfYtuRNobAK3ddsA3SB8K76
-	MjagIF8qExwDEEqtSWIr8tZFYKuvRUdkViatYzDGwlY8ixxBr7X3/+2RRxYyXfqhlvG/BE3wxwY
-	pHS6LMJUK7GrFx2P3YdKWVmVKlYuyGjI=
-X-Received: by 2002:a17:907:9486:b0:bd4:7bed:512a with SMTP id
- a640c23a62f3a-bf372159fecmr59795766b.30.1780628490779; Thu, 04 Jun 2026
- 20:01:30 -0700 (PDT)
+	s=arc-20240116; t=1780628611; c=relaxed/simple;
+	bh=3ffOVcwYZaqs8rTatIIH1tWPCUoHGs8GKD2zTlUZZfs=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=KoZloKU2XX2+UDJtw3lxvWXRwWu7/sIIDIrF9EW6XPQ4cQSDLq5NmWUM6XP9RW6ZcdfovyQiQdRbbcSVh0JMa+gGTqx7h8bxNLaXMlqSAFH9ZnS4tQoO1D3X2g6BcrNJFMYAFHV8j3hLPZ1L4QBwJcQt7KUrR6EXBKsikfsFgzk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=orcam.me.uk; spf=none smtp.mailfrom=orcam.me.uk; arc=none smtp.client-ip=78.133.224.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=orcam.me.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=orcam.me.uk
+Received: by angie.orcam.me.uk (Postfix, from userid 500)
+	id 6F76992009E; Fri,  5 Jun 2026 05:03:15 +0200 (CEST)
+From: "Maciej W. Rozycki" <macro@orcam.me.uk>
+To: stable@vger.kernel.org
+Cc: "Maciej W. Rozycki" <macro@orcam.me.uk>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Subject: [PATCH 6.6.y] serial: dz: Fix bootconsole handover lockup
+Date: Fri,  5 Jun 2026 04:02:50 +0100
+Message-Id: <20260605030250.6181-1-macro@orcam.me.uk>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <2026060443-lecturer-unsafe-bac0@gregkh>
+References: <2026060443-lecturer-unsafe-bac0@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260604182407.3109536-1-jelonek.jonas@gmail.com>
-In-Reply-To: <20260604182407.3109536-1-jelonek.jonas@gmail.com>
-From: Huacai Chen <chenhuacai@kernel.org>
-Date: Fri, 5 Jun 2026 11:01:51 +0800
-X-Gmail-Original-Message-ID: <CAAhV-H6khmNSNLOpVzV2B9qmRVAZkY6w8nYVrJC6QBP5CrFd3w@mail.gmail.com>
-X-Gm-Features: AVVi8Cff9VD9kkc76jgjyhmWfyiyAtuxoVRhN2LR48HGLll75a6yTaczl2ar0aU
-Message-ID: <CAAhV-H6khmNSNLOpVzV2B9qmRVAZkY6w8nYVrJC6QBP5CrFd3w@mail.gmail.com>
-Subject: Re: [PATCH] MIPS: smp: report dying CPU to RCU in stop_this_cpu()
-To: Jonas Jelonek <jelonek.jonas@gmail.com>
-Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>, linux-mips@vger.kernel.org, 
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>, Clark Williams <clrkwllms@kernel.org>, 
-	Steven Rostedt <rostedt@goodmis.org>, Thomas Gleixner <tglx@kernel.org>, 
-	Jiayuan Chen <jiayuan.chen@linux.dev>, linux-rt-devel@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi, Jonas,
+commit 7f127b2208e5e2b817243cad41fe4211a6d5a7a3 upstream.
 
-On Fri, Jun 5, 2026 at 2:25=E2=80=AFAM Jonas Jelonek <jelonek.jonas@gmail.c=
-om> wrote:
->
-> smp_send_stop() parks all secondary CPUs in stop_this_cpu(). The function
-> marks the CPU offline for the scheduler via set_cpu_online(false) but
-> never informs RCU, so RCU keeps expecting a quiescent state from CPUs
-> that are now spinning forever with interrupts disabled.
->
-> As long as nothing waits for an RCU grace period after smp_send_stop()
-> this is harmless, which is why it went unnoticed. Since commit
-> 91840be8f710 ("irq_work: Fix use-after-free in irq_work_single() on PREEM=
-PT_RT")
-> however, irq_work_sync() calls synchronize_rcu() on architectures without
-> an irq_work self-IPI, i.e. where arch_irq_work_has_interrupt() returns
-> false. That is the asm-generic default used by MIPS. Any irq_work_sync()
-> issued in the reboot/shutdown path after smp_send_stop() then blocks on
-> a grace period that can never complete, hanging the reboot:
->
->   WARNING: CPU: 0 PID: 15 at kernel/irq_work.c:144 irq_work_queue_on
->   ...
->   rcu: INFO: rcu_sched detected stalls on CPUs/tasks:
->   rcu: Offline CPU 1 blocking current GP.
->   rcu: Offline CPU 2 blocking current GP.
->   rcu: Offline CPU 3 blocking current GP.
->
-> This issue popped up during kernel bump downstream in OpenWrt from
-> 6.18.33 to 6.18.34, since the suspected change has been backported to
-> 6.18 stable branch [1].
-Now 91840be8f710 ("irq_work: Fix use-after-free in irq_work_single()
-on PREEMPT_RT") has been backported to as early as 6.1 LTS.
+Calling dz_reset() in the course of setting up the serial device causes
+line parameters to be reset and the transmitter disabled.  We've been
+lucky in that no message is usually produced to the kernel log between
+this call and the later call to uart_set_options() in the course of
+console setup done by dz_serial_console_init(), or the system would hang
+as the console output handler in the firmware tried to access a port the
+transmitter of which has been disabled and line parameters messed up.
 
->
-> Call rcutree_report_cpu_dead() once interrupts are disabled, mirroring th=
-e
-> generic CPU-hotplug offline path (and arm64's stop handling), so RCU stop=
-s
-> waiting on the parked CPUs and grace periods can still complete.
->
-> [1] https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/comm=
-it/?h=3Dlinux-6.18.y&id=3D18c0456ea2615b1a743a6db739c74411c3b42bc6
->
-> Fixes: 91840be8f710 ("irq_work: Fix use-after-free in irq_work_single() o=
-n PREEMPT_RT")
-> CC: stable@vger.kernel.org
-> Signed-off-by: Jonas Jelonek <jelonek.jonas@gmail.com>
->
-> diff --git a/arch/mips/kernel/smp.c b/arch/mips/kernel/smp.c
-> index 4868e79f3b30..0f28b4a62e72 100644
-> --- a/arch/mips/kernel/smp.c
-> +++ b/arch/mips/kernel/smp.c
-> @@ -20,6 +20,7 @@
->  #include <linux/sched/mm.h>
->  #include <linux/cpumask.h>
->  #include <linux/cpu.h>
-> +#include <linux/rcupdate.h>
->  #include <linux/err.h>
->  #include <linux/ftrace.h>
->  #include <linux/irqdomain.h>
-> @@ -422,6 +423,7 @@ static void stop_this_cpu(void *dummy)
->         set_cpu_online(smp_processor_id(), false);
->         calculate_cpu_foreign_map();
->         local_irq_disable();
-> +       rcutree_report_cpu_dead();
-I'm not sure but maybe it is better to before local_irq_disable()?
+This will change with the next change to the driver, so fix dz_reset()
+such that line parameters are set for 9600n8 console operation as with
+the system firmware and the transmitter re-enabled after reset.  This
+also means dz_pm() serves no purpose anymore, so drop it.
 
-Huacai
->         while (1);
->  }
->
-> --
-> 2.51.0
->
->
+Fixes: e6ee512f5a77 ("dz.c: Resource management")
+Signed-off-by: Maciej W. Rozycki <macro@orcam.me.uk>
+Cc: stable@vger.kernel.org # v2.6.25+
+Link: https://patch.msgid.link/alpine.DEB.2.21.2605062302010.46195@angie.orcam.me.uk
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ drivers/tty/serial/dz.c | 36 ++++++++++++------------------------
+ 1 file changed, 12 insertions(+), 24 deletions(-)
+
+diff --git a/drivers/tty/serial/dz.c b/drivers/tty/serial/dz.c
+index 3cfb68165334..90231ec00ff0 100644
+--- a/drivers/tty/serial/dz.c
++++ b/drivers/tty/serial/dz.c
+@@ -572,6 +572,18 @@ static void dz_reset(struct dz_port *dport)
+ 	while (dz_in(dport, DZ_CSR) & DZ_CLR);
+ 	iob();
+ 
++	/*
++	 * Set parameters across all lines such as not to interfere
++	 * with the initial PROM-based console.  Otherwise any output
++	 * produced before the console handover would cause the system
++	 * firmware to produce rubbish.
++	 */
++	for (int line = 0; line < DZ_NB_PORT; line++)
++		dz_out(dport, DZ_LPR, DZ_B9600 | DZ_CS8 | line);
++
++	/* Re-enable transmission for the initial PROM-based console.  */
++	dz_out(dport, DZ_TCR, tcr);
++
+ 	/* Enable scanning.  */
+ 	dz_out(dport, DZ_CSR, DZ_MSE);
+ 
+@@ -655,26 +667,6 @@ static void dz_set_termios(struct uart_port *uport, struct ktermios *termios,
+ 	spin_unlock_irqrestore(&dport->port.lock, flags);
+ }
+ 
+-/*
+- * Hack alert!
+- * Required solely so that the initial PROM-based console
+- * works undisturbed in parallel with this one.
+- */
+-static void dz_pm(struct uart_port *uport, unsigned int state,
+-		  unsigned int oldstate)
+-{
+-	struct dz_port *dport = to_dport(uport);
+-	unsigned long flags;
+-
+-	spin_lock_irqsave(&dport->port.lock, flags);
+-	if (state < 3)
+-		dz_start_tx(&dport->port);
+-	else
+-		dz_stop_tx(&dport->port);
+-	spin_unlock_irqrestore(&dport->port.lock, flags);
+-}
+-
+-
+ static const char *dz_type(struct uart_port *uport)
+ {
+ 	return "DZ";
+@@ -770,7 +762,6 @@ static const struct uart_ops dz_ops = {
+ 	.startup	= dz_startup,
+ 	.shutdown	= dz_shutdown,
+ 	.set_termios	= dz_set_termios,
+-	.pm		= dz_pm,
+ 	.type		= dz_type,
+ 	.release_port	= dz_release_port,
+ 	.request_port	= dz_request_port,
+@@ -895,10 +886,7 @@ static int __init dz_console_setup(struct console *co, char *options)
+ 	if (ret)
+ 		return ret;
+ 
+-	spin_lock_init(&dport->port.lock);	/* For dz_pm().  */
+-
+ 	dz_reset(dport);
+-	dz_pm(uport, 0, -1);
+ 
+ 	if (options)
+ 		uart_parse_options(options, &baud, &parity, &bits, &flow);
+-- 
+2.20.1
+
