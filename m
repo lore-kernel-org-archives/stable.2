@@ -1,182 +1,122 @@
-Received: from mail-gw02.astralinux.ru (mail-gw02.astralinux.ru [93.188.205.243])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com [209.85.167.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2DB478F29;
-	Fri,  5 Jun 2026 17:26:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=93.188.205.243
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4730F390614
+	for <stable@vger.kernel.org>; Fri,  5 Jun 2026 17:38:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780680398; cv=none; b=IELCoPJ9wKYX9tPOSMdRqxisNbNhVbDFY2otiCj5W6d1D4n0obRq7+bHc8VjHeGahk/txRw8V7YL3hoGbcYy/3e2nFsc7L55bbgM2JP+gqys+Ed2COCF0q2lVoYgAq0WaHKyjoZDbgAU9qs3XD/Bwl0pZbK7wLbcbN6gJLm27cw=
+	t=1780681116; cv=none; b=cmdwN4lEOZG1KO68rKkOZFtj/SoMjPyPPF8g+kuimiYSCqTlzO1H6CLItFRPwcF28/bLorWYdBZqhbTQxhqsVuswlK1i47fDLdlJB8kBOFKvA8A2AhRMIepiz8dqwOoAKQmyJrZzC6Us04KuQXIUKVVE0/3lcUDAQhRPyfrLsQ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780680398; c=relaxed/simple;
-	bh=I1udSyvjJtZNsTU1DKRRMlaA3SuRLgeegsMwVMcxdTI=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=cDOiryUPTFBLn0/o4tMOoIo8kRr1VHuBiOUdHum1mx0h3imS7dp1FvlYyVrXBHiqPTNpj6aiRTp42aG/ck+aGGZZTHNJj0VfbICn0sfZwUSxXlm5Wbm1ifSOMuyNIlhIN/WQ0BiQX5/SOPhB85B2b5bP5gASu60AcsXqyp2zMZo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru; spf=pass smtp.mailfrom=astralinux.ru; dkim=pass (2048-bit key) header.d=astralinux.ru header.i=@astralinux.ru header.b=QioEPdcf; arc=none smtp.client-ip=93.188.205.243
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=astralinux.ru
+	s=arc-20240116; t=1780681116; c=relaxed/simple;
+	bh=K7CQM4eliJj4wIiUfHWlYLWJDGHIdJ3cNCElgLyQKQ0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=I3v83d3H2O7gggHq5EyUeDvaWIaNcJyzxC+jM9BQYgKLsF1rbQWaztGaK7NIToPuKHx0kNcXZL4GKYon1HDh9kBEsQxtluihTLtcICRVJnQlV0SYlz8cPAZLDNZCKQrqTywbTWyCrUOxVD94rrYkbixjgF7+H9dpw1+xixeVMAA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QhwjXUXO; arc=none smtp.client-ip=209.85.167.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=astralinux.ru header.i=@astralinux.ru header.b="QioEPdcf"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=astralinux.ru;
-	s=mail; t=1780680389;
-	bh=I1udSyvjJtZNsTU1DKRRMlaA3SuRLgeegsMwVMcxdTI=;
-	h=From:To:Cc:Subject:Date:From;
-	b=QioEPdcf+nmDVP4XK23s0EgFOosVQ9Q6bpPnchrXclYBC+KkXCNYEco6QNvPYuO7x
-	 xsbVeyqecQcv5d5PNfKnexqxPKoMFp+7ToItF/8nRlI8SQWXAcIM6Xq1BbB7WIz2cb
-	 oUSJGlYz508QTwgDl9+PfMYHbD1IJXQkI6WaHlhYulLRObwDXT7Rb0Xw2QPj1hWbka
-	 IppiKzq7dcwFoPBpbRAKEIn8aE6prSpDbB0PyT0TDz7a7Ra1lnxU7gUSJA7r/4adEo
-	 BEV2vZacUiu0k/7GcweZgQy5TQ2IArr5+IGV2VTLrAgJ0nuWrb6yMOmzqXIR0/ASof
-	 Xa/zS1BIoe/PQ==
-Received: from gca-msk-a-srv-ksmg01.astralinux.ru (localhost [127.0.0.1])
-	by mail-gw02.astralinux.ru (Postfix) with ESMTP id F39331F9BF;
-	Fri,  5 Jun 2026 20:26:28 +0300 (MSK)
-Received: from new-mail.astralinux.ru (unknown [10.205.207.13])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mail-gw02.astralinux.ru (Postfix) with ESMTPS;
-	Fri,  5 Jun 2026 20:26:22 +0300 (MSK)
-Received: from rbta-msk-lt-302690.astralinux.ru (unknown [10.198.53.178])
-	by new-mail.astralinux.ru (Postfix) with ESMTPA id 4gX7dT3xl6zJpKL;
-	Fri, 05 Jun 2026 20:26:21 +0300 (MSK)
-From: Alexandra Diupina <adiupina@astralinux.ru>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Alexandra Diupina <adiupina@astralinux.ru>,
-	David Hildenbrand <david@redhat.com>,
-	Oscar Salvador <osalvador@suse.de>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Michal Hocko <mhocko@suse.com>,
-	Naoya Horiguchi <n-horiguchi@ah.jp.nec.com>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QhwjXUXO"
+Received: by mail-lf1-f54.google.com with SMTP id 2adb3069b0e04-5aa7a7c9711so2681213e87.0
+        for <stable@vger.kernel.org>; Fri, 05 Jun 2026 10:38:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780681112; x=1781285912; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=01P7q67TBv+LoXRCSByZDo7vD+dZYPFTd1o6tohYeZs=;
+        b=QhwjXUXObt3n4VRZgvPjX0m04fq0YZuCzO/bdP+iaDRKKzcY1+5RelfQJqdTEbBo18
+         kxLBg26M7nZdhHjudbD2hRdIRDcM4TkCnv2C7HwfI0NTndgqEpmi9HjAt3siWAYdb9f6
+         68Bei5Smb30hVitLrA0rbx+DIPNam5cFDai9dHCX4r00ruy9Tn6nigpORyGSqBZi+KKu
+         7KLAh3a6fs9BKbadLZw4j/xt7kGY4uBzeAlhgQC7qN1fnWxouJDH9ZqR3/F+NVVAjz7A
+         j+HbgwZihOn9bDK0QLEiyqfZ09cinNLLMznHeef4GBq4MTbdckavTdrHS1kFWqMr5ArJ
+         cBvg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780681112; x=1781285912;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=01P7q67TBv+LoXRCSByZDo7vD+dZYPFTd1o6tohYeZs=;
+        b=p4TeczjrZ6A4on6Di7t04GVXiUAIjAuAqIW88nVXh3Kwe5NjOWDUTnaDm35IWyY7p0
+         ZIvDZAhSPgjNhGFCaLwP3wL7hz1tswIWc6lad/EcnZsQhfBZHFe/CJi4BNUrjeE07ILc
+         tGE5cuDQOdZlYCIQm0GzYfhd+qDnosfeU5ejPFR5dns6cTWXNZOTqSFvaqhPTpGicWfv
+         mychnU1D8b4Hlc+Bf90lr19KBHoD/ACZ3lx7fYo5rbqQlKXTK7VdrbifwRGCBXOQdD2B
+         Qgjo32FnzSWJ6LEbNpBMvjLOq0nYeO8waUHm+svu8lqpdVscJny+ksoyCUSNF+6xZKQS
+         C9aw==
+X-Forwarded-Encrypted: i=1; AFNElJ9ZK5frLjgDHO8Fzg9CrPv1jtQTyzcLcXmJnE0Qf/2Kyns0GTlCUBZyA94OzEdsK2UtBN33lVo=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwIocHwYxF75ifP9qRjmWBK2UIDQmO/KOLTFJ26wadLdTy6i0wX
+	CvsoWgBEB6oo9B2K6zA1+tPfNMnihYvYnuNHYtGSeQkAwBR+DWmtdTxc
+X-Gm-Gg: Acq92OEYsILokTSocWWjMEPmGfXKJdm9FYRX2eiORYnVdFWY9hx4mwZ1LVhyMSn+B7a
+	/fOy3wCTii6AIKrqGn8xa9M1D6HFSYB3L24Cawh1Cl4iWxrllhQLMF7iWi8k/0G/34GofcdesNx
+	r57P3oyF0ghRx2QBkanuUf7qWiKc6uaEFXEBZL0zVp2eqXWYl7YbPWGJkLGgZr1YGFgZ6IB0r9l
+	znY7vEmANZDJJBRKQ/D48gi+1d8EypXVeWdm/IiD33q9fumUnwTRq2Fk1ZfcSP8TNIfPI1zKhkT
+	Y8nxvC4c4e5JbH0Xwc3x54aYfAh9KSAznkyQehKfgeo0qU8XLBhjTsIp4OZ1mHi1JqNpSH6wKv5
+	LdPP6A9FZKvE9Mv9t82trJyXYiyaDP0AuSiEQ4K1Brr/Ntarv/zCXfGXLw2dqkJPeYDq4o7N9UQ
+	Va3GFEhoeEMaeIxu1yHh+s+JCKAbyofJsAGC1ZLH7OuyDFNW1yxh5kTkJdR1cFLHOFpBJI
+X-Received: by 2002:a05:6512:230f:b0:5aa:5edf:3311 with SMTP id 2adb3069b0e04-5aa886aa0bdmr966294e87.12.1780681112036;
+        Fri, 05 Jun 2026 10:38:32 -0700 (PDT)
+Received: from c0624c666cc5.devsec.astralinux.ru ([93.188.205.42])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5aa7b97ac34sm1973861e87.39.2026.06.05.10.38.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 05 Jun 2026 10:38:31 -0700 (PDT)
+From: Vladislav Nikolaev <vlad102nikolaev@gmail.com>
+To: Fedor Pchelkin <pchelkin@ispras.ru>
+Cc: Vladislav Nikolaev <vlad102nikolaev@gmail.com>,
+	stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Haggai Eran <haggaie@mellanox.com>,
 	lvc-project@linuxtesting.org,
-	Jinjiang Tu <tujinjiang@huawei.com>,
-	Zi Yan <ziy@nvidia.com>,
-	Miaohe Lin <linmiaohe@huawei.com>,
-	Kefeng Wang <wangkefeng.wang@huawei.com>,
-	Luis Chamberalin <mcgrof@kernel.org>,
-	Matthew Wilcox <willy@infradead.org>,
-	Michal Hocko <mhocko@kernel.org>,
-	Pankaj Raghav <kernel@pankajraghav.com>
-Subject: [PATCH 6.1] mm/memory_hotplug: fix hwpoisoned large folio handling in do_migrate_range()
-Date: Fri,  5 Jun 2026 20:26:04 +0300
-Message-Id: <20260605172604.16034-1-adiupina@astralinux.ru>
-X-Mailer: git-send-email 2.30.2
+	Leon Romanovsky <leon@kernel.org>,
+	linux-rdma@vger.kernel.org,
+	Zhu Yanjun <yanjun.zhu@linux.dev>,
+	linux-kernel@vger.kernel.org,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Doug Ledford <dledford@redhat.com>,
+	Zhu Yanjun <zyjzyj2000@gmail.com>,
+	syzbot+cfcc1a3c85be15a40cba@syzkaller.appspotmail.com
+Subject: Re: [lvc-project] [PATCH v2 5.10/5.15] RDMA/rxe: Fix the error "trying to register non-static key in rxe_cleanup_task"
+Date: Fri,  5 Jun 2026 20:37:21 +0300
+Message-ID: <20260605175333.5.10-5.15-v3-reply-vlad102nikolaev@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260603174551-bf141bed5d94d0d92337aae2-pchelkin@ispras>
+References: <20260603121902.274-1-vlad102nikolaev@gmail.com> <20260603174551-bf141bed5d94d0d92337aae2-pchelkin@ispras>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
-X-KSMG-AntiPhishing: NotDetected, bases: 2026/06/05 16:47:00
-X-KSMG-AntiSpam-Auth: dkim=none
-X-KSMG-AntiSpam-Envelope-From: adiupina@astralinux.ru
-X-KSMG-AntiSpam-Info: LuaCore: 107 0.3.107 575e75fe8e3b9d45c142d144823c5de38605099e, {date_rfc_vio_soft_silent}, {Tracking_uf_ne_domains}, {Tracking_internal2}, {Tracking_from_domain_doesnt_match_to}, 127.0.0.199:7.1.2;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1;new-mail.astralinux.ru:7.1.1;lkml.kernel.org:7.1.1;astralinux.ru:7.1.1, FromAlignment: s
-X-KSMG-AntiSpam-Interceptor-Info: scan successful
-X-KSMG-AntiSpam-Lua-Profiles: 203696 [Jun 05 2026]
-X-KSMG-AntiSpam-Method: none
-X-KSMG-AntiSpam-Rate: 0
-X-KSMG-AntiSpam-Status: not_detected
-X-KSMG-AntiSpam-Version: 6.1.1.22
-X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.1.0.7854, bases: 2026/06/05 16:27:00 #28217824
-X-KSMG-AntiVirus-Status: NotDetected, skipped
-X-KSMG-LinksScanning: NotDetected, bases: 2026/06/05 16:47:00
-X-KSMG-Message-Action: skipped
-X-KSMG-Rule-ID: 1
 
-From: Jinjiang Tu <tujinjiang@huawei.com>
+On Wed, 3 Jun 2026 at 18:03:00 +0300, Fedor Pchelkin wrote:
+> Moving it a couple of lines around requires some explanation why it's
+> okay in 5.10/5.15 kernels.  Note that in upstream it was done by another
+> commit 960ebe97e523 ("RDMA/rxe: Remove __rxe_do_task()").
+>
+> [ yeah, it should be safe to move the call but it'd better be stated
+>   explicitly in the backporter's comment ]
+>
+> Worth saying that checkpatch.pl for the current patch gives:
+>
+> ERROR: trailing whitespace
+> #52: FILE: drivers/infiniband/sw/rxe/rxe_qp.c:771:
+> +^I$
+>
+> You might also want to consider porting 1c7eec4d5f3b ("RDMA/rxe: Fix
+> "trying to register non-static key in rxe_qp_do_cleanup" bug") which fixes
+> the similar problem for del_timer_sync / timer_delete_sync calls in this
+> code.  This all could go as a series now probably.
 
-commit 397f6d14f9c370e4910e6885294c340f39dedbf5 upstream.
+Thanks for the review.
 
-In do_migrate_range(), the hwpoisoned folio may be large folio, which
-can't be handled by unmap_poisoned_folio().
+I have prepared v3 as a 5.10/5.15 series and addressed all three points:
 
-I can reproduce this issue in qemu after adding delay in memory_failure()
+1. extended the backporter's comment to explain why moving
+   rxe_cleanup_task(&qp->resp.task) after the RC timer cleanup is safe
+   for 5.10/5.15 even though upstream got that order via 960ebe97e523;
+2. fixed the trailing whitespace;
+3. added the backport of 1c7eec4d5f3b as the second patch in the series.
 
-BUG: kernel NULL pointer dereference, address: 0000000000000000
-Workqueue: kacpi_hotplug acpi_hotplug_work_fn
-RIP: 0010:try_to_unmap_one+0x16a/0xfc0
-  <TASK>
-  rmap_walk_anon+0xda/0x1f0
-  try_to_unmap+0x78/0x80
-  ? __pfx_try_to_unmap_one+0x10/0x10
-  ? __pfx_folio_not_mapped+0x10/0x10
-  ? __pfx_folio_lock_anon_vma_read+0x10/0x10
-  unmap_poisoned_folio+0x60/0x140
-  do_migrate_range+0x4d1/0x600
-  ? slab_memory_callback+0x6a/0x190
-  ? notifier_call_chain+0x56/0xb0
-  offline_pages+0x3e6/0x460
-  memory_subsys_offline+0x130/0x1f0
-  device_offline+0xba/0x110
-  acpi_bus_offline+0xb7/0x130
-  acpi_scan_hot_remove+0x77/0x290
-  acpi_device_hotplug+0x1e0/0x240
-  acpi_hotplug_work_fn+0x1a/0x30
-  process_one_work+0x186/0x340
+The updated series is available here:
 
-Besides, do_migrate_range() may be called between memory_failure set
-hwpoison flag and isolate the folio from lru, so remove WARN_ON(). In other
-places, unmap_poisoned_folio() is called when the folio is isolated, obey
-it in do_migrate_range() too.
-
-[david@redhat.com: don't abort offlining, fixed typo, add comment]
-Link: https://lkml.kernel.org/r/3c214dff-9649-4015-840f-10de0e03ebe4@redhat.com
-Fixes: b15c87263a69 ("hwpoison, memory_hotplug: allow hwpoisoned pages to be offlined")
-Signed-off-by: Jinjiang Tu <tujinjiang@huawei.com>
-Signed-off-by: David Hildenbrand <david@redhat.com>
-Acked-by: Zi Yan <ziy@nvidia.com>
-Reviewed-by: Miaohe Lin <linmiaohe@huawei.com>
-Cc: Kefeng Wang <wangkefeng.wang@huawei.com>
-Cc: Luis Chamberalin <mcgrof@kernel.org>
-Cc: Matthew Wilcox (Oracle) <willy@infradead.org>
-Cc: Michal Hocko <mhocko@kernel.org>
-Cc: Oscar Salvador <osalvador@suse.de>
-Cc: Pankaj Raghav <kernel@pankajraghav.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-[ Alexandra: replace continue with put_folio label ]
-Signed-off-by: Alexandra Diupina <adiupina@astralinux.ru>
----
- mm/memory_hotplug.c | 13 ++++++++++---
- 1 file changed, 10 insertions(+), 3 deletions(-)
-
-diff --git a/mm/memory_hotplug.c b/mm/memory_hotplug.c
-index c8cc2f63c3ea..013db41f6ce2 100644
---- a/mm/memory_hotplug.c
-+++ b/mm/memory_hotplug.c
-@@ -1654,15 +1654,21 @@ do_migrate_range(unsigned long start_pfn, unsigned long end_pfn)
- 		 * the unmap as the catch all safety net).
- 		 */
- 		if (PageHWPoison(page)) {
--			if (WARN_ON(folio_test_lru(folio)))
--				folio_isolate_lru(folio);
-+			/*
-+			 * unmap_poisoned_folio() cannot handle large folios
-+			 * in all cases yet.
-+			 */
-+			if (folio_test_large(folio) && !folio_test_hugetlb(folio))
-+				goto put_folio;
-+			if (folio_test_lru(folio) && !folio_isolate_lru(folio))
-+				goto put_folio;
- 			if (folio_mapped(folio)) {
- 				folio_lock(folio);
- 				try_to_unmap(folio, TTU_IGNORE_MLOCK);
- 				folio_unlock(folio);
- 			}
- 
--			continue;
-+			goto put_folio;
- 		}
- 
- 		if (!get_page_unless_zero(page))
-@@ -1687,6 +1693,7 @@ do_migrate_range(unsigned long start_pfn, unsigned long end_pfn)
- 				dump_page(page, "isolation failed");
- 			}
- 		}
-+put_folio:
- 		put_page(page);
- 	}
- 	if (!list_empty(&source)) {
--- 
-2.30.2
-
+https://lore.kernel.org/all/20260605171449.1760-1-vlad102nikolaev@gmail.com/
