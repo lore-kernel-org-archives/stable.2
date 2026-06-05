@@ -1,35 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51A0726F2AF;
-	Fri,  5 Jun 2026 01:50:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FB203C553B
+	for <stable@vger.kernel.org>; Fri,  5 Jun 2026 01:51:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780624210; cv=none; b=idTmdDb4MfJZArh7AeL7iQC3zJgfT1h5V6ZEeq75KY6UdiWhIAHvwWBjY4ek36NuUZMpSyC06MxKfQ3Hfn1hWPA4I4UrdGh1LiJusFfeNpTn9an6XQbEasivMeQeTnDeIAhYMsED0Y3A+EHzJO6axLR4tmgKjDIR3ZpJbYPEOJM=
+	t=1780624318; cv=none; b=lJkMpA/F11dUOvJbTG4XT7sI2XyrrNBlRhrYIVR0F4zrIAumwtuYVZd/7do14hwsDlbzsD3TVUR2y4oaBnyD4SYhAU4QXwDxeM1HHbhW1dk5+fi2tSmmv9o8BwSHPqB0TSZLHR7awesMYOyT/+bZdupfkwnC+PC431zh1aMGg4A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780624210; c=relaxed/simple;
-	bh=E8tq9JTmqzIzMUhNsp8AWo7/7jpeHjhzbUMGM3VZHlg=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=q6QrJTOnk3iQk7gwaFG0pfMlRrAylJPMB8yV3nBSkJ6YL0QpBEXl9ZE/Cv6t2Y1yO6XMOqCNWBWy33x/0RNtvLbphNC8YlzFGFFygE1Bzmlz++okKCEyEIdJzKd6dKMqpMq9+fAgktl9J9MQrofaGDOL6XR7+vtKxSy1Xro6CmQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jTaCdzGm; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780624318; c=relaxed/simple;
+	bh=zITTwIAON6e9dhGjU43w9I3P+mmgfo1ItB7juydjMb4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=iBedJxObzQ/CxWcRO0r+c8nVs9C7e/72uabV7WqnUDgnSPgKi9jah6TXtwbm/IampBC+DxVqrzObeWfth3gApNZ/XxnNaE77ri5/n8EwbBLpUpCm5Wcj6j6p5klXjYkMw77TOurYton30Cap2T+HteyGCO5vCZn27MKTmvXtNVE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A65RbMWK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jTaCdzGm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80B731F00893;
-	Fri,  5 Jun 2026 01:50:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A65RbMWK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0279E1F00893;
+	Fri,  5 Jun 2026 01:51:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780624205;
-	bh=yRWRGczbHTPTKvulLxgT7hEEz9Y303qfmiWdzHhb25w=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=jTaCdzGm/lJ/FzHw8GxhC4ZjwsHSf+c3BO3rINyIO5XHMYflEMvD2eMllE6H2uiBz
-	 7kZTGO8PyphuUztbo+y0A7k5RbRD8bErJPr5yycRfUC5bKnB1gtu9OaWYCUr0gwiFD
-	 8AxCCy0Uvurpz8NN2vRYTDY6ht6G95VCJTNIIa/+JWQf3Wy89AXb6kyB2Fr/3GVG7E
-	 0LHkCXWPJP0zv58EhLSeEIwVauckcW54s3YnPyhna1HwbkyoJgcqCB2aQ2yLEQUHWd
-	 tfJ36v11UdWr0U+7J7aqS8k+qyBQb/asPtIaWWXC4lveZZEeBcbeb1tIhZYKa4jViv
-	 NsKnWTjijlpcQ==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 639CB3930A8B;
-	Fri,  5 Jun 2026 01:50:07 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	s=k20260515; t=1780624313;
+	bh=okwUuAxQAc24ui5FamoGQJ48o0tO93P3Cr8pvXd+5sY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=A65RbMWKbkigkzGrH4ve21SrOD+D8qrYTj3gcoMDf0Aci7TueuIae1Y1wYAVxrmEU
+	 SlEYkFv6VbuFSwDIiPwg1i/O5cju4wOE/92LnJOC7WLTyN/xzI9ExGS5rw3BuToxWh
+	 rSDirPPu3cBKMe/mPOLt8LlTo07ymdGPC0WkEmUmCoGbAiXi7gM5bXC3yGhJHKpACY
+	 X5NFIeOh8pXQeWyVSikCM3v4FLbFBnUe2i8La/XaYivyPLS0vhv2+DGpzldXczsRCL
+	 sopRuYcKKnZSESKdf78QKG4AmN/LGlw3h1J0JHFHFRVW7cbW5ftEZkSdw2TSd/1WN0
+	 OGcTcwgmn5WIg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Rodrigo Alencar <rodrigo.alencar@analog.com>,
+	Andy Shevchenko <andriy.shevchenko@intel.com>,
+	Stable@vger.kernel.org,
+	Jonathan Cameron <jic23@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y] iio: dac: ad5686: fix ref bit initialization for single-channel parts
+Date: Thu,  4 Jun 2026 21:51:51 -0400
+Message-ID: <20260605015151.3131582-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026060404-armory-omega-643e@gregkh>
+References: <2026060404-armory-omega-643e@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -37,42 +46,67 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH RESEND net] net: mv643xx: fix OF node refcount
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <178062420611.3099818.5746082184387994358.git-patchwork-notify@kernel.org>
-Date: Fri, 05 Jun 2026 01:50:06 +0000
-References: <20260602073414.22500-1-bartosz.golaszewski@oss.qualcomm.com>
-In-Reply-To: <20260602073414.22500-1-bartosz.golaszewski@oss.qualcomm.com>
-To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Cc: sebastian.hesselbarth@gmail.com, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, brgl@kernel.org,
- stable@vger.kernel.org
 
-Hello:
+From: Rodrigo Alencar <rodrigo.alencar@analog.com>
 
-This patch was applied to netdev/net.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+[ Upstream commit ecae2ae606d493cf11457946436335bd0e726663 ]
 
-On Tue,  2 Jun 2026 09:34:14 +0200 you wrote:
-> Platform devices created with platform_device_alloc() call
-> platform_device_release() when the last reference to the device's
-> kobject is dropped. This function calls of_node_put() unconditionally.
-> This works fine for devices created with platform_device_register_full()
-> but users of the split approach (platform_device_alloc() +
-> platform_device_add()) must bump the reference of the of_node they
-> assign manually. Add the missing call to of_node_get().
-> 
-> [...]
+The reference bit position was ignored when writing the register at the
+probe() function (!!val was used). When such bit is 1, internal voltage
+reference is disabled so that an external one can be used. For
+multi-channel devices, bit 0 of the Internal Reference Setup command
+behaves the same way, so AD5686_REF_BIT_MSK is created. The issue exists
+since support for single-channel devices were first introduced.
 
-Here is the summary with links:
-  - [RESEND,net] net: mv643xx: fix OF node refcount
-    https://git.kernel.org/netdev/net/c/4aacf509e537
+Fixes: be1b24d24541 ("iio:dac:ad5686: Add AD5691R/AD5692R/AD5693/AD5693R support")
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
+Cc: <Stable@vger.kernel.org>
+Signed-off-by: Jonathan Cameron <jic23@kernel.org>
+[ adapted `has_external_vref` to the in-tree equivalent `voltage_uv` variable in the `val =` computation ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/iio/dac/ad5686.c | 6 +++---
+ drivers/iio/dac/ad5686.h | 1 +
+ 2 files changed, 4 insertions(+), 3 deletions(-)
 
-You are awesome, thank you!
+diff --git a/drivers/iio/dac/ad5686.c b/drivers/iio/dac/ad5686.c
+index 3f10bb872c7924..e1c2e44c5113a0 100644
+--- a/drivers/iio/dac/ad5686.c
++++ b/drivers/iio/dac/ad5686.c
+@@ -488,7 +488,7 @@ int ad5686_probe(struct device *dev,
+ 		break;
+ 	case AD5686_REGMAP:
+ 		cmd = AD5686_CMD_INTERNAL_REFER_SETUP;
+-		ref_bit_msk = 0;
++		ref_bit_msk = AD5686_REF_BIT_MSK;
+ 		break;
+ 	case AD5693_REGMAP:
+ 		cmd = AD5686_CMD_CONTROL_REG;
+@@ -500,9 +500,9 @@ int ad5686_probe(struct device *dev,
+ 		goto error_disable_reg;
+ 	}
+ 
+-	val = (voltage_uv | ref_bit_msk);
++	val = voltage_uv ? ref_bit_msk : 0;
+ 
+-	ret = st->write(st, cmd, 0, !!val);
++	ret = st->write(st, cmd, 0, val);
+ 	if (ret)
+ 		goto error_disable_reg;
+ 
+diff --git a/drivers/iio/dac/ad5686.h b/drivers/iio/dac/ad5686.h
+index a15f2970577e96..8aa0300bd404d4 100644
+--- a/drivers/iio/dac/ad5686.h
++++ b/drivers/iio/dac/ad5686.h
+@@ -44,6 +44,7 @@
+ 
+ #define AD5310_REF_BIT_MSK			BIT(8)
+ #define AD5683_REF_BIT_MSK			BIT(12)
++#define AD5686_REF_BIT_MSK			BIT(0)
+ #define AD5693_REF_BIT_MSK			BIT(12)
+ 
+ /**
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+2.53.0
 
