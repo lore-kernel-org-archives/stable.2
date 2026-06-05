@@ -1,44 +1,50 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C85217404E
-	for <stable@vger.kernel.org>; Fri,  5 Jun 2026 00:34:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 052437404E
+	for <stable@vger.kernel.org>; Fri,  5 Jun 2026 00:34:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780619675; cv=none; b=LqSpCdYih2BAlHaCpNXGWYnDj0PtP+iL6Uvk7amqRDMzWqAYxliYldAJc4yOifn7vhjIxaVgL/qsoSWtYx4jGr6/Zp9ykaYzmDLEBT9YvvQw+qhDY1Sa/yV2k3XHhh3yv8Cm2eVXxYkhcLKMg2m5XM+9dfadxnrRRDn4c7XIFk8=
+	t=1780619696; cv=none; b=quACnsnY83loqL2c9Kfy+2x0oaPZDkit8ItmjVpFvCqqAHzS60pF8mDe2lAWjHQuOKZLLB1D4KsgS7dNxXTnnmmQkRo5yBd2UmKahB4m60FS9QQV/Nauj46LH6u7OlSbFmqC6G9aBrnNCeb7KKbEthtI64FYMSTPa6m/7sCz4Eo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780619675; c=relaxed/simple;
-	bh=pIolN5570spNUdNQsCklhSm0ztp2kaKLZj1BZAptKJI=;
+	s=arc-20240116; t=1780619696; c=relaxed/simple;
+	bh=Zd6wnzqiYFXETEvAeD1R7xqqyUMchyPAjtyEYNsDLDM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=q52RfapDOr6SYwJHNaU4Sjc+ERG/ZsX3QzTa+g/3Cs5h8vHSITOOympjIkv6tBho31hfkyXGrItnU4o6xB2kuhTYtmfLXTxudMUy4AGsB2NGXNgP1UWA7S8EYMPE50Ryn/0A+zjRGVTqbB4StRmz499PWX1kV/lNkKJxqoe96OA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GF5uafPs; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=uh4+mm6+2Xcm6osIohpboXOF0mrMmC4G2TP1ZPMxtcCbDJiny9ns6wCVmIPedZj6HJYM3T1CjtDXbeOzbZR8aialMC7N3rVVbwB5w7WFVBPSi14Uo7I0YkaWSmO8k1fUIjwlid4BvU+iRlygUOanBVdHlTexGhEuOPOgRGhTfyY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n7pG0XHI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GF5uafPs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E70661F00893;
-	Fri,  5 Jun 2026 00:34:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n7pG0XHI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 843EB1F00893;
+	Fri,  5 Jun 2026 00:34:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780619674;
-	bh=oxirtgLsJutk74g6gc8hAyOb21XceFC09uswNbHNOiQ=;
+	s=k20260515; t=1780619694;
+	bh=yPSQCejx+rY121F0e6r8BjOMx3ymM5OE7PjgqPUE8Hw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=GF5uafPs078i5HwPOhHdf1wzFURpjdVQhUz3cfj43HYQRq1ZQCacZ+950N37uxQ4s
-	 8bt8gCaySldDXMyp2u+pqSx7mVQt/FFHKGZxdQ8WChLxdPwEptqAO36MO9kplGCyMu
-	 0QYqM/SD9fgn3CXTMBOsYEU2vt2LnB6zkCypnaHzIBBoLzVDrCcXqQuS52DsHhR7qa
-	 ndKjFXLzdDDzFbi0I0I/IAaFGQ6x9JVgJC2JMcCAPM1FSgqoTfLeP0V2GpTkgv6QDV
-	 UAzI0XaO4qvzGEA01OswoWFHFKoye+NjR9CpfEaaiumjNKfbBeKWbw8tbZseypFL5s
-	 yl4PHbD4p0A7w==
+	b=n7pG0XHINPmzCpT51QNyIGy+1wp7SIk2GjGjgAuBQ1G+5L62Xm2GABWXsnOHMNv66
+	 tHQ2iA16mN+jCu1YYtDvPn/d1JmtSRZqhFFruRVDY59Yoh3sdLlvl/XPxY5n7gvGmz
+	 GMAqN3sZa/D4jub2QSQllhVsN187UtYVngORcyS8hppylWyVrnXi7h4z56cMEBXy6N
+	 0dg0zwyzwFnArFwsTCjd/7JuGZEMyiWP/4de3dHd9jbH4kYKLeVPdeVouTBRN8oaC+
+	 QwSaZ3yMdQ4kxZHa9fh5KDrSjdZo9KUkxoNAK9IZdo6i1nMayG7YUCRhMaIKVnm/De
+	 KwZG9WJj//vEw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Rodrigo Alencar <rodrigo.alencar@analog.com>,
-	Andy Shevchenko <andriy.shevchenko@intel.com>,
-	Stable@vger.kernel.org,
-	Jonathan Cameron <jic23@kernel.org>,
+Cc: "Pratyush Yadav (Google)" <pratyush@kernel.org>,
+	Pasha Tatashin <pasha.tatashin@soleen.com>,
+	Jeff Xu <jeffxu@google.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Brendan Jackman <jackmanb@google.com>,
+	Greg Thelen <gthelen@google.com>,
+	Hugh Dickins <hughd@google.com>,
+	Kees Cook <kees@kernel.org>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] iio: dac: ad5686: fix ref bit initialization for single-channel parts
-Date: Thu,  4 Jun 2026 20:34:32 -0400
-Message-ID: <20260605003432.2705436-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] memfd: deny writeable mappings when implying SEAL_WRITE
+Date: Thu,  4 Jun 2026 20:34:51 -0400
+Message-ID: <20260605003451.2707256-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026060402-peroxide-remold-68a1@gregkh>
-References: <2026060402-peroxide-remold-68a1@gregkh>
+In-Reply-To: <2026060409-tightness-iodize-c0fc@gregkh>
+References: <2026060409-tightness-iodize-c0fc@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,66 +53,70 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+From: "Pratyush Yadav (Google)" <pratyush@kernel.org>
 
-[ Upstream commit ecae2ae606d493cf11457946436335bd0e726663 ]
+[ Upstream commit 3b041514cb6eae45869b020f743c14d983363222 ]
 
-The reference bit position was ignored when writing the register at the
-probe() function (!!val was used). When such bit is 1, internal voltage
-reference is disabled so that an external one can be used. For
-multi-channel devices, bit 0 of the Internal Reference Setup command
-behaves the same way, so AD5686_REF_BIT_MSK is created. The issue exists
-since support for single-channel devices were first introduced.
+When SEAL_EXEC is added, SEAL_WRITE is implied to make W^X.  But the
+implied seal is set after the check that makes sure the memfd can not have
+any writable mappings.  This means one can use SEAL_EXEC to apply
+SEAL_WRITE while having writeable mappings.
 
-Fixes: be1b24d24541 ("iio:dac:ad5686: Add AD5691R/AD5692R/AD5693/AD5693R support")
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
-Cc: <Stable@vger.kernel.org>
-Signed-off-by: Jonathan Cameron <jic23@kernel.org>
-[ adapted `has_external_vref` to the in-tree equivalent `voltage_uv` variable in the `val =` computation ]
+This breaks the contract that SEAL_WRITE provides and can be used by an
+attacker to pass a memfd that appears to be write sealed but can still be
+modified arbitrarily.
+
+Fix this by adding the implied seals before the call for
+mapping_deny_writable() is done.
+
+Link: https://lore.kernel.org/20260505133922.797635-1-pratyush@kernel.org
+Fixes: c4f75bc8bd6b ("mm/memfd: add write seals when apply SEAL_EXEC to executable memfd")
+Signed-off-by: Pratyush Yadav (Google) <pratyush@kernel.org>
+Reviewed-by: Pasha Tatashin <pasha.tatashin@soleen.com>
+Acked-by: Jeff Xu <jeffxu@google.com>
+Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: Brendan Jackman <jackmanb@google.com>
+Cc: Greg Thelen <gthelen@google.com>
+Cc: Hugh Dickins <hughd@google.com>
+Cc: Kees Cook <kees@kernel.org>
+Cc: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/iio/dac/ad5686.c | 6 +++---
- drivers/iio/dac/ad5686.h | 1 +
- 2 files changed, 4 insertions(+), 3 deletions(-)
+ mm/memfd.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/iio/dac/ad5686.c b/drivers/iio/dac/ad5686.c
-index 4c9f7ade52b32d..39c76e9dcb498c 100644
---- a/drivers/iio/dac/ad5686.c
-+++ b/drivers/iio/dac/ad5686.c
-@@ -520,7 +520,7 @@ int ad5686_probe(struct device *dev,
- 		break;
- 	case AD5686_REGMAP:
- 		cmd = AD5686_CMD_INTERNAL_REFER_SETUP;
--		ref_bit_msk = 0;
-+		ref_bit_msk = AD5686_REF_BIT_MSK;
- 		break;
- 	case AD5693_REGMAP:
- 		cmd = AD5686_CMD_CONTROL_REG;
-@@ -532,9 +532,9 @@ int ad5686_probe(struct device *dev,
- 		goto error_disable_reg;
+diff --git a/mm/memfd.c b/mm/memfd.c
+index 187265dc68f5e8..16dde40afd324b 100644
+--- a/mm/memfd.c
++++ b/mm/memfd.c
+@@ -210,6 +210,12 @@ static int memfd_add_seals(struct file *file, unsigned int seals)
+ 		goto unlock;
  	}
  
--	val = (voltage_uv | ref_bit_msk);
-+	val = voltage_uv ? ref_bit_msk : 0;
++	/*
++	 * SEAL_EXEC implies SEAL_WRITE, making W^X from the start.
++	 */
++	if (seals & F_SEAL_EXEC && inode->i_mode & 0111)
++		seals |= F_SEAL_SHRINK|F_SEAL_GROW|F_SEAL_WRITE|F_SEAL_FUTURE_WRITE;
++
+ 	if ((seals & F_SEAL_WRITE) && !(*file_seals & F_SEAL_WRITE)) {
+ 		error = mapping_deny_writable(file->f_mapping);
+ 		if (error)
+@@ -222,12 +228,6 @@ static int memfd_add_seals(struct file *file, unsigned int seals)
+ 		}
+ 	}
  
--	ret = st->write(st, cmd, 0, !!val);
-+	ret = st->write(st, cmd, 0, val);
- 	if (ret)
- 		goto error_disable_reg;
+-	/*
+-	 * SEAL_EXEC implys SEAL_WRITE, making W^X from the start.
+-	 */
+-	if (seals & F_SEAL_EXEC && inode->i_mode & 0111)
+-		seals |= F_SEAL_SHRINK|F_SEAL_GROW|F_SEAL_WRITE|F_SEAL_FUTURE_WRITE;
+-
+ 	*file_seals |= seals;
+ 	error = 0;
  
-diff --git a/drivers/iio/dac/ad5686.h b/drivers/iio/dac/ad5686.h
-index 760f852911df76..182d951912d847 100644
---- a/drivers/iio/dac/ad5686.h
-+++ b/drivers/iio/dac/ad5686.h
-@@ -46,6 +46,7 @@
- 
- #define AD5310_REF_BIT_MSK			BIT(8)
- #define AD5683_REF_BIT_MSK			BIT(12)
-+#define AD5686_REF_BIT_MSK			BIT(0)
- #define AD5693_REF_BIT_MSK			BIT(12)
- 
- /**
 -- 
 2.53.0
 
