@@ -1,107 +1,120 @@
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
+Received: from mail-vk1-f180.google.com (mail-vk1-f180.google.com [209.85.221.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F200F3B71DD
-	for <stable@vger.kernel.org>; Fri,  5 Jun 2026 09:47:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 357453DB651
+	for <stable@vger.kernel.org>; Fri,  5 Jun 2026 09:47:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780652864; cv=none; b=ibH8z6vYa1Bcr5PUJ/ul61vs9uGWev1/nbGbFceWRv6Ks94G90O64lsJRmz4er5XEhWQLQqZv/zhmARGcZQlw59+BsALYhz6QXkXlaJkzWDmlZO/zCITf5LOazV5Ee7cNjd3vglQ6GzwZy6oxXX1PTZeNK5mc4BY4sbYFCW+JRY=
+	t=1780652879; cv=none; b=YGPrhO295O99Gt3/1/n9xHhhkHej2gTcKsKn6WR+uo3n+U0zSyRX/hIXlliisuiIzyBHVXufN2CvOnFlwiQklpGNhm5Fl1j/zkshPnZhKAvn0v1J/xfpEcjK2dL1c0ouV5wOwtSFNHW0UNrnGAI0ID+Cd4k1Apy3B/JwRPxNp6Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780652864; c=relaxed/simple;
-	bh=RMLKSBf6td0blMo/wVsTeAPKKkNErN1kqNLPI9HYRUg=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=VwJRDamja261S8/u6fe4OoMX6J5DxiwFaKvdJp22UMtDmwif2wQHNLmPhkvYjG4N0oCFoGPFwBg6FOMuX6j0CaCulPai+MsmwxcziAeAuY1j//a0AuDm0I7mObDvyAXJeyZriEAej+06zq89/KCYw8oPZ5URSbpMB53dzKbNV8M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=scXglLyP; arc=none smtp.client-ip=209.85.214.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	s=arc-20240116; t=1780652879; c=relaxed/simple;
+	bh=XegPlP0QUg8N4ZbYcx0a/twqRUS5iUtjIM8XQ1lg9EA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=LS55DPYMlm8G4tTfoQpk/Aa3phAWaZPN3PK9FjO28ylp4Ypxmb+KjDVtkKkxTiNe2O7vo77YYe7PotxEQbdIOWZXw0cx1dNzNUlcDxptuhG+QAHnIlYaTN/JdQI46KGFF6dyYVfkakv50i346FxuAymBiV6zyX3CbjoIWx4cq0I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="scXglLyP"
-Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2c0c3546924so11400265ad.3
-        for <stable@vger.kernel.org>; Fri, 05 Jun 2026 02:47:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780652862; x=1781257662; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=RMLKSBf6td0blMo/wVsTeAPKKkNErN1kqNLPI9HYRUg=;
-        b=scXglLyPbY6K/tARilugvxthvt4HPQsFqVwUnDa267LNnSRkINOs3Qao1vLepMhU4j
-         ViiWg8Elha9BqtGAiadYENzvAURYQt2bFENA7BidFdeuOJJ+jLlWImRaLbTJfEwDTTrX
-         aBiijmfENBMzUgEshFkPR+HM5XFr9uM5pnIeYRJS/w6LccMk1lVeV5Vj/DFyTTjFlUnW
-         0VgzyxixiKhr+czvlVroUVLZYxx0/+LdEjGSpn2vXRXQrrdGJjG/fgmDABE/MBeWJ3SM
-         lonQvsFeVcigB6aFzY3QhxISfGc5Lc1syxTEJhdF5Tw8SNRJYtpvWn7ZLdpoNWCEv5nE
-         E6XQ==
+Received: by mail-vk1-f180.google.com with SMTP id 71dfb90a1353d-59ebf30a91dso590806e0c.1
+        for <stable@vger.kernel.org>; Fri, 05 Jun 2026 02:47:55 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780652862; x=1781257662;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=RMLKSBf6td0blMo/wVsTeAPKKkNErN1kqNLPI9HYRUg=;
-        b=fM2vpiVAtmJRKr1+e26dfMSyVwgFUiuss101OnLLPtFzIc85kwEw89gCSDA0UFm7ws
-         J7a00UHEE9tDNtqTuzyGO2Cr3Se9sf+T2LXzOvHXpRbY2FFdR9B543sR/ODDlGim4u4R
-         Uh31Peky94xm3IZxI7ZRYJUEocntm8QGusAktKPFbodkH3E7Ydu1I+7Cz8x2l3+ixZsU
-         00PvzcKOVsO8lcfZ5bAoc0T2xbfT/+a7X+oPO2H49UJzKMWIlEhUh4Tt5EoimjxzPa4Z
-         Q65HCx5jF4fdlFlMj1k5EtGBrKF9/cPKtOyvTxEUNi3yC2owXgeSZhIMFCoRtzpOQaWU
-         zSPg==
-X-Forwarded-Encrypted: i=1; AFNElJ+syStC4iwC1iyr8jAe7KvSzbS+EFgQPQCzvdWs0/WLdgNjAdIy26rxV55ytwPABOq760jC5ns=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx5uUcIFLaFIQoLeA40NVruR/qWgPmlKcdJz/OHRIR8Q+New2kz
-	awyY+xXcCoKd6ccW9IM1Y/usphRPiFoDIt74l/IZioGD593djJ5Djcwx
-X-Gm-Gg: Acq92OEzjQIIM0c2IPSbWp6GioizTniE9R3poPvDFkqh9z0f6JuK33eSkOLeRDAMHUQ
-	RYoBQ2+JaeQStvsHdrv5/q2AJZbgtVFNECD2wE8a3NYGEIWBR0ohA0I49JCRP4IFQuEL+m0qzK2
-	+nZX1kRM1ACzMhGhL/NzyVxK2FKjPOv/S8GQ1NDv4CkRn+wtECs3fNpSiu/vUnNixKWqJNYeW1z
-	qeWQnsxxKXijmaxkcZ9K7jqsJgS6XpBJiDl4ZtU3HaCKkifPuVnc6ynQWH397wZpeAKtQKj2tLe
-	rz/78CMyVOjY21KxF7SX/6WwQtdMBzSe4fKV4Ug7S0Ez0u2E6vy5p6W1IBz6dMWPjvWvAlhHMoe
-	WbQm5WxrQuG1GMJ/ODQN+oSEtF2FfIERlhQw/E56nrgGkpT1gcVKcFXPZgaIOpubhag9LW7bnlv
-	m6chjtSjkZyMrNqv6KFJrzmM2rIFBIVlmcfmgHTmBVgsbCT6EJX+LcI6JDX5lNgQ==
-X-Received: by 2002:a17:902:e5ca:b0:2c0:b932:867d with SMTP id d9443c01a7336-2c1e893d0b9mr28693575ad.29.1780652862144;
-        Fri, 05 Jun 2026 02:47:42 -0700 (PDT)
-Received: from [192.168.0.13] ([38.34.87.7])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c16609e2e2sm84127505ad.49.2026.06.05.02.47.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 05 Jun 2026 02:47:41 -0700 (PDT)
-Message-ID: <cb44838a3bd2437366b840d50a09d40f444a8b2c.camel@gmail.com>
-Subject: Re: [PATCH bpf 1/2] bpf: Keep dynamic inner array lookups nullable
-From: Eduard Zingerman <eddyz87@gmail.com>
-To: Nuiqi Gui <gnq25@mails.tsinghua.edu.cn>, ast@kernel.org, 
-	daniel@iogearbox.net, andrii@kernel.org
-Cc: dxu@dxuuu.xyz, stable@vger.kernel.org, John Fastabend	
- <john.fastabend@gmail.com>, Martin KaFai Lau <martin.lau@linux.dev>, Kumar
- Kartikeya Dwivedi	 <memxor@gmail.com>, Song Liu <song@kernel.org>, Yonghong
- Song	 <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
- bpf@vger.kernel.org, 	linux-kernel@vger.kernel.org
-Date: Fri, 05 Jun 2026 02:47:38 -0700
-In-Reply-To: <20260604151153.2488051-2-gnq25@mails.tsinghua.edu.cn>
-References: <20260604151153.2488051-1-gnq25@mails.tsinghua.edu.cn>
-	 <20260604151153.2488051-2-gnq25@mails.tsinghua.edu.cn>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-9 
+        d=1e100.net; s=20251104; t=1780652875; x=1781257675;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=frpOI/birEQQyfTPmqA3egHq/XurZUvg89/zJvb+Gi8=;
+        b=FGHunghYzN3eCmQVd9Vnv6wpV2UAlt0dt0mTUYA6c+c1GjNh/wAhHErOH50B5KN/5y
+         sOwRyvuUaGWDa0fit/uumpmlnhI5z7gdRpk3BjwLLwaTxLuONRoOyDcCgKcsa3i+UgAD
+         2+W8X6e49Ul7/SU65pa9YAdB5Rjfe4hLXtKriSI3qOpRiFBTCK3lOEmhCMhP/gP7ssWM
+         bhVDsslPCaomZuA1trfxa5bqL3jg8yUzLZ1gYONw4DRz2BYPbk3oEmjxqEpzR+1hunRG
+         2U+J6ChMDHgd/kE2FU6qGzeZb5NKNchJ9XLiBIaxdwPjXM9O3uDowcptidx7vxpNY78m
+         Grng==
+X-Forwarded-Encrypted: i=1; AFNElJ/LlAbpTPtLSJJVByG4mSTfxhRBVPEDpsPnTaoGP/KBTfk2F5FdaoE9c3fl1m36dIpUwG6irOo=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx4lch3h7V/8sXYs+itNJnqT/oxTGXwyXj1O0V8Nu/d8LyS/Y4i
+	0EuQIGurXL5UIQGweS6jwiHlGMrL2WGHXExFcyDF02wMhbrLpd3XqH1e5M22l/DB
+X-Gm-Gg: Acq92OFeKamqqcjHTksBoXLdLAgtOyNuccqf1St2W2HEIqK0vXV6AiSFvuvM4tQ8Ked
+	QNVvX6rSKTscNO+q6//hc7NMaraGiiwaajg9JWgtvpBnDW0nBl1aAktqpUDzGOsr++LQq+ou7m6
+	nMh5g9dbi9aQAcdrE1U+dC6piW1OuK7nndD8sT4WJZvioUhUYdquD627oxNHIEFj4jj7A+yQr40
+	1ukJflTzc7TlLdl2bVE6fdgGUVSrcmkgFOWBNcGpVlEeQqlhO6gkL6RVKXHTD3EhuNxRziCk9aR
+	nJN6b+xYKdDKtLDb2yaZ48eSybjyuBVAKl34n1TETXqwfTQcUrltInJFxTSIyWBSI/UOOzVjcfQ
+	6X50VcpCDg8vQPke9Xz3d502jxcGk9vNsUaQx7qXOSglFVfZdZGK05GIxKteUuOP2tY60QYo9t/
+	9v/JTxflz+0UbKNWQ5VDaDS/0txTbGE7KPUwWmpd68eOAM5QO7vkIs4Ar6dVKGbk1YpSJu7b11r
+	+og5GiU+Q==
+X-Received: by 2002:a05:6122:7c6:b0:5a4:c20a:ba4d with SMTP id 71dfb90a1353d-5ac4ee91209mr1187497e0c.4.1780652874968;
+        Fri, 05 Jun 2026 02:47:54 -0700 (PDT)
+Received: from mail-ua1-f44.google.com (mail-ua1-f44.google.com. [209.85.222.44])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5a6d06a491esm7163987e0c.0.2026.06.05.02.47.53
+        for <stable@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 05 Jun 2026 02:47:53 -0700 (PDT)
+Received: by mail-ua1-f44.google.com with SMTP id a1e0cc1a2514c-96395a59ff6so605045241.0
+        for <stable@vger.kernel.org>; Fri, 05 Jun 2026 02:47:53 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ+a6RPXr4XHLL8hdp5v3NKJzj0FYRLqRfnCp+w2IFaY6gneB6/3lLYqOhAd/Pl7J5nGJs+HQXI=@vger.kernel.org
+X-Received: by 2002:a05:6102:5094:b0:631:26f6:701a with SMTP id
+ ada2fe7eead31-6ff156acf6fmr1089364137.29.1780652873088; Fri, 05 Jun 2026
+ 02:47:53 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <20260603151642.4075678-1-claudiu.beznea@kernel.org>
+ <20260603151642.4075678-2-claudiu.beznea@kernel.org> <CAMuHMdU_T=G7os6KBG6xTnphnhQ9pQtd88BUkg61S7286bZmFw@mail.gmail.com>
+ <TY3PR01MB11346903E1B762B66EDB8CB8486102@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+In-Reply-To: <TY3PR01MB11346903E1B762B66EDB8CB8486102@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Fri, 5 Jun 2026 11:47:41 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdV5SE7KsiWsp+6eFpO2R_pA6k4+sjAQcOQFC+pgOY9chA@mail.gmail.com>
+X-Gm-Features: AVVi8Cd8crXCTmvuTR9VXD3Qx0xyM45BlA1nZ2BpfmDiwjntvYP3B16PpfLU8T8
+Message-ID: <CAMuHMdV5SE7KsiWsp+6eFpO2R_pA6k4+sjAQcOQFC+pgOY9chA@mail.gmail.com>
+Subject: Re: [PATCH v3 1/6] pinctrl: renesas: rzg2l: Use raw_spinlock_irqsave()
+ on power source update
+To: Biju Das <biju.das.jz@bp.renesas.com>
+Cc: Claudiu Beznea <claudiu.beznea@kernel.org>, 
+	"geert+renesas@glider.be" <geert+renesas@glider.be>, "linusw@kernel.org" <linusw@kernel.org>, 
+	"robh@kernel.org" <robh@kernel.org>, "krzk+dt@kernel.org" <krzk+dt@kernel.org>, 
+	"conor+dt@kernel.org" <conor+dt@kernel.org>, "magnus.damm" <magnus.damm@gmail.com>, 
+	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>, 
+	"Claudiu.Beznea" <claudiu.beznea@tuxon.dev>, 
+	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>, 
+	"linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>, 
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>, 
+	"stable@vger.kernel.org" <stable@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, 2026-06-04 at 23:11 +0800, Nuiqi Gui wrote:
-> An ARRAY_OF_MAPS can use an array created with BPF_F_INNER_MAP as its
-> inner map template. A concrete inner array with a different max_entries
-> value can then replace the template.
->=20
-> After a successful outer map lookup, the verifier represents the
-> resulting map pointer using the inner map template. Const-key lookup
-> nullness elision consequently uses the template max_entries even though
-> the runtime helper uses the concrete inner map max_entries.
->=20
-> Do not elide lookup result nullness for maps marked with BPF_F_INNER_MAP,
-> because the template max_entries does not prove that the key is in bounds
-> for the concrete runtime map.
->=20
-> Fixes: d2102f2f5d75 ("bpf: verifier: Support eliding map lookup nullness"=
-)
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Nuiqi Gui <gnq25@mails.tsinghua.edu.cn>
-> ---
+Hi Biju,
 
-Thank you for spotting this issue.
+On Thu, 4 Jun 2026 at 12:58, Biju Das <biju.das.jz@bp.renesas.com> wrote:
+> > From: Geert Uytterhoeven <geert@linux-m68k.org>
+> > Sent: 04 June 2026 10:49
+> > Subject: Re: [PATCH v3 1/6] pinctrl: renesas: rzg2l: Use raw_spinlock_irqsave() on power source update
+> >
+> > On Wed, 3 Jun 2026 at 17:17, Claudiu Beznea <claudiu.beznea@kernel.org> wrote:
+> > > From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+> > >
+> > > The rest of the driver uses
+> > > raw_spin_lock_irqsave()/raw_spin_unlock_irqrestore() for locking. To
+> > > avoid concurrency issues or deadlocks, use raw_spinlock_irqsave() via
+> > > the scoped_guard() helper for power source updates as well.
+>
+> Just a question, will rzg2l_set_power_source() called from IRQ context?
+>
+> This driver does not have IRQ. If any consumer calls rzg2l_set_power_source()
+> in IRQ contest?
+>
+> Have we seen any such dead locks/concurrency issue during any testing?
 
-Acked-by: Eduard Zingerman <eddyz87@gmail.com>
+All pin control drivers use the irqsave variants.
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
