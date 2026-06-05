@@ -1,127 +1,137 @@
-Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B1CC3E5EDB
-	for <stable@vger.kernel.org>; Fri,  5 Jun 2026 15:16:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.42
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780672618; cv=pass; b=LfN76SYAo/RsVwtnp35W+f7hixlUtw60VOug8czVBjoEhCE8Kp6v1/vuy5M05rFlPtW08sm435bZW4m7gCOwAECV5Mzp8BTdZYDG4qxI4HKrfyXMDwRbdnqapEaENeFbb656gFf2+vxZc1khTi+ZFhcVIFT8mSPVCGX1LPBDyuE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780672618; c=relaxed/simple;
-	bh=M0Ti+6+2fGXFk+cKiUj9GFmw1ywuOZbs7swH9SSB+IY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=QPuYem638cmGwiTdZLH9KwlynqNEYolm2lXvmhD4qGUD8XoPJc8xdWVzmZ9iXb6pPtXcJQxmH9iPbyHEJiUjwg30SGYnIpZ/3gPIPaomOpcBYKVpuZJ0vpoxgZyi9ml07Sqwe8pDPFN01qzDbWxBlh7RoKatSlKseEQ1HDjFUKc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=hhNFfJLm; arc=pass smtp.client-ip=209.85.208.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B88743FFFB9;
+	Fri,  5 Jun 2026 15:20:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780672860; cv=none; b=hiqzkVhCqMa5LDIrip8mcxntmtuPrRkTCk2tDFDGbeXWR1fvMR4WyoVge2pejEGE3uewlzZnF0H9lW5l0/jcL1fZgXkOGiPNGGSUT7J3mAQnZLqobHFU2gjJh3nTD1mRvxfg+Rq6kQjbxkFQ9MiCnAkanJdhcNpSNYnJ1Ltd6+c=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780672860; c=relaxed/simple;
+	bh=OmArnAhkQIeJyjgo9y32otIfNDJ7MZbWItZkKOm7I9E=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Y6YqdiIf7ugjCNkX3xJ0keOuuYHMy+ZrhHiJPfH2KSIwAsNQLinlvqt/yhcmRnyEtH3AVsR4VkM5Rd5xEmfjJyE2aj+ynWzNsDlAEqJ5O9dibaYz7CUsDVF67arFkaA4+55RU3F3nmp5XeaEcZfqE+4kcsBsh2XMwkutqqGEZiY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=PdEAicgy; arc=none smtp.client-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="hhNFfJLm"
-Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-68d22476e88so12700a12.0
-        for <stable@vger.kernel.org>; Fri, 05 Jun 2026 08:16:56 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1780672615; cv=none;
-        d=google.com; s=arc-20240605;
-        b=RDb+ufSOTSK/O5DoKY2DHF5z36l+60DGHTZlhHENdrkKuQ7i1eNbXNyGhcPHBbmf2T
-         3CYRliPHvrsYL0sJCLFYszKlYDz0J+uYEkpNBn+fGr7812um7Y2I1XxD4uSq51WZkJ9i
-         IgGB5/2wi8CTgY+fNrNHoiAWL0i4WlhSv/vz0k/TzZPYGzcNGYgb8KWeCwB9wrr/o587
-         A0sy86h4Z791joXx/aAq5AZHH6lVC+K+OtjOhRtOrEDntXzqI/3V8F3Dibc1QahUBkRv
-         QVdbHMzmJWo6Ane2TuWtywRsf5zBan/3t9H++eV48F2MxWQonojFZUt2CEM1pFY+c838
-         DlTQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=R4P/dDdhLfcmxlWjGtS/G4l/JMEkA2smtkmUSE6BkJ0=;
-        fh=op1E105GsXa31I6XQbeg3hduXr3jSy/WH4v8n2b+WSU=;
-        b=IBk7aVmLEKq5pxPgmaGJByzdUUWfse/Ym/Wj1OUVh9Lt3iV88Sp+KrvUzQct3oS88u
-         63PtwXoDUSlOy2J6oS5xoRNjn16M1QkotbparScsVUFka65POYCb0EbSPRd1am02cMe/
-         Q6coZLPWNz3Rv+kaZphZ7flRe0xOYrhRCdOO0p6lv1gXQnOhwqJl7t2h+B7Vj0mVXC+a
-         Ge4ecPhZO6qoWZ6BSImrJDD8ObkTDn3+dqgqDqlOL8kC7R2MzWsr0GDFKQKLtawkocPQ
-         1xFJoqI0N9FhEycJhCOyswJNy7Rgb/h7RlB3Bxs4MccUHxgTda4ylf05u2A/qVTeJMwS
-         JwGg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1780672615; x=1781277415; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=R4P/dDdhLfcmxlWjGtS/G4l/JMEkA2smtkmUSE6BkJ0=;
-        b=hhNFfJLmnqt/iQr+F/XeLC/WBq/wu3saXAFeKu89CH5f48b9PLtcaUalOxoYFeQkx3
-         2vsyIL0WSOeuO69Gly4I2iaHplP6bOhhmO9BJ43AtgiCVJNkQkX+KWI6OcYFgYqosCH+
-         z+7M1Mlqm2kjpXdVYDAuh8zjmvI3qaTfY9CHJMqnVZCMxXdp8TNO8ByzrPRM6DDSW3wX
-         JRSSOQLyNVnwuEfAwofqv7aNleE4FHYqtuXslAcu6QCO3efFt8yIU/AmyTu22F3X71tv
-         wN5llQcC1gKNmDt1iDaSkghRFYv9EYFjFooyLx2Udbt73SkxeR6LP72OlGPnFBX5ujQE
-         6uIQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780672615; x=1781277415;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=R4P/dDdhLfcmxlWjGtS/G4l/JMEkA2smtkmUSE6BkJ0=;
-        b=b2f6AgAVymlAGOfb+jASQ4yXm0PeYzOqKRdffuN8ddUKKwyymfh15HY37FcMWdarrK
-         udr534Tmcw1cdqxXT3AzleWNo5omtLvosfZJTiMzDylp9j4OzyY8dF4oVPJFMeRAbkuE
-         r6gbsnvaDF7bJoebiSsky/TrylAu4eNQMoGGURy1JIfSncPLv9D4xNKjE6d0lvPrKbeA
-         w6tVClo5JGHxzrY/+ybWfnp5VXKTVQnkd3jOq9yVMY0WbRhzl27/os0tcMskrzDSSCcW
-         ywNDBuIAkVEGCB3UeEWku5I8b9cnZmOQxnu7zCFScV9HEMuqh0+meYRmG3TnODfby5Gb
-         kosA==
-X-Forwarded-Encrypted: i=1; AFNElJ+vgEpmmO8yFAic3cEqXj8iy5WifBhfvgXYKmJZDy+o4as0y2aWmHE+QKKHkoOsSAALfG6P5DI=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyehoxt8/GtjuKlXnv+shnW4Hn+ilzN2NOI+aj+jBJ4tJb04NBZ
-	i7QOvA9VKii14ckPd6oPjtV3kK9ZXNtbyi2cf/eyDxXZm43aCVow6g6vEc0ClFY9eA1psNb6Oc3
-	esaNoDAU0C/32Q2YS8Zkx0NsUODrfgmHLvh5UJzG4
-X-Gm-Gg: Acq92OHtEtxmYabOHocrN2A0D9HV8+y2rrJcCrVpQZB8kISv6qz9ZXPjIyGD5pOpEF+
-	Lq3cfnxlxohIlKaqkgPZ1Q2se8vqUg53QmLG9NdQSl3V3gqgZ/LPfWbLQVfgjhyEHgPvZ9XB6SF
-	D+0eG8pTk8/mRN6BILexV8DN8nHwCgkJDgOTSQ+9HPRMdISUQE5jLvGJFRiCO5O9n83nTPYCKfh
-	udvZNgNNdsIkq67nsYMs0r3KUl6p1locCSenXw+ctGnnGR+x/DbVP5j4g7+aTs114w36PC7Q2Kr
-	r3w5hCLfTIinC3k=
-X-Received: by 2002:aa7:c413:0:b0:68f:d41d:ca5f with SMTP id
- 4fb4d7f45d1cf-68fe927fc75mr43411a12.13.1780672614649; Fri, 05 Jun 2026
- 08:16:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="PdEAicgy"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1780672859; x=1812208859;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=OmArnAhkQIeJyjgo9y32otIfNDJ7MZbWItZkKOm7I9E=;
+  b=PdEAicgyRWR6bVPZNIcn1NDHiMLHkjjI2G5tiJFbJKnNpy7/hUSunYgf
+   gShFDnlb1OR/bJiAGNLMHWBlFKSAcorl6FeE08Va1y4RqlO94yN4UGUBL
+   A/Gnr+UKRMfnLNABVR+sZbNijlVHS1Wgegu7IZrfVpyR/BEa+VeBYzG6X
+   cxJYJnbaSnSkxVwCTBLFI3FPVyPeK7SL8f95Lf2LvzbNZTjTqKmBu39dX
+   gH6rcIYScOtYmgYY2g3a2MjDjfBjWPK6csvKVbtC41+6/wC19Na4RmRct
+   gkoeJ7X+AtBE3H9egXGd95fGDi99UVDDjbSzzX9Xg+stS5JdrAMEXu5E8
+   w==;
+X-CSE-ConnectionGUID: fLn4Y/SGQjiL48QoZOIJTg==
+X-CSE-MsgGUID: aU+Luc8/TIaVxmNzlvW7mg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11807"; a="92881826"
+X-IronPort-AV: E=Sophos;i="6.24,188,1774335600"; 
+   d="scan'208";a="92881826"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Jun 2026 08:20:58 -0700
+X-CSE-ConnectionGUID: k9VI6hpJST+hcGFF3dbpNw==
+X-CSE-MsgGUID: DtJ8HAlWSnaN/H7u6L6j+g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,188,1774335600"; 
+   d="scan'208";a="244984658"
+Received: from ettammin-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.178])
+  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Jun 2026 08:20:55 -0700
+Date: Fri, 5 Jun 2026 18:20:52 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Xu Yang <xu.yang_2@oss.nxp.com>
+Cc: Daniel Scally <djrscally@gmail.com>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	linux-acpi@vger.kernel.org, driver-core@lists.linux.dev,
+	linux-kernel@vger.kernel.org, Xu Yang <xu.yang_2@nxp.com>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] software node: fix refcount leak in
+ software_node_get_next_child()
+Message-ID: <aiLpVIjws1DO9l4J@ashevche-desk.local>
+References: <20260603-fixes_fwnode_iteration-v2-0-0ae381f8b7b9@nxp.com>
+ <20260603-fixes_fwnode_iteration-v2-1-0ae381f8b7b9@nxp.com>
+ <ah_2i-jWq2kBRJpe@ashevche-desk.local>
+ <soxsu3t7ntgnbeeic5mygklzdpohyic7echo5trnzuphbpe6b6@avr5wwkbojvm>
+ <aiG62GXa3tYhhMBQ@ashevche-desk.local>
+ <6keyevnyndjeovbpiiufp7ejrtz6sfelu65evhg7odgb2tyxrf@xtmiqmko2kuo>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260604-tracing-fix-cfi-h-build-error-v1-1-b27015390901@kernel.org>
-In-Reply-To: <20260604-tracing-fix-cfi-h-build-error-v1-1-b27015390901@kernel.org>
-From: Sami Tolvanen <samitolvanen@google.com>
-Date: Fri, 5 Jun 2026 08:16:17 -0700
-X-Gm-Features: AVVi8CeQw3smwcST71LMGAGTwkM2lHTSl-GXkozY0EakrBxGEKMpmYz8YpNBi-g
-Message-ID: <CABCJKud4OxJJVt5eTaNqpGqLrKbF2teAd3FERoeg+sG-G2Yiag@mail.gmail.com>
-Subject: Re: [PATCH] cfi: Include uaccess.h for get_kernel_nofault()
-To: Nathan Chancellor <nathan@kernel.org>
-Cc: Steven Rostedt <rostedt@goodmis.org>, Kees Cook <kees@kernel.org>, 
-	Eva Kurchatova <eva.kurchatova@virtuozzo.com>, Masami Hiramatsu <mhiramat@kernel.org>, llvm@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <6keyevnyndjeovbpiiufp7ejrtz6sfelu65evhg7odgb2tyxrf@xtmiqmko2kuo>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Thu, Jun 4, 2026 at 5:33=E2=80=AFPM Nathan Chancellor <nathan@kernel.org=
-> wrote:
->
-> After commit 0652a3daa787 ("tracing: Fix CFI violation in probestub
-> being called by tprobes"), there are many build errors when building
-> ARCH=3Darm multi_v7_defconfig + CONFIG_CFI=3Dy like:
->
->   In file included from drivers/base/devres.c:17:
->   In file included from drivers/base/trace.h:16:
->   In file included from include/linux/tracepoint.h:23:
->   include/linux/cfi.h:44:6: error: call to undeclared function 'get_kerne=
-l_nofault'; ISO C99 and later do not support implicit function declarations=
- [-Wimplicit-function-declaration]
->      44 |         if (get_kernel_nofault(hash, func - cfi_get_offset()))
->         |             ^
->   1 error generated.
->
-> get_kernel_nofault() is called in the generic version of
-> cfi_get_func_hash() but nothing ensures uaccess.h is always included for
-> a proper expansion and prototype. Include uaccess.h in cfi.h to clear up
-> the errors.
->
-> Cc: stable@vger.kernel.org
-> Fixes: 0652a3daa787 ("tracing: Fix CFI violation in probestub being calle=
-d by tprobes")
-> Signed-off-by: Nathan Chancellor <nathan@kernel.org>
+On Fri, Jun 05, 2026 at 05:16:32PM +0800, Xu Yang wrote:
+> On Thu, Jun 04, 2026 at 08:50:16PM +0300, Andy Shevchenko wrote:
+> > On Thu, Jun 04, 2026 at 07:15:26PM +0800, Xu Yang wrote:
+> > > On Wed, Jun 03, 2026 at 12:40:27PM +0300, Andy Shevchenko wrote:
+> > > > On Wed, Jun 03, 2026 at 04:44:31PM +0800, Xu Yang wrote:
 
-Reviewed-by: Sami Tolvanen <samitolvanen@google.com>
+...
 
-Sami
+> > > > >  	struct swnode *p = to_swnode(fwnode);
+> > > > >  	struct swnode *c = to_swnode(child);
+> > > > >  
+> > > > > -	if (!p || list_empty(&p->children) ||
+> > > > > -	    (c && list_is_last(&c->entry, &p->children))) {
+> > > > > -		fwnode_handle_put(child);
+> > > > 
+> > > > Wouldn't be better to use swnode_get() / swnode_put() instead?
+> > > > *Yes, we might need to add some NULL checks there.
+> > > 
+> > > It's not newly added by me. The software_node_get_next_child() has been using
+> > > fwnode_handle_get() / fwnode_handle_put() before. In my opinion, this should
+> > > be fine since they do the same thing here for a swnode.
+> > 
+> > It doesn't matter who added that. But according to the point of this patch
+> > (correct me if I am wrong) is to avoid bumping or dropping reference count for
+> > the nodes that are *not* of swnode type. Moving away from fwnode_handle_*()
+> > loop we make the point clear.
+> 
+> Yes.
+> 
+> > See the of_get_next_status_child() implementation, it does *not* use
+> > fwnode_handle_*() at all. So, making it here to use same approach should
+> > fix your issue, no?
+> 
+> You are right. I had also noticed this before. Actually, the difference between
+> OF node and swnode is that OF node uses to_of_node() to filter out non-OF type
+> fwnodes. Similarly, swnode uses to_swnode() to filter out non-swnode type fwnodes.
+> So replace fwnode_handle_get() / fwnode_handle_put() with software_node_get() /
+> software_node_put() does fix the issue.
+> 
+> When I reviewed patch #1 again, I found it already fixes the refcount leak issue
+> because when it switches to the secondary fwnode, it no longer passes the primary
+> child to secondary fwnode. So the patch #1 is not needed anymore. I will remove
+> it in v3.
+
+I'm lost in here. My expectation that patch 1 should fix the issue as it won't
+let the fwnode_handle_*() be called against wrong type of fwnode. What did I
+miss?
+
+> > > > > +	if (!p || list_empty(&p->children))
+> > > > >  		return NULL;
+> > > > > -	}
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
