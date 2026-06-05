@@ -1,187 +1,493 @@
-Received: from CWXP265CU008.outbound.protection.outlook.com (mail-ukwestazon11020103.outbound.protection.outlook.com [52.101.195.103])
+Received: from n169-114.mail.139.com (n169-114.mail.139.com [120.232.169.114])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC6794192F1;
-	Fri,  5 Jun 2026 09:28:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.195.103
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780651708; cv=fail; b=TcwPXlQVrdFRWYZ1XotBKoxKdk7WHaImdRSW8XtNFjl9plHHdda572OIFSqggVQiCQkbyJWIGJ0byhnARz0khlfqu4lzrgsrB7txaOI5n3g8QLsZjXI86juepOQrvDNRjhgtqA9DQJSRNW0/sEEqk14n5onW2rL1J2BwArasTbc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780651708; c=relaxed/simple;
-	bh=E2uvcotJMV4KxZNqYzp/GfqQIhsxVBGfcdirIIMLpw8=;
-	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
-	 In-Reply-To:MIME-Version; b=lTLfyFfhyqdcLiyaTaHTdiRf7FL+jQ3ilVvO2ro5gNaxuS7V1R1hWrFWGsCnnbTj+ddh0ma3Ad7V+YpczUV3iP/bYwjrPo80jP4AYcjp7hXobuUANOzEpEhz/jeCF93xXqX43KuMgcLF65aS4XCa+WAegrdr4gNK82oBkDludco=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=eHYFEZeM; arc=fail smtp.client-ip=52.101.195.103
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D97CF3B71AC
+	for <stable@vger.kernel.org>; Fri,  5 Jun 2026 09:31:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=120.232.169.114
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780651871; cv=none; b=M41sKeCIp/Px8mDtWdJkv1yI0/qy4RYQ+PnD4QhVmQKVKu7T8G9o/gMJqr12ulb4ymQNmFbZIPavBr4S80Xx1boW/h6NgSi/Xn66DGOt9tYYtBBFfHaQ5bNDBAgHcT3AU3bHcnPlOOg3BGFkzsbepkFDg8tO/y3IZ9UpPTfrVd0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780651871; c=relaxed/simple;
+	bh=WRwWYM/HJy3p2AemE+lfaujPFj9HjhIAvqJI43ah/60=;
+	h=From:To:Cc:Subject:Date:Message-Id; b=ViVVqhTq7xy9++yy6EaMj5eIwb9Nm+Rc+IfGBWbf84bm3eJxCvFZmQW5G13fgu3n9E+izGWJLnuTZf7pUQX9A5mAVR83dEcp51JHUEoPEMXXOE/lZJE7scfKz8rLxmvpfUbAlcVBw7s9pOK3q/H5/kP+Jvwl++ajCXGujzKpRxU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=139.com; spf=pass smtp.mailfrom=139.com; dkim=pass (1024-bit key) header.d=139.com header.i=@139.com header.b=PQ1AiOSE; arc=none smtp.client-ip=120.232.169.114
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=139.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=139.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="eHYFEZeM"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bj75eSpqoCZqkrNHp58XnXbO2KO//uUBbljU565BfJJsoIwwRQkLN6ZIbxwpCEAElzEgoYSL6ex0Z0jH9dAZhRMs9VV3RBRByNDA9tJSzuQr9T+WRxxDdmL7NDy322Ke4UnaqhAmUEhzRu7NV9fZLiXGBkEzZfxLExd5btxDyD/AnI/NlXFWrDqMrIO7m+k8jWNiSjQOPgfUTVgMyLLSTytq46CYlTulOpBSO7pZooR7LPAWYgrV0bPCv2eyrZrHN67akqkJxxnYEqRm7E4xbq4gUTQrwSiACHqQNW2UdOt9DCu8cqukkL9D63GYUTfbMaq20WAiaDh6j354usRAxg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7ncXLTIyBcKaMm+fGYQxphJvebVpb6auBEBYbM9QW+4=;
- b=AvgdQ18Ek0QKqhgEEsdCPZZsOsi3SMqvxuy4bYsLXwFBE2XGERJNA8laafBEG1snfhNowCZVAB2rVMPMLf9Pwnqu1h1GfLvEG62vg+1ekd1JcGXh9O0VeVIgHxEXGozi4U68A21kELTPP5YLlBb16n6WgdDAS//UVSy2g8EWwR4gt2pg8lBttVQ9TOcigsiXb7UO6Mibd/HEbVF7+npEONrjxaKTwY1NIeANukOAjxf+n3mH+U5ZYHJxVJVTI8LZiJ2biNQfv96ULyr9uP8TWTJWH949tGwVeDe8i34rsAzKxbjLWMfXel8zKVEXpLmyrBpHUZqV9iwN7Aa7n1ZWdQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7ncXLTIyBcKaMm+fGYQxphJvebVpb6auBEBYbM9QW+4=;
- b=eHYFEZeMdXu10n1mFBtlyuHI7xX+htqa+cqVOSqs67O6p4De4x9Km0dcqmfPw2ZtfrMgzXRhpnqexKSb+RI78xcBTznNf5586pwVMNOJ9PCbFEAWJd7VW4SgQ5qrOheQvU2GU5Bu+B4PS1nQDPjr37/x8bl1pD+QxUXmIE3u2NQ=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
- by LO9P265MB7624.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:3a3::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.8; Fri, 5 Jun 2026
- 09:28:23 +0000
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.21.0092.007; Fri, 5 Jun 2026
- 09:28:23 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 05 Jun 2026 10:28:22 +0100
-Message-Id: <DJ10CJ31GS5I.1ZD6WPPWGZTQN@garyguo.net>
-Cc: "Yuan Tan" <ytan089@ucr.edu>, <ojeda@kernel.org>, <boqun@kernel.org>,
- <rust-for-linux@vger.kernel.org>, <zhiyunq@cs.ucr.edu>, <ardalan@uci.edu>,
- <pgovind2@uci.edu>, <dzueck@uci.edu>, <stable@vger.kernel.org>
-Subject: Re: [PATCH] rust: firmware: return empty slice for zero-size
- firmware
-From: "Gary Guo" <gary@garyguo.net>
-To: =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "Gary Guo"
- <gary@garyguo.net>
-X-Mailer: aerc 0.21.0
-References: <20260605041134.38290-1-ytan089@ucr.edu>
- <20260605071104.135675-1-work@onurozkan.dev>
- <DJ0YRJ6MHAU7.WVR4P2MQ4HIX@garyguo.net>
- <20260605091632.313084-1-work@onurozkan.dev>
-In-Reply-To: <20260605091632.313084-1-work@onurozkan.dev>
-X-ClientProxiedBy: LO4P265CA0221.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:33a::20) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:488::16)
+	dkim=pass (1024-bit key) header.d=139.com header.i=@139.com header.b="PQ1AiOSE"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=139.com; s=dkim; l=0;
+	h=from:subject:message-id:to:cc;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=PQ1AiOSEjAd/iTllT3zawXCezSvQx75HppttMzappKF8Nr4QxSIzLJ3maB7jX8Q51Xo3cF3H8cpNC
+	 KbEdioYJdHODJRKU+AoQc2iXRHvG7W/nDgJc9K8adPo4sqx+I26jSww69pp0fJyj+KWH+4YEkIG3Ky
+	 Ld8e8tYEkXlKBTWw=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM:                                                                                        
+X-RM-SPAM-FLAG:00000000
+Received:from NTT-kernel-dev (unknown[183.241.249.24])
+	by rmsmtp-lg-appmail-40-12054 (RichMail) with SMTP id 2f166a22974cfcf-faba0;
+	Fri, 05 Jun 2026 17:30:55 +0800 (CST)
+X-RM-TRANSID:2f166a22974cfcf-faba0
+From: Rajani Kantha <681739313@139.com>
+To: herbert@gondor.apana.org.au,
+	karin0.zst@gmail.com
+Cc: stable@vger.kernel.org
+Subject: [PATCH 6.6.y] hwrng: core - use RCU and work_struct to fix race condition
+Date: Fri,  5 Jun 2026 17:30:47 +0800
+Message-Id: <20260605093047.1672-1-681739313@139.com>
+X-Mailer: git-send-email 2.17.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|LO9P265MB7624:EE_
-X-MS-Office365-Filtering-Correlation-Id: 181ad80a-251b-468d-9dad-08dec2e4c9e1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|1800799024|366016|4143699003|6133799003|22082099003|18002099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	5eGOoRhOYSAHoAZzxqL4yLHwhX00peesxFMPQEfhH/6pz47f2DszmEvQj2pLHn9HPwk2aqfyCMWudnioiGdex6Jjd4pEZ8UoKxpwgcp1iNvI4Uj/0Myby2vBZ0oGtVgB/rGM88Tf0x8vOQDeyk8WjMU8I7VTFx84Kk4diSpytRk5Sknw1qbduKYFpmtDIofK4J2IHcg3XBFr7UsOE1U9Yg7ALsaPX69Cs3B1MsFXHBUC1wxVPCo1qGFifJbPJFNMRYnwCSy0FuLYHM9Ri3zJNotZmYYyVXa+UMT1uGDQ6ITt+lLPyu98GtFz1SEkqq0ND6KjdnZQ82LPlfcISaiXVnpRriJBqOy63C2TWZE1lRyH+V/pkhtBBhKV3UEYQqM+DYowpkEMg09zcIf+f8l4PaSml1UPIu6Y6JwLqpyKEiNafeFdZFq9L3UPviwNih/dTBeilNFHISNmov39KidkVQrg4AsBmi63NBvRHtIoksDc/O9fgXMCq7szhbdiX6ZfaTFylY1vJrO4QS1J4hT770LtbTwdLjmcb9VjNOHUc9B3DLFbAuFqDbLS7M5QEjbR8xro0gQMysq1NeCbMtBGF7ZVQj7QTrQCSxTEU/9rEXb2pvHAAO/GG366xKsmpXynnJ5AsZykwLgqPNVn8XQ2RpPfJWpmouo9QApczhFWlC5kB6p1QFaXfsqPjQnZ9Lgg
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(366016)(4143699003)(6133799003)(22082099003)(18002099003)(56012099006);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?NzQ1UnI2cC9mMklYUmVacm5sdDJiVmNBVW5YV2V4YVZMVDg2ODJMemZhYjVO?=
- =?utf-8?B?VHo5SlF3NEJFSEI1ZnBMYnFpVVRnOUZ4bjZaZTc0enNHZXFvNjJBUUU1K0xZ?=
- =?utf-8?B?bnZMU2dXT2R5eXozZk9SbkhkeWdkdU5teW1Qc2R5aWpKYTdZbXdJcm1uUzRC?=
- =?utf-8?B?VjRWakhzSGF2Zno0ek5JZmNOMWpQSVZPUE9QQVBpTDlmbzF2Y2dLYmZ4WDR4?=
- =?utf-8?B?M05OWVZpNXpXWnVFYWJBNkl2OVBvVmh5YWVYQ1lCYnRGWTgwVks5QmUvRDNy?=
- =?utf-8?B?K0pKUFhVWjZmenVQWFkxa3lHZ2h6eFdCZzB4c3IvMzhXUHBJY2lnaHl6ODE0?=
- =?utf-8?B?Yjd4dWwwRmtPMFd6b0E5d2dxbDJQMm1HbUpsL0x3WHZKVFlJa2FXRXVpZTFm?=
- =?utf-8?B?Ry9ZRnVDTzlFQkVMbnFWYlhXZ3JRZ1hhMzZSSFZ4TXI2Q2VWR0VxUGpBdkJQ?=
- =?utf-8?B?Z0F1YUhnTnFDeUdOZDNiNk5GY0pWYklQdmtCL3Z3VzBRL0NEVm1VRVlmclgz?=
- =?utf-8?B?M2t3R2hYbHo5RmRRRTdCYXRwU0o5aVh4WnViOVJ0VG1kZ1UwazRtZDB4S05h?=
- =?utf-8?B?SlF2azVMMjNRZ3Ntd0ZHTUR0eno2Wlg2OWV0VlVpRlRWTldCUE95c1ZFZzBz?=
- =?utf-8?B?WlMzVXRuaTNNRHBiVWJKM3hFZmJkZGNNRW8vUzRvYlduZDc3b2hIa0xiNTBD?=
- =?utf-8?B?QlFPcXJsdC8wckh3dTRnOWpLbHdjZUZLMHdnSld1NDZkTlUvbGVLZjdlOWtt?=
- =?utf-8?B?RU9SN0NvZlROWE9NWFFOeTI2azREaFdyendmTHE2bzR2K2tYRk9BMUVzbXl3?=
- =?utf-8?B?NmowS3FUZS9JeHJvR1oyQjN0V0ZLbnFoUTM2UkloSFpGN0pKejBkQytBS2dj?=
- =?utf-8?B?czVpa3VJbUdVaGlKY2UrK3FkSkJEby9vbEZIUUFwYktxS3VSNWQzQldubHk3?=
- =?utf-8?B?UzR3Ri9obEw5MENKMGhxKy8xVmh6VUlMcXNDaHJSY0RKNW8rSS8za2FKb0lv?=
- =?utf-8?B?cTY5K0RsN2tncUoySjQ5dStqTmNobDRxVGQ4akIwQk8xVUNhRytLU29NTnZx?=
- =?utf-8?B?VHNFSFlnQXN1R0hIZjR1NThON2FUZ2paYmJMWmFTcWZuN1FrYVlZQjM2czRU?=
- =?utf-8?B?ck9ERnhIbElCRU45YUhjMU8xZ0Urc1lTUVI1ZTUzQkQxZzhqTEUrNHRVQUc4?=
- =?utf-8?B?bmFoWU01MFVMUlE2RmlVY01VZWd5NlIxY3V1ZnE2Q20yZWY5RXhLOVVrbEdV?=
- =?utf-8?B?bFhkNHRPRHAvamVGVFFUQlZqdU5Wd3ZkSElkY2VFTVFGRDgrVG9KKzFoT25W?=
- =?utf-8?B?R3J6bVlrV1cyUkVjQkJXa0ZFMGtqRGtNVjlROSt2enZVcGdRbnhKR214QlpH?=
- =?utf-8?B?cGVWVFdiaG5VaTU3RDBTd0kraGd3SW15Q2JuZmJ1b01RTFZuYmd5OVBHMGFa?=
- =?utf-8?B?SE1yaTZmN2JydWlncXNCNEVyUjhNT3pTVkpCRGt6dG5iSVdLRlpRQkJ3amlY?=
- =?utf-8?B?K3l4bmJRaGhUbzFXZjg3QUIzaXE5SlBoUjB4cEhMM2RnKzlPeEJBNEVPRnR5?=
- =?utf-8?B?dXpCZTZWMmc0Qm5oR0ZBWUk1cXBGaXJ1eTNRa1d2MXNlV3dKOHRxTUdiTGY0?=
- =?utf-8?B?cUJGc25ZVTlldjZ6d0pFZ2F5citiTTVHeTNCaXFOazl3YUlNRm1vV0hUZ25I?=
- =?utf-8?B?SW1FQjRUdzVXcStDeUJVRFJvQmRHc0o3VHlPc25selBMT2J3Q1pTeGk2bnkw?=
- =?utf-8?B?MWlYZTQwQ0RTY0VuRVhlK1Z6OUVxZEZRdllQTU1jSzJQYnc1a1RHS3hONkhT?=
- =?utf-8?B?VTFFaGIyU0QxVkdOcnZ2VEt0NFhyL2pQMkxJRXNUeVBhRWtLR3YyRy9KMHZs?=
- =?utf-8?B?MUZNYjVzejY0VGJCcGRPNjVkQWtIQjFQT3dNOG9keUVCUkJGU3V0aU1VOStO?=
- =?utf-8?B?R05xZ2JiL2tWYXlQSHg0eWdKa3hpclU1b0JCQ00xNGxEcjVEWVV1eHZodVdH?=
- =?utf-8?B?encvNjFPdXdDTitaZXNWVGFzZlhjS0ZCTjlYNFQrTXJwZnJ6OUZ4aHo0Wkoz?=
- =?utf-8?B?T1F5b0ZyQzF4WklLVzZKcFdiUm1FcENST25nU0tpSDFMWDAzR2VrQThzK3ls?=
- =?utf-8?B?NUlVOGVTUk1UM2NyTnFrZGZVenBCUFRPNExVdEpHeC9namROYi8wZWxGaVpN?=
- =?utf-8?B?RmZGTHZYcS9sUjc4d2R4d0h5WUMxK0VSQ21QaFB3NHlOcm5aMmxPNEkxRis1?=
- =?utf-8?B?UHpweWJZREdMcDBQT1YwZ2xKTFpUcWRSbnhQb1hYSFVJT0E5TVhnS2dzVCtr?=
- =?utf-8?Q?k+4dYX3q6HhLl6pPSS?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 181ad80a-251b-468d-9dad-08dec2e4c9e1
-X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jun 2026 09:28:22.9550
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: aloGLwSeEGv/Y3xVzjQmfjt+N59ftQ8fHkmNl5qMshvkE1ozQbe5d0BErt3vcpLZOeMGwyj1LlVdGdsru7WdYA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO9P265MB7624
 
-On Fri Jun 5, 2026 at 10:16 AM BST, Onur =C3=96zkan wrote:
-> On Fri, 05 Jun 2026 09:13:55 +0100
-> Gary Guo <gary@garyguo.net> wrote:
->
->> On Fri Jun 5, 2026 at 8:10 AM BST, Onur =C3=96zkan wrote:
->> > On Thu, 04 Jun 2026 21:11:34 -0700
->> > Yuan Tan <ytan089@ucr.edu> wrote:
->> >
->> >> Firmware::data() builds a Rust slice with core::slice::from_raw_parts=
-().
->> >> Unlike many C APIs, from_raw_parts() requires its pointer argument to=
- be
->> >> non-NULL even when the length is zero.
->> >>=20
->> >> The firmware loader can represent an empty firmware image with size =
-=3D=3D 0
->> >
->> >
->> > I haven't checked in detail yet but "empty firmware image with size =
-=3D=3D 0"
->> > sounds like an invalid image. Can such an image actually make it all t=
-he way
->> > to Firmware::data()? I would be surprised if the loader accepted it.
->>=20
->> `kernel_read_file` will return EINVAL if file is of zero size. But I thi=
-nk the
->> decompression path might produce this? The zstd code just does a
->>=20
->>     out_buf =3D vzalloc(out_size);
->>=20
->> which will trigger a WARN but still return NULL.
->
-> On NULL, it immediately fails with ENOMEM:
->
-> 	out_buf =3D vzalloc(out_size);
-> 	if (!out_buf)
-> 		return -ENOMEM;
->
-> Thanks,
-> Onur
+From: Lianjie Wang <karin0.zst@gmail.com>
 
-Oh right. Arguably the wrong error code, but it does prevent the path from =
-being
-hit. xz decompression always grow at least 1 page and thus won't hit NULL c=
-ase
-as well.
+[ Upstream commit cc2f39d6ac48e6e3cb2d6240bc0d6df839dd0828 ]
 
-So indeed under no paths we will have a sucessful `request_firmware` with
-`buffer` is NULL.
+Currently, hwrng_fill is not cleared until the hwrng_fillfn() thread
+exits. Since hwrng_unregister() reads hwrng_fill outside the rng_mutex
+lock, a concurrent hwrng_unregister() may call kthread_stop() again on
+the same task.
 
-Best,
-Gary
+Additionally, if hwrng_unregister() is called immediately after
+hwrng_register(), the stopped thread may have never been executed. Thus,
+hwrng_fill remains dirty even after hwrng_unregister() returns. In this
+case, subsequent calls to hwrng_register() will fail to start new
+threads, and hwrng_unregister() will call kthread_stop() on the same
+freed task. In both cases, a use-after-free occurs:
+
+refcount_t: addition on 0; use-after-free.
+WARNING: ... at lib/refcount.c:25 refcount_warn_saturate+0xec/0x1c0
+Call Trace:
+ kthread_stop+0x181/0x360
+ hwrng_unregister+0x288/0x380
+ virtrng_remove+0xe3/0x200
+
+This patch fixes the race by protecting the global hwrng_fill pointer
+inside the rng_mutex lock, so that hwrng_fillfn() thread is stopped only
+once, and calls to kthread_run() and kthread_stop() are serialized
+with the lock held.
+
+To avoid deadlock in hwrng_fillfn() while being stopped with the lock
+held, we convert current_rng to RCU, so that get_current_rng() can read
+current_rng without holding the lock. To remove the lock from put_rng(),
+we also delay the actual cleanup into a work_struct.
+
+Since get_current_rng() no longer returns ERR_PTR values, the IS_ERR()
+checks are removed from its callers.
+
+With hwrng_fill protected by the rng_mutex lock, hwrng_fillfn() can no
+longer clear hwrng_fill itself. Therefore, if hwrng_fillfn() returns
+directly after current_rng is dropped, kthread_stop() would be called on
+a freed task_struct later. To fix this, hwrng_fillfn() calls schedule()
+now to keep the task alive until being stopped. The kthread_stop() call
+is also moved from hwrng_unregister() to drop_current_rng(), ensuring
+kthread_stop() is called on all possible paths where current_rng becomes
+NULL, so that the thread would not wait forever.
+
+Fixes: be4000bc4644 ("hwrng: create filler thread")
+Suggested-by: Herbert Xu <herbert@gondor.apana.org.au>
+Signed-off-by: Lianjie Wang <karin0.zst@gmail.com>
+Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
+Signed-off-by: Rajani Kantha <681739313@139.com>
+---
+ drivers/char/hw_random/core.c | 172 +++++++++++++++++++++-------------
+ include/linux/hw_random.h     |   2 +
+ 2 files changed, 108 insertions(+), 66 deletions(-)
+
+diff --git a/drivers/char/hw_random/core.c b/drivers/char/hw_random/core.c
+index a182fe794f98..08d6d08e0c59 100644
+--- a/drivers/char/hw_random/core.c
++++ b/drivers/char/hw_random/core.c
+@@ -20,23 +20,25 @@
+ #include <linux/miscdevice.h>
+ #include <linux/module.h>
+ #include <linux/random.h>
++#include <linux/rcupdate.h>
+ #include <linux/sched.h>
+ #include <linux/sched/signal.h>
+ #include <linux/slab.h>
+ #include <linux/string.h>
+ #include <linux/uaccess.h>
++#include <linux/workqueue.h>
+ 
+ #define RNG_MODULE_NAME		"hw_random"
+ 
+ #define RNG_BUFFER_SIZE (SMP_CACHE_BYTES < 32 ? 32 : SMP_CACHE_BYTES)
+ 
+-static struct hwrng *current_rng;
++static struct hwrng __rcu *current_rng;
+ /* the current rng has been explicitly chosen by user via sysfs */
+ static int cur_rng_set_by_user;
+ static struct task_struct *hwrng_fill;
+ /* list of registered rngs */
+ static LIST_HEAD(rng_list);
+-/* Protects rng_list and current_rng */
++/* Protects rng_list, hwrng_fill and updating on current_rng */
+ static DEFINE_MUTEX(rng_mutex);
+ /* Protects rng read functions, data_avail, rng_buffer and rng_fillbuf */
+ static DEFINE_MUTEX(reading_mutex);
+@@ -77,18 +79,39 @@ static void add_early_randomness(struct hwrng *rng)
+ 	}
+ }
+ 
+-static inline void cleanup_rng(struct kref *kref)
++static void cleanup_rng_work(struct work_struct *work)
+ {
+-	struct hwrng *rng = container_of(kref, struct hwrng, ref);
++	struct hwrng *rng = container_of(work, struct hwrng, cleanup_work);
++
++	/*
++	 * Hold rng_mutex here so we serialize in case they set_current_rng
++	 * on rng again immediately.
++	 */
++	mutex_lock(&rng_mutex);
++
++	/* Skip if rng has been reinitialized. */
++	if (kref_read(&rng->ref)) {
++		mutex_unlock(&rng_mutex);
++		return;
++	}
+ 
+ 	if (rng->cleanup)
+ 		rng->cleanup(rng);
+ 
+ 	complete(&rng->cleanup_done);
++	mutex_unlock(&rng_mutex);
++}
++
++static inline void cleanup_rng(struct kref *kref)
++{
++	struct hwrng *rng = container_of(kref, struct hwrng, ref);
++
++	schedule_work(&rng->cleanup_work);
+ }
+ 
+ static int set_current_rng(struct hwrng *rng)
+ {
++	struct hwrng *old_rng;
+ 	int err;
+ 
+ 	BUG_ON(!mutex_is_locked(&rng_mutex));
+@@ -97,8 +120,14 @@ static int set_current_rng(struct hwrng *rng)
+ 	if (err)
+ 		return err;
+ 
+-	drop_current_rng();
+-	current_rng = rng;
++	old_rng = rcu_dereference_protected(current_rng,
++					    lockdep_is_held(&rng_mutex));
++	rcu_assign_pointer(current_rng, rng);
++
++	if (old_rng) {
++		synchronize_rcu();
++		kref_put(&old_rng->ref, cleanup_rng);
++	}
+ 
+ 	/* if necessary, start hwrng thread */
+ 	if (!hwrng_fill) {
+@@ -114,47 +143,56 @@ static int set_current_rng(struct hwrng *rng)
+ 
+ static void drop_current_rng(void)
+ {
+-	BUG_ON(!mutex_is_locked(&rng_mutex));
+-	if (!current_rng)
++	struct hwrng *rng;
++
++	rng = rcu_dereference_protected(current_rng,
++					lockdep_is_held(&rng_mutex));
++	if (!rng)
+ 		return;
+ 
++	RCU_INIT_POINTER(current_rng, NULL);
++	synchronize_rcu();
++
++	if (hwrng_fill) {
++		kthread_stop(hwrng_fill);
++		hwrng_fill = NULL;
++	}
++
+ 	/* decrease last reference for triggering the cleanup */
+-	kref_put(&current_rng->ref, cleanup_rng);
+-	current_rng = NULL;
++	kref_put(&rng->ref, cleanup_rng);
+ }
+ 
+-/* Returns ERR_PTR(), NULL or refcounted hwrng */
++/* Returns NULL or refcounted hwrng */
+ static struct hwrng *get_current_rng_nolock(void)
+ {
+-	if (current_rng)
+-		kref_get(&current_rng->ref);
++	struct hwrng *rng;
+ 
+-	return current_rng;
++	rng = rcu_dereference_protected(current_rng,
++					lockdep_is_held(&rng_mutex));
++	if (rng)
++		kref_get(&rng->ref);
++
++	return rng;
+ }
+ 
+ static struct hwrng *get_current_rng(void)
+ {
+ 	struct hwrng *rng;
+ 
+-	if (mutex_lock_interruptible(&rng_mutex))
+-		return ERR_PTR(-ERESTARTSYS);
++	rcu_read_lock();
++	rng = rcu_dereference(current_rng);
++	if (rng)
++		kref_get(&rng->ref);
+ 
+-	rng = get_current_rng_nolock();
++	rcu_read_unlock();
+ 
+-	mutex_unlock(&rng_mutex);
+ 	return rng;
+ }
+ 
+ static void put_rng(struct hwrng *rng)
+ {
+-	/*
+-	 * Hold rng_mutex here so we serialize in case they set_current_rng
+-	 * on rng again immediately.
+-	 */
+-	mutex_lock(&rng_mutex);
+ 	if (rng)
+ 		kref_put(&rng->ref, cleanup_rng);
+-	mutex_unlock(&rng_mutex);
+ }
+ 
+ static int hwrng_init(struct hwrng *rng)
+@@ -219,10 +257,6 @@ static ssize_t rng_dev_read(struct file *filp, char __user *buf,
+ 
+ 	while (size) {
+ 		rng = get_current_rng();
+-		if (IS_ERR(rng)) {
+-			err = PTR_ERR(rng);
+-			goto out;
+-		}
+ 		if (!rng) {
+ 			err = -ENODEV;
+ 			goto out;
+@@ -309,7 +343,7 @@ static struct miscdevice rng_miscdev = {
+ 
+ static int enable_best_rng(void)
+ {
+-	struct hwrng *rng, *new_rng = NULL;
++	struct hwrng *rng, *cur_rng, *new_rng = NULL;
+ 	int ret = -ENODEV;
+ 
+ 	BUG_ON(!mutex_is_locked(&rng_mutex));
+@@ -327,7 +361,9 @@ static int enable_best_rng(void)
+ 			new_rng = rng;
+ 	}
+ 
+-	ret = ((new_rng == current_rng) ? 0 : set_current_rng(new_rng));
++	cur_rng = rcu_dereference_protected(current_rng,
++					    lockdep_is_held(&rng_mutex));
++	ret = ((new_rng == cur_rng) ? 0 : set_current_rng(new_rng));
+ 	if (!ret)
+ 		cur_rng_set_by_user = 0;
+ 
+@@ -378,8 +414,6 @@ static ssize_t rng_current_show(struct device *dev,
+ 	struct hwrng *rng;
+ 
+ 	rng = get_current_rng();
+-	if (IS_ERR(rng))
+-		return PTR_ERR(rng);
+ 
+ 	ret = snprintf(buf, PAGE_SIZE, "%s\n", rng ? rng->name : "none");
+ 	put_rng(rng);
+@@ -423,8 +457,6 @@ static ssize_t rng_quality_show(struct device *dev,
+ 	struct hwrng *rng;
+ 
+ 	rng = get_current_rng();
+-	if (IS_ERR(rng))
+-		return PTR_ERR(rng);
+ 
+ 	if (!rng) /* no need to put_rng */
+ 		return -ENODEV;
+@@ -439,6 +471,7 @@ static ssize_t rng_quality_store(struct device *dev,
+ 				 struct device_attribute *attr,
+ 				 const char *buf, size_t len)
+ {
++	struct hwrng *rng;
+ 	u16 quality;
+ 	int ret = -EINVAL;
+ 
+@@ -455,12 +488,13 @@ static ssize_t rng_quality_store(struct device *dev,
+ 		goto out;
+ 	}
+ 
+-	if (!current_rng) {
++	rng = rcu_dereference_protected(current_rng, lockdep_is_held(&rng_mutex));
++	if (!rng) {
+ 		ret = -ENODEV;
+ 		goto out;
+ 	}
+ 
+-	current_rng->quality = quality;
++	rng->quality = quality;
+ 	current_quality = quality; /* obsolete */
+ 
+ 	/* the best available RNG may have changed */
+@@ -506,8 +540,20 @@ static int hwrng_fillfn(void *unused)
+ 		struct hwrng *rng;
+ 
+ 		rng = get_current_rng();
+-		if (IS_ERR(rng) || !rng)
++		if (!rng) {
++			/*
++			 * Keep the task_struct alive until kthread_stop()
++			 * is called to avoid UAF in drop_current_rng().
++			 */
++			while (!kthread_should_stop()) {
++				set_current_state(TASK_INTERRUPTIBLE);
++				if (!kthread_should_stop())
++					schedule();
++			}
++			set_current_state(TASK_RUNNING);
+ 			break;
++		}
++
+ 		mutex_lock(&reading_mutex);
+ 		rc = rng_get_data(rng, rng_fillbuf,
+ 				  rng_buffer_size(), 1);
+@@ -535,15 +581,14 @@ static int hwrng_fillfn(void *unused)
+ 		add_hwgenerator_randomness((void *)rng_fillbuf, rc,
+ 					   entropy >> 10, true);
+ 	}
+-	hwrng_fill = NULL;
+ 	return 0;
+ }
+ 
+ int hwrng_register(struct hwrng *rng)
+ {
+ 	int err = -EINVAL;
+-	struct hwrng *tmp;
+ 	bool is_new_current = false;
++	struct hwrng *cur_rng, *tmp;
+ 
+ 	if (!rng->name || (!rng->data_read && !rng->read))
+ 		goto out;
+@@ -558,6 +603,7 @@ int hwrng_register(struct hwrng *rng)
+ 	}
+ 	list_add_tail(&rng->list, &rng_list);
+ 
++	INIT_WORK(&rng->cleanup_work, cleanup_rng_work);
+ 	init_completion(&rng->cleanup_done);
+ 	complete(&rng->cleanup_done);
+ 	init_completion(&rng->dying);
+@@ -565,16 +611,19 @@ int hwrng_register(struct hwrng *rng)
+ 	/* Adjust quality field to always have a proper value */
+ 	rng->quality = min_t(u16, min_t(u16, default_quality, 1024), rng->quality ?: 1024);
+ 
+-	if (!current_rng ||
+-	    (!cur_rng_set_by_user && rng->quality > current_rng->quality)) {
+-		/*
+-		 * Set new rng as current as the new rng source
+-		 * provides better entropy quality and was not
+-		 * chosen by userspace.
+-		 */
+-		err = set_current_rng(rng);
+-		if (err)
+-			goto out_unlock;
++	if (!cur_rng_set_by_user) {
++		cur_rng = rcu_dereference_protected(current_rng,
++						    lockdep_is_held(&rng_mutex));
++		if (!cur_rng || rng->quality > cur_rng->quality) {
++			/*
++			 * Set new rng as current as the new rng source
++			 * provides better entropy quality and was not
++			 * chosen by userspace.
++			 */
++			err = set_current_rng(rng);
++			if (err)
++				goto out_unlock;
++		}
+ 		/* to use current_rng in add_early_randomness() we need
+ 		 * to take a ref
+ 		 */
+@@ -604,7 +653,8 @@ EXPORT_SYMBOL_GPL(hwrng_register);
+ 
+ void hwrng_unregister(struct hwrng *rng)
+ {
+-	struct hwrng *old_rng, *new_rng;
++	struct hwrng *old_rng;
++	struct hwrng *cur_rng;
+ 	int err;
+ 
+ 	mutex_lock(&rng_mutex);
+@@ -612,7 +662,10 @@ void hwrng_unregister(struct hwrng *rng)
+ 	old_rng = current_rng;
+ 	list_del(&rng->list);
+ 	complete_all(&rng->dying);
+-	if (current_rng == rng) {
++
++	cur_rng = rcu_dereference_protected(current_rng,
++					    lockdep_is_held(&rng_mutex));
++	if (cur_rng == rng) {
+ 		err = enable_best_rng();
+ 		if (err) {
+ 			drop_current_rng();
+@@ -620,20 +673,7 @@ void hwrng_unregister(struct hwrng *rng)
+ 		}
+ 	}
+ 
+-	new_rng = get_current_rng_nolock();
+-	if (list_empty(&rng_list)) {
+-		mutex_unlock(&rng_mutex);
+-		if (hwrng_fill)
+-			kthread_stop(hwrng_fill);
+-	} else
+-		mutex_unlock(&rng_mutex);
+-
+-	if (new_rng) {
+-		if (old_rng != new_rng)
+-			add_early_randomness(new_rng);
+-		put_rng(new_rng);
+-	}
+-
++	mutex_unlock(&rng_mutex);
+ 	wait_for_completion(&rng->cleanup_done);
+ }
+ EXPORT_SYMBOL_GPL(hwrng_unregister);
+@@ -721,7 +761,7 @@ static int __init hwrng_modinit(void)
+ static void __exit hwrng_modexit(void)
+ {
+ 	mutex_lock(&rng_mutex);
+-	BUG_ON(current_rng);
++	WARN_ON(rcu_access_pointer(current_rng));
+ 	kfree(rng_buffer);
+ 	kfree(rng_fillbuf);
+ 	mutex_unlock(&rng_mutex);
+diff --git a/include/linux/hw_random.h b/include/linux/hw_random.h
+index 136e9842120e..3f88cc518fe7 100644
+--- a/include/linux/hw_random.h
++++ b/include/linux/hw_random.h
+@@ -16,6 +16,7 @@
+ #include <linux/types.h>
+ #include <linux/list.h>
+ #include <linux/kref.h>
++#include <linux/workqueue_types.h>
+ 
+ /**
+  * struct hwrng - Hardware Random Number Generator driver
+@@ -49,6 +50,7 @@ struct hwrng {
+ 	/* internal. */
+ 	struct list_head list;
+ 	struct kref ref;
++	struct work_struct cleanup_work;
+ 	struct completion cleanup_done;
+ 	struct completion dying;
+ };
+-- 
+2.17.1
+
+
