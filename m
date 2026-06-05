@@ -1,42 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 909143B103B
-	for <stable@vger.kernel.org>; Fri,  5 Jun 2026 20:34:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3A9E426ED8
+	for <stable@vger.kernel.org>; Fri,  5 Jun 2026 20:34:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780691643; cv=none; b=CUxGPwlSo3rexck/kIyxri/8AcI+sEpfAnqkGsnt1lbTaepjwUILggSCDx+SXvY+Jnl7h4LRe4dbirWm/FW6p03MzwZ0cGtAdTqe7pHcly+t0eFTfZ6zAxiUDPIbpP2xV5SmgiZvKsAk1BZKJ3GxOFkvQpgNwcHgtLGKI4mPJ90=
+	t=1780691649; cv=none; b=b+LodUrQLK1em2b4y8xXRd31kjtvTJzwTjKXqSnhpzqlGavcM2hTa1N9IgFpcEEvTw/6BxQ8FsQL4bJSgShq7fo/gNMULqNpuu6D7fYmwXdVCTrfYFwRojdj5jEFBjRZ0LKiWddsCfV5OsgYHRR0lJxxJeV4p1cccW6pCeyqRH8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780691643; c=relaxed/simple;
-	bh=eO1D/7HHimVESp06My8yXIZ+NjNeKEhSuAmyH1iNWuM=;
+	s=arc-20240116; t=1780691649; c=relaxed/simple;
+	bh=gzuRP/n7pxQ4GuENHZDal5QlH7HLDjaJOQ1+SE5ZIxQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Xy6JZQXg2YozFRosft7GVmF5/n0ohvP1LGcdROEcGKrnBWB/jhuV4INEB/2dkg9+uUBU1O1AcbZOtZJpLsg+/cNKz94seU7oYeKme9k/iFRgJ6VHJMGMcDZC+a23mrebY5s3OWfeROxqCct1x5puWBh9Q8TsgNZiIkd9CxplBOI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WUr38bUR; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=uTeEJQuwroFGrwhlYpZVv2dcnfPwZU0mnvv4xw+i4eHuiQCFxWyzxaD8CuaW83VLCP+ttzj9SVdBlSUq1cxwW+HbshHmS2wjJcWC4XRZAMZ2XNWbR5r4wCXl1Juesgn+OcN3NsaWhngEDvex5k1V7aqEO10Gyuz/hEZxAE66vLA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JIDPIrhO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WUr38bUR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00BFC1F00893;
-	Fri,  5 Jun 2026 20:34:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JIDPIrhO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C27561F00893;
+	Fri,  5 Jun 2026 20:34:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780691642;
-	bh=7lohqZ3Pz2MmjOECoBipy5pMiPHypi356NP1fy37EX8=;
+	s=k20260515; t=1780691647;
+	bh=kD+ncupLfJOvm5SjXhqrw8P4hlBUMTXzdfPZUhnKOzY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WUr38bURhSJZ/dPygrF+GUizgMJq3r5DfEqJIfBr/hJfjGKAH41e5X6mhW8fmM12I
-	 VP31EPfoPb8b5Hh/3jxIyfmYdXLwL671rIDSc8gRMVAAFAMEV3lolIhIobY2+ZalGE
-	 cBJYVzXbwiCFE1th9UENf+V3cjNhCz2piYjmJXIglhc4nMOIz9xsp6FQc+ocVMAsIy
-	 wsA+bWvIHcs/9IZedn2RITzsLjd9QbVOR9j7frSebK7Zkyx6AvIAyyFpsSyoaVQ6SV
-	 CKMaqOnfACah2kuVUqQfPPeIRzmU30qZLJaMmt5wKYYZmz9KXD1vRDhdQxrSR+/Hso
-	 mXyL2AKpyQHhw==
+	b=JIDPIrhOl3qtX2SuWbMU9eS7jDl0YgAQOIK0Syb6JNE7AtQtv5IJr6r8a1TE70SH2
+	 2L1qbNnrKZt/YYt9Ktm2P4lrDxxxMWDGzJlduLQFfBQepo09TAQYQ9BD2QfKXNNLlj
+	 wNwH7Mee7zzi754xRCoDd8J1YAzFrCxKksAOvB/vUgH8wxAiNRzt7Hnt0vfNhY5SjI
+	 ERVcqypW9SuVxU46ahaD3TyMLoeIIFg88pIULsHQwtAcV9AfVzcIIhNZH9VyuX/1Nq
+	 Z7aTk93yrRHCPFznAXDF15ZnLzAoNT/vClUNA+YckgC0p56Pkp/eY6N6mEnnRdIZkG
+	 KGnZ+Ronq9etQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Michael Bommarito <michael.bommarito@gmail.com>,
-	Mika Westerberg <mika.westerberg@linux.intel.com>,
+	John Garry <john.g.garry@oracle.com>,
+	"Martin K. Petersen" <martin.petersen@oracle.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] thunderbolt: property: Cap recursion depth in __tb_property_parse_dir()
-Date: Fri,  5 Jun 2026 16:34:00 -0400
-Message-ID: <20260605203400.2224060-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] scsi: target: iscsi: Bound iscsi_encode_text_output() appends to rsp_buf
+Date: Fri,  5 Jun 2026 16:34:05 -0400
+Message-ID: <20260605203405.2224281-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026060409-plot-clatter-8e2c@gregkh>
-References: <2026060409-plot-clatter-8e2c@gregkh>
+In-Reply-To: <2026060410-slam-conch-e2f1@gregkh>
+References: <2026060410-slam-conch-e2f1@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,109 +48,204 @@ Content-Transfer-Encoding: 8bit
 
 From: Michael Bommarito <michael.bommarito@gmail.com>
 
-[ Upstream commit 928abe19fbf0127003abcb1ea69cabc1c897d0ab ]
+[ Upstream commit bf33e01f88388c43e285492a63e539df6ffed64c ]
 
-A DIRECTORY entry's value field is used as the dir_offset for a
-recursive call into __tb_property_parse_dir() with no depth counter.
-A crafted peer that chains DIRECTORY entries into a back-reference
-loop drives the parser until the kernel stack is exhausted and the
-guard page fires.  Any untrusted XDomain peer (cable, dock, in-line
-inspector, adjacent host) that reaches the PROPERTIES_REQUEST
-control-plane exchange can trigger this without authentication.
+iscsi_encode_text_output() concatenates "key=value\0" records into
+login->rsp_buf, an 8192-byte kzalloc(MAX_KEY_VALUE_PAIRS) buffer
+allocated in iscsit_alloc_login_setup_buffer(). The three sprintf() call
+sites in this function (lines 1398, 1411, 1424 in v7.1-rc2) never check
+the remaining buffer capacity:
 
-Thread a depth counter through tb_property_parse() and
-__tb_property_parse_dir(), and reject blocks that exceed
-TB_PROPERTY_MAX_DEPTH = 8.  That is comfortably larger than any
-observed legitimate XDomain layout.
+	*length += sprintf(output_buf, "%s=%s", er->key, er->value);
+	*length += 1;
+	output_buf = textbuf + *length;
 
-Operators who do not need XDomain host-to-host discovery can disable
-the path entirely with thunderbolt.xdomain=0 on the kernel command
-line.
+The 8192-byte ceiling at iscsi_target_check_login_request() bounds the
+*input* Login PDU payload, but a single PDU can carry up to 2048 minimal
+four-byte "a=b\0" pairs, each unknown key expanding to a 16-byte
+"a=NotUnderstood\0" output record via iscsi_add_notunderstood_response().
+2048 * 16 = 32 KiB of output into an 8 KiB buffer, producing a ~24 KiB
+heap overrun in the kmalloc-8k slab.
 
-Fixes: cdae7c07e3e3 ("thunderbolt: Add support for XDomain properties")
+The fix introduces a static iscsi_encode_text_record() helper that uses
+snprintf() with a per-call bounds check against the remaining buffer,
+and threads a u32 textbuf_size parameter through
+iscsi_encode_text_output(). Both call sites in
+iscsi_target_handle_csg_zero() (PHASE_SECURITY) and
+iscsi_target_handle_csg_one() (PHASE_OPERATIONAL) pass
+MAX_KEY_VALUE_PAIRS. On overflow the encoder logs the condition, calls
+iscsi_release_extra_responses() to drop queued records, and returns -1;
+both caller sites now emit ISCSI_STATUS_CLS_INITIATOR_ERR /
+ISCSI_LOGIN_STATUS_INIT_ERR via iscsit_tx_login_rsp() before returning,
+so the initiator sees an explicit failed-login response rather than a
+silent connection drop. (Prior to this patch only the PHASE_OPERATIONAL
+caller did that; the PHASE_SECURITY caller is converted to the same
+shape.)
+
+Fixes: e48354ce078c ("iscsi-target: Add iSCSI fabric support for target v4.1")
 Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-4-6
-Assisted-by: Codex:gpt-5-4
+Assisted-by: Claude:claude-opus-4-7
 Signed-off-by: Michael Bommarito <michael.bommarito@gmail.com>
-Signed-off-by: Mika Westerberg <mika.westerberg@linux.intel.com>
+Tested-by: John Garry <john.g.garry@oracle.com>
+Reviewed-by: John Garry <john.g.garry@oracle.com>
+Signed-off-by: Martin K. Petersen <martin.petersen@oracle.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/thunderbolt/property.c | 18 ++++++++++++------
- 1 file changed, 12 insertions(+), 6 deletions(-)
+ drivers/target/iscsi/iscsi_target_nego.c      |  7 ++-
+ .../target/iscsi/iscsi_target_parameters.c    | 62 ++++++++++++++-----
+ .../target/iscsi/iscsi_target_parameters.h    |  2 +-
+ 3 files changed, 55 insertions(+), 16 deletions(-)
 
-diff --git a/drivers/thunderbolt/property.c b/drivers/thunderbolt/property.c
-index dc555cda98e680..eaa808f3fbfcd3 100644
---- a/drivers/thunderbolt/property.c
-+++ b/drivers/thunderbolt/property.c
-@@ -34,10 +34,11 @@ struct tb_property_dir_entry {
- };
+diff --git a/drivers/target/iscsi/iscsi_target_nego.c b/drivers/target/iscsi/iscsi_target_nego.c
+index 32a2852352db1c..2ff2cbdd2598f9 100644
+--- a/drivers/target/iscsi/iscsi_target_nego.c
++++ b/drivers/target/iscsi/iscsi_target_nego.c
+@@ -870,10 +870,14 @@ static int iscsi_target_handle_csg_zero(
+ 			SENDER_TARGET,
+ 			login->rsp_buf,
+ 			&login->rsp_length,
++			MAX_KEY_VALUE_PAIRS,
+ 			conn->param_list,
+ 			conn->tpg->tpg_attrib.login_keys_workaround);
+-	if (ret < 0)
++	if (ret < 0) {
++		iscsit_tx_login_rsp(conn, ISCSI_STATUS_CLS_INITIATOR_ERR,
++				ISCSI_LOGIN_STATUS_INIT_ERR);
+ 		return -1;
++	}
  
- #define TB_PROPERTY_ROOTDIR_MAGIC	0x55584401
-+#define TB_PROPERTY_MAX_DEPTH		8
- 
- static struct tb_property_dir *__tb_property_parse_dir(const u32 *block,
- 	size_t block_len, unsigned int dir_offset, size_t dir_len,
--	bool is_root);
-+	bool is_root, unsigned int depth);
- 
- static inline void parse_dwdata(void *dst, const void *src, size_t dwords)
- {
-@@ -93,7 +94,8 @@ tb_property_alloc(const char *key, enum tb_property_type type)
+ 	if (!iscsi_check_negotiated_keys(conn->param_list)) {
+ 		if (conn->tpg->tpg_attrib.authentication &&
+@@ -941,6 +945,7 @@ static int iscsi_target_handle_csg_one(struct iscsi_conn *conn, struct iscsi_log
+ 			SENDER_TARGET,
+ 			login->rsp_buf,
+ 			&login->rsp_length,
++			MAX_KEY_VALUE_PAIRS,
+ 			conn->param_list,
+ 			conn->tpg->tpg_attrib.login_keys_workaround);
+ 	if (ret < 0) {
+diff --git a/drivers/target/iscsi/iscsi_target_parameters.c b/drivers/target/iscsi/iscsi_target_parameters.c
+index 62004e3fe1ccc3..74624c67d189d1 100644
+--- a/drivers/target/iscsi/iscsi_target_parameters.c
++++ b/drivers/target/iscsi/iscsi_target_parameters.c
+@@ -1419,19 +1419,42 @@ int iscsi_decode_text_input(
+ 	return -1;
  }
  
- static struct tb_property *tb_property_parse(const u32 *block, size_t block_len,
--					const struct tb_property_entry *entry)
-+					const struct tb_property_entry *entry,
-+					unsigned int depth)
- {
- 	char key[TB_PROPERTY_KEY_SIZE + 1];
- 	struct tb_property *property;
-@@ -114,7 +116,7 @@ static struct tb_property *tb_property_parse(const u32 *block, size_t block_len,
- 	switch (property->type) {
- 	case TB_PROPERTY_TYPE_DIRECTORY:
- 		dir = __tb_property_parse_dir(block, block_len, entry->value,
--					      entry->length, false);
-+					      entry->length, false, depth + 1);
- 		if (!dir) {
- 			kfree(property);
- 			return NULL;
-@@ -159,13 +161,17 @@ static struct tb_property *tb_property_parse(const u32 *block, size_t block_len,
- }
- 
- static struct tb_property_dir *__tb_property_parse_dir(const u32 *block,
--	size_t block_len, unsigned int dir_offset, size_t dir_len, bool is_root)
-+	size_t block_len, unsigned int dir_offset, size_t dir_len, bool is_root,
-+	unsigned int depth)
- {
- 	const struct tb_property_entry *entries;
- 	size_t i, content_len, nentries;
- 	unsigned int content_offset;
- 	struct tb_property_dir *dir;
- 
-+	if (depth > TB_PROPERTY_MAX_DEPTH)
-+		return NULL;
++/*
++ * Append "key=value" plus a trailing NUL into @textbuf at *@length.
++ * Returns 0 on success and advances *@length, or -EMSGSIZE if the
++ * record (including the NUL) would not fit in the remaining buffer.
++ */
++static int iscsi_encode_text_record(char *textbuf, u32 *length,
++				    u32 textbuf_size,
++				    const char *key, const char *value)
++{
++	int n;
++	u32 avail;
 +
- 	dir = kzalloc(sizeof(*dir), GFP_KERNEL);
- 	if (!dir)
- 		return NULL;
-@@ -192,7 +198,7 @@ static struct tb_property_dir *__tb_property_parse_dir(const u32 *block,
- 	for (i = 0; i < nentries; i++) {
- 		struct tb_property *property;
++	if (*length >= textbuf_size)
++		return -EMSGSIZE;
++
++	avail = textbuf_size - *length;
++	n = snprintf(textbuf + *length, avail, "%s=%s", key, value);
++	if (n < 0 || (u32)n + 1 > avail)
++		return -EMSGSIZE;
++
++	*length += n + 1;
++	return 0;
++}
++
+ int iscsi_encode_text_output(
+ 	u8 phase,
+ 	u8 sender,
+ 	char *textbuf,
+ 	u32 *length,
++	u32 textbuf_size,
+ 	struct iscsi_param_list *param_list,
+ 	bool keys_workaround)
+ {
+-	char *output_buf = NULL;
+ 	struct iscsi_extra_response *er;
+ 	struct iscsi_param *param;
+-
+-	output_buf = textbuf + *length;
++	int ret;
  
--		property = tb_property_parse(block, block_len, &entries[i]);
-+		property = tb_property_parse(block, block_len, &entries[i], depth);
- 		if (!property) {
- 			tb_property_free_dir(dir);
- 			return NULL;
-@@ -229,7 +235,7 @@ struct tb_property_dir *tb_property_parse_dir(const u32 *block,
- 		return NULL;
+ 	if (iscsi_enforce_integrity_rules(phase, param_list) < 0)
+ 		return -1;
+@@ -1443,10 +1466,12 @@ int iscsi_encode_text_output(
+ 		    !IS_PSTATE_RESPONSE_SENT(param) &&
+ 		    !IS_PSTATE_REPLY_OPTIONAL(param) &&
+ 		    (param->phase & phase)) {
+-			*length += sprintf(output_buf, "%s=%s",
+-				param->name, param->value);
+-			*length += 1;
+-			output_buf = textbuf + *length;
++			ret = iscsi_encode_text_record(textbuf, length,
++						       textbuf_size,
++						       param->name,
++						       param->value);
++			if (ret < 0)
++				goto err_overflow;
+ 			SET_PSTATE_RESPONSE_SENT(param);
+ 			pr_debug("Sending key: %s=%s\n",
+ 				param->name, param->value);
+@@ -1456,10 +1481,12 @@ int iscsi_encode_text_output(
+ 		    !IS_PSTATE_ACCEPTOR(param) &&
+ 		    !IS_PSTATE_PROPOSER(param) &&
+ 		    (param->phase & phase)) {
+-			*length += sprintf(output_buf, "%s=%s",
+-				param->name, param->value);
+-			*length += 1;
+-			output_buf = textbuf + *length;
++			ret = iscsi_encode_text_record(textbuf, length,
++						       textbuf_size,
++						       param->name,
++						       param->value);
++			if (ret < 0)
++				goto err_overflow;
+ 			SET_PSTATE_PROPOSER(param);
+ 			iscsi_check_proposer_for_optional_reply(param,
+ 							        keys_workaround);
+@@ -1469,14 +1496,21 @@ int iscsi_encode_text_output(
+ 	}
  
- 	return __tb_property_parse_dir(block, block_len, 0, rootdir->length,
--				       true);
-+				       true, 0);
+ 	list_for_each_entry(er, &param_list->extra_response_list, er_list) {
+-		*length += sprintf(output_buf, "%s=%s", er->key, er->value);
+-		*length += 1;
+-		output_buf = textbuf + *length;
++		ret = iscsi_encode_text_record(textbuf, length, textbuf_size,
++					       er->key, er->value);
++		if (ret < 0)
++			goto err_overflow;
+ 		pr_debug("Sending key: %s=%s\n", er->key, er->value);
+ 	}
+ 	iscsi_release_extra_responses(param_list);
+ 
+ 	return 0;
++
++err_overflow:
++	pr_err("iSCSI login response buffer (%u bytes) exhausted, dropping login.\n",
++	       textbuf_size);
++	iscsi_release_extra_responses(param_list);
++	return -1;
  }
  
- /**
+ int iscsi_check_negotiated_keys(struct iscsi_param_list *param_list)
+diff --git a/drivers/target/iscsi/iscsi_target_parameters.h b/drivers/target/iscsi/iscsi_target_parameters.h
+index 240c4c4344f691..6d02d19eb8cf0f 100644
+--- a/drivers/target/iscsi/iscsi_target_parameters.h
++++ b/drivers/target/iscsi/iscsi_target_parameters.h
+@@ -46,7 +46,7 @@ extern struct iscsi_param *iscsi_find_param_from_key(char *, struct iscsi_param_
+ extern int iscsi_extract_key_value(char *, char **, char **);
+ extern int iscsi_update_param_value(struct iscsi_param *, char *);
+ extern int iscsi_decode_text_input(u8, u8, char *, u32, struct iscsi_conn *);
+-extern int iscsi_encode_text_output(u8, u8, char *, u32 *,
++extern int iscsi_encode_text_output(u8, u8, char *, u32 *, u32,
+ 			struct iscsi_param_list *, bool);
+ extern int iscsi_check_negotiated_keys(struct iscsi_param_list *);
+ extern void iscsi_set_connection_parameters(struct iscsi_conn_ops *,
 -- 
 2.53.0
 
