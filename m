@@ -1,402 +1,138 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011056.outbound.protection.outlook.com [52.101.52.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D4363B4439
-	for <stable@vger.kernel.org>; Fri,  5 Jun 2026 15:55:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780674952; cv=none; b=DK6mZ5eWTo2twxvo8jJTl+ngiCGPSurh9TDFbmhqEJhGbu17e9j3OzAhuL9Bo9VD8hkkwNfAkgtISg6oBMe0OtzSdGOOmzv5diwzQkXN31RF3hVYTJvjwjGXj3O0CiRNeSSydqQTeTHu9dRKUCjGVNNHfSqvqeUTyM781orgOnA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780674952; c=relaxed/simple;
-	bh=oo+qg27qYE0n8gpQZLCin67+eDUqjw9tV+uS7M9VbGc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aTOobr+3KJpwW2IXuNvn7BKZ8xa+rokXnvvSuT/J4M51UDbsiex7wXKbZoq/vNrO0i7kLO4DEWgXVCHAU1DPycw//XeM10xUFvoJ7S2WM+d4jZLcVK9+rNp3ZY7KgLBm++4XDfwrakpuVHSm8zEheDHRyMXBNlluj90F2qJKVDc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=DjxF5aaa; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE6063CDBC8;
+	Fri,  5 Jun 2026 16:09:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.56
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780675777; cv=fail; b=ot0Y0HT4Zx+0BJozR9irc0/NoDzr4f9L7pJGDj0y2/ezrzUpY+rfQPkMoWzv5augghsZDOYHzyESw09SXvuq2p2LQHJBJQ7AtjJ5/CxJOeOv3kBvhTvWgTWPz1i9hfJb9Py4/iboRWXQrfLGXlzF3yZywiLhImIdWSecUXWoqIA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780675777; c=relaxed/simple;
+	bh=e7lHko1wIumcoRr5oM3Lvm6mZBexbOeJpky/VO20IN0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=ECbksNt3k6mS127AVv6tKwZdm6fepmCKyQUeLuWQ5kFJ5R1k9TXgvAtcHnuO/l/qUWy65556xv0AclNIxVWFTxsIoKb0qxHlqy6NIOnmGXU79lfwz39PeV5fQO+spbneJW9pqtX97LVS8TCVRPIpajQUZ5rP7RVv615uu4W9UiY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=IxC7U66U; arc=fail smtp.client-ip=52.101.52.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="DjxF5aaa"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1780674949;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=gt1/btrN7lXbnKttsU6AcQkjRlXNdPkL/4HGFotiNrE=;
-	b=DjxF5aaaeCwufuDjXMg3uML3T8YBT5hmPTq3Qc01EVli5rYHi/5RvEfLJob5JBC1PPMxZK
-	+mTU1dcnYa7LA1mC8gh3hpSzP6bF9W+G0zPku4fDaJJI8CYTG0CV2CG9Tr7t2v7pcf3/U5
-	rt0/hpWtmnTHnRS0wrLOsbP3PVVkmn8=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-333-Qof5n4KvPuy329yZXyl75g-1; Fri,
- 05 Jun 2026 11:55:46 -0400
-X-MC-Unique: Qof5n4KvPuy329yZXyl75g-1
-X-Mimecast-MFC-AGG-ID: Qof5n4KvPuy329yZXyl75g_1780674944
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id CAF67180048E;
-	Fri,  5 Jun 2026 15:55:43 +0000 (UTC)
-Received: from bfoster (unknown [10.22.88.95])
-	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 7C2AF18004D4;
-	Fri,  5 Jun 2026 15:55:41 +0000 (UTC)
-Date: Fri, 5 Jun 2026 11:55:39 -0400
-From: Brian Foster <bfoster@redhat.com>
-To: Gregg Leventhal <gleventhal@janestreet.com>
-Cc: hch@infradead.org, djwong@kernel.org,
-	Eric Hagberg <ehagberg@janestreet.com>, linux-xfs@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org, io-uring@vger.kernel.org,
-	Jens Axboe <axboe@kernel.dk>, stable@vger.kernel.org
-Subject: Re: [BUG] iomap/io_uring: O_APPEND async buffered write silently
- re-appends a data chunk (corruption) on XFS, 6.1.y/6.12.y
-Message-ID: <aiLxe-9Sub8cI3Py@bfoster>
-References: <CAFN_u7FrgM4Dzie2jjkLwWV8P0dvUG_Wwy3Q9B3-2HnnWiDu8w@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="IxC7U66U"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=yaFaJmpt5+9jsCCBaEPR3BLYQjYauN9P5yizPH8SFBUIUEfeoSEeuoBUW1zlK1sT6bh8zozJkXDT1yBNAUz058Bk4I4tuAG0mJjeWfCkKWyEU9bRyax1IyNBbDd93wp5ILbju8VpLUusTGjSwvw3kwiao7bKGXrig5R/7tEoXI/f/lcDCE6ODRBQlpUU/4wp0Om33Nbih2qoURLKY7AyqQVuHHTU0mGbaWqAj3s2TeXZGRHrU06C7kCvwO9tSOGECVJFfDALNmXAp5W6L4zieqcaAoABWcLt1qSTX0ClPcQ8uWiSKve/qGLIpFOTjefWab3yZ5jqYcgWDXaKwuBAeQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=IDfNLtcylePzNWLUPopOd//+BcXOUazsu21yikvOchk=;
+ b=gwsvpsF7yQWr6zdGl5uJrOyj1Phu7fFXEL+QHJY8NGq7cvDEHt6Csl5YO/QdGqrPAG/yExehst/MV0oYQHK1jjbqFaKaFoznXcx6YmEVTSSPHdrV7LATzq1Ccm5v//DBujc3NNeU9R9V7c0PYdmPLDmXTUbPyr/kfLzCl+Ud4CLiWKzcdN90OujM83Ro9RdlT/6x80XtoMwtcLWIXtaDiREJFxNgVSDU6mI/N4d0XfQSNI/XI23ZIb5RfkjNs9GgyqnMuYwWSIJwUxDmO1PBTT07Ss8NWcfGUCdM5lOgGM5IDPyprxNyY8xckn+ii1suDXp3xwCpE59Dssaaeb7qng==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=IDfNLtcylePzNWLUPopOd//+BcXOUazsu21yikvOchk=;
+ b=IxC7U66USkYRMC7eRyILi+ctojJV/X6MC9tjYstnHOnNHELUlZmHhvwg9FHHwe41mERKJZDN9ElKKp8FEqrNdJOPAIpkF1+xYtICHCndptTwUKZOWYsoW2AfgEDMSZufi4PElm6A22XhgPkWNxjJs32YQ2oCVe6lU1ovqZVSV0a6tvdCshRC9GRyS4otY3LdlQi8whIEuntPgfQ9oZu5z3VOwNLByVnNC1KmV3H5FicV8bD5XNMDKcvyLDMBMSfHJUNCs5LB8JABZpeEjlWQazPkhVDrLMEPeyzWM6Gr1o/zHA2eUNmTndlTNXPvhA7stvDOF75aQ4IgHUC898LTqA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from LV8PR12MB9620.namprd12.prod.outlook.com (2603:10b6:408:2a1::19)
+ by IA0PR12MB7752.namprd12.prod.outlook.com (2603:10b6:208:442::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.9; Fri, 5 Jun 2026
+ 16:09:28 +0000
+Received: from LV8PR12MB9620.namprd12.prod.outlook.com
+ ([fe80::299d:f5e0:3550:1528]) by LV8PR12MB9620.namprd12.prod.outlook.com
+ ([fe80::299d:f5e0:3550:1528%4]) with mapi id 15.21.0092.007; Fri, 5 Jun 2026
+ 16:09:28 +0000
+Date: Fri, 5 Jun 2026 13:09:26 -0300
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: Leon Romanovsky <leon@kernel.org>, linux-rdma@vger.kernel.org
+Cc: patches@lists.linux.dev, Shiraz Saleem <shiraz.saleem@intel.com>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 0/3] Fix typing issues in the umem code
+Message-ID: <20260605160926.GC2728758@nvidia.com>
+References: <0-v1-88303e9e509f+f7-ib_umem_types_jgg@nvidia.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <0-v1-88303e9e509f+f7-ib_umem_types_jgg@nvidia.com>
+X-ClientProxiedBy: BN9PR03CA0703.namprd03.prod.outlook.com
+ (2603:10b6:408:ef::18) To LV8PR12MB9620.namprd12.prod.outlook.com
+ (2603:10b6:408:2a1::19)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAFN_u7FrgM4Dzie2jjkLwWV8P0dvUG_Wwy3Q9B3-2HnnWiDu8w@mail.gmail.com>
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LV8PR12MB9620:EE_|IA0PR12MB7752:EE_
+X-MS-Office365-Filtering-Correlation-Id: 53cee133-0d8b-49a4-2fed-08dec31cd1c0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|366016|22082099003|18002099003|6133799003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	1a906idieTtH2xKU4MdBEzzc57vBfQpyvri5kNxMoICNs0ijkWQsIkcaonv/FjS5Ea26pEscAE2G+pn1hX6Yr54Bsbekmy/XYfF+arwid1mWasgb5G1IMT8xp1xQ+pGT3nVOkrk8CvKRFQuQDUFs/hsSu2MT1mH2cKcUObhS8jOMr4sNTtl6T6nOL/HHEB8b2eLPgqNJE5wcyjx8qlkHsWf271VkMWLkGOW28mphOsrHClCdRL/qNohSnn+0WhnKUxfLqs4/ybDXNCnHeUaFg64OYTLuRWMFMkmIm77bEESod4GgZblmZ23VF7JcSB3OYd1ybZFlAqUmPnVbOOSgRgM/7dLry+folv9q8hoem6hnL4j4HwHhUk1nKZNxgL2Aj24WoYQY5W+RXOV5qRjAqg8FNiuymJE5czDx5q1bDomKS6PX/bMVHDLGNVG5iHj7qDqlvI11Psz6Oh+aZTAuc5LlS0QNWLeiT+hN7Tlc31r83Tp5Mj2p2v427fL4sPafw1eVW36e2QVBd9uZLeMkNaVMS3iC9ykiDZvj3oXFf5zrgOiybPwLm49+wZplslk1v1gMF2dEMvBySXFxwu58Z+ohzvmrbc6ZUlgZMXhfjzWYsMhOsN/Bg4eF+Dg1NpK1xH26IszCQiHbduMbmkUpwwrRczfoPvAOUjrRgdICwnK9SiH2ARgOBU2iszSrY/EF
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV8PR12MB9620.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(22082099003)(18002099003)(6133799003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?qSFO3qlOqGHD1HMuhbUVn2xwfNIuPN1ZJKe2KEWRssi4WEpLQuW0jVU2yFnf?=
+ =?us-ascii?Q?oIwCDm0/BAMKB4MKahzKTVNfB23dq6qhe47zYXf7H5atY62RwIXpnJxRUdFO?=
+ =?us-ascii?Q?I0xOuKrmxXS+ccCTeoFEd9j8aqarmd7IBH1zMGY72IiUdHC4qi6V0+FNElMV?=
+ =?us-ascii?Q?2gILl34T/9Ejz1u08+OVUT2n/RiBkZUhmEv4Ysa9AofAErF1krqR9Yy2jOwK?=
+ =?us-ascii?Q?V5lZyU47vdjJT29/5ICR6klebzGejUB+YyHiFVkWUf35AKhYoSqfvWUZiWhY?=
+ =?us-ascii?Q?JOBzcQP9st+8tXBfBHhBhdxqeFqlb3AMpj+PZ1h6xyBO7LHTdTEMP0EWduQ9?=
+ =?us-ascii?Q?9R8d9CrYrtgEz7ddhjv8V5n3B/TO9L7FROvgJqRU6+maCy3c+cXeabXtrY1U?=
+ =?us-ascii?Q?zibQIq8yIhKe9hBzLMsH95ShRJFPJnt4JGpLkM5o/vr3qt2F9/TbVWl5SNNE?=
+ =?us-ascii?Q?ostskKITaRIKX7yBzBYGWrIQZIXZBYEsh70+xaMUDcWwuDh2d2vrOBOZnghb?=
+ =?us-ascii?Q?Q9eMAidqU/bQ1Yf7x76wcKwcET4c/KFvXqUYDAnRZaUVr1JLKtpxsXefIfDw?=
+ =?us-ascii?Q?kMHrKP2foFccEiSWcIO4Iv0Re+28sZ87WI/b6if8riqtX+iUpHWZJfxXEAHs?=
+ =?us-ascii?Q?OTobjweTbFtL2kvTiasrx6uY2jZzUpo32l7z9eRvAu22Cw0BH2Uda2iJ0GSy?=
+ =?us-ascii?Q?EzaLICx9NMA5c278hNtdYgQgIvYCLzUAAp7hANmA2iEL1WynS4plnQAOm1ro?=
+ =?us-ascii?Q?J24ayOObmEtH+qhfv1TUgEBZzHwLxcRH1T4tcKZdtiuRKiCZv9S8Y+AfeQeF?=
+ =?us-ascii?Q?p5HqWqBmmRPhBLQ00MbAsyRe1tTV8Y+qFXRw79WKjIZrQsNjQ73D9+eJTlQ/?=
+ =?us-ascii?Q?9ssIuNfKf/bOEr1NHhg0oahW7R2tkIbIjvfsUeeIHiO0fziJmKjSm4BMAsav?=
+ =?us-ascii?Q?otuFIig8Lg8ENTsPolyHXCx26tMuNbPpEft8/1dB9MfnHjQcAfAIJmjaW4Oa?=
+ =?us-ascii?Q?mLjJt0OJolIUEsju41XNASsI2aDPwFzI7nv38CpTrvciHHw5UTY7W8TspArC?=
+ =?us-ascii?Q?pf4hPFX7jvP871rykAX8ffkrWj34pHExISxexBobC3YCVlfSnMqrtwb3VvY3?=
+ =?us-ascii?Q?G9uI8p0i9lFyLA+wIfsNKK+JyszRMfeQEKICS6m7IxmhGviHPxHgV0F6gk3Q?=
+ =?us-ascii?Q?tJqezuvL/BhHl1UD62gLO1b51DcPTJOprLvVAPmJj7DhrSjCq8adFUQTV+cB?=
+ =?us-ascii?Q?Zl9lmBWtMxln+RqYB4BeeeK1EW8jXV/2+mWyo+PuzsLAzAEmQYZ+yWFrefvI?=
+ =?us-ascii?Q?k5i8zc2PtLDvlkpZfxeMBvPd0dDs/zJ1lZhAW4P3sSnwyYLooHSsVjt1FyNw?=
+ =?us-ascii?Q?uN1s3jgQONSgRmiQ5VavVqBpiLZfdxwpKWdEIXWXmp9XmbfbuiGuh9uMqVBD?=
+ =?us-ascii?Q?Co67/IVpKlJ5d5AScR1AvnV+y6ZJCKnl0KNTjrfxcOE16nzWTwmJU+Q2f1gy?=
+ =?us-ascii?Q?JxJ9L2Gz6KppkgvfruFUH18h9T6uw2CFck7Sp4asNWiCizkow0QiqvAaLHwD?=
+ =?us-ascii?Q?OKW+BqAQmM/Ct4OhwW0t1glAyfFL3XIV5HG6ka/O2GZRGBxvIPe0QUClbEPg?=
+ =?us-ascii?Q?s1bE9vyGBRr3OLGtz0oFiOF7mjEXZZto5vo0V+skRooeYjLD6PA6bLEw+gP6?=
+ =?us-ascii?Q?d/mMPtwMjhP6hcn/HfX0BuS9yTICsrZ3J6nnL1R1X1SN4Gnz?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 53cee133-0d8b-49a4-2fed-08dec31cd1c0
+X-MS-Exchange-CrossTenant-AuthSource: LV8PR12MB9620.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jun 2026 16:09:28.0045
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: kDkn9xHjNdBJ6u7BHHrAd1jYRHBKEbwD51lIWi/JhOWB9ICNzNeo0+tJRH1vDdYF
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7752
 
-On Thu, Jun 04, 2026 at 02:46:33PM -0400, Gregg Leventhal wrote:
-> Hi all,
+On Mon, Jun 01, 2026 at 01:52:30PM -0300, Jason Gunthorpe wrote:
+> The types are tricky here as we have a mixture of u64, dma_addr_t and
+> unsigned long used purposefully for different things:
+>  - The on-the-wire IOVA address of the MR is u64
+>  - The dma address is dma_addr_t which can be u32 or u64
+>  - unsigned long is used for pgsize, mostly because a bunch of bit math
+>    helper functions are used and they are obnoxious to use u64
 > 
-> We're seeing silent data corruption -- a chunk of a buffered write being
-> silently repeated at a later offset -- when using io_uring async buffered
-> writes with O_APPEND on XFS. It reproduces on the longterm stable trees
-> 6.1.y and 6.12.y under memory pressure, and is fixed in 6.18.y.
+> Fix various silent truncations, issues on 32 bit compiles and
+> understandability.
 > 
-...
-> What fixes it
-> -------------
-> We did not bisect. We identified Brian Foster's "iomap: incremental
-> per-operation iter advance" series as the likely relevant change,
-> backported it to the affected kernel, and confirmed it makes the
-> reproducer pass. The series was merged for v6.15:
-> 
->   [1]https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?h
-> =linux-6.18.y&id=30f530096166202cf70e1b7d1de5a8cdfba42af1
-> 
-> It reworks iomap_write_iter() to advance iter->pos/iter->len incrementally
-> (iomap_iter_advance) and removes the iov_iter_revert/-EAGAIN handling, so
-> retries resume from the correct offset. The buffered-write change is in
-> "iomap: advance the iter directly on buffered writes" (d9dc477ff6a2), but
-> it depends on the earlier infrastructure patches in the same series.
-> 
+> Jason Gunthorpe (3):
+>   RDMA/umem: Be careful about boundary conditions in
+>     ib_umem_find_best_pgsz()
+>   RDMA/umem: Make ib_umem_is_contiguous() safe on 32 bit
 
-Note: the correct hash for the buffered write change is 1a1a3b574b97
-("iomap: advance the iter directly on buffered writes"). The hash
-referenced above is the commit for the read path.
+Applied
 
-Thanks for the legwork here. I'm at least glad to see I accidentally
-fixed something vs. breaking it for a change. ;) I am slightly wondering
-if the fundamental issue here is splitting the append write into two
-partial requests and whether that's racy wrt EOF, not necessarily the
-pos tracking added by this patch.
-
-For example, if we assume the same sort of append+nowait -> partial
-write -> append retry loop via io_uring on the current code, but then
-inject some other append write (or i_size change) between the two split
-writes, wouldn't that result in a similar problem? I don't think we'd
-rewrite the original data again, but maybe data ends up interleaved or
-something.
-
-But anyways looking back at that commit, I think the relevant behavior
-change is that ki_pos update is made consistent with whatever partial
-completion iomap_write_iter() may have performed. More specifically, the
-older code doesn't update iter->pos until after a successful iomap
-iteration (via iomap_iter()). This means that if we loop within
-iomap_write_iter() one or more times before hitting an -EAGAIN, the
-local pos update is lost and doesn't reflect back into the iomap_iter or
-thus the assignment to iocb->ki_pos in the caller
-(iomap_file_buffered_write()). Therefore, we revert the iov iter so it
-is consistent with ki_pos at the start of the current iter.  However we
-have an append write in this case and i_size is updated within
-iomap_write_iter(), so the write retry will overwrite ki_pos to the
-new/updated EOF IIUC (via generic_write_checks_count(), called from the
-fs before calling into iomap) and result in the observed behavior of
-rewriting some amount of data to a new file offset.
-
-The updated code bumps iter->pos incrementally within
-iomap_write_iter(). We don't need to revert the iov_iter anymore because
-incremental progress will be reflected back to iocb->ki_pos via
-iter->pos. However this also happens to be consistent with incremental
-i_size updates within iomap_write_iter(), so (as long as we don't race,
-I think) the retry should be consistent and pick up where the partial
-write left off.
-
-One thing I might try here is to see if just deferring append writes to
-!NOWAIT context avoids this problem because I wonder how sane that sort
-of retry situation really is. I'm not quite sure what the expectations
-are in that sort of case. Is that something that's easy to test? Of
-course that wouldn't prevent this issue if other applications have this
-same write pattern.
-
-Another potential option for a stable only fix might be tweak the iomap
-code to not update i_size for append (&& nowait?) writes until an
-iter->pos update is imminent, but I think we'd need to be careful there
-due to the pagecache_isize_extended() call. I think that's more for
-non-append cases, but I'd have to take a closer look. Maybe we could
-also replace that iov_iter revert with a hardcoded advance of the iomap
-iter and emulate the same behavior as newer kernels. That seems
-cleanest actually, but again needs some thought and testing...
-
-Brian
-
-> Detection in the reproducer (both silent)
-> -----------------------------------------
->   1) final file size > sum of CQE byte counts the kernel reported.
->   2) the file is filled with a u64 "byte offset / 8" pattern, so on
->      readback element j must equal j; the first mismatch marks the start
->      of the duplicated copy (observed to be page-aligned).
-> 
-> Reproducer
-> ----------
-> Build: gcc -O2 -o repro_uring_dup repro_uring_dup.c -luring
-> Run:   ./repro_uring_dup /path/on/xfs/repro [seconds] [file_target_mb]
-> Needs the system under memory pressure to trigger; under those conditions
-> it reproduces reliably. Source attached (repro_uring_dup.c).
-> 
-> Notes on stable
-> ---------------
-> The fix is a refactor with no Fixes: tag, and the buffered-write commit
-> builds on the preceding patches in the series, so a single-commit
-> cherry-pick into 6.1.y / 6.12.y doesn't look feasible. We're wondering
-> whether a smaller, targeted fix would be more backportable for the active
-> LTS trees -- e.g. ensuring the -EAGAIN retry path keeps the append
-> position consistent with the reverted iov_iter so the already-committed
-> range isn't re-appended -- but we'd defer to your judgment on whether that
-> is sound or whether backporting the series as a unit is the better path.
-> Given this is silent data corruption present since io_uring async buffered
-> write support (~v6.0), we'd appreciate guidance on the right approach.
-> 
-> Happy to test patches and provide any additional detail.
-> 
-> Regards,
-> Gregg Leventhal <[2]gleventhal@janestreet.com> and Eric Hagberg <[3]
-> ehagberg@janestreet.com>
-> 
-> References:
-> 
-> [1] https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?h=linux-6.18.y&id=30f530096166202cf70e1b7d1de5a8cdfba42af1
-> [2] mailto:gleventhal@janestreet.com
-> [3] mailto:ehagberg@janestreet.com
-
-> /*
->  * repro_uring_dup.c
->  *
->  * Reproducer for io_uring async buffered-write duplication on XFS.
->  * Issues large, variable-size, non-page-aligned buffered writev's appended
->  * to a file via io_uring with offset -1 ("use current position").
->  *
->  * Bug: when the inline IOCB_NOWAIT attempt does a partial-page short write
->  * (landing on a page boundary) and the page-aligned remainder is reissued on
->  * io-wq, a page-aligned, page-multiple sub-range of the remainder is written
->  * TWICE, while the CQE still reports the full requested byte count. Result:
->  * the file is larger than the bytes we were told succeeded, with a page-aligned
->  * duplicated chunk.
->  *
->  * Detection (both silent - no error is ever returned):
->  *   1) final file size > total bytes the kernel told us it wrote.
->  *   2) file is filled with a u64 "byte offset / 8" pattern, so on readback
->  *      element j must equal j; the first j where it doesn't is the start of the
->  *      duplicated copy (expected to be page-aligned).
->  *
->  * Build:  gcc -O2 -o repro_uring_dup repro_uring_dup.c -luring
->  * Run:    ./repro_uring_dup /path/on/xfs/repro [seconds] [file_target_mb]
->  */
-> #define _GNU_SOURCE
-> #include <liburing.h>
-> #include <fcntl.h>
-> #include <stdint.h>
-> #include <stdio.h>
-> #include <stdlib.h>
-> #include <string.h>
-> #include <time.h>
-> #include <unistd.h>
-> #include <errno.h>
-> #include <sys/stat.h>
-> #include <sys/uio.h>
-> 
-> #define QD 8
-> #define MB (1024UL * 1024UL)
-> #define MAXCHUNK (24UL * MB)
-> #define MINCHUNK (1UL * MB)
-> 
-> /* 1: O_APPEND / offset -1 variant (corrupts).
->  * 0: no O_APPEND, explicit offset variant (does not corrupt). */
-> static int use_append = 1;
-> 
-> static uint64_t now_ns(void) {
->   struct timespec ts;
->   clock_gettime(CLOCK_MONOTONIC, &ts);
->   return (uint64_t)ts.tv_sec * 1000000000ULL + (uint64_t)ts.tv_nsec;
-> }
-> 
-> /* Fill buf so the u64 at global byte offset (base+8*i) holds (base+8*i)/8. */
-> static void fill_pattern(uint64_t *buf, uint64_t base_bytes, size_t len) {
->   uint64_t start_idx = base_bytes / 8;
->   size_t n = len / 8;
->   for (size_t i = 0; i < n; i++)
->     buf[i] = start_idx + i;
-> }
-> 
-> /* One writev; loops over (legitimately) short *returned* results. */
-> static void write_all(struct io_uring *ring, int fd, uint8_t *buf, size_t len,
->                       uint64_t expected) {
->   size_t done = 0;
->   while (done < len) {
->     struct io_uring_sqe *sqe = io_uring_get_sqe(ring);
->     struct iovec iov = {.iov_base = buf + done, .iov_len = len - done};
->     long long off = use_append ? -1LL : (long long)(expected + done);
->     io_uring_prep_writev(sqe, fd, &iov, 1, (unsigned long long)off);
-> 
->     int ret = io_uring_submit(ring);
->     if (ret < 0) {
->       fprintf(stderr, "submit: %s\n", strerror(-ret));
->       exit(1);
->     }
-> 
->     struct io_uring_cqe *cqe;
->     ret = io_uring_wait_cqe(ring, &cqe);
->     if (ret < 0) {
->       fprintf(stderr, "wait_cqe: %s\n", strerror(-ret));
->       exit(1);
->     }
->     int res = cqe->res;
->     io_uring_cqe_seen(ring, cqe);
-> 
->     if (res < 0) {
->       fprintf(stderr, "write: %s\n", strerror(-res));
->       exit(1);
->     }
->     if (res == 0) {
->       fprintf(stderr, "write returned 0\n");
->       exit(1);
->     }
->     done += (size_t)res;
->   }
-> }
-> 
-> int main(int argc, char **argv) {
->   if (argc < 2) {
->     fprintf(stderr, "usage: %s <path-prefix-on-xfs> [seconds] [file_target_mb]\n",
->             argv[0]);
->     return 2;
->   }
->   const char *prefix = argv[1];
->   int seconds = (argc > 2) ? atoi(argv[2]) : 60;
->   uint64_t file_target = ((argc > 3) ? (uint64_t)atoll(argv[3]) : 48) * MB;
-> 
->   srand((unsigned)(time(NULL) ^ getpid()));
-> 
->   struct io_uring ring;
->   if (io_uring_queue_init(QD, &ring, 0)) {
->     perror("io_uring_queue_init");
->     return 1;
->   }
-> 
->   uint8_t *buf = aligned_alloc(4096, MAXCHUNK);
->   if (!buf) {
->     perror("aligned_alloc");
->     return 1;
->   }
-> 
->   static uint64_t rbuf[1 << 16];
->   uint64_t deadline = now_ns() + (uint64_t)seconds * 1000000000ULL;
->   long files = 0;
-> 
->   while (now_ns() < deadline) {
->     char fn[8192];
->     snprintf(fn, sizeof fn, "%s.%ld", prefix, files);
->     int flags = O_WRONLY | O_CREAT | O_TRUNC | (use_append ? O_APPEND : 0);
->     int fd = open(fn, flags, 0644);
->     if (fd < 0) {
->       perror("open");
->       return 1;
->     }
-> 
->     uint64_t expected = 0;
->     while (expected < file_target) {
->       size_t want = MINCHUNK + ((size_t)rand() % (MAXCHUNK - MINCHUNK));
->       want &= ~((size_t)7); /* 8-align; deliberately NOT page-aligned */
->       fill_pattern((uint64_t *)buf, expected, want);
->       write_all(&ring, fd, buf, want, expected);
->       expected += want; /* CQE reported full success */
->     }
->     close(fd);
-> 
->     /* ---- verify ---- */
->     struct stat st;
->     if (stat(fn, &st)) {
->       perror("stat");
->       return 1;
->     }
-> 
->     long long first_bad = -1;
->     uint64_t bad_val = 0;
->     int rfd = open(fn, O_RDONLY);
->     if (rfd < 0) {
->       perror("open ro");
->       return 1;
->     }
->     uint64_t idx = 0;
->     ssize_t r;
->     while ((r = read(rfd, rbuf, sizeof rbuf)) > 0) {
->       size_t cnt = (size_t)r / 8;
->       for (size_t i = 0; i < cnt; i++) {
->         if (rbuf[i] != idx) {
->           first_bad = (long long)(idx * 8);
->           bad_val = rbuf[i];
->           break;
->         }
->         idx++;
->       }
->       if (first_bad >= 0)
->         break;
->     }
->     close(rfd);
-> 
->     int bug = ((uint64_t)st.st_size != expected) || (first_bad >= 0);
->     files++;
-> 
->     if (bug) {
->       printf("\n*** CORRUPTION DETECTED in %s ***\n", fn);
->       printf("  bytes kernel said it wrote (sum of CQE results): %llu\n",
->              (unsigned long long)expected);
->       printf("  actual file size:                                %llu\n",
->              (unsigned long long)st.st_size);
->       printf("  extra (duplicated) bytes:                        %lld\n",
->              (long long)st.st_size - (long long)expected);
->       if (first_bad >= 0) {
->         printf("  first mismatching offset: %lld (0x%llx)  page_aligned=%s\n", first_bad,
->                (unsigned long long)first_bad, (first_bad % 4096 == 0) ? "YES" : "no");
->         printf("    expected u64 %llu but found %llu "
->                "(content from byte offset %llu reappeared here)\n",
->                (unsigned long long)(first_bad / 8), (unsigned long long)bad_val,
->                (unsigned long long)(bad_val * 8));
->       }
->       printf("  (file kept for inspection)\n");
->       io_uring_queue_exit(&ring);
->       return 0;
->     }
->     unlink(fn);
->     if (files % 20 == 0)
->       fprintf(stderr, "...%ld files clean\n", files);
->   }
-> 
->   printf("No corruption in %d s (%ld files). Try more time, parallel instances, "
->          "or memory pressure.\n",
->          seconds, files);
->   io_uring_queue_exit(&ring);
->   free(buf);
->   return 0;
-> }
-
+Thanks,
+Jason
