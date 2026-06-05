@@ -1,239 +1,248 @@
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011016.outbound.protection.outlook.com [40.107.130.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A1733F9F22;
-	Fri,  5 Jun 2026 11:10:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.16
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780657810; cv=fail; b=W5IHeNnLjbR5jX2/YCSx2f4hYNCwL/nkvPpEO9/zxmNtHtChH3zafW8FQQx9v7RBpu2D5KaJb3gW0GdkLEigekHg4gnjMobmrr1JiDXiI4AZdgObkgwbCMA65DRdmMm0GOTh+L8AVMss9Yy1hrGd4IY44PRp4rB+7oIYEO2NAJU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780657810; c=relaxed/simple;
-	bh=2ZKIwuazRGW6fe946+oE4oPI14Ov9VJ2ILWsmPPE34I=;
-	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
-	 To:Cc:MIME-Version; b=FCzrfRHm0/upWxvXT0MarFhjs74F62RZqveJy4W/BcPdtI2hhB5kahlPhN/iAeokeIDIrYgPtwrNbTU5Ax2bU68sKOddHa//InkIxs2JU4avq2r7UICFTwNr5m5HeXPxzjEyNcZWZCePVPEFaUs2THdxzM1LtXNw0C2wDXjO9so=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=JQ5uI+yG; arc=fail smtp.client-ip=40.107.130.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E6454D2EE4
+	for <stable@vger.kernel.org>; Fri,  5 Jun 2026 11:11:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780657895; cv=none; b=ef0gaX8KuT4Ge9bIp6A0oT/9hrDt8Hta+UXiVeWpEMCLmY1X1QbSLhZ+n9tK+w5ayu/cUsMUD1w7elLb0gNBxufzYXqUobyMUjvda27lInYhlH9QXn3vSKRYh8MfS98pyBIKYryZss94pOL43qKxZ5STpU2j/xps98lZtWwp51Q=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780657895; c=relaxed/simple;
+	bh=NzXUcDwqkS4QUba0RK4Z+8RdDly35ObmbNBSFZcPT5A=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=OgrAp3+IdqbEyTh0Z2XKfyqrl7xHk6eA3YldM4gKJrDkubSyeaRlQ/iEXH8Hk7lPS4fw3lT7QqeL7Bso2zaaX5Oc4sB6MCnEoPQ4ZJMJMfS+RQzfH2fRUv5kipBLsPAibwM+WJ37JK4HRSrskbfTCosVTRspO+pHmhqJpqVjHd8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YYWYRe9y; arc=none smtp.client-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="JQ5uI+yG"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=M/czWndQdZNflkuRwD/TZnDyjtzMhmRquWllzkVJDyo3hBhq/3wAD9l4fT3MCjYwOL6iNzFHTB1Gev9Fr+1fLDptqkI3EmIgM8E1FrkgvzczRAuLmIVgnI1Wkf7VZoxWij8CNp01UBj30j0K+fS1bjotL2A3ts/lGDKlElfF7/SrdfeaRAtdYH0I3VK7yAUNSM2NUEF2EkxW0yoKadLXGceKOWgGdS5+OeSXKaxwiPNmhmMh26ZDLzrgawx5PIqcqJJR/9/5ZTfKf69fprzeM3Cd8Dg3nUjyYrr0NGXCN6cYWSj977V8/WRChpWU0Rh5qcQFvU2zVJYGB4oQ4uTXEQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=k5b6BLz0p6WpWd8+HpT3JO5IaT5Daq3wrXq4NxEWqlk=;
- b=ptmEB8BByTSXItMokM43E+L9fWkFXUFICE2KJVir+9i7nnG2FWFR/mkbexwUZ6xZ1QYZUxswp472bw94qhr4x95JZgLkFHtBJVZY45ReBKPI0jbVZtIdQAdz0iqCn2MbvCyZBx4MmoyUkRtOntLZLheiCvh+EFvWIQuwvmVtDXQWv+E9lDt6bD7XTc8Jh/Ez/lU26X/igRgofk3T84IoIwIP1LiCNeyvNCRNccLFCuwHwl92zEcHUF1ZE8MYsmjcuDXoTtqAohbIVfYDw0DD3oTpS+PHMsDjLBcFAQYXYQ2UCWDr1z2jrf2u2ngUmswalbl8NShKnqwCCHMYmS0lpg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=k5b6BLz0p6WpWd8+HpT3JO5IaT5Daq3wrXq4NxEWqlk=;
- b=JQ5uI+yGHhnwjEZSCalUJKAKWjbxSw6FUCQTSLVMa65v/mpeO0fC16DtRV9eTtMQjUPbr+D/aHGWevcdLU9h/PQtcj40d3DBiR5flseZf0PUdyujko58gH+bVHEr9keLexAUM6z5jyD3q2zMpniafbzjMsxVJigA2wdvNT/NaQIJKSdutOde5HB/DivsJJPPiyGD4UUgS7CL9x5cl2IgC8K/6HYoEDI+X0W3ZlAiH6QC7Xz+UVjoBxGoM9PUFjGrV8Pv2ADuSKLzzeDStjqkdDnfud0M/xATJ5CNCVc9GaepFf6oPWzJfMqXjxkzA5BpeX8HDTMoOtLo+vpHROBVXQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from PAXPR04MB9422.eurprd04.prod.outlook.com (2603:10a6:102:2b4::21)
- by DUYPR04MB12689.eurprd04.prod.outlook.com (2603:10a6:10:661::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.8; Fri, 5 Jun 2026
- 11:10:07 +0000
-Received: from PAXPR04MB9422.eurprd04.prod.outlook.com
- ([fe80::54e:28bf:aa85:d25d]) by PAXPR04MB9422.eurprd04.prod.outlook.com
- ([fe80::54e:28bf:aa85:d25d%4]) with mapi id 15.21.0092.007; Fri, 5 Jun 2026
- 11:10:07 +0000
-From: Xu Yang <xu.yang_2@oss.nxp.com>
-Date: Fri, 05 Jun 2026 19:13:02 +0800
-Subject: [PATCH v4 1/5] phy: fsl-imx8mq-usb: fix typec switch leak on probe
- error path
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260605-imx8mp-usb-phy-improvement-v4-1-b2ddf2f3862c@nxp.com>
-References: <20260605-imx8mp-usb-phy-improvement-v4-0-b2ddf2f3862c@nxp.com>
-In-Reply-To: <20260605-imx8mp-usb-phy-improvement-v4-0-b2ddf2f3862c@nxp.com>
-To: Vinod Koul <vkoul@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Jun Li <jun.li@nxp.com>
-Cc: linux-phy@lists.infradead.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Felix Gu <ustc.gu@gmail.com>, stable@vger.kernel.org, 
- Xu Yang <xu.yang_2@nxp.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1780657990; l=2922;
- i=xu.yang_2@nxp.com; s=20250815; h=from:subject:message-id;
- bh=qOA3gj0TWYdDeGXgFIXNdtsZjA5h2wt3bcYdtlRjhFM=;
- b=szdXS4V2ttYIWGq+1ZRG7Ytt7knMlZHhGwrrerE2w0YiWcymqSwKEOyt624ZWwngZ9k0YV5W7
- lnZwUF3AvT4DNwkkY5HU66l+xELUKnSJs5dkCfyPz7UyWLf2+N83VZn
-X-Developer-Key: i=xu.yang_2@nxp.com; a=ed25519;
- pk=5c2HwftfKxFlMJboUe40+xawMtfnp5F8iEiv5CiKS+4=
-X-ClientProxiedBy: SI2PR02CA0026.apcprd02.prod.outlook.com
- (2603:1096:4:195::19) To PAXPR04MB9422.eurprd04.prod.outlook.com
- (2603:10a6:102:2b4::21)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YYWYRe9y"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-490b2b037d2so15803465e9.3
+        for <stable@vger.kernel.org>; Fri, 05 Jun 2026 04:11:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780657886; x=1781262686; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=NP8UmE1JJTaZ1ok4zYbN2k3div/k4FL0sO/lWo9YA80=;
+        b=YYWYRe9yDyhz7sSrTZtyFgLxQHHw/3ldxZbu4Wu2HpgZSPqkwYym7Tb7jHTJXCmUKg
+         ln0tr2Mp86n/aOfD78bPNFOJtAOCnY0cWXxss1CjovyRBoIXGIA1MXhqPe4hwBTi09q1
+         43nkvHpLZvO0Hw3onDPUE6e1mg1VwJ9Mf6OvrUIaV34ivasEP1KEAJDW9Z0qiYQc0UrM
+         ykKg6owwO/XdRUNpM9aQEazFSyvOt5JgnZYrAQEoGFJ6/w1wSyguIsFy9CcF781B/YX1
+         Ad8ESsI/4xQclaQn1dTliAODMJ7+mWxlG6T4QKaNBwnhaCYY+iGFPTaRNpq7yzB6l1ZE
+         twHg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780657886; x=1781262686;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=NP8UmE1JJTaZ1ok4zYbN2k3div/k4FL0sO/lWo9YA80=;
+        b=F3O9PC1HSXp5NSz+6ikOA8vHQ+DEXFWH1AfUPbTwXPYJjjfbMzYNMtoTGQA5hBSKMW
+         JN5h+jcx4gkllGpU/d6PZwQTg+Dy40Y4xTvrUIucq55SLl4ZcWCxKL84kzXjFQpItUdC
+         oTBLKzpCZQMi5jfBLksz9Dwqy8EQTkvgS9R37tQG18LJ5Mp4zFBQPID0SvHsXJfOflA1
+         n5qsQMwsuqrcNywybyqaBtviJijvVSCXTIUqz/RT+ut+/qUxc4PMBjwDfENOc/MEWof/
+         qC7Cr440yaq/KV1EPvqZXDgnUW7A5UigWgYj+FRj0xCqzNWy+z8hAk6P/oDtv+pwmLWY
+         mwuQ==
+X-Forwarded-Encrypted: i=1; AFNElJ/DfOk0f43eCRzcjS1KsdhHVRkMkG9WeeZeGJ2PMfEHzo00kpaq2b6fSf9eI5nghFBK5NKZTIA=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx39+JAWkKOz3ifBcBuxbgAaasBc3GpCDIo/b0F4X4QDoKXdhK1
+	zLy64kYJlvzlRQcRjkbC8iQUenS6xKpJm45nXumzbs5vRtPunnMbA9S4
+X-Gm-Gg: Acq92OH8fVCbkhYeDCWwyfQjhAzCWcdMtbbGtaR20MBLTJrE3YAVm1MbufwGfxQAoE0
+	YiIdwmkRbJCYHikt/09ItEA39OV6Qi72BP5yb/+OKVFWmAG5egaF1zTYcy1OSmE+/v0zFPHE5KO
+	AxtdbQzFk2Ud7nILdQm7NRZSZh15N877/bMpprAfxwinh+pp8AUI+ZAB6grEZ5cr8gaRaT3RGEP
+	4pCUOSIAt+rJ+JfII5FyQ27FrsAGaWmcGbS9OuLmJy7RnvIUTYji6i29ImuZoQHlbCMegh2Dpik
+	Wlkl7n1PxRzshfOu/RElJhV8eX0vWbK2YRbUO4rEZvJhoeTPfDUp1DBrfg3oFXSYtShvpur4uBN
+	SRFwbipaYjP7Q9g94nVrlBfIacee9C0zWQeMGmIqmT2rJv7NKtuipxCggAPHi9y5Y6BC6BqzQFi
+	RPhLXurE7arq8B3IhP5s69CBy2yxVKdLwzv1hy9NMDKgZ4Qa54MhWAtdV2Vpo=
+X-Received: by 2002:a05:600c:530d:b0:490:b92f:ef5b with SMTP id 5b1f17b1804b1-490c25d4cfcmr51953845e9.13.1780657886089;
+        Fri, 05 Jun 2026 04:11:26 -0700 (PDT)
+Received: from localhost (ip87-106-108-193.pbiaas.com. [87.106.108.193])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4601f344762sm26586232f8f.23.2026.06.05.04.11.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 05 Jun 2026 04:11:25 -0700 (PDT)
+Date: Fri, 5 Jun 2026 13:11:10 +0200
+From: =?iso-8859-1?Q?G=FCnther?= Noack <gnoack3000@gmail.com>
+To: Bryam Vargas <hexlabsecurity@proton.me>
+Cc: =?iso-8859-1?Q?Micka=EBl_Sala=FCn?= <mic@digikod.net>,
+	=?iso-8859-1?Q?G=FCnther?= Noack <gnoack@google.com>,
+	Justin Suess <utilityemal77@gmail.com>,
+	Christian Brauner <brauner@kernel.org>,
+	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+	"Serge E . Hallyn" <serge@hallyn.com>,
+	linux-security-module@vger.kernel.org, stable@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 1/2] landlock: fix LANDLOCK_SCOPE_SIGNAL bypass on the
+ SIGIO path
+Message-ID: <20260605.ed2bc08adf71@gnoack.org>
+References: <cover.1780614610.git.hexlabsecurity@proton.me>
+ <56bffc24f3d0d08b45a686a48e99766b0a0821fa.1780614610.git.hexlabsecurity@proton.me>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PAXPR04MB9422:EE_|DUYPR04MB12689:EE_
-X-MS-Office365-Filtering-Correlation-Id: dd852fa5-b650-4937-98c3-08dec2f30069
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|1800799024|366016|19092799006|56012099006|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	gGkyVK0QTgrBCGEk/oX7Y+3K+drc9z2ywnV2JoILG6mHV1PAp7cKzHiDOVW23+DKLf3PCgo64h4gURFnODlrrFDP+/OJgPhUlDV4gvbUFSIh5BRK0K7mfQSJWjt51VAyBBjlxbMv/OE1vcQ0+h+k4HLgcF6HJDrcSgOBRcl8W0gFY87CtnZE1iD2EwWtv++cGAGbP/DwPc0VSrCiC71FE2k54BHt5181BX+thsuN4TQIImEcY8y9NhgEstXbDtYw/90oiuPmpxRUx/qDmLKUb41CFipvDxtKCO54Qzq6LhAiWtC41ZAj3KP4+00xlIcUl2RiT9eRqgDDp91qFoKPK2HOYTQe0RZ4xbEcSs+LGM+dFy3/2TMU3qoiXv+/YrhiKmOaZncbNoCUNEYAwj8eydUJ3J4bw9Ie2kvWKBQcyG6lZRlA9kbsMmjDflUAwmkQRAh7RM29tJnL/HoHpogds08F0xy6QM1n/8fjuXDQb3AysKQcCBWwV/x2l8srvqVViXpidHqmsEKRlk4tyoLKxrBdW6J+QVnr6FPpgEvKGpF86KaPwnaw7654n/UNcJNi2wGt9n1zDTyXzQgTcJpILs5hAJ+5RVju2JEH/frvQf8uaSC4a6JTaq0PS5vYOa+4EQR38wlPwktyhN9jR6ZF4KhRGDdH4qBBsdjuG4LsMvd9I24D8xf31Tegmiy7+sbI
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAXPR04MB9422.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(366016)(19092799006)(56012099006)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?U2ZHd09XcGc1ZERhb3RTdENyY2pWWGtDQnl2N0txY0lkWVFzRS9KZGhjNTZq?=
- =?utf-8?B?RiswMyt0TFJoQm80OXFOdU9jajBDQ2tWRW1SbGphaXZUdDR2KzBCVVhZM0Yz?=
- =?utf-8?B?REwvVXhkNW1DdXNWZ3VQZ0FIbHQ5aExHMmNsRW1iZW5wdXJqTEJSNDcvOFpB?=
- =?utf-8?B?eVY0Y3AreTFnRTFlVDBkS0xsZDArNktUSmVITyt6WGF2ckVxb0loWmU2VlJL?=
- =?utf-8?B?cnJKYTI4dDdySk44Ti9aRUJSdTQrS1hjYlpRdm50OHlSRGc1dEJUZWpLMERp?=
- =?utf-8?B?VFJFN2p6RjUwS3EyTUxUeXlKKzBTMUNUZWFYNFlrZDhoV1VNZmhEbi8vaTho?=
- =?utf-8?B?T1U3RjNFb2QrajlUMVFzT3JzZy96N1VOUEdrNVdta0RhdUVSTTAwUjd1YUV1?=
- =?utf-8?B?WE81dGQzWERQcE12dTdwQit0eTFnRlE3VTFkdTlvNXY0MjZTQ2ROeW41NVRJ?=
- =?utf-8?B?ZHYrckJIbHZ0Yk9IRk0vdHhvN3BFQXR5QzlrOWxkNzNHYjg0ZkY0eUpVc3lU?=
- =?utf-8?B?dXF2NVE3K0U0NVdyZTZlSFd1akZXTkNKVVlyY1c0N2NRb2tvcFFFVHpXMHpu?=
- =?utf-8?B?ZXVuaTZGSUo1QU5OVlc1OTlLaFU4T2FHWWxOaHFkbytVckUrRDBmSVc0RXdE?=
- =?utf-8?B?cTRid2pmS0VPakpUTWpuT1FMaHdvMEt5Sld0dlg4eVZrWTczMWFsUVJGYUNT?=
- =?utf-8?B?Ykp1YUYvLzFFbVZXREdTeWNFWmNBZENoSlBRbGJuZW5FWlhSa3kwZ3hNS0Qw?=
- =?utf-8?B?QlIxWG9RcGplV09DblZlMkVZRDZGZnY1cmtvc1BpeHkrQ3QzalpqZXo5WXpR?=
- =?utf-8?B?YTc0bTQzYUxsYzZZMUJ0UzRXQW50R2cyWkI0WVBHcTNld0VZcWY4d1F6eUp5?=
- =?utf-8?B?UnRYOHVZaWhnb01XbjFVQS91QWRZYm9sd29UT0lhZ2ErcGw0dEkyY1JUaDk5?=
- =?utf-8?B?cnlZYjJkaEI3VkxLZ3NmaHR3TmZuWSticDgweHZzdUFVOEdpSDZyWkJrUWlI?=
- =?utf-8?B?T1VyRExoSkV4RUZlTWtVM0dmaTJkNjFuK2dnYUxPMEhqR1NsZ3lGT2dXUm41?=
- =?utf-8?B?ak1aNCtHcFZFWEtiUzV6d3Rzait5dUtGZVlOYlBwMUl3Q24wZlFsWW8zcTF4?=
- =?utf-8?B?NXhsVjVJU3BPYVFjakhhRVBHakJHRXBNdzR0K1g0WGtjSThZUFh1Y0Q3YXA1?=
- =?utf-8?B?TjFlN25GWFF4M1F1MzJ3ckFpMGNwODYzSHRiTUl3Q1BycVZzd2kzOWdoUTRD?=
- =?utf-8?B?bXpIODVUL3FPeXl4MzdmNmFybHB2VGtFOFBjbksrTkFNU2FRV2l3QytWSFNB?=
- =?utf-8?B?OVRiM3RqcEZwZmFOZGpaaWxNS3F1QlVkendkWjZOUmlURzRlTy9JcGtaYWZB?=
- =?utf-8?B?YTdlUk94OHFpYjhmMzJEL2drQlJsUVdqdFBMQlhVZ3NtNXdicEs4RDVOVXhk?=
- =?utf-8?B?NGJJUElYR0VZaVNsLzdOZExidXI0cTkyOFdFc25kVi9MYWU3eitlaHYwa1ZZ?=
- =?utf-8?B?VGdDL2VIbmF2OG5ZU1IydDdQU1RSRkhMdzRUN2t6QjdRaVF2bEU4ejg1Y21s?=
- =?utf-8?B?SmlDdEliVGdmb0NxazFxTnJGcUI4dThDSG5qTnFzcy91aHJaWVZrODhralE5?=
- =?utf-8?B?Y3pmSVRDRTZoVTB5VDZNM2Y0Skk5UzNtdjJLUkFadWRUNWJVZkRQUno0dXVi?=
- =?utf-8?B?bG4zVDUxWFFTL1pLRHpMWXE3NDFvQisvYkM1RGlScEJXSWJkazZ4NDVkbnA3?=
- =?utf-8?B?MXBUME40bitGL0dBaytOTS8veWVLWTlCbFdmQ09FMnpESlBFQ3ZCSnEwaVVR?=
- =?utf-8?B?QTR0OHJjT2RVTjM2TTBCeG5JUnp4K0RWUEJKWWoxcHhFV1Z2UlhOQ1pjSGJN?=
- =?utf-8?B?MCt5ODQ4K3BDRDJBZGF5TVpPcVl5T3pkMFF5am03b1VHQlR3K29UZ1pneitZ?=
- =?utf-8?B?b0dvM001RGdXNDdoeUxwcEpQK3p6TnpCUm01NktncFNVL3lpdWdhRWwzNHNr?=
- =?utf-8?B?Rm9YQ1lpbzhNRDEzNmZ6RDJEbjBnRHBvVUF0a2JObGUwYlMvSnVON1F4WjRP?=
- =?utf-8?B?NW5sZXFwWDlaOXlkblFERDhTQk9kT2pPYlFLeVNFQU83YWZBTXAxd3lGQmhh?=
- =?utf-8?B?STR6Sk9vM2x6U2x0UHZIWnZzRFN1VEVTMTI5L2tpcEdxMTRzOUJXdHJlTHQ4?=
- =?utf-8?B?b0xtMnI2M1JwK3lVSzZNZzgxRzJYSGY1Mk8yL0NNNkY4TjZOVkhsWmY3dERL?=
- =?utf-8?B?NXdDRE9ZVEFnaWVKOE9VSHQ3dkNlQnJTemhtQm90V05pN1JEdnl4cmMya0wr?=
- =?utf-8?B?c3dkRWQvaXlDZzJJVlZDSlllYy9ORVVMT0tVQUNmbThNc04xUVZyclFQa3FD?=
- =?utf-8?Q?8cJhQDel9t/rCv2c1+sXtKooIZ8xtgWGzZTJS?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: dd852fa5-b650-4937-98c3-08dec2f30069
-X-MS-Exchange-CrossTenant-AuthSource: PAXPR04MB9422.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jun 2026 11:10:07.5624
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: i1+GcszuKJ5+uiqAWXQUTwqFf11cDDEDjDlXuP5VzE+ncWHvlsXXfw6jkfyLA8cCILBqkrqdZj1Kr8eLFruAWw5xxp4n7UCnLCxjjcT0zNqkbygt74tHHbROjoBwtB54
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DUYPR04MB12689
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <56bffc24f3d0d08b45a686a48e99766b0a0821fa.1780614610.git.hexlabsecurity@proton.me>
 
-From: Felix Gu <ustc.gu@gmail.com>
+On Thu, Jun 04, 2026 at 11:16:56PM +0000, Bryam Vargas wrote:
+> LANDLOCK_SCOPE_SIGNAL must prevent a sandboxed process from signaling
+> processes outside its Landlock domain.  It can be bypassed through the
+> asynchronous SIGIO delivery path.
+> 
+> A sandboxed process that owns any file or socket can arm it with
+> fcntl(F_SETOWN, fd, -pgid), fcntl(F_SETSIG, fd, SIGKILL) and O_ASYNC, so
+> that an I/O event makes the kernel deliver the chosen signal to the whole
+> process group.  As the head of its own process group -- the default right
+> after fork() -- that group also holds the non-sandboxed process that
+> launched it, e.g. a supervisor or a security monitor.  The sandbox can
+> thus kill or repeatedly signal exactly the processes SCOPE_SIGNAL is meant
+> to protect from it.
+> 
+> The scope is enforced in hook_file_send_sigiotask() against the Landlock
+> domain recorded at F_SETOWN time, not the live domain of the sender.
+> control_current_fowner() decides whether to record that domain and skips
+> recording it when the fowner target is in the caller's thread group --
+> safe only when the target is a single process sharing the caller's
+> credentials (PIDTYPE_PID, PIDTYPE_TGID).  For a process group
+> (PIDTYPE_PGID) the target resolves to the caller itself when it is the
+> group head, recording is skipped, and hook_file_send_sigiotask() then lets
+> the signal fan out to the whole group unchecked.
+> 
+> Record the domain for every non single-process target so the scope is
+> enforced against each group member at delivery time.
+> 
+> That recording is necessary but not sufficient on its own: the kernel
+> signals a process group through its members' thread-group leaders, and the
+> leader of the registrant's own process can carry a different Landlock
+> domain than the sibling thread that armed the owner.  domain_is_scoped()
+> would then deny that leader, even though commit 18eb75f3af40 ("landlock:
+> Always allow signals between threads of the same process") requires
+> same-process delivery to be allowed.  hook_task_kill() avoids this by
+> evaluating same_thread_group() live, per recipient; the SIGIO path instead
+> delegates the whole decision to a single registration-time check, which a
+> process-group fan-out cannot honor.
+> 
+> So also record the registrant's thread group next to its domain and exempt
+> it at delivery: hook_file_send_sigiotask() allows the signal whenever the
+> recipient belongs to the registrant's own process, restoring the
+> same-process guarantee while keeping out-of-domain group members blocked.
+> The direct kill() path (hook_task_kill) already evaluates the live domain
+> and is unaffected.
+> 
+> Fixes: 18eb75f3af40 ("landlock: Always allow signals between threads of the same process")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
+> ---
+>  security/landlock/fs.c   | 15 +++++++++++++++
+>  security/landlock/fs.h   | 10 ++++++++++
+>  security/landlock/task.c | 11 +++++++++++
+>  3 files changed, 36 insertions(+)
+> 
+> diff --git a/security/landlock/fs.c b/security/landlock/fs.c
+> index c1ecfe239032..ff2c12e38bfc 100644
+> --- a/security/landlock/fs.c
+> +++ b/security/landlock/fs.c
+> @@ -1909,6 +1909,15 @@ static bool control_current_fowner(struct fown_struct *const fown)
+>  	if (!p)
+>  		return true;
+>  
+> +	/*
+> +	 * A process-group fowner fans the signal out to every member at
+> +	 * delivery time, so record the domain for any non single-process
+> +	 * target -- even when it resolves to current as the group head -- and
+> +	 * let hook_file_send_sigiotask() check the live scope per recipient.
+> +	 */
+> +	if (fown->pid_type != PIDTYPE_PID && fown->pid_type != PIDTYPE_TGID)
+> +		return true;
+> +
+>  	return !same_thread_group(p, current);
+>  }
+>  
+> @@ -1916,6 +1925,7 @@ static void hook_file_set_fowner(struct file *file)
+>  {
+>  	struct landlock_ruleset *prev_dom;
+>  	struct landlock_cred_security fown_subject = {};
+> +	struct pid *prev_tg, *fown_tg = NULL;
+>  	size_t fown_layer = 0;
+>  
+>  	if (control_current_fowner(file_f_owner(file))) {
+> @@ -1928,21 +1938,26 @@ static void hook_file_set_fowner(struct file *file)
+>  		if (new_subject) {
+>  			landlock_get_ruleset(new_subject->domain);
+>  			fown_subject = *new_subject;
+> +			fown_tg = get_pid(task_tgid(current));
+>  		}
+>  	}
+>  
+>  	prev_dom = landlock_file(file)->fown_subject.domain;
+> +	prev_tg = landlock_file(file)->fown_tg;
+>  	landlock_file(file)->fown_subject = fown_subject;
+> +	landlock_file(file)->fown_tg = fown_tg;
+>  #ifdef CONFIG_AUDIT
+>  	landlock_file(file)->fown_layer = fown_layer;
+>  #endif /* CONFIG_AUDIT*/
+>  
+>  	/* May be called in an RCU read-side critical section. */
+>  	landlock_put_ruleset_deferred(prev_dom);
+> +	put_pid(prev_tg);
+>  }
+>  
+>  static void hook_file_free_security(struct file *file)
+>  {
+> +	put_pid(landlock_file(file)->fown_tg);
+>  	landlock_put_ruleset_deferred(landlock_file(file)->fown_subject.domain);
+>  }
+>  
+> diff --git a/security/landlock/fs.h b/security/landlock/fs.h
+> index bf9948941f2f..911b83669e20 100644
+> --- a/security/landlock/fs.h
+> +++ b/security/landlock/fs.h
+> @@ -78,6 +78,16 @@ struct landlock_file_security {
+>  	 * euid.
+>  	 */
+>  	struct landlock_cred_security fown_subject;
+> +	/**
+> +	 * @fown_tg: Thread group of the task that set the file owner, pinned
+> +	 * while @fown_subject holds a domain.  It lets
+> +	 * hook_file_send_sigiotask() always allow a SIGIO delivered to the
+> +	 * owner's own process -- e.g. the thread-group leader reached through a
+> +	 * process-group owner -- matching the same-process exemption of
+> +	 * hook_task_kill().  NULL when no domain is recorded.  Protected by
+> +	 * file->f_owner->lock, like @fown_subject.
+> +	 */
+> +	struct pid *fown_tg;
+>  };
+>  
+>  #ifdef CONFIG_AUDIT
+> diff --git a/security/landlock/task.c b/security/landlock/task.c
+> index 6d46042132ce..7ddf211f75c3 100644
+> --- a/security/landlock/task.c
+> +++ b/security/landlock/task.c
+> @@ -411,6 +411,17 @@ static int hook_file_send_sigiotask(struct task_struct *tsk,
+>  	if (!subject->domain)
+>  		return 0;
+>  
+> +	/*
+> +	 * Always allow delivery to the file owner's own process, including a
+> +	 * thread-group leader reached through a process-group owner.  This
+> +	 * mirrors hook_task_kill()'s same-process exemption and preserves the
+> +	 * guarantee of commit 18eb75f3af40 ("landlock: Always allow signals
+> +	 * between threads of the same process"), which the registration-time
+> +	 * check cannot honor for a process-group target.
+> +	 */
+> +	if (task_tgid(tsk) == landlock_file(fown->file)->fown_tg)
+> +		return 0;
+> +
+>  	scoped_guard(rcu)
+>  	{
+>  		is_scoped = domain_is_scoped(subject->domain,
+> -- 
+> 2.43.0
+> 
+> 
 
-If probe fails after imx95_usb_phy_get_tca() succeeds, the typec
-switch leaks because the only cleanup path was in .remove, which
-never runs on probe failure.
+Reviewed-by: Günther Noack <gnoack3000@gmail.com>
 
-Use devm_add_action_or_reset() so the switch is cleaned up on both
-probe failure and driver removal.  The .remove callback and
-imx95_usb_phy_put_tca() are no longer needed.
-
-Fixes: b58f0f86fd61 ("phy: fsl-imx8mq-usb: add tca function driver for imx95")
-Cc: stable@vger.kernel.org
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
-Reviewed-by: Xu Yang <xu.yang_2@nxp.com>
-Signed-off-by: Felix Gu <ustc.gu@gmail.com>
-Signed-off-by: Xu Yang <xu.yang_2@nxp.com>
-
----
-Changes in v4:
- - add my signed-off tag
-Changes in v3:
- - add R-b tag
- - cc statble
- - drop "sw = data" conversion
----
- drivers/phy/freescale/phy-fsl-imx8mq-usb.c | 27 +++++++--------------------
- 1 file changed, 7 insertions(+), 20 deletions(-)
-
-diff --git a/drivers/phy/freescale/phy-fsl-imx8mq-usb.c b/drivers/phy/freescale/phy-fsl-imx8mq-usb.c
-index b05d80e849a1..88b804b2c982 100644
---- a/drivers/phy/freescale/phy-fsl-imx8mq-usb.c
-+++ b/drivers/phy/freescale/phy-fsl-imx8mq-usb.c
-@@ -173,9 +173,9 @@ static struct typec_switch_dev *tca_blk_get_typec_switch(struct platform_device
- 	return sw;
- }
- 
--static void tca_blk_put_typec_switch(struct typec_switch_dev *sw)
-+static void tca_blk_put_typec_switch(void *data)
- {
--	typec_switch_unregister(sw);
-+	typec_switch_unregister(data);
- }
- 
- static void tca_blk_orientation_set(struct tca_blk *tca,
-@@ -248,6 +248,7 @@ static struct tca_blk *imx95_usb_phy_get_tca(struct platform_device *pdev,
- 	struct device *dev = &pdev->dev;
- 	struct resource *res;
- 	struct tca_blk *tca;
-+	int ret;
- 
- 	res = platform_get_resource(pdev, IORESOURCE_MEM, 1);
- 	if (!res)
-@@ -266,17 +267,11 @@ static struct tca_blk *imx95_usb_phy_get_tca(struct platform_device *pdev,
- 	tca->orientation = TYPEC_ORIENTATION_NORMAL;
- 	tca->sw = tca_blk_get_typec_switch(pdev, imx_phy);
- 
--	return tca;
--}
--
--static void imx95_usb_phy_put_tca(struct imx8mq_usb_phy *imx_phy)
--{
--	struct tca_blk *tca = imx_phy->tca;
--
--	if (!tca)
--		return;
-+	ret = devm_add_action_or_reset(&pdev->dev, tca_blk_put_typec_switch, tca->sw);
-+	if (ret)
-+		return ERR_PTR(ret);
- 
--	tca_blk_put_typec_switch(tca->sw);
-+	return tca;
- }
- 
- static u32 phy_tx_vref_tune_from_property(u32 percent)
-@@ -739,16 +734,8 @@ static int imx8mq_usb_phy_probe(struct platform_device *pdev)
- 	return PTR_ERR_OR_ZERO(phy_provider);
- }
- 
--static void imx8mq_usb_phy_remove(struct platform_device *pdev)
--{
--	struct imx8mq_usb_phy *imx_phy = platform_get_drvdata(pdev);
--
--	imx95_usb_phy_put_tca(imx_phy);
--}
--
- static struct platform_driver imx8mq_usb_phy_driver = {
- 	.probe	= imx8mq_usb_phy_probe,
--	.remove = imx8mq_usb_phy_remove,
- 	.driver = {
- 		.name	= "imx8mq-usb-phy",
- 		.of_match_table	= imx8mq_usb_phy_of_match,
-
--- 
-2.34.1
-
+Thank you, this looks good!
+–Günther
