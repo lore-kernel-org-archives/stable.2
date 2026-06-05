@@ -1,136 +1,160 @@
-Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010008.outbound.protection.outlook.com [52.101.201.8])
+Received: from n169-111.mail.139.com (n169-111.mail.139.com [120.232.169.111])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2530B1FCF41;
-	Fri,  5 Jun 2026 05:34:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.8
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780637690; cv=fail; b=L03l9mo8o4WGtR+aaUpAO/QaH+TH3Eb8BupAYELILRqvDFMspTTrtNoG3hjqcvcGEeS2Q1B4uehWqCTRuOCXkTya7OZo+J1W6kCeB4ONanvosCrUUSdPAN05OFCiIqQMXUtf1ZmbeR53ohMl4Ts0ovIZgWp0/8W8Tg6rMT/JC4Q=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780637690; c=relaxed/simple;
-	bh=ofynJZykRO7utYdseh7eMj1ydWzzX1fwF4Vp7MZ+0U8=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=HgY0B9RgQGhc61lOl2hDtmXRgu1bb1R/Qpy3l84He/t50E4A2dTv0WLoVs2UnBDEOzX01W+Dp8InINklOUlIhkwKjHSe7nzeUQPetUf9NxbMEAGoNgGAot+kXhHgOX9c/W+0gTGZlBe1nZaBsKv+uzxrZvLy0BOzlb842fBO968=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=IvpD+GYG; arc=fail smtp.client-ip=52.101.201.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 854C73A63FB
+	for <stable@vger.kernel.org>; Fri,  5 Jun 2026 06:07:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=120.232.169.111
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780639681; cv=none; b=Vb/aMbSQHRZGakjZdZV+gb34O8EWseIdKPnV8H80pXfzVIOPrL6ZSeCJD+JgHxFFIE8i2Y3DdGcdsQ7oOasBY/Psx3vxaEDEphVVG6OE6RZ6a4WNSVXgVDfO0SDrnau3vBO0aSA4+GYJ5UpQqZRE6wRLpvLguS0tDfCa7c9dums=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780639681; c=relaxed/simple;
+	bh=yxB2m+OFQtzn1U+xZTKXZRASb+69mpcQDVPZLMA7XFE=;
+	h=From:To:Cc:Subject:Date:Message-Id; b=c3CqH9LQ6jtCDj3bEU1MfkqkbC/LKgMCP4uCTZ5SiesAFLFz+GtV7Es5RY9qh4xFEl2x7lUL8z+oPazNS6aGcp5plEte9lTxJROVQb5r4kxraf3TxGTBqZVZaOumguT2RXAzB5rXhaxYskAhgikN0cTFIgqzD22wUNNVOKRuYqg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=139.com; spf=pass smtp.mailfrom=139.com; dkim=pass (1024-bit key) header.d=139.com header.i=@139.com header.b=i9G5nih5; arc=none smtp.client-ip=120.232.169.111
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=139.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=139.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="IvpD+GYG"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=c2+YiOLDSGf0z3DBd3hWyjHpkv6zKglvtH9p/37DXL2G8cNPJ3VeK5AHi0vEDFrit4hfKGW4MD3DPkhXGsOik9ix4qkfmtkuQC8LFNcspAUSngubrt4zXPhK7Dk7GkprMfD7DZrNZ4iUzXVw6uDkHY/E3dBOKVErTB40jYc2SFyNsUlKB0RfQ7CM+P04Ou/CCdNvJpYhG2XrsbK/nf1tpeZxtx7d4LFGiLXqdgMh6/vtx2dw67CqLK7sDN+KxLsyFo8dBzl654Ko3ojivi4us3ssHV9gwC80Y6bp7fNqDJOuJ/LWcfGVKaOhDlzEEenifKuQHz1OebR+8xtPcBG92A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=P7oABNf4MB0O0LPodZD7JRIJ6SwosMF4U/v1h/CRifU=;
- b=o0nX5HvcC564Yh6vGVMVsBcC9A25mRQep7rQMIpFA/oFiZI63vlDsOSGHUR4FLl3KoUkuIDtNBkq5J5yTmYIJftZRd+KT7GaTyGhgFR8o8QdZn4f0cRE2z4xH40Np2s0d1XyIa3rXnTYCmZfIgNjkkb7mrY0Ot5wbxVMp2qu6YalXcpKOinFrB/s9qh3r+pm7Otqr5sY3DKdc5qmgKkfMED6LiNKeo03q+9pw5R7ueI4kIycVJ8iCDcuIxY+b5UCT/OKIjGsEWwZAbWO0cLblcyI4w3Nd2GbLMsXCsf7/T24E/RfE5cxxI8FTuCsryc5lH8mGJkUSZqVNntON5vDeA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.118.232) smtp.rcpttodomain=iscas.ac.cn smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=P7oABNf4MB0O0LPodZD7JRIJ6SwosMF4U/v1h/CRifU=;
- b=IvpD+GYGb/JYEkY1r3ZY/cYmxw54tejm2YcOpPMXDAiPq8Qe2ebmwsyT/0KWYrJFlJuuxMWSNm9QVpfsRYFoekA/n40D3xdB6YkfQcprSwtDXZf8DvOLNm5J+ORuF3E5uCL2mJjFOXxWGpu8I0nR5Go7H5SqeQvDok46aQx6xCss/uSF/NUT+ZTf96GTNxtzUX3ZdyzmRp7W4WAF09f2gqA0EHFiYagliGWWI85Rr0y6UStDrzkVprimQqUSmPhIHUafPq5yiR0l/mupI2gCi5d2WzYmsxhPMcDZjRjt3SjFluJMc7GIMT1sAsEzhWzrWVnJDHu+h5fHGG3v3SeS4A==
-Received: from BY3PR05CA0041.namprd05.prod.outlook.com (2603:10b6:a03:39b::16)
- by BL1PR12MB5706.namprd12.prod.outlook.com (2603:10b6:208:385::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.9; Fri, 5 Jun 2026
- 05:34:39 +0000
-Received: from SJ1PEPF00001CE4.namprd03.prod.outlook.com
- (2603:10b6:a03:39b:cafe::37) by BY3PR05CA0041.outlook.office365.com
- (2603:10b6:a03:39b::16) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.92.8 via Frontend Transport; Fri, 5
- Jun 2026 05:34:38 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.118.232)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.118.232 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.118.232; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.118.232) by
- SJ1PEPF00001CE4.mail.protection.outlook.com (10.167.242.20) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.92.5 via Frontend Transport; Fri, 5 Jun 2026 05:34:37 +0000
-Received: from drhqmail203.nvidia.com (10.126.190.182) by mail.nvidia.com
- (10.127.129.5) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Thu, 4 Jun
- 2026 22:34:32 -0700
-Received: from drhqmail201.nvidia.com (10.126.190.180) by
- drhqmail203.nvidia.com (10.126.190.182) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.20; Thu, 4 Jun 2026 22:34:32 -0700
-Received: from build-akhilrajeev-noble-20260602.internal (10.127.8.11) by
- mail.nvidia.com (10.126.190.180) with Microsoft SMTP Server id 15.2.2562.20
- via Frontend Transport; Thu, 4 Jun 2026 22:34:29 -0700
-From: Akhil R <akhilrajeev@nvidia.com>
-To: <vulab@iscas.ac.cn>
-CC: <akhilrajeev@nvidia.com>, <davem@davemloft.net>,
-	<herbert@gondor.apana.org.au>, <jonathanh@nvidia.com>,
-	<linux-crypto@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-tegra@vger.kernel.org>, <stable@vger.kernel.org>,
-	<thierry.reding@kernel.org>
-Subject: Re: [PATCH] crypto: tegra: fix refcount leak in tegra_se_host1x_submit()
-Date: Fri, 5 Jun 2026 05:34:06 +0000
-Message-ID: <20260605053406.4142008-1-akhilrajeev@nvidia.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260604102706.3787771-1-vulab@iscas.ac.cn>
-References: <20260604102706.3787771-1-vulab@iscas.ac.cn>
+	dkim=pass (1024-bit key) header.d=139.com header.i=@139.com header.b="i9G5nih5"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=139.com; s=dkim; l=0;
+	h=from:subject:message-id:to:cc;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=i9G5nih5ApwW5W94M/g6BYenPUKVjeboFiq9pvt7bdLHgsfaEeS0oivkaqIpocEukug37CXafeD9t
+	 Eno8lPJw6z+oGDDeh+mqqI5QLr8rt9SMvK2Od3zG7g3ea4BsVJtzCmMpn8HF1TkgdTLBV4pjo9GEZs
+	 TQVfCaPo/bRKIXk0=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM:                                                                                        
+X-RM-SPAM-FLAG:00000000
+Received:from NTT-kernel-dev (unknown[183.241.249.24])
+	by rmsmtp-lg-appmail-16-12015 (RichMail) with SMTP id 2eef6a2267b1cd4-f5b6d;
+	Fri, 05 Jun 2026 14:07:47 +0800 (CST)
+X-RM-TRANSID:2eef6a2267b1cd4-f5b6d
+From: Rajani Kantha <681739313@139.com>
+To: jiayuan.chen@shopee.com,
+	pabeni@redhat.com
+Cc: stable@vger.kernel.org
+Subject: [PATCH 6.1.y] bpf/bonding: reject vlan+srcmac xmit_hash_policy change when XDP is loaded
+Date: Fri,  5 Jun 2026 14:07:44 +0800
+Message-Id: <20260605060744.2302-1-681739313@139.com>
+X-Mailer: git-send-email 2.17.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CE4:EE_|BL1PR12MB5706:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1f35b96d-c965-45c6-7f29-08dec2c42251
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700016|1800799024|376014|56012099006|18002099003|22082099003|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	GSCOVTNrf6uLP480moDW6PH7/xCjhEIA1DX3UmHrcfpA/cuTBfhCkLC770Y28JvZ2maxDeZMxxtYyMPfom2nXDqXg5jzoTDWgpgXnVGTIHuQbpibhdT8Rn2dtV0uodClm2F7Y34sYUPHIoGc6XLLGORbCj4pqKKgqoagdUC0wSa8MFk0QaMbgWN/pqznc6IO6P5qo9H2CawepbEZIpjxm0WJW3VNL6Q6Pfa4YpvIkIGNRnOYysPvE1OeX5baGZ6+Rywf7aYL02nsVR0HW+OwJes4yNwiKyzZ+lSgYjW3uNie8yAroIHQrMNLP5nzc+H011eyZzI9PGRWll9s8pMrL+To1PnX8OXupXLhcD3eqDBogig/ZkVCBzc5BAeiHzbfEjzKLJkg+DnpLOLKlDpqYYosaT93JODkTGNVu+j0c7yrLSo9nhCSHh0uHRdehnCvbWmQLgXwfZY+zfi7Kd0d+xhWz95o2gy6xKq8WM5SCf3OZ4JoXKLPlWbT+W64dcgfIBQbT8fuN3RFB8+V8n20m0382LAaWrYN9aFq/sa6GQ1DkRQyNxh+X+6Z/hLq/NEhEAvu9M0D7BAGyq/xGKo2a90EW/ehEIz4CYWAvX0+OOx8VDC9PWJQCSPiv1EhzjHVThZsowOwMMzfGf1PIdIBh7mq18enTKTfKj66kbdVACLlwQ2qAG9Bjk5scTy6NPghBVtE5KhK2Dzy/pfjKDP3kwJfF2ySHA89NC7sXtT4MF0=
-X-Forefront-Antispam-Report:
-	CIP:216.228.118.232;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc7edge1.nvidia.com;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(1800799024)(376014)(56012099006)(18002099003)(22082099003)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	zBuPS66bA9gcoQuIbrSG3luPuW8FINZ58TUTs1xIX6HZkGgZwCskAfop1SK3BR92sW0gw4FnZvRJz3NYWhDKKiVeVmSeDsst0sNYhG2gzztrrSvpc2xCvrnX0dZOezDT3SS/MQeN+fyRPhuPCKY4ZmBzx0pEJMZlLsAPKXW0WIF0LP9rTH3++8EFQkswkeT9CFw/VwH2x0CmFDlVa04L72clxBQ4N0lSTP/omoJnr3ymdsL3yw0keV+dzyTE3aUVbgbCZHFNeoGsgTUDdHjOSQ88jxcr20iqu0ADan3SZRQNWcYAhLSoRZDvx14a9/gpkH42xCXPZGmVJG1590O/I+VFwNRG9/ThWet+uAk8HZoQsm3xSuJLcvDPHBcLJmuRg+vleuErYrAOvHTueTrGzXdP6Sid/bZS8JZ8ETWBH3gmCLKIWT9dZpqKJ0a/MmKI
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jun 2026 05:34:37.8033
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1f35b96d-c965-45c6-7f29-08dec2c42251
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.118.232];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF00001CE4.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5706
 
-On Thu, 4 Jun 2026 10:27:06 +0000, Wentao Liang wrote:
-> The timeout error path in tegra_se_host1x_submit() returns without
-> calling host1x_job_put(), while all other paths (success, submit
-> error, pin error) properly release the job reference through the
-> job_put label.  Since host1x_job_alloc() initializes the reference
-> count and host1x_job_put() is required to drop it, omitting it on
-> timeout causes a permanent refcount leak.
-> 
-> Fix this by redirecting the timeout return to the existing job_put
-> label, ensuring the job reference and any associated syncpt
-> references are consistently released.
-> 
-> Cc: stable@vger.kernel.org
-> Fixes: 0880bb3b00c8 ("crypto: tegra - Add Tegra Security Engine driver")
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+From: Jiayuan Chen <jiayuan.chen@shopee.com>
 
-Thanks for the patch.
+[ Upstream commit 479d589b40b836442bbdadc3fdb37f001bb67f26 ]
 
-Reviewed-by: Akhil R <akhilrajeev@nvidia.com>
+bond_option_mode_set() already rejects mode changes that would make a
+loaded XDP program incompatible via bond_xdp_check().  However,
+bond_option_xmit_hash_policy_set() has no such guard.
 
-Best Regards,
-Akhil
+For 802.3ad and balance-xor modes, bond_xdp_check() returns false when
+xmit_hash_policy is vlan+srcmac, because the 802.1q payload is usually
+absent due to hardware offload.  This means a user can:
+
+1. Attach a native XDP program to a bond in 802.3ad/balance-xor mode
+   with a compatible xmit_hash_policy (e.g. layer2+3).
+2. Change xmit_hash_policy to vlan+srcmac while XDP remains loaded.
+
+This leaves bond->xdp_prog set but bond_xdp_check() now returning false
+for the same device.  When the bond is later destroyed, dev_xdp_uninstall()
+calls bond_xdp_set(dev, NULL, NULL) to remove the program, which hits
+the bond_xdp_check() guard and returns -EOPNOTSUPP, triggering:
+
+WARN_ON(dev_xdp_install(dev, mode, bpf_op, NULL, 0, NULL))
+
+Fix this by rejecting xmit_hash_policy changes to vlan+srcmac when an
+XDP program is loaded on a bond in 802.3ad or balance-xor mode.
+
+commit 39a0876d595b ("net, bonding: Disallow vlan+srcmac with XDP")
+introduced bond_xdp_check() which returns false for 802.3ad/balance-xor
+modes when xmit_hash_policy is vlan+srcmac.  The check was wired into
+bond_xdp_set() to reject XDP attachment with an incompatible policy, but
+the symmetric path -- preventing xmit_hash_policy from being changed to an
+incompatible value after XDP is already loaded -- was left unguarded in
+bond_option_xmit_hash_policy_set().
+
+Note:
+commit 094ee6017ea0 ("bonding: check xdp prog when set bond mode")
+later added a similar guard to bond_option_mode_set(), but
+bond_option_xmit_hash_policy_set() remained unprotected.
+
+Reported-by: syzbot+5a287bcdc08104bc3132@syzkaller.appspotmail.com
+Closes: https://lore.kernel.org/all/6995aff6.050a0220.2eeac1.014e.GAE@google.com/T/
+Fixes: 39a0876d595b ("net, bonding: Disallow vlan+srcmac with XDP")
+Signed-off-by: Jiayuan Chen <jiayuan.chen@shopee.com>
+Link: https://patch.msgid.link/20260226080306.98766-2-jiayuan.chen@linux.dev
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+Signed-off-by: Rajani Kantha <681739313@139.com>
+---
+ drivers/net/bonding/bond_main.c    | 9 +++++++--
+ drivers/net/bonding/bond_options.c | 2 ++
+ include/net/bonding.h              | 1 +
+ 3 files changed, 10 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/net/bonding/bond_main.c b/drivers/net/bonding/bond_main.c
+index e9e2dec1dcb1..7ce60b16df17 100644
+--- a/drivers/net/bonding/bond_main.c
++++ b/drivers/net/bonding/bond_main.c
+@@ -322,7 +322,7 @@ bool bond_sk_check(struct bonding *bond)
+ 	}
+ }
+ 
+-bool bond_xdp_check(struct bonding *bond, int mode)
++bool __bond_xdp_check(int mode, int xmit_policy)
+ {
+ 	switch (mode) {
+ 	case BOND_MODE_ROUNDROBIN:
+@@ -333,7 +333,7 @@ bool bond_xdp_check(struct bonding *bond, int mode)
+ 		/* vlan+srcmac is not supported with XDP as in most cases the 802.1q
+ 		 * payload is not in the packet due to hardware offload.
+ 		 */
+-		if (bond->params.xmit_policy != BOND_XMIT_POLICY_VLAN_SRCMAC)
++		if (xmit_policy != BOND_XMIT_POLICY_VLAN_SRCMAC)
+ 			return true;
+ 		fallthrough;
+ 	default:
+@@ -341,6 +341,11 @@ bool bond_xdp_check(struct bonding *bond, int mode)
+ 	}
+ }
+ 
++bool bond_xdp_check(struct bonding *bond, int mode)
++{
++	return __bond_xdp_check(mode, bond->params.xmit_policy);
++}
++
+ /*---------------------------------- VLAN -----------------------------------*/
+ 
+ /* In the following 2 functions, bond_vlan_rx_add_vid and bond_vlan_rx_kill_vid,
+diff --git a/drivers/net/bonding/bond_options.c b/drivers/net/bonding/bond_options.c
+index 40731d180bb5..3d15b340b5c9 100644
+--- a/drivers/net/bonding/bond_options.c
++++ b/drivers/net/bonding/bond_options.c
+@@ -1590,6 +1590,8 @@ static int bond_option_fail_over_mac_set(struct bonding *bond,
+ static int bond_option_xmit_hash_policy_set(struct bonding *bond,
+ 					    const struct bond_opt_value *newval)
+ {
++	if (bond->xdp_prog && !__bond_xdp_check(BOND_MODE(bond), newval->value))
++		return -EOPNOTSUPP;
+ 	netdev_dbg(bond->dev, "Setting xmit hash policy to %s (%llu)\n",
+ 		   newval->string, newval->value);
+ 	bond->params.xmit_policy = newval->value;
+diff --git a/include/net/bonding.h b/include/net/bonding.h
+index 06a048d716b1..f2dee8cefa19 100644
+--- a/include/net/bonding.h
++++ b/include/net/bonding.h
+@@ -704,6 +704,7 @@ void bond_debug_register(struct bonding *bond);
+ void bond_debug_unregister(struct bonding *bond);
+ void bond_debug_reregister(struct bonding *bond);
+ const char *bond_mode_name(int mode);
++bool __bond_xdp_check(int mode, int xmit_policy);
+ bool bond_xdp_check(struct bonding *bond, int mode);
+ void bond_setup(struct net_device *bond_dev);
+ unsigned int bond_get_num_tx_queues(void);
+-- 
+2.17.1
+
+
