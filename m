@@ -1,93 +1,119 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA0A7199E89
-	for <stable@vger.kernel.org>; Fri,  5 Jun 2026 00:34:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 827CD277C9D
+	for <stable@vger.kernel.org>; Fri,  5 Jun 2026 00:59:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780619700; cv=none; b=FjyUdDctrPY9GhSCBnisSs7eAB15Wa1DqtHqJUzmXNp2RL/ai2Tj/+XttiZD4ukVRFz6ncZDX+T8zwxWeLXj3TCbsz9y+uHgvvhsN3FwIi+jRfliq9p5EmohhyW/RMt/LwPnXQPmQcrgQPP5eAW92uVFXDdadNU4WUuktQo0PC0=
+	t=1780621162; cv=none; b=VUdt9uIPDiRd+qTAiPa5niCb8CtOkBo9eXNqzFZa1SvOWobRX05/331R6YR/KAl90UTHP0qRVVCNyFJU6CjR8e5K1/3IVyeynHWH02TMAnGCk6TFZgs2s7q9Lekj5CX9nWdz8hQz6d+64gy0krOI2GeIk4cyCa5hqpynS07Rks4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780619700; c=relaxed/simple;
-	bh=GE9IIx8uS7AW1tKID2+LZKxFQhfMFM8iAXvdHfrLEB0=;
+	s=arc-20240116; t=1780621162; c=relaxed/simple;
+	bh=FPtpuHA9u7qJg42Dd31A4iJduMxWGP9qZmd+50RZ0kE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cGvP9mYYYuxvDLVg1BKfDax21eqM4IUdyCABszq5Yv/Xo+S0ndKl8xv5xzqIVGGBVBomTl5J1GEdZDGnyfrrT/7132P/1Ki93ZOKzyqWm7IyL1hFxc0FkueiOzpvqWcnnG9KixxA5fM+sz5nBdsvqrY+gHNgxdFEtsQ6XsLSwMk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U46/B2JY; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=XSAGtJc6zIsmDoLoxcTDtdq6edsN4guvLRDOqtTb1s2tL+pVdzw5JqhNJirf6LsXkMGlB4jAPuIDKzgRer/yo9z9FbOPYPnItALAv5K9medOrCmFrBiTaN5B+Fy9+HU6dy6GU79WdF4ZQjGkaZMpGx+aYjRAi5E6PBsUb9FGaiw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K3vk6yuA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U46/B2JY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D88B71F00893;
-	Fri,  5 Jun 2026 00:34:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K3vk6yuA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C2BA1F00893;
+	Fri,  5 Jun 2026 00:59:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780619698;
-	bh=a69Yp+zgxPyXSycjnPbfBKl+52UZ/8dJTqqGgUSGcgc=;
+	s=k20260515; t=1780621145;
+	bh=Hgmp+5QsQzeFA4umCjMnwzAkl20i6Uwe7GqXW+1EOpo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=U46/B2JYXmRPDYLZyl5m6eDx0da5VdcQmro6NCL8KcghqK6l61Lz5e3dmwbEkvFPz
-	 J/HZj23nkuCOS18A8o3Kh7JUsUE1XETb3Mp/rFubt9hJfd4IdZlTRJNoPLhPOhsMWf
-	 6sJdHUKQ3QErvTxQz+2H1OMQs9M8dH7k3sj0mRQXvoeq7o6tQbel9faDszBBblZlug
-	 jCDhVAWwj2FXx2fFl2tJMa2uVj6mMS/i8MEwtm/SWSow7Y+3VdzhCl81WDrQbx4hBe
-	 eUc+rExpSFrIb2ir2Nme4YL88fjN4yuo/V98U2MWQNy2/jKwVge179QMIv6dze3ALe
-	 5MKsvAVLnuAKQ==
+	b=K3vk6yuAJzKm+YVwqP5Svh4R2/vmrjwrYEZSbv5mF3T1A1zZz8Lhw+o71qSa+5zyQ
+	 bJmBSBNCHxDHvXSg1oA26sIqz+4MPMYaL3Zvey8ZMeLxIH7/IX5iCgYF7bhxY0WHj5
+	 zZqXMPuyiIVWQlYi5bC1TWoQyPfvO41bC2/fy7E+wfjDZnN6mgqQnAvDe0gpnybDYO
+	 eDb92EikZit2PNitMQXcH9p/MUo+cZJva19iH9QdAgvGiuntzSoTNr/Xj06leFuQho
+	 2tv0lPNpgmJto+V19C7C1yF/6xd6zsFiqpjVfGuru9swnzPBOQ3P/E8IdgTbvnShAS
+	 EB4kGM85XWBSA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Peter Chen <peter.chen@cixtech.com>,
-	stable <stable@kernel.org>,
-	sashiko-bot <sashiko-bot@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+Cc: =?UTF-8?q?C=C3=A1ssio=20Gabriel?= <cassiogabrielcontato@gmail.com>,
+	Takashi Sakamoto <o-takashi@sakamocchi.jp>,
+	Takashi Iwai <tiwai@suse.de>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] usb: cdns3: plat: fix leaked usb2_phy initialization on usb3_phy acquisition failure
-Date: Thu,  4 Jun 2026 20:34:56 -0400
-Message-ID: <20260605003456.2707466-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] ALSA: firewire-motu: Protect register DSP event queue positions
+Date: Thu,  4 Jun 2026 20:59:03 -0400
+Message-ID: <20260605005903.2802313-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026060428-repaying-swept-0b59@gregkh>
-References: <2026060428-repaying-swept-0b59@gregkh>
+In-Reply-To: <2026060436-lumpish-nemeses-2d25@gregkh>
+References: <2026060436-lumpish-nemeses-2d25@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Peter Chen <peter.chen@cixtech.com>
+From: Cássio Gabriel <cassiogabrielcontato@gmail.com>
 
-[ Upstream commit e6970cda63fd4b4546aeed9d0e2f53a7c95cd09c ]
+[ Upstream commit 98fb1c1bb11e29eb609b7200a25e136e05aa4498 ]
 
-Move usb2_phy initialization after usb3_phy acquisition.
+The register DSP event queue is updated under parser->lock, but
+snd_motu_register_dsp_message_parser_count_event() reads pull_pos and
+push_pos without the lock.
+snd_motu_register_dsp_message_parser_copy_event() also reads both queue
+positions before taking the lock.
 
-Fixes: f738957277ba ("usb: cdns3: Split core.c into cdns3-plat and core.c file")
-Cc: stable <stable@kernel.org>
-Reported-by: sashiko-bot <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/linux-devicetree/agKaEePSFknhDBg2@nchen-desktop/T/#m21e1d9c1574eb127ce03c0c2a1a49002ce435b52
-Signed-off-by: Peter Chen <peter.chen@cixtech.com>
-Link: https://patch.msgid.link/20260513085310.2217547-2-peter.chen@cixtech.com
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Protect these accesses with parser->lock as well. This keeps the hwdep
+poll/read path consistent with the producer side and with the cached
+meter/parameter accessors.
+
+Fixes: 634ec0b2906e ("ALSA: firewire-motu: notify event for parameter change in register DSP model")
+Cc: stable@vger.kernel.org
+Signed-off-by: Cássio Gabriel <cassiogabrielcontato@gmail.com>
+Reviewed-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Link: https://patch.msgid.link/20260521-alsa-firewire-motu-event-locking-v1-1-708e1c2b5e56@gmail.com
+[ converted copy_event() from manual spin_lock_irqsave/spin_unlock_irqrestore to guard(spinlock_irqsave) ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/usb/cdns3/cdns3-plat.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ .../motu/motu-register-dsp-message-parser.c        | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/usb/cdns3/cdns3-plat.c b/drivers/usb/cdns3/cdns3-plat.c
-index 726b2e4f67e4da..0869b75e9a4aed 100644
---- a/drivers/usb/cdns3/cdns3-plat.c
-+++ b/drivers/usb/cdns3/cdns3-plat.c
-@@ -120,14 +120,14 @@ static int cdns3_plat_probe(struct platform_device *pdev)
- 	if (IS_ERR(cdns->usb2_phy))
- 		return PTR_ERR(cdns->usb2_phy);
+diff --git a/sound/firewire/motu/motu-register-dsp-message-parser.c b/sound/firewire/motu/motu-register-dsp-message-parser.c
+index ef3b0b0f0dab9a..abafae59f365ba 100644
+--- a/sound/firewire/motu/motu-register-dsp-message-parser.c
++++ b/sound/firewire/motu/motu-register-dsp-message-parser.c
+@@ -393,6 +393,8 @@ unsigned int snd_motu_register_dsp_message_parser_count_event(struct snd_motu *m
+ {
+ 	struct msg_parser *parser = motu->message_parser;
  
--	ret = phy_init(cdns->usb2_phy);
--	if (ret)
--		return ret;
--
- 	cdns->usb3_phy = devm_phy_optional_get(dev, "cdns3,usb3-phy");
- 	if (IS_ERR(cdns->usb3_phy))
- 		return PTR_ERR(cdns->usb3_phy);
- 
-+	ret = phy_init(cdns->usb2_phy);
-+	if (ret)
-+		return ret;
++	guard(spinlock_irqsave)(&parser->lock);
 +
- 	ret = phy_init(cdns->usb3_phy);
- 	if (ret)
- 		goto err_phy3_init;
+ 	if (parser->pull_pos > parser->push_pos)
+ 		return EVENT_QUEUE_SIZE - parser->pull_pos + parser->push_pos;
+ 	else
+@@ -402,14 +404,14 @@ unsigned int snd_motu_register_dsp_message_parser_count_event(struct snd_motu *m
+ bool snd_motu_register_dsp_message_parser_copy_event(struct snd_motu *motu, u32 *event)
+ {
+ 	struct msg_parser *parser = motu->message_parser;
+-	unsigned int pos = parser->pull_pos;
+-	unsigned long flags;
++	unsigned int pos;
+ 
+-	if (pos == parser->push_pos)
+-		return false;
++	guard(spinlock_irqsave)(&parser->lock);
+ 
+-	spin_lock_irqsave(&parser->lock, flags);
++	if (parser->pull_pos == parser->push_pos)
++		return false;
+ 
++	pos = parser->pull_pos;
+ 	*event = parser->event_queue[pos];
+ 
+ 	++pos;
+@@ -417,7 +419,5 @@ bool snd_motu_register_dsp_message_parser_copy_event(struct snd_motu *motu, u32
+ 		pos = 0;
+ 	parser->pull_pos = pos;
+ 
+-	spin_unlock_irqrestore(&parser->lock, flags);
+-
+ 	return true;
+ }
 -- 
 2.53.0
 
