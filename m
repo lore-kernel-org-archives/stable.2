@@ -1,45 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 761124611C4
-	for <stable@vger.kernel.org>; Fri,  5 Jun 2026 19:37:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6757F43E4A6
+	for <stable@vger.kernel.org>; Fri,  5 Jun 2026 19:37:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780688266; cv=none; b=Ne+6BirVL0AymVp8uQvFIW8mditmgmGCPDo0O828TMeoOa4ewRVcR1k1NMwC9dVf04CeBZAEjgmYkeLRjeuupYuufedCYUNVtK4MQstMmZMuoN+PvfBvpf0v9jG68zCWptZ4CPY5h7oeRXSquUKF1TEknQZFiH4Cy5icxxQqC6E=
+	t=1780688268; cv=none; b=oNwsqOgHy4t4vuk7R8l+kIIZ1DrnhW4bI13YrjjIrw3+TOtb/1Z1q/Hyur+3o/j3t8J710/g56U7+RGTUXyNq3eVQc4+daDDNGiMNe/c5NBOED0BQRPQ56cOB46oYu0pXejPXw2+yh+EQBnZkraL4mlC/452Npa664u5PgBSumA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780688266; c=relaxed/simple;
-	bh=vBn0uMOlc7dpYFaT0ln+yFEvhhfXz/A+/m2j6YXt3h0=;
+	s=arc-20240116; t=1780688268; c=relaxed/simple;
+	bh=exoEOWSgNDkiqV04c8dQtEg6APFoDReBp6cxdFAHYGQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=MOMkpMqIwLIE7BPl/wgvPGAU6iaHH6EnNmGcte2swtX5gC8XwKp/RumjQIaeIR7mFLcLdkQ4GiqfY3aelUHNH5pu9zFg5pnXKtWjOO6+4lXu5NCHoRFXVsPzPK3J/ZeTvwhbc3K7nV80M1xJ46VZYWoYoY9MW7rz3veM0pLCUMY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DhQeUXP8; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=gOineya2GdyREA6Zzf0kqjOcYaeNzQY7C3CzbYrYOaDD00ydbNOcFd8W4ldnxDL+rByrb37NaI36d1RKrBUN9YDN8f9PT7PWAHpIr/GuhzEfcaeQds7SFJZl6S/1Xh5B6gbpd30QAXKfzACMyFeg7yjU/tih3f2idcj2wihOGWA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U6gZMHlb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DhQeUXP8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5560D1F00898;
-	Fri,  5 Jun 2026 19:37:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U6gZMHlb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B59AD1F00898;
+	Fri,  5 Jun 2026 19:37:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780688265;
-	bh=2fi/uHqpvLmbF2h2S8R8jkh2FjhztUdxW4dQUx1/05A=;
+	s=k20260515; t=1780688267;
+	bh=cDDMplL0vlNihLQFTdnsZN54PrCoHwjgL18pnIOyWsE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DhQeUXP8aYCd1+VJTjMzHuSo76ND3xbxTksf6GWJXpeCr/z5n6+8sBmSlKuYkfDgc
-	 gSS+rxoCO9NoyMTP8xvUfJWhMSwbhmipEMDcUTfJbjyteUgL2xfSmfDKy52GYf7gV+
-	 zKsDw5cXOxXsG6v8M5ULyKB6Nl8Z/Si/X0B6MmPHWKGLWsC83qZAubSmr7KI+s2yeO
-	 TlRiV7paW6VFEzLARL8JFfnFoO12MN1T0UljpGihcZpHoJ9Ey9GHyE6Mq3S5eaDQ6D
-	 ATmyvK6oyt39ZTkrkdceRP8mfeg8daLrf3eDt+POdLeQYAu1ERhPpMZZ7pPMn7U1FB
-	 ghhmOl2rRu1Bg==
+	b=U6gZMHlbwL/OEswGak+T/jAKabxjU2FpJq0V7Stw5zLKMRbWt07s9xwuIs7gs0o95
+	 tD/etRNkmT+ZCFexHPedPpsrTwuP9pMBHuKTtblFfkdP11C3iRWAru9oKOA0+PH2qU
+	 jk5GQRk+0oYxNo0gM/EVWjok/cCKRadV6r8FOnQqWG016k3Ajf7aeztsxQJduxXUd2
+	 zXrah1asz3JA9mrDme7GNdWwSZ5u0gGYSquIVVBcnG//myptpHMqyd5LabfDmzyxxp
+	 acbjtHBNF90972q+86ueBihqqU04PtJPs7nkkiXaEOY+upXmXU13mkqRWDjBKR1NBe
+	 hraXtnbbjMLNQ==
 From: Sasha Levin <sashal@kernel.org>
-To: gregkh@linuxfoundation.org,
-	stable@vger.kernel.org
+To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	nogikh@google.com,
-	bp@alien8.de,
-	dvyukov@google.com,
-	Miles Wang <13621186580@139.com>
-Subject: Re: [PATCH 6.6.y] x86/kexec: Disable KCOV instrumentation after load_segments()
-Date: Fri,  5 Jun 2026 15:37:17 -0400
-Message-ID: <20260605-stable-reply-0010@kernel.org>
+	weichengc@nvidia.com
+Subject: Re: [PATCH 6.12.y] xhci: tegra: Fix ghost USB device on dual-role port unplug
+Date: Fri,  5 Jun 2026 15:37:20 -0400
+Message-ID: <20260605-stable-reply-0013@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260604003031.561-1-13621186580@139.com>
-References: <20260604003031.561-1-13621186580@139.com>
+In-Reply-To: <20260604121909.150108-1-weichengc@nvidia.com>
+References: <2026060432-overnight-groin-0e8e@gregkh> <20260604121909.150108-1-weichengc@nvidia.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,9 +44,9 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> [PATCH 6.6.y] x86/kexec: Disable KCOV instrumentation after load_segments()
+> [PATCH 6.12.y] xhci: tegra: Fix ghost USB device on dual-role port unplug
 
-Queued for 6.6.y, thanks.
+Queued for 6.12.y, thanks.
 
 -- 
 Thanks,
