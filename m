@@ -1,174 +1,177 @@
-Received: from mail-qk1-f172.google.com (mail-qk1-f172.google.com [209.85.222.172])
+Received: from mail-lj1-f170.google.com (mail-lj1-f170.google.com [209.85.208.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E33C416D15
-	for <stable@vger.kernel.org>; Fri,  5 Jun 2026 16:28:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE8A32EDD6B
+	for <stable@vger.kernel.org>; Fri,  5 Jun 2026 16:56:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780676940; cv=none; b=aJqUWHhqoFf2HzjXXZnEQGttZKIO1XT5he/tpZNPifXaFUFYF7pmmHdpoqWTT9NTW+FUTrwBfLh9gc9FC+3NYOB5Fri01Z9dNBYoK785oD/V6LvjtJySzVqz1KM03IaApAzKdQ9hYpIlIa/g8E1K3i9SO8+O0y64c6P1cst7H0U=
+	t=1780678572; cv=none; b=uSPMeQ1l2CMMlDGzSxo6IdIqfsdAwJO9f2uBt5psqEVgpgTvdPThPIS8f0YPyRytey/O2uJvlb4ZGtxAo1dpIf7Oq2ZbXLTQ3m5cz9ZzepSUFnBpdLMEJRGO4/MROu4H0HesUtwJPd7Dg7SroViZbvr6Kko7I5Oucry8DYkTU1M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780676940; c=relaxed/simple;
-	bh=G2UoaTUBsy8YP1XAK8MC20PbrieDy7yS/loF19hogbg=;
-	h=Subject:To:Cc:References:From:Message-ID:Date:MIME-Version:
-	 In-Reply-To:Content-Type; b=Cu1boaHZSDokPWNHd44Ux5qJEWnckFqcnnJMZX8WZiVkhHXX2pDA2fWsvAaVOE2XQcUoWQLyfO6s8wrA0WE9M+jD53W7ssriSCWfa+e+R2SILNUthtb1hpQEGjEJYhICmeFV/04VeJxddLyoFMZT3nYSJ8pFRA90CHmTUHqub94=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=marek.ca; spf=pass smtp.mailfrom=marek.ca; dkim=pass (2048-bit key) header.d=marek.ca header.i=@marek.ca header.b=U31cEtL8; arc=none smtp.client-ip=209.85.222.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=marek.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marek.ca
+	s=arc-20240116; t=1780678572; c=relaxed/simple;
+	bh=MRc9L3MHzlchKaFDuer7Ea7EidrnpjxvWHC5t70vnTY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=eY44MU3corr91fwqgCKe9hnj/oT0mzRPkAgvXRVin9B1+yJvsCdBZQySjzT5PTvCJgQE+WQG1ZuViD9NwDXL+pI6lhGDzX0YnJBxxyNGNg3pbU8Z/8MikkTm1ZvlORNdVvFy5MewH3U2OI3sEFLzZddciiITU+dJF5u9MfqvlQk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GskFwMue; arc=none smtp.client-ip=209.85.208.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=marek.ca header.i=@marek.ca header.b="U31cEtL8"
-Received: by mail-qk1-f172.google.com with SMTP id af79cd13be357-9159bad8c98so235138585a.3
-        for <stable@vger.kernel.org>; Fri, 05 Jun 2026 09:28:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GskFwMue"
+Received: by mail-lj1-f170.google.com with SMTP id 38308e7fff4ca-396669329fbso30027031fa.0
+        for <stable@vger.kernel.org>; Fri, 05 Jun 2026 09:56:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=marek.ca; s=google; t=1780676931; x=1781281731; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:cc:to:subject:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=keYw8EcQ4PK+W0SNMoTM+wvQ1RmTHYvCycVi3RIxEGs=;
-        b=U31cEtL8hb102unwA4N19zq3dZs6hHu2KoOQb2fPXFc4EzSKfLLxyp0NHMfHBo5vaN
-         6uUnP0i8qymujvCSA/fj1Hf7xxTCr6nHhwW8ZIP1qgmFpYS+QO3mvhobckR+5cC1gvT4
-         OfZIEf9uSHXjdWPHhAc6A2EpeAAuToMnN9nBpIdAbRXRT/+zMa66m64jRfDQCXQe9+Nx
-         stdKGDKCm4KKR0a0XWNYEnqccp4t14zP7mzingQqjTMemzIkyaIRapQdbN2oRsk8QF1L
-         m1lGBKJoWCaPnWGySGxnSAO2ugJDDCkA1MSaEl6y+jre866A320dm/XqJ6+uzJZdnPkg
-         07uw==
+        d=gmail.com; s=20251104; t=1780678568; x=1781283368; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=LcbsUqc+MsiNTTOsX/CXMoiJ4+9c20C5vZh5SOHsMVs=;
+        b=GskFwMueDfHh8PRalw+nPzv5TvNtVq9dL8TWVeoLhIwKACSzWohgULG2iUcLYtlKqs
+         DXLMiSQkWGgaMtCj8xw6XpsVKuYdrAczbi0wzaKOYsBfCTSE8UXbcLFeSWZRq2YnEj42
+         WzOlT2sKHrBcd7hXlmTS9bqif0acm7Dvw8QQyaQxd9kqlaSwVUPe94l34jSTPDRM1Ibb
+         3Wde8ojT5wvSo+XSvxeLRZXb4o9DBby6lmtXGRq63CREw57ws+zFOfOCQMK9mGoM5vDV
+         0AsOPZMyvr4sG5X6OOnVQgQA71lPGOOyfd0lj9E2/UziF9Q9veVpQ4ezbSFIVFyoXpj2
+         oiSQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780676931; x=1781281731;
-        h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:cc:to:subject:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=keYw8EcQ4PK+W0SNMoTM+wvQ1RmTHYvCycVi3RIxEGs=;
-        b=ei2s373TGsVbr5uxM6Lj/K1axuq2LiFF0iAIhci7ntSLBs1OFUDSOWty/e3tHwuV6P
-         ig7tNh+7NHZ7ETC3LdFADiIaitrXsD8bxkybWr7LYhM4TC+JqvDhmy+VuPYC96VaaRdl
-         P7qYoN/Q8BQFO689uBj3OFmJAatxs0UdjIVokLa7ExGs2KOSMwpk/tu1imMuoGE69EKA
-         g6M2KCtqhbL5VY7JCmXw7d40P2IFOY79BP+MKDNnCoDzWPNvNQxbS7fvA9Iv1lo2iyOT
-         mztmWMZxfKVbjQqepsZG8sHNv9jJ6aAeYXmc9p32yeTVFn6do2bpOryMvLDm/FGZjsXJ
-         yJ/A==
-X-Forwarded-Encrypted: i=1; AFNElJ9UqRyPUHjnYkiBev+v6l3BDRlpiXsEceN6ujfh4mMGfRyNXWudKEsEqeYNMB5t0/nW/D+l3EY=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy26WOwdQSlULrV3tgYDYYPkid3a5ZLUanEAyyi9fjdLvBqE28J
-	B1jQ1aXFzKYZMENu2wdMrcXpxKir/K1BGNs/zNJNPhObQ+AGng254UAUD1BNyT9jHReb00CayEC
-	0E1Oc
-X-Gm-Gg: Acq92OEqn0VRTEwFwotTAuT+4RtRH1doPvzdNyXECNGcqGIm7n5sZLB4D5TZB8tFBm7
-	Ho9HZXo/E0/ogyNdtL/x0zl85Go8ASFbl62OWfFkiTUvIabrnc/i9o9XyZzA+qFxdSOue6wWeic
-	tO56b/1A2NunAw83zDvgAiQdPenYG2QewD2CxthtAgCIQst0/0sY4zgTr6RBTppgzkjiFn23s93
-	BPEipUGBebUdbSv7vaQLa/BwLZ2pTtf/G0vNbQ/l+LZamr3fnNbKXR0N5NZ+/ETuyIIWsZwHqWr
-	rmW4NRbyhZeXhPwI1eHm07xKjcsbzSDixrtde164R/R3OLH7c/GIYDj5pMaj8uzsGX5IAo9mvtj
-	hB/7uj1otXS447OoHJ8DYWKkMThCVPpp6gBW7sSxkQoNcFCs9fIwcErAleY9CZK9tlqfs9cXSYM
-	WoD6O7TM8oBErI+9ALhzn8ltMyqUFB9Va24U95XqRrJgj26XiJPtfBkUsRiarbXKDtXdTyHTEcp
-	zme4/iOWJWXcCWECSk=
-X-Received: by 2002:a05:620a:480b:b0:911:449d:98c0 with SMTP id af79cd13be357-915a9c4bd5emr831113485a.7.1780676930899;
-        Fri, 05 Jun 2026 09:28:50 -0700 (PDT)
-Received: from [192.168.0.189] (modemcable125.110-19-135.mc.videotron.ca. [135.19.110.125])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9158a411333sm989320385a.46.2026.06.05.09.28.50
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 05 Jun 2026 09:28:50 -0700 (PDT)
-Subject: Re: [PATCH v1] spi: qcom-geni: Fix cs_change handling on the last
- transfer
-To: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>,
- Mark Brown <broonie@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-spi@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260529-fix-spi-fragmentation-bit-logic-v1-1-3b30f1a3dd7d@oss.qualcomm.com>
-From: Jonathan Marek <jonathan@marek.ca>
-Message-ID: <dd247b87-71a2-78d6-fb6f-663906c8ec59@marek.ca>
-Date: Fri, 5 Jun 2026 12:24:34 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.2.2
+        d=1e100.net; s=20251104; t=1780678568; x=1781283368;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=LcbsUqc+MsiNTTOsX/CXMoiJ4+9c20C5vZh5SOHsMVs=;
+        b=FAVtPAyLk84WMHBi6gCcnjInxoNGcuOrTg2/LhefNG7W0drEE0DZ2Iqhc58VtPw1Z5
+         jawP32s47ZT5YORHN5GY7IQE4MSyd7Uo1Y3mPrpzNdpJipnJF02IIHZOjFnhm6qfwIzu
+         vsecA+Gm885G6Dp5oFLLoTmBcEBYxGTro2PPj3wWewmzX/EqbXgqMYxZJnpFJaCYm2ly
+         bZoz0uULLJlHEyOqWbHKI4IPfa7PEZcaI8XN9dcWbv5xPELtF/mJYYqdBuGvYSMWbD6x
+         84aTmQqB+EKp7pXZoJ4d0/pkEbOGkQ2pzgtDJXfujigL+rvlRWQ5Y9SgyWGcLeLwhU2w
+         eFyg==
+X-Gm-Message-State: AOJu0YxqZjHj6YtGcrdZL4o7XuxElDZq851Gc4e/nil0gKxyRrNg8by8
+	EudKXqgzeLScctlw9cabR1xhzLC0qeGUQEiWLHCsTY9BWXgaIBvBcYwN5OowoP33v0I=
+X-Gm-Gg: Acq92OH6IHAjhsDhHgRqhVKXjhAz8QdQFV8Rv/HxNRFLIZMp0iRb9lK8PEEyFophNTh
+	Putq60JxwqmtL9ATlV3Hrv7drdQpVt0JJtDT8DLxr5PKy2Tb0yrBdZDeDBePHfN4G31keRzWbJa
+	GZNIOuV1fBksLnArDlbLYdOHbBKNSmCHCHI5XFAS/ggtk0o3Oq5ROZEmRkUwh3UrAXPH72LOOGP
+	2p+PHHByC8U3Y5yfQOlGdN5LCpmdlDphFZ6NunP1pxmTR2tmoEJ549iEGDm6dQ5O1Y8lSoQc5se
+	d4+ALvZ8rzSFbMkzKxtSFXVL5gYryXHHPBiPqAO38mYmIXDtCM/fhQseNoMMvrYRAHxMg1gvofj
+	b1kCsX3i4N5QBrZ44nICMQ0m79GFeK2yaT5Xkz+FA9NqqaOLSchtFV5nMg3Per+0yBYA6xGnuLG
+	Pi/9ZRCMUnvXVORySRvxOUVrulRxqI/1bbKmnW3ccF6FO8GZ0D+C4+0kstgrfBIELGUN8/CfFt2
+	fxqtsw=
+X-Received: by 2002:a05:6512:1416:b0:5a8:89d6:93cf with SMTP id 2adb3069b0e04-5aa886c9d81mr901654e87.17.1780678567732;
+        Fri, 05 Jun 2026 09:56:07 -0700 (PDT)
+Received: from c0624c666cc5.devsec.astralinux.ru ([93.188.205.42])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5aa7b98fdcesm1929946e87.62.2026.06.05.09.56.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 05 Jun 2026 09:56:06 -0700 (PDT)
+From: Vladislav Nikolaev <vlad102nikolaev@gmail.com>
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Vladislav Nikolaev <vlad102nikolaev@gmail.com>,
+	Zhu Yanjun <zyjzyj2000@gmail.com>,
+	Doug Ledford <dledford@redhat.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Haggai Eran <haggaie@mellanox.com>,
+	Kamal Heib <kamalh@mellanox.com>,
+	Amir Vadai <amirv@mellanox.com>,
+	Moni Shoua <monis@mellanox.com>,
+	Yonatan Cohen <yonatanc@mellanox.com>,
+	Leon Romanovsky <leon@kernel.org>,
+	linux-rdma@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Zhu Yanjun <yanjunz@nvidia.com>,
+	lvc-project@linuxtesting.org,
+	syzbot+4edb496c3cad6e953a31@syzkaller.appspotmail.com,
+	Zhu Yanjun <yanjun.zhu@linux.dev>
+Subject: [PATCH 6.6] RDMA/rxe: Fix "trying to register non-static key in rxe_qp_do_cleanup" bug
+Date: Fri,  5 Jun 2026 19:55:44 +0300
+Message-ID: <20260605165556.1082-1-vlad102nikolaev@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <20260529-fix-spi-fragmentation-bit-logic-v1-1-3b30f1a3dd7d@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-should have another Fixes tag for the GSI xfer fix, otherwise LTGM
+From: Zhu Yanjun <yanjun.zhu@linux.dev>
 
-Reviewed-by: Jonathan Marek <jonathan@marek.ca>
+commit 1c7eec4d5f3b39cdea2153abaebf1b7229a47072 upstream.
 
-On 5/28/26 3:03 PM, Viken Dadhaniya wrote:
-> Commit b99181cdf9fa ("spi-geni-qcom: remove manual CS control") introduced
-> automatic CS control via the FRAGMENTATION bit, but missed the case where
-> cs_change is set on the last transfer in a message.
-> 
-> For the last transfer, cs_change means that CS should remain asserted after
-> the message completes. Since GENI SPI controls CS through FRAGMENTATION,
-> set FRAGMENTATION for this case as well as for non-last transfers where
-> cs_change is not set.
-> 
-> Additionally, setup_gsi_xfer() was storing FRAGMENTATION (BIT(2) = 4) in
-> peripheral.fragmentation, which is a boolean field consumed by
-> gpi_create_spi_tre() via u32_encode_bits(..., TRE_SPI_GO_FRAG). Storing 4
-> causes u32_encode_bits to mask it to 0, silently disabling the FRAG bit in
-> the GPI TRE regardless of the cs_change logic. Store 1 instead.
-> 
-> Without these fixes, TPM TIS SPI transfers deassert CS between
-> single-transfer messages that use cs_change to keep CS asserted across the
-> header, wait-state, and data phases, breaking TCG SPI flow control:
-> 
->    tpm_tis_spi: probe of spi11.0 failed with error -110
-> 
-> Update both setup_se_xfer() and setup_gsi_xfer() to handle this condition.
-> 
-> Fixes: b99181cdf9fa ("spi-geni-qcom: remove manual CS control")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
-> ---
->   drivers/spi/spi-geni-qcom.c | 27 +++++++++++++++++++--------
->   1 file changed, 19 insertions(+), 8 deletions(-)
-> 
-> diff --git a/drivers/spi/spi-geni-qcom.c b/drivers/spi/spi-geni-qcom.c
-> index a04cdc1e5ad4..0618f6bd7878 100644
-> --- a/drivers/spi/spi-geni-qcom.c
-> +++ b/drivers/spi/spi-geni-qcom.c
-> @@ -449,10 +449,15 @@ static int setup_gsi_xfer(struct spi_transfer *xfer, struct spi_geni_master *mas
->   		return ret;
->   	}
->   
-> -	if (!xfer->cs_change) {
-> -		if (!list_is_last(&xfer->transfer_list, &spi->cur_msg->transfers))
-> -			peripheral.fragmentation = FRAGMENTATION;
-> -	}
-> +	/*
-> +	 * Set fragmentation to keep CS asserted after this transfer when:
-> +	 *  - non-last transfer with cs_change=0: keep CS between chained transfers
-> +	 *  - last transfer with cs_change=1: keep CS asserted after the message
-> +	 *    (e.g. TPM TIS SPI uses cs_change=1 on single-transfer messages to
-> +	 *     keep CS asserted across header, wait-state and data phases)
-> +	 */
-> +	peripheral.fragmentation = list_is_last(&xfer->transfer_list, &spi->cur_msg->transfers) ?
-> +				   xfer->cs_change : !xfer->cs_change;
->   
->   	if (peripheral.cmd & SPI_RX) {
->   		dmaengine_slave_config(mas->rx, &config);
-> @@ -858,10 +863,16 @@ static int setup_se_xfer(struct spi_transfer *xfer,
->   		mas->cur_xfer_mode = GENI_SE_DMA;
->   	geni_se_select_mode(se, mas->cur_xfer_mode);
->   
-> -	if (!xfer->cs_change) {
-> -		if (!list_is_last(&xfer->transfer_list, &spi->cur_msg->transfers))
-> -			m_params = FRAGMENTATION;
-> -	}
-> +	/*
-> +	 * Set FRAGMENTATION to keep CS asserted after this transfer when:
-> +	 *  - non-last transfer with cs_change=0: keep CS between chained transfers
-> +	 *  - last transfer with cs_change=1: keep CS asserted after the message
-> +	 *    (e.g. TPM TIS SPI uses cs_change=1 on single-transfer messages to
-> +	 *     keep CS asserted across header, wait-state and data phases)
-> +	 */
-> +	if (list_is_last(&xfer->transfer_list, &spi->cur_msg->transfers) ?
-> +	    xfer->cs_change : !xfer->cs_change)
-> +		m_params = FRAGMENTATION;
->   
->   	/*
->   	 * Lock around right before we start the transfer since our
-> 
-> ---
-> base-commit: e7d700e14934e68f86338c5610cf2ae76798b663
-> change-id: 20260528-fix-spi-fragmentation-bit-logic-880394337ff9
-> 
-> Best regards,
-> --
-> Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
-> 
+Call Trace:
+ <TASK>
+ __dump_stack lib/dump_stack.c:94 [inline]
+ dump_stack_lvl+0x116/0x1f0 lib/dump_stack.c:120
+ assign_lock_key kernel/locking/lockdep.c:986 [inline]
+ register_lock_class+0x4a3/0x4c0 kernel/locking/lockdep.c:1300
+ __lock_acquire+0x99/0x1ba0 kernel/locking/lockdep.c:5110
+ lock_acquire kernel/locking/lockdep.c:5866 [inline]
+ lock_acquire+0x179/0x350 kernel/locking/lockdep.c:5823
+ __timer_delete_sync+0x152/0x1b0 kernel/time/timer.c:1644
+ rxe_qp_do_cleanup+0x5c3/0x7e0 drivers/infiniband/sw/rxe/rxe_qp.c:815
+ execute_in_process_context+0x3a/0x160 kernel/workqueue.c:4596
+ __rxe_cleanup+0x267/0x3c0 drivers/infiniband/sw/rxe/rxe_pool.c:232
+ rxe_create_qp+0x3f7/0x5f0 drivers/infiniband/sw/rxe/rxe_verbs.c:604
+ create_qp+0x62d/0xa80 drivers/infiniband/core/verbs.c:1250
+ ib_create_qp_kernel+0x9f/0x310 drivers/infiniband/core/verbs.c:1361
+ ib_create_qp include/rdma/ib_verbs.h:3803 [inline]
+ rdma_create_qp+0x10c/0x340 drivers/infiniband/core/cma.c:1144
+ rds_ib_setup_qp+0xc86/0x19a0 net/rds/ib_cm.c:600
+ rds_ib_cm_initiate_connect+0x1e8/0x3d0 net/rds/ib_cm.c:944
+ rds_rdma_cm_event_handler_cmn+0x61f/0x8c0 net/rds/rdma_transport.c:109
+ cma_cm_event_handler+0x94/0x300 drivers/infiniband/core/cma.c:2184
+ cma_work_handler+0x15b/0x230 drivers/infiniband/core/cma.c:3042
+ process_one_work+0x9cc/0x1b70 kernel/workqueue.c:3238
+ process_scheduled_works kernel/workqueue.c:3319 [inline]
+ worker_thread+0x6c8/0xf10 kernel/workqueue.c:3400
+ kthread+0x3c2/0x780 kernel/kthread.c:464
+ ret_from_fork+0x45/0x80 arch/x86/kernel/process.c:153
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+
+The root cause is as below:
+
+In the function rxe_create_qp, the function rxe_qp_from_init is called
+to create qp, if this function rxe_qp_from_init fails, rxe_cleanup will
+be called to handle all the allocated resources, including the timers:
+retrans_timer and rnr_nak_timer.
+
+The function rxe_qp_from_init calls the function rxe_qp_init_req to
+initialize the timers: retrans_timer and rnr_nak_timer.
+
+But these timers are initialized in the end of rxe_qp_init_req.
+If some errors occur before the initialization of these timers, this
+problem will occur.
+
+The solution is to check whether these timers are initialized or not.
+If these timers are not initialized, ignore these timers.
+
+Fixes: 8700e3e7c485 ("Soft RoCE driver")
+Reported-by: syzbot+4edb496c3cad6e953a31@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=4edb496c3cad6e953a31
+Signed-off-by: Zhu Yanjun <yanjun.zhu@linux.dev>
+Link: https://patch.msgid.link/20250419080741.1515231-1-yanjun.zhu@linux.dev
+Signed-off-by: Leon Romanovsky <leon@kernel.org>
+[ Vladislav: keep del_timer_sync() because linux-6.6.y has not renamed it
+  to timer_delete_sync() yet. The actual fix is unchanged: check the timer
+  .function fields before deleting the timers. ]
+Signed-off-by: Vladislav Nikolaev <vlad102nikolaev@gmail.com>
+---
+Backport of upstream commit 1c7eec4d5f3b to linux-6.6.y.
+ drivers/infiniband/sw/rxe/rxe_qp.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/infiniband/sw/rxe/rxe_qp.c b/drivers/infiniband/sw/rxe/rxe_qp.c
+index 287fc8b8f5ba..8426c261c263 100644
+--- a/drivers/infiniband/sw/rxe/rxe_qp.c
++++ b/drivers/infiniband/sw/rxe/rxe_qp.c
+@@ -817,7 +817,12 @@ static void rxe_qp_do_cleanup(struct work_struct *work)
+ 	spin_unlock_irqrestore(&qp->state_lock, flags);
+ 	qp->qp_timeout_jiffies = 0;
+ 
+-	if (qp_type(qp) == IB_QPT_RC) {
++	/* In the function timer_setup, .function is initialized. If .function
++	 * is NULL, it indicates the function timer_setup is not called, the
++	 * timer is not initialized. Or else, the timer is initialized.
++	 */
++	if (qp_type(qp) == IB_QPT_RC && qp->retrans_timer.function &&
++		qp->rnr_nak_timer.function) {
+ 		del_timer_sync(&qp->retrans_timer);
+ 		del_timer_sync(&qp->rnr_nak_timer);
+ 	}
+-- 
+2.39.5
+
