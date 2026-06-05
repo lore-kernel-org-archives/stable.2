@@ -1,111 +1,81 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BC7040149E;
-	Fri,  5 Jun 2026 06:42:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C94F8407CDC;
+	Fri,  5 Jun 2026 06:42:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780641751; cv=none; b=Q8cT3ViVsnYKhh5OHvhAzI9fYg8qDzvftaDSX9eyYPDtcZKsQ6zjOQtMfQVeM4ccbFnf74cXoJOPq4m1wbnByftVK90/YqwXAyK5Y3ymnf1g0sA9KbjN8It1uR2MUTjzwMgo3TAaEWHQhGgyMFpcy3FexPP4Ep/HG+KFW/WVkC4=
+	t=1780641773; cv=none; b=Jkue0OgELnCFFixVacyxA54xIJc2TTUbzzU/zWYcm1z/8o1ar3kjOjKJoVTCCKl9Tm81ZHaZs54gfltw3mPsRpfEaV0r6ilX1yQdjoXcT1vTwCra0wufeUrIvXLAC1hXrcnA3wRJSCwguCfTdRtMnhJAvCUDepLRQUo1fySObWQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780641751; c=relaxed/simple;
-	bh=ZiFtKQZZSzaa6La/dIlsHqg4rVW+JmWCuMSQ5VwN9HU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-ID; b=Jm2JSn1h5NrGr7jXeBd7LmlYHKKYI2rQxVtNOU61CDM6ALX4XmzvjDButtIwgqpweLH2tvWNLJ6358jqi9OKOAEEk/JULUhKUFO6RxP0cORWYpzyVfeCB99P8acIL/sV9t3tBSODBzJ5r93f5jzpRurjCB6rDv0OFIDM8AY7SDw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=fDFAxgqZ; arc=none smtp.client-ip=117.135.210.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1780641773; c=relaxed/simple;
+	bh=eGbh8JQN2INp1KoTkB642uAUvJfBZoDnj6oV23Wz/mw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pcC1y6V8svnE3Kz8XTQCQw9IUmCcip4YqqV3Otay58opdMKaCwLxG2vLDZZh52LMbzaC0mr/BVk7mCAF79JgnJr7GkqC4+vnyIL5T2Ed8iUi35P63z6+LtF2FamUdCxptPJyEcz/jARjXBW5Dnf6H703i+NRNT4nEf5H5ORDsPk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=yNJbjXT2; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=NhqmnaXg; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="fDFAxgqZ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=ZiFtKQZZSzaa6La/dIlsHqg4rVW+JmWCuMSQ5VwN9HU=; b=f
-	DFAxgqZHY/kfSehR3hoVmCDc7zg91YBtJTjZryLn4RrQYnSxeLAoin2r3RxiGxhS
-	xoVfgzI1u/q9BoONAXk5j58A1qzRc0CJsLMcjlmt9/bxm9ddzanxWIAFfH1FtKBH
-	xgRNI+arPfH3uN0PGwAnSvgx7wpnhIPhsgUuqeNjXk=
-Received: from w15303746062$163.com ( [113.200.174.80] ) by
- ajax-webmail-wmsvr-40-113 (Coremail) ; Fri, 5 Jun 2026 14:41:26 +0800 (CST)
-Date: Fri, 5 Jun 2026 14:41:26 +0800 (CST)
-From: w15303746062  <w15303746062@163.com>
-To: maarten.lankhorst@linux.intel.com, mripard@kernel.org,
-	tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch
-Cc: zack.rusin@broadcom.com, bcm-kernel-feedback-list@broadcom.com,
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	"Mingyu Wang" <25181214217@stu.xidian.edu.cn>
-Subject: Re:[PATCH v2] drm/vblank: Reject 0-period timers to prevent hrtimer
- storm
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260403(27802f6d) Copyright (c) 2002-2026 www.mailtech.cn 163com
-In-Reply-To: <20260523025447.581709-1-w15303746062@163.com>
-References: <fa91ccc0-7660-44fc-92a8-ab569ebe3a7c@suse.de>
- <20260523025447.581709-1-w15303746062@163.com>
-X-NTES-SC: AL_Qu2TAvqfvk4j4CWfbOkfmU0Qguw9Xcq5uPkj34FWN5t8jDrp5QodX0JFHVfbys6/Dy2ItRqsex1+1f9nQoZgZZ0Jt3we5vz6boNvjzdYaiQPEw==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=GBK
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="yNJbjXT2";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="NhqmnaXg"
+Date: Fri, 5 Jun 2026 08:42:50 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1780641771;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=eGbh8JQN2INp1KoTkB642uAUvJfBZoDnj6oV23Wz/mw=;
+	b=yNJbjXT2KsgESaNZCb+ZR0s/7hHIltWbF0OkKmn15qVUId++x7sElixiDzuv6mGIrZWVTE
+	6rzA7uETdKlfLHb3WQjPnVbg+jTtMp1VWKytJOXkMMBXnUYbvKxUVZY7Ju+cVAZuoVQ/MG
+	4A3Zcei8aelTdjoVRLpSCbAPae5D0INZuMKVcOeImlsOskrfmn73+TDueesY7m9XVLwvU8
+	CoxUj4IV+PfBFMgnTfKs6p6jv6I7Ar/r7UhHpSVUNWczjhhp0RtS1yt4wYLYK0jhrVKar0
+	RbygPmIhjnAm1Km6lOgw0txN4EQOtfz5UEI70rNU4DPZm7Qlm1Su7jckoyPoHw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1780641771;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=eGbh8JQN2INp1KoTkB642uAUvJfBZoDnj6oV23Wz/mw=;
+	b=NhqmnaXgTEnWRMyqKvCX7hQwuhr1azkjZNHcU7J90WIfcV3m9a1x8jV39S6v5uWz6j0kuG
+	0hgLXUIo+RM03nCg==
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: Jonas Jelonek <jelonek.jonas@gmail.com>
+Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	linux-mips@vger.kernel.org, Clark Williams <clrkwllms@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Jiayuan Chen <jiayuan.chen@linux.dev>,
+	linux-rt-devel@lists.linux.dev, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] MIPS: smp: report dying CPU to RCU in stop_this_cpu()
+Message-ID: <20260605064250.q0aRKkon@linutronix.de>
+References: <20260604182407.3109536-1-jelonek.jonas@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <33239270.5344.19e9683e439.Coremail.w15303746062@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:cSgvCgDXf0yWbyJqdkoDAA--.27889W
-X-CM-SenderInfo: jzrvjiatxuliiws6il2tof0z/xtbC-xYkCGoib5bOVQAA3v
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260604182407.3109536-1-jelonek.jonas@gmail.com>
 
-CkhpIE1hYXJ0ZW4sIE1heGltZSwgVGhvbWFzLCBhbmQgYWxsLAoKQSBnZW50bGUgcGluZyBvbiB0
-aGlzIHYyIHBhdGNoLgoKSXQgaGFzIGJlZW4gYWJvdXQgdHdvIHdlZWtzIHNpbmNlIHN1Ym1pc3Np
-b24uIEFzIGEgcXVpY2sgcmVtaW5kZXIsIHRoaXMgdjIgCmFkZHJlc3NlcyB0aGUgcHJldmlvdXMg
-ZmVlZGJhY2sgYnkgbW92aW5nIHRoZSB6ZXJvLXBlcmlvZCB2YWxpZGF0aW9uIApkaXJlY3RseSBp
-bnRvIHRoZSBEUk0gY29yZSAoYGRybV92YmxhbmsuY2ApLiBUaGlzIHByb3RlY3RzIGFsbCB2aXJ0
-dWFsIApkcml2ZXJzIHJlbHlpbmcgb24gdGhlIHNvZnR3YXJlIHZibGFuayB0aW1lciBmcm9tIHRo
-ZSBocnRpbWVyIHN0b3JtIERvUy4gCkl0IGFsc28gZHJvcHMgdGhlIFdBUk5fT05fT05DRSgpIHRv
-IHByZXZlbnQgdW5wcml2aWxlZ2VkIHVzZXJzcGFjZSBmcm9tIAp0cmlnZ2VyaW5nIHBhbmljcy4K
-CkNvdWxkIGFueW9uZSBwbGVhc2UgdGFrZSBhIGxvb2sgd2hlbiB5b3UgaGF2ZSBhIG1vbWVudCwg
-b3IgbGV0IG1lIGtub3cgCmlmIGFueSBmdXJ0aGVyIGFkanVzdG1lbnRzIGFyZSBuZWVkZWQ/CgpC
-ZXN0IHJlZ2FyZHMsCk1pbmd5dQoKQXQgMjAyNi0wNS0yMyAxMDo1NDo0NywgdzE1MzAzNzQ2MDYy
-QDE2My5jb20gd3JvdGU6Cj5Gcm9tOiBNaW5neXUgV2FuZyA8MjUxODEyMTQyMTdAc3R1LnhpZGlh
-bi5lZHUuY24+Cj4KPkZ1enplcnMgbGlrZSBTeXprYWxsZXIgY2FuIHN1Ym1pdCBleHRyZW1lbHkg
-bWFsaWNpb3VzIGRpc3BsYXkgbW9kZXMKPnRocm91Z2ggRFJNX0lPQ1RMX01PREVfU0VUQ1JUQy4g
-SWYgdXNlcnNwYWNlIHBhc3NlcyBhIG1vZGUgd2l0aCBhCj5tYXNzaXZlIHBpeGVsIGNsb2NrIChj
-cnRjX2Nsb2NrKSBhbmQgc21hbGwgcmVzb2x1dGlvbiAoaHRvdGFsL3Z0b3RhbCksCj50aGUgaW50
-ZWdlciBkaXZpc2lvbiBpbiBkcm1fY2FsY190aW1lc3RhbXBpbmdfY29uc3RhbnRzKCkgdHJ1bmNh
-dGVzCj50aGUgcmVzdWx0aW5nIGZyYW1lIGR1cmF0aW9uICh2YmxhbmstPmZyYW1lZHVyX25zKSB0
-byAwLgo+Cj5XaGVuIHZpcnR1YWwgZGlzcGxheSBkcml2ZXJzIChzdWNoIGFzIHZtd2dmeCBvciB2
-a21zKSByZWx5IG9uIHRoZSBEUk0KPmNvcmUncyBzb2Z0d2FyZSB2Ymxhbmsgc2ltdWxhdGlvbiwg
-ZHJtX2NydGNfdmJsYW5rX3N0YXJ0X3RpbWVyKCkgaXMKPmNhbGxlZC4gSXQgYmxpbmRseSBjb252
-ZXJ0cyB0aGlzIDAtbnMgZnJhbWVkdXJfbnMgaW50byBhIGt0aW1lIGludGVydmFsCj5hbmQgc3Rh
-cnRzIHRoZSBocnRpbWVyLiBBbiBocnRpbWVyIHdpdGggYSAwLXBlcmlvZCBmaXJlcyBpbnN0YW50
-bHkgYW5kCj5jb250aW51b3VzbHkuIFNpbmNlIGhydGltZXJfZm9yd2FyZF9ub3coKSBjYW5ub3Qg
-YWR2YW5jZSB0aW1lIGZvciBhCj4wLXBlcmlvZCwgdGhlIENQVSBnZXRzIGxvY2tlZCBpbiBhbiBp
-bmZpbml0ZSBoYXJkLUlSUSBsb29wLCBzdGFydmluZwo+dGhlIHN5c3RlbSBhbmQgY2F1c2luZyBt
-YXNzaXZlIFJDVSBzdGFsbHMuCj4KPkZpeCB0aGlzIERvUyB2dWxuZXJhYmlsaXR5IGJ5IGFkZGlu
-ZyBhIGRlZmVuc2l2ZSBzYW5pdHkgY2hlY2sgaW4KPmRybV9jcnRjX3ZibGFua19zdGFydF90aW1l
-cigpIHRvIHJlamVjdCBhIDAtbnMgZnJhbWUgZHVyYXRpb24sIGFsbG93aW5nCj50aGUgRFJNIGNv
-cmUgdG8gZ3JhY2VmdWxseSByZWplY3QgdGhlIG1hbGljaW91cyBtb2RlLgo+Cj5TaWduZWQtb2Zm
-LWJ5OiBNaW5neXUgV2FuZyA8MjUxODEyMTQyMTdAc3R1LnhpZGlhbi5lZHUuY24+Cj4tLS0KPkNo
-YW5nZXMgaW4gdjI6Cj4tIE1vdmVkIHRoZSBkZWZlbnNpdmUgY2hlY2sgZnJvbSB2bXdnZnggdG8g
-ZHJtX3ZibGFuay5jLiBUaGUgdGltZXIKPiAgbG9naWMgd2FzIHJlZmFjdG9yZWQgaW50byB0aGUg
-RFJNIGNvcmUsIHNvIHBsYWNpbmcgdGhlIGNoZWNrIGhlcmUKPiAgcHJvdGVjdHMgYWxsIGRyaXZl
-cnMgcmVseWluZyBvbiB0aGUgY29yZSBzb2Z0d2FyZSB2YmxhbmsgdGltZXIuCj4tIERyb3BwZWQg
-V0FSTl9PTl9PTkNFKCkgdG8gcHJldmVudCB1bnByaXZpbGVnZWQgdXNlcnNwYWNlIGZyb20gZWFz
-aWx5Cj4gIHRyaWdnZXJpbmcga2VybmVsIHBhbmljcyBvbiBzeXN0ZW1zIHdpdGggcGFuaWNfb25f
-d2FybiBlbmFibGVkLgo+Cj4gZHJpdmVycy9ncHUvZHJtL2RybV92YmxhbmsuYyB8IDEwICsrKysr
-KysrKysKPiAxIGZpbGUgY2hhbmdlZCwgMTAgaW5zZXJ0aW9ucygrKQo+Cj5kaWZmIC0tZ2l0IGEv
-ZHJpdmVycy9ncHUvZHJtL2RybV92YmxhbmsuYyBiL2RyaXZlcnMvZ3B1L2RybS9kcm1fdmJsYW5r
-LmMKPmluZGV4IGY5MGZiMmQxM2U0Mi4uYjM4ZDBiMzBhNjUxIDEwMDY0NAo+LS0tIGEvZHJpdmVy
-cy9ncHUvZHJtL2RybV92YmxhbmsuYwo+KysrIGIvZHJpdmVycy9ncHUvZHJtL2RybV92Ymxhbmsu
-Ywo+QEAgLTIyNDEsNiArMjI0MSwxNiBAQCBpbnQgZHJtX2NydGNfdmJsYW5rX3N0YXJ0X3RpbWVy
-KHN0cnVjdCBkcm1fY3J0YyAqY3J0YykKPiAKPiAJZHJtX2NhbGNfdGltZXN0YW1waW5nX2NvbnN0
-YW50cyhjcnRjLCAmY3J0Yy0+bW9kZSk7Cj4gCj4rCS8qCj4rCSAqIERFRkVOU0lWRSBDSEVDSzoK
-PisJICogZHJtX2NhbGNfdGltZXN0YW1waW5nX2NvbnN0YW50cygpIHRydW5jYXRlcyBmcmFtZWR1
-cl9ucyB0byAwIGlmCj4rCSAqIHVzZXJzcGFjZSBwcm92aWRlcyBhIG1hbGljaW91cyBtb2RlIHdp
-dGggYSBodWdlIGNydGNfY2xvY2sgYW5kCj4rCSAqIHNtYWxsIGh0b3RhbC92dG90YWwuIFByZXZl
-bnQgYW4gaW5maW5pdGUgaGFyZC1JUlEgbG9vcCBmcm9tIGEKPisJICogMC1wZXJpb2QgaHJ0aW1l
-ciBieSByZWplY3Rpbmcgc3VjaCBtb2Rlcy4KPisJICovCj4rCWlmICh1bmxpa2VseSh2Ymxhbmst
-PmZyYW1lZHVyX25zID09IDApKQo+KwkJcmV0dXJuIC1FSU5WQUw7Cj4rCj4gCXNwaW5fbG9ja19p
-cnFzYXZlKCZ2dGltZXItPmludGVydmFsX2xvY2ssIGZsYWdzKTsKPiAJdnRpbWVyLT5pbnRlcnZh
-bCA9IG5zX3RvX2t0aW1lKHZibGFuay0+ZnJhbWVkdXJfbnMpOwo+IAlzcGluX3VubG9ja19pcnFy
-ZXN0b3JlKCZ2dGltZXItPmludGVydmFsX2xvY2ssIGZsYWdzKTsKPi0tIAo+Mi4zNC4xCg==
+On 2026-06-04 18:24:07 [+0000], Jonas Jelonek wrote:
+=E2=80=A6
+> This issue popped up during kernel bump downstream in OpenWrt from
+> 6.18.33 to 6.18.34, since the suspected change has been backported to
+> 6.18 stable branch [1].
+
+I would avoid the link and simply write after the backport of the patch
+or so.
+
+> Call rcutree_report_cpu_dead() once interrupts are disabled, mirroring the
+> generic CPU-hotplug offline path (and arm64's stop handling), so RCU stops
+> waiting on the parked CPUs and grace periods can still complete.
+
+This is part of cpuhp_report_idle_dead(). Is it now invoked twice? Or is
+something else missing/ different?=20
+
+Sebastian
