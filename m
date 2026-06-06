@@ -1,166 +1,164 @@
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
+Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com [209.85.160.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC9FD42A82
-	for <stable@vger.kernel.org>; Sat,  6 Jun 2026 17:57:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98D03134CF
+	for <stable@vger.kernel.org>; Sat,  6 Jun 2026 18:13:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780768643; cv=none; b=P8b3nuXQ54C79r+GJUsyKv7qgJkP5MtE8q0e6/WHx7EXkCQVFJrLhKYv9wGX+q+gY3Q3Lxvpmv6ifAMa+pI+s0VCKmvENFgM9gf17LRQ3pTrvTq1e3zJA48vqfVjP11fgdo8SPJGgeayHbuEJfmKyjk0b9FXHMTOmZoSv0OI414=
+	t=1780769605; cv=none; b=bW9m0pG5Vuq85xQ3sNz2mzWwCaUI0c+BP9L0+pKbJq/vlclqs5w3zHoCvwBrc6GRjgY29mFWSbZ4b8AuFTf0xGC/kb4GKYjOY90Wep2dYzJ7C5qgpvz2CXKYs3PkAPIkM6Xqn4ssQJZ2DCLvS3+WZo6kya6TLEBjmFNkCuUteUE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780768643; c=relaxed/simple;
-	bh=GMITEpPOTtrYf7ZhiUASmEirKqHeY2hDHERiaSomMK0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=MrkSbxQolQI6RQDjK55ca4rGSeFikMiS5YF21ZDIrTrUM2g+7/dXklRWYjLvpPD2+mBE3AktZXo94AIvXutRo4RiFRTnWXZqfrY9O3VkF29eGWJnHmY1ZGaFcKmv3EAi62ejKQy00KE1UjQovitptDocjiAjlkaTu14kCRYRXAQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HUw2HFoK; arc=none smtp.client-ip=209.85.214.175
+	s=arc-20240116; t=1780769605; c=relaxed/simple;
+	bh=Tquiso9GPvwfaj1fp91T8xlb/7amivqMBSTUJFBrMKw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=q72F34zohefLsWdCEHbY86cBcnzpL3e2i3R3zmYtzUJdVDI2ep/5qllXKsGjKdFiALGgOSNl/f/+Y7ADgZ1lt2iWGmhlNWTYFq+rYZsxbwICI+Z6NgEpYdH30bfOlQgWrOSIBqT190GYkQkvLGbeXqk4jpMD8c+BoEGapzw5Pfg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Pq3SS6jn; arc=none smtp.client-ip=209.85.160.179
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HUw2HFoK"
-Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2c168baac83so13914355ad.2
-        for <stable@vger.kernel.org>; Sat, 06 Jun 2026 10:57:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Pq3SS6jn"
+Received: by mail-qt1-f179.google.com with SMTP id d75a77b69052e-517a5cafc3dso7060111cf.3
+        for <stable@vger.kernel.org>; Sat, 06 Jun 2026 11:13:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780768641; x=1781373441; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=KmWKsP5LOKB/Z4KYBnWg/ptdbuVXbRt6wtHayHObrME=;
-        b=HUw2HFoK8LOBn8ZLDdE/w0VarffqMzl1sW1zsGi6DihtkXOSKG0bvxmGHbeT0XMx4o
-         RAthwJ3+N04A5CXhjosOH9JZHGeG108BRoxz8lanZB9a2hdfKwP4K18WZT/fKE4nYHPP
-         bvRYQjTJuwX3/cnTW9+1zz3oEmFZo6KTOj9cyKZVldKfddATCYSCAzNS3ZdqV9DkSuHZ
-         6+9OIkLubizmUkG07rXcIY4RRgnfiIKfPJR6QrvU/2pFG9q+xsZ5dx6QHW/FsOKcfo2n
-         7Xl/W0Co9YRFxoy7oI0AGpjvFA1o0+FkeC19QJlgXVf0cMkd9zPH3OsRrsuM0pcCECO4
-         m6cQ==
+        d=gmail.com; s=20251104; t=1780769603; x=1781374403; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=vs9sOPs398rODDZTFwVgFO5RKpuWAqMg6hg4GuJ04No=;
+        b=Pq3SS6jnGZJ7y6Q3DKF6JCVcAbUekn2BrsqFGEepDI8ENLkA8Y5SZfc/BthDTOBO8U
+         fcwcLxdN71Yqahx67Y05Qv31zlRzDwb0+cLda39df3IgitVdpd9QWw5B3bD7uf2h3iyY
+         21hw+X+Sgn8pYXwQWTor5yVlF7uOHWyUFLERVe1p/p1vcvA/pIQlBBzSRp9fhvnwwFhF
+         pnM/F15iD+CkZpKpI3KdHnDPPbwLgnmGaSeh2BBhyvE0BlJjjMjSxPopPFhbi1gjXSA+
+         LdpQ5pnHKl33e9uSt3iNQDTMXQfPEjEBDxF2kBsij3QsOIrmozztc9FhX49NhZdrw2mO
+         lDKQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780768641; x=1781373441;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=KmWKsP5LOKB/Z4KYBnWg/ptdbuVXbRt6wtHayHObrME=;
-        b=c9DjqLI2GtVCsXbv5obELnLUD57bwNyNeqJRRJfwWTb5bmpJ5c2R3bMvynZdcA+vYP
-         MELBsBsJ+qPBPedD7zwtZTe/68yhgzNrE6Hsr9jAyNNCEOuwhTC/k5X1oHiU1rNgOGVV
-         BSsRkCiIdjK3Lgo0hfp3ZsffbwCELfx3DTahCGqgRkaMN+pfDPBBV70V+jKPFlIDstLN
-         lpMZ8vNxEbEGdayZqr+stXxjDoiTUoe71mVNEd+IYMoWmUEaXwzNo0xPYWmWvbvWFVe2
-         2dCMSDrMg3j0STQAdYD9ay5uGxbxXyK1BgSHdzSaXVKTcZHFtrWB+N0h1cTDC93W/nvd
-         459A==
-X-Forwarded-Encrypted: i=1; AFNElJ87uR17TBLK7PUMau4v7zjSfutomdEUduVr6YUMY8b8DjfOY3o1Yv+otiFFS+HczCdDXKuMx6U=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyoFK19uNG6mjubmHfcLAkMjYGCTfYAP1cV4+5ShomOy1y0FxuT
-	8WuSpjHVweNUHLi3gcNkBji9jIC6lD/PUzHN6tNkAGAIkmslZyKcDp7K
-X-Gm-Gg: Acq92OEY43iQdAT/NrwoXzQbzoQCpqAOD9BqcnLm7rA0u0gDMjt4iy91+SHbXZTNFez
-	VRNtu6ioH+M4DpbfkQ0LEl6odQsBJ2sosRU2rtcsmaH09tZdrrvaqfYPEt4otV87xrhGpZePgFm
-	mlcmFjQgBh4zK5Pa6TLNQb2SGmf0pVVI0+tgGvE/uPaKHrfStSMK1SUXLHPR50SFPK7YpL/fm8/
-	NIGt2IsaQkzcZKiJ9aDyPMTj1bxH2KI2NDsL1e83sQTwEBmV8ZaA9yKNcWb1gw0eFMKud3EHhA1
-	PGqgGra1W3A3qdNlbPQ1JZWb26QvXn6NOtqPw4GjTrKD74P542ePGtWkq/U91wSH6vKf3fUSrpj
-	l+zY19MnxD/LAUFGDvY8sMxFVLG1BLgPqb1AK7oYPRlLeBM2mUQRKtvxbvLXha18ShdjmlZg3zk
-	DD2tuS39EtV+Ownsz51a7/+ufIq6Arngqa64B+f52hJnvlbscuJIybcVh5
-X-Received: by 2002:a17:902:e848:b0:2c0:b6c7:2273 with SMTP id d9443c01a7336-2c1e79e29ebmr105792125ad.3.1780768641180;
-        Sat, 06 Jun 2026 10:57:21 -0700 (PDT)
-Received: from v4bel.. ([58.123.110.97])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c164f6d69csm129196425ad.2.2026.06.06.10.57.17
+        d=1e100.net; s=20251104; t=1780769603; x=1781374403;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=vs9sOPs398rODDZTFwVgFO5RKpuWAqMg6hg4GuJ04No=;
+        b=pxqlpmBRO7np2kRoA6LxwVtNiNi36NLYAVIM3y2AQ152irnjOzZZmdmBX/3DRnxtPK
+         AirMjwWkmMamsyn3rFQYRvzKInHFXdJh91dyj6Cm9XplrwcDNsLhE2aB0U/PbZRoqQd3
+         g0vHvmv4KsH/sz/9HQjimsmWXDGTpS5MMBfnEumVVmka0JDezu6zuABaAt/WsbV7c3Ec
+         vIzrNu5XVMhmZrMa43UvAbW1PS9a3KC9mANgUTbSAH7e/auxL1iaN1RDMP8rWinNmwzG
+         ItUaSyOJ/V2CCmVAPVOXexDN18YUzCXEkXSIvbhGDoNzPkJLsLrmn4SeanaToNRcq7+0
+         kPYA==
+X-Forwarded-Encrypted: i=1; AFNElJ8bDmO/cBAbi5KF8uU3GWI8HP47tSL1PMxKQeNyDxiHBRisX2myIEbhHI80wQbMaXoY0mWmYrE=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwM6zlD0s2wJMYyN1Yeobg27gk0SCCkQ69bj8i31O0VWs7Vlos7
+	1DOXywKRHsDnXjt53ixkMzMWh8J6p7kGMXKrOjnaXMpM/2qeGK+uYLvL
+X-Gm-Gg: Acq92OH4cPmprD/8tscCPb+iHavELIBciwIPM9Q7IvJ2TibP/Fjn0glA9yypbkXDswy
+	Uh/Rogi/fsf4uL1jdKS0VQBSDvrjW5uaIwJ64/D/gCzVJ2LOP09suhGU8DuADee6ZQg9oBiSken
+	7k5wGWw9VZyE8LqNV6SOa0EWJj3KtpdVfXVVD8WOcMtr60SYG9WcayK9wQu88EBkuv5dKqvYQfc
+	BrHYLdoXuYu8RwpXhzCtLuELM9vA9kwhhelUrmGreZ+Jy+TSnrFtcXV7wDrhhBACH1GwBC7XTLL
+	pmDexy7+1TNODyGDKSKmtGHkPfPEGOAs9qpgIoQ1BcVI/y0wvuQR0Cq3OjJPwvIQ6vCHsJcTZAH
+	29zGsL0QHJTEBq8HfB1t2Dg0TlWSvXXpJ586+8dvRBfUY9bTVdt8ZabdS3jMTf8GgC36kn/syFr
+	Wd7L3r3AhyGNCV7btM1CSq5gx/7s87R+dchHm+Q9TE5RAG+C3acnkyemSTHx74MRQMPTo1XGw4K
+	3QYsFzmJ9f2FAAUBLrnfAAvY4gXMog=
+X-Received: by 2002:a05:622a:4d09:b0:516:e290:991a with SMTP id d75a77b69052e-51795be8192mr140592791cf.40.1780769603612;
+        Sat, 06 Jun 2026 11:13:23 -0700 (PDT)
+Received: from server0 (c-68-48-65-54.hsd1.mi.comcast.net. [68.48.65.54])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-51775da6f41sm104769301cf.22.2026.06.06.11.13.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 06 Jun 2026 10:57:19 -0700 (PDT)
-From: Hyunwoo Kim <imv4bel@gmail.com>
-To: tabba@google.com,
-	maz@kernel.org,
-	oupton@kernel.org,
-	joey.gouly@arm.com,
-	seiden@linux.ibm.com,
-	suzuki.poulose@arm.com,
-	yuzenghui@huawei.com,
-	catalin.marinas@arm.com,
-	will@kernel.org
-Cc: linux-arm-kernel@lists.infradead.org,
-	kvmarm@lists.linux.dev,
-	stable@vger.kernel.org,
-	imv4bel@gmail.com
-Subject: [PATCH v3 2/2] KVM: arm64: Bound used_lrs when flushing the pKVM hyp vCPU
-Date: Sun,  7 Jun 2026 02:56:11 +0900
-Message-ID: <20260606175614.83273-3-imv4bel@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260606175614.83273-1-imv4bel@gmail.com>
-References: <20260606175614.83273-1-imv4bel@gmail.com>
+        Sat, 06 Jun 2026 11:13:23 -0700 (PDT)
+From: Michael Bommarito <michael.bommarito@gmail.com>
+To: Hannes Reinecke <hare@suse.de>,
+	Christoph Hellwig <hch@lst.de>,
+	Sagi Grimberg <sagi@grimberg.me>,
+	Chaitanya Kulkarni <kch@nvidia.com>
+Cc: Jens Axboe <axboe@kernel.dk>,
+	linux-nvme@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] nvmet-auth: reject short AUTH_RECEIVE buffers
+Date: Sat,  6 Jun 2026 14:13:06 -0400
+Message-ID: <20260606181306.1651139-1-michael.bommarito@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-flush_hyp_vcpu() copies the host vGIC state into the hyp's private vCPU
-on every run. The vGIC list register save and restore use used_lrs as
-their loop bound and expect it to stay within the number of implemented
-list registers. While this is generally the case, flush_hyp_vcpu()
-copies vgic_v3 verbatim and does not enforce this, so a value provided
-by the host is used at EL2 to index vgic_lr[] and access ICH_LR<n>_EL2
-(host -> EL2).
+nvmet_execute_auth_receive() trusts the AUTH_RECEIVE allocation length
+after checking only that it is nonzero and matches the transfer length.
+In SUCCESS1 and FAILURE1/default states, that lets a remote NVMe-oF
+initiator reach fixed-size DHCHAP response builders with a kmalloc()
+buffer shorter than the response, so the builder writes past the
+allocation.
 
-Fix by clamping used_lrs to the number of implemented list registers
-after the copy, as the trusted path already does in
-vgic_flush_lr_state(). The number of implemented list registers is
-constant after init, so it is replicated once from
-kvm_vgic_global_state.nr_lr into hyp_gicv3_nr_lr rather than read on
-every entry.
+Reject AUTH_RECEIVE commands whose allocation length is shorter than the
+response for the current state before allocating the buffer. Keep the
+existing CHALLENGE variable-length guard in nvmet_auth_challenge().
 
+This is the AUTH_RECEIVE response-write counterpart to the separately
+posted AUTH_SEND read-side bounds fix in nvmet_auth_reply() [1]; the two
+paths do not overlap.
+
+Link: https://lore.kernel.org/all/f4aca9b14e74a7f7f8cd9620e13cc32a6a2b7746@linux.dev/ [1]
+Fixes: db1312dd95488 ("nvmet: implement basic In-Band Authentication")
 Cc: stable@vger.kernel.org
-Fixes: be66e67f1750 ("KVM: arm64: Use the pKVM hyp vCPU structure in handle___kvm_vcpu_run()")
-Signed-off-by: Hyunwoo Kim <imv4bel@gmail.com>
+Assisted-by: Codex:gpt-5-5-xhigh
+Signed-off-by: Michael Bommarito <michael.bommarito@gmail.com>
 ---
- arch/arm64/include/asm/kvm_hyp.h   | 1 +
- arch/arm64/kvm/arm.c               | 2 ++
- arch/arm64/kvm/hyp/nvhe/hyp-main.c | 9 +++++++++
- 3 files changed, 12 insertions(+)
+A temporary KUnit harness, not included in this patch, ran under UML
+with KASAN enabled. The stock run crashed in
+nvmet_execute_auth_receive() on the SUCCESS1 path with "memset:
+detected buffer overflow: 16 byte write of buffer size 1"; the patched
+run passed the same harness. The harness source is available on
+request.
 
-diff --git a/arch/arm64/include/asm/kvm_hyp.h b/arch/arm64/include/asm/kvm_hyp.h
-index 8d06b62e7188..e9b2b0c40ec6 100644
---- a/arch/arm64/include/asm/kvm_hyp.h
-+++ b/arch/arm64/include/asm/kvm_hyp.h
-@@ -157,5 +157,6 @@ extern unsigned long kvm_nvhe_sym(__icache_flags);
- extern unsigned int kvm_nvhe_sym(kvm_arm_vmid_bits);
- extern unsigned int kvm_nvhe_sym(kvm_host_sve_max_vl);
- extern unsigned long kvm_nvhe_sym(hyp_nr_cpus);
-+extern unsigned int kvm_nvhe_sym(hyp_gicv3_nr_lr);
- 
- #endif /* __ARM64_KVM_HYP_H__ */
-diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
-index 9453321ef8c6..9ffd5d4079e6 100644
---- a/arch/arm64/kvm/arm.c
-+++ b/arch/arm64/kvm/arm.c
-@@ -2426,6 +2426,8 @@ static int __init init_subsystems(void)
- 	switch (err) {
- 	case 0:
- 		vgic_present = true;
-+		if (static_branch_unlikely(&kvm_vgic_global_state.gicv3_cpuif))
-+			kvm_nvhe_sym(hyp_gicv3_nr_lr) = kvm_vgic_global_state.nr_lr;
- 		break;
- 	case -ENODEV:
- 	case -ENXIO:
-diff --git a/arch/arm64/kvm/hyp/nvhe/hyp-main.c b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
-index 02c5d6e5abcb..a0da08caa6c2 100644
---- a/arch/arm64/kvm/hyp/nvhe/hyp-main.c
-+++ b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
-@@ -24,6 +24,9 @@
- 
- DEFINE_PER_CPU(struct kvm_nvhe_init_params, kvm_init_params);
- 
-+/* Number of implemented GICv3 LRs. Used by flush_hyp_vcpu(). */
-+unsigned int hyp_gicv3_nr_lr;
-+
- void __kvm_hyp_host_forward_smc(struct kvm_cpu_context *host_ctxt);
- 
- static void __hyp_sve_save_guest(struct kvm_vcpu *vcpu)
-@@ -142,6 +145,12 @@ static void flush_hyp_vcpu(struct pkvm_hyp_vcpu *hyp_vcpu)
- 
- 	hyp_vcpu->vcpu.arch.vgic_cpu.vgic_v3 = host_vcpu->arch.vgic_cpu.vgic_v3;
- 
-+	/* Bound used_lrs by the number of implemented list registers. */
-+	hyp_vcpu->vcpu.arch.vgic_cpu.vgic_v3.used_lrs =
-+		min_t(unsigned int,
-+		      hyp_vcpu->vcpu.arch.vgic_cpu.vgic_v3.used_lrs,
-+		      hyp_gicv3_nr_lr);
-+
- 	hyp_vcpu->vcpu.arch.pid = host_vcpu->arch.pid;
+ drivers/nvme/target/fabrics-cmd-auth.c | 27 ++++++++++++++++++++++++++
+ 1 file changed, 27 insertions(+)
+
+diff --git a/drivers/nvme/target/fabrics-cmd-auth.c b/drivers/nvme/target/fabrics-cmd-auth.c
+index f1e613e7c63e5..77c7b412a8691 100644
+--- a/drivers/nvme/target/fabrics-cmd-auth.c
++++ b/drivers/nvme/target/fabrics-cmd-auth.c
+@@ -487,11 +487,30 @@ u32 nvmet_auth_receive_data_len(struct nvmet_req *req)
+ 	return le32_to_cpu(req->cmd->auth_receive.al);
  }
  
++static u32 nvmet_auth_receive_min_len(struct nvmet_req *req)
++{
++	struct nvmet_ctrl *ctrl = req->sq->ctrl;
++	u32 hash_len = 0;
++
++	switch (req->sq->dhchap_step) {
++	case NVME_AUTH_DHCHAP_MESSAGE_CHALLENGE:
++		return 0;
++	case NVME_AUTH_DHCHAP_MESSAGE_SUCCESS1:
++		if (req->sq->dhchap_c2)
++			hash_len = nvme_auth_hmac_hash_len(ctrl->shash_id);
++
++		return sizeof(struct nvmf_auth_dhchap_success1_data) + hash_len;
++	default:
++		return sizeof(struct nvmf_auth_dhchap_failure_data);
++	}
++}
++
+ void nvmet_execute_auth_receive(struct nvmet_req *req)
+ {
+ 	struct nvmet_ctrl *ctrl = req->sq->ctrl;
+ 	void *d;
+ 	u32 al;
++	u32 min_len;
+ 	u16 status = 0;
+ 
+ 	if (req->cmd->auth_receive.secp != NVME_AUTH_DHCHAP_PROTOCOL_IDENTIFIER) {
+@@ -524,6 +543,14 @@ void nvmet_execute_auth_receive(struct nvmet_req *req)
+ 		return;
+ 	}
+ 
++	min_len = nvmet_auth_receive_min_len(req);
++	if (al < min_len) {
++		status = NVME_SC_INVALID_FIELD | NVME_STATUS_DNR;
++		req->error_loc =
++			offsetof(struct nvmf_auth_receive_command, al);
++		goto done;
++	}
++
+ 	d = kmalloc(al, GFP_KERNEL);
+ 	if (!d) {
+ 		status = NVME_SC_INTERNAL;
 -- 
-2.43.0
+2.53.0
 
