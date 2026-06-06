@@ -1,139 +1,191 @@
-Received: from mail-dy1-f201.google.com (mail-dy1-f201.google.com [74.125.82.201])
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDA8E2153EA
-	for <stable@vger.kernel.org>; Sat,  6 Jun 2026 02:23:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C66D273803
+	for <stable@vger.kernel.org>; Sat,  6 Jun 2026 02:40:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780712600; cv=none; b=e2a9fAWoyo32MpqSGt/GV0ay+dWxKOuStLqAN26O7OdNv/XXw9TntSiP3IDszDSsgPEl7Cp5aYwH9zTNhYQDoSyGXb+q78nz1fYUuUEEJhf1dbSepKc7hoyefcn3J6gfWHfUC7fNAukTg5pMUXRb7ZukpQB1ZaE7qRBBLoo8h9I=
+	t=1780713644; cv=none; b=m+fOjpO+XoHyhd9Uz64gpalMhhCmSUqozhRXJCdfS9OtVXFMGzCBkWhlA0erGJHlhvU+gfXPDtzD08OZHqUbmUt1Gj8GJNksRX2ZhYUCtOcsvpCoCjcA8UKdCvqvZKnYdvSKQJ1ZCvR1osC+VNOnZpe3PrfvnTMctPpAqh7vQCw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780712600; c=relaxed/simple;
-	bh=5nq1Rv+eY322uEwnY56CbK0D3OXYqXsuNnJKxuf95dQ=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=MUa46yVDNomUbGNPXDp9t/ZShkrStXTt/eaTnNSI3Q8p1xO9n89AoiAREDqZD7jJFalT8Q9qENuwcc+kjbHDe/BnCQrZTxUHqtQnwrq0Oyt6dLFAtgtY1EdT9l5EXAIZCzJ81oXvjm4x4xr/LMLyGkfiPgAUplPhKlB0lJdr3Sw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--cmllamas.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=nvluRGzo; arc=none smtp.client-ip=74.125.82.201
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--cmllamas.bounces.google.com
+	s=arc-20240116; t=1780713644; c=relaxed/simple;
+	bh=M5Bi8ieqGgSX9vQ1NT8hurUhkbNY6pPyQdskgwNd82k=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Gxc0oIgp9loe1EzSOeBwpnrwQuYCcZE/tQoqkS2vttSs3Rjru+MyAZvBhfiHOw8CcydEFvNTLUpCkaiuhtE9GS6Lpc8wJZxgTf9K3IPeBbkT7qIjZbHZH0gpuH0UljKrX6eepc5D9Wqm7BYZCW5eCoCRJ993QM5JQ5gokYveQIY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=myPm84xg; arc=none smtp.client-ip=209.85.216.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="nvluRGzo"
-Received: by mail-dy1-f201.google.com with SMTP id 5a478bee46e88-304f23c55b2so2495024eec.0
-        for <stable@vger.kernel.org>; Fri, 05 Jun 2026 19:23:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="myPm84xg"
+Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-36babe2c4bdso1661035a91.1
+        for <stable@vger.kernel.org>; Fri, 05 Jun 2026 19:40:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1780712598; x=1781317398; darn=vger.kernel.org;
-        h=cc:to:from:subject:message-id:mime-version:date:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=qMU7ZIai1gQHR6450BLUZEyBAHdcgrhlQJpmeHdw0j0=;
-        b=nvluRGzolC0rn9a2dMQu4p9dKOj/wNg/6e5K/P5Hb1NkJWo0JCMwGYVMwl1HX/np+Y
-         0viMYXzBeuyKbsjkmcS3KgPKqYaO+zYooMR0g/U5fhe03ia9X8EIA4A5d4AX484aVyaQ
-         1H3cayXUTmwlnYqBaKcDBmw0QDiMNoQPw7bjJfraDRN3KAY6J7KvanhuyofRp2jdK3uR
-         39YD2sy4oQyqvhLVwm64dwEgWtbfxeX9ORE3+sTcZfHjR1fef2lC84mwOQoPhOKAvI8f
-         8DVVui2Ad2GnGUZUrmsaV6Ob8b8h2Qhxq+S/9IQvJW2qwqIbKd1jL0ZmRHEH3AqgLVHr
-         r3FQ==
+        d=gmail.com; s=20251104; t=1780713640; x=1781318440; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=OnUZWQkJ/UT6kL1pJlMljxV5hMYiFMtGqMjvgMPjKdo=;
+        b=myPm84xgChtImCu0mL4QpMqL4H/zr+UqtMPY06UXC5SacM25e1MsZK1kJOlaY6iLA6
+         ciwmIJoJpipH9NZKE5b80NJn98G6x5PqusIRcXYYhpnzhdFsA3sqbYgc+wtMuU4zF4zG
+         UZW4l75W352I0A++MP54RbNuu0Iz+qhl4u/15aXLfl9m4DWwIur+R/drwQILbWZTjF4N
+         M1QDc08eJMMvgv3hf2CNaISdhdD7U/nKfXfaLB91aOEQ91D8H1QfukeIHAhLyJypfdvT
+         kZWkikpq70cFIByfBAeBTGI1hTVIfZWwQwzZQQuoYD7svFzLFjj0Js5bvkm1NT8TdfEE
+         LC8A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780712598; x=1781317398;
-        h=cc:to:from:subject:message-id:mime-version:date:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=qMU7ZIai1gQHR6450BLUZEyBAHdcgrhlQJpmeHdw0j0=;
-        b=Bvax3IiqX2xyIGCXtE2Uve0WkUHOedfeWCNRpwoq7LOzAvYmi15zcJYr18PI6o2PyB
-         QvS055Sy3l5obAp9yE/32qbTFk0Ld7fNbufJUJFHu4dIhx3YzGIlBTkhW6m9TWWl5PWP
-         nGpv4zx2Cl+kzzeVHmT5dVJ4ohizJ2ykoBYe/SFUS1sOclkhmT4zLBafYNHOwgotHpr0
-         IBoYm+vSJWoeekAZq/8jAtRyA5KMiIOVGCsdvODnwb/lTD3DVAEnuW51pqdNhrNQFPAA
-         ZwfPpN4va3bYoAFfWOSf1iZSc7XXBxinO0OM+v6Ve4dXqpW/HNjwm1Ie6GrgUMFHugeX
-         6hcA==
-X-Forwarded-Encrypted: i=1; AFNElJ/kopvaB1GHyA0+9mPP89IcyQDgo2v+cOmE4r2XqpyvexXmTvpUnOBSIJAv5KDDoHVNmYHE5cs=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx8VGLZEL7uqpiemj7Di4XjiO+bashgcn7CI/Zl+kpiLqw3Gesz
-	1vpaZHFacSW52Km8PIuDMcc+80kS0hdqzoqx3hzhD958PeLIecCT95G+UpoOXYM++2+Tg7hjllD
-	7A/VBJjxqKarcGg==
-X-Received: from dyeg12.prod.google.com ([2002:a05:7300:538c:b0:2da:2af9:bfe2])
- (user=cmllamas job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:7300:fd09:b0:2f5:3fb3:4a76 with SMTP id 5a478bee46e88-3077b38e294mr3607633eec.10.1780712597440;
- Fri, 05 Jun 2026 19:23:17 -0700 (PDT)
-Date: Sat,  6 Jun 2026 02:22:32 +0000
+        d=1e100.net; s=20251104; t=1780713640; x=1781318440;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=OnUZWQkJ/UT6kL1pJlMljxV5hMYiFMtGqMjvgMPjKdo=;
+        b=B/x/SAghDSeM7EsoGv/+zHi66PG1hV8B5QSQa4+0lZnZjbdBVHmotHUYKce6Rorm55
+         6QJWyLVU8cQHCw+gUxfBvMtTPZp29sFl2RLUM3w/js2mzD5zyWB6WdAiBkSSsEdG0kei
+         hDeRKx2HZ1a7S7sLgSJ6IXtsPGFclqUmJZXnnsC2+yPWQC+clLPRF6nE1P9vZIT39xnp
+         /kpjtnmFQdphyT5wxk0ik5jm5jYmO4geHfz0u7Jk+mFYiXBaay+pWf9yrpnLb9J1HMex
+         t53KalmD9sW/nTS9Cch4WWfZRB1ZVL9XdCQqh1AhzX7oeK/DnLHQqJZQuIK8D7NmT/FH
+         ZAdw==
+X-Forwarded-Encrypted: i=1; AFNElJ9C0j3EpLGEQk9pg+CZyDMoWiiB0SxOxfQdFTkBxkrC/s2uT/qxJ3ZcnGMy9Puqi7mizWkmazk=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy3wugJzd0P1fDaNfnE5Jt7OVzf3xkC1P+O8/5kzIpCvhKZXLI8
+	9YNpJJ4ILLCuWV+6E2BHE/IsDaWekN7msvTgXyhKVoP7Azhh8q1BnFhY
+X-Gm-Gg: Acq92OG7uIgCYYyQchzsUcmH3gVObnwKAeINkHSDBGelZcZoYyksPs1YPS3lYswacSu
+	WsuWmcW4aHb03A2TzwmIBfAdii/V33/LLyGL+6nn0YWV8guikjkVVh/LPeAa0ahpaPPrHp5pJtG
+	Os6G5mPtCbMRkqmsHRu0Lmh7Q/zLruuGxwzFuDq/AuT4HavpR4nALByn1CwMGmWy1akIMSSQUXm
+	1DBiFAtxp2gu2/TZy8/81eo5UsH8WkNlgol4gNI0XpC/iVb0hQngwKtvf3up7rCXC4vQiVHHz+Z
+	FSwVNuJHFk1I6IUOS5v+k2u+8xGqnD3igl9lkA681mpFk57Sl5mq50CVe/8Z4aVSFgQWMraNP5j
+	CfOBB+PFmJJWYysPeEbk6piHlEWJ4kTz93YXgARyXAfprMd0JAJ7Cq3hOVR8naMcWSMw9RELq6N
+	eMofTgrxU9fKq6Vwbrv+U7xedn3aZIkzLgkGUKVsTQJIdRxyQp1CaH22VhQeRCU/feyTkQ9PwpV
+	yiOASU/MpTtMQ==
+X-Received: by 2002:a17:90b:4b0b:b0:36b:a2cc:4857 with SMTP id 98e67ed59e1d1-370efdaca8fmr8433786a91.18.1780713640163;
+        Fri, 05 Jun 2026 19:40:40 -0700 (PDT)
+Received: from viku.office.rr.lan (fs79022602.tkyc410.ap.nuro.jp. [121.2.38.2])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-36f70a29cd6sm7924955a91.11.2026.06.05.19.40.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 05 Jun 2026 19:40:39 -0700 (PDT)
+From: Vishal Kumar <vishalmimani008@gmail.com>
+To: linux-usb@vger.kernel.org
+Cc: gregkh@linuxfoundation.org,
+	thierry.reding@gmail.com,
+	jonathanh@nvidia.com,
+	linux-tegra@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Vishal Kumar <vishalmimani008@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] usb: gadget: tegra-xudc: drain EP pipeline before dma_unmap
+Date: Sat,  6 Jun 2026 11:40:11 +0900
+Message-Id: <20260606024011.1160110-1-vishalmimani008@gmail.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.54.0.1032.g2f8565e1d1-goog
-Message-ID: <20260606022233.2402965-1-cmllamas@google.com>
-Subject: [PATCH] binder: fix UAF in binder_thread_release()
-From: Carlos Llamas <cmllamas@google.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	"=?UTF-8?q?Arve=20Hj=C3=B8nnev=C3=A5g?=" <arve@android.com>, Todd Kjos <tkjos@android.com>, 
-	Christian Brauner <brauner@kernel.org>, Carlos Llamas <cmllamas@google.com>, 
-	Alice Ryhl <aliceryhl@google.com>
-Cc: kernel-team@android.com, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-When a thread exits, binder_thread_release() walks its transaction stack
-to clear the t->from and t->to_proc that correspond with the exiting
-thread. However, a process dying in parallel might attempt to kfree some
-of these transactions. And if one of them has no associated t->to_proc,
-the t->to_proc->inner_lock will not be acquired.
+On Tegra186/194/234 the XUDC posts a transfer-completion event when the
+DMA write is dispatched to the AXI interconnect, before the store is
+committed to memory.  Under SMMU strict mode dma_unmap() synchronously
+invalidates the IOVA TLB entry.  An in-flight AXI write to the
+just-unmapped IOVA triggers a translation fault (fsr=0x402) that
+permanently wedges the bulk-OUT endpoint.
 
-This means that transaction accesses in binder_thread_release() after
-t->to_proc has been cleared might race with binder_free_transaction()
-and cause a use-after-free error as reported by KASAN:
+Observed on Tegra234 (Jetson Orin Nano) at ~170 MB/s USB-NCM transfers:
 
-  ==================================================================
-  BUG: KASAN: slab-use-after-free in binder_thread_release+0x5d0/0x798
-  Write of size 8 at addr ffff000016627500 by task X/715
+  arm-smmu 8000000.iommu: Unhandled context fault: fsr=0x402,
+    iova=0xfffb5000, cbfrsynra=0x100f, cb=3
+  tegra-mc 2c00000.memory-controller: EMEM address decode error
 
-  CPU: 17 UID: 0 PID: 715 Comm: X Not tainted 7.1.0-rc5-00149-g8fde5d1d47f6 #30 PREEMPT
-  Hardware name: linux,dummy-virt (DT)
-  Call trace:
-   binder_thread_release+0x5d0/0x798
-   binder_ioctl+0x12c0/0x299c
-   [...]
+cbfrsynra=0x100f identifies XUDC (StreamID 0x0f per DT), cb=3 is iommu
+group 4 (3550000.usb).  fsr=0x402 is a translation fault on a DMA write.
 
-  Allocated by task 717 on cpu 18 at 67.267803s:
-   __kasan_kmalloc+0xa0/0xbc
-   __kmalloc_cache_noprof+0x174/0x444
-   binder_transaction+0x554/0x8150
-   binder_thread_write+0xa30/0x4354
-   binder_ioctl+0x20f0/0x299c
-   [...]
+Fix: poll EP_THREAD_ACTIVE before calling usb_gadget_unmap_request() for
+non-control endpoints.  EP_THREAD_ACTIVE clearing is the hardware's
+guarantee that the endpoint sequencer is idle and all AXI transactions
+have completed, so the subsequent TLB invalidation cannot race an
+in-flight write.
 
-  Freed by task 202 on cpu 18 at 90.416221s:
-   __kasan_slab_free+0x58/0x80
-   kfree+0x1a0/0x4a4
-   binder_free_transaction+0x150/0x294
-   binder_send_failed_reply+0x398/0x6d8
-   binder_release_work+0x3e4/0x4ec
-   binder_deferred_func+0xbd8/0x104c
-   [...]
-  ==================================================================
+Also change ep_wait_for_inactive() to return the readl_poll_timeout()
+status so callers can detect a timeout.  On timeout in the completion
+path, skip dma_unmap() to avoid the translation fault and force
+req->usb_req.status = -EIO so the gadget driver does not treat the
+transfer as successful or requeue the still-mapped buffer.  On timeout
+in the dequeue path, emit a warning.
 
-In order to avoid this, make sure that binder_free_transaction() reads
-the t->to_proc under the transaction lock. This will serialize the
-transaction release with the accesses in binder_thread_release(). Plus,
-it matches the documented locking rules for @to_proc.
-
-Cc: stable@vger.kernel.org
-Fixes: 7a4408c6bd3e ("binder: make sure accesses to proc/thread are safe")
-Signed-off-by: Carlos Llamas <cmllamas@google.com>
+Fixes: 49d6f3dd4abe ("usb: gadget: add tegra xusb device mode driver")
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Vishal Kumar <vishalmimani008@gmail.com>
 ---
- drivers/android/binder.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ drivers/usb/gadget/udc/tegra-xudc.c | 47 ++++++++++++++++++++++------
+ 1 file changed, 38 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/android/binder.c b/drivers/android/binder.c
-index 9e6194224593..09bc052186cf 100644
---- a/drivers/android/binder.c
-+++ b/drivers/android/binder.c
-@@ -1658,7 +1658,11 @@ static void binder_txn_latency_free(struct binder_transaction *t)
+diff --git a/drivers/usb/gadget/udc/tegra-xudc.c b/drivers/usb/gadget/udc/tegra-xudc.c
+index 0b63b8c0a..3f18beddf 100644
+--- a/drivers/usb/gadget/udc/tegra-xudc.c
++++ b/drivers/usb/gadget/udc/tegra-xudc.c
+@@ -1023,9 +1023,9 @@ static void ep_wait_for_stopped(struct tegra_xudc *xudc, unsigned int ep)
+ 	xudc_writel(xudc, BIT(ep), EP_STOPPED);
+ }
  
- static void binder_free_transaction(struct binder_transaction *t)
+-static void ep_wait_for_inactive(struct tegra_xudc *xudc, unsigned int ep)
++static int ep_wait_for_inactive(struct tegra_xudc *xudc, unsigned int ep)
  {
--	struct binder_proc *target_proc = t->to_proc;
-+	struct binder_proc *target_proc;
-+
-+	spin_lock(&t->lock);
-+	target_proc = t->to_proc;
-+	spin_unlock(&t->lock);
+-	xudc_readl_poll(xudc, EP_THREAD_ACTIVE, BIT(ep), 0);
++	return xudc_readl_poll(xudc, EP_THREAD_ACTIVE, BIT(ep), 0);
+ }
  
- 	if (target_proc) {
- 		binder_inner_proc_lock(target_proc);
--- 
-2.54.0.1032.g2f8565e1d1-goog
+ static void tegra_xudc_req_done(struct tegra_xudc_ep *ep,
+@@ -1046,8 +1046,39 @@ static void tegra_xudc_req_done(struct tegra_xudc_ep *ep,
+ 					 (xudc->setup_state ==
+ 					  DATA_STAGE_XFER));
+ 	} else {
+-		usb_gadget_unmap_request(&xudc->gadget, &req->usb_req,
+-					 usb_endpoint_dir_in(ep->desc));
++		/*
++		 * Drain the endpoint DMA pipeline before unmapping.
++		 *
++		 * Under SMMU strict mode dma_unmap() synchronously
++		 * invalidates the IOVA TLB entry.  On Tegra186/194/234 the
++		 * XUDC appears to post the completion event when the DMA
++		 * write is dispatched to the AXI interconnect, before the
++		 * store is committed to memory.  A subsequent dma_unmap()
++		 * can remove the IOVA translation while the write is still
++		 * in-flight, triggering a translation fault (fsr=0x402) that
++		 * permanently wedges the bulk endpoint.
++		 *
++		 * Wait for EP_THREAD_ACTIVE to clear (endpoint sequencer
++		 * idle).  On timeout skip the unmap to avoid the SMMU fault;
++		 * the DMA mapping leaks but the hardware is already in an
++		 * unrecoverable state.
++		 */
++		if (!WARN_ONCE(ep_wait_for_inactive(xudc, ep->index),
++			       "ep%u: DMA drain timed out; skipping dma_unmap\n",
++			       ep->index)) {
++			/* Read-back completes the poll barrier; EP_THREAD_ACTIVE=0 guarantees DMA is idle. */
++			xudc_readl(xudc, EP_THREAD_ACTIVE);
++			usb_gadget_unmap_request(&xudc->gadget, &req->usb_req,
++						 usb_endpoint_dir_in(ep->desc));
++		} else {
++			/*
++			 * Timeout: mapping is intentionally leaked to avoid the
++			 * SMMU fault.  Force -EIO so the gadget driver does not
++			 * treat this as a successful transfer and reuse the
++			 * still-mapped buffer.
++			 */
++			req->usb_req.status = -EIO;
++		}
+ 	}
+ 
+ 	spin_unlock(&xudc->lock);
+@@ -1443,10 +1474,12 @@ __tegra_xudc_ep_dequeue(struct tegra_xudc_ep *ep,
+ 		return 0;
+ 	}
+ 
+-	/* Halt DMA for this endpiont. */
++	/* Halt DMA for this endpoint. */
+ 	if (ep_ctx_read_state(ep->context) == EP_STATE_RUNNING) {
+ 		ep_pause(xudc, ep->index);
+-		ep_wait_for_inactive(xudc, ep->index);
++		if (ep_wait_for_inactive(xudc, ep->index))
++			dev_warn(xudc->dev, "ep%u: DMA drain timed out during dequeue\n",
++				 ep->index);
+ 	}
+ 
+ 	deq_trb = trb_phys_to_virt(ep, ep_ctx_read_deq_ptr(ep->context));
 
+2.39.0
