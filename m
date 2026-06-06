@@ -1,218 +1,111 @@
-Received: from smtp-8faa.mail.infomaniak.ch (smtp-8faa.mail.infomaniak.ch [83.166.143.170])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AA352F8EBA
-	for <stable@vger.kernel.org>; Sat,  6 Jun 2026 04:48:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=83.166.143.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B025927E049
+	for <stable@vger.kernel.org>; Sat,  6 Jun 2026 04:51:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780721291; cv=none; b=Mh/JvpReW34J+HoaFDHuqSojOXtLy+J5T7WcuydzjIHrJcV1c0n3UwtUiEnvUkVNocYdIMxBJ1aRB6lil+SOF1kdy80VhSO3EUGAHIdjWyR0RupryrV2JZo0DzXwVCtrVYfn+A+4u9mnqqIxWZxWptTdYxnmaMA8DFZBO5Yp0tk=
+	t=1780721464; cv=none; b=WwsI9ln8WMDr8VpdTdLD3YfTnCYkI2uXvblSQw/o+9++9+VLPnvkEHeFxkU5W2lWukPWKBRwUcs7Q7qocDiuY7zZvvxXFvg2ZlCcwbugp9EaQXfpdTtwE9iFO1FeghW7LZvlpMKMNRIr993EumcngHmgJvcTggYJYduVa/zNfbg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780721291; c=relaxed/simple;
-	bh=Ei+J1JQ+OQDRTYvxZ34inBIiZ97Iv+p9QAUQzY88dQw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=MB9zj/d1uwtbk5YpL1eGezICo6C4kQnJjQB3HiFhmazdyU2aXYPuahE/BZ3oYc+0uyrcMw/QVcNenrlsZz2Go8Jk1k8GvOl3h6HBEKN8yRdMHkEpwHyUUcFBeKw1xnEXg2krh+oJ/BhwWbUj3ggtCiY4IM1Oek4l5qUzPF8kHf4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.sh; spf=pass smtp.mailfrom=gibson.sh; dkim=pass (2048-bit key) header.d=gibson.sh header.i=@gibson.sh header.b=Oux5ZJTJ; arc=none smtp.client-ip=83.166.143.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.sh
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gibson.sh
+	s=arc-20240116; t=1780721464; c=relaxed/simple;
+	bh=/u4C1kWYVbZiPw/N/UA7MQei+1M1gBnUoiL6TjXpJMs=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=nALkkWVTzjGzdscEROWZ9PkgIy8HtmO6lqjvgP1KPFGtmHMpSkcWxgCUjbMLZFoJX8bZTniDoTqKX9V8eila//kNUtgx0t8igV1ihaCeFKOUfgLTfsBkuaiyo5k2QXwNJ8zmiWtVuqeh+qysSJTzd6li7HdTLC62SeEUJEWIulo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cmkq+X4D; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gibson.sh header.i=@gibson.sh header.b="Oux5ZJTJ"
-Received: from smtp-4-0000.mail.infomaniak.ch (unknown [IPv6:2001:1600:7:10::a6b])
-	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4gXQm21nZszWwH
-	for <stable@vger.kernel.org>; Sat,  6 Jun 2026 06:48:02 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gibson.sh;
-	s=20260228; t=1780721282;
-	bh=vHfo3+n/XMteJ5vHoQ7kA9U/Iy7x5RrsTtiy751rGnQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=Oux5ZJTJNQx5Hs+j9bKNhhpEdpydbN/opFlQvTYJ8SFy690E6WA7WZsQgb/3ImySM
-	 YHVj0nlQ7tebnsvvbtDfP1xUlc+FmQQ8mWFiaTJeKHrGiO46jyaewiXfjwhnvwKgwn
-	 EW6ciWANiYVNSjgRoEu4daxnTdlDECNQCMQeAXwCa1jGvEAMHlOuykQggRzkZywuLm
-	 s6emcJBzZmaSMJuQUK8RU3xWsRWDxGzalrXC5G61qlDoNKprwIVJ6sMmPZMgRrzAUR
-	 lIkDWZsyb2DHHiIXnGBRE9YL6mHH4iL56Th9bFkN+wA+uzuw+6qY7Ju0UpD9xfGm2m
-	 Gt1WnW9eXwrNw==
-Received: from unknown by smtp-4-0000.mail.infomaniak.ch (Postfix) with ESMTPA id 4gXQm156f6zwRS
-	for <stable@vger.kernel.org>; Sat,  6 Jun 2026 06:48:01 +0200 (CEST)
-Received: from unknown by spiderdemon.horst.lan (DragonFly Mail Agent v0.13);
-	Sat, 06 Jun 2026 06:48:00 +0200
-From: Daniel Gibson <daniel@gibson.sh>
-To: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>,
-	Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	platform-driver-x86@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Mario Limonciello <superm1@kernel.org>
-Cc: Daniel Gibson <daniel@gibson.sh>,
-	Sindre Henriksen <sindrehenriksen93@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v4 1/3] platform/x86/amd/pmc: Delay suspend for some Lenovo Laptops
-Date: Sat,  6 Jun 2026 06:47:56 +0200
-Message-ID: <20260606044758.2213401-2-daniel@gibson.sh>
-X-Mailer: git-send-email 2.48.1
-In-Reply-To: <20260606044758.2213401-1-daniel@gibson.sh>
-References: <20260606044758.2213401-1-daniel@gibson.sh>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cmkq+X4D"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7340C1F0089C
+	for <stable@vger.kernel.org>; Sat,  6 Jun 2026 04:51:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780721462;
+	bh=sKz22jwoXiX77X9+l1832laRA/oVlQe98Ct+8CuxsJ4=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=cmkq+X4D7gn5Wy/QtPOGGldw5QYXyKrpGRBzG/OaLIEXmGAiVmTD//4RCGWFZtImp
+	 Tc8PhbvtGDd2EFFczm3JJjxuZKUoec3t5WS0CzV/WH3hEkH22rA36BE7Ed7m+HfdYv
+	 /ivPseYVrpb2rEjTqE07SXwZEVNmYOJZP+reT7oOIVzuI2gkP699oMSngUfsSzoW4b
+	 8ha3jY+Gx02T+kWeR2Z1o3fSIhb+/bPKyU2lXfkP3wcNO0n+Bxu66zBtZ4bY9Uh6eV
+	 dW0Z/rFhgri0YR5rXMnSk+EDCNUFRKykPtecZa+2IlivwtpjI8VAv68W7N9EaUfVlO
+	 4XEKA97P0TFKg==
+Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-68c08bfe5afso4969883a12.2
+        for <stable@vger.kernel.org>; Fri, 05 Jun 2026 21:51:02 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ8KoHu0umncG1suwQQY1Izy2jtFiDCkMci5KPjUmb7cryntMLh108+GuStIf6W4GfFlwuZMa6U=@vger.kernel.org
+X-Gm-Message-State: AOJu0YznauIrpmTksRRh9XRX+q4Fycaej0ZzMtB1hI42CvAhSGkH/rYM
+	A+v1+uLrcynORrEI2mlz8k0Y7wtavKBFRdikZ8izRYcWmQUMvcYvnlx7Hql10jFBvLv3TKZ/SV8
+	huGcNYK+UriGUOR7tF/W3rzm7qohBpow=
+X-Received: by 2002:a05:6402:27ce:b0:687:5157:1d4f with SMTP id
+ 4fb4d7f45d1cf-68fa524d249mr3187355a12.26.1780721461112; Fri, 05 Jun 2026
+ 21:51:01 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Infomaniak-Routing: alpha
+References: <20260604015848.18643-1-wanghongliang@loongson.cn>
+ <20260604015848.18643-2-wanghongliang@loongson.cn> <20260604183813.GA982803-robh@kernel.org>
+In-Reply-To: <20260604183813.GA982803-robh@kernel.org>
+From: Huacai Chen <chenhuacai@kernel.org>
+Date: Sat, 6 Jun 2026 12:50:49 +0800
+X-Gmail-Original-Message-ID: <CAAhV-H648_nNzR67ZCJ9myUG2PQy5q1EHWo1yRjKTUB+4Q+5+Q@mail.gmail.com>
+X-Gm-Features: AVVi8Cd1pBWQh2AK-e5GGLwTOpjGHeDAqe2xsmKUiF49BygdYoawTYdPqMMbYQk
+Message-ID: <CAAhV-H648_nNzR67ZCJ9myUG2PQy5q1EHWo1yRjKTUB+4Q+5+Q@mail.gmail.com>
+Subject: Re: [PATCH v5 1/2] dt-bindings: i2c: ls2x-i2c: Add clocks and
+ clock-frequency properties
+To: Rob Herring <robh@kernel.org>
+Cc: Hongliang Wang <wanghongliang@loongson.cn>, Binbin Zhou <zhoubinbin@loongson.cn>, 
+	Andi Shyti <andi.shyti@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Wolfram Sang <wsa+renesas@sang-engineering.com>, 
+	linux-i2c@vger.kernel.org, devicetree@vger.kernel.org, 
+	loongarch@lists.linux.dev, stable@vger.kernel.org, 
+	Conor Dooley <conor.dooley@microchip.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Some IdeaPad Slim 3 devices and similar with AMD CPUs have a
-nonfunctional keyboard and lid switch after s2idle.
+Hi, Rob,
 
-It helps to delay suspend by 2.5 seconds so the EC has some time
-to do whatever it needs to get done before suspend - unfortunately
-at least on my 16ABR8 waking it with a timer (wakealarm) still
-triggers the issue, but at least normal resume via keypress or
-lid works fine. On the 14ARP10 wakealarm has been reported to also
-work fine with this patch.
+On Fri, Jun 5, 2026 at 2:38=E2=80=AFAM Rob Herring <robh@kernel.org> wrote:
+>
+> On Thu, Jun 04, 2026 at 09:58:47AM +0800, Hongliang Wang wrote:
+> > Add clocks and clock-frequency properties to examples.
+> >
+> > Cc: stable@vger.kernel.org
+>
+> Not stable material unless there's a warning in the example (and there
+> is not).
+It is me who told Hongliang to CC stable because the 2nd patch is
+needed. If the 1st one is unnecessary, then please send a new version.
+And for the whole series:
 
-This issue has been reported for many different devices, this patch
-has been tested with the Zen3-based IdeaPad Slim 3 16ABR8 (82XR)
-and the Zen3+-based IdeaPad Slim 3 14ARP10 (83K6) and IdeaPad Slim 3
-15ARP10 (83MM).
+Reviewed-by: Huacai Chen <chenhuacai@loongson.cn>
 
-Reported-by: Sindre Henriksen <sindrehenriksen93@gmail.com>
-Closes: https://bugzilla.kernel.org/show_bug.cgi?id=221383
-Tested-by: Sindre Henriksen <sindrehenriksen93@gmail.com>
-Suggested-by: Mario Limonciello (AMD) <superm1@kernel.org>
-Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
-Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-Signed-off-by: Daniel Gibson <daniel@gibson.sh>
-Cc: stable@vger.kernel.org
----
- drivers/platform/x86/amd/pmc/pmc-quirks.c | 39 +++++++++++++++++++++++
- drivers/platform/x86/amd/pmc/pmc.c        | 24 +++++++++++++-
- drivers/platform/x86/amd/pmc/pmc.h        |  1 +
- 3 files changed, 63 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/platform/x86/amd/pmc/pmc-quirks.c b/drivers/platform/x86/amd/pmc/pmc-quirks.c
-index 24506e342943..74ddf1d8289a 100644
---- a/drivers/platform/x86/amd/pmc/pmc-quirks.c
-+++ b/drivers/platform/x86/amd/pmc/pmc-quirks.c
-@@ -18,6 +18,7 @@
- struct quirk_entry {
- 	u32 s2idle_bug_mmio;
- 	bool spurious_8042;
-+	bool need_suspend_delay;
- };
- 
- static struct quirk_entry quirk_s2idle_bug = {
-@@ -33,6 +34,10 @@ static struct quirk_entry quirk_s2idle_spurious_8042 = {
- 	.spurious_8042 = true,
- };
- 
-+static struct quirk_entry quirk_s2idle_need_suspend_delay = {
-+	.need_suspend_delay = true,
-+};
-+
- static const struct dmi_system_id fwbug_list[] = {
- 	{
- 		.ident = "L14 Gen2 AMD",
-@@ -203,6 +208,35 @@ static const struct dmi_system_id fwbug_list[] = {
- 			DMI_MATCH(DMI_PRODUCT_NAME, "82XQ"),
- 		}
- 	},
-+	/* https://bugzilla.kernel.org/show_bug.cgi?id=221383 */
-+	{
-+		.ident = "Zen3-based IdeaPad Slim and similar",
-+		.driver_data = &quirk_s2idle_need_suspend_delay,
-+		.matches = {
-+			DMI_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
-+			/*
-+			 * Note: there are also some Zen2-based 82X* devices that
-+			 * need different quirks, they're already handled above
-+			 */
-+			DMI_MATCH(DMI_PRODUCT_NAME, "82X"),
-+		}
-+	},
-+	{
-+		.ident = "Zen3+-based IdeaPad Slim and similar",
-+		.driver_data = &quirk_s2idle_need_suspend_delay,
-+		.matches = {
-+			DMI_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "83K"),
-+		}
-+	},
-+	{
-+		.ident = "IdeaPad Slim 3 15ARP10 (83MM)",
-+		.driver_data = &quirk_s2idle_need_suspend_delay,
-+		.matches = {
-+			DMI_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "83MM"),
-+		}
-+	},
- 	/* https://bugzilla.kernel.org/show_bug.cgi?id=221273 */
- 	{
- 		.ident = "Thinkpad L14 Gen3",
-@@ -356,6 +390,11 @@ void amd_pmc_process_restore_quirks(struct amd_pmc_dev *dev)
- 		amd_pmc_skip_nvme_smi_handler(dev->quirks->s2idle_bug_mmio);
- }
- 
-+bool amd_pmc_quirk_need_suspend_delay(struct amd_pmc_dev *dev)
-+{
-+	return dev->quirks && dev->quirks->need_suspend_delay;
-+}
-+
- void amd_pmc_quirks_init(struct amd_pmc_dev *dev)
- {
- 	const struct dmi_system_id *dmi_id;
-diff --git a/drivers/platform/x86/amd/pmc/pmc.c b/drivers/platform/x86/amd/pmc/pmc.c
-index 2b9e5730170a..6bafd8661d68 100644
---- a/drivers/platform/x86/amd/pmc/pmc.c
-+++ b/drivers/platform/x86/amd/pmc/pmc.c
-@@ -611,6 +611,27 @@ static bool amd_pmc_intermediate_wakeup_need_delay(struct amd_pmc_dev *pdev)
- 	return get_metrics_table(pdev, &table) == 0 && table.s0i3_last_entry_status;
- }
- 
-+static bool amd_pmc_want_suspend_delay(struct amd_pmc_dev *pdev)
-+{
-+	/*
-+	 * Some Lenovo Laptops (like different IdeaPad 3 Slims) need some
-+	 * me-time before sleeping or they get uncooperative after waking
-+	 * up and don't send events for keyboard and lid switch anymore.
-+	 *
-+	 * Unfortunately this doesn't entirely fix the problem: It can still
-+	 * happen when resuming with a timer (wakealarm), but at least the
-+	 * more common usecases (wakeup by opening lid or pressing a key)
-+	 * work fine with this workaround.
-+	 *
-+	 * See https://bugzilla.kernel.org/show_bug.cgi?id=221383
-+	 */
-+	if (!disable_workarounds && amd_pmc_quirk_need_suspend_delay(pdev)) {
-+		dev_info(pdev->dev, "Delaying suspend by 2.5s to avoid platform bug\n");
-+		return true;
-+	}
-+	return false;
-+}
-+
- static void amd_pmc_s2idle_prepare(void)
- {
- 	struct amd_pmc_dev *pdev = &pmc;
-@@ -647,7 +668,8 @@ static void amd_pmc_s2idle_check(void)
- 	struct amd_pmc_dev *pdev = &pmc;
- 	int rc;
- 
--	if (amd_pmc_intermediate_wakeup_need_delay(pdev))
-+	if (amd_pmc_intermediate_wakeup_need_delay(pdev) ||
-+	    amd_pmc_want_suspend_delay(pdev))
- 		msleep(2500);
- 
- 	/* Dump the IdleMask before we add to the STB */
-diff --git a/drivers/platform/x86/amd/pmc/pmc.h b/drivers/platform/x86/amd/pmc/pmc.h
-index fe3f53eb5955..f5257e47b8c4 100644
---- a/drivers/platform/x86/amd/pmc/pmc.h
-+++ b/drivers/platform/x86/amd/pmc/pmc.h
-@@ -147,6 +147,7 @@ enum amd_pmc_def {
- };
- 
- void amd_pmc_process_restore_quirks(struct amd_pmc_dev *dev);
-+bool amd_pmc_quirk_need_suspend_delay(struct amd_pmc_dev *dev);
- void amd_pmc_quirks_init(struct amd_pmc_dev *dev);
- void amd_mp2_stb_init(struct amd_pmc_dev *dev);
- void amd_mp2_stb_deinit(struct amd_pmc_dev *dev);
--- 
-2.48.1
-
+>
+> > Acked-by: Conor Dooley <conor.dooley@microchip.com>
+> > Signed-off-by: Hongliang Wang <wanghongliang@loongson.cn>
+> > ---
+> >  Documentation/devicetree/bindings/i2c/loongson,ls2x-i2c.yaml | 3 +++
+> >  1 file changed, 3 insertions(+)
+> >
+> > diff --git a/Documentation/devicetree/bindings/i2c/loongson,ls2x-i2c.ya=
+ml b/Documentation/devicetree/bindings/i2c/loongson,ls2x-i2c.yaml
+> > index ee09c6d9c5f0..0beb7f2515c8 100644
+> > --- a/Documentation/devicetree/bindings/i2c/loongson,ls2x-i2c.yaml
+> > +++ b/Documentation/devicetree/bindings/i2c/loongson,ls2x-i2c.yaml
+> > @@ -37,11 +37,14 @@ unevaluatedProperties: false
+> >
+> >  examples:
+> >    - |
+> > +    #include <dt-bindings/clock/loongson,ls2k-clk.h>
+> >      #include <dt-bindings/interrupt-controller/irq.h>
+> >
+> >      i2c0: i2c@1fe21000 {
+> >          compatible =3D "loongson,ls2k-i2c";
+> >          reg =3D <0x1fe21000 0x8>;
+> > +        clock-frequency =3D <100000>;
+> > +        clocks =3D <&clk LOONGSON2_APB_CLK>;
+> >          interrupt-parent =3D <&extioiic>;
+> >          interrupts =3D <22 IRQ_TYPE_LEVEL_LOW>;
+> >          #address-cells =3D <1>;
+> > --
+> > 2.47.2
+> >
+>
