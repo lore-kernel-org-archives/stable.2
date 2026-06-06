@@ -1,192 +1,115 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F25FD1AF4E9
-	for <stable@vger.kernel.org>; Sat,  6 Jun 2026 02:18:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C60C01917CD
+	for <stable@vger.kernel.org>; Sat,  6 Jun 2026 02:18:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780712324; cv=none; b=kIRaETWQk8acR0feIjMj7XBtOemjETixLhaIc0IaBXmoRqYt28t20o4MdWJcjQOTvoZfVUVRGyzfQxKz57SNu2mjBBaFoVUm5SVv7YjQxU0CC8xEBw02Hl1lkO/2j5KIGt9eZqkJvWevlUW1/SCS8mPrH1zbDXCIIUCLeoh3bsQ=
+	t=1780712327; cv=none; b=QEx0Mz5PdYoPrFv9LsFx4mYeWppzHGbwQlb8bJB5Xs6nJlNDMkoE9sPURvV+aY9Vj9BOVxIlRR23di+RVCMX/VeHSjkH+75PYuXNQbTZ8XzFY4hDAcVEa5aw7wTCEKg7ihhCfxVUX0o7HUiE8idwiDiCMWJh2Egvg3b51RLLnBM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780712324; c=relaxed/simple;
-	bh=fpfLaxOnfx2p+7wHIbKVisirkuNlVXhWV3aMvjn1WM8=;
+	s=arc-20240116; t=1780712327; c=relaxed/simple;
+	bh=ir4WgsxJ5h2ML8Xh5593bTcRgdDCjYkI0c/6fBPGCS4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=F3kOlCvC5wuoQVZYXsCvQwuEsdpMUCs5vqzGKitdd8pdmd4g9phhNnrAu7VCwitk9NrJo0t28PnkcEvnmBqyFdkvQkrv/Ci3TlrpnxgssRCHfPse97hZ7VH+WdwDef53sLkBOTtg3Pg1ORGP4t4jKouEpD/NMvkoixOQzfnV3dA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G04EB6fV; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=kk+5kCoSJ7YGwcnknN/hbelWHssH7z92JM3e0y8BTZ5Auzwdz8YzbZrQdqNh0F47f96arHj+RfoiSmGz/J3AJPrGk/DTQclSxt4dUk/xDpVS8eLYhNG76ZjjCvTjXZYZ9c5gJXGDqlZMfcpXL2u366LNs9cw/pBR49tdPwGL/fE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eIQKs218; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G04EB6fV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 507151F00898;
-	Sat,  6 Jun 2026 02:18:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eIQKs218"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EEB671F00893;
+	Sat,  6 Jun 2026 02:18:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780712322;
-	bh=fXlvfw79LWiZTzm82Dbmcr6vorx3bQHPwWKVNHhVfKg=;
+	s=k20260515; t=1780712326;
+	bh=WtcgCHQP36SHY76cpd02fcPiziLrHvN3/sgjm0rVJNE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=G04EB6fVfYR+DV4EFkGLQEH1i9bE+V6Kukmb3k2pLH581XDF485FUS7eqn6OeP+DL
-	 qvB0EgIzS4ARiE9vlEkfgqEz0FSiFDVTaLOhWkboih8WOfpTZVy85KNnbE/Sp2wkE0
-	 7RNET063RF/MEj26fZahp61Qp6vdALQpnnJ9vSCxs5XjqUgvQlxU+33TJ6GvsYxP2v
-	 Hvcz06Hp7x/Mt/4Daex7xO2mrU/mf0nac86MFoONY0ToxQGzHTLD6dSUZZtjLId4k1
-	 RmmhNloA34y1vcyGakwQkzy+UVlCZ09PB2m67AEQH/iPJgw59aLUuBQxtx54siQ67e
-	 Ui4NnDGw5SIew==
+	b=eIQKs218ZiTzplXScRkO514XHsuFonbbKQ5zsBMe8nZHZi1vNCVPHJ3RrhY9JCkrz
+	 AO5twJl8J6us70z6qYs/W7IvgZuyY2fefP0ycyaQgTE6A8/xkjgJkYIVEcwUXsRZNk
+	 Un0z/DydAivp7hEBvPrctqFdG2qDZps6Zr2lfYtGR4rY2ZVhv1jcpQ3+scn3UnGRGE
+	 PbpYnA3PENmf+AaaxIK2KXXT98hMAkgYDBsUVsKbLDMPAg9GeSvQY2ReaPB6/5Qu7E
+	 gha6RiQ/2QADnNuIBlSxzLtHF0Ly4WbNWQctMKtDmTQzkHpw9vTEtWobLgDWypNHCD
+	 DwiXPzGEw9iiA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>,
-	=?UTF-8?q?Micha=C5=82=20Grzelak?= <michal.grzelak@intel.com>,
-	Tvrtko Ursulin <tursulin@ursulin.net>,
+Cc: Myrrh Periwinkle <myrrhperiwinkle@qtmlabs.xyz>,
+	stable <stable@kernel.org>,
+	Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/2] drm/i915/psr: Use DC_OFF wake reference to block DC6 on vblank enable
-Date: Fri,  5 Jun 2026 22:18:39 -0400
-Message-ID: <20260606021839.2487627-2-sashal@kernel.org>
+Subject: [PATCH 5.10.y] usb: typec: ucsi: Check if power role change actually happened before handling
+Date: Fri,  5 Jun 2026 22:18:44 -0400
+Message-ID: <20260606021844.2487798-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260606021839.2487627-1-sashal@kernel.org>
-References: <2026060434-tattoo-wise-091f@gregkh>
- <20260606021839.2487627-1-sashal@kernel.org>
+In-Reply-To: <2026060419-refold-strategic-2d2c@gregkh>
+References: <2026060419-refold-strategic-2d2c@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Jouni Högander <jouni.hogander@intel.com>
+From: Myrrh Periwinkle <myrrhperiwinkle@qtmlabs.xyz>
 
-[ Upstream commit 3549a9649dc7c5fc586ab12f675279283cdcb2a7 ]
+[ Upstream commit b80e7d34c7ea6a564525119d6138fbb577a23dba ]
 
-We are observing following warnings:
+The CrOS EC may send a connector status change event with the power
+direction changed flag set even if the power direction hasn't actually
+changed after initiating a SET_PDR command internally [1]. In practice
+this happens on every system suspend due to other changes performed by
+the EC [2][3][4], causing suspend to fail.
 
-*ERROR* power well DC_off state mismatch (refcount 0/enabled 1)
+Fix this by checking if the power role change actually happened before
+handling it.
 
-gen9_dc_off_power_well_enabled is considering target state DC_STATE_DISABLE
-as DC_OFF power well being enabled. Fix this by using wakeref for the
-purpose.
+[1]: https://source.chromium.org/chromiumos/chromiumos/codesearch/+/main:src/platform/ec/zephyr/subsys/pd_controller/pdc_power_mgmt.c;l=1689;drc=2d5a1cffce4e5ac8a39442cb3b764d2d5e1cf794
+[2]: https://source.chromium.org/chromiumos/chromiumos/codesearch/+/main:src/platform/ec/zephyr/subsys/pd_controller/pdc_power_mgmt.c;l=3923;drc=2d5a1cffce4e5ac8a39442cb3b764d2d5e1cf794
+[3]: https://source.chromium.org/chromiumos/chromiumos/codesearch/+/main:src/platform/ec/zephyr/subsys/pd_controller/pdc_power_mgmt.c;l=5094;drc=2d5a1cffce4e5ac8a39442cb3b764d2d5e1cf794
+[4]: https://source.chromium.org/chromiumos/chromiumos/codesearch/+/main:src/platform/ec/zephyr/subsys/pd_controller/pdc_power_mgmt.c;l=2229;drc=2d5a1cffce4e5ac8a39442cb3b764d2d5e1cf794
 
-To achieve this we need to modify notification code as well. Currently it
-is possible that PSR gets notified vblank enable/disable twice on same
-status. This is currently not a problem as it is just triggering call to
-intel_display_power_set_target_dc_state with same target state as a
-parameter. When using wakeref this becomes a problem due to reference
-counting. Fix this storing vbank status on last notification and use that
-to ensure there are no more than one notification with same vblank status.
-
-v2: ensure there is no subsequent notifications with same status
-
-Fixes: aa451abcffb5 ("drm/i915/display: Prevent DC6 while vblank is enabled for Panel Replay")
-Cc: <stable@vger.kernel.org> # v6.13+
-Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
-Reviewed-by: Michał Grzelak <michal.grzelak@intel.com>
-Link: https://patch.msgid.link/20260520104944.239797-2-jouni.hogander@intel.com
-(cherry picked from commit 35485ac56d878192a3829a58cb26503125ec7104)
-Signed-off-by: Tvrtko Ursulin <tursulin@ursulin.net>
+Cc: stable <stable@kernel.org>
+Fixes: 7616f006db07 ("usb: typec: ucsi: Update power_supply on power role change")
+Signed-off-by: Myrrh Periwinkle <myrrhperiwinkle@qtmlabs.xyz>
+Reported-and-tested-by: Sergey Senozhatsky <senozhatsky@chromium.org>
+Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Link: https://patch.msgid.link/20260519-ucsi-fix-2-v1-1-6f1239535187@qtmlabs.xyz
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../gpu/drm/i915/display/intel_display_core.h |  1 +
- .../gpu/drm/i915/display/intel_display_irq.c  |  8 +++++--
- .../drm/i915/display/intel_display_types.h    |  2 ++
- drivers/gpu/drm/i915/display/intel_psr.c      | 24 +++++++------------
- 4 files changed, 18 insertions(+), 17 deletions(-)
+ drivers/usb/typec/ucsi/ucsi.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_core.h b/drivers/gpu/drm/i915/display/intel_display_core.h
-index 8c226406c5cd0a..800a30b8bcd8a5 100644
---- a/drivers/gpu/drm/i915/display/intel_display_core.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_core.h
-@@ -472,6 +472,7 @@ struct intel_display {
- 		u8 vblank_enabled;
+diff --git a/drivers/usb/typec/ucsi/ucsi.c b/drivers/usb/typec/ucsi/ucsi.c
+index 60339c74669417..853a1a847a0c9c 100644
+--- a/drivers/usb/typec/ucsi/ucsi.c
++++ b/drivers/usb/typec/ucsi/ucsi.c
+@@ -656,7 +656,7 @@ static void ucsi_handle_connector_change(struct work_struct *work)
+ 	struct ucsi *ucsi = con->ucsi;
+ 	struct ucsi_connector_status pre_ack_status;
+ 	struct ucsi_connector_status post_ack_status;
+-	enum typec_role role;
++	enum typec_role role, prev_role;
+ 	u16 inferred_changes;
+ 	u16 changed_flags;
+ 	u64 command;
+@@ -692,6 +692,8 @@ static void ucsi_handle_connector_change(struct work_struct *work)
+ 	 * short transitional changes.
+ 	 */
  
- 		int vblank_enable_count;
-+		bool vblank_status_last_notified;
- 
- 		struct work_struct vblank_notify_work;
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_irq.c b/drivers/gpu/drm/i915/display/intel_display_irq.c
-index 123e054affbe9f..21b2a193bb2157 100644
---- a/drivers/gpu/drm/i915/display/intel_display_irq.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_irq.c
-@@ -1707,8 +1707,12 @@ static void intel_display_vblank_notify_work(struct work_struct *work)
- 	struct intel_display *display =
- 		container_of(work, typeof(*display), irq.vblank_notify_work);
- 	int vblank_enable_count = READ_ONCE(display->irq.vblank_enable_count);
-+	bool vblank_status = !!vblank_enable_count;
- 
--	intel_psr_notify_vblank_enable_disable(display, vblank_enable_count);
-+	if (display->irq.vblank_status_last_notified != vblank_status) {
-+		intel_psr_notify_vblank_enable_disable(display, vblank_status);
-+		display->irq.vblank_status_last_notified = vblank_status;
-+	}
- }
- 
- int bdw_enable_vblank(struct drm_crtc *_crtc)
-@@ -1721,10 +1725,10 @@ int bdw_enable_vblank(struct drm_crtc *_crtc)
- 	if (gen11_dsi_configure_te(crtc, true))
- 		return 0;
- 
-+	spin_lock_irqsave(&display->irq.lock, irqflags);
- 	if (crtc->vblank_psr_notify && display->irq.vblank_enable_count++ == 0)
- 		schedule_work(&display->irq.vblank_notify_work);
- 
--	spin_lock_irqsave(&display->irq.lock, irqflags);
- 	bdw_enable_pipe_irq(display, pipe, GEN8_PIPE_VBLANK);
- 	spin_unlock_irqrestore(&display->irq.lock, irqflags);
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
-index 39dd7389f1a71a..ce9a69b6e3ee9d 100644
---- a/drivers/gpu/drm/i915/display/intel_display_types.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-@@ -1690,6 +1690,8 @@ struct intel_psr {
- 	bool pkg_c_latency_used;
- 
- 	u8 active_non_psr_pipes;
++	prev_role = !!(con->status.flags & UCSI_CONSTAT_PWR_DIR);
 +
-+	struct ref_tracker *vblank_wakeref;
- };
- 
- struct intel_dp {
-diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-index 138717cf664529..62d2bcd17002e1 100644
---- a/drivers/gpu/drm/i915/display/intel_psr.c
-+++ b/drivers/gpu/drm/i915/display/intel_psr.c
-@@ -3949,14 +3949,20 @@ void intel_psr_notify_vblank_enable_disable(struct intel_display *display,
- 					    bool enable)
- {
- 	struct intel_encoder *encoder;
--	bool block_dc_states = false;
- 
- 	for_each_intel_encoder_with_psr(display->drm, encoder) {
- 		struct intel_dp *intel_dp = enc_to_intel_dp(encoder);
- 
- 		mutex_lock(&intel_dp->psr.lock);
--		if (CAN_PANEL_REPLAY(intel_dp))
--			block_dc_states = true;
-+		if (CAN_PANEL_REPLAY(intel_dp)) {
-+			if (enable)
-+				intel_dp->psr.vblank_wakeref =
-+					intel_display_power_get(display,
-+								POWER_DOMAIN_DC_OFF);
-+			else
-+				intel_display_power_put(display, POWER_DOMAIN_DC_OFF,
-+							intel_dp->psr.vblank_wakeref);
-+		}
- 
- 		if (intel_dp->psr.enabled && !intel_dp->psr.panel_replay_enabled &&
- 		    intel_dp->psr.pkg_c_latency_used)
-@@ -3964,18 +3970,6 @@ void intel_psr_notify_vblank_enable_disable(struct intel_display *display,
- 
- 		mutex_unlock(&intel_dp->psr.lock);
+ 	/* 1. First UCSI_GET_CONNECTOR_STATUS */
+ 	command = UCSI_GET_CONNECTOR_STATUS | UCSI_CONNECTOR_NUMBER(con->num);
+ 	ret = ucsi_send_command(ucsi, command, &pre_ack_status,
+@@ -769,7 +771,8 @@ static void ucsi_handle_connector_change(struct work_struct *work)
+ 		ucsi_port_psy_changed(con);
  	}
--
--	/*
--	 * NOTE: intel_display_power_set_target_dc_state is used
--	 * only by PSR code for DC3CO handling. DC3CO target
--	 * state is currently disabled in * PSR code. If DC3CO
--	 * is taken into use we need take that into account here
--	 * as well.
--	 */
--	if (block_dc_states)
--		intel_display_power_set_target_dc_state(display, enable ?
--							DC_STATE_DISABLE :
--							DC_STATE_EN_UPTO_DC6);
- }
  
- static void
+-	if (con->status.change & UCSI_CONSTAT_POWER_DIR_CHANGE) {
++	if ((con->status.change & UCSI_CONSTAT_POWER_DIR_CHANGE) &&
++	    role != prev_role) {
+ 		typec_set_pwr_role(con->port, role);
+ 
+ 		/* Complete pending power role swap */
 -- 
 2.53.0
 
