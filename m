@@ -1,164 +1,123 @@
-Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com [209.85.160.179])
+Received: from mail-pf1-f201.google.com (mail-pf1-f201.google.com [209.85.210.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98D03134CF
-	for <stable@vger.kernel.org>; Sat,  6 Jun 2026 18:13:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5808C4071DF
+	for <stable@vger.kernel.org>; Sat,  6 Jun 2026 18:15:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780769605; cv=none; b=bW9m0pG5Vuq85xQ3sNz2mzWwCaUI0c+BP9L0+pKbJq/vlclqs5w3zHoCvwBrc6GRjgY29mFWSbZ4b8AuFTf0xGC/kb4GKYjOY90Wep2dYzJ7C5qgpvz2CXKYs3PkAPIkM6Xqn4ssQJZ2DCLvS3+WZo6kya6TLEBjmFNkCuUteUE=
+	t=1780769756; cv=none; b=LC1RbrGhM04LT1o8ZJW6hrXjLvVCG+A3E2oMhFq7ljylvbsbICQ+/lCtqTDWQmb0zgKrjyyZiIyXf49tl8xo7O4g78GsCKYd0fPAe2U3/J+bTHKXF5l4DVaL11cWTdbuwD+N6huhQrjfWmNahyY/vVvDzUfUzP2O3sZEN0B9ItI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780769605; c=relaxed/simple;
-	bh=Tquiso9GPvwfaj1fp91T8xlb/7amivqMBSTUJFBrMKw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=q72F34zohefLsWdCEHbY86cBcnzpL3e2i3R3zmYtzUJdVDI2ep/5qllXKsGjKdFiALGgOSNl/f/+Y7ADgZ1lt2iWGmhlNWTYFq+rYZsxbwICI+Z6NgEpYdH30bfOlQgWrOSIBqT190GYkQkvLGbeXqk4jpMD8c+BoEGapzw5Pfg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Pq3SS6jn; arc=none smtp.client-ip=209.85.160.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1780769756; c=relaxed/simple;
+	bh=ZOV87Kkg50R0fU874RmouwMzvXYtcr5UpWLqwmdVues=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=a0hiE1Wkg/3FiY2IJ5MdiAbU51xgDrXJlyQUwnV/IPBLKYV0+a1vl+QT/VknqBmBDPWcPhNATfe9vvZ9QC4y6waWHj0e6708rOtx3yuhxxKgPvH7GXWd47urYOFumUbgeOYUQ523+tsaw9quy3Xes89RyZIYWF5zed1ZMW38w3U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--cmllamas.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=m+cwtDG/; arc=none smtp.client-ip=209.85.210.201
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--cmllamas.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Pq3SS6jn"
-Received: by mail-qt1-f179.google.com with SMTP id d75a77b69052e-517a5cafc3dso7060111cf.3
-        for <stable@vger.kernel.org>; Sat, 06 Jun 2026 11:13:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="m+cwtDG/"
+Received: by mail-pf1-f201.google.com with SMTP id d2e1a72fcca58-842688fa7b8so3358112b3a.0
+        for <stable@vger.kernel.org>; Sat, 06 Jun 2026 11:15:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780769603; x=1781374403; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=vs9sOPs398rODDZTFwVgFO5RKpuWAqMg6hg4GuJ04No=;
-        b=Pq3SS6jnGZJ7y6Q3DKF6JCVcAbUekn2BrsqFGEepDI8ENLkA8Y5SZfc/BthDTOBO8U
-         fcwcLxdN71Yqahx67Y05Qv31zlRzDwb0+cLda39df3IgitVdpd9QWw5B3bD7uf2h3iyY
-         21hw+X+Sgn8pYXwQWTor5yVlF7uOHWyUFLERVe1p/p1vcvA/pIQlBBzSRp9fhvnwwFhF
-         pnM/F15iD+CkZpKpI3KdHnDPPbwLgnmGaSeh2BBhyvE0BlJjjMjSxPopPFhbi1gjXSA+
-         LdpQ5pnHKl33e9uSt3iNQDTMXQfPEjEBDxF2kBsij3QsOIrmozztc9FhX49NhZdrw2mO
-         lDKQ==
+        d=google.com; s=20251104; t=1780769755; x=1781374555; darn=vger.kernel.org;
+        h=cc:to:from:subject:message-id:mime-version:date:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=lEo1sTatDYxKdvMuuk7DWQBRmBc0R0fl8GArZamftro=;
+        b=m+cwtDG/LcbEAuGufoTYXu5hhDX0HwP/YdGO7KWqsF4A4mJulHZlVL9+HKcaRFP7UN
+         ry/FBNGmp3W88Oz0+GGUfN3X+9atd2GB1ZT7UWrXbNrgueClqMtDO+v+0HxQIj7hUyBF
+         eQNMjFLqIEmoFkgaNJT5bYyrM/1Gh16tAulWX5Cab+rj10pSuNJqhl13f93ka8DnBdok
+         3kKOMl7OW5mrxUbv8dWs5iAcIdFZhBNR4ftAIb8IZ/UuPSEF4JqHlT+p73FD0dNP3nz/
+         QctE+A71iMNV+8n4U0qA0Eu7skOlCvaLYcJneQdcIs0qakymot6oHJa2NoJ8mrhW2wO1
+         0Ssg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780769603; x=1781374403;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=vs9sOPs398rODDZTFwVgFO5RKpuWAqMg6hg4GuJ04No=;
-        b=pxqlpmBRO7np2kRoA6LxwVtNiNi36NLYAVIM3y2AQ152irnjOzZZmdmBX/3DRnxtPK
-         AirMjwWkmMamsyn3rFQYRvzKInHFXdJh91dyj6Cm9XplrwcDNsLhE2aB0U/PbZRoqQd3
-         g0vHvmv4KsH/sz/9HQjimsmWXDGTpS5MMBfnEumVVmka0JDezu6zuABaAt/WsbV7c3Ec
-         vIzrNu5XVMhmZrMa43UvAbW1PS9a3KC9mANgUTbSAH7e/auxL1iaN1RDMP8rWinNmwzG
-         ItUaSyOJ/V2CCmVAPVOXexDN18YUzCXEkXSIvbhGDoNzPkJLsLrmn4SeanaToNRcq7+0
-         kPYA==
-X-Forwarded-Encrypted: i=1; AFNElJ8bDmO/cBAbi5KF8uU3GWI8HP47tSL1PMxKQeNyDxiHBRisX2myIEbhHI80wQbMaXoY0mWmYrE=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwM6zlD0s2wJMYyN1Yeobg27gk0SCCkQ69bj8i31O0VWs7Vlos7
-	1DOXywKRHsDnXjt53ixkMzMWh8J6p7kGMXKrOjnaXMpM/2qeGK+uYLvL
-X-Gm-Gg: Acq92OH4cPmprD/8tscCPb+iHavELIBciwIPM9Q7IvJ2TibP/Fjn0glA9yypbkXDswy
-	Uh/Rogi/fsf4uL1jdKS0VQBSDvrjW5uaIwJ64/D/gCzVJ2LOP09suhGU8DuADee6ZQg9oBiSken
-	7k5wGWw9VZyE8LqNV6SOa0EWJj3KtpdVfXVVD8WOcMtr60SYG9WcayK9wQu88EBkuv5dKqvYQfc
-	BrHYLdoXuYu8RwpXhzCtLuELM9vA9kwhhelUrmGreZ+Jy+TSnrFtcXV7wDrhhBACH1GwBC7XTLL
-	pmDexy7+1TNODyGDKSKmtGHkPfPEGOAs9qpgIoQ1BcVI/y0wvuQR0Cq3OjJPwvIQ6vCHsJcTZAH
-	29zGsL0QHJTEBq8HfB1t2Dg0TlWSvXXpJ586+8dvRBfUY9bTVdt8ZabdS3jMTf8GgC36kn/syFr
-	Wd7L3r3AhyGNCV7btM1CSq5gx/7s87R+dchHm+Q9TE5RAG+C3acnkyemSTHx74MRQMPTo1XGw4K
-	3QYsFzmJ9f2FAAUBLrnfAAvY4gXMog=
-X-Received: by 2002:a05:622a:4d09:b0:516:e290:991a with SMTP id d75a77b69052e-51795be8192mr140592791cf.40.1780769603612;
-        Sat, 06 Jun 2026 11:13:23 -0700 (PDT)
-Received: from server0 (c-68-48-65-54.hsd1.mi.comcast.net. [68.48.65.54])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-51775da6f41sm104769301cf.22.2026.06.06.11.13.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 06 Jun 2026 11:13:23 -0700 (PDT)
-From: Michael Bommarito <michael.bommarito@gmail.com>
-To: Hannes Reinecke <hare@suse.de>,
-	Christoph Hellwig <hch@lst.de>,
-	Sagi Grimberg <sagi@grimberg.me>,
-	Chaitanya Kulkarni <kch@nvidia.com>
-Cc: Jens Axboe <axboe@kernel.dk>,
-	linux-nvme@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] nvmet-auth: reject short AUTH_RECEIVE buffers
-Date: Sat,  6 Jun 2026 14:13:06 -0400
-Message-ID: <20260606181306.1651139-1-michael.bommarito@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        d=1e100.net; s=20251104; t=1780769755; x=1781374555;
+        h=cc:to:from:subject:message-id:mime-version:date:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=lEo1sTatDYxKdvMuuk7DWQBRmBc0R0fl8GArZamftro=;
+        b=ceP2MFLJHW86GstxMVWFN3KNxSlzz8hGYDQZJWYtgdGHLSZgjp/66A6TjcvlVmkMZL
+         Ks83KtS9ZBuARF8wOVvHFdZRrLBosUiGaNGO9AdtKca45rtPFVmEYoXvvpbL6Zhu3UG/
+         DeQwnrRi2jP+Okel9Zc4JpdpHLe+odXHbcr5h7xBhXkWWdsK88sP4Ive/3pFSRPm/Tfq
+         to4UGN6+Jy/6xPQR1vBQ3WMAR6YRDYy+PxBIf13ujgzL3+QpprLN4bx1gGL6g643uoAe
+         R0ZVH3mZy7JxfjiherW/XIOHarAqCMbxfaYzYW07D1ouKjsIA8N8t/+Cr+3KZwuFOjCY
+         KaLQ==
+X-Forwarded-Encrypted: i=1; AFNElJ/q7fKkkJEet673m0wOZWsd7nd1An42lCfxGqF1ugTFIiXANmhpLBLU+JvjldW0qnf5hzXkvTM=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzsOW4vzW1PSGACwVf9tE3+zZhslP+A7NlryJhoexLSTIrrw78u
+	NnnoynOz6OzOJvOv8S3fRa5pBlzhNWfGvk8QKyPmZfc7sXUhF+gamv7mfcKNwzhqMk1rHKk9+1L
+	yaO84PBwdN3Sv+Q==
+X-Received: from pfbhr3-n2.prod.google.com ([2002:a05:6a00:6b83:20b0:82f:a3bb:a943])
+ (user=cmllamas job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6a00:1952:b0:842:499d:450e with SMTP id d2e1a72fcca58-842b6766a9cmr5712176b3a.20.1780769754473;
+ Sat, 06 Jun 2026 11:15:54 -0700 (PDT)
+Date: Sat,  6 Jun 2026 18:15:52 +0000
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.54.0.1032.g2f8565e1d1-goog
+Message-ID: <20260606181552.3095967-1-cmllamas@google.com>
+Subject: [PATCH] HID: uhid: convert to hid_safe_input_report()
+From: Carlos Llamas <cmllamas@google.com>
+To: David Rheinsberg <david@readahead.eu>, Jiri Kosina <jikos@kernel.org>, 
+	Benjamin Tissoires <bentiss@kernel.org>, Lee Jones <lee@kernel.org>
+Cc: kernel-team@android.com, linux-kernel@vger.kernel.org, 
+	Carlos Llamas <cmllamas@google.com>, stable@vger.kernel.org, 
+	"open list:UHID USERSPACE HID IO DRIVER" <linux-input@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-nvmet_execute_auth_receive() trusts the AUTH_RECEIVE allocation length
-after checking only that it is nonzero and matches the transfer length.
-In SUCCESS1 and FAILURE1/default states, that lets a remote NVMe-oF
-initiator reach fixed-size DHCHAP response builders with a kmalloc()
-buffer shorter than the response, so the builder writes past the
-allocation.
+Commit 0a3fe972a7cb ("HID: core: Mitigate potential OOB by removing
+bogus memset()"), added a check in hid_report_raw_event() to reject
+reports if the received data size is smaller than expected. This was
+intended to prevent OOB errors by no longer allowing zeroing-out of
+shorter reports due to the lack of buffer size information.
 
-Reject AUTH_RECEIVE commands whose allocation length is shorter than the
-response for the current state before allocating the buffer. Keep the
-existing CHALLENGE variable-length guard in nvmet_auth_challenge().
+However, this leads to regressions in hid_report_raw_event(), where
+shorter than expected reports are rejected, even though their buffers
+are sufficiently large to be zero-padded.
 
-This is the AUTH_RECEIVE response-write counterpart to the separately
-posted AUTH_SEND read-side bounds fix in nvmet_auth_reply() [1]; the two
-paths do not overlap.
+To solve this issue, Benjamin introduced a safer alternative in commit
+206342541fc8 ("HID: core: introduce hid_safe_input_report()"), which
+forwards the buffer size and allows hid_report_raw_event() to safely
+zero-pad the data.
 
-Link: https://lore.kernel.org/all/f4aca9b14e74a7f7f8cd9620e13cc32a6a2b7746@linux.dev/ [1]
-Fixes: db1312dd95488 ("nvmet: implement basic In-Band Authentication")
+Convert uhid to use hid_safe_input_report() and pass UHID_DATA_MAX as
+the buffer size. This prevents the reported regressions [1], allowing
+hid core to zero-pad the shorter reports safely as expected.
+
 Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5-5-xhigh
-Signed-off-by: Michael Bommarito <michael.bommarito@gmail.com>
+Fixes: 0a3fe972a7cb ("HID: core: Mitigate potential OOB by removing bogus memset()")
+Closes: https://lore.kernel.org/all/ahsh0UtTX6e0ZeHa@google.com/ [1]
+Signed-off-by: Carlos Llamas <cmllamas@google.com>
 ---
-A temporary KUnit harness, not included in this patch, ran under UML
-with KASAN enabled. The stock run crashed in
-nvmet_execute_auth_receive() on the SUCCESS1 path with "memset:
-detected buffer overflow: 16 byte write of buffer size 1"; the patched
-run passed the same harness. The harness source is available on
-request.
+ drivers/hid/uhid.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
- drivers/nvme/target/fabrics-cmd-auth.c | 27 ++++++++++++++++++++++++++
- 1 file changed, 27 insertions(+)
-
-diff --git a/drivers/nvme/target/fabrics-cmd-auth.c b/drivers/nvme/target/fabrics-cmd-auth.c
-index f1e613e7c63e5..77c7b412a8691 100644
---- a/drivers/nvme/target/fabrics-cmd-auth.c
-+++ b/drivers/nvme/target/fabrics-cmd-auth.c
-@@ -487,11 +487,30 @@ u32 nvmet_auth_receive_data_len(struct nvmet_req *req)
- 	return le32_to_cpu(req->cmd->auth_receive.al);
+diff --git a/drivers/hid/uhid.c b/drivers/hid/uhid.c
+index 524b53a3c87b..37b60c3aaf66 100644
+--- a/drivers/hid/uhid.c
++++ b/drivers/hid/uhid.c
+@@ -595,8 +595,8 @@ static int uhid_dev_input(struct uhid_device *uhid, struct uhid_event *ev)
+ 	if (!READ_ONCE(uhid->running))
+ 		return -EINVAL;
+ 
+-	hid_input_report(uhid->hid, HID_INPUT_REPORT, ev->u.input.data,
+-			 min_t(size_t, ev->u.input.size, UHID_DATA_MAX), 0);
++	hid_safe_input_report(uhid->hid, HID_INPUT_REPORT, ev->u.input.data, UHID_DATA_MAX,
++			      min_t(size_t, ev->u.input.size, UHID_DATA_MAX), 0);
+ 
+ 	return 0;
  }
+@@ -606,8 +606,8 @@ static int uhid_dev_input2(struct uhid_device *uhid, struct uhid_event *ev)
+ 	if (!READ_ONCE(uhid->running))
+ 		return -EINVAL;
  
-+static u32 nvmet_auth_receive_min_len(struct nvmet_req *req)
-+{
-+	struct nvmet_ctrl *ctrl = req->sq->ctrl;
-+	u32 hash_len = 0;
-+
-+	switch (req->sq->dhchap_step) {
-+	case NVME_AUTH_DHCHAP_MESSAGE_CHALLENGE:
-+		return 0;
-+	case NVME_AUTH_DHCHAP_MESSAGE_SUCCESS1:
-+		if (req->sq->dhchap_c2)
-+			hash_len = nvme_auth_hmac_hash_len(ctrl->shash_id);
-+
-+		return sizeof(struct nvmf_auth_dhchap_success1_data) + hash_len;
-+	default:
-+		return sizeof(struct nvmf_auth_dhchap_failure_data);
-+	}
-+}
-+
- void nvmet_execute_auth_receive(struct nvmet_req *req)
- {
- 	struct nvmet_ctrl *ctrl = req->sq->ctrl;
- 	void *d;
- 	u32 al;
-+	u32 min_len;
- 	u16 status = 0;
+-	hid_input_report(uhid->hid, HID_INPUT_REPORT, ev->u.input2.data,
+-			 min_t(size_t, ev->u.input2.size, UHID_DATA_MAX), 0);
++	hid_safe_input_report(uhid->hid, HID_INPUT_REPORT, ev->u.input2.data, UHID_DATA_MAX,
++			      min_t(size_t, ev->u.input2.size, UHID_DATA_MAX), 0);
  
- 	if (req->cmd->auth_receive.secp != NVME_AUTH_DHCHAP_PROTOCOL_IDENTIFIER) {
-@@ -524,6 +543,14 @@ void nvmet_execute_auth_receive(struct nvmet_req *req)
- 		return;
- 	}
- 
-+	min_len = nvmet_auth_receive_min_len(req);
-+	if (al < min_len) {
-+		status = NVME_SC_INVALID_FIELD | NVME_STATUS_DNR;
-+		req->error_loc =
-+			offsetof(struct nvmf_auth_receive_command, al);
-+		goto done;
-+	}
-+
- 	d = kmalloc(al, GFP_KERNEL);
- 	if (!d) {
- 		status = NVME_SC_INTERNAL;
+ 	return 0;
+ }
 -- 
-2.53.0
+2.54.0.1032.g2f8565e1d1-goog
 
