@@ -1,150 +1,168 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CCEC2773F0
-	for <stable@vger.kernel.org>; Sat,  6 Jun 2026 12:19:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E7612773F0
+	for <stable@vger.kernel.org>; Sat,  6 Jun 2026 12:19:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780748351; cv=none; b=DV3f0qnh4H3rK0z1eZIovHY461IEukccBQk734gcxWjmZOF6qbqkayM7Z+9TMRZKDExyEHVlQ55akNVYF8w2iazPz+pBdxTwu5IlqHcIokDFbgByIFD42sGM4IuS2Vv5PDxRLLbn3F32yMr2WHqKIufgFihYOKuLS50Ks2SLa9U=
+	t=1780748353; cv=none; b=d2KxOcN1hjdRnWmnKMvh/KywVzRMD1lvUS0EwfJ7uWji3qQANfT4jfHiX9kSBaWsXRhd7QHj6KI5cSXCWDn6z6CNcP+D+esWCr0NJmXE3320ZzBA/I+XZtq8Nu9MYFDuvZ9sisLfOF8hCBrNAXZtX4qGtvjvb2dMCo+7kLF2qpA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780748351; c=relaxed/simple;
-	bh=dv1pARTtFjPtVkg/6fqnOmSQke45TNrnl48lRJsdSzI=;
+	s=arc-20240116; t=1780748353; c=relaxed/simple;
+	bh=wK2+q4RjDqHV92DtNcbNzkFVZZ5IcovKBALzZ2TD8Z0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=mYa/1uJVjiCmmK/kP9a7uW8nm63g3wKGIvF1p1brM+YvbfmPQKFYEfjEFTj3YthprGVoSQyoo0FYI1yY6kbpjg8HffIzB1KrMUly4OZNJmsG2WAmkayj1vv6kSQIiLXzHs8w9XHmDWIwodxh+7n5NIhUc5/yOqr+T4yOVPVhym8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b1MFtk2R; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=WY6eTdUz5ScIfVYni8od/Jl131d/FWEpWXBW0UN8WX8oL1JBZwMfrhLqBezFlS6fxayZz45qTIBKcxxXIdOgVYm7F2C0EUUk3v+QPaRHUO8ALtVjlbybg3GVLYp9xjX/V5xSLjtm3lQ3MpxEB0IkdpM65eJc/6GfAatYAOgc68g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ORi/nXep; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b1MFtk2R"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7458B1F0089A;
-	Sat,  6 Jun 2026 12:19:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ORi/nXep"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DD621F00893;
+	Sat,  6 Jun 2026 12:19:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780748350;
-	bh=ZRXO9zMOmhWnGerK2W3Und+Hl2t4D6xMEy5fO3yMUKw=;
+	s=k20260515; t=1780748351;
+	bh=Tom1WOIgNvN3Zz76xyYmjiCQ1yxOKvr9mmBGVwLS6TA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=b1MFtk2R5W9xgcbwrLr/e8CikR+OUN1vDzwJA37WlkeL/9P3HXScaAvVBhJYvatc2
-	 IOeSIaBtwxDO+drLL+1HK46whNHSnx529JBmPtpk7D48quIDXgxEq3VmGCmAsHs2YQ
-	 sg548PE/KAS1p/7el0AKfh1DQvL+KOOG96hzAUpQX+UPr85mkUGhiP8hNVJB8XnoOX
-	 RiRfSBrimjhQk0B3gNkFUok9bedmDx/3cMVpfiidAgUsoMjMHnjKyxwp5VpIO07SZd
-	 vJ02A3JycXSPMsgbjYO+b5hnRmRQkBx0WZ45UDTWb7HLZ755T8fSrT8hcZEkBFOOV+
-	 a93Buci6kGz1g==
+	b=ORi/nXepjfPwvAdAaBzCwF1GboMqFLYZlgVxbFd1Q6JhzWeLQkjRTJNq7fp8EjV1O
+	 ex6VRt7Tf/Gqz5behcEDwZ+deUIBmkgFzVZWLgaYCvOURtacJ9sKrXaYlDuwOppQ+k
+	 I7n+xFP4RLcv06n7mS/nUU9AEcywaLkvveM7SmMBcTj5kCDC0ZyRvG/6JwlVs9JgOu
+	 dZNCux/1Ap8Nz175M8izGGd2PB8CuQcAccYrnwPcNiq/t7u+RBoyP6yeQi+7LnuIDi
+	 qYz6MFczmwUnMY54oYgBM4LRgs5y8sz0XrcXJ34wqVWV3cZoeNbvz1FJbmhcimmOEi
+	 3Atm3jnMw98eQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: =?UTF-8?q?Alexis=20Lothor=C3=A9=20=28eBPF=20Foundation=29?= <alexis.lothore@bootlin.com>,
-	"Borislav Petkov (AMD)" <bp@alien8.de>,
-	"Peter Zijlstra (Intel)" <peterz@infradead.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	stable@kernel.org,
+Cc: Michael Bommarito <michael.bommarito@gmail.com>,
+	John Garry <john.g.garry@oracle.com>,
+	"Martin K. Petersen" <martin.petersen@oracle.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/2] x86/ftrace: Relocate %rip-relative percpu refs in dynamic trampolines
-Date: Sat,  6 Jun 2026 08:19:06 -0400
-Message-ID: <20260606121906.2851584-2-sashal@kernel.org>
+Subject: [PATCH 6.6.y] scsi: target: iscsi: Fix CRC overread and double-free in iscsit_handle_text_cmd()
+Date: Sat,  6 Jun 2026 08:19:09 -0400
+Message-ID: <20260606121909.2851630-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260606121906.2851584-1-sashal@kernel.org>
-References: <2026060417-mounting-subarctic-8502@gregkh>
- <20260606121906.2851584-1-sashal@kernel.org>
+In-Reply-To: <2026060458-caviar-selection-d50e@gregkh>
+References: <2026060458-caviar-selection-d50e@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Alexis Lothoré (eBPF Foundation) <alexis.lothore@bootlin.com>
+From: Michael Bommarito <michael.bommarito@gmail.com>
 
-[ Upstream commit a17dc12bfed8868e6a86f3b45c16065a70641acb ]
+[ Upstream commit 778c2ab142c625a8a8afa570e0f9b7873f445d99 ]
 
-With CONFIG_CALL_DEPTH_TRACKING enabled on an x86 retbleed-affected platform
-(eg: Skylake), with retbleed=stuff, registering a dynamic ftrace trampoline
-crashes on the first call into the traced function:
+Two latent bugs in the Text-phase handler, both present since the
+original LIO integration in commit e48354ce078c ("iscsi-target: Add
+iSCSI fabric support for target v4.1"):
 
-  BUG: unable to handle page fault for address: ffff88817ae18880
-  #PF: supervisor write access in kernel mode
-  #PF: error_code(0x0002) - not-present page
-  PGD 4b53067 P4D 4b53067 PUD 0
-  Oops: Oops: 0002 [#1] SMP PTI
-  CPU: 3 UID: 0 PID: 187 Comm: usleep Not tainted 7.0.10 #243 PREEMPT(full)
-  Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS Arch Linux 1.17.0-2-2 04/01/2014
-  Code: 24 78 00 00 00 00 48 89 ea 48 89 54 24 20 48 8b b4 24 b8 00 00 00 48 8b bc 24 b0 00 00 00 48 89 bc 24 80 00 00 00 48 83 ef 05 <65> 48 c1 3d 1f a8 b6 02 05 48 8b 15 f6 00 00 00 4c 89 3c 24 4c 89
-  Call Trace:
-   <TASK>
-   ? find_held_lock
-   ? exc_page_fault
-   ? lock_release
-   ? __x64_sys_clock_nanosleep
-   ? lockdep_hardirqs_on_prepare
-   ? trace_hardirqs_on
-   __x64_sys_clock_nanosleep
-   do_syscall_64
-   ? exc_page_fault
-   ? call_depth_return_thunk
-   entry_SYSCALL_64_after_hwframe
-  ...
-  Kernel panic - not syncing: Fatal exception
+1) DataDigest CRC buffer overread (4 bytes past text_in).
 
-This small reproducer allows to easily trigger the crash:
+   text_in is kzalloc()'d at ALIGN(payload_length, 4).  rx_size is then
+   incremented by ISCSI_CRC_LEN to make room for the received DataDigest
+   in the iovec, but the same (now-bumped) rx_size is passed as the
+   buffer length to iscsit_crc_buf():
 
-  # echo 'p __x64_sys_clock_nanosleep' > /sys/kernel/tracing/kprobe_events
-  # echo 1 > /sys/kernel/tracing/events/kprobes/p___x64_sys_clock_nanosleep_0/enable
-  # usleep 1
+       if (conn->conn_ops->DataDigest) {
+               ...
+               rx_size += ISCSI_CRC_LEN;
+       }
+       ...
+       if (conn->conn_ops->DataDigest) {
+               data_crc = iscsit_crc_buf(text_in, rx_size, 0, NULL);
 
-Monitoring the crash under GDB points to the exact instruction in charge of
-incrementing the call depth:
+   iscsit_crc_buf() walks rx_size bytes of text_in with crc32c(), so
+   when DataDigest is negotiated it reads 4 bytes past the end of the
+   text_in allocation.  KASAN reproduces this directly on the unpatched
+   mainline tree as slab-out-of-bounds in crc32c() called from the Text
+   PDU path.  The OOB bytes feed crc32c() and are then compared against
+   the initiator-supplied checksum, so the value does not flow back to
+   the attacker, but the kernel does read past the buffer on every Text
+   PDU with DataDigest=CRC32C.
 
-  sarq $5, %gs:__x86_call_depth(%rip)
+   Fix by passing the actual padded payload length
+   (ALIGN(payload_length, 4)) that was used for the kzalloc().
 
-This instruction matches the one inserted by the ftrace_regs_caller from
-ftrace_64.S. This emitted code was likely working fine until the introduction
-of
+2) Stale cmd->text_in_ptr re-free (double-free) on ERL>0 bad DataDigest
+   drop.
 
-  59bec00ace28 ("x86/percpu: Introduce %rip-relative addressing to PER_CPU_VAR()"):
+   On DataDigest mismatch with ErrorRecoveryLevel > 0 the handler
+   silently drops the PDU and lets the initiator plug the CmdSN gap:
 
-it has made the call depth accounting addressing relative to $rip, instead of
-being based on an absolute address.
+               kfree(text_in);
+               return 0;
 
-As this code exact location depends on where the trampoline lives in memory,
-the corresponding displacement needs to be adjusted at runtime to actually
-correctly find the per-cpu __x86_call_depth value, otherwise the targeted
-address is wrong, leading to the page fault seen above.
+   cmd->text_in_ptr still points at the freed buffer.  The next Text
+   Request on the same ITT re-enters iscsit_setup_text_cmd(), which
+   unconditionally does
 
-Fix the %rip-relative displacement of the copied CALL_DEPTH_ACCOUNT
-instruction (from ftrace_regs_caller) by calling text_poke_apply_relocation(),
-as it is done for example by the x86 BPF JIT compiler through
-x86_call_depth_emit_accounting(). This corrects both CALL_DEPTH_ACCOUNT slots,
-in ftrace_caller and ftrace_regs_caller.
+       kfree(cmd->text_in_ptr);
+       cmd->text_in_ptr = NULL;
 
-  [ bp: Massage. ]
+   freeing the same pointer a second time.  Session teardown via
+   iscsit_release_cmd() has the same shape and hits the same double-free
+   if the connection is dropped before a second Text Request arrives.
 
-Fixes: 59bec00ace28 ("x86/percpu: Introduce %rip-relative addressing to PER_CPU_VAR()")
-Signed-off-by: Alexis Lothoré (eBPF Foundation) <alexis.lothore@bootlin.com>
-Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
-Acked-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-Acked-by: Steven Rostedt <rostedt@goodmis.org>
-Cc: <stable@kernel.org>
-Link: https://patch.msgid.link/20260527-fix_call_depth_in_trampoline-v1-1-1c1abc8ae310@bootlin.com
+   On an unmodified mainline tree the bug-1 CRC overread fires first on
+   the initial valid Text Request and perturbs the subsequent state, so
+   #4 was isolated by building a kernel with only the bug-1 hunk of this
+   patch applied plus temporary printk() observability around the three
+   relevant kfree() sites.  The observability prints are not part of
+   this patch.  On that build, a three-PDU Text Request sequence after
+   login produces two back-to-back splats:
+
+       BUG: KASAN: double-free in iscsit_setup_text_cmd+0x??
+       BUG: KASAN: double-free in iscsit_release_cmd+0x??
+
+   showing the same pointer freed in the ERL>0 drop path and again in
+   iscsit_setup_text_cmd() (next Text Request on the same ITT) and once
+   more in iscsit_release_cmd() (session teardown).  On distro kernels
+   with CONFIG_SLAB_FREELIST_HARDENED=y (default) the double-free
+   becomes a remote kernel BUG(); on non-hardened kernels it corrupts
+   the slab freelist.
+
+   Fix by clearing cmd->text_in_ptr after the kfree() in the ERL>0 drop
+   path.  With both hunks applied #4 is directly observable on the stock
+   tree without observability printks; fixing bug-1 alone would mask #4
+   less, not more, so the hunks are submitted together.
+
+Both fixes are one-liners.  The Text PDU state machine is unchanged and
+the wire protocol is unaffected.
+
+Fixes: e48354ce078c ("iscsi-target: Add iSCSI fabric support for target v4.1")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-4-7
+Signed-off-by: Michael Bommarito <michael.bommarito@gmail.com>
+Tested-by: John Garry <john.g.garry@oracle.com>
+Reviewed-by: John Garry <john.g.garry@oracle.com>
+Signed-off-by: Martin K. Petersen <martin.petersen@oracle.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/x86/kernel/ftrace.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ drivers/target/iscsi/iscsi_target.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/arch/x86/kernel/ftrace.c b/arch/x86/kernel/ftrace.c
-index d3b14a9ad2edb7..6bcc080f361e36 100644
---- a/arch/x86/kernel/ftrace.c
-+++ b/arch/x86/kernel/ftrace.c
-@@ -370,6 +370,13 @@ create_trampoline(struct ftrace_ops *ops, unsigned int *tramp_size)
- 			goto fail;
- 	}
+diff --git a/drivers/target/iscsi/iscsi_target.c b/drivers/target/iscsi/iscsi_target.c
+index b756d4cfecfe93..5cad0868535030 100644
+--- a/drivers/target/iscsi/iscsi_target.c
++++ b/drivers/target/iscsi/iscsi_target.c
+@@ -2335,8 +2335,9 @@ iscsit_handle_text_cmd(struct iscsit_conn *conn, struct iscsit_cmd *cmd,
  
-+	/*
-+	 * Generated trampoline may contain rIP-relative addressing which
-+	 * displacement needs to be fixed.
-+	 */
-+	text_poke_apply_relocation(trampoline, trampoline, size,
-+				   (void *)start_offset, size);
-+
- 	/*
- 	 * The address of the ftrace_ops that is used for this trampoline
- 	 * is stored at the end of the trampoline. This will be used to
+ 		if (conn->conn_ops->DataDigest) {
+ 			iscsit_do_crypto_hash_buf(conn->conn_rx_hash,
+-						  text_in, rx_size, 0, NULL,
+-						  &data_crc);
++						  text_in,
++						  ALIGN(payload_length, 4),
++						  0, NULL, &data_crc);
+ 
+ 			if (checksum != data_crc) {
+ 				pr_err("Text data CRC32C DataDigest"
+@@ -2356,6 +2357,7 @@ iscsit_handle_text_cmd(struct iscsit_conn *conn, struct iscsit_cmd *cmd,
+ 					" Command CmdSN: 0x%08x due to"
+ 					" DataCRC error.\n", hdr->cmdsn);
+ 					kfree(text_in);
++					cmd->text_in_ptr = NULL;
+ 					return 0;
+ 				}
+ 			} else {
 -- 
 2.53.0
 
