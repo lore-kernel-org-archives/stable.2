@@ -1,90 +1,149 @@
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp-190e.mail.infomaniak.ch (smtp-190e.mail.infomaniak.ch [185.125.25.14])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C63A23815B
-	for <stable@vger.kernel.org>; Sat,  6 Jun 2026 03:22:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C48EC2F5468
+	for <stable@vger.kernel.org>; Sat,  6 Jun 2026 03:50:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.125.25.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780716158; cv=none; b=jeyyDJN6h6Nq31OJeTcy7h9CeM8M+xqpUTAFnoXzX8NcuJ73IdZsqnuM5LpH3QdpUb4zUBBk798XQ4Qtp5jDlRwsXYwXKmw2v2++E1VK8dngp3De3Z0H8iSVP3utNrhwhkQ5rIAJgvRkkR8Rci0CbFFyjSRphTs/+3dY/WJdvoQ=
+	t=1780717860; cv=none; b=mQObb4k0O5PemgmjPa9ZNU2avnwsn86gKESDI0dj6vf/TzymTJU3DOyYW5/7wQe4BVU0mGJT79J5Xl5vE71ajtDLYTQ7/8pxiUa/TpBJMrndVyGjUF9/4R2l3MPN7Nw+4dJVFN28FxI7l9QA5qz5NJawWncyA09aJdWXBs5t4ns=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780716158; c=relaxed/simple;
-	bh=jbPgsrbK1K1b0DlYJTMCLHsCDahXSKwxCMeJ1Uav9D4=;
-	h=From:To:Cc:Subject:In-Reply-To:Date:Message-ID:References; b=rz8+wGFuPW88eKDbOhY429w4IZggnl5JeyfzqzhKH91Q/G9EhhFszdZtAUQx72xg35VfqzAzj0iuAd/pe+0I4pUkIkG7/Z4Iyiom6/DJJAeMReIdW5J680nB0splJfUVXbpdGMOPiNiLDWEhQ+Bo1vdQg+LaXGbCEgIOZNztKnk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h51HdRM0; arc=none smtp.client-ip=209.85.216.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1780717860; c=relaxed/simple;
+	bh=NlNVutzsag3ubNZVQxraoUiwWoRXwj6MhDg93P424gA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=COlgpIWxiHtBvfuV20h1Eg942+ocDrDw04fTYBwpdfWZrCR3cw2miImaCdiqjwKBJuSvtRHnqJCscl82Ss9XE9fUZkxPG2XaeqeEm5Xct/RFtMify7Scaxd6hGxyVrOZQzsYPIijkaipDu+ZPTxicaJ+BEWYeAY6pK3T423k8Js=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.sh; spf=pass smtp.mailfrom=gibson.sh; dkim=pass (2048-bit key) header.d=gibson.sh header.i=@gibson.sh header.b=JfGMWfm9; arc=none smtp.client-ip=185.125.25.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.sh
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gibson.sh
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h51HdRM0"
-Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-36b903567fdso2565656a91.1
-        for <stable@vger.kernel.org>; Fri, 05 Jun 2026 20:22:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780716156; x=1781320956; darn=vger.kernel.org;
-        h=references:message-id:date:in-reply-to:subject:cc:to:from:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=jbPgsrbK1K1b0DlYJTMCLHsCDahXSKwxCMeJ1Uav9D4=;
-        b=h51HdRM0t8zZBUN8sbbzxmIlBcc8YB9Ncwx5sDOW5rDhis7HgA1jfqIOVLxWLnhf16
-         OVzZ/cNHuxmu2nP/k7+rcCGKmsSY63o2DvlYZnc5sUgHwH13/nAF6Lrq15lD3Kp1Hk6Z
-         uqThe4ZdHPXuaepunMcm76yV7CSndkWvPmpnQ8ooglwaQtuSM0AupRmh8MBEb3f292fz
-         J9zJ6q1HoQxL017uAavGOXtIjTJ7RQ3dVSt2lI3pTW26sXXXmCKuTS8+F2AYlJz0S2fs
-         ZDzDVGWfPPaysUR8qIsx5DWpymiwydokNPWSJ+iAbeI0cFQ6uU0mQ5k9AN1vkSecDNCA
-         ApXQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780716156; x=1781320956;
-        h=references:message-id:date:in-reply-to:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=jbPgsrbK1K1b0DlYJTMCLHsCDahXSKwxCMeJ1Uav9D4=;
-        b=U69S2awquuAmYfmU8KfiBaoJgzYkKD6XWZm3VpjvsQ+OLp3B2aUcR69rGr4iQjZUmb
-         TCwWya0qSAsEQrXjPoxS0lrqMooKUrHAeDilYWfPtnow1bCHiaCAIDGeJVRMzYq90SYA
-         0yHO+StIfsH9LRaXCx/vTfnli/eJNxxJRkBquvQJZKS0UKQeNvw3IMNJ8arMfLNZ2tAM
-         bL8jBYThMsvpTl+F9egT8sUHy6HXoVjiqwDtvzA/YIGKsb7TNER3sgCNI0HQE5rNmrDt
-         uo0mgD2dJGsGsO8uRyG/HT2QEwdTLZs4Ll5rhTlOKjHEqzL/yvoWHtzjQ7I5b6Im/44q
-         umgQ==
-X-Forwarded-Encrypted: i=1; AFNElJ9REfoQuGRLe+Rn6SalrrkPClHp2eaFHjcE5BAwNkHWuHIIgs5fWzLomaBsDgNmLV53ChfoXw4=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxP6GOn+jl8uVU41RL/TIItv+OpHT2XA7qclz062iUcb5UJfeac
-	Um05ojaKNwFzbyP4b2y6oEqsZ+e5ZW4aOqgQfYDHVC6l1e+cE1cH4zzP
-X-Gm-Gg: Acq92OG3YNaxzW1Ry6Sos1miqIx6Hp/t0jm19JJ/aI5bmenwn82EWyxXEYbjvlXS1Af
-	eEFdE0V44Ku5cz2yqRw5hAuatlP9gqLNMyH1Hg7wW64GRHP1DkuRXX/YUCQxFMSImOrHKi6Fznx
-	s5zLy92slXQ//+AOXysx2QBddaJGrsmyMta1xJ7pdw7x0jk1DR45d4z8cOzkKBaabvsV+T0RkyZ
-	lRb/QnAfNqcnVJrFge2xPrlsQUDxFu6smlToiKVY9B7b5CsOsO2ruoVJSpDu0OLhy040XIY8+By
-	hbzRuMGdjrll6kT526dWhD3vpro1YKl6ixn19znCHGaH4/cpoJmoWXzrLQDBCZ6krsatSbpyqfX
-	f+rCik95pTjwPxk8ydHov3XB2Db1OnpPoQ4DTAGKBv0Ja5zqZJJPAlFcmehg/6PptfjYOHO8j8y
-	JYFWc2tRHG/3PAeZAORRbh0JOJft7utU6x
-X-Received: by 2002:a17:90b:35c1:b0:36b:9daf:1504 with SMTP id 98e67ed59e1d1-370f0772850mr6916406a91.14.1780716156242;
-        Fri, 05 Jun 2026 20:22:36 -0700 (PDT)
-Received: from pve-server ([49.205.216.49])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-371341170c7sm2319688a91.1.2026.06.05.20.22.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 05 Jun 2026 20:22:35 -0700 (PDT)
-From: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
-To: Gautam Menghani <gautam@linux.ibm.com>, maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com, chleroy@kernel.org
-Cc: Gautam Menghani <gautam@linux.ibm.com>, linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org, harshpb@linux.ibm.com, stable@vger.kernel.org, Sean Christopherson <seanjc@google.com>
-Subject: Re: [PATCH v4] powerpc/pseries/Kconfig: Enable CONFIG_VPA_PMU to be used with KVM
-In-Reply-To: <20260602121706.8423-1-gautam@linux.ibm.com>
-Date: Sat, 06 Jun 2026 08:37:49 +0530
-Message-ID: <o6ho8iyi.ritesh.list@gmail.com>
-References: <20260602121706.8423-1-gautam@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=gibson.sh header.i=@gibson.sh header.b="JfGMWfm9"
+Received: from smtp-4-0001.mail.infomaniak.ch (unknown [IPv6:2001:1600:7:10::a6c])
+	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4gXPM267dszPh5;
+	Sat,  6 Jun 2026 05:44:46 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gibson.sh;
+	s=20260228; t=1780717486;
+	bh=t15ITGxDTBskwzWjb37Aaq12xEBm+R6pct9XAVwTDDo=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=JfGMWfm98tc3aExTWrv6QS3K+K2FigxzKy5d2BNGEg+kaJtzAOrAxjE+gmC6e3V/3
+	 wQL0DiPxn1mdsxBdpWVg8gH+MB/IGz+tQaoTTYE5rBKlS3ImJGQAEynFrv4I8/TEjs
+	 r+AzwS7eBLHgGymDlVlrwoNgSRXzEMerllXccoHgW9w2rjQFLuWif6sPbiMHx5K+tI
+	 rN4Pvs7F8AUPPnZICEPVehEEtCuA117x5fgmazxuYRfZixnf3Q4nKVFRj1+L0n6147
+	 u8moYHId6EQSkTI3PWCWRM1D9/Vqe209EdgAW6DJhGVeDvi4Ynak1RDyI0lZW9SvS1
+	 NWqgsm7BZDgRw==
+Received: from unknown by smtp-4-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4gXPM140Tcz952;
+	Sat,  6 Jun 2026 05:44:45 +0200 (CEST)
+Message-ID: <31cdaaa3-b430-4a34-b1d0-2021e722a775@gibson.sh>
+Date: Sat, 6 Jun 2026 05:44:44 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 RESEND 3/5] platform/x86/amd/pmc: Add delay_suspend
+ module parameter
+To: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>,
+ Hans de Goede <hansg@kernel.org>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Mario Limonciello <superm1@kernel.org>
+Cc: stable@vger.kernel.org
+References: <20260603031110.345815-1-daniel@gibson.sh>
+ <20260603031110.345815-4-daniel@gibson.sh>
+Content-Language: de-DE, en-GB
+From: Daniel Gibson <daniel@gibson.sh>
+In-Reply-To: <20260603031110.345815-4-daniel@gibson.sh>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Infomaniak-Routing: alpha
 
-Gautam Menghani <gautam@linux.ibm.com> writes:
+On 03.06.26 05:11, Daniel Gibson wrote:
+> Enabling the new delay_suspend module parameter delays suspend for
+> 2.5 seconds which is known to help for some AMD-based Lenovo Laptops
+> that otherwise failed to send/receive events for key presses or the
+> lid switch after s2idle. Apparently the EC needs to do some things
+> in the background before suspend or it gets into a bad state.
+> 
+> There are many reports of AMD-based laptops (mostly but not exclusively
+> IdeaPads) about similar issues on the web; this parameter gives
+> affected users an easy way to try out if their issues have the same
+> root cause and to work around them until their specific device is added
+> to the quirks list.
+> 
+> The parameter description has a note encouraging users to report
+> their device so it can be added to the quirks list, inspired by a
+> similar request in parameter descriptions of the ideapad-laptop module.
+> 
+> The module parameter can be set to "1" to explicitly enable it,
+> "0" to disable it even on devices that are assumed to be affected,
+> or -1 (the default) to enable it if the device is assumed to be affected
+> (according to fwbug_list[])
+> 
+> Link: https://bugzilla.kernel.org/show_bug.cgi?id=221383
+> Signed-off-by: Daniel Gibson <daniel@gibson.sh>
+> Cc: stable@vger.kernel.org
+> ---
+>  drivers/platform/x86/amd/pmc/pmc.c | 25 +++++++++++++++++++++++--
+>  1 file changed, 23 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/platform/x86/amd/pmc/pmc.c b/drivers/platform/x86/amd/pmc/pmc.c
+> index 6bafd8661d68..2d3d180c15d2 100644
+> --- a/drivers/platform/x86/amd/pmc/pmc.c
+> +++ b/drivers/platform/x86/amd/pmc/pmc.c
+> @@ -16,6 +16,7 @@
+>  #include <linux/bits.h>
+>  #include <linux/debugfs.h>
+>  #include <linux/delay.h>
+> +#include <linux/dmi.h>
+>  #include <linux/io.h>
+>  #include <linux/iopoll.h>
+>  #include <linux/limits.h>
+> @@ -89,6 +90,11 @@ static bool disable_workarounds;
+>  module_param(disable_workarounds, bool, 0644);
+>  MODULE_PARM_DESC(disable_workarounds, "Disable workarounds for platform bugs");
+>  
+> +static int delay_suspend = -1;
+> +module_param(delay_suspend, int, 0644);
+> +MODULE_PARM_DESC(delay_suspend,
+> +		 "Delays s2idle by 2.5 seconds to work around buggy ECs, often causing keyboard issues after suspend. 0: don't delay, 1: do delay, -1 (default): let amd_pmc decide. If you need this please report this to: platform-driver-x86@vger.kernel.org");
+> +
+>  static struct amd_pmc_dev pmc;
+>  
+>  static inline u32 amd_pmc_reg_read(struct amd_pmc_dev *dev, int reg_offset)
+> @@ -625,8 +631,23 @@ static bool amd_pmc_want_suspend_delay(struct amd_pmc_dev *pdev)
+>  	 *
+>  	 * See https://bugzilla.kernel.org/show_bug.cgi?id=221383
+>  	 */
+> -	if (!disable_workarounds && amd_pmc_quirk_need_suspend_delay(pdev)) {
+> -		dev_info(pdev->dev, "Delaying suspend by 2.5s to avoid platform bug\n");
+> +	if (amd_pmc_quirk_need_suspend_delay(pdev)) {
+> +		/*
+> +		 * delay_suspend=1 force-enables this, otherwise it can be
+> +		 * disabled with disable_workarounds or delay_suspend=0
+> +		 */
+> +		if (delay_suspend == 1 || (delay_suspend == -1 && !disable_workarounds)) {
+> +			dev_info(pdev->dev, "Delaying suspend by 2.5s to avoid platform bug\n");
 
-> Currently, CONFIG_VPA_PMU is not enabled by default, and consequently
-> cannot be used for KVM guests at all, unless explicitly enabled on
-> host kernel.
->
-> Mark CONFIG_VPA_PMU as "default m" to ensure it is available when KVM is
-> being used.
->
-> Fixes: 176cda0619b6c ("powerpc/perf: Add perf interface to expose vpa counters")
+It turned out that these messages are logged *a lot* if this is an
+intermediate wakeup and the deepest sleep state isn't reached, which
+happens while these IdeaPads are charging.
 
-Not really a fix per-se. So we need not add this fixes tag.
+Sleeping is still necessary in that case, otherwise the machine resumes
+after a few seconds..
 
-> Cc: stable@vger.kernel.org # v6.13+
+I'll add a commit that makes this function less chatty soon.
 
-I think the stable tag like above is sufficient for stable tree
-maintainers to pick this up.
+> +			return true;
+> +		}
+> +		dev_info(pdev->dev, "Not delaying suspend because of module parameter, even though your device is assumed to need it!\n");
+> +	} else if (delay_suspend == 1) {
+> +		dev_info(pdev->dev, "Delaying suspend by 2.5s because delay_suspend=1. If this solves problems on your machine, please report this whole line to: platform-driver-x86@vger.kernel.org so it can be automatically detected as affected in the future. System Vendor: \"%s\" Product Name: \"%s\" Product Family: \"%s\" Board Vendor: \"%s\" Board Name: \"%s\"\n",
+> +			 dmi_get_system_info(DMI_SYS_VENDOR),
+> +			 dmi_get_system_info(DMI_PRODUCT_NAME),
+> +			 dmi_get_system_info(DMI_PRODUCT_FAMILY),
+> +			 dmi_get_system_info(DMI_BOARD_VENDOR),
+> +			 dmi_get_system_info(DMI_BOARD_NAME));
+>  		return true;
+>  	}
+>  	return false;
 
--ritesh
