@@ -1,111 +1,102 @@
-Received: from ixit.cz (ixit.cz [185.100.197.86])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EDEA2D838E;
-	Sat,  6 Jun 2026 12:10:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.100.197.86
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9C842FF67A
+	for <stable@vger.kernel.org>; Sat,  6 Jun 2026 12:18:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780747811; cv=none; b=ImMfsNUNFUuiFiLrLzoFhI364q5hufSXju0KWJUlAB/frPL8nb63gzKRoTedOV7AGQ8EoQXKdEfZMth6x+ibtisr5u2sbbRFdOBWV80bixuXvwktznO1UQMNx3y0zwHLNSxr/GpL9bB+mkOS1RLx6KPePJhK4AebPQSvW6igMUc=
+	t=1780748326; cv=none; b=beQHDkkyBX3j+Uc1MSqjLE1tpW/7TfXREOynSBaOfS+pFjhaE8mC62J3jmFrEKV4gJsRkTSX6SVDx8U/goxUtwzjkW4L6uYGg2+R+l1J3b+IvItN1dtdlG+fsc6If2bAB9QXPDrrY9BabtJ0U43rBTzauMZl1odF64UE8SVHpkg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780747811; c=relaxed/simple;
-	bh=K/HQDjN7jtmMyG3tik4HC59YYpFSf6dUxoyp9gkbD4Q=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bF6YpyrEPA9jmPyONtQmq6/4bxxHSnloSgEOXaRtsGRPsLQGfFcu2M07tFSf1v4DQF++JFYJc3iWVs3IvwSxDDMmNORB9NdigLQPuvVgOOAADZHZM3E+5nh1jc/GIUNMXu6rCWexEu5PXM5Tlh+rz5/KkTl/qIUtYD/zGAR2lwg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=Aau0aGLD; arc=none smtp.client-ip=185.100.197.86
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	s=arc-20240116; t=1780748326; c=relaxed/simple;
+	bh=+8FK4Iy4JI5qRTFZWCZ80S/zWWhKLLkTzIGlYDpxjZA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Efo0o69T/z8L6KDIAD/Qbk5etiG29zUyFkXJST962CKe4Uo43RPvsivpLCzNSj1oniKTaa3p+PyestUp1KfOCSFAqxl1qKqB+PwtgL1Fuyt7o5rIh9Gu6oWE5V2p+gNZlsrkE9OusCLeU+REqjnZT9tFJDkkLbJ8xEsddmTyMys=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l6Jl4Z7s; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="Aau0aGLD"
-Received: from [10.0.0.200] (unknown [10.88.125.21])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id 63F66534012B;
-	Sat, 06 Jun 2026 14:10:07 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1780747807;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=xf6vX+6euRNg0lvf3/cPs9PsFcSA+4eRnB6Nntr74SQ=;
-	b=Aau0aGLDaTXWW9I19pr+ZJOv8zusg4QcGU8EX1rhuBCFHCGBD29QYeDspeOTaD/08A3BSD
-	6O2Dv1jfBognRuHNo6i3umOwSqzJJWYNwQ2nL+oK3z0uwCap03kUQdC4y5h0ZVqRdGa1Mk
-	Qc32s5ghkmwTzGAMVmRyf2X/8WlllME=
-Message-ID: <fe5f1de7-48ad-4f20-bd64-96a6f3f789b6@ixit.cz>
-Date: Sat, 6 Jun 2026 14:10:07 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l6Jl4Z7s"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27CEB1F00893;
+	Sat,  6 Jun 2026 12:18:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780748325;
+	bh=9BZm/TYRSoxKHMp0o2wH1aJqYBM8exDNBjg3z4Vso+0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=l6Jl4Z7sGaD6qih4lkc0QBKS5ux998k77b5e9LUMu6CluvarZewiP9cGRoMDs7Ra1
+	 LCrWmdJJ4kLEEhz6aCNuv9y7WmeGSPEOUSWGcH/SbJ87CTO3S/CEMuGl4RUp+lWE8k
+	 KixKhDnZOWfiReHwlL6GGNCuJ+ELRMBAG+XLzftaWX8H6pMthUPFJEAaFcGgZjVmNK
+	 U7rb7ZX3hIXQbTO1W8+OMd9upu6vulOZ8HPvXc6/GX7/Bv2XW6SGL6eYZJK042WvM5
+	 h8C52UCr8mFoWQ6206WTTyn1BzMN6YgIn2t9k4offkUN+CdEp9+QtEQvtTzgZZrNUT
+	 Qm2fwbPFNgsMw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/2] serial: altera_jtaguart: Use platform_get_irq_optional() to get the interrupt
+Date: Sat,  6 Jun 2026 08:18:42 -0400
+Message-ID: <20260606121843.2850594-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026060422-eskimo-docile-6e8f@gregkh>
+References: <2026060422-eskimo-docile-6e8f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v2] nfc: digital: clamp SENSF_RES length to the
- destination buffer
-To: Doruk Tan Ozturk <doruk@0sec.ai>
-Cc: Aleksander Lobakin <aleksander.lobakin@intel.com>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, oe-linux-nfc@lists.linux.dev
-References: <20260603141355.68156-1-doruk@0sec.ai>
-Content-Language: en-US
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <20260603141355.68156-1-doruk@0sec.ai>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-On Wed, 03 Jun 2026 16:13:55 +0200, Doruk Tan Ozturk wrote:
- > nfc: digital: clamp SENSF_RES length to the destination buffer
+[ Upstream commit 60302276caff50f907bc3391a364691ab4a21b43 ]
 
-Applied, thanks!
+platform_get_resource(pdev, IORESOURCE_IRQ, ..) relies on static
+allocation of IRQ resources in DT core code, this causes an issue
+when using hierarchical interrupt domains using "interrupts" property
+in the node as this bypasses the hierarchical setup and messes up the
+irq chaining.
 
-[1/1] nfc: digital: clamp SENSF_RES length to the destination buffer
-       commit: b3d780a22685ea355e18bfeac79d15252236d70e
+In preparation for removal of static setup of IRQ resource from DT core
+code use platform_get_irq_optional().
 
-Best regards,
+Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Link: https://lore.kernel.org/r/20211224142917.6966-7-prabhakar.mahadev-lad.rj@bp.renesas.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Stable-dep-of: ea66be25f0e9 ("serial: altera_jtaguart: handle uart_add_one_port() failures")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/tty/serial/altera_jtaguart.c | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/tty/serial/altera_jtaguart.c b/drivers/tty/serial/altera_jtaguart.c
+index 23c4e0e796944e..37bffe406b18ea 100644
+--- a/drivers/tty/serial/altera_jtaguart.c
++++ b/drivers/tty/serial/altera_jtaguart.c
+@@ -418,8 +418,9 @@ static int altera_jtaguart_probe(struct platform_device *pdev)
+ 	struct altera_jtaguart_platform_uart *platp =
+ 			dev_get_platdata(&pdev->dev);
+ 	struct uart_port *port;
+-	struct resource *res_irq, *res_mem;
++	struct resource *res_mem;
+ 	int i = pdev->id;
++	int irq;
+ 
+ 	/* -1 emphasizes that the platform must have one port, no .N suffix */
+ 	if (i == -1)
+@@ -438,9 +439,11 @@ static int altera_jtaguart_probe(struct platform_device *pdev)
+ 	else
+ 		return -ENODEV;
+ 
+-	res_irq = platform_get_resource(pdev, IORESOURCE_IRQ, 0);
+-	if (res_irq)
+-		port->irq = res_irq->start;
++	irq = platform_get_irq_optional(pdev, 0);
++	if (irq < 0 && irq != -ENXIO)
++		return irq;
++	if (irq > 0)
++		port->irq = irq;
+ 	else if (platp)
+ 		port->irq = platp->irq;
+ 	else
 -- 
-David Heidelberg <david@ixit.cz>
+2.53.0
+
