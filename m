@@ -1,155 +1,98 @@
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E3723ABD99
-	for <stable@vger.kernel.org>; Sat,  6 Jun 2026 15:51:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFA983AFCFE;
+	Sat,  6 Jun 2026 15:56:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780761109; cv=none; b=gIVNRd4s1kCz/sQ/hkOLbVs3Vn0hnhWJmRC0HIqF2bs5I+8ZFPphRfdGg+P9N7+lDmlN+iyxeJwabskSAOYK2q14zHvlD7fjYVSZtIAcxlvsGm02a+L2rMLNIkDSpuvKqFZHVeCE4zp6x1ImGBu4pseRkg0yblLHGVt0iWXoox4=
+	t=1780761389; cv=none; b=SobVK1k10N06kDTnm/OrOxoebkN8GjiSdScn3Umqs0Q85CvIuvZvHmd9vwiWG3KOTjEqeeHZH8iYp/QbspGZWH3r4t21qcZSKKIrtMNVWGrvdWudat02PZqmCmK7LSDykI/Z79CFu2SfMvsBC394Jhn2yt4GuHFusvaJr0q2hRw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780761109; c=relaxed/simple;
-	bh=b+biXWp6ckglrWOQeqnOK7JSiOFVopsxQurLx5ts2vE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=rURxov4PFpuSgwYayJn3PDRpBHEgTBd7zHbWdrjulJZh/3LpejzhI3g6ostpPy4e+WV2Ix4Yo0HnmffvB7N025d853yByveBhMcPm+Eo8YjvVOQyzKkfnKxxxv84wzhxp9uF7r4hFK5ZrEO63Fd+aBk0PJow1G2+I6uDqmCD2mE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gfCpWJxf; arc=none smtp.client-ip=209.85.214.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gfCpWJxf"
-Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2bea7176c72so19062695ad.0
-        for <stable@vger.kernel.org>; Sat, 06 Jun 2026 08:51:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780761108; x=1781365908; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
-         :date:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=kM8smwKK+VUgZJJLi4LC3kYF3TgGBfotkui6o3ZnmhQ=;
-        b=gfCpWJxfnHah+mUGU2E9Qcv+GaaWTf1botMREYpWq/lsHoH6n33epVkWEIWLLOOZ5E
-         ggf0C0yBPMyGsj2tjU8NTp+4WGFnyqLZRyxbVdlNJ816mwvNrfk8Ap64kzU0UViuUJGW
-         L9OeUA4CFd7JxkGQNQpuHBkVUmSo3q2RK3xVSelTWc+1NjYqsY43d5hl2G91NolD4Muh
-         q2Kr9l8Dzi3aIUtaucZnMZ21t5pFcMcMhj6ySPRkTaeYuPdsnGu4xZQ73Xbh4J/RVJEU
-         /xXfULmLqi5PpzZY3vwkv4w1jbxDM8LZ7kandvnAYb63h8n/SEbJQyAN/TDdibx72a2P
-         33jQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780761108; x=1781365908;
-        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
-         :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=kM8smwKK+VUgZJJLi4LC3kYF3TgGBfotkui6o3ZnmhQ=;
-        b=d4/kjVS/TBJlJK31Y0uyrWgFwHj575Jqxb3AX3D2u+KbOSHYVhqmPQDdwYRILZyUWL
-         ktnsABxloMAumMY2c0K1rwfmspM36VP/S9ZRDGhDbg2nKxlPoBwuMoI1hDRCANtdE8KX
-         F5Zsl0MyfqRc3FYtx9MV6MEyqHBAX35983dEodYyhpm2Cfny3eqHcnNs5KwB7X3ptauL
-         LenuwcsNlRdVHJAJaKC1jOC39jE5RtVvv3hHhQRnIMRRNS4gKZQCtEGp9+kqsZxnyYdp
-         lrd2i8bhce9515pg5Xd+8JNbBzWFRis9EK6m3NmJApggVOQThgES/vvl9mPY2xnD2JgT
-         e45g==
-X-Forwarded-Encrypted: i=1; AFNElJ+v1bSQW8MzP32nhBejUs1CUrhQ5bIUU4ZFDvRH/i/f7nWsHnmeeWyPfxHG4LTFCrFcveBMpUU=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxqVanHgv3sYZ/krdEvxnWcHhh1ryac9oMUTo8w0wphPAxzplj7
-	yTS6vHQg3eT9kom/aE06BH8/l6msngE7ayWt8xo21VB8l5H2msZm4N+b
-X-Gm-Gg: Acq92OH/U08kkc19APTaHIFn1mHd0gkGg5CksKLqyKJkyvuzMAx5SGgTlekCMh567Lw
-	/B7nFrO7NOZ35EpbouPTvp8hAbRlWGvffsJokICkG4AGn6cxCtugSmp/NmTrJppDatIKEhcDDpq
-	p9dzAGQoc3XS3Lanfw6EYVehGkxj6xanOcPjIPx39tDCKLnGpMVipBb5CC3Wmp9yy8UpS7TlvWo
-	lWwnkV0mf3EEJWd8U/z5PxUS3o/o3Yc5m1s/Ms93xg40S1Nb6jhr5UPisdFhaBHiIrkS/ZB7Cu1
-	QPg2koa9Sg4vwwP/aC2Mn0SXkvZtYm6Zjg0SXwR5mqBw2tCBU3CDX4Qw1rOg1rr6scOLdtaNYLY
-	fiPdgoFA4oDKgd95jhVn5QOw5MGrEE4K+dhaktYZRs/Tm/2IrroI3Srz2A/21jZKv4wHtquIYVl
-	kEbPkJkSS/taKzKWq7aWi8oM2rY+FhR2xIaaUt3krOv/1ALYQHJQb/b96uBXI=
-X-Received: by 2002:a17:903:244d:b0:2bf:800:19f8 with SMTP id d9443c01a7336-2c1e7e500eamr88158175ad.17.1780761107573;
-        Sat, 06 Jun 2026 08:51:47 -0700 (PDT)
-Received: from LAPTOP-N3B6U5LC.localdomain ([36.21.2.173])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c164f6e86dsm128908575ad.8.2026.06.06.08.51.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 06 Jun 2026 08:51:47 -0700 (PDT)
-From: Zhenhao Wan <whi4ed0g@gmail.com>
-Date: Sat, 06 Jun 2026 23:51:34 +0800
-Subject: [PATCH] libceph: fix potential out-of-bounds read in
- decode_new_up_state_weight()
+	s=arc-20240116; t=1780761389; c=relaxed/simple;
+	bh=MEsDFD+1Z/O5zMYKGU2N+EcE6BFk7o2WKQltlsBeVPc=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=RZ7CBIHUaJtsfGIeLGneB3C0t+JQSzt6QCXN3uP7YeVVBxms6FRBNPi0ivkFWfC4jqtPdFIvZT/Y0l5uonexDdxeZp62z8JZB7V8QB0PIFpkOmHrv/kuftbKah7tGpGH9bvDNE9zBHoBbX7q/pSWOo2wW5PFOtNAg6h81jEFJPE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowABXr9IiQyRqIdiEEg--.22962S2;
+	Sat, 06 Jun 2026 23:56:18 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: lyude@redhat.com,
+	dakr@kernel.org,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	tzimmermann@suse.de,
+	airlied@gmail.com,
+	simona@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org,
+	nouveau@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] drm/nouveau/acr: fix missing nvkm_done() in error path of nvkm_acr_oneinit()
+Date: Sat,  6 Jun 2026 15:56:06 +0000
+Message-Id: <20260606155606.77593-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260606-ceph-fix-final-v1-1-e19325c14dd6@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAVCJGoC/yWM0QpAQBREf0X32ZYVHvyKPKw1y5WWdpGSf3fRN
- A+nac5FEYERqU4uCjg48uIFdJqQHY0foLgXpjzLq0yiLNZROT6l3sxKV66A7l1pSpCc1gAZP2H
- T/hz3boLdXgvd9wNfEajbcgAAAA==
-X-Change-ID: 20260606-ceph-fix-final-16f4e1df5a5e
-To: Ilya Dryomov <idryomov@gmail.com>, Alex Markuze <amarkuze@redhat.com>, 
- Viacheslav Dubeyko <slava@dubeyko.com>, Josh Durgin <jdurgin@redhat.com>
-Cc: ceph-devel@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Yuhao Jiang <danisjiang@gmail.com>, stable@vger.kernel.org, 
- Zhenhao Wan <whi4ed0g@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1780761103; l=2511;
- i=whi4ed0g@gmail.com; h=from:subject:message-id;
- bh=b+biXWp6ckglrWOQeqnOK7JSiOFVopsxQurLx5ts2vE=;
- b=D6HKyc9ODBxIoz84HHcuIwMxLHaeULK5B6fOBbngVHayK1814WdWkbp+qg2zcvZeVJc4ERdHi
- j3xkyExnQs8BoPAz3CIinckImErnd6IPL8Y3IfeSgaJnEtrsw7tuxNS
-X-Developer-Key: i=whi4ed0g@gmail.com; a=ed25519;
- pk=zRTKlstE0LmilshGwJsFYEVjiT6RiXMBXK8Og6VmuVQ=
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowABXr9IiQyRqIdiEEg--.22962S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7CF4UCw4xCr4DJw1UCFWrAFb_yoW8Xr1rpF
+	47WFyayr4xJa1ftayktF18CFyruwsYkrWIk34DK3s8ZwnxAryavr4Fya1UZryFyrnxCr13
+	XFsrJa45AryYyFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9F14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r1I6r4UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUXVWUAwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7v_Jr
+	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E
+	8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFV
+	Cjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWl
+	x4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r
+	1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_
+	JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcS
+	sGvfC2KfnxnUUI43ZEXa7VU1eWlPUUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwkKA2okN20QHQAAse
 
-The new_state section of an incremental OSD map is validated and skipped
-using a byte count computed as
+In nvkm_acr_oneinit(), nvkm_kmap(acr->wpr) is invoked unconditionally
+at line 309 to obtain a mapping reference. Additionally, when both
+acr->wpr_fw and acr->wpr_comp are present, a second nvkm_kmap() is
+called inside the conditional block. Both mappings are expected to be
+released by nvkm_done(acr->wpr) at line 320 before the function returns
+successfully.
 
-	len *= sizeof(u32) + (struct_v >= 5 ? sizeof(u32) : sizeof(u8));
+However, when a mismatch is detected during the loop within the
+conditional block, the function returns -EINVAL at line 318 without
+calling nvkm_done(). This results in a leak of the kmap reference(s)
+acquired earlier.
 
-The multiplication is evaluated in size_t, but the result is stored back
-into the u32 "len", truncating it.  A malicious or corrupted incremental
-map can supply a new_state element count >= 0x20000000 (struct_v >= 5) so
-that len * 8 wraps modulo 2^32 to a small value.  The following
-ceph_decode_need() then validates far fewer bytes than the section
-actually occupies.
+Fix the issue by invoking nvkm_done(acr->wpr) prior to the early return
+to ensure proper release of the mapping references.
 
-new_state is then reprocessed with the unchecked ceph_decode_32() and
-ceph_decode_8() helpers, which have no per-iteration bounds check and
-rely entirely on that truncated up-front validation.  This can lead to
-a kernel out-of-bounds read past "end".
-
-Compute the byte count in u64 and bounds-check it against the remaining
-buffer before skipping, mirroring the size_t-typed length checks used
-elsewhere in this file (e.g. decode_crush_names(), decode_pg_mapping()).
-The osd index used for the osd_state[] write is already bounds-checked
-against map->max_osd, so this is an out-of-bounds read, not a write.
-
-Fixes: 930c53286977 ("libceph: apply new_state before new_up_client on incrementals")
-Reported-by: Yuhao Jiang <danisjiang@gmail.com>
+Fixes: 22dcda45a3d1 ("drm/nouveau/acr: implement new subdev to replace "secure boot"")
 Cc: stable@vger.kernel.org
-Signed-off-by: Zhenhao Wan <whi4ed0g@gmail.com>
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- net/ceph/osdmap.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/nouveau/nvkm/subdev/acr/base.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/net/ceph/osdmap.c b/net/ceph/osdmap.c
-index 8b5b0587a0cf..dd3023fe821e 100644
---- a/net/ceph/osdmap.c
-+++ b/net/ceph/osdmap.c
-@@ -1842,6 +1842,7 @@ static int decode_new_up_state_weight(void **p, void *end, u8 struct_v,
- 	void *new_up_client;
- 	void *new_state;
- 	void *new_weight_end;
-+	u64 skip_len;
- 	u32 len;
- 	int ret;
- 	int i;
-@@ -1862,9 +1863,10 @@ static int decode_new_up_state_weight(void **p, void *end, u8 struct_v,
- 
- 	new_state = *p;
- 	ceph_decode_32_safe(p, end, len, e_inval);
--	len *= sizeof(u32) + (struct_v >= 5 ? sizeof(u32) : sizeof(u8));
--	ceph_decode_need(p, end, len, e_inval);
--	*p += len;
-+	skip_len = (u64)len * (sizeof(u32) + (struct_v >= 5 ? sizeof(u32) : sizeof(u8)));
-+	if (skip_len > end - *p)
-+		goto e_inval;
-+	*p += skip_len;
- 
- 	/* new_weight */
- 	ceph_decode_32_safe(p, end, len, e_inval);
-
----
-base-commit: dbe8d05c9750b107b10c15361aad40fbb350bedb
-change-id: 20260606-ceph-fix-final-16f4e1df5a5e
-
-Best regards,
---  
-Zhenhao Wan <whi4ed0g@gmail.com>
+diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/acr/base.c b/drivers/gpu/drm/nouveau/nvkm/subdev/acr/base.c
+index 4c7745cd6ae5..7fd967a2554f 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/subdev/acr/base.c
++++ b/drivers/gpu/drm/nouveau/nvkm/subdev/acr/base.c
+@@ -315,6 +315,7 @@ nvkm_acr_oneinit(struct nvkm_subdev *subdev)
+ 					  i, us, fw);
+ 			}
+ 		}
++		nvkm_done(acr->wpr);
+ 		return -EINVAL;
+ 	}
+ 	nvkm_done(acr->wpr);
+-- 
+2.34.1
 
