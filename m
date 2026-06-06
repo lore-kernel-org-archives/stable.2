@@ -1,40 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65353378D7D
-	for <stable@vger.kernel.org>; Sat,  6 Jun 2026 12:32:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 430B81B4F09
+	for <stable@vger.kernel.org>; Sat,  6 Jun 2026 12:32:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780749125; cv=none; b=Y63CgCMtEA1HzmuyIuSlbG+Ul77ZlPy6+MfYBhr02QrC7kS7aAQqGT+/YNnaxT7petaEfHxz34X4GUVx9K1NLr9+8cd8P6ega4KxM6tFVjjbnMsGRIj2siBKnoQpBCe56GaSzCqdZAyPe2r18Oa99bPftaTPe8z5FHJjVGLZH54=
+	t=1780749126; cv=none; b=UDpmHybxlnjxMcPXM7pq/9hzvVavdfUwgnde/vuRK6EyhHvZEZNLO653dM7m8qcBL/oJH0vZeeGPJFoXYMhk1Fw014jDeF8BP5ATZ/iBylzFK5hGWURDRsuJZP8YGhDt6sA3vDNd3mSs2oP9aDO8oL7mtJ6uWM6SLoZ51RbfRQ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780749125; c=relaxed/simple;
-	bh=YrJYT+ou5WD0bdF39x6OeI1DmuAzWLNHjVlkB1RrV00=;
+	s=arc-20240116; t=1780749126; c=relaxed/simple;
+	bh=qR6fMcrHkJBRToUbrXzIyn9u26iwhJq8WGTAaFGzfb4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=F5ph+hAfO0J3XxPJCHZZ0ABjnvAkfxfFNMHYgmfD1EQBOKLyik4H5U51nBbL7b8iomCPw/UYS2fghABhuXr9KJmYxYj7If+j9FW4y0AiPB59RfXhcS/WdOlM7vwgqsYHNnIgAXGRz4BhksJIoN5SXDyYPDEVNEhdauMdp0XsBTQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oEXfvzjP; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=jxWCZTHsvf8Dhen6aahzE8P2KhNAQ7p2a0eNPs5uieTniSVN9p72gbWR4cVBBqyMUjFSSID5/+ogSc9pjx+xP6uI6pTvP4EBvqzxnIMFLx1xVrAUJQA3eHYOGXhbfbGekFjRTrgqbks0QXWvOvBGuq2zm2E77/YM/+upGRKe/D0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cUO8jNXO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oEXfvzjP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 662971F00898;
-	Sat,  6 Jun 2026 12:32:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cUO8jNXO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AE4A1F00893;
+	Sat,  6 Jun 2026 12:32:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780749124;
-	bh=X+3wjNUhYcTvtUfoiQZbD58PbcpH4b63g3i+uodKHps=;
+	s=k20260515; t=1780749125;
+	bh=DzJVjJYl1rkzFO14LSU3qT3sLCpLtf6oVvxBnN30dGw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=oEXfvzjP4h48Qe4GXS6DjJgfhMG82JqvgUNpSI4LOhwmd6B8rBIkxNo8uUT1SkcJp
-	 wWj1KfJgcU/UgSCfOEk/jxNq59OzbJ4TmtT233f7gDgORZDRNwc7sFAtpQTS+km7KM
-	 5tedlB41SQ8jE2mE2xi/4YovQKjv2i7WnBKVmp7BNX2KrPk7qqpy7u4g7VUKQwHkLE
-	 TUYi535BEDUrYygM1dhElxwOyuPWyQbYu+NRzXRWEYMVtBHTimnbdwlI7amrLAFBQl
-	 PA9GsHfDMN8cY5HxlGC6SQwqbCX8SwFY33zYp1kdfCltvnYOyMtO+pIHsvHZp7J/MI
-	 YS9FfeCGHt68A==
+	b=cUO8jNXOKXvbsdvw/gMRDfKdJtT9vayMqW//hyFkcCjSlTOyERR+z/P0Xyb9zQK97
+	 G2uMoOANLKeIOcsxGSp5e7C1bR+FgKirBVIno/nrFbKOCNPPYde6NXFSLQMJ/lLmws
+	 hFzDgSc1GT6rCXB/H0PoobfmbHGR9OfrsNnlssqMeZiR46ND6JF+pMJBXupbodPuMQ
+	 UZO+4O0bOkQwkF/HqrGHFUPlgOK4cwcbYsSSqBHK1vgZ5gW1pM/XncM/CUK9HxGNAo
+	 kQkk7qcXAKOlSJQqq/ImZVX2V+svPSQX/zk6HFnNzyEv0Dq3JeEkd/HQolCJHq/aUP
+	 22Z6kWaQQuzDw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
-	Konrad Dybcio <konrad.dybcio@linaro.org>,
+Cc: Prasanna S <prasanna.s@oss.qualcomm.com>,
+	stable <stable@kernel.org>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 2/3] tty: serial: qcom-geni-serial: align #define values
-Date: Sat,  6 Jun 2026 08:31:59 -0400
-Message-ID: <20260606123200.2861082-2-sashal@kernel.org>
+Subject: [PATCH 5.10.y 3/3] serial: qcom-geni: fix UART_RX_PAR_EN bit position
+Date: Sat,  6 Jun 2026 08:32:00 -0400
+Message-ID: <20260606123200.2861082-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260606123200.2861082-1-sashal@kernel.org>
 References: <2026060451-jubilance-margarine-a3fc@gregkh>
@@ -47,115 +48,41 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
+From: Prasanna S <prasanna.s@oss.qualcomm.com>
 
-[ Upstream commit 6cde11dbf4b65170eeefba48df730c93d75e01a3 ]
+[ Upstream commit ca2584d841b69391ffc4144840563d2e1a0018df ]
 
-Keep the #define symbols aligned for better readability.
+UART_RX_PAR_EN is incorrectly defined as bit 3, which triggers false
+framing errors (S_GP_IRQ_1_EN) and causes received data to be dropped
+when parity is enabled and the parity bit is 0.
 
-Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
-Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
-Link: https://lore.kernel.org/r/20221229155030.418800-5-brgl@bgdev.pl
+Define UART_RX_PAR_EN as bit 4 of the SE_UART_RX_TRANS_CFG register, as
+specified in the reference manual.
+
+Fixes: c4f528795d1a ("tty: serial: msm_geni_serial: Add serial driver support for GENI based QUP")
+Cc: stable <stable@kernel.org>
+Signed-off-by: Prasanna S <prasanna.s@oss.qualcomm.com>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Link: https://patch.msgid.link/20260428-serial-bit-correct-v1-1-9131ad5b97d8@oss.qualcomm.com
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Stable-dep-of: ca2584d841b6 ("serial: qcom-geni: fix UART_RX_PAR_EN bit position")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/tty/serial/qcom_geni_serial.c | 62 +++++++++++++--------------
- 1 file changed, 31 insertions(+), 31 deletions(-)
+ drivers/tty/serial/qcom_geni_serial.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/tty/serial/qcom_geni_serial.c b/drivers/tty/serial/qcom_geni_serial.c
-index 98226e84ac6249..7074fbddd51b1f 100644
+index 7074fbddd51b1f..77fbac55aea740 100644
 --- a/drivers/tty/serial/qcom_geni_serial.c
 +++ b/drivers/tty/serial/qcom_geni_serial.c
-@@ -35,57 +35,57 @@
- #define SE_UART_MANUAL_RFR		0x2ac
- 
- /* SE_UART_TRANS_CFG */
--#define UART_TX_PAR_EN		BIT(0)
--#define UART_CTS_MASK		BIT(1)
-+#define UART_TX_PAR_EN			BIT(0)
-+#define UART_CTS_MASK			BIT(1)
- 
- /* SE_UART_TX_STOP_BIT_LEN */
--#define TX_STOP_BIT_LEN_1	0
--#define TX_STOP_BIT_LEN_2	2
-+#define TX_STOP_BIT_LEN_1		0
-+#define TX_STOP_BIT_LEN_2		2
+@@ -43,7 +43,7 @@
+ #define TX_STOP_BIT_LEN_2		2
  
  /* SE_UART_RX_TRANS_CFG */
--#define UART_RX_PAR_EN		BIT(3)
-+#define UART_RX_PAR_EN			BIT(3)
+-#define UART_RX_PAR_EN			BIT(3)
++#define UART_RX_PAR_EN			BIT(4)
  
  /* SE_UART_RX_WORD_LEN */
--#define RX_WORD_LEN_MASK	GENMASK(9, 0)
-+#define RX_WORD_LEN_MASK		GENMASK(9, 0)
- 
- /* SE_UART_RX_STALE_CNT */
--#define RX_STALE_CNT		GENMASK(23, 0)
-+#define RX_STALE_CNT			GENMASK(23, 0)
- 
- /* SE_UART_TX_PARITY_CFG/RX_PARITY_CFG */
--#define PAR_CALC_EN		BIT(0)
--#define PAR_EVEN		0x00
--#define PAR_ODD			0x01
--#define PAR_SPACE		0x10
-+#define PAR_CALC_EN			BIT(0)
-+#define PAR_EVEN			0x00
-+#define PAR_ODD				0x01
-+#define PAR_SPACE			0x10
- 
- /* SE_UART_MANUAL_RFR register fields */
--#define UART_MANUAL_RFR_EN	BIT(31)
--#define UART_RFR_NOT_READY	BIT(1)
--#define UART_RFR_READY		BIT(0)
-+#define UART_MANUAL_RFR_EN		BIT(31)
-+#define UART_RFR_NOT_READY		BIT(1)
-+#define UART_RFR_READY			BIT(0)
- 
- /* UART M_CMD OP codes */
--#define UART_START_TX		0x1
-+#define UART_START_TX			0x1
- /* UART S_CMD OP codes */
--#define UART_START_READ		0x1
--
--#define UART_OVERSAMPLING	32
--#define STALE_TIMEOUT		16
--#define DEFAULT_BITS_PER_CHAR	10
--#define GENI_UART_CONS_PORTS	1
--#define GENI_UART_PORTS		3
--#define DEF_FIFO_DEPTH_WORDS	16
--#define DEF_TX_WM		2
--#define DEF_FIFO_WIDTH_BITS	32
--#define UART_RX_WM		2
-+#define UART_START_READ			0x1
-+
-+#define UART_OVERSAMPLING		32
-+#define STALE_TIMEOUT			16
-+#define DEFAULT_BITS_PER_CHAR		10
-+#define GENI_UART_CONS_PORTS		1
-+#define GENI_UART_PORTS			3
-+#define DEF_FIFO_DEPTH_WORDS		16
-+#define DEF_TX_WM			2
-+#define DEF_FIFO_WIDTH_BITS		32
-+#define UART_RX_WM			2
- 
- /* SE_UART_LOOPBACK_CFG */
--#define RX_TX_SORTED	BIT(0)
--#define CTS_RTS_SORTED	BIT(1)
--#define RX_TX_CTS_RTS_SORTED	(RX_TX_SORTED | CTS_RTS_SORTED)
-+#define RX_TX_SORTED			BIT(0)
-+#define CTS_RTS_SORTED			BIT(1)
-+#define RX_TX_CTS_RTS_SORTED		(RX_TX_SORTED | CTS_RTS_SORTED)
- 
- /* UART pin swap value */
--#define DEFAULT_IO_MACRO_IO0_IO1_MASK		GENMASK(3, 0)
-+#define DEFAULT_IO_MACRO_IO0_IO1_MASK	GENMASK(3, 0)
- #define IO_MACRO_IO0_SEL		0x3
--#define DEFAULT_IO_MACRO_IO2_IO3_MASK		GENMASK(15, 4)
-+#define DEFAULT_IO_MACRO_IO2_IO3_MASK	GENMASK(15, 4)
- #define IO_MACRO_IO2_IO3_SWAP		0x4640
- 
- /* We always configure 4 bytes per FIFO word */
+ #define RX_WORD_LEN_MASK		GENMASK(9, 0)
 -- 
 2.53.0
 
