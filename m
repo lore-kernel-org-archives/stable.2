@@ -1,176 +1,168 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EC5B302146;
-	Sat,  6 Jun 2026 12:38:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D74F41E376C
+	for <stable@vger.kernel.org>; Sat,  6 Jun 2026 12:49:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780749521; cv=none; b=e4V67viGqZEA3GNHto5WihaM9+bR2e4Z5Xq5tWvUavwtLrrezs6aC/aE3TYRzWP93uXuDFXUFc2QZyyKo9BjvP47pfjAy01fGd/Xk04JL2IY10jXhwoUaBuNL2zkF3HcaJn588ce/0MjKcpzAZgmj+pMScsn5ahmNZjs5B9GWZo=
+	t=1780750171; cv=none; b=Mbz6Kgk59/iDgFFDYaklKK+ehGauDCyupG/rs24RhMbDVon7APhFdSAg9HEffuzVgsg53oX/Jao1HUi+4AInmV+fJERtd3nh+JNOwrQHMFu4XCmr/9cn0P+y/qpYxOZQ/75FAldv3GIh/xU65v7g0B68m+cZRWMvGY31C30+018=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780749521; c=relaxed/simple;
-	bh=4DcdfDavvzpaMrsec9abF9ROi5PiTZk2inhE88BT95U=;
-	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=mHrYS3wVuLpqGH2xEQdlDuX/m21RcS7SapdLizV2xHYX+SlN2x+bI0rw3MDm9H9TsFiSKy1cjGPcTjXBETWQzUOPF/xuVEJxUOTBlxmbefq5JEOKTalgq9EbuJdQWLaWLEvVQM5V8xWomQwKGetrNB1MenTPI0Ho+XZnEzhWZJk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=lisJpv1k; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=V0yTsJIZ; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1780750171; c=relaxed/simple;
+	bh=1RRjCdDkEQW4Hf67y3QiwLluOUnRxr24Nnx5T45nQ5Q=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=h6eVAh4OKlfkHsaHUBT4bGTb0xGNOTaMblYDn45pFQE6MlFCL3LtH3/ll0hzrB8fYaYwAaVJdMiSQLV7H5JuB4EEm877eWmlkepSlpHuNbat1fFl5XEUmZFtO/CvQ2hSJ+u2T56H8srFnH0smtbEjmKA0iHjUAQzKLE1Ghil614=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nzctG7u7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="lisJpv1k";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="V0yTsJIZ"
-Date: Sat, 06 Jun 2026 12:38:31 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1780749513;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=YQjnBrGn/CdTM6aPrZoHIzwgAu7bVALWZBDj4MEXjQM=;
-	b=lisJpv1kIr3zI9egeMAbSTd1dRpfK7i5A3GYegbbIiQoVPOUHHe34bd5dCw6KMW5WSW+PP
-	vJYu32CsGkaUB9wwKgky8dd313+tghpD6+HuQ7L8qtjdMZF1nt620eR4Fl3ibhspvvT0sg
-	Q/BO1IjHiaXSigK5JcQV03QnFUdAI0GjE/sOp9/tCb0bMVf4QZzzmZ/oPiQibrhix7W6Sn
-	cNhyVycmpEYxDZiNVK6s1LDrvSWrUrKUJ29TmAXIhkP9ikRR34CWTaNUcNJr/OIVsb0Abf
-	lK2qSMZ1ZBu6Rh3vbwFqcN5ib1yDF/+Ac/a3q/7qvsOuaA25m78R46WxXC8kqA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1780749513;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=YQjnBrGn/CdTM6aPrZoHIzwgAu7bVALWZBDj4MEXjQM=;
-	b=V0yTsJIZzi/3occIDDs2h0Ysr03RcLWOxWly8Wk69vviPHc62hz2vsBerqC4zeUfd53js5
-	W7Cg4xF6zfqAhjBA==
-From: "tip-bot2 for Waiman Long" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject: [tip: core/urgent] debugobjects: Don't call fill_pool() in early boot
- hardirq context
-Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Thomas Gleixner <tglx@linutronix.de>, Waiman Long <longman@redhat.com>,
- Thomas Gleixner <tglx@kernel.org>, stable@vger.kernel.org, x86@kernel.org,
- linux-kernel@vger.kernel.org
-In-Reply-To: <20260605173038.495075-1-longman@redhat.com>
-References: <20260605173038.495075-1-longman@redhat.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nzctG7u7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E18CC1F00893;
+	Sat,  6 Jun 2026 12:49:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780750170;
+	bh=V76B2XLUc9A7Sde469Qc7cEn68fGW+JoBB6rr1VxrOQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=nzctG7u7D1HOKomoNBwvAzOCnJEcSg+aFACeZNN/m3aQjQCgnq2v2H0D9OT0konBh
+	 kvvVEedu+AJlDSfxCgrsTq0ztJ24cRSsxueWUptt1w34n/O22CNVCrNeOZDq8SQWTy
+	 nteQ97V5WYvS29CEaak1hgowG9mb3fa2UK+xo0WHeADL98F4W/U1Phwl4kfpUtQ00S
+	 f7cJKGYvPLg5tHqFF9odXefN72+L9vpHMPlza+gOyRbjHns0pLQ6XZHCWDyvttHCfs
+	 uOVgrdp6swwAkh16nUVd5Q0BP7YLdwLiodj7UrGMc5JVdePJOPbETE8YIVoXzA82n4
+	 +E5uC6anHBQhw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Michael Bommarito <michael.bommarito@gmail.com>,
+	John Garry <john.g.garry@oracle.com>,
+	"Martin K. Petersen" <martin.petersen@oracle.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] scsi: target: iscsi: Fix CRC overread and double-free in iscsit_handle_text_cmd()
+Date: Sat,  6 Jun 2026 08:49:28 -0400
+Message-ID: <20260606124928.2878279-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026060453-douche-banked-a158@gregkh>
+References: <2026060453-douche-banked-a158@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <178074951101.529383.11383795000581228374.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-The following commit has been merged into the core/urgent branch of tip:
+From: Michael Bommarito <michael.bommarito@gmail.com>
 
-Commit-ID:     0d046ae106255cba5eb83b23f78ee93f3620247d
-Gitweb:        https://git.kernel.org/tip/0d046ae106255cba5eb83b23f78ee93f362=
-0247d
-Author:        Waiman Long <longman@redhat.com>
-AuthorDate:    Fri, 05 Jun 2026 13:30:38 -04:00
-Committer:     Thomas Gleixner <tglx@kernel.org>
-CommitterDate: Sat, 06 Jun 2026 14:36:25 +02:00
+[ Upstream commit 778c2ab142c625a8a8afa570e0f9b7873f445d99 ]
 
-debugobjects: Don't call fill_pool() in early boot hardirq context
+Two latent bugs in the Text-phase handler, both present since the
+original LIO integration in commit e48354ce078c ("iscsi-target: Add
+iSCSI fabric support for target v4.1"):
 
-When booting a debug PREEMPT_RT kernel on an ARM64 system, a "inconsistent
-{HARDIRQ-ON-W} -> {IN-HARDIRQ-W} usage" lockdep warning message was
-reported to the console.
+1) DataDigest CRC buffer overread (4 bytes past text_in).
 
-During early boot, interrupts are enabled before the scheduler is
-enabled. In this window (before SYSTEM_SCHEDULING is set) interrupts can
-fire and in the hard interrupt context handler attempt to fill the pool
+   text_in is kzalloc()'d at ALIGN(payload_length, 4).  rx_size is then
+   incremented by ISCSI_CRC_LEN to make room for the received DataDigest
+   in the iovec, but the same (now-bumped) rx_size is passed as the
+   buffer length to iscsit_crc_buf():
 
-This can lead to a deadlock when the interrupt occurred when the interrupt
-hits a region which holds a lock that is required to be taken in the
-allocation path.
+       if (conn->conn_ops->DataDigest) {
+               ...
+               rx_size += ISCSI_CRC_LEN;
+       }
+       ...
+       if (conn->conn_ops->DataDigest) {
+               data_crc = iscsit_crc_buf(text_in, rx_size, 0, NULL);
 
-Add a new can_fill_pool() helper and reorder the exception rule and forbid
-this scenario by excluding allocations from hard interrupt context.
+   iscsit_crc_buf() walks rx_size bytes of text_in with crc32c(), so
+   when DataDigest is negotiated it reads 4 bytes past the end of the
+   text_in allocation.  KASAN reproduces this directly on the unpatched
+   mainline tree as slab-out-of-bounds in crc32c() called from the Text
+   PDU path.  The OOB bytes feed crc32c() and are then compared against
+   the initiator-supplied checksum, so the value does not flow back to
+   the attacker, but the kernel does read past the buffer on every Text
+   PDU with DataDigest=CRC32C.
 
-Fixes: 06e0ae988f6e ("debugobjects: Allow to refill the pool before SYSTEM_SC=
-HEDULING")
-Suggested-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Suggested-by: Thomas Gleixner <tglx@linutronix.de>
-Signed-off-by: Waiman Long <longman@redhat.com>
-Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Reviewed-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+   Fix by passing the actual padded payload length
+   (ALIGN(payload_length, 4)) that was used for the kzalloc().
+
+2) Stale cmd->text_in_ptr re-free (double-free) on ERL>0 bad DataDigest
+   drop.
+
+   On DataDigest mismatch with ErrorRecoveryLevel > 0 the handler
+   silently drops the PDU and lets the initiator plug the CmdSN gap:
+
+               kfree(text_in);
+               return 0;
+
+   cmd->text_in_ptr still points at the freed buffer.  The next Text
+   Request on the same ITT re-enters iscsit_setup_text_cmd(), which
+   unconditionally does
+
+       kfree(cmd->text_in_ptr);
+       cmd->text_in_ptr = NULL;
+
+   freeing the same pointer a second time.  Session teardown via
+   iscsit_release_cmd() has the same shape and hits the same double-free
+   if the connection is dropped before a second Text Request arrives.
+
+   On an unmodified mainline tree the bug-1 CRC overread fires first on
+   the initial valid Text Request and perturbs the subsequent state, so
+   #4 was isolated by building a kernel with only the bug-1 hunk of this
+   patch applied plus temporary printk() observability around the three
+   relevant kfree() sites.  The observability prints are not part of
+   this patch.  On that build, a three-PDU Text Request sequence after
+   login produces two back-to-back splats:
+
+       BUG: KASAN: double-free in iscsit_setup_text_cmd+0x??
+       BUG: KASAN: double-free in iscsit_release_cmd+0x??
+
+   showing the same pointer freed in the ERL>0 drop path and again in
+   iscsit_setup_text_cmd() (next Text Request on the same ITT) and once
+   more in iscsit_release_cmd() (session teardown).  On distro kernels
+   with CONFIG_SLAB_FREELIST_HARDENED=y (default) the double-free
+   becomes a remote kernel BUG(); on non-hardened kernels it corrupts
+   the slab freelist.
+
+   Fix by clearing cmd->text_in_ptr after the kfree() in the ERL>0 drop
+   path.  With both hunks applied #4 is directly observable on the stock
+   tree without observability printks; fixing bug-1 alone would mask #4
+   less, not more, so the hunks are submitted together.
+
+Both fixes are one-liners.  The Text PDU state machine is unchanged and
+the wire protocol is unaffected.
+
+Fixes: e48354ce078c ("iscsi-target: Add iSCSI fabric support for target v4.1")
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260605173038.495075-1-longman@redhat.com
+Assisted-by: Claude:claude-opus-4-7
+Signed-off-by: Michael Bommarito <michael.bommarito@gmail.com>
+Tested-by: John Garry <john.g.garry@oracle.com>
+Reviewed-by: John Garry <john.g.garry@oracle.com>
+Signed-off-by: Martin K. Petersen <martin.petersen@oracle.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- lib/debugobjects.c | 46 ++++++++++++++++++++++++++++++++++++---------
- 1 file changed, 37 insertions(+), 9 deletions(-)
+ drivers/target/iscsi/iscsi_target.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/lib/debugobjects.c b/lib/debugobjects.c
-index 772ddab..1fa156c 100644
---- a/lib/debugobjects.c
-+++ b/lib/debugobjects.c
-@@ -720,6 +720,41 @@ static inline bool debug_objects_is_pi_blocked_on(void)
- #endif
- }
-=20
-+static inline bool can_fill_pool(void)
-+{
-+	/*
-+	 * On !RT enabled kernels there are no restrictions and spinlock_t and
-+	 * raw_spinlock_t are the same types.
-+	 */
-+	if (!IS_ENABLED(CONFIG_PREEMPT_RT))
-+		return true;
-+
-+	/*
-+	 * On RT enabled kernels, the task must not be blocked on a lock as
-+	 * that could corrupt the PI state when blocking on a lock in the
-+	 * allocation path.
-+	 */
-+	if (debug_objects_is_pi_blocked_on())
-+		return false;
-+
-+	/*
-+	 * On RT enabled kernels the pool refill should happen in preemptible
-+	 * context.
-+	 */
-+	if (preemptible())
-+		return true;
-+
-+	/*
-+	 * Though during system boot before scheduling is set up, preemption is
-+	 * disabled and the pool can get exhausted. Before scheduling is active
-+	 * a task cannot be blocked on a sleeping lock, but it might hold a lock
-+	 * and if interrupted then hard interrupt context might run into a lock
-+	 * inversion. So exclude hard interrupt context from allocations before
-+	 * scheduling is active.
-+	 */
-+	return system_state < SYSTEM_SCHEDULING && !in_hardirq();
-+}
-+
- static void debug_objects_fill_pool(void)
- {
- 	if (!static_branch_likely(&obj_cache_enabled))
-@@ -734,18 +769,11 @@ static void debug_objects_fill_pool(void)
- 	if (likely(!pool_should_refill(&pool_global)))
- 		return;
-=20
--	/*
--	 * On RT enabled kernels the pool refill must happen in preemptible
--	 * context and not enqueued on an rt_mutex -- for !RT kernels we rely
--	 * on the fact that spinlock_t and raw_spinlock_t are basically the
--	 * same type and this lock-type inversion works just fine.
--	 */
--	if (!IS_ENABLED(CONFIG_PREEMPT_RT) || system_state < SYSTEM_SCHEDULING ||
--	    (preemptible() && !debug_objects_is_pi_blocked_on())) {
-+	if (can_fill_pool()) {
- 		/*
- 		 * Annotate away the spinlock_t inside raw_spinlock_t warning
- 		 * by temporarily raising the wait-type to LD_WAIT_CONFIG, matching
--		 * the preemptible() condition above.
-+		 * the preemptible() condition in can_fill_pool().
- 		 */
- 		static DEFINE_WAIT_OVERRIDE_MAP(fill_pool_map, LD_WAIT_CONFIG);
- 		lock_map_acquire_try(&fill_pool_map);
+diff --git a/drivers/target/iscsi/iscsi_target.c b/drivers/target/iscsi/iscsi_target.c
+index b0727187013290..c7bd7759a5acdf 100644
+--- a/drivers/target/iscsi/iscsi_target.c
++++ b/drivers/target/iscsi/iscsi_target.c
+@@ -2296,8 +2296,9 @@ iscsit_handle_text_cmd(struct iscsi_conn *conn, struct iscsi_cmd *cmd,
+ 
+ 		if (conn->conn_ops->DataDigest) {
+ 			iscsit_do_crypto_hash_buf(conn->conn_rx_hash,
+-						  text_in, rx_size, 0, NULL,
+-						  &data_crc);
++						  text_in,
++						  ALIGN(payload_length, 4),
++						  0, NULL, &data_crc);
+ 
+ 			if (checksum != data_crc) {
+ 				pr_err("Text data CRC32C DataDigest"
+@@ -2317,6 +2318,7 @@ iscsit_handle_text_cmd(struct iscsi_conn *conn, struct iscsi_cmd *cmd,
+ 					" Command CmdSN: 0x%08x due to"
+ 					" DataCRC error.\n", hdr->cmdsn);
+ 					kfree(text_in);
++					cmd->text_in_ptr = NULL;
+ 					return 0;
+ 				}
+ 			} else {
+-- 
+2.53.0
+
