@@ -1,123 +1,181 @@
-Received: from mail-pf1-f201.google.com (mail-pf1-f201.google.com [209.85.210.201])
+Received: from mail-ua1-f41.google.com (mail-ua1-f41.google.com [209.85.222.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5808C4071DF
-	for <stable@vger.kernel.org>; Sat,  6 Jun 2026 18:15:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43CC34071DF
+	for <stable@vger.kernel.org>; Sat,  6 Jun 2026 20:02:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780769756; cv=none; b=LC1RbrGhM04LT1o8ZJW6hrXjLvVCG+A3E2oMhFq7ljylvbsbICQ+/lCtqTDWQmb0zgKrjyyZiIyXf49tl8xo7O4g78GsCKYd0fPAe2U3/J+bTHKXF5l4DVaL11cWTdbuwD+N6huhQrjfWmNahyY/vVvDzUfUzP2O3sZEN0B9ItI=
+	t=1780776123; cv=none; b=cMooH31Ab+MsdsB491J6n4FicZNAWIafAfiysRQrMD1B0xrsxwU6f7IVt+0PoU3fNNeLfhwGlccKo1W4nkersQD5Evvmkc6heXXPq6hCY8WjZMXdGeDVYlTXSx/uiY2etFhy4Dlv5ei2wgzfoUeVsAByYVx58wexuRB5d+1CeRg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780769756; c=relaxed/simple;
-	bh=ZOV87Kkg50R0fU874RmouwMzvXYtcr5UpWLqwmdVues=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=a0hiE1Wkg/3FiY2IJ5MdiAbU51xgDrXJlyQUwnV/IPBLKYV0+a1vl+QT/VknqBmBDPWcPhNATfe9vvZ9QC4y6waWHj0e6708rOtx3yuhxxKgPvH7GXWd47urYOFumUbgeOYUQ523+tsaw9quy3Xes89RyZIYWF5zed1ZMW38w3U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--cmllamas.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=m+cwtDG/; arc=none smtp.client-ip=209.85.210.201
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--cmllamas.bounces.google.com
+	s=arc-20240116; t=1780776123; c=relaxed/simple;
+	bh=UOHxgAF8eZ5R1jJ5qHXlGxP4p63cxPu0NB/XWI5KxNc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=VFopgCfWwsUD2mcYvI4DRd6MdEtqiqN70LP1HgtrS1e1h9MBnidUGdhXyRVwaRcY5uerP4cRyK9+S26QllX/avw+uFkBqoDi1LPOmQNujy2AMsiXsApigBhrMTitm7a3hqz18t6H1ha/+KOx8ZYoVbR8NXL6+38OmYDo95UKU9s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UdmBrRWE; arc=none smtp.client-ip=209.85.222.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="m+cwtDG/"
-Received: by mail-pf1-f201.google.com with SMTP id d2e1a72fcca58-842688fa7b8so3358112b3a.0
-        for <stable@vger.kernel.org>; Sat, 06 Jun 2026 11:15:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UdmBrRWE"
+Received: by mail-ua1-f41.google.com with SMTP id a1e0cc1a2514c-963b7d9bf68so1122122241.3
+        for <stable@vger.kernel.org>; Sat, 06 Jun 2026 13:02:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1780769755; x=1781374555; darn=vger.kernel.org;
-        h=cc:to:from:subject:message-id:mime-version:date:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=lEo1sTatDYxKdvMuuk7DWQBRmBc0R0fl8GArZamftro=;
-        b=m+cwtDG/LcbEAuGufoTYXu5hhDX0HwP/YdGO7KWqsF4A4mJulHZlVL9+HKcaRFP7UN
-         ry/FBNGmp3W88Oz0+GGUfN3X+9atd2GB1ZT7UWrXbNrgueClqMtDO+v+0HxQIj7hUyBF
-         eQNMjFLqIEmoFkgaNJT5bYyrM/1Gh16tAulWX5Cab+rj10pSuNJqhl13f93ka8DnBdok
-         3kKOMl7OW5mrxUbv8dWs5iAcIdFZhBNR4ftAIb8IZ/UuPSEF4JqHlT+p73FD0dNP3nz/
-         QctE+A71iMNV+8n4U0qA0Eu7skOlCvaLYcJneQdcIs0qakymot6oHJa2NoJ8mrhW2wO1
-         0Ssg==
+        d=gmail.com; s=20251104; t=1780776120; x=1781380920; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=OpNv6A+DNZ1EjUzABqGpmlmVejxr2D6SXF7qHtjHT7A=;
+        b=UdmBrRWE5gLSI8arSFmBFB7RXgzL1tw+/OFjoqBkI8q4y181RLG5mPVOGB8oiIkqpN
+         qB68rTjGfiU8onWXgd5x7U2Jjrxzr5ZR7lICISQ4Fsnz8ZRaNWKaOtNaH1CnWnXb86Ss
+         3T5NEWJBpfaVrNjkdvvybzBYC/suLwNpC+9zB3j1XdNp76RpOQex8Qs2L74juQ+qkcpl
+         L4iCHS7gCgG8CLXHks2Ge3X/Ffd45Hs4qykdUH9G90XRiaefctRbBfNKjS6kMXl+TbuA
+         jfq18C7JJxU32ntiFvqaIi3bVVKGgYJ6qeOj6NzR8eDAPYS/TqApvfm0sX/TiRG7cCnb
+         HC0A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780769755; x=1781374555;
-        h=cc:to:from:subject:message-id:mime-version:date:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=lEo1sTatDYxKdvMuuk7DWQBRmBc0R0fl8GArZamftro=;
-        b=ceP2MFLJHW86GstxMVWFN3KNxSlzz8hGYDQZJWYtgdGHLSZgjp/66A6TjcvlVmkMZL
-         Ks83KtS9ZBuARF8wOVvHFdZRrLBosUiGaNGO9AdtKca45rtPFVmEYoXvvpbL6Zhu3UG/
-         DeQwnrRi2jP+Okel9Zc4JpdpHLe+odXHbcr5h7xBhXkWWdsK88sP4Ive/3pFSRPm/Tfq
-         to4UGN6+Jy/6xPQR1vBQ3WMAR6YRDYy+PxBIf13ujgzL3+QpprLN4bx1gGL6g643uoAe
-         R0ZVH3mZy7JxfjiherW/XIOHarAqCMbxfaYzYW07D1ouKjsIA8N8t/+Cr+3KZwuFOjCY
-         KaLQ==
-X-Forwarded-Encrypted: i=1; AFNElJ/q7fKkkJEet673m0wOZWsd7nd1An42lCfxGqF1ugTFIiXANmhpLBLU+JvjldW0qnf5hzXkvTM=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzsOW4vzW1PSGACwVf9tE3+zZhslP+A7NlryJhoexLSTIrrw78u
-	NnnoynOz6OzOJvOv8S3fRa5pBlzhNWfGvk8QKyPmZfc7sXUhF+gamv7mfcKNwzhqMk1rHKk9+1L
-	yaO84PBwdN3Sv+Q==
-X-Received: from pfbhr3-n2.prod.google.com ([2002:a05:6a00:6b83:20b0:82f:a3bb:a943])
- (user=cmllamas job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6a00:1952:b0:842:499d:450e with SMTP id d2e1a72fcca58-842b6766a9cmr5712176b3a.20.1780769754473;
- Sat, 06 Jun 2026 11:15:54 -0700 (PDT)
-Date: Sat,  6 Jun 2026 18:15:52 +0000
+        d=1e100.net; s=20251104; t=1780776120; x=1781380920;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=OpNv6A+DNZ1EjUzABqGpmlmVejxr2D6SXF7qHtjHT7A=;
+        b=AXgM7pTBjOvXsV4VzcHsiEp5SM0GsooHcoAFmsTpemhhdHOAAuQGdgjsMB22HdtmB0
+         GM6BJrbZOGvwaZrRWpuprzLxmXEL8aPwzTiPVjcJrX3xuD8R5lI9aKwLrdsnqA8UIpfJ
+         PGzYnpznQxC8p8eq447Xfkf92TfrvQY/FImQP4STSrblCKF6e8EqEpnbBUBbc7i8+bcy
+         0SyMwdSADtU/zeYYFAiAhC1oC2t1uFIJ0Qh6f0XGl9WQqmPgno5h33L6aMbETj0wO+vM
+         RDcTGCVvlpBM22WJ8rY5L//X/i0RFJj9N/2sBcmRpYo66AgjUl1G2Ul1Kkz3e9amRiYJ
+         YEtw==
+X-Forwarded-Encrypted: i=1; AFNElJ8pEyJdCzaF1k/PsZRWSEMNy4P3ZxJhtNGnwCKVn3BIKEdM6s7dU0hrhFZIdvGOFdIeq9kBvPc=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzLT1TNkYviDzvqSRrEoxn7xkVyUWGXu2n/QADgXnAoyUK7qzdX
+	WpD0FwZWaTsu70B19pKYF+gZmWv6YstNZJjgytPDKEEosPVvn+mT5fWO
+X-Gm-Gg: Acq92OFw/Cm1Z0d/NGdGr7j+D1U0pVVdmLmePpRWN/N1nXugLiCwrGEJvDHidyYchzL
+	SpHrW9kkpTPx6XlHsN2IDZ5rVXVKbOMnmKbcnHLPv5WHYY23UGxh09qG2sZhRttgzu96bxVGNlv
+	aL7ABIuyoQgYTsrYFsQXFaiwK6yCKmXcRFZc6L6IYDwPvmgNVREZlWORJ5qvtcO1hhbOJBZGNMy
+	bxhuBYq8fRogtuIg5EIe8nJAG/O1M92lr3uM0yR9AzUTUMefJGzAaJTIeysMXcuuWMf45rxpp87
+	hLP2uCTog/Yd2iNm4eJH+InjXvXW/1i5CJ3lyJQJdjEgYPRhve4hdVa+219+Kw/anfyJt6FdEGW
+	oMh/mQuU9A3qfEODF8xsjzj00qVTV/Hmdr2bpQpsAZ75E4EAQkIeyynA9jgyV+mY1KyArca14P4
+	/MaiK4Q/CC7QRs805SRrORF/qDFBkv8SsEqcYtN2I7EkNoQOCW76F4Ap4bCNAeQPU/3aF2KVJtp
+	ZlaJhphv1GDOEXVDwYV0FfBgeva+utGpO3U77Tt9A==
+X-Received: by 2002:a05:6102:2923:b0:631:4580:6a42 with SMTP id ada2fe7eead31-6ff05674bfcmr4385697137.22.1780776120001;
+        Sat, 06 Jun 2026 13:02:00 -0700 (PDT)
+Received: from server0 (c-68-48-65-54.hsd1.mi.comcast.net. [68.48.65.54])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9158a3d2384sm1240898485a.39.2026.06.06.13.01.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 06 Jun 2026 13:01:59 -0700 (PDT)
+From: Michael Bommarito <michael.bommarito@gmail.com>
+To: Jason Gunthorpe <jgg@nvidia.com>,
+	Leon Romanovsky <leonro@nvidia.com>
+Cc: linux-rdma@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Vlad Dumitrescu <vdumitrescu@nvidia.com>,
+	Or Har-Toov <ohartoov@nvidia.com>,
+	Bob Pearson <rpearsonhpe@gmail.com>,
+	Sean Hefty <shefty@nvidia.com>,
+	Kees Cook <kees@kernel.org>
+Subject: [PATCH v3] IB/mad: drop unmatched RMPP responses before reassembly
+Date: Sat,  6 Jun 2026 16:01:55 -0400
+Message-ID: <3170ff3bc389a930bb1641f2caa394a0b2241579.1780774907.git.michael.bommarito@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260520154715.1457495-1-michael.bommarito@gmail.com>
+References: <20260520154715.1457495-1-michael.bommarito@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.54.0.1032.g2f8565e1d1-goog
-Message-ID: <20260606181552.3095967-1-cmllamas@google.com>
-Subject: [PATCH] HID: uhid: convert to hid_safe_input_report()
-From: Carlos Llamas <cmllamas@google.com>
-To: David Rheinsberg <david@readahead.eu>, Jiri Kosina <jikos@kernel.org>, 
-	Benjamin Tissoires <bentiss@kernel.org>, Lee Jones <lee@kernel.org>
-Cc: kernel-team@android.com, linux-kernel@vger.kernel.org, 
-	Carlos Llamas <cmllamas@google.com>, stable@vger.kernel.org, 
-	"open list:UHID USERSPACE HID IO DRIVER" <linux-input@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Commit 0a3fe972a7cb ("HID: core: Mitigate potential OOB by removing
-bogus memset()"), added a check in hid_report_raw_event() to reject
-reports if the received data size is smaller than expected. This was
-intended to prevent OOB errors by no longer allowing zeroing-out of
-shorter reports due to the lack of buffer size information.
+Kernel-handled RMPP receive processing starts reassembly for active
+DATA responses before the response is matched to an outstanding send.
+The normal match happens later, after ib_process_rmpp_recv_wc() has
+either assembled a complete message or consumed the segment.
 
-However, this leads to regressions in hid_report_raw_event(), where
-shorter than expected reports are rejected, even though their buffers
-are sufficiently large to be zero-padded.
+That ordering lets an unsolicited response that routes to a kernel
+RMPP agent by the high TID bits allocate or extend RMPP receive state
+before the full TID and source address are checked against a real
+request. A reordered burst can therefore reach the receive-side
+insertion path even though the response would not match any send.
 
-To solve this issue, Benjamin introduced a safer alternative in commit
-206342541fc8 ("HID: core: introduce hid_safe_input_report()"), which
-forwards the buffer size and allows hid_report_raw_event() to safely
-zero-pad the data.
+For kernel-handled RMPP DATA responses, require the existing
+ib_find_send_mad() match before entering RMPP reassembly. The matcher
+already checks the full TID, management class and source address/GID
+against the agent wait, backlog and in-flight send lists. If there is
+no match, drop the response without creating RMPP state.
 
-Convert uhid to use hid_safe_input_report() and pass UHID_DATA_MAX as
-the buffer size. This prevents the reported regressions [1], allowing
-hid core to zero-pad the shorter reports safely as expected.
+This leaves the RMPP window behavior unchanged and only rejects
+responses that have no corresponding request.
 
+Fixes: fa619a77046b ("[PATCH] IB: Add RMPP implementation")
 Cc: stable@vger.kernel.org
-Fixes: 0a3fe972a7cb ("HID: core: Mitigate potential OOB by removing bogus memset()")
-Closes: https://lore.kernel.org/all/ahsh0UtTX6e0ZeHa@google.com/ [1]
-Signed-off-by: Carlos Llamas <cmllamas@google.com>
+Assisted-by: Codex:gpt-5-5-xhigh
+Signed-off-by: Michael Bommarito <michael.bommarito@gmail.com>
 ---
- drivers/hid/uhid.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+Impact: a fabric peer that can send QP1 GMP RMPP DATA responses to a
+kernel RMPP agent can create receive-side RMPP reassembly work before
+the response is matched to an outstanding send, delaying other MAD
+processing on that port.
 
-diff --git a/drivers/hid/uhid.c b/drivers/hid/uhid.c
-index 524b53a3c87b..37b60c3aaf66 100644
---- a/drivers/hid/uhid.c
-+++ b/drivers/hid/uhid.c
-@@ -595,8 +595,8 @@ static int uhid_dev_input(struct uhid_device *uhid, struct uhid_event *ev)
- 	if (!READ_ONCE(uhid->running))
- 		return -EINVAL;
- 
--	hid_input_report(uhid->hid, HID_INPUT_REPORT, ev->u.input.data,
--			 min_t(size_t, ev->u.input.size, UHID_DATA_MAX), 0);
-+	hid_safe_input_report(uhid->hid, HID_INPUT_REPORT, ev->u.input.data, UHID_DATA_MAX,
-+			      min_t(size_t, ev->u.input.size, UHID_DATA_MAX), 0);
- 
- 	return 0;
+I tested this on v7.1-rc6 under x86_64 QEMU/KVM with rxe plus
+debug-only patches that host the in-kernel SA agent on soft-RoCE. A
+descending F=1024 burst to the SA agent hi_tid reached RX/MAD completion
+(1023 packets) but, with this patch, did not enter RMPP receive
+processing or the insertion walker: walks=0 and no continue_rmpp samples.
+There are no in-tree selftests for QP1 GMP RMPP reassembly in
+tools/testing/selftests/rdma.
+
+Changes in v3:
+- Replace the RMPP window cap with a pre-reassembly response match.
+- Leave the accepted RMPP reordering window unchanged.
+
+ drivers/infiniband/core/mad.c | 30 ++++++++++++++++++++++++++++++
+ 1 file changed, 30 insertions(+)
+
+diff --git a/drivers/infiniband/core/mad.c b/drivers/infiniband/core/mad.c
+index 8d19613179e3e..e0b3b36b8b149 100644
+--- a/drivers/infiniband/core/mad.c
++++ b/drivers/infiniband/core/mad.c
+@@ -2031,6 +2031,24 @@ void ib_mark_mad_done(struct ib_mad_send_wr_private *mad_send_wr)
+ 		change_mad_state(mad_send_wr, IB_MAD_STATE_EARLY_RESP);
  }
-@@ -606,8 +606,8 @@ static int uhid_dev_input2(struct uhid_device *uhid, struct uhid_event *ev)
- 	if (!READ_ONCE(uhid->running))
- 		return -EINVAL;
  
--	hid_input_report(uhid->hid, HID_INPUT_REPORT, ev->u.input2.data,
--			 min_t(size_t, ev->u.input2.size, UHID_DATA_MAX), 0);
-+	hid_safe_input_report(uhid->hid, HID_INPUT_REPORT, ev->u.input2.data, UHID_DATA_MAX,
-+			      min_t(size_t, ev->u.input2.size, UHID_DATA_MAX), 0);
++static bool is_kernel_rmpp_data_response(struct ib_mad_agent_private *agent,
++					 struct ib_mad_recv_wc *mad_recv_wc)
++{
++	const struct ib_mad_hdr *mad_hdr = &mad_recv_wc->recv_buf.mad->mad_hdr;
++	struct ib_rmpp_mad *rmpp_mad;
++
++	if (!ib_mad_kernel_rmpp_agent(&agent->agent) ||
++	    !ib_response_mad(mad_hdr) ||
++	    !ib_is_mad_class_rmpp(mad_hdr->mgmt_class))
++		return false;
++
++	rmpp_mad = (struct ib_rmpp_mad *)mad_recv_wc->recv_buf.mad;
++
++	return (ib_get_rmpp_flags(&rmpp_mad->rmpp_hdr) &
++		IB_MGMT_RMPP_FLAG_ACTIVE) &&
++	       rmpp_mad->rmpp_hdr.rmpp_type == IB_MGMT_RMPP_TYPE_DATA;
++}
++
+ static void ib_mad_complete_recv(struct ib_mad_agent_private *mad_agent_priv,
+ 				 struct ib_mad_recv_wc *mad_recv_wc)
+ {
+@@ -2050,6 +2068,18 @@ static void ib_mad_complete_recv(struct ib_mad_agent_private *mad_agent_priv,
+ 	}
  
- 	return 0;
- }
+ 	list_add(&mad_recv_wc->recv_buf.list, &mad_recv_wc->rmpp_list);
++	if (is_kernel_rmpp_data_response(mad_agent_priv, mad_recv_wc)) {
++		spin_lock_irqsave(&mad_agent_priv->lock, flags);
++		mad_send_wr = ib_find_send_mad(mad_agent_priv, mad_recv_wc);
++		spin_unlock_irqrestore(&mad_agent_priv->lock, flags);
++
++		if (!mad_send_wr) {
++			ib_free_recv_mad(mad_recv_wc);
++			deref_mad_agent(mad_agent_priv);
++			return;
++		}
++	}
++
+ 	if (ib_mad_kernel_rmpp_agent(&mad_agent_priv->agent)) {
+ 		mad_recv_wc = ib_process_rmpp_recv_wc(mad_agent_priv,
+ 						      mad_recv_wc);
 -- 
-2.54.0.1032.g2f8565e1d1-goog
-
+2.53.0
