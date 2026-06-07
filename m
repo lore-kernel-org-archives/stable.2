@@ -1,109 +1,119 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58C84318EF4
-	for <stable@vger.kernel.org>; Sun,  7 Jun 2026 10:55:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64CA3287510;
+	Sun,  7 Jun 2026 10:55:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780829736; cv=none; b=iv2vPXgvdmcTrjhvKmq+vuPoB91dnLo24P8YQ1xXmTwR1cWoTV7fjrdPtcG5YV8GpTiiN2FZ9zk+pJaIoq6BI8V2REH9QjxzxJtiXF2xE4TqulLLfvT29Yo6ef32e5mYHUM9YODVrCjx8eRXqqeF5KsJxKprqXKZlx0RbsruD7s=
+	t=1780829737; cv=none; b=JDbB/viDV3GPqtRtohSsC0a17ZIAjAyXSlqIoCsXvcE7JXWsYXx2Nx2iGmTGjJGX+Y4kcoEot66g2budaZu9Tka4bq4N0+dEUl+g9G2DveE5CmNWe7tDREeqNi2If2Gpd+Eq0H6AJYGOp1LU6B78LdubFfkiEIfztFefQrcgjdM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780829736; c=relaxed/simple;
-	bh=zDchtkG0SHxwHlkSQPxGEA64pnEyQcwoePej9IajXBk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aMIa5SspfO3W1Q085erPrhSyXjniIdSael89pmcKev6GglVv5iuYW2J6DU5J+Xx4JNcw/PZ/TggfmaNC7qNi6tG5Bq0DMq20rlSQMuj9iQIStB/uEgWEYog+yCvTzAQSpXp4h5y5r7CBLpNlm367o+kQEYwuQVwVpmk2WmMoCYI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=QY4FP97K; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1780829737; c=relaxed/simple;
+	bh=whS268h4j5HkaG4xRz+43sWAWDU73TfvtoDsNcmwUgQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Lu3wG+v/ilFrXUNNaookrBacsV6Epj1U7GaHYmp+Sv5R3V/N+iKTx59mApgY5KS5Pdfpabzt9LuM5bY710EJdlN94CCBf+3LasO6S3PEOzyID/ZGgPdW1wFfMxYR4r//OViGe2sVn1MO8cyOMW/jDI/dWYtCTODMSm0bZ3YV9m4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=IAE5zqVN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="QY4FP97K"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1780829734;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=M529Pw8aQ7DzKV9C1FdjvA3fcDeW8DhgDiOdy61/ANI=;
-	b=QY4FP97KHpPFx7isVtGjd+j16nUnM47z9E33zEs5KzyAbFV8LH6R+1r88HWIef5h6sRi5n
-	rQ6HX+WfcxAdZCeWqtYmQkzEPAJG0YUCFHzHGjoXjRTBoRoGblRWAhegNTXgjgCAMZq9ky
-	1uNPUFB3fY8JOiul5o9xYF/leKI0fBw=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-371-4YQwnNpRPiaAzfHiQUe45Q-1; Sun,
- 07 Jun 2026 06:55:27 -0400
-X-MC-Unique: 4YQwnNpRPiaAzfHiQUe45Q-1
-X-Mimecast-MFC-AGG-ID: 4YQwnNpRPiaAzfHiQUe45Q_1780829725
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id A90C918004A9;
-	Sun,  7 Jun 2026 10:55:23 +0000 (UTC)
-Received: from fedora (unknown [10.44.32.36])
-	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id 611511800367;
-	Sun,  7 Jun 2026 10:55:14 +0000 (UTC)
-Received: by fedora (nbSMTP-1.00) for uid 1000
-	oleg@redhat.com; Sun,  7 Jun 2026 12:55:23 +0200 (CEST)
-Date: Sun, 7 Jun 2026 12:55:12 +0200
-From: Oleg Nesterov <oleg@redhat.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev,
-	Deepanshu Kartikey <Kartikey406@gmail.com>,
-	syzbot+bbe6b99feefc3a0842de@syzkaller.appspotmail.com,
-	Michal Hocko <mhocko@suse.com>, Ben Segall <bsegall@google.com>,
-	Christian Brauner <brauner@kernel.org>,
-	David Hildenbrand <david@kernel.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>,
-	Kees Cook <kees@kernel.org>, Liam Howlett <liam@infradead.org>,
-	"Lorenzo Stoakes (Oracle)" <ljs@kernel.org>,
-	Mel Gorman <mgorman@suse.de>, Mike Rapoport <rppt@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Valentin Schneider <vschneid@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Tetsuo Handa <penguin-kernel@i-love.sakura.ne.jp>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: Re: [PATCH 7.0 015/332] kernel/fork: validate exit_signal in
- kernel_clone()
-Message-ID: <aiVOEKt9QL5cvkwz@redhat.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="IAE5zqVN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 691981F00893;
+	Sun,  7 Jun 2026 10:55:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1780829736;
+	bh=cXicN5+DrYlOf10kqJgkOAl/3v/9bapY8elVjYX0IaQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=IAE5zqVNj9QYW/XkHlnO1UQF62frtL773V7rXZFYPJWZXRO48d2RB19pKgYKprHhj
+	 DqXxXA/XEAtPIzWe+scFq3DEhNCwJxUby2KO9lVI+K+S+yxVgITnlf3hUbrVMJvZEt
+	 NtRoKcAIQJ5VhV/jDcEotUhLXfQvikiUpWWl/pb0=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	"Maciej W. Rozycki" <macro@orcam.me.uk>
+Subject: [PATCH 7.0 309/332] serial: dz: Fix bootconsole message clobbering at chip reset
+Date: Sun,  7 Jun 2026 12:01:18 +0200
+Message-ID: <20260607095739.435199972@linuxfoundation.org>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260607095728.031258202@linuxfoundation.org>
 References: <20260607095728.031258202@linuxfoundation.org>
- <20260607095728.598854921@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260607095728.598854921@linuxfoundation.org>
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
+Content-Transfer-Encoding: 8bit
 
-On 06/07, Greg Kroah-Hartman wrote:
->
-> 7.0-stable review patch.  If anyone has any objections, please let me know.
->
-> ------------------
->
-> From: Deepanshu Kartikey <kartikey406@gmail.com>
->
-> [ Upstream commit 09e7827e785729f391c8d46dc71becce70d296ab ]
+7.0-stable review patch.  If anyone has any objections, please let me know.
 
-I don't think this is the -stable material.
+------------------
 
-> Note that this is a user-visible change: previously, passing an invalid
-> exit_signal to clone() was silently accepted.  The man page for clone()
-> does not document any defined behavior for invalid exit_signal values, so
-> rejecting them with -EINVAL is the correct behavior.  It is unlikely that
-> any sane application relies on passing an invalid exit_signal.
+From: Maciej W. Rozycki <macro@orcam.me.uk>
 
-Yes...
+commit ca904f4b42355287bc5ce8b7550ebe909cda4c2c upstream.
 
-This patch is the preparation for another commit 0f8e38eeb995b
-("do_notify_parent: sanitize the valid_signal() checks").
+In the DZ interface as implemented by the DC7085 gate array the serial
+transmitters are double buffered, meaning that at the time a transmitter
+is ready to accept the next character there is one in the transmit shift
+register still being sent to the line.  Issuing a master clear at this
+time causes this character to be lost, so wait an extra amount of time
+sufficient for the transmit shift register to drain at 9600bps, which is
+the baud rate setting used by the firmware console.
 
-Oleg.
+Mind the specified 1.4us TRDY recovery time in the course and continue
+using iob() as the completion barrier, since the platforms involved use
+a write buffer that can delay and combine writes, and reorder them with
+respect to reads regardless of the MMIO locations accessed and we still
+lack a platform-independent handler for that.
+
+When called from dz_serial_console_init() this is too early for fsleep()
+to work and even before lpj has been calculated and therefore the delay
+is actually not sufficient for the transmitter to drain and is merely a
+placeholder now.  This will be addressed in a follow-up change.
+
+Fixes: e6ee512f5a77 ("dz.c: Resource management")
+Signed-off-by: Maciej W. Rozycki <macro@orcam.me.uk>
+Cc: stable@vger.kernel.org # v2.6.25+
+Link: https://patch.msgid.link/alpine.DEB.2.21.2605062259080.46195@angie.orcam.me.uk
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ drivers/tty/serial/dz.c |   21 +++++++++++++++++++++
+ 1 file changed, 21 insertions(+)
+
+--- a/drivers/tty/serial/dz.c
++++ b/drivers/tty/serial/dz.c
+@@ -542,10 +542,31 @@ static int dz_encode_baud_rate(unsigned
+ static void dz_reset(struct dz_port *dport)
+ {
+ 	struct dz_mux *mux = dport->mux;
++	unsigned short tcr;
++	int loops = 10000;
+ 
+ 	if (mux->initialised)
+ 		return;
+ 
++	tcr = dz_in(dport, DZ_TCR);
++
++	/* Do not disturb any ongoing transmissions.  */
++	if (dz_in(dport, DZ_CSR) & DZ_MSE) {
++		unsigned short csr, mask;
++
++		mask = tcr;
++		while ((mask & DZ_LNENB) && loops--) {
++			csr = dz_in(dport, DZ_CSR);
++			if (!(csr & DZ_TRDY))
++				continue;
++			mask &= ~(1 << ((csr & DZ_TLINE) >> 8));
++			dz_out(dport, DZ_TCR, mask);
++			iob();
++			udelay(2);		/* 1.4us TRDY recovery.  */
++		}
++		udelay(1200);			/* Transmitter drain.  */
++	}
++
+ 	dz_out(dport, DZ_CSR, DZ_CLR);
+ 	while (dz_in(dport, DZ_CSR) & DZ_CLR);
+ 	iob();
+
 
