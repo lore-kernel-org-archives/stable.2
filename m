@@ -1,58 +1,58 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEE2F26E165
-	for <stable@vger.kernel.org>; Sun,  7 Jun 2026 04:40:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2BEA27B35B
+	for <stable@vger.kernel.org>; Sun,  7 Jun 2026 04:41:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780807257; cv=none; b=F60p1YZpKZmEq5gDhaGfRRGw6A3REt8usua4beZscLpAO9SSw9nb2/hyMP+uGAVh9UQtBmqJsleAi2mrC1uTsjAd+lH/DrWq6+LMefOJoZSrPaDACXUUIc8XEToJcIyQbekjeJxE3TtpD42bhmzt9Jtqs2S8gLAjnYTaIP2mI00=
+	t=1780807286; cv=none; b=LiBD8QHtXlmbe8S9dbd7JuLsHuH2c/LsU7CtilOM6GZTloNVGfrhDcTBVqSvkOW09JmumS9Nls5RNCEEj5J6JAXV96fa6cdF3IsVlCsr3UkHWd1gNUQamc8nf0WFzu1lcdOFrZdJzjb4jdHDVKJ742ylklmnbH173nn/BkDJHMk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780807257; c=relaxed/simple;
-	bh=Y21+EH4olkZ0W3VEeqTwt1mc3gayS452DWRjjkYkSw0=;
+	s=arc-20240116; t=1780807286; c=relaxed/simple;
+	bh=/DH4VhimRHnMz+eyOydnUJcx+rf6CrAJ8lBeVO8RsXk=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Ph/Y74jyBNoyGeqX9UuRfuxyRZHPycQYwjgXM24j1kr3DzPYXa8uAePFbnJPHrPrgIQ+5FaciQVxdkJAO5BK6OXpVcIjJO5JR6BGGpwqy5GMLSSyMfjgdH6oZqwR0SkowO5en39q+CGZ6lwqER7UiAOYqDycwuOtrFQkblrWlKc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Hf8Zhvv3; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=Cw3UdbgLwSn2VIYBThvuyxi2hTIkc+VFUrOkERo9a29APeoYVVLsIr5rnq2bsCapLaXWSinS/rcocunfSOiM/iOp8eMEIPiJwyKip0pbk0tv/3xf3lkVCi3JRolJ4vhNkfq97EM3LYFV5hjfkAR832fh/oZ0fRcCVlD9aX/XVjA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GRTEh9DB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Hf8Zhvv3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6127A1F00899
-	for <stable@vger.kernel.org>; Sun,  7 Jun 2026 04:40:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GRTEh9DB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 993711F00893
+	for <stable@vger.kernel.org>; Sun,  7 Jun 2026 04:41:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780807256;
-	bh=SWq1G1dCFVfHhbmYeBGwyQi6NWxRDwCcZeYwq8cdorI=;
+	s=k20260515; t=1780807285;
+	bh=ljyyB1Wby8hpR9aoUaGD8JjiN8Lswlx633ECi6/VALo=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=Hf8Zhvv3b8O1X1//zu1GV0al1TL9L+AdXrsqyHbvsawjhd3jEwKGW1bmo3ORrA8JC
-	 IDXF9Ii/yCNHc/XilB5KyJ/j/aNYasKmLre5WzEZFrXCUBq0IvZtnGA/pcxCg4T98y
-	 G/LRWHEMkFY2eOZ9UNS6K36Me3MMJu5Pn9q3L96nBJubKUPiNyQJypo7ED0cTTxuBZ
-	 VJ9tpdoKtQFGv2qCi4qcyrj+0azD0QKy6SBhsutjHH/qFGLgIiO6RUDDbctFKCvU+I
-	 0lw7NWqQEmUxhA3ZzGXap6nQNvn8bz2ZFi90/qRz6LDjaxiEaY78exArkKWthGKgP8
-	 62ccHvJs1thaA==
-Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-68d232e119dso5197939a12.0
-        for <stable@vger.kernel.org>; Sat, 06 Jun 2026 21:40:56 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ+X5cMb9OsimzWg1HX1WBo0ar5aV6VXjH29XfsXHAO9cqwhJZM5chfVdscObDuFoVrm1T8mpPk=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzKmHJV0Lnfpw/VyeIjsJ85gD3F0q/25AJcFdxGxIKNCSmDfeZ7
-	njp4oqm8rnPdxl64KoU9SdDfvUEdgrcpgjHhWSAfjzCwpKzzGei9gaC4B6I7v9WCidj/dZCBojS
-	/zPddMBQfP4b/9b+uO4m/z6kabp4g+vA=
-X-Received: by 2002:a05:6402:3202:b0:68c:dbd5:a6ee with SMTP id
- 4fb4d7f45d1cf-68fa524d47fmr4879465a12.25.1780807255000; Sat, 06 Jun 2026
- 21:40:55 -0700 (PDT)
+	b=GRTEh9DBuB5bxOL3Y71KsF8V35xpmVC7pZBZU0P2XG4g2yE+9741DGQu3948AJyRu
+	 yMn943cFif/dHG+4ud6uYuQfvmG3UvZnTA98am1NYEzw87fTCxVWIn5lIR7bAsMFn8
+	 oAqFNBsX5ds1yjbLRObbBQpsVJL0Lg9eknb7lJ3xlQZsTour4aHlbAlRgNC13zm/XQ
+	 KduzwL1pJwRpKYlKCouDGdFaYV0oRxQ409/xugRQGTU4V2kR1nEfTXOgDx5JMAKVVY
+	 LP6Nco9bNYYaD035fwRUUbDA5VtJMU4wUJ4DlBVMe7+DNMhZzT7rNCZsyBJQ7JB5pS
+	 GY78ZSYz6u/5Q==
+Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-68b90fc6a1dso6031427a12.1
+        for <stable@vger.kernel.org>; Sat, 06 Jun 2026 21:41:25 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ+O0B80aWj2mGwwU0lNKqO0XklkZtrMSItXh0wpIMvUM/ycQUkbl9in/VmEefiGHNn/1gRe0mg=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzvoYdSCwbgoMlN3iP1gFh5/RmXdxFBtByAkaY1ZK3z47uGfcPS
+	5AL47HPVuaM8qxHxF75Vh4nyfLf0KKEENTzCkf8FeX3vWCOQJcilCjOXb3DTjKJHuE7K7BEhb9r
+	3CJBtKJSvOAWBhnFNjyd/i+vuEPDnyk0=
+X-Received: by 2002:aa7:d6ca:0:b0:691:2ef1:d7d1 with SMTP id
+ 4fb4d7f45d1cf-6912ef1ddb5mr2007013a12.16.1780807284248; Sat, 06 Jun 2026
+ 21:41:24 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260604123433.3182173-1-maqianga@uniontech.com>
-In-Reply-To: <20260604123433.3182173-1-maqianga@uniontech.com>
+References: <20260603023430.1748197-1-maobibo@loongson.cn>
+In-Reply-To: <20260603023430.1748197-1-maobibo@loongson.cn>
 From: Huacai Chen <chenhuacai@kernel.org>
-Date: Sun, 7 Jun 2026 12:40:41 +0800
-X-Gmail-Original-Message-ID: <CAAhV-H7pKtVioksaR7ZnM-9R3=TW_-AWhzFkC80GD+RW4uWWDQ@mail.gmail.com>
-X-Gm-Features: AVVi8CeuJtDaxdTkNltjUq9KFPjViMKpJ_x4HVIrrS42wNtRf9wNYjmDqxDSE2Q
-Message-ID: <CAAhV-H7pKtVioksaR7ZnM-9R3=TW_-AWhzFkC80GD+RW4uWWDQ@mail.gmail.com>
-Subject: Re: [PATCH] LoongArch: KVM: return full old CSR value from kvm_emu_xchg_csr()
-To: Qiang Ma <maqianga@uniontech.com>
-Cc: zhaotianrui@loongson.cn, maobibo@loongson.cn, kernel@xen0n.name, 
-	kvm@vger.kernel.org, loongarch@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
+Date: Sun, 7 Jun 2026 12:41:12 +0800
+X-Gmail-Original-Message-ID: <CAAhV-H53PNRdH02c9O8ngdoitWts6=t-42Xa1EvWgLS+05qznA@mail.gmail.com>
+X-Gm-Features: AVVi8CfjB7rXjzkWVlnAgfl60GhmPz9uUWIw4VfP_5gsNWsFEDA1KhHVwCzZmzw
+Message-ID: <CAAhV-H53PNRdH02c9O8ngdoitWts6=t-42Xa1EvWgLS+05qznA@mail.gmail.com>
+Subject: Re: [PATCH] LoongArch: KVM: Fix FPU register width issue with user
+ access API
+To: Bibo Mao <maobibo@loongson.cn>
+Cc: kernel@xen0n.name, kvm@vger.kernel.org, loongarch@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
@@ -60,39 +60,53 @@ Applied, thanks.
 
 Huacai
 
-On Thu, Jun 4, 2026 at 8:47=E2=80=AFPM Qiang Ma <maqianga@uniontech.com> wr=
-ote:
+On Wed, Jun 3, 2026 at 10:34=E2=80=AFAM Bibo Mao <maobibo@loongson.cn> wrot=
+e:
 >
-> The LoongArch CSRXCHG instruction returns the full old CSR value in rd
-> after applying the masked update. kvm_emu_xchg_csr() currently masks
-> the saved value before returning it to the guest, so rd receives only
-> the bits selected by the write mask.
+> At the beginning, only 64 bit FPU is supported. With FPU register
+> get interface, 64 bit FPU data is copied to user space, the same with
+> FPU set API. However with LSX and LASX supported in later, there should
+> be FPU data copied with bigger width. Here fixes this issue, copy the
+> whole 256 bit FPU data to user space.
 >
-> That breaks the architectural behavior and makes a zero mask return 0
-> instead of the previous CSR value. Keep the masked CSR update, but
-> return the unmodified old CSR value.
->
-> Fixes: da50f5a693ff ("LoongArch: KVM: Implement handle csr exception")
+> Fixes: db1ecca22edf ("LoongArch: KVM: Add LSX (128bit SIMD) support")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Qiang Ma <maqianga@uniontech.com>
+> Signed-off-by: Bibo Mao <maobibo@loongson.cn>
 > ---
->  arch/loongarch/kvm/exit.c | 1 -
->  1 file changed, 1 deletion(-)
+>  arch/loongarch/kvm/vcpu.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
 >
-> diff --git a/arch/loongarch/kvm/exit.c b/arch/loongarch/kvm/exit.c
-> index 3b95cd0f989b..264813d45cbe 100644
-> --- a/arch/loongarch/kvm/exit.c
-> +++ b/arch/loongarch/kvm/exit.c
-> @@ -103,7 +103,6 @@ static unsigned long kvm_emu_xchg_csr(struct kvm_vcpu=
- *vcpu, int csrid,
->                 old =3D kvm_read_sw_gcsr(csr, csrid);
->                 val =3D (old & ~csr_mask) | (val & csr_mask);
->                 kvm_write_sw_gcsr(csr, csrid, val);
-> -               old =3D old & csr_mask;
->         } else
->                 pr_warn_once("Unsupported csrxchg 0x%x with pc %lx\n", cs=
-rid, vcpu->arch.pc);
+> diff --git a/arch/loongarch/kvm/vcpu.c b/arch/loongarch/kvm/vcpu.c
+> index e28084c49e68..2e40386f8686 100644
+> --- a/arch/loongarch/kvm/vcpu.c
+> +++ b/arch/loongarch/kvm/vcpu.c
+> @@ -1312,7 +1312,7 @@ int kvm_arch_vcpu_ioctl_get_fpu(struct kvm_vcpu *vc=
+pu, struct kvm_fpu *fpu)
+>         fpu->fcc =3D vcpu->arch.fpu.fcc;
+>         fpu->fcsr =3D vcpu->arch.fpu.fcsr;
+>         for (i =3D 0; i < NUM_FPU_REGS; i++)
+> -               memcpy(&fpu->fpr[i], &vcpu->arch.fpu.fpr[i], FPU_REG_WIDT=
+H / 64);
+> +               memcpy(&fpu->fpr[i], &vcpu->arch.fpu.fpr[i], sizeof(union=
+ fpureg));
 >
+>         return 0;
+>  }
+> @@ -1324,7 +1324,7 @@ int kvm_arch_vcpu_ioctl_set_fpu(struct kvm_vcpu *vc=
+pu, struct kvm_fpu *fpu)
+>         vcpu->arch.fpu.fcc =3D fpu->fcc;
+>         vcpu->arch.fpu.fcsr =3D fpu->fcsr;
+>         for (i =3D 0; i < NUM_FPU_REGS; i++)
+> -               memcpy(&vcpu->arch.fpu.fpr[i], &fpu->fpr[i], FPU_REG_WIDT=
+H / 64);
+> +               memcpy(&vcpu->arch.fpu.fpr[i], &fpu->fpr[i], sizeof(union=
+ fpureg));
+>
+>         return 0;
+>  }
+>
+> base-commit: e43ffb69e0438cddd72aaa30898b4dc446f664f8
 > --
-> 2.20.1
+> 2.39.3
+>
 >
