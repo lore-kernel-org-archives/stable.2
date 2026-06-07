@@ -1,181 +1,98 @@
-Received: from mail-ua1-f41.google.com (mail-ua1-f41.google.com [209.85.222.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43CC34071DF
-	for <stable@vger.kernel.org>; Sat,  6 Jun 2026 20:02:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F21822E06ED;
+	Sun,  7 Jun 2026 03:10:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780776123; cv=none; b=cMooH31Ab+MsdsB491J6n4FicZNAWIafAfiysRQrMD1B0xrsxwU6f7IVt+0PoU3fNNeLfhwGlccKo1W4nkersQD5Evvmkc6heXXPq6hCY8WjZMXdGeDVYlTXSx/uiY2etFhy4Dlv5ei2wgzfoUeVsAByYVx58wexuRB5d+1CeRg=
+	t=1780801818; cv=none; b=EnM52cL5L34YZmeLU5pDVjffSvWlE6B7Pv08GILhtvyu7y7qJ9Dgq7H5E00QqexGgjXMc6vLfvX9duDttSY7JmWcysFZtL0HXrEKKES3inZ8428F14PcTW4GtYaTjnoNisG89AC/iBygj3A67+k9BPjO1NjVY3TxmVHwokO9wks=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780776123; c=relaxed/simple;
-	bh=UOHxgAF8eZ5R1jJ5qHXlGxP4p63cxPu0NB/XWI5KxNc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VFopgCfWwsUD2mcYvI4DRd6MdEtqiqN70LP1HgtrS1e1h9MBnidUGdhXyRVwaRcY5uerP4cRyK9+S26QllX/avw+uFkBqoDi1LPOmQNujy2AMsiXsApigBhrMTitm7a3hqz18t6H1ha/+KOx8ZYoVbR8NXL6+38OmYDo95UKU9s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UdmBrRWE; arc=none smtp.client-ip=209.85.222.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UdmBrRWE"
-Received: by mail-ua1-f41.google.com with SMTP id a1e0cc1a2514c-963b7d9bf68so1122122241.3
-        for <stable@vger.kernel.org>; Sat, 06 Jun 2026 13:02:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780776120; x=1781380920; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=OpNv6A+DNZ1EjUzABqGpmlmVejxr2D6SXF7qHtjHT7A=;
-        b=UdmBrRWE5gLSI8arSFmBFB7RXgzL1tw+/OFjoqBkI8q4y181RLG5mPVOGB8oiIkqpN
-         qB68rTjGfiU8onWXgd5x7U2Jjrxzr5ZR7lICISQ4Fsnz8ZRaNWKaOtNaH1CnWnXb86Ss
-         3T5NEWJBpfaVrNjkdvvybzBYC/suLwNpC+9zB3j1XdNp76RpOQex8Qs2L74juQ+qkcpl
-         L4iCHS7gCgG8CLXHks2Ge3X/Ffd45Hs4qykdUH9G90XRiaefctRbBfNKjS6kMXl+TbuA
-         jfq18C7JJxU32ntiFvqaIi3bVVKGgYJ6qeOj6NzR8eDAPYS/TqApvfm0sX/TiRG7cCnb
-         HC0A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780776120; x=1781380920;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=OpNv6A+DNZ1EjUzABqGpmlmVejxr2D6SXF7qHtjHT7A=;
-        b=AXgM7pTBjOvXsV4VzcHsiEp5SM0GsooHcoAFmsTpemhhdHOAAuQGdgjsMB22HdtmB0
-         GM6BJrbZOGvwaZrRWpuprzLxmXEL8aPwzTiPVjcJrX3xuD8R5lI9aKwLrdsnqA8UIpfJ
-         PGzYnpznQxC8p8eq447Xfkf92TfrvQY/FImQP4STSrblCKF6e8EqEpnbBUBbc7i8+bcy
-         0SyMwdSADtU/zeYYFAiAhC1oC2t1uFIJ0Qh6f0XGl9WQqmPgno5h33L6aMbETj0wO+vM
-         RDcTGCVvlpBM22WJ8rY5L//X/i0RFJj9N/2sBcmRpYo66AgjUl1G2Ul1Kkz3e9amRiYJ
-         YEtw==
-X-Forwarded-Encrypted: i=1; AFNElJ8pEyJdCzaF1k/PsZRWSEMNy4P3ZxJhtNGnwCKVn3BIKEdM6s7dU0hrhFZIdvGOFdIeq9kBvPc=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzLT1TNkYviDzvqSRrEoxn7xkVyUWGXu2n/QADgXnAoyUK7qzdX
-	WpD0FwZWaTsu70B19pKYF+gZmWv6YstNZJjgytPDKEEosPVvn+mT5fWO
-X-Gm-Gg: Acq92OFw/Cm1Z0d/NGdGr7j+D1U0pVVdmLmePpRWN/N1nXugLiCwrGEJvDHidyYchzL
-	SpHrW9kkpTPx6XlHsN2IDZ5rVXVKbOMnmKbcnHLPv5WHYY23UGxh09qG2sZhRttgzu96bxVGNlv
-	aL7ABIuyoQgYTsrYFsQXFaiwK6yCKmXcRFZc6L6IYDwPvmgNVREZlWORJ5qvtcO1hhbOJBZGNMy
-	bxhuBYq8fRogtuIg5EIe8nJAG/O1M92lr3uM0yR9AzUTUMefJGzAaJTIeysMXcuuWMf45rxpp87
-	hLP2uCTog/Yd2iNm4eJH+InjXvXW/1i5CJ3lyJQJdjEgYPRhve4hdVa+219+Kw/anfyJt6FdEGW
-	oMh/mQuU9A3qfEODF8xsjzj00qVTV/Hmdr2bpQpsAZ75E4EAQkIeyynA9jgyV+mY1KyArca14P4
-	/MaiK4Q/CC7QRs805SRrORF/qDFBkv8SsEqcYtN2I7EkNoQOCW76F4Ap4bCNAeQPU/3aF2KVJtp
-	ZlaJhphv1GDOEXVDwYV0FfBgeva+utGpO3U77Tt9A==
-X-Received: by 2002:a05:6102:2923:b0:631:4580:6a42 with SMTP id ada2fe7eead31-6ff05674bfcmr4385697137.22.1780776120001;
-        Sat, 06 Jun 2026 13:02:00 -0700 (PDT)
-Received: from server0 (c-68-48-65-54.hsd1.mi.comcast.net. [68.48.65.54])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9158a3d2384sm1240898485a.39.2026.06.06.13.01.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 06 Jun 2026 13:01:59 -0700 (PDT)
-From: Michael Bommarito <michael.bommarito@gmail.com>
-To: Jason Gunthorpe <jgg@nvidia.com>,
-	Leon Romanovsky <leonro@nvidia.com>
-Cc: linux-rdma@vger.kernel.org,
+	s=arc-20240116; t=1780801818; c=relaxed/simple;
+	bh=Ffkr30ajw96bLi2rGQSwPfwK8eqUW85h+FyBYFdHGDg=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=PnDpeGhoyj5ISFBnuCMqg+qTgE4tx8uIxpzkj67cGUYfm8C49KssTlI4C4hUSZAucQ4puNgMY3o2FWMdSnuXGEt2hUkd2hPpkSihKgFZWN4NZgo3fk5z4MOdfyKNaumvVP95HpL8j2SqWRtyMCNiBlLBruf5SFlTelJPb9khOlw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-03 (Coremail) with SMTP id rQCowAC3m+IG4SRqr1_cEw--.13317S2;
+	Sun, 07 Jun 2026 11:09:58 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: wens@kernel.org,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	tzimmermann@suse.de,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	jernej.skrabec@gmail.com,
+	samuel@sholland.org
+Cc: dri-devel@lists.freedesktop.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-sunxi@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Vlad Dumitrescu <vdumitrescu@nvidia.com>,
-	Or Har-Toov <ohartoov@nvidia.com>,
-	Bob Pearson <rpearsonhpe@gmail.com>,
-	Sean Hefty <shefty@nvidia.com>,
-	Kees Cook <kees@kernel.org>
-Subject: [PATCH v3] IB/mad: drop unmatched RMPP responses before reassembly
-Date: Sat,  6 Jun 2026 16:01:55 -0400
-Message-ID: <3170ff3bc389a930bb1641f2caa394a0b2241579.1780774907.git.michael.bommarito@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260520154715.1457495-1-michael.bommarito@gmail.com>
-References: <20260520154715.1457495-1-michael.bommarito@gmail.com>
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] drm/sun4i: fix refcount leak in sun4i_backend_init_sat()
+Date: Sun,  7 Jun 2026 03:09:50 +0000
+Message-Id: <20260607030950.83636-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowAC3m+IG4SRqr1_cEw--.13317S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7uF1DuF15JF17Ww4xJr15twb_yoW8GF1xpF
+	W8GFy5ArW8Ja4SvanrAry8XF13Za13GF98GwsYya1rZwn8JFy5urW5KFyagFWDKF4xA345
+	XF47Kr4Uu3WDAaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9a14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr
+	1j6F4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
+	7VC0I7IYx2IY67AKxVWUXVWUAwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7
+	v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF
+	7I0E8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026x
+	CaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_
+	JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r
+	1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_
+	Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8Jr
+	UvcSsGvfC2KfnxnUUI43ZEXa7VU1eWlPUUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAYLA2okN2X5sAAAsX
 
-Kernel-handled RMPP receive processing starts reassembly for active
-DATA responses before the response is matched to an outstanding send.
-The normal match happens later, after ib_process_rmpp_recv_wc() has
-either assembled a complete message or consumed the segment.
+When sun4i_backend_init_sat() calls reset_control_deassert() it
+increments the deassert_count of the reset controller, and must
+pair that with a reset_control_assert() call to decrement it.
+In the error path where clk_prepare_enable() fails, the function
+returns immediately without calling reset_control_assert(), leaking
+the reference count.  Other error paths, like the devm_clk_get()
+failure, correctly jump to the err_assert_reset label which performs
+the missing assert.
 
-That ordering lets an unsolicited response that routes to a kernel
-RMPP agent by the high TID bits allocate or extend RMPP receive state
-before the full TID and source address are checked against a real
-request. A reordered burst can therefore reach the receive-side
-insertion path even though the response would not match any send.
+Fix the leak by using the existing err_assert_reset label in the
+clk_prepare_enable error path instead of returning directly.
 
-For kernel-handled RMPP DATA responses, require the existing
-ib_find_send_mad() match before entering RMPP reassembly. The matcher
-already checks the full TID, management class and source address/GID
-against the agent wait, backlog and in-flight send lists. If there is
-no match, drop the response without creating RMPP state.
-
-This leaves the RMPP window behavior unchanged and only rejects
-responses that have no corresponding request.
-
-Fixes: fa619a77046b ("[PATCH] IB: Add RMPP implementation")
 Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5-5-xhigh
-Signed-off-by: Michael Bommarito <michael.bommarito@gmail.com>
+Fixes: 440d2c7b127a ("drm/sun4i: backend: Handle the SAT")
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
-Impact: a fabric peer that can send QP1 GMP RMPP DATA responses to a
-kernel RMPP agent can create receive-side RMPP reassembly work before
-the response is matched to an outstanding send, delaying other MAD
-processing on that port.
+ drivers/gpu/drm/sun4i/sun4i_backend.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-I tested this on v7.1-rc6 under x86_64 QEMU/KVM with rxe plus
-debug-only patches that host the in-kernel SA agent on soft-RoCE. A
-descending F=1024 burst to the SA agent hi_tid reached RX/MAD completion
-(1023 packets) but, with this patch, did not enter RMPP receive
-processing or the insertion walker: walks=0 and no continue_rmpp samples.
-There are no in-tree selftests for QP1 GMP RMPP reassembly in
-tools/testing/selftests/rdma.
-
-Changes in v3:
-- Replace the RMPP window cap with a pre-reassembly response match.
-- Leave the accepted RMPP reordering window unchanged.
-
- drivers/infiniband/core/mad.c | 30 ++++++++++++++++++++++++++++++
- 1 file changed, 30 insertions(+)
-
-diff --git a/drivers/infiniband/core/mad.c b/drivers/infiniband/core/mad.c
-index 8d19613179e3e..e0b3b36b8b149 100644
---- a/drivers/infiniband/core/mad.c
-+++ b/drivers/infiniband/core/mad.c
-@@ -2031,6 +2031,24 @@ void ib_mark_mad_done(struct ib_mad_send_wr_private *mad_send_wr)
- 		change_mad_state(mad_send_wr, IB_MAD_STATE_EARLY_RESP);
- }
- 
-+static bool is_kernel_rmpp_data_response(struct ib_mad_agent_private *agent,
-+					 struct ib_mad_recv_wc *mad_recv_wc)
-+{
-+	const struct ib_mad_hdr *mad_hdr = &mad_recv_wc->recv_buf.mad->mad_hdr;
-+	struct ib_rmpp_mad *rmpp_mad;
-+
-+	if (!ib_mad_kernel_rmpp_agent(&agent->agent) ||
-+	    !ib_response_mad(mad_hdr) ||
-+	    !ib_is_mad_class_rmpp(mad_hdr->mgmt_class))
-+		return false;
-+
-+	rmpp_mad = (struct ib_rmpp_mad *)mad_recv_wc->recv_buf.mad;
-+
-+	return (ib_get_rmpp_flags(&rmpp_mad->rmpp_hdr) &
-+		IB_MGMT_RMPP_FLAG_ACTIVE) &&
-+	       rmpp_mad->rmpp_hdr.rmpp_type == IB_MGMT_RMPP_TYPE_DATA;
-+}
-+
- static void ib_mad_complete_recv(struct ib_mad_agent_private *mad_agent_priv,
- 				 struct ib_mad_recv_wc *mad_recv_wc)
- {
-@@ -2050,6 +2068,18 @@ static void ib_mad_complete_recv(struct ib_mad_agent_private *mad_agent_priv,
+diff --git a/drivers/gpu/drm/sun4i/sun4i_backend.c b/drivers/gpu/drm/sun4i/sun4i_backend.c
+index bc35dad53b07..c9ec5fc26f7e 100644
+--- a/drivers/gpu/drm/sun4i/sun4i_backend.c
++++ b/drivers/gpu/drm/sun4i/sun4i_backend.c
+@@ -686,7 +686,7 @@ static int sun4i_backend_init_sat(struct device *dev) {
+ 	ret = clk_prepare_enable(backend->sat_clk);
+ 	if (ret) {
+ 		dev_err(dev, "Couldn't enable the SAT clock\n");
+-		return ret;
++		goto err_assert_reset;
  	}
  
- 	list_add(&mad_recv_wc->recv_buf.list, &mad_recv_wc->rmpp_list);
-+	if (is_kernel_rmpp_data_response(mad_agent_priv, mad_recv_wc)) {
-+		spin_lock_irqsave(&mad_agent_priv->lock, flags);
-+		mad_send_wr = ib_find_send_mad(mad_agent_priv, mad_recv_wc);
-+		spin_unlock_irqrestore(&mad_agent_priv->lock, flags);
-+
-+		if (!mad_send_wr) {
-+			ib_free_recv_mad(mad_recv_wc);
-+			deref_mad_agent(mad_agent_priv);
-+			return;
-+		}
-+	}
-+
- 	if (ib_mad_kernel_rmpp_agent(&mad_agent_priv->agent)) {
- 		mad_recv_wc = ib_process_rmpp_recv_wc(mad_agent_priv,
- 						      mad_recv_wc);
+ 	return 0;
 -- 
-2.53.0
+2.34.1
+
