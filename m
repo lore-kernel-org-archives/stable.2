@@ -1,115 +1,182 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4141A2E6CC0;
-	Sun,  7 Jun 2026 08:02:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7914375AB8
+	for <stable@vger.kernel.org>; Sun,  7 Jun 2026 08:52:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780819371; cv=none; b=aM9f5zf2lSSMeTDVbNBm7ByoRri5zk8l7ukjK5nsl2rvNTtqQ0A0M/L3lARVoIkeUOMdGC9W9u7n+ettAmN6qy15WXQ3wEAeQau1W3vsFSk+ME0E5fqGP5qOaQ8vqkogP9FJgNenjztq8m5uPbwuRmKnqW3ozs3ch7qqvAJiFmw=
+	t=1780822323; cv=none; b=EYj5p9C1J9bEvSS5Jy3SSQyugqdOgaHrBD2GOFGecrMUsJhW+UTxa/sjfzaRLAtLz0VIboGB41LkGDn/12nZcP4vEtUB6+Jy1T5zUj8x380HnsKEpd1H0yuBI/1A2+lxvpabJCHEjESTWJS0C47BAXHvGPrgwLPxAbodTOfGQyI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780819371; c=relaxed/simple;
-	bh=fK33aw+FsNr4Lb4q2rl/jIj5PcYXk9p91/x81Ou+R/8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Yfe9wYALfRbA1BMOzCD9aKRD/+pgaYd1iMXfZ/QsNMUuomMV7MG3K30w5D+PkHorXhIMXiiFABTtXFJ1ezIbskJ0b4WFa285ecicE2xh/xkjRckjXx5Hpmd8tVWTgOBQTj15v1pIDakS5FiYWrCDDIyFuu5Cs2gaXAIjvdyGp+U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aE1SY8r9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780822323; c=relaxed/simple;
+	bh=yZ2GguxlK4Drxdf98CXs/sIfvx5cN1fpDUIlYKB7jkI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=glmgzGAJEM91P4eqrm5M4bJcoHj9Ere8sgRBR2S7ZGOgbcxGf5pbbjoDVZaSqVbeHMufSgFzvXrnmzpm6+UincahFN/aN63Ba44hoCtZGizzlAfQG3Xt/Stf2kqdX1RNl1jQgrfOPvZIKrpDJw6risnMSPhRP360uFoliErBDM4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OLhrBk0l; arc=none smtp.client-ip=209.85.214.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aE1SY8r9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32A9B1F00893;
-	Sun,  7 Jun 2026 08:02:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780819369;
-	bh=743mquA8eUU6nXfjkJF2bDmypYOyMCpDQhfZo28zoc8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=aE1SY8r9jkNr36mu/YYJAsW8bfiM7zw1BjgwI5hH9xzAqeIuvpxF5a5xHVcykvRhE
-	 5rv4zb7l0fL/AVhPq95kRC309GpG2LYn9Tk0LfK0EftcbiMuP0mz7jwTgGkVUiskib
-	 FsdBfriQjkjAOSaoOuF08eSIjgEI606M97YlP4uHMmQ2uHpzNScMRGEPVja8VRAJvY
-	 PNxXin2R+XTuVfb00frIhDpIHsfV00jTfMFLAAGOUorTUFWPoAM25MVttHHa4l78o7
-	 2BvhsE3Q4tELG3Xi5Wreq/lCyzxgWM6T3E3A4pyK+yA89GXQXm4j8JddNoJQxLgi0i
-	 ymCQKza5mtMTA==
-Date: Sun, 7 Jun 2026 11:02:44 +0300
-From: Leon Romanovsky <leon@kernel.org>
-To: David Hu <xuehaohu@google.com>
-Cc: Sumit Semwal <sumit.semwal@linaro.org>,
-	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>, Nicolin Chen <nicolinc@nvidia.com>,
-	Kevin Tian <kevin.tian@intel.com>,
-	Ankit Agrawal <ankita@nvidia.com>,
-	Alex Williamson <alex@shazbot.org>, linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
-	linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
-	jmoroni@google.com, praan@google.com, stable@vger.kernel.org
-Subject: Re: [PATCH v5] dma-buf: Fix silent overflow for phys vec to sgt
-Message-ID: <20260607080244.GA327369@unreal>
-References: <20260601200012.3872274-1-xuehaohu@google.com>
- <20260604094344.GB245424@unreal>
- <CAPd9Lg_JkRdtNa=n+HE9SP+NFCSB+X_97eiPBqiONVLwV0pHwQ@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OLhrBk0l"
+Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2bf18c30bb2so22368705ad.0
+        for <stable@vger.kernel.org>; Sun, 07 Jun 2026 01:52:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780822319; x=1781427119; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=4++l0toGNACfhr7BSQDzAeyeBlGSABMgjc/G9H6+5Yg=;
+        b=OLhrBk0ljtaXqDZFBXjtPLeiMLvFubWvx+a06SygiChTitpR0PnMQfWzsmgy72xOeA
+         k3FZwh0xlNzmth96XdLe/7A1X2nOYRpKoifJ54jDimMVIf6NI78DQoXum95ulrZQ5Fmv
+         /DSB9z096SYGjwzcvlnef6PpGw0L+ngVQeT5z57De2tWvs+tviPDmqDvS/fRi8hgBV3T
+         +KQA6YAJTalhAWjLTyQe0BZF38/NEzI7kxyEElFny5Bp04nUGm5XA3tm8Yyg017HWgst
+         319vmgdEqUVpO2gokjiTMha1z9C9xpXlWMQC9R1//ejV1BY6cIlMOLTlhiRqM0aJ1zLP
+         JyLQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780822319; x=1781427119;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=4++l0toGNACfhr7BSQDzAeyeBlGSABMgjc/G9H6+5Yg=;
+        b=B/gF70uXIW6tKx0hRzQVFl/EHgndQiYDDch7RuqcgoxT0+E6HPFPNedpVL8NAkY3v2
+         SYDlKyBtfI8namx6YBxMiCtTpg17AE4DuvszFMu8r7rAUEJv/NNLZbZje1zaW9+IP7A5
+         g9uFIEzvzJRD2S67GADB4VHvj8kyKZh0p0en9mSaZmBdLezdMAlxYEusW6xm6sJsMIRD
+         EFCjNjzxolCAeREClp7gnCW+QcbTsQ2Wii7vVTx9zu3O3TFPbfBvoaSeUyxlK6jPiNpq
+         HENCLG6TV+Vb5D/CANImn6uwURT8SKKTCba/UC4CAxEntg6UR1LclhTfQ1RKqhG0iAQK
+         Mk1w==
+X-Forwarded-Encrypted: i=1; AFNElJ9qjtqjV9leLEuXJXwxncJvO4eNpRBKp8xlGnhf5iOelYBQ4G29nL8yxB/MxIQno/FG8COQ/UE=@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywl/4jsuqogittf65bKt8DxfyYdtVtOs6dcfw3ZSqEE1ugfBu60
+	AymkaQGkM0Fw82TSzGF1Xt0H2K3sXoNJ2L3GYSvphHqwmCyyzFD1dMjr
+X-Gm-Gg: Acq92OFz3Nkh8AMXesKImwmgeXcift6t8LrX5EVLD682CA7q3hY7v+2WL0ZH1iYDcp8
+	5fid0lE2eeEiPZn3EWrB6i1N3+2UI3m+WRxQE3Xc/ufnlxlxC/SOoeoYDBAjthZolnVpn82tdQ8
+	3hB/xXdVS+RsPfN8EYGNZtojNN5k1sRCN3rHyt4+E3aBMQ0v7gxev9kWvM22BS4/jeyA7FypPT3
+	kf4GEiTlY/qN4WbCAzrR3bg/e8SidDMrgPYdS5xxbw8c4frBRR01i01nv4RY2502i5b8fOh1mS7
+	6N8IPEV+xsWvUhzhvkR0L+O+qnUQ5zIUQtZ+wH5nn9UMVKW4nxHcy/Qze4XjVWmOkHU85SE0uzt
+	ythT1aZ+/XddiaKyMJz+dfrMIombMTYcF7VarfOWG8JRc0X1TzRO+CeHi55ECee2vQtguu7AmZO
+	1S+1Mhgc+1bucIScHHsGjhIUBZshlV8qr8S4gR2zJ0gUZ8ip8GcBl+D4TLaBqTRg==
+X-Received: by 2002:a17:903:fa7:b0:2c0:dd75:e824 with SMTP id d9443c01a7336-2c1e80f98cfmr118746105ad.4.1780822319417;
+        Sun, 07 Jun 2026 01:51:59 -0700 (PDT)
+Received: from kfuzz ([202.120.234.33])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c164f6d395sm197220335ad.17.2026.06.07.01.51.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 07 Jun 2026 01:51:58 -0700 (PDT)
+From: Yiming Qian <yimingqian591@gmail.com>
+To: Jason Gunthorpe <jgg@nvidia.com>,
+	Kevin Tian <kevin.tian@intel.com>
+Cc: Joerg Roedel <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	iommu@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	keenanat2000@gmail.com,
+	yimingqian591@gmail.com,
+	stable@vger.kernel.org
+Subject: 
+Date: Sun,  7 Jun 2026 08:51:21 +0000
+Message-ID: <20260607085145.71402-1-yimingqian591@gmail.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAPd9Lg_JkRdtNa=n+HE9SP+NFCSB+X_97eiPBqiONVLwV0pHwQ@mail.gmail.com>
 
-On Thu, Jun 04, 2026 at 03:36:48PM -0400, David Hu wrote:
-> On Thu, Jun 4, 2026 at 5:43 AM Leon Romanovsky <leon@kernel.org> wrote:
-> >
-> > On Mon, Jun 01, 2026 at 08:00:12PM +0000, David Hu wrote:
-> > > @@ -36,7 +36,7 @@ static unsigned int calc_sg_nents(struct dma_iova_state *state,
-> > >                                 struct phys_vec *phys_vec, size_t nr_ranges,
-> > >                                 size_t size)
-> > >  {
-> > > -     unsigned int nents = 0;
-> > > +     size_t nents = 0;
-> > >       size_t i;
-> > >
-> > >       if (!state || !dma_use_iova(state)) {
-> > > @@ -51,6 +51,9 @@ static unsigned int calc_sg_nents(struct dma_iova_state *state,
-> > >               nents = DIV_ROUND_UP(size, UINT_MAX);
-> > >       }
-> > >
-> > > +     if (nents > UINT_MAX)
-> >
-> > I would suggest to use check_add_overflow() while calculating nents
-> > instead of this check.
-> 
-> Hi Leon,
-> 
-> Thank you for the review. Using `check_add_overflow()` is a great
-> suggestion and definitely
-> cleaner for the accumulation loop. I'll update this for v6.
-> 
-> > > @@ -133,6 +137,11 @@ struct sg_table *dma_buf_phys_vec_to_sgt(struct dma_buf_attachment *attach,
-> > >       }
-> > >
-> > >       nents = calc_sg_nents(dma->state, phys_vec, nr_ranges, size);
-> > > +     if (!nents) {
-> > > +             ret = -EINVAL;
-> > > +             goto err_free_state;
-> > > +     }
-> >
-> > Technically, this hunk is not necessary, since sg_alloc_table() will
-> > return -EINVAL when nents == 0. At least, that is the behavior I relied on.
-> 
-> I originally added this explicit check in v5 to address Jason's
-> feedback, and to make the
-> failure explicit rather than relying on `sg_alloc_table()` failing
-> silently on `nents=0`.
 
-I prefer explicit checks, but I am not in favor of duplicating them.
-Since sg_alloc_table() already validates this condition, we do not need
-to repeat the same check in dma-buf. A comment should be sufficient to
-inform future reviewers that nents == 0 is already handled.
 
-Thanks
 
-> 
-> Jason, do you have a strong preference here? I am happy to drop the
-> hunk and rely on
-> `sg_alloc_table()` returning `-EINVAL` if you are both comfortable with that.
-> 
-> Thanks,
-> David
+
+
+
+
+
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Yiming Qian <yimingqian591@gmail.com>
+To: Jason Gunthorpe <jgg@nvidia.com>
+Cc: Kevin Tian <kevin.tian@intel.com>, iommu@lists.linux.dev,
+ stable@vger.kernel.org
+Date: Sun, 7 Jun 2026 07:40:00 +0000
+Subject: [PATCH] iommu/iommufd: Require write access for writable MAP_FILE
+ mappings
+
+IOMMU_IOAS_MAP_FILE pins folios from a shmem/tmpfs or hugetlb file and
+uses them as the backing storage for an IOAS mapping.  When userspace sets
+IOMMU_IOAS_MAP_WRITEABLE, the resulting IOMMU PTEs allow DMA writes to the
+file-backed folios.
+
+The file path currently records the IOMMU mapping as writable, but it does
+not require the source file descriptor to have write permission.  It also
+bypasses the address_space writable-mapping accounting used by memfd
+sealing.  As a result, an O_RDONLY fd for a root-owned mode 0444 shmem file
+can be mapped as DMA-writeable and a device, or the IOMMUFD selftest access
+path, can write into the file page cache.  The same missing accounting also
+means writable IOMMU mappings are not excluded by F_SEAL_WRITE or
+F_SEAL_FUTURE_WRITE.
+
+Treat writable MAP_FILE mappings like shared writable mappings: require an
+FMODE_WRITE fd, call mapping_map_writable() when creating the backing
+file-pages object, and hold that accounting until the iopt_pages object is
+released.  This rejects already sealed files and prevents new write seals
+from being installed while the IOMMU write mapping exists.
+
+Cc: stable@vger.kernel.org
+Reported-by: Yiming Qian <yimingqian591@gmail.com>
+Reported-by: Keenan Dong <keenanat2000@gmail.com>
+Signed-off-by: Yiming Qian <yimingqian591@gmail.com>
+Signed-off-by: Keenan Dong <keenanat2000@gmail.com>
+---
+ drivers/iommu/iommufd/io_pagetable.h |  1 +
+ drivers/iommu/iommufd/pages.c        | 18 +++++++++++++++++-
+ 2 files changed, 18 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/iommu/iommufd/io_pagetable.h b/drivers/iommu/iommufd/io_pagetable.h
+index 27e3e311d395b..63e3fd738faf2 100644
+--- a/drivers/iommu/iommufd/io_pagetable.h
++++ b/drivers/iommu/iommufd/io_pagetable.h
+@@ -234,6 +234,7 @@ struct iopt_pages {
+ 		struct {			/* IOPT_ADDRESS_FILE */
+ 			struct file *file;
+ 			unsigned long start;
++			bool mapping_writable;
+ 		};
+ 		/* IOPT_ADDRESS_DMABUF */
+ 		struct iopt_pages_dmabuf dmabuf;
+diff --git a/drivers/iommu/iommufd/pages.c b/drivers/iommu/iommufd/pages.c
+index 9bdb2945afe1e..f97d94d9eddd1 100644
+--- a/drivers/iommu/iommufd/pages.c
++++ b/drivers/iommu/iommufd/pages.c
+@@ -1421,13 +1421,27 @@ struct iopt_pages *iopt_alloc_file_pages(struct file *file,
+ 
+ {
+ 	struct iopt_pages *pages;
++	int rc;
++
++	if (writable) {
++		if (!(file->f_mode & FMODE_WRITE))
++			return ERR_PTR(-EPERM);
++
++		rc = mapping_map_writable(file->f_mapping);
++		if (rc)
++			return ERR_PTR(rc);
++	}
+ 
+ 	pages = iopt_alloc_pages(start_byte, length, writable);
+-	if (IS_ERR(pages))
++	if (IS_ERR(pages)) {
++		if (writable)
++			mapping_unmap_writable(file->f_mapping);
+ 		return pages;
++	}
+ 	pages->file = get_file(file);
+ 	pages->start = start - start_byte;
+ 	pages->type = IOPT_ADDRESS_FILE;
++	pages->mapping_writable = writable;
+ 	return pages;
+ }
+ 
+@@ -1668,6 +1682,8 @@ void iopt_release_pages(struct kref *kref)
+ 		dma_buf_put(dmabuf);
+ 		WARN_ON(!list_empty(&pages->dmabuf.tracker));
+ 	} else if (pages->type == IOPT_ADDRESS_FILE) {
++		if (pages->mapping_writable)
++			mapping_unmap_writable(pages->file->f_mapping);
+ 		fput(pages->file);
+ 	}
+ 	kfree(pages);
