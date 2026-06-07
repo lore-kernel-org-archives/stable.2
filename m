@@ -1,189 +1,132 @@
-Received: from mail-244116.protonmail.ch (mail-244116.protonmail.ch [109.224.244.116])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A17BC35836A
-	for <stable@vger.kernel.org>; Sun,  7 Jun 2026 09:48:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1DA3370AD0
+	for <stable@vger.kernel.org>; Sun,  7 Jun 2026 09:51:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780825725; cv=none; b=Chb93kc3T5IFxU41ajPKGDWycmskchaqOAe+nJ44At8KCUM4cJ/NJY0Ir0winhPZG+TU7YfAgMe7H1Pqt05tH/xsk8b/EXHGPjSDjgFIlmhIocePAHB80pqgnf9y0SY57KQQuTCGrVReBzluci1u3Wb2vDqlEzRISMquxGdjHmU=
+	t=1780825893; cv=none; b=XnWGk9AJG3k387vehFH4wmkP2xsZhf6k7jmE5zfh94EUzcSTH0eJusbDWxgrIBAEsatyJXaw8PIBPnuS43EA55HSGVC350JkSv8Y4uzBF2nbjwsshTfyInPKYtJZto9gMCsHMR60NGJjILYoyxpOOIgiBMvJIpgfJGz4giZC6HY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780825725; c=relaxed/simple;
-	bh=1rNxc1UaHTRXu5r2v0ow8mgrPehoHCYlRVkX/lQ2tCY=;
-	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=K+unBw7J2omOONs0R/EOs74XGIqs/D7o39uUS7mDuGdNw5NlbhTSi38P0YaHRuy9iTjMXW5hqCfhYj2MN0xu975NEU0zmqnkLCXmobgPmlbAUoqYQ4WDj+B0Fo8SUxJy1QomdP+Un4g+o2MFM7zJkfEdl7n7GT7oihatyEZHc8k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=GZDkZ9L5; arc=none smtp.client-ip=109.224.244.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	s=arc-20240116; t=1780825893; c=relaxed/simple;
+	bh=i1oCpfdFswALacqKWEmloOwuDuQecUWVE49heEfU014=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dMiC6bE0JUv/JiAA9cyZT+G9PEyJ7JjpUmxEaU0GPoNM4G9MXl/fnsldY2IVyDRx69Env88OZJwhTxVVMGM1agHpcuBE1s60lN8Kush7A9BpFptSngwhb9OXh5GB8H83oRDwswYjPoTX9metHXRmnxEs/nmdRUUvgSmGTfWxOyI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Znyv3Hmq; arc=none smtp.client-ip=209.85.210.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="GZDkZ9L5"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1780825713; x=1781084913;
-	bh=vQSZRMpoGuLhm10iyqcc9wChC3iOe39cE9LVFeXeHg4=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=GZDkZ9L5PYFKW97IaLe1KAMMkntmVvjsYUoRDA8qAwH51QrHlFM2lHZt0IBOe2EA+
-	 M3pshDse/KEn4MXrFrbmluOYx60RYJxvO8/cP4Y7o+fvaKUph92tUMsOkndIUM3RQo
-	 UWaGW4yAUEXReYVlPqfzzk2QlQItxCBzWRtk2KzCXiDU17EVnv1mx/kj1B1rzJkX3W
-	 Z0OpLrJr+5jp4ofTjt6KuMXHhot6L+EFdZ2KtVnKsZ/21HGVpPZbFgXop87c9w/qaW
-	 VvCMkl+SSqVwcnydLYeO3KY5gl4BinX8SIZDykNQxCePOYOxpQt/EdGIf94YL4YuDX
-	 hZ72/2Fl06K1A==
-Date: Sun, 07 Jun 2026 09:48:26 +0000
-To: David Heidelberg <david+nfc@ixit.cz>
-From: Bryam Vargas <hexlabsecurity@proton.me>
-Cc: oe-linux-nfc@lists.linux.dev, netdev@vger.kernel.org, stable@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] nfc: nci: add data_len bound checks to activation parameter extractors
-Message-ID: <20260607094822.322125-1-hexlabsecurity@proton.me>
-Feedback-ID: 199661219:user:proton
-X-Pm-Message-ID: ee73fa13d558072a404361bd75a1ace81025cebc
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Znyv3Hmq"
+Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-8423f52af13so2390782b3a.2
+        for <stable@vger.kernel.org>; Sun, 07 Jun 2026 02:51:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780825891; x=1781430691; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=ZZHHpy1q3ydpA2HSp+30PNQez/ja9FOTHakLXuwR4NM=;
+        b=Znyv3HmqTjKyuCY+O3O6ouCk6TOtSkW8eiuXLoptskWS1NMZtNNC+m1kulYWGKz3pP
+         DxzYGvqoCQ9jvFdNYpxK8+sGqWECqKGYgTcuT8a8ykh9Ssc3Cy6ZU9AMdIGD9rIO7+ZP
+         WRCsOh366t3p6UDxhKVuTQnAknTAhVhmz9hV+CwqdjEoO2DWrCtrRuHpu2JnZLd9zYIH
+         vVx1+TN7mASvd3zo43KVlQlGpActMTrbNYusgSXryePav56/eym0F80+CpqFAkWNJwzI
+         tH3NP4qRFq39Kk31GXNxFZ3yYn35R886ybRURqRIruaEYbjdfv3lbxzEap6ialpbxYQs
+         saAA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780825891; x=1781430691;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ZZHHpy1q3ydpA2HSp+30PNQez/ja9FOTHakLXuwR4NM=;
+        b=MCln/3r8bng14TOl9AIHjs0dmK3jDd8gTRf04lMZrrsJB7C+M70g0DL758zBDO52rh
+         2jf1+moXul8p4HcN9DFsC6L/QEOh1efQMl75N29+BG4JU4kBVwbWi3e+F2Hf+1Sz3ZoH
+         Z57Qpmx6DnKQwgl7WhWRydUpnvgVJjk9qTGiRBnAqlLwE82O7Lqu5rOuutQ3A927qiMc
+         QtP8yHAThhCoWSIyZcLl/zqcf4W+lU++X0gWNOFumF4oh7CydtWU/jhNAj+DanMkJCpg
+         +YcZaZJoBOR2yzUi2IsfCUDeo2ONQwGD0XYxwqkYUT+hpEiEgKF0A/NxK0Jt9+j0Ht69
+         TOeQ==
+X-Forwarded-Encrypted: i=1; AFNElJ82heZVf8XJHHj7J4bh8zNOZwuu9PqtVnEcRx0C6mVha4AskcnMsVwGUUvw/psLb+pufxNoF9w=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy1T5efkJI0WVzseYBZolx/xdvwyKEGH4QbMRfHq/vRcSPX4JCX
+	SK9iHmC1Hr2PxO5ifwQcHhyKNg9gCtI2wciaT1KUM+QAXZAVNKKM57pA
+X-Gm-Gg: Acq92OFff9PnUhaCjqnNSUeozvNYZzb7YI3mHzSYe9wzCd0/0EELn8ylhF3x0Zbmz/4
+	sVEM3gStRbR+c6RV5+OMdNC3gTk2np6lizPlWW+Uz49+Px7tmbjXKz+cSHv9Tz4WOTwiSt8w5q5
+	RKSPhIwnsjJX4hvKiKDZdfRr4LHXpRTSVsuNzdBgp4Rn9fQJ+dJucHPBYFVSpMKt9oj4QPhxBwB
+	4VwGDw+BR7MXmJ6rlp9pP0lHckGXk0ag07n6Ks+aEqMt5lYhPUgD4InrPhmw75SAPgm+Us74qE4
+	B27MgBC9K1Zk2n0TMWe9tLvzRxXx7NGNzinxY9+h2WnKTnE9IDBz9grT80qo6oI0/jhaXRAtrCS
+	o+B4AUlW4VivHlTQ3sR5Q1WSWTqZ3OSk+I5++yXTCluRgvj+cIk0ysaI2bG9yyNLknMwMVcjHU4
+	lYflNvtQFD99+1UAA+Evszsd5wIZbuTW10qI+RsmXl4XQ9qT4zi47fUYXGP+fN1ZgtSr4sNmzeX
+	a3+504qbtmq0WUMejNovdEvUzg=
+X-Received: by 2002:a05:6a00:9286:b0:842:4023:42c9 with SMTP id d2e1a72fcca58-842b0fc08c5mr11266234b3a.41.1780825891034;
+        Sun, 07 Jun 2026 02:51:31 -0700 (PDT)
+Received: from nugod-NUC15CRHU5.tail9f095a.ts.net ([218.237.104.87])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84282916b10sm14629670b3a.58.2026.06.07.02.51.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 07 Jun 2026 02:51:30 -0700 (PDT)
+From: HyeongJun An <sammiee5311@gmail.com>
+To: Johan Hovold <johan@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	HyeongJun An <sammiee5311@gmail.com>
+Subject: [PATCH] USB: serial: kl5kusb105: fix bulk-out buffer overflow
+Date: Sun,  7 Jun 2026 18:51:14 +0900
+Message-ID: <20260607095114.9375-1-sammiee5311@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-nci_extract_activation_params_iso_dep() and
-nci_extract_activation_params_nfc_dep() read an inner length byte from
-the NCI RF_INTF_ACTIVATED_NTF payload and use it to memcpy() into fixed
-kernel buffers, but neither function receives the caller-validated
-activation_params_len.  A crafted NCI notification with
-activation_params_len=3D1 and an inner length byte of up to 20 (NFC-A) or
-50 (NFC-B) causes memcpy() to read that many bytes past the one valid
-byte in the activation params region -- a slab out-of-bounds read of
-kernel memory adjacent to the NCI skb.
+klsi_105_prepare_write_buffer() is called by the generic write path
+with the bulk-out buffer and its size (bulk_out_size, 64 bytes). It
+stores a two-byte length header at the start of the buffer and copies
+the payload from the write fifo starting at buf + KLSI_HDR_LEN, but
+passes the full buffer size as the number of bytes to copy:
 
-The sibling nci_extract_rf_params_*() family was given equivalent
-protection by commit 571dcbeb8e63 ("net: nfc: nci: Fix parameter
-validation for packet data"), but the two activation parameter
-extractors were not updated at that time.
+  count = kfifo_out_locked(&port->write_fifo, buf + KLSI_HDR_LEN,
+                           size, &port->lock);
 
-Add a data_len parameter to both functions, guard against an empty
-region before consuming the inner length byte, decrement the remaining
-count after consuming it, and clamp the copy length to what is actually
-available.  Update both call sites to pass ntf.activation_params_len,
-which is already validated against the skb at ntf.c:801.
+When the fifo holds at least size bytes, size bytes are copied starting
+two bytes into the size-byte buffer, writing KLSI_HDR_LEN bytes past its
+end. Copy at most size - KLSI_HDR_LEN bytes instead, leaving room for
+the header as safe_serial already does.
 
-Fixes: e8c0dacd9836 ("NFC: Update names and structs to NCI spec 1.0 d18")
-Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
+Writing bulk_out_size or more bytes to the tty triggers a slab
+out-of-bounds write, observed with KASAN by emulating the device with
+dummy_hcd and raw-gadget:
+
+  BUG: KASAN: slab-out-of-bounds in kfifo_copy_out+0x83/0xc0
+  Write of size 64 at addr ffff888112c62202 by task python3
+   kfifo_copy_out
+   klsi_105_prepare_write_buffer [kl5kusb105]
+   usb_serial_generic_write_start [usbserial]
+  Allocated by task 139:
+   usb_serial_probe [usbserial]
+  The buggy address is located 2 bytes inside of allocated 64-byte region
+
+The out-of-bounds write no longer occurs with this change applied.
+
+Fixes: 60b3013cdaf3 ("USB: kl5usb105: reimplement using generic framework")
+Cc: stable@vger.kernel.org
+Signed-off-by: HyeongJun An <sammiee5311@gmail.com>
 ---
-Verification (NFC-A ISO-DEP, NFC_ATS_MAXSIZE =3D 20):
+ drivers/usb/serial/kl5kusb105.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-  data_len  inner_len  without patch              with patch
-  --------  ---------  -------------------------  --------------------
-  1         0          rats_res_len=3D0, clean       same
-  1         1          memcpy +1B OOB              clamped to 0, clean
-  1         20         memcpy +20B OOB  <-- PoC   clamped to 0, clean
-  2         2          memcpy +1B OOB              clamped to 1, clean
-  21        20         memcpy 20B clean            same
-
-NFC-B (attrib_res, max 50) and NFC-DEP poll/listen (atr_res/atr_req,
-max 62) have the same shape and receive the same fix.
-
- net/nfc/nci/ntf.c | 26 ++++++++++++++++++++++----
- 1 file changed, 22 insertions(+), 4 deletions(-)
-
-diff --git a/net/nfc/nci/ntf.c b/net/nfc/nci/ntf.c
-index c96512bb8653..753f4cf08748 100644
---- a/net/nfc/nci/ntf.c
-+++ b/net/nfc/nci/ntf.c
-@@ -525,15 +525,19 @@ static int nci_rf_discover_ntf_packet(struct nci_dev =
-*ndev,
-=20
- static int nci_extract_activation_params_iso_dep(struct nci_dev *ndev,
- =09=09=09=09=09=09 struct nci_rf_intf_activated_ntf *ntf,
--=09=09=09=09=09=09 const __u8 *data)
-+=09=09=09=09=09=09 const __u8 *data, __u8 data_len)
- {
- =09struct activation_params_nfca_poll_iso_dep *nfca_poll;
- =09struct activation_params_nfcb_poll_iso_dep *nfcb_poll;
-=20
- =09switch (ntf->activation_rf_tech_and_mode) {
- =09case NCI_NFC_A_PASSIVE_POLL_MODE:
-+=09=09if (data_len < 1)
-+=09=09=09return -EINVAL;
- =09=09nfca_poll =3D &ntf->activation_params.nfca_poll_iso_dep;
- =09=09nfca_poll->rats_res_len =3D min_t(__u8, *data++, NFC_ATS_MAXSIZE);
-+=09=09data_len--;
-+=09=09nfca_poll->rats_res_len =3D min_t(__u8, nfca_poll->rats_res_len, dat=
-a_len);
- =09=09pr_debug("rats_res_len %d\n", nfca_poll->rats_res_len);
- =09=09if (nfca_poll->rats_res_len > 0) {
- =09=09=09memcpy(nfca_poll->rats_res,
-@@ -542,8 +546,12 @@ static int nci_extract_activation_params_iso_dep(struc=
-t nci_dev *ndev,
- =09=09break;
-=20
- =09case NCI_NFC_B_PASSIVE_POLL_MODE:
-+=09=09if (data_len < 1)
-+=09=09=09return -EINVAL;
- =09=09nfcb_poll =3D &ntf->activation_params.nfcb_poll_iso_dep;
- =09=09nfcb_poll->attrib_res_len =3D min_t(__u8, *data++, 50);
-+=09=09data_len--;
-+=09=09nfcb_poll->attrib_res_len =3D min_t(__u8, nfcb_poll->attrib_res_len,=
- data_len);
- =09=09pr_debug("attrib_res_len %d\n", nfcb_poll->attrib_res_len);
- =09=09if (nfcb_poll->attrib_res_len > 0) {
- =09=09=09memcpy(nfcb_poll->attrib_res,
-@@ -562,7 +570,7 @@ static int nci_extract_activation_params_iso_dep(struct=
- nci_dev *ndev,
-=20
- static int nci_extract_activation_params_nfc_dep(struct nci_dev *ndev,
- =09=09=09=09=09=09 struct nci_rf_intf_activated_ntf *ntf,
--=09=09=09=09=09=09 const __u8 *data)
-+=09=09=09=09=09=09 const __u8 *data, __u8 data_len)
- {
- =09struct activation_params_poll_nfc_dep *poll;
- =09struct activation_params_listen_nfc_dep *listen;
-@@ -570,9 +578,13 @@ static int nci_extract_activation_params_nfc_dep(struc=
-t nci_dev *ndev,
- =09switch (ntf->activation_rf_tech_and_mode) {
- =09case NCI_NFC_A_PASSIVE_POLL_MODE:
- =09case NCI_NFC_F_PASSIVE_POLL_MODE:
-+=09=09if (data_len < 1)
-+=09=09=09return -EINVAL;
- =09=09poll =3D &ntf->activation_params.poll_nfc_dep;
- =09=09poll->atr_res_len =3D min_t(__u8, *data++,
- =09=09=09=09=09  NFC_ATR_RES_MAXSIZE - 2);
-+=09=09data_len--;
-+=09=09poll->atr_res_len =3D min_t(__u8, poll->atr_res_len, data_len);
- =09=09pr_debug("atr_res_len %d\n", poll->atr_res_len);
- =09=09if (poll->atr_res_len > 0)
- =09=09=09memcpy(poll->atr_res, data, poll->atr_res_len);
-@@ -580,9 +592,13 @@ static int nci_extract_activation_params_nfc_dep(struc=
-t nci_dev *ndev,
-=20
- =09case NCI_NFC_A_PASSIVE_LISTEN_MODE:
- =09case NCI_NFC_F_PASSIVE_LISTEN_MODE:
-+=09=09if (data_len < 1)
-+=09=09=09return -EINVAL;
- =09=09listen =3D &ntf->activation_params.listen_nfc_dep;
- =09=09listen->atr_req_len =3D min_t(__u8, *data++,
- =09=09=09=09=09    NFC_ATR_REQ_MAXSIZE - 2);
-+=09=09data_len--;
-+=09=09listen->atr_req_len =3D min_t(__u8, listen->atr_req_len, data_len);
- =09=09pr_debug("atr_req_len %d\n", listen->atr_req_len);
- =09=09if (listen->atr_req_len > 0)
- =09=09=09memcpy(listen->atr_req, data, listen->atr_req_len);
-@@ -806,12 +822,14 @@ static int nci_rf_intf_activated_ntf_packet(struct nc=
-i_dev *ndev,
- =09=09switch (ntf.rf_interface) {
- =09=09case NCI_RF_INTERFACE_ISO_DEP:
- =09=09=09err =3D nci_extract_activation_params_iso_dep(ndev,
--=09=09=09=09=09=09=09=09    &ntf, data);
-+=09=09=09=09=09=09=09=09    &ntf, data,
-+=09=09=09=09=09=09=09=09    ntf.activation_params_len);
- =09=09=09break;
-=20
- =09=09case NCI_RF_INTERFACE_NFC_DEP:
- =09=09=09err =3D nci_extract_activation_params_nfc_dep(ndev,
--=09=09=09=09=09=09=09=09    &ntf, data);
-+=09=09=09=09=09=09=09=09    &ntf, data,
-+=09=09=09=09=09=09=09=09    ntf.activation_params_len);
- =09=09=09break;
-=20
- =09=09case NCI_RF_INTERFACE_FRAME:
---=20
+diff --git a/drivers/usb/serial/kl5kusb105.c b/drivers/usb/serial/kl5kusb105.c
+index ed8531a64768..e72a0b45a707 100644
+--- a/drivers/usb/serial/kl5kusb105.c
++++ b/drivers/usb/serial/kl5kusb105.c
+@@ -330,8 +330,8 @@ static int klsi_105_prepare_write_buffer(struct usb_serial_port *port,
+ 	unsigned char *buf = dest;
+ 	int count;
+ 
+-	count = kfifo_out_locked(&port->write_fifo, buf + KLSI_HDR_LEN, size,
+-								&port->lock);
++	count = kfifo_out_locked(&port->write_fifo, buf + KLSI_HDR_LEN,
++				 size - KLSI_HDR_LEN, &port->lock);
+ 	put_unaligned_le16(count, buf);
+ 
+ 	return count + KLSI_HDR_LEN;
+-- 
 2.43.0
-
 
