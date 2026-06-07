@@ -1,28 +1,28 @@
-Received: from zg8tmja2lje4os4yms4ymjma.icoremail.net (zg8tmja2lje4os4yms4ymjma.icoremail.net [206.189.21.223])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7638F3A2549;
-	Sun,  7 Jun 2026 12:19:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=206.189.21.223
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [52.229.168.213])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id AAC123A873C;
+	Sun,  7 Jun 2026 13:01:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.229.168.213
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780834769; cv=none; b=vDF8Aa67xpr8SquFw53IHeEty4cmUj4xr8bl251XWYvIeuot2+oa77bt7r/IzSBVPJOgpakGPhoJzwvjCtz+l0RFQGwpUj40W+o8Pzgy7mRle4/kI8HoCchzWuJSM0N5N6r4fLs3CvLlcRQ2DdfJDWFOS/s+jCBWP9FsURVIPpI=
+	t=1780837301; cv=none; b=KbDnwxvP/D2Fx4lBKyjDmgh9l4O76AwrC/nyKSIQE18lNLSVWmMmQv/U88Lp5mzpv8q2YJwDppyapkJh7QLgkatE2VLlrnYSKuoksjzvy+yw7upOks8qItN038pf+Og0qL4zXOTMipOaIbJrigoh56k27xgS7ky1rfhp4oWn8cQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780834769; c=relaxed/simple;
-	bh=zhsBBz8rvMp0MDvManYHUPyFESBBsTkM4xyF9UE4LsU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=phQctZhDJnXSqCKSuULIViimWARENbi+p/Liy+gWw+cjY4Hqkf9gO6Q90doKn3MaKLncHIpJp+jsu2PQnlhGvrKUGF40gF8d90lfWZJjyLPnne3adzDxQU7unry+qOl3YMllaQJe7oJBfaoJgqJqXTTuruLh2foOf4HoX9M8E4A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mails.tsinghua.edu.cn; spf=pass smtp.mailfrom=mails.tsinghua.edu.cn; dkim=pass (1024-bit key) header.d=mails.tsinghua.edu.cn header.i=@mails.tsinghua.edu.cn header.b=ThF9Czbh; arc=none smtp.client-ip=206.189.21.223
+	s=arc-20240116; t=1780837301; c=relaxed/simple;
+	bh=sCQWvrOwyzOu0il+mTFkDGuqasbhT3DyEXaV/X+xHAA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LasAhs27CDAcZGsosT8v63FaaQM2WyJV3snsxCMvIvEMnPhiD9NqoU75ZCOtNzhtiDjmgS8258/zX9h8MLLq07yqH8Zb/Y0zMHXu3kz8CU8o5mPygwIfusWRm/vtd6a6sanwz63JF8mMoQfh3W3Pr0QfUnkFzXz08GGHhgvuLLQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mails.tsinghua.edu.cn; spf=pass smtp.mailfrom=mails.tsinghua.edu.cn; dkim=pass (1024-bit key) header.d=mails.tsinghua.edu.cn header.i=@mails.tsinghua.edu.cn header.b=jMwSe8gS; arc=none smtp.client-ip=52.229.168.213
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mails.tsinghua.edu.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mails.tsinghua.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mails.tsinghua.edu.cn header.i=@mails.tsinghua.edu.cn header.b="ThF9Czbh"
+	dkim=pass (1024-bit key) header.d=mails.tsinghua.edu.cn header.i=@mails.tsinghua.edu.cn header.b="jMwSe8gS"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=mails.tsinghua.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:
-	Date:Message-ID:MIME-Version:Content-Transfer-Encoding; bh=6BNCs
-	I3At/XfYeZzgEFPg8k5Uh83Vh5DEtj4ugHkCMQ=; b=ThF9Czbhqg73eBM9Xl4Z6
-	zae4nMNVAYsWwW+gEi5FgKrbGxB7YcN/+l+EaTiP/GAJfN9TAKW30gD+zk4TTdsL
-	pxUmEI2o6qc6UBH8r3FkNqAYzR+HbprY4cLzcr56BZD0W9yfq8cIr+ZIOdmsWBr9
-	0JOxMBvs7FCRaDdz/eF9UQ=
+	Date:Message-ID:MIME-Version:Content-Transfer-Encoding; bh=wy4Pj
+	RKnyBWkiFf6A6DugXQqGmLPNMoUQDUhuKI3GcU=; b=jMwSe8gSIDf+ARf8uzemg
+	ckDTkml6h6Y40vnF+LV8vucHKTTVYMvjgGdcsS1ZTjRyt7dB5cQmv9r0I3uB1K65
+	wl5CZXQXCfiCZPFm8UvgAaBRcHzWOmk8xYoeW9XQ5DofJAlJY99/9BV5mKvAKAXC
+	5BS6p6fFlJ6ye1fQHvDLyY=
 Received: from localhost.localdomain (unknown [101.5.11.216])
-	by web3 (Coremail) with SMTP id ygQGZQBXpZLBYSVqmYI4Ag--.64208S2;
-	Sun, 07 Jun 2026 20:19:13 +0800 (CST)
+	by web3 (Coremail) with SMTP id ygQGZQDHE5GlayVqeLw4Ag--.6443S2;
+	Sun, 07 Jun 2026 21:01:25 +0800 (CST)
 From: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
 To: v9fs@lists.linux.dev
 Cc: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>,
@@ -37,9 +37,9 @@ Cc: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>,
 	Qi Li <qli01@tsinghua.edu.cn>,
 	Ke Xu <xuke@tsinghua.edu.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH] net/9p/usbg: fix prefix matching in device lookup
-Date: Sun,  7 Jun 2026 20:19:04 +0800
-Message-ID: <20260607121907.12588-1-zhaoyz24@mails.tsinghua.edu.cn>
+Subject: [PATCH] net/9p/usbg: Fix use-after-free in disable_usb9pfs()
+Date: Sun,  7 Jun 2026 21:01:16 +0800
+Message-ID: <20260607130118.16579-1-zhaoyz24@mails.tsinghua.edu.cn>
 X-Mailer: git-send-email 2.46.2
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -48,36 +48,47 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:ygQGZQBXpZLBYSVqmYI4Ag--.64208S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7uryUWr43Aw15AFyxCw1fXrb_yoW8Ar4rpa
-	y7uF9IkFyUJry3Za97tan7CrW7Gan5GrW8try0qa43uwn0g3W8Jr40kw4SyrZ8Z39Fkr15
-	tFWqqryjyF4Du3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9v1xkIjI8I6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l8cAvFVAK
+X-CM-TRANSID:ygQGZQDHE5GlayVqeLw4Ag--.6443S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7trW8urWfuw4fCw45JFy7Jrb_yoW5JF4kpa
+	y3JFWFyrZxWryjva4ktr1vqF18Ar4kAryxtryjg3sxuanIqw1ktF48Kr9YvFs8A392ya47
+	AFs2q3yDur1kurDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9m1xkIjI8I6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l8cAvFVAK
 	0II2c7xJM28CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW7JVWDJwA2z4
-	x0Y4vE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2
-	z4x0Y4vEx4A2jsIEc7CjxVAFwI0_GcCE3s1lnxkEFVAIw20F6cxK64vIFxWle2I262IYc4
-	CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E74AGY7Cv6cx26r4r
-	Kr1UJr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc
-	8vx2IErcIFxwACI402YVCY1x02628vn2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCY02Av
-	z4vE14v_Xr1l42xK82IYc2Ij64vIr41l42xK82IY6x8ErcxFaVAv8VW8Ww4UJr1UMxC20s
-	026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_
-	JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14
-	v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xva
-	j40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JV
-	W8JrUvcSsGvfC2KfnxnUUI43ZEXa7VU0FksPUUUUU==
-X-CM-SenderInfo: 52kd05r2suqzpdlo2hxwvl0wxkxdhvlgxou0/1tbiAgILAWoknpuEQgAAsH
+	x0Y4vE2Ix0cI8IcVCY1x0267AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l
+	84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s0DM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcx
+	kEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6x8ErcxFaVAv8VW8
+	Ww4UJr1UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6I
+	AqYI8I648v4I1lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFylc2xS
+	Y4AK67AK6ry8MxAIw28IcxkI7VAKI48JMxAIw28IcVCjz48v1sIEY20_GrWkJr1UJwCFx2
+	IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v2
+	6r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67
+	AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IY
+	s7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr
+	0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0Jj7SdkUUUUU=
+X-CM-SenderInfo: 52kd05r2suqzpdlo2hxwvl0wxkxdhvlgxou0/1tbiAQILAWokna+N0wAAsr
 
-p9_usbg_create() matches the mount source against registered usb9pfs
-instance tags with strncmp() and the length of the caller supplied source.
-That accepts any prefix of the registered tag.
+disable_usb9pfs() frees the IN and OUT usb_request objects before it
+disables the corresponding endpoints. If either request is still queued,
+the later usb_ep_disable() call cancels the endpoint queue and the UDC
+driver can still access the already freed request.
 
-For example, a gadget instance tagged "secret_channel" can be selected with
-"s", "sec", or any other non-empty prefix.  Once selected, the instance is
-marked in use and the client is attached to that transport.  This differs
-from the configfs tag lookup path, which uses strcmp() and therefore
-requires an exact tag match.
+With dummy_hcd and KASAN, this is reproducible by queueing the OUT
+request and then disconnecting the configfs gadget:
 
-Require an exact tag match in p9_usbg_create() as well.
+  BUG: KASAN: slab-use-after-free in dummy_disable+0x2b4/0x300
+  Read of size 8 at addr ffff888009702400 by task sh/1
+  usb_ep_disable+0x8e/0x1f0
+  usb9pfs_func_unbind+0x193/0x350
+  gadget_dev_desc_UDC_store+0x135/0x280
+
+dummy_free_request() also warns because the request is freed while its
+queue entry is still linked.
+
+Disable both endpoints before freeing the request objects. This lets
+usb_ep_disable() cancel any queued transfers and invoke the completion
+callback while the request storage is still valid. The request objects
+are then freed only after they have been removed from the endpoint
+queues.
 
 Fixes: a3be076dc174 ("net/9p/usbg: Add new usb gadget function transport")
 Cc: stable@vger.kernel.org
@@ -90,22 +101,33 @@ Reported-by: Ke Xu <xuke@tsinghua.edu.cn>
 Assisted-by: GLM:GLM-5.1
 Signed-off-by: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
 ---
- net/9p/trans_usbg.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ net/9p/trans_usbg.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/net/9p/trans_usbg.c b/net/9p/trans_usbg.c
-index 1ce70338999c..8c66795f2853 100644
+index 1ce70338999c..5d0d6add150e 100644
 --- a/net/9p/trans_usbg.c
 +++ b/net/9p/trans_usbg.c
-@@ -391,7 +391,7 @@ static int p9_usbg_create(struct p9_client *client, struct fs_context *fc)
- 	guard(mutex)(&usb9pfs_lock);
+@@ -278,6 +278,9 @@ static void disable_usb9pfs(struct f_usb9pfs *usb9pfs)
+ 	struct usb_composite_dev *cdev =
+ 		usb9pfs->function.config->cdev;
  
- 	list_for_each_entry(dev, &usbg_instance_list, usb9pfs_instance) {
--		if (!strncmp(devname, dev->tag, strlen(devname))) {
-+		if (!strcmp(devname, dev->tag)) {
- 			if (!dev->inuse) {
- 				dev->inuse = true;
- 				found = 1;
++	disable_ep(cdev, usb9pfs->in_ep);
++	disable_ep(cdev, usb9pfs->out_ep);
++
+ 	if (usb9pfs->in_req) {
+ 		usb_ep_free_request(usb9pfs->in_ep, usb9pfs->in_req);
+ 		usb9pfs->in_req = NULL;
+@@ -287,9 +290,6 @@ static void disable_usb9pfs(struct f_usb9pfs *usb9pfs)
+ 		usb_ep_free_request(usb9pfs->out_ep, usb9pfs->out_req);
+ 		usb9pfs->out_req = NULL;
+ 	}
+-
+-	disable_ep(cdev, usb9pfs->in_ep);
+-	disable_ep(cdev, usb9pfs->out_ep);
+ 	dev_dbg(&cdev->gadget->dev, "%s disabled\n",
+ 		usb9pfs->function.name);
+ }
 -- 
 2.43.0
 
