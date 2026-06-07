@@ -1,63 +1,63 @@
-Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com [209.85.215.178])
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E0262BE057
-	for <stable@vger.kernel.org>; Sun,  7 Jun 2026 17:10:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 661932DCF74
+	for <stable@vger.kernel.org>; Sun,  7 Jun 2026 17:10:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780852225; cv=none; b=E13CwrD3p4kT6I5TXDJgJLzAjVx6gizQZOCPkrQ/cXCwqJrvKHldCmouo8jU741bwF59p12rBgK1tEM124qTaowZTUnzQ7OUe04aiwTHQTu5Pjsq/N4ZJagFy/OCfkaoWJyb68QaOW7ydDpJeRKZoNDicP1GtwY5ZNA+Q3J0lhA=
+	t=1780852231; cv=none; b=EM7NBpsTnbB5Sj05EsuNlCF736ITdsPnfB0S0IbB5//ChMG+i9QCN5wNUOwwKnrtcawiPk3ewzLR8CoSTPSFhfWnmNtXEA2N6+R38/LN/pp+f815NUfd8lrJp+YTIWRoWB9ZdWl4DMGBxTXu+mD+Vuez0+Fgd/37EtaD6oN8f0A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780852225; c=relaxed/simple;
-	bh=R0B+wsENjA8ZzQNVV41noFQrCBBvZhllbql1zNNXSuU=;
+	s=arc-20240116; t=1780852231; c=relaxed/simple;
+	bh=POr7Ix06Wp1uWzM/s/uHnlsY2+YTVLr9bOr1tz902ps=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Uf9pef4EMwNsRuqNKHQyPBQq6SraySZ4FnKBHnoUAtYUJw0obqHldI32VkR04jqWlowZyT+D9sQty7g23AIsxTB9OdzmLw+fj2Las8dWaAc42y1rM+UigQH0Rg7zm4mQklk9TjWtzmGjZ7W7ocFKb15dgK5wGicdw7UcmToUOcY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=baU2Q5al; arc=none smtp.client-ip=209.85.215.178
+	 MIME-Version; b=WHo2MNEUprKFpHmZl/QDlW6YbDk11OLKjMGp4Wy6ABYZh/Gzvo7iaud5g84pQ9eeeyDjy2timtZ1MvYhnOv7JZDxeImqZgxQDVdVD4A5cqFwvOyTsZRHBQr8/PxjdyJzxFnyzMK7Tu2sE9tlaqSsdI9RXd5UcMs3UvjqbQpKhSg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GOnqxaAQ; arc=none smtp.client-ip=209.85.214.182
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="baU2Q5al"
-Received: by mail-pg1-f178.google.com with SMTP id 41be03b00d2f7-c8588f8fef3so1288424a12.0
-        for <stable@vger.kernel.org>; Sun, 07 Jun 2026 10:10:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GOnqxaAQ"
+Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2bf237e1433so40784695ad.1
+        for <stable@vger.kernel.org>; Sun, 07 Jun 2026 10:10:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780852223; x=1781457023; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1780852229; x=1781457029; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=9yGPIIhFZdTIFfBstBwjXBL054wfOH0HNW4mEikIzLI=;
-        b=baU2Q5alPeotmoK9isaPu9rDpA+7We4H0jmNGUoj7K64MPkKe5jXMVLJRZysLpkCdf
-         WVETRxojIcHJrsWxQ3BD2KPrhB/Xy/bDAQ7aDowOthkZQFf3qMZi7lnPM6QHwNAikdFn
-         lIZJekZ423/1zPncQRjCyMxkuMF7CVwzRYFd8NYj9G353vPkZcw7uG0t57bFY+cNm7ft
-         2SaTb6hlnqCibXXLvKS1tZyagFUsWITYHI2xyBbemuizq27Hrp1bL/dWHM01JmqWc6YA
-         4Luqwj/tiw6utOueeQ5xr76tk/MJFFRCTyyYh1T6rg0zS7Km66UdmGZ5fR2+5gB3cSxC
-         0IVg==
+        bh=bTfbPBlxFmhjxsli3uFXWEfIKIHGvct1qlkSlFL8qW4=;
+        b=GOnqxaAQGzQVjv888xjQFkCye5CGOIV+20umJK1IzH5A4zf4/fbK7of3ePnQhItiMx
+         9C/rDthzXWuRA0H6mWLZ2sorIAqRbbjUgUzcRhsjIbs0oZ1luD/smsD00xAaY4OzACLl
+         zivDjLU09inS7/B6LEfy8AuhLwV0vG0yV3FkVQ8xyNMqISLIcRhyiXZNbRtz2lC1uDXe
+         a+5TLg7SgMEss/QL2NSKkESL+T03UyF+JwIBn2WgPAi0T0Z3aO7vk8bimoOSQCqr6sal
+         IXIrjWTpWTIiWDPao/oR3BfvOatxLkmuCuhGHy+eUERJODWpIlTGL2RoiyVrEYWm+0s2
+         KSZQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780852223; x=1781457023;
+        d=1e100.net; s=20251104; t=1780852229; x=1781457029;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=9yGPIIhFZdTIFfBstBwjXBL054wfOH0HNW4mEikIzLI=;
-        b=ficcVueM3OxmcvPkTvEm2LcYDYHOmFFuZlM49I/6+D0WaTKGaYla9RZIFF/6y1OiLL
-         +aB6biaEFpFqkhlAfDsonNKaAsrrxOx+ISqGgWvpTSJjFpbWdZPeR55OmoRw0D5vBDU3
-         mDels4CRqzu0v3UxX2hSKjppVL/VLJDizoQQtpRvWUoMVuwN5MGZdAvwZOMsUZ6UOZIU
-         29h2KGOx5RfJKg4SmywJsHEAvayMm+etErunXrgMFsUMmPlcMBGF7wXt1uyRcULeIAhb
-         wNynn8odZno0SDwMjuYT9+gi2OcKH+qTa3w3z/Znv6oMT8ZSo+AcgNUQuywxAw5dsdlY
-         mq3A==
-X-Forwarded-Encrypted: i=1; AFNElJ9nTt7cAiusOjrA0aCANDv0cNmujz9kj41pq17l8QrHEcStYwe0KS4okDuS1P7NaX658Dl00nA=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwNzFTsyVFQIrIrjeWDDetYwfLQOHzEOFjcnLiyk0JZsADzHxKA
-	cR52rAhDM42hXFRFzMlW7HjkHTrfGD8KVavb4Q3FrpcvAkz4HudmPKpb
-X-Gm-Gg: Acq92OHCJoXwVA6sdnhcFOdCrS5T7KwDraxVYGkuz5jJAhp2hlgU2xNJsFWF4jR59Kj
-	Qza39WKtQMPaTpT5Vm2OeyVKkzpgNMlTKvkJXOaHCQKZYSaxacEFYCgYB0SA7a7GCi5yJyYx7ZF
-	OhD3bV/nGRTdWHihL3elKrprty5VgzGuqE8PAR/iTvHg41vgFZ7y7CaI3m6DElhj5J/9KWsptU0
-	YQz0RSlUVJmpzjn97OdL9uwJCFFzajzbtf9AN001oqtxPabpQsdz18ClTy59ebyZ5AzQIZw8312
-	1qvvVR9edAsVmlpMdN0emqKnLbuI/ws+xraTtoB05/8xZ+7PNBC1391eriuD6uQ2KN/6zZtbtf5
-	4DnqfK+g8rjS6gULMEs7AyApwVmGYLb1JpsSSjjKvXvPRp//gvEs9EZcRC67ZoDRjjy+JqvZPgb
-	TKsuzISQyKFBoZrCr5ASyuK50D1T3GrZ5tyZbu2LyisQ==
-X-Received: by 2002:a17:902:d4c6:b0:2c2:5446:30eb with SMTP id d9443c01a7336-2c25446352fmr26955575ad.11.1780852223265;
-        Sun, 07 Jun 2026 10:10:23 -0700 (PDT)
+        bh=bTfbPBlxFmhjxsli3uFXWEfIKIHGvct1qlkSlFL8qW4=;
+        b=YpT9SmMQEYb+SF5mAexerds1AHytQYMt1tQOsjy8PAeRpQR8VD/rMXsBZ0ApLGXLVp
+         EKysx7/qmd3ceNoEe6iCTYzeaCwSL8Ip99AG7PWy0rYrvl6lYnHOIl7LwDDyRqXJ1ed3
+         V86imqLFKWQaF1jb/63+Kv+mnEiBOUxIjD9PkmXya5YeLxCzGraOn7xDpHKGyaIZD5TZ
+         xOD6wHhKyKT7BsvYOUw96AfVXYcRRbi5Qh7pY6vQmcjw50pXQXl47xjy8evj+h/K6eCq
+         wFh05wxnv8PfEjLoqU05j6szvjcF7imUa2fk8NkjufRJMNtwtY7Qa6w3fmdx9h+aqU+V
+         MJTg==
+X-Forwarded-Encrypted: i=1; AFNElJ8mTTWh1HoCkT0P/V1H15O/TE2NN0PgPGxlU79ZmmRyuFCw+KZTVD/aaUOzmh+Ceo1JOIt2v/g=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxyJP4gKVXTMeSjhL/25fpYJqFJDpsfyetmvkvnaC6iOuUUJ9bE
+	emE/RB53CvqtqObKjxV2tGW0mQ1gWgCYT/Db7hipgN/GcdvcKYmnb6co
+X-Gm-Gg: Acq92OHRvf4Bq2inK495cqfW8p5kpRn7MOGcxz93XgQavUP+QfPaMjfoQ0pTMn0JXl0
+	dkG9FnjEFOuDw5QW8yp3xz26XsHL0Z55MHfuSKidNABUmhv3tugvHux6nEsRDIKbwDOoBQ9OGPl
+	mAD6VKC/xU2niMQGHCdoM0HXiPHfJtBSk+ydRJfjgG/ZSLzbYgSgNxlD9FMNS21VhzVAcF25dkt
+	VKt2lWOI1227OzymsEcgqg2kW4XMAbxMJn4/KvdyNJmtFu0BKI+krDEPqzE1qt+6D4plA7l6WFM
+	mC8Q9DX4IlmBoW7ZPqMvTkdKDTytSq41JpIoT+butV/qmShEy9yiRdagjzHpnwweXYQN5XW510+
+	5GDebHzw+YJsp4uGWYecoRpriP7lnBM4WtyJw9sllUybpZPqhCEmIgEoojhYUApJMj85NBQYXQp
+	OfE1GY1atGBwsKTRUP/RGjFPnyfOhqtXvnbBOc9EG6bw==
+X-Received: by 2002:a17:902:ef08:b0:2b9:6458:1a2c with SMTP id d9443c01a7336-2c1e820e30bmr150565325ad.13.1780852229364;
+        Sun, 07 Jun 2026 10:10:29 -0700 (PDT)
 Received: from DESKTOP-MUHC17F.lan ([188.253.121.145])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c164f9ed6csm155375265ad.31.2026.06.07.10.10.17
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c164f9ed6csm155375265ad.31.2026.06.07.10.10.23
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 07 Jun 2026 10:10:22 -0700 (PDT)
+        Sun, 07 Jun 2026 10:10:28 -0700 (PDT)
 From: Zhenzhong Wu <jt26wzz@gmail.com>
 To: bpf@vger.kernel.org
 Cc: netdev@vger.kernel.org,
@@ -79,9 +79,9 @@ Cc: netdev@vger.kernel.org,
 	stable@vger.kernel.org,
 	mykolal@fb.com,
 	tamird@kernel.org
-Subject: [PATCH stable 6.6.y v2 2/3] bpf: make the verifier tracks the "not equal" for regs
-Date: Mon,  8 Jun 2026 01:09:57 +0800
-Message-ID: <20260607170959.823755-3-jt26wzz@gmail.com>
+Subject: [PATCH stable 6.6.y v2 3/3] selftests/bpf: add helper retval linked scalar pruning test
+Date: Mon,  8 Jun 2026 01:09:58 +0800
+Message-ID: <20260607170959.823755-4-jt26wzz@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260607170959.823755-1-jt26wzz@gmail.com>
 References: <20260607170959.823755-1-jt26wzz@gmail.com>
@@ -93,90 +93,71 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Menglong Dong <menglong8.dong@gmail.com>
+Add a verifier test case covering a pruning bug where a helper return
+value and another scalar become linked by scalar id on one path. A later
+branch can then let the verifier explore an impossible continuation and
+prune the real success path.
 
-[ Upstream commit d028f87517d6775dccff4ddbca2740826f9e53f1 ]
+The test uses bpf_skb_load_bytes() to create a helper return value in R0
+and a scalar derived from the tc test packet length. It then links the two
+scalars on one path and checks that the later branch keeps the reachable
+success path.
 
-We can derive useful information for BPF_JNE when one side is a constant
-and the constant is exactly at the edge of the other register range.
-
-For example, a > 0 can be compiled as a jump if a == 0. The equal branch
-marks the register as known zero, but the fallthrough branch also needs to
-preserve that the register is not zero. Without this, the range can remain
-[0, max] and later verifier state pruning can keep an impossible scalar
-path.
-
-The upstream fix lives in regs_refine_cond_op(). The 6.6.y verifier still
-uses the older reg_set_min_max() layout, so express the same branch-edge
-refinement there: for BPF_JEQ, preserve the known-equal true branch and
-exclude the constant from false_reg; for BPF_JNE, preserve the known-equal
-false branch and exclude the constant from true_reg.
-
-Signed-off-by: Menglong Dong <menglong8.dong@gmail.com>
-Acked-by: Andrii Nakryiko <andrii@kernel.org>
-Acked-by: Shung-Hsi Yu <shung-hsi.yu@suse.com>
-Link: https://lore.kernel.org/r/20231219134800.1550388-2-menglong8.dong@gmail.com
-Signed-off-by: Alexei Starovoitov <ast@kernel.org>
-[ zhenzhong: backport to 6.6.y reg_set_min_max() layout. ]
 Signed-off-by: Zhenzhong Wu <jt26wzz@gmail.com>
 ---
- kernel/bpf/verifier.c | 32 ++++++++++++++++++++++++++++++++
- 1 file changed, 32 insertions(+)
+ .../selftests/bpf/progs/verifier_reg_equal.c  | 35 +++++++++++++++++++
+ 1 file changed, 35 insertions(+)
 
-diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
-index 5f94bff12..de4f46796 100644
---- a/kernel/bpf/verifier.c
-+++ b/kernel/bpf/verifier.c
-@@ -14169,18 +14169,50 @@ static void reg_set_min_max(struct bpf_reg_state *true_reg,
- 		if (is_jmp32) {
- 			__mark_reg32_known(true_reg, val32);
- 			true_32off = tnum_subreg(true_reg->var_off);
-+			if (false_reg->u32_min_value == val32)
-+				false_reg->u32_min_value++;
-+			if (false_reg->u32_max_value == val32)
-+				false_reg->u32_max_value--;
-+			if (false_reg->s32_min_value == sval32)
-+				false_reg->s32_min_value++;
-+			if (false_reg->s32_max_value == sval32)
-+				false_reg->s32_max_value--;
- 		} else {
- 			___mark_reg_known(true_reg, val);
- 			true_64off = true_reg->var_off;
-+			if (false_reg->umin_value == val)
-+				false_reg->umin_value++;
-+			if (false_reg->umax_value == val)
-+				false_reg->umax_value--;
-+			if (false_reg->smin_value == sval)
-+				false_reg->smin_value++;
-+			if (false_reg->smax_value == sval)
-+				false_reg->smax_value--;
- 		}
- 		break;
- 	case BPF_JNE:
- 		if (is_jmp32) {
- 			__mark_reg32_known(false_reg, val32);
- 			false_32off = tnum_subreg(false_reg->var_off);
-+			if (true_reg->u32_min_value == val32)
-+				true_reg->u32_min_value++;
-+			if (true_reg->u32_max_value == val32)
-+				true_reg->u32_max_value--;
-+			if (true_reg->s32_min_value == sval32)
-+				true_reg->s32_min_value++;
-+			if (true_reg->s32_max_value == sval32)
-+				true_reg->s32_max_value--;
- 		} else {
- 			___mark_reg_known(false_reg, val);
- 			false_64off = false_reg->var_off;
-+			if (true_reg->umin_value == val)
-+				true_reg->umin_value++;
-+			if (true_reg->umax_value == val)
-+				true_reg->umax_value--;
-+			if (true_reg->smin_value == sval)
-+				true_reg->smin_value++;
-+			if (true_reg->smax_value == sval)
-+				true_reg->smax_value--;
- 		}
- 		break;
- 	case BPF_JSET:
+diff --git a/tools/testing/selftests/bpf/progs/verifier_reg_equal.c b/tools/testing/selftests/bpf/progs/verifier_reg_equal.c
+index dc1d8c30f..269b2af50 100644
+--- a/tools/testing/selftests/bpf/progs/verifier_reg_equal.c
++++ b/tools/testing/selftests/bpf/progs/verifier_reg_equal.c
+@@ -1,6 +1,7 @@
+ // SPDX-License-Identifier: GPL-2.0
+ 
+ #include <linux/bpf.h>
++#include <stddef.h>
+ #include <bpf/bpf_helpers.h>
+ #include "bpf_misc.h"
+ 
+@@ -55,4 +56,38 @@ l1_%=:	exit;						\
+ 	: __clobber_all);
+ }
+ 
++SEC("tc")
++__description("helper retval linked scalar pruning")
++__success __retval(0)
++__naked void helper_retval_linked_scalar_pruning(void)
++{
++	asm volatile ("					\
++	r7 = *(u32 *)(r1 + %[__sk_buff_data_end]);	\
++	r5 = *(u32 *)(r1 + %[__sk_buff_data]);		\
++	r7 -= r5;					\
++	r2 = 0;						\
++	r3 = r10;					\
++	r3 += -8;					\
++	r4 = 1;						\
++	call %[bpf_skb_load_bytes];			\
++	r6 = 1;						\
++	if r0 == 0 goto l0_%=;				\
++	r7 = r0;					\
++l0_%=:	if r0 != 0 goto l1_%=;				\
++	r7 <<= 32;					\
++	r7 >>= 32;					\
++	r6 = 1;						\
++	if r7 != %[test_data_len] goto l1_%=;		\
++	r0 = 0;						\
++	exit;						\
++l1_%=:	r0 = r6;					\
++	exit;						\
++"	:
++	: __imm(bpf_skb_load_bytes),
++	  __imm_const(__sk_buff_data, offsetof(struct __sk_buff, data)),
++	  __imm_const(__sk_buff_data_end, offsetof(struct __sk_buff, data_end)),
++	  __imm_const(test_data_len, TEST_DATA_LEN)
++	: __clobber_all);
++}
++
+ char _license[] SEC("license") = "GPL";
 -- 
 2.43.0
