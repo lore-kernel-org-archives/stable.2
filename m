@@ -1,113 +1,133 @@
-Received: from mail-wm1-f68.google.com (mail-wm1-f68.google.com [209.85.128.68])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27C0238E5EF
-	for <stable@vger.kernel.org>; Sun,  7 Jun 2026 11:08:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.68
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [207.46.229.174])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5E56B1A682F;
+	Sun,  7 Jun 2026 11:24:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=207.46.229.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780830504; cv=none; b=ACQ5c+W1RBJV04Qsd5aNaGy1+MPKtOkgM75vKA22Yak4vfkWoGemuNP9BmUGMZvik4++3Pv0GIOwsCaC5P7wsPEp4Q9NrLkCTbVQe1gXoT+DQX72BUeBRD6le2aviwIDhUQW12HFjCcl9mFFrFUQ2W+Ie/XkZUoJhECMz3HtDGs=
+	t=1780831488; cv=none; b=e6b2iWbqsZ3xTllcOd537MQGSet+S79/QyNf+7xX4QCm3/sXJtA1CvYjr2ThyJ1fQsfvR248hEjyQvTbV3vjFcuwElvCtB9Q848Z+bV77paeI/cNICn0gfi2DjieI68tB3i4pRjz+GOHoHZcz257v3ZKZaWt4GFDaRzwhCr730s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780830504; c=relaxed/simple;
-	bh=AOgI9qJFRjoVJ06WbokHbmBDTumJdvoTNpQhxuw+ZHE=;
-	h=Mime-Version:Content-Type:Date:Message-Id:From:To:Cc:Subject:
-	 References:In-Reply-To; b=cEDOYFmpyubwlWPaNNDfQTD4WO8uoqKq/M914JXGfx5uWnGmAFLnZ6KjU4zKs3KkOt5a3Fx9F0esKmgVvHC0iWIemtudblj9wMwvbacGMgYpsup6zMSUz/ZqmV2RUfkLw7H+U8bUpfMhP6n/xuf+sVuukYgAfVIDH9KgmQhGHBU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EGFnHFJB; arc=none smtp.client-ip=209.85.128.68
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1780831488; c=relaxed/simple;
+	bh=+nmq43sNgGmd2vNw2NvmZs8Ush/0vhGvg1Eifh/Tp54=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VPzV2YAZEOt09eG25B0YbEtJRyXTUF8anF7ht7XIyZdegaOBtDuTk5kRTj+t+biK+Djsc24hgp2kqTPtHcy1QQd79ilzMY8MduZeKMkRc25V/zZZEMAB0AMUFaQFo/XuE2CpaRkwTgmxgvWe/HNNXKa3xvTUYya7mmViXjxsY5E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mails.tsinghua.edu.cn; spf=pass smtp.mailfrom=mails.tsinghua.edu.cn; dkim=pass (1024-bit key) header.d=mails.tsinghua.edu.cn header.i=@mails.tsinghua.edu.cn header.b=pgDWmYD2; arc=none smtp.client-ip=207.46.229.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mails.tsinghua.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mails.tsinghua.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EGFnHFJB"
-Received: by mail-wm1-f68.google.com with SMTP id 5b1f17b1804b1-4903d730b1fso37808795e9.2
-        for <stable@vger.kernel.org>; Sun, 07 Jun 2026 04:08:22 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=mails.tsinghua.edu.cn header.i=@mails.tsinghua.edu.cn header.b="pgDWmYD2"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780830501; x=1781435301; darn=vger.kernel.org;
-        h=in-reply-to:references:subject:cc:to:from:message-id:date
-         :content-transfer-encoding:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=AOgI9qJFRjoVJ06WbokHbmBDTumJdvoTNpQhxuw+ZHE=;
-        b=EGFnHFJBkDElNMcTpyjmJAl62CDsIJnOXnOM/zL4b09ml/0GLOCqx43XQMel/bbNAR
-         bO3QNPVkSYB5K9bjWKqX6I2mcw2Aml5zPTJ7zcjZ3Ayd8PlX4pbD9lbqGacyYIrUaRIY
-         ZWGZw/pIvWIqzVaNGFPTff2DOdw9BL6K44eZBJk6SYSf2gjr8qwOiM50tlB6rWV5djrE
-         ABJR8t9M/ADPL8ZMxCVMaVNTfY3o7qu6Y6a67Zhj55JoHd/S3YcjyGsGDqBA34GsIO2d
-         bb2klHnX1vl3o9AGBAAQzKQUeSR8hXKhSKma0xEgPGR3DKlzRlaAYpCdUK4Kfwr+MPA2
-         qKAg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780830501; x=1781435301;
-        h=in-reply-to:references:subject:cc:to:from:message-id:date
-         :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=AOgI9qJFRjoVJ06WbokHbmBDTumJdvoTNpQhxuw+ZHE=;
-        b=UpCSca+M7XAclC6t80dBeDYaYXrqbHIJ9f1NFvuBtQO6C6TIucXE4GKpmv/+9ik036
-         QRSvB9zwH1O1clOQQDHS7AakMhu/jVoXu66EqtxnI8Kxkzdad84KLoO3lGkeq738vUzv
-         /Bdp0Cr60LYhRSElXmR0FH2KXzxOVZTzdg5NKe5zNKka4CEIScnSPojNvJVlhAeuJWzg
-         eRp0c2wRItnCab4O3Uq3FOedHkITjrnCoDPqY2fg1Y9gDUQKZuB4sAEQYpy+h+aP4I/y
-         9yxwyC6BcRsdFf8pt0/nBU7wIUDGc0ypAc03F3pKqBCdVlWjUzYVLuwCnJd2iE8/Vch5
-         jZGg==
-X-Forwarded-Encrypted: i=1; AFNElJ/3rRJQFAQBKBASAzBoppy8YT8JHr5YmtZpwpTBabSrNhYvTjV3/5djk8/UsycZRpVaLhmCMKs=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz1nkwVlL23zf8es6H/tIhtcGoBZuvtjzYPNHFbe3YZJHWPM76/
-	sI3CnM2bWIKh/gKrYg0fNgoObSgdmAlWUNVXBXtA/c7gOkZXplKg4y8WsHbISOlU
-X-Gm-Gg: Acq92OH7y7dKVIeGQyAH9STaT/+9R/XM1V/QuJVtCSsuEE4qxMs8N7PKNd6K1gtsSAO
-	3qWQt7qrd1jj5YJW+Jaj4thNsUwxAd6kHsnVpiZ8LYo8gVnmSNGVUhuIADe9RKLA92yvZjKAyyD
-	1spZ3BTU9hgSz3lGgUX+y+QkCSLr7dOgZqYcHu74C14zlV2Wvl44hFkg/U8rZSfZwkUfq2X9Ist
-	NqZxKEqgV4JB0+vtIA3kRzWilb8Pz4xrpdOnEi52FxbYBQ0d010s2e4DjgDRR3dBpXbWsS5JOOx
-	gQ0p6VPe3bXk9BEuRvh0MbNhEejWZsV4XmvP9Y/2p307N01QaHAhVPXWk7IWLElJGczmW3QMBDj
-	GMxi4BJbV3IBWV1WroBXKRjWXq/gm/2rIIOUDNEvuHyaYN7gC8MBjNWIvCxRqSBKAsd5z4r5UNB
-	FIEayBm/1Zloc8Iu01Ej0dIhF/4mliOGKVTtIqhQtZB4ZwejIQB1wZK3JMFEiUwHD5g0f15QrU0
-	GqUpsCLYNlXtSdXMWN0nfblUllw/BDisGFaxTNBw3ZIYMw/Ulh0b8mAKEXeknwyzzoQ5vfvNg3G
-X-Received: by 2002:a05:600c:314b:b0:490:548e:b854 with SMTP id 5b1f17b1804b1-490c25f5e25mr179077305e9.26.1780830501193;
-        Sun, 07 Jun 2026 04:08:21 -0700 (PDT)
-Received: from localhost (nat-icclus-192-26-29-3.epfl.ch. [192.26.29.3])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490bc3e4b5asm312996515e9.13.2026.06.07.04.08.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 07 Jun 2026 04:08:20 -0700 (PDT)
+	d=mails.tsinghua.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:
+	Date:Message-ID:MIME-Version:Content-Transfer-Encoding; bh=DARBR
+	pjjX9MOXcdBF/nIEpLCCYsDkglVoq0NbmWOMXk=; b=pgDWmYD2uZ4UZHpdeIyK9
+	Mej0vW0tj7aFEzMHm3cOLXDLktNQ3h6JlVNS+XtWD7nnCZYOpRXRNKwdYLt18QNp
+	oxiXCj/+RTK1Pugiz7TP8i+EPqKwKjmHtCSQKOGAj1cEr+xCokya1YZ3RE6zkkuZ
+	eDFctaTPR0zKe3q0HUx+AM=
+Received: from localhost.localdomain (unknown [101.5.11.216])
+	by web2 (Coremail) with SMTP id yQQGZQDHn5fmVCVqOR0YAg--.32045S2;
+	Sun, 07 Jun 2026 19:24:22 +0800 (CST)
+From: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
+To: netdev@vger.kernel.org
+Cc: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>,
+	Ao Wang <wangao@seu.edu.cn>,
+	Xuewei Feng <fengxw06@126.com>,
+	Qi Li <qli01@tsinghua.edu.cn>,
+	Ke Xu <xuke@tsinghua.edu.cn>
+Subject: [PATCH net] fddi: validate skb length before parsing headers
+Date: Sun,  7 Jun 2026 19:24:04 +0800
+Message-ID: <20260607112408.92988-1-zhaoyz24@mails.tsinghua.edu.cn>
+X-Mailer: git-send-email 2.46.2
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sun, 07 Jun 2026 13:08:19 +0200
-Message-Id: <DJ2RQ5NHDCZT.2R218ZSS80NQ4@gmail.com>
-From: "Kumar Kartikeya Dwivedi" <memxor@gmail.com>
-To: "Paul Moses" <p@1g4.org>, "Kumar Kartikeya Dwivedi" <memxor@gmail.com>
-Cc: <martin.lau@linux.dev>, <ast@kernel.org>, <daniel@iogearbox.net>,
- <andrii@kernel.org>, <eddyz87@gmail.com>, <bpf@vger.kernel.org>,
- <song@kernel.org>, <yonghong.song@linux.dev>, <jolsa@kernel.org>,
- <houtao1@huawei.com>, <linux-kernel@vger.kernel.org>,
- <stable@vger.kernel.org>
-Subject: Re: [PATCH bpf] bpf: Validate BTF repeated field counts before
- expansion
-X-Mailer: aerc 0.21.0
-References: <20260605234301.1109063-1-p@1g4.org>
- <DJ2OZSCSEVEI.3APUCE7ML9X4Q@gmail.com>
- <E0xEdilT0Z6figMeDAyw03ex29iX0RfOAUXuh4aTJxUrKHK2Bg5N8lKCHNvQoQQ1UzndFFqDJ_zmAMYHLqSgSfF1menSW7C9VKDSBhYrTT0=@1g4.org>
-In-Reply-To: <E0xEdilT0Z6figMeDAyw03ex29iX0RfOAUXuh4aTJxUrKHK2Bg5N8lKCHNvQoQQ1UzndFFqDJ_zmAMYHLqSgSfF1menSW7C9VKDSBhYrTT0=@1g4.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:yQQGZQDHn5fmVCVqOR0YAg--.32045S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7tr4rWr4DtFW7Cr17Jr4xWFg_yoW8KFyrpF
+	ZrGrs0yrZrKrsxArn2ya10vrW5tr4vkaySgrW8KFyYvFn8W3WYyw48KF42gr1kZF48KFy7
+	AFWDXr98uwn8trDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9m1xkIjI8I6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l8cAvFVAK
+	0II2c7xJM28CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW5JVW7JwA2z4
+	x0Y4vE2Ix0cI8IcVCY1x0267AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l
+	84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s0DM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcx
+	kEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6x8ErcxFaVAv8VW8
+	Ww4UJr1UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6I
+	AqYI8I648v4I1lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFylc2xS
+	Y4AK67AK6r4kMxAIw28IcxkI7VAKI48JMxAIw28IcVCjz48v1sIEY20_GrWkJr1UJwCFx2
+	IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v2
+	6r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67
+	AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IY
+	s7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr
+	0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0Jj4NtsUUUUU=
+X-CM-SenderInfo: 52kd05r2suqzpdlo2hxwvl0wxkxdhvlgxou0/1tbiAgAJAWojJY4SbQACsV
 
-On Sun Jun 7, 2026 at 12:11 PM CEST, Paul Moses wrote:
->>
->> Do you have an example where this actually occurred in practice?
->>
->
-> Yes.
->
+fddi_type_trans() reads FDDI header fields from skb->data without first
+checking that the received frame is long enough for those fields.
 
-Right, I know you can get a splat. But how did you stumble on it? Is this B=
-TF
-produced during compilation, or hand-crafted case meant to exercise the lim=
-its
-such that we get the splat? If you have a small reproducer, it might make s=
-ense
-to include it as a selftest as well.
+The destination address spans offsets 1-6 and the LLC dsap field is at
+offset 13.  For SNAP frames, fddi->hdr.llc_snap.ethertype is at offsets
+19-20.  A truncated 15-byte frame with dsap != 0xe0 therefore enters the
+SNAP branch and reads the ethertype past the end of the frame.
 
-> [...]
->
-> Also, I still haven't made the connection between the CI failure and
-> my patch. I produced what looks like the tcg variation of the same
-> failure as a oneoff while testing an (functionally) unpatched kernel.
-> I'm not even sure it's the kernel at all and not some weirdness
-> between clang and qemu. Seems low frequency intermittent from what
-> I've seen so far. Any ideas appreciated.
->
+KASAN reports this when such a frame is processed through a dummy FDDI
+netdev that calls the real fddi_type_trans() on an exact kmalloc() copy
+of the frame:
 
-It is unrelated.
+  BUG: KASAN: slab-out-of-bounds in fddi_type_trans+0x385/0x3a0
+  Read of size 2 at addr ffff888009c6fe33
+  The buggy address is located 4 bytes to the right of
+  allocated 15-byte region [ffff888009c6fe20, ffff888009c6fe2f)
+
+Reject short frames before reading the fields: require the minimum 802.2
+header length before accessing dsap or daddr, and require the full SNAP
+header length before reading the SNAP ethertype.  Returning protocol 0
+causes the malformed packet to be ignored by protocol handlers.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Reported-by: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
+Reported-by: Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>
+Reported-by: Ao Wang <wangao@seu.edu.cn>
+Reported-by: Xuewei Feng <fengxw06@126.com>
+Reported-by: Qi Li <qli01@tsinghua.edu.cn>
+Reported-by: Ke Xu <xuke@tsinghua.edu.cn>
+Assisted-by: GLM:GLM-5.1
+Signed-off-by: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
+---
+ net/802/fddi.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/net/802/fddi.c b/net/802/fddi.c
+index 888379ae35ec..e26f4549e904 100644
+--- a/net/802/fddi.c
++++ b/net/802/fddi.c
+@@ -103,6 +103,9 @@ __be16 fddi_type_trans(struct sk_buff *skb, struct net_device *dev)
+ 	skb->dev = dev;
+ 	skb_reset_mac_header(skb);	/* point to frame control (FC) */
+ 
++	if (skb->len < FDDI_K_8022_HLEN)
++		return htons(0);
++
+ 	if(fddi->hdr.llc_8022_1.dsap==0xe0)
+ 	{
+ 		skb_pull(skb, FDDI_K_8022_HLEN-3);
+@@ -110,6 +113,8 @@ __be16 fddi_type_trans(struct sk_buff *skb, struct net_device *dev)
+ 	}
+ 	else
+ 	{
++		if (skb->len < FDDI_K_SNAP_HLEN)
++			return htons(0);
+ 		skb_pull(skb, FDDI_K_SNAP_HLEN);		/* adjust for 21 byte header */
+ 		type=fddi->hdr.llc_snap.ethertype;
+ 	}
+
+-- 
+2.43.0
+
