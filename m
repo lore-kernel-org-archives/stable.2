@@ -1,61 +1,63 @@
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B5FD2749ED
-	for <stable@vger.kernel.org>; Sun,  7 Jun 2026 17:10:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 029582749ED
+	for <stable@vger.kernel.org>; Sun,  7 Jun 2026 17:10:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780852213; cv=none; b=ZzIe6v1N3mBD7Tn/p+nwSAK2+y5TBVzUCYjj5DenXa5QuEPIZJpUBDccE8LngCT7O1W9PYadGgSSYq6TNp7r6HQWUXuDAuWALpXFqR2+a7Hi5pPVAZJ7vLJBxhWnu1H82JoN1GKaDcaNC3ScBu0UblUuUBAFsjvn6CFlYKTXv3I=
+	t=1780852219; cv=none; b=FoTLpm4qJ8kXZzbDaziYlQom6nWTiNyyMsu37UKePRkwidl/PW8Q3KIW83KgtACTNxgyqami+eo5xF/sLCFsSQQBYRMEaJSptDOQK9x+Y9GOSD0yiXTumeyEFQbQnKKBVC3hu3tNrfq0TD1gcgMCV8rynvyypN4DInCvu6EIthg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780852213; c=relaxed/simple;
-	bh=IPvwljyQZpDcct7pE20QDt1P9VTQ7sgAgBY3rD8eWII=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Ro7/cil4xcMj6ZxJFVrRE1LRKPtNolFWs0JuJUpOkWXjBbA+aF/a3LDvwordLCsp4jQSqiAmKzhIFCR0YJ4J1u0VsorhYXbX8tCCs5UandV8Cy68US1L55lx5RhXWk9DdBlNecPqkvmKEj+M0aQMgg+55T6pIy6cIGnBwmXCtcE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CUyAZTZT; arc=none smtp.client-ip=209.85.214.176
+	s=arc-20240116; t=1780852219; c=relaxed/simple;
+	bh=Wj6INcB2ZWn71vsSX+uGeQfK2gKV41AKUbGx7CRisFg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Ie1vclPGLNSocXIJRjzi7j2HqtEo70mJ6Q+6MvYyhINqskOvgrOGZfVXTgHj3XEsonWlF2OotQxMPdvgy8dDDBfnYhRakvRSSaL1xPDQkuv8TQxAwZ145jbxh1uaT0IbkKtg9Jah9GxcnZrn9nCYX1nTvF2xwzkyR31W8lSMCvQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hjmLcIhQ; arc=none smtp.client-ip=209.85.214.170
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CUyAZTZT"
-Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2bf30d530bdso36281365ad.3
-        for <stable@vger.kernel.org>; Sun, 07 Jun 2026 10:10:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hjmLcIhQ"
+Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2c0c3184c71so26286125ad.1
+        for <stable@vger.kernel.org>; Sun, 07 Jun 2026 10:10:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780852211; x=1781457011; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=GoWrcAuat8IsrHrGyIVSC+v4fTVKv8rexkicE+h/qZI=;
-        b=CUyAZTZTbJVElzgv3ot6uGDUhLp7rLTHr7lL4t/w27k9fLfHpQ6malpZ3XKJsaHl7w
-         2DSVDZ5G7U9iY/oJIJa2JRF+6CoS8xiCKnHbcrcLhTd0Sf3OEuhttn/RsF5F3mPcU98n
-         zOOa7R+UDfJ3X8wlrIlgBgnNMA8XSExt1Pk+RdqpDxLUeN3Nvq1tMFxgaEShtMxTLWcZ
-         mMXiiLuUj0yHKjlNkzks5VdADdmwOr7LSs77cJ6iH/R6po6ERZGJ1OoZ3FM9phIIbMFR
-         CLOrIvWvhOESPgRDSkqWDO5UjEXrzMHneMGK/70PhQcoZFXSzW/1JLluy5xTWMs14iTb
-         EsdA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780852211; x=1781457011;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1780852217; x=1781457017; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=GoWrcAuat8IsrHrGyIVSC+v4fTVKv8rexkicE+h/qZI=;
-        b=KwIFebj+LrJsdBqlSwiWP11xvKPmfHFG+nmi+QLXyId0Y4QA6doZ7fLHyS+HNh0c9y
-         2nQQ2a5Le5FPXqIdO+gq82hJ0ukiBq1GOeHtF64B1f6IxDrTBdnLFmou0r7kpmOTFN4p
-         B68P0RMlUp+1t9aC/KdeDIs54jKByRJeryPWj6AIGH00EhoqXQXlLyKfqLi2M64cEj8C
-         +u4tCPUSxWXrN5CLwPYmPNhwYO1fGKuRlSEbFctByAdFdpi5E2vAR5VHx7p06TyccWEo
-         yKdxyhChDwDK9mszEhWavdCL5oRohrKhSO90IgHPc8Yljsk2UnDCS6fBs5f1U+0dOJaj
-         Ij8g==
-X-Forwarded-Encrypted: i=1; AFNElJ8tbB+yqXd+X9gBVoFu0ovnu/EEvAu5X4DI4515744rB8RNYCxprShTokeetyyJgf2mQwomavw=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzeGgBWYkdHIfGNajtuicAqwNEwxlF5FgWGZ+g66inMpXuTmTRL
-	1VN1GwLj9lgQk9h4cWpUbd9/ScYZRMU4Me5qh9ohYTMh61GrGkPnhI+c
-X-Gm-Gg: Acq92OFu/0HAoYYrGfsAJtDw6lVT3cs9ovpvXfvyI3AgdS8AmmcvjRELkCnGznfP11m
-	Osuc/6N0c5IKPy6l5mmFsnuoGfFl9xlrQSGE4TKAJ7kIOcmDaxKjht/ttzC94Gf8UmJx39m8cNi
-	6yYo8lxON4RBWgNfc1Bvo817GjKvhv3RyfgBu45Akrv1mnZCZ+30RgXCfqChW/Pv00iOT+hWv/H
-	IM8AVNALv6nRDbKEErtNTI7TNjBan5bPEZmaZYRD8vedotEMGoMWDve+hHuiVs4Svp+n5wgMKG9
-	Y+GjisUatDl6c7RrbqR/Hg9HI8lAk+XW4vc4UizRVPBaaPRhoilfCPNcE02bTLU+r6f+tndaxMD
-	VAhW0jZia89qoGTUl4kex+OCTFwmZPjLWERhT5UpGGbva7cPx4i2Y90b1TXX7qd12i3QGxJYGcs
-	0KDCacaoT+KHCxpLVfb7dwXDDA8yqBi5kfCyVpoLfZW2G0w8hKYGYX
-X-Received: by 2002:a17:903:11d0:b0:2c0:a711:534 with SMTP id d9443c01a7336-2c1e7e589b6mr142658535ad.13.1780852211012;
-        Sun, 07 Jun 2026 10:10:11 -0700 (PDT)
+        bh=OPsuDEC4emnE4igPvpmuWKON1k829WThn64znvg3mx8=;
+        b=hjmLcIhQEYPmillRFf3WucOCrckndMbn9ijwD4YnlaMuuBWzHgV1i0kDpjLNX55YOm
+         UXPdABmNb6vunD9ZOGmX4xZwaX4oU8hGBJSz0Pi4xSct5kEEdLrQBC8qqi+tOQ9sFAbA
+         yu/DIh/FJDtat43b7Wz9zAvLg075cuD2Evwiht84mTGxO9oWfkMOPP4mQTU2oh/5imcg
+         FRIpKIbubsEXdhcrUYQHf0FbmCqB+1XwyRm9N41dE3jQcz66dVLkKejc0tbHoXZUmzDG
+         6lyiZDwgBMiZaE348OsoeZ+ktaPvntrRPnR6s1ZPnmotMQhmR41bLcA+zAcGZbxhtlZp
+         oB2A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780852217; x=1781457017;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=OPsuDEC4emnE4igPvpmuWKON1k829WThn64znvg3mx8=;
+        b=L9+hhhGIKAHM/q2tlGCSBgjogq9eco1HpnLi9VrJo6syKlsQBzHTtIKZy900bo6r7n
+         kguQ0wW1wij7xMCETShpF4omGTONJsvx0cYh0Eh/OxZez051pFLjR6HxTlmbnOSjqHRl
+         LBTPyANVO6t3V96wZpkue9uCOicSRVhrWx63pOSN6PKraa3XxR1tbm1HII2T5jKtA7Yw
+         OlCMzun9uI3M2KYGBVoncGV13dJzhgzn1naHGo+Xb26T0MQ2akSbN4e8aM5aCn62yPaw
+         xTglccshfRP0h7kw9zmf2za7dAI0Vwmkeu4BlycoL3shnyUPdddwFiqHJ6ZFoY7Wa9Oo
+         CYRw==
+X-Forwarded-Encrypted: i=1; AFNElJ8xYeTYIgZQpdYSxZ8fegFff0dlOwNtLdW6oTDb+h1JdckX/DEX9X/UBOxhwblxPBcB6T1P5YA=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx6mh/nHkCn4B9XIlUVXJAl2AGz6tfp3yOJ/y/9FO2MY3UmeTgc
+	xIe4a/hCz0ASM7YnUim+RseJPFGjjiNQXJuAI+IsYGQeHboDq6BCPoF+
+X-Gm-Gg: Acq92OEUvl6JcZT2HSetMLUxu+p3ZkwagCz5ThJ6inU3U+QGSP3vwR/srPSUEQynGLe
+	cXRWgWPsDW6+HuOte9oRFJOY765bpKzaAT0Em2KIs2pOAIsTbnQJ4cRXABeZaq1Vi+ZiL6Dhud7
+	GpFWCyVmC4q9XebCARFwTj2ceNUpRpo8zii72ep+8tQspytCDQ35weWAY2rSWHP1+xZrBP++IvT
+	I6JHUDYy5i7JEfYYKyg+4GmOFd817DTJ2hIMVjAjovhjnLG2/GrSR9dP0RT3XMP0ibO4/t2xqfw
+	d+93sM12RO4RTM6XIflY1OOBwUSCgOMJwS8Haaww4ay7J7yAyyPmb2UILNenZFiCaWL5Ux2qIo0
+	7Ma00C4U+CW2bb7rfci48lH5tNQ9oBlkRWj+7duMf6aNg/d093bKpIzSvIcdn2JCTFn+D2kA1E1
+	gfODam68uJwihzx784+TRwiO/UeEQhu97fQnHbGNMkLA==
+X-Received: by 2002:a17:903:28e:b0:2c2:5446:30e8 with SMTP id d9443c01a7336-2c254463524mr29394155ad.18.1780852217123;
+        Sun, 07 Jun 2026 10:10:17 -0700 (PDT)
 Received: from DESKTOP-MUHC17F.lan ([188.253.121.145])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c164f9ed6csm155375265ad.31.2026.06.07.10.10.05
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c164f9ed6csm155375265ad.31.2026.06.07.10.10.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 07 Jun 2026 10:10:10 -0700 (PDT)
+        Sun, 07 Jun 2026 10:10:16 -0700 (PDT)
 From: Zhenzhong Wu <jt26wzz@gmail.com>
 To: bpf@vger.kernel.org
 Cc: netdev@vger.kernel.org,
@@ -77,10 +79,12 @@ Cc: netdev@vger.kernel.org,
 	stable@vger.kernel.org,
 	mykolal@fb.com,
 	tamird@kernel.org
-Subject: [PATCH stable 6.6.y v2 0/3] bpf: backport scalar not-equal tracking fixes
-Date: Mon,  8 Jun 2026 01:09:55 +0800
-Message-ID: <20260607170959.823755-1-jt26wzz@gmail.com>
+Subject: [PATCH stable 6.6.y v2 1/3] bpf: drop knowledge-losing __reg_combine_{32,64}_into_{64,32} logic
+Date: Mon,  8 Jun 2026 01:09:56 +0800
+Message-ID: <20260607170959.823755-2-jt26wzz@gmail.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260607170959.823755-1-jt26wzz@gmail.com>
+References: <20260607170959.823755-1-jt26wzz@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -89,148 +93,125 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi,
+From: Andrii Nakryiko <andrii@kernel.org>
 
-This series backports two BPF verifier scalar range-tracking fixes to
-6.6.y and adds a selftest. It fixes a verifier state-pruning issue where
-an impossible linked-scalar path can be kept while the real success path is
-pruned.
+[ Upstream commit 9e314f5d8682e1fe6ac214fb34580a238b6fd3c4 ]
 
-The issue is verifier scalar state tracking, not helper-specific behavior.
-A helper return value in r0 and another scalar can become linked by scalar
-id on one branch. If the verifier does not preserve the not-equal fact on
-the right branch edge, a later check can let it explore an impossible
-continuation, narrow the linked scalar to the wrong value, and prune the
-real success path against an earlier cached state. The program is accepted
-by the verifier but then reports the wrong branch outcome at runtime.
+When performing 32-bit conditional operation operating on lower 32 bits
+of a full 64-bit register, register full value isn't changed. We just
+potentially gain new knowledge about that register's lower 32 bits.
 
-The original visible failure was found in Rust-generated eBPF around helper
-calls. Rust match lowering can keep a helper return value and a scalar
-filled through a by-reference helper argument in the same enum-style control
-flow. That makes it easy for the verifier-visible scalar values to become
-linked by scalar id.
+Unfortunately, __reg_combine_{32,64}_into_{64,32} logic that
+reg_set_min_max() performs as a last step, can lose information in some
+cases due to __mark_reg64_unbounded() and __reg_assign_32_into_64().
+That's bad and unnecessary. Especially __reg_assign_32_into_64() looks
+out of place here, because we are not performing zero-extending
+subregister assignment during conditional jump.
 
-The relevant verifier-log bytecode from the original fexit reproducer is
-below. The later instructions only store r7 into a map so user space can
-observe which branch the verifier kept.
+Replace __reg_combine_* with reg_bounds_sync(), which derives u64/s64
+bounds from u32/s32 and vice versa.
 
-  15: (85) call bpf_get_func_ret#184    ; R0_w=scalar() fp-8_w=mmmmmmmm
-  16: (79) r7 = *(u64 *)(r10 -8)        ; R7_w=scalar() R10=fp0
-  17: (15) if r0 == 0x0 goto pc+1       ; R0_w=scalar()
-  18: (bf) r7 = r0                      ; R0=scalar(id=1) R7=scalar(id=1)
-  19: (55) if r0 != 0x0 goto pc+6       ; R0=0
-  20: (67) r7 <<= 32                    ; R7_w=0
-  21: (77) r7 >>= 32                    ; R7_w=0
-  22: (b7) r1 = 1                       ; R1_w=1
-  23: (55) if r7 != 0xf goto pc+1
+For coerce_reg_to_size(), reset subreg bounds for 1- and 2-byte loads and
+then use reg_bounds_sync() to recover as much information as possible.
 
-The failure mechanism is:
+Acked-by: Eduard Zingerman <eddyz87@gmail.com>
+Signed-off-by: Andrii Nakryiko <andrii@kernel.org>
+Acked-by: Shung-Hsi Yu <shung-hsi.yu@suse.com>
+Link: https://lore.kernel.org/r/20231102033759.2541186-10-andrii@kernel.org
+Signed-off-by: Alexei Starovoitov <ast@kernel.org>
+[ zhenzhong: backport to 6.6.y verifier.c layout. ]
+Signed-off-by: Zhenzhong Wu <jt26wzz@gmail.com>
+---
+ kernel/bpf/verifier.c | 60 ++++++-------------------------------------
+ 1 file changed, 8 insertions(+), 52 deletions(-)
 
-  1. The program checks "if r0 == 0". The jump target is the success path,
-     and the fallthrough path is the failure path and should imply r0 != 0.
-
-  2. On affected kernels, the verifier does not record that r0 != 0 fact for
-     the fallthrough path. The following "r7 = r0" then gives r0 and r7 the
-     same scalar id while both are still treated as possibly zero.
-
-  3. At the later "if r0 != 0" check, the verifier still thinks r0 may be
-     zero, so it explores the fallthrough path of that JNE. That path means
-     r0 == 0, and because r7 shares the same scalar id, r7 is narrowed to
-     zero as well. This is an impossible path: it came from the earlier
-     failure path that should have implied r0 != 0.
-
-  4. That impossible continuation reaches the return-value comparison with
-     r7 == 0 and can make the verifier keep only the wrong branch. When the
-     real success path is analyzed later, state pruning considers it safe
-     against the earlier cached verifier state, so the real continuation is
-     not explored.
-
-The relevant pruning point is that regsafe()/states_equal() accepted the
-real success-path state against an earlier cached state where r0 was an
-imprecise scalar and r7 constraints were loose enough to cover the current
-r7.
-
-After confirming the mechanism, I used a reproducer with the same verifier
-state shape, now captured by the selftest, as the test case for git bisect.
-The bisect started from the affected 6.7.y behavior and the fixed v6.8
-behavior, and narrowed the fix to the v6.7..v6.8 window. It identified the
-upstream fix as:
-
-  d028f87517d6775dccff4ddbca2740826f9e53f1
-  bpf: make the verifier tracks the "not equal" for regs
-
-For 6.6.y and older stable verifier code, applying d028f87517d6 alone is
-not sufficient. The verifier also needs the range-preservation semantics
-from:
-
-  9e314f5d8682e1fe6ac214fb34580a238b6fd3c4
-  bpf: drop knowledge-losing __reg_combine_{32,64}_into_{64,32} logic
-
-Without that semantic prerequisite, the old range-combining logic can still
-discard the refined bounds after the verifier learns them.
-
-The new selftest uses bpf_skb_load_bytes() only to create a helper status in
-r0 and run through the normal tc test-run path. It reproduces the verifier
-state shape without requiring fexit attach or bpf_get_func_ret().
-
-I would like this fix to be applied to the supported 6.6.y, 6.1.y,
-5.15.y, and 5.10.y stable trees. This v2 targets 6.6.y first for stable
-ordering. The same issue is also reproducible on 6.1.y, 5.15.y, and
-5.10.y, but those trees need separate older-layout adaptations.
-
-Targeted BPF selftest/reproducer results are:
-
-  For 5.10.y and 5.15.y, I used the same minimized reproducer bytecode in
-  QEMU because those trees still use the older test_verifier framework.
-
-  v5.10.258:                         FAIL
-  v5.10.258 + equivalent backport:   PASS
-  v5.15.209:                         FAIL
-  v5.15.209 + equivalent backport:   PASS
-  v6.1.91:                         FAIL
-  v6.1.91 + RFC backport series:   PASS
-  v6.6.142:                        FAIL
-  v6.6.142 + this series:          PASS
-  v6.7.12:                         FAIL
-  v6.8:                            PASS
-
-I also checked bpf-next: bpf-next passes even when the d028f87517d6 JNE
-refinement is reverted, because newer kernels also have the later
-4bf79f9be434e ("bpf: Track equal scalars history on per-instruction level")
-precision-tracking change. I did not use 4bf79f9be434e as the stable
-backport base because it is a broader jmp_history/precision-tracking change
-for linked scalars. For 6.6.y this series keeps the smaller stable backport
-path that directly follows the bisected fix: preserve scalar bounds after
-conditional refinement, then add the not-equal range refinement in the older
-reg_set_min_max() layout.
-
-Changes since RFC v1:
-  - drop RFC;
-  - state the intended stable targets and keep 6.6.y first for stable
-    ordering;
-  - add a BPF selftest covering the failure;
-  - add 5.10.y and 5.15.y reproducer validation;
-  - document why Rust-generated eBPF can naturally create this state shape;
-  - note the later 4bf79f9be434e precision-tracking reason why bpf-next can
-    pass independently.
-
-RFC v1:
-  https://lore.kernel.org/r/20260601180400.1381736-1-jt26wzz@gmail.com/
-
-Thanks to Shung-Hsi Yu for reviewing the RFC, pointing out that 6.6.y
-should be handled first for stable ordering, and noting that bpf-next is
-also protected by the later 4bf79f9be434e ("bpf: Track equal scalars
-history on per-instruction level") precision-tracking change.
-
-Zhenzhong Wu (3):
-  bpf: drop knowledge-losing __reg_combine_{32,64}_into_{64,32} logic
-  bpf: make the verifier tracks the "not equal" for regs
-  selftests/bpf: add helper retval linked scalar pruning test
-
- kernel/bpf/verifier.c                         | 92 ++++++++-----------
- .../selftests/bpf/progs/verifier_reg_equal.c  | 35 +++++++
- 2 files changed, 75 insertions(+), 52 deletions(-)
-
-base-commit: 924b4a879cbb75aef37c160b955b92f6894b11a4
+diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
+index 0d90236d0..5f94bff12 100644
+--- a/kernel/bpf/verifier.c
++++ b/kernel/bpf/verifier.c
+@@ -2448,51 +2448,6 @@ static void __reg_assign_32_into_64(struct bpf_reg_state *reg)
+ 	}
+ }
+ 
+-static void __reg_combine_32_into_64(struct bpf_reg_state *reg)
+-{
+-	/* special case when 64-bit register has upper 32-bit register
+-	 * zeroed. Typically happens after zext or <<32, >>32 sequence
+-	 * allowing us to use 32-bit bounds directly,
+-	 */
+-	if (tnum_equals_const(tnum_clear_subreg(reg->var_off), 0)) {
+-		__reg_assign_32_into_64(reg);
+-	} else {
+-		/* Otherwise the best we can do is push lower 32bit known and
+-		 * unknown bits into register (var_off set from jmp logic)
+-		 * then learn as much as possible from the 64-bit tnum
+-		 * known and unknown bits. The previous smin/smax bounds are
+-		 * invalid here because of jmp32 compare so mark them unknown
+-		 * so they do not impact tnum bounds calculation.
+-		 */
+-		__mark_reg64_unbounded(reg);
+-	}
+-	reg_bounds_sync(reg);
+-}
+-
+-static bool __reg64_bound_s32(s64 a)
+-{
+-	return a >= S32_MIN && a <= S32_MAX;
+-}
+-
+-static bool __reg64_bound_u32(u64 a)
+-{
+-	return a >= U32_MIN && a <= U32_MAX;
+-}
+-
+-static void __reg_combine_64_into_32(struct bpf_reg_state *reg)
+-{
+-	__mark_reg32_unbounded(reg);
+-	if (__reg64_bound_s32(reg->smin_value) && __reg64_bound_s32(reg->smax_value)) {
+-		reg->s32_min_value = (s32)reg->smin_value;
+-		reg->s32_max_value = (s32)reg->smax_value;
+-	}
+-	if (__reg64_bound_u32(reg->umin_value) && __reg64_bound_u32(reg->umax_value)) {
+-		reg->u32_min_value = (u32)reg->umin_value;
+-		reg->u32_max_value = (u32)reg->umax_value;
+-	}
+-	reg_bounds_sync(reg);
+-}
+-
+ /* Mark a register as having a completely unknown (scalar) value. */
+ static void __mark_reg_unknown(const struct bpf_verifier_env *env,
+ 			       struct bpf_reg_state *reg)
+@@ -6164,9 +6119,10 @@ static void coerce_reg_to_size(struct bpf_reg_state *reg, int size)
+ 	 * values are also truncated so we push 64-bit bounds into
+ 	 * 32-bit bounds. Above were truncated < 32-bits already.
+ 	 */
+-	if (size >= 4)
+-		return;
+-	__reg_combine_64_into_32(reg);
++	if (size < 4) {
++		__mark_reg32_unbounded(reg);
++		reg_bounds_sync(reg);
++	}
+ }
+ 
+ static void set_sext64_default_val(struct bpf_reg_state *reg, int size)
+@@ -14329,13 +14285,13 @@ static void reg_set_min_max(struct bpf_reg_state *true_reg,
+ 					     tnum_subreg(false_32off));
+ 		true_reg->var_off = tnum_or(tnum_clear_subreg(true_64off),
+ 					    tnum_subreg(true_32off));
+-		__reg_combine_32_into_64(false_reg);
+-		__reg_combine_32_into_64(true_reg);
++		reg_bounds_sync(false_reg);
++		reg_bounds_sync(true_reg);
+ 	} else {
+ 		false_reg->var_off = false_64off;
+ 		true_reg->var_off = true_64off;
+-		__reg_combine_64_into_32(false_reg);
+-		__reg_combine_64_into_32(true_reg);
++		reg_bounds_sync(false_reg);
++		reg_bounds_sync(true_reg);
+ 	}
+ }
+ 
 -- 
 2.43.0
