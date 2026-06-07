@@ -1,154 +1,143 @@
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [13.75.44.102])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7B2873A963A;
-	Sun,  7 Jun 2026 13:24:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.75.44.102
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780838691; cv=none; b=qGTCy2RTmd2ECvcublZ2028N02hccgzadGMo9PP84g9f8aatn+UlbpJY1H5Rl+y3xR1gEuuRi9YDzkD1ciTi7c1uWFT1i3GhtT9VmpllrUlUALPKXDaVQ16M0CctPE80k8FHNz/FZLMANmaH7HAynoLqUMSLZc1xETXbUvOy6uA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780838691; c=relaxed/simple;
-	bh=yb4BXyAJWMu2fwmiWc5tCIf2WquakStJIyTMMDIBRww=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=U6AZB/fovjVegm4v9T0FxQqZY/4A/6mLS1m+ggOMh/vsOmX6qOYpTcB4RjFz1n76iPXYaTf2EYKmE9d7ba/E7kYCmLQuYZgkxwZaW5wJBk1PR9s4l1VpFq5KVd8Fa5UdHSICfq0oCsYkJRTxIA+3fu7dvYI9uDr3xCvv1R5f7H0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mails.tsinghua.edu.cn; spf=pass smtp.mailfrom=mails.tsinghua.edu.cn; dkim=pass (1024-bit key) header.d=mails.tsinghua.edu.cn header.i=@mails.tsinghua.edu.cn header.b=W40ed+Al; arc=none smtp.client-ip=13.75.44.102
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mails.tsinghua.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mails.tsinghua.edu.cn
+Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AFC33AA4E8
+	for <stable@vger.kernel.org>; Sun,  7 Jun 2026 14:00:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.46
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780840807; cv=pass; b=C03WrnItJgHsDXZw316YKWnnqx0Lw5PMaAjIWFyw0vxfsVijwcLjNDZa2ryg1UvMaSjGL5v2sO7yqyTaO/qjElfxEn+Cm0VSKR5uQwNMj3tLIO+Cxa0jvGyPlTYfonF1XCGSqqwwaIgPBmkiwhYYanOrfphzk4JAamGAg5Xl7NI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780840807; c=relaxed/simple;
+	bh=FFaZCZCI1aLwrKSfB/eohEPXsMJlsUISmfq99wdbCHk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=LQ1S0wzmJ1OFBZ1/hTN07Eoj/h0Fn21R021zXa2mpKY+sElcL0KxG54rcXxSM2Zgy2L8B1qddHcYEs3uLWC6fbGdZkUXmCRgg3FYitJwE0YtwadshciAQ8GVh6FwZ6F6dE2mrRbbSKlxI3oybz9gjTUaf5u/xu1PxkYueCCk5SQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=futuring-girl.com; spf=pass smtp.mailfrom=futuring-girl.com; dkim=pass (2048-bit key) header.d=futuring-girl.com header.i=@futuring-girl.com header.b=rDguZXgR; arc=pass smtp.client-ip=74.125.82.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=futuring-girl.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=futuring-girl.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mails.tsinghua.edu.cn header.i=@mails.tsinghua.edu.cn header.b="W40ed+Al"
+	dkim=pass (2048-bit key) header.d=futuring-girl.com header.i=@futuring-girl.com header.b="rDguZXgR"
+Received: by mail-dl1-f46.google.com with SMTP id a92af1059eb24-13809223fd4so2412694c88.1
+        for <stable@vger.kernel.org>; Sun, 07 Jun 2026 07:00:06 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1780840805; cv=none;
+        d=google.com; s=arc-20240605;
+        b=JDm1/BU6kLnaXcRQHJQJ16+4+hM6m6R7wV9przDihGWYfXjg0etaAmn8KeucqwClOh
+         fjoYMjYPfLIUN8j9w3PCfW4QNbgEFNVut4ioBYu21gfixCTtQ7kZyHVkmkGot4WMHa+F
+         0yCdFkarUR3roKx8K4XN2UiWaH6AEMNbMTdXzpDiA2j665dXgSX0iY513WMO2Pe3Af07
+         YzI92IrMM/rbih0gVjA3UpcHiVtCq/VBqemNBEeTvKeODITvqQSnSSz9XEJB6QTlBQn2
+         j9EsNhkXUX/DnNxd108wlZR7IQ4Z2Km/jCvJ3BiuPNtitP2iurtQEQhOPEYJcHDZtwqj
+         y3xQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=RkQeYfFIuOUrnCngJydWaqMe29Hx6hUsX++EJF0iQCc=;
+        fh=Wz8J5UEBOCqQDV8EGy7SaS7auVxYFAJQ5oaobiGaD9E=;
+        b=iCBWrPePbsIXRetInbliGPlUhEruHvDUZelijUGiMp8nWsCfzue9tdUIAlzeXfrNou
+         kYh9sDugxuPXmvTqsRbWszraRoaPMyDFjdAGLUoOPYC1witmBC/HpeKvJP9vM7oH2am9
+         ijcnm7GkBSBn8+pxXn7oYPXkF1aDSZhHpf1JH300dVFRTFs0rZoj+wXcM6joivWILJDD
+         l2ODIzfmIyYTVj5ayK9MgmqO37/EU8OhBmkggcB4/bq+O9xfXl646/dwPc5cKnzGtZS5
+         FUcm0SI2S0nB9cSQS2VBHlKUbKEIikLTkOIbR13irbC7rXJMD9YpQTicOBsbvqyPso6+
+         8/cA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=mails.tsinghua.edu.cn; s=dkim; h=Received:From:Date:Subject:
-	MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	References:In-Reply-To:To:Cc; bh=QHF3niD3FfxGc+79DPsRFE+jwSzDC2N
-	OUwgjGpYau5Y=; b=W40ed+AloZHeF2NxuYw8XO9zyRHEN3zJ+xfjILdZ8vooOGO
-	sVm39e+1wuE0a7lGuNtIzSzGRNSfOUauXxdSgwlJFyqIpXKkJEKGPkjBoisKBM5u
-	Ahysjmmdim8HQvXabgiS3dT2YoW3YYdpTXGRuLeyOTXAOAghTI0Zpw1sy0+o=
-Received: from [127.0.0.1] (unknown [101.6.30.195])
-	by web4 (Coremail) with SMTP id ywQGZQD3CJ4KcSVqdwgUAg--.41669S3;
-	Sun, 07 Jun 2026 21:24:28 +0800 (CST)
-From: Nuoqi Gui <gnq25@mails.tsinghua.edu.cn>
-Date: Sun, 07 Jun 2026 21:24:13 +0800
-Subject: [PATCH bpf v2 1/2] bpf: Keep dynamic inner array lookups nullable
+        d=futuring-girl.com; s=google; t=1780840805; x=1781445605; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=RkQeYfFIuOUrnCngJydWaqMe29Hx6hUsX++EJF0iQCc=;
+        b=rDguZXgR++dhbAivfYAvNVVb5R2cvZvkuIN/mwfsCt3P+aSjIhGuOYoNzvfV+orwU0
+         cFAz0i5JU7EcSoAulCCmL4mjahAnK/eL3cw+p7gURzL6KPjga3lVAcY7NY4Yt/4pYIvy
+         RtirZaR8WVFDutu1R2cQXlgOEnA3LMt8pt892AX/V5M9Hl2k91SsMgbHaQp6t22ESX6D
+         ubTnHoSbgAABvDbK4b8Oi8EVuqZtyQTpEWfCHPjdgU8V0RVjHaAJIynlF4NDu7Fk+D9r
+         chK85lAXkNO3Q4QkwdkJLdHmLz54CKZP6DgalnCFIhY8syoDbxl0RhYkI8qmUsS9YKfO
+         Kg3w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780840805; x=1781445605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=RkQeYfFIuOUrnCngJydWaqMe29Hx6hUsX++EJF0iQCc=;
+        b=oIuA1JuJ78S2fIMQn8cjHhLxLZdaGlN8slQHgGBWwq1tWTiWqoG4+bdN2L4+fDdFuY
+         zeuTP/8ANKz0sG/L+s0HItnMc/U7hatJcMXz9DlnHiretWTlvM0fUKOBFNP7HbX8K99N
+         LlLKmNWX1Dqlyao27gmXc4S4+S/j7hdEQV86qHCv/8WWSQj5JZUjzmfyA4d0tlmoYsGS
+         l5qvl1YgPRd7pKr3cB00LCiqcJmaB1RN/UDx5Sch7VJ4/6+OA6hGqo9MziRAxMPaUXNL
+         /IKAvFsB6WJW8wyfT+t/vCdGrckb0dplc+AK1spfko+OA3exaf29FZ6x5o7H13TtGdNd
+         yAtQ==
+X-Gm-Message-State: AOJu0YzbQOcuy3Yv3H7/LmeJCoOS+LQ6liu3oNK8vQMI0z0+vbP/OnDX
+	Fkfu3gY0EpXldWhh5fvqeRTInoRDOOLWg1w8C6duazFqtjnGhCEbFjE2kUz3zNX5oSQOZQ5gRz9
+	8U1ZR46U759sAcl9oZONUlhaskz1M1TW3zQmDx5IaDg==
+X-Gm-Gg: Acq92OHyFplC4pV+0NGvhNBk4+Du5wmbIUoGxlIs4Aqt24XGw0ciOH/oXiQwxuHMbkx
+	1H4Xa/Uyx+0LJ9rlGmPW3dtXQgUDVKZNPP/5At9ZLtTtQN4u/pNKfd1Q0MibD/IiIoQbTmnfYQ6
+	28kwz2yGksT+EnPmN9MQfeJhcf9EtzrJmDUzM57lZR5jO8IFUrPPi5A27teo7LVW9YuVxUAn4dq
+	9pMCvzPx3iMMUhFr8ZAIie/vgzmr8jH8wUGqHGzJlv2pQdgx8u5eAxDn6f3L/4tNCQ7vpA39fm8
+	JSzl/QQqfIwcHN8wCkA=
+X-Received: by 2002:a05:7022:1e11:b0:138:12fa:378d with SMTP id
+ a92af1059eb24-13812fa38ddmr4360570c88.22.1780840805119; Sun, 07 Jun 2026
+ 07:00:05 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260607-f01-v2-v2-1-da48453146e8@mails.tsinghua.edu.cn>
-References: <20260607-f01-v2-v2-0-da48453146e8@mails.tsinghua.edu.cn>
-In-Reply-To: <20260607-f01-v2-v2-0-da48453146e8@mails.tsinghua.edu.cn>
-To: Alexei Starovoitov <ast@kernel.org>, 
- Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>
-Cc: Nuoqi Gui <gnq25@mails.tsinghua.edu.cn>, Daniel Xu <dxu@dxuuu.xyz>, 
- Eduard Zingerman <eddyz87@gmail.com>, 
- John Fastabend <john.fastabend@gmail.com>, 
- Martin KaFai Lau <martin.lau@linux.dev>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Song Liu <song@kernel.org>, 
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
- Shuah Khan <shuah@kernel.org>, Ihor Solodrai <isolodrai@meta.com>, 
- bpf@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-kselftest@vger.kernel.org, stable@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1780838667; l=3023;
- i=gnq25@mails.tsinghua.edu.cn; s=20260605; h=from:subject:message-id;
- bh=yb4BXyAJWMu2fwmiWc5tCIf2WquakStJIyTMMDIBRww=;
- b=dukIfljGe8oRuXtRTPDvpC9w1le66lZ1mr4SC+1ZPlaQJQOkz4Qrp30r1x1st2Wpe13QvQPHy
- uxSQ0N/G7vpAztWpITJdwz0o3q2nDRmFypE9FB6EZkUSTkj8ohqjgkv
-X-Developer-Key: i=gnq25@mails.tsinghua.edu.cn; a=ed25519;
- pk=nqQ48fAxVTDp3z/IUmqv6BB+agXPpd8tQjDOBxwlgZo=
-X-CM-TRANSID:ywQGZQD3CJ4KcSVqdwgUAg--.41669S3
-X-Coremail-Antispam: 1UD129KBjvJXoWxCr47Ary3CF17WF4fWF1UGFg_yoW5Cr1UpF
-	4xGF97Jr1kAa1Yq342ya47AF1Yka47t342kr1rG3yFyrn8WF1DXFWUG3W2va43AFW8Cw4S
-	vr4Ivr9Ykay5JFJanT9S1TB71UUUUUJqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUBS1xkIjI8I6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l8cAvFVAK
-	0II2c7xJM28CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW7JVWDJwA2z4
-	x0Y4vE2Ix0cI8IcVCY1x0267AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l
-	84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s0DM2kKe7AKxVWUXVWUAwAac4AC62xK8xCEY4
-	vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
-	7VCjz48v1sIEY20_GrWkJr1UJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr4
-	1lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS
-	14v26r4a6rW5MxkIecxEwVAFwVW5GwCF04k20xvY0x0EwIxGrwCF04k20xvE74AGY7Cv6c
-	x26r4rKr1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC2
-	0s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r4a6rW5MIIYrxkI7VAKI48JMI
-	IF0xvE2Ix0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF
-	0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87
-	Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjfUY1v3UUUUU
-X-CM-SenderInfo: xjqtjko6pdxz3vow2x5qjk3toohg3hdfq/1tbiAgELA2oknpuRgQAAsQ
+References: <20260607095728.031258202@linuxfoundation.org>
+In-Reply-To: <20260607095728.031258202@linuxfoundation.org>
+From: Takeshi Ogasawara <takeshi.ogasawara@futuring-girl.com>
+Date: Sun, 7 Jun 2026 22:59:47 +0900
+X-Gm-Features: AVVi8Cd2KuRVPwE0_H31aM_kSW1Og_JUoZOaOfYaAHe7xAiu1CLPvdl7yB5cjr0
+Message-ID: <CAKL4bV7=32jD92C9yJ2d40Z3dnWLC3zZt2b_74JExDsu0SJovQ@mail.gmail.com>
+Subject: Re: [PATCH 7.0 000/332] 7.0.12-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org, 
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org, 
+	patches@kernelci.org, lkft-triage@lists.linaro.org, pavel@nabladev.com, 
+	jonathanh@nvidia.com, f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, 
+	rwarsow@gmx.de, conor@kernel.org, hargar@microsoft.com, broonie@kernel.org, 
+	achill@achill.org, sr@sladewatkins.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-An ARRAY_OF_MAPS can use an array created with BPF_F_INNER_MAP as its
-inner map template. A concrete inner array with a different max_entries
-value can then replace the template.
+Hi Greg
 
-After a successful outer map lookup, the verifier represents the
-resulting map pointer using the inner map template. Const-key lookup
-nullness elision consequently uses the template max_entries even though
-the runtime helper uses the concrete inner map max_entries.
+On Sun, Jun 7, 2026 at 7:03=E2=80=AFPM Greg Kroah-Hartman
+<gregkh@linuxfoundation.org> wrote:
+>
+> This is the start of the stable review cycle for the 7.0.12 release.
+> There are 332 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+>
+> Responses should be made by Tue, 09 Jun 2026 09:56:44 +0000.
+> Anything received after that time might be too late.
+>
+> The whole patch series can be found in one patch at:
+>         https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-=
+7.0.12-rc1.gz
+> or in the git tree and branch at:
+>         git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable=
+-rc.git linux-7.0.y
+> and the diffstat can be found below.
+>
+> thanks,
+>
+> greg k-h
+>
 
-Do not elide lookup result nullness for maps marked with BPF_F_INNER_MAP,
-because the template max_entries does not prove that the key is in bounds
-for the concrete runtime map.
+Linux version 7.0.12-rc1 tested.
 
-Fixes: d2102f2f5d75 ("bpf: verifier: Support eliding map lookup nullness")
-Cc: stable@vger.kernel.org
-Signed-off-by: Nuoqi Gui <gnq25@mails.tsinghua.edu.cn>
-Acked-by: Eduard Zingerman <eddyz87@gmail.com>
----
- kernel/bpf/verifier.c | 15 +++++++++------
- 1 file changed, 9 insertions(+), 6 deletions(-)
+Build successfully completed.
+Boot successfully completed.
+No dmesg regressions.
+Video output normal.
+Sound output normal.
 
-diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
-index 7fb88e1cd7c4d..ff9b1f68ceca4 100644
---- a/kernel/bpf/verifier.c
-+++ b/kernel/bpf/verifier.c
-@@ -8471,7 +8471,7 @@ static int get_constant_map_key(struct bpf_verifier_env *env,
- 	return 0;
- }
- 
--static bool can_elide_value_nullness(enum bpf_map_type type);
-+static bool can_elide_value_nullness(const struct bpf_map *map);
- 
- static int check_func_arg(struct bpf_verifier_env *env, u32 arg,
- 			  struct bpf_call_arg_meta *meta,
-@@ -8621,7 +8621,7 @@ static int check_func_arg(struct bpf_verifier_env *env, u32 arg,
- 		err = check_helper_mem_access(env, regno, key_size, BPF_READ, false, NULL);
- 		if (err)
- 			return err;
--		if (can_elide_value_nullness(meta->map.ptr->map_type)) {
-+		if (can_elide_value_nullness(meta->map.ptr)) {
- 			err = get_constant_map_key(env, reg, key_size, &meta->const_map_key);
- 			if (err < 0) {
- 				meta->const_map_key = -1;
-@@ -10221,13 +10221,16 @@ static void update_loop_inline_state(struct bpf_verifier_env *env, u32 subprogno
- 				 state->callback_subprogno == subprogno);
- }
- 
--/* Returns whether or not the given map type can potentially elide
-+/* Returns whether or not the given map can potentially elide
-  * lookup return value nullness check. This is possible if the key
-  * is statically known.
-  */
--static bool can_elide_value_nullness(enum bpf_map_type type)
-+static bool can_elide_value_nullness(const struct bpf_map *map)
- {
--	switch (type) {
-+	if (map->map_flags & BPF_F_INNER_MAP)
-+		return false;
-+
-+	switch (map->map_type) {
- 	case BPF_MAP_TYPE_ARRAY:
- 	case BPF_MAP_TYPE_PERCPU_ARRAY:
- 		return true;
-@@ -10589,7 +10592,7 @@ static int check_helper_call(struct bpf_verifier_env *env, struct bpf_insn *insn
- 		}
- 
- 		if (func_id == BPF_FUNC_map_lookup_elem &&
--		    can_elide_value_nullness(meta.map.ptr->map_type) &&
-+		    can_elide_value_nullness(meta.map.ptr) &&
- 		    meta.const_map_key >= 0 &&
- 		    meta.const_map_key < meta.map.ptr->max_entries)
- 			ret_flag &= ~PTR_MAYBE_NULL;
+Lenovo ThinkPad X1 Carbon Gen10(Intel i7-1260P(x86_64) arch linux)
 
--- 
-2.34.1
+[    0.000000] Linux version 7.0.12-rc1rv-g877a01113f80
+(takeshi@ThinkPadX1Gen10J0764) (gcc (GCC) 16.1.1 20260430, GNU ld (GNU
+Binutils) 2.46.0) #1 SMP PREEMPT_DYNAMIC Sun Jun  7 21:38:28 JST 2026
 
+Thanks
+
+Tested-by: Takeshi Ogasawara <takeshi.ogasawara@futuring-girl.com>
