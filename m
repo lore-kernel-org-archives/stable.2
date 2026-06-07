@@ -1,200 +1,113 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f68.google.com (mail-wm1-f68.google.com [209.85.128.68])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5839231F983;
-	Sun,  7 Jun 2026 11:05:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27C0238E5EF
+	for <stable@vger.kernel.org>; Sun,  7 Jun 2026 11:08:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.68
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780830318; cv=none; b=MH/U4Hxyp72/CgBxu4jblItbDUf6NHSQHOIkZmZ9mKsjErsMPD3tuqcWH3d9sZiv6blpp4B5yXhWefMyXUyP5sO+hSOD6/5J2bwfWWmjG+pglNN0aS6ANfYWUHYWQ1fsM9GbnnMWedYmsc7xZB4H8hGmPIDNq4xtpjQsY68FtoY=
+	t=1780830504; cv=none; b=ACQ5c+W1RBJV04Qsd5aNaGy1+MPKtOkgM75vKA22Yak4vfkWoGemuNP9BmUGMZvik4++3Pv0GIOwsCaC5P7wsPEp4Q9NrLkCTbVQe1gXoT+DQX72BUeBRD6le2aviwIDhUQW12HFjCcl9mFFrFUQ2W+Ie/XkZUoJhECMz3HtDGs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780830318; c=relaxed/simple;
-	bh=tGN9jErpyu4eqrZVRHVVwSCKf3e1r75yZWitWRsyA08=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=oItviSW2ChHLTdJ2bsQFt8kkj4HdFYEegt1RX9/YZq737q7dAyekVB4wG3BTbW6qxdH2tB27qCjBtv4+NhS0z3cHrrLWW9VyZYz0MtsEmP2ED3q/a2VhzCPQZoke8rYF8Yx9sCvizUf6B19IC0BZ1AhrZNrlH8PqKJdr0VEJQOo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=wPkax0N6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780830504; c=relaxed/simple;
+	bh=AOgI9qJFRjoVJ06WbokHbmBDTumJdvoTNpQhxuw+ZHE=;
+	h=Mime-Version:Content-Type:Date:Message-Id:From:To:Cc:Subject:
+	 References:In-Reply-To; b=cEDOYFmpyubwlWPaNNDfQTD4WO8uoqKq/M914JXGfx5uWnGmAFLnZ6KjU4zKs3KkOt5a3Fx9F0esKmgVvHC0iWIemtudblj9wMwvbacGMgYpsup6zMSUz/ZqmV2RUfkLw7H+U8bUpfMhP6n/xuf+sVuukYgAfVIDH9KgmQhGHBU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EGFnHFJB; arc=none smtp.client-ip=209.85.128.68
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="wPkax0N6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 962A51F00893;
-	Sun,  7 Jun 2026 11:05:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1780830317;
-	bh=J/bl6mj8MhbolVih/VymREDsRZSAQDRFhrd6bkuKPRs=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=wPkax0N6tat4xHLWrK/X0WAtUGLZD3Vl2EQLl4ofBjEkIBfrOGty6b4iIuc/f2TFd
-	 ne6sYDbQA9HMriRJgTBYrXgZAln6L6ObBkgNj7WLbunp/MZS55k8nRV5aO3h7YrLph
-	 gLyATm7i0QhzFo9LERK5aHkqJPBZ2TMcNMP8epBw=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Benjamin Tissoires <bentiss@kernel.org>,
-	Jiri Kosina <jkosina@suse.com>,
-	Lee Jones <lee@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12 116/307] HID: core: introduce hid_safe_input_report()
-Date: Sun,  7 Jun 2026 11:58:33 +0200
-Message-ID: <20260607095732.028333248@linuxfoundation.org>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260607095727.647295505@linuxfoundation.org>
-References: <20260607095727.647295505@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EGFnHFJB"
+Received: by mail-wm1-f68.google.com with SMTP id 5b1f17b1804b1-4903d730b1fso37808795e9.2
+        for <stable@vger.kernel.org>; Sun, 07 Jun 2026 04:08:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780830501; x=1781435301; darn=vger.kernel.org;
+        h=in-reply-to:references:subject:cc:to:from:message-id:date
+         :content-transfer-encoding:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=AOgI9qJFRjoVJ06WbokHbmBDTumJdvoTNpQhxuw+ZHE=;
+        b=EGFnHFJBkDElNMcTpyjmJAl62CDsIJnOXnOM/zL4b09ml/0GLOCqx43XQMel/bbNAR
+         bO3QNPVkSYB5K9bjWKqX6I2mcw2Aml5zPTJ7zcjZ3Ayd8PlX4pbD9lbqGacyYIrUaRIY
+         ZWGZw/pIvWIqzVaNGFPTff2DOdw9BL6K44eZBJk6SYSf2gjr8qwOiM50tlB6rWV5djrE
+         ABJR8t9M/ADPL8ZMxCVMaVNTfY3o7qu6Y6a67Zhj55JoHd/S3YcjyGsGDqBA34GsIO2d
+         bb2klHnX1vl3o9AGBAAQzKQUeSR8hXKhSKma0xEgPGR3DKlzRlaAYpCdUK4Kfwr+MPA2
+         qKAg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780830501; x=1781435301;
+        h=in-reply-to:references:subject:cc:to:from:message-id:date
+         :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=AOgI9qJFRjoVJ06WbokHbmBDTumJdvoTNpQhxuw+ZHE=;
+        b=UpCSca+M7XAclC6t80dBeDYaYXrqbHIJ9f1NFvuBtQO6C6TIucXE4GKpmv/+9ik036
+         QRSvB9zwH1O1clOQQDHS7AakMhu/jVoXu66EqtxnI8Kxkzdad84KLoO3lGkeq738vUzv
+         /Bdp0Cr60LYhRSElXmR0FH2KXzxOVZTzdg5NKe5zNKka4CEIScnSPojNvJVlhAeuJWzg
+         eRp0c2wRItnCab4O3Uq3FOedHkITjrnCoDPqY2fg1Y9gDUQKZuB4sAEQYpy+h+aP4I/y
+         9yxwyC6BcRsdFf8pt0/nBU7wIUDGc0ypAc03F3pKqBCdVlWjUzYVLuwCnJd2iE8/Vch5
+         jZGg==
+X-Forwarded-Encrypted: i=1; AFNElJ/3rRJQFAQBKBASAzBoppy8YT8JHr5YmtZpwpTBabSrNhYvTjV3/5djk8/UsycZRpVaLhmCMKs=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz1nkwVlL23zf8es6H/tIhtcGoBZuvtjzYPNHFbe3YZJHWPM76/
+	sI3CnM2bWIKh/gKrYg0fNgoObSgdmAlWUNVXBXtA/c7gOkZXplKg4y8WsHbISOlU
+X-Gm-Gg: Acq92OH7y7dKVIeGQyAH9STaT/+9R/XM1V/QuJVtCSsuEE4qxMs8N7PKNd6K1gtsSAO
+	3qWQt7qrd1jj5YJW+Jaj4thNsUwxAd6kHsnVpiZ8LYo8gVnmSNGVUhuIADe9RKLA92yvZjKAyyD
+	1spZ3BTU9hgSz3lGgUX+y+QkCSLr7dOgZqYcHu74C14zlV2Wvl44hFkg/U8rZSfZwkUfq2X9Ist
+	NqZxKEqgV4JB0+vtIA3kRzWilb8Pz4xrpdOnEi52FxbYBQ0d010s2e4DjgDRR3dBpXbWsS5JOOx
+	gQ0p6VPe3bXk9BEuRvh0MbNhEejWZsV4XmvP9Y/2p307N01QaHAhVPXWk7IWLElJGczmW3QMBDj
+	GMxi4BJbV3IBWV1WroBXKRjWXq/gm/2rIIOUDNEvuHyaYN7gC8MBjNWIvCxRqSBKAsd5z4r5UNB
+	FIEayBm/1Zloc8Iu01Ej0dIhF/4mliOGKVTtIqhQtZB4ZwejIQB1wZK3JMFEiUwHD5g0f15QrU0
+	GqUpsCLYNlXtSdXMWN0nfblUllw/BDisGFaxTNBw3ZIYMw/Ulh0b8mAKEXeknwyzzoQ5vfvNg3G
+X-Received: by 2002:a05:600c:314b:b0:490:548e:b854 with SMTP id 5b1f17b1804b1-490c25f5e25mr179077305e9.26.1780830501193;
+        Sun, 07 Jun 2026 04:08:21 -0700 (PDT)
+Received: from localhost (nat-icclus-192-26-29-3.epfl.ch. [192.26.29.3])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490bc3e4b5asm312996515e9.13.2026.06.07.04.08.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 07 Jun 2026 04:08:20 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Sun, 07 Jun 2026 13:08:19 +0200
+Message-Id: <DJ2RQ5NHDCZT.2R218ZSS80NQ4@gmail.com>
+From: "Kumar Kartikeya Dwivedi" <memxor@gmail.com>
+To: "Paul Moses" <p@1g4.org>, "Kumar Kartikeya Dwivedi" <memxor@gmail.com>
+Cc: <martin.lau@linux.dev>, <ast@kernel.org>, <daniel@iogearbox.net>,
+ <andrii@kernel.org>, <eddyz87@gmail.com>, <bpf@vger.kernel.org>,
+ <song@kernel.org>, <yonghong.song@linux.dev>, <jolsa@kernel.org>,
+ <houtao1@huawei.com>, <linux-kernel@vger.kernel.org>,
+ <stable@vger.kernel.org>
+Subject: Re: [PATCH bpf] bpf: Validate BTF repeated field counts before
+ expansion
+X-Mailer: aerc 0.21.0
+References: <20260605234301.1109063-1-p@1g4.org>
+ <DJ2OZSCSEVEI.3APUCE7ML9X4Q@gmail.com>
+ <E0xEdilT0Z6figMeDAyw03ex29iX0RfOAUXuh4aTJxUrKHK2Bg5N8lKCHNvQoQQ1UzndFFqDJ_zmAMYHLqSgSfF1menSW7C9VKDSBhYrTT0=@1g4.org>
+In-Reply-To: <E0xEdilT0Z6figMeDAyw03ex29iX0RfOAUXuh4aTJxUrKHK2Bg5N8lKCHNvQoQQ1UzndFFqDJ_zmAMYHLqSgSfF1menSW7C9VKDSBhYrTT0=@1g4.org>
 
-6.12-stable review patch.  If anyone has any objections, please let me know.
+On Sun Jun 7, 2026 at 12:11 PM CEST, Paul Moses wrote:
+>>
+>> Do you have an example where this actually occurred in practice?
+>>
+>
+> Yes.
+>
 
-------------------
+Right, I know you can get a splat. But how did you stumble on it? Is this B=
+TF
+produced during compilation, or hand-crafted case meant to exercise the lim=
+its
+such that we get the splat? If you have a small reproducer, it might make s=
+ense
+to include it as a selftest as well.
 
-From: Benjamin Tissoires <bentiss@kernel.org>
+> [...]
+>
+> Also, I still haven't made the connection between the CI failure and
+> my patch. I produced what looks like the tcg variation of the same
+> failure as a oneoff while testing an (functionally) unpatched kernel.
+> I'm not even sure it's the kernel at all and not some weirdness
+> between clang and qemu. Seems low frequency intermittent from what
+> I've seen so far. Any ideas appreciated.
+>
 
-[ Upstream commit 206342541fc887ae919774a43942dc883161fece ]
-
-hid_input_report() is used in too many places to have a commit that
-doesn't cross subsystem borders. Instead of changing the API, introduce
-a new one when things matters in the transport layers:
-- usbhid
-- i2chid
-
-This effectively revert to the old behavior for those two transport
-layers.
-
-Fixes: 0a3fe972a7cb ("HID: core: Mitigate potential OOB by removing bogus memset()")
-Cc: stable@vger.kernel.org
-Signed-off-by: Benjamin Tissoires <bentiss@kernel.org>
-Signed-off-by: Jiri Kosina <jkosina@suse.com>
-(cherry picked from commit 301338b8edadc67a42b1c86add975091e66768d9)
-Signed-off-by: Lee Jones <lee@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/hid/hid-core.c             | 25 +++++++++++++++++++++++++
- drivers/hid/i2c-hid/i2c-hid-core.c |  7 ++++---
- drivers/hid/usbhid/hid-core.c      | 11 ++++++-----
- include/linux/hid.h                |  2 ++
- 4 files changed, 37 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/hid/hid-core.c b/drivers/hid/hid-core.c
-index ceff91722c3c83..d9ea99cdb68e06 100644
---- a/drivers/hid/hid-core.c
-+++ b/drivers/hid/hid-core.c
-@@ -2146,6 +2146,7 @@ static int __hid_input_report(struct hid_device *hid, enum hid_report_type type,
-  * @interrupt: distinguish between interrupt and control transfers
-  *
-  * This is data entry for lower layers.
-+ * Legacy, please use hid_safe_input_report() instead.
-  */
- int hid_input_report(struct hid_device *hid, enum hid_report_type type, u8 *data, u32 size,
- 		     int interrupt)
-@@ -2156,6 +2157,30 @@ int hid_input_report(struct hid_device *hid, enum hid_report_type type, u8 *data
- }
- EXPORT_SYMBOL_GPL(hid_input_report);
- 
-+/**
-+ * hid_safe_input_report - report data from lower layer (usb, bt...)
-+ *
-+ * @hid: hid device
-+ * @type: HID report type (HID_*_REPORT)
-+ * @data: report contents
-+ * @bufsize: allocated size of the data buffer
-+ * @size: useful size of data parameter
-+ * @interrupt: distinguish between interrupt and control transfers
-+ *
-+ * This is data entry for lower layers.
-+ * Please use this function instead of the non safe version because we provide
-+ * here the size of the buffer, allowing hid-core to make smarter decisions
-+ * regarding the incoming buffer.
-+ */
-+int hid_safe_input_report(struct hid_device *hid, enum hid_report_type type, u8 *data,
-+			  size_t bufsize, u32 size, int interrupt)
-+{
-+	return __hid_input_report(hid, type, data, bufsize, size, interrupt, 0,
-+				  false, /* from_bpf */
-+				  false /* lock_already_taken */);
-+}
-+EXPORT_SYMBOL_GPL(hid_safe_input_report);
-+
- bool hid_match_one_id(const struct hid_device *hdev,
- 		      const struct hid_device_id *id)
- {
-diff --git a/drivers/hid/i2c-hid/i2c-hid-core.c b/drivers/hid/i2c-hid/i2c-hid-core.c
-index cf8ae0df0cda95..8ce0535fc42d60 100644
---- a/drivers/hid/i2c-hid/i2c-hid-core.c
-+++ b/drivers/hid/i2c-hid/i2c-hid-core.c
-@@ -568,9 +568,10 @@ static void i2c_hid_get_input(struct i2c_hid *ihid)
- 		if (ihid->hid->group != HID_GROUP_RMI)
- 			pm_wakeup_event(&ihid->client->dev, 0);
- 
--		hid_input_report(ihid->hid, HID_INPUT_REPORT,
--				ihid->inbuf + sizeof(__le16),
--				ret_size - sizeof(__le16), 1);
-+		hid_safe_input_report(ihid->hid, HID_INPUT_REPORT,
-+				      ihid->inbuf + sizeof(__le16),
-+				      ihid->bufsize - sizeof(__le16),
-+				      ret_size - sizeof(__le16), 1);
- 	}
- 
- 	return;
-diff --git a/drivers/hid/usbhid/hid-core.c b/drivers/hid/usbhid/hid-core.c
-index f14b46ce00cb67..336ad7cf3d484e 100644
---- a/drivers/hid/usbhid/hid-core.c
-+++ b/drivers/hid/usbhid/hid-core.c
-@@ -283,9 +283,9 @@ static void hid_irq_in(struct urb *urb)
- 			break;
- 		usbhid_mark_busy(usbhid);
- 		if (!test_bit(HID_RESUME_RUNNING, &usbhid->iofl)) {
--			hid_input_report(urb->context, HID_INPUT_REPORT,
--					 urb->transfer_buffer,
--					 urb->actual_length, 1);
-+			hid_safe_input_report(urb->context, HID_INPUT_REPORT,
-+					      urb->transfer_buffer, urb->transfer_buffer_length,
-+					      urb->actual_length, 1);
- 			/*
- 			 * autosuspend refused while keys are pressed
- 			 * because most keyboards don't wake up when
-@@ -482,9 +482,10 @@ static void hid_ctrl(struct urb *urb)
- 	switch (status) {
- 	case 0:			/* success */
- 		if (usbhid->ctrl[usbhid->ctrltail].dir == USB_DIR_IN)
--			hid_input_report(urb->context,
-+			hid_safe_input_report(urb->context,
- 				usbhid->ctrl[usbhid->ctrltail].report->type,
--				urb->transfer_buffer, urb->actual_length, 0);
-+				urb->transfer_buffer, urb->transfer_buffer_length,
-+				urb->actual_length, 0);
- 		break;
- 	case -ESHUTDOWN:	/* unplug */
- 		unplug = 1;
-diff --git a/include/linux/hid.h b/include/linux/hid.h
-index fdd401e4ebde3d..7d05b1edacd80c 100644
---- a/include/linux/hid.h
-+++ b/include/linux/hid.h
-@@ -949,6 +949,8 @@ struct hid_field *hid_find_field(struct hid_device *hdev, unsigned int report_ty
- int hid_set_field(struct hid_field *, unsigned, __s32);
- int hid_input_report(struct hid_device *hid, enum hid_report_type type, u8 *data, u32 size,
- 		     int interrupt);
-+int hid_safe_input_report(struct hid_device *hid, enum hid_report_type type, u8 *data,
-+			  size_t bufsize, u32 size, int interrupt);
- struct hid_field *hidinput_get_led_field(struct hid_device *hid);
- unsigned int hidinput_count_leds(struct hid_device *hid);
- __s32 hidinput_calc_abs_res(const struct hid_field *field, __u16 code);
--- 
-2.53.0
-
-
-
-pu, ZCR_EL2, p->regval);
- 
--	vq = SYS_FIELD_GET(ZCR_ELx, LEN, p->regval) + 1;
--	vq = min(vq, vcpu_sve_max_vq(vcpu));
--	__vcpu_assign_sys_reg(vcpu, ZCR_EL2, vq - 1);
- 	return true;
- }
- 
-
-
+It is unrelated.
