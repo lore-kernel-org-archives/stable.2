@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6F1D394793;
-	Mon,  8 Jun 2026 20:15:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0B6738B14F;
+	Mon,  8 Jun 2026 20:15:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780949756; cv=none; b=YChrBhMnC5mplsKWlKXHp8n4i1MB2+L2Vs+h4nXSFD2+qgXtA/Iy9yXqwlPz0lVPwcuIdNISy4zSk31XKn+6noKHQAGvnq2K9/KLrRkOCBYzyVwA2oJSnuE4tuyDxZLb0vTLWfj9SntwBt6Hh2DlmTP5omoweJP2vpyJGMfvOv8=
+	t=1780949759; cv=none; b=koI2V8rhvzV2hSXlZC39qSQTpifZAyXrhSY78sM5d3urTdNrKcm5HOtCYs5yRLFiqnFHcancqDJCoPzO+ahWaYpYm0mn12z5FTND7muX0DkB1nE6OrxrZWBUf+XDFtcq6Q09sCAqMHaVUqECbEikJjVMZ3dmzHv7ksDPz0fuRiE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780949756; c=relaxed/simple;
-	bh=WjAKYLD19unZv2Uwe3pryVoGBDtIkXKoc7UaOgsBdSI=;
+	s=arc-20240116; t=1780949759; c=relaxed/simple;
+	bh=oKYb6LCUppaqwNQQ+wOXdh4JlFYSE9N2QGGOLYjruJg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=sJDDu25lznDIu0QvcvdhikOx39W+5yvppdeHnaLPV6ar4YG36sIrWG33qaf7mIivVsMG/fPbpDU+4xiby0jheePd0s2rWzTshvuv74joYxQTDvzFsFUIiccge56wubv3Ztb1boCNFcRzCsjgC8APcL6b3XZPwy6uNjPY2YZ6bQ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ThjEOtZx; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=agkpnAiMX669KrpS5pmYxC/x+T5N9R6z0aPTUxT4Q0p68ZWgSXgkjdQCbNmWnu8kOZkT491FBk0lmyoM5ZP/9kRu6CWwzzYiyInnFZTKcsWZGoF5W/PjcccVzYbEmop9AW5eFgMtP7FUHkbN2hwHLfUNZRRo1z+I+lfZfOZrq74=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gXIYcO5D; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ThjEOtZx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C97391F00898;
-	Mon,  8 Jun 2026 20:15:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gXIYcO5D"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0CB61F00893;
+	Mon,  8 Jun 2026 20:15:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780949755;
-	bh=jbpCIZZMa6WvgXcR1iGqmxLZxC/rvMaJ2IzN6io74mQ=;
+	s=k20260515; t=1780949758;
+	bh=mh56t27ra29Va8lAVpeTTbD/G1/Tzq5CpT5YVX3cqTw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ThjEOtZxaTklOCwM4A2QvgXo1t//GF1p51Vz8W26Z9D8FmEn+ieQhlWjfVLMmdjTA
-	 yQdRMOsnbpU2pDXYVLnqg0GsyE5z40qBsb18WY+hfd/ot3l8+b4sPCto1wZl5LKbKf
-	 kCpLNhGhHbfKCLKW+IrYjTxFxoRCJuYEjeVyk1OnZcXyax052SqEIwZ7lAiVa1S7No
-	 N6F69q8WMOK1kIX7TOe/YNf9vKS4olzTmccHUca0vPvmCtX6GNeUbZAa6JE4gS28Ib
-	 XbVN2+0xPtYKXQHx/ssCriOwwU6kQBnQjGIlbvIPDGM7uhGWtf6hjFpaRJE/rLnKB+
-	 NU/CH4HD/mX+Q==
+	b=gXIYcO5DFSANpmU98Tq2eI0pXH6HN02F3ijYTgkcYgpzFYE3apDUDGHlbHKNECEwz
+	 HWhraPrVI4AGFm3tUITZKa8V5C51u5OoCZUPYC6Z6izhZfqfmAQyyMIHD3ZiRxlkRj
+	 6DYQpNvQlK8UegnS2tgOEaEeWiTRa8UFt1dOSzsdSsT1ISUOjHIydKp+sEXo4OyVHo
+	 IUh8rfdmFFwY34xC1GJ4y26KnegQ9QfUBsEzJpt+hX7mlmq4Rh6DIAvTH26nKdkjfr
+	 zCq5oKEcVLRQrNRskBDB1vXZcK1+3EybYcoInuaQE8fdUjTR35MwIAwiQYTeMdzSx4
+	 niL6tOiKpcMug==
 From: Claudiu Beznea <claudiu.beznea@kernel.org>
 To: wsa+renesas@sang-engineering.com,
 	tommaso.merciai.xr@bp.renesas.com,
@@ -39,9 +39,9 @@ Cc: claudiu.beznea@kernel.org,
 	linux-renesas-soc@vger.kernel.org,
 	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>,
 	stable@vger.kernel.org
-Subject: [PATCH v3 01/17] i3c: renesas: Check that the transfer is valid before accessing it
-Date: Mon,  8 Jun 2026 23:15:27 +0300
-Message-ID: <20260608201543.804902-2-claudiu.beznea@kernel.org>
+Subject: [PATCH v3 02/17] i3c: renesas: Restore STDBR and EXTBR registers on resume
+Date: Mon,  8 Jun 2026 23:15:28 +0300
+Message-ID: <20260608201543.804902-3-claudiu.beznea@kernel.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260608201543.804902-1-claudiu.beznea@kernel.org>
 References: <20260608201543.804902-1-claudiu.beznea@kernel.org>
@@ -55,20 +55,15 @@ Content-Transfer-Encoding: 8bit
 
 From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
 
-The Renesas I3C driver uses an asynchronous model to transfer data. It
-prepares a struct renesas_i3c_xfer, enqueues it, and waits for completion.
-The interrupt handler dequeues the transfer, updates/uses it, and signals
-the waiting thread.
+The Renesas RZ/G3S supports a power saving state where power to the most
+SoC componentes (including I3C) is lost.
 
-If the completion times out, the waiting thread dequeues the transfer and
-free it. If an interrupt fires after that, the handler may access freed
-memory, leading to crashes.
+The STDBR and EXTBR are configured in initialization phase though the
+struct i3c_master_controller_ops::bus_init. Set them on resume function
+as well to keep the same state of the controller after a suspend with
+power loss and a similar initialization sequence as in bus_init.
 
-Check that the transfer is still valid before accessing it in the
-interrupt handler. Along with it, clear any status flag to avoid
-triggering the same interrupts again.
-
-Fixes: d028219a9f14 ("i3c: master: Add basic driver for the Renesas I3C controller")
+Fixes: e7218986319b ("i3c: renesas: Add suspend/resume support")
 Cc: stable@vger.kernel.org
 Reviewed-by: Frank Li <Frank.Li@nxp.com>
 Signed-off-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
@@ -78,107 +73,46 @@ Changes in v3:
 - none
 
 Changes in v2:
-- clean the IRQ status bits before returning IRQ_HANDLED and adjusted the
-  patch description to reflect this change
-- collected Frank's tag. Frank, please let me know if you consider
-  I should drop your tag. Thanks!
+- collected tags
 
-
- drivers/i3c/master/renesas-i3c.c | 44 +++++++++++++++++++++++++++++---
- 1 file changed, 41 insertions(+), 3 deletions(-)
+ drivers/i3c/master/renesas-i3c.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/i3c/master/renesas-i3c.c b/drivers/i3c/master/renesas-i3c.c
-index f39c449922ca..6e7ece2e0b4e 100644
+index 6e7ece2e0b4e..88a16efe096d 100644
 --- a/drivers/i3c/master/renesas-i3c.c
 +++ b/drivers/i3c/master/renesas-i3c.c
-@@ -1014,6 +1014,12 @@ static irqreturn_t renesas_i3c_tx_isr(int irq, void *data)
+@@ -260,6 +260,7 @@ struct renesas_i3c {
+ 	u32 dyn_addr;
+ 	u32 i2c_STDBR;
+ 	u32 i3c_STDBR;
++	u32 extbr;
+ 	unsigned long rate;
+ 	u8 addrs[RENESAS_I3C_MAX_DEVS];
+ 	struct renesas_i3c_xferqueue xferqueue;
+@@ -607,10 +608,9 @@ static int renesas_i3c_bus_init(struct i3c_master_controller *m)
+ 	renesas_writel(i3c->regs, STDBR, i3c->i3c_STDBR);
  
- 	scoped_guard(spinlock, &i3c->xferqueue.lock) {
- 		xfer = i3c->xferqueue.cur;
-+		if (!xfer) {
-+			/* Clear the Transmit Buffer Empty status flag. */
-+			renesas_clear_bit(i3c->regs, NTST, NTST_TDBEF0);
-+			return IRQ_HANDLED;
-+		}
-+
- 		cmd = xfer->cmds;
+ 	/* Extended Bit Rate setting */
+-	renesas_writel(i3c->regs, EXTBR, EXTBR_EBRLO(od_low_ticks) |
+-					   EXTBR_EBRHO(od_high_ticks) |
+-					   EXTBR_EBRLP(pp_low_ticks) |
+-					   EXTBR_EBRHP(pp_high_ticks));
++	i3c->extbr = EXTBR_EBRLO(od_low_ticks) | EXTBR_EBRHO(od_high_ticks) |
++		     EXTBR_EBRLP(pp_low_ticks) | EXTBR_EBRHP(pp_high_ticks);
++	renesas_writel(i3c->regs, EXTBR, i3c->extbr);
  
- 		if (xfer->is_i2c_xfer) {
-@@ -1053,11 +1059,18 @@ static irqreturn_t renesas_i3c_resp_isr(int irq, void *data)
- 	int ret = 0;
+ 	renesas_writel(i3c->regs, REFCKCTL, REFCKCTL_IREFCKS(cks));
+ 	i3c->refclk_div = cks;
+@@ -1468,6 +1468,8 @@ static int renesas_i3c_resume_noirq(struct device *dev)
+ 		goto err_tresetn;
  
- 	scoped_guard(spinlock, &i3c->xferqueue.lock) {
-+		/* Clear the Respone Queue Full status flag */
-+		renesas_clear_bit(i3c->regs, NTST, NTST_RSPQFF);
-+
- 		xfer = i3c->xferqueue.cur;
--		cmd = xfer->cmds;
-+		if (!xfer) {
-+			/* Clear any error flags. */
-+			renesas_clear_bit(i3c->regs, BCTL, BCTL_ABT);
-+			renesas_clear_bit(i3c->regs, NTST, NTST_TEF | NTST_TABTF);
-+			return IRQ_HANDLED;
-+		}
- 
--		/* Clear the Respone Queue Full status flag*/
--		renesas_clear_bit(i3c->regs, NTST, NTST_RSPQFF);
-+		cmd = xfer->cmds;
- 
- 		data_len = NRSPQP_DATA_LEN(resp_descriptor);
- 
-@@ -1138,6 +1151,12 @@ static irqreturn_t renesas_i3c_tend_isr(int irq, void *data)
- 
- 	scoped_guard(spinlock, &i3c->xferqueue.lock) {
- 		xfer = i3c->xferqueue.cur;
-+		if (!xfer) {
-+			/* Clear any status flag. */
-+			renesas_clear_bit(i3c->regs, BST, BST_NACKDF | BST_TENDF);
-+			return IRQ_HANDLED;
-+		}
-+
- 		cmd = xfer->cmds;
- 
- 		if (xfer->is_i2c_xfer) {
-@@ -1184,6 +1203,14 @@ static irqreturn_t renesas_i3c_rx_isr(int irq, void *data)
- 
- 	scoped_guard(spinlock, &i3c->xferqueue.lock) {
- 		xfer = i3c->xferqueue.cur;
-+		if (!xfer) {
-+			/* Clear any status registers. */
-+			renesas_clear_bit(i3c->regs, BST, BST_SPCNDDF);
-+			/* Clear the Read Buffer Full status flag. */
-+			renesas_clear_bit(i3c->regs, NTST, NTST_RDBFF0);
-+			return IRQ_HANDLED;
-+		}
-+
- 		cmd = xfer->cmds;
- 
- 		if (xfer->is_i2c_xfer) {
-@@ -1235,6 +1262,11 @@ static irqreturn_t renesas_i3c_stop_isr(int irq, void *data)
- 
- 	scoped_guard(spinlock, &i3c->xferqueue.lock) {
- 		xfer = i3c->xferqueue.cur;
-+		if (!xfer) {
-+			/* Clear the RX/TX Data Buffer Full status flag. */
-+			renesas_clear_bit(i3c->regs, NTST, NTST_TDBEF0 | NTST_RDBFF0);
-+			return IRQ_HANDLED;
-+		}
- 
- 		/* read back registers to confirm writes have fully propagated */
- 		renesas_writel(i3c->regs, BST, 0);
-@@ -1259,6 +1291,12 @@ static irqreturn_t renesas_i3c_start_isr(int irq, void *data)
- 
- 	scoped_guard(spinlock, &i3c->xferqueue.lock) {
- 		xfer = i3c->xferqueue.cur;
-+		if (!xfer) {
-+			/* Clear any status registers. */
-+			renesas_clear_bit(i3c->regs, BST, BST_STCNDDF);
-+			return IRQ_HANDLED;
-+		}
-+
- 		cmd = xfer->cmds;
- 
- 		if (xfer->is_i2c_xfer) {
+ 	/* Re-store I3C registers value. */
++	renesas_writel(i3c->regs, STDBR, i3c->i3c_STDBR);
++	renesas_writel(i3c->regs, EXTBR, i3c->extbr);
+ 	renesas_writel(i3c->regs, REFCKCTL,
+ 		       REFCKCTL_IREFCKS(i3c->refclk_div));
+ 	renesas_writel(i3c->regs, MSDVAD, MSDVAD_MDYADV |
 -- 
 2.43.0
 
