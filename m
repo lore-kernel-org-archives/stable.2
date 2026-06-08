@@ -1,48 +1,48 @@
-Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010067.outbound.protection.outlook.com [52.101.84.67])
+Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010058.outbound.protection.outlook.com [52.101.69.58])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD89416A395;
-	Mon,  8 Jun 2026 02:37:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.67
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED23A2D5922;
+	Mon,  8 Jun 2026 02:42:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.58
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780886224; cv=fail; b=Z75wGPybtnDPsiUd8rPWnJKBAiME85TZ0AUsHtiDy5rcngT40uw4XhzySyjG3uYDsh0bPUPBdfbsR2eASPSFXRtZSaylS5AK52Pd8+N17Vd2neinAJTEyE74JshRndAeoQQbS+XQ8780N9yfUmunQA3b9uufOyT3hcSxAA9PLOM=
+	t=1780886575; cv=fail; b=rTA8KwuiTomXHxJyYnyEZeMGcsN5whbgb3utprKCq6c2xE1GnPjS00dPvgxFncOQpbbgVUPGNDjOcSce7Nov4a2+/uE8OOxzW5vefm0N6I89OQ5QL7MshFU7p8C1iIxlAHDdVkeQfj3C0C2UxcBdBc9r8eimQZEBMywV0UyOKd8=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780886224; c=relaxed/simple;
-	bh=XcD4UFJYLOL5D+8+USPFfaD8FASj73zEJzDUaOJnjf8=;
+	s=arc-20240116; t=1780886575; c=relaxed/simple;
+	bh=j0pLwEkx2mFMjN5WYU3p3PqKita7wJ15M1zrvVPNJB8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=h/IuenZaRraLAz/J4eGV0oRo1AmJQkqlqf7G/iQi/hl3yKIk8X6q0f+HIfhtVJJ3wsKGJNRm+7naNUA2Milfk63J7zRh3t+Kc/uFn6Fn9QVRq43WA67m/excq9++cXvZLVf13HtYJtug8h1efT1N6WAW3eZlVx4z3lQv03no9hw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=d0+ScN0Q; arc=fail smtp.client-ip=52.101.84.67
+	 Content-Disposition:In-Reply-To:MIME-Version; b=McX1jdlTMGIJYwDyJClM/nEbR7pL2GHIPlds2+WuIagCfjketZtJGHVWIwVTdOYClO3qpdOGJXtirdZYZ4ds+Cj38bnLHrQtWxVdipLHPbRHJe9uWcMxbpvC1bN/MxhLG/mURCmMfKPzVHcjBCLjKC9dAhMiCz4YdUh3snDUbKw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=d1gMBb8X; arc=fail smtp.client-ip=52.101.69.58
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="d0+ScN0Q"
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="d1gMBb8X"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=y8zlnr7W5Tkf97Z0u3Dq3xUaj0Jaz/3z+4yEG0IkU3Z9MVMv5AEt7hKpYvqymtrlhSE1vAo5VaatcEh1FanpgArQZ0oy51wrgNay73S4f+tmZiTXpA54XaNrEvNU6rqOgymwaO6Utoh/dpQhpUfcwRjntQPsa10v73T+vPj6fDzVEJxMvtoBTBpug1DxSq8oKwMweowuPB4tZPbqdSwY72IJCU/wUq1DcFXxsgJW7SRH7vUzm4aoqNNGg2juzYF/Zf1EmpkJXZ6XNgklwWrTptjtX0mzYs8hPrjrCnygKhV1Myj1tHDHkfV9G4h/CFPLkytjNLlRq9upWnaU0oIvXg==
+ b=NoebShPJ+GGTlFdxCOMIip/neX5a/HQtz37zJZfkNvbYSxMZzzReVYnn0ROy3HsYvpTRNHedImYC2f5HTK5Z5yjQ0bcyQ8CpI1l/s4afAuF1DLKp9z1sPyKJfXjCxV702I6MHrRMiEf8ENNmNJN46Jw5oewcAmUGfx1Sh7TLEVefJ6IDk8hae8Aj/XYyipWK0fbrIhBoKyNahYjtfLFI9r/mwNnvDcKeU/rjmuvbTK3JoECcPRMe9IeWniHBcImZXKLUJm5A7090ZIf+zdZ4mQ7/m3kHzM6tPVGJPKSGe1NkEsu7erTamDohlyd5vwgCM4HBlAV7MCKm3Qr21oo7MQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tWgaGR5AH1ATyxfFn4NWnEM99Yzf2WrOc/Vahs1AQHk=;
- b=uliqec5AsjUseqLpfBUI6NNdK0eGZpqbvQbGzhWnthHoHUGHQKrFxDTFtwOf066SLYMnzoLcHXbzuwn1QVlmwhF9QbVoKym0nXWj7kpuQNq/WDdZsL2MPQ3pzJz7158i3hXBmihx6rURS+3UUtvkOF1fL78ybThg/NJU2NYQzCqp79O4burAvrYo3l3RAe+QtuU6edqBZl+IQhVN5B4GikdS/mrDFZoE81m1RAAZf/N4St2zKjTJshFiL0F3NXQpUaxwqubepuWiMSQPJUfQYpK7EBG7h15MOre+KK6D6qTNhSJ7tUTTN9xPqGsmxeK+nZOC7XYAdDEDlipEtCpgZA==
+ bh=l9sWY2hU3G6X3dJD3QTSn20uOs9mpAXGZqLHnPdpPgA=;
+ b=zSaOS5p4JFYQJO+vNL8J9jFZ4cOItOKgetPFVxHcW40vSKWf+ao4vaFCOGIjaiXF7jGL4zHwE3edJuqwEfuAtHtb6zSsrPBtc49hvYZztzaanlTaT9VK2/zTRmc21SfcbFz02VZ0py3orNeG946ldRcAeipd1NmlyNV2VQ72tbjz0m58ScApFWZmFjdHDnuOAXBNEnDSMvdwxjnk+l1hDiKHif4S0eFZ7OhOT64kKpRnF4tkGETinmXwqo2DmcMEMLaBq8gKntdVzp9+NEIfhPPTBHP+djwAIhBaHk+nUG+ALk1Lslb3UT4tATBOmLkSLfjUxwJ1Cer4/ZlMmq/XRA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
  dkim=pass header.d=oss.nxp.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
  s=selector1-NXP1-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tWgaGR5AH1ATyxfFn4NWnEM99Yzf2WrOc/Vahs1AQHk=;
- b=d0+ScN0QFci3ybZPWWb1yurZDmxauRNHA1PHkr5lLiZrGP751rtj/bXQQotpzpnanTdn5+qF7PbVTtZDz6di2BGcf9bly8x0MKHhvBz6MV1CpI4XmZgNM9vL0LeFE/fQHpjJ/0W9WMuiZLSN1SA8Vhpu2Fjey1JSukHm+dsIlENNXsTKIyZSdaRGENfOJTX41DbmGwDPwHVuYmwru1kq9zXoMhnFU0wRWKJRflXV+wu4VX7UrWXGcq37EsmzaFcEH+y1q/zsgPss74VllqAaUxnHNaCf1JOeC+UzDce5g8blX7yHQ6fsloGzRkCZ4mG1vwy9dyhCA3gW7EElMAwmSA==
+ bh=l9sWY2hU3G6X3dJD3QTSn20uOs9mpAXGZqLHnPdpPgA=;
+ b=d1gMBb8Xs6zLNGR8sZ5ifZuLFtr7ayLINOz7gwvShf11AE7135U11GOv9tgJZC5C8patqaXfpqhEeraEOZLlNS8wqJ5EeYVAGT/L6PaPU2rqs3l1yIdEQYqMy6bcRkU0tGsgDHmxOKz7Ruvig0dkf9qcfhtJbVIaas4c3N6AfbTWTMgWQn6xF1by1aJx1fHaS7qFiAEaaO2GTavVn063H0Zelhj2rpv49FriqpPixSW2CfM6PtVIoQkhmTEtuTE8RaIGJ+vpBQ7VnQ+8pEm5d2iwrrLnlriX9+KmTxUaxRKBNdFP57MHxvaHkHldUel+9RoqW1PZKzS/NvK2i8LbMA==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=oss.nxp.com;
 Received: from PAXPR04MB9422.eurprd04.prod.outlook.com (2603:10a6:102:2b4::21)
  by GV1PR04MB10656.eurprd04.prod.outlook.com (2603:10a6:150:20e::10) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.12; Mon, 8 Jun 2026
- 02:36:58 +0000
+ 02:42:50 +0000
 Received: from PAXPR04MB9422.eurprd04.prod.outlook.com
  ([fe80::54e:28bf:aa85:d25d]) by PAXPR04MB9422.eurprd04.prod.outlook.com
  ([fe80::54e:28bf:aa85:d25d%4]) with mapi id 15.21.0092.011; Mon, 8 Jun 2026
- 02:36:58 +0000
-Date: Mon, 8 Jun 2026 10:35:53 +0800
+ 02:42:50 +0000
+Date: Mon, 8 Jun 2026 10:41:45 +0800
 From: Xu Yang <xu.yang_2@oss.nxp.com>
 To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 Cc: Daniel Scally <djrscally@gmail.com>, 
@@ -50,22 +50,19 @@ Cc: Daniel Scally <djrscally@gmail.com>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
 	Danilo Krummrich <dakr@kernel.org>, Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, 
 	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, Xu Yang <xu.yang_2@nxp.com>, stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] software node: fix refcount leak in
- software_node_get_next_child()
-Message-ID: <5uaimvg4wpps4ipw6vdnrsxovkyccset7smdfo23cwl6667e6l@pwxagodfr45j>
-References: <20260603-fixes_fwnode_iteration-v2-0-0ae381f8b7b9@nxp.com>
- <20260603-fixes_fwnode_iteration-v2-1-0ae381f8b7b9@nxp.com>
- <ah_2i-jWq2kBRJpe@ashevche-desk.local>
- <soxsu3t7ntgnbeeic5mygklzdpohyic7echo5trnzuphbpe6b6@avr5wwkbojvm>
- <aiG62GXa3tYhhMBQ@ashevche-desk.local>
- <6keyevnyndjeovbpiiufp7ejrtz6sfelu65evhg7odgb2tyxrf@xtmiqmko2kuo>
- <aiLpVIjws1DO9l4J@ashevche-desk.local>
+	linux-kernel@vger.kernel.org, Bartosz Golaszewski <brgl@kernel.org>, 
+	Xu Yang <xu.yang_2@nxp.com>, stable@vger.kernel.org
+Subject: Re: [PATCH v3 0/2] device property: fix child iteration issues with
+ secondary fwnodes
+Message-ID: <i7jdx4j4kd6dcntitqrcz74d47wfqv5iwc3zdlwx7rs7xoykql@ivj6mxr2zyva>
+References: <20260605-fixes_fwnode_iteration-v3-0-44c18472e1d1@nxp.com>
+ <aiLmN2yUsqLadbSo@ashevche-desk.local>
+ <aiLw0bLKiipMCZC5@ashevche-desk.local>
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <aiLpVIjws1DO9l4J@ashevche-desk.local>
-X-ClientProxiedBy: AS4P251CA0020.EURP251.PROD.OUTLOOK.COM
- (2603:10a6:20b:5d3::9) To PAXPR04MB9422.eurprd04.prod.outlook.com
+In-Reply-To: <aiLw0bLKiipMCZC5@ashevche-desk.local>
+X-ClientProxiedBy: FR4P281CA0385.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:f7::10) To PAXPR04MB9422.eurprd04.prod.outlook.com
  (2603:10a6:102:2b4::21)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -75,124 +72,103 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: PAXPR04MB9422:EE_|GV1PR04MB10656:EE_
-X-MS-Office365-Filtering-Correlation-Id: 74fcde48-0ddb-45d9-85e5-08dec506cffa
+X-MS-Office365-Filtering-Correlation-Id: e47fc61c-8256-4635-60a0-08dec507a185
 X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
- BCL:0;ARA:13230040|1800799024|366016|19092799006|376014|7416014|22082099003|18002099003|56012099006|4143699003|11063799006;
+ BCL:0;ARA:13230040|1800799024|366016|19092799006|376014|7416014|22082099003|18002099003|6133799003|56012099006|4143699003|5023799004|11063799006;
 X-Microsoft-Antispam-Message-Info:
- xt+SLVvyOJ96Uhga0peEl7q0yk5WI1lBSmhNkksn+yWAAB1I3/T2i0LNmjd/6lwYL/4bkIhKAVq2n7CR+EDqStWweD3zU2nZLdQoW6DWklx9bSvjjgTJQeNa6mW1+alItKmwwlMCi800WMmuldEB/a0ILzM1QlAuuZEjpXmV8SItDaQhsCSaK5vITBkISfd4lY4p5WSMTn9Lscxfe/MuxcolPKybsJ+6Ckuey3PdItGMp3iOPg8jJTv7uZOLlDzS1enpDis+RsWz0MJ60B/atW5eO+gXx1daJo289MGhBUxsg439HBt2ahItIL5Jf3Wtqjol9rjyrTlzNr3WjPj0G2Z9W/xvLbR3Z7gRlbbTC0V5J+SDr85oHhijbJnZRPNy3Ubn52lVkWe+VU12D6hGR821R6LBSujgN8W8XitCRxfDa9o82SDcX5jHcwlUFwJ2Zx4Z6tsz7G1HsnQf+mS8xMtZynDyZkbiGaD8CJv1eLs1I8PF364Ms6uq7eEVkVxSDSg5vIcyp0vh9eea7LTyn9EbfD/hhtodLywOFS+MlaNeFvMyLhfth7+n8YkFAIP4ByI/6A+cCsCgbi8y6sImMNZ9nr+TUUo4uNqbp3bM8E4Xwz2Kgj8C9duY1epmXYwh674KTb7ddtqFYqwuI95zmHWg0j8NLR7c0VriVAfGPOuv9QA9InESOVjRYhS1Sbdi
+ pd85/FTVCiKf/qCOGOUsygAKeZG2gky5+rUWS+sfAtzv0tIV0zNnfDHjZtK38JH6+t/oUzbYmEu/DisGzy4J7LVBD4V+Kyo6etrfEpeLZ3AVo0j5vOO9w7QxklTYMJqDFsurllGdUhsS3pGjUzaXMAXkiAnoQIPbhCUc5Voe3reI1YHYGPrGdkTS+erqgl+OqFksFT/96dMWxCeC3fgg4maoDABIXh3iy3e/OCls0v6mB6sQ5yUkrrUlx2exRAjD6rhUdf1RNkaewg/HU+pbwSg67gJJfHXHKEk1EantfH08hUNtk1fCKWj+W6NXwkDz/jynqln0MyUOmlDfWICWXfcD7zSAmQ8VnX7mqk44o8g4ErDSYqW1ayCmlL2PuoI60H2Nqj2w0l+USUYTtlnql0DUkJN5M+F6VEWwCf1t13QxplVh/ng9uCsNf+voUwEUap3eBR51OmCY43ZBlApz+wU5nriBU/883wf7osluY/Zdnd6GMbbBvokAS0zpdr8PgH0rTpGrY8neqEjfoLPuS/mvHbQ+ucdBF3i1AHNIYIL2U/PcIQ9t4TUFFDWwrJndwV6lmj+szyCu/A7VeWHarkjUYIR+Jwbz3iYD6DFNa45wt8LPULh0fKYI5gTQ/Mj7HiXJODNBgE3PABm39wYIh9rVJ1/XCkLWLQOw6mbzvm9JqftX7rhtORNZuOgvPMUj
 X-Forefront-Antispam-Report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAXPR04MB9422.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(19092799006)(376014)(7416014)(22082099003)(18002099003)(56012099006)(4143699003)(11063799006);DIR:OUT;SFP:1101;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAXPR04MB9422.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(19092799006)(376014)(7416014)(22082099003)(18002099003)(6133799003)(56012099006)(4143699003)(5023799004)(11063799006);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
- =?us-ascii?Q?/jwR9CXJ6CGTQcveCvcPbkucBBxpz4dhVcbuFvyPS2Un1X/LM63vIy4T4+0v?=
- =?us-ascii?Q?SYAxlOy6fvIYEHrCllS9wDEHfAzczYHAmV/6ac5rEL6BgRv813Nr/+x3H8P9?=
- =?us-ascii?Q?pqXZqJJDT5oZhfNueMZUR08xBFLqem5bOX6s5HCjHAesrAfu3EgIzwL66kjX?=
- =?us-ascii?Q?wTtnEN4QG/VVChTy0SXT6ISnLgmtD6zgozarcuThqZxUcMMlqaJB3niU94mu?=
- =?us-ascii?Q?uYo3iusUgJ9kXw6AE6gpdmCZUw96+LPM3BX+QJ67wISCCc4XpwDbDhfh8hXC?=
- =?us-ascii?Q?J/+WKWNpmMzpFD/HWprr5FIhQRxog1Bi3T+eQcZ8ADHYS+ErTWX7OGDqEn7r?=
- =?us-ascii?Q?R7FPzB0Y8aZWosNuXTEBSXuNwrSaBY2TlhdKBexjzltv9tE+gLbq58E0i1z6?=
- =?us-ascii?Q?zLgnAP3088FjDvCQwqTUtsGgLHGcuWvcZDXP1nn6vHTgsgioxsIawYdJwE3D?=
- =?us-ascii?Q?melpJzGPF+rvIiJif7bYNd46W1tr0gSQ7+n6E0PU0jeRvOiJ6TEXcuKxaLmp?=
- =?us-ascii?Q?zYNNZXdn0AAvsJlbWpBUbpnKI3LpNA5g/VSMiiaA6dp0ebQpHP0kck3FHljf?=
- =?us-ascii?Q?JfvDmFZ4ixy5uoheVE7kFjcv9qHGQC6XsLDdeQqQoVpUYqU4UWDEwqdAf8rZ?=
- =?us-ascii?Q?FGpol5WFm2urMLA8Esauchls7fg3cblUVMwlBskCMjiCwHl6zFRuxCdsiOux?=
- =?us-ascii?Q?994LiJ/gTzeN7KLdvazx9qGMU56OKBG0EgB8wRTkdZmk75nwAqEi7ekjG6e5?=
- =?us-ascii?Q?FArLzmDdEp3hKQovPVwMcboEo5xvTEqSRH/d1Ta0pgq4seskSkrLbfXRfuDY?=
- =?us-ascii?Q?NkNL6syzqmhTlV7ntrku877TQ+uRRdX7DLKUix0a3El8Gcs484xViTo5gcc4?=
- =?us-ascii?Q?eLMhiIMRN+UWuQTtbhqp2bQP59sdpVynLT7O2TwvlefUjCq9dVPK8s/fJfZI?=
- =?us-ascii?Q?ieCbecKqs4rc2vdbVuBARRQReYxa7BRJXLpTIbDT1znbAX1DZ0uaIaE2kKAq?=
- =?us-ascii?Q?GxC9B3jy/xsoHLfuuos5B/puN2irdP/82xBzj0De92JLdWI+hF/MyDGmRqyL?=
- =?us-ascii?Q?tZPlUOdJJAKN7xymqjYLHbMLzpYgNQeWj5kEczyAy7qc/uZS7SQ4wkJKARl2?=
- =?us-ascii?Q?9e81kj4Cu1CpdbQNw1iJw1UePeP9ep4wJO0J+BX1hzt42KWJz+PKYdlCaHJW?=
- =?us-ascii?Q?sksj1gF6QC47aL5IIyla5N2f5YN72eLtsJZaYECcoZAaoDwBsnhWsJVUBzsr?=
- =?us-ascii?Q?vRJ5931e5ijS4fsu3eLjd7s+ecizXouMQ4sSlE3vC/zvdnjXvJmzUoVrKh3M?=
- =?us-ascii?Q?5jpA6hmCWl8FQftXLaCDMW0xcwLfUsBqVPAYeSQ92ftbB861qcC7Io/0FQaL?=
- =?us-ascii?Q?Qs03sLvsNjUmA71+ZaHBOFXgqLS30ToO54SkXPvUMmgMIOxFJ64bQQdwpZK9?=
- =?us-ascii?Q?+i5Rsyi/e8nREsszYtkFLw+ZEc37HaR8lBUdBxawg8itmC/Zjny7IEEBdkSt?=
- =?us-ascii?Q?KeKOTwZ8tS34bgR5RW17Pdul1fWrLUCzGThwluTAUlMOYaZwwJKmPmH7GOPW?=
- =?us-ascii?Q?dWZum7Pp699qrTcTvRCF34N3IMRxC4hmgUoEZAMTHurVxCNKHtZIMBF8+chI?=
- =?us-ascii?Q?1RHl7eQHfSANCwVcBhE/v30Za/HRBSOG12/HOe84kZDE0U+xlxAdsRwRC6rK?=
- =?us-ascii?Q?8aL0Z81i6b/1iEqwSq0WYIF7wLIArl75/Pml/UazO67w5UDtMz/C5ZvX8oWT?=
- =?us-ascii?Q?DZYHj+111Qg5IxBkxHkDZhJI3SioYKhKCx+31V81GczfOpMFOKCj?=
+ =?us-ascii?Q?aozDJL8q62J98vytu5LgjfZIyUR7T48r/lwxwmB4pDkpHhYngmFdx27gUKQ4?=
+ =?us-ascii?Q?Fsr+Q4z7yB0B8c2pcPZRW+S9bSFAxK0orB92MndSoBtnwLq1v1ePEqa0P+f7?=
+ =?us-ascii?Q?o4PBvgafIUsfhpqFhkngftSZPBIjNIS2nYIVxvxFKWJ64Y1yUP/WrCpzz4As?=
+ =?us-ascii?Q?vxFVEekSVZLi7Q1ps59h97/J98PdcVK+LyARrEvjC+7JB1vq01ISDWzzj7Qj?=
+ =?us-ascii?Q?rkAWPXlyxF799FJt6UdD70QPgNo4skbXTbhIWwSUY9oaeABCNBd/hrc6IyKR?=
+ =?us-ascii?Q?hEVG0UEkH7CpbBIq70ljKtV2gQz4d0fTMIgEvJiY/yOe1ztF7ltOQ/nrPes0?=
+ =?us-ascii?Q?yrwHZ3w8y+ZpgLIk5qU6bBCVB+R6we+f6j2+wbO1yGBQSYoHYRwQr0Xd6FCT?=
+ =?us-ascii?Q?zDlo6a3CyxDRQDRrMMZlScJfOhwYzWLyF29JeylUPaO7hfxnVtkRbvkbQDgV?=
+ =?us-ascii?Q?BZOIxcPEcq6XhdSac+kPyBhFA1A5Z1R5j/EDOuYAhq7SExLpyoDXufyjal5M?=
+ =?us-ascii?Q?jItCwFYxzo+4+AZ4tWcBPPQGb9MTBtlN5WibYMCYB3Xf5hq+PaZ+DLENyaJs?=
+ =?us-ascii?Q?2YPIUY9K+fQWKi62nPaIK2OSgY+jHBmMLF7Nd5k/1tjPj72BBvsNzJXFrbRZ?=
+ =?us-ascii?Q?ZUwTut+c0soalb3rlqdAh9KX5DuqIyJNYAFaC9EpqhoXtX+MK7XL7I2v1bQG?=
+ =?us-ascii?Q?vh+W82/I+kicfug8qMc9715hwVRwmkKZeLCQDVzkLWsfTZgO/8sW52rf/wNy?=
+ =?us-ascii?Q?dT30HcFOGTxFKXj7dOEhNjVnCHugaTnrDHL0hBeVAyYUwup1lXeI63FBiJiZ?=
+ =?us-ascii?Q?ATfUUviCWqGrQhuuAx3zADzSZDTIp4BCRQK4tiOh+uXzalcLZZH7GF/ig2gj?=
+ =?us-ascii?Q?c7UxCk/QOqrpNrS3AKQA5LPpsJMXQwlOyjeGONIs1ReHpkh7AJ1TEcyery8R?=
+ =?us-ascii?Q?rKfAIBjokw6d87b8a2TOS+bHLfBmOURb84jgu4vv301dKldg0UW728EvxZlL?=
+ =?us-ascii?Q?AEIaIanTkNF9C9Cbn7pF2pCiHqboqYRSrb78sBbhRM9fDym5qoF/4NKvALje?=
+ =?us-ascii?Q?64foOQiQ8QIofx1DD3N9/ttSFjD6MLZE2+mGjusO62oz9TR6GHwqiOiksib3?=
+ =?us-ascii?Q?UBvbBdnGCI6tChafM/i++QnmCd5MwGJ863P8cwWI9ThIJazoMAAltSdUvklt?=
+ =?us-ascii?Q?IfRe0w+4ZrWpBVr0O3mainowYNjCNiGLdmF4oB+hq+iJ3lrF1bxTHKhqn8Xn?=
+ =?us-ascii?Q?fY+HKyhd3Z4A9gVpOuRZ/FV32yZK/9+5bGOX2wMR6PcvQAcKTFC2vrGAoAx7?=
+ =?us-ascii?Q?eAgjYCih1xTHc5kyFLtrQtgDde7MXQA9CVR49pjXQ85JAiFRAGIsV4tPWaK3?=
+ =?us-ascii?Q?OjOJkTwUFlXywljKyeoNAAtwfV/xcA5mJ/H4SjLKLHU1rnwXxKiaT4ZletS5?=
+ =?us-ascii?Q?fbqD6U+ojWRpfYdv2Hx0hUu9OAHJMbI0AsKUqr/rnGgwMPTKHZl/8+SOSylM?=
+ =?us-ascii?Q?t5zk/9hzbgrhK06jvIbeEVKZucpqJYOz5ua1i6eDa01Z7Lb1og12Nggr4VGG?=
+ =?us-ascii?Q?uKrTMOTlVHrzUZybkpoQrHz8dNmtAF2QjeBY64OJs4wUMUG8sHE0TN+TGTlW?=
+ =?us-ascii?Q?42VpJNG4SrE2d04PB+YuCCVmhjsv4YDRD0m4uKd4ZoJbjJKEO2tEpi1oA04Y?=
+ =?us-ascii?Q?3P2dboio8K6KhbFdhb7ccvR94UmhqaHkMSjctefCeE3yWgRPiNo6LicCIX+h?=
+ =?us-ascii?Q?hvNhDA9j1xVfu11rHklnqYXpAjEMSAmZU8G9RyNecwAMJN/ocncL?=
 X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 74fcde48-0ddb-45d9-85e5-08dec506cffa
+X-MS-Exchange-CrossTenant-Network-Message-Id: e47fc61c-8256-4635-60a0-08dec507a185
 X-MS-Exchange-CrossTenant-AuthSource: PAXPR04MB9422.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jun 2026 02:36:58.6288
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jun 2026 02:42:49.9747
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: NbO8DhFXqSdGJgmsmXgwze2yttcA12RJrDOMBLvipVBl7EhaY3XbxoObDAp8HoWe46z6woEOx7enUuEi8cZqtETNFbavYGPLsRq3TFjCeTENtahHC0ao3P8D2O78vWQ1
+X-MS-Exchange-CrossTenant-UserPrincipalName: uqPbZ1pwPVfF4SrMBe9wif3dE8+x7NEXS8koJB3oEKbSuwnmYsPVggsOuZ9g1zfN54VvfCY1JMDbcG32STlNeQ+AUJCnkl2b/SiM7A0Hv402vlze+6PgsVTYJ1GUKnUK
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR04MB10656
 
-On Fri, Jun 05, 2026 at 06:20:52PM +0300, Andy Shevchenko wrote:
-> On Fri, Jun 05, 2026 at 05:16:32PM +0800, Xu Yang wrote:
-> > On Thu, Jun 04, 2026 at 08:50:16PM +0300, Andy Shevchenko wrote:
-> > > On Thu, Jun 04, 2026 at 07:15:26PM +0800, Xu Yang wrote:
-> > > > On Wed, Jun 03, 2026 at 12:40:27PM +0300, Andy Shevchenko wrote:
-> > > > > On Wed, Jun 03, 2026 at 04:44:31PM +0800, Xu Yang wrote:
-> 
-> ...
-> 
-> > > > > >  	struct swnode *p = to_swnode(fwnode);
-> > > > > >  	struct swnode *c = to_swnode(child);
-> > > > > >  
-> > > > > > -	if (!p || list_empty(&p->children) ||
-> > > > > > -	    (c && list_is_last(&c->entry, &p->children))) {
-> > > > > > -		fwnode_handle_put(child);
-> > > > > 
-> > > > > Wouldn't be better to use swnode_get() / swnode_put() instead?
-> > > > > *Yes, we might need to add some NULL checks there.
-> > > > 
-> > > > It's not newly added by me. The software_node_get_next_child() has been using
-> > > > fwnode_handle_get() / fwnode_handle_put() before. In my opinion, this should
-> > > > be fine since they do the same thing here for a swnode.
+On Fri, Jun 05, 2026 at 06:52:49PM +0300, Andy Shevchenko wrote:
+> On Fri, Jun 05, 2026 at 06:07:41PM +0300, Andy Shevchenko wrote:
+> > On Fri, Jun 05, 2026 at 06:31:16PM +0800, Xu Yang wrote:
+> > > This series fixes two issues in the fwnode child iteration logic when
+> > > a secondary fwnode is present.
 > > > 
-> > > It doesn't matter who added that. But according to the point of this patch
-> > > (correct me if I am wrong) is to avoid bumping or dropping reference count for
-> > > the nodes that are *not* of swnode type. Moving away from fwnode_handle_*()
-> > > loop we make the point clear.
+> > > The first issue is  a refcount imbalance in software_node_get_next_child().
+> > > When a software node is used as a secondary fwnode, the iteration code may
+> > > incorrectly decrement the refcount of child nodes that do not belong to the
+> > > software node hierarchy. This results in refcount underflow and possible
+> > > use-after-free.
+> > > 
+> > > The second issue is an infinite loop in fwnode_for_each_child_node(), caused
+> > > by improper handling of iteration state across primary and secondary fwnodes.
+> > > When iterating over children from both primary and secondary fwnodes, the code
+> > > may incorrectly resume iteration from the primary fwnode even when the current
+> > > child belongs to the secondary, leading to repeated traversal and a loop.
+> > > 
+> > > Both issues are triggered when mixing different fwnode types through the
+> > > secondary mechanism, and stem from incorrect assumptions about ownership
+> > > and traversal context of child nodes.
 > > 
-> > Yes.
+> > > ---
+> > > Changes in v3:
+> > > - remove software node patch 
 > > 
-> > > See the of_get_next_status_child() implementation, it does *not* use
-> > > fwnode_handle_*() at all. So, making it here to use same approach should
-> > > fix your issue, no?
+> > Hmm... Maybe I was unclear. My question was to investigate the way to actually
+> > move software node to use the swnode APIs (and not fwnode ones) and be on par
+> > with what OF code does. This series does the opposite and adds a hack to the
+> > next_child implementation.
 > > 
-> > You are right. I had also noticed this before. Actually, the difference between
-> > OF node and swnode is that OF node uses to_of_node() to filter out non-OF type
-> > fwnodes. Similarly, swnode uses to_swnode() to filter out non-swnode type fwnodes.
-> > So replace fwnode_handle_get() / fwnode_handle_put() with software_node_get() /
-> > software_node_put() does fix the issue.
+> > > - add a kunit test case suggested by Andy Shevchenko
 > > 
-> > When I reviewed patch #1 again, I found it already fixes the refcount leak issue
-> > because when it switches to the secondary fwnode, it no longer passes the primary
-> > child to secondary fwnode. So the patch #1 is not needed anymore. I will remove
-> > it in v3.
+> > But thanks for the test case!
 > 
-> I'm lost in here. My expectation that patch 1 should fix the issue as it won't
-> let the fwnode_handle_*() be called against wrong type of fwnode. What did I
-> miss?
+> I'm preparing another patch (just a clean up) and I see that your test cases
+> indeed fail without any other patch being applied. Also noticed that the test
+> cases are not fully compliant with the requirement of the "primary"/"secondary"
+> fwnode flavours. But this doesn't affect the execution.
+> 
+> I will play more with this to understand the problem better.
 
-Sorry, I meant "When I reviewed patch #2 again, ..."
-
-Let me clarify the issues here, patch #1 fixes refcount leak issue and patch #2 fixes
-the infinite loop issue. Although replacing fwnode_handle_*() with software_node_*()
-in patch #1 can fix refcount issue in another way, it can not fix the infinite loop
-issue. So patch #2 is still required. When patch #2 changes:
-
-return fwnode_call_ptr_op(fwnode->secondary, get_next_child_node, child);
-                                                                   |
-to                                                                 |
-                                                                   v
-return fwnode_call_ptr_op(parent->secondary, get_next_child_node, NULL);
-
-the secondary fwnode will no longer deal with primary fwnode's child. So patch #2 has
-already fixed the refcount leak issue. Therefore, patch #1 can be removed.
+OK. Suggestions on the fwnode flavours would be appreciated :)
 
 Thanks,
 Xu Yang
