@@ -1,87 +1,75 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from fout-a5-smtp.messagingengine.com (fout-a5-smtp.messagingengine.com [103.168.172.148])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5027E3D3CEB
-	for <stable@vger.kernel.org>; Mon,  8 Jun 2026 17:08:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9469F330307
+	for <stable@vger.kernel.org>; Mon,  8 Jun 2026 17:16:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.148
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780938491; cv=none; b=DZU49YuafW33P/slHs+mHynIkkJKsZw77XdLMqoYvncGHBeUXMbujSEx5zv+PN5RWh8sS78UYm4A7ljK0Nead/D1emA9zPU2bHc1cZGh4EFB/OIFjW1gi6p0KHdl4OHwmtKvtCssCi8EBJ9L4ih2iecWz9FLNUR6tE1L9zRtqfQ=
+	t=1780938975; cv=none; b=PtQnyFEcts4cxQ8s6JVuvJt8KxQWgjq31IOK/AZzI0k72FQPXgAXVrumneK3P3dTCod9XTLSNcIgTM5SzKbbCwYcb7PE9zrygvyRFyCw0hn7j9B19cQ1Acf/IvaL5y+flE+lASm517oul3jsVKovdv7aBhRGPOTymL+9sxeZWhY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780938491; c=relaxed/simple;
-	bh=nc1cmxpsgl3/es/BJBOVuqe0MVbXq9wQMoCkRBeSIuY=;
+	s=arc-20240116; t=1780938975; c=relaxed/simple;
+	bh=OAkaQAIbia/UxfKZhhaUSwQpuzcDHqCQxCk2rq6a3NM=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=pHuKKRQCu/faokVQhyeDytDo7xQ9r1CWkLdY8tLRsUU/+YuhNPNUdBBNF3GHBWJ2bxnioiGQfhnvQQpj4TsN9PFbxZ4rxU0QO5SMXlM98U6RsmpoAAC8bQdRVPGx5/P7spuvRBa/UUZN9hmYHdipGG+8dOcyfI/KpXD5gtM8xWE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=No7w/sbO; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=RnvbaKID; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:Content-Type; b=UrDHnmFBfOqMnVX3bXbIy2fL4BumJEodhePCna7/qQaA25+5EuKJaHZOvVHUTH7fbjahjVdoenc0pgezMLAzcuI2L8g2MYXjv9r4Kz9OPIcB3AR3aBtiroP2lr5pJ1ojR7ucCyGMqZwN9Bsh3xbS4iRgOLlejpaVmjpOtyz+o+c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bsbernd.com; spf=pass smtp.mailfrom=bsbernd.com; dkim=pass (2048-bit key) header.d=bsbernd.com header.i=@bsbernd.com header.b=CYwTzEsZ; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=cXFLQvVF; arc=none smtp.client-ip=103.168.172.148
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bsbernd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bsbernd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="No7w/sbO";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RnvbaKID"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 658FFTdi3934233
-	for <stable@vger.kernel.org>; Mon, 8 Jun 2026 17:08:09 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	9VWzrVKJ/7G/yNKAgeOFsr9jNdwkADnzd+yjssLBbFA=; b=No7w/sbO+TV262I2
-	QQK9JQFlIHqWZUZKSlP+zmQmVIoE7o/neWttCkzgV2GW7vgPlg6TArlj0O+At03e
-	SfOMk3pUG7PKsovrFq54kFOiIKD7i7PEP8DYuZpJNn6Oss2QEFPj7jmc4WtcFRSb
-	c/D+wCOya27Pxca4uy3XbQ5U6Qqv6NiHRk4xGqIeE7tVCZpVHOnXzIY6IG7LNRrI
-	T/AY8xR8D7B4TTKdXGi+zV9Vngw0zaYihmE6XLUU9T8W1prjCXi4OM9Dx6mR+Pu3
-	8bJXdFjGoOrHqEz+BnMgTmNxxi4Zmiqx9dKXylTIJAbpdmMC9KUyLvkPcLVLk+tM
-	gUYH4Q==
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4enx2rsbcs-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Mon, 08 Jun 2026 17:08:08 +0000 (GMT)
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-304e4636205so11115785eec.1
-        for <stable@vger.kernel.org>; Mon, 08 Jun 2026 10:08:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1780938488; x=1781543288; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=9VWzrVKJ/7G/yNKAgeOFsr9jNdwkADnzd+yjssLBbFA=;
-        b=RnvbaKIDMiGo/QWx5VQqGEXAJzoYtTyXLIsDdUtwSka3CAX66lWMW7KqQVVJARdex2
-         Z+2T5W6IansviUjo585YOAb73mTASf+8Eucp870tMeH5XqJKiC5+NIOQRrqB0E1Wkfs8
-         Ill3Mmy/yGnCjhk8rfnFZpzv8HuWnUIgKDjXSScwS5WvG0E7mi4g0vHLy+3W0hkh3MqS
-         SKh2QuMJfq6vh7vvfLJWC8kE8QhmsML5Ozx4F+MKaePMA3CwUu6BmEXQBd+IlZQJZbWL
-         jtEVUkojZOxf9saYdJzexySJN0a+C3S+gOhowSUM9VrI1Naso7F689VWW88RqZfo+VH+
-         XxWw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780938488; x=1781543288;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=9VWzrVKJ/7G/yNKAgeOFsr9jNdwkADnzd+yjssLBbFA=;
-        b=XkXRsG0sGk6PUESQGhxEhvdT5j3ZP0wDhQK0c0yzXhjrz2cXkUq5oF6pdXvScwMdxu
-         jiORcRqp/ThMhqcHuxsDSmvEH1mJAgJvdLR3no3ES+ElT5t3X/T/j3nPPt4ZjpzU/Txc
-         h5wMFGfNtN9+HvxPyh3YBn7WeZkVRltijxdmJ6wshPh7n4RkDLdJ4893UoEj4e8BjOcZ
-         vVl9Bwa/W4lfesM9BgPbzVnZgsOkA6K7iLxUF67/BUgsBWdbI+PZ4uot48j2LPO1OqRL
-         p61Lf+XIzBcqg3ZceZgHMIJwr+ExNHOJJDY37/ApDGM8iRSynYC/ELiQ7fFO+EVpgNHK
-         +Rcg==
-X-Forwarded-Encrypted: i=1; AFNElJ9x9MiEC8XAdM6HwHZkZbRBNUeR0JenXWO5hzQ+KoCzy1PcOr5sHj4uIpGW/ps7BRtIgdSP4Us=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyzicEDFF7EqEmojpuBTDQg7Lne1M7uccRpDnGlPhFb64drzXJL
-	/T1lVD7QYop34OtWpBZaf7ipyyghTcsVYiqdbviRyxgQea152Q5R91gHFpLi/fTZQPrRte9GPpZ
-	vZaY9Yscxh+6Ym4MrWGPrRrTqbsfMTfQ16seHsM1ngLd+zJ2S7mpiI2xYyiw=
-X-Gm-Gg: Acq92OEeFbF+k7nrAU0uO/iBTSi2MR2HTUSlFYYEDBZUDxQxAAaSZI+0wuZsKClbCul
-	ILSPwbuoki0Y2NpwJGNVGbzp0zRPw7j2obLaz9uBTyVFv6ViD5a451lwDZoiiWXgWQS3QAIueHo
-	xpKUmv6FVyTvZYjjAE1UZHjXpS7hzO1c8nzD5JiG2rXPP/qV6vokWqMNmtVBST4jVjOYUUSDqHJ
-	sGBsWpUArI2DhdGAAK5SgE8mBK8z63Z5TdF5drWtmDJTx6MvrTZ+MX8tAkPqjPu6/m5f+ZL7/EO
-	JgcVUBYAVZU8Gy9q0PMm9Q0kUm+zz8HIXIzJ4C/NfOM/HAIxEMhIt024hfS7YLyxRn/C+E0ZL3D
-	9n4a4gj2i5P23jkehufILqmB7jaPe2/Kb2ymY/+rGEUnn2wQ2NWEYxeLxC3Tv0sRwOFDYr9aJBd
-	iuxwuZVdKh7ATeWIaucFRlgm+n
-X-Received: by 2002:a05:7300:572a:b0:304:aca:35c5 with SMTP id 5a478bee46e88-3077b22c938mr8036369eec.23.1780938487939;
-        Mon, 08 Jun 2026 10:08:07 -0700 (PDT)
-X-Received: by 2002:a05:7300:572a:b0:304:aca:35c5 with SMTP id 5a478bee46e88-3077b22c938mr8036332eec.23.1780938487252;
-        Mon, 08 Jun 2026 10:08:07 -0700 (PDT)
-Received: from [192.168.1.59] (c-24-130-122-79.hsd1.ca.comcast.net. [24.130.122.79])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3074df3b234sm22856903eec.23.2026.06.08.10.08.06
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 08 Jun 2026 10:08:06 -0700 (PDT)
-Message-ID: <973da9e9-3851-4e00-85d4-28140c039127@oss.qualcomm.com>
-Date: Mon, 8 Jun 2026 10:08:05 -0700
+	dkim=pass (2048-bit key) header.d=bsbernd.com header.i=@bsbernd.com header.b="CYwTzEsZ";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="cXFLQvVF"
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfout.phl.internal (Postfix) with ESMTP id C7361EC0179;
+	Mon,  8 Jun 2026 13:16:12 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-02.internal (MEProxy); Mon, 08 Jun 2026 13:16:12 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bsbernd.com; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1780938972;
+	 x=1781025372; bh=Llc7jokBTI3ed5STjcyZf98qZ7tkpnVXUvGXJkrnG7A=; b=
+	CYwTzEsZrTQgh0k2rKX8ultVw8u8+fVD5B9d0EfYSTMuQ66Lh0jbHmQUeTeo90Jk
+	0p/07teQ1q8ue3G2HyuV0mAp4gorIG3f4nY2h5jFWRhnt/Ni56GNUl/XzcPWYhco
+	CVduhX3vTnfImWFPOP7qkpevGV4ZvduxXlB1FiUtC/VgBfzlzZQrxF95BCsuUztd
+	oxTwfO4ctyewgJsQs4+XSb/LdPNssjv1P4IQNqqm9DbXoowavvwKaEK0eU55i7rk
+	CUDENBmLiXXsFo7DyqxCRaeADB7m18lc0k9k6PuyP9kOPFOyHnunV0npo8z9UUGu
+	a0g5k5IZIaqrSl5EEceZWQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1780938972; x=
+	1781025372; bh=Llc7jokBTI3ed5STjcyZf98qZ7tkpnVXUvGXJkrnG7A=; b=c
+	XFLQvVF+a19xnBgQjG2ImaSRf3/zgpe2mh+VOu0C4wU8Fri5peZ2CqSCITTr/2In
+	j+2kWaWI0KoW5BvC3QxKN/lsqBhc5QeZBIfSwnbU5BOkPgVs7dJIASKhE4XrvM2Y
+	i+5OF8B3FAeJRUUXUQbKXNRZF77NIMd3gVJGyCkKL+0FWSGWIeykrKnArHR8bbtf
+	CXS3EHPiqkTTR9skvSRtq6EkStWugCcmctz7c4CPHh3w6il7XE+ZFzbnuvWUVsiN
+	0xPCfqVeMIXINz1nq1yKxBel4tbUciRHGHw5QgcXEB+LtIVjY2LiqIFeRcVPhiiz
+	TblxIuspmVPR3PY9oawCA==
+X-ME-Sender: <xms:3Pgmap4Tsa_APkxVIJ1AThF2M_l_ced0YGlPyC7hJqgZMOK8fT9Mug>
+    <xme:3PgmaoZ4ToU1OVPWXUaJdEfh8xntD9wFbC46W00PIxhoVz8A-dReDgGsmca9ykC3x
+    KosWXKsP4uY_adxdC5UHZTI8pejLSHiz3bGgdllaWXU1mnkK4QU>
+X-ME-Received: <xmr:3PgmaghyT8ccHHqWEYs7KJpxIBBQ1MlwWebclz6QXXFxYCzsE150PcVU9VrLYx5yR3qUvo6OHnPlCWGYGsINjaazwd6lgM1TvKoP7HvwW1ouyrn2ng>
+X-ME-Proxy-Cause: dmFkZTGavsvv1XSInRXR4vVNLF1CrSUxB2QoASp/EhpEuyTd0+J0yn1NgKFLiqFbWXs+tt
+    zQH3028oOnsg5nk/IOopfjOWugdL1fnUfblT/+fUYY8jB/ggGExRkGj6RZom3Vsc4isjX2
+    jsc8ebXUivV4hvGQeyh55eCe1tUHVHl9Xn6tPwNk+aeYOzO9/NZ+yoq1XIxNyU0Uj92Jq/
+    saGPUkms8T+Hcm1NCfNujxSE+tUtqMhnusJJ0ZCs1lm8YbTxDSEV8PUX6BPiv8XX9iGQ8G
+    Li9j7evz8fPq2XZJ+DR1qnxr79SStjTH59b2XT/u5N4zWWTe+HUnWlxTE9GRpqK+GPtROM
+    dLqRPRG/EVxYdPrdzfPp7/bI0jA891NJDfpo7hsyXBUfsLK0kLRz4mV7zNAzHHiAlT/a5o
+    pl4NPMxGkrIEy4anenDuw9es9+fhIX5QEwgVZ5my+VD20AcfDztue0wQ/Bgbfm/jyeHdLL
+    aj1E74Ur9/d8+0mY9XN/xP7IuypXamBXXITIHm0dPc1La+P6QXbchOsyibbv0+4eNJNmSx
+    GPPVDsm9tnQaDVc5Mr5Hdr9YMB8kPJTJFVXuhUYWIgb5jh8MrlXHGPU+1apsugxDTyv1Tt
+    iWazzWY03z1Cxa7mrZbDxSJSj9DcTeeJpmJlJX+ShRjU2bjE1Zb63Et4jKvA
+X-ME-Proxy: <xmx:3Pgmah8Xo1AMpMg9Chuq9GvrQKMdnP2xcegSLAiRzSupzbBHqMtgpw>
+    <xmx:3Pgmajr6A2VYAaxF8TH1ToSkwUi-IvW4_zIA-ee13T4P5ry7RbRBEw>
+    <xmx:3PgmahXoaoaOsahm0TRiaO0H4p4_gbLswsxoHtWYnqhc8eDJTNObWQ>
+    <xmx:3PgmaqAJJ7r-8CReOWKTJpdK3YyM-jhluBIrkP-JyYBFt4VEduVcGA>
+    <xmx:3Pgmao5AoZzDotxo50sd6vaNhWemjzcUfCYQrG-QU1OIQ3JzUTTmiU3n>
+Feedback-ID: i5c2e48a5:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 8 Jun 2026 13:16:11 -0400 (EDT)
+Message-ID: <57fdff56-6a4b-4bbd-b191-d63b82a14509@bsbernd.com>
+Date: Mon, 8 Jun 2026 19:16:09 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -89,129 +77,149 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ath12k: fix NULL pointer dereference in rhash table
- destroy
-To: Jose Ignacio Tornos Martinez <jtornosm@redhat.com>, jjohnson@kernel.org
-Cc: linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
-        linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260604071032.659009-1-jtornosm@redhat.com>
-Content-Language: en-US
-From: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
-In-Reply-To: <20260604071032.659009-1-jtornosm@redhat.com>
+Subject: Re: [PATCH 3/3] fuse: end fuse_req on io-uring cancel task work
+To: Joanne Koong <joannelkoong@gmail.com>
+Cc: miklos@szeredi.hu, fuse-devel@lists.linux.dev, Chris Mason
+ <clm@meta.com>, stable@vger.kernel.org
+References: <20260605192708.141921-1-joannelkoong@gmail.com>
+ <20260605192708.141921-4-joannelkoong@gmail.com>
+ <058fd2d4-3ba4-46e5-9107-3a7e0ab66653@bsbernd.com>
+ <CAJnrk1YHQEtpwA-ForFWXsLntc950ekqAHg=L9VExVfJ2WF1Rw@mail.gmail.com>
+ <742e68e6-c456-4655-a441-aaa8267f1a48@bsbernd.com>
+ <CAJnrk1bz=BHryaWkZ0uBCpzLoVM-FSsb4mhA8F7+fnMQ4Tt_YQ@mail.gmail.com>
+From: Bernd Schubert <bernd@bsbernd.com>
+Content-Language: fr, en-US, de-DE, ru-RU
+In-Reply-To: <CAJnrk1bz=BHryaWkZ0uBCpzLoVM-FSsb4mhA8F7+fnMQ4Tt_YQ@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: S9KLENl91ORaqbBgT7a8ujBHUTpnq3dg
-X-Proofpoint-ORIG-GUID: S9KLENl91ORaqbBgT7a8ujBHUTpnq3dg
-X-Authority-Analysis: v=2.4 cv=JdqMa0KV c=1 sm=1 tr=0 ts=6a26f6f8 cx=c_pps
- a=cFYjgdjTJScbgFmBucgdfQ==:117 a=Tg7Z00WN3eLgNEO9NLUKUQ==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=VwQbUJbxAAAA:8 a=20KFwNOVAAAA:8 a=jrdOLSfvXqH_YxhRKEcA:9 a=QEXdDO2ut3YA:10
- a=scEy_gLbYbu1JhEsrz4S:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA4MDE2MiBTYWx0ZWRfX2j4K7hWDNldY
- S7Zn18IxnHfzXntRsuKlxdmIWnsgU/d3zek43OCNIQavSL/mLZs4DpUb3m7Z5XTkd5vGP6wySeB
- 3QY/M0k745aZ2MwRywjPzmLbSjzGQuYZbhIYwMLePrLiG1OU8Foay0BwnPjOFUdChqLokPAQvBI
- NuZEex5hQpmB31LJt2B0vaN3yL9GaHjbE730Jp9zBhfLMdTrW4Z8lIjtoOvuGvXSj4NNmMj7zBf
- 56soHFU04C9wFdZv7T+cXSDvOtEFLECwpuAgcf7sRpQjII2Y7NyN/nguPAXZvJO4KzY7miksJst
- iVj9vYYJoibWJae6Ff/037bn3OhP9jZV2qLkG8C7pq4UtvhTwj3hVxHUfAGQQXO3P7puMAUKsiK
- P3IzlGy6rkI32sNhgfx+IS+iXA2DT50Pa4ENLovqX93tPjUVRu64A1IZUVe+l2tsNQUk8Ne2fia
- WYAJ/n0xtNM3GN7TWTw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-08_04,2026-06-05_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 bulkscore=0 priorityscore=1501 impostorscore=0 clxscore=1015
- lowpriorityscore=0 malwarescore=0 phishscore=0 adultscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606080162
+Content-Transfer-Encoding: 8bit
 
-On 6/4/2026 12:10 AM, Jose Ignacio Tornos Martinez wrote:
-> When unbinding the ath12k driver, kernel NULL pointer dereferences
-> occur in irq_work_sync() called from rhashtable_destroy().
-> 
-> Two hash tables are affected:
-> 1. ath12k_link_sta hash table in ath12k_base
-> 2. ath12k_dp_link_peer hash table in ath12k_dp
-> 
-> The issue happens because the destroy functions are called unconditionally
-> in cleanup paths, but the hash tables are only initialized late in their
-> respective init functions. If the device was never fully started or if the
-> init functions failed before initializing the hash tables, the pointers
-> will be NULL. The issues are always reproducible from a VM because the MSI
-> addressing initialization is failing.
 
-My preference would be to fix the logic so that the deinit is symmetric with
-init, and if any stage of init fails, it should unwind whatever init occurred
-up to that point. So this patch seems to be a bandage instead of an engineered
-fix.
 
-But I'll let the Qualcomm engineering team give their opinion.
+On 6/8/26 18:46, Joanne Koong wrote:
+> On Sat, Jun 6, 2026 at 12:41 AM Bernd Schubert <bernd@bsbernd.com> wrote:
+>>
+>>
+>> On 6/6/26 01:52, Joanne Koong wrote:
+>>> On Fri, Jun 5, 2026 at 3:09 PM Bernd Schubert <bernd@bsbernd.com> wrote:
+>>>>
+>>>>
+>>>>
+>>>> On 6/5/26 21:27, Joanne Koong wrote:
+>>>>> From: Chris Mason <clm@meta.com>
+>>>>>
+>>>>> When io_uring delivers task work with tw.cancel set (PF_EXITING,
+>>>>> PF_KTHREAD fallback, or percpu_ref_is_dying on the ring context),
+>>>>> fuse_uring_send_in_task() takes the cancel branch, assigns
+>>>>> -ECANCELED, and falls through to fuse_uring_send(). That path only
+>>>>> flips the entry to FRRS_USERSPACE and completes the io_uring cmd;
+>>>>> it never discharges the ring entry's owning reference to the
+>>>>> fuse_req that fuse_uring_add_req_to_ring_ent() handed it at
+>>>>> dispatch time.
+>>>>>
+>>>>>     fuse_uring_send_in_task()
+>>>>>       tw.cancel == true
+>>>>>         err = -ECANCELED
+>>>>>       fuse_uring_send(ent, cmd, err, issue_flags)
+>>>>>         ent->state = FRRS_USERSPACE
+>>>>>         list_move(&ent->list, &queue->ent_in_userspace)
+>>>>>         ent->cmd = NULL
+>>>>>         io_uring_cmd_done(-ECANCELED)
+>>>>>         /* ent->fuse_req still set, req still hashed */
+>>>>>
+>>>>> The fuse_req stays linked on fpq->processing[hash] and
+>>>>> fuse_request_end() is never invoked. The originating syscall
+>>>>> thread blocks in D-state in request_wait_answer() until
+>>>>> fuse_abort_conn() runs, which can be the entire connection
+>>>>> lifetime. For FR_BACKGROUND requests fc->num_background is never
+>>>>> decremented either, so repeated cancels inflate the counter until
+>>>>> max_background is hit and all later background ops stall.
+>>>>>
+>>>>> The non-cancel error branch already handles this correctly: when
+>>>>> fuse_uring_prepare_send() fails it calls fuse_uring_req_end()
+>>>>> before fuse_uring_send(). The cancel branch must do the same.
+>>>>>
+>>>>> Fix by calling fuse_uring_req_end(ent, req, err) in the cancel
+>>>>> branch before falling through to fuse_uring_send().
+>>>>>
+>>>>> Fixes: c2c9af9a0b13 ("fuse: Allow to queue fg requests through io-uring")
+>>>>> Cc: stable@vger.kernel.org
+>>>>> Reviewed-by: Joanne Koong <joannelkoong@gmail.com>
+>>>>> Assisted-by: kres:claude-opus-4-7
+>>>>> Signed-off-by: Chris Mason <clm@meta.com>
+>>>>> ---
+>>>>>  fs/fuse/dev_uring.c | 1 +
+>>>>>  1 file changed, 1 insertion(+)
+>>>>>
+>>>>> diff --git a/fs/fuse/dev_uring.c b/fs/fuse/dev_uring.c
+>>>>> index 7cd50990b097..b5cc700575ca 100644
+>>>>> --- a/fs/fuse/dev_uring.c
+>>>>> +++ b/fs/fuse/dev_uring.c
+>>>>> @@ -1222,6 +1222,7 @@ static void fuse_uring_send_in_task(struct io_tw_req tw_req, io_tw_token_t tw)
+>>>>>               }
+>>>>>       } else {
+>>>>>               err = -ECANCELED;
+>>>>> +             fuse_uring_req_end(ent, ent->fuse_req, err);
+>>>>>       }
+>>>>>
+>>>>>       fuse_uring_send(ent, cmd, err, issue_flags);
+>>>>
+>>>> I think that can race with fuse_uring_stop_queues(), which leaves us two
+>>>
+>>> Hmm, I don't think this races with fuse_uring_stop_queues() as
+>>> ent->state here is still FRRS_FUSE_REQ and fuse_uring_send_in_task()
+>>> can only be called for a registered fuse ent, which means the ent has
+>>> already grabbed the queue refcount which will trigger the async
+>>> teardown worker to run in the background during abort until the ent is
+>>> reclaimed. I think this adds a race though with the request expiration
+>>> checking logic which (a) fixed, so I think you're right that we'll
+>>> probably need the same cleanup here. I'll look at this early next week
+>>> and send a v2.
+>>>
+>>
+>> Right, actually no race at all, just a plain use-after-free, because the
+>> entry is set to FRRS_USERSPACE and then cleaned up during connection
+>> abort and then released again through fuse_uring_queues or
+>> fuse_uring_async_stop_queues.
+>>
+>> I actually do not get this part of the commit message
+>>
+>>> When io_uring delivers task work with tw.cancel set (PF_EXITING,
+>>> PF_KTHREAD fallback, or percpu_ref_is_dying on the ring context),
+>>> fuse_uring_send_in_task() takes the cancel branch, assigns
+>>> -ECANCELED, and falls through to fuse_uring_send(). That path only
+>>> flips the entry to FRRS_USERSPACE and completes the io_uring cmd;
+>>> it never discharges the ring entry's owning reference to the
+>>> fuse_req that fuse_uring_add_req_to_ring_ent() handed it at
+>>
+>> A mean exit does not trigger fuse_dev_release() with a fuse_abort_conn()
+>> from that function?
+> 
+> I don't think tw.cancel implies a connection abort. tw.cancel gets set
+> on io_uring task death or ring death which is different from fuse
+> connection death (eg a single worker thread of a multithreaded daemon
+> exiting doesn't drop any ref on /dev/fuse fd, but that thread's
+> in-flight task work still drains with tw.cancel)
+> 
+>>
+>> I do not think we need 3/3 at all.
+> 
+> I think this is needed for the cases where tw.cancel occurs without a
+> subsequent fuse abort, else the application syscall thread is stuck
+> uninterruptibly in D-state in request_wait_answer() for the
+> connection's lifetime. tw.cancel with a fuse abort is the common case,
+> but I think unfortunately we also need to handle the case where this
+> doesn't occur.
 
-> 
-> Call trace for ath12k_link_sta_rhash_tbl_destroy:
->  RIP: irq_work_sync+0x1e/0x70
->  rhashtable_destroy+0x12/0x60
->  ath12k_link_sta_rhash_tbl_destroy+0x19/0x40 [ath12k]
->  ath12k_core_stop+0xe/0x80 [ath12k]
->  ath12k_core_hw_group_cleanup+0x6b/0xb0 [ath12k]
->  ath12k_pci_remove+0x60/0x110 [ath12k]
-> 
-> Call trace for ath12k_dp_link_peer_rhash_tbl_destroy:
->  RIP: irq_work_sync+0x1e/0x70
->  rhashtable_destroy+0x12/0x60
->  ath12k_dp_link_peer_rhash_tbl_destroy+0x29/0x50 [ath12k]
->  ath12k_dp_cmn_device_deinit+0x21/0x140 [ath12k]
->  ath12k_core_hw_group_cleanup+0x6b/0xb0 [ath12k]
->  ath12k_pci_remove+0x60/0x110 [ath12k]
-> 
-> Fix this by adding NULL checks before calling rhashtable_destroy() in
-> both destroy functions.
-> 
-> Fixes: 57ccca410237 ("wifi: ath12k: Add hash table for ath12k_link_sta in ath12k_base")
-> Fixes: a88cf5f71adf ("wifi: ath12k: Add hash table for ath12k_dp_link_peer")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
-> ---
->  drivers/net/wireless/ath/ath12k/dp_peer.c | 5 +++++
->  drivers/net/wireless/ath/ath12k/peer.c    | 3 +++
->  2 files changed, 8 insertions(+)
-> 
-> diff --git a/drivers/net/wireless/ath/ath12k/dp_peer.c b/drivers/net/wireless/ath/ath12k/dp_peer.c
-> index a1100782d45e..38045564e223 100644
-> --- a/drivers/net/wireless/ath/ath12k/dp_peer.c
-> +++ b/drivers/net/wireless/ath/ath12k/dp_peer.c
-> @@ -275,9 +275,14 @@ int ath12k_dp_link_peer_rhash_tbl_init(struct ath12k_dp *dp)
->  void ath12k_dp_link_peer_rhash_tbl_destroy(struct ath12k_dp *dp)
->  {
->  	mutex_lock(&dp->link_peer_rhash_tbl_lock);
-> +	if (!dp->rhead_peer_addr)
-> +		goto unlock;
 
-not a fan of this pattern.
-if we go with a bandaid solution then i'd want to use guard(mutex) so that
-there isn't a need for a cleanup goto -- we could just return like the patch below
+I see, the initial code was using IO_URING_F_TASK_DEAD and I had wrongly 
+assumed that is related to PF_EXITING. 
+Well, I think the fix is clear, although I personally do not like the
+exit code dup (or better triple)
+https://lore.kernel.org/r/20260515045541.1171335-4-joannelkoong@gmail.com
 
-> +
->  	rhashtable_destroy(dp->rhead_peer_addr);
->  	kfree(dp->rhead_peer_addr);
->  	dp->rhead_peer_addr = NULL;
-> +
-> +unlock:
->  	mutex_unlock(&dp->link_peer_rhash_tbl_lock);
->  }
->  
-> diff --git a/drivers/net/wireless/ath/ath12k/peer.c b/drivers/net/wireless/ath/ath12k/peer.c
-> index 2e875176baaa..80fee2ce68f1 100644
-> --- a/drivers/net/wireless/ath/ath12k/peer.c
-> +++ b/drivers/net/wireless/ath/ath12k/peer.c
-> @@ -444,6 +444,9 @@ int ath12k_link_sta_rhash_tbl_init(struct ath12k_base *ab)
->  
->  void ath12k_link_sta_rhash_tbl_destroy(struct ath12k_base *ab)
->  {
-> +	if (!ab->rhead_sta_addr)
-> +		return;
-> +
->  	rhashtable_destroy(ab->rhead_sta_addr);
->  	kfree(ab->rhead_sta_addr);
->  	ab->rhead_sta_addr = NULL;
+In my option fuse_uring_cancel() and canceled fuse_uring_send_in_task() 
+should go through fuse_uring_entry_teardown().
 
+
+Thanks,
+Bernd
