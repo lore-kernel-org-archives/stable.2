@@ -1,118 +1,137 @@
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B228532BF5A
-	for <stable@vger.kernel.org>; Mon,  8 Jun 2026 04:38:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.45
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780893532; cv=pass; b=PFVjS/s4v/huw6UQySgmowj5fHUclHR8UgQoJ4NEPm0wCaa3xA5D77ayP/1NgmAWAtjdUW9Fc80PlLZFDwKDApctDzd8M/3x+DKf4jQAzjAuaM6EhyZm3tmkOuLRVqc4ySnEflKeClslcE2G/g7Cpl2wsk9epkm+FHveEX1W8/w=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780893532; c=relaxed/simple;
-	bh=MZy7yI2wj7sUs7TLGOXKJKT3vQxPgbX49v1A1fysaTQ=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Content-Type; b=gLFZegYntvWgMGWYgzQ9bNKEIRqCHKngLW5en6QmKGbKodmDYWvW28VjaNXvkyhK9J+l1Ri64uVOjujsNISOExHxxsO7wFxktQMXy3wv0XC+rIvc+iDtOMXpLI95+NUjiaqgoBWrK3UW9phhO2/bC2uGSpdX15TQiElGWILqIgc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=theori.io; spf=pass smtp.mailfrom=theori.io; dkim=pass (1024-bit key) header.d=theori.io header.i=@theori.io header.b=at13je63; arc=pass smtp.client-ip=209.85.221.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=theori.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=theori.io
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FF01340410;
+	Mon,  8 Jun 2026 05:02:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780894937; cv=none; b=QQKw2W4jZXvqIRA4Q8o9VgmpffoYo/KkT9t6YJm4GGUfcMi2822BPQQo3R7m12y1EmkFcdWOrBZyDOxjjL0umPbgARJ0fIo8DbVYnKFvBef8Q/WzaTxCgWSOKAj3xKkhmf2PnJW9pltJfwqQUn63a32iXg6fgRVS6y+d+qvozfs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780894937; c=relaxed/simple;
+	bh=uvwSqiH+WqChYPpNZ0rJX0SQYPniBrlkWF8DqYIyRTc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Z+yJaPqxYsH/LrWNftgt+p+YSOVuZAjMI1U6cUCQVA9D3Gctft42f8cHNGGo+4Kz7N/xizOwOMyaOsGwqoy1C/Sj8wwhg7CdXu8T1DLE6W/jofdsm4fMlz8fuk+8WKyUqYxY1BvEDyqHv9jzAzWbeHITOdZS/Y76zm0dgzAmbEY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=lst.de; spf=none smtp.mailfrom=bombadil.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=ZtRpl5d9; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=lst.de
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=theori.io header.i=@theori.io header.b="at13je63"
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-45fd45e596cso1761860f8f.1
-        for <stable@vger.kernel.org>; Sun, 07 Jun 2026 21:38:50 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1780893529; cv=none;
-        d=google.com; s=arc-20240605;
-        b=cYtyQHC4BPDYqRyIlTrYzilHrZs9MN+GGEJ7A77Luv3ORMx6uN3YOFBZ+400o9QLo8
-         ZxHGJpWZiob6SoOMBTUiOIr4t4o6NoO8YCLjH72a9wFz/UVRCP5KP1HK45G2aRgIJDJv
-         ZVFqirqTGf/J0QbpCJGr1q6WQx/u4vn59OZrJ73YngrfGcN0J0W+qtz3Ap4vzk7Q6Vkl
-         TAFoW0wQJVfXAX2yYPjNbrNtnye336a87W5+hBhNU+bVLT1z/JBpSbOSwj8nCyzBATee
-         XPXA/jtkVYr0qKvS1w9EAUCqi2uemDgdyGNMY6E8Tabp3U6620J1Yj7KlpUGM0rdzE/J
-         NiJQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=QQP/aPYxeZGsiZGNoWInSta83wgtFTiCz64TEWtNGuM=;
-        fh=RvEWwL4CdzthXqFPrJY1v5EhszSUJtREhzms1oh7XMQ=;
-        b=ERtyvtKICMBRBqj1vwhRmKTrcqGBMABC6ldqffEMrXZ0T7tw8AR2Ow5iK1VfSrpXzP
-         7D1jDwFa0lamvd+htsfxAIf7SOFBNl0Es79fwAFjclazN4HeZ5TTzLjV2Yg3prESVU/e
-         zXhZrzV6+MqMacTmX/sjkjBO4em1Cs+vvx04tBIiFNbuiInRD++SZ2tCaS+UGeDbP4Hq
-         OrL3sgiF3U47gw01Pyb6m0Fzs0URO4iVa4mwYqx5iEDHwldt8JfVESSI3Y4/u+GakWPC
-         7m67sua9RDqZHhErWIoGcVkkL5xDwMru0/B0dYck6tP1gjpjPA8i45BfRVk8A3ZCGNQ4
-         3M5w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=theori.io; s=google; t=1780893529; x=1781498329; darn=vger.kernel.org;
-        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=QQP/aPYxeZGsiZGNoWInSta83wgtFTiCz64TEWtNGuM=;
-        b=at13je63Gl1jJU46sTF/aIcB7+EUqXQ49S9HU4HuI44lQIH/fmYXOyPLb6JRlh3ka6
-         tC7YI4Z8XXdHKjrSGg2eZc7l8KWHIvtNM+7GBgUfFFr0pBjn17NFx6y4/7xWMMrmoIjI
-         y0XS+a4j5fgK7GrrctPyJdH07TnEu6GceHXBU=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780893529; x=1781498329;
-        h=to:subject:message-id:date:from:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=QQP/aPYxeZGsiZGNoWInSta83wgtFTiCz64TEWtNGuM=;
-        b=Asvh949LkOyOum0Lm1ZEuC99T2OkC0UUZTTtUxyj1BbsQnwTxFS4QLHva+WHGZHjpE
-         W2pnrSybIRjUwNDQarsXy+IquY9JF1iXHOKqYqJmFxpqcydFt/0F4IPysN6EmjalLC6e
-         8xe1xvvdkh3QZGY9Fr+zk1Tny3DPTiZnE7lV6mscyL3tQ0N1JAehyTw2mrtMX4E8HAVH
-         iem5gtCOenjX0Rm9rr7/PLH56hIistRlRoHflzf69Bvsd8GoCeRliDN6YK8z+Xg9bFa2
-         mVPpK7w1D8tQcj9k70dB9ZZVuCrdJwPfjwLibOtGEAAaN6yQ0QoSb/OLAjkO0Dta4A4K
-         T63Q==
-X-Gm-Message-State: AOJu0YzJTQcnCRoY0bcrNRpFlPGE64A9XuFYmez3enQ6hYLeJklv1SVd
-	26lyCl7CqEbVodWceX3eRrr7TyXhylllfDb9lD1fMmWljk89KjmEQc7woJ89ScSUqEkNXSPgO2M
-	Pb41hiozhHYDahCgRvqTk0/7ZTOwojy8GrGUZfIdDRvnnwmro7YISa2SCBg==
-X-Gm-Gg: Acq92OGPrZA6G/dpeCil1S9C7krYnivLH4DhgBvBUHcCo1lsYY2A9fxZ1lyTcOj0RQK
-	kimg2uAkPCfHEIPrtVvLZZsNVlRarniv+fWTgINueWZfLU2NNxSCjQAasgpLNLHIvJB23Ok+S1u
-	wV3gxO+nF4qZ5Katb0x4MVjr1HYJz1o7NGs0cFmb3y1hGG54JLGOoy9X/nFRIHP3mgHQPQ8AExh
-	iagcXZ0AscAY/wR5NDl0BcWG4zY248SqCpUzTmraYM91fGHHeR3vOFJ/aMlyqULW5N+SM7uidEI
-	RatHxqhp+5XcVUNXw7Ff7doBhhwF7Zcl/PQa4WL91k2xR3glGQ==
-X-Received: by 2002:a05:6000:a91:b0:460:1755:160e with SMTP id
- ffacd0b85a97d-46030757dd4mr15461369f8f.33.1780893529059; Sun, 07 Jun 2026
- 21:38:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="ZtRpl5d9"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
+	:Reply-To:Content-Type:Content-ID:Content-Description;
+	bh=ntdINcV/MtFDkQvCBTRmJMDU8OdksVLywgaGQ7MRh9o=; b=ZtRpl5d9SBawu8lH/M85daAxNt
+	pg2zNs0P6weYoR/I+EBIC20dF3RqurNAkrhJgp8OQxLkj8ekKRuAs3RUfqnbPrGdnR9EShfhTOuLn
+	O4bVTcKmuPkrpV7QvFpK9mp5iQVpnD/4RdI5JWc1Vl/39mo9++JSMly8JydeKE93UUHfSXWKwsmyb
+	ofA7JJI7YfpMz0orOMK7uK8kkZApvKCXUplBv8S/YQyDAjarOtXMbGzSH9ZH30IpjfV5nxh7aUxjG
+	3ZHGcVGPpvYZtDL5+nuB2ETjQqI3ecs/w/58C6m3uXz1T9Bz1a8KnxczxCOI7S5GhUdAyqaKghJo8
+	AxdF2DJg==;
+Received: from 2a02-8389-2341-5b80-decc-1a96-daaa-a2cc.cable.dynamic.v6.surfer.at ([2a02:8389:2341:5b80:decc:1a96:daaa:a2cc] helo=localhost)
+	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1wWS7q-00000002ocu-0jzo;
+	Mon, 08 Jun 2026 05:02:14 +0000
+From: Christoph Hellwig <hch@lst.de>
+To: Carlos Maiolino <cem@kernel.org>
+Cc: Nirjhar Roy <nirjhar.roy.lists@gmail.com>,
+	"Darrick J . Wong" <djwong@kernel.org>,
+	linux-xfs@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH 1/2] xfs: pass back updated nb from xfs_growfs_compute_deltas
+Date: Mon,  8 Jun 2026 07:01:55 +0200
+Message-ID: <20260608050207.1203276-2-hch@lst.de>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260608050207.1203276-1-hch@lst.de>
+References: <20260608050207.1203276-1-hch@lst.de>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: Taeyang Lee <0wn@theori.io>
-Date: Mon, 8 Jun 2026 13:38:11 +0900
-X-Gm-Features: AVVi8CesXCFQGpxqn-hazduOTZ03XNUK1nIXJGQb3wlZYFkDNzEL63N7sGsaLPc
-Message-ID: <CAH-2Xv+d-xVfqEN1NRpKbGmDFX3JdVzLBF1MXWubhzhbisaoUg@mail.gmail.com>
-Subject: [stable] Please apply 18fc650ccd7f: bpf: Free reuseport cBPF prog
- after RCU grace period
-To: stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
 
-Hi Linux kernel stable team,
+xfs_growfs_compute_deltas can update nb for corner cases like a number
+of blocks that would create a less the minimal sized AG, or running
+past the max AG limit.  Pass back the calculated value to the caller,
+as it relies on to calculate the new numeber of perag structures.
 
-Please apply the following upstream commit to the supported stable trees:
+Note that the grown file system size is not affected by this
+miscaculation as it uses the passed back delta value.
 
-18fc650ccd7fe3376eca89203668cfb8268f60df
-("bpf: Free reuseport cBPF prog after RCU grace period.")
+Fixes: a49b7ff63f98 ("xfs: Refactoring the nagcount and delta calculation")
+Cc: <stable@vger.kernel.org> # v7.0
+Signed-off-by: Christoph Hellwig <hch@lst.de>
+Reviewed-by: "Darrick J. Wong" <djwong@kernel.org>
+---
+ fs/xfs/libxfs/xfs_ag.c | 10 +++++-----
+ fs/xfs/libxfs/xfs_ag.h |  2 +-
+ fs/xfs/xfs_fsops.c     |  2 +-
+ 3 files changed, 7 insertions(+), 7 deletions(-)
 
-It fixes an issue introduced by:
-
-538950a1b752 ("soreuseport: setsockopt SO_ATTACH_REUSEPORT_[CE]BPF")
-
-which appears to have been introduced in v4.5, so all currently supported
-stable trees seem to be affected.
-
-I checked that the upstream commit cherry-picks cleanly onto the following
-stable branches:
-
-linux-7.0.y
-linux-6.18.y
-linux-6.12.y
-linux-6.6.y
-linux-6.1.y
-linux-5.15.y
-linux-5.10.y
-
-Thanks,
-
+diff --git a/fs/xfs/libxfs/xfs_ag.c b/fs/xfs/libxfs/xfs_ag.c
+index dcd2f93b6a6c..0c5f0548021f 100644
+--- a/fs/xfs/libxfs/xfs_ag.c
++++ b/fs/xfs/libxfs/xfs_ag.c
+@@ -866,7 +866,7 @@ xfs_ag_shrink_space(
+ void
+ xfs_growfs_compute_deltas(
+ 	struct xfs_mount	*mp,
+-	xfs_rfsblock_t		nb,
++	xfs_rfsblock_t		*nb,
+ 	int64_t			*deltap,
+ 	xfs_agnumber_t		*nagcountp)
+ {
+@@ -874,19 +874,19 @@ xfs_growfs_compute_deltas(
+ 	int64_t		delta;
+ 	xfs_agnumber_t	nagcount;
+ 
+-	nb_div = nb;
++	nb_div = *nb;
+ 	nb_mod = do_div(nb_div, mp->m_sb.sb_agblocks);
+ 	if (nb_mod && nb_mod >= XFS_MIN_AG_BLOCKS)
+ 		nb_div++;
+ 	else if (nb_mod)
+-		nb = nb_div * mp->m_sb.sb_agblocks;
++		*nb = nb_div * mp->m_sb.sb_agblocks;
+ 
+ 	if (nb_div > XFS_MAX_AGNUMBER + 1) {
+ 		nb_div = XFS_MAX_AGNUMBER + 1;
+-		nb = nb_div * mp->m_sb.sb_agblocks;
++		*nb = nb_div * mp->m_sb.sb_agblocks;
+ 	}
+ 	nagcount = nb_div;
+-	delta = nb - mp->m_sb.sb_dblocks;
++	delta = *nb - mp->m_sb.sb_dblocks;
+ 	*deltap = delta;
+ 	*nagcountp = nagcount;
+ }
+diff --git a/fs/xfs/libxfs/xfs_ag.h b/fs/xfs/libxfs/xfs_ag.h
+index 16a9b43a3c27..8aa4266c5571 100644
+--- a/fs/xfs/libxfs/xfs_ag.h
++++ b/fs/xfs/libxfs/xfs_ag.h
+@@ -330,7 +330,7 @@ int xfs_ag_init_headers(struct xfs_mount *mp, struct aghdr_init_data *id);
+ int xfs_ag_shrink_space(struct xfs_perag *pag, struct xfs_trans **tpp,
+ 			xfs_extlen_t delta);
+ void
+-xfs_growfs_compute_deltas(struct xfs_mount *mp, xfs_rfsblock_t nb,
++xfs_growfs_compute_deltas(struct xfs_mount *mp, xfs_rfsblock_t *nb,
+ 			int64_t *deltap, xfs_agnumber_t *nagcountp);
+ int xfs_ag_extend_space(struct xfs_perag *pag, struct xfs_trans *tp,
+ 			xfs_extlen_t len);
+diff --git a/fs/xfs/xfs_fsops.c b/fs/xfs/xfs_fsops.c
+index 8d64d904d73c..436857356a0a 100644
+--- a/fs/xfs/xfs_fsops.c
++++ b/fs/xfs/xfs_fsops.c
+@@ -124,7 +124,7 @@ xfs_growfs_data_private(
+ 			mp->m_sb.sb_rextsize);
+ 	if (error)
+ 		return error;
+-	xfs_growfs_compute_deltas(mp, nb, &delta, &nagcount);
++	xfs_growfs_compute_deltas(mp, &nb, &delta, &nagcount);
+ 
+ 	/*
+ 	 * Reject filesystems with a single AG because they are not
 -- 
-___
+2.53.0
 
-Taeyang Lee, Security Researcher
-Theori, Inc. / Xint Code
-Website. www.theori.io / xint.io
-Email. 0wn@theori.io
