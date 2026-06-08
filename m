@@ -1,76 +1,80 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18AE9C14A;
-	Mon,  8 Jun 2026 08:41:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF5533B1035
+	for <stable@vger.kernel.org>; Mon,  8 Jun 2026 08:52:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780908119; cv=none; b=jYxdaLggryBguM19u5XsOQ/sTpk4pXZdRKLVz1kv+Yp1GMwd8ZoLBJUyP46yNwRb4xFAlTmKQiQtvbW15hMumOoaGsK58vcJlfozAZrTpvIfknbQqZLnSAF4Tmm1Ya1DgcbuxrQ3MR6H0e1S9VKDY27SVOAEXpTuewaJkQlQYTI=
+	t=1780908774; cv=none; b=mKrtP3DJVBSZRXkvDlB9s88D2yi+6X9cenUNnHR6bydvZq+oRjqfefHiyiP5jPECOkvHps3/PWzY4iX7A1+QYXHa55y28QlMw/kQYI6zWU3W4sW5kZDN9/F6QxpmEfaXZHTZL2SLTEWvotLGA2RYNQHK69D2NzPhUO7znZ4r20A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780908119; c=relaxed/simple;
-	bh=VC6qM/f1wGW1sk5+lK9SwHBhqrDcjXd3aB1FF2iUpHU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nUKkt3BaJTemc4VJr6UdjANxedrs5S0AOHN3xLOeFVkq4njtF4h3CAPj9lk5WrmE1wPNSVhs9rduIAIoyzyp6EAiNta2tew1eR0vIX+FqwVgAb7bAFXzI2k1ClvZAzWHH/Gt7qjPMT5CXQzEftO/RbkCL1CEvS/fwvaAHf0U7Ow=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=r+HbwqCI; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1780908774; c=relaxed/simple;
+	bh=71kngNLglTQFWzZYkjVAWT0fHT+5MJVHKiuaOh/1EgQ=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=OpXBqGra/YPitRJsM442VemQBTYFZG6Guea/NhecxeRmUT9MPWsUZlcqhuMTKTJoaUmS9vH3JkWQI6G5xifdDoN/RF0q7gFNPZIUwnauo/W1UpAHptJVJQUfVjaq9CgbyFqG98YraZA4FnTl+iY5dxfWgASXj1O7EHZJPszuuRM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IOFTK4Ag; arc=none smtp.client-ip=209.85.221.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="r+HbwqCI"
-Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 657Mtrwr3416909;
-	Mon, 8 Jun 2026 08:41:49 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pp1; bh=oNmfjHZJRZvm1sNDrL/NuDvRFR+oaQ
-	AgWMXuBwz+8j4=; b=r+HbwqCIo7V/5hwXKFd1LONZ4Jvf90IeZ1+lIEvbzx4fKF
-	ykjs+qBjcHHEPPLtI4WAdiGrRzTVzOOL5hRwwjN3VMGHI+MT/EuHEvxDAU3jrUJ3
-	22kd9dUPw21Hx7u9kIlSPsWFXqIZSxfmrtOlWC8JLRdw/3hqHrt7gov6T9yfrGGQ
-	L30awkI9/8Ls1QzBYEiDFJXUvEvQNLDmADJPHVDOCvLnJMPtXVnv5xwy2ayF8TIv
-	/B7lEpEPo447EornL4nfHm+ksg/skOJ0VpDwOFLgaziQLV8OgbTWf8aYhKEECLdG
-	zOpbYqp0SMEy81lqd0mfpTU23b9zt+P3ZK/hKPHQ==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4emb7qed5h-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 08 Jun 2026 08:41:48 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 6588YeoH014213;
-	Mon, 8 Jun 2026 08:41:47 GMT
-Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4emycgvepd-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 08 Jun 2026 08:41:47 +0000 (GMT)
-Received: from smtpav06.fra02v.mail.ibm.com (smtpav06.fra02v.mail.ibm.com [10.20.54.105])
-	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6588fhO935651864
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 8 Jun 2026 08:41:44 GMT
-Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id DB5702004D;
-	Mon,  8 Jun 2026 08:41:43 +0000 (GMT)
-Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 89AE220049;
-	Mon,  8 Jun 2026 08:41:40 +0000 (GMT)
-Received: from Gautams-MacBook-Pro.local (unknown [9.43.97.181])
-	by smtpav06.fra02v.mail.ibm.com (Postfix) with ESMTPS;
-	Mon,  8 Jun 2026 08:41:40 +0000 (GMT)
-Date: Mon, 8 Jun 2026 14:11:33 +0530
-From: Gautam Menghani <gautam@linux.ibm.com>
-To: Vaibhav Jain <vaibhav@linux.ibm.com>
-Cc: Amit Machhiwal <amachhiw@linux.ibm.com>, linuxppc-dev@lists.ozlabs.org,
-        Madhavan Srinivasan <maddy@linux.ibm.com>,
-        Harsh Prateek Bora <harshpb@linux.ibm.com>,
-        Ritesh Harjani <ritesh.list@gmail.com>,
-        Anushree Mathur <anushree.mathur@linux.ibm.com>,
-        Nicholas Piggin <npiggin@gmail.com>,
-        Michael Ellerman <mpe@ellerman.id.au>,
-        "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-        kvm@vger.kernel.org, stable@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] KVM: PPC: Book3S HV: Validate arch_compat against host
- compatibility mode
-Message-ID: <aiaAPQmWG7JXGoGn@Gautams-MacBook-Pro.local>
-References: <20260603141539.47620-1-amachhiw@linux.ibm.com>
- <aiGJvUqgjUo6M5et@mac.bl1-in.ibm.com>
- <87ldctmosh.fsf@vajain21.in.ibm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IOFTK4Ag"
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-45ef616daf6so3628854f8f.3
+        for <stable@vger.kernel.org>; Mon, 08 Jun 2026 01:52:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780908771; x=1781513571; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:date:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=RAmzFalsZ1626ri7eqynS376s1QmdxkNtdz+K5A5+m4=;
+        b=IOFTK4Ag/Fh423MXLErk25yqTc/H6GVAub/458cV/r+cGCGj/fTnQdeEqQyJvwkA7S
+         qRshw+rSQOex2QIdvzssxJ90ysoVDk9cefNRdZenzfK2/5sLUen7O4nfwScdtz81DmOA
+         DqMhOHQfju0U4/4y5Ct/FDrffrqw69KGj+kQNpU/GhgcKTLi7/B/ZPqUrXZbG2Iz/C7X
+         nQnLHM7xIsc5MdXMzmYkdSJpMxbHR3t8bGt0AksjW7aH2HeXSyadL2ZcE5MGrL0oS0Ma
+         3U2ug8NRcoJMgO3RdrMwVPpzzIrUFgXo/vwqTS1xDZx/1Ulfy1WZtLoSemz84aLsictQ
+         aWIA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780908771; x=1781513571;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:date:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=RAmzFalsZ1626ri7eqynS376s1QmdxkNtdz+K5A5+m4=;
+        b=RHMgGwLlkd4x2zO+OjXg3PWGiQTL8liJpC9LynuPMVo4Lj9Cl4uKjT5Y0Cy1gIsofg
+         v0+lb1h8/PvpVrE7agwsAXB0XisWQVI82hacVRi98Shk5QaBD/ma53C/icWlApVB/gMA
+         C5/YcFUqEyPNG94mVCPtbU7YjFdUiaJyTwfkqfK7ZLZsoP4rHgNIyiDKfr7YsipgBpmi
+         dMvPReGIMdV4z8tyLDP62gIf/BLODH7S8avG950/Xa6jsFJD2UyTDZHBw7xVaiwD3DoS
+         p/+WXrlUuUXIaUgfBiV19/yTpt5jq56SAIoINaFg3/KHLspmJxclajS+6V40HSrcxSaC
+         Ksxw==
+X-Forwarded-Encrypted: i=1; AFNElJ8nuqEJN7IRYBG3oOKbalNpIdc7WAjYjnorUW7FUwYU90OpkVK8q9RgEi71LJv7JUC2tUQPsYw=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwA8IJekpKspD3TVLlDhSYBNW7RLCydr/dR/r0iFnuap8kw45Da
+	5NGs1P5lB4UCJw/ABR1Ygc9kuohXryoQtIZSc0kj3rUdmixiQp18zVVqFsSgKw==
+X-Gm-Gg: Acq92OHxGaGkCa3h9ZF7QJ60t9XEhNB9ej+k5nEe0oiHEJpzul7zYV/oftQKr0xKDAY
+	zkNKZaBfSJwMLbThBxu+y9xgfzTj0NqxEAWhyNusVOo9Ox0xpmOTt6QoQhMUtUdhFS5v+Jh6T0j
+	0nOUxO7GxS79F7CC6QA/Enu1rJlOOyWXb3kSM1ndg7TTy7BDGia+UrLr9Ei00sGWZntpSJJYPob
+	FlM4jrbJTVSH42+I9vSZuZWl4l3vAnZODtizPZF+VA7plj2L+Oq0n7daSdUQU6Kg5AqOrFWN04L
+	epGTuZ8ZL+tTvnS4BqZJGSu9gppRKZgguEerAgpV5VE/piDnDWOXoz9IGoilpqS4WZOf1Ym6K8/
+	G3CXe5GVqTppBU9BND8qK2xXFNQR30u7t9x46lM6er8rPT6lFxT9g2Q1gYvjEWJKaAjJdnMd2wt
+	a0ccbFsKuevOufSqV6nVZUoQ==
+X-Received: by 2002:a05:600c:83c3:b0:48f:d612:3c59 with SMTP id 5b1f17b1804b1-490c25a21a9mr267462155e9.9.1780908771176;
+        Mon, 08 Jun 2026 01:52:51 -0700 (PDT)
+Received: from krava ([176.74.159.170])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490bc413adbsm378495555e9.15.2026.06.08.01.52.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 08 Jun 2026 01:52:50 -0700 (PDT)
+From: Jiri Olsa <olsajiri@gmail.com>
+X-Google-Original-From: Jiri Olsa <jolsa@kernel.org>
+Date: Mon, 8 Jun 2026 10:52:47 +0200
+To: Nuoqi Gui <gnq25@mails.tsinghua.edu.cn>
+Cc: Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>, Daniel Xu <dxu@dxuuu.xyz>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Song Liu <song@kernel.org>, Yonghong Song <yonghong.song@linux.dev>,
+	Shuah Khan <shuah@kernel.org>, Ihor Solodrai <isolodrai@meta.com>,
+	bpf@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH bpf v2 0/2] Keep dynamic inner array lookups nullable
+Message-ID: <aiaC37sAQD5kOfQZ@krava>
+References: <20260607-f01-v2-v2-0-da48453146e8@mails.tsinghua.edu.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -79,90 +83,73 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <87ldctmosh.fsf@vajain21.in.ibm.com>
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Authority-Analysis: v=2.4 cv=HppG3UTS c=1 sm=1 tr=0 ts=6a26804d cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=kj9zAlcOel0A:10 a=FelO9ux0wxsA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=VnNF1IyMAAAA:8
- a=e3Y8OUfPrnf12rFgJ6AA:9 a=CjuIK1q_8ugA:10
-X-Proofpoint-GUID: 1cOFj7y23auh6U6zkI4yS1SfysaPNzKj
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA4MDA3OSBTYWx0ZWRfX8paRBT870B29
- JYikC9zZA2cYMzuICjHLPc1xPtCyVVFx2LXxAyzBkkqIoWv7hU2HP7ebYWGZs3YIqBCOXonkoL7
- KddPnCkctMPdHPf0lP5Ra7C7OD2bs05iHCjSB+o/tppHUjk0h82ytit4zIbYzz0KE1FKvMVwnpu
- 22uAA3F2t7H20hOxFWuGnySOVVovyA5bzcuVjEanTCr9LwOtfxiBy+yCj2A63RQp1Gt4A7Zw9Y3
- 5c5ymlgxsW8dxnH1otYTInGSDKeL383Gqe7eUDB8L15706QOwblq+F3J40b0MXoeoQqUz1IyUiu
- AWs0UnOHLqPj4rYid8MQYVOypnbWg1YfOAMYqk9HderLgVVlxXCUkvPr7jB0eRIC0o3Z1WpHWgF
- /0oD9S1uiIkP/WPgDJZ9tkalALs1/zv2/E+w+cakuTkwGcOZa/AxF6m6eAve4YD4WymEtGS/VI2
- cGW4Q5L/iMCFXSdCPsA==
-X-Proofpoint-ORIG-GUID: ZtD31xyr9EAiG7G5dM9V5q-tjCIg3eF7
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-08_02,2026-06-05_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 adultscore=0 phishscore=0 malwarescore=0 impostorscore=0
- priorityscore=1501 clxscore=1015 bulkscore=0 spamscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606080079
+In-Reply-To: <20260607-f01-v2-v2-0-da48453146e8@mails.tsinghua.edu.cn>
 
-On Fri, Jun 05, 2026 at 12:55:50PM +0530, Vaibhav Jain wrote:
-> Hi Gautam,
+On Sun, Jun 07, 2026 at 09:24:12PM +0800, Nuoqi Gui wrote:
+> An ARRAY_OF_MAPS can use an array created with BPF_F_INNER_MAP as its
+> inner map template. The flag allows a concrete inner array with a
+> different max_entries value to replace the template.
 > 
-> Thanks for testing this patch. Few questions:
-> Gautam Menghani <gautam@linux.ibm.com> writes:
+> The verifier currently uses the template's max_entries to elide
+> nullness for a constant-key lookup through the inner map pointer. At
+> runtime, the lookup uses the concrete inner array's max_entries instead.
+> The verifier can therefore accept an unchecked dereference even though
+> the runtime helper returns NULL.
 > 
-> > On Wed, Jun 03, 2026 at 07:45:39PM +0530, Amit Machhiwal wrote:
-> >> On IBM POWER systems, newer processor generations can operate in
-> >> compatibility modes corresponding to earlier generations. This becomes
-> >> relevant for nested virtualization, where nested KVM guests may need to
-> >> run with a specific processor compatibility level.
-> >> 
-> <snip>
-> >
-> > I booted a KVM guest on LPAR with this patch in the following scenarios:
-> <snip>
+> Patch 1 keeps lookups through BPF_F_INNER_MAP array templates nullable.
+> Patch 2 adds a verifier regression test for the unchecked dereference.
 > 
-> > 3. P11 guest on P11 host booted in P10 compat mode: No error observed
-> This should have resulted in an error since booting a P11 guest on P10
-> compat mode host is not allowed with/without this patch. Can you please
-> check your test env and share the boot results.
+> Before the fix, the regression program is accepted and the runtime
+> reproducer triggers a NULL dereference. With the fix, both programs are
+> rejected with an invalid map_value_or_null access.
+> 
+> Tested by compiling kernel/bpf/verifier.o and
+> verifier_map_in_map.bpf.o, and by running the regression program and
+> runtime reproducer in QEMU before and after the fix.
+> 
+> Signed-off-by: Nuoqi Gui <gnq25@mails.tsinghua.edu.cn>
+> ---
+> v1->v2:
+> - Update the can_elide_value_nullness() comment to match the changed
+>   parameter (const struct bpf_map *map).
 
-- lscpu output (host P11 LPAR booted in p10 compat mode)
-# lscpu                                                                                                                                                   03:35:13 [3/3]
-Architecture:                ppc64le
-  Byte Order:                Little Endian
-CPU(s):                      960
-  On-line CPU(s) list:       0-959
-Model name:                  POWER10 (architected), altivec supported
-  Model:                     2.0 (pvr 0082 0200)
-  Thread(s) per core:        8
-  Core(s) per socket:        15
-  Socket(s):                 8
-  Physical sockets:          4
-  Physical chips:            2
-  Physical cores/chip:       16
+Acked-by: Jiri Olsa <jolsa@kernel.org>
 
+jirka
 
-- lscpu output from guest
-# lscpu
-Architecture:             ppc64le
-  Byte Order:             Little Endian
-CPU(s):                   4
-  On-line CPU(s) list:    0-3
-Model name:               Power11 (raw), altivec supported
-  Model:                  2.0 (pvr 0082 0200)
-  Thread(s) per core:     1
-  Core(s) per socket:     4
-  Socket(s):              1
-
-
-
-- QEMU command line
-/usr/bin/qemu-system-ppc64 -device virtio-blk-pci,drive=drive0,id=virtblk0 \
-    -drive file=/home/gautam/images/fc41.qcow2,format=qcow2,if=none,id=drive0 \
-    -m 100G -smp 4 -cpu host -nographic -machine pseries,ic-mode=xics -accel kvm
-
-
-Thanks,
-Gautam
+> 
+> v1: https://patch.msgid.link/20260604151153.2488051-1-gnq25@mails.tsinghua.edu.cn
+> 
+> To: Alexei Starovoitov <ast@kernel.org>
+> To: Daniel Borkmann <daniel@iogearbox.net>
+> To: Andrii Nakryiko <andrii@kernel.org>
+> Cc: Daniel Xu <dxu@dxuuu.xyz>
+> Cc: Eduard Zingerman <eddyz87@gmail.com>
+> Cc: John Fastabend <john.fastabend@gmail.com>
+> Cc: Martin KaFai Lau <martin.lau@linux.dev>
+> Cc: Kumar Kartikeya Dwivedi <memxor@gmail.com>
+> Cc: Song Liu <song@kernel.org>
+> Cc: Yonghong Song <yonghong.song@linux.dev>
+> Cc: Jiri Olsa <jolsa@kernel.org>
+> Cc: Shuah Khan <shuah@kernel.org>
+> Cc: Ihor Solodrai <isolodrai@meta.com>
+> Cc: bpf@vger.kernel.org
+> Cc: linux-kernel@vger.kernel.org
+> Cc: linux-kselftest@vger.kernel.org
+> 
+> ---
+> Nuoqi Gui (2):
+>       bpf: Keep dynamic inner array lookups nullable
+>       selftests/bpf: Cover dynamic inner array lookup nullability
+> 
+>  kernel/bpf/verifier.c                              | 15 ++++----
+>  .../selftests/bpf/progs/verifier_map_in_map.c      | 40 ++++++++++++++++++++++
+>  2 files changed, 49 insertions(+), 6 deletions(-)
+> ---
+> base-commit: e7ae89a0c97ce2b68b0983cd01eda67cf373517d
+> change-id: 20260606-f01-v2-324fb92185a2
+> 
+> Best regards,
+> --  
+> Nuoqi Gui <gnq25@mails.tsinghua.edu.cn>
+> 
