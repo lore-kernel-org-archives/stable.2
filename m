@@ -1,67 +1,133 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpbgeu1.qq.com (smtpbgeu1.qq.com [52.59.177.22])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86A313B2FDC;
-	Mon,  8 Jun 2026 08:36:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F15CF3B47EB;
+	Mon,  8 Jun 2026 08:39:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.59.177.22
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780907796; cv=none; b=G2+DGRd5fVwxxURuGT9y8zLdNUXR5Nn8sNrmBR4h7ZDbYULueObFe3P+zL1a5Gt0UQYShJ3kDalbG/NZWwHm69xdl+LQvzREImhlV1i1ArhzfqQDlRQARmS5H8ccB3WE/NH7NHwAhsliUvn2MpizwgO6WHGMHk4IHCgJ8WBmVyE=
+	t=1780908007; cv=none; b=RyxEpQ1T1mFHLZScb5qj5opHqqraXNjmDZPSztKj04YcujULtOC+zgDSY+LKGbdScAm4E+LOH5U56kxD7ILzcS/twGUNcHkvrhD6rQXOO/v9WERiwUE4k8qCtaB3XKBNQczWuwyBdjhKT+/qaW6e7fKOx5XSLqrIcaK17RJwHBA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780907796; c=relaxed/simple;
-	bh=e9+oLfn5z/kAdf4TxC3GBFLbvp5XlU010/ZPdc6vqdc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TYZUhA9i2M220xwoDNf5zzpb0sc4ohn8Tx+9kpsx9Z8qf/CfNCqB6HFvRIfsomKGcl8pmiOZd48oo1hOeH70MDGLcq+CAxyiME43ByLyk3fhaG4wa9nHEv8tq8vpdL+7nuS8fojyeZTY65vbEPAQQHlQ7Avfed9ZzaiqETEbkPA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dy0a94ae; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780908007; c=relaxed/simple;
+	bh=xi88rL4G15fuzvZFceKK6FGjELi+t7SXLh+2RdLSMpU=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=pYdqkMwiW8O4zshmxYjWbihiwGlXuMp/z6eyerUNoAkLhm5PFoYaCFkBEChxtXnenaX06GLaUmcYfe9zBGk5krpD07BU66qt61/jFhrzPcqiAxnFotqTgi0lKT3CF2OPjmGjpbfCuTBkAEeYz2pnMrPfnEvku4cg0Xpu/6GCn+I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=Po3xp9d8; arc=none smtp.client-ip=52.59.177.22
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dy0a94ae"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4FEC1F00893;
-	Mon,  8 Jun 2026 08:36:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780907790;
-	bh=ObnGfCch9w6TCOHl+yVipVQyNyIiReIde3OW5t4g1tc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=dy0a94aeRApwkpLO+ZK5VJoH38UT11Yet3iYJyFvMprgIEXZcCgzU8pRWQBrYCiR7
-	 FcHx4TbtN+aSRx2/Acj9ANoJS68I4u0/UdDsy6kqCSD8JOdiBcLS6F1bco2qXdZa3o
-	 EgE1XpTaMoOtY7LOINs+KP453nEa4A4Io48KXNRf9L+DxYzH7OmqbfoiXrZewcYS8u
-	 OuxWI0hAIG2OFrw0sQFqt9WAh4/YubdxP4wh9yUP/98Aq8UGptZ3Vv3zXj4iMBe4+N
-	 7pKpTa8OGliXZz67I39LSTD2CRINgEj8tn1Px6+4A3YAf64ZFu9HJze7uOvK1+fZ9J
-	 l/TxN6YKt6cPQ==
-Received: from johan by xi.lan with local (Exim 4.99.3)
-	(envelope-from <johan@kernel.org>)
-	id 1wWVTA-00000000N8b-3Q4N;
-	Mon, 08 Jun 2026 10:36:28 +0200
-Date: Mon, 8 Jun 2026 10:36:28 +0200
-From: Johan Hovold <johan@kernel.org>
-To: HyeongJun An <sammiee5311@gmail.com>
-Cc: gregkh@linuxfoundation.org, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] USB: serial: kl5kusb105: fix bulk-out buffer overflow
-Message-ID: <aiZ_DJGvrmotkM3J@hovoldconsulting.com>
-References: <aiZiZy8a0al7xVXe@hovoldconsulting.com>
- <20260608074931.5911-1-sammiee5311@gmail.com>
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="Po3xp9d8"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1780907942;
+	bh=vh3Y7BnNL0KNAVUUItSrK29bMof+p1LbCi2NyecGDPQ=;
+	h=From:To:Subject:Date:Message-Id:MIME-Version;
+	b=Po3xp9d8iQ5Xcqu/YhSIby/F4dSCkBAlAvADnvFRq7pRUGg8GS40iBMwDm+HkFFOa
+	 zCQp4UkWIz92HIAMgzw+5R5FLtBD9JuV0PG+vAxRFnskT7bXLkG6PSRHQRFW9MftYX
+	 uFMa32NWFQWg6emVV9GW2g1pgZSRe5YKd+dTDR9Y=
+X-QQ-mid: esmtpgz15t1780907923tcb38a38e
+X-QQ-Originating-IP: GMbYBnF2GdFa2AUIpaC8/3TV0lWFeYQghvO0MOwDoaY=
+Received: from localhost.localdomain ( [1.202.39.170])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Mon, 08 Jun 2026 16:38:29 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 15237671978310835776
+EX-QQ-RecipientCnt: 11
+From: ZhaoJinming <zhaojinming@uniontech.com>
+To: Tomeu Vizoso <tomeu@tomeuvizoso.net>,
+	Oded Gabbay <ogabbay@kernel.org>
+Cc: Sumit Semwal <sumit.semwal@linaro.org>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	linaro-mm-sig@lists.linaro.org,
+	ZhaoJinming <zhaojinming@uniontech.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] accel/rocket: Fix dma_fence reference leak on error paths in rocket_job_run()
+Date: Mon,  8 Jun 2026 16:38:24 +0800
+Message-Id: <20260608083824.775261-1-zhaojinming@uniontech.com>
+X-Mailer: git-send-email 2.20.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260608074931.5911-1-sammiee5311@gmail.com>
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpgz:uniontech.com:qybglogicsvrsz:qybglogicsvrsz4b-0
+X-QQ-XMAILINFO: NQUKSFCHyTwkLQRJTVbP9k8ORZLuNn7VwLZ6NHZ9lzNCQ2YWidj0Yznm
+	O8jBEb34cHrMctBE09y+mm1WJf4IvJL9DeUW7x8mRC+2FmcEoVutqoLp5gHElVHbhgOuR7W
+	qf0BI1AqpP1N1TGSbWSS6MrruGP3bxyPH5FEv5XADwvNRGAT09mpGJlYEAgaTunhzKnqIwL
+	9RPHVuvbEAvxT0z60u34AdukyK4ljYKVDKMom8Zoz9CS4DqSPbm4/Wc5OWaDZ0ESfyyKacr
+	CaN93sh3SsTof5Y+nhSbEcAAPOvPOeWMYN6pbSiW2LJ2BHKqoFtzFPiM7WN4dMoE4IO545q
+	7D3ovkeMEkTgEnwkUMORNXh2tHRPDVUkZQkUMUuqky75foI/lfC18WHxcmgf/VF26pggJIK
+	EVspUoLORmgeQw8NIsMPlxfcsDysyqa9Fk4diUeN8MLEPJaEWEa9RKDDrcdqbQ1sUKhbxsT
+	bBHAVf9Po7IdUOMECKRc9naXnY2AKGM9b18my3RHN8CL4XdxxDNTQWSkRt7tr/zCR1q8Nqj
+	GY5WA1nUqZWkqklWFyyAfjPu07EaZsgtQy2OKCSaA53DwenHcV6LGKZ12z/+Hwz5+u7T6MJ
+	iHoYGFxSMveJrqZvFdHftZ5ZZ4o4WsF/ez6vvMsPzfy9Dyw2+w2R27GV90CwvZZOHLzzlid
+	RYLOfqRztPVD+QjwJ7iJIHpbKDHSMSAABs6uTyJp0MGD1CzoYNr5jT94krCFnJo7Ve0QkOV
+	Ppbf7dyU4APDY8NwT8iZqgcrj7w2U4LVAOODQZwpzMvQ+5qFVqb/TdbcWu4zDqK3DbplMzd
+	wPpAcO7OtlqYTqmoeW5zx8KGC+rUTfAOp5M2NcL+vZOeiMmyTacVXAU41U2w5XW/JU77k3X
+	/PVG8s/l2bFrwm0WChnwuLxWa5dxp2p+l33jgjBatNWSKcqbcF383feFKE7aBH3rsPIA3BX
+	+Nn6QkQK5+oK06pXb8egcmLS6VEO8MBewso1EPg/1Kaj6M6c9Efck6CEujlDmfba1heOjaP
+	n6cVIj++ZNrkikVAWXlliaf8EFGs4=
+X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
+X-QQ-RECHKSPAM: 0
 
-On Mon, Jun 08, 2026 at 04:49:30PM +0900, HyeongJun An wrote:
+In rocket_job_run(), after creating a fence at line 305 and taking an
+extra reference for job->done_fence at line 311 via dma_fence_get(),
+two error paths fail to release that extra reference before returning:
 
-> Yes, I used an LLM to compare the custom prepare_write_buffer()
-> handlers in drivers/usb/serial/.  kl5kusb105 passes the full "size"
-> to the fifo copy, while the ones with a header or trailer, like
-> safe_serial, reserve that space first.
+  - Line 314: When pm_runtime_get_sync() fails, returns fence without
+    putting job->done_fence.
 
-Thanks for confirming. This needs to be documented in the commit
-message, see:
+  - Line 318: When iommu_attach_group() fails, returns fence without
+    putting job->done_fence, and also omits pm_runtime_put() to balance
+    the successful pm_runtime_get_sync() at line 313.
 
-	Documentation/process/submitting-patches.rst ["Using Assisted-by"]
-	Documentation/process/coding-assistants.rst
+The leaked fence reference prevents the fence and its underlying rocket
+device from being freed while job->done_fence still points to it.
+Repeated failures will accumulate leaked fences, consuming kernel memory
+and holding device resources indefinitely.
 
-Can you send a v2 with the missing tag?
+Fix both error paths by calling dma_fence_put(job->done_fence) and
+setting job->done_fence to NULL before returning. Also add the missing
+pm_runtime_put() on the iommu_attach_group error path.
 
-Johan
+Cc: stable@vger.kernel.org
+Fixes: 0810d5ad88a1 ("accel/rocket: Add job submission IOCTL")
+Signed-off-by: ZhaoJinming <zhaojinming@uniontech.com>
+---
+ drivers/accel/rocket/rocket_job.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/rocket_job.c
+index ac51bff39833..66e4a1d57842 100644
+--- a/drivers/accel/rocket/rocket_job.c
++++ b/drivers/accel/rocket/rocket_job.c
+@@ -311,12 +311,19 @@ static struct dma_fence *rocket_job_run(struct drm_sched_job *sched_job)
+ 	job->done_fence = dma_fence_get(fence);
+ 
+ 	ret = pm_runtime_get_sync(core->dev);
+-	if (ret < 0)
++	if (ret < 0) {
++		dma_fence_put(job->done_fence);
++		job->done_fence = NULL;
+ 		return fence;
++	}
+ 
+ 	ret = iommu_attach_group(job->domain->domain, core->iommu_group);
+-	if (ret < 0)
++	if (ret < 0) {
++		pm_runtime_put(core->dev);
++		dma_fence_put(job->done_fence);
++		job->done_fence = NULL;
+ 		return fence;
++	}
+ 
+ 	scoped_guard(mutex, &core->job_lock) {
+ 		core->in_flight_job = job;
+-- 
+2.20.1
+
