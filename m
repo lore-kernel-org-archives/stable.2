@@ -1,115 +1,93 @@
-Received: from omta036.useast.a.cloudfilter.net (omta036.useast.a.cloudfilter.net [44.202.169.35])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD82E33F8CA
-	for <stable@vger.kernel.org>; Mon,  8 Jun 2026 06:52:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=44.202.169.35
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35B4838C406;
+	Mon,  8 Jun 2026 07:11:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780901560; cv=none; b=V1qsra1X11giKx2I33dkJaU7iLNrmRrZS/aQZGl93o6EZXw63nk2lc657ai/ucdskEGhiDaFsDsgBZY/IMFVxI3CzZ1bpWXi4NRcbp1t3GtI/ZQbH35Hqh9rJO/QVkZc04PAcBavOgaffrfmkcKqlXQbmbV/MjCQGdyvQwA+As4=
+	t=1780902697; cv=none; b=IQda4J1vwRLVV5dH7L8ydU+VfMQcD6rlxaxjuJS8ZuFCHsWgroXKY15S5tA4ToEhOP2TgucKPFlx5p9HugrLvIm2r39wcg11OT1kRDauU4IjGPKFXvvxhJ1eLpF49see0S676wUt73lzBIv6p8m/VuTlhejxr85CxTrqXdWfClo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780901560; c=relaxed/simple;
-	bh=6ihzm8AKVWuK35rFGsggJF6F0wTSbQJ41hlkLGRwknQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=NNQkZph47wxwrjmf1wBEEZnTfEvXIZ1rl7TzaNFA/QCet1MwijXSH4RxFr20HflfNSYV8YJud0W0OKquXtZjUcxhEdA/euVZp6NfNMabvGuSYqDZjqHVVOF3aAZ14irb0F8wp7glZXq5Vacgp2BpgpepE0/dcuGatqmjE9Ffljc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net; spf=pass smtp.mailfrom=w6rz.net; dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b=ipua5eTI; arc=none smtp.client-ip=44.202.169.35
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b="ipua5eTI"
-Received: from eig-obgw-5005b.ext.cloudfilter.net ([10.0.29.189])
-	by cmsmtp with ESMTPS
-	id WQUYwvHp1gwLnWTqfw7ZIv; Mon, 08 Jun 2026 06:52:37 +0000
-Received: from box5620.bluehost.com ([162.241.219.59])
-	by cmsmtp with ESMTPS
-	id WTqfw2nfxDvkeWTqfwf6pr; Mon, 08 Jun 2026 06:52:37 +0000
-X-Authority-Analysis: v=2.4 cv=RaOQC0tv c=1 sm=1 tr=0 ts=6a2666b5
- a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
- a=HaFmDPmJAAAA:8 a=49j0FZ7RFL9ueZfULrUA:9 a=QEXdDO2ut3YA:10
- a=nmWuMzfKamIsx3l42hEX:22 a=L5EjiQpGQaFGZdqT14z7:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
-	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
-	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=Ct/EXtUyrjiLv06ikckXWwhxmmzlFcF9JAm4gXNLSjA=; b=ipua5eTI9pe6dOx+0jxyVVmYxN
-	BcAusM7qeI/cPeetCd6dZeoQM/SY3fzDEfKZfSQAoDJMF60/HgjEqs5UH8CukZfbDCrvcxAJJTEa7
-	8xG2NyTG+r1tyro6WYYY2TLUF/52CISO9d7LoXdY8SU65yKdhq9M1vn7voSmnKzQrwHuxt3JSigoK
-	AY/sXcotUSezzXCMBfvlrvvO/U2jMhLq+7S2oJqFmyiUY/PM3x2ysY/Xqk6lIF7ctbByCcDcKiiDz
-	X6X4EGGNcHlsLeik0+dvW9rGYWdM4wPzEHD+JvGJU5q2uKEqsc5fIIkunzlIOK+xWlc7DQHXzQ+cC
-	B063EevQ==;
-Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:49292 helo=[10.0.1.180])
-	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
-	(Exim 4.99.2)
-	(envelope-from <re@w6rz.net>)
-	id 1wWTqe-00000000iZT-3BAd;
-	Mon, 08 Jun 2026 00:52:36 -0600
-Message-ID: <7f18e9cf-d81b-4636-ab03-6542ee593e75@w6rz.net>
-Date: Sun, 7 Jun 2026 23:52:34 -0700
+	s=arc-20240116; t=1780902697; c=relaxed/simple;
+	bh=dlSg88VmdGxXbPR7ZyuEinTyShHdG/AqDdM1y5ib2zU=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=G9gLyQJWHlXB7+ATe6haUIzw1IkoXQLCFZ3JQ7gvddpDKX/8Wa9oOBtujpoOA70pbvQb5cinDPxZ3e91lSb9WQJAonP1TNS5XpFmzIwaG8GkZluB7wahkxY2q0dnau+7ob6PV9xQSVgs8loIP1egGUST4+Y0ZTVO5jL0u8dy5hc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-03 (Coremail) with SMTP id rQCowABXeuEjayZqs7wDFA--.289S2;
+	Mon, 08 Jun 2026 15:11:31 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: chris.brandt@renesas.com,
+	andi.shyti@kernel.org
+Cc: linux-renesas-soc@vger.kernel.org,
+	linux-i2c@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] i2c: riic: fix refcount leak in riic_i2c_resume_noirq()
+Date: Mon,  8 Jun 2026 07:11:23 +0000
+Message-Id: <20260608071123.128964-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.12 000/307] 6.12.93-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260607095727.647295505@linuxfoundation.org>
-Content-Language: en-US
-From: Ron Economos <re@w6rz.net>
-In-Reply-To: <20260607095727.647295505@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - box5620.bluehost.com
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - w6rz.net
-X-BWhitelist: no
-X-Source-IP: 73.162.206.103
-X-Source-L: No
-X-Exim-ID: 1wWTqe-00000000iZT-3BAd
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:49292
-X-Source-Auth: re@w6rz.net
-X-Email-Count: 59
-X-Org: HG=bhshared;ORG=bluehost;
-X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfAY9XWJKucd/JxjB4m0W7saOZIO31kVCbY9VejmqMVxSDtpti+ts58Vub+xYDgqZEpBMqP6yRM1yqxv5/z0YTMm/DDIXNzU15RdngOkfqOWUKSY1tKjc
- BvUpsFapdZRvw1RVG8FDWKky2/s3un/24w5OcfI8dD66x0B/HQ0SFXsCZ3xCpKJUGQb032rkaTrHVw==
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowABXeuEjayZqs7wDFA--.289S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Kr4rtr1UAw4DXr43Xr17trb_yoW8JFyxpw
+	4xKrWSyFyUGr4IqanrAr1FvFyY9ay3trZxCrWDK3s3Za1rXas8Jr4YvFyYgr1kAryDJryY
+	yw47taySkF1qyFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUkK14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7v_Jr
+	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v2
+	6r126r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrV
+	AFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCI
+	c40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267
+	AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_
+	Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VUbLiSJ
+	UUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRAMA2omaj4DuwAAs2
 
-On 6/7/26 02:56, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.12.93 release.
-> There are 307 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
->
-> Responses should be made by Tue, 09 Jun 2026 09:56:47 +0000.
-> Anything received after that time might be too late.
->
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.12.93-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.12.y
-> and the diffstat can be found below.
->
-> thanks,
->
-> greg k-h
+When riic_i2c_resume_noirq() is called, it deasserts the reset
+using reset_control_deassert(), which for shared resets increments
+a reference count. If pm_runtime_force_resume() then fails, the
+function returns without calling reset_control_assert() to
+decrement the count. This leaves the reset deasserted and the
+reference count unbalanced, which can prevent other users of the
+shared reset from properly asserting it later.
 
-Built and booted successfully on RISC-V RV64 (HiFive Unmatched).
+Fix the leak by calling reset_control_assert() on the error
+handling path for a failed pm_runtime_force_resume().
 
-Tested-by: Ron Economos <re@w6rz.net>
+Cc: stable@vger.kernel.org
+Fixes: e383f0961422 ("i2c: riic: Move suspend handling to NOIRQ phase")
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/i2c/busses/i2c-riic.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/i2c/busses/i2c-riic.c b/drivers/i2c/busses/i2c-riic.c
+index 9e3595b3623e..6d2ebf67dd62 100644
+--- a/drivers/i2c/busses/i2c-riic.c
++++ b/drivers/i2c/busses/i2c-riic.c
+@@ -725,8 +725,10 @@ static int riic_i2c_resume_noirq(struct device *dev)
+ 		return ret;
+ 
+ 	ret = pm_runtime_force_resume(dev);
+-	if (ret)
++	if (ret) {
++		reset_control_assert(riic->rstc);
+ 		return ret;
++	}
+ 
+ 	ret = riic_init_hw(riic);
+ 	if (ret) {
+-- 
+2.34.1
 
