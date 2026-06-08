@@ -1,114 +1,194 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 212BD16A395;
-	Mon,  8 Jun 2026 01:33:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A88634071CF;
+	Mon,  8 Jun 2026 01:37:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780882387; cv=none; b=tD0x1EYmFwxcxyXEa/figlN9O8k2mwMKy9LfZRh8Ha1ASjOHnacAGdG4SeQKth3WPcopgAGGEAcVvK7a4zHu1OAeO6TyKCoO/olkcKKG8VUxMTGbJJS24AqxqeG1/yE0vWYn1Nx7/ML3lB280R9v6KjD3phnV5SiMesyPWAkjMs=
+	t=1780882672; cv=none; b=WVlJVsKPomUikaJaD1Uu4eyyjEcwNYQF5Qx7EFMH0CHxJ2qf5AktcoACyGVZyyl+0DZR1hg56TklDD0/XKDZ9rrzonBwySVZFxcyjfe6H3UfNGw1RA44ZyRetRf5ainTXD1DoNgEN6PXHFC7I8lKn1ORGago9F5kqbfAGwer6AU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780882387; c=relaxed/simple;
-	bh=IRAXd5QTmF7gOvt55lmEu3hNBA86Qsolc+fvbcMghd0=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=VHzsiElKBJ0aUo/p4RPJxFDp8kh+DcKrT5cCrUZbj9JJhzbnN3bhx7AwyfhXXralweEHnUWOv2Xg0ZO7VME/UdqVxE1iietnlwDE2WlHz/mOuK/FcZduNNsrLFcgV7iaMC0Wk+iBa/KRPscVK6a1Jf1JBK/UUL4Dd4w9a7w8lbU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=XN1rLv4r; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	s=arc-20240116; t=1780882672; c=relaxed/simple;
+	bh=fHlma5KECpLohBaWFsPmgwtR8FBoBLwy9+VgTW1777I=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=JF7KzbObnelTGntM9Bx4QZlQ5ePuZiQ8pEm3JazYVpjKgi0KPTbvHQDGy4SQaHYOq4VccU66vZxBo+2TcL2+PjOXDzEh1MzCoZEe8z6ENjZ7sZaAiELUctg2AQEnEJR87G4oIJMKD3KYL4qm+WdfdOixt5gnXgFjPnoX0eLrSvU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=kIt7AGDR; arc=none smtp.client-ip=198.175.65.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="XN1rLv4r"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6581X1crC3192656, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1780882381; bh=IRAXd5QTmF7gOvt55lmEu3hNBA86Qsolc+fvbcMghd0=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=XN1rLv4rA1RFugFgGtvkrxO15w0aLnNKOEXXiUGpxb2x6QgKTmXod/tpz+2eLtF7a
-	 leFjCl9shp1d1Ds3Cv4QegVnD5ZJM0A85rJ4vyFOkCnmgnY7v1So0Ncl3cixnMMpSh
-	 biMJN6ivVgpuZycF9Z+Lbtbmdzld1o0nyGFZWpgaecHLBbKueTdVSv9cKBla7jpnHr
-	 TFPTeKgHkE3NZ3bxeyMWDdCj30npodIgZYeoTsw1fTYKPntBi14cBvjbZ56ctS1zi2
-	 WJ7GjIdV94JcFbg3Xnfu1AxTxcDNqNBWgK9Gyure5XmiSE5DywprGBuiFxOozrz4zu
-	 cT2JUxPdBAy3g==
-Received: from mail.realtek.com (rtkexhmbs02.realtek.com.tw[172.21.6.41])
-	by rtits2.realtek.com.tw (8.15.2/3.28/5.94) with ESMTPS id 6581X1crC3192656
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Mon, 8 Jun 2026 09:33:01 +0800
-Received: from RTKEXHMBS05.realtek.com.tw (10.21.1.55) by
- RTKEXHMBS02.realtek.com.tw (172.21.6.41) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.17; Mon, 8 Jun 2026 09:33:00 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS05.realtek.com.tw (10.21.1.55) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.17; Mon, 8 Jun 2026 09:32:59 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::e6fd:5a3f:8946:92c4%10]) with mapi id
- 15.02.2562.017; Mon, 8 Jun 2026 09:32:59 +0800
-From: Ping-Ke Shih <pkshih@realtek.com>
-To: Giovanni Santini <giovannisantini93@yahoo.it>, "stable@vger.kernel.org"
-	<stable@vger.kernel.org>, "linux-wireless@vger.kernel.org"
-	<linux-wireless@vger.kernel.org>
-CC: Linux regressions mailing list <regressions@lists.linux.dev>
-Subject: RE: rtw88: WiFi card is not offloaded properly when suspending the OS
-Thread-Topic: rtw88: WiFi card is not offloaded properly when suspending the
- OS
-Thread-Index: AQHc9MfBVY8tNqpB4kyHWDTYuLp5JLYzXc0g
-Date: Mon, 8 Jun 2026 01:32:59 +0000
-Message-ID: <efae0a4db2ab4b6193922b393d3dcdd6@realtek.com>
-References: <10da4c45-74ed-4deb-8c88-6d0b803465ba.ref@yahoo.it>
- <10da4c45-74ed-4deb-8c88-6d0b803465ba@yahoo.it>
-In-Reply-To: <10da4c45-74ed-4deb-8c88-6d0b803465ba@yahoo.it>
-Accept-Language: en-US, zh-TW
-Content-Language: zh-TW
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="kIt7AGDR"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1780882670; x=1812418670;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=fHlma5KECpLohBaWFsPmgwtR8FBoBLwy9+VgTW1777I=;
+  b=kIt7AGDROnTkywIpUrzB/6aSTMw3TVwfgnMhcdHyh8LZTqWv55vjNDF3
+   7D6s9cqFGGVUPkOOrpk5ONARaNabNElpSestiHnkPIkVXP4sb8wVZidZE
+   qzKTz3bZ4ZgbR86uaPynAQKE1tQZGDFHvgxEvgpM2nbTs4cX5eo3F5hPx
+   NxUQzsj4C5YKkBzuhKWapcQf1lOierqiNWsi4u3ia8UKOO5o9cJ1JO+Qe
+   mOtU+/3WqDNrHwEJqfbNZQ5Ua/b2BiABHMFgtH2DovPI1Z5iKJo9SgyBJ
+   1pKVq6PcyVCo/qpU4G6dGrD/3lPVMbUndH/eLubdEEypOlE0eiynTUOap
+   Q==;
+X-CSE-ConnectionGUID: r+I7UjsSReGbKWFhcCIgLA==
+X-CSE-MsgGUID: uaRgNERmQySi1g8h3oztQQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11810"; a="81673773"
+X-IronPort-AV: E=Sophos;i="6.24,193,1774335600"; 
+   d="scan'208";a="81673773"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Jun 2026 18:37:49 -0700
+X-CSE-ConnectionGUID: Tg7nJ1DdSbSxi/i/x/m1XQ==
+X-CSE-MsgGUID: QUseja+xTHaAejQREFo8Pw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,193,1774335600"; 
+   d="scan'208";a="240956870"
+Received: from dapengmi-mobl1.ccr.corp.intel.com (HELO [10.124.241.147]) ([10.124.241.147])
+  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Jun 2026 18:37:45 -0700
+Message-ID: <4a2bdb92-11b5-46ab-83a4-9b58e71ca581@linux.intel.com>
+Date: Mon, 8 Jun 2026 09:37:43 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/8] perf/x86/intel: Remove anythread_deprecated bit from
+ perf_capabilities
+To: "Falcon, Thomas" <thomas.falcon@intel.com>,
+ "alexander.shishkin@linux.intel.com" <alexander.shishkin@linux.intel.com>,
+ "ak@linux.intel.com" <ak@linux.intel.com>,
+ "peterz@infradead.org" <peterz@infradead.org>,
+ "acme@kernel.org" <acme@kernel.org>, "mingo@redhat.com" <mingo@redhat.com>,
+ "Hunter, Adrian" <adrian.hunter@intel.com>,
+ "namhyung@kernel.org" <namhyung@kernel.org>, "Rogers, Ian"
+ <irogers@google.com>, "Eranian, Stephane" <eranian@google.com>
+Cc: "stable@vger.kernel.org" <stable@vger.kernel.org>,
+ "Chen, Zide" <zide.chen@intel.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-perf-users@vger.kernel.org" <linux-perf-users@vger.kernel.org>,
+ "Mi, Dapeng1" <dapeng1.mi@intel.com>, "Hao, Xudong" <xudong.hao@intel.com>
+References: <20260605011136.2043393-1-dapeng1.mi@linux.intel.com>
+ <20260605011136.2043393-2-dapeng1.mi@linux.intel.com>
+ <7fdb17e042719f77c382cbc47be2def2cda1bf51.camel@intel.com>
+Content-Language: en-US
+From: "Mi, Dapeng" <dapeng1.mi@linux.intel.com>
+In-Reply-To: <7fdb17e042719f77c382cbc47be2def2cda1bf51.camel@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-R2lvdmFubmkgU2FudGluaSA8Z2lvdmFubmlzYW50aW5pOTNAeWFob28uaXQ+IHdyb3RlOg0KPiAN
-Cj4gSnVuIDAyIDE3OjI1OjMzIGFyY2hsaW51eC10dWcga2VybmVsOiBydHc4OF84ODIyY2UgMDAw
-MDowMzowMC4wOiBmYWlsZWQNCj4gdG8gc2VuZCBoMmMgY29tbWFuZA0KPiBKdW4gMDIgMTc6MjU6
-MzMgYXJjaGxpbnV4LXR1ZyBrZXJuZWw6IHJ0dzg4Xzg4MjJjZSAwMDAwOjAzOjAwLjA6IGZhaWxl
-ZA0KPiB0byBzZW5kIGgyYyBjb21tYW5kDQo+IEp1biAwMiAxNzoyNTozMyBhcmNobGludXgtdHVn
-IGtlcm5lbDogcnR3ODhfODgyMmNlIDAwMDA6MDM6MDAuMDogZmFpbGVkDQo+IHRvIHNlbmQgaDJj
-IGNvbW1hbmQNCj4gSnVuIDAyIDE3OjI1OjMzIGFyY2hsaW51eC10dWcga2VybmVsOiBydHc4OF84
-ODIyY2UgMDAwMDowMzowMC4wOiBmYWlsZWQNCj4gdG8gc2VuZCBoMmMgY29tbWFuZA0KPiBKdW4g
-MDIgMTc6MjU6MzYgYXJjaGxpbnV4LXR1ZyBrZXJuZWw6IHJ0dzg4Xzg4MjJjZSAwMDAwOjAzOjAw
-LjA6IGZhaWxlZA0KPiB0byBwb2xsIG9mZnNldD0weDUgbWFzaz0weDIgdmFsdWU9MHgwDQo+IEp1
-biAwMiAxNzoyNTozNiBhcmNobGludXgtdHVnIGtlcm5lbDogLS0tLS0tLS0tLS0tWyBjdXQgaGVy
-ZSBdLS0tLS0tLS0tLS0tDQo+IEp1biAwMiAxNzoyNTozNiBhcmNobGludXgtdHVnIGtlcm5lbDog
-ZmFpbGVkIHRvIHJlYWQgREJJIHJlZ2lzdGVyLA0KPiBhZGRyPTB4MDcxOQ0KDQpBZGQgdGhlc2Ug
-YmVsb3cgdG8gc2VlIGlmIGl0IGNhbiBoZWxwLiANCg0Kc3VkbyBuYW5vIC9ldGMvbW9kcHJvYmUu
-ZC9ydHc4OC5jb25mDQpvcHRpb25zIHJ0dzg4X2NvcmUgZGlzYWJsZV9scHNfZGVlcD15DQpvcHRp
-b25zIHJ0dzg4X3BjaSBkaXNhYmxlX2FzcG09eQ0KDQpBZnRlciBjb2xkIHJlYm9vdCwgY2hlY2sg
-L3N5cy9tb2R1bGVzL3J0dzg4XyovcGFyYW10ZXJzLyogdG8gc2VlIGlmDQp0aGUgbW9kaWZpY2F0
-aW9uIHRha2VzIGVmZmVjdC4NCg0KPiANCj4gSSdtIGF0dGFjaGluZyB0aGUgZnVsbCBib290IGxv
-ZywgaWYgeW91IG5lZWQgYSBmcmVzaCBvbmUgSSBjYW4gcHJvdmlkZSBpdC4NCg0KQmVmb3JlICJm
-YWlsZWQgdG8gcG9sbCAuLi4iIGxvZywgSSBhbHNvIHNlZSANCg0KSnVuIDAyIDE3OjI1OjAyIGFy
-Y2hsaW51eC10dWcga2VybmVsOiBydHc4OF84ODIyY2UgMDAwMDowMzowMC4wOiBBTUQtVmk6DQog
-RXZlbnQgbG9nZ2VkIFtJT19QQUdFX0ZBVUxUIGRvbWFpbj0weDAwMGUgYWRkcmVzcz0weGFlOTY2
-OGJjIGZsYWdzPTB4MDAwMF0NCg0KUGxlYXNlIHRyeSB0byB0dXJuIG9mZiBJT01NVSBieSBlZGl0
-aW5nIC9ldGMvZGVmYXVsdC9ncnViDQpHUlVCX0NNRExJTkVfTElOVVhfREVGQVVMVD0icXVpZXQg
-c3BsYXNoIGFtZF9pb21tdT1vZmYgaW9tbXU9b2ZmIg0KDQpBbmQgdGhlbiB1cGRhdGUtZ3J1Yg0K
-DQo+IA0KPiBJIHJ1biBBcmNoTGludXggd2l0aCBLREUgUGxhc21hLCBmb3IgbmV0d29ya2luZyBJ
-IHVzZSBOZXR3b3JrTWFuYWdlciBhbmQNCj4gd3BhX3N1cHBsaWNhbnQuDQo+IA0KPiBJZiB5b3Ug
-d291bGQgbGlrZSBtZSB0byBydW4gdGVzdHMgd2l0aCBlLmcuIGp1c3QgaXdkIEkgY2FuIGRvIHNv
-LCBqdXN0DQo+IGxldCBtZSBrbm93IHdoYXQgc2V0dXAgeW91IHdvdWxkIGxpa2UgbWUgdG8gaGF2
-ZS4NCj4gDQo+IEkgZG8gbm90IGhhdmUgdGhpcyBpc3N1ZSB3aXRoIHRoZSBMVFMga2VybmVsIDYu
-MTguMzQuIFRoaXMgYWZmZWN0cyA3LjANCj4gYW5kIDcuMS4NCj4gSSBiZWxpZXZlIHRoaXMgaXNz
-dWUgd2FzIG5vdCBwcmVzZW50IGluIDwgNyBrZXJuZWxzLCBidXQgSSBjYW5ub3QgZ3VhcmFudGVl
-Lg0KPiBJIGNhbiBob3dldmVyIGRvd25ncmFkZSB0byBwcmV2aW91cyBrZXJuZWxzIHRvIHVuZGVy
-c3RhbmQgd2hlcmUgdGhlDQo+IGlzc3VlIHdhcyBpbnRyb2R1Y2VkLg0KDQpUaGUgY29tbWl0cyBi
-ZXR3ZWVuIDYuMTguMzQgfiA3LjAuMTAgYXJlIHF1aXRlIGZldywgYW5kIEkgY2FuJ3QgZmluZCB0
-aGUgDQpvbmUgdGhhdCBjYW4gYWZmZWN0IHRoZSBiZWhhdmlvci4gUGxlYXNlIHN3aXRjaCB5b3Vy
-IGtlcm5lbCBiYWNrIHRvIDYuMTguMzQsDQphbmQgYXBwbHkgcnR3ODgncyBwYXRjaGVzIGFkZGVk
-IHVudGlsIDcuMC4xMC4NCg0KU2luY2UgdGhlIGxhc3QgY29tbWl0IG9mIDYuMTggaXMgZmNlNmZl
-ZTA4MTdiODg5OWUwZWUzOGFiNmI5OGYwZDdlOTM5Y2VlZA0KDQpQbGVhc2UgdXNlIGJlbG93IGNv
-bW1hbmRzIHRvIGdldCB0aGUgKDIwKSBwYXRjaGVzOg0KZHJpdmVycy9uZXQvd2lyZWxlc3MvcmVh
-bHRlay9ydHc4OCQgZ2l0IGZvcm1hdC1wYXRjaCB2Ny4wLjEwLi4uZmNlNmZlZTA4MTdiODg5OWUw
-ZWUzOGFiNmI5OGYwZDdlOTM5Y2VlZCAtLSAuLw0KDQpUaGVuIHlvdSBjYW4gYWRkIHRoZW0gb25l
-IGJ5IG9uZSB0byBzZWUgd2hpY2ggb25lIGlzIHRoZSBjYXVzZS4NCg0KVGhlIGdpdCByZXBvc2l0
-b3J5IHlvdSBuZWVkIGlzOg0KZ2l0Oi8vZ2l0Lmtlcm5lbC5vcmcvcHViL3NjbS9saW51eC9rZXJu
-ZWwvZ2l0L3N0YWJsZS9saW51eC1zdGFibGUuZ2l0DQoNCg0KUGluZy1LZQ0KDQoNCg==
+
+On 6/6/2026 1:04 AM, Falcon, Thomas wrote:
+> On Fri, 2026-06-05 at 09:11 +0800, Dapeng Mi wrote:
+>> AnyThread mode deprecation is enumerated by CPUID.0AH:EDX[15] instead
+>> of
+>> PERF_CAPABILITIES MSR. It's not a good practice to define a bit to
+>> represent "anythread deprecation" in perf_capabilities. It leads to
+>> the
+>> anythread_deprecated bit could be overwritten by the real value of
+>> PERF_CAPABILITIES MSR, just like the below code in update_pmu_cap()
+>> does.
+>>
+>> ```
+>> if (!intel_pmu_broken_perf_cap()) {
+>> 	/* Perf Metric (Bit 15) and PEBS via PT (Bit 16) are hybrid
+>> enumeration */
+>> 	rdmsrq(MSR_IA32_PERF_CAPABILITIES, hybrid(pmu,
+>> intel_cap).capabilities);
+>> }
+>> ```
+>>
+>> It leads to the anythread_deprecated bit is cleared to 0 and the
+>> "any"
+>> attribute is incorrectly shown in the /sys/devices/cpu/format/ folder
+>> on
+>> these support Perfmon v6 platforms, like Clearwater Forest.
+>>
+>> ```
+>> $grep . /sys/devices/cpu/format/*
+>> /sys/devices/cpu/format/acr_mask:config2:0-63
+>> /sys/devices/cpu/format/any:config:21
+>> /sys/devices/cpu/format/cmask:config:24-31
+>> ```
+>>
+>> So remove the anythread_deprecated bit from perf_capabilities
+>> structure
+>> and directly depends on CPUID.0AH:EDX[15] to judge if anythread is
+>> deprecated.
+>>
+>> Cc: stable@vger.kernel.org
+>> Reported-by: Namhyung Kim <namhyung@kernel.org>
+>> Fixes: cadbaa039b99 ("perf/x86/intel: Make anythread filter support
+>> conditional")
+>> Acked-by: Namhyung Kim <namhyung@kernel.org>
+>> Signed-off-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
+>> Reviewed-by: Zide Chen <zide.chen@intel.com>
+>> ---
+>>
+>> Original patch link:
+>> https://lore.kernel.org/all/20260423053306.3033331-1-dapeng1.mi@linux.intel.com/
+>>
+>>  arch/x86/events/intel/core.c | 10 +++-------
+>>  arch/x86/events/perf_event.h |  2 +-
+>>  2 files changed, 4 insertions(+), 8 deletions(-)
+>>
+>> diff --git a/arch/x86/events/intel/core.c
+>> b/arch/x86/events/intel/core.c
+>> index 0217e701aeeb..ea3ab3050a3b 100644
+>> --- a/arch/x86/events/intel/core.c
+>> +++ b/arch/x86/events/intel/core.c
+>> @@ -7946,12 +7946,6 @@ __init int intel_pmu_init(void)
+>>  
+>>  	x86_add_quirk(intel_arch_events_quirk); /* Install first, so
+>> it runs last */
+>>  
+>> -	if (version >= 5) {
+>> -		x86_pmu.intel_cap.anythread_deprecated =
+>> edx.split.anythread_deprecated;
+>> -		if (x86_pmu.intel_cap.anythread_deprecated)
+>> -			pr_cont(" AnyThread deprecated, ");
+>> -	}
+>> -
+>>  	/* The perf side of core PMU is ready to support the
+>> mediated vPMU. */
+>>  	x86_get_pmu(smp_processor_id())->capabilities |=
+>> PERF_PMU_CAP_MEDIATED_VPMU;
+>>  
+>> @@ -8828,8 +8822,10 @@ __init int intel_pmu_init(void)
+>>  				      &x86_pmu.intel_ctrl);
+>>  
+>>  	/* AnyThread may be deprecated on arch perfmon v5 or later
+>> */
+>> -	if (x86_pmu.intel_cap.anythread_deprecated)
+>> +	if (version >= 5 && edx.split.anythread_deprecated) {
+>>  		x86_pmu.format_attrs = intel_arch_formats_attr;
+>> +		pr_cont("AnyThread deprecated, ");
+> Is there a reason the leading space is missing here? Other than that,
+> LGTM.
+
+It's removed intentionally. The leading space is unnecessary and seems to
+be long-term typo.
+
+Thanks.
+
+
+>
+> Reviewed-by: Thomas Falcon <thomas.falcon@intel.com>
+>
+>> +	}
+>>  
+>>  	intel_pmu_check_event_constraints_all(NULL);
+>>  
+>> diff --git a/arch/x86/events/perf_event.h
+>> b/arch/x86/events/perf_event.h
+>> index eae24bb35dc1..5902a297daa1 100644
+>> --- a/arch/x86/events/perf_event.h
+>> +++ b/arch/x86/events/perf_event.h
+>> @@ -668,7 +668,7 @@ union perf_capabilities {
+>>  		u64	perf_metrics:1;
+>>  		u64	pebs_output_pt_available:1;
+>>  		u64	pebs_timing_info:1;
+>> -		u64	anythread_deprecated:1;
+>> +		u64	__reserved:1;
+>>  		u64	rdpmc_metrics_clear:1;
+>>  	};
+>>  	u64	capabilities;
