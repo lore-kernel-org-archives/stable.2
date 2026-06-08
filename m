@@ -1,73 +1,74 @@
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
+Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB4933E5A18
-	for <stable@vger.kernel.org>; Mon,  8 Jun 2026 19:22:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35D103E5589
+	for <stable@vger.kernel.org>; Mon,  8 Jun 2026 19:22:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780946548; cv=none; b=sTqLVRVFVdPaj6fRCwoZ8QopD+zmDZCdtmnoIiMLRJyx6NJB0+NdvjC88l226eJ1WriQ/7dh4sfpqpXDL3nY17nDs07NWzeLUR9btOmxsJb8k+LHqFSWd6Fb135wtE3xnp7k5icWuqEAQgsqJJc8ea0yUnBDX4oyhP//89Ubv6Q=
+	t=1780946554; cv=none; b=MT76MwFk46vR6+PrUf9Kf0QKVtRn2aCFsyr3d9DfAg12HJ1jgBB6vG6vFNJ5vRKxLmRn9wR5DdoqYvZBU1hHfnfzHKS32PKLlbzH2n07VjyhNOoXTCFXrbbuzM3ApDbKgjH5v1+gsP3dNt30akX/mNFIsq994bH2OnjjGxuefMw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780946548; c=relaxed/simple;
-	bh=AHd5YeVtutAbZkxadD/aQY5HB+EyJsk8qeRwSqLawfQ=;
+	s=arc-20240116; t=1780946554; c=relaxed/simple;
+	bh=xFF3lSSBF4PfSIr4aBdQGr5g5KVYRTIexUn5lDRaoFY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KNzQgaOWJluMuJYO5Ie3jP702ZTeRlgswdH8gtpPttm/HVSg9KCoPogcjZ92JhhaQB2Rc3cCPmnotjXe0NJnbe+gTOtx5kbOpes7tGYM+uzlOZRonDIqgS8CsSm17egSFij5CzWr9CfCDcwL/TNxyB6ekDXkP22uSfRtdbq0thk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TKM8r0xy; arc=none smtp.client-ip=209.85.216.45
+	 MIME-Version; b=dSvIrIVmKTNY1GsKRznoyxJqcKlnhyu+WhUXRLoJV3NoSp0lZPnaxmZCjTN5bUX7vjC6iCR8OZAvaSS9UjN4qg5q7TKXg1C675hHvQNyl1m4YMIKaU774U6X+931zb/126Ksm0LIPTS76gOeMjHYNXwNkhwafVfQTXnlSA9KLSI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Xu5bVZFy; arc=none smtp.client-ip=209.85.215.180
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TKM8r0xy"
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-36b8e1760ccso2872036a91.0
-        for <stable@vger.kernel.org>; Mon, 08 Jun 2026 12:22:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Xu5bVZFy"
+Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-c85d4b4245aso3044895a12.1
+        for <stable@vger.kernel.org>; Mon, 08 Jun 2026 12:22:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780946547; x=1781551347; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1780946553; x=1781551353; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=EwMIyvXLF7QVH+M7je+E+kLYonxVYHkOjT0cHPKyEmk=;
-        b=TKM8r0xyNkVzpCK+91xEelzie3435ZR5AwjScygnhjG5j2zoTBi5ofsxika2NU0D1b
-         x1qclK/L/Hj2av22Iscm2hQVyb8OVYM5dTJte9C4TxjtCDQiK3maXH0EpN2P8EHCm8S+
-         OoNTfJg52ffDxXY6mi1rO0E3UT/85v0phsguF59/4hjo2ATjJACqrN6EmzwIqdwHXiW5
-         CjeGcXKxUagMiVpBhqRDs2Rd01Ag8DjRc+o3Kz/v0HoOoM7BZJ6JHzxvral/Kx2S9ngn
-         uHdv87+FUhY8lTGiPIG7/hWMf8/WXS7LZvg7aqnULe5O93rRMfRrzVXPqE70avRFTH5a
-         fU+Q==
+        bh=YE+QkRviOm15Lrq7IHBkUE4kg+YsYqKqrrbCDpmsEMQ=;
+        b=Xu5bVZFyIhWTSLFiAPaM41AubUDIJQZ64DzFbtLFav0a0gqmsMaehsW+fJVNNmwDDH
+         lAftKfb4TPbomPj8LyxJU6Xr/ZUynXUxlM8VLvoXtfDAvk28YsEMkiZMMrUjH+si3k1i
+         /gxNpDeSjaATHzwNAyS9yDFnArs6oP4EJXfKTvvFxPb6Ze7V0cowqq5jjRnAgBwenQW/
+         HOMF+GnJgyOtjIg3+XpyXVQvlB8jhvZ25moZT1krQ3SiOYAHzTef08a9ddnAKr0aB3fN
+         dV8R+nyypxnuvCvnXMh160By6kM7YEyWQmlEB19jOu3RE02tDFGmR59iee6imxdqEdGn
+         kvVw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780946547; x=1781551347;
+        d=1e100.net; s=20251104; t=1780946553; x=1781551353;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=EwMIyvXLF7QVH+M7je+E+kLYonxVYHkOjT0cHPKyEmk=;
-        b=jm8Ha02X/T3oNK8LUmCVcEHo8R8lhfzTINXdMx4vaNZBBqaUq0IQaj1eQ+RizyU5Fi
-         16dj1g9aGACOgNRC1pslZDkIL3nViPKsZUPz7KHFo0CiSL4oOTRk1D7TLtxdLFNY5Ro3
-         /c7kwC8XRgGajYVSrINu/Mzc+SYPdRp+j7+YgZg9BgXcv02bn9eda0og6thRiYVOa6LW
-         ON6318RiejqEYg95gy+J2LkFMzt5lfawDF6SsF4voPTJNDaKBrx5FAW7G41srOJ68X3F
-         UBp+VvEQrKdjSd33l8svPMODbzFgvt39sadw9iqlw2YdBhaWfkcieAVYxjU0fvuVeRa9
-         e6Eg==
-X-Forwarded-Encrypted: i=1; AFNElJ965tdizBvrtLR1JF1KZirK0kC6p8d1U0EWDU24MybxvxUTId06DjcPLcujf5e7Hbtcrvkk2JA=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzQSk/AnpM7mDAHHzyle1Zx+ByMoASHMjdm+yicSvwzCvTH7+wW
-	oqdpT8n+i73KdVE8KqIbzQVxwSEPby1hQTpZFwkS18Mf+K7iRhROShBmWzCOCQ==
-X-Gm-Gg: Acq92OGCCw86tsYy3lLbqwbIt7voY0yfBeHSPEV6w8pgUdNB08GiReowTep8/NYO8Wa
-	tuwZYVIsMvyK3zY4pA1wDEhBOVUZY39Gxr+L0ftWCoprgH0/xogpQUd2BGO9Coj2fh1993gaJ+p
-	wqCrJ7+4YZqsN+3684pSiVkNiJSX6aEKNUAOTxvXKI9GdrZL40uiCsJN1RrZCso/h3VxmpjG2X0
-	LaKWS8d9/TC8IgotxvPpyYUKADe8Y6ckP7iD8Ub8sbJ7XE2JQL/+8B7+7rUyXCUAN5FW9y9UHzg
-	H6AipVIoJjNaxTvbkPGCEnHRxOL6L5g9gks+n0MfB35q67Sz59p79KHkzaR8TuRvs+/20gjyxC9
-	2DFQd6P+by6nfcYsmVMVmlBkDk+aRhi35HZTXg/gxMdl7SB5CWVlLoUCfDzHKS4aTJZ5DWkXUAz
-	OXEYt7qu70doYHJyvb5HnoPbyWdS0=
-X-Received: by 2002:a17:90b:514d:b0:36b:77b9:5c8c with SMTP id 98e67ed59e1d1-370efda7abcmr17435561a91.17.1780946546919;
-        Mon, 08 Jun 2026 12:22:26 -0700 (PDT)
-Received: from localhost ([2a03:2880:ff:5::])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-36f70a28c0esm17045538a91.12.2026.06.08.12.22.26
+        bh=YE+QkRviOm15Lrq7IHBkUE4kg+YsYqKqrrbCDpmsEMQ=;
+        b=SC4ix8dabtC+WiKVj+46tyX6JH5ldaFeKdRhW7XGUqWn4NCFopiliAGUdohu39i3nX
+         8tHuaSpVSZcu5IJr+A63bjQBSpTHBrMBAkBisqi/XqeX8/DhN6ohmo5qNIPH4bHXuX85
+         sm9e2+PTp6hfMmWQGK+TuNNhANmNE0fV+7q4p51jYnou38OBGh9aMbg0czr/RZvu4b1l
+         5FWyxGcnawKj7SqmzczJqHO24eg/SBY9RiLnEMf5izGh4wSR+Gx2ocOVoPO+GyQ52QAY
+         eFGI9a9N+G3bjvVPJeXDaALuZx59qXlgTBBf+tMvrIJL6IjWE/0cZlqAExT56mQefQzm
+         borw==
+X-Forwarded-Encrypted: i=1; AFNElJ/gUFs8xXBWf24QMBbDt+VaqU1IMoMr9ZsnHuBYJbAqdPFOZqUXOPYXyvYSOYJItHTVdNcJEuA=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz7P/zazLNhzd7Hve5tAf76rAwRTK2JiOBESZ5zHwNbriYmujKP
+	kvB1zMUK5mfj25XTt2EqWOPVaDVdeQPSY51OZp9tVB3zgvCrf1laISxF
+X-Gm-Gg: Acq92OHEZX9HHUBXPpuM48t7L6gqgLGynRZp0ZmpGKzduydqCBY3X/3kMqT0lNhp5yJ
+	kB6wjIfJGRqftdpcvDWvom1ffifsP1h/V9RZlHzWpQ5DAnl+MFeUbg6IwSk+UugN7ol4139ZH/H
+	6Kk0OUkVKZNPTiO7CqKLZzBNbEzcTfGHd+xynRYn34+RqmGjEXPR6BaJhd1JEDqYED9tR1fxajb
+	gqHSYkqH3J8+ITTEl8iMEf+AGNeNBzXqa0HeHKC3PaMlCepGPKvxfAAGucf6UbwleINzzdhJTn0
+	lxMrIklXsHW6uD3ubv7gCLwuk0u4gKZG3oioAN9tFqrjVw5L5y4GpqjZl6fGksaKiPQyZ/K5L07
+	bFVkHIZ6WkIprQoO35ZPs5LuHtJqEb5GbJtgEL+sxqXEL6TC5ioJfponl2yEjEIC0+0SMW00M+h
+	2oYJY0ImUk+bq0uSysLtwtPiHmsMum
+X-Received: by 2002:a05:6a00:8d82:b0:842:46a6:e2db with SMTP id d2e1a72fcca58-842b0e88fe4mr18535319b3a.19.1780946552582;
+        Mon, 08 Jun 2026 12:22:32 -0700 (PDT)
+Received: from localhost ([2a03:2880:ff:59::])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-842828821c5sm17637440b3a.32.2026.06.08.12.22.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 08 Jun 2026 12:22:26 -0700 (PDT)
+        Mon, 08 Jun 2026 12:22:32 -0700 (PDT)
 From: Joanne Koong <joannelkoong@gmail.com>
 To: miklos@szeredi.hu
 Cc: fuse-devel@lists.linux.dev,
 	bernd@bsbernd.com,
 	ali@ddn.com,
 	horst@birthelmer.de,
+	Heechan Kang <gganji11@naver.com>,
 	stable@vger.kernel.org
-Subject: [PATCH v3 1/3] fuse: fix race between registration and connection abortion
-Date: Mon,  8 Jun 2026 12:21:47 -0700
-Message-ID: <20260608192149.23294-2-joannelkoong@gmail.com>
+Subject: [PATCH v3 3/3] fuse: fix moving cancelled entry to ent_in_userspace list
+Date: Mon,  8 Jun 2026 12:21:49 -0700
+Message-ID: <20260608192149.23294-4-joannelkoong@gmail.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <20260608192149.23294-1-joannelkoong@gmail.com>
 References: <20260608192149.23294-1-joannelkoong@gmail.com>
@@ -79,92 +80,78 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This fixes this race:
-- thread a: io_uring_enter -> register sqe ->
-  fuse_uring_create_ring_ent -> allocate ent but doesn't grab queue_ref
-  yet
-- thread b: fuse_conn_destroy() -> fuse_chan_abort() ->
-  fuse_uring_abort() is a no-op due to queue ref being 0
-- thread a: grabs the queue_ref, queue_ref is now 1, rest of
-  fuse_uring_do_register() logic executes
-- thread b: fuse_chan_abort() returns, fuse_chan_wait_aborted() now runs
-  and calls
-  "wait_event(ring->stop_waitq, atomic_read(&ring->queue_refs) == 0);"
-The abort/unmount thread will hang indefinitely in unkillable state as
-nothing will decrement queue_refs or wake stop_waitq, and the ring,
-queue, and ent are leaked.
+fuse_uring_cancel() moves entries that are available (these have no reqs
+attached) to the ent_in_userspace list. ent_list_request_expired()
+checks the first entry on ent_in_userspace and dereferences
+ent->fuse_req unconditionally, which will crash on a cancelled entry
+that was moved to this list.
 
-Fix this by checking fch->connected under fch->lock after the created
-ent has grabbed a ref count on the queue. This ensures that in the
-scenario above, it is guaranteed that we either release the queue ref
-and wake up stop_waitq (in case fuse_chan_wait_aborted() is already
-waiting) in fuse_uring_do_register() when we detect !fch->connected, or
-if the connection is aborted after the check, it is guaranteed that the
-async teardown worker will be running in the background cleaning up ents
-and decrementing the ent's ref on the queue, which will unblock the
-eventual queue and ring teardown.
+Fix this by freeing the entry and dropping queue_refs directly in
+fuse_uring_cancel(). This is safe because cancel is the cancel handler
+itself - after io_uring_cmd_done(), no more cancels will be dispatched
+for this command, and teardown serializes with cancel via queue->lock.
 
-Fixes: 24fe962c86f5 ("fuse: {io-uring} Handle SQEs - register commands")
-Cc: <stable@vger.kernel.org>
+Since cancel now decrements queue_refs, fuse_uring_abort() must no
+longer gate fuse_uring_abort_end_requests() on queue_refs > 0, as
+cancelled entries may have already dropped queue_refs while requests are
+still queued. Remove the gate so abort always flushes requests and stops
+queues.
+
+Reported-by: Heechan Kang <gganji11@naver.com>
+Tested-by: Heechan Kang <gganji11@naver.com>
 Reviewed-by: Bernd Schubert <bernd@bsbernd.com>
+Fixes: 4fea593e625c ("fuse: optimize over-io-uring request expiration check")
+Cc: stable@vger.kernel.org
+Suggested-by: Jian Huang Li <ali@ddn.com>
+Suggested-by: Horst Birthelmer <horst@birthelmer.de>
 Signed-off-by: Joanne Koong <joannelkoong@gmail.com>
 ---
- fs/fuse/dev_uring.c | 22 ++++++++++++++++------
- 1 file changed, 16 insertions(+), 6 deletions(-)
+ fs/fuse/dev_uring.c   | 6 ++++--
+ fs/fuse/dev_uring_i.h | 6 +++---
+ 2 files changed, 7 insertions(+), 5 deletions(-)
 
 diff --git a/fs/fuse/dev_uring.c b/fs/fuse/dev_uring.c
-index e467b23e6895..99ebb7c9cc61 100644
+index d9108b5b5db8..f4ba64a1796a 100644
 --- a/fs/fuse/dev_uring.c
 +++ b/fs/fuse/dev_uring.c
-@@ -973,15 +973,26 @@ static bool is_ring_ready(struct fuse_ring *ring, int current_qid)
- /*
-  * fuse_uring_req_fetch command handling
-  */
--static void fuse_uring_do_register(struct fuse_ring_ent *ent,
--				   struct io_uring_cmd *cmd,
--				   unsigned int issue_flags)
-+static int fuse_uring_do_register(struct fuse_ring_ent *ent,
-+				  struct io_uring_cmd *cmd,
-+				  unsigned int issue_flags)
- {
- 	struct fuse_ring_queue *queue = ent->queue;
- 	struct fuse_ring *ring = queue->ring;
- 	struct fuse_chan *fch = ring->chan;
- 	struct fuse_iqueue *fiq = &fch->iq;
- 
-+	spin_lock(&fch->lock);
-+	/* abort teardown path is running or has run */
-+	if (!fch->connected) {
-+		spin_unlock(&fch->lock);
-+		if (atomic_dec_and_test(&ring->queue_refs))
-+			wake_up_all(&ring->stop_waitq);
-+		kfree(ent);
-+		return -ECONNABORTED;
-+	}
-+	spin_unlock(&fch->lock);
-+
- 	fuse_uring_prepare_cancel(cmd, issue_flags, ent);
- 
+@@ -511,8 +511,7 @@ static void fuse_uring_cancel(struct io_uring_cmd *cmd,
+ 	queue = ent->queue;
  	spin_lock(&queue->lock);
-@@ -998,6 +1009,7 @@ static void fuse_uring_do_register(struct fuse_ring_ent *ent,
- 			wake_up_all(&fch->blocked_waitq);
- 		}
+ 	if (ent->state == FRRS_AVAILABLE) {
+-		ent->state = FRRS_USERSPACE;
+-		list_move_tail(&ent->list, &queue->ent_in_userspace);
++		list_del_init(&ent->list);
+ 		need_cmd_done = true;
+ 		ent->cmd = NULL;
  	}
-+	return 0;
+@@ -521,6 +520,9 @@ static void fuse_uring_cancel(struct io_uring_cmd *cmd,
+ 	if (need_cmd_done) {
+ 		/* no queue lock to avoid lock order issues */
+ 		io_uring_cmd_done(cmd, -ENOTCONN, issue_flags);
++		kfree(ent);
++		if (atomic_dec_and_test(&queue->ring->queue_refs))
++			wake_up_all(&queue->ring->stop_waitq);
+ 	}
  }
  
- /*
-@@ -1114,9 +1126,7 @@ static int fuse_uring_register(struct io_uring_cmd *cmd,
- 	if (IS_ERR(ent))
- 		return PTR_ERR(ent);
+diff --git a/fs/fuse/dev_uring_i.h b/fs/fuse/dev_uring_i.h
+index 368f4d0790eb..22ec67e39ee0 100644
+--- a/fs/fuse/dev_uring_i.h
++++ b/fs/fuse/dev_uring_i.h
+@@ -150,10 +150,10 @@ static inline void fuse_uring_abort(struct fuse_chan *fch)
+ 	if (ring == NULL)
+ 		return;
  
--	fuse_uring_do_register(ent, cmd, issue_flags);
--
--	return 0;
-+	return fuse_uring_do_register(ent, cmd, issue_flags);
+-	if (atomic_read(&ring->queue_refs) > 0) {
+-		fuse_uring_abort_end_requests(ring);
++	fuse_uring_abort_end_requests(ring);
++
++	if (atomic_read(&ring->queue_refs) > 0)
+ 		fuse_uring_stop_queues(ring);
+-	}
  }
  
- /*
+ static inline void fuse_uring_wait_stopped_queues(struct fuse_chan *fch)
 -- 
 2.52.0
 
