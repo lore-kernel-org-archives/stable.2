@@ -1,82 +1,96 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7075524677F;
-	Mon,  8 Jun 2026 13:17:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 743A830675D
+	for <stable@vger.kernel.org>; Mon,  8 Jun 2026 13:17:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780924674; cv=none; b=piqt4B0a5xSzOUPrE8HzqIaIOSMB7O0nIWjjinYrd8otIeBhRYYkzuo9HNC6QJJF/xdjIVGconLK/DLzRqtkFS+z2IzKzSPPPp5AQH/OKIpQG5e2ojoUVGDQEoOMIaOzZ1KU01TI/eDaoXlKuVN0t58EFZwtqg1Y5kI8bO9ptP4=
+	t=1780924675; cv=none; b=jdJ/dcnCMZy92uUOn5yxznGWPU19slcMRGdtHomJCvZbwpOe2vCwezrPczke+eFzCiFVcIcCWDyjvkdlny4WC3l+DXStk3Akk/7d5cqnVLOqgMlUof1CiOLCCKNBH1qApAmF8Owjg+Aj/A3R32wpfnuGdfa3mhvU8/UxnybeVuw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780924674; c=relaxed/simple;
-	bh=5ZcfMxYgH2fNJAZKgfcOmyHmc0WQu6D9ZE/mtecMdUM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hXfyxRUKN+4+Eqav1xXxzCUYBzEmHG/qEoQfNwQq+T+ykPmPOF4Q1k5wdpSrqQCg86yo6yz/4utL6/u+2N29v7XqPHn+QKlf2a5a8dAn2z6wy2UcitB/9GToZ7M2bzDCTOEQrkZweJKpjuiOS9YVilIzVXMeYIaJAESElW1N8EM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Np9gHYeC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780924675; c=relaxed/simple;
+	bh=557A4rslfuELDPas1rUlSRtz7XC3ubYCXfKrEJMIPQc=;
+	h=Mime-Version:Content-Type:Date:Message-Id:From:To:Subject:Cc:
+	 References:In-Reply-To; b=YFH1aNFkw+35UNhNuzO/Y2NkwvBnjx1NayshmjL9mxxf85uqtErOAJpIXG8//PczyG5efWhmDHMcSmjtclC8pQIqfz8Nq5X9wCiBjj2I60ohtoFn49tM6kwEI+JnTxUrXz1OVx52Gjerv1ri/i4gjni3xrLUkU8awzqWN6wNMXw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=DaAOSI+g; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Np9gHYeC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 731CF1F00893;
-	Mon,  8 Jun 2026 13:17:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780924673;
-	bh=veTckQvpbSMiuy9BuWTYv1iAVwX/M+n2YemNsN3Jzbo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Np9gHYeCXpS7hiRiJhxyUqlUqEfL5Q+2CToVfyagUKDLzRN09ZwHd0tBQGPb14+hF
-	 +1cRd5DKA6Qi9Bq0TpdHWdrYt3EYrbfYKsadBEmk2dmTCMSWuTrOpZxza5h2KmY4Y/
-	 BO06WN/3+o8ngZbXrh5396/N2a55am3SKtzdGJAlYmkK3eRAowzp7cfwcnACD6BHbu
-	 yLKIXbL3n82fIQG+FHojzl6uRZQx05LtpatougcNpZ8GkjqbgBOtxSltqgxtGRAmzq
-	 ouFFoNuo9iOBWiaH1n0ShB/UOKd8G7u7BMzFqCr07biImdQXuErhN8Q6ze51/f3mNX
-	 zGCjVRCbL3gfw==
-Date: Mon, 8 Jun 2026 14:17:46 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev,
-	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
-	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
-	patches@kernelci.org, lkft-triage@lists.linaro.org,
-	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
-	hargar@microsoft.com, achill@achill.org, sr@sladewatkins.com
-Subject: Re: [PATCH 7.0 000/332] 7.0.12-rc1 review
-Message-ID: <dfba6789-e4a1-4c2e-9db2-bc014defb8ab@sirena.org.uk>
-References: <20260607095728.031258202@linuxfoundation.org>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="DaAOSI+g"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id DBEF7C5147D;
+	Mon,  8 Jun 2026 13:17:52 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id C3F135FFB7;
+	Mon,  8 Jun 2026 13:17:51 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E9FD6106A28B2;
+	Mon,  8 Jun 2026 15:17:49 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1780924671; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=pJlyIZJnB6mb5l3T1DHISpp+MXT5INLcjb7JHMUtO0g=;
+	b=DaAOSI+g80z5cTwL/GBPQ9XJdZTtV1sZMoVO5UNLlYabQK9S89Xcda7wQbx6s0ZSGX4gZR
+	CRUwLC9UB5NIlq2KtC8tbUPpmkiuvG8nSqufJb5aWBtJgFYD/wT6L+N2Co5On/k/01dupR
+	eJNR+ZqLzg2C3Q6CwLi+LfXO+lv3mh4HpNiRCj2PUQlkcL2g+011aTAZ/QOxUvs8PTtBhL
+	8gpYadJfsAQpr4icSs747vpt+Cr92f5RKJn2EBc7iuMPZWjN9ugp6Jc95qbzI5/CLJvGrC
+	/+pES53rUebayKSFaM0q3PYngkLtnLqG33IkwNytdkcCmhG3w4gotpvMoilAjA==
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="8PFp40QOkA+wbZat"
-Content-Disposition: inline
-In-Reply-To: <20260607095728.031258202@linuxfoundation.org>
-X-Cookie: We've upped our standards, so up yours!
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 08 Jun 2026 15:17:49 +0200
+Message-Id: <DJ3P3UDLPP2D.X4DC9XWSHPR7@bootlin.com>
+From: "Mathieu Dubois-Briand" <mathieu.dubois-briand@bootlin.com>
+To: "Srinivas Kandagatla" <srini@kernel.org>, "Greg Kroah-Hartman"
+ <gregkh@linuxfoundation.org>
+Subject: Re: [PATCH v2 1/2] nvmem: layouts: Add fixed-layout driver
+Cc: "Miquel Raynal" <miquel.raynal@bootlin.com>,
+ =?utf-8?q?Gr=C3=A9gory_Clement?= <gregory.clement@bootlin.com>, "Thomas
+ Petazzoni" <thomas.petazzoni@bootlin.com>, <linux-kernel@vger.kernel.org>,
+ <stable@vger.kernel.org>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260515-mathieu-nvmem-fixed-layout-v2-0-8ac215dd4016@bootlin.com> <20260515-mathieu-nvmem-fixed-layout-v2-1-8ac215dd4016@bootlin.com> <a13529db-a85a-4cee-9269-17c0f8fc9781@kernel.org>
+In-Reply-To: <a13529db-a85a-4cee-9269-17c0f8fc9781@kernel.org>
+X-Last-TLS-Session-Version: TLSv1.3
 
+On Tue May 19, 2026 at 4:59 PM CEST, Srinivas Kandagatla wrote:
+>
+>> -static int nvmem_add_cells_from_dt(struct nvmem_device *nvmem, struct d=
+evice_node *np)
+>> +int nvmem_add_cells_from_dt(struct nvmem_device *nvmem, struct device_n=
+ode *np)
+>
+> Export this in this patch itself.
+>
 
---8PFp40QOkA+wbZat
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Sure, I will export this here.
 
-On Sun, Jun 07, 2026 at 11:56:09AM +0200, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 7.0.12 release.
-> There are 332 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+>> +
+>> +static int fixed_layout_add_cells(struct nvmem_layout *layout)
+>> +{
+>> +	struct device_node *np;
+>> +
+>> +	np =3D of_nvmem_layout_get_container(layout->nvmem);
+>> +	if (!np)
+>> +		return -ENOENT;
+>> +
+>> +	return nvmem_add_cells_from_dt(layout->nvmem, np);
+>
+> np is leaking here.
+>
 
-Tested-by: Mark Brown <broonie@kernel.org>
+Right, thanks for catching this.
 
---8PFp40QOkA+wbZat
-Content-Type: application/pgp-signature; name="signature.asc"
+I'm going to send a v3 soon.
 
------BEGIN PGP SIGNATURE-----
+Thanks for your review.
+Mathieu
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmomwPoACgkQJNaLcl1U
-h9DW0ggAgqo2ru3yNz5cVAfwC846aEoPE4ZAuoFHTJ+iPy/eXIfYP8ZjNTdaSoFC
-NABqWvyT1hFVUV2y1udsjltnCxw4nTkAdQxiFmOXRQdKIN43P2HG7+SYny4Lerul
-7A5UagUjsnl3tuOraijsT/pNuHkPVv2yEDe4TxuiO48OMDV4FvF5UAf7cgFjIEH5
-x+aH8kMGVyiCx1gB94eYdGpcU1M9pyDd9Mh6sCJJwGKneqCiz4Wh0HiCvebtenH8
-get7SW5hiNBq2yk4LgSxfNZSiRUO7wAMWxy0ZyGzJSkgAkEakxDZ4d/Fh/iS0AbG
-qBuONddj1SjdSUx9y/iOI3FHs9R/HQ==
-=IrZI
------END PGP SIGNATURE-----
+--=20
+Mathieu Dubois-Briand, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 
---8PFp40QOkA+wbZat--
