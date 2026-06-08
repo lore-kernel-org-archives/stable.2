@@ -1,57 +1,60 @@
-Received: from out203-205-221-240.mail.qq.com (out203-205-221-240.mail.qq.com [203.205.221.240])
+Received: from out203-205-221-202.mail.qq.com (out203-205-221-202.mail.qq.com [203.205.221.202])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0080F3AFCE5
-	for <stable@vger.kernel.org>; Mon,  8 Jun 2026 09:13:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.205.221.240
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 993792E62B4
+	for <stable@vger.kernel.org>; Mon,  8 Jun 2026 09:13:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.205.221.202
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780909990; cv=none; b=BSulk7DOLcunpCaYh29KyMml+I9qSIHteUsfom84ZsAqop3oxTRkpYFGXVn1BLMZT8tL1lFntV7clhmshAAye3DEr6nOB6o2owml2WnerREpSaDTZEJFf1xyv3VMo1uP2lxVVC6gC/yE1MeB3gOewEZG5K0TOXD7OOxebRXvOWw=
+	t=1780909990; cv=none; b=dJUO9IRSLvVKnpPatFa0oxz2iyi9p62hFAHHliCZkGXYWSFohFAFVWwEE1628hPYw3pnH4D5LmkVKH2MPrUkfgPGZuM1Qw3+A1UhayzG3ZLE6+0RiHiPjgEV5pp8pN+L4Ns7Q0rPFuXHd1iieAFVbCSYP775DlrYLd0hzGqMDSI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1780909990; c=relaxed/simple;
-	bh=TrFYGa2op91byLRTN68QsIHQy4X9NeuphZtPVHEMisQ=;
-	h=Message-ID:From:To:Cc:Subject:Date:MIME-Version; b=bDXnSArFeESb2eD0ACUPX8PLmhYvcTRy2/klOGdzZLtJo8HH7rIDHezhjYtwbjVBAVx2pHeYhBR/7tmauQ6jisn2kCyviVlnMgPJ5sepv2hCmKueZs/tVfodzOktPol6bq/khRLcrSdqZxP3vWdVCq6iX+qvC8l7z//kTHWm+mc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foxmail.com; spf=pass smtp.mailfrom=foxmail.com; dkim=pass (1024-bit key) header.d=foxmail.com header.i=@foxmail.com header.b=ef+BHDuB; arc=none smtp.client-ip=203.205.221.240
+	bh=dkCuiAK1kOD5p3u0nxD1rPOGHBlcIMgT85PKDMH0CA0=;
+	h=Message-ID:From:To:Cc:Subject:Date:In-Reply-To:References:
+	 MIME-Version; b=huWFvlEy/IKPTQoVrrCee8fbRX6hLCjgXrifurDhi/rtKWlubxNt/OkhI1ukDsVNXcbeyF9cZgRUavXAp7DMAyhrwDf8S/Tdva1vzq3QE8dUGr8ehKK53upG6fG4G8hy0sHrB8GbNKgLDkkaJzhZuc89BClPhqvv/mF/bguL0+I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foxmail.com; spf=pass smtp.mailfrom=foxmail.com; dkim=pass (1024-bit key) header.d=foxmail.com header.i=@foxmail.com header.b=L88bmJO/; arc=none smtp.client-ip=203.205.221.202
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foxmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foxmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=foxmail.com header.i=@foxmail.com header.b="ef+BHDuB"
+	dkim=pass (1024-bit key) header.d=foxmail.com header.i=@foxmail.com header.b="L88bmJO/"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
-	s=s201512; t=1780909979;
-	bh=+fqbAYNvBbhGamEyI6RgTGYGo+FJfa7zUeW6Q86NOV8=;
-	h=From:To:Cc:Subject:Date;
-	b=ef+BHDuBb9bqbBgkYYcUCXTkAewKPI8NG7a7WaEiVvhLqAMSgZuoxDFH5QPAWw8US
-	 haTkj8i6eAUxJMmUeKFWYLoQfVBvSDw3SM3ZvMvxCbRamDRfyk1JsAzlWJTybqq+Xe
-	 SuAjXGd9Vq2zhLvfL/RzwT2JH7cXemDS+h1J4vJA=
+	s=s201512; t=1780909980;
+	bh=Zk1OdM/FO04pIv727zNRuWZ1i1r0L3Cf7ZaDQS1VgWA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=L88bmJO/r71yXV6q+vcPNR/8AIu6ZDR0VQJBz3OskZcszpfk9DLgpR+DL603GbEKd
+	 rDypRroo5Wh2fZWEfoW38XbbtDJjWLCJxmrxDxxoTP4k8RRnNsqJGFKKuRWGJbmj+F
+	 JCDaR/O+SX9tELVoIAXg3IJjFKXNv+UnzpHMryKg=
 Received: from chafi-Matebook-Ubuntu.. ([117.25.98.102])
 	by newxmesmtplogicsvrszb43-0.qq.com (NewEsmtp) with SMTP
 	id 32F830C7; Mon, 08 Jun 2026 17:12:47 +0800
-X-QQ-mid: xmsmtpt1780909967t9w3ffs40
-Message-ID: <tencent_41186F27AF2C13B660C14ED5E6E14759800A@qq.com>
-X-QQ-XMAILINFO: OEqHD1PnWCNqOwCy+d3Obi9zlJvkegDosYWvNDkri1MFywdxVJZCdKfyufQj6D
-	 skDDJabPGMemcLZtw0pYckoBoSZi8WP7aHN5LBRm8AvhQB0x6iqad2zqIhuWEFO33c81Qqdxyl23
-	 626sMZ3z67sFPAaJtij3QToZaciVzv7wpqx8bO36bQeNQ2TnQBRKTpc3DFUIHnNQDWZng/4B5P+G
-	 X/AyqPmMWnK6LyfixxCyfWHxx2I/WlHcKhjjhcgUq6ZtpMcyUOs5PHlnvn7lTf7Qr+t+R35FLrh1
-	 qvWFTJS0f3DiousnC1PM/fNU6XXNwSz0IEW7CX3VMqrY7vihAuuUj3UElw5ncaeSOZWA1mbmGQU0
-	 4s18cr7FFX5tBi4nFw6P5vNftCl97TQhTqsAuF3gLQJ6VsGeiT9gz3cIaVtaHh8u8NNv2ZesJi3Q
-	 yWs42OApmvgXHGAGRYJwRwEm+hPx0iekZyYq2pnXfW6XygxrgKPjMUbI95i+s2wQIxF426TzENkx
-	 Nxo9SOtfmVB928GCf3XF+E47SphWD2ZWw7KfCL2jnqqyF13m4plabOOS702/fI3WVvKSvZ4SoOD8
-	 Jp17QRzPuUMYlkZLGnAQ1f9v08dqn1ZAsT5v+6j8u6muXQNpyC30YpuCemB/VADN5PlLmopEWzwg
-	 c94NvyUd7PXQVJ26w+EbqGwQomt3DUcDmzv9QUWIqF60zR8a2do0tvuh6kjD3+Kg0ZqRyyHZ4fDP
-	 TaDkYRhaHXHS7oVwEgU7pIOZCMgf4pJJttanY2wpF42NOl4OTm4mx+plXralSed2c5mvHVFg97R2
-	 ijZiNFWqCK03lJfu7ruTwiK9xXDTKqXeZ67xFoKfRX9VuwItYYUvb+1/zKjX3E01oQtdDpZ7pL6p
-	 nGcyLVJxf58T3ec1+oJWy+nm3kK/a1Sk11wnQB2d2VAH1xb9kcKCh1vzm0cRqAUwGOf6ml3RRDhI
-	 1Qv6JCWrXa9bEAYmzT3QCV1z0MLSFGpDrNDHifkDDqPVD+kncL1nYvrNsxvdAWb4tcznrQfX3uZi
-	 rutQTEWcLkt/L7lE0SrMD96KpxEh22GZwIRyZiQST071C3vgOd
-X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
+X-QQ-mid: xmsmtpt1780909978t83o855lm
+Message-ID: <tencent_AEC2C2C7582DD97B19BFA51196A256151F05@qq.com>
+X-QQ-XMAILINFO: N1MQIlrHEcYy/L89GIYSaW/e9aFe/SJF0uC3bXmon5vt/U7LMi+32NnruVI7rS
+	 KguiKs5agSU/BSXlNnpt5SKG2wmzDlD6o+xeAtnERJmcUWvCCL/OHsCCEIVIB6+QAIyN9mCVpKmg
+	 ySA6IyaXMmXsalXWYryIoBMbg7vWQlK7XiYG6eEG8HBNK+oPzYCADVeCc/uJKfLrXPbNT+AuhwCp
+	 eVKmXU89LvhPxAsgZdgvPoCfLZUwKbJLsApqdpq9AW4grP2XdzmmYU1Bg3TjgbOp/FyWPaZNP4Ar
+	 EvuoXS1IB+t9ze07rifiT8lr5l6KRSTISC6DVFWom0wF6uB7Atapf8BmAJ7jVfLEa1U1ppz8uCzp
+	 zOVIwBJLCeYafF5jNvOfG/WvDDxBab9ELsMziPbx3MwzSPWper5ONHYlDAujigFXDCrIbjLRwWGX
+	 H4CfIuP5LHTaPYpKrh9MJYNWLVvDbZvqKLyems4IW6HJUPC1G/6U51TUVHqOVZ5YhHPErr2Q2y1r
+	 RjpW6gqhW8mVBBvoBp1+F543cJ2Pn8xPNQRc8Xy8wwMmQse+fish1CxoU5XdWpvIp/GxBzSFSdY4
+	 gHiENFpT8NBBS7rQortD24PeJyQWIeGEdL4W9FwAjK+tCzOB9tT35NsQOvl6uY8h1KLYC2b3nqn3
+	 IfyDVmKKM+6geJy1ITDO1WLD/j/u8IG0o8oMAoRWtsTGHCNhP26rcqoCaaJLM7Swa7Il0QnVmm5V
+	 6DNOSJE20cLQ7iyy512sPdDrsOMP3m0uwCKv1IWDx2yM2vf6kOMw/xDKR1cMaBKiK/24ZdlYPpj/
+	 E22JlHuri4neDlDRNcP1OCw1RiP0dte5c7aONRyJ3vg3YCZor9vkFPyJ9UqufWtQVmZUyZlWh6AV
+	 vTNS+/X1nKmaZq8c5mDlWqkF8MWu0sPzf5U7NcjFlhLZYLHhcKotuRZNox+JHKBkHISGhY1dERBw
+	 0C4nwxTuJ63WTJ56g14YSYTkoTHoq4+LRUQREE4UcJ55/Yph+poWg3/iHdt1exHXApVpfbEFSi/5
+	 yot/aS5Jr0BmO4gQUf34QTh4ythxgzjpmy+wNJAg==
+X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
 From: chafi <chafiprc@foxmail.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org,
 	stable@vger.kernel.org,
 	Yu Zhang <chafiprc@foxmail.com>
-Subject: [PATCH 1/3] drm/i915/dsi: Program TRANS_HSYNC register for dual-link command mode
-Date: Mon,  8 Jun 2026 17:12:42 +0800
-X-OQ-MSGID: <20260608091245.462464-1-chafiprc@foxmail.com>
+Subject: [PATCH 2/3] drm/i915/dsi: Fix hsync readout for dual-link command mode
+Date: Mon,  8 Jun 2026 17:12:43 +0800
+X-OQ-MSGID: <20260608091245.462464-2-chafiprc@foxmail.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260608091245.462464-1-chafiprc@foxmail.com>
+References: <20260608091245.462464-1-chafiprc@foxmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -62,71 +65,42 @@ Content-Transfer-Encoding: 8bit
 
 From: Yu Zhang <chafiprc@foxmail.com>
 
-The TRANS_HSYNC register programming and dual-link hsync halving is
-placed inside the is_vid_mode() guard, so it only runs for video mode.
-Command mode dual-link DSI also needs this:
+gen11_dsi_get_timings() only doubles hsync_start/end for dual-link
+DSI in video mode. For command mode dual-link, the hardware stores
+per-link values (e.g. hsync_start=1380 instead of 2762), but the
+readout does not compensate, causing:
 
-1. Without TRANS_HSYNC written, the hardware retains an inconsistent
-   state, leading to errors on modeset:
+  [drm] *ERROR* hw.pipe_mode.crtc_hsync_start (expected 2762, found 1380)
 
-   [drm] *ERROR* mismatch in hw.pipe_mode.crtc_hsync_start
-   (expected 2762, found 1380)
-
-2. The hsync_start/end are not halved for each link, so the hardware
-   stores per-link values while the software expects full values.
-
-Fix this by moving the dual-link hsync halving and TRANS_HSYNC write
-outside the is_vid_mode() guard, making them unconditional for all
-DSI modes.
+Fix this by applying the dual-link hsync doubling unconditionally,
+matching the SET side where hsync is now halved for all modes.
 
 Fixes: d1aeb5f399d9 ("drm/i915/icl: Configure DSI transcoder timings")
 Cc: stable@vger.kernel.org
 Signed-off-by: Yu Zhang <chafiprc@foxmail.com>
 ---
- drivers/gpu/drm/i915/display/icl_dsi.c | 21 ++++++++++-----------
- 1 file changed, 10 insertions(+), 11 deletions(-)
+ drivers/gpu/drm/i915/display/icl_dsi.c | 8 +++-----
+ 1 file changed, 3 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/icl_dsi.c b/drivers/gpu/drm/i915/display/icl_dsi.c
-index 951f30a64..c667d5941 100644
+index c667d5941..f579cba28 100644
 --- a/drivers/gpu/drm/i915/display/icl_dsi.c
 +++ b/drivers/gpu/drm/i915/display/icl_dsi.c
-@@ -950,7 +950,6 @@ gen11_dsi_set_transcoder_timings(struct intel_encoder *encoder,
- 			       HACTIVE(hactive - 1) | HTOTAL(htotal - 1));
- 	}
+@@ -1527,11 +1527,9 @@ static void gen11_dsi_get_timings(struct intel_encoder *encoder,
+ 	adjusted_mode->crtc_hblank_start = adjusted_mode->crtc_hdisplay;
+ 	adjusted_mode->crtc_hblank_end = adjusted_mode->crtc_htotal;
  
--	/* TRANS_HSYNC register to be programmed only for video mode */
- 	if (is_vid_mode(intel_dsi)) {
- 		if (intel_dsi->video_mode == NON_BURST_SYNC_PULSE) {
- 			/* BSPEC: hsync size should be atleast 16 pixels */
-@@ -961,18 +960,18 @@ gen11_dsi_set_transcoder_timings(struct intel_encoder *encoder,
- 
- 		if (hback_porch < 16)
- 			drm_err(display->drm, "hback porch < 16 pixels\n");
-+	}
- 
+-	if (intel_dsi->operation_mode == INTEL_DSI_VIDEO_MODE) {
 -		if (intel_dsi->dual_link) {
--			hsync_start /= 2;
--			hsync_end /= 2;
+-			adjusted_mode->crtc_hsync_start *= 2;
+-			adjusted_mode->crtc_hsync_end *= 2;
 -		}
 +	if (intel_dsi->dual_link) {
-+		hsync_start /= 2;
-+		hsync_end /= 2;
-+	}
- 
--		for_each_dsi_port(port, intel_dsi->ports) {
--			dsi_trans = dsi_port_to_transcoder(port);
--			intel_de_write(display,
--				       TRANS_HSYNC(display, dsi_trans),
--				       HSYNC_START(hsync_start - 1) | HSYNC_END(hsync_end - 1));
--		}
-+	for_each_dsi_port(port, intel_dsi->ports) {
-+		dsi_trans = dsi_port_to_transcoder(port);
-+		intel_de_write(display,
-+			       TRANS_HSYNC(display, dsi_trans),
-+			       HSYNC_START(hsync_start - 1) | HSYNC_END(hsync_end - 1));
++		adjusted_mode->crtc_hsync_start *= 2;
++		adjusted_mode->crtc_hsync_end *= 2;
  	}
- 
- 	/* program TRANS_VTOTAL register */
+ 	adjusted_mode->crtc_vblank_start = adjusted_mode->crtc_vdisplay;
+ 	adjusted_mode->crtc_vblank_end = adjusted_mode->crtc_vtotal;
 -- 
 2.43.0
 
