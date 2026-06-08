@@ -1,159 +1,141 @@
-Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010060.outbound.protection.outlook.com [52.101.85.60])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7580C3E1204;
-	Mon,  8 Jun 2026 18:34:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.60
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AFED3563D4
+	for <stable@vger.kernel.org>; Mon,  8 Jun 2026 18:35:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.52
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780943685; cv=fail; b=T4n4sew4CUV37PjnDxYtYaJ8F1qL42fYsBymeZMsAFrXgF9YxPMggvrns9PkSGGK3LKwugLdGnrGIGJ/ReXHue3j/pLFTTuVVNzmrjr8l/YDHX725YF477/RpmpgLjseh4vkQH5oAoUXYatPJ+74gbOp5sZJsDkbuMF+Jz4HQSo=
+	t=1780943726; cv=pass; b=HQAea8mauceFXasPAId/UhjXxVhSWYb7tGUV6s5oAXxDtCtPVLJIoLPMBTxdBW42+yeSV2/cB7gN8ge0NT8u+dqEj9BgC5wGAdPzeV0y3bZgVypMg89m8uDXxQTRmNoKdh+EXhAgsQkH/JuCn9pIVp7uaJYGx1YwAOugGGrL+OM=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780943685; c=relaxed/simple;
-	bh=iJQfhMhbgn88pWJdJKvGBAGDarqY4SuTEHKFCVAEtwc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=Zy+pr7eDTFRgOKF9z+B3kMZRBIsdFzzySKRqk5g7Hbj4GzaCoaTw/B4BbnhT1T5cFD1MhF8OTh5+0l6wv2GD5el6d8x/vtMO+FHUts7pRXtlYulTI0NSkA80PTSIzrPpogYKiiZydxqnQxd/6vlP4qrz4OlbTy12ErpsUPlN5Mc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=SRmFCgiR; arc=fail smtp.client-ip=52.101.85.60
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	s=arc-20240116; t=1780943726; c=relaxed/simple;
+	bh=LJ0d7wJLEsKMYp2wDMzzqU/753oArVGJUs6SgvTaVUI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=BDlcHjMzd+SWuCPLQ7X4LUB9MChYljhSHtD5l75EH/M6UQ/hjGSe9amvqfJFv6SBnIScEB+VQiPG8IcGTSbv3ICiPgMbaSMFJ8Nekv0b/B0pOTmBJwIVDP6Lscr4zU4QxmKbv61yeIRAZjZ4EML/zbqY4JEQgx7tSIhdEjm9ASw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Xiboxo3Y; arc=pass smtp.client-ip=209.85.221.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="SRmFCgiR"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=tGqnxfZPiJKFYG0hefoXHdZixOw0j4LJLUT/afPpqo9BT+FrZNHxriLyAr6+HXXzgKSr0+xuua0Ft2v6qg3xziy+sZ6SJT1f9Ko7UMCOQgGwrRBZ/PKMf/kVZcaVMi/tNBJPFUjksfbdvPxw8Wa3+14g/YiVfAugazM2Raf0jcdUR0C9se0ZInyoul75cZeT28pRlgNaLLGwLIX4qAP6db36fyHUlmdY/bdCWdwBM2m4wDk+jI3jqOE5fwgcrlb19IbvrRbBYcQLmNBL3s514s6uEo5hYFpEhxDhC8Nq3ZAQE2+55oSQVu3CQeJku58+4YGLB3TwyA63GRl83kQnOQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=K4Ek7EeBUt67mxP5uf93hu28YOW7PuFmq2XXUr4PZ64=;
- b=DlDNZT50mvtHkC8UFZKxANUH6BDsJl34hCif4Q9JYsDk5pTPo9ZhnTs3DaVwcFtmuxJ6GY04lQ1wobalUhGKhYODZUXw2vCi0v2QlKV7XydytadowZ+PsMZX2WnqZexe6vNghqyH9K2KMn8NxPjgLUqajYyEIexMiSrIncUca+3AwtRkq5SaeXueKeOY3O8/OYZNR1EXCPZ+MwvU/FiINycuONae0reCpX6iA1rAECFsLMlutWuVN84b8XZXqoIpi6QaY7MaQ484PyKu/7mo62OoeKtf31fBx165I6FGRKEqbVZJDvy+LDUY6buh8OJL8cI25dswQt9mFpu3vUNYHg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=K4Ek7EeBUt67mxP5uf93hu28YOW7PuFmq2XXUr4PZ64=;
- b=SRmFCgiRyy/vKu3WYBt+6HSWPL9JwDSGV7FmxtXc3LFssHQ3hDhRuyhPvStp1/mlgT/kI/weup35op6Wr070ZHbrb/B7d5eR/XYCgOUbkmnZnpbe2xg5E3S9YZnbo+tpVmGJMCbo1gfWaFKlNp9xEsCddBtN2szYaf8+hP8B6dIOgKzFBGuYqVmMGEehUpjwGChi7DWLvyQBggv3W9yp+VhqgwdMD1MIJQZppeGjFKGEspXN83yasfcuEuL6zVKuJjDXvmoCneN5w8d4Nni2xZunwk50B+iKA7lrCa31AsED/N/J7/2tsxjxk3XgSlP1NrevuouOt0ZfZ2zExTwGCg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from LV8PR12MB9620.namprd12.prod.outlook.com (2603:10b6:408:2a1::19)
- by DM3PR12MB9416.namprd12.prod.outlook.com (2603:10b6:0:4b::8) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.92.13; Mon, 8 Jun 2026 18:34:40 +0000
-Received: from LV8PR12MB9620.namprd12.prod.outlook.com
- ([fe80::299d:f5e0:3550:1528]) by LV8PR12MB9620.namprd12.prod.outlook.com
- ([fe80::299d:f5e0:3550:1528%4]) with mapi id 15.21.0092.011; Mon, 8 Jun 2026
- 18:34:40 +0000
-Date: Mon, 8 Jun 2026 15:34:38 -0300
-From: Jason Gunthorpe <jgg@nvidia.com>
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: leon@kernel.org, linux-rdma@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] RDMA/iwpm: fix kref bypass in iwpm_register_pid() error
- path
-Message-ID: <20260608183438.GA95325@nvidia.com>
-References: <20260608103001.142648-1-vulab@iscas.ac.cn>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260608103001.142648-1-vulab@iscas.ac.cn>
-X-ClientProxiedBy: BLAP220CA0005.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:208:32c::10) To LV8PR12MB9620.namprd12.prod.outlook.com
- (2603:10b6:408:2a1::19)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Xiboxo3Y"
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-45ef616daf6so4248337f8f.3
+        for <stable@vger.kernel.org>; Mon, 08 Jun 2026 11:35:25 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1780943724; cv=none;
+        d=google.com; s=arc-20240605;
+        b=ArO3LTqSGaKG4hWXjaQy5uh78SsdA1fiPc7K9T/ZLomdXIZ8bNmCULgym7Dz9lKnrf
+         0X1ZOawjlwBVi16srRljprSA/8l42nTCX71Yn9yOQYe073uqOuGp/l+sWJSMWMdmEHOK
+         0sw+hZ6JVSGXt9dIzdav3DRCU38/ukMFgq343RDJnDLvjxbYgo15CqTNpvJOtNBdzBNg
+         Q3MJjNXdr2A8mlwPUJCIAPcv+GUacUhL0DEj29nw+3JnZKiLfoGLnmCY7yrryn5YSMv9
+         slzpD/73lRyfLy1jk8KXTqS6kQDNZUE7lWuCn+c8xAnwcpQVBf7dEBnRCEAN8+rGSaql
+         /3yQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=LJ0d7wJLEsKMYp2wDMzzqU/753oArVGJUs6SgvTaVUI=;
+        fh=CSUH6qz3607Fo/gPIuklKaAwd3yCz07rGCeDfDtHavU=;
+        b=B1owejXoOR0JJ+3/pRAbizfytstY9/E7V/lNJtBXM119FoPksDcYCXp8gLVCUgqP6w
+         6GWXcP9oQsvD1cucVElzIjiWo3Wb3Jsw7qbySPtAkKBJNUNvZyzJlEqSe4KdEmrjJ0r+
+         gB869QI+584wOsPxOgucYk1pgZdtLKrvnrs3FAEE5Y3fdzYpRl+C/ov69Z90kP7MyjYJ
+         VLmaekNYWosaL4haCuWRvv65itXnCmnfcL7kPMpRh3wySZN+gWFs0UkasYJmLZ1h3vbn
+         /gbaOwwTC36amy84YtivQzA5ZbBCumY4moDtlfnM0dQ8Em+ZEKiMCF4mGL2fYa6EXZ0d
+         Md0Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780943724; x=1781548524; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=LJ0d7wJLEsKMYp2wDMzzqU/753oArVGJUs6SgvTaVUI=;
+        b=Xiboxo3YLpmkyUWtSi/2TXnTFvQ1x8thp5mCm44PDSuaTQPC5WmaqHfEEnWWyiqD6l
+         y8gt74BFUi9N33+BW3NiEjhpJh8xlojzprt2Ts+T/M4cTksmJwtyJZMekUCbUrMLPkTi
+         UVwTpxpaZo1ZskYuvCmNuV57WjVZXjTZ6LlHBRO/umpvUpiqVb1e0Gr369lC7HcrjS/C
+         eUWetkbDh87byPrK1g1H/d4qQOJV36C8TSC4q5M0ajo18u7Q4p3lvwbGJPvCjUMmDGsg
+         r4AW+SPSspanpjXlkoUdTR7SwDva07PrYTPx2jS603/b4ISm2ufOhG2dccqnpIvIRq+z
+         FO9g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780943724; x=1781548524;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=LJ0d7wJLEsKMYp2wDMzzqU/753oArVGJUs6SgvTaVUI=;
+        b=YtcpOGeTanw//s2Cbr4npr9MVORkmHIAwX/utdPWiRF6vLdcSC5g+U9Eg1JEXYSD4K
+         ozSajdujXaFN4Gh+FtC3qXcXQbXSCe8u8oCehVlv+zowXOp/pTKihnwlqo2fK9OB9sCi
+         jdE54HeX780/81LCDjuA88zyjc7P5EoOnmvqOTDUo2qeElV8AhCQLGcHLNVdMvl39GCR
+         P/BIAFvxc7TtsN+jNEf4xhhg5sAUDtit4xuW72AYu3UQuxU4Q1UljL9QPNGWea1Cac71
+         4aL4FvEjgscvSufkxCwzvHHDa6FejvlbotLh0vQwSh8IcfYBLZgVGWxuftRpKp/9uwro
+         C3wg==
+X-Forwarded-Encrypted: i=1; AFNElJ/fUQyEQzR+Af1NpA3qkvY1v9FULiDvke61BZ+QykfZdz0w/d+vGXYooZjvQe3VgYdPFiZ2+r8=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwtusfmkuXqJMeaP5XC2XpOwhkXJ8+7TfeD8IQD226IJPMjDcIK
+	h34Jden8mruNy3S5aCat3p4/uuNKZsNTE0jWIwG9hkOIyxupKi2wcMk8WSqf2/eHq54g5QuZqUZ
+	EyYpmw3qw3Sl4qwhs10J1Oz/SrWB8W0o=
+X-Gm-Gg: Acq92OFXZbNKtGVbhuxiMuVQiba+3Y1gTdrFaE3S7RZh6qbs6+H6SOqww2yipGhYhi9
+	RGmmlq0JBOWAIc+vS3vPxwnnvSqULp3xHgUDPPZ+5h521kdUFGpacOYxobSaumKZRrPJNMNmwfk
+	GCOblB6P0G9kRknk5z6bjGxoeHDKHGqXA7t8EDLTWC3gNWzeTLfUT+p/DIVN3ZqtZWStZHLSldg
+	eoR1cKb+eoLTDQeP+uIp4gYPlIis4pgB5Fn2W7jYEQT6eunpGV67naMCOygxRc7KfL1pbWqTLx5
+	eJShkQV1HazqOPyR
+X-Received: by 2002:a5d:4521:0:b0:45e:ebe5:2010 with SMTP id
+ ffacd0b85a97d-46030619dafmr19903232f8f.33.1780943723764; Mon, 08 Jun 2026
+ 11:35:23 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV8PR12MB9620:EE_|DM3PR12MB9416:EE_
-X-MS-Office365-Filtering-Correlation-Id: 298efd7e-fc5a-4b15-6515-08dec58c99b2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|376014|18002099003|22082099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	P3h8l/rAqqkFzT3Xo0r7siN6Mbv6KXSJmJyn1+tnPPw9wn9v+t69mCaJaSmMlgx5igGYtCG1LfdobCLvPki1cuqwGOCT0TR/nmGc6LTj3xfA86QOxRRk2PTDHQNTwmY2yaDo+8l6T6Au5kmK/3icNnVmnQbSz+7rFwH3amHEgI+nJPAwxe1salsux/IA0Qz/a9DYFEhfa83wF7uWsy6IH7XD8TEz1rGgu32pazrxOFW8nAfvnTdO/OI6E9O23NuIylwKmFzMP+YSBctyu3Zdl91fJpuOsA78tNVVRvPTPJ/kmD/ZJ7z4mUJoBYrLCDwnrZsfyTqHAUHWe9iZoFT7PX0pvH6OOxvJDivH67E/yipa0QhtHHqrJotjuKqD62GEH18fjZGNlIDcMB1b0lrwCee3GUEWhRyajGmhb4eQNTTISV2zG1hFoIXwhTERFRvJjDsFgEaoIyYOqiZfZaPc0sCE1Wfb8pVVwZxEdm+ewgxEHNH+OlD48pr8DvdTNewiHwX994q7rBelFo5nZ3CiNgKiQ7OwsXOL3E6yE/f5yqA7A1Ca9GjuT3kaFM0ATFBz09DeyRNyFOVCr5E4extaCrJla0+NVS0pp00UsBcRqS+SJhOQhrMxZAZPTJ5YWSnazh06lcqVL5n/XLj4Hm20KzjUCaljCDT+8ThJzalq8Q7yd3lq1tuoimUgvxPlm6QViPz0lXYz7AsjFoux0hxodw==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV8PR12MB9620.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(18002099003)(22082099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?Lv3wHQf2gU9zq4GqbpeTnmvqUqLKtRI8cZ5L1EJNVMHorwG0VhpdwcJFBa/A?=
- =?us-ascii?Q?6O0eF6CcCDjYUNHdtADk7LZjjS6Vu6Dz0qmAHUxam950qINyuJkD91bESC9I?=
- =?us-ascii?Q?Oe4r9eh2hc9hH5eF/iSAhpROjP3J8zSFC92qdYn9/imQypfWfvw5K2bAKcag?=
- =?us-ascii?Q?F6XMwBOcSrzf8+PL+zSuxJrM7duZIYVN8GGtlVRAvTCkKbBCCjS10kkjnCuw?=
- =?us-ascii?Q?BAJCL9ncLc7fp/SSpb1sif+aytzC7jWilvGXRdZvgGYI4Hq/SV+6pJg8Mxcq?=
- =?us-ascii?Q?wfPJSTEtoICzdWciflog8SAXon2CTmJEmZL3AXWForukXjkv2CXct62DKSbW?=
- =?us-ascii?Q?jj0++1sfw/+pJ5eGW+Ov46xMO2a8Vy5YHIPRrBBocVrJB70foPBoiXsLLcwl?=
- =?us-ascii?Q?qbM4nfvkIy8Y5K0mAHVkkuOef5YKpvhjXdjVKckuza51NXsbKQ4YfZE+8h0y?=
- =?us-ascii?Q?yg9Yo1dLnK6vp8D9GE4mZc9HT/LLBeIS2jZvX0NvCUO5vV7g9o8/sHeWY1I4?=
- =?us-ascii?Q?g6sp6nCyk3tnTSAYh9tKVqGGmbJna/HoCWyroAt/zEI8bmyjL528PGTRWN8H?=
- =?us-ascii?Q?16H8Q5sw6XsiAC8nqc4Srsk55bIus6cNDhDMbxoMGLVaiv+c2MyF/uNMlWiU?=
- =?us-ascii?Q?vgGyHq0LMvdoC5WD7rtiCEFQACO8Rso6nS9Lo7mllbLV61KpxguuWdIBVOfY?=
- =?us-ascii?Q?WAUHebYL5Zc3xdYwS3BaMvB+VAjbrGlGumBzUkKCYp1/75B1ISgp/Wx7MMNv?=
- =?us-ascii?Q?4la8ar5m5sIqVCipHC4fUVg/j966c4z7KdklTWyJiV7roiXjXEpf41M9JWwh?=
- =?us-ascii?Q?I5U7SM9USSMrHqdrzia5F/x0cFzS+NNRDekA2aAo1+bIF5IwQJzh9eFDfDPz?=
- =?us-ascii?Q?lqkKufJS5tHVg1IAr3WZbWv8Q7Fj1SdL+CBOqKiINV4cB3kONCp/CV2FK/WO?=
- =?us-ascii?Q?m8UP7mz1v4bDSSphmoqfIvDlY1HzRpyUvHgD6xUFE7v75w29DHGkp1tpQ2+G?=
- =?us-ascii?Q?vKxJNi2qmJagaGKcy56BSc+e+EmtaHOVD+Mbyu6sYgU3FTKzz5oHidqB78lL?=
- =?us-ascii?Q?tiAKf+OzuZIkkWjhz7ReOBD1PWYS5fVCPmUdmnUXZ/YvgHNKZILzIunfTnKN?=
- =?us-ascii?Q?cviP/R8T/wgDXpbH3cBv76CidYzmLDr45u84nRBQ/FpT8qdhEjnNw/7yUmzl?=
- =?us-ascii?Q?X2tvZ718AkO2ajMSXVE0UAQYEBVT5DhVzhD5P5pE3VCqGhsP04R6wFJUP/CQ?=
- =?us-ascii?Q?fLXJB8w7+fvyvtwlfy8WfdlhTVKorJpl1e9Su2PnuZN8uxehumCN0SOVJvJS?=
- =?us-ascii?Q?3nCxunWhnrsCME3tiXyE7YE7NCTns2sbA1cCEyV0vNxf6L9gwjWMeD/uCGnn?=
- =?us-ascii?Q?fgy1+JdOlP0uUhOECDf0DzmGadCD1eSst55MSNm8VkWObLrbSW2D1tn0NIoP?=
- =?us-ascii?Q?zg5+3bWoap6D+jkVn6d4ocJHy9AzBCrjOIoOQxPAWT0Rex53jfWstH+x478V?=
- =?us-ascii?Q?bhTZgWfvEPXU99GyyIjOWmR3HAhWHq/ipimbgXjdug0lF/2RDDfTuBjWhFCR?=
- =?us-ascii?Q?pDyxCahzqUF8QMskTfLBfdHH7zPRiXzRKNLeUokKzSM+qMQfRiA20HBhfeui?=
- =?us-ascii?Q?oSIp6N1XYNwTM7KIH87e4EKggFgqisw9v5x4sU0DFKbYylQ45eZ7SuxWMFnA?=
- =?us-ascii?Q?Ezem6BsaJjgk3swQlgMbW0u/RGOoEofubGWqZC2zePeusGDj?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 298efd7e-fc5a-4b15-6515-08dec58c99b2
-X-MS-Exchange-CrossTenant-AuthSource: LV8PR12MB9620.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jun 2026 18:34:39.9982
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: RQkfZzbemHfdy6llQO9bwELn+prj6hGc6dGELCrgXtePZ80+109CRzNWeJ+VTyFj
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PR12MB9416
+References: <20260605192708.141921-1-joannelkoong@gmail.com>
+ <20260605192708.141921-4-joannelkoong@gmail.com> <058fd2d4-3ba4-46e5-9107-3a7e0ab66653@bsbernd.com>
+ <CAJnrk1YHQEtpwA-ForFWXsLntc950ekqAHg=L9VExVfJ2WF1Rw@mail.gmail.com>
+ <742e68e6-c456-4655-a441-aaa8267f1a48@bsbernd.com> <CAJnrk1bz=BHryaWkZ0uBCpzLoVM-FSsb4mhA8F7+fnMQ4Tt_YQ@mail.gmail.com>
+ <57fdff56-6a4b-4bbd-b191-d63b82a14509@bsbernd.com>
+In-Reply-To: <57fdff56-6a4b-4bbd-b191-d63b82a14509@bsbernd.com>
+From: Joanne Koong <joannelkoong@gmail.com>
+Date: Mon, 8 Jun 2026 11:35:11 -0700
+X-Gm-Features: AVVi8CfJPRBB6R88R8NeQOG9zr14wRLwhjBTQyfuneEOQnOyvfk3KG00nzcOj4k
+Message-ID: <CAJnrk1b4S3EUb-FzrvojC2Lp-DOD1GZEpvEKEMKhPpZbf+sqLQ@mail.gmail.com>
+Subject: Re: [PATCH 3/3] fuse: end fuse_req on io-uring cancel task work
+To: Bernd Schubert <bernd@bsbernd.com>
+Cc: miklos@szeredi.hu, fuse-devel@lists.linux.dev, Chris Mason <clm@meta.com>, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Jun 08, 2026 at 10:30:01AM +0000, Wentao Liang wrote:
-> iwpm_get_nlmsg_request() returns a request with kref_init() +
-> kref_get() (refcount=2, one for the caller and one for the
-> iwpm_nlmsg_req_list). On the error path, iwpm_register_pid()
-> calls iwpm_free_nlmsg_request() directly instead of using
-> kref_put(), bypassing the kref mechanism and freeing the object
-> while the refcount is still non-zero.
-> 
-> Replace the direct iwpm_free_nlmsg_request() call with
-> kref_put(&nlmsg_request->kref, iwpm_free_nlmsg_request).
-> 
-> Cc: stable@vger.kernel.org
-> Fixes: 30dc5e63d6a5 ("RDMA/core: Add support for iWARP Port Mapper user space service")
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-> ---
->  drivers/infiniband/core/iwpm_msg.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/infiniband/core/iwpm_msg.c b/drivers/infiniband/core/iwpm_msg.c
-> index 4625abd29ac0..672b0c33a6de 100644
-> --- a/drivers/infiniband/core/iwpm_msg.c
-> +++ b/drivers/infiniband/core/iwpm_msg.c
-> @@ -122,7 +122,7 @@ int iwpm_register_pid(struct iwpm_dev_data *pm_msg, u8 nl_client)
->  	pr_info("%s: %s (client = %u)\n", __func__, err_str, nl_client);
->  	dev_kfree_skb(skb);
->  	if (nlmsg_request)
-> -		iwpm_free_nlmsg_request(&nlmsg_request->kref);
-> +		kref_put(&nlmsg_request->kref, iwpm_free_nlmsg_request);
->  	return ret;
+On Mon, Jun 8, 2026 at 10:16=E2=80=AFAM Bernd Schubert <bernd@bsbernd.com> =
+wrote:
+>
+>
+> On 6/8/26 18:46, Joanne Koong wrote:
+> > On Sat, Jun 6, 2026 at 12:41=E2=80=AFAM Bernd Schubert <bernd@bsbernd.c=
+om> wrote:
+> >>
+> >>
+> >> I do not think we need 3/3 at all.
+> >
+> > I think this is needed for the cases where tw.cancel occurs without a
+> > subsequent fuse abort, else the application syscall thread is stuck
+> > uninterruptibly in D-state in request_wait_answer() for the
+> > connection's lifetime. tw.cancel with a fuse abort is the common case,
+> > but I think unfortunately we also need to handle the case where this
+> > doesn't occur.
+>
+>
+> I see, the initial code was using IO_URING_F_TASK_DEAD and I had wrongly
+> assumed that is related to PF_EXITING.
+> Well, I think the fix is clear, although I personally do not like the
+> exit code dup (or better triple)
+> https://lore.kernel.org/r/20260515045541.1171335-4-joannelkoong@gmail.com
+>
+> In my option fuse_uring_cancel() and canceled fuse_uring_send_in_task()
+> should go through fuse_uring_entry_teardown().
+>
 
-Sashiko doesn't like any of these changes.
+I don't feel strongly about this. On cancel, the ent becomes useless
+since cancel consumes the cmd, so imo it makes sense to just free and
+clean up the ent immediately instead of keeping it around until the
+fuse connection gets eventually aborted, but I don't think it really
+matters. Happy to go with what you prefer.
 
-https://patchwork.kernel.org/project/linux-rdma/patch/20260608103001.142648-1-vulab@iscas.ac.cn/
+Thanks,
+Joanne
 
-Does this change introduce a stack memory corruption risk?
-
-Because iwpm_get_nlmsg_request() initializes the request with a refcount of
-2, this kref_put() only decrements it to 1. The object is not freed or
-removed from the global iwpm_nlmsg_req_list.
-
-Jason
+>
+> Thanks,
+> Bernd
