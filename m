@@ -1,286 +1,223 @@
-Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011064.outbound.protection.outlook.com [52.101.52.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72CCC32B111;
-	Mon,  8 Jun 2026 16:44:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBE4E3D3CEE
+	for <stable@vger.kernel.org>; Mon,  8 Jun 2026 16:46:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.45
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780937062; cv=fail; b=SO2T1jvOVvzYBfhG8MoOW2JYzOzVRV5b5eC1oluWkQ1Xw8TnpLqIiHBBZaMlrBSay9zEVghcGBMHQoe/5mGWdnq2+kQpai7eATHMUsZlxH+WdRHJpH/DDElFm384M29yBah4oXuXn2DKWuCOO+RPSle1cEA1GoGzMOcwt49lxvQ=
+	t=1780937200; cv=pass; b=oh2fqQQEiex9E9Wt1uWQeFNKs8lZXy9slE3T73SQl0t1eDSGR8U9hilhucgfu5KCDPt3jWLdeJbVuq90knWQkJdJ4uIv8BnltjPGVUDrq0jB/wRX3T/H4DRcHKnoIdGfOc5YlLSIbfmAcJnp59bCU5BEg0VIKPmZEObyj7z5tFo=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780937062; c=relaxed/simple;
-	bh=CNKU8V2XQtYhOTNdbrSR1NEeH96+jzB0REb8TQ4fiQA=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=dOnH/fbs7qCy7fud6EIFSxvztDr+mVLxitMpewY2zN08bOOHZB7pNmqpP8eNO4YZCLhtmDe966fT+nbS/2sFc35fgqWjy8nYBJe3sXGLxM7vJhns1ZUJMikkgjScWc/l8J5f051xxA8LMYlmU4oacsVd0mrjOrGyN81PVal8avU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=VQlnfToi; arc=fail smtp.client-ip=52.101.52.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	s=arc-20240116; t=1780937200; c=relaxed/simple;
+	bh=Aei7+3M7OS2MalnvLV5efs8dT2ETEaZ+AJbk7E4XM8w=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=EdrGucHdayLs8BN1mGmUTx0+Q1bXw/JspmuJ+YBRel//Es+F/84DiJdFlSTWQkuYdqyUKCo3dZCWpRTsc1Jg4/RUdOleYQp2B5kAhvGjVFaBXvThesCTEqWSJgQJZP/dyDXfypfmZP/fchdsk4iPqYhisz77xkHFUaG24nlRgRw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ERQ2sLPs; arc=pass smtp.client-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="VQlnfToi"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=GtU3jewLe5cmlis4vbrmDMcYV7H28OEiZhUJpJs0/bH74Pj5edF1nfAiZyoPrOovpuPDvHIU1bOMX+/3B3rMqWhP5O7sj9jIYtfzhfS5jnDj32mdJTnTN82+CpUM59wqGZtToBjfojVGRmh68hE5sd4qnBZcm8+a+fIdtEZ7jiFPpBzco+P8Tpc7MNnEog3dR3cZwr8PhtgRWDYSpmMsDIelZSkAdtWPBszeASi9Q0h3eOhhoklax1/Cr12f/TWdrQ5sV9FjYB8QO1Nyk9+3zhn+Oo3nvyPJLYFxXz/6DaZGA/3B+N42J0L7KaxOrIKx7QdalekAFzyxL/rYMb1kCQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=S9X7sNRqedxSzchQGQ/O7bDo2Lzsd2NtqX0HWzAv3RM=;
- b=NqqVt9Vaj73Xlak1EdRilwIf9izrO9o1AyXKuu6iTr6zs1bfiylSu8uPcUcLvKuPb5fJkwfLjl5WqAYCZCzqfVRY4ZBdXEJo1lqq89Q2BMsb4R1ip1F283av7a9PDeYLzP594MH9+1NtifijIs/BBlK/2zzSeaW4Y9xBDAymUNARP+8sBlGjzycD8eS2XulIC65ryKaxNDPuB6WxJCae9T7+Y3zyXK7Z92RgopdHr3ysb2t++WYWqjTv7Rni62K+2YtBy0nagICgGJiDqlMGAIvPBrpSqaGQlp9Hq6OL1P78KXy6kYL9FQWXj9HTh78G2jmT6WKhpuAyWzfO6Zm97w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=S9X7sNRqedxSzchQGQ/O7bDo2Lzsd2NtqX0HWzAv3RM=;
- b=VQlnfToiyOWOaR+7K9y3bSxRJk/uu11SFF6gtMFMCTaKounpSDdIoL0YuMZJT5E3M0MEMAiqEATcurbDMkH4lMaugh6XTSytVSF0u6aulQlNBghxd7lj64wB/jUBWStBzECwzMaPnKmge0qqA/i3kq4ig5zTZaOVbysQ2mnsn/LlRG82vz0OlipflxSAxUjLO8dlVsEOTzkVHT8GTgkCxuj/ZQ+tBCIPMS/iQIxUUmT/t9GtwxTnJyU2Fp/qnYbRUcDtj3EkdHhHVr6uo/0rx6xoethuD7jqOp7G+4sRiWvhykJNdW9m3XVAQH3C9be5dX8+hlScDlCi5S3rftbLIg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from LV8PR12MB9620.namprd12.prod.outlook.com (2603:10b6:408:2a1::19)
- by SA0PR12MB4462.namprd12.prod.outlook.com (2603:10b6:806:95::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.12; Mon, 8 Jun 2026
- 16:44:16 +0000
-Received: from LV8PR12MB9620.namprd12.prod.outlook.com
- ([fe80::299d:f5e0:3550:1528]) by LV8PR12MB9620.namprd12.prod.outlook.com
- ([fe80::299d:f5e0:3550:1528%4]) with mapi id 15.21.0092.011; Mon, 8 Jun 2026
- 16:44:16 +0000
-From: Jason Gunthorpe <jgg@nvidia.com>
-To: Junxian Huang <huangjunxian6@hisilicon.com>,
-	Krzysztof Czurylo <krzysztof.czurylo@intel.com>,
-	linux-rdma@vger.kernel.org,
-	Chengchang Tang <tangchengchang@huawei.com>,
-	Tatyana Nikolova <tatyana.e.nikolova@intel.com>,
-	Yishai Hadas <yishaih@nvidia.com>,
-	Zhu Yanjun <zyjzyj2000@gmail.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@redhat.com>,
-	Leon Romanovsky <leon@kernel.org>,
-	patches@lists.linux.dev,
-	Philip Tsukerman <philiptsukerman@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] RDMA: During rereg_mr ensure that REREG_ACCESS is compatible
-Date: Mon,  8 Jun 2026 13:44:15 -0300
-Message-ID: <0-v1-06fb1a2d6cf5+107-rereg_access_jgg@nvidia.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: BN9PR03CA0707.namprd03.prod.outlook.com
- (2603:10b6:408:ef::22) To LV8PR12MB9620.namprd12.prod.outlook.com
- (2603:10b6:408:2a1::19)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ERQ2sLPs"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-490b43e2b95so37118665e9.0
+        for <stable@vger.kernel.org>; Mon, 08 Jun 2026 09:46:32 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1780937191; cv=none;
+        d=google.com; s=arc-20240605;
+        b=VS2mHgpLGlhQ66D4AAKjE20p5F5QKQMkgUMi2f5wPxbb20eZRFngb8txtCJjTAMH/r
+         XVBOwg9DFl16zhdgp70jWY1NG5sbweme7BCiFPtAAdoCJbi2Ex1PuixcTS0HbwJmPmmX
+         kanAI/LFrAwpldE7VEWpsL7kJ78T1/2Kr4ZcD7WG6gqWDgyGad7iKk/ypBzpwxr57+QU
+         BbnsfJrWaVrNN9jyjgAdtStnCvn2i23VeHdCswdJmyz1UsLjo+tHKl6fI4+maTpggM/z
+         I7mRgjz7ve3ohD8FHIKEP4Zv7CZZlqwDfXdNRlYm6Seou7tEts+USkLVvUL917WBwjbo
+         gcUQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=+X3fJ+9WnGjPOr2VJBWEjvlIwpcfv/0FYoyWzfs6bb8=;
+        fh=Zz6x4jlrijvITBFGSx6Be+jsE94tKonTQSjFD684pQk=;
+        b=U2EDfB0pUHPzIIT61uWTOakcaaojjI7pxLsZVFbz8HwmEDPVq1n3MAsBOmKi8nwzcy
+         O0L4nJKJA7VWfCd/bg8/SoepDrCrikhrMlL7tM2BLJ6kLdz0ApO7mzvZiOytk8GuDcB1
+         AKwXpmV40PrqIQ1G5HqQtLkCli8lZro+xM6UIO/oPuel732iJyygbHNG/2JEOq3Haxbk
+         S0UEtth90r/ubTqnUu0sHoqYMSEbBUvuYf8LIV5oBlhMSyDI6vKX+84k7840TFEP0zOS
+         8wjGf+OTu5j4LpmLLYHqQu5nO5JZFSGGAut3FC4Xlbow7iG0KS7xys3Z5JiTJirtOAPe
+         TvSw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780937191; x=1781541991; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=+X3fJ+9WnGjPOr2VJBWEjvlIwpcfv/0FYoyWzfs6bb8=;
+        b=ERQ2sLPsQe2sxy//k/Xp8SC21Sb6BsmP57VZxw7duC8O490BDJsR8wagxohFlYykD+
+         dqQl5OHB/vCmdKGZWKDQ17NwpQlaH13I2AdQW8XB6z5vlv7NZJPFeGNxoIbUALVJ2wKt
+         BAeIFjewz1QXKdvg7zqVijltqakgbypBGlD4T/eZeXpHmp4+V9aHQbcfQWBax2l8K8tT
+         ZuOJr3MNaI6Hjm6LV4X+/wou9ZLs+riLUt8vB2iYFWi7GWXrxPQ5eEAlVwOmbyDwobhJ
+         wiokp0VVZQPWJc/n+17pyRK1Dj/2FnHkgyYkhRDycV+kRyfE8F+8tEfOmkGNChvnFw71
+         qxKg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780937191; x=1781541991;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=+X3fJ+9WnGjPOr2VJBWEjvlIwpcfv/0FYoyWzfs6bb8=;
+        b=IzWBRA//lEdjlaTd1kc1JizB/z2a6wC2DGa+gotZN7Mz8F4Ego7rLdzzm5ooOpQyu3
+         JmuuEflnaFS+37lA2Qd9YttHO16QUVaAMxVfTKJ9XksciWqlr3DpQSt/b+tKC0ar4Ejj
+         bPvAWp0Fsl5PrtxM/aR5iyOlQM3dFcaxxwo90fC71d/ck+N62U5zPEYBmXuzkMoMMaIp
+         8whgLnM9FMMlVmCbR0QXwabGnEsxqkN4CsySSPQA/+yVrrTbVAxAmAK3m1df/sXKPaH1
+         6NufIfKRru1Epa0v3QnNWmn+ljNc8VsbVe2DHLS0L5tf8/z9IbQXZDMSjQkkeuWmhbk7
+         +BaQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+qGm3ZzBUYxeAC+ggkHO+S5KTKi3WSaFq6aUeoIy45TcoXgPtHa+LTPSMDfiQFREkWnsQPccU=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxDiiVKu/KRGpOvz4/yvkmYvEDZz5KNqw4d7w+jgUUNZ/1/G0jD
+	nnYZK6rcuySilZA3+SjHvdFlywEnQaE7jYCY9RagsjiOQILtfa9CvSHPhcsbHAV03ZvQf1z9eMN
+	ROdm7K0wLQAclsEWwO8F9V8RZYo94Uag=
+X-Gm-Gg: Acq92OG1pwRooWeHdwhyk3D9cgNJKJn+GO8oTlFjL3wjqjcUxNMKZvuCIN44xIVZdR/
+	I6txvyxi9RDppFkIz1Bc5d3m3JNkO2IKWgn4iyATknCuKc/rxH/1ibhG+F50/ER+YV3bVxfmdRn
+	OoPG3O8a5UNe9ZXRW6Rimq1zzq7yqR0J4+Qp7lLjly71vjd77oqnj+c1JzDyNtJd3SeluSfjH/1
+	4j+l84F/HUv8LyIpOzCtH5iolbyQTOB0IOT9fzRGnT6TqL612OleJw8usaM8ejNsA8p+EVMmITb
+	Z7q8sD2qhvB0qgYDq+JPrJMaefY=
+X-Received: by 2002:a05:600c:35d4:b0:490:b8d3:5dcc with SMTP id
+ 5b1f17b1804b1-490c25e4634mr278897665e9.19.1780937190891; Mon, 08 Jun 2026
+ 09:46:30 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV8PR12MB9620:EE_|SA0PR12MB4462:EE_
-X-MS-Office365-Filtering-Correlation-Id: bde4dc1b-ca06-4ff1-0784-08dec57d2dde
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|1800799024|7416014|5023799004|56012099006|11063799006|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	1uz+PwIL+xPYNtd9XyG/yhrcEL38z8BF8NBhFA5K8YoHC9zFFhi8M5TbKrBj3j8gEGwBYEWZ6uxmau6ZnxsMXsDTxOx5zXuAczcZz01rl3peYNJ8z9ja3CghxrxCm+zY1ar/jszeBzQDiy9YS9hRsKbEqeBN8t1+xOFZUnPIPSxDTrho4I4m2xH/KZaCJ3+AN15fY5CvqGiKANWJ3xI3SEk+ZyZvIkoEIATW5ie2RUIrncOKhZMrhBatkETzGPTF+mCHywRfiYUj2cOL3PYOPqhN4D8U4+YPPuoSEcPQ+N8bfO409noGUi12/KjDTX3OuLNvOz0tf46XSEQrBy2oG33ZfXTVLhjsi7adICm5gR28gx3Ubh8eWqcBSFiUOrzhHOIV2LFBRDVeq7bv7d52WT27WYjKxl2I8eNU6S5HMkYKxvfTQOpTlU4p3xb0fJcbM06tQhWH8XrO/zBRahMQAuuvra8qfZz9i3FEuvBKTobxJpcjVMjd2/I5LSXOeWemOZMeWpIAOS42PvoD/E2KwVkqtyl8WV+mbuZSSfgXZ+hZudnDDrHDG1BIHSdA6BGKOTl0blEVrPsIKVbxOdN25YQwkQ/qzP3Yc3sANF6qsegkVmWjzAqTGqyrgq0Xep5rK/DPWuTnqr49MgQhkGOJ5+WsJPieKJmP8f63PzmESP4A/UR5kS5nAkiIyGO6g1dm
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV8PR12MB9620.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(7416014)(5023799004)(56012099006)(11063799006)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?3Rrva1t5eC9GBNs9xx4TOvx8zSNuIrLxwF1Yy0VrE93F9uKnaxCXjbuq9ITV?=
- =?us-ascii?Q?1pUaxSH2GTsr5KA/LRoANMA86q5WyeHVYA6tCyeD/lcTHZPbEeauvllUh1Ss?=
- =?us-ascii?Q?qJr8MV0984WN2d8FAMdgrOczjMTyIz4hh92tIbeshQIYehQaK1R7x/uDNm70?=
- =?us-ascii?Q?Kx6E8Ge/xgOvITd9cqMkcaIXcJ+OBGT/uJBwelZLb+KUO+I5u5TPH5iSY+i1?=
- =?us-ascii?Q?xjlC3QYJbAsq+Gn6IlIFXwI5xT6ineaY9083C77UFfnEXAxCRwPBmB3FyFfw?=
- =?us-ascii?Q?UY2fQmKQhW95d1KOPNf8VXbBy4DxvG1A1JfNL73iejOsxbiJQGClJ1zH07Ok?=
- =?us-ascii?Q?chrHwlGibKo5i/Mu9YdFdXJlc/sPYdDr1XluABzzz6Z5sB3DihMv1QjeExL0?=
- =?us-ascii?Q?I3lZ/4YI6dNdRmMA0iRsMSYZ6JidksA/8h8fD09tn7NlMX4ouDzVj3Mm/8Rl?=
- =?us-ascii?Q?KgZ0SXjcFFBn9NxjyyGwKjcheBdsg/X+rGBnuG1f5CX/gaw/6wnhpmkVbXen?=
- =?us-ascii?Q?yDS4Jj3QcODgrJT3vpD+hhieHeE8oSq/nQZ1h0rGOhhRTW2kZB4V3OBE3w15?=
- =?us-ascii?Q?UXrcltKZbuvGbVdENd4DKTJj673zp9Nb1ikMynz94jdLgLh+TMCU+dJlrBPp?=
- =?us-ascii?Q?4AqX9g9mFxDu3ZR21/t5dx5Wu6n2C6XksLybi+w9lGfk6JcVYEZIykURQrTk?=
- =?us-ascii?Q?OUQHszQuJLHaWEEeKt89Tl3ESBAurIaHMy66Y/BQTXcBfjeVQH+7vtCx4xF0?=
- =?us-ascii?Q?yfQCiTXH8OgbNO/FyuCu2mMt3SOidvTtCxJ9zZZdxqJMciLeiKjPDYF52LQk?=
- =?us-ascii?Q?19PefDceh9Oke88RLkZiWIGLwF63fqoyy2f/HdgwB9u0vNlqT2PDEqwUPa+b?=
- =?us-ascii?Q?35sl/WKcE81W61epVU3j5OYA0M1hLcAGJoTlWfXtwCq7X/d9aveRjAjhvgWo?=
- =?us-ascii?Q?AaLk3ZyrOgXhM6iJ6uYdRI/XTa1PxmjbgorPv4B9/UoXHv70lFpETyReFuvx?=
- =?us-ascii?Q?Dl1tAFNNXLIr6rBLAw8UUtZ4WPeayWF2wSIGErNfXvjFHEbrCTiEdOT5d+Bm?=
- =?us-ascii?Q?ASyyYW2pqEf8d0afWnuNB6nrxYK+cnvcLrv+kA3hxTbD368a907r3aQIp9X6?=
- =?us-ascii?Q?xGkqjxHasWkIZLFadKrdntUYma7URn9d20iXExVgfoKQdCXlQSQq4nuu+U6E?=
- =?us-ascii?Q?ncvfxwclY3J+atJ9+OIOoZMagP6CB0jrByW5OELvipWOHYETc2yU1bmt4vse?=
- =?us-ascii?Q?3MjjQ8351ECtRKYXcI5p7Jn+RI2bpzvaHRjBpxFLfAovp1AXEO5HCAGFaEiI?=
- =?us-ascii?Q?dreFiZ/JlpUyDW05VuQ32MLFg7RYnRS6GFkNf/HbXn+1Os0VjH+OVuwSgM6Q?=
- =?us-ascii?Q?SdlT40eZ5Go8uprT+NTkrcm93Vkp9Nu4CcJMIxPxa3bGDNBCH49RDLn2NuHs?=
- =?us-ascii?Q?yDJc9Tdp7lkWNVMQvkyB4lLqHARuyOVRjxTu6ul1ZBfx99Fetb+3oP1RaoGe?=
- =?us-ascii?Q?cCRjHqCD0FLuneK3HodO5/oDpKL9tr/SCp5j8tz/9oQHQIm+ZzU3cysEDI4I?=
- =?us-ascii?Q?tynTH+waCZdHZON9Nbho8ZjJwizOQxn+72bpxbgoOfEKnvnWZwpc+l6vlUyW?=
- =?us-ascii?Q?xMgdz+X0+pQaSXHvSbxuz8+CS2UGBg1MeNcjNX9nq/tOk8fF4FY++pmdjG0m?=
- =?us-ascii?Q?8eorD554ej+qdxQ1cxpsrEwommcFs8Lwkn+RPBB3yT8WDw4e?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bde4dc1b-ca06-4ff1-0784-08dec57d2dde
-X-MS-Exchange-CrossTenant-AuthSource: LV8PR12MB9620.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jun 2026 16:44:16.6156
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: UrsjCL2PP02bQGzMtvQNrER7LUJClpELGvmvPWOqv6fR368my7bVoLJQ/PlclT3C
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4462
+References: <20260605192708.141921-1-joannelkoong@gmail.com>
+ <20260605192708.141921-4-joannelkoong@gmail.com> <058fd2d4-3ba4-46e5-9107-3a7e0ab66653@bsbernd.com>
+ <CAJnrk1YHQEtpwA-ForFWXsLntc950ekqAHg=L9VExVfJ2WF1Rw@mail.gmail.com> <742e68e6-c456-4655-a441-aaa8267f1a48@bsbernd.com>
+In-Reply-To: <742e68e6-c456-4655-a441-aaa8267f1a48@bsbernd.com>
+From: Joanne Koong <joannelkoong@gmail.com>
+Date: Mon, 8 Jun 2026 09:46:19 -0700
+X-Gm-Features: AVVi8CcHW1wKDIqiTm2CslN6JixDpNiU105hbDeu8QQXU2KJUws3g1EbCoD1ldk
+Message-ID: <CAJnrk1bz=BHryaWkZ0uBCpzLoVM-FSsb4mhA8F7+fnMQ4Tt_YQ@mail.gmail.com>
+Subject: Re: [PATCH 3/3] fuse: end fuse_req on io-uring cancel task work
+To: Bernd Schubert <bernd@bsbernd.com>
+Cc: miklos@szeredi.hu, fuse-devel@lists.linux.dev, Chris Mason <clm@meta.com>, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-If IB_MR_REREG_ACCESS changes from RO to RW then the umem has to be
-re-evaluated to ensure it is properly pinned as RW. Since the umem is
-hidden inside each driver's mr struct add a ib_umem_check_rereg() function
-that each driver has to call before processing IB_MR_REREG_ACCESS.
+On Sat, Jun 6, 2026 at 12:41=E2=80=AFAM Bernd Schubert <bernd@bsbernd.com> =
+wrote:
+>
+>
+> On 6/6/26 01:52, Joanne Koong wrote:
+> > On Fri, Jun 5, 2026 at 3:09=E2=80=AFPM Bernd Schubert <bernd@bsbernd.co=
+m> wrote:
+> >>
+> >>
+> >>
+> >> On 6/5/26 21:27, Joanne Koong wrote:
+> >>> From: Chris Mason <clm@meta.com>
+> >>>
+> >>> When io_uring delivers task work with tw.cancel set (PF_EXITING,
+> >>> PF_KTHREAD fallback, or percpu_ref_is_dying on the ring context),
+> >>> fuse_uring_send_in_task() takes the cancel branch, assigns
+> >>> -ECANCELED, and falls through to fuse_uring_send(). That path only
+> >>> flips the entry to FRRS_USERSPACE and completes the io_uring cmd;
+> >>> it never discharges the ring entry's owning reference to the
+> >>> fuse_req that fuse_uring_add_req_to_ring_ent() handed it at
+> >>> dispatch time.
+> >>>
+> >>>     fuse_uring_send_in_task()
+> >>>       tw.cancel =3D=3D true
+> >>>         err =3D -ECANCELED
+> >>>       fuse_uring_send(ent, cmd, err, issue_flags)
+> >>>         ent->state =3D FRRS_USERSPACE
+> >>>         list_move(&ent->list, &queue->ent_in_userspace)
+> >>>         ent->cmd =3D NULL
+> >>>         io_uring_cmd_done(-ECANCELED)
+> >>>         /* ent->fuse_req still set, req still hashed */
+> >>>
+> >>> The fuse_req stays linked on fpq->processing[hash] and
+> >>> fuse_request_end() is never invoked. The originating syscall
+> >>> thread blocks in D-state in request_wait_answer() until
+> >>> fuse_abort_conn() runs, which can be the entire connection
+> >>> lifetime. For FR_BACKGROUND requests fc->num_background is never
+> >>> decremented either, so repeated cancels inflate the counter until
+> >>> max_background is hit and all later background ops stall.
+> >>>
+> >>> The non-cancel error branch already handles this correctly: when
+> >>> fuse_uring_prepare_send() fails it calls fuse_uring_req_end()
+> >>> before fuse_uring_send(). The cancel branch must do the same.
+> >>>
+> >>> Fix by calling fuse_uring_req_end(ent, req, err) in the cancel
+> >>> branch before falling through to fuse_uring_send().
+> >>>
+> >>> Fixes: c2c9af9a0b13 ("fuse: Allow to queue fg requests through io-uri=
+ng")
+> >>> Cc: stable@vger.kernel.org
+> >>> Reviewed-by: Joanne Koong <joannelkoong@gmail.com>
+> >>> Assisted-by: kres:claude-opus-4-7
+> >>> Signed-off-by: Chris Mason <clm@meta.com>
+> >>> ---
+> >>>  fs/fuse/dev_uring.c | 1 +
+> >>>  1 file changed, 1 insertion(+)
+> >>>
+> >>> diff --git a/fs/fuse/dev_uring.c b/fs/fuse/dev_uring.c
+> >>> index 7cd50990b097..b5cc700575ca 100644
+> >>> --- a/fs/fuse/dev_uring.c
+> >>> +++ b/fs/fuse/dev_uring.c
+> >>> @@ -1222,6 +1222,7 @@ static void fuse_uring_send_in_task(struct io_t=
+w_req tw_req, io_tw_token_t tw)
+> >>>               }
+> >>>       } else {
+> >>>               err =3D -ECANCELED;
+> >>> +             fuse_uring_req_end(ent, ent->fuse_req, err);
+> >>>       }
+> >>>
+> >>>       fuse_uring_send(ent, cmd, err, issue_flags);
+> >>
+> >> I think that can race with fuse_uring_stop_queues(), which leaves us t=
+wo
+> >
+> > Hmm, I don't think this races with fuse_uring_stop_queues() as
+> > ent->state here is still FRRS_FUSE_REQ and fuse_uring_send_in_task()
+> > can only be called for a registered fuse ent, which means the ent has
+> > already grabbed the queue refcount which will trigger the async
+> > teardown worker to run in the background during abort until the ent is
+> > reclaimed. I think this adds a race though with the request expiration
+> > checking logic which (a) fixed, so I think you're right that we'll
+> > probably need the same cleanup here. I'll look at this early next week
+> > and send a v2.
+> >
+>
+> Right, actually no race at all, just a plain use-after-free, because the
+> entry is set to FRRS_USERSPACE and then cleaned up during connection
+> abort and then released again through fuse_uring_queues or
+> fuse_uring_async_stop_queues.
+>
+> I actually do not get this part of the commit message
+>
+> > When io_uring delivers task work with tw.cancel set (PF_EXITING,
+> > PF_KTHREAD fallback, or percpu_ref_is_dying on the ring context),
+> > fuse_uring_send_in_task() takes the cancel branch, assigns
+> > -ECANCELED, and falls through to fuse_uring_send(). That path only
+> > flips the entry to FRRS_USERSPACE and completes the io_uring cmd;
+> > it never discharges the ring entry's owning reference to the
+> > fuse_req that fuse_uring_add_req_to_ring_ent() handed it at
+>
+> A mean exit does not trigger fuse_dev_release() with a fuse_abort_conn()
+> from that function?
 
-mlx4 has to retain its duplicate ib_access_writable check because it
-implements IB_MR_REREG_ACCESS | IB_MR_REREG_TRANS by changing both items
-in place sequentially while the MR is live, so it will continue to not
-support this combination.
+I don't think tw.cancel implies a connection abort. tw.cancel gets set
+on io_uring task death or ring death which is different from fuse
+connection death (eg a single worker thread of a multithreaded daemon
+exiting doesn't drop any ref on /dev/fuse fd, but that thread's
+in-flight task work still drains with tw.cancel)
 
-Cc: stable@vger.kernel.org
-Fixes: b40656aa7d55 ("RDMA/umem: remove FOLL_FORCE usage")
-Reported-by: Philip Tsukerman <philiptsukerman@gmail.com>
-Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
----
- drivers/infiniband/core/umem.c          | 16 ++++++++++++++++
- drivers/infiniband/hw/hns/hns_roce_mr.c |  4 ++++
- drivers/infiniband/hw/irdma/verbs.c     |  4 ++++
- drivers/infiniband/hw/mlx4/mr.c         |  4 ++++
- drivers/infiniband/hw/mlx5/mr.c         |  4 ++++
- drivers/infiniband/sw/rxe/rxe_verbs.c   |  5 +++++
- include/rdma/ib_umem.h                  |  8 ++++++++
- 7 files changed, 45 insertions(+)
+>
+> I do not think we need 3/3 at all.
 
-diff --git a/drivers/infiniband/core/umem.c b/drivers/infiniband/core/umem.c
-index 786fa1aa8e552b..4b055712b0d0db 100644
---- a/drivers/infiniband/core/umem.c
-+++ b/drivers/infiniband/core/umem.c
-@@ -332,3 +332,19 @@ int ib_umem_copy_from(void *dst, struct ib_umem *umem, size_t offset,
- 		return 0;
- }
- EXPORT_SYMBOL(ib_umem_copy_from);
-+
-+/*
-+ * Called during rereg mr if the driver is able to re-use a umem for
-+ * IB_MR_REREG_ACCESS.
-+ */
-+int ib_umem_check_rereg(struct ib_umem *umem, int flags, int new_access_flags)
-+{
-+	if (!umem)
-+		return 0;
-+
-+	if ((flags & IB_MR_REREG_ACCESS) && !(flags & IB_MR_REREG_TRANS))
-+		if (ib_access_writable(new_access_flags) && !umem->writable)
-+			return -EACCES;
-+	return 0;
-+}
-+EXPORT_SYMBOL(ib_umem_check_rereg);
-diff --git a/drivers/infiniband/hw/hns/hns_roce_mr.c b/drivers/infiniband/hw/hns/hns_roce_mr.c
-index 896af1828a38de..25bfd3970f5b6e 100644
---- a/drivers/infiniband/hw/hns/hns_roce_mr.c
-+++ b/drivers/infiniband/hw/hns/hns_roce_mr.c
-@@ -300,6 +300,10 @@ struct ib_mr *hns_roce_rereg_user_mr(struct ib_mr *ibmr, int flags, u64 start,
- 		goto err_out;
- 	}
- 
-+	ret = ib_umem_check_rereg(mr->pbl_mtr.umem, flags, mr_access_flags);
-+	if (ret)
-+		goto err_out;
-+
- 	mailbox = hns_roce_alloc_cmd_mailbox(hr_dev);
- 	ret = PTR_ERR_OR_ZERO(mailbox);
- 	if (ret)
-diff --git a/drivers/infiniband/hw/irdma/verbs.c b/drivers/infiniband/hw/irdma/verbs.c
-index 17086048d2d7fc..8cd4275328052e 100644
---- a/drivers/infiniband/hw/irdma/verbs.c
-+++ b/drivers/infiniband/hw/irdma/verbs.c
-@@ -3803,6 +3803,10 @@ static struct ib_mr *irdma_rereg_user_mr(struct ib_mr *ib_mr, int flags,
- 	if (flags & ~(IB_MR_REREG_TRANS | IB_MR_REREG_PD | IB_MR_REREG_ACCESS))
- 		return ERR_PTR(-EOPNOTSUPP);
- 
-+	ret = ib_umem_check_rereg(iwmr->region, flags, new_access);
-+	if (ret)
-+		return ERR_PTR(ret);
-+
- 	if (dmabuf_revocable) {
- 		umem_dmabuf = to_ib_umem_dmabuf(iwmr->region);
- 
-diff --git a/drivers/infiniband/hw/mlx4/mr.c b/drivers/infiniband/hw/mlx4/mr.c
-index 650b4a9121ff6d..6747bca3067770 100644
---- a/drivers/infiniband/hw/mlx4/mr.c
-+++ b/drivers/infiniband/hw/mlx4/mr.c
-@@ -209,6 +209,10 @@ struct ib_mr *mlx4_ib_rereg_user_mr(struct ib_mr *mr, int flags, u64 start,
- 	struct mlx4_mpt_entry **pmpt_entry = &mpt_entry;
- 	int err;
- 
-+	err = ib_umem_check_rereg(mmr->umem, flags, mr_access_flags);
-+	if (err)
-+		return ERR_PTR(err);
-+
- 	/* Since we synchronize this call and mlx4_ib_dereg_mr via uverbs,
- 	 * we assume that the calls can't run concurrently. Otherwise, a
- 	 * race exists.
-diff --git a/drivers/infiniband/hw/mlx5/mr.c b/drivers/infiniband/hw/mlx5/mr.c
-index 3b6da45061a552..fb40b44496f47a 100644
---- a/drivers/infiniband/hw/mlx5/mr.c
-+++ b/drivers/infiniband/hw/mlx5/mr.c
-@@ -1179,6 +1179,10 @@ struct ib_mr *mlx5_ib_rereg_user_mr(struct ib_mr *ib_mr, int flags, u64 start,
- 	if (flags & ~(IB_MR_REREG_TRANS | IB_MR_REREG_PD | IB_MR_REREG_ACCESS))
- 		return ERR_PTR(-EOPNOTSUPP);
- 
-+	err = ib_umem_check_rereg(mr->umem, flags, new_access_flags);
-+	if (err)
-+		return ERR_PTR(err);
-+
- 	if (!(flags & IB_MR_REREG_ACCESS))
- 		new_access_flags = mr->access_flags;
- 	if (!(flags & IB_MR_REREG_PD))
-diff --git a/drivers/infiniband/sw/rxe/rxe_verbs.c b/drivers/infiniband/sw/rxe/rxe_verbs.c
-index 4d4891dc28846b..4cf04a44189c64 100644
---- a/drivers/infiniband/sw/rxe/rxe_verbs.c
-+++ b/drivers/infiniband/sw/rxe/rxe_verbs.c
-@@ -1319,6 +1319,7 @@ static struct ib_mr *rxe_rereg_user_mr(struct ib_mr *ibmr, int flags,
- 	struct rxe_mr *mr = to_rmr(ibmr);
- 	struct rxe_pd *old_pd = to_rpd(ibmr->pd);
- 	struct rxe_pd *pd = to_rpd(ibpd);
-+	int err;
- 
- 	/* for now only support the two easy cases:
- 	 * rereg_pd and rereg_access
-@@ -1328,6 +1329,10 @@ static struct ib_mr *rxe_rereg_user_mr(struct ib_mr *ibmr, int flags,
- 		return ERR_PTR(-EOPNOTSUPP);
- 	}
- 
-+	err = ib_umem_check_rereg(mr->umem, flags, access);
-+	if (err)
-+		return ERR_PTR(err);
-+
- 	if (flags & IB_MR_REREG_PD) {
- 		rxe_put(old_pd);
- 		rxe_get(pd);
-diff --git a/include/rdma/ib_umem.h b/include/rdma/ib_umem.h
-index 2ad52cc1d52bdd..49172098a8de14 100644
---- a/include/rdma/ib_umem.h
-+++ b/include/rdma/ib_umem.h
-@@ -156,6 +156,8 @@ void ib_umem_dmabuf_revoke_lock(struct ib_umem_dmabuf *umem_dmabuf);
- void ib_umem_dmabuf_revoke_unlock(struct ib_umem_dmabuf *umem_dmabuf);
- void ib_umem_dmabuf_revoke(struct ib_umem_dmabuf *umem_dmabuf);
- 
-+int ib_umem_check_rereg(struct ib_umem *umem, int flags, int new_access_flags);
-+
- #else /* CONFIG_INFINIBAND_USER_MEM */
- 
- #include <linux/err.h>
-@@ -230,5 +232,11 @@ static inline void ib_umem_dmabuf_revoke_lock(struct ib_umem_dmabuf *umem_dmabuf
- static inline void ib_umem_dmabuf_revoke_unlock(struct ib_umem_dmabuf *umem_dmabuf) {}
- static inline void ib_umem_dmabuf_revoke(struct ib_umem_dmabuf *umem_dmabuf) {}
- 
-+static inline int ib_umem_check_rereg(struct ib_umem *umem, int flags,
-+				      int new_access_flags)
-+{
-+	return -EOPNOTSUPP;
-+}
-+
- #endif /* CONFIG_INFINIBAND_USER_MEM */
- #endif /* IB_UMEM_H */
+I think this is needed for the cases where tw.cancel occurs without a
+subsequent fuse abort, else the application syscall thread is stuck
+uninterruptibly in D-state in request_wait_answer() for the
+connection's lifetime. tw.cancel with a fuse abort is the common case,
+but I think unfortunately we also need to handle the case where this
+doesn't occur.
 
-base-commit: 323c98a4ff06aa28114f2bf658fb43eb3b536bbc
--- 
-2.43.0
-
+Thanks,
+Joanne
+>
+>
+> Thanks,
+> Bernd
