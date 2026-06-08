@@ -1,60 +1,96 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8620E388360;
-	Mon,  8 Jun 2026 19:45:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8C2E1D6BB
+	for <Stable@vger.kernel.org>; Mon,  8 Jun 2026 19:48:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780947917; cv=none; b=eGriTXxF0ejAkT0ZGf5FdyfRMOruQIW0BIY0uPdb46BMiDk+oLackeLjk8smvmUspV1K9TFoAh3ak1HabNjfaPHd8gozbyTOzipH8BK7enHlT6aCqVSsIYuqxsjVdz/N7poap8K6FjJmwdl+AwqjHfu1rT9YFvLlFWGoXIJ+psQ=
+	t=1780948104; cv=none; b=izZ/s+jnJAh22fjpxA2rpEpMfEhg30lVh9CoFURrTue/VE6hervlj80UnSZZMkyn0UumhsHgzUsPFh3gSCYDHkTUsxDKJEQGQmEBMCnZJIvS+8pYjCLBHjyH7dOLSco8Yqle8YRzae1xVt3T6FeuP+EJMIIe3S+BgDe/dzXC4Ew=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780947917; c=relaxed/simple;
-	bh=XQ11Rq1e58nQgzUhJEvKxGwl+m9/K14suhoVGq61YTA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Vs3buC3oxQPnN80SjiQxp3gANqw+2ZxZ6Fqt7UFfSGMbEv1nTcQWy4qFYP/bC3HF+Yqty97rDdpr4hkEgjjc5Mic5tAovLlgnynje56Okj+SNNqY5g9fX69fWTCLdsapLlurXFSnVViTcFSewuLoAe7/BAgzha/9ZsBId+osK1I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ijWIg8hE; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780948104; c=relaxed/simple;
+	bh=uiVMbVrmJne0X7y1jwJ2/IpPpAWksJ+2dqvDpf/KiwQ=;
+	h=Subject:To:From:Date:Message-ID:MIME-Version:Content-Type; b=JCDwgIB8X071c4vjQYzkb+804b7gt7AY0k5rccHrt/udxyt/qOnq0MuNJCeoyV4zUiwlZxrNl0vIqbLY9ud3JR0AzivDaC0Ryja8rJfYEF2Coq96guq0/TXnINV9pqVRQWJA3M3u/hRfGjfICNXYO6EwYtvV60wGe37aH6uz+dA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=tnsemSRA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ijWIg8hE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C51AE1F00898;
-	Mon,  8 Jun 2026 19:45:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780947916;
-	bh=nOUM233BkDBWLACgplH8WA444SMzwf33kfGfAapuszI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ijWIg8hEXUjPIsGy30fNPYYxzPq3N1OHeiab4V3QfTyUN7SmS+ddM8BHST4psVUw8
-	 JVd48+84OrFEkT/Wmd1ljv6pgmk/szWVRlpcquySAwMCwo1GU37BvOVV+HbczSeDS3
-	 DqfgkSH5G/IGDA3y/m1HT1BlIMs3jSDrJbhDh5wo3IIQ9wsiWCUmqH/C3qODLC1JRi
-	 juw2KI2WBY6ye8L7hAZUTl7LWXJ2u2Iw7CIYbxGLM772r/CjqUarLmZNXqHyxc2O2y
-	 nvnRuz1ERBMws+VH0h2/bX37JVlNDrqChe8+Excwz7iLUPgP7N2mIzY06PNaNSuErd
-	 qbEQsmgnVFSSA==
-Date: Mon, 8 Jun 2026 13:45:14 -0600
-From: Keith Busch <kbusch@kernel.org>
-To: Nick Chan <towinchenmi@gmail.com>
-Cc: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>,
-	Neal Gompa <neal@gompa.dev>, Jens Axboe <axboe@kernel.dk>,
-	Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
-	asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2] nvme-apple: Prevent shared tags across queues on
- Apple A11
-Message-ID: <aicbyoYG_XFUkocj@kbusch-mbp>
-References: <20260607-prevent-tag-collision-t8015-v2-1-dc4ef4fb42bc@gmail.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="tnsemSRA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA8AA1F00898;
+	Mon,  8 Jun 2026 19:48:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1780948103;
+	bh=jcHFsUxhEhW77Id4PsHPfqhb/tpxwxsl7UvY3Q1gqrU=;
+	h=Subject:To:From:Date;
+	b=tnsemSRAlYBjctU78iZvUGtsTHLXKtz9PO5G8k/3epV+Rj3yt8k3zJ75d3VTrVlk+
+	 rdWqcdcajAwn+gy7Raa+sCJdORtFAtbwvfo+AgXU8lGlYW4M8UCsrJ2OZDRPz8HDwL
+	 tOm0ZvYjDJxpiAv+VXapGV2MsTfelrTSk9CxxPs4=
+Subject: patch "iio: temperature: ltc2983: Fix n_wires default bypassing rotation" added to char-misc-testing
+To: liviu.stan@analog.com,Stable@vger.kernel.org,jic23@kernel.org
+From: <gregkh@linuxfoundation.org>
+Date: Mon, 08 Jun 2026 21:31:06 +0200
+Message-ID: <2026060806-revolt-football-2f60@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260607-prevent-tag-collision-t8015-v2-1-dc4ef4fb42bc@gmail.com>
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
 
-On Sun, Jun 07, 2026 at 02:10:58PM +0800, Nick Chan wrote:
-> On Apple A11, tags of pending commands must be unique across the admin
-> and IO queues, else the firmware crashes with
-> "duplicate tag error for tag N", with N being the tag.
-> 
-> Apply the existing workaround for M1 of reserving two tags for the admin
-> queue to A11.
 
-Thanks, applied to nvme-7.2.
+This is a note to let you know that I've just added the patch titled
+
+    iio: temperature: ltc2983: Fix n_wires default bypassing rotation
+
+to my char-misc git tree which can be found at
+    git://git.kernel.org/pub/scm/linux/kernel/git/gregkh/char-misc.git
+in the char-misc-testing branch.
+
+The patch will show up in the next release of the linux-next tree
+(usually sometime within the next 24 hours during the week.)
+
+The patch will be merged to the char-misc-next branch sometime soon,
+after it passes testing, and the merge window is open.
+
+If you have any questions about this process, please let me know.
+
+
+From 434c150752675f44dc52c384a7fa22e5176bc35a Mon Sep 17 00:00:00 2001
+From: Liviu Stan <liviu.stan@analog.com>
+Date: Mon, 25 May 2026 19:39:28 +0300
+Subject: iio: temperature: ltc2983: Fix n_wires default bypassing rotation
+ check
+
+When adi,number-of-wires is absent, n_wires is left at 0. The binding
+documents a default of 2 wires, matching the hardware default. However
+the current-rotate validation checks n_wires == 2 || n_wires == 3, so
+with n_wires = 0 the guard is bypassed and adi,current-rotate is accepted
+for a 2-wire RTD.
+
+Initialize n_wires = 2 to match the binding default and ensure the
+rotation check fires correctly when the property is absent.
+
+Fixes: f110f3188e56 ("iio: temperature: Add support for LTC2983")
+Signed-off-by: Liviu Stan <liviu.stan@analog.com>
+Cc: <Stable@vger.kernel.org>
+Signed-off-by: Jonathan Cameron <jic23@kernel.org>
+---
+ drivers/iio/temperature/ltc2983.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/iio/temperature/ltc2983.c b/drivers/iio/temperature/ltc2983.c
+index 38e6f8dfd3b8..1f835e326b93 100644
+--- a/drivers/iio/temperature/ltc2983.c
++++ b/drivers/iio/temperature/ltc2983.c
+@@ -741,7 +741,7 @@ ltc2983_rtd_new(const struct fwnode_handle *child, struct ltc2983_data *st,
+ 	struct ltc2983_rtd *rtd;
+ 	int ret = 0;
+ 	struct device *dev = &st->spi->dev;
+-	u32 excitation_current = 0, n_wires = 0;
++	u32 excitation_current = 0, n_wires = 2;
+ 
+ 	rtd = devm_kzalloc(dev, sizeof(*rtd), GFP_KERNEL);
+ 	if (!rtd)
+-- 
+2.54.0
+
+
