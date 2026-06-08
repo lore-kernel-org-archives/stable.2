@@ -1,150 +1,169 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp-42a9.mail.infomaniak.ch (smtp-42a9.mail.infomaniak.ch [84.16.66.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04446357D10
-	for <stable@vger.kernel.org>; Mon,  8 Jun 2026 11:28:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A9F53403EE
+	for <stable@vger.kernel.org>; Mon,  8 Jun 2026 11:41:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.16.66.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780918104; cv=none; b=gbnjv3dP99KfIrky5lS7qLS7phCJMAaNLIqQo/FOibIZdKfQcPvmzSOegR1YTd5PQYFlSbaxXR9/pUTVC3fVfZkOdouzRPKQRCTc1diU2XYBTI8sKNoKpHQH9vz6BP4oXdPuJewZoBb4E+HDWaPJsyav8Q6AY3Vgnni5kRc0haM=
+	t=1780918898; cv=none; b=SL/mkpiQqfDZSxo/0MIdvgonBlpB/6dONrnfeoK0fEiOgy9MhbLhBgTkjcZn7DkSxfE/lUz9CLTg77RcT36pfq0bIrWE0mikjjA9CjvmYQI49bvEEqUyP1Rw88vAoQkMPi8S2OsoAJ3clfMY9kz62Z7npdiOXZb3LJuyb0nmtQk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780918104; c=relaxed/simple;
-	bh=07CSvOfsMYb3ovv7HYqEN4Di2ZjJu+tnq+ZAtUpg44w=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=gikG2HX2Gvih/ng5n8sASq7kHMaeIn+CV9Ak/1Hm1oLb+AmSwTI91Ev3Cefr8egSpRdMSVjDAIe9n4aioFmtbi9k8pHe1/arwe8+8Pt6vxQSwb7JYgom1sWzvubk/MSIE1oeqBY9xIA7kS/58EA9XjGiDYfC/mvTeju/FSC9FfM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fHjUrUdx; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780918898; c=relaxed/simple;
+	bh=nJaWS+s3pel1qn4mtCdVHn1Ukc8d8WDevzlFivMIF7Q=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=RnCaeljhYrkphzfBXtJrtSycu9UJfrWQtFzQqTWvcCJIW2vCpzPtYcloS0GwqiNBZm7PbPmxVgxg+QNo7msKpt58pHxX371grmaaNm3Oa1TBOcm0+EfbTP4DW04p+H6Uds3Y617wjg39dHwszkOOqRPW6OSzSSMEZfmT4zIsUXg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.sh; spf=pass smtp.mailfrom=gibson.sh; dkim=pass (2048-bit key) header.d=gibson.sh header.i=@gibson.sh header.b=WtO05nKX; arc=none smtp.client-ip=84.16.66.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.sh
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gibson.sh
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fHjUrUdx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8C3A1F00893
-	for <stable@vger.kernel.org>; Mon,  8 Jun 2026 11:28:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780918102;
-	bh=4eFAXYAlisMyZROgtZjN8snyvOoXYIYrf26FTR3yVQU=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=fHjUrUdx0hoKW/FOqYFDOJaO7gJHJgVLzsv7gqG9H0LZRpU3SdshU5JDOaIH1PpWv
-	 cpZnvusVGqHAIitduytREP91IKoj09mVqZ9K6YO1ELZAwr3fHiVQNP3MxuU5HFfUS5
-	 u+jcK5uo6A8OKY9aEULcG+ze8RrFbZZ23pvtLFp5SnJjswD0UwcujlHa6CaPV9RE/U
-	 PwC4hKS0CAYp1HUi/8/tc4ClRx7RpUX1S2HP95SjHZqMTe+p8CqC0tyZjsvy/P9Upr
-	 SrssscSaTYq2fF0/ZNqZQ0/BxdsyHZj/EFGBoeQgJH28PNX54mVkcSJPbpOmPpV/df
-	 SBSBeylPAB7jw==
-Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-68b482888c3so7027711a12.0
-        for <stable@vger.kernel.org>; Mon, 08 Jun 2026 04:28:22 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ+PLpibFBdu1yS5uOoKFcjJVbXbF3CnJOYOi6+iKSEEHnyHYYwwu5HfvSIW+1E8G0nf6IglcWI=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxJSlDdmB+/tf8YHitpBdvP2VciQ9MPENmz0JcnVpCpwmUFVLxc
-	bp0HQuwP6QvvRu8Gl0FrsbtvAOzdzquO+1SGumJzwzrbx32ykxxjLXboMSEGx+er9XPtkbmNi+Q
-	M76T9H4gtI0jPTZSvMhDyLvCNsDXx0M4=
-X-Received: by 2002:a17:907:6e8c:b0:bda:3469:6ed with SMTP id
- a640c23a62f3a-bf3a93177efmr619421966b.32.1780918101331; Mon, 08 Jun 2026
- 04:28:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gibson.sh header.i=@gibson.sh header.b="WtO05nKX"
+Received: from smtp-4-0001.mail.infomaniak.ch (smtp-4-0001.mail.infomaniak.ch [10.7.10.108])
+	by smtp-4-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4gYqr80yV3zQZP;
+	Mon,  8 Jun 2026 13:41:28 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gibson.sh;
+	s=20260228; t=1780918887;
+	bh=64ROTkWQ+G3FUbeK128OxqOXVOFcP3gTOBXCofcfJEE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=WtO05nKXVZFoYPgj1Zphbgf3iPJx3G2Gdu4QFQRDZMF7bj+JA4Izi9oq2kFNGTzfO
+	 I7wG3uXi5B1iV6xmQMl/uHg+JgsXfZvQPj9yHPzsiUG53JyCFDIWhrylgPn7Mfmw5n
+	 sZcrR+jukAEIcm1xKMieSbdxdRV2av8QJGzP7cZqzNLELQxXYkki7do5FaH3POVT9a
+	 pi2PjOOjGcKPJvXh57oScVTe47sCpfyQZvXNGXM8mPm2Oxy9aK+Mr9JiFUspU2vZ86
+	 roeTlWIDFiOyxahw3rvaLDneqJawzidEOFZW1FhmaE11QZcQGZ8rOBavf2GAlwrlM4
+	 rC4mOwtL5T6dg==
+Received: from unknown by smtp-4-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4gYqr64zZ1znR;
+	Mon,  8 Jun 2026 13:41:26 +0200 (CEST)
+Message-ID: <731fc18e-818b-4986-94fa-ff14e4db7892@gibson.sh>
+Date: Mon, 8 Jun 2026 13:41:26 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <e0be9c192cf8896a7f02ae23880f8e4921102129.1780912039.git.wqu@suse.com>
- <CAL3q7H4SXDUCsKrLK27GwT0itbSd_aozt5A2TvVR5e34gZD51w@mail.gmail.com> <2408e64c-ffac-4276-8631-a9f073fb5892@gmx.com>
-In-Reply-To: <2408e64c-ffac-4276-8631-a9f073fb5892@gmx.com>
-From: Filipe Manana <fdmanana@kernel.org>
-Date: Mon, 8 Jun 2026 12:27:43 +0100
-X-Gmail-Original-Message-ID: <CAL3q7H4rQzMkjLsMOT4a_hbQ7q8SV-1_TG1M4nP2XsSQHB+ngw@mail.gmail.com>
-X-Gm-Features: AVVi8Cd1JMqYFuiORN521m4K2GSBIIFUm5NtF4jZwqVnLguaJuJIT8FlmWLANdk
-Message-ID: <CAL3q7H4rQzMkjLsMOT4a_hbQ7q8SV-1_TG1M4nP2XsSQHB+ngw@mail.gmail.com>
-Subject: Re: [PATCH] btrfs: do not overwrite NODATASUM flag when removing
- NODATACOW flag
-To: Qu Wenruo <quwenruo.btrfs@gmx.com>
-Cc: Qu Wenruo <wqu@suse.com>, linux-btrfs@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 2/3] platform/x86/amd/pmc: Add delay_suspend module
+ parameter
+To: Hans de Goede <hansg@kernel.org>,
+ Shyam Sundar S K <Shyam-sundar.S-k@amd.com>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Mario Limonciello <superm1@kernel.org>
+Cc: stable@vger.kernel.org
+References: <20260606044758.2213401-1-daniel@gibson.sh>
+ <20260606044758.2213401-3-daniel@gibson.sh>
+ <5aaf8759-048b-4550-becb-e8686137d3da@kernel.org>
+Content-Language: de-DE, en-GB
+From: Daniel Gibson <daniel@gibson.sh>
+In-Reply-To: <5aaf8759-048b-4550-becb-e8686137d3da@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Infomaniak-Routing: alpha
 
-On Mon, Jun 8, 2026 at 12:23=E2=80=AFPM Qu Wenruo <quwenruo.btrfs@gmx.com> =
-wrote:
->
->
->
-> =E5=9C=A8 2026/6/8 20:44, Filipe Manana =E5=86=99=E9=81=93:
-> > On Mon, Jun 8, 2026 at 10:49=E2=80=AFAM Qu Wenruo <wqu@suse.com> wrote:
-> [...]
-> >> Previously such operations will revert to inode flags 0, but now it wi=
-ll
-> >> revert to inode flags NODATASUM.
-> >> This is due to the fact that we have no way to change NODATASUM flag b=
-ut
-> >> only through mount options.
-> >>
-> >> I know this is not ideal, but at least "chattr +S" removing unrelated
-> >> flags looks more serious and more like a bug.
-> >>
-> >> So here I'm fine to slightly change the behavior of "chattr -C".
-> >
-> > I'm not sure what's best here or how common this use case is and I
-> > wonder how it might affect users.
-> > I agree it's better to not remove the nodatasum flag, the only concern
-> > is if it affects existing user workflows.
->
-> I doubt if it will affect any existing user workflows, at least not
-> directly.
->
-> But the biggest one is no way to remove NODATASUM flags.
->
-> This means those files will never be verified by scrub, which will
-> eventually affect existing btrfs maintenance.
->
->
-> I'm wondering if it makes more sense, to only set NODATASUM if the
-> current mount option has nodatasum.
->
-> This will fix the test case but also provide a way to keep the existing
-> full revert behavior.
+Hi,
 
-We can always prevent the test case from running if nodatasum is in
-the mount options, we have the helper _require_btrfs_no_nodatasum().
+On 08.06.26 13:22, Hans de Goede wrote:
+> Hi,
+> 
+> On 6-Jun-26 6:47 AM, Daniel Gibson wrote:
+>> Enabling the new delay_suspend module parameter delays suspend for
+>> 2.5 seconds which is known to help for some AMD-based Lenovo Laptops
+>> that otherwise failed to send/receive events for key presses or the
+>> lid switch after s2idle. Apparently the EC needs to do some things
+>> in the background before suspend or it gets into a bad state.
+>>
+>> There are many reports of AMD-based laptops (mostly but not exclusively
+>> IdeaPads) about similar issues on the web; this parameter gives
+>> affected users an easy way to try out if their issues have the same
+>> root cause and to work around them until their specific device is added
+>> to the quirks list.
+>>
+>> The parameter description has a note encouraging users to report
+>> their device so it can be added to the quirks list, inspired by a
+>> similar request in parameter descriptions of the ideapad-laptop module.
+>>
+>> The module parameter can be set to "1" to explicitly enable it,
+>> "0" to disable it even on devices that are assumed to be affected,
+>> or -1 (the default) to enable it if the device is assumed to be affected
+>> (according to fwbug_list[])
+>>
+>> Link: https://bugzilla.kernel.org/show_bug.cgi?id=221383
+>> Signed-off-by: Daniel Gibson <daniel@gibson.sh>
+>> Cc: stable@vger.kernel.org
+>> ---
+>>  drivers/platform/x86/amd/pmc/pmc.c | 25 +++++++++++++++++++++++--
+>>  1 file changed, 23 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/drivers/platform/x86/amd/pmc/pmc.c b/drivers/platform/x86/amd/pmc/pmc.c
+>> index 6bafd8661d68..2d3d180c15d2 100644
+>> --- a/drivers/platform/x86/amd/pmc/pmc.c
+>> +++ b/drivers/platform/x86/amd/pmc/pmc.c
+>> @@ -16,6 +16,7 @@
+>>  #include <linux/bits.h>
+>>  #include <linux/debugfs.h>
+>>  #include <linux/delay.h>
+>> +#include <linux/dmi.h>
+>>  #include <linux/io.h>
+>>  #include <linux/iopoll.h>
+>>  #include <linux/limits.h>
+> 
+> This addition of including dmi.h seems unnecessary.
+> 
 
->
-> Thanks,
-> Qu
->
-> > I can only guess it's very rare.
-> >
-> >>
-> >> Fixes: 7e97b8daf634 ("btrfs: allow setting NOCOW for a zero sized file=
- via ioctl")
-> >> Cc: stable@vger.kernel.org
-> >> Signed-off-by: Qu Wenruo <wqu@suse.com>
-> >> ---
-> >>   fs/btrfs/ioctl.c | 3 +--
-> >>   1 file changed, 1 insertion(+), 2 deletions(-)
-> >>
-> >> diff --git a/fs/btrfs/ioctl.c b/fs/btrfs/ioctl.c
-> >> index d4981d2a42d7..74849a4208b5 100644
-> >> --- a/fs/btrfs/ioctl.c
-> >> +++ b/fs/btrfs/ioctl.c
-> >> @@ -336,8 +336,7 @@ int btrfs_fileattr_set(struct mnt_idmap *idmap,
-> >>                   */
-> >>                  if (S_ISREG(inode->vfs_inode.i_mode)) {
-> >>                          if (inode->vfs_inode.i_size =3D=3D 0)
-> >> -                               inode_flags &=3D ~(BTRFS_INODE_NODATAC=
-OW |
-> >> -                                                BTRFS_INODE_NODATASUM=
-);
-> >> +                               inode_flags &=3D ~BTRFS_INODE_NODATACO=
-W;
-> >>                  } else {
-> >>                          inode_flags &=3D ~BTRFS_INODE_NODATACOW;
-> >>                  }
-> >
-> > This can now be simplified:
-> >
-> > if (!S_ISREG(inode->vfs_inode.i_mode) || inode->vfs_inode.i_size =3D=3D=
- 0)
-> >      inode_flags &=3D ~BTRFS_INODE_NODATACOW;
-> >
-> > Reviewed-by: Filipe Manana <fdmanana@suse.com>
-> >
-> > Thanks.
-> >
-> >> --
-> >> 2.54.0
-> >>
-> >>
-> >
->
+It's for that dev_info() call in the case that someone has enforced the option, see below
+
+>> @@ -89,6 +90,11 @@ static bool disable_workarounds;
+>>  module_param(disable_workarounds, bool, 0644);
+>>  MODULE_PARM_DESC(disable_workarounds, "Disable workarounds for platform bugs");
+>>  
+>> +static int delay_suspend = -1;
+>> +module_param(delay_suspend, int, 0644);
+>> +MODULE_PARM_DESC(delay_suspend,
+>> +		 "Delays s2idle by 2.5 seconds to work around buggy ECs, often causing keyboard issues after suspend. 0: don't delay, 1: do delay, -1 (default): let amd_pmc decide. If you need this please report this to: platform-driver-x86@vger.kernel.org");
+>> +
+>>  static struct amd_pmc_dev pmc;
+>>  
+>>  static inline u32 amd_pmc_reg_read(struct amd_pmc_dev *dev, int reg_offset)
+>> @@ -625,8 +631,23 @@ static bool amd_pmc_want_suspend_delay(struct amd_pmc_dev *pdev)
+>>  	 *
+>>  	 * See https://bugzilla.kernel.org/show_bug.cgi?id=221383
+>>  	 */
+>> -	if (!disable_workarounds && amd_pmc_quirk_need_suspend_delay(pdev)) {
+>> -		dev_info(pdev->dev, "Delaying suspend by 2.5s to avoid platform bug\n");
+>> +	if (amd_pmc_quirk_need_suspend_delay(pdev)) {
+>> +		/*
+>> +		 * delay_suspend=1 force-enables this, otherwise it can be
+>> +		 * disabled with disable_workarounds or delay_suspend=0
+>> +		 */
+>> +		if (delay_suspend == 1 || (delay_suspend == -1 && !disable_workarounds)) {
+>> +			dev_info(pdev->dev, "Delaying suspend by 2.5s to avoid platform bug\n");
+>> +			return true;
+>> +		}
+>> +		dev_info(pdev->dev, "Not delaying suspend because of module parameter, even though your device is assumed to need it!\n");
+>> +	} else if (delay_suspend == 1) {
+>> +		dev_info(pdev->dev, "Delaying suspend by 2.5s because delay_suspend=1. If this solves problems on your machine, please report this whole line to: platform-driver-x86@vger.kernel.org so it can be automatically detected as affected in the future. System Vendor: \"%s\" Product Name: \"%s\" Product Family: \"%s\" Board Vendor: \"%s\" Board Name: \"%s\"\n",
+>> +			 dmi_get_system_info(DMI_SYS_VENDOR),
+>> +			 dmi_get_system_info(DMI_PRODUCT_NAME),
+>> +			 dmi_get_system_info(DMI_PRODUCT_FAMILY),
+>> +			 dmi_get_system_info(DMI_BOARD_VENDOR),
+>> +			 dmi_get_system_info(DMI_BOARD_NAME));
+
+this one
+
+>>  		return true;
+>>  	}
+>>  	return false;
+> 
+> Otherwise this looks good to me:
+> 
+> Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
+
+Thank you very much for the reviews!
+
+> 
+> Regards,
+> 
+> Hans
+> 
+
+Cheers,
+Daniel
+
