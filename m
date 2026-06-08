@@ -1,52 +1,52 @@
-Received: from pdx-out-001.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-001.esa.us-west-2.outbound.mail-perimeter.amazon.com [44.245.243.92])
+Received: from pdx-out-002.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-002.esa.us-west-2.outbound.mail-perimeter.amazon.com [44.246.1.125])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A13933AC0D4;
-	Mon,  8 Jun 2026 08:25:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=44.245.243.92
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA6C23AEF47;
+	Mon,  8 Jun 2026 08:27:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=44.246.1.125
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780907127; cv=none; b=k1CfgdBXW31hLGtI1h5XaGpRxQ+Lzf2pWbv1ZOYOxAxJvSRZXHLM+jxFTsZsCn70JWOWN61hYoV63FpwT3TxZBJBGE2lZ0KlSvaFRdATTNk2bn1r9qJVHAOS00A/ALsYkxKwKzu1zhSpQwSlGnlLYIC26oflJvZeV99dUTS8PGo=
+	t=1780907264; cv=none; b=tkRiZP5oB0+QspBHbjCFeqgb99HMnyI/YqkBmrc2QfA0/X+efaesGJAzL7MnvlwhecsW3dzBFXz+LD7cOedQ8UlagZq/Yu+wl9VVBxwQKmjLK3vj4qxs3sqyoexpIxZgRzXO6gk08Qb3NfKKEx8WNtKQzK+QFuiqfUFN+cUjyVw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780907127; c=relaxed/simple;
-	bh=r5FtMK/f2un1emUZ8ezo6Cz+b/7rSFAc20e5TK10Id0=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=FOqnOHCXBcuRT4qgig+JU6Laqtp79j1cTr9mjqPSAS0KggpW0nLomay7upr9LMey2KU9+OGqxrEhdcvGhWCfwQiBhQKYT1I+Erup1e0WtB0X0oqlSFCmejLCqFcpiKgXLxx6SPZGfQaQQhRRRFywvHU7InRvw2CK65NUwwBH63A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de; spf=pass smtp.mailfrom=amazon.de; dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b=eVWj7bx2; arc=none smtp.client-ip=44.245.243.92
+	s=arc-20240116; t=1780907264; c=relaxed/simple;
+	bh=xX11XFF7CllnWCKodwtyNSA/wMhgnnvj0XHseFjK5So=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=ATVjwlQmzn7SFg0lc74VK09B2Ieua5S4kVqfQtqP2M47lLFPFD+pZFIionJ8SZyBGZIW8EZuEU3+H/G+uUr+LlCID8nFoTeOqeppMw3/BPHwnpdHYVRMWp62/XsX84PTOVh8FGyYmOCcmee2FMjsEb+kMtaaoJlZq+rqWlEpcUM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de; spf=pass smtp.mailfrom=amazon.de; dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b=UYN3TFFu; arc=none smtp.client-ip=44.246.1.125
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b="eVWj7bx2"
+	dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b="UYN3TFFu"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
   d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
-  t=1780907125; x=1812443125;
+  t=1780907260; x=1812443260;
   h=from:to:cc:subject:date:message-id:mime-version:
    content-transfer-encoding;
-  bh=c2d1N+ncM5+OyeFdunTRQqXnxLg4pO8EHQkoV6u5lRY=;
-  b=eVWj7bx2yxSyJLKQ3dugo6sy1OjQMl7+WRBDNWzWLy+XUOuvUEWmy/wF
-   nOSg+qmymrrY8L9FuMnxHv9DCokugCubHz6W21JZVRkObV9Qk8latVh14
-   X5VCr8ojT0mYOTvpxUXZ/Wq8Yx5pJhMbV9ntuWU7WEUn/Bsu0BVDzaFco
-   ka5FNLJ+SUx7spBT3Jqhpgh9y2dQgQaT0ZgKkjf087TWSic9OqhSwQkBG
-   ZFbO6pL1I3Zxu2+kV0bJAtN2mZrq5x4F6BlIEJUIEPxyCngaVbN92I+63
-   otzNmsOoalJPOQek8USHRA1hJvvDjbTVQl/MiWGE+m8/kI1Sz4TDnELnB
-   A==;
-X-CSE-ConnectionGUID: d4gK/nVISWeA3UIFNb21EQ==
-X-CSE-MsgGUID: g2h8g+3dQA+DaE9NBMmDBQ==
+  bh=VmUw3UxYK4bXB/9MEWnupktjMpispESwRKJsyd57xfM=;
+  b=UYN3TFFuh5E6mx2aL/rWrJl3/qw0OpJyDqxjNiSTMNjH37w0bYrvJeJD
+   NrZTH2tdJ54J+Z4tJ2oxv0Hye401hA/4/Ad8ki6bUDVxg+wkwDaTfcaWb
+   PjFnOBhvGPR4LpbZQZWylhj8Op6w/gQjkTwZZF3VwaYgaozBnhEd0PMbH
+   Pzx2nLFMuud3DSArYCo9JpIhEOZ7xr5HITlSGoWdq0lLd/oohKsCxLEx9
+   gSOQ2nV42fOng+2cu2WvWAKRhhS74IznyCnMkEHlz3CS4/Lqtw+aSCA1p
+   QZ1WVfWfABZYi2BXKMO2IE9mj50jLm963U0gf/C61bqyZ1wAm/gtxTKBc
+   g==;
+X-CSE-ConnectionGUID: WdyUHsMAT5KzyG3KElEbzg==
+X-CSE-MsgGUID: 2QCoQ4erQxeJCr3JM1h9Ag==
 X-IronPort-AV: E=Sophos;i="6.24,194,1774310400"; 
-   d="scan'208";a="20814917"
-Received: from ip-10-5-6-203.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.6.203])
-  by internal-pdx-out-001.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Jun 2026 08:25:22 +0000
-Received: from EX19MTAUWB002.ant.amazon.com [205.251.233.111:21065]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.31.226:2525] with esmtp (Farcaster)
- id e3441014-2d5e-44fc-b598-45dc596f90c0; Mon, 8 Jun 2026 08:25:21 +0000 (UTC)
-X-Farcaster-Flow-ID: e3441014-2d5e-44fc-b598-45dc596f90c0
+   d="scan'208";a="21316100"
+Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
+  by internal-pdx-out-002.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Jun 2026 08:27:38 +0000
+Received: from EX19MTAUWA002.ant.amazon.com [205.251.233.178:16354]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.58.234:2525] with esmtp (Farcaster)
+ id e186b9df-872e-4727-a057-6affbab4a8b6; Mon, 8 Jun 2026 08:27:37 +0000 (UTC)
+X-Farcaster-Flow-ID: e186b9df-872e-4727-a057-6affbab4a8b6
 Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWB002.ant.amazon.com (10.250.64.231) with Microsoft SMTP Server
+ EX19MTAUWA002.ant.amazon.com (10.250.64.202) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.37;
- Mon, 8 Jun 2026 08:25:21 +0000
+ Mon, 8 Jun 2026 08:27:37 +0000
 Received: from dev-dsk-simonlie-1b-ad174abf.eu-west-1.amazon.com
  (172.19.78.185) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.37; Mon, 8 Jun 2026
- 08:25:19 +0000
+ 08:27:35 +0000
 From: Simon Liebold <simonlie@amazon.de>
 To: Steffen Klassert <steffen.klassert@secunet.com>, Herbert Xu
 	<herbert@gondor.apana.org.au>, "David S . Miller" <davem@davemloft.net>,
@@ -56,9 +56,9 @@ To: Steffen Klassert <steffen.klassert@secunet.com>, Herbert Xu
 	<stable@vger.kernel.org>, Simon Liebold <lieboldsimonpaul@gmail.com>
 CC: Qi Tang <tpluszz77@gmail.com>, Florian Westphal <fw@strlen.de>, "Simon
  Liebold" <simonlie@amazon.de>
-Subject: [PATCH 6.6.y] xfrm: hold dev ref until after transport_finish NF_HOOK
-Date: Mon, 8 Jun 2026 08:24:54 +0000
-Message-ID: <20260608082454.2786663-1-simonlie@amazon.de>
+Subject: [PATCH 6.1.y] xfrm: hold dev ref until after transport_finish NF_HOOK
+Date: Mon, 8 Jun 2026 08:27:18 +0000
+Message-ID: <20260608082718.2789134-1-simonlie@amazon.de>
 X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -66,7 +66,7 @@ List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ClientProxiedBy: EX19D031UWC004.ant.amazon.com (10.13.139.246) To
+X-ClientProxiedBy: EX19D039UWB001.ant.amazon.com (10.13.138.119) To
  EX19D001UWA001.ant.amazon.com (10.13.138.214)
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
@@ -156,7 +156,7 @@ index 8432b50d9ce4..b2e328de620b 100644
  }
  
 diff --git a/net/xfrm/xfrm_input.c b/net/xfrm/xfrm_input.c
-index 0c08bac3ed26..f79fc5d13e60 100644
+index 4bba890ff3bc..588c671e661b 100644
 --- a/net/xfrm/xfrm_input.c
 +++ b/net/xfrm/xfrm_input.c
 @@ -636,10 +636,14 @@ int xfrm_input(struct sk_buff *skb, int nexthdr, __be32 spi, int encap_type)
@@ -176,7 +176,7 @@ index 0c08bac3ed26..f79fc5d13e60 100644
  
  		spin_lock(&x->lock);
  		if (nexthdr < 0) {
-@@ -707,6 +711,8 @@ int xfrm_input(struct sk_buff *skb, int nexthdr, __be32 spi, int encap_type)
+@@ -706,6 +710,8 @@ int xfrm_input(struct sk_buff *skb, int nexthdr, __be32 spi, int encap_type)
  			sp->olen = 0;
  		if (skb_valid_dst(skb))
  			skb_dst_drop(skb);
@@ -185,7 +185,7 @@ index 0c08bac3ed26..f79fc5d13e60 100644
  		gro_cells_receive(&gro_cells, skb);
  		return 0;
  	} else {
-@@ -726,6 +732,8 @@ int xfrm_input(struct sk_buff *skb, int nexthdr, __be32 spi, int encap_type)
+@@ -725,6 +731,8 @@ int xfrm_input(struct sk_buff *skb, int nexthdr, __be32 spi, int encap_type)
  				sp->olen = 0;
  			if (skb_valid_dst(skb))
  				skb_dst_drop(skb);
@@ -194,7 +194,7 @@ index 0c08bac3ed26..f79fc5d13e60 100644
  			gro_cells_receive(&gro_cells, skb);
  			return err;
  		}
-@@ -736,6 +744,8 @@ int xfrm_input(struct sk_buff *skb, int nexthdr, __be32 spi, int encap_type)
+@@ -735,6 +743,8 @@ int xfrm_input(struct sk_buff *skb, int nexthdr, __be32 spi, int encap_type)
  drop_unlock:
  	spin_unlock(&x->lock);
  drop:
@@ -204,7 +204,7 @@ index 0c08bac3ed26..f79fc5d13e60 100644
  	kfree_skb(skb);
  	return 0;
 
-base-commit: 0a40c6fbd105802fbbcaadca249e0948fbf8095a
+base-commit: dcbcab9d707928cd1679eba21ef0697fbb73b88a
 -- 
 2.50.1
 
