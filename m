@@ -1,104 +1,75 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 093AC38E8C2
-	for <stable@vger.kernel.org>; Mon,  8 Jun 2026 07:27:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1807C38F92A;
+	Mon,  8 Jun 2026 07:28:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780903641; cv=none; b=EtIRmKuW2Cuq8gXGPo5oGFJGbKtmT0JQaEW4OB5MJtVnzXn1glW49pO252Pl3X4qkeO4vxq2aWRc8uPTTD69oP6yKzx2hr5HG/WDfOkqaywUeEYJQtcWPfjlTB6+3jB8Sx/ZI6db+xH86/3kMfd7qMXcesal9TiHku7so27R8sU=
+	t=1780903684; cv=none; b=JQpYIT1IWSeVmLQY8lEeKsYSo50tIo8x45M2P18uifvb0TdkyUWzw2aVmIz28H38D+DZdlVzIppYnBxyuhDegdtSki6nGAtdcDFayXXqwh5HttGBA+ViCymALneR0epVfVexpJfjyqUn6l8OzjuyOAM2xWYL6ab/m8x5RQJHY9M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780903641; c=relaxed/simple;
-	bh=SJOKXNP9FmKA1NOLEfhFMPNSdAh6YT3VyxOAkzI9GYk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=E9CAG2JOr/P/QuHFUFTYSOybofpxxco5hBi4dAbwhmMLUSCnxprSHKVqjPz84hL/Ee+g+kgtpDEmyHzVywc9KUYXvzlEJEO4PE6oH/xjLgoE42MLoU1KbJvnJ7A49E4zsJ9S3bzlPIH6+SoSbXHFNIhghMmjgS/NZNqW0X0bQbU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=bFjDFb14; arc=none smtp.client-ip=192.198.163.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1780903684; c=relaxed/simple;
+	bh=HpyMmubOcPvyWorT45bTjO+FO1/5rhG4CaYGSpOW8gw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=MD4oCbLwm41C841M4iKsxaFJEyv47+2LxABKki89IHnjbd3gfJa6sp4y90VMet6/ykK3ASLQWfD693GSXgOfiIigoau1gB/T07XwLCV1jH0gSu0Gxb2OgWzJMIt45kpxTDECxF/YTQv0uggPKPwvUKwGf2ZAq5rSGDwjHQEFiSw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=SRnTMIcH; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="bFjDFb14"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1780903640; x=1812439640;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=SJOKXNP9FmKA1NOLEfhFMPNSdAh6YT3VyxOAkzI9GYk=;
-  b=bFjDFb144HWzWJSujwAC8Z/7rDXvnLWbwKHxQlz65npacR8fZj1WwekB
-   PFuTWJ765oluYAuQUQYwLOqeiHcwCYeTLGKDMJN4VHbxDJVhlHZ7YHeWr
-   SD2bw0UFecTGQhbXpSfabQQYJIaEytMR1APG9OqeOoNceKIXiT+TVW1kj
-   cDckKOqLW32oX6eZGTWe4ssDoa6LYlY80iUiVYATr0Qa37o72BbtAqXok
-   djzTOCQ3Sj31I0ZmMvhAxjQBIcaw/7r8p11v28G7NoOI30mFDg8bNIGE7
-   kloN1rKb6KJyDGrrgOYqT1rN8R61xJxH8iGFMOTcRS/8XUe+dJqbLFprW
-   w==;
-X-CSE-ConnectionGUID: d61QorNoQym4zu/sZcY++A==
-X-CSE-MsgGUID: PCA9O2a9S4OeVMf6vpxYrw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11810"; a="92199571"
-X-IronPort-AV: E=Sophos;i="6.24,194,1774335600"; 
-   d="scan'208";a="92199571"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Jun 2026 00:27:19 -0700
-X-CSE-ConnectionGUID: jNLMCwdKTSelGTAsf47bSg==
-X-CSE-MsgGUID: qpzfZxoJR5Wukvzc90cEAA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,194,1774335600"; 
-   d="scan'208";a="275668283"
-Received: from soc-pf6038af.clients.intel.com (HELO [10.217.180.44]) ([10.217.180.44])
-  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Jun 2026 00:27:18 -0700
-Message-ID: <7218fa4b-bb09-47a8-a2ab-7d381cf7d897@linux.intel.com>
-Date: Mon, 8 Jun 2026 09:27:15 +0200
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="SRnTMIcH"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=7Pri1h6ADGZ2CCChD8luQiY8dTtehWge5N8Z3rhqf/s=; b=SRnTMIcHDOG4nvb3I8Uqs93MGF
+	+/YgyUA+MGLMd0MEqyBOHPZ6cCQKI+CXJpDeWDq5X2b0eaJPmi15coN4LBnKWhn32Y/vtiwQD0mwY
+	/Zsae4Y8bJ4MIpShrw6CkUg2me4w9FE9UaVp8CQkjA9n7tX9DTEtxabXvFBo5gkW4OnE=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1wWUOp-006ZuF-1R; Mon, 08 Jun 2026 09:27:55 +0200
+Date: Mon, 8 Jun 2026 09:27:55 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Shitalkumar Gandhi <shital.gandhi45@gmail.com>
+Cc: Wells Lu <wellslutw@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>, stable@vger.kernel.org,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Shitalkumar Gandhi <shitalkumar.gandhi@cambiumnetworks.com>
+Subject: Re: [PATCH net] net: ethernet: sunplus: spl2sw: fix phy_node
+ refcount leak in remove
+Message-ID: <04e42457-af7d-4cd7-9454-2443bcd04e15@lunn.ch>
+References: <20260607193029.589736-1-shitalkumar.gandhi@cambiumnetworks.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] accel/ivpu: Fix signed integer truncation in IPC
- receive
-To: Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>,
- dri-devel@lists.freedesktop.org
-Cc: oded.gabbay@gmail.com, jeff.hugo@oss.qualcomm.com, lizhi.hou@amd.com,
- dawid.osuchowski@linux.intel.com, david.laight.linux@gmail.com,
- stable@vger.kernel.org
-References: <b464b589-2d28-4617-baf0-eefbe14e170a@linux.intel.com>
- <20260601161643.229342-1-andrzej.kacprowski@linux.intel.com>
-Content-Language: en-US
-From: "Wachowski, Karol" <karol.wachowski@linux.intel.com>
-In-Reply-To: <20260601161643.229342-1-andrzej.kacprowski@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260607193029.589736-1-shitalkumar.gandhi@cambiumnetworks.com>
 
-On 01-Jun-26 18:16, Andrzej Kacprowski wrote:
-> Fix potential buffer overflow where firmware-supplied data_size is cast
-> to signed int before being used in min_t(). Large unsigned values
-> (>= 0x80000000) become negative, causing unsigned wraparound and
-> oversized memcpy operations that can overflow the stack buffer.
+On Mon, Jun 08, 2026 at 01:00:29AM +0530, Shitalkumar Gandhi wrote:
+> mac->phy_node is acquired via of_parse_phandle() in spl2sw_probe() and
+> stored in the mac private data, transferring ownership of the
+> device_node reference to mac. On driver removal, spl2sw_phy_remove()
+> disconnects the PHY but never drops that reference, so each
+> probe-then-remove cycle leaks one of_node refcount per port permanently.
 > 
-> Change min_t(int, ...) to min() as both values are unsigned and can be
-> handled by min() without explicit cast.
+> Drop the reference after phy_disconnect(). While at it, remove the
+> redundant inner "if (ndev)" check; comm->ndev[i] was just verified
+> non-NULL on the line above.
 > 
-> Fixes: 3b434a3445ff ("accel/ivpu: Use threaded IRQ to handle JOB done messages")
-> Cc: <stable@vger.kernel.org> # v6.12+
-> Signed-off-by: Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>
-> ---
-> Changes in v2:
-> - Replaced min_t() with min()
+> Fixes: fd3040b9394c ("net: ethernet: Add driver for Sunplus SP7021")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Shitalkumar Gandhi <shitalkumar.gandhi@cambiumnetworks.com>
 
-Reviewed-by: Karol Wachowski <karol.wachowski@linux.intel.com>
+I assume you don't have this hardware, so this is untested? Please
+state that in the commit message.
 
-> 
->   drivers/accel/ivpu/ivpu_ipc.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/accel/ivpu/ivpu_ipc.c b/drivers/accel/ivpu/ivpu_ipc.c
-> index f47df092bb0d..9347f05a2b79 100644
-> --- a/drivers/accel/ivpu/ivpu_ipc.c
-> +++ b/drivers/accel/ivpu/ivpu_ipc.c
-> @@ -276,7 +276,7 @@ int ivpu_ipc_receive(struct ivpu_device *vdev, struct ivpu_ipc_consumer *cons,
->   	if (ipc_buf)
->   		memcpy(ipc_buf, rx_msg->ipc_hdr, sizeof(*ipc_buf));
->   	if (rx_msg->jsm_msg) {
-> -		u32 size = min_t(int, rx_msg->ipc_hdr->data_size, sizeof(*jsm_msg));
-> +		u32 size = min(rx_msg->ipc_hdr->data_size, sizeof(*jsm_msg));
->   
->   		if (rx_msg->jsm_msg->result != VPU_JSM_STATUS_SUCCESS) {
->   			ivpu_err(vdev, "IPC resp result error: %d\n", rx_msg->jsm_msg->result);
+Does this issue bother people?
+
+https://www.kernel.org/doc/html/latest/process/stable-kernel-rules.html
+
+	Andrew
