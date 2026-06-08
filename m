@@ -1,65 +1,37 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C8762D3A69;
-	Mon,  8 Jun 2026 00:34:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F6A71D5CD1;
+	Mon,  8 Jun 2026 01:15:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780878898; cv=none; b=AivhuATMkhQvJUiFLX5bq4Ek0PYsqR0h82l8seQVzhnAfrhcQGgyPsu1lGFWqKTCslWQjSnNIF+9E7VMeSJgC2PH+s1XL//r4aklExkThDdFttyHSbhcmN7JM0sZJF8noAsVd2nqYs72dLm76h/NT64k3cMsfIof40ZGameyP8E=
+	t=1780881330; cv=none; b=pPF1M4nQQg2dUhTDL8jKUcUiHX65ZDVQ/Ze7Si68/dvJfi5/rWXfNnWFZyj/340+V2EXldONXvMMR+OIxjxNmUJ5JQmpdVD4BdmKUdOBUVkEdJoOD6bH2IfrCXbyPMTeMQFUokfDKH8Y+F3Gr3hZ+ZgLhYJ9/y2T4BiWfeCwC9A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780878898; c=relaxed/simple;
-	bh=gJqfnk+Di60N+JgxGVmq/KV2VfxeZ7qDIQnDXTkPdTM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kw6sdjpRiits6/Hci3HOVIVSxzVVcPX0pz0cObOjaB5ZRPMxN7i1s27yONnPtf0hg0gm2PiQLW/qxunUbxBmlZbbtKVrOW/s5/BMFb/Fk623GquNby6x7/1jBKu/KqGHaS2GAmkEfhxQqGdzBse/u2xUDamX2YyAVFg9cG2KRRw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cNlz7XJS; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cNlz7XJS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D94A1F00898;
-	Mon,  8 Jun 2026 00:34:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780878897;
-	bh=gJqfnk+Di60N+JgxGVmq/KV2VfxeZ7qDIQnDXTkPdTM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cNlz7XJSfkY5yyY9pTgZW22K8WcbeoQU1dZPXEq/mmYHwV7Tb0f+70u14fJlonJkc
-	 mMkAyfBK/0ZX8S2HQjP+elmgnBDqd6DmZtm1FKgHcULSTQPvSxhuozPl9epyLgThXm
-	 Br3rOw94mRgv+4k4sHyJvsN+znXuAzV2C4xdnOAaygdP99fRk1Ad2YxdbgO/uGP6f7
-	 2g6HZzgoTk9dlR8DQ1Yn+mQdmCHDNXd9Qyi1aRKFXOJd+2jnUFRt87hcgwbe97Epp4
-	 0zLDPfDnz9lZLT6TV6s/qtuK4qVdEjJuV0ZA/9ohRIOREnB1Nx0LKuM+wYePgdVTGI
-	 2UIVGEktbmrUA==
-From: Sasha Levin <sashal@kernel.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Sasha Levin <sashal@kernel.org>,
-	stable@vger.kernel.org,
-	patches@lists.linux.dev,
-	Deepanshu Kartikey <Kartikey406@gmail.com>,
-	syzbot+bbe6b99feefc3a0842de@syzkaller.appspotmail.com,
-	Michal Hocko <mhocko@suse.com>,
-	Ben Segall <bsegall@google.com>,
-	Christian Brauner <brauner@kernel.org>,
-	David Hildenbrand <david@kernel.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Ingo Molnar <mingo@redhat.com>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Kees Cook <kees@kernel.org>,
-	Liam Howlett <liam@infradead.org>,
-	"Lorenzo Stoakes (Oracle)" <ljs@kernel.org>,
-	Mel Gorman <mgorman@suse.de>,
-	Mike Rapoport <rppt@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Valentin Schneider <vschneid@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Tetsuo Handa <penguin-kernel@i-love.sakura.ne.jp>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Oleg Nesterov <oleg@redhat.com>
-Subject: Re: [PATCH 7.0 015/332] kernel/fork: validate exit_signal in kernel_clone()
-Date: Sun,  7 Jun 2026 20:34:49 -0400
-Message-ID: <20260607202000.rc-0005-fork@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <aiVOEKt9QL5cvkwz@redhat.com>
-References: <20260607095728.031258202@linuxfoundation.org> <20260607095728.598854921@linuxfoundation.org> <aiVOEKt9QL5cvkwz@redhat.com>
+	s=arc-20240116; t=1780881330; c=relaxed/simple;
+	bh=W7tHzDZ/6aNpSc4Q0AaLnpWD8NFpG+xww8G9Ri25Jio=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=mX5pEfE7Gms1Vs5rbjMTN+ZVgdqtIvrVCy93ofs9/s3Fw8BsuxSNURK+b4a5OrHwptgDKCO+QMk+HNqytCqghEJ0X93lq5lsaSXGlRJ1L2iFD78ZW0jLT0PGDztMZ/b/6TakiC9LVNH+tJwRv86MV82oiIqpmwH4Kqm8yA4LCuQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-01 (Coremail) with SMTP id qwCowAA33tafFyZqsF7bAA--.3072S2;
+	Mon, 08 Jun 2026 09:15:11 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: zack.rusin@broadcom.com,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	tzimmermann@suse.de,
+	airlied@gmail.com,
+	simona@ffwll.ch
+Cc: bcm-kernel-feedback-list@broadcom.com,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] drm/vmwgfx: fix refcount leak in vmw_resource_do_validate()
+Date: Mon,  8 Jun 2026 01:15:03 +0000
+Message-Id: <20260608011503.102981-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -67,11 +39,58 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qwCowAA33tafFyZqsF7bAA--.3072S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Kr18WF1Dur45tw18AF48Crg_yoW8XF1UpF
+	4fGw1j9r98XFnrtFZIyws8Aa9IvasFkFWFgF13Cw1fZw4avryUJr45JrWF9r17CrW8tr1Y
+	vrZ5A3y8CFyDGFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9a14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
+	6r4UJwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv6xkF7I0E14v26F
+	4UJVW0owAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
+	7VC0I7IYx2IY67AKxVWUXVWUAwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7
+	v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF
+	7I0E8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026x
+	CaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_
+	JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r
+	1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_
+	Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8Jr
+	UvcSsGvfC2KfnxnUUI43ZEXa7VU1eWlPUUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCREMA2oliLqe2wABsu
 
-> I don't think this is the -stable material.
+If the call to func->dirty_alloc() fails in vmw_resource_do_validate(),
+the function returns without releasing the resource created by
+func->create() (or the previously existing resource), leaking the
+dev_priv->num_fifo_resources reference counter. This counter tracks
+active FIFO resources and must be balanced by calling func->destroy()
+on failure.
 
-Dropped, thanks.
+The existing error path for binding failures already jumps to the
+out_bind_failed label which calls func->destroy(). Extend this
+handling to the dirty_alloc() failure case.
 
---
-Thanks,
-Sasha
+Fix the leak by jumping to out_bind_failed when dirty_alloc() fails.
+
+Cc: stable@vger.kernel.org
+Fixes: b7468b15d271 ("drm/vmwgfx: Implement an infrastructure for write-coherent resources")
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/gpu/drm/vmwgfx/vmwgfx_resource.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_resource.c b/drivers/gpu/drm/vmwgfx/vmwgfx_resource.c
+index 388011696941..93a5835e485a 100644
+--- a/drivers/gpu/drm/vmwgfx/vmwgfx_resource.c
++++ b/drivers/gpu/drm/vmwgfx/vmwgfx_resource.c
+@@ -402,7 +402,7 @@ static int vmw_resource_do_validate(struct vmw_resource *res,
+ 		if (res->guest_memory_bo->dirty && !res->dirty) {
+ 			ret = func->dirty_alloc(res);
+ 			if (ret)
+-				return ret;
++				goto out_bind_failed;
+ 		} else if (!res->guest_memory_bo->dirty && res->dirty) {
+ 			func->dirty_free(res);
+ 		}
+-- 
+2.34.1
+
