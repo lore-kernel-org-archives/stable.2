@@ -1,174 +1,183 @@
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010058.outbound.protection.outlook.com [52.101.69.58])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED23A2D5922;
-	Mon,  8 Jun 2026 02:42:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.58
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780886575; cv=fail; b=rTA8KwuiTomXHxJyYnyEZeMGcsN5whbgb3utprKCq6c2xE1GnPjS00dPvgxFncOQpbbgVUPGNDjOcSce7Nov4a2+/uE8OOxzW5vefm0N6I89OQ5QL7MshFU7p8C1iIxlAHDdVkeQfj3C0C2UxcBdBc9r8eimQZEBMywV0UyOKd8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780886575; c=relaxed/simple;
-	bh=j0pLwEkx2mFMjN5WYU3p3PqKita7wJ15M1zrvVPNJB8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=McX1jdlTMGIJYwDyJClM/nEbR7pL2GHIPlds2+WuIagCfjketZtJGHVWIwVTdOYClO3qpdOGJXtirdZYZ4ds+Cj38bnLHrQtWxVdipLHPbRHJe9uWcMxbpvC1bN/MxhLG/mURCmMfKPzVHcjBCLjKC9dAhMiCz4YdUh3snDUbKw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=d1gMBb8X; arc=fail smtp.client-ip=52.101.69.58
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="d1gMBb8X"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NoebShPJ+GGTlFdxCOMIip/neX5a/HQtz37zJZfkNvbYSxMZzzReVYnn0ROy3HsYvpTRNHedImYC2f5HTK5Z5yjQ0bcyQ8CpI1l/s4afAuF1DLKp9z1sPyKJfXjCxV702I6MHrRMiEf8ENNmNJN46Jw5oewcAmUGfx1Sh7TLEVefJ6IDk8hae8Aj/XYyipWK0fbrIhBoKyNahYjtfLFI9r/mwNnvDcKeU/rjmuvbTK3JoECcPRMe9IeWniHBcImZXKLUJm5A7090ZIf+zdZ4mQ7/m3kHzM6tPVGJPKSGe1NkEsu7erTamDohlyd5vwgCM4HBlAV7MCKm3Qr21oo7MQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=l9sWY2hU3G6X3dJD3QTSn20uOs9mpAXGZqLHnPdpPgA=;
- b=zSaOS5p4JFYQJO+vNL8J9jFZ4cOItOKgetPFVxHcW40vSKWf+ao4vaFCOGIjaiXF7jGL4zHwE3edJuqwEfuAtHtb6zSsrPBtc49hvYZztzaanlTaT9VK2/zTRmc21SfcbFz02VZ0py3orNeG946ldRcAeipd1NmlyNV2VQ72tbjz0m58ScApFWZmFjdHDnuOAXBNEnDSMvdwxjnk+l1hDiKHif4S0eFZ7OhOT64kKpRnF4tkGETinmXwqo2DmcMEMLaBq8gKntdVzp9+NEIfhPPTBHP+djwAIhBaHk+nUG+ALk1Lslb3UT4tATBOmLkSLfjUxwJ1Cer4/ZlMmq/XRA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=l9sWY2hU3G6X3dJD3QTSn20uOs9mpAXGZqLHnPdpPgA=;
- b=d1gMBb8Xs6zLNGR8sZ5ifZuLFtr7ayLINOz7gwvShf11AE7135U11GOv9tgJZC5C8patqaXfpqhEeraEOZLlNS8wqJ5EeYVAGT/L6PaPU2rqs3l1yIdEQYqMy6bcRkU0tGsgDHmxOKz7Ruvig0dkf9qcfhtJbVIaas4c3N6AfbTWTMgWQn6xF1by1aJx1fHaS7qFiAEaaO2GTavVn063H0Zelhj2rpv49FriqpPixSW2CfM6PtVIoQkhmTEtuTE8RaIGJ+vpBQ7VnQ+8pEm5d2iwrrLnlriX9+KmTxUaxRKBNdFP57MHxvaHkHldUel+9RoqW1PZKzS/NvK2i8LbMA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from PAXPR04MB9422.eurprd04.prod.outlook.com (2603:10a6:102:2b4::21)
- by GV1PR04MB10656.eurprd04.prod.outlook.com (2603:10a6:150:20e::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.12; Mon, 8 Jun 2026
- 02:42:50 +0000
-Received: from PAXPR04MB9422.eurprd04.prod.outlook.com
- ([fe80::54e:28bf:aa85:d25d]) by PAXPR04MB9422.eurprd04.prod.outlook.com
- ([fe80::54e:28bf:aa85:d25d%4]) with mapi id 15.21.0092.011; Mon, 8 Jun 2026
- 02:42:50 +0000
-Date: Mon, 8 Jun 2026 10:41:45 +0800
-From: Xu Yang <xu.yang_2@oss.nxp.com>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Daniel Scally <djrscally@gmail.com>, 
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Danilo Krummrich <dakr@kernel.org>, Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, 
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, Bartosz Golaszewski <brgl@kernel.org>, 
-	Xu Yang <xu.yang_2@nxp.com>, stable@vger.kernel.org
-Subject: Re: [PATCH v3 0/2] device property: fix child iteration issues with
- secondary fwnodes
-Message-ID: <i7jdx4j4kd6dcntitqrcz74d47wfqv5iwc3zdlwx7rs7xoykql@ivj6mxr2zyva>
-References: <20260605-fixes_fwnode_iteration-v3-0-44c18472e1d1@nxp.com>
- <aiLmN2yUsqLadbSo@ashevche-desk.local>
- <aiLw0bLKiipMCZC5@ashevche-desk.local>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aiLw0bLKiipMCZC5@ashevche-desk.local>
-X-ClientProxiedBy: FR4P281CA0385.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:f7::10) To PAXPR04MB9422.eurprd04.prod.outlook.com
- (2603:10a6:102:2b4::21)
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5CCE130FF21;
+	Mon,  8 Jun 2026 02:46:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780886803; cv=none; b=G5h9asueZ1zlfcOYlaBbOtd+vhLhziK+r8agZWntw48Z35Q0Ta5QDT0Zi7BKKpQaXk7SiBMLYc+YjwkkCYQDrEnA0OfcLyaiRzhlhC+51jS7mh/itGU6qYJ/iKFDPLyAePKPc+alFQlIf/2385yGwt//8fPTT/PVtmf7W7zum2Q=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780886803; c=relaxed/simple;
+	bh=+eSvQyg0WYIA5OXyNDQfLE+z6DeiJKTxn5DMaIKwvbE=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=aL7fqzSr54C0sibIbkH6eNIMl8ouUoxsY4uI8Qz5NSwu9aeZEDsMoanXkhSzbR7kRSc6NDaGAJSgLWOW6U5Bi1Tf5Wkt34x9WvKdM7fRK/Wr96AbU1SOAz/jWTv8qDXDw3PNQ3wmrTwKnFCzWE4ZX/aG+T25qJGwsobAsf9etcY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [10.20.42.101])
+	by gateway (Coremail) with SMTP id _____8DxVXgQLSZq_p4RAA--.22545S3;
+	Mon, 08 Jun 2026 10:46:40 +0800 (CST)
+Received: from loongson-pc.loongson.cn (unknown [10.20.42.101])
+	by front1 (Coremail) with SMTP id qMiowJCxOMEKLSZq9ESfAA--.25894S4;
+	Mon, 08 Jun 2026 10:46:39 +0800 (CST)
+From: Hongliang Wang <wanghongliang@loongson.cn>
+To: Hongliang Wang <wanghongliang@loongson.cn>,
+	Binbin Zhou <zhoubinbin@loongson.cn>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Wolfram Sang <wsa+renesas@sang-engineering.com>
+Cc: linux-i2c@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	loongarch@lists.linux.dev,
+	Huacai Chen <chenhuacai@loongson.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH v6 2/2] i2c: ls2x: Add clocks property parsing and adjust bus speed
+Date: Mon,  8 Jun 2026 10:45:33 +0800
+Message-Id: <20260608024533.32419-3-wanghongliang@loongson.cn>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20260608024533.32419-1-wanghongliang@loongson.cn>
+References: <20260608024533.32419-1-wanghongliang@loongson.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PAXPR04MB9422:EE_|GV1PR04MB10656:EE_
-X-MS-Office365-Filtering-Correlation-Id: e47fc61c-8256-4635-60a0-08dec507a185
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
- BCL:0;ARA:13230040|1800799024|366016|19092799006|376014|7416014|22082099003|18002099003|6133799003|56012099006|4143699003|5023799004|11063799006;
-X-Microsoft-Antispam-Message-Info:
- pd85/FTVCiKf/qCOGOUsygAKeZG2gky5+rUWS+sfAtzv0tIV0zNnfDHjZtK38JH6+t/oUzbYmEu/DisGzy4J7LVBD4V+Kyo6etrfEpeLZ3AVo0j5vOO9w7QxklTYMJqDFsurllGdUhsS3pGjUzaXMAXkiAnoQIPbhCUc5Voe3reI1YHYGPrGdkTS+erqgl+OqFksFT/96dMWxCeC3fgg4maoDABIXh3iy3e/OCls0v6mB6sQ5yUkrrUlx2exRAjD6rhUdf1RNkaewg/HU+pbwSg67gJJfHXHKEk1EantfH08hUNtk1fCKWj+W6NXwkDz/jynqln0MyUOmlDfWICWXfcD7zSAmQ8VnX7mqk44o8g4ErDSYqW1ayCmlL2PuoI60H2Nqj2w0l+USUYTtlnql0DUkJN5M+F6VEWwCf1t13QxplVh/ng9uCsNf+voUwEUap3eBR51OmCY43ZBlApz+wU5nriBU/883wf7osluY/Zdnd6GMbbBvokAS0zpdr8PgH0rTpGrY8neqEjfoLPuS/mvHbQ+ucdBF3i1AHNIYIL2U/PcIQ9t4TUFFDWwrJndwV6lmj+szyCu/A7VeWHarkjUYIR+Jwbz3iYD6DFNa45wt8LPULh0fKYI5gTQ/Mj7HiXJODNBgE3PABm39wYIh9rVJ1/XCkLWLQOw6mbzvm9JqftX7rhtORNZuOgvPMUj
-X-Forefront-Antispam-Report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAXPR04MB9422.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(19092799006)(376014)(7416014)(22082099003)(18002099003)(6133799003)(56012099006)(4143699003)(5023799004)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
- =?us-ascii?Q?aozDJL8q62J98vytu5LgjfZIyUR7T48r/lwxwmB4pDkpHhYngmFdx27gUKQ4?=
- =?us-ascii?Q?Fsr+Q4z7yB0B8c2pcPZRW+S9bSFAxK0orB92MndSoBtnwLq1v1ePEqa0P+f7?=
- =?us-ascii?Q?o4PBvgafIUsfhpqFhkngftSZPBIjNIS2nYIVxvxFKWJ64Y1yUP/WrCpzz4As?=
- =?us-ascii?Q?vxFVEekSVZLi7Q1ps59h97/J98PdcVK+LyARrEvjC+7JB1vq01ISDWzzj7Qj?=
- =?us-ascii?Q?rkAWPXlyxF799FJt6UdD70QPgNo4skbXTbhIWwSUY9oaeABCNBd/hrc6IyKR?=
- =?us-ascii?Q?hEVG0UEkH7CpbBIq70ljKtV2gQz4d0fTMIgEvJiY/yOe1ztF7ltOQ/nrPes0?=
- =?us-ascii?Q?yrwHZ3w8y+ZpgLIk5qU6bBCVB+R6we+f6j2+wbO1yGBQSYoHYRwQr0Xd6FCT?=
- =?us-ascii?Q?zDlo6a3CyxDRQDRrMMZlScJfOhwYzWLyF29JeylUPaO7hfxnVtkRbvkbQDgV?=
- =?us-ascii?Q?BZOIxcPEcq6XhdSac+kPyBhFA1A5Z1R5j/EDOuYAhq7SExLpyoDXufyjal5M?=
- =?us-ascii?Q?jItCwFYxzo+4+AZ4tWcBPPQGb9MTBtlN5WibYMCYB3Xf5hq+PaZ+DLENyaJs?=
- =?us-ascii?Q?2YPIUY9K+fQWKi62nPaIK2OSgY+jHBmMLF7Nd5k/1tjPj72BBvsNzJXFrbRZ?=
- =?us-ascii?Q?ZUwTut+c0soalb3rlqdAh9KX5DuqIyJNYAFaC9EpqhoXtX+MK7XL7I2v1bQG?=
- =?us-ascii?Q?vh+W82/I+kicfug8qMc9715hwVRwmkKZeLCQDVzkLWsfTZgO/8sW52rf/wNy?=
- =?us-ascii?Q?dT30HcFOGTxFKXj7dOEhNjVnCHugaTnrDHL0hBeVAyYUwup1lXeI63FBiJiZ?=
- =?us-ascii?Q?ATfUUviCWqGrQhuuAx3zADzSZDTIp4BCRQK4tiOh+uXzalcLZZH7GF/ig2gj?=
- =?us-ascii?Q?c7UxCk/QOqrpNrS3AKQA5LPpsJMXQwlOyjeGONIs1ReHpkh7AJ1TEcyery8R?=
- =?us-ascii?Q?rKfAIBjokw6d87b8a2TOS+bHLfBmOURb84jgu4vv301dKldg0UW728EvxZlL?=
- =?us-ascii?Q?AEIaIanTkNF9C9Cbn7pF2pCiHqboqYRSrb78sBbhRM9fDym5qoF/4NKvALje?=
- =?us-ascii?Q?64foOQiQ8QIofx1DD3N9/ttSFjD6MLZE2+mGjusO62oz9TR6GHwqiOiksib3?=
- =?us-ascii?Q?UBvbBdnGCI6tChafM/i++QnmCd5MwGJ863P8cwWI9ThIJazoMAAltSdUvklt?=
- =?us-ascii?Q?IfRe0w+4ZrWpBVr0O3mainowYNjCNiGLdmF4oB+hq+iJ3lrF1bxTHKhqn8Xn?=
- =?us-ascii?Q?fY+HKyhd3Z4A9gVpOuRZ/FV32yZK/9+5bGOX2wMR6PcvQAcKTFC2vrGAoAx7?=
- =?us-ascii?Q?eAgjYCih1xTHc5kyFLtrQtgDde7MXQA9CVR49pjXQ85JAiFRAGIsV4tPWaK3?=
- =?us-ascii?Q?OjOJkTwUFlXywljKyeoNAAtwfV/xcA5mJ/H4SjLKLHU1rnwXxKiaT4ZletS5?=
- =?us-ascii?Q?fbqD6U+ojWRpfYdv2Hx0hUu9OAHJMbI0AsKUqr/rnGgwMPTKHZl/8+SOSylM?=
- =?us-ascii?Q?t5zk/9hzbgrhK06jvIbeEVKZucpqJYOz5ua1i6eDa01Z7Lb1og12Nggr4VGG?=
- =?us-ascii?Q?uKrTMOTlVHrzUZybkpoQrHz8dNmtAF2QjeBY64OJs4wUMUG8sHE0TN+TGTlW?=
- =?us-ascii?Q?42VpJNG4SrE2d04PB+YuCCVmhjsv4YDRD0m4uKd4ZoJbjJKEO2tEpi1oA04Y?=
- =?us-ascii?Q?3P2dboio8K6KhbFdhb7ccvR94UmhqaHkMSjctefCeE3yWgRPiNo6LicCIX+h?=
- =?us-ascii?Q?hvNhDA9j1xVfu11rHklnqYXpAjEMSAmZU8G9RyNecwAMJN/ocncL?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e47fc61c-8256-4635-60a0-08dec507a185
-X-MS-Exchange-CrossTenant-AuthSource: PAXPR04MB9422.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jun 2026 02:42:49.9747
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: uqPbZ1pwPVfF4SrMBe9wif3dE8+x7NEXS8koJB3oEKbSuwnmYsPVggsOuZ9g1zfN54VvfCY1JMDbcG32STlNeQ+AUJCnkl2b/SiM7A0Hv402vlze+6PgsVTYJ1GUKnUK
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR04MB10656
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qMiowJCxOMEKLSZq9ESfAA--.25894S4
+X-CM-SenderInfo: pzdqwxxrqjzxhdqjqz5rrqw2lrqou0/
+X-Coremail-Antispam: 1Uk129KBj93XoWxCr15KF15uw15Xw1DAw4fZwc_yoWrXw1kpF
+	W5CFZ5Gr4qqF42grsaq3W7ZFyYvws5JayUCFy7tw1xW3Z3Zr1DZa4ftFn09FWvgF97uayU
+	XayDGr43CFyUZrcCm3ZEXasCq-sJn29KB7ZKAUJUUUUr529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUBIb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AK
+	xVW8Jr0_Cr1UM2kKe7AKxVWUXVWUAwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07
+	AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWU
+	tVWrXwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7V
+	AKI48JMxkF7I0En4kS14v26r126r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY
+	6r1j6r4UMxCIbckI1I0E14v26r1Y6r17MI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7
+	xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xII
+	jxv20xvE14v26r4j6ryUMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw2
+	0EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x02
+	67AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU0epB3UUUUU==
 
-On Fri, Jun 05, 2026 at 06:52:49PM +0300, Andy Shevchenko wrote:
-> On Fri, Jun 05, 2026 at 06:07:41PM +0300, Andy Shevchenko wrote:
-> > On Fri, Jun 05, 2026 at 06:31:16PM +0800, Xu Yang wrote:
-> > > This series fixes two issues in the fwnode child iteration logic when
-> > > a secondary fwnode is present.
-> > > 
-> > > The first issue is  a refcount imbalance in software_node_get_next_child().
-> > > When a software node is used as a secondary fwnode, the iteration code may
-> > > incorrectly decrement the refcount of child nodes that do not belong to the
-> > > software node hierarchy. This results in refcount underflow and possible
-> > > use-after-free.
-> > > 
-> > > The second issue is an infinite loop in fwnode_for_each_child_node(), caused
-> > > by improper handling of iteration state across primary and secondary fwnodes.
-> > > When iterating over children from both primary and secondary fwnodes, the code
-> > > may incorrectly resume iteration from the primary fwnode even when the current
-> > > child belongs to the secondary, leading to repeated traversal and a loop.
-> > > 
-> > > Both issues are triggered when mixing different fwnode types through the
-> > > secondary mechanism, and stem from incorrect assumptions about ownership
-> > > and traversal context of child nodes.
-> > 
-> > > ---
-> > > Changes in v3:
-> > > - remove software node patch 
-> > 
-> > Hmm... Maybe I was unclear. My question was to investigate the way to actually
-> > move software node to use the swnode APIs (and not fwnode ones) and be on par
-> > with what OF code does. This series does the opposite and adds a hack to the
-> > next_child implementation.
-> > 
-> > > - add a kunit test case suggested by Andy Shevchenko
-> > 
-> > But thanks for the test case!
-> 
-> I'm preparing another patch (just a clean up) and I see that your test cases
-> indeed fail without any other patch being applied. Also noticed that the test
-> cases are not fully compliant with the requirement of the "primary"/"secondary"
-> fwnode flavours. But this doesn't affect the execution.
-> 
-> I will play more with this to understand the problem better.
+The i2c-ls2x driver supports dts and acpi parameter passing.
 
-OK. Suggestions on the fwnode flavours would be appreciated :)
+In dts, uses clock framework, by parsing clocks property to
+get i2c bus reference clock, and define the div of reference
+clock by device data.
 
-Thanks,
-Xu Yang
+In acpi, by passing clocks property to describe i2c bus reference
+clock and clock-div property to describe the div of reference clock.
+
+Based on i2c bus reference clock(clock_a), i2c bus speed(clock_s)
+and div, calculate the prcescale of i2c divider register. The
+calculation formula is
+
+prcescale = (clock_a*10)/(div*clock_s)-1
+
+Reviewed-by: Huacai Chen <chenhuacai@loongson.cn>
+Cc: stable@vger.kernel.org
+Signed-off-by: Hongliang Wang <wanghongliang@loongson.cn>
+---
+ drivers/i2c/busses/i2c-ls2x.c | 36 ++++++++++++++++++++++++++++++++---
+ 1 file changed, 33 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/i2c/busses/i2c-ls2x.c b/drivers/i2c/busses/i2c-ls2x.c
+index b475dd27b7af..46dafa11b301 100644
+--- a/drivers/i2c/busses/i2c-ls2x.c
++++ b/drivers/i2c/busses/i2c-ls2x.c
+@@ -12,6 +12,7 @@
+ 
+ #include <linux/bitfield.h>
+ #include <linux/bits.h>
++#include <linux/clk.h>
+ #include <linux/completion.h>
+ #include <linux/device.h>
+ #include <linux/iopoll.h>
+@@ -63,11 +64,18 @@
+ /* The default bus frequency, which is an empirical value */
+ #define LS2X_I2C_FREQ_STD	(33 * HZ_PER_KHZ)
+ 
++/* The div of i2c reference clock on LS2K0500/2K1000/2K2000 */
++#define LS2X_I2C_2K_CLOCK_DIV	40
++
++/* The div of i2c reference clock on LS7A1000/7A2000 */
++#define LS2X_I2C_7A_CLOCK_DIV	50
++
+ struct ls2x_i2c_priv {
+ 	struct i2c_adapter	adapter;
+ 	void __iomem		*base;
+ 	struct i2c_timings	i2c_t;
+ 	struct completion	cmd_complete;
++	unsigned int		div;
+ };
+ 
+ /*
+@@ -96,6 +104,8 @@ static irqreturn_t ls2x_i2c_isr(int this_irq, void *dev_id)
+ static void ls2x_i2c_adjust_bus_speed(struct ls2x_i2c_priv *priv)
+ {
+ 	u16 val;
++	u32 pclk, div;
++	struct clk *clk;
+ 	struct i2c_timings *t = &priv->i2c_t;
+ 	struct device *dev = priv->adapter.dev.parent;
+ 	u32 acpi_speed = i2c_acpi_find_bus_speed(dev);
+@@ -107,12 +117,30 @@ static void ls2x_i2c_adjust_bus_speed(struct ls2x_i2c_priv *priv)
+ 	else
+ 		t->bus_freq_hz = LS2X_I2C_FREQ_STD;
+ 
++	if (dev_of_node(dev)) {
++		clk = devm_clk_get_optional_enabled(dev, NULL);
++		if (!IS_ERR_OR_NULL(clk))
++			pclk = clk_get_rate(clk);
++		else
++			pclk = LS2X_I2C_PCLK_FREQ;
++
++		div = priv->div;
++
++		val = (pclk * 10) / (div * t->bus_freq_hz) - 1;
++	} else {
++		/* clocks and clock-div are only ACPI properties. */
++		if (!device_property_read_u32(dev, "clocks", &pclk) &&
++		    !device_property_read_u32(dev, "clock-div", &div))
++			val = (pclk * 10) / (div * t->bus_freq_hz) - 1;
++		else
++			val = LS2X_I2C_PCLK_FREQ / (5 * t->bus_freq_hz) - 1;
++	}
++
+ 	/*
+ 	 * According to the chip manual, we can only access the registers as bytes,
+ 	 * otherwise the high bits will be truncated.
+ 	 * So set the I2C frequency with a sequential writeb() instead of writew().
+ 	 */
+-	val = LS2X_I2C_PCLK_FREQ / (5 * t->bus_freq_hz) - 1;
+ 	writeb(FIELD_GET(GENMASK(7, 0), val), priv->base + I2C_LS2X_PRER_LO);
+ 	writeb(FIELD_GET(GENMASK(15, 8), val), priv->base + I2C_LS2X_PRER_HI);
+ }
+@@ -295,6 +323,8 @@ static int ls2x_i2c_probe(struct platform_device *pdev)
+ 	if (!priv)
+ 		return -ENOMEM;
+ 
++	priv->div = (unsigned long)device_get_match_data(dev);
++
+ 	/* Map hardware registers */
+ 	priv->base = devm_platform_ioremap_resource(pdev, 0);
+ 	if (IS_ERR(priv->base))
+@@ -349,8 +379,8 @@ static DEFINE_RUNTIME_DEV_PM_OPS(ls2x_i2c_pm_ops,
+ 				 ls2x_i2c_suspend, ls2x_i2c_resume, NULL);
+ 
+ static const struct of_device_id ls2x_i2c_id_table[] = {
+-	{ .compatible = "loongson,ls2k-i2c" },
+-	{ .compatible = "loongson,ls7a-i2c" },
++	{ .compatible = "loongson,ls2k-i2c", .data = (void *)LS2X_I2C_2K_CLOCK_DIV, },
++	{ .compatible = "loongson,ls7a-i2c", .data = (void *)LS2X_I2C_7A_CLOCK_DIV, },
+ 	{ /* sentinel */ }
+ };
+ MODULE_DEVICE_TABLE(of, ls2x_i2c_id_table);
+-- 
+2.47.2
+
