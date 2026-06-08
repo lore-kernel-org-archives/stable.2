@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 841AC38B14F;
-	Mon,  8 Jun 2026 20:16:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82FB939934C;
+	Mon,  8 Jun 2026 20:16:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780949775; cv=none; b=DxTj0tNhqDjp/25XHV01okhaWfxYpP5iDPmjFmHVpSZwbs05MY15VZCEuQ+IGileZiw7IFOIn06maR0V4Ow4X71uyzCxbDa7dBeT0TwQjgVdQfQ/EBMiHKkwyNtKvnmwQDHVHorxmuGi/MYT8RRFdyvqPHT5UI5n7di+shlAGis=
+	t=1780949778; cv=none; b=q1l+Sgobjv20TtsJ3aFNLl2SNZchdQ8ix3jkhTmK7AWkPptzF4JS7xBkOvgQjqtCl+t3ebA+uCezii2uFyU582ZyA7NzilwiwAcLZEUyigYbGH5eOyWHzqT4SdtVutP2utZv87i962dlL5hLQa+VMs+lGLycCa8GL8zUnEQkmU4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780949775; c=relaxed/simple;
-	bh=F7+VLOuaMWo8EvvGw83SJRc1YwDFoUylLAalUeJ204k=;
+	s=arc-20240116; t=1780949778; c=relaxed/simple;
+	bh=e6XnqR16Qqn0dxTRe/bupHetkng9jndoJ75CANg4n4I=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=m2a62Jvbd3tNFpmgKOA3agXWe2YEAeG+aketfslRpnAaHM5HXiv/7LmpxkZSpGSTxggst0BnauL4wvGm+DOZV3BY+HhRESfjMjCT7zgdx7qCs6fuTjz6sDHvKJEHJDqWPVC5sDxAvHLJbtZhwvUt0S8R0wg6nMgVAtP2kHq06a8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bWQ2Vg+G; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=YU7T8AdSRhwaQFSm/Xy7hVctkXcvWl5RcZe/UQoIEnwUbeRIDnuiqUO1I0zBLQF8xyzBfuwN+Mbn8VDKkaYkN4e9ggLi0gL+Hv7xYj05q+48ySXdyg0xUxMKufoyac9eagrKBwg8gOLRKh5eLjgQmNZfM5K7syMmfEY6/t4CLmI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jFwB+MQP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bWQ2Vg+G"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7ED711F00898;
-	Mon,  8 Jun 2026 20:16:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jFwB+MQP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB3CB1F00893;
+	Mon,  8 Jun 2026 20:16:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780949774;
-	bh=8DwEabUQb8wfXA2VVFyZQt03TK3VL48HZ/2mhSICwYs=;
+	s=k20260515; t=1780949777;
+	bh=A9Hqv4TlpLN9iAGI/RzzflDctnOwz1ujQS2MKeOsnD8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bWQ2Vg+GQo6IGi4Ux9QGzdDfiG9aeON13wDRgcpLM+Tzo9y3eRD/mh/zroZSUz4gB
-	 xit8vFr6PU+ig0GFZKebCNJhcFfNiJmm+T0k+C0OZqq+VsyuxT0hCqt5PxBwKIMYo/
-	 klWM/mzsBVL6Ap3xb/rREUJcB9jFeqm3q9YrNPckdvXxRDmk2xKRcKH1ORojaOQDXT
-	 u4+D11UrJL1ynY84AHkg5orqrzvwCFoLRWFm4t/1hsFsucc/girvfknoZTddZYXRk9
-	 r5sTmXMuq2kHvN+rm4CGDM/r5PNOOv19rofan1dneQ1+EUqPW8PR6OmEyMevuvLq/e
-	 w+zPWvuobuOKw==
+	b=jFwB+MQP5obdlxGybkTw8dCmvG6+eE/4+9e8wtKjbxBC2mpNg6cBgDUol2fDDjLZk
+	 96UNVuWhBcVYoO33C51jQ/GSZ2HSLiW2YAwOuAJH7fzVGIKDFaLTbNPiKo4OObkWHj
+	 SoTVfBzgY4qdvIquoapOUCZ5gFMW1jfVHv0LQOLrCEU7yj65NI4QnzLsMYrFdLYRwX
+	 fWSAyfMidcLNN3e+kb3iuUVwJhoQPpDWcylTYOjZuwwgse3d9pfn6EHfahKg8NSI8u
+	 1kpnz9FFzCuOBc8qce+ctcU0o68aK0O3wzlHfYgv6IcvYoGkxBXuk1dBjE8wKQeh44
+	 Fn0hvOeMDsDQA==
 From: Claudiu Beznea <claudiu.beznea@kernel.org>
 To: wsa+renesas@sang-engineering.com,
 	tommaso.merciai.xr@bp.renesas.com,
@@ -39,9 +39,9 @@ Cc: claudiu.beznea@kernel.org,
 	linux-renesas-soc@vger.kernel.org,
 	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>,
 	stable@vger.kernel.org
-Subject: [PATCH v3 07/17] i3c: renesas: Do not attach devices if xfer failed
-Date: Mon,  8 Jun 2026 23:15:33 +0300
-Message-ID: <20260608201543.804902-8-claudiu.beznea@kernel.org>
+Subject: [PATCH v3 08/17] i3c: renesas: Clean DATBAS register on detach
+Date: Mon,  8 Jun 2026 23:15:34 +0300
+Message-ID: <20260608201543.804902-9-claudiu.beznea@kernel.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260608201543.804902-1-claudiu.beznea@kernel.org>
 References: <20260608201543.804902-1-claudiu.beznea@kernel.org>
@@ -55,14 +55,12 @@ Content-Transfer-Encoding: 8bit
 
 From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
 
-The controller may return an NRSPQP_ERROR_* error code while still
-providing a valid cmd->rx_count. It has been observed that when the
-transfer fails with NRSPQP_ERROR_ADDRESS_NACK, calling
-i3c_master_add_i3c_dev_locked() may lead to crashes. Set newdevs to zero
-if the transfer failed.
+The controller uses DATBAS registers on TX/RX logic. Clean the DATBAS
+register for the detached I3C device to avoid issues.
 
-Fixes: e7218986319b ("i3c: renesas: Add suspend/resume support")
+Fixes: d028219a9f14 ("i3c: master: Add basic driver for the Renesas I3C controller")
 Cc: stable@vger.kernel.org
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
 Signed-off-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
 ---
 
@@ -70,35 +68,24 @@ Changes in v3:
 - none
 
 Changes in v2:
-- none, this patch is new
+- collected tags
 
- drivers/i3c/master/renesas-i3c.c | 13 +++++++++----
- 1 file changed, 9 insertions(+), 4 deletions(-)
+ drivers/i3c/master/renesas-i3c.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
 diff --git a/drivers/i3c/master/renesas-i3c.c b/drivers/i3c/master/renesas-i3c.c
-index c475d30a84c7..f96848022c45 100644
+index f96848022c45..195c40956148 100644
 --- a/drivers/i3c/master/renesas-i3c.c
 +++ b/drivers/i3c/master/renesas-i3c.c
-@@ -780,10 +780,15 @@ static int renesas_i3c_daa(struct i3c_master_controller *m)
+@@ -1047,6 +1047,8 @@ static void renesas_i3c_detach_i3c_dev(struct i3c_dev_desc *dev)
+ 	struct i3c_master_controller *m = i3c_dev_get_master(dev);
+ 	struct renesas_i3c *i3c = to_renesas_i3c(m);
  
- 	renesas_i3c_wait_xfer(i3c, xfer);
- 
--	newdevs = GENMASK(i3c->maxdevs - cmd->rx_count - 1, first_i3c_pos);
--	/* Re-attach all the I3C devices on resume. */
--	if (!i3c->resuming)
--		newdevs &= ~olddevs;
-+	/* Skip attaching if there are failures on the xfer. */
-+	if (xfer->ret) {
-+		newdevs = 0;
-+	} else {
-+		newdevs = GENMASK(i3c->maxdevs - cmd->rx_count - 1, first_i3c_pos);
-+		/* Re-attach all the I3C devices on resume. */
-+		if (!i3c->resuming)
-+			newdevs &= ~olddevs;
-+	}
- 
- 	for (pos = 0; pos < i3c->maxdevs; pos++) {
- 		if (!(newdevs & BIT(pos)))
++	renesas_writel(i3c->regs, DATBAS(data->index), 0);
++
+ 	i3c_dev_set_master_data(dev, NULL);
+ 	i3c->addrs[data->index].addr = 0;
+ 	i3c->addrs[data->index].i3c_dev = NULL;
 -- 
 2.43.0
 
