@@ -1,142 +1,116 @@
-Received: from out-189.mta0.migadu.com (out-189.mta0.migadu.com [91.218.175.189])
+Received: from smtpbgau2.qq.com (smtpbgau2.qq.com [54.206.34.216])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3278D54654;
-	Mon,  8 Jun 2026 03:49:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.189
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EC35168BD;
+	Mon,  8 Jun 2026 04:04:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.206.34.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780890551; cv=none; b=lvOCR2ttfYBAhgvP/KZjqAoiZWQfVkeD/L8FnXpp9gcg0+TcX15wJi1nbDhM3J68oaXAjxy+K9cT18yxFf+1nAUqeP67ixFI0vssP2l8AEIF3lZRh6ahaKlcXT4TCQvn3nxGTEOJvdlGdK3LSbxXLkwrsraDrv5Lg4uZSEntsyg=
+	t=1780891475; cv=none; b=jjiUQzV7hVDuqRkciXQ9l1dVqdnbAxe65GGJl70Q6llWI5kkDhfHHXE9hjsgguRXk9yaPK4Ftc9sEAPIIBJU/wCEj+ksPl3qC2McUIuuu+qjAAXcu31GYntyXnf5Lc17Y48ZkSauViNToLmJQu8gfxm7OfvtA/rS3RZn5hSTYe4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780890551; c=relaxed/simple;
-	bh=KFL5bv8OFk8aF4aDG6GfEVOlCyTfQOOh26CT0X317vw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Bzy8z2HhpB6ZbyZ+jXQXje+KiuTo8TT9QXnPSv44ayHhjsdBLS5Igw3xitpimp6zsMUR1edasDMTqYkKHtXdiZEZXB6PgiD3ZnSSO8ak82ZHjsFor9i5k2Xj7/JR22y/Vqe4ZWFzHc3wY1gbgx/0w5zNHKpvmDVZ1PCy8J2/sAY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool; spf=pass smtp.mailfrom=packett.cool; dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b=PJdWabiS; arc=none smtp.client-ip=91.218.175.189
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
+	s=arc-20240116; t=1780891475; c=relaxed/simple;
+	bh=U/tsal+rmzBloBrC1GPduwFaa6/XQho9dcwMkAcxEO4=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=jXBsKQQnULf/96qHoVuoYquUTvHAqdCv7mZqQ+V7nAgTOVhpDtaWEF4BpfGAla79j5/o+tIV9phkNCwsCrIDZobUkxMva+YCQ0DARsz0cF+lwD/+/xcgo/D2nnFtQjmbYLUtBqUPHXDvft0WSd+hqC9slQOZ5AqswHNbf0PLn4M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=dVp3UR+H; arc=none smtp.client-ip=54.206.34.216
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b="PJdWabiS"
-Message-ID: <ff3748ef-cf75-42b3-850c-b8742a814920@packett.cool>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=packett.cool;
-	s=key1; t=1780890534;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ixD0UqODeSKBYHAT0YqzVEOqtsHUd2w3XgZfWPYTogE=;
-	b=PJdWabiS8Pg4g6omz/iGtK8qchoMRPy1WwvNmpTo/oCgYXWRg8g7VIzIMLHTtHhlr9Gsj5
-	0AMrWsUGy4sXqo6+zlrOPMqBcc1upMA0G+1WXnDPbaEGCdo9+7dR9E7d8n1aHFABgPmIv8
-	k4rMJUiMp88c2h4kaqiMRN3z2TFD1udXPz5lRDEwKwb7NJIRk4kzar2U1/BoAf1D+M234m
-	++4C5KZqYaZC0iPQ6mkiTCiK0Bw0fUomc3OBgp9JByf02Oprq8fQqCu+YogO1NnFsyQpRc
-	QVK2GXQNvWP52UVggU1ji5GCb1Y9RpZkCVdqaRIRev5lulDaDMI4F3YAozifqg==
-Date: Mon, 8 Jun 2026 00:48:46 -0300
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="dVp3UR+H"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1780891393;
+	bh=h7Fokc1elsJWmfJd5c+3oA7JYOnT99hDUiQla4RZfZQ=;
+	h=From:To:Subject:Date:Message-Id:MIME-Version;
+	b=dVp3UR+HGOxuOwtdayBMNR7RjrNYS4/qIXyiHik08T7s0eb2F2+LC+EKMBkofapZq
+	 ITr6aAHG+ENTLiuK6Pet8NDPNuoBTCmsN2Hu/taYuA9mWMusDRxhHp177/bj96IC2H
+	 xKQ4Lv4mlHW8fVouH5YIZQctCWAgeLbQZElnRsvg=
+X-QQ-mid: zesmtpgz6t1780891387t8bf71eab
+X-QQ-Originating-IP: 8GAcMR5TM4hftvFEMGOItbzvF8JfcqXi4YQRk8rD9Rs=
+Received: from localhost.localdomain ( [113.57.152.160])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Mon, 08 Jun 2026 12:03:04 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 14729094490505157293
+EX-QQ-RecipientCnt: 21
+From: Wentao Guan <guanwentao@uniontech.com>
+To: gregkh@linuxfoundation.org
+Cc: achill@achill.org,
+	akpm@linux-foundation.org,
+	broonie@kernel.org,
+	conor@kernel.org,
+	f.fainelli@gmail.com,
+	hargar@microsoft.com,
+	jonathanh@nvidia.com,
+	linux-kernel@vger.kernel.org,
+	linux@roeck-us.net,
+	lkft-triage@lists.linaro.org,
+	patches@kernelci.org,
+	patches@lists.linux.dev,
+	pavel@nabladev.com,
+	rwarsow@gmx.de,
+	shuah@kernel.org,
+	sr@sladewatkins.com,
+	stable@vger.kernel.org,
+	sudipm.mukherjee@gmail.com,
+	torvalds@linux-foundation.org,
+	Wentao Guan <guanwentao@uniontech.com>
+Subject: Re: [PATCH 6.18 000/315] 6.18.35-rc1 review
+Date: Mon,  8 Jun 2026 12:03:00 +0800
+Message-Id: <20260608040300.501601-1-guanwentao@uniontech.com>
+X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20260607095727.528828913@linuxfoundation.org>
+References: <20260607095727.528828913@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [PATCH 2/2] arm64: dts: qcom: hamoa: Reserve low IOVA range for
- Iris
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Daniel J Blueman <daniel@quora.org>,
- Vikash Garodia <quic_vgarodia@quicinc.com>
-Cc: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- Bryan O'Donoghue <bod@kernel.org>, Xilin Wu <sophon@radxa.com>
-References: <20260601041336.9497-1-daniel@quora.org>
- <ecavEnqJTDXvfFykc9uJb5No7ioighpjrCdw2CFZ4c8Izr5DxpTs-606Bg7K0RtHTaOqksWivHxWQLzMBP6qow==@protonmail.internalid>
- <20260601041336.9497-2-daniel@quora.org>
- <ec7c564e-745a-4998-af9a-e9632fe063f7@kernel.org>
- <CAMVG2ssnyH=KUKrdfnUOtPYU7p17inyzcYWcKhT4EAZxDzDjfg@mail.gmail.com>
- <cb37e7cc-4fb0-4c24-8f89-f6f9eb08a107@oss.qualcomm.com>
-Content-Language: en-US
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Val Packett <val@packett.cool>
-In-Reply-To: <cb37e7cc-4fb0-4c24-8f89-f6f9eb08a107@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Migadu-Flow: FLOW_OUT
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: MAbyYw/5r7aNkqiNxAZRG9vCCgrBX5wBe75ZqQNRFgiWR82/2TQjhegb
+	516x9ZrLJ2xByrB24YhLyA6HidjNybxJpZegqeQXTg/aIbqcZK9qEBHIdcnEEZ3grSANbYB
+	xt1iYgGe0rL4kTKwvwvrIbMHXUPrtpfb6thZjazXLd8SFyr8t64/cybVxJPZLikmznja0Uk
+	qE/oqvsHaxHp8+sHHFXyLEQ3ztSzfYvotBAMBAoVLxXUAZfm2ikIKkqOVnKSbBfD0rHrNru
+	tqdVg69lnng3tnBY8oVbP0Hb8sLuPQNaT1HbehRwb8tW3ueuq2HiHZ4TI84gDX+6mTNvUBj
+	r+x2eogc03GW39brjYtJyrw1swEZBtTWPUyQT3JDm4TwjJOQYSR07Hw4o+5CKyzpKN15fxW
+	EKlZDjTL5LE7fokIYDwZwiwkpWjqbGJrsFlXZDVnGp73ae8Mqwb1CU1IxmySckHgp5mNyrp
+	RvnCsnQzELVCzZUyGO+EskFgVu334ntYT2GOJS0aOFnbwqZ7hKSuFajOsFtIeeVPC55D45k
+	6wh/yBxHk51bU8CJtkRZwFyrNra7d2DMFXF7ELVxLGZdzAUq9jIOwKVH6rxjol59zi3B5H7
+	5+hRUxOKrlFmV8QxkIHbFeNDrhLMuozQITGu3NEx7Rpp1Q1EwUZo6rMwM9XXph0kV7HHZVF
+	E25eGjs0liVKYxpyePd/uYU7dcUOB5vs0Fbx98ou+7MITf3lXfksfHmUfww5JaZNParnxhR
+	57y574zoQgJ54FYZj9TOkOXrA0UeL6cYGwswqOFvOlEB12kE0NTggUaplk1rLke89pue+rW
+	gJ6+BzNKCwG/ItTvOx4ld1gr+sd+LYPnZhCEsDqNtoX0iiAiQ5Uf6NFL7PNUdRvkelHoKQm
+	itOUz4m+VlEBCQMD7/nhOqdIP9AQbjYCi24K/C9rG2fY6IRqqGaU5loHqFdI0UTQe7b8y5t
+	EWcP3uZ/1slA7cuqV/n58ABXXh/lG2cNw9pICLHxGn0Pqsmmyp447/pktXL/Gx+Y9ZBnrfW
+	E2qEKojeJCD9MjgiMi8TfQXHdGRvfLNtCWfyorzMBPEb+sH57mOdVLUsNUHi83V29X7uLNj
+	R17FgZ+U2QFIGMRk/pJZoHSFwT7s40E5w==
+X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
+X-QQ-RECHKSPAM: 0
 
+Build tested in our x86,loongarch,riscv config successfully without error.
 
-On 6/4/26 3:38 AM, Vikash Garodia wrote:
->
->
-> On 6/2/2026 9:05 PM, Daniel J Blueman wrote:
->> On Tue, 2 Jun 2026 at 18:27, Bryan O'Donoghue <bod@kernel.org> wrote:
->>>
->>> On 01/06/2026 05:13, Daniel J Blueman wrote:
->>>> On X1-family hamoa platforms, Iris DMA below IOVA 0x25800000 (600MB)
->>>> triggers unhandled SMMU page faults
->>>
->>> How do we know that is a correct address - does it come from qcom
->>> documentation or trial and error ?
->>
->> @Vikash, beyond your comment I linked in the patch [1] kindly cite a
->> source for the different stream-ID <600MB behaviour, and share
->> specifics, eg if silicon, firmware, or driver and constraint, defect
->> or otherwise, so I can include a definitive description.
->>
->> Also good to know if my workaround is good for long-term, or on the
->> other hand handling streams <600MB is important/useful.
->>
->
-> Thanks Daniel for raising this patch. Did you also try the memory fix 
-> i mentioned in the bug [1] discussion ?
->
-> Coming to 600MB, this have been the VPU hardware restriction all the 
-> while since venus days, and since address could not go deeper all the 
-> way lower than 600MB, the issue never popped up earlier.
->
-> Consider the memory layout split as below (Iris device range is capped 
-> to 0xe0000000)
->
-> |-----600MB-----|-----(0xe0000000 - 600MB)-----|----IO reg--|
->
-> 0-600MB range, VPU hardware would reserve this to generate different 
-> stream-IDs primarily for internal (non-pixel) buffers.
->
-> 0-600 --> VPU would generate *secure* stream ID for non-pixel buffers
-> 601 - 0xe0000000 --> VPU would generate non-secure stream ID for 
-> non-pixel buffers.
->
-> When many concurrent sessions were tried, non-pixel buffers were 
-> mapped into 0-600MB range, and VPU generated secure ID for those. 
-> Since those were not associated with the iommus configured for iris 
-> node, it led to USF (un-identified stream fault) and device would crash.
+Tested-by: Wentao Guan <guanwentao@uniontech.com>
 
-Umm.. is anything *actually* preventing us from adding the "secure" SID 
-to the iommu node?
+NOTE: Revert "KVM: arm64: Correctly cap ZCR_EL2 provided by a guest hypervisor" which reported by
+Marc Zyngier <maz@kernel.org> applied and arm64 built ok.
 
-I just saw a patch for sc8280xp that did just add an "extra" SID for iris:
+Link: https://lore.kernel.org/stable/87y0gq8cov.wl-maz@kernel.org/
 
-https://github.com/strongtz/linux-radxa-qcom/commit/e92850f792498c3a72d72d667503a29bf6bb0a31
+BRs
+Wentao Guan
 
-and I'm wondering if that's about the same exact issue.. (Adding sophon@ 
-to Cc: here)
+defconfigs:
+https://gist.github.com/opsiff/a840ae9e3d6857f5b7bacb9cdc49f8e9
 
-> Keeping the region reserved, makes the non-pixel buffer always in the 
-> non secure range (601-..) and avoids the crash.
->
-> Downside of this design - It would eventually reserve 0-600MB un-map 
-> 'able for all buffer types, like pixel as well which do not have any 
-> such restriction.
->
-> Forward looking design - create devices dynamically and set reserve 
-> regions for those specific device using the api [1], instead of 
-> applying one reserve for all.
->
-> [1] 
-> https://lore.kernel.org/all/20260119054936.3350128-1-busanna.reddy@oss.qualcomm.com/ 
-
-
-
-~val
+Log:
+Linux version 6.18.35-rc1-g24a2e29b003c (guanwentao@uos-PC) (aarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP PREEMPT_DYNAMIC 
+Linux version 6.18.35-rc1-g24a2e29b003c (guanwentao@uos-PC) (aarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #2 SMP PREEMPT_DYNAMIC Mon Jun  8 09:47:30 CST 2026
+Linux version 6.18.35-rc1-ga392253fde81 (guanwentao@uos-PC) (loongarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP PREEMPT_DYNAMIC 
+Linux version 6.18.35-rc1-ga392253fde81 (guanwentao@uos-PC) (loongarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #5 SMP PREEMPT_DYNAMIC Mon Jun  8 11:23:18 CST 2026
+Linux version 6.18.35-rc1+ (guanwentao@uos-PC) (riscv64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP PREEMPT 
+Linux version 6.18.35-rc1+ (guanwentao@uos-PC) (riscv64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #4 SMP PREEMPT Mon Jun  8 10:20:57 CST 2026
+Linux version 6.18.35-rc1-ga392253fde81 (guanwentao@uos-PC) (gcc (Deepin 12.3.0-17deepin15) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP PREEMPT_DYNAMIC 
+Linux version 6.18.35-rc1-ga392253fde81 (guanwentao@uos-PC) (gcc (Deepin 12.3.0-17deepin15) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #1 SMP PREEMPT_DYNAMIC Mon Jun  8 01:26:28 CST 2026
 
