@@ -1,182 +1,164 @@
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A898312832
-	for <stable@vger.kernel.org>; Mon,  8 Jun 2026 15:58:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C93832B11F
+	for <stable@vger.kernel.org>; Mon,  8 Jun 2026 16:03:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780934316; cv=none; b=QCjzBWLvseowdKXfk+lOrssX7zR7M/AlmXeYqnZawqhc0ivsNdVYUrm4Ni4knUnUkeWH3w28cNPPBG05tOIqGyu5irfI3Q2zQu91FWacMDTP2tU0k0FiVUdmC1oLWOJSbew7W8RDl12jLcIstfc6/+jPZ5fVjDMNQPGZA+tx9Yc=
+	t=1780934590; cv=none; b=oxGYS26HlDsuJmwqlSOg6UVqz8XTXmDs8UufkTE34E8oLoU7pzKH3eeoaqqLaA6TE0+hqYgL0wuLRyt8IjqVyjEWLFpXnpePuyHN93gaDBZ7EjFDUTKlo5DXqIIe42vRpfnGJIamrZaKCP6w1olLPUw5XPJgWoHOUcGtOYZIZ+8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780934316; c=relaxed/simple;
-	bh=i6amtdiEHPXUj9pH4Qhp9Dvs2DHJ+EAAspzzWRZUZf4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=tGmXKa2OLkBaafAjbCtCK572ajlI0MdIKwkmHW1Mj1l8iJJ2zieLD6GIOCn6+zywKJqwp75Gk7ZYazZ45LJdbpijP4ATvuFyRwe8Ehz9w6j/Q6iHFjvIZIDcY9xhSw9orAJDkLAz0r34sDQCJiSvXRyydm/N2PcmjfRVJGmyW/E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=siderolabs.com; spf=pass smtp.mailfrom=siderolabs.com; dkim=pass (2048-bit key) header.d=siderolabs.com header.i=@siderolabs.com header.b=C33eqlew; arc=none smtp.client-ip=209.85.221.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=siderolabs.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=siderolabs.com
+	s=arc-20240116; t=1780934590; c=relaxed/simple;
+	bh=3OEYPQ0LuldlA4kK0ltSgEasEnp1AHL6R+Hk8t53mTc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=VEhW2actEG8mRCdhYD9OJzgnJI0OX3T0OYc3o8Ctgk4M8v51fam1Z/SMbw8fzVROb1ChVOVWk6OyeK370ginRN5oiCgVmxjIx4FAWqySM/fe+++LWv993Opch4BgFCAm7jRbpq4GY6K/wapEaWowvVKqDMQz+OoArgv7J1fcJN4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=e93lJ4K7; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=siderolabs.com header.i=@siderolabs.com header.b="C33eqlew"
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-45eea68dd6fso2311698f8f.2
-        for <stable@vger.kernel.org>; Mon, 08 Jun 2026 08:58:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=siderolabs.com; s=google; t=1780934313; x=1781539113; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=hiaq02sgTN+eg9Ui+NZIWW5xOwd5YS8q5QwBFbVzNCM=;
-        b=C33eqlewvifflGkiJRmC2+kv/S9aaF0HIbdJxZumfIdAcTB+zbPOjOPvZ2sDyFJzVx
-         idOJZxnFDEtizbg5DxMt71MJHqFgpuOAYEfvSWSuCXzc85LbRshLnIdcJhydnFQ/FLL2
-         AHTmENFCiYV4A3Y49Rn07hSMDRFzzKXkZRK7MEGzDlJecmUyeltwIgeHgJovHLgFQRIB
-         yun4LzKdZ1iZbTBiYYpHkZTekwAWpe219yGMXbCpidxky2Vl9z9Op3V7ywKA5sd9DKVT
-         1rjWpRCBuAaDBbPpbfHlVvTCzAUFodlalDCGHzzzEzqwiZdxmqsHf3ocxLYwtWn/ItE1
-         cmew==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780934313; x=1781539113;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=hiaq02sgTN+eg9Ui+NZIWW5xOwd5YS8q5QwBFbVzNCM=;
-        b=iSQLtyeXazYBDneVvZLayrXTxH6S0ZCLj1FSwYr9IQl7YsnBp0lqmf7L2uFtwtHkRD
-         c3P5GgMgq6uNcIjPuGnvXvdv5xaBVZaxEQR6arrUYSk8jfsyGmegF98vX/iisyxIsd4H
-         mvWHEYOvc0TfsfvAijIKsZ9NcFg2fb1s/6KtLjuv2zDWOiRi7v7fokLFKSsYU4JuYeOC
-         3I46VderIqnl5GDBTxpEfeWnatAUu/cqhoV8yyWd3s1DuS5DTbEGKV+2zd2uBgMbILvo
-         4sEVTPPkq8O6iitcOQBkDmoeKEpLzNoaGsxZD1YzRP6TRl0OozxwGDk4UE7KLXZ0OjIE
-         iQnw==
-X-Forwarded-Encrypted: i=1; AFNElJ9rx9uI7ZzpHhdZQO3mxMELLU50YuVWs4El2wDNBui/YlSI8fUi4QiNF7c9czZa/w6ojNXDF8M=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxGwN5+NUeAl5vWtxYx4F2qdEwczASXa9agT8tXftDprgPCXE+r
-	syWC/JuR7q0qG/bG37rdWU4b4Ev4dBg0vrbcD99gNMkiU1qKZyheDBkAtOAG8wqAdfpeqjBPWFZ
-	tFEGlxOU=
-X-Gm-Gg: Acq92OFreNtKe5So/PjHcCJAgW5THpFdeAuZW/mJN9gtchbZeSpMeZAT0TToX0w64B6
-	dKxHwb797IZ68SUnfqyd6zf4//XEUBRucLmvoHF8V0tAquugSLueecOwyFtKAfiIr6l2Yqf4Drc
-	7VAVpQHGzrrzXc1/hfJhqvQ/gPozBt8NG2zBlKTlouEEr/MPMl32HDG5d9o94ADUVm5ssadIYHT
-	QS9hHsLGR4daV860fJIWKw4VAlas7jBsPXDzX5J7jkNsxQOnLvzt6MLlA4MT+EZinqsvgeoGIW5
-	RBkp83kgkrj04WD2Iaj+Umk0GEBLphZ2+DBC5rnjG93O2/91qtEdnn1Kjit0VSV4knDEtBtWszw
-	dO6oiWvPFOX7DAbKjZg52CVmuiaaTBNcQ51KA93lBnwMC7eOKa2OKK8AsVCp1UBGXQ/NHa1QtRN
-	+XxQfmaq0wUejCiGSWzAZorpnNJQo36eZNA845XO+Pa591z0s=
-X-Received: by 2002:a05:600c:3153:b0:490:b8c0:d46a with SMTP id 5b1f17b1804b1-490c2604790mr273388415e9.22.1780934312914;
-        Mon, 08 Jun 2026 08:58:32 -0700 (PDT)
-Received: from smirabuild ([2a0b:6204:2bf7:46ff:214:5616:96d9:612])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490bc3cc140sm484355775e9.9.2026.06.08.08.58.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 08 Jun 2026 08:58:32 -0700 (PDT)
-From: Andrey Smirnov <andrey.smirnov@siderolabs.com>
-To: pasha.tatashin@soleen.com,
-	akpm@linux-foundation.org
-Cc: linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	pjw@kernel.org,
-	palmer@dabbelt.com,
-	aou@eecs.berkeley.edu,
-	alex@ghiti.fr,
-	syzbot+2b5fe617654be3d8848b@syzkaller.appspotmail.com,
-	Andrey Smirnov <andrey.smirnov@siderolabs.com>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	=?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>,
-	Andrei Vagin <avagin@gmail.com>,
-	Andy Lutomirski <luto@kernel.org>,
-	Vincenzo Frascino <vincenzo.frascino@arm.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] mm/page_table_check: do not track special (PFN-mapped) PTEs
-Date: Mon,  8 Jun 2026 19:57:58 +0400
-Message-ID: <20260608155758.1220420-1-andrey.smirnov@siderolabs.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="e93lJ4K7"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1780934588;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=EDh9iLkNa5MgatT3zv9wGFe3hH6UdmFTOJoPoHnhCQY=;
+	b=e93lJ4K7EgKIYltpS5jNGVYJivkX6260ElFTZVRIfymZTG6/IsAwKmy6c69A39kgFFDr1O
+	s5/55xPuMFJfjUg10O/2/mV7ULuiEG3mPLpatZb5xEkR0BI3nuFYC0dWpbcFUHT+Y+0h0V
+	PSUdXqsJrprls2lquzE4q5HSyOfLIlw=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-493-qfFibvlWP7e46SMOpHdpkg-1; Mon,
+ 08 Jun 2026 12:03:05 -0400
+X-MC-Unique: qfFibvlWP7e46SMOpHdpkg-1
+X-Mimecast-MFC-AGG-ID: qfFibvlWP7e46SMOpHdpkg_1780934583
+Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 4A2C71800605;
+	Mon,  8 Jun 2026 16:03:03 +0000 (UTC)
+Received: from bfoster (unknown [10.22.80.93])
+	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 85CE11955BE0;
+	Mon,  8 Jun 2026 16:03:01 +0000 (UTC)
+Date: Mon, 8 Jun 2026 12:02:59 -0400
+From: Brian Foster <bfoster@redhat.com>
+To: Gregg Leventhal <gleventhal@janestreet.com>
+Cc: hch@infradead.org, djwong@kernel.org,
+	Eric Hagberg <ehagberg@janestreet.com>, linux-xfs@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org, io-uring@vger.kernel.org,
+	Jens Axboe <axboe@kernel.dk>, stable@vger.kernel.org
+Subject: Re: [BUG] iomap/io_uring: O_APPEND async buffered write silently
+ re-appends a data chunk (corruption) on XFS, 6.1.y/6.12.y
+Message-ID: <aibns0xP6IVVNWh3@bfoster>
+References: <CAFN_u7FrgM4Dzie2jjkLwWV8P0dvUG_Wwy3Q9B3-2HnnWiDu8w@mail.gmail.com>
+ <aiLxe-9Sub8cI3Py@bfoster>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aiLxe-9Sub8cI3Py@bfoster>
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
-The vDSO data store ("[vvar]") special mapping is created as a VM_PFNMAP
-mapping and its pages are installed into userspace with vmf_insert_pfn(),
-which produces special PTEs (pte_special()). On x86 and arm64 (and riscv)
-pte_user_accessible_page() only tests the PRESENT/USER bits and does not
-exclude special PTEs, so page_table_check accounts these PFN mappings in
-the per-page anon/file map counters even though they are not rmap-managed
-pages (vm_normal_page() returns NULL for them).
+On Fri, Jun 05, 2026 at 11:55:39AM -0400, Brian Foster wrote:
+...
+> 
+> One thing I might try here is to see if just deferring append writes to
+> !NOWAIT context avoids this problem because I wonder how sane that sort
+> of retry situation really is. I'm not quite sure what the expectations
+> are in that sort of case. Is that something that's easy to test? Of
+> course that wouldn't prevent this issue if other applications have this
+> same write pattern.
+> 
+> Another potential option for a stable only fix might be tweak the iomap
+> code to not update i_size for append (&& nowait?) writes until an
+> iter->pos update is imminent, but I think we'd need to be careful there
+> due to the pagecache_isize_extended() call. I think that's more for
+> non-append cases, but I'd have to take a closer look. Maybe we could
+> also replace that iov_iter revert with a hardcoded advance of the iomap
+> iter and emulate the same behavior as newer kernels. That seems
+> cleanest actually, but again needs some thought and testing...
+> 
 
-Most of these data pages live in the kernel image and are never freed, so
-the stray accounting is invisible. The time-namespace VVAR page is the
-exception: it is a real alloc_page() page that is released with
-__free_page() in free_time_ns() when the last task of a time namespace
-exits. Across the map / unmap / vdso_join_timens() zap transitions the
-special-PTE accounting is not balanced for this page, so a non-zero
-file_map_count survives to the free path and trips:
+The above is harder than I initially thought because iomap_iter()
+expects the iter->pos to reflect the original position. This gets into
+some of the dependency patches in the associated rework series.
 
-  kernel BUG at mm/page_table_check.c:143!
-  __page_table_check_zero+0xfb/0x130
-  __free_frozen_pages+0x52f/0x650
-  free_time_ns+0x85/0xc0
-  free_nsproxy+0x7f/0x130
-  do_exit+0x313/0xa60
-  do_group_exit+0x77/0x90
+Another idea that came to mind is to try and just replace the -EAGAIN
+return sequence from the low level iterator with a flag that triggers
+-EAGAIN from the next iter advance. The idea here is to allow the write
+to return partial completion (i.e. so no iov_iter revert) without having
+to return an error from the lowest level in the stack. I had claude come
+up with a quick patch [1] for reference/experimentation.
 
-This is reliably reproducible on x86_64 and arm64 under heavy container/CI
-churn that rapidly creates and destroys time namespaces (CLONE_NEWTIME via
-runc / docker-init / tini), and was independently reported by syzbot on
-riscv. It only manifests when CONFIG_PAGE_TABLE_CHECK is active.
+This is based on v6.12 stable and compile tested only. It needs more
+review and testing in general but might be worth throwing your
+reproducer at if you can..?
 
-Special PTEs have no struct-page rmap semantics and must never have been
-tracked by page table check. Skip them in both the set and clear paths so
-the counters stay balanced (always zero) for PFN-mapped pages, regardless
-of how the architecture defines pte_user_accessible_page(). pte_special()
-is available generically (it is a no-op returning false on architectures
-without ARCH_HAS_PTE_SPECIAL), so this is a single, arch-independent fix.
+Brian
 
-Note that the v7.0 generic vDSO datastore rework in commit 05988dba1179
-("vdso/datastore: Allocate data pages dynamically") incidentally avoids
-the problem by switching the mapping to VM_MIXEDMAP + vmf_insert_page()
-with balanced struct-page accounting. This patch fixes the still-affected
-VM_PFNMAP path used by 6.18.y and earlier, and additionally makes
-page_table_check robust against any future PFN-mapped user pages.
+[1]
 
-Fixes: df4e817b7108 ("mm: page table check")
-Cc: Thomas Gleixner <tglx@linutronix.de>
-Cc: Thomas Weißschuh <thomas.weissschuh@linutronix.de>
-Cc: Andrei Vagin <avagin@gmail.com>
-Cc: Andy Lutomirski <luto@kernel.org>
-Cc: Vincenzo Frascino <vincenzo.frascino@arm.com>
-Reported-by: syzbot+2b5fe617654be3d8848b@syzkaller.appspotmail.com
-Closes: https://github.com/siderolabs/talos/issues/13496
-Cc: stable@vger.kernel.org
-Signed-off-by: Andrey Smirnov <andrey.smirnov@siderolabs.com>
----
- mm/page_table_check.c | 13 ++++++++++---
- 1 file changed, 10 insertions(+), 3 deletions(-)
-
-diff --git a/mm/page_table_check.c b/mm/page_table_check.c
-index 4eeca782b888..ee492d5389b9 100644
---- a/mm/page_table_check.c
-+++ b/mm/page_table_check.c
-@@ -150,9 +150,16 @@ void __page_table_check_pte_clear(struct mm_struct *mm, pte_t pte)
- 	if (&init_mm == mm)
- 		return;
+diff --git a/fs/iomap/buffered-io.c b/fs/iomap/buffered-io.c
+index 0178292c1864..956700441f6a 100644
+--- a/fs/iomap/buffered-io.c
++++ b/fs/iomap/buffered-io.c
+@@ -1037,10 +1037,9 @@ static loff_t iomap_write_iter(struct iomap_iter *iter, struct iov_iter *i)
+ 		}
+ 	} while (iov_iter_count(i) && length);
  
--	if (pte_user_accessible_page(pte)) {
-+	/*
-+	 * PFN-mapped (special) PTEs - e.g. the vDSO/time-namespace "[vvar]"
-+	 * mapping installed via vmf_insert_pfn() - are not rmap-managed and
-+	 * must not be tracked here. Tracking them can leave a non-zero map
-+	 * count on a struct page that is later freed (the time namespace VVAR
-+	 * page in free_time_ns()), tripping the BUG_ON() in
-+	 * __page_table_check_zero().
-+	 */
-+	if (pte_user_accessible_page(pte) && !pte_special(pte))
- 		page_table_check_clear(pte_pfn(pte), PAGE_SIZE >> PAGE_SHIFT);
+-	if (status == -EAGAIN) {
+-		iov_iter_revert(i, total_written);
+-		return -EAGAIN;
 -	}
++	if (status == -EAGAIN)
++		iter->iomap.flags |= IOMAP_F_ASYNC_RETRY;
++
+ 	return total_written ? total_written : status;
  }
- EXPORT_SYMBOL(__page_table_check_pte_clear);
  
-@@ -205,7 +212,7 @@ void __page_table_check_ptes_set(struct mm_struct *mm, pte_t *ptep, pte_t pte,
+diff --git a/fs/iomap/iter.c b/fs/iomap/iter.c
+index 79a0614eaab7..6021b09ddc2f 100644
+--- a/fs/iomap/iter.c
++++ b/fs/iomap/iter.c
+@@ -22,6 +22,7 @@
+ static inline int iomap_iter_advance(struct iomap_iter *iter)
+ {
+ 	bool stale = iter->iomap.flags & IOMAP_F_STALE;
++	bool async_retry = iter->iomap.flags & IOMAP_F_ASYNC_RETRY;
  
- 	for (i = 0; i < nr; i++)
- 		__page_table_check_pte_clear(mm, ptep_get(ptep + i));
--	if (pte_user_accessible_page(pte))
-+	if (pte_user_accessible_page(pte) && !pte_special(pte))
- 		page_table_check_set(pte_pfn(pte), nr, pte_write(pte));
- }
- EXPORT_SYMBOL(__page_table_check_ptes_set);
--- 
-2.53.0
+ 	/* handle the previous iteration (if any) */
+ 	if (iter->iomap.length) {
+@@ -35,6 +36,8 @@ static inline int iomap_iter_advance(struct iomap_iter *iter)
+ 		iter->len -= iter->processed;
+ 		if (!iter->len)
+ 			return 0;
++		if (async_retry)
++			return -EAGAIN;
+ 	}
+ 
+ 	/* clear the state for the next iteration */
+diff --git a/include/linux/iomap.h b/include/linux/iomap.h
+index d204dcd35063..8d60073a255d 100644
+--- a/include/linux/iomap.h
++++ b/include/linux/iomap.h
+@@ -74,9 +74,14 @@ struct vm_fault;
+  * IOMAP_F_STALE indicates that the iomap is not valid any longer and the file
+  * range it covers needs to be remapped by the high level before the operation
+  * can proceed.
++ *
++ * IOMAP_F_ASYNC_RETRY indicates that a buffered write made partial progress
++ * but needs to return -EAGAIN to trigger an async retry. The iter has already
++ * been advanced to reflect the partial progress.
+  */
+ #define IOMAP_F_SIZE_CHANGED	(1U << 8)
+ #define IOMAP_F_STALE		(1U << 9)
++#define IOMAP_F_ASYNC_RETRY	(1U << 10)
+ 
+ /*
+  * Flags from 0x1000 up are for file system specific usage:
 
