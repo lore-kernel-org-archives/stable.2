@@ -1,150 +1,217 @@
-Received: from smtp-8faf.mail.infomaniak.ch (smtp-8faf.mail.infomaniak.ch [83.166.143.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD4CE3B3894
-	for <stable@vger.kernel.org>; Mon,  8 Jun 2026 22:51:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=83.166.143.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FC5830C63B
+	for <stable@vger.kernel.org>; Mon,  8 Jun 2026 23:13:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780959073; cv=none; b=st0/8X8Vm7oPkOvY4l8mBALXRnD1uJfN8Q9EJhFfPQ4z7F+xkvI7EOUkYnVCn9xkCiYQ+ik8fjobnIdZWfAl1i/hKEJG7v+lKKVLUz3UUZp8cc/JJk0O3fEXS5/7mf40jU1bEaAQXTPoxHiDzcjZukX+YTVnwBedVH4f1Gbt10Y=
+	t=1780960438; cv=none; b=s4YdeS4PrYYeXsNzgygIFPt5iIZhzOSU8ELb+shZ+o2UYstt+tESotX/RR77mxUunwV63f7FqN1usrvYBygd4OyOhxY0Sri8A7cJDp+eZbgxuLKlKe/T1+dwAZYN71hYB1C5BRe9CSetQs2fYKFGqxzuHHK+vKc7Gvxtejdn8BA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780959073; c=relaxed/simple;
-	bh=tcojNWyZlA4hOL9PXkaYaUZBxwMZ3D8jqxSv4YkHmM8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CUzHizBfGDq68xrusyYQBnZ6KwlLZRvRELlYoWedo8EB0qjoRkvSTrjl0kN44ECNJcGT0iisIdUnnKv1Mvat0C8buqXmhvCRAPfxGXnMH8xbghn2uzsvjxJDuOh1QkBrZEQrOvHImXp2i0qOf8gw/XTJ8jRoV+6iK3vazg/7sVE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net; spf=pass smtp.mailfrom=digikod.net; dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b=rBBtcnRo; arc=none smtp.client-ip=83.166.143.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digikod.net
+	s=arc-20240116; t=1780960438; c=relaxed/simple;
+	bh=8tHflrqHl6O4nNl9x7SBJEJN7t+NnZMBl6GC7Vil3nE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TqGidPnOc+iMHrGma8yUyJyU+NUhk6xFWh29XFyu1uNprzrkCIg7tYh2rWbdX9fOHKFfa5I55T1iQkWm1mqyGjzBLNRpsbuoAeNPNe3OZ7M3XTWf8RDrjmk3wpG21G+10s3PJfHDhdWpp9IzaLItutCE6hrsQrua764lZSrrGAQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b=VFTKe9Lq; dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b=VFTKe9Lq; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b="rBBtcnRo"
-Received: from smtp-3-0000.mail.infomaniak.ch (smtp-3-0000.mail.infomaniak.ch [10.4.36.107])
-	by smtp-4-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4gZ6hm00m7z954;
-	Tue,  9 Jun 2026 00:51:03 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=digikod.net;
-	s=20191114; t=1780959063;
-	bh=Ihp2DWwa5XBMw5A0wiUqR5CUCI5kU3bO6aS6PO85JbY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=rBBtcnRoo0EGvKWh39HYPlkpgOTsZiU5rD5UO4iRGLDKJkIwUCeLsj8Japl7ptpZx
-	 zZLX5iN5ShYj2kyFdGnzjuwFqELOw2OQ+hl1GJg6chCBvyo5X3iEH7YwnNrKUKNdSu
-	 Omp7bAEvuNNY6O/ngF4OrCrL1lpn3E+Vfe+pyIiU=
-Received: from unknown by smtp-3-0000.mail.infomaniak.ch (Postfix) with ESMTPA id 4gZ6hl1WW0zBTN;
-	Tue,  9 Jun 2026 00:51:03 +0200 (CEST)
-Date: Tue, 9 Jun 2026 00:51:02 +0200
-From: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>
-To: Maximilian Heyne <mheyne@amazon.de>
-Cc: stable@vger.kernel.org, 
-	=?utf-8?Q?G=C3=BCnther?= Noack <gnoack@google.com>, Shuah Khan <shuah@kernel.org>, 
-	linux-security-module@vger.kernel.org, linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] selftests/landlock: explicitly disable audit
-Message-ID: <20260604.Gee4caexei8o@digikod.net>
-References: <20260529-welsh-nagoya-b4d9ca60@mheyne-amazon>
+	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b="VFTKe9Lq";
+	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b="VFTKe9Lq"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 4DAA56ABBE;
+	Mon,  8 Jun 2026 23:13:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1780960434; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=LlvBQsiL003PVCm6VH36t+0S85szQST49CUrtvdfmt4=;
+	b=VFTKe9LqhAEvaaMQEjSOkA+8vRfTM/rqDHMxsCF8EEXWGXbhzePW9htyLYbnwjVGFwkhTv
+	6SLe9rENAuvjr7z8/IPCHKSJnB78xNNjHUnqUfD6orSh2P1odoJyV4HBGdFptXDAbinUiZ
+	g/KDzGTpp8X303ARBkyDwiJ8uwCeRwU=
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1780960434; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=LlvBQsiL003PVCm6VH36t+0S85szQST49CUrtvdfmt4=;
+	b=VFTKe9LqhAEvaaMQEjSOkA+8vRfTM/rqDHMxsCF8EEXWGXbhzePW9htyLYbnwjVGFwkhTv
+	6SLe9rENAuvjr7z8/IPCHKSJnB78xNNjHUnqUfD6orSh2P1odoJyV4HBGdFptXDAbinUiZ
+	g/KDzGTpp8X303ARBkyDwiJ8uwCeRwU=
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id EC819779A7;
+	Mon,  8 Jun 2026 23:13:52 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 92i0JbBMJ2rcSQAAD6G6ig
+	(envelope-from <wqu@suse.com>); Mon, 08 Jun 2026 23:13:52 +0000
+From: Qu Wenruo <wqu@suse.com>
+To: linux-btrfs@vger.kernel.org
+Cc: stable@vger.kernel.org
+Subject: [PATCH v2] btrfs: do not overwrite NODATASUM flag when removing NODATACOW flag
+Date: Tue,  9 Jun 2026 08:43:34 +0930
+Message-ID: <5ab8c8dba417f4d558c6849130b3072a6b2b3574.1780960338.git.wqu@suse.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260529-welsh-nagoya-b4d9ca60@mheyne-amazon>
-X-Infomaniak-Routing: alpha
+Content-Transfer-Encoding: 8bit
+X-Spam-Flag: NO
+X-Spam-Score: -2.80
+X-Spamd-Result: default: False [-2.80 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_MISSING_CHARSET(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-0.999];
+	MIME_GOOD(-0.10)[text/plain];
+	RCPT_COUNT_TWO(0.00)[2];
+	FUZZY_RATELIMITED(0.00)[rspamd.com];
+	ARC_NA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DKIM_SIGNED(0.00)[suse.com:s=susede1];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:email,suse.com:mid];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	TO_DN_NONE(0.00)[];
+	RCVD_TLS_ALL(0.00)[]
+X-Spam-Level: 
 
-Thanks for this patch.  I merged a few fixes and I'd be interested to
-know if this one fix the issue you spotted:
-https://git.kernel.org/pub/scm/linux/kernel/git/mic/linux.git/commit/?h=next&id=d8dfb4c7faa87c3e41a8678f38f136c2c7c036fa
+[TEST FAILURE]
+The test case generic/628 will fail if MOUNT_OPTIONS is set to "-o
+nodatasum":
 
+ FSTYP         -- btrfs
+ PLATFORM      -- Linux/x86_64 btrfs-vm 7.1.0-rc4-custom+ #383 SMP PREEMPT_DYNAMIC Sat May 30 07:35:42 ACST 2026
+ MKFS_OPTIONS  -- -O bgt -K /dev/mapper/test-scratch1
+ MOUNT_OPTIONS -- -o nodatasum /dev/mapper/test-scratch1 /mnt/scratch
 
-On Fri, May 29, 2026 at 08:03:41PM +0000, Maximilian Heyne wrote:
-> I'm seeing sporadic selftest failures, such as
-> 
->   #  RUN           scoped_audit.connect_to_child ...
->   # scoped_abstract_unix_test.c:314:connect_to_child:Expected 0 (0) == records.access (8)
->   # connect_to_child: Test failed
->   #          FAIL  scoped_audit.connect_to_child
->   not ok 19 scoped_audit.connect_to_child
-> 
-> This seems similar to what commit 3647a4977fb73d ("selftests/landlock:
-> Drain stale audit records on init") tried to fix. However, the added
-> drain loop is not effective. When setting the AUDIT_STATUS_PID, the
-> kauditd_thread is woken up starting to send messages from the hold queue
-> to the netlink. Depending on scheduling of this kthread not all messages
-> might be send via the netlink in the 1 us interval.
-> 
-> Therefore, instead of trying to drain the queue, let's just disable
-> audit when running non-audit tests or more precisely disable it after
-> audit-tests. This way we won't generate any new audit message that could
-> interfere with the other tests.
-> 
-> The comment saying that on process exit audit will be disabled is wrong.
-> The closed file descriptor just causes an auditd_reset(), not a
-> disablement. So future messages will be queued in the hold queue.
-> 
-> Cc: stable@vger.kernel.org
-> Fixes: 6a500b22971c ("selftests/landlock: Add tests for audit flags and domain IDs")
-> Signed-off-by: Maximilian Heyne <mheyne@amazon.de>
-> ---
-> 
-> I've seen the failures on the 6.18 kernels but haven't tested on latest
-> upstream. However, I still think this is an issue.
-> 
-> ---
->  tools/testing/selftests/landlock/audit.h | 13 +++++--------
->  1 file changed, 5 insertions(+), 8 deletions(-)
-> 
-> diff --git a/tools/testing/selftests/landlock/audit.h b/tools/testing/selftests/landlock/audit.h
-> index 834005b2b0f09..7842330875f53 100644
-> --- a/tools/testing/selftests/landlock/audit.h
-> +++ b/tools/testing/selftests/landlock/audit.h
-> @@ -494,10 +494,9 @@ static int audit_init_filter_exe(struct audit_filter *filter, const char *path)
->  static int audit_cleanup(int audit_fd, struct audit_filter *filter)
+ generic/628  1s ... - output mismatch (see /home/adam/xfstests/results//generic/628.out.bad)
+    --- tests/generic/628.out	2022-05-11 11:25:30.816666664 +0930
+    +++ /home/adam/xfstests/results//generic/628.out.bad	2026-06-08 18:56:49.878542927 +0930
+    @@ -8,8 +8,9 @@
+     310f146ce52077fcd3308dcbe7632bb2  SCRATCH_MNT/a
+     310f146ce52077fcd3308dcbe7632bb2  SCRATCH_MNT/d
+     test reflink flag not set iflag
+    +XFS_IOC_CLONE: Invalid argument
+     310f146ce52077fcd3308dcbe7632bb2  SCRATCH_MNT/a
+    -310f146ce52077fcd3308dcbe7632bb2  SCRATCH_MNT/b
+    +d41d8cd98f00b204e9800998ecf8427e  SCRATCH_MNT/b
+    ...
 
-audit_cleanup() should be called for audit_exec tests too.
+[CAUSE]
+The direct cause is that after "chattr +S", the btrfs inode will lose its
+NODATASUM flag inherited from the mount option. E.g:
 
->  {
->  	struct audit_filter new_filter;
-> +	int err;
->  
->  	if (audit_fd < 0 || !filter) {
-> -		int err;
-> -
->  		/*
->  		 * Simulates audit_init_with_exe_filter() when called from
->  		 * FIXTURE_TEARDOWN_PARENT().
-> @@ -518,12 +517,10 @@ static int audit_cleanup(int audit_fd, struct audit_filter *filter)
->  	audit_filter_exe(audit_fd, filter, AUDIT_DEL_RULE);
->  	audit_filter_drop(audit_fd, AUDIT_DEL_RULE);
->  
-> -	/*
-> -	 * Because audit_cleanup() might not be called by the test auditd
-> -	 * process, it might not be possible to explicitly set it.  Anyway,
-> -	 * AUDIT_STATUS_ENABLED will implicitly be set to 0 when the auditd
-> -	 * process will exit.
-> -	 */
+ # mkfs.btrfs -f $dev
+ # mount $dev $mnt -o nodatasum
+ # touch $mnt/foobar
+ # sync
+ # btrfs ins dump-tree -t 5 $dev | grep "(257 INODE_ITEM 0) itemoff" -A 3
+	item 4 key (257 INODE_ITEM 0) itemoff 15879 itemsize 160
+		generation 9 transid 9 size 0 nbytes 0
+		block group 0 mode 100644 links 1 uid 0 gid 0 rdev 0
+		sequence 1 flags 0x1(NODATASUM)
+		                     ^^^^^^^^^ Proper NODATASUM flag
 
-Please add a comment that explains that the audit state is not restored
-but just disabled.
+ # chattr +S $mnt/foobar
+ # sync
+ # btrfs ins dump-tree -t 5 $dev | grep "(257 INODE_ITEM 0) itemoff" -A 3
+ 	item 4 key (257 INODE_ITEM 0) itemoff 15879 itemsize 160
+		generation 9 transid 10 size 0 nbytes 0
+		block group 0 mode 100644 links 1 uid 0 gid 0 rdev 0
+		sequence 2 flags 0x20(SYNC)
+		                      ^^^^ Only the new SYNC flag
 
-> +	err = audit_set_status(audit_fd, AUDIT_STATUS_ENABLED, 0);
-> +	if (err)
-> +		return err;
-> +
->  	return close(audit_fd);
+This makes the inode to drop the old NODATASUM flag, meanwhile the new
+reflink destination will still inherit the NODATASUM flag.
+The mismatching NODATASUM flags will cause the reflink to fail.
 
-FDs should always be closed.
+The root cause is that, inside btrfs_fileattr_set() if no FS_NOCOW_FL is
+set, we remove both NODATASUM and NODATACOW flag.
 
->  }
->  
-> -- 
-> 2.50.1
-> 
-> 
-> 
-> 
-> Amazon Web Services Development Center Germany GmbH
-> Tamara-Danz-Str. 13
-> 10243 Berlin
-> Geschaeftsfuehrung: Christof Hellmis, Andreas Stieger
-> Eingetragen am Amtsgericht Charlottenburg unter HRB 257764 B
-> Sitz: Berlin
-> Ust-ID: DE 365 538 597
-> 
-> 
+However we should not touch NODATASUM flag, as data COW doesn't require
+checksum.
+Only NODATACOW implies NODATASUM, but DATACOW doesn't imply DATASUM.
+
+The deeper problems are:
+
+- Fileattr API is too binary
+  It either clears or sets a flag, there is no "do not change" option.
+  So that why "chattr +S" implies "chattr -C", and is forcing us to
+  change NODATACOW along with NODATASUM flag.
+
+- No way to change NODATASUM through fileattr API
+  In fact NODATASUM can only be modified through mount option.
+
+The deeper problems are much harder to attack.
+
+[FIX]
+Remove NODATACOW flag when FS_NOCOW_FL is not set, but only remove
+NODATASUM if "nodatasum" mount option is not set.
+
+This allows the existing "chattr +C" then "chattr -C" to remove
+both NODATACOW and NODATASUM flags on a default mount.
+
+But for a mount with "nodatasum" option, the NODATASUM inode flag will
+persist through either "chattr +C" and "chattr -C".
+
+Fixes: 7e97b8daf634 ("btrfs: allow setting NOCOW for a zero sized file via ioctl")
+Cc: stable@vger.kernel.org
+Signed-off-by: Qu Wenruo <wqu@suse.com>
+---
+Changelog:
+v2:
+- Respect the current mount option when setting DATACOW flag
+  Since there is no way to set/clear NODATASUM flag other than mount
+  option, it's better to respect the current mount option so that
+  NODATASUM is not always left unexpectedly.
+---
+ fs/btrfs/ioctl.c | 22 ++++++++++++++--------
+ 1 file changed, 14 insertions(+), 8 deletions(-)
+
+diff --git a/fs/btrfs/ioctl.c b/fs/btrfs/ioctl.c
+index d4981d2a42d7..8e3f51551dfe 100644
+--- a/fs/btrfs/ioctl.c
++++ b/fs/btrfs/ioctl.c
+@@ -331,14 +331,20 @@ int btrfs_fileattr_set(struct mnt_idmap *idmap,
+ 			inode_flags |= BTRFS_INODE_NODATACOW;
+ 		}
+ 	} else {
+-		/*
+-		 * Revert back under same assumptions as above
+-		 */
+-		if (S_ISREG(inode->vfs_inode.i_mode)) {
+-			if (inode->vfs_inode.i_size == 0)
+-				inode_flags &= ~(BTRFS_INODE_NODATACOW |
+-						 BTRFS_INODE_NODATASUM);
+-		} else {
++		/* We can only change NODATACOW for zero-sized regular file. */
++		if (S_ISREG(inode->vfs_inode.i_mode) && (inode->vfs_inode.i_size == 0)) {
++			inode_flags &= ~BTRFS_INODE_NODATACOW;
++			/*
++			 * There is no way to change NODATASUM flag through fileattr API.
++			 * If we unconditionally keep the current NODATASUM flag,
++			 * chattr +C then chattr -C will keep the NODATASUM flag, and
++			 * no way to remove that flag.
++			 *
++			 * So respect the current mount option for NODATASUM flag.
++			 */
++			if (!btrfs_test_opt(fs_info, NODATASUM))
++				inode_flags &= ~BTRFS_INODE_NODATASUM;
++		} else if (!S_ISREG(inode->vfs_inode.i_mode)) {
+ 			inode_flags &= ~BTRFS_INODE_NODATACOW;
+ 		}
+ 	}
+-- 
+2.54.0
+
