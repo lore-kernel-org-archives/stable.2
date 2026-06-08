@@ -1,115 +1,146 @@
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A267A3128A3
-	for <stable@vger.kernel.org>; Mon,  8 Jun 2026 10:57:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780916233; cv=none; b=nnsuDtwPkd36tjY3TeGBqfXAD7Uiz8PE7bFr38636WyYLdqceG9TkpNo+9m4ZlfHj60XJmX5IjajtXUj7bQPRKfnYCKCZwskq5f6UwwEFo6y9qYp4CaOq9t19SO4Jt8KHlpzu5QOpgGzHGg5AuL6j8W02guaLp1RDA/cGwepSes=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780916233; c=relaxed/simple;
-	bh=0vn0MVBVt7lRwVyhjwIAw/ZTQAU2EumbcQrS4nQ/D6k=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=J5ABG/NvQoZpZdsBR0hOKLmMVglK2DQvwF8WU2U8QadiqgrobHiwnbDmTSiF78Rg7b2pZPL2UEnbAbtJGhnsoW4JthQ/5iOU1zMwOWiKw52Wu4b1XEKhjWXoxC4SBGK8HFrBwMkhlO5FNOGj491KR9/HdV94CLOvyewGs33ybBs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jqzkGelM; arc=none smtp.client-ip=209.85.221.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BB1D2E62D9
+	for <stable@vger.kernel.org>; Mon,  8 Jun 2026 10:57:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.180
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780916248; cv=pass; b=WwQmU+JxWkwOqhTrUmS0EGff+yfnkrNJWyuAbfhkc4DsfAWszjcp5Evsh9K8ZDABoljYHlKx0SGT+2QlpFxcMRIHyocYFMX667TL4jyW9S1QqLdErX1otv6Vj935Vn5XPyJbwZEPJMM40q/ZrvNFw/iaqN4aGXEYLzogURdi29U=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780916248; c=relaxed/simple;
+	bh=h5GwtUrO5YjewAia1LKWw8eyP/OHFDrD+FZ3lR6jbPw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=QWsQBFCbHAccdS7qyzngX1cmPnfKfvaeyc2iRMX6SK8aE6DSeVD0CMivF8lS+d/yGxMXSni5Td5nVAG/yF23jBJ/ZB2PwaShqD6tFQOZRGOa1kNqigKDUx2D21yE3W0yvbPZ8tZMmOZy2DS6tMNoNWN4r8XrK/jEIP0CfzkvR7A=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com; spf=none smtp.mailfrom=mojatatu.com; dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b=gQ0EGIZ6; arc=pass smtp.client-ip=209.85.215.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jqzkGelM"
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-46019edc13dso1895473f8f.1
-        for <stable@vger.kernel.org>; Mon, 08 Jun 2026 03:57:10 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b="gQ0EGIZ6"
+Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-c8583b8fd89so2556562a12.0
+        for <stable@vger.kernel.org>; Mon, 08 Jun 2026 03:57:26 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1780916246; cv=none;
+        d=google.com; s=arc-20240605;
+        b=lSmrhZz5YA59mPvs95lMgaOmBPnsY5Voz0hWqvMo2CFejFy7bkVc3Cxpj/nQKH0mjk
+         JUbYuspe4CAqxZWoQYWCXkRCKG/EHJeuEBG2n7GKVfJ+e2EpVQvCc/yjslSjbtKgRVe8
+         7TtlvUH0dtYBZbK1MdOGsh8xiKxLchdny03rr71/OxWlqzTa46L5Mbczo64HJJxWcTVn
+         NxASbOQNUpkH5WJO6FmedUcSqsJqg3csvxfZw6SQpddrpfO7kPF6FnNgPv2MHeTw186Z
+         XKpHc+HLZvH793ZFn18OAYb7/ETL7xpfErU2ZfE6jYdzRPVMtVTRoXjt4So6fv3Mah6C
+         qLpw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ahSludj4wZP/wYjbZjK7tn5JJdzUwAesoF596bb6ciA=;
+        fh=DEx3cC6c+xf+RYZaPwDtnMlGwFbbnaBOADuWtzkO6UQ=;
+        b=aS4OKmuYczRSCST0/c4WPkOFYMYjF8oXFBTJiLFM7duJhvZ7LxmEYx3xbLdjXCw5R8
+         n3XT3QKu0t3qfuRRYYNXbK/37bqXavuJzyJQ69TajZMC3kTOkyliCPIbeQMmyK1Z6K4g
+         1NxRdZJzTO1AyHXE0CKqvfv3vfLoN7YeunzuS0+yaUpe9jVyW3cILsqooVF5h1H+kdSc
+         JsgC6gY+l0zDJ0JdUETzNjBrAdVP2nAq/9K2M7JKQvHXZWwcv4OYV0rzjq0S+lBUd6Dl
+         TRy3h4pM+cZSPBSmTqSkfrLLuUTlGPT2t4niFtzW5CQrcrpKXF/PajbTxe9KdoqbViNi
+         eTfQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780916229; x=1781521029; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=QyQpbrcj9lw9mGc0nK+HUbc4jAd533Efk6gZmiy2FdE=;
-        b=jqzkGelMlHrTSilBw0eYdjJivpf5SfKUPPlwoUpOzYLfec6Jr/aErUS82BpxD90OBl
-         WjRaUdcGIyWd/joUpPSuxHLo8i8WOVWwmBEBIC9802Z49leKBQPo63botShXfrYy6t/+
-         7V84Hbn8yVUEWL1uxqDYpZlGroZ28B6f3ZP0Lv15mBeijPjpykLn6SUt025ce83Wa3++
-         oHEgh48CKVrVJf/14poaK8Z8y/lPVksECl2r1MHMIg9Mzn4M8kUDYhXkTBHHY41aTiIG
-         VKpGLGrddljlaNbubvt6U9WdzsdiGagRtkvsRm9NfrZ8EdLJydwojaav2Jn295gZaADA
-         T+Zw==
+        d=mojatatu.com; s=google; t=1780916246; x=1781521046; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ahSludj4wZP/wYjbZjK7tn5JJdzUwAesoF596bb6ciA=;
+        b=gQ0EGIZ69FI0StN90EvGes4izXiy38ewH3nES8oD3xkgoD1whxJRBaKB0UvZQsYMTB
+         PxuUQqcw9YK07WcuL8gD8V+Ptxw1q/N5FAEBumX3h6zqktw/+RFMWDy/FkZtiUlvCNe4
+         HZjrRDVkOrOb72dIpWs2T6lL4cpJEz4vy+ZR0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780916229; x=1781521029;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=QyQpbrcj9lw9mGc0nK+HUbc4jAd533Efk6gZmiy2FdE=;
-        b=T75Bmrrj3bIYx7ZsJ0KIZz90VfEsm9bxZuybI/K39uZm4ETKBmyLy8EF7Dbkj/wdM0
-         haIhT9FZ8ZEqVIp9jr3seHytA+AZtnHHHdkhKvoQ9fRpuDwI8M/YolZMKae9yY6vNUyN
-         4SaO0YbNwAi9LAGcLv52bNgxMtVVfyCTxZdhiWm//2sRLkFRmEVarhZJ3DmX7hZV2ViW
-         wc72TWIxLq8IBtQ3z/Qrq/8eoAMAvChV20vKBMPiZnMhRiD7/LyRUzqO45sb+CzGSuHO
-         HZslu9uauFgkxbABCB0FSb2livS9K17ZotLYf8ipUny9AR68i4oOkBeEr4KE58RaPkp9
-         Suwg==
-X-Forwarded-Encrypted: i=1; AFNElJ8SzuM/Z/PYxjR4wuKCpWPMcpbe07w18DQSIgGv94PNrXDG7MfXGHMqfvLezs5smRY6mkYZFuQ=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx0grHHxjXn5lN0ybkXLr+yhh9cCij9D32/lgJss6+SV2JPH89r
-	HZvYFoFiAxrE9XQfQQEZ9CGP1thADBAFLyJQp7G9jxZ1EX+WoQKeCVHj
-X-Gm-Gg: Acq92OGGdmg0NrxcvR4Fv7GLV3sIf0D7r5pr0TqYJ7YV877q9dQG02GxU32OMWjJYv2
-	fest4JIdXSqNVSxqSdJnvIKsuYKISPAdq5aDh3chjIkoDQFCdHZCzM4tVUOuIFcBObUNGDWfiJd
-	hme/abD+Sf0mfFORIe66GUljN6yhEzYnz1xLClwu8y0KPs6+x7ctPRxaAtkCANqiGQ97nO5SjOT
-	PPd0iGPldBz01VIe4D6qKidmIxiOPp6+wEAoxYcFUTUhuTeCFkatYh0meSqkrxojEkAq8gOkZKn
-	n2RDx382OWc2e93sM6XKDFExFrAFxgdhzBgiekvt5Xd5A5of4QSNAk7WRqbRL5QhHiMPq+0brXS
-	OjphVlq4w9uZnbdDVQ2fiaxbZoFCJxU7uLznIxvORWab1WdgbXthuTFL9mgQiZDPN726SRpJFJe
-	9gx+lK/Ph4zZ2zzGqGoYPLxV2zvoS/7/xzsdLyFlWEDWW00DIPCl0e2/ztrddsgXrjxVF24sJmi
-	k7qpndL7k/nhls+Z6STdw==
-X-Received: by 2002:a05:6000:46dc:b0:460:1d74:a1b2 with SMTP id ffacd0b85a97d-460305146c4mr17352616f8f.16.1780916228827;
-        Mon, 08 Jun 2026 03:57:08 -0700 (PDT)
-Received: from [192.168.0.105] (88-187-52-200.subs.proxad.net. [88.187.52.200])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4601f351d69sm93075906f8f.29.2026.06.08.03.57.07
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 08 Jun 2026 03:57:07 -0700 (PDT)
-Message-ID: <52d2ce00-d1fe-4c1b-810d-b99165cb9d3b@gmail.com>
-Date: Mon, 8 Jun 2026 03:57:11 -0700
+        d=1e100.net; s=20251104; t=1780916246; x=1781521046;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=ahSludj4wZP/wYjbZjK7tn5JJdzUwAesoF596bb6ciA=;
+        b=OmpnLIWNhcGReLYA8Mm1IQDYbQaiAV3CsK9Nxf22J2s6eQpxoq+5irVViHcbnjMT7n
+         p1hUysR7vZdS74UL4KAqjTellGHMEPwZ1wM5h4JNKmaXDhAu7QxSxg2qW5IdycJR5swa
+         30v7WL9SAlr3jT7Ww5izwnOGi5CJYDGPP9NHddwTk8Veret2uyDvppb7i4L+rpnfzeYa
+         d0LV2VUQDPCd93CbbHk6ySn26vep33IWxeOV8IkOVd/XQbvZFALIRGY5PPRnTwLjNMov
+         +TP8y+V88EjM8jnt2O2w7z5kJEWzNkVRGRPyTnyum4RgNRKrvrWmKaD+XxFIay5G6ENB
+         StLQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+eIgKyr7fQqo+ZIeomtAVuxykjDqk7Ad+6DLDS1smcTAlHIUZwtvsrbsG1YLskpdgD8cijEAc=@vger.kernel.org
+X-Gm-Message-State: AOJu0YziYnHEZZfnYA0x818fpDM6sdHnelc2Qs2+WIAE2oe/fusVTpXM
+	2FRoZE78IlWRMk44BJnRwIksagi0yyMIqp9DW3lL75eYxl9eHu5H9Lpfy2Wp7vMCHu7lxSllW51
+	XmyzMpNQ8iAVIsQyVxYKqmFSoWcn5nTkmr7BJiTkMfcls2Qyh8nZ/wqNl
+X-Gm-Gg: Acq92OEIDwwgSXC6jvFycUwFC0D4MdZUZgVkIWgP0aRLNoDkKzYfSLFa401M/hEhUo+
+	noJduiyHuhZNnfZvnjp4iaMuutj0GHHE06bHgIfvxTb9RNfg+q+QRzfCGlxrhyKtJQysikwQv0k
+	WGZL9Pxf1IM10ZFTSAYvmb+INtZkNkMha8TIjeJxNSsxBiJHQi9FCh3gQHLbz8LTXy0/k1fIzp4
+	x1XXwicDfLFoV0QlWnyepDB4Ss1DzMkCVYXS89UPvoOjpogUKiWtgsX8euzdHIlOy7K4CdLTPoF
+	+pZSHseR4hyp6+Mj8bM=
+X-Received: by 2002:a05:6a00:228d:b0:842:6c02:2fa4 with SMTP id
+ d2e1a72fcca58-842b0d60127mr14721457b3a.14.1780916246453; Mon, 08 Jun 2026
+ 03:57:26 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.18 000/315] 6.18.35-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
- hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
- sr@sladewatkins.com
-References: <20260607095727.528828913@linuxfoundation.org>
-Content-Language: en-US
-From: Florian Fainelli <f.fainelli@gmail.com>
-In-Reply-To: <20260607095727.528828913@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20260607095727.647295505@linuxfoundation.org> <20260607173214.92693-1-ojeda@kernel.org>
+ <CAM0EoMkszTXv82To=KnEYTgzQSmEdRW9XrAMVtJsUaDn=Akf6A@mail.gmail.com> <CANiq72mJNbNzYO37VK7s=ua5v31xBrRp8EnHDvEnKF8Z77jDmA@mail.gmail.com>
+In-Reply-To: <CANiq72mJNbNzYO37VK7s=ua5v31xBrRp8EnHDvEnKF8Z77jDmA@mail.gmail.com>
+From: Jamal Hadi Salim <jhs@mojatatu.com>
+Date: Mon, 8 Jun 2026 06:57:15 -0400
+X-Gm-Features: AVVi8CcZH7gb8WPQEP1bwBGyGn6nbunXL5d0GcMBpIG4fwbjLQQVvr8yXfV8paM
+Message-ID: <CAM0EoMmHd10iivCpDoEd3h+eae9fSnoGWAH_AkwFhrnS6PN63g@mail.gmail.com>
+Subject: Re: [PATCH 6.12 000/307] 6.12.93-rc1 review
+To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Cc: Miguel Ojeda <ojeda@kernel.org>, gregkh@linuxfoundation.org, achill@achill.org, 
+	akpm@linux-foundation.org, broonie@kernel.org, conor@kernel.org, 
+	f.fainelli@gmail.com, hargar@microsoft.com, jonathanh@nvidia.com, 
+	linux-kernel@vger.kernel.org, linux@roeck-us.net, 
+	lkft-triage@lists.linaro.org, patches@kernelci.org, patches@lists.linux.dev, 
+	pavel@nabladev.com, rwarsow@gmx.de, shuah@kernel.org, sr@sladewatkins.com, 
+	stable@vger.kernel.org, sudipm.mukherjee@gmail.com, 
+	torvalds@linux-foundation.org, "Kito Xu (veritas501)" <hxzene@gmail.com>, 
+	Victor Nogueira <victor@mojatatu.com>, Paolo Abeni <pabeni@redhat.com>, Jiri Pirko <jiri@resnulli.us>, 
+	netdev@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Mon, Jun 8, 2026 at 6:08=E2=80=AFAM Miguel Ojeda
+<miguel.ojeda.sandonis@gmail.com> wrote:
+>
+> On Mon, Jun 8, 2026 at 11:55=E2=80=AFAM Jamal Hadi Salim <jhs@mojatatu.co=
+m> wrote:
+> >
+> > Thanks for reporting this.
+>
+> You're welcome!
+>
+> > Unless i am looking at the wrong code version, in the current code i
+> > see m_eaction is always initialized before being used.
+> > m_eaction =3D READ_ONCE(m->tcfm_eaction);
+> > Probably a compiler false positive?
+>
+> No, it is an actual bug -- you have:
+>
+>     int i, m_eaction;
+>     ...
+>     is_redirect =3D tcf_mirred_is_act_redirect(m_eaction);
+>     ...
+>     m_eaction =3D READ_ONCE(m->tcfm_eaction);
+>
+> i.e. the assignment goes later.
+>
+> Maybe you are looking at mainline? Please note that this is a 6.12.y
+> -rc thread -- are you looking at the commit hash I mentioned?
+>
+> Or maybe you are looking at `tcf_blockcast()` instead of `tcf_mirred_act(=
+)`?
+>
 
+I was certainly looking at the wrong version.
+For example what you described as commit a01fbdecc3a2 ("net/sched:
+act_mirred: Fix return code in early mirred redirect error paths")
+shows up for me as commit e80ad525fc7e
 
-On 6/7/2026 2:56 AM, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.18.35 release.
-> There are 315 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Tue, 09 Jun 2026 09:56:45 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.18.35-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.18.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+I believe this bug slipped in during a small window but was fixed very
+quickly. Probably some fix never trickled to stable.
+If you can point me to the exact tree where this happens i can take a look.
+Still curious: So only the arm compiler catches this?
 
-On ARCH_BRCMSTB using 32-bit and 64-bit ARM kernels, build tested on 
-BMIPS_GENERIC:
-
-Tested-by: Florian Fainelli <florian.fainelli@broadcom.com>
--- 
-Florian
-
+cheers,
+jamal
