@@ -1,192 +1,162 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+Received: from mail-oi1-f177.google.com (mail-oi1-f177.google.com [209.85.167.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00F4B3DD864
-	for <stable@vger.kernel.org>; Mon,  8 Jun 2026 14:45:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22A89408616
+	for <stable@vger.kernel.org>; Mon,  8 Jun 2026 14:58:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780929909; cv=none; b=s+iRpxYom/KTmwR8kY2bBvBFxKx7OjLczXiuIFsWAMVqvR280l0WBy8xwyFuAjgGOEPxnyjUCV8nzm+vRjXdAAWxW1KgtXh/dfWXSxpDKF5lLpy9AVJL5JpVYWVH4SHIMzyS1vx2XcdTxk60HpwDFEAYVMohtaUf3htQneADwSg=
+	t=1780930715; cv=none; b=id2FBFZGf0EydYLn1ASNRMg8I3LyG0wW/kOmLf/stlMz3JauBBdr7vMwc1UP4G2BLOb6PKrhdVFCDY1nc4dpD6ZpJRaBjU5To9z85JRPhBz93xmst6akkDXdJRwV3UZdbNkvFauf9zxgjh9OGM2gR0XZAKDgkUmbbjXh09xW7Kg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780929909; c=relaxed/simple;
-	bh=TtwzUePYBB0fe6C2btS90QFO48NdmxKYZXm6ZV8wtmc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SLF8efuR7j2qNhLuufP/DmkWNpG2sY/6OqfTedukFxqBeMyABY4v6GIkEG/c1c2btrXUk0dSjNzOFK35NQAW22e5EKouJ1m3wY4dPI4jzM9WRbzZNVOlh1rcDD8Ut3f+EcnmWlsMNwxgZXlGAF2W7baWJpBrz/W6e8AKCg/XbH0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RW57Hmdh; arc=none smtp.client-ip=209.85.128.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1780930715; c=relaxed/simple;
+	bh=Ld/wS7rp+k+60ju85h/avqZuJos61qGFsY6Lm2elJ4I=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hwZeUpRVLLa8HzuQuQ7sOlca+Npl5Hk5j5T/OmHbMbxwN+DszS7FNx/BKeMPhqiq1nBgq0HC6/n4jk5tEJPv2/82M3VEstmfWqGTCyZEsyubtDHxfpbA0euNWZHEuxWixt/MDQndc08iFcBk9zfbefYEvcSC3BTzuITzPESkryk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=minyard.net; spf=pass smtp.mailfrom=minyard.net; dkim=pass (2048-bit key) header.d=minyard.net header.i=@minyard.net header.b=CnYJjjDp; arc=none smtp.client-ip=209.85.167.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=minyard.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=minyard.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RW57Hmdh"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-490a78b0c8fso3261355e9.3
-        for <stable@vger.kernel.org>; Mon, 08 Jun 2026 07:45:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=minyard.net header.i=@minyard.net header.b="CnYJjjDp"
+Received: by mail-oi1-f177.google.com with SMTP id 5614622812f47-48657fc84a3so3847735b6e.3
+        for <stable@vger.kernel.org>; Mon, 08 Jun 2026 07:58:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780929906; x=1781534706; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=cROChVtUMlBOZjOAs4b3kSSichf3rGSm2eer0rPlUJ0=;
-        b=RW57HmdhlF+dYWsukrQJeZx4gykIArzl9T0Bq+uMKsLXV2gSa5sdGUq9qC2s3g0eF/
-         UoYpvm02gBO4WLnsQnROElbLiUST6JFxB+HQD9mDWUgN3bfihFdEY8vBtGk4O65JAU3P
-         BjARC3kqy6MIfkl6Wc1zZtZLBe+0zYJgQN1IwoeNDNJCz163FRmlua0Fc9OTghPrD1C2
-         mgO9kMuDACE+faE3xM6hD+EH8NZO9RnDffwQIYxyRZLpv2ksO91+jSQsBbRPpAbbzOQr
-         aapo1ZgS/msu9U3TWbANq0z6oTuWc7U0W5wnAwRlyhQogdoTaP9O3sVLnww1Vdwj7XN/
-         QnKw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780929906; x=1781534706;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=minyard.net; s=google; t=1780930706; x=1781535506; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:reply-to
+         :message-id:subject:cc:to:from:date:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=cROChVtUMlBOZjOAs4b3kSSichf3rGSm2eer0rPlUJ0=;
-        b=ON4d6cigtosIoPPn1Vecs+ISiW6ZffDbkcnpwbDMxknoxYEY5RN9nLP94mKO3243mT
-         5tWSkV6PGX8ztGKlRLZxnvhFjwahiEkybpvneqCdY6ytWfTG5oAjDYFLYpkVJMV60c4N
-         L2uCCMzuR0Ix7F7w0tkWFtjd2bF35bwaU0kKPyoBTdBbOPO2DiC8TqWNmcW97fsk64HX
-         qYKV1QSKwfg2of6SIBZBpwgTxqHG/baQ3J0HQ9LS6hnkVvBJnMsgtmm3HoVg28jeV3KA
-         oOnvC7hIl58vZ14ZfLXbc+pP48kGO6gjsdnl0mguRjNxtmTgfgB+I5YCNescvQ/r1X+1
-         EHOw==
-X-Forwarded-Encrypted: i=1; AFNElJ+PKHvZ68UcAoQU/CAcxuv2j3eSmPIO1IGhxY9G1h+OIv0dGE6MEEb8FiuqIzSLaTggjljVoQ0=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwlAKjEebzX57tx+MI5CFt7os5vBAr2+RZ7iwnCToHBP/+TCyCZ
-	iXo9Pmu0fkls14YNhYFBGGYl+P/Yj0mp6ER6zV+1WXC61JFl2hTWwI25
-X-Gm-Gg: Acq92OG++I5J2GwQZPpfgxuyVT3T/INmyASBa6D/IZMTGH9U6r0/8ijI8UFpdwQFiuJ
-	PzeblEgM5/qHZcYWcDcedQ7OqXj9Lek5OjsbtjB5oV1vDJu4l4xRfswIaPP0vo/GHZOxGhdpx/O
-	eY0e+FbTNpcURGJUf/k26XnkH53nkgblUmsSG+zKnoN0KT5j3ambIV8J42AcUM+4uiduw6oCTR2
-	WKRqXHH7D0AZQuua7f544/ZWXpVMpIzDVry6u8/2tGZgttYroDzTgiJ8hFpT7cWtknYio69JZnb
-	2tb2RtV5hmi4lroWTbMP8Ps1+afARxE7slipqeZmNQpJtiKeuTbexS8oIgQEaByal+GILZljXE6
-	Ci8X7+euDo6yBQBb+Cx71MI1u1VK88UqwonapfNsxae32mqiCM15Aftucacq1XOagaE7c067Mxe
-	DUdkTtNMT4npVIk3rVnDcOEheo3N9v2dkDoBUsQBy8IPShzKUhYK4eM7HlV+vMMlKPYRiaxUEAf
-	dyJIeEwipjn4ipibQ==
-X-Received: by 2002:a05:600c:a011:b0:488:7e7b:dbc2 with SMTP id 5b1f17b1804b1-490c25dcc9bmr112364045e9.3.1780929906001;
-        Mon, 08 Jun 2026 07:45:06 -0700 (PDT)
-Received: from ast-epyc5.inf.ethz.ch (ast-epyc4.inf.ethz.ch. [129.132.161.179])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490bc39eb04sm409212995e9.6.2026.06.08.07.45.05
+        bh=ynytDHRd76bMUHNmTQQewW2EWsRcgHarOHL+9T2G+3M=;
+        b=CnYJjjDpeQ3/8AcSkDLdtwDnCEbOcKNUdtexOde7xaKwKMtNE3141sEOIn3QqhOoHi
+         om3Fa7yWB0jLTXNJ6zjV/nwyWmGjz9U87xfCDE4g09bvBbRr6DK/RETSP43eOx9JKcnK
+         E3aYCP02LwKxkXFhkv3SyLYf009J3q2m71+QQ4yhyLF+G5ZpcBn5MeNU3LqJtYqUB+DA
+         WIi95NPNR4wXSyI2WzGwr+3WN/10qgj4olw5sLKXipYQhD2CPyrZt/+VgIZgUO3eXn7H
+         9ekePteF1oAB4Cy1BznUk2r4dCeTEIFACBKA+an5Ty3SLUvqHeWxQfKcK0movjlG7MLj
+         Bizw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780930706; x=1781535506;
+        h=in-reply-to:content-disposition:mime-version:references:reply-to
+         :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=ynytDHRd76bMUHNmTQQewW2EWsRcgHarOHL+9T2G+3M=;
+        b=ps12tS61zhPkuPTtkozZHsz/4DwLe1elnZkZ3kxIksEwULpxYzyfSyRR8zMwMHVNG4
+         a0J17Z+NbpT1EXcbvqrxRgNNKFlb3lgt9wYbgrLiSxfRG7eRdJatwTP1i/QcyP2pyr42
+         9SqQNAaED2X3AxDJoW0mro4pvgJ/PLDns85gq2UgIedPHZgAlxr0snpwqKoncq4XR9n/
+         yWNReA8w2Q1jhOmi7EhK+G1JACGMqJQ4X90UaxI4Z3d9mgrwVQN8Xtnu1M3x2Mb7YjEy
+         ZQMyGooRw5Lx691at2tpaf3EmcSv9iaAkQDSdqx5noaHU/9/eMf4I9QaWzkO221VoSjg
+         U6wA==
+X-Forwarded-Encrypted: i=1; AFNElJ+MHByl3yH5uPudJ179JC2pvCKBPWaNf4zHF7ozHnL1xwk3E/rV+Ig5+5X3xZMTQZJdp2MNsoM=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwnLy9Xf196C3dyQWNeQ8niNPQKk8PBFExu+lSp1ob6gDFC3R5G
+	NJVx/r0KmTqBxy1HjIYp/1YO/ShenD48mK4qtMSSEtEAPQDSHBdzF+FLEN/YaEFOWb0=
+X-Gm-Gg: Acq92OE/v+QQ9CD2qEpNeKjsY+kdDpq+5xDFBk+Ue0IGmFQrKroBQMCXxXCQknUtFpe
+	pRdCH5kv4wNILj4qO6GKhQJXGnwgxyZ6WnxxDLRIdlOAYJQWSlq1wYDyPKMFbNRXuQsIwyk9VSd
+	4M/LvVX2UM/TL7Nr/efQxVbuVk13zovT2Fmal7MpKnBRKsxObcS3rCz2djF/cBbk+0schT1Em0b
+	xNNyZfBbxmQjOT2OREHFtMApd4h06I3xMa1Ky66yjiEnLHqidWNdHDl5uNZtQ9PLB7HC5qiQWiS
+	9tMdbQ8y8oblhSluKixiUcDTvHMXt1kuVO8QM9oFIgyUE+kgH2JkHTxXFugWPha3DfcTMbc4NnX
+	WEwEcrF46TBEIrvrRl7q2CQKq7k2lQ+kxVHX3R6GkUbc/67LuavabNr9+p6ZErEs1HCm504E48P
+	id2qPS75eV2uNColHBItPQiUAiCXLNjuCu0NZPUcfheVUxjKN8IwPp2Th7BXMjzsi+ZfpLa+RgY
+	H0rRPvgFu4/oVOkBuSo1AZutnk=
+X-Received: by 2002:a05:6808:4f0d:b0:479:db65:8dbc with SMTP id 5614622812f47-4868df59fd2mr10212483b6e.30.1780930705722;
+        Mon, 08 Jun 2026 07:58:25 -0700 (PDT)
+Received: from mail.minyard.net ([2001:470:b8f6:1b:cbbe:5d8b:b4d0:52d4])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-4865b745773sm14464153b6e.6.2026.06.08.07.58.24
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 08 Jun 2026 07:45:05 -0700 (PDT)
-From: Zijing Yin <yzjaurora@gmail.com>
-To: Steffen Klassert <steffen.klassert@secunet.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>
-Cc: Zijing Yin <yzjaurora@gmail.com>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Ido Schimmel <idosch@nvidia.com>,
-	Simon Horman <horms@kernel.org>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH net v2] net: af_key: initialize alg_key_len for IPComp states
-Date: Mon,  8 Jun 2026 07:44:41 -0700
-Message-ID: <20260608144453.3553219-1-yzjaurora@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        Mon, 08 Jun 2026 07:58:24 -0700 (PDT)
+Date: Mon, 8 Jun 2026 09:58:19 -0500
+From: Corey Minyard <corey@minyard.net>
+To: Rui Qi <qirui.001@bytedance.com>
+Cc: Corey Minyard <minyard@acm.org>,
+	openipmi-developer@lists.sourceforge.net,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Subject: Re: [PATCH v2] ipmi: Fix rcu_read_unlock to srcu_read_unlock in
+ handle_read_event_rsp
+Message-ID: <aibYi72tthY8VX8V@mail.minyard.net>
+Reply-To: corey@minyard.net
+References: <20260525063235.990101-1-qirui.001@bytedance.com>
+ <20260608112000.1-qirui.001@bytedance.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260608112000.1-qirui.001@bytedance.com>
 
-pfkey_msg2xfrm_state() handles the IPComp (SADB_X_SATYPE_IPCOMP) case by
-allocating x->calg and copying only the algorithm name:
+On Mon, Jun 08, 2026 at 11:27:54AM +0800, Rui Qi wrote:
+> Hi Corey,
+> 
+> I'm following up on this patch which was originally submitted on
+> March 25 and resubmitted as v2 on May 25. I haven't received any
+> feedback so far, so I wanted to bring it back to your attention.
+> 
+> To recap, this is a one-line fix for handle_read_event_rsp() where
+> rcu_read_unlock() is incorrectly called instead of srcu_read_unlock()
+> on the error path, leaving the SRCU read-side lock held.
+> 
+> This patch is specifically targeted at stable branches (v6.12 and
+> earlier) that still carry the original SRCU-based locking. In
+> mainline, commit 3be997d5a64a ("ipmi:msghandler: Remove srcu from
+> the ipmi user structure") has already restructured this function to
+> use a mutex, effectively eliminating the bug. However, that commit
+> is part of a larger SRCU removal series that is not suitable for
+> stable backport.
+> 
+> Since the affected code no longer exists in mainline or your
+> for-next tree, this patch cannot follow the usual path of being
+> applied there first and then cherry-picked by stable. Could you
+> please review and provide an Acked-by so the stable team can pick
+> it up directly?
 
-	x->calg = kmalloc_obj(*x->calg);
-	if (!x->calg) {
-		err = -ENOMEM;
-		goto out;
-	}
-	strcpy(x->calg->alg_name, a->name);
-	x->props.calgo = sa->sadb_sa_encrypt;
+I can give an:
 
-Unlike the authentication (x->aalg) and encryption (x->ealg) branches of
-the same function, the compression branch never initializes
-calg->alg_key_len.  IPComp carries no key and the allocation only
-reserves sizeof(struct xfrm_algo) (i.e. no room for a key), so the field
-is left containing uninitialized slab data.
+Acked-by: Corey Minyard <corey@minyard.net>
 
-calg->alg_key_len is later used as a length by xfrm_algo_clone() when an
-IPComp state is cloned during XFRM_MSG_MIGRATE:
+on this, as it is obviously correct.  However, it might be better to
+backport the changes removing SRCU.  Using SRCU here was a mistake to
+begin with.  But that might be too big a change.
 
-	xfrm_state_migrate()
-	  xfrm_state_clone_and_setup()
-	    x->calg = xfrm_algo_clone(orig->calg);
-	      kmemdup(orig, xfrm_alg_len(orig));
+-corey
 
-where xfrm_alg_len() returns sizeof(*alg) + (alg_key_len + 7) / 8.  With
-a non-zero garbage alg_key_len, kmemdup() reads past the end of the
-68-byte calg object.  Adding an IPComp SA via PF_KEY and then migrating
-it triggers (net-next, KASAN, init_on_alloc=0):
-
-  BUG: KASAN: slab-out-of-bounds in kmemdup_noprof+0x44/0x60
-  Read of size 4164 at addr ff11000025a74980 by task diag2/9287
-  CPU: 3 UID: 0 PID: 9287 Comm: diag2 7.1.0-rc6-g903db046d557 #1
-  Call Trace:
-   <TASK>
-   dump_stack_lvl+0x10e/0x1f0
-   print_report+0xf7/0x600
-   kasan_report+0xe4/0x120
-   kasan_check_range+0x105/0x1b0
-   __asan_memcpy+0x23/0x60
-   kmemdup_noprof+0x44/0x60
-   xfrm_state_migrate+0x70a/0x1da0
-   xfrm_migrate+0x753/0x18a0
-   xfrm_do_migrate+0xb47/0xf10
-   xfrm_user_rcv_msg+0x411/0xb50
-   netlink_rcv_skb+0x158/0x420
-   xfrm_netlink_rcv+0x71/0x90
-   netlink_unicast+0x584/0x850
-   netlink_sendmsg+0x8b0/0xdc0
-   ____sys_sendmsg+0x9f7/0xb90
-   ___sys_sendmsg+0x134/0x1d0
-   __sys_sendmsg+0x16d/0x220
-   do_syscall_64+0x116/0x7d0
-   entry_SYSCALL_64_after_hwframe+0x77/0x7f
-   </TASK>
-
-  Allocated by task 9287:
-   kasan_save_stack+0x33/0x60
-   kasan_save_track+0x14/0x30
-   __kasan_kmalloc+0xaa/0xb0
-   pfkey_add+0x2652/0x2ea0
-   pfkey_process+0x6d0/0x830
-   pfkey_sendmsg+0x42c/0x850
-   __sys_sendto+0x461/0x4b0
-   __x64_sys_sendto+0xe0/0x1c0
-   do_syscall_64+0x116/0x7d0
-   entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-  The buggy address belongs to the object at ff11000025a74980
-   which belongs to the cache kmalloc-96 of size 96
-  The buggy address is located 0 bytes inside of
-   allocated 68-byte region [ff11000025a74980, ff11000025a749c4)
-
-Depending on the uninitialized value the same field can instead request
-an oversized kmemdup() allocation and make the migration clone fail.
-
-The XFRM netlink path is not affected: verify_one_alg() rejects an
-XFRMA_ALG_COMP attribute shorter than xfrm_alg_len(), so a calg added via
-XFRM_MSG_NEWSA is always self-consistent.
-
-Initialize calg->alg_key_len to 0, matching the aalg/ealg branches.
-
-Fixes: 80c9abaabf42 ("[XFRM]: Extension for dynamic update of endpoint address(es)")
-Cc: stable@vger.kernel.org
-Signed-off-by: Zijing Yin <yzjaurora@gmail.com>
----
-v2:
- fix some typos. 
-
-Link to v1: https://lore.kernel.org/all/20260607210119.2437752-1-yzjaurora@gmail.com/
-
- net/key/af_key.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/net/key/af_key.c b/net/key/af_key.c
-index 9cffeef18..3216f897a 100644
---- a/net/key/af_key.c
-+++ b/net/key/af_key.c
-@@ -1218,6 +1218,7 @@ static struct xfrm_state * pfkey_msg2xfrm_state(struct net *net,
- 				goto out;
- 			}
- 			strcpy(x->calg->alg_name, a->name);
-+			x->calg->alg_key_len = 0;
- 			x->props.calgo = sa->sadb_sa_encrypt;
- 		} else {
- 			int keysize = 0;
--- 
-2.43.0
-
+> 
+> No changes since v2. The patch is reproduced below for convenience.
+> 
+> From: Rui Qi <qirui.001@bytedance.com>
+> Subject: [PATCH v2] ipmi: Fix rcu_read_unlock to srcu_read_unlock in
+>  handle_read_event_rsp
+> 
+> Fix a bug where rcu_read_unlock() was used instead of srcu_read_unlock()
+> in handle_read_event_rsp() when ipmi_alloc_recv_msg() fails.
+> 
+> This mismatch leads to an SRCU read-side critical section imbalance: the
+> entry uses srcu_read_lock(&intf->users_srcu) but the error path
+> incorrectly calls rcu_read_unlock(), which is a no-op for SRCU and
+> leaves the SRCU lock held.
+> 
+> The offending code was restructured in mainline by commit 3be997d5a64a
+> ("ipmi:msghandler: Remove srcu from the ipmi user structure"), which
+> replaced the SRCU locking with a mutex in this function, effectively
+> eliminating the mismatch. However, that commit is part of a larger
+> SRCU removal series that is not suitable for stable backport. This
+> minimal fix addresses the SRCU imbalance for 6.12 and earlier stable
+> branches that still carry the original locking scheme.
+> 
+> Fixes: e86ee2d44b44 ("ipmi: Rework locking and shutdown for hot remove")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Rui Qi <qirui.001@bytedance.com>
+> 
+>  drivers/char/ipmi/ipmi_msghandler.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/char/ipmi/ipmi_msghandler.c b/drivers/char/ipmi/ipmi_msghandler.c
+> index 188722ec0337..41ae4dac4eeb 100644
+> --- a/drivers/char/ipmi/ipmi_msghandler.c
+> +++ b/drivers/char/ipmi/ipmi_msghandler.c
+> @@ -4395,7 +4395,7 @@ static int handle_read_event_rsp(struct ipmi_smi *intf,
+> 
+>  		recv_msg = ipmi_alloc_recv_msg(user);
+>  		if (IS_ERR(recv_msg)) {
+> -			rcu_read_unlock();
+> +			srcu_read_unlock(&intf->users_srcu, index);
+>  			list_for_each_entry_safe(recv_msg, recv_msg2, &msgs,
+>  						 link) {
+>  				list_del(&recv_msg->link);
