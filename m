@@ -1,57 +1,57 @@
-Received: from out203-205-221-202.mail.qq.com (out203-205-221-202.mail.qq.com [203.205.221.202])
+Received: from out203-205-221-190.mail.qq.com (out203-205-221-190.mail.qq.com [203.205.221.190])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 993792E62B4
-	for <stable@vger.kernel.org>; Mon,  8 Jun 2026 09:13:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.205.221.202
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CBAE3B42EB
+	for <stable@vger.kernel.org>; Mon,  8 Jun 2026 09:13:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.205.221.190
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780909990; cv=none; b=dJUO9IRSLvVKnpPatFa0oxz2iyi9p62hFAHHliCZkGXYWSFohFAFVWwEE1628hPYw3pnH4D5LmkVKH2MPrUkfgPGZuM1Qw3+A1UhayzG3ZLE6+0RiHiPjgEV5pp8pN+L4Ns7Q0rPFuXHd1iieAFVbCSYP775DlrYLd0hzGqMDSI=
+	t=1780909990; cv=none; b=JhPa8g9S8QWuX3GbQKuKmKytuQX5lnKLAEdIRAQAuiSrMP/R4nGf9HgPpZMM68eO8GivSYsBswMtaDnM6jgzgnvD/MvIv9AYOr5mjraBvo3CJdgSRnia5m0kUgbXrg3cQEeWUREMu+9RJjBWk3oDN9wwqY6ydaGTWJqvxQXHm40=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1780909990; c=relaxed/simple;
-	bh=dkCuiAK1kOD5p3u0nxD1rPOGHBlcIMgT85PKDMH0CA0=;
+	bh=RD+oTohkTRRLS3idQ7xFsvvlEtc2j4K6WcRpGq9VigI=;
 	h=Message-ID:From:To:Cc:Subject:Date:In-Reply-To:References:
-	 MIME-Version; b=huWFvlEy/IKPTQoVrrCee8fbRX6hLCjgXrifurDhi/rtKWlubxNt/OkhI1ukDsVNXcbeyF9cZgRUavXAp7DMAyhrwDf8S/Tdva1vzq3QE8dUGr8ehKK53upG6fG4G8hy0sHrB8GbNKgLDkkaJzhZuc89BClPhqvv/mF/bguL0+I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foxmail.com; spf=pass smtp.mailfrom=foxmail.com; dkim=pass (1024-bit key) header.d=foxmail.com header.i=@foxmail.com header.b=L88bmJO/; arc=none smtp.client-ip=203.205.221.202
+	 MIME-Version; b=twyXUPYd9HlPGs3C/WgzntXBU5kRgkvI+Z/ji3xacTtLoDnTlFlhq0tD9fnN6LLPZpSwWyA6OQtosXRxC3BgbgJVQyEgAZhPrTrZrKHzaiiBxqDsuTAAMx217pzW7na+t2TxTVcoxCdzV5QaH8W0NQai7icQzpTNRMtzQ0nFHP4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foxmail.com; spf=pass smtp.mailfrom=foxmail.com; dkim=pass (1024-bit key) header.d=foxmail.com header.i=@foxmail.com header.b=GWI4cTyl; arc=none smtp.client-ip=203.205.221.190
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foxmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foxmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=foxmail.com header.i=@foxmail.com header.b="L88bmJO/"
+	dkim=pass (1024-bit key) header.d=foxmail.com header.i=@foxmail.com header.b="GWI4cTyl"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
 	s=s201512; t=1780909980;
-	bh=Zk1OdM/FO04pIv727zNRuWZ1i1r0L3Cf7ZaDQS1VgWA=;
+	bh=gkEGl6klor+eq4IPgefmvgOhe0uBLMOYG1nnW7uhDxI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=L88bmJO/r71yXV6q+vcPNR/8AIu6ZDR0VQJBz3OskZcszpfk9DLgpR+DL603GbEKd
-	 rDypRroo5Wh2fZWEfoW38XbbtDJjWLCJxmrxDxxoTP4k8RRnNsqJGFKKuRWGJbmj+F
-	 JCDaR/O+SX9tELVoIAXg3IJjFKXNv+UnzpHMryKg=
+	b=GWI4cTylkYtZZWPOHcZMlO1z4FIl7xtCFxBAbaNp10kIWnINLKZHNNJ3hRLRS/M7H
+	 74zm/KPXMbIcoSBypmlRV2Max1FoXUkZRQjsd6O/k+9n4MrEKoBd+iIZC75WmOj2kE
+	 CuZZSRRLoFR5PfGCLvOKjxUCepLUPIHxtLWX9g2c=
 Received: from chafi-Matebook-Ubuntu.. ([117.25.98.102])
 	by newxmesmtplogicsvrszb43-0.qq.com (NewEsmtp) with SMTP
 	id 32F830C7; Mon, 08 Jun 2026 17:12:47 +0800
-X-QQ-mid: xmsmtpt1780909978t83o855lm
-Message-ID: <tencent_AEC2C2C7582DD97B19BFA51196A256151F05@qq.com>
-X-QQ-XMAILINFO: N1MQIlrHEcYy/L89GIYSaW/e9aFe/SJF0uC3bXmon5vt/U7LMi+32NnruVI7rS
-	 KguiKs5agSU/BSXlNnpt5SKG2wmzDlD6o+xeAtnERJmcUWvCCL/OHsCCEIVIB6+QAIyN9mCVpKmg
-	 ySA6IyaXMmXsalXWYryIoBMbg7vWQlK7XiYG6eEG8HBNK+oPzYCADVeCc/uJKfLrXPbNT+AuhwCp
-	 eVKmXU89LvhPxAsgZdgvPoCfLZUwKbJLsApqdpq9AW4grP2XdzmmYU1Bg3TjgbOp/FyWPaZNP4Ar
-	 EvuoXS1IB+t9ze07rifiT8lr5l6KRSTISC6DVFWom0wF6uB7Atapf8BmAJ7jVfLEa1U1ppz8uCzp
-	 zOVIwBJLCeYafF5jNvOfG/WvDDxBab9ELsMziPbx3MwzSPWper5ONHYlDAujigFXDCrIbjLRwWGX
-	 H4CfIuP5LHTaPYpKrh9MJYNWLVvDbZvqKLyems4IW6HJUPC1G/6U51TUVHqOVZ5YhHPErr2Q2y1r
-	 RjpW6gqhW8mVBBvoBp1+F543cJ2Pn8xPNQRc8Xy8wwMmQse+fish1CxoU5XdWpvIp/GxBzSFSdY4
-	 gHiENFpT8NBBS7rQortD24PeJyQWIeGEdL4W9FwAjK+tCzOB9tT35NsQOvl6uY8h1KLYC2b3nqn3
-	 IfyDVmKKM+6geJy1ITDO1WLD/j/u8IG0o8oMAoRWtsTGHCNhP26rcqoCaaJLM7Swa7Il0QnVmm5V
-	 6DNOSJE20cLQ7iyy512sPdDrsOMP3m0uwCKv1IWDx2yM2vf6kOMw/xDKR1cMaBKiK/24ZdlYPpj/
-	 E22JlHuri4neDlDRNcP1OCw1RiP0dte5c7aONRyJ3vg3YCZor9vkFPyJ9UqufWtQVmZUyZlWh6AV
-	 vTNS+/X1nKmaZq8c5mDlWqkF8MWu0sPzf5U7NcjFlhLZYLHhcKotuRZNox+JHKBkHISGhY1dERBw
-	 0C4nwxTuJ63WTJ56g14YSYTkoTHoq4+LRUQREE4UcJ55/Yph+poWg3/iHdt1exHXApVpfbEFSi/5
-	 yot/aS5Jr0BmO4gQUf34QTh4ythxgzjpmy+wNJAg==
-X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
+X-QQ-mid: xmsmtpt1780909979t5qps3k3l
+Message-ID: <tencent_F96A6D2FFEB6459BF167B2F2F27E8B016C06@qq.com>
+X-QQ-XMAILINFO: NsH3EniEpYuY++gQphxxtp/UKwZBf4XhDzLzDtrRZifbrTQvBxvaNEq0FlYZbL
+	 3qBQKHdMw5W4QsLhqXaGMdfm39g98LLduA+c5gFDTrPAGre/FTj/68z2V3QbOvIWEea1Tml0OYKZ
+	 0e2K0fuB8TX3h6PpQi0C9D7H31XmQ+DZb4aQau/sAOvyZEe8/KhklLVHUhrGU+PG/kFAlSMvPowR
+	 jKJZ90m8aAcjQP2iDOjwCaQjyu8Mp4U+YL0SVLENDPsSQ6yIxDrOMLobvM3TghuPDgN/y1s5TnGu
+	 iPm5Oo4hmGU98luxc2/4W6z0URNdTbKCeD1f0FP76Qk00QJGb9kN7h9FjPW5o1QuJpCX4xIGyF7Z
+	 XF5yA+vE+9N1kw0ul2cnJnI4Q312pwmS5kDolmJ6kyUVznoE6OZbxmREmMNSL3RnKxT3iJM0NlC/
+	 7PfR0q2aWT25nZ3ycYymyACUujfkLtsu4QRzCA2fMkBtD46b+xVpiMHiDDljU79PrH8KsxODZ+/u
+	 w7on4AMawXrIO+0SURa/Gq4N0DNlhp9Dpc6WiIdhd6uD6xeVsOkscOM5KeKKrDRg33GSZ/wtcyr7
+	 vqyzmRCjxwDyWacQ80+lTJ64PJ+OFZNKRas8FrcqWNKDkGeTzlyViWMY1upQZoYOJ64OODUntFVd
+	 ZA08suZCY/AvfTBoy1ughid9o6a0TKe/ie1nErLzvBnoPIrlbFS+x68XNCIL0+QvzP015TZD9XL+
+	 05fjlVyFgcP3KDwiLGhTSGiDcTDICKMxHtUcVyHVH51M/Yf8i0NTHXw3SJw4BUqlCSfYp5Eng1J9
+	 r/l/HINXICrBL2IBjilcbeenPxfF5aNMLX/JUpcCQrNRL5UeiByLqbAD3WYBf5jF3mUwzFIAT3G2
+	 7FqyNNYCVnsKJBOOskMH9NoCcTOqyn+dKYtTw5woI+fxNyeugH5YE9lfeIbiry01q47d3z/XAh8x
+	 PdqWtk9xgbG/TXJnDNRWQ6N/qvfqcNn1DCJShy80Whwe1HCUlNwwfEoXdrHKsceeZIJ2qwHLxV1z
+	 /DqzRI52XYpXnlmqga7620aSnnqZ6Kc+/edfo7951LHBZuTexx
+X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
 From: chafi <chafiprc@foxmail.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org,
 	stable@vger.kernel.org,
 	Yu Zhang <chafiprc@foxmail.com>
-Subject: [PATCH 2/3] drm/i915/dsi: Fix hsync readout for dual-link command mode
-Date: Mon,  8 Jun 2026 17:12:43 +0800
-X-OQ-MSGID: <20260608091245.462464-2-chafiprc@foxmail.com>
+Subject: [PATCH 3/3] drm/i915/dsi: Fix TE pin configuration for dual-link DSI
+Date: Mon,  8 Jun 2026 17:12:44 +0800
+X-OQ-MSGID: <20260608091245.462464-3-chafiprc@foxmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260608091245.462464-1-chafiprc@foxmail.com>
 References: <20260608091245.462464-1-chafiprc@foxmail.com>
@@ -65,42 +65,35 @@ Content-Transfer-Encoding: 8bit
 
 From: Yu Zhang <chafiprc@foxmail.com>
 
-gen11_dsi_get_timings() only doubles hsync_start/end for dual-link
-DSI in video mode. For command mode dual-link, the hardware stores
-per-link values (e.g. hsync_start=1380 instead of 2762), but the
-readout does not compensate, causing:
+gen11_dsi_config_util_pin() skips UTIL_PIN configuration for any port
+mask that includes PORT_B. For dual-link (PORT_A | PORT_B), PORT_A
+still needs UTIL_PIN as TE (Tearing Effect) input. Without it, vblank
+interrupts never fire and flip_done operations time out on command
+mode dual-link panels.
 
-  [drm] *ERROR* hw.pipe_mode.crtc_hsync_start (expected 2762, found 1380)
+Only PORT_B-only configurations should skip this step, as TE comes
+from the slave DSI1 through GPIO in that case.
 
-Fix this by applying the dual-link hsync doubling unconditionally,
-matching the SET side where hsync is now halved for all modes.
-
-Fixes: d1aeb5f399d9 ("drm/i915/icl: Configure DSI transcoder timings")
+Fixes: 963bbdb32b47 ("drm/i915/dsi: add support for ICL+ native MIPI GPIO sequence")
 Cc: stable@vger.kernel.org
 Signed-off-by: Yu Zhang <chafiprc@foxmail.com>
 ---
- drivers/gpu/drm/i915/display/icl_dsi.c | 8 +++-----
- 1 file changed, 3 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/i915/display/icl_dsi.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/i915/display/icl_dsi.c b/drivers/gpu/drm/i915/display/icl_dsi.c
-index c667d5941..f579cba28 100644
+index f579cba28..cb60aad92 100644
 --- a/drivers/gpu/drm/i915/display/icl_dsi.c
 +++ b/drivers/gpu/drm/i915/display/icl_dsi.c
-@@ -1527,11 +1527,9 @@ static void gen11_dsi_get_timings(struct intel_encoder *encoder,
- 	adjusted_mode->crtc_hblank_start = adjusted_mode->crtc_hdisplay;
- 	adjusted_mode->crtc_hblank_end = adjusted_mode->crtc_htotal;
+@@ -1113,7 +1113,7 @@ static void gen11_dsi_config_util_pin(struct intel_encoder *encoder,
+ 	 * for dual link/DSI1 TE is from slave DSI1
+ 	 * through GPIO.
+ 	 */
+-	if (is_vid_mode(intel_dsi) || (intel_dsi->ports & BIT(PORT_B)))
++	if (is_vid_mode(intel_dsi) || intel_dsi->ports == BIT(PORT_B))
+ 		return;
  
--	if (intel_dsi->operation_mode == INTEL_DSI_VIDEO_MODE) {
--		if (intel_dsi->dual_link) {
--			adjusted_mode->crtc_hsync_start *= 2;
--			adjusted_mode->crtc_hsync_end *= 2;
--		}
-+	if (intel_dsi->dual_link) {
-+		adjusted_mode->crtc_hsync_start *= 2;
-+		adjusted_mode->crtc_hsync_end *= 2;
- 	}
- 	adjusted_mode->crtc_vblank_start = adjusted_mode->crtc_vdisplay;
- 	adjusted_mode->crtc_vblank_end = adjusted_mode->crtc_vtotal;
+ 	tmp = intel_de_read(display, UTIL_PIN_CTL);
 -- 
 2.43.0
 
