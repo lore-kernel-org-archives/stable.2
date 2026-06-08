@@ -1,76 +1,37 @@
-Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 469A8336882
-	for <stable@vger.kernel.org>; Mon,  8 Jun 2026 02:51:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 627D12E8B67;
+	Mon,  8 Jun 2026 03:27:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780887066; cv=none; b=rzVOBc++JT9oAjG+B0B5T/hRhxvZP8VRbmDl0xeP2OiezJOTIOHBA1NkZ9VAzLwek5W//sXOY2hF7wgWogbOJAccbGLrv9KD6tKJN9JqRUFFkhoxlXah0U++JKccz3UucVG6it9PP62wIeEBxfkSEGR1DnTCRxNRsD9FGTvvh9U=
+	t=1780889282; cv=none; b=NuyMaxSlrECgsgStmgp7rcsHos+TwRdqmE2SBJP+KEpL+H+mYICFmFdOt1kft66HQMVkzz5kEYSQNVchosRj5FJ38VOXMgDaf86a3LlLIDMJGQF5qlQ307WzUkbUTSsJBaZdmv3lKd0M8oBMv1YsEnPByt9p+rUrR3Lmm3qyjmI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780887066; c=relaxed/simple;
-	bh=bVHdtl+1gXb+41m7LssdlHTlwh2k7sT1ak0F8ZrEBqA=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=dy7+sesZGVHCHALUie2EAsqQZ/1BN/+6z4zSZ3CTQX5qwazqhZZQvmy0FljQ7NiT6L3gb8p8N7tlcRHfIA6Up/JqZ+JCxFlZWZSAj9HLJfebIBt2v8OEQTSNpMGJJZ+9+ctPwe/hugkuMVLLTnBDCDmavTeQeoU68hXaH89WEoY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=Ko6RTm9F; arc=none smtp.client-ip=209.85.210.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="Ko6RTm9F"
-Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-84231305a80so2019366b3a.0
-        for <stable@vger.kernel.org>; Sun, 07 Jun 2026 19:51:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bytedance.com; s=google; t=1780887063; x=1781491863; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=y6pATA/q2zOEosF2pnrG8syYg/IBJ1PmeGXJDn1SU0Q=;
-        b=Ko6RTm9Fkrgf+BpigxdrBj/my13Upy/IYtjnb4mo7XQD7uaymE7DtbpS+rdmv6GWtL
-         p2unaJ9vFrigzNzO/ygoGmVZy6p8hhLyym/CvCTPDBuKP9y2wzq8MrEvMR4v3O966eYy
-         PzOG3cO4Ny9ihqokHUCFcu4/rAhoKg0bMUhmsp7KU+v6z0NVpuvrqg+9gGsFUQIPK/gc
-         6TWrCPuA85FBVCy0GD//llG3mhU0JhrbPDD7A+VjBntlz2JKeTmeC0U3+FK2rJHA8Yl1
-         YWaGqJxZZBTBEMYiaEujxKi3RMuYEZkAYTjcGCSqcNmPrk79Lpn8SFMus+mkHSJSX50r
-         xxIQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780887063; x=1781491863;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=y6pATA/q2zOEosF2pnrG8syYg/IBJ1PmeGXJDn1SU0Q=;
-        b=F+WOPKXWr7Z7O9OjWXAqaNioMpRl6FuoGe6i4ybvibPuMJQoZRwU8mOF7Eo1Ohv4IK
-         1aX/cDGbF2b/DE9meEk9XyivM2h5gS2mQab5kRQZHKj4LBx0/kLUTG8EVMjMuJ0hmUhG
-         ZedViSUNtCYdyfjogc/E2tOB/kSIrMJH3T2PgnNFelFghYfajRrJy2lYKhJW8OR/xuRD
-         2iIph0leleZnF5nxHchpv17o7gJLlGu/Lk55i4hdAs3XEAbNQaKjyZjPCb1adIQMgXR8
-         yoh5heZ5XpZCD2sdNTd+TOb8geki1nM7f4bddwzu5kw3RnLqm0NywUsTJnYanufVSHbs
-         TGxg==
-X-Forwarded-Encrypted: i=1; AFNElJ8toH6iMjURLnLVUK5VSXHQhBIExj23jIHOBMBVq2374IgjjT8wcstC/rD3totUvMNLW1LS4MU=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx00H8r+67G74xktAoDIr9myMmxtOPTvBPkUP8feJPJYtClHK8+
-	69NBo33ValWuonfDtx41d3AA7ei3Qwa26C27csCm9kD0Tfwy1/2vRb1ueZIifEDySVo=
-X-Gm-Gg: Acq92OG+Ic97PZHFAzh2ofiqFjgL9NTdO4wIc5ZWbcBprEHWRIX4mSg4Lv+124zDxYv
-	xwq+Q/UzZtcvtMFLO0Ho8k9cSR0HPV/oujJXZtoBpVDvwKOMH1Hw4PuHjxIMJDZAeu8JRtq+Lqj
-	KsK12PWbe+/6TYARrrQTdekRCAA1H3hYrdrUUnCrHGdxhMT+puwtwk7fqKWMjNjnTNGm375RJmW
-	3i+zna2T1XAvio0Jw+5ugHq+6rBJJmt4AQxksrqhX+nmOUN6ZVDcCA0P+9SPnEqPNQaNoIEunPY
-	7q9ngUtpU5hX3dpaRq1jPEOTyiBCxnSakK9utIb/y97TvYdaRlFmrPgBxVGJhxK8fIcvkLG7yoe
-	pXUP5lj+5zCY7/7tsWsy8JgA2U75knPRD/93QXyInm8SSx29USK1lTxnB2HQctfhCcAHgz11Zju
-	Vs1+618Y7MTvcvL/VKpuscrym2+a9W5KQO6RV704xK3tVpo6sevPfcEgTSyE4gukYuUH4=
-X-Received: by 2002:a05:6a00:1942:b0:842:623b:38a9 with SMTP id d2e1a72fcca58-842b0e1e761mr13215260b3a.4.1780887063320;
-        Sun, 07 Jun 2026 19:51:03 -0700 (PDT)
-Received: from L6YN4KR4K9.bytedance.net ([139.177.225.224])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-842828821d0sm16033532b3a.28.2026.06.07.19.50.58
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 07 Jun 2026 19:51:02 -0700 (PDT)
-From: Yunhui Cui <cuiyunhui@bytedance.com>
-To: akpm@linux-foundation.org,
-	david@kernel.org,
-	jgg@ziepe.ca,
-	jhubbard@nvidia.com,
-	peterx@redhat.com,
-	yang.lee@linux.alibaba.com,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Cc: Yunhui Cui <cuiyunhui@bytedance.com>,
+	s=arc-20240116; t=1780889282; c=relaxed/simple;
+	bh=HJ8VdU4FxC85edYh0TTG/I7UeomzKrqp2I7xaawfr60=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=sqM0yOwO7LGLxGH1/8KyCW1uqy1FiZ6FZeVHP5iZ1FKi3lUhTXiUVS5RE1v7sNtQhNoX+Yq3tjExY644yML6kov6GHYm5MFWBuWvC6vIP6wnWmrXN68nBEOquj2JVIJEm7JMygMf/Vt2/PP7jE9uj9dhxR9g/f3YZ+mm6WtLbkk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-03 (Coremail) with SMTP id rQCowADX5s2zNiZqE5H+Ew--.21668S2;
+	Mon, 08 Jun 2026 11:27:47 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: zack.rusin@broadcom.com,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	tzimmermann@suse.de,
+	airlied@gmail.com,
+	simona@ffwll.ch
+Cc: bcm-kernel-feedback-list@broadcom.com,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH] mm/gup_test: fix race with PIN_LONGTERM_TEST ioctls
-Date: Mon,  8 Jun 2026 10:50:42 +0800
-Message-Id: <20260608025043.88087-1-cuiyunhui@bytedance.com>
-X-Mailer: git-send-email 2.39.2 (Apple Git-143)
+Subject: [PATCH] drm/vmwgfx: fix ttm_base_object refcount leak in vmw_buffer_prime_to_surface_base()
+Date: Mon,  8 Jun 2026 03:27:39 +0000
+Message-Id: <20260608032739.111055-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -78,57 +39,55 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowADX5s2zNiZqE5H+Ew--.21668S2
+X-Coremail-Antispam: 1UD129KBjvJXoWrKw4DuryfJFWxuF15Ww17ZFb_yoW8Jr4rpr
+	43KrW3KryfAFWIqF9Ikan5XF1Yg3Wq9FyS9FZY9wnxZr1fAr9xuw45Aa9xKr42krn7Jr45
+	JrykAw47uF1UCr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9F14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7v_Jr
+	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E
+	8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFV
+	Cjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWl
+	x4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r
+	1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_
+	JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcS
+	sGvfC2KfnxnUUI43ZEXa7VU11rW7UUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwkMA2omIvBVYwAAsp
 
-The PIN_LONGTERM_TEST helpers keep their state in global variables that
-are protected by pin_longterm_test_mutex when accessed from ioctl().
-However, gup_test_release() calls pin_longterm_test_stop() without
-holding that mutex.
+vmw_lookup_user_surface_for_buffer() returns a pointer with a
+temporary reference taken via kref_get_unless_zero(). The other
+two callers (vmw_lookup_surface_for_buffer and
+vmw_lookup_surface_handle_for_buffer) correctly release it with
+ttm_base_object_unref(). vmw_buffer_prime_to_surface_base() does
+not, leaking the reference on both the success and
+ttm_ref_object_add() failure paths.
 
-This can race with PIN_LONGTERM_TEST_STOP and let two callers operate on
-the same pages array concurrently, corrupting the test state and possibly
-freeing it twice:
+Add the missing ttm_base_object_unref() before vmw_user_bo_unref()
+at the out label.
 
- CPU 0                              CPU 1
- -----                              -----
- ioctl(PIN_LONGTERM_TEST_STOP)
-   mutex_lock(&pin_longterm_test_mutex)
-   pin_longterm_test_stop()
-     if (pin_longterm_test_pages)
-       kvfree(pin_longterm_test_pages)
-
-                                    close()
-                                      gup_test_release()
-                                        pin_longterm_test_stop()
-                                          if (pin_longterm_test_pages)
-                                            kvfree(pin_longterm_test_pages)
-
-     pin_longterm_test_pages = NULL
-   mutex_unlock(&pin_longterm_test_mutex)
-
-Protect the release path with the same mutex so that stop and release
-cannot run pin_longterm_test_stop() concurrently.
-
-Fixes: c77369b437f9 ("mm/gup_test: start/stop/read functionality for PIN LONGTERM test")
 Cc: stable@vger.kernel.org
-Signed-off-by: Yunhui Cui <cuiyunhui@bytedance.com>
+Fixes: d6667f0ddf46 ("drm/vmwgfx: Fix handling of dumb buffers")
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- mm/gup_test.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/gpu/drm/vmwgfx/vmwgfx_surface.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/mm/gup_test.c b/mm/gup_test.c
-index 9dd48db897b95..d1c2b1014f0ef 100644
---- a/mm/gup_test.c
-+++ b/mm/gup_test.c
-@@ -373,7 +373,9 @@ static long gup_test_ioctl(struct file *filep, unsigned int cmd,
+diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c b/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c
+index b2d3927b5567..9e63846fd663 100644
+--- a/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c
++++ b/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c
+@@ -972,6 +972,7 @@ static int vmw_buffer_prime_to_surface_base(struct vmw_private *dev_priv,
  
- static int gup_test_release(struct inode *inode, struct file *file)
- {
-+	mutex_lock(&pin_longterm_test_mutex);
- 	pin_longterm_test_stop();
-+	mutex_unlock(&pin_longterm_test_mutex);
+ 	*base_p = base;
+ out:
++	ttm_base_object_unref(&base);
+ 	vmw_user_bo_unref(&bo);
  
- 	return 0;
- }
+ 	return ret;
 -- 
-2.39.5
+2.34.1
 
