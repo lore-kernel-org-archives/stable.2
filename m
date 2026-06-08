@@ -1,160 +1,183 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 523053D5671;
-	Mon,  8 Jun 2026 17:20:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C13C22EDD78
+	for <stable@vger.kernel.org>; Mon,  8 Jun 2026 17:24:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780939219; cv=none; b=XBg91ULU8f9Sl5pNg4hiENzr1b05g7vxRkqPVBc5Zy1T62uCrkBYMIFkwCzlIG30w1T0aJFrEFHD5ouBJ9uzo1IKOxQz4YWCBr4/43XQEe9rkei25VmOqwrtTv1WHGUP+i8fDT2tj7JkiaVnP04qBbzNMPl7l3axB0PLK4H8fVk=
+	t=1780939453; cv=none; b=caXdSNPWA4KD+uqk/hpEIF640GE/796KD2lrxCBTFcfKspRNPsfqSNAegYBcO7eghuYMjPgWjn0XH0k4qkUJi/9PeSS9uhGmcYETdWsQtZDO6lEMK+AXcTtC6TKwKhLWRU6mLJnSy90L/3qAKKSjEw5cIE6IV0pMViM5ATjFzZs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780939219; c=relaxed/simple;
-	bh=CTdsnjvENitaKcBHbnJI+lMPMsxDw/NS89qtmmj3m50=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=OO7BGHbp0FIi1sGWjqNvZ/fPIwBoc+AZwtBQgzLgsDL0FkiJNtfxcVYjmZVLfK5MQNDw115rNeXdjPyybpQqsqwGI9r0eB/nfEheOW6W3A0dBsTBqPvrttlh8Njs6tuYli0zUsL9gNnelFnY8NnlnY2KbmQwtTrmVjnJs3yCFfI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=o8xGqwy+; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1780939453; c=relaxed/simple;
+	bh=5FFoVBEExNYKZz7vEGVYM7wHnO+IsODRKnWMRDLXEQk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=O6P3PkuZpjn+6rxQQCxFRl9qvsiaI+ODtBGir3MPZKutLMLqmXx8k1a+XjFmwuMasiVmxtjDDP9BTUHxQoflX2Oj/orE0dUElQCu47P4Voi0oNVehgBr0gTFZCCpiu6HOaxwko5nSlMOly188ZBxYexMfLWJBBY1zQWkznlAeYQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=CN8pI+VF; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=AZYkzQan; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="o8xGqwy+"
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 658E4dCk3934488;
-	Mon, 8 Jun 2026 17:20:15 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=ZLEwJOF00jQW0ElHk
-	J3+PTGcXToawy4Upyvmscf5aL4=; b=o8xGqwy+/EUsnjXsFJ6XDpij55G13Z/iT
-	CfYumlLMKg24EgdOuJA9+0tvzMwWx3D1ybUklT3eH/GBYd+HZGKYcNJAKnE8uOnc
-	FNU3R41cSYOXR6rlf6yxu6cLrTPis0lxy9SoiUBqM92LU3LDdUzZnQeLzIBAk4bj
-	ka1FiHH5Bd4YL5LQtvYT5yac1vK7H4QwYJlsgnnSC6k5KQ6dY62mDv1gOFssEW3m
-	BsA/LSB9TINWBxZOL6DwqMjof6LpsO9mxN0xmCT1/xewdvpfWPYkm4GceZuDdIFI
-	7h9Oj88PSFJBjdq10i6eXNWXEjz9+6U8BYUFt5/ifv0CJWZypwdRw==
-Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4emb6sraf7-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 08 Jun 2026 17:20:15 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma11.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 658H4dQ2003185;
-	Mon, 8 Jun 2026 17:20:14 GMT
-Received: from smtprelay02.dal12v.mail.ibm.com ([172.16.1.4])
-	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4en0jy63vt-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 08 Jun 2026 17:20:14 +0000 (GMT)
-Received: from smtpav06.wdc07v.mail.ibm.com (smtpav06.wdc07v.mail.ibm.com [10.39.53.233])
-	by smtprelay02.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 658HKCLV13828662
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 8 Jun 2026 17:20:13 GMT
-Received: from smtpav06.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id A57C658054;
-	Mon,  8 Jun 2026 17:20:12 +0000 (GMT)
-Received: from smtpav06.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 4BA605803F;
-	Mon,  8 Jun 2026 17:20:11 +0000 (GMT)
-Received: from localhost.localdomain (unknown [9.12.78.81])
-	by smtpav06.wdc07v.mail.ibm.com (Postfix) with ESMTP;
-	Mon,  8 Jun 2026 17:20:11 +0000 (GMT)
-From: Omar Elghoul <oelghoul@linux.ibm.com>
-To: linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org,
-        kvm@vger.kernel.org
-Cc: oelghoul@linux.ibm.com, hca@linux.ibm.com, gor@linux.ibm.com,
-        agordeev@linux.ibm.com, borntraeger@linux.ibm.com, svens@linux.ibm.com,
-        schnelle@linux.ibm.com, mjrosato@linux.ibm.com, alifm@linux.ibm.com,
-        farman@linux.ibm.com, gbayer@linux.ibm.com, alex@shazbot.org,
-        stable@vger.kernel.org
-Subject: [PATCH v3 1/4] s390/pci: Hold fmb_lock when enabling or disabling PCI devices
-Date: Mon,  8 Jun 2026 13:18:47 -0400
-Message-ID: <20260608171850.62829-2-oelghoul@linux.ibm.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260608171850.62829-1-oelghoul@linux.ibm.com>
-References: <20260608171850.62829-1-oelghoul@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="CN8pI+VF";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="AZYkzQan"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 658FFRkj4041608
+	for <stable@vger.kernel.org>; Mon, 8 Jun 2026 17:24:10 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	hfgCRBrZnDBP1u/s15A1fdefY2DOaGJlkzPOAChYS2s=; b=CN8pI+VFZKtTBZjg
+	Cq+3caSimpCLphuXYRweOq0L+SpwoOkTT7DhvHGE61ynYtxsCzKMXMAfZHf8rSVS
+	7YjT4j7q0v7Gv4csZy4J9so0EFUXcxiv5dyzb8tIwMmTsSnV/G/3PDerdyGtlB4s
+	AzzkigyyPXbk8u3lS70tQl26fqUAWANyZPs7C+1IZ76ZrzQd0wLnncx32C2qJRkP
+	RvcaNtTFblLfs5EIZUD0KqF4+vYuibQokVWda1coaocmrMManpwWtKY4b3puIJqM
+	EXj1YEFN3l926fUZQWZ2ToODIH4Njjdcydc8NQxsmAhaL52WEb7sKL7jVT/hJ9Le
+	7qMdVg==
+Received: from mail-dl1-f69.google.com (mail-dl1-f69.google.com [74.125.82.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4enwsv9h7r-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Mon, 08 Jun 2026 17:24:10 +0000 (GMT)
+Received: by mail-dl1-f69.google.com with SMTP id a92af1059eb24-135916eefa0so15828561c88.1
+        for <stable@vger.kernel.org>; Mon, 08 Jun 2026 10:24:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1780939450; x=1781544250; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:content-language:from
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=hfgCRBrZnDBP1u/s15A1fdefY2DOaGJlkzPOAChYS2s=;
+        b=AZYkzQanZ9RCdY98KxuFje+QGEP+TyVERHxBS299paoUpMxN+kgAzbT9fevtUoJCKJ
+         xSC6BfSbnUlG1kDAEN9hjNmavbSL+ogrVNNCzob1i2omD+x/N1qqApY8b4eatocDLMSz
+         bZXk1uZyeIv1VoEEqDcW5doTG4WcBRj9oY7SgyXCmBIEXhj40YR+CQIfpAPk/Ue7FikE
+         FR/4UhU/iJuZGq3qP7Nf4x8RxBRR+Y1fyoUqei8dFZ4T16twWe0TWvlgJtJDJEkq6B4v
+         c/jJvhjZXPHz+AQdCN7UhzvVuPwBjLcpMnzIQUZvdJzro7F8fyij6Dc2jsgt+bNujsTz
+         ok6g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780939450; x=1781544250;
+        h=content-transfer-encoding:in-reply-to:content-language:from
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=hfgCRBrZnDBP1u/s15A1fdefY2DOaGJlkzPOAChYS2s=;
+        b=IklmiE6EHzsC+KjnWBxg77JDMuFFDFE3YhHUPZWO+1OdsdMvrPrKBXjtTBKfQjxEIz
+         gW0CfveZeS8PMsNH+WylRoq6RkTFdf5ZFH7roe9CNrtv89dtu9/FeXuk0LpnpWkR2VCq
+         UL+3m6IOcer6trti12aovL46NEqKVCI2X4gmMTlhlaqvnNu+5kSyRsLpVOFFB2+Gc/zV
+         xQgU+1aEq+Q7xTCMV6lG5Bu+1aJxPwpADHY9OXcJRkZAVmqa0qAXYs/FZ6mThMKXUdMR
+         sCsHVar4ZXRhyr/Oo0gcbQ6f1M/hGh5hIbY4BaWWGyX1A15NUkqKtRUO8oriECgfl9LJ
+         Iy/A==
+X-Forwarded-Encrypted: i=1; AFNElJ+ONZc/XTZh9Ae/i6Z0amwunEJr2DN2eQcydc/mT1Z2qCO3tNQA3Hi4JYU5RjBvjpr1IEuF/UI=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxR6wBv/ZQB6KOlyTutQb2PwAK/YgDtMK04WaYXNHC6ZKAkYVrz
+	aTBFi7Y4cY0poAeU9oyC1UuBxsmSmuqKmVvLLl+nv8UYni2s295vyVcxx6DKo2Ox+wzv+oox/ws
+	uTPmca0h0CShUtWCO/LeCu+lUFSq+W2hGnt7c8UTJ+QmpIUXeivVnU2E1314=
+X-Gm-Gg: Acq92OFcSMIaXuAa3mtbv8f6tGafo6sMC4dVWS9HH5SmlFGxPNN/37TvRnkBpQOHmjr
+	EQ/A9e1Q46YTF81kc26QsHCMgIj3KcRxAP3kN3pubGslV5OHPZi1NHJOSfda8W3GzL1JUvRtf46
+	+QmHKEhq5wlF0rNv/474ztbDS0zjixSf2235gkn4+IHWgybnRZFdnEGGteAcbwxI03hREh7s5mc
+	DcCcYb7fHvBpMjMJU89ZWGKM0N7r5S5ssM3HZXO+YjNYw84QcEOZs92NYfd/+OLm8Lj8CTiAVel
+	QchSh0NNjY78UI4gZiHDclRdS3CIjBNwa4kijrJNNQSu+HUk2ieGOuj31On7Z/PNiSyE6wFbtqM
+	cakKUCDvndW7czhKIFnjc6XT1CFcY6uggZdhh3LVL+8xDdIylF9wUw4hkmXbhYbxJW6VqMI3JWP
+	7fRYwch1iGko6vfhrn0Xv5+5m+
+X-Received: by 2002:a05:7022:390:b0:137:6bdb:5842 with SMTP id a92af1059eb24-138065bad3dmr7705748c88.0.1780939449757;
+        Mon, 08 Jun 2026 10:24:09 -0700 (PDT)
+X-Received: by 2002:a05:7022:390:b0:137:6bdb:5842 with SMTP id a92af1059eb24-138065bad3dmr7705716c88.0.1780939448974;
+        Mon, 08 Jun 2026 10:24:08 -0700 (PDT)
+Received: from [192.168.1.59] (c-24-130-122-79.hsd1.ca.comcast.net. [24.130.122.79])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-137f53f06c4sm12449060c88.0.2026.06.08.10.24.07
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 08 Jun 2026 10:24:08 -0700 (PDT)
+Message-ID: <dffefec6-14e0-4a87-85dd-97d328fedb50@oss.qualcomm.com>
+Date: Mon, 8 Jun 2026 10:24:07 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-ORIG-GUID: Yjwj9d0ywR1IPjad2QdJBu9vfgUxeeC5
-X-Proofpoint-GUID: Yjwj9d0ywR1IPjad2QdJBu9vfgUxeeC5
-X-Authority-Analysis: v=2.4 cv=ZbEt8MVA c=1 sm=1 tr=0 ts=6a26f9cf cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
- a=FelO9ux0wxsA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=RzCfie-kr_QcCd8fBx8p:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
- a=5NbLduwtq9nBFWGw9KEA:9
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA4MDE2MiBTYWx0ZWRfX6/BSqNpemuvW
- ph+qiwRZy9ffCyCt37x9+UPXBcJLiOU5kvMDutqFNd89FWTzzA6C1HYkoH3zVwJ/K8Vh/7f1/J0
- Ac1bUakamuPYnla+uHBl8+l1YLeIjqWj69dQr/RHNgThWqD9hsWmIDqERJO4/jQG8HBRzN/SNFK
- wOwNhdIVNMW+MwtF4zsRJ5TOOCFSPXGZL7O1QGVPLPXUeET5joUR2/vOsrhBpsco1nzs7CJIHR3
- 7MfWQ9OuzZ9Q9vr/d0uCenmMzHkJA0CcrVd+yhpwISwzw5GC5BLa3pYvrslcCkeLz0s6saCbKdD
- rQDSRUVWHmJTzQuZRarb2absb1S7emzCEjsTRVJx3kRR0J1V6PC1UTkfnVUCxtvnwYCEqXvW9Ek
- CqHCE8mPxCbGYmDpdqOH9o6nK/UIvX6U7hnAZZbUMC5rF4oeofO2Tw/xVtw890lvou96EPiMzw+
- Lm2OIMPw+epjOeINQLA==
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net] wifi: mac80211: fix memory leak in
+ ieee80211_register_hw()
+To: Dawei Feng <dawei.feng@seu.edu.cn>, johannes@sipsolutions.net
+Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
+        jianhao.xu@seu.edu.cn, stable@vger.kernel.org,
+        Zilin Guan <zilin@seu.edu.cn>
+References: <20260608145543.3443390-1-dawei.feng@seu.edu.cn>
+From: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
+Content-Language: en-US
+In-Reply-To: <20260608145543.3443390-1-dawei.feng@seu.edu.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: VX0BHtAQNEtN4OU2P6tqbw7Np5NHGbEC
+X-Proofpoint-ORIG-GUID: VX0BHtAQNEtN4OU2P6tqbw7Np5NHGbEC
+X-Authority-Analysis: v=2.4 cv=dIaWXuZb c=1 sm=1 tr=0 ts=6a26faba cx=c_pps
+ a=kVLUcbK0zfr7ocalXnG1qA==:117 a=Tg7Z00WN3eLgNEO9NLUKUQ==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=VwQbUJbxAAAA:8 a=ceM9LITnlY0sHtZh5UYA:9 a=QEXdDO2ut3YA:10
+ a=vr4QvYf-bLy2KjpDp97w:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA4MDE2NCBTYWx0ZWRfXyCJTu+isGEX2
+ O56ckJWjr3guJJQmxPFS4oOvm+j6j3yqD1T/shzxoOhQ5EDbTVq/JNuifqZPe8O/U0H/2yY9fbR
+ DpjnQYtKgz27/gJzmE946SiZKyRVkxbLCEm96XBtYV4hbf68NhS0D71TJqhk2M1Lvool1GdYydW
+ XQEnxPFN9VYLrv3U4OIVe5W2ZidpEH913QSKIWSvVYqOLmIjXxostdQKFZm5xdly8er+CZZVFiy
+ x/Br6qz1UyPZzUgc6gXqKSpiFBL/ZoiLSZna1dt/vnM0Ln0WdZbiDJYWKvHtK8ESiEzMlogEJ00
+ R49KyqNKWTG9aiH8b47UhpSW7kwkB+saPbp4KljIBkwOlyzeQ7R2x9R98/xqtHwMBYBkP/T6Cdy
+ p7AwLoBmKzEA7jrkGneO4CQSlEz1zXB7QtD3eHbae/xYgw7uxtbaDZZqbe4wY8KLfSIEzdrthf5
+ M8PYOAxKhQtZy9WmGqA==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
  definitions=2026-06-08_04,2026-06-05_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 impostorscore=0 malwarescore=0 lowpriorityscore=0
- clxscore=1011 adultscore=0 spamscore=0 priorityscore=1501 bulkscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ suspectscore=0 lowpriorityscore=0 spamscore=0 malwarescore=0
+ priorityscore=1501 impostorscore=0 phishscore=0 adultscore=0 bulkscore=0
+ clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
  route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605210000
- definitions=main-2606080162
+ definitions=main-2606080164
 
-Ensure that fmb_lock is held by pcibios_enable_device() and
-pcibios_disable_device() when calling zpci_fmb_enable_device() or
-zpci_fmb_disable_device(), respectively. Additionally, assert that the
-fmb_lock is held within the latter two functions to prevent future race
-conditions regarding new callers.
+On 6/8/2026 7:55 AM, Dawei Feng wrote:
+> If kmemdup() fails while copying supported band structures, the error
+> path jumps to fail_rate. This skips rate_control_deinitialize() and
+> leaks the initialized local->rate_ctrl.
+> 
+> Fix this by redirecting the error path to fail_wiphy_register to
+> ensure proper cleanup.
+> 
+> The bug was first flagged by an experimental analysis tool we are
+> developing for kernel memory-management bugs while analyzing
+> v6.13-rc1. The tool is still under development and is not yet publicly
+> available. Manual inspection confirms that the bug is still present in
+> v7.1-rc7.
+> 
+> An x86_64 allyesconfig build showed no new warnings. As we do not have a
+> suitable mac80211 device/driver combination to test with, no runtime
+> testing was able to be performed.
+> 
+> Fixes: 09b4a4faf9d0 ("mac80211: introduce capability flags for VHT EXT NSS support")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Zilin Guan <zilin@seu.edu.cn>
 
-Fixes: af0a8a8453f7 ("s390/pci: implement pcibios_add_device")
-Fixes: 944239c59e93 ("s390/pci: implement pcibios_release_device")
-Cc: stable@vger.kernel.org
-Signed-off-by: Omar Elghoul <oelghoul@linux.ibm.com>
----
- arch/s390/pci/pci.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+why is this SOB here?
 
-diff --git a/arch/s390/pci/pci.c b/arch/s390/pci/pci.c
-index 39bd2adfc240..2910d4038d39 100644
---- a/arch/s390/pci/pci.c
-+++ b/arch/s390/pci/pci.c
-@@ -173,6 +173,8 @@ int zpci_fmb_enable_device(struct zpci_dev *zdev)
- 	unsigned long flags;
- 	u8 cc, status;
- 
-+	lockdep_assert_held(&zdev->fmb_lock);
-+
- 	if (zdev->fmb || sizeof(*zdev->fmb) < zdev->fmb_length)
- 		return -EINVAL;
- 
-@@ -211,6 +213,8 @@ int zpci_fmb_disable_device(struct zpci_dev *zdev)
- 	struct zpci_fib fib = {0};
- 	u8 cc, status;
- 
-+	lockdep_assert_held(&zdev->fmb_lock);
-+
- 	if (!zdev->fmb)
- 		return -EINVAL;
- 
-@@ -639,7 +643,9 @@ int pcibios_enable_device(struct pci_dev *pdev, int mask)
- 	struct zpci_dev *zdev = to_zpci(pdev);
- 
- 	zpci_debug_init_device(zdev, dev_name(&pdev->dev));
-+	mutex_lock(&zdev->fmb_lock);
- 	zpci_fmb_enable_device(zdev);
-+	mutex_unlock(&zdev->fmb_lock);
- 
- 	return pci_enable_resources(pdev, mask);
- }
-@@ -648,7 +654,9 @@ void pcibios_disable_device(struct pci_dev *pdev)
- {
- 	struct zpci_dev *zdev = to_zpci(pdev);
- 
-+	mutex_lock(&zdev->fmb_lock);
- 	zpci_fmb_disable_device(zdev);
-+	mutex_unlock(&zdev->fmb_lock);
- 	zpci_debug_exit_device(zdev);
- }
- 
--- 
-2.54.0
+> Signed-off-by: Dawei Feng <dawei.feng@seu.edu.cn>
+
+this is the posted author of the patch, and this patch hasn't been posted
+previously, so it is unclear why there is an additional S-o-b
+
+> ---
+>  net/mac80211/main.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/net/mac80211/main.c b/net/mac80211/main.c
+> index f47dd58770ad..9306e0af3b5f 100644
+> --- a/net/mac80211/main.c
+> +++ b/net/mac80211/main.c
+> @@ -1599,7 +1599,7 @@ int ieee80211_register_hw(struct ieee80211_hw *hw)
+>  		sband = kmemdup(sband, sizeof(*sband), GFP_KERNEL);
+>  		if (!sband) {
+>  			result = -ENOMEM;
+> -			goto fail_rate;
+> +			goto fail_wiphy_register;
+
+I'm wondering if it would be more logical to have another label at the same
+place, i.e. fail_band, since it is illogical to goto fail_wiphy_register when
+you aren't performing the wiphy_register function
+
+>  		}
+>  
+>  		wiphy_dbg(hw->wiphy, "copying sband (band %d) due to VHT EXT NSS BW flag\n",
+
+
 
