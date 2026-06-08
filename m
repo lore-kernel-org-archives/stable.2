@@ -1,185 +1,170 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F5C43101D8
-	for <stable@vger.kernel.org>; Mon,  8 Jun 2026 09:47:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780912071; cv=none; b=PqLC/l5XVX2s/3ibd4FypZZ7SoWEP7bt/tPccqAKCwlDmJvFQ6KA1FQM+1i7chyAF4vJI1JSljahEfiaG1UERSS4WXaOshjqrI0VgUafKeeObJeLemrxDsjZHEx3s5J1neRzuSJueIHRU3CSd4e7jFX/BfQYx4XZXRQ7X6LR3i4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780912071; c=relaxed/simple;
-	bh=OqFQNVq3mGgw9H6HLnSpey7gP/UjiiTXB8dvfyiyheE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KwtWXPevxXOSPnkSaFI9SVy5sRz2mpolV+ajjwdpOFLui2S4jB+fpU7/K7TWJoXW4jIX15JsLSZBD91vGB7ITZ/CuyTpfJWrqiVnNstsz8nyY1aIDGwpOTwsEYQ3obD6t5dWqOt99rF6XefwQNdqWP4VsDZ+GsSIeF1A2WEhW54=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b=vEe6Gobk; dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b=vEe6Gobk; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87C153B7763
+	for <stable@vger.kernel.org>; Mon,  8 Jun 2026 09:55:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.169
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780912535; cv=pass; b=XbnFxN3UcvjpjVyr+e3GBc91faSfydoy0v9gTeGH374THgx8SjcpI4OUT5r2K/RMUbqOiz+l/i2Qz0eGPDmZHzuxElUKt3uWvLNNUuIjfyGurrg/I42rcelJll1ks7VTjWa/Llz0qXNSfItu3uSCrLb27+gEnI7poI3PFQxAlKY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780912535; c=relaxed/simple;
+	bh=nEe6Hp2P+fr54/g8RIpCfyjhQRc1tqxdIbRPosUg3Nc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=BjV/v8X3Xl8lKMP0xK7IAb5qmUhDmrihCd9YfUrCySzJGbju3mZ+sxh8azPe8dlfzauX5bBlB/GqEOXuBkHhSl0Cn9O8BIIFznVJfb213KeoTRKQIJK0smXxGrn4/tGKQkfgDRGcl9p/km0kjS8SYNTo9UlQlrY8k+MzLmLwkbs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com; spf=none smtp.mailfrom=mojatatu.com; dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b=i4CYwU/n; arc=pass smtp.client-ip=209.85.210.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b="vEe6Gobk";
-	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b="vEe6Gobk"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 9D91C75B97;
-	Mon,  8 Jun 2026 09:47:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1780912068; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=618cYawuFXVDbk3rEh3uFMPq+ZlK7cJ5wS5VV9i6mTY=;
-	b=vEe6GobkYZm9xd65HtEd3ihea8A1Dankt9XtwucCSS2cCpcVN57ia0rPdoLh0Oodzn1sZQ
-	S1sFUTwDuOMm0J5Lu1ca5RMAn4olfLQ1rTH2Pn4ng0ljLYZvlceLDl/Po/LFHxdb0eibtE
-	OZn+B5PCNh9rrfA2R8ODH2+iP3T4ZIw=
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1780912068; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=618cYawuFXVDbk3rEh3uFMPq+ZlK7cJ5wS5VV9i6mTY=;
-	b=vEe6GobkYZm9xd65HtEd3ihea8A1Dankt9XtwucCSS2cCpcVN57ia0rPdoLh0Oodzn1sZQ
-	S1sFUTwDuOMm0J5Lu1ca5RMAn4olfLQ1rTH2Pn4ng0ljLYZvlceLDl/Po/LFHxdb0eibtE
-	OZn+B5PCNh9rrfA2R8ODH2+iP3T4ZIw=
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5A269779A9;
-	Mon,  8 Jun 2026 09:47:47 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id pegvA8OPJmrHGQAAD6G6ig
-	(envelope-from <wqu@suse.com>); Mon, 08 Jun 2026 09:47:47 +0000
-From: Qu Wenruo <wqu@suse.com>
-To: linux-btrfs@vger.kernel.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH] btrfs: do not overwrite NODATASUM flag when removing NODATACOW flag
-Date: Mon,  8 Jun 2026 19:17:24 +0930
-Message-ID: <e0be9c192cf8896a7f02ae23880f8e4921102129.1780912039.git.wqu@suse.com>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b="i4CYwU/n"
+Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-8419ab3a297so1679388b3a.2
+        for <stable@vger.kernel.org>; Mon, 08 Jun 2026 02:55:34 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1780912534; cv=none;
+        d=google.com; s=arc-20240605;
+        b=CaFhfHNwYsLAc6ukcpgo9NxFyet5qWbISav5vJdrDjcssZxOenn/U9y5MUJjeMlQu6
+         vFSoFg0rk0q22wGp0u8SVoir6ODTyrr5ygknjcpyqUTJF+5Wf76mIFz5qLYMAofu90Vc
+         g7wUF3wjZO6eZtH+ehU3yug51v8hR76vLjVFwD+rYTLmAVFHSkAyUk82BGjRBt2ExSY5
+         UTkokMv3CabTpHoAK3l6mJ65g2F0DUV0k1dgwKgLVOtDrRmJ3lH/hl4qRUgUK07f0Ocp
+         J11R/WiKsjv33c4F3C8uxAFCYP7Xdzbsbeb/omFweW6NPk7CQaXxCm6egkjHdSA4OV/z
+         95NQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=YhR32XRkG8GtOPOWI9COuVD7tE9ztEbEqFhQoZ5bTrU=;
+        fh=ljrwdog4K7gaj8ZlbEcb7Pj+vdmwls/qQqF1sQ0eWQU=;
+        b=N+dYTMPCiVPVvUZTTRSjPwkKhQPEviM/C2G1Hx/LxMFv/wuWYq0JIuLYx0sTZa4cbC
+         n4c0NHs/1FZOaFFdHfxk9bX36bwWMYtUNlhdEXuT3YhYTq6jC0eMR/qqxuXh6/lcjoA/
+         lvfbqdKohWZMxp4TAvhlfkpwkfkbmp9cLpous9ihn/zoSLLPQVIhFVZkoZ6shnR+J68C
+         MAGnfaLpBdaZtdYHK1o9Ri6DMCPzete4vRjXICSsNea7nWbi+4tbQn+mMfBw/bKRVc3t
+         AQRyIl+qE2vnsW28iynJyE7TwIfG9YnkuLoZZhuH1RxG2kaG4l+kALd4KQlVFHE50akJ
+         POsA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=mojatatu.com; s=google; t=1780912534; x=1781517334; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=YhR32XRkG8GtOPOWI9COuVD7tE9ztEbEqFhQoZ5bTrU=;
+        b=i4CYwU/nzgEz2DJ9RMUlC/aTqIq3h769lyqC2PXduc3Cf/mrHk1dF8SVEKi27tzraO
+         WQeGWeCP2mtuQpohwOE0QevDyJzDwyh917iNpTWt7FrdMKkVhAdqF43tkNdYIYCPfAjL
+         e+z6nda8VPORPYu6KTs5nQa18dbaM5YXXsaus=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780912534; x=1781517334;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=YhR32XRkG8GtOPOWI9COuVD7tE9ztEbEqFhQoZ5bTrU=;
+        b=V7OIrC2Cr8c1Qi2p2H5mh3VvrXglX+PdEMGGqEcd86YpPn5xeBkB/vpFkh/3YSBdKX
+         ZGiG/Dd8tp/tPbHCI0t2gnMZ8NuDZPeSFuWRRGcSGpz7wmHWpKRZw7vDYHB38sgjNGu5
+         Rdr5LD4Rmbnh9g1ZX7BXkpOVReGngBq6W+Ls/oJu63DbhQy+2LTW+sjn9vKdgENeEH5d
+         cZ9nSE8jNa6Azw42MeMlwWqZ+zGHYDUnzNLV4FRFF5bay8phyvjqNsdvpi7KSFOGH9V5
+         E40JtMirZ0U/0R2LQlmxHFYIrZCzHOdaOBii7c+1YJYXEax4dEL1T7KIJ7hon+/SK43h
+         h2Iw==
+X-Forwarded-Encrypted: i=1; AFNElJ/p3quz6aE3v4fhLTxcqarcqtDB96/D37jJXreKWgc+G51mQSJEvMellFK2eA+/tOz3LcxRnx4=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyb0VR6xcG2Up27ZJ9guRH0OkFQ+8tVHltibnUd+GVdPujy3Bto
+	2b8WauUpusmIjGs0qbYr8Y1Xp/qhrFd7u8JMGzhygYiY8B72xDtGVJ3Sja2ayMRhDuphOiXlNWn
+	uJkQj2fOgBliwbfins5uL5D2Qc+uhGWwtu3ZZuCZG
+X-Gm-Gg: Acq92OEUxB5H7t+cm4V5ZpqZijQ/m9Dx4ev0+UwZqpH/mQRKw93yvnZ392eFlQeW+bo
+	l8l345j77QT9FRcXy1Cu8PHhSwtZp07mGtTaDCYnQqQ1/o64ty8rsszmCwsWDFzmJtBzahftW3m
+	72uE6tFRDHqp9SS3OIHdCk8JX/ddGHnx51RbcBzm1aleT2W7XAZOeT031VBDZeHSQGB1SM9FMKP
+	TLAlYVXKR7rXHnjAaw46EV6QegtARxg7wFyLcivcAwWghpEbAGL//0myovnbkl9vh7dJzNkpl6N
+	StNqcuAi/Ynjx7RYVeT3Nqsh0hwa2Q==
+X-Received: by 2002:a05:6a00:2d0d:b0:842:5711:9a2f with SMTP id
+ d2e1a72fcca58-842b0fb2273mr14704387b3a.36.1780912533858; Mon, 08 Jun 2026
+ 02:55:33 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-2.80 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_MISSING_CHARSET(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-0.999];
-	MIME_GOOD(-0.10)[text/plain];
-	RCPT_COUNT_TWO(0.00)[2];
-	FUZZY_RATELIMITED(0.00)[rspamd.com];
-	ARC_NA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:email,suse.com:mid];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	TO_DN_NONE(0.00)[];
-	RCVD_TLS_ALL(0.00)[]
-X-Spam-Level: 
-X-Spam-Score: -2.80
+References: <20260607095727.647295505@linuxfoundation.org> <20260607173214.92693-1-ojeda@kernel.org>
+In-Reply-To: <20260607173214.92693-1-ojeda@kernel.org>
+From: Jamal Hadi Salim <jhs@mojatatu.com>
+Date: Mon, 8 Jun 2026 05:55:22 -0400
+X-Gm-Features: AVVi8Ce0VqPP4wrmrfgQDErKpRLi3Z7rbl8b4dCcmWnRvhi1OSTpE0ZX-2GG1EY
+Message-ID: <CAM0EoMkszTXv82To=KnEYTgzQSmEdRW9XrAMVtJsUaDn=Akf6A@mail.gmail.com>
+Subject: Re: [PATCH 6.12 000/307] 6.12.93-rc1 review
+To: Miguel Ojeda <ojeda@kernel.org>
+Cc: gregkh@linuxfoundation.org, achill@achill.org, akpm@linux-foundation.org, 
+	broonie@kernel.org, conor@kernel.org, f.fainelli@gmail.com, 
+	hargar@microsoft.com, jonathanh@nvidia.com, linux-kernel@vger.kernel.org, 
+	linux@roeck-us.net, lkft-triage@lists.linaro.org, patches@kernelci.org, 
+	patches@lists.linux.dev, pavel@nabladev.com, rwarsow@gmx.de, shuah@kernel.org, 
+	sr@sladewatkins.com, stable@vger.kernel.org, sudipm.mukherjee@gmail.com, 
+	torvalds@linux-foundation.org, "Kito Xu (veritas501)" <hxzene@gmail.com>, 
+	Victor Nogueira <victor@mojatatu.com>, Paolo Abeni <pabeni@redhat.com>, Jiri Pirko <jiri@resnulli.us>, 
+	netdev@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-[TEST FAILURE]
-The test case generic/628 will fail if MOUNT_OPTIONS is set to "-o
-nodatasum":
+Hi Miguel,
 
- FSTYP         -- btrfs
- PLATFORM      -- Linux/x86_64 btrfs-vm 7.1.0-rc4-custom+ #383 SMP PREEMPT_DYNAMIC Sat May 30 07:35:42 ACST 2026
- MKFS_OPTIONS  -- -O bgt -K /dev/mapper/test-scratch1
- MOUNT_OPTIONS -- -o nodatasum /dev/mapper/test-scratch1 /mnt/scratch
+Thanks for reporting this.
 
- generic/628  1s ... - output mismatch (see /home/adam/xfstests/results//generic/628.out.bad)
-    --- tests/generic/628.out	2022-05-11 11:25:30.816666664 +0930
-    +++ /home/adam/xfstests/results//generic/628.out.bad	2026-06-08 18:56:49.878542927 +0930
-    @@ -8,8 +8,9 @@
-     310f146ce52077fcd3308dcbe7632bb2  SCRATCH_MNT/a
-     310f146ce52077fcd3308dcbe7632bb2  SCRATCH_MNT/d
-     test reflink flag not set iflag
-    +XFS_IOC_CLONE: Invalid argument
-     310f146ce52077fcd3308dcbe7632bb2  SCRATCH_MNT/a
-    -310f146ce52077fcd3308dcbe7632bb2  SCRATCH_MNT/b
-    +d41d8cd98f00b204e9800998ecf8427e  SCRATCH_MNT/b
-    ...
+On Sun, Jun 7, 2026 at 1:32=E2=80=AFPM Miguel Ojeda <ojeda@kernel.org> wrot=
+e:
+>
+> On Sun, 07 Jun 2026 11:56:37 +0200 Greg Kroah-Hartman <gregkh@linuxfounda=
+tion.org> wrote:
+> >
+> > This is the start of the stable review cycle for the 6.12.93 release.
+> > There are 307 patches in this series, all will be posted as a response
+> > to this one.  If anyone has any issues with these being applied, please
+> > let me know.
+> >
+> > Responses should be made by Tue, 09 Jun 2026 09:56:47 +0000.
+> > Anything received after that time might be too late.
+>
+> Boot-tested under QEMU for Rust x86_64, arm64 and riscv64; built-tested
+> for loongarch64:
+>
+> Tested-by: Miguel Ojeda <ojeda@kernel.org>
+>
+> arm32 also builds fine.
+>
+> On arm64, I am seeing:
+>
+>     net/sched/act_mirred.c:451:43: warning: variable 'm_eaction' is unini=
+tialized when used here [-Wuninitialized]
+>       451 |         is_redirect =3D tcf_mirred_is_act_redirect(m_eaction)=
+;
+>           |                                                  ^~~~~~~~~
+>     net/sched/act_mirred.c:429:18: note: initialize the variable 'm_eacti=
+on' to silence this warning
+>       429 |         int i, m_eaction;
+>           |                         ^
+>           |                          =3D 0
+>
+> due to commit a01fbdecc3a2 ("net/sched: act_mirred: Fix return code in
+> early mirred redirect error paths") here.
+>
+> And that one seems to be missing at least the assignment to the variable
+> that happened in commit a005fa5d7502 ("net/sched: act_mirred: Fix
+> blockcast recursion bypass leading to stack overflow").
+>
 
-[CAUSE]
-The direct cause is that after "chattr +S", the btrfs inode will lost its
-NODATASUM flag inherited from the mount option. E.g:
+Unless i am looking at the wrong code version, in the current code i
+see m_eaction is always initialized before being used.
+m_eaction =3D READ_ONCE(m->tcfm_eaction);
+Probably a compiler false positive?
+As per suggestion emmited, initializing m_eaction to 0 should help.
+Not sure what the process is.
+Perhaps, Miguel you want to send the fix? commit should say "appease
+compiler ..."
 
- # mkfs.btrfs -f $dev
- # mount $dev $mnt -o nodatasum
- # touch $mnt/foobar
- # sync
- # btrfs ins dump-tree -t 5 $dev | grep "(257 INODE_ITEM 0) itemoff" -A 3
-	item 4 key (257 INODE_ITEM 0) itemoff 15879 itemsize 160
-		generation 9 transid 9 size 0 nbytes 0
-		block group 0 mode 100644 links 1 uid 0 gid 0 rdev 0
-		sequence 1 flags 0x1(NODATASUM)
-		                     ^^^^^^^^^ Proper NODATASUM flag
+cheers,
+jamal
 
- # chattr +S $mnt/foobar
- # sync
- # btrfs ins dump-tree -t 5 $dev | grep "(257 INODE_ITEM 0) itemoff" -A 3
- 	item 4 key (257 INODE_ITEM 0) itemoff 15879 itemsize 160
-		generation 9 transid 10 size 0 nbytes 0
-		block group 0 mode 100644 links 1 uid 0 gid 0 rdev 0
-		sequence 2 flags 0x20(SYNC)
-		                      ^^^^ Only the new SYNC flag
 
-This makes the inode to drop the old NODATASUM flag, meanwhile the new
-reflink destination will still inherit the NODATASUM flag.
-The mismatching NODATASUM flags will cause the reflink to fail.
-
-The root cause is that, inside btrfs_fileattr_set() if no FS_NOCOW_FL is
-set, we remove both NODATASUM and NODATACOW flag.
-
-However we should not touch NODATASUM flag, as data COW doesn't require
-checksum.
-Only NODATACOW implies NODATASUM, but DATACOW doesn't imply DATASUM.
-
-[FIX]
-Do not remove NODATASUM flag when FS_NOCOW_FL is not set.
-
-However this will introduce a problem related to "chattr +C" then
-"chattr -C" on zero sized files.
-
-Previously such operations will revert to inode flags 0, but now it will
-revert to inode flags NODATASUM.
-This is due to the fact that we have no way to change NODATASUM flag but
-only through mount options.
-
-I know this is not ideal, but at least "chattr +S" removing unrelated
-flags looks more serious and more like a bug.
-
-So here I'm fine to slightly change the behavior of "chattr -C".
-
-Fixes: 7e97b8daf634 ("btrfs: allow setting NOCOW for a zero sized file via ioctl")
-Cc: stable@vger.kernel.org
-Signed-off-by: Qu Wenruo <wqu@suse.com>
----
- fs/btrfs/ioctl.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
-
-diff --git a/fs/btrfs/ioctl.c b/fs/btrfs/ioctl.c
-index d4981d2a42d7..74849a4208b5 100644
---- a/fs/btrfs/ioctl.c
-+++ b/fs/btrfs/ioctl.c
-@@ -336,8 +336,7 @@ int btrfs_fileattr_set(struct mnt_idmap *idmap,
- 		 */
- 		if (S_ISREG(inode->vfs_inode.i_mode)) {
- 			if (inode->vfs_inode.i_size == 0)
--				inode_flags &= ~(BTRFS_INODE_NODATACOW |
--						 BTRFS_INODE_NODATASUM);
-+				inode_flags &= ~BTRFS_INODE_NODATACOW;
- 		} else {
- 			inode_flags &= ~BTRFS_INODE_NODATACOW;
- 		}
--- 
-2.54.0
-
+> I hope this helps!
+>
+> Cc: Kito Xu (veritas501) <hxzene@gmail.com>
+> Cc: Victor Nogueira <victor@mojatatu.com>
+> Cc: Paolo Abeni <pabeni@redhat.com>
+> Cc: Jamal Hadi Salim <jhs@mojatatu.com>
+> Cc: Jiri Pirko <jiri@resnulli.us>
+> Cc: netdev@vger.kernel.org
+>
+> Cheers,
+> Miguel
