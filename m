@@ -1,173 +1,150 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1170D3659F9;
-	Mon,  8 Jun 2026 11:24:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04446357D10
+	for <stable@vger.kernel.org>; Mon,  8 Jun 2026 11:28:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780917877; cv=none; b=dI7PaADvd2BE5hhoQkam/TTYYXzlcxBjYWawc/uPzl44LN5cpo1GpehtYEMnSkpvmoZO64RI6PHpg5w7ORfiTU1zh7YER+pcpL4Iq+eqEaxF9e98AU6mbVMXxj5pPh9Txf7ZFPCZfKcRBdDaDKtOvvIIaNMCad9Y0rW4bpqiPq4=
+	t=1780918104; cv=none; b=gbnjv3dP99KfIrky5lS7qLS7phCJMAaNLIqQo/FOibIZdKfQcPvmzSOegR1YTd5PQYFlSbaxXR9/pUTVC3fVfZkOdouzRPKQRCTc1diU2XYBTI8sKNoKpHQH9vz6BP4oXdPuJewZoBb4E+HDWaPJsyav8Q6AY3Vgnni5kRc0haM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780917877; c=relaxed/simple;
-	bh=SB7hW2T6cfe7mQUO4yQhlSCQ1xZECH6y0kqEwyRIOd8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=O0rbt6ttI2GfzIMZYDG+k/Vy0FYXGu1IiO4OUGFZJxVOJGqi6tl2pSrVdhnPqi3FoUDeONxJyVPB4J5XG+GBO+y0J0Jv66+UQIfb/zZ5fNyA8R6U7I9Rs4y3cUSAMR0mabqRfpe4Kp6UlCFsmI8Ns3DWJpgdqNr2+lk3Ij7JysA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X9/ayf7b; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780918104; c=relaxed/simple;
+	bh=07CSvOfsMYb3ovv7HYqEN4Di2ZjJu+tnq+ZAtUpg44w=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=gikG2HX2Gvih/ng5n8sASq7kHMaeIn+CV9Ak/1Hm1oLb+AmSwTI91Ev3Cefr8egSpRdMSVjDAIe9n4aioFmtbi9k8pHe1/arwe8+8Pt6vxQSwb7JYgom1sWzvubk/MSIE1oeqBY9xIA7kS/58EA9XjGiDYfC/mvTeju/FSC9FfM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fHjUrUdx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X9/ayf7b"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A98E91F00893;
-	Mon,  8 Jun 2026 11:24:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fHjUrUdx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8C3A1F00893
+	for <stable@vger.kernel.org>; Mon,  8 Jun 2026 11:28:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780917876;
-	bh=fACkc0stbZIYQa+n/02cI3beAahD8rc2wpwfQM32TYU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=X9/ayf7bJXAvmMYHuTZH3y9EW3Cc/gJtnhhlLx7eiT3Th0BtB8vHkHfsaGY7b6en7
-	 J9fYURx9OyPyq4ykhw9PLwynr2K3oWeIOUIS5uEt9akljy8amML7OoZ4KI/yfbe34o
-	 DF2a+gzxLS323+k5qoGeZMQ1iLgjehSqidtlyUlSuycvHQx/OfXk1hSvwtiH4BuNT4
-	 OwvGHUlLCsC1aV//rPD+6Nd/wW1H8zO22p8rkZZLpJhWKc4MQJhX8LChfAnRPJuS1J
-	 KrJ96oh/bU+G7RMdS/J3s4ffGkmcgGc/dc93L68Wi075D7NoQmwrKVQmeT/uVb4wxn
-	 61qZEmnoQubDQ==
-Message-ID: <d79bc39e-28fb-4775-ad3e-01ba0643b712@kernel.org>
-Date: Mon, 8 Jun 2026 13:24:33 +0200
+	s=k20260515; t=1780918102;
+	bh=4eFAXYAlisMyZROgtZjN8snyvOoXYIYrf26FTR3yVQU=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=fHjUrUdx0hoKW/FOqYFDOJaO7gJHJgVLzsv7gqG9H0LZRpU3SdshU5JDOaIH1PpWv
+	 cpZnvusVGqHAIitduytREP91IKoj09mVqZ9K6YO1ELZAwr3fHiVQNP3MxuU5HFfUS5
+	 u+jcK5uo6A8OKY9aEULcG+ze8RrFbZZ23pvtLFp5SnJjswD0UwcujlHa6CaPV9RE/U
+	 PwC4hKS0CAYp1HUi/8/tc4ClRx7RpUX1S2HP95SjHZqMTe+p8CqC0tyZjsvy/P9Upr
+	 SrssscSaTYq2fF0/ZNqZQ0/BxdsyHZj/EFGBoeQgJH28PNX54mVkcSJPbpOmPpV/df
+	 SBSBeylPAB7jw==
+Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-68b482888c3so7027711a12.0
+        for <stable@vger.kernel.org>; Mon, 08 Jun 2026 04:28:22 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ+PLpibFBdu1yS5uOoKFcjJVbXbF3CnJOYOi6+iKSEEHnyHYYwwu5HfvSIW+1E8G0nf6IglcWI=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxJSlDdmB+/tf8YHitpBdvP2VciQ9MPENmz0JcnVpCpwmUFVLxc
+	bp0HQuwP6QvvRu8Gl0FrsbtvAOzdzquO+1SGumJzwzrbx32ykxxjLXboMSEGx+er9XPtkbmNi+Q
+	M76T9H4gtI0jPTZSvMhDyLvCNsDXx0M4=
+X-Received: by 2002:a17:907:6e8c:b0:bda:3469:6ed with SMTP id
+ a640c23a62f3a-bf3a93177efmr619421966b.32.1780918101331; Mon, 08 Jun 2026
+ 04:28:21 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 3/3] platform/x86/amd/pmc: Don't log during
- intermediate wakeups
-To: Daniel Gibson <daniel@gibson.sh>,
- Shyam Sundar S K <Shyam-sundar.S-k@amd.com>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org,
- Mario Limonciello <superm1@kernel.org>
-Cc: stable@vger.kernel.org
-References: <20260606044758.2213401-1-daniel@gibson.sh>
- <20260606044758.2213401-4-daniel@gibson.sh>
-From: Hans de Goede <hansg@kernel.org>
-Content-Language: en-US, nl
-In-Reply-To: <20260606044758.2213401-4-daniel@gibson.sh>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <e0be9c192cf8896a7f02ae23880f8e4921102129.1780912039.git.wqu@suse.com>
+ <CAL3q7H4SXDUCsKrLK27GwT0itbSd_aozt5A2TvVR5e34gZD51w@mail.gmail.com> <2408e64c-ffac-4276-8631-a9f073fb5892@gmx.com>
+In-Reply-To: <2408e64c-ffac-4276-8631-a9f073fb5892@gmx.com>
+From: Filipe Manana <fdmanana@kernel.org>
+Date: Mon, 8 Jun 2026 12:27:43 +0100
+X-Gmail-Original-Message-ID: <CAL3q7H4rQzMkjLsMOT4a_hbQ7q8SV-1_TG1M4nP2XsSQHB+ngw@mail.gmail.com>
+X-Gm-Features: AVVi8Cd1JMqYFuiORN521m4K2GSBIIFUm5NtF4jZwqVnLguaJuJIT8FlmWLANdk
+Message-ID: <CAL3q7H4rQzMkjLsMOT4a_hbQ7q8SV-1_TG1M4nP2XsSQHB+ngw@mail.gmail.com>
+Subject: Re: [PATCH] btrfs: do not overwrite NODATASUM flag when removing
+ NODATACOW flag
+To: Qu Wenruo <quwenruo.btrfs@gmx.com>
+Cc: Qu Wenruo <wqu@suse.com>, linux-btrfs@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi,
+On Mon, Jun 8, 2026 at 12:23=E2=80=AFPM Qu Wenruo <quwenruo.btrfs@gmx.com> =
+wrote:
+>
+>
+>
+> =E5=9C=A8 2026/6/8 20:44, Filipe Manana =E5=86=99=E9=81=93:
+> > On Mon, Jun 8, 2026 at 10:49=E2=80=AFAM Qu Wenruo <wqu@suse.com> wrote:
+> [...]
+> >> Previously such operations will revert to inode flags 0, but now it wi=
+ll
+> >> revert to inode flags NODATASUM.
+> >> This is due to the fact that we have no way to change NODATASUM flag b=
+ut
+> >> only through mount options.
+> >>
+> >> I know this is not ideal, but at least "chattr +S" removing unrelated
+> >> flags looks more serious and more like a bug.
+> >>
+> >> So here I'm fine to slightly change the behavior of "chattr -C".
+> >
+> > I'm not sure what's best here or how common this use case is and I
+> > wonder how it might affect users.
+> > I agree it's better to not remove the nodatasum flag, the only concern
+> > is if it affects existing user workflows.
+>
+> I doubt if it will affect any existing user workflows, at least not
+> directly.
+>
+> But the biggest one is no way to remove NODATASUM flags.
+>
+> This means those files will never be verified by scrub, which will
+> eventually affect existing btrfs maintenance.
+>
+>
+> I'm wondering if it makes more sense, to only set NODATASUM if the
+> current mount option has nodatasum.
+>
+> This will fix the test case but also provide a way to keep the existing
+> full revert behavior.
 
-On 6-Jun-26 6:47 AM, Daniel Gibson wrote:
-> The ECs in the IdeaPads that need the delay_suspend quirk send lots
-> of messages when charging, which not only causes intermediate wakeups
-> when suspended, but also prevents the device from reaching the deepest
-> suspend state.
-> 
-> Because of this amd_pmc_intermediate_wakeup_need_delay() returns false
-> during intermediate wakeups and amd_pmc_want_suspend_delay() is called.
-> So far it always logged its "Delaying suspend by 2.5s ..." messages
-> then, which spams dmesg. This commit makes sure that those messages are
-> only logged once per suspend.
-> 
-> Link: https://bugzilla.kernel.org/show_bug.cgi?id=221383
-> Signed-off-by: Daniel Gibson <daniel@gibson.sh>
-> Cc: stable@vger.kernel.org
+We can always prevent the test case from running if nodatasum is in
+the mount options, we have the helper _require_btrfs_no_nodatasum().
 
-Thanks, patch looks good to me:
-
-Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
-
-Regards,
-
-Hans
-
-
-
-> ---
->  drivers/platform/x86/amd/pmc/pmc.c | 39 ++++++++++++++++++++++++------
->  drivers/platform/x86/amd/pmc/pmc.h |  1 +
->  2 files changed, 32 insertions(+), 8 deletions(-)
-> 
-> diff --git a/drivers/platform/x86/amd/pmc/pmc.c b/drivers/platform/x86/amd/pmc/pmc.c
-> index 2d3d180c15d2..7d772ccd17a6 100644
-> --- a/drivers/platform/x86/amd/pmc/pmc.c
-> +++ b/drivers/platform/x86/amd/pmc/pmc.c
-> @@ -619,6 +619,20 @@ static bool amd_pmc_intermediate_wakeup_need_delay(struct amd_pmc_dev *pdev)
->  
->  static bool amd_pmc_want_suspend_delay(struct amd_pmc_dev *pdev)
->  {
-> +	/*
-> +	 * intermediate_wakeup implies that the machine didn't get to deepest sleep
-> +	 * state before - otherwise this function isn't called in amd_pmc_s2idle_check()
-> +	 * because amd_pmc_intermediate_wakeup_need_delay() returns true first.
-> +	 * On some IdeaPads that happens when charging, because the EC seems
-> +	 * to send lots of messages then that wake the machine.
-> +	 *
-> +	 * But even in that case, the sleep here is necessary (on those IdeaPads),
-> +	 * otherwise they wake up completely (resume) after a few seconds.
-> +	 * So this variable is only used to avoid spamming dmesg on each
-> +	 * intermediate wakeup.
-> +	 */
-> +	bool intermediate_wakeup = !pdev->is_first_check_after_suspend;
-> +
->  	/*
->  	 * Some Lenovo Laptops (like different IdeaPad 3 Slims) need some
->  	 * me-time before sleeping or they get uncooperative after waking
-> @@ -637,17 +651,20 @@ static bool amd_pmc_want_suspend_delay(struct amd_pmc_dev *pdev)
->  		 * disabled with disable_workarounds or delay_suspend=0
->  		 */
->  		if (delay_suspend == 1 || (delay_suspend == -1 && !disable_workarounds)) {
-> -			dev_info(pdev->dev, "Delaying suspend by 2.5s to avoid platform bug\n");
-> +			if (!intermediate_wakeup)
-> +				dev_info(pdev->dev, "Delaying suspend by 2.5s to avoid platform bug\n");
->  			return true;
->  		}
-> -		dev_info(pdev->dev, "Not delaying suspend because of module parameter, even though your device is assumed to need it!\n");
-> +		if (!intermediate_wakeup)
-> +			dev_info(pdev->dev, "Not delaying suspend because of module parameter, even though your device is assumed to need it!\n");
->  	} else if (delay_suspend == 1) {
-> -		dev_info(pdev->dev, "Delaying suspend by 2.5s because delay_suspend=1. If this solves problems on your machine, please report this whole line to: platform-driver-x86@vger.kernel.org so it can be automatically detected as affected in the future. System Vendor: \"%s\" Product Name: \"%s\" Product Family: \"%s\" Board Vendor: \"%s\" Board Name: \"%s\"\n",
-> -			 dmi_get_system_info(DMI_SYS_VENDOR),
-> -			 dmi_get_system_info(DMI_PRODUCT_NAME),
-> -			 dmi_get_system_info(DMI_PRODUCT_FAMILY),
-> -			 dmi_get_system_info(DMI_BOARD_VENDOR),
-> -			 dmi_get_system_info(DMI_BOARD_NAME));
-> +		if (!intermediate_wakeup)
-> +			dev_info(pdev->dev, "Delaying suspend by 2.5s because delay_suspend=1. If this solves problems on your machine, please report this whole line to: platform-driver-x86@vger.kernel.org so it can be automatically detected as affected in the future. System Vendor: \"%s\" Product Name: \"%s\" Product Family: \"%s\" Board Vendor: \"%s\" Board Name: \"%s\"\n",
-> +				 dmi_get_system_info(DMI_SYS_VENDOR),
-> +				 dmi_get_system_info(DMI_PRODUCT_NAME),
-> +				 dmi_get_system_info(DMI_PRODUCT_FAMILY),
-> +				 dmi_get_system_info(DMI_BOARD_VENDOR),
-> +				 dmi_get_system_info(DMI_BOARD_NAME));
->  		return true;
->  	}
->  	return false;
-> @@ -660,6 +677,9 @@ static void amd_pmc_s2idle_prepare(void)
->  	u8 msg;
->  	u32 arg = 1;
->  
-> +	/* Reset this variable because this is a fresh suspend */
-> +	pdev->is_first_check_after_suspend = true;
-> +
->  	/* Reset and Start SMU logging - to monitor the s0i3 stats */
->  	amd_pmc_setup_smu_logging(pdev);
->  
-> @@ -699,6 +719,9 @@ static void amd_pmc_s2idle_check(void)
->  	rc = amd_stb_write(pdev, AMD_PMC_STB_S2IDLE_CHECK);
->  	if (rc)
->  		dev_err(pdev->dev, "error writing to STB: %d\n", rc);
-> +
-> +	/* remember that first check after suspend is done (until next prepare) */
-> +	pdev->is_first_check_after_suspend = false;
->  }
->  
->  static int amd_pmc_dump_data(struct amd_pmc_dev *pdev)
-> diff --git a/drivers/platform/x86/amd/pmc/pmc.h b/drivers/platform/x86/amd/pmc/pmc.h
-> index f5257e47b8c4..8aa7073ed09f 100644
-> --- a/drivers/platform/x86/amd/pmc/pmc.h
-> +++ b/drivers/platform/x86/amd/pmc/pmc.h
-> @@ -114,6 +114,7 @@ struct amd_pmc_dev {
->  	struct dentry *dbgfs_dir;
->  	struct quirk_entry *quirks;
->  	bool disable_8042_wakeup;
-> +	bool is_first_check_after_suspend;
->  	struct amd_mp2_dev *mp2;
->  	struct stb_arg stb_arg;
->  };
-
+>
+> Thanks,
+> Qu
+>
+> > I can only guess it's very rare.
+> >
+> >>
+> >> Fixes: 7e97b8daf634 ("btrfs: allow setting NOCOW for a zero sized file=
+ via ioctl")
+> >> Cc: stable@vger.kernel.org
+> >> Signed-off-by: Qu Wenruo <wqu@suse.com>
+> >> ---
+> >>   fs/btrfs/ioctl.c | 3 +--
+> >>   1 file changed, 1 insertion(+), 2 deletions(-)
+> >>
+> >> diff --git a/fs/btrfs/ioctl.c b/fs/btrfs/ioctl.c
+> >> index d4981d2a42d7..74849a4208b5 100644
+> >> --- a/fs/btrfs/ioctl.c
+> >> +++ b/fs/btrfs/ioctl.c
+> >> @@ -336,8 +336,7 @@ int btrfs_fileattr_set(struct mnt_idmap *idmap,
+> >>                   */
+> >>                  if (S_ISREG(inode->vfs_inode.i_mode)) {
+> >>                          if (inode->vfs_inode.i_size =3D=3D 0)
+> >> -                               inode_flags &=3D ~(BTRFS_INODE_NODATAC=
+OW |
+> >> -                                                BTRFS_INODE_NODATASUM=
+);
+> >> +                               inode_flags &=3D ~BTRFS_INODE_NODATACO=
+W;
+> >>                  } else {
+> >>                          inode_flags &=3D ~BTRFS_INODE_NODATACOW;
+> >>                  }
+> >
+> > This can now be simplified:
+> >
+> > if (!S_ISREG(inode->vfs_inode.i_mode) || inode->vfs_inode.i_size =3D=3D=
+ 0)
+> >      inode_flags &=3D ~BTRFS_INODE_NODATACOW;
+> >
+> > Reviewed-by: Filipe Manana <fdmanana@suse.com>
+> >
+> > Thanks.
+> >
+> >> --
+> >> 2.54.0
+> >>
+> >>
+> >
+>
