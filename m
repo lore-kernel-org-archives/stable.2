@@ -1,272 +1,156 @@
-Received: from smtp134-25.sina.com.cn (smtp134-25.sina.com.cn [180.149.134.25])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03537379C2B
-	for <stable@vger.kernel.org>; Mon,  8 Jun 2026 05:39:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.149.134.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E966B2EAB72;
+	Mon,  8 Jun 2026 06:16:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780897154; cv=none; b=SiubJFeBYIO3WN/sBgu1WvYTNggaEivRr58vMENXI9kVHbcJkeCYyZ+lubAuA1dfpTVGJQiWtMbuyihwM6EWdJ6YgnOliPhm8Ckd06h5ylZal8gXNSUl9fX7ZouQRwF9/EreLbKfjxcxvePEFzhxljyVGUKYfHdjcetDI44qDUo=
+	t=1780899363; cv=none; b=ekoBNwGh4Y0zgyBbs0bVXv6tFGwtTXjZx3+dsTaJ2eWxWU+TKXytnOUVRoHZNM/pyNxdWz9Zo4xs+wkxrh1H3XlPqtaGDFSGNI5g0I+7qJK2wrnYH46XVkbvKuSUNInD30yZXQeg2PBv7qUf+OVqRdh+KELJJeAShQ5xNzOfEUw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780897154; c=relaxed/simple;
-	bh=oRXY+9puep12Lxn5B5r/Surj8DWqdhMPbsYkJQOnAIM=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=bS4OR+yRn5MV9JZlrozvvC7vxwSlJJtzXWrV5kwkP/ydjVFZwZKkMcBT9rQMe78lSe1nphH+ygYQ0ZMUrhuoe6bcZ3A/cZLEyNx8J+NUIwyNVPEZ9TOSl1SfOYfjVawyyxOKfSEslJmDjseIs3f0rg66V1j/sqQ+t0W9KejT3rY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.cn; spf=pass smtp.mailfrom=sina.cn; dkim=pass (1024-bit key) header.d=sina.cn header.i=@sina.cn header.b=x4fl1Tie; arc=none smtp.client-ip=180.149.134.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.cn
+	s=arc-20240116; t=1780899363; c=relaxed/simple;
+	bh=eF9pR0+T7T9yRyf5b/r8kJeNv6FdrrJS8JXn7DWhgCs=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=k4mSIR+fZc8Hd/SO7aBp5WzLpShD1P6ZGkzm33TX9zC9RPNk92Dz4ltsRwIH9gczJDRSP8qYl8JGm3vaAih7enrJmt/xopuyOUm6bOy44tJWZQo4atPoH2FJqTdJfwvD0lJzZDPE7nE5fOUFue5K5vC2gD/QVT5Q3CpzahBLwQU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ghfrx187; arc=none smtp.client-ip=198.175.65.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=sina.cn header.i=@sina.cn header.b="x4fl1Tie"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.cn; s=201208; t=1780897149;
-	bh=951BUsMtl8tl26sb644WYR3IJacuLYWSqxD6MFhzn4w=;
-	h=From:Subject:Date:Message-Id;
-	b=x4fl1TieIVGTIlrgv6ZUkJB0KXN59ksgXXdosu8SZV4vxw1CDgx2L069e/8XkBXBL
-	 Ee19UYCrLMf6k4YbCVdXP2ujYGwAivslXdwA9+GNaY57PqihaDP1eHoatqvWQoZFmy
-	 SEBxZh3g1rTt+pCibz1fBfAkd0Scs9iK18IcskTw=
-X-SMAIL-HELO: NTT-kernel-dev
-Received: from unknown (HELO NTT-kernel-dev)([60.247.85.88])
-	by sina.cn (10.185.250.21) with ESMTP
-	id 6A2654E400001F9A; Mon, 8 Jun 2026 13:36:40 +0800 (CST)
-X-Sender: jianqkang@sina.cn
-X-Auth-ID: jianqkang@sina.cn
-Authentication-Results: sina.cn;
-	 spf=none smtp.mailfrom=jianqkang@sina.cn;
-	 dkim=none header.i=none;
-	 dmarc=none action=none header.from=jianqkang@sina.cn
-X-SMAIL-MID: 1008913408272
-X-SMAIL-UIID: 31246025A2D949A0A9AEF0B92BD13DBC-20260608-133640-1
-From: Jianqiang kang <jianqkang@sina.cn>
-To: gregkh@linuxfoundation.org,
-	stable@vger.kernel.org,
-	khtsai@google.com
-Cc: patches@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	sashal@kernel.org,
-	raubcameo@gmail.com,
-	andrzej.p@samsung.com,
-	balbi@ti.com,
-	kyungmin.park@samsung.com,
-	linux-usb@vger.kernel.org
-Subject: [PATCH 6.6.y] usb: gadget: f_ncm: Fix net_device lifecycle with device_move
-Date: Mon,  8 Jun 2026 13:36:36 +0800
-Message-Id: <20260608053636.2797024-1-jianqkang@sina.cn>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ghfrx187"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1780899362; x=1812435362;
+  h=message-id:date:mime-version:subject:from:to:cc:
+   references:in-reply-to:content-transfer-encoding;
+  bh=eF9pR0+T7T9yRyf5b/r8kJeNv6FdrrJS8JXn7DWhgCs=;
+  b=ghfrx187uqt8oi/WQvp+rOzImF+DiJgSlZxky3WkPKcOahF8i/7Q4OIQ
+   M5qVgccJdI6Gl6w4kiilj5+0jticGjqHtLOYKFJlSU9yCcriYaBGg0bg8
+   8Lv3J0mYrOr4kNrw6qB919j6LGispN25idKEcWs8ZDD+1cS0Iq1ZQgIfY
+   zopQ/WOfGx3d45Bi8twKhc5qJt/vf9H4irusu0CuRM/x5VeqVhkQMvCXe
+   TZcKlGdpXlO/Edd4wEI8NIjRzJLH2xFZUdqFA5+V8M0KbERNJvvCcim4K
+   FNloMqewWxDzA8dAvSGvX2WM7ppT1yVcbiNggBtjbmYG9EpOY9uwaZUjR
+   Q==;
+X-CSE-ConnectionGUID: vth3kNNWR7K020VUod21Xg==
+X-CSE-MsgGUID: COLckT5MTNqaApIKXVtDjA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11810"; a="81810391"
+X-IronPort-AV: E=Sophos;i="6.24,193,1774335600"; 
+   d="scan'208";a="81810391"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Jun 2026 23:16:01 -0700
+X-CSE-ConnectionGUID: 4NxznnPJRhKrAPouIgu53g==
+X-CSE-MsgGUID: wCMdDE3ySeiohfhcURYw2Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,193,1774335600"; 
+   d="scan'208";a="250560714"
+Received: from dapengmi-mobl1.ccr.corp.intel.com (HELO [10.124.241.147]) ([10.124.241.147])
+  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Jun 2026 23:15:57 -0700
+Message-ID: <e39decf9-d455-4b61-a640-0c77b2549a88@linux.intel.com>
+Date: Mon, 8 Jun 2026 14:15:55 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/8] perf/x86/intel: Fix redundant branch type check in
+ intel_pmu_lbr_filter()
+From: "Mi, Dapeng" <dapeng1.mi@linux.intel.com>
+To: "Falcon, Thomas" <thomas.falcon@intel.com>,
+ "alexander.shishkin@linux.intel.com" <alexander.shishkin@linux.intel.com>,
+ "ak@linux.intel.com" <ak@linux.intel.com>,
+ "peterz@infradead.org" <peterz@infradead.org>,
+ "acme@kernel.org" <acme@kernel.org>, "mingo@redhat.com" <mingo@redhat.com>,
+ "Hunter, Adrian" <adrian.hunter@intel.com>,
+ "namhyung@kernel.org" <namhyung@kernel.org>, "Rogers, Ian"
+ <irogers@google.com>, "Eranian, Stephane" <eranian@google.com>
+Cc: "stable@vger.kernel.org" <stable@vger.kernel.org>,
+ "Chen, Zide" <zide.chen@intel.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-perf-users@vger.kernel.org" <linux-perf-users@vger.kernel.org>,
+ "Mi, Dapeng1" <dapeng1.mi@intel.com>, "Hao, Xudong" <xudong.hao@intel.com>
+References: <20260605011136.2043393-1-dapeng1.mi@linux.intel.com>
+ <20260605011136.2043393-5-dapeng1.mi@linux.intel.com>
+ <5f1cedec93b2ea87cb89f259b0eaeddba69093bf.camel@intel.com>
+ <5290112b-4ef1-46e8-936a-a71f9f3c0b03@linux.intel.com>
+Content-Language: en-US
+In-Reply-To: <5290112b-4ef1-46e8-936a-a71f9f3c0b03@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Kuen-Han Tsai <khtsai@google.com>
 
-[ Upstream commit ec35c1969650e7cb6c8a91020e568ed46e3551b0 ]
+On 6/8/2026 9:56 AM, Mi, Dapeng wrote:
+> On 6/6/2026 2:28 AM, Falcon, Thomas wrote:
+>> On Fri, 2026-06-05 at 09:11 +0800, Dapeng Mi wrote:
+>>> In intel_pmu_lbr_filter(), the 'type' variable is bitwise ORed with
+>>> 'to_plm' (which contains X86_BR_USER and/or X86_BR_KERNEL bits). Because
+>>> of this, 'type' can never equal X86_BR_NONE (0) after the assignment.
+>>>
+>>> As a result, the subsequent check 'if (type == X86_BR_NONE)' is dead code
+>>> and the entries with X86_BR_NONE type would not be skipped eventually.
+>>>
+>>> Correct this by masking out the X86_BR_KERNEL and X86_BR_USER bits
+>>> before performing the X86_BR_NONE comparison.
+>>>
+>>> Cc: stable@vger.kernel.org
+>>> Fixes: 47125db27e47 ("perf/x86/intel/lbr: Support Architectural LBR")
+>>> Signed-off-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
+>>> ---
+>>>
+>>> Original patch link:
+>>> https://lore.kernel.org/all/20260414021440.928068-1-dapeng1.mi@linux.intel.com/
+>>>
+>>>  arch/x86/events/intel/lbr.c | 2 +-
+>>>  1 file changed, 1 insertion(+), 1 deletion(-)
+>>>
+>>> diff --git a/arch/x86/events/intel/lbr.c b/arch/x86/events/intel/lbr.c
+>>> index 72f2adcda7c6..16977e4c6f8a 100644
+>>> --- a/arch/x86/events/intel/lbr.c
+>>> +++ b/arch/x86/events/intel/lbr.c
+>>> @@ -1245,7 +1245,7 @@ intel_pmu_lbr_filter(struct cpu_hw_events *cpuc)
+>>>  		}
+>>>  
+>>>  		/* if type does not correspond, then discard */
+>>> -		if (type == X86_BR_NONE || (br_sel & type) != type) {
+>>> +		if ((type & ~X86_BR_PLM) == X86_BR_NONE || (br_sel & type) != type) {
+>> Looking at intel_pmu_lbr_filter...
+>>
+>> 	if (static_cpu_has(X86_FEATURE_ARCH_LBR) &&
+>> 	    type <= ARCH_LBR_BR_TYPE_KNOWN_MAX) {
+>> 		to_plm = kernel_ip(to) ? X86_BR_KERNEL : X86_BR_USER;
+>> 		type = arch_lbr_br_type_map[type] | to_plm;
+>> 	} else
+>> 		type = branch_type(from, to, cpuc->lbr_entries[i].abort);
+>>
+>> In the else case, it does look (branch_type -> get_branch_type) can return X86_BR_NONE without OR'ing it with X86_BR_KERNEL or X86_BR_USER, so the condition checking the type for X86_BR_NONE is not exactly "dead code."
+>>
+>> One example:
+>>
+>> static int get_branch_type(unsigned long from, unsigned long to, int abort,
+>> 			   bool fused, int *offset)
+>> {
+>> ...
+>> 	 * maybe zero if lbr did not fill up after a reset by the time
+>> 	 * we get a PMU interrupt
+>> 	 */
+>> 	if (from == 0 || to == 0)
+>> 		return X86_BR_NONE;
+>> ...
+>>
+>> Though in those cases, it doesn't seem like this change would make a difference. I guess it isn't clear to me what issue this change is fixing.
+> Yes, the "dead code" is not accurate. For hardware decoding (the if case),
+> the validation is some kind of dead code, but for the software decoding,
+> it's not. I would adjust the wording in next version. Thanks.
 
-The network device outlived its parent gadget device during
-disconnection, resulting in dangling sysfs links and null pointer
-dereference problems.
+Just look at the code again, the hardware decoding case would never return
+X86_BR_NONE, so it looks this patch is unnecessary and would drop it in
+next version. Thanks.
 
-A prior attempt to solve this by removing SET_NETDEV_DEV entirely [1]
-was reverted due to power management ordering concerns and a NO-CARRIER
-regression.
 
-A subsequent attempt to defer net_device allocation to bind [2] broke
-1:1 mapping between function instance and network device, making it
-impossible for configfs to report the resolved interface name. This
-results in a regression where the DHCP server fails on pmOS.
-
-Use device_move to reparent the net_device between the gadget device and
-/sys/devices/virtual/ across bind/unbind cycles. This preserves the
-network interface across USB reconnection, allowing the DHCP server to
-retain their binding.
-
-Introduce gether_attach_gadget()/gether_detach_gadget() helpers and use
-__free(detach_gadget) macro to undo attachment on bind failure. The
-bind_count ensures device_move executes only on the first bind.
-
-[1] https://lore.kernel.org/lkml/f2a4f9847617a0929d62025748384092e5f35cce.camel@crapouillou.net/
-[2] https://lore.kernel.org/linux-usb/795ea759-7eaf-4f78-81f4-01ffbf2d7961@ixit.cz/
-
-Fixes: 40d133d7f542 ("usb: gadget: f_ncm: convert to new function interface with backward compatibility")
-Cc: stable <stable@kernel.org>
-Signed-off-by: Kuen-Han Tsai <khtsai@google.com>
-Link: https://patch.msgid.link/20260309-f-ncm-revert-v2-7-ea2afbc7d9b2@google.com
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-[ Use no_free_ptr() since retain_and_null_ptr() is unavailable in Linux 6.6. ]
-Signed-off-by: Jianqiang kang <jianqkang@sina.cn>
----
- drivers/usb/gadget/function/f_ncm.c   | 35 ++++++++++++++++++---------
- drivers/usb/gadget/function/u_ether.c | 22 +++++++++++++++++
- drivers/usb/gadget/function/u_ether.h | 26 ++++++++++++++++++++
- drivers/usb/gadget/function/u_ncm.h   |  2 +-
- 4 files changed, 73 insertions(+), 12 deletions(-)
-
-diff --git a/drivers/usb/gadget/function/f_ncm.c b/drivers/usb/gadget/function/f_ncm.c
-index 9e9601f12b88..d8ab1adec63e 100644
---- a/drivers/usb/gadget/function/f_ncm.c
-+++ b/drivers/usb/gadget/function/f_ncm.c
-@@ -1425,6 +1425,7 @@ static int ncm_bind(struct usb_configuration *c, struct usb_function *f)
- 	struct f_ncm_opts	*ncm_opts;
- 
- 	struct usb_os_desc_table	*os_desc_table __free(kfree) = NULL;
-+	struct net_device		*net __free(detach_gadget) = NULL;
- 	struct usb_request		*request __free(free_usb_request) = NULL;
- 
- 	if (!can_support_ecm(cdev->gadget))
-@@ -1438,16 +1439,18 @@ static int ncm_bind(struct usb_configuration *c, struct usb_function *f)
- 			return -ENOMEM;
- 	}
- 
--	mutex_lock(&ncm_opts->lock);
--	gether_set_gadget(ncm_opts->net, cdev->gadget);
--	if (!ncm_opts->bound)
--		status = gether_register_netdev(ncm_opts->net);
--	mutex_unlock(&ncm_opts->lock);
--
--	if (status)
--		return status;
--
--	ncm_opts->bound = true;
-+	scoped_guard(mutex, &ncm_opts->lock)
-+		if (ncm_opts->bind_count == 0) {
-+			if (!device_is_registered(&ncm_opts->net->dev)) {
-+				gether_set_gadget(ncm_opts->net, cdev->gadget);
-+				status = gether_register_netdev(ncm_opts->net);
-+			} else
-+				status = gether_attach_gadget(ncm_opts->net, cdev->gadget);
-+
-+			if (status)
-+				return status;
-+			net = ncm_opts->net;
-+		}
- 
- 	ncm_string_defs[1].s = ncm->ethaddr;
- 
-@@ -1547,6 +1550,9 @@ static int ncm_bind(struct usb_configuration *c, struct usb_function *f)
- 	}
- 	ncm->notify_req = no_free_ptr(request);
- 
-+	ncm_opts->bind_count++;
-+	no_free_ptr(net);
-+
- 	DBG(cdev, "CDC Network: IN/%s OUT/%s NOTIFY/%s\n",
- 			ncm->port.in_ep->name, ncm->port.out_ep->name,
- 			ncm->notify->name);
-@@ -1593,7 +1599,7 @@ static void ncm_free_inst(struct usb_function_instance *f)
- 	struct f_ncm_opts *opts;
- 
- 	opts = container_of(f, struct f_ncm_opts, func_inst);
--	if (opts->bound)
-+	if (device_is_registered(&opts->net->dev))
- 		gether_cleanup(netdev_priv(opts->net));
- 	else
- 		free_netdev(opts->net);
-@@ -1655,9 +1661,12 @@ static void ncm_free(struct usb_function *f)
- static void ncm_unbind(struct usb_configuration *c, struct usb_function *f)
- {
- 	struct f_ncm *ncm = func_to_ncm(f);
-+	struct f_ncm_opts *ncm_opts;
- 
- 	DBG(c->cdev, "ncm unbind\n");
- 
-+	ncm_opts = container_of(f->fi, struct f_ncm_opts, func_inst);
-+
- 	hrtimer_cancel(&ncm->task_timer);
- 
- 	kfree(f->os_desc_table);
-@@ -1673,6 +1682,10 @@ static void ncm_unbind(struct usb_configuration *c, struct usb_function *f)
- 
- 	kfree(ncm->notify_req->buf);
- 	usb_ep_free_request(ncm->notify, ncm->notify_req);
-+
-+	ncm_opts->bind_count--;
-+	if (ncm_opts->bind_count == 0)
-+		gether_detach_gadget(ncm_opts->net);
- }
- 
- static struct usb_function *ncm_alloc(struct usb_function_instance *fi)
-diff --git a/drivers/usb/gadget/function/u_ether.c b/drivers/usb/gadget/function/u_ether.c
-index 62e2018d0357..49ff3fc62f74 100644
---- a/drivers/usb/gadget/function/u_ether.c
-+++ b/drivers/usb/gadget/function/u_ether.c
-@@ -896,6 +896,28 @@ void gether_set_gadget(struct net_device *net, struct usb_gadget *g)
- }
- EXPORT_SYMBOL_GPL(gether_set_gadget);
- 
-+int gether_attach_gadget(struct net_device *net, struct usb_gadget *g)
-+{
-+	int ret;
-+
-+	ret = device_move(&net->dev, &g->dev, DPM_ORDER_DEV_AFTER_PARENT);
-+	if (ret)
-+		return ret;
-+
-+	gether_set_gadget(net, g);
-+	return 0;
-+}
-+EXPORT_SYMBOL_GPL(gether_attach_gadget);
-+
-+void gether_detach_gadget(struct net_device *net)
-+{
-+	struct eth_dev *dev = netdev_priv(net);
-+
-+	device_move(&net->dev, NULL, DPM_ORDER_NONE);
-+	dev->gadget = NULL;
-+}
-+EXPORT_SYMBOL_GPL(gether_detach_gadget);
-+
- int gether_set_dev_addr(struct net_device *net, const char *dev_addr)
- {
- 	struct eth_dev *dev;
-diff --git a/drivers/usb/gadget/function/u_ether.h b/drivers/usb/gadget/function/u_ether.h
-index 34be220cef77..c85a1cf3c115 100644
---- a/drivers/usb/gadget/function/u_ether.h
-+++ b/drivers/usb/gadget/function/u_ether.h
-@@ -150,6 +150,32 @@ static inline struct net_device *gether_setup_default(void)
-  */
- void gether_set_gadget(struct net_device *net, struct usb_gadget *g);
- 
-+/**
-+ * gether_attach_gadget - Reparent net_device to the gadget device.
-+ * @net: The network device to reparent.
-+ * @g: The target USB gadget device to parent to.
-+ *
-+ * This function moves the network device to be a child of the USB gadget
-+ * device in the device hierarchy. This is typically done when the function
-+ * is bound to a configuration.
-+ *
-+ * Returns 0 on success, or a negative error code on failure.
-+ */
-+int gether_attach_gadget(struct net_device *net, struct usb_gadget *g);
-+
-+/**
-+ * gether_detach_gadget - Detach net_device from its gadget parent.
-+ * @net: The network device to detach.
-+ *
-+ * This function moves the network device to be a child of the virtual
-+ * devices parent, effectively detaching it from the USB gadget device
-+ * hierarchy. This is typically done when the function is unbound
-+ * from a configuration but the instance is not yet freed.
-+ */
-+void gether_detach_gadget(struct net_device *net);
-+
-+DEFINE_FREE(detach_gadget, struct net_device *, if (_T) gether_detach_gadget(_T))
-+
- /**
-  * gether_set_dev_addr - initialize an ethernet-over-usb link with eth address
-  * @net: device representing this link
-diff --git a/drivers/usb/gadget/function/u_ncm.h b/drivers/usb/gadget/function/u_ncm.h
-index 5408854d8407..297e5087872f 100644
---- a/drivers/usb/gadget/function/u_ncm.h
-+++ b/drivers/usb/gadget/function/u_ncm.h
-@@ -18,7 +18,7 @@
- struct f_ncm_opts {
- 	struct usb_function_instance	func_inst;
- 	struct net_device		*net;
--	bool				bound;
-+	int				bind_count;
- 
- 	struct config_group		*ncm_interf_group;
- 	struct usb_os_desc		ncm_os_desc;
--- 
-2.34.1
-
+>
+>
+>> Thanks,
+>> Tom
+>>
+>>>  			cpuc->lbr_entries[i].from = 0;
+>>>  			compress = true;
+>>>  		}
