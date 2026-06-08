@@ -1,133 +1,104 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE131397339;
-	Mon,  8 Jun 2026 21:23:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC83C3AE6E4
+	for <stable@vger.kernel.org>; Mon,  8 Jun 2026 21:53:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780953782; cv=none; b=Pysrvv+iLsE5lElPLp7D5sLKAzNXuAVaO54+rK10xJLG/FpLbzOGsQUSvFwsYT3dke0oAkDA6A4i9eVD4Zz89unYirC49/o/vmbxD97qgkI1hgtId5mO1CdVneGvnxWC9zZH62DNrFR5nYmymJU8Bika/BeK5NHDn6Zw2es29EE=
+	t=1780955604; cv=none; b=P9ChjsYb/wPiMNmKGhYXWAZ0iCQQX9H83GWLFLAVgEf27VYL4Ijk5MGvAWxposEyAdf8Xd2gbzJSn2DDy3dW9RwDPsB/gZQBpagCFSSipXyScze1SCXs3ObcBUm6J3IzHlYhc3GAWK1WruD5r8hv6eBjC1SZ4MAQJ/YOJxAatS0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780953782; c=relaxed/simple;
-	bh=QC3OoujatgWN+MeODp5BQpmtCSW4Sj1zoCeVL0TPIIk=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=aj4Rwb7DqUA/3Ihb+yaQgYPcs+1aEN3nFQKwfptKgo+V9+O8U0OIZ/fmGUk+c7TUNUYR3ol4XKPALwUQ/eXNfPgWBB8k0TOVXGH7k4sosiF7QssbHlT+N0yAUPbL2taySO+jFKEv0k4C6hFuMjuKec9wzjXTJ6aKKiE4WRumXj8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=DDsdTSA5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780955604; c=relaxed/simple;
+	bh=Juxb26ldXOFarDgZU/fCdttEflHVZH3q1oRndyT2/q4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=B5SzvBlO8IAVVoRfRm8D2qPJbD/HayV7Q37THCLUzOQeIq8quyIhaqUtIVEwxnfJQuHNvU0lWTA9jzSxEbw7YTilIABdkI7DpLFWWvFxq7jAX0FQLe6n3TPLjOD0s+b93Sy2iUpTwtJedzode8J4oDPaorpz8XFFOm3+9UknRdI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=fedoraproject.org; spf=pass smtp.mailfrom=linuxtx.org; dkim=pass (1024-bit key) header.d=linuxtx.org header.i=@linuxtx.org header.b=VBBGdN+i; arc=none smtp.client-ip=74.125.82.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=fedoraproject.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxtx.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="DDsdTSA5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B9D21F00893;
-	Mon,  8 Jun 2026 21:23:00 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxtx.org header.i=@linuxtx.org header.b="VBBGdN+i"
+Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-1363fe80fe8so6946580c88.0
+        for <stable@vger.kernel.org>; Mon, 08 Jun 2026 14:53:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1780953780;
-	bh=5r8KYgeziJLoINJNNFem1kGIFqYvCyKRP4AgGvX1XNE=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=DDsdTSA5rUbZKCWNzLHJo7zF5CUdBD48WlZqNC1MGpV4T7hK/jsvhF/1sImwuRX8U
-	 ZRT+67GqqjbhB9yzavNdqlt7SwU9Gs+Ped/8Nw2q/45UmjeW2PNiA1DxWxm37608IE
-	 lukA8HrLwC1Dw3YqC1HYPDbyQv0GeVu8uB5VR9UI=
-Date: Mon, 8 Jun 2026 14:22:58 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Andrey Smirnov <andrey.smirnov@siderolabs.com>
-Cc: pasha.tatashin@soleen.com, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
- pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr,
- syzbot+2b5fe617654be3d8848b@syzkaller.appspotmail.com, Thomas Gleixner
- <tglx@linutronix.de>, Thomas =?ISO-8859-1?Q?Wei=DFschuh?=
- <thomas.weissschuh@linutronix.de>, Andrei Vagin <avagin@gmail.com>, Andy
- Lutomirski <luto@kernel.org>, Vincenzo Frascino
- <vincenzo.frascino@arm.com>, stable@vger.kernel.org
-Subject: Re: [PATCH] mm/page_table_check: do not track special (PFN-mapped)
- PTEs
-Message-Id: <20260608142258.5028187b1d245b46554eb2dc@linux-foundation.org>
-In-Reply-To: <20260608155758.1220420-1-andrey.smirnov@siderolabs.com>
-References: <20260608155758.1220420-1-andrey.smirnov@siderolabs.com>
-X-Mailer: Sylpheed 3.7.0 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+        d=linuxtx.org; s=google; t=1780955602; x=1781560402; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:sender:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=EoYFOw7ak7HsB04OfAmg+EGUR7pul8Hb3G9gCGfENs8=;
+        b=VBBGdN+ieSsCAA6S5YFUy3vtLcqZncO798VuMsGYGUNCprcX5JLqVwMX1fYGci73XZ
+         ogwfiBcW/cuJES0QCINF5uGvycxYjFcowylYa5ng2B93VQG1UXwkai4LOQ/t22J6xpZ/
+         Bnh+emDnRW1jlouBeLOgOB1LGf6jbMTR4+X3c=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780955602; x=1781560402;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:sender:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=EoYFOw7ak7HsB04OfAmg+EGUR7pul8Hb3G9gCGfENs8=;
+        b=D3haaVxndvhhDAgHliTKiFZ1P3Wq2e7Zyb8dctdOvoh5zrZIV5NbFtTYsJRg3aGVHW
+         fbO9zMI+FNuFd/NZmUQFY0rSrhRWiGUL7ZHQ7y0KxNelryQZWYHlDWYhsB4ZxZLQRuhj
+         WoW+DEQ67b+Y8+4S8esvOsCnJEoTfJRw+du4bi6OvQUlWfRqbUzCmOAZ+xUILCCHReR2
+         vrml5w6300fcPFzPdM1bbnWsr9MjXrzrCW98eZRNx9ALtN1nrxli4RasFjmCoT+LDaVQ
+         1NqG8ZN+hEug0XJt78jGch+a09VVOltU4IbOm0t5JFC++ArBnA/u+9XRETjs+r70uYFn
+         zhsg==
+X-Gm-Message-State: AOJu0Yya+v1rVYAXpdo1zAS1U5R6tiICtwOrvLKzO2lSw2hykzGqUqct
+	pTZxokFkyjuRAljR7HaO+lpJ7b88COXmDYMTJT7dB1L/elvdqfEQzsIk6TvCK0U1WA==
+X-Gm-Gg: Acq92OHgK2lnB3/lfoLOmnWa+GT2xhQ0knMPQ8DlOO34FeqUd+tlEjijLe4dcVB4NGJ
+	HvK27/80U9Lj1pNq62akR7st63SQV6RKPdVdHB/c/QVZzyYVgsAETMys3fKa8C5qx0RMLyk0miw
+	KcgR1SutjsSMvEif3ss8SpHbrVsZuIVs+9a4LhkdkJpoKifZuxiJEYxVuZ3B0WxL5/fHitY7oWe
+	obsJ2b5WntZ5BJvpns/CuhapkckdaCT/GeX/unaYm7wtvOFtZWnCposEjA6bz5A2+Bb6H6sB98r
+	jkS1HlDnlK8QMcIefNfgHGMctjAsa7l5DQhdgku/qLXQXdI64iE/pfFyGWPl/XGhb643sUEZVQR
+	bRgaFlhjDh6UtRA8iIxkIX080fAfANxEQtLf6msStrGMJYswPvR0oahVE/C4YfiBGzmof8GZzkA
+	yA/o0+FgaBZ4VW+fShylEqi+Oq4qSv41YKtq1WpYnRTpgVLc2pQBIa
+X-Received: by 2002:a05:7300:2327:b0:304:5db8:da95 with SMTP id 5a478bee46e88-3077b7855c1mr9162330eec.23.1780955601933;
+        Mon, 08 Jun 2026 14:53:21 -0700 (PDT)
+Received: from fedora64.linuxtx.org ([98.97.105.250])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3074db528dcsm22171093eec.3.2026.06.08.14.53.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 08 Jun 2026 14:53:20 -0700 (PDT)
+Sender: Justin Forbes <jmforbes@linuxtx.org>
+Date: Mon, 8 Jun 2026 15:53:17 -0600
+From: Justin Forbes <jforbes@fedoraproject.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
+	patches@kernelci.org, lkft-triage@lists.linaro.org,
+	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+	sr@sladewatkins.com
+Subject: Re: [PATCH 7.0 000/332] 7.0.12-rc1 review
+Message-ID: <aic5zUJBp3i6jCin@fedora64.linuxtx.org>
+References: <20260607095728.031258202@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260607095728.031258202@linuxfoundation.org>
 
-On Mon,  8 Jun 2026 19:57:58 +0400 Andrey Smirnov <andrey.smirnov@siderolabs.com> wrote:
-
-> The vDSO data store ("[vvar]") special mapping is created as a VM_PFNMAP
-> mapping and its pages are installed into userspace with vmf_insert_pfn(),
-> which produces special PTEs (pte_special()). On x86 and arm64 (and riscv)
-> pte_user_accessible_page() only tests the PRESENT/USER bits and does not
-> exclude special PTEs, so page_table_check accounts these PFN mappings in
-> the per-page anon/file map counters even though they are not rmap-managed
-> pages (vm_normal_page() returns NULL for them).
+On Sun, Jun 07, 2026 at 11:56:09AM +0200, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 7.0.12 release.
+> There are 332 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 > 
-> Most of these data pages live in the kernel image and are never freed, so
-> the stray accounting is invisible. The time-namespace VVAR page is the
-> exception: it is a real alloc_page() page that is released with
-> __free_page() in free_time_ns() when the last task of a time namespace
-> exits. Across the map / unmap / vdso_join_timens() zap transitions the
-> special-PTE accounting is not balanced for this page, so a non-zero
-> file_map_count survives to the free path and trips:
+> Responses should be made by Tue, 09 Jun 2026 09:56:44 +0000.
+> Anything received after that time might be too late.
 > 
->   kernel BUG at mm/page_table_check.c:143!
->   __page_table_check_zero+0xfb/0x130
->   __free_frozen_pages+0x52f/0x650
->   free_time_ns+0x85/0xc0
->   free_nsproxy+0x7f/0x130
->   do_exit+0x313/0xa60
->   do_group_exit+0x77/0x90
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.0.12-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.0.y
+> and the diffstat can be found below.
 > 
-> This is reliably reproducible on x86_64 and arm64 under heavy container/CI
-> churn that rapidly creates and destroys time namespaces (CLONE_NEWTIME via
-> runc / docker-init / tini), and was independently reported by syzbot on
-> riscv. It only manifests when CONFIG_PAGE_TABLE_CHECK is active.
+> thanks,
 > 
-> Special PTEs have no struct-page rmap semantics and must never have been
-> tracked by page table check. Skip them in both the set and clear paths so
-> the counters stay balanced (always zero) for PFN-mapped pages, regardless
-> of how the architecture defines pte_user_accessible_page(). pte_special()
-> is available generically (it is a no-op returning false on architectures
-> without ARCH_HAS_PTE_SPECIAL), so this is a single, arch-independent fix.
-> 
-> Note that the v7.0 generic vDSO datastore rework in commit 05988dba1179
-> ("vdso/datastore: Allocate data pages dynamically") incidentally avoids
-> the problem by switching the mapping to VM_MIXEDMAP + vmf_insert_page()
-> with balanced struct-page accounting. This patch fixes the still-affected
-> VM_PFNMAP path used by 6.18.y and earlier, and additionally makes
-> page_table_check robust against any future PFN-mapped user pages.
+> greg k-h
 
-Thanks.
+Tested rc1 against the Fedora build system (aarch64, ppc64le, s390x,
+x86_64), and boot tested x86_64. No regressions noted.
 
-The patch isn't applicable to current -linus mainline.  I reworked it
-as below, then deleted it.  It would be better if this rework came from
-yourself (tested), please.  And a patch which applies will get checked
-by Sashiko AI review.
-
---- a/mm/page_table_check.c~mm-page_table_check-do-not-track-special-pfn-mapped-ptes
-+++ a/mm/page_table_check.c
-@@ -151,7 +151,15 @@ void __page_table_check_pte_clear(struct
- 	if (&init_mm == mm)
- 		return;
- 
--	if (pte_user_accessible_page(mm, addr, pte))
-+	/*
-+	 * PFN-mapped (special) PTEs - e.g. the vDSO/time-namespace "[vvar]"
-+	 * mapping installed via vmf_insert_pfn() - are not rmap-managed and
-+	 * must not be tracked here. Tracking them can leave a non-zero map
-+	 * count on a struct page that is later freed (the time namespace VVAR
-+	 * page in free_time_ns()), tripping the BUG_ON() in
-+	 * __page_table_check_zero().
-+	 */
-+	if (pte_user_accessible_page(mm, addr, pte) && !pte_special(pte))
- 		page_table_check_clear(pte_pfn(pte), PAGE_SIZE >> PAGE_SHIFT);
- }
- EXPORT_SYMBOL(__page_table_check_pte_clear);
-@@ -208,7 +216,7 @@ void __page_table_check_ptes_set(struct
- 
- 	for (i = 0; i < nr; i++)
- 		__page_table_check_pte_clear(mm, addr + PAGE_SIZE * i, ptep_get(ptep + i));
--	if (pte_user_accessible_page(mm, addr, pte))
-+	if (pte_user_accessible_page(mm, addr, pte) && !pte_special(pte))
- 		page_table_check_set(pte_pfn(pte), nr, pte_write(pte));
- }
- EXPORT_SYMBOL(__page_table_check_ptes_set);
-_
-
+Tested-by: Justin M. Forbes <jforbes@fedoraproject.org>
