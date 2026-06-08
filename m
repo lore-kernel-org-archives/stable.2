@@ -1,193 +1,62 @@
-Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012042.outbound.protection.outlook.com [40.107.209.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 967F632E141;
-	Mon,  8 Jun 2026 06:22:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.42
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780899777; cv=fail; b=hg7D/MOPEZXzinsxyvTCGEEVV1BsFXnogd5y35p5wfj9bomPbk5k1VPsFyhuCGyeokvXODcL1bLQM/wvedQR+xGh1Huwe1nEf/VV8pcZHqIUcrDv5tx2gfXhLh/oP5UIYh3N4vAnukxsobuQBBKYG/9Ueeiz9C9OPf0vhPMbcns=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780899777; c=relaxed/simple;
-	bh=sQODGCiPd6R/QscWdcBeVrXombIX7+w0qmvO5dSEq0A=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=GPYkiTas17YJ5jWPMs0hV1aSDdg+7hiIgPhgVYujsYD0ybgDHU7VPtrl+pbNYpxNmJym098TiY8in3Ur7ORwV9WLv2tBkePRKp/gwjnm/l2mu2D54x0iQkuiBYf6FBnNb16S+tPbJB7i3ok9oTf8hxRnuows/Jzg64pYu1hXUn8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=rpbDuBir; arc=fail smtp.client-ip=40.107.209.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AA0228CF4A;
+	Mon,  8 Jun 2026 06:30:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780900257; cv=none; b=mF5c1s0r2jG0F5e+zo9C7H6bVynqrbP+7YD7otXrUWB3UiT/obJWlsNzqmR/2fRhoV7E30xoGCfR5+9UH99AcWti2ZhBN/HBgUoFo6Q+OqWhWrYnZPmG5da9S4R0cuiihyBaR+yvF95wtjSkb+5vDHoJOPnA1oWmkJqZyUHUsSk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780900257; c=relaxed/simple;
+	bh=PmTj2ntYlT0hFTsceg3H+NF3uQVcrK8SzQw4KCBituo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=IrExWBdH2L4CB2b33y4k8JbR40Ua/Qx1tMo+fhCwv7dkEfbJvakfN6vq3sgYVblOcbpBupDHOW2imC+9uRap6jXiThF0dBv/2FvgEAw3WcfD5SBAvxpftjgYzdSwBuUrISBMo+01+Dn319J952/X0TV9uAVhbRHNCsch+uiwXA0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=Kjw/Ui50; arc=none smtp.client-ip=217.194.8.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="rpbDuBir"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hR+A5QMSNB2MHnYX1Mo4d2qdVV516avJbL5fD/daIK/+ETSD5Y/3EymESJm4LjgX7dTlKJg7kXnuu2jkT9u+vwqeNGRKkHIHfCiPInjPygGbHxA0oIp7RivNHWsxp2M3DCwxqS/6nBdAPTa8dWzWJD655PKd1wZTgjJuBxbn0jE8mDbUX3qctlVxRfxsB156gNvj3lIpOyoukO5NcD0FBhEzgbvhnaJJ/k/XK89BP7juJW10z9znGE0VbuQO4LCV1xAt0rgnJwhRX08f1+pj15NiGeEUCNP7xDctDXsVVfmPg1r4kMf8296TWMmQfCSYDMOnZdsWPznhUwNVv7L+XA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QGO5so+YKolFmLuzh3j1apkGLr7fgWppK/Ax4uy7cTw=;
- b=RMp7kBxITrVInAH0ymZbZIul1PbTD3V6CEpVjDPrBrA2v3ICEabiaxRBVwN5ycvVgSUWLTM9XcTR55th9HKmKvhyn6ZW95sU/94e1vMzafGYqPuPf2JJpfL1+wTw191qERG9jy5a6HYtB6nc1o5TZnnrU+7/KSQm9BoY7Jtq8eESExPTzYEH4O2mmlsQVjrybzQUneHBbfIiAq/2PgO7yVCcwS9wrK/n48sj1lNz72Pc8QPHyN6afkIlz5B4o3uAP7QnsqBCF90e3o2WEq52qQqjT6L59E4pxcyY5fE2jtRT04PmQm91wtj13us7/XuLIRF57Jozf1+VwYTwyed/5Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QGO5so+YKolFmLuzh3j1apkGLr7fgWppK/Ax4uy7cTw=;
- b=rpbDuBirrG04YhgSEEAa7NVEgwKmCww9rOWBEZvQ/j+/Fa3UZKZhRyx86Yf3TkYDahgwzT+DTpG9bjHbLS1q6ljPkj5qCoErrG8lWEcklureS8A/vTSOads+nZ4qAWyQyjdFQVYzwhLIPI7AHPDBTB0fDJuCnCloDlEnXjSoVY77g01ccvENqRZ9pgH3eESpyglH+S34ZNUpS61Au3vjYcQstKOsavhh+g/3acvCkZ8RONGEoaHLafH2mk6kpwwVtF+FaMgz3rZoHZ8gpP8Dm/P9aXENswzfzX5OCpGmbSefbvMKj3hJm0SAbCyqXpsxLq0zlT4K8fUXPMF7rXvyMA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MN0PR12MB5716.namprd12.prod.outlook.com (2603:10b6:208:373::14)
- by CH3PR12MB8993.namprd12.prod.outlook.com (2603:10b6:610:17b::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.12; Mon, 8 Jun 2026
- 06:22:52 +0000
-Received: from MN0PR12MB5716.namprd12.prod.outlook.com
- ([fe80::bac8:2b43:2a64:4c76]) by MN0PR12MB5716.namprd12.prod.outlook.com
- ([fe80::bac8:2b43:2a64:4c76%3]) with mapi id 15.21.0092.011; Mon, 8 Jun 2026
- 06:22:52 +0000
-Message-ID: <7665c837-ee07-4ec9-bf4f-4b8731a3f31c@nvidia.com>
-Date: Mon, 8 Jun 2026 11:52:43 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RESEND] dmaengine: tegra: Fix burst size calculation
-To: vkoul@kernel.org
-Cc: stable@vger.kernel.org, Frank Li <Frank.Li@nxp.com>, Frank.Li@kernel.org,
- thierry.reding@kernel.org, digetx@gmail.com, pkunapuli@nvidia.com,
- dmaengine@vger.kernel.org, linux-tegra@vger.kernel.org,
- linux-kernel@vger.kernel.org, Jon Hunter <jonathanh@nvidia.com>,
- ldewangan@nvidia.com, akhilrajeev@nvidia.com
-References: <20260422064134.1323610-1-kkartik@nvidia.com>
- <98255b77-dcef-40c8-8851-91e723b82ea1@nvidia.com>
-Content-Language: en-US
-From: Kartik Rajput <kkartik@nvidia.com>
-In-Reply-To: <98255b77-dcef-40c8-8851-91e723b82ea1@nvidia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PN2PR01CA0164.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:26::19) To MN0PR12MB5716.namprd12.prod.outlook.com
- (2603:10b6:208:373::14)
+	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="Kjw/Ui50"
+Received: from francesco-nb (xcpe-178-82-120-96.dyn.res.sunrise.net [178.82.120.96])
+	by mail11.truemail.it (Postfix) with ESMTPA id 469C11F92A;
+	Mon,  8 Jun 2026 08:30:44 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
+	s=default; t=1780900244;
+	bh=f4vlcejmN+4pqyqSMq9klPgT89unpijOOfOwM67ow4A=; h=From:To:Subject;
+	b=Kjw/Ui50l1fYNROPB2HfdBMHcMKbNUdFYl1BCY0mEIhvXyrlDTIPVbuKYv98cR9Ro
+	 9Lefp0KF/CySG1hqafoXRM6cADu5/ljUi5RyuuQw1mYHGuVSIAz3Pa+yShuF0DZJNa
+	 lLTd96dWIiuTCg1bLK58LqaZ/xqmA0pl5ZVF6rOmh5DYAMSoBk+a93Cdk/OVfmwG2f
+	 UACHZRI/JQVpD683HUmzUv9EuirYBlf2yu+x7bTPn9UqQyx8hezNFEnrrvCRROLK+2
+	 AI628OugaW4Nr/pD3fPLU2LUVHmQh8A9YdQHBrbIT1LEWL8tko04ntTbgyRCisbhNE
+	 gkzKYhPyCvnUA==
+Date: Mon, 8 Jun 2026 08:30:40 +0200
+From: Francesco Dolcini <francesco@dolcini.it>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
+	patches@kernelci.org, lkft-triage@lists.linaro.org,
+	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+	sr@sladewatkins.com
+Subject: Re: [PATCH 6.12 000/307] 6.12.93-rc1 review
+Message-ID: <20260608063040.GA11711@francesco-nb>
+References: <20260607095727.647295505@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN0PR12MB5716:EE_|CH3PR12MB8993:EE_
-X-MS-Office365-Filtering-Correlation-Id: 37676440-c3cb-439f-e414-08dec5265e7a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|1800799024|56012099006|11063799006|4143699003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	8gQK2i/j8YxLQcWFp3GyrWeSPk2n273xGvPvKgi2aX61bXdjVXuFVbjLGWWnmxxia6OciJB5SaQdH3viUzzmDMEiZnbGiClTQiwZbiUGA8lazUjPcDR3DcQc81yDsmCP+WH+DaG/xoDeCE+BAlSisnxuaz4EPWRjSpcbdS0qMVYkxIqQsNcnBrqzfI08iMJxq/AdlwHDkTSgR/AeOr87dJt1LyouJkp65HA2dbDt8NdirB2csZALSeTm4N6oMFCG85qVbR0JWQuiJjYAry5v8ak/IHkS0/PpzQzijnGVWDpY22/1LfyriPtyqVbZIYENYJi6WKHb+v5iARHmF5Ud0oEAhv+eHzgVcqzdEyTP7dlNWkRgIuQkkKq/d+MTnq9SXYRNdp58Uleo7Rk639Rg72ZPx1Tcix6zSg1r8k3D7OiDuSNy3mqczFOe6tvcZ69t3d++D3BI1cFLRuCO4degKTkVxZVW/FZbNnp+SeDn0BvPPpmc9VAgtCGkLUdC6dyFnCUdzS5EzCtfWSIgOtJXuuW4BrUx6ph1Feu/Hxsyi/EkY8F0rrpJYZzvhvJyz8eLt5yl52kKnpeifNIjnhBNXnMO8ji9ue/wrBYq/ZIxYv0v2+3KV7ZrcD2Q+zh5dNdLoI9uQ1xVrDfWq9Zu0hHNB1vV/Q9YKhj0opY22vq9oMHsUWWSig+yDbDHW4zuOtpkzY8cNtsAkt4APFUMa0BYOQ==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MN0PR12MB5716.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(56012099006)(11063799006)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?OFJMZGtYMEFhK1R6L1NhQ2Qra2tPSUVNQUZ5SjZUVllSYUI3S0oyT0JLU1hu?=
- =?utf-8?B?VXV6bW9GRUdodDROYm1rTHRMTlZnbEVQSHJjbGxORGlhRHByKy9MVUw0Z2gr?=
- =?utf-8?B?eTVEd0FBMHA3ZFFJQjd4RjA0VWY1Q3lHNVo4NG1uMXlwdjNOdTFkdHk1Q296?=
- =?utf-8?B?MkFpdmlwR3MrQW9zSU1lRGQyUzFVRDc5c1NqN0Z1SDBuQnU3QU5PbUMrOFpo?=
- =?utf-8?B?eWJCL0lxN2V6TDV3a0owVGUzRDZKcUNqS0ttNnFydjZSaWgwMXdzdDN4cTV4?=
- =?utf-8?B?VFRFUWJuZjlPc1preXhOd09uZHlqOVJ4ZkJlT1VJcWhEa0E1RmpvTUZpRm9N?=
- =?utf-8?B?K0hNTUpXQWxlVitzb0RIUkltZDVxRWJ6bzRlVWNEYXFoTTZsTUZmQWtQengz?=
- =?utf-8?B?RmQ4djdINjNYeHR5Z081YmJQL1kzZ0N5NGwxdUYyWDZLS0NoUW5OQmNiMnBs?=
- =?utf-8?B?cmE4Mnc1SnVxRkY0U3hmdVFHSWtBR0hoNi9xQnNZTDFvcUJYSWVncDBBOVd1?=
- =?utf-8?B?RXg0NGJmcEREbGJNNGxLcURDcVhYbUYxd253S3NLMld1eXRuNlkwQVMvdEZ0?=
- =?utf-8?B?OTdsWWJlN3J4ajhzQmw3MmdLTFR6VGwzQnNya1EybDFSa0FwczJjMWRlR1dT?=
- =?utf-8?B?Sk9nUnd2cXZIb3NHR1JwdzkyemlCbVE2L21HRkhCcDlsbEhGem9KSG1ib0Zu?=
- =?utf-8?B?eXJaK3Yvb3U3MENpN0FBMldINVFDWGk4NGNLakFWS1FwZHVIRFdPUFo4bk5i?=
- =?utf-8?B?TGhVREVVTlZhZFNuOVB1bHg3R3hZQWw1RTg3UFowUm4wdEVVcnJHVThJWmxT?=
- =?utf-8?B?UUpjQnNmUkdmM1BGOWpFb2RaNXJ6UXlLK2RuSjgwR3pkc2RncDllNEZhb3Uz?=
- =?utf-8?B?R1JWZ0tIRW16OUxNRXNMR1hESmlyTTJEY2FmY1hJTzVQUkNqdnJoeWFuUHVG?=
- =?utf-8?B?NHE3cllPemRSbkZQT1laKzhlVEJsN0oxLzVDMGU5a0RWUUJIb2RKbExHZGUx?=
- =?utf-8?B?N3RVWGlEQktxd0lWa2ZrcEVTOVQ2RzBvTVc0RjF6QmJtcHhwcmdKcjZzRVFk?=
- =?utf-8?B?TFcrSFZYa3I3UkNKMy9VQXFVNWpKRUQ2V1dXS1ppZWp4azVrSCtHVktKY1VX?=
- =?utf-8?B?aCtHUGtXeXdXNUlsUGpGK2JtTy9NU1ROTzRwMnN3blNJT2JwMVBNWHUwc25O?=
- =?utf-8?B?SUlZU0w4eGx0U2svT1BPT0xhcFQvMi9ZaXlnb1NiMktGaDJPMGNkMHdpTWt4?=
- =?utf-8?B?aHVEMmRUUUN5a0d6RjF2TUlKU1RVeHFYS2ltcTBiL0hlZUI4VC9rbGZuRG0y?=
- =?utf-8?B?aXkrQVRPSmd2bGR5T1hPV01DU1UyVzY0WEFhRk1NcjA2Uy9za25aQUFJdXZy?=
- =?utf-8?B?U1VaR25VRjNFcEpYRE5HYXdzOGV5dWMyeWE3Q1hqSmQ5NGsxS3hZQVhxZGhi?=
- =?utf-8?B?YjdJK3YyRWxFdUxmdGpCeGlwZDQyN1RScU5jYXowalFNMjhteVdNN1JDZlds?=
- =?utf-8?B?SlZpSGRMKzhNMmhhOTc0VEhvMW9lNVkwZHpwM1ljNGlqaEZrdCthdFcxb1Bw?=
- =?utf-8?B?Qis3aVd1QUUyQXA2U0paZkRTMHBGS0w4alkyLzBJRm4rSTRKWi9HakNWM2Z1?=
- =?utf-8?B?Y090MmpmMklMcENSanhpcmpXS3NYQldURjBjenhsK2xwcDlCQkU1a1B1WGFw?=
- =?utf-8?B?Mkk3KzExM3NadVk4TDhYalJ0UmtzRUdadU5CQ1NBQThkandBUGEvT2VNa2RX?=
- =?utf-8?B?WTkyWXczNzRBcHVrMjJ4Q0ZwWU05UnUvM3U0UTdSYTNTT0xGRGpIMzBoRlp5?=
- =?utf-8?B?ZjVjRHRsWG1NZElFRUVqRnEwUEVXVFMwUEtxaXE4Zm1GN2hoVHJjWW1sYkNu?=
- =?utf-8?B?ZEZEeG5YcHNwMTF5RExGTVFsdDl0ek9ZaTM0QmJjVFpxcW9EMTNLWU1sS1ND?=
- =?utf-8?B?eEcxQk5BbnhYTTkyK21NRmNYQWxPZmtTV0xVN2FFM25vQXdMN3RVVk9UZjVS?=
- =?utf-8?B?cXZGMWF4V0JIQ28zQXFCU3kyT0RlTWR2U1NGN2xrQ21LakNuSzFQaUFLQytt?=
- =?utf-8?B?c0psWHV1cUk1NkxPbXh0R3F4NHp4YWw1SmRsbk9Xb3lHSGxHVGlFMHh2SitY?=
- =?utf-8?B?WTl1cHE2TkFsUEhTbE1xc2liU2xmblBBa1dpbzVLc0E2VHJOdWZUQnVHc2tX?=
- =?utf-8?B?bEdPWk02QXd2c1o5N2RRWWtGcm91YkJ6eXEyYWtMM0VWcFg2ZHZETTJaa2dL?=
- =?utf-8?B?b0pRL1g1YjIyYlM4RVFhZWgvbEVEeExsRkl2a3hFemhETGdKSEtYenBzN08y?=
- =?utf-8?B?OVlrV2N6YjFrMFJJNWh3cVlScmdBVUVoTVc0dGhnaXBiOTRQSHRNdz09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 37676440-c3cb-439f-e414-08dec5265e7a
-X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB5716.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jun 2026 06:22:52.0937
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Vu7sr3FFf9muhYHYIIqaP6GeX95VbTIY0P+fvhuTjD1UFZLgR+LTHGnEhqbkzPxv2LMwHHnEw5oJszpeMqJ9Zw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8993
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260607095727.647295505@linuxfoundation.org>
 
-Hi Vinod,
+On Sun, Jun 07, 2026 at 11:56:37AM +0200, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.12.93 release.
+> There are 307 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 
-On 22/04/26 14:56, Jon Hunter wrote:
-> 
-> On 22/04/2026 07:41, Kartik Rajput wrote:
->> Currently, the Tegra GPC DMA hardware requires the transfer length to
->> be a multiple of the max burst size configured for the channel. When a
->> client requests a transfer where the length is not evenly divisible by
->> the configured max burst size, the DMA hangs with partial burst at
->> the end.
->>
->> Fix this by reducing the burst size to the largest power-of-2 value
->> that evenly divides the transfer length. For example, a 40-byte
->> transfer with a 16-byte max burst will now use an 8-byte burst
->> (40 / 8 = 5 complete bursts) instead of causing a hang.
->>
->> This issue was observed with the PL011 UART driver where TX DMA
->> transfers of arbitrary lengths were stuck.
->>
->> Fixes: ee17028009d4 ("dmaengine: tegra: Add tegra gpcdma driver")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Kartik Rajput <kkartik@nvidia.com>
->> Reviewed-by: Frank Li <Frank.Li@nxp.com>
->> ---
->>   drivers/dma/tegra186-gpc-dma.c | 7 +++++++
->>   1 file changed, 7 insertions(+)
->>
->> diff --git a/drivers/dma/tegra186-gpc-dma.c b/drivers/dma/tegra186-gpc-dma.c
->> index 5948fbf32c21..0aa3a02b2277 100644
->> --- a/drivers/dma/tegra186-gpc-dma.c
->> +++ b/drivers/dma/tegra186-gpc-dma.c
->> @@ -825,6 +825,13 @@ static unsigned int get_burst_size(struct tegra_dma_channel *tdc,
->>        * len to calculate the optimum burst size
->>        */
->>       burst_byte = burst_size ? burst_size * slave_bw : len;
->> +
->> +    /*
->> +     * Find the largest burst size that evenly divides the transfer length.
->> +     * The hardware requires the transfer length to be a multiple of the
->> +     * burst size - partial bursts are not supported.
->> +     */
->> +    burst_byte = min(burst_byte, 1U << __ffs(len));
->>       burst_mmio_width = burst_byte / 4;
->>       if (burst_mmio_width < TEGRA_GPCDMA_MMIOSEQ_BURST_MIN)
-> 
-> 
-> Reviewed-by: Jon Hunter <jonathanh@nvidia.com>
-> 
-> Thanks
-> Jon
-> 
+Tested-by: Francesco Dolcini <francesco.dolcini@toradex.com>
 
-This applies cleanly on top of Akhil's Tegra264 series:
-https://lore.kernel.org/linux-tegra/20260331102303.33181-1-akhilrajeev@nvidia.com/T/#t
-
-Could you please pick this up if there are no objections?
-
-Thanks,
-Kartik
