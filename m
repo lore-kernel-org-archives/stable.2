@@ -1,83 +1,128 @@
-Received: from aposti.net (aposti.net [185.119.170.32])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp-190c.mail.infomaniak.ch (smtp-190c.mail.infomaniak.ch [185.125.25.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D29047F2D4;
-	Tue,  9 Jun 2026 15:29:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.119.170.32
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E71892E040E
+	for <stable@vger.kernel.org>; Tue,  9 Jun 2026 15:36:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.125.25.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781018966; cv=none; b=Rp+HSKhPWZD8HLZoxEUXLqSXtK0B70jSJhopgfcXHZExzjsElpFJPUzKxce6q//t0y7TXxiQsbY/OwhRhIZsOznDNqmK+eSPZ9Lv2awhPiKAaxFJFK9hJW/OR2tRYPFZMsj4SvgCgp5zMqpmyrIolSuxwNhJX6XUoKvAavtdBq0=
+	t=1781019410; cv=none; b=YGGN1G2HxDKEapqo+JoMJfPayECYeIl+3PZCqozm5LANY6Yc6t9qOv1/wfIJQ+jeo3s5Jel/7vlCoCPdAQChH5w4kjQX6BfAuV0I+7CNqjcN3tXoZBnj+VHbC6FbhujVL9UROrfvP4iba4ch08S2/q4EaFnndSajj+SXvF9irls=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781018966; c=relaxed/simple;
-	bh=Hf3NUFTPdlpBckTP5tVrDmcFEZZmCKf1Y+qeXrTx6lQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kdK/W2NgbUa3ShAkTSbUM/wMx2LVIig4nWdS3O57nY4SFzruPDvLXrv6wlH3Adx/fG2PSWEpYZNPiTx59KukuunFrbdVggScg3OnFl6DYkhmSq1MTWvROvhgKXy9jmjrTFtcvMfkqwx6Annhc93k7a+77xudIP7g+VHScHMZDRo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=crapouillou.net; spf=pass smtp.mailfrom=crapouillou.net; dkim=pass (1024-bit key) header.d=crapouillou.net header.i=@crapouillou.net header.b=Gpdm53dH; arc=none smtp.client-ip=185.119.170.32
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=crapouillou.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crapouillou.net
+	s=arc-20240116; t=1781019410; c=relaxed/simple;
+	bh=U6odCp490eP+FKoFRdSEMQKJYQePm9OGnlqNZ8HV0aE=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=dzhsH6R40IRnvZI9KwuSz5iHoXjbddOKID+8oscUNnd0Njy+FzQfhRBdWZw3pSplacl+DXwlSSy0g1Re6PKwequyjeBdfsOkvX/1eZMjlsmammf6AD0Z6eZ4xqjZ4pwcOrNaOjwQQx7CQKPk1xO928SYHYEZJ9Dv3zBD2kQdPaI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.sh; spf=pass smtp.mailfrom=gibson.sh; dkim=pass (2048-bit key) header.d=gibson.sh header.i=@gibson.sh header.b=gaPPoV64; arc=none smtp.client-ip=185.125.25.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.sh
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gibson.sh
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=crapouillou.net header.i=@crapouillou.net header.b="Gpdm53dH"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=crapouillou.net;
-	s=mail; t=1781018962;
-	bh=Hf3NUFTPdlpBckTP5tVrDmcFEZZmCKf1Y+qeXrTx6lQ=;
-	h=From:To:Cc:Subject:Date:From;
-	b=Gpdm53dHk42Xo4ZX2nd8sW92GOs5ztQb9unPiXuQ11pbqgoKraldRUxfeKq34WFEr
-	 zKtW9yR7StSn8L0Bu46FgiDi8LcRFUI/M1Me/Y2XylhHZ2SsX/qZNLLECEOfjS/CvC
-	 R4oCXxPP1HAtgkL5yYfbU/MdDAQ1T4m+WvJWc/Ds=
-From: Paul Cercueil <paul@crapouillou.net>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Paul Cercueil <paul@crapouillou.net>,
-	stable@vger.kernel.org
-Subject: [PATCH] usb: gadget: f_fs: Fix DMA fence leak
-Date: Tue,  9 Jun 2026 17:29:05 +0200
-Message-ID: <20260609152905.729328-1-paul@crapouillou.net>
+	dkim=pass (2048-bit key) header.d=gibson.sh header.i=@gibson.sh header.b="gaPPoV64"
+Received: from smtp-3-0001.mail.infomaniak.ch (unknown [IPv6:2001:1600:4:17::246c])
+	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4gZY1B1YpNz3KS;
+	Tue,  9 Jun 2026 17:36:46 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gibson.sh;
+	s=20260228; t=1781019406;
+	bh=Tfpacp/lMFRT4kQRNe1XZ8GeAjoEakUIKMpMmUTLXdQ=;
+	h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
+	b=gaPPoV64+W19jbHDlDYaXpOsP8S1e+rmPgIgEew3oo6s1jhGcvbBoUtgyIKC8u595
+	 8xaSczlJqVMeA9CeaOSqvpzGHqRDZF1CZOQS7Z+mFJl24fRuJYxpboOf23Tv7kiGqx
+	 DswAXpqwIA4iZl0K1/y13YZBpTg/b9mio6nrWy96eFgTrwPNKLtxZgw1czjrqGvVDd
+	 RroY5jm276nhxK14XS64o+om8u7WeowKpHk9Ny9yEJ7xZ+VOjI2ROhpPEUYgaRovAm
+	 9UOyNZ+PVkK3HQpSjytID4fep/+Y2KW7TBPDGjN6JvNc4EobfvLEN3KUHXHL2B6gGf
+	 3xD4bAkJmPm0A==
+Received: from unknown by smtp-3-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4gZY183brTzqLC;
+	Tue,  9 Jun 2026 17:36:44 +0200 (CEST)
+Message-ID: <5b684d9c-2477-488d-a89b-323ca3e51207@gibson.sh>
+Date: Tue, 9 Jun 2026 17:36:44 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 2/4] platform/x86/amd/pmc: Delay suspend for some
+ Lenovo Laptops
+From: Daniel Gibson <daniel@gibson.sh>
+To: Mario Limonciello <superm1@kernel.org>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>,
+ Hans de Goede <hansg@kernel.org>, platform-driver-x86@vger.kernel.org,
+ LKML <linux-kernel@vger.kernel.org>,
+ Sindre Henriksen <sindrehenriksen93@gmail.com>,
+ Hans de Goede <johannes.goede@oss.qualcomm.com>, stable@vger.kernel.org
+References: <20260609105756.2813669-1-daniel@gibson.sh>
+ <20260609105756.2813669-3-daniel@gibson.sh>
+ <2fbb4d9d-7ad5-d4e7-b510-d7c75f399d97@linux.intel.com>
+ <6b6ce9ce-5bda-4924-b2d2-933736cfad9c@gibson.sh>
+ <cecea384-7af9-4fc6-b315-84d4ac8fb31d@kernel.org>
+ <3b49ba16-d318-4905-bfe0-ebcc7ef374c5@gibson.sh>
+Content-Language: de-DE, en-GB
+In-Reply-To: <3b49ba16-d318-4905-bfe0-ebcc7ef374c5@gibson.sh>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Infomaniak-Routing: alpha
 
-In ffs_dmabuf_transfer(), a ffs_dma_fence object is kmalloc'd, with the
-underlying dma_fence later initialized by dma_fence_init(), which sets
-its kref counter to 1. Then, dma_resv_add_fence() gets a second
-reference, and a pointer to the ffs_dma_fence is passed as the
-usb_request's "context" field.
+On 09.06.26 17:06, Daniel Gibson wrote:
+> On 09.06.26 16:40, Mario Limonciello wrote:
+>> On 6/9/26 07:07, Daniel Gibson wrote:
+>>> On 09.06.26 13:46, Ilpo Järvinen wrote:
+>>>> On Tue, 9 Jun 2026, Daniel Gibson wrote:
+>>>>>       },
+>>>>> +    /* https://bugzilla.kernel.org/show_bug.cgi?id=221383 */
+>>>>> +    {
+>>>>> +        .ident = "Zen3-based IdeaPad Slim and similar",
+>>>>> +        .driver_data = &quirk_s2idle_need_suspend_delay,
+>>>>
+>>>> Hi,
+>>>>
+>>>> One more question.
+>>>>
+>>>> Sashiko noted, that amd_pmc_quirks_init() can overwrite
+>>>> disable_8042_wakeup from the AMD_CPU_ID_CZN check when .driver_data
+>>>> provides quirks. Is it okay in this case to not have .spurious_8042?
+>>>>
+>>>
+>>> Good question.
+>>> So far I haven't had complaints that sounded like they'd be related to
+>>> this quirk not being active.
+>>>
+>>> (The only report about things not working as expected on detected
+>>> devices was something about "ACPI event storms" after resume:
+>>> https://github.com/DanielGibson/amd_pmc-ideapad/issues/3 - but no one
+>>> else with similar devices could reproduce that, so no idea what's going
+>>> on there, and it doesn't sound like that IRQ1 issue)
+>>>
+>>> I can test if explicitly enabling .spurious_8042 in
+>>> quirk_s2idle_need_suspend_delay breaks anything on my device, if you
+>>> think that enabling it by default makes more sense?
+>>
+>> Famous last words - but we haven't had a need for spurious 8042 on
+>> recent hardware so I think this is unlikely to be a big problem.
+> 
+> FWIW enabling .spurious_8042 didn't break anything on my machine, but
+> didn't improve anything either - only visible difference is that when
+> resuming by pressing a key without that quirk both IRQ1 and IRQ7 are
+> reported as having triggered the resume, and with the quirk only IRQ7 is
+> reported. But it didn't seem like IRQ1 triggers a resume when it shouldn't.
+> 
+> OTOH I have a the latest BIOS (from this year), so it's likely fixed
+> there - maybe people with older BIOS versions still need the
+> .spurious_8042 quirk?
+> 
+> As these devices are relatively recent and still sold I hope that
+> everyone affected can get a new BIOS (which they should do either way).
 
-The dma-resv mechanism will manage the second reference, but the first
-reference is never properly released; the ffs_dmabuf_cleanup() function
-decreases the reference count, but only to balance with the reference
-grab in ffs_dmabuf_signal_done().
+Anyway, overall I'd say that the patches can be merged as they are - the
+affected devices are known to have serious (-ly annoying) suspend
+issues, so it's unlikely that a currently matched devices has working
+suspend that breaks with them, so things at least shouldn't get any
+worse for their users?
 
-The code will then slowly leak memory as more ffs_dma_fence objects are
-created without being ever freed.
+The patches have gotten some testing already on different devices (from
+my out-of-tree patched amd_pmc module on Github) and so far it looks
+like the spurious_8042 quirk isn't needed.
+If reports of needing both quirks turn up after all, that can still be
+easily added in a few lines of code (maybe even just one).
 
-Address this issue by transferring ownership of the fence to the DMA
-reservation object, by calling dma_fence_put() right after
-dma_resv_add_fence(). The ffs_dma_fence then gets properly discarded
-after being signalled.
-
-Fixes: 7b07a2a7ca02 ("usb: gadget: functionfs: Add DMABUF import interface")
-Cc: stable@vger.kernel.org
-Signed-off-by: Paul Cercueil <paul@crapouillou.net>
----
- drivers/usb/gadget/function/f_fs.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/usb/gadget/function/f_fs.c b/drivers/usb/gadget/function/f_fs.c
-index 75912ce6ab55..7cc446502980 100644
---- a/drivers/usb/gadget/function/f_fs.c
-+++ b/drivers/usb/gadget/function/f_fs.c
-@@ -1704,6 +1704,7 @@ static int ffs_dmabuf_transfer(struct file *file,
- 	resv_dir = epfile->in ? DMA_RESV_USAGE_READ : DMA_RESV_USAGE_WRITE;
- 
- 	dma_resv_add_fence(dmabuf->resv, &fence->base, resv_dir);
-+	dma_fence_put(&fence->base);
- 	dma_resv_unlock(dmabuf->resv);
- 
- 	/* Now that the dma_fence is in place, queue the transfer. */
--- 
-2.53.0
-
+Cheers,
+Daniel
