@@ -1,37 +1,47 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2D523403E5;
-	Tue,  9 Jun 2026 07:48:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 821F53EA947;
+	Tue,  9 Jun 2026 07:53:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780991286; cv=none; b=t5p490KgbzYee4QjPbb3vczYD11qqgI+4nDP94Gz4AND3PhUTl0BDGqyyF4CbgCWBmBapSfw3mY8JbyOhrJdKTaG6pQIeQ0/hg3mSst71WVLp+vrcgi7Ybwc2g/vCw3/a+QEgVLnkeBfd6viE0jlqequKCgSEiZrkq8kjzz3qHE=
+	t=1780991583; cv=none; b=dcIILrrPrtwS6LLpr+UYxY/ngoBpHpH360zm/lCPw3+jNkwLwgTd9Mr/xty9+ABJGTRtXrKnVll1xW20PtH3/S3+XVsK5pHrKZPvMevI653Hik4JvkEhiJ14j0Cc2fj0965tm57XDM4b4OtoUDkw/5JiqiAWrkabtBr/lLJRrac=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780991286; c=relaxed/simple;
-	bh=/o1SYOIQeWiDGm8oxZkRrSnENORAyIM+gTugl8z996Y=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=utsuBZlH11aiCHT5/lGOj5LI21E0b7jWN3uqUAbghs9rGkrfvh6zV+5fJkkMjEOaf7WUqvUXD3qMYFO1VEVBrhZuoI++Uqy6PVsmDbX3yZhTaHCOuxX4u874bODvqL1Nhg0MkRGu02SyZ7Sy/rpKUWy0II9nc2vyx2gT7M/XPxE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowAAntQgpxSdqVK7NEg--.12531S2;
-	Tue, 09 Jun 2026 15:47:53 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: rmody@marvell.com,
-	GR-Linux-NIC-Dev@marvell.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com
-Cc: netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Wentao Liang <vulab@iscas.ac.cn>,
+	s=arc-20240116; t=1780991583; c=relaxed/simple;
+	bh=aJxpV9vdDMyVA5y4YfW76rWD6y6rvCrZ6c+slhhVGhI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=eZzNIayKHspC5iuem2dbXWmdE2Ow82kgmLuBXCI8DuIh87Onu559ym2abTMHhhNxwM/oUx3YI4gj22HCYEgzyHgIwnJzwdwRmVhGPJyun4XtAqvsBktM2W2x7kQVMYJ25E+iWmHXd3Lvzq5TOlKruYIN3fQ06xsbgrYG33kK+DU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=lst.de; spf=none smtp.mailfrom=bombadil.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=V9UL01dT; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=lst.de
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="V9UL01dT"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
+	:Reply-To:Content-Type:Content-ID:Content-Description;
+	bh=xPaPDJDgp45t7irKytQICrwLHLMxN8+Rf0nqUYn9v9k=; b=V9UL01dTm2V6hMgHllbccF7hvV
+	ivLBcWqEDJI8XMh00XL3I2hlPeFD8XXSngwl7vWOHfbX5eC0a1TwKao/wq/FZQUIs/7SxTzEs6xd6
+	LKiGGjfjd54iNASXjsXJKYVJGd2PH4X73omGz1EcN/cWb+Hc3QuzcSSF6DQHKcdGndh0B62sURVxX
+	mnYew3/8oxlbL11sjWCN7ZPVCbdLETIoU7DNpse61/zeXX0zf+uBu+Og6VbS57iL4GugDqYexnEwe
+	XyTI1j5uvETyXv1jTgsmzvOTpWa6hWSiCrCS91jf5Ily+5RyPkrjPtGvSXtBUBg3Wecpl8BIpNbU+
+	P8G1wsYw==;
+Received: from 2a02-8389-2341-5b80-decc-1a96-daaa-a2cc.cable.dynamic.v6.surfer.at ([2a02:8389:2341:5b80:decc:1a96:daaa:a2cc] helo=localhost)
+	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1wWrGf-00000004zd9-2sx7;
+	Tue, 09 Jun 2026 07:53:02 +0000
+From: Christoph Hellwig <hch@lst.de>
+To: Carlos Maiolino <cem@kernel.org>
+Cc: Nirjhar Roy <nirjhar.roy.lists@gmail.com>,
+	"Darrick J . Wong" <djwong@kernel.org>,
+	linux-xfs@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH] bnx2: fix refcount leak in bnx2_change_ring_size()
-Date: Tue,  9 Jun 2026 07:47:46 +0000
-Message-Id: <20260609074746.206312-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+Subject: [PATCH 1/2] xfs: pass back updated nb from xfs_growfs_compute_deltas
+Date: Tue,  9 Jun 2026 09:52:44 +0200
+Message-ID: <20260609075254.1698464-2-hch@lst.de>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260609075254.1698464-1-hch@lst.de>
+References: <20260609075254.1698464-1-hch@lst.de>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -39,57 +49,89 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowAAntQgpxSdqVK7NEg--.12531S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7tr1DCF4fGr47XF47KF4DJwb_yoW8Gw4rpw
-	4ayr98ArykXr1akayxAa18Zr15Ca1ft3s8Wr4xt3yruws8AF1UAF1vga47WF1kArZ7urnI
-	vr12vrnxCFyDZrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9F14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
-	6r4UJwA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
-	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
-	2Ix0cI8IcVAFwI0_JF0_Jw1lYx0Ex4A2jsIE14v26F4UJVW0owAm72CE4IkC6x0Yz7v_Jr
-	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E
-	8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFV
-	Cjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWl
-	x4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r
-	1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_
-	JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcS
-	sGvfC2KfnxnUUI43ZEXa7VU8nNVPUUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwkNA2onpjNyLgADsH
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
 
-The error path in bnx2_change_ring_size() when reopening the
-device fails does not balance the intr_sem semaphore.
-bnx2_netif_stop(true) increments the semaphore at the start of the
-function if the netif is running. On success, bnx2_netif_start(true)
-decrements it. However, when bnx2_alloc_mem(), bnx2_request_irq(),
-or bnx2_init_nic() fail, the error handling calls bnx2_napi_enable()
-and dev_close() without performing the corresponding decrement. This
-leaves the semaphore permanently imbalanced, eventually causing
-stall or deadlock on subsequent internal synchronization.
+xfs_growfs_compute_deltas can update nb for corner cases like a number
+of blocks that would create a less the minimal sized AG, or running
+past the max AG limit.  Pass back the calculated value to the caller,
+as it relies on to calculate the new number of perag structures.
 
-Fix this by calling bnx2_netif_start(true) in the error path to
-properly release the semaphore count.
+Note that the grown file system size is not affected by this
+miscalculation as it uses the passed back delta value.
 
-Cc: stable@vger.kernel.org
-Fixes: 6fefb65e78f0 ("bnx2: Close device if MTU change or ring size change fails.")
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+Fixes: a49b7ff63f98 ("xfs: Refactoring the nagcount and delta calculation")
+Cc: <stable@vger.kernel.org> # v7.0
+Signed-off-by: Christoph Hellwig <hch@lst.de>
+Reviewed-by: "Darrick J. Wong" <djwong@kernel.org>
 ---
- drivers/net/ethernet/broadcom/bnx2.c | 1 +
- 1 file changed, 1 insertion(+)
+ fs/xfs/libxfs/xfs_ag.c | 10 +++++-----
+ fs/xfs/libxfs/xfs_ag.h |  2 +-
+ fs/xfs/xfs_fsops.c     |  2 +-
+ 3 files changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/net/ethernet/broadcom/bnx2.c b/drivers/net/ethernet/broadcom/bnx2.c
-index f5722e929833..7f8ade29b7e5 100644
---- a/drivers/net/ethernet/broadcom/bnx2.c
-+++ b/drivers/net/ethernet/broadcom/bnx2.c
-@@ -7360,6 +7360,7 @@ bnx2_change_ring_size(struct bnx2 *bp, u32 rx, u32 tx, bool reset_irq)
- 		if (rc) {
- 			bnx2_napi_enable(bp);
- 			dev_close(bp->dev);
-+			atomic_dec(&bp->intr_sem);
- 			return rc;
- 		}
- #ifdef BCM_CNIC
+diff --git a/fs/xfs/libxfs/xfs_ag.c b/fs/xfs/libxfs/xfs_ag.c
+index dcd2f93b6a6c..0c5f0548021f 100644
+--- a/fs/xfs/libxfs/xfs_ag.c
++++ b/fs/xfs/libxfs/xfs_ag.c
+@@ -866,7 +866,7 @@ xfs_ag_shrink_space(
+ void
+ xfs_growfs_compute_deltas(
+ 	struct xfs_mount	*mp,
+-	xfs_rfsblock_t		nb,
++	xfs_rfsblock_t		*nb,
+ 	int64_t			*deltap,
+ 	xfs_agnumber_t		*nagcountp)
+ {
+@@ -874,19 +874,19 @@ xfs_growfs_compute_deltas(
+ 	int64_t		delta;
+ 	xfs_agnumber_t	nagcount;
+ 
+-	nb_div = nb;
++	nb_div = *nb;
+ 	nb_mod = do_div(nb_div, mp->m_sb.sb_agblocks);
+ 	if (nb_mod && nb_mod >= XFS_MIN_AG_BLOCKS)
+ 		nb_div++;
+ 	else if (nb_mod)
+-		nb = nb_div * mp->m_sb.sb_agblocks;
++		*nb = nb_div * mp->m_sb.sb_agblocks;
+ 
+ 	if (nb_div > XFS_MAX_AGNUMBER + 1) {
+ 		nb_div = XFS_MAX_AGNUMBER + 1;
+-		nb = nb_div * mp->m_sb.sb_agblocks;
++		*nb = nb_div * mp->m_sb.sb_agblocks;
+ 	}
+ 	nagcount = nb_div;
+-	delta = nb - mp->m_sb.sb_dblocks;
++	delta = *nb - mp->m_sb.sb_dblocks;
+ 	*deltap = delta;
+ 	*nagcountp = nagcount;
+ }
+diff --git a/fs/xfs/libxfs/xfs_ag.h b/fs/xfs/libxfs/xfs_ag.h
+index 16a9b43a3c27..8aa4266c5571 100644
+--- a/fs/xfs/libxfs/xfs_ag.h
++++ b/fs/xfs/libxfs/xfs_ag.h
+@@ -330,7 +330,7 @@ int xfs_ag_init_headers(struct xfs_mount *mp, struct aghdr_init_data *id);
+ int xfs_ag_shrink_space(struct xfs_perag *pag, struct xfs_trans **tpp,
+ 			xfs_extlen_t delta);
+ void
+-xfs_growfs_compute_deltas(struct xfs_mount *mp, xfs_rfsblock_t nb,
++xfs_growfs_compute_deltas(struct xfs_mount *mp, xfs_rfsblock_t *nb,
+ 			int64_t *deltap, xfs_agnumber_t *nagcountp);
+ int xfs_ag_extend_space(struct xfs_perag *pag, struct xfs_trans *tp,
+ 			xfs_extlen_t len);
+diff --git a/fs/xfs/xfs_fsops.c b/fs/xfs/xfs_fsops.c
+index 8d64d904d73c..436857356a0a 100644
+--- a/fs/xfs/xfs_fsops.c
++++ b/fs/xfs/xfs_fsops.c
+@@ -124,7 +124,7 @@ xfs_growfs_data_private(
+ 			mp->m_sb.sb_rextsize);
+ 	if (error)
+ 		return error;
+-	xfs_growfs_compute_deltas(mp, nb, &delta, &nagcount);
++	xfs_growfs_compute_deltas(mp, &nb, &delta, &nagcount);
+ 
+ 	/*
+ 	 * Reject filesystems with a single AG because they are not
 -- 
-2.34.1
+2.53.0
 
