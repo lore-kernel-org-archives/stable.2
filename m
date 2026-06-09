@@ -1,173 +1,83 @@
-Received: from canpmsgout07.his.huawei.com (canpmsgout07.his.huawei.com [113.46.200.222])
+Received: from submarine.notk.org (submarine.notk.org [62.210.214.84])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD0D83115A5;
-	Tue,  9 Jun 2026 01:30:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.222
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D72B185B48;
+	Tue,  9 Jun 2026 01:33:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.210.214.84
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780968646; cv=none; b=eJS/+BA4qh2yr8K2nnw8gLAAJIB+b9qmAUmWhTHCoKIMu0/xftDeaS0BcLNbAxE05irSPpLKwT8sc/PKCLh7AiKX7lJtBQmscATLtQGDXVa30MNbRZMfDsbwu9IC7/xkWRcax/6jRIQXf9pViIajeWIU+gCJKlUSCMqUZxUT/Qg=
+	t=1780968839; cv=none; b=JfPSYKMVmFnPzNe3bpfrH09Ydgpqbc8Qpv0dYXzy3BdTSMVwSc6V7FSu87hje8H0qydKxrXniF7cJoB5RiCKE9CxeubF8XKINunmbtDTIkB9F9mBqiKFlibnIJ6xKIUFkqS+ZVoLbWvjpf9IoeHxc7XYxNEyRk6ObdBaXxfN+Uc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780968646; c=relaxed/simple;
-	bh=wbBkMfNzgrpdw/AQgcjPP5Qj1kkdSNWHGzysULcHpco=;
-	h=Subject:To:CC:References:From:Message-ID:Date:MIME-Version:
-	 In-Reply-To:Content-Type; b=Gu0wcr+SHwSXpH9o9WJe5R+qwfqUOVi5xeJ2EFg99bayP1Db6qqhDYSFaVF6SWkGJVyXOVLoQF6YI29Yqa9LioQX4YUlbLZc7tqqFED273UHvW9AMn5MlaJKACZImS5txCeu/qEWpPa1gB7IOjy9Uq+U1uxryz38ThjzQruoW0c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=GXHK18xP; arc=none smtp.client-ip=113.46.200.222
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1780968839; c=relaxed/simple;
+	bh=gh1qUAwiu0ZFqddEHycL69A5f8M26fJSNGzzEnjuEy0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=UWkpJ5oQYM7ogWR/RrOGcy8l3VrAL6pDGBhczMURO8AA5JyjTmaoJ3Off/EDYQgiRK7f35Sv0fINJnScVDrKLqsTlrecR26HoNeVBMrZJyd/HagfWBJzOp99ZQSkkEnbKI2Z2Bh+ef0LQ1DDFzpnu7yzmFc5qRy+KuJG32A+rBI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org; spf=pass smtp.mailfrom=codewreck.org; dkim=pass (2048-bit key) header.d=codewreck.org header.i=@codewreck.org header.b=yZmaoRxC; arc=none smtp.client-ip=62.210.214.84
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codewreck.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="GXHK18xP"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=PE7SL/rp0gOOvRnYwk24N7Jwk/rjpDxGlneTY/S2ePs=;
-	b=GXHK18xPIo6UAyvaNbYue7chNh+G1m83OPO29zHBSk24lYO/83w3wP9wpyOVwyx8Q5YzjHNUR
-	5eYTruuQOt8dZP8Ls3oh1Z2eHBi1qaLwiPSoRQEGAq8iJKmIETZZEHdV+AZTQfUAReDL8Gi6mK1
-	hINfKXA0QtOWZBwdkDjAWdo=
-Received: from mail.maildlp.com (unknown [172.19.162.92])
-	by canpmsgout07.his.huawei.com (SkyGuard) with ESMTPS id 4gZB3q23nrzLlW4;
-	Tue,  9 Jun 2026 09:22:47 +0800 (CST)
-Received: from dggpemf100012.china.huawei.com (unknown [7.185.36.196])
-	by mail.maildlp.com (Postfix) with ESMTPS id 5215B40562;
-	Tue,  9 Jun 2026 09:30:40 +0800 (CST)
-Received: from [10.174.176.103] (10.174.176.103) by
- dggpemf100012.china.huawei.com (7.185.36.196) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.11; Tue, 9 Jun 2026 09:30:39 +0800
-Subject: Re: [PATCH bpf] bpf: Validate BTF repeated field counts before
- expansion
-To: Eduard Zingerman <eddyz87@gmail.com>, Paul Moses <p@1g4.org>, Kumar
- Kartikeya Dwivedi <memxor@gmail.com>
-CC: <martin.lau@linux.dev>, <ast@kernel.org>, <daniel@iogearbox.net>,
-	<andrii@kernel.org>, <bpf@vger.kernel.org>, <song@kernel.org>,
-	<yonghong.song@linux.dev>, <jolsa@kernel.org>,
-	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-References: <20260605234301.1109063-1-p@1g4.org>
- <DJ2OZSCSEVEI.3APUCE7ML9X4Q@gmail.com>
- <E0xEdilT0Z6figMeDAyw03ex29iX0RfOAUXuh4aTJxUrKHK2Bg5N8lKCHNvQoQQ1UzndFFqDJ_zmAMYHLqSgSfF1menSW7C9VKDSBhYrTT0=@1g4.org>
- <DJ2RQ5NHDCZT.2R218ZSS80NQ4@gmail.com>
- <0_PQcsqBnb7dqgu9UPK6jIQvePSosttml5p2ZDoXAzy2AseVjvBu3ihswwZPWr5bZkOUCdH6HUvw3MRKJEwVYJAkT3j5gdNBHZp8l7_cP6Y=@1g4.org>
- <d7ccd692ea8c6009785ad141e6ae4bbc68347517.camel@gmail.com>
-From: Hou Tao <houtao1@huawei.com>
-Message-ID: <83321d7b-516c-f4a0-65ea-6fd224ba3110@huawei.com>
-Date: Tue, 9 Jun 2026 09:30:38 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.0
+	dkim=pass (2048-bit key) header.d=codewreck.org header.i=@codewreck.org header.b="yZmaoRxC"
+Received: from gaia.codewreck.org (localhost [127.0.0.1])
+	by submarine.notk.org (Postfix) with ESMTPS id BB22C14C2D6;
+	Tue,  9 Jun 2026 03:25:26 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=codewreck.org;
+	s=2; t=1780968332;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=FIcfNe1lUu2aDulJ8VNg2DmSoGbEFmaLVNUTbfxoHYE=;
+	b=yZmaoRxCvvNlUUANs4aJIfskMcB61Wko7FT0BUdTzWTHr89tktpA8bM9hf7LxTBcR7NTOX
+	apsMzpFBTz05/+l0sinNAs/bjbqI/jrGREYk6tqmeeBIMl/AENZ+gqrlu6LR+exl7QHJn+
+	vWzZmA+lytdBkKizGHPQmMV9HjRY6Gc3vPoDrK6pEsjiEsLbssHWTH3FezcJwspgDjRX3c
+	cU0gTblgbBuEM/usRKmet45DEwmvQpo8V9hgL/tuu800kx5fk13OhmsD+7KVaU98O/hexA
+	CGYnmyACNWymVWpyWxYcGWwnU4DXbDYT6c6JJN5UFDdk9R5qzUtfdtaDM7Dfhw==
+Received: from localhost (gaia.codewreck.org [local])
+	by gaia.codewreck.org (OpenSMTPD) with ESMTPA id c9531382;
+	Tue, 9 Jun 2026 01:25:25 +0000 (UTC)
+Date: Tue, 9 Jun 2026 10:25:09 +0900
+From: Dominique Martinet <asmadeus@codewreck.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
+	patches@kernelci.org, lkft-triage@lists.linaro.org,
+	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+	sr@sladewatkins.com
+Subject: Re: [PATCH 6.12 000/307] 6.12.93-rc1 review
+Message-ID: <aidrddA2MWY6VNTC@codewreck.org>
+References: <20260607095727.647295505@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <d7ccd692ea8c6009785ad141e6ae4bbc68347517.camel@gmail.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
-X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
- dggpemf100012.china.huawei.com (7.185.36.196)
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260607095727.647295505@linuxfoundation.org>
 
-Hi,
+Greg Kroah-Hartman wrote on Sun, Jun 07, 2026 at 11:56:37AM +0200:
+> This is the start of the stable review cycle for the 6.12.93 release.
+> There are 307 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Tue, 09 Jun 2026 09:56:47 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.12.93-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.12.y
+> and the diffstat can be found below.
 
-On 6/9/2026 3:59 AM, Eduard Zingerman wrote:
-> On Sun, 2026-06-07 at 17:53 +0000, Paul Moses wrote:
->
-> [...]
->
-> The repro is legit.
-> Here is a somewhat minimized version as a selftest:
->
->     diff --git a/tools/testing/selftests/bpf/prog_tests/btf.c b/tools/testing/selftests/bpf/prog_tests/btf.c
->     index a9de328a8697..212ca4472a89 100644
->     --- a/tools/testing/selftests/bpf/prog_tests/btf.c
->     +++ b/tools/testing/selftests/bpf/prog_tests/btf.c
->     @@ -4258,6 +4258,44 @@ static struct btf_raw_test raw_tests[] = {
->             .max_entries = 1,
->      },
->     
->     +{
->     +#define N 0x1999999aU
->     +       .descr = "repeat fields overflow",
->     +       .raw_types = {
->     +               /* int */                                               /* [1] */
->     +               BTF_TYPE_INT_ENC(0, BTF_INT_SIGNED, 0, 32, 4),
->     +               /* struct target {} */                                  /* [2] */
->     +               BTF_TYPE_ENC(NAME_TBD, BTF_INFO_ENC(BTF_KIND_STRUCT, 0, 0), 1),
->     +               /* type_tag "kptr_untrusted" -> target */               /* [3] */
->     +               BTF_TYPE_TAG_ENC(NAME_TBD, 2),
->     +               /* target * (kptr) */                                   /* [4] */
->     +               BTF_PTR_ENC(3),
->     +               /* struct outer { target *kp; elem items[N]; } */       /* [5] */
->     +               BTF_TYPE_ENC(NAME_TBD, BTF_INFO_ENC(BTF_KIND_STRUCT, 0, 2), (N * 8u + 8u)),
->     +               BTF_MEMBER_ENC(NAME_TBD, 4, 0),         /* kp           */
->     +               BTF_MEMBER_ENC(NAME_TBD, 6, 64),        /* items        */
->     +               /* elem[N] */                                   /* [6] */
->     +               BTF_TYPE_ARRAY_ENC(7, 1, N),
->     +               /* struct elem { target *f0..f9; } */                   /* [7] */
->     +               BTF_TYPE_ENC(NAME_TBD, BTF_INFO_ENC(BTF_KIND_STRUCT, 0, 10), 8),
->     +               BTF_MEMBER_ENC(NAME_TBD, 4, 0),         /* f0           */
->     +               BTF_MEMBER_ENC(NAME_TBD, 4, 0),         /* f1           */
->     +               BTF_MEMBER_ENC(NAME_TBD, 4, 0),         /* f2           */
->     +               BTF_MEMBER_ENC(NAME_TBD, 4, 0),         /* f3           */
->     +               BTF_MEMBER_ENC(NAME_TBD, 4, 0),         /* f4           */
->     +               BTF_MEMBER_ENC(NAME_TBD, 4, 0),         /* f5           */
->     +               BTF_MEMBER_ENC(NAME_TBD, 4, 0),         /* f6           */
->     +               BTF_MEMBER_ENC(NAME_TBD, 4, 0),         /* f7           */
->     +               BTF_MEMBER_ENC(NAME_TBD, 4, 0),         /* f8           */
->     +               BTF_MEMBER_ENC(NAME_TBD, 4, 0),         /* f9           */
->     +               BTF_END_RAW,
->     +       },
->     +       BTF_STR_SEC("\0target\0kptr_untrusted\0outer\0kp\0items\0elem"
->     +                   "\0f0\0f1\0f2\0f3\0f4\0f5\0f6\0f7\0f8\0f9"),
->     +       .btf_load_err = true,
->     +#undef N
->     +},
->     +
->      }; /* struct btf_raw_test raw_tests[] */
->     
->      static const char *get_next_str(const char *start, const char *end)
->
-> However, as far as I understand the repro hits an overflow only
-> because `BTF_TYPE_ENC(NAME_TBD, BTF_INFO_ENC(BTF_KIND_STRUCT, 0, 10), 8)`
-> lies about `struct elem` size. It is specified as 8, while in reality it is 80.
+Tested e22d99f0e6cb ("Linux 6.12.93-rc1") on:
+- arm i.MX6ULL (Armadillo 640)
+- arm64 i.MX8ULP (Armadillo IoT A9E)
 
-No exactly. Every field in the struct elem has the same offset (0), so
-the size of struct elem is correct, but the field definition of struct
-elem is incorrect.
-> The size of 80 would make `struct outer` unrepresentable in BTF,
-> because (N * 80 + 8) exceeds u32 range, and that's what btf_type->size uses.
-> Given that btf_repeat_fields() only traverses structs/arrays but not unions,
-> I suspect that overflow won't happen in `field_cnt * (repeat_cnt + 1)`
-> if proper size checks were implemented in btf_struct_check_meta() / btf_struct_resolve().
-> Even more, If I change "kptr_untrusted" to "kptr_untrusted11" to avoid fields parsing,
-> the kernel accepts the bogus BTF.
+No obvious regression in dmesg or basic tests:
+Tested-by: Dominique Martinet <dominique.martinet@atmark-techno.com>
 
-btf_struct_check_meta has checked the validity of field offset. However
-it seems the checking is loose:
-
-                /*
-                 * ">" instead of ">=" because the last member could be
-                 * "char a[0];"
-                 */
-                if (last_offset > offset) {
-                        btf_verifier_log_member(env, t, member,
-                                                "Invalid member
-bits_offset");
-                        return -EINVAL;
-                }
-
-For struct elem, all fields have the offset 0, so the offset checking is
-passed. From the code snippet above, it seems BTF tries to support the
-following struct definition below, is it OK to only support the last
-zero-sized field in struct definition ?
-
-struct elem {
-    int a;
-    char b[0];
-    int c;
-    char d[0];
-}
-
-
->
-> Paul, could you please investigate why is this happening?
-> .
-
+-- 
+Dominique Martinet
