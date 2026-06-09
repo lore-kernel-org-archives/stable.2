@@ -1,144 +1,94 @@
-Received: from va-1-114.ptr.blmpb.com (va-1-114.ptr.blmpb.com [209.127.230.114])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4757C3B5851
-	for <stable@vger.kernel.org>; Tue,  9 Jun 2026 03:52:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.114
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75ACE3BF69C;
+	Tue,  9 Jun 2026 03:52:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780977143; cv=none; b=I30Pk7jqtNHkMbzbIEFZieUKmsDjPcNUf0bJpb+QhcORC3o9TdQgtBlUzc3oC8hUwfU8YJFISlQEor609y2S5zMt5Lgv9LKk+LxAYutcpV4j+rMUyenvIrdn16uvfx98AEFsTwWzTDs2hiF7/wc+V+l5wY+zEJSv81Spe1RIBOw=
+	t=1780977178; cv=none; b=XzhaIMxqo0gTo2+yLj+T0NNisHR6upGFpvlS9HHIluJKE43ifxY/Jz3rgU5QD87OwqoKKLzbTaYAyl0Fzl0TLKLZ0kTulaDNPX437iP65kLIl82SuaK+p/GypMSisSphZW/NETYeztLKK/ZaTV3dsFNV98xhIChEbtMelidV9Q8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780977143; c=relaxed/simple;
-	bh=jwRa4RnwyG3Cv9znRhhMCZKS+ZL4NjyMCvlAlRL/6AA=;
-	h=From:Date:Content-Type:Subject:In-Reply-To:References:To:Cc:
-	 Mime-Version:Message-Id; b=Vchjas8IKw/uigYodu6N5RZFjnwlfGdFhslHokxd/tQu/briYYWmNUfa9AE6PZpYm8BiVjESJZU0fie3gmIUz0EPKF7N67KsPwspg0XnobqmTptvtommXyZoIIfgQxuVQ7fu7qtF5Nqq2VBv/rl5dmD9oOw7XhthKcIHaJERxCI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=VP1sH01n; arc=none smtp.client-ip=209.127.230.114
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="VP1sH01n"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1780977136; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=q9OYAFf2Ae+rU9oAk/sAlQn0Ky5uPs8iCnag0ySFlgo=;
- b=VP1sH01n3sW9yZt7V47IXxsOlkku3RGsykMmZLqbYb49wOeRhR2TflgDM6rA1zVzMbq6WW
- dpPFh0A8cwrl8uYvQ/ZXFvykptKZ1xjxxHLD3gatSGoZ3JalG+EmQC4AyBklH+uwAwqGuH
- vkHkUwaf4+SaNrP98L2qg1qyQPvXmDBhGEP1GNRkxNm+EIEpCn8CbtajLBp7flKBNUzLqD
- db7UQ0OyHmRkUgTwPdhbo42FUINeNEc8sUyOPYTetKqAKX7IIao5EfQhed92ozosjpPGf1
- NNoABx9LWepMHvMWS+KfMGn9KPIXHecC2pJa+1Bqca/qVXe+es+PEJkqu+7/MQ==
-From: "Jia Zhu" <zhujia.zj@bytedance.com>
-Date: Tue,  9 Jun 2026 11:52:02 +0800
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-Content-Type: text/plain; charset=UTF-8
-Subject: [PATCH v3 2/2] ext4: avoid tail write_begin walk for uptodate folios
-In-Reply-To: <20260609035202.90669-1-zhujia.zj@bytedance.com>
-References: <20260609035202.90669-1-zhujia.zj@bytedance.com>
-X-Original-From: Jia Zhu <zhujia.zj@bytedance.com>
-X-Lms-Return-Path: <lba+26a278dee+9f9149+vger.kernel.org+zhujia.zj@bytedance.com>
-To: "Theodore Ts'o" <tytso@mit.edu>, 
-	"Andreas Dilger" <adilger.kernel@dilger.ca>
-Cc: "Matthew Wilcox" <willy@infradead.org>, 
-	"Alexander Viro" <viro@zeniv.linux.org.uk>, 
-	"Christian Brauner" <brauner@kernel.org>, "Jan Kara" <jack@suse.cz>, 
-	"Baokun Li" <libaokun@linux.alibaba.com>, 
-	"Ojaswin Mujoo" <ojaswin@linux.ibm.com>, 
-	"Ritesh Harjani" <ritesh.list@gmail.com>, 
-	"Zhang Yi" <yi.zhang@huawei.com>, <linux-ext4@vger.kernel.org>, 
-	<linux-fsdevel@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
-	"Jia Zhu" <zhujia.zj@bytedance.com>, <stable@vger.kernel.org>
+	s=arc-20240116; t=1780977178; c=relaxed/simple;
+	bh=riT7L5N3UztfxirXwAWdjKB3Ye0PfkB5zpmJwLZ/I5w=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Psw3yiicGwsGNqJvXohRSRZ9m1CsvLjaUxvZ+TWliRc9MEDgABDN+yHQDVYA9dSjBiKEwAxBCURSVyQF9QZMRD/RA7JyABjFe2BPGmqHLeC5DteC3vjJJEK4N2B+FJoP3ve+lC2NdixUwdkHOTqfUsg5pdncn+7jnBvCs590CFo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-01 (Coremail) with SMTP id qwCowAAnzNQSjidqKHH2AA--.12091S2;
+	Tue, 09 Jun 2026 11:52:50 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: agk@redhat.com,
+	snitzer@kernel.org,
+	mpatocka@redhat.com,
+	bmarzins@redhat.com
+Cc: dm-devel@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] dm log writes: fix refcount leak in log_writes_map()
+Date: Tue,  9 Jun 2026 03:52:43 +0000
+Message-Id: <20260609035243.184530-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Message-Id: <20260609035202.90669-3-zhujia.zj@bytedance.com>
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qwCowAAnzNQSjidqKHH2AA--.12091S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7ur1xKF18Cw13ury7Cw4UJwb_yoW8Xr18pa
+	yUWFyYyFZ5Kw4jgFn8Za1kGFyfua17JFW3urW8W34rXay5XF9rJFZ5ta9Yq3yjkFsrCF9x
+	XF4jgryUCa1UAaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUkK14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWrXVW3AwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7v_Jr
+	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v2
+	6r126r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrV
+	AFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCI
+	c40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267
+	AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_
+	Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VUUyEEU
+	UUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgwNA2onYk+eiQABsy
 
-Ext4 buffered writes into large folios also pay a full buffer_head
-walk in ext4_block_write_begin().  For a small overwrite of an existing
-cached folio, the folio is already uptodate and the write only needs to
-prepare the buffers through the written range.  Walking the suffix still
-makes the write_begin cost proportional to the folio size.
+In log_writes_map(), when a discard bio is received and the device
+does not support discard, a pending block is allocated and its
+pending_blocks refcount is incremented, but the block is never
+freed. The function calls bio_endio(bio) and returns
+DM_MAPIO_SUBMITTED directly, bypassing normal_end_io() which would
+enqueue the block for later release via the kthread. As a result,
+the refcount for the associated pending block is leaked, and
+pending_blocks never reaches zero, preventing log_writes_dtr() from
+completing and causing the device destruction to hang.
 
-Before ext4 enabled large folios for regular files, the same loop was
-bounded by a single page of buffers.  That commit made the existing
-full-folio walk visible as a regression for cached small overwrites.
+Free the block with free_pending_block() before completing the bio
+in the !device_supports_discard path, matching the error handling
+done when page allocation fails.
 
-The suffix walk is needed for non-uptodate folios, where ext4 may have
-to submit reads for partial blocks, preserve new-buffer cleanup, and run
-error zeroing.  Keep those folios on the old full walk.
-
-For already-uptodate folios, keep the walk starting at the first buffer
-rather than seeking directly to from.  This preserves the existing prefix
-buffer state handling.  Stop once block_start reaches the end of the
-write range, because the skipped suffix would only repeat the
-outside-range uptodate handling for buffers beyond @to.
-
-On current master, the libMicro ext4 large-folio overwrite test shows
-the following full-series result.  Results are median usecs/call over 10
-runs, lower is better:
-
-case        nofix     this series   improvement
-write_u1k   1.418     0.3405        76.0%
-write_u10k  1.887     0.4175        77.9%
-pwrite_u1k  1.6775    0.3390        79.8%
-pwrite_u10k 1.9035    0.4130        78.3%
-
-Fixes: 7ac67301e82f0 ("ext4: enable large folio for regular file")
-Cc: stable@vger.kernel.org # v6.16+
-Reviewed-by: Jan Kara <jack@suse.cz>
-Signed-off-by: Jia Zhu <zhujia.zj@bytedance.com>
+Cc: stable@vger.kernel.org
+Fixes: 0e9cebe72459 ("dm: add log writes target")
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- fs/ext4/inode.c | 11 ++++++-----
- 1 file changed, 6 insertions(+), 5 deletions(-)
+ drivers/md/dm-log-writes.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
-index c2c2d6ac7f3d1..0fccb8f6a2116 100644
---- a/fs/ext4/inode.c
-+++ b/fs/ext4/inode.c
-@@ -1182,6 +1182,7 @@ int ext4_block_write_begin(handle_t *handle, struct folio *folio,
- 	int nr_wait = 0;
- 	int i;
- 	bool should_journal_data = ext4_should_journal_data(inode);
-+	bool folio_uptodate = folio_test_uptodate(folio);
- 
- 	BUG_ON(!folio_test_locked(folio));
- 	BUG_ON(to > folio_size(folio));
-@@ -1193,13 +1194,13 @@ int ext4_block_write_begin(handle_t *handle, struct folio *folio,
- 		head = create_empty_buffers(folio, blocksize, 0);
- 	block = EXT4_PG_TO_LBLK(inode, folio->index);
- 
--	for (bh = head, block_start = 0; bh != head || !block_start;
-+	for (bh = head, block_start = 0;
-+	     block_start < to || (!folio_uptodate && bh != head);
- 	    block++, block_start = block_end, bh = bh->b_this_page) {
- 		block_end = block_start + blocksize;
- 		if (block_end <= from || block_start >= to) {
--			if (folio_test_uptodate(folio)) {
-+			if (folio_uptodate)
- 				set_buffer_uptodate(bh);
--			}
- 			continue;
- 		}
- 		if (WARN_ON_ONCE(buffer_new(bh)))
-@@ -1220,7 +1221,7 @@ int ext4_block_write_begin(handle_t *handle, struct folio *folio,
- 				if (should_journal_data)
- 					do_journal_get_write_access(handle,
- 								    inode, bh);
--				if (folio_test_uptodate(folio)) {
-+				if (folio_uptodate) {
- 					/*
- 					 * Unlike __block_write_begin() we leave
- 					 * dirtying of new uptodate buffers to
-@@ -1237,7 +1238,7 @@ int ext4_block_write_begin(handle_t *handle, struct folio *folio,
- 				continue;
- 			}
- 		}
--		if (folio_test_uptodate(folio)) {
-+		if (folio_uptodate) {
- 			set_buffer_uptodate(bh);
- 			continue;
- 		}
+diff --git a/drivers/md/dm-log-writes.c b/drivers/md/dm-log-writes.c
+index c72e07c3f5a0..05133b1553ca 100644
+--- a/drivers/md/dm-log-writes.c
++++ b/drivers/md/dm-log-writes.c
+@@ -709,6 +709,8 @@ static int log_writes_map(struct dm_target *ti, struct bio *bio)
+ 		WARN_ON(flush_bio || fua_bio);
+ 		if (lc->device_supports_discard)
+ 			goto map_bio;
++		free_pending_block(lc, block);
++		pb->block = NULL;
+ 		bio_endio(bio);
+ 		return DM_MAPIO_SUBMITTED;
+ 	}
 -- 
-2.20.1
+2.34.1
+
