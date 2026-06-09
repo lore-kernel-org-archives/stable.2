@@ -1,115 +1,92 @@
-Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com [205.220.177.32])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B80CB30E0FB;
-	Tue,  9 Jun 2026 01:39:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.177.32
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C14672F83A0
+	for <stable@vger.kernel.org>; Tue,  9 Jun 2026 01:45:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780969174; cv=none; b=ICmN9jignwETrnKTFIhLnSs9aKKdAmcH3GRpNC0dljQ/Sh9U+Edp4U4Wqrcel9KdREOmBXZWJWvHrlkoDYaCS3Ah8wz+mQ4OJPyixeM+mWDSpDxAXIIwrIKJNiAQfdHhqTvU46HLuBsm78Z7sx7nTCJXz4IatFM/8I6cGftBIEo=
+	t=1780969522; cv=none; b=hGTe70/jpFv6qIts4/pz0y8iLKqWEKAqv1L+6+Tfv6GbhiwWx7W8pnzxuyQDfUoSJSCz8+xV1QB0zVZ5NKk3mEZOo/lWFGCF9E3hK+XjJaGTvxkmnbEI+1mfDMt9PHzfeZrnuMnCyCm00YR7a478/aA9GziZv2H7dn46rcGC4sA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780969174; c=relaxed/simple;
-	bh=jPr3bw3y4iOnV0cMOk+Zu/DAivUcOCD3d5Rq9Z1qq9w=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=rBShmzT1/t4TDbOAr0WXAzYB/4Y5rv+j1/2YC1wvXEfesoHjNvqGox4t4CjoHQEl0xLmKk+IXzPXEtfbru4YJw0Q4ICsCbDJPJZSAiF1hS13lumNeDd+Q3Zc16ts3KFvgvhxmo4L+RF3R18VRoTGVvdGmKnfGGTkYckc0UgMl+Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com; spf=pass smtp.mailfrom=oracle.com; dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b=q1BzmG/s; arc=none smtp.client-ip=205.220.177.32
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oracle.com
+	s=arc-20240116; t=1780969522; c=relaxed/simple;
+	bh=6O8YqZs6YkDTVZyHdWn88TRHYchEYKKdHFjvaz5OpCs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=h9gMQ36411uY+AUzvBWfnAK1VeP+dlUq6ZPBgQZv72QgV/H4Y59Kb/1zHjXq2n5/S+6bW41IWvVS5fvSkn8CPLe+oetUznDViAtStpQpIYQOscybDbdxP+qEKH5uMe5KbZkyZGXVNgEvMtpCLI1gKoMBNmOM84efi0rKUwwxYFA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=FpisHdtb; arc=none smtp.client-ip=209.85.214.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="q1BzmG/s"
-Received: from pps.filterd (m0246631.ppops.net [127.0.0.1])
-	by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 658HSUaI1690093;
-	Tue, 9 Jun 2026 01:39:11 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	corp-2025-04-25; bh=IvJ/OP8BmyxjZ/E+K1UO316wfhfyls0xhc+riDZgKZM=; b=
-	q1BzmG/st85ypKL6ajTypY4rltK0CM+THtgZVSVn5p0fxDOiYwNtF+JWKjEZMohB
-	oIqx8AQZHZWasHWjozVKpRcGnlLh2JBOurFx/XRD1vTcO7hmfCXwJDVN2BN8HLjy
-	/Zhfq+5QQgImejly4ieOs6OXcg+YfLxGbv/Gmqe9znaZzoOGkggc6ejk/m3l+bOL
-	ubw9ZZS7Fvd5MEHFDk0CQNY3YWHOFe9CNJy/L//UASe+FB3GP3q9XnGwKcDrSFT8
-	OHbz1W/3bP1Xo9ACaj2fOGQaZ7EASCu41LBbmzJBqIhdmbITPD6JFJa7nF17TLVd
-	a/NXfK2LToge4yNS6wB70A==
-Received: from iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (iadpaimrmta02.appoci.oracle.com [147.154.18.20])
-	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4emab4kh1g-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 09 Jun 2026 01:39:11 +0000 (GMT)
-Received: from pps.filterd (iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
-	by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (8.18.1.7/8.18.1.7) with ESMTP id 6591caME028076;
-	Tue, 9 Jun 2026 01:39:10 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
-	by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTPS id 4ema0pges4-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 09 Jun 2026 01:39:10 +0000 (GMT)
-Received: from iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
-	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 6591d6Ar030153;
-	Tue, 9 Jun 2026 01:39:09 GMT
-Received: from ca-mkp2.ca.oracle.com.com (mpeterse-ol9.allregionaliads.osdevelopmeniad.oraclevcn.com [100.100.251.135])
-	by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTP id 4ema0pgepy-8;
-	Tue, 09 Jun 2026 01:39:09 +0000 (GMT)
-From: "Martin K. Petersen" <martin.petersen@oracle.com>
-To: James.Bottomley@HansenPartnership.com,
-        "Ionut Nechita (Wind River)" <ionut.nechita@windriver.com>
-Cc: "Martin K . Petersen" <martin.petersen@oracle.com>,
-        linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org,
-        stable@vger.kernel.org, hch@lst.de, dlemoal@kernel.org,
-        robin.murphy@arm.com, john.g.garry@oracle.com, axboe@kernel.dk,
-        m.szyprowski@samsung.com, ahuang12@lenovo.com, ionut_n2001@yahoo.com,
-        sunlightlinux@gmail.com
-Subject: Re: [PATCH v8 0/1] scsi: sas: fix mkfs.xfs failure due to bogus optimal_io_size
-Date: Mon,  8 Jun 2026 21:39:01 -0400
-Message-ID: <178094912072.1810714.9115795923804476782.b4-ty@oracle.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260519135238.373784-1-ionut.nechita@windriver.com>
-References: <20260519135238.373784-1-ionut.nechita@windriver.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="FpisHdtb"
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2bf2d865383so386215ad.1
+        for <stable@vger.kernel.org>; Mon, 08 Jun 2026 18:45:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1780969520; x=1781574320; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=9/wdxfyH4JAOSK4spHVo4nmbREVFxJGYB6KTPGdKO7A=;
+        b=FpisHdtbMCU3QX2sPKmuCROGv0IH9yLmuPNgXMkXXY+OJ/yFS4iy6f955mjFKdmgZ4
+         Wmr4NyE4gBMgVUzo8WwaNZcNnfH75Whatq+JIhM1q6Kuk8LBVR6V/czSI4RG7ClKjxwb
+         GJXu4Q5IGGSINZBm4I0QisCL7T+pXzBT6aaEk0uJ07XNIpOuhr/s48NHnIkHjBxMBfci
+         lIYUxRbelulL6DSu0H1KnhwyxBGtu5juYuvGRe5m9nFc09GLgg0eg1sC6SGr5e5jqyA0
+         X9/yVh93EuAPBjP9aKVz40kxKzIiz4deDs7XbibjQnkMVNA6UrHYSzwYX6yalGNF4Blt
+         ioFA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780969520; x=1781574320;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=9/wdxfyH4JAOSK4spHVo4nmbREVFxJGYB6KTPGdKO7A=;
+        b=EHN0hBQPZuNPncQU5RdDzowa5ToxL80dRRFbDIHCRaVanvWUwZ/TAM8dOtloi/waW2
+         VobAmz54oBJPf1g1c1ixBDv3itTL7TZEU5cjIWcFZCuORfVqShiivLsoNDk7CYVm8w7d
+         DEzr4hiE3Knw/bG4wNwDMWpJDR6nhH4MIezteWNd6HhRC60MRvxwN3vKszHj4wADajHw
+         WtVCH48fV3bGbXKcQjg4o7A4jhryA0ad57oWEd4JjGy6qMIjdW1ctPKvmXxKBbCdBfdp
+         v4aYfbCX8DHdtgmzqICZq8zBp82eXKcYk7X82tT6rx8vMaw/9kZc54J3DrNWVHeiXAQU
+         f7gg==
+X-Gm-Message-State: AOJu0YzF74bjbQmPJOBN+OD9NCiBpytfmilHyqVmxeIPySlGY3Taq8NA
+	p05xyKxzNjvid93UVbRBV8UWP+m7WTd0Hue1GzfQSw6tBNrgpfqypeoYjFaZH1M41w==
+X-Gm-Gg: Acq92OG6gsLyqpjDy2XAwnBgBeIKf/dLcVkFNBteEN9UaMgZ9p92tLZsKVSGtXbphYo
+	dFEGmdRonkuZ5a5gzvV53Dhz8okTQdB1XNITw3tsefQWN4DKg6hnbW4XxCh+WBp1skOpI359rL3
+	0Nk7NhY3HF8Wbj14l73XhwPqGju/RCyDjR/w75pBd/jw/8ydZ4zqvBkX2I2XFcEATsjrdN8ogmv
+	S9A2/FK0l5JELyJw9uzh66GjahhRrxvIfElUvlqKPUEBvbmt4l8p5mUyVMlmngpHhKF0EUqcx+h
+	9whKirUuXUh4Y37v78tODpi7cmR+etOSKIR8zbIufaKzA2C3vlIokchl6csEj5Lasu9cM8aU8z7
+	OVpWX8vyKe0XZL24gsWLI8I1GlSGYE5PZH+rThuHgpYL9Rj/qSFwQpJjmk++JGG/LKn7bFY5ebJ
+	u4AjO9R+oBmAZnpeG09fnS4zJRJQyzMM2Nh2XIjcXj+oKghNU241MHUNgKHNw+UjaSqXFWO5mVl
+	tVzKzSqcD27+zRuiqxr7FOrF3NQtKW/IWbbo2b2JuAStoyZYvSPRrqE
+X-Received: by 2002:a17:903:11c6:b0:2c1:4228:3321 with SMTP id d9443c01a7336-2c1ebb62205mr7223595ad.12.1780969519693;
+        Mon, 08 Jun 2026 18:45:19 -0700 (PDT)
+Received: from google.com (112.174.16.34.bc.googleusercontent.com. [34.16.174.112])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-36f68b03ef6sm17613184a91.0.2026.06.08.18.45.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 08 Jun 2026 18:45:18 -0700 (PDT)
+Date: Tue, 9 Jun 2026 01:45:14 +0000
+From: Carlos Llamas <cmllamas@google.com>
+To: Sasha Levin <sashal@kernel.org>
+Cc: stable@vger.kernel.org, yichenyu@google.com, kernel-team@android.com,
+	Johannes Berg <johannes.berg@intel.com>,
+	syzbot+fd222bb38e916df26fa4@syzkaller.appspotmail.com,
+	Lachlan Hodges <lachlan.hodges@morsemicro.com>,
+	"open list:802.11 (including CFG80211/NL80211)" <linux-wireless@vger.kernel.org>,
+	open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 6.12.y] wifi: remove zero-length arrays
+Message-ID: <aidwKjYHa2yQmxsv@google.com>
+References: <20260608133216.1396790-1-cmllamas@google.com>
+ <20260608-stable-reply-0011@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-08_06,2026-06-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 bulkscore=0
- lowpriorityscore=0 spamscore=0 mlxscore=0 malwarescore=0 mlxlogscore=372
- adultscore=0 suspectscore=0 phishscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.19.0-2605130000 definitions=main-2606090013
-X-Authority-Analysis: v=2.4 cv=cL/QdFeN c=1 sm=1 tr=0 ts=6a276ebf b=1 cx=c_pps
- a=e1sVV491RgrpLwSTMOnk8w==:117 a=e1sVV491RgrpLwSTMOnk8w==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=jiCTI4zE5U7BLdzWsZGv:22 a=o5oIOnhZENCTenyL_yNV:22 a=VwQbUJbxAAAA:8
- a=t7CeM3EgAAAA:8 a=EwlQa_qvEpErnvP18DcA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=FdTzh2GWekK77mhwV6Dw:22 a=5yU3S35YU4bGjq-dph-N:22 a=Bho9c0fBagfJEIQBS7DQ:22
- cc=ntf awl=host:13723
-X-Proofpoint-GUID: qHGR5GtSfRdE37XMffGVzBXrewjRwIt1
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA5MDAxMyBTYWx0ZWRfXxhTicKgkslf1
- KOzBJppRa40qbTjnWcE/BDQnXhn4hkV1e4cuOpCmxr/RLME/GeSuYBSR4cRBydl3OOIgKMW+Ny9
- 00M/R1dplfYYCsNM2vna3DLJEWnXtuinT1rONOBOK27aj6XE+4uVrPJBBrRmBVJP2Un185As1x3
- Y2PA2HXvenw+X6cN4Q3xVUOwb0TC+GiUpj3ZCjr3M1uUBLYvjyNvAxy5jXYslxC1qKn8HJfjw9C
- kor3AL3mdQH5xN5yVoIQCJR+0W5bA1eXaeTmdN/Qw1p3tSZFYteQqr9b+lV67hagU+/7hiYJcjM
- PxmnAbCywlaKHpEjXg6Qx/Y8jbQEfmBD3k00IMZ41pvpYmkEaS4QvV2YlpTXjwu8qXladxaGjO7
- vzGgI1PU5PgfZ1HP4SigBrt57Ap3vxYkC8fPW+cXNOHTbo/tSV4QXiscSLnmV7HV3ZasrgJ8BcR
- 0wSegLjCHdtMhC7WNZKKI3CNMc9NE/BIwLRQcCgQ=
-X-Proofpoint-ORIG-GUID: qHGR5GtSfRdE37XMffGVzBXrewjRwIt1
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260608-stable-reply-0011@kernel.org>
 
-On Tue, 19 May 2026 16:52:32 +0300, Ionut Nechita (Wind River) wrote:
-
-> From: Ionut Nechita <ionut.nechita@windriver.com>
+On Mon, Jun 08, 2026 at 08:51:57PM -0400, Sasha Levin wrote:
+> > [PATCH 6.12.y] wifi: remove zero-length arrays
 > 
-> v8 (per Christoph Hellwig's review of v7):
->   - Removed the dma_dev->dma_mask guard — dma_opt_mapping_size() and
->     dma_max_mapping_size() both return SIZE_MAX when no DMA ops are
->     present, so the opt >= max early-return already covers this case.
->   - Added inline comments explaining each conditional in the helper.
-> 
-> [...]
+> Queued for 6.12, thanks. I dropped the leftover "Change-Id:" trailer from
+> the commit message while applying.
 
-Applied to 7.2/scsi-queue, thanks!
-
-[1/1] scsi: sas: skip opt_sectors when DMA reports no real optimization hint
-      https://git.kernel.org/mkp/scsi/c/be8fcd4a8217
-
--- 
-Martin K. Petersen
+Oops, sorry about that. I was working from a gerrit mirror. Thanks for
+fixing it.
+--
+Carlos Llamas
