@@ -1,139 +1,289 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4525749253D;
-	Tue,  9 Jun 2026 15:47:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 41D42481248;
+	Tue,  9 Jun 2026 15:50:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781020071; cv=none; b=NjkZzbDEWnVppYeZ0VQeD6r3EvZLgwlj6c8Tkp4+aJqXk63hACT9OSOjOu7PwrP1VHCxwvX/evvZUH9hEFscUe2lyS6DxGv44ujCpTz/CmtX3xEYzQH54M4RMnlC1Tbz6cXZ+7pNIj7YrpixbYCGrxgYd081UNM4XlROMYdnqME=
+	t=1781020202; cv=none; b=rP0xzitycAqtmwLNono7JnX+CzVy3TbYyIrLe6ixupJsrF0TXwCRIXsAvdHycVJYBNo8QO3EpxljRizaMPTHcQrw+PlmsWtyo3/SY6zgVOu6FiUmejiP0YfDD//5Gb8N0ZlIB0sugdZUm08vk9kEi01eolpGL/KC52RA0EmtS9c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781020071; c=relaxed/simple;
-	bh=cbrRB3iun2jPOI1G8tDpe8tvqFPshRG9kYKbGP74bHU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=lR8edtQzA5n4h5t9myTUOnilMyB6jgUY80r1b/digVtkUjX5r8h+thQQ82Nr9IGeLLZlOjEuAFv4LonbrsAop9+MoL5JPMxS9OlEWNHDcrlucuKptAnSXaSke2Zx8jMwp9XpQZD9gxXufCNXNAVXM0005H+PysLtGTqy6gbNp3I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RWHM2HMx; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781020202; c=relaxed/simple;
+	bh=tk+Sg+3+Z7XOnW5K5ZB4le8+cltted13Anf0uWNiWBE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bkOC+K97VrwnggniNv6exKNy+LTxD+CIjEf580Lce/SMf5epduBedSutrrgG7S4BFC8C6Defj5l9D5xLvwrnV5qXFdQjS1baC7oY2DQKeVRrNDgEGnKH89eiiXDERadIlfXu7W0/jlJ+TEzxZx8Gn+TQg3SnzBnQdCOjN6NdKx8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=DoSwg+Hw; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RWHM2HMx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CAD71F0089A;
-	Tue,  9 Jun 2026 15:47:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781020070;
-	bh=lmuCWFZUHbzVjGlqSt71AgiXRxPyfL3cM+3WUJCq7Oc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=RWHM2HMxAq4nu06OJYqGwgtnq2OWCJIsqamgeAEiOrlo/UYkkmKOQG+/zGsEeI7mB
-	 lcNxHuXApUzRbKwmVxrEeMeMWK+Q3CM3/hhsUdedLvu7mjLIhTcMe0Z2NqlgXUeTPD
-	 ffkZnlAbwDK2L3q+v/K/j3tITM8Xhb7NacxuqEUcwNXTRevX4qf8HY4ZvtrtwLKPvf
-	 mQHyJ1V1fzL+NvyhtQ+L/7MXOHyUppiPrEuwrIpktxvN/hIwuu4RaLHN1cTFmYeywW
-	 kC1v6bKcyikIF0fYfQ8bdrtDIk4HoYlr/tp7TVIej2zsCquRMLeT5JJnM6G56sbKxo
-	 t1WbdmwKipZlQ==
-Message-ID: <91af1da1-e2d0-40c1-87b0-452b48f4a2b6@kernel.org>
-Date: Tue, 9 Jun 2026 10:47:48 -0500
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="DoSwg+Hw"
+Received: by linux.microsoft.com (Postfix, from userid 1134)
+	id 961EB20B7167; Tue,  9 Jun 2026 08:49:43 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 961EB20B7167
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1781020183;
+	bh=GN0iZVrK+bQfVKdC+51jAwpEepgS0E5JsLN1UgjLM2k=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=DoSwg+HwaC4TQsN0G0ZHKZKbdgnMuSX+/V8+q/8cx93aGkA+KGVfkP96dWUD37Ie2
+	 l+VAw54ohJyywiAjfgnmlESc7oOWfCkynShPjKA7+RQo+Y0yFC1/VJ1w/l7CamkjKI
+	 +ouMOPfp22gvwQJ6tGpVXNAIriFUfnV+03Y4Y7/k=
+Date: Tue, 9 Jun 2026 08:49:43 -0700
+From: Shradha Gupta <shradhagupta@linux.microsoft.com>
+To: Yury Norov <yury.norov@gmail.com>
+Cc: Dexuan Cui <decui@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	"K. Y. Srinivasan" <kys@microsoft.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Konstantin Taranov <kotaranov@microsoft.com>,
+	Simon Horman <horms@kernel.org>,
+	Erni Sri Satya Vennela <ernis@linux.microsoft.com>,
+	Dipayaan Roy <dipayanroy@linux.microsoft.com>,
+	Shiraz Saleem <shirazsaleem@microsoft.com>,
+	Michael Kelley <mhklinux@outlook.com>,
+	Long Li <longli@microsoft.com>, linux-hyperv@vger.kernel.org,
+	linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+	Paul Rosswurm <paulros@microsoft.com>,
+	Shradha Gupta <shradhagupta@microsoft.com>,
+	Saurabh Singh Sengar <ssengar@microsoft.com>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH net v3] net: mana: Optimize irq affinity for low vcpu
+ configs
+Message-ID: <aig2F0cgxPcQqYbX@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
+References: <20260601102749.1768304-1-shradhagupta@linux.microsoft.com>
+ <aidDwAQqnQRCNQP1@yury>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 2/4] platform/x86/amd/pmc: Delay suspend for some
- Lenovo Laptops
-Content-Language: en-US
-To: Daniel Gibson <daniel@gibson.sh>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>,
- Hans de Goede <hansg@kernel.org>, platform-driver-x86@vger.kernel.org,
- LKML <linux-kernel@vger.kernel.org>,
- Sindre Henriksen <sindrehenriksen93@gmail.com>,
- Hans de Goede <johannes.goede@oss.qualcomm.com>, stable@vger.kernel.org
-References: <20260609105756.2813669-1-daniel@gibson.sh>
- <20260609105756.2813669-3-daniel@gibson.sh>
- <2fbb4d9d-7ad5-d4e7-b510-d7c75f399d97@linux.intel.com>
- <6b6ce9ce-5bda-4924-b2d2-933736cfad9c@gibson.sh>
- <cecea384-7af9-4fc6-b315-84d4ac8fb31d@kernel.org>
- <3b49ba16-d318-4905-bfe0-ebcc7ef374c5@gibson.sh>
- <5b684d9c-2477-488d-a89b-323ca3e51207@gibson.sh>
-From: Mario Limonciello <superm1@kernel.org>
-In-Reply-To: <5b684d9c-2477-488d-a89b-323ca3e51207@gibson.sh>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aidDwAQqnQRCNQP1@yury>
 
-On 6/9/26 10:36, Daniel Gibson wrote:
-> On 09.06.26 17:06, Daniel Gibson wrote:
->> On 09.06.26 16:40, Mario Limonciello wrote:
->>> On 6/9/26 07:07, Daniel Gibson wrote:
->>>> On 09.06.26 13:46, Ilpo Järvinen wrote:
->>>>> On Tue, 9 Jun 2026, Daniel Gibson wrote:
->>>>>>        },
->>>>>> +    /* https://bugzilla.kernel.org/show_bug.cgi?id=221383 */
->>>>>> +    {
->>>>>> +        .ident = "Zen3-based IdeaPad Slim and similar",
->>>>>> +        .driver_data = &quirk_s2idle_need_suspend_delay,
->>>>>
->>>>> Hi,
->>>>>
->>>>> One more question.
->>>>>
->>>>> Sashiko noted, that amd_pmc_quirks_init() can overwrite
->>>>> disable_8042_wakeup from the AMD_CPU_ID_CZN check when .driver_data
->>>>> provides quirks. Is it okay in this case to not have .spurious_8042?
->>>>>
->>>>
->>>> Good question.
->>>> So far I haven't had complaints that sounded like they'd be related to
->>>> this quirk not being active.
->>>>
->>>> (The only report about things not working as expected on detected
->>>> devices was something about "ACPI event storms" after resume:
->>>> https://github.com/DanielGibson/amd_pmc-ideapad/issues/3 - but no one
->>>> else with similar devices could reproduce that, so no idea what's going
->>>> on there, and it doesn't sound like that IRQ1 issue)
->>>>
->>>> I can test if explicitly enabling .spurious_8042 in
->>>> quirk_s2idle_need_suspend_delay breaks anything on my device, if you
->>>> think that enabling it by default makes more sense?
->>>
->>> Famous last words - but we haven't had a need for spurious 8042 on
->>> recent hardware so I think this is unlikely to be a big problem.
->>
->> FWIW enabling .spurious_8042 didn't break anything on my machine, but
->> didn't improve anything either - only visible difference is that when
->> resuming by pressing a key without that quirk both IRQ1 and IRQ7 are
->> reported as having triggered the resume, and with the quirk only IRQ7 is
->> reported. But it didn't seem like IRQ1 triggers a resume when it shouldn't.
->>
->> OTOH I have a the latest BIOS (from this year), so it's likely fixed
->> there - maybe people with older BIOS versions still need the
->> .spurious_8042 quirk?
->>
->> As these devices are relatively recent and still sold I hope that
->> everyone affected can get a new BIOS (which they should do either way).
+On Mon, Jun 08, 2026 at 06:35:44PM -0400, Yury Norov wrote:
+> On Mon, Jun 01, 2026 at 03:27:46AM -0700, Shradha Gupta wrote:
+> > In mana driver, the number of IRQs allocated is capped by the
+> > min(num_cpu + 1, queue count). In cases, where the IRQ count is greater
+> > than the vcpu count, we want to utilize all the vCPUs, irrespective of
+> > their NUMA/core bindings.
+> > 
+> > This is important, especially in the envs where number of vCPUs are so
+> > few that the softIRQ handling overhead on two IRQs on the same vCPU is
+> > much more than their overheads if they were spread across sibling vCPUs.
+> > 
+> > This behaviour is more evident with dynamic IRQ allocation. Since MANA
+> > IRQs are assigned at a later stage compared to static allocation, other
+> > device IRQs may already be affinitized to the vCPUs. As a result, IRQ
+> > weights become imbalanced, causing multiple MANA IRQs to land on the
+> > same vCPU, while some vCPUs have none.
+> > 
+> > In such cases when many parallel TCP connections are tested, the
+> > throughput drops significantly.
+> > 
+> > Test envs:
+> > =======================================================
+> > Case 1: without this patch
+> > =======================================================
+> > 4 vcpu(2 cores), 5 MANA IRQs (1 HWC + 4 Queue)
+> > 
+> > 	TYPE		effective vCPU aff
+> > =======================================================
+> > IRQ0:	HWC		0
+> > IRQ1:	mana_q1		0
+> > IRQ2:	mana_q2		2
+> > IRQ3:	mana_q3		0
+> > IRQ4:	mana_q4		3
+> > 
+> > %soft on each vCPU(mpstat -P ALL 1) on receiver
+> > vCPU		0	1	2	3
+> > =======================================================
+> > pass 1:		38.85	0.03	24.89	24.65
+> > pass 2:		39.15	0.03	24.57	25.28
+> > pass 3:		40.36	0.03	23.20	23.17
+> > 
+> > =======================================================
+> > Case 2: with this patch
+> > =======================================================
+> > 4 vcpu(2 cores), 5 MANA IRQs (1 HWC + 4 Queue)
+> > 
+> >         TYPE            effective vCPU aff
+> > =======================================================
+> > IRQ0:   HWC             0
+> > IRQ1:   mana_q1         0
+> > IRQ2:   mana_q2         1
+> > IRQ3:   mana_q3         2
+> > IRQ4:   mana_q4         3
+> > 
+> > %soft on each vCPU(mpstat -P ALL 1) on receiver
+> > vCPU            0       1       2       3
+> > =======================================================
+> > pass 1:         15.42	15.85	14.99	14.51
+> > pass 2:         15.53	15.94	15.81	15.93
+> > pass 3:         16.41	16.35	16.40	16.36
+> > 
+> > =======================================================
+> > Throughput Impact(in Gbps, same env)
+> > =======================================================
+> > TCP conn	with patch	w/o patch
+> > 20480		15.65		7.73
+> > 10240		15.63		8.93
+> > 8192		15.64		9.69
+> > 6144		15.64		13.16
+> > 4096		15.69		15.75
+> > 2048		15.69		15.83
+> > 1024		15.71		15.28
+>  
+> So, case 1 is irq_setup(), and case 2 is irq_setup_linear(). Is that
+> correct?
+
+That is correct.
+
 > 
-> Anyway, overall I'd say that the patches can be merged as they are - the
-> affected devices are known to have serious (-ly annoying) suspend
-> issues, so it's unlikely that a currently matched devices has working
-> suspend that breaks with them, so things at least shouldn't get any
-> worse for their users?
+> On the previous round we've discussed a no-affinity case:
 > 
-> The patches have gotten some testing already on different devices (from
-> my out-of-tree patched amd_pmc module on Github) and so far it looks
-> like the spurious_8042 quirk isn't needed.
-> If reports of needing both quirks turn up after all, that can still be
-> easily added in a few lines of code (maybe even just one).
+>         irq_set_affinity_and_hint(irq, NULL);
 > 
-> Cheers,
-> Daniel
+> My naive view is that the more freedom you give to the scheduler in
+> balancing the IRQ handling load, the better results you've got. But
+> your numbers show that the 'linear' distribution is still better. Can
+> you add the results of that experiment as the 'case 3' please? Any
+> ideas why the linear case wins over the no-affinity?
 
-Even with all that testing; it's only on hardware with problems.
-We don't want to have issues exposed by these patches for people that 
-didn't need the patches.
+Sure, I will include them in the commit message for the next version.
+The reason is that in some cases(reproducible testcases in Azure
+environments), there are  existing non-MANA IRQs that are skewing
+the IRQ weights on individual vCPUS. And that is causing MANA queue
+IRQ clustering again.
 
-So my 2c:
-* It's "too risky" to pick up for 7.1 final
-* It's a "bit late" in the cycle for 7.2-rc1 (usually new content stops 
-being added around rc6).
-* This isn't "risky enough" to wait until 7.3 (basically after 7.2-rc1 
-merge window is done)
+I had mentioned a possibility of this in the last thread, and we were
+able to reproduce it through some more testcases.
 
-But this has been on the list for a while now, so I would say this makes 
-sense to put in for 7.2-rc1 and we should all make sure we test well 
-once the RCs are posted.
+> 
+> Thanks,
+> Yury
+> 
+> > Fixes: 755391121038 ("net: mana: Allocate MSI-X vectors dynamically")
+> > Cc: stable@vger.kernel.org
+> > Co-developed-by: Erni Sri Satya Vennela <ernis@linux.microsoft.com>
+> > Signed-off-by: Erni Sri Satya Vennela <ernis@linux.microsoft.com>
+> > Signed-off-by: Shradha Gupta <shradhagupta@linux.microsoft.com>
+> > Reviewed-by: Haiyang Zhang <haiyangz@microsoft.com>
+> > Reviewed-by: Simon Horman <horms@kernel.org>
+> > ---
+> > Changes in v3
+> >  * Optimize the comments in mana_gd_setup_dyn_irqs()
+> >  * add more details in the dev_dbg for extra IRQs 
+> > ---
+> > Changes in v2
+> >  * Removed the unused skip_first_cpu variable
+> >  * fixed exit condition in irq_setup_linear() with len == 0
+> >  * changed return type of irq_setup_linear() as it will always be 0
+> >  * removed the unnecessary rcu_read_lock() in irq_setup_linear()
+> >  * added appropriate comments to indicate expected behaviour when
+> >    IRQs are more than or equal to num_online_cpus()
+> > ---
+> >  .../net/ethernet/microsoft/mana/gdma_main.c   | 60 ++++++++++++++++---
+> >  1 file changed, 53 insertions(+), 7 deletions(-)
+> > 
+> > diff --git a/drivers/net/ethernet/microsoft/mana/gdma_main.c b/drivers/net/ethernet/microsoft/mana/gdma_main.c
+> > index 712a0881d720..00a28b3ca0a6 100644
+> > --- a/drivers/net/ethernet/microsoft/mana/gdma_main.c
+> > +++ b/drivers/net/ethernet/microsoft/mana/gdma_main.c
+> > @@ -197,6 +197,8 @@ static int mana_gd_query_max_resources(struct pci_dev *pdev)
+> >  	} else {
+> >  		/* If dynamic allocation is enabled we have already allocated
+> >  		 * hwc msi
+> > +		 * Also, we make sure in this case the following is always true
+> > +		 * (num_msix_usable - 1 HWC) <= num_online_cpus()
+> >  		 */
+> >  		gc->num_msix_usable = min(resp.max_msix, num_online_cpus() + 1);
+> >  	}
+> > @@ -1717,11 +1719,24 @@ static int irq_setup(unsigned int *irqs, unsigned int len, int node,
+> >  	return 0;
+> >  }
+> >  
+> > +/* should be called with cpus_read_lock() held */
+> > +static void irq_setup_linear(unsigned int *irqs, unsigned int len)
+> > +{
+> > +	int cpu;
+> > +
+> > +	for_each_online_cpu(cpu) {
+> > +		if (len == 0)
+> > +			break;
+> > +
+> > +		irq_set_affinity_and_hint(*irqs++, cpumask_of(cpu));
+> > +		len--;
+> > +	}
+> > +}
+> > +
+> >  static int mana_gd_setup_dyn_irqs(struct pci_dev *pdev, int nvec)
+> >  {
+> >  	struct gdma_context *gc = pci_get_drvdata(pdev);
+> >  	struct gdma_irq_context *gic;
+> > -	bool skip_first_cpu = false;
+> >  	int *irqs, irq, err, i;
+> >  
+> >  	irqs = kmalloc_objs(int, nvec);
+> > @@ -1729,6 +1744,8 @@ static int mana_gd_setup_dyn_irqs(struct pci_dev *pdev, int nvec)
+> >  		return -ENOMEM;
+> >  
+> >  	/*
+> > +	 * In this function, num_msix_usable = HWC IRQ + Queue IRQ.
+> > +	 * nvec is only Queue IRQ (HWC already setup).
+> >  	 * While processing the next pci irq vector, we start with index 1,
+> >  	 * as IRQ vector at index 0 is already processed for HWC.
+> >  	 * However, the population of irqs array starts with index 0, to be
+> > @@ -1767,13 +1784,42 @@ static int mana_gd_setup_dyn_irqs(struct pci_dev *pdev, int nvec)
+> >  	 * first CPU sibling group since they are already affinitized to HWC IRQ
+> >  	 */
+> >  	cpus_read_lock();
+> > -	if (gc->num_msix_usable <= num_online_cpus())
+> > -		skip_first_cpu = true;
+> > +	if (gc->num_msix_usable <= num_online_cpus()) {
+> > +		err = irq_setup(irqs, nvec, gc->numa_node, true);
+> > +		if (err) {
+> > +			cpus_read_unlock();
+> > +			goto free_irq;
+> > +		}
+> > +	} else {
+> > +		/*
+> > +		 * When num_msix_usable are more than num_online_cpus, our
+> > +		 * queue IRQs should be equal to num of online vCPUs.
+> > +		 * We try to make sure queue IRQs spread across all vCPUs.
+> > +		 * In such a case NUMA or CPU core affinity does not matter.
+> > +		 * Note: in this case the total mana IRQ should always be
+> > +		 * num_online_cpus + 1. The first HWC IRQ is already handled
+> > +		 * in HWC setup calls
+> > +		 * However, if CPUs went offline since num_msix_usable was
+> > +		 * computed, queue IRQs will be more than num_online_cpus().
+> > +		 * In such cases remaining extra IRQs will retain their default
+> > +		 * affinity.
+> > +		 */
+> > +		int first_unassigned = num_online_cpus();
+> > +		if (nvec > first_unassigned) {
+> > +			char buf[32];
+> > +
+> > +			if (first_unassigned == nvec - 1)
+> > +				snprintf(buf, sizeof(buf), "%d",
+> > +					 first_unassigned);
+> > +			else
+> > +				snprintf(buf, sizeof(buf), "%d-%d",
+> > +					 first_unassigned, nvec - 1);
+> > +
+> > +			dev_dbg(&pdev->dev,
+> > +				"MANA IRQ indices #%s will retain the default CPU affinity\n", buf);
+> > +		}
+> >  
+> > -	err = irq_setup(irqs, nvec, gc->numa_node, skip_first_cpu);
+> > -	if (err) {
+> > -		cpus_read_unlock();
+> > -		goto free_irq;
+> > +		irq_setup_linear(irqs, nvec);
+> >  	}
+> >  
+> >  	cpus_read_unlock();
+> > 
+> > base-commit: 8415598365503ced2e3d019491b0a2756c85c494
+> > -- 
+> > 2.34.1
