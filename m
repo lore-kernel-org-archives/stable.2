@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E37643CED8;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1A774ADD9B;
 	Tue,  9 Jun 2026 18:55:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781031321; cv=none; b=NkQC7IbAVWGjsZfaP35Ce1ufSL9Pqa6YiFxfhHA0T20RfgNACm3fYS+NFce46qzKukwsfaFAkOPtTenGeAi0cg8qcKHzn5NRGVjFwrad+h3EWcE/nuyZQDHWGK+6uhzGvVgwfGizUwmDA8Xiv4L5zWJQybklPt8mle9MBYMnWww=
+	t=1781031321; cv=none; b=D6PeP2+i2biy54Q2nbQY+sRvkPCUPW9VZiDx9tX/O28oE8pK33HnnUUIi3r00bjC1RKhNkPWVmHU5+WAQRxRrynBGWzQPrDeC6v4rmd7Jqm4TlGGelb6jj9NcuGrPJwdQdVc+hTooMXPYLK/HZOA8yuqEA8cwpbv4NJxBjIQSKs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1781031321; c=relaxed/simple;
-	bh=rmM2h8GPiP6MoMI4fdbRJIGoup7QY5VeOykAZJSsYvA=;
+	bh=pS/mUwGnNpTUlmx84nLsne2qXX4XMTLqGn7FdeebpvA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Alxe32onFYx6Ym8pU3fYI3eyFbKB0wXmyy84evXm5YYxhn2PpaFOrfF4iGKff73o/AYRX9u9duunyzfUkCcwB9Ku/NW1bqXeK/0/Nvv4TtYnCxPw3w57MuKCL2ZOo4sjmGYGAXMK5jC+SAymYGfsuh5K1x0sNIYSJKe3kgPIfrs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Pt4UyRY7; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=DyTghOvlCrJQDds7l/uBz4AMklhzsmmDI+xDpcrHbOEAijwI4HHzBotW6UIcXiFkSjhjZVshKk63i4igZHkXn+UklOP3lpcwwiSaJqt2hK1rEtXNwGs79Ug70OfjrDr6nXPE1D9poAgLqlhMAh257JnHjtWlOuWr4mF3oGdrPEI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KT6kniMT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Pt4UyRY7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C1291F0089C;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KT6kniMT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FDAB1F0089E;
 	Tue,  9 Jun 2026 18:55:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1781031320;
-	bh=SJVsdp5eXpnLCRpqkZbpl+r3WI0hB3m/FBZaFoIcMlw=;
+	bh=Pk28Y4P6W8ymkMldEEHau29x9mHLqn44gGvm2nZ6QGk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Pt4UyRY7QDPGFWQ0Gkm7mBqlVXwzAI1K6oEv5HNLDnbRqISQ+nzuKHLQi2I53778/
-	 ATnsVsJQO4OwlqOP8nd+DXfl13FK82m7G048Khypq/adjgP20I7376xBjkHq6jPBwI
-	 O9I1dhuF32O0HGmfj6Prm42t97+MQAaTcdH98uNsYBM8pwzFqDNU7DcAVfM6QQy4KE
-	 PRBHzTg7r4h1/YSZfDscEMf6ts/V/OnQbOccn+cSsNwdKG05VRxlBcykE5zdl3cKVM
-	 yimw4to0c9/FKvyeDZWM8KU/PFVrAjhQA1y13YFPi0+J6Pqk8G1mR++DT5A5Qcy0mc
-	 LG9oXG0bCaodA==
+	b=KT6kniMTQGHrBCAyMcA86osiY3/3khsEsH7ZAzrES7u2jHcLx3PWeiQOsbQ22Hxdp
+	 NiZou8MSJJkqRLW0UrprrmimP5hJyP2dY8qbdc3kIj2ETGvvVfgRPpXYzCBfl5H5sK
+	 NtnxBwoEjmNf4bbqr3nUaZQa4bhcOa27baRslYZrYKInAaHmFk7ne6WEDOQV+zq/Is
+	 YnK1DZVT72EWAFYQWBfESQFwIq1BEYYQJI6m1EMqxLOQS2Utrt3gIkvvumYO5WJs1z
+	 FRKh0Iq2oQejMPywGkzMza7MW9tz+RJg3QcU75uZJm3WeKGSHHrGiUaSUxH9OZCH4p
+	 r0sAEQ2BqV8QA==
 From: Oliver Upton <oupton@kernel.org>
 To: kvmarm@lists.linux.dev
 Cc: Marc Zyngier <maz@kernel.org>,
@@ -35,9 +35,9 @@ Cc: Marc Zyngier <maz@kernel.org>,
 	Wei-Lin Chang <weilin.chang@arm.com>,
 	Oliver Upton <oupton@kernel.org>,
 	stable@vger.kernel.org
-Subject: [PATCH RESEND v2 2/5] KVM: arm64: nv: Inject SEA if kvm_translate_vncr() can't resolve PFN
-Date: Tue,  9 Jun 2026 11:55:11 -0700
-Message-ID: <20260609185514.746507-3-oupton@kernel.org>
+Subject: [PATCH RESEND v2 4/5] KVM: arm64: nv: Inject SEA if guest VNCR isn't normal memory
+Date: Tue,  9 Jun 2026 11:55:13 -0700
+Message-ID: <20260609185514.746507-5-oupton@kernel.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260609185514.746507-1-oupton@kernel.org>
 References: <20260609185514.746507-1-oupton@kernel.org>
@@ -49,87 +49,44 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-kvm_handle_vncr_abort() assumes that s1_walk_result conveys an abort
-when kvm_translate_vncr() returns -EFAULT. This is not always the case
-as it's possible to encounter 'late' failures on the output of S1
-translation, e.g. a GFN outside of the memslots.
+When constructing an L1 VNCR mapping, KVM unconditionally uses cacheable
+memory attributes, even if the underlying PFN isn't memory. This gets
+particularly hairy if the endpoint doesn't support cacheable memory
+attributes, potentially throwing an SError on writeback...
 
-Fix it by preparing an external abort before returning from
-kvm_translate_vncr().
+While KVM does permit cacheable memory attributes on certain PFNMAP
+VMAs, kvm_translate_vncr() isn't currently grabbing the VMA. So do the
+simpler thing for now and just reject everything that isn't memory.
 
 Cc: stable@vger.kernel.org
 Fixes: 2a359e072596 ("KVM: arm64: nv: Handle mapping of VNCR_EL2 at EL2")
 Signed-off-by: Oliver Upton <oupton@kernel.org>
 ---
- arch/arm64/include/asm/kvm_nested.h | 8 ++++++++
- arch/arm64/kvm/at.c                 | 8 --------
- arch/arm64/kvm/nested.c             | 8 ++++++--
- 3 files changed, 14 insertions(+), 10 deletions(-)
+ arch/arm64/kvm/nested.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-diff --git a/arch/arm64/include/asm/kvm_nested.h b/arch/arm64/include/asm/kvm_nested.h
-index dc2957662ff2..cbdaaa2a2903 100644
---- a/arch/arm64/include/asm/kvm_nested.h
-+++ b/arch/arm64/include/asm/kvm_nested.h
-@@ -388,6 +388,14 @@ struct s1_walk_result {
- 	bool	failed;
- };
- 
-+static inline void fail_s1_walk(struct s1_walk_result *wr, u8 fst, bool s1ptw)
-+{
-+	wr->fst		= fst;
-+	wr->ptw		= s1ptw;
-+	wr->s2		= s1ptw;
-+	wr->failed	= true;
-+}
-+
- int __kvm_translate_va(struct kvm_vcpu *vcpu, struct s1_walk_info *wi,
- 		       struct s1_walk_result *wr, u64 va);
- int __kvm_find_s1_desc_level(struct kvm_vcpu *vcpu, u64 va, u64 ipa,
-diff --git a/arch/arm64/kvm/at.c b/arch/arm64/kvm/at.c
-index 30e6fa8ac07c..8263c648207b 100644
---- a/arch/arm64/kvm/at.c
-+++ b/arch/arm64/kvm/at.c
-@@ -11,14 +11,6 @@
- #include <asm/kvm_mmu.h>
- #include <asm/lsui.h>
- 
--static void fail_s1_walk(struct s1_walk_result *wr, u8 fst, bool s1ptw)
--{
--	wr->fst		= fst;
--	wr->ptw		= s1ptw;
--	wr->s2		= s1ptw;
--	wr->failed	= true;
--}
--
- #define S1_MMU_DISABLED		(-127)
- 
- static int get_ia_size(struct s1_walk_info *wi)
 diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
-index 84b3bd528e11..ebd7ccfeee99 100644
+index d5c4b57123a9..a6bd60856fc3 100644
 --- a/arch/arm64/kvm/nested.c
 +++ b/arch/arm64/kvm/nested.c
-@@ -1389,15 +1389,19 @@ static int kvm_translate_vncr(struct kvm_vcpu *vcpu, bool *is_gmem)
+@@ -1413,6 +1413,17 @@ static int kvm_translate_vncr(struct kvm_vcpu *vcpu, bool *is_gmem)
+ 		writable = !(memslot->flags & KVM_MEM_READONLY);
+ 	}
  
- 	gfn = vt->wr.pa >> PAGE_SHIFT;
- 	memslot = gfn_to_memslot(vcpu->kvm, gfn);
--	if (!memslot)
-+	if (!memslot) {
++	/*
++	 * FIXME: This check is too restrictive as KVM allows cacheable memory
++	 * attributes for PFNMAP VMAs that have cacheable attributes in host
++	 * stage-1.
++	 */
++	if (!pfn_is_map_memory(pfn)) {
++		kvm_release_faultin_page(vcpu->kvm, page, true, false);
 +		fail_s1_walk(&vt->wr, ESR_ELx_FSC_EXTABT, false);
- 		return -EFAULT;
++		return -EFAULT;
 +	}
- 
- 	*is_gmem = kvm_slot_has_gmem(memslot);
- 	if (!*is_gmem) {
- 		pfn = __kvm_faultin_pfn(memslot, gfn, write_fault ? FOLL_WRITE : 0,
- 					&writable, &page);
--		if (is_error_noslot_pfn(pfn))
-+		if (is_error_noslot_pfn(pfn)) {
-+			fail_s1_walk(&vt->wr, ESR_ELx_FSC_EXTABT, false);
- 			return -EFAULT;
-+		}
- 	} else {
- 		ret = kvm_gmem_get_pfn(vcpu->kvm, memslot, gfn, &pfn, &page, NULL);
- 		if (ret) {
++
+ 	scoped_guard(write_lock, &vcpu->kvm->mmu_lock) {
+ 		if (mmu_invalidate_retry(vcpu->kvm, mmu_seq)) {
+ 			kvm_release_faultin_page(vcpu->kvm, page, true, false);
 -- 
 2.47.3
 
