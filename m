@@ -1,49 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C44E82C3268
-	for <stable@vger.kernel.org>; Tue,  9 Jun 2026 00:52:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0C7026F46F;
+	Tue,  9 Jun 2026 00:52:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780966337; cv=none; b=anort0ROhmZrck7OOkWqBbemLoJL9ESPPTL/UeEbS4o+aTeaOfdBzXiwSXdr3A0T0n/KB7kANPU/XwB/+x8EqQ9WPGcXQMAQVYPdqBMpp91iIEBh0WJtlYLQObtP7UwKEqV+ijofPNKeqxl+oYMt602gB2CveehFShDJGbCjc6Q=
+	t=1780966338; cv=none; b=aIfJEHjHyiWwr6vBsVVvH+gvNYqlGHW1aunLlgMhdYyMmrI9VOFvE/bTuCYoTb/SgI6au/d/5wdGvEprA9zlqITVRAc7Qz7pgYG9pc/BAhlsu3ts3XrwIOuCRuof2j8KOWJBsO4Q+SOIt9gTF74BfA0Pg89/bOJVMcAe0eaXyYQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780966337; c=relaxed/simple;
-	bh=IZohjaCcbRIaSbWG7RnPddL8tI/1f6Qj0X0gSD2ic3g=;
+	s=arc-20240116; t=1780966338; c=relaxed/simple;
+	bh=EaCXpZJILm4cfpXaAzmZW8LL48t67vN6PqHnFFDqmHk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dId+9rYN9H5rtBgReLYP0zKqZESBdQnZFJfWG7XrEQebetm3sfs4brL6MbAe28Rz/8sq7HG5VGtgiGPNWDXB6KWs/zPcHYAgt877ZcXsBio7KSPahDhIfAsQ2CfcHGCf4tTVBuH+Z69XIze4qp4aVeb89tAe46YW5vrL5upRSok=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KCYAjcCb; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Mdny52V9MP8ZdLnXzH66SqNRCR9ezzVPObgKF+PkbGfef+SHzAoPzHGKIxcfXCTMI7tSJJxm3Anv5yrFutn1FDGaB8lvYYHZ3mEQXACsCatWQ6aVVzFyI3g+tikWcTuPhU0j4Vr7SPLPK8+sIGuGG9r2bCuXrt77dhszMvMY23Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kfAUNGBf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KCYAjcCb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52E5A1F00898;
-	Tue,  9 Jun 2026 00:52:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kfAUNGBf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD15D1F00893;
+	Tue,  9 Jun 2026 00:52:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780966336;
-	bh=IZohjaCcbRIaSbWG7RnPddL8tI/1f6Qj0X0gSD2ic3g=;
+	s=k20260515; t=1780966337;
+	bh=EaCXpZJILm4cfpXaAzmZW8LL48t67vN6PqHnFFDqmHk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=KCYAjcCbBEhuVatAroBkLaKxBDloK722qCIijqfhZLL9ybBZn9/B0Qa9R+32dhhdU
-	 YxsYoLlihekUNsRVi1ziJCGFU9AnxUkG1wPjPyYZwo6pHiGuYNR0Bbu4NAYjf6albm
-	 wwM0pg6tdxIxu1EzwluQH6X70+3D5QDwfvfikfg05bn8UFJzVIZas8w8WJPlumxCu+
-	 G1I5UVmkB7tmo+KOTkXFt/N7waXb+VvoTH71nADWMf2VBLfwcV4Q7Mr2CQnmeeCmPo
-	 y+Tb2uJ2uo+vWhyOHtI3hMtRnPAMAnsupRvlWogvFeAForGIBotCzrbU2wowfZawfa
-	 E0ku4Yb+7oHTQ==
+	b=kfAUNGBfER+OWuikEbn/Cp4JHx8OQguO6zXqm4OrpjJS93l52zZp8LQpGfEQ0+HLg
+	 C1lZjnUuLicxKEcqgXlrpaqAQjHrmIq3vsZ0tAsNXrGC33g0umQR80Lw2oZlmvqave
+	 k+nNRLugCDT0ry1QLjnLm6Eo84gpMYqItj4R+3g8EJdxEN03DK9BRLMIfAiF17jufS
+	 NUlM14RolgZh0GBbBwqiGE6SDuaEGnPo0tvhO1AfUmFbeNNYch1GcSZsH5RWAenKxp
+	 mBwRg9XXGBKyRgb28mIkmRRGFQ+B4gCfKpN4esnuCXsjqnAiWRfqwCoJAsvwuGG3eq
+	 yDa57fhQmO4nA==
 From: Sasha Levin <sashal@kernel.org>
-To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Greg KH <gregkh@linuxfoundation.org>
+To: "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
+	"stable@vger.kernel.org" <stable@vger.kernel.org>
 Cc: Sasha Levin <sashal@kernel.org>,
-	stable@vger.kernel.org,
-	Bryan Brattlof <bb@ti.com>,
-	Daniel Wagner <daniel.wagner@monom.org>,
-	Jan Kiszka <jan.kiszka@siemens.com>,
-	cip-dev@lists.cip-project.org,
-	nobuhiro.iwamatsu.x90@mail.toshiba,
-	pavel@nabladev.com,
-	Russell King <rmk+kernel@armlinux.org.uk>
-Subject: Re: [PATCH 0/4] ARM: stable backports
-Date: Mon,  8 Jun 2026 20:51:54 -0400
-Message-ID: <20260608-stable-reply-0008@kernel.org>
+	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+	Robert Marko <robert.marko@sartura.hr>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Horatiu Vultur <horatiu.vultur@microchip.com>,
+	=?UTF-8?q?Jo=C3=ABl=20ESPONDE?= <joel.esponde@leroy-agon.com>
+Subject: Re: [PATCH 6.12.y] net: phy: micrel: fix LAN8814 QSGMII soft reset
+Date: Mon,  8 Jun 2026 20:51:55 -0400
+Message-ID: <20260608-stable-reply-0009@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026060832-extortion-cattail-2467@gregkh>
-References: <20260511135357.2786242-1-bigeasy@linutronix.de> <20260608082818.LZiPJ9ot@linutronix.de> <2026060832-extortion-cattail-2467@gregkh>
+In-Reply-To: <e03a6f5d-1f90-44ba-b000-925c43faa9a8@leroy-agon.com>
+References: <7b95f12f-aac6-47bb-ab9f-eab98b3911fd@leroy-agon.com> <20260603105137.lan8814-qsgmii@kernel.org> <f27cff89-b439-42b4-b29d-2a54e4efd3b6@leroy-agon.com> <20260605-stable-reply-0003@kernel.org> <e03a6f5d-1f90-44ba-b000-925c43faa9a8@leroy-agon.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -52,14 +49,9 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> > This is a backport of ARM related fixes. This applies cleanly to v6.18
-> > and v6.12. I have an updated batch for v6.6 and v6.1 because this does
-> > not apply cleanly.
+> Re: [PATCH 6.12.y] net: phy: micrel: fix LAN8814 QSGMII soft reset
 
-All four queued, in order, for 6.18 and 6.12. Build-tested fine.
-
-Please go ahead and send the v6.6/v6.1 batch (with the PREEMPT-RT bits on
-top) whenever you're ready.
+Queued for 6.12, thanks.
 
 --
 Thanks,
