@@ -1,203 +1,115 @@
-Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE8FC3B840F
-	for <stable@vger.kernel.org>; Tue,  9 Jun 2026 16:36:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C92649218E
+	for <stable@vger.kernel.org>; Tue,  9 Jun 2026 16:36:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781022984; cv=none; b=LypOaIABSTcdGEuEKbwF7AMxC3NUuZ+ozFh3XwTo1tSqQKgIk5ZSsEJTzyPWqtSbPh+I5cMErhpPgfHxOl2kRmeCoJ+WUK5I6uqv562ADOlTWBWf9SL2qfDw97Ku+5z7LIx5coGZrniI8yTt8yVogmtr1i8oLzCbcYu0vynqna0=
+	t=1781023012; cv=none; b=ec1S0psjFz3NZvMwXPSRWKH8Uz7TpTxTCJo8KJCakvzdcukTCx/7PVdDINbvo0h1nUdkp170mLsb6ArVYCed/cLqE5r4uM4pyqh25fDJDIyyh30WIz/P1OoseVMVYrI6EKIG1Ng0ukgPbSxr3MewrxZfTl/mDvYwUVh0YLyBwyA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781022984; c=relaxed/simple;
-	bh=oVxXvNlK+2x3E33IMRV6GjfD0zx1nEbsNx5xYHuYv2w=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:From:To:Cc:
-	 References:In-Reply-To; b=TX6idVVnlckJVMkPyMceyu17eKv+bmJxMuh+xq45kyIqQkbfhhfFy69MXXUzBtzg3dvkNy0m3ePgWUYRBgXsBYEB7IDMmxZourjBuhoLhu4FuzpiaSGDPI/I+pRbeAw3tHOf3IRZM5DI63f1ZMMuaTMmwRMKyPBx9aG1P17p1o0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=etsalapatis.com; spf=pass smtp.mailfrom=etsalapatis.com; dkim=pass (2048-bit key) header.d=etsalapatis-com.20251104.gappssmtp.com header.i=@etsalapatis-com.20251104.gappssmtp.com header.b=XeQ5AIDi; arc=none smtp.client-ip=74.125.82.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=etsalapatis.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=etsalapatis.com
+	s=arc-20240116; t=1781023012; c=relaxed/simple;
+	bh=OGLH7jXzbsIii2mYqUyRub3wuJrPU46nL/mOrml4hmM=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=NSmimF5ezJUrqjVmVBPm0m3braDt1tOutzTZEdSNl3IbFxk4OZrwHixz3/6iIYRIETYqhL7SLoTNNdhXtj3SBdfNZZsDgJiXz6JAd1FOAt00O301q5bGY5vjX3Kk8E6sSi6bo5i6WOffT12i3wfPrn77jjketHRpo068TQapAUU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AesH0hlr; arc=none smtp.client-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=etsalapatis-com.20251104.gappssmtp.com header.i=@etsalapatis-com.20251104.gappssmtp.com header.b="XeQ5AIDi"
-Received: by mail-dl1-f45.google.com with SMTP id a92af1059eb24-1370417c01cso7613159c88.1
-        for <stable@vger.kernel.org>; Tue, 09 Jun 2026 09:36:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AesH0hlr"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-490c1915793so39216295e9.2
+        for <stable@vger.kernel.org>; Tue, 09 Jun 2026 09:36:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=etsalapatis-com.20251104.gappssmtp.com; s=20251104; t=1781022982; x=1781627782; darn=vger.kernel.org;
-        h=in-reply-to:references:cc:to:from:subject:message-id:date
-         :content-transfer-encoding:mime-version:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1781023009; x=1781627809; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=/Zm66UDgugDuJh+suaGoWf+oPueZ1pKYv/n0XCt6RiE=;
-        b=XeQ5AIDiFHtmODUR12yVSegTZDC6+2LTuwQS/yAuk5g/SAHha0Il8F90wJ/geXl95B
-         vMWVKK7PsGjDAzKSRKX1Yx+d/BVJqc0Iumf5Jsec5f2FVpi0wbiGXvL7T799z9uDHs/Y
-         nCKUPhEcnNjwQS9Fh0t7ra2HqLz35VTEV1sJgGoiWWT3nT7BE/Shk2pz8Fy0XawiMKa8
-         ebeDmFY06BgotWJ2SI1Zu/4ZQmB1w09FjMACltvSTw3yWaqD6n/swVVz1gyHkUmMcO8o
-         7dXel3SCd7sybYdXP51Km8JhqZgFs/dv9vIXAaUhqXFFdDed/dSsX8J51NCNSeKlRYw4
-         q40Q==
+        bh=0Jw5k2pr2Uxq2pN8ORiGv1jSaTS+XZ+Vd2/C3ba/TNc=;
+        b=AesH0hlrNI4zuNY7MldHwTG7877NnkNAZROvw162aPqOqaVVFA1rLFvghGU0TDOC03
+         9Oz4HseUfeqETnGyxY1C4uak+1jgawJtkB62iKxoB+zHScI1Q/hcoN+Twso4VuLwXXMV
+         7Cq+t9U4Xr9JYLcn7TetbDFKG+ReiIYvvTwLtp1ViTloejjXWrZSpefYm8k4izUbzk1s
+         omS835SlP8HXnosRDyHu94p19HalLfCtJ33sQPV0HQiszvrutnlrAaBBDerUUTeDtaio
+         AeSzEQpZDzg9Qu3AuTQrK9H8CRuJjepAXfsNJOlnPa3hfQPVCJpacN7QcRGfS8RdczEv
+         /oJQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781022982; x=1781627782;
-        h=in-reply-to:references:cc:to:from:subject:message-id:date
-         :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=/Zm66UDgugDuJh+suaGoWf+oPueZ1pKYv/n0XCt6RiE=;
-        b=ewndJU5Yy5CkpA4gfqRQ62fWhsign/6tU1gdtaN1dtSK85OC3WGowhsIbcmwmJsDBe
-         pOF69hsx8NhfEOvh5Sowy2QBecUn50OTOjV4fwREQQKNNBA3tOSqu3fzQhXC7N7y5jyz
-         h/2fGPN3v1mCEy27/gZjbwLS+4H84H+xYaNXgZ2cy0jQtz7Q7vTf2A7ad1pULU3hzq3N
-         Iu35y0rOj9NXFYns1YK98UwQo+zzrsIW8PjYmIUMBz50kF3EAvLMit3zwOt4+CmcTp6b
-         H4RsPuPBdaysHh6C+GjjuzWfg8hqR74RHbw9UNoazeaJl347JeAI7fsvzX3nnPoQR4+2
-         zhkQ==
-X-Forwarded-Encrypted: i=1; AFNElJ/hF1cEYOmru8N9YQazpBo6Yn7WSJt4Yvenym2uFt+bW5kpM8Go0KTtP4EktIusa20cuQy3RM0=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzYcbqGzjQDFKJ6mSLwvfP4UXZMX1Z1i0Xjq40zWjhYSFem97P8
-	DnaYUfE6JJxcPhePE4E+gTWtYEmtouRtmdhQoKTN9lOsatBpx3hbyqg6OxlAnQRhyG0=
-X-Gm-Gg: Acq92OHRSSjmVerg02TX+zaiQ49r5S3mrYqBu7QNOZxttq9IC7SH/CwLIivWUpSGu3S
-	YTNjRVFgBHTSY3KOLLDeW7HPBAhjq8lptVeoDswJAKC32BX9RnHHx96zJXEfzx5dy97riXXm6Rh
-	t+yWktt3punKIlILIym3wCFdlgBhQKBjOAwb8X848cgxo75Rh5BCmx9IIP3HJXtiYauM3We2lmR
-	D5hHNAUTaCS2/IpLaypxNPM75v7EG0NsmQCOwHZ+gASkgxEinF0GZ7cgBkjorXxY85h1M9GA5hG
-	kr/a9AnJp6tpqE3+ZlI8/da4fz3x++Gvy8MIOXMQQCHzfy2gSAKYBi/a1pj4crdAcP8ZOxOjhls
-	jCoQ2ZYPJBpKNB+gGIHj5XvB5hjxUgxezHahVNGKBO2rqMgF5EyatVdxCkl1TRA4lhmaQ2CoaCP
-	h0johGJEXFbn/NfGA=
-X-Received: by 2002:a05:7022:ef18:b0:134:cf34:b8e0 with SMTP id a92af1059eb24-13806660872mr11361311c88.9.1781022981682;
-        Tue, 09 Jun 2026 09:36:21 -0700 (PDT)
-Received: from localhost ([2620:10d:c090:600::3297])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-137f554f732sm15063231c88.12.2026.06.09.09.36.19
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 09 Jun 2026 09:36:21 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1781023009; x=1781627809;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=0Jw5k2pr2Uxq2pN8ORiGv1jSaTS+XZ+Vd2/C3ba/TNc=;
+        b=Zk0+lvrz06n8uW54uJxG3LNOzqVX/eAW0C83Zp0T1Ok3bfscTmkpKmTVZQVdm8kAlw
+         otL8mXlutR+gArla6rQVmr/qzGLfIXYfsH097yWVrfHF5Y6rjfU4xBd0WgLvNxYGpgMR
+         31t6cK8Umpr//OllDiaFY45QWJYDK4BX/p+MeBm6VMvIDUkOw3eqZ8fDstvmgwsQtBz2
+         +ssjalwo3U6G9jkWNFXCLaf3Fx8wYMEhdhCllHWXMYeIGKC7nSg02gLOqWGCfL3RreZh
+         tYdRL8z1Abf2QLy/bN2gCby9kfUvxRZKYqcfJ9VylSMJW9m2ZzgKDLfd/8JN/eA8rPkS
+         AtCw==
+X-Forwarded-Encrypted: i=1; AFNElJ8IYflXWYKPefAD+qrxMCy/5Yw034khOsRkbtd9M1GNWc+zA7mcYhF7BbvBXhSsf4NUU5+JBdE=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz0gBvO7PaFF/DpT6h6fIRVJn4sAH1s7oGGuHLOI55JbWdQzM/e
+	j7GB3GsyqbFtts4UzEEXPB4QS7nGOVIeIUoUM5se0jqbebB/lc3ZcPDY
+X-Gm-Gg: Acq92OFwXXEaSOF2CYKHJNgY4SOraY4oWm6Z5XKUHPpgdatPfUAYojhoW8jVI5dzut4
+	uDETQmNZ11hrDmO20Z9uxSBT2nFjLWnVfe8NvhCtcXiiOO2Z9LO4QPsJ5pBRBI7TOWAf9DP2BR5
+	GEwfA1SvNubBZp48K3Hsf3lvXgJdiEkdNKvHpV5kUQHNJz0PYKVsVbTqvNE8iqMKyOlO5kSRosJ
+	PQn4TyfcMGs+2p1NkEpnRC2JYpmXg15ZOPixY2cxkBuAOnd/7kLdHOYTAHsQ9oq+PBM7NXxHJVf
+	Zk2BHnh6SNA/LsvEB2wqpQhki2kH/Q87B24RjA5rv/hBrb3polsLev+NKojGtgudGwtqkafYdez
+	lNMgaGUEsjFL0BwxRtfsCGbFjux/6L3jplg3wqrZbcMwWZJb2/wff3hxhJ5Qh1c0L5VCGeS+QW2
+	sXLyebXmV+VunUgdyttz8MEsg+tuoI78AW0lNdJZUuOF8SpWg+w3OM0R22O67hVQJOAwVkYdNH5
+	IE6sQwspw==
+X-Received: by 2002:a05:600c:34cb:b0:490:4b89:5361 with SMTP id 5b1f17b1804b1-490c25afa03mr337809275e9.7.1781023008696;
+        Tue, 09 Jun 2026 09:36:48 -0700 (PDT)
+Received: from manta01.. (host-85-36-215-182.business.telecomitalia.it. [85.36.215.182])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490bc3b5b06sm449114015e9.3.2026.06.09.09.36.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 09 Jun 2026 09:36:48 -0700 (PDT)
+From: Davide Ornaghi <d.ornaghi97@gmail.com>
+To: netfilter-devel@vger.kernel.org
+Cc: Pablo Neira Ayuso <pablo@netfilter.org>,
+	coreteam@netfilter.org,
+	Davide Ornaghi <d.ornaghi97@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH 2/2] netfilter: nft_meta_bridge: fix stale stack leak via IIFHWADDR register
+Date: Tue,  9 Jun 2026 18:32:15 +0200
+Message-Id: <20260609163215.1102215-3-d.ornaghi97@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260609163215.1102215-1-d.ornaghi97@gmail.com>
+References: <20260609163215.1102215-1-d.ornaghi97@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 09 Jun 2026 12:36:18 -0400
-Message-Id: <DJ4NYD3BBJ3A.3TEL5PAOUE579@etsalapatis.com>
-Subject: Re: [PATCH bpf v2 1/2] bpf, lpm_trie: Allow access from sleepable
- BPF programs
-From: "Emil Tsalapatis" <emil@etsalapatis.com>
-To: "Vlad Poenaru" <vlad.wing@gmail.com>, <bpf@vger.kernel.org>, "Alexei
- Starovoitov" <ast@kernel.org>, "Daniel Borkmann" <daniel@iogearbox.net>,
- "Andrii Nakryiko" <andrii@kernel.org>, "John Fastabend"
- <john.fastabend@gmail.com>, "Martin KaFai Lau" <martin.lau@linux.dev>,
- "Eduard Zingerman" <eddyz87@gmail.com>, "Kumar Kartikeya Dwivedi"
- <memxor@gmail.com>, "Song Liu" <song@kernel.org>, "Yonghong Song"
- <yonghong.song@linux.dev>, "Jiri Olsa" <jolsa@kernel.org>,
- =?utf-8?q?Toke_H=C3=B8iland-J=C3=B8rgensen?= <toke@redhat.com>
-Cc: "Emil Tsalapatis" <emil@etsalapatis.com>,
- <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260529174233.2954240-1-vlad.wing@gmail.com>
- <20260609135558.193287-1-vlad.wing@gmail.com>
- <20260609135558.193287-2-vlad.wing@gmail.com>
-In-Reply-To: <20260609135558.193287-2-vlad.wing@gmail.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Tue Jun 9, 2026 at 9:55 AM EDT, Vlad Poenaru wrote:
-> trie_lookup_elem() annotates its rcu_dereference_check() walks with
-> only rcu_read_lock_bh_held().  Because rcu_dereference_check(p, c)
-> resolves to "c || rcu_read_lock_held()", this passes for XDP/NAPI and
-> classic RCU readers but fails for sleepable BPF programs, which enter
-> via __bpf_prog_enter_sleepable() and hold only rcu_read_lock_trace().
->
-> trie_update_elem() and trie_delete_elem() have the same problem in a
-> different form: they walk the trie with plain rcu_dereference(), which
-> asserts rcu_read_lock_held() unconditionally.  Both are reachable from
-> sleepable BPF programs via the bpf_map_update_elem / bpf_map_delete_elem
-> helpers, and from the syscall path under classic rcu_read_lock().  In
-> the writer paths the trie is actually protected by trie->lock (an
-> rqspinlock taken across the walk); we never relied on the RCU read-side
-> lock to keep nodes alive there.
->
-> A sleepable LSM hook that ends up touching an LPM trie therefore
-> triggers lockdep on debug kernels:
->
->   =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D
->   WARNING: suspicious RCU usage
->   7.1.0-... Tainted: G            E
->   -----------------------------
->   kernel/bpf/lpm_trie.c:249 suspicious rcu_dereference_check() usage!
->   1 lock held by net_tests/540:
->    #0: (rcu_tasks_trace_srcu_struct){....}-{0:0},
->        at: __bpf_prog_enter_sleepable+0x26/0x280
->   Call Trace:
->    dump_stack_lvl
->    lockdep_rcu_suspicious
->    trie_lookup_elem
->    bpf_prog_..._enforce_security_socket_connect
->    bpf_trampoline_...
->    security_socket_connect
->    __sys_connect
->    do_syscall_64
->
-> This is lockdep-only -- no UAF, since Tasks Trace RCU does serialize
-> against the trie's reclaim path -- but it spams the console once per
-> distinct callsite on every debug kernel running a sleepable BPF LSM
-> that touches an LPM trie, which is increasingly common.
->
-> For the lookup path, switch the rcu_dereference_check() annotation
-> from rcu_read_lock_bh_held() to bpf_rcu_lock_held(), which accepts all
-> three contexts (classic, BH, Tasks Trace).  Other map types already
-> follow this convention.
->
-> For trie_update_elem() and trie_delete_elem(), annotate the walks as
-> rcu_dereference_protected(*p, 1) -- matching trie_free() in the same
-> file -- since trie->lock is held across the walk.  rqspinlock has no
-> lockdep_map, so the predicate degenerates to '1' rather than
-> lockdep_is_held(&trie->lock); the protection is real but not
-> machine-verifiable.  trie_get_next_key() also uses bare
-> rcu_dereference() but is reachable only from the BPF syscall, which
-> holds classic rcu_read_lock() before dispatching, so it is left
-> untouched.
->
-> Fixes: 694cea395fde ("bpf: Allow RCU-protected lookups to happen from bh =
-context")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Vlad Poenaru <vlad.wing@gmail.com>
+NFT_META_BRI_IIFHWADDR declares its destination register with
+len = ETH_ALEN (6 bytes), which the register-init tracking rounds up to
+two 32-bit registers (8 bytes). nft_meta_bridge_get_eval() then does
+memcpy(dest, br_dev->dev_addr, ETH_ALEN), writing only 6 bytes and
+leaving the upper 2 bytes of the second register as uninitialised
+nft_do_chain() stack. A downstream load of that register span leaks
+those stale bytes to userspace.
 
-Reviewed-by: Emil Tsalapatis <emil@etsalapatis.com>
+Zero the second register before the memcpy so the full declared span is
+written.
 
-> ---
->  kernel/bpf/lpm_trie.c | 8 ++++----
->  1 file changed, 4 insertions(+), 4 deletions(-)
->
-> diff --git a/kernel/bpf/lpm_trie.c b/kernel/bpf/lpm_trie.c
-> index 0f57608b385d..4d6f25db9ba1 100644
-> --- a/kernel/bpf/lpm_trie.c
-> +++ b/kernel/bpf/lpm_trie.c
-> @@ -246,7 +246,7 @@ static void *trie_lookup_elem(struct bpf_map *map, vo=
-id *_key)
-> =20
->  	/* Start walking the trie from the root node ... */
-> =20
-> -	for (node =3D rcu_dereference_check(trie->root, rcu_read_lock_bh_held()=
-);
-> +	for (node =3D rcu_dereference_check(trie->root, bpf_rcu_lock_held());
->  	     node;) {
->  		unsigned int next_bit;
->  		size_t matchlen;
-> @@ -280,7 +280,7 @@ static void *trie_lookup_elem(struct bpf_map *map, vo=
-id *_key)
->  		 */
->  		next_bit =3D extract_bit(key->data, node->prefixlen);
->  		node =3D rcu_dereference_check(node->child[next_bit],
-> -					     rcu_read_lock_bh_held());
-> +					     bpf_rcu_lock_held());
->  	}
-> =20
->  	if (!found)
-> @@ -359,7 +359,7 @@ static long trie_update_elem(struct bpf_map *map,
->  	 */
->  	slot =3D &trie->root;
-> =20
-> -	while ((node =3D rcu_dereference(*slot))) {
-> +	while ((node =3D rcu_dereference_protected(*slot, 1))) {
->  		matchlen =3D longest_prefix_match(trie, node, key);
-> =20
->  		if (node->prefixlen !=3D matchlen ||
-> @@ -482,7 +482,7 @@ static long trie_delete_elem(struct bpf_map *map, voi=
-d *_key)
->  	trim =3D &trie->root;
->  	trim2 =3D trim;
->  	parent =3D NULL;
-> -	while ((node =3D rcu_dereference(*trim))) {
-> +	while ((node =3D rcu_dereference_protected(*trim, 1))) {
->  		matchlen =3D longest_prefix_match(trie, node, key);
-> =20
->  		if (node->prefixlen !=3D matchlen ||
+Fixes: cbd2257dc96e ("netfilter: nft_meta_bridge: introduce NFT_META_BRI_IIFHWADDR support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Davide Ornaghi <d.ornaghi97@gmail.com>
+---
+ net/bridge/netfilter/nft_meta_bridge.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/net/bridge/netfilter/nft_meta_bridge.c b/net/bridge/netfilter/nft_meta_bridge.c
+index 7763e78abb..219c406802 100644
+--- a/net/bridge/netfilter/nft_meta_bridge.c
++++ b/net/bridge/netfilter/nft_meta_bridge.c
+@@ -64,6 +64,8 @@ static void nft_meta_bridge_get_eval(const struct nft_expr *expr,
+ 		if (!br_dev)
+ 			goto err;
+ 
++		/* ETH_ALEN (6) is shorter than the destination register span (8) */
++		dest[1] = 0;
+ 		memcpy(dest, br_dev->dev_addr, ETH_ALEN);
+ 		return;
+ 	default:
+-- 
+2.34.1
 
