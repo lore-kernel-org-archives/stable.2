@@ -1,209 +1,220 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD125357D12
-	for <stable@vger.kernel.org>; Tue,  9 Jun 2026 19:36:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AFEA37C11E;
+	Tue,  9 Jun 2026 19:53:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781033800; cv=none; b=KXkDRDRqzZLzmO12QjOy2hpCKmJJWsEy0pic4C+ILDTyEoQ1YwqWk7DWqHYUZNzZF9QfFpU0VKRMUBXkGpqDoeX2ObsrNsk858GD6uUS8SOU/0sUpDiSZgWz52w0ikMBL05QHcr0BKC8UpB2n6iSyaTdYUtJLTn3tAVswF5c14g=
+	t=1781034833; cv=none; b=Q3fzMjblL3fGmfYfh1pqWW5XrVnZcuOTWi46hdDbXtAZRdk+N40FtbDU1anMVgpmQkKW/ssFjS9qkZ//F/MB33aJClOJG4nEjNzmknEH8bTmeBI05RYUfhQL7tZm1kC68mbf1rVWRAmnQ5U8dwuEx85n2puBTjxEkDicY0TMedk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781033800; c=relaxed/simple;
-	bh=T+aPMEJT5NnNy8BkW+/rylqOBIskIu++WlFWEjTOe3c=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pRWvJ/dqSug8z4FG5pmTuqzEyY2nPj5XbDSvE+ax3CaYvi69R6lhj0LdwoBXfhEzJdl+YKI2Xdcq78gNYb0yR8PM7m55xlXmMVejLzw/yFrmoFheRlUkzigaeMScPTn+0nmY2MeNmivi40oJ7hDBflj9GPNKSJrD4yHl9k/jTCA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=PEFeRh3F; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ciH76kAI; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1781034833; c=relaxed/simple;
+	bh=+kTbz2Uw85wz5BrjFBMS8NVDI6izvfM0QweDZwLgOPs=;
+	h=Message-ID:Subject:From:To:Cc:In-Reply-To:References:Content-Type:
+	 Date:MIME-Version; b=O15WQIhDXMjSEgI5e8CKKUNpX0oUC8spXT/Q/ho+ik7tx3UsDJRh4gvXZjviwvJKHaDJqs4j/PRdN0wZhkLMfFDRxhfDYTzM83Yyx1D6MGgJErPEZy6B+fqKaAOtWTO7jgjGp9/ZjBDsDIIRDigLZrBLZa1QmDiy/UdfxA4w51w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=jwV2DdQ4; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="PEFeRh3F";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ciH76kAI"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 659GOm5O2785589
-	for <stable@vger.kernel.org>; Tue, 9 Jun 2026 19:36:38 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=b3/gTmE9+0HaJh4TOwTte717fwVuFSpspy0
-	hY56wF8I=; b=PEFeRh3FNCi25W3NPltGE7NaJs3dED1nbF64y/bI/XFOWje1EOk
-	hNGzEsoWYS0cNV2h3FlsgZRlC+yRurSuREf6a7YrNjAikk3tE+vgJMzrFHFSeEp/
-	H4lKSsge+e48dlSk13XpMf0iYdKPzNGZ+1BLGB8Y6GtoVC0kdTzlC4VNFYdOVCE9
-	kICsJLRUe97MnoYkGw0xkZ9zdMKsCrqGLszmzIgeswhk6kf6Mz5ID2ZzmfIvGLRo
-	InqzzpgXQGHguGUoXafwPt6AffeK0T/851pPB3GSKBPzAY/PnbQmWzhVbDwEMTCH
-	SlBoJ3hNdp3d2szxl643wthmv6VtZsZkqaw==
-Received: from mail-yx1-f69.google.com (mail-yx1-f69.google.com [74.125.224.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4epg3ju1h3-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Tue, 09 Jun 2026 19:36:37 +0000 (GMT)
-Received: by mail-yx1-f69.google.com with SMTP id 956f58d0204a3-660f247c238so10437933d50.2
-        for <stable@vger.kernel.org>; Tue, 09 Jun 2026 12:36:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1781033797; x=1781638597; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=b3/gTmE9+0HaJh4TOwTte717fwVuFSpspy0hY56wF8I=;
-        b=ciH76kAIBnjUNLJq6zXu+6uQOaSODpL/gqygmxcV03wMfIqv8xMTvFSIb56RtIXjld
-         D6nbuw3ioh+yOlQRSJmW/El18xiCdXU5kNqMp/Uq+dMVI+N9c2aeDrw+M1i6Atl0webs
-         JpVdP+iZQwqPDcZE6GXpc+nzB//0SE/wX6uD4o1sanLVnz9ooqxoEcZ85Zh9EFXHjFKK
-         UZghiYYyDMx8+D8YMpeArA9Bir3tKYnhhkJM9aumuM+G7zG9bMUr6zP55Ax58EvfHoeo
-         05EmJ3mfWAHAXRNdDKvHuwNDo+s66zrpenFuQSbt+CdQ72+TjT3YbniA6wljJ6aFqsSp
-         mUNQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781033797; x=1781638597;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=b3/gTmE9+0HaJh4TOwTte717fwVuFSpspy0hY56wF8I=;
-        b=NKYSJ3GjUKFcmCDkfg1GonyTxkrXrt31tqgLURQ6PQN5jjcGmc4BDKsp5T8kEqhbxk
-         ChjWOs6ZE9r6ngbDUqFabaKueYGXq5Sjd3NozlH65ZUbSvELsWXlKiCY7k1dmj81I3Tg
-         zLU7uIDzjtLDfBlyswNiLPauOztKbEiFEGekXvWs304lBFCPTAd4ITV+DSQxcgiDMLfd
-         1+bj4jvvRC+qH2EE5gknnXxrxTgzWGMR5aNe5xfjpsEmzl6oA0dl7XSFyWE6qaOVxYyI
-         oKnHgQNcWtiqI2dtZ2JmCxPsWf2tM6N6Ts1qmzKNcqxY1qJ1rcHtP02U6V4NNTnU2wEY
-         Bh2w==
-X-Forwarded-Encrypted: i=1; AFNElJ+wjXogw7zrAW3pJYPSF6WBDipGsZEFHv+H3t/10Ex1pmgtMY26SwwrcfYQIDZDbuy+DDwXZhI=@vger.kernel.org
-X-Gm-Message-State: AOJu0YygTBaqOWKekEnWG0JL2SALM7pVrkd7aJWDTzduVYAGhHmXhYkC
-	H9o0/R1U8Ow5V7686NjVczsKTxKghsQYJBfYbvks938FJpCsyJWcz5LFV8HhsTp/ZKNJBCzn6vY
-	nqyEiv0udXjDKIY7tX7vegLZrQuoz1EaiUML7o3gqtzJpJLNeHA6niz17hhY=
-X-Gm-Gg: Acq92OFBbuiCEwXfXbGE+HQ0nEWVmGZHiCnQctECk5MEKAS2IBGi6yxgicATQXlCt4v
-	SYMtBcFK6nLIJf2xauLeW29BmLefpO4or/x4FYDKC19OQAU/9iWH7dAQzqI/9jeZY6Ncs2ADmz4
-	qjgy2B20bA1bCI9OxPOd1NDLOp+6dlvs03K1fqs56iFK2GDHBmMo7UTS4I6923216cEDJNOtIAG
-	x/2jesMZ448yZtuswhD+P6jhFFIG1vn67CQm/j0IeuGMVu7yC6ztrd08LuyrafqfjhFzD74ABa9
-	YfvPkQuwzImlARF0BU3hvEAfV82XvODK9AcQOLG+wldpQWv58HLtqZ8onJv21qaKzeFbBfbH52t
-	jRMyazeIxaZREvgFtwo2SYFdCMhns9Il1oGxF2oC6s8FZlJFVlsUTMFtlhguwCnmKJdt5UKoggb
-	s/JcWKzV5ny1MdxvkBJg==
-X-Received: by 2002:a05:690e:1c07:b0:65e:5aa3:9640 with SMTP id 956f58d0204a3-66106e51bc9mr18614807d50.25.1781033796875;
-        Tue, 09 Jun 2026 12:36:36 -0700 (PDT)
-X-Received: by 2002:a05:690e:1c07:b0:65e:5aa3:9640 with SMTP id 956f58d0204a3-66106e51bc9mr18614776d50.25.1781033796505;
-        Tue, 09 Jun 2026 12:36:36 -0700 (PDT)
-Received: from x1e.lan (108-208-224-205.lightspeed.gnbonc.sbcglobal.net. [108.208.224.205])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-660d5f89271sm11272768d50.8.2026.06.09.12.36.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 09 Jun 2026 12:36:36 -0700 (PDT)
-From: Tyler Baker <tyler.baker@oss.qualcomm.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Robert Baldyga <r.baldyga@samsung.com>,
-        Michal Nazarewicz <mina86@mina86.com>, Felipe Balbi <balbi@kernel.org>
-Cc: Tyler Baker <tyler.baker@oss.qualcomm.com>, stable@vger.kernel.org,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
-        linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] usb: gadget: f_fs: initialize reset_work at allocation time
-Date: Tue,  9 Jun 2026 15:36:34 -0400
-Message-ID: <20260609193635.2284430-1-tyler.baker@oss.qualcomm.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="jwV2DdQ4"
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 659DDQ8j2576971;
+	Tue, 9 Jun 2026 19:53:48 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=cBS7l2
+	GAIYLN2ZFz2m7xbAQhC6bb5hYcnSlpyJQWHJk=; b=jwV2DdQ4bNj6ffBcHb6Bru
+	ctS50XzyuETNGePFDsN9jIhuY21BnWDonAzjGNzoRTiokcX13QLA242Z4RRg/iE3
+	fkqK7H4Q76+TOWmUveESMYaTa50SG9hrySYLX9rPBEq4ZfSRaOMIMJRe45oLKEzF
+	6EQAMB53+SmzR/HszXGbKm1PRdFrK3hwbTQCpYGyE/Tlwkp/c/G3+66uSCM8COGO
+	ptpzBMigcKLNAlvkOxmxGKM9kzvAksZtbJFePqkLcBu7jidw2WfGhblSqjwICheI
+	PZi9rKidbaY7pQB/ixhvJTNdsmixAcGQB2/7RTIgy+FHiMjbUeIB72IxZguFheXA
+	==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4emb23x3jj-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 09 Jun 2026 19:53:48 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 659JneTb004969;
+	Tue, 9 Jun 2026 19:53:47 GMT
+Received: from smtprelay06.wdc07v.mail.ibm.com ([172.16.1.73])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4en0jybc5x-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 09 Jun 2026 19:53:47 +0000 (GMT)
+Received: from smtpav05.dal12v.mail.ibm.com (smtpav05.dal12v.mail.ibm.com [10.241.53.104])
+	by smtprelay06.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 659Jrj2F28639812
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 9 Jun 2026 19:53:45 GMT
+Received: from smtpav05.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 81BF858056;
+	Tue,  9 Jun 2026 19:53:45 +0000 (GMT)
+Received: from smtpav05.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 2405E5805D;
+	Tue,  9 Jun 2026 19:53:43 +0000 (GMT)
+Received: from [9.111.45.90] (unknown [9.111.45.90])
+	by smtpav05.dal12v.mail.ibm.com (Postfix) with ESMTP;
+	Tue,  9 Jun 2026 19:53:42 +0000 (GMT)
+Message-ID: <8a0fb2e392f4ca26d08f6dcd7c0e1f9236a62a06.camel@linux.ibm.com>
+Subject: Re: [PATCH v3 1/4] s390/pci: Hold fmb_lock when enabling or
+ disabling PCI devices
+From: Niklas Schnelle <schnelle@linux.ibm.com>
+To: Omar Elghoul <oelghoul@linux.ibm.com>, linux-s390@vger.kernel.org,
+        linux-kernel@vger.kernel.org, kvm@vger.kernel.org
+Cc: hca@linux.ibm.com, gor@linux.ibm.com, agordeev@linux.ibm.com,
+        borntraeger@linux.ibm.com, svens@linux.ibm.com, mjrosato@linux.ibm.com,
+        alifm@linux.ibm.com, farman@linux.ibm.com, gbayer@linux.ibm.com,
+        alex@shazbot.org, stable@vger.kernel.org
+In-Reply-To: <20260608171850.62829-2-oelghoul@linux.ibm.com>
+References: <20260608171850.62829-1-oelghoul@linux.ibm.com>
+	 <20260608171850.62829-2-oelghoul@linux.ibm.com>
+Autocrypt: addr=schnelle@linux.ibm.com; prefer-encrypt=mutual;
+ keydata=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
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 09 Jun 2026 21:52:41 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: wkykRPAQfqNmXzIwoVlGmqPCkLuXDk9Z
-X-Authority-Analysis: v=2.4 cv=aa9RWxot c=1 sm=1 tr=0 ts=6a286b45 cx=c_pps
- a=J+5FMm3BkXb42VdG8aMU9w==:117 a=PFxtTy0squD/fJwW5Be2sw==:17
- a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=lHVxNFqqooF5E1-8HV4A:9 a=Epx66wHExT0cjJnnR-oj:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA5MDE4MyBTYWx0ZWRfX5GXo0TmD4481
- 4m1ud2Pu+0urUrqJfHdeAeNqUMGCk/i+xILtv7pbUpNOB3hyUr5aeZe6UXKfluodxv1khtVxYfF
- IgNy6S63u8qd6zVhWmiycPqt03wQozWTcp6M1lq4LJmBOMiijIRU1tyfXRFmtQsEJSqI1X1+vNI
- LBp7l5I4e1Xnod/Sy5htkmCrTVX/Q2jlvbOUJbDyBoyF0EwF0Y0o+TlxhPaNGpazdw/wXGouR03
- pv9PP1gurrVn2e+qVDrjmUUF8vNqSiL0KgH2h7P3R1KUNcPTEjpGYNidIGzgS1YkWaUEg++dKf2
- RqU4dU8YdgVbEjLi1LsQ0SQt/ak9Yll5kuQGkPIfBVdJn0ONIUev+rXuywX1cfqJy/J5YNyv0SQ
- g7TzebWV7mbZzOGrjKhSRlIKMqoa56cpMiMY3tSYLeW+s8/JBxsmlC1IrEjhPALpOgsTHMiWOAk
- qk4xiPzDzjq8BA0/M7Q==
-X-Proofpoint-ORIG-GUID: wkykRPAQfqNmXzIwoVlGmqPCkLuXDk9Z
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+X-TM-AS-GCONF: 00
+X-Authority-Analysis: v=2.4 cv=b4uCJNGx c=1 sm=1 tr=0 ts=6a286f4c cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=c92rfblmAAAA:8
+ a=VnNF1IyMAAAA:8 a=VwQbUJbxAAAA:8 a=0rbsSUeNS0Mnah478iYA:9 a=QEXdDO2ut3YA:10
+ a=GvGzcOZaWPEFPQC_NcjD:22
+X-Proofpoint-ORIG-GUID: vAPTwIjX7PuGTo6SYFinDbVuAKep3Knw
+X-Proofpoint-GUID: vAPTwIjX7PuGTo6SYFinDbVuAKep3Knw
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA5MDE4NCBTYWx0ZWRfX2eSvSU5kEMtq
+ bYu+RgfRG7e3VG1ePfMqPgPIUg1l0Deea0sjdziFKC0vVyoUBbEqfdoJsxxpT/zxNL6tDO03/6l
+ /S2N6AmyWFr8RsVpFyKZuCcQd752acfROJdqRwcn8FeOSxgbofwe9mtlGvBPnEXcaj5zC1/A6jv
+ YduuiID5a2FrIceB8QiXFcPYWumk6u3Xe9CprKFJnVZMhJ6AInyFmF7N/njKb2bjq8qdU7LVERw
+ rfl1UF/W6HeNMl2+GGlmFNsPW//G4ujX/oZKaLq2s6otpjge0Wb1i9HGsfQvQgyOJHVjHQw2T+0
+ HDwUcQ9EZKg5I8gjAQldjkoELISrDJr1nZqPkFki0j/CfCctW/jVfKDtvEkawJetrnHG9DSCAeb
+ d2MklZMXENNU69QtyFGwDpQYnzhOWpdwg2iIfRom4vVospGqwAntgDi8f3Zoq5WIoI37ImeY1h0
+ hlcbJxRl52NPec43iQg==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
  definitions=2026-06-09_04,2026-06-09_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 suspectscore=0 priorityscore=1501 impostorscore=0 adultscore=0
- spamscore=0 bulkscore=0 malwarescore=0 clxscore=1011 lowpriorityscore=0
+ clxscore=1015 spamscore=0 bulkscore=0 phishscore=0 priorityscore=1501
+ lowpriorityscore=0 adultscore=0 malwarescore=0 impostorscore=0 suspectscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606090183
+ reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606090184
 
-ffs_fs_kill_sb() unconditionally calls cancel_work_sync() on
-ffs->reset_work when a functionfs instance is unmounted:
+On Mon, 2026-06-08 at 13:18 -0400, Omar Elghoul wrote:
+> Ensure that fmb_lock is held by pcibios_enable_device() and
+> pcibios_disable_device() when calling zpci_fmb_enable_device() or
+> zpci_fmb_disable_device(), respectively. Additionally, assert that the
+> fmb_lock is held within the latter two functions to prevent future race
+> conditions regarding new callers.
+>=20
+> Fixes: af0a8a8453f7 ("s390/pci: implement pcibios_add_device")
+> Fixes: 944239c59e93 ("s390/pci: implement pcibios_release_device")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Omar Elghoul <oelghoul@linux.ibm.com>
+> ---
+>  arch/s390/pci/pci.c | 8 ++++++++
+>  1 file changed, 8 insertions(+)
+>=20
+> diff --git a/arch/s390/pci/pci.c b/arch/s390/pci/pci.c
+> index 39bd2adfc240..2910d4038d39 100644
+> --- a/arch/s390/pci/pci.c
+> +++ b/arch/s390/pci/pci.c
+>=20
+--- snip ---
+> @@ -639,7 +643,9 @@ int pcibios_enable_device(struct pci_dev *pdev, int m=
+ask)
+>  	struct zpci_dev *zdev =3D to_zpci(pdev);
+> =20
+>  	zpci_debug_init_device(zdev, dev_name(&pdev->dev));
+> +	mutex_lock(&zdev->fmb_lock);
+>  	zpci_fmb_enable_device(zdev);
+> +	mutex_unlock(&zdev->fmb_lock);
+> =20
+>  	return pci_enable_resources(pdev, mask);
+>  }
+> @@ -648,7 +654,9 @@ void pcibios_disable_device(struct pci_dev *pdev)
+>  {
+>  	struct zpci_dev *zdev =3D to_zpci(pdev);
+> =20
+> +	mutex_lock(&zdev->fmb_lock);
+>  	zpci_fmb_disable_device(zdev);
+> +	mutex_unlock(&zdev->fmb_lock);
+>  	zpci_debug_exit_device(zdev);
+>  }
+> =20
 
-	ffs_data_reset(ffs);
-	cancel_work_sync(&ffs->reset_work);
+There are two Sashiko findings[0] which look real to me, but they are
+pre-existing issues and should really be handled in separate patches.
+The issues do look unlikely to be hit randomly and hard to provoke,
+still we will have to look into them further.
 
-However ffs->reset_work is only ever initialized via INIT_WORK() in
-ffs_func_set_alt() and ffs_func_disable(), and only on the
-FFS_DEACTIVATED path. That state is reached solely by ffs_data_closed()
-when the instance is mounted with the "no_disconnect" option, so for the
-common case (no "no_disconnect", or mounted and unmounted without ever
-being deactivated) reset_work is never initialized.
+For what it does this patch reads correct to me and stands on its own.
+I also did a bit of testing with lockdep enabled.
 
-ffs_data_new() allocates the ffs_data with kzalloc_obj() and does not
-initialize reset_work, and ffs_data_reset()/ffs_data_clear() do not touch
-it either, so reset_work.func is left NULL. cancel_work_sync() on such a
-work then trips the WARN_ON(!work->func) guard in __flush_work():
+So, feel free to add my:
 
-  WARNING: kernel/workqueue.c:4301 at __flush_work+0x330/0x360, CPU#3: umount
-  Call trace:
-   __flush_work
-   cancel_work_sync
-   ffs_fs_kill_sb [usb_f_fs]
-   deactivate_locked_super
-   deactivate_super
-   cleanup_mnt
-   __cleanup_mnt
-   task_work_run
-   exit_to_user_mode_loop
-   el0_svc
+Reviewed-by: Niklas Schnelle <schnelle@linux.ibm.com>
 
-On older kernels cancel_work_sync() on a zero-initialized work struct was
-a silent no-op, which hid the missing initialization.
+Thanks,
+Niklas
 
-Initialize reset_work once in ffs_data_new() so it is always valid for
-the lifetime of the ffs_data, and drop the now-redundant INIT_WORK()
-calls from the two deactivation paths.
-
-Fixes: 18d6b32fca38 ("usb: gadget: f_fs: add "no_disconnect" mode")
-Cc: stable@vger.kernel.org
-Signed-off-by: Tyler Baker <tyler.baker@oss.qualcomm.com>
-Cc: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
----
- drivers/usb/gadget/function/f_fs.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/usb/gadget/function/f_fs.c b/drivers/usb/gadget/function/f_fs.c
-index 75912ce6ab55..1ee21e29ef73 100644
---- a/drivers/usb/gadget/function/f_fs.c
-+++ b/drivers/usb/gadget/function/f_fs.c
-@@ -288,6 +288,7 @@ static int ffs_acquire_dev(const char *dev_name, struct ffs_data *ffs_data);
- static void ffs_release_dev(struct ffs_dev *ffs_dev);
- static int ffs_ready(struct ffs_data *ffs);
- static void ffs_closed(struct ffs_data *ffs);
-+static void ffs_reset_work(struct work_struct *work);
- 
- /* Misc helper functions ****************************************************/
- 
-@@ -2221,6 +2222,7 @@ static struct ffs_data *ffs_data_new(const char *dev_name)
- 	init_waitqueue_head(&ffs->ev.waitq);
- 	init_waitqueue_head(&ffs->wait);
- 	init_completion(&ffs->ep0req_completion);
-+	INIT_WORK(&ffs->reset_work, ffs_reset_work);
- 
- 	/* XXX REVISIT need to update it in some places, or do we? */
- 	ffs->ev.can_stall = 1;
-@@ -3775,7 +3777,6 @@ static int ffs_func_set_alt(struct usb_function *f,
- 	if (ffs->state == FFS_DEACTIVATED) {
- 		ffs->state = FFS_CLOSING;
- 		spin_unlock_irqrestore(&ffs->eps_lock, flags);
--		INIT_WORK(&ffs->reset_work, ffs_reset_work);
- 		schedule_work(&ffs->reset_work);
- 		return -ENODEV;
- 	}
-@@ -3806,7 +3807,6 @@ static void ffs_func_disable(struct usb_function *f)
- 	if (ffs->state == FFS_DEACTIVATED) {
- 		ffs->state = FFS_CLOSING;
- 		spin_unlock_irqrestore(&ffs->eps_lock, flags);
--		INIT_WORK(&ffs->reset_work, ffs_reset_work);
- 		schedule_work(&ffs->reset_work);
- 		return;
- 	}
--- 
-2.43.0
-
+[0]
+https://sashiko.dev/#/patchset/20260608171850.62829-1-oelghoul%40linux.ibm.=
+com
