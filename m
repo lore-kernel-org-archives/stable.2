@@ -1,191 +1,177 @@
-Received: from mxout5.mail.janestreet.com (mxout5.mail.janestreet.com [64.215.233.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com [209.85.167.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F2FF4BCAC2
-	for <stable@vger.kernel.org>; Tue,  9 Jun 2026 17:15:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=64.215.233.18
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781025320; cv=fail; b=WpcezFnnYYVyy20m8iKftvlfa4Yt67mezD80DjK/vNIS16/6B8aOughAzaKXBR4BNh+LGsdqEDOo+9zW//DjcOKM1uSb2Up+/5QKfERu1W8BjbhpXg4d+L7h78LX2A0I27NHmaavBm8QrXTLX0K4fUK2db/6K5sUegDixWmIoxc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781025320; c=relaxed/simple;
-	bh=2inTUhdt8YIA2l57282yKhLtyF6GdP0EAnIKVqphNjY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=TOu04JlHClz+iN1f7WE32643wE5dpDF63ryKAm4qCtjaGb1FBIsL3jMFkGwkQ3hIchKRDN6Wh6D3+zLuqVObQEPbFT4U7J4P+qSEESwxPYznLBNr5LFyi6wWAGjBPzO1vKMPIHWh74kKnzi+HwjIv8D38AjpcpiFBNvqHbglqJo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=janestreet.com; spf=pass smtp.mailfrom=janestreet.com; dkim=pass (1024-bit key) header.d=janestreet.com header.i=@janestreet.com header.b=14GHb+ju; dkim=pass (2048-bit key) header.d=janestreet.com header.i=@janestreet.com header.b=bxuhayvq; arc=fail smtp.client-ip=64.215.233.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=janestreet.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=janestreet.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00EB248AE39
+	for <stable@vger.kernel.org>; Tue,  9 Jun 2026 17:24:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.50
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781025845; cv=none; b=Q5nB2B9dPre2RvSb88vvGGt/ItVWCgtxHTaoKhWipc1iuNOTVEq/haj7bszhXjdM5tagGcqAuOZ9Qjt4syJhTnMWvIFFSbrIGPSRtETtAgEji0sbJmcQAYaKBRNuRR+RmG9p6jETcLXlnMiPgvQvrGghhZQKyxPgN/ZozhnqjHE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781025845; c=relaxed/simple;
+	bh=4WIQETbdd7ZVgqTHQyb8NbGqFO8RlIZ/rrczYaaOPrE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=eMIYm535MBPx8SyLgGMMWDgxaTHQA2uNoaCbx7vHf6nT7pC2y/4P7YteS2D8PwvR4Ya5QoqmN2Nnvr4+NSRN5KanMFRbrZFp2IGrjjpCcC0bv/AUUy/5OFOapcp2CtfgVEm/0VVkMXZgRHn2Qro1ZAMQNZk1nU15by1a+1JLLTg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mOsLRsXo; arc=none smtp.client-ip=209.85.167.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=janestreet.com header.i=@janestreet.com header.b="14GHb+ju";
-	dkim=pass (2048-bit key) header.d=janestreet.com header.i=@janestreet.com header.b="bxuhayvq"
-Received: from mail-ed1-f70.google.com ([209.85.208.70])
- 	by mxgoog2.mail.janestreet.com with esmtps (TLS1.3:TLS_AES_128_GCM_SHA256:128)
- 	(Exim 4.99.4)
- 	id 1wX02o-00000008bJV-3HsS
- 	for stable@vger.kernel.org;
- 	Tue, 09 Jun 2026 13:15:18 -0400
-Received: by mail-ed1-f70.google.com with SMTP id 4fb4d7f45d1cf-67e32a60b39so966863a12.0
-         for <stable@vger.kernel.org>; Tue, 09 Jun 2026 10:15:18 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781025318; cv=none;
-         d=google.com; s=arc-20240605;
-         b=GpwFgL6e/FST5FCEIl2WmYmaTgIQQI6Ep1a9LSw7Dl1kl9KSRdC13zjXtlH56HMQgB
-          dZhk1YBDUWK2LCmHrVLJR60xIyuVcZoG4JkJDywy5ns1ZRTTY/jQmpic9LzjU4p2Iusu
-          qTjgLi5WG0626IHkzhRdafxLdXDjnm+G5ZniZ7lkiXR62tmUaLWU4ixbaYrBvy2Lt+fF
-          MFa3yoR94rbkQ01etjvtF/2VvO3l1x6QLY8MdhIm433H4HoAgj5caIWJYHtB2NOIFXO9
-          JFx2wr5T3jH3eWob1COLYhXHl5AIplojLnuQXZmgHHOWGVsVK+wDJtVSkwmG2/JWLUlk
-          u6DQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-         h=content-transfer-encoding:cc:to:subject:message-id:date:from
-          :in-reply-to:references:mime-version:dkim-signature;
-         bh=G+/6fdbcggFvGkAF9hirx6Oyq2sHXWyVk+eenuvWMpU=;
-         fh=6NonBdSkzYbjT1wFHZjdmvXChVhD/IgAA9yUKNGi2jM=;
-         b=OrmfE4267He+o3HpzSUNdlWwh/Hx69OgBvn17lMwG1gpH5Kd9fBOUGJzo5/vw3UEDm
-          FWTnksJBMe3A3d2J/3TB227mGjtGkjBUd30ZyZuSyWTrmx44r52cgo3+EGrZPTCkawCL
-          3p3NT++Qdrfo/cx+W6a6ASgiz7vOoN20zeRZw64Lc5iEVtX7E/zEXbxUVIdYx4Y/Cm1K
-          g/QOAIDfrw1SAjHIW7/o/hBv+HHTAlSrrAv0M3Enwb31y5mGNuTHfQ0EzJ+2t11jFyOa
-          ip8iQaA+5TzMXP0XSrN+SbPEtUMaQlpu4YyEp3WkijY93a9RQ3Z6gTYq0FV59nQFEKwt
-          vAwA==;
-         darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mOsLRsXo"
+Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5aa6863327fso5034523e87.0
+        for <stable@vger.kernel.org>; Tue, 09 Jun 2026 10:24:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-         d=janestreet.com; s=google; t=1781025318; x=1781630118; darn=vger.kernel.org;
-         h=content-transfer-encoding:cc:to:subject:message-id:date:from
-          :in-reply-to:references:mime-version:from:to:cc:subject:date
-          :message-id:reply-to;
-         bh=G+/6fdbcggFvGkAF9hirx6Oyq2sHXWyVk+eenuvWMpU=;
-         b=14GHb+ju2esx3Wgg5mmRt5GlrxqrjzQSjDzjgES+bcWzonX1Le6Wjr34/Y9S0yFT+m
-          NHwejsCJoUWIia+KzYYZFkDup3N+2hO+uLUSGtGKAytHhT8bIr2/nAUGDi9kdgFNPtSJ
-          n8siNmQHrCaZFjEJiaNMulUYVPCnZCGoNuXGE=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=janestreet.com;
-  s=waixah; t=1781025318;
-  bh=G+/6fdbcggFvGkAF9hirx6Oyq2sHXWyVk+eenuvWMpU=;
-  h=References:In-Reply-To:From:Date:Subject:To:Cc;
-  b=bxuhayvqwKiq94VNY4I3FizRPKEkAZvNdQ0XgwNLsnK4zKGWG7aDf1nI6Gj/XYzaH
-  txwxQFIK+TUgeT/CqJKeJjx5Zth31vqXejR5X+iiroxlu3PPdtAdYnQTPplv1zGMpu
-  5CoJPG3F00KSZm4LGURzHqgL2uf3/Z7wxn2VtqgNnbVZviaRhaEobvHL41mFnp0aZJ
-  w75apA7w90iSVzJW/CjHQGUGba1/v1cRalC7sJ0sLmIwfTr1aVb8JE6Gy6QXAVcvdv
-  0tEYkM0qV1eDS9jyLoiKMfNGxcxSvlKRiyqfxN1mo8iAygC8m8ACafgAzYpDiAYmiD
-  QxQ2KD7gg8Amg==
+        d=gmail.com; s=20251104; t=1781025841; x=1781630641; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=kNDHPL4QZCBB2D1DReJErdxEUGCSQvUdM0eZQrbXxbw=;
+        b=mOsLRsXo4a3GQD5Jx9ZiPj2za1E6m8Vc2Tu6wVWnD7zCGAI+iUpGTJEHr56GUJn9RJ
+         d4Kh2B+XLjMzoHaP7XJakbQKsBhXTT1re9bqUKP/o3IWneTjKESMauyLNXSxNZkNONEa
+         e0QQXLflRRS9Uv5AmNnjcWZ05lD8uFJVgjYDey4defHYgbNmI5jrPQZH9MWYFSzG4WUT
+         ToT+0ddpjyeTuPoRsZUG/2cCwZwyfnF+glJy1J+J7NkOhRLR7VOQw0ekXg21H34y1+w/
+         kdwosRG0yyYKSLL/VOBKRnTPzjqkUskMBLogdcmdcXEHsXMijwgXnQT9ZGZZqFZuG2H8
+         Vxkw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-         d=1e100.net; s=20251104; t=1781025318; x=1781630118;
-         h=content-transfer-encoding:cc:to:subject:message-id:date:from
-          :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-          :to:cc:subject:date:message-id:reply-to;
-         bh=G+/6fdbcggFvGkAF9hirx6Oyq2sHXWyVk+eenuvWMpU=;
-         b=mfZcgQ6Gwr5NIjOtW1MoFP3md48b6cale1DyYdNIO1UhwglUCdevm0L5pKuAjRIdDZ
-          lvwZMMhQ+anxCrw03bDcSaVwr5T1rKyRq95qpSOKM8HmUMWI4txoZcn+37BhJvJ6ad0+
-          6Ippd7737awEsNh1okANJ977Lmt7/7g05OmuC5KghKJEAJWaKeznYlfZN33rCd9KW/fZ
-          f5hSkjn3OWzqWJVrdqoGCBcjjIlyHZ9RFs9ZDoc99WqZmd+YvAPRtYa8qV1wbJPLr65M
-          5DpBYZXUvznRyawe26x6VlTmqk+JAypjyCOBdrBEq/cplQrIm+Y2hZJzgm09xL1FJCJ4
-          w/tg==
-X-Forwarded-Encrypted: i=1; AFNElJ+MdAhJFBWhQ6umzCWmRtXD18TGygb+m0o2oqRgcb48lsqKbpHad74HOQH5rLmox3gfdho0CkI=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yya3lf+pdUaa1/32Ti72YYtE4S8M13V/ybfDqF4L7MMHzd4udF/
- 	kewpj2jjA6pOwOjQnmee9vtJOGdYKAtWfpUjGfqIfdcXtZIY0DYG9wA07+yvE2v1uRJdIT4aQAt
- 	geiLzBcXgxFXkjFwVsD3vgtj6uaWg8sJvn8yqg+QJlmxKyJS5ysBKNmbCF/lL1ATlvrnlPq41Ln
- 	pnZesVYPEFpD6kn0sGyt/WMVyidgZrFac=
-X-Gm-Gg: Acq92OE7jojpYfXho9N2PG2PFg06ShHdRRJVFhAmotlyxuj18EbIOUsMVFGwG/D2WsO
- 	TdqqE7QPiP3X3zBafNld3fxJ+A4h/cd+fj/E4y/UZLc1MOGRnALn496jJFxHedQ7X6ijh1BU8Dd
- 	/y5YrXOEKHR61M5IJiGCeq6veesKbtyAwTYH09GCAKNmIHYetdLoaPbMC/rltRE5JHmkF15kokP
- 	LVS37+m7JiaBpWB
-X-Received: by 2002:a05:6402:524f:b0:68d:b17a:543c with SMTP id 4fb4d7f45d1cf-68ff2186061mr8591397a12.12.1781025317867;
-         Tue, 09 Jun 2026 10:15:17 -0700 (PDT)
-X-Received: by 2002:a05:6402:524f:b0:68d:b17a:543c with SMTP id
-  4fb4d7f45d1cf-68ff2186061mr8591366a12.12.1781025317308; Tue, 09 Jun 2026
-  10:15:17 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1781025841; x=1781630641;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=kNDHPL4QZCBB2D1DReJErdxEUGCSQvUdM0eZQrbXxbw=;
+        b=l51pDIF3czqr3bDJ6qtpeXUTGCGA2wfpQTFP+z9+2sOWplrEeQ8pLFxxdOQKoVCCnl
+         kO+rFQldU8Xhjkz6zLQBOmbvNJY76VaPtn78+8gT80pqU7+Y+QoOk/LNzaXtsEDy6ql2
+         JhS7ybeEge7LMj/pqPSEXTgDFDnTomJhUVMW/lCVrG56x0Y/C+rkxgOB1HlLOm2TKEpr
+         ghw4D9+0VIFLaDR42u4K4/32w3f3NQbqHiL6yzWoRwUV4Ypjh6HjzKKGMuMKH2LASAvA
+         G06q34jk+p5qDoerP6juVl8L8R0liUcMzNh7zcp5be4YHu+JxXQ0PAyPgM1H6bRHckR1
+         8Fjg==
+X-Gm-Message-State: AOJu0YxXIviksFfdWoPLkJWLQV/T7DAfQSwrr/hUg7o5PV9mOhD8Zd3q
+	KACH9iCc4+xTl8BeY/yZEwBti2be+2y7zW+aW8d4AOb+5v+d8VcTPr0SbMxv7TkV8h0=
+X-Gm-Gg: Acq92OGkYXsGuvl5F9ZlIv0OL9jPky5C61m4K6ft1s+RmiFKt2UJ6RUbFamLL4pzo9R
+	u50k7sQgtVaC7dn3ScxFJvA/LA+vX8NjLW+5J97uwQ4cRPa8JgELOYLet1XNhhaqF+3jbTPbDB4
+	OoMuLeIO2M0KFS5Pr6USzyw6fDA/KDrKIoKleelRlf/t58MTrkakF5cBaNCgfh6bk4XWGBNGB2t
+	S5yhyZS8VESjXJCnURe/38vCUm/pfk8UgoZRfp7mhpsiDKyY+lcn9C4l1cqUOlspjxAn93WOoSa
+	YxinYfh/7Ncd+QLz1Ppx8jNhn+MTO56XrVoYhNXmMyjg/5Jaz3fTcQ7otGNTO5lrEhynqzE3AM4
+	IpniANf7vAlMfX1EQEDKAJUelzYtAxvzccyinjfgkftkV4GkqCvfpNreMydHS9p0iJyn3dI+6uj
+	aupCJWrQmNUEqcxzICPRtWoesSM6VRq5CXG7v0RN6sm/EqZTYK8gWt9efaqzF8gwBUKirNO+fDf
+	XFiTUA=
+X-Received: by 2002:ac2:4e09:0:b0:5ad:a51:20a8 with SMTP id 2adb3069b0e04-5ad0a512258mr1135766e87.18.1781025840827;
+        Tue, 09 Jun 2026 10:24:00 -0700 (PDT)
+Received: from c0624c666cc5.devsec.astralinux.ru ([93.188.205.42])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5aa7b99c11csm4729939e87.78.2026.06.09.10.23.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 09 Jun 2026 10:23:59 -0700 (PDT)
+From: Vladislav Nikolaev <vlad102nikolaev@gmail.com>
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Vladislav Nikolaev <vlad102nikolaev@gmail.com>,
+	"J. Bruce Fields" <bfields@fieldses.org>,
+	Chuck Lever <chuck.lever@oracle.com>,
+	linux-nfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Jeff Layton <jlayton@kernel.org>,
+	NeilBrown <neil@brown.name>,
+	Olga Kornievskaia <okorniev@redhat.com>,
+	Dai Ngo <Dai.Ngo@oracle.com>,
+	Tom Talpey <tom@talpey.com>,
+	lvc-project@linuxtesting.org,
+	syzbot+e34ad04f27991521104c@syzkaller.appspotmail.com
+Subject: [PATCH 5.10/5.15] nfsd: don't ignore the return code of svc_proc_register()
+Date: Tue,  9 Jun 2026 20:23:54 +0300
+Message-ID: <20260609172356.1887-1-vlad102nikolaev@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CAFN_u7FrgM4Dzie2jjkLwWV8P0dvUG_Wwy3Q9B3-2HnnWiDu8w@mail.gmail.com>
-  <aiLxe-9Sub8cI3Py@bfoster> <aibns0xP6IVVNWh3@bfoster> <CAAH4uRB+Bh9UEVEW8Sb2yM4YhB-Q5UJ6KJJXari3DDF3n3S+-g@mail.gmail.com>
-  <aig9Vm2a_13bPc5G@bfoster>
-In-Reply-To: <aig9Vm2a_13bPc5G@bfoster>
-From: Gregg Leventhal <gleventhal@janestreet.com>
-Date: Tue, 9 Jun 2026 13:14:40 -0400
-X-Gm-Features: AVVi8CccMZBf_W2neiPGuRO8YpErMCyF7o_iyXweU0WZ58K3osa4MMBejEkzuNY
-Message-ID: <CAFN_u7ELBj3YKncm6HA4-QUNyi-a3qPDEYxuLP+skVhm-r87uw@mail.gmail.com>
-Subject: Re: [BUG] iomap/io_uring: O_APPEND async buffered write silently
-  re-appends a data chunk (corruption) on XFS, 6.1.y/6.12.y
-To: Brian Foster <bfoster@redhat.com>
-Cc: Eric Hagberg <ehagberg@janestreet.com>, hch@infradead.org, djwong@kernel.org, 
- 	linux-xfs@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
- 	io-uring@vger.kernel.org, Jens Axboe <axboe@kernel.dk>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-I reproduce it by running 25 ~ concurrent instances of the attached reprodu=
-cer,
-each writing its own file, on an otherwise-idle 15 GB VM:
+From: Jeff Layton <jlayton@kernel.org>
 
-  DIR=3D$(mktemp -d /tmp/uring.XXXXXX)
-  for i in {1..25}; do
-      ./repro_uring_dup "$DIR/file_$i" 120 48 &
-  done
-...
-*** CORRUPTION DETECTED in /tmp/UmgK/file_17.1 ***
-  bytes kernel said it wrote (sum of CQE results): 53621960
-  actual file size:                                56218824
-  extra (duplicated) bytes:                        2596864
-  first mismatching offset: 6791168 (0x67a000)  page_aligned=3DYES
-    expected u64 848896 but found 524288 (content from byte offset
-4194304 reappeared here)
-  (file kept for inspection)
+commit 930b64ca0c511521f0abdd1d57ce52b2a6e3476b upstream.
 
+Currently, nfsd_proc_stat_init() ignores the return value of
+svc_proc_register(). If the procfile creation fails, then the kernel
+will WARN when it tries to remove the entry later.
 
+Fix nfsd_proc_stat_init() to return the same type of pointer as
+svc_proc_register(), and fix up nfsd_net_init() to check that and fail
+the nfsd_net construction if it occurs.
 
-  wait
+svc_proc_register() can fail if the dentry can't be allocated, or if an
+identical dentry already exists. The second case is pretty unlikely in
+the nfsd_net construction codepath, so if this happens, return -ENOMEM.
 
-*** CORRUPTION DETECTED in /tmp/Gznx/file_18.2 ***
-  bytes kernel said it wrote (sum of CQE results): 58112616
-  actual file size:                                60303976
-  extra (duplicated) bytes:                        2191360
-  first mismatching offset: 2191360 (0x217000)  page_aligned=3DYES
-    expected u64 273920 but found 0 (content from byte offset 0 reappeared =
-here)
-  (file kept for inspection)
+Reported-by: syzbot+e34ad04f27991521104c@syzkaller.appspotmail.com
+Closes: https://lore.kernel.org/linux-nfs/67a47501.050a0220.19061f.05f9.GAE@google.com/
+Cc: stable@vger.kernel.org # v6.9
+Signed-off-by: Jeff Layton <jlayton@kernel.org>
+Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
+Signed-off-by: Vladislav Nikolaev <vlad102nikolaev@gmail.com>
+---
+Backport fix for CVE-2025-22026
+ fs/nfsd/nfsctl.c | 9 ++++++++-
+ fs/nfsd/stats.c  | 4 ++--
+ fs/nfsd/stats.h  | 2 +-
+ 3 files changed, 11 insertions(+), 4 deletions(-)
 
-
-On Tue, Jun 9, 2026 at 12:20=E2=80=AFPM Brian Foster <bfoster@redhat.com> w=
-rote:
->
-> On Mon, Jun 08, 2026 at 01:17:10PM -0400, Eric Hagberg wrote:
-> > On Mon, Jun 8, 2026 at 12:03=E2=80=AFPM Brian Foster <bfoster@redhat.co=
-m> wrote:
-> > > Another idea that came to mind is to try and just replace the -EAGAIN
-> > > return sequence from the low level iterator with a flag that triggers
-> > > -EAGAIN from the next iter advance. The idea here is to allow the wri=
-te
-> > > to return partial completion (i.e. so no iov_iter revert) without hav=
-ing
-> > > to return an error from the lowest level in the stack. I had claude c=
-ome
-> > > up with a quick patch [1] for reference/experimentation.
-> > >
-> > > This is based on v6.12 stable and compile tested only. It needs more
-> > > review and testing in general but might be worth throwing your
-> > > reproducer at if you can..?
-> >
-> > With that patch applied, the reproducer runs clean - no errors - and
-> > gets roughly the same performance (maybe slightly better) as when run
-> > against a 6.18 kernel on the same VM.
-> >
->
-> Thanks for testing. I'll look into some more regression testing of this
-> patch and try to clean it up and post it for proper review for stable.
->
-> Are you using the reproducer program in your original mail to test? If
-> so, does it require some concurrent memory pressure to reproduce, and
-> are you using anything in particular for that?
->
-> That test seems small enough that we could potentially include it in
-> fstests, though I'm still not so sure about the mem pressure part..
-> Since you guys wrote the test, any interest in porting into fstests? If
-> not I can look into it.
->
-> Brian
->
-> > Thanks,
-> > -Eric
-> >
->
+diff --git a/fs/nfsd/nfsctl.c b/fs/nfsd/nfsctl.c
+index ba2eaf3744ef..cc0dea883fbd 100644
+--- a/fs/nfsd/nfsctl.c
++++ b/fs/nfsd/nfsctl.c
+@@ -1460,17 +1460,24 @@ static __net_init int nfsd_init_net(struct net *net)
+ 	retval = nfsd_stat_counters_init(nn);
+ 	if (retval)
+ 		goto out_repcache_error;
++
+ 	memset(&nn->nfsd_svcstats, 0, sizeof(nn->nfsd_svcstats));
+ 	nn->nfsd_svcstats.program = &nfsd_program;
++	if (!nfsd_proc_stat_init(net)) {
++		retval = -ENOMEM;
++		goto out_proc_error;
++	}
++
+ 	nn->nfsd_versions = NULL;
+ 	nn->nfsd4_minorversions = NULL;
+ 	nfsd4_init_leases_net(nn);
+ 	get_random_bytes(&nn->siphash_key, sizeof(nn->siphash_key));
+ 	seqlock_init(&nn->writeverf_lock);
+-	nfsd_proc_stat_init(net);
+ 
+ 	return 0;
+ 
++out_proc_error:
++	nfsd_stat_counters_destroy(nn);
+ out_repcache_error:
+ 	nfsd_idmap_shutdown(net);
+ out_idmap_error:
+diff --git a/fs/nfsd/stats.c b/fs/nfsd/stats.c
+index 7a58dba0045c..6d1c6067c80e 100644
+--- a/fs/nfsd/stats.c
++++ b/fs/nfsd/stats.c
+@@ -113,11 +113,11 @@ void nfsd_stat_counters_destroy(struct nfsd_net *nn)
+ 	nfsd_percpu_counters_destroy(nn->counter, NFSD_STATS_COUNTERS_NUM);
+ }
+ 
+-void nfsd_proc_stat_init(struct net *net)
++struct proc_dir_entry *nfsd_proc_stat_init(struct net *net)
+ {
+ 	struct nfsd_net *nn = net_generic(net, nfsd_net_id);
+ 
+-	svc_proc_register(net, &nn->nfsd_svcstats, &nfsd_proc_ops);
++	return svc_proc_register(net, &nn->nfsd_svcstats, &nfsd_proc_ops);
+ }
+ 
+ void nfsd_proc_stat_shutdown(struct net *net)
+diff --git a/fs/nfsd/stats.h b/fs/nfsd/stats.h
+index 14525e854cba..b9329285bc1d 100644
+--- a/fs/nfsd/stats.h
++++ b/fs/nfsd/stats.h
+@@ -15,7 +15,7 @@ void nfsd_percpu_counters_reset(struct percpu_counter *counters, int num);
+ void nfsd_percpu_counters_destroy(struct percpu_counter *counters, int num);
+ int nfsd_stat_counters_init(struct nfsd_net *nn);
+ void nfsd_stat_counters_destroy(struct nfsd_net *nn);
+-void nfsd_proc_stat_init(struct net *net);
++struct proc_dir_entry *nfsd_proc_stat_init(struct net *net);
+ void nfsd_proc_stat_shutdown(struct net *net);
+ 
+ static inline void nfsd_stats_rc_hits_inc(struct nfsd_net *nn)
+-- 
+2.47.3
