@@ -1,159 +1,152 @@
-Received: from smtpbgbr2.qq.com (smtpbgbr2.qq.com [54.207.22.56])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C22C39524E;
-	Tue,  9 Jun 2026 09:36:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.207.22.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 090393ACA77
+	for <stable@vger.kernel.org>; Tue,  9 Jun 2026 09:42:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780997767; cv=none; b=dKgJvEnQLUs1oMmHvr79M9AynPbel8KcA7EvqFRKdfla9eS2Htej30llLQc9tzKYaDUF0TqdehR17h1NGqeElMfMWAEUhcW7lNeUzNAhcsqK09Y8zMjuljdmRnL9QtLmUtHC3AbbBzhwbyfDDeZQd5MBE1cM1M6Pivg+0u8Jm28=
+	t=1780998133; cv=none; b=tSh6DTAIykAdQUv3tFvP8Wvx+P1agwEvzuWLX9DewNNnYROm1rOjwqIwTkZ4FAty49tr+rBMUipAHfpk3O0peAbaEszuXVsGtRjk9jscPVtIHPNxIpqgrctY0FiQNFeu56RkFx5M48zsvhzLUmonlOWaxKT6BUjvrAojfRXF6Rw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780997767; c=relaxed/simple;
-	bh=ymnCTfqYvgzBgaDhzaXYJR5W3tPN8hdoubKglpjr8r0=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=H32snrDZ6KukjSxvXoq/z/vvgxxwdSlFPLQkMVrBG8RiB/C+CycIkrtyc4cSABcmRUtlRgMpwWW0EDK5pgKch2VYwL+odVhuqZNXIj7/woQdNvNp+MS0ydHYUFGfk3vuZjkKAdBW4RyPC3r19+QCQcPK7eV/BQsHa4bk6W/XG6w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=hrsS21lO; arc=none smtp.client-ip=54.207.22.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	s=arc-20240116; t=1780998133; c=relaxed/simple;
+	bh=Avkrtn01Ayj3T2TvNljnHS34gZQIlNdTbIwKa1EoWmU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=AE8i85/3FRRSeu0I67QK13cUUr7VqeiOh7ROEI4xYGUJyQpsgjJWKmSEUCUdeZy7UG9Da0R1f+DtzqF5x8JMlOWsoa+HJdcfLGQE9HFSpcTINSxyjpZNebPaPU7aZ8Fj8VlYUb4ID4hYk7uFyZ4KUksUG8LveceaVOvT5T61wR8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=SZBW/p6L; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=Acm8YZW6; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="hrsS21lO"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1780997695;
-	bh=F/ATENqeutHEFBLWCq5KxclWHjONItFaJGr0IzvOtgs=;
-	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=hrsS21lOqN3i5+rw4GQJYsou/okEHaw8A3dvbW4xnGA8vjIFP26VfdlkkRIqrOuM0
-	 Y0p0jG7oAkgAI8i1lHHCZ2gAguOMejMXAKJM0u4AQwwprNTBPxn45ALc8r5/BTyeWN
-	 VPSaAt+GkDFqKEjNwRqHBb6XXSx3HlVQTNo9odGo=
-X-QQ-mid: esmtpsz17t1780997677tad01d33d
-X-QQ-Originating-IP: pIjK55WJPXl+Qs4jtZPT67LZr4pec0GM+rpziWhGDf4=
-Received: from localhost.localdomain ( [124.126.19.250])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Tue, 09 Jun 2026 17:34:31 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 3266297912186802098
-EX-QQ-RecipientCnt: 11
-From: ZhaoJinming <zhaojinming@uniontech.com>
-To: Tomeu Vizoso <tomeu@tomeuvizoso.net>,
-	Oded Gabbay <ogabbay@kernel.org>
-Cc: Sumit Semwal <sumit.semwal@linaro.org>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	linaro-mm-sig@lists.linaro.org,
-	ZhaoJinming <zhaojinming@uniontech.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v3 2/2] accel/rocket: Fix iommu_group leak and unsafe IRQ register access
-Date: Tue,  9 Jun 2026 17:33:46 +0800
-Message-Id: <20260609093346.380396-2-zhaojinming@uniontech.com>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20260609093346.380396-1-zhaojinming@uniontech.com>
-References: <20260608103845.6F4AB1F00893@smtp.kernel.org>
- <20260609093346.380396-1-zhaojinming@uniontech.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="SZBW/p6L";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="Acm8YZW6"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1780998131;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=mRY8LqFb7Uf3uguI4UokjXxEYGkijilafTjvNmMtFxQ=;
+	b=SZBW/p6L11XGEZMelcAVnVmUPxCKP93RzARY92fMrlStbcgy/xhSenOWH60sI62nq6ahij
+	KFvsN3KV5uMvzuiNdHvDnwhF/1bDzylEmxYkf2Eta0icZF7klXb0ksRcNfi3lm7eZtoQtF
+	McmV3CYV1DbD+b5i5Ryc1r4AQ7Y3wJI=
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
+ [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-8-t1WufLLcM-mTIr9qcAFkNQ-1; Tue, 09 Jun 2026 05:41:39 -0400
+X-MC-Unique: t1WufLLcM-mTIr9qcAFkNQ-1
+X-Mimecast-MFC-AGG-ID: t1WufLLcM-mTIr9qcAFkNQ_1780998098
+Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-490b37e1f48so43602945e9.0
+        for <stable@vger.kernel.org>; Tue, 09 Jun 2026 02:41:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1780998098; x=1781602898; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:content-language:from
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=mRY8LqFb7Uf3uguI4UokjXxEYGkijilafTjvNmMtFxQ=;
+        b=Acm8YZW6lfcIzAMp2Z23UfeSBDJN8+9G8dNKmcppwoUysS9vf2J9DrIxtRa7zRa8xZ
+         7C39L6ja+tfQNsK+Vz10qIfJkw66Ve9KdWb3zaDPrKcZk/Y6/aCjm3vCY9ad9pBbdMmN
+         sOTvlfl/wlpAtoRa/nxwYVgwOcfRL44Rw2H6pOlXI64UclDNopPflXI3Ijj6d9sSbARS
+         lQEHbTgDCYjE1tZCM4BtBgodae47N39KV6ig+6xIyLuSYibfV3WpwkU8fLoexkK2Lpiy
+         9lH3wwqfwkwLhg63WmKd+vPv+RLsNZPPTutNX/LpMx/Hq18kPDE97qSyVPORL5FGj+c2
+         9ivQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780998098; x=1781602898;
+        h=content-transfer-encoding:in-reply-to:content-language:from
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=mRY8LqFb7Uf3uguI4UokjXxEYGkijilafTjvNmMtFxQ=;
+        b=iCbaMZ1KMqOmbiAYx4om/CrXoHZAH3TjbnWPVV/RFiTDAeqIdjdTHoYN4T5vf9TCP7
+         HXJo0dU6/I+SvhaPoRV6ju3MrqunAO50Z4lwHvhRk/mDS619XJ+Szki1hnZ3X7lkACv0
+         kM2Tl6ctv+whh0zSeUkYMHuJ/dvoEc2KaV0m5x3WJP8JQQ/XB4tyV5ky13vyaALRTcJY
+         oF/Aw11/W7nvFI+UmjxzjVbhDUeUcG4RPVQvPwtOK/vjgS9hPaEbhhO+o9xbwlXM4MH6
+         4U3WgyznDtKUSX/AvD0h1t5+6OsYMTzzPLQngVdgRvvsaLcPSg9EOO68xiUlEjWVrmjz
+         TQuA==
+X-Forwarded-Encrypted: i=1; AFNElJ+gHksoepLJkEDOyjeJ4NFfcRfCxSg1IcHtqtLe06FmPSAt4hfErnzOGPUmr2Z5zKJueGDZB4M=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyxN00CQVIDsXywF03rtKb+cSGDmZlZZbQ4tVTvcSFxBS4DhHqK
+	Nm48F567hcbfuG1q5o1y4VhSbf86k0BBQf3T5wB8WGLglLyEM8DSrEGck/rFxOXXnb7OqEPHgdX
+	OY2VLjhSavFEwpF0HATik+zB40e4aPDRPIOFlsx2x/W/Mz0lcQsCbyIyX/A==
+X-Gm-Gg: Acq92OFW6UqmD+MlDWeXSdinXE8HBSeFDNxAwaigoFHoPIeEyGR/x0LPptXeIyLMqyC
+	oZhmabYWeaphl6vrA3L2bJeH+o9QvOyT2vgI+/qw0bKIuahbEdJO1E5lcsiNpX3i2UlyTEKwtxU
+	qImypJhO4MCGhme/Gyf9aR6ZAza9nGZewXqZrDq12wfItyCt8sbvvLLPlI2eH+hivNykxPj63nQ
+	rFWY1qEelL3BpjNAl4qmTR+kBTXmsZ8OjlSHeoEJfocb0DXgKfVjeltKdvcYP0TX6CLprKaXacY
+	9dtPosrUQXOCHRTOm+doQ+9vB9GpyvIk/PCTcwjFQM5GtcY+/LnDsONumkibYxmjnWH7bePzvc8
+	CIr6m204eRwopXizv0c0pHiCzza7QNTQ8UcKSCAhMRymIE1VBgiXVxe+1DzInWYMCsg==
+X-Received: by 2002:a05:600c:5488:b0:490:9d1b:f07f with SMTP id 5b1f17b1804b1-490c25b1277mr370753145e9.12.1780998098485;
+        Tue, 09 Jun 2026 02:41:38 -0700 (PDT)
+X-Received: by 2002:a05:600c:5488:b0:490:9d1b:f07f with SMTP id 5b1f17b1804b1-490c25b1277mr370752465e9.12.1780998098011;
+        Tue, 09 Jun 2026 02:41:38 -0700 (PDT)
+Received: from [192.168.88.32] ([150.228.93.44])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490bc39eb04sm473121045e9.6.2026.06.09.02.41.36
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 09 Jun 2026 02:41:37 -0700 (PDT)
+Message-ID: <c9fe8a0c-51c7-4afa-8d2e-1a1d5730d693@redhat.com>
+Date: Tue, 9 Jun 2026 11:41:35 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpsz:uniontech.com:qybglogicsvrsz:qybglogicsvrsz4b-0
-X-QQ-XMAILINFO: MaCc72GaN9m8qf291dVW5l5v6BjRZqqJqqnaoaqCSiXKnKE16TR8K2Lk
-	cXCgpcdJ7ZJhdiFpGeECCRCl1gmn7Ihe6dfWjHTelziGAvHKk4S5SABhIo2Kn+Xl1o/CeQ5
-	fUfmdwsANFcFqKHexaANoj9tDk82BzE+j6o+o3H4kkG9bl3YCddoVepHNFEDsbUmSViBIOy
-	xiRoLoTDuAWz86rBtBD0XBiB4FjNTOGkNlsjG1idvR0BXScYFYF9BuWm1BcyWdFz6px3TJQ
-	RhW05gxxPg1JBk7xGKJqKZq0Lvdq93kQ9Hufxp62PMWDHqSmVDRbWYK7NexmlQQBhKqqJ9l
-	B9aYGTxvc431MPp8hfBdw15DtPVQSnxt+apmlW51o7AoUEGt9CWD2BqV5/1YzRvoekvJr37
-	Ommy87BbXWVel2uoSKfXXJ19hXXywIUYp/WAkeasoCSQ88iJ+iEq9JnqEM3FIX+6+Zkl6+I
-	6psOiqGO8PRdgnXK0uCixr8y6ehzrwCAGIUyJSkbVGYNJpBLOXW2rOgX0ZI9Qklua9W0v3j
-	daSI5HWW6/OEe4a9LggxOFJAGWEgoYJC9prbPqAt5o3wn6XHggo4nwAQfRo4KZnRX+rs7Hp
-	4+Eis0yzdigDf6/NTfGF98p4XEQ34gIUyuZctJuSXBslKlp9x6D2VgMbmyWgHxCQJFVnqNP
-	urnsp+146OFRhGTYodqZIGmi+3rzBc6k6b36+Rk86pyZ2aWDI2H1J/t5QG5A0koO+jmXytW
-	/49XXnYJMixmHMYjTViuSMPXw4o2XnT0gdjRwpIJtjE8KA4E6W0mfIZSw4mCgveErMKnmQL
-	MH8KasKfckWy4ziaIthfa1lzcR37QsIeJBUTAKvwhvqDmyVZBW+/gkcMubEBvnUmf42+kSh
-	vs09A0Wq1qwl+j/idZIO8xj/FraDKPNQz3tcY5/417iKhOnrdawmAdJlLz95bxTKsZvD98W
-	dEjNkNNGl+ttw3qYIBfM3BUX4myvXM9OByxktke0ffJ8TC/078Y0S+kvMw/TPRPefLNJVZQ
-	iGFQH/cib7D98XQQVzBMXVwgfZcD4x8A43rk6tdIPg6VVCHiz3/EkxvB5FSg6dHcc7BRh40
-	g==
-X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
-X-QQ-RECHKSPAM: 0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v3] net: require CAP_NET_ADMIN in the device netns for
+ tunnel changelink
+To: Maoyi Xie <maoyixie.tju@gmail.com>, davem@davemloft.net, kuba@kernel.org,
+ edumazet@google.com
+Cc: dsahern@kernel.org, kuniyu@google.com, shaw.leon@gmail.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260604125055.3254652-1-maoyixie.tju@gmail.com>
+From: Paolo Abeni <pabeni@redhat.com>
+Content-Language: en-US
+In-Reply-To: <20260604125055.3254652-1-maoyixie.tju@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Two bugs in the IRQ handling path:
+On 6/4/26 2:50 PM, Maoyi Xie wrote:
+> A tunnel changelink mutates the tunnel state in the device's creation
+> netns. After an IFLA_NET_NS_FD migration that creation netns differs
+> from the caller's netns. The rtnl changelink path only checks
+> CAP_NET_ADMIN against the caller's netns, so a caller with caps only in
+> its current netns can rewrite a tunnel that lives in the creation netns.
+> They pick the endpoint addresses. Commit 8b484efd5cb4 ("ip6: vti: Use
+> ip6_tnl.net in vti6_siocdevprivate().") added the same check on the
+> ioctl path. This adds it on the RTM_NEWLINK path.
+> 
+> Gate each tunnel changelink on ns_capable against the creation netns, at
+> the top of the op before any attribute is parsed or applied. The ipv4
+> types need it there because the parsers can update live tunnel fields
+> before ip_tunnel_changelink() runs, for example ipgre_netlink_parms()
+> sets t->collect_md. The check is skipped when the creation netns equals
+> the device's current netns (net_eq), where the existing CAP_NET_ADMIN
+> check already applies and no extra LSM hook is wanted.
+> 
+> The newlink path has long checked the capability in the link netns. The
+> changelink path never did.
+> 
+> Reported-by: Xiao Liang <shaw.leon@gmail.com>
+> Closes: https://lore.kernel.org/netdev/CABAhCOSzP1vaThGV35_VnsRCb=87_CPjPVsTHbq905k8A+BuUg@mail.gmail.com/
+> Fixes: d0f418516022 ("net, ip_tunnel: fix namespaces move")
+> Fixes: 5311a69aaca3 ("net, ip6_tunnel: fix namespaces move")
+> Fixes: 690afc165bb3 ("net: ip6_gre: fix moving ip6gre between namespaces")
+> Fixes: f203b76d7809 ("xfrm: Add virtual xfrm interfaces")
+> Fixes: 11b326fb0a37 ("ip6: vti: Use ip6_tnl.net in vti6_changelink().")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Maoyi Xie <maoyixie.tju@gmail.com>
 
-1) iommu_group reference leak in rocket_job_handle_irq():
-   iommu_group_get() increments the reference count but the returned
-   pointer is passed directly to iommu_detach_group() which does not
-   consume it. Since this runs on every completed job, the reference
-   count accumulates and prevents the group from being freed. Use
-   core->iommu_group instead, consistent with rocket_reset().
+Since the fix is not centralized in a single place, I think it would be
+better to split this in a series addressing each tunnel individually.
 
-2) Unsafe hardware register access in shared IRQ handler:
-   rocket_job_irq_handler() is registered with IRQF_SHARED but accesses
-   hardware registers without checking runtime PM status. If another
-   device on the same IRQ line triggers an interrupt while the NPU is
-   suspended, register reads return 0xffffffff, spuriously triggering
-   WARN_ON macros and falsely returning IRQ_WAKE_THREAD.
+> diff --git a/net/ipv4/ip_gre.c b/net/ipv4/ip_gre.c
+> index 169e2921a851..02328c9a3c07 100644
+> --- a/net/ipv4/ip_gre.c
+> +++ b/net/ipv4/ip_gre.c
+> @@ -1457,6 +1457,10 @@ static int ipgre_changelink(struct net_device *dev, struct nlattr *tb[],
+>  	__u32 fwmark = t->fwmark;
+>  	int err;
+>  
+> +	if (!net_eq(t->net, dev_net(dev)) &&
+> +	    !ns_capable(t->net->user_ns, CAP_NET_ADMIN))
 
-   Replace with pm_runtime_get_if_active(), which atomically checks the
-   device status under spinlock and increments the usage count to keep
-   the device active during register access. Balance the extra reference:
-   - If the interrupt is not for this device (raw_status does not match
-     DPU_0/DPU_1), put in the hardirq handler before returning IRQ_NONE.
-   - If the interrupt is for this device, the thread handler puts after
-     completing register writes.
+the above checks are replicated several times. I think it would be
+better to place them in a new helper.
 
-Cc: stable@vger.kernel.org
-Fixes: 0810d5ad88a1 ("accel/rocket: Add job submission IOCTL")
-Signed-off-by: ZhaoJinming <zhaojinming@uniontech.com>
----
- drivers/accel/rocket/rocket_job.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/rocket_job.c
-index e8a073e22ac2..30c677952b64 100644
---- a/drivers/accel/rocket/rocket_job.c
-+++ b/drivers/accel/rocket/rocket_job.c
-@@ -349,7 +349,7 @@ static void rocket_job_handle_irq(struct rocket_core *core)
- 				return;
- 			}
- 
--			iommu_detach_group(NULL, iommu_group_get(core->dev));
-+			iommu_detach_group(NULL, core->iommu_group);
- 			dma_fence_signal(core->in_flight_job->done_fence);
- 			pm_runtime_put_autosuspend(core->dev);
- 			core->in_flight_job = NULL;
-@@ -421,6 +421,7 @@ static irqreturn_t rocket_job_irq_handler_thread(int irq, void *data)
- 	struct rocket_core *core = data;
- 
- 	rocket_job_handle_irq(core);
-+	pm_runtime_put(core->dev);
- 
- 	return IRQ_HANDLED;
- }
-@@ -428,14 +429,20 @@ static irqreturn_t rocket_job_irq_handler_thread(int irq, void *data)
- static irqreturn_t rocket_job_irq_handler(int irq, void *data)
- {
- 	struct rocket_core *core = data;
-+
-+	if (!pm_runtime_get_if_active(core->dev))
-+		return IRQ_NONE;
-+
- 	u32 raw_status = rocket_pc_readl(core, INTERRUPT_RAW_STATUS);
- 
- 	WARN_ON(raw_status & PC_INTERRUPT_RAW_STATUS_DMA_READ_ERROR);
- 	WARN_ON(raw_status & PC_INTERRUPT_RAW_STATUS_DMA_WRITE_ERROR);
- 
- 	if (!(raw_status & PC_INTERRUPT_RAW_STATUS_DPU_0 ||
--	      raw_status & PC_INTERRUPT_RAW_STATUS_DPU_1))
-+	      raw_status & PC_INTERRUPT_RAW_STATUS_DPU_1)) {
-+		pm_runtime_put(core->dev);
- 		return IRQ_NONE;
-+	}
- 
- 	rocket_pc_writel(core, INTERRUPT_MASK, 0x0);
- 
--- 
-2.20.1
+/P
 
