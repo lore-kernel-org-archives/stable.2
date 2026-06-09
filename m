@@ -1,147 +1,229 @@
-Received: from smtp-42af.mail.infomaniak.ch (smtp-42af.mail.infomaniak.ch [84.16.66.175])
+Received: from sender4-op-o15.zoho.com (sender4-op-o15.zoho.com [136.143.188.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85D0F31197C
-	for <stable@vger.kernel.org>; Tue,  9 Jun 2026 12:07:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.16.66.175
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781006850; cv=none; b=iz3bi77AmpeBKebcv+rXzveCetUxZqKrW1x3GOM6R9zTmXKrpzXedB3K/hheBewnBvg/mzEXdk+oa3OZHTk9OibX0LV3F8d4NPvl5u7GWWMz+jR/FG3413luuKeV9/Ku5v254UYghrtVzQ/6zAvssgVI7uEhW6ztf6TKgI5OFXs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781006850; c=relaxed/simple;
-	bh=tiRjr/pdfVRRlc25RE64J4c1WFk+pBce+gPeSbAprzw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=dXO3FhgrGXnflINMw1fUXEABMP94gFDN9qQYaLDZPo4t+Q5NSKvQIXfkbyhqVvBb1msavP94ej7YSbfuP2qzEckDRTRX6ME5Op6c7n0ftvP/jJ3M3sIye8x/pkLLE/YFDTBHl79L9VDGA1mY1nKmkeYxjb1wwNhGBiPUjfx9/wA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.sh; spf=pass smtp.mailfrom=gibson.sh; dkim=pass (2048-bit key) header.d=gibson.sh header.i=@gibson.sh header.b=lrBF5a+T; arc=none smtp.client-ip=84.16.66.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.sh
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gibson.sh
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BDB540F8E4;
+	Tue,  9 Jun 2026 12:08:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.15
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781006925; cv=pass; b=Yi6EAgnAMYvBEA3a9/yE0HfNy7ms8K99LUnxqX+8SYP2u1XpeDK0WtXQWYTJzEbWRHqeQoc6IQ0rNDRmU2gtWAarocozn2oc//3FcXBY4C8QptWM2dFUjvjuUWu5ao379AHfZRBAcAwdl3EGI3zkEVp1QzIcWd34/qD+JlawaVw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781006925; c=relaxed/simple;
+	bh=KdJG4zRHuVbedneI0eAEw61H+V+L8AZzIyer0jQRuWE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=QIb20wp66tNT/1jTJZo6Cmxl5w13kcrfJ7A6XWBR0LoSyyln4U2EDfwsgIohbhSR+JiL7Oq8jh+PcZgute5NCQX4/ZKG4/lOLfvdyU+GDqoXPnqT3vnfGYugof+5dnQOwY/QYIE67ysnhQMDCpFSRtvNdqmFWGMKRvxdm9aBrNo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.beauty; spf=pass smtp.mailfrom=linux.beauty; dkim=pass (1024-bit key) header.d=linux.beauty header.i=me@linux.beauty header.b=rxWxu2TX; arc=pass smtp.client-ip=136.143.188.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.beauty
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.beauty
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gibson.sh header.i=@gibson.sh header.b="lrBF5a+T"
-Received: from smtp-3-0001.mail.infomaniak.ch (smtp-3-0001.mail.infomaniak.ch [10.4.36.108])
-	by smtp-4-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4gZSMd6lLBz25k;
-	Tue,  9 Jun 2026 14:07:25 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gibson.sh;
-	s=20260228; t=1781006845;
-	bh=/A8CBVe4YNr9ebWgTbpqBt1LFrM9ZwtwHeyvgtrwjKk=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=lrBF5a+TzGZYcJDQsgnYFOwmSsy2CivDT3hcAcBwcfDvFgtmcwk47a2cqMvJJMMdD
-	 IuZRrWaOBVDqzEg+tUALqMTW2WxvRme4j22MoX3G9zYS41UJ7g/iGC5qwSC0MM3YVa
-	 CroDW1OIpAs6NtH6NuzryU3phTiVecMkAaljd158L5eRMcjs3WbRTGoK4WmH0S67Sf
-	 kNKGvqzLmK4XRX+9LDBWjDmAZM11oPW9rdD6gguN0quqsv8p2TYeDxaGa1NaZx5Jx3
-	 016p6QlRYBexGFBoBdHZ5ESirw78MJDC5r4BWG09W+7FanROKUn6roaF4g6aQsc7qe
-	 lhkdEtIf6/TcQ==
-Received: from unknown by smtp-3-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4gZSMc3B8lznLh;
-	Tue,  9 Jun 2026 14:07:24 +0200 (CEST)
-Message-ID: <6b6ce9ce-5bda-4924-b2d2-933736cfad9c@gibson.sh>
-Date: Tue, 9 Jun 2026 14:07:23 +0200
+	dkim=pass (1024-bit key) header.d=linux.beauty header.i=me@linux.beauty header.b="rxWxu2TX"
+ARC-Seal: i=1; a=rsa-sha256; t=1781006891; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=G3NQ5tkhefxcgbR+fc5HttRlHEJU4pArvi5XB1B7YgOXYtZR5Fu6C0UDmbpny/pWIil0w2elQTSkWAJ5yiTEOBnfSsTw8Xbn1U6KaMS6evfQoAeRf6GcXf707FCgqrp3Rtu/PztVdYoVr6U4pdDw+WpeWws0I5xTG+ZLnAY5sqU=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1781006891; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=GXAoC5zKyTc3h2xhSbceB5qyRcnqM5DC0tBvQYicLqI=; 
+	b=WHcXK8eOs8TNiNCWQ9+p/LcpqhUzInthRhsiFLNVw23V6MqojZDRekI7aYBL25LJZWtQRxrFFi5bRqotDHTiGLmMYYCO73NV15nKohrVvJJuWs03W4bAs4+G/EWxEeFO9Lf3jxZieVqBrf0neZQDxcJjmEbZW71zLmp0K1tp1oY=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=linux.beauty;
+	spf=pass  smtp.mailfrom=me@linux.beauty;
+	dmarc=pass header.from=<me@linux.beauty>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1781006891;
+	s=zmail; d=linux.beauty; i=me@linux.beauty;
+	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=GXAoC5zKyTc3h2xhSbceB5qyRcnqM5DC0tBvQYicLqI=;
+	b=rxWxu2TXAejLijEy/DzfNMO6h+Ax7DGheaTK4ht+myrGOAozX8N/ez6DPZM2epLN
+	e0jnTbHGYVwXpikoTuqhlj61I+pTPNmxNq1Nac5eEiDhTHDHVF9x5NOS7o/xJ94oxzg
+	MpiaCtj3OElTnm3HgfzA72o6SaDlQtWX8sg9Qviw=
+Received: by mx.zohomail.com with SMTPS id 1781006887616405.8886096625614;
+	Tue, 9 Jun 2026 05:08:07 -0700 (PDT)
+From: Li Chen <me@linux.beauty>
+To: Pankaj Gupta <pankaj.gupta.linux@gmail.com>,
+	Dan Williams <dan.j.williams@intel.com>,
+	Vishal Verma <vishal.l.verma@intel.com>,
+	Dave Jiang <dave.jiang@intel.com>,
+	Ira Weiny <ira.weiny@intel.com>,
+	Alison Schofield <alison.schofield@intel.com>,
+	virtualization@lists.linux.dev,
+	nvdimm@lists.linux.dev
+Cc: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Li Chen <me@linux.beauty>
+Subject: [PATCH v4 5/7] nvdimm: virtio_pmem: refcount requests for token lifetime
+Date: Tue,  9 Jun 2026 20:07:19 +0800
+Message-ID: <20260609120726.1714780-6-me@linux.beauty>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20260609120726.1714780-1-me@linux.beauty>
+References: <20260609120726.1714780-1-me@linux.beauty>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 2/4] platform/x86/amd/pmc: Delay suspend for some
- Lenovo Laptops
-To: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>,
- Hans de Goede <hansg@kernel.org>, platform-driver-x86@vger.kernel.org,
- LKML <linux-kernel@vger.kernel.org>, Mario Limonciello <superm1@kernel.org>,
- Sindre Henriksen <sindrehenriksen93@gmail.com>,
- Hans de Goede <johannes.goede@oss.qualcomm.com>, stable@vger.kernel.org
-References: <20260609105756.2813669-1-daniel@gibson.sh>
- <20260609105756.2813669-3-daniel@gibson.sh>
- <2fbb4d9d-7ad5-d4e7-b510-d7c75f399d97@linux.intel.com>
-Content-Language: de-DE, en-GB
-From: Daniel Gibson <daniel@gibson.sh>
-In-Reply-To: <2fbb4d9d-7ad5-d4e7-b510-d7c75f399d97@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Infomaniak-Routing: alpha
+X-ZohoMailClient: External
 
-On 09.06.26 13:46, Ilpo Järvinen wrote:
-> On Tue, 9 Jun 2026, Daniel Gibson wrote:
-> 
->> Some IdeaPad Slim 3 devices and similar with AMD CPUs have a
->> nonfunctional keyboard and lid switch after s2idle.
->>
->> It helps to delay suspend by 2.5 seconds so the EC has some time
->> to do whatever it needs to get done before suspend - unfortunately
->> at least on my 16ABR8 waking it with a timer (wakealarm) still
->> triggers the issue, but at least normal resume via keypress or
->> lid works fine. On the 14ARP10 wakealarm has been reported to also
->> work fine with this patch.
->>
->> This issue has been reported for many different devices, this patch
->> has been tested with the Zen3-based IdeaPad Slim 3 16ABR8 (82XR)
->> and the Zen3+-based IdeaPad Slim 3 14ARP10 (83K6) and IdeaPad Slim 3
->> 15ARP10 (83MM).
->>
->> Reported-by: Sindre Henriksen <sindrehenriksen93@gmail.com>
->> Closes: https://bugzilla.kernel.org/show_bug.cgi?id=221383
->> Tested-by: Sindre Henriksen <sindrehenriksen93@gmail.com>
->> Suggested-by: Mario Limonciello (AMD) <superm1@kernel.org>
->> Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
->> Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
->> Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
->> Signed-off-by: Daniel Gibson <daniel@gibson.sh>
->> Cc: stable@vger.kernel.org
->> ---
->>  drivers/platform/x86/amd/pmc/pmc-quirks.c | 39 +++++++++++++++++++++++
->>  drivers/platform/x86/amd/pmc/pmc.c        | 24 +++++++++++++-
->>  drivers/platform/x86/amd/pmc/pmc.h        |  1 +
->>  3 files changed, 63 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/platform/x86/amd/pmc/pmc-quirks.c b/drivers/platform/x86/amd/pmc/pmc-quirks.c
->> index 24506e342943..74ddf1d8289a 100644
->> --- a/drivers/platform/x86/amd/pmc/pmc-quirks.c
->> +++ b/drivers/platform/x86/amd/pmc/pmc-quirks.c
->> @@ -18,6 +18,7 @@
->>  struct quirk_entry {
->>  	u32 s2idle_bug_mmio;
->>  	bool spurious_8042;
->> +	bool need_suspend_delay;
->>  };
->>  
->>  static struct quirk_entry quirk_s2idle_bug = {
->> @@ -33,6 +34,10 @@ static struct quirk_entry quirk_s2idle_spurious_8042 = {
->>  	.spurious_8042 = true,
->>  };
->>  
->> +static struct quirk_entry quirk_s2idle_need_suspend_delay = {
->> +	.need_suspend_delay = true,
->> +};
->> +
->>  static const struct dmi_system_id fwbug_list[] = {
->>  	{
->>  		.ident = "L14 Gen2 AMD",
->> @@ -203,6 +208,35 @@ static const struct dmi_system_id fwbug_list[] = {
->>  			DMI_MATCH(DMI_PRODUCT_NAME, "82XQ"),
->>  		}
->>  	},
->> +	/* https://bugzilla.kernel.org/show_bug.cgi?id=221383 */
->> +	{
->> +		.ident = "Zen3-based IdeaPad Slim and similar",
->> +		.driver_data = &quirk_s2idle_need_suspend_delay,
-> 
-> Hi,
-> 
-> One more question.
-> 
-> Sashiko noted, that amd_pmc_quirks_init() can overwrite 
-> disable_8042_wakeup from the AMD_CPU_ID_CZN check when .driver_data 
-> provides quirks. Is it okay in this case to not have .spurious_8042?
-> 
+KASAN reports slab-use-after-free in __wake_up_common():
+BUG: KASAN: slab-use-after-free in __wake_up_common+0x114/0x160
+Read of size 8 at addr ffff88810fdcb710 by task swapper/0/0
 
-Good question.
-So far I haven't had complaints that sounded like they'd be related to
-this quirk not being active.
+CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Not tainted
+6.19.0-next-20260220-00006-g1eae5f204ec3 #4 PREEMPT(full)
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS Arch Linux
+1.17.0-2-2 04/01/2014
+Call Trace:
+ <IRQ>
+ dump_stack_lvl+0x6d/0xb0
+ print_report+0x170/0x4e2
+ ? __pfx__raw_spin_lock_irqsave+0x10/0x10
+ ? __virt_addr_valid+0x1dc/0x380
+ kasan_report+0xbc/0xf0
+ ? __wake_up_common+0x114/0x160
+ ? __wake_up_common+0x114/0x160
+ __wake_up_common+0x114/0x160
+ ? __pfx__raw_spin_lock_irqsave+0x10/0x10
+ __wake_up+0x36/0x60
+ virtio_pmem_host_ack+0x11d/0x3b0
+ ? sched_balance_domains+0x29f/0xb00
+ ? __pfx_virtio_pmem_host_ack+0x10/0x10
+ ? _raw_spin_lock_irqsave+0x98/0x100
+ ? __pfx__raw_spin_lock_irqsave+0x10/0x10
+ vring_interrupt+0x1c9/0x5e0
+ ? __pfx_vp_interrupt+0x10/0x10
+ vp_vring_interrupt+0x87/0x100
+ ? __pfx_vp_interrupt+0x10/0x10
+ __handle_irq_event_percpu+0x17f/0x550
+ ? __pfx__raw_spin_lock+0x10/0x10
+ handle_irq_event+0xab/0x1c0
+ handle_fasteoi_irq+0x276/0xae0
+ __common_interrupt+0x65/0x130
+ common_interrupt+0x78/0xa0
+ </IRQ>
 
-(The only report about things not working as expected on detected
-devices was something about "ACPI event storms" after resume:
-https://github.com/DanielGibson/amd_pmc-ideapad/issues/3 - but no one
-else with similar devices could reproduce that, so no idea what's going
-on there, and it doesn't sound like that IRQ1 issue)
+virtio_pmem_host_ack() wakes a request that has already been freed by the
+submitter.
 
-I can test if explicitly enabling .spurious_8042 in
-quirk_s2idle_need_suspend_delay breaks anything on my device, if you
-think that enabling it by default makes more sense?
+This happens when the request token is still reachable via the virtqueue,
+but virtio_pmem_flush() returns and frees it.
+
+Fix the token lifetime by refcounting struct virtio_pmem_request.
+virtio_pmem_flush() holds a submitter reference, and the virtqueue holds an
+extra reference once the request is queued. The completion path drops the
+virtqueue reference, and the submitter drops its reference before
+returning.
+
+Fixes: 6e84200c0a29 ("virtio-pmem: Add virtio pmem driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Li Chen <me@linux.beauty>
+---
+v2->v3:
+- Add raw KASAN report to the patch description.
+- Drop timestamps from the embedded report.
+v3->v4:
+- Rebased onto v7.1-rc7 and renumbered after the flush error patches.
+
+ drivers/nvdimm/nd_virtio.c   | 34 +++++++++++++++++++++++++++++-----
+ drivers/nvdimm/virtio_pmem.h |  2 ++
+ 2 files changed, 31 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/nvdimm/nd_virtio.c b/drivers/nvdimm/nd_virtio.c
+index f8c0604edde51..f5264f6afe44f 100644
+--- a/drivers/nvdimm/nd_virtio.c
++++ b/drivers/nvdimm/nd_virtio.c
+@@ -9,6 +9,14 @@
+ #include "virtio_pmem.h"
+ #include "nd.h"
+ 
++static void virtio_pmem_req_release(struct kref *kref)
++{
++	struct virtio_pmem_request *req;
++
++	req = container_of(kref, struct virtio_pmem_request, kref);
++	kfree(req);
++}
++
+ static void virtio_pmem_wake_one_waiter(struct virtio_pmem *vpmem)
+ {
+ 	struct virtio_pmem_request *req_buf;
+@@ -36,6 +44,7 @@ void virtio_pmem_host_ack(struct virtqueue *vq)
+ 		virtio_pmem_wake_one_waiter(vpmem);
+ 		WRITE_ONCE(req_data->done, true);
+ 		wake_up(&req_data->host_acked);
++		kref_put(&req_data->kref, virtio_pmem_req_release);
+ 	}
+ 	spin_unlock_irqrestore(&vpmem->pmem_lock, flags);
+ }
+@@ -66,6 +75,7 @@ static int virtio_pmem_flush(struct nd_region *nd_region)
+ 	if (!req_data)
+ 		return -ENOMEM;
+ 
++	kref_init(&req_data->kref);
+ 	WRITE_ONCE(req_data->done, false);
+ 	init_waitqueue_head(&req_data->host_acked);
+ 	init_waitqueue_head(&req_data->wq_buf);
+@@ -83,10 +93,23 @@ static int virtio_pmem_flush(struct nd_region *nd_region)
+ 	  * to req_list and wait for host_ack to wake us up when free
+ 	  * slots are available.
+ 	  */
+-	while ((err = virtqueue_add_sgs(vpmem->req_vq, sgs, 1, 1, req_data,
+-					GFP_ATOMIC)) == -ENOSPC) {
+-
+-		dev_info(&vdev->dev, "failed to send command to virtio pmem device, no free slots in the virtqueue\n");
++	for (;;) {
++		err = virtqueue_add_sgs(vpmem->req_vq, sgs, 1, 1, req_data,
++					GFP_ATOMIC);
++		if (!err) {
++			/*
++			 * Take the virtqueue reference while @pmem_lock is
++			 * held so completion cannot run concurrently.
++			 */
++			kref_get(&req_data->kref);
++			break;
++		}
++
++		if (err != -ENOSPC)
++			break;
++
++		dev_info_ratelimited(&vdev->dev,
++				     "failed to send command to virtio pmem device, no free slots in the virtqueue\n");
+ 		WRITE_ONCE(req_data->wq_buf_avail, false);
+ 		list_add_tail(&req_data->list, &vpmem->req_list);
+ 		spin_unlock_irqrestore(&vpmem->pmem_lock, flags);
+@@ -95,6 +118,7 @@ static int virtio_pmem_flush(struct nd_region *nd_region)
+ 		wait_event(req_data->wq_buf, READ_ONCE(req_data->wq_buf_avail));
+ 		spin_lock_irqsave(&vpmem->pmem_lock, flags);
+ 	}
++
+ 	err1 = virtqueue_kick(vpmem->req_vq);
+ 	spin_unlock_irqrestore(&vpmem->pmem_lock, flags);
+ 	/*
+@@ -110,7 +134,7 @@ static int virtio_pmem_flush(struct nd_region *nd_region)
+ 		err = le32_to_cpu(req_data->resp.ret);
+ 	}
+ 
+-	kfree(req_data);
++	kref_put(&req_data->kref, virtio_pmem_req_release);
+ 	return err;
+ };
+ 
+diff --git a/drivers/nvdimm/virtio_pmem.h b/drivers/nvdimm/virtio_pmem.h
+index f72cf17f9518f..1017e498c9b4c 100644
+--- a/drivers/nvdimm/virtio_pmem.h
++++ b/drivers/nvdimm/virtio_pmem.h
+@@ -12,11 +12,13 @@
+ 
+ #include <linux/module.h>
+ #include <uapi/linux/virtio_pmem.h>
++#include <linux/kref.h>
+ #include <linux/libnvdimm.h>
+ #include <linux/mutex.h>
+ #include <linux/spinlock.h>
+ 
+ struct virtio_pmem_request {
++	struct kref kref;
+ 	struct virtio_pmem_req req;
+ 	struct virtio_pmem_resp resp;
+ 
+-- 
+2.52.0
+
