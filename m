@@ -1,101 +1,78 @@
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CDCB31F991;
-	Tue,  9 Jun 2026 08:14:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7F6E3EDACB;
+	Tue,  9 Jun 2026 08:16:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780992872; cv=none; b=AVk5CPxkliH9GXT5bay1ZJ/CcD4HAESdn5l2uFzebTJatio9Qsi1tqpdTdBFOsIl8ZO+eR7KbH3ruBkvqoeFN3BRzul2RGErZbMEc+TOhvDD6cvqncwwDsBjWxq3Rud0qhBKWl+hS3BSWH4itHeokdDRxnkvBUB5rppmCB/COq8=
+	t=1780992973; cv=none; b=UPRSmxTQLFBmlj2pGqW6ieymlsoRoW0CKz7a+e7vJg0DYEk8b9fK+HNBmqxYdiERNTVYC0ohQRkqSneVusRqGGSUSjJmgHzHMYkP/IMdI/K23uoV42z4dauERL/twR/Eyge793UrAs89olbY7oT1c9bPxrfthg7b7O4R2h0apCQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780992872; c=relaxed/simple;
-	bh=m7wCEuFIxYSUjsVJgkGPLyoSjEZIWTcXBnthvF22tEE=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ptI092X2xwitjf1PDeAjSMUL4OKAj4h/i+MYQA6tznHv6ekZG7PQTseu1mtl//rJwdyY94hn4evI3o74/yWOk2bgH2Di7lhhgRa2cWXD92RQi7ZyjM7DQGLIvPuU1N8K8PeHrSn9YJLaR1cMjHzATRoqTQ0/lyuP+XNyXv84bvw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=isrc.iscas.ac.cn; spf=pass smtp.mailfrom=isrc.iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=isrc.iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=isrc.iscas.ac.cn
-Received: from localhost.localdomain (unknown [36.112.3.223])
-	by APP-03 (Coremail) with SMTP id rQCowADX4Mddyydqr5IgFA--.8275S2;
-	Tue, 09 Jun 2026 16:14:22 +0800 (CST)
-From: Haoxiang Li <lihaoxiang@isrc.iscas.ac.cn>
-To: mjg59@srcf.ucam.org,
-	pali@kernel.org,
-	hansg@kernel.org,
-	ilpo.jarvinen@linux.intel.com,
-	dvhart@infradead.org
-Cc: platform-driver-x86@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Haoxiang Li <lihaoxiang@isrc.iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] platform/x86: dell-laptop: fix missing cleanups in init error path
-Date: Tue,  9 Jun 2026 16:14:19 +0800
-Message-Id: <20260609081419.1995169-1-lihaoxiang@isrc.iscas.ac.cn>
-X-Mailer: git-send-email 2.25.1
+	s=arc-20240116; t=1780992973; c=relaxed/simple;
+	bh=qmLAknJDi9ljkQLvRZ4VV6nTEnsTGPu0rWLa0vqgDJk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=op6suroC8QJiGWjutGjoR3bSq2zEAh+vxHf3fFefvefOdc3wPGs+FqssOC3AV3iXQBUIZAJ//u7s02fqj9pVjdyn9Ufun53hinJLKi0B/MSdaVlUzG6QT7viyKzQP/BCKxA/gE7TegRs7NzL6Nu3qz7801yGe0RJzCodjLWn658=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dOGtJdAF; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dOGtJdAF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6B8F1F00893;
+	Tue,  9 Jun 2026 08:16:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780992971;
+	bh=Pwx2gnjzoEu6wS23A8/5F0BeRt4mUzsviwvSFFA+naA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=dOGtJdAFu05vzTyBNYkhG2GJPMKtw828JD36nf94w2GGCiM54FlLj92vY85ZhQWzP
+	 IBGz6JOH74vtZ5Uuso2BrhmwZMZBhG0qbsFR7kdOII1mkcOL0OHzckvaCzqUsfx3MU
+	 1K0MugCOw9vD3D41NUdcQzPB3LU2qxGV0VQh4dxHfVyEXl7+Qu+em9GBxjDK840RTl
+	 Qk60eJI2nutYACIIyKpPbTI9yZVdz48EjF+KASGrJej24cnDZixytf2UFE5K9DSiMy
+	 77OAeX0T+sg7/7+3Hh5LX+9Z2/wQSCQF0zjq+up8njry9PhtLfx1eXqs6widOSyHM2
+	 znZiNvsg7kVyg==
+Date: Tue, 9 Jun 2026 10:16:08 +0200
+From: Andi Shyti <andi.shyti@kernel.org>
+To: "Carlos Song (OSS)" <carlos.song@oss.nxp.com>
+Cc: aisheng.dong@nxp.com, Frank.Li@nxp.com, s.hauer@pengutronix.de, 
+	kernel@pengutronix.de, festevam@gmail.com, carlos.song@nxp.com, 
+	linux-i2c@vger.kernel.org, imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] i2c: imx-lpi2c: fix resource leaks switching to
+ devm_dma_request_chan()
+Message-ID: <aifLtWlPdLr7EEnj@zenone.zhora.eu>
+References: <20260520093323.2882070-1-carlos.song@oss.nxp.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowADX4Mddyydqr5IgFA--.8275S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxJrWUuF4Duw47ur1xXrW8WFg_yoW8Ww1kp3
-	yUW395Kr43G3yDKa1DCF4I9FyrA34rC3yfJrWak3srZwn8Jr17Jry8ta43WF17JrWxC3W5
-	tw4kXan0yF48XaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUkG14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r1j6r1xM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r1j
-	6r4UM28EF7xvwVC2z280aVAFwI0_Jr0_Gr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4j6r
-	4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
-	I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r
-	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AKxVWU
-	tVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14
-	v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkG
-	c2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI
-	0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4U
-	MIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUd-B_UUU
-	UU=
-X-CM-SenderInfo: 5olkt0x0ld0ww6lv2u4olvutnvoduhdfq/1tbiCQ8NE2onp3SUcwAAsh
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260520093323.2882070-1-carlos.song@oss.nxp.com>
 
-dell_init() initializes several resources after dell_setup_rfkill(),
-including the optional touchpad LED, keyboard backlight LED, battery
-hook, debugfs directory and dell-laptop notifier.
+Hi Carlos,
 
-If a later LED or backlight registration fails, the error path only
-tears down the battery hook and rfkill resources. This leaves the
-notifier, debugfs directory, keyboard backlight LED and optional
-touchpad LED registered after dell_init() returns an error.
+On Wed, May 20, 2026 at 05:33:23PM +0800, Carlos Song (OSS) wrote:
+> From: Carlos Song <carlos.song@nxp.com>
+> 
+> The LPI2C driver requests DMA channels using dma_request_chan(), but
+> never releases them in lpi2c_imx_remove(), resulting in DMA channel
+> leaks every time the driver is unloaded.
+> 
+> Additionally, when lpi2c_dma_init() successfully requests the TX DMA
+> channel but fails to request the RX DMA channel, the probe falls back
+> to PIO mode and completes successfully. Since probe succeeds, the devres
+> framework will not trigger any cleanup, leaving the TX DMA channel and
+> the memory allocated for the dma structure held for the lifetime of the
+> device even though DMA is never used.
+> 
+> Switch to devm_dma_request_chan() to let the device core manage DMA
+> channel lifetime automatically. Wrap all allocations within a devres
+> group so that devres_release_group() can release all partially acquired
+> resources when DMA init fails and probe continues in PIO mode.
+> 
+> Fixes: a09c8b3f9047 ("i2c: imx-lpi2c: add eDMA mode support for LPI2C")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Carlos Song <carlos.song@nxp.com>
 
-Add the missing cleanup calls before tearing down rfkill.
+merged to i2c/i2c-host-fixes.
 
-Fixes: 9c656b07997f ("platform/x86: dell-*: Call new led hw_changed API on kbd brightness change")
-Cc: stable@vger.kernel.org
-Signed-off-by: Haoxiang Li <lihaoxiang@isrc.iscas.ac.cn>
----
-Changes in v2:
- - Fix all missing cleanups in dell_init()'s error path.
- - Add Fixes tags.
- - Modify the commit title and message.
----
- drivers/platform/x86/dell/dell-laptop.c | 5 +++++
- 1 file changed, 5 insertions(+)
-
-diff --git a/drivers/platform/x86/dell/dell-laptop.c b/drivers/platform/x86/dell/dell-laptop.c
-index 57748c3ea24f..053f40572bf6 100644
---- a/drivers/platform/x86/dell/dell-laptop.c
-+++ b/drivers/platform/x86/dell/dell-laptop.c
-@@ -2551,7 +2551,12 @@ static int __init dell_init(void)
- 	if (mute_led_registered)
- 		led_classdev_unregister(&mute_led_cdev);
- fail_led:
-+	dell_laptop_unregister_notifier(&dell_laptop_notifier);
-+	debugfs_remove_recursive(dell_laptop_dir);
- 	dell_battery_exit();
-+	kbd_led_exit();
-+	if (quirks && quirks->touchpad_led)
-+		touchpad_led_exit();
- 	dell_cleanup_rfkill();
- fail_rfkill:
- 	platform_device_del(platform_device);
--- 
-2.25.1
-
+Thanks,
+Andi
