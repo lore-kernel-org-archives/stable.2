@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27A764C9007;
-	Tue,  9 Jun 2026 18:52:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 267C33AEF30;
+	Tue,  9 Jun 2026 18:55:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781031130; cv=none; b=re3ydzBB9WDEUjLY34EuOMo1t78aTQDTKJKHJppq1NwgkTVUDdNI5bSJvnR4idiXGRTicL9HLwnJ7/JnDD1Nw5SdRA5mqpOvgNx9en/M/rLeuo8k+QqD0nMfJz6JdwBt6AQFjHXhuELXqT5POmWFYSILPhims5SSrzONyDFx+6g=
+	t=1781031321; cv=none; b=hcFGF/yJT4zNvGpC7ykWqIDsymJAv6SWHaryPeDGt0fzTc6RSN9YrNAPN2IaBmCYC97O9Z+srNilALhemWNXrj6F15rFkR5OLrLjewGUwhfGpCqFNX6zPZwAiN11l2cuQC4PXcUGk6+d7FP7uBPrWf8eHgGNlgoeVMqVB7HRM8s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781031130; c=relaxed/simple;
-	bh=QGJmlhlvtGI4GNIr3itNNbMVpJ4+KHPwKPePisMnptg=;
+	s=arc-20240116; t=1781031321; c=relaxed/simple;
+	bh=WwhEnGs6WEH5giqGDlU5qAp7W3edqyCqwhax6M2Esz8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=SCrwDpZl6sbQghuKBl/0rl5Z/cXKtIzFgfAMlmgz77Zlg2FEKtnuSFp+XuQebzKwWueHn0QphZhO5CEnJPQ8OhhW/wXqyhLrmzWf/q7Ho3Lt5UXJZIEntiiwuotAPYotJ2s005z/7AN4DcfSK/JViU4Im6y70S1jDI9nTdPwt3k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W0AL5ENy; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=noh5iEWfsrRywUgzTutVX6w0RniNJKZQ8AzBQRGBA1wGL1NtYmdkhtxhV6IKxyCfnMxRGtx7DLfhGNeGKKJqkZ2+C+5whsnsm3RKd28bJ5MK98jt4181mFrXwKeIM4U0HTgYCBcztYk/frTD+BLySIkaVPx87ixhGdfyolpUPxU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XMfw2+tK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W0AL5ENy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 930D41F0089E;
-	Tue,  9 Jun 2026 18:52:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XMfw2+tK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E80AA1F0089A;
+	Tue,  9 Jun 2026 18:55:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781031127;
-	bh=CbfVGeHQ3T4us24RDeMQAU4sLc8OUPsCj9BOzojIFNM=;
+	s=k20260515; t=1781031320;
+	bh=grGwEK5keENyWaMRHreNaEiaMR80xuJXbKxmAPlPJmg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=W0AL5ENymCWwh2o5yDAh0iwGEgW9JHlm+CeYUdhu9F7pHwNPjSY+Eak3Jq21GG+sq
-	 eT6qLzufdY+wrGL3YZ0kvKRWiAEP+OkpKWFH18Q5bz9QB8EoMN3stTTgWaKPb2LfOn
-	 rVwkGoOygSzBjq0ncsfwtvD01QVPwxV4UDgAG1UWoitVws1ZNv/44LxCbtdd+1yXCy
-	 d0lA/if0Yrx1e4qi1qEK0vFe/bu7aifc5tPuIQwmNLeVFRTsQcZueRM0R5H5ZRQA9p
-	 vo2sumQ2azyULvRfv26bXodFtsHD0NHt4uG842OktvJoDdkKdX/NLIySV6X9bIbNWL
-	 gea4BSz2/ma4g==
+	b=XMfw2+tK6JHQYE2TLaV/6EnQFoYWJZj/nLCvaOePilhJzlcocld4aWPsYAPN/0/2e
+	 LWCB6+NHWmAPQyK4Xpa8NsfDl2GKOKPRfZuwDJ5nCVVeVXzmbFp06PAgxmX+ohbfH9
+	 EwTRJ2PAdM64sNp1eVJS4ouLSqkYzkSrcqHkNwgdmpF6yA0ggzZeXiKSlJc1vFwhJT
+	 HVuDerb1i/d/PrkxNzeQdndJv5yHIQjWJWO5ow96QLuMJLH/+18lJKv2PIabLs0OqS
+	 6z7c/WnOSzIqkQWwc0yIio0W3EXTSV51bRRQyXAalanOq5Q+gLH03RgaWJwFoM/Y3B
+	 4yB+atfsTAKgA==
 From: Oliver Upton <oupton@kernel.org>
 To: kvmarm@lists.linux.dev
 Cc: Marc Zyngier <maz@kernel.org>,
@@ -34,14 +34,13 @@ Cc: Marc Zyngier <maz@kernel.org>,
 	Zenghui Yu <yuzenghui@huawei.com>,
 	Wei-Lin Chang <weilin.chang@arm.com>,
 	Oliver Upton <oupton@kernel.org>,
-	stable@vger.kernel.org,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH v2 3/5] KVM: arm64: nv: Re-translate VNCR before injecting abort
-Date: Tue,  9 Jun 2026 11:52:02 -0700
-Message-ID: <20260609185204.745929-7-oupton@kernel.org>
+	stable@vger.kernel.org
+Subject: [PATCH RESEND v2 1/5] KVM: arm64: nv: Respect read-only PFN when mapping L1 VNCR
+Date: Tue,  9 Jun 2026 11:55:10 -0700
+Message-ID: <20260609185514.746507-2-oupton@kernel.org>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260609185204.745929-1-oupton@kernel.org>
-References: <20260609185204.745929-1-oupton@kernel.org>
+In-Reply-To: <20260609185514.746507-1-oupton@kernel.org>
+References: <20260609185514.746507-1-oupton@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -50,165 +49,130 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-KVM faults in the VNCR page with FOLL_WRITE whenver the guest aborts for
-a write, similar to how a regular stage-2 mapping is handled. It is
-entirely possible that the guest reads from the VNCR before writing to
-it, in which case the PFN could only be read-only.
+KVM currently maps the L1 VNCR into the host stage-1 by relying entirely
+on the permissions of the guest stage-1. At the same time, it is
+entirely possible that the backing PFN is read-only (e.g. RO memslot),
+meaning that the L1 VNCR should use at most a read-only mapping.
 
-Invalidate the VNCR TLB and re-fetch the translation upon taking a VNCR
-abort, allowing the host mapping to be faulted in for write the second
-time around. Interestingly enough, this also satisfies the ordering
-requirements of FEAT_ETS2/3 between descriptor updates and MMU faults.
+Cache the writability of the PFN in the VNCR TLB and use it to constrain
+the resulting fixmap permissions. Promote VNCR permission faults to an
+SEA in the case where the guest attempts to write to a read-only
+endpoint. Conveniently, this also plugs a page leak found by Sashiko [*]
+resulting from the early return for a read-only PFN.
 
 Cc: stable@vger.kernel.org
 Fixes: 2a359e072596 ("KVM: arm64: nv: Handle mapping of VNCR_EL2 at EL2")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
+Link: https://lore.kernel.org/kvm/20260608082603.16AEC1F00893@smtp.kernel.org/
 Signed-off-by: Oliver Upton <oupton@kernel.org>
 ---
- arch/arm64/kvm/nested.c | 115 +++++++++++++++-------------------------
- 1 file changed, 44 insertions(+), 71 deletions(-)
+ arch/arm64/kvm/nested.c | 36 ++++++++++++++++++++++++++----------
+ 1 file changed, 26 insertions(+), 10 deletions(-)
 
 diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
-index ebd7ccfeee99..d5c4b57123a9 100644
+index 257813289c76..84b3bd528e11 100644
 --- a/arch/arm64/kvm/nested.c
 +++ b/arch/arm64/kvm/nested.c
-@@ -1460,92 +1460,65 @@ static void handle_vncr_perm(struct kvm_vcpu *vcpu)
- 	kvm_inject_nested_sync(vcpu, esr);
+@@ -24,6 +24,7 @@ struct vncr_tlb {
+ 	struct s1_walk_result	wr;
+ 
+ 	u64			hpa;
++	bool			hpa_writable;
+ 
+ 	/* -1 when not mapped on a CPU */
+ 	int			cpu;
+@@ -1395,7 +1396,7 @@ static int kvm_translate_vncr(struct kvm_vcpu *vcpu, bool *is_gmem)
+ 	if (!*is_gmem) {
+ 		pfn = __kvm_faultin_pfn(memslot, gfn, write_fault ? FOLL_WRITE : 0,
+ 					&writable, &page);
+-		if (is_error_noslot_pfn(pfn) || (write_fault && !writable))
++		if (is_error_noslot_pfn(pfn))
+ 			return -EFAULT;
+ 	} else {
+ 		ret = kvm_gmem_get_pfn(vcpu->kvm, memslot, gfn, &pfn, &page, NULL);
+@@ -1404,6 +1405,8 @@ static int kvm_translate_vncr(struct kvm_vcpu *vcpu, bool *is_gmem)
+ 					      write_fault, false, false);
+ 			return ret;
+ 		}
++
++		writable = !(memslot->flags & KVM_MEM_READONLY);
+ 	}
+ 
+ 	scoped_guard(write_lock, &vcpu->kvm->mmu_lock) {
+@@ -1414,28 +1417,41 @@ static int kvm_translate_vncr(struct kvm_vcpu *vcpu, bool *is_gmem)
+ 
+ 		vt->gva = va;
+ 		vt->hpa = pfn << PAGE_SHIFT;
++		vt->hpa_writable = writable;
+ 		vt->valid = true;
+ 		vt->cpu = -1;
+ 
+ 		kvm_make_request(KVM_REQ_MAP_L1_VNCR_EL2, vcpu);
+-		kvm_release_faultin_page(vcpu->kvm, page, false, vt->wr.pw);
++		kvm_release_faultin_page(vcpu->kvm, page, false, vt->wr.pw && vt->hpa_writable);
+ 	}
+ 
+-	if (vt->wr.pw)
++	if (vt->wr.pw && vt->hpa_writable)
+ 		mark_page_dirty(vcpu->kvm, gfn);
+ 
+ 	return 0;
  }
  
--static bool kvm_vncr_tlb_lookup(struct kvm_vcpu *vcpu)
--{
--	struct vncr_tlb *vt = vcpu->arch.vncr_tlb;
--
--	lockdep_assert_held_read(&vcpu->kvm->mmu_lock);
--
--	if (!vt->valid)
--		return false;
--
--	if (read_vncr_el2(vcpu) != vt->gva)
--		return false;
--
--	if (vt->wr.nG)
--		return get_asid_by_regime(vcpu, TR_EL20) == vt->wr.asid;
--
--	return true;
--}
--
- int kvm_handle_vncr_abort(struct kvm_vcpu *vcpu)
+-static void inject_vncr_perm(struct kvm_vcpu *vcpu)
++static void handle_vncr_perm(struct kvm_vcpu *vcpu)
  {
  	struct vncr_tlb *vt = vcpu->arch.vncr_tlb;
  	u64 esr = kvm_vcpu_get_esr(vcpu);
-+	bool is_gmem, perm;
-+	int ret;
++	u64 fsc;
++
++	/*
++	 * Promote to an external abort if the stage-1 permits writes but the
++	 * HPA is read-only (e.g. RO memslot).
++	 */
++	if (kvm_is_write_fault(vcpu) && vt->wr.pw && !vt->hpa_writable)
++		fsc = ESR_ELx_FSC_EXTABT;
++	/*
++	 * Otherwise, inject a permission fault using the guest's translation
++	 * level rather than the host's.
++	 */
++	else
++		fsc = ESR_ELx_FSC_PERM_L(vt->wr.level);
  
- 	WARN_ON_ONCE(!(esr & ESR_ELx_VNCR));
+-	/* Adjust the fault level to reflect that of the guest's */
+ 	esr &= ~ESR_ELx_FSC;
+-	esr |= FIELD_PREP(ESR_ELx_FSC,
+-			  ESR_ELx_FSC_PERM_L(vt->wr.level));
++	esr |= FIELD_PREP(ESR_ELx_FSC, fsc);
  
- 	if (kvm_vcpu_abt_issea(vcpu))
+ 	kvm_inject_nested_sync(vcpu, esr);
+ }
+@@ -1469,7 +1485,7 @@ int kvm_handle_vncr_abort(struct kvm_vcpu *vcpu)
  		return kvm_handle_guest_sea(vcpu);
  
--	if (esr_fsc_is_permission_fault(esr)) {
--		handle_vncr_perm(vcpu);
--	} else if (esr_fsc_is_translation_fault(esr)) {
--		bool valid, is_gmem = false;
--		int ret;
--
--		scoped_guard(read_lock, &vcpu->kvm->mmu_lock)
--			valid = kvm_vncr_tlb_lookup(vcpu);
--
--		if (!valid)
--			ret = kvm_translate_vncr(vcpu, &is_gmem);
--		else
--			ret = -EPERM;
-+	if (!esr_fsc_is_translation_fault(esr) && !esr_fsc_is_permission_fault(esr)) {
-+		WARN_ONCE(1, "Unhandled VNCR abort, ESR=%llx\n", esr);
-+		return 1;
-+	}
- 
--		switch (ret) {
--		case -EAGAIN:
--			/* Let's try again... */
--			break;
--		case -ENOMEM:
--			/*
--			 * For guest_memfd, this indicates that it failed to
--			 * create a folio to back the memory. Inform userspace.
--			 */
--			if (is_gmem)
--				return 0;
--			/* Otherwise, let's try again... */
--			break;
--		case -EFAULT:
--		case -EIO:
--		case -EHWPOISON:
--			if (is_gmem)
--				return 0;
--			fallthrough;
--		case -EINVAL:
--		case -ENOENT:
--		case -EACCES:
--			/*
--			 * Translation failed, inject the corresponding
--			 * exception back to EL2.
--			 */
--			BUG_ON(!vt->wr.failed);
-+	ret = kvm_translate_vncr(vcpu, &is_gmem);
-+	switch (ret) {
-+	case -EAGAIN:
-+		/* Let's try again... */
-+		break;
-+	case -ENOMEM:
-+		/*
-+		 * For guest_memfd, this indicates that it failed to
-+		 * create a folio to back the memory. Inform userspace.
-+		 */
-+		if (is_gmem)
-+			return 0;
-+		/* Otherwise, let's try again... */
-+		break;
-+	case -EFAULT:
-+	case -EIO:
-+	case -EHWPOISON:
-+		if (is_gmem)
-+			return 0;
-+		fallthrough;
-+	case -EINVAL:
-+	case -ENOENT:
-+	case -EACCES:
-+		/*
-+		 * Translation failed, inject the corresponding
-+		 * exception back to EL2.
-+		 */
-+		BUG_ON(!vt->wr.failed);
- 
--			esr &= ~ESR_ELx_FSC;
--			esr |= FIELD_PREP(ESR_ELx_FSC, vt->wr.fst);
-+		esr &= ~ESR_ELx_FSC;
-+		esr |= FIELD_PREP(ESR_ELx_FSC, vt->wr.fst);
- 
--			kvm_inject_nested_sync(vcpu, esr);
--			break;
--		case -EPERM:
--			/* Hack to deal with POE until we get kernel support */
--			handle_vncr_perm(vcpu);
--			break;
--		case 0:
--			break;
--		}
--	} else {
--		WARN_ONCE(1, "Unhandled VNCR abort, ESR=%llx\n", esr);
-+		kvm_inject_nested_sync(vcpu, esr);
-+		break;
-+	case 0:
-+		break;
- 	}
- 
-+	perm = kvm_is_write_fault(vcpu) ? vt->wr.pw && vt->hpa_writable : vt->wr.pr;
-+	if (!perm)
+ 	if (esr_fsc_is_permission_fault(esr)) {
+-		inject_vncr_perm(vcpu);
 +		handle_vncr_perm(vcpu);
-+
- 	return 1;
- }
+ 	} else if (esr_fsc_is_translation_fault(esr)) {
+ 		bool valid, is_gmem = false;
+ 		int ret;
+@@ -1517,7 +1533,7 @@ int kvm_handle_vncr_abort(struct kvm_vcpu *vcpu)
+ 			break;
+ 		case -EPERM:
+ 			/* Hack to deal with POE until we get kernel support */
+-			inject_vncr_perm(vcpu);
++			handle_vncr_perm(vcpu);
+ 			break;
+ 		case 0:
+ 			break;
+@@ -1561,7 +1577,7 @@ static void kvm_map_l1_vncr(struct kvm_vcpu *vcpu)
  
+ 	vt->cpu = smp_processor_id();
+ 
+-	if (vt->wr.pw && vt->wr.pr)
++	if (vt->hpa_writable && vt->wr.pw && vt->wr.pr)
+ 		prot = PAGE_KERNEL;
+ 	else if (vt->wr.pr)
+ 		prot = PAGE_KERNEL_RO;
 -- 
 2.47.3
 
