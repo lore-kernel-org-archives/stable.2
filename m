@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 279D7331EC9;
-	Tue,  9 Jun 2026 18:52:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27A764C9007;
+	Tue,  9 Jun 2026 18:52:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781031129; cv=none; b=vAggpVXpJ4UtBST4aM1kWUbgKZYUW2JtPNX6eWzkFEF2TzJggfehRxpXjpgu6QcB4aYeygeKCDRgFmu68bK8CtHjpr4A6BkvtphQJWumnMB1Yt98cZu3LxbOxUybJdkQvCnVIdOrat1/jWvDk9ok2bUQ3/OT2ux4qlGbSVryenE=
+	t=1781031130; cv=none; b=re3ydzBB9WDEUjLY34EuOMo1t78aTQDTKJKHJppq1NwgkTVUDdNI5bSJvnR4idiXGRTicL9HLwnJ7/JnDD1Nw5SdRA5mqpOvgNx9en/M/rLeuo8k+QqD0nMfJz6JdwBt6AQFjHXhuELXqT5POmWFYSILPhims5SSrzONyDFx+6g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781031129; c=relaxed/simple;
-	bh=pS/mUwGnNpTUlmx84nLsne2qXX4XMTLqGn7FdeebpvA=;
+	s=arc-20240116; t=1781031130; c=relaxed/simple;
+	bh=QGJmlhlvtGI4GNIr3itNNbMVpJ4+KHPwKPePisMnptg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=r4XkyHIJp2JTPg0VRQxuprD2gSvOg0pBWvbMCORfyCP6Ebzfj9zO59jQgqJXN5AT9mF3rdgl2sWuTjdnf8pIZO5bXKnnQGbJcOB6NcSoJMRplfob1/QiGUoOSRr1ka87fHQTX4iOMsumgDexBowXpndLYCLd2eqhA4Zq51XjrsU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dbNOo5Ha; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=SCrwDpZl6sbQghuKBl/0rl5Z/cXKtIzFgfAMlmgz77Zlg2FEKtnuSFp+XuQebzKwWueHn0QphZhO5CEnJPQ8OhhW/wXqyhLrmzWf/q7Ho3Lt5UXJZIEntiiwuotAPYotJ2s005z/7AN4DcfSK/JViU4Im6y70S1jDI9nTdPwt3k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W0AL5ENy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dbNOo5Ha"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DAB8F1F0089A;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W0AL5ENy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 930D41F0089E;
 	Tue,  9 Jun 2026 18:52:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781031128;
-	bh=Pk28Y4P6W8ymkMldEEHau29x9mHLqn44gGvm2nZ6QGk=;
+	s=k20260515; t=1781031127;
+	bh=CbfVGeHQ3T4us24RDeMQAU4sLc8OUPsCj9BOzojIFNM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=dbNOo5Haj5iVEBXor1/Fx1HnTEe3HJq8+3ZzCWLgYyF7oJLQFNtLiIy1BWNZGayXx
-	 JdFXklouJb4ApafOen8EMys2JuioHuvidt1VqJzEGNyqkEtk/g+Fm135nibN2sNTTI
-	 Dqf5lk1Rrq+KZUKyyEwgIrXmmMSCIDXEssE9EnkCoW6URHCgd1vgWMWvJ1JmU1Gvw4
-	 Y2L60WLZDdxpfikvAHMXIB9u48k6vzXRUM0T+QlR1nav3pa+saYqITJ7b505Fsjy/j
-	 ezCG3Vu3XCATBRWIG8wUlNJiZTh4v2wrwj0qxMc7vQj6eoVWSvYc51iG8XdFywYHNa
-	 19jwJbR+TKYpQ==
+	b=W0AL5ENymCWwh2o5yDAh0iwGEgW9JHlm+CeYUdhu9F7pHwNPjSY+Eak3Jq21GG+sq
+	 eT6qLzufdY+wrGL3YZ0kvKRWiAEP+OkpKWFH18Q5bz9QB8EoMN3stTTgWaKPb2LfOn
+	 rVwkGoOygSzBjq0ncsfwtvD01QVPwxV4UDgAG1UWoitVws1ZNv/44LxCbtdd+1yXCy
+	 d0lA/if0Yrx1e4qi1qEK0vFe/bu7aifc5tPuIQwmNLeVFRTsQcZueRM0R5H5ZRQA9p
+	 vo2sumQ2azyULvRfv26bXodFtsHD0NHt4uG842OktvJoDdkKdX/NLIySV6X9bIbNWL
+	 gea4BSz2/ma4g==
 From: Oliver Upton <oupton@kernel.org>
 To: kvmarm@lists.linux.dev
 Cc: Marc Zyngier <maz@kernel.org>,
@@ -34,10 +34,11 @@ Cc: Marc Zyngier <maz@kernel.org>,
 	Zenghui Yu <yuzenghui@huawei.com>,
 	Wei-Lin Chang <weilin.chang@arm.com>,
 	Oliver Upton <oupton@kernel.org>,
-	stable@vger.kernel.org
-Subject: [PATCH v2 4/5] KVM: arm64: nv: Inject SEA if guest VNCR isn't normal memory
-Date: Tue,  9 Jun 2026 11:52:03 -0700
-Message-ID: <20260609185204.745929-8-oupton@kernel.org>
+	stable@vger.kernel.org,
+	Sashiko <sashiko-bot@kernel.org>
+Subject: [PATCH v2 3/5] KVM: arm64: nv: Re-translate VNCR before injecting abort
+Date: Tue,  9 Jun 2026 11:52:02 -0700
+Message-ID: <20260609185204.745929-7-oupton@kernel.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260609185204.745929-1-oupton@kernel.org>
 References: <20260609185204.745929-1-oupton@kernel.org>
@@ -49,44 +50,165 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When constructing an L1 VNCR mapping, KVM unconditionally uses cacheable
-memory attributes, even if the underlying PFN isn't memory. This gets
-particularly hairy if the endpoint doesn't support cacheable memory
-attributes, potentially throwing an SError on writeback...
+KVM faults in the VNCR page with FOLL_WRITE whenver the guest aborts for
+a write, similar to how a regular stage-2 mapping is handled. It is
+entirely possible that the guest reads from the VNCR before writing to
+it, in which case the PFN could only be read-only.
 
-While KVM does permit cacheable memory attributes on certain PFNMAP
-VMAs, kvm_translate_vncr() isn't currently grabbing the VMA. So do the
-simpler thing for now and just reject everything that isn't memory.
+Invalidate the VNCR TLB and re-fetch the translation upon taking a VNCR
+abort, allowing the host mapping to be faulted in for write the second
+time around. Interestingly enough, this also satisfies the ordering
+requirements of FEAT_ETS2/3 between descriptor updates and MMU faults.
 
 Cc: stable@vger.kernel.org
 Fixes: 2a359e072596 ("KVM: arm64: nv: Handle mapping of VNCR_EL2 at EL2")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
 Signed-off-by: Oliver Upton <oupton@kernel.org>
 ---
- arch/arm64/kvm/nested.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ arch/arm64/kvm/nested.c | 115 +++++++++++++++-------------------------
+ 1 file changed, 44 insertions(+), 71 deletions(-)
 
 diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
-index d5c4b57123a9..a6bd60856fc3 100644
+index ebd7ccfeee99..d5c4b57123a9 100644
 --- a/arch/arm64/kvm/nested.c
 +++ b/arch/arm64/kvm/nested.c
-@@ -1413,6 +1413,17 @@ static int kvm_translate_vncr(struct kvm_vcpu *vcpu, bool *is_gmem)
- 		writable = !(memslot->flags & KVM_MEM_READONLY);
+@@ -1460,92 +1460,65 @@ static void handle_vncr_perm(struct kvm_vcpu *vcpu)
+ 	kvm_inject_nested_sync(vcpu, esr);
+ }
+ 
+-static bool kvm_vncr_tlb_lookup(struct kvm_vcpu *vcpu)
+-{
+-	struct vncr_tlb *vt = vcpu->arch.vncr_tlb;
+-
+-	lockdep_assert_held_read(&vcpu->kvm->mmu_lock);
+-
+-	if (!vt->valid)
+-		return false;
+-
+-	if (read_vncr_el2(vcpu) != vt->gva)
+-		return false;
+-
+-	if (vt->wr.nG)
+-		return get_asid_by_regime(vcpu, TR_EL20) == vt->wr.asid;
+-
+-	return true;
+-}
+-
+ int kvm_handle_vncr_abort(struct kvm_vcpu *vcpu)
+ {
+ 	struct vncr_tlb *vt = vcpu->arch.vncr_tlb;
+ 	u64 esr = kvm_vcpu_get_esr(vcpu);
++	bool is_gmem, perm;
++	int ret;
+ 
+ 	WARN_ON_ONCE(!(esr & ESR_ELx_VNCR));
+ 
+ 	if (kvm_vcpu_abt_issea(vcpu))
+ 		return kvm_handle_guest_sea(vcpu);
+ 
+-	if (esr_fsc_is_permission_fault(esr)) {
+-		handle_vncr_perm(vcpu);
+-	} else if (esr_fsc_is_translation_fault(esr)) {
+-		bool valid, is_gmem = false;
+-		int ret;
+-
+-		scoped_guard(read_lock, &vcpu->kvm->mmu_lock)
+-			valid = kvm_vncr_tlb_lookup(vcpu);
+-
+-		if (!valid)
+-			ret = kvm_translate_vncr(vcpu, &is_gmem);
+-		else
+-			ret = -EPERM;
++	if (!esr_fsc_is_translation_fault(esr) && !esr_fsc_is_permission_fault(esr)) {
++		WARN_ONCE(1, "Unhandled VNCR abort, ESR=%llx\n", esr);
++		return 1;
++	}
+ 
+-		switch (ret) {
+-		case -EAGAIN:
+-			/* Let's try again... */
+-			break;
+-		case -ENOMEM:
+-			/*
+-			 * For guest_memfd, this indicates that it failed to
+-			 * create a folio to back the memory. Inform userspace.
+-			 */
+-			if (is_gmem)
+-				return 0;
+-			/* Otherwise, let's try again... */
+-			break;
+-		case -EFAULT:
+-		case -EIO:
+-		case -EHWPOISON:
+-			if (is_gmem)
+-				return 0;
+-			fallthrough;
+-		case -EINVAL:
+-		case -ENOENT:
+-		case -EACCES:
+-			/*
+-			 * Translation failed, inject the corresponding
+-			 * exception back to EL2.
+-			 */
+-			BUG_ON(!vt->wr.failed);
++	ret = kvm_translate_vncr(vcpu, &is_gmem);
++	switch (ret) {
++	case -EAGAIN:
++		/* Let's try again... */
++		break;
++	case -ENOMEM:
++		/*
++		 * For guest_memfd, this indicates that it failed to
++		 * create a folio to back the memory. Inform userspace.
++		 */
++		if (is_gmem)
++			return 0;
++		/* Otherwise, let's try again... */
++		break;
++	case -EFAULT:
++	case -EIO:
++	case -EHWPOISON:
++		if (is_gmem)
++			return 0;
++		fallthrough;
++	case -EINVAL:
++	case -ENOENT:
++	case -EACCES:
++		/*
++		 * Translation failed, inject the corresponding
++		 * exception back to EL2.
++		 */
++		BUG_ON(!vt->wr.failed);
+ 
+-			esr &= ~ESR_ELx_FSC;
+-			esr |= FIELD_PREP(ESR_ELx_FSC, vt->wr.fst);
++		esr &= ~ESR_ELx_FSC;
++		esr |= FIELD_PREP(ESR_ELx_FSC, vt->wr.fst);
+ 
+-			kvm_inject_nested_sync(vcpu, esr);
+-			break;
+-		case -EPERM:
+-			/* Hack to deal with POE until we get kernel support */
+-			handle_vncr_perm(vcpu);
+-			break;
+-		case 0:
+-			break;
+-		}
+-	} else {
+-		WARN_ONCE(1, "Unhandled VNCR abort, ESR=%llx\n", esr);
++		kvm_inject_nested_sync(vcpu, esr);
++		break;
++	case 0:
++		break;
  	}
  
-+	/*
-+	 * FIXME: This check is too restrictive as KVM allows cacheable memory
-+	 * attributes for PFNMAP VMAs that have cacheable attributes in host
-+	 * stage-1.
-+	 */
-+	if (!pfn_is_map_memory(pfn)) {
-+		kvm_release_faultin_page(vcpu->kvm, page, true, false);
-+		fail_s1_walk(&vt->wr, ESR_ELx_FSC_EXTABT, false);
-+		return -EFAULT;
-+	}
++	perm = kvm_is_write_fault(vcpu) ? vt->wr.pw && vt->hpa_writable : vt->wr.pr;
++	if (!perm)
++		handle_vncr_perm(vcpu);
 +
- 	scoped_guard(write_lock, &vcpu->kvm->mmu_lock) {
- 		if (mmu_invalidate_retry(vcpu->kvm, mmu_seq)) {
- 			kvm_release_faultin_page(vcpu->kvm, page, true, false);
+ 	return 1;
+ }
+ 
 -- 
 2.47.3
 
