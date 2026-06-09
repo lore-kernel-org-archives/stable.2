@@ -1,209 +1,102 @@
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5E443D45C5
-	for <stable@vger.kernel.org>; Tue,  9 Jun 2026 06:25:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80FC3383333
+	for <stable@vger.kernel.org>; Tue,  9 Jun 2026 06:40:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780986350; cv=none; b=WixCEgjPzU4PvUQf7KZ5SxFos/TzHKWxBtn24nsqHPiRmyd0I7rgC19yosDLD9kNBhM/E1EeJGTZk7s5GsaXukMcT6nxQW52+NdkTIQL9VyFGw3X35911QUeBQaTPwW9eeJuZE9XgeHIB74PdkYF2roqRzMPBTK2V2tFLxvPA5w=
+	t=1780987231; cv=none; b=DpN0lZ9+zo49o4mTrKox+fVAKiCNSberNlNC0pfjEdn1D+zX4foL2JnKSIMsURGNysvwjYyDEoNe3b1+s2hhvC7TE3vtCGenbfrPZBJxJGH1mlqokIpOhqfGGcBZ5b0u4XKQhh4OHadf0NDmP9S0s9a4VHlq5k5kWL2wT+jXHjA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780986350; c=relaxed/simple;
-	bh=0lmAb3H28yFRWqL/vFjuTMrG8sen3Ov+rd3zZcbDV9g=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=KoWfhG6mPvy48fthx1yUbBpIrklRzLXFlZpPbHi2o54RHqUz/My67ES80NwIq5CT0RTjHkfbtWgYsFv2tx9hgkFcwjdsFTzDEHI9qx9qAv4mQDV3Xu+X8ZfsKZDvd6HICM8m715xHk2c9sQkR5qYrKSlkFuahomMbPfXxQwNf6c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qd6qoZi7; arc=none smtp.client-ip=209.85.214.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1780987231; c=relaxed/simple;
+	bh=XBKR43MBL4MY4PqSfuY1MJ8CjvTvAn+/3f1jFPC1VeY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=dv9JKtC3evAc/BrvXWRh3Q426jFEIX7s/C4fRYuD3WihEDceLZhZzMBYiijKSuexjP71XsmeaNdVoLqPkAs5xjZayaK+O642b7Ci5t9iOPf0T5CmmQL0hoduOeDq3eYQfeRZ5hMstrt4SERzl24QT4qAGrmjtDka77QOS3mzC24=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=OzV2Zj2y; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qd6qoZi7"
-Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2c0c379e8ffso34979745ad.3
-        for <stable@vger.kernel.org>; Mon, 08 Jun 2026 23:25:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780986348; x=1781591148; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=0lmAb3H28yFRWqL/vFjuTMrG8sen3Ov+rd3zZcbDV9g=;
-        b=qd6qoZi7CygTRrbJdWRfAx/SluTzcolcmk8WsXC5IzW2sYDpPCNKTxWlyDgQv/4aMI
-         iIYqvulFFuuOl6RFULWVigWBiScXz3QvmRPHgJNpf2s0lStghoV/qWVCkZXcoy+dClr8
-         jCuGm0ngy14SgAFBA4y74fWD4YXxHhept8QE0X1WlmtrRjoi/cOEvytEkh8KiXjrgdh3
-         Sn3rDKu69fK50+/7IwI1GX67YlsxM9iO/Aop+t/02qr0O3ycsYJC3SCFhfqNRd4CqS8B
-         AER8t13XI537LTmVjYCQFtgSQoko9Y0Qp9lmPPJIJUQJl1zfTBA7cqhnq6/EyOLx+ziE
-         c45A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780986348; x=1781591148;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=0lmAb3H28yFRWqL/vFjuTMrG8sen3Ov+rd3zZcbDV9g=;
-        b=D9ufq9CnttcIuorrRL1OVZPplcpYizU9foZ7Bzr1GmIKAbN7GfW1WIu7FG8fIWDmTj
-         1XIQvkfzLVl+/QtaGgom1oGcuZyLhD7akcXpuVC5YC2X7Ah0nrd3jB3JcEOTue9kLix1
-         5BlTwc4XP0i6vVFo9jcPjD2gkFpFAnZdy1r555pFrJ4xSONodLaS27PQv5Nq57uZtNhx
-         pccOY8if43XWqGl768XVc69dHsDBsLgul3yTTefpjtUtyGKYLzfisC8HpG7gNQmG69mI
-         qKmC2LxS5O/Kv5ffxbT38ofm49DKlt/+et+3ZkWQxRDJHr0UETs3DYmAPEldSVeJCaYz
-         /PDQ==
-X-Forwarded-Encrypted: i=1; AFNElJ+jiLrTVm26p0gax1CZ8K9iZD4+iyUsev0LVEjfmXfxaQEfMH57H/vcyilCmRD3S1I65JFVD1Y=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxo8wY37/j0Da0NWC9NPXO3PS97iaS9klkI5aHolIM9lN2dKkGJ
-	S49q/F2IjwWyu9yvURHKFgJGJBrnJdtD9a3YKAwPtzeMSXzKzk+3SOEs
-X-Gm-Gg: Acq92OGX/92uiyBaGSLy8RwfY7tstLgtRMFI2YvmpjWgwcH6foVexszPhIl8kvTgxVN
-	6TUjlr1m6jArFNvUeAa+7nyfZCwWU+QyjkzfK2MxMkQKEgJdhD1M5Jqx542mfKplTkk3MtYXYA9
-	KBL2cKTCdjnoIlQcmTQt6oUuugDl1BLgaHWhNe4Pwn/11h6Tbyt7UNrsMjZUAMhw08GbbJSwbQy
-	1xab1mkYXaZEd3bSmAEqjusyqjExrVpqGKX93gIvgyl4vOeiPhvJuingv7tIFWPJdWd9tKFiMzP
-	wfoBNkKUaTuD9mMYBlLFHLF3DMkcZGgyXAES2ryG4QItnO33scVy5XH/My+xLfcaINC7u9x25Ag
-	Z0hOfDjIDJqKp7bZlVEgSnmkgrrCKj5iOhjlTWR91KrpgBGL1ZCm3LGNg9ZNzAlOU/l42yBLsD+
-	PxFCO9LsZoamk3UEHL2xmqVtSCn7s8fHXAZzvscq9lIWMM8vKoZAdF1WrpM5YpUg==
-X-Received: by 2002:a17:902:da8a:b0:2bf:305a:310d with SMTP id d9443c01a7336-2c1e7f92548mr224154905ad.24.1780986347946;
-        Mon, 08 Jun 2026 23:25:47 -0700 (PDT)
-Received: from [192.168.0.13] ([38.34.87.7])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c16609e627sm205571345ad.52.2026.06.08.23.25.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 08 Jun 2026 23:25:47 -0700 (PDT)
-Message-ID: <670285aeb26ab8c4d4254a73a50f513bf9355246.camel@gmail.com>
-Subject: Re: [PATCH bpf] bpf: Validate BTF repeated field counts before
- expansion
-From: Eduard Zingerman <eddyz87@gmail.com>
-To: Hou Tao <houtao1@huawei.com>, Paul Moses <p@1g4.org>, Kumar Kartikeya
- Dwivedi <memxor@gmail.com>
-Cc: martin.lau@linux.dev, ast@kernel.org, daniel@iogearbox.net,
- andrii@kernel.org, 	bpf@vger.kernel.org, song@kernel.org,
- yonghong.song@linux.dev, jolsa@kernel.org, 	linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Date: Mon, 08 Jun 2026 23:25:44 -0700
-In-Reply-To: <83321d7b-516c-f4a0-65ea-6fd224ba3110@huawei.com>
-References: <20260605234301.1109063-1-p@1g4.org>
-	 <DJ2OZSCSEVEI.3APUCE7ML9X4Q@gmail.com>
-	 <E0xEdilT0Z6figMeDAyw03ex29iX0RfOAUXuh4aTJxUrKHK2Bg5N8lKCHNvQoQQ1UzndFFqDJ_zmAMYHLqSgSfF1menSW7C9VKDSBhYrTT0=@1g4.org>
-	 <DJ2RQ5NHDCZT.2R218ZSS80NQ4@gmail.com>
-	 <0_PQcsqBnb7dqgu9UPK6jIQvePSosttml5p2ZDoXAzy2AseVjvBu3ihswwZPWr5bZkOUCdH6HUvw3MRKJEwVYJAkT3j5gdNBHZp8l7_cP6Y=@1g4.org>
-	 <d7ccd692ea8c6009785ad141e6ae4bbc68347517.camel@gmail.com>
-	 <83321d7b-516c-f4a0-65ea-6fd224ba3110@huawei.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
-User-Agent: Evolution 3.56.2-9 
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="OzV2Zj2y"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1780987228;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=XBKR43MBL4MY4PqSfuY1MJ8CjvTvAn+/3f1jFPC1VeY=;
+	b=OzV2Zj2yu7HBxRDSsqB0u7zbClVet12++EUkm0h+vciK9unSIM4gTrP07qmDya0+iMqr72
+	JAyt7tbL5r+MbpGpWvRoqikU+IMOZcW0cCGnhj6tTf6x/VlmSfYbT9T6p7ALsiSd03op4T
+	9cJapThmlRF8jAu1WtmGh+lH01YTPQ0=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-551-OswMwogQOBSZEAMPF6MvHg-1; Tue,
+ 09 Jun 2026 02:40:24 -0400
+X-MC-Unique: OswMwogQOBSZEAMPF6MvHg-1
+X-Mimecast-MFC-AGG-ID: OswMwogQOBSZEAMPF6MvHg_1780987223
+Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 81C7A1800D9C;
+	Tue,  9 Jun 2026 06:40:23 +0000 (UTC)
+Received: from fedora.redhat.com (unknown [10.44.32.77])
+	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 20BEA3653A;
+	Tue,  9 Jun 2026 06:40:19 +0000 (UTC)
+From: Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
+To: jeff.johnson@oss.qualcomm.com
+Cc: ath12k@lists.infradead.org,
+	jjohnson@kernel.org,
+	jtornosm@redhat.com,
+	linux-kernel@vger.kernel.org,
+	linux-wireless@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] ath12k: fix NULL pointer dereference in rhash table destroy
+Date: Tue,  9 Jun 2026 08:40:16 +0200
+Message-ID: <20260609064018.28434-1-jtornosm@redhat.com>
+In-Reply-To: <973da9e9-3851-4e00-85d4-28140c039127@oss.qualcomm.com>
+References: <973da9e9-3851-4e00-85d4-28140c039127@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
-T24gVHVlLCAyMDI2LTA2LTA5IGF0IDA5OjMwICswODAwLCBIb3UgVGFvIHdyb3RlOgo+IEhpLAo+
-IAo+IE9uIDYvOS8yMDI2IDM6NTkgQU0sIEVkdWFyZCBaaW5nZXJtYW4gd3JvdGU6Cj4gPiBPbiBT
-dW4sIDIwMjYtMDYtMDcgYXQgMTc6NTMgKzAwMDAsIFBhdWwgTW9zZXMgd3JvdGU6Cj4gPiAKPiA+
-IFsuLi5dCj4gPiAKPiA+IFRoZSByZXBybyBpcyBsZWdpdC4KPiA+IEhlcmUgaXMgYSBzb21ld2hh
-dCBtaW5pbWl6ZWQgdmVyc2lvbiBhcyBhIHNlbGZ0ZXN0Ogo+ID4gCj4gPiDCoMKgwqAgZGlmZiAt
-LWdpdCBhL3Rvb2xzL3Rlc3Rpbmcvc2VsZnRlc3RzL2JwZi9wcm9nX3Rlc3RzL2J0Zi5jIGIvdG9v
-bHMvdGVzdGluZy9zZWxmdGVzdHMvYnBmL3Byb2dfdGVzdHMvYnRmLmMKPiA+IMKgwqDCoCBpbmRl
-eCBhOWRlMzI4YTg2OTcuLjIxMmNhNDQ3MmE4OSAxMDA2NDQKPiA+IMKgwqDCoCAtLS0gYS90b29s
-cy90ZXN0aW5nL3NlbGZ0ZXN0cy9icGYvcHJvZ190ZXN0cy9idGYuYwo+ID4gwqDCoMKgICsrKyBi
-L3Rvb2xzL3Rlc3Rpbmcvc2VsZnRlc3RzL2JwZi9wcm9nX3Rlc3RzL2J0Zi5jCj4gPiDCoMKgwqAg
-QEAgLTQyNTgsNiArNDI1OCw0NCBAQCBzdGF0aWMgc3RydWN0IGJ0Zl9yYXdfdGVzdCByYXdfdGVz
-dHNbXSA9IHsKPiA+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgLm1heF9lbnRyaWVzID0gMSwKPiA+
-IMKgwqDCoMKgIH0sCj4gPiDCoMKgwqAgCj4gPiDCoMKgwqAgK3sKPiA+IMKgwqDCoCArI2RlZmlu
-ZSBOIDB4MTk5OTk5OWFVCj4gPiDCoMKgwqAgK8KgwqDCoMKgwqDCoCAuZGVzY3IgPSAicmVwZWF0
-IGZpZWxkcyBvdmVyZmxvdyIsCj4gPiDCoMKgwqAgK8KgwqDCoMKgwqDCoCAucmF3X3R5cGVzID0g
-ewo+ID4gwqDCoMKgICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIC8qIGludCAqL8KgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIC8qIFsxXSAqLwo+ID4gwqDCoMKgICvCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIEJURl9UWVBFX0lOVF9FTkMoMCwgQlRGX0lOVF9TSUdO
-RUQsIDAsIDMyLCA0KSwKPiA+IMKgwqDCoCArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAv
-KiBzdHJ1Y3QgdGFyZ2V0IHt9ICovwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIC8qIFsyXSAqLwo+ID4gwqDCoMKgICvCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIEJURl9UWVBFX0VOQyhOQU1FX1RCRCwgQlRGX0lORk9f
-RU5DKEJURl9LSU5EX1NUUlVDVCwgMCwgMCksIDEpLAo+ID4gwqDCoMKgICvCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgIC8qIHR5cGVfdGFnICJrcHRyX3VudHJ1c3RlZCIgLT4gdGFyZ2V0ICov
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAvKiBbM10gKi8KPiA+IMKgwqDCoCArwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBCVEZfVFlQRV9UQUdfRU5DKE5BTUVfVEJELCAyKSwKPiA+
-IMKgwqDCoCArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAvKiB0YXJnZXQgKiAoa3B0cikg
-Ki/CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoCAvKiBbNF0gKi8KPiA+IMKgwqDCoCArwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoCBCVEZfUFRSX0VOQygzKSwKPiA+IMKgwqDCoCArwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoCAvKiBzdHJ1Y3Qgb3V0ZXIgeyB0YXJnZXQgKmtwOyBlbGVtIGl0ZW1zW05dOyB9ICov
-wqDCoMKgwqDCoMKgIC8qIFs1XSAqLwo+ID4gwqDCoMKgICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgIEJURl9UWVBFX0VOQyhOQU1FX1RCRCwgQlRGX0lORk9fRU5DKEJURl9LSU5EX1NUUlVD
-VCwgMCwgMiksIChOICogOHUgKyA4dSkpLAo+ID4gwqDCoMKgICvCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgIEJURl9NRU1CRVJfRU5DKE5BTUVfVEJELCA0LCAwKSzCoMKgwqDCoMKgwqDCoMKg
-IC8qIGtwwqDCoMKgwqDCoMKgwqDCoMKgwqAgKi8KPiA+IMKgwqDCoCArwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoCBCVEZfTUVNQkVSX0VOQyhOQU1FX1RCRCwgNiwgNjQpLMKgwqDCoMKgwqDC
-oMKgIC8qIGl0ZW1zwqDCoMKgwqDCoMKgwqAgKi8KPiA+IMKgwqDCoCArwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoCAvKiBlbGVtW05dICovwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgLyogWzZdICovCj4gPiDCoMKg
-wqAgK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgQlRGX1RZUEVfQVJSQVlfRU5DKDcsIDEs
-IE4pLAo+ID4gwqDCoMKgICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIC8qIHN0cnVjdCBl
-bGVtIHsgdGFyZ2V0ICpmMC4uZjk7IH0gKi/CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqAgLyogWzddICovCj4gPiDCoMKgwqAgK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAg
-QlRGX1RZUEVfRU5DKE5BTUVfVEJELCBCVEZfSU5GT19FTkMoQlRGX0tJTkRfU1RSVUNULCAwLCAx
-MCksIDgpLAo+ID4gwqDCoMKgICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIEJURl9NRU1C
-RVJfRU5DKE5BTUVfVEJELCA0LCAwKSzCoMKgwqDCoMKgwqDCoMKgIC8qIGYwwqDCoMKgwqDCoMKg
-wqDCoMKgwqAgKi8KPiA+IMKgwqDCoCArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBCVEZf
-TUVNQkVSX0VOQyhOQU1FX1RCRCwgNCwgMCkswqDCoMKgwqDCoMKgwqDCoCAvKiBmMcKgwqDCoMKg
-wqDCoMKgwqDCoMKgICovCj4gPiDCoMKgwqAgK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAg
-QlRGX01FTUJFUl9FTkMoTkFNRV9UQkQsIDQsIDApLMKgwqDCoMKgwqDCoMKgwqAgLyogZjLCoMKg
-wqDCoMKgwqDCoMKgwqDCoCAqLwo+ID4gwqDCoMKgICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgIEJURl9NRU1CRVJfRU5DKE5BTUVfVEJELCA0LCAwKSzCoMKgwqDCoMKgwqDCoMKgIC8qIGYz
-wqDCoMKgwqDCoMKgwqDCoMKgwqAgKi8KPiA+IMKgwqDCoCArwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoCBCVEZfTUVNQkVSX0VOQyhOQU1FX1RCRCwgNCwgMCkswqDCoMKgwqDCoMKgwqDCoCAv
-KiBmNMKgwqDCoMKgwqDCoMKgwqDCoMKgICovCj4gPiDCoMKgwqAgK8KgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqAgQlRGX01FTUJFUl9FTkMoTkFNRV9UQkQsIDQsIDApLMKgwqDCoMKgwqDCoMKg
-wqAgLyogZjXCoMKgwqDCoMKgwqDCoMKgwqDCoCAqLwo+ID4gwqDCoMKgICvCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgIEJURl9NRU1CRVJfRU5DKE5BTUVfVEJELCA0LCAwKSzCoMKgwqDCoMKg
-wqDCoMKgIC8qIGY2wqDCoMKgwqDCoMKgwqDCoMKgwqAgKi8KPiA+IMKgwqDCoCArwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoCBCVEZfTUVNQkVSX0VOQyhOQU1FX1RCRCwgNCwgMCkswqDCoMKg
-wqDCoMKgwqDCoCAvKiBmN8KgwqDCoMKgwqDCoMKgwqDCoMKgICovCj4gPiDCoMKgwqAgK8KgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgQlRGX01FTUJFUl9FTkMoTkFNRV9UQkQsIDQsIDApLMKg
-wqDCoMKgwqDCoMKgwqAgLyogZjjCoMKgwqDCoMKgwqDCoMKgwqDCoCAqLwo+ID4gwqDCoMKgICvC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIEJURl9NRU1CRVJfRU5DKE5BTUVfVEJELCA0LCAw
-KSzCoMKgwqDCoMKgwqDCoMKgIC8qIGY5wqDCoMKgwqDCoMKgwqDCoMKgwqAgKi8KPiA+IMKgwqDC
-oCArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBCVEZfRU5EX1JBVywKPiA+IMKgwqDCoCAr
-wqDCoMKgwqDCoMKgIH0sCj4gPiDCoMKgwqAgK8KgwqDCoMKgwqDCoCBCVEZfU1RSX1NFQygiXDB0
-YXJnZXRcMGtwdHJfdW50cnVzdGVkXDBvdXRlclwwa3BcMGl0ZW1zXDBlbGVtIgo+ID4gwqDCoMKg
-ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgIlwwZjBcMGYxXDBmMlwwZjNc
-MGY0XDBmNVwwZjZcMGY3XDBmOFwwZjkiKSwKPiA+IMKgwqDCoCArwqDCoMKgwqDCoMKgIC5idGZf
-bG9hZF9lcnIgPSB0cnVlLAo+ID4gwqDCoMKgICsjdW5kZWYgTgo+ID4gwqDCoMKgICt9LAo+ID4g
-wqDCoMKgICsKPiA+IMKgwqDCoMKgIH07IC8qIHN0cnVjdCBidGZfcmF3X3Rlc3QgcmF3X3Rlc3Rz
-W10gKi8KPiA+IMKgwqDCoCAKPiA+IMKgwqDCoMKgIHN0YXRpYyBjb25zdCBjaGFyICpnZXRfbmV4
-dF9zdHIoY29uc3QgY2hhciAqc3RhcnQsIGNvbnN0IGNoYXIgKmVuZCkKPiA+IAo+ID4gSG93ZXZl
-ciwgYXMgZmFyIGFzIEkgdW5kZXJzdGFuZCB0aGUgcmVwcm8gaGl0cyBhbiBvdmVyZmxvdyBvbmx5
-Cj4gPiBiZWNhdXNlIGBCVEZfVFlQRV9FTkMoTkFNRV9UQkQsIEJURl9JTkZPX0VOQyhCVEZfS0lO
-RF9TVFJVQ1QsIDAsIDEwKSwgOClgCj4gPiBsaWVzIGFib3V0IGBzdHJ1Y3QgZWxlbWAgc2l6ZS4g
-SXQgaXMgc3BlY2lmaWVkIGFzIDgsIHdoaWxlIGluIHJlYWxpdHkgaXQgaXMgODAuCj4gCj4gTm8g
-ZXhhY3RseS4gRXZlcnkgZmllbGQgaW4gdGhlIHN0cnVjdCBlbGVtIGhhcyB0aGUgc2FtZSBvZmZz
-ZXQgKDApLCBzbwo+IHRoZSBzaXplIG9mIHN0cnVjdCBlbGVtIGlzIGNvcnJlY3QsIGJ1dCB0aGUg
-ZmllbGQgZGVmaW5pdGlvbiBvZiBzdHJ1Y3QKPiBlbGVtIGlzIGluY29ycmVjdC4KCkhtLCByaWdo
-dCwgdGhhbmsgeW91LgpPaywgdGhpcyBtZWFucyB0aGF0IHRoZSBmaXggc3VnZ2VzdGVkIGJ5IFBh
-dWwgc2hvdWxkIGJlIGxhbmRlZAphbmQgdGhlcmUgYXJlIG5vIGZ1cnRoZXIgaXNzdWVzIHdpdGgg
-QlRGIHZhbGlkYXRpb24uCihCdXQgaXQgd291bGQgYmUgbmljZSB0byBoYXZlIHNlbGZ0ZXN0IGlu
-Y2x1ZGVkIGluIHRoZSBwYXRjaHNldCkuCgo+ID4gVGhlIHNpemUgb2YgODAgd291bGQgbWFrZSBg
-c3RydWN0IG91dGVyYCB1bnJlcHJlc2VudGFibGUgaW4gQlRGLAo+ID4gYmVjYXVzZSAoTiAqIDgw
-ICsgOCkgZXhjZWVkcyB1MzIgcmFuZ2UsIGFuZCB0aGF0J3Mgd2hhdCBidGZfdHlwZS0+c2l6ZSB1
-c2VzLgo+ID4gR2l2ZW4gdGhhdCBidGZfcmVwZWF0X2ZpZWxkcygpIG9ubHkgdHJhdmVyc2VzIHN0
-cnVjdHMvYXJyYXlzIGJ1dCBub3QgdW5pb25zLAo+ID4gSSBzdXNwZWN0IHRoYXQgb3ZlcmZsb3cg
-d29uJ3QgaGFwcGVuIGluIGBmaWVsZF9jbnQgKiAocmVwZWF0X2NudCArIDEpYAo+ID4gaWYgcHJv
-cGVyIHNpemUgY2hlY2tzIHdlcmUgaW1wbGVtZW50ZWQgaW4gYnRmX3N0cnVjdF9jaGVja19tZXRh
-KCkgLyBidGZfc3RydWN0X3Jlc29sdmUoKS4KPiA+IEV2ZW4gbW9yZSwgSWYgSSBjaGFuZ2UgImtw
-dHJfdW50cnVzdGVkIiB0byAia3B0cl91bnRydXN0ZWQxMSIgdG8gYXZvaWQgZmllbGRzIHBhcnNp
-bmcsCj4gPiB0aGUga2VybmVsIGFjY2VwdHMgdGhlIGJvZ3VzIEJURi4KPiAKPiBidGZfc3RydWN0
-X2NoZWNrX21ldGEgaGFzIGNoZWNrZWQgdGhlIHZhbGlkaXR5IG9mIGZpZWxkIG9mZnNldC4gSG93
-ZXZlcgo+IGl0IHNlZW1zIHRoZSBjaGVja2luZyBpcyBsb29zZToKPiAKPiDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqAgLyoKPiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAq
-ICI+IiBpbnN0ZWFkIG9mICI+PSIgYmVjYXVzZSB0aGUgbGFzdCBtZW1iZXIgY291bGQgYmUKPiDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAqICJjaGFyIGFbMF07Igo+IMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgICovCj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgIGlmIChsYXN0X29mZnNldCA+IG9mZnNldCkgewo+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgYnRmX3ZlcmlmaWVyX2xvZ19tZW1iZXIoZW52LCB0LCBt
-ZW1iZXIsCj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAiSW52YWxpZCBt
-ZW1iZXIKPiBiaXRzX29mZnNldCIpOwo+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqAgcmV0dXJuIC1FSU5WQUw7Cj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgIH0KPiAKPiBGb3Igc3RydWN0IGVsZW0sIGFsbCBmaWVsZHMgaGF2ZSB0aGUgb2Zmc2V0
-IDAsIHNvIHRoZSBvZmZzZXQgY2hlY2tpbmcgaXMKPiBwYXNzZWQuIEZyb20gdGhlIGNvZGUgc25p
-cHBldCBhYm92ZSwgaXQgc2VlbXMgQlRGIHRyaWVzIHRvIHN1cHBvcnQgdGhlCj4gZm9sbG93aW5n
-IHN0cnVjdCBkZWZpbml0aW9uIGJlbG93LCBpcyBpdCBPSyB0byBvbmx5IHN1cHBvcnQgdGhlIGxh
-c3QKPiB6ZXJvLXNpemVkIGZpZWxkIGluIHN0cnVjdCBkZWZpbml0aW9uID8KPiAKPiBzdHJ1Y3Qg
-ZWxlbSB7Cj4gwqDCoMKgIGludCBhOwo+IMKgwqDCoCBjaGFyIGJbMF07Cj4gwqDCoMKgIGludCBj
-Owo+IMKgwqDCoCBjaGFyIGRbMF07Cj4gfQoKSSB0aGluayBDIHN0YW5kYXJkIG9ubHkgYWxsb3dz
-IHplcm8gc2l6ZWQgYXJyYXlzIHRvIGJlIHBsYWNlZCBhdCB0aGUKZW5kIG9mIHRoZSBzdHJ1Y3R1
-cmUgZGVmaW5pdGlvbi4gQnJvYWRlciBxdWVzdGlvbiBpcyBpZiB3ZSB3YW50IEJURgp2YWxpZGF0
-aW9uIHRvIHJlamVjdCBvdmVybGFwcGluZyBmaWVsZHMgb3V0c2lkZSBvZiB1bmlvbnMuCk5vdCBz
-dXJlIGlmIHRoZXJlIGlzIGEgcHJhY3RpY2FsIHJlYXNvbiB0byBkbyBzby4K
+Hello Jeff,
+
+Thank you for the feedback.
+
+> My preference would be to fix the logic so that the deinit is symmetric with
+> init, and if any stage of init fails, it should unwind whatever init occurred
+> up to that point. So this patch seems to be a bandage instead of an engineered
+> fix.
+>
+> But I'll let the Qualcomm engineering team give their opinion.
+I understand the concern about symmetry.
+The NULL check approach is intentional here. The ath12k driver has complex
+multi-stage initialization, with many potential failure points.
+The init/deinit paths are symmetric - destroy is called from the same
+cleanup paths as init.
+The issue is that init can fail partway through, leaving some components
+uninitialized.
+The rhashtable pointer itself serves as the initialization state indicator -
+it's NULL before init and non-NULL after. Checking it directly is simpler
+than adding separate state flags that must be kept in sync.
+That said, I'm open to alternative approaches if you see a cleaner way to
+handle partial initialization states across the driver's initialization
+sequence. Happy to revise if there's a better solution I'm missing.
+
+> not a fan of this pattern.
+> if we go with a bandaid solution then i'd want to use guard(mutex) so that
+> there isn't a need for a cleanup goto -- we could just return like the patch below
+Agreed, guard(mutex) is cleaner. I'll incorporate this in v2 once we align
+on the overall approach.
+
+Thanks
+
+Best regards
+José Ignacio
 
