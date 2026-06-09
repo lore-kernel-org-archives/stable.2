@@ -1,205 +1,81 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86FA734BA42
-	for <stable@vger.kernel.org>; Tue,  9 Jun 2026 11:38:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59B1E402B8D
+	for <stable@vger.kernel.org>; Tue,  9 Jun 2026 11:39:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781005122; cv=none; b=FBqsaoWA9uXGY15JdesjPU7LolOVi09hPFoQx+dlmc7L8LeV6IYlC/fStuxMXaoynqV5YdqyYyVYnQMwY9INvg5fTxSoebnsphprNZWsj4cNF0PMKKf5HZnTTPeqYbBUFKAdaNtcJ4P7gDMzJJNbULzZFu72HO/nieWRoRD9O50=
+	t=1781005180; cv=none; b=ssIMUK22qMThRl+GVnWyTv/b1DMpIJweM2kn9cVKVUt7Z1xd0c104pmJtN+D9ohbyfO0VqcgsZuP5mbq1G+2GyJOyzgkE+HiX76d1VCfBmTF6tTc9pFfBwEGIdf0rxCWqqX9iN39AGTpDBFy8aGOt/rDORgE/UEpTJSNMoGVdvk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781005122; c=relaxed/simple;
-	bh=GVWSBR+SsvE//CeK2L/gom+2kHZseVhicW5nj0zjD7I=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ubUDcgac+zCAUq6uDAi2lzjArJOxE4mkaqaD1TxwGfUQVZiOhYBZNysmGpvZOGKVxVmtMjqD6uRRk/1IrUOxo7CzN+QNzgbkNM3bFpnbMLF7O7NZGGa2gZ+MjSIZgVcj4QWZs/wFcEunPLuLs2VgGVyds/aw8vPn+zh+wigalAU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EYXHgkk4; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781005180; c=relaxed/simple;
+	bh=v0oNpovBDxYRdhN70lC1jLW3FFZoFv0QmeL6FwC8CHI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YIftYyW3DGzWGJDSc0Xz21+s0iDE53XlWLWvSbxzK9foWHSTUzPOP17hy+/KEXTMOJebDCmwWqmEoSTSkhzC+/vH7UW3x6iwxtPU8f8FbZtzfazsWDlmc8sS6W8BxwfxA2Ze0iDPLDxf+Tn9kb1zWuptDTOzD8ozvMohuuYxT/4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=XCEMkPMv; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EYXHgkk4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43D2C1F00898
-	for <stable@vger.kernel.org>; Tue,  9 Jun 2026 11:38:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781005120;
-	bh=TUjmQFRN6GGBdwsR8vhK28iBS9rOE7wp/q/oKXbZSLo=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=EYXHgkk4k3jGon6MWKN8qDd0Uujk4oRgZXjdDxR/+1L5UxFsJMdO47SEjbbq8Zgfu
-	 nCPcogFY2yfiSdOtYVSvlxqcKn9xeXpaDyDUP68CaBJeYBIksVLs4G77AhErRm7UMv
-	 NM/Tt8ZPuHGqgrehQK5e9ihsBNqtK+eSSX9mbJvm/U5fSehXKYwqlYBTiho2LI/UH1
-	 SRORFvUSTk4l2XEccMdn5rdVcV5sCZ6XDU9ZBm4yZ0rz6d6vtI1+vNZtk2irMw5ihL
-	 FCl3xe5RQKr8KkkPf/8TIAMriRJPtbNK8OtZ9cf1/AFR1MFrv8v2ByNNmHpnoWqli8
-	 sXhC0RhyiGr6Q==
-Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-beb2a97cc9aso873737266b.2
-        for <stable@vger.kernel.org>; Tue, 09 Jun 2026 04:38:40 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ8bJxeFJzvosBkyz77Y0iqZX7ioNI3HlUaX8nT7I/VoOl4AcCygy3+1IAtCZPizsnScZutIM1o=@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywi49Uu2HKJ8dyMjwky9WESMvpx38zpF28ZPTTEGdzlwA0itgAq
-	oQav14nAIhb99COY/swEZAc3zWkMEK6ANF0RKxAvCnOkX32Yl26t/QZAq7oXS+g+Am9NcAw67TX
-	XxMQw+2HEYDmrhOB5vNY7j679CyznEFE=
-X-Received: by 2002:a17:907:d91:b0:bed:fc51:cbbd with SMTP id
- a640c23a62f3a-bf938e24b52mr132515166b.30.1781005118733; Tue, 09 Jun 2026
- 04:38:38 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="XCEMkPMv"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1781005176;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=qm+Sbk9IuXXgtzP+mHXUfGC0wxxue4TlT/GMvB7XuWg=;
+	b=XCEMkPMvBU5XDjajsabNSt7N1PNrjIFAs12K1vuUlmU4hTUXDzxE5us5MRA3baLxtIX+RI
+	LeWid/uhkd+U7nTgEIFXbSTYvjbYdUPrvkcyv/043JDN27Ww3tVrAVDPjHJzBOnuanqJe7
+	lPk8ymZr1wqOo0bDCWKc0bbby5I5o3U=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-264-48CTobu6OxeHHoJTXJMuVg-1; Tue,
+ 09 Jun 2026 07:39:33 -0400
+X-MC-Unique: 48CTobu6OxeHHoJTXJMuVg-1
+X-Mimecast-MFC-AGG-ID: 48CTobu6OxeHHoJTXJMuVg_1781005172
+Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id E435F1944AA6;
+	Tue,  9 Jun 2026 11:39:31 +0000 (UTC)
+Received: from thinkpad (headnet01.pony-001.prod.rdu2.dc.redhat.com [10.11.142.86])
+	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 81FDC3008B37;
+	Tue,  9 Jun 2026 11:39:30 +0000 (UTC)
+Date: Tue, 9 Jun 2026 13:39:27 +0200
+From: Felix Maurer <fmaurer@redhat.com>
+To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Cc: Sasha Levin <sashal@kernel.org>, stable@vger.kernel.org,
+	Steffen Lindner <steffen.lindner@de.abb.com>,
+	Paolo Abeni <pabeni@redhat.com>
+Subject: Re: [PATCH 6.18.y 1/2] hsr: Implement more robust duplicate discard
+ for PRP
+Message-ID: <aif7b2qPzEGJx-EV@thinkpad>
+References: <2026052838-cleat-rewrite-24c4@gregkh>
+ <20260529232406.1883397-1-sashal@kernel.org>
+ <20260601075222.hFB8WzTJ@linutronix.de>
+ <aifbzVmhiThTVLj7@thinkpad>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <5ab8c8dba417f4d558c6849130b3072a6b2b3574.1780960338.git.wqu@suse.com>
-In-Reply-To: <5ab8c8dba417f4d558c6849130b3072a6b2b3574.1780960338.git.wqu@suse.com>
-From: Filipe Manana <fdmanana@kernel.org>
-Date: Tue, 9 Jun 2026 12:38:01 +0100
-X-Gmail-Original-Message-ID: <CAL3q7H6PAubAM3tRoKaCbH4MtuCV4mkD=va3Vz1zSuzmkStWrg@mail.gmail.com>
-X-Gm-Features: AVVi8CfGLS-Nz-FxAikvrGPYLm8yZhNnlOpoTNWENHjLFboqDg5JkXtCYVG2qSM
-Message-ID: <CAL3q7H6PAubAM3tRoKaCbH4MtuCV4mkD=va3Vz1zSuzmkStWrg@mail.gmail.com>
-Subject: Re: [PATCH v2] btrfs: do not overwrite NODATASUM flag when removing
- NODATACOW flag
-To: Qu Wenruo <wqu@suse.com>
-Cc: linux-btrfs@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aifbzVmhiThTVLj7@thinkpad>
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
 
-On Tue, Jun 9, 2026 at 12:14=E2=80=AFAM Qu Wenruo <wqu@suse.com> wrote:
->
-> [TEST FAILURE]
-> The test case generic/628 will fail if MOUNT_OPTIONS is set to "-o
-> nodatasum":
->
->  FSTYP         -- btrfs
->  PLATFORM      -- Linux/x86_64 btrfs-vm 7.1.0-rc4-custom+ #383 SMP PREEMP=
-T_DYNAMIC Sat May 30 07:35:42 ACST 2026
->  MKFS_OPTIONS  -- -O bgt -K /dev/mapper/test-scratch1
->  MOUNT_OPTIONS -- -o nodatasum /dev/mapper/test-scratch1 /mnt/scratch
->
->  generic/628  1s ... - output mismatch (see /home/adam/xfstests/results//=
-generic/628.out.bad)
->     --- tests/generic/628.out   2022-05-11 11:25:30.816666664 +0930
->     +++ /home/adam/xfstests/results//generic/628.out.bad        2026-06-0=
-8 18:56:49.878542927 +0930
->     @@ -8,8 +8,9 @@
->      310f146ce52077fcd3308dcbe7632bb2  SCRATCH_MNT/a
->      310f146ce52077fcd3308dcbe7632bb2  SCRATCH_MNT/d
->      test reflink flag not set iflag
->     +XFS_IOC_CLONE: Invalid argument
->      310f146ce52077fcd3308dcbe7632bb2  SCRATCH_MNT/a
->     -310f146ce52077fcd3308dcbe7632bb2  SCRATCH_MNT/b
->     +d41d8cd98f00b204e9800998ecf8427e  SCRATCH_MNT/b
->     ...
->
-> [CAUSE]
-> The direct cause is that after "chattr +S", the btrfs inode will lose its
-> NODATASUM flag inherited from the mount option. E.g:
->
->  # mkfs.btrfs -f $dev
->  # mount $dev $mnt -o nodatasum
->  # touch $mnt/foobar
->  # sync
->  # btrfs ins dump-tree -t 5 $dev | grep "(257 INODE_ITEM 0) itemoff" -A 3
->         item 4 key (257 INODE_ITEM 0) itemoff 15879 itemsize 160
->                 generation 9 transid 9 size 0 nbytes 0
->                 block group 0 mode 100644 links 1 uid 0 gid 0 rdev 0
->                 sequence 1 flags 0x1(NODATASUM)
->                                      ^^^^^^^^^ Proper NODATASUM flag
->
->  # chattr +S $mnt/foobar
->  # sync
->  # btrfs ins dump-tree -t 5 $dev | grep "(257 INODE_ITEM 0) itemoff" -A 3
->         item 4 key (257 INODE_ITEM 0) itemoff 15879 itemsize 160
->                 generation 9 transid 10 size 0 nbytes 0
->                 block group 0 mode 100644 links 1 uid 0 gid 0 rdev 0
->                 sequence 2 flags 0x20(SYNC)
->                                       ^^^^ Only the new SYNC flag
->
-> This makes the inode to drop the old NODATASUM flag, meanwhile the new
-> reflink destination will still inherit the NODATASUM flag.
-> The mismatching NODATASUM flags will cause the reflink to fail.
->
-> The root cause is that, inside btrfs_fileattr_set() if no FS_NOCOW_FL is
-> set, we remove both NODATASUM and NODATACOW flag.
->
-> However we should not touch NODATASUM flag, as data COW doesn't require
-> checksum.
-> Only NODATACOW implies NODATASUM, but DATACOW doesn't imply DATASUM.
->
-> The deeper problems are:
->
-> - Fileattr API is too binary
->   It either clears or sets a flag, there is no "do not change" option.
->   So that why "chattr +S" implies "chattr -C", and is forcing us to
->   change NODATACOW along with NODATASUM flag.
->
-> - No way to change NODATASUM through fileattr API
->   In fact NODATASUM can only be modified through mount option.
->
-> The deeper problems are much harder to attack.
->
-> [FIX]
-> Remove NODATACOW flag when FS_NOCOW_FL is not set, but only remove
-> NODATASUM if "nodatasum" mount option is not set.
->
-> This allows the existing "chattr +C" then "chattr -C" to remove
-> both NODATACOW and NODATASUM flags on a default mount.
->
-> But for a mount with "nodatasum" option, the NODATASUM inode flag will
-> persist through either "chattr +C" and "chattr -C".
->
-> Fixes: 7e97b8daf634 ("btrfs: allow setting NOCOW for a zero sized file vi=
-a ioctl")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Qu Wenruo <wqu@suse.com>
+On Tue, Jun 09, 2026 at 11:24:34AM +0200, Felix Maurer wrote:
+> I don't really know the guidelines around the stable trees. Do we want
+> such (heavily modfied) patches so that others can be applied?
 
-Reviewed-by: Filipe Manana <fdmanana@suse.com>
+I only now saw the patches Sasha posted for the older stable trees (like
+[1] for 6.12.y). I think we should do the same thing for 6.18.y as well
+and not backport the rather big 415e6367512b ("hsr: Implement more
+robust duplicate discard for PRP").
 
-Thanks.
+Thanks,
+   Felix
 
-> ---
-> Changelog:
-> v2:
-> - Respect the current mount option when setting DATACOW flag
->   Since there is no way to set/clear NODATASUM flag other than mount
->   option, it's better to respect the current mount option so that
->   NODATASUM is not always left unexpectedly.
-> ---
->  fs/btrfs/ioctl.c | 22 ++++++++++++++--------
->  1 file changed, 14 insertions(+), 8 deletions(-)
->
-> diff --git a/fs/btrfs/ioctl.c b/fs/btrfs/ioctl.c
-> index d4981d2a42d7..8e3f51551dfe 100644
-> --- a/fs/btrfs/ioctl.c
-> +++ b/fs/btrfs/ioctl.c
-> @@ -331,14 +331,20 @@ int btrfs_fileattr_set(struct mnt_idmap *idmap,
->                         inode_flags |=3D BTRFS_INODE_NODATACOW;
->                 }
->         } else {
-> -               /*
-> -                * Revert back under same assumptions as above
-> -                */
-> -               if (S_ISREG(inode->vfs_inode.i_mode)) {
-> -                       if (inode->vfs_inode.i_size =3D=3D 0)
-> -                               inode_flags &=3D ~(BTRFS_INODE_NODATACOW =
-|
-> -                                                BTRFS_INODE_NODATASUM);
-> -               } else {
-> +               /* We can only change NODATACOW for zero-sized regular fi=
-le. */
-> +               if (S_ISREG(inode->vfs_inode.i_mode) && (inode->vfs_inode=
-.i_size =3D=3D 0)) {
-> +                       inode_flags &=3D ~BTRFS_INODE_NODATACOW;
-> +                       /*
-> +                        * There is no way to change NODATASUM flag throu=
-gh fileattr API.
-> +                        * If we unconditionally keep the current NODATAS=
-UM flag,
-> +                        * chattr +C then chattr -C will keep the NODATAS=
-UM flag, and
-> +                        * no way to remove that flag.
-> +                        *
-> +                        * So respect the current mount option for NODATA=
-SUM flag.
-> +                        */
-> +                       if (!btrfs_test_opt(fs_info, NODATASUM))
-> +                               inode_flags &=3D ~BTRFS_INODE_NODATASUM;
-> +               } else if (!S_ISREG(inode->vfs_inode.i_mode)) {
->                         inode_flags &=3D ~BTRFS_INODE_NODATACOW;
->                 }
->         }
-> --
-> 2.54.0
->
->
+[1]: https://lore.kernel.org/stable/20260529233922.1913663-1-sashal@kernel.org/
+
