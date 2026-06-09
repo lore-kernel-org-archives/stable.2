@@ -1,59 +1,75 @@
-Received: from sender4-op-o15.zoho.com (sender4-op-o15.zoho.com [136.143.188.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BDB540F8E4;
-	Tue,  9 Jun 2026 12:08:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.15
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781006925; cv=pass; b=Yi6EAgnAMYvBEA3a9/yE0HfNy7ms8K99LUnxqX+8SYP2u1XpeDK0WtXQWYTJzEbWRHqeQoc6IQ0rNDRmU2gtWAarocozn2oc//3FcXBY4C8QptWM2dFUjvjuUWu5ao379AHfZRBAcAwdl3EGI3zkEVp1QzIcWd34/qD+JlawaVw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781006925; c=relaxed/simple;
-	bh=KdJG4zRHuVbedneI0eAEw61H+V+L8AZzIyer0jQRuWE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QIb20wp66tNT/1jTJZo6Cmxl5w13kcrfJ7A6XWBR0LoSyyln4U2EDfwsgIohbhSR+JiL7Oq8jh+PcZgute5NCQX4/ZKG4/lOLfvdyU+GDqoXPnqT3vnfGYugof+5dnQOwY/QYIE67ysnhQMDCpFSRtvNdqmFWGMKRvxdm9aBrNo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.beauty; spf=pass smtp.mailfrom=linux.beauty; dkim=pass (1024-bit key) header.d=linux.beauty header.i=me@linux.beauty header.b=rxWxu2TX; arc=pass smtp.client-ip=136.143.188.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.beauty
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.beauty
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D46F403E9D
+	for <stable@vger.kernel.org>; Tue,  9 Jun 2026 12:13:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781007230; cv=none; b=Nd1/R3gZVZJkxFHxb6CnWCqHxtn3Lr+M3/FzENSQ20cgrrzjkzLTzlfpk2J6bMkReJyPt/JGT0JacE1fzPDqUXvM0hvyG7MAx4D89YnjRfJI/KAkeVO0LaJXe5eRNhF+Kxn6k7sJU/kjvWXWuPi/DYTBtniZaD2ywW54ePlyQlo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781007230; c=relaxed/simple;
+	bh=CCCknRMucJa27YIj8zqKWb5yyna/lo4aYM4LXTZtUlU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fJ/w/mS1eQrSycX6tFPbb7GdINOYRbInNZofUNQ6uhDytjm1gQrNPMnK5R2uHJnQdqccDNYYXsm49idAeB/u0VtDXBkfAE1f7n211PrWJ2096JceQ8NWAnQiDc1RD7vxNo3n3xpC8B9kWiTYLAt6M/pq5zH/P0K7TTTZ1KuYBCo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=JL1FGsMX; arc=none smtp.client-ip=209.85.214.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.beauty header.i=me@linux.beauty header.b="rxWxu2TX"
-ARC-Seal: i=1; a=rsa-sha256; t=1781006891; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=G3NQ5tkhefxcgbR+fc5HttRlHEJU4pArvi5XB1B7YgOXYtZR5Fu6C0UDmbpny/pWIil0w2elQTSkWAJ5yiTEOBnfSsTw8Xbn1U6KaMS6evfQoAeRf6GcXf707FCgqrp3Rtu/PztVdYoVr6U4pdDw+WpeWws0I5xTG+ZLnAY5sqU=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1781006891; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=GXAoC5zKyTc3h2xhSbceB5qyRcnqM5DC0tBvQYicLqI=; 
-	b=WHcXK8eOs8TNiNCWQ9+p/LcpqhUzInthRhsiFLNVw23V6MqojZDRekI7aYBL25LJZWtQRxrFFi5bRqotDHTiGLmMYYCO73NV15nKohrVvJJuWs03W4bAs4+G/EWxEeFO9Lf3jxZieVqBrf0neZQDxcJjmEbZW71zLmp0K1tp1oY=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=linux.beauty;
-	spf=pass  smtp.mailfrom=me@linux.beauty;
-	dmarc=pass header.from=<me@linux.beauty>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1781006891;
-	s=zmail; d=linux.beauty; i=me@linux.beauty;
-	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=GXAoC5zKyTc3h2xhSbceB5qyRcnqM5DC0tBvQYicLqI=;
-	b=rxWxu2TXAejLijEy/DzfNMO6h+Ax7DGheaTK4ht+myrGOAozX8N/ez6DPZM2epLN
-	e0jnTbHGYVwXpikoTuqhlj61I+pTPNmxNq1Nac5eEiDhTHDHVF9x5NOS7o/xJ94oxzg
-	MpiaCtj3OElTnm3HgfzA72o6SaDlQtWX8sg9Qviw=
-Received: by mx.zohomail.com with SMTPS id 1781006887616405.8886096625614;
-	Tue, 9 Jun 2026 05:08:07 -0700 (PDT)
-From: Li Chen <me@linux.beauty>
-To: Pankaj Gupta <pankaj.gupta.linux@gmail.com>,
-	Dan Williams <dan.j.williams@intel.com>,
-	Vishal Verma <vishal.l.verma@intel.com>,
-	Dave Jiang <dave.jiang@intel.com>,
-	Ira Weiny <ira.weiny@intel.com>,
-	Alison Schofield <alison.schofield@intel.com>,
-	virtualization@lists.linux.dev,
-	nvdimm@lists.linux.dev
-Cc: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Li Chen <me@linux.beauty>
-Subject: [PATCH v4 5/7] nvdimm: virtio_pmem: refcount requests for token lifetime
-Date: Tue,  9 Jun 2026 20:07:19 +0800
-Message-ID: <20260609120726.1714780-6-me@linux.beauty>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20260609120726.1714780-1-me@linux.beauty>
-References: <20260609120726.1714780-1-me@linux.beauty>
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="JL1FGsMX"
+Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2c0c20f0c0aso41174385ad.0
+        for <stable@vger.kernel.org>; Tue, 09 Jun 2026 05:13:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1781007227; x=1781612027; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=md0oLfExsjhQ5s9zgCStyVmZOOcuKHtb2pCgbVaO+NY=;
+        b=JL1FGsMXbbC75moFt8w37Q32pVINddMCRpvyJsCB8g1TT6E5te3yOa+fXdYm8AigYj
+         7mEyyd7qDiCUS3NXB+YgEWF6jcvLaAJUjn6+CEIH6C2gfKXzZ1ChQqu7/NBAju9VrjUK
+         rOCRNqjt9cOSHXwh8SDAsFlBwAG3TN+XRCjUE=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781007227; x=1781612027;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=md0oLfExsjhQ5s9zgCStyVmZOOcuKHtb2pCgbVaO+NY=;
+        b=HQr2uwH61nAv/pBm7mbEydF7+STItKZmLWgc5Zgn08RYWynkk64mlZKm4n4o1/uzbz
+         I/HTALJoXEvpBVO8fhek1sA3xlGMSgx8NRr7IeBuxenvyYIwaKaQzFVHT1MtJYmTwyS/
+         eGW7rA1L1v9wAJDyL5KpHptdQQZqL5aRZMlSmXaW0jn1Nl2QxSQWlvjDrMdMIbev6cHC
+         as6wWgj8NfbODgj7YrXWHwAJrOiKbd2vFcE88UjcvRTIcll3WXL76SlClJcp4L70vBWj
+         AAOOfD4WNSIdHhQyPsG/HTRExvQTmgRB23OPrpaJe3/c5d9XOxzrqRMfkD6nMkea3gmv
+         KvUw==
+X-Forwarded-Encrypted: i=1; AFNElJ8s6mb+Yb1Is0qxKxa/4Gt0SgAeUHMniVEZz33lgJi4jd6JtFsu2uLEFlthHYxKOib7YnPOiv8=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyoF+wMYtn/UPsHctO6ZccRT8L4BTw2qll2yez9ikvwk+ZbTEEy
+	cTmZ/V8KUQPfIpPCZdh9oQJhGf/1WEmptKv4A7NNEnCn+m7mOUGE4v5flT+/gPNZ4Q==
+X-Gm-Gg: Acq92OE/fY6sJhnOSrAvL9oJ62ILH0vGHTuUvgerQKnCyEhVLRNUC3jJvvDcCVTiM+f
+	RruIndkft6j1cTH+ogJWzAhBW7nOhyeCPgjG8HYfH0L15WTLIY4QoHr5q/SE2z8ab8QvajdcOOE
+	4YPh9Zqj3uA3QdD38kcRlbKKxJ74TGBTcF/oO5WwWDVT8gnDV5ZburkDRMMpGDdeT8PyBwe+aAC
+	ujCfnHHHoeeONKbAtOXP2WD7jbsv9nmwe9jGzRmNRsu02HBGrjBXSo+5346hcVKBQ0lroZf79H7
+	5mxqN07ZNBnK/N5uwoCetFJzvMKf7mr0FgvJCCwpj3uXsqcLs93at3QdfLC3kY0+0OUM1puI5zm
+	NBZpe5FT6X/2vFTAL6mRvNphCr5p5vPJ8LhMvzF1qblcFnoqyb30PrfSukrm5XmpOLT/OMk9RRL
+	0LuVkFTC/OKz3Qm98vGVqt9i6yDtcQ967ynFwFr5nqROWcee2NAswZqi8ct/b8n308GY4v87aoz
+	9iReV9xnrK1oEO/ogcpMRid
+X-Received: by 2002:a17:903:fad:b0:2b2:ebed:7af5 with SMTP id d9443c01a7336-2c1e7b13addmr221626095ad.13.1781007227564;
+        Tue, 09 Jun 2026 05:13:47 -0700 (PDT)
+Received: from tigerii.tok.corp.google.com ([2a00:79e0:2031:6:62ce:f303:81a5:1cce])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c164f6d37esm279998175ad.9.2026.06.09.05.13.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 09 Jun 2026 05:13:45 -0700 (PDT)
+From: Sergey Senozhatsky <senozhatsky@chromium.org>
+To: Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+	Mark-yw Chen <mark-yw.chen@mediatek.com>,
+	Sean Wang <sean.wang@mediatek.com>
+Cc: Tomasz Figa <tfiga@chromium.org>,
+	linux-bluetooth@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	Sergey Senozhatsky <senozhatsky@chromium.org>,
+	stable@vger.kernel.org
+Subject: [PATCH] Bluetooth: btmtksdio: fix infinite loop in btmtksdio_txrx_work()
+Date: Tue,  9 Jun 2026 21:10:06 +0900
+Message-ID: <20260609121329.1262170-1-senozhatsky@chromium.org>
+X-Mailer: git-send-email 2.54.0.1064.gd145956f57-goog
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -61,169 +77,53 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
 
-KASAN reports slab-use-after-free in __wake_up_common():
-BUG: KASAN: slab-use-after-free in __wake_up_common+0x114/0x160
-Read of size 8 at addr ffff88810fdcb710 by task swapper/0/0
+Every once in a while we see a hung btmtksdio_flush() task:
 
-CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Not tainted
-6.19.0-next-20260220-00006-g1eae5f204ec3 #4 PREEMPT(full)
-Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS Arch Linux
-1.17.0-2-2 04/01/2014
-Call Trace:
- <IRQ>
- dump_stack_lvl+0x6d/0xb0
- print_report+0x170/0x4e2
- ? __pfx__raw_spin_lock_irqsave+0x10/0x10
- ? __virt_addr_valid+0x1dc/0x380
- kasan_report+0xbc/0xf0
- ? __wake_up_common+0x114/0x160
- ? __wake_up_common+0x114/0x160
- __wake_up_common+0x114/0x160
- ? __pfx__raw_spin_lock_irqsave+0x10/0x10
- __wake_up+0x36/0x60
- virtio_pmem_host_ack+0x11d/0x3b0
- ? sched_balance_domains+0x29f/0xb00
- ? __pfx_virtio_pmem_host_ack+0x10/0x10
- ? _raw_spin_lock_irqsave+0x98/0x100
- ? __pfx__raw_spin_lock_irqsave+0x10/0x10
- vring_interrupt+0x1c9/0x5e0
- ? __pfx_vp_interrupt+0x10/0x10
- vp_vring_interrupt+0x87/0x100
- ? __pfx_vp_interrupt+0x10/0x10
- __handle_irq_event_percpu+0x17f/0x550
- ? __pfx__raw_spin_lock+0x10/0x10
- handle_irq_event+0xab/0x1c0
- handle_fasteoi_irq+0x276/0xae0
- __common_interrupt+0x65/0x130
- common_interrupt+0x78/0xa0
- </IRQ>
+ INFO: task kworker/u17:0:189 blocked for more than 122 seconds.
+ __cancel_work_timer+0x3f4/0x460
+ cancel_work_sync+0x1c/0x2c
+ btmtksdio_flush+0x2c/0x40
+ hci_dev_open_sync+0x10c4/0x2190
+ [..]
 
-virtio_pmem_host_ack() wakes a request that has already been freed by the
-submitter.
+It all boils down to incorrect time_is_before_jiffies() usage in
+btmtksdio_txrx_work().  The btmtksdio_txrx_work() loop is expected
+to be terminated if running for longer than 5*HZ.  However the
+timeout check is twisted:  time_is_before_jiffies(old_jiffies + 5*HZ)
+evaluates to true when old_jiffies + 5*HZ is in the past i.e. when a
+timeout has occurred.  Using OR with time_is_before_jiffies(txrx_timeout)
+means that:
+- before the 5-second timeout: the condition is `int_status || false`,
+  so it loops as long as there are pending interrupts.
+- after the 5-second timeout: the condition becomes `int_status || true`,
+  which is always true.
 
-This happens when the request token is still reachable via the virtqueue,
-but virtio_pmem_flush() returns and frees it.
+When the loop becomes infinite btmtksdio_txrx_work() loop never
+terminates and never releases the SDIO host.
 
-Fix the token lifetime by refcounting struct virtio_pmem_request.
-virtio_pmem_flush() holds a submitter reference, and the virtqueue holds an
-extra reference once the request is queued. The completion path drops the
-virtqueue reference, and the submitter drops its reference before
-returning.
+Fix loop termination condition to actually enforce a 5*HZ timeout.
 
-Fixes: 6e84200c0a29 ("virtio-pmem: Add virtio pmem driver")
+Fixes: 26270bc189ea4 ("Bluetooth: btmtksdio: move interrupt service to work")
 Cc: stable@vger.kernel.org
-Signed-off-by: Li Chen <me@linux.beauty>
+Signed-off-by: Sergey Senozhatsky <senozhatsky@chromium.org>
 ---
-v2->v3:
-- Add raw KASAN report to the patch description.
-- Drop timestamps from the embedded report.
-v3->v4:
-- Rebased onto v7.1-rc7 and renumbered after the flush error patches.
+ drivers/bluetooth/btmtksdio.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
- drivers/nvdimm/nd_virtio.c   | 34 +++++++++++++++++++++++++++++-----
- drivers/nvdimm/virtio_pmem.h |  2 ++
- 2 files changed, 31 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/nvdimm/nd_virtio.c b/drivers/nvdimm/nd_virtio.c
-index f8c0604edde51..f5264f6afe44f 100644
---- a/drivers/nvdimm/nd_virtio.c
-+++ b/drivers/nvdimm/nd_virtio.c
-@@ -9,6 +9,14 @@
- #include "virtio_pmem.h"
- #include "nd.h"
+diff --git a/drivers/bluetooth/btmtksdio.c b/drivers/bluetooth/btmtksdio.c
+index 5b0fab7b89b5..c6f80c419e90 100644
+--- a/drivers/bluetooth/btmtksdio.c
++++ b/drivers/bluetooth/btmtksdio.c
+@@ -620,7 +620,7 @@ static void btmtksdio_txrx_work(struct work_struct *work)
+ 			if (btmtksdio_rx_packet(bdev, rx_size) < 0)
+ 				bdev->hdev->stat.err_rx++;
+ 		}
+-	} while (int_status || time_is_before_jiffies(txrx_timeout));
++	} while (int_status && time_is_after_jiffies(txrx_timeout));
  
-+static void virtio_pmem_req_release(struct kref *kref)
-+{
-+	struct virtio_pmem_request *req;
-+
-+	req = container_of(kref, struct virtio_pmem_request, kref);
-+	kfree(req);
-+}
-+
- static void virtio_pmem_wake_one_waiter(struct virtio_pmem *vpmem)
- {
- 	struct virtio_pmem_request *req_buf;
-@@ -36,6 +44,7 @@ void virtio_pmem_host_ack(struct virtqueue *vq)
- 		virtio_pmem_wake_one_waiter(vpmem);
- 		WRITE_ONCE(req_data->done, true);
- 		wake_up(&req_data->host_acked);
-+		kref_put(&req_data->kref, virtio_pmem_req_release);
- 	}
- 	spin_unlock_irqrestore(&vpmem->pmem_lock, flags);
- }
-@@ -66,6 +75,7 @@ static int virtio_pmem_flush(struct nd_region *nd_region)
- 	if (!req_data)
- 		return -ENOMEM;
- 
-+	kref_init(&req_data->kref);
- 	WRITE_ONCE(req_data->done, false);
- 	init_waitqueue_head(&req_data->host_acked);
- 	init_waitqueue_head(&req_data->wq_buf);
-@@ -83,10 +93,23 @@ static int virtio_pmem_flush(struct nd_region *nd_region)
- 	  * to req_list and wait for host_ack to wake us up when free
- 	  * slots are available.
- 	  */
--	while ((err = virtqueue_add_sgs(vpmem->req_vq, sgs, 1, 1, req_data,
--					GFP_ATOMIC)) == -ENOSPC) {
--
--		dev_info(&vdev->dev, "failed to send command to virtio pmem device, no free slots in the virtqueue\n");
-+	for (;;) {
-+		err = virtqueue_add_sgs(vpmem->req_vq, sgs, 1, 1, req_data,
-+					GFP_ATOMIC);
-+		if (!err) {
-+			/*
-+			 * Take the virtqueue reference while @pmem_lock is
-+			 * held so completion cannot run concurrently.
-+			 */
-+			kref_get(&req_data->kref);
-+			break;
-+		}
-+
-+		if (err != -ENOSPC)
-+			break;
-+
-+		dev_info_ratelimited(&vdev->dev,
-+				     "failed to send command to virtio pmem device, no free slots in the virtqueue\n");
- 		WRITE_ONCE(req_data->wq_buf_avail, false);
- 		list_add_tail(&req_data->list, &vpmem->req_list);
- 		spin_unlock_irqrestore(&vpmem->pmem_lock, flags);
-@@ -95,6 +118,7 @@ static int virtio_pmem_flush(struct nd_region *nd_region)
- 		wait_event(req_data->wq_buf, READ_ONCE(req_data->wq_buf_avail));
- 		spin_lock_irqsave(&vpmem->pmem_lock, flags);
- 	}
-+
- 	err1 = virtqueue_kick(vpmem->req_vq);
- 	spin_unlock_irqrestore(&vpmem->pmem_lock, flags);
- 	/*
-@@ -110,7 +134,7 @@ static int virtio_pmem_flush(struct nd_region *nd_region)
- 		err = le32_to_cpu(req_data->resp.ret);
- 	}
- 
--	kfree(req_data);
-+	kref_put(&req_data->kref, virtio_pmem_req_release);
- 	return err;
- };
- 
-diff --git a/drivers/nvdimm/virtio_pmem.h b/drivers/nvdimm/virtio_pmem.h
-index f72cf17f9518f..1017e498c9b4c 100644
---- a/drivers/nvdimm/virtio_pmem.h
-+++ b/drivers/nvdimm/virtio_pmem.h
-@@ -12,11 +12,13 @@
- 
- #include <linux/module.h>
- #include <uapi/linux/virtio_pmem.h>
-+#include <linux/kref.h>
- #include <linux/libnvdimm.h>
- #include <linux/mutex.h>
- #include <linux/spinlock.h>
- 
- struct virtio_pmem_request {
-+	struct kref kref;
- 	struct virtio_pmem_req req;
- 	struct virtio_pmem_resp resp;
- 
+ 	/* Enable interrupt */
+ 	if (bdev->func->irq_handler)
 -- 
-2.52.0
+2.54.0.1064.gd145956f57-goog
 
