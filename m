@@ -1,168 +1,279 @@
-Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com [209.85.160.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DF5F47D94A
-	for <stable@vger.kernel.org>; Tue,  9 Jun 2026 18:24:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C94974B8DF7
+	for <stable@vger.kernel.org>; Tue,  9 Jun 2026 18:30:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781029500; cv=none; b=cW4U0+mTk88nM8xy8G6zfPYZK8UhzaSPvSD5m40SuwOhWnA5PRkKnnOqr6rZ7vzx+AX+hEJaaaPFacYHpWpmslLpXdKkC8283TS2kStkkwR+hsb2wJkl+q/TpVV7abRXKVH9hEX30jrMYw+Xl4W96SqXjaqh+n9u20nYj+d20i0=
+	t=1781029812; cv=none; b=tAM7386LbMI+SfnwDC1MFHVC5PtMy42Tv2xZTayFW9ylTwyz2VLh0VGPsJgcb2vn8a0DMdIq63+seA+4oMj8jsoAkzMb5FKo7Eu5PYlMKFYWMxZtJLXs/NoWOV4lMNWr5ns28Ff5UhBUGfKqalRaglnghVd0xx23QWxQimaU1+c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781029500; c=relaxed/simple;
-	bh=h0qC/g9qPH8A8JOa7KFM7TefdBMjpjmgavOU87MHIc0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=n9oRuF2XaMnxFJdJHyqCvPCesmEmWxNukpcNBWPV/wgAu8qZpPJTx1lWWInw3zEHU96LWeLiBTTnEUa3itPyOrIspY/eUAniPhTyG3V1fPSttXuP+dalA2Z03i5dbfpWWWgFUaBfhkYkJ/gsBaPns8q9HK2+mx33xqKA13nXsMA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ILjsDpWY; arc=none smtp.client-ip=209.85.160.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781029812; c=relaxed/simple;
+	bh=wpxxnp/zXUigYy1nCepscrIK7aqtta6+wl5W1mS/Mjc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=STAAvLfv9FfOF/mcq4TETpkuvfGuHBp8Q/5fTK0v7oY4UVkoS4bqp3RZXmx/tz+zih9MuxBS7IKFwfXYFkyWW9j3asSYkCWZbU3tWh4Ws2WZPYvnaqgMO/0X5fKuPYawa+vCS0Sr1GLdSRviNhh2VYGWvOOWT4l70wDTBw7Et4k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=dDs4shVI; arc=none smtp.client-ip=198.175.65.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ILjsDpWY"
-Received: by mail-qt1-f172.google.com with SMTP id d75a77b69052e-5176d4c14f5so47886811cf.0
-        for <stable@vger.kernel.org>; Tue, 09 Jun 2026 11:24:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781029498; x=1781634298; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=nZ4xsWjsbWnXm3RQEz3hdKHfG6kaTnLOtHhVB+yWDzM=;
-        b=ILjsDpWYls4dMSkkCiN4rY85z5vESHBIPD7cx8z5PEY3IXlz3xNWjVet76nnEV2YRJ
-         5VaqI+DajkNSHUIqCV/yl8kGCnv71+jLLckO4R/3nRnnBG7IE5BMppzJuGRxJJIZOWm1
-         iwlwYo5ZLTt/fs36jNV5pRIWAbpD8ldHSKn3wt3dbbHuwHzRHemJ2nBcXdWXYQgFjV9v
-         yuDAf8Vy9DTaCNaWlqMS6iQkJJWkj+CzSbgokwm0pRwWNSD9JDIC+dm+Xtl6H22d/Rr0
-         BijNjRBpmaFw6MY7e1/ZLRAFbgAN90Zg7w0Q1EmOnnw4gjykFfpXOyY8DPJ/uC0pYSlM
-         wGqg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781029498; x=1781634298;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=nZ4xsWjsbWnXm3RQEz3hdKHfG6kaTnLOtHhVB+yWDzM=;
-        b=FJvpj9qLZlUrARD+MCorPrmF1UdquQW13/rIlbNjydnLwSHZqjCjmTreH4tjOdHRCg
-         nMLl/jHLFY0k+87wgQw0EfHmavns9pkYsxTWruaMzqARggSA9FUYBP4B6soKaLVSgr7Y
-         FoX0pkj1seAjOjNB7BWWbRXXgjzVZwC3i/3Clmf5Ju4wK0nN60nYkxX/YY390uoaaPGm
-         12LrUkOq0hmLlmGvSS6w8e6HeGmXmMcs9e+rZg2q3JV1IUs2AuGkro0NRIWjsxGdfNrs
-         /PML+l40yHHj02YktluFNW5LjmCEsJXqBPQ7NylrWf/5ghsdx/w3Lfhqk0iin0qkbDcM
-         XMng==
-X-Forwarded-Encrypted: i=1; AFNElJ9s6TnFGDFhm9U4df36h3PbfJNuWk9x5IrOU8MtPZAFQIdEUEcQcpd10UVbPTzFX0Tz2sa3v4s=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxBRt483reDIGofHbs96YdnN1iDghfDbeNqZXuOKOrSNx3xh4/a
-	X5lPW4i9LD8Wpiuty2FsZVkmSqeZGaMxHlg2+UtB+jv4nUfAgGXhhxO0
-X-Gm-Gg: Acq92OGM2GF9Gdk4llQhh9aZoZLD2bs7OSC050LUGxM9AHTDZr4NaDncLRsWI8nVokV
-	JIWuO5hO/rUrSI30ck9cyDdp5/2pC5wNB5R4NZjnE3LquqOYQS8xVO3uy1v953+MMgJpxr0fnYe
-	Kcui1w5I4n8gfzMzJipqvHXwULWgV4BRYqKtGmBiC/5rX8QhVGh45oNEuOYiRCQNME9JXZv1Fhl
-	uEQtp4RLd44ZYQq+Ngc0JQ5Op8nt6TD1uA+jSPUuH/OMBhYGHqnHdwq+10ZsUswz3z/j4kjetmE
-	fNvN5EfGXlnd6h9bhK8GECqIS4kNEuhd9oAJAx6JbvWaq2GICHEp4mBqgStawgwBUbNRdJaFod/
-	dsVwsYmGuG/G2QvzlqcOOEqfMs1+nsnI+Y6y51y1YAay3sOdGb2XCqTJ6jj67K4/tVUNv/PlaN8
-	zvuRcCKvn3rJWXQ/jqs2PipRMqYpaj0AnWEQfi4tBDK8cpv+Q+HSsrbz+aMIEG67S7Nv2ge/l3P
-	5pRGBx7+i4t+OszldOGN1BuP0+SRLQ=
-X-Received: by 2002:a05:622a:4818:b0:516:e01f:523a with SMTP id d75a77b69052e-51795bf3cf3mr319055121cf.43.1781029498000;
-        Tue, 09 Jun 2026 11:24:58 -0700 (PDT)
-Received: from server0 (c-68-48-65-54.hsd1.mi.comcast.net. [68.48.65.54])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9158a3e0d55sm2174297385a.43.2026.06.09.11.24.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 09 Jun 2026 11:24:57 -0700 (PDT)
-From: Michael Bommarito <michael.bommarito@gmail.com>
-To: Hannes Reinecke <hare@suse.de>,
-	Christoph Hellwig <hch@lst.de>,
-	Sagi Grimberg <sagi@grimberg.me>,
-	Chaitanya Kulkarni <kch@nvidia.com>
-Cc: Jens Axboe <axboe@kernel.dk>,
-	linux-nvme@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v2] nvmet-auth: reject short AUTH_RECEIVE buffers
-Date: Tue,  9 Jun 2026 14:24:31 -0400
-Message-ID: <20260609182431.2437882-1-michael.bommarito@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="dDs4shVI"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1781029809; x=1812565809;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=wpxxnp/zXUigYy1nCepscrIK7aqtta6+wl5W1mS/Mjc=;
+  b=dDs4shVIyHg8uak+LUQVMyUFE3AJAuX9culMk0F815HaIABc2T9Emefh
+   UH0Gm8H0yQnXWo3eVwNM8qe5ssd/W5502jsUtXawSRSCT/+Bv4PD1vhBi
+   WzSyf/z3fZ4SZB+WzVCaJy10Pptrw1bLR3NqJJl3CmX0kCVgqcohlTuh0
+   l5RrBGObPGM9HLbeLHoyzmEva/NlA7nTzr6PyRzUCdcvDeA6FvQomqOpj
+   oeeINqsGJRLNVCSA3/4HlUUxM/wo4t4mdWR8cxLubT4K3d2sLB42UxCWe
+   751Luj+ipHnGjfCzHXp6rOHRjjAX0btPDUS7Ft4+z7wLt+zHe72K4tS84
+   A==;
+X-CSE-ConnectionGUID: DJtYIIJGRYim1op2dU3A3g==
+X-CSE-MsgGUID: 4EEDMrBETsq5mDt2x3RP5w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11812"; a="81810649"
+X-IronPort-AV: E=Sophos;i="6.24,196,1774335600"; 
+   d="scan'208";a="81810649"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Jun 2026 11:30:08 -0700
+X-CSE-ConnectionGUID: vZU/ijcoRI27FwvESDTZWg==
+X-CSE-MsgGUID: mBTAlVJ9QGWZLALbZGP2zw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,196,1774335600"; 
+   d="scan'208";a="245795075"
+Received: from dut6094bmgfrd.fm.intel.com ([10.80.55.40])
+  by orviesa008.jf.intel.com with ESMTP; 09 Jun 2026 11:30:07 -0700
+From: Jia Yao <jia.yao@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: Jia Yao <jia.yao@intel.com>,
+	stable@vger.kernel.org,
+	Shuicheng Lin <shuicheng.lin@intel.com>,
+	Matt Roper <matthew.d.roper@intel.com>,
+	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	Maciej Plewka <maciej.plewka@intel.com>,
+	Andi Shyti <andi.shyti@linux.intel.com>
+Subject: [PATCH v4] drm/i915/dg2: Add per-context control for Wa_22013059131
+Date: Tue,  9 Jun 2026 18:30:02 +0000
+Message-ID: <20260609183002.1051500-1-jia.yao@intel.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-nvmet_execute_auth_receive() trusts the AUTH_RECEIVE allocation length
-after checking only that it is nonzero and matches the transfer length.
-In the SUCCESS1 and FAILURE1/default states, that lets a remote NVMe-oF
-initiator reach the fixed-size DH-HMAC-CHAP response builders with a
-kmalloc() buffer shorter than the response, so nvmet_auth_success1() and
-nvmet_auth_failure1() write past the allocation; both only WARN_ON the
-short length and then format the message anyway.
+Wa_22013059131 sets FORCE_1_SUB_MESSAGE_PER_FRAGMENT in LSC_CHICKEN_BIT_0
+at engine init, but this is known to cause GPU hangs in certain workloads.
+Add I915_CONTEXT_PARAM_WA_22013059131 so userspace that handles the
+workaround itself (e.g. by limiting SLM size) can set it to 1 to let the
+kernel know bit 15 programming is not needed for that context.
 
-Impact: A remote NVMe-oF initiator with access to an auth-enabled target
-can trigger a 16-byte heap out-of-bounds write via a one-byte
-AUTH_RECEIVE allocation length.
+LSC_CHICKEN_BIT_0 is not context-saved by hardware, so the kernel restores
+the correct value on every context switch via the indirect context
+batchbuffer to avoid leaking state between contexts. The old unconditional
+application of Wa22013059131 in intel_workarounds.c is removed.
 
-Compute the minimum response length for the current DH-HMAC-CHAP step in
-nvmet_auth_receive_data_len() and report a zero data length when the
-host-supplied allocation length is shorter, so the existing zero-length
-check in nvmet_execute_auth_receive() rejects the command before any
-builder runs. The SUCCESS1 minimum is sizeof(struct
-nvmf_auth_dhchap_success1_data) plus the HMAC hash length, because the
-response hash is written into the rval[] flexible-array tail, so the
-minimum is state dependent rather than a flat sizeof. CHALLENGE keeps its
-existing variable-length guard in nvmet_auth_challenge().
+v4:
+- Add a link of the userspace using this API
 
-This is reachable only when in-band DH-HMAC-CHAP authentication is
-configured on the target.
+v3:
+- Kernel-internal context will not change workaround settings
 
-Fixes: db1312dd9548 ("nvmet: implement basic In-Band Authentication")
+Bspec: 54833
+Fixes: 645cc0b9d972 ("drm/i915/dg2: Add initial gt/ctx/engine workarounds")
+Link: https://github.com/intel/compute-runtime/pull/919
 Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5-5-xhigh
-Assisted-by: Claude:claude-opus-4-8
-Signed-off-by: Michael Bommarito <michael.bommarito@gmail.com>
+Cc: Shuicheng Lin <shuicheng.lin@intel.com>
+Cc: Matt Roper <matthew.d.roper@intel.com>
+Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: Maciej Plewka <maciej.plewka@intel.com>
+Cc: Andi Shyti <andi.shyti@linux.intel.com>
+Signed-off-by: Jia Yao <jia.yao@intel.com>
+Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
 ---
-v2:
-  - Move the length check into nvmet_auth_receive_data_len() and reject
-    via the existing zero-length guard in nvmet_execute_auth_receive(),
-    per Hannes Reinecke's review. No separate helper, and
-    nvmet_execute_auth_receive() itself is unchanged.
+ drivers/gpu/drm/i915/gem/i915_gem_context.c   | 12 +++++
+ .../gpu/drm/i915/gem/i915_gem_context_types.h |  1 +
+ drivers/gpu/drm/i915/gt/intel_context_types.h |  1 +
+ drivers/gpu/drm/i915/gt/intel_lrc.c           | 44 ++++++++++++++++++-
+ drivers/gpu/drm/i915/gt/intel_workarounds.c   | 10 ++---
+ include/uapi/drm/i915_drm.h                   | 10 +++++
+ 6 files changed, 72 insertions(+), 6 deletions(-)
 
-With CONFIG_FORTIFY_SOURCE and KASAN enabled, a short al (for example
-al=1) on the SUCCESS1 path aborts in the sizeof(*data)=16 header memset
-in nvmet_auth_success1() with "memset: detected buffer overflow: 16 byte
-write of buffer size 1". After this change the same input is rejected
-before allocation and the abort no longer occurs. Validated with a
-KUnit/KASAN harness under UML: the stock kernel crashed and the patched
-kernel passed; the in-tree nvme-auth KUnit suite still passes.
----
- drivers/nvme/target/fabrics-cmd-auth.c | 26 +++++++++++++++++++++++++-
- 1 file changed, 25 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/nvme/target/fabrics-cmd-auth.c b/drivers/nvme/target/fabrics-cmd-auth.c
-index f1e613e7c63e5..d4271fc43a95c 100644
---- a/drivers/nvme/target/fabrics-cmd-auth.c
-+++ b/drivers/nvme/target/fabrics-cmd-auth.c
-@@ -484,7 +484,31 @@ static void nvmet_auth_failure1(struct nvmet_req *req, void *d, int al)
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+index 6ac0f23570f3..d24e449f1eb3 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+@@ -911,6 +911,15 @@ static int set_proto_ctx_param(struct drm_i915_file_private *fpriv,
+ 			ret = -EINVAL;
+ 		break;
  
- u32 nvmet_auth_receive_data_len(struct nvmet_req *req)
- {
--	return le32_to_cpu(req->cmd->auth_receive.al);
-+	struct nvmet_ctrl *ctrl = req->sq->ctrl;
-+	u32 al = le32_to_cpu(req->cmd->auth_receive.al);
-+	u32 min_len;
-+
-+	/*
-+	 * Reject too-short al before kmalloc(al), since the SUCCESS1 and
-+	 * FAILURE1/default builders write fixed response headers into it.
-+	 */
-+	switch (req->sq->dhchap_step) {
-+	case NVME_AUTH_DHCHAP_MESSAGE_CHALLENGE:
-+		return al;
-+	case NVME_AUTH_DHCHAP_MESSAGE_SUCCESS1:
-+		min_len = sizeof(struct nvmf_auth_dhchap_success1_data);
-+		if (req->sq->dhchap_c2)
-+			min_len += nvme_auth_hmac_hash_len(ctrl->shash_id);
++	case I915_CONTEXT_PARAM_WA_22013059131:
++		if (args->size)
++			ret = -EINVAL;
++		else if (args->value)
++			pc->user_flags |= BIT(UCONTEXT_WA_22013059131);
++		else
++			pc->user_flags &= ~BIT(UCONTEXT_WA_22013059131);
 +		break;
-+	default:
-+		min_len = sizeof(struct nvmf_auth_dhchap_failure_data);
-+		break;
-+	}
 +
-+	if (al < min_len)
-+		return 0;
+ 	case I915_CONTEXT_PARAM_RECOVERABLE:
+ 		if (args->size)
+ 			ret = -EINVAL;
+@@ -1003,6 +1012,9 @@ static int intel_context_set_gem(struct intel_context *ce,
+ 	if (test_bit(UCONTEXT_LOW_LATENCY, &ctx->user_flags))
+ 		__set_bit(CONTEXT_LOW_LATENCY, &ce->flags);
+ 
++	if (test_bit(UCONTEXT_WA_22013059131, &ctx->user_flags))
++		__set_bit(CONTEXT_WA_22013059131, &ce->flags);
 +
-+	return al;
+ 	return ret;
  }
  
- void nvmet_execute_auth_receive(struct nvmet_req *req)
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context_types.h b/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
+index 0267c924634b..4efc0e758d3b 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
++++ b/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
+@@ -338,6 +338,7 @@ struct i915_gem_context {
+ #define UCONTEXT_RECOVERABLE		3
+ #define UCONTEXT_PERSISTENCE		4
+ #define UCONTEXT_LOW_LATENCY		5
++#define UCONTEXT_WA_22013059131		6
+ 
+ 	/**
+ 	 * @flags: small set of booleans
+diff --git a/drivers/gpu/drm/i915/gt/intel_context_types.h b/drivers/gpu/drm/i915/gt/intel_context_types.h
+index 10070ee4d74c..84011ce7c84d 100644
+--- a/drivers/gpu/drm/i915/gt/intel_context_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_context_types.h
+@@ -133,6 +133,7 @@ struct intel_context {
+ #define CONTEXT_EXITING			13
+ #define CONTEXT_LOW_LATENCY		14
+ #define CONTEXT_OWN_STATE		15
++#define CONTEXT_WA_22013059131		16
+ 
+ 	struct {
+ 		u64 timeout_us;
+diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
+index 147d22907960..bab4f38515d4 100644
+--- a/drivers/gpu/drm/i915/gt/intel_lrc.c
++++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
+@@ -1348,6 +1348,37 @@ gen12_invalidate_state_cache(u32 *cs)
+ 	return cs;
+ }
+ 
++static u32 *
++dg2_g11_emit_wa_22013059131(const struct intel_context *ce, u32 *cs)
++{
++	/*
++	 * While re-writing LSC_CHICKEN_BIT_0 for Wa_22013059131, the
++	 * other bits of the register will also get overwritten.  The
++	 * hardware default for all other bits is 0, but any workarounds
++	 * that adjust the other bits in the lower dword of the register
++	 * also need to be re-applied here.  At the moment that's just
++	 * Wa_22014226127, which is always set for DG2-G11 platforms.
++	 */
++	u32 val = DISABLE_D8_D16_COASLESCE;
++
++	/*
++	 * Wa_22013059131: only set FORCE_1_SUB_MESSAGE_PER_FRAGMENT for
++	 * userspace contexts that have not opted out.  Kernel-internal
++	 * contexts (gem_context == NULL) never run shader workloads that
++	 * require this workaround, so skip them unconditionally.
++	 */
++	if (rcu_access_pointer(ce->gem_context) &&
++	    !test_bit(CONTEXT_WA_22013059131, &ce->flags)) {
++		val |= FORCE_1_SUB_MESSAGE_PER_FRAGMENT;
++	}
++
++	*cs++ = MI_LOAD_REGISTER_IMM(1);
++	*cs++ = i915_mmio_reg_offset(LSC_CHICKEN_BIT_0);
++	*cs++ = val;
++
++	return cs;
++}
++
+ static u32 *
+ gen12_emit_indirect_ctx_rcs(const struct intel_context *ce, u32 *cs)
+ {
+@@ -1371,6 +1402,11 @@ gen12_emit_indirect_ctx_rcs(const struct intel_context *ce, u32 *cs)
+ 	    IS_DG2(ce->engine->i915))
+ 		cs = dg2_emit_draw_watermark_setting(cs);
+ 
++	/* Wa_22013059131:dg2 */
++	if (IS_DG2_G11(ce->engine->i915))
++		cs = dg2_g11_emit_wa_22013059131(ce, cs);
++
++
+ 	return cs;
+ }
+ 
+@@ -1387,7 +1423,13 @@ gen12_emit_indirect_ctx_xcs(const struct intel_context *ce, u32 *cs)
+ 						    PIPE_CONTROL_INSTRUCTION_CACHE_INVALIDATE,
+ 						    0);
+ 
+-	return gen12_emit_aux_table_inv(ce->engine, cs);
++	cs = gen12_emit_aux_table_inv(ce->engine, cs);
++
++	/* Wa_22013059131:dg2 */
++	if (IS_DG2_G11(ce->engine->i915))
++		cs = dg2_g11_emit_wa_22013059131(ce, cs);
++
++	return cs;
+ }
+ 
+ static u32 *xehp_emit_fastcolor_blt_wabb(const struct intel_context *ce, u32 *cs)
+diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+index 24ea5d8d529c..ef6eea3ab597 100644
+--- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
++++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+@@ -2840,7 +2840,11 @@ general_render_compute_wa_init(struct intel_engine_cs *engine, struct i915_wa_li
+ 	if (IS_GFX_GT_IP_STEP(gt, IP_VER(12, 70), STEP_A0, STEP_B0) ||
+ 	    IS_GFX_GT_IP_STEP(gt, IP_VER(12, 71), STEP_A0, STEP_B0) ||
+ 	    IS_DG2(i915)) {
+-		/* Wa_22014226127 */
++		/*
++		 * Wa_22014226127: Note that this workaround also needs to be
++		 * re-applied in intel_lrc.c when LSC_CHICKEN_BIT_0 is
++		 * re-written for Wa_22013059131.
++		 */
+ 		wa_mcr_write_or(wal, LSC_CHICKEN_BIT_0, DISABLE_D8_D16_COASLESCE);
+ 	}
+ 
+@@ -2867,10 +2871,6 @@ general_render_compute_wa_init(struct intel_engine_cs *engine, struct i915_wa_li
+ 				     MAXREQS_PER_BANK,
+ 				     REG_FIELD_PREP(MAXREQS_PER_BANK, 2));
+ 
+-		/* Wa_22013059131:dg2 */
+-		wa_mcr_write_or(wal, LSC_CHICKEN_BIT_0,
+-				FORCE_1_SUB_MESSAGE_PER_FRAGMENT);
+-
+ 		/*
+ 		 * Wa_22012654132
+ 		 *
+diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
+index 535cb68fdb5c..0f553bb12fb0 100644
+--- a/include/uapi/drm/i915_drm.h
++++ b/include/uapi/drm/i915_drm.h
+@@ -2172,6 +2172,16 @@ struct drm_i915_gem_context_param {
+  * Note that this is a debug API not available on production kernel builds.
+  */
+ #define I915_CONTEXT_PARAM_CONTEXT_IMAGE	0xf
++
++/*
++ * I915_CONTEXT_PARAM_WA_22013059131:
++ *
++ * Default value 0 means the kernel programs Wa_22013059131 for this context.
++ * Set to 1 to inform the kernel that userspace is taking responsibility for
++ * applying the preferred workaround implementation, so the kernel programming
++ * of LSC_CHICKEN_BIT_0 bit 15 is not needed for this context. DG2-G11 only.
++ */
++#define I915_CONTEXT_PARAM_WA_22013059131	0x10
+ /* Must be kept compact -- no holes and well documented */
+ 
+ 	/** @value: Context parameter value to be set or queried */
 -- 
-2.53.0
+2.43.0
 
