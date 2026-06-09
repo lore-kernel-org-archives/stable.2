@@ -1,122 +1,67 @@
-Received: from mail-yw1-f179.google.com (mail-yw1-f179.google.com [209.85.128.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF52C33F5B0
-	for <stable@vger.kernel.org>; Tue,  9 Jun 2026 14:15:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 621FB33D509;
+	Tue,  9 Jun 2026 14:21:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781014560; cv=none; b=UytUfplBzJN786appPyZjch+h2DlSi+PpxPLBg7O36aeHtCWjxjWdqVz3vOdxnYVxCS5MGHYgYncLFW5ASC7bjtYtD8xfxI5XXhAuiMWQnubgqW2vgbIPR/Eqqm/2SPZ/d0NVAJR2PbpEdXdYsGvq3tTiiXGKteFEOaZSPmKEV4=
+	t=1781014883; cv=none; b=RF9hAaD4CZHiPlcoF4w0NmCHol+yG/qpKKSBfIOhZE8W9h9O1p1sF2Aolx1oYwSohGpRxW0Gp/feqXJ/PgXFnWZTc0qGcTwkjj2kdLYy47fzDgL1jegjbp6DXGw0KB833UhP2NIfWf1LhJlwlskmv7CI6VukLFYL4xPVJahj1kc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781014560; c=relaxed/simple;
-	bh=9CIJb88IKWbWT6IEhObvHO6UhRZhTYKH7PhKE6eSb3c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=msVF4WlO7CvugCtAnKv+xDeHdZ61JGVH1ZEVuj0OgrD5smQ5sZVgB4U/Ns+IMmdjvajVJS4fE522q17JT64Pa/aI+BZ6/gItF8pti4icGXd+EH95FR9B4p25zkn3ixLXeg6dBrM2EZz/xKy/P+uzw/dpYR25995l+0xuDJek3Yk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CDlsObfR; arc=none smtp.client-ip=209.85.128.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781014883; c=relaxed/simple;
+	bh=wlOodJMKwWlojPiGSUEaRK0mtYPwLBvKfjqYfKQwbM0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=J1IarG9QMs4X5ZJuH4VAgGqsE8dTntRirILopsMx3D4N5/qqgye3mSSAy4bEXIvPDPj/JQWT+Buk0BsXXpRaGNVgyBNLowLemiMKeZ/SwygVgBS3LofNoPiXOiIVyqkND8ylpFT7H5umutbbPE5HCqmJhFjnJpeefNgvlGcfhHg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Vgd6qLQ2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CDlsObfR"
-Received: by mail-yw1-f179.google.com with SMTP id 00721157ae682-7f015f87fddso27308377b3.0
-        for <stable@vger.kernel.org>; Tue, 09 Jun 2026 07:15:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781014557; x=1781619357; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=O1hcL5eJx6MWJvlu7fWXmuLzT2QrGx87Ta518j+s/Zc=;
-        b=CDlsObfRA6zeJVPR80IO2VEbnyTpPoQjQ7aA0T+iMmbWqJSzex/G/klZorHDEzj78n
-         cV2CSea2JYpgTxXYpwzPIQcvCXmM85NaIIrjygGtVKOEEgrNhSNZNAx6+lpZkBHsy865
-         Hslu1f9AiMIptd4if0cOgWqTF5uVRZXCbTJtKh7QiLugzQ89Nnop7mPRoDOYmB91O2dE
-         I7O4ru34uXJIXoMRh4EI2jLmmcXT+qcBTICoXVwkxbXCn7iYGEk0m7kwE2tHdogr/j+z
-         MTr7Zx4jvQHPr0/4y5qB6TxXhKMNULQhlfwn0dozxeQXsvS2U5PaQx8VnQ87TNZxJfUw
-         w85w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781014557; x=1781619357;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=O1hcL5eJx6MWJvlu7fWXmuLzT2QrGx87Ta518j+s/Zc=;
-        b=JgP6KccQiCj6u38NMrwS6F0QfDaBT136B064SkROihN67FQ4l72G5Vfz1We0UxV019
-         V7Ua5f3IyOqbLzDHpQL3xWML6QU0/g3zCec3cdgdiv78qocrjjCaJ5IClHXPo9xHWl0W
-         n7X/52Ze3M3hBtnYY9rG8dYTkP7jtKkgxBJi+dTPT5dYtke0qGqXLCMto/Xfm3D4tWFO
-         o9fnYPW71G8B0zM6wMqUzFFn8tf/Qu0oLN5GRZnUB4UjR0IdyHYXSRXVtutc7RYFjX/Q
-         AXstoMht5zqIqZqwPxPwZFCMbol59gjmJ+lV4BIH43oRW7U9a1ZIlT8SJ8I6JFvpl1Zo
-         8gEA==
-X-Forwarded-Encrypted: i=1; AFNElJ8GRraJO+hyBCy17Wl3sfSvr53D8AdPF3wqGha04ZICM8MtevynJ/CQDR4saa+IzrZMA2hr5QQ=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxZLS4g1NSszKNKlNKFCx8sioUA24FcqN7FEq6qhWORw5aZVLDF
-	AXG+R1qvOMaQuTPKiBoZCvIapvdJEsDOdWzRUmrHPKXTC6NXyntnCbKyXmnm8Q==
-X-Gm-Gg: Acq92OHLCtLAyhWwqA/HASFTGiB93CGaxpdQ+a/yPoGGsBVJD3TG6h/qS6fnkrubTPY
-	AXznkqfNvICDXihnO18fS1wJ/fKCHovV3MxyiyiNKWUpO2U/N0/cwvmVsqjUsKBGfEcdhpZTskj
-	FkvfozWQD8CNKVJ7ycALqxGCRdmG3sWu+kTs3SplgnW7ZfJTaJRmbdSBl1Zqo8dD3OtRObdxK3D
-	hdfdCIXWlnIIATBUPPstF84+Hl8umUPixvvoDlyZsbK/Yhmz9vFwYDMaFKodFQihurwJZVKm7fh
-	pccGR+YWxqDO7YiRAGpLGZ82sIbCd91s1aCYkdNXpVr1xc0fLttje+wk012cwgB8X7n1eRPAEqU
-	klM7DgxaIpY4UH5Fjx6Q+L5owXKIGTXQsjvreROACN8NwEDFIzeqdJ1eOqE43iTKCMyCfjX0SKp
-	5U7K8x2JqSe+zaYedF8HlA
-X-Received: by 2002:a05:690c:c641:b0:7ef:9fd9:db07 with SMTP id 00721157ae682-7ef9fd9ec08mr72816327b3.12.1781014556604;
-        Tue, 09 Jun 2026 07:15:56 -0700 (PDT)
-Received: from geday ([2804:7f2:800b:dd29::dead:c001])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-7ea2148cc98sm96519887b3.13.2026.06.09.07.15.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 09 Jun 2026 07:15:55 -0700 (PDT)
-Date: Tue, 9 Jun 2026 11:15:51 -0300
-From: Geraldo Nascimento <geraldogabriel@gmail.com>
-To: Denis Batishchev <ii343hbka@gmail.com>
-Cc: tiwai@suse.com, perex@perex.cz, linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2] ALSA: hda/realtek: Enable micmute LED on HP EliteBook
- 6 G1a
-Message-ID: <aiggF41W3LlKDts4@geday>
-References: <20260604131518.45993-1-ii343hbka@gmail.com>
- <20260609135607.3960625-1-ii343hbka@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Vgd6qLQ2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F6FF1F00898;
+	Tue,  9 Jun 2026 14:21:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781014882;
+	bh=/I/SdsNq46aL/damhiClubyVX87JXrkNh5YqDS3XJXw=;
+	h=From:To:Cc:Subject:Date;
+	b=Vgd6qLQ2U/g3hmzeKh6rrNLiIX9mT7W+eOTz3YeN0q8c3rwLC0jp+y8pWWQAM98YC
+	 +QZoW9QCtt17jZ2t8t8b/y66NhbQJUCGav/vkfdLpBnr9Bi/ByPyiDdIvyaXdqDpun
+	 t9iJyq1k/gJL0SaPmJDU8cPTQfZyIjtiDGFexzecEBZdwTe8gt6oYI9JNX9z16TbZd
+	 GX/kIxN9e4IN96SvipZ+ctWSjKHopOVp1+dMfhVBLQx4VrON/e1EjM4+A5zQb8YiRk
+	 iiyvWAsIpBrAnr5Q+S9dRmn0wYi4EMEC5TK5pXKvduK8uInegjm0FzhQ6tqSGdtJhg
+	 73oMtye6V7UWA==
+From: SeongJae Park <sj@kernel.org>
+To: 
+Cc: SeongJae Park <sj@kernel.org>,
+	"# 6 . 16 . x" <stable@vger.kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	damon@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: [RFC PATCH v2 0/2] samples/damon/mtier: handle damon_{start,stop}() failures
+Date: Tue,  9 Jun 2026 07:21:15 -0700
+Message-ID: <20260609142119.68120-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260609135607.3960625-1-ii343hbka@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-Hi Denis,
+DAMON sample module mtier is not correctly handling failures from
+damon_start() and damon_stop().  As a result, it can leak memory,
+disrupt next DAMON operations, and dereference freed and random memory.
+Fix those.
 
-On Tue, Jun 09, 2026 at 03:56:07PM +0200, Denis Batishchev wrote:
-> The HP EliteBook 6 G1a (SSID 103c:8e0d) uses a Realtek ALC236 codec.
-> Without a quirk no fixup is selected and the mic-mute LED stays off.
-> It needs the same ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF quirk as the
-> already-supported 14" variant (SSID 103c:8dfb), so add it.
+Changes from RFC v1
+- RFC v1: https://lore.kernel.org/20260609005443.2122-1-sj@kernel.org
+- Add damon_stop() failure handling fix to the series.
 
-What is your exact variant of this hardware? Also please refrain from
-sending V2 in response to V1: it makes patches harder to track.
+SeongJae Park (2):
+  samples/damon/mtier: handle damon_start() failure
+  samples/damon/mtier: handle damon_stop() failure
 
-> 
-> Signed-off-by: Denis Batishchev <ii343hbka@gmail.com>
-> Cc: <stable@vger.kernel.org>
-> ---
-> v2: reword commit message as was required by Takashi Iwai
-> 
->  sound/hda/codecs/realtek/alc269.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
-> index 78a865709635..8eebf91595d3 100644
-> --- a/sound/hda/codecs/realtek/alc269.c
-> +++ b/sound/hda/codecs/realtek/alc269.c
-> @@ -7274,6 +7274,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
->  	SND_PCI_QUIRK(0x103c, 0x8df1, "HP EliteBook 630 G12", ALC236_FIXUP_HP_GPIO_LED),
->  	SND_PCI_QUIRK(0x103c, 0x8df7, "HP Z66 G6", ALC236_FIXUP_HP_GPIO_LED),
->  	SND_PCI_QUIRK(0x103c, 0x8dfb, "HP EliteBook 6 G1a 14", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF),
-> +	SND_PCI_QUIRK(0x103c, 0x8e0d, "HP EliteBook 6 G1a 14", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF),
+ samples/damon/mtier.c | 14 ++++++++++++--
+ 1 file changed, 12 insertions(+), 2 deletions(-)
 
-The description string of the quirk seems copy-pasted. Are you sure
-you have the 14" variant?
 
-Thanks,
-Geraldo Nascimento
-
->  	SND_PCI_QUIRK(0x103c, 0x8dfc, "HP EliteBook 645 G12", ALC236_FIXUP_HP_GPIO_LED),
->  	SND_PCI_QUIRK(0x103c, 0x8dfd, "HP EliteBook 6 G1a 16", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF),
->  	SND_PCI_QUIRK(0x103c, 0x8dfe, "HP EliteBook 665 G12", ALC236_FIXUP_HP_GPIO_LED),
-> -- 
-> 2.53.0
-> 
-> 
+base-commit: f822d98f51b6e2b3ab41cad2e8bc1013d06f93bb
+-- 
+2.47.3
