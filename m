@@ -1,103 +1,75 @@
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5312441C311
-	for <stable@vger.kernel.org>; Tue,  9 Jun 2026 13:12:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6743E423A7B;
+	Tue,  9 Jun 2026 13:45:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781010756; cv=none; b=nA2Mdim1aCVWvh4ExIWSthKTxfWlcYyXwMdSgXIqS3L77rElPvRqALb9O8D8UAuWPhMu4k07Dt3Cw/cNcD46Cs7jxm5fzqu36bLouArTcKrYP45Z89zz0ykQxl1t30gfgRLffc2Yafqkz/I9c7dmFo/uveXeUvYwugnbkuMCtWk=
+	t=1781012746; cv=none; b=ZWHr328Tmd7fA6qQ5rtwyGpNfSOoUX2NAY9JQM71ybusk++Kq6QARqRDiRWiZGsYh733g8BCBv7rb2NlbliRsNnU5DNj06xlosTxRjZjYoyRmnHxcEglK6NcS22gQd0SraVeS38Dr4bWmEDW0kaALWqccWCW37XjDN+oTI+qWhE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781010756; c=relaxed/simple;
-	bh=cRmrex5oPCwg42dkdhJaD73cEwhY7jfqwVZ+TJf7vSo=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=k/O9RYGBP5NFxqakZ87aAuzNcnFrel25gcO81K+TE2i6ZfS5g9UzEztHHoxjg+BNzdjAqff5H91l+8BNCIju5OZT4zkfujJGag+KFh29MEudmmqW36FvCBDiB38/bNvv/tZNLBhzf7OoCINZhrMO8MRV6ShkWIcg32IYRJds9aU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=AKNuI2v0; arc=none smtp.client-ip=209.85.128.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1781012746; c=relaxed/simple;
+	bh=hPU8IDMY/1bigood4PJh0IZ3C11zD9lylepa8mUtOe0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=O6/7R2GF0EmJZEMdzG8lVRwGOx+HG9JGPeUWqApCV1qJpuXq6H13cfaALC7Qy2RqKHQI4xwnRNyMJmIc1G87MlXtMiulmMUtnvBbT1psmNZEWl/Pig++3ikJLp9AfDgPG3oCi69o8k5W56UaORRC6axZtx77SusujrYYNMLIuts=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=oYrRuOCH; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="AKNuI2v0"
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-490c28f84fdso9551895e9.0
-        for <stable@vger.kernel.org>; Tue, 09 Jun 2026 06:12:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1781010754; x=1781615554; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:subject:cc:to:from:date:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=jOb0YWdrCyqRf70PqWxcCcSyY2RJrYltX6EkSx4+w3M=;
-        b=AKNuI2v055wKL5+W3JqPxgf1MwVtlePBhAtv9nDHGhbadv1s8XuAFW3BJKSygjmAb2
-         pf4ydMyAZUPxhbZeGg8GYp3UEsxOcH7X2gs91g8w2svLEAsdKACYZ9s0hMHKws1DrOz4
-         fZx0SSuS0M+2eoF2QZGzPoLB9WlWm0SQ/UTMT8A8Mcd59lHCG9YNDlH7Z5rLu9oBspxc
-         lb7HdfNM5G6ndsNJxwjYpslx+phD2ZITINX3Eb+XncIwjFY7Uufef6jc8Ujr1UVr9OrR
-         Z+0uYyP+fCIPoPBpHL4UN3BYGce7IPtlhCKXEwLc3L3cV0pnj1wEPGR12mBHJpbZmKO7
-         1ZqQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781010754; x=1781615554;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=jOb0YWdrCyqRf70PqWxcCcSyY2RJrYltX6EkSx4+w3M=;
-        b=N75UrbGOXDv1NqiguJzwwUrD31bLj8O+CvInOuYtRRU9xZNOncVlVjkEwYSnCXIaLj
-         AV+MkxQxXzKCFYMcNw+GBgEIm1pNhugmOwSVZvOyx4VPFXLlWTsombFlqx7cZm0xLPFM
-         6RDp89IRW412Jb0R+B0fElijcac83mhs0gJCHktz2M5TomC/r0+jQxhEwzLp9ejwcfo7
-         xlHh9duheC7WmXn6Lneja5izXIeA8nyC52pdpro04NA6WXJhnlNq343usP6ib3x8P2Z6
-         8H9CxlJpJBVrPdYgVOSYdIUN+83lxtaKjZ9hXc5klosF2Hk3OoPJ5w2zUmODKMs1++1F
-         eztw==
-X-Forwarded-Encrypted: i=1; AFNElJ8PBoVOWFCjvXdx6mbqZWcc8wW2CHiEyYH5N0WGvMfQPeB70giZyfAge4BxFsfh8xxy4zkDGic=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwMrJMydoQJXuTVGS368goLLCDDmDwjDwRKO6WRGhi81VY3ANDg
-	j6BURpU0WGZkr2a0xKo1HI4+ZpOOAEJnTmtAyFYtSeqGfKa2OHHlMF9vbj7EVNpswyB5XkqowFR
-	NPc8lbeE=
-X-Gm-Gg: Acq92OE2cT3/kSfVYhF1aWUn06r2yNqx0D2+IwT5CuyN9tgCSZHJv2bUaihloKvoMnR
-	XqMs5PbZqPcIPTn4M9eRLxEtrWPA9eRHa57fcqPZV9TiltGpFSLqaOvQPY+FFcz2EHZQDQGfooP
-	YCd5phlNK54YzlryxXFNF2J8QGqx6S3/DD0/+4YvtP5DpulU3zNFl4JWeOFdebEm0OVYmwbu2KZ
-	a0Sxt/TbdxxKl/9q5RiLLQzSoXFkgpJLGPQpUbGxJII5udPNOh9FyP1ZD9V0v/fNxa30j3M5vx4
-	CUdx7J1jcAt/+OqNy9uKoO2xdCXO5QsMR7AeOqgJua/fs08V2906nPNa/SfsXzPQcCdDy0YSLqQ
-	XcoMIhqJSdemkjA2HixSatl6L0M7p4aDn4AwT8uWjy+geR5Ok5MPA/s9VCdBQ8ZRz1j85rp2rZX
-	R6O2sw8kMxhg5rw8TK5lm55e4=
-X-Received: by 2002:a05:600c:8b65:b0:490:b4d4:5c16 with SMTP id 5b1f17b1804b1-490d72759f0mr16962775e9.8.1781010753634;
-        Tue, 09 Jun 2026 06:12:33 -0700 (PDT)
-Received: from mordecai ([62.77.90.70])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4601f351d69sm111677469f8f.29.2026.06.09.06.12.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 09 Jun 2026 06:12:26 -0700 (PDT)
-Date: Tue, 9 Jun 2026 15:12:22 +0200
-From: Petr Tesarik <ptesarik@suse.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="oYrRuOCH"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0D20B2680;
+	Tue,  9 Jun 2026 06:45:40 -0700 (PDT)
+Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 474453F905;
+	Tue,  9 Jun 2026 06:45:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1781012744; bh=hPU8IDMY/1bigood4PJh0IZ3C11zD9lylepa8mUtOe0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=oYrRuOCHy40/LOMBgqLu/oSgePxQ/mEJvhjlcrmFG7n5JH5hYFOLq53vSRXwMoF4K
+	 WsW1KucEpt3XAT202ZIToMDDzs85/wgGVIarAdGuD75zD75OG/1q8Da0LYudlb70WF
+	 JMHFfuqPz/yyRGv++Hfm4quhY9yzz7uhfEXlBEaY=
+Date: Tue, 9 Jun 2026 14:45:37 +0100
+From: Catalin Marinas <catalin.marinas@arm.com>
 To: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
 Cc: iommu@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-coco@lists.linux.dev, Robin Murphy
- <robin.murphy@arm.com>, Marek Szyprowski <m.szyprowski@samsung.com>, Will
- Deacon <will@kernel.org>, Marc Zyngier <maz@kernel.org>, Steven Price
- <steven.price@arm.com>, Suzuki K Poulose <Suzuki.Poulose@arm.com>, Catalin
- Marinas <catalin.marinas@arm.com>, Jiri Pirko <jiri@resnulli.us>, Jason
- Gunthorpe <jgg@ziepe.ca>, Mostafa Saleh <smostafa@google.com>, Alexey
- Kardashevskiy <aik@amd.com>, Dan Williams <dan.j.williams@intel.com>, Xu
- Yilun <yilun.xu@linux.intel.com>, linuxppc-dev@lists.ozlabs.org,
- linux-s390@vger.kernel.org, Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, Alexander Gordeev
- <agordeev@linux.ibm.com>, Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>, Sven Schnelle
- <svens@linux.ibm.com>, x86@kernel.org, stable@vger.kernel.org, Michael
- Kelley <mhklinux@outlook.com>
+	linux-kernel@vger.kernel.org, linux-coco@lists.linux.dev,
+	Robin Murphy <robin.murphy@arm.com>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Will Deacon <will@kernel.org>, Marc Zyngier <maz@kernel.org>,
+	Steven Price <steven.price@arm.com>,
+	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
+	Jiri Pirko <jiri@resnulli.us>, Jason Gunthorpe <jgg@ziepe.ca>,
+	Mostafa Saleh <smostafa@google.com>,
+	Petr Tesarik <ptesarik@suse.com>,
+	Alexey Kardashevskiy <aik@amd.com>,
+	Dan Williams <dan.j.williams@intel.com>,
+	Xu Yilun <yilun.xu@linux.intel.com>, linuxppc-dev@lists.ozlabs.org,
+	linux-s390@vger.kernel.org,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Sven Schnelle <svens@linux.ibm.com>, x86@kernel.org,
+	stable@vger.kernel.org, Michael Kelley <mhklinux@outlook.com>
 Subject: Re: [PATCH v6 14/20] dma-direct: return struct page from
  dma_direct_alloc_from_pool()
-Message-ID: <20260609151222.476a5521@mordecai>
-In-Reply-To: <20260604083959.1265923-15-aneesh.kumar@kernel.org>
+Message-ID: <aigZAUwss-_axBJ3@arm.com>
 References: <20260604083959.1265923-1-aneesh.kumar@kernel.org>
-	<20260604083959.1265923-15-aneesh.kumar@kernel.org>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-suse-linux-gnu)
+ <20260604083959.1265923-15-aneesh.kumar@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260604083959.1265923-15-aneesh.kumar@kernel.org>
 
-On Thu,  4 Jun 2026 14:09:53 +0530
-"Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org> wrote:
-
+On Thu, Jun 04, 2026 at 02:09:53PM +0530, Aneesh Kumar K.V (Arm) wrote:
 > Commit 5b138c534fda ("dma-direct: factor out a dma_direct_alloc_from_pool
 > helper") changed dma_direct_alloc_from_pool() to return the CPU address
 > from dma_alloc_from_pool(). That fits dma_direct_alloc(), but
@@ -109,83 +81,12 @@ On Thu,  4 Jun 2026 14:09:53 +0530
 > 
 > Fixes: 5b138c534fda ("dma-direct: factor out a dma_direct_alloc_from_pool helper")
 > Cc: stable@vger.kernel.org
-
-While I totally agree with the reasoning and the fix, it's interesting
-that this bug has been apparently present in the kernel for 5+ years
-without anybody hitting nasty memory corruption bugs.
-
-How can it be? Is the buggy code path never actually used in practice?
-Does it hint at a missed opportunity to simplify the code?
-
-Anyway, these these thoughts are intended for a possible future
-cleanup. For now, let's apply the fix as is, of course.
-
-Petr T
-
+> 
 > Tested-by: Michael Kelley <mhklinux@outlook.com>
 > Tested-by: Mostafa Saleh <smostafa@google.com>
 > Signed-off-by: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
-> ---
->  kernel/dma/direct.c | 21 ++++++++++++---------
->  1 file changed, 12 insertions(+), 9 deletions(-)
-> 
-> diff --git a/kernel/dma/direct.c b/kernel/dma/direct.c
-> index 4e446aa4130e..e0ab9ff3f1d6 100644
-> --- a/kernel/dma/direct.c
-> +++ b/kernel/dma/direct.c
-> @@ -157,24 +157,24 @@ static bool dma_direct_use_pool(struct device *dev, gfp_t gfp)
->  	return !gfpflags_allow_blocking(gfp) && !is_swiotlb_for_alloc(dev);
->  }
->  
-> -static void *dma_direct_alloc_from_pool(struct device *dev, size_t size,
-> -		dma_addr_t *dma_handle, gfp_t gfp, unsigned long attrs)
-> +static struct page *dma_direct_alloc_from_pool(struct device *dev, size_t size,
-> +		dma_addr_t *dma_handle, void **cpu_addr, gfp_t gfp,
-> +		unsigned long attrs)
->  {
->  	struct page *page;
->  	u64 phys_limit;
-> -	void *ret;
->  
->  	if (WARN_ON_ONCE(!IS_ENABLED(CONFIG_DMA_COHERENT_POOL)))
->  		return NULL;
->  
->  	gfp |= dma_direct_optimal_gfp_mask(dev, &phys_limit);
-> -	page = dma_alloc_from_pool(dev, size, &ret, gfp, attrs,
-> +	page = dma_alloc_from_pool(dev, size, cpu_addr, gfp, attrs,
->  				   dma_coherent_ok);
->  	if (!page)
->  		return NULL;
->  	*dma_handle = phys_to_dma_direct(dev, page_to_phys(page),
->  					 !!(attrs & DMA_ATTR_CC_SHARED));
-> -	return ret;
-> +	return page;
->  }
->  
->  static void *dma_direct_alloc_no_mapping(struct device *dev, size_t size,
-> @@ -270,9 +270,12 @@ void *dma_direct_alloc(struct device *dev, size_t size,
->  	 * the atomic pools instead if we aren't allowed block.
->  	 */
->  	if ((remap || (attrs & DMA_ATTR_CC_SHARED)) &&
-> -	    dma_direct_use_pool(dev, gfp))
-> -		return dma_direct_alloc_from_pool(dev, size, dma_handle,
-> -						  gfp, attrs);
-> +	    dma_direct_use_pool(dev, gfp)) {
-> +		page = dma_direct_alloc_from_pool(dev, size,
-> +					dma_handle, &cpu_addr,
-> +					gfp, attrs);
-> +		return page ? cpu_addr : NULL;
-> +	}
->  
->  	if (is_swiotlb_for_alloc(dev)) {
->  		page = dma_direct_alloc_swiotlb(dev, size, attrs);
-> @@ -445,7 +448,7 @@ struct page *dma_direct_alloc_pages(struct device *dev, size_t size,
->  
->  	if ((attrs & DMA_ATTR_CC_SHARED) && dma_direct_use_pool(dev, gfp))
->  		return dma_direct_alloc_from_pool(dev, size, dma_handle,
-> -						  gfp, attrs);
-> +						  &cpu_addr, gfp, attrs);
->  
->  	if (is_swiotlb_for_alloc(dev)) {
->  		page = dma_direct_alloc_swiotlb(dev, size, attrs);
 
+Nit: remove the empty line after Cc: stable. It may confuse tooling.
+
+-- 
+Catalin
