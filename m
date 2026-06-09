@@ -1,61 +1,46 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C94974B8DF7
-	for <stable@vger.kernel.org>; Tue,  9 Jun 2026 18:30:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E9AA331EC9;
+	Tue,  9 Jun 2026 18:52:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781029812; cv=none; b=tAM7386LbMI+SfnwDC1MFHVC5PtMy42Tv2xZTayFW9ylTwyz2VLh0VGPsJgcb2vn8a0DMdIq63+seA+4oMj8jsoAkzMb5FKo7Eu5PYlMKFYWMxZtJLXs/NoWOV4lMNWr5ns28Ff5UhBUGfKqalRaglnghVd0xx23QWxQimaU1+c=
+	t=1781031127; cv=none; b=hO5uQdmTgkn728P6hv+pIY9aFt6eEkEqb7ie9ocKB8qlT4nP9gPk8+mxCOc/ZnhqhZbiWScnQvaUQ1lYGFA2Ozm3pFThR9tmSsoqdV5Op1HajMPaZn8xsgmLmJmXQDMvo3ZK6rsd922YGuhjIfStlvEUsEo9KHYKxvaeZc+RGdc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781029812; c=relaxed/simple;
-	bh=wpxxnp/zXUigYy1nCepscrIK7aqtta6+wl5W1mS/Mjc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=STAAvLfv9FfOF/mcq4TETpkuvfGuHBp8Q/5fTK0v7oY4UVkoS4bqp3RZXmx/tz+zih9MuxBS7IKFwfXYFkyWW9j3asSYkCWZbU3tWh4Ws2WZPYvnaqgMO/0X5fKuPYawa+vCS0Sr1GLdSRviNhh2VYGWvOOWT4l70wDTBw7Et4k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=dDs4shVI; arc=none smtp.client-ip=198.175.65.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1781031127; c=relaxed/simple;
+	bh=DGl1UctW4pQt4/v+oSCprn2lZVrdwEANR80MTD1xZqU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=I5+hgEhMEIuHUoMIf+lg5XgQUY9DASBz7+2gYQXweUZymqDJm8MA6EysVo8+M8WdW4/wWiGJ7q/sszaZSQQMFa9cunmi0BOuuNjl3ZzMQLeMw7rrf/hDatU3Wb5yIDoWEytX4NQycM6m8MFjesLcTnQGd2xdHehU4qIDHldDnEk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Nk3CEkbw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="dDs4shVI"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1781029809; x=1812565809;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=wpxxnp/zXUigYy1nCepscrIK7aqtta6+wl5W1mS/Mjc=;
-  b=dDs4shVIyHg8uak+LUQVMyUFE3AJAuX9culMk0F815HaIABc2T9Emefh
-   UH0Gm8H0yQnXWo3eVwNM8qe5ssd/W5502jsUtXawSRSCT/+Bv4PD1vhBi
-   WzSyf/z3fZ4SZB+WzVCaJy10Pptrw1bLR3NqJJl3CmX0kCVgqcohlTuh0
-   l5RrBGObPGM9HLbeLHoyzmEva/NlA7nTzr6PyRzUCdcvDeA6FvQomqOpj
-   oeeINqsGJRLNVCSA3/4HlUUxM/wo4t4mdWR8cxLubT4K3d2sLB42UxCWe
-   751Luj+ipHnGjfCzHXp6rOHRjjAX0btPDUS7Ft4+z7wLt+zHe72K4tS84
-   A==;
-X-CSE-ConnectionGUID: DJtYIIJGRYim1op2dU3A3g==
-X-CSE-MsgGUID: 4EEDMrBETsq5mDt2x3RP5w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11812"; a="81810649"
-X-IronPort-AV: E=Sophos;i="6.24,196,1774335600"; 
-   d="scan'208";a="81810649"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Jun 2026 11:30:08 -0700
-X-CSE-ConnectionGUID: vZU/ijcoRI27FwvESDTZWg==
-X-CSE-MsgGUID: mBTAlVJ9QGWZLALbZGP2zw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,196,1774335600"; 
-   d="scan'208";a="245795075"
-Received: from dut6094bmgfrd.fm.intel.com ([10.80.55.40])
-  by orviesa008.jf.intel.com with ESMTP; 09 Jun 2026 11:30:07 -0700
-From: Jia Yao <jia.yao@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: Jia Yao <jia.yao@intel.com>,
-	stable@vger.kernel.org,
-	Shuicheng Lin <shuicheng.lin@intel.com>,
-	Matt Roper <matthew.d.roper@intel.com>,
-	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	Maciej Plewka <maciej.plewka@intel.com>,
-	Andi Shyti <andi.shyti@linux.intel.com>
-Subject: [PATCH v4] drm/i915/dg2: Add per-context control for Wa_22013059131
-Date: Tue,  9 Jun 2026 18:30:02 +0000
-Message-ID: <20260609183002.1051500-1-jia.yao@intel.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Nk3CEkbw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A7DA1F0089A;
+	Tue,  9 Jun 2026 18:52:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781031126;
+	bh=KEjO1bJMLzqhiMLtTNOIakJ3jp0Sg8etgxFbQaJmm8o=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Nk3CEkbw01IylTwhPyr9QtMZjWXaM8tpnRDiIgT/OoN2pHbl9sk1mydiW5MqYM9Cr
+	 lZtgA1/6E+YiTZPK6ix7lzW0KQE+hyq7zo8QI6zIA/ZTo6b8uHjPtAItOftzS4QUS3
+	 D2AsOF8c3Uqgtx9v3Co41CEGAzBjwMN1wRDnP8rHMvcnv6r3PAdReEnMGXSncvafCr
+	 zF1i36fH9WMcGewN/E387b5rHHAGqgX3szQUcS8rV2UyX7AV1N+AwcNwqT4BFaUzqP
+	 k/sl9ewPqe0gX+rUWfYCtCX6Dmm2muA1G4TdlmbNSrrz6IgfyQJnQXxSJESOizrnN/
+	 /atsXe9nd6nMQ==
+From: Oliver Upton <oupton@kernel.org>
+To: kvmarm@lists.linux.dev
+Cc: Marc Zyngier <maz@kernel.org>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Wei-Lin Chang <weilin.chang@arm.com>,
+	Oliver Upton <oupton@kernel.org>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/2] KVM: arm64: nv: Respect read-only PFN when mapping L1 VNCR
+Date: Tue,  9 Jun 2026 11:51:57 -0700
+Message-ID: <20260609185204.745929-2-oupton@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260609185204.745929-1-oupton@kernel.org>
+References: <20260609185204.745929-1-oupton@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -64,216 +49,129 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Wa_22013059131 sets FORCE_1_SUB_MESSAGE_PER_FRAGMENT in LSC_CHICKEN_BIT_0
-at engine init, but this is known to cause GPU hangs in certain workloads.
-Add I915_CONTEXT_PARAM_WA_22013059131 so userspace that handles the
-workaround itself (e.g. by limiting SLM size) can set it to 1 to let the
-kernel know bit 15 programming is not needed for that context.
+KVM currently maps the L1 VNCR into the host stage-1 by relying entirely
+on the permissions of the guest stage-1. At the same time, it is
+entirely possible that the backing PFN is read-only (e.g. RO memslot),
+meaning that the L1 VNCR should use at most a read-only mapping.
 
-LSC_CHICKEN_BIT_0 is not context-saved by hardware, so the kernel restores
-the correct value on every context switch via the indirect context
-batchbuffer to avoid leaking state between contexts. The old unconditional
-application of Wa22013059131 in intel_workarounds.c is removed.
+Cache the writability of the PFN in the VNCR TLB and use it to constrain
+the resulting fixmap permissions. Promote VNCR permission faults to an
+SEA in the case where the guest attempts to write to a read-only
+endpoint. Conveniently, this also plugs a page leak found by Sashiko [*]
+resulting from the early return for a read-only PFN.
 
-v4:
-- Add a link of the userspace using this API
-
-v3:
-- Kernel-internal context will not change workaround settings
-
-Bspec: 54833
-Fixes: 645cc0b9d972 ("drm/i915/dg2: Add initial gt/ctx/engine workarounds")
-Link: https://github.com/intel/compute-runtime/pull/919
 Cc: stable@vger.kernel.org
-Cc: Shuicheng Lin <shuicheng.lin@intel.com>
-Cc: Matt Roper <matthew.d.roper@intel.com>
-Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: Maciej Plewka <maciej.plewka@intel.com>
-Cc: Andi Shyti <andi.shyti@linux.intel.com>
-Signed-off-by: Jia Yao <jia.yao@intel.com>
-Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
+Fixes: 2a359e072596 ("KVM: arm64: nv: Handle mapping of VNCR_EL2 at EL2")
+Link: https://lore.kernel.org/kvm/20260608082603.16AEC1F00893@smtp.kernel.org/
+Signed-off-by: Oliver Upton <oupton@kernel.org>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_context.c   | 12 +++++
- .../gpu/drm/i915/gem/i915_gem_context_types.h |  1 +
- drivers/gpu/drm/i915/gt/intel_context_types.h |  1 +
- drivers/gpu/drm/i915/gt/intel_lrc.c           | 44 ++++++++++++++++++-
- drivers/gpu/drm/i915/gt/intel_workarounds.c   | 10 ++---
- include/uapi/drm/i915_drm.h                   | 10 +++++
- 6 files changed, 72 insertions(+), 6 deletions(-)
+ arch/arm64/kvm/nested.c | 34 +++++++++++++++++++++++++---------
+ 1 file changed, 25 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-index 6ac0f23570f3..d24e449f1eb3 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-@@ -911,6 +911,15 @@ static int set_proto_ctx_param(struct drm_i915_file_private *fpriv,
- 			ret = -EINVAL;
- 		break;
+diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
+index 257813289c76..cdbdf47fa6a2 100644
+--- a/arch/arm64/kvm/nested.c
++++ b/arch/arm64/kvm/nested.c
+@@ -24,6 +24,7 @@ struct vncr_tlb {
+ 	struct s1_walk_result	wr;
  
-+	case I915_CONTEXT_PARAM_WA_22013059131:
-+		if (args->size)
-+			ret = -EINVAL;
-+		else if (args->value)
-+			pc->user_flags |= BIT(UCONTEXT_WA_22013059131);
-+		else
-+			pc->user_flags &= ~BIT(UCONTEXT_WA_22013059131);
-+		break;
-+
- 	case I915_CONTEXT_PARAM_RECOVERABLE:
- 		if (args->size)
- 			ret = -EINVAL;
-@@ -1003,6 +1012,9 @@ static int intel_context_set_gem(struct intel_context *ce,
- 	if (test_bit(UCONTEXT_LOW_LATENCY, &ctx->user_flags))
- 		__set_bit(CONTEXT_LOW_LATENCY, &ce->flags);
+ 	u64			hpa;
++	bool			hpa_writable;
  
-+	if (test_bit(UCONTEXT_WA_22013059131, &ctx->user_flags))
-+		__set_bit(CONTEXT_WA_22013059131, &ce->flags);
+ 	/* -1 when not mapped on a CPU */
+ 	int			cpu;
+@@ -1395,7 +1396,7 @@ static int kvm_translate_vncr(struct kvm_vcpu *vcpu, bool *is_gmem)
+ 	if (!*is_gmem) {
+ 		pfn = __kvm_faultin_pfn(memslot, gfn, write_fault ? FOLL_WRITE : 0,
+ 					&writable, &page);
+-		if (is_error_noslot_pfn(pfn) || (write_fault && !writable))
++		if (is_error_noslot_pfn(pfn))
+ 			return -EFAULT;
+ 	} else {
+ 		ret = kvm_gmem_get_pfn(vcpu->kvm, memslot, gfn, &pfn, &page, NULL);
+@@ -1404,6 +1405,8 @@ static int kvm_translate_vncr(struct kvm_vcpu *vcpu, bool *is_gmem)
+ 					      write_fault, false, false);
+ 			return ret;
+ 		}
 +
- 	return ret;
- }
- 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context_types.h b/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
-index 0267c924634b..4efc0e758d3b 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
-@@ -338,6 +338,7 @@ struct i915_gem_context {
- #define UCONTEXT_RECOVERABLE		3
- #define UCONTEXT_PERSISTENCE		4
- #define UCONTEXT_LOW_LATENCY		5
-+#define UCONTEXT_WA_22013059131		6
- 
- 	/**
- 	 * @flags: small set of booleans
-diff --git a/drivers/gpu/drm/i915/gt/intel_context_types.h b/drivers/gpu/drm/i915/gt/intel_context_types.h
-index 10070ee4d74c..84011ce7c84d 100644
---- a/drivers/gpu/drm/i915/gt/intel_context_types.h
-+++ b/drivers/gpu/drm/i915/gt/intel_context_types.h
-@@ -133,6 +133,7 @@ struct intel_context {
- #define CONTEXT_EXITING			13
- #define CONTEXT_LOW_LATENCY		14
- #define CONTEXT_OWN_STATE		15
-+#define CONTEXT_WA_22013059131		16
- 
- 	struct {
- 		u64 timeout_us;
-diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
-index 147d22907960..bab4f38515d4 100644
---- a/drivers/gpu/drm/i915/gt/intel_lrc.c
-+++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
-@@ -1348,6 +1348,37 @@ gen12_invalidate_state_cache(u32 *cs)
- 	return cs;
- }
- 
-+static u32 *
-+dg2_g11_emit_wa_22013059131(const struct intel_context *ce, u32 *cs)
-+{
-+	/*
-+	 * While re-writing LSC_CHICKEN_BIT_0 for Wa_22013059131, the
-+	 * other bits of the register will also get overwritten.  The
-+	 * hardware default for all other bits is 0, but any workarounds
-+	 * that adjust the other bits in the lower dword of the register
-+	 * also need to be re-applied here.  At the moment that's just
-+	 * Wa_22014226127, which is always set for DG2-G11 platforms.
-+	 */
-+	u32 val = DISABLE_D8_D16_COASLESCE;
-+
-+	/*
-+	 * Wa_22013059131: only set FORCE_1_SUB_MESSAGE_PER_FRAGMENT for
-+	 * userspace contexts that have not opted out.  Kernel-internal
-+	 * contexts (gem_context == NULL) never run shader workloads that
-+	 * require this workaround, so skip them unconditionally.
-+	 */
-+	if (rcu_access_pointer(ce->gem_context) &&
-+	    !test_bit(CONTEXT_WA_22013059131, &ce->flags)) {
-+		val |= FORCE_1_SUB_MESSAGE_PER_FRAGMENT;
-+	}
-+
-+	*cs++ = MI_LOAD_REGISTER_IMM(1);
-+	*cs++ = i915_mmio_reg_offset(LSC_CHICKEN_BIT_0);
-+	*cs++ = val;
-+
-+	return cs;
-+}
-+
- static u32 *
- gen12_emit_indirect_ctx_rcs(const struct intel_context *ce, u32 *cs)
- {
-@@ -1371,6 +1402,11 @@ gen12_emit_indirect_ctx_rcs(const struct intel_context *ce, u32 *cs)
- 	    IS_DG2(ce->engine->i915))
- 		cs = dg2_emit_draw_watermark_setting(cs);
- 
-+	/* Wa_22013059131:dg2 */
-+	if (IS_DG2_G11(ce->engine->i915))
-+		cs = dg2_g11_emit_wa_22013059131(ce, cs);
-+
-+
- 	return cs;
- }
- 
-@@ -1387,7 +1423,13 @@ gen12_emit_indirect_ctx_xcs(const struct intel_context *ce, u32 *cs)
- 						    PIPE_CONTROL_INSTRUCTION_CACHE_INVALIDATE,
- 						    0);
- 
--	return gen12_emit_aux_table_inv(ce->engine, cs);
-+	cs = gen12_emit_aux_table_inv(ce->engine, cs);
-+
-+	/* Wa_22013059131:dg2 */
-+	if (IS_DG2_G11(ce->engine->i915))
-+		cs = dg2_g11_emit_wa_22013059131(ce, cs);
-+
-+	return cs;
- }
- 
- static u32 *xehp_emit_fastcolor_blt_wabb(const struct intel_context *ce, u32 *cs)
-diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-index 24ea5d8d529c..ef6eea3ab597 100644
---- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
-+++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-@@ -2840,7 +2840,11 @@ general_render_compute_wa_init(struct intel_engine_cs *engine, struct i915_wa_li
- 	if (IS_GFX_GT_IP_STEP(gt, IP_VER(12, 70), STEP_A0, STEP_B0) ||
- 	    IS_GFX_GT_IP_STEP(gt, IP_VER(12, 71), STEP_A0, STEP_B0) ||
- 	    IS_DG2(i915)) {
--		/* Wa_22014226127 */
-+		/*
-+		 * Wa_22014226127: Note that this workaround also needs to be
-+		 * re-applied in intel_lrc.c when LSC_CHICKEN_BIT_0 is
-+		 * re-written for Wa_22013059131.
-+		 */
- 		wa_mcr_write_or(wal, LSC_CHICKEN_BIT_0, DISABLE_D8_D16_COASLESCE);
++		writable = !(memslot->flags & KVM_MEM_READONLY);
  	}
  
-@@ -2867,10 +2871,6 @@ general_render_compute_wa_init(struct intel_engine_cs *engine, struct i915_wa_li
- 				     MAXREQS_PER_BANK,
- 				     REG_FIELD_PREP(MAXREQS_PER_BANK, 2));
+ 	scoped_guard(write_lock, &vcpu->kvm->mmu_lock) {
+@@ -1414,6 +1417,7 @@ static int kvm_translate_vncr(struct kvm_vcpu *vcpu, bool *is_gmem)
  
--		/* Wa_22013059131:dg2 */
--		wa_mcr_write_or(wal, LSC_CHICKEN_BIT_0,
--				FORCE_1_SUB_MESSAGE_PER_FRAGMENT);
--
- 		/*
- 		 * Wa_22012654132
- 		 *
-diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
-index 535cb68fdb5c..0f553bb12fb0 100644
---- a/include/uapi/drm/i915_drm.h
-+++ b/include/uapi/drm/i915_drm.h
-@@ -2172,6 +2172,16 @@ struct drm_i915_gem_context_param {
-  * Note that this is a debug API not available on production kernel builds.
-  */
- #define I915_CONTEXT_PARAM_CONTEXT_IMAGE	0xf
+ 		vt->gva = va;
+ 		vt->hpa = pfn << PAGE_SHIFT;
++		vt->hpa_writable = writable;
+ 		vt->valid = true;
+ 		vt->cpu = -1;
+ 
+@@ -1421,21 +1425,33 @@ static int kvm_translate_vncr(struct kvm_vcpu *vcpu, bool *is_gmem)
+ 		kvm_release_faultin_page(vcpu->kvm, page, false, vt->wr.pw);
+ 	}
+ 
+-	if (vt->wr.pw)
++	if (vt->wr.pw && vt->hpa_writable)
+ 		mark_page_dirty(vcpu->kvm, gfn);
+ 
+ 	return 0;
+ }
+ 
+-static void inject_vncr_perm(struct kvm_vcpu *vcpu)
++static void handle_vncr_perm(struct kvm_vcpu *vcpu)
+ {
+ 	struct vncr_tlb *vt = vcpu->arch.vncr_tlb;
+ 	u64 esr = kvm_vcpu_get_esr(vcpu);
++	u64 fsc;
 +
-+/*
-+ * I915_CONTEXT_PARAM_WA_22013059131:
-+ *
-+ * Default value 0 means the kernel programs Wa_22013059131 for this context.
-+ * Set to 1 to inform the kernel that userspace is taking responsibility for
-+ * applying the preferred workaround implementation, so the kernel programming
-+ * of LSC_CHICKEN_BIT_0 bit 15 is not needed for this context. DG2-G11 only.
-+ */
-+#define I915_CONTEXT_PARAM_WA_22013059131	0x10
- /* Must be kept compact -- no holes and well documented */
++	/*
++	 * Promote to an external abort if the stage-1 permits writes but the
++	 * HPA is read-only (e.g. RO memslot).
++	 */
++	if (kvm_is_write_fault(vcpu) && vt->wr.pw && !vt->hpa_writable)
++		fsc = ESR_ELx_FSC_EXTABT;
++	/*
++	 * Otherwise, inject a permission fault using the guest's translation
++	 * level rather than the host's.
++	 */
++	else
++		fsc = ESR_ELx_FSC_PERM_L(vt->wr.level);
  
- 	/** @value: Context parameter value to be set or queried */
+-	/* Adjust the fault level to reflect that of the guest's */
+ 	esr &= ~ESR_ELx_FSC;
+-	esr |= FIELD_PREP(ESR_ELx_FSC,
+-			  ESR_ELx_FSC_PERM_L(vt->wr.level));
++	esr |= FIELD_PREP(ESR_ELx_FSC, fsc);
+ 
+ 	kvm_inject_nested_sync(vcpu, esr);
+ }
+@@ -1469,7 +1485,7 @@ int kvm_handle_vncr_abort(struct kvm_vcpu *vcpu)
+ 		return kvm_handle_guest_sea(vcpu);
+ 
+ 	if (esr_fsc_is_permission_fault(esr)) {
+-		inject_vncr_perm(vcpu);
++		handle_vncr_perm(vcpu);
+ 	} else if (esr_fsc_is_translation_fault(esr)) {
+ 		bool valid, is_gmem = false;
+ 		int ret;
+@@ -1517,7 +1533,7 @@ int kvm_handle_vncr_abort(struct kvm_vcpu *vcpu)
+ 			break;
+ 		case -EPERM:
+ 			/* Hack to deal with POE until we get kernel support */
+-			inject_vncr_perm(vcpu);
++			handle_vncr_perm(vcpu);
+ 			break;
+ 		case 0:
+ 			break;
+@@ -1561,7 +1577,7 @@ static void kvm_map_l1_vncr(struct kvm_vcpu *vcpu)
+ 
+ 	vt->cpu = smp_processor_id();
+ 
+-	if (vt->wr.pw && vt->wr.pr)
++	if (vt->hpa_writable && vt->wr.pw && vt->wr.pr)
+ 		prot = PAGE_KERNEL;
+ 	else if (vt->wr.pr)
+ 		prot = PAGE_KERNEL_RO;
 -- 
-2.43.0
+2.47.3
 
