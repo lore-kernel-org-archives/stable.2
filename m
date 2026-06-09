@@ -1,211 +1,121 @@
-Received: from smtp-42aa.mail.infomaniak.ch (smtp-42aa.mail.infomaniak.ch [84.16.66.170])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCD9E3E51F8;
-	Tue,  9 Jun 2026 10:22:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.16.66.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F40FF2C15BB
+	for <stable@vger.kernel.org>; Tue,  9 Jun 2026 10:32:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781000582; cv=none; b=Om1n5LjOJtNCJ/2aZ/9py4pUxy11In5T2IGxIkgGpS0TmaGBrLxD6ULyz6gUmC424ZC0Kz0m9EZwNGZCtCO5cgeG+bBUq3NsOjUNdjzD5Li8NV7cELAw1y5iToloo87krajyzs/93FgQEU1mm8B97n5YZRtpwEDt3OtYCbV1Xuo=
+	t=1781001123; cv=none; b=TxYvC4KdjzLKxA5UhdH8FGftJ+HuqbqlnE69Obk9xjcPFZqbvZUFF+iviM6mKgVbwwcidHe6xDTqx0BzEuuIzVlPZONWHcGrshttvGIW/tlR9TN4cahas46BiSSNgETh/uzGQ79pqdoWp0jquaEfjSXnIAUHnNLHjX94QZ+va34=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781000582; c=relaxed/simple;
-	bh=Ajh6vSMFe9OosdTju7MhzYoCTfhEnggFFu5Iyu+JvaA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=iY2ARndaJI3hEr1zCU26ioAnv/LfOwrkgkyegPqKkMwBOv/GGvF23OuFDkP7SD0j1k0QqS0WhKe4VDKsvnqFHEzTBexq4LFuO/D/Wgrfl9JdM0TnoKcwbiJFSPQDXG5bIDz1jnjOsDMV/U/AJcnP2V/9fkPtJnLsAfrIfSJpW6s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.sh; spf=pass smtp.mailfrom=gibson.sh; dkim=pass (2048-bit key) header.d=gibson.sh header.i=@gibson.sh header.b=YVl+t1Lq; arc=none smtp.client-ip=84.16.66.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.sh
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gibson.sh
+	s=arc-20240116; t=1781001123; c=relaxed/simple;
+	bh=kvLTDnHk5jHdDccBC4DF1a8gIAhewOmhZMFYdCmFCjw=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=EAnC9MT9oM2leiWe3pHSEBj5XOln9suvhvdD/3YAF41kGowp9rv6lVAgmkEdqk3AMIcpCvlBbTt0KIdJLLQ9xshzovVXHW0Ymu2rzbI43eVVPAGaDgxwVjdFhOvSUUyV5VRd5XRc1/jnkda2/y1ebesVofsgG7ELVi8qX4zwkU8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kSk9sgj1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gibson.sh header.i=@gibson.sh header.b="YVl+t1Lq"
-Received: from smtp-3-0001.mail.infomaniak.ch (unknown [IPv6:2001:1600:4:17::246c])
-	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4gZQ2z46l9z6x0;
-	Tue,  9 Jun 2026 12:22:51 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gibson.sh;
-	s=20260228; t=1781000571;
-	bh=yeMqVriOtLVHk3LxXpmJn2YqXFvAY9KPxJFyY7Fl80g=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=YVl+t1Lq/q3EJ4veMsT0eCjtnW1rOPGK+IL7uL/e9IBtgV832OlQViPQv3sD0S7Ys
-	 mDdeWkmM6nWOotfqspiLCT09n5BQGRJl97EACf2D2d0XmPBBUqnLiWHxzsM0gW3ciy
-	 rBq0ZhST1N9NY03vBRUV3A4c2u4tVUXuVUi6mlEtyIDoPopnUVRhluZQSEdvM5u5V4
-	 ojZFe2Qwl1Ipnff6H119qM/ZKaWO2VjO3HzkoyVrJwclNwDPK1Ka/uJOZy5f/4rc5n
-	 2lnqKHK17IKAC/TbPmGM11GVPi9jQnxHczrBuM/gwW/2XAPTx1SvXgl6I6qluYMDVp
-	 WR7O/Oyibnfrg==
-Received: from unknown by smtp-3-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4gZQ2y0p7rzy2j;
-	Tue,  9 Jun 2026 12:22:49 +0200 (CEST)
-Message-ID: <f0ab78e8-7117-4ac1-bc31-ef9502a8ee42@gibson.sh>
-Date: Tue, 9 Jun 2026 12:22:49 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kSk9sgj1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8EDEA1F00893;
+	Tue,  9 Jun 2026 10:32:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781001122;
+	bh=3bi2l8ntRklXacewtAmub2WWWkpvoyqi+I4rfwge7cc=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=kSk9sgj19xO3h6AKOAC/wO56W34Io5hqzXo70eZ6frJN9BY9yZqE8zEESoBJ6zPPI
+	 2ScTgU5DnWxlN5n+jNBEbW7KVSfV1SeTfwcivvynqLv/cV3XFFjNITTftjoi+TP452
+	 lSVG62wtE17WfQsu0Eakio1gKYOYq0tOnA4Aly/2ogFMwVnVFKZbN1rPwKlpf+4YzW
+	 puF7sZVImZeMP42cx3X9yjtQ2tj5WdWB+Z8mjMLQo9Ytek5m8l424+GOHp/RmZFhUf
+	 rKP/cmYkJrT1k0PZhSRehJRWeDB0jvqHCcYibR8f2dg+eV0fObd8WSMXhCiMpvf322
+	 gl2z1GFZcNsrA==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1wWtkW-0000000Arpv-2Tpd;
+	Tue, 09 Jun 2026 10:32:00 +0000
+Date: Tue, 09 Jun 2026 11:32:00 +0100
+Message-ID: <86h5nct36n.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Hyunwoo Kim <imv4bel@gmail.com>
+Cc: gregkh@linuxfoundation.org,
+	stable@vger.kernel.org,
+	oupton@kernel.org
+Subject: Re: [PATCH 6.18.y] KVM: arm64: Take the SRCU lock for page table walks in fault injection and AT emulation
+In-Reply-To: <aifhWIyS3A0Bdmnv@v4bel>
+References: <aifhWIyS3A0Bdmnv@v4bel>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/3] platform/x86/amd/pmc: Delay suspend for some
- Lenovo Laptops
-To: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>,
- Hans de Goede <hansg@kernel.org>, platform-driver-x86@vger.kernel.org,
- LKML <linux-kernel@vger.kernel.org>, Mario Limonciello <superm1@kernel.org>,
- Sindre Henriksen <sindrehenriksen93@gmail.com>, stable@vger.kernel.org
-References: <20260606044758.2213401-1-daniel@gibson.sh>
- <20260606044758.2213401-2-daniel@gibson.sh>
- <5f0dcb89-0e76-d6eb-a6b0-201a0ed1cd22@linux.intel.com>
-Content-Language: de-DE, en-GB
-From: Daniel Gibson <daniel@gibson.sh>
-In-Reply-To: <5f0dcb89-0e76-d6eb-a6b0-201a0ed1cd22@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Infomaniak-Routing: alpha
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: imv4bel@gmail.com, gregkh@linuxfoundation.org, stable@vger.kernel.org, oupton@kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-On 09.06.26 12:07, Ilpo Järvinen wrote:
-> On Sat, 6 Jun 2026, Daniel Gibson wrote:
+On Tue, 09 Jun 2026 10:48:08 +0100,
+Hyunwoo Kim <imv4bel@gmail.com> wrote:
 > 
->> Some IdeaPad Slim 3 devices and similar with AMD CPUs have a
->> nonfunctional keyboard and lid switch after s2idle.
->>
->> It helps to delay suspend by 2.5 seconds so the EC has some time
->> to do whatever it needs to get done before suspend - unfortunately
->> at least on my 16ABR8 waking it with a timer (wakealarm) still
->> triggers the issue, but at least normal resume via keypress or
->> lid works fine. On the 14ARP10 wakealarm has been reported to also
->> work fine with this patch.
->>
->> This issue has been reported for many different devices, this patch
->> has been tested with the Zen3-based IdeaPad Slim 3 16ABR8 (82XR)
->> and the Zen3+-based IdeaPad Slim 3 14ARP10 (83K6) and IdeaPad Slim 3
->> 15ARP10 (83MM).
->>
->> Reported-by: Sindre Henriksen <sindrehenriksen93@gmail.com>
->> Closes: https://bugzilla.kernel.org/show_bug.cgi?id=221383
->> Tested-by: Sindre Henriksen <sindrehenriksen93@gmail.com>
->> Suggested-by: Mario Limonciello (AMD) <superm1@kernel.org>
->> Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
->> Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
->> Signed-off-by: Daniel Gibson <daniel@gibson.sh>
->> Cc: stable@vger.kernel.org
->> ---
->>  drivers/platform/x86/amd/pmc/pmc-quirks.c | 39 +++++++++++++++++++++++
->>  drivers/platform/x86/amd/pmc/pmc.c        | 24 +++++++++++++-
->>  drivers/platform/x86/amd/pmc/pmc.h        |  1 +
->>  3 files changed, 63 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/platform/x86/amd/pmc/pmc-quirks.c b/drivers/platform/x86/amd/pmc/pmc-quirks.c
->> index 24506e342943..74ddf1d8289a 100644
->> --- a/drivers/platform/x86/amd/pmc/pmc-quirks.c
->> +++ b/drivers/platform/x86/amd/pmc/pmc-quirks.c
->> @@ -18,6 +18,7 @@
->>  struct quirk_entry {
->>  	u32 s2idle_bug_mmio;
->>  	bool spurious_8042;
->> +	bool need_suspend_delay;
->>  };
->>  
->>  static struct quirk_entry quirk_s2idle_bug = {
->> @@ -33,6 +34,10 @@ static struct quirk_entry quirk_s2idle_spurious_8042 = {
->>  	.spurious_8042 = true,
->>  };
->>  
->> +static struct quirk_entry quirk_s2idle_need_suspend_delay = {
->> +	.need_suspend_delay = true,
->> +};
->> +
->>  static const struct dmi_system_id fwbug_list[] = {
->>  	{
->>  		.ident = "L14 Gen2 AMD",
->> @@ -203,6 +208,35 @@ static const struct dmi_system_id fwbug_list[] = {
->>  			DMI_MATCH(DMI_PRODUCT_NAME, "82XQ"),
->>  		}
->>  	},
->> +	/* https://bugzilla.kernel.org/show_bug.cgi?id=221383 */
->> +	{
->> +		.ident = "Zen3-based IdeaPad Slim and similar",
->> +		.driver_data = &quirk_s2idle_need_suspend_delay,
->> +		.matches = {
->> +			DMI_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
->> +			/*
->> +			 * Note: there are also some Zen2-based 82X* devices that
->> +			 * need different quirks, they're already handled above
->> +			 */
->> +			DMI_MATCH(DMI_PRODUCT_NAME, "82X"),
->> +		}
->> +	},
->> +	{
->> +		.ident = "Zen3+-based IdeaPad Slim and similar",
->> +		.driver_data = &quirk_s2idle_need_suspend_delay,
->> +		.matches = {
->> +			DMI_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
->> +			DMI_MATCH(DMI_PRODUCT_NAME, "83K"),
->> +		}
->> +	},
->> +	{
->> +		.ident = "IdeaPad Slim 3 15ARP10 (83MM)",
->> +		.driver_data = &quirk_s2idle_need_suspend_delay,
->> +		.matches = {
->> +			DMI_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
->> +			DMI_MATCH(DMI_PRODUCT_NAME, "83MM"),
->> +		}
->> +	},
->>  	/* https://bugzilla.kernel.org/show_bug.cgi?id=221273 */
->>  	{
->>  		.ident = "Thinkpad L14 Gen3",
->> @@ -356,6 +390,11 @@ void amd_pmc_process_restore_quirks(struct amd_pmc_dev *dev)
->>  		amd_pmc_skip_nvme_smi_handler(dev->quirks->s2idle_bug_mmio);
->>  }
->>  
->> +bool amd_pmc_quirk_need_suspend_delay(struct amd_pmc_dev *dev)
->> +{
->> +	return dev->quirks && dev->quirks->need_suspend_delay;
->> +}
->> +
->>  void amd_pmc_quirks_init(struct amd_pmc_dev *dev)
->>  {
->>  	const struct dmi_system_id *dmi_id;
->> diff --git a/drivers/platform/x86/amd/pmc/pmc.c b/drivers/platform/x86/amd/pmc/pmc.c
->> index 2b9e5730170a..6bafd8661d68 100644
->> --- a/drivers/platform/x86/amd/pmc/pmc.c
->> +++ b/drivers/platform/x86/amd/pmc/pmc.c
->> @@ -611,6 +611,27 @@ static bool amd_pmc_intermediate_wakeup_need_delay(struct amd_pmc_dev *pdev)
->>  	return get_metrics_table(pdev, &table) == 0 && table.s0i3_last_entry_status;
->>  }
->>  
->> +static bool amd_pmc_want_suspend_delay(struct amd_pmc_dev *pdev)
->> +{
->> +	/*
->> +	 * Some Lenovo Laptops (like different IdeaPad 3 Slims) need some
->> +	 * me-time before sleeping or they get uncooperative after waking
->> +	 * up and don't send events for keyboard and lid switch anymore.
->> +	 *
->> +	 * Unfortunately this doesn't entirely fix the problem: It can still
->> +	 * happen when resuming with a timer (wakealarm), but at least the
->> +	 * more common usecases (wakeup by opening lid or pressing a key)
->> +	 * work fine with this workaround.
->> +	 *
->> +	 * See https://bugzilla.kernel.org/show_bug.cgi?id=221383
->> +	 */
->> +	if (!disable_workarounds && amd_pmc_quirk_need_suspend_delay(pdev)) {
->> +		dev_info(pdev->dev, "Delaying suspend by 2.5s to avoid platform bug\n");
->> +		return true;
->> +	}
->> +	return false;
->> +}
->> +
->>  static void amd_pmc_s2idle_prepare(void)
->>  {
->>  	struct amd_pmc_dev *pdev = &pmc;
->> @@ -647,7 +668,8 @@ static void amd_pmc_s2idle_check(void)
->>  	struct amd_pmc_dev *pdev = &pmc;
->>  	int rc;
->>  
->> -	if (amd_pmc_intermediate_wakeup_need_delay(pdev))
->> +	if (amd_pmc_intermediate_wakeup_need_delay(pdev) ||
->> +	    amd_pmc_want_suspend_delay(pdev))
+> [ Upstream commit f2ca45b50d4216c9cc7ffabf50d9ad1932209251 ]
 > 
-> This doesn't seem to apply to the review-ilpo-next branch. You might have 
-> left the first patch of the series out from this v4?
+> walk_s1() and kvm_walk_nested_s2() expect to be called while holding
+> kvm->srcu to guard against memslot changes. While this is generally
+> the case, __kvm_at_s12() and __kvm_find_s1_desc_level() call into the
+> respective walkers without taking kvm->srcu.
 > 
-> Please send v5 to correct the problem.
+> Fix by acquiring kvm->srcu prior to the table walk in both instances.
 > 
+> Cc: stable@vger.kernel.org
+> Fixes: 50f77dc87f13 ("KVM: arm64: Populate level on S1PTW SEA injection")
+> Fixes: be04cebf3e78 ("KVM: arm64: nv: Add emulation of AT S12E{0,1}{R,W}")
+> Suggested-by: Oliver Upton <oupton@kernel.org>
+> Signed-off-by: Hyunwoo Kim <imv4bel@gmail.com>
+> Reviewed-by: Oliver Upton <oupton@kernel.org>
+> Link: https://patch.msgid.link/aiAZfdeyanIvP8SD@v4bel
+> Signed-off-by: Marc Zyngier <maz@kernel.org>
+> [ Hyunwoo Kim: __kvm_at_s12() still returns void in 6.18.y, so the
+>   surrounding context differs from upstream (return; instead of
+>   return ret;); the added scoped_guard() is unchanged. ]
+> Signed-off-by: Hyunwoo Kim <imv4bel@gmail.com>
+> ---
+>  arch/arm64/kvm/at.c | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
+> 
+> diff --git a/arch/arm64/kvm/at.c b/arch/arm64/kvm/at.c
+> index be26d5aa668c..e6de6aac6ede 100644
+> --- a/arch/arm64/kvm/at.c
+> +++ b/arch/arm64/kvm/at.c
+> @@ -1528,7 +1528,8 @@ void __kvm_at_s12(struct kvm_vcpu *vcpu, u32 op, u64 vaddr)
+>  	/* Do the stage-2 translation */
+>  	ipa = (par & GENMASK_ULL(47, 12)) | (vaddr & GENMASK_ULL(11, 0));
+>  	out.esr = 0;
+> -	ret = kvm_walk_nested_s2(vcpu, ipa, &out);
+> +	scoped_guard(srcu, &vcpu->kvm->srcu)
+> +		ret = kvm_walk_nested_s2(vcpu, ipa, &out);
+>  	if (ret < 0)
+>  		return;
+>  
+> @@ -1623,7 +1624,8 @@ int __kvm_find_s1_desc_level(struct kvm_vcpu *vcpu, u64 va, u64 ipa, int *level)
+>  	}
+>  
+>  	/* Walk the guest's PT, looking for a match along the way */
+> -	ret = walk_s1(vcpu, &wi, &wr, va);
+> +	scoped_guard(srcu, &vcpu->kvm->srcu)
+> +		ret = walk_s1(vcpu, &wi, &wr, va);
+>  	switch (ret) {
+>  	case -EINTR:
+>  		/* We interrupted the walk on a match, return the level */
 
-Damn, how did this happen..
-You're right of course, sorry for this, will send v5!
+Thanks for going the extra mile and doing the backport, much
+appreciated.
 
+Acked-by: Marc Zyngier <maz@kernel.org>
+
+	M.
+
+-- 
+Without deviation from the norm, progress is not possible.
