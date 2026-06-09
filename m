@@ -1,62 +1,60 @@
-Received: from mail-gw01.astralinux.ru (mail-gw01.astralinux.ru [37.230.196.243])
+Received: from mail-gw02.astralinux.ru (mail-gw02.astralinux.ru [93.188.205.243])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B41743FDC08;
-	Tue,  9 Jun 2026 16:53:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=37.230.196.243
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E618F3FE35A;
+	Tue,  9 Jun 2026 17:02:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=93.188.205.243
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781023989; cv=none; b=hx/s0WmrvslnqIJAhwQYtJ53PkOSFb2TMOGgqApamhuCCwBL9p44oMYSQ3Df0+xS6SsYuZG+cEIasDdBYqNv4gGBGZeWv7fIYjN2Md6NQ63PVbyAozLEg1DzKtQxm/4DgmXlLSQjqv2h6mR64pLdf5z0lbBHos9JAhvO4XxFIAE=
+	t=1781024527; cv=none; b=PVHI6MSO/0HOerRw/A2LZA+NvjrDArNhOiOxwtOgIXBrCFrXjDsohlJIZpjuMO7nvitZh+mEqNbuM2/32xrZvKcbvqs8WNOA/R1ZPQyzYAnt9Wav6iH4SLaCpYVYcq/sYbjYUzn75g3YKhoUomdpBeE4jwjkxq3W0NFOWNzKWEY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781023989; c=relaxed/simple;
-	bh=BH0tbCa5Sr32v6IXmHJMQWbzPnYCnnKWwTUPw2KRafE=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=mBdC8Vz+HMRIoUxxdi7+3/gioIQIY8SWMJ565WZzmAT0EdovQwj7Coro9xFB3wColdB6u4u+MuC+Ep1L0sL1jSxnLIXZBMiaSXYqim0SI+7Nebv27FkQpOeS1Z6Ig+/FQYpFpQMNJqI8TcPP10DK1niMf8Q7+a4IKvXHlEZCXbQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru; spf=pass smtp.mailfrom=astralinux.ru; dkim=pass (2048-bit key) header.d=astralinux.ru header.i=@astralinux.ru header.b=srHLXrYH; arc=none smtp.client-ip=37.230.196.243
+	s=arc-20240116; t=1781024527; c=relaxed/simple;
+	bh=VlT2GQMtF09lMcl1qD1/OfmoD7I5vnZUKdTaawBzjGM=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=QT/68BNoYlSfw9++8Q3tqW1dS7LDDWxIYWupHpSsuiiLZvx1z6VqkLj+gnerAu4qB4sIbVbT0CGsqN1KgZ0PZqdcuWxKyqRM57a66B4VeoZj5AcebXbBmD0rtEkgi/CrUQ1Whyv8MkKk0UF1lA+/KcquSnbTvPFWdiWMKEr63Jo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru; spf=pass smtp.mailfrom=astralinux.ru; dkim=pass (2048-bit key) header.d=astralinux.ru header.i=@astralinux.ru header.b=m/OVoJhq; arc=none smtp.client-ip=93.188.205.243
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=astralinux.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=astralinux.ru header.i=@astralinux.ru header.b="srHLXrYH"
+	dkim=pass (2048-bit key) header.d=astralinux.ru header.i=@astralinux.ru header.b="m/OVoJhq"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=astralinux.ru;
-	s=mail; t=1781023495;
-	bh=BH0tbCa5Sr32v6IXmHJMQWbzPnYCnnKWwTUPw2KRafE=;
+	s=mail; t=1781024519;
+	bh=VlT2GQMtF09lMcl1qD1/OfmoD7I5vnZUKdTaawBzjGM=;
 	h=From:To:Cc:Subject:Date:From;
-	b=srHLXrYH+ePEflcWpPIf+grp6oDBIiQIDabQec1h95E9Ah53i8cu3lCijmlrlvsu8
-	 QDFsMr1i6haEvqarIMGpb7vlyCYM4Yg2IC6xZc5dmbYVZXfva+l9+MMa2T1lYEWMSn
-	 63+ijmneLfN93KduMDPjfq+lIdpcAxsLhK7TeNRllmq0rU2HCtTK4saZ//5sKg6kPx
-	 qFWdc4JngFFGaNEmzSCJdYPH6tZXl//mvNnedgxDWJ84/nVhfURBLNkGzPmSR4d5g7
-	 kEH01KZJzKZs5sm5Wi6nN0w78MPlSBAHDHLIsN/+6ut/QnJ9FL6asTzpOLpwDfII/a
-	 arF7ctetaJxHg==
-Received: from gca-sc-a-srv-ksmg01.astralinux.ru (localhost [127.0.0.1])
-	by mail-gw01.astralinux.ru (Postfix) with ESMTP id E7D27251E9;
-	Tue,  9 Jun 2026 19:44:55 +0300 (MSK)
-Received: from new-mail.astralinux.ru (unknown [10.205.207.8])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mail-gw01.astralinux.ru (Postfix) with ESMTPS;
-	Tue,  9 Jun 2026 19:44:53 +0300 (MSK)
+	b=m/OVoJhqsTfi/TSwAIck8cWNLWIPxKsJqTlE+znqMrZYI3PVXba8iNtUWsxLE3u5G
+	 g5sTOta1vnyPHxwlD7ug6u/NfltyuMQTvaF6WjDrE2H+emL2pGph5sScQ40GJuSBJ5
+	 h6rOKtrVzfg86KyN9f8Qujalf/aIGhzwbuMGgIs1acziybrDeF5QvxqaHQC7fqUGkB
+	 4MYWUw2wXFMk+m7E/1P2dEZYAXY40a4CFEAL6NwwMS8+a63RYFtTvxpf9YL6/aT5AZ
+	 9IpWrmgRaivKpevhCYHJ2HFayRpkFQXAHKFb/TCGDcmeSueB69hyCK9vXX+HTGBBUr
+	 UtC9K3kYxSJOA==
+Received: from gca-msk-a-srv-ksmg01.astralinux.ru (localhost [127.0.0.1])
+	by mail-gw02.astralinux.ru (Postfix) with ESMTP id F39BA1FA76;
+	Tue,  9 Jun 2026 20:01:58 +0300 (MSK)
+Received: from new-mail.astralinux.ru (unknown [10.205.207.5])
+	by mail-gw02.astralinux.ru (Postfix) with ESMTP;
+	Tue,  9 Jun 2026 20:01:56 +0300 (MSK)
 Received: from rbta-msk-lt-156703.astralinux.ru (unknown [10.198.18.49])
-	by new-mail.astralinux.ru (Postfix) with ESMTPA id 4gZZWn24XXzZcxS;
-	Tue, 09 Jun 2026 19:44:53 +0300 (MSK)
+	by new-mail.astralinux.ru (Postfix) with ESMTPA id 4gZZc83NQ2z2xd5;
+	Tue, 09 Jun 2026 19:48:40 +0300 (MSK)
 From: Alexey Panov <apanov@astralinux.ru>
 To: stable@vger.kernel.org,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Cc: Alexey Panov <apanov@astralinux.ru>,
-	"Theodore Ts'o" <tytso@mit.edu>,
-	Andreas Dilger <adilger.kernel@dilger.ca>,
-	linux-ext4@vger.kernel.org,
+	Jay Vosburgh <j.vosburgh@gmail.com>,
+	Veaceslav Falico <vfalico@gmail.com>,
+	Andy Gospodarek <andy@greyhouse.net>,
+	"David S. Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Jeff Garzik <jeff@garzik.org>,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Baokun Li <libaokun@linux.alibaba.com>,
-	Jan Kara <jack@suse.cz>,
-	Ojaswin Mujoo <ojaswin@linux.ibm.com>,
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-	Zhang Yi <yi.zhang@huawei.com>,
+	Jay Vosburgh <jv@jvosburgh.net>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	Eric Dumazet <edumazet@google.com>,
+	Paolo Abeni <pabeni@redhat.com>,
 	lvc-project@linuxtesting.org,
-	syzbot+04c4e65cab786a2e5b7e@syzkaller.appspotmail.com,
-	Tejas Bharambe <tejas.bharambe@outlook.com>,
-	stable@kernel.org
-Subject: [PATCH 5.10/5.15] ext4: validate p_idx bounds in ext4_ext_correct_indexes
-Date: Tue,  9 Jun 2026 19:44:30 +0300
-Message-Id: <20260609164430.29988-1-apanov@astralinux.ru>
+	syzbot+9c081b17773615f24672@syzkaller.appspotmail.com
+Subject: [PATCH 5.10] bonding: limit BOND_MODE_8023AD to Ethernet devices
+Date: Tue,  9 Jun 2026 19:48:35 +0300
+Message-Id: <20260609164835.32573-1-apanov@astralinux.ru>
 X-Mailer: git-send-email 2.30.2
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -68,7 +66,7 @@ Content-Transfer-Encoding: 8bit
 X-KSMG-AntiPhishing: NotDetected, bases: 2026/06/09 15:41:00
 X-KSMG-AntiSpam-Auth: dkim=none
 X-KSMG-AntiSpam-Envelope-From: apanov@astralinux.ru
-X-KSMG-AntiSpam-Info: LuaCore: 107 0.3.107 575e75fe8e3b9d45c142d144823c5de38605099e, {date_rfc_vio_soft_silent}, {Tracking_uf_ne_domains}, {Tracking_internal2}, {Tracking_from_domain_doesnt_match_to}, astralinux.ru:7.1.1;patch.msgid.link:7.1.1;new-mail.astralinux.ru:7.1.1;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1;127.0.0.199:7.1.2;syzkaller.appspot.com:7.1.1,5.0.1, FromAlignment: s
+X-KSMG-AntiSpam-Info: LuaCore: 107 0.3.107 575e75fe8e3b9d45c142d144823c5de38605099e, {date_rfc_vio_soft_silent}, {Tracking_uf_ne_domains}, {Tracking_internal2}, {Tracking_from_domain_doesnt_match_to}, patch.msgid.link:7.1.1;astralinux.ru:7.1.1;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1;new-mail.astralinux.ru:7.1.1;127.0.0.199:7.1.2;lore.kernel.org:7.1.1, FromAlignment: s
 X-KSMG-AntiSpam-Interceptor-Info: scan successful
 X-KSMG-AntiSpam-Lua-Profiles: 203763 [Jun 09 2026]
 X-KSMG-AntiSpam-Method: none
@@ -81,72 +79,92 @@ X-KSMG-LinksScanning: NotDetected, bases: 2026/06/09 15:41:00
 X-KSMG-Message-Action: skipped
 X-KSMG-Rule-ID: 1
 
-From: Tejas Bharambe <tejas.bharambe@outlook.com>
+From: Eric Dumazet <edumazet@google.com>
 
-commit 2acb5c12ebd860f30e4faf67e6cc8c44ddfe5fe8 upstream.
+commit c84fcb79e5dbde0b8d5aeeaf04282d2149aebcf6 upstream.
 
-ext4_ext_correct_indexes() walks up the extent tree correcting
-index entries when the first extent in a leaf is modified. Before
-accessing path[k].p_idx->ei_block, there is no validation that
-p_idx falls within the valid range of index entries for that
-level.
+BOND_MODE_8023AD makes sense for ARPHRD_ETHER only.
 
-If the on-disk extent header contains a corrupted or crafted
-eh_entries value, p_idx can point past the end of the allocated
-buffer, causing a slab-out-of-bounds read.
+syzbot reported:
 
-Fix this by validating path[k].p_idx against EXT_LAST_INDEX() at
-both access sites: before the while loop and inside it. Return
--EFSCORRUPTED if the index pointer is out of range, consistent
-with how other bounds violations are handled in the ext4 extent
-tree code.
+ BUG: KASAN: global-out-of-bounds in __hw_addr_create net/core/dev_addr_lists.c:63 [inline]
+ BUG: KASAN: global-out-of-bounds in __hw_addr_add_ex+0x25d/0x760 net/core/dev_addr_lists.c:118
+Read of size 16 at addr ffffffff8bf94040 by task syz.1.3580/19497
 
-Reported-by: syzbot+04c4e65cab786a2e5b7e@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=04c4e65cab786a2e5b7e
-Signed-off-by: Tejas Bharambe <tejas.bharambe@outlook.com>
-Link: https://patch.msgid.link/JH0PR06MB66326016F9B6AD24097D232B897CA@JH0PR06MB6632.apcprd06.prod.outlook.com
-Signed-off-by: Theodore Ts'o <tytso@mit.edu>
-Cc: stable@kernel.org
-[ Alexey: Adapt goto clean to break because the clean error path is not
-  present in linux-5.10.y and linux-5.15.y. ]
+CPU: 1 UID: 0 PID: 19497 Comm: syz.1.3580 Tainted: G             L      syzkaller #0 PREEMPT(full)
+Tainted: [L]=SOFTLOCKUP
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 10/25/2025
+Call Trace:
+ <TASK>
+  dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
+  print_address_description mm/kasan/report.c:378 [inline]
+  print_report+0xca/0x240 mm/kasan/report.c:482
+  kasan_report+0x118/0x150 mm/kasan/report.c:595
+ check_region_inline mm/kasan/generic.c:-1 [inline]
+  kasan_check_range+0x2b0/0x2c0 mm/kasan/generic.c:200
+  __asan_memcpy+0x29/0x70 mm/kasan/shadow.c:105
+  __hw_addr_create net/core/dev_addr_lists.c:63 [inline]
+  __hw_addr_add_ex+0x25d/0x760 net/core/dev_addr_lists.c:118
+  __dev_mc_add net/core/dev_addr_lists.c:868 [inline]
+  dev_mc_add+0xa1/0x120 net/core/dev_addr_lists.c:886
+  bond_enslave+0x2b8b/0x3ac0 drivers/net/bonding/bond_main.c:2180
+  do_set_master+0x533/0x6d0 net/core/rtnetlink.c:2963
+  do_setlink+0xcf0/0x41c0 net/core/rtnetlink.c:3165
+  rtnl_changelink net/core/rtnetlink.c:3776 [inline]
+  __rtnl_newlink net/core/rtnetlink.c:3935 [inline]
+  rtnl_newlink+0x161c/0x1c90 net/core/rtnetlink.c:4072
+  rtnetlink_rcv_msg+0x7cf/0xb70 net/core/rtnetlink.c:6958
+  netlink_rcv_skb+0x208/0x470 net/netlink/af_netlink.c:2550
+  netlink_unicast_kernel net/netlink/af_netlink.c:1318 [inline]
+  netlink_unicast+0x82f/0x9e0 net/netlink/af_netlink.c:1344
+  netlink_sendmsg+0x805/0xb30 net/netlink/af_netlink.c:1894
+  sock_sendmsg_nosec net/socket.c:727 [inline]
+  __sock_sendmsg+0x21c/0x270 net/socket.c:742
+  ____sys_sendmsg+0x505/0x820 net/socket.c:2592
+  ___sys_sendmsg+0x21f/0x2a0 net/socket.c:2646
+  __sys_sendmsg+0x164/0x220 net/socket.c:2678
+  do_syscall_32_irqs_on arch/x86/entry/syscall_32.c:83 [inline]
+  __do_fast_syscall_32+0x1dc/0x560 arch/x86/entry/syscall_32.c:307
+  do_fast_syscall_32+0x34/0x80 arch/x86/entry/syscall_32.c:332
+ entry_SYSENTER_compat_after_hwframe+0x84/0x8e
+ </TASK>
+
+The buggy address belongs to the variable:
+ lacpdu_mcast_addr+0x0/0x40
+
+Fixes: 872254dd6b1f ("net/bonding: Enable bonding to enslave non ARPHRD_ETHER")
+Reported-by: syzbot+9c081b17773615f24672@syzkaller.appspotmail.com
+Closes: https://lore.kernel.org/netdev/6966946b.a70a0220.245e30.0002.GAE@google.com/T/#u
+Signed-off-by: Eric Dumazet <edumazet@google.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>
+Acked-by: Jay Vosburgh <jv@jvosburgh.net>
+Link: https://patch.msgid.link/20260113191201.3970737-1-edumazet@google.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+[ Alexey: Replace SLAVE_NL_ERR() with NL_SET_ERR_MSG() and slave_err()
+  because SLAVE_NL_ERR() is not present in linux-5.10.y. ]
 Signed-off-by: Alexey Panov <apanov@astralinux.ru>
 ---
-Backport fix for CVE-2026-31449
- fs/ext4/extents.c | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+Backport fix for CVE-2026-23099
+ drivers/net/bonding/bond_main.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/fs/ext4/extents.c b/fs/ext4/extents.c
-index 80b7783c65b4..e6dbb2dfb331 100644
---- a/fs/ext4/extents.c
-+++ b/fs/ext4/extents.c
-@@ -1736,6 +1736,13 @@ static int ext4_ext_correct_indexes(handle_t *handle, struct inode *inode,
- 	err = ext4_ext_get_access(handle, inode, path + k);
- 	if (err)
- 		return err;
-+	if (unlikely(path[k].p_idx > EXT_LAST_INDEX(path[k].p_hdr))) {
-+		EXT4_ERROR_INODE(inode,
-+				 "path[%d].p_idx %p > EXT_LAST_INDEX %p",
-+				 k, path[k].p_idx,
-+				 EXT_LAST_INDEX(path[k].p_hdr));
-+		return -EFSCORRUPTED;
-+	}
- 	path[k].p_idx->ei_block = border;
- 	err = ext4_ext_dirty(handle, inode, path + k);
- 	if (err)
-@@ -1748,6 +1755,14 @@ static int ext4_ext_correct_indexes(handle_t *handle, struct inode *inode,
- 		err = ext4_ext_get_access(handle, inode, path + k);
- 		if (err)
- 			break;
-+		if (unlikely(path[k].p_idx > EXT_LAST_INDEX(path[k].p_hdr))) {
-+			EXT4_ERROR_INODE(inode,
-+					 "path[%d].p_idx %p > EXT_LAST_INDEX %p",
-+					 k, path[k].p_idx,
-+					 EXT_LAST_INDEX(path[k].p_hdr));
-+			err = -EFSCORRUPTED;
-+			break;
-+		}
- 		path[k].p_idx->ei_block = border;
- 		err = ext4_ext_dirty(handle, inode, path + k);
- 		if (err)
+diff --git a/drivers/net/bonding/bond_main.c b/drivers/net/bonding/bond_main.c
+index 812e1792c232..86f0f155e986 100644
+--- a/drivers/net/bonding/bond_main.c
++++ b/drivers/net/bonding/bond_main.c
+@@ -1763,6 +1763,13 @@ int bond_enslave(struct net_device *bond_dev, struct net_device *slave_dev,
+ 	 */
+ 	if (!bond_has_slaves(bond)) {
+ 		if (bond_dev->type != slave_dev->type) {
++			if (slave_dev->type != ARPHRD_ETHER &&
++			    BOND_MODE(bond) == BOND_MODE_8023AD) {
++				NL_SET_ERR_MSG(extack, "8023AD mode requires Ethernet devices");
++				slave_err(bond_dev, slave_dev,
++					  "Error: 8023AD mode requires Ethernet devices\n");
++				return -EINVAL;
++			}
+ 			slave_dbg(bond_dev, slave_dev, "change device type from %d to %d\n",
+ 				  bond_dev->type, slave_dev->type);
+ 
 -- 
 2.47.3
