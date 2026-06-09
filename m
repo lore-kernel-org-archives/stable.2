@@ -1,48 +1,48 @@
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 672FB3EDE66;
-	Tue,  9 Jun 2026 08:35:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FFFC3EE1C4;
+	Tue,  9 Jun 2026 08:35:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780994107; cv=none; b=uddLqQKJYX2WFdxjR6Da0NzuuhlpRwyuuRqj/JqwsXfxkfGC4JLNrpQ1IiZ+fIZ5b5MkpC5xE2Y2OtuUWOawp4DZLnG/+MchRLx9UL0ey4Jg7ddlo7628mSeBxc8MrrE10a+wXp2G/4nav6up2rO1e3RUZW5v/r6RiUPAsZ12hU=
+	t=1780994110; cv=none; b=hU0G/Klb/M8j2dwEf9BwylxWVDGWr66Y2c78LqgJDo0+QWJ92j1xcYRwbtuj+nMdCsK/5JO4d5IORSZi0M2W3jQlqWaFsJcvsH6xmzmlXoJTRBAaEr68kqba3q+G45e5Y9e5cxyLx3ZT8X2tmAgL2nzHs2wL4WlLr4oaMvaayic=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780994107; c=relaxed/simple;
-	bh=pUtToWDvfOdwgV1A9IcxbMAryV6EiPvW3GE4CbtESgM=;
+	s=arc-20240116; t=1780994110; c=relaxed/simple;
+	bh=sV8Uu1KS2QPG+rRHOiTVxK4dhq86UBz/cYe4q+TPndg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Iz7A4IxwNue8SzDyKaMFDeAfO8XEtQW5gJ9LOUu+nxvXA3Fbby9zz01AbPuNPjBVuRtYA8sAnSJwfuMkHrEkrhpAyzRtaFKnOfMRf+lHrHTK2WNOkgxWpxkhEWz6stYxHSUdELgk+0HNsVfICBmvcMVGnyappMY7INTYS7FM/s4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=EEBdr4bV; arc=none smtp.client-ip=198.175.65.12
+	 MIME-Version; b=EsFeImvgspIakhmbqsTRm07ZPpyl/12X0LILnt7KuV76nE7EsFVEnPfoWwFJ+6MaCKBtqU1C8YdKPe/eQWIeo1CRjISMtsBHTnueXr2RXhM5sk9WRoxJXY6G1LQi3HUTud1RNgyMv8bbZErPfRtWnMFlKncD7mWCMqf6A8FAh4M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=czfaXA/6; arc=none smtp.client-ip=198.175.65.12
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="EEBdr4bV"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="czfaXA/6"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1780994106; x=1812530106;
+  t=1780994109; x=1812530109;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=pUtToWDvfOdwgV1A9IcxbMAryV6EiPvW3GE4CbtESgM=;
-  b=EEBdr4bVzjaxbQboyJJYbN7gNqAFWi04rXTjyIVIW+mhFuIhQacxA+b4
-   cLsT4ejcyXbUqG1xCA6ioPlh26trO2Za+lFdpQlIaYNA0rJCbcfw0fD0h
-   US+si2GRMbg946+0aaf7w40F26+X2XhbZc6rDhJiSf38krJ6PGQRVIpJK
-   +CBBONd0nXVI0Sp/GUxN9GOIuWlJnwVbBhxTAUFiC+kyFoPT3F2ZwAJWs
-   jLKE4SDY8+N98W3gxAEhPj1aPCIlk8YmEOXl4tMFFLpDOOFQfZUmzvSPT
-   uRdpObWZYTru3ivMfUdhdz/bID7xwbIvw+sfzQa01al6N1bkRGQcWBlkJ
-   Q==;
-X-CSE-ConnectionGUID: y7fm/U6JQAyFMN++OQAZTA==
-X-CSE-MsgGUID: dwyx0wLWT/m1zPnW50D3fw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11811"; a="93235452"
+  bh=sV8Uu1KS2QPG+rRHOiTVxK4dhq86UBz/cYe4q+TPndg=;
+  b=czfaXA/6X7P0KUJHOEEyCnvCq8DuF36dHQUhtjOFrf1xcmUq5cvF6OBE
+   0TPsq/NjEeQaJnNBXgRyUiBWRAAKLIFGLiB0wsFd5AhrRihMNm/oz5Lxp
+   LMumCA2kjZo8Wl6rKykJ6VNICTDXJsv8cAFGkIREL3YmWyJazeJlDFHIn
+   clNMNkfnc0Tq8dxH+1Lc+b++VAbsGGfU7J6rsfj0h/Jt1lmjRyEF6V1wv
+   hFHr8OVrukRI3hSafUJMHNIjArbB3ZNiemj+3hWAOh9wO1cKqwsM1b9A6
+   W/nMuXETv6U6jm0BvfA0juNocbyVulxCauXJhrwRTuRSTGuakpj4qccrN
+   g==;
+X-CSE-ConnectionGUID: C9Xd4vvARiybA+ydbRD2Bw==
+X-CSE-MsgGUID: 9HE6QqX8Qyi3FhhYh2AmGg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11811"; a="93235457"
 X-IronPort-AV: E=Sophos;i="6.24,195,1774335600"; 
-   d="scan'208";a="93235452"
+   d="scan'208";a="93235457"
 Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Jun 2026 01:35:06 -0700
-X-CSE-ConnectionGUID: NS3nTrGIQLa9bJUJfeU+Lw==
-X-CSE-MsgGUID: nCpdyqDmRTaWkWF+QOMTsg==
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Jun 2026 01:35:09 -0700
+X-CSE-ConnectionGUID: AjsmvtOPR5a3u70AkL8RpQ==
+X-CSE-MsgGUID: wMEWUETQQtKLfmVD8e2fDQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.24,195,1774335600"; 
-   d="scan'208";a="245650182"
+   d="scan'208";a="245650222"
 Received: from mjarzebo-mobl1.ger.corp.intel.com (HELO pujfalus-desk.intel.com) ([10.245.246.253])
-  by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Jun 2026 01:35:03 -0700
+  by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Jun 2026 01:35:06 -0700
 From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 To: lgirdwood@gmail.com,
 	broonie@kernel.org
@@ -52,9 +52,9 @@ Cc: linux-sound@vger.kernel.org,
 	pierre-louis.bossart@linux.dev,
 	liam.r.girdwood@intel.com,
 	stable@vger.kernel.org
-Subject: [PATCH 5/6] ASoC: SOF: ipc3-control: Fix TOCTOU in bytes_put and bytes_get
-Date: Tue,  9 Jun 2026 11:34:57 +0300
-Message-ID: <20260609083458.31193-6-peter.ujfalusi@linux.intel.com>
+Subject: [PATCH 6/6] ASoC: SOF: ipc3-control: Fix heap overflow in bytes_ext put/get
+Date: Tue,  9 Jun 2026 11:34:58 +0300
+Message-ID: <20260609083458.31193-7-peter.ujfalusi@linux.intel.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260609083458.31193-1-peter.ujfalusi@linux.intel.com>
 References: <20260609083458.31193-1-peter.ujfalusi@linux.intel.com>
@@ -66,81 +66,92 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In sof_ipc3_bytes_put(), the size used for the memcpy is derived from
-the old data->size already in the buffer, not the incoming new data's
-size field. If the new data has a different size, the copy length is
-wrong: it may truncate valid data or copy stale bytes.
+The ipc_control_data buffer is allocated as kzalloc(max_size), where
+max_size covers the entire struct sof_ipc_ctrl_data including its
+flexible array payload. However, the bounds checks in bytes_ext_put
+and _bytes_ext_get compared user data lengths against max_size
+directly, ignoring that cdata->data sits at an offset of
+sizeof(struct sof_ipc_ctrl_data) bytes into the allocation.
 
-Similarly, sof_ipc3_bytes_get() checks data->size against max_size
-without accounting for the sizeof(struct sof_ipc_ctrl_data) offset
-of the flex array within the allocation.
+This allowed writing up to sizeof(struct sof_ipc_ctrl_data) bytes past
+the end of the heap buffer from unprivileged userspace via the ALSA TLV
+kcontrol interface, and similarly allowed over-reading adjacent heap
+data on the get path.
 
-Fix bytes_put to validate and use the incoming data's sof_abi_hdr.size
-from ucontrol before copying. Fix bytes_get to subtract sizeof(*cdata)
-from the bounds check to match the actual available space.
+Fix all bounds checks to subtract sizeof(*cdata) from max_size so they
+reflect the actual space available at the cdata->data offset. Also fix
+the error-path restore in bytes_ext_put which wrote to cdata->data
+instead of cdata, causing the same overflow.
 
-Fixes: 544ac8858f24 ("ASoC: SOF: Add bytes_get/put control IPC ops for IPC3")
+Fixes: 67ec2a091630 ("ASoC: SOF: Add bytes_ext control IPC ops for IPC3")
 Cc: stable@vger.kernel.org
 Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 Reviewed-by: Liam Girdwood <liam.r.girdwood@intel.com>
 Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 ---
- sound/soc/sof/ipc3-control.c | 23 ++++++++++++++++-------
- 1 file changed, 16 insertions(+), 7 deletions(-)
+ sound/soc/sof/ipc3-control.c | 27 +++++++++++++++++++--------
+ 1 file changed, 19 insertions(+), 8 deletions(-)
 
 diff --git a/sound/soc/sof/ipc3-control.c b/sound/soc/sof/ipc3-control.c
-index 4b907d8cf58a..1f5538bbc50f 100644
+index 1f5538bbc50f..d1697401b1da 100644
 --- a/sound/soc/sof/ipc3-control.c
 +++ b/sound/soc/sof/ipc3-control.c
-@@ -315,10 +315,13 @@ static int sof_ipc3_bytes_get(struct snd_sof_control *scontrol,
+@@ -398,9 +398,17 @@ static int sof_ipc3_bytes_ext_put(struct snd_sof_control *scontrol,
+ 	}
+ 
+ 	/* be->max is coming from topology */
+-	if (header.length > scontrol->max_size) {
+-		dev_err_ratelimited(scomp->dev, "Bytes data size %d exceeds max %zu\n",
+-				    header.length, scontrol->max_size);
++	if (header.length > scontrol->max_size - sizeof(*cdata)) {
++		dev_err_ratelimited(scomp->dev, "Bytes data size %u exceeds max %zu\n",
++				    header.length, scontrol->max_size - sizeof(*cdata));
++		return -EINVAL;
++	}
++
++	/* Ensure the data is large enough to contain the ABI header */
++	if (header.length < sizeof(struct sof_abi_hdr)) {
++		dev_err_ratelimited(scomp->dev,
++				    "Bytes data size %u less than ABI header %zu\n",
++				    header.length, sizeof(struct sof_abi_hdr));
+ 		return -EINVAL;
+ 	}
+ 
+@@ -436,7 +444,7 @@ static int sof_ipc3_bytes_ext_put(struct snd_sof_control *scontrol,
  	}
  
  	/* be->max has been verified to be >= sizeof(struct sof_abi_hdr) */
--	if (data->size > scontrol->max_size - sizeof(*data)) {
-+	if (data->size > scontrol->max_size - sizeof(*cdata) -
-+				    sizeof(*data)) {
- 		dev_err_ratelimited(scomp->dev,
- 				    "%u bytes of control data is invalid, max is %zu\n",
--				    data->size, scontrol->max_size - sizeof(*data));
-+				    data->size,
-+				    scontrol->max_size - sizeof(*cdata) -
-+				    sizeof(*data));
- 		return -EINVAL;
+-	if (cdata->data->size > scontrol->max_size - sizeof(struct sof_abi_hdr)) {
++	if (cdata->data->size > scontrol->max_size - sizeof(*cdata) - sizeof(struct sof_abi_hdr)) {
+ 		dev_err_ratelimited(scomp->dev, "Mismatch in ABI data size (truncated?)\n");
+ 		goto err_restore;
+ 	}
+@@ -452,7 +460,7 @@ static int sof_ipc3_bytes_ext_put(struct snd_sof_control *scontrol,
+ err_restore:
+ 	/* If we have an issue, we restore the old, valid bytes control data */
+ 	if (scontrol->old_ipc_control_data) {
+-		memcpy(cdata->data, scontrol->old_ipc_control_data, scontrol->max_size);
++		memcpy(cdata, scontrol->old_ipc_control_data, scontrol->max_size);
+ 		kfree(scontrol->old_ipc_control_data);
+ 		scontrol->old_ipc_control_data = NULL;
+ 	}
+@@ -491,10 +499,13 @@ static int _sof_ipc3_bytes_ext_get(struct snd_sof_control *scontrol,
  	}
  
-@@ -336,6 +339,8 @@ static int sof_ipc3_bytes_put(struct snd_sof_control *scontrol,
- 	struct sof_ipc_ctrl_data *cdata = scontrol->ipc_control_data;
- 	struct snd_soc_component *scomp = scontrol->scomp;
- 	struct sof_abi_hdr *data = cdata->data;
-+	const struct sof_abi_hdr *new_hdr =
-+		(const struct sof_abi_hdr *)ucontrol->value.bytes.data;
- 	size_t size;
- 
- 	if (scontrol->max_size > sizeof(ucontrol->value.bytes.data)) {
-@@ -344,14 +349,18 @@ static int sof_ipc3_bytes_put(struct snd_sof_control *scontrol,
- 		return -EINVAL;
- 	}
- 
--	/* scontrol->max_size has been verified to be >= sizeof(struct sof_abi_hdr) */
--	if (data->size > scontrol->max_size - sizeof(*data)) {
--		dev_err_ratelimited(scomp->dev, "data size too big %u bytes max is %zu\n",
--				    data->size, scontrol->max_size - sizeof(*data));
-+	/* Validate the new data's size, not the old one */
-+	if (new_hdr->size > scontrol->max_size - sizeof(*cdata) -
-+				    sizeof(*new_hdr)) {
+ 	/* check data size doesn't exceed max coming from topology */
+-	if (cdata->data->size > scontrol->max_size - sizeof(struct sof_abi_hdr)) {
+-		dev_err_ratelimited(scomp->dev, "User data size %d exceeds max size %zu\n",
++	if (cdata->data->size > scontrol->max_size - sizeof(*cdata) -
++				sizeof(struct sof_abi_hdr)) {
 +		dev_err_ratelimited(scomp->dev,
-+				    "data size too big %u bytes max is %zu\n",
-+				    new_hdr->size,
++				    "User data size %u exceeds max size %zu\n",
+ 				    cdata->data->size,
+-				    scontrol->max_size - sizeof(struct sof_abi_hdr));
 +				    scontrol->max_size - sizeof(*cdata) -
-+				    sizeof(*new_hdr));
++				    sizeof(struct sof_abi_hdr));
  		return -EINVAL;
  	}
  
--	size = data->size + sizeof(*data);
-+	size = new_hdr->size + sizeof(*new_hdr);
- 
- 	/* copy from kcontrol */
- 	memcpy(data, ucontrol->value.bytes.data, size);
 -- 
 2.54.0
 
