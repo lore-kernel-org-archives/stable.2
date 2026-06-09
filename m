@@ -1,124 +1,109 @@
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com [209.85.167.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0E6735A93C;
-	Tue,  9 Jun 2026 14:52:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1DB03F0A96
+	for <stable@vger.kernel.org>; Tue,  9 Jun 2026 14:54:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781016778; cv=none; b=tCHUxfPEhx3eATsb+16ZqGSuhM5bgZ2SsvHHXVcDdCIdR3gN1Rc3hyLswMeXHKfjOZoKqA4KHDC4UzgGMYP2g6w90zuEyp5S+xS9C1W70qh5cCoNlv4HWPoaIooJD/738E2IgBv1DaIg05IAtcchDEZdlSFkaO7STciMeRZJiXc=
+	t=1781016884; cv=none; b=Fp77q4pZeCntr7iQQKuEwFr/5Drbnpx7+05GFNq4U6watcBERJgq+uws8sAJM4tSi3Wr1LZLIvlfNv3Acdomj8VVTe2kI2ptVdYdeUyy1kNazV4ejoHaVbhh8aAAACsLFpRr6/yXYw/dxidZEicVonrSf2rSVi+pV0dMCXL1Mqo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781016778; c=relaxed/simple;
-	bh=bC4btuelzMei4hLLrWdDC/hyQ6n1RGKvzOIi72zxWqM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iULhsxW5bNXieCm0U0xRUVSRqpR+EbPLqWz1LqQP1M1pUxfAsJFwhMFQTylENFtihFPgvcwXGtPvCAnPKAl8+R9uLzCkn2PwF8eZEbY+Q/+3qI0HnC9tVOCqEq9ige4Nr36LA0Cv2g7filp8rGyPNCFFmCtQX6Ds8KmvITTDbxM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=FH9KAw83; arc=none smtp.client-ip=90.155.92.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1781016884; c=relaxed/simple;
+	bh=qgv+wZWNK0Mz6GS1G2Fzoaat4uwNiLXjksBqYIHiD9M=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=eZfdOKJ8hOYjyrnYI2sXrUulO/LnGv8Gx/gL6KoDgqWEGoN6hMrZLbrJLbGPrjbVXr2Hx0mubjHSYDwQRQyIeUXdysUiwJg9dBV2QmbNOPLHxFLt9Zcj3rAuh4BE9GLr/V9+LxEAtu6ay4Q3bBpjz5vglPdmwTaPZFI8KC9ZIGM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ldR2+xig; arc=none smtp.client-ip=209.85.167.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="FH9KAw83"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=Ma2XbH47OgCHmSnYRO01b2N3/ZgGpdGZ5hjI2OZ/1Ik=; b=FH9KAw83AZAGVh90QtebTL+7wr
-	D7rCXXQoZ+vmhtRu7uLj9tvScXO3u554WJdlVtWEiBHjX5EpP4NNC7JAmsescMX+xL/ZhrJsDOFSS
-	/3g7g0Ux+Z0H1IZI6RHEhlCcTGYqzSXlh30zu7Huoa3ArqMoXH/79wuz4bIqWZTXvo7aY7xmZdTmj
-	WVYz9tg8nn3cTu7PJkoyc+Jj4hc+C+GdojXfoManMdlIeX7AnFXoNhAVsUYMJqSXiffp8l88oI+9j
-	lWRC0P8/tdOIvnSUwpBz0fk2XvIjwDdBUdhu5Y99Wobhq90q5hVAl+zMBPDdmO/bNhhYeFSw+7DSf
-	9ppLGcoA==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
-	id 1wWxox-00000002gS9-36HN;
-	Tue, 09 Jun 2026 14:52:51 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id BA2B7302F12; Tue, 09 Jun 2026 16:52:50 +0200 (CEST)
-Date: Tue, 9 Jun 2026 16:52:50 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Dapeng Mi <dapeng1.mi@linux.intel.com>
-Cc: Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>, Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Andi Kleen <ak@linux.intel.com>,
-	Eranian Stephane <eranian@google.com>, linux-kernel@vger.kernel.org,
-	linux-perf-users@vger.kernel.org, Dapeng Mi <dapeng1.mi@intel.com>,
-	Zide Chen <zide.chen@intel.com>,
-	Falcon Thomas <thomas.falcon@intel.com>,
-	Xudong Hao <xudong.hao@intel.com>, stable@vger.kernel.org
-Subject: Re: [Patch v2 5/9] perf/x86/intel: Drop LBR entries whose privilege
- level mismatches br_sel
-Message-ID: <20260609145250.GD49951@noisy.programming.kicks-ass.net>
-References: <20260609050222.2458129-1-dapeng1.mi@linux.intel.com>
- <20260609050222.2458129-6-dapeng1.mi@linux.intel.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ldR2+xig"
+Received: by mail-lf1-f45.google.com with SMTP id 2adb3069b0e04-5aa5be9ab1aso5315061e87.1
+        for <stable@vger.kernel.org>; Tue, 09 Jun 2026 07:54:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781016881; x=1781621681; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=YvVZVpbZQ11FZGvsMbCfSWDPxvbVcumrUGTwFQKsLlw=;
+        b=ldR2+xigwPJxfJ4NxPTy2V0Iouo7vJk5LJg1fLUww6Qn+hZR7eY10tYqvYae+1blmF
+         UJkKDLmvVTdapqmurt5Hir+6Ef6Whh543baonrNbX6hM+XBT3irtEMiTK/uqJtqEkd9h
+         fMC/RfCmhAfF4i1rm5qsk3odcEsJ466i0hrbV5NyQ9vIGPChpdoqYw8MIORj9MkvkGFt
+         Dw6Zmd81Z7Yz6fa1EA8PkIMRZemfD2uXvaBEg2oxPWkS2Qkl26xWX8PPDN2bD2jrad/4
+         czkDKJSpDyxkv9HO0eZxGcRXHA7AT9MbsDrlIW7Hgd3cl97OSWl0lQoeDluwkO6UGv5s
+         MG5w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781016881; x=1781621681;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=YvVZVpbZQ11FZGvsMbCfSWDPxvbVcumrUGTwFQKsLlw=;
+        b=mb6Y5lFzlzCT4Fp/WRV1fTk2Hs1dTUVHy7scNL7Iu+zr2QnAfd7MpHpNYZCJ40IQc+
+         F4O6g8h/MsVy1n4rwep3FmPg9ARBzBo0g2iwCPYaugCzz0Qp7P5lC2omU8AuBT4+A2LZ
+         nb9VJKnxzJ95TK1hJWgPLK4nEffKcc0jyfHtDbJzBG6GE+1RdBGUlFPiCZR24uKPmtN7
+         yKI2s09I2Sbus2yK1CwN22fNTLS+nWbp2dO1oNBNWA/esI90M3DBAaWZgvFJWliTz53H
+         Fxpxa1N/z/rSM9gPVSOruK9LUPksGTMtMuEsaWBcsDUiPZe54jiYeArGM1T/9I8k9iO3
+         0XQA==
+X-Forwarded-Encrypted: i=1; AFNElJ/nXTmTHSTMwbP5TLoXdpgN3WPWsT4K6+svJnuG85MMIKzn32sdkT/E3yrGp3sKJtKa/JnNXI0=@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywsl2GgWY/9Q94GZEiiaVOtQIg7QN40Ik5Tqu+uvTOv21HlptHJ
+	y81d6+wbjgATlNRPAxJVYyRjowLZB3Y4nE3etyByYYZboqQkypWSIc1J
+X-Gm-Gg: Acq92OFysmFWddp5TNW0SqfRPR1lz/5BbSnd4wSRb72ecCdzKY4rinUL34RG4Tu9mtm
+	7wN74mctWQPg/56QocPmCpi1IniOUWmodJ6grg3pnLn0OywjEhQDv3rkgZxCTueejeZLA5sumUx
+	PCCSqvu4tLulcdTwaSeDkvX0iI97BezDInORhxsi5WojQTYYW/EW7MEa92Je020yda/dn66TF8B
+	Xyr+Q3OzcJ5cO2UW7/ci9o/+pvdYaPyDdnS2ZCl827GJy5auGksgqSyCXQxKbSogfU6wKI6XbtD
+	EnAkLPMYF7sBbXmXROIFVK/UJOUBqnH5SiQM6gQmKkLI2WxWPYKX1bvqN4eWhuPwNpLst9C2bA+
+	USwZGiyYYlRvavFXZaFL3RKZ6aTN6PRt4Bk6bVCSVXetsXLU0utkr22OFusqkjntsrd/5d/UhD9
+	FN7zmAjtnbkFWpQhQgTrU+4UM0QeS4kI43Yblqr5O4VphA79tjWpnnsS/MDb9HIJwa0JGj
+X-Received: by 2002:a05:6512:3503:b0:5aa:6c7c:65e8 with SMTP id 2adb3069b0e04-5aa87bdd028mr5627091e87.23.1781016880741;
+        Tue, 09 Jun 2026 07:54:40 -0700 (PDT)
+Received: from c0624c666cc5.devsec.astralinux.ru ([93.188.205.42])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5aa7b8ed2d3sm4652172e87.5.2026.06.09.07.54.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 09 Jun 2026 07:54:40 -0700 (PDT)
+From: Vladislav Nikolaev <vlad102nikolaev@gmail.com>
+To: Sasha Levin <sashal@kernel.org>
+Cc: Vladislav Nikolaev <vlad102nikolaev@gmail.com>,
+	stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Zhu Yanjun <zyjzyj2000@gmail.com>,
+	Doug Ledford <dledford@redhat.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Haggai Eran <haggaie@mellanox.com>,
+	Leon Romanovsky <leon@kernel.org>,
+	linux-rdma@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Fedor Pchelkin <pchelkin@ispras.ru>,
+	lvc-project@linuxtesting.org
+Subject: 
+Date: Tue,  9 Jun 2026 17:54:31 +0300
+Message-ID: <20260609145437.1837-1-vlad102nikolaev@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260605-stable-reply-0021@kernel.org>
+References: <20260605-stable-reply-0021@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260609050222.2458129-6-dapeng1.mi@linux.intel.com>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Jun 09, 2026 at 01:02:18PM +0800, Dapeng Mi wrote:
-> Before Arch LBR gained CPL filtering support, a user-only branch stack
-> could still contain kernel addresses. As a result, kernel branch records
-> may be exposed to user space even when PERF_SAMPLE_BRANCH_USER is
-> requested.
-> 
-> For example, on Intel Tiger Lake, the following command can still report
-> SYSRET/ERET entries with kernel-space from addresses:
-> 
-> ```
-> $./perf record -e cycles:p -o - --branch-filter any,save_type,u -- \
->  	./perf bench syscall basic --loop 1000 | \
-> 	./perf script -i - --fields brstack|tr ' ' '\n'| \
-> 	grep -E '0x[89a-f][0-9a-f]{15}'
-> 
->     Total time: 0.000 [sec]
-> 
->       0.219000 usecs/op
->      4,566,210 ops/sec
-> [ perf record: Woken up 1 times to write data ]
-> [ perf record: Captured and wrote 0.551 MB - ]
-> 0xffffffff93c001c8/0x7f12a2b1d647/P/-/-/16959/SYSRET/-
-> 0xffffffff93c001c8/0x7f12a2b1d5c2/P/-/-/17535/SYSRET/-
-> 0xffffffff93c01928/0x7f12a2861000/P/-/-/6719/ERET/-
-> 0xffffffff93c01928/0x7f12a297a000/P/-/-/8575/ERET/-
-> ```
-> 
-> The problem is that intel_pmu_lbr_filter() does not fully validate the
-> privilege level of sampled entries. It filters some mismatches based on
-> the branch type and the to address, but it does not reject entries whose
-> from address violates the requested branch privilege filter.
-> 
-> Fix this by extending software filtering to validate both from and to
-> addresses against br_sel. Any LBR entry whose privilege level does not
-> match the requested user/kernel filter is dropped. This prevents kernel
-> addresses from appearing in user-only branch stacks, and likewise drops
-> user entries from kernel-only stacks.
-> 
-> Cc: stable@vger.kernel.org
-> Reported-by: Ian Rogers <irogers@google.com>
-> Fixes: 47125db27e47 ("perf/x86/intel/lbr: Support Architectural LBR")
-> Signed-off-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
-> ---
->  arch/x86/events/intel/lbr.c | 14 +++++++++++---
->  1 file changed, 11 insertions(+), 3 deletions(-)
-> 
-> diff --git a/arch/x86/events/intel/lbr.c b/arch/x86/events/intel/lbr.c
-> index d4c0ed85e1fb..807ce903c972 100644
-> --- a/arch/x86/events/intel/lbr.c
-> +++ b/arch/x86/events/intel/lbr.c
-> @@ -1212,7 +1212,7 @@ intel_pmu_lbr_filter(struct cpu_hw_events *cpuc)
->  {
->  	u64 from, to;
->  	int br_sel = cpuc->br_sel;
-> -	int i, j, type, to_plm;
-> +	int i, j, type, to_plm, from_plm;
->  	bool compress = false;
->  
->  	/* if sampling all branches, then nothing to filter */
+Subject: Re: [PATCH v2 5.10/5.15] RDMA/rxe: Fix the error "trying to register
+ non-static key in rxe_cleanup_task"
 
-If there, might as well order those variables in reverse xmas.
+In-Reply-To: <20260605-stable-reply-0021@kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+
+On Fri, Jun 05, 2026 at 03:37:28PM -0400, Sasha Levin wrote:
+> I'm dropping this for now; it isn't right for either branch as submitted:
+>
+>  - 5.15.y: the bug doesn't exist there -- the task locks are already
+>    spin_lock_init()'d on the QP-create error path.
+>  - 5.10.y: mis-targeted -- it patches rxe_qp_do_cleanup(), but the 5.10
+>    error-unwind path doesn't call rxe_cleanup_task() there.
+
+Thanks for checking this.
+
+I rechecked the 5.10.y and 5.15.y code paths, and I agree with your
+assessment. This is not a correct backport for these branches.
+
+Sorry for the noise.
