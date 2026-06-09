@@ -1,145 +1,124 @@
-Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012061.outbound.protection.outlook.com [40.107.209.61])
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73B3635676A
-	for <stable@vger.kernel.org>; Tue,  9 Jun 2026 14:52:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.61
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781016777; cv=fail; b=cX/ysEVfpULe7AoWnru8PgLIBJwj3Atc9c6trUWi3dUYMW9PEha2ifT7vAvTg3pFhVkQZng1rhsUvVJKRgBl6zb33FBGHgn/YtKs4eoRYDq813UxZK9vGeytyC+sJL69/VgFRhYjVbQWT0Yoa4DXt/suXPKuk72d+vRn9Cwo+HU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781016777; c=relaxed/simple;
-	bh=pcT8hsOX08nvGTD6iGk+PjklqZF9tbu2kVL7gP5LxEY=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sWW8DnervmLaTrxoljdoK6mwwzrVKuRmD1rZmruyquQWIBwKDPyF8+5Q8bJPZJlgtKA1KiOP53I0TH7EOekO5NCHz/c9/T6ewIkEld0QpaKaq/ZptRCps49NCaXiJyFWjJ7Xkn7gXYRQ4+6mvgjxeqCxujPSHJe34aC/EnBahkE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=BzFi03/l; arc=fail smtp.client-ip=40.107.209.61
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0E6735A93C;
+	Tue,  9 Jun 2026 14:52:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781016778; cv=none; b=tCHUxfPEhx3eATsb+16ZqGSuhM5bgZ2SsvHHXVcDdCIdR3gN1Rc3hyLswMeXHKfjOZoKqA4KHDC4UzgGMYP2g6w90zuEyp5S+xS9C1W70qh5cCoNlv4HWPoaIooJD/738E2IgBv1DaIg05IAtcchDEZdlSFkaO7STciMeRZJiXc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781016778; c=relaxed/simple;
+	bh=bC4btuelzMei4hLLrWdDC/hyQ6n1RGKvzOIi72zxWqM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=iULhsxW5bNXieCm0U0xRUVSRqpR+EbPLqWz1LqQP1M1pUxfAsJFwhMFQTylENFtihFPgvcwXGtPvCAnPKAl8+R9uLzCkn2PwF8eZEbY+Q/+3qI0HnC9tVOCqEq9ige4Nr36LA0Cv2g7filp8rGyPNCFFmCtQX6Ds8KmvITTDbxM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=FH9KAw83; arc=none smtp.client-ip=90.155.92.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="BzFi03/l"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ox94ejYxYqwTZA9HVMmf+wZEc6UZ4zmO3ARU8ZFERm0DpuOTuFMLr/ew0YuCploUjU4dNFxR/beISaAbStxiaIcfg0o7HtmKVZ92q366daVfbYjH0we5ElFZ8GOG9cwO6AyDX7KDa5lMJAlzWJSh2XV70uFjoHYnfA4aA6nQzApGjEfGjZcIfJ5F7h2M+u3pk5g7hk3oBtaRYAddVCqVSsGlrYINMzyzg95VsG5dDN44f0qEMaUtz8eItdjcXi2iyAr9Qwi6MPQ/2CFGP0u5EyhkiImc+PaoSTzScDe99RyvHf5tZUvQHebFJvtAyZ9YKlQq3qW635/A0VCUEhT76g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TmjkTkU6954Qj/e/IKNEOCiXuzWGs6FV/FxjNYZ3U9A=;
- b=Kzn1dcFCog9MA9d3QJwXTpp4eaKdkOR0EAGfF1k4OwGoVaidmueOa2JWpmkCt4TyDpJ/1GX3bd5uRfiEs6UTW8ZQcNn3PrPq1FLQ9FgDfhmqHsmBQ9vJwrXMbv0QKg9Hu7PhyeONDJHvtWlxxIb+7as+RmCZFqoCSRIaoGjLYVuz+0G1ZLRXVZ463raGJgjuFwd0AR8qdwKmoSVhjplW8jZTDg5xA39m07nu1cdrOEeN82qyztirPI7Ba7P5TiQzy73UKfdn9IoTOswgFepA56HwO7A8DUtFRz7kO2NaH9qfIvTw94EdXzUmu1qDy7OryY09F9k+IXE4fCQPpknQJw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.161) smtp.rcpttodomain=lists.linux.dev smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TmjkTkU6954Qj/e/IKNEOCiXuzWGs6FV/FxjNYZ3U9A=;
- b=BzFi03/ltkAAn3JT1tufPPnj8rwzBdCphR5wtDBKKyD/F01PdulNSGWi+CLQH0WtkrBACH7llORrJY1IkqtjAsPm5erPu8zMSuFmfGG/pDuhNofhKw6BNvWAlRi+pPtbTscsKohpRyuw6ZhVAxEjte6P6u3N4QZ7mUIjwV1SS/RqS/FTmdtmyElfqyelgWdNbKu8w6Tzzb1f0S05z1JH7LD8kh9qVs/6YXIcS6MWs+xM+gK8gxhxkK0gNUybrQFp7Vwy0c6Qossiz8IKUNddYE+nGc/rONs6CYT5+8E/yxuaGwcShzgGwwxhmtL3npkTRDoJlMOq8ba6aOH4oPtI0g==
-Received: from SA1P222CA0177.NAMP222.PROD.OUTLOOK.COM (2603:10b6:806:3c4::25)
- by SJ0PR12MB8167.namprd12.prod.outlook.com (2603:10b6:a03:4e6::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.13; Tue, 9 Jun 2026
- 14:52:45 +0000
-Received: from SN1PEPF0002636B.namprd02.prod.outlook.com
- (2603:10b6:806:3c4:cafe::2e) by SA1P222CA0177.outlook.office365.com
- (2603:10b6:806:3c4::25) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.113.11 via Frontend Transport; Tue, 9
- Jun 2026 14:52:45 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.161) by
- SN1PEPF0002636B.mail.protection.outlook.com (10.167.241.136) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.113.7 via Frontend Transport; Tue, 9 Jun 2026 14:52:44 +0000
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
- (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Tue, 9 Jun
- 2026 07:52:24 -0700
-Received: from localhost (10.126.231.37) by rnnvmail201.nvidia.com
- (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Tue, 9 Jun
- 2026 07:52:23 -0700
-Date: Tue, 9 Jun 2026 17:52:19 +0300
-From: Leon Romanovsky <leonro@nvidia.com>
-To: Jason Gunthorpe <jgg@nvidia.com>
-CC: <iommu@lists.linux.dev>, "Joerg Roedel (AMD)" <joro@8bytes.org>, "Robin
- Murphy" <robin.murphy@arm.com>, Will Deacon <will@kernel.org>, Jens Axboe
-	<axboe@kernel.dk>, Christoph Hellwig <hch@lst.de>, Marek Szyprowski
-	<m.szyprowski@samsung.com>, Luis Chamberlain <mcgrof@kernel.org>, Mark Lord
-	<mlord@pobox.com>, <patches@lists.linux.dev>, <stable@vger.kernel.org>
-Subject: Re: [PATCH rc] iommu/dma: Do not try to iommu_map a 0 length region
- in swiotlb
-Message-ID: <20260609145219.GC327369@unreal>
-References: <0-v1-8536728bc89f+469-swiotlb_warn_jgg@nvidia.com>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="FH9KAw83"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=Ma2XbH47OgCHmSnYRO01b2N3/ZgGpdGZ5hjI2OZ/1Ik=; b=FH9KAw83AZAGVh90QtebTL+7wr
+	D7rCXXQoZ+vmhtRu7uLj9tvScXO3u554WJdlVtWEiBHjX5EpP4NNC7JAmsescMX+xL/ZhrJsDOFSS
+	/3g7g0Ux+Z0H1IZI6RHEhlCcTGYqzSXlh30zu7Huoa3ArqMoXH/79wuz4bIqWZTXvo7aY7xmZdTmj
+	WVYz9tg8nn3cTu7PJkoyc+Jj4hc+C+GdojXfoManMdlIeX7AnFXoNhAVsUYMJqSXiffp8l88oI+9j
+	lWRC0P8/tdOIvnSUwpBz0fk2XvIjwDdBUdhu5Y99Wobhq90q5hVAl+zMBPDdmO/bNhhYeFSw+7DSf
+	9ppLGcoA==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
+	id 1wWxox-00000002gS9-36HN;
+	Tue, 09 Jun 2026 14:52:51 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id BA2B7302F12; Tue, 09 Jun 2026 16:52:50 +0200 (CEST)
+Date: Tue, 9 Jun 2026 16:52:50 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Dapeng Mi <dapeng1.mi@linux.intel.com>
+Cc: Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>, Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Andi Kleen <ak@linux.intel.com>,
+	Eranian Stephane <eranian@google.com>, linux-kernel@vger.kernel.org,
+	linux-perf-users@vger.kernel.org, Dapeng Mi <dapeng1.mi@intel.com>,
+	Zide Chen <zide.chen@intel.com>,
+	Falcon Thomas <thomas.falcon@intel.com>,
+	Xudong Hao <xudong.hao@intel.com>, stable@vger.kernel.org
+Subject: Re: [Patch v2 5/9] perf/x86/intel: Drop LBR entries whose privilege
+ level mismatches br_sel
+Message-ID: <20260609145250.GD49951@noisy.programming.kicks-ass.net>
+References: <20260609050222.2458129-1-dapeng1.mi@linux.intel.com>
+ <20260609050222.2458129-6-dapeng1.mi@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <0-v1-8536728bc89f+469-swiotlb_warn_jgg@nvidia.com>
-X-ClientProxiedBy: rnnvmail202.nvidia.com (10.129.68.7) To
- rnnvmail201.nvidia.com (10.129.68.8)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF0002636B:EE_|SJ0PR12MB8167:EE_
-X-MS-Office365-Filtering-Correlation-Id: d4c47e18-299b-4639-9936-08dec636c3ec
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|376014|7416014|1800799024|36860700016|3023799007|6133799003|11063799006|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	nPqoTOOPD9vFlYDNrqLRYRO99xCHXtxG8wYu4sQ+3XOM4cCebjzlZp/A2mdClHeyALQ1+oY+9mHonMD9AzKIDXpr/gXfGZmPDNNpM7Hd+UH+kCtqHE8E2dq3PE24+QUJ+nMVuXHFrIBXIH5/28b2kstVaabS1O6v52VuVWDUmoKOVVgVTjOsu2aUGl8pDNQ3P57OslMapQGPnShJ881BrFjiDjciE/TxNagicQiZtAeaFB7v3uc2DP0hDPhnFPeLa3duYUQ+7BhfkB8JqwvbTakR2jAdtIKkMPOv88nnGQlG9xIwY17iWJPFmZb2GEmG3jCTC4MUXw5OLYxNtXS637d1ffCZd2+Mg93a7bMj9tuQzg5M0X5aoYzbwBPT0HEjYSCTH2MygtlfVGiGfr4oZudo9QBsXxjO61riCwNj3FchgyNTrGI+oVNnL64w2ZOKfbage8lEA5P9JrAZyGJvsjkTjNQybPFt5NDZw/tJbpcvmh7j1lEd39TelCKlTwQWkw9BxqXJNdMxQacjHSuMMIWiOvcL2sD7KYwXEDukEAYFwLOEPOKyG9jpzN0CvTQw7t27OdwS1wF5MI28WRF6YweGrP6rW3TjUrsUK3n2oalqV6ShHoceFT2LpBSBKUgFfSqQROwq8omrmqetTKQ/33qyTmvIDTuln8wv85JLpFlEQ6yRTYotjBvbZOaGh5aUXNcjZ1+grNjynicPw3+WxZc2jYAh23V9h9owKpneP4o=
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(82310400026)(376014)(7416014)(1800799024)(36860700016)(3023799007)(6133799003)(11063799006)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	pIIZZwj/OcjKPMG81OjyJc7uEDOtQLXo7c3wc3/q2y7vJt9V/JAgS/GNrqgV34LlXHvmRwPuOGrNR09bwgcuMayuLgihb4KV1ei6soHBY2iQy+AZstS4ANL7sNMo4Op85Gvo6cCPhpuUmHQPEPx+SlR4sIp0tZv7jJ9dC1tuC0GtGLzEGzOsbmvo53Gl28EZkm75GQRCAEOkQ2LNCuZ2yzzkw8XDlPCHWFbyXA0D+m1+dPJHb8/Nt2beFsp2SldcbarRtCAUimEnb5V0pL3W7eEDt8qMikrZKN9Dba06qZy7jF6H/6t+u6/eJXmMf99D4DPIMVFsLLLNBwWZ9sHOp0wZmiNAAIeAcQzYN6Jxzq+DSVTUjbv/vrdFvIvP7VfyKHmPHt4s7iBqXd7Ew2t9YJL+vISnYl6k4xnhe3QY1F65qRhe+FxrzsL8+35odEnH
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jun 2026 14:52:44.9285
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d4c47e18-299b-4639-9936-08dec636c3ec
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SN1PEPF0002636B.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB8167
+In-Reply-To: <20260609050222.2458129-6-dapeng1.mi@linux.intel.com>
 
-On Mon, Jun 08, 2026 at 03:10:04PM -0300, Jason Gunthorpe wrote:
-> iommu_dma_iova_link_swiotlb() processes a mapping that is unaligned in three
-> parts, the head, middle and trailer. If the middle is empty because there
-> are no aligned pages it will call down to iommu_map() with a 0 size
-> which the iommupt implementation will fail as illegal.
+On Tue, Jun 09, 2026 at 01:02:18PM +0800, Dapeng Mi wrote:
+> Before Arch LBR gained CPL filtering support, a user-only branch stack
+> could still contain kernel addresses. As a result, kernel branch records
+> may be exposed to user space even when PERF_SAMPLE_BRANCH_USER is
+> requested.
 > 
-> It then tries to do an error unwind and starts from the wrong spot
-> corrupting the mapping so the eventual destruction triggers a WARN_ON.
+> For example, on Intel Tiger Lake, the following command can still report
+> SYSRET/ERET entries with kernel-space from addresses:
 > 
-> Check for 0 length and avoid mapping and use offset not 0 as the starting
-> point to unlink.
+> ```
+> $./perf record -e cycles:p -o - --branch-filter any,save_type,u -- \
+>  	./perf bench syscall basic --loop 1000 | \
+> 	./perf script -i - --fields brstack|tr ' ' '\n'| \
+> 	grep -E '0x[89a-f][0-9a-f]{15}'
 > 
-> This is frequently triggered by using some kinds of thunderbolt NVMe
-> drives that trigger forced SWIOTLB for unaligned memory. NVMe seems to
-> pass in oddly aligned buffers for the passthrough commands from smartctl
-> that hit this condition.
+>     Total time: 0.000 [sec]
+> 
+>       0.219000 usecs/op
+>      4,566,210 ops/sec
+> [ perf record: Woken up 1 times to write data ]
+> [ perf record: Captured and wrote 0.551 MB - ]
+> 0xffffffff93c001c8/0x7f12a2b1d647/P/-/-/16959/SYSRET/-
+> 0xffffffff93c001c8/0x7f12a2b1d5c2/P/-/-/17535/SYSRET/-
+> 0xffffffff93c01928/0x7f12a2861000/P/-/-/6719/ERET/-
+> 0xffffffff93c01928/0x7f12a297a000/P/-/-/8575/ERET/-
+> ```
+> 
+> The problem is that intel_pmu_lbr_filter() does not fully validate the
+> privilege level of sampled entries. It filters some mismatches based on
+> the branch type and the to address, but it does not reject entries whose
+> from address violates the requested branch privilege filter.
+> 
+> Fix this by extending software filtering to validate both from and to
+> addresses against br_sel. Any LBR entry whose privilege level does not
+> match the requested user/kernel filter is dropped. This prevents kernel
+> addresses from appearing in user-only branch stacks, and likewise drops
+> user entries from kernel-only stacks.
 > 
 > Cc: stable@vger.kernel.org
-> Fixes: 433a76207dcf ("dma-mapping: Implement link/unlink ranges API")
-> Reported-by: Mark Lord <mlord@pobox.com>
-> Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
+> Reported-by: Ian Rogers <irogers@google.com>
+> Fixes: 47125db27e47 ("perf/x86/intel/lbr: Support Architectural LBR")
+> Signed-off-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
 > ---
->  drivers/iommu/dma-iommu.c | 19 +++++++++++++------
->  1 file changed, 13 insertions(+), 6 deletions(-)
+>  arch/x86/events/intel/lbr.c | 14 +++++++++++---
+>  1 file changed, 11 insertions(+), 3 deletions(-)
 > 
-> This was discovered because iommupt errors on mapping length=0 instead of
-> making it a NOP, so it is an became an issue since commit d6c65b0fd621
-> ("iommupt: Avoid rewalking during map") making it a regression this merge
-> window.
-> 
+> diff --git a/arch/x86/events/intel/lbr.c b/arch/x86/events/intel/lbr.c
+> index d4c0ed85e1fb..807ce903c972 100644
+> --- a/arch/x86/events/intel/lbr.c
+> +++ b/arch/x86/events/intel/lbr.c
+> @@ -1212,7 +1212,7 @@ intel_pmu_lbr_filter(struct cpu_hw_events *cpuc)
+>  {
+>  	u64 from, to;
+>  	int br_sel = cpuc->br_sel;
+> -	int i, j, type, to_plm;
+> +	int i, j, type, to_plm, from_plm;
+>  	bool compress = false;
+>  
+>  	/* if sampling all branches, then nothing to filter */
 
-Thanks,
-Reviewed-by: Leon Romanovsky <leonro@nvidia.com>
+If there, might as well order those variables in reverse xmas.
