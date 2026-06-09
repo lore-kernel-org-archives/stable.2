@@ -1,116 +1,157 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1896026C385;
-	Tue,  9 Jun 2026 00:54:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 228C72F6188;
+	Tue,  9 Jun 2026 01:22:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780966487; cv=none; b=VvMEc/7h+22RZPQFGCoK6xvPvXorZEbL/6BkqFmeL+1+/osi71RnUQrN3MxYQhqQtgl27wSQc4jZns6sUAJGeir4Iwn9NT7F2IoxdJiHJHenRHg3DfQVF3J3Bi7Qm7oIX3o2axmeITNo2eq005Ilwfonm1MvxX3md8p+8VFwFkY=
+	t=1780968156; cv=none; b=e0H4CiOc4nC6loGlLRAYwaKO+qmIBSUKx/YO/Y3fPtQHmlj6kMS5/VKFg1Xlm1Jto5HtCsKdAw9ZzmL/kfKDpGKnb6p015fau5AjVsL+oJleHuCfkcnGTXwNmAu9s3CsTFz8//MUKOHMFRtQPRFBmT0lqn5XECYBBhwly2fIWuQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780966487; c=relaxed/simple;
-	bh=hN6m26Pt43YVNp2YWw3p5RNmTMEKADud6+2L5WFh1zQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=olWIPe/xaCBiZ/ly2E51FEmfNtvdn3JdbDYjtfrLX9hR77TuKfNAlrAJdXPusRh/nzcCexH4NAnqOPwmk06HXF9PQ+N67rycud95qHxUyHiQlECuZtQjuHL73XWiEzQcS7kvqHoApMvAx0WPVRF/AkNIts/SoiEmhqmGwfI8jqo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T0IlKExM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780968156; c=relaxed/simple;
+	bh=BxkIzcFktqZXGj1ro6gCyhWt5mGd3CyEZcAw8xGeD0M=;
+	h=Date:To:From:Subject:Message-Id; b=UrAKOuXp7S1YwNUIw6mVqHGJuSco+Q6Nbfc1+Bgh25onYu+bxKo/0E961fQZN7WYkm8fMzxlmt9rhqy0t0mv2yJVyTkI4trYT5F21SXFzALwvKPJpCLQPUeOwI5LmqZ/b+y6zAH05MXWOGEJmmgtHwKXjnY41Ul6zAUojrziFNs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=ziQMSZ5W; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T0IlKExM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 814E71F00899;
-	Tue,  9 Jun 2026 00:54:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780966485;
-	bh=Jo6v5LwZ9ZiVMHZVW1HuuvAQB6tY4B2I58Ij6xQSkaM=;
-	h=From:To:Cc:Subject:Date;
-	b=T0IlKExMhP67Am9Ab1dPAxhi38p2Vua+v4TKu3QPQfHGzA8IHzar1Y5jk2fDSmNtM
-	 PvUclIhidEI+NxyHipSY/tYmzKtQGSKF+tzkba2pJiMUuS3eMGgXUmOoOEft3SbcnC
-	 6PohtZry+ysT3rdCbEkCM6yrvWoQmnBcgnDaqV5zAyLjuiROanwrZ0mQqVQRtY5aEt
-	 lohzX6dcvd4nS63QrGw5NSGpNxRIaAhy71vASE2ytg2dzMY4R7wze4bPcmN9B7HvYV
-	 Ibvym0crZS2p+N8yfedo7ztg1rafTOGRRWI03QRSu+hrODc96ovoRj0PttrXOcM26M
-	 SarjuB4DjXbyQ==
-From: SeongJae Park <sj@kernel.org>
-To: 
-Cc: SeongJae Park <sj@kernel.org>,
-	"# 6 . 16 . x" <stable@vger.kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [RFC PATCH] samples/damon/mtier: handle damon_start() failure
-Date: Mon,  8 Jun 2026 17:54:41 -0700
-Message-ID: <20260609005443.2122-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="ziQMSZ5W"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E94F31F00893;
+	Tue,  9 Jun 2026 01:22:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1780968155;
+	bh=MMfwCnAREdwb+cnYQp+Ya9WougO8T3seWaQhwmlD+O4=;
+	h=Date:To:From:Subject;
+	b=ziQMSZ5W5COmmDjzcIY8ihEPJS4TSwzKQRHREEvT171hVFUzfQGenfvpwLSveLARV
+	 cOzMuXlU1mPaDU6fjQ6l2xsq9bcJPNoyhv5aIETt8Qy0i+LPKIj5ciuNfsQ1AFN+67
+	 tOKHZq7qxH1Spj0KRJLpZY9VDr/7xDS6VGfcotCs=
+Date: Mon, 08 Jun 2026 18:22:34 -0700
+To: mm-commits@vger.kernel.org,vbabka@kernel.org,surenb@google.com,stable@vger.kernel.org,sashiko-bot@kernel.org,rppt@kernel.org,peterx@redhat.com,mhocko@suse.com,ljs@kernel.org,dev.jain@arm.com,david@kernel.org,balbirs@nvidia.com,kas@kernel.org,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: [merged mm-stable] fs-proc-task_mmu-fix-make_uffd_wp_huge_pte-prot-update-race.patch removed from -mm tree
+Message-Id: <20260609012234.E94F31F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-damon_sample_mtier_start() callers assume it will clean up resources
-when it fails.  And the function does the cleanup for context buildup
-failures.  However, it is not doing the cleanup for damon_start()
-failure.
 
-As a result, when damon_start() fails, it could leak the memory for
-DAMON context.  Also, if damon_start() fails for only the second
-context, the first context will indefinitely run, and avoid starting
-other DAMON contexts since it is running in the exclusive mode.  Stop
-possibly started DAMON context and free the contexts in case of the
-failure to fix the issues.
+The quilt patch titled
+     Subject: fs/proc/task_mmu: fix make_uffd_wp_huge_pte() prot-update race
+has been removed from the -mm tree.  Its filename was
+     fs-proc-task_mmu-fix-make_uffd_wp_huge_pte-prot-update-race.patch
 
-Note that the issue can reliably be reproduced because the module calls
-damon_start() in the exclusive mode.  For example,
+This patch was dropped because it was merged into the mm-stable branch
+of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
-    $ sudo damo start
-    $ echo Y | sudo tee /sys/module/damon_sample_mtier/parameters/enabled
-    $ sudo cat /proc/allocinfo | grep damon_new_ctx
+------------------------------------------------------
+From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+Subject: fs/proc/task_mmu: fix make_uffd_wp_huge_pte() prot-update race
+Date: Fri, 29 May 2026 18:23:25 +0100
 
-Because the first command is running another DAMON instance, the second
-command fails the damon_start() call because the new DAMON instance
-cannot exclusively run.  And without this fix, by repeating the second
-and the third commands above, we can show the memory consumption is only
-increasing due to the leaks.  It requires the sudo permission though.
+Patch series "userfaultfd/pagemap: pre-existing fixes".
 
-The issue was discovered [1] by Sashiko.
+These are pre-existing bug fixes that were carried at the front of the
+userfaultfd RWP working-set-tracking series up to v5 [1].  Per review
+feedback that fixes should not sit in the middle of a feature series, they
+are split out and sent on their own; the RWP series is reposted rebased on
+top of this.
 
-[1] https://lore.kernel.org/20260608112455.274231F00893@smtp.kernel.org
+All six were flagged by the Sashiko AI review of the RWP series and carry
+Reported-by: Sashiko AI review <sashiko-bot@kernel.org>.  They are
+independent of RWP, apply to mm-new directly, and carry Cc: stable@.
 
-Fixes: 82a08bde3cf7 ("samples/damon: implement a DAMON module for memory tiering")
-Cc: <stable@vger.kernel.org> # 6.16.x
-Signed-off-by: SeongJae Park <sj@kernel.org>
+  1: fs/proc/task_mmu: a missing huge_ptep_modify_prot_start() in
+     make_uffd_wp_huge_pte() can lose hardware Dirty/Accessed updates
+     when PAGEMAP_SCAN write-protects a hugetlb PTE.
+
+  2: fs/proc/task_mmu: pagemap_scan_hugetlb_entry() compares the range
+     against HPAGE_SIZE rather than the hstate page size, so it never
+     write-protects gigantic hugetlb pages.
+
+  3: fs/proc/task_mmu: PAGEMAP_SCAN with PM_SCAN_WP_MATCHING over an
+     unpopulated hugetlb range self-deadlocks -- pagemap_scan_pte_hole()
+     calls uffd_wp_range() while walk_hugetlb_range() holds the hugetlb
+     vma lock for read, and hugetlb_change_protection() then takes it
+     for write. Install the marker inline instead.
+
+  4: mm/huge_memory: change_non_present_huge_pmd() drops pmd_swp_uffd_wp
+     on a device-private PMD permission downgrade, silently losing the
+     uffd-wp marker.
+
+  5: userfaultfd: must_wait() applies pte_write() to a locklessly read
+     PTE without checking pte_present(), so swap/migration entries
+     decode random offset bits and a thread can stay parked on a stale
+     fault.
+
+  6: userfaultfd: __VMA_UFFD_FLAGS feeds VMA_UFFD_MINOR_BIT (41) to
+     mk_vma_flags() unconditionally, an out-of-bounds write into the
+     single-word vma_flags_t on 32-bit. Build the mask from config-gated
+     per-mode masks so an unavailable bit is never materialised.
+
+
+This patch (of 6):
+
+make_uffd_wp_huge_pte() arms the UFFD_WP bit on a present HugeTLB PTE by
+calling huge_ptep_modify_prot_commit() with a ptent snapshot that was
+fetched without the corresponding huge_ptep_modify_prot_start().  The
+start helper is what atomically clears the entry so the kernel-owned
+snapshot stays consistent until the commit; without it, the hardware may
+set Dirty or Accessed in the live PTE between the original read and the
+commit, and huge_ptep_modify_prot_commit() (whose generic implementation
+just calls set_huge_pte_at()) then writes the stale snapshot back over the
+live hardware bits, losing the update.
+
+The non-hugetlb sibling make_uffd_wp_pte() does this correctly via
+ptep_modify_prot_start() / ptep_modify_prot_commit().  Mirror that pattern
+for the present-PTE branch.  The migration case stays as-is -- migration
+entries are non-present, so there's no hardware update to race against.
+
+Link: https://lore.kernel.org/20260529172331.356655-1-kas@kernel.org
+Link: https://lore.kernel.org/20260529172331.356655-2-kas@kernel.org
+Link: https://lore.kernel.org/all/20260526130509.2748441-1-kirill@shutemov.name/ [1]
+Fixes: 52526ca7fdb9 ("fs/proc/task_mmu: implement IOCTL to get and optionally clear info about PTEs")
+Signed-off-by: Kiryl Shutsemau <kas@kernel.org>
+Reported-by: Sashiko AI review <sashiko-bot@kernel.org>
+Reviewed-by: Lorenzo Stoakes <ljs@kernel.org>
+Reviewed-by: Dev Jain <dev.jain@arm.com>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Mike Rapoport <rppt@kernel.org>
+Cc: Peter Xu <peterx@redhat.com>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Balbir Singh <balbirs@nvidia.com>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 ---
- samples/damon/mtier.c | 11 ++++++++++-
- 1 file changed, 10 insertions(+), 1 deletion(-)
 
-diff --git a/samples/damon/mtier.c b/samples/damon/mtier.c
-index eb1143de8df17..66b591f2180fa 100644
---- a/samples/damon/mtier.c
-+++ b/samples/damon/mtier.c
-@@ -174,6 +174,7 @@ static struct damon_ctx *damon_sample_mtier_build_ctx(bool promote)
- static int damon_sample_mtier_start(void)
- {
- 	struct damon_ctx *ctx;
-+	int err;
+ fs/proc/task_mmu.c |   12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
+
+--- a/fs/proc/task_mmu.c~fs-proc-task_mmu-fix-make_uffd_wp_huge_pte-prot-update-race
++++ a/fs/proc/task_mmu.c
+@@ -2610,12 +2610,16 @@ static void make_uffd_wp_huge_pte(struct
+ 	if (softleaf_is_hwpoison(entry) || softleaf_is_marker(entry))
+ 		return;
  
- 	ctx = damon_sample_mtier_build_ctx(true);
- 	if (!ctx)
-@@ -185,7 +186,15 @@ static int damon_sample_mtier_start(void)
- 		return -ENOMEM;
- 	}
- 	ctxs[1] = ctx;
--	return damon_start(ctxs, 2, true);
-+	err = damon_start(ctxs, 2, true);
-+	if (!err)
-+		return 0;
+-	if (softleaf_is_migration(entry))
++	if (softleaf_is_migration(entry)) {
+ 		set_huge_pte_at(vma->vm_mm, addr, ptep,
+ 				pte_swp_mkuffd_wp(ptent), psize);
+-	else
+-		huge_ptep_modify_prot_commit(vma, addr, ptep, ptent,
+-					     huge_pte_mkuffd_wp(ptent));
++	} else {
++		pte_t old_pte, new_pte;
 +
-+	if (damon_is_running(ctxs[0]))
-+		damon_stop(ctxs, 1);
-+	damon_destroy_ctx(ctxs[0]);
-+	damon_destroy_ctx(ctxs[1]);
-+	return err;
++		old_pte = huge_ptep_modify_prot_start(vma, addr, ptep);
++		new_pte = huge_pte_mkuffd_wp(old_pte);
++		huge_ptep_modify_prot_commit(vma, addr, ptep, old_pte, new_pte);
++	}
  }
+ #endif /* CONFIG_HUGETLB_PAGE */
  
- static void damon_sample_mtier_stop(void)
+_
 
-base-commit: 947b8ee1c1735e548454493da9999a2647621bb0
--- 
-2.47.3
+Patches currently in -mm which might be from kas@kernel.org are
+
+
