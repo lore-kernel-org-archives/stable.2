@@ -1,124 +1,101 @@
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
+Received: from mail-pl1-f202.google.com (mail-pl1-f202.google.com [209.85.214.202])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 701AC4A13B7
-	for <stable@vger.kernel.org>; Tue,  9 Jun 2026 16:31:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DB803B3C17
+	for <stable@vger.kernel.org>; Tue,  9 Jun 2026 16:31:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.202
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781022706; cv=none; b=GiIdXw0MC/gnNYJUWNpOqxebwxOrs5glZRXQjZAKawEo6BHXGi+3lwKQo6/YNKkStPvc25gzMxVvGqr96CULWKYHJKEq+XcBfnof08FYXi1BdSBgQBktc1SEEFlejl9HlFB2Hb4wfbOEH1xOLgfveeCvACoWnIYa6q7KglukFps=
+	t=1781022720; cv=none; b=ptXcz2Tlrycb6qK7Ig761pQumwYMAtGBuh7DVNG5iYR/vETd+GJ3YRCavZCSb15zDwSzpMGMwQbY6rC9WBpdyrL2zMig1WWwjUBdmYbefv0g57CTXNyk/vTu6bwCXK/SPIDDE7wB73Pj/p9j4SPqFRSUw0qCVPCGNsKHNVifOzg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781022706; c=relaxed/simple;
-	bh=zgI4NC9pKO7UMNWYBik+NAFMUiFlDyGaDAxNKkRk7eA=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=HUk0ySSf11a5gG9MVpROyuh3yFUFSFrAbz0ZIQBAGiFMmw5aH8TH8DhJP2jUUIo+5vBjIotO9hFj+bvzEK/S31f6kZH2uere9GCUkNvk3RAV8OS6HrTLiqsXChSLpBTF4I0xznZgQ+ZzUIqag+1bRY79K3NSh0zDhpYsokW76fI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=W3urr+00; arc=none smtp.client-ip=209.85.214.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781022720; c=relaxed/simple;
+	bh=uFMk1jZpsqtQJeUv2lUeILt3cXF07gHRUuncT5eLn3E=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=hh6lEUMiR9TKjZxnvUrz6LTlq8x92IZ4jMmOw547EjHQENLlYFne4A/k2y5lbySI6r60Yur+DfUuoh9MOypip3nq7aISsSRo90MMc8irFrzF7KX+zOocL/EC/JrdvupIsarmdfoQLqfGYQ/RK10LVRTsrr4sFFMbWEh+NCZOwus=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=k5xAJzkf; arc=none smtp.client-ip=209.85.214.202
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="W3urr+00"
-Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2c0c2d792c8so38835575ad.1
-        for <stable@vger.kernel.org>; Tue, 09 Jun 2026 09:31:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="k5xAJzkf"
+Received: by mail-pl1-f202.google.com with SMTP id d9443c01a7336-2c0c3315d31so62376715ad.3
+        for <stable@vger.kernel.org>; Tue, 09 Jun 2026 09:31:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781022704; x=1781627504; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=M5U7wZVwHyltBjwcbHNRkOqRDWQCG1C1EbQOzCQU3Qg=;
-        b=W3urr+00Sbw0wxX5OumE1wv58gXAcp3q1WiLrk9Bjt1cMM8WE0OmqjQsrWG3hURRcO
-         W8tD7ihqLj/eFvD6spSjCgVbhyINIULjj5D0FVoznCSFIKrUQW+RzOf5jHawrdWlflay
-         7ZShyF/RcSOo4IIw8UqPKnqlkiSDeBRj+NC03AzRVgcKCtQvOPBSE8+5atVad7ZcPeIm
-         RaaEhJbEWWuvSia9Uji31n43UlQR4tx9/CQ+OwUj56l0IH3VxIwccz7s0Qj/ngDyuJFT
-         v7J1KXuV+rVeJAaDjutp8AvvfdJd/B48XB9P9ASRaki2bXKVAdyEdJLqz2XbmYjMrqlY
-         o1bg==
+        d=google.com; s=20251104; t=1781022719; x=1781627519; darn=vger.kernel.org;
+        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
+         :date:from:to:cc:subject:date:message-id:reply-to;
+        bh=1iK2GP3Rc5BEFQ81jZvOlP6jemB19dD+1/HetcsN7sU=;
+        b=k5xAJzkfARY5ZNOj73G4aCzuaj0FCK8kgabwDI3HQoQU/YodxJU4SkAAMiLeCZPM6u
+         z7Bwu9tG/QSAIYL/JBzU2dfIBjiten8hlF05Pc9zyUX91/6IlZqsXJEuGMHlAEIPuUJm
+         aZBxtYG6JT1VJUbwodE1K04dDnoca5GFMQuArz4f43pkYR8iE1rEmgtmGYAkXzaiBoeW
+         SQW/UvVT0eQGoWHxEUSszC2/WBuMIfWa6yFUBhfR/NwQtdoQb12gG2XWqJLAlviTCMzr
+         MAzOPkiH4Iz5wJ9jzu4j5aa2Gqw4qtWDup0JL3Qy+4YsAoJNsdY1VOhddRqqJd9XpntA
+         hP8A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781022704; x=1781627504;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=M5U7wZVwHyltBjwcbHNRkOqRDWQCG1C1EbQOzCQU3Qg=;
-        b=r9XJcdo+6uwnFIaQd+aJytwQ5Uj3F7RET0L9VvyswnQvBLWMabAUoY2NLWHtv9GbOs
-         msAlwHLoz6t6ndsNglkTekiRK/9sGIYrFs/SvzzVGYrRkzXn8AA2I9nhbgcLuXsKxywF
-         8YenqkJyZ674/ErhNeWaCR6q5OlSTz2sRTkGVAlSr55TKuVaipvnM1sg0X0ts9Kt+fRO
-         K90S5QXZSOdKFxF/Dh8qo6QlIE8FFJPj38mn4FODO9lU70hU/9zpVcp6EPM2TvtUSPvo
-         nKCUjjXVzp7BvfZlo/MJaEzzf1rZRkINq4TL/jBWEeCekIc9d1GC8wqemTBeI14zWCq1
-         1i9g==
-X-Forwarded-Encrypted: i=1; AFNElJ++v26mpBbJA3Uy1mE3AeC2cbLccp+HAtX7Y1fMAPONIoMXPZm4kjiW+qdFBdl1rLIXY7DLCQk=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxE8aG7AciqOFhtsZZqwOjQJmwncv9f3iy+ty7EvjuWTO5RxX/E
-	6P/OJ4+Q9MRB8lpSq3/og/ZHSdCQP2TDsfwid8HuErDlrPkZ8hZWVoQq
-X-Gm-Gg: Acq92OGWeSgcK+ahlzFhCDIoM4KtYE1eofByt2PI528s8Ky9wK4OR6CeM9XK/ekBrE5
-	3iMUOwbbccc00zjDm2y711u94AuNKsOa6KYdirLj2QcrtzI0LxlY5Cu6PO9MJ22wEUI5Y59ztc3
-	Huxa2o8YityqTdGNHDCT3yPpdfYprgcyVMkbpR6q6jQzdsAE7mO6/8gyJpjec8Y/yuyMSX7rpjJ
-	3adRKUr59ZY01e56OdwYNNwKpjzvyDs8r39GRhEvPrrvCPKn8netw4p4yjhCqo6iBx5zXxGySot
-	LVEzujyZEHZSDMZn8WuZjgSottXcGkZxRII93poX7lzV8B5i21unjtAtLnPd7ktfLKkM8i86A2n
-	ZXmu3q1ukbpVcpb3vnicqY3qJ+4nY5d6jjEJ7UZ6WG9EXnlHk3sdFbBnJx7BpEBIBABJQgm+kxB
-	/eZP0/vqAd6Gbm+Fh0q32HglbTtUUrZ0LOPaMlTgEDRa+VIeDKOu/8JA4rhyTa/kyLvAMzZw==
-X-Received: by 2002:a17:903:4407:b0:2c1:d49c:8398 with SMTP id d9443c01a7336-2c1e78df934mr242762885ad.8.1781022703723;
-        Tue, 09 Jun 2026 09:31:43 -0700 (PDT)
-Received: from csl-conti-dell7858.ntu.edu.sg ([155.69.195.57])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c16629d042sm227710195ad.60.2026.06.09.09.31.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 09 Jun 2026 09:31:43 -0700 (PDT)
-From: Maoyi Xie <maoyixie.tju@gmail.com>
-To: "David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: David Ahern <dsahern@kernel.org>,
-	Kuniyuki Iwashima <kuniyu@google.com>,
-	Xiao Liang <shaw.leon@gmail.com>,
-	Steffen Klassert <steffen.klassert@secunet.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	Simon Horman <horms@kernel.org>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH net v4 7/7] xfrm: xfrm_interface: require CAP_NET_ADMIN in the device netns for changelink
-Date: Wed, 10 Jun 2026 00:31:10 +0800
-Message-Id: <20260609163110.1717419-8-maoyixie.tju@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260609163110.1717419-1-maoyixie.tju@gmail.com>
-References: <20260609163110.1717419-1-maoyixie.tju@gmail.com>
+        d=1e100.net; s=20251104; t=1781022719; x=1781627519;
+        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
+         :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=1iK2GP3Rc5BEFQ81jZvOlP6jemB19dD+1/HetcsN7sU=;
+        b=Up08bJFDFLrlyQb0nxPkkawMccTN+0DMUrHfx2Ck3mgDgoOKrxPjUHnlsJ+tQy7J/m
+         O6hX0fhYN35vn59UJI+EL9trVFby78fbEfyGtm4Ik89sxCCdjfyiNKDIE7SECPesw7vm
+         c4zw9fzm9qR5ePiyCVZMlguUsYfT7j9Es9Z0y0/lOaS1Ye1QFQqF4Mdg3zynTdrdr2fp
+         t9Ob/rHvnTuOpoD5zQtKD3keci8VtRXTnbnZXwP58OQMbWDXo7ghgiK5ZryZO2yGzCA7
+         2TY/XpECjhLr4uC0vZcyMidNdcEKrZ/joeXNaOVPmoPEJeCrmRwPHJpBaxhPuhie50pL
+         1Kiw==
+X-Forwarded-Encrypted: i=1; AFNElJ+Kj/MluTLmr/aDt23yO+0l1oztyI5JOnKnbBqEORHDeqOyaYap3MGRm3MGlhNzPPrGAk++mTk=@vger.kernel.org
+X-Gm-Message-State: AOJu0YywYs+4VMiJ7I3otO7aGyJrsL9acHGw8TyZ+BcQAesUpPMoJeJV
+	XvLfb9UQO7LgH5EoHCNy6r4XmoDgz2qLTBNOd45QkB0MEp7wODUH+gmpGKAvKixjNa9moOE8vUI
+	4OWGsIg==
+X-Received: from plcq4.prod.google.com ([2002:a17:902:e304:b0:2bf:2cd5:1d4a])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:ecc8:b0:2c0:d097:51ba
+ with SMTP id d9443c01a7336-2c1e810bd08mr256584395ad.26.1781022718467; Tue, 09
+ Jun 2026 09:31:58 -0700 (PDT)
+Date: Tue,  9 Jun 2026 09:31:32 -0700
+In-Reply-To: <aiQyZIJtO-2Aj_xN@v4bel>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <aiQyZIJtO-2Aj_xN@v4bel>
+X-Mailer: git-send-email 2.54.0.1099.g489fc7bff1-goog
+Message-ID: <178102220971.2734517.14635903505526070729.b4-ty@google.com>
+Subject: Re: [PATCH] KVM: x86: hyper-v: Bound the bank index in hv_is_vp_in_sparse_set()
+From: Sean Christopherson <seanjc@google.com>
+To: Sean Christopherson <seanjc@google.com>, vkuznets@redhat.com, pbonzini@redhat.com, 
+	tglx@kernel.org, mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com, 
+	x86@kernel.org, hpa@zytor.com, Hyunwoo Kim <imv4bel@gmail.com>
+Cc: kvm@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
 
-xfrmi_changelink() rewrites the interface in its creation netns. After an
-IFLA_NET_NS_FD migration that netns is not the caller's, but the rtnl
-changelink path only checks CAP_NET_ADMIN against the caller's netns. A
-caller with caps only in its current netns can then rewrite an interface
-in another netns.
+On Sat, 06 Jun 2026 23:44:52 +0900, Hyunwoo Kim wrote:
+> hv_is_vp_in_sparse_set() uses valid_bit_nr, i.e. vp_id divided by
+> HV_VCPUS_PER_SPARSE_BANK, as the test_bit() index into
+> valid_bank_mask. valid_bank_mask is a single u64 and a sparse vCPU
+> set holds at most HV_MAX_SPARSE_VCPU_BANKS banks, so valid_bit_nr
+> must be less than HV_MAX_SPARSE_VCPU_BANKS.
+> 
+> The caller in kvm_hv_send_ipi_to_many() passes kvm_hv_get_vpindex(),
+> which is below KVM_MAX_VCPUS and therefore always within that bound.
+> The L2 direct flush branch in kvm_hv_flush_tlb(), however, passes
+> hv_v->nested.vp_id, copied verbatim from the enlightened VMCS
+> without any bounds check, so valid_bit_nr can reach
+> HV_MAX_SPARSE_VCPU_BANKS or more and test_bit() then reads beyond
+> valid_bank_mask.
+> 
+> [...]
 
-Gate the op on net_admin_capable() at its top, before any attribute is
-parsed. The check is skipped when the interface netns is the device's
-current netns, where the rtnl path already checked the cap.
+Applied to kvm-x86 misc, with a heavily massaged changelog and a KASAN
+splat.  I also added a 
 
-Reported-by: Xiao Liang <shaw.leon@gmail.com>
-Closes: https://lore.kernel.org/netdev/CABAhCOSzP1vaThGV35_VnsRCb=87_CPjPVsTHbq905k8A+BuUg@mail.gmail.com/
-Fixes: f203b76d7809 ("xfrm: Add virtual xfrm interfaces")
-Cc: stable@vger.kernel.org
-Signed-off-by: Maoyi Xie <maoyixie.tju@gmail.com>
----
- net/xfrm/xfrm_interface_core.c | 3 +++
- 1 file changed, 3 insertions(+)
+  BUILD_BUG_ON(BITS_PER_TYPE(valid_bank_mask) != HV_MAX_SPARSE_VCPU_BANKS);
 
-diff --git a/net/xfrm/xfrm_interface_core.c b/net/xfrm/xfrm_interface_core.c
-index 330a05286a56..8fd3842d20c2 100644
---- a/net/xfrm/xfrm_interface_core.c
-+++ b/net/xfrm/xfrm_interface_core.c
-@@ -869,6 +869,9 @@ static int xfrmi_changelink(struct net_device *dev, struct nlattr *tb[],
- 	struct net *net = xi->net;
- 	struct xfrm_if_parms p = {};
- 
-+	if (!net_admin_capable(net, dev_net(dev)))
-+		return -EPERM;
-+
- 	xfrmi_netlink_parms(data, &p);
- 	if (!p.if_id) {
- 		NL_SET_ERR_MSG(extack, "if_id must be non zero");
--- 
-2.34.1
+to ensure we don't re-introduce the bug if HV_MAX_SPARSE_VCPU_BANKS ever
+grows beyond 64.
 
+Thanks!
+
+[1/1] KVM: x86: hyper-v: Bound the bank index in hv_is_vp_in_sparse_set()
+      https://github.com/kvm-x86/linux/commit/4721f8160f17
+
+--
+https://github.com/kvm-x86/linux/tree/next
