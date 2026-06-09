@@ -1,113 +1,113 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17D261A6823
-	for <stable@vger.kernel.org>; Tue,  9 Jun 2026 05:54:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D08B61A6823
+	for <stable@vger.kernel.org>; Tue,  9 Jun 2026 05:57:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780984468; cv=none; b=few7UhOo4FrlL6MWko15AMZKt6pQTH87AsgSTNFI+YNR4esecI3BZpYuo9xeDG8CabKXnUjf9z6TVRlnLogMTFk/Q/M5JHipxr1n1OI8JgMpwJ8WBCZz0spdBieH4rT8pqSTRMv+oaP15FnNUkTAkfO4oHUaTgkh+eyR8J5AqNE=
+	t=1780984642; cv=none; b=CDsGPoD5hrqYpBqx+mdeoLLrChGruqBjyc4v22oh5o38hKHOZwroOZEj9HMbSAJxntemzrdczCM4tI2tM67NOMjyDyUOSUr0OhZgzDpWB2GVDFQIGENjd/fYoQmPOt+4a5jEq1UCfpN/DIYBeURdG0/Cpc5mb75uNNx+nrhpGYU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780984468; c=relaxed/simple;
-	bh=TLsSDV9VD3WU6t5YlfaCQGPVqBXO7S58BIho6lpCVAE=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=scMAg9OpgLvh/Z+wiptgn+kpqLApTvc4/0tmTSKFNQdnnXxiSi+VkCOZbPvheL7ZEqXCrD5tvNBVWnEeLDud8soQR87XYY6qTQpr7Cif4oMWWcBm5gmNix7zBfohLtkne+aeYd2KWsxKGEF1AJVl4HVeJm/TbxfvONg+zUg8/Ns=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=lRlti4pi; arc=none smtp.client-ip=192.198.163.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1780984642; c=relaxed/simple;
+	bh=e33XHZt40DK+LETfjffUuyaHnJdVe3d2u69qNT7FblA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qkULDVB7YDYb7Y1J8+lfyjAPrx+zNAKb4L/b5je7JYsTobqdfwxcgDjz/lMdVKnM54hmTc2FeWnuwPjqb4QeqszUjiB+sCD2c37N5GZF3Kpw5n7vyc7xE/xKDUK0l+FknAeWWOGehiSLmnCayHpZ23fcciuIvDtjEHMhFaX06yQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=F22a8Tb3; arc=none smtp.client-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="lRlti4pi"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="F22a8Tb3"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1780984467; x=1812520467;
-  h=message-id:date:mime-version:subject:from:to:cc:
-   references:in-reply-to:content-transfer-encoding;
-  bh=TLsSDV9VD3WU6t5YlfaCQGPVqBXO7S58BIho6lpCVAE=;
-  b=lRlti4pi+5Up0Qpg8DHR2LoGi3/XEzA/nzqEJp8knSYhLQu77Fxrr21K
-   8vBodGbiN0yJ2nP6Xm/ItSKic7k4xlmoO+XgYQFmsPbgQIY+NVBUcN6sp
-   Lbj+XVZu5XUKXtrwu7WFadQft6vmTZmwLiN2eI1lUYzmXkjuDJ4KtHNAn
-   uuZYZ7RINLOUER1qEJQonl4JRVtQ7Ay1KHiqT6Nx9VDEggN9p/bA360/2
-   3Wp2xmwxjqdLuB5I0EghKYiRR+MkafsWQIHsC/feeXI+C4n49NvaBFc/L
-   CuPpx4cuBQ0XGTcVsGkLJqmlbALGf6UvMXEwi/ABGGXkOkr4eo0xR1szK
-   A==;
-X-CSE-ConnectionGUID: m7LHQXUbSriPk/zbCLuHdA==
-X-CSE-MsgGUID: B+mWQXKUSuKiz8Tf7E4zhg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11811"; a="81848116"
+  t=1780984641; x=1812520641;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=e33XHZt40DK+LETfjffUuyaHnJdVe3d2u69qNT7FblA=;
+  b=F22a8Tb3G9DyBG8s0XCWeegstOf3MQ4cxkwJQmqoFgfxK8Z0z+Kf/dl6
+   X2YWCXckMlS2PXCQA0P688mwTvKAtfTZZ4uo8BuzGMONY+twWY3127gtc
+   gMrGZEzCUU536ugoejh8AINL1wAkp30kzV28b/R3aA0RTT82w41hNd+1+
+   84qtjnU1m/aY1AUmCYRVzD6qokZOrhW+C8YPuOP7Q7ENPzzOma1snCqnd
+   M9a5szB1/BZiaoNZKMpTC+s7Rj/MGcvgH+R/N6oQiqmKsTGCzMlUPOcKp
+   JanwMHvHg4f+TPAEq3CzVsPFSXYjUk5nJGeLvII6UkHe2bNS/r8LKbak7
+   g==;
+X-CSE-ConnectionGUID: 0N4NjhiqRDuMOR77k4Dpmw==
+X-CSE-MsgGUID: qfXCQSmYSVKbtpEti/XGkQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11811"; a="99153993"
 X-IronPort-AV: E=Sophos;i="6.24,195,1774335600"; 
-   d="scan'208";a="81848116"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Jun 2026 22:54:27 -0700
-X-CSE-ConnectionGUID: pTw9gR2qRp+fJwoLhYgLrg==
-X-CSE-MsgGUID: A7BylG1uT/WQSBslCyt3dQ==
+   d="scan'208";a="99153993"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Jun 2026 22:57:21 -0700
+X-CSE-ConnectionGUID: 4ehlEUvXQ2uSKXW+x5GqNg==
+X-CSE-MsgGUID: f3hP7JhrTd+NUmz/xkn6aA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.24,195,1774335600"; 
-   d="scan'208";a="239429711"
-Received: from soc-pf6038af.clients.intel.com (HELO [10.217.180.44]) ([10.217.180.44])
-  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Jun 2026 22:54:24 -0700
-Message-ID: <738b9a7d-3e5c-4788-9b77-649eb914161f@linux.intel.com>
-Date: Tue, 9 Jun 2026 07:54:22 +0200
+   d="scan'208";a="242822695"
+Received: from tejasupa-desk.iind.intel.com (HELO tejasupa-desk) ([10.190.239.37])
+  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Jun 2026 22:57:18 -0700
+From: Tejas Upadhyay <tejas.upadhyay@intel.com>
+To: intel-xe@lists.freedesktop.org
+Cc: Tejas Upadhyay <tejas.upadhyay@intel.com>,
+	Zhanjun Dong <zhanjun.dong@intel.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] drm/xe/guc: Fix buffer overflow in steered register list allocation
+Date: Tue,  9 Jun 2026 11:26:58 +0530
+Message-ID: <20260609055657.440911-2-tejas.upadhyay@intel.com>
+X-Mailer: git-send-email 2.52.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] accel/ivpu: Fix signed integer truncation in IPC
- receive
-From: "Wachowski, Karol" <karol.wachowski@linux.intel.com>
-To: Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>,
- dri-devel@lists.freedesktop.org
-Cc: oded.gabbay@gmail.com, jeff.hugo@oss.qualcomm.com, lizhi.hou@amd.com,
- dawid.osuchowski@linux.intel.com, david.laight.linux@gmail.com,
- stable@vger.kernel.org
-References: <b464b589-2d28-4617-baf0-eefbe14e170a@linux.intel.com>
- <20260601161643.229342-1-andrzej.kacprowski@linux.intel.com>
- <7218fa4b-bb09-47a8-a2ab-7d381cf7d897@linux.intel.com>
-Content-Language: en-US
-In-Reply-To: <7218fa4b-bb09-47a8-a2ab-7d381cf7d897@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On 08-Jun-26 9:27, Wachowski, Karol wrote:
-> On 01-Jun-26 18:16, Andrzej Kacprowski wrote:
->> Fix potential buffer overflow where firmware-supplied data_size is cast
->> to signed int before being used in min_t(). Large unsigned values
->> (>= 0x80000000) become negative, causing unsigned wraparound and
->> oversized memcpy operations that can overflow the stack buffer.
->>
->> Change min_t(int, ...) to min() as both values are unsigned and can be
->> handled by min() without explicit cast.
->>
->> Fixes: 3b434a3445ff ("accel/ivpu: Use threaded IRQ to handle JOB done 
->> messages")
->> Cc: <stable@vger.kernel.org> # v6.12+
->> Signed-off-by: Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>
->> ---
->> Changes in v2:
->> - Replaced min_t() with min()
-> 
-> Reviewed-by: Karol Wachowski <karol.wachowski@linux.intel.com>
-> 
->>
->>   drivers/accel/ivpu/ivpu_ipc.c | 2 +-
->>   1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/drivers/accel/ivpu/ivpu_ipc.c b/drivers/accel/ivpu/ 
->> ivpu_ipc.c
->> index f47df092bb0d..9347f05a2b79 100644
->> --- a/drivers/accel/ivpu/ivpu_ipc.c
->> +++ b/drivers/accel/ivpu/ivpu_ipc.c
->> @@ -276,7 +276,7 @@ int ivpu_ipc_receive(struct ivpu_device *vdev, 
->> struct ivpu_ipc_consumer *cons,
->>       if (ipc_buf)
->>           memcpy(ipc_buf, rx_msg->ipc_hdr, sizeof(*ipc_buf));
->>       if (rx_msg->jsm_msg) {
->> -        u32 size = min_t(int, rx_msg->ipc_hdr->data_size, 
->> sizeof(*jsm_msg));
->> +        u32 size = min(rx_msg->ipc_hdr->data_size, sizeof(*jsm_msg));
->>           if (rx_msg->jsm_msg->result != VPU_JSM_STATUS_SUCCESS) {
->>               ivpu_err(vdev, "IPC resp result error: %d\n", rx_msg- 
->> >jsm_msg->result);
-> 
+The size calculation for the steered register extarray uses only the
+geometry DSS mask (g_dss_mask) to determine the number of entries to
+allocate:
 
-Pushed to drm-misc-fixes.
+  total = bitmap_weight(gt->fuse_topo.g_dss_mask, ...) * steer_reg_num;
+
+However, the filling loop uses for_each_dss_steering(), which iterates
+over for_each_dss(), defined as the union of g_dss_mask and c_dss_mask
+(geometry + compute DSS). On platforms with compute-only DSS bits, the
+loop writes past the allocated buffer, corrupting adjacent slab objects.
+
+This manifests as list_del corruption and SLUB redzone overwrites during
+drm_managed_release on device unbind, since the overflow corrupts the
+drmres list_head of neighboring allocations.
+
+Fix by computing the allocation size using the union of both DSS masks,
+matching the iteration pattern of for_each_dss_steering().
+
+Fixes: b170d696c1e2 ("drm/xe/guc: Add XE_LP steered register lists")
+References: https://gitlab.freedesktop.org/drm/xe/kernel/-/issues/8049
+Cc: Zhanjun Dong <zhanjun.dong@intel.com>
+Cc: stable@vger.kernel.org
+Signed-off-by: Tejas Upadhyay <tejas.upadhyay@intel.com>
+Assisted-by: GitHub Copilot (Claude Opus 4.6)
+---
+ drivers/gpu/drm/xe/xe_guc_capture.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/xe/xe_guc_capture.c b/drivers/gpu/drm/xe/xe_guc_capture.c
+index 21f7caf9ea08..181e8b60357d 100644
+--- a/drivers/gpu/drm/xe/xe_guc_capture.c
++++ b/drivers/gpu/drm/xe/xe_guc_capture.c
+@@ -461,8 +461,14 @@ static void guc_capture_alloc_steered_lists(struct xe_guc *guc)
+ 	if (!list || guc->capture->extlists)
+ 		return;
+ 
+-	total = bitmap_weight(gt->fuse_topo.g_dss_mask, sizeof(gt->fuse_topo.g_dss_mask) * 8) *
+-		guc_capture_get_steer_reg_num(guc_to_xe(guc));
++	{
++		xe_dss_mask_t all_dss;
++
++		bitmap_or(all_dss, gt->fuse_topo.g_dss_mask,
++			  gt->fuse_topo.c_dss_mask, XE_MAX_DSS_FUSE_BITS);
++		total = bitmap_weight(all_dss, XE_MAX_DSS_FUSE_BITS) *
++			guc_capture_get_steer_reg_num(guc_to_xe(guc));
++	}
+ 
+ 	if (!total)
+ 		return;
+-- 
+2.52.0
+
