@@ -1,110 +1,137 @@
-Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
+Received: from mail-qv1-f53.google.com (mail-qv1-f53.google.com [209.85.219.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80BDE423175
-	for <stable@vger.kernel.org>; Tue,  9 Jun 2026 13:56:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C45D833F58B
+	for <stable@vger.kernel.org>; Tue,  9 Jun 2026 14:15:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781013411; cv=none; b=eqzx5HNVfOSymNQ3oL1uR5eQhSwqN9YhYf7JK25ivzcxvWXESD0E0Col8iD43bzB1I1aZDiNNXKIC6JP7vcGb4U3k/J2QzZiZ7uFWAoUMW2RqpFaarbOip9V+iRJtPvpC8ASr1cZLHasCtJEi3gvRgSLDsbYEB1R3qjnp5frt+U=
+	t=1781014553; cv=none; b=Jiui6c/pauk3juI9TkFMklVYIeQx8FiodQ0y+gSJe7UgIl9dO0heCXRpm+WVn0nKZ8oFP7sXUczGgUDXpv4xHxzizq1BEpIrQ5Cj+jAI/rotnxq2G3dfMVFyVV+d9g2ajDFaj1ojcNyeLaRkbGsDK5zFLKz9RrGxZby01cGnZ20=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781013411; c=relaxed/simple;
-	bh=2c0HdTPmfgiYx0VZ9832KtelLqJIiFgIFRLUB2fSiY0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=OstU1plCahmv65oIvGxbuqu/1mrj814JirI8FJdQchh2/PWCKnvfWoBzO8JSpYWRUY1wlC/I+2loZSz3tcSFlPU63ug9r82rJp9oN3iCSn6m2ssSqdjhwVX4PJn75ltlJjhHXaAa+bxGdsVrtw0I4BNFXX/jlllxhn/YgHDtM6I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=clFDpMqG; arc=none smtp.client-ip=209.85.218.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781014553; c=relaxed/simple;
+	bh=MmkUJTtuyXY3s/7sXM+BP/PzWFzsXVq+eKe6PElRRWM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=NLYiF/j99tSPf6L3ik9asFjOLQwFemnuzdUZn63Pb4hmFZI2pr6aD/nd8SBAsudc+qWTn+7uYaNGPS9Ma6OHvYBucqQO6suuKfS0kcXGirZeGs4lM+j820EWwXWvsBDqRnnGt5rpCIF7yhS0foRE1ifKLQGyMVOj+pkJ7XGfjx8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=aaM+VksD; arc=none smtp.client-ip=209.85.219.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="clFDpMqG"
-Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-bec449cf976so773736466b.2
-        for <stable@vger.kernel.org>; Tue, 09 Jun 2026 06:56:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="aaM+VksD"
+Received: by mail-qv1-f53.google.com with SMTP id 6a1803df08f44-8cce26ee1e9so85209086d6.2
+        for <stable@vger.kernel.org>; Tue, 09 Jun 2026 07:15:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781013409; x=1781618209; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=VsGS2lh6BXhGcxqJg2vWNAdOVLmYnmyYBZj/jZXEY/E=;
-        b=clFDpMqGt9l9Q6HOE7NkUjkMkfp8LgeB6EnFze6EQVu9SFzX7sHAhII0+F4AtUPoGb
-         tOO9GcAlyocoiGoGcGRK23GoeS1ECzjoAY70zcsKI21FqTA98HXaqrLx5xvJzxlpm/lj
-         xHCjowzktcotAzv+nE67vXN4Tkrm0S9VUgHP5o4PweWpkNS2NEnA4eXY74VHgw1YNOor
-         D3DhHtwRurP4WsIZPNFxtvLoulHoEJ5X31A4dpRwFMnpTKFC7tmKBHYXDoL+bOYj2u9I
-         JR1MGgQ6V3bmws6aEMi6cl/ZMkhirdC0O2HDIONA/uMwUui3tPGIiyaowyt1U8iby9Jn
-         titg==
+        d=ziepe.ca; s=google; t=1781014552; x=1781619352; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=/t/KVtkqwokTt2oNchcdf4xUUArUEApR4RsM4t4GGaI=;
+        b=aaM+VksD81FwB9qeScW7Sviahb1dkjb/ysJ4WiEyEGLyTs0Z6cGucYu+dxVqbdpXRi
+         f8gbU9i+o6e3FfWrmod8ExT89VcRLxM2HRnfSfDDzhaduA3uN4cR4Vd0tWpLyYtguRHR
+         boHXaNm4jeKhWgSqym8XL+I7kQxM37q/Hctx7UNd9wCj0vbFATeAYasZ+qkq4WEdzXHH
+         5xdTUaUOLnZKWZG0z4Tu/QKNDdjdQT+oR74Il5Vmx3mmgs58Be40v5pIqu6YzMnzzInY
+         hjSMgGOfFHBJocJUiljwGsMNozPcr0jeQdE6Q2PLAcQtj/hi+jwCnC0dTaLYm+rkFccJ
+         VYzA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781013409; x=1781618209;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=VsGS2lh6BXhGcxqJg2vWNAdOVLmYnmyYBZj/jZXEY/E=;
-        b=e5JqX8nNuKOoGaPC23qPiOA/BhcdfHKKYnsO4ZSA8tkHrF1bINIw7seBJWDbQukOuN
-         GC5qS61zXQUfKY6H2fo9EGXi3wjxegwLgZjxZ/vBZvEdNrdAY9AMf0chBi7+tEIo8P/c
-         ayoI3otOhKi+6I+ZNQcy0B1WomN7kd4+vXviqdbaNofdT1VEUi+km5MIsWZ9KyFNTm8h
-         wRpvRN8Imvwr0myG2FlTuq3YqfFQrD3mGT4/CkyWa9s7EdI6t2xNEX5/IRG2CDGTaOAz
-         iGwmJXP5t3HiBCPqtML9q+LQuyw62Ukg/JGQD5zNi1vE+e7qUFK6RdNV2LtlwpsEMjMA
-         zKew==
-X-Forwarded-Encrypted: i=1; AFNElJ9S0ORYKwklFPyquNN2XkSqFBf3rwfr3qmozmUnVkzwX/S4YlctXBWcJnMEi1+j1VFp1qaa9n0=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyot+Koe4FePKQXm0KM+AasVALaQ1eeHFYs046TGTDoIBNuvOSu
-	d2Mj24gYW4XOtlRryTSHzAcKlQgoZ9BHJ1cyFmDVidj3rdRZFIqL99xo
-X-Gm-Gg: Acq92OERYjGkE7sU/LRjapH1emBF9HIZXeQ1P7arKCGbJFOs8tsPAgtdGAKyQku6XXn
-	F8h6eqPc1sthY4sVP9kHsB2WBkMV0d2Kt46s/Dnug82UlzjZbNzhBbckVzON2stXJzCO2Ex/JCd
-	buoRkwowRordU3pjqy1FRrJ7Xjm7WsXbqxhHSiIiQS851mH1fKsEpgit5qoyz1Ro7bFwvHwp5ar
-	QF/m21UiQcVjZ3sRkP2Pq8Wrv7Xsdo+imAx6oofcnp9SJ76nEu4fhXZzfbyNhBF9M8pYWJPt/7S
-	WTrc2jMSiXE6c2XxTMexgCNszFq5VMUy5hXDgeyiqS1EvOlyovrQ2HCy1d3r/8fzYyROT9nAxzw
-	hmeUfu01J95ysKRFocHCwkn1KIBDQyj4dmDklAXUJu8zvCkc9BxE/Wy9nLeadSZ9BuwKreBFAlJ
-	MlzgzgFLMrT4TbLkixchEwEL+zbCcxVG28Y+xlt+3ljqKhSAGWIe7B54zYSmy/PH7eqM3GvHfyf
-	FZ67Q==
-X-Received: by 2002:a17:907:da3:b0:bf1:6366:f8c4 with SMTP id a640c23a62f3a-bf370a629admr1009745566b.15.1781013408573;
-        Tue, 09 Jun 2026 06:56:48 -0700 (PDT)
-Received: from macbook (polaris.rmrf.org. [70.34.242.93])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bf052097992sm1082867466b.26.2026.06.09.06.56.47
+        d=1e100.net; s=20251104; t=1781014552; x=1781619352;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=/t/KVtkqwokTt2oNchcdf4xUUArUEApR4RsM4t4GGaI=;
+        b=QuJbhNSsZwr7FVAXHPTqL6Wg6whGLhZvzzLCZ7E5nVI9KsfzvSpx6UvF5eZoVfq4B+
+         3xpYKsA5dJa+pU+Okuhk8Faerp33aoKrye0h6YDHhCMUG9wq3MtMipXavUKfxnnpb2F6
+         +u64VBqr6ZwyDtVzHQGJ7QO3HveNau4I3mhCbNdJCI+uapfYcyZPKNYNgCHSL/Bn0GkU
+         88aTtLoau/QgB+9Lco5QWSX0maKB7zf0wyc1jJl01Qs0L9xuzOBFYHCoGts1rbScv3tZ
+         dAFpY+RRJVsfG/OHeuj7PhXsokgMr4aSttYaU+wiXR5ORJc9bhnu9F7l8zBVysdcZzQG
+         LTNQ==
+X-Forwarded-Encrypted: i=1; AFNElJ91HftWkVFUdAKbUiGqH4/iI5Xx9Fm0gQ/uMv/Fy7D6t+Qs0Ev9YQ5mb0m9xE12jPx+PDLPqN0=@vger.kernel.org
+X-Gm-Message-State: AOJu0YylcA5HMrBYW38/Es/TuxP1TYYIMa8MGgXsAX1erIJUYpaL4AHS
+	OZwu+4B5etEBjvwZrsg+bQUVhJR5TSJRQlBv+usk1rHIFQFLJLClZHHunDTrtPThcy0=
+X-Gm-Gg: Acq92OH3GJwjAsU7j5Nlx9eSGNI4TQjn4Sx+qt0vefagk+j4tU2adb8x1dq4R/xt3lt
+	xeyYP4umiXSzdBAyishj8v9pFH6mHNa17/tnzEXL8epW0p/2RBSqm4qEea/DC7NYEsc2oMoqQoK
+	+7JJ3wg7lksxoAAe8yplraaMjMehnA0mgeoZ+dS52A1CI67jCayBcWze4rZR4sXKB7+YKJl+fSv
+	nVmEkN12zMQE3ys0f9dcwZ++eeON0c85eb0ewuQAW693hhJ7ovCWKsEmzikmIo93TAook5XJV5x
+	m3w+u9h/QgpmZ2k22sdkVHMdnf5ZkgWbch638wqoo2hjcSpKztWsozJNLH81aUMJOLDWr6haHAt
+	qd1RCFKjfR552vTBeVXfHZ6Cp2xzesx5+5QcnerJgyTitbDEgPdsv5SaJUGQBxzcI9on/uOy2U7
+	/RKUc9bxajv3QvVCruCfAKEv3EqBobhzISCih42T1Z2PkNITPRzBaPKT2g8bEAVrgSbb7wONFu6
+	ARgLx00Ck4R6H++
+X-Received: by 2002:a05:6214:626:b0:8ce:ba04:7bc2 with SMTP id 6a1803df08f44-8cee626f0eamr293032506d6.38.1781014535341;
+        Tue, 09 Jun 2026 07:15:35 -0700 (PDT)
+Received: from ziepe.ca (crbknf0213w-47-54-130-67.pppoe-dynamic.high-speed.nl.bellaliant.net. [47.54.130.67])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8cecd077be8sm204702746d6.40.2026.06.09.07.15.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 09 Jun 2026 06:56:48 -0700 (PDT)
-From: Denis Batishchev <ii343hbka@gmail.com>
-To: tiwai@suse.com
-Cc: perex@perex.cz,
-	ii343hbka@gmail.com,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v2] ALSA: hda/realtek: Enable micmute LED on HP EliteBook 6 G1a
-Date: Tue,  9 Jun 2026 15:56:07 +0200
-Message-ID: <20260609135607.3960625-1-ii343hbka@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260604131518.45993-1-ii343hbka@gmail.com>
-References: <20260604131518.45993-1-ii343hbka@gmail.com>
+        Tue, 09 Jun 2026 07:15:34 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1wWxEs-000000021xL-0mOX;
+	Tue, 09 Jun 2026 11:15:34 -0300
+Date: Tue, 9 Jun 2026 11:15:34 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
+Cc: iommu@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, linux-coco@lists.linux.dev,
+	Robin Murphy <robin.murphy@arm.com>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Will Deacon <will@kernel.org>, Marc Zyngier <maz@kernel.org>,
+	Steven Price <steven.price@arm.com>,
+	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Jiri Pirko <jiri@resnulli.us>, Mostafa Saleh <smostafa@google.com>,
+	Petr Tesarik <ptesarik@suse.com>,
+	Alexey Kardashevskiy <aik@amd.com>,
+	Dan Williams <dan.j.williams@intel.com>,
+	Xu Yilun <yilun.xu@linux.intel.com>, linuxppc-dev@lists.ozlabs.org,
+	linux-s390@vger.kernel.org,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Sven Schnelle <svens@linux.ibm.com>, x86@kernel.org,
+	stable@vger.kernel.org, Michael Kelley <mhklinux@outlook.com>
+Subject: Re: [PATCH v6 14/20] dma-direct: return struct page from
+ dma_direct_alloc_from_pool()
+Message-ID: <20260609141534.GJ2764304@ziepe.ca>
+References: <20260604083959.1265923-1-aneesh.kumar@kernel.org>
+ <20260604083959.1265923-15-aneesh.kumar@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260604083959.1265923-15-aneesh.kumar@kernel.org>
 
-The HP EliteBook 6 G1a (SSID 103c:8e0d) uses a Realtek ALC236 codec.
-Without a quirk no fixup is selected and the mic-mute LED stays off.
-It needs the same ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF quirk as the
-already-supported 14" variant (SSID 103c:8dfb), so add it.
+On Thu, Jun 04, 2026 at 02:09:53PM +0530, Aneesh Kumar K.V (Arm) wrote:
+> @@ -270,9 +270,12 @@ void *dma_direct_alloc(struct device *dev, size_t size,
+>  	 * the atomic pools instead if we aren't allowed block.
+>  	 */
+>  	if ((remap || (attrs & DMA_ATTR_CC_SHARED)) &&
+> -	    dma_direct_use_pool(dev, gfp))
+> -		return dma_direct_alloc_from_pool(dev, size, dma_handle,
+> -						  gfp, attrs);
+> +	    dma_direct_use_pool(dev, gfp)) {
+> +		page = dma_direct_alloc_from_pool(dev, size,
+> +					dma_handle, &cpu_addr,
+> +					gfp, attrs);
+> +		return page ? cpu_addr : NULL;
+> +	}
 
-Signed-off-by: Denis Batishchev <ii343hbka@gmail.com>
-Cc: <stable@vger.kernel.org>
----
-v2: reword commit message as was required by Takashi Iwai
+You should probably put this at the start of the series so it can be
+backported
 
- sound/hda/codecs/realtek/alc269.c | 1 +
- 1 file changed, 1 insertion(+)
+Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
 
-diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
-index 78a865709635..8eebf91595d3 100644
---- a/sound/hda/codecs/realtek/alc269.c
-+++ b/sound/hda/codecs/realtek/alc269.c
-@@ -7274,6 +7274,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x103c, 0x8df1, "HP EliteBook 630 G12", ALC236_FIXUP_HP_GPIO_LED),
- 	SND_PCI_QUIRK(0x103c, 0x8df7, "HP Z66 G6", ALC236_FIXUP_HP_GPIO_LED),
- 	SND_PCI_QUIRK(0x103c, 0x8dfb, "HP EliteBook 6 G1a 14", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF),
-+	SND_PCI_QUIRK(0x103c, 0x8e0d, "HP EliteBook 6 G1a 14", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF),
- 	SND_PCI_QUIRK(0x103c, 0x8dfc, "HP EliteBook 645 G12", ALC236_FIXUP_HP_GPIO_LED),
- 	SND_PCI_QUIRK(0x103c, 0x8dfd, "HP EliteBook 6 G1a 16", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF),
- 	SND_PCI_QUIRK(0x103c, 0x8dfe, "HP EliteBook 665 G12", ALC236_FIXUP_HP_GPIO_LED),
--- 
-2.53.0
+To Petr's question I think this just shows nobody is really stressing
+the PCI dma paths on CC VMs today.
 
+	if (force_dma_unencrypted(dev) && dma_direct_use_pool(dev, gfp))
+		return dma_direct_alloc_from_pool(dev, size, dma_handle, gfp);
+
+For instance the places even calling dma_alloc_pages() don't look like
+things people would use in a CC VM.
+
+Jason
