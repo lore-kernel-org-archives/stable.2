@@ -1,127 +1,88 @@
-Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 269F53F39E9
-	for <stable@vger.kernel.org>; Tue,  9 Jun 2026 09:48:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85FDA3876D7;
+	Tue,  9 Jun 2026 09:55:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780998493; cv=none; b=rq4kWNJUIYZmJsMrzOj8LTbWx8lqh2YitM+tcsU6puphNZxCyo0WdtbMrX4bXI4q0d4JMdJ51gjmoySvAnqMQpLw2TLsdU/IDqh3qy1TjOO7tsc5sShmwLFM13x1ojMhveACWy1cKaGzWYvt4D3svXZUMZxORC4YAjAUSng1gCM=
+	t=1780998923; cv=none; b=gTKvo2Fdc5jrNC1mAH/tVsE67WaVuoT3ZwoVmhWt6+vWWkzTSC2g9m+GmA4ya0GmWrn0vnrwS+Nv5m6U1CKysNY6MGT8egq0eDZl1trC2LxboCj8WXZV2himGI9Ve+D5WoKTY1ytJnQ+x0ClzVVApe9plElRp0Uj0LmJYkx8J9Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780998493; c=relaxed/simple;
-	bh=nf+bv50ZTCGwHFRoWKNmDyjE14ZfVlKrdOLd0jY9iLU=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=fA2WUP7nGjl0ODKLPlYFZrzGVTRPw0XdHbWMQ+IWosQXFrFZXZZXx76nT8tMa8KF3AqhoatTkou+oWucuAWgZy4MBM4RxMSKK0xapFnBjYCuivzVlXZ0Vtu1rPMkcyZSy37IzWNt6B/Ww28hqRC76THPU6/baApU10+CRK1QuBY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=F9aPCgEw; arc=none smtp.client-ip=209.85.210.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="F9aPCgEw"
-Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-84237c55ef9so2475939b3a.0
-        for <stable@vger.kernel.org>; Tue, 09 Jun 2026 02:48:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780998491; x=1781603291; darn=vger.kernel.org;
-        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=4DosgBZmXYSZS8jfaq+CIJFpHfXVEKxjsm0nvwVPCvo=;
-        b=F9aPCgEwZ2Gyow9MpPjBF+nQm/pk7apKPlo4Rl9VasQfbRI/uaSMlQL2+5TE82Itqn
-         7ghxxLSeADwbVw0t0wb2e216oH8PewRN4zBtNk0f/RYJywPw5NmmnH2eGvWBSRdYotT5
-         JYDar+QgEWPQQiZUddMf8WKn8Vn9MXfKZSXUYRWRjNKXeqg9bD2dE0bnEFnbXgMT3f1V
-         KWrdxGT1iBvMCxPW4EiAYXOMGvcM0Me2QRQBDF005LThk7X7hLuBSBrcmMwUJ6dtdUk2
-         C3YqAnsNqcBaLqxNTCe7n7fCaAC+sAXidehnJRWzpG43jdsyareFAEHPfGPwZO14NPKb
-         8RWQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780998491; x=1781603291;
-        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=4DosgBZmXYSZS8jfaq+CIJFpHfXVEKxjsm0nvwVPCvo=;
-        b=plQvOvxTTPP7oaCeOwhcRkOQ+Xf0KTSwiVcbGzqFTQNXuan8kFCwxFjClrzxFZ0hEB
-         8L4YdsBsx0SOKCASBHtFGcCFllJtlD/fh2tXF7f1OsxNX/a5xCpBq7pqOPEjPx4vOCVG
-         jvtMP8f5xH/N2nwo2kPghnOIjekGGm9p3esE5y0kfOVIUbyNfkO2dvIoyUkFWSQ1uM8U
-         AgmHyjzH6+rmI182+FlOiSx2bCVbT3MNrOBGjfaTspDsCK6fPRAsbt2kYmJ8CKZ02j3d
-         tj6t0YawfkH3hP0bw8LjYmknKaM2pX9A+9Me35FyAau6jWQHOiSWjlI3eDu7SXuPl6oK
-         oJkQ==
-X-Gm-Message-State: AOJu0YwZEzx5QSUKaz+N6fAG5OnEs5KYtW0UiD7Rb3cWY5vbkyf5/Adf
-	MMB3s1FqW6N/tHCAB/rMX6ZZcmqBYWvUkZBb8KvnBhZsCfHjCp6+onWI
-X-Gm-Gg: Acq92OE9qtp4UAABlh3A/nKug2eAEF+yPE9XRaFZ1ws1UsaST6gGbzmz0fRlFFMHzlU
-	NgZfNTEIG9RyM2bpVt1c0r5n5RF9kx9OtQq6V7xs9rNvvxqzLUfCxwpWCUS3xEFq3zj7jWt9ir8
-	QvX4R3gAZGocR1Hemj3C6GXlfDOfmuzbZpYASDlbjLAu7APS9ozDt167KgYlCkQO0k8J4cmPgd1
-	29E7xzYN9hHzDPCUar9evo/RNJRZzOhB43AVED/ENO+mmvmfwO1xGhrqMSLVbmWYCnH5+D09kPx
-	HaURo33SCL7GfeYPSauE71Gkjj/WW8+/WoPlR/ylTN2xu85iEudEyMvnGG9cp/fjTUgNHlsFKiy
-	EIzCYaufid3T2hC6MEk2+FeCrzMb2682RWcZMThtal8Gb6jkrYIHoO6WoUSQ2WqYo8DV+riROrE
-	mcAk3vRq5UG0rt4iXTq0PC7dzTX0MeqOGbHkhHls/tGH3nwYm0l6EaNWlILgl8hoiv
-X-Received: by 2002:a05:6a00:9086:b0:842:4982:82a with SMTP id d2e1a72fcca58-842b10fd562mr20964396b3a.45.1780998491402;
-        Tue, 09 Jun 2026 02:48:11 -0700 (PDT)
-Received: from v4bel ([58.123.110.97])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84282883647sm24254665b3a.36.2026.06.09.02.48.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 09 Jun 2026 02:48:10 -0700 (PDT)
-Date: Tue, 9 Jun 2026 18:48:08 +0900
-From: Hyunwoo Kim <imv4bel@gmail.com>
-To: gregkh@linuxfoundation.org
-Cc: stable@vger.kernel.org, maz@kernel.org, oupton@kernel.org,
-	imv4bel@gmail.com
-Subject: [PATCH 6.18.y] KVM: arm64: Take the SRCU lock for page table walks
- in fault injection and AT emulation
-Message-ID: <aifhWIyS3A0Bdmnv@v4bel>
+	s=arc-20240116; t=1780998923; c=relaxed/simple;
+	bh=5FWQZumbg/wDOHEVLVkFkwq3i8H1Vb/GPllnjSEy8G4=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=LGoCKGUkEOaPPgjK4ulpHzRm4YY5jKbFWSDYLlVrV8zlrN5uzsczDs2F4OiysL7VCjOTgHiU4egLNyNNOOmn75VmhIn5WZeIDE7psEthKRG3h7phAjHC6n831txZumt7wjcUmYs9x088JPyqbV07RdBYaO+VwrUnHk7ILzBO5SE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowAC3Ov4A4ydqy9DQEg--.477S2;
+	Tue, 09 Jun 2026 17:55:12 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: hch@lst.de,
+	sagi@grimberg.me,
+	kch@nvidia.com
+Cc: linux-nvme@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] nvmet: fix refcount leak in nvmet_sq_create()
+Date: Tue,  9 Jun 2026 09:55:05 +0000
+Message-Id: <20260609095505.227496-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowAC3Ov4A4ydqy9DQEg--.477S2
+X-Coremail-Antispam: 1UD129KBjvdXoW7XF15Gr4UWrW5WryDWF4rXwb_yoWkAFbE9w
+	1UJrn7GFyruw4DKa47Wr43ZryxKr95Xw1Iyws8trW3tr90gFy3G3sYvr93Gr1fur48Xr15
+	C3W7Jrn5C3yS9jkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUb4xFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr0_
+	Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_GcCE3s
+	1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0
+	cI8IcVAFwI0_Jrv_JF1lYx0Ex4A2jsIE14v26F4UJVW0owAm72CE4IkC6x0Yz7v_Jr0_Gr
+	1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v26r12
+	6r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI
+	0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y
+	0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxV
+	WUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1l
+	IxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x0JURyIUUUU
+	UU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAcNA2onpvzyXAAAs8
 
-[ Upstream commit f2ca45b50d4216c9cc7ffabf50d9ad1932209251 ]
+In nvmet_sq_create(), a reference on the ctrl is taken
+via kref_get_unless_zero() before calling nvmet_check_sqid().
+If nvmet_check_sqid() fails, the function returns the error
+directly without releasing the reference, leading to a leak.
 
-walk_s1() and kvm_walk_nested_s2() expect to be called while holding
-kvm->srcu to guard against memslot changes. While this is generally
-the case, __kvm_at_s12() and __kvm_find_s1_desc_level() call into the
-respective walkers without taking kvm->srcu.
-
-Fix by acquiring kvm->srcu prior to the table walk in both instances.
+Fix this by jumping to the "ctrl_put" label, which already
+performs the necessary nvmet_ctrl_put(ctrl). This ensures the
+reference is properly released on this error path.
 
 Cc: stable@vger.kernel.org
-Fixes: 50f77dc87f13 ("KVM: arm64: Populate level on S1PTW SEA injection")
-Fixes: be04cebf3e78 ("KVM: arm64: nv: Add emulation of AT S12E{0,1}{R,W}")
-Suggested-by: Oliver Upton <oupton@kernel.org>
-Signed-off-by: Hyunwoo Kim <imv4bel@gmail.com>
-Reviewed-by: Oliver Upton <oupton@kernel.org>
-Link: https://patch.msgid.link/aiAZfdeyanIvP8SD@v4bel
-Signed-off-by: Marc Zyngier <maz@kernel.org>
-[ Hyunwoo Kim: __kvm_at_s12() still returns void in 6.18.y, so the
-  surrounding context differs from upstream (return; instead of
-  return ret;); the added scoped_guard() is unchanged. ]
-Signed-off-by: Hyunwoo Kim <imv4bel@gmail.com>
+Fixes: 1eb380caf527 ("nvmet: Introduce nvmet_sq_create() and nvmet_cq_create()")
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- arch/arm64/kvm/at.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ drivers/nvme/target/core.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/arch/arm64/kvm/at.c b/arch/arm64/kvm/at.c
-index be26d5aa668c..e6de6aac6ede 100644
---- a/arch/arm64/kvm/at.c
-+++ b/arch/arm64/kvm/at.c
-@@ -1528,7 +1528,8 @@ void __kvm_at_s12(struct kvm_vcpu *vcpu, u32 op, u64 vaddr)
- 	/* Do the stage-2 translation */
- 	ipa = (par & GENMASK_ULL(47, 12)) | (vaddr & GENMASK_ULL(11, 0));
- 	out.esr = 0;
--	ret = kvm_walk_nested_s2(vcpu, ipa, &out);
-+	scoped_guard(srcu, &vcpu->kvm->srcu)
-+		ret = kvm_walk_nested_s2(vcpu, ipa, &out);
- 	if (ret < 0)
- 		return;
+diff --git a/drivers/nvme/target/core.c b/drivers/nvme/target/core.c
+index 62dd59b9aa4f..4477c4d6b1ee 100644
+--- a/drivers/nvme/target/core.c
++++ b/drivers/nvme/target/core.c
+@@ -944,7 +944,7 @@ u16 nvmet_sq_create(struct nvmet_ctrl *ctrl, struct nvmet_sq *sq,
  
-@@ -1623,7 +1624,8 @@ int __kvm_find_s1_desc_level(struct kvm_vcpu *vcpu, u64 va, u64 ipa, int *level)
- 	}
+ 	status = nvmet_check_sqid(ctrl, sqid, true);
+ 	if (status != NVME_SC_SUCCESS)
+-		return status;
++		goto ctrl_put;
  
- 	/* Walk the guest's PT, looking for a match along the way */
--	ret = walk_s1(vcpu, &wi, &wr, va);
-+	scoped_guard(srcu, &vcpu->kvm->srcu)
-+		ret = walk_s1(vcpu, &wi, &wr, va);
- 	switch (ret) {
- 	case -EINTR:
- 		/* We interrupted the walk on a match, return the level */
+ 	ret = nvmet_sq_init(sq, cq);
+ 	if (ret) {
 -- 
-2.43.0
+2.34.1
 
