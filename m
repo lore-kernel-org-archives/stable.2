@@ -1,253 +1,161 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CBCB402443;
-	Tue,  9 Jun 2026 11:46:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8395407CE4
+	for <stable@vger.kernel.org>; Tue,  9 Jun 2026 12:00:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781005575; cv=none; b=rdEbWm3RrU1clWP5eygnDTu2+OsBha5oTr2eaWLGh8pZX5jsUpNVpIOTl3I/9bTFlCRoUrjr3L3xP0/oNnu85Q6KzlQOya+igXlRPrut+TKKnBwEz4i+a0B+4SKlIXZ6G81WydK+GTx5rhm7Bmc8MGouZg6ArgRkM5Owez68ts8=
+	t=1781006411; cv=none; b=ONojQzHzL/XS1SUUEQ0yTHlix85rSgTJ+aSS03MtfpDPCfvj36XDl+GPR8ksVMjh9QpwieGNbFJHNbDxUgweMSIeIx/7h7NmuRRj40E05/JxtlRaL8cj0kHJPrpp7oJpIpGroAHXLTd1PQL4NITsFC+biFrmdhL26FMPHGLaf0w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781005575; c=relaxed/simple;
-	bh=yY6kvALjAuOQ7nkd7bvoQPxOpE1kUa0pwHSpqMdBGAE=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=ddPiF6jDCjQyYAH5rX2PkhCxTkLpEYzL9yCSvaDzSKQUtZNFVgY0cwWILozj7RpxrcF4trfMuwMOLJSflpLRUTXSHNYH+kS7wBGXUhc5EFBKKheaYWFjJZfWgy9Yc55tD0PsGM0PuvlbTScJGc/dqp4PcLbsTjjxC3DjirHM/lQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=AdKFZVd2; arc=none smtp.client-ip=192.198.163.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1781006411; c=relaxed/simple;
+	bh=Vomw9OlHRuAZaMfduu22dTOFBZHcQjMkmss46Pn+7h4=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=rGu0BidWjUdO3HXK6Xg8qzcO5+RfnUWs5ZkrJcUY/D11GFrQ2L984z0emCNF9TTlNBxuTn350XkO1JdWoa5y2UdR4Rg3W84yCD2kfY0OZDEfYPijTCw+yx4ek+qEqxIVJEg2R9A7jpKrXPw+gJcAnyP3T4Y0rRLmtZ+r9Y8DhL0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=AJMK5Aio; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="AdKFZVd2"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1781005574; x=1812541574;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=yY6kvALjAuOQ7nkd7bvoQPxOpE1kUa0pwHSpqMdBGAE=;
-  b=AdKFZVd2LHLpKRIQdcrPDXncy90XerMLwP40+vPELacBU5rJlinwK35J
-   wLDD47iulbiVi5uncEoL2yBapnLnksp8ct13XQx1iYY8jT+ct7NipLElz
-   3HEncRtf7yGlLRr7YAXixtHJ78xvEG0JF2Lj2VCvO6zPdtA0f7ZFClazI
-   qaY2DYS1wndS9yg0OGcAq/62Jw4FwAKd81qV48NseP8EJTDaYBy+GUEJY
-   AOea8H8J+huIWmfDnsPPvU2rGIzJbSavjllYF4/8T/IwuRouGj+vJ/PxL
-   KOwKo2YZzeApPGyVEWIfQrrvzX0TqdqrpTzGEAGz0FmYbv/TuoAJjDV1S
-   Q==;
-X-CSE-ConnectionGUID: +UOA2qF5SHuhem+1xo9O5w==
-X-CSE-MsgGUID: EePDKEBVRnyrBaJ1M7YVvg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11811"; a="81808771"
-X-IronPort-AV: E=Sophos;i="6.24,196,1774335600"; 
-   d="scan'208";a="81808771"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Jun 2026 04:46:13 -0700
-X-CSE-ConnectionGUID: RJmEw9UnSkG6R9Ral6GVTw==
-X-CSE-MsgGUID: kDVNWlOLQp64VmvhwJprDQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,196,1774335600"; 
-   d="scan'208";a="249766008"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.81])
-  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Jun 2026 04:46:09 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Tue, 9 Jun 2026 14:46:05 +0300 (EEST)
-To: Daniel Gibson <daniel@gibson.sh>
-cc: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>, 
-    Hans de Goede <hansg@kernel.org>, platform-driver-x86@vger.kernel.org, 
-    LKML <linux-kernel@vger.kernel.org>, 
-    Mario Limonciello <superm1@kernel.org>, 
-    Sindre Henriksen <sindrehenriksen93@gmail.com>, 
-    Hans de Goede <johannes.goede@oss.qualcomm.com>, stable@vger.kernel.org
-Subject: Re: [PATCH v5 2/4] platform/x86/amd/pmc: Delay suspend for some
- Lenovo Laptops
-In-Reply-To: <20260609105756.2813669-3-daniel@gibson.sh>
-Message-ID: <2fbb4d9d-7ad5-d4e7-b510-d7c75f399d97@linux.intel.com>
-References: <20260609105756.2813669-1-daniel@gibson.sh> <20260609105756.2813669-3-daniel@gibson.sh>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="AJMK5Aio"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D4751F00893;
+	Tue,  9 Jun 2026 12:00:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1781006407;
+	bh=iOYRKiVJiXZawKpsMQpe8ydzQLLweaQ5wvxkQ4zEwmg=;
+	h=Subject:To:Cc:From:Date;
+	b=AJMK5Aio8wpRsvvxMGrSo8ZHo9rF9dwvuJDstTUQeIuWm62sWxjSfZzKyZ6zpElnw
+	 Lk8/K1Pf9eaSgHX7l7KWSs1r5Wp2k8JUI/qNQFJRhVAbws1cxOBzALJPKeiByAz6Fp
+	 upqad6COVmD3Q+SOz83fALXM1koDzgMj45mHki+c=
+Subject: FAILED: patch "[PATCH] ipv6: mcast: Fix use-after-free when processing MLD queries" failed to apply to 5.10-stable tree
+To: idosch@nvidia.com,dahern@nvidia.com,edumazet@google.com,jiayuan.chen@linux.dev,kuba@kernel.org,leo@depthfirst.com
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Tue, 09 Jun 2026 13:59:07 +0200
+Message-ID: <2026060907-blurry-monetary-1fa3@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323328-641038138-1781005565=:1206"
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
 
---8323328-641038138-1781005565=:1206
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: QUOTED-PRINTABLE
+The patch below does not apply to the 5.10-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-On Tue, 9 Jun 2026, Daniel Gibson wrote:
+To reproduce the conflict and resubmit, you may use the following commands:
 
-> Some IdeaPad Slim 3 devices and similar with AMD CPUs have a
-> nonfunctional keyboard and lid switch after s2idle.
->=20
-> It helps to delay suspend by 2.5 seconds so the EC has some time
-> to do whatever it needs to get done before suspend - unfortunately
-> at least on my 16ABR8 waking it with a timer (wakealarm) still
-> triggers the issue, but at least normal resume via keypress or
-> lid works fine. On the 14ARP10 wakealarm has been reported to also
-> work fine with this patch.
->=20
-> This issue has been reported for many different devices, this patch
-> has been tested with the Zen3-based IdeaPad Slim 3 16ABR8 (82XR)
-> and the Zen3+-based IdeaPad Slim 3 14ARP10 (83K6) and IdeaPad Slim 3
-> 15ARP10 (83MM).
->=20
-> Reported-by: Sindre Henriksen <sindrehenriksen93@gmail.com>
-> Closes: https://bugzilla.kernel.org/show_bug.cgi?id=3D221383
-> Tested-by: Sindre Henriksen <sindrehenriksen93@gmail.com>
-> Suggested-by: Mario Limonciello (AMD) <superm1@kernel.org>
-> Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
-> Reviewed-by: Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel.com>
-> Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
-> Signed-off-by: Daniel Gibson <daniel@gibson.sh>
-> Cc: stable@vger.kernel.org
-> ---
->  drivers/platform/x86/amd/pmc/pmc-quirks.c | 39 +++++++++++++++++++++++
->  drivers/platform/x86/amd/pmc/pmc.c        | 24 +++++++++++++-
->  drivers/platform/x86/amd/pmc/pmc.h        |  1 +
->  3 files changed, 63 insertions(+), 1 deletion(-)
->=20
-> diff --git a/drivers/platform/x86/amd/pmc/pmc-quirks.c b/drivers/platform=
-/x86/amd/pmc/pmc-quirks.c
-> index 24506e342943..74ddf1d8289a 100644
-> --- a/drivers/platform/x86/amd/pmc/pmc-quirks.c
-> +++ b/drivers/platform/x86/amd/pmc/pmc-quirks.c
-> @@ -18,6 +18,7 @@
->  struct quirk_entry {
->  =09u32 s2idle_bug_mmio;
->  =09bool spurious_8042;
-> +=09bool need_suspend_delay;
->  };
-> =20
->  static struct quirk_entry quirk_s2idle_bug =3D {
-> @@ -33,6 +34,10 @@ static struct quirk_entry quirk_s2idle_spurious_8042 =
-=3D {
->  =09.spurious_8042 =3D true,
->  };
-> =20
-> +static struct quirk_entry quirk_s2idle_need_suspend_delay =3D {
-> +=09.need_suspend_delay =3D true,
-> +};
-> +
->  static const struct dmi_system_id fwbug_list[] =3D {
->  =09{
->  =09=09.ident =3D "L14 Gen2 AMD",
-> @@ -203,6 +208,35 @@ static const struct dmi_system_id fwbug_list[] =3D {
->  =09=09=09DMI_MATCH(DMI_PRODUCT_NAME, "82XQ"),
->  =09=09}
->  =09},
-> +=09/* https://bugzilla.kernel.org/show_bug.cgi?id=3D221383 */
-> +=09{
-> +=09=09.ident =3D "Zen3-based IdeaPad Slim and similar",
-> +=09=09.driver_data =3D &quirk_s2idle_need_suspend_delay,
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git checkout FETCH_HEAD
+git cherry-pick -x 791c91dc7a9dfb2457d5e29b8216a6484b9c4b40
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026060907-blurry-monetary-1fa3@gregkh' --subject-prefix 'PATCH 5.10.y' HEAD^..
 
-Hi,
+Possible dependencies:
 
-One more question.
 
-Sashiko noted, that amd_pmc_quirks_init() can overwrite=20
-disable_8042_wakeup from the AMD_CPU_ID_CZN check when .driver_data=20
-provides quirks. Is it okay in this case to not have .spurious_8042?
 
---=20
- i.
+thanks,
 
-> +=09=09.matches =3D {
-> +=09=09=09DMI_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
-> +=09=09=09/*
-> +=09=09=09 * Note: there are also some Zen2-based 82X* devices that
-> +=09=09=09 * need different quirks, they're already handled above
-> +=09=09=09 */
-> +=09=09=09DMI_MATCH(DMI_PRODUCT_NAME, "82X"),
-> +=09=09}
-> +=09},
-> +=09{
-> +=09=09.ident =3D "Zen3+-based IdeaPad Slim and similar",
-> +=09=09.driver_data =3D &quirk_s2idle_need_suspend_delay,
-> +=09=09.matches =3D {
-> +=09=09=09DMI_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
-> +=09=09=09DMI_MATCH(DMI_PRODUCT_NAME, "83K"),
-> +=09=09}
-> +=09},
-> +=09{
-> +=09=09.ident =3D "IdeaPad Slim 3 15ARP10 (83MM)",
-> +=09=09.driver_data =3D &quirk_s2idle_need_suspend_delay,
-> +=09=09.matches =3D {
-> +=09=09=09DMI_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
-> +=09=09=09DMI_MATCH(DMI_PRODUCT_NAME, "83MM"),
-> +=09=09}
-> +=09},
->  =09/* https://bugzilla.kernel.org/show_bug.cgi?id=3D221273 */
->  =09{
->  =09=09.ident =3D "Thinkpad L14 Gen3",
-> @@ -356,6 +390,11 @@ void amd_pmc_process_restore_quirks(struct amd_pmc_d=
-ev *dev)
->  =09=09amd_pmc_skip_nvme_smi_handler(dev->quirks->s2idle_bug_mmio);
->  }
-> =20
-> +bool amd_pmc_quirk_need_suspend_delay(struct amd_pmc_dev *dev)
-> +{
-> +=09return dev->quirks && dev->quirks->need_suspend_delay;
-> +}
-> +
->  void amd_pmc_quirks_init(struct amd_pmc_dev *dev)
->  {
->  =09const struct dmi_system_id *dmi_id;
-> diff --git a/drivers/platform/x86/amd/pmc/pmc.c b/drivers/platform/x86/am=
-d/pmc/pmc.c
-> index 2b9e5730170a..6bafd8661d68 100644
-> --- a/drivers/platform/x86/amd/pmc/pmc.c
-> +++ b/drivers/platform/x86/amd/pmc/pmc.c
-> @@ -611,6 +611,27 @@ static bool amd_pmc_intermediate_wakeup_need_delay(s=
-truct amd_pmc_dev *pdev)
->  =09return get_metrics_table(pdev, &table) =3D=3D 0 && table.s0i3_last_en=
-try_status;
->  }
-> =20
-> +static bool amd_pmc_want_suspend_delay(struct amd_pmc_dev *pdev)
-> +{
-> +=09/*
-> +=09 * Some Lenovo Laptops (like different IdeaPad 3 Slims) need some
-> +=09 * me-time before sleeping or they get uncooperative after waking
-> +=09 * up and don't send events for keyboard and lid switch anymore.
-> +=09 *
-> +=09 * Unfortunately this doesn't entirely fix the problem: It can still
-> +=09 * happen when resuming with a timer (wakealarm), but at least the
-> +=09 * more common usecases (wakeup by opening lid or pressing a key)
-> +=09 * work fine with this workaround.
-> +=09 *
-> +=09 * See https://bugzilla.kernel.org/show_bug.cgi?id=3D221383
-> +=09 */
-> +=09if (!disable_workarounds && amd_pmc_quirk_need_suspend_delay(pdev)) {
-> +=09=09dev_info(pdev->dev, "Delaying suspend by 2.5s to avoid platform bu=
-g\n");
-> +=09=09return true;
-> +=09}
-> +=09return false;
-> +}
-> +
->  static void amd_pmc_s2idle_prepare(void)
->  {
->  =09struct amd_pmc_dev *pdev =3D &pmc;
-> @@ -647,7 +668,8 @@ static void amd_pmc_s2idle_check(void)
->  =09struct amd_pmc_dev *pdev =3D &pmc;
->  =09int rc;
-> =20
-> -=09if (amd_pmc_intermediate_wakeup_need_delay(pdev))
-> +=09if (amd_pmc_intermediate_wakeup_need_delay(pdev) ||
-> +=09    amd_pmc_want_suspend_delay(pdev))
->  =09=09msleep(2500);
-> =20
->  =09/* Dump the IdleMask before we add to the STB */
-> diff --git a/drivers/platform/x86/amd/pmc/pmc.h b/drivers/platform/x86/am=
-d/pmc/pmc.h
-> index fe3f53eb5955..f5257e47b8c4 100644
-> --- a/drivers/platform/x86/amd/pmc/pmc.h
-> +++ b/drivers/platform/x86/amd/pmc/pmc.h
-> @@ -147,6 +147,7 @@ enum amd_pmc_def {
->  };
-> =20
->  void amd_pmc_process_restore_quirks(struct amd_pmc_dev *dev);
-> +bool amd_pmc_quirk_need_suspend_delay(struct amd_pmc_dev *dev);
->  void amd_pmc_quirks_init(struct amd_pmc_dev *dev);
->  void amd_mp2_stb_init(struct amd_pmc_dev *dev);
->  void amd_mp2_stb_deinit(struct amd_pmc_dev *dev);
->=20
---8323328-641038138-1781005565=:1206--
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 791c91dc7a9dfb2457d5e29b8216a6484b9c4b40 Mon Sep 17 00:00:00 2001
+From: Ido Schimmel <idosch@nvidia.com>
+Date: Wed, 3 Jun 2026 13:18:11 +0300
+Subject: [PATCH] ipv6: mcast: Fix use-after-free when processing MLD queries
+
+When processing an MLD query, a pointer to the multicast group address
+is retrieved when initially parsing the packet. This pointer is later
+dereferenced without being reloaded despite the fact that the skb header
+might have been reallocated following the pskb_may_pull() calls, leading
+to a use-after-free [1].
+
+Fix by copying the multicast group address when the packet is initially
+parsed.
+
+[1]
+BUG: KASAN: slab-use-after-free in __mld_query_work (net/ipv6/mcast.c:1512)
+Read of size 8 at addr ffff8881154b8e90 by task kworker/4:1/118
+
+Workqueue: mld mld_query_work
+Call Trace:
+<TASK>
+dump_stack_lvl (lib/dump_stack.c:94 lib/dump_stack.c:120)
+print_address_description.constprop.0 (mm/kasan/report.c:378)
+print_report (mm/kasan/report.c:482)
+kasan_report (mm/kasan/report.c:595)
+__mld_query_work (net/ipv6/mcast.c:1512)
+mld_query_work (net/ipv6/mcast.c:1563)
+process_one_work (kernel/workqueue.c:3314)
+worker_thread (kernel/workqueue.c:3397 kernel/workqueue.c:3478)
+kthread (kernel/kthread.c:436)
+ret_from_fork (arch/x86/kernel/process.c:158)
+ret_from_fork_asm (arch/x86/entry/entry_64.S:245)
+</TASK>
+
+[...]
+
+Freed by task 118:
+kasan_save_stack (mm/kasan/common.c:57)
+kasan_save_track (mm/kasan/common.c:78)
+kasan_save_free_info (mm/kasan/generic.c:584)
+__kasan_slab_free (mm/kasan/common.c:253 mm/kasan/common.c:285)
+kfree (./include/linux/kasan.h:235 mm/slub.c:2689 mm/slub.c:6251 mm/slub.c:6566)
+pskb_expand_head (net/core/skbuff.c:2335)
+__pskb_pull_tail (net/core/skbuff.c:2878 (discriminator 4))
+__mld_query_work (net/ipv6/mcast.c:1495 (discriminator 1))
+mld_query_work (net/ipv6/mcast.c:1563)
+process_one_work (kernel/workqueue.c:3314)
+worker_thread (kernel/workqueue.c:3397 kernel/workqueue.c:3478)
+kthread (kernel/kthread.c:436)
+ret_from_fork (arch/x86/kernel/process.c:158)
+ret_from_fork_asm (arch/x86/entry/entry_64.S:245)
+
+Fixes: 97300b5fdfe2 ("[MCAST] IPv6: Check packet size when process Multicast")
+Reported-by: Leo Lin <leo@depthfirst.com>
+Reviewed-by: David Ahern <dahern@nvidia.com>
+Signed-off-by: Ido Schimmel <idosch@nvidia.com>
+Reviewed-by: Eric Dumazet <edumazet@google.com>
+Reviewed-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+Link: https://patch.msgid.link/20260603101811.612594-1-idosch@nvidia.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+
+diff --git a/net/ipv6/mcast.c b/net/ipv6/mcast.c
+index 3330adcf26db..d9b855d5191b 100644
+--- a/net/ipv6/mcast.c
++++ b/net/ipv6/mcast.c
+@@ -1424,9 +1424,9 @@ void igmp6_event_query(struct sk_buff *skb)
+ static void __mld_query_work(struct sk_buff *skb)
+ {
+ 	struct mld2_query *mlh2 = NULL;
+-	const struct in6_addr *group;
+ 	unsigned long max_delay;
+ 	struct inet6_dev *idev;
++	struct in6_addr group;
+ 	struct ifmcaddr6 *ma;
+ 	struct mld_msg *mld;
+ 	int group_type;
+@@ -1458,8 +1458,8 @@ static void __mld_query_work(struct sk_buff *skb)
+ 		goto kfree_skb;
+ 
+ 	mld = (struct mld_msg *)icmp6_hdr(skb);
+-	group = &mld->mld_mca;
+-	group_type = ipv6_addr_type(group);
++	group = mld->mld_mca;
++	group_type = ipv6_addr_type(&group);
+ 
+ 	if (group_type != IPV6_ADDR_ANY &&
+ 	    !(group_type&IPV6_ADDR_MULTICAST))
+@@ -1509,7 +1509,7 @@ static void __mld_query_work(struct sk_buff *skb)
+ 		}
+ 	} else {
+ 		for_each_mc_mclock(idev, ma) {
+-			if (!ipv6_addr_equal(group, &ma->mca_addr))
++			if (!ipv6_addr_equal(&group, &ma->mca_addr))
+ 				continue;
+ 			if (ma->mca_flags & MAF_TIMER_RUNNING) {
+ 				/* gsquery <- gsquery && mark */
+
