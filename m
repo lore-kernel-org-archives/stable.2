@@ -1,166 +1,232 @@
-Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [188.68.61.103])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D3702E7396;
-	Tue,  9 Jun 2026 10:05:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.68.61.103
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9A413F0756;
+	Tue,  9 Jun 2026 10:07:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780999514; cv=none; b=GMGXw73fUGJmEyJBhdeW0hcSX1RHhqH8w2QFrswLTsGFDV/tRxQDUNsy0VZxPNmQa+F1fpf8FfDK1DcwQu49+L4qHnxXT0zDGZg4yMp6x10Nbo8/aOtgktdwZ8Fv6HaFYXsmZB6l9HwChHFdvJ6xRF8kpz3BePAE/zH8CxT4Ks4=
+	t=1780999653; cv=none; b=cPhJXmgAnRn8ZRVCBLpDXGUEU94EnC/PSUVzYtyUSl14jB+awnNYUN1opMmY6ySliy3lgR8W2e8t3fj5mt4CSkNRXPEBDk3NGjaPO3733hVwVi/NjMvDNKdq6PlWoAmwBMwgAQLDlZCgaqpUSINm5aOv4m2Ss8ya5L/0jBwy7RA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780999514; c=relaxed/simple;
-	bh=QFWyBeqeXsXODEh72YQTER2tbPIg1Y7V0Lk+AAPpN5k=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=n6ij6oam/0b1pJd7csYbfvKYFxDxqSpOUCtzyT9LJST4Is+O/Qrq7ET4xK4G0qqqRrDO9yZAx7/hi2RGdPxaEfR9oXnkzfDH0rYi2+2+j+6LIt0/gOTxTF1luNv6Xk6QG8qWxZUBCmlqkzrfcKumBamUO7Cm4zFWsoJtTj5l7HU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=leemhuis.info; spf=pass smtp.mailfrom=leemhuis.info; dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b=Hmtsl0zj; arc=none smtp.client-ip=188.68.61.103
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=leemhuis.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
+	s=arc-20240116; t=1780999653; c=relaxed/simple;
+	bh=i0RQ9L5q7Nb7ZNMKArCU9r518QCO22eZWz5kRlb01MM=;
+	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=jooyScuPl5tIo5jGh7Jx7os1cqb0l6nQ6rMLXN27FX4j6amU0nIBJIsBN2Rw1PEq0LsP/8KUxP5YKFCmVJ4+6BI5KAL76Nd2X+M4HyGozPHwx9TI592AFH0O+bLylyZhBBVmv7Aai4yZbF25PrPPSSjgV+uQzWLNgqq56MWsNlY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=S7kJs1V3; arc=none smtp.client-ip=198.175.65.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b="Hmtsl0zj"
-Received: from mors-relay-8403.netcup.net (localhost [127.0.0.1])
-	by mors-relay-8403.netcup.net (Postfix) with ESMTPS id 4gZPfY4nJlz8CSR;
-	Tue,  9 Jun 2026 12:05:09 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
-	s=key2; t=1780999509;
-	bh=QFWyBeqeXsXODEh72YQTER2tbPIg1Y7V0Lk+AAPpN5k=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
-	b=Hmtsl0zjZJ04zsZoHoHnHUpdL3e1xT+qdq+SxPxaAOnrfmRgAilEQH6v5oKEFPsQN
-	 n1B0qnqDxuE5Emq4OfBYs7VyGlRAsK/BNeaPWjx0lVk6TMxwQcEIMfdAEqO5EWqAu+
-	 KqVQotgz1ju+Hhj9hMU7jvZGzmzRCwaVHh6iy/YHe9JJwRFPODKRdB1fk0WYsPh7iu
-	 Na9vKAfnGRwMQoXhu8zCmPheVlePzUMBA2hLwfe9/Rao2SGxtfj9hIRvpd6vPtUYEH
-	 5rnRW/cfmUuXjldLgrSz45mgAC3qC0yi30AxegOBhatuT77KaHBp2Z9PMqwOUiBIDO
-	 6qxKc5VqL6SQA==
-Received: from policy01-mors.netcup.net (unknown [46.38.225.35])
-	by mors-relay-8403.netcup.net (Postfix) with ESMTPS id 4gZPfY447dz8Bgj;
-	Tue,  9 Jun 2026 12:05:09 +0200 (CEST)
-X-Virus-Scanned: Debian amavisd-new at policy01-mors.netcup.net
-X-Spam-Flag: NO
-X-Spam-Score: -2.898
-X-Spam-Level: 
-Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by policy01-mors.netcup.net (Postfix) with ESMTPS id 4gZPfX4HwNz8t4T;
-	Tue,  9 Jun 2026 12:05:08 +0200 (CEST)
-Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
-	by mxe9fb.netcup.net (Postfix) with ESMTPSA id C18135F96B;
-	Tue,  9 Jun 2026 12:05:07 +0200 (CEST)
-Authentication-Results: mxe9fb;
-        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
-Received-SPF: pass (mxe9fb: connection is authenticated)
-Message-ID: <5cbf8431-e3c4-41d9-afcd-fb121dc12395@leemhuis.info>
-Date: Tue, 9 Jun 2026 12:05:06 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="S7kJs1V3"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1780999649; x=1812535649;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=i0RQ9L5q7Nb7ZNMKArCU9r518QCO22eZWz5kRlb01MM=;
+  b=S7kJs1V3BOKUUvEHVO9MeVL6hc/X5tEO71qdQw3pzAa8YUGx39FfDxI/
+   xjd/6rdsyRwCLq8IIucOMx8UCk9ERtFM8oZeLQpQBBlWVeR0zMEFa1UIp
+   LAEtlgBK1FPhQ5Ub6ACv1ryxdRlHRHwOV7yzp3IZdEtddNzieAcm7Fciq
+   wz31DALSitDVGcESNgwa14CTNOwO4y5iZ3HHgqzsfrUZOcKUXuVGlWgms
+   OEH5NPq8eNi98QgMlE0QmyulSCdxbJcV6Uz/xdqQzcR0iELmpV+TrsI2T
+   txUWl5EJ9mYcMmHVi2GwPNVbDE7Z77UTHGt5OHCco8Kkk02TiPTp3L338
+   w==;
+X-CSE-ConnectionGUID: DNlkgFPsTr6EemgkeJVEng==
+X-CSE-MsgGUID: lXGDBBdySleikKLuaqrIwg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11811"; a="81733162"
+X-IronPort-AV: E=Sophos;i="6.24,195,1774335600"; 
+   d="scan'208";a="81733162"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Jun 2026 03:07:28 -0700
+X-CSE-ConnectionGUID: 967c7j1FR6G0uFI2HQKnGg==
+X-CSE-MsgGUID: ndEerP96Qu+2RNE03h422A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,195,1774335600"; 
+   d="scan'208";a="243376747"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.81])
+  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Jun 2026 03:07:25 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Tue, 9 Jun 2026 13:07:21 +0300 (EEST)
+To: Daniel Gibson <daniel@gibson.sh>
+cc: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>, 
+    Hans de Goede <hansg@kernel.org>, platform-driver-x86@vger.kernel.org, 
+    LKML <linux-kernel@vger.kernel.org>, 
+    Mario Limonciello <superm1@kernel.org>, 
+    Sindre Henriksen <sindrehenriksen93@gmail.com>, stable@vger.kernel.org
+Subject: Re: [PATCH v4 1/3] platform/x86/amd/pmc: Delay suspend for some
+ Lenovo Laptops
+In-Reply-To: <20260606044758.2213401-2-daniel@gibson.sh>
+Message-ID: <5f0dcb89-0e76-d6eb-a6b0-201a0ed1cd22@linux.intel.com>
+References: <20260606044758.2213401-1-daniel@gibson.sh> <20260606044758.2213401-2-daniel@gibson.sh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] NFSv4: clear exception state on successful mkdir retry
-From: Thorsten Leemhuis <regressions@leemhuis.info>
-To: Trond Myklebust <trondmy@kernel.org>, NeilBrown <neil@brown.name>,
- Anna Schumaker <anna@kernel.org>, Igor Raits <igor.raits@gmail.com>
-Cc: =?UTF-8?B?SmFuIMSMw61wYQ==?= <jan.cipa@gooddata.com>,
- linux-nfs@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org,
- Linux kernel regressions list <regressions@lists.linux.dev>
-References: <177745671692.1474915.5018486129724109553@noble.neil.brown.name>
- <20260429104938.1776671-1-igor.raits@gmail.com>
- <971ecb6c-2687-429f-af86-fc980c2d04f9@leemhuis.info>
-Content-Language: de-DE, en-US
-In-Reply-To: <971ecb6c-2687-429f-af86-fc980c2d04f9@leemhuis.info>
+Content-Type: multipart/mixed; boundary="8323328-1386652776-1780999641=:1206"
+
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
+
+--8323328-1386652776-1780999641=:1206
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-PPP-Message-ID: 
- <178099950819.2754868.10331645572987338434@mxe9fb.netcup.net>
-X-NC-CID: hk1XyinkLA2SwZHbK5SCpGsD7vDqiQfNWsmxs+25BdLmQbHAp7Y=
+Content-Transfer-Encoding: QUOTED-PRINTABLE
 
-On 5/13/26 09:18, Thorsten Leemhuis wrote:
-> [top-posting to facilitate processing]
-> 
-> @NFSv4 maintainers, just wondering, did this patch maybe fall through
-> the cracks? It fixes a regression, that's why it's on my radar. Or was
-> there some progress and I missed it?
+On Sat, 6 Jun 2026, Daniel Gibson wrote:
 
-Still no progress afaics. Feels like I'm missing something obvious or
-like I'm totally of track.
+> Some IdeaPad Slim 3 devices and similar with AMD CPUs have a
+> nonfunctional keyboard and lid switch after s2idle.
+>=20
+> It helps to delay suspend by 2.5 seconds so the EC has some time
+> to do whatever it needs to get done before suspend - unfortunately
+> at least on my 16ABR8 waking it with a timer (wakealarm) still
+> triggers the issue, but at least normal resume via keypress or
+> lid works fine. On the 14ARP10 wakealarm has been reported to also
+> work fine with this patch.
+>=20
+> This issue has been reported for many different devices, this patch
+> has been tested with the Zen3-based IdeaPad Slim 3 16ABR8 (82XR)
+> and the Zen3+-based IdeaPad Slim 3 14ARP10 (83K6) and IdeaPad Slim 3
+> 15ARP10 (83MM).
+>=20
+> Reported-by: Sindre Henriksen <sindrehenriksen93@gmail.com>
+> Closes: https://bugzilla.kernel.org/show_bug.cgi?id=3D221383
+> Tested-by: Sindre Henriksen <sindrehenriksen93@gmail.com>
+> Suggested-by: Mario Limonciello (AMD) <superm1@kernel.org>
+> Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
+> Reviewed-by: Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel.com>
+> Signed-off-by: Daniel Gibson <daniel@gibson.sh>
+> Cc: stable@vger.kernel.org
+> ---
+>  drivers/platform/x86/amd/pmc/pmc-quirks.c | 39 +++++++++++++++++++++++
+>  drivers/platform/x86/amd/pmc/pmc.c        | 24 +++++++++++++-
+>  drivers/platform/x86/amd/pmc/pmc.h        |  1 +
+>  3 files changed, 63 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/platform/x86/amd/pmc/pmc-quirks.c b/drivers/platform=
+/x86/amd/pmc/pmc-quirks.c
+> index 24506e342943..74ddf1d8289a 100644
+> --- a/drivers/platform/x86/amd/pmc/pmc-quirks.c
+> +++ b/drivers/platform/x86/amd/pmc/pmc-quirks.c
+> @@ -18,6 +18,7 @@
+>  struct quirk_entry {
+>  =09u32 s2idle_bug_mmio;
+>  =09bool spurious_8042;
+> +=09bool need_suspend_delay;
+>  };
+> =20
+>  static struct quirk_entry quirk_s2idle_bug =3D {
+> @@ -33,6 +34,10 @@ static struct quirk_entry quirk_s2idle_spurious_8042 =
+=3D {
+>  =09.spurious_8042 =3D true,
+>  };
+> =20
+> +static struct quirk_entry quirk_s2idle_need_suspend_delay =3D {
+> +=09.need_suspend_delay =3D true,
+> +};
+> +
+>  static const struct dmi_system_id fwbug_list[] =3D {
+>  =09{
+>  =09=09.ident =3D "L14 Gen2 AMD",
+> @@ -203,6 +208,35 @@ static const struct dmi_system_id fwbug_list[] =3D {
+>  =09=09=09DMI_MATCH(DMI_PRODUCT_NAME, "82XQ"),
+>  =09=09}
+>  =09},
+> +=09/* https://bugzilla.kernel.org/show_bug.cgi?id=3D221383 */
+> +=09{
+> +=09=09.ident =3D "Zen3-based IdeaPad Slim and similar",
+> +=09=09.driver_data =3D &quirk_s2idle_need_suspend_delay,
+> +=09=09.matches =3D {
+> +=09=09=09DMI_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
+> +=09=09=09/*
+> +=09=09=09 * Note: there are also some Zen2-based 82X* devices that
+> +=09=09=09 * need different quirks, they're already handled above
+> +=09=09=09 */
+> +=09=09=09DMI_MATCH(DMI_PRODUCT_NAME, "82X"),
+> +=09=09}
+> +=09},
+> +=09{
+> +=09=09.ident =3D "Zen3+-based IdeaPad Slim and similar",
+> +=09=09.driver_data =3D &quirk_s2idle_need_suspend_delay,
+> +=09=09.matches =3D {
+> +=09=09=09DMI_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
+> +=09=09=09DMI_MATCH(DMI_PRODUCT_NAME, "83K"),
+> +=09=09}
+> +=09},
+> +=09{
+> +=09=09.ident =3D "IdeaPad Slim 3 15ARP10 (83MM)",
+> +=09=09.driver_data =3D &quirk_s2idle_need_suspend_delay,
+> +=09=09.matches =3D {
+> +=09=09=09DMI_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
+> +=09=09=09DMI_MATCH(DMI_PRODUCT_NAME, "83MM"),
+> +=09=09}
+> +=09},
+>  =09/* https://bugzilla.kernel.org/show_bug.cgi?id=3D221273 */
+>  =09{
+>  =09=09.ident =3D "Thinkpad L14 Gen3",
+> @@ -356,6 +390,11 @@ void amd_pmc_process_restore_quirks(struct amd_pmc_d=
+ev *dev)
+>  =09=09amd_pmc_skip_nvme_smi_handler(dev->quirks->s2idle_bug_mmio);
+>  }
+> =20
+> +bool amd_pmc_quirk_need_suspend_delay(struct amd_pmc_dev *dev)
+> +{
+> +=09return dev->quirks && dev->quirks->need_suspend_delay;
+> +}
+> +
+>  void amd_pmc_quirks_init(struct amd_pmc_dev *dev)
+>  {
+>  =09const struct dmi_system_id *dmi_id;
+> diff --git a/drivers/platform/x86/amd/pmc/pmc.c b/drivers/platform/x86/am=
+d/pmc/pmc.c
+> index 2b9e5730170a..6bafd8661d68 100644
+> --- a/drivers/platform/x86/amd/pmc/pmc.c
+> +++ b/drivers/platform/x86/amd/pmc/pmc.c
+> @@ -611,6 +611,27 @@ static bool amd_pmc_intermediate_wakeup_need_delay(s=
+truct amd_pmc_dev *pdev)
+>  =09return get_metrics_table(pdev, &table) =3D=3D 0 && table.s0i3_last_en=
+try_status;
+>  }
+> =20
+> +static bool amd_pmc_want_suspend_delay(struct amd_pmc_dev *pdev)
+> +{
+> +=09/*
+> +=09 * Some Lenovo Laptops (like different IdeaPad 3 Slims) need some
+> +=09 * me-time before sleeping or they get uncooperative after waking
+> +=09 * up and don't send events for keyboard and lid switch anymore.
+> +=09 *
+> +=09 * Unfortunately this doesn't entirely fix the problem: It can still
+> +=09 * happen when resuming with a timer (wakealarm), but at least the
+> +=09 * more common usecases (wakeup by opening lid or pressing a key)
+> +=09 * work fine with this workaround.
+> +=09 *
+> +=09 * See https://bugzilla.kernel.org/show_bug.cgi?id=3D221383
+> +=09 */
+> +=09if (!disable_workarounds && amd_pmc_quirk_need_suspend_delay(pdev)) {
+> +=09=09dev_info(pdev->dev, "Delaying suspend by 2.5s to avoid platform bu=
+g\n");
+> +=09=09return true;
+> +=09}
+> +=09return false;
+> +}
+> +
+>  static void amd_pmc_s2idle_prepare(void)
+>  {
+>  =09struct amd_pmc_dev *pdev =3D &pmc;
+> @@ -647,7 +668,8 @@ static void amd_pmc_s2idle_check(void)
+>  =09struct amd_pmc_dev *pdev =3D &pmc;
+>  =09int rc;
+> =20
+> -=09if (amd_pmc_intermediate_wakeup_need_delay(pdev))
+> +=09if (amd_pmc_intermediate_wakeup_need_delay(pdev) ||
+> +=09    amd_pmc_want_suspend_delay(pdev))
 
-Igor, Neil, is that the case? Or are you also waiting for the fix to
-make progress?
+This doesn't seem to apply to the review-ilpo-next branch. You might have=
+=20
+left the first patch of the series out from this v4?
 
-Ciao, Thorsten
+Please send v5 to correct the problem.
 
-> On 4/29/26 12:49, Igor Raits wrote:
->> After a server returns NFS4ERR_DELAY for an NFSv4 CREATE issued by
->> mkdir(2), the client correctly waits and retries.  When the retry
->> succeeds, however, mkdir(2) can still surface -EEXIST to userspace
->> even though the directory was just created on the server.
->>
->> Reproducer (random 16-hex names so collisions are not the cause)
->> against an in-kernel Linux nfsd; reproduces under both NFSv4.0 and
->> NFSv4.2:
->>
->>   N=2000000; base=/var/gdc/export
->>   for ((i=1; i<=N; i++)); do
->>       d=$base/$(openssl rand -hex 8)
->>       mkdir "$d" 2>/dev/null || echo "$(date +%T) failed loop=$i $d"
->>       rmdir "$d" 2>/dev/null
->>   done
->>
->> Failures cluster at the cadence at which the server-side auth/export
->> cache refresh path causes nfsd to return NFS4ERR_DELAY for CREATE.
->>
->> A wire trace of one failure (the three CREATE RPCs all come from a
->> single mkdir(2), generated by the do-while in nfs4_proc_mkdir()):
->>
->>   client -> server  CREATE name=...  -> NFS4ERR_DELAY
->>   ~100 ms later
->>   client -> server  CREATE name=...  -> NFS4_OK         (dir created)
->>   ~80 us later
->>   client -> server  CREATE name=...  -> NFS4ERR_EXIST   (correct)
->>
->> Since commit dd862da61e91 ("nfs: fix incorrect handling of large-number
->> NFS errors in nfs4_do_mkdir()"), nfs4_handle_exception() is called only
->> when _nfs4_proc_mkdir() returned an error.  That gate breaks retry-state
->> hygiene: nfs4_do_handle_exception() resets exception.{delay,recovering,
->> retry} to 0 on entry, so calling it on success is what previously
->> cleared the retry flag set by the preceding NFS4ERR_DELAY iteration.
->> With the gate in place, exception.retry stays at 1 after the successful
->> retry, the loop runs once more, and the resulting CREATE for an
->> already-created name yields NFS4ERR_EXIST -> -EEXIST to userspace.
->>
->> Drop the conditional and call nfs4_handle_exception() unconditionally,
->> matching every other do-while in fs/nfs/nfs4proc.c (nfs4_proc_symlink(),
->> nfs4_proc_link(), etc.).  The dentry/status separation introduced by
->> that commit is preserved.
->>
->> Fixes: dd862da61e91 ("nfs: fix incorrect handling of large-number NFS errors in nfs4_do_mkdir()")
->> Reported-and-tested-by: Jan Čípa <jan.cipa@gooddata.com>
->> Closes: https://lore.kernel.org/linux-nfs/CA+9S74hSp_tJu2Ffe2BPNC2T25gfkhgjjDkdgSsF5c2rnJq_wA@mail.gmail.com/
->> Reviewed-by: NeilBrown <neil@brown.name>
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Igor Raits <igor.raits@gmail.com>
->> ---
->>  fs/nfs/nfs4proc.c | 5 ++---
->>  1 file changed, 2 insertions(+), 3 deletions(-)
->>
->> diff --git a/fs/nfs/nfs4proc.c b/fs/nfs/nfs4proc.c
->> index a0885ae55abc..ffd14141ea1d 100644
->> --- a/fs/nfs/nfs4proc.c
->> +++ b/fs/nfs/nfs4proc.c
->> @@ -5393,10 +5393,9 @@ static struct dentry *nfs4_proc_mkdir(struct inode *dir, struct dentry *dentry,
->>  	do {
->>  		alias = _nfs4_proc_mkdir(dir, dentry, sattr, label, &err);
->>  		trace_nfs4_mkdir(dir, &dentry->d_name, err);
->> +		err = nfs4_handle_exception(NFS_SERVER(dir), err, &exception);
->>  		if (err)
->> -			alias = ERR_PTR(nfs4_handle_exception(NFS_SERVER(dir),
->> -							      err,
->> -							      &exception));
->> +			alias = ERR_PTR(err);
->>  	} while (exception.retry);
->>  	nfs4_label_release_security(label);
->>  
-> 
+--=20
+ i.
 
+--8323328-1386652776-1780999641=:1206--
