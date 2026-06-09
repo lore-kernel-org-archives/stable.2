@@ -1,209 +1,191 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A75841B366;
-	Tue,  9 Jun 2026 13:01:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5312441C311
+	for <stable@vger.kernel.org>; Tue,  9 Jun 2026 13:12:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781010108; cv=none; b=HDyeDUy6Pv7lIxuy1zRh2mquAPJT+OPKhn0gYgmU3VgIF9u4AjkHoyYLurhuRT6JB97b4NvyfZ5QjxYrNGY0F6Ff7PuzXuj4xbWP1nuoUY2GtrIojk1xbOXvgEtXPtGrY7UT0HZa3PXn4SJ8y+GhSoTzdYJhNTAIaS+nNVOSOUQ=
+	t=1781010756; cv=none; b=nA2Mdim1aCVWvh4ExIWSthKTxfWlcYyXwMdSgXIqS3L77rElPvRqALb9O8D8UAuWPhMu4k07Dt3Cw/cNcD46Cs7jxm5fzqu36bLouArTcKrYP45Z89zz0ykQxl1t30gfgRLffc2Yafqkz/I9c7dmFo/uveXeUvYwugnbkuMCtWk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781010108; c=relaxed/simple;
-	bh=LiJUWpGWKAx0Tf/jqg9vvArnhY1/Nu+aqUFRkL4Y/Yk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=LQlm/RSh79/iDYFcN5dGYBnveqCTVQRnntMfuuH7kNQ2DP5pq1O66XJ4vcufnCKhjQTrnPk074PG9aHIQyffjAV8tj+B+XpFIV0JEGgMnx0CfD0zC5hFwVKANN83zwFLT2xkb7nm84rtRbkXNUKMDFEepHi9xgbnR0l78NxOuzI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aQkxHNLK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781010756; c=relaxed/simple;
+	bh=cRmrex5oPCwg42dkdhJaD73cEwhY7jfqwVZ+TJf7vSo=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=k/O9RYGBP5NFxqakZ87aAuzNcnFrel25gcO81K+TE2i6ZfS5g9UzEztHHoxjg+BNzdjAqff5H91l+8BNCIju5OZT4zkfujJGag+KFh29MEudmmqW36FvCBDiB38/bNvv/tZNLBhzf7OoCINZhrMO8MRV6ShkWIcg32IYRJds9aU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=AKNuI2v0; arc=none smtp.client-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aQkxHNLK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E1A01F00893;
-	Tue,  9 Jun 2026 13:01:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781010106;
-	bh=m271X0iaJIiEixjjz+qpzyZhVPKE0vFCbZ7VXevgXfs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=aQkxHNLK21FNFWG2DNY1fxzKyPmUvknmZJhlGhpxrZlexee3JRKdqF9MEkgIoEbtV
-	 umCm1QOvx5nz4RTegCNVMejtvWaawL6Dl5lOqBkOgiFIFg33GrAlpF04TQFS1nWW1Z
-	 yCOaK4du7+DT/ofZ8t7SI6yg2TxbWdosC5L9fmoC6d+M0N+IqInar+1og3QyzlXLUQ
-	 ppIOUJ0kJnliwytE0IYF9zLgoBrxfZkSOIBwBaxuBonrIKzeQbd9JdDJnTYvAcmRi2
-	 vF42lec06+cDIlcunM29+1gMV95cndNj6uImxV3b9ad13gwOV9GD3bvT4tIAjFP2QM
-	 FuxMoItdevyrQ==
-Message-ID: <ccf4d126-c523-4ae4-8b17-a4cafab79b33@kernel.org>
-Date: Tue, 9 Jun 2026 14:01:42 +0100
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="AKNuI2v0"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-490c28f84fdso9551895e9.0
+        for <stable@vger.kernel.org>; Tue, 09 Jun 2026 06:12:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1781010754; x=1781615554; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:subject:cc:to:from:date:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=jOb0YWdrCyqRf70PqWxcCcSyY2RJrYltX6EkSx4+w3M=;
+        b=AKNuI2v055wKL5+W3JqPxgf1MwVtlePBhAtv9nDHGhbadv1s8XuAFW3BJKSygjmAb2
+         pf4ydMyAZUPxhbZeGg8GYp3UEsxOcH7X2gs91g8w2svLEAsdKACYZ9s0hMHKws1DrOz4
+         fZx0SSuS0M+2eoF2QZGzPoLB9WlWm0SQ/UTMT8A8Mcd59lHCG9YNDlH7Z5rLu9oBspxc
+         lb7HdfNM5G6ndsNJxwjYpslx+phD2ZITINX3Eb+XncIwjFY7Uufef6jc8Ujr1UVr9OrR
+         Z+0uYyP+fCIPoPBpHL4UN3BYGce7IPtlhCKXEwLc3L3cV0pnj1wEPGR12mBHJpbZmKO7
+         1ZqQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781010754; x=1781615554;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=jOb0YWdrCyqRf70PqWxcCcSyY2RJrYltX6EkSx4+w3M=;
+        b=N75UrbGOXDv1NqiguJzwwUrD31bLj8O+CvInOuYtRRU9xZNOncVlVjkEwYSnCXIaLj
+         AV+MkxQxXzKCFYMcNw+GBgEIm1pNhugmOwSVZvOyx4VPFXLlWTsombFlqx7cZm0xLPFM
+         6RDp89IRW412Jb0R+B0fElijcac83mhs0gJCHktz2M5TomC/r0+jQxhEwzLp9ejwcfo7
+         xlHh9duheC7WmXn6Lneja5izXIeA8nyC52pdpro04NA6WXJhnlNq343usP6ib3x8P2Z6
+         8H9CxlJpJBVrPdYgVOSYdIUN+83lxtaKjZ9hXc5klosF2Hk3OoPJ5w2zUmODKMs1++1F
+         eztw==
+X-Forwarded-Encrypted: i=1; AFNElJ8PBoVOWFCjvXdx6mbqZWcc8wW2CHiEyYH5N0WGvMfQPeB70giZyfAge4BxFsfh8xxy4zkDGic=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwMrJMydoQJXuTVGS368goLLCDDmDwjDwRKO6WRGhi81VY3ANDg
+	j6BURpU0WGZkr2a0xKo1HI4+ZpOOAEJnTmtAyFYtSeqGfKa2OHHlMF9vbj7EVNpswyB5XkqowFR
+	NPc8lbeE=
+X-Gm-Gg: Acq92OE2cT3/kSfVYhF1aWUn06r2yNqx0D2+IwT5CuyN9tgCSZHJv2bUaihloKvoMnR
+	XqMs5PbZqPcIPTn4M9eRLxEtrWPA9eRHa57fcqPZV9TiltGpFSLqaOvQPY+FFcz2EHZQDQGfooP
+	YCd5phlNK54YzlryxXFNF2J8QGqx6S3/DD0/+4YvtP5DpulU3zNFl4JWeOFdebEm0OVYmwbu2KZ
+	a0Sxt/TbdxxKl/9q5RiLLQzSoXFkgpJLGPQpUbGxJII5udPNOh9FyP1ZD9V0v/fNxa30j3M5vx4
+	CUdx7J1jcAt/+OqNy9uKoO2xdCXO5QsMR7AeOqgJua/fs08V2906nPNa/SfsXzPQcCdDy0YSLqQ
+	XcoMIhqJSdemkjA2HixSatl6L0M7p4aDn4AwT8uWjy+geR5Ok5MPA/s9VCdBQ8ZRz1j85rp2rZX
+	R6O2sw8kMxhg5rw8TK5lm55e4=
+X-Received: by 2002:a05:600c:8b65:b0:490:b4d4:5c16 with SMTP id 5b1f17b1804b1-490d72759f0mr16962775e9.8.1781010753634;
+        Tue, 09 Jun 2026 06:12:33 -0700 (PDT)
+Received: from mordecai ([62.77.90.70])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4601f351d69sm111677469f8f.29.2026.06.09.06.12.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 09 Jun 2026 06:12:26 -0700 (PDT)
+Date: Tue, 9 Jun 2026 15:12:22 +0200
+From: Petr Tesarik <ptesarik@suse.com>
+To: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
+Cc: iommu@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-coco@lists.linux.dev, Robin Murphy
+ <robin.murphy@arm.com>, Marek Szyprowski <m.szyprowski@samsung.com>, Will
+ Deacon <will@kernel.org>, Marc Zyngier <maz@kernel.org>, Steven Price
+ <steven.price@arm.com>, Suzuki K Poulose <Suzuki.Poulose@arm.com>, Catalin
+ Marinas <catalin.marinas@arm.com>, Jiri Pirko <jiri@resnulli.us>, Jason
+ Gunthorpe <jgg@ziepe.ca>, Mostafa Saleh <smostafa@google.com>, Alexey
+ Kardashevskiy <aik@amd.com>, Dan Williams <dan.j.williams@intel.com>, Xu
+ Yilun <yilun.xu@linux.intel.com>, linuxppc-dev@lists.ozlabs.org,
+ linux-s390@vger.kernel.org, Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, Alexander Gordeev
+ <agordeev@linux.ibm.com>, Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>, Sven Schnelle
+ <svens@linux.ibm.com>, x86@kernel.org, stable@vger.kernel.org, Michael
+ Kelley <mhklinux@outlook.com>
+Subject: Re: [PATCH v6 14/20] dma-direct: return struct page from
+ dma_direct_alloc_from_pool()
+Message-ID: <20260609151222.476a5521@mordecai>
+In-Reply-To: <20260604083959.1265923-15-aneesh.kumar@kernel.org>
+References: <20260604083959.1265923-1-aneesh.kumar@kernel.org>
+	<20260604083959.1265923-15-aneesh.kumar@kernel.org>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-suse-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] arm64: dts: qcom: hamoa: Reserve low IOVA range for
- Iris
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Daniel J Blueman <daniel@quora.org>,
- Vikash Garodia <quic_vgarodia@quicinc.com>
-Cc: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260601041336.9497-1-daniel@quora.org>
- <ecavEnqJTDXvfFykc9uJb5No7ioighpjrCdw2CFZ4c8Izr5DxpTs-606Bg7K0RtHTaOqksWivHxWQLzMBP6qow==@protonmail.internalid>
- <20260601041336.9497-2-daniel@quora.org>
- <ec7c564e-745a-4998-af9a-e9632fe063f7@kernel.org>
- <CAMVG2ssnyH=KUKrdfnUOtPYU7p17inyzcYWcKhT4EAZxDzDjfg@mail.gmail.com>
- <h8UvMzNq5TseF22NyjmyrC5yZkO_5JsVGMVaIdLfdpMyfxxemlp0xulRAiylGHWdrq5D4NM1oUk9Jzyhj_UAsw==@protonmail.internalid>
- <cb37e7cc-4fb0-4c24-8f89-f6f9eb08a107@oss.qualcomm.com>
-From: Bryan O'Donoghue <bod@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=bod@kernel.org; keydata=
- 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
-In-Reply-To: <cb37e7cc-4fb0-4c24-8f89-f6f9eb08a107@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On 04/06/2026 07:38, Vikash Garodia wrote:
-> 
-> 
-> On 6/2/2026 9:05 PM, Daniel J Blueman wrote:
->> On Tue, 2 Jun 2026 at 18:27, Bryan O'Donoghue <bod@kernel.org> wrote:
->>>
->>> On 01/06/2026 05:13, Daniel J Blueman wrote:
->>>> On X1-family hamoa platforms, Iris DMA below IOVA 0x25800000 (600MB)
->>>> triggers unhandled SMMU page faults
->>>
->>> How do we know that is a correct address - does it come from qcom
->>> documentation or trial and error ?
->>
->> @Vikash, beyond your comment I linked in the patch [1] kindly cite a
->> source for the different stream-ID <600MB behaviour, and share
->> specifics, eg if silicon, firmware, or driver and constraint, defect
->> or otherwise, so I can include a definitive description.
->>
->> Also good to know if my workaround is good for long-term, or on the
->> other hand handling streams <600MB is important/useful.
->>
-> 
-> Thanks Daniel for raising this patch. Did you also try the memory fix i
-> mentioned in the bug [1] discussion ?
-> 
-> Coming to 600MB, this have been the VPU hardware restriction all the
-> while since venus days, and since address could not go deeper all the
-> way lower than 600MB, the issue never popped up earlier.
-> 
-> Consider the memory layout split as below (Iris device range is capped
-> to 0xe0000000)
-> 
-> |-----600MB-----|-----(0xe0000000 - 600MB)-----|----IO reg--|
-> 
-> 0-600MB range, VPU hardware would reserve this to generate different
-> stream-IDs primarily for internal (non-pixel) buffers.
-> 
-> 0-600 --> VPU would generate *secure* stream ID for non-pixel buffers
-> 601 - 0xe0000000 --> VPU would generate non-secure stream ID for
-> non-pixel buffers.
-> 
-> When many concurrent sessions were tried, non-pixel buffers were mapped
-> into 0-600MB range, and VPU generated secure ID for those. Since those
-> were not associated with the iommus configured for iris node, it led to
-> USF (un-identified stream fault) and device would crash.
-> 
-> Keeping the region reserved, makes the non-pixel buffer always in the
-> non secure range (601-..) and avoids the crash.
-> 
-> Downside of this design - It would eventually reserve 0-600MB un-map
-> 'able for all buffer types, like pixel as well which do not have any
-> such restriction.
-> 
-> Forward looking design - create devices dynamically and set reserve
-> regions for those specific device using the api [1], instead of applying
-> one reserve for all.
-> 
-> [1]
-> https://lore.kernel.org/all/20260119054936.3350128-1-busanna.reddy@oss.qualcomm.com/
-The problem here is in the reponse to the email you linked:
+On Thu,  4 Jun 2026 14:09:53 +0530
+"Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org> wrote:
 
-https://lore.kernel.org/all/cfd23f75-8952-4463-abd5-815b995031b0@arm.com/
+> Commit 5b138c534fda ("dma-direct: factor out a dma_direct_alloc_from_pool
+> helper") changed dma_direct_alloc_from_pool() to return the CPU address
+> from dma_alloc_from_pool(). That fits dma_direct_alloc(), but
+> dma_direct_alloc_pages() also uses the helper and expects a struct page *.
+> 
+> Fix this by making dma_direct_alloc_from_pool() return the struct page *
+> again, and pass the CPU address back through an out-parameter for the
+> dma_direct_alloc() caller.
+> 
+> Fixes: 5b138c534fda ("dma-direct: factor out a dma_direct_alloc_from_pool helper")
+> Cc: stable@vger.kernel.org
 
-- Inheriting the parent's properties is wrong
-- We should just have a bus
+While I totally agree with the reasoning and the fix, it's interesting
+that this bug has been apparently present in the kernel for 5+ years
+without anybody hitting nasty memory corruption bugs.
 
-But that leads us to churning DT and we'd have to figure out how/why to 
-do it purely for the purpose of differentiating SIDs within Iris. There 
-is no separate hardware - its one VPU which needs to figure out its IOVA 
-for different SIDs.
+How can it be? Is the buggy code path never actually used in practice?
+Does it hint at a missed opportunity to simplify the code?
 
-Krzysztof would rightly say no - again - to putting collateral into DT 
-to differentiate pixel streams based on SID, because that's not a 
-hardware property.
+Anyway, these these thoughts are intended for a possible future
+cleanup. For now, let's apply the fix as is, of course.
 
-- You have pixel and non-pixel SIDs that have to hit Linux
-- You have to keep non-pixel allocations >= 600 MB
-- You can allow pixel < 600mb =>
-   Daniel's patch is too restrictive
+Petr T
 
-But what we can do is add information to the iris platform descriptors 
-to enumerate what are the valid IOVA ranges for pixel and non-pixel data 
-and then change the allocation code to operate from those platform-code 
-described IOVAs.
+> Tested-by: Michael Kelley <mhklinux@outlook.com>
+> Tested-by: Mostafa Saleh <smostafa@google.com>
+> Signed-off-by: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
+> ---
+>  kernel/dma/direct.c | 21 ++++++++++++---------
+>  1 file changed, 12 insertions(+), 9 deletions(-)
+> 
+> diff --git a/kernel/dma/direct.c b/kernel/dma/direct.c
+> index 4e446aa4130e..e0ab9ff3f1d6 100644
+> --- a/kernel/dma/direct.c
+> +++ b/kernel/dma/direct.c
+> @@ -157,24 +157,24 @@ static bool dma_direct_use_pool(struct device *dev, gfp_t gfp)
+>  	return !gfpflags_allow_blocking(gfp) && !is_swiotlb_for_alloc(dev);
+>  }
+>  
+> -static void *dma_direct_alloc_from_pool(struct device *dev, size_t size,
+> -		dma_addr_t *dma_handle, gfp_t gfp, unsigned long attrs)
+> +static struct page *dma_direct_alloc_from_pool(struct device *dev, size_t size,
+> +		dma_addr_t *dma_handle, void **cpu_addr, gfp_t gfp,
+> +		unsigned long attrs)
+>  {
+>  	struct page *page;
+>  	u64 phys_limit;
+> -	void *ret;
+>  
+>  	if (WARN_ON_ONCE(!IS_ENABLED(CONFIG_DMA_COHERENT_POOL)))
+>  		return NULL;
+>  
+>  	gfp |= dma_direct_optimal_gfp_mask(dev, &phys_limit);
+> -	page = dma_alloc_from_pool(dev, size, &ret, gfp, attrs,
+> +	page = dma_alloc_from_pool(dev, size, cpu_addr, gfp, attrs,
+>  				   dma_coherent_ok);
+>  	if (!page)
+>  		return NULL;
+>  	*dma_handle = phys_to_dma_direct(dev, page_to_phys(page),
+>  					 !!(attrs & DMA_ATTR_CC_SHARED));
+> -	return ret;
+> +	return page;
+>  }
+>  
+>  static void *dma_direct_alloc_no_mapping(struct device *dev, size_t size,
+> @@ -270,9 +270,12 @@ void *dma_direct_alloc(struct device *dev, size_t size,
+>  	 * the atomic pools instead if we aren't allowed block.
+>  	 */
+>  	if ((remap || (attrs & DMA_ATTR_CC_SHARED)) &&
+> -	    dma_direct_use_pool(dev, gfp))
+> -		return dma_direct_alloc_from_pool(dev, size, dma_handle,
+> -						  gfp, attrs);
+> +	    dma_direct_use_pool(dev, gfp)) {
+> +		page = dma_direct_alloc_from_pool(dev, size,
+> +					dma_handle, &cpu_addr,
+> +					gfp, attrs);
+> +		return page ? cpu_addr : NULL;
+> +	}
+>  
+>  	if (is_swiotlb_for_alloc(dev)) {
+>  		page = dma_direct_alloc_swiotlb(dev, size, attrs);
+> @@ -445,7 +448,7 @@ struct page *dma_direct_alloc_pages(struct device *dev, size_t size,
+>  
+>  	if ((attrs & DMA_ATTR_CC_SHARED) && dma_direct_use_pool(dev, gfp))
+>  		return dma_direct_alloc_from_pool(dev, size, dma_handle,
+> -						  gfp, attrs);
+> +						  &cpu_addr, gfp, attrs);
+>  
+>  	if (is_swiotlb_for_alloc(dev)) {
+>  		page = dma_direct_alloc_swiotlb(dev, size, attrs);
 
-No new iommu properties, not arguing about plonking SID/pixel-path data 
-into DT.
-
-Just teach the driver what the valid ranges are and allocate IOVAs based 
-on those ranges.
-
-I think Daniel's patch should be taken as it fixes a real bug for users 
-right now but, I equally think its a NAK for any new SoC.
-
-This IOVA allocation needs to be tackled correctly and IMO that needs to 
-be and should be done via platform descriptors for valid ranges of IOVA.
-
-No mad stuff about SIDs in DT, no lengthy arguments about adding strange 
-iommu properties.
-
----
-bod
