@@ -1,155 +1,141 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF561231832;
-	Tue,  9 Jun 2026 07:16:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3BC635E922;
+	Tue,  9 Jun 2026 07:22:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780989405; cv=none; b=LQIZIK0JxsCqv8w2L8UKo/lTyiQSt7CqjNph77cNqzEGs7A8Pyp81yLYHMgt/ZAu0Pc2f2u2hxLsI0zwex4YcjkOJg9Wf5obnWOTnBambG8YqtO6I6ASZHw6UePq5mX0VF4QK0N7xEezxUgDw/p7Gqr0lyXDnkd6Qngf1rO/aG4=
+	t=1780989760; cv=none; b=B9MLHQNRwiVhH/883ginkxepuFlY3Mgp72uVW3UUVPJPYEwneLxxKu5CFw/fDaDRiMMYqE6zwwDteVnJZScGW6c/9Jij3tSzSgCVqP8rR0l8zuoUtoFUvt2tQReoAGjKTQEST0S3pH7YXeKUGRBLOqXyVvjB5HQ0xtMeUCIkdMU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780989405; c=relaxed/simple;
-	bh=opZAywMiMJwNqnAF0qCOyiFq0tt6Du3M9QkQqyqnf0M=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Q4khfz7pf52OQEopfT3IfHKifgZx2KS/jodv9wUb3A1lnAjtqBjhq47Z7IJFC9+A/W0vvHVfFXcFHWkKkdkKmwC+3lxzT5iN4IYLcRCLCPeAesShOhzLdHT2UPcPnyXs2X010g93DuG6lS6LpHP+ioWbeD9HEjYiH4u2aGV0hvA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=Kr1n4Uts; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1780989760; c=relaxed/simple;
+	bh=GPZOvP3Mm6EiYDm8mY2iYgvc2pMGsaw676SV2/zQrQw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=a9B8ZXJASog/NoKk1KmKrmhWfyQPKYyINWoR0GUF0JRK2hXLkv0aZv6mpl1SjYLdgnANJJ94RYaf61o96iE2x5bCnpUSnbKle0RHmmtqzFaSAUwdfpSGXmFWdS0bYufkXnyege4Q4/2nf7GXeh3IV5OF0hj5gvV8T02er2I81mg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BXQRnnQV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="Kr1n4Uts"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 61AA1C4FED4;
-	Tue,  9 Jun 2026 07:16:41 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 009365FFC1;
-	Tue,  9 Jun 2026 07:16:40 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 31A7C106A2AA7;
-	Tue,  9 Jun 2026 09:16:36 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1780989399; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=Ll4RtAYhS2rFE5eRASFLWyUVEVc0Hay6pdACZEO3nE8=;
-	b=Kr1n4UtsKcLcc8mnEDUlI9/QEfHHzrU0bANTQKUzXFK+cPPHlZu6J6AOijWyT4ubEyFdFu
-	eHyxh6eR/FpPmd+Kr+XeyR/Paqkj3P0cCOmhCvz6UcO8oHEfNxOUtwU4HO8h4oNjv4S8vP
-	xYC3KXPW+qQ80iwTv6O7Wpav0j0keC2njj+PMxuUKo4bdBWVYfh//3aKNEr5L0eOzA5qQf
-	U4/mGRNmhCZKd5hBjNdLtd420py/17wAnSAvLV/UQyH/RlFaNCAqc/M88xLKORBeMeBy7J
-	/uCfKqNgRLXIcHurkosOlhYyOvcPmc/MWIT3GB4D44/va0XDUJYLZLVUzunwaw==
-From: Romain Gantois <romain.gantois@bootlin.com>
-To: Maxime Ripard <mripard@kernel.org>
-Cc: Paul Kocialkowski <paulk@sys-base.io>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- Paul Kocialkowski <paul.kocialkowski@bootlin.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH] drm/logicvc: Avoid use-after-free with devm_kzalloc()
-Date: Tue, 09 Jun 2026 09:16:34 +0200
-Message-ID: <aEp-mETTTxmIRUxspbPhzQ@bootlin.com>
-In-Reply-To: <20260608-beetle-of-infinite-atheism-bcfcee@houat>
-References:
- <20260601-logicvc-uaf-v1-1-8c9ca5b3429c@bootlin.com>
- <5Q6YIC1WTqOFVMFErYGBEQ@bootlin.com>
- <20260608-beetle-of-infinite-atheism-bcfcee@houat>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BXQRnnQV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02C631F00893;
+	Tue,  9 Jun 2026 07:22:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780989759;
+	bh=I7FjI2O820nUywCy7+dsVn5yjEmJGm64ivePqVuSznw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=BXQRnnQV+2QCcagZphHSOF7BYi7wn/QpRnuwSzxOhhwC6rlYLmLIzq7FmZr0qshQd
+	 Iip7BxBMx/a4l3EnGn1XKMeeJeuLxaAU6F6Bvd1J0YQqS1HWcmHCtT/0FKI6uDL8Gf
+	 BW2g/y+hr/9eO/Iqr54X7aBdTTMBLUeeHzs/H7BQtDqX8WKOBqEegveG7IAAI90iXg
+	 E1rEH4b8xvB/vW+Jnm18an3eRdRidxK6adLb7j7ZNFHLIuTDxvn90lBOVvGUFwNnqa
+	 fJWniPnIm5Erddgsl4U3z7DOb/1lRVGRUXDvAx8w5QykeMrT94EMovbgmUk6QsscYD
+	 Y+Y6AaI2hSiIQ==
+Date: Tue, 9 Jun 2026 10:22:34 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: David Hu <xuehaohu@google.com>
+Cc: Sumit Semwal <sumit.semwal@linaro.org>,
+	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>, Nicolin Chen <nicolinc@nvidia.com>,
+	Kevin Tian <kevin.tian@intel.com>,
+	Ankit Agrawal <ankita@nvidia.com>,
+	Alex Williamson <alex@shazbot.org>, linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+	linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
+	jmoroni@google.com, praan@google.com, stable@vger.kernel.org
+Subject: Re: [PATCH v6] dma-buf: Fix silent overflow for phys vec to sgt
+Message-ID: <20260609072234.GB327369@unreal>
+References: <20260608194321.150838-1-xuehaohu@google.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="nextPartbwA1YJYMT_237ZM1LpD28w";
- micalg="pgp-sha512"; protocol="application/pgp-signature"
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260608194321.150838-1-xuehaohu@google.com>
 
---nextPartbwA1YJYMT_237ZM1LpD28w
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"; protected-headers="v1"
-From: Romain Gantois <romain.gantois@bootlin.com>
-To: Maxime Ripard <mripard@kernel.org>
-Subject: Re: [PATCH] drm/logicvc: Avoid use-after-free with devm_kzalloc()
-Date: Tue, 09 Jun 2026 09:16:34 +0200
-Message-ID: <aEp-mETTTxmIRUxspbPhzQ@bootlin.com>
-In-Reply-To: <20260608-beetle-of-infinite-atheism-bcfcee@houat>
-MIME-Version: 1.0
-
-On Monday, 8 June 2026 18:19:04 CEST Maxime Ripard wrote:
-> On Mon, Jun 08, 2026 at 05:41:11PM +0200, Romain Gantois wrote:
-> > Hi Maxime,
-> > 
-...
-> > > You're only partially fixing the issue. You also need to protect any
-> > > device resource (register mapping, clocks, etc) are no longer accessed
-> > > after the device has been removed, and this is typically done using
-> > > drm_dev_enter/exit.
-> > 
-> > Sorry there's something which I don't quite understand: is this a new
-> > issue
-> > which is specifically introduced by my changes in this series, or a
-> > different issue in this driver which isn't handled by my series?
+On Mon, Jun 08, 2026 at 07:43:21PM +0000, David Hu wrote:
+> In case MMIO size is bigger than 4G and peer2peer DMA goes
+> through host bridge, we trigger a code path that assigns the
+> total linked IOVA (which is greater than 4G) to mapped_len.
 > 
-> A bit of both I guess ? :)
+> Previously, `mapped_len` was declared as 32-bit `unsigned int`.
+> When accumulating `size_t` lengths, this leads to a silent wrap-around.
+> This truncation causes truncated lengths to be passed to functions
+> like `fill_sg_entry()`.
 > 
-> My point was that while your commit log claims you avoid use-after-free,
-> and your patch definitely avoids some, you can still trivially trigger
-> some.
+> Fix this by changing `mapped_len` to `size_t` (64-bit). While
+> at it, fix similar potential overflow issues in `calc_sg_nents`
+> by using `check_add_overflow()` for `nents` and using
+> `unsigned int` for the loop iterator in `fill_sg_entry` to match.
 > 
-> Whether you want to fix them all at once or prefer to defer it to a
-> later point in time is equally fine by me, but you need to be aware that
-> it's not done, and you probably want to have it in the commit log
-> somewhere too?
+> Fixes: 3aa31a8bb11e ("dma-buf: provide phys_vec to scatter-gather mapping routine")
+> Cc: stable@vger.kernel.org
+> Cc: iommu@lists.linux.dev
+> Reviewed-by: Pranjal Shrivastava <praan@google.com>
+> Reviewed-by: Kevin Tian <kevin.tian@intel.com>
+> Signed-off-by: David Hu <xuehaohu@google.com>
+> ---
+> Changes in v6:
+>  - Used `check_add_overflow()` in `calc_sg_nents()` for safer
+>    accumulation (Leon).
+>  - Dropped explicit `!nents` check and added a comment noting that
+>    `sg_alloc_table` handles `nents == 0` (Leon).
+>  - Collected Reviewed-by from Kevin Tian.
 > 
-
-Ah ok, I didn't mean to claim that I was fixing any potential UAF in the 
-driver. But if there's another one then I'm definitely interested in fixing it 
-as well :).
-
-> > IIUC all I'm doing here is just letting the drmm code handle cleaning up
-> > the plane, crtc, etc. objects instead of doing it "by hand" with
-> > devm_kzalloc. Why does this make it necessary to add additional
-> > protection of driver resources?
+> Changes in v5:
+>  - Removed WARN_ON_ONCE from calc_sg_nents() to avoid log noise (Jason).
+>  - Added explicit check for `!nents` in dma_buf_phys_vec_to_sgt() to
+>    cleanly return -EINVAL on overflow (Jason).
 > 
-> It's not necessary, but it's also kind of the same issue. The reason we
-> need to have drmm over devm is that the driver stays around longer than
-> its device, so devm-allocated memory would have been freed.
+> Changes in v4:
+>  - Added WARN_ON_ONCE() to the nents overflow check to prevent silent
+>    failures (Claude Bot).
 > 
-> But that's also the case for *any* devm resource, or more generally any
-> resource linked to that device, so register mappings, clocks,
-> interrupts, etc.
+> Changes in v3:
+>  - Removed leftover sentence fragment from the commit message.
+>  - Kept `nents = 0` initialization (previously stated as removed in the
+>    v2 changelog) as it is strictly required for the `+=` accumulation
+>    loop in `calc_sg_nents()`.
 > 
-> So yeah, it's a different symptom of the same underlying cause.
+> Changes in v2:
+>  - Fixed 'IVOA' -> 'IOVA' typo and expanded commit message (Claude Bot).
+>  - Added Reverse Xmas tree formatting (Pranjal).
+>  - Folded in extra bounds checking for calc_sg_nents() (Pranjal).
+>  - Folded in type consistency fix for fill_sg_entry() (Pranjal).
+>  - Collected Reviewed-by from Pranjal Shrivastava.
+> 
+>  drivers/dma-buf/dma-buf-mapping.c | 15 +++++++++++----
+>  1 file changed, 11 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/dma-buf/dma-buf-mapping.c b/drivers/dma-buf/dma-buf-mapping.c
+> index 794acff2546a..67a8ff52fb8f 100644
+> --- a/drivers/dma-buf/dma-buf-mapping.c
+> +++ b/drivers/dma-buf/dma-buf-mapping.c
+> @@ -5,12 +5,13 @@
+>   */
+>  #include <linux/dma-buf-mapping.h>
+>  #include <linux/dma-resv.h>
+> +#include <linux/overflow.h>
+>  
+>  static struct scatterlist *fill_sg_entry(struct scatterlist *sgl, size_t length,
+>  					 dma_addr_t addr)
+>  {
+>  	unsigned int len, nents;
+> -	int i;
+> +	unsigned int i;
+>  
+>  	nents = DIV_ROUND_UP(length, UINT_MAX);
+>  	for (i = 0; i < nents; i++) {
+> @@ -40,8 +41,11 @@ static unsigned int calc_sg_nents(struct dma_iova_state *state,
+>  	size_t i;
+>  
+>  	if (!state || !dma_use_iova(state)) {
+> -		for (i = 0; i < nr_ranges; i++)
+> -			nents += DIV_ROUND_UP(phys_vec[i].len, UINT_MAX);
+> +		for (i = 0; i < nr_ranges; i++) {
+> +			unsigned int added = DIV_ROUND_UP(phys_vec[i].len, UINT_MAX);
+> +			if (check_add_overflow(nents, added, &nents))
 
-Okay, I'll assess the issue and probably make another patch in the same series 
-to fix that.
+An additional blank line should be inserted between variable initialization
+and the subsequent code block.
 
-Thanks,
-
--- 
-Romain Gantois, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
-
---nextPartbwA1YJYMT_237ZM1LpD28w
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part.
-Content-Transfer-Encoding: 7Bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEIcCsAScRrtr7W0x0KCYAIARzeA4FAmonvdIACgkQKCYAIARz
-eA7kTg/+NoagThXw+iN7Q3fx0etdoKAG1eAtU2g5ctpyJHJt+byOCdo++rTheK2d
-ivZDjZDdF1pORoe0XFPwgp+hl0VcZ3D7HJtKhMgftUH50k1Xh5VBBPgV7yjH7rGM
-rcaBvqRxWf+FyrqElFWfrdMz5ewbszMQYj3oo/wWaztOZquuzc3rE2IJc5NYz396
-OQUKx5srPy9Fy9+GWc8KsAn+4Y4awRMokffzE7l0tKCSX0qssNYCdHzzX1r+gCpj
-SmwHoHJ+IzPI8lJnE92KMnjzrwDcpD0R8UdEMHu25dfsPwkpc8d9io95qlktwAPz
-ogDl2SKsPo1clIjxrzT/SmHFzGjQQtIRXC4QkMfmtpp8MxA3wrFtBPqJKOKyG0Z2
-twJ0L9wBxHyTYPhOqiaPeUtOVg66bi7Tx/DpZAOx3IAaDUHUhdeepmM0spVh2M+P
-k/i6JzKu8D+5yDBHoOrL+G0MzL/SU13cw+epxtNGAbIm8iQRLYHZjF/d5QPLlmFf
-oIp3tzqkGVB4DAIVjTbHaZGdAfgikC9ZjqU7qYXTxQx7Z2dd/wTe+u3KJ0A24IlZ
-6a8fQN5IDTpdtPrwWSAMoRUZLHB7AGZ10lGNKsUHAsIo2vdt9NvpvaQ4ukYA04kn
-g9416mcACNduCd5kvERtF0iDtUhtCk4fJX91WpwXWRz6NMZulfk=
-=WA82
------END PGP SIGNATURE-----
-
---nextPartbwA1YJYMT_237ZM1LpD28w--
-
-
-
+Aside from that,
+Reviewed-by: Leon Romanovsky <leon@kernel.org>
