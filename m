@@ -1,156 +1,203 @@
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28C833AA1A9
-	for <stable@vger.kernel.org>; Tue,  9 Jun 2026 16:35:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE8FC3B840F
+	for <stable@vger.kernel.org>; Tue,  9 Jun 2026 16:36:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781022937; cv=none; b=kJ+pkHwfInOvM6GQ90HzOdjFNScSyaEM1S0aT0buUc7lEpvcKsV00hVeL7ee3E10O0WgqrD/Q9G404wHCb30TMkBCVobT436Sp9Q8x58om9hbxShkK9hKzcUCiyTWIQg8rI14EqKhUXC3mZtk2rfIYwoEcqzbK4qNHuNgMFZX1A=
+	t=1781022984; cv=none; b=LypOaIABSTcdGEuEKbwF7AMxC3NUuZ+ozFh3XwTo1tSqQKgIk5ZSsEJTzyPWqtSbPh+I5cMErhpPgfHxOl2kRmeCoJ+WUK5I6uqv562ADOlTWBWf9SL2qfDw97Ku+5z7LIx5coGZrniI8yTt8yVogmtr1i8oLzCbcYu0vynqna0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781022937; c=relaxed/simple;
-	bh=CqCQP01+LBJiO/yyYtoN/nAx25MrKlaUMoT7KCXPYeI=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=DmIGupguShcPVNMET0di7KffsWUFJHdQ62TX9X4c5AHvrAmy61121EHqpil+4eW8cGKa9xnL5L9BO8TPxEUVXtWTNW2TwGZFdvYckOzjyit7vH9MBwFujegepySzsxfgmnr77pDh9WhF5gjfGyyGaDL0znruGmnNuYJXFVU55ug=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rdnd9xpY; arc=none smtp.client-ip=209.85.128.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781022984; c=relaxed/simple;
+	bh=oVxXvNlK+2x3E33IMRV6GjfD0zx1nEbsNx5xYHuYv2w=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:From:To:Cc:
+	 References:In-Reply-To; b=TX6idVVnlckJVMkPyMceyu17eKv+bmJxMuh+xq45kyIqQkbfhhfFy69MXXUzBtzg3dvkNy0m3ePgWUYRBgXsBYEB7IDMmxZourjBuhoLhu4FuzpiaSGDPI/I+pRbeAw3tHOf3IRZM5DI63f1ZMMuaTMmwRMKyPBx9aG1P17p1o0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=etsalapatis.com; spf=pass smtp.mailfrom=etsalapatis.com; dkim=pass (2048-bit key) header.d=etsalapatis-com.20251104.gappssmtp.com header.i=@etsalapatis-com.20251104.gappssmtp.com header.b=XeQ5AIDi; arc=none smtp.client-ip=74.125.82.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=etsalapatis.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=etsalapatis.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rdnd9xpY"
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-490c0c92cffso41158195e9.2
-        for <stable@vger.kernel.org>; Tue, 09 Jun 2026 09:35:36 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=etsalapatis-com.20251104.gappssmtp.com header.i=@etsalapatis-com.20251104.gappssmtp.com header.b="XeQ5AIDi"
+Received: by mail-dl1-f45.google.com with SMTP id a92af1059eb24-1370417c01cso7613159c88.1
+        for <stable@vger.kernel.org>; Tue, 09 Jun 2026 09:36:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781022935; x=1781627735; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+        d=etsalapatis-com.20251104.gappssmtp.com; s=20251104; t=1781022982; x=1781627782; darn=vger.kernel.org;
+        h=in-reply-to:references:cc:to:from:subject:message-id:date
+         :content-transfer-encoding:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=/ZISnQw1sq7YMU6WSz9bLO5KxRUTFmuBZ4joqQ9xMgg=;
-        b=rdnd9xpYNPimt5a2a3UTCVROnU96CIfowFUXOwynrh03Ezimi8gcHoe/4BC935d74q
-         ebh0kCyOjAYWjt+Uge8HAhSS7CyHxVTFQ+EJ5IOcESLn63XJtIfpipiHOa3EAYC+7Dg/
-         BOssa36Jw1Xi40xSpDinRlsiDkF8HMvghYwwZtCapSLw1/VCZbzmLs3fDsK17auF8pBZ
-         7+WECBjX6rypmtyFZmKLBPeRKByQmrSb4fyRE5JKRu7ZO6Q9vbJRi9RyB+KwHzyIqlcB
-         n0FJren6Yf32yTJoHOCcx1tIM9DKyEXJWHDxOFPGPwWKfyBzt6h0sYOthPx3FKmu3tnp
-         5vPg==
+        bh=/Zm66UDgugDuJh+suaGoWf+oPueZ1pKYv/n0XCt6RiE=;
+        b=XeQ5AIDiFHtmODUR12yVSegTZDC6+2LTuwQS/yAuk5g/SAHha0Il8F90wJ/geXl95B
+         vMWVKK7PsGjDAzKSRKX1Yx+d/BVJqc0Iumf5Jsec5f2FVpi0wbiGXvL7T799z9uDHs/Y
+         nCKUPhEcnNjwQS9Fh0t7ra2HqLz35VTEV1sJgGoiWWT3nT7BE/Shk2pz8Fy0XawiMKa8
+         ebeDmFY06BgotWJ2SI1Zu/4ZQmB1w09FjMACltvSTw3yWaqD6n/swVVz1gyHkUmMcO8o
+         7dXel3SCd7sybYdXP51Km8JhqZgFs/dv9vIXAaUhqXFFdDed/dSsX8J51NCNSeKlRYw4
+         q40Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781022935; x=1781627735;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=/ZISnQw1sq7YMU6WSz9bLO5KxRUTFmuBZ4joqQ9xMgg=;
-        b=JNBJOh+c8pcA7MEEi5dTmW8I30PwTHIAG9oVjLHnkkEHNdlj/ChgKsKxpCIEts2k5v
-         b1aJOn+CdjzjolN/MP9jDAsqnpRKVIXKyKW5ibtEyc1mjlT9A9GEPzHwje4yBWxd5J2a
-         z2qREJ79AV2SxNl4uCt4kCujgdYF/CPFNWWJrd5kf5KTy8kKRRToeNbgqTqwuNtkm2Th
-         RZTHhl+CSKKJ3E9meMKLhKwEL5wpv1EVXf+UEizCtrdFSsLahiPJ+2JABLg3Fki7G8HX
-         4124Stl7RyEyjO/r5Y7l8xJgehoXdsN7WLoJv3xahKh4z0twbUu27f/XoD15qch3yT9o
-         avJA==
-X-Forwarded-Encrypted: i=1; AFNElJ/9Hg78Yat51eTecYu3gQPpwfzppVPc7N0cPlI2M0wXeKhdLW72wBRmSRivu0VWLqd4Wjaqud4=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz6MPqYNR968VBEN89XRmQ3b4BiSc7+anPzTle1EggmIaF5HILH
-	JXpYyNHcKRFKuj1cqY5g8uZkvDwC4DVKZUiBPSgJTM8zLtWdTmnam004
-X-Gm-Gg: Acq92OE4CnaAEfRaWQqnbroAidJ/h4Rxt8fb6u0OMyUv+7BeGKnUnBVrDjSFUfEujnJ
-	lpMFXTAJyXLa2BbBrarIUg90N2U2a5EOzZQXteeE0NxEVH2MxGlpt3AKj63iVH+TvRbMmmvG4ua
-	oN2rkFYLVAQYRBn9IXmTV/ofSyJlJqrA093lisgzyd9+l88WSWAjvDN1PpoJannYGKfzxHnxUta
-	0yrDFu0r/7KWxw67Cb0MY+0II5UN1KBbqBwuYfcbcZGRIzZJgbZKxTnAY7Id3dMJ/sQjKvQODqL
-	6QHx0mEzkimAs0LL00rRkAvV1LSi5NTOQUd9A7tjRmbnR7WRnjHg86kLRho0U5O8nyqmUgaa+mc
-	/0161rz5P8ptmVEbjrzyT4G/0GOKn3jO5piPVoDTMF6LD3IIqfPH6tMsL46Vs7A2BBCENwAYrAq
-	xique5Hlm0qZGeCGJEtKCKaT/SwkKJ79kBiA6il9gLcoi+tDrmt/F0qTsdW4rOKg8A7Rp22Ovcn
-	5Xf56SC266LAogDG6MD
-X-Received: by 2002:a05:600c:81c9:b0:490:bd66:db49 with SMTP id 5b1f17b1804b1-490c25a1e20mr292774665e9.12.1781022934301;
-        Tue, 09 Jun 2026 09:35:34 -0700 (PDT)
-Received: from manta01.. (host-85-36-215-182.business.telecomitalia.it. [85.36.215.182])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490bc3b5b06sm449114015e9.3.2026.06.09.09.35.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 09 Jun 2026 09:35:33 -0700 (PDT)
-From: Davide Ornaghi <d.ornaghi97@gmail.com>
-To: netfilter-devel@vger.kernel.org
-Cc: Pablo Neira Ayuso <pablo@netfilter.org>,
-	coreteam@netfilter.org,
-	Davide Ornaghi <d.ornaghi97@gmail.com>,
-	Florian Westphal <fw@strlen.de>,
-	stable@vger.kernel.org
-Subject: [PATCH 1/2] netfilter: nft_fib: fix stale stack leak via the OIFNAME register
-Date: Tue,  9 Jun 2026 18:32:14 +0200
-Message-Id: <20260609163215.1102215-2-d.ornaghi97@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260609163215.1102215-1-d.ornaghi97@gmail.com>
-References: <20260609163215.1102215-1-d.ornaghi97@gmail.com>
+        d=1e100.net; s=20251104; t=1781022982; x=1781627782;
+        h=in-reply-to:references:cc:to:from:subject:message-id:date
+         :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=/Zm66UDgugDuJh+suaGoWf+oPueZ1pKYv/n0XCt6RiE=;
+        b=ewndJU5Yy5CkpA4gfqRQ62fWhsign/6tU1gdtaN1dtSK85OC3WGowhsIbcmwmJsDBe
+         pOF69hsx8NhfEOvh5Sowy2QBecUn50OTOjV4fwREQQKNNBA3tOSqu3fzQhXC7N7y5jyz
+         h/2fGPN3v1mCEy27/gZjbwLS+4H84H+xYaNXgZ2cy0jQtz7Q7vTf2A7ad1pULU3hzq3N
+         Iu35y0rOj9NXFYns1YK98UwQo+zzrsIW8PjYmIUMBz50kF3EAvLMit3zwOt4+CmcTp6b
+         H4RsPuPBdaysHh6C+GjjuzWfg8hqR74RHbw9UNoazeaJl347JeAI7fsvzX3nnPoQR4+2
+         zhkQ==
+X-Forwarded-Encrypted: i=1; AFNElJ/hF1cEYOmru8N9YQazpBo6Yn7WSJt4Yvenym2uFt+bW5kpM8Go0KTtP4EktIusa20cuQy3RM0=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzYcbqGzjQDFKJ6mSLwvfP4UXZMX1Z1i0Xjq40zWjhYSFem97P8
+	DnaYUfE6JJxcPhePE4E+gTWtYEmtouRtmdhQoKTN9lOsatBpx3hbyqg6OxlAnQRhyG0=
+X-Gm-Gg: Acq92OHRSSjmVerg02TX+zaiQ49r5S3mrYqBu7QNOZxttq9IC7SH/CwLIivWUpSGu3S
+	YTNjRVFgBHTSY3KOLLDeW7HPBAhjq8lptVeoDswJAKC32BX9RnHHx96zJXEfzx5dy97riXXm6Rh
+	t+yWktt3punKIlILIym3wCFdlgBhQKBjOAwb8X848cgxo75Rh5BCmx9IIP3HJXtiYauM3We2lmR
+	D5hHNAUTaCS2/IpLaypxNPM75v7EG0NsmQCOwHZ+gASkgxEinF0GZ7cgBkjorXxY85h1M9GA5hG
+	kr/a9AnJp6tpqE3+ZlI8/da4fz3x++Gvy8MIOXMQQCHzfy2gSAKYBi/a1pj4crdAcP8ZOxOjhls
+	jCoQ2ZYPJBpKNB+gGIHj5XvB5hjxUgxezHahVNGKBO2rqMgF5EyatVdxCkl1TRA4lhmaQ2CoaCP
+	h0johGJEXFbn/NfGA=
+X-Received: by 2002:a05:7022:ef18:b0:134:cf34:b8e0 with SMTP id a92af1059eb24-13806660872mr11361311c88.9.1781022981682;
+        Tue, 09 Jun 2026 09:36:21 -0700 (PDT)
+Received: from localhost ([2620:10d:c090:600::3297])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-137f554f732sm15063231c88.12.2026.06.09.09.36.19
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 09 Jun 2026 09:36:21 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 09 Jun 2026 12:36:18 -0400
+Message-Id: <DJ4NYD3BBJ3A.3TEL5PAOUE579@etsalapatis.com>
+Subject: Re: [PATCH bpf v2 1/2] bpf, lpm_trie: Allow access from sleepable
+ BPF programs
+From: "Emil Tsalapatis" <emil@etsalapatis.com>
+To: "Vlad Poenaru" <vlad.wing@gmail.com>, <bpf@vger.kernel.org>, "Alexei
+ Starovoitov" <ast@kernel.org>, "Daniel Borkmann" <daniel@iogearbox.net>,
+ "Andrii Nakryiko" <andrii@kernel.org>, "John Fastabend"
+ <john.fastabend@gmail.com>, "Martin KaFai Lau" <martin.lau@linux.dev>,
+ "Eduard Zingerman" <eddyz87@gmail.com>, "Kumar Kartikeya Dwivedi"
+ <memxor@gmail.com>, "Song Liu" <song@kernel.org>, "Yonghong Song"
+ <yonghong.song@linux.dev>, "Jiri Olsa" <jolsa@kernel.org>,
+ =?utf-8?q?Toke_H=C3=B8iland-J=C3=B8rgensen?= <toke@redhat.com>
+Cc: "Emil Tsalapatis" <emil@etsalapatis.com>,
+ <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260529174233.2954240-1-vlad.wing@gmail.com>
+ <20260609135558.193287-1-vlad.wing@gmail.com>
+ <20260609135558.193287-2-vlad.wing@gmail.com>
+In-Reply-To: <20260609135558.193287-2-vlad.wing@gmail.com>
 
-For NFT_FIB_RESULT_OIFNAME the destination register is declared with
-len = IFNAMSIZ (four 32-bit registers), but on the lookup-fail,
-RTN_LOCAL and oif-mismatch paths nft_fib{4,6}_eval() only writes one
-register via "*dest = 0". The remaining three registers are left as
-whatever was on the stack in nft_do_chain()'s struct nft_regs, and a
-downstream expression that loads the register span can leak that
-uninitialised kernel stack to userspace.
+On Tue Jun 9, 2026 at 9:55 AM EDT, Vlad Poenaru wrote:
+> trie_lookup_elem() annotates its rcu_dereference_check() walks with
+> only rcu_read_lock_bh_held().  Because rcu_dereference_check(p, c)
+> resolves to "c || rcu_read_lock_held()", this passes for XDP/NAPI and
+> classic RCU readers but fails for sleepable BPF programs, which enter
+> via __bpf_prog_enter_sleepable() and hold only rcu_read_lock_trace().
+>
+> trie_update_elem() and trie_delete_elem() have the same problem in a
+> different form: they walk the trie with plain rcu_dereference(), which
+> asserts rcu_read_lock_held() unconditionally.  Both are reachable from
+> sleepable BPF programs via the bpf_map_update_elem / bpf_map_delete_elem
+> helpers, and from the syscall path under classic rcu_read_lock().  In
+> the writer paths the trie is actually protected by trie->lock (an
+> rqspinlock taken across the walk); we never relied on the RCU read-side
+> lock to keep nodes alive there.
+>
+> A sleepable LSM hook that ends up touching an LPM trie therefore
+> triggers lockdep on debug kernels:
+>
+>   =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D
+>   WARNING: suspicious RCU usage
+>   7.1.0-... Tainted: G            E
+>   -----------------------------
+>   kernel/bpf/lpm_trie.c:249 suspicious rcu_dereference_check() usage!
+>   1 lock held by net_tests/540:
+>    #0: (rcu_tasks_trace_srcu_struct){....}-{0:0},
+>        at: __bpf_prog_enter_sleepable+0x26/0x280
+>   Call Trace:
+>    dump_stack_lvl
+>    lockdep_rcu_suspicious
+>    trie_lookup_elem
+>    bpf_prog_..._enforce_security_socket_connect
+>    bpf_trampoline_...
+>    security_socket_connect
+>    __sys_connect
+>    do_syscall_64
+>
+> This is lockdep-only -- no UAF, since Tasks Trace RCU does serialize
+> against the trie's reclaim path -- but it spams the console once per
+> distinct callsite on every debug kernel running a sleepable BPF LSM
+> that touches an LPM trie, which is increasingly common.
+>
+> For the lookup path, switch the rcu_dereference_check() annotation
+> from rcu_read_lock_bh_held() to bpf_rcu_lock_held(), which accepts all
+> three contexts (classic, BH, Tasks Trace).  Other map types already
+> follow this convention.
+>
+> For trie_update_elem() and trie_delete_elem(), annotate the walks as
+> rcu_dereference_protected(*p, 1) -- matching trie_free() in the same
+> file -- since trie->lock is held across the walk.  rqspinlock has no
+> lockdep_map, so the predicate degenerates to '1' rather than
+> lockdep_is_held(&trie->lock); the protection is real but not
+> machine-verifiable.  trie_get_next_key() also uses bare
+> rcu_dereference() but is reachable only from the BPF syscall, which
+> holds classic rcu_read_lock() before dispatching, so it is left
+> untouched.
+>
+> Fixes: 694cea395fde ("bpf: Allow RCU-protected lookups to happen from bh =
+context")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Vlad Poenaru <vlad.wing@gmail.com>
 
-The NFTA_FIB_F_PRESENT case has the same shape: the register is declared
-with the result-type length but the eval stores a single byte via
-nft_reg_store8(), leaving the rest of the declared span stale.
+Reviewed-by: Emil Tsalapatis <emil@etsalapatis.com>
 
-Write the full declared span in both cases:
-
- - replace the bare "*dest = 0" in the eval with nft_fib_store_result(),
-   which strscpy_pad()s the whole IFNAMSIZ for OIFNAME (and is already
-   used on the other early-return path), and
-
- - declare the destination as a single u8 when NFTA_FIB_F_PRESENT is set,
-   so the marked span matches the one byte the eval writes.
-
-Fixes: f6d0cbcf09c5 ("netfilter: nf_tables: add fib expression")
-Suggested-by: Florian Westphal <fw@strlen.de>
-Cc: stable@vger.kernel.org
-Signed-off-by: Davide Ornaghi <d.ornaghi97@gmail.com>
----
- net/ipv4/netfilter/nft_fib_ipv4.c | 2 +-
- net/ipv6/netfilter/nft_fib_ipv6.c | 2 +-
- net/netfilter/nft_fib.c           | 3 +++
- 3 files changed, 5 insertions(+), 2 deletions(-)
-
-diff --git a/net/ipv4/netfilter/nft_fib_ipv4.c b/net/ipv4/netfilter/nft_fib_ipv4.c
-index 9d0c6d7510..177d738825 100644
---- a/net/ipv4/netfilter/nft_fib_ipv4.c
-+++ b/net/ipv4/netfilter/nft_fib_ipv4.c
-@@ -128,7 +128,7 @@ void nft_fib4_eval(const struct nft_expr *expr, struct nft_regs *regs,
- 		fl4.saddr = get_saddr(iph->daddr);
- 	}
- 
--	*dest = 0;
-+	nft_fib_store_result(dest, priv, NULL);
- 
- 	if (fib_lookup(nft_net(pkt), &fl4, &res, FIB_LOOKUP_IGNORE_LINKSTATE))
- 		return;
-diff --git a/net/ipv6/netfilter/nft_fib_ipv6.c b/net/ipv6/netfilter/nft_fib_ipv6.c
-index 2dbe44715d..b9ad7cac14 100644
---- a/net/ipv6/netfilter/nft_fib_ipv6.c
-+++ b/net/ipv6/netfilter/nft_fib_ipv6.c
-@@ -239,7 +239,7 @@ void nft_fib6_eval(const struct nft_expr *expr, struct nft_regs *regs,
- 
- 	lookup_flags = nft_fib6_flowi_init(&fl6, priv, pkt, oif, iph);
- 
--	*dest = 0;
-+	nft_fib_store_result(dest, priv, NULL);
- 	ret = nft_fib6_lookup(nft_net(pkt), &fl6, &res, lookup_flags);
- 	if (ret || res.fib6_flags & (RTF_REJECT | RTF_ANYCAST | RTF_LOCAL))
- 		return;
-diff --git a/net/netfilter/nft_fib.c b/net/netfilter/nft_fib.c
-index 327a5f3365..6df811b8d5 100644
---- a/net/netfilter/nft_fib.c
-+++ b/net/netfilter/nft_fib.c
-@@ -107,6 +107,9 @@ int nft_fib_init(const struct nft_ctx *ctx, const struct nft_expr *expr,
- 		return -EINVAL;
- 	}
- 
-+	if (priv->flags & NFTA_FIB_F_PRESENT)
-+		len = sizeof(u8);
-+
- 	err = nft_parse_register_store(ctx, tb[NFTA_FIB_DREG], &priv->dreg,
- 				       NULL, NFT_DATA_VALUE, len);
- 	if (err < 0)
--- 
-2.34.1
+> ---
+>  kernel/bpf/lpm_trie.c | 8 ++++----
+>  1 file changed, 4 insertions(+), 4 deletions(-)
+>
+> diff --git a/kernel/bpf/lpm_trie.c b/kernel/bpf/lpm_trie.c
+> index 0f57608b385d..4d6f25db9ba1 100644
+> --- a/kernel/bpf/lpm_trie.c
+> +++ b/kernel/bpf/lpm_trie.c
+> @@ -246,7 +246,7 @@ static void *trie_lookup_elem(struct bpf_map *map, vo=
+id *_key)
+> =20
+>  	/* Start walking the trie from the root node ... */
+> =20
+> -	for (node =3D rcu_dereference_check(trie->root, rcu_read_lock_bh_held()=
+);
+> +	for (node =3D rcu_dereference_check(trie->root, bpf_rcu_lock_held());
+>  	     node;) {
+>  		unsigned int next_bit;
+>  		size_t matchlen;
+> @@ -280,7 +280,7 @@ static void *trie_lookup_elem(struct bpf_map *map, vo=
+id *_key)
+>  		 */
+>  		next_bit =3D extract_bit(key->data, node->prefixlen);
+>  		node =3D rcu_dereference_check(node->child[next_bit],
+> -					     rcu_read_lock_bh_held());
+> +					     bpf_rcu_lock_held());
+>  	}
+> =20
+>  	if (!found)
+> @@ -359,7 +359,7 @@ static long trie_update_elem(struct bpf_map *map,
+>  	 */
+>  	slot =3D &trie->root;
+> =20
+> -	while ((node =3D rcu_dereference(*slot))) {
+> +	while ((node =3D rcu_dereference_protected(*slot, 1))) {
+>  		matchlen =3D longest_prefix_match(trie, node, key);
+> =20
+>  		if (node->prefixlen !=3D matchlen ||
+> @@ -482,7 +482,7 @@ static long trie_delete_elem(struct bpf_map *map, voi=
+d *_key)
+>  	trim =3D &trie->root;
+>  	trim2 =3D trim;
+>  	parent =3D NULL;
+> -	while ((node =3D rcu_dereference(*trim))) {
+> +	while ((node =3D rcu_dereference_protected(*trim, 1))) {
+>  		matchlen =3D longest_prefix_match(trie, node, key);
+> =20
+>  		if (node->prefixlen !=3D matchlen ||
 
