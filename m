@@ -1,119 +1,160 @@
-Received: from mail-wr1-f67.google.com (mail-wr1-f67.google.com [209.85.221.67])
+Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8402734388A
-	for <stable@vger.kernel.org>; Tue,  9 Jun 2026 08:43:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.67
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20AFE3E51FC
+	for <stable@vger.kernel.org>; Tue,  9 Jun 2026 08:45:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780994635; cv=none; b=pd59RzqWcsbRX8Ji8l3wuFFZYVX//uGo5cslV1K2TDmeqpgTjKtp2/zpyiVIEuWR7lg1lDukLA76mulY8URFYnAOThEoUOBWnumTvZDIqvdVPAjF9mTIbuCQHM18VdGSgAzZvejqVJd83ud6yDWCbbcXnn+g9Sax2BdsvixDAEc=
+	t=1780994738; cv=none; b=PXpcNMqHwcvb6mTBP2Fe1u+7LDxecarNEQc+G6/9OGiuU+wUAIm6Ic16qDtUcFwcEbnV1hFiKuMuJgVa4RutRYB9C7FEroXDV76Bk4f9yRMwIYfNKNKc+2XlQKehnnhJVG05LcWeDIm1AhLs79jGgH7l+hMlzkV5Ynv7SM/AXqk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780994635; c=relaxed/simple;
-	bh=4rTCpYdKEey/fxpJBzRiYD23VkjVM1koVws/Fj54klA=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=sFvyhHZXEWldyFoQaexK3htilEueKLoTWnpVGwwq+cmR0RFQxyqHpaZFcVdIyHM1P+QGNL/TpWNzX0cEpNriniRzw45UkPyM/hhysp1EnjwvKa8QaN2rA5nLTFcELOfjeC669AAwUT7GjYPAbTr30vxYMNGH/XxtscJ4gqOV3OI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MPAkhf1u; arc=none smtp.client-ip=209.85.221.67
+	s=arc-20240116; t=1780994738; c=relaxed/simple;
+	bh=nqXLEk6Rb2TNsf/WwovB1x5mfWIHQ0SFbCOZRW3avUU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=QGwwyKpBIWTm5ABBvbozgLA+LsaIvr/l4SaOC7M73irs/Cs/OdSKwWikBWfmTFEMmB8YV/hiiXn6gWp0/Tqzwnh1IgTgrWEaiDT6a5NrEY5aWsRjiDvUFYZNFhEvDE/piYq9kT1OwpEaam19oeLiHpeJB9cn+yAUnj38aOhG5No=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=H6BV755B; arc=none smtp.client-ip=209.85.215.181
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MPAkhf1u"
-Received: by mail-wr1-f67.google.com with SMTP id ffacd0b85a97d-45ef616daf6so4795659f8f.3
-        for <stable@vger.kernel.org>; Tue, 09 Jun 2026 01:43:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="H6BV755B"
+Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-c859a374903so1796336a12.3
+        for <stable@vger.kernel.org>; Tue, 09 Jun 2026 01:45:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780994633; x=1781599433; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1780994736; x=1781599536; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=4rTCpYdKEey/fxpJBzRiYD23VkjVM1koVws/Fj54klA=;
-        b=MPAkhf1uquZqzFn6EULJov+ZxAnSdVdGje6+ibL577WuH8w69cfqy/zmD36dPcNysJ
-         lw7EWhjKnbUo94gp9tGq6tjvv3UWGuFCRiC0e6NN6XLEkVSw6taCWkiiBmhgvi3ki0uH
-         QNu8CUqYp2FmCiPxJmtIcdcEDeCCQtfLaxAHQHHhF4IuHI9u3EVHrhlRZPstaYX0XAKS
-         oiB2fInu+VDd7Ynw4KLaCpdByGW9imd4dKr9DmFbI11wMpfPVs9adFQLzAmN8iBYzZlX
-         JRYM3sIJxIpmtm0Bvs30+q6qLWiHMjLfaGvjhsWkfxjNsJvURrWbBq+Fzk7F2HzkG71q
-         mTTA==
+        bh=c61z23tDhGwGTfT6EkieyR0JW4w6MV+Sv05qJWF5n1s=;
+        b=H6BV755BbR2cSn1Xq3XSUAXqLMFmeL+EczCsdCnXcUvsiqpTx3TqPeQVW1WBE/vX4I
+         vTztWojnVyZR3ljLc7XeqgD7CqKVK3+OC3i9PrBdfymjz9Ho7G9kbB8/XzLjJSPNkj8B
+         O6UfTmv/sYuLyq+axlMMOPz+EvrkVjqottnTPR7Wbdlk335KTIOeGIjeMm99XlkzUah6
+         lCLW/Rq6sQQmAGhB7MppX9iKsOSb5SS5bV4+2MDexgVXL1SR6jYLUCqC4mqv2lUTKt5I
+         5G3c33oS6/W/36eg/10jOZUfZ3I7/PXFXV2oZu5u7EYqTNNMd3W2xK35RYRIGoPbIosU
+         YTJw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780994633; x=1781599433;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=4rTCpYdKEey/fxpJBzRiYD23VkjVM1koVws/Fj54klA=;
-        b=XhaCR7hpaOxE7gxt5Awrto0IToSZPC5e78EkAcUqQlq6zyBC29bq3z0MT5j+38vvYu
-         RmWq3pKa3NZS8F7jxNNraPVkOyoSl3YmnWlB4Ud1R2evIX7OplUWZiZAxfSsizPlh7WS
-         BABtQ7mqjEEmyIK+Zzx1y8FdLmaSkVVc/JQmjijmd2cu5Tf+oDjJo3p+Fzc4Jqw3XFa8
-         lfLN0azquzqXZkM8PFvEHdXbrnslZz3cLpofniR4iuAQFO3jJC52rTaju3louGJnt7La
-         ZKoSm2tRFe+wnHJT3NAzBGpS4jHhi7GgA5vgFHJCkZN4di6omRmQLN6ATpDiROJAmedg
-         +38Q==
-X-Forwarded-Encrypted: i=1; AFNElJ9GevAR7EdxkPB6awhrHSd9hat9M5bedrtE7Zauyn0W19IetO/wHaiJHI2wulxOb0oPFjoZ3GM=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxc2Y2n8TBNz9VCXGw/p/7ntNBl5mulNGnXhNOzzfZTCLJLINvn
-	e0Dv0w9ZY/oGuA2UE8RwRi5U7UEdb+qUbEO5TBq7xm+eC7vlJGyMzEXe
-X-Gm-Gg: Acq92OGlWVYgIVx4DQgm3uTTBv8IXLLLoibefeCyMEeGRCXH8XA4nocxju6hv6ykEwr
-	xQK/QKCdnN1QE31CSxIn0tEVuWx/FdAwadeeEZB+sZZcJwVL4aNmGfSWCKFfNEr8o2RadF+Avog
-	ohO20dLXt05HQlH+qrtQN/6K86RAxdiuS7yZt/cmSGD62RwWB7qEOKdoutHJYtooQcem8Xdl44r
-	rQvsldmhLpQ6fPade+fPDvfICpE4IRbUqu7rxlaBBRzyJwSRykdjmWIZlEx7NK1z5vyq9K8clUT
-	DJH/Z8VZthXkFy9oY1IIbGkL9CG22u/7eGqi05gxEsY3AsTa92F2P96DbOLcNg0HYQ0nhfBIz6s
-	F4ZKyJAh9B3EP0ZDlEPyMQYxtLeiNyoXYnEFnU8Xr1Q4n9y03quHmenn9wO+fPT8WAvmHlgRrZ8
-	4FG3DL+jKyEBqp6Q8/HWSNm/H5MJUAijOXbNraIbJdIV/Al2Fmm3wHKENFuJj/4IpK+LAYkKzPq
-	r4qJlJPC07EuNjyRGfqPHFCP3v16I+lN6WslyvA2cRZR17kqtcFmLgsUHSkdbpQCqvTCZDbXTd4
-X-Received: by 2002:adf:e30e:0:b0:460:1233:ecf2 with SMTP id ffacd0b85a97d-46030609798mr22356467f8f.30.1780994632620;
-        Tue, 09 Jun 2026 01:43:52 -0700 (PDT)
-Received: from localhost (nat-icclus-192-26-29-3.epfl.ch. [192.26.29.3])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4601f2dcb13sm60610866f8f.2.2026.06.09.01.43.51
+        d=1e100.net; s=20251104; t=1780994736; x=1781599536;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=c61z23tDhGwGTfT6EkieyR0JW4w6MV+Sv05qJWF5n1s=;
+        b=ofnLZPo0Oxh5lwF/ctf/4ewaRXFip+XNF+vWF6Lgd1ZtDHA/ffYLuuVwvmJ5gktgRE
+         2+BJLnym3ohjO8OmKkyAqj/wcUfGZt6HKOXP2On0mgZyA0QDFp0roHGdLx70ES8J8zUv
+         /iFWc4owqalIx3AMSbEG7doSvUafO/K1+x4RREfqJ+2Bu1Gm+Q6ecbFKH+oLe+kx1M9q
+         t1GZpUZ4qTCIs044XYvlLCZ5LPaC1gOis5s8UKKBb1tcLiYBx1YhuGXe0PGCxyH4vosc
+         Qc+j2xI8qEPZKlnzax65F3QpMUS4yYvJoe5EgqGOh1mE4RT8KJMfUvishHOjJfIP8GYx
+         h8rw==
+X-Forwarded-Encrypted: i=1; AFNElJ89Q2ZQomo+APMeS8uiWktXN7uijLRafme50wWFq5Md9pGOPiLN1jFy/otdVdmE2lkO9d7qCtU=@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywgw2S2PZuH5a3C6IFTmKnkzktnpBVHhZnccVvSGAyzKjrY2J+a
+	oKaG61Li5HMDOACSf+mfLUk13KPI3NkXRNCiHU/VaJ6zjx9Vo8EQHfce
+X-Gm-Gg: Acq92OGrYHez5yM9ZRQMGr6vNwSsl6Ky7RpHQpJQiE7HoZPoxs9T5i28m/HWOvVNsYe
+	T55S2T+nXp8exkKAHKdmSLqNoU2YBuVZ3TmcwLaSSqU1P8W6LvOYxcldPnaxre0vc8oj5CUnGBt
+	oBRKX9w5Uxf2a+dbpyeOBq2zv9cx66L0pGesLdScs/bwYPAhoauGe/rr8LzTQgfFC+808YDxdfw
+	O9RMXXoBHfaEigO2NCN2V/mz8ik/KrDlVeqqv/9NJKhjzp48JR8F3VG3JzmSZXlgAf2nZLpm7Fe
+	lUyJrtib4jtLdHDx5uBBIDEVhVBmR2w5E4oKB3Ix/tEY4InjWY1BubrqEm7yRBmz4IvffHPXbEn
+	pHVQTyFyEBD6Hpc+sPzfdBb19SlZoFNvIrHRmWWgVdIS4BTHntNtvcR5WeZMGOdM2RNBNQ04WAU
+	tyC3yA2oUHg5vchkILVEIbBUjrubCQMDg9X6gXtoaqaztWPIipKzIgkg==
+X-Received: by 2002:a05:6a21:1b8a:b0:3b4:669c:ee32 with SMTP id adf61e73a8af0-3b53beb5c12mr2707477637.37.1780994736430;
+        Tue, 09 Jun 2026 01:45:36 -0700 (PDT)
+Received: from haichao.tail057a43.ts.net ([2001:da8:e000:1206:37c9:44fa:729b:6aaa])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c85deeb2bdesm17608599a12.0.2026.06.09.01.45.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 09 Jun 2026 01:43:51 -0700 (PDT)
+        Tue, 09 Jun 2026 01:45:36 -0700 (PDT)
+From: Ruoyu Wang <ruoyuw560@gmail.com>
+To: Miquel Raynal <miquel.raynal@bootlin.com>,
+	Richard Weinberger <richard@nod.at>,
+	Vignesh Raghavendra <vigneshr@ti.com>
+Cc: linux-mtd@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Ruoyu Wang <ruoyuw560@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2 1/2] mtd: slram: remove failed entries from the device list
+Date: Tue,  9 Jun 2026 16:45:27 +0800
+Message-ID: <20260609084528.5-2-ruoyuw560@gmail.com>
+X-Mailer: git-send-email 2.51.0
+In-Reply-To: <20260609084528.5-1-ruoyuw560@gmail.com>
+References: <20260609084528.5-1-ruoyuw560@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 09 Jun 2026 10:43:51 +0200
-Message-Id: <DJ4DWMO4HXCM.3NVLDGNT2704E@gmail.com>
-Cc: <song@kernel.org>, <yonghong.song@linux.dev>, <jolsa@kernel.org>,
- <houtao1@huawei.com>, <linux-kernel@vger.kernel.org>,
- <stable@vger.kernel.org>
-Subject: Re: [PATCH bpf] bpf: Validate BTF repeated field counts before
- expansion
-From: "Kumar Kartikeya Dwivedi" <memxor@gmail.com>
-To: "Eduard Zingerman" <eddyz87@gmail.com>, "Paul Moses" <p@1g4.org>,
- <martin.lau@linux.dev>, <ast@kernel.org>, <daniel@iogearbox.net>,
- <andrii@kernel.org>, <memxor@gmail.com>, <bpf@vger.kernel.org>
-X-Mailer: aerc 0.21.0
-References: <20260605234301.1109063-1-p@1g4.org>
- <189a79443144cacf4a257f0627586f917d8d18a2.camel@gmail.com>
-In-Reply-To: <189a79443144cacf4a257f0627586f917d8d18a2.camel@gmail.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Mon Jun 8, 2026 at 10:01 PM CEST, Eduard Zingerman wrote:
-> On Fri, 2026-06-05 at 23:43 +0000, Paul Moses wrote:
->> btf_parse_struct_metas() walks user-supplied BTF during BPF_BTF_LOAD,
->> and btf_repeat_fields() expands repeatable fields from array elements
->> into the fixed BTF_FIELDS_MAX scratch array used by btf_parse_fields().
->>
->> The remaining-capacity check performs the expanded field count calculati=
-on
->> in u32. A malformed BTF can wrap that calculation, causing the check to
->> pass even when the expanded field count exceeds the scratch array
->> capacity. The following memcpy() can then write past the end of the
->> array.
->>
->> Use checked addition and multiplication before copying repeated fields
->> and reject impossible counts.
->>
->> Fixes: 797d73ee232d ("bpf: Check the remaining info_cnt before repeating=
- btf fields")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Paul Moses <p@1g4.org>
->> ---
->
-> Regardless of the sibling email I sent, I think that this is a good
-> defensive practice to use check_{add,mul}_overflow() here.
-> Having said that, it would be nice to have a selftest in the patch-set.
->
-> Acked-by: Eduard Zingerman <eddyz87@gmail.com>
->
+register_device() links a new slram_mtdlist entry before allocating all
+of the state needed by the entry. If a later allocation, memremap(), or
+mtd_device_register() fails, the partially initialized entry remains on
+the global list. A later cleanup can then dereference or free invalid
+state from that failed entry.
 
-Paul,
-Please follow up with a selftest reproducer to exercise the bug.
+Unwind the partially initialized entry and clear the list tail on each
+failure path after the entry has been linked.
 
-> [...]
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ruoyu Wang <ruoyuw560@gmail.com>
+---
+ drivers/mtd/devices/slram.c | 22 ++++++++++++++++------
+ 1 file changed, 16 insertions(+), 6 deletions(-)
 
+diff --git a/drivers/mtd/devices/slram.c b/drivers/mtd/devices/slram.c
+index 69cb63d99f573..48c2bc6b65eec 100644
+--- a/drivers/mtd/devices/slram.c
++++ b/drivers/mtd/devices/slram.c
+@@ -129,6 +129,7 @@ static int slram_write(struct mtd_info *mtd, loff_t to, size_t len,
+ static int register_device(char *name, unsigned long start, unsigned long length)
+ {
+ 	slram_mtd_list_t **curmtd;
++	int ret = -ENOMEM;
+ 
+ 	curmtd = &slram_mtdlist;
+ 	while (*curmtd) {
+@@ -155,14 +156,15 @@ static int register_device(char *name, unsigned long start, unsigned long length
+ 
+ 	if (!(*curmtd)->mtdinfo) {
+ 		E("slram: Cannot allocate new MTD device.\n");
+-		return(-ENOMEM);
++		goto err_free_list;
+ 	}
+ 
+ 	if (!(((slram_priv_t *)(*curmtd)->mtdinfo->priv)->start =
+ 		memremap(start, length,
+ 			 MEMREMAP_WB | MEMREMAP_WT | MEMREMAP_WC))) {
+ 		E("slram: memremap failed\n");
+-		return -EIO;
++		ret = -EIO;
++		goto err_free_priv;
+ 	}
+ 	((slram_priv_t *)(*curmtd)->mtdinfo->priv)->end =
+ 		((slram_priv_t *)(*curmtd)->mtdinfo->priv)->start + length;
+@@ -183,10 +185,8 @@ static int register_device(char *name, unsigned long start, unsigned long length
+ 
+ 	if (mtd_device_register((*curmtd)->mtdinfo, NULL, 0))	{
+ 		E("slram: Failed to register new device\n");
+-		memunmap(((slram_priv_t *)(*curmtd)->mtdinfo->priv)->start);
+-		kfree((*curmtd)->mtdinfo->priv);
+-		kfree((*curmtd)->mtdinfo);
+-		return(-EAGAIN);
++		ret = -EAGAIN;
++		goto err_unmap;
+ 	}
+ 	T("slram: Registered device %s from %luKiB to %luKiB\n", name,
+ 			(start / 1024), ((start + length) / 1024));
+@@ -194,6 +194,16 @@ static int register_device(char *name, unsigned long start, unsigned long length
+ 			((slram_priv_t *)(*curmtd)->mtdinfo->priv)->start,
+ 			((slram_priv_t *)(*curmtd)->mtdinfo->priv)->end);
+ 	return(0);
++
++err_unmap:
++	memunmap(((slram_priv_t *)(*curmtd)->mtdinfo->priv)->start);
++err_free_priv:
++	kfree((*curmtd)->mtdinfo->priv);
++err_free_list:
++	kfree((*curmtd)->mtdinfo);
++	kfree(*curmtd);
++	*curmtd = NULL;
++	return ret;
+ }
+ 
+ static void unregister_devices(void)
+-- 
+2.51.0
