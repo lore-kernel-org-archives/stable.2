@@ -1,127 +1,145 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012061.outbound.protection.outlook.com [40.107.209.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DCB6275AE4;
-	Tue,  9 Jun 2026 14:49:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781016569; cv=none; b=f50w0AD7WNRE1yTTtl5Nz6xzELfXuEUKxhJaPUZBgVY2dElKsRGCwB/+nUOsqWOb9sG2qQ1JSHYpJe9ZTCBuz7zcR1Fe15QCTjOvADZEuvrLtfzLHh0ECIg3Cyt4qKsdfORSuwLj7TMmegj1kdQMjpmovVs8ThEj4Wf6e6sesjM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781016569; c=relaxed/simple;
-	bh=weRw5MX9+brHYT8Z5Ag+Xcyt7ecrQprt1rxxaMxTQ7g=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=O0qPQwMw/C4IKfHyXUUTsyU825Wo8O9+qkWzclcKtGcqIkH1ErqwgLsPPYGZ+86ohaG5gqHrTSLd9/pkI5sCG4ujLK+tZk5uQG37WjVY1ZpZcvgtKAPAYrY1/6XKqBjdQqsGSk2GEKBTwrAIt2uk95VAo+kQ0DJmDIiAzWc6GdU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=erX6JcxZ; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73B3635676A
+	for <stable@vger.kernel.org>; Tue,  9 Jun 2026 14:52:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.61
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781016777; cv=fail; b=cX/ysEVfpULe7AoWnru8PgLIBJwj3Atc9c6trUWi3dUYMW9PEha2ifT7vAvTg3pFhVkQZng1rhsUvVJKRgBl6zb33FBGHgn/YtKs4eoRYDq813UxZK9vGeytyC+sJL69/VgFRhYjVbQWT0Yoa4DXt/suXPKuk72d+vRn9Cwo+HU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781016777; c=relaxed/simple;
+	bh=pcT8hsOX08nvGTD6iGk+PjklqZF9tbu2kVL7gP5LxEY=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=sWW8DnervmLaTrxoljdoK6mwwzrVKuRmD1rZmruyquQWIBwKDPyF8+5Q8bJPZJlgtKA1KiOP53I0TH7EOekO5NCHz/c9/T6ewIkEld0QpaKaq/ZptRCps49NCaXiJyFWjJ7Xkn7gXYRQ4+6mvgjxeqCxujPSHJe34aC/EnBahkE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=BzFi03/l; arc=fail smtp.client-ip=40.107.209.61
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="erX6JcxZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 230CF1F00893;
-	Tue,  9 Jun 2026 14:49:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781016567;
-	bh=taRgX81yJwI75jVPUy3ya0pHHgm8A4dha5HwvheVriA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=erX6JcxZmIcrZHCAP2aqWFKZfJeXTO2GXWNjtqNyT3fI4ae3SFvQ+uj/xwBiSLWEm
-	 0XXbMJrQmYdX2XXxmSAZpAmKAEM+hczHm8PLuZDYQipS3uh0sqgKTiLcuenNPV0SDG
-	 KoV4yZGT6yb+sW6dwdzWh/pApVzsqvkOzR3F2y9BFXjzRlybBVrxzm0Rc7r3XAk0ff
-	 7zQQ+tnPRKcvBgnyR62eqIFoUkJ0Hm8PcpBg43sJJTjkbRaYSz3JTs5Ogo4L425H8d
-	 eIg0dyf4aJAnl/h4HfnEGY9yXmrV9v0i1NM47T3Hctkq1qF5cpJAEwFpCDlfhH2XBE
-	 n9XUCvNAnVceg==
-From: SeongJae Park <sj@kernel.org>
-To: Zenghui Yu <yuzenghui@huawei.com>
-Cc: SeongJae Park <sj@kernel.org>,
-	damon@lists.linux.dev,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	akpm@linux-foundation.org,
-	wangzhigang17@huawei.com,
-	liqiqi23@huawei.com,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2] samples/damon/mtier: fail early if address range parameters are invalid
-Date: Tue,  9 Jun 2026 07:49:17 -0700
-Message-ID: <20260609144918.69429-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260609064653.1829-1-yuzenghui@huawei.com>
-References: 
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="BzFi03/l"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ox94ejYxYqwTZA9HVMmf+wZEc6UZ4zmO3ARU8ZFERm0DpuOTuFMLr/ew0YuCploUjU4dNFxR/beISaAbStxiaIcfg0o7HtmKVZ92q366daVfbYjH0we5ElFZ8GOG9cwO6AyDX7KDa5lMJAlzWJSh2XV70uFjoHYnfA4aA6nQzApGjEfGjZcIfJ5F7h2M+u3pk5g7hk3oBtaRYAddVCqVSsGlrYINMzyzg95VsG5dDN44f0qEMaUtz8eItdjcXi2iyAr9Qwi6MPQ/2CFGP0u5EyhkiImc+PaoSTzScDe99RyvHf5tZUvQHebFJvtAyZ9YKlQq3qW635/A0VCUEhT76g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=TmjkTkU6954Qj/e/IKNEOCiXuzWGs6FV/FxjNYZ3U9A=;
+ b=Kzn1dcFCog9MA9d3QJwXTpp4eaKdkOR0EAGfF1k4OwGoVaidmueOa2JWpmkCt4TyDpJ/1GX3bd5uRfiEs6UTW8ZQcNn3PrPq1FLQ9FgDfhmqHsmBQ9vJwrXMbv0QKg9Hu7PhyeONDJHvtWlxxIb+7as+RmCZFqoCSRIaoGjLYVuz+0G1ZLRXVZ463raGJgjuFwd0AR8qdwKmoSVhjplW8jZTDg5xA39m07nu1cdrOEeN82qyztirPI7Ba7P5TiQzy73UKfdn9IoTOswgFepA56HwO7A8DUtFRz7kO2NaH9qfIvTw94EdXzUmu1qDy7OryY09F9k+IXE4fCQPpknQJw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.161) smtp.rcpttodomain=lists.linux.dev smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=TmjkTkU6954Qj/e/IKNEOCiXuzWGs6FV/FxjNYZ3U9A=;
+ b=BzFi03/ltkAAn3JT1tufPPnj8rwzBdCphR5wtDBKKyD/F01PdulNSGWi+CLQH0WtkrBACH7llORrJY1IkqtjAsPm5erPu8zMSuFmfGG/pDuhNofhKw6BNvWAlRi+pPtbTscsKohpRyuw6ZhVAxEjte6P6u3N4QZ7mUIjwV1SS/RqS/FTmdtmyElfqyelgWdNbKu8w6Tzzb1f0S05z1JH7LD8kh9qVs/6YXIcS6MWs+xM+gK8gxhxkK0gNUybrQFp7Vwy0c6Qossiz8IKUNddYE+nGc/rONs6CYT5+8E/yxuaGwcShzgGwwxhmtL3npkTRDoJlMOq8ba6aOH4oPtI0g==
+Received: from SA1P222CA0177.NAMP222.PROD.OUTLOOK.COM (2603:10b6:806:3c4::25)
+ by SJ0PR12MB8167.namprd12.prod.outlook.com (2603:10b6:a03:4e6::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.13; Tue, 9 Jun 2026
+ 14:52:45 +0000
+Received: from SN1PEPF0002636B.namprd02.prod.outlook.com
+ (2603:10b6:806:3c4:cafe::2e) by SA1P222CA0177.outlook.office365.com
+ (2603:10b6:806:3c4::25) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.113.11 via Frontend Transport; Tue, 9
+ Jun 2026 14:52:45 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
+ smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.161) by
+ SN1PEPF0002636B.mail.protection.outlook.com (10.167.241.136) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.113.7 via Frontend Transport; Tue, 9 Jun 2026 14:52:44 +0000
+Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
+ (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Tue, 9 Jun
+ 2026 07:52:24 -0700
+Received: from localhost (10.126.231.37) by rnnvmail201.nvidia.com
+ (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Tue, 9 Jun
+ 2026 07:52:23 -0700
+Date: Tue, 9 Jun 2026 17:52:19 +0300
+From: Leon Romanovsky <leonro@nvidia.com>
+To: Jason Gunthorpe <jgg@nvidia.com>
+CC: <iommu@lists.linux.dev>, "Joerg Roedel (AMD)" <joro@8bytes.org>, "Robin
+ Murphy" <robin.murphy@arm.com>, Will Deacon <will@kernel.org>, Jens Axboe
+	<axboe@kernel.dk>, Christoph Hellwig <hch@lst.de>, Marek Szyprowski
+	<m.szyprowski@samsung.com>, Luis Chamberlain <mcgrof@kernel.org>, Mark Lord
+	<mlord@pobox.com>, <patches@lists.linux.dev>, <stable@vger.kernel.org>
+Subject: Re: [PATCH rc] iommu/dma: Do not try to iommu_map a 0 length region
+ in swiotlb
+Message-ID: <20260609145219.GC327369@unreal>
+References: <0-v1-8536728bc89f+469-swiotlb_warn_jgg@nvidia.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <0-v1-8536728bc89f+469-swiotlb_warn_jgg@nvidia.com>
+X-ClientProxiedBy: rnnvmail202.nvidia.com (10.129.68.7) To
+ rnnvmail201.nvidia.com (10.129.68.8)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF0002636B:EE_|SJ0PR12MB8167:EE_
+X-MS-Office365-Filtering-Correlation-Id: d4c47e18-299b-4639-9936-08dec636c3ec
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|376014|7416014|1800799024|36860700016|3023799007|6133799003|11063799006|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	nPqoTOOPD9vFlYDNrqLRYRO99xCHXtxG8wYu4sQ+3XOM4cCebjzlZp/A2mdClHeyALQ1+oY+9mHonMD9AzKIDXpr/gXfGZmPDNNpM7Hd+UH+kCtqHE8E2dq3PE24+QUJ+nMVuXHFrIBXIH5/28b2kstVaabS1O6v52VuVWDUmoKOVVgVTjOsu2aUGl8pDNQ3P57OslMapQGPnShJ881BrFjiDjciE/TxNagicQiZtAeaFB7v3uc2DP0hDPhnFPeLa3duYUQ+7BhfkB8JqwvbTakR2jAdtIKkMPOv88nnGQlG9xIwY17iWJPFmZb2GEmG3jCTC4MUXw5OLYxNtXS637d1ffCZd2+Mg93a7bMj9tuQzg5M0X5aoYzbwBPT0HEjYSCTH2MygtlfVGiGfr4oZudo9QBsXxjO61riCwNj3FchgyNTrGI+oVNnL64w2ZOKfbage8lEA5P9JrAZyGJvsjkTjNQybPFt5NDZw/tJbpcvmh7j1lEd39TelCKlTwQWkw9BxqXJNdMxQacjHSuMMIWiOvcL2sD7KYwXEDukEAYFwLOEPOKyG9jpzN0CvTQw7t27OdwS1wF5MI28WRF6YweGrP6rW3TjUrsUK3n2oalqV6ShHoceFT2LpBSBKUgFfSqQROwq8omrmqetTKQ/33qyTmvIDTuln8wv85JLpFlEQ6yRTYotjBvbZOaGh5aUXNcjZ1+grNjynicPw3+WxZc2jYAh23V9h9owKpneP4o=
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(82310400026)(376014)(7416014)(1800799024)(36860700016)(3023799007)(6133799003)(11063799006)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	pIIZZwj/OcjKPMG81OjyJc7uEDOtQLXo7c3wc3/q2y7vJt9V/JAgS/GNrqgV34LlXHvmRwPuOGrNR09bwgcuMayuLgihb4KV1ei6soHBY2iQy+AZstS4ANL7sNMo4Op85Gvo6cCPhpuUmHQPEPx+SlR4sIp0tZv7jJ9dC1tuC0GtGLzEGzOsbmvo53Gl28EZkm75GQRCAEOkQ2LNCuZ2yzzkw8XDlPCHWFbyXA0D+m1+dPJHb8/Nt2beFsp2SldcbarRtCAUimEnb5V0pL3W7eEDt8qMikrZKN9Dba06qZy7jF6H/6t+u6/eJXmMf99D4DPIMVFsLLLNBwWZ9sHOp0wZmiNAAIeAcQzYN6Jxzq+DSVTUjbv/vrdFvIvP7VfyKHmPHt4s7iBqXd7Ew2t9YJL+vISnYl6k4xnhe3QY1F65qRhe+FxrzsL8+35odEnH
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jun 2026 14:52:44.9285
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d4c47e18-299b-4639-9936-08dec636c3ec
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SN1PEPF0002636B.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB8167
 
-On Tue, 9 Jun 2026 14:46:52 +0800 Zenghui Yu <yuzenghui@huawei.com> wrote:
-
-> The comment on top of `struct damon_region` clearly says that
+On Mon, Jun 08, 2026 at 03:10:04PM -0300, Jason Gunthorpe wrote:
+> iommu_dma_iova_link_swiotlb() processes a mapping that is unaligned in three
+> parts, the head, middle and trailer. If the middle is empty because there
+> are no aligned pages it will call down to iommu_map() with a 0 size
+> which the iommupt implementation will fail as illegal.
 > 
->     For any use case, @ar should be non-zero positive size.
+> It then tries to do an error unwind and starts from the wrong spot
+> corrupting the mapping so the eventual destruction triggers a WARN_ON.
 > 
-> which is now verified in damon_verify_new_region() if the kernel is built
-> with DAMON_DEBUG_SANITY.
+> Check for 0 length and avoid mapping and use offset not 0 as the starting
+> point to unlink.
 > 
-> The WARN_ONCE() can be triggered if the mtier sample module is enabled
-> before node{0,1}_{start,end}_addr have been properly initialized, which is
-> obviously not good.
+> This is frequently triggered by using some kinds of thunderbolt NVMe
+> drives that trigger forced SWIOTLB for unaligned memory. NVMe seems to
+> pass in oddly aligned buffers for the passthrough commands from smartctl
+> that hit this condition.
 > 
->  ------------[ cut here ]------------
->  start 0 >= end 0
->  WARNING: mm/damon/core.c:217 at damon_new_region+0xf4/0x118, CPU#59: bash/341468
->  Call trace:
->   damon_new_region+0xf4/0x118 (P)
->   damon_set_regions+0xfc/0x3c0
->   damon_sample_mtier_build_ctx+0xe8/0x3a8
->   damon_sample_mtier_start+0x1c/0x90
->   damon_sample_mtier_enable_store+0x98/0xb0
->   param_attr_store+0xb4/0x128
->   module_attr_store+0x2c/0x50
->   sysfs_kf_write+0x58/0x90
->   kernfs_fop_write_iter+0x16c/0x238
->   vfs_write+0x2c0/0x370
->   ksys_write+0x74/0x118
->   __arm64_sys_write+0x24/0x38
->   invoke_syscall+0xa8/0x118
->   el0_svc_common.constprop.0+0x48/0xf0
->   do_el0_svc+0x24/0x38
->   el0_svc+0x54/0x370
->   el0t_64_sync_handler+0xa0/0xe8
->   el0t_64_sync+0x1ac/0x1b0
->  ---[ end trace 0000000000000000 ]---
+> Cc: stable@vger.kernel.org
+> Fixes: 433a76207dcf ("dma-mapping: Implement link/unlink ranges API")
+> Reported-by: Mark Lord <mlord@pobox.com>
+> Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
+> ---
+>  drivers/iommu/dma-iommu.c | 19 +++++++++++++------
+>  1 file changed, 13 insertions(+), 6 deletions(-)
 > 
-> Note that the same issue can happen if detect_node_addresses is true, and
-> node 0 or 1 is memoryless. Fix it together by checking the validity of
-> parameters right before damon_new_region() and fail early if they're
-> invalid.
-
-Thank you for this patch, Zenghui!
-
+> This was discovered because iommupt errors on mapping length=0 instead of
+> making it a NOP, so it is an became an issue since commit d6c65b0fd621
+> ("iommupt: Avoid rewalking during map") making it a regression this merge
+> window.
 > 
-> Signed-off-by: Zenghui Yu <yuzenghui@huawei.com>
-
-I think this deserves Fixes: and Cc: stable, like below.
-
-Fixes: 82a08bde3cf7 ("samples/damon: implement a DAMON module for memory tiering")
-Cc: <stable@vger.kernel.org> # 6.16.x
-
-Other than that, looks good to me.
-
-Reviewed-by: SeongJae Park <sj@kernel.org>
-
-I applied  this patch to damon/next [1] tree.  We are now quite close to next
-merge window.  We (mm community) want to focus on making mm.git more stabilized
-and therefore ready for the next merge window, rather than adding more changes
-that are not really urgent.  I understand this series is not really urgent,
-because it is causing only DAMON internal weird behavior and one time warning
-on debug kernels.
-
-Hence, Andrew might not add this patch until next -rc1 release.  In the case, I
-will request adding this to mm.git after next -rc1 release.  So, no action from
-your side is needed for now.  Let me know if you think this is really urgent or
-I'm missing something.
-
-[1] https://origin.kernel.org/doc/html/latest/mm/damon/maintainer-profile.html#scm-trees
-
 
 Thanks,
-SJ
-
-[...]
+Reviewed-by: Leon Romanovsky <leonro@nvidia.com>
