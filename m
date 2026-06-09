@@ -1,50 +1,38 @@
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [13.76.78.106])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 47DE72D7DC6;
-	Tue,  9 Jun 2026 08:01:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.76.78.106
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82D013E1208;
+	Tue,  9 Jun 2026 08:03:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780992115; cv=none; b=fcU1EkkGijvHWvvQtUSUJEcG5QFi/55SgQxMUmbel5X0dZcxZ755I2ajVcNsMwmytzLbNNBAdOuGw074IKncg7L3uL3mSBhiQwnoeaXyXfYc6p4mygMGoTe9OOBV7gTHeval6iR1f7vjwzvRyZHsZEiT9sFSVX6VJYd3ytI4OLU=
+	t=1780992185; cv=none; b=Zx38oSGeXkDxY2XyPEi1y8Uu3F1OAa2EJz0mnOgmicF2lXEOWPRxjHwn6gHMyA+XVnGi2+3rT9Yp9pGDiwcDK3c0O4I3j9W3XBLHZVqZfibAqQQEWDJ2HtFApWbcJ+/6ZheQVJAsTCEsbWQUv27bdrVRDAaAUMK58NxSETAgaZE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780992115; c=relaxed/simple;
-	bh=GF/2fKS5++wTq9aTQx1jHjXP5ARLwa2s5AV5w0K2fpA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=flA56FHJxn24sui+V5RVMbtyggg7X1W8RrA6LGLR5vFNH6J+PS7tLyE8+8g1O/VzhNgc0lNhI2LS1Tqx6wmTmoNsoLBizOHWBHAv8serSi+H5eBzvlClpf5bakrh+b6YZeQnzomCEAtZW61V3bSxH9ljBZuI+ojDB24wjHE9fwI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mails.tsinghua.edu.cn; spf=pass smtp.mailfrom=mails.tsinghua.edu.cn; dkim=pass (1024-bit key) header.d=mails.tsinghua.edu.cn header.i=@mails.tsinghua.edu.cn header.b=QlVBfVfQ; arc=none smtp.client-ip=13.76.78.106
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mails.tsinghua.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mails.tsinghua.edu.cn
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mails.tsinghua.edu.cn header.i=@mails.tsinghua.edu.cn header.b="QlVBfVfQ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=mails.tsinghua.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:
-	Date:Message-ID:MIME-Version:Content-Transfer-Encoding; bh=PXzN1
-	xAkeifUktlK/Qjjuspvc1N/0VC1hBVqxaAmblY=; b=QlVBfVfQlf+IugKux90DG
-	9WF2FTv2H3MlmqK5UHZiT5nLMwdxnMNxaT8mNeSYrB+r0iiR1dP8uOBZOBNVrbWh
-	HFo8N4h+P5XDoXCxhEVvsA/Tr6HL7gW4fgsYDbbjwdVnh6+kAT9mCssuhDGivgxx
-	3EepL3gsK06fIQoQj6f8jI=
-Received: from localhost.localdomain (unknown [101.5.13.135])
-	by web3 (Coremail) with SMTP id ygQGZQDnNJJZyCdqCLtCAg--.14269S2;
-	Tue, 09 Jun 2026 16:01:29 +0800 (CST)
-From: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
-To: linux-bluetooth@vger.kernel.org
-Cc: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>,
-	Alexander Aring <alex.aring@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	linux-wpan@vger.kernel.org,
-	netdev@vger.kernel.org,
+	s=arc-20240116; t=1780992185; c=relaxed/simple;
+	bh=fF6Uoj9AQ8ugSOAAgLX/KKhg1RLSQ6zAcTIQddMFxBc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=D3bE2l1+6yvu9JjaJe9zzikOcHmlhHXzM+WV32paVfqGNp+x5/AwVoCsMOV1bIKIFiQohvsAFj3jq8844IdokguK8vB50IZt5R4+TApgcF662CoKcED2ASbcnRP2wz6ixOG6rawYbPF1Fe/U7GYM6Jq/pAGh2o8CyF466UWN7IA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from ubuntu.. (unknown [202.112.113.208])
+	by APP-03 (Coremail) with SMTP id rQCowADX9t2gyCdqKU8gFA--.1122S2;
+	Tue, 09 Jun 2026 16:02:51 +0800 (CST)
+From: Ma Ke <make24@iscas.ac.cn>
+To: suzuki.poulose@arm.com,
+	mike.leach@linaro.org,
+	james.clark@linaro.org,
+	leo.yan@arm.com,
+	alexander.shishkin@linux.intel.com,
+	mathieu.poirier@linaro.org
+Cc: coresight@lists.linaro.org,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>,
-	Ao Wang <wangao@seu.edu.cn>,
-	Xuewei Feng <fengxw06@126.com>,
-	Qi Li <qli01@tsinghua.edu.cn>,
-	Ke Xu <xuke@tsinghua.edu.cn>,
+	akpm@linux-foundation.org,
+	Ma Ke <make24@iscas.ac.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH] 6lowpan: fix NHC entry use-after-free on error path
-Date: Tue,  9 Jun 2026 16:00:52 +0800
-Message-ID: <20260609080054.4541-1-zhaoyz24@mails.tsinghua.edu.cn>
-X-Mailer: git-send-email 2.46.2
+Subject: [RESEND PATCH v3] coresight: etm-perf: Fix reference count leak in etm_setup_aux
+Date: Tue,  9 Jun 2026 16:02:36 +0800
+Message-ID: <20260609080236.425072-1-make24@iscas.ac.cn>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -52,79 +40,75 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:ygQGZQDnNJJZyCdqCLtCAg--.14269S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7uF1rJr45Aw4fJF4UJF4rGrg_yoW8tryfpa
-	y3K39ayFyDZry3Zw4vyw409w17AF4DJr1fKF1rKa4UZ3Z8Gr1Sqr93Kr97Za9IvFs3Ca4D
-	XrWDX3s0yws8CrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9v1xkIjI8I6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l8cAvFVAK
-	0II2c7xJM28CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVWDJVCq3wA2z4
-	x0Y4vE2Ix0cI8IcVCY1x0267AKxVWxJr0_GcWl84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2
-	z4x0Y4vEx4A2jsIEc7CjxVAFwI0_GcCE3s1lnxkEFVAIw20F6cxK64vIFxWle2I262IYc4
-	CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E74AGY7Cv6cx26r4r
-	Kr1UJr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc
-	8vx2IErcIFxwACI402YVCY1x02628vn2kIc2xKxwCY1x0262kKe7AKxVW8ZVWrXwCY02Av
-	z4vE14v_GFyl42xK82IYc2Ij64vIr41l42xK82IY6x8ErcxFaVAv8VW8Ww4UJr1UMxC20s
-	026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_
-	JrI_JrWlx4CE17CEb7AF67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14
-	v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xva
-	j40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JV
-	W8JrUvcSsGvfC2KfnxnUUI43ZEXa7VUbRVbPUUUUU==
-X-CM-SenderInfo: 52kd05r2suqzpdlo2hxwvl0wxkxdhvlgxou0/1tbiAgMNAWonQZv0bwAAsB
+X-CM-TRANSID:rQCowADX9t2gyCdqKU8gFA--.1122S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Kw4UAr17uF43tr4kJF48Crg_yoW8ZFy8pF
+	4jkws0yF98Gr40vws7Jr18Zay5uw4SvF4agryfKw4DuF4YqFW3ZFyjgryFyrn3CrZ5Kas0
+	g3WxtF409FWUJaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUBY14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
+	0DM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
+	64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8Jw
+	Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAG
+	YxC7M4IIrI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7V
+	AKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCj
+	r7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6x
+	IIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAI
+	w20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x
+	0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VUbQVy7UUUUU==
+X-CM-SenderInfo: ppdnvj2u6l2u1dvotugofq/
 
-lowpan_nhc_do_uncompression() looks up an NHC descriptor while holding
-lowpan_nhc_lock.  If the descriptor has no uncompress callback, the error
-path drops the lock before printing nhc->name.
+bus_find_device() returns a device with its reference count
+incremented. When a user-selected sink is obtained through
+coresight_get_sink_by_id(), etm_setup_aux() keeps using the returned
+sink while building the path and allocating the sink buffer.
 
-lowpan_nhc_del() removes descriptors under the same lock and then relies
-on synchronize_net() before the owning module can be unloaded.  That only
-waits for net RX RCU readers.  lowpan_header_decompress() is also exported
-and can be reached from callers that are not necessarily covered by the net
-core RX critical section, for example the Bluetooth 6LoWPAN L2CAP receive
-path.
+Therefore the lookup reference must remain valid while etm_setup_aux()
+is still using the sink, otherwise the sink could be removed under the
+caller. Drop the lookup reference on the common exit path, after
+etm_setup_aux() no longer directly uses the user-selected sink.
 
-This leaves a race where one task drops lowpan_nhc_lock in the error path,
-another task unregisters and frees the matching descriptor after
-synchronize_net() returns, and the first task then dereferences nhc->name
-for the warning.
+The CoreSight path code takes the references it needs for built paths,
+so the initial lookup reference from coresight_get_sink_by_id() is no
+longer needed after setup_aux finishes.
 
-With the post-unlock window widened, KASAN reports:
+Found by code review.
 
-  BUG: KASAN: slab-use-after-free in lowpan_nhc_do_uncompression+0x1f4/0x220
-  Read of size 8
-  lowpan_nhc_do_uncompression
-  lowpan_header_decompress
-
-Fix this by printing the warning before dropping lowpan_nhc_lock, so the
-descriptor name is read while unregister is still excluded.  The malformed
-packet is still rejected with -ENOTSUPP.
-
-Fixes: 92aa7c65d295 ("6lowpan: add generic nhc layer interface")
+Signed-off-by: Ma Ke <make24@iscas.ac.cn>
 Cc: stable@vger.kernel.org
-Reported-by: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
-Reported-by: Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>
-Reported-by: Ao Wang <wangao@seu.edu.cn>
-Reported-by: Xuewei Feng <fengxw06@126.com>
-Reported-by: Qi Li <qli01@tsinghua.edu.cn>
-Reported-by: Ke Xu <xuke@tsinghua.edu.cn>
-Assisted-by: GLM:GLM-5.1
-Signed-off-by: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
+Fixes: 0e6c20517596 ("coresight: etm-perf: Allow an event to use different sinks")
 ---
-diff --git a/net/6lowpan/nhc.c b/net/6lowpan/nhc.c
-index 7b374595328d..a4dde85664f2 100644
---- a/net/6lowpan/nhc.c
-+++ b/net/6lowpan/nhc.c
-@@ -117,9 +117,9 @@ int lowpan_nhc_do_uncompression(struct sk_buff *skb,
- 				return ret;
- 			}
- 		} else {
--			spin_unlock_bh(&lowpan_nhc_lock);
- 			netdev_warn(dev, "received nhc id for %s which is not implemented.\n",
- 				    nhc->name);
-+			spin_unlock_bh(&lowpan_nhc_lock);
- 			return -ENOTSUPP;
- 		}
- 	} else {
+Changes in v3:
+- do not drop the lookup reference in coresight_get_sink_by_id(), as 
+that would return a sink pointer without keeping the device reference 
+while etm_setup_aux() is still using it.
+- dropped the lookup reference in etm_setup_aux on the common exit path, 
+as suggested by Suzuki.
+- updated the commit message to describe why the reference is kept 
+until etm_setup_aux() finishes using the sink.
+Changes in v2:
+- modified the patch as suggestions.
+---
+ drivers/hwtracing/coresight/coresight-etm-perf.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
---
+diff --git a/drivers/hwtracing/coresight/coresight-etm-perf.c b/drivers/hwtracing/coresight/coresight-etm-perf.c
+index f85dedf89a3f..d5116177c1b9 100644
+--- a/drivers/hwtracing/coresight/coresight-etm-perf.c
++++ b/drivers/hwtracing/coresight/coresight-etm-perf.c
+@@ -456,6 +456,11 @@ static void *etm_setup_aux(struct perf_event *event, void **pages,
+ 		goto err;
+ 
+ out:
++	if (user_sink) {
++		put_device(&user_sink->dev);
++		user_sink = NULL;
++	}
++
+ 	return event_data;
+ 
+ err:
+-- 
 2.43.0
 
