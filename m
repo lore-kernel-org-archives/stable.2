@@ -1,96 +1,80 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E65F3B0AF1
-	for <stable@vger.kernel.org>; Tue,  9 Jun 2026 10:33:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 813CA2F1FC7;
+	Tue,  9 Jun 2026 10:40:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781001192; cv=none; b=YO6QkVYyxoxs8lCOubyjMJtwo34MDtJTCvkOVcmOs2GWs+uLIs0/KYdvTh0mi55bgquwCuYN4tLwkm9+0lQQ4BuvHtZpmINjFf2AaeykYR5jKgnYfCFPivMhFf69wHIp78bl5EkaUm2i8EDB4G562470ldSRoX0dDPUIQH74Zds=
+	t=1781001608; cv=none; b=Pw6/qdJ4vdtue4GWBHPabAjdvA6aAn1//U0zZoVPvvTF217AbaAde27PZMo0g7ksGUgIs9vXNkZ0qro8CR0XaXnod8xmYgALf7n/b8gdE+4aeKrawWC+NzMWZ8UvtINVxy5PFruLQmwBklG7TmLsujqATpYErvmohCUTTiYzewU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781001192; c=relaxed/simple;
-	bh=bn7oIGM5WxSI5ofyndPPyOE+qIU/0xfC29JtM6/CGqM=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=XQRblI7/WuViLMNQjuvhAMDWrxJkGiZJvw3P5PuFGam4QpT2p7HyAe0hyVRDDKJPWpkAZ2FtbGLfztYjX7yxAvGTYIduBcTZQLwbM5f811sQ3DykrIiCTpv+AR5n4cXv/ysWBzh9C4PVQ8NHqyEAvXYwlSlH11NSf5xeZLUJ2Uk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Khnoe147; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781001608; c=relaxed/simple;
+	bh=fAaR8R3cAieHlGYXJBgMpMfKIp2+fJkPkpO4u9kkCHQ=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=K32Gsnmu2oN0PRrJ2wQ3s0lpcEAGn9BwXFl8h2vA4xKvQnPT3g/yDC+VOIlWzfe72RwfJzLhwXUHhMvk9HG+LqGHVaF/t7ktoZb1ffv6n/1TaPbfUyleUQzrOR6vOX9HWH/V1SmkAjLJpmOdrtBzDegJgfqnV9NsbjKt7HjbT7I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=STZaCVOJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Khnoe147"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36C181F00893;
-	Tue,  9 Jun 2026 10:33:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="STZaCVOJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 649FB1F00898;
+	Tue,  9 Jun 2026 10:40:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781001191;
-	bh=GCr+BQtcuv0PUY38wT2Vl3W44PF5qRVqOiKASBMliCU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=Khnoe147OidzmOpbREMeM2YeZTvuv+yMBJoRDRGG8XyM6vI7liMo9aFslGlPhri/9
-	 82ksQFsa+hJbOvgn8P8D3jvE0w5t8rv7UmWDmuUiou+tI3bHvDCIWdUKdoxsMsoEKb
-	 nFYuWRpEAcxYc+kSSaZX210uwUxZfdkV2+399mn0OYnGbboI3by39of0Y0YPO2BKW2
-	 N/EYgoSYdo6FPBa7nkMlFVQMQ0ykKJpP8EWmy7DiEaTrArKWddXhABvYL5zPhaHI/2
-	 KmKed+6VrnWuDtinlXoDf1PgMuoSH6yhnkStK+1Zg2WErGwXxUESdpmbdQd6FJ27pI
-	 svHjlPbQMtX1g==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1wWtld-0000000Arr2-1xQN;
-	Tue, 09 Jun 2026 10:33:09 +0000
-Date: Tue, 09 Jun 2026 11:33:09 +0100
-Message-ID: <86fr2wt34q.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Hyunwoo Kim <imv4bel@gmail.com>
-Cc: gregkh@linuxfoundation.org,
-	stable@vger.kernel.org,
-	oupton@kernel.org
-Subject: Re: [PATCH 6.12.y] KVM: arm64: Take the SRCU lock for page table walks in fault injection and AT emulation
-In-Reply-To: <aifnUC7gmeniiYPv@v4bel>
-References: <aifnUC7gmeniiYPv@v4bel>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	s=k20260515; t=1781001607;
+	bh=Z2KPUWVg1F5kkeWTL3+0vtxYlRUZkWAlDdIjOzjEwXk=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=STZaCVOJZmqIqYMw1gRzD9yRwds9Jf5nLmjtUC5nDH95Tt7h9GhArpy2oOB3aIW9v
+	 6ir59QmDBxE8kh9IP1WyK58mu+nc5+6zmhYg2HOmRnjgMT7m6vhJDa0aQghhzGbOoI
+	 krwYfWcvxGG6Ql2g+6eUPvbzxq9uvq7h2H7UjY6+Z6eljncHmniOKj7IZj+kDOStam
+	 EnFe8zoqaA1jogq+ci+g9cq6PdHF2XkruAAWEBkX4FP/6yZRDKu8DBf24aMBBkgzjr
+	 Y8mPPXjfRJEiCuAe/WMjwnVownvS6u09lLAtKKoqY2O8VHYDoacpDiFFpA8piLs1dr
+	 oC7xgnUsDMc1Q==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 198463930884;
+	Tue,  9 Jun 2026 10:40:07 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: imv4bel@gmail.com, gregkh@linuxfoundation.org, stable@vger.kernel.org, oupton@kernel.org
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net] octeontx2-af: fix memory leak in
+ rvu_setup_hw_resources()
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <178100160565.1947098.11448197781614396900.git-patchwork-notify@kernel.org>
+Date: Tue, 09 Jun 2026 10:40:05 +0000
+References: <20260604143756.1524482-1-dawei.feng@seu.edu.cn>
+In-Reply-To: <20260604143756.1524482-1-dawei.feng@seu.edu.cn>
+To: Dawei Feng <dawei.feng@seu.edu.cn>
+Cc: sgoutham@marvell.com, lcherian@marvell.com, gakula@marvell.com,
+ hkelam@marvell.com, sbhatta@marvell.com, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, jianhao.xu@seu.edu.cn,
+ stable@vger.kernel.org, zilin@seu.edu.cn
 
-On Tue, 09 Jun 2026 11:13:36 +0100,
-Hyunwoo Kim <imv4bel@gmail.com> wrote:
+Hello:
+
+This patch was applied to netdev/net.git (main)
+by Paolo Abeni <pabeni@redhat.com>:
+
+On Thu,  4 Jun 2026 22:37:56 +0800 you wrote:
+> If rvu_npc_exact_init() fails in rvu_setup_hw_resources(), the function
+> returns directly instead of jumping to the error handling path. This
+> causes a resource leak for the previously initialized CGX, NPC, fwdata,
+> and MSI-X states.
 > 
-> [ Upstream commit f2ca45b50d4216c9cc7ffabf50d9ad1932209251 ]
+> Fix this by replacing the direct return with goto cgx_err to ensure
+> proper cleanup.
 > 
-> walk_s1() and kvm_walk_nested_s2() expect to be called while holding
-> kvm->srcu to guard against memslot changes. While this is generally
-> the case, __kvm_at_s12() and __kvm_find_s1_desc_level() call into the
-> respective walkers without taking kvm->srcu.
-> 
-> Fix by acquiring kvm->srcu prior to the table walk in both instances.
-> 
-> Cc: stable@vger.kernel.org
-> Fixes: 50f77dc87f13 ("KVM: arm64: Populate level on S1PTW SEA injection")
-> Fixes: be04cebf3e78 ("KVM: arm64: nv: Add emulation of AT S12E{0,1}{R,W}")
-> Suggested-by: Oliver Upton <oupton@kernel.org>
-> Signed-off-by: Hyunwoo Kim <imv4bel@gmail.com>
-> Reviewed-by: Oliver Upton <oupton@kernel.org>
-> Link: https://patch.msgid.link/aiAZfdeyanIvP8SD@v4bel
-> Signed-off-by: Marc Zyngier <maz@kernel.org>
-> [ Hyunwoo Kim: __kvm_at_s12() returns void in 6.12.y, so the context
->   differs from upstream (return; instead of return ret;). The
->   __kvm_find_s1_desc_level() hunk (Fixes: 50f77dc87f13) is dropped, as
->   that function is v6.18+ and absent here; only the __kvm_at_s12() /
->   kvm_walk_nested_s2() change (Fixes: be04cebf3e78) applies. ]
-> Signed-off-by: Hyunwoo Kim <imv4bel@gmail.com>
+> [...]
 
-I don't think this is necessary. 6.12 doesn't actually have NV support
-(it was enabled only from userspace in 6.17), therefore the ATS12
-emulation isn't reachable.
+Here is the summary with links:
+  - [net] octeontx2-af: fix memory leak in rvu_setup_hw_resources()
+    https://git.kernel.org/netdev/net/c/09a5bf856aa7
 
-Thanks,
-
-	M.
-
+You are awesome, thank you!
 -- 
-Without deviation from the norm, progress is not possible.
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
