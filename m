@@ -1,45 +1,37 @@
-Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DC372E091E;
-	Tue,  9 Jun 2026 09:02:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E3752FDC57;
+	Tue,  9 Jun 2026 09:07:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780995769; cv=none; b=kLDuuWmapMcqAujoHovQHDe528HZCnXwD7PT2kPpWMAEhgkltGH2TaSLiOLKGTEY3gg9ONUHnnWW+3BnJ/ykc8ty/IARdkyisnjkdW0gCObfsWXSWg8Pzh5bd9hGVlV76IIR6eDGMuskF2Tx5HkAxJ/sP6BT7SrL4/2XuqH9y7w=
+	t=1780996070; cv=none; b=qnn6LYvLJJvXKz6TDb7/gH4I0FUuA3J/LoBx77D1AEVzcNSPlgu//7BUH04+Vk6fLXNjkGRoLdpytLfNqbmwUj2RMxuqyJq9uZHxBXw+4oFOVfHrTRT2HD3Q8JrsMmjHm8varNoLXwsMdzFE8+NX1w9vLBdv5eWiza3J79P4aDY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780995769; c=relaxed/simple;
-	bh=UmkP/nL3r38JTITNDMoUIrL43Ud/mv8TE/EbWihEuGU=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=pOOJdmGslESn9OSvm1R3n/VhoS3gXQ8dc6FZIO9KyBhm2WbkNSo2oO/nA13MiS+WxL5osGA7Tp/gvOD2Of6VoIDZNMwXkJvTyDmRxBGlmGccuHSnMxzGfp2QOy/FjoB7SFkcjV9H0609k1aKudGlTk3nuUyIewSHqn6OAkust6w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=AD7+HCMt; arc=none smtp.client-ip=45.254.49.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="AD7+HCMt"
-Received: from DESKTOP-SUEFNF9.taila7e912.ts.net (unknown [221.228.238.82])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 41a876c6e;
-	Tue, 9 Jun 2026 16:57:26 +0800 (GMT+08:00)
-From: Dawei Feng <dawei.feng@seu.edu.cn>
-To: ttabi@nvidia.com
-Cc: dakr@kernel.org,
-	dawei.feng@seu.edu.cn,
-	dri-devel@lists.freedesktop.org,
-	jianhao.xu@seu.edu.cn,
+	s=arc-20240116; t=1780996070; c=relaxed/simple;
+	bh=4GKX7Ex9N+3GfI/w4ItbvDUbzRZT2dNXKX1T7SPfp5I=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=UFUhtSm2CSZzy56kiWueeS2gohQhaDli1TarPWBNQcVGnVLPRUEEjhTo9+cJ8O8oh6a24nhAukMDuvWrjH8C3Gx0kF6MIRYEW5dzIOIakMtC8JveidWavPFhTclrcQODzOivCdY5tavo/0Zaw4ZdM8kAd6yn7uNBoA5VohHIzbQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowABXq87Y1ydqcKvPEg--.154S2;
+	Tue, 09 Jun 2026 17:07:36 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: andrew@lunn.ch,
+	hkallweit1@gmail.com,
+	linux@armlinux.org.uk,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com
+Cc: netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	lyude@redhat.com,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	namcao@linutronix.de,
-	nouveau@lists.freedesktop.org,
-	simona@ffwll.ch,
-	stable@vger.kernel.org,
-	zilin@seu.edu.cn
-Subject: Re: [PATCH] nouveau/firmware: fix memory leak on BL load failure
-Date: Tue,  9 Jun 2026 16:57:29 +0800
-Message-Id: <20260609085729.3786763-1-dawei.feng@seu.edu.cn>
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] mdio-airoha: fix refcount leak in airoha_mdio_probe()
+Date: Tue,  9 Jun 2026 09:07:29 +0000
+Message-Id: <20260609090729.219120-1-vulab@iscas.ac.cn>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <0045b3583272df0b82f146fd96dee13d03377b4a.camel@nvidia.com>
-References: <0045b3583272df0b82f146fd96dee13d03377b4a.camel@nvidia.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,83 +39,59 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9eab99d60503a2kunmd4cb5e84127d3d
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaGEtCVk4YSklJSh9MHh1JGlYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUpVSUlDVUlIQ1VDSVlXWRYaDxIVHRRZQVlPS0hVSktISk
-	9ITFVKS0tVSkJLS1kG
-DKIM-Signature: a=rsa-sha256;
-	b=AD7+HCMty0xT7ukJ2iVq24XZZtBk3S/QiDWX6gpGVFjcPKiO7RmZE7dzKCP/i1ObA/sHrur+vKJnntauTebn7UK4kaZhgSBnpvDaCOC3pG1hOrsw5Ok03Ux6gPVAd2HoLcW8JJIC4/n1uvVMkY4LrxLMkFVDeukP++uXZW+UT0U=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=PWKiJfHLAuY51AfkQhZeCWOGsOm5BCLCBnZ0+m/OIxk=;
-	h=date:mime-version:subject:message-id:from;
+X-CM-TRANSID:zQCowABXq87Y1ydqcKvPEg--.154S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7KFyrKFy8WF4DXry8Cw48JFb_yoW8JFWkpr
+	4jkF1ayayUJrs5Aay8Aa1rZFyFgF13ta4UGFWav39Yvwn3Gr47XrWjvFyqvFyUCFW0qrZ8
+	Gr4UJ3WruF4DAaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9Y14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
+	0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
+	jxv20xvE14v26rWY6Fy7McIj6I8E87Iv67AKxVWxJr0_GcWlOx8S6xCaFVCjc4AY6r1j6r
+	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628v
+	n2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7x
+	kEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E
+	67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCw
+	CI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1x
+	MIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCT
+	nIWIevJa73UjIFyTuYvjfU5o7KDUUUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgwNA2onp6StJAACsB
 
-Hi, Timur,
+In airoha_mdio_probe(), after calling reset_control_deassert(),
+if clk_set_rate() fails, the function returns immediately without
+calling reset_control_assert().  This leaves the reset line
+deasserted and causes a reference count leak on shared reset
+controllers.  The devm cleanup does not assert the reset line, so
+the unbalanced deassert persists.
 
-On Fri, Jun 05, 2026 at 06:22:41PM +0000, Timur Tabi wrote:
-> Ah yes, you're right.
->
-> So now I think a better fix might be to have two different `blob`
-> variables, so that there is no longer any confusion. Because right now,
-> the nvkm_firmware_put() call at the end of the function releases a
-> different `blob` depending on whether `bl` is NULL or not.
->
-> What do you think about this:
->
->     nvkm_firmware_put(blob);
->     if (bl) {
->             const struct firmware *blob_bl;
->
->             ret = nvkm_firmware_load_name(subdev, bl, "", ver, &blob_bl);
->             if (ret)
->                     goto done;
->             ...
->             nvkm_firmware_put(blob_bl);
->             if (!fw->boot)
->                     ret = -ENOMEM;
->     } else {
->             fw->boot_addr = fw->nmem_base;
->     }
->
-> done:
->     if (ret)
->             nvkm_falcon_fw_dtor(fw);
->
->     return ret;
+Fix this by adding a reset_control_assert() call on the
+clk_set_rate() error path, matching the existing error handling
+for devm_of_mdiobus_register().
 
-Yes, using a separate pointer `blob_bl` for the bootloader firmware is a
-cleaner approach. 
+Cc: stable@vger.kernel.org
+Fixes: 67e3ba978361 ("net: mdio: Add MDIO bus controller for Airoha AN7583")
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/net/mdio/mdio-airoha.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-However, we must keep the final nvkm_firmware_put(blob) under the done
-label. Moving it earlier would cause memory leaks in prior error paths
-like nvkm_falcon_fw_ctor(), which jump directly to done. 
+diff --git a/drivers/net/mdio/mdio-airoha.c b/drivers/net/mdio/mdio-airoha.c
+index 52e7475121ea..030482b8318f 100644
+--- a/drivers/net/mdio/mdio-airoha.c
++++ b/drivers/net/mdio/mdio-airoha.c
+@@ -245,8 +245,10 @@ static int airoha_mdio_probe(struct platform_device *pdev)
+ 		freq = 2500000;
+ 
+ 	ret = clk_set_rate(priv->clk, freq);
+-	if (ret)
++	if (ret) {
++		reset_control_assert(priv->reset);
+ 		return ret;
++	}
+ 
+ 	ret = devm_of_mdiobus_register(dev, bus, dev->of_node);
+ 	if (ret) {
+-- 
+2.34.1
 
-A safer approach is to manage blob_bl locally inside the if (bl) block,
-while leaving the original blob cleanup at the end. 
-
-What do you think about this:
-
-        if (bl) {
-                const struct firmware *blob_bl;
-
-                ret = nvkm_firmware_load_name(subdev, bl, "", ver, &blob_bl);
-                if (ret)
-                        goto done;
-
-                ...
-                nvkm_firmware_put(blob_bl);
-                if (!fw->boot)
-                        ret = -ENOMEM;
-        } else {
-                fw->boot_addr = fw->nmem_base;
-        }
-
-done:
-        if (ret)
-                nvkm_falcon_fw_dtor(fw);
-
-        nvkm_firmware_put(blob);
-        return ret;
-
-Regards,
-Dawei
