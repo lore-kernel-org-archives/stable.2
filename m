@@ -1,102 +1,90 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80FC3383333
-	for <stable@vger.kernel.org>; Tue,  9 Jun 2026 06:40:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB81830DD1D;
+	Tue,  9 Jun 2026 06:42:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780987231; cv=none; b=DpN0lZ9+zo49o4mTrKox+fVAKiCNSberNlNC0pfjEdn1D+zX4foL2JnKSIMsURGNysvwjYyDEoNe3b1+s2hhvC7TE3vtCGenbfrPZBJxJGH1mlqokIpOhqfGGcBZ5b0u4XKQhh4OHadf0NDmP9S0s9a4VHlq5k5kWL2wT+jXHjA=
+	t=1780987357; cv=none; b=jWZWrnEs0ndWckI9lFFpNTmahgB114Z20gwHkXWgTX6wrEoF6618WOtKnrQs9korSknaWiPSiciWOZmiTCcBsy7jvrFVQrcFvqZ2n1siVtu3CJstEzQKn8RjBLD8BwNs53RmM4tb4JpxPN/Hm2vpRkQGuaObBFVNQ4nLRrElbjc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780987231; c=relaxed/simple;
-	bh=XBKR43MBL4MY4PqSfuY1MJ8CjvTvAn+/3f1jFPC1VeY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=dv9JKtC3evAc/BrvXWRh3Q426jFEIX7s/C4fRYuD3WihEDceLZhZzMBYiijKSuexjP71XsmeaNdVoLqPkAs5xjZayaK+O642b7Ci5t9iOPf0T5CmmQL0hoduOeDq3eYQfeRZ5hMstrt4SERzl24QT4qAGrmjtDka77QOS3mzC24=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=OzV2Zj2y; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1780987357; c=relaxed/simple;
+	bh=HSP/NBsMCDcgfL85cSYwUJK9bQInZ13SdztQXZx0Zm4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bGJWM5/izqV3Bh7agZxX8wX+PzRI2rvN6DnHCPbYNKH+aEZ2JEADhjrtmUWvc2orHaygkNpHpq1RD5D03gY2htzWl9znyPmNIYgEDQWplzrVT+PQt/yvfSKwUZVuW5NGj/8hQGIqgBQCnKouiu6WRekq8XBtEvERx6aVyav3TRs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=InUzYu6M; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="OzV2Zj2y"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1780987228;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=XBKR43MBL4MY4PqSfuY1MJ8CjvTvAn+/3f1jFPC1VeY=;
-	b=OzV2Zj2yu7HBxRDSsqB0u7zbClVet12++EUkm0h+vciK9unSIM4gTrP07qmDya0+iMqr72
-	JAyt7tbL5r+MbpGpWvRoqikU+IMOZcW0cCGnhj6tTf6x/VlmSfYbT9T6p7ALsiSd03op4T
-	9cJapThmlRF8jAu1WtmGh+lH01YTPQ0=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-551-OswMwogQOBSZEAMPF6MvHg-1; Tue,
- 09 Jun 2026 02:40:24 -0400
-X-MC-Unique: OswMwogQOBSZEAMPF6MvHg-1
-X-Mimecast-MFC-AGG-ID: OswMwogQOBSZEAMPF6MvHg_1780987223
-Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 81C7A1800D9C;
-	Tue,  9 Jun 2026 06:40:23 +0000 (UTC)
-Received: from fedora.redhat.com (unknown [10.44.32.77])
-	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 20BEA3653A;
-	Tue,  9 Jun 2026 06:40:19 +0000 (UTC)
-From: Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
-To: jeff.johnson@oss.qualcomm.com
-Cc: ath12k@lists.infradead.org,
-	jjohnson@kernel.org,
-	jtornosm@redhat.com,
-	linux-kernel@vger.kernel.org,
-	linux-wireless@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] ath12k: fix NULL pointer dereference in rhash table destroy
-Date: Tue,  9 Jun 2026 08:40:16 +0200
-Message-ID: <20260609064018.28434-1-jtornosm@redhat.com>
-In-Reply-To: <973da9e9-3851-4e00-85d4-28140c039127@oss.qualcomm.com>
-References: <973da9e9-3851-4e00-85d4-28140c039127@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="InUzYu6M"
+Received: from ideasonboard.com (93-46-82-201.ip106.fastwebnet.it [93.46.82.201])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id A4315132;
+	Tue,  9 Jun 2026 08:42:06 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1780987326;
+	bh=HSP/NBsMCDcgfL85cSYwUJK9bQInZ13SdztQXZx0Zm4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=InUzYu6M+NyguTpngErAYGP5/QAwX/5SVP8Al2jJufJ/eOwfFh/fiD04ng5YL7E34
+	 NRnltZpskKcU9Y4pRYvFNcJ6dOjd9Cmy5ZaWsZz+lqqsYbRSOvPKZ9ELnNvUVC0qN9
+	 rx5zH0S5gxX/3njXNSiWv+1Kd875ENnEdTeLMRSo=
+Date: Tue, 9 Jun 2026 08:42:32 +0200
+From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+To: David Carlier <devnexen@gmail.com>
+Cc: Daniel Scally <dan.scally@ideasonboard.com>, 
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] media: mali-c55: Fix AEXP IHIST disable bit shift
+Message-ID: <aie1vqkd96-8uCmA@zed>
+References: <20260609053231.24855-1-devnexen@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260609053231.24855-1-devnexen@gmail.com>
 
-Hello Jeff,
+Hi David
 
-Thank you for the feedback.
-
-> My preference would be to fix the logic so that the deinit is symmetric with
-> init, and if any stage of init fails, it should unwind whatever init occurred
-> up to that point. So this patch seems to be a bandage instead of an engineered
-> fix.
+On Tue, Jun 09, 2026 at 06:32:31AM +0100, David Carlier wrote:
+> The post-Iridix auto-exposure histogram disable bit in
+> MALI_C55_REG_METERING_CONFIG is bit 16, but MALI_C55_AEXP_IHIST_DISABLE
+> was defined with a shift of 12, copied from the AEXP_HIST definition
+> above it. As the value is masked with the BIT(16) disable mask when it
+> is programmed, the result is always zero and the disable bit is never
+> set. The IHIST can therefore never be disabled, neither at ISP init nor
+> via a parameters block flagged V4L2_ISP_PARAMS_FL_BLOCK_DISABLE, and the
+> hardware keeps producing histogram statistics that userspace believes
+> are switched off.
 >
-> But I'll let the Qualcomm engineering team give their opinion.
-I understand the concern about symmetry.
-The NULL check approach is intentional here. The ath12k driver has complex
-multi-stage initialization, with many potential failure points.
-The init/deinit paths are symmetric - destroy is called from the same
-cleanup paths as init.
-The issue is that init can fail partway through, leaving some components
-uninitialized.
-The rhashtable pointer itself serves as the initialization state indicator -
-it's NULL before init and non-NULL after. Checking it directly is simpler
-than adding separate state flags that must be kept in sync.
-That said, I'm open to alternative approaches if you see a cleaner way to
-handle partial initialization states across the driver's initialization
-sequence. Happy to revise if there's a better solution I'm missing.
+> Use a shift of 16 so the disable request takes effect.
+>
+> Fixes: d5f281f3dd29 ("media: mali-c55: Add Mali-C55 ISP driver")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Claude:claude-opus-4-8
+> Signed-off-by: David Carlier <devnexen@gmail.com>
+> ---
+>  drivers/media/platform/arm/mali-c55/mali-c55-registers.h | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-registers.h b/drivers/media/platform/arm/mali-c55/mali-c55-registers.h
+> index f098effde..4cd13b702 100644
+> --- a/drivers/media/platform/arm/mali-c55/mali-c55-registers.h
+> +++ b/drivers/media/platform/arm/mali-c55/mali-c55-registers.h
+> @@ -173,7 +173,7 @@ enum mali_c55_interrupts {
+>  #define MALI_C55_AEXP_HIST_SWITCH_MASK			GENMASK(14, 13)
+>  #define MALI_C55_AEXP_HIST_SWITCH(x)			((x) << 13)
+>  #define MALI_C55_AEXP_IHIST_DISABLE_MASK		BIT(16)
+> -#define MALI_C55_AEXP_IHIST_DISABLE			(0x01 << 12)
+> +#define MALI_C55_AEXP_IHIST_DISABLE			(0x01 << 16)
 
-> not a fan of this pattern.
-> if we go with a bandaid solution then i'd want to use guard(mutex) so that
-> there isn't a need for a cleanup goto -- we could just return like the patch below
-Agreed, guard(mutex) is cleaner. I'll incorporate this in v2 once we align
-on the overall approach.
+Thanks, this indeed was a bad copy and paste I presume
+Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
 
-Thanks
-
-Best regards
-José Ignacio
-
+>  #define MALI_C55_AEXP_SRC_MASK				BIT(24)
+>
+>  #define MALI_C55_REG_TPG_CH0				0x18ed8
+> --
+> 2.53.0
+>
