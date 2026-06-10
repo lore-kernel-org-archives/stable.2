@@ -1,260 +1,127 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 567AA3E317D;
-	Wed, 10 Jun 2026 12:42:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 638AC175A68
+	for <stable@vger.kernel.org>; Wed, 10 Jun 2026 12:57:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781095358; cv=none; b=k38E+1ZWmNIwYdlNb24easBZVIdAB0DZP34taV6Fg8GyTxuJCxrnay+o+s0uWo7n+duARQaHzUPdYM9Iw4y9FcPsGeiubIrYl3npSPMGiFqPN8o3ZQ1QtV70qjM1ELw9T3d38bIEKJCAO5RdGlmEdhGPxVO9o8KXcfBmKB7zp9k=
+	t=1781096246; cv=none; b=MXfX/Tt3nonfO2Y6WauSsL5CPgTaya3Cpk6ETY2sLvpA0wiI/e5Jd8h3YybIPTAPDom24xGH6YX4ZLn/+r2+4BvMV9KGBuJaSfiZa70IYTRG8BYQQR9VCMsq01/rcYFL0KDGAbqJ889OIT2StBmGJwM9wNZmS8tRGqHD3k24JEw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781095358; c=relaxed/simple;
-	bh=uxE+uoQzufSHOCgFsUDlLpYa+J6KbaAT0nelksXiQNE=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=GEC1OUK4BfGOmfwf5seOohnXFe4CTnZ8ZO/mFloH41ii8ZvxveRdtzPwZzBxn07ppEJ3v8wu59xw6ewzGZxXgWjo+u181836WvsRLYxGpaRU8yPJmdxo/eSK2pc3kdKUGnXhKOp4WXLeVTDAibWLBzcfsjRBMgOhC5UEccde4Tg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S1D+ySUs; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781096246; c=relaxed/simple;
+	bh=6YA9f27qh9mxNMJTy0t4qFwBEHKoclJ2oyWrLICkyF8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=L+TmizhctjFBf850/mt+Isv6gBvpObis4SKTcgHipdU7P5c2NlC8fXny4lSOyRetLEMxYNvzCmCNhuXhyfL2k0c1d4NK0bXiqoaxC2d0Hz3jyVHCbxIXJwM1izWv5q0w1vhnY91ZQFeGtkfVL1mVYDo1oY+HyW5WaxmiuEOSXbA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pBSI4TWs; arc=none smtp.client-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S1D+ySUs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB4341F00893;
-	Wed, 10 Jun 2026 12:42:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781095357;
-	bh=uH9NVykxHBYBVo9QQtLJo4jbBCxi07bApR3SMXwAEw8=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=S1D+ySUsVHGWm0bjUINYcPmCjUUV3FiWRMonPTYpZGCZYIRB7M4JpypasqAsMH6eW
-	 fsDfxoN8dKaHM6jkgZq9ywEZkC85N/RsPrVDok071kcigbhEG0bKmafHbvmLuJ3IfL
-	 Y8lwctH7EvCN6GINBFccNyOAhWwO357OsGXDGg4mZLPG+P1haM2KADZ1+xiCw47SI/
-	 D7Hc0oBuJUIKxd5Gzf1IAkDL9QW0yliksw6jrqNTOUZY+9xHWRU/Qca2s0s0j4wim0
-	 yQo4EpBTi4kDcMf7qPmrA3qiW6n8bB4m7JR3GvlfMujf/Hhj8EAKXm1xFLyuYnTx2R
-	 oaPe32sWjILcQ==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1wXIGQ-0000000BM3u-2eph;
-	Wed, 10 Jun 2026 12:42:34 +0000
-Date: Wed, 10 Jun 2026 13:42:34 +0100
-Message-ID: <867bo6tvlx.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Oliver Upton <oupton@kernel.org>
-Cc: kvmarm@lists.linux.dev,
-	Joey Gouly <joey.gouly@arm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Wei-Lin Chang <weilin.chang@arm.com>,
-	stable@vger.kernel.org,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: Re: [PATCH RESEND v2 3/5] KVM: arm64: nv: Re-translate VNCR before injecting abort
-In-Reply-To: <20260609185514.746507-4-oupton@kernel.org>
-References: <20260609185514.746507-1-oupton@kernel.org>
-	<20260609185514.746507-4-oupton@kernel.org>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pBSI4TWs"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-490aaeabdb4so43720375e9.1
+        for <stable@vger.kernel.org>; Wed, 10 Jun 2026 05:57:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781096243; x=1781701043; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=H5uqsocWiifn9fI4qO/LPuRHJe9fzJpovNTdwKX0G8U=;
+        b=pBSI4TWshHy8z07GkK8iUK7BKMvUWX9HIEvO4tsOnWS6uRIi+8B3+j7t1X/B47JMTj
+         NygS53LOiDkCpo/aBGuxtAIZqqpLmPoVfd3iy0kAKCvMpDFc/Olc/9VD9++PrCiHuWMb
+         xsRL9JbYXlF64fR1Cz62AliOJmKJd6lRA2n/d5ufcQ7grxKFnvq4i/zDLh3swOR9dh1X
+         i9Ae3iLjdDds0F08Dk4h2nI1EU9ta2zVhyf8vGOXbn/XdxpMfbL/++ki+TuvehfNjLVs
+         L6yjTghPwb2XAAQ/qKkxxhdWi3wBaZiTpvXb60DVgbMLmxkeYKohd2Dp3MzCDkNX/lXy
+         Wsug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781096243; x=1781701043;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=H5uqsocWiifn9fI4qO/LPuRHJe9fzJpovNTdwKX0G8U=;
+        b=MtHGqETo7zLlVicp0nImm5WXGuoeIFrIxWaztEOyD2+8TFLYIPqnVP3eYy+TF6szKl
+         dlA2td1+ALqgbJKft2RTP2wybeG9GGnikcUPRE5rQiWf13nNRWZYnQZN03WQapALZOuf
+         UNASJucngsG4vJTBkhE7RZuRqK7jQ5MSzaj8n/uQg/phFktJYeAjPQf5eGvbPBWrY1wK
+         7mTu7WNbamKbBblvrUWOjmvrxyW2dmarYLPNuEsChCanBX9eFYb/yIWY8Wv8RTur2skf
+         TYM9qbi7T3Qi+kpy6YEbXam2Y/Z7gqLgYzpx6xXYk2mTDOGUVB5usRYkaWf2YSwBfuBn
+         vzeA==
+X-Forwarded-Encrypted: i=1; AFNElJ8fIMIPx3JoU/DVpj8bG7sPKFIZw2Jq0O7l9WfJ564zkTTQToxFtI0yebDD2pB0jV+rEQIO2Wg=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzb2fn0btg1mw9EV3doc2gLW56lkryB6cfHyUIMr+qG+Ln/8h9J
+	mTteP9NA2elvFTDJ8khSeIbasx+KzPEkWVflKIeVmHOmbn7M0wXxbbM=
+X-Gm-Gg: Acq92OEymlDUIU1p+z+a0+rjl/QF5QbuQGH6n2nFtEBZHikP+gVpteLCKoYnngnpOhk
+	IYPoHqSi2prm9x5oZgHcCdjgodwdQjSJvemrPjWrrjyRPzxzq1HZTLiZp+ZnG5GKa92Hlnzmczk
+	GvBy/OjayvD063cA9LZRUhJtgGTU2PPGThrYpumYFsVucdCAjETImI1ZR3PLBrwPncZhMG0WfCj
+	xnHVH1n6thPzmoH/FPyXlHKV/I4jaY5jPA+EPs8ikMIBkgi+uKvnAvrgZXnDcuWBPWdeqA1FgdX
+	IFVWSLC0gjS9dSHXCcNMzsMlz0QXA2Wl1d7eEsLUieB0AQt+60Q526YWS/zwcvLvtBBjni9VksX
+	g4eRIZP6OBUSrIDisPq8grXsw+7JhFnRPSGroK3dlB5eIcQK5uulziQuUns1cwIGjb5cQ4+FyCR
+	p2hT7AhW1tebmecx77Vva/lIKFWAuRzXLGJOhJoq4ZLotzF+F409icvygWzH8o2cLdmc6GBSna5
+	+ImkDrnw9Rt2WNeuMUkovDDNIrUs6cK+fBMZ5bpcHZ3jweZK5865Ds=
+X-Received: by 2002:a05:600c:4444:b0:490:b9c3:6c59 with SMTP id 5b1f17b1804b1-490c260579fmr398877765e9.29.1781096242349;
+        Wed, 10 Jun 2026 05:57:22 -0700 (PDT)
+Received: from localhost.localdomain ([196.119.91.132])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490bc3d66c8sm537328905e9.10.2026.06.10.05.57.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 10 Jun 2026 05:57:21 -0700 (PDT)
+From: Mohammed EL Kadiri <med08elkadiri@gmail.com>
+To: quic_vgarodia@quicinc.com,
+	quic_dikshita@quicinc.com,
+	bryan.odonoghue@linaro.org,
+	mchehab@kernel.org
+Cc: hverkuil@kernel.org,
+	dmitry.baryshkov@oss.qualcomm.com,
+	linux-media@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Mohammed EL Kadiri <med08elkadiri@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/2] media: venus: fix payload size returned by parse_caps() and parse_alloc_mode()
+Date: Wed, 10 Jun 2026 13:56:54 +0100
+Message-ID: <20260610125655.10517-2-med08elkadiri@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260610125655.10517-1-med08elkadiri@gmail.com>
+References: <20260610125655.10517-1-med08elkadiri@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: oupton@kernel.org, kvmarm@lists.linux.dev, joey.gouly@arm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, weilin.chang@arm.com, stable@vger.kernel.org, sashiko-bot@kernel.org
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Tue, 09 Jun 2026 19:55:12 +0100,
-Oliver Upton <oupton@kernel.org> wrote:
-> 
-> KVM faults in the VNCR page with FOLL_WRITE whenver the guest aborts for
-> a write, similar to how a regular stage-2 mapping is handled. It is
-> entirely possible that the guest reads from the VNCR before writing to
-> it, in which case the PFN could only be read-only.
-> 
-> Invalidate the VNCR TLB and re-fetch the translation upon taking a VNCR
-> abort, allowing the host mapping to be faulted in for write the second
-> time around. Interestingly enough, this also satisfies the ordering
-> requirements of FEAT_ETS2/3 between descriptor updates and MMU faults.
-> 
-> Cc: stable@vger.kernel.org
-> Fixes: 2a359e072596 ("KVM: arm64: nv: Handle mapping of VNCR_EL2 at EL2")
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Signed-off-by: Oliver Upton <oupton@kernel.org>
-> ---
->  arch/arm64/kvm/nested.c | 115 +++++++++++++++-------------------------
->  1 file changed, 44 insertions(+), 71 deletions(-)
-> 
-> diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
-> index ebd7ccfeee99..d5c4b57123a9 100644
-> --- a/arch/arm64/kvm/nested.c
-> +++ b/arch/arm64/kvm/nested.c
-> @@ -1460,92 +1460,65 @@ static void handle_vncr_perm(struct kvm_vcpu *vcpu)
->  	kvm_inject_nested_sync(vcpu, esr);
->  }
->  
-> -static bool kvm_vncr_tlb_lookup(struct kvm_vcpu *vcpu)
-> -{
-> -	struct vncr_tlb *vt = vcpu->arch.vncr_tlb;
-> -
-> -	lockdep_assert_held_read(&vcpu->kvm->mmu_lock);
-> -
-> -	if (!vt->valid)
-> -		return false;
-> -
-> -	if (read_vncr_el2(vcpu) != vt->gva)
-> -		return false;
-> -
-> -	if (vt->wr.nG)
-> -		return get_asid_by_regime(vcpu, TR_EL20) == vt->wr.asid;
-> -
-> -	return true;
-> -}
-> -
->  int kvm_handle_vncr_abort(struct kvm_vcpu *vcpu)
->  {
->  	struct vncr_tlb *vt = vcpu->arch.vncr_tlb;
->  	u64 esr = kvm_vcpu_get_esr(vcpu);
-> +	bool is_gmem, perm;
-> +	int ret;
->  
->  	WARN_ON_ONCE(!(esr & ESR_ELx_VNCR));
->  
->  	if (kvm_vcpu_abt_issea(vcpu))
->  		return kvm_handle_guest_sea(vcpu);
->  
-> -	if (esr_fsc_is_permission_fault(esr)) {
-> -		handle_vncr_perm(vcpu);
-> -	} else if (esr_fsc_is_translation_fault(esr)) {
-> -		bool valid, is_gmem = false;
-> -		int ret;
-> -
-> -		scoped_guard(read_lock, &vcpu->kvm->mmu_lock)
-> -			valid = kvm_vncr_tlb_lookup(vcpu);
-> -
-> -		if (!valid)
-> -			ret = kvm_translate_vncr(vcpu, &is_gmem);
-> -		else
-> -			ret = -EPERM;
-> +	if (!esr_fsc_is_translation_fault(esr) && !esr_fsc_is_permission_fault(esr)) {
-> +		WARN_ONCE(1, "Unhandled VNCR abort, ESR=%llx\n", esr);
-> +		return 1;
-> +	}
->  
-> -		switch (ret) {
-> -		case -EAGAIN:
-> -			/* Let's try again... */
-> -			break;
-> -		case -ENOMEM:
-> -			/*
-> -			 * For guest_memfd, this indicates that it failed to
-> -			 * create a folio to back the memory. Inform userspace.
-> -			 */
-> -			if (is_gmem)
-> -				return 0;
-> -			/* Otherwise, let's try again... */
-> -			break;
-> -		case -EFAULT:
-> -		case -EIO:
-> -		case -EHWPOISON:
-> -			if (is_gmem)
-> -				return 0;
-> -			fallthrough;
-> -		case -EINVAL:
-> -		case -ENOENT:
-> -		case -EACCES:
-> -			/*
-> -			 * Translation failed, inject the corresponding
-> -			 * exception back to EL2.
-> -			 */
-> -			BUG_ON(!vt->wr.failed);
-> +	ret = kvm_translate_vncr(vcpu, &is_gmem);
-> +	switch (ret) {
-> +	case -EAGAIN:
-> +		/* Let's try again... */
-> +		break;
-> +	case -ENOMEM:
-> +		/*
-> +		 * For guest_memfd, this indicates that it failed to
-> +		 * create a folio to back the memory. Inform userspace.
-> +		 */
-> +		if (is_gmem)
-> +			return 0;
-> +		/* Otherwise, let's try again... */
-> +		break;
-> +	case -EFAULT:
-> +	case -EIO:
-> +	case -EHWPOISON:
-> +		if (is_gmem)
-> +			return 0;
-> +		fallthrough;
-> +	case -EINVAL:
-> +	case -ENOENT:
-> +	case -EACCES:
-> +		/*
-> +		 * Translation failed, inject the corresponding
-> +		 * exception back to EL2.
-> +		 */
-> +		BUG_ON(!vt->wr.failed);
+parse_caps() and parse_alloc_mode() return only the size of their fixed
+header fields, excluding the flexible array payload. hfi_parser() uses
+this return value to advance through the firmware response buffer, so
+underreporting causes parser desynchronization.
 
-Maybe we can lose this BUG_ON(). We rely on it being correct anyway.
+Return the full consumed size (header + entries), matching the correct
+pattern used by parse_profile_level().
 
->  
-> -			esr &= ~ESR_ELx_FSC;
-> -			esr |= FIELD_PREP(ESR_ELx_FSC, vt->wr.fst);
-> +		esr &= ~ESR_ELx_FSC;
-> +		esr |= FIELD_PREP(ESR_ELx_FSC, vt->wr.fst);
->  
-> -			kvm_inject_nested_sync(vcpu, esr);
-> -			break;
-> -		case -EPERM:
-> -			/* Hack to deal with POE until we get kernel support */
-> -			handle_vncr_perm(vcpu);
-> -			break;
-> -		case 0:
-> -			break;
-> -		}
-> -	} else {
-> -		WARN_ONCE(1, "Unhandled VNCR abort, ESR=%llx\n", esr);
-> +		kvm_inject_nested_sync(vcpu, esr);
-> +		break;
-> +	case 0:
-> +		break;
->  	}
->  
-> +	perm = kvm_is_write_fault(vcpu) ? vt->wr.pw && vt->hpa_writable : vt->wr.pr;
-> +	if (!perm)
-> +		handle_vncr_perm(vcpu);
-> +
+Fixes: 9edaaa8e3e15 ("media: venus: hfi_parser: refactor hfi packet parsing logic")
+Cc: stable@vger.kernel.org
+Signed-off-by: Mohammed EL Kadiri <med08elkadiri@gmail.com>
+---
+ drivers/media/platform/qcom/venus/hfi_parser.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Isn't there a problem here, where anything that doesn't perform an
-early return ends up evaluating the permissions, even if the
-translation has failed? My hunch is that you'd want something like
-this:
-
-diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
-index 736fdd6e99cdc..0cefc73d97199 100644
---- a/arch/arm64/kvm/nested.c
-+++ b/arch/arm64/kvm/nested.c
-@@ -1460,13 +1460,12 @@ int kvm_handle_vncr_abort(struct kvm_vcpu *vcpu)
- 		kvm_inject_nested_sync(vcpu, esr);
- 		break;
- 	case 0:
-+		perm = kvm_is_write_fault(vcpu) ? vt->wr.pw && vt->hpa_writable : vt->wr.pr;
-+		if (!perm)
-+			handle_vncr_perm(vcpu);
- 		break;
+diff --git a/drivers/media/platform/qcom/venus/hfi_parser.c b/drivers/media/platform/qcom/venus/hfi_parser.c
+index 1b3db2caa99f..e2af4e9901ee 100644
+--- a/drivers/media/platform/qcom/venus/hfi_parser.c
++++ b/drivers/media/platform/qcom/venus/hfi_parser.c
+@@ -85,7 +85,7 @@ parse_alloc_mode(struct venus_core *core, u32 codecs, u32 domain, void *data)
+ 		type++;
  	}
  
--	perm = kvm_is_write_fault(vcpu) ? vt->wr.pw && vt->hpa_writable : vt->wr.pr;
--	if (!perm)
--		handle_vncr_perm(vcpu);
--
- 	return 1;
+-	return sizeof(*mode);
++	return mode->num_entries * sizeof(u32) + sizeof(*mode);
  }
  
-
-Thoughts?
-
-	M.
-
+ static void fill_profile_level(struct hfi_plat_caps *cap, const void *data,
+@@ -146,7 +146,7 @@ parse_caps(struct venus_core *core, u32 codecs, u32 domain, void *data)
+ 	for_each_codec(core->caps, ARRAY_SIZE(core->caps), codecs, domain,
+ 		       fill_caps, caps_arr, num_caps);
+ 
+-	return sizeof(*caps);
++	return num_caps * sizeof(*cap) + sizeof(u32);
+ }
+ 
+ static void fill_raw_fmts(struct hfi_plat_caps *cap, const void *fmts,
 -- 
-Without deviation from the norm, progress is not possible.
+2.43.0
+
