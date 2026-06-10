@@ -1,42 +1,60 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+Received: from out162-62-58-211.mail.qq.com (out162-62-58-211.mail.qq.com [162.62.58.211])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4049332EA2;
-	Wed, 10 Jun 2026 03:05:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 727013346B4;
+	Wed, 10 Jun 2026 03:11:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.58.211
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781060743; cv=none; b=IXRngsE07MZWbI26KGBMtk1K4F9VbIZ44NVBbcsU0zNCLR+vbCre87DmCXL3wVSZCpg3gRaitACVezNUuNa41XN56z7FtxALG4j4APW3SVFq7Lu2/c8+uRDbHRMoPOoHB/WBidl7AqGc0AeUSCvSX6M967L23SEWLorV40OVdjk=
+	t=1781061087; cv=none; b=VkKPEyc8yAvtmQCBnwDFfAdOXl1IhcTJ2wKuUqTQZ/s6vot6iY32FB0i0mdEvwfHbtaw2eIc6LSscXVz01VWXQkwBWZb62663U0PUOqsGPn8kEwcJupFWNgjjFVve1deZgqpRapjjFQpJQziCfeB5tRq/reUiK8LKgA65z56X34=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781060743; c=relaxed/simple;
-	bh=2X8rfCAb1oZIX7BnH6JOSP0HmSxgw85ABvwwB2akfCE=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=SOe58rUhBo2nkkIHf9I6uV0RQGFvD5YqXnQvH1zZv4Fg6eoAve5/gTR5vTkBOl5ZM6Wt4Dbs9czZ6iXlX1fh4uN7W+Klj2pY3oEx8jqjvco/P9nKnFkrLij24I5zjvBrsi5MSrA6Fe77kN9jTc4kMlu/mPFTBHnLWd/9wT11Z9M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=EgXPldLE; arc=none smtp.client-ip=220.197.31.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1781061087; c=relaxed/simple;
+	bh=RrDj1dVqthvI8cUvj+c8uSlEErP0aGR6vgHkoXDFBDA=;
+	h=Message-ID:From:To:Cc:Subject:Date:MIME-Version; b=kzxL/uxtmOiIwIcKstaTa6dOeK66CLRkcc7PXW7Qdbza4BgrELxNuerjGFZZq8Ga/q4uvMqbWoAcUgGsTfIRKpe8VH4HMLmMvLAfh9NdPGL3QcmBtkl1n+jEYiSHOpac/YLrwrkK1wTpp3oLDcHfG22qMZjUbvivJ3MqzWFCJHU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foxmail.com; spf=pass smtp.mailfrom=foxmail.com; dkim=pass (1024-bit key) header.d=foxmail.com header.i=@foxmail.com header.b=ERRjLjHw; arc=none smtp.client-ip=162.62.58.211
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foxmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foxmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="EgXPldLE"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=y7
-	FMWOQHFD1M1H1jdZsZDIeBnKDttX8LgdIEgVZkweM=; b=EgXPldLEjzyg8vWRG1
-	t0xx9wVZ3RyjnxmWwtuud4goSw1hE558U+u+TAyjBLGCnKm0PPaKwcqd1qSrXRDN
-	k8HRocOlnM/m4S3HsgJKH6KhHmHDS59D7jXTRQPQqSwUweI/Rk87ted9w/wH773E
-	lRVq3VGUk+ZluVFegDBLioo1s=
-Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wDn7xlp1ChqZkUqCg--.33361S2;
-	Wed, 10 Jun 2026 11:05:14 +0800 (CST)
-From: Haoxiang Li <haoxiang_li2024@163.com>
-To: brgl@kernel.org,
-	andi.shyti@kernel.org,
-	khilman@deeprootsystems.com,
-	chaithrika@ti.com
-Cc: linux-arm-kernel@lists.infradead.org,
-	linux-i2c@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=foxmail.com header.i=@foxmail.com header.b="ERRjLjHw"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
+	s=s201512; t=1781061073;
+	bh=XMINfkWJMUehntgXydtcMCrD39psxFUXu00/+v4bE3U=;
+	h=From:To:Cc:Subject:Date;
+	b=ERRjLjHwoYNkIUWXukgOxq5fYF9h3xC1BpRv9s+Hsb5lRAjRhTbBmNja5xPNrGplC
+	 HiUp1fA6x2ZLlsmOuyUtz5A55LWb7iNn8pkmiNe44tyZr+/wj2Q5+cGzqx3J6axcTe
+	 CcKNR7BznlTKfcy52EyhsFC9B6gXb/q7ZhbwkoC0=
+Received: from localhost.localdomain ([116.128.244.169])
+	by newxmesmtplogicsvrsza53-0.qq.com (NewEsmtp) with SMTP
+	id 2CAA70E6; Wed, 10 Jun 2026 11:11:10 +0800
+X-QQ-mid: xmsmtpt1781061070tncfo02na
+Message-ID: <tencent_D87B6446BC0B517BEF9D4731C6CD8B288206@qq.com>
+X-QQ-XMAILINFO: N4zS2EeO0VckaIgrGMVHM8hulUcyekeRnnw3GxgGeODx/aGSrURgg4iEbnUgCv
+	 vEvlwekc8iKWrDtyE5MbWT6pVcFbuOlc5pgZEOIFoW4ZV1BnL5SZuoeCXSdBHbwSiI3Vcy476RlL
+	 xs4JKBxPUVBmPnrLDFKZMdOtcRezqANZIttJZzhRYcdE/VgjPLQe57pU9a441c4Mn5u6Tq9JmFjE
+	 hSd/xyljYv4SzO2WuPyZ4Ppy0iTFwHUnqEW7s3c/YK6/L0aDKIrV7bxz7GehUDbGBcRtbxSIQvi+
+	 G1oww360v9Efkl4xfqBkVwuYPD3i6+9gX3dhqnajKj3qc9DHsF4qgHBAL4jWvdrLdkCsuwFtee+q
+	 b9x/hoajfMOye0oLnUteQXfSzHBVvLHG8y34YCdVnikaPtWLEkZ5RA1ds+POPFNnJNjPlBMHbA/Z
+	 RUwDkCL8TFSAsfGZlLSpiTj1pxkfMZFTWV5oHsWHDYa8LmgQ9QEgRGh6vuq4bgCYpVbOrZZoBt/3
+	 i1M3H9pzqDaEJ6ZHYMhqv16NMsAtUoZ6Zqw76TOL4LCWIRj2RcLPjcP+ijXXnoTKz4LsUKIMwhiE
+	 TK89aap/WEA8aT+iZwAK98i1lw6CzkR1lpzLMsJoxttL6HSSqnYQnaiYf87HHzcTqecL6Ps5Do/q
+	 pD2VEpb9ZK7OI6kHm+9iZoBRjrXDCGaCTXu1e4URdG2v/YV+6yW+54qTcrG9AufgWN/M7cSBaT5m
+	 bsoar/lXY1ynEy+E/ulnJD/7C4lfcoMbiUtc00uARv3NSPL0VyywpZxASbcfOM/YaI9wKHqJLiSR
+	 /T1EcQIr1KAhjMqdY6cU0c8CfCg6DNnNlgpRicP3/tKAhjFjeHFYzOqIkmzQgameJgOQKccsFKNO
+	 1xt+b/LOwuhYVXR7Zm5oCBtsRp1RvZwmSa7yKT0xDRwUMzn4mVvVenukmL2cTkYBenUG7z36t1+9
+	 3ohzCSMVoLdfE4MNaj6xl9yoUjYwXQTL41fgDnzQ5r6EZ1XGSnIiOfxeS995XOwbfw56T9NhYvuj
+	 1/3a+qg+gXT4q6zv88LnkpiTAYHQQ=
+X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
+From: Zhao Dongdong <winter91@foxmail.com>
+To: lgirdwood@gmail.com,
+	peter.ujfalusi@linux.intel.com,
+	daniel.baluta@nxp.com
+Cc: linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Haoxiang Li <haoxiang_li2024@163.com>,
+	sound-open-firmware@alsa-project.org,
+	Zhao Dongdong <zhaodongdong@kylinos.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH] i2c: davinci: Unregister cpufreq notifier on probe failure
-Date: Wed, 10 Jun 2026 11:05:13 +0800
-Message-Id: <20260610030513.2651018-1-haoxiang_li2024@163.com>
+Subject: [PATCH] ASoC: SOF: topology: fix memory leak in snd_sof_load_topology
+Date: Wed, 10 Jun 2026 11:11:08 +0800
+X-OQ-MSGID: <20260610031108.143331-1-winter91@foxmail.com>
 X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -45,47 +63,38 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDn7xlp1ChqZkUqCg--.33361S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7Xw47Jr1DAw1xAryxAF18Xwb_yoW8JrW8pa
-	17Ca95Cr10gF4qgw1UAr15uFyUW3yDC3y7CFyUG3WruFs8J34vq34YqFyYgFyrA3ykJw47
-	Z3s8tw129F1UZF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pi0D7fUUUUU=
-X-CM-SenderInfo: xkdr5xpdqjszblsqjki6rwjhhfrp/xtbCxQvzYmoo1Gtq7AAA3k
 
-davinci_i2c_probe() registers a cpufreq transition notifier before adding
-the I2C adapter.  If i2c_add_numbered_adapter() fails, the probe error path
-releases the device resources without unregistering the notifier.
+From: Zhao Dongdong <zhaodongdong@kylinos.cn>
 
-Add a dedicated error path to unregister the cpufreq notifier after
-i2c_add_numbered_adapter() fails.
+When the topology filename contains "dummy" and tplg_cnt is 0, the
+function returns -EINVAL directly without freeing the tplg_files
+allocated by kcalloc() at line 2497. This leaks memory on every
+such topology load attempt.
 
-Fixes: 82c0de11b734 ("i2c: davinci: Add cpufreq support")
+Fix this by setting ret = -EINVAL and jumping to the out: label,
+which already handles the kfree(tplg_files) cleanup.
+
+Fixes: 99c159279c6d ("ASoC: SOF: don't check the existence of dummy topology")
 Cc: stable@vger.kernel.org
-Signed-off-by: Haoxiang Li <haoxiang_li2024@163.com>
+Signed-off-by: Zhao Dongdong <zhaodongdong@kylinos.cn>
 ---
- drivers/i2c/busses/i2c-davinci.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ sound/soc/sof/topology.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/i2c/busses/i2c-davinci.c b/drivers/i2c/busses/i2c-davinci.c
-index a773ba082321..a24c3e8b87ff 100644
---- a/drivers/i2c/busses/i2c-davinci.c
-+++ b/drivers/i2c/busses/i2c-davinci.c
-@@ -818,12 +818,14 @@ static int davinci_i2c_probe(struct platform_device *pdev)
- 	adap->nr = pdev->id;
- 	r = i2c_add_numbered_adapter(adap);
- 	if (r)
--		goto err_unuse_clocks;
-+		goto err_cpufreq;
- 
- 	pm_runtime_put_autosuspend(dev->dev);
- 
- 	return 0;
- 
-+err_cpufreq:
-+	i2c_davinci_cpufreq_deregister(dev);
- err_unuse_clocks:
- 	pm_runtime_dont_use_autosuspend(dev->dev);
- 	pm_runtime_put_sync(dev->dev);
+diff --git a/sound/soc/sof/topology.c b/sound/soc/sof/topology.c
+index 63d582c65891..09d6dc01814c 100644
+--- a/sound/soc/sof/topology.c
++++ b/sound/soc/sof/topology.c
+@@ -2534,7 +2534,8 @@ int snd_sof_load_topology(struct snd_soc_component *scomp, const char *file)
+ 		if (strstr(file, "dummy")) {
+ 			dev_err(scomp->dev,
+ 				"Function topology is required, please upgrade sof-firmware\n");
+-			return -EINVAL;
++			ret = -EINVAL;
++			goto out;
+ 		}
+ 		tplg_files[0] = file;
+ 		tplg_cnt = 1;
 -- 
 2.25.1
 
