@@ -1,177 +1,125 @@
-Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [194.59.206.189])
+Received: from kylie.crudebyte.com (kylie.crudebyte.com [5.189.157.229])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5237409E0F;
-	Wed, 10 Jun 2026 16:12:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.59.206.189
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32A2931F9A2;
+	Wed, 10 Jun 2026 16:25:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.189.157.229
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781107945; cv=none; b=I7KoTwenidMLo96aHGB2OKj2+BMrCKyPHphgz2jmcxIAuaCF1W9o/J5KSZEKCAeUp3E46RAC0vs8rLjfwXg1fc8imTviRnTXGdtTlr4qYjlLPVvjPig9ZD/np8VbVm4stSN48nIvVqQ+JCYMrVZUvl2+EgzsztmUuxtsxVlu0To=
+	t=1781108741; cv=none; b=mG+Wt7JtaHca991jaXtLkRhmCaQiyU7GH4txcMZx3yt31PfogcxfT9Sn9UtVQZuK/pyJvDBZ5/NPU1eHgzj8udNwIp8YS3Iu9OIKhHlf7lTmC6WPBAhfkXZ53Xn40eu112XfWZ/X2oLh9dV55X9ZlGcysbZgtQL5rO3UpLzk4kY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781107945; c=relaxed/simple;
-	bh=N2Vp3+NXkkwYGSeyZCVnIKlKNyk2cVjtZANmuIr7ATU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=mw7QNYGYOvF26JuL0iCCdtXstFGRm+Iaw9Za8bxhQKOurJCu4pMAMLVaCyTLCDb4/PqQQPVJqXGRZErMeO5r8Ab3yigB1N8ygx6cU7M82GU9Fot/CwVQt8Px9EVZ0++eKfHV/ZN0ICI01Y3KpegfkNdJNKGvqvdHtXRTuBr0kXw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=leemhuis.info; spf=pass smtp.mailfrom=leemhuis.info; dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b=f7zf+0ga; arc=none smtp.client-ip=194.59.206.189
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=leemhuis.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
+	s=arc-20240116; t=1781108741; c=relaxed/simple;
+	bh=htM2khgHfnUWMbxF5QO2EKmsTuEgphGXBdpgWSrVaMo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=dZrCtoWLkszv/1rYQFqCpVLiU8ScU7Viar6C82d+/eojS30sy0ozICjvaDoZe54hEKhDF1qJgAcfOxScdpFG6/N9a19DpV2wOcPpOLxfW1DEjBNaVIfMZJ0IKNhYKTjRmtSa1n2j6KwStXzYSbQhRCIGsl/u/BvKBX00dfgMR6s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=crudebyte.com; spf=pass smtp.mailfrom=crudebyte.com; dkim=pass (4096-bit key) header.d=crudebyte.com header.i=@crudebyte.com header.b=cTJA+mxY; arc=none smtp.client-ip=5.189.157.229
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=crudebyte.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crudebyte.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b="f7zf+0ga"
-Received: from relay02-mors.netcup.net (localhost [127.0.0.1])
-	by relay02-mors.netcup.net (Postfix) with ESMTPS id 4gb9lc2DqRz4KZQ;
-	Wed, 10 Jun 2026 18:12:12 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
-	s=key2; t=1781107932;
-	bh=N2Vp3+NXkkwYGSeyZCVnIKlKNyk2cVjtZANmuIr7ATU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=f7zf+0gau605TEMXVnszT5wNaUhLb/9Am3A7QwUssOgQhyVzOP+yX5LonAn8CHn2h
-	 pjmQVN6DcBtgQJKqhJihUIwzP7iPFhVdcTM8E8VumZvDhLP6XsvL79VNe+aOFR7tPE
-	 qqlpBs/RJxff+dcLigXkJuuMMJ+sqTmt+iqZPfDdfxug0H1og9k1Gcv6f7t2l/yb02
-	 9pu6A9LBYIZzOO/eZ9L+rH/2JFE+CXGo56OktJF4FbVixqXXwEs4icjvT/eLdWGQob
-	 RGya8uPhle85LeIk35Js9AICDEUQp72zAZyuOFQg1Zql5TFneRuOsTNp63+NRtCrfu
-	 gyUg8/m9XJAWg==
-Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
-	by relay02-mors.netcup.net (Postfix) with ESMTPS id 4gb9lc1XXHz7xM6;
-	Wed, 10 Jun 2026 18:12:12 +0200 (CEST)
-Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by policy02-mors.netcup.net (Postfix) with ESMTPS id 4gb9lb3yj0z8svF;
-	Wed, 10 Jun 2026 18:12:11 +0200 (CEST)
-Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
-	by mxe9fb.netcup.net (Postfix) with ESMTPSA id 349E660363;
-	Wed, 10 Jun 2026 18:12:10 +0200 (CEST)
-Authentication-Results: mxe9fb;
-        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
-Received-SPF: pass (mxe9fb: connection is authenticated)
-Message-ID: <5492f53d-600f-4de9-ba98-1f82a4880bf1@leemhuis.info>
-Date: Wed, 10 Jun 2026 18:12:08 +0200
+	dkim=pass (4096-bit key) header.d=crudebyte.com header.i=@crudebyte.com header.b="cTJA+mxY"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=crudebyte.com; s=kylie; h=Content-Type:Content-Transfer-Encoding:
+	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
+	Content-ID:Content-Description;
+	bh=KfS3ig5mGkyyFPWW4cNnCQUNTT0//5Cf3AvgXx33nes=; b=cTJA+mxYjbBuaNXV0SH0a+A6jL
+	smB44HSPEerkEBSBM6zbvzNWyP1oBLeY65DKP4tlyiA4v3/I2TsLGb6kGOusZC+oKQTIATfkDOtZF
+	BC0vhqReWRlQEGzE9BxUG3jEHTUTOtm3oxGXBO+mor6haVWdyIhcw3PNnV3okahmBIEngTxH/30oA
+	daJ6DPmStx59GaXzgN4ARaR/4KCam5nk973OCaZDaYG0iqOKlvISaG5i0w5SiBiTJa2guG6wqWmGD
+	RKW6aBzLtlsXy6165oTAMEExNOcZKYjdgfuByKfDwFA1vGU0FTwKNqdyIi04luJv+UmW785o/CCl6
+	4pDwBLhLjEHEQEsdaQ4b3VyODUoAanUG/WvWi4wPvi2FbW69MjOhVEH5/ozWPr6S5tVwLvgeJ0d9N
+	gybbDJCPTlccA5CYyZiqo3RC6kT+eYk+ry+2tWc/QTqrGXgZQ7tLutTrKejTMf5M8VsCDiU3rCPY6
+	FB5aVRu/0TSUnlSKqi+SClXC0/uSFBaQDFDXapPdjy/je8W9PHkYYbaSPTreXiIGNr3rgT1+iOIX7
+	/UHFybMlScO3JYE1tZUjVHYcStaXzYuuBO/u82CK+C4SSof20BtimM4bHssryD+ZjVz76NIREwTXu
+	iTbbqWWrryQkoljrMGI0e1WDEttJSs+xX+PaB1DOw=;
+From: Christian Schoenebeck <linux_oss@crudebyte.com>
+To: Eric Van Hensbergen <ericvh@kernel.org>,
+ Latchesar Ionkov <lucho@ionkov.net>,
+ Dominique Martinet <asmadeus@codewreck.org>,
+ Michael Bommarito <michael.bommarito@gmail.com>
+Cc: v9fs@lists.linux.dev, virtualization@lists.linux.dev,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] 9p/trans_virtio: bound mount_tag show copy to one page
+Date: Wed, 10 Jun 2026 17:46:13 +0200
+Message-ID: <1962500.CQOukoFCf9@weasel>
+In-Reply-To: <20260610114206.3749904-1-michael.bommarito@gmail.com>
+References: <20260610114206.3749904-1-michael.bommarito@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] NFSv4: clear exception state on successful mkdir retry
-To: Anna Schumaker <anna@kernel.org>, Trond Myklebust <trondmy@kernel.org>,
- NeilBrown <neil@brown.name>, Igor Raits <igor.raits@gmail.com>
-Cc: =?UTF-8?B?SmFuIMSMw61wYQ==?= <jan.cipa@gooddata.com>,
- linux-nfs@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org,
- Linux kernel regressions list <regressions@lists.linux.dev>
-References: <177745671692.1474915.5018486129724109553@noble.neil.brown.name>
- <20260429104938.1776671-1-igor.raits@gmail.com>
- <971ecb6c-2687-429f-af86-fc980c2d04f9@leemhuis.info>
- <5cbf8431-e3c4-41d9-afcd-fb121dc12395@leemhuis.info>
- <fa68fbe1-466e-4fa3-8245-8eb61243b409@app.fastmail.com>
-From: Thorsten Leemhuis <regressions@leemhuis.info>
-Content-Language: de-DE, en-US
-In-Reply-To: <fa68fbe1-466e-4fa3-8245-8eb61243b409@app.fastmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-PPP-Message-ID: <178110793057.3660475.9284108534434954215@mxe9fb.netcup.net>
-X-Rspamd-Server: rspamd-worker-8404
-X-Rspamd-Queue-Id: 349E660363
-X-NC-CID: KamAnLYGUEdl9CtO3ghd1LrSXt6ggQZ6fk1YhWZonMwh555PCmA=
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"
 
-On 6/10/26 16:28, Anna Schumaker wrote:
-> On Tue, Jun 9, 2026, at 6:05 AM, Thorsten Leemhuis wrote:
->> On 5/13/26 09:18, Thorsten Leemhuis wrote:
->>> [top-posting to facilitate processing]
->>> 
->>> @NFSv4 maintainers, just wondering, did this patch maybe fall
->>> through the cracks? It fixes a regression, that's why it's on my
->>> radar. Or was there some progress and I missed it?
+On Wednesday, 10 June 2026 13:42:06 CEST Michael Bommarito wrote:
+> p9_mount_tag_show() copies strlen(chan->tag) + 1 bytes into the
+> single-page buffer the sysfs core provides, with no upper bound. The
+> mount tag length comes from virtio_9p_config.tag_len, a 16-bit field read
+> from the device at probe in p9_virtio_probe() with no cap. Under the
+> confidential-computing threat model, where the guest does not trust the
+> host, a malicious or compromised host can present a 65535-byte tag with
+> no embedded NUL. A read of the world-readable /sys/.../mount_tag
+> attribute (udev reads it at probe) then copies ~64 KiB into the 4 KiB
+> sysfs page, a slab-out-of-bounds write of host-controlled content.
 > 
-> The patch is in my linux-next branch here: https://git.linux-
-> nfs.org/?p=anna/linux-
-> nfs.git;a=commit;h=238e9b51aa29f48b6243212a3b75c8e48d6b96fd
+> Bound the copy to the page size in the show handler.
 > 
-> It'll be included when the merge window opens this weekend.
+> Fixes: 179a5bc4b8cb ("net/9p: use memcpy() instead of snprintf() in
+> p9_mount_tag_show()") Cc: stable@vger.kernel.org
+> Assisted-by: Claude:claude-opus-4-8
+> Signed-off-by: Michael Bommarito <michael.bommarito@gmail.com>
+> ---
+>  net/9p/trans_virtio.c | 6 +++++-
+>  1 file changed, 5 insertions(+), 1 deletion(-)
+> 
+> diff --git a/net/9p/trans_virtio.c b/net/9p/trans_virtio.c
+> index 4cdab7094b273..b62aa7b309f1c 100644
+> --- a/net/9p/trans_virtio.c
+> +++ b/net/9p/trans_virtio.c
+> @@ -573,7 +573,11 @@ static ssize_t p9_mount_tag_show(struct device *dev,
+>  	chan = vdev->priv;
+>  	tag_len = strlen(chan->tag);
+> 
+> -	memcpy(buf, chan->tag, tag_len + 1);
+> +	if (tag_len > PAGE_SIZE - 2)
+> +		tag_len = PAGE_SIZE - 2;
+> +
+> +	memcpy(buf, chan->tag, tag_len);
+> +	buf[tag_len] = '\0';
+> 
+>  	return tag_len + 1;
+>  }
 
-Great, thx Anna. Was a bit confused why I could not see in -next 90
-minutes ago (that where I checked yesterday before prodding, too), but
-it turned up there in the new -next release that was published a few
-minutes ago. :-D
+Given that this has already seen some rotations, it is worth to think a bit 
+more about it:
 
-Ciao, Thorsten
+1. Destination buffer being PAGE_SIZE large is an implementation detail of 
+seq_file. If the latter is changed, this code breaks (again) silently without 
+anybody noticing.
 
->> Still no progress afaics. Feels like I'm missing something obvious
->> or like I'm totally of track.
->> 
->> Igor, Neil, is that the case? Or are you also waiting for the fix
->> to make progress?
->> 
->> Ciao, Thorsten
->> 
->>> On 4/29/26 12:49, Igor Raits wrote:
->>>> After a server returns NFS4ERR_DELAY for an NFSv4 CREATE
->>>> issued by mkdir(2), the client correctly waits and retries.
->>>> When the retry succeeds, however, mkdir(2) can still surface -
->>>> EEXIST to userspace even though the directory was just created
->>>> on the server.
->>>> 
->>>> Reproducer (random 16-hex names so collisions are not the
->>>> cause) against an in-kernel Linux nfsd; reproduces under both
->>>> NFSv4.0 and NFSv4.2:
->>>> 
->>>> N=2000000; base=/var/gdc/export for ((i=1; i<=N; i++)); do 
->>>> d=$base/$(openssl rand -hex 8) mkdir "$d" 2>/dev/null || echo
->>>> "$(date +%T) failed loop=$i $d" rmdir "$d" 2>/dev/null done
->>>> 
->>>> Failures cluster at the cadence at which the server-side auth/
->>>> export cache refresh path causes nfsd to return NFS4ERR_DELAY
->>>> for CREATE.
->>>> 
->>>> A wire trace of one failure (the three CREATE RPCs all come
->>>> from a single mkdir(2), generated by the do-while in
->>>> nfs4_proc_mkdir()):
->>>> 
->>>> client -> server  CREATE name=...  -> NFS4ERR_DELAY ~100 ms
->>>> later client -> server  CREATE name=...  -> NFS4_OK
->>>> (dir created) ~80 us later client -> server  CREATE name=...  -
->>>> > NFS4ERR_EXIST   (correct)
->>>> 
->>>> Since commit dd862da61e91 ("nfs: fix incorrect handling of
->>>> large-number NFS errors in nfs4_do_mkdir()"),
->>>> nfs4_handle_exception() is called only when _nfs4_proc_mkdir()
->>>> returned an error.  That gate breaks retry-state hygiene:
->>>> nfs4_do_handle_exception() resets exception.{delay,recovering, 
->>>> retry} to 0 on entry, so calling it on success is what
->>>> previously cleared the retry flag set by the preceding
->>>> NFS4ERR_DELAY iteration. With the gate in place,
->>>> exception.retry stays at 1 after the successful retry, the
->>>> loop runs once more, and the resulting CREATE for an already-
->>>> created name yields NFS4ERR_EXIST -> -EEXIST to userspace.
->>>> 
->>>> Drop the conditional and call nfs4_handle_exception()
->>>> unconditionally, matching every other do-while in fs/nfs/
->>>> nfs4proc.c (nfs4_proc_symlink(), nfs4_proc_link(), etc.).  The
->>>> dentry/status separation introduced by that commit is
->>>> preserved.
->>>> 
->>>> Fixes: dd862da61e91 ("nfs: fix incorrect handling of large-
->>>> number NFS errors in nfs4_do_mkdir()") Reported-and-tested-by:
->>>> Jan Čípa <jan.cipa@gooddata.com> Closes: https://
->>>> lore.kernel.org/linux-nfs/
->>>> CA+9S74hSp_tJu2Ffe2BPNC2T25gfkhgjjDkdgSsF5c2rnJq_wA@mail.gmail.com/
->>>>  Reviewed-by: NeilBrown <neil@brown.name> Cc:
->>>> stable@vger.kernel.org Signed-off-by: Igor Raits
->>>> <igor.raits@gmail.com> --- fs/nfs/nfs4proc.c | 5 ++--- 1 file
->>>> changed, 2 insertions(+), 3 deletions(-)
->>>> 
->>>> diff --git a/fs/nfs/nfs4proc.c b/fs/nfs/nfs4proc.c index
->>>> a0885ae55abc..ffd14141ea1d 100644 --- a/fs/nfs/nfs4proc.c +++
->>>> b/fs/nfs/nfs4proc.c @@ -5393,10 +5393,9 @@ static struct
->>>> dentry *nfs4_proc_mkdir(struct inode *dir, struct dentry
->>>> *dentry, do { alias = _nfs4_proc_mkdir(dir, dentry, sattr,
->>>> label, &err); trace_nfs4_mkdir(dir, &dentry->d_name, err); +
->>>> err = nfs4_handle_exception(NFS_SERVER(dir), err, &exception); 
->>>> if (err) -			alias =
->>>> ERR_PTR(nfs4_handle_exception(NFS_SERVER(dir), -
->>>> err, -							      &exception)); +			alias = ERR_PTR(err); }
->>>> while (exception.retry); nfs4_label_release_security(label);
->>>> 
->>> 
+2. memcpy() was introduced by 179a5bc4b8cb because chan->tag was not NULL 
+terminated. However since edcd9d977354 it *is* NULL terminated.
+
+Given those two, an alternative would be:
+
+  len = sysfs_emit(buf, "%s", chan->tag);
+
+As it already handles the PAGE_SIZE limit inside its implementation.
+
+However, still ...
+
+3. Is it a good idea to just *silenty* truncate a very long tag to something 
+else just to avoid an OOB? It would at least break auto mount rules, as the 
+truncated tag would not match device's real tag.
+
+4. And most importantly: Would a sane 9p device *ever* use a 64k tag, if yes 
+what for?
+
+I would say no, a 64k tag is at least suspicious, if not even hostile.
+
+Therefore: what about simply rejecting the device at probe time if its tag is 
+beyond a certain length?
+
+/Christian
+
 
