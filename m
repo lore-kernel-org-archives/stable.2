@@ -1,99 +1,90 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF8824A32;
-	Wed, 10 Jun 2026 05:00:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 549EF349CCF;
+	Wed, 10 Jun 2026 05:07:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781067633; cv=none; b=rAnBRNxBptUoPZaQ71ZA1l4tB4Yhrlj0018o5D0pvJF9yVb69eYEAouEULJdr9vKSDOg5Nbr2Nzm0Kf7nc9C4b1XR3eOwpvu9DBJc0ANwxtxqLuLoUvTD/OkPDQAIC4GpLIwFlHq8mEGpZkNm+zRjKuo9ZvZNX63yxuoiK8MBKU=
+	t=1781068062; cv=none; b=nHEBzZ0Hz3zN5SeixvzI0nO2oBruasc1p5keAA1bZGSIWLg356AJwWYGWkI0aTayDv0lpGQbrcKV8tTTEiw2itWP5RYXOTYQqEiWUb8BSotlhHdDY5kSGYJYljzOAFiaFGheWcFjXl+fyaRKFFbbt816i9jqTHM0R/wQyaCIsuA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781067633; c=relaxed/simple;
-	bh=KV3Gn+8cf7Pp+/wunO8+5tk/xzn9Na27+sBpnfgr03s=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mh6DvzlxewueVMtSwGTIr8yvFiBmQy+j6y9Iihs9kMF4X5OunpGQ/jUJDzCvTf6NEMp4w/S9N/3XG7WQF0cXAFnyR+P+PKUZiFcDK2lD3Ac0mxUGiwFyPiz4soSTpEM0h9Ij6vRisJMWN4xzD1Vn19S22tDoBaR4b3jZsC/eZq8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dVDe2QeV; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781068062; c=relaxed/simple;
+	bh=cNPVQn2OgGoFhfAuY++UbAD/Bdyrtuunx8YG+TNh9gA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=N6/N/YVKNdnE4iDNog7DeSj8JWMstqOqH3DwfrRp85AYCmz8ahvOetB2LCef0ZSz+l63BjwHf3NiHoct67vCquXIFboSUv8FbhNPZDEfWIZYRUGlCZnGZeZ5KMwouLW15uSkxSdNu/aPQDxO2MS6whVUQ1ztQakmk0fAW5FLUWA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=lst.de; spf=none smtp.mailfrom=bombadil.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=q2IzERXs; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=lst.de
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dVDe2QeV"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 6CA031F00893;
-	Wed, 10 Jun 2026 05:00:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781067632;
-	bh=lUAvqflCpaW5B6Ldgvps0KJCZIBpBLVyYKw02shUYxQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=dVDe2QeVb+X2CsahXRI5DQjnvRyBjzTy4RId4J5RSE2QO2ZCl45Jw6sCN4+SAp1Th
-	 q2eW4E/69XzZlIVfwLADu1Mek5CTDXfkeSpAtm58A6OHdyNnwg9FN1z+ZM4qGCclCO
-	 IGSAc3uRVA/43dC5fDqfdaMXal+KSzy7xhQHeuVg67YCZV6WKLdBqUa7a/Dj4DgrWa
-	 vjPS6WQC/rhrVfU1PKv4Dy0uwSw1n7a2A1CldEHF74JLw4ZwytmPdMV1UNdvb/7jDw
-	 yQyvFF66XX1pfrkRQC6Qyj/DSqGSJBzcGMshPxLmnQS31dqE6Ph1gSVffGvxIIzm6I
-	 VbIa+FUX1AW7w==
-Date: Tue, 9 Jun 2026 22:00:32 -0700
-From: "Darrick J. Wong" <djwong@kernel.org>
-To: Yingjie Gao <gaoyingjie@uniontech.com>
-Cc: linux-xfs@vger.kernel.org, cem@kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] xfs: fix inode ref leak in attr intent recovery
-Message-ID: <20260610050032.GD6078@frogsfrogsfrogs>
-References: <20260609111619.1866748-1-gaoyingjie@uniontech.com>
- <20260610022028.79846-1-gaoyingjie@uniontech.com>
- <20260610022028.79846-2-gaoyingjie@uniontech.com>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="q2IzERXs"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
+	:Reply-To:Content-Type:Content-ID:Content-Description;
+	bh=QsD1nrQGxwECGADxFT4VtFhWnUq6d9NJMsZUI0rJPZI=; b=q2IzERXspgStpY/UAmRw8bBJgS
+	QF2yQoITzphGE+T8DfBRZgNrdkuYSVzQHp1zIsOvfx9D41tuffjxH6bIwuZdbtrWk4tx4yytb7zu+
+	nF07Ll2IeYeAY/jmeL1JE4ZwefEbItnWL2epVl+C49eoiSr2uOsIJWGY9F6+BMnCUxHF/dIeTybX+
+	9kR4zf0nLVHtoeHuSKAHgNjbZ2N0s42mcK7tdYiFCrZStedl4XKNZg6FjnwRKtTmCbxI0Af2YJ4KK
+	DuRhstUnWuuiIPaOHA5MNWVLZSvKdAh2qffcmTQtzBO7nniQfmfjCjHwZ2A0i6mxXZFyC9Gz5gNLs
+	jUEG7Otg==;
+Received: from 2a02-8389-2341-5b80-decc-1a96-daaa-a2cc.cable.dynamic.v6.surfer.at ([2a02:8389:2341:5b80:decc:1a96:daaa:a2cc] helo=localhost)
+	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1wXBAC-00000006o7o-3G2l;
+	Wed, 10 Jun 2026 05:07:41 +0000
+From: Christoph Hellwig <hch@lst.de>
+To: Carlos Maiolino <cem@kernel.org>
+Cc: Damien Le Moal <dlemoal@kernel.org>,
+	Hans Holmberg <hans.holmberg@wdc.com>,
+	linux-xfs@vger.kernel.org,
+	stable@vger.kernel.org,
+	"Darrick J. Wong" <djwong@kernel.org>
+Subject: [PATCH 2/3] xfs: add newly added RTGs to the free pool in growfs
+Date: Wed, 10 Jun 2026 07:07:20 +0200
+Message-ID: <20260610050731.1906760-3-hch@lst.de>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260610050731.1906760-1-hch@lst.de>
+References: <20260610050731.1906760-1-hch@lst.de>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260610022028.79846-2-gaoyingjie@uniontech.com>
+Content-Transfer-Encoding: 8bit
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
 
-On Wed, Jun 10, 2026 at 10:20:27AM +0800, Yingjie Gao wrote:
-> xfs_attri_recover_work() grabs the target inode, attaches it to the
-> reconstructed attr work item, and adds that work item to the defer
-> pending list.
-> 
-> If xfs_attr_recover_work() fails to allocate the recovery transaction,
-> it returns immediately without dropping the inode reference.  The later
-> cancel path only frees the attr work item state, so the inode reference
-> leaks.
-> 
-> Send the failure through the existing cleanup path so the inode
-> reference is dropped before the function returns the error.
-> 
-> Fixes: e70fb328d527 ("xfs: recreate work items when recovering intent items")
-> Cc: <stable@vger.kernel.org> # v6.8
-> Signed-off-by: Yingjie Gao <gaoyingjie@uniontech.com>
+When growing a zoned RT section, the newly added RTGs also need to be
+tagged as free in the radix tree and add to the nr_free_zones counters.
+Call xfs_add_free_zone to do that, otherwise using up the newly added
+space will wait for free zones forever.
 
-Looks good,
+Fixes: 01b71e64bb87 ("xfs: support growfs on zoned file systems")
+Cc: <stable@vger.kernel.org> # v6.15
+Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
 Reviewed-by: "Darrick J. Wong" <djwong@kernel.org>
+Signed-off-by: Christoph Hellwig <hch@lst.de>
+---
+ fs/xfs/xfs_rtalloc.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
---D
+diff --git a/fs/xfs/xfs_rtalloc.c b/fs/xfs/xfs_rtalloc.c
+index 153f3c378f9f..debbcefdf07f 100644
+--- a/fs/xfs/xfs_rtalloc.c
++++ b/fs/xfs/xfs_rtalloc.c
+@@ -933,6 +933,14 @@ xfs_growfs_rt_zoned(
+ 	mp->m_features |= XFS_FEAT_REALTIME;
+ 	xfs_rtrmapbt_compute_maxlevels(mp);
+ 	xfs_rtrefcountbt_compute_maxlevels(mp);
++
++	/*
++	 * Finally add the newly added zone to the freelist and add the space
++	 * to the available counter.  The order is important here: only add
++	 * the available space after the zones, as available space guarantees
++	 * that zones to back it are available.
++	 */
++	xfs_zone_mark_free(rtg);
+ 	xfs_zoned_add_available(mp, freed_rtx);
+ out_free:
+ 	kfree(nmp);
+-- 
+2.53.0
 
-> ---
->  fs/xfs/xfs_attr_item.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/fs/xfs/xfs_attr_item.c b/fs/xfs/xfs_attr_item.c
-> index deab14f31b38..841838bc1d0f 100644
-> --- a/fs/xfs/xfs_attr_item.c
-> +++ b/fs/xfs/xfs_attr_item.c
-> @@ -774,7 +774,7 @@ xfs_attr_recover_work(
->  	resv = xlog_recover_resv(&resv);
->  	error = xfs_trans_alloc(mp, &resv, total, 0, XFS_TRANS_RESERVE, &tp);
->  	if (error)
-> -		return error;
-> +		goto out_rele;
->  	args->trans = tp;
->  
->  	xfs_ilock(ip, XFS_ILOCK_EXCL);
-> @@ -791,6 +791,7 @@ xfs_attr_recover_work(
->  	error = xfs_defer_ops_capture_and_commit(tp, capture_list);
->  out_unlock:
->  	xfs_iunlock(ip, XFS_ILOCK_EXCL);
-> +out_rele:
->  	xfs_irele(ip);
->  	return error;
->  out_cancel:
-> -- 
-> 2.20.1
-> 
-> 
