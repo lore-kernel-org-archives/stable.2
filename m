@@ -1,138 +1,151 @@
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 387ED23EA8A
-	for <stable@vger.kernel.org>; Wed, 10 Jun 2026 01:15:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.180
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781054108; cv=pass; b=ah2CtYgpvBlgAfpuyQZ3ClqIu/TtRyfhArR69BbxlBaxrZ4CVK+wdU6j5DSkXjfL/J6mYdQOuC7jBUT5AcHVdhgJIVY0tNXoFtPiETbwAKGQVKWOyu6CPJJNC8N5o2f4xhwn37qhMgiW02iVoqi9Kdtatd4BSlHMPT5li5jSML0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781054108; c=relaxed/simple;
-	bh=UeAssUqYMd9I/hNomjKDWuBothPBNmM7nGphuECKV1Q=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=e1hCBdohnHPef55KEtTsfHIVsohKHI3er19vs1FeIU9ics7ocwFREip0Cxk3TQ0dSW1rD8Jk9LVZppGkV1YOvcsHfDWpAy4aapkeSUfSLWrQjC7RaJ68i6yLXuZVctQcPi7KgR/YIooSJdaG4z4HDmdUzsng87k80og71KEPEiI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=quora.org; spf=pass smtp.mailfrom=quora.org; dkim=pass (1024-bit key) header.d=quora.org header.i=@quora.org header.b=qMjegCCc; arc=pass smtp.client-ip=209.85.214.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=quora.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=quora.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28145272E7C;
+	Wed, 10 Jun 2026 01:29:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781054980; cv=none; b=pehNgAL0XsmVBKO3kmCLNjKlYkN0tcELE0X4OVefsx8uhh239Q+ZXOyVA4UfSfKaIqsbp1wnwxmQoETjZJhq5Ic0wCnuMyFNocmecCbSS2AfYNpJpH12Jrl/l3PS/NPAWSq2cnIsPeSgJqbok5ii6qPUh3GoNysTVHil7h5vhsk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781054980; c=relaxed/simple;
+	bh=BaMBhH4UBV/eRZkCM3tE+1Q0BPtUIU4D6dWPrPx/skw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Qjb9ae9X1tiaU4Zz9jMhLUtBYrLlGNuYEMzIBOOZtDLha/WXJ9BMBhyFvQPn6JV30644EwxwLH/KrLnxH8+16WZ1ZdMmOuJ+2m+V/UC5mh1fMaZZ0lUhQOq/VwE7bg41wu0dY1Ai2qo/hiftriI9MmPY5e+uAo1Bxr7ng0q5gsk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T5VL9X7q; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=quora.org header.i=@quora.org header.b="qMjegCCc"
-Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2bf3781ca51so57294055ad.0
-        for <stable@vger.kernel.org>; Tue, 09 Jun 2026 18:15:07 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781054106; cv=none;
-        d=google.com; s=arc-20240605;
-        b=i7bLPGxvsVfAN/XIXHa+vEyP/gpUxUttFcfl+XENyfI0qBCMMwMMyvw+25cj+Bb77M
-         5yEMHVRZMqUMSgWnicvadE0Ogs2hbRFsAI8yuqUnVi6Fxqhv0m4b9V6OEWr4YJIDFvik
-         A3EPhWZgr0cZ9v7oaikj+rf16ga1kosVFkaH2HnKnpZSoIzKy+jvT67aD8lMvn8Sxnuv
-         cjIE7rHgnna2ey1gbgNWd/X2Az4z9ReIIvNqGxzaJ1cV1kUbdveIvmJIBpbKhvKL2Rz8
-         34FjIS3liWp8MxKK0tSva65PHJtXg1zh4dNOJEsFYH5tzAFLoQZSoTnHr+j7NGNnKiR2
-         G0ZQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=2Bj40WPn3U8Z/ILKnmF/fVa3Ekp1JSrXZv/lmEeSBo0=;
-        fh=ETGlVWZQiSXF8K+hWXx3xwo++PEUKOkyYAm9AaU5tas=;
-        b=bG6RyegUpfVwVeWdCVcAeM5NjS1sFdWP3IIGSzONta5LqlMhIJriChIIsKWZAOPnGB
-         YLluJUaC2FeI2JBizUxL5U8NLeaeTNtEBPxXAj+gkJfFlf+GTfImPiRqa71quZRBmvkN
-         VTuKtbet7/9OoMMFUozDT8+Trk9s4EGsQNRUp9dj8vDId2XBq3q2BtnbwAvZxvIK/7hB
-         N9W6Qe1LcCUiGV66MuaiiCOxD8ceh5HJn4G1gQ6rTYxeZrzo5OpwZOKBI8NhdrGX8c4R
-         2N535Wy44xnYSX5RkBq9irovOQVpeHvAzH4vkvJHDMO26Qk3bahjp7ju278WLbwwXenT
-         nF5w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=quora.org; s=google; t=1781054106; x=1781658906; darn=vger.kernel.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=2Bj40WPn3U8Z/ILKnmF/fVa3Ekp1JSrXZv/lmEeSBo0=;
-        b=qMjegCCcUBDxXDPpfJ9kUjrMc0PeKNq3qpNPV4QavlcRiZSK99bDy4G24FJO3temQ/
-         f7Zv3uYHOTUIwARONd/StE6tPPjor/oI5kCeJZ7TFLqJn5c/8P0M0BEh1vLajwJaYBUD
-         Myg4BfP5r5PX5ieSW2QJ6eVoar+LkRDgNl6GQ=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781054106; x=1781658906;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=2Bj40WPn3U8Z/ILKnmF/fVa3Ekp1JSrXZv/lmEeSBo0=;
-        b=PvXx1iB3wePbqWAhcGKHte4UYajlve9PPqntKccocpTOoKOD5CnbsWEE03r9KPKXea
-         usyl+a+pB8ZMWB+PfLd4ReGqgpGFXjRWbUYPdMlcmBEjim5KPfKu691Z3IL/+Nn5Y5h9
-         RokvnlhxwynEyJtOS/aBe9mY1IBV1SbgSFCnLGVgYEhigTZlsefwfYwHQIqQw7CyD6E1
-         CCJQVZR/AJKZmWFC3VdnYwI3Z33l3UYO3Dxj3O9nOQhJ+sa2CmwXjSXymPUJWxmv7oTQ
-         /KYV4M7ORc3nHXIBHhJhj5F+J/nk1BLQqZOKoSS/IMPA3tBEx0MB5uO622Bvfw+DCtqG
-         afkg==
-X-Forwarded-Encrypted: i=1; AFNElJ/YxKkDpdyYl8sd4/4TaENft5SKWdZoa+yVJDilzDsDevZUgzCHd7f7iNKhiziAviV0a6YrT9g=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzIJ5I0pONrwYuHXaoNPRciMhw681lzVvXg39yOa031pGsga5sy
-	pHD20reS7no8uKspYIxRwbTepgn38Jb7nE0Y13x6mEAk1nUg0aDet4bNry8t7ce/yv49c+tGwkT
-	3eVM/Q3C/RKvTQtYcDP9+W/f0dINxD2PupuKAydTuVg==
-X-Gm-Gg: Acq92OE0BPBscWJtnpPNryZrNXK7bUsM75JwpTdtd99yfX2RayxR/qVijP1oExV75VP
-	OZsWsboYps0WK8B8CWn4F6KVcyjS/XHbJWIhauBRk/MawlY7T3LNxZupbXvqKq7cSpSQ7vObLHF
-	hOGdeAfxkzvb9VuN4f1gEfb+Yxu5MByDAd/IVDYegnAFqlmb4y4WJ0Fnx86KRJT2SQGpdKiJhau
-	sQ3ipIzRbauQ8oBTy9SvHsGdt7A6rw90usMiEHIKO5N8KJdLxnEgTREQGrKVrKwVim8gp7earBj
-	bcQKBAhYiK2ALSBrfXbTVZH8hOWQtW7J0IUJeIHDCweCVDAItmRFt/GW2DGfy+nXqseNXjiq52r
-	S7lCUWL0fMb61XOibjnsPLd6jyBDZoStI8hBslnggrW6q0lv71U7eUmoUGINEpbjjWuIo1eimsi
-	5nkTh2Ic+TcM5oTvXBxokR0oI7ws93Dhu0C/OFN46cyJPfX8mJIcrbn4+aBtq1
-X-Received: by 2002:a17:903:708:b0:2b7:abc0:3bd7 with SMTP id
- d9443c01a7336-2c1e7e3adb6mr148795125ad.9.1781054106527; Tue, 09 Jun 2026
- 18:15:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T5VL9X7q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6A271F00893;
+	Wed, 10 Jun 2026 01:29:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781054979;
+	bh=mcwyzflTFzQMbgkW9om/kpXbBJQYlUaJarM14jOFs1I=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=T5VL9X7qMptDXVDGdYS/8chvo3Mht3G14p/QTb+o2WkMpWISDO1Zaz2TYlPYWNP9t
+	 46RpBd73POBInXOl8zfIWFxdOa8tL3YnwKaEeBhAYbPv9S+kegE6LxQoSMlGvOKILx
+	 0yWh4C24AtH+Xf7rklLX+Nta04SuKkhZXg7Tj6qd6LXHgRXwR1ijRiSxN5bxBVP8Rq
+	 Fg5QwAQXsLMagS0vixsTOIeqw5nets7wpdKmyvq0a1KSBMbdJULydCY7aDwvWIs+05
+	 MxHwnigzqNMyu5d5RPjeu3UhQdQVXFfZYtuMG69Y8dSh4/OuSzsEzxmtw40K9Uo+U3
+	 quvFq42QrcZuQ==
+Date: Wed, 10 Jun 2026 09:29:34 +0800
+From: "Peter Chen (CIX)" <peter.chen@kernel.org>
+To: Tyler Baker <tyler.baker@oss.qualcomm.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Robert Baldyga <r.baldyga@samsung.com>,
+	Michal Nazarewicz <mina86@mina86.com>,
+	Felipe Balbi <balbi@kernel.org>, stable@vger.kernel.org,
+	Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] usb: gadget: f_fs: initialize reset_work at allocation
+ time
+Message-ID: <aii9/vGi5ZOEZ9uO@nchen-desktop>
+References: <20260609193635.2284430-1-tyler.baker@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260601041336.9497-1-daniel@quora.org> <ecavEnqJTDXvfFykc9uJb5No7ioighpjrCdw2CFZ4c8Izr5DxpTs-606Bg7K0RtHTaOqksWivHxWQLzMBP6qow==@protonmail.internalid>
- <20260601041336.9497-2-daniel@quora.org> <ec7c564e-745a-4998-af9a-e9632fe063f7@kernel.org>
- <CAMVG2ssnyH=KUKrdfnUOtPYU7p17inyzcYWcKhT4EAZxDzDjfg@mail.gmail.com> <cb37e7cc-4fb0-4c24-8f89-f6f9eb08a107@oss.qualcomm.com>
-In-Reply-To: <cb37e7cc-4fb0-4c24-8f89-f6f9eb08a107@oss.qualcomm.com>
-From: Daniel J Blueman <daniel@quora.org>
-Date: Wed, 10 Jun 2026 09:14:55 +0800
-X-Gm-Features: AVVi8CdzfDox6mz_iOGKn72MQqEfSSNkYmI5x8N9Awxjs-n8z1eY5R0tOZeJjNw
-Message-ID: <CAMVG2svgnGKix5vSe8kG694Vm1dU=0Z=MZqR4M5LFOxCXoXYXQ@mail.gmail.com>
-Subject: Re: [PATCH 2/2] arm64: dts: qcom: hamoa: Reserve low IOVA range for Iris
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-Cc: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, 
-	Abhinav Kumar <abhinav.kumar@linux.dev>, Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, "Bryan O'Donoghue" <bod@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260609193635.2284430-1-tyler.baker@oss.qualcomm.com>
 
-On Thu, 4 Jun 2026 at 14:39, Vikash Garodia
-<vikash.garodia@oss.qualcomm.com> wrote:
-> On 6/2/2026 9:05 PM, Daniel J Blueman wrote:
-> > On Tue, 2 Jun 2026 at 18:27, Bryan O'Donoghue <bod@kernel.org> wrote:
-> >> On 01/06/2026 05:13, Daniel J Blueman wrote:
-> >>> On X1-family hamoa platforms, Iris DMA below IOVA 0x25800000 (600MB)
-> >>> triggers unhandled SMMU page faults
-> >>
-> >> How do we know that is a correct address - does it come from qcom
-> >> documentation or trial and error ?
-> >
-> > @Vikash, beyond your comment I linked in the patch [1] kindly cite a
-> > source for the different stream-ID <600MB behaviour, and share
-> > specifics, eg if silicon, firmware, or driver and constraint, defect
-> > or otherwise, so I can include a definitive description.
-> >
-> > Also good to know if my workaround is good for long-term, or on the
-> > other hand handling streams <600MB is important/useful.
->
-> Thanks Daniel for raising this patch. Did you also try the memory fix i
-> mentioned in the bug [1] discussion ?
+On 26-06-09 15:36:34, Tyler Baker wrote:
+> ffs_fs_kill_sb() unconditionally calls cancel_work_sync() on
+> ffs->reset_work when a functionfs instance is unmounted:
+> 
+> 	ffs_data_reset(ffs);
+> 	cancel_work_sync(&ffs->reset_work);
+> 
+> However ffs->reset_work is only ever initialized via INIT_WORK() in
+> ffs_func_set_alt() and ffs_func_disable(), and only on the
+> FFS_DEACTIVATED path. That state is reached solely by ffs_data_closed()
+> when the instance is mounted with the "no_disconnect" option, so for the
+> common case (no "no_disconnect", or mounted and unmounted without ever
+> being deactivated) reset_work is never initialized.
+> 
+> ffs_data_new() allocates the ffs_data with kzalloc_obj() and does not
+> initialize reset_work, and ffs_data_reset()/ffs_data_clear() do not touch
+> it either, so reset_work.func is left NULL. cancel_work_sync() on such a
+> work then trips the WARN_ON(!work->func) guard in __flush_work():
+> 
+>   WARNING: kernel/workqueue.c:4301 at __flush_work+0x330/0x360, CPU#3: umount
+>   Call trace:
+>    __flush_work
+>    cancel_work_sync
+>    ffs_fs_kill_sb [usb_f_fs]
+>    deactivate_locked_super
+>    deactivate_super
+>    cleanup_mnt
+>    __cleanup_mnt
+>    task_work_run
+>    exit_to_user_mode_loop
+>    el0_svc
+> 
+> On older kernels cancel_work_sync() on a zero-initialized work struct was
+> a silent no-op, which hid the missing initialization.
+> 
+> Initialize reset_work once in ffs_data_new() so it is always valid for
+> the lifetime of the ffs_data, and drop the now-redundant INIT_WORK()
+> calls from the two deactivation paths.
+> 
+> Fixes: 18d6b32fca38 ("usb: gadget: f_fs: add "no_disconnect" mode")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Tyler Baker <tyler.baker@oss.qualcomm.com>
+> Cc: Loic Poulain <loic.poulain@oss.qualcomm.com>
+> Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> Cc: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
 
-With this patch, my Lenovo Slim 7x spontaneously rebooted after
-opening 3 tabs of https://ui.com rather than 1 without it. No
-crash/reboot is reproducible with the patch I proposed.
+Reviewed-by: Peter Chen <peter.chen@kernel.org>
 
-> 0-600MB range, VPU hardware would reserve this to generate different
-> stream-IDs primarily for internal (non-pixel) buffers.
+Peter
+> ---
+>  drivers/usb/gadget/function/f_fs.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/usb/gadget/function/f_fs.c b/drivers/usb/gadget/function/f_fs.c
+> index 75912ce6ab55..1ee21e29ef73 100644
+> --- a/drivers/usb/gadget/function/f_fs.c
+> +++ b/drivers/usb/gadget/function/f_fs.c
+> @@ -288,6 +288,7 @@ static int ffs_acquire_dev(const char *dev_name, struct ffs_data *ffs_data);
+>  static void ffs_release_dev(struct ffs_dev *ffs_dev);
+>  static int ffs_ready(struct ffs_data *ffs);
+>  static void ffs_closed(struct ffs_data *ffs);
+> +static void ffs_reset_work(struct work_struct *work);
+>  
+>  /* Misc helper functions ****************************************************/
+>  
+> @@ -2221,6 +2222,7 @@ static struct ffs_data *ffs_data_new(const char *dev_name)
+>  	init_waitqueue_head(&ffs->ev.waitq);
+>  	init_waitqueue_head(&ffs->wait);
+>  	init_completion(&ffs->ep0req_completion);
+> +	INIT_WORK(&ffs->reset_work, ffs_reset_work);
+>  
+>  	/* XXX REVISIT need to update it in some places, or do we? */
+>  	ffs->ev.can_stall = 1;
+> @@ -3775,7 +3777,6 @@ static int ffs_func_set_alt(struct usb_function *f,
+>  	if (ffs->state == FFS_DEACTIVATED) {
+>  		ffs->state = FFS_CLOSING;
+>  		spin_unlock_irqrestore(&ffs->eps_lock, flags);
+> -		INIT_WORK(&ffs->reset_work, ffs_reset_work);
+>  		schedule_work(&ffs->reset_work);
+>  		return -ENODEV;
+>  	}
+> @@ -3806,7 +3807,6 @@ static void ffs_func_disable(struct usb_function *f)
+>  	if (ffs->state == FFS_DEACTIVATED) {
+>  		ffs->state = FFS_CLOSING;
+>  		spin_unlock_irqrestore(&ffs->eps_lock, flags);
+> -		INIT_WORK(&ffs->reset_work, ffs_reset_work);
+>  		schedule_work(&ffs->reset_work);
+>  		return;
+>  	}
+> -- 
+> 2.43.0
+> 
+> 
 
-Thanks for the clearer description; I'll respin my patch with this and
-the DT fixes shortly to get the X1 user experience under control until
-a real fix.
-
-@all I appreciate the ideas and discussion already ensured!
-
-Dan
 -- 
-Daniel J Blueman
+
+Best regards,
+Peter
