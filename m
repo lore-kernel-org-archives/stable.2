@@ -1,116 +1,181 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B4193D9DCB;
-	Wed, 10 Jun 2026 09:43:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781084609; cv=none; b=kR0697XlKguU6g9VTbrPSZYVXQWOG8hJFCooiEAud6Sb+LrKH2y3nRULAXnj1z6Lb9QWU3lI6eaUOH9m0zzagRuq6dkDCqFaT04eKaYmInqHGXon/IvtmFiW5mmU3X7YF10UDxovuiYSGs/zC3RtUvYR1acL2KRdt/2lXD4GJq0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781084609; c=relaxed/simple;
-	bh=IJBwPmQY5Ds80ge09B85RTW8y7eglgINAmM6/+V5aSo=;
-	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
-	 Subject:From:To:Cc:Date; b=P+IPEbLXhNn1RCd/kO9D/CGOC/WbS9dnVogNtBE4bWCA/YyheOZQymV9WbHAQ6IE//FO6Ml1OtGyHFFCVM57DVE3kUxZ1iUSOObXH11Y7V5OjM4kurM0gYY0MLYXQqMsZvVAJ8QOspEeuS1qMhrMW91eho4q/AqfwsEwOL68d6I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cEqH8LJK; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47FA03BA249
+	for <stable@vger.kernel.org>; Wed, 10 Jun 2026 09:56:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.48
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781085368; cv=pass; b=ObS2FyKBXNXAN35WWaliSOctbdJ0JKAkDBGmtHxniLpPlyXRdQdUn1DgBEKQN9xTFxMcR1ps9coNF6NTghy64F6GiUsp0gxkV8ezDX7Ppot3ree0OrHKkCpKxs39ZJIxl2knY1dAPe76I0B6thCpyWy0eXuFna5+zM+YIhJz7eI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781085368; c=relaxed/simple;
+	bh=hZNp1wzl7aMol0obQLeujStExhwYmp321tYBENr5gfk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ngtFgSgJJSwo/8vTlaJVUySiRycKQoCR0ZLNFLVbV/PO2WnAmha2jOVJL53aY+LJc6ZpS7NNmxVdkyCd8GjO3ikUCqNwXMdsmAnThsQTEJmTu2y4MIaQgu5ec+ZEBHsdp+AMwQtTtlcnhJC06ZJ4NHoxVs7sDbfFE0rM7de8IfE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=LJyl9nYe; arc=pass smtp.client-ip=209.85.208.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cEqH8LJK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B254F1F00893;
-	Wed, 10 Jun 2026 09:43:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781084608;
-	bh=PY9S597pltiIS4DOesWSWpeMRyCq6V7eq4ymyDsyJCI=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=cEqH8LJKd8OXnuiqYSvjfucD79mc8KdvhQnGzmNP54iE+sDGP5/76szASZUHQ6PLW
-	 Iw+QyPyYmQ4FjdoEOA8F6qOp3tIYidVb5+pFquUFA9FD5IHiNbyMtOLVCiFgqI87Ns
-	 yLKEyzXCLQByQAtgek+GaPTZRsIj05eoi/ecwi/UqMYP76SPjwLEaaLuCYK6Wtbeeg
-	 oGdTs7mxP9wx6b+DN1qC4Peb+nG6FD+uBPI4qoF8jXfSOuUzyUZKFBmHzAEGFQARa1
-	 I+1CAloIDdlKp9T0MicPWvfJwUH+LGfM82z0lXUkLmt9/z+qr9+gnDntG+JxOqEEFr
-	 OC7BkzfsuRNEA==
-Content-Type: multipart/mixed; boundary="===============5374219254305281125=="
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="LJyl9nYe"
+Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-68d233bf083so9349554a12.1
+        for <stable@vger.kernel.org>; Wed, 10 Jun 2026 02:56:06 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781085365; cv=none;
+        d=google.com; s=arc-20240605;
+        b=D2gHKTrLGtCyputWenTpGGbUlUwRb5j980s176g2+eR1d1nrOqZU1WedkWoBPamd47
+         0FCe8J6lG+FW6Q4AJh+VxD4zgreXKJKTJoeky6j+1oTX+iNvgf8wHcmWOjz4hf2Eb/mS
+         vXZR8BttrT9vNAL4abmDxHe+AzB0OSNakoDdoGehEk+VoI9aOX0K1fbjRr/Hf+Mnn13c
+         SQCOPOJ2n2GoLEZDQ0Vo9A9H7co/mUcs9S6MLuUH3lGgKU9is/NDjhiI8G80NjhHuJ78
+         NMX9GRn62Pzkghj0c0NYwWUQa6c8O76QWygsV44Di8Ltz5mZ5X15iwkLdVVVWGjzJMw4
+         wblw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=CmlGB8tR+Cv/jqDrTQc1t9bnzwkfYB6t+ePs6hjw60w=;
+        fh=Sbjaih/ws+KdgfpxA7OGzEQAtarDjwdHVO6Qq0c4H7s=;
+        b=a/PeF0CAZkDn9U1WS965ZJINebotDU+ueRYttUwXGsDnc+9REZCoG4AILAptc3FC7Z
+         Mj0YIoGFQbv2P5nG5jT2tiYOUB69/OzABh3G6Mc7B2PFAMO49i9kaEQu3pCmLlB5ZNc3
+         kDp8GmVlGkxYi+3j+dm3nzBQkOrl7U9ypsj0SgHbCU7RE272yuJxygC0mfCIkzc5ljgF
+         nqU14xevzI0EGfMcH9Qf94Ww7kbTJtRqLK3sZZVMI+pJNGCsGY+h3J70t5dlHueUd2oI
+         l7ZD82cxKulconMV3KcrMtANuz+wRxWgCGeiqrLgUgxLZzS6N8Am1yS8afD0KyFJzDko
+         /qOQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1781085365; x=1781690165; darn=vger.kernel.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=CmlGB8tR+Cv/jqDrTQc1t9bnzwkfYB6t+ePs6hjw60w=;
+        b=LJyl9nYekUQk8o5/09+acieQM8M72nvIR6T8Iy4gh+Q2qH3MQuqgJIXTS80vqnNYh7
+         TBWLPZfdCxfHIwqGPf1dI5dDlIkNWLb7QTpkJSEtd3bFJmlSY3xb/TIZGB8sPQQm/Nhv
+         iP/gvzutuRHm7N2/kIjbyFXFnzIEftqpQk2ySUVqQ2kyc9SBXy69jeRAi9xmjkLCSsvO
+         7Ipdemze8b577dmaOXNj1GH1qoC2NMqAE0OnK2BXwppSR4I23dVCbbc+fPkkLceAXcW3
+         sX8/G0oIfCnK3aQEBpNxVjt70CwwV+Mimu2tp/SGJ9Oqdvw9Ke9S0JN4gzMd0tBfpZXf
+         nurg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781085365; x=1781690165;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=CmlGB8tR+Cv/jqDrTQc1t9bnzwkfYB6t+ePs6hjw60w=;
+        b=ILIJ1YF+mYs693veGDs4wmYDW+rUc1JbxDdP3b8rVaG7lB+Bp9Ot+19TpU16C7qHls
+         C8QhvWzAXVyCZ5/ysKae1pxWxHUGq5890UcrqV61cYovt6D6Pbn4DLgy1JCcXQExcE8m
+         IAdIamzEs1jZVuy2G6u5q8HJdY0VEsFKtJd5x+rQnJf7VpyK1T2jXafGz0CFfMcr8FQc
+         gMNJk1BcZgLHTmzzYdcIiCtoW5yCSbaFVBnttEz1t9UcEmqHk2Z7r6PGXIh8TuQ25ulc
+         YQLV+yxBMx5ffYAXNPzYQ4uwtqzCcixFBeOlVNrZW/lnr0670rPNgnNCzBtm4H3ONzl6
+         IXCw==
+X-Forwarded-Encrypted: i=1; AFNElJ+YvU+s8WwT3v+Q6U3nIgDV/j/+1b45UlONunQ/ndXHs/zp43NQjzEU423sAoTLOqzM/ggHdxs=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwnSOn6Q6r56FJgCSFBMKMgs8XPyVAuWM9rho7Xq4pqJNvSxMom
+	kDhmU38o31ujOCoDLvoDAZ/sox3Ieot/6eZkGLAo8mZcaMZ7Y83y8ekYIRnxuUIG2RCBc6RetiJ
+	yYufEkGl3byvfHNjFWm8n6gjrxX6pheUE0DyTq+jFuxFPajRBS+/0WJw=
+X-Gm-Gg: Acq92OHOXmoZjVx3E5hP6Gt5uu9eaSsljjcq1MuOGCURvT3idFP7A8zUrP3BHUzqbdX
+	hAcvspZXEmdL3rM1ZuZVOpKlewwDqoVDp9FfZ+MWou3o2VanQOH6SUsTdzPO8aGwVG4Y4hgjrDd
+	gfM0fjUoALSkG6hv1Idt04iyltLhQ0p4KA5Kg3MSV8EbKsXdHGYcwkpjtgrRzY+iZL/Xkmd5SiK
+	95CmLs+cOH7ivWCOdpkZ1wQdC5ZN4ySXorcIMFqwrqoKqQPtcsUTYqORWkIVE4E2qZDQX8iwsOA
+	qbpw54lDQbgtZjhVJMAdKDV2kXbS8ZZwTQoCA3WWX+dwmOGXyN35
+X-Received: by 2002:a05:6402:26ca:b0:68e:66da:c39c with SMTP id
+ 4fb4d7f45d1cf-68fa52595a9mr11429014a12.24.1781085364631; Wed, 10 Jun 2026
+ 02:56:04 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-Id: <b45a6ddc670d998b1459004df9d6a03ef6754cf963417bfa764ca0bbc4716321@mail.kernel.org>
-In-Reply-To: <20260610090431.32427-1-gmonaco@redhat.com>
-References: <20260610090431.32427-1-gmonaco@redhat.com>
-Subject: Re: [PATCH bpf-next] rqspinlock: Fix order in raw_res_spin_(un)lock_irq to allow schedule
-From: bot+bpf-ci@kernel.org
-To: gmonaco@redhat.com,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com,arnd@arndb.de,bpf@vger.kernel.org,linux-arch@vger.kernel.org,linux-kernel@vger.kernel.org
-Cc: gmonaco@redhat.com,stable@vger.kernel.org,longman@redhat.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,clm@meta.com,ihor.solodrai@linux.dev
-Date: Wed, 10 Jun 2026 09:43:27 +0000 (UTC)
+References: <20260605-exynos-pmu-cpuhp-idle-fixes-v1-0-0cd05c81a82d@linaro.org>
+ <20260605-exynos-pmu-cpuhp-idle-fixes-v1-1-0cd05c81a82d@linaro.org>
+In-Reply-To: <20260605-exynos-pmu-cpuhp-idle-fixes-v1-1-0cd05c81a82d@linaro.org>
+From: Peter Griffin <peter.griffin@linaro.org>
+Date: Wed, 10 Jun 2026 10:55:51 +0100
+X-Gm-Features: AVVi8Cefu1n2MWDEUi6aR9N7alNw0lKukQb9HTmuDkQk8K2PjK6RnQfXSI6M9T4
+Message-ID: <CADrjBPoDC68jyEY2HZtoh1SLfVwFPpzKea7T6QLyfY99MsNVcQ@mail.gmail.com>
+Subject: Re: [PATCH 1/3] soc: samsung: exynos-pmu: use target cpu ID in
+ hotplug callbacks
+To: Alexey Klimov <alexey.klimov@linaro.org>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
+	Sam Protsenko <semen.protsenko@linaro.org>, linux-samsung-soc@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
---===============5374219254305281125==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Hi Alexey,
 
-> diff --git a/include/asm-generic/rqspinlock.h b/include/asm-generic/rqspinlock.h
-> index 151d267a496b..4d46643f46cb 100644
-> --- a/include/asm-generic/rqspinlock.h
-> +++ b/include/asm-generic/rqspinlock.h
-> @@ -243,12 +243,20 @@ static __always_inline void res_spin_unlock(rqspinlock_t *lock)
->  	({                                        \
->  		int __ret;                        \
->  		local_irq_save(flags);            \
-> -		__ret = raw_res_spin_lock(lock);  \
-> -		if (__ret)                        \
-> +		preempt_disable();                \
-> +		__ret = res_spin_lock(lock);      \
-> +		if (__ret) {                      \
->  			local_irq_restore(flags); \
-> +			preempt_enable();         \
-> +		}                                 \
->  		__ret;                            \
->  	})
+Thanks for your patch.
+
+On Fri, 5 Jun 2026 at 21:19, Alexey Klimov <alexey.klimov@linaro.org> wrote:
 >
-> -#define raw_res_spin_unlock_irqrestore(lock, flags) ({ raw_res_spin_unlock(lock); local_irq_restore(flags); })
-> +#define raw_res_spin_unlock_irqrestore(lock, flags) \
-> +	({                                          \
-> +		res_spin_unlock(lock);              \
-> +		local_irq_restore(flags);           \
-> +		preempt_enable();                   \
-> +	})
+> The CPU hotplug state callbacks __gs101_cpu_pmu_online() and
+> __gs101_cpu_pmu_offline() currently partially use smp_processor_id() to
+> determine the target register offset for the CPU inform hints. This may
+> be fine for cpuidle flow but broken for cpu hotplug where the target
+> cpu is passed as an argument and could be different from cpu where
+> that is executing (e.g. CPU 0 offlining CPU 1), meaning that
+> smp_processor_id() returns the id of local CPU but hotplug flow
+> deals with another CPU core undergoing the transition.
+
+This was intentional. The powermode hint is always programmed based on
+the currently executing CPU core in the gs101 downstream code (for
+both CPU Idle and CPU hotplug paths). See
+https://android.googlesource.com/kernel/google-modules/raviole-device/+/refs/heads/android-gs-raviole-mainline/drivers/soc/google/cal-if/pmucal_powermode.c#15
+and the pmu_intr_gen is done based on the actual CPU being
+enabled/disabled.
+
+It's possible Exynos850 requires something different. I suggest
+checking the equivalent function in the e850 downstream kernel.
+
 >
->  #endif /* __ASM_GENERIC_RQSPINLOCK_H */
+> This causes the pmu driver to write power down and power on configuration
+> hints to the wrong hardware registers, messing up the power state of active
+> cores and failing to configure the target core. Fix this by removing the
+> cpuhint variable entirely and utilizing the target 'cpu' argument passed
+> to the callbacks by the hotplug core infrastructure.
 
-Related issue in kernel/locking/locktorture.c
+Unfortunately I think you're introducing the bug you describe with this patch.
 
-During the v2 review discussion, the Sashiko AI bot identified a
-pre-existing bug in the locktorture module where return values from
-raw_res_spin_lock() and raw_res_spin_lock_irqsave() are ignored in
-torture_raw_res_spin_write_lock():
+regards,
 
-    static int torture_raw_res_spin_write_lock(int tid __maybe_unused)
-    {
-        raw_res_spin_lock(&rqspinlock);
-        return 0;
-    }
+Peter
 
-Since these functions can fail with -EDEADLK or -ETIMEDOUT, ignoring
-the return value allows the caller to proceed into the critical section
-without holding the lock. When the torture thread later calls
-raw_res_spin_unlock(), it will cause an unbalanced preempt_enable()
-because the failed lock acquisition path already restored preemption.
-
-Furthermore, forcibly clearing the lock state could unlock a lock
-legitimately held by another thread, potentially causing lock state
-corruption.
-
-The same issue exists in torture_raw_res_spin_write_lock_irq() which
-also ignores the return value from raw_res_spin_lock_irqsave().
-
-Should these torture functions check the return values and handle lock
-acquisition failures appropriately?
-
-Reference: https://lore.kernel.org/all/20260610091602.318C01F00893@smtp.kernel.org/
-
-
----
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
-
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/27265934925
---===============5374219254305281125==--
+>
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Closes: https://sashiko.dev/#/patchset/20260513-exynos850-cpuhotplug-v4-0-54fec5f65362@linaro.org?part=3
+> Fixes: 598995027b91 ("soc: samsung: exynos-pmu: enable CPU hotplug support for gs101")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Alexey Klimov <alexey.klimov@linaro.org>
+> ---
+>  drivers/soc/samsung/exynos-pmu.c | 7 ++-----
+>  1 file changed, 2 insertions(+), 5 deletions(-)
+>
+> diff --git a/drivers/soc/samsung/exynos-pmu.c b/drivers/soc/samsung/exynos-pmu.c
+> index d58376c38179..6e635872247a 100644
+> --- a/drivers/soc/samsung/exynos-pmu.c
+> +++ b/drivers/soc/samsung/exynos-pmu.c
+> @@ -235,11 +235,10 @@ EXPORT_SYMBOL_GPL(exynos_get_pmu_regmap_by_phandle);
+>  static int __gs101_cpu_pmu_online(unsigned int cpu)
+>         __must_hold(&pmu_context->cpupm_lock)
+>  {
+> -       unsigned int cpuhint = smp_processor_id();
+>         u32 reg, mask;
+>
+>         /* clear cpu inform hint */
+> -       regmap_write(pmu_context->pmureg, GS101_CPU_INFORM(cpuhint),
+> +       regmap_write(pmu_context->pmureg, GS101_CPU_INFORM(cpu),
+>                      CPU_INFORM_CLEAR);
+>
+>         mask = BIT(cpu);
+> @@ -296,12 +295,10 @@ static int gs101_cpuhp_pmu_online(unsigned int cpu)
+>  static int __gs101_cpu_pmu_offline(unsigned int cpu)
+>         __must_hold(&pmu_context->cpupm_lock)
+>  {
+> -       unsigned int cpuhint = smp_processor_id();
+>         u32 reg, mask;
+>
+>         /* set cpu inform hint */
+> -       regmap_write(pmu_context->pmureg, GS101_CPU_INFORM(cpuhint),
+> -                    CPU_INFORM_C2);
+> +       regmap_write(pmu_context->pmureg, GS101_CPU_INFORM(cpu), CPU_INFORM_C2);
+>
+>         mask = BIT(cpu);
+>         regmap_update_bits(pmu_context->pmuintrgen, GS101_GRP2_INTR_BID_ENABLE,
+>
+> --
+> 2.51.0
+>
