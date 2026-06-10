@@ -1,305 +1,160 @@
-Received: from mail-pj1-f73.google.com (mail-pj1-f73.google.com [209.85.216.73])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender4-op-o15.zoho.com (sender4-op-o15.zoho.com [136.143.188.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD82B35F609
-	for <stable@vger.kernel.org>; Wed, 10 Jun 2026 19:11:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.73
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781118721; cv=none; b=k65gvJJTogKJ/+73vgtCwibukUhE5Dg/fopfumM1XHMeG28M5ccDVhAcISKufojnXznWmfD3dpog6e71d+KVYxFN+KrCIlsTGhXzlM/e7APo8AJFS2jf9qxJ686wSmlNonWPnT0B1xDYIU1YOk4RxGL2thcfR74l7HFUAtZI6j0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781118721; c=relaxed/simple;
-	bh=6qPeeETsH8DfHzoaCXPyZV/P/25z5Erm5s91u41VSZE=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=kElLJluX+zIBLII5C72PsPLFUeCeDA4zFDNeZ/+/WAqqa6YCQB3DFLDx3n5wN6qM+l8VtJ1flyMBfPBgwDtiDy9qM28i88UMJb4ex2rNzev7Uu7lbSjZSbtb9tsZYqCQYL+VjRbX/dfgJ745JGAQ/FfXL9WB6tVa5Kqst31tv4g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=pKFRx5eL; arc=none smtp.client-ip=209.85.216.73
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71BFB33D6EE;
+	Wed, 10 Jun 2026 19:22:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.15
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781119366; cv=pass; b=pCpkQQi79PCFfwopzj0aSdJSLACkYrvSkkRFoajoR4u9NVMc+eJHV91o6L4yc85rnYyOa7lNcZi7aSM98+WezrWt9yZiGqNMeBcY7KwELIoRXoU4jd7Y14gdKjOD4lU2fbU/HZ1qrZbP6I+MssMZ71k4MAA+SROg/+cPwRuMTE4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781119366; c=relaxed/simple;
+	bh=8VzYf2XNVYjUXIcwgSw2ThJa70vjlWqKGzfNQlSokVE=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Po35dWdJ8jBr8vuCBsEmpd/I1lpDRm4jP+RDefs0Z0svJ68llZKCfD0gGJ1MM8sa+xPhZyWc70K3WmDvZWfMnYeQt9WOJ1r7sd+CUP+LX/w/IDFT49DEJSEAVXB/4qewVzkikkfIk82L4ipRZycW7c3Uvoi0kB4Qj4qs5VZMiFw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rong.moe; spf=pass smtp.mailfrom=rong.moe; dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b=p8yaaqxV; arc=pass smtp.client-ip=136.143.188.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rong.moe
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="pKFRx5eL"
-Received: by mail-pj1-f73.google.com with SMTP id 98e67ed59e1d1-36d98b828c8so9584738a91.2
-        for <stable@vger.kernel.org>; Wed, 10 Jun 2026 12:11:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1781118719; x=1781723519; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:from:subject:message-id:references
-         :mime-version:in-reply-to:date:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=MylOMmA1pK0Mdv0TuXqGz6CpqHZasbjFvUmh+v6hUKQ=;
-        b=pKFRx5eL30rfv4woWxNOzL2wIAFNze+vf0HiHAN1fFup+DnLVj7ZVN5Vtv5Lu9V204
-         ZQLsBmEGaHMKUnMMcYeyGGdsPLEkS9ouH6n91ooBLCbisRp03jflJdCDfK47GkvuGpDD
-         v8ol3YyIBPQFYjf0cYE0y/wCf8o97dhsuwJdenhCCl2p1lx9FHUWMoEthwwacniXjUoR
-         mRLvfNXKIl+ftP9Pqy3APY/UUHDF4pgAAY3zGAMQt50MbdQBsOZOsSkzLIHMvwGfpznm
-         DNQpRRedBgJnBhwQTaM32gIK4/jl57gw+TMwiIlAZerGHNKXdAGA0fpuJ+mUnpwl9l0w
-         xdHg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781118719; x=1781723519;
-        h=content-transfer-encoding:cc:to:from:subject:message-id:references
-         :mime-version:in-reply-to:date:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=MylOMmA1pK0Mdv0TuXqGz6CpqHZasbjFvUmh+v6hUKQ=;
-        b=o5o8oWKuVQIfwG6IhcbuBRcM2NiBfCi1bp9mT87Mu2MXXSZUi73m5FCynekHTlaMF7
-         ZdiM+blHCTRF9WTh+nbrVPjngjFu6odcPPaKctCIqGbPl+RTDpmvkLkVsGvqo+ZXEC33
-         EYvuBpQddHB1gL0ksHtlCxB1vYGRIumapCXzoJcB8f//6I5gJg2nxafHbOmU61tsba6f
-         Za67sLFVY4Q7FCt5VBCbinqWedolw1z8uaEOlgTvyJ56AsR1UtzAnnsFHm/hyLkHjhIt
-         f3X7g0hRZlTUa302mYbRWiAjSsEIliZIYPeBUm6AlVJ7jZU69riA2wSJCij+BGz4Bajj
-         a6bQ==
-X-Forwarded-Encrypted: i=1; AFNElJ9Zj6hGZ3X528xMRNRNNe7OvipwbXyZa0FGTUVO/PZCCD4tADsU+yiAwq/LmMx1lZSd9jGndb8=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxyZoUmaNumhd1DEiMdza9aHCOGmIZ+ZqhkRXZbFJ+DfABTWTGF
-	JDu86yfXhm87iyUZO4Ej10gyP3uSSDtBmC9jClqiw0W9S32J6OWCxsYnliTyi5JbVo4LFGqn03k
-	RhulHUw==
-X-Received: from pjez16.prod.google.com ([2002:a17:90a:150:b0:36b:be09:e0f7])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:5145:b0:36a:ee1:fc24
- with SMTP id 98e67ed59e1d1-370eedfff82mr28908614a91.8.1781118719080; Wed, 10
- Jun 2026 12:11:59 -0700 (PDT)
-Date: Wed, 10 Jun 2026 12:11:58 -0700
-In-Reply-To: <20260610185042.2810880-2-clopez@suse.de>
+	dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b="p8yaaqxV"
+ARC-Seal: i=1; a=rsa-sha256; t=1781119349; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=SL/gDNC6BzF6PTu6rHfYQhMWvQUE2gyu30cmwJY0jDNLxkuzx1HHVLVSKYEvuxLPIYNke9ZxHTF46/OgKDvjQHs6I6dcZNYnYgMxBx+InIzAgunJlzP1nydUTTPLbZvqoKqtJ//MSjc/2ZSvZThxDNejaCJjYVQn79Jei2PGzZs=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1781119349; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=qh7d/8tsH7KExzHyzyFmM8P6n7Pjk2nfqU1HYo3a/hg=; 
+	b=HTU/h8vOW5U5Po9ZHl7CBd4A9A5UuhHPf+CH+BniuBwMZT7YROFuOGj7AeNFYWCREdNXpxo8XxtjgEgMGeWHQ48CF37lk8unEi7crypL96usl8zwnrdbgxCEm32lptnZrO5uGNOIEsLf8M03o769imAALMXYiAsoBCJ+egkMS9Q=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=rong.moe;
+	spf=pass  smtp.mailfrom=i@rong.moe;
+	dmarc=pass header.from=<i@rong.moe>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1781119349;
+	s=zmail2048; d=rong.moe; i=i@rong.moe;
+	h=From:From:Subject:Subject:Date:Date:Message-Id:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:To:To:Cc:Cc:Reply-To;
+	bh=qh7d/8tsH7KExzHyzyFmM8P6n7Pjk2nfqU1HYo3a/hg=;
+	b=p8yaaqxV0qXTygNQ2Q7OdtqvAdCUsnKj2IlHvr+iCtgjv2MDdyMxXYfq/ABQneUu
+	XdL3t+vb2uiA2AAGJ14sML50+ulfAoCXYd31z4JhmPcDJj4QXBucQ4WbcNE5TS+ABWG
+	dqjHcZQsQgJbONNgRDL+c6lNbyfPdqGbCbna8pPdt4ACqM9s+3Tcfp8aetKqcuZczaJ
+	JeMdcaOV3IeYUdUQqkv050ULm8v8HOYISR1cYvgXqUbaxCn/rlI1WEiV/Qs9mI40VM/
+	nyuGjyQDl2OLYMOaBpO9sL3jaIx4lHld6nyZnxIVLxTdX7a9xuw/dlXTXugb1nfG5eM
+	dwF2G4xOKw==
+Received: by mx.zohomail.com with SMTPS id 1781119347269643.3333551409454;
+	Wed, 10 Jun 2026 12:22:27 -0700 (PDT)
+From: Rong Zhang <i@rong.moe>
+Subject: [PATCH v2 0/3] ACPI: battery: Do not generate too much pressure on
+ ACPI methods
+Date: Thu, 11 Jun 2026 03:22:16 +0800
+Message-Id: <20260611-b4-acpi-battery-notification-v2-0-4e8ed651a151@rong.moe>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260610185042.2810880-2-clopez@suse.de>
-Message-ID: <aim2_s0loBcb3fav@google.com>
-Subject: Re: [PATCH] KVM: VMX: Raise KVM_REQ_EVENT on TPR below threshold exit
-From: Sean Christopherson <seanjc@google.com>
-To: "Carlos =?utf-8?B?TMOzcGV6?=" <clopez@suse.de>
-Cc: kvm@vger.kernel.org, pbonzini@redhat.com, osteffen@redhat.com, 
-	Stefano Garzarella <sgarzare@redhat.com>, stable@vger.kernel.org, 
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, 
-	"maintainer:X86 ARCHITECTURE (32-BIT AND 64-BIT)" <x86@kernel.org>, "H. Peter Anvin" <hpa@zytor.com>, Roman Kagan <rkagan@virtuozzo.com>, 
-	"open list:X86 ARCHITECTURE (32-BIT AND 64-BIT)" <linux-kernel@vger.kernel.org>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAGi5KWoC/32NQQ6CMBBFr2Jm7Zi2qKAr72FYtGWAMbElbSUSw
+ t0tGLcuX/L/ezNECkwRrrsZAo0c2bsMar8D22vXEXKTGZRQZ3FSAs0RtR0YjU6JwoTOJ27Z6pS
+ PeBFNWUldtEqWkBVDoJbfm/5efzm+zINsWp3roueYfJi2/ijX3S9V/k+NEgWqQhSGmoqsMLfgX
+ Xd4eoJ6WZYPBmEtiNkAAAA=
+X-Change-ID: 20260520-b4-acpi-battery-notification-90d781a3f217
+To: "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>
+Cc: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>, 
+ =?utf-8?q?Jeffrey_W=C3=A4lti?= <jeffrey@waelti.dev>, 
+ Rick <rickk1166@gmail.com>, Mark Pearson <mpearson-lenovo@squebb.ca>, 
+ linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Rong Zhang <i@rong.moe>, stable@vger.kernel.org
+X-Mailer: b4 0.16-dev-d5d98
+X-ZohoMailClient: External
 
-On Wed, Jun 10, 2026, Carlos L=C3=B3pez wrote:
-> The TPR_THRESHOLD field in the VMCS is used by VMX to induce VM exits
-> when the guest's virtual TPR falls under the specified threshold,
-> allowing KVM to inject previously masked interrupts.
->=20
-> KVM handles these VM exits in handle_tpr_below_threshold().
-> Commit eb90f3417a0c ("KVM: vmx: speed up TPR below threshold vmexits")
-> optimized this function by calling apic_update_ppr() instead of raising
-> KVM_REQ_EVENT. apic_update_ppr() then raises KVM_REQ_EVENT if there is
-> a pending, deliverable interrupt.
->=20
-> However, if there are no new interrupts pending, apic_update_ppr()
-> does not issue the request. This skips calling update_cr8_intercept(),
-> and thus vmx_update_cr8_intercept() before VM entry, which results in
-> a high, stale TPR_THRESHOLD. This is problematic due to the following
-> sentence in 28.2.1.1 "VM-Execution Control Fields" in the SDM:
->=20
->   The following check is performed if the =E2=80=9Cuse TPR shadow=E2=80=
-=9D VM-execution
->   control is 1 and the =E2=80=9Cvirtualize APIC accesses=E2=80=9D and =E2=
-=80=9Cvirtual-interrupt
->   delivery=E2=80=9D VM-execution controls are both 0: the value of bits 3=
-:0 of
->   the TPR threshold VM-execution control field should not be greater
->   than the value of bits 7:4 of VTPR.
->=20
-> This error condition is typically not observed when KVM runs on a bare
-> metal system because modern processors support APICv, which enables
-> virtual-interrupt delivery, and which KVM uses when possible. This
-> causes the processor to no longer generate TPR-below threshold exits
-> and to no longer check TPR_THRESHOLD on entry. However, when running
-> on older platforms, or under nested virtualization on a hypervisor that
-> does not support virtual-interrupt delivery and enforces this check
-> (like Hyper-V) this can cause a VM entry failure with hardware error
-> 0x7, as seen in [1].
->=20
-> Fix this by re-introducing an unconditional KVM_REQ_EVENT when reacting
-> to a TPR-below-threshold exit, ensuring that vmx_update_cr8_intercept()
-> is called to re-evaluate TPR_THRESHOLD before entering the guest.
->=20
-> Link: https://github.com/coconut-svsm/svsm/issues/1081 [1]
-> Tested-by: Stefano Garzarella <sgarzare@redhat.com>
-> Cc: stable@vger.kernel.org
-> Fixes: eb90f3417a0c ("KVM: vmx: speed up TPR below threshold vmexits")
-> Signed-off-by: Carlos L=C3=B3pez <clopez@suse.de>
-> ---
->  arch/x86/kvm/vmx/vmx.c | 1 +
->  1 file changed, 1 insertion(+)
->=20
-> diff --git a/arch/x86/kvm/vmx/vmx.c b/arch/x86/kvm/vmx/vmx.c
-> index c548f22375ad..21a469d3ba21 100644
-> --- a/arch/x86/kvm/vmx/vmx.c
-> +++ b/arch/x86/kvm/vmx/vmx.c
-> @@ -5824,6 +5824,7 @@ void vmx_set_dr7(struct kvm_vcpu *vcpu, unsigned lo=
-ng val)
->  static int handle_tpr_below_threshold(struct kvm_vcpu *vcpu)
->  {
->  	kvm_apic_update_ppr(vcpu);
-> +	kvm_make_request(KVM_REQ_EVENT, vcpu);
->  	return 1;
->  }
+The acpi_battery_notify() and acpi_battery_get_property() callbacks
+sometimes generate too much pressure on corresponding ACPI methods. On
+some devices with fragile ACPI implementation, these methods share the
+same mutex protecting EC accesses (hence slow to execute) with a lot of
+other EC-related methods. Such pressure on them eventually leads to a
+catastrophic situation that a bunch of ACPI method calls fail to acquire
+the same mutex due to timeout. The firmware of these devices doesn't
+handle mutex acquisition failure gracefully and return garbage data,
+causing even more chaos.
 
-Don't all the other flows that update PPR have the same bug, at least in th=
-eory?
-Forcing KVM_REQ_EVENT is a bit of a hack, it seems like we should instead b=
-e able
-to do something like this (probably not this aggressively for stable@):
+For acpi_battery_notify(), a very common pattern in EC queries that
+emits two consecutive battery notifications with event IDs 0x80 and 0x81
+updates battery state and calls power_supply_changed() twice within a
+short period, generating significant pressure on _STA, _BST and
+_BIX/_BIF methods. Not only that, power_supply_ext properties may also
+rely on some other ACPI methods, so both uevent assembling and userspace
+processes call them. It becomes a nightmare when all these methods share
+the same ACPI mutex and hence vulnerable to lock starvation. Even worse,
+after the first uevent reaches userspace, some userspace processes start
+to read all battery properties in order to refresh their internal
+states, which competes with the second notification's handling and
+uevent assembling, exacerbating the lock starvation.
+
+For acpi_battery_get_property(), it generates too much pressure on the
+_BST method because of the lack of synchronization. In detail, it
+sometimes nullifies the cache mechanism of acpi_battery_get_state() when
+multiple processes read power supply properties simultaneously, which
+usually happens after a uevent. Normally, emitting a uevent implies that
+the cache must have been refreshed due to power_supply_uevent() reading
+all properties, so the mentioned processes should have seen cache hits.
+Unfortunately, these fragile devices' power_supply_ext properties are
+somehow slow to read after battery events, resulting in cache expiration
+before power_supply_uevent() finishes. Hence, once the uevent reaches
+userspace, the _BST method will be executed multiple times within a
+short period due to userspace processes reading all properties again.
+
+Improve acpi_battery_notify() by merging consecutive battery
+notifications within 10ms using a delayed work, so that they only
+refresh and/or update battery state once. ACPI netlink event and
+notifier call chain are still triggered multiple times in order not to
+break other components. Finally, call power_supply_changed() once and
+lead to a single uevent instead of a bunch, preventing userspace
+programs from causing too much pressure on power supply properties and
+the underlying ACPI methods.
+
+Fix acpi_battery_get_property() by introducing a mutex to protect all
+accesses to battery properties, so that acpi_battery_get_property() can
+take the advantage of the mutex and synchronize itself. This also
+prevents potential race conditions, e.g., when multiple tasks read power
+supply properties simultaneously, or when other callbacks are called
+during its execution.
+
+Since the series touches acpi_battery_alarm_store(), also convert the
+use of sscanf("%lu\n") into the more preferred kstrtoul() beforehand.
+
+With the series, the lock starvation issue on mentioned devices is
+greatly improved according to the feedback from one of the device
+owners.
+
+Reported-by: Rick <rickk1166@gmail.com>
+Closes: https://bugzilla.kernel.org/show_bug.cgi?id=221065
+Signed-off-by: Rong Zhang <i@rong.moe>
 
 ---
- arch/x86/kvm/lapic.c | 31 +++++++++++++++++++++++++++++++
- arch/x86/kvm/x86.c   | 37 ++-----------------------------------
- 2 files changed, 33 insertions(+), 35 deletions(-)
+Changes in v2:
+- Address Sashiko's concerns:
+  - Return from acpi_battery_notification_worker() early when the fifo
+    is empty
+  - Use pr_err_ratelimited() for potential event storms
+  - Add missing `\n' in a printk message
+  - Use a separated mutex to protect all properties instead of reusing
+    update_lock
+  - https://sashiko.dev/#/patchset/20260527-b4-acpi-battery-notification-v1-0-2303bed8ec0b%40rong.moe
+- Minimalize the critical section of acpi_battery_notify()
+- Rearrange the series
+- Dropped Tested-by from patch 3 due to massive rewrite
+- Link to v1: https://patch.msgid.link/20260527-b4-acpi-battery-notification-v1-0-2303bed8ec0b@rong.moe
 
-diff --git a/arch/x86/kvm/lapic.c b/arch/x86/kvm/lapic.c
-index 4078e624ca66..1b66c878bb67 100644
---- a/arch/x86/kvm/lapic.c
-+++ b/arch/x86/kvm/lapic.c
-@@ -939,6 +939,32 @@ static bool pv_eoi_test_and_clr_pending(struct kvm_vcp=
-u *vcpu)
- 	return val;
- }
-=20
-+static void update_cr8_intercept(struct kvm_vcpu *vcpu)
-+{
-+	int max_irr, tpr;
-+
-+	if (!kvm_x86_ops.update_cr8_intercept)
-+		return;
-+
-+	if (WARN_ON_ONCE(!lapic_in_kernel(vcpu)))
-+		return;
-+
-+	if (vcpu->arch.apic->apicv_active)
-+		return;
-+
-+	if (!vcpu->arch.apic->vapic_addr)
-+		max_irr =3D kvm_lapic_find_highest_irr(vcpu);
-+	else
-+		max_irr =3D -1;
-+
-+	if (max_irr !=3D -1)
-+		max_irr >>=3D 4;
-+
-+	tpr =3D kvm_lapic_get_cr8(vcpu);
-+
-+	kvm_x86_call(update_cr8_intercept)(vcpu, tpr, max_irr);
-+}
-+
- static int apic_has_interrupt_for_ppr(struct kvm_lapic *apic, u32 ppr)
- {
- 	int highest_irr;
-@@ -980,6 +1006,8 @@ static void apic_update_ppr(struct kvm_lapic *apic)
- 	if (__apic_update_ppr(apic, &ppr) &&
- 	    apic_has_interrupt_for_ppr(apic, ppr) !=3D -1)
- 		kvm_make_request(KVM_REQ_EVENT, apic->vcpu);
-+	else
-+		update_cr8_intercept(apic->vcpu);
- }
-=20
- void kvm_apic_update_ppr(struct kvm_vcpu *vcpu)
-@@ -3290,6 +3318,7 @@ int kvm_apic_set_state(struct kvm_vcpu *vcpu, struct =
-kvm_lapic_state *s)
- 	kvm_apic_update_apicv(vcpu);
- 	if (apic->apicv_active)
- 		kvm_x86_call(apicv_post_state_restore)(vcpu);
-+
- 	kvm_make_request(KVM_REQ_EVENT, vcpu);
-=20
- #ifdef CONFIG_KVM_IOAPIC
-@@ -3394,6 +3423,8 @@ void kvm_lapic_sync_to_vapic(struct kvm_vcpu *vcpu)
- 	int max_irr, max_isr;
- 	struct kvm_lapic *apic =3D vcpu->arch.apic;
-=20
-+	update_cr8_intercept(vcpu);
-+
- 	apic_sync_pv_eoi_to_guest(vcpu, apic);
-=20
- 	if (!test_bit(KVM_APIC_CHECK_VAPIC, &vcpu->arch.apic_attention))
-diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
-index 0550359ed798..116ce6209c67 100644
---- a/arch/x86/kvm/x86.c
-+++ b/arch/x86/kvm/x86.c
-@@ -128,7 +128,6 @@ static u64 __read_mostly efer_reserved_bits =3D ~((u64)=
-EFER_SCE);
- 				    KVM_X2APIC_ENABLE_SUPPRESS_EOI_BROADCAST	| \
- 				    KVM_X2APIC_DISABLE_SUPPRESS_EOI_BROADCAST)
-=20
--static void update_cr8_intercept(struct kvm_vcpu *vcpu);
- static void process_nmi(struct kvm_vcpu *vcpu);
- static void __kvm_set_rflags(struct kvm_vcpu *vcpu, unsigned long rflags);
- static void store_regs(struct kvm_vcpu *vcpu);
-@@ -5340,7 +5339,6 @@ static int kvm_vcpu_ioctl_set_lapic(struct kvm_vcpu *=
-vcpu,
- 	r =3D kvm_apic_set_state(vcpu, s);
- 	if (r)
- 		return r;
--	update_cr8_intercept(vcpu);
-=20
- 	return 0;
- }
-@@ -10595,33 +10593,6 @@ static void post_kvm_run_save(struct kvm_vcpu *vcp=
-u)
- 		kvm_run->flags |=3D KVM_RUN_X86_GUEST_MODE;
- }
-=20
--static void update_cr8_intercept(struct kvm_vcpu *vcpu)
--{
--	int max_irr, tpr;
--
--	if (!kvm_x86_ops.update_cr8_intercept)
--		return;
--
--	if (!lapic_in_kernel(vcpu))
--		return;
--
--	if (vcpu->arch.apic->apicv_active)
--		return;
--
--	if (!vcpu->arch.apic->vapic_addr)
--		max_irr =3D kvm_lapic_find_highest_irr(vcpu);
--	else
--		max_irr =3D -1;
--
--	if (max_irr !=3D -1)
--		max_irr >>=3D 4;
--
--	tpr =3D kvm_lapic_get_cr8(vcpu);
--
--	kvm_x86_call(update_cr8_intercept)(vcpu, tpr, max_irr);
--}
--
--
- int kvm_check_nested_events(struct kvm_vcpu *vcpu)
- {
- 	if (kvm_test_request(KVM_REQ_TRIPLE_FAULT, vcpu)) {
-@@ -11361,10 +11332,8 @@ static int vcpu_enter_guest(struct kvm_vcpu *vcpu)
- 		if (req_int_win)
- 			kvm_x86_call(enable_irq_window)(vcpu);
-=20
--		if (kvm_lapic_enabled(vcpu)) {
--			update_cr8_intercept(vcpu);
-+		if (kvm_lapic_enabled(vcpu))
- 			kvm_lapic_sync_to_vapic(vcpu);
--		}
- 	}
-=20
- 	r =3D kvm_mmu_reload(vcpu);
-@@ -12481,8 +12450,6 @@ static int __set_sregs_common(struct kvm_vcpu *vcpu=
-, struct kvm_sregs *sregs,
- 	kvm_register_mark_dirty(vcpu, VCPU_EXREG_CR3);
- 	kvm_x86_call(post_set_cr3)(vcpu, sregs->cr3);
-=20
--	kvm_set_cr8(vcpu, sregs->cr8);
--
- 	*mmu_reset_needed |=3D vcpu->arch.efer !=3D sregs->efer;
- 	kvm_x86_call(set_efer)(vcpu, sregs->efer);
-=20
-@@ -12511,7 +12478,7 @@ static int __set_sregs_common(struct kvm_vcpu *vcpu=
-, struct kvm_sregs *sregs,
- 	kvm_set_segment(vcpu, &sregs->tr, VCPU_SREG_TR);
- 	kvm_set_segment(vcpu, &sregs->ldt, VCPU_SREG_LDTR);
-=20
--	update_cr8_intercept(vcpu);
-+	kvm_set_cr8(vcpu, sregs->cr8);
-=20
- 	/* Older userspace won't unhalt the vcpu on reset. */
- 	if (kvm_vcpu_is_bsp(vcpu) && kvm_rip_read(vcpu) =3D=3D 0xfff0 &&
+---
+Rong Zhang (3):
+      ACPI: battery: Merge consecutive battery notifications
+      ACPI: battery: Use kstrtoul() over sscanf("%lu\n")
+      ACPI: battery: Protect all properties with a separated mutex
 
-base-commit: fd408f8da71c91d589cf05674c2e114fc2267b31
---=20
+ drivers/acpi/battery.c | 236 +++++++++++++++++++++++++++++++++++++------------
+ 1 file changed, 178 insertions(+), 58 deletions(-)
+---
+base-commit: acb7500801e98639f6d8c2d796ed9f64cba83d3a
+change-id: 20260520-b4-acpi-battery-notification-90d781a3f217
+
+Thanks,
+Rong
 
