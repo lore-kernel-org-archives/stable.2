@@ -1,164 +1,119 @@
-Received: from mail-yx1-f50.google.com (mail-yx1-f50.google.com [74.125.224.50])
+Received: from mail-qv1-f42.google.com (mail-qv1-f42.google.com [209.85.219.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6870630C629
-	for <stable@vger.kernel.org>; Tue,  9 Jun 2026 23:57:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.50
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781049467; cv=pass; b=CozwxYBn6960f0cctHVGQpfOGQBih39WMQW8tzaV/wQYbOWY1c9TAc1K1y+XYUiyHrPZDd9YmnIl0vwTaHrSt8R9b9rBRknh7GmkFoK2GmXqFZYOPshv0DqRY+tyC8E0heIJEzroHynjYLaaZQupUbxBX3PwEcdzcJPGR7MFNtM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781049467; c=relaxed/simple;
-	bh=6o2xFZURyWP+tObe4cjpPDsfyvJKRP0tCizMlSF5sH8=;
-	h=From:In-Reply-To:References:MIME-Version:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=n24wwlYdZCjWNKPl70dvqbGtH3x+FevXDmt6Ms60D8Uf/z7NSppsgvevR9/S7Ki+lhBGHLR8J/7DPAvs16QhsMrNUb9kpzJixWGI02AWYE28ewVMsT6ieoH2sY6d9uxQ5z4T7HUC2gbo6qN/tTOZes0q4x/qurgQhTu2OYMCMvU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=berkeley.edu; spf=pass smtp.mailfrom=berkeley.edu; dkim=pass (2048-bit key) header.d=berkeley.edu header.i=@berkeley.edu header.b=XkfutodT; arc=pass smtp.client-ip=74.125.224.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=berkeley.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=berkeley.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A94F540D562
+	for <stable@vger.kernel.org>; Wed, 10 Jun 2026 00:38:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.42
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781051928; cv=none; b=JgSKPuzlUNDvfprMQJFXVRdZQfxyLRsQJLROFyoiQUvM5LCpHj6vf9noXq0mQ7Bo//jhy/O4vb7VA6Msz4G3UFvglND5d6SMlutLaxBaSweomkak+qgxAtqmCZMu081leyaOt/s7RrKA0khurKmsi/wJlrbpa4iaIE7nkijtlaE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781051928; c=relaxed/simple;
+	bh=8W4LSmmAd4tjAcHgGMcfpD9VPEhPb8gkaJNtbe3vw1s=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XH4L52elQZyuj5FXVis4UXY/E54rrFOPZH/f7e28kSTzRX0d6gq/qIrZ+njTZPiWq89yEF8Pp1gZFlxnoXK5qrQkiIi2wq9tvpnRCbg2gWcJkXzNK0dloDNMe7d93lZ5tWl3IzJua+i7aJ6FZXY2AeGko6CuBP3LLD8H76S0faA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=SVgEui6f; arc=none smtp.client-ip=209.85.219.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=berkeley.edu header.i=@berkeley.edu header.b="XkfutodT"
-Received: by mail-yx1-f50.google.com with SMTP id 956f58d0204a3-6611689dc10so3622738d50.1
-        for <stable@vger.kernel.org>; Tue, 09 Jun 2026 16:57:44 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781049463; cv=none;
-        d=google.com; s=arc-20240605;
-        b=lziBe7SWXgKX9yYPaq0Swy3rq62u7iwJgNPkelKH0pMYIzf3qdNhjV/x6b1P6aADJF
-         U/pvSvTnXrk83XIf1EMX+UmHLbAvPzJEebL9aBOmxqpqu5Qln5Cnp7EK3h+mext+FH7S
-         9nJFEAZrLARq1jRv4g6aNNOQKQ35igAR3XpHP11694pbMu/v3MhgGvT5VSkBrICgc8Dc
-         dcP2U+py7YwKAjUfl3cIARfGiGYAoRYDnUHBR5tvuPrUCN5su+Ie9UDLTxQGyLzGqygx
-         /yE/YQBgWVzyGX63motLDpLOaTzn0MF1nScX//Rk7pDGGoScPcLbeRx5S7TdHOvx+QJU
-         vvbg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=cc:to:subject:message-id:date:mime-version:references:in-reply-to
-         :from:dkim-signature;
-        bh=JsLwA10csQX3mPa70cbCrNe5YAZmOcAQoD0WQz/1mlc=;
-        fh=jr50g3lESq8GJdJ5cvcbXZ7xLeQc70K4W5uzsP5WLG0=;
-        b=ed0w8vz+HhMdTX1Kr3pktDQMzNSxMh8cjRO3ve0e6ty/Ejn79Cc41wY2DwalJNfkIH
-         w1Ulx9heIBlOQUO+/YLtRXRIzRlM4HufG1h1Ejly8mo7q2ZJHQLtiVUktGt5jwSXwrgE
-         zR3bfV+uguJePFpTsmVGvEWLQ3006PzwNi5r5JmOQ8/DtEVpOTmI7m5/xTiQrgF0FpFk
-         XMrX5ZpePeejftpczOgKVxV3X7D0wKg1kC1Dmnz+DWKtpo45AZkK8lAa576ajvknuPSI
-         KM/2p+sCsFPV1CA0/qDuxxPFSt9wQytc7zxW8bl6JPi1riT2VKVdzWN+8ASalxSDLnnX
-         0RIQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="SVgEui6f"
+Received: by mail-qv1-f42.google.com with SMTP id 6a1803df08f44-8cebfb15413so64346676d6.0
+        for <stable@vger.kernel.org>; Tue, 09 Jun 2026 17:38:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=berkeley.edu; s=google; t=1781049463; x=1781654263; darn=vger.kernel.org;
-        h=cc:to:subject:message-id:date:mime-version:references:in-reply-to
-         :from:from:to:cc:subject:date:message-id:reply-to;
-        bh=JsLwA10csQX3mPa70cbCrNe5YAZmOcAQoD0WQz/1mlc=;
-        b=XkfutodTdC3aWFewu//ZtfbOXEP8PT/+JXGIH2EK+v3USw+hg623JDXIagiWJjV9+z
-         qIwFHvEWF4lszgEHh/eFJfxSHDoXHlXRX799qyjokf+BXr8jEraQuiRhdXJ3qsuhVyc8
-         CZvV8faGpk2SHfvMUoDaSK5Vmkz4LFHipNl4CmacHz+/7Aj/D6ANtoztAnqCg0qysTqo
-         ASQ8yC5CDwDbTcHcxkow2X+yAWm6d72oyuxgfezfMQhLdspPpc2kSpYp4PncrbuoXi9a
-         4IITgy+W6/Sx+IN3uiptKMmn7CBq253mvGubffw1lX+GNHWQ5hy7v2QZy/2Cecqggifz
-         +JMQ==
+        d=trailofbits.com; s=google; t=1781051926; x=1781656726; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=4HD4CyZy0JUNR44EyaczU983Jr0FqnBLzgetNoKQtXo=;
+        b=SVgEui6fE3h+dNzu5aucN1MJsBt+3NjSylE9GeKvSY3GAb7OOBbkIOjXlpzzhameSn
+         ViBxRi9OLZBMgQfaPcYsPLyLqXSyJY+92j5x5I7hgXgmGCZkW/z3f+1aqD15tMOEfh5q
+         fCDDgguR0dv4t0c51slBTI8fg2uXmY94YjFWcxBjmpuXlGmdMS1k+8lNRZSi8OTZfE+e
+         W12Le4QSGNZR7jglmErVHv/JE+OJjMEVXKTFYRcOi5gCW+cpFo0Nev337xFTqhY7oqbR
+         HjXPXoANA9jByfM2pZBnFmKYs8lbhlo+4a4ni6AzMFSk2IJ1ke+8MPHHeXVKDq7NHecO
+         fSEg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781049463; x=1781654263;
-        h=cc:to:subject:message-id:date:mime-version:references:in-reply-to
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=JsLwA10csQX3mPa70cbCrNe5YAZmOcAQoD0WQz/1mlc=;
-        b=Kd4nwK/9ijDl5u79Q1pK/2CS96d7F9Bq8RBNCWW4zh85wWiSBv/6tMVETWg8OPe8lU
-         B2N9Q3H2IFlPlDziNm34jMSSeI5zoNcJS6gPbkDT+h7MmKTfPuTGcEyedtPjWSFZb89p
-         SSrE/2LKD5vjcZlIN99sUw81gMat4XixgWgBqYUK0BDSA3N/Gc65Ifo0KdEJsMUzbcma
-         LmyKURRiwXuPljB9rly7lOHN/RPBTCcehbu5Uv6I3miGkhiu/CwAEQA9z6TcvEvAwb2j
-         P9R0l3vONuld6B5EBlEMVZzYNfI1I/5/iwtgWvnjr0dFL4ylgnd4wDNfQDxi9wnqkjbU
-         tInQ==
-X-Forwarded-Encrypted: i=1; AFNElJ8YMT8q9lYoK1acmHlh62OBVRp+0bh4hOQ0kqtWfE/nM1l5bHrnN4v6tJq56GmozVC9yqRO+XM=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzVmfmA7XUh9NTgCQ7rRSIuC+YkXRy8NntYD8xtcHLen68J3NMj
-	PoClUmPkZHIP5H7wakOIYeXPFaDQTMKqR3PwBwi9sOcJ8Yd2dCDF4B5Y73mJKBHJ2dXk1ipAup1
-	Wdk34WW4ieubgcGil0t1TtT1XVyoNXt7hSTk6Cq/7
-X-Gm-Gg: Acq92OGHeZ+bEkAObEEfhf4gdw3VXdQnF324VfNrCu1ixDClGUAGdXdrsaKldWVkuoR
-	E1sgJeSnmzld9yP+BznEcPTZmmA7vladh9qqa20oHRPZOukiis4QWtv5brQa1vJEcejLaTaHDpb
-	jas6F6CaFQULOJ08rsmGX5leeAp+neAlV54IEwfkjWeCj8XSEvB+Uk34V6Mi1wCffgAhYvkktNb
-	fkXWNv9DAtbcaCvRd0Q3Y+rfHV1wsAjlG1+2JV6rPUfkK07raKRs9UhB3CWGAnmjh/f64Ex3nuA
-	EkN6S7Q0yfprtkKPVai8
-X-Received: by 2002:a05:690c:e3ca:b0:7bd:5c77:1aa9 with SMTP id
- 00721157ae682-7ed09935207mr231089217b3.0.1781049462534; Tue, 09 Jun 2026
- 16:57:42 -0700 (PDT)
-Received: from 474444807712 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 9 Jun 2026 19:57:41 -0400
-Received: from 474444807712 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 9 Jun 2026 19:57:41 -0400
-From: Farhad Alemi <farhad.alemi@berkeley.edu>
+        d=1e100.net; s=20251104; t=1781051926; x=1781656726;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=4HD4CyZy0JUNR44EyaczU983Jr0FqnBLzgetNoKQtXo=;
+        b=gcRveJAbFfGNaQNeF38FkK9EkZ9YC3bcvPeyIm+QkWQjejt9EhXzv+CCAUBKPlkAXq
+         PZ6ywI0J8pgLOxewv9jFS1LvE5yMr9kli4xgtlegubuzeY2834OMCCCMoivUHZm9hNiU
+         //cQEhRAElwHHzotD77UoM1excfNYEXUwRBmyuNhISW4MKk+NyEsZfOOcRm9iuKpMHM/
+         zF+GsvoGz8X8Eyyn0xVZulgh+1y2EY8qUB9hdzWw5CQfLBYtPhTFRDZdjIrrHoQNKNAz
+         RbMoQnrHLRIll3dwNtYY+36WTKFove9WVtM9tT4/mRzOvlc3Y1XKifisWnRUn6JhViHg
+         RUzw==
+X-Forwarded-Encrypted: i=1; AFNElJ+Ev8qKEBUmml8rQVJd9A5AwL22NtRGt3yDgXRfwYuVwNC5LwwJjN29j0/9GZoaUKV+mbSnoxQ=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyRQIvrI5Zc7LSOj/SIYbw5OVz02tOatxZ2+5zh95s+Fhs5mkdt
+	GJICMvpSqF/iu4ShoA3mJNP8lDLW36PPdFh2iiE2glkf7QX0sfGInvxqOxxw9+VpgIo=
+X-Gm-Gg: Acq92OG73PookuVDUjaL3Te2qrogXC7j2vixmy3dNkMCof6tzyXzoiVHFMHGhf4//dr
+	GcaZXcE3cY4ojARd27NMmSkdlvCwPEZRrPg6qnp3VaWnG2aSdBTBWfwaC2YuOH7oOvUZA03oqqD
+	LrbDjoBil+GYUrDXsscTPHkezPH9EH68EnlLFK6Cfmyj03K29/PT017+VD0H9ReScj3VhZKGG5Q
+	NwP/BN/keTpX+ILAIp4NDEz68LqpOydKIR9FJ6t6t16wnX2eFUtGcgqxYmL9uVAr4cpuknRDMlx
+	EAi+DxBqZvJPZgE28pFN1Osz2Md0LcM8cd0s1XY2Y+zHEbNwDi6cnlXu6XNe3gR2v95kealc96M
+	F/SLaPNKgXEBqxOOcyetWo6s1fEIIaByxfIj6PIbV7p2w8eJjmuBrX/p5Y+jCxEQHDUmlKVisNP
+	fp9DgMzhj0iqcmtP7uxg6lU6CRtYOJhNGtuaUplw==
+X-Received: by 2002:a05:622a:400c:b0:517:7971:a234 with SMTP id d75a77b69052e-51795b729ffmr331041021cf.4.1781051925756;
+        Tue, 09 Jun 2026 17:38:45 -0700 (PDT)
+Received: from localhost ([161.35.96.86])
+        by smtp.gmail.com with UTF8SMTPSA id d75a77b69052e-51775c297a8sm196989031cf.8.2026.06.09.17.38.44
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 09 Jun 2026 17:38:45 -0700 (PDT)
+From: Samuel Moelius <sam.moelius@trailofbits.com>
+To: Miklos Szeredi <miklos@szeredi.hu>
+Cc: Samuel Moelius <sam.moelius@trailofbits.com>,
+	stable@vger.kernel.org,
+	Joanne Koong <joannelkoong@gmail.com>,
+	linux-fsdevel@vger.kernel.org (open list:FUSE: FILESYSTEM IN USERSPACE),
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH v2] fuse: avoid 32-bit prune notification count wrap
+Date: Wed, 10 Jun 2026 00:37:18 +0000
+Message-ID: <20260610003717.1720575.7a414fc8c0ea.fuse-notify-prune-count-wrap@trailofbits.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <25c4bc47-b65d-4c04-8a8f-18eef2b5566a@kernel.org>
-References: <25c4bc47-b65d-4c04-8a8f-18eef2b5566a@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Tue, 9 Jun 2026 19:57:41 -0400
-X-Gm-Features: AVVi8CdwZwsROR8QvBcPRl0TTYKS3lybsjC7VZyFrbO3L3H_GqOslrHHbiWZhF0
-Message-ID: <CA+0ovCg05rUk1-3k2ysdxmbcER8aG-wVh9SSTrrbp6LPWpPHYA@mail.gmail.com>
-Subject: [PATCH] cgroup/cpuset: rebind mm mempolicy to effective_mems, not mems_allowed
-To: Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
-	Gregory Price <gourry@gourry.net>
-Cc: Farhad Alemi <falemi@asu.edu>, Yury Norov <ynorov@nvidia.com>, 
-	Joshua Hahn <joshua.hahnjy@gmail.com>, Zi Yan <ziy@nvidia.com>, 
-	Matthew Brost <matthew.brost@intel.com>, Rakie Kim <rakie.kim@sk.com>, 
-	Byungchul Park <byungchul@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>, 
-	Alistair Popple <apopple@nvidia.com>, Waiman Long <longman@redhat.com>, 
-	Rasmus Villemoes <linux@rasmusvillemoes.dk>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	cgroups@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-cpuset_update_tasks_nodemask() rebinds a task's own mempolicy to the
-cpuset's effective, online mems (newmems, from guarantee_online_mems()),
-but rebinds that task's VMA mempolicies to the *configured* mask instead:
+FUSE_NOTIFY_PRUNE validates the nodeid payload length with:
 
-	cpuset_change_task_nodemask(task, &newmems);
-	...
-	mpol_rebind_mm(mm, &cs->mems_allowed);
+    size - sizeof(outarg) != outarg.count * sizeof(u64)
 
-On the default (v2) hierarchy a cpuset that has never had cpuset.mems
-written keeps mems_allowed empty while effective_mems is inherited
-non-empty from the parent, and tasks may be attached to it (the
-empty-mems attach check is v1-only).  A subsequent rebind -- e.g. from a
-CPU hotplug event walking the cpuset -- then calls mpol_rebind_mm() with
-an empty mask.  For a VMA policy created with MPOL_F_RELATIVE_NODES this
-reaches mpol_relative_nodemask() ->
-nodes_fold(..., nodes_weight(cs->mems_allowed) == 0) -> bitmap_fold(),
-whose set_bit(oldbit % sz, dst) divides by zero:
+On 32-bit kernels, size_t is also 32 bits, so the daemon-controlled
+count multiplication can wrap.  A prune notification with count
+0x20000000 and no nodeid payload passes the check, enters the copy
+loop, and asks the device copy path to read nodeids that are not
+present in the userspace write buffer.  In QEMU this reaches the
+fuse_copy_fill() BUG_ON(!err) path.
 
-  Oops: divide error: 0000 [#1] SMP KASAN NOPTI
-  RIP: 0010:bitmap_fold+0x5e/0xb0
-   mpol_rebind_nodemask
-   mpol_rebind_mm
-   cpuset_update_tasks_nodemask
-   cpuset_handle_hotplug
-   sched_cpu_deactivate
-   cpuhp_thread_fun
+Validate the payload length with array_size() instead.  That accepts
+exactly the same valid messages, but avoids wrapping arithmetic before
+the copy loop consumes the count.
 
-cs->mems_allowed is the only nodemask in this function that is not the
-effective set: the task-policy rebind, the page-migration target and
-cs->old_mems_allowed all use newmems.  The sibling cpuset_attach() path
-already rebinds VMA policies against the effective mems
-(cpuset_attach_nodemask_to = cs->effective_mems) and explicitly notes
-that mems_allowed can be empty under hotplug.  Rebind the VMA policies to
-newmems too: it is guaranteed non-empty by guarantee_online_mems(), which
-fixes the divide-by-zero, and it makes the VMA policies consistent with
-the task policy and with the nodes the task is actually allowed to use.
-
-Fixes: ae1c802382f7 ("cpuset: apply cs->effective_{cpus,mems}")
-Suggested-by: Gregory Price <gourry@gourry.net>
-Signed-off-by: Farhad Alemi <farhad.alemi@berkeley.edu>
+Assisted-by: Codex:gpt-5.5-cyber-preview
+Fixes: 3f29d59e92a9 ("fuse: add prune notification")
 Cc: stable@vger.kernel.org
+Signed-off-by: Samuel Moelius <sam.moelius@trailofbits.com>
 ---
- kernel/cgroup/cpuset.c | 2 +-
+Changes in v2:
+  - Use array_size macro
+
+ fs/fuse/dev.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
---- a/kernel/cgroup/cpuset.c
-+++ b/kernel/cgroup/cpuset.c
-@@ -2649,7 +2649,7 @@ void cpuset_update_tasks_nodemask(struct cpuset *cs)
-
- 		migrate = is_memory_migrate(cs);
-
--		mpol_rebind_mm(mm, &cs->mems_allowed);
-+		mpol_rebind_mm(mm, &newmems);
- 		if (migrate)
- 			cpuset_migrate_mm(mm, &cs->old_mems_allowed, &newmems);
- 		else
+diff --git a/fs/fuse/dev.c b/fs/fuse/dev.c
+index c105aaf9ff5d..0c6d1855003e 100644
+--- a/fs/fuse/dev.c
++++ b/fs/fuse/dev.c
+@@ -2081,7 +2081,7 @@ static int fuse_notify_prune(struct fuse_conn *fc, unsigned int size,
+ 	if (err)
+ 		return err;
+ 
+-	if (size - sizeof(outarg) != outarg.count * sizeof(u64))
++	if (size - sizeof(outarg) != array_size(outarg.count, sizeof(u64)))
+ 		return -EINVAL;
+ 
+ 	for (; outarg.count; outarg.count -= num) {
 -- 
 2.43.0
+
