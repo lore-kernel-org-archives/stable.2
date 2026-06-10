@@ -1,176 +1,103 @@
-Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com [209.85.208.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from www262.sakura.ne.jp (www262.sakura.ne.jp [202.181.97.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 823B63E123C
-	for <stable@vger.kernel.org>; Wed, 10 Jun 2026 10:58:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.53
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781089117; cv=pass; b=ZlrUgExjtN6VkkVGAPTqH7AERnFUhUZLvwIZVNq1mkwENOu9cVBSgoHdok5wplmrB3qJjcSM9w5Q0bZ6odAevvtLPWdgJlYoIeBRDd5XwAp6W8Ybdxdu/B6tituyb4Lq6S/N3sRAWUKfrVC2X7otj/Fdb07XGUHgTy0ssL1keAo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781089117; c=relaxed/simple;
-	bh=IsH/o3sokzqOos212l12PDYiFKlklnRFmICJnS027rw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=YjjRg5d7mcGDBo6kYb63B7Fwv1y0Hd5dM/JyG1sVnezHZ6/kc+VhsDxLQeZ3/5XjyJCJ9jp48FWfKO2G2l0h1gZfuclYRTD9gesWxNhFMVCxqlVdgUNyDeUI9VaMBBM1QgFm99cWVLhGHxxDK613+7VIb4bJyIcolYhyprmA8j8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=r7rIU4FO; arc=pass smtp.client-ip=209.85.208.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="r7rIU4FO"
-Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-687ed9aabb3so13027451a12.1
-        for <stable@vger.kernel.org>; Wed, 10 Jun 2026 03:58:31 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781089110; cv=none;
-        d=google.com; s=arc-20240605;
-        b=QKJHh7OIARETvk6t111jAr4nnONq8c4nthWzGavc7cGNyYp8NTG5FvTC14O1wEN7J+
-         NrqjNEXmoPWSBRv/qHZzMQkYhNVtT48O4Y/sgMA5r+Ysf9nAGmTW4+KzSAmI6hzz3gRe
-         5XA+R+xji5b4IIlJANw4wIak5QPEFuLgxR1f4E/3opqFXg+MzN9xXFW3cvC2l+Q6qAmz
-         Sza3kBHzzuZMWDnaPb0jnLl8RebHDNreIR5Ydcqd6MzvIk4ItwJB0uigNRdGacdP2aUT
-         HF4eTCChLAKhYJRL2tjVfes6Vg92vaDW4uEfALgTwBKrpuzpyW+ovUTXkmylpQYl1g1X
-         qvSQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=CZevPFZWYMUUhq47/UQyoxjI9SWdGG7Ind6IJjxpI3Y=;
-        fh=zNRVzY9US4fz6qKqgWIWIT7OV85IagZ4yLjr4uFpTx4=;
-        b=MFer1fLiQ7NvKmgdLnyRkZZLUrCzpo77FVfffqpoLYxz0Vyf4dzPvaI0SoAvwVov5L
-         MNhiV+6aDefnLDsDYOllTwE7JaprKOfpYFB312ZxsDlw1NzPU1YIDZ/xXA8C6sButmU5
-         a2WH6U+3PnwnDWaOtjC33t0tGfOqiKlEM3DfG8Z3DOu+XsHCv5NxHF04DHLqzUOpbPhW
-         0Q1EafY3Qc7Omx4T2s1lQHali1WTKNhrkWJM8jWAikwSrZYLgyR32sEVWpB9EosYj2ho
-         gsx63dsdIFCxFSRAuTFyGRY2TAjYL3GYGUHVrbsN95JTR3gH6G2emFFPS43bkjOZU6aA
-         WrcA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1781089110; x=1781693910; darn=vger.kernel.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=CZevPFZWYMUUhq47/UQyoxjI9SWdGG7Ind6IJjxpI3Y=;
-        b=r7rIU4FOd7qobXnqxhwQnjMwuijY0UTSRUt+Q80H+ICNXeK6ut2PpyNgZvjutvci2W
-         4kNIt8pWtdJlAEwDffMehiElVm3t4JFVd73zR1eGXFMSh4V+wvwzueV3nDVx0R0wvfcy
-         KpLjvp2yihv/pSGFKcbNmiu7IxkFT+vG8rZgrMxQdpuJuwHfE6IL+ZUGNkD+rfvNTGL/
-         Y9HkI8nFqEFmT9W4vcDPErSuU1DepSIq51I0u256eVvecnL8N5q1fzNHatTnLX/mGaQA
-         SPTcBl19eb1R1SW8+wurKGUVunm4bG0DwYV5s8AYPzM/bNs4/M592hr6Av8CdD0w+uUx
-         FvCw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781089110; x=1781693910;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=CZevPFZWYMUUhq47/UQyoxjI9SWdGG7Ind6IJjxpI3Y=;
-        b=KHu9D11XPMoiVAqS1f27xX1WED/qnGr+txbFFM/61yf0ELAhmLwa3ar03ZP6NRjTeP
-         KP0isIl4yE2KPJTcNP/JoPKeDPPtqs/8TeOp4rFSwj2fThw7CYxLE2Vxv2t5dNfVaKZF
-         kA+t/PO7kuWU87vMrFzOaqPrpU/+mjAi2raGWCYA/1IdGevYZjI8DvKGSQRJOj6tlk8H
-         tdEwV3dmdllSttNXWru6k0CEOyfV5JnjnrxsL7P340fPSapxgERDKFbN2Rs+ivwbPw8V
-         +4561Gc4s/G8KkrU6AvC08wyCAdux63vw0r+yl4NNVvEOncrTninQrxb6ymN07D4HwGz
-         857A==
-X-Forwarded-Encrypted: i=1; AFNElJ+jkcUXjyfe+bj3UY8Rxuz1un8innFB8y5QjpTZcML3YRU9rFzFYI4ENdPMpcd6mtfMWp4xi8w=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx5mDBotDw/jAz/eJif9CEimtHq/dhP/QbwQL/I2XaVW4cPcJC5
-	uwJ0nMqTwnXJ5DD4kOV9IN0tLa6G/SmOHDFLFmT2b7BGOLiPrxVYSxhLlb/w4X9uhhU+gNdbRy5
-	i2b9n6cDOvfvWleSYn/6oGLhRBvHjSxo+MvU4iIuTBQ==
-X-Gm-Gg: Acq92OHO/0T8vo7bLLFr8msseEjp7xq58ktTOjU07uTvq6wyReVJddape8pR++rTJwL
-	h5ZvbS4DIrK33pkX83NnNM3xreT9KrAuSYopjGxLoOntSlLb/vSV3tAu5tML5p1ZAjvI+nB5/Hw
-	0pzfbR//XLwEEWF64Z/SD1UyttbjWSwoRmDdq+Yb5l7TSaSvUUc1R5VDAIRVHUsK3KDQbD3eb+A
-	BZ3rJTHF3DJvu3f1pBx4pUfSe7yXMOKKNA2gzmPUsNf4f1H7ejHEjh0SHBdT3jjdYVWM5wBz4iw
-	F/QNwCiKE3xti3sGh7FFQc2ArYQLa2pMGj5K3r1tTWEkbVZJ0vvp
-X-Received: by 2002:a05:6402:3711:b0:691:ad29:ea20 with SMTP id
- 4fb4d7f45d1cf-691ad29ec32mr8237260a12.14.1781089109643; Wed, 10 Jun 2026
- 03:58:29 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFD5E3F4109;
+	Wed, 10 Jun 2026 11:01:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.181.97.72
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781089305; cv=none; b=tmGUGvTddm5iLJ/dLBR1wzrm1TY8jUexMiSKvpMj65EBDMna3EnnI24FOZgOea+r90Rm72Ro2MYndlRqqb7GliIIPvfiax1ujjc/jhe+Q7unKHt4GVxcVM/cjXIHhjiC2AbAmNRC4bpoqjyTEWQTVZiRK4ZDRpO1cn0utXhaBq8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781089305; c=relaxed/simple;
+	bh=aBMlI5GynG8PGFL9oQvJmX7hmUnCvdv7groipJ0VJME=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=MCfJZSUKi1HlgdRHuU0THk0WH8Gc7Om27cludHPJLFWX+MbiPldLpe08cC0zei4A71KI19jbPcGjCA7EHeT1JG/6FEobhWcI+NJszxyvGpkTz4vzA8hvUqpn2nHn6oiAOeBtywz4Ub5zdFwowfHjG3VLzI5Lem0elyjYV7M4Kd8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=I-love.SAKURA.ne.jp; spf=pass smtp.mailfrom=I-love.SAKURA.ne.jp; arc=none smtp.client-ip=202.181.97.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=I-love.SAKURA.ne.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=I-love.SAKURA.ne.jp
+Received: from www262.sakura.ne.jp (localhost [127.0.0.1])
+	by www262.sakura.ne.jp (8.15.2/8.15.2) with ESMTP id 65AB1Fte097171;
+	Wed, 10 Jun 2026 20:01:15 +0900 (JST)
+	(envelope-from penguin-kernel@I-love.SAKURA.ne.jp)
+Received: from [192.168.1.5] (M106072072000.v4.enabler.ne.jp [106.72.72.0])
+	(authenticated bits=0)
+	by www262.sakura.ne.jp (8.15.2/8.15.2) with ESMTPSA id 65AB0k38096905
+	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NO);
+	Wed, 10 Jun 2026 20:01:15 +0900 (JST)
+	(envelope-from penguin-kernel@I-love.SAKURA.ne.jp)
+Message-ID: <075511fc-1136-4208-84d0-9214e761f8ba@I-love.SAKURA.ne.jp>
+Date: Wed, 10 Jun 2026 20:00:47 +0900
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260605-exynos-pmu-cpuhp-idle-fixes-v1-0-0cd05c81a82d@linaro.org>
- <20260605-exynos-pmu-cpuhp-idle-fixes-v1-2-0cd05c81a82d@linaro.org>
-In-Reply-To: <20260605-exynos-pmu-cpuhp-idle-fixes-v1-2-0cd05c81a82d@linaro.org>
-From: Peter Griffin <peter.griffin@linaro.org>
-Date: Wed, 10 Jun 2026 11:58:18 +0100
-X-Gm-Features: AVVi8Cc8CtqeDsBexbU73aNUL0ZdHbMknGnH8Y2ORIFe_Si6C0zGr-kM3HOWHug
-Message-ID: <CADrjBPoHhiNTfBsEam+=AWVc03mbQt+E6gm5Dw0fo=pH-w4Uuw@mail.gmail.com>
-Subject: Re: [PATCH 2/3] soc: samsung: exynos-pmu: fix use-after-free of
- interrupt generator node
-To: Alexey Klimov <alexey.klimov@linaro.org>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
-	Sam Protsenko <semen.protsenko@linaro.org>, linux-samsung-soc@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] wifi: ath6kl: fix invalid workqueue flags in
+ ath6kl_usb_create()
+To: wuyankun <wuyankun@uniontech.com>, linux-wireless@vger.kernel.org
+Cc: jeff.johnson@oss.qualcomm.com, johan@kernel.org, kees@kernel.org,
+        sumanth.gavini@yahoo.com, linux-kernel@vger.kernel.org,
+        syzkaller-bugs@googlegroups.com,
+        syzbot+f80c62f371ba6a1e7d79@syzkaller.appspotmail.com,
+        stable@vger.kernel.org
+References: <20260610092236.40026-1-wuyankun@uniontech.com>
+Content-Language: en-US
+From: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
+In-Reply-To: <20260610092236.40026-1-wuyankun@uniontech.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Anti-Virus-Server: fsav405.rs.sakura.ne.jp
+X-Virus-Status: clean
 
-Hi Alexey,
+On 2026/06/10 18:22, wuyankun wrote:
+> ath6kl_usb_create() currently creates ath6kl_wq with flags set to 0:
+> 
+>   alloc_workqueue("ath6kl_wq", 0, 0)
+> 
+> This triggers a runtime warning in __alloc_workqueue() because the queue is
+> created with neither WQ_PERCPU nor WQ_UNBOUND set:
+> 
+>   workqueue: ath6kl_wq is using neither WQ_PERCPU or WQ_UNBOUND.
+>   Setting WQ_PERCPU.
+> 
+> Set WQ_PERCPU explicitly to match the actual execution model and remove the
+> warning during device probe. No functional change intended.
+> 
+> Fixes: 62ebaf2f9261 ("ath6kl: avoid flush_scheduled_work() usage")
 
-Thanks for your patch.
+Please use
 
-On Fri, 5 Jun 2026 at 21:19, Alexey Klimov <alexey.klimov@linaro.org> wrote:
->
-> The setup_cpuhp_and_cpuidle() parses the device tree node for the
-> interrupt generation block via of_parse_phandle() and decrements its
-> reference count using of_node_put() immediately after fetching the resource
-> address. However, later the intr_gen_node pointer is passed into
-> of_syscon_register_regmap().
->
-> Fix this by moving the of_node_put() invocation to after the
-> of_syscon_register_regmap() call, and adding it to correct error paths.
+  Fixes: 21c05ca88a54 ("workqueue: Add warnings and ensure one among WQ_PERCPU or WQ_UNBOUND is present")
 
-I think  using
-__free(device_node) = of_parse_phandle
+for this problem because this problem is caused by
 
-would be a cleaner/simpler fix.
+  WQ subsystem is about to start requiring WQ_PERCPU unless WQ_UNBOUND,
+  without updating all in-tree users before start emitting WARNING: message
 
-Peter
+. Also, you don't need to send to stable, but please try to send to linux.git before
+7.1-final is released (because this fix should be applied before 21c05ca88a54 is
+applied in order to avoid flooding of WARNING: messages).
 
-
-
-
-Peter.
-
->
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://sashiko.dev/#/patchset/20260513-exynos850-cpuhotplug-v4-0-54fec5f65362@linaro.org?part=3
-> Fixes: 78b72897a5c8 ("soc: samsung: exynos-pmu: Enable CPU Idle for gs101")
+> Reported-by: syzbot+f80c62f371ba6a1e7d79@syzkaller.appspotmail.com
+> Link: https://lore.kernel.org/all/6a289c01.39669fcc.33b062.00aa.GAE@google.com/T/
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Alexey Klimov <alexey.klimov@linaro.org>
+> Signed-off-by: wuyankun <wuyankun@uniontech.com>
 > ---
->  drivers/soc/samsung/exynos-pmu.c | 11 +++++++++--
->  1 file changed, 9 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/soc/samsung/exynos-pmu.c b/drivers/soc/samsung/exynos-pmu.c
-> index 6e635872247a..9636287f6794 100644
-> --- a/drivers/soc/samsung/exynos-pmu.c
-> +++ b/drivers/soc/samsung/exynos-pmu.c
-> @@ -428,23 +428,30 @@ static int setup_cpuhp_and_cpuidle(struct device *dev)
->          * syscon provided regmap.
->          */
->         ret = of_address_to_resource(intr_gen_node, 0, &intrgen_res);
-> -       of_node_put(intr_gen_node);
-> +       if (ret) {
-> +               of_node_put(intr_gen_node);
-> +               return ret;
-> +       }
->
->         virt_addr = devm_ioremap(dev, intrgen_res.start,
->                                  resource_size(&intrgen_res));
-> -       if (!virt_addr)
-> +       if (!virt_addr) {
-> +               of_node_put(intr_gen_node);
->                 return -ENOMEM;
-> +       }
->
->         pmu_context->pmuintrgen = devm_regmap_init_mmio(dev, virt_addr,
->                                                         &regmap_pmu_intr);
->         if (IS_ERR(pmu_context->pmuintrgen)) {
->                 dev_err(dev, "failed to initialize pmu-intr-gen regmap\n");
-> +               of_node_put(intr_gen_node);
->                 return PTR_ERR(pmu_context->pmuintrgen);
->         }
->
->         /* register custom mmio regmap with syscon */
->         ret = of_syscon_register_regmap(intr_gen_node,
->                                         pmu_context->pmuintrgen);
-> +       of_node_put(intr_gen_node);
->         if (ret)
->                 return ret;
->
->
-> --
-> 2.51.0
->
+>  drivers/net/wireless/ath/ath6kl/usb.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/net/wireless/ath/ath6kl/usb.c b/drivers/net/wireless/ath/ath6kl/usb.c
+> index 79c18f5ee02b..945984c3dbe6 100644
+> --- a/drivers/net/wireless/ath/ath6kl/usb.c
+> +++ b/drivers/net/wireless/ath/ath6kl/usb.c
+> @@ -636,7 +636,7 @@ static struct ath6kl_usb *ath6kl_usb_create(struct usb_interface *interface)
+>  	ar_usb = kzalloc_obj(struct ath6kl_usb);
+>  	if (ar_usb == NULL)
+>  		return NULL;
+> -	ar_usb->wq = alloc_workqueue("ath6kl_wq", 0, 0);
+> +	ar_usb->wq = alloc_workqueue("ath6kl_wq", WQ_PERCPU, 0);
+>  	if (!ar_usb->wq) {
+>  		kfree(ar_usb);
+>  		return NULL;
+
