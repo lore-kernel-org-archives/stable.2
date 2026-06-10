@@ -1,120 +1,129 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f41.google.com (mail-qv1-f41.google.com [209.85.219.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2CB93D7D69;
-	Wed, 10 Jun 2026 11:41:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B6D83FF882
+	for <stable@vger.kernel.org>; Wed, 10 Jun 2026 11:41:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781091684; cv=none; b=CxwXwmqv0w82N4Bu/dUuzUd6ACLQWaLplUidyKJtjsB7F+D7Qc6zBhUZVmZb2o0/zOmu6taAesxaApxrAe6DW1uy3epItngZ6dR5GiqodKhFvq7Pkg2v2ju2DcyEiAVqqvAp2RMnBVt+KahP0t6q1yfnJE1pzZk0w4nk9Z16XtE=
+	t=1781091687; cv=none; b=YHPBRho3iIMeTz4OFPfwNiPPBoJL9Ehznrfk2y6h2ObjTDKEHJahRWpr1+NMSNp72vJ5HAFtOUrts8fjTVzpwT5LC9pUMhf83z9kcqTAWxLqySBnwH92Qxm7gqDUHS1SU/UijaLRn/I01K5CM6SyQyS/wChZrrmdS8qLLpgkoDE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781091684; c=relaxed/simple;
-	bh=YUZnH9iXq0Pl87kTiU9IWLwmwffmNGTynFm+HmKTlRY=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=ewYu4nzZ8OrnQ4Middet11vhuaUCtzOuqO/FGi4e9j4gu/ce/y6vKqSDWhKSGn1EedKfKBytXl+QI7afMGXTCT09sBb80cpYo8H116mU7jSETns/uQx6RgBj1XgrONEBTuOOVoXkOvz+dvnteZEgbOyDcJbKE6mMyX61pdLjRr4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ClyjEuJp; arc=none smtp.client-ip=192.198.163.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1781091687; c=relaxed/simple;
+	bh=Kz5o+o4V/50TgyMsDM1u+PPBmb+aUdtA7Th63o/S4GM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=K2i8KVZpPelPrW0I9RHJcQD7TlQb3/FScrL45lItecdTIY9b4yI72nPzdVaacamnXbHQl61tgaehNduRjsvpcTyV23BfKDOS5wN31dk/PtTgPx0SmsE4Un1gxbyroK11rKQu/vsZRAllqjjLLthkQACmNefn4YkCKTcK/cVDMgg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UI+dDQhC; arc=none smtp.client-ip=209.85.219.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ClyjEuJp"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1781091682; x=1812627682;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=YUZnH9iXq0Pl87kTiU9IWLwmwffmNGTynFm+HmKTlRY=;
-  b=ClyjEuJp/Ev0Re15EII0IUVgl0zxiMjsB0mis/1eLZaYAW7v9FHxGCPB
-   hgsI/xHB1WyaWwTsdoPTps21tXD9XK4ngTF+NcGqjtIGzZz5yOTnNhvE6
-   ROVJ+eOQKhWi+AxwQCXIFMfW4AlTNCTvEdVRC9SxPugsFY6CuBT+OsKBE
-   FLVK4Q7mlJcFv5zG4Zv1rVs4FhoasX0Vbp/U8IbM7cwUhUMA3+8RDKDRl
-   sYiPHfpBtbufBee69HSCu8SLkyHemi02Nb1SIU4/7g8W+IhHHmqAJoVhu
-   2pktP3zF5Y5nWLKIS6kr52OpxV7Ze5VdTrCCj10jfHNaqv6mQgcwIXj2c
-   A==;
-X-CSE-ConnectionGUID: 8OqtE/hRRU6oWSUk1nkYVw==
-X-CSE-MsgGUID: 1Zz2fNHYT2+nhPdcb+4AZw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11812"; a="81924275"
-X-IronPort-AV: E=Sophos;i="6.24,197,1774335600"; 
-   d="scan'208";a="81924275"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Jun 2026 04:41:21 -0700
-X-CSE-ConnectionGUID: tFJiYj0STv+g0NQhxFUyQQ==
-X-CSE-MsgGUID: 3omx3dyUTwGLa0smXA1bPg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,197,1774335600"; 
-   d="scan'208";a="243685061"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.18])
-  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Jun 2026 04:41:18 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Wed, 10 Jun 2026 14:41:14 +0300 (EEST)
-To: Haoxiang Li <lihaoxiang@isrc.iscas.ac.cn>
-cc: mjg59@srcf.ucam.org, pali@kernel.org, Hans de Goede <hansg@kernel.org>, 
-    dvhart@infradead.org, platform-driver-x86@vger.kernel.org, 
-    LKML <linux-kernel@vger.kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH v2] platform/x86: dell-laptop: fix missing cleanups in
- init error path
-In-Reply-To: <20260609081419.1995169-1-lihaoxiang@isrc.iscas.ac.cn>
-Message-ID: <adce8429-e437-48a1-6520-2b95973411eb@linux.intel.com>
-References: <20260609081419.1995169-1-lihaoxiang@isrc.iscas.ac.cn>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UI+dDQhC"
+Received: by mail-qv1-f41.google.com with SMTP id 6a1803df08f44-8ce9e56f68cso56328316d6.2
+        for <stable@vger.kernel.org>; Wed, 10 Jun 2026 04:41:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781091683; x=1781696483; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=/FNVXr9zawygTZbMFPpNLLMPEhT2gh4L5OBjQ+E7NpM=;
+        b=UI+dDQhCBkL2djbo9jRTxvJto/ZNc2U7mZRKQcUdrIyg4ikS6tuNhWNNGfqabwz+Le
+         CqOfZhKp4K6gESU/Bm6kCKNDsGx2HYmB35HvEh0P9UsIki9XhadTEQ+5WCr/JVlUgEA/
+         zPD6Y51/QbXp9WSTb2pkrHD2zmDZufE/z+X+yu9HJE4w+8KF6A51rTkj3Zmr1fNVIYQ9
+         XEM32Z0knRNdN+EfS2r3nRL4OFyFe/8w/kV5PBoYVzfXBes56cUewIWZctpM+5wyL2ht
+         QFH6UfCi9xjovuPHwiZOH2Gg8VGcC32hwDhESH6+e4KmWgSeXWHh3OeV86f4oMG3AM12
+         iMTQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781091683; x=1781696483;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=/FNVXr9zawygTZbMFPpNLLMPEhT2gh4L5OBjQ+E7NpM=;
+        b=F+hCmL0WniA13+U+uQyKjXSS+Ox6P7AbOyd2/J6bg8MBbW1k3T1dRxxHubssRAEPt0
+         OzdAvQf7S7nClrtHBoFGHbgIbz9+5sgzjdsXsYsTyvQU0bHii2yZwRJhSX+wmvDooCVG
+         /HfI9cnO0p3qwmiPW+mSxNy9QE3TIjYP3F4DooBwWTos3FrC8dqa0zJcWrSCQx7o2U53
+         o2cSPVUH+cbFtHmpaea5ydFWxShaZ6enJ6Z23Kd4/V4QPqBUtBHJ1nlzk+vCUA3kptex
+         Rp5LXCYLI4ARMLnkoQRdaS/x4prgE5dCzw6gr2qrgnxSs2WwxRz8oD/qVKjdmi7KlYTR
+         LgFw==
+X-Forwarded-Encrypted: i=1; AFNElJ84CxhCCDJVaLMbzSbir9aPd7kmRyW46mUWFbmETd7QRqzzsanqwGj4IOYK0zleozCpQRITCNA=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxO/IJ9VdXBOM3lGcwTrQR+GXu0HaSOMd8F2iHmjIJMvxfP98M8
+	5NpTMa53L7Dw/cGg7MduS7w44N11lBPoKpjJZRLlFOgu6xbSdPfKUaw5
+X-Gm-Gg: Acq92OHWozC76bO9p1NaWD9bWujmV2y4b/Hirrlryg6gIoOuOmmZ1VFF4uABSiRn8Ii
+	rVIs68B2Lp1xcuaLtk7phZnqw2z8jjpDuj/if97hBJ19wsR2xVTpqna2hOuh5hl7+p3XK6OVQCr
+	MCDOQtaYfZgESHqNMp641C3QqSJPMmFNMaa8KjG/882S3x53Mjg1MpvnxhA1eMxBfSN9oDfnVGW
+	rpimwQrhoaV7s4dCeZI1OHXVKEG3aEbUf4BknyiTBnp99hK/ar8nEcyihf1nGex51s4BHop/e8D
+	XwMsl0IGbJW3izid4iIrVPAjfKqKft1u+Uco2ii3EguwrJKgkuC6pafd9Jew2obpWGKvMvDFMHl
+	RBLCAU15vOTnX1OlzqIGpwm400FKIR99xbm8HPu/RPJmz61ffBv/D5/pPL+MMwMAVl769TSPgjQ
+	UUm5gvkKuX2Ep5Agd76+rULZy9kzfTCF9/HCTLSDQnWxJNlcWdG08MpH0PulKSgdBO+TLAnvvTU
+	gr4Rdfszc7mNBTPrVrpfnRWYTeR9Mo=
+X-Received: by 2002:a0c:f09c:0:b0:8cc:dfa6:3333 with SMTP id 6a1803df08f44-8cee613313amr408672466d6.32.1781091682895;
+        Wed, 10 Jun 2026 04:41:22 -0700 (PDT)
+Received: from server0 (c-68-48-65-54.hsd1.mi.comcast.net. [68.48.65.54])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8ceccd9fc7dsm234124256d6.5.2026.06.10.04.41.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 10 Jun 2026 04:41:21 -0700 (PDT)
+From: Michael Bommarito <michael.bommarito@gmail.com>
+To: Justin Tee <justin.tee@broadcom.com>,
+	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
+	"Martin K . Petersen" <martin.petersen@oracle.com>
+Cc: Paul Ely <paul.ely@broadcom.com>,
+	linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] scsi: lpfc: bound RPL ACC payload size to the response structure
+Date: Wed, 10 Jun 2026 07:41:19 -0400
+Message-ID: <20260610114120.3748526-1-michael.bommarito@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Tue, 9 Jun 2026, Haoxiang Li wrote:
+lpfc_els_rcv_rpl() handles an unsolicited RPL (Read Port List) ELS
+request from a fabric peer. For a request with rpl->index != 0 (or
+index 0 with a small maxsize) it computes the accept payload size as
 
-> dell_init() initializes several resources after dell_setup_rfkill(),
-> including the optional touchpad LED, keyboard backlight LED, battery
-> hook, debugfs directory and dell-laptop notifier.
-> 
-> If a later LED or backlight registration fails, the error path only
-> tears down the battery hook and rfkill resources. This leaves the
-> notifier, debugfs directory, keyboard backlight LED and optional
-> touchpad LED registered after dell_init() returns an error.
-> 
-> Add the missing cleanup calls before tearing down rfkill.
-> 
-> Fixes: 9c656b07997f ("platform/x86: dell-*: Call new led hw_changed API on kbd brightness change")
+	cmdsize = sizeof(uint32_t) + maxsize * sizeof(uint32_t);
 
-I've included also these:
+into a uint16_t, where maxsize comes straight from the peer's request
+with no upper bound. lpfc_els_rsp_rpl_acc() then builds the response
+with
 
-Fixes: 037accfa14b2 ("dell-laptop: Add debugfs support")
-Fixes: 2d8b90be4f1c ("dell-laptop: support Synaptics/Alps touchpad led")
-Fixes: 6cff8d60aa0a ("platform: x86: dell-laptop: Add support for keyboard backlight")
+	memcpy(pcmd, &rpl_rsp, cmdsize - sizeof(uint32_t));
 
-Applied this change to my local the review-ilpo-next branch (it will 
-eventually appear in the public one if there are no problems).
+The RPL accept always carries exactly one RPL_RSP structure, so a
+peer-chosen maxsize makes cmdsize - sizeof(uint32_t) exceed
+sizeof(RPL_RSP): the copy reads past the on-stack RPL_RSP, placing
+adjacent kernel stack into the response sent back to the peer, and for
+a large maxsize overruns the command buffer.
 
---
- i.
+Bound cmdsize the same way the index == 0 branch already does, since
+the accept payload is a single RPL_RSP regardless of the requested
+maxsize.
 
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Haoxiang Li <lihaoxiang@isrc.iscas.ac.cn>
-> ---
-> Changes in v2:
->  - Fix all missing cleanups in dell_init()'s error path.
->  - Add Fixes tags.
->  - Modify the commit title and message.
-> ---
->  drivers/platform/x86/dell/dell-laptop.c | 5 +++++
->  1 file changed, 5 insertions(+)
-> 
-> diff --git a/drivers/platform/x86/dell/dell-laptop.c b/drivers/platform/x86/dell/dell-laptop.c
-> index 57748c3ea24f..053f40572bf6 100644
-> --- a/drivers/platform/x86/dell/dell-laptop.c
-> +++ b/drivers/platform/x86/dell/dell-laptop.c
-> @@ -2551,7 +2551,12 @@ static int __init dell_init(void)
->  	if (mute_led_registered)
->  		led_classdev_unregister(&mute_led_cdev);
->  fail_led:
-> +	dell_laptop_unregister_notifier(&dell_laptop_notifier);
-> +	debugfs_remove_recursive(dell_laptop_dir);
->  	dell_battery_exit();
-> +	kbd_led_exit();
-> +	if (quirks && quirks->touchpad_led)
-> +		touchpad_led_exit();
->  	dell_cleanup_rfkill();
->  fail_rfkill:
->  	platform_device_del(platform_device);
-> 
+Fixes: 7bb3b137abf2 ("[SCSI] lpfc 8.1.2: Handling of ELS commands RRQ, RPS, RPL and LIRR correctly")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-4-8
+Signed-off-by: Michael Bommarito <michael.bommarito@gmail.com>
+---
+ drivers/scsi/lpfc/lpfc_els.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/scsi/lpfc/lpfc_els.c b/drivers/scsi/lpfc/lpfc_els.c
+index 4e3fe89283e41..555b2e4d78fb9 100644
+--- a/drivers/scsi/lpfc/lpfc_els.c
++++ b/drivers/scsi/lpfc/lpfc_els.c
+@@ -9250,7 +9250,11 @@ lpfc_els_rcv_rpl(struct lpfc_vport *vport, struct lpfc_iocbq *cmdiocb,
+ 	     ((maxsize * sizeof(uint32_t)) >= sizeof(RPL_RSP)))) {
+ 		cmdsize = sizeof(uint32_t) + sizeof(RPL_RSP);
+ 	} else {
+-		cmdsize = sizeof(uint32_t) + maxsize * sizeof(uint32_t);
++		u64 sz = sizeof(uint32_t) + (u64)maxsize * sizeof(uint32_t);
++
++		if (sz > sizeof(uint32_t) + sizeof(RPL_RSP))
++			sz = sizeof(uint32_t) + sizeof(RPL_RSP);
++		cmdsize = sz;
+ 	}
+ 	lpfc_els_rsp_rpl_acc(vport, cmdsize, cmdiocb, ndlp);
+ 
+-- 
+2.53.0
+
