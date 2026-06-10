@@ -1,171 +1,164 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com [205.220.177.32])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 814EB339847
-	for <stable@vger.kernel.org>; Wed, 10 Jun 2026 17:34:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31EBF222582;
+	Wed, 10 Jun 2026 17:39:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.177.32
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781112859; cv=none; b=P6OsMxn1wuJxy4k6YijLDmveWSb1WDPfFMhQZphDW4D2qNNlVkQSzq4+0AXsF0QnWnu077bTFB0ZWt7r9OqzlLk6W6TUjD2kSSwB44uMY3kQQG0nE4YwFdUbO8RyAJypSXlwX0zA6nrgtWUIz+w1DsFfIXd7dhXu9FHOkCzshyQ=
+	t=1781113173; cv=none; b=OZDYtw8XbPIa2kDvKxvXAO/IL3ybmOXXagHS1ZxbpUSHzm4vqDWVwlO/HLX0lyZi4kYyq/QgjWNFgcnkaX20JyezCCjxxJiHuwE762qwi+sLnPBsetpNO+DXVQh4hmb6CbKD0OnyzoIBWhDC6Er9uOlu+/FVmr0xtzvyJ1l7I/g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781112859; c=relaxed/simple;
-	bh=hvqgbsrBRXUaMJphi0xOHdhb/O3o5jtTUlIvVUaKvR4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uiRG3QPd1QE74g8P7gdthYDCD6ivjIk4jCkbMuTQLSDQQ5OoYu1qNtWd3GOACwLKNSbXaoWZ3FzAiSwT2Mjhv0Jl9+mmWJOu0paHEFvTIKZfxsOu38JTkp08gdxmwmm0CzUzPxDyLV8NE8MMnRApVTlqh3L8dmftqDP5ToB88AY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=aZRCIsvZ; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1781113173; c=relaxed/simple;
+	bh=mFsPdIQNmumD6FdOZ1f3tsuWa3qRREaX+mUfFjjJrVM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RJTF9mM6MoNchMwFTI1Uis4ZoX1QO95mbIA7sZQwty93+HaNxNxVr+otJXThFOxqWhEAHOEOhPSWmINpI0MF8eNYJdbt6PQEa83Q7aPZXan/g9gIV6sv/1WFvNalYRaGmNwDWOkq9VJnbCOjgcFRQ78oeWEHWMGvLzi6uWEa4LI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com; spf=pass smtp.mailfrom=oracle.com; dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b=CGVsG/EJ; arc=none smtp.client-ip=205.220.177.32
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oracle.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="aZRCIsvZ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1781112857;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=u5lOfnqz6cdvQq+455ibVbtGRpcoEQAcIdcUZsugK+8=;
-	b=aZRCIsvZ15Ln8TvZOu6CkkWM5Aw54JHAYOKvolmRa7VR/xbHrNHyl3ch/IpPZrH84SnDni
-	bFQDq7j4enzx0KorqWHbj0JzhxLh7JBR2nfjcLQXcJa6C4S6R2TodAvsHXR5Cn1ZT8P64/
-	le1T5GpiK/F3YR4qMCWGXEFFKbzKM9A=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-49-bvmQV3fVPWK-8eCh33Dk7w-1; Wed,
- 10 Jun 2026 13:34:13 -0400
-X-MC-Unique: bvmQV3fVPWK-8eCh33Dk7w-1
-X-Mimecast-MFC-AGG-ID: bvmQV3fVPWK-8eCh33Dk7w_1781112851
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id E380D1964CE4;
-	Wed, 10 Jun 2026 17:34:10 +0000 (UTC)
-Received: from bfoster (unknown [10.22.80.93])
-	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 8AE271800586;
-	Wed, 10 Jun 2026 17:34:08 +0000 (UTC)
-Date: Wed, 10 Jun 2026 13:34:06 -0400
-From: Brian Foster <bfoster@redhat.com>
-To: Gregg Leventhal <gleventhal@janestreet.com>
-Cc: Eric Hagberg <ehagberg@janestreet.com>, hch@infradead.org,
-	djwong@kernel.org, linux-xfs@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org, io-uring@vger.kernel.org,
-	Jens Axboe <axboe@kernel.dk>, stable@vger.kernel.org
-Subject: Re: [BUG] iomap/io_uring: O_APPEND async buffered write silently
- re-appends a data chunk (corruption) on XFS, 6.1.y/6.12.y
-Message-ID: <aimgDnzB_NYqOTx1@bfoster>
-References: <CAFN_u7FrgM4Dzie2jjkLwWV8P0dvUG_Wwy3Q9B3-2HnnWiDu8w@mail.gmail.com>
- <aiLxe-9Sub8cI3Py@bfoster>
- <aibns0xP6IVVNWh3@bfoster>
- <CAAH4uRB+Bh9UEVEW8Sb2yM4YhB-Q5UJ6KJJXari3DDF3n3S+-g@mail.gmail.com>
- <aig9Vm2a_13bPc5G@bfoster>
- <CAFN_u7ELBj3YKncm6HA4-QUNyi-a3qPDEYxuLP+skVhm-r87uw@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="CGVsG/EJ"
+Received: from pps.filterd (m0333520.ppops.net [127.0.0.1])
+	by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65ADulOL140590;
+	Wed, 10 Jun 2026 17:39:20 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
+	:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=corp-2025-04-25; bh=KYcM7IBQoilglZiFsT2AYDGdPiR3Z
+	d59yAtoqkqCQaE=; b=CGVsG/EJZlJzknu1fMkTXnuvXp7Mr0jd3VMZdEZo5iUPI
+	X/ej4PJH61hpJoRLZ1nUrn3Ubwx1s/l1ajxWfsBNb8MO6H8+70BAP15VNU88qrxg
+	eQLNAW2rfRTrxYJ05Q9QCk9gwoBvRWdqNtDNJRifdE6L9DvsTUA7QuQe9QPZH/7E
+	n5H1Ryg0fo1g79VPPcE1m36dv3mgKog/yBPlimsGVDA6DuSwlVH0/EeSObnG885D
+	E09elU48TWLE2ZO8rjzFeiOSJOsNwtOKzN0e96w+7PFQGrm7YiPA2u1WLu6S5gnf
+	9qjI65JJ4aIAbMWdry5QG9NkM7DN3IHNy8Qsli0dw==
+Received: from phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com (phxpaimrmta03.appoci.oracle.com [138.1.37.129])
+	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4embkjf5e2-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 10 Jun 2026 17:39:20 +0000 (GMT)
+Received: from pps.filterd (phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
+	by phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com (8.18.1.7/8.18.1.7) with ESMTP id 65AHXBvJ028974;
+	Wed, 10 Jun 2026 17:39:18 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+	by phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTPS id 4eqbqftdda-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 10 Jun 2026 17:39:18 +0000 (GMT)
+Received: from phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com (phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
+	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 65AHbHKj011533;
+	Wed, 10 Jun 2026 17:39:17 GMT
+Received: from mbpatil-ws.osdevelopmeniad.oraclevcn.com (mbpatil-ol10-ws.webad1iad.osdevelopmeniad.oraclevcn.com [100.100.228.95])
+	by phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTP id 4eqbqftdcg-1;
+	Wed, 10 Jun 2026 17:39:17 +0000 (GMT)
+From: Manjunath Patil <manjunath.b.patil@oracle.com>
+To: Saeed Mahameed <saeedm@nvidia.com>, Tariq Toukan <tariqt@nvidia.com>,
+        Mark Bloch <mbloch@nvidia.com>, Leon Romanovsky <leon@kernel.org>,
+        netdev@vger.kernel.org
+Cc: Manjunath Patil <manjunath.b.patil@oracle.com>,
+        Andrew Lunn <andrew+netdev@lunn.ch>,
+        "David S . Miller" <davem@davemloft.net>,
+        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>,
+        Patrisious Haddad <phaddad@nvidia.com>, linux-rdma@vger.kernel.org,
+        linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: [PATCH net] net/mlx5e: Use sender devcom for MPV master-up
+Date: Wed, 10 Jun 2026 10:39:15 -0700
+Message-ID: <20260610173915.4053423-1-manjunath.b.patil@oracle.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAFN_u7ELBj3YKncm6HA4-QUNyi-a3qPDEYxuLP+skVhm-r87uw@mail.gmail.com>
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-10_03,2026-06-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 phishscore=0
+ mlxlogscore=999 malwarescore=0 bulkscore=0 lowpriorityscore=0 mlxscore=0
+ spamscore=0 suspectscore=0 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.19.0-2605130000 definitions=main-2606100166
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjEwMDE2NiBTYWx0ZWRfX5k9kQImBYMJb
+ TMnA5U8R2f/ilo5tGIBLsZOBGtQpXW/f1VA7Ezklmbh8vd0LZEpKoW82H6n/TnfbcP1d9RDy28P
+ A5eORAeKQXS9F6vyr4KHmiOdxfaaOnrb5Zwp3zdgAEyKMuqG/iupBtskzaIosIetTg+20JwhziR
+ QLQ+spAy96a/vM5bQnfy2vMl2pc3Op7aqgltz1KuQ17O4bPhPuUOHn/IjtYynVeF2eoaQaHajIT
+ bRcePuOjn5svN4ijB8TFM65Oi4GRuxs3ThzUFClYtbQ7nbLmW65Xqq1UKRPA+ykYkVyx4k09LYf
+ Za1nkOXPA1tPCq+4zjTjGCG6Kf8AwZG3m1JlL87tzFOqcLE6hNLt1VbYjWZRmSCLjfW4erRuuDq
+ 7ICJ4z9sK8fu9ZcBReuJwwdAN5XVhUpFnX8AYrKs9w62HUPHstFHQ8ng+YMjRkheZ7y1j2j4AjI
+ j5T+wUcwha70ZaEAu8w==
+X-Authority-Analysis: v=2.4 cv=ROSD2Yi+ c=1 sm=1 tr=0 ts=6a29a148 b=1 cx=c_pps
+ a=WeWmnZmh0fydH62SvGsd2A==:117 a=WeWmnZmh0fydH62SvGsd2A==:17
+ a=FelO9ux0wxsA:10 a=VkNPw1HP01LnGYTKEx00:22 a=jiCTI4zE5U7BLdzWsZGv:22
+ a=BqU2WV_vvsyTyxaotp0D:22 a=yPCof4ZbAAAA:8 a=VwQbUJbxAAAA:8
+ a=JXUkVfB3YJkj4ag9OGkA:9
+X-Proofpoint-GUID: kFF8KusQBGovR0sKGsMd2h_cailNstJk
+X-Proofpoint-ORIG-GUID: kFF8KusQBGovR0sKGsMd2h_cailNstJk
 
-On Tue, Jun 09, 2026 at 01:14:40PM -0400, Gregg Leventhal wrote:
-> I reproduce it by running 25 ~ concurrent instances of the attached reproducer,
-> each writing its own file, on an otherwise-idle 15 GB VM:
-> 
->   DIR=$(mktemp -d /tmp/uring.XXXXXX)
->   for i in {1..25}; do
->       ./repro_uring_dup "$DIR/file_$i" 120 48 &
->   done
-> ...
-> *** CORRUPTION DETECTED in /tmp/UmgK/file_17.1 ***
->   bytes kernel said it wrote (sum of CQE results): 53621960
->   actual file size:                                56218824
->   extra (duplicated) bytes:                        2596864
->   first mismatching offset: 6791168 (0x67a000)  page_aligned=YES
->     expected u64 848896 but found 524288 (content from byte offset
-> 4194304 reappeared here)
->   (file kept for inspection)
-> 
-> 
-> 
->   wait
-> 
-> *** CORRUPTION DETECTED in /tmp/Gznx/file_18.2 ***
->   bytes kernel said it wrote (sum of CQE results): 58112616
->   actual file size:                                60303976
->   extra (duplicated) bytes:                        2191360
->   first mismatching offset: 2191360 (0x217000)  page_aligned=YES
->     expected u64 273920 but found 0 (content from byte offset 0 reappeared here)
->   (file kept for inspection)
-> 
+After PCIe DPC recovery, mlx5 reloads the affected functions and
+replays multiport affiliation events. In the reported failure, the
+first relevant device error was:
 
-Thanks. I had to bump up the concurrency a bit and then was able to
-reproduce.
+  pcieport 0000:10:01.1: DPC: containment event
+  pcieport 0000:10:01.1: PCIe Bus Error: severity=Uncorrected (Fatal)
+  pcieport 0000:10:01.1:    [ 5] SDES                   (First)
 
-The patch I sent survived my regression testing but when taking another
-look at the upstream patch, I realized something else I had previously
-missed. The code in master doesn't actually return -EAGAIN directly
-along with partial completion. It just returns the partial completion,
-loops again in iomap, and then presumably returns -EAGAIN at that point
-which makes its way back to io_uring. I think that is mostly harmless
-but technically a bug in the upstream patch as the intent was to be able
-to advance the iter, return -EAGAIN, and let the operation unwind from
-there.
+mlx5 recovered the PCI functions and resumed 0000:11:00.1. During
+that resume, RDMA multiport binding replayed
+MLX5_DRIVER_EVENT_AFFILIATION_DONE and mlx5e sent
+MPV_DEVCOM_MASTER_UP. The host then panicked with:
 
-I think this actually leaves at least a couple options here. One is that
-we could presumably just do the same thing on stable as current master:
-forget the flag and just remove the iov revert and direct -EAGAIN return
-at the cost of one more iter before returning to the caller. Another is
-to fix up the code in master and use the patch I posted as a customized
-stable backport of that.
+  BUG: kernel NULL pointer dereference, address: 0000000000000010
+  RIP: mlx5_devcom_comp_set_ready+0x5/0x40 [mlx5_core]
+  RDI: 0000000000000000
 
-WRT the latter I suppose we could also just stick with this patch for
-stable and I can follow up with a separate patch for the loop thing on
-master. Hmm.. I want to think about it a little more so if any iomap
-folks have Opinions in the meantime, let me know.
+Call trace included:
 
-Brian
+  mlx5_devcom_comp_set_ready
+  mlx5e_devcom_event_mpv
+  mlx5_devcom_send_event
+  mlx5_ib_bind_slave_port
+  mlx5r_mp_probe
+  mlx5_pci_resume
 
-> 
-> On Tue, Jun 9, 2026 at 12:20 PM Brian Foster <bfoster@redhat.com> wrote:
-> >
-> > On Mon, Jun 08, 2026 at 01:17:10PM -0400, Eric Hagberg wrote:
-> > > On Mon, Jun 8, 2026 at 12:03 PM Brian Foster <bfoster@redhat.com> wrote:
-> > > > Another idea that came to mind is to try and just replace the -EAGAIN
-> > > > return sequence from the low level iterator with a flag that triggers
-> > > > -EAGAIN from the next iter advance. The idea here is to allow the write
-> > > > to return partial completion (i.e. so no iov_iter revert) without having
-> > > > to return an error from the lowest level in the stack. I had claude come
-> > > > up with a quick patch [1] for reference/experimentation.
-> > > >
-> > > > This is based on v6.12 stable and compile tested only. It needs more
-> > > > review and testing in general but might be worth throwing your
-> > > > reproducer at if you can..?
-> > >
-> > > With that patch applied, the reproducer runs clean - no errors - and
-> > > gets roughly the same performance (maybe slightly better) as when run
-> > > against a 6.18 kernel on the same VM.
-> > >
-> >
-> > Thanks for testing. I'll look into some more regression testing of this
-> > patch and try to clean it up and post it for proper review for stable.
-> >
-> > Are you using the reproducer program in your original mail to test? If
-> > so, does it require some concurrent memory pressure to reproduce, and
-> > are you using anything in particular for that?
-> >
-> > That test seems small enough that we could potentially include it in
-> > fstests, though I'm still not so sure about the mem pressure part..
-> > Since you guys wrote the test, any interest in porting into fstests? If
-> > not I can look into it.
-> >
-> > Brian
-> >
-> > > Thanks,
-> > > -Eric
-> > >
-> >
-> 
+MPV devcom registration publishes mlx5e private data to the component
+peer list before mlx5e_devcom_init_mpv() stores the returned component
+device in priv->devcom. A concurrent master-up event can therefore
+reach a peer whose private data is visible but whose priv->devcom
+backpointer is still NULL.
+
+MPV_DEVCOM_MASTER_UP already carries the sender/master mlx5e private
+data as event_data. The ready bit is stored on the shared devcom
+component, not on an individual peer. Use the sender devcom when
+marking the MPV component ready.
+
+This preserves the readiness transition while avoiding a NULL
+dereference of the peer devcom pointer during affiliation replay after
+PCI error recovery.
+
+Fixes: bf11485f8419 ("net/mlx5: Register mlx5e priv to devcom in MPV mode")
+Assisted-by: Codex:gpt-5
+Signed-off-by: Manjunath Patil <manjunath.b.patil@oracle.com>
+Cc: stable@vger.kernel.org # 6.7+
+---
+ drivers/net/ethernet/mellanox/mlx5/core/en_main.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_main.c b/drivers/net/ethernet/mellanox/mlx5/core/en_main.c
+index 8f2b3abe0092..f7ff20b97e8c 100644
+--- a/drivers/net/ethernet/mellanox/mlx5/core/en_main.c
++++ b/drivers/net/ethernet/mellanox/mlx5/core/en_main.c
+@@ -211,11 +211,14 @@ static void mlx5e_disable_async_events(struct mlx5e_priv *priv)
+ 
+ static int mlx5e_devcom_event_mpv(int event, void *my_data, void *event_data)
+ {
+-	struct mlx5e_priv *slave_priv = my_data;
++	struct mlx5e_priv *master_priv = event_data;
+ 
+ 	switch (event) {
+ 	case MPV_DEVCOM_MASTER_UP:
+-		mlx5_devcom_comp_set_ready(slave_priv->devcom, true);
++		if (!master_priv || !master_priv->devcom)
++			return -EINVAL;
++
++		mlx5_devcom_comp_set_ready(master_priv->devcom, true);
+ 		break;
+ 	case MPV_DEVCOM_MASTER_DOWN:
+ 		/* no need for comp set ready false since we unregister after
+-- 
+2.47.3
 
