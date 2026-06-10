@@ -1,68 +1,76 @@
-Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
+Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com [209.85.160.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F9F43B5319
-	for <stable@vger.kernel.org>; Wed, 10 Jun 2026 10:15:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0339B3ED128
+	for <stable@vger.kernel.org>; Wed, 10 Jun 2026 10:18:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781086545; cv=none; b=SfnjyXBFAN6aNQdo+TpXlhu3A7bUWkOHtKHZFsR99sUU6OXXZubPrSvkZk+TKc5E1vJD4TWDW3lvSMAIn7Jb4IicIdDaeDPxGUTVy8E5W4dSM4LHuzTNbkZ9XL+E/xxRjniKSEM+szk//Ysmwq+20/HReY/qjitHk9QmwLGu8cA=
+	t=1781086736; cv=none; b=DGScxWx19UjCvpOGEbacnQQqcIFJMGf1StOr/U3T0RHr7SEXalYxX6r7omXxKAEG9WJQtLkc2Kwt3C2KdtSBInH0F2QsB/UAatxc3+ZsYQHgs5e703zM0IEDvSK4bIjNpyee9wYb0BwFEHXhclX7m/yZooF7of9i83vM4dLADdc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781086545; c=relaxed/simple;
-	bh=WaosMbjfwHRBHBEEDV3W8lJK6/4vapnN1+pjcrONctQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=V7n49YUwGJAFZQ2J0zbd86RjMP1r++3BvqpqTpGgImdh2xHUEDiXTpnXSGQC5AgQFhxdP4h/AQ1QGiD2sjpELqUAFn67AJWeXfsTInsZTc9b+rHqm3wE1ZmgVQjgg+r/WKUmzYbx7g7HORKwaLKJjMCLFu9k4Gt29q1GmDGNgSs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YWiRa1Ba; arc=none smtp.client-ip=209.85.210.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781086736; c=relaxed/simple;
+	bh=Ic9CEGREOD5y9X3l20lpqUpOb9jCx8JtdNqVvsEVd8U=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=QdjnUbe/vLmVjtnVi4yLf3cX0iSiodZhCAeJgGopb9ZXOp+gMfdcoafdkuL4O03ezTa2s8fQPorIAh66zyqlXYo+Flhpg06/4/yDGHo/5PMviZmAp3qag/cAAo/zNbkciW4/bc3mGgNZaHZ81aB5MDDz212dI7JOtfjeouxpO5M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com; spf=none smtp.mailfrom=mojatatu.com; dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b=Kx3DhUUK; arc=none smtp.client-ip=209.85.160.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YWiRa1Ba"
-Received: by mail-pf1-f176.google.com with SMTP id d2e1a72fcca58-8423610ec93so5135898b3a.2
-        for <stable@vger.kernel.org>; Wed, 10 Jun 2026 03:15:43 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b="Kx3DhUUK"
+Received: by mail-qt1-f177.google.com with SMTP id d75a77b69052e-5175b6c4e19so68956091cf.0
+        for <stable@vger.kernel.org>; Wed, 10 Jun 2026 03:18:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781086543; x=1781691343; darn=vger.kernel.org;
+        d=mojatatu.com; s=google; t=1781086734; x=1781691534; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=bPY6kv+qAU78zF0fcea5dJTa14wAhSte/v9aqMKiagg=;
-        b=YWiRa1Ba/DgHVAEgfKEuU0hPWyliqox8d+xMCfRYp0kw2E/vQTbImxTQl4wIpHb+2s
-         a7rXScQdNNCmqkSwAn4iduW6EoJwcPzuq2CYXGsTThROtnO6E3FTY5rVcKdqgb/+ufRT
-         XERyMLyRKLyTfXgqLvtB600D+B7HoDkGukourquGacFkuAq3LOBwAhOZCjJmgjEEFImU
-         VO1KQyNJCTzlRCYZ9h0jpws4AtxjutRvrJTBqIxiZAMLtGBxOSLEgn3TDuoc0JEVuN3P
-         NfiDGuhDTaPrHasf4zmvddP1w2YAe1GZex4Ut9nUGkZ2LwKnOCYMGuXi5M7IclHZqpOM
-         jfPQ==
+        bh=sPIESdLDZGUXa6Ogop7LK04l+zl3x/dImkvKUuXByAA=;
+        b=Kx3DhUUKxN/t46QDz5xOZLD+6QbFSTufpk1CEKNfZY+ecKvHnuqw9p/UR5CE4WxDN/
+         a8Iq32yMYPrm9JsDZ25K8cSe09QaE6qjQq2TMM2c39AwA5P/mEermaEk8B1SjZRatVY0
+         6v4HPQtiTfpkI1M1A0qAlO9g1BBRkGJAgxm58=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781086543; x=1781691343;
+        d=1e100.net; s=20251104; t=1781086734; x=1781691534;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=bPY6kv+qAU78zF0fcea5dJTa14wAhSte/v9aqMKiagg=;
-        b=WFtVDw9GMkxRZsMlE6Kg7YEjXmjPn6qOv9Z66xwJHfXzJsvmrj8iXA7zFQzjVxhN0r
-         3o1TNct58LDgH2Kat8laLL+1XeXKloJVJumbmvD1T5sY69vFLQvk4ErU7lO/4WGSmLNb
-         9sQ3M2DxBkVY1t5wHYnqOODccBNYebMduvequ4/xvoeOfZtvvD4mLtG7fW9nH039902t
-         pRpZO1HUVN4WpslsK8Rg5kSMF8OPdI/TIOXyo9P1gUYXDcEomCiUls2/joIj7+PL5Ohg
-         fhiCwJi80ro1U59Ay9WENzn6iMWlgWwSCpHLkdg3lDVP0Uo3SST/0bhB29VkUTkvJyec
-         D91Q==
-X-Gm-Message-State: AOJu0Yx4IAurfgj1BbYhOKTbUfXshanm3FfWnk5PuzcbEznQ1H+qMLBX
-	m1XXsuefQQMxZQs7Ujp5Lwj/LhLmxF2dDuPYI9po5GUBKKmMGybOhrwb1STn77WWOuK1tg==
-X-Gm-Gg: Acq92OGbS0fMOypuj+0JxlPHhGZQ/grURQy/XofkMfqQFx4DtxFLBIQMB6FppaSYoT3
-	b3FRjd7H5cfkI8SeGj9OhKCzr8MFCQhVmlLvG514huJRTP/b3hwVS/UzbGIuw8jxhMW6q5gbZE/
-	WkCvSUuVauU0l/E2K0Kcp/YaYHamX7DmXHokoPqEFMtkwnFqqwQGNneWanR90ykxiP6VgyIZL/P
-	IuBlD2fMG9DTX45v7ufmR8Kxf7VMI7ZyjjdcJg7YvaU56UTMCuvNk0+iU3XTSAz5PtlPjeBOCAr
-	qgLY0yQkndcvlNG1OGiYoZDnFluRokSf2a3ATEhvCVHloVI9Eu0U7C3UAtL3yJPvQToora/WTYS
-	lkPEfUcifooPuEjrNfhFZNEiNW2WjKYACAtwwLBcyy7kP+ekr3zlankL6rQOAXoI3drQ+o6nJOL
-	quDR1HC+RxNK1Epic9b0KsDU03mn82kn/3JkScs5u6HeJ0yHGPLIGBqtDG5ag5NN8lopg=
-X-Received: by 2002:a05:6a00:3c89:b0:842:7e71:ba2 with SMTP id d2e1a72fcca58-842b0eb50ecmr25171430b3a.27.1781086543355;
-        Wed, 10 Jun 2026 03:15:43 -0700 (PDT)
-Received: from localhost.localdomain ([14.116.239.40])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-842828e5638sm25091576b3a.50.2026.06.10.03.15.41
+        bh=sPIESdLDZGUXa6Ogop7LK04l+zl3x/dImkvKUuXByAA=;
+        b=NWaODVWaDEuXgoqco31AdJnzNUIMs9V2kZQwPFWzJcdxnvkDcucjH1RgPET2PGXJ3l
+         +/RCZg4ntAMxT2fQm/5PxMfAQws8A89+X+GVpRmIXguffmlutMffqTgMtLwuMKYgwrsD
+         0rpwQdLOiy1h7xKN/bqgsI3rUKLRnS6F9FxY9ZTzZByjav4tOuBy67OnjVb30gcDn4I8
+         DZTRHNslUtE5ndCJukxDghuOjpYbgNEfv5kezYtfwT7dR+suNIYfgg02UzGLerVqt0kS
+         58NojRmVzrTd2fcjbEQPiUeRy3LROctYBfrX7+We3iJmaSGMlVSeAuFfs1fxT/dBJOYH
+         JzIg==
+X-Forwarded-Encrypted: i=1; AFNElJ/5u7Lwn8hM+AX3Zufd/Qdy+rqYZVTWkhlKyFXf9GCWDKDsFcKpzE7kNwfBBzJ/X0Du+GnFXFk=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyN9dZPLGCP/pSdveYrKXD2UIfPV4FFL8GlrwFQO4F9n7HhU6uP
+	DdH/iYt1U88ZaMPY6MwE4MAwHgnnQt4vfwNfbMowqFpee4AngfVDB4DevEoD4WQX5oTQo2E1R3h
+	jHMiM8Q==
+X-Gm-Gg: Acq92OGc4S2hE5n/jMO8bOZ13ymBQfTeuyjVZW9yjWdyFd8PBT5zMVzge1pZL3ceik5
+	o6q1wDBnJcMHZgfhXzRdz19bX9ukD00J/nxcq8y9/haczsEV8m+O0QnrngtZi9/ukqYcgk90/fu
+	qQmMtvf7Z9noWrHRaOziceM13kJRqs8EYTmgG2/yPw8eOFraJdbNjSxwmnlGUKfcrGih8519fYn
+	rH7zPQnQb/1DZeDGhv1tLcwU9G+0mK+t/wOehzdCOCorgSWCtvf6bVF49oqpSJqbo52wKkVTONT
+	WgVrN97vSydfubHZdJhJiqkm7Dc0pwb05pHkISqZMNj1nChTsDc5YUlDNNPhqXPK7alc6p5ckJH
+	K48M0HUmm6MB+qYeuWYcOCSokn65JxLbwsDght5IyxTYjKOIMQP3reFWvYPMUZkJgVhvgHxZOCz
+	cMdTNJTC78HWZoWPwzE1wcCIqmATL1Xb6lnBRALQ==
+X-Received: by 2002:a05:622a:58c8:b0:516:d66e:7b1f with SMTP id d75a77b69052e-51795c6b5ecmr354207001cf.31.1781086733907;
+        Wed, 10 Jun 2026 03:18:53 -0700 (PDT)
+Received: from majuu.waya ([184.144.29.222])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8cecd2682f8sm230139796d6.43.2026.06.10.03.18.52
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 10 Jun 2026 03:15:43 -0700 (PDT)
-From: Yuguo Li <cs.hugolee@gmail.com>
-X-Google-Original-From: Yuguo Li <hugoolli@tencent.com>
-To: hugoolli@tencent.com
-Cc: stable@vger.kernel.org
-Subject: [PATCH 2/2] PCI: setup-res: Guard against bus->self == NULL in _pci_assign_resource()
-Date: Wed, 10 Jun 2026 18:15:36 +0800
-Message-ID: <20260610101536.1511979-1-hugoolli@tencent.com>
-X-Mailer: git-send-email 2.43.7
+        Wed, 10 Jun 2026 03:18:53 -0700 (PDT)
+From: Jamal Hadi Salim <jhs@mojatatu.com>
+To: netdev@vger.kernel.org
+Cc: jiri@resnulli.us,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	victor@mojatatu.com,
+	kylebot@openai.com,
+	stable@vger.kernel.org,
+	security@kernel.org,
+	Jamal Hadi Salim <jhs@mojatatu.com>
+Subject: [PATCH net 1/1] net/sched: cls_flow: Dont  expose folded kernel pointers
+Date: Wed, 10 Jun 2026 06:18:39 -0400
+Message-Id: <20260610101839.14135-1-jhs@mojatatu.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -71,58 +79,63 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-_pci_assign_resource() walks up the parent buses looking for a
-transparent bridge to retry resource allocation against.  The
-termination check dereferences bus->self->transparent without first
-testing bus->self.
+The flow classifier falls back to addr_fold() for fields that are missing
+from packet headers. In map mode, userspace controls mask, xor, rshift,
+addend and divisor, and can observe the resulting classid through class
+statistics. This allows a tc classifier in a user/network namespace to
+recover the 32-bit folded value of skb->sk, skb_dst() or skb_nfct().
 
-For SR-IOV virtual buses created by virtfn_add_bus() via
-pci_add_new_bus(parent, NULL, busnr) -- which happens when a VF lands
-on a bus number different from its PF -- bus->self is NULL.  When
-__pci_assign_resource() is invoked on such a VF (e.g. via
-pci_assign_resource() from userspace-triggered LTP coverage) and the
-allocation fails on the first iteration, the !bus->parent test passes
-because the virtual bus does have a parent, and the next term then
-NULL-derefs bus->self.
+Align with standard kernel practices for pointer hashing and replace the
+XOR folding with a keyed siphash (which is cryptographically secure)
 
-Add an explicit !bus->self check, mirroring the established pattern
-elsewhere in drivers/pci/ (e.g. pci.c, probe.c, pciehp_hpc.c).
-
-Reproduced on mainline 7.1.0-rc7+ on x86_64 with an SR-IOV PF whose
-VFs span multiple bus numbers, by triggering pci_assign_resource() on
-a VF that lives on a virtual bus:
-
-    BUG: kernel NULL pointer dereference, address: 0000000000000860
-    RIP: 0010:_pci_assign_resource+0x63/0x130
-    Call Trace:
-     pci_assign_resource+0xe9/0x370
-     ... (LTP tpci test-case 12 driving pci_assign_resource via sysfs)
-     do_syscall_64+0xab/0x500
-
-This is the same SR-IOV-virtual-bus / self == NULL pattern fixed for
-pci_read_bridge_bases() in commit ("PCI: Bail out of
-pci_read_bridge_bases() for SR-IOV virtual buses").
-
-Fixes: d09ee9687e02 ("PCI: improve resource allocation under transparent bridges")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yuguo Li <hugoolli@tencent.com>
+Fixes: e5dfb815181f ("[NET_SCHED]: Add flow classifier")
+Reported-by: Kyle Zeng <kylebot@openai.com>
+Tested-by: Kyle Zeng <kylebot@openai.com>
+Tested-by: Victor Nogueira <victor@mojatatu.com>
+Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
 ---
- drivers/pci/setup-res.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ net/sched/cls_flow.c | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/pci/setup-res.c b/drivers/pci/setup-res.c
-index 991d3ed543f5..e8bd3d4ff923 100644
---- a/drivers/pci/setup-res.c
-+++ b/drivers/pci/setup-res.c
-@@ -353,7 +353,7 @@ static int _pci_assign_resource(struct pci_dev *dev, int resno,
+diff --git a/net/sched/cls_flow.c b/net/sched/cls_flow.c
+index ab364e4e4686..356c68ebc389 100644
+--- a/net/sched/cls_flow.c
++++ b/net/sched/cls_flow.c
+@@ -21,6 +21,7 @@
+ #include <net/inet_sock.h>
  
- 	bus = dev->bus;
- 	while ((ret = __pci_assign_resource(bus, dev, resno, size, min_align))) {
--		if (!bus->parent || !bus->self->transparent)
-+		if (!bus->parent || !bus->self || !bus->self->transparent)
- 			break;
- 		bus = bus->parent;
- 	}
+ #include <net/pkt_cls.h>
++#include <linux/siphash.h>
+ #include <net/ip.h>
+ #include <net/route.h>
+ #include <net/flow_dissector.h>
+@@ -57,11 +58,15 @@ struct flow_filter {
+ 	struct rcu_work		rwork;
+ };
+ 
++static siphash_aligned_key_t flow_keys_secret __read_mostly;
++
+ static inline u32 addr_fold(void *addr)
+ {
+-	unsigned long a = (unsigned long)addr;
+-
+-	return (a & 0xFFFFFFFF) ^ (BITS_PER_LONG > 32 ? a >> 32 : 0);
++#ifdef CONFIG_64BIT
++	return (u32)siphash_1u64((u64)addr, &flow_keys_secret);
++#else
++	return (u32)siphash_1u32((u32)addr, &flow_keys_secret);
++#endif
+ }
+ 
+ static u32 flow_get_src(const struct sk_buff *skb, const struct flow_keys *flow)
+@@ -596,6 +601,7 @@ static int flow_init(struct tcf_proto *tp)
+ 		return -ENOBUFS;
+ 	INIT_LIST_HEAD(&head->filters);
+ 	rcu_assign_pointer(tp->root, head);
++	net_get_random_once(&flow_keys_secret, sizeof(flow_keys_secret));
+ 	return 0;
+ }
+ 
 -- 
-2.43.7
+2.34.1
 
