@@ -1,112 +1,102 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B6602D8795;
-	Wed, 10 Jun 2026 06:58:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D5B6371860
+	for <stable@vger.kernel.org>; Wed, 10 Jun 2026 07:09:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781074689; cv=none; b=C94OwsYwgoRt86pk6spamNNme8o4yB6v9TcQYkWm8H8eqr1bF/dcvdfxRqrpqCKXcwDZx12ow+777YpbcMzXPGPGcl+DHipdCdpKlZOayCLuJOu/9W1E+faS2vpUazB0eMxSpSXtzLlpFdxV0ohOmrZNRvBhBCtIX/yVbXC7SDA=
+	t=1781075395; cv=none; b=JY7+QiIi3V0mR7jikEFNXeaESWZK5+bJ0LzbrmGn7rTyJ1x1DzRpgyfW6qNsmwJSe2TxhRRLQ2NGfLmpqJ/uDHJf2MTfRU7g+Jc06p4qEvYRXNaaZy95nDVquww9COjLQNpzQunAUTSUxrq6McocmRHFeCXoGh/6dcQ8zl9pnZI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781074689; c=relaxed/simple;
-	bh=IVRwCBNjPlQUYB6sKF+F7jGl7xu+8jb6UBF2X9IQU9U=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=e8RMFPcLZcA0svlsUahEOBjOaFvB1GSYy3DesM1eVIkGA72H2Ej1Zcz2gv5cUmIMV4XnPXmY4dk5twSVpcBkHKsYxVqS/vVhAptDwt25jINvIMa22y9kZLZVeVMjIUHnaIJHSL2qbDNZykIj9cBbYgWcaPI9TFeyxFJJf//ay/Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=GTYjuxTQ; arc=none smtp.client-ip=192.198.163.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1781075395; c=relaxed/simple;
+	bh=KK3BxFyY+k1mBTx2IExWA/ouwxlV2Df+c3wdgi7Lk0o=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=iS6KS+x2p5Ag/TfND0dXDWXXtjBsBjJq6+avNTC14iKOrJolV7dRcIYasm0gDuOjuNvXR/H9DIDT0f/d1rCHC2xuzfrQjDfHo1dow/Jw2NS/FSOPS6RSOmWp5HqAlJgg76cwreYfQAgyQDbP1bbdWDU8+PeJH6gH1tN3Px680DI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lyszrwGf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="GTYjuxTQ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1781074688; x=1812610688;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=IVRwCBNjPlQUYB6sKF+F7jGl7xu+8jb6UBF2X9IQU9U=;
-  b=GTYjuxTQwmIhTCgRuaB43aXIQumaEoZwIhICyZIvoUxLUhFr/So+UOqe
-   3IJy+iWMorSiaw6rCdoDPnmlWW0blEsErmw9euz6c92bOJzE0ABDC/jme
-   ERXRA5mgyFVc9/dWU8dIjTQxaS5B1lKs9IdAxYhSJFqvTbqzxoxwSEqwb
-   19xrKTNifraAYwdDu6qZ3tAA+snhRIj40b2aH3NuBr9Q1SehqtmiEvphA
-   EvucDQpZVlHQoEiTlj6Lf1iEUUgbp75Nz9JoyHulXALGNcDpkyyBBdkkL
-   2O5TkzP4ZAA/J/DlErT/p7kdunrj8g6wt9YLc0mP9M819MY+PveqJzoE9
-   Q==;
-X-CSE-ConnectionGUID: BpllVnauR9mAeb66EXBAew==
-X-CSE-MsgGUID: QyuowD2yQeK1TbX+TF2p3w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11812"; a="93246975"
-X-IronPort-AV: E=Sophos;i="6.24,197,1774335600"; 
-   d="scan'208";a="93246975"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Jun 2026 23:58:07 -0700
-X-CSE-ConnectionGUID: VQrlg1apRX2dAxbXAhiMkA==
-X-CSE-MsgGUID: yUrdc/hsT6GLiQv7gyvWMA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,197,1774335600"; 
-   d="scan'208";a="251159983"
-Received: from krybak-mobl1.ger.corp.intel.com (HELO [10.245.246.32]) ([10.245.246.32])
-  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Jun 2026 23:58:05 -0700
-Message-ID: <d4059b90-ba44-4c51-bdd0-0b791f1a5fd4@linux.intel.com>
-Date: Wed, 10 Jun 2026 09:58:13 +0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lyszrwGf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30FB81F00899
+	for <stable@vger.kernel.org>; Wed, 10 Jun 2026 07:09:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781075394;
+	bh=jtHvcgqAu8v2YPctakrIYsBNQrHANt0cF9AvYDlwPQ4=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=lyszrwGf+ZPaiiV0PeqShNWNbgTtzndJExdRpbn72JvsnAjHx6nq8WGf7riT1PfI9
+	 4IumPqXb/9cB2FslZ0Pbnu31jtCtChOESA0yUFhBJl3yCRf7P0VUvP8CE8Tduq+Xmo
+	 t0aC2kX0ECCJRvX6OESXwBzKheyX0u07j4KNhfmt025wQRbpn67mbWrHB3ZhNZvCB+
+	 WrgT9advMxtmjlvwN5jyuGj3ak30cbM2b2FEoPzts+keFOTqx4aa7/GP7MEbZzFNLf
+	 GmV/0/OpCDSYDHCzgVc1RHwwPwuNX3PzzMtzh+Laju6ytm0cQ1eJduyGcmEAwMTFmy
+	 Os55XLLp+kkcA==
+Received: by mail-lj1-f176.google.com with SMTP id 38308e7fff4ca-39666f49929so57312011fa.0
+        for <stable@vger.kernel.org>; Wed, 10 Jun 2026 00:09:54 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ/YyOIbXkWElqF9mya7f1Pv5llB5MrUIqoKfwrN4+psADNnlf7wgtulL1nHdfg28PprmOMiu5E=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwxygUbIGSOLIRfuDaCT+C+hFhmkP4ZJjII1KomXSeXzGkuEntY
+	9zKVamypArIdc7gp9UIzHURSyqhLy6BlPJ/coDkNRDUNaCtRsdYIFPRmh4GpAypSDXDwnJmdAzq
+	k2nCuLRs0LazVnvuVszgd3EQvp8pQgZXWhdJzATUdrg==
+X-Received: by 2002:a05:6512:60b:b0:5aa:6dfd:459e with SMTP id
+ 2adb3069b0e04-5aa87b8e1bemr4673923e87.7.1781075392952; Wed, 10 Jun 2026
+ 00:09:52 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 10 Jun 2026 03:09:51 -0400
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 10 Jun 2026 03:09:51 -0400
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20260610030513.2651018-1-haoxiang_li2024@163.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ASoC: SOF: topology: fix memory leak in
- snd_sof_load_topology
-To: Zhao Dongdong <winter91@foxmail.com>, lgirdwood@gmail.com,
- daniel.baluta@nxp.com
-Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
- sound-open-firmware@alsa-project.org, Zhao Dongdong
- <zhaodongdong@kylinos.cn>, stable@vger.kernel.org
-References: <tencent_D87B6446BC0B517BEF9D4731C6CD8B288206@qq.com>
-From: =?UTF-8?Q?P=C3=A9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>
-Content-Language: en-US
-In-Reply-To: <tencent_D87B6446BC0B517BEF9D4731C6CD8B288206@qq.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20260610030513.2651018-1-haoxiang_li2024@163.com>
+Date: Wed, 10 Jun 2026 03:09:51 -0400
+X-Gmail-Original-Message-ID: <CAMRc=MfjpibfmnHKi1GeMRCgDOc3=+1_C3aJfYQwR_YMcHtC_A@mail.gmail.com>
+X-Gm-Features: AVVi8CfY527vYJqPCTKFLvrHgAhLfpoYrAWJS-RKMwI2pvUAHuO9GyiDhNNz-o4
+Message-ID: <CAMRc=MfjpibfmnHKi1GeMRCgDOc3=+1_C3aJfYQwR_YMcHtC_A@mail.gmail.com>
+Subject: Re: [PATCH] i2c: davinci: Unregister cpufreq notifier on probe failure
+To: Haoxiang Li <haoxiang_li2024@163.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-i2c@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org, brgl@kernel.org, 
+	andi.shyti@kernel.org, khilman@deeprootsystems.com, chaithrika@ti.com
+Content-Type: text/plain; charset="UTF-8"
 
-
-
-On 10/06/2026 06:11, Zhao Dongdong wrote:
-> From: Zhao Dongdong <zhaodongdong@kylinos.cn>
-> 
-> When the topology filename contains "dummy" and tplg_cnt is 0, the
-> function returns -EINVAL directly without freeing the tplg_files
-> allocated by kcalloc() at line 2497. This leaks memory on every
-> such topology load attempt.
-> 
-> Fix this by setting ret = -EINVAL and jumping to the out: label,
-> which already handles the kfree(tplg_files) cleanup.
-> 
-> Fixes: 99c159279c6d ("ASoC: SOF: don't check the existence of dummy topology")
+On Wed, 10 Jun 2026 05:05:13 +0200, Haoxiang Li <haoxiang_li2024@163.com> said:
+> davinci_i2c_probe() registers a cpufreq transition notifier before adding
+> the I2C adapter.  If i2c_add_numbered_adapter() fails, the probe error path
+> releases the device resources without unregistering the notifier.
+>
+> Add a dedicated error path to unregister the cpufreq notifier after
+> i2c_add_numbered_adapter() fails.
+>
+> Fixes: 82c0de11b734 ("i2c: davinci: Add cpufreq support")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Zhao Dongdong <zhaodongdong@kylinos.cn>
+> Signed-off-by: Haoxiang Li <haoxiang_li2024@163.com>
 > ---
->  sound/soc/sof/topology.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/sound/soc/sof/topology.c b/sound/soc/sof/topology.c
-> index 63d582c65891..09d6dc01814c 100644
-> --- a/sound/soc/sof/topology.c
-> +++ b/sound/soc/sof/topology.c
-> @@ -2534,7 +2534,8 @@ int snd_sof_load_topology(struct snd_soc_component *scomp, const char *file)
->  		if (strstr(file, "dummy")) {
->  			dev_err(scomp->dev,
->  				"Function topology is required, please upgrade sof-firmware\n");
-> -			return -EINVAL;
-> +			ret = -EINVAL;
-> +			goto out;
+>  drivers/i2c/busses/i2c-davinci.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/i2c/busses/i2c-davinci.c b/drivers/i2c/busses/i2c-davinci.c
+> index a773ba082321..a24c3e8b87ff 100644
+> --- a/drivers/i2c/busses/i2c-davinci.c
+> +++ b/drivers/i2c/busses/i2c-davinci.c
+> @@ -818,12 +818,14 @@ static int davinci_i2c_probe(struct platform_device *pdev)
+>  	adap->nr = pdev->id;
+>  	r = i2c_add_numbered_adapter(adap);
+>  	if (r)
+> -		goto err_unuse_clocks;
+> +		goto err_cpufreq;
+>
+>  	pm_runtime_put_autosuspend(dev->dev);
+>
+>  	return 0;
+>
+> +err_cpufreq:
+> +	i2c_davinci_cpufreq_deregister(dev);
+>  err_unuse_clocks:
+>  	pm_runtime_dont_use_autosuspend(dev->dev);
+>  	pm_runtime_put_sync(dev->dev);
+> --
+> 2.25.1
+>
+>
 
-I think adding
-kfree(tplg_files);
-before the return would look better and align better with the code, here
-we are sure that led controls have not been created.
-
->  		}
->  		tplg_files[0] = file;
->  		tplg_cnt = 1;
-
--- 
-Péter
-
+Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
