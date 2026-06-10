@@ -1,234 +1,241 @@
-Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08A6640B383
-	for <stable@vger.kernel.org>; Wed, 10 Jun 2026 13:34:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.50
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781098481; cv=pass; b=XUPCljiyrZr1AE9WC6ViiFnoVEv9c49U41rnZfuVt7Wc4KtskObaaOBp9zAHPcqyblEneFijFauIUAwyPvcdqc+G/2KFEhyvPp8I6XckxMb9TE/jJFDG5wHyLtPDobFZ/ajznbSOXhVytCyUIc3Ix48v8pHQAstOQ2FkrREjl3g=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781098481; c=relaxed/simple;
-	bh=JAR4sei5juO8181/3mmsMW50Yqk1AXNa41CYDKywtHU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=jxsr1xCGNgRjCY+5f88m9P1MHc5LNDnnRTxGz2RFZQ66xbl29TuqBrBzPoLivyk11ibpwKPboPTJNXb5hK+ik3R93+UMI5DZTDv4m4qc5lcnO8AGuP0IP45ug+P563NRo3NYZqQ7lxdxJ60M9WSWb0FU8xRX7TAdnd9xGc6PsJU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=r65yP2o4; arc=pass smtp.client-ip=209.85.208.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 025F53BAD89
+	for <stable@vger.kernel.org>; Wed, 10 Jun 2026 13:46:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781099199; cv=none; b=Ybzek/AeSgRa8m7MJaEIOguoqcBIBw+IxqteERDJGJLeJ2dGWWW0PPP0+0CXbbrx8iaogufPfcJCoKUcuJuqmBC7/VOhS2jDsyvpthPIb8k0lmgtp1IHQsEusUO/Y719yqAURE8rL9qja4d+AORrexAlvtK07oBOH9kusF3bcdA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781099199; c=relaxed/simple;
+	bh=du/J2Ego+TfUf3vrX+JTLF9wvpv7uPLlngt4qC0DUs8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=kJPQH+jH5pT+K+mJ/m8mKTax7NaAgWVNz8Wma+IQ1XB/BrZlrdON231+P1uAgHi4FSOKbOOumlk8ljLCvYwmhYnRXwZFOTCWpHbXEukykXiTSnLqwK+1f+6mlIlnFwrmcsVQcrGf2dxZJVTJZLqXVbMNLZd5DAx5Wc6yw2VUDks=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=lAI30Qop; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="r65yP2o4"
-Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-68c76fb8009so8912988a12.0
-        for <stable@vger.kernel.org>; Wed, 10 Jun 2026 06:34:34 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781098473; cv=none;
-        d=google.com; s=arc-20240605;
-        b=UsG5HgA5CZAuiGQHx7ZDJinOh8LR/Pt4sBR3XtyowROFfn+hgOwk6jpUPMSG0hCQgS
-         Dd4HrBSLlOqv+6F3AYRKdIIX55sFLHTSWb8cPKPh4r9cqR9NlbpUHtc3kV052TFyq0Pw
-         Mt4tXFyDTr6kdq47fnmqIND7DEXfumrupVvd35Pjhq8xeKP51lf5E9BvwAe8fPPK1J1D
-         2zM615I5puBTq9iqVFWtDNLAirE6AzuG3eLJ37gb4g7IJF3eogSFwTNq4zFVBSTa+j+a
-         dTTcR/2N7WE1pJ8t52Hy04e2hVl+ksmgdVTcxMF2BGFzr9RTUrfY4GzyH7y6E/xrBx61
-         qKLQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=wusSRoPz5XHuYf/hgRAbVTth3meUxSSzw6AAFjCcAZ8=;
-        fh=pYZ/3hErvW3I9OL3ZngbA2pq/Vd7bU7PjjDYEO5Klz4=;
-        b=k260XXy0dClkGyoDQ24+avA9Oq/Xjz/o8dPHHJsd71wmrM/+crjL107QaMOZHf2G98
-         MvjmvVbHUfiU+8VT/9oj8N59sL81QQwKRlda67ZrO4HJtOjnoVKG9Ci6HOdoq7NuNkKG
-         vljVHx1pXPT0Cvc2Z+sxe8nisZ/I423/CW0mvl+abG4JOhwLYapBWG3tWuawxuIOOtwL
-         od0mj50hyIB4IJ8AM7NYVWWYZluY4dS+r6CWXEPgjE3qg38G6zKS8cV6e7YiAhZbYCTI
-         MSN6fcMcrN9IzuvG5eIreCKa2oId2ZkjYDwDzKNl0hKggB/bWgqVku/BR6Ciko2WxwI7
-         7r/g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1781098473; x=1781703273; darn=vger.kernel.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=wusSRoPz5XHuYf/hgRAbVTth3meUxSSzw6AAFjCcAZ8=;
-        b=r65yP2o4m6EbvApoz6B9olIJyccqqM+nsr9La+vvKTORiM9dhjL+w8m31GYAsnJr+m
-         DpZRmHfMImMwwa5BsihxuKsmVYxTcP25BVyyMB9Q9k/wertyodkhP5KFNb6umUoG+XgW
-         5Bnnx/FkW/oii78eVtgvjthXKAy6Qo1GjtU78Ypix94oqFc8srX5iI11fZsAWTJk5XTz
-         mV1d3D2GJPHp16g74gjP/ZxSS6p9wt2E0LqBHCGkwTmoBrIp3ez0mY5WGnzor+0QH0B9
-         dOFFuS7gty6/1yUkWPgxbOuvFThtifc0bA/154DG/Y0PIuDIK1kPK6eUIwUCsrIcHas6
-         lM1w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781098473; x=1781703273;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=wusSRoPz5XHuYf/hgRAbVTth3meUxSSzw6AAFjCcAZ8=;
-        b=VsSrQWmc4Nnve1XtjbzRgg30gwSBQzoP/NnOTE6hKaAFEj/4BowAn3SPM8nMHW5+N2
-         3u5evNlvqmnuAEhVrOCSpGigHm3IayVhmeMTZKvqWoca/pa8Lzh9bgQEv7PqQb4f4SOm
-         4FooalNQM+zS2ym/baCS9jdeEURamPfcKLDpZPJJUOea2uOt9AgJRThA/vqUAFmh2W5/
-         DTnsLZ0ESqVxXy1xEfEGhBoGrrzuKg4sxdmPhdyvJoS6LG0anVuIEo/vuAPcYEKm1X9R
-         2qyzHa2hSifItvDpn1GhETOscc1SlN1PV6ldhTArkvhNNjAolqERc7pqK2M5ArB1Ibq4
-         4COQ==
-X-Forwarded-Encrypted: i=1; AFNElJ+MLbET9lNGFwSqTYXRzM33YtuK7JJre9RF1neaRYTPNo28NFZl7/E/eNV2hB7tQ6KoCdGAoh8=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwWYCWs7iuPT/QcTILOJrF8dwDpYjLBz4A01uo/iqG0XAjm8FF2
-	jaBGFf9uZ+A/U5kpP5yxcbJPKqGOnpOgJp39kbyyJhoX8Uu26iZUyDOC9Fr3rf3GmoIO+sAS1zR
-	uw492qSj6oIN95byqYslIybZ8TZ6g2FiapWbPDMwo1w==
-X-Gm-Gg: Acq92OFTVMluwyMTKwSRDNo68x2f8Q2ICCGEVaXbfjpmM0NbcEzrFxIsUQPepODT6Tn
-	AwAfa/JA4QFcSr1F82j8OchL7HbXYuOn3lfbHhA7T/Yj/Sqlcxs6qRONTW0LvWxrTMeTXRb0PNn
-	sRxfpwZgUqJa7uMDgScZoB7rkkan0yWk2f07ma3Ff8unG+Iq3euJcxyTbkhvceXOKiGniYVN5Nl
-	9rdZMAAvsHzGCCPQPHK4W9NEK54wcx4sejS82C+GaaVDanuEAtmM3Wogiz5Hq33ytSo+X+P/AYf
-	4fB56sENDKXLns7sQQmhKfXY1+wOVUOS609Xo3LjeKNNni8CFury
-X-Received: by 2002:a05:6402:3905:b0:68b:f026:f381 with SMTP id
- 4fb4d7f45d1cf-68fa4e3140bmr11010010a12.8.1781098473183; Wed, 10 Jun 2026
- 06:34:33 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="lAI30Qop"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 65CFB22C7;
+	Wed, 10 Jun 2026 06:46:31 -0700 (PDT)
+Received: from thinkpad-e142931.arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 2AA733FDBD;
+	Wed, 10 Jun 2026 06:46:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1781099196; bh=du/J2Ego+TfUf3vrX+JTLF9wvpv7uPLlngt4qC0DUs8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=lAI30QopLUATDRqusCMA/JOqXKKnPu+R80s0HG83askRavJOTU4Qdl5udmHsHJPIq
+	 MNjWnE89DJ2I+IRAxqSqcoJOQtl876Z38Jz5VxTr4MqzP1Win6ELVZlTLXdqScd0k2
+	 dy3P2dySjNR5xBEe6taMi2ULoI3bMJvnEg5q1sMk=
+Date: Wed, 10 Jun 2026 14:46:18 +0100
+From: Wei-Lin Chang <weilin.chang@arm.com>
+To: Oliver Upton <oupton@kernel.org>, kvmarm@lists.linux.dev
+Cc: Marc Zyngier <maz@kernel.org>, Joey Gouly <joey.gouly@arm.com>, 
+	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, stable@vger.kernel.org, 
+	Sashiko <sashiko-bot@kernel.org>
+Subject: Re: [PATCH RESEND v2 3/5] KVM: arm64: nv: Re-translate VNCR before
+ injecting abort
+Message-ID: <yw6b7zx2qxjckkut4lzkuqekh2omttwmulvqbslk27wt3vu6mp@ostr7avq6a7e>
+References: <20260609185514.746507-1-oupton@kernel.org>
+ <20260609185514.746507-4-oupton@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260605-exynos-pmu-cpuhp-idle-fixes-v1-0-0cd05c81a82d@linaro.org>
- <20260605-exynos-pmu-cpuhp-idle-fixes-v1-3-0cd05c81a82d@linaro.org>
-In-Reply-To: <20260605-exynos-pmu-cpuhp-idle-fixes-v1-3-0cd05c81a82d@linaro.org>
-From: Peter Griffin <peter.griffin@linaro.org>
-Date: Wed, 10 Jun 2026 14:34:21 +0100
-X-Gm-Features: AVVi8CdudhNuk1JulHq85Six9g2TTnXsPBjPVrWOLueCdeIJGpUeMcdSZ2qVZRE
-Message-ID: <CADrjBPq4fou5KWh4T=oNkUVPz5Jk-821OVe3j5sWrKnCtHYM6w@mail.gmail.com>
-Subject: Re: [PATCH 3/3] soc: samsung: exynos-pmu: fix error paths in
- cpuhotplug/idle states setup
-To: Alexey Klimov <alexey.klimov@linaro.org>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
-	Sam Protsenko <semen.protsenko@linaro.org>, linux-samsung-soc@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260609185514.746507-4-oupton@kernel.org>
 
-Hi Alexey,
+Hi Oliver and Marc,
 
-Thanks for your patch!
-
-On Fri, 5 Jun 2026 at 21:19, Alexey Klimov <alexey.klimov@linaro.org> wrote:
->
-> The setup_cpuhp_and_cpuidle() initialisation sequence currently ignores
-> the return values of cpuhp_setup_state(), cpu_pm_register_notifier(), and
-> register_reboot_notifier(). If any of these registrations fail during
-> probe() routine, the driver returns 0, leaving the driver partially
-> configured.
-
-I originally made the failure non-fatal because the system still boots
-without the notifiers registered (and all other Arm64 Exynos SoCs
-upstream don't register notifiers and AFAICT have broken cpu hotplug
-and cpu idle).
-
-In hindsight, that seems like a mistake. I think your patch to fully
-unwind everything in case of failure makes more sense.  See small
-comment below about destroy_cpuhp_and_cpuidle()
-
->
-> Furthermore, if anything after setup_cpuhp_and_cpuidle() fails in probe()
-> routine, for instance devm_mfd_add_devices(), the probe() lacks an error
-> path and leaves notifiers and cpu hotplug states registered.
->
-> Introduce variables for the cpu hotplug state IDs in exynos_pmu_context
-> struct, that should be initialised to CPUHP_INVALID by default. Check all
-> return codes in setup_cpuhp_and_cpuidle(), and add an error path to remove
-> registered states on failure. Finally, add destroy_cpuhp_and_cpuidle()
-> helper to safely tear down notifiers and cpu hotplug states.
->
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://sashiko.dev/#/patchset/20260513-exynos850-cpuhotplug-v4-0-54fec5f65362@linaro.org?part=3
-> Fixes: 78b72897a5c8 ("soc: samsung: exynos-pmu: Enable CPU Idle for gs101")
+On Tue, Jun 09, 2026 at 11:55:12AM -0700, Oliver Upton wrote:
+> KVM faults in the VNCR page with FOLL_WRITE whenver the guest aborts for
+> a write, similar to how a regular stage-2 mapping is handled. It is
+> entirely possible that the guest reads from the VNCR before writing to
+> it, in which case the PFN could only be read-only.
+> 
+> Invalidate the VNCR TLB and re-fetch the translation upon taking a VNCR
+> abort, allowing the host mapping to be faulted in for write the second
+> time around. Interestingly enough, this also satisfies the ordering
+> requirements of FEAT_ETS2/3 between descriptor updates and MMU faults.
+> 
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Alexey Klimov <alexey.klimov@linaro.org>
+> Fixes: 2a359e072596 ("KVM: arm64: nv: Handle mapping of VNCR_EL2 at EL2")
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Signed-off-by: Oliver Upton <oupton@kernel.org>
 > ---
->  drivers/soc/samsung/exynos-pmu.c | 57 ++++++++++++++++++++++++++++++++++------
->  1 file changed, 49 insertions(+), 8 deletions(-)
->
-> diff --git a/drivers/soc/samsung/exynos-pmu.c b/drivers/soc/samsung/exynos-pmu.c
-> index 9636287f6794..846313a28e9a 100644
-> --- a/drivers/soc/samsung/exynos-pmu.c
-> +++ b/drivers/soc/samsung/exynos-pmu.c
-> @@ -38,6 +38,8 @@ struct exynos_pmu_context {
->         unsigned long *in_cpuhp;
->         bool sys_insuspend;
->         bool sys_inreboot;
-> +       int cpuhp_prepare_state;
-> +       int cpuhp_online_state;
->  };
->
->  void __iomem *pmu_base_addr;
-> @@ -404,6 +406,17 @@ static struct notifier_block exynos_cpupm_reboot_nb = {
->         .notifier_call = exynos_cpupm_reboot_notifier,
->  };
->
-> +static void destroy_cpuhp_and_cpuidle(void)
-> +{
-> +       cpu_pm_unregister_notifier(&gs101_cpu_pm_notifier);
-> +       unregister_reboot_notifier(&exynos_cpupm_reboot_nb);
-> +
-> +       if (pmu_context->cpuhp_prepare_state != CPUHP_INVALID)
-> +               cpuhp_remove_state(pmu_context->cpuhp_prepare_state);
-> +       if (pmu_context->cpuhp_online_state != CPUHP_INVALID)
-> +               cpuhp_remove_state(pmu_context->cpuhp_online_state);
-> +}
-> +
->  static int setup_cpuhp_and_cpuidle(struct device *dev)
->  {
->         struct device_node *intr_gen_node;
-> @@ -465,16 +478,42 @@ static int setup_cpuhp_and_cpuidle(struct device *dev)
->                 gs101_cpuhp_pmu_online(cpu);
->
->         /* register CPU hotplug callbacks */
-> -       cpuhp_setup_state(CPUHP_BP_PREPARE_DYN, "soc/exynos-pmu:prepare",
-> -                         gs101_cpuhp_pmu_online, NULL);
-> +       pmu_context->cpuhp_prepare_state = CPUHP_INVALID;
-> +       pmu_context->cpuhp_online_state = CPUHP_INVALID;
->
-> -       cpuhp_setup_state(CPUHP_AP_ONLINE_DYN, "soc/exynos-pmu:online",
-> -                         NULL, gs101_cpuhp_pmu_offline);
-> +       ret = cpuhp_setup_state(CPUHP_BP_PREPARE_DYN, "soc/exynos-pmu:prepare",
-> +                               gs101_cpuhp_pmu_online, NULL);
-> +       if (ret < 0)
-> +               return ret;
-> +
-> +       pmu_context->cpuhp_prepare_state = ret;
-> +
-> +       ret = cpuhp_setup_state(CPUHP_AP_ONLINE_DYN, "soc/exynos-pmu:online",
-> +                               NULL, gs101_cpuhp_pmu_offline);
-> +       if (ret < 0)
-> +               goto clean_cpuhp_states;
-> +
-> +       pmu_context->cpuhp_online_state = ret;
->
->         /* register CPU PM notifiers for cpuidle */
-> -       cpu_pm_register_notifier(&gs101_cpu_pm_notifier);
-> -       register_reboot_notifier(&exynos_cpupm_reboot_nb);
-> -       return 0;
-> +       ret = cpu_pm_register_notifier(&gs101_cpu_pm_notifier);
-> +       if (ret)
-> +               goto clean_cpuhp_states;
-> +
-> +       ret = register_reboot_notifier(&exynos_cpupm_reboot_nb);
-> +       if (!ret)
-> +               /* Success */
-> +               return ret;
-> +
-> +       cpu_pm_unregister_notifier(&gs101_cpu_pm_notifier);
-> +
-> +clean_cpuhp_states:
-> +       if (pmu_context->cpuhp_prepare_state != CPUHP_INVALID)
-> +               cpuhp_remove_state(pmu_context->cpuhp_prepare_state);
-> +       if (pmu_context->cpuhp_online_state != CPUHP_INVALID)
-> +               cpuhp_remove_state(pmu_context->cpuhp_online_state);
-> +
-> +       return ret;
+>  arch/arm64/kvm/nested.c | 115 +++++++++++++++-------------------------
+>  1 file changed, 44 insertions(+), 71 deletions(-)
+> 
+> diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
+> index ebd7ccfeee99..d5c4b57123a9 100644
+> --- a/arch/arm64/kvm/nested.c
+> +++ b/arch/arm64/kvm/nested.c
+> @@ -1460,92 +1460,65 @@ static void handle_vncr_perm(struct kvm_vcpu *vcpu)
+>  	kvm_inject_nested_sync(vcpu, esr);
 >  }
->
->  static int exynos_pmu_probe(struct platform_device *pdev)
-> @@ -548,8 +587,10 @@ static int exynos_pmu_probe(struct platform_device *pdev)
->
->         ret = devm_mfd_add_devices(dev, PLATFORM_DEVID_NONE, exynos_pmu_devs,
->                                    ARRAY_SIZE(exynos_pmu_devs), NULL, 0, NULL);
-> -       if (ret)
-> +       if (ret) {
-> +               destroy_cpuhp_and_cpuidle();
+>  
+> -static bool kvm_vncr_tlb_lookup(struct kvm_vcpu *vcpu)
+> -{
+> -	struct vncr_tlb *vt = vcpu->arch.vncr_tlb;
+> -
+> -	lockdep_assert_held_read(&vcpu->kvm->mmu_lock);
+> -
+> -	if (!vt->valid)
+> -		return false;
+> -
+> -	if (read_vncr_el2(vcpu) != vt->gva)
+> -		return false;
+> -
+> -	if (vt->wr.nG)
+> -		return get_asid_by_regime(vcpu, TR_EL20) == vt->wr.asid;
+> -
+> -	return true;
+> -}
+> -
+>  int kvm_handle_vncr_abort(struct kvm_vcpu *vcpu)
+>  {
+>  	struct vncr_tlb *vt = vcpu->arch.vncr_tlb;
+>  	u64 esr = kvm_vcpu_get_esr(vcpu);
+> +	bool is_gmem, perm;
+> +	int ret;
+>  
+>  	WARN_ON_ONCE(!(esr & ESR_ELx_VNCR));
+>  
+>  	if (kvm_vcpu_abt_issea(vcpu))
+>  		return kvm_handle_guest_sea(vcpu);
+>  
+> -	if (esr_fsc_is_permission_fault(esr)) {
+> -		handle_vncr_perm(vcpu);
+> -	} else if (esr_fsc_is_translation_fault(esr)) {
+> -		bool valid, is_gmem = false;
+> -		int ret;
+> -
+> -		scoped_guard(read_lock, &vcpu->kvm->mmu_lock)
+> -			valid = kvm_vncr_tlb_lookup(vcpu);
+> -
+> -		if (!valid)
+> -			ret = kvm_translate_vncr(vcpu, &is_gmem);
+> -		else
+> -			ret = -EPERM;
+> +	if (!esr_fsc_is_translation_fault(esr) && !esr_fsc_is_permission_fault(esr)) {
+> +		WARN_ONCE(1, "Unhandled VNCR abort, ESR=%llx\n", esr);
+> +		return 1;
+> +	}
+>  
+> -		switch (ret) {
+> -		case -EAGAIN:
+> -			/* Let's try again... */
+> -			break;
+> -		case -ENOMEM:
+> -			/*
+> -			 * For guest_memfd, this indicates that it failed to
+> -			 * create a folio to back the memory. Inform userspace.
+> -			 */
+> -			if (is_gmem)
+> -				return 0;
+> -			/* Otherwise, let's try again... */
+> -			break;
+> -		case -EFAULT:
+> -		case -EIO:
+> -		case -EHWPOISON:
+> -			if (is_gmem)
+> -				return 0;
+> -			fallthrough;
+> -		case -EINVAL:
+> -		case -ENOENT:
+> -		case -EACCES:
+> -			/*
+> -			 * Translation failed, inject the corresponding
+> -			 * exception back to EL2.
+> -			 */
+> -			BUG_ON(!vt->wr.failed);
+> +	ret = kvm_translate_vncr(vcpu, &is_gmem);
+> +	switch (ret) {
+> +	case -EAGAIN:
+> +		/* Let's try again... */
+> +		break;
+> +	case -ENOMEM:
+> +		/*
+> +		 * For guest_memfd, this indicates that it failed to
+> +		 * create a folio to back the memory. Inform userspace.
+> +		 */
+> +		if (is_gmem)
+> +			return 0;
+> +		/* Otherwise, let's try again... */
+> +		break;
+> +	case -EFAULT:
+> +	case -EIO:
+> +	case -EHWPOISON:
+> +		if (is_gmem)
+> +			return 0;
+> +		fallthrough;
+> +	case -EINVAL:
+> +	case -ENOENT:
+> +	case -EACCES:
+> +		/*
+> +		 * Translation failed, inject the corresponding
+> +		 * exception back to EL2.
+> +		 */
+> +		BUG_ON(!vt->wr.failed);
+>  
+> -			esr &= ~ESR_ELx_FSC;
+> -			esr |= FIELD_PREP(ESR_ELx_FSC, vt->wr.fst);
+> +		esr &= ~ESR_ELx_FSC;
+> +		esr |= FIELD_PREP(ESR_ELx_FSC, vt->wr.fst);
+>  
+> -			kvm_inject_nested_sync(vcpu, esr);
+> -			break;
+> -		case -EPERM:
+> -			/* Hack to deal with POE until we get kernel support */
+> -			handle_vncr_perm(vcpu);
+> -			break;
+> -		case 0:
+> -			break;
+> -		}
+> -	} else {
+> -		WARN_ONCE(1, "Unhandled VNCR abort, ESR=%llx\n", esr);
+> +		kvm_inject_nested_sync(vcpu, esr);
+> +		break;
+> +	case 0:
+> +		break;
+>  	}
+>  
+> +	perm = kvm_is_write_fault(vcpu) ? vt->wr.pw && vt->hpa_writable : vt->wr.pr;
+> +	if (!perm)
+> +		handle_vncr_perm(vcpu);
+> +
+>  	return 1;
+>  }
 
-You only want to do this if pmu_cpuhp == true, as currently only gs101
-registers the notifiers.
+Just a comment using this thread:
+
+While reading this, I found this part of the code (not this patch in
+particular) a little bit difficult to reason about. I think it's because
+kvm_translate_vncr() is doing many things, and there are multiple
+potential failure reasons e.g. s1 walk fault, no memslot, gmem/user mem
+faultin errors, MMU notifier check, etc., and they are all mux'ed into
+an error code with some context visible by the caller.
+
+So in kvm_handle_vncr_abort() we demux the error code and handle the
+errors with the help of the context (vt, is_gmem). We essentially have
+to keep track of what error codes correspond to what error reasons.
+
+Do you think it is better if we refactor and handle the errors when they
+occur? Like inject the exception back to vEL2 right after getting the
+results of __kvm_translate_va(), and finish up the abort handling there.
+Same for other cases.
+
+I can try it out and make it concrete if you also think this is
+reasonable. Probably after this series gets applied when the comments
+from Marc & Sashiko are addressed. (I reviewed and don't have additional
+comments though.)
 
 Thanks,
+Wei-Lin Chang
 
-Peter
+>  
+> -- 
+> 2.47.3
+> 
