@@ -1,141 +1,119 @@
-Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com [209.85.160.177])
+Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com [209.85.160.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0339B3ED128
-	for <stable@vger.kernel.org>; Wed, 10 Jun 2026 10:18:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.177
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781086736; cv=none; b=DGScxWx19UjCvpOGEbacnQQqcIFJMGf1StOr/U3T0RHr7SEXalYxX6r7omXxKAEG9WJQtLkc2Kwt3C2KdtSBInH0F2QsB/UAatxc3+ZsYQHgs5e703zM0IEDvSK4bIjNpyee9wYb0BwFEHXhclX7m/yZooF7of9i83vM4dLADdc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781086736; c=relaxed/simple;
-	bh=Ic9CEGREOD5y9X3l20lpqUpOb9jCx8JtdNqVvsEVd8U=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=QdjnUbe/vLmVjtnVi4yLf3cX0iSiodZhCAeJgGopb9ZXOp+gMfdcoafdkuL4O03ezTa2s8fQPorIAh66zyqlXYo+Flhpg06/4/yDGHo/5PMviZmAp3qag/cAAo/zNbkciW4/bc3mGgNZaHZ81aB5MDDz212dI7JOtfjeouxpO5M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com; spf=none smtp.mailfrom=mojatatu.com; dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b=Kx3DhUUK; arc=none smtp.client-ip=209.85.160.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84B953EFFDD
+	for <stable@vger.kernel.org>; Wed, 10 Jun 2026 10:24:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.171
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781087060; cv=pass; b=OUKjz9aJOe6uyTG8WyVEhZNw5TLB4vpisglfVaGKDOgi93xJlOQXfr7GenYy3v+dx4kx/JSmf8XTwDYvPj5uQczrAKvg6bTReQ7ooRcjCv/btc1ZBVVQMFI05Bw0mV2rk3Zk6LxcAHl0/OAnNQePXmqBKjcdufoRyuVagrjuBkQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781087060; c=relaxed/simple;
+	bh=RNTETXxBGztiW9SeIqkixJsC3INTTfvcVbOxx6w5wrs=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=IgjwqBl/YA+yxi3QgcpTNzINDvWDB4aESVGnBOkyanoWzYPE7wCszVPmx4zVbH/2z4wFLofAK//yz/GX8RDLhhhUf8mc0geYuOcyln0uib27QjhQ1fqCZnK1hWGmxAukSDC7Avc3+L8IiHr6HBNMjT83WCJj49tiyoDvQHWbVqk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ei283nIp; arc=pass smtp.client-ip=209.85.160.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b="Kx3DhUUK"
-Received: by mail-qt1-f177.google.com with SMTP id d75a77b69052e-5175b6c4e19so68956091cf.0
-        for <stable@vger.kernel.org>; Wed, 10 Jun 2026 03:18:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ei283nIp"
+Received: by mail-qt1-f171.google.com with SMTP id d75a77b69052e-5176bbb9384so65694861cf.1
+        for <stable@vger.kernel.org>; Wed, 10 Jun 2026 03:24:16 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781087055; cv=none;
+        d=google.com; s=arc-20240605;
+        b=jqx6TIGSQJWrkuSKx54iVagzqV6Sh29EPrs1WuYXulMuRP7mhtKc7+0/Q9KZeLedDH
+         nAYt6VZgi4CabRPN9juYuNpOx+Z2ZNy2TiLcPOXw69Jz7FimmnKruPfabwYQ3friA24s
+         61+XGsjJ3lODEckwZGmcgHlWtJUFK6uBuxfefxAKQskwqY5IR+mNpILD9l1chUFW/dUh
+         7jr+nmTrzShBM5lqwCB4Ccs+mcmFmEk8RvX+awbu09XqWu6tXGhwQ2096Mh9vFuPGxZ8
+         CHqHMyk5DvXUNYzdTjsE/H6PKMwT98m/XVDwRW/GfWxRpxsM1EoE82nKgcWb7bIdgSbC
+         kjjQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=RNTETXxBGztiW9SeIqkixJsC3INTTfvcVbOxx6w5wrs=;
+        fh=55Vtjg+iUXHWHHeFh3DqJ9OLHFQo56dZ6ASqaNtLIUY=;
+        b=JlyWtIjKJGqaQE2QP7DaE7VBDN40AJuwxaLoR5yUU1bD1Donq8zf1g6XZyLLMW9YI4
+         L5/VYCNipZJW+LGhil9VqRc5zu4tSHjVrC8RP11esWDljyrIXnzSBGEk5JfxqmcKfAE+
+         axRuAiz3l1/Wa+Dr5Q1/XHD9xdaA7umvmBep/8G+Bi1PRJQXzxyZ7sBI6NkZJjs06gVq
+         LybQDsuqiu4MYGfeLUbjrMZrcVNWyq5Ssqay6nW8vdDmjHHy00fLtz1/wpjG7+tYaA9x
+         pQ0KK5TW3HhKWZH7U1wzaFmT7XeJVStVJJj8HMC0pQ0ucW4Fs6EPBk9TDFeUhhcQQsqT
+         517w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mojatatu.com; s=google; t=1781086734; x=1781691534; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=sPIESdLDZGUXa6Ogop7LK04l+zl3x/dImkvKUuXByAA=;
-        b=Kx3DhUUKxN/t46QDz5xOZLD+6QbFSTufpk1CEKNfZY+ecKvHnuqw9p/UR5CE4WxDN/
-         a8Iq32yMYPrm9JsDZ25K8cSe09QaE6qjQq2TMM2c39AwA5P/mEermaEk8B1SjZRatVY0
-         6v4HPQtiTfpkI1M1A0qAlO9g1BBRkGJAgxm58=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781086734; x=1781691534;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=google.com; s=20251104; t=1781087055; x=1781691855; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=sPIESdLDZGUXa6Ogop7LK04l+zl3x/dImkvKUuXByAA=;
-        b=NWaODVWaDEuXgoqco31AdJnzNUIMs9V2kZQwPFWzJcdxnvkDcucjH1RgPET2PGXJ3l
-         +/RCZg4ntAMxT2fQm/5PxMfAQws8A89+X+GVpRmIXguffmlutMffqTgMtLwuMKYgwrsD
-         0rpwQdLOiy1h7xKN/bqgsI3rUKLRnS6F9FxY9ZTzZByjav4tOuBy67OnjVb30gcDn4I8
-         DZTRHNslUtE5ndCJukxDghuOjpYbgNEfv5kezYtfwT7dR+suNIYfgg02UzGLerVqt0kS
-         58NojRmVzrTd2fcjbEQPiUeRy3LROctYBfrX7+We3iJmaSGMlVSeAuFfs1fxT/dBJOYH
-         JzIg==
-X-Forwarded-Encrypted: i=1; AFNElJ/5u7Lwn8hM+AX3Zufd/Qdy+rqYZVTWkhlKyFXf9GCWDKDsFcKpzE7kNwfBBzJ/X0Du+GnFXFk=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyN9dZPLGCP/pSdveYrKXD2UIfPV4FFL8GlrwFQO4F9n7HhU6uP
-	DdH/iYt1U88ZaMPY6MwE4MAwHgnnQt4vfwNfbMowqFpee4AngfVDB4DevEoD4WQX5oTQo2E1R3h
-	jHMiM8Q==
-X-Gm-Gg: Acq92OGc4S2hE5n/jMO8bOZ13ymBQfTeuyjVZW9yjWdyFd8PBT5zMVzge1pZL3ceik5
-	o6q1wDBnJcMHZgfhXzRdz19bX9ukD00J/nxcq8y9/haczsEV8m+O0QnrngtZi9/ukqYcgk90/fu
-	qQmMtvf7Z9noWrHRaOziceM13kJRqs8EYTmgG2/yPw8eOFraJdbNjSxwmnlGUKfcrGih8519fYn
-	rH7zPQnQb/1DZeDGhv1tLcwU9G+0mK+t/wOehzdCOCorgSWCtvf6bVF49oqpSJqbo52wKkVTONT
-	WgVrN97vSydfubHZdJhJiqkm7Dc0pwb05pHkISqZMNj1nChTsDc5YUlDNNPhqXPK7alc6p5ckJH
-	K48M0HUmm6MB+qYeuWYcOCSokn65JxLbwsDght5IyxTYjKOIMQP3reFWvYPMUZkJgVhvgHxZOCz
-	cMdTNJTC78HWZoWPwzE1wcCIqmATL1Xb6lnBRALQ==
-X-Received: by 2002:a05:622a:58c8:b0:516:d66e:7b1f with SMTP id d75a77b69052e-51795c6b5ecmr354207001cf.31.1781086733907;
-        Wed, 10 Jun 2026 03:18:53 -0700 (PDT)
-Received: from majuu.waya ([184.144.29.222])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8cecd2682f8sm230139796d6.43.2026.06.10.03.18.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 10 Jun 2026 03:18:53 -0700 (PDT)
-From: Jamal Hadi Salim <jhs@mojatatu.com>
-To: netdev@vger.kernel.org
-Cc: jiri@resnulli.us,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	victor@mojatatu.com,
-	kylebot@openai.com,
-	stable@vger.kernel.org,
-	security@kernel.org,
-	Jamal Hadi Salim <jhs@mojatatu.com>
-Subject: [PATCH net 1/1] net/sched: cls_flow: Dont  expose folded kernel pointers
-Date: Wed, 10 Jun 2026 06:18:39 -0400
-Message-Id: <20260610101839.14135-1-jhs@mojatatu.com>
-X-Mailer: git-send-email 2.34.1
+        bh=RNTETXxBGztiW9SeIqkixJsC3INTTfvcVbOxx6w5wrs=;
+        b=ei283nIp+QHs3RT+vWaZYZtzV9GSm7ETAPm2F2QxHfc+LlTOfb9UhpnBfKRrQBY0Uz
+         UDOGsMzpVo8c8KRCeLwKJ9DREl/Fx3CghYFmbMrNiyW6blfJg7hqtwCWWeNxhUEjEmv9
+         iLwc+HO3imYIGRsqjGq4bUEn7Nv6ixMNJDrUpEVHbN3HGRKdb2/wjo6bct8rvQhr/4vl
+         Dg+dOSqLKR7iSBVQrrsaO246Urg5Xa0I0F3tpXgzgwslkBbj+KVymLc+n3htFnQ64Or6
+         OIVGN1BOsbvx9BXIumn07RcOSHsFVDUBtWR4HUg6V8d99o+gI89t+TLXVRRholpOzgvc
+         yAsg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781087055; x=1781691855;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=RNTETXxBGztiW9SeIqkixJsC3INTTfvcVbOxx6w5wrs=;
+        b=ZVdN7sOVpdTAv8Fo8DkaMaIsfgPviXoiY9DqVmO2uqKUHjHh/XxWGgUMtwP/iZ3GIE
+         1trqDGsMGBt+E2t+ADoxdOL539rS53XmsloCd7hOGMP3udEodf1PzkT1PbDlKPaAeR88
+         OX8uHNBEs8NdwLABdVAbpZOIQFIR2xxOVMSpx9XH9bJWcTYBB9pXrhVCnI4l7nG2X0mA
+         XYZkiypTEwnIIMH5dD6uv/qiRjhGTyJ3aD5q7OGwQqr3Ma7WAqagOotJvuxwYD1NOygX
+         SvzgmgfWUCnPNjwqbotclDsTIf/5nrQjNJQ1s6iEn+ZLVQ4fMTeur5AWyju8p8rkiY4w
+         XJrg==
+X-Forwarded-Encrypted: i=1; AFNElJ+9NO53CJwehsdPBwOP6WA46Grgc/T9Gx0qlkqlJmiRtTJ37YuPi7q2IvL303xff1B3RdoDPSw=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyqp65DTpgJE8jgAbV6qmRp9LXN1/S8ORo/3EkmAMZM73ZtaAAq
+	mT+I+0Ppr3EExU1Jpdrgf6Yov3sh2Izb9aT1FJ25buMT+CE6ehXseZ6IW97JVjUvMEHlZOlwoUu
+	rzDkirHJMtZL9vw2XJsqetiSSB5ldLWKxb5mOMAZy
+X-Gm-Gg: Acq92OHiu9h8LJbhZjiMM7XDK88a7ePOiu3HiDuacYxoWyZvSfTuHIfVgSpcZzOmZ1a
+	2w1EWrUXZIewQrbEC1/Vog/Jm6Lo6OXLqGACNdXRpqJtu4d0hg6t6e2JFlBZ9tgOGEptW1yO7AO
+	7/9Ux8eLiCNZ4263m4NpV/Q3GWqPHX4CPCJaTzRc/9+vIwNWkBFXWXYivR5L1xFZwsqKhGWFjGb
+	QN4w2CmAhWZ8xLa1fcOmbg5O/yznIphDLWHmCLgFTygCMnFC8BQ8o7IdKooMFZlUXJ+rszUX7X7
+	qZTet71pu+bTapa+c7KJP4Y92f92Tcq/0/p/VjZ1H1R85F8ipX5UHUsxkROtW09EvPYxhf6W9PQ
+	x8m1gkgELZhKFB81RxvUIj05pF0iRQw==
+X-Received: by 2002:a05:622a:53c7:b0:510:1325:58b9 with SMTP id
+ d75a77b69052e-51795c56255mr367755921cf.41.1781087054772; Wed, 10 Jun 2026
+ 03:24:14 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260610101839.14135-1-jhs@mojatatu.com>
+In-Reply-To: <20260610101839.14135-1-jhs@mojatatu.com>
+From: Eric Dumazet <edumazet@google.com>
+Date: Wed, 10 Jun 2026 03:24:03 -0700
+X-Gm-Features: AVVi8Cf251Ea_rFf8hJYPAfR31yJwCgsqIE3IE1us9aYknccYT_dL0Vw7oFA-c4
+Message-ID: <CANn89iLf_kweBcio1_7Vg-JFn27R816Hnu+c118PD6EmYFJ-6w@mail.gmail.com>
+Subject: Re: [PATCH net 1/1] net/sched: cls_flow: Dont expose folded kernel pointers
+To: Jamal Hadi Salim <jhs@mojatatu.com>
+Cc: netdev@vger.kernel.org, jiri@resnulli.us, davem@davemloft.net, 
+	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, victor@mojatatu.com, 
+	kylebot@openai.com, stable@vger.kernel.org, security@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The flow classifier falls back to addr_fold() for fields that are missing
-from packet headers. In map mode, userspace controls mask, xor, rshift,
-addend and divisor, and can observe the resulting classid through class
-statistics. This allows a tc classifier in a user/network namespace to
-recover the 32-bit folded value of skb->sk, skb_dst() or skb_nfct().
+On Wed, Jun 10, 2026 at 3:18=E2=80=AFAM Jamal Hadi Salim <jhs@mojatatu.com>=
+ wrote:
+>
+> The flow classifier falls back to addr_fold() for fields that are missing
+> from packet headers. In map mode, userspace controls mask, xor, rshift,
+> addend and divisor, and can observe the resulting classid through class
+> statistics. This allows a tc classifier in a user/network namespace to
+> recover the 32-bit folded value of skb->sk, skb_dst() or skb_nfct().
+>
+> Align with standard kernel practices for pointer hashing and replace the
+> XOR folding with a keyed siphash (which is cryptographically secure)
+>
+> Fixes: e5dfb815181f ("[NET_SCHED]: Add flow classifier")
+> Reported-by: Kyle Zeng <kylebot@openai.com>
+> Tested-by: Kyle Zeng <kylebot@openai.com>
+> Tested-by: Victor Nogueira <victor@mojatatu.com>
+> Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
 
-Align with standard kernel practices for pointer hashing and replace the
-XOR folding with a keyed siphash (which is cryptographically secure)
+Reviewed-by: Eric Dumazet <edumazet@google.com>
 
-Fixes: e5dfb815181f ("[NET_SCHED]: Add flow classifier")
-Reported-by: Kyle Zeng <kylebot@openai.com>
-Tested-by: Kyle Zeng <kylebot@openai.com>
-Tested-by: Victor Nogueira <victor@mojatatu.com>
-Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
----
- net/sched/cls_flow.c | 12 +++++++++---
- 1 file changed, 9 insertions(+), 3 deletions(-)
-
-diff --git a/net/sched/cls_flow.c b/net/sched/cls_flow.c
-index ab364e4e4686..356c68ebc389 100644
---- a/net/sched/cls_flow.c
-+++ b/net/sched/cls_flow.c
-@@ -21,6 +21,7 @@
- #include <net/inet_sock.h>
- 
- #include <net/pkt_cls.h>
-+#include <linux/siphash.h>
- #include <net/ip.h>
- #include <net/route.h>
- #include <net/flow_dissector.h>
-@@ -57,11 +58,15 @@ struct flow_filter {
- 	struct rcu_work		rwork;
- };
- 
-+static siphash_aligned_key_t flow_keys_secret __read_mostly;
-+
- static inline u32 addr_fold(void *addr)
- {
--	unsigned long a = (unsigned long)addr;
--
--	return (a & 0xFFFFFFFF) ^ (BITS_PER_LONG > 32 ? a >> 32 : 0);
-+#ifdef CONFIG_64BIT
-+	return (u32)siphash_1u64((u64)addr, &flow_keys_secret);
-+#else
-+	return (u32)siphash_1u32((u32)addr, &flow_keys_secret);
-+#endif
- }
- 
- static u32 flow_get_src(const struct sk_buff *skb, const struct flow_keys *flow)
-@@ -596,6 +601,7 @@ static int flow_init(struct tcf_proto *tp)
- 		return -ENOBUFS;
- 	INIT_LIST_HEAD(&head->filters);
- 	rcu_assign_pointer(tp->root, head);
-+	net_get_random_once(&flow_keys_secret, sizeof(flow_keys_secret));
- 	return 0;
- }
- 
--- 
-2.34.1
-
+Thanks.
