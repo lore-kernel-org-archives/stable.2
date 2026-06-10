@@ -1,138 +1,94 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65724304BDF
-	for <stable@vger.kernel.org>; Wed, 10 Jun 2026 06:05:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4ECF734B1A7
+	for <stable@vger.kernel.org>; Wed, 10 Jun 2026 06:11:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781071537; cv=none; b=MgQNJ4J5Fg+EhuFMVz3QjimTyIFG+R5srp9OYj0NjvaZEQRNz+U00HW5p8nSfQH/klfIX/cE8cH7FQYreYzgIH9/4z351MbRFoAPWmYzf6wEkg00hHZFiq6P8IM9hH27WnSsEVzOybo4GmnklEvVKuYT0D1YdMVygsYePPFPsWw=
+	t=1781071866; cv=none; b=uxbI4Nc3/MKaDemKiI62vPh2IV0Zhsj7sUDdLfHTg0xvwbSm7GF0jvmy4Q+54lS+LAIkUpyDQ4L7ZLq2iAB7FA3KoqJnCUfP07eYtK1fXrvPalww0bTjaezBGjWX+OZGdlT21AxGz283p4WaWn/F4p1ftlLHZVPaZOqRaiygPXY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781071537; c=relaxed/simple;
-	bh=y2wsVPelIEtMq3U3KX4WbY3IdmtftE3qpW7t6devt+s=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=jocXwcVlARe9XgrPlsgwHrcsqPZw9FjrLs1tPvPREp38AHF77sBHC7LiWFVl0M0JVGAotOAQ0wRkwnRaTysxU4joX/YcsYqtaM/gFFiG+4Ki/FIWJS51qYM75JhaW5Az2hvd5i7GXsGlxK1VE4IxFXJYRDRGc1yR5d/qqXYszp8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fpqNT5H0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781071866; c=relaxed/simple;
+	bh=T4PLCV/Au02rSPIrD7i86UW7KEfAeOZVAklV1H4aAPU=;
+	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
+	 To:Date:Message-ID; b=l6G/AsF/iAVV4VIODDPafzwgvVTts0R0ydiQSS9dnedzQ+afcaLPLR3ci2J8aXFcUXVc6BFfwfiu2TAYTQSxOfONuQ4NGKSDqWA7eBetydp9Gpn7V58d1lq3Zi+Z7SBGe2mOOYOzjRtMA727imoO+aVcdC70OPG0XC6EAUUZoKU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Sjk0oTor; arc=none smtp.client-ip=198.175.65.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fpqNT5H0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C0E51F008A1
-	for <stable@vger.kernel.org>; Wed, 10 Jun 2026 06:05:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781071535;
-	bh=FTK5q5irjTJDtyh2inFzHi3DC2x4G3YrOl+FUqbTtH8=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=fpqNT5H03zbQNgcEVq8Rf7kstpehLDgDtoQJMjmCbSdBf00/H1epyiItcyJpXohlQ
-	 Lx6AFszxQRQaQ/UVRHWpVyM3stQhrHWcYVEOOOYSjGozSjhMxhCBbeSGRNEVgxUKlH
-	 zGIFBMlgmQFaKFgwDmZxqjtl/Wz36hbwdLFEK0mFu+LWQubJIqWNgrlP4YQxmUVx2Z
-	 USuXQMM5zXrbjNAZAQ9l/7AVWWjR1WEpn4vBBqsiipqWP49mhnjvp9PZrfRX8cGsqI
-	 Kb0VbC97YQP2q/tuI2iQcszTRFbbYeeSrhNQ0pZCZ789R0zXHe76yCrGQCqRB8oyqJ
-	 Ak0vWUhyTAdhQ==
-Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-68d23430690so12637932a12.3
-        for <stable@vger.kernel.org>; Tue, 09 Jun 2026 23:05:35 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ9PtfZlBVWA2aiansdBsK30kNV9bSaFwJ1soqDbb7rWW5/VH5z/N2sjKrxOXBdwtKGwQb32pVE=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzKKWw1Pp5C6RDHU/3bZSvsljjSD9/fCmg0MRgAbtg9hDDF7YnM
-	dkZZwZQXZaJeoWb2jb0X89I4TGxmXSdpkKUL17IPlPQl823vgJKTnooKUeo4Zl7I2M0jsSrqAFb
-	91ACt2AkpIMq+sSvNJj1oM2xSz/KZiyk=
-X-Received: by 2002:a05:6402:518c:b0:68c:627d:fc2b with SMTP id
- 4fb4d7f45d1cf-68fa5039e51mr10638713a12.16.1781071533743; Tue, 09 Jun 2026
- 23:05:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Sjk0oTor"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1781071866; x=1812607866;
+  h=mime-version:content-transfer-encoding:in-reply-to:
+   references:subject:from:cc:to:date:message-id;
+  bh=T4PLCV/Au02rSPIrD7i86UW7KEfAeOZVAklV1H4aAPU=;
+  b=Sjk0oTorO38FLtCbSRuawDHcjEwzTiqrfQUVmHI4MCzGbJK0wOWddM2t
+   GXts3T8qC1x9xOvLD1xP0kIrfsWef5kUVWF6sjUf6AWcsK9jX7lYcKLFC
+   qOOX8AOQAN7BvNcD2Na2QsrWwvnQQlJe4sGuK4c3huVVmV0RSzCkEyfuX
+   sDCTNSebos2qeaOAyqdlgt9NUsIG4uYbW1KBt4QCO4ig9UoRtCBqhTOYV
+   E/e6UEg9d2yC/d6Dr7VceyAqRJnzjXJHJlujnNrsGhHm5rvr9pgZEi0sY
+   1hoPdes+t01O3/N0ApnUAr1ILLXJ5JBd/VZ4MG9GONWHUp/jxCt1WdZnN
+   w==;
+X-CSE-ConnectionGUID: anaRcV8wRoKLF/7boWLpmQ==
+X-CSE-MsgGUID: Eo7B1wbTSDyOW9nMWx1xQA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11812"; a="92962645"
+X-IronPort-AV: E=Sophos;i="6.24,197,1774335600"; 
+   d="scan'208";a="92962645"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Jun 2026 23:11:05 -0700
+X-CSE-ConnectionGUID: j1Eh5tCDRrGC8NbEcy/+hw==
+X-CSE-MsgGUID: U0DO/QqVQIKsdbxl8t6LLg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,197,1774335600"; 
+   d="scan'208";a="241941084"
+Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.208])
+  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Jun 2026 23:11:02 -0700
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260608093729.12111-1-jelonek.jonas@gmail.com>
-In-Reply-To: <20260608093729.12111-1-jelonek.jonas@gmail.com>
-From: Huacai Chen <chenhuacai@kernel.org>
-Date: Wed, 10 Jun 2026 14:05:56 +0800
-X-Gmail-Original-Message-ID: <CAAhV-H7vJ5YniUD8HhFWBbypNyWTo73M_vzw=Y-MZtR-b_RNfw@mail.gmail.com>
-X-Gm-Features: AVVi8CeBRd2PLLuFTXLO59EuacgjVdNmuBqSnRmL8jqW-pPNGJNNz_1TkdYV9Ms
-Message-ID: <CAAhV-H7vJ5YniUD8HhFWBbypNyWTo73M_vzw=Y-MZtR-b_RNfw@mail.gmail.com>
-Subject: Re: [PATCH v2] MIPS: smp: report dying CPU to RCU in stop_this_cpu()
-To: Jonas Jelonek <jelonek.jonas@gmail.com>
-Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>, linux-mips@vger.kernel.org, 
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>, Clark Williams <clrkwllms@kernel.org>, 
-	Steven Rostedt <rostedt@goodmis.org>, Thomas Gleixner <tglx@kernel.org>, 
-	Jiayuan Chen <jiayuan.chen@linux.dev>, linux-rt-devel@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260609183002.1051500-1-jia.yao@intel.com>
+References: <20260609183002.1051500-1-jia.yao@intel.com>
+Subject: Re: [PATCH v4] drm/i915/dg2: Add per-context control for Wa_22013059131
+From: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Cc: Jia Yao <jia.yao@intel.com>, stable@vger.kernel.org, Shuicheng Lin <shuicheng.lin@intel.com>, Matt Roper <matthew.d.roper@intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>, Maciej Plewka <maciej.plewka@intel.com>, Andi Shyti <andi.shyti@linux.intel.com>
+To: Jia Yao <jia.yao@intel.com>, intel-gfx@lists.freedesktop.org
+Date: Wed, 10 Jun 2026 09:10:59 +0300
+Message-ID: <178107185934.29382.9213110661861924376@jlahtine-mobl>
+User-Agent: alot/0.13.dev2+g40c57d620
 
-Hi, Jonas,
+Quoting Jia Yao (2026-06-09 21:30:02)
+> Wa_22013059131 sets FORCE_1_SUB_MESSAGE_PER_FRAGMENT in LSC_CHICKEN_BIT_0
+> at engine init, but this is known to cause GPU hangs in certain workloads.
+> Add I915_CONTEXT_PARAM_WA_22013059131 so userspace that handles the
+> workaround itself (e.g. by limiting SLM size) can set it to 1 to let the
+> kernel know bit 15 programming is not needed for that context.
+>=20
+> LSC_CHICKEN_BIT_0 is not context-saved by hardware, so the kernel restores
+> the correct value on every context switch via the indirect context
+> batchbuffer to avoid leaking state between contexts. The old unconditional
+> application of Wa22013059131 in intel_workarounds.c is removed.
+>=20
+> v4:
+> - Add a link of the userspace using this API
+>=20
+> v3:
+> - Kernel-internal context will not change workaround settings
+>=20
+> Bspec: 54833
+> Fixes: 645cc0b9d972 ("drm/i915/dg2: Add initial gt/ctx/engine workarounds=
+")
 
-On Mon, Jun 8, 2026 at 5:37=E2=80=AFPM Jonas Jelonek <jelonek.jonas@gmail.c=
-om> wrote:
->
-> smp_send_stop() parks all secondary CPUs in stop_this_cpu(). The function
-> marks the CPU offline for the scheduler via set_cpu_online(false) but
-> never informs RCU, so RCU keeps expecting a quiescent state from CPUs
-> that are now spinning forever with interrupts disabled.
->
-> As long as nothing waits for an RCU grace period after smp_send_stop()
-> this is harmless, which is why it went unnoticed. Since commit
-> 91840be8f710 ("irq_work: Fix use-after-free in irq_work_single() on PREEM=
-PT_RT")
-> however, irq_work_sync() calls synchronize_rcu() on architectures without
-> an irq_work self-IPI, i.e. where arch_irq_work_has_interrupt() returns
-> false. That is the asm-generic default used by MIPS. Any irq_work_sync()
-> issued in the reboot/shutdown path after smp_send_stop() then blocks on
-> a grace period that can never complete, hanging the reboot:
->
->   WARNING: CPU: 0 PID: 15 at kernel/irq_work.c:144 irq_work_queue_on
->   ...
->   rcu: INFO: rcu_sched detected stalls on CPUs/tasks:
->   rcu: Offline CPU 1 blocking current GP.
->   rcu: Offline CPU 2 blocking current GP.
->   rcu: Offline CPU 3 blocking current GP.
-In theory LoongArch has the same problem, but I cannot reproduce,
-should I enable PREEMPT_RT? Or there are some special configurations?
+This is not a fixup to be backported to older kernels, this is a new
+feature, so please drop this. It'll cause unnecessary noise.
 
-Huacai
+> Link: https://github.com/intel/compute-runtime/pull/919
+> Cc: stable@vger.kernel.org
 
->
-> This issue was noticed on several Realtek MIPS switch SoCs (MIPS
-> interAptiv) and came up during kernel bump downstream in OpenWrt from
-> 6.18.33 to 6.18.34, after the backport of the patch to the 6.18 stable
-> branch. The patch also has been backported all the way back to 6.1.
->
-> Call rcutree_report_cpu_dead() once interrupts are disabled, mirroring th=
-e
-> generic CPU-hotplug offline path, so RCU stops waiting on the parked CPUs
-> and grace periods can still complete. MIPS shuts down all CPUs here
-> without going through the CPU-hotplug mechanism, so this report is not
-> otherwise issued. Reporting a dying CPU to RCU outside the regular hotplu=
-g
-> offline path is not unprecedented: arm64 does the same in cpu_die_early()=
-.
-> There it is an exception for a CPU that was coming online and is aborting
-> bringup, rather than the default shutdown action as on MIPS.
->
-> Fixes: 91840be8f710 ("irq_work: Fix use-after-free in irq_work_single() o=
-n PREEMPT_RT")
-> CC: stable@vger.kernel.org
-> Signed-off-by: Jonas Jelonek <jelonek.jonas@gmail.com>
->
-> diff --git a/arch/mips/kernel/smp.c b/arch/mips/kernel/smp.c
-> index 4868e79f3b30..0f28b4a62e72 100644
-> --- a/arch/mips/kernel/smp.c
-> +++ b/arch/mips/kernel/smp.c
-> @@ -20,6 +20,7 @@
->  #include <linux/sched/mm.h>
->  #include <linux/cpumask.h>
->  #include <linux/cpu.h>
-> +#include <linux/rcupdate.h>
->  #include <linux/err.h>
->  #include <linux/ftrace.h>
->  #include <linux/irqdomain.h>
-> @@ -422,6 +423,7 @@ static void stop_this_cpu(void *dummy)
->         set_cpu_online(smp_processor_id(), false);
->         calculate_cpu_foreign_map();
->         local_irq_disable();
-> +       rcutree_report_cpu_dead();
->         while (1);
->  }
->
-> --
-> 2.51.0
->
->
+Definitely not for stable for above reasons.
+
+Regards, Joonas
