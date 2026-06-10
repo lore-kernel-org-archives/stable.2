@@ -1,149 +1,284 @@
-Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011064.outbound.protection.outlook.com [52.101.52.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f201.google.com (mail-dy1-f201.google.com [74.125.82.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78563345CBC;
-	Wed, 10 Jun 2026 18:03:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.64
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781114624; cv=fail; b=m0odCxTws+rX1tq8RlZBZErHDvo4JJmyU31CEZQeM2Y+ZTeKorVO1fXjbu22T6vYhwQivlvDDwA9hW5ugubDmByfbl3p8wbQMaADdpdtO7+GNEmKlCwS1Jvzqt5q63vHth86AkfFuJangWLCza3YaZ4mCllQ5wG4u5/JkAZ6ZSk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781114624; c=relaxed/simple;
-	bh=GgBrHa3d/uggcnGpB2opt39bZR1hnkx617XfjdO1bV8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=ky9zvavTU/FNWy0Sgzj5Stq5SGgw1B4wSt9XyfryFAED5Tt5borrswZeq8msITUFjhsDjbADfo3BBvMA+UDzs1/xW10P+AeZHNyRN2MZhN6dFEyXiQnkBwKW4h7b4w+f4mmMYHYefb6DAz0rD0cDIPoqEqbjiP0+4JQ31I/f5nI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=fJx9H4jp; arc=fail smtp.client-ip=52.101.52.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F6F134B1B0
+	for <stable@vger.kernel.org>; Wed, 10 Jun 2026 18:08:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781114939; cv=none; b=gPExYi9/qCNZcqfh+kDGYA+SyxniHJKuFzkfHtshpxl3sCwKAYySTlgS6iL+vnAi1rLdSZDzX/Pe5eSmNHRTA71KLdOH84ylelOjLcVJEMn1q8M2gEg31BJWvCtaClr+3JGugao9YeUALUhvmbpwDgxIL/RITbFwxapWVtCSg/M=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781114939; c=relaxed/simple;
+	bh=6aB1qKcFpXeQURcT21kW5rWQeM3/4p0CGXDDEO0loDw=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=BAuWTukH4uEKAx8WNusCVfnXPXd3TqbS+zPv+px5uwB3+ObpjanAhpAkm3pTnibpz9KP/S+TQ8RQZky0/n3QUDaeUjHVSy5pyjJ8cPai01dtJFCS1tzu6Cab1gVgoUyf2EtplwZrFbdlAQGnnVKVEwFMPR+Bio7jTW8Xv3KkBvU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--cmllamas.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=R3MftaaJ; arc=none smtp.client-ip=74.125.82.201
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--cmllamas.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="fJx9H4jp"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dbqvDcE/dw8vvBfhRY207OlKhu/qPOAGSqoKJarRx8UuoveWNAhptO/ABP9rgxGXf4wU6gQp8aOZULvZWAn/8KW5yr4/P6yCn9Tzym143Mcd40FnCe5/nXlQag4JgagNqVKJ5qxkUxlC/YaD8E5ZpuhQM8dmUngyWiXqRsGyf6+a4qzNcsMRG/NWki4uQlEWGKiS4zvyUc4RoV9Dqyle0hG5u8uLMyBYM0ak1C8r7CUi8mhZiFHiGVDBj9G4WdeRudn34mtoe7aJmV4wIIpFO2JOGYS0Y88L5EuVFn6GbkgrmzBCpUzzD9jO7YtOqvd1ToW04+oMH1SrlfGlBD23Og==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nJNbQCUEWAE6/HkEgSyMWQYqT9AgONEy3n6/4OC2Vl8=;
- b=ewDrec7kPdeoYe+bWERCB5YYM0KTe7VYTCg9IOLL3Z3PqHhSdowU7RoG5dneoFKreJjjeRQ9relBaESvEx79OfLEJThKS2y9TjFPu8zIHR3/YwJF3v7kaGAq6btQkjLUIJrPE1bKQC8gCm+2DlVT3ub2NmV5LKTsnlUhwVtepnsUgruTNUFBZ+r8LTkHnzFndUmKRKF2BvYDciQwb/GCjnLG2v/rSckMa6T8lsg4wtXzB3vRHoEXkLSpoZg9UZqu4XmvXlJdQ3v+s8Sj0ia7r67+Eei2zWC6QwvazGz4dD+KV360ivr6EXdyvEMiEGsx5WTvMog8FWhIpbzmF+MHAQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nJNbQCUEWAE6/HkEgSyMWQYqT9AgONEy3n6/4OC2Vl8=;
- b=fJx9H4jpq5ea6Psz6eqragVOPJMflK2T/Wq9JmJolfJ7HMOY+mMFixoe//syJ2c8N6XGzqDvo9JtZe82a9A2PodCHeMA/EAdymWqKJ5uAYyP9sBdxGEP9Vf9lACwr2S902PBrZWlYodgUUjWw6lbn70KGWFw/7CknoIy8APnBHvOOlxE0jAaZCTojALCcT2gH+vPU3qKJpsCZRnSsvB4VrLCtxkKBya4AUECTFPprBMAOhBRcl+pqwsK4Z2jPA621zs9z2J8Y2pk/ejWWWMt7vym02i0nW2bWy1FFsNHBtLm2ChytrN9T50cjWUQEYW2U62iZeE80rq19rJ6VXlSNg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from LV8PR12MB9620.namprd12.prod.outlook.com (2603:10b6:408:2a1::19)
- by CYYPR12MB8940.namprd12.prod.outlook.com (2603:10b6:930:bd::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.11; Wed, 10 Jun
- 2026 18:03:34 +0000
-Received: from LV8PR12MB9620.namprd12.prod.outlook.com
- ([fe80::299d:f5e0:3550:1528]) by LV8PR12MB9620.namprd12.prod.outlook.com
- ([fe80::299d:f5e0:3550:1528%4]) with mapi id 15.21.0113.011; Wed, 10 Jun 2026
- 18:03:34 +0000
-Date: Wed, 10 Jun 2026 15:03:32 -0300
-From: Jason Gunthorpe <jgg@nvidia.com>
-To: Edward Srouji <edwards@nvidia.com>
-Cc: Leon Romanovsky <leon@kernel.org>, Parav Pandit <parav@nvidia.com>,
-	Vlad Dumitrescu <vdumitrescu@nvidia.com>,
-	linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Maher Sanalla <msanalla@nvidia.com>, stable@vger.kernel.org
-Subject: Re: [PATCH rdma-next] RDMA/core: Fix broadcast address falsely
- detected as local
-Message-ID: <20260610180332.GA1017469@nvidia.com>
-References: <20260609-fix-rdma-resolve-addr-v1-1-449b8b4e6c09@nvidia.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260609-fix-rdma-resolve-addr-v1-1-449b8b4e6c09@nvidia.com>
-X-ClientProxiedBy: BN9PR03CA0868.namprd03.prod.outlook.com
- (2603:10b6:408:13d::33) To LV8PR12MB9620.namprd12.prod.outlook.com
- (2603:10b6:408:2a1::19)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="R3MftaaJ"
+Received: by mail-dy1-f201.google.com with SMTP id 5a478bee46e88-304f1820babso8993735eec.1
+        for <stable@vger.kernel.org>; Wed, 10 Jun 2026 11:08:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1781114937; x=1781719737; darn=vger.kernel.org;
+        h=cc:to:from:subject:message-id:mime-version:date:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=tYOs/8b6tOQzwSAH52++Tpu4q+2N/IOTO4Y0awj7cSo=;
+        b=R3MftaaJk0siHW0/yaIgo1cn/0ha3CxLBXeMmvtfvhYOPTD/rbHPxrGHWC6xVyiXvY
+         KFKlW2F+M552ZPaPK1IFEAmHnaeDtuFcKLrL8sI3O7jOUnGEf2eJg2/JwePBVvf3+Gs2
+         DRMfrR7Lq2YCpUj/RS3KNt8MeWMOdeMGsSFh+aaC8TGO0HdXBYIeinoMDBRFM0EUz2Hi
+         CS/LoFJ/+blSTrwhX/Ij7ZQOjQJStNKzurVGKd7MJmXSSwD2UxiCPginGFlbFqvf/bON
+         5kPXRXV8gLmSpfIKm2az+ucEm1SwCc0BGU2e1NrBuEaV5Xr1USqnESRpuyenRrGRxblu
+         uyjw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781114937; x=1781719737;
+        h=cc:to:from:subject:message-id:mime-version:date:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=tYOs/8b6tOQzwSAH52++Tpu4q+2N/IOTO4Y0awj7cSo=;
+        b=lKNj3BGPUjyHUKqKjzYDSM0pShfTmTAcyiA4oLB/o0TxdFnjY6eQKAPRWYsum31GDa
+         pK1V9yc+oa0ccTJ5cq0vSQFniJHZOKbcp8dH46KSNziB0gCDhJM4pBPdiS5IrdG2sQCo
+         /GjlG/Zi/cXbQT52DRi4eCpJoU6PUxG17bAdjjX4RRf2lcITwD+cmzrHx0MlIXDH1xXT
+         E3FZjribA+vaZLoedI8yZWzovyHSnUasTIzJ2uDZoHtWWufvuobMwzLiGFDUXnzZqfp4
+         pYypeaVn+xUvm9rLMRgLpnucXMnZ30+Tdp2mVJIx1N8AFKjQcyJ5gQYHRR6wnSgFXRYv
+         /CNw==
+X-Gm-Message-State: AOJu0YxnO8I21AEg2aCTvfPlLfMXvhoxtGXhsaoSm14SoahvEyT8qSex
+	K83EHyhMz8nMkgzVn7e5BAZMmDCUqk295Nk5zyxI0sAR8f1fMcWqT7pM2xtKkyj7x0WNtLAzkAI
+	mBimG9kQrM+CxfV8hZQzeFW4jWP6g5Rds2Fz7GGiVGw/4BNGVgkoFvHSi3DQcN/D9dp6h0DYN76
+	bWV0BAlfdcqDoE6yrxP2MGkrdXB0D/ib7mJ8J8oM7mpFogUy4=
+X-Received: from dycez3.prod.google.com ([2002:a05:7301:5783:b0:2f9:af7:504e])
+ (user=cmllamas job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:693c:374a:b0:2f7:d419:dee0 with SMTP id 5a478bee46e88-3077b25d14dmr15998504eec.6.1781114936169;
+ Wed, 10 Jun 2026 11:08:56 -0700 (PDT)
+Date: Wed, 10 Jun 2026 18:08:36 +0000
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV8PR12MB9620:EE_|CYYPR12MB8940:EE_
-X-MS-Office365-Filtering-Correlation-Id: b703b073-0a46-484a-f283-08dec71a966c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|376014|23010399003|5023799004|56012099006|11063799006|22082099003|6133799003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	bdnvEsNhK3rmmUTQuugcH7giuL9tBnI6q/O1WMSddrHlAn9LavdpK6rqfwubxVNR7AlchiLI4W4ncH90wJTnMo2JxC31g4EObHz9nZXNXf66I4F4LeB/cxJC6+sgQ96V21nB/d3eYsmIgiongba1qbjf284n+S1P1iD9NhMhMglQczfoymAlToWhkvS3rjMT6n0cK4wDQ6cXCkBHncJejKsvVcGzZ8DB+1MyUaT1uT8jrgjsatj7DDfP8zRouz0JBbLcEpH4TX2ivKgcPQzXMZOXZDLTFPQc2eIxGzuCoTa48ci7Eyw7QWZcbmDi+Mtj8pe2B125WQ60ZUP2PgtylE+jDNON+z5BlmdYNudWVIS2cAy+sbKY80ty1CWFZYhMDccKLVLIUw8oEjUHA4CbQ7wUFnREiCMSr7JHalL/irAq6P3AugCM4w9kFt0PiqP5vwoew8O2XXMSWLGTrouxUResr3IWlvPV4aq2SGJql2Gw+Dl0pkVsP5WW8O9eHJbwsgriz5sQRCyBEtJ+Fnv0sr4k8XMjDBzl6YtLe3EeexuxgUv1daxPYkjQ4MbCK6ftNOVGLYmV+AR9mnDFTGbrO/ITeogHCuee4TXjAf9GTTJMX6YFYpdwZAzH4gHOGbE/N2yd8L/viNQruOZhzfuehmRr9BuAMQyamBZy/yD65rbUT75Kc/w77RBIM8gW9Fd0
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV8PR12MB9620.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(5023799004)(56012099006)(11063799006)(22082099003)(6133799003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?JNvOf1M9yq7R9tOrXURc/KjibgJ0IY57Mp6wsEs8Cbs4+P026KKveYepyrUF?=
- =?us-ascii?Q?8Sbp9eo0P+OFlLwy5FuRGXy6YEZnrzA9Lud7FejFBKi9MPUMTTTyXB2l4VpO?=
- =?us-ascii?Q?uU0E/yY3EGvV1GenZFH2fO3si1FHolbgGe6XgzK5qxwM8K6W9SuFW3z5I4iD?=
- =?us-ascii?Q?ijIo/XP1tq6vPFHgNpyWxzm4hi2X6mh8G1Td6fL5HtAq5ConeYM3nLP9oXCY?=
- =?us-ascii?Q?neshiAR/+ysGKXGETVyihU/0S8/MgUCHWKXWQa2AgxJfM/0uB6gVp72yYbJz?=
- =?us-ascii?Q?Q5ILVrM5iLSCyRYAKm+xMJNJplRYM5lln5JB/dJhNGv0bZ4C4VIcq9buy7du?=
- =?us-ascii?Q?M5a4Z8lRCcFoJAJrtUEqn+XcAyeOLeD9hb5MRmuyOKKPTHwEUHf2zTSPUhAR?=
- =?us-ascii?Q?fgrEqr+xK8xv6xkkhRjXliQaGFS/i149MaZtOnAt/GKBOyZnjKssupRIiK6Y?=
- =?us-ascii?Q?/Zn2B2Et8UjDFpMbPBtHonzVoVipvrnBZfXcu/GbX5SarvNcLyqRNu9O8mq4?=
- =?us-ascii?Q?KyMb0z336z1+J2k15jP5eGOahHW1KL63eYajdVpx8bFH3L75ZqIciTIiM9az?=
- =?us-ascii?Q?77EH432dmhCUnEXf9wXxdV6te+EHGdskX0NitreYryv+7l3EcKLc5WNRzx7Y?=
- =?us-ascii?Q?iPia6IT5xbnLEKMWnFnHEvRck4ElKVk5RrIC4SK7xSKXsZjSsq/qjMCGeFPv?=
- =?us-ascii?Q?8Zm25DwQTdtUOba/hxIE2yrcFJS/4oriHD5cqBKmSGBrpEfvrJGHgQurF1Sr?=
- =?us-ascii?Q?IUJ6CNfK3Z41mx9iGTqd4Ry8YDSf+F01GfWRoUjSZfnOSXA3K7hX9l1nkwcC?=
- =?us-ascii?Q?v2hK+4jJOX7Fgis2tWAxIC47HaDlfFbgpHYOswZa1spmL6CtShCi2haoGeym?=
- =?us-ascii?Q?NS/GoRPb1cv9IupVZqZ2XLDLSDeJBLShcAOZGJUUVmBoSjfk9gLD8TsATuUh?=
- =?us-ascii?Q?km1P/xsTBAhdyWMjwsCN03Ah0D5hcESLET795iK4XGG1ZoPl7Zjl2cKYaveU?=
- =?us-ascii?Q?mxv+hdDb5LrtttZRbveVQATc2ibXbi5qAJI3awzE22plwI4sUy5fE9D1dgIU?=
- =?us-ascii?Q?nK8D1zx2Vzz/CPpQZ6BXY9w6exF1Vj1w0+9bPEIjRtKbnBH1Tno1peC3rHMX?=
- =?us-ascii?Q?2A+1SkKU3Ie3PYW9wg1DD/D5gVbNuhCrpRMfHHIDPbsJtYR5Pk7/haGxDTKs?=
- =?us-ascii?Q?gynOzg/ABbLPjG9/q1LUYu5vAXBJJpb4mu+sLV2O4Hc2soOpOEKsusvEV04X?=
- =?us-ascii?Q?zZ/pXusqIjYBdnp8sCvnWv87MkbJyXLdzaD1FISmPlDsXnZQ3KntFjm491Qc?=
- =?us-ascii?Q?dKSwz9/FuDCfGvEprdMvjaFA6N/MUkCjHUNUwO254v5h41L8XuoEK6E4WG4D?=
- =?us-ascii?Q?XMHT6jarvpM4ycXryN+1t5C3JxtJkSfvjxyZ0qeddR90GjD6xJjQeLzBolTh?=
- =?us-ascii?Q?R7Xl2WKXVcZR2zIjugythTOSUgoEE9n7SFK8DcCXlRvyPU3A7tcZcVhI+TgY?=
- =?us-ascii?Q?KsnZVNqPIkqPs4vxQJZG4mmQ5HgZxWuxQwvoWXi60L/cS9+ajpGh1gbWhpyt?=
- =?us-ascii?Q?MfrPDtCp1cbIQZ8hokUk8R7YNK3hPYsGYoRd9lZa/YjnC4e9pt1CUqWhSwzn?=
- =?us-ascii?Q?m+ecotxDskMo4s9SrhXroz9cNJQbRXQzl2vRrtj33RJu1LUtPezSJGwAYlq/?=
- =?us-ascii?Q?hShgIUzBEItVXvOt7OTLDbWALxlkXYH26BBa1ozIDujjZ5UX?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b703b073-0a46-484a-f283-08dec71a966c
-X-MS-Exchange-CrossTenant-AuthSource: LV8PR12MB9620.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jun 2026 18:03:34.2819
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ICWw66tEKOlgSkTDIcDYMdvFCIqhAW5WZ321n6g0M3yhbaRctIrlPChcQuaXnZD1
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB8940
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.54.0.1136.gdb2ca164c4-goog
+Message-ID: <20260610180841.3091635-1-cmllamas@google.com>
+Subject: [PATCH 6.1.y 1/2] usb: gadget: f_ncm: Fix net_device lifecycle with device_move
+From: Carlos Llamas <cmllamas@google.com>
+To: stable@vger.kernel.org
+Cc: Jianqiang kang <jianqkang@sina.cn>, Neill Kapron <nkapron@google.com>, kernel-team@android.com, 
+	Kuen-Han Tsai <khtsai@google.com>, stable <stable@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Carlos Llamas <cmllamas@google.com>, 
+	Sasha Levin <sashal@kernel.org>, raub camaioni <raubcameo@gmail.com>, 
+	Kyungmin Park <kyungmin.park@samsung.com>, Felipe Balbi <balbi@ti.com>, 
+	Andrzej Pietrasiewicz <andrzej.p@samsung.com>, "open list:USB SUBSYSTEM" <linux-usb@vger.kernel.org>, 
+	open list <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Jun 09, 2026 at 02:16:38PM +0300, Edward Srouji wrote:
-> From: Maher Sanalla <msanalla@nvidia.com>
-> 
-> When rdma_resolve_addr() is invoked with a broadcast destination on an
-> IPoIB interface, is_dst_local() inspects the resolved route and
-> incorrectly concludes that the address is local. As a result, the
-> resolution fails with -ENODEV.
-> The issue stems from using '&' to compare rt_type with RTN_LOCAL. The
-> RTN_* values form a sequential enum, not a bitmask (RTN_LOCAL=2,
-> RTN_BROADCAST=3). Thus, "rt_type & RTN_LOCAL" yields a non-zero result
-> for a broadcast route as well.
-> 
-> Replace '&' with '==' when comparing rt_type against RTN_LOCAL.
-> 
-> Cc: stable@vger.kernel.org
-> Fixes: c31e4038c97f ("RDMA/core: Use route entry flag to decide on loopback traffic")
-> Signed-off-by: Maher Sanalla <msanalla@nvidia.com>
-> Reviewed-by: Vlad Dumitrescu <vdumitrescu@nvidia.com>
-> Signed-off-by: Edward Srouji <edwards@nvidia.com>
-> Reviewed-by: Parav Pandit <parav@nvidia.com>
-> ---
->  drivers/infiniband/core/addr.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+From: Kuen-Han Tsai <khtsai@google.com>
 
-Applied to for-next
+[ Upstream commit ec35c1969650e7cb6c8a91020e568ed46e3551b0 ]
 
-Thanks,
-Jason
+The network device outlived its parent gadget device during
+disconnection, resulting in dangling sysfs links and null pointer
+dereference problems.
+
+A prior attempt to solve this by removing SET_NETDEV_DEV entirely [1]
+was reverted due to power management ordering concerns and a NO-CARRIER
+regression.
+
+A subsequent attempt to defer net_device allocation to bind [2] broke
+1:1 mapping between function instance and network device, making it
+impossible for configfs to report the resolved interface name. This
+results in a regression where the DHCP server fails on pmOS.
+
+Use device_move to reparent the net_device between the gadget device and
+/sys/devices/virtual/ across bind/unbind cycles. This preserves the
+network interface across USB reconnection, allowing the DHCP server to
+retain their binding.
+
+Introduce gether_attach_gadget()/gether_detach_gadget() helpers and use
+__free(detach_gadget) macro to undo attachment on bind failure. The
+bind_count ensures device_move executes only on the first bind.
+
+[1] https://lore.kernel.org/lkml/f2a4f9847617a0929d62025748384092e5f35cce.camel@crapouillou.net/
+[2] https://lore.kernel.org/linux-usb/795ea759-7eaf-4f78-81f4-01ffbf2d7961@ixit.cz/
+
+Fixes: 40d133d7f542 ("usb: gadget: f_ncm: convert to new function interface with backward compatibility")
+Cc: stable <stable@kernel.org>
+Signed-off-by: Kuen-Han Tsai <khtsai@google.com>
+Link: https://patch.msgid.link/20260309-f-ncm-revert-v2-7-ea2afbc7d9b2@google.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+[ Use no_free_ptr() since retain_and_null_ptr() is unavailable in Linux 6.1. ]
+Signed-off-by: Jianqiang kang <jianqkang@sina.cn>
+Signed-off-by: Carlos Llamas <cmllamas@google.com>
+---
+ drivers/usb/gadget/function/f_ncm.c   | 35 ++++++++++++++++++---------
+ drivers/usb/gadget/function/u_ether.c | 22 +++++++++++++++++
+ drivers/usb/gadget/function/u_ether.h | 26 ++++++++++++++++++++
+ drivers/usb/gadget/function/u_ncm.h   |  2 +-
+ 4 files changed, 73 insertions(+), 12 deletions(-)
+
+diff --git a/drivers/usb/gadget/function/f_ncm.c b/drivers/usb/gadget/function/f_ncm.c
+index addd016ffbb3..5e240cafbe9e 100644
+--- a/drivers/usb/gadget/function/f_ncm.c
++++ b/drivers/usb/gadget/function/f_ncm.c
+@@ -1440,6 +1440,7 @@ static int ncm_bind(struct usb_configuration *c, struct usb_function *f)
+ 	struct f_ncm_opts	*ncm_opts;
+ 
+ 	struct usb_os_desc_table	*os_desc_table __free(kfree) = NULL;
++	struct net_device		*net __free(detach_gadget) = NULL;
+ 	struct usb_request		*request __free(free_usb_request) = NULL;
+ 
+ 	if (!can_support_ecm(cdev->gadget))
+@@ -1453,16 +1454,18 @@ static int ncm_bind(struct usb_configuration *c, struct usb_function *f)
+ 			return -ENOMEM;
+ 	}
+ 
+-	mutex_lock(&ncm_opts->lock);
+-	gether_set_gadget(ncm_opts->net, cdev->gadget);
+-	if (!ncm_opts->bound)
+-		status = gether_register_netdev(ncm_opts->net);
+-	mutex_unlock(&ncm_opts->lock);
+-
+-	if (status)
+-		return status;
+-
+-	ncm_opts->bound = true;
++	scoped_guard(mutex, &ncm_opts->lock)
++		if (ncm_opts->bind_count == 0) {
++			if (!device_is_registered(&ncm_opts->net->dev)) {
++				gether_set_gadget(ncm_opts->net, cdev->gadget);
++				status = gether_register_netdev(ncm_opts->net);
++			} else
++				status = gether_attach_gadget(ncm_opts->net, cdev->gadget);
++
++			if (status)
++				return status;
++			net = ncm_opts->net;
++		}
+ 
+ 	ncm_string_defs[1].s = ncm->ethaddr;
+ 
+@@ -1562,6 +1565,9 @@ static int ncm_bind(struct usb_configuration *c, struct usb_function *f)
+ 	}
+         ncm->notify_req = no_free_ptr(request);
+ 
++	ncm_opts->bind_count++;
++	no_free_ptr(net);
++
+ 	DBG(cdev, "CDC Network: %s speed IN/%s OUT/%s NOTIFY/%s\n",
+ 			gadget_is_superspeed(c->cdev->gadget) ? "super" :
+ 			gadget_is_dualspeed(c->cdev->gadget) ? "dual" : "full",
+@@ -1610,7 +1616,7 @@ static void ncm_free_inst(struct usb_function_instance *f)
+ 	struct f_ncm_opts *opts;
+ 
+ 	opts = container_of(f, struct f_ncm_opts, func_inst);
+-	if (opts->bound)
++	if (device_is_registered(&opts->net->dev))
+ 		gether_cleanup(netdev_priv(opts->net));
+ 	else
+ 		free_netdev(opts->net);
+@@ -1672,9 +1678,12 @@ static void ncm_free(struct usb_function *f)
+ static void ncm_unbind(struct usb_configuration *c, struct usb_function *f)
+ {
+ 	struct f_ncm *ncm = func_to_ncm(f);
++	struct f_ncm_opts *ncm_opts;
+ 
+ 	DBG(c->cdev, "ncm unbind\n");
+ 
++	ncm_opts = container_of(f->fi, struct f_ncm_opts, func_inst);
++
+ 	hrtimer_cancel(&ncm->task_timer);
+ 
+ 	kfree(f->os_desc_table);
+@@ -1690,6 +1699,10 @@ static void ncm_unbind(struct usb_configuration *c, struct usb_function *f)
+ 
+ 	kfree(ncm->notify_req->buf);
+ 	usb_ep_free_request(ncm->notify, ncm->notify_req);
++
++	ncm_opts->bind_count--;
++	if (ncm_opts->bind_count == 0)
++		gether_detach_gadget(ncm_opts->net);
+ }
+ 
+ static struct usb_function *ncm_alloc(struct usb_function_instance *fi)
+diff --git a/drivers/usb/gadget/function/u_ether.c b/drivers/usb/gadget/function/u_ether.c
+index e84178bffe78..e972de236be5 100644
+--- a/drivers/usb/gadget/function/u_ether.c
++++ b/drivers/usb/gadget/function/u_ether.c
+@@ -910,6 +910,28 @@ void gether_set_gadget(struct net_device *net, struct usb_gadget *g)
+ }
+ EXPORT_SYMBOL_GPL(gether_set_gadget);
+ 
++int gether_attach_gadget(struct net_device *net, struct usb_gadget *g)
++{
++	int ret;
++
++	ret = device_move(&net->dev, &g->dev, DPM_ORDER_DEV_AFTER_PARENT);
++	if (ret)
++		return ret;
++
++	gether_set_gadget(net, g);
++	return 0;
++}
++EXPORT_SYMBOL_GPL(gether_attach_gadget);
++
++void gether_detach_gadget(struct net_device *net)
++{
++	struct eth_dev *dev = netdev_priv(net);
++
++	device_move(&net->dev, NULL, DPM_ORDER_NONE);
++	dev->gadget = NULL;
++}
++EXPORT_SYMBOL_GPL(gether_detach_gadget);
++
+ int gether_set_dev_addr(struct net_device *net, const char *dev_addr)
+ {
+ 	struct eth_dev *dev;
+diff --git a/drivers/usb/gadget/function/u_ether.h b/drivers/usb/gadget/function/u_ether.h
+index 40144546d1b0..3e12d60053c1 100644
+--- a/drivers/usb/gadget/function/u_ether.h
++++ b/drivers/usb/gadget/function/u_ether.h
+@@ -149,6 +149,32 @@ static inline struct net_device *gether_setup_default(void)
+  */
+ void gether_set_gadget(struct net_device *net, struct usb_gadget *g);
+ 
++/**
++ * gether_attach_gadget - Reparent net_device to the gadget device.
++ * @net: The network device to reparent.
++ * @g: The target USB gadget device to parent to.
++ *
++ * This function moves the network device to be a child of the USB gadget
++ * device in the device hierarchy. This is typically done when the function
++ * is bound to a configuration.
++ *
++ * Returns 0 on success, or a negative error code on failure.
++ */
++int gether_attach_gadget(struct net_device *net, struct usb_gadget *g);
++
++/**
++ * gether_detach_gadget - Detach net_device from its gadget parent.
++ * @net: The network device to detach.
++ *
++ * This function moves the network device to be a child of the virtual
++ * devices parent, effectively detaching it from the USB gadget device
++ * hierarchy. This is typically done when the function is unbound
++ * from a configuration but the instance is not yet freed.
++ */
++void gether_detach_gadget(struct net_device *net);
++
++DEFINE_FREE(detach_gadget, struct net_device *, if (_T) gether_detach_gadget(_T))
++
+ /**
+  * gether_set_dev_addr - initialize an ethernet-over-usb link with eth address
+  * @net: device representing this link
+diff --git a/drivers/usb/gadget/function/u_ncm.h b/drivers/usb/gadget/function/u_ncm.h
+index 5408854d8407..297e5087872f 100644
+--- a/drivers/usb/gadget/function/u_ncm.h
++++ b/drivers/usb/gadget/function/u_ncm.h
+@@ -18,7 +18,7 @@
+ struct f_ncm_opts {
+ 	struct usb_function_instance	func_inst;
+ 	struct net_device		*net;
+-	bool				bound;
++	int				bind_count;
+ 
+ 	struct config_group		*ncm_interf_group;
+ 	struct usb_os_desc		ncm_os_desc;
+-- 
+2.54.0.1136.gdb2ca164c4-goog
+
