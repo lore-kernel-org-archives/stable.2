@@ -1,34 +1,52 @@
-Received: from air.basealt.ru (air.basealt.ru [193.43.8.18])
+Received: from out-182.mta1.migadu.com (out-182.mta1.migadu.com [95.215.58.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5709238E8D5;
-	Wed, 10 Jun 2026 08:10:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.43.8.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 684963A4535;
+	Wed, 10 Jun 2026 08:14:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781079023; cv=none; b=ei70NOHIu3bdduvKwBOp//jpNhNBbnjcmWF1bogYAVtqF6e6AS3sM5CtftQDgq36NVZcBWYSkLqpJY9Ngn12bffFoWE8nJhNjq03TFXcA2MiMIhn1vcuADVITqQHvwujItxAVGOxHy3PDF+e8LzgtrK2ihliKujsiYW3rju6kgY=
+	t=1781079265; cv=none; b=eQiI+r1zn4nWoQkh7XSCWs1pcvRortNq/xgCaxtb+cn0T77Bx/NjYe5CdbJBQqFU5hSFakEj+MABvpJVNyd3G5NWfglbZ2mLivOVEy4MT7zfQGew9WquzJ8Bn1XXR8rLIESuDC5lwmsEiUgoyZgIaZzE0uYcx4bXTEzN+yvsmEE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781079023; c=relaxed/simple;
-	bh=XgRaR7RscjELrgEdoW7HIc4P4cxDZHxqOO9V0bqMw3M=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VuNYqbw9yzQekRyAEYaMg6mhUhdLyYaKKSEwprBdY3Wvjm6KKhgN13QNqFP9ODGYHRUUl8Z1l8G4Lg5M9tTc5M/7YytIiaU30oBp9AWvbMJP+P5SmthRc+cksVeG24SrogeY3/whFvVYCN3pvrjiuEODrkEToXxs5PWspqeFDwI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=altlinux.org; spf=pass smtp.mailfrom=altlinux.org; arc=none smtp.client-ip=193.43.8.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=altlinux.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altlinux.org
-Received: from ajratkogda.malta.altlinux.ru (obninsk.basealt.ru [217.15.195.17])
-	(Authenticated sender: ajratma)
-	by air.basealt.ru (Postfix) with ESMTPSA id 5417423374;
-	Wed, 10 Jun 2026 11:10:20 +0300 (MSK)
-From: Ajrat Makhmutov <rauty@altlinux.org>
-To: stable@vger.kernel.org
-Cc: Felix Fietkau <nbd@nbd.name>,
-	Lorenzo Bianconi <lorenzo@kernel.org>,
-	Ryder Lee <ryder.lee@mediatek.com>,
-	Shayne Chen <shayne.chen@mediatek.com>,
-	Sean Wang <sean.wang@mediatek.com>,
-	linux-wireless@vger.kernel.org
-Subject: [stable request] mt7921e: backport two mt76 fixes to 6.12.y
-Date: Wed, 10 Jun 2026 11:09:43 +0300
-Message-ID: <20260610080943.17734-1-rauty@altlinux.org>
-X-Mailer: git-send-email 2.50.1
+	s=arc-20240116; t=1781079265; c=relaxed/simple;
+	bh=spRVBlGQqW9gPeAmUE2Yu2/R44YAQEpXfhl1wos4Kp8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Zug7aT+zmbIqcqcV973YBtP4CLy9nH6svAZD5kH6SEhwMTFjoO+74SLnkKp2cxRoTtfBfam2wPdfGISqQjq7U9JmVKZkMJ9Vuww9Nc92yLrZJyIezSE5lJS54ItkDY1wInyeUPwaMrGo0kBY2HwPekyD27ha2gOkGu0Ve01x+K8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com; spf=pass smtp.mailfrom=cknow-tech.com; dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b=NqlJu1XQ; arc=none smtp.client-ip=95.215.58.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cknow-tech.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b="NqlJu1XQ"
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cknow-tech.com;
+	s=key1; t=1781079261;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=4D3U0MJrq3HMALbVG4yy5LYGiwOLwK/bQQJ3BITNLwM=;
+	b=NqlJu1XQMQhaZi7mQd/ZOpEchPr+6zrwj3xNiK+0D8Ko97FQl9fiDao64Tv2W03aTZOkM/
+	PRrJn0gHWNAItsWzuKZ6Z88MV/dMcDUfjdsml+OG9OnOC0hA163TdPxEfxK8i7v0vT7ORH
+	rhIxZWUJCEjFA4tMfM5bTE9k2BcE4C8UBVhmTXvMKA7aV6KOF8ugrlSkKr71PDTzwLwHDB
+	5hOFtos5Ldd4PqC5j3DXZy0MiCwqIYWW/TJOu5H9kfLKIyrcT7QvRrIGH1Ee66OhZeDMSZ
+	9YmnU7Wu8VSYL85dsLtmfDdpeSxSlGvcDaF/Rn17xBttHzxXNz/t+PpbOHW+7g==
+From: Diederik de Haas <diederik@cknow-tech.com>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>
+Cc: devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Marcin Juszkiewicz <marcin@juszkiewicz.com.pl>,
+	Diederik de Haas <diederik@cknow-tech.com>,
+	stable@vger.kernel.org
+Subject: [PATCH 2/2] arm64: dts: rockchip: Fix USB hub phy-supply config for NanoPC-T6 LTS
+Date: Wed, 10 Jun 2026 10:04:06 +0200
+Message-ID: <20260610081400.758687-3-diederik@cknow-tech.com>
+In-Reply-To: <20260610081400.758687-1-diederik@cknow-tech.com>
+References: <20260610081400.758687-1-diederik@cknow-tech.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -36,40 +54,30 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Migadu-Flow: FLOW_OUT
 
-Hi,
+The MTT USB 2.0 hub is connected to the SoC's USB20 HOST1, so the phy-supply
+belongs to u2phy3_host, not u2phy2_host as that is for USB20 HOST0.
 
-Please consider backporting the following two upstream commits to the
-6.12.y stable tree. Both are in Linus' tree and both cherry-pick cleanly
-onto 6.12.y:
+Fixes: db1dcbe5f752 ("arm64: dts: rockchip: add NanoPC-T6 LTS")
+Cc: stable@vger.kernel.org
+Signed-off-by: Diederik de Haas <diederik@cknow-tech.com>
+---
+ arch/arm64/boot/dts/rockchip/rk3588-nanopc-t6-lts.dts | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-  2425dc7beaadc ("wifi: mt76: mt7921: avoid undesired changes of the preset regulatory domain")
-  5ed54896b6bd4 ("wifi: mt76: mt7921: fix a potential scan no APs")
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588-nanopc-t6-lts.dts b/arch/arm64/boot/dts/rockchip/rk3588-nanopc-t6-lts.dts
+index 0ee67ee24f3c..0e15a2e1f2ff 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588-nanopc-t6-lts.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3588-nanopc-t6-lts.dts
+@@ -38,6 +38,6 @@ usb20_host_pwren: usb20-host-pwren {
+ 	};
+ };
+ 
+-&u2phy2_host {
++&u2phy3_host {
+ 	phy-supply = <&vcc5v0_usb20_host>;
+ };
+-- 
+2.53.0
 
-Together they fix a hard-to-reproduce MT7921e (MT7921 PCIe) lockup we have
-been tracking on ALT Linux: after a disconnect (signal loss / AP deauth) or
-repeated reconnects the chip ends up in a wrong firmware state and stops
-scanning/associating to any network, recoverable only by a chip reset or a
-module reload. The symptom is reproducible on 6.12.y and gone on 7.1. We
-could not bisect the symptom to a single upstream commit, but these two are
-the relevant fixes on the mt7921e path:
-
-  - 5ed54896b6bd4 aborts the granted ROC channel before station removal, so
-    the firmware is not left in a wrong state that makes subsequent scans
-    return no APs.
-
-  - 2425dc7beaadc stops a connected AP's country IE from re-triggering
-    regulatory/CLC reprogramming once the user has already set a regdomain,
-    which we observed leaving the firmware power/regulatory tables in a bad
-    state.
-
-Neither commit carries a Cc: stable tag, which is why they were not picked
-up automatically.
-
-Both have been tested on real MT7921e hardware (Acer Aspire 5 A517-52,
-ASUS VivoBook S14, Lenovo IdeaPad Slim 5 14AHP9) running the 6.12 kernel.
-
-BugLink: https://bugzilla.altlinux.org/54853
-
-Thanks,
-Ajrat Makhmutov
