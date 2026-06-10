@@ -1,119 +1,212 @@
-Received: from smtpbg150.qq.com (smtpbg150.qq.com [18.132.163.193])
+Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 765B52874F8;
-	Wed, 10 Jun 2026 02:21:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.132.163.193
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21A802DD60E;
+	Wed, 10 Jun 2026 02:26:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.29.241.158
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781058118; cv=none; b=Wtmrqa5NwMak4AvgRdM9Kq7ejQAQQEQTjQWcxTRkreJyvZWjr6XzfVrhhBsg0tZvXUJraZdKol8tL9+zeh9rkfeRHlo03a/OziYlo8ft+CgtBfmk9VjiJ8TWpByuP2VDDpNW96SoECVURrVS3Y4HDaDTs4IhKzeshEBNkF5l7/w=
+	t=1781058400; cv=none; b=Km7p1z7wx+vnt3/LnSG5rbPC9GmRWQsjGwKXfSSU1PqRl8MHqNMLBdBwC28j1Cp/H5GCAULKaBcQhX/mkGB21ekXsIEyGc1RGUifDRNHW6HwfcwM3mYqDcYchI8SiwAMhZ+OgUmVyJS/PpMfftIPawI2qoVvwFAIAsj3lVBSPHI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781058118; c=relaxed/simple;
-	bh=3AN/GDMda1OVSuSxQuTeGXL8MNo4HYwZLsEsL/ouXZs=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=oPetYYxNhwnzN5QHVpiIh+CJwGN54E+kKbUwNZLyBOyGly6Il3Ac4r3v+g6HofLbAt0ng8u3u6Gi7orNu4yF1Bp67imaMmgLdd+D7+Pbm8MhffyGI85y69Se7xrEPv0c4Ba0XyAEzUKiaqWnsDOQsP7yBORJmqtTRf9/Bqd9NR8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=gVCNmbXa; arc=none smtp.client-ip=18.132.163.193
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	s=arc-20240116; t=1781058400; c=relaxed/simple;
+	bh=8EYQLkpO5Udc492Ko+dgbbkfrmLO2XwE2Pf8yARu0c8=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=d0lWeYTHV7oO4zBCpf9LKGZfj3Zu0YVyJ5qiVROCZRwBN8DSOH32+9JMwtUW60B8jrvxCpA0WfX5mcBwEHYv3zRftDWIdmDD7Ffb9PqXEAY/BPq0UGREuYpyT6Nqi20RUYJXJHzRGzIi0LK3kHTyf5aI8dTU35nwAtg0ITC2pT4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au; spf=pass smtp.mailfrom=codeconstruct.com.au; dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b=nAPENbWl; arc=none smtp.client-ip=203.29.241.158
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codeconstruct.com.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="gVCNmbXa"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1781058107;
-	bh=QCe4298oC+5SC0xDh01+u5CQw3nFK1Tz14usyVQ3ZgQ=;
-	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=gVCNmbXaETQWdxJ9HXfuYuLOWS3zdWcs9OkTTxxdCe5GiIKxZeVC2hlhp18e47d+J
-	 EbWPVPRfUPBnwx9eD55zA46Xh0itwp40PhMZckMrtJmKk4hi8bobLX7DVVGJrZj5+K
-	 6GERqs7EufgEBEhjiXHjcnETKBUDYoNG93dXXgWo=
-X-QQ-mid: zesmtpgz1t1781058091tc2e4e984
-X-QQ-Originating-IP: Qlix9jfpBpFqgpMZibKtqLAsWN0iiYk29pM6y8edgQk=
-Received: from localhost.localdomain ( [123.114.60.34])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Wed, 10 Jun 2026 10:21:10 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 13360541327879733750
-EX-QQ-RecipientCnt: 6
-From: Yingjie Gao <gaoyingjie@uniontech.com>
-To: linux-xfs@vger.kernel.org
-Cc: cem@kernel.org,
-	djwong@kernel.org,
-	linux-kernel@vger.kernel.org,
-	Yingjie Gao <gaoyingjie@uniontech.com>,
+	dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b="nAPENbWl"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=codeconstruct.com.au; s=2022a; t=1781058389;
+	bh=jv0HD0eGv0qPg6iGVBj10nHoDRm9zAdKO2FRbjIunyQ=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=nAPENbWlXsaOxC7cEGzRp2W+9J+GQNQ/QiOaOCPOJbUlt9wtOMOd2v0ya5XHwm4AC
+	 knQMKsrjmB6FStM8SJVR489rkmNRc/tMyF9Nd8HofsoBTpuS3kyvit4rSr3/nGX/x3
+	 QmSuRYEymf9w4R5mbFJ+WRId4HVG6GX0pCCOQTBfls0iK0Z9wev9r/sGoHgkQg10vg
+	 g/cK1cp9nZ6Qo8mQbIMqJC1Q1cKk5P4CSygYgF6Qm0Mq6eJjL8+b3E0GIGxTqesYrs
+	 cOWXspkx8zkLLmTXmlIr5PAGBxeJQeqlbh8MSYdhIgPf2Zs+igcK84xNGnw2FP8qZ+
+	 uDp5DeZcsrLgg==
+Received: from [192.168.68.117] (unknown [180.150.112.11])
+	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id 1565760A0E;
+	Wed, 10 Jun 2026 10:26:29 +0800 (AWST)
+Message-ID: <033f2657ae6a94ad13d22f717a2900afb75d892d.camel@codeconstruct.com.au>
+Subject: Re: [PATCH v4] soc: aspeed: lpc-snoop: Fix usercopy overflow in
+ snoop_file_read
+From: Andrew Jeffery <andrew@codeconstruct.com.au>
+To: Karthikeyan KS <karthiproffesional@gmail.com>
+Cc: joel@jms.id.au, andrew@aj.id.au, linux-arm-kernel@lists.infradead.org, 
+	linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
 	stable@vger.kernel.org
-Subject: [PATCH v2 1/2] xfs: fix inode ref leak in attr intent recovery
-Date: Wed, 10 Jun 2026 10:20:27 +0800
-Message-Id: <20260610022028.79846-2-gaoyingjie@uniontech.com>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20260610022028.79846-1-gaoyingjie@uniontech.com>
-References: <20260609111619.1866748-1-gaoyingjie@uniontech.com>
- <20260610022028.79846-1-gaoyingjie@uniontech.com>
+Date: Wed, 10 Jun 2026 11:56:28 +0930
+In-Reply-To: <20260601125214.2071019-1-karthiproffesional@gmail.com>
+References: 
+	<1e2b77c7916259e3e269d19f637c29427c175350.camel@codeconstruct.com.au>
+	 <20260601125214.2071019-1-karthiproffesional@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz5b-1
-X-QQ-XMAILINFO: Of2cEohDBRJB3pJN/dS5O8teCeXc68+ZbmOSm4bYbEUvKtZlsLed2rn2
-	GT6/Bj1oqwPn0esHJvb6i7nSOfmXeIYEsTYn5UezFz25T9KJe3UhANlMFPj3I5YzSeUylDS
-	zI1F2x9HcEDEtV2NfhBygqC1lLAOIETvHoyZ0+ilpmJGL7kjgfDz1wKMN+d26Q6yH+BN2Go
-	mHPKR6Y3IfG162DX4I6h4Tlp0odNDQTjrFYqsJamQgGtQ1GjXlkN055vNLfZbJ+CSUNbPzU
-	qgTF3jgbCuVHkYAnxk84+VLTfDT/c9BsfAhbzAKN7z9mrrcJtBZ6cFBUh9r/jDVpzM8s8Cm
-	dx/1sNn7IlS+wXHzoQ5EEqI+1syL1HOKyQyBLU1Nv8BFgMXIk7MWVfKvctRsPj62eJ+blzm
-	qXz86l6hmKkJqSokdIolv8a92vA9hjybkptaTcQM9tXBnpEg6O0xpCz/98mAEtRxXAFc17K
-	8l6+287RoPmD+8b+71eMf8+Q5dB+Ka6TWbRQvAiAHP7mW0nTntBhxLNRVINqeFC2vnaTPO2
-	3DyJSetHk1UKT9JBrFNUathImfXJJvC2PqT8DVvoQIbCeUKA42XlmtqBkteD053jPPpKnTI
-	xSCJc0C2dsqmm25uMS8V8occzySbcA3g9yxEXWT5JjBOpnnKIPi7hTV/rdyporiGsVlPYVa
-	1O5HAENpZlRArkenOcKr8yxRx4efqk+TIWUVVDsZX8Z4wF/6fWTDlgxNSPQ1y/zm/RCPQ4O
-	Ib4pYTVCKWzjAK1Wul/OUM2XSe4+22KHa7zSAOWEtjRZWxLrHDmfKu3+hFIDHb6jPvK5EE5
-	32Sqdee3yoMtYVpnYtWy/1+224QPI6pbnmwYfxyWeW5Wk9+62/Hwo2J28gX9vHHwvQRagkF
-	Hw+EhUC0NBSdL3tLtv8Agm4sU1XHCepttZaUFrtjjeeSljA2AsB5imN7uRsKDa5AOcKmBpt
-	k1P3oCT9qjDF8KnrEHpJHRF7qLMcaYYL/SrQCfSiBn6E+uaQCBUux0id6xJEm1SdGASkrzv
-	IjKsGBrlQJeHGqXxxXY/f0OWtelqydO4JPJJI+oQ==
-X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
-X-QQ-RECHKSPAM: 0
 
-xfs_attri_recover_work() grabs the target inode, attaches it to the
-reconstructed attr work item, and adds that work item to the defer
-pending list.
+Hi Karthikeyan,
 
-If xfs_attr_recover_work() fails to allocate the recovery transaction,
-it returns immediately without dropping the inode reference.  The later
-cancel path only frees the attr work item state, so the inode reference
-leaks.
+On Mon, 2026-06-01 at 12:52 +0000, Karthikeyan KS wrote:
+> put_fifo_with_discard() acts as both producer and consumer on the kfifo:
+> it calls kfifo_skip() (advances out) and kfifo_put() (advances in) from
+> the IRQ handler without synchronizing with snoop_file_read(), which also
+> consumes via kfifo_to_user(). On SMP systems this concurrent access can
+> leave (in - out) larger than the ring buffer, so __kfifo_to_user()'s clam=
+p
+> to (in - out) is ineffective and kfifo_copy_to_user() can attempt a
+> copy_to_user() past the kmalloc-2k backing store:
+>=20
+> =C2=A0 usercopy: Kernel memory exposure attempt detected from SLUB object
+> =C2=A0 'kmalloc-2k' (offset 0, size 2049)!
+> =C2=A0 kernel BUG at mm/usercopy.c!
+> =C2=A0 Call trace:
+> =C2=A0=C2=A0 usercopy_abort
+> =C2=A0=C2=A0 __check_heap_object
+> =C2=A0=C2=A0 __check_object_size
+> =C2=A0=C2=A0 kfifo_copy_to_user
+> =C2=A0=C2=A0 __kfifo_to_user
+> =C2=A0=C2=A0 snoop_file_read
+> =C2=A0=C2=A0 vfs_read
+>=20
+>=20
+> Serialize kfifo access with a per-channel spinlock. copy_to_user()
+> runs after dropping the lock, since it may sleep on a page fault.
+>=20
+> Fixes: 3772e5da4454 ("drivers/misc: Aspeed LPC snoop output using misc ch=
+ardev")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Karthikeyan KS <karthiproffesional@gmail.com>
+> ---
+> Andrew,
+>=20
+> Thanks for the review.
+>=20
+> > This seems inappropriate and I expect is flagged if you compile with
+> > CONFIG_PROVE_LOCKING=3Dy or CONFIG_DEBUG_ATOMIC_SLEEP=3Dy
+>=20
+> v4 drains the kfifo into a kernel buffer via kfifo_out() under
+> the lock, then performs copy_to_user() after dropping it.
+> (cf. drivers/gpio/gpiolib-cdev.c, which drains under its event lock
+> and copies outside it.)
+>=20
+> > ensure you develop, build and test on recent releases
+>=20
+> Tested on both v7.1-rc5 and v7.1-rc6 with PROVE_LOCKING,
+> DEBUG_ATOMIC_SLEEP and HARDENED_USERCOPY enabled: read path
+> round-trips correctly, no lockdep splats, no atomic-sleep
+> warnings, no usercopy aborts.
+>=20
+> Changes since v3:
+> - Replaced kfifo_to_user() with kfifo_out() + copy_to_user()
+> =C2=A0 to avoid sleeping under spinlock
+> - Rebased onto v7.1-rc6
+>=20
+> =C2=A0drivers/soc/aspeed/aspeed-lpc-snoop.c | 24 ++++++++++++++++++++----
+> =C2=A01 file changed, 20 insertions(+), 4 deletions(-)
+>=20
+> diff --git a/drivers/soc/aspeed/aspeed-lpc-snoop.c b/drivers/soc/aspeed/a=
+speed-lpc-snoop.c
+> index b03310c0830d..0fe463020e25 100644
+> --- a/drivers/soc/aspeed/aspeed-lpc-snoop.c
+> +++ b/drivers/soc/aspeed/aspeed-lpc-snoop.c
+> @@ -74,6 +74,7 @@ struct aspeed_lpc_snoop_channel_cfg {
+> =C2=A0struct aspeed_lpc_snoop_channel {
+> =C2=A0	const struct aspeed_lpc_snoop_channel_cfg *cfg;
+> =C2=A0	bool enabled;
+> +	spinlock_t		lock;
+> =C2=A0	struct kfifo		fifo;
+> =C2=A0	wait_queue_head_t	wq;
+> =C2=A0	struct miscdevice	miscdev;
+> @@ -115,6 +116,7 @@ static ssize_t snoop_file_read(struct file *file, cha=
+r __user *buffer,
+> =C2=A0{
+> =C2=A0	struct aspeed_lpc_snoop_channel *chan =3D snoop_file_to_chan(file)=
+;
+> =C2=A0	unsigned int copied;
+> +	u8 *buf;
 
-Send the failure through the existing cleanup path so the inode
-reference is dropped before the function returns the error.
+Can use the cleanup helpers again here:
 
-Fixes: e70fb328d527 ("xfs: recreate work items when recovering intent items")
-Cc: <stable@vger.kernel.org> # v6.8
-Signed-off-by: Yingjie Gao <gaoyingjie@uniontech.com>
----
- fs/xfs/xfs_attr_item.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+   u8 *buf __free(kfree) =3D NULL;
 
-diff --git a/fs/xfs/xfs_attr_item.c b/fs/xfs/xfs_attr_item.c
-index deab14f31b38..841838bc1d0f 100644
---- a/fs/xfs/xfs_attr_item.c
-+++ b/fs/xfs/xfs_attr_item.c
-@@ -774,7 +774,7 @@ xfs_attr_recover_work(
- 	resv = xlog_recover_resv(&resv);
- 	error = xfs_trans_alloc(mp, &resv, total, 0, XFS_TRANS_RESERVE, &tp);
- 	if (error)
--		return error;
-+		goto out_rele;
- 	args->trans = tp;
- 
- 	xfs_ilock(ip, XFS_ILOCK_EXCL);
-@@ -791,6 +791,7 @@ xfs_attr_recover_work(
- 	error = xfs_defer_ops_capture_and_commit(tp, capture_list);
- out_unlock:
- 	xfs_iunlock(ip, XFS_ILOCK_EXCL);
-+out_rele:
- 	xfs_irele(ip);
- 	return error;
- out_cancel:
--- 
-2.20.1
+> =C2=A0	int ret =3D 0;
+> =C2=A0
+> =C2=A0	if (kfifo_is_empty(&chan->fifo)) {
+> @@ -125,11 +127,22 @@ static ssize_t snoop_file_read(struct file *file, c=
+har __user *buffer,
+> =C2=A0		if (ret =3D=3D -ERESTARTSYS)
+> =C2=A0			return -EINTR;
+> =C2=A0	}
+> -	ret =3D kfifo_to_user(&chan->fifo, buffer, count, &copied);
+> -	if (ret)
+> -		return ret;
+> =C2=A0
+> -	return copied;
+> +	buf =3D kmalloc(SNOOP_FIFO_SIZE, GFP_KERNEL);
 
+I expect using count clamped to SNOOP_FIFO_SIZE might be a better
+option here? The clamp below can be moved here.
+
+I'm not enamoured with the bounce buffer, but I guess it solves the
+problem.
+
+> +	if (!buf)
+> +		return -ENOMEM;
+> +
+> +	spin_lock_irq(&chan->lock);
+> +	copied =3D kfifo_out(&chan->fifo, buf,
+> +			=C2=A0=C2=A0 min_t(size_t, count, SNOOP_FIFO_SIZE));
+
+This is handled by kfifo_out() as discussed previously, but also see
+the above. You may want to check that count doesn't exceed UINT_MAX
+though, in the event that SIZE_MAX > UINT_MAX.
+
+> +	spin_unlock_irq(&chan->lock);
+
+Recently the kernel gained cleanup helpers. scoped_guard() would be
+handy here, however the kfifo API also provides kfifo_out_spinlocked().
+I'd use that as it is at least idiomatic.
+
+> +
+> +	ret =3D copied;
+> +	if (copied && copy_to_user(buffer, buf, copied))
+> +		ret =3D -EFAULT;
+> +
+> +	kfree(buf);
+> +	return ret;
+> =C2=A0}
+> =C2=A0
+> =C2=A0static __poll_t snoop_file_poll(struct file *file,
+> @@ -153,9 +166,11 @@ static void put_fifo_with_discard(struct aspeed_lpc_=
+snoop_channel *chan, u8 val)
+> =C2=A0{
+> =C2=A0	if (!kfifo_initialized(&chan->fifo))
+> =C2=A0		return;
+> +	spin_lock(&chan->lock);
+> =C2=A0	if (kfifo_is_full(&chan->fifo))
+> =C2=A0		kfifo_skip(&chan->fifo);
+> =C2=A0	kfifo_put(&chan->fifo, val);
+> +	spin_unlock(&chan->lock);
+
+I prefer we use scoped_guard() here.
+
+> =C2=A0	wake_up_interruptible(&chan->wq);
+> =C2=A0}
+> =C2=A0
+> @@ -228,6 +243,7 @@ static int aspeed_lpc_enable_snoop(struct device *dev=
+,
+> =C2=A0		return -EBUSY;
+> =C2=A0
+> =C2=A0	init_waitqueue_head(&channel->wq);
+> +	spin_lock_init(&channel->lock);
+> =C2=A0
+> =C2=A0	channel->cfg =3D cfg;
+> =C2=A0	channel->miscdev.minor =3D MISC_DYNAMIC_MINOR;
