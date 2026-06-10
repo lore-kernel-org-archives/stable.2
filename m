@@ -1,220 +1,179 @@
-Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com [209.85.160.171])
+Received: from mail-qv1-f49.google.com (mail-qv1-f49.google.com [209.85.219.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE74C25B0B9
-	for <stable@vger.kernel.org>; Wed, 10 Jun 2026 11:26:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.171
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781090793; cv=pass; b=On0DIroEWiP4QF9wgH9QQEvx0fa9s0sagCvHBKGNR7UxcbxsH+k/YK3HoKvXz568BgmWxr8toq8qpPfuA6zQD5PcJVNz2IZjTmqJzpIb/kzlmeJ8Tx6P3HUhqn8PlRzspjQc4cSRMunZ4USh8KKf0ZGoZX+CaL5FXur8ZL2DZPk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781090793; c=relaxed/simple;
-	bh=2aaujS1GBFRX6Q5jOjboaRMIxVZnOhhXsuUQ4jqqCOs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=F85FcSniPq8hHiBAbfGbEqUtXLMNBlyg8nu+3sUM25XFozOF9GDvuJ459fTM7xoo0/NVlIVLG68AFuk3pPN8RJgMdDJI8GgvZJVfvhDaNslkK1exnnzpeFE/COLFP8alTye8WFRft2fY+LA27FXnnD6/QFd/+xhdiFnVxhNyg6o=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=szeredi.hu; spf=pass smtp.mailfrom=szeredi.hu; dkim=pass (1024-bit key) header.d=szeredi.hu header.i=@szeredi.hu header.b=WKtdXB8j; arc=pass smtp.client-ip=209.85.160.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=szeredi.hu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=szeredi.hu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE13F3DD84A
+	for <stable@vger.kernel.org>; Wed, 10 Jun 2026 11:34:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.49
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781091256; cv=none; b=joPMev19yvq3OIyqDagJI06FTeDA0gR8e/D3yYAjaRv5CcEA1PIzKDKXPSMBuuhew9DXZOFOknI1ZaWOmtZJj7TxQtA8vStxNKfPo96+hcouEpgBRyd401LpYt90KYIFDSTdNzLkFbVuaj3Y37B1/8OeAq9LcvqSsbTu+bxbNzw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781091256; c=relaxed/simple;
+	bh=x+F2KXtZ3AnoeA2HgEo4T3r8Mhf5qGBjX2zVqGVu+F4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dxNm6CKw+oG5tRzXrElKGWQMGTfyljEoa5M9w+GxsxKK6m8nc6wKADarN1+WDRcGeW2aw38g0VaYv5vLTsz7Mqkfu4wnWiCgUap2sAoVs5CZ0J6TlbJo2CqzTBpvIzADnh3yMdKMI9WHRF1//zlAhMOoJXK/O3KvLF6kyrNxcl8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=TkVnRhQO; arc=none smtp.client-ip=209.85.219.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=szeredi.hu header.i=@szeredi.hu header.b="WKtdXB8j"
-Received: by mail-qt1-f171.google.com with SMTP id d75a77b69052e-5176fc0cc72so66918011cf.1
-        for <stable@vger.kernel.org>; Wed, 10 Jun 2026 04:26:31 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781090791; cv=none;
-        d=google.com; s=arc-20240605;
-        b=SVkftft//PNy6LcbwAypnAjX1pzXFgXnguwe+uiAEtPcOK4qrJIPGU7kGtdv5ziz1L
-         btaKCudM435PGUXvY4OtBARgnBEfPv0DFzxseLENNbWJX32E3Rhr2S5L6Nhbk39ch3y5
-         cxb8/apivZs8bsuSmcXWW7ecnI12+d8SvgVuwXBpxDcMjoUnoOBL6sl0FQhNhDYGnokH
-         xuO6r6xxWgnjTRQ/pdVe7C4PP78ea3sFAOnhHZX6tng0esDrQwezuE/ObOdeUOnVs94S
-         arUjiDUJ5evbo3MUGLKn/HFH7AVWVXhyULCoQpnssTvEP6OPaRaJCLHsG3BLJTLdwAF3
-         J+gA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=KwpbCI+rGfMKsie1cbjw3OobD3YXJBn7+ixKB5TpcMI=;
-        fh=V9xiGsKFqPtGVYIdG/0dZWNNsP9kg0VuisymhBrOwXw=;
-        b=cp6A8oC4DfwRlYOL4ZMuwXYeb1sU2r4LwvnLmzGuOxaoGtKROM/l4jSWiGKanM772x
-         qGcBZSVeuLLRRCpXYQzuIoZ+9uuqgDVu6fKIP7sV7GJGi3xjxJCZGOvPW1qCGmhKtNmL
-         ioFzQCWZM7Trxz4lgPPMH4f8+KXfBrrCwGoufKnoIMxP4+znn4HRUNIMcHBDr6jWrSOx
-         TWtarZhNu1FRNJydP7gjyuiR/YiHftzp10Swo0+RIkZFCPxASNl/pelCgN7kxf7InqXB
-         YZfzv5qShlbttlcDCQ4iV5oVunEdqFtp+N1fYSJ+8MciAQUS5WiDKrj4kGV8vLkt9b+C
-         7ThQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="TkVnRhQO"
+Received: by mail-qv1-f49.google.com with SMTP id 6a1803df08f44-8ce9ddeddefso71642276d6.0
+        for <stable@vger.kernel.org>; Wed, 10 Jun 2026 04:34:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=szeredi.hu; s=google; t=1781090791; x=1781695591; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=KwpbCI+rGfMKsie1cbjw3OobD3YXJBn7+ixKB5TpcMI=;
-        b=WKtdXB8jGww4N4vaXjc23iE//thOwpKiZebGM8NRULuWpKXCg2oaeLKChppes4SvYe
-         K0VfHW4DvVHPdGoJulIZh9WxGkSjs56GqZBL019qzkf0R0dMCOrZQhm8+d5ghMsLb2M8
-         4Kw7G42MJKBQ3sdTx4BcqULRpT+0leVUmBQho=
+        d=gourry.net; s=google; t=1781091254; x=1781696054; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=ojEE6G7x5Hyz18bffBqmv/qKtAjxoG29cTYIDqTjZjM=;
+        b=TkVnRhQOheaFAt1gnoN6Hm6e7ZI73qtlI/OTAapfcVVpOcZTGyBfKZpk9Tu0CN3Pf5
+         N2XdfGhogTuXo0rOwhstopK4jZaUj7DZCoz+F5nibrgF/rn5wdZImS2JSuaZLj+f5zMH
+         eqGiVRwTRy8x6GxMuWk4IQDWV23DjhrEWnlIzU0xO0qwhLkOd9U+ujuys1Dfj/i6dWoH
+         eOyjRmKHGd7swRgX8SAqc1kOhmR10rnrw670mDgJLq5t2mwxsZLB6AE3v6bJCG/53Rla
+         SswirCsJYZyK5SGIeTLdHO6en1qqrZKgGc8L4wp20EZmdI3uXoKfIB8/NzpDNCQbUyQd
+         1nNg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781090791; x=1781695591;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=KwpbCI+rGfMKsie1cbjw3OobD3YXJBn7+ixKB5TpcMI=;
-        b=ENAIq1CCYB8KGTFUNQrApve7um6lBwNhlEXILYCGKlkY8U1IZv2qrVaW+gpj9bPUOS
-         wyYC6nihRl84wm+RfL+I6hPximltuUo1re9irwdRBXBqkmymZ6f4zdyON/njbtDTiWST
-         MU73eeMhcKyuLllyQAfIeIQxoBf1cPWm95KifYdGk8i98EPTE4brc786eWUMGAkK+yiV
-         JhAza/8NrM/XB3wnjx7yHEhqhUmRkDsBBLfJPVCTDC+8oe/s4pDAmIg9zuU3FlhKCRu5
-         P31wjmW3meCGi713BLBKDW5OGsHUvU4by/B3sgvfvka9wTPecWBt3Xj/kms9RTqjKvCe
-         wlJQ==
-X-Forwarded-Encrypted: i=1; AFNElJ9YhsPg1FG7ZXyl6yCEYzyzQ1YdDlwglao8RTKr6fHHapho9vp6jZeFXQNIR7eB0TVKNLI9QeE=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyH3k6ufkfedagcg8POpHvp8XknTg64jjJZ/FpFsfY1XMi2h3rV
-	A65OgvIZufLSO6bs8srdkfUX1rLZDDYg080kUMNuB5Xghg4GGK5SvPEnYwvS4NxBxqomSBfRcIu
-	FiW3kcFpqt9nTRfLqZePoQQq8IfiHoZRWwY2M9FGLiA==
-X-Gm-Gg: Acq92OEzMym6xB+dubhdnmSY0F5zz5uUFMa2U5th9gMS76sfErqCOSoOfjRnOP5eVsu
-	xsceyeyZnaSorBQlHxNBF2CJe7fg9hAdfloy8sXuHET2URm2b46A+9RsfAqzX/GHpVISgNGEDQs
-	thZ4V7kuYURTOAQTy9FGvkKVX0NcDbdOP+y+wtSUVOdfUE1QHZqBx21grqezRhyPL8kOo62kfkq
-	KQbM1Xuba1HhuI7kdbK0qLjUHEWGvshGZOivdF8CBOArCQZmrLPdV0k1VzboisWl2hxDr+ImcUo
-	Cq68/ZJ5tJWXKrGtyIELsPzRvFEEyQxNwCNaJEwGSbMGp8ceBtc=
-X-Received: by 2002:ac8:57c2:0:b0:517:5f04:f24c with SMTP id
- d75a77b69052e-51795c79c8amr367684721cf.39.1781090790667; Wed, 10 Jun 2026
- 04:26:30 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1781091254; x=1781696054;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=ojEE6G7x5Hyz18bffBqmv/qKtAjxoG29cTYIDqTjZjM=;
+        b=SxWEbeIYpu7mBrkC4X+OVyEAPAgFpZwMVvwaiV1LFESVIOq2vwxiWYqEnKet+f3Cyt
+         RDNFs/QKEhCL8s7WfisvNYBnxlCEIQCINYFKWt6A0fQr+pE4QfFJFI5RxS/ZlCfGz1Pg
+         IBsBcvv26dHDIhASXeFt01gQXopWmf5W/qD/LPIlgszcVqCCl++4iOGJJUcKvOwlTiKx
+         XLnPKWYVOm8wcki9W2mLnL7lgxZdln4dYHHVyvRsDVtXfu9W+cFbPKBypAceq6qdtszo
+         raj2ectbmF5zRu3nHTJjfFqdo93Q1xUG4dd78KAnAM0v2Li5U1g59CqqeDXPA+zMAedE
+         eZ/g==
+X-Forwarded-Encrypted: i=1; AFNElJ+xZNiwcJV7+BKGn65l1TvYir+vgKrUi9R1HxoLepcslOolzLe+ya4eYG9Ue/93tCCpVrtZ50g=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwA3Dg9wANs/QrPShE/aFLZKWvIEWAILvoleo2Mm81P8Y1rrJwf
+	BmeGYd5g5AWUkxCnGgYBP2gLQnzAnY3xv4ZljMS2E7igL4t7gvSCodwze1xnBBuS0Ko=
+X-Gm-Gg: Acq92OEG/Dyn8AS6fJ39sFQmgcCwhYv8tOZfFcXNOxBBNTZJ2nNSH85jYAb/0KsX7WF
+	nh6kAn6S57r2juwSbDdA1y8qynnr+6Gh+WkaACFde3AIFNb+9rLNcsYi8JoVdn8YuHmSvMs52n6
+	nIxqQy3FZ1A8dhatdAieQqNlZGm/BRWEvtSgTlexfzfpne7Aerz0kZ+E1R2u+SYjQIiCgn7rGbz
+	S2HTE70kD7FhRsu6dbM2XoximK4PT7J4/qfdtiM+GXqoo7QRVSQKbJRBk9yHGV+3JeapfsoKsFQ
+	2Vqi/EDS3s389aPtZE33GJ5Q8plhFkby3FBbbws5MnJdl0GIaNzhg48evi6GS/Vw/KUJetjBy7f
+	DJuIVlH/LwsdutisBvjaLEin1VIL3Ggfm7vvs1gKXn3pL+GYxIkIh+LYgcEjCLBNjfHlz3ns4GN
+	mEiGbDwxPx0em5W7szse5NpU09gLuoeA1S9SwU1STsbD2vFpupN7MOjIejd6naiPGw1LHjUC4qO
+	i3TrrZeLkZCU3P4s6SQvuJaxYXg
+X-Received: by 2002:a0c:fde3:0:b0:8ce:ca78:409c with SMTP id 6a1803df08f44-8cee5fe4e78mr277619976d6.10.1781091253735;
+        Wed, 10 Jun 2026 04:34:13 -0700 (PDT)
+Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8cecd26e9e3sm225660056d6.46.2026.06.10.04.34.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 10 Jun 2026 04:34:13 -0700 (PDT)
+Date: Wed, 10 Jun 2026 07:34:11 -0400
+From: Gregory Price <gourry@gourry.net>
+To: Farhad Alemi <farhad.alemi@berkeley.edu>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>, Farhad Alemi <falemi@asu.edu>,
+	Yury Norov <ynorov@nvidia.com>,
+	Joshua Hahn <joshua.hahnjy@gmail.com>, Zi Yan <ziy@nvidia.com>,
+	Matthew Brost <matthew.brost@intel.com>,
+	Rakie Kim <rakie.kim@sk.com>, Byungchul Park <byungchul@sk.com>,
+	Ying Huang <ying.huang@linux.alibaba.com>,
+	Alistair Popple <apopple@nvidia.com>,
+	Waiman Long <longman@redhat.com>,
+	Rasmus Villemoes <linux@rasmusvillemoes.dk>, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, cgroups@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] cgroup/cpuset: rebind mm mempolicy to effective_mems,
+ not mems_allowed
+Message-ID: <ailLs4akasGP1KLZ@gourry-fedora-PF4VCD3F>
+References: <25c4bc47-b65d-4c04-8a8f-18eef2b5566a@kernel.org>
+ <CA+0ovCg05rUk1-3k2ysdxmbcER8aG-wVh9SSTrrbp6LPWpPHYA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260501232735.2610824-1-souvik@amlalabs.com> <CAOQ4uxh6YUJEh75sASqi1gOaQYKpWhftz4to1j8s2Y9Jef-XQg@mail.gmail.com>
-In-Reply-To: <CAOQ4uxh6YUJEh75sASqi1gOaQYKpWhftz4to1j8s2Y9Jef-XQg@mail.gmail.com>
-From: Miklos Szeredi <miklos@szeredi.hu>
-Date: Wed, 10 Jun 2026 13:26:17 +0200
-X-Gm-Features: AVVi8Cc5nyPpov-4yxMA02Z7Wm5x-BSYPxwNQXgevyHJGdk5NCb-4_ru_xxa7-U
-Message-ID: <CAJfpegtnj0wmQ_mJCwJ+UKqzG_LTrUCwhRyc_NAhHj2T9Jr8uA@mail.gmail.com>
-Subject: Re: [PATCH] ovl: use linked upper dentry in copy-up tmpfile
-To: Christian Brauner <brauner@kernel.org>
-Cc: Amir Goldstein <amir73il@gmail.com>, Souvik Banerjee <souvik@amlalabs.com>, 
-	linux-unionfs@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CA+0ovCg05rUk1-3k2ysdxmbcER8aG-wVh9SSTrrbp6LPWpPHYA@mail.gmail.com>
 
-On Sun, 3 May 2026 at 22:37, Amir Goldstein <amir73il@gmail.com> wrote:
+On Tue, Jun 09, 2026 at 07:57:41PM -0400, Farhad Alemi wrote:
+> cpuset_update_tasks_nodemask() rebinds a task's own mempolicy to the
+> cpuset's effective, online mems (newmems, from guarantee_online_mems()),
+> but rebinds that task's VMA mempolicies to the *configured* mask instead:
+> 
+> 	cpuset_change_task_nodemask(task, &newmems);
+> 	...
+> 	mpol_rebind_mm(mm, &cs->mems_allowed);
+> 
+> On the default (v2) hierarchy a cpuset that has never had cpuset.mems
+> written keeps mems_allowed empty while effective_mems is inherited
+> non-empty from the parent, and tasks may be attached to it (the
+> empty-mems attach check is v1-only).  A subsequent rebind -- e.g. from a
+> CPU hotplug event walking the cpuset -- then calls mpol_rebind_mm() with
+> an empty mask.  For a VMA policy created with MPOL_F_RELATIVE_NODES this
+> reaches mpol_relative_nodemask() ->
+> nodes_fold(..., nodes_weight(cs->mems_allowed) == 0) -> bitmap_fold(),
+> whose set_bit(oldbit % sz, dst) divides by zero:
+> 
+>   Oops: divide error: 0000 [#1] SMP KASAN NOPTI
+>   RIP: 0010:bitmap_fold+0x5e/0xb0
+>    mpol_rebind_nodemask
+>    mpol_rebind_mm
+>    cpuset_update_tasks_nodemask
+>    cpuset_handle_hotplug
+>    sched_cpu_deactivate
+>    cpuhp_thread_fun
+> 
+> cs->mems_allowed is the only nodemask in this function that is not the
+> effective set: the task-policy rebind, the page-migration target and
+> cs->old_mems_allowed all use newmems.  The sibling cpuset_attach() path
+> already rebinds VMA policies against the effective mems
+> (cpuset_attach_nodemask_to = cs->effective_mems) and explicitly notes
+> that mems_allowed can be empty under hotplug.  Rebind the VMA policies to
+> newmems too: it is guaranteed non-empty by guarantee_online_mems(), which
+> fixes the divide-by-zero, and it makes the VMA policies consistent with
+> the task policy and with the nodes the task is actually allowed to use.
 >
-> On Sat, May 2, 2026 at 1:27=E2=80=AFAM Souvik Banerjee <souvik@amlalabs.c=
-om> wrote:
-> >
-> > ovl_copy_up_tmpfile() stores the disconnected O_TMPFILE dentry as the
-> > overlay's upper dentry reference via ovl_inode_update().  vfs_tmpfile()
-> > allocated this dentry via d_alloc(parentpath->dentry, &slash_name), so
-> > d_name is "/" and d_parent is c->workdir.  Local upper filesystems
-> > (ext4, btrfs, xfs, ...) immediately rename it to "#<inum>" via
-> > d_mark_tmpfile() inside their ->tmpfile() op; FUSE and virtiofs do
-> > not, so both fields stay that way.  Neither identifies the destination
-> > directory and filename where ovl_do_link() actually linked the file.
-> >
-> > When the upper filesystem implements ->d_revalidate() (e.g. FUSE or
-> > virtiofs), ovl_revalidate_real() calls it with the dentry's parent
-> > inode and a snapshot of d_name.  The server tries to look up "/" inside
-> > c->workdir, fails, and overlayfs reports -ESTALE.
-> >
-> > This causes persistent ESTALE errors for any file that was copied up vi=
-a
-> > the tmpfile path, breaking dpkg, apt, and other tools that do
-> > rename-over-existing on overlayfs with a FUSE/virtiofs upper.
-> >
-> > Before commit 6b52243f633e ("ovl: fold copy-up helpers into callers"),
-> > the tmpfile copy-up path used a dedicated helper ovl_link_tmpfile()
-> > that captured the linked destination dentry returned by ovl_do_link():
-> >
-> >     err =3D ovl_do_link(temp, udir, upper);
-> >     ...
-> >     if (!err)
-> >         *newdentry =3D dget(upper);
-> >
-> > and published it via ovl_inode_update(d_inode(c->dentry), newdentry).
-> > The fold inlined ovl_do_link() into ovl_copy_up_tmpfile() but dropped
-> > the dget(upper) capture, and rewrote the publish line as
-> > ovl_inode_update(d_inode(c->dentry), dget(temp)) =E2=80=94 where temp i=
-s the
-> > disconnected O_TMPFILE dentry.
-> >
-> > Fix by keeping a reference to the linked destination dentry after
-> > ovl_do_link() succeeds, and publishing that dentry at the existing
-> > ovl_inode_update() call site.  The non-tmpfile/workdir path continues t=
-o
-> > publish the renamed temporary dentry.
-> >
-> > Reproducer:
-> >   - Mount overlayfs with virtiofs (or a FUSE fs whose server advertises
-> >     FUSE_TMPFILE) as upper
-> >   - Run: dpkg -i <any .deb>
-> >   - Observe: "error installing new file '...': Stale file handle"
-> >
-> > Fixes: 6b52243f633e ("ovl: fold copy-up helpers into callers")
-> > Cc: stable@vger.kernel.org # v4.20+
-> > Signed-off-by: Souvik Banerjee <souvik@amlalabs.com>
-> > ---
-> >  fs/overlayfs/copy_up.c | 12 ++++++++++--
-> >  1 file changed, 10 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/fs/overlayfs/copy_up.c b/fs/overlayfs/copy_up.c
-> > index 13cb60b52bd6..e963701b4c87 100644
-> > --- a/fs/overlayfs/copy_up.c
-> > +++ b/fs/overlayfs/copy_up.c
-> > @@ -853,7 +853,7 @@ static int ovl_copy_up_tmpfile(struct ovl_copy_up_c=
-tx *c)
-> >  {
-> >         struct ovl_fs *ofs =3D OVL_FS(c->dentry->d_sb);
-> >         struct inode *udir =3D d_inode(c->destdir);
-> > -       struct dentry *temp, *upper;
-> > +       struct dentry *temp, *upper, *newdentry =3D NULL;
-> >         struct file *tmpfile;
-> >         int err;
-> >
-> > @@ -889,6 +889,14 @@ static int ovl_copy_up_tmpfile(struct ovl_copy_up_=
-ctx *c)
-> >         err =3D PTR_ERR(upper);
-> >         if (!IS_ERR(upper)) {
-> >                 err =3D ovl_do_link(ofs, temp, udir, upper);
-> > +               if (!err) {
-> > +                       /*
-> > +                        * Record the linked dentry -- not the disconne=
-cted
-> > +                        * O_TMPFILE dentry -- so that ->d_revalidate()=
- on
-> > +                        * the upper fs sees the real parent/name.
-> > +                        */
-> > +                       newdentry =3D dget(upper);
-> > +               }
-> >                 end_creating(upper);
-> >         }
-> >
-> > @@ -903,7 +911,7 @@ static int ovl_copy_up_tmpfile(struct ovl_copy_up_c=
-tx *c)
-> >
-> >         if (!c->metacopy)
-> >                 ovl_set_upperdata(d_inode(c->dentry));
-> > -       ovl_inode_update(d_inode(c->dentry), dget(temp));
-> > +       ovl_inode_update(d_inode(c->dentry), newdentry);
-> >
-> >  out:
-> >         ovl_end_write(c->dentry);
-> > --
-> > 2.51.1
-> >
->
->
-> Hi Souvik,
->
-> Thank you for the analysis and the fix.
-> Looks correct to me.
->
-> Reviewed-by: Amir Goldstein <amir73il@gmail.com>
->
-> Christian,
->
-> Could you pick this up for vfs-fixes?
-> I do not have any other ovl fixes queued up.
 
-Reviewed-by: Miklos Szeredi <mszeredi@redhat.com>
+I think you can make this a bit more concise:
 
-This seems to have slipped through the cracks.
+  Creating a child cpuset where cpuset.mems is never set leads to
+  a div/0 when a VMA mempolicy with MPOL_F_RELATIVE_NODES rebinds
+  in response to a CPU hotplug event.
 
-Christian?
+  Reproduction steps:
+     1) Create a cgroup w/ cpuset controls (do not set cpuset.mems)
+     2) Move the task into the child cpuset
+     3) Create a VMA mempolicy for that task with MPOL_F_RELATIVE_NODES
+     4) unplug and hotplug a cpu
+          echo 0 > /sys/devices/system/cpu/cpu1/oneline
+          echo 1 > /sys/devices/system/cpu/cpu1/oneline
+     5) mempolicy rebind does a div/0 in mpol_relative_nodemask on the
+        call to __nodes_fold()
 
-Thanks,
-Miklos
+  The cpuset code passes (cs->mems_allowed) which is not guaranteed to
+  have nodes to the rebind routine.  Use mems_effective - the value
+  returned by guarantee_online_mems() - instead, which is guaranteed to
+  have a non-empty nodemask..
+
+Maybe add a link to your reproducer and the original [BUG]
+
+Link: https://lore.kernel.org/linux-mm/CA+0ovCgxbZkXa+OU8w3s84R3KNPNxxRfmsNR-udh+afQBbGNmw@mail.gmail.com/
+Link: https://lore.kernel.org/all/CA+0ovCiEz6SP_sn3kN4Tb+_oC=eHMXy_Ffj=usV3wREdQrUtww@mail.gmail.com/
+
+Does this need a Closes tag?
+
+> Fixes: ae1c802382f7 ("cpuset: apply cs->effective_{cpus,mems}")
+> Suggested-by: Gregory Price <gourry@gourry.net>
+> Signed-off-by: Farhad Alemi <farhad.alemi@berkeley.edu>
+> Cc: stable@vger.kernel.org
+> ---
+>  kernel/cgroup/cpuset.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+> --- a/kernel/cgroup/cpuset.c
+> +++ b/kernel/cgroup/cpuset.c
+> @@ -2649,7 +2649,7 @@ void cpuset_update_tasks_nodemask(struct cpuset *cs)
+> 
+>  		migrate = is_memory_migrate(cs);
+> 
+> -		mpol_rebind_mm(mm, &cs->mems_allowed);
+> +		mpol_rebind_mm(mm, &newmems);
+>  		if (migrate)
+>  			cpuset_migrate_mm(mm, &cs->old_mems_allowed, &newmems);
+>  		else
+> -- 
+> 2.43.0
