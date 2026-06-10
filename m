@@ -1,38 +1,50 @@
-Received: from smtpbg150.qq.com (smtpbg150.qq.com [18.132.163.193])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DF4833E345;
-	Wed, 10 Jun 2026 01:54:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.132.163.193
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0C0F1A6824;
+	Wed, 10 Jun 2026 01:58:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781056500; cv=none; b=hSXhHpoN/QCdEx6yGxSx+Y1BvJu/iJNVUinffvF5na5KYErUYlhMjMdWtvUuckf9AylAT4glyBQY9v/TXC5/nRI/sCGQjerUGDIgfbpE/M+gpifvARm8sQInC/NDvZqidCj/KncuRKpXNp7ra4lgN3O56a+81/At/pUSUriTCAQ=
+	t=1781056687; cv=none; b=FBJNPn78690W6htUANKVc5Mr38knS9xr1gLxvsqd/sLWGHtdxmCZkGzyVNAuNr0bAE5CqF4nV/bv524HLnneHRy/unxfsMpfVPB5dXgJNK9lONUv/qnZwBa5WjAK5vj1b6xJ3Ekgh7huYICWYKN/bZ2B8zpZ27yP9RhbJC95obE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781056500; c=relaxed/simple;
-	bh=4LvQd217BGdpi81N8qdbm0p0HFJ6Q4x5aGe6K8l5ihg=;
+	s=arc-20240116; t=1781056687; c=relaxed/simple;
+	bh=Q4j0ls/UCfJrw9HSNbY3NapJ+F1R4VCFbMF19Wx2MPA=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=I1ESUP94sRdLjIJ7fq5xkfKUCP7IZcbK1VApOlGPDlW9gEZtYLF82oPz3sTeUYYh2SuncNqM8b1rr9yG4AH4zsjG3BCxFnADSMTYjy4Lhhd9ZmYSE+jssglnhJQoSHqLrfVj8/AR2UZmydHY287x1wjlbRyfYVASNtdHnPPoPEs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=kiDnRcg0; arc=none smtp.client-ip=18.132.163.193
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	 In-Reply-To:Content-Type; b=ZC3Zq6MitZQrar+2Io24hx2XySA0Bof65YjzGo8hfoTev9coGddzEmwJ81biMhCehsGO+lUaFwuT6G1HbDBvZwBzky19bnmuAPcIK89RFl6loPFaPO1ZuJYIba1Gepc3fOpIK/ij1bFmxyPDfvUnsYuQ1XYGMrwWTlq4xuIpmRA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=SUBlfSh9; arc=none smtp.client-ip=192.198.163.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="kiDnRcg0"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1781056472;
-	bh=F3DirVOKyUwhn5Lv6YUro5fh6nGzSl+Nj5X7Vj/68Ww=;
-	h=Message-ID:Date:MIME-Version:Subject:To:From;
-	b=kiDnRcg0VtF3JJDp1ww91mkWeLcL+x2UJG3vr79RrfgA/nYyWOHHuv6A1HYD/lIzU
-	 9afngTxgGCxKtLSRajcqd1oAKJFj5UhOJcmlnj8FhboelrPJJrpojxFlKawnd4yFYl
-	 N/QmKCuguO4t06Rsw/GKXbHRg5u1ZYxxHYX6MMPI=
-X-QQ-mid: zesmtpsz4t1781056465te676f59d
-X-QQ-Originating-IP: +0Ijq6I+EaG/bkoeO+MlKyewpJjLqb7P3KEQ3efNftg=
-Received: from [10.10.73.104] ( [123.114.60.34])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Wed, 10 Jun 2026 09:54:23 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 11930092679216207127
-Message-ID: <41ABF3A1A793ED1B+7c04334b-ed81-42bc-8215-c2714e852015@uniontech.com>
-Date: Wed, 10 Jun 2026 09:54:23 +0800
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="SUBlfSh9"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1781056685; x=1812592685;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=Q4j0ls/UCfJrw9HSNbY3NapJ+F1R4VCFbMF19Wx2MPA=;
+  b=SUBlfSh97qZCD69qiG+U1KC/3v0PUEGhJ+MIwyoo0RWI+fgSLkaazJxa
+   N44/YLvy9bOvsHsUHPMmOYck7h+eEhEpEuIa1+Ly2RBYqt9P5ze5nX/ko
+   BySRrPE6WifSaAkju5fCUf2TLY3NIJxm6PE/b80bV/LKfxzoKeeD/jKyL
+   1rxjehQeipJITokOXj2pPrzCAnyDbQr1XhgAfhrO3dHTK3oS+x7PcU+aK
+   kPvjsq6/BEQzUltOT4g9MYfMEUhvGB1nzW035MqmPiRZMNnw4wCwSYXTB
+   L898ZSfoxFHpaR9F99TCnrKP0L78NweAhSTsgXmnsaZOS6CzD3VMWyiJA
+   w==;
+X-CSE-ConnectionGUID: ms3JBe/ASmK0KvyUKTCtjg==
+X-CSE-MsgGUID: FL7cvQL2TpK/4Vc/GoyYSw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11812"; a="99415579"
+X-IronPort-AV: E=Sophos;i="6.24,197,1774335600"; 
+   d="scan'208";a="99415579"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Jun 2026 18:58:05 -0700
+X-CSE-ConnectionGUID: 3aTdGoFBREGPJLDvIuHRiA==
+X-CSE-MsgGUID: 8YDN1tweTYmKZ1uXGPKD5w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,197,1774335600"; 
+   d="scan'208";a="251103418"
+Received: from dapengmi-mobl1.ccr.corp.intel.com (HELO [10.124.241.147]) ([10.124.241.147])
+  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Jun 2026 18:58:01 -0700
+Message-ID: <257bf622-885b-45cd-bcef-052056a6a58e@linux.intel.com>
+Date: Wed, 10 Jun 2026 09:57:59 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -40,91 +52,90 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] xfs: fix inode ref leak in attr intent recovery
-To: "Darrick J. Wong" <djwong@kernel.org>
-Cc: linux-xfs@vger.kernel.org, cem@kernel.org, linux-kernel@vger.kernel.org,
+Subject: Re: [Patch v2 5/9] perf/x86/intel: Drop LBR entries whose privilege
+ level mismatches br_sel
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo
+ <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
+ Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Andi Kleen <ak@linux.intel.com>, Eranian Stephane <eranian@google.com>,
+ linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
+ Dapeng Mi <dapeng1.mi@intel.com>, Zide Chen <zide.chen@intel.com>,
+ Falcon Thomas <thomas.falcon@intel.com>, Xudong Hao <xudong.hao@intel.com>,
  stable@vger.kernel.org
-References: <20260609111619.1866748-1-gaoyingjie@uniontech.com>
- <20260609111619.1866748-2-gaoyingjie@uniontech.com>
- <20260609145740.GC6078@frogsfrogsfrogs>
-From: Yingjie Gao <gaoyingjie@uniontech.com>
-Reply-To: 20260609145740.GC6078@frogsfrogsfrogs
-In-Reply-To: <20260609145740.GC6078@frogsfrogsfrogs>
+References: <20260609050222.2458129-1-dapeng1.mi@linux.intel.com>
+ <20260609050222.2458129-6-dapeng1.mi@linux.intel.com>
+ <20260609145250.GD49951@noisy.programming.kicks-ass.net>
+Content-Language: en-US
+From: "Mi, Dapeng" <dapeng1.mi@linux.intel.com>
+In-Reply-To: <20260609145250.GD49951@noisy.programming.kicks-ass.net>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz5b-1
-X-QQ-XMAILINFO: MQPu5pFEJFN4aubmtHOK3c5n7bU62tcIKJ2+4xACHjIdODM/gp4Lzn95
-	sYeuaD/NQtorvGsH79myZ4ip6IBqxxsJqVSA/92E8FCjAt9932xD7Lvkin8lNOvrF/MbNWE
-	Jf1TnH/1Y+rbi/p7csII54JLwH6RiZm82YLQ08ZpnOVLqxOv4ip6vZqwHOkER5TBYCzmJyd
-	I6hYh383crgJo2rRA4wP9Mei0RKb/LiUu+vVHb6f2pxivlDPQuoz88nRw6nTl/nLw3ZKgVE
-	2zRaxhZ3rBjJMEwus73RiCqNSiE0LIHSOmiw1S3Ma/I1F4WXL8T8sal1VCmCy2RzmbCEJcJ
-	rUV6/irqbvI3BeNBIeszWmCt1jDe7n8H21oHNZwW2wQSdPBHqHuY48fwOHpy/duc1HWo6Qk
-	lfr6Wju4oGtXOtBD8itd4eod8wb/lQowMJ05CYaygxCt0w1TM7RyUi71tsoqlV6NL+5n3sr
-	Kbftsa8IGSCqOu8st6fsITw9EsLB9VM0hHNaJshoWvtaXqH0ehVEU0k3HoBTDFcGK36xyEs
-	xP+1NBg8I2kDNi3YS06zIiYeniq2k/bgayFrYpanqtkOgcaaQRYQPMrNVCAP+arJ/nkLiGU
-	/KUGZEtI+VUfUZch4MUHlrZ/AmfeSdWX9l8XFamJrpNZBxWpptzTDb4GRjbn2GK2B12z0SZ
-	1njqOAt0LSDLplURMg/16XB/EU8AOlqZxh71tSXZ25YYTvGGLWDogFpZaj0BZnnjXLZfFAp
-	GdzjFt1NFOms6jJZALQ32e8Dfzq1z1DzAe6IF9ilTmVX+HJZbYFVNS7eIt2rdheuPqh7Qm+
-	y/IG9QjlfhF4pXbYa7iJj7g8OXmqqjcw8jtZ4B6TZ/oV6wMAGlv2WTJICPw5pf7Jd1QTlsN
-	PgTbTnwySHEVo8eKBTTTT8Tp3EVVs3nIPCWlQjaawSYpWGk7ROxVWO6WSRigklRFvayRQIk
-	5C4Q7GoZxQMaio0ytHCgX3IKKG2Rm0PrNKQh4Ix9KKF4KzGfUjc3QE2GG99CM8nHuFvWD3t
-	YmPfNqP8TiDuXv5X3sFriqSewbPs5CNiuT8vKnWMiTxRRjN+Nq
-X-QQ-XMRINFO: MSVp+SPm3vtSihJ23AUW6lZVBoTKQpsVvQ==
-X-QQ-RECHKSPAM: 0
+Content-Transfer-Encoding: 7bit
 
 
-
-在 2026/6/9 22:57, Darrick J. Wong 写道:
-> On Tue, Jun 09, 2026 at 07:16:18PM +0800, Yingjie Gao wrote:
->> xfs_attri_recover_work() grabs the target inode, attaches it to the
->> reconstructed attr work item, and adds that work item to the defer
->> pending list.
+On 6/9/2026 10:52 PM, Peter Zijlstra wrote:
+> On Tue, Jun 09, 2026 at 01:02:18PM +0800, Dapeng Mi wrote:
+>> Before Arch LBR gained CPL filtering support, a user-only branch stack
+>> could still contain kernel addresses. As a result, kernel branch records
+>> may be exposed to user space even when PERF_SAMPLE_BRANCH_USER is
+>> requested.
 >>
->> If xfs_attr_recover_work() fails to allocate the recovery transaction,
->> it returns immediately without dropping the inode reference.  The later
->> cancel path only frees the attr work item state, so the inode reference
->> leaks.
+>> For example, on Intel Tiger Lake, the following command can still report
+>> SYSRET/ERET entries with kernel-space from addresses:
 >>
->> Release the inode before returning the transaction allocation failure.
+>> ```
+>> $./perf record -e cycles:p -o - --branch-filter any,save_type,u -- \
+>>  	./perf bench syscall basic --loop 1000 | \
+>> 	./perf script -i - --fields brstack|tr ' ' '\n'| \
+>> 	grep -E '0x[89a-f][0-9a-f]{15}'
 >>
->> Fixes: e70fb328d527 ("xfs: recreate work items when recovering intent items")
->> Cc: <stable@vger.kernel.org> # v6.8
->> Signed-off-by: Yingjie Gao <gaoyingjie@uniontech.com>
+>>     Total time: 0.000 [sec]
+>>
+>>       0.219000 usecs/op
+>>      4,566,210 ops/sec
+>> [ perf record: Woken up 1 times to write data ]
+>> [ perf record: Captured and wrote 0.551 MB - ]
+>> 0xffffffff93c001c8/0x7f12a2b1d647/P/-/-/16959/SYSRET/-
+>> 0xffffffff93c001c8/0x7f12a2b1d5c2/P/-/-/17535/SYSRET/-
+>> 0xffffffff93c01928/0x7f12a2861000/P/-/-/6719/ERET/-
+>> 0xffffffff93c01928/0x7f12a297a000/P/-/-/8575/ERET/-
+>> ```
+>>
+>> The problem is that intel_pmu_lbr_filter() does not fully validate the
+>> privilege level of sampled entries. It filters some mismatches based on
+>> the branch type and the to address, but it does not reject entries whose
+>> from address violates the requested branch privilege filter.
+>>
+>> Fix this by extending software filtering to validate both from and to
+>> addresses against br_sel. Any LBR entry whose privilege level does not
+>> match the requested user/kernel filter is dropped. This prevents kernel
+>> addresses from appearing in user-only branch stacks, and likewise drops
+>> user entries from kernel-only stacks.
+>>
+>> Cc: stable@vger.kernel.org
+>> Reported-by: Ian Rogers <irogers@google.com>
+>> Fixes: 47125db27e47 ("perf/x86/intel/lbr: Support Architectural LBR")
+>> Signed-off-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
 >> ---
->>  fs/xfs/xfs_attr_item.c | 4 +++-
->>  1 file changed, 3 insertions(+), 1 deletion(-)
+>>  arch/x86/events/intel/lbr.c | 14 +++++++++++---
+>>  1 file changed, 11 insertions(+), 3 deletions(-)
 >>
->> diff --git a/fs/xfs/xfs_attr_item.c b/fs/xfs/xfs_attr_item.c
->> index deab14f31b38..c3d96c7a5bca 100644
->> --- a/fs/xfs/xfs_attr_item.c
->> +++ b/fs/xfs/xfs_attr_item.c
->> @@ -773,8 +773,10 @@ xfs_attr_recover_work(
->>  	}
->>  	resv = xlog_recover_resv(&resv);
->>  	error = xfs_trans_alloc(mp, &resv, total, 0, XFS_TRANS_RESERVE, &tp);
->> -	if (error)
->> +	if (error) {
->> +		xfs_irele(ip);
-> 
-> Seems fine but I wonder why you don't just add an out_rele label on the
-> line above the existing xfs_irele() call and make this goto there?
-> 
-> --D
-> 
-Good point, I'll update the patch and send a v2.
-Thanks for the review.
-
--- 
-Yingjie
->>  		return error;
->> +	}
->>  	args->trans = tp;
+>> diff --git a/arch/x86/events/intel/lbr.c b/arch/x86/events/intel/lbr.c
+>> index d4c0ed85e1fb..807ce903c972 100644
+>> --- a/arch/x86/events/intel/lbr.c
+>> +++ b/arch/x86/events/intel/lbr.c
+>> @@ -1212,7 +1212,7 @@ intel_pmu_lbr_filter(struct cpu_hw_events *cpuc)
+>>  {
+>>  	u64 from, to;
+>>  	int br_sel = cpuc->br_sel;
+>> -	int i, j, type, to_plm;
+>> +	int i, j, type, to_plm, from_plm;
+>>  	bool compress = false;
 >>  
->>  	xfs_ilock(ip, XFS_ILOCK_EXCL);
->> -- 
->> 2.20.1
->>
->>
-> 
+>>  	/* if sampling all branches, then nothing to filter */
+> If there, might as well order those variables in reverse xmas.
+
+Sure. Thanks.
+
 
