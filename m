@@ -1,107 +1,260 @@
-Received: from mail-qv1-f45.google.com (mail-qv1-f45.google.com [209.85.219.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AE00404893
-	for <stable@vger.kernel.org>; Wed, 10 Jun 2026 12:22:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.219.45
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781094172; cv=pass; b=Wn5Mf6gLYgcJgaqgJ+S6n6Pgdn7vbhc/xMqbLkft/fSLRhNDQ7vyrNU0q4f+QqTGIAznCOftETl5ryed+IF6m26CBaIEbwwf75XcVZHLdFOb09lcAbt1r+mhKIHf3sba/opfo0WmNSPnwfB/IxNtkkCN7PGvEXk68kWvIHR2es4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781094172; c=relaxed/simple;
-	bh=zwTvTQRiuDnTHNrVN5t6ylNbG/tB4D/O7pmKvhbpJn8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=INZ7tTnYOeep0pthCvskMAdw9NIR6uaEyo5Y1GlTGcI4qdYVsZnp5sA10PxvfSOh8scZGgJLlK/Xp6eJmxb698oos2PnDjEqSskynmSdb8nq6lZNKIbJcOunD5kMTQUjfsocpv9ugjxgNGguOwFtt1KtyLTQK1PKJdkwLdEYgu0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=szeredi.hu; spf=pass smtp.mailfrom=szeredi.hu; dkim=pass (1024-bit key) header.d=szeredi.hu header.i=@szeredi.hu header.b=Bg38By5N; arc=pass smtp.client-ip=209.85.219.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=szeredi.hu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=szeredi.hu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 567AA3E317D;
+	Wed, 10 Jun 2026 12:42:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781095358; cv=none; b=k38E+1ZWmNIwYdlNb24easBZVIdAB0DZP34taV6Fg8GyTxuJCxrnay+o+s0uWo7n+duARQaHzUPdYM9Iw4y9FcPsGeiubIrYl3npSPMGiFqPN8o3ZQ1QtV70qjM1ELw9T3d38bIEKJCAO5RdGlmEdhGPxVO9o8KXcfBmKB7zp9k=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781095358; c=relaxed/simple;
+	bh=uxE+uoQzufSHOCgFsUDlLpYa+J6KbaAT0nelksXiQNE=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=GEC1OUK4BfGOmfwf5seOohnXFe4CTnZ8ZO/mFloH41ii8ZvxveRdtzPwZzBxn07ppEJ3v8wu59xw6ewzGZxXgWjo+u181836WvsRLYxGpaRU8yPJmdxo/eSK2pc3kdKUGnXhKOp4WXLeVTDAibWLBzcfsjRBMgOhC5UEccde4Tg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S1D+ySUs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=szeredi.hu header.i=@szeredi.hu header.b="Bg38By5N"
-Received: by mail-qv1-f45.google.com with SMTP id 6a1803df08f44-8ccf887de87so76599766d6.0
-        for <stable@vger.kernel.org>; Wed, 10 Jun 2026 05:22:51 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781094170; cv=none;
-        d=google.com; s=arc-20240605;
-        b=KwQyR/bR0PbmFufK0LLgNdq7+RFpiOHq7zuRjejb5r7rsEtycwmYt7pRsvkPOeizpc
-         ax4PhmQZEqFHKyifJLwtUgHG8YZGuIwtcOslMJLBLhqD/rDuyZrQ+vKO6My93VTO0iPv
-         qJC4dICXSN6t8Qhl4ggxDIJMJvZGEhXngqoZn2wHgSJXNWYL0GGYqiLkUO3cMT+Ol7G7
-         02V4rTL668p2EUHc2zarC2k0PRWBEW7eaJRSiQub+Bsgf9udHefz+yDlInW3VYA88gZ2
-         Kfo6hVj2qs8sYc4wgqUZyqeQ7CXywBVV8wHoPiIxBYPDpzwb56tyVWYUuTX0KVF2Ib/3
-         2kpQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=zqhfenRJHrw6tZtdmFjoGbNaAzBmEpcWmIpswbZ9dgE=;
-        fh=PAys2T66chAe6N6JXGkv1Nh2xyfTzdE7jK04J2E06sw=;
-        b=M8HLbl+jnFlKI9LGLgWRhM+TQvcmO95MUvlvYdK0EOL7klj2DW4FEYqDPfPFlBOkw6
-         PJGxZrOuLooPB703cep8Yyzo5GBQKftkeOb1xPCW7hnTqp/gN+D6vbmBuwilY4b6/3Vr
-         2Ch/TLBhpMEHLTfMAQuk/nnLy7yIUDgD1rSO8s95IGqzUvORvNlRJfoSh2FE5Gaj7xVp
-         SuyXhcAZEfjBOd781xWigKVk7y6t7XIzK6cJcMHJMQZ35i7gDIyH2mfGFdckgmvCEry7
-         1dpKlvVgINy1N2frrOkVXY4ZIBG6tsRGrOL8a+arw6Rr0lBrQ+DKX5eLheJSq+sdHqV3
-         1Mxw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=szeredi.hu; s=google; t=1781094170; x=1781698970; darn=vger.kernel.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=zqhfenRJHrw6tZtdmFjoGbNaAzBmEpcWmIpswbZ9dgE=;
-        b=Bg38By5Nu9u16/+LgN8VwYilA7ylHDYtALegh391WQtY7fIIKHWSykacesRPpqkfx/
-         pUZFVRK0uC7hHwssNnLZEEQ8ubJTcu82MFaQ82Nb6y/n3C3WSB1lki1DB4xELLYG2x5O
-         0htblUIAoxVbp1O33r9RcWOwqYn9jb3J/AJ68=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781094170; x=1781698970;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=zqhfenRJHrw6tZtdmFjoGbNaAzBmEpcWmIpswbZ9dgE=;
-        b=qSizpnGxBi1XN0dGLfuu3X3Ic1C7SZTp7XT8crzyT3xH1mh15VBz+Zf7yjcZ9oLihc
-         ERIl1sJJYeHr0ZzCYOYULw8iNYOBUMLK+IsKIk4RJNAxufg37th+u22SOswD1Y+AP/g9
-         N0eoNH5qeC8ola6FK+Bs1oO5QKYs6TOz+1rCXMl5Fjeb3Mw7xdBNoGUPRu0IKi67psxn
-         4ao7740XxteTEPiAvDzyoDBGmUWnPjAsV4TcdvhF7nKUlvUg7vayvwOL3YzatIroIkXk
-         KD2isHXRYvAhnbzZv3aA6e7RpzyGqsgOivcuASlQUMBQw50C1GdB7WrLaqcB/AuIaNXZ
-         Gy5w==
-X-Forwarded-Encrypted: i=1; AFNElJ+Xmj3KlC3geUNINMcx6mX5EcZG5FxLaCdinU+wcAb4o1nlQT1DrYHQgSwxEMHBj0GctGrse2k=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwkEI9gxJkTxKhjoUXPmEpSxX5bZEroJFNaJN3ejffpG1WQqzvW
-	op3kEiAPRm1eEk7tAsY3kVY6Rjh/KvoHgomtcwHR9xA/BO3Ob+u73k2kHBL5coBG2otLBp+LSKs
-	Z7IBh1KOVwj1gnXgUP1VePHyT+i8L6y37LOspx7RvOg==
-X-Gm-Gg: Acq92OGl6QAu6VLpSa4pBjYkyEvWFNwHXgLmZ925duTVsS4QVJmRWSm3/Y8+2v9b6lg
-	/AuAZ5R4mtuPxsqLaBivza4LWWbFcauaNDMpDtSLujwpH89LRi6crMpLrvlq6yn0HGfm5v5UarC
-	pKw24wGAiu8qPl9aRxmLarW3lXAyEYQVQWeW+OUvuTasrLe8FJvWOiCBUE6iCTkJdI1fr1s0iLj
-	wGBg3IlOWRNb4wJuSpcntBs4c3gr+iJnKAPlXE8VlOuwgvIjtIVs6BcPL/uZkvcfCCfIqLMWYng
-	RuW+p95CpEwuH+lbVhZpcn/0A/4Nxe+VGVRNgbmAejbsV1g+Qx4=
-X-Received: by 2002:a05:622a:1388:b0:516:dcbd:aab9 with SMTP id
- d75a77b69052e-517959fb37dmr332271721cf.16.1781094170420; Wed, 10 Jun 2026
- 05:22:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S1D+ySUs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB4341F00893;
+	Wed, 10 Jun 2026 12:42:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781095357;
+	bh=uH9NVykxHBYBVo9QQtLJo4jbBCxi07bApR3SMXwAEw8=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=S1D+ySUsVHGWm0bjUINYcPmCjUUV3FiWRMonPTYpZGCZYIRB7M4JpypasqAsMH6eW
+	 fsDfxoN8dKaHM6jkgZq9ywEZkC85N/RsPrVDok071kcigbhEG0bKmafHbvmLuJ3IfL
+	 Y8lwctH7EvCN6GINBFccNyOAhWwO357OsGXDGg4mZLPG+P1haM2KADZ1+xiCw47SI/
+	 D7Hc0oBuJUIKxd5Gzf1IAkDL9QW0yliksw6jrqNTOUZY+9xHWRU/Qca2s0s0j4wim0
+	 yQo4EpBTi4kDcMf7qPmrA3qiW6n8bB4m7JR3GvlfMujf/Hhj8EAKXm1xFLyuYnTx2R
+	 oaPe32sWjILcQ==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1wXIGQ-0000000BM3u-2eph;
+	Wed, 10 Jun 2026 12:42:34 +0000
+Date: Wed, 10 Jun 2026 13:42:34 +0100
+Message-ID: <867bo6tvlx.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Oliver Upton <oupton@kernel.org>
+Cc: kvmarm@lists.linux.dev,
+	Joey Gouly <joey.gouly@arm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Wei-Lin Chang <weilin.chang@arm.com>,
+	stable@vger.kernel.org,
+	Sashiko <sashiko-bot@kernel.org>
+Subject: Re: [PATCH RESEND v2 3/5] KVM: arm64: nv: Re-translate VNCR before injecting abort
+In-Reply-To: <20260609185514.746507-4-oupton@kernel.org>
+References: <20260609185514.746507-1-oupton@kernel.org>
+	<20260609185514.746507-4-oupton@kernel.org>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260519004746.3203156-1-mochs@nvidia.com> <CAJfpegsTsKqq+QQKyBexQFP1=EGd8YiMT=rbaCOPeTBvLsY_JQ@mail.gmail.com>
- <F3BA075C-8E63-4077-B701-63269703155E@nvidia.com> <CAJfpegsJ+ZQW_WteMypErq31hggYsMMkBOPd0o+vifhAS6dPvQ@mail.gmail.com>
- <3447B6B6-7D86-4058-ABCF-B093BEB5D391@nvidia.com>
-In-Reply-To: <3447B6B6-7D86-4058-ABCF-B093BEB5D391@nvidia.com>
-From: Miklos Szeredi <miklos@szeredi.hu>
-Date: Wed, 10 Jun 2026 14:22:38 +0200
-X-Gm-Features: AVVi8CcVXj4gxUuROX-jbgt6uRYIDQLJQTdoVkfD0EszQov5tcLIrs147vwAkgU
-Message-ID: <CAJfpegsoZ4eKo0hf_AH4MVSh0b9j0b-UD9kL3uxMLxk+PJZC5Q@mail.gmail.com>
-Subject: Re: [PATCH v3] fuse: back uncached readdir buffers with pages
-To: Matt Ochs <mochs@nvidia.com>
-Cc: Bernd Schubert <bschubert@ddn.com>, 
-	"linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
-	"stable@vger.kernel.org" <stable@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: oupton@kernel.org, kvmarm@lists.linux.dev, joey.gouly@arm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, weilin.chang@arm.com, stable@vger.kernel.org, sashiko-bot@kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-On Fri, 22 May 2026 at 03:32, Matt Ochs <mochs@nvidia.com> wrote:
+On Tue, 09 Jun 2026 19:55:12 +0100,
+Oliver Upton <oupton@kernel.org> wrote:
+> 
+> KVM faults in the VNCR page with FOLL_WRITE whenver the guest aborts for
+> a write, similar to how a regular stage-2 mapping is handled. It is
+> entirely possible that the guest reads from the VNCR before writing to
+> it, in which case the PFN could only be read-only.
+> 
+> Invalidate the VNCR TLB and re-fetch the translation upon taking a VNCR
+> abort, allowing the host mapping to be faulted in for write the second
+> time around. Interestingly enough, this also satisfies the ordering
+> requirements of FEAT_ETS2/3 between descriptor updates and MMU faults.
+> 
+> Cc: stable@vger.kernel.org
+> Fixes: 2a359e072596 ("KVM: arm64: nv: Handle mapping of VNCR_EL2 at EL2")
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Signed-off-by: Oliver Upton <oupton@kernel.org>
+> ---
+>  arch/arm64/kvm/nested.c | 115 +++++++++++++++-------------------------
+>  1 file changed, 44 insertions(+), 71 deletions(-)
+> 
+> diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
+> index ebd7ccfeee99..d5c4b57123a9 100644
+> --- a/arch/arm64/kvm/nested.c
+> +++ b/arch/arm64/kvm/nested.c
+> @@ -1460,92 +1460,65 @@ static void handle_vncr_perm(struct kvm_vcpu *vcpu)
+>  	kvm_inject_nested_sync(vcpu, esr);
+>  }
+>  
+> -static bool kvm_vncr_tlb_lookup(struct kvm_vcpu *vcpu)
+> -{
+> -	struct vncr_tlb *vt = vcpu->arch.vncr_tlb;
+> -
+> -	lockdep_assert_held_read(&vcpu->kvm->mmu_lock);
+> -
+> -	if (!vt->valid)
+> -		return false;
+> -
+> -	if (read_vncr_el2(vcpu) != vt->gva)
+> -		return false;
+> -
+> -	if (vt->wr.nG)
+> -		return get_asid_by_regime(vcpu, TR_EL20) == vt->wr.asid;
+> -
+> -	return true;
+> -}
+> -
+>  int kvm_handle_vncr_abort(struct kvm_vcpu *vcpu)
+>  {
+>  	struct vncr_tlb *vt = vcpu->arch.vncr_tlb;
+>  	u64 esr = kvm_vcpu_get_esr(vcpu);
+> +	bool is_gmem, perm;
+> +	int ret;
+>  
+>  	WARN_ON_ONCE(!(esr & ESR_ELx_VNCR));
+>  
+>  	if (kvm_vcpu_abt_issea(vcpu))
+>  		return kvm_handle_guest_sea(vcpu);
+>  
+> -	if (esr_fsc_is_permission_fault(esr)) {
+> -		handle_vncr_perm(vcpu);
+> -	} else if (esr_fsc_is_translation_fault(esr)) {
+> -		bool valid, is_gmem = false;
+> -		int ret;
+> -
+> -		scoped_guard(read_lock, &vcpu->kvm->mmu_lock)
+> -			valid = kvm_vncr_tlb_lookup(vcpu);
+> -
+> -		if (!valid)
+> -			ret = kvm_translate_vncr(vcpu, &is_gmem);
+> -		else
+> -			ret = -EPERM;
+> +	if (!esr_fsc_is_translation_fault(esr) && !esr_fsc_is_permission_fault(esr)) {
+> +		WARN_ONCE(1, "Unhandled VNCR abort, ESR=%llx\n", esr);
+> +		return 1;
+> +	}
+>  
+> -		switch (ret) {
+> -		case -EAGAIN:
+> -			/* Let's try again... */
+> -			break;
+> -		case -ENOMEM:
+> -			/*
+> -			 * For guest_memfd, this indicates that it failed to
+> -			 * create a folio to back the memory. Inform userspace.
+> -			 */
+> -			if (is_gmem)
+> -				return 0;
+> -			/* Otherwise, let's try again... */
+> -			break;
+> -		case -EFAULT:
+> -		case -EIO:
+> -		case -EHWPOISON:
+> -			if (is_gmem)
+> -				return 0;
+> -			fallthrough;
+> -		case -EINVAL:
+> -		case -ENOENT:
+> -		case -EACCES:
+> -			/*
+> -			 * Translation failed, inject the corresponding
+> -			 * exception back to EL2.
+> -			 */
+> -			BUG_ON(!vt->wr.failed);
+> +	ret = kvm_translate_vncr(vcpu, &is_gmem);
+> +	switch (ret) {
+> +	case -EAGAIN:
+> +		/* Let's try again... */
+> +		break;
+> +	case -ENOMEM:
+> +		/*
+> +		 * For guest_memfd, this indicates that it failed to
+> +		 * create a folio to back the memory. Inform userspace.
+> +		 */
+> +		if (is_gmem)
+> +			return 0;
+> +		/* Otherwise, let's try again... */
+> +		break;
+> +	case -EFAULT:
+> +	case -EIO:
+> +	case -EHWPOISON:
+> +		if (is_gmem)
+> +			return 0;
+> +		fallthrough;
+> +	case -EINVAL:
+> +	case -ENOENT:
+> +	case -EACCES:
+> +		/*
+> +		 * Translation failed, inject the corresponding
+> +		 * exception back to EL2.
+> +		 */
+> +		BUG_ON(!vt->wr.failed);
 
-> For the remaining virtiofsd issue, does capping the local READDIR response
-> size in virtiofsd sound like the right direction? READDIR can return less
-> than requested, so treating MAX_BUFFER_SIZE as the maximum chunk to produce
-> seems preferable to rejecting an otherwise valid request.
+Maybe we can lose this BUG_ON(). We rely on it being correct anyway.
 
-Right.  The server has every right to return a short count on a
-READDIR request, so capping it at MAX_BUFFER_SIZE is fine.
+>  
+> -			esr &= ~ESR_ELx_FSC;
+> -			esr |= FIELD_PREP(ESR_ELx_FSC, vt->wr.fst);
+> +		esr &= ~ESR_ELx_FSC;
+> +		esr |= FIELD_PREP(ESR_ELx_FSC, vt->wr.fst);
+>  
+> -			kvm_inject_nested_sync(vcpu, esr);
+> -			break;
+> -		case -EPERM:
+> -			/* Hack to deal with POE until we get kernel support */
+> -			handle_vncr_perm(vcpu);
+> -			break;
+> -		case 0:
+> -			break;
+> -		}
+> -	} else {
+> -		WARN_ONCE(1, "Unhandled VNCR abort, ESR=%llx\n", esr);
+> +		kvm_inject_nested_sync(vcpu, esr);
+> +		break;
+> +	case 0:
+> +		break;
+>  	}
+>  
+> +	perm = kvm_is_write_fault(vcpu) ? vt->wr.pw && vt->hpa_writable : vt->wr.pr;
+> +	if (!perm)
+> +		handle_vncr_perm(vcpu);
+> +
 
-Thanks,
-Miklos
+Isn't there a problem here, where anything that doesn't perform an
+early return ends up evaluating the permissions, even if the
+translation has failed? My hunch is that you'd want something like
+this:
+
+diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
+index 736fdd6e99cdc..0cefc73d97199 100644
+--- a/arch/arm64/kvm/nested.c
++++ b/arch/arm64/kvm/nested.c
+@@ -1460,13 +1460,12 @@ int kvm_handle_vncr_abort(struct kvm_vcpu *vcpu)
+ 		kvm_inject_nested_sync(vcpu, esr);
+ 		break;
+ 	case 0:
++		perm = kvm_is_write_fault(vcpu) ? vt->wr.pw && vt->hpa_writable : vt->wr.pr;
++		if (!perm)
++			handle_vncr_perm(vcpu);
+ 		break;
+ 	}
+ 
+-	perm = kvm_is_write_fault(vcpu) ? vt->wr.pw && vt->hpa_writable : vt->wr.pr;
+-	if (!perm)
+-		handle_vncr_perm(vcpu);
+-
+ 	return 1;
+ }
+ 
+
+Thoughts?
+
+	M.
+
+-- 
+Without deviation from the norm, progress is not possible.
