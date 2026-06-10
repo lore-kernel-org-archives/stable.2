@@ -1,101 +1,151 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E7723FBB6D;
-	Wed, 10 Jun 2026 15:22:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54A76339863
+	for <stable@vger.kernel.org>; Wed, 10 Jun 2026 15:25:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781104970; cv=none; b=q+mwR6VJW+eHqzNJsHVipaAI0kG84tZ+C5WBPIrjxPXhlqw7TwP01uFrTB1n4CWJKj2GZsbGJtCHiL+RGlDwSQ2/CaQHUU41IIovBQtzZBsWMihyh12b+pdAt9a2tqa40F97g0sYlZJdgWAk3QuxOLdMJTUSms1qJerh7U9jPoA=
+	t=1781105116; cv=none; b=FiD4RlH414i9ZTFcWg5/W3lx26kVgKNK0ZgCd22kIaujGGagetGQ0qi1InDngHQ4jE+A6wUQqjZ50qxe2u9YuP5CcPnYIINGUeW8HMFD3G8u92u3qRkEqhUcAJk8sQTZ9FSM4s5iQGxTMCeRjhw6lFDI/1rb/WUOk93CO0l8tHA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781104970; c=relaxed/simple;
-	bh=tjeHCcfcc1UY7v3arJIJVfF5rvyuVca9pf1d2snOYPA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qIydCQmTCkZZte+RLZTw2SOaA5Gh2uoyP2OJ3TApwoS8bJuStBoZ36HwHq9FPFEPx5FO5YuL4o37kOVheMO0f6W4G4AmngrcTZmfuWVDnGyVXa2FibhS1TWhseey5aGP62/farWbBCnLiHU6LgKFwdaJqZNDmniVYCncbvlBzMs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FfEIWx9Z; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FfEIWx9Z"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CDEF1F00893;
-	Wed, 10 Jun 2026 15:22:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781104969;
-	bh=Ab5xwG2jSjoao/BonbPvT7rKuQKlAut599VCZh1ZndQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=FfEIWx9ZOcWLA9wYrVyv49Qlw7gnxLC5gwHAla+CCS1T82yJVp4OnZO2jZaXfbYSM
-	 pFmk1n6rESWI/3ldDs2X85kL+gvJLBp97smSVtyU+h/ERm9V+4DYKF5mTx6iVFqtSL
-	 wc5xM64sEfG9eCv9q/FqRpqybHXXBIKL1ACh/TPnAoC+sNM9d8euIz6KZ0cL/PW1/o
-	 yV9VMjGNQbjghO1Ij/tB3nF7KsJsj+x3rfuQ2Rn9jbG+nxk8XGN++cRFd96c+eojMP
-	 835K+sG0PgKQUuIVRI28LkofwlBZdaHhXqnEhiF3ZKb3p9TVQN0NRtOZMdZtikBHjL
-	 IVqA6l81p3XOg==
-Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
-	id 0A8FB1AC56C5; Wed, 10 Jun 2026 16:22:47 +0100 (BST)
-Date: Wed, 10 Jun 2026 16:22:47 +0100
-From: Mark Brown <broonie@kernel.org>
-To: =?iso-8859-1?Q?C=E1ssio?= Gabriel Monteiro Pires <cassiogabrielcontato@gmail.com>
-Cc: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>,
-	Daniel Baluta <daniel.baluta@nxp.com>,
-	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
-	Takashi Iwai <tiwai@suse.com>, Jaroslav Kysela <perex@perex.cz>,
-	sound-open-firmware@alsa-project.org, linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org, notify@kernel.org,
+	s=arc-20240116; t=1781105116; c=relaxed/simple;
+	bh=v7u71jwkOYiQoYQ7B+GW6PfAWcSeJ4JMh6NF19CcUXs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=AM3+7L+agxNO1bOsiNIc/sgov9FYODxjkqfsRbUt4JILoWRmYLWsAIjA+i92Hf18Z24gA0OvAuFF8CoQ3Mq6+wcFNiZFk8xFRlcCL5hfcYQmR6ObwUcp6a6gStIr446iKRk8UxQTeajH7z/+84QWmsry3onn6Ow+sE5R/AFgYmE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id C1C2375930;
+	Wed, 10 Jun 2026 15:25:12 +0000 (UTC)
+Authentication-Results: smtp-out2.suse.de;
+	none
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E399D779A9;
+	Wed, 10 Jun 2026 15:25:11 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 2ComNteBKWr3HwAAD6G6ig
+	(envelope-from <tzimmermann@suse.de>); Wed, 10 Jun 2026 15:25:11 +0000
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: mripard@kernel.org,
+	maarten.lankhorst@linux.intel.com,
+	airlied@redhat.com,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	admin@kodeit.net,
+	gargaditya08@proton.me,
+	paul@crapouillou.net,
+	jani.nikula@linux.intel.com,
+	mhklkml@zohomail.com,
+	zack.rusin@broadcom.com,
+	bcm-kernel-feedback-list@broadcom.com,
+	harry.wentland@amd.com,
+	sunpeng.li@amd.com,
+	siqueira@igalia.com,
+	alexander.deucher@amd.com,
+	rodrigo.vivi@intel.com,
+	joonas.lahtinen@linux.intel.com,
+	tursulin@ursulin.net,
+	javierm@redhat.com,
+	dmitry.osipenko@collabora.com,
+	gurchetansingh@chromium.org,
+	olvaffe@gmail.com
+Cc: dri-devel@lists.freedesktop.org,
+	linux-hyperv@vger.kernel.org,
+	intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org,
+	linux-mips@vger.kernel.org,
+	virtualization@lists.linux.dev,
+	amd-gfx@lists.freedesktop.org,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Zack Rusin <zackr@vmware.com>,
 	stable@vger.kernel.org
-Subject: Re: [PATCH] ASoC: SOF: topology: validate vendor array size before
- parsing
-Message-ID: <aimBR9VyYnK8CpBD@sirena.co.uk>
-References: <20260603-sof-topology-array-size-signed-v1-1-84f97879a4ef@gmail.com>
- <a14ebacf-2c2d-4de7-8404-05ae92d8ee83@gmail.com>
+Subject: [PATCH v5 01/15] drm/amd/display: Handle struct drm_plane_state.ignore_damage_clips
+Date: Wed, 10 Jun 2026 17:18:17 +0200
+Message-ID: <20260610152505.260172-2-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260610152505.260172-1-tzimmermann@suse.de>
+References: <20260610152505.260172-1-tzimmermann@suse.de>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="QxF6KMoWeVbyIr9v"
-Content-Disposition: inline
-In-Reply-To: <a14ebacf-2c2d-4de7-8404-05ae92d8ee83@gmail.com>
-X-Cookie: Leave no stone unturned.
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Pre-Result: action=no action;
+	module=replies;
+	Message is reply to one we originated
+X-Rspamd-Queue-Id: C1C2375930
+X-Spam-Flag: NO
+X-Spam-Score: -4.00
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Pre-Result: action=no action;
+	module=replies;
+	Message is reply to one we originated
+X-Spamd-Result: default: False [-4.00 / 50.00];
+	REPLY(-4.00)[]
 
+The mode-setting pipeline can disabled damage clippings for a commit
+by setting ignore_damage_clips in struct drm_plane_state. The commit
+will then do a full display update.
 
---QxF6KMoWeVbyIr9v
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Test the flag in DCN code and do a full update in DCN code if it has
+been set.
 
-On Wed, Jun 10, 2026 at 11:27:25AM -0300, C=E1ssio Gabriel Monteiro Pires w=
-rote:
+Commit 35ed38d58257 ("drm: Allow drivers to indicate the damage helpers
+to ignore damage clips") introduced ignore_damage_clips to selectively
+ignore damage clipping in certain framebuffer changes. This driver does
+not do that, but DRM's damage iterator will soon rely on the flag.
+Therefore supporting it here as well make sense for consistency.
 
-> Gentle ping on that fix.
-> Sorry for the noise.
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Fixes: 35ed38d58257 ("drm: Allow drivers to indicate the damage helpers to ignore damage clips")
+Cc: Javier Martinez Canillas <javierm@redhat.com>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Zack Rusin <zackr@vmware.com>
+Cc: dri-devel@lists.freedesktop.org
+Cc: <stable@vger.kernel.org> # v6.8+
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
-Please don't send content free pings and please allow a reasonable time
-for review.  People get busy, go on holiday, attend conferences and so=20
-on so unless there is some reason for urgency (like critical bug fixes)
-please allow at least a couple of weeks for review.  If there have been
-review comments then people may be waiting for those to be addressed.
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 0e20194e6662..4cbb27f65a0b 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -6614,8 +6614,8 @@ static void fill_dc_dirty_rects(struct drm_plane *plane,
+ {
+ 	struct dm_crtc_state *dm_crtc_state = to_dm_crtc_state(crtc_state);
+ 	struct rect *dirty_rects = flip_addrs->dirty_rects;
+-	u32 num_clips;
+-	struct drm_mode_rect *clips;
++	u32 num_clips = 0;
++	struct drm_mode_rect *clips = NULL;
+ 	bool bb_changed;
+ 	bool fb_changed;
+ 	u32 i = 0;
+@@ -6631,8 +6631,10 @@ static void fill_dc_dirty_rects(struct drm_plane *plane,
+ 	if (new_plane_state->rotation != DRM_MODE_ROTATE_0)
+ 		goto ffu;
+ 
+-	num_clips = drm_plane_get_damage_clips_count(new_plane_state);
+-	clips = drm_plane_get_damage_clips(new_plane_state);
++	if (!new_plane_state->ignore_damage_clips) {
++		num_clips = drm_plane_get_damage_clips_count(new_plane_state);
++		clips = drm_plane_get_damage_clips(new_plane_state);
++	}
+ 
+ 	if (num_clips && (!amdgpu_damage_clips || (amdgpu_damage_clips < 0 &&
+ 						   is_psr_su)))
+-- 
+2.54.0
 
-Sending content free pings adds to the mail volume (if they are seen at
-all) which is often the problem and since they can't be reviewed
-directly if something has gone wrong you'll have to resend the patches
-anyway, so sending again is generally a better approach though there are
-some other maintainers who like them - if in doubt look at how patches
-for the subsystem are normally handled.
-
---QxF6KMoWeVbyIr9v
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmopgUYACgkQJNaLcl1U
-h9B3UQf+KfaCYwYZ4YsgqMYqhUmQGFQv5AqYg1LzCxVg9+NsujKPWhEgRE+fFaU6
-8ABO4xT9LATXR6wYuc0A9QzON0GkUht7UGOjEzdQFMvygT0ZLb+TSQqlpqVyqL1j
-WwhkWSldc58ksDwUG7LbgWvRuz5AjeAzO32hXyxzOM07jvsDqfgHUsfQGJrGXxWi
-l6pgoBpgIM9380XURCw/QOCe2DDegdq7qDrp+zgDAQfY6X5xRTLymQew6CLx0uw/
-b2+r31e+CfIqskckhvw2nSyquuz0wrtSbHzdgfUklEVKoWsNkWxndZPgg5apv5Py
-2aWpDOejAxvAqiF+9/dnN7GMZBg3bg==
-=5Q9F
------END PGP SIGNATURE-----
-
---QxF6KMoWeVbyIr9v--
