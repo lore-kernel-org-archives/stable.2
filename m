@@ -1,125 +1,102 @@
-Received: from mail.sms-medipool.de (mail.sms-medipool.de [178.63.14.108])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0FAC175A6A;
-	Wed, 10 Jun 2026 17:58:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.63.14.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B603A3546E5
+	for <stable@vger.kernel.org>; Wed, 10 Jun 2026 17:59:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781114289; cv=none; b=ImcGJyYRJ14AjI2sYGMPagqlUBZYRyIgf155KuDs5I1QUHP88aFG2nKzKEs2VKQLPBa277U0/uE68qoAs1hhLu++7EtMBSpbkcRFaBTIpHxpWiMumsEjVa0UE9+KAl4Sl27OOsjwrBwB5WbF1KzmnUsnLpkzBYx8vsPvEJlm5As=
+	t=1781114343; cv=none; b=g73B/5KV3GI66Kuh0bNyh/9pUguWjljWTnHS+fweEle59SxbDwmRqqiEaZciAJfldia3rwcge8BKrcIC+0wYtE4aYpB3k6dfll92S4CUsWtBSSLmf2Llz56maRwKtbnUou+jT9pz3qkzMFQoB9hglriY9o00XhwMEJ6hT6arC/A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781114289; c=relaxed/simple;
-	bh=ihUlkXSiWA5fqy0pE0DcLIch1Zf7ZM2UeRQXu1e/d1g=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QlhW0lUi7EI3PpJDLBwyNYhRfvsF0pxm0pkxFiRsf78euot2PHfse5vTgU0Sud7QwLA7A4X0bvl7lDCAa33w9GSF7DIz7G/WZoK4u0Fz23m3mhWeEw7Yj6+Sotea3gXIFgMLpoH9sHtHb9bkx59lQN4H20TAdCGCMk0EoAm9Ldg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sms-medipool.de; spf=pass smtp.mailfrom=sms-medipool.de; dkim=pass (2048-bit key) header.d=sms-medipool.de header.i=@sms-medipool.de header.b=u+eNISFm; arc=none smtp.client-ip=178.63.14.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sms-medipool.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sms-medipool.de
+	s=arc-20240116; t=1781114343; c=relaxed/simple;
+	bh=rjDwk63GlpD6IcSyJ6iGWBTG0j4qGvoDZhdWCYjXdCo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=QBBWTsI8nweDX+2SQODrj6frfT9Qo95eZ5etWQZVU0nldfomaEtYtqdMv1kZTh5cVCRRNIW2njKl9xtnTI3VgOwFW0gmqIWnTe6ZGPWdOqFoF745Iwm8R9Uh1f4oWXTKFzeGnTWAhjBvMvmiMm81xwe9D9LWYpqDvWcI8nTLoaA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=eQdS6bnK; arc=none smtp.client-ip=209.85.214.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sms-medipool.de header.i=@sms-medipool.de header.b="u+eNISFm"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sms-medipool.de;
-	s=mail; t=1781113715;
-	bh=7CkiQSdVEazQZCCPmgIysSgNdiIAqqWLAFnaduLrUlg=;
-	h=From:To:Cc:Subject:Date:From;
-	b=u+eNISFmHGseP8N+lfeibs4IRYOJCPuvlX1FeO0BU6PbGObJFXmnV2mJwPYcNMuw3
-	 4pctoaVwys5K27CEBi6CQ80Bp6qhLLXEw40ZtrucMja7EZGwd1Io5ghMEsU9H5fyIv
-	 zAY+nnGh2cUIvoZ13e+lqL6VhFhlEf3Q9M2wFagLkcVhrY11PnKUmFjtRFle6f+ZnM
-	 yMRCEa3WPUDOpXHZ/FhQ5PN1uZIKHqObmgWlZHEESJ3OmDo+suaijYoYfWL5/YJY2n
-	 HIKJc6XGBmCF8xrwLJGF7otWSDL3rydezOV5/AicL9oLdMIgyavIAnQOpio/DaW4yJ
-	 YQyND8mkrVMfQ==
-Received: from mail.stoss-medica.de (mail.stoss-medica.de [213.147.17.40])
-	by mail.sms-medipool.de (Postfix) with ESMTPS id C8F3811D51;
-	Wed, 10 Jun 2026 19:48:35 +0200 (CEST)
-Received: from NUC16-Linux.sb.golima.de ([95.88.98.111])
-	by mail.stoss-medica.de (Kerio Connect 10.0.8 patch 2) with ESMTP;
-	Wed, 10 Jun 2026 19:48:34 +0200
-From: Alexander Kaplan <alexander.kaplan@sms-medipool.de>
-To: Takashi Iwai <tiwai@suse.com>,
-	linux-sound@vger.kernel.org
-Cc: Jaroslav Kysela <perex@perex.cz>,
-	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
-	stable@vger.kernel.org,
-	alexander.kaplan@sms-medipool.de
-Subject: [PATCH] ALSA: hda/hdmi: disable KAE for Intel Panther Lake
-Date: Wed, 10 Jun 2026 19:48:34 +0200
-Message-ID: <20260610174834.6301-1-alexander.kaplan@sms-medipool.de>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="eQdS6bnK"
+Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2bf22c18ad3so13315ad.0
+        for <stable@vger.kernel.org>; Wed, 10 Jun 2026 10:59:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1781114340; x=1781719140; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=aDcoxqooq3aEAqC8ohG0LuHtDb4TZolRXl4+Rn70IsU=;
+        b=eQdS6bnKf8OFjYdZWTGgi6/DB/Hk2p7zbEYwc/MsYJpMNpd5U/+hJIeUFJMhgboGdC
+         qIEibdadVSNL99aVgECMz5I666Z/PbQYqOi2NnWTsve9F2964/SBEquLWuJiSEjTgZQK
+         fC4FvZCzWIZPtiImHSf3QQvzaM72vUWxewuGI2j4GP1aQjoTtSRNPtEbLbdZ3qjLWaEW
+         0doAE+5G0hN30YpVfya2FQ/6/pNCRtxqQjgJ0hRRG/Cyn+SQzmAEiS/R8TwXkCT7WEtV
+         DnMXQ7eQxGfwQi+Sh+TiylbqIuI9t9Z2EUdnzzX0tGJfPv3dYpbyaoI0qG1556njWiIE
+         +Hyg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781114340; x=1781719140;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=aDcoxqooq3aEAqC8ohG0LuHtDb4TZolRXl4+Rn70IsU=;
+        b=cUgFFOY3JCLtmxs8X0l1bDvOdmmrawC5x9+xSxQnLm+KZcxLK4DJ2PVlu1mEww0zNK
+         4PN5Ee456tsfMwtRVC7Q7gIFIgz04a7y8gs2CrZxvzZkjP226Mw4yMm32N5c3DjvJWn5
+         6Ttq375B5TzJGclEGqWEEvVrgNlwcN6hYHgUYyakb9gt2LpEi8gDGDYDMFFCXdeSk5TM
+         W8RuSf6l9rDNaLfQxG4LkJ2SW1zXFIj2ufuJD82m/XaORcAeN4cBAX1xBXStSstvKCZR
+         SDqOQ15bQApXBNmUk2UwCiaaFLoekGcLta0CdDUpOOW0ywtjMQ2B4U1JA0hchIhHdeY0
+         JPbw==
+X-Forwarded-Encrypted: i=1; AFNElJ8YroP8Iz21BqZX5sC2+017ZIshGNxRJZbw2oBSCi6LK38cvZJsa0cTI0AlOh4XWlwRrkAh7yU=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxepWwt762TJTeVD9n+GcNv2TRAb3Z2GpCdC/tyG8EJeNwwD3hZ
+	8dsr4YOXvK1bKjAmvC8UXL3E8fR7HTkIyHg8uyZe3vFwj+ZFRk3iSmuFRfrSGKiLJA==
+X-Gm-Gg: Acq92OE1xMGuJFDqIhiXv0jiq0ny/KuNqm5rtskfYKpF9uBxottkVPRACfK/0WBvhMM
+	A5wLdfkMvXXOm44SW31gerAU1O1ePkv/LN9oBYYqy4NhvuYUUBYcNYA4JprVLLc8F9Yyd5cLreC
+	baceDXKsOLRR/cnK9/66pufbygqfu9PaeZVmbgXmeTv/IW5+aa1KEWwRvFMiJkhs+lM+Csymgtq
+	Cpx0FYfLjUKKrZ+VnHXPOU997areb8oPfK3XbX0u8HpFl3xenc/N0pWBkax7Irqo8YM4RtYfCJf
+	X1u8cfdbB1dIjhrYFA+lPUZONI6nGLz6P+48KQjGp0Ckc8YowhYnhy1vvhm7gxvfET8d+u6YCCT
+	99yMvKKuiV7tC6o4oMnJHt/OA4hXvCxT0v+I1SeQREiupnGLOrqCDxtMDxMs5wYhmeF5Y2DeF2K
+	mMfv57beCyRazyFSWSvnXuU8tz0SPhRQq3pcaCkg84Q91++e1tmbu41X+IMqgMQxc0kwcbVuimF
+	YTkFmjnAIXDM5NcHYYM+IQwd6uaGZRAizr6lACUiYlthYXHvnw7DwXY
+X-Received: by 2002:a17:902:e84e:b0:2bf:749:551 with SMTP id d9443c01a7336-2c2d93c9b9cmr564445ad.22.1781114339342;
+        Wed, 10 Jun 2026 10:58:59 -0700 (PDT)
+Received: from google.com (112.174.16.34.bc.googleusercontent.com. [34.16.174.112])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8428221a7e9sm33046676b3a.11.2026.06.10.10.58.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 10 Jun 2026 10:58:58 -0700 (PDT)
+Date: Wed, 10 Jun 2026 17:58:54 +0000
+From: Carlos Llamas <cmllamas@google.com>
+To: Sasha Levin <sashal@kernel.org>
+Cc: gregkh@linuxfoundation.org, stable@vger.kernel.org, khtsai@google.com,
+	patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+	raubcameo@gmail.com, andrzej.p@samsung.com, balbi@ti.com,
+	kyungmin.park@samsung.com, linux-usb@vger.kernel.org,
+	Jianqiang kang <jianqkang@sina.cn>
+Subject: Re: [PATCH 6.6.y] usb: gadget: f_ncm: Fix net_device lifecycle with
+ device_move
+Message-ID: <aiml3pDOjudjX71j@google.com>
+References: <20260608053636.2797024-1-jianqkang@sina.cn>
+ <20260608-stable-reply-0013@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260608-stable-reply-0013@kernel.org>
 
-On Panther Lake the keep-alive engine poisons the display side of the
-audio path for multichannel PCM.
-Once KAE has been active in the running display power cycle, the first
-6 or 8 channel stream on that pin plays silent and wedges the pin.
-All subsequent streams stay silent regardless of their format.
-Only a display power domain cycle recovers the pin, in practice a
-reboot or one suspend cycle.
+On Mon, Jun 08, 2026 at 08:51:59PM -0400, Sasha Levin wrote:
+> > [PATCH 6.6.y] usb: gadget: f_ncm: Fix net_device lifecycle with device_move
+> 
+> I can't take this one (6.6 or 6.1) on its own. ec35c1969650 alone opens a
+> userspace-reachable NULL deref in eth_get_drvinfo() that is later closed
+> upstream by e002e92e88e1 ("usb: gadget: u_ether: Fix NULL pointer deref in
+> eth_get_drvinfo"), so applying this commit by itself trades a UAF for a DoS.
+> 
+> Please send a complete backport that also includes e002e92e88e124 (as the
+> follow-up patch in the same series) for both 6.6.y and 6.1.y, and I'll queue
+> them together.
 
-The wedge sits behind the audio converter.
-Sample counters in the display audio register block keep running during
-the silent playback while the output stays dead.
-The wedge survives clearing the KAE bit ahead of the stream id
-programming, fully quiescing the converter (KAE bit, stream id and
-format cleared before the multichannel setup), a complete codec and
-controller reset through a driver rebind with the keep-alive kept off,
-and powering down the audio well for ten minutes.
-The sequence is harmless when the keep-alive was never enabled in the
-running display power cycle, which isolates the KAE hardware as the
-trigger.
+I just ran this patch plus a cherry-pick of e002e92e88e1 that you
+mentioned through Android's CI with no issues. Same goes with 6.1.y, so
+I can send Jianqiang's backports with the fix added to them.
 
-Easy reproducer on a sink whose LPCM capability is limited to
-2 channels:
-speaker-test -c2 plays, one speaker-test -c6 run plays silent and every
-following speaker-test -c2 stays silent until reboot.
-With enable_silent_stream=0 the same sequence plays normally.
-
-This is the failure class already known from commit 6ab6f98fcdc9
-("ALSA: hda/hdmi: disable KAE for Intel DG2").
-Handle Panther Lake like DG2 and fall back to the older i915 silent
-stream method, which uses the regular stream path instead of the
-keep-alive engine.
-Like on DG2 this keeps the codec powered while the silent stream runs.
-
-Cc: stable@vger.kernel.org
-Fixes: e9481d9b83f8 ("ALSA: hda: add HDMI codec ID for Intel PTL")
-Signed-off-by: Alexander Kaplan <alexander.kaplan@sms-medipool.de>
----
-Found and verified on an ASUS NUC 16 Pro (Panther Lake H, codec
-0x80862822) driving an LG TV through a Synaptics VMM7100 DP-to-HDMI
-protocol converter, kernel 7.1-rc7.
-The poisoning is independent of the sink and of the video mode.
-
-This may also fix the silent Dolby TrueHD passthrough on Battlemage
-reported in
-https://gitlab.freedesktop.org/drm/xe/kernel/-/issues/7515.
-Battlemage uses the same keep-alive code path and TrueHD passthrough
-is the same first-multichannel-stream pattern, but I could not test
-that hardware.
-
-Workaround for affected systems without this patch:
-snd_hda_codec_intelhdmi.enable_silent_stream=0.
-
- sound/hda/codecs/hdmi/intelhdmi.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/sound/hda/codecs/hdmi/intelhdmi.c b/sound/hda/codecs/hdmi/intelhdmi.c
-index 6a7882544a..52997caae9 100644
---- a/sound/hda/codecs/hdmi/intelhdmi.c
-+++ b/sound/hda/codecs/hdmi/intelhdmi.c
-@@ -791,7 +791,7 @@ static const struct hda_device_id snd_hda_id_intelhdmi[] = {
- 	HDA_CODEC_ID_MODEL(0x8086281e, "Battlemage HDMI",	MODEL_ADLP),
- 	HDA_CODEC_ID_MODEL(0x8086281f, "Raptor Lake P HDMI",	MODEL_ADLP),
- 	HDA_CODEC_ID_MODEL(0x80862820, "Lunar Lake HDMI",	MODEL_ADLP),
--	HDA_CODEC_ID_MODEL(0x80862822, "Panther Lake HDMI",	MODEL_ADLP),
-+	HDA_CODEC_ID_MODEL(0x80862822, "Panther Lake HDMI",	MODEL_TGL),
- 	HDA_CODEC_ID_MODEL(0x80862823, "Wildcat Lake HDMI",	MODEL_ADLP),
- 	HDA_CODEC_ID_MODEL(0x80862824, "Nova Lake HDMI",	MODEL_ADLP),
- 	HDA_CODEC_ID_MODEL(0x80862882, "Valleyview2 HDMI",	MODEL_BYT),
--- 
-2.54.0
-
-
+Cheers,
+--
+Carlos Llamas
