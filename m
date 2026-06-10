@@ -1,190 +1,90 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16CEB267B05
-	for <stable@vger.kernel.org>; Wed, 10 Jun 2026 14:15:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDE6033D4F8;
+	Wed, 10 Jun 2026 14:24:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781100959; cv=none; b=nVjEcZrV0Whyq+g7UBlQ9G3jwwVnDbS8roz8M/R86pdVDROdqfGgsoQ7baK4OosUMyrIPbA1zeABiRaQqwcfgMCrpoXKyeBnQQMPPhPkGfC0Prz7PAmFlqHibVSnBWkKocwRwTYYtn3bNFDiqLeNNisSNK+PILR4Hv2HoWbUfI8=
+	t=1781101462; cv=none; b=SmyFv55Vb/0R9gYn950OIciYsFefvTCU2cmp/wXT6UcW77QtkeSnZk07VkcXbanvK5SvNnZthUq3KX7jkEd1hik5yuPx88XaxJBPc0K3vIG7ycYNZbNgnuiyuzleQ6PuDK5GuzGzmIHI5kS3sajS6tNnfh10vq/nMxMjYuPEmfE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781100959; c=relaxed/simple;
-	bh=N7PWzNnZPrYUq3XrfcJIp98EH5hHx7N1LLN6Lkt380k=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=b3L1shWJFWq+ezHN2GqoWSPX0l29nCHw3dQRNydweFKa7kg0A22z0j/Cll9YBcMAokcYDLTeCQ4r8Wxr/7SUE/6eTw9j1Z2fuMpIGyaesiWH8b9a5rRlsEmPD1DOcfso5IrxVC1eOz1VUE2/dEKED4QraxuXn0IQLikXosTSeWA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Z0M/hvoI; arc=none smtp.client-ip=192.198.163.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1781101462; c=relaxed/simple;
+	bh=ElmB4OBBTwA6tWwN0Dtih6hAJROQmt0w7//QP93Mujc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=q1kVjFDFyJLOTovWa7P3J+Dk9z2gxWWEwre0y9LRTsBWiCUULS6IkA2BHXvLuPGvD+kE7q0CUmGnGRBxuYVB7Idf/5SVWnz2SL0Gd2MhV70Bi5I/I/2btT70owSyPmpegyGO+zCeutrhHEBmrIH9fN793ZbjxhPt7mtpAbpoVS8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oXv2rDp6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Z0M/hvoI"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1781100957; x=1812636957;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=N7PWzNnZPrYUq3XrfcJIp98EH5hHx7N1LLN6Lkt380k=;
-  b=Z0M/hvoIiOa4o0QS5RBfwq0HWPdbDllCPz2o6bRr+VJ4GtCtrfIqbxOe
-   bmTKc5FGtMnKLEJs8aPQ2MqeC2xZ7yXNIEdrzfsqQnYUemXu1v2P0mFcg
-   3rEglx9xV6gmZsdEE3Xp9yq+ewdlyjUT4e4XiLT9U9CFndCUB4+IkaUsT
-   emj48MDFZ9ccQpVyUcIDcyIcsRwaoLjho3LwtWKsWEg3gMPgzSViBSEUE
-   GuzuTojN0blb1iCqbWKGrf2plIOd0Xx8wpddXbPyX2Rg79NJiaUzkurou
-   8BC/cW46T58UA7LzIRzv4M+aGFLXS5myytPJdYK7xwdyxrRats8J6RMWH
-   g==;
-X-CSE-ConnectionGUID: bUlLRuy1SZazfOLEjOTFhw==
-X-CSE-MsgGUID: samGrzkFR9a51US/axI43w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11812"; a="81741051"
-X-IronPort-AV: E=Sophos;i="6.24,197,1774335600"; 
-   d="scan'208";a="81741051"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Jun 2026 07:15:57 -0700
-X-CSE-ConnectionGUID: 1W9VfwU0T96lfGI5pL++vw==
-X-CSE-MsgGUID: ElMRxXb/TtCTeXYE45LVtQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,197,1774335600"; 
-   d="scan'208";a="245333691"
-Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.244.3])
-  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Jun 2026 07:15:54 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: dri-devel@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org,
-	jani.nikula@intel.com,
-	Dave Airlie <airlied@redhat.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] drm/displayid: fix Tiled Display Topology ID size
-Date: Wed, 10 Jun 2026 17:15:49 +0300
-Message-ID: <20260610141549.555605-1-jani.nikula@intel.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oXv2rDp6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0AD881F00893;
+	Wed, 10 Jun 2026 14:24:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781101459;
+	bh=zakMQGUFyRqVPoEp0E3Q0J9UpH/xxjiw6cW9yl4lynY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=oXv2rDp6mwgsUADmkaDzIHMFZsojNRMh6BjhBC3xOqlQBt3ZjxLEtb+hZqHWoZDYy
+	 6Fx5NskM7U4NBReZtmjCVd8PMUOopflUnh/+8FubKOcRUuE8i6HzxMkst8uc/LYZp+
+	 Z6OjA59fQye/7xjrSPOAvII6RfBEWP8OheC7AI240AXWaxOtgUHn9eDINd0eyEF/t+
+	 HKaSWnHltspSukUCJdes9w3kB3w7KNK51QaRuEnlE8mWHLzT+MwlaN5DE5bL0c4umC
+	 93t6hU658/5enAQE8cZcjQquoD7ZSAREM+EZRKA991a1CjEvdScII232s7j/+BIqRY
+	 eO+JkdoQF4vHQ==
+Date: Wed, 10 Jun 2026 15:24:14 +0100
+From: Simon Horman <horms@kernel.org>
+To: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
+Cc: netdev@vger.kernel.org, "David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+	Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>,
+	Ao Wang <wangao@seu.edu.cn>, Xuewei Feng <fengxw06@126.com>,
+	Qi Li <qli01@tsinghua.edu.cn>, Ke Xu <xuke@tsinghua.edu.cn>
+Subject: Re: [PATCH net] fddi: validate skb length before parsing headers
+Message-ID: <20260610142414.GM3920875@horms.kernel.org>
+References: <20260607112408.92988-1-zhaoyz24@mails.tsinghua.edu.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260607112408.92988-1-zhaoyz24@mails.tsinghua.edu.cn>
 
-The Tiled Display Topology ID of a DisplayID Tiled Display Topology Data
-Block consists of three fields:
+On Sun, Jun 07, 2026 at 07:24:04PM +0800, Yizhou Zhao wrote:
+> fddi_type_trans() reads FDDI header fields from skb->data without first
+> checking that the received frame is long enough for those fields.
+> 
+> The destination address spans offsets 1-6 and the LLC dsap field is at
+> offset 13.  For SNAP frames, fddi->hdr.llc_snap.ethertype is at offsets
+> 19-20.  A truncated 15-byte frame with dsap != 0xe0 therefore enters the
+> SNAP branch and reads the ethertype past the end of the frame.
+> 
+> KASAN reports this when such a frame is processed through a dummy FDDI
+> netdev that calls the real fddi_type_trans() on an exact kmalloc() copy
+> of the frame:
+> 
+>   BUG: KASAN: slab-out-of-bounds in fddi_type_trans+0x385/0x3a0
+>   Read of size 2 at addr ffff888009c6fe33
+>   The buggy address is located 4 bytes to the right of
+>   allocated 15-byte region [ffff888009c6fe20, ffff888009c6fe2f)
+> 
+> Reject short frames before reading the fields: require the minimum 802.2
+> header length before accessing dsap or daddr, and require the full SNAP
+> header length before reading the SNAP ethertype.  Returning protocol 0
+> causes the malformed packet to be ignored by protocol handlers.
+> 
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Cc: stable@vger.kernel.org
+> Reported-by: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
+> Reported-by: Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>
+> Reported-by: Ao Wang <wangao@seu.edu.cn>
+> Reported-by: Xuewei Feng <fengxw06@126.com>
+> Reported-by: Qi Li <qli01@tsinghua.edu.cn>
+> Reported-by: Ke Xu <xuke@tsinghua.edu.cn>
+> Assisted-by: GLM:GLM-5.1
+> Signed-off-by: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
 
-- Tiled Display Manufacturer/Vendor ID Field (3 bytes)
-- Tiled Display Product ID Code Field (2 bytes)
-- Tiled Display Serial Number Field (4 bytes)
+I believe that drivers ensure that in practice packets hitting this path
+are linear, so checking skb->len is sufficient to protect against OOB
+reads.
 
-i.e. a total of 9 bytes, not 8.
-
-The DisplayID Tiled Display Topology ID is used as the tile group
-identifier.
-
-Update both struct displayid_tiled_block topology_id member and struct
-drm_tile_group group_data member to full 9 bytes.
-
-The group data was missing the last byte of the serial number. I don't
-know whether there are known bug reports that might be linked to this,
-but it's plausible the last byte could be the differentiating part for
-the tile groups, and fewer tile groups might have been created than
-intended.
-
-Fixes: b49b55bd4fba ("drm/displayid: add displayid defines and edid extension (v2)")
-Fixes: 138f9ebb9755 ("drm: add tile_group support. (v3)")
-Cc: Dave Airlie <airlied@redhat.com>
-Cc: <stable@vger.kernel.org> # v3.19+
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
----
- drivers/gpu/drm/drm_connector.c          | 12 ++++++------
- drivers/gpu/drm/drm_displayid_internal.h |  2 +-
- include/drm/drm_connector.h              |  6 +++---
- 3 files changed, 10 insertions(+), 10 deletions(-)
-
-diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-index cbb067d02cb9..95028483e0d1 100644
---- a/drivers/gpu/drm/drm_connector.c
-+++ b/drivers/gpu/drm/drm_connector.c
-@@ -3756,7 +3756,7 @@ EXPORT_SYMBOL(drm_mode_put_tile_group);
- /**
-  * drm_mode_get_tile_group - get a reference to an existing tile group
-  * @dev: DRM device
-- * @topology: 8-bytes unique per monitor.
-+ * @topology_id: 9-byte unique ID per monitor.
-  *
-  * Use the unique bytes to get a reference to an existing tile group.
-  *
-@@ -3764,14 +3764,14 @@ EXPORT_SYMBOL(drm_mode_put_tile_group);
-  * tile group or NULL if not found.
-  */
- struct drm_tile_group *drm_mode_get_tile_group(struct drm_device *dev,
--					       const char topology[8])
-+					       const char topology_id[9])
- {
- 	struct drm_tile_group *tg;
- 	int id;
- 
- 	mutex_lock(&dev->mode_config.idr_mutex);
- 	idr_for_each_entry(&dev->mode_config.tile_idr, tg, id) {
--		if (!memcmp(tg->group_data, topology, 8)) {
-+		if (!memcmp(tg->group_data, topology_id, sizeof(tg->group_data))) {
- 			if (!kref_get_unless_zero(&tg->refcount))
- 				tg = NULL;
- 			mutex_unlock(&dev->mode_config.idr_mutex);
-@@ -3786,7 +3786,7 @@ EXPORT_SYMBOL(drm_mode_get_tile_group);
- /**
-  * drm_mode_create_tile_group - create a tile group from a displayid description
-  * @dev: DRM device
-- * @topology: 8-bytes unique per monitor.
-+ * @topology_id: 9-byte unique ID per monitor.
-  *
-  * Create a tile group for the unique monitor, and get a unique
-  * identifier for the tile group.
-@@ -3795,7 +3795,7 @@ EXPORT_SYMBOL(drm_mode_get_tile_group);
-  * new tile group or NULL.
-  */
- struct drm_tile_group *drm_mode_create_tile_group(struct drm_device *dev,
--						  const char topology[8])
-+						  const char topology_id[9])
- {
- 	struct drm_tile_group *tg;
- 	int ret;
-@@ -3805,7 +3805,7 @@ struct drm_tile_group *drm_mode_create_tile_group(struct drm_device *dev,
- 		return NULL;
- 
- 	kref_init(&tg->refcount);
--	memcpy(tg->group_data, topology, 8);
-+	memcpy(tg->group_data, topology_id, sizeof(tg->group_data));
- 	tg->dev = dev;
- 
- 	mutex_lock(&dev->mode_config.idr_mutex);
-diff --git a/drivers/gpu/drm/drm_displayid_internal.h b/drivers/gpu/drm/drm_displayid_internal.h
-index 5b1b32f73516..4590d6a3d821 100644
---- a/drivers/gpu/drm/drm_displayid_internal.h
-+++ b/drivers/gpu/drm/drm_displayid_internal.h
-@@ -109,7 +109,7 @@ struct displayid_tiled_block {
- 	u8 topo[3];
- 	u8 tile_size[4];
- 	u8 tile_pixel_bezel[5];
--	u8 topology_id[8];
-+	u8 topology_id[9];
- } __packed;
- 
- struct displayid_detailed_timings_1 {
-diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-index 4317166562cf..d75deba31d93 100644
---- a/include/drm/drm_connector.h
-+++ b/include/drm/drm_connector.h
-@@ -2717,13 +2717,13 @@ struct drm_tile_group {
- 	struct kref refcount;
- 	struct drm_device *dev;
- 	int id;
--	u8 group_data[8];
-+	u8 group_data[9];
- };
- 
- struct drm_tile_group *drm_mode_create_tile_group(struct drm_device *dev,
--						  const char topology[8]);
-+						  const char topology_id[9]);
- struct drm_tile_group *drm_mode_get_tile_group(struct drm_device *dev,
--					       const char topology[8]);
-+					       const char topology_id[9]);
- void drm_mode_put_tile_group(struct drm_device *dev,
- 			     struct drm_tile_group *tg);
- 
--- 
-2.47.3
-
+Reviewed-by: Simon Horman <horms@kernel.org>
