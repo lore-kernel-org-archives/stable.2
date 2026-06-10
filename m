@@ -1,241 +1,110 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 025F53BAD89
-	for <stable@vger.kernel.org>; Wed, 10 Jun 2026 13:46:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3A5C408611;
+	Wed, 10 Jun 2026 13:47:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781099199; cv=none; b=Ybzek/AeSgRa8m7MJaEIOguoqcBIBw+IxqteERDJGJLeJ2dGWWW0PPP0+0CXbbrx8iaogufPfcJCoKUcuJuqmBC7/VOhS2jDsyvpthPIb8k0lmgtp1IHQsEusUO/Y719yqAURE8rL9qja4d+AORrexAlvtK07oBOH9kusF3bcdA=
+	t=1781099248; cv=none; b=AbeMfO9lJJxmcKogpsDTXT74iXKaQ4414r3/jjfAZ1XslEvK6C5yRAqacIwrhOyPch8dfAke9x78Y1cS36UP6i0G0+Bipv52rK5gbUDgD4U+K/P6Qez7wGG8uGEdcrR38sYDQDrVMTDiGxocTU/SIMRVgcUbDUnokA4AZJynRkI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781099199; c=relaxed/simple;
-	bh=du/J2Ego+TfUf3vrX+JTLF9wvpv7uPLlngt4qC0DUs8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kJPQH+jH5pT+K+mJ/m8mKTax7NaAgWVNz8Wma+IQ1XB/BrZlrdON231+P1uAgHi4FSOKbOOumlk8ljLCvYwmhYnRXwZFOTCWpHbXEukykXiTSnLqwK+1f+6mlIlnFwrmcsVQcrGf2dxZJVTJZLqXVbMNLZd5DAx5Wc6yw2VUDks=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=lAI30Qop; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1781099248; c=relaxed/simple;
+	bh=Ea83KZ783lvBj/Ret7iiyafUKqum0dPU67dCk61mhjY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Yu0dj5TJ54SJZN16NAvA8ZgwNbqhaoeHStp63wbZzWF+DJUiBFEpBtdtgLY1eFW3cBR037L/e5JfGKY+S4FZ7QtzBcwfh0ImmQlv3nLHnmZ8kvCjRkieVX7E6QSqcHENbdVU/gL2mdXSytrrUWj/dfr4tsichfR/YnIbkVIY26g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=lCWmSlmu; arc=none smtp.client-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="lAI30Qop"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 65CFB22C7;
-	Wed, 10 Jun 2026 06:46:31 -0700 (PDT)
-Received: from thinkpad-e142931.arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 2AA733FDBD;
-	Wed, 10 Jun 2026 06:46:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1781099196; bh=du/J2Ego+TfUf3vrX+JTLF9wvpv7uPLlngt4qC0DUs8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=lAI30QopLUATDRqusCMA/JOqXKKnPu+R80s0HG83askRavJOTU4Qdl5udmHsHJPIq
-	 MNjWnE89DJ2I+IRAxqSqcoJOQtl876Z38Jz5VxTr4MqzP1Win6ELVZlTLXdqScd0k2
-	 dy3P2dySjNR5xBEe6taMi2ULoI3bMJvnEg5q1sMk=
-Date: Wed, 10 Jun 2026 14:46:18 +0100
-From: Wei-Lin Chang <weilin.chang@arm.com>
-To: Oliver Upton <oupton@kernel.org>, kvmarm@lists.linux.dev
-Cc: Marc Zyngier <maz@kernel.org>, Joey Gouly <joey.gouly@arm.com>, 
-	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, stable@vger.kernel.org, 
-	Sashiko <sashiko-bot@kernel.org>
-Subject: Re: [PATCH RESEND v2 3/5] KVM: arm64: nv: Re-translate VNCR before
- injecting abort
-Message-ID: <yw6b7zx2qxjckkut4lzkuqekh2omttwmulvqbslk27wt3vu6mp@ostr7avq6a7e>
-References: <20260609185514.746507-1-oupton@kernel.org>
- <20260609185514.746507-4-oupton@kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="lCWmSlmu"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1781099245; x=1812635245;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=Ea83KZ783lvBj/Ret7iiyafUKqum0dPU67dCk61mhjY=;
+  b=lCWmSlmuK4N2/m++frQHPobyq1gNIRP4zqK2iKrJ0Ujw2P9w40kKev1j
+   VSvsXNvlhMOqMi5Nofbag2jqlY02Qt56+d4Qh0gY7VTVpEn8mIs/QK7vZ
+   siPY6q0GSBm5sKpEU+qx6i5PsIAzIJ4tzGBHe1hogmIdb/KK1iqzmy6C8
+   g989+BC7XMYLOQX0ut/RG8s6dLQY6kPv3CO+pX4Mfe62qMZQsI4/sGJ7X
+   od2CflHcapCYcrCn1jRFDyP0747URTTYKCXVj9xR3vP5C0ruiYNjlrzbj
+   qYrVtG8IuEUGISId7bvpIVt9N2JSjAaDuiY9DnYpRqTjFF6IyOQu4BGG5
+   g==;
+X-CSE-ConnectionGUID: JZikKhAqS4+l7zjr5qB7tA==
+X-CSE-MsgGUID: MdpBU5nCRfiNTvvSS4Pg6Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11812"; a="99310875"
+X-IronPort-AV: E=Sophos;i="6.24,197,1774335600"; 
+   d="scan'208";a="99310875"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Jun 2026 06:47:11 -0700
+X-CSE-ConnectionGUID: Zb7UsNwFTTWnTi4lQ2t5Vw==
+X-CSE-MsgGUID: Gq7jy467Qe6bSp5splVdOQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,197,1774335600"; 
+   d="scan'208";a="245043000"
+Received: from krybak-mobl1.ger.corp.intel.com (HELO [10.245.246.32]) ([10.245.246.32])
+  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Jun 2026 06:47:02 -0700
+Message-ID: <ce9b7fa1-1c39-47a3-bad0-a4ab18e415e6@linux.intel.com>
+Date: Wed, 10 Jun 2026 16:47:06 +0300
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260609185514.746507-4-oupton@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] ASoC: SOF: topology: fix memory leak in
+ snd_sof_load_topology
+To: Zhao Dongdong <winter91@foxmail.com>, lgirdwood@gmail.com,
+ daniel.baluta@nxp.com
+Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Zhao Dongdong <zhaodongdong@kylinos.cn>, stable@vger.kernel.org
+References: <tencent_3EED6D778DC52C3703A2D1EE8119372E8E08@qq.com>
+Content-Language: en-US
+From: =?UTF-8?Q?P=C3=A9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>
+In-Reply-To: <tencent_3EED6D778DC52C3703A2D1EE8119372E8E08@qq.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Oliver and Marc,
 
-On Tue, Jun 09, 2026 at 11:55:12AM -0700, Oliver Upton wrote:
-> KVM faults in the VNCR page with FOLL_WRITE whenver the guest aborts for
-> a write, similar to how a regular stage-2 mapping is handled. It is
-> entirely possible that the guest reads from the VNCR before writing to
-> it, in which case the PFN could only be read-only.
+
+On 10/06/2026 10:20, Zhao Dongdong wrote:
+> From: Zhao Dongdong <zhaodongdong@kylinos.cn>
 > 
-> Invalidate the VNCR TLB and re-fetch the translation upon taking a VNCR
-> abort, allowing the host mapping to be faulted in for write the second
-> time around. Interestingly enough, this also satisfies the ordering
-> requirements of FEAT_ETS2/3 between descriptor updates and MMU faults.
+> When the topology filename contains "dummy" and tplg_cnt is 0, the
+> function returns -EINVAL directly without freeing the tplg_files
+> allocated by kcalloc() at line 2497. This leaks memory on every
+> such topology load attempt.
 > 
+> Fix this by setting ret = -EINVAL and jumping to the out: label,
+> which already handles the kfree(tplg_files) cleanup.
+> 
+> Fixes: 99c159279c6d ("ASoC: SOF: don't check the existence of dummy topology")
 > Cc: stable@vger.kernel.org
-> Fixes: 2a359e072596 ("KVM: arm64: nv: Handle mapping of VNCR_EL2 at EL2")
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Signed-off-by: Oliver Upton <oupton@kernel.org>
+> Signed-off-by: Zhao Dongdong <zhaodongdong@kylinos.cn>
+
+Acked-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+
 > ---
->  arch/arm64/kvm/nested.c | 115 +++++++++++++++-------------------------
->  1 file changed, 44 insertions(+), 71 deletions(-)
+> v2: add kfree(tplg_files) before the return
+> v1: https://lore.kernel.org/all/tencent_D87B6446BC0B517BEF9D4731C6CD8B288206@qq.com/
+> ---
+>  sound/soc/sof/topology.c | 2 ++
+>  1 file changed, 2 insertions(+)
 > 
-> diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
-> index ebd7ccfeee99..d5c4b57123a9 100644
-> --- a/arch/arm64/kvm/nested.c
-> +++ b/arch/arm64/kvm/nested.c
-> @@ -1460,92 +1460,65 @@ static void handle_vncr_perm(struct kvm_vcpu *vcpu)
->  	kvm_inject_nested_sync(vcpu, esr);
->  }
->  
-> -static bool kvm_vncr_tlb_lookup(struct kvm_vcpu *vcpu)
-> -{
-> -	struct vncr_tlb *vt = vcpu->arch.vncr_tlb;
-> -
-> -	lockdep_assert_held_read(&vcpu->kvm->mmu_lock);
-> -
-> -	if (!vt->valid)
-> -		return false;
-> -
-> -	if (read_vncr_el2(vcpu) != vt->gva)
-> -		return false;
-> -
-> -	if (vt->wr.nG)
-> -		return get_asid_by_regime(vcpu, TR_EL20) == vt->wr.asid;
-> -
-> -	return true;
-> -}
-> -
->  int kvm_handle_vncr_abort(struct kvm_vcpu *vcpu)
->  {
->  	struct vncr_tlb *vt = vcpu->arch.vncr_tlb;
->  	u64 esr = kvm_vcpu_get_esr(vcpu);
-> +	bool is_gmem, perm;
-> +	int ret;
->  
->  	WARN_ON_ONCE(!(esr & ESR_ELx_VNCR));
->  
->  	if (kvm_vcpu_abt_issea(vcpu))
->  		return kvm_handle_guest_sea(vcpu);
->  
-> -	if (esr_fsc_is_permission_fault(esr)) {
-> -		handle_vncr_perm(vcpu);
-> -	} else if (esr_fsc_is_translation_fault(esr)) {
-> -		bool valid, is_gmem = false;
-> -		int ret;
-> -
-> -		scoped_guard(read_lock, &vcpu->kvm->mmu_lock)
-> -			valid = kvm_vncr_tlb_lookup(vcpu);
-> -
-> -		if (!valid)
-> -			ret = kvm_translate_vncr(vcpu, &is_gmem);
-> -		else
-> -			ret = -EPERM;
-> +	if (!esr_fsc_is_translation_fault(esr) && !esr_fsc_is_permission_fault(esr)) {
-> +		WARN_ONCE(1, "Unhandled VNCR abort, ESR=%llx\n", esr);
-> +		return 1;
-> +	}
->  
-> -		switch (ret) {
-> -		case -EAGAIN:
-> -			/* Let's try again... */
-> -			break;
-> -		case -ENOMEM:
-> -			/*
-> -			 * For guest_memfd, this indicates that it failed to
-> -			 * create a folio to back the memory. Inform userspace.
-> -			 */
-> -			if (is_gmem)
-> -				return 0;
-> -			/* Otherwise, let's try again... */
-> -			break;
-> -		case -EFAULT:
-> -		case -EIO:
-> -		case -EHWPOISON:
-> -			if (is_gmem)
-> -				return 0;
-> -			fallthrough;
-> -		case -EINVAL:
-> -		case -ENOENT:
-> -		case -EACCES:
-> -			/*
-> -			 * Translation failed, inject the corresponding
-> -			 * exception back to EL2.
-> -			 */
-> -			BUG_ON(!vt->wr.failed);
-> +	ret = kvm_translate_vncr(vcpu, &is_gmem);
-> +	switch (ret) {
-> +	case -EAGAIN:
-> +		/* Let's try again... */
-> +		break;
-> +	case -ENOMEM:
-> +		/*
-> +		 * For guest_memfd, this indicates that it failed to
-> +		 * create a folio to back the memory. Inform userspace.
-> +		 */
-> +		if (is_gmem)
-> +			return 0;
-> +		/* Otherwise, let's try again... */
-> +		break;
-> +	case -EFAULT:
-> +	case -EIO:
-> +	case -EHWPOISON:
-> +		if (is_gmem)
-> +			return 0;
-> +		fallthrough;
-> +	case -EINVAL:
-> +	case -ENOENT:
-> +	case -EACCES:
-> +		/*
-> +		 * Translation failed, inject the corresponding
-> +		 * exception back to EL2.
-> +		 */
-> +		BUG_ON(!vt->wr.failed);
->  
-> -			esr &= ~ESR_ELx_FSC;
-> -			esr |= FIELD_PREP(ESR_ELx_FSC, vt->wr.fst);
-> +		esr &= ~ESR_ELx_FSC;
-> +		esr |= FIELD_PREP(ESR_ELx_FSC, vt->wr.fst);
->  
-> -			kvm_inject_nested_sync(vcpu, esr);
-> -			break;
-> -		case -EPERM:
-> -			/* Hack to deal with POE until we get kernel support */
-> -			handle_vncr_perm(vcpu);
-> -			break;
-> -		case 0:
-> -			break;
-> -		}
-> -	} else {
-> -		WARN_ONCE(1, "Unhandled VNCR abort, ESR=%llx\n", esr);
-> +		kvm_inject_nested_sync(vcpu, esr);
-> +		break;
-> +	case 0:
-> +		break;
->  	}
->  
-> +	perm = kvm_is_write_fault(vcpu) ? vt->wr.pw && vt->hpa_writable : vt->wr.pr;
-> +	if (!perm)
-> +		handle_vncr_perm(vcpu);
+> diff --git a/sound/soc/sof/topology.c b/sound/soc/sof/topology.c
+> index 63d582c65891..a368e257c459 100644
+> --- a/sound/soc/sof/topology.c
+> +++ b/sound/soc/sof/topology.c
+> @@ -2534,6 +2534,8 @@ int snd_sof_load_topology(struct snd_soc_component *scomp, const char *file)
+>  		if (strstr(file, "dummy")) {
+>  			dev_err(scomp->dev,
+>  				"Function topology is required, please upgrade sof-firmware\n");
 > +
->  	return 1;
->  }
+> +			kfree(tplg_files);
+>  			return -EINVAL;
+>  		}
+>  		tplg_files[0] = file;
 
-Just a comment using this thread:
+-- 
+Péter
 
-While reading this, I found this part of the code (not this patch in
-particular) a little bit difficult to reason about. I think it's because
-kvm_translate_vncr() is doing many things, and there are multiple
-potential failure reasons e.g. s1 walk fault, no memslot, gmem/user mem
-faultin errors, MMU notifier check, etc., and they are all mux'ed into
-an error code with some context visible by the caller.
-
-So in kvm_handle_vncr_abort() we demux the error code and handle the
-errors with the help of the context (vt, is_gmem). We essentially have
-to keep track of what error codes correspond to what error reasons.
-
-Do you think it is better if we refactor and handle the errors when they
-occur? Like inject the exception back to vEL2 right after getting the
-results of __kvm_translate_va(), and finish up the abort handling there.
-Same for other cases.
-
-I can try it out and make it concrete if you also think this is
-reasonable. Probably after this series gets applied when the comments
-from Marc & Sashiko are addressed. (I reviewed and don't have additional
-comments though.)
-
-Thanks,
-Wei-Lin Chang
-
->  
-> -- 
-> 2.47.3
-> 
