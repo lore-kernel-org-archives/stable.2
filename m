@@ -1,115 +1,171 @@
-Received: from mail-yx1-f45.google.com (mail-yx1-f45.google.com [74.125.224.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39092340411
-	for <stable@vger.kernel.org>; Wed, 10 Jun 2026 17:32:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.45
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781112758; cv=pass; b=fRSIEr+IvEZ5mk1JefSxGKpsjXQxNbr7o/ZANURpADUc0YIzMLX87xyDwb9vt7M/tzG3ALaiQ8OGvY/37YqinAgOua+uhqw8RAO6Jq4ge6IPRS17f//QCXkPB+XmToDNe9RoHoquOoDr7Pc6CkYEgo+FNUNolZdmXkFGq89bIXQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781112758; c=relaxed/simple;
-	bh=pv27nD72m+0lU+Zg8Sfz05ZN+Nn05pr71ShMvkiRWec=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=niSvW0ftxJeBQiUpjcn+q+IygrDA56E+t6fS3b+bIW2lnBvYLoLnUBrVr2NO9Xwz6VpsMotpI+/Z9TCjvny2FnlyVye1JdJFLlClqKFmkDcUqJW/Y7zTvz8+82R+32Eqziy7dx2XJxGygcmFD+H733r7eFT2NSKn4XxOUQrFsOE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KP7Dn7GQ; arc=pass smtp.client-ip=74.125.224.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 814EB339847
+	for <stable@vger.kernel.org>; Wed, 10 Jun 2026 17:34:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781112859; cv=none; b=P6OsMxn1wuJxy4k6YijLDmveWSb1WDPfFMhQZphDW4D2qNNlVkQSzq4+0AXsF0QnWnu077bTFB0ZWt7r9OqzlLk6W6TUjD2kSSwB44uMY3kQQG0nE4YwFdUbO8RyAJypSXlwX0zA6nrgtWUIz+w1DsFfIXd7dhXu9FHOkCzshyQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781112859; c=relaxed/simple;
+	bh=hvqgbsrBRXUaMJphi0xOHdhb/O3o5jtTUlIvVUaKvR4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=uiRG3QPd1QE74g8P7gdthYDCD6ivjIk4jCkbMuTQLSDQQ5OoYu1qNtWd3GOACwLKNSbXaoWZ3FzAiSwT2Mjhv0Jl9+mmWJOu0paHEFvTIKZfxsOu38JTkp08gdxmwmm0CzUzPxDyLV8NE8MMnRApVTlqh3L8dmftqDP5ToB88AY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=aZRCIsvZ; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KP7Dn7GQ"
-Received: by mail-yx1-f45.google.com with SMTP id 956f58d0204a3-6606d5900dbso2756354d50.2
-        for <stable@vger.kernel.org>; Wed, 10 Jun 2026 10:32:37 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781112756; cv=none;
-        d=google.com; s=arc-20240605;
-        b=h2PnaP5QIfkvmxn1p01UmebZ31nu4pDofUhi+imJnqH2wbPsVYImUj02iXuSlehPGo
-         LhGP3810cisAySHCylAo++xlLF90OV9tjlgc9/IXkQ2zl+3ZhrnEpMsVy8aftNfGjMLQ
-         gifzpWelXO26ILMzSltjq/2RD9sxl3FhI7rp1UXe72WwxUL+5QDtZKfPm3u0gTbXYRmx
-         WO4jGy2Eb53xJmPMDGc75O4cNVg52RqEYyABGyKVUf6nRHH1aHSvU5/qSXb2ttQp2w9Q
-         6iujqPwPnWw3owFkoMn5DNYCQdGqIkWF+mwe6mYzLvL4zvvDBeSCauw6YWosPvFGxOe+
-         c2iw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=TwPccAVt1qmj9UT4eXbvYpUbw68SGsfYYMuRUSdO1Mw=;
-        fh=JQKIzIx3CuGvxnVpqT8nvOZT+vrAAdq/0DauXgCf28k=;
-        b=dQMPCOpFHkHHgP5pyLh/0j3ODWMWutH45wshGbF8jfwtJtyIt9BTQHtUnSZQo4XI3Z
-         qsmRDoa4iUbC6t+q1UCATzCJZBVrQrFiya++yFLwujZjpZVVYsaTMyYjcCbBGc05fDMC
-         0Jtw4pE66YclWBG5Woyo26P5rSqEAQbzQuVf+Kt9p0O1VNRYWIsl70snGVeViCsAypdV
-         DeM7CwbG5Xa+vgjrTK+pZxvESXHrzxDuInlaW7aMYEovglwM/GjkDq09CF1FEYkdeshO
-         h0Dg+vhlGy5BnwqvgtwLLGvEQHN+6fonj6E2efoI667kjDBWVKf/A6zAnuXwHVNbcCBr
-         FqJw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781112756; x=1781717556; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=TwPccAVt1qmj9UT4eXbvYpUbw68SGsfYYMuRUSdO1Mw=;
-        b=KP7Dn7GQBNvb471v+u4CUHwOVL5SvkytqQzQ7g6dm7yTO6JGqxI95SdH5pS2+P8HW/
-         kE/Pu26RsRA5Gudt+TtWrBANl/gqH7E5hhy2tiFS/vOLkCdww4mMtOchzTSiq/zd7YaQ
-         rTe/PebNxpzavdzds/3A2j4caXPCgRzexSiia1vGnmv0EsfOERiGEvfAQBVknXfVF82t
-         zWE0OS9LOJBpAIeXu3QEczdsfvBQ1oIBXHc0QLKHxUm1mTMW/KYMZkCudsPegrtGwPUL
-         FGk8I1q0j3+F3GPT5oEfpdLS5f4YObwvXCBxTJxeMN7XzNyOXUiLZp8cVQXczDGMA89z
-         +a5g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781112756; x=1781717556;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=TwPccAVt1qmj9UT4eXbvYpUbw68SGsfYYMuRUSdO1Mw=;
-        b=RuM3m3GvQxIHd9IiN/Zs2fn2W6w+uomQ1JhShH+0yRHtYiG/AOaJFyB4A12dzhp4jI
-         0jkKhnRMSbrNFQT40e7DnZJIt8BxUj+xLQbn+rg6uS0sVRk2+KVMFTUgKXJZRu56qYGG
-         zDv0Eknuebb57k+oF3FQJEk0eB2tXpqib8QoTfKJZT7l42f/DeImVbokkLE6fRelq/uI
-         7s5PHsHvNtHeaVCvsrkxXM4V8bnVncbkgddSMTk6Gnit5d71sWaEF/CY8BwxjrcgH0oK
-         qLubUD4PjDoi/K6ufLDFFYDbQJhETSnxlxUx5MwrkGwQdiz+/FOQS9bXb6wj7TItn1Z/
-         3RnA==
-X-Forwarded-Encrypted: i=1; AFNElJ/XN5sqB931NeX296xsQxxqZyObECX2yBQvv8RKDJug7ory/SIb2btWxqlZrgw68sc9ZYkCUmI=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzSNS542noFL79jqeNWf53jt9MYKo6HT6GsDSuhuI9hQab1xLFv
-	EB4sGv9bR47nAPDMSGuCCAs62HHzaqrGue21ta9z27gYlNkpuzjUAiOYpLhMmWsA0SJ2XD43Sq2
-	qTfRmdV7XEVF3AMQ9fuNmZQAtMfMsJM8=
-X-Gm-Gg: Acq92OEHsejBYvCfcXhVTXJ5K+UcmRBFsVSnJJnm9CJ0JHw4UeM/99M4gLdNcYDaqPl
-	LgptSVefya2ONjMAQ4Ldcngn0W/yRJ32w74U4xjQl3clbuITqCtW1kGL4c8QaJnWwSbc0RLTyGk
-	w6s4ApxJ7KRfD2DwQcrSvdcwpUMEDMd/UmEyeJCDRXGwcFw3T7p/ZffU7GyUoULB2ntKWMChk4l
-	V7oIZ8AUtag4m1sVX0tkhRpvLLcy5+T/9k2/5gMdfCGY3BmXBXXUsMazgBCboYVURbrCox9jPKR
-	6CtKi3TaGHoz0kpJ/vowx/tKgfCSlyf6+cc9loiJJh1B8+g=
-X-Received: by 2002:a05:690e:d45:b0:652:ddea:1679 with SMTP id
- 956f58d0204a3-6626582c171mr122992d50.16.1781112756029; Wed, 10 Jun 2026
- 10:32:36 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="aZRCIsvZ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1781112857;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=u5lOfnqz6cdvQq+455ibVbtGRpcoEQAcIdcUZsugK+8=;
+	b=aZRCIsvZ15Ln8TvZOu6CkkWM5Aw54JHAYOKvolmRa7VR/xbHrNHyl3ch/IpPZrH84SnDni
+	bFQDq7j4enzx0KorqWHbj0JzhxLh7JBR2nfjcLQXcJa6C4S6R2TodAvsHXR5Cn1ZT8P64/
+	le1T5GpiK/F3YR4qMCWGXEFFKbzKM9A=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-49-bvmQV3fVPWK-8eCh33Dk7w-1; Wed,
+ 10 Jun 2026 13:34:13 -0400
+X-MC-Unique: bvmQV3fVPWK-8eCh33Dk7w-1
+X-Mimecast-MFC-AGG-ID: bvmQV3fVPWK-8eCh33Dk7w_1781112851
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id E380D1964CE4;
+	Wed, 10 Jun 2026 17:34:10 +0000 (UTC)
+Received: from bfoster (unknown [10.22.80.93])
+	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 8AE271800586;
+	Wed, 10 Jun 2026 17:34:08 +0000 (UTC)
+Date: Wed, 10 Jun 2026 13:34:06 -0400
+From: Brian Foster <bfoster@redhat.com>
+To: Gregg Leventhal <gleventhal@janestreet.com>
+Cc: Eric Hagberg <ehagberg@janestreet.com>, hch@infradead.org,
+	djwong@kernel.org, linux-xfs@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org, io-uring@vger.kernel.org,
+	Jens Axboe <axboe@kernel.dk>, stable@vger.kernel.org
+Subject: Re: [BUG] iomap/io_uring: O_APPEND async buffered write silently
+ re-appends a data chunk (corruption) on XFS, 6.1.y/6.12.y
+Message-ID: <aimgDnzB_NYqOTx1@bfoster>
+References: <CAFN_u7FrgM4Dzie2jjkLwWV8P0dvUG_Wwy3Q9B3-2HnnWiDu8w@mail.gmail.com>
+ <aiLxe-9Sub8cI3Py@bfoster>
+ <aibns0xP6IVVNWh3@bfoster>
+ <CAAH4uRB+Bh9UEVEW8Sb2yM4YhB-Q5UJ6KJJXari3DDF3n3S+-g@mail.gmail.com>
+ <aig9Vm2a_13bPc5G@bfoster>
+ <CAFN_u7ELBj3YKncm6HA4-QUNyi-a3qPDEYxuLP+skVhm-r87uw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260610114120.3748526-1-michael.bommarito@gmail.com> <CABPRKS_HbtV5vWx5nHT9rwJV4TGmOPj670yUuLK-Hd-r6TBF1g@mail.gmail.com>
-In-Reply-To: <CABPRKS_HbtV5vWx5nHT9rwJV4TGmOPj670yUuLK-Hd-r6TBF1g@mail.gmail.com>
-From: Michael Bommarito <michael.bommarito@gmail.com>
-Date: Wed, 10 Jun 2026 13:32:24 -0400
-X-Gm-Features: AVVi8CcXqdpLUnD172xmFbgGPxwwTP7xSfHNWUNfDHYPtVKWYaJD2heVrYF3UV4
-Message-ID: <CAJJ9bXxMvSfzttjiRATN1vkVP9-RyyH-P6O4yMwVJGcpZVOCFg@mail.gmail.com>
-Subject: Re: [PATCH] scsi: lpfc: bound RPL ACC payload size to the response structure
-To: Justin Tee <justintee8345@gmail.com>
-Cc: Justin Tee <justin.tee@broadcom.com>, 
-	"James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>, 
-	"Martin K . Petersen" <martin.petersen@oracle.com>, Paul Ely <paul.ely@broadcom.com>, 
-	linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAFN_u7ELBj3YKncm6HA4-QUNyi-a3qPDEYxuLP+skVhm-r87uw@mail.gmail.com>
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
-On Wed, Jun 10, 2026 at 1:29=E2=80=AFPM Justin Tee <justintee8345@gmail.com=
-> wrote:
-> Thanks for bringing this to attention.  The RPL ELS command has been
-> obsoleted from Fibre Channel specifications since FC-LS-2, and there
-> are current plans to remove RPL ELS handling routines from the lpfc
-> driver entirely.  Therefore, the issue this patch is trying to address
-> will no longer exist by the next lpfc version update.
+On Tue, Jun 09, 2026 at 01:14:40PM -0400, Gregg Leventhal wrote:
+> I reproduce it by running 25 ~ concurrent instances of the attached reproducer,
+> each writing its own file, on an otherwise-idle 15 GB VM:
+> 
+>   DIR=$(mktemp -d /tmp/uring.XXXXXX)
+>   for i in {1..25}; do
+>       ./repro_uring_dup "$DIR/file_$i" 120 48 &
+>   done
+> ...
+> *** CORRUPTION DETECTED in /tmp/UmgK/file_17.1 ***
+>   bytes kernel said it wrote (sum of CQE results): 53621960
+>   actual file size:                                56218824
+>   extra (duplicated) bytes:                        2596864
+>   first mismatching offset: 6791168 (0x67a000)  page_aligned=YES
+>     expected u64 848896 but found 524288 (content from byte offset
+> 4194304 reappeared here)
+>   (file kept for inspection)
+> 
+> 
+> 
+>   wait
+> 
+> *** CORRUPTION DETECTED in /tmp/Gznx/file_18.2 ***
+>   bytes kernel said it wrote (sum of CQE results): 58112616
+>   actual file size:                                60303976
+>   extra (duplicated) bytes:                        2191360
+>   first mismatching offset: 2191360 (0x217000)  page_aligned=YES
+>     expected u64 273920 but found 0 (content from byte offset 0 reappeared here)
+>   (file kept for inspection)
+> 
 
-Glad to hear!
+Thanks. I had to bump up the concurrency a bit and then was able to
+reproduce.
 
-Will you be sending the refactor through stable@ to backport too?  I'm
-not sure how this works if there might be reasons to backport but
-obviously next+ are safe
+The patch I sent survived my regression testing but when taking another
+look at the upstream patch, I realized something else I had previously
+missed. The code in master doesn't actually return -EAGAIN directly
+along with partial completion. It just returns the partial completion,
+loops again in iomap, and then presumably returns -EAGAIN at that point
+which makes its way back to io_uring. I think that is mostly harmless
+but technically a bug in the upstream patch as the intent was to be able
+to advance the iter, return -EAGAIN, and let the operation unwind from
+there.
 
-Thanks,
-Mike
+I think this actually leaves at least a couple options here. One is that
+we could presumably just do the same thing on stable as current master:
+forget the flag and just remove the iov revert and direct -EAGAIN return
+at the cost of one more iter before returning to the caller. Another is
+to fix up the code in master and use the patch I posted as a customized
+stable backport of that.
+
+WRT the latter I suppose we could also just stick with this patch for
+stable and I can follow up with a separate patch for the loop thing on
+master. Hmm.. I want to think about it a little more so if any iomap
+folks have Opinions in the meantime, let me know.
+
+Brian
+
+> 
+> On Tue, Jun 9, 2026 at 12:20 PM Brian Foster <bfoster@redhat.com> wrote:
+> >
+> > On Mon, Jun 08, 2026 at 01:17:10PM -0400, Eric Hagberg wrote:
+> > > On Mon, Jun 8, 2026 at 12:03 PM Brian Foster <bfoster@redhat.com> wrote:
+> > > > Another idea that came to mind is to try and just replace the -EAGAIN
+> > > > return sequence from the low level iterator with a flag that triggers
+> > > > -EAGAIN from the next iter advance. The idea here is to allow the write
+> > > > to return partial completion (i.e. so no iov_iter revert) without having
+> > > > to return an error from the lowest level in the stack. I had claude come
+> > > > up with a quick patch [1] for reference/experimentation.
+> > > >
+> > > > This is based on v6.12 stable and compile tested only. It needs more
+> > > > review and testing in general but might be worth throwing your
+> > > > reproducer at if you can..?
+> > >
+> > > With that patch applied, the reproducer runs clean - no errors - and
+> > > gets roughly the same performance (maybe slightly better) as when run
+> > > against a 6.18 kernel on the same VM.
+> > >
+> >
+> > Thanks for testing. I'll look into some more regression testing of this
+> > patch and try to clean it up and post it for proper review for stable.
+> >
+> > Are you using the reproducer program in your original mail to test? If
+> > so, does it require some concurrent memory pressure to reproduce, and
+> > are you using anything in particular for that?
+> >
+> > That test seems small enough that we could potentially include it in
+> > fstests, though I'm still not so sure about the mem pressure part..
+> > Since you guys wrote the test, any interest in porting into fstests? If
+> > not I can look into it.
+> >
+> > Brian
+> >
+> > > Thanks,
+> > > -Eric
+> > >
+> >
+> 
+
