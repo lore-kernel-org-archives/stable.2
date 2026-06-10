@@ -1,299 +1,175 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2414530C60C;
-	Wed, 10 Jun 2026 07:48:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42C7F39E9CB;
+	Wed, 10 Jun 2026 08:00:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781077716; cv=none; b=uLbnGpixj3H5KdaZicbbKjIDPhnj+rBIi9lUVovbSyNJNi9+CAzL4iTgHMu+PX4mV1C5SVWsfEU98jz73DQVdPo1/Vttw7Qz3Ev7u8ySdObFETcGrM7ZchTDRDW4xMAu+1ddAr1h094nMahuNozoO9UHboh9phcHfO4w3WDfjAw=
+	t=1781078429; cv=none; b=qAkFxWzz01KjMPX5T6zaV88Km/4fhjQbsbGts7ooHpNvpz4h3+XxtnSl34zo/eOPOwZ37+iRrPQZHjCoZ8nHgjKeEOeURjOZ06Z3f3rJ4jLRU1Etf2sxeK1XQ61jqJ6u3kYquSCQh/U/nMd9wobIDqjZKNeIhIZLjIZ2mcnvPvo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781077716; c=relaxed/simple;
-	bh=jFC3MsMaejvQIh7rOSylVCRjJ51UT7dHc2sgdGrL/k0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BZtD/SGK3E2m+DfCqiAq78D2BtAAGL2nXa8YzvVeMAWQ05f2nl3exn311P9HQ6LmUby7jwT1tGQo6saq7M4r2vXpr2xxFLlf7q9+t65t7pdBdlj45KEqRhBl03+ATlTZE1xwwfOtuOP9cV1WhGj2cz10WiuZuEKlCtll82GjSR0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cwwn//mP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781078429; c=relaxed/simple;
+	bh=UFE+ldR7lcXNh3SHD18rE+16XwFTkitXv7hvr/QWd50=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=kYPelQFYfSoBOIrEVVu7NA7PaFqeKgF12Kp3BPt3C1cAorHniMzlUyf4LL6Bk30cVMC6nMxbdc5FLMiazhVNGRY34jeOeOU4M/P38mnxOifBQyeTKVIU737yJ8HJR+2DHekvDo6woXXHLYeLyjuHFViA7L0M8DzMBfphNdZtiNE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=mrRbiJ3J; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cwwn//mP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 26DC31F00893;
-	Wed, 10 Jun 2026 07:48:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781077714;
-	bh=PmYO7qAWoOzsSKErncOiMM5bfzhOjU8/eW6c/WV/lbw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=cwwn//mPaWQ/IJBH/DqQP67LbZ/NkcTke9bq7+77djBWgOkqRXcIF4znUAzFC8qSJ
-	 YH+JfxI3PSVFM/ck0xwemzRXyCqzAbkPCrD/1HH2KoP93/IWbh6D0fhTq+n2YKvwze
-	 lzQCdK7FOuYvpZ/pdU+7xXyd8rufY+gSNPEtORm6v8jUmg7+e2R4BvXG0BZd0Y4nlw
-	 4Q2pzOVeMMGYYJnq0XkZABqgBd9Otmh99U3SFXFOEJ6wZ8x5f/P3MtL81DL/Nfl0SU
-	 DWQ36URJsgCwNKuwRPys03dlwkHSZ3EXhEUB12pL56q9yihB0nHjBHXDHXKViL0/Sj
-	 GMclDSF7pg0Jg==
-Date: Wed, 10 Jun 2026 09:48:29 +0200
-From: Christian Brauner <brauner@kernel.org>
-To: Jann Horn <jannh@google.com>
-Cc: "Eric W. Biederman" <ebiederm@xmission.com>, 
-	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
-	Arjan van de Ven <arjan@linux.intel.com>, Jake Edge <jake@lwn.net>, linux-kernel@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org, stable@vger.kernel.org, Kees Cook <keescook@chromium.org>, 
-	Oleg Nesterov <oleg@redhat.com>
-Subject: Re: [PATCH 0/2] proc: protect ptrace_may_access() with
- exec_update_lock
-Message-ID: <20260610-virusinfektion-garage-melden-e4160292d40b@brauner>
-References: <20260518-procfs-lockfix-part1-v1-0-5c3d20e0ac33@google.com>
- <87ik8b2rh8.fsf@email.froward.int.ebiederm.org>
- <CAG48ez2pmuoTCZh_AVKDDLeQEYmm=gLMgThnqFhRMFfZvABpdw@mail.gmail.com>
- <87wlwny905.fsf@email.froward.int.ebiederm.org>
- <CAG48ez3Wp757fQh1gyTxf-k3p__utUOWM8xdJeUig4gPpSmTEA@mail.gmail.com>
- <87mrx9f8q2.fsf@email.froward.int.ebiederm.org>
- <CAG48ez1ksU=6KBSW1fREo4itu7vdP5KEt3s4hCAcbVkdthLXsw@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="mrRbiJ3J"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 65A7o1uB5976202, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1781077801; bh=7v47yqvVpZTp5S18TprUYuBRl8n7DAHP9QsHUvLllDA=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=mrRbiJ3Ja9ennWwONqzm/oUr0n7DGTAC3wx8+66r7a5Pc5foxUZXrBUGcImi27/35
+	 jYuVB3Z3jeBhkcc5YotMXnAUl0mZe1xv1Wt31RAwy03uEK8lQv0RyxWF/mLpz8afyg
+	 LpRU6ZhHHH75MknYKd+h4PXI2ok3bIxw+Sowv8b1tZtjEMjQwyKtD6WOANUBaK1nSA
+	 RiHIJzvOfsmunbSECiB6N1CeMsyQ5pdOw83sJKommvwpLadkXd0jW9Nfl15FbBPTv0
+	 nzN7lPqMYLPkW7Jt7UgL6mzVZIGtOXNx7ph3rsdN52leBx9MGltu3o1JADNyrLlxtN
+	 ZB0MNcvpsg/9g==
+Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 65A7o1uB5976202
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Wed, 10 Jun 2026 15:50:01 +0800
+Received: from RTKEXHMBS04.realtek.com.tw (10.21.1.54) by
+ RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.17; Wed, 10 Jun 2026 15:50:01 +0800
+Received: from RTKEXHMBS04.realtek.com.tw ([::1]) by
+ RTKEXHMBS04.realtek.com.tw ([fe80::552f:8b32:656c:c395%6]) with mapi id
+ 15.02.2562.017; Wed, 10 Jun 2026 15:50:01 +0800
+From: Justin Lai <justinlai0215@realtek.com>
+To: David Laight <david.laight.linux@gmail.com>
+CC: Simon Horman <horms@kernel.org>, "kuba@kernel.org" <kuba@kernel.org>,
+	"davem@davemloft.net" <davem@davemloft.net>, "edumazet@google.com"
+	<edumazet@google.com>, "pabeni@redhat.com" <pabeni@redhat.com>,
+	"andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"netdev@vger.kernel.org" <netdev@vger.kernel.org>, "stable@vger.kernel.org"
+	<stable@vger.kernel.org>, "richardcochran@gmail.com"
+	<richardcochran@gmail.com>, "aleksander.lobakin@intel.com"
+	<aleksander.lobakin@intel.com>, Ping-Ke Shih <pkshih@realtek.com>, Larry Chiu
+	<larry.chiu@realtek.com>
+Subject: RE: [PATCH net v2] rtase: Workaround for IP fragmented UDP packet
+ hardware bug
+Thread-Topic: [PATCH net v2] rtase: Workaround for IP fragmented UDP packet
+ hardware bug
+Thread-Index: AQHc9ArcvLfvYqn0fkOKy9pKm3m4Q7Y0hZ8AgAEzauD///PvAIABntKg
+Date: Wed, 10 Jun 2026 07:50:00 +0000
+Message-ID: <d662f59d9be04d9897fbd5b9b2ab3d48@realtek.com>
+References: <20260604101356.15611-1-justinlai0215@realtek.com>
+	<20260608190627.182292-2-horms@kernel.org>
+	<1340406ab190498ab857ad9017529722@realtek.com>
+ <20260609134334.3225b076@pumpkin>
+In-Reply-To: <20260609134334.3225b076@pumpkin>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAG48ez1ksU=6KBSW1fREo4itu7vdP5KEt3s4hCAcbVkdthLXsw@mail.gmail.com>
 
-On Fri, Jun 05, 2026 at 04:34:47PM +0200, Jann Horn wrote:
-> On Fri, Jun 5, 2026 at 2:54 PM Eric W. Biederman <ebiederm@xmission.com> wrote:
-> > > On Thu, May 28, 2026 at 3:11 PM Eric W. Biederman <ebiederm@xmission.com> wrote:
-> > >> Jann Horn <jannh@google.com> writes:
-> > >> The issue you point out with memfd's definitely needs to be fixed.
-> > >> It should be separated out from the rest of the races simply because
-> > >> it is a completely different kind of issue.
-> > >>
-> > >> I wonder if anyone even anticipated you could open another file handle
-> > >> to memfd's through proc.  If so leaving everything to path based
-> > >> permissions assumed a feature of proc that doesn't exist.
+David Laight <david.laight.linux@gmail.com> wrote:
+>=20
+> On Tue, 9 Jun 2026 08:20:10 +0000
+> Justin Lai <justinlai0215@realtek.com> wrote:
+>=20
+> > Simon Horman <horms@kernel.org> wrote:
 > > >
-> > > I don't think memfds are particularly special here, they are just a
-> > > nice, clear example of a case where an inode is protected based on
-> > > which processes can path-walk to it.
+> > > From: 'Simon Horman' <horms@kernel.org>
 > > >
-> > > As another example: Making a directory mode 0700 is also supposed to
-> > > prevent other users from accessing things inside it.
-> >
-> > The simple counter example is that linux has an open by inode
-> > facility.   That is exposed to nfs and as a syscall.
-> >
-> > Well strictly speaking the syscalls  name_to_handle_at and
-> > open_by_handle_at.
-> >
-> > Most filesystems including shmemfs support those operations.
-> > See shmem_export_ops.
-> >
-> > Which is a long way of saying that if someone can guess
-> > the inode and generation number of a memfd inode it can
-> > be opened with open_by_handle_at.  The usual permission checks
-> > are performed but unless I am misreading something the only
-> > permission checks that are relevant are the permissions on
-> > the inode.
-> 
-> No. open_by_handle_at() is not supposed to let you bypass
-> non-executable directories.
-> 
-> Filesystems without a special export_operations::permission handler go through:
-> 
-> do_handle_open -> handle_to_path -> may_decode_fh
-> 
-> which requires that the caller has global CAP_DAC_READ_SEARCH, or is
-> capable over the superblock, or is capable over the containing mount.
-> 
-> > >> My gut says the best fix for the entire memfd issue is to simply change
-> > >> memfd's and probably everything that calls shmem_file_setup to not have
-> > >> an open method.  That eliminates any chance anyone will do anything
-> > >> clever with proc.  But I can't see why it makes any sense to be able to
-> > >> open another file handle into memfd's, or anything else that calls
-> > >> shmem_file_setup for that matter.
-> > >>
-> > >> We can first try to remove the open method of memfd's set by
-> > >> shmem_file_setup, and if that doesn't work we can look at fixing proc to
-> > >> provide the guarantees that were assumed (as a security fix).
-> > >>
-> > >>
-> > >> As a quality of implementation issue I can see fixing the small race
-> > >> where when looking up a file descriptor through proc, exec does not
-> > >> appear to be an atomic operation.  I keep wondering if that is something
-> > >> that should be done in get_link or d_revalidate.
+> > > This is an AI-generated review of your patch. The human sending this
+> > > email has considered the AI review valid, or at least plausible.
+> > > Full review at: https://sashiko.dev
+> > > ---
+> > > rtase: Workaround for IP fragmented UDP packet hardware bug
 > > >
-> > > I don't see how d_revalidate would help, that still wouldn't be
-> > > atomic.
-> >
-> > You have to pick the correct one, but in general it is the job of the
-> > revalidate methods to find something that is stale and see if it works
-> > in the current context.  AKA make it look like something that wasn't
-> > done atomically behaves semantically as atomically.
-> 
-> d_revalidate refreshes dentries, but it doesn't make anything about
-> the underlying inode atomic; and my understanding is that procfs wants
-> to avoid tying inodes to things like task_struct or mm_struct to avoid
-> keeping those objects alive unnecessarily.
-> 
-> I think d_revalidate would make sense if, for example, we wanted the
-> /proc/$pid/maps inode to hold a reference to the corresponding
-> mm_struct.
-> 
-> > >> I suspect the answer for proc_pid_get_link is to either cache something
-> > >> like a seqcount, or simply to repeat the permission and existence checks
-> > >> just before calling nd_jump_link.
+> > > The hardware parser incorrectly interprets 319/320 in a short IP
+> > > fragmented UDP packet payload as standard PTP destination ports and
+> > > treats the fragment as a PTP packet for further parsing. Pad these
+> > > packets so the transport data reaches RTASE_MIN_PAD_LEN before
+> > > transmitting to avoid triggering the hardware issue.
 > > >
-> > > That seems like it results in complicated semantics, while a mutex
-> > > would provide clear semantics. Which is already what we use in places
-> > > like __pidfd_fget() and /proc/<pid>/syscall.
-> >
-> > An important point to remember when dealing with proc is that it is for
-> > implementation purposes a distributed filesystem.  Thinking of it like
-> > a syscall is wrong.
-> >
-> > There are lots of places that for correctness reasons (and to not burden
-> > the rest of the kernel) proc does something and then validates what
-> > it has done is correct.  AKA just like a distributed filesystem.
-> >
-> > As for semantics I am not proposing anything that will have complicated
-> > semantics to userspace.  It may have a slightly more complicated
-> > implementation in proc, but that can save complications in the
-> > rest of the kernel.
-> >
-> > Anything that needs to block exec to block to operate correctly is a
-> > real can of worms review wise, and something we have repeated gotten
-> > wrong in the past.  Something where exec can just do it's thing and
-> > proc can still give a point in time correct answer makes the analysis
-> > that things won't break much simpler.
-> 
-> Hmm... the reason we got it wrong in the past is that we were using
-> cred_guard_mutex, which was held across stuff that can (indirectly)
-> wait for ptrace, right? Whereas nowadays we basically only have to
-> ensure that we don't block on userspace actions while holding the
-> exec_update_lock? Which still requires some care but should be less
-> problematic.
-> 
-> > >> >> Question 2.
-> > >> >>
-> > >> >> How does this race compare to racing with setresuid?
-> > >> >> Do we need to fix the setresuid case as well?
-> > >> >
-> > >> > Which setresuid case? setresuid clears the dumpable flag and has a
-> > >> > memory barrier that is supposed to make that properly ordered against
-> > >> > ptrace_may_access(); so setresuid() should normally not cause a task
-> > >> > to become traceable, though that could maybe happen in weird
-> > >> > scenarios.
-> > >>
-> > >> The cases where the dumpable flag get set are all part of exec.
-> > >>
-> > >> I was thinking of cases where we have a daemon that is started by
-> > >> root and then it changes it's uid to do something.
+> > > > diff --git a/drivers/net/ethernet/realtek/rtase/rtase_main.c
+> > > > b/drivers/net/ethernet/realtek/rtase/rtase_main.c
+> > > > index ef13109c49cff..b686b84e15fe2 100644
+> > > > --- a/drivers/net/ethernet/realtek/rtase/rtase_main.c
+> > > > +++ b/drivers/net/ethernet/realtek/rtase/rtase_main.c
 > > >
-> > > (Normally such a daemon would only change its EUID, which is mainly
-> > > considered when the daemon acts as a subject, unless it intends to
-> > > permanently drop privileges.)
+> > > [ ... ]
 > > >
-> > >> Looking at ptrace_may_access the uid based checks won't allow
-> > >> accessing of such a task unless it changes all of it's uids.
-> > >>
-> > >> At which point arguably it is on the process that calls setuid to make
-> > >> certain ptracing it won't be a problem.  I am not certain that ever
-> > >> actually works in practice but that does seem to be what the current
-> > >> code is saying.
+> > > > @@ -1247,6 +1248,52 @@ static u32 rtase_tx_csum(struct sk_buff
+> > > > *skb,
+> > > const struct net_device *dev)
+> > > >       return csum_cmd;
+> > > >  }
+> > > >
+> > > > +static bool rtase_skb_is_udp(struct sk_buff *skb) {
+> > > > +     int no =3D skb_network_offset(skb);
+> > > > +     struct ipv6hdr *i6h, _i6h;
+> > > > +     struct iphdr *ih, _ih;
+> > > > +
+> > > > +     switch (vlan_get_protocol(skb)) {
+> > > > +     case htons(ETH_P_IP):
+> > > > +             ih =3D skb_header_pointer(skb, no, sizeof(_ih), &_ih)=
+;
+> > > > +             return ih && ih->protocol =3D=3D IPPROTO_UDP;
+> > > > +     case htons(ETH_P_IPV6):
+> > > > +             i6h =3D skb_header_pointer(skb, no, sizeof(_i6h), &_i=
+6h);
+> > > > +             return i6h && i6h->nexthdr =3D=3D IPPROTO_UDP;
 > > >
-> > > When a daemon changes its EUID for some reason, commit_creds() will
-> > > change that daemon's dumpability to suid_dumpable, which will prevent
-> > > ptracing it even if the UIDs match.
+> > > [Severity: High]
+> > > Does this check fail to traverse IPv6 extension headers?
 > > >
-> > > The ptrace.2 manpage guarantees that a process which is not
-> > > SUID_DUMP_USER can't be accessed without CAP_SYS_PTRACE.
+> > > If an IPv6 packet contains extension headers, such as an IPv6
+> > > fragment (IPPROTO_FRAGMENT), the nexthdr field will contain the
+> > > extension header's protocol number instead of UDP.
 > > >
-> > >> Now I am wondering if dumpable should get set if setresuid changes
-> > >> a uid like I described above.
+> > > Doesn't this bypass the workaround for the exact fragmented packets
+> > > it is intended to fix?
 > > >
-> > > What do you mean by "get set"?
+> > Thanks for the review.
 > >
-> > I was and still am wondering if dumpable should be set if setresuid
-> > completely drops all of it's uids.  AKA the case where dumpable is not
-> > set today.
-> 
-> You mean the case where the EUID is different from RUID and/or SUID,
-> and userspace calls setresuid(current_euid, current_euid,
-> current_euid)?
-> 
-> > Unless someone wants to do a bunch of work survey such code
-> > we should probably wait until a motivating example presents itself.
+> > Unlike IPv4, IPv6 does not require extension header parsing for this
+> > workaround. The hardware only treats IPv6 packets without extension
+> > headers as PTP packets for further parsing.
 > >
+> > Therefore, IPv6 packets carrying extension headers, including
+> > fragments, do not enter this parsing path and are not affected by the
+> > hardware issue addressed by this workaround.
 > >
-> > >> > I think another case we should probably care about is what happens if
-> > >> > a process which is only protected against ptrace by being non-dumpable
-> > >> > goes through execve() - it shouldn't be possible to access resources
-> > >> > associated with the pre-execve state while checking against the
-> > >> > post-execve dumpability. It might be important for this that the
-> > >> > do_close_on_exec() logic currently happens after committing the
-> > >> > dumpable state in exec_mmap()...
-> > >> >
-> > >> >> Question 3.
-> > >> >> Do we care about the case when a privileged process calls a setuid
-> > >> >> process and drops privileges?
-> > >> >
-> > >> > I don't understand the question. Hmm - do you mean a case where a
-> > >> > process with ruid=1000, euid=0, suid=1000 does execve() on a setuid
-> > >> > 1000 binary? I think we probably don't specifically care about that...
-> > >> >
-> > >>
-> > >> The general case would be a daemon running as root forks and exec's a
-> > >> binary running as some unprivileged user fred.
-> > >>
-> > >> Mostly I bring it up is that it is easy to forget suid exec can drop
-> > >> privileges as well as raise them.
-> > >
-> > > I do not understand the scenario you're describing. Can you give a
-> > > specific example you're thinking of - what the ruid/euid/suid would be
-> > > before execve(), and which mode the binary would be?
-> >
-> >
-> > A process P1 with uid=euid=ruid=fsuid=0.
-> >
-> > A user fred with uid=1000.
-> >
-> > A binary B with uid=1000 (aka fred) gid=1000 (aka fred) that -r-sr-xr-x.
-> > AKA everyone can read and execute the binary, and the setuid bit is set.
-> >
-> > Then P1 execs B.
-> 
-> I think I see your point - in this case, if P1 calls
-> setresuid(current_euid, current_euid, current_euid), fred would
-> afterwards be allowed to ptrace P1.
-> 
-> That feels to me like it is a bit weird, but probably not very
-> problematic because fred owns the file; P1 is already running code
-> owned by fred. Though fred can't necessarily actually change the file
-> contents, if the file is immutable or the mount is readonly or such.
-> 
-> I... think it is also rare for setuid binaries to call
-> setresuid(current_euid, current_euid, current_euid), since normally it
-> is desired that they keep the original RUID for stuff like
-> signal-sending permissions? But I might be wrong about that.
+> > Skipping such packets is intentional.
+>=20
+> I thought you said that the problem only arose with packets that are
+> fragmented by IPv[46], in particular short final fragments.
+> If your hardware checks for extension headers then doesn't that mean that=
+ you
+> never have a problem with IPv6 packets.
+>=20
+> -- David
+>=20
+Thanks for the review.
 
-Yes, I found very few binaries that do actually do a full setresuid().
+To clarify, the issue is not specific to fragmentation.
 
-> 
-> > p.s.  My personal opinion is changing permissions upon exec is a dumb
-> > idea.  It might be worth doing the work to drop that support and to
-> > update userspace to just connect to more privileged daemons when more
-> > permissions are needed.  AKA ssh instead of su.
-> 
-> I agree that it would be nicer to get rid of that... I remember amluto
-> saying the same thing.
-> 
-> Lennart Poettering thinks that, too, and has added the sudo
-> replacement "run0" in systemd, which works by talking to systemd and
-> authenticating via polkit:
-> https://mastodon.social/@pid_eins/112353324518585654
+The hardware performs additional parsing on packets identified as
+PTP. The issue is triggered when the packet is shorter than expected,
+i.e. UDP header and payload < 47, and the parser attempts to access
+data beyond what is present in the packet.
 
-We have been working on a sudo replacement that requests permission from
-a more privileged process via ipc for a long time. We've implemented it
-and it speaks varlink and run0 can be used as a drop-in replacement for
-sudo. We keep adding the bits and pieces to function as a sudo
-replacement in most cases:
+For IPv6, the hardware only enters this parsing path when the IPv6
+Next Header field directly indicates UDP. Therefore, packets carrying
+IPv6 extension headers never reach the affected parser, so traversing
+extension headers is not required for this workaround.
 
-https://github.com/systemd/systemd/pull/42465
+I'll update the commit message in the next version to make this
+behavior clearer.
 
-setuid will die (outside of unprivileged containers) and we're getting
-very close to making that happen.
+Thanks,
+Justin
+> ...
