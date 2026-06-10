@@ -1,284 +1,227 @@
-Received: from mail-dy1-f201.google.com (mail-dy1-f201.google.com [74.125.82.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3C391799F
-	for <stable@vger.kernel.org>; Wed, 10 Jun 2026 18:09:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 657F0349AEA;
+	Wed, 10 Jun 2026 18:28:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781114975; cv=none; b=IbmVIyWEyBY16acWrX9uB0hjSNzonrJS8qQnvxXtcZwkZOrQiRL3I08FPeWkUXw/mpzHgeXm/3bejs9HAdcqRRZBdH+gVuZnRTpZYfxWq44mCirtpoMdj2IpGSE6TfTQTvL+llAQUEX5ctsHaiAyNDlnjFRUi7VY0alIkPSPO0k=
+	t=1781116106; cv=none; b=lgZV9B1048zCk4RW016YH1r/plVK4pMpvFuKIJ/F7vRXdulTMkIa3K68qRxr/OXSMydk9cX6xp0TtHJro5LB92t8rwgEZM7VJC/g7BTK4HHkdHWf1MpfUmQxHIFyCPsMg9372gruEF3IaBBGNH6puFxhpDDvNHnjJrbOJC4bAZs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781114975; c=relaxed/simple;
-	bh=aRtEQAy4GVQvegihDE6wZ5Gw13ScymCzctZU1CsrUYA=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=pLkF1BfkBIti1k4eQucqZAzk+7o3tyx1yNytm7oT79e7Ek4KHWN/QOBB1f9jixXANDl257dOsnzmbquZdi2cfKuQURgJH3ayiRo7o+0I0l5F+c2Lpnc+iTXLHmMsTspAuaBxW1hO+FhxVrETYpskz/pbNPqqpsbbOgEPIsn8VNs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--cmllamas.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=OSWxdsGh; arc=none smtp.client-ip=74.125.82.201
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--cmllamas.bounces.google.com
+	s=arc-20240116; t=1781116106; c=relaxed/simple;
+	bh=93ZJSfEZSJ5zjTpfrChvVSSiLVSjQRNkQ88bLdsaWgg=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=bBxUQDBqWENFhNIXVqAuNPUi2vCjfnuguj+UBC1HVkYHOFeqJO2hR6gdsrclE9zYY6CuhVWtgAEVCFL2drQe5rd5AhavH/ONXK0hfTRrHc3HYp6xSzxlwiTAlpL4n05zxJB7G7LNtEPO1W/rFHqiaCDDLWSq8NCXSck6HJ+Nso4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NF8ZhKEn; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="OSWxdsGh"
-Received: by mail-dy1-f201.google.com with SMTP id 5a478bee46e88-304d0d0b28eso9295715eec.0
-        for <stable@vger.kernel.org>; Wed, 10 Jun 2026 11:09:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1781114972; x=1781719772; darn=vger.kernel.org;
-        h=cc:to:from:subject:message-id:mime-version:date:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=EPx3tvDq4YvY5VSxzLI8mRkaH+YOFS7tBuKwHIzp208=;
-        b=OSWxdsGhQ0Qxg6EpidHYo867tTfuig5jGG/we+CFw6C8nR3U/BfdGe5sIiBJIUca2j
-         YWgcoJ/62ytJDQ/2YaFMEJ3/PRKD+RWTI8t5MSfEMK3FyaE9AXb41FupRaS14TmRUyaQ
-         6oh7p7feOCChU/1PgDfa3AT3GSwtuYO1yxe7jPkhQ6INOdkjwsNPShfGq5aJerAjZQNq
-         FYmyI78AR8iw3lKWcwMbeVQadZPtm36Q5HIV5G/u40iiB2tVzg5HARXcpXPx7GtKXzK3
-         oL/lJ7uPQPbRnh0uVaav1WOfzlBL36AV7MthTltVAphMSM33L4wNqz/ohtiv48OA+iGf
-         qGyQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781114972; x=1781719772;
-        h=cc:to:from:subject:message-id:mime-version:date:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=EPx3tvDq4YvY5VSxzLI8mRkaH+YOFS7tBuKwHIzp208=;
-        b=Kx2iD1uzkrCtbJVDhJIKrhcYVxTZqrHbSJGv7FOfUYYdwZymEGZETVk3v2ByIwikXG
-         FcT/abUa2YSYnCmEhJwOd1CHkCDRCySfZoUkQrV2N3dJQYNzO1vfdrYzmDvzCpuQ0lm6
-         08dSYIxRy6dbAZi27k4zIfNN2Heg8DyEpgx3R+g+T0Co+oB29veLotxAFTW2idmjltoQ
-         at0V4zXi2Im4UecEktbWaHznPfrjyY3mPpTWyzPyxR8Snj5ri7/15moHFIxhYz45Q550
-         xLlNBrwROhRvDU7w0J322ugQSJOVKvIYrYIi/YF0IlZa237VWCaSaSjvusS+2QCj5UCl
-         ACYA==
-X-Gm-Message-State: AOJu0YwMGa88neBnWbe1AV0zC2dV9B27C44484kGPg+2Z/IJrTQi6nRe
-	vMbHIuCTI7ONmP0EKBCecVTfzZXglD79yGDCNi3sRvm1LJS5sP5vo3SqqyOd9U8ldPCYG+dgLV3
-	un8QXOaj0m7jCjfCXl9JabXrXPk2kbNmEJKTi/ETRcEpUiiivWiA5PXuSkvmxKhXBZ4jW+QkIPD
-	aFKCWHT9WKkgmcvMz5LkPI8JjmVpeklrudL+m8jHyAZKxYyxA=
-X-Received: from dybnl13.prod.google.com ([2002:a05:7300:cf8d:b0:304:2d1f:6ca6])
- (user=cmllamas job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:693c:300a:b0:2ed:e15:c922 with SMTP id 5a478bee46e88-3077b857123mr15207222eec.30.1781114971505;
- Wed, 10 Jun 2026 11:09:31 -0700 (PDT)
-Date: Wed, 10 Jun 2026 18:09:23 +0000
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NF8ZhKEn"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 06539C2BCB9;
+	Wed, 10 Jun 2026 18:28:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1781116106;
+	bh=93ZJSfEZSJ5zjTpfrChvVSSiLVSjQRNkQ88bLdsaWgg=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=NF8ZhKEnLJHIX/rJdEHYN3E8tU0Wh+hWjaW+AxN7tuOYwzgJ1v0tyatheuD+Umvas
+	 7xc5BUt+aEho2Xg4nvBmPQ7Lrvn9AGRkxncmUwZ/qJaMbc0JT276LyTdUTx+Zxwu+p
+	 rxh5DUQ0zuiCoANbYuBxbgGBlSIZBiSGbzg6TnrlJoXKl1vr1zfh4oSDD29E4iGmVE
+	 m4k1ZdE5KOEHInUqIKO7lIyhi//I1+Np73NY2QcrAYA0qB7/3oaM36oeEbqwGpK+0Z
+	 wpvLwDcb4JeKIW8J76CXUu5zgpsZmZ4ZB6o1ZW966nhqPFZut/+LQiZz0pixfmfCiW
+	 QWlf6HbB/KGgQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EA660CD98C7;
+	Wed, 10 Jun 2026 18:28:25 +0000 (UTC)
+From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
+Subject: [PATCH v8 0/9] media: camss: Add support for C-PHY configuration
+ on Qualcomm platforms
+Date: Wed, 10 Jun 2026 20:28:20 +0200
+Message-Id: <20260610-qcom-cphy-v8-0-cd4387785179@ixit.cz>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.54.0.1136.gdb2ca164c4-goog
-Message-ID: <20260610180928.3093023-1-cmllamas@google.com>
-Subject: [PATCH 6.6.y 1/2] usb: gadget: f_ncm: Fix net_device lifecycle with device_move
-From: Carlos Llamas <cmllamas@google.com>
-To: stable@vger.kernel.org
-Cc: Jianqiang kang <jianqkang@sina.cn>, Neill Kapron <nkapron@google.com>, kernel-team@android.com, 
-	Kuen-Han Tsai <khtsai@google.com>, stable <stable@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Carlos Llamas <cmllamas@google.com>, 
-	Sasha Levin <sashal@kernel.org>, raub camaioni <raubcameo@gmail.com>, 
-	Kyungmin Park <kyungmin.park@samsung.com>, Andrzej Pietrasiewicz <andrzej.p@samsung.com>, 
-	Felipe Balbi <balbi@ti.com>, "open list:USB SUBSYSTEM" <linux-usb@vger.kernel.org>, 
-	open list <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAMSsKWoC/23Oz07DMAwG8FeZcibIzh8n5cR7IA5N4tAc2EY7V
+ RtT352sEmqKOH6Wf599FxOPhSfxcriLkecyldOxBv90EHHojx8sS6pZKFAWETr5FU+fMp6Hmwz
+ Bx5B6jGSMqPvnkXO5rl1v7zUPZbqcxttaPeNj+l/LjBIkks2OXReA8bVcy+U5fotHx6w2p8C0T
+ lVHQVvOPoBD3jv96wgQXet0dT6yox4ouxT2zmxOA7bOVMdWa6SkYiS7d3ZzVu+cXf9kyKSCSX8
+ dba5ebB2t9yAxBGtd7/fOtc62zlVnFEXtuAPweXPLsvwAxrmRR/ABAAA=
+X-Change-ID: 20251109-qcom-cphy-bb8cbda1c644
+To: Robert Foss <rfoss@kernel.org>, Todor Tomov <todor.too@gmail.com>, 
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
+ Bryan O'Donoghue <bod@kernel.org>, 
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Luca Weiss <luca.weiss@fairphone.com>, Petr Hodina <phodina@protonmail.com>, 
+ "Dr. Git" <drgitx@gmail.com>, Cory Keitz <ckeitz@amazon.com>, 
+ Loic Poulain <loic.poulain@oss.qualcomm.com>, 
+ Hans Verkuil <hverkuil@kernel.org>, 
+ Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+Cc: Frank Li <Frank.Li@nxp.com>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ Kieran Bingham <kbingham@kernel.org>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>, linux-media@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ phone-devel@vger.kernel.org, David Heidelberg <david@ixit.cz>, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6501; i=david@ixit.cz;
+ h=from:subject:message-id;
+ bh=93ZJSfEZSJ5zjTpfrChvVSSiLVSjQRNkQ88bLdsaWgg=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqKazHYqli7fxnFeO44lHtE9HpNMAk+6wDoRrdO
+ 20JCb87bpuJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCaimsxwAKCRBgAj/E00kg
+ clXsD/49H3qLZorEIqEEMdjlAE3T28quYx4W45vR3r51Yp7PHUz+vxGvTs1bzOku/nk8sCEFWXj
+ m+L7W/TQwIuBn8dPGicN341+NIqztrXKw9yaano2MvT04MX/r4yaBBTUoSoz+N0CwTntCAph+8k
+ f+LbheECxSlvWfsH4uwi5ebuLo3TNr7xEUthSumW4Tv3dWx77PNV8aYWInDNHNpOhDQYuf5n4OZ
+ JDuJRvJsJ+PpmszEFORrR9YJjrcEb9uopHoZ5x9LLYwZC6Js10auhEnCrxtpNWNWIrwOWRRqGDN
+ NqUGWcWoOG3+N7JJ66J5iE/68i70UEZvWdSZdB4q9/2I5oURC0RNL4pEZasrm5CwNiaYxz1IKTk
+ a+pmR1TMJ3uC8JDV7DWKwCAB7pQji4fVqw3jwHujebJs1G3/ejynKaL7wqvRIfQ4kScgw7Ajd51
+ /BA0pQuiKQ6CH75EWHiV/uKLLO26UjahdvoIe72pJBr1mne7HUBxeF+dQpaGz2iey/bw8Qd+wMc
+ chWRrhYXJHOLPoib7kLOkSIkS54OeXJbcEt0+zrh89gFF6Tt3OGisBOlzpMxRM6MypIp4oLsaFJ
+ YlZ+w/EWhk2v/c5wGZhtkZg9RH280Sc/Eq39z8SguyuySijHFj7QUDYqAChDCCVKdEgdL8GLqRF
+ 3jIpYa9KXowgClQ==
+X-Developer-Key: i=david@ixit.cz; a=openpgp;
+ fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
+X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
+X-Original-From: David Heidelberg <david@ixit.cz>
+Reply-To: david@ixit.cz
 
-From: Kuen-Han Tsai <khtsai@google.com>
+Note: WIP tag added, as not everything from the previous review round has
+been addressed.
 
-[ Upstream commit ec35c1969650e7cb6c8a91020e568ed46e3551b0 ]
+# Short summary
 
-The network device outlived its parent gadget device during
-disconnection, resulting in dangling sysfs links and null pointer
-dereference problems.
+This patch series extends the Qualcomm CAMSS (Camera Subsystem),
+including CSID and CSIPHY components, to support C-PHY mode configuration.
 
-A prior attempt to solve this by removing SET_NETDEV_DEV entirely [1]
-was reverted due to power management ordering concerns and a NO-CARRIER
-regression.
+# Background and motivation
 
-A subsequent attempt to defer net_device allocation to bind [2] broke
-1:1 mapping between function instance and network device, making it
-impossible for configfs to report the resolved interface name. This
-results in a regression where the DHCP server fails on pmOS.
+Modern smartphone cameras increasingly rely on MIPI C-PHY rather than 
+D-PHY, thanks to its higher data throughput and signal efficiency.
+As a result, many OEMs adopt C-PHY interfaces for main (rear) cameras on
+Qualcomm-based devices.
 
-Use device_move to reparent the net_device between the gadget device and
-/sys/devices/virtual/ across bind/unbind cycles. This preserves the
-network interface across USB reconnection, allowing the DHCP server to
-retain their binding.
+Until now, mainline Linux lacked C-PHY configuration support for Qualcomm
+chipsets, preventing bring-up of primary camera sensors on several
+Snapdragon platforms. This series closes that gap.
 
-Introduce gether_attach_gadget()/gether_detach_gadget() helpers and use
-__free(detach_gadget) macro to undo attachment on bind failure. The
-bind_count ensures device_move executes only on the first bind.
+ - Introduces C-PHY configuration support for the CAMSS driver stack,
+   covering both CSID and CSIPHY blocks.
+ - Successfully enables C-PHY operation on the Snapdragon 845 platform.
+ - Tested on OnePlus 6 and 6T phones running mainline Linux,
+   using the Sony IMX519 main camera sensor.
+ - The new configuration allows other chipsets versionsto enable C-PHY by
+   simply adding corresponding sensor driver support and csiphy
+   initialization data, following the example set for sdm845.
 
-[1] https://lore.kernel.org/lkml/f2a4f9847617a0929d62025748384092e5f35cce.camel@crapouillou.net/
-[2] https://lore.kernel.org/linux-usb/795ea759-7eaf-4f78-81f4-01ffbf2d7961@ixit.cz/
+With this patch series, mainline Linux gains working C-PHY support for
+Snapdragon 845, paving the way for improved main camera functionality
+across many Qualcomm-based devices. The groundwork also simplifies
+future enablement efforts for additional SoCs and sensors.
 
-Fixes: 40d133d7f542 ("usb: gadget: f_ncm: convert to new function interface with backward compatibility")
-Cc: stable <stable@kernel.org>
-Signed-off-by: Kuen-Han Tsai <khtsai@google.com>
-Link: https://patch.msgid.link/20260309-f-ncm-revert-v2-7-ea2afbc7d9b2@google.com
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-[ Use no_free_ptr() since retain_and_null_ptr() is unavailable in Linux 6.6. ]
-Signed-off-by: Jianqiang kang <jianqkang@sina.cn>
-Signed-off-by: Carlos Llamas <cmllamas@google.com>
+Until merged, the series will be also available at:
+  https://codeberg.org/sdm845/linux/commits/branch/b4/qcom-cphy
+
+Signed-off-by: David Heidelberg <david@ixit.cz>
 ---
- drivers/usb/gadget/function/f_ncm.c   | 35 ++++++++++++++++++---------
- drivers/usb/gadget/function/u_ether.c | 22 +++++++++++++++++
- drivers/usb/gadget/function/u_ether.h | 26 ++++++++++++++++++++
- drivers/usb/gadget/function/u_ncm.h   |  2 +-
- 4 files changed, 73 insertions(+), 12 deletions(-)
+Changes in v8:
+- Refactor the for cycle in csiphy_is_gen2 same way as
+  csiphy_get_lane_mask(). (Frank)
+- Dropped T-b/R-b/A-b from
+  "media: qcom: camss: Account for C-PHY when calculating link frequency"
+  as I did refactored the commit to not rely on `csiphy_id`. (Wenmeng)
+- csiphy_get_lane_mask calculation fix. (Wenmeng)
+- csiphy_lanes_enable now uses csiphy_get_lane_mask. (Wenmeng)
+- Link to v7: https://lore.kernel.org/r/20260605-qcom-cphy-v7-0-426c37e9008f@ixit.cz
 
-diff --git a/drivers/usb/gadget/function/f_ncm.c b/drivers/usb/gadget/function/f_ncm.c
-index 9e9601f12b88..d8ab1adec63e 100644
---- a/drivers/usb/gadget/function/f_ncm.c
-+++ b/drivers/usb/gadget/function/f_ncm.c
-@@ -1425,6 +1425,7 @@ static int ncm_bind(struct usb_configuration *c, struct usb_function *f)
- 	struct f_ncm_opts	*ncm_opts;
- 
- 	struct usb_os_desc_table	*os_desc_table __free(kfree) = NULL;
-+	struct net_device		*net __free(detach_gadget) = NULL;
- 	struct usb_request		*request __free(free_usb_request) = NULL;
- 
- 	if (!can_support_ecm(cdev->gadget))
-@@ -1438,16 +1439,18 @@ static int ncm_bind(struct usb_configuration *c, struct usb_function *f)
- 			return -ENOMEM;
- 	}
- 
--	mutex_lock(&ncm_opts->lock);
--	gether_set_gadget(ncm_opts->net, cdev->gadget);
--	if (!ncm_opts->bound)
--		status = gether_register_netdev(ncm_opts->net);
--	mutex_unlock(&ncm_opts->lock);
--
--	if (status)
--		return status;
--
--	ncm_opts->bound = true;
-+	scoped_guard(mutex, &ncm_opts->lock)
-+		if (ncm_opts->bind_count == 0) {
-+			if (!device_is_registered(&ncm_opts->net->dev)) {
-+				gether_set_gadget(ncm_opts->net, cdev->gadget);
-+				status = gether_register_netdev(ncm_opts->net);
-+			} else
-+				status = gether_attach_gadget(ncm_opts->net, cdev->gadget);
-+
-+			if (status)
-+				return status;
-+			net = ncm_opts->net;
-+		}
- 
- 	ncm_string_defs[1].s = ncm->ethaddr;
- 
-@@ -1547,6 +1550,9 @@ static int ncm_bind(struct usb_configuration *c, struct usb_function *f)
- 	}
- 	ncm->notify_req = no_free_ptr(request);
- 
-+	ncm_opts->bind_count++;
-+	no_free_ptr(net);
-+
- 	DBG(cdev, "CDC Network: IN/%s OUT/%s NOTIFY/%s\n",
- 			ncm->port.in_ep->name, ncm->port.out_ep->name,
- 			ncm->notify->name);
-@@ -1593,7 +1599,7 @@ static void ncm_free_inst(struct usb_function_instance *f)
- 	struct f_ncm_opts *opts;
- 
- 	opts = container_of(f, struct f_ncm_opts, func_inst);
--	if (opts->bound)
-+	if (device_is_registered(&opts->net->dev))
- 		gether_cleanup(netdev_priv(opts->net));
- 	else
- 		free_netdev(opts->net);
-@@ -1655,9 +1661,12 @@ static void ncm_free(struct usb_function *f)
- static void ncm_unbind(struct usb_configuration *c, struct usb_function *f)
- {
- 	struct f_ncm *ncm = func_to_ncm(f);
-+	struct f_ncm_opts *ncm_opts;
- 
- 	DBG(c->cdev, "ncm unbind\n");
- 
-+	ncm_opts = container_of(f->fi, struct f_ncm_opts, func_inst);
-+
- 	hrtimer_cancel(&ncm->task_timer);
- 
- 	kfree(f->os_desc_table);
-@@ -1673,6 +1682,10 @@ static void ncm_unbind(struct usb_configuration *c, struct usb_function *f)
- 
- 	kfree(ncm->notify_req->buf);
- 	usb_ep_free_request(ncm->notify, ncm->notify_req);
-+
-+	ncm_opts->bind_count--;
-+	if (ncm_opts->bind_count == 0)
-+		gether_detach_gadget(ncm_opts->net);
- }
- 
- static struct usb_function *ncm_alloc(struct usb_function_instance *fi)
-diff --git a/drivers/usb/gadget/function/u_ether.c b/drivers/usb/gadget/function/u_ether.c
-index 62e2018d0357..49ff3fc62f74 100644
---- a/drivers/usb/gadget/function/u_ether.c
-+++ b/drivers/usb/gadget/function/u_ether.c
-@@ -896,6 +896,28 @@ void gether_set_gadget(struct net_device *net, struct usb_gadget *g)
- }
- EXPORT_SYMBOL_GPL(gether_set_gadget);
- 
-+int gether_attach_gadget(struct net_device *net, struct usb_gadget *g)
-+{
-+	int ret;
-+
-+	ret = device_move(&net->dev, &g->dev, DPM_ORDER_DEV_AFTER_PARENT);
-+	if (ret)
-+		return ret;
-+
-+	gether_set_gadget(net, g);
-+	return 0;
-+}
-+EXPORT_SYMBOL_GPL(gether_attach_gadget);
-+
-+void gether_detach_gadget(struct net_device *net)
-+{
-+	struct eth_dev *dev = netdev_priv(net);
-+
-+	device_move(&net->dev, NULL, DPM_ORDER_NONE);
-+	dev->gadget = NULL;
-+}
-+EXPORT_SYMBOL_GPL(gether_detach_gadget);
-+
- int gether_set_dev_addr(struct net_device *net, const char *dev_addr)
- {
- 	struct eth_dev *dev;
-diff --git a/drivers/usb/gadget/function/u_ether.h b/drivers/usb/gadget/function/u_ether.h
-index 34be220cef77..c85a1cf3c115 100644
---- a/drivers/usb/gadget/function/u_ether.h
-+++ b/drivers/usb/gadget/function/u_ether.h
-@@ -150,6 +150,32 @@ static inline struct net_device *gether_setup_default(void)
-  */
- void gether_set_gadget(struct net_device *net, struct usb_gadget *g);
- 
-+/**
-+ * gether_attach_gadget - Reparent net_device to the gadget device.
-+ * @net: The network device to reparent.
-+ * @g: The target USB gadget device to parent to.
-+ *
-+ * This function moves the network device to be a child of the USB gadget
-+ * device in the device hierarchy. This is typically done when the function
-+ * is bound to a configuration.
-+ *
-+ * Returns 0 on success, or a negative error code on failure.
-+ */
-+int gether_attach_gadget(struct net_device *net, struct usb_gadget *g);
-+
-+/**
-+ * gether_detach_gadget - Detach net_device from its gadget parent.
-+ * @net: The network device to detach.
-+ *
-+ * This function moves the network device to be a child of the virtual
-+ * devices parent, effectively detaching it from the USB gadget device
-+ * hierarchy. This is typically done when the function is unbound
-+ * from a configuration but the instance is not yet freed.
-+ */
-+void gether_detach_gadget(struct net_device *net);
-+
-+DEFINE_FREE(detach_gadget, struct net_device *, if (_T) gether_detach_gadget(_T))
-+
- /**
-  * gether_set_dev_addr - initialize an ethernet-over-usb link with eth address
-  * @net: device representing this link
-diff --git a/drivers/usb/gadget/function/u_ncm.h b/drivers/usb/gadget/function/u_ncm.h
-index 5408854d8407..297e5087872f 100644
---- a/drivers/usb/gadget/function/u_ncm.h
-+++ b/drivers/usb/gadget/function/u_ncm.h
-@@ -18,7 +18,7 @@
- struct f_ncm_opts {
- 	struct usb_function_instance	func_inst;
- 	struct net_device		*net;
--	bool				bound;
-+	int				bind_count;
- 
- 	struct config_group		*ncm_interf_group;
- 	struct usb_os_desc		ncm_os_desc;
+Changes in v7:
+- Move logic out of switch. (Frank)
+- Change csid cphy knob to phy_sel using enum. (Bryan, Frank)
+- Link to v6: https://lore.kernel.org/r/20260603-qcom-cphy-v6-0-e50de0b557a8@ixit.cz
+
+Changes in v6:
+- lanes_enable now uses WARN_ONCE instead of return values. (Sakari)
+- Dropped Kodiak patch until it gets better documented.
+- Document the 3ph C-PHY sdm845 registers a bit.
+- Link to v5: https://lore.kernel.org/r/20260531-qcom-cphy-v5-0-6be0f62b4d65@ixit.cz
+
+Changes in v5:
+- Split first patch enabling C-PHY part into last patch. (Bryan)
+- Fix the camss_get_link_freq crash. (Cory)
+- Dropped patch whitelisting C-PHY, instead use nullptr check. (Bryan)
+- Dropped A-b/R-b from
+ "media: qcom: camss: Initialize lanes after lane configuration is available"
+ and changed Petr to Co-developed by and owned the patch.
+- Link to v4: https://lore.kernel.org/r/20260301-qcom-cphy-v4-0-e53316d2cc65@ixit.cz
+
+Changes in v4:
+- Documented cphy parametr to camss_get_link_freq.
+- Use BIT() macro for lane_mask. (Bryan)
+- Correct lane_mask calculation. (Kieran + me)
+- Removed comment for the D/C-PHY sequences init. (Bryan)
+- Pass &csid->phy for calculate freq. (Bryan)
+- Added missing cphy description to camss_get_link_freq. (kernel test robot)
+- Gen2 v1.1 MIPI CSI-2 CPHY init hex to lowercase.
+- Added back missed commit with improved electrical for sdm845 3ph.
+- NOT addressed yet:
+  - Proliferating special cases in switch statements on a per-SoC basis is verboten. 
+  - is it possible to set clock_lane to say 0xff in DT ? 
+- Link to v3: https://lore.kernel.org/r/20260117-qcom-cphy-v3-0-8ce76a06f7db@ixit.cz
+
+Changes in v3:
+- Make lanes_enable return sucess or error, since I couldn't move the
+  configuration to the _init.
+- Dropped R-b tags on
+  "media: qcom: camss: Initialize lanes after lane configuration is available"
+  as I changed formatting.
+- Link to v2: https://lore.kernel.org/r/20251204-qcom-cphy-v2-0-6b35ef8b071e@ixit.cz
+
+Changes in v2:
+- This is still WIP patch series, thus I wanted to publish already
+  changed parts to get feedback regarding to the direction of patchset.
+- When switch to using odd bits, zeroed val which was left unitialized in v1.
+- Accidentally missed archs added back in the commit moving lane regs to
+  new location.
+- Remove commit with reverting check for only D-PHY is supported and
+  adjusted the check to also account for C-PHY.
+- Documented link frequency calculation with defines. (Casey)
+- Changed the cphy boolean to phy_cfg enum in the camss/camss-csiphy.
+  (Brian)
+- Added patch for csiphy-3ph enablement for sm7280 from Luca as I'm
+  meanwhile trying to bring up the C-PHY sensor on FairPhone 5.
+- Merged these two commits together
+    csiphy-3ph: Enable sdm845 C-PHY sequence
+    csiphy-3ph: Add Gen2 v1.1 MIPI CSI-2 CPHY init
+  merged R-b.
+- Link to v1: https://lore.kernel.org/r/20251109-qcom-cphy-v1-0-165f7e79b0e1@ixit.cz
+
+---
+David Heidelberg (9):
+      media: qcom: camss: csiphy: Introduce PHY configuration
+      media: qcom: camss: csiphy-3ph: Fix lane mask calculation
+      media: qcom: camss: csiphy-3ph: Use odd bits for configuring C-PHY lanes
+      media: qcom: camss: Prepare CSID for C-PHY support
+      media: qcom: camss: Initialize lanes after lane configuration is available
+      media: qcom: camss: csiphy-3ph: Add Gen2 v1.1 MIPI CSI-2 C-PHY init
+      media: qcom: camss: csiphy-3ph: Update Gen2 v1.1 MIPI CSI-2 C-PHY init
+      media: qcom: camss: Account for C-PHY when calculating link frequency
+      media: qcom: camss: Enable C-PHY where available
+
+ .../media/platform/qcom/camss/camss-csid-gen2.c    |   1 +
+ drivers/media/platform/qcom/camss/camss-csid.c     |  11 +-
+ drivers/media/platform/qcom/camss/camss-csid.h     |   6 +
+ .../platform/qcom/camss/camss-csiphy-3ph-1-0.c     | 229 ++++++++++++++++-----
+ drivers/media/platform/qcom/camss/camss-csiphy.c   |   6 +-
+ drivers/media/platform/qcom/camss/camss-csiphy.h   |   2 +
+ drivers/media/platform/qcom/camss/camss.c          |  33 ++-
+ drivers/media/platform/qcom/camss/camss.h          |   2 +-
+ 8 files changed, 229 insertions(+), 61 deletions(-)
+---
+base-commit: abe651837cb394f76d738a7a747322fca3bf17ba
+change-id: 20251109-qcom-cphy-bb8cbda1c644
+
+Best regards,
 -- 
-2.54.0.1136.gdb2ca164c4-goog
+David Heidelberg <david@ixit.cz>
+
 
