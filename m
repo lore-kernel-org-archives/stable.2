@@ -1,179 +1,120 @@
-Received: from mail-qv1-f49.google.com (mail-qv1-f49.google.com [209.85.219.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE13F3DD84A
-	for <stable@vger.kernel.org>; Wed, 10 Jun 2026 11:34:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2CB93D7D69;
+	Wed, 10 Jun 2026 11:41:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781091256; cv=none; b=joPMev19yvq3OIyqDagJI06FTeDA0gR8e/D3yYAjaRv5CcEA1PIzKDKXPSMBuuhew9DXZOFOknI1ZaWOmtZJj7TxQtA8vStxNKfPo96+hcouEpgBRyd401LpYt90KYIFDSTdNzLkFbVuaj3Y37B1/8OeAq9LcvqSsbTu+bxbNzw=
+	t=1781091684; cv=none; b=CxwXwmqv0w82N4Bu/dUuzUd6ACLQWaLplUidyKJtjsB7F+D7Qc6zBhUZVmZb2o0/zOmu6taAesxaApxrAe6DW1uy3epItngZ6dR5GiqodKhFvq7Pkg2v2ju2DcyEiAVqqvAp2RMnBVt+KahP0t6q1yfnJE1pzZk0w4nk9Z16XtE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781091256; c=relaxed/simple;
-	bh=x+F2KXtZ3AnoeA2HgEo4T3r8Mhf5qGBjX2zVqGVu+F4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dxNm6CKw+oG5tRzXrElKGWQMGTfyljEoa5M9w+GxsxKK6m8nc6wKADarN1+WDRcGeW2aw38g0VaYv5vLTsz7Mqkfu4wnWiCgUap2sAoVs5CZ0J6TlbJo2CqzTBpvIzADnh3yMdKMI9WHRF1//zlAhMOoJXK/O3KvLF6kyrNxcl8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=TkVnRhQO; arc=none smtp.client-ip=209.85.219.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	s=arc-20240116; t=1781091684; c=relaxed/simple;
+	bh=YUZnH9iXq0Pl87kTiU9IWLwmwffmNGTynFm+HmKTlRY=;
+	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=ewYu4nzZ8OrnQ4Middet11vhuaUCtzOuqO/FGi4e9j4gu/ce/y6vKqSDWhKSGn1EedKfKBytXl+QI7afMGXTCT09sBb80cpYo8H116mU7jSETns/uQx6RgBj1XgrONEBTuOOVoXkOvz+dvnteZEgbOyDcJbKE6mMyX61pdLjRr4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ClyjEuJp; arc=none smtp.client-ip=192.198.163.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="TkVnRhQO"
-Received: by mail-qv1-f49.google.com with SMTP id 6a1803df08f44-8ce9ddeddefso71642276d6.0
-        for <stable@vger.kernel.org>; Wed, 10 Jun 2026 04:34:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1781091254; x=1781696054; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=ojEE6G7x5Hyz18bffBqmv/qKtAjxoG29cTYIDqTjZjM=;
-        b=TkVnRhQOheaFAt1gnoN6Hm6e7ZI73qtlI/OTAapfcVVpOcZTGyBfKZpk9Tu0CN3Pf5
-         N2XdfGhogTuXo0rOwhstopK4jZaUj7DZCoz+F5nibrgF/rn5wdZImS2JSuaZLj+f5zMH
-         eqGiVRwTRy8x6GxMuWk4IQDWV23DjhrEWnlIzU0xO0qwhLkOd9U+ujuys1Dfj/i6dWoH
-         eOyjRmKHGd7swRgX8SAqc1kOhmR10rnrw670mDgJLq5t2mwxsZLB6AE3v6bJCG/53Rla
-         SswirCsJYZyK5SGIeTLdHO6en1qqrZKgGc8L4wp20EZmdI3uXoKfIB8/NzpDNCQbUyQd
-         1nNg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781091254; x=1781696054;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=ojEE6G7x5Hyz18bffBqmv/qKtAjxoG29cTYIDqTjZjM=;
-        b=SxWEbeIYpu7mBrkC4X+OVyEAPAgFpZwMVvwaiV1LFESVIOq2vwxiWYqEnKet+f3Cyt
-         RDNFs/QKEhCL8s7WfisvNYBnxlCEIQCINYFKWt6A0fQr+pE4QfFJFI5RxS/ZlCfGz1Pg
-         IBsBcvv26dHDIhASXeFt01gQXopWmf5W/qD/LPIlgszcVqCCl++4iOGJJUcKvOwlTiKx
-         XLnPKWYVOm8wcki9W2mLnL7lgxZdln4dYHHVyvRsDVtXfu9W+cFbPKBypAceq6qdtszo
-         raj2ectbmF5zRu3nHTJjfFqdo93Q1xUG4dd78KAnAM0v2Li5U1g59CqqeDXPA+zMAedE
-         eZ/g==
-X-Forwarded-Encrypted: i=1; AFNElJ+xZNiwcJV7+BKGn65l1TvYir+vgKrUi9R1HxoLepcslOolzLe+ya4eYG9Ue/93tCCpVrtZ50g=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwA3Dg9wANs/QrPShE/aFLZKWvIEWAILvoleo2Mm81P8Y1rrJwf
-	BmeGYd5g5AWUkxCnGgYBP2gLQnzAnY3xv4ZljMS2E7igL4t7gvSCodwze1xnBBuS0Ko=
-X-Gm-Gg: Acq92OEG/Dyn8AS6fJ39sFQmgcCwhYv8tOZfFcXNOxBBNTZJ2nNSH85jYAb/0KsX7WF
-	nh6kAn6S57r2juwSbDdA1y8qynnr+6Gh+WkaACFde3AIFNb+9rLNcsYi8JoVdn8YuHmSvMs52n6
-	nIxqQy3FZ1A8dhatdAieQqNlZGm/BRWEvtSgTlexfzfpne7Aerz0kZ+E1R2u+SYjQIiCgn7rGbz
-	S2HTE70kD7FhRsu6dbM2XoximK4PT7J4/qfdtiM+GXqoo7QRVSQKbJRBk9yHGV+3JeapfsoKsFQ
-	2Vqi/EDS3s389aPtZE33GJ5Q8plhFkby3FBbbws5MnJdl0GIaNzhg48evi6GS/Vw/KUJetjBy7f
-	DJuIVlH/LwsdutisBvjaLEin1VIL3Ggfm7vvs1gKXn3pL+GYxIkIh+LYgcEjCLBNjfHlz3ns4GN
-	mEiGbDwxPx0em5W7szse5NpU09gLuoeA1S9SwU1STsbD2vFpupN7MOjIejd6naiPGw1LHjUC4qO
-	i3TrrZeLkZCU3P4s6SQvuJaxYXg
-X-Received: by 2002:a0c:fde3:0:b0:8ce:ca78:409c with SMTP id 6a1803df08f44-8cee5fe4e78mr277619976d6.10.1781091253735;
-        Wed, 10 Jun 2026 04:34:13 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8cecd26e9e3sm225660056d6.46.2026.06.10.04.34.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 10 Jun 2026 04:34:13 -0700 (PDT)
-Date: Wed, 10 Jun 2026 07:34:11 -0400
-From: Gregory Price <gourry@gourry.net>
-To: Farhad Alemi <farhad.alemi@berkeley.edu>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>, Farhad Alemi <falemi@asu.edu>,
-	Yury Norov <ynorov@nvidia.com>,
-	Joshua Hahn <joshua.hahnjy@gmail.com>, Zi Yan <ziy@nvidia.com>,
-	Matthew Brost <matthew.brost@intel.com>,
-	Rakie Kim <rakie.kim@sk.com>, Byungchul Park <byungchul@sk.com>,
-	Ying Huang <ying.huang@linux.alibaba.com>,
-	Alistair Popple <apopple@nvidia.com>,
-	Waiman Long <longman@redhat.com>,
-	Rasmus Villemoes <linux@rasmusvillemoes.dk>, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, cgroups@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] cgroup/cpuset: rebind mm mempolicy to effective_mems,
- not mems_allowed
-Message-ID: <ailLs4akasGP1KLZ@gourry-fedora-PF4VCD3F>
-References: <25c4bc47-b65d-4c04-8a8f-18eef2b5566a@kernel.org>
- <CA+0ovCg05rUk1-3k2ysdxmbcER8aG-wVh9SSTrrbp6LPWpPHYA@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ClyjEuJp"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1781091682; x=1812627682;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=YUZnH9iXq0Pl87kTiU9IWLwmwffmNGTynFm+HmKTlRY=;
+  b=ClyjEuJp/Ev0Re15EII0IUVgl0zxiMjsB0mis/1eLZaYAW7v9FHxGCPB
+   hgsI/xHB1WyaWwTsdoPTps21tXD9XK4ngTF+NcGqjtIGzZz5yOTnNhvE6
+   ROVJ+eOQKhWi+AxwQCXIFMfW4AlTNCTvEdVRC9SxPugsFY6CuBT+OsKBE
+   FLVK4Q7mlJcFv5zG4Zv1rVs4FhoasX0Vbp/U8IbM7cwUhUMA3+8RDKDRl
+   sYiPHfpBtbufBee69HSCu8SLkyHemi02Nb1SIU4/7g8W+IhHHmqAJoVhu
+   2pktP3zF5Y5nWLKIS6kr52OpxV7Ze5VdTrCCj10jfHNaqv6mQgcwIXj2c
+   A==;
+X-CSE-ConnectionGUID: 8OqtE/hRRU6oWSUk1nkYVw==
+X-CSE-MsgGUID: 1Zz2fNHYT2+nhPdcb+4AZw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11812"; a="81924275"
+X-IronPort-AV: E=Sophos;i="6.24,197,1774335600"; 
+   d="scan'208";a="81924275"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Jun 2026 04:41:21 -0700
+X-CSE-ConnectionGUID: tFJiYj0STv+g0NQhxFUyQQ==
+X-CSE-MsgGUID: 3omx3dyUTwGLa0smXA1bPg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,197,1774335600"; 
+   d="scan'208";a="243685061"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.18])
+  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Jun 2026 04:41:18 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Wed, 10 Jun 2026 14:41:14 +0300 (EEST)
+To: Haoxiang Li <lihaoxiang@isrc.iscas.ac.cn>
+cc: mjg59@srcf.ucam.org, pali@kernel.org, Hans de Goede <hansg@kernel.org>, 
+    dvhart@infradead.org, platform-driver-x86@vger.kernel.org, 
+    LKML <linux-kernel@vger.kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH v2] platform/x86: dell-laptop: fix missing cleanups in
+ init error path
+In-Reply-To: <20260609081419.1995169-1-lihaoxiang@isrc.iscas.ac.cn>
+Message-ID: <adce8429-e437-48a1-6520-2b95973411eb@linux.intel.com>
+References: <20260609081419.1995169-1-lihaoxiang@isrc.iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CA+0ovCg05rUk1-3k2ysdxmbcER8aG-wVh9SSTrrbp6LPWpPHYA@mail.gmail.com>
+Content-Type: text/plain; charset=US-ASCII
 
-On Tue, Jun 09, 2026 at 07:57:41PM -0400, Farhad Alemi wrote:
-> cpuset_update_tasks_nodemask() rebinds a task's own mempolicy to the
-> cpuset's effective, online mems (newmems, from guarantee_online_mems()),
-> but rebinds that task's VMA mempolicies to the *configured* mask instead:
+On Tue, 9 Jun 2026, Haoxiang Li wrote:
+
+> dell_init() initializes several resources after dell_setup_rfkill(),
+> including the optional touchpad LED, keyboard backlight LED, battery
+> hook, debugfs directory and dell-laptop notifier.
 > 
-> 	cpuset_change_task_nodemask(task, &newmems);
-> 	...
-> 	mpol_rebind_mm(mm, &cs->mems_allowed);
+> If a later LED or backlight registration fails, the error path only
+> tears down the battery hook and rfkill resources. This leaves the
+> notifier, debugfs directory, keyboard backlight LED and optional
+> touchpad LED registered after dell_init() returns an error.
 > 
-> On the default (v2) hierarchy a cpuset that has never had cpuset.mems
-> written keeps mems_allowed empty while effective_mems is inherited
-> non-empty from the parent, and tasks may be attached to it (the
-> empty-mems attach check is v1-only).  A subsequent rebind -- e.g. from a
-> CPU hotplug event walking the cpuset -- then calls mpol_rebind_mm() with
-> an empty mask.  For a VMA policy created with MPOL_F_RELATIVE_NODES this
-> reaches mpol_relative_nodemask() ->
-> nodes_fold(..., nodes_weight(cs->mems_allowed) == 0) -> bitmap_fold(),
-> whose set_bit(oldbit % sz, dst) divides by zero:
+> Add the missing cleanup calls before tearing down rfkill.
 > 
->   Oops: divide error: 0000 [#1] SMP KASAN NOPTI
->   RIP: 0010:bitmap_fold+0x5e/0xb0
->    mpol_rebind_nodemask
->    mpol_rebind_mm
->    cpuset_update_tasks_nodemask
->    cpuset_handle_hotplug
->    sched_cpu_deactivate
->    cpuhp_thread_fun
-> 
-> cs->mems_allowed is the only nodemask in this function that is not the
-> effective set: the task-policy rebind, the page-migration target and
-> cs->old_mems_allowed all use newmems.  The sibling cpuset_attach() path
-> already rebinds VMA policies against the effective mems
-> (cpuset_attach_nodemask_to = cs->effective_mems) and explicitly notes
-> that mems_allowed can be empty under hotplug.  Rebind the VMA policies to
-> newmems too: it is guaranteed non-empty by guarantee_online_mems(), which
-> fixes the divide-by-zero, and it makes the VMA policies consistent with
-> the task policy and with the nodes the task is actually allowed to use.
->
+> Fixes: 9c656b07997f ("platform/x86: dell-*: Call new led hw_changed API on kbd brightness change")
 
-I think you can make this a bit more concise:
+I've included also these:
 
-  Creating a child cpuset where cpuset.mems is never set leads to
-  a div/0 when a VMA mempolicy with MPOL_F_RELATIVE_NODES rebinds
-  in response to a CPU hotplug event.
+Fixes: 037accfa14b2 ("dell-laptop: Add debugfs support")
+Fixes: 2d8b90be4f1c ("dell-laptop: support Synaptics/Alps touchpad led")
+Fixes: 6cff8d60aa0a ("platform: x86: dell-laptop: Add support for keyboard backlight")
 
-  Reproduction steps:
-     1) Create a cgroup w/ cpuset controls (do not set cpuset.mems)
-     2) Move the task into the child cpuset
-     3) Create a VMA mempolicy for that task with MPOL_F_RELATIVE_NODES
-     4) unplug and hotplug a cpu
-          echo 0 > /sys/devices/system/cpu/cpu1/oneline
-          echo 1 > /sys/devices/system/cpu/cpu1/oneline
-     5) mempolicy rebind does a div/0 in mpol_relative_nodemask on the
-        call to __nodes_fold()
+Applied this change to my local the review-ilpo-next branch (it will 
+eventually appear in the public one if there are no problems).
 
-  The cpuset code passes (cs->mems_allowed) which is not guaranteed to
-  have nodes to the rebind routine.  Use mems_effective - the value
-  returned by guarantee_online_mems() - instead, which is guaranteed to
-  have a non-empty nodemask..
+--
+ i.
 
-Maybe add a link to your reproducer and the original [BUG]
-
-Link: https://lore.kernel.org/linux-mm/CA+0ovCgxbZkXa+OU8w3s84R3KNPNxxRfmsNR-udh+afQBbGNmw@mail.gmail.com/
-Link: https://lore.kernel.org/all/CA+0ovCiEz6SP_sn3kN4Tb+_oC=eHMXy_Ffj=usV3wREdQrUtww@mail.gmail.com/
-
-Does this need a Closes tag?
-
-> Fixes: ae1c802382f7 ("cpuset: apply cs->effective_{cpus,mems}")
-> Suggested-by: Gregory Price <gourry@gourry.net>
-> Signed-off-by: Farhad Alemi <farhad.alemi@berkeley.edu>
 > Cc: stable@vger.kernel.org
+> Signed-off-by: Haoxiang Li <lihaoxiang@isrc.iscas.ac.cn>
 > ---
->  kernel/cgroup/cpuset.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+> Changes in v2:
+>  - Fix all missing cleanups in dell_init()'s error path.
+>  - Add Fixes tags.
+>  - Modify the commit title and message.
+> ---
+>  drivers/platform/x86/dell/dell-laptop.c | 5 +++++
+>  1 file changed, 5 insertions(+)
 > 
-> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-> --- a/kernel/cgroup/cpuset.c
-> +++ b/kernel/cgroup/cpuset.c
-> @@ -2649,7 +2649,7 @@ void cpuset_update_tasks_nodemask(struct cpuset *cs)
+> diff --git a/drivers/platform/x86/dell/dell-laptop.c b/drivers/platform/x86/dell/dell-laptop.c
+> index 57748c3ea24f..053f40572bf6 100644
+> --- a/drivers/platform/x86/dell/dell-laptop.c
+> +++ b/drivers/platform/x86/dell/dell-laptop.c
+> @@ -2551,7 +2551,12 @@ static int __init dell_init(void)
+>  	if (mute_led_registered)
+>  		led_classdev_unregister(&mute_led_cdev);
+>  fail_led:
+> +	dell_laptop_unregister_notifier(&dell_laptop_notifier);
+> +	debugfs_remove_recursive(dell_laptop_dir);
+>  	dell_battery_exit();
+> +	kbd_led_exit();
+> +	if (quirks && quirks->touchpad_led)
+> +		touchpad_led_exit();
+>  	dell_cleanup_rfkill();
+>  fail_rfkill:
+>  	platform_device_del(platform_device);
 > 
->  		migrate = is_memory_migrate(cs);
-> 
-> -		mpol_rebind_mm(mm, &cs->mems_allowed);
-> +		mpol_rebind_mm(mm, &newmems);
->  		if (migrate)
->  			cpuset_migrate_mm(mm, &cs->old_mems_allowed, &newmems);
->  		else
-> -- 
-> 2.43.0
