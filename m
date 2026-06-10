@@ -1,72 +1,71 @@
-Received: from mail-dl1-f74.google.com (mail-dl1-f74.google.com [74.125.82.74])
+Received: from mail-dy1-f202.google.com (mail-dy1-f202.google.com [74.125.82.202])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF61233689E
-	for <stable@vger.kernel.org>; Wed, 10 Jun 2026 18:08:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.74
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3761F34E75D
+	for <stable@vger.kernel.org>; Wed, 10 Jun 2026 18:09:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.202
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781114940; cv=none; b=Otj8SJ5AglopuDWjKtooeYJlyM1i0wvscLrS9t/yXSZrkl/OuHjUpUM1Hz3SMVJ7M1P/naE69aFBWiOJ1zEEs+M54XBpBT6dhXMPlqQxNyTiex8N9uzQttY/rzchzOyUvP5TMzaScoWZHM5N5lhZzGN7iMLhlbfufl3TI/s+OA4=
+	t=1781114975; cv=none; b=LhiULOJRpv9WD3kCBHk+D0HYR8TuIySjXpCrgMRNUOKD8s4res1D70/1q2OO4hRm6Ru1qmoHwxSsMSBDKmbrQL5L/mreReC1Rrbj/nvop2CXkJgzc9+v56kH7whNhfsI7JAZ0BDYx7MzYG6vtf4gCz+XWqr8NF58QLxM/gYmgfA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781114940; c=relaxed/simple;
-	bh=gdkRLsEYdTfbD6NMnn7No115YeZMwlYuglRnCd5Nnlo=;
+	s=arc-20240116; t=1781114975; c=relaxed/simple;
+	bh=TcgLzz2FKVyslii3l18U6N+Lfgdl8BRpY9C4tApmbr8=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=sn1Np3GwIQtDJ8vn5UfltNVyvtG4MdqJAZUS7nUBoPo/bLydGOOnTS++BDzR/TaH1Tg8kDP7dlycUw+jDEkNkDmaTL9BKrSaz176PZjBmN8rzDMv6P43e4L7X2OX2UKl8ac9MNHeY3HPes5AOTiUihGY7CuPOme4nv0gd0eXZZU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--cmllamas.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=vu1mzTCr; arc=none smtp.client-ip=74.125.82.74
+	 To:Cc:Content-Type; b=mK+ORBDnyjmOATCkK9PGC7oR+A86QkSV18eWKHoxrlHzK/VuYHIKkR8NEipQ+Ug5zPfHoFV2LJVLfeOLjvIF6/eKuJkkBayAJWRnnG7JBh6uxa4VgKuSSoX568zw97Zt6rGGOrGbx1Luf9D/qE04pU6HclpanyZ3W/dvfjJs0+A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--cmllamas.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=NhE03k66; arc=none smtp.client-ip=74.125.82.202
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--cmllamas.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="vu1mzTCr"
-Received: by mail-dl1-f74.google.com with SMTP id a92af1059eb24-137eff27f36so347882c88.1
-        for <stable@vger.kernel.org>; Wed, 10 Jun 2026 11:08:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="NhE03k66"
+Received: by mail-dy1-f202.google.com with SMTP id 5a478bee46e88-30761ab3483so4056393eec.0
+        for <stable@vger.kernel.org>; Wed, 10 Jun 2026 11:09:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1781114938; x=1781719738; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1781114973; x=1781719773; darn=vger.kernel.org;
         h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
          :date:from:to:cc:subject:date:message-id:reply-to;
-        bh=1tVvKPjpVOuOIT3ExmpgiKRZJ1awT71IaVj9uNbuWBI=;
-        b=vu1mzTCr/FCEFLlIOTM8uGQXkiuv4YhppwUbiMu52uTd3CIwm35mH0wjGmax9/zM2S
-         cbzNNaacs0U/ZB/fRLtI+6J+wsFzeIQK2S6IQ7dnoZZnpkPjFuKIFLznaRaucW5EK3hr
-         9fyyFrNpGEIRayCM2ReVU+00Zee4AxcCLA4Wp1ggURPNdEeSTM/2YakAHmET2JzI5SI1
-         b/g7IpyBKZokKJ1t+UdKEX76jjFsD1ZgQHl4ZXgf+f7NJhWYNO02JYqtiXHWqwTDh/Qx
-         oZIom5dt2/z+WK6s2XWrTEqdYNU6GxD53/ixjcVnW93+pczF/TH2dJZMqQQhiMFDtNkP
-         knQw==
+        bh=o7qiOYfoqxge5ltmSaYzYpxHCL7kE1UyHf9z0w0ZOhY=;
+        b=NhE03k665X7Y4H3BOp3TQs4QoHRpJISu0f+a+Ok39fCWvvj14CYWPaOP3WZSaO5W3W
+         +X8VTbpD2lg+UzvQqWDOyZhVkG0+UcXwq+1rcWCinNZSBecFsQx+NaPIRxaNk4e44Awt
+         ZN9oUn65MOYbkl/ge1i3gxh1lZh7F0/MMiUkrwtaFNbImHMEQNBOr4wNy6ua5o5/ysAl
+         eI2EIJEaAmMb/geOKzNJ9Vjmu3A4PwoxGgfYyXYsxiy7kmjGTMUsLHXjEgXSEJyVYGdF
+         64cBy06g2CHDudqVxP0UVWCvCPMQlgx63o3pjoO7bWS5KlhYBA89oOA5rrJ+5Q0etz+r
+         h11A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781114938; x=1781719738;
+        d=1e100.net; s=20251104; t=1781114973; x=1781719773;
         h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
          :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=1tVvKPjpVOuOIT3ExmpgiKRZJ1awT71IaVj9uNbuWBI=;
-        b=aN0YZ5Z0pgMsPPdftp8gns2P7Q2hzCzI8wnwyeT+LC1wTlDrpCSbQck9BJ0vhgJibN
-         gKPAo8XyS5qfnk5thwkrGCCUyLA8fQm/8BsBcQHdYZrI+xVi/tmm3OLd2rcC13UyAUGq
-         wNUTK8CMb6ht5gYEsEceMSH9BKYDwOFpP9trU3HOn8uHd8nxLQTK95WtCnJQmcS3Ayee
-         /ORtCoXYSXc7uxh9FsN9TWJFnXUSyzOsu7nW+6J7GvkFbNhLTTPIY+P6PO+8qbTgGDfY
-         FguAqg2MdM0lBitpW8UjBHHVI1/OqmwKuqFH+fbl2Vma6ZUu8XeRNVVeiqNC/AMy541k
-         c9pg==
-X-Gm-Message-State: AOJu0Yy0UTgLYQT6P0CQ2QdJn5MOPwcEnwYwPSN1zfowc5h8LenvOSm5
-	uydlU0+PFSmkY6QvNhXVDK8QJ+2Oax/WdAXdJn9GOdWDV1zvb9lRBtPYxcRFVksY5Izd2uefL/h
-	ubih0PB7yxHeeCcADbK1CNmG96T6z7g6eRaYOptN6uMVZ+grG6nZOe9BHM5us8kf9gzKmXGc6Ys
-	AOjp8yWQUQhAlKcFoz3GaZrBy3vBOpXLkITc27/fyYKZr2IiE=
-X-Received: from dlbtu17.prod.google.com ([2002:a05:7022:3c11:b0:137:e4cf:f531])
+        bh=o7qiOYfoqxge5ltmSaYzYpxHCL7kE1UyHf9z0w0ZOhY=;
+        b=srb9fyA6rElKV9T3MN7E6jjfUTKHrfuI7t5bzg9Cg0j73rJAfaAmyrMzzq11tPEZNx
+         HcWex9NSCT3fXdeJbtz4WvovTePlQY+ZGT4sj9X0BC6yQ68jGs0mPV8JyU/my3iCagvm
+         bbAhcjbu6dYRtCsgvBNmlwL9ZAwsgKHCxWBGPWky3OW+uOP2ZT6aq8PChOJoaKO+AJlU
+         f+8fjrYcrgSyVSHM4a1RVS6OL9ZXcQHrFDBywXvd8WiypYmnxNPk2jmmW0RUFrWyyBRd
+         PkUxCl1uCUTjUb9+pk2rLwjFt7iHvnwE+/NfjLDOH+SP705+lkgrM4UfNp6Eys2H9TeV
+         /tsQ==
+X-Gm-Message-State: AOJu0YyNxAT31717g/3+Wgez61mqi/Iepjnl9mbqsLH8ZSr+5tQGR86L
+	GueNS6/Ad/6cAKS+yL6ye2xkOoWowPhAXEdPylJIh0qdFhf1Qsw8YF1Nkl5Be7ymcQ0DKmODxIP
+	C354q889KUfGrHRNc9U/13u0ltK3B6K+6JPk5w7UMlI9Y7YtIvl7xLcHvZai7stkbYmvIsttI6F
+	n12c+pLrsbNlANwLbSwQA29FLgwJaIXCQJ9Nx+RfPIgukGweg=
+X-Received: from dycuc24.prod.google.com ([2002:a05:693c:3f18:b0:307:d71d:34a7])
  (user=cmllamas job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:701b:2403:b0:138:3613:db7 with SMTP id a92af1059eb24-13836130f1amr2334449c88.1.1781114937721;
- Wed, 10 Jun 2026 11:08:57 -0700 (PDT)
-Date: Wed, 10 Jun 2026 18:08:37 +0000
-In-Reply-To: <20260610180841.3091635-1-cmllamas@google.com>
+ 2002:a05:7300:fd02:b0:304:8366:7456 with SMTP id 5a478bee46e88-307d5fc3000mr6139844eec.3.1781114973047;
+ Wed, 10 Jun 2026 11:09:33 -0700 (PDT)
+Date: Wed, 10 Jun 2026 18:09:24 +0000
+In-Reply-To: <20260610180928.3093023-1-cmllamas@google.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
-References: <20260610180841.3091635-1-cmllamas@google.com>
+References: <20260610180928.3093023-1-cmllamas@google.com>
 X-Mailer: git-send-email 2.54.0.1136.gdb2ca164c4-goog
-Message-ID: <20260610180841.3091635-2-cmllamas@google.com>
-Subject: [PATCH 6.1.y 2/2] usb: gadget: u_ether: Fix NULL pointer deref in eth_get_drvinfo
+Message-ID: <20260610180928.3093023-2-cmllamas@google.com>
+Subject: [PATCH 6.6.y 2/2] usb: gadget: u_ether: Fix NULL pointer deref in eth_get_drvinfo
 From: Carlos Llamas <cmllamas@google.com>
 To: stable@vger.kernel.org
 Cc: Jianqiang kang <jianqkang@sina.cn>, Neill Kapron <nkapron@google.com>, kernel-team@android.com, 
 	Kuen-Han Tsai <khtsai@google.com>, Val Packett <val@packett.cool>, stable <stable@kernel.org>, 
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Carlos Llamas <cmllamas@google.com>, 
-	Sasha Levin <sashal@kernel.org>, "open list:USB SUBSYSTEM" <linux-usb@vger.kernel.org>, 
-	open list <linux-kernel@vger.kernel.org>
+	"open list:USB SUBSYSTEM" <linux-usb@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 
 From: Kuen-Han Tsai <khtsai@google.com>
@@ -105,10 +104,10 @@ Signed-off-by: Carlos Llamas <cmllamas@google.com>
  1 file changed, 4 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/usb/gadget/function/u_ether.c b/drivers/usb/gadget/function/u_ether.c
-index e972de236be5..83dfc5008b68 100644
+index 49ff3fc62f74..91b2d1f5ed00 100644
 --- a/drivers/usb/gadget/function/u_ether.c
 +++ b/drivers/usb/gadget/function/u_ether.c
-@@ -147,8 +147,10 @@ static void eth_get_drvinfo(struct net_device *net, struct ethtool_drvinfo *p)
+@@ -112,8 +112,10 @@ static void eth_get_drvinfo(struct net_device *net, struct ethtool_drvinfo *p)
  
  	strscpy(p->driver, "g_ether", sizeof(p->driver));
  	strscpy(p->version, UETH__VERSION, sizeof(p->version));
