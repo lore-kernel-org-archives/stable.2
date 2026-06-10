@@ -1,227 +1,183 @@
-Received: from mail-yw1-f176.google.com (mail-yw1-f176.google.com [209.85.128.176])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEB30352030
-	for <stable@vger.kernel.org>; Wed, 10 Jun 2026 18:36:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5BED3002D1
+	for <stable@vger.kernel.org>; Wed, 10 Jun 2026 18:53:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781116591; cv=none; b=LZfJogc4G/jTnFMqfwP6nJoU2GzRobl0bmMdWG14lTe43Q0cvcJqfimm4oy97H/df7KDuR79HPmQ0GZ+ATsTI1Ub3Pg9v3pqByNvrUz77vupdH4ZrN/3Lbrt+bzdFbXZLl9GJQM7bdhxSLPw0YouQgF8ZUjnVvUstbAJJuwsahk=
+	t=1781117586; cv=none; b=HNV2Z0pPNC/XpLIboJa3VPtu0eOgvWi/TRqqb8bKNTCyMOot52jGl1c9Ah3vOLVlLR4arfC3EcnfpTil950xGzjbSPSCRswKjXMnSmHVhRcFxSH7c7hJU++gWe83wb3c3Hv0IW+Sb6M0a2nUb0oDIcH5n4edaC40k2v4ORiH/yQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781116591; c=relaxed/simple;
-	bh=4rjlzwFl4SNJQSIhgRzMe6SvYNA6a91957CexrddqwM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=l4/tz5agzfIdaLiKKBNlEV5/n8p4IJkVxDctq/I1AchCjH77ndo1nlR9QRH4CUIn80mukBESx3tcR7HK6CWNirDipKHetUg03PFb6me6tvyq5MNwzQ7FopaFvgHZ8bIm7lx5dXFVWnlJCHzTqzLtmoVRk6ramw4HTAzkiUMEOW0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=o/g3OJil; arc=none smtp.client-ip=209.85.128.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781117586; c=relaxed/simple;
+	bh=WZckIkPtJEFt85KizNg0TyTxE35KcCiksInVQT7La7Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=csgwneLWgiIiwAryiITm8eDzSnuwCeIBTKiajBD7AzyaFkaADCCyF5q+H9czmvg4z2mUDYrZLTS3RL206Wwo4c+vkM4Y0NqKAzAIWzFazD49MwnHcUFnSCB9RgAZqv4+H7Vc/R4BUeFCfflsGqqxymK9idOPgM/S00BSHBvpQqQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=NDFVv3f3; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=+Bl4g6Bv; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=NDFVv3f3; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=+Bl4g6Bv; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="o/g3OJil"
-Received: by mail-yw1-f176.google.com with SMTP id 00721157ae682-7e8833c99fcso79898257b3.3
-        for <stable@vger.kernel.org>; Wed, 10 Jun 2026 11:36:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781116589; x=1781721389; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=BUujVtmtiJ0ulcRer2P4+Kpx3Yv3Q98tfMDf+JEUqu4=;
-        b=o/g3OJilUoqiUwx3KYWvDLAeUbI0Lqro0Gnu1knpKDvH9LuRSMEO4VFz7FM2yNcny7
-         I/uCphtEHbxiDuhRP6vtdIn89BUkL+XMgvvbs3DiRvD5vu7jgZ89Iw9BBjKmRzi3b1tx
-         HWhsb7l10W3dW5nWCook3jHmxaGZ5/5q6YT/91NLS5q9jPUKDDUZ9fhvlKdqsmtsANfW
-         Mw6SppixmNB0u65fPpOdr8fWNfe4NRbyWL8h1DjOsIkTN4FnEnNc4WeSBQi3WtDcKrF9
-         btzLYXhwODRy72++LjY6iT7hg6CrIJvm/jMmGAcUhx5wj3FjSfruDq1+nyKVE0YUcs1U
-         Ww6A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781116589; x=1781721389;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=BUujVtmtiJ0ulcRer2P4+Kpx3Yv3Q98tfMDf+JEUqu4=;
-        b=QjyI+Y1MUgiYle7en5o9MTMYJnknZJoabOOYZg9HaG64mfsZQld26g8r1X2qNi+eHV
-         kKoMmM0SQ27l+IDNg9D4dHIdxvpwVW0UnHQGHg0C0urKN44RM1TgKF6uzVjsYUvM+f+P
-         EqcsQ9fWHwkeEQmxTkLzoauMq5kvGRIzNlo6wJejK7239XLNuUFiIRHKXU+VzHnSIEqT
-         qXbrJFoFx2BRoU67pyLvzXzSrs7WQA50mBflTH8sSSv4v2DJ1xa1sKRZN5Ljb8rqJFEz
-         aqYN+BbFfpgSyKah/GHxYLDNYBJc5+VjDUCD+zzv+4bINUQ4QY128K/InLugHeq9f9hI
-         HUcQ==
-X-Forwarded-Encrypted: i=1; AFNElJ8+Qf95fYfPxbcwkP1LXnQin8cFLMi0lHY9qEDTSPwE7shxeRN99Vm/c5nKj1VAEIuXs69EedY=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxHnxUoM7Hq8Ud0H2OexhwNnuhjlgO2L5Poy2D7UTzvQoCDgmOF
-	hISErV11YYd350uYkCSgpcv7s1ZJgmbPf1RzC+Fb7fEnq8LjRrhKtu58
-X-Gm-Gg: Acq92OFpr0IVATPOwrW8/j1g3lUhuKs5ru0qLXOB+Ap9QLbIprigPht3ucwYvvwqZIT
-	ylBYs+Ss4wFoHCaIz3OiSy12YPrmJ4Yd57ykGH1KpOgAD57CAmmvGBLdX4SvA1JaDbgMv8nisv3
-	Aykk+FhMqgulWGOHOSFvR9kAia0/LLpqq1wgQFoU80aT4QkgDZCrsol4APTuWjub1cwEFHAUMkz
-	wG10UxhjcNsWmgtmoSdor7QKm+heVrx+56go6ZhV2JOXHsCDIxY1XPyHnJXommWTbKnu/menJcb
-	qf8+k2pSCgjxhVzIpZ9WJDq1ByXS5jb0e7CMXATG1bFYL5MuuXEtiuQBYVbV0pThCMmwU/qytv5
-	giXaSTgLXuW0a8m/5jtkDXO4jPUXjs1Hw+1Ikn4W1tf+1LxM7X1Fjxqb3eJ5lxOkcv7g+Gv6gfB
-	mppKWt2YyYH94SWWSRm7PTzH3M6lI=
-X-Received: by 2002:a05:690c:7004:b0:7bd:5b06:5c32 with SMTP id 00721157ae682-7f61711b7ecmr4602517b3.1.1781116588803;
-        Wed, 10 Jun 2026 11:36:28 -0700 (PDT)
-Received: from localhost ([2a03:2880:30ff:74::])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-7ea21968299sm116150847b3.19.2026.06.10.11.36.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 10 Jun 2026 11:36:28 -0700 (PDT)
-From: Vlad Poenaru <vlad.wing@gmail.com>
-To: netdev@vger.kernel.org,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: Simon Horman <horms@kernel.org>,
-	Breno Leitao <leitao@debian.org>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Clark Williams <clrkwllms@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	linux-rt-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH net] netpoll: run NAPI poll in softirq context to avoid rq->lock self-deadlock
-Date: Wed, 10 Jun 2026 11:36:21 -0700
-Message-ID: <20260610183621.3915271-1-vlad.wing@gmail.com>
-X-Mailer: git-send-email 2.52.0
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="NDFVv3f3";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="+Bl4g6Bv";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="NDFVv3f3";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="+Bl4g6Bv"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 9942B6AD9B;
+	Wed, 10 Jun 2026 18:53:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1781117583; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=yQrpQAXhwzte2PS5h1duYn8S+KPaq/lup3R50f9DqUg=;
+	b=NDFVv3f3DGbRJECfKy850c4mmohlkt5vb4m5Dj7jJWtKuoZN4VY44bQ6hqIsuhRpKdi6qT
+	cN6hPCrxNu2yl1PmygAFC+E6VNQMVvkkHuvwNmTjn4QiBvUEzJR46ND1+GP+bbPIu4WoHh
+	evUV6fxv20PmYvl4AI7QKZt9s8b86BY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1781117583;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=yQrpQAXhwzte2PS5h1duYn8S+KPaq/lup3R50f9DqUg=;
+	b=+Bl4g6BvB5FTZR6UsAVzGbR4LWz8BVvV6ibX0OfBBaexWwjnRI4ht+H3VJlt2oFkq+376y
+	xhjiHf6UtgY3wjBg==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1781117583; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=yQrpQAXhwzte2PS5h1duYn8S+KPaq/lup3R50f9DqUg=;
+	b=NDFVv3f3DGbRJECfKy850c4mmohlkt5vb4m5Dj7jJWtKuoZN4VY44bQ6hqIsuhRpKdi6qT
+	cN6hPCrxNu2yl1PmygAFC+E6VNQMVvkkHuvwNmTjn4QiBvUEzJR46ND1+GP+bbPIu4WoHh
+	evUV6fxv20PmYvl4AI7QKZt9s8b86BY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1781117583;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=yQrpQAXhwzte2PS5h1duYn8S+KPaq/lup3R50f9DqUg=;
+	b=+Bl4g6BvB5FTZR6UsAVzGbR4LWz8BVvV6ibX0OfBBaexWwjnRI4ht+H3VJlt2oFkq+376y
+	xhjiHf6UtgY3wjBg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C62DE779A7;
+	Wed, 10 Jun 2026 18:53:02 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 921CLY6yKWotZQAAD6G6ig
+	(envelope-from <clopez@suse.de>); Wed, 10 Jun 2026 18:53:02 +0000
+From: =?UTF-8?q?Carlos=20L=C3=B3pez?= <clopez@suse.de>
+To: kvm@vger.kernel.org,
+	seanjc@google.com,
+	pbonzini@redhat.com
+Cc: osteffen@redhat.com,
+	=?UTF-8?q?Carlos=20L=C3=B3pez?= <clopez@suse.de>,
+	Stefano Garzarella <sgarzare@redhat.com>,
+	stable@vger.kernel.org,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	x86@kernel.org (maintainer:X86 ARCHITECTURE (32-BIT AND 64-BIT)),
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Roman Kagan <rkagan@virtuozzo.com>,
+	linux-kernel@vger.kernel.org (open list:X86 ARCHITECTURE (32-BIT AND 64-BIT))
+Subject: [PATCH] KVM: VMX: Raise KVM_REQ_EVENT on TPR below threshold exit
+Date: Wed, 10 Jun 2026 20:50:43 +0200
+Message-ID: <20260610185042.2810880-2-clopez@suse.de>
+X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-3.29 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.19)[-0.963];
+	MIME_GOOD(-0.10)[text/plain];
+	FUZZY_RATELIMITED(0.00)[rspamd.com];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[11];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.de:mid,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Level: 
+X-Spam-Score: -3.29
 
-netpoll_poll_dev() can be called from process context with interrupts
-disabled, most notably from printk() -> netconsole when a WARN()/printk()
-is emitted while holding a runqueue lock inside __schedule() (e.g. from
-put_prev_entity() during a context switch). console_unlock() then flushes
-netconsole inline, which polls the NIC to drain its TX ring.
+The TPR_THRESHOLD field in the VMCS is used by VMX to induce VM exits
+when the guest's virtual TPR falls under the specified threshold,
+allowing KVM to inject previously masked interrupts.
 
-Drivers free completed TX skbs from their ->poll() via
-dev_kfree_skb_irq_reason(), which queues the skb and calls
-raise_softirq_irqoff(NET_TX_SOFTIRQ). Outside softirq context that helper
-takes the !in_interrupt() path and calls wakeup_softirqd() ->
-try_to_wake_up(). Waking the local ksoftirqd takes the current CPU's
-rq->lock (ttwu_queue() -> rq_lock(); ttwu_queue_cond() refuses the remote
-wakelist for a same-CPU wakeup). If the caller already holds that rq->lock
-this recursively acquires a non-recursive spinlock: the CPU spins forever
-with IRQs disabled. Every other CPU that subsequently load-balances
-against this runqueue spins on the same lock, TLB-shootdown IPIs to the
-wedged CPUs go unanswered, and the machine dies under the NMI hard-lockup
-watchdog.
+KVM handles these VM exits in handle_tpr_below_threshold().
+Commit eb90f3417a0c ("KVM: vmx: speed up TPR below threshold vmexits")
+optimized this function by calling apic_update_ppr() instead of raising
+KVM_REQ_EVENT. apic_update_ppr() then raises KVM_REQ_EVENT if there is
+a pending, deliverable interrupt.
 
-This was hit in production on a 252-CPU AMD system running a 6.16-based
-kernel. A scheduler WARN_ON_ONCE() fired from __enqueue_entity() with the
-rq lock held during a context switch; flushing it to netconsole reentered
-the scheduler and the CPU deadlocked on its own rq->lock. The backtrace of
-the wedged CPU (spinning at the top of the stack on the rq->lock it is
-already holding further down):
+However, if there are no new interrupts pending, apic_update_ppr()
+does not issue the request. This skips calling update_cr8_intercept(),
+and thus vmx_update_cr8_intercept() before VM entry, which results in
+a high, stale TPR_THRESHOLD. This is problematic due to the following
+sentence in 28.2.1.1 "VM-Execution Control Fields" in the SDM:
 
-  native_queued_spin_lock_slowpath
-  _raw_spin_lock
-  raw_spin_rq_lock_nested
-  rq_lock
-  ttwu_queue
-  try_to_wake_up                  // wakes ksoftirqd/N
-  dev_kfree_skb_irq_reason        // raise_softirq_irqoff(NET_TX_SOFTIRQ)
-  __bnxt_tx_int
-  bnxt_poll_p5
-  poll_one_napi
-  poll_napi
-  netpoll_poll_dev
-  netpoll_send_udp
-  write_ext_msg                   // netconsole
-  console_unlock
-  vprintk_emit
-  __warn
-  __enqueue_entity                // WARN_ON_ONCE() here -- rq->lock held
-  put_prev_entity
-  put_prev_task_fair
-  __schedule
-  sched_exec
-  bprm_execve
-  __x64_sys_execve
+  The following check is performed if the “use TPR shadow” VM-execution
+  control is 1 and the “virtualize APIC accesses” and “virtual-interrupt
+  delivery” VM-execution controls are both 0: the value of bits 3:0 of
+  the TPR threshold VM-execution control field should not be greater
+  than the value of bits 7:4 of VTPR.
 
-About 215 of the 252 CPUs then piled up in sched_balance_rq() spinning on
-that runqueue's lock; pending TLB shootdowns to the wedged CPUs stalled in
-csd_lock_wait(), and a victim CPU finally took down the box with "Kernel
-panic - not syncing: Hard LOCKUP". The particular WARN is incidental --
-any printk() that reaches netconsole while a rq->lock is held reproduces
-the same self-deadlock.
+This error condition is typically not observed when KVM runs on a bare
+metal system because modern processors support APICv, which enables
+virtual-interrupt delivery, and which KVM uses when possible. This
+causes the processor to no longer generate TPR-below threshold exits
+and to no longer check TPR_THRESHOLD on entry. However, when running
+on older platforms, or under nested virtualization on a hypervisor that
+does not support virtual-interrupt delivery and enforces this check
+(like Hyper-V) this can cause a VM entry failure with hardware error
+0x7, as seen in [1].
 
-In the normal receive path this cannot happen because net_rx_action()
-runs ->poll() with bottom halves disabled, so raise_softirq_irqoff() sees
-in_interrupt() and merely sets the pending bit. Make netpoll do the same:
-wrap the poll callbacks in local_bh_disable(). On !PREEMPT_RT all callers
-invoke netpoll_poll_dev() with IRQs disabled (see the WARN_ONCE() in
-netpoll_send_skb_on_dev()), so pair it with _local_bh_enable() to leave
-the section without running softirqs inline -- running them here would
-re-enable IRQs and execute softirq handlers deep in a lock-holding
-context. On PREEMPT_RT the path runs with IRQs enabled and softirqs are
-threaded; _local_bh_enable() is not available there and would not drop
-the softirq_ctrl local_lock taken by local_bh_disable(), so use the
-regular local_bh_enable(). The raised NET_TX softirq is harmless: netpoll
-reaps the freed skbs via zap_completion_queue() and the pending softirq
-is serviced at the next irq_exit().
+Fix this by re-introducing an unconditional KVM_REQ_EVENT when reacting
+to a TPR-below-threshold exit, ensuring that vmx_update_cr8_intercept()
+is called to re-evaluate TPR_THRESHOLD before entering the guest.
 
+Link: https://github.com/coconut-svsm/svsm/issues/1081 [1]
+Tested-by: Stefano Garzarella <sgarzare@redhat.com>
 Cc: stable@vger.kernel.org
-Signed-off-by: Vlad Poenaru <vlad.wing@gmail.com>
+Fixes: eb90f3417a0c ("KVM: vmx: speed up TPR below threshold vmexits")
+Signed-off-by: Carlos López <clopez@suse.de>
 ---
- net/core/netpoll.c | 45 +++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 45 insertions(+)
+ arch/x86/kvm/vmx/vmx.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/net/core/netpoll.c b/net/core/netpoll.c
-index 3f4a17fa5713..18da97eff532 100644
---- a/net/core/netpoll.c
-+++ b/net/core/netpoll.c
-@@ -194,11 +194,56 @@ void netpoll_poll_dev(struct net_device *dev)
- 	}
+diff --git a/arch/x86/kvm/vmx/vmx.c b/arch/x86/kvm/vmx/vmx.c
+index c548f22375ad..21a469d3ba21 100644
+--- a/arch/x86/kvm/vmx/vmx.c
++++ b/arch/x86/kvm/vmx/vmx.c
+@@ -5824,6 +5824,7 @@ void vmx_set_dr7(struct kvm_vcpu *vcpu, unsigned long val)
+ static int handle_tpr_below_threshold(struct kvm_vcpu *vcpu)
+ {
+ 	kvm_apic_update_ppr(vcpu);
++	kvm_make_request(KVM_REQ_EVENT, vcpu);
+ 	return 1;
+ }
  
- 	ops = dev->netdev_ops;
-+
-+	/*
-+	 * Run the poll callbacks in softirq context, exactly as net_rx_action()
-+	 * does for the normal NAPI path. netpoll_poll_dev() is called from
-+	 * process context with IRQs disabled (e.g. printk() -> netconsole while
-+	 * holding a rq->lock inside __schedule()). Drivers free completed TX
-+	 * skbs from their ->poll() via dev_kfree_skb_irq_reason(), which calls
-+	 * raise_softirq_irqoff(NET_TX_SOFTIRQ). Outside softirq context that
-+	 * helper sees !in_interrupt() and calls wakeup_softirqd() ->
-+	 * try_to_wake_up(), which takes the rq->lock of the current CPU. If the
-+	 * caller already holds that rq->lock this self-deadlocks, wedging the
-+	 * CPU (and then the whole machine via rq->lock contention) until the
-+	 * hard-lockup watchdog panics.
-+	 *
-+	 * Disabling BH makes in_interrupt() true for the duration of the poll,
-+	 * so the TX completion only sets the softirq-pending bit and never wakes
-+	 * ksoftirqd. The raised softirq is harmless and benign: netpoll reaps
-+	 * the freed skbs itself via zap_completion_queue() below, and the
-+	 * pending NET_TX softirq is serviced at the next irq_exit().
-+	 */
-+	local_bh_disable();
-+
- 	if (ops->ndo_poll_controller)
- 		ops->ndo_poll_controller(dev);
- 
- 	poll_napi(dev);
- 
-+#ifndef CONFIG_PREEMPT_RT
-+	/*
-+	 * On !PREEMPT_RT all netpoll_poll_dev() callers invoke us with IRQs
-+	 * disabled (see the WARN_ONCE() in netpoll_send_skb_on_dev()). Use
-+	 * _local_bh_enable(), which leaves the BH-disabled section without
-+	 * running pending softirqs inline -- the full local_bh_enable() would
-+	 * re-enable IRQs and run softirq handlers deep inside this restricted,
-+	 * lock-holding context. The raised NET_TX softirq is benign: netpoll
-+	 * reaps the freed skbs itself via zap_completion_queue() below, and the
-+	 * pending softirq is serviced at the next irq_exit().
-+	 */
-+	_local_bh_enable();
-+#else
-+	/*
-+	 * On PREEMPT_RT this path runs with IRQs enabled and softirqs are
-+	 * threaded, so there is no IRQ-disabled, lock-holding context to
-+	 * protect. _local_bh_enable() is not available on RT, and local_bh_disable()
-+	 * there takes the per-CPU softirq_ctrl local_lock that only the full
-+	 * local_bh_enable() releases -- so use it.
-+	 */
-+	local_bh_enable();
-+#endif
-+
- 	up(&ni->dev_lock);
- 
- 	zap_completion_queue();
+
+base-commit: c1f7303302927f9cbf4efedf70f0512cde168c65
 -- 
-2.53.0-Meta
+2.51.0
 
