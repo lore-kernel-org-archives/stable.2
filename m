@@ -1,129 +1,255 @@
-Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84BF2428859
-	for <stable@vger.kernel.org>; Wed, 10 Jun 2026 15:43:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.171
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781106193; cv=none; b=f+irTYaSJBLptIas9K7aqy07TOqJVrFK4JsufPQRzKztEb2EHcNpJSpZw8oM8BESzwccdBUnQIESxNfXSB5laXLqBFpgiE5oRf1XIW32s3eUOljikGboqeAKg5c5lgAgJwtpaL7ClNLfX2K+Pmz7YwiObM8ufAYBLvd8JiJlQkY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781106193; c=relaxed/simple;
-	bh=xqZfYDYPDBPN7aKZCdWGjnvMLnaV5O+1fNS2MXClDPk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qMuM+NDHr2hFCWmswkeGhGW2Pcq2CkDwHXeel+amGBGNVQx+sPWNa3L9MYkHeAToO7L2tZjB/lmlaUWiVCP/MzsnJlP8Sw8CX/AZzME22Re38rjMpu4f1qZ9+LtnA5gFcf75FlsHlaXvAgsFT7gLdwswxdb0LAI3GDTFPRsqQ8s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NqTl75qY; arc=none smtp.client-ip=209.85.215.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4717B44CAC9
+	for <stable@vger.kernel.org>; Wed, 10 Jun 2026 15:46:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.45
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781106398; cv=pass; b=PLf9pmdh07TfdBljN2mcA9ofdtA1aXPRuDF0pm7ZGv/Vt89kJqWDqX9i62eZQyzNj7uCNBBXmeAWcodeC8VM9Xe5Wi1FY8DbyXN6Lp1Uc3xLClzV8Gqz86ihanvUpeRA0Bv3QQMGuMGgQulLt2gTL+GQt189M8PhMYP6a1hK6yo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781106398; c=relaxed/simple;
+	bh=LlejGVeNf9MQGP7Vy3nqTh4i/eTPk2UsDb5dGTTrY+A=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=IPzH8nnrjCqNzlqem2BH1wKT+GMhFATY0UGBcRFCoe98++5mC4hG4aOwYcX0XF1lkL0JLVREETLlNTQ2SmbwxR0Dw74z2pxJimaumE1+P3qToih2ekwih1DIyexaVX5Ehy/ifa+H1naZO4XotMzLJwLZN2HjFgnca3tHCNW5UBQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UIrA328K; arc=pass smtp.client-ip=209.85.128.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NqTl75qY"
-Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-c855599a77aso3515323a12.0
-        for <stable@vger.kernel.org>; Wed, 10 Jun 2026 08:43:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UIrA328K"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-490cdae130cso24069155e9.0
+        for <stable@vger.kernel.org>; Wed, 10 Jun 2026 08:46:32 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781106390; cv=none;
+        d=google.com; s=arc-20240605;
+        b=Gl/cWcmSY4x006eZM4cd7FzQrMbAXZdZApeFpWK+5olOjEvaO9TzZOafSQI9fBDCOC
+         rRG+0aDbQnCw3Zkv7q/kBiBksiYzSb1XKyBKgViJXBDky5mdSX+CztbOgOKOmUAb+yRZ
+         Dvjsf0H/b4CqV1iqleCix1RjCYbIOKWV9nbZV8stfQQ7eQ6dFzYQE1VGJiSCkxsIpHhG
+         5DIKa18Q2HyDmJ1aK5Yz/m2msnLCrCgpqo98RI+6SoxLIH/FAsX9DmGljUj/90EwGj3j
+         OZXegfH1Ad78qE4WkPhXZGnmv8KD1LAGMZE09AeWZ9A4YxZvvft0ijW1QtY83QxqGyyf
+         8NYA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=XqG4ljBRMg6T+iBhzxWIdZtfPAihqeidlqyYpKSsuio=;
+        fh=KizBRK/oUYfdm52gcHMYWa2n6lnlucwx3wuqbm287H8=;
+        b=i+Up4IKNTB7nThYYHpxJ8+P+wJcA2+/48nyuPBJiitAfgkP8r5HjsnQcnZyZntIkxi
+         ospJvLBG8BReJMbJ3jnmOGN3Uq8lHgj1TTQejPYpXNrrf6RxMFj1CBWEK6BMUw2dm0Hl
+         dMjjdcMfffGSjWorUGf/pBLuB/gjgepmXt3vS1iWWo7PFg6Wyi3tEtJwdFQyv2crgl7s
+         NXMzKW3DkfV2ubxc3k/gkHzO7bwb0Mw3867zn4welyNK9dC1SAX417gRoz8lT8G0QWN0
+         OAu215rS6r4paRUxSoegdqK3+lEa9Bp94mdcZwXn7H+hZvX378BlOx0XjWAMpFBpeHx4
+         t+4g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781106191; x=1781710991; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=9XDGbUf4iEhNvwcof5vdLMuCB999+9vu1yeTxgx41Mo=;
-        b=NqTl75qYL4rVakJ66OV9nA+0nOuFRfU4qnWPcxbMPT4q05LHakfYVq6OahMxifGPwk
-         5BjFJn/G3EHoAEO7RfL23QYrroGqaYHiI5DuBgxgMlIat2fbJyyvZz4twZnZ2gUwXxub
-         oGdTKqe8W30GCc0v5+IYFDBSBIe4NtzBOPUXYCLlkmZBHPol/jODAXeHq1/62aSmcH9i
-         23wG+A9Xs7r6bxd6aKuAcmQHBWpF3paknj0rvKw/MRSuM+OmHZauQdsk0VVFcBHdDkTt
-         tS7y43FGqI+6bayXkH0BS6CitJ4bPfaNl3bW3c19jFhQnU1fkYB47O17ksXjUcywMe2y
-         VYuA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781106191; x=1781710991;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1781106390; x=1781711190; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=9XDGbUf4iEhNvwcof5vdLMuCB999+9vu1yeTxgx41Mo=;
-        b=lSkqS+JjalJbFrCHvRe7okeZ2sXReul36E0u1zYY4vkUiuUETNmN5DmN0VoBgSbxzw
-         LXKZZdCtYUoa81G0dIRGO2KN6bLbG6kWLKTsrUiJ54c5sK/ISc56moJJbR5nzeybxZet
-         BgKdUpV0oW71pGctWULi028tIiGVASrXvjIUMuSuqp79LtT3OXeYEuEgQgVwUwg3yIYq
-         ImHmeMm/CeKnZitgH2AY3H9NRCurmo7sZcXtjyuAMl1Q1EFF7v28vPeRpwQ50aWN4LLN
-         zZe2089YwYMPQ3vjwCqbUmomxhcpYIE6rZyPy7hBw8L6stbgv+IXDVL8wRbU1YIGYBf7
-         QLPg==
-X-Forwarded-Encrypted: i=1; AFNElJ9vdBGnVaArRq7DDW5dHAshfxRECM25BWMDcNMIIkHrugg3Hq/uBwhR44GDt6zh67KKCWmD5tI=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyBTfibnSEMQokJ9j/aFVqmqY64PnWifY9L8CTs6zj/1YnayvNp
-	YxLPIwB/OoyDFZp4VLSt6/dLPXmC0CUU5X8IpXH3Ejeyt9g1VJdi9ffz
-X-Gm-Gg: Acq92OG0bytmVFDJ5gERnj9axfse8IzvlV5sH4LhuPsJcfvWPR3mnl63IyCnBLUzso3
-	31eeCF8JdwKAeRPK276eXwt4JJT3SC+Q0uW+SkFzYiPXjWXTrAD1FSOHRF1xU8bqF8F1hr7QifR
-	8sv0Q4maK1cealzphHGPflLrxR8+XZxbCzIeM1HMn+5nPT4lXQCtTJ+Rdm9lnkx/cxP1Q0Hb0xn
-	fHWymaA8VaUxflIJXRgPE87nIHjGp81uEXQPJTwUZHA806hnbqdHeS4vFhb2zi1kAbdQEHmHTDU
-	SAaAHZhJWm9NvdoNXWnqyx4wH/MgwUGE1A744OKHToYcqbVNQh3pXkFme0k2DcBlEOgv0YrUbFd
-	Hn1R82iCJOQtheSUFdme8+JXc5XBeUHIpaAOu4w5Od1PN6gxWUQQTYkogjKiBYwSLCMwPHy1rWc
-	Q5Wn4m222BBE2tN4g9YgAz5bpo/kH8ma7yggDRky2dwJ3L+y6ItDz/EO9Bmzu8RfH7aUJ8/413U
-	A==
-X-Received: by 2002:a05:6a21:7a82:b0:3b4:85db:1bea with SMTP id adf61e73a8af0-3b4ccd1b486mr31060842637.5.1781106190947;
-        Wed, 10 Jun 2026 08:43:10 -0700 (PDT)
-Received: from KRHW1CJW23.bytedance.net ([139.177.225.252])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c85df0b26bbsm21482885a12.23.2026.06.10.08.43.08
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 10 Jun 2026 08:43:10 -0700 (PDT)
-From: Zhao Li <enderaoelyther@gmail.com>
-To: Johannes Berg <johannes.berg@intel.com>
-Cc: linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Zhao Li <enderaoelyther@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] wifi: ieee80211: validate MLE common info length
-Date: Wed, 10 Jun 2026 23:43:03 +0800
-Message-ID: <20260610154303.37079-1-enderaoelyther@gmail.com>
-X-Mailer: git-send-email 2.50.1
+        bh=XqG4ljBRMg6T+iBhzxWIdZtfPAihqeidlqyYpKSsuio=;
+        b=UIrA328KJJ5thGMbSB/tZ7y88EyGTbWj3TSMy6ls04PM0wNq0ptS3G6B1DZcWWY64D
+         GHK/49b+J0Ops8ny99z1EAd4LUIuUkWly2c1lXXWjhzjoyO+KWrukoUP5bQasU4gZyAQ
+         SBPHK3gJc1N3ASRZxkS4L8ly3nPivAaW+JL10HoFti84aBYDHQ6h0EbvE0snbrz7rm6m
+         vIxPtlVa7dD9qi63IRH5XELJPlZyzws9OYMgd2Y1hkvjeV6TELD0bh5v/Hb9yngJe22u
+         kxx2KQokrpZ/yeNuZGiwI7ZAC4I4ZKfbPZivUm+GtVVi6uDbOTVAgeF4XMzZT4mpyV21
+         /+XQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781106390; x=1781711190;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=XqG4ljBRMg6T+iBhzxWIdZtfPAihqeidlqyYpKSsuio=;
+        b=E3WPBGHQrdoK7AxwYTi6y0BIbcBWBGjTI630SMmd94hZPAE8z7cZD3cYugw5Kohra+
+         ebZlh/EeCz2sofb7AxiwBjIEtQT98hpyMkewqgOWrmeitgN+fy2X87M2/rn6rGcxWZAL
+         DrCrnlDOE2bAgQz1BPYhEQMGzuEj8HoWdpKXhYLi9TAf/OfuSQrA3Gd9Z3X4t337BZUz
+         +jaQTBTgNRjsIveEqkDXMsBQJv8lsmyTIjGqFxLvbmMPyoW5kpbs+u7vTxBdP9jAfaUd
+         BwbQZLz3MsYWynLqWcDmbqk7vomTAexhMQXEHTUaKpyNcA9u8ef90cH/JWYV4DWnn9F7
+         VZJw==
+X-Forwarded-Encrypted: i=1; AFNElJ/YLeZrDrMiqveXDVhI2plepQt2mug6lZDZ6H5ZTd7HI0r0gDytAbGijXmgSCOe/ajlQJubB84=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz+dQdTd8lJhbAQibfJpIoS5sMbh2U02lU1GTXazfySWu/0/WDP
+	zPEbhgKz3v8qQ82uuSSu4Vm4hImtU+bvmrbU1ZVGbmmRLGsgsC05hOPCXMjopB8I6yneb7cSd1a
+	vl2XnlJWVPxUx8BLLF0V/gOY5WDCwbIs=
+X-Gm-Gg: Acq92OFsfvg60XGzyzgmdEZpvbWJUQfPsA+Gs7K85Fg4k6zT4nuVJxPbcfOcG87kFL6
+	LDiZYww7cyArENaVoO3HX42vpJjzL7KczI8xYnvHu9PelhV4djFJf28unO8XJhNPihJX2e4xyti
+	Ue591Fz4QWGcwDzWslaAzh8DHG9VuvCMEXsdvZ558BS0/DGLhSKiu+nAzuZb4ejPXgse7ae5HK7
+	69ah5s3T2LajpzO32beMrrQMg8YIfNNafkyHJeKT8+5vZ9x1pOhNs5qrI+N9xysFvEYPgGjXw5G
+	6GIXstIjD/abCG11bFm9fHbx2TAztds=
+X-Received: by 2002:a05:600c:8b0d:b0:490:b9ce:a73c with SMTP id
+ 5b1f17b1804b1-490c55662b1mr421764765e9.31.1781106390156; Wed, 10 Jun 2026
+ 08:46:30 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260607170959.823755-1-jt26wzz@gmail.com> <aiaTZCQLWy-96M9O@u94a>
+In-Reply-To: <aiaTZCQLWy-96M9O@u94a>
+From: Zhenzhong Wu <jt26wzz@gmail.com>
+Date: Wed, 10 Jun 2026 23:46:18 +0800
+X-Gm-Features: AVVi8CcoLtFn4ZVY2bNQmeRdbugLd8hTbDX-gKZVn4sspRD8xZt4FZSBjUYoMz0
+Message-ID: <CALgi0X=aCS0kxLgqkoOXzwLh_2eNP14BvDk3TCciQP1bFpH5xw@mail.gmail.com>
+Subject: Re: [PATCH stable 6.6.y v2 0/3] bpf: backport scalar not-equal
+ tracking fixes
+To: Shung-Hsi Yu <shung-hsi.yu@suse.com>
+Cc: bpf@vger.kernel.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	ast@kernel.org, daniel@iogearbox.net, john.fastabend@gmail.com, 
+	andrii@kernel.org, martin.lau@linux.dev, song@kernel.org, 
+	yonghong.song@linux.dev, kpsingh@kernel.org, sdf@google.com, 
+	haoluo@google.com, jolsa@kernel.org, menglong8.dong@gmail.com, 
+	eddyz87@gmail.com, stable@vger.kernel.org, mykolal@fb.com, tamird@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-ieee80211_mle_size_ok() verifies that the advertised common information
-length is large enough for the fixed fields that are present, but it does
-not verify that the length also fits in the containing element.
+Hi Shung-Hsi,
 
-Reconfiguration and Priority Access MLEs also carry a common information
-length octet, but currently skip the common-length check. Reconfiguration
-additionally fails to include the length octet in the minimum common size.
+> More importantly, 'bpf: make the verifier tracks the "not equal" for
+> regs' does not address root cause of the issue, it merely mask the issue
+> by making the two states different enough that the two is no longer
+> equal, which works for the Rust specific case you have, but won't work
+> if the value was slightly different (e.g. "r0 =3D=3D 1" followed by "r0 !=
+=3D
+> 1").
 
-Validate the common information length for Reconfiguration and Priority
-Access MLEs, account for the Reconfiguration length octet, and reject
-common lengths that exceed the element body.
+Thanks for spelling this out. I now see that I did not fully
+understand the point behind your suggested bpf-next-with-d028-reverted
+check.
 
-Fixes: 0f48b8b88aa9 ("wifi: ieee80211: add definitions for multi-link element")
-Cc: stable@vger.kernel.org
-Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
----
- include/linux/ieee80211-eht.h | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+I was treating the not-equal refinement and the linked-scalar precision
+issue as two ways to break the same failure chain, and chose the
+d028-based path because it was smaller and easier for me to reason
+about. With the `r0 =3D=3D 1` variant, it became clear to me that this only
+fixes the zero-valued branch shape from my original reproducer, while
+the underlying linked-scalar pruning issue remains.
 
-diff --git a/include/linux/ieee80211-eht.h b/include/linux/ieee80211-eht.h
-index a97b1d01f3acf..d875045abf6cc 100644
---- a/include/linux/ieee80211-eht.h
-+++ b/include/linux/ieee80211-eht.h
-@@ -878,6 +878,8 @@ static inline bool ieee80211_mle_size_ok(const u8 *data, size_t len)
- 		check_common_len = true;
- 		break;
- 	case IEEE80211_ML_CONTROL_TYPE_RECONF:
-+		common += 1;
-+		check_common_len = true;
- 		if (control & IEEE80211_MLC_RECONF_PRES_MLD_MAC_ADDR)
- 			common += ETH_ALEN;
- 		if (control & IEEE80211_MLC_RECONF_PRES_EML_CAPA)
-@@ -893,6 +895,7 @@ static inline bool ieee80211_mle_size_ok(const u8 *data, size_t len)
- 		break;
- 	case IEEE80211_ML_CONTROL_TYPE_PRIO_ACCESS:
- 		common = ETH_ALEN + 1;
-+		check_common_len = true;
- 		break;
- 	default:
- 		/* we don't know this type */
-@@ -906,7 +909,7 @@ static inline bool ieee80211_mle_size_ok(const u8 *data, size_t len)
- 		return true;
- 
- 	/* if present, common length is the first octet there */
--	return mle->variable[0] >= common;
-+	return mle->variable[0] >= common && mle->variable[0] <= len - fixed;
- }
- 
- /**
--- 
-2.50.1 (Apple Git-155)
+> Could you give backporting the full "bpf: track find_equal_scalars histor=
+y on
+> per-instruction level" series[3] a try? For 6.6 it should be doable, and
+> hopefully for 6.1, too, but not too sure about earlier ones. If you prefe=
+r I
+> work on it I can also give it a try later this week.
 
+Sure, I will prepare v3 based on that series for 6.6.y, and then work
+on the 6.1.y adaptation separately.
+
+I tried applying the series starting from 6.1.y and still hit some
+issues that need adaptation. 5.15.y and 5.10.y appear to need more
+surrounding verifier changes, so they may be harder, but I will still
+try to work through them. If I run into anything I am unsure about, I
+will raise it earlier.
+
+> As for the selftest, it would need to be send separately and by itself
+> to bpf-next, and picked up there, before it can be backported to stable.
+> I suggest you look at [4] and have your test placed similarly, and
+> mention that your test specifically test a Rust/Aya pattern.
+
+Thanks, I will send the selftest to bpf-next separately. I will also
+change the test to use the `r0 =3D=3D 1` / `r0 !=3D 1` shape, so it covers
+the broader linked-scalar pruning issue instead of only the original
+zero-valued case.
+
+Thanks again for the detailed explanation. I have only recently started
+digging into the verifier implementation details, so this was very helpful!
+
+BR,
+Zhenzhong
+
+On Mon, Jun 8, 2026 at 6:11=E2=80=AFPM Shung-Hsi Yu <shung-hsi.yu@suse.com>=
+ wrote:
+>
+> Hi Zhenzhong,
+>
+> On Mon, Jun 08, 2026 at 01:09:55AM +0800, Zhenzhong Wu wrote:
+> > Hi,
+> >
+> > This series backports two BPF verifier scalar range-tracking fixes to
+> > 6.6.y and adds a selftest. It fixes a verifier state-pruning issue wher=
+e
+> > an impossible linked-scalar path can be kept while the real success pat=
+h is
+> > pruned.
+> ...
+> >   15: (85) call bpf_get_func_ret#184    ; R0_w=3Dscalar() fp-8_w=3Dmmmm=
+mmmm
+> >   16: (79) r7 =3D *(u64 *)(r10 -8)        ; R7_w=3Dscalar() R10=3Dfp0
+> >   17: (15) if r0 =3D=3D 0x0 goto pc+1       ; R0_w=3Dscalar()
+> >   18: (bf) r7 =3D r0                      ; R0=3Dscalar(id=3D1) R7=3Dsc=
+alar(id=3D1)
+> >   19: (55) if r0 !=3D 0x0 goto pc+6       ; R0=3D0
+> >   20: (67) r7 <<=3D 32                    ; R7_w=3D0
+> >   21: (77) r7 >>=3D 32                    ; R7_w=3D0
+> >   22: (b7) r1 =3D 1                       ; R1_w=3D1
+> >   23: (55) if r7 !=3D 0xf goto pc+1
+> ...
+> > I also checked bpf-next: bpf-next passes even when the d028f87517d6 JNE
+> > refinement is reverted, because newer kernels also have the later
+> > 4bf79f9be434e ("bpf: Track equal scalars history on per-instruction lev=
+el")
+> > precision-tracking change. I did not use 4bf79f9be434e as the stable
+> > backport base because it is a broader jmp_history/precision-tracking ch=
+ange
+> > for linked scalars. For 6.6.y this series keeps the smaller stable back=
+port
+> > path that directly follows the bisected fix: preserve scalar bounds aft=
+er
+> > conditional refinement, then add the not-equal range refinement in the =
+older
+> > reg_set_min_max() layout.
+> ...
+>
+> To be honest I have not figure everything out yet, but I really much
+> prefer we backport commit 4bf79f9be434e ("bpf: Track equal scalars
+> history on per-instruction level") to address the issue instead. While
+> 'bpf: make the verifier tracks the "not equal" for regs' itself is
+> self-contained and reasonable, "bpf: drop knowledge-losing
+> __reg_combine_{32,64}_into_{64,32} logic" comes from a much larger
+> series[1], and taking that out of context seems rather risky[2].
+>
+> More importantly, 'bpf: make the verifier tracks the "not equal" for
+> regs' does not address root cause of the issue, it merely mask the issue
+> by making the two states different enough that the two is no longer
+> equal, which works for the Rust specific case you have, but won't work
+> if the value was slightly different (e.g. "r0 =3D=3D 1" followed by "r0 !=
+=3D
+> 1").
+>
+> The root cause to the problem have been stated by you already, it is:
+>
+> > The relevant pruning point is that regsafe()/states_equal() accepted th=
+e
+> > real success-path state against an earlier cached state where r0 was an
+> > imprecise scalar and r7 constraints were loose enough to cover the curr=
+ent
+> > r7.
+>
+> Looking at the verifier log you have, in the impossible path we have
+> r0.id =3D=3D r7.id from instruction 18, where as the real success path (t=
+hat
+> skips instruction 18) does not have that relationship, thus the two
+> should be considered different, and that seems just what "bpf: track
+> find_equal_scalars history on per-instruction level" solves by having
+> the correct precise mark.
+>
+> Could you give backporting the full "bpf: track find_equal_scalars histor=
+y on
+> per-instruction level" series[3] a try? For 6.6 it should be doable, and
+> hopefully for 6.1, too, but not too sure about earlier ones. If you prefe=
+r I
+> work on it I can also give it a try later this week.
+>
+> As for the selftest, it would need to be send separately and by itself
+> to bpf-next, and picked up there, before it can be backported to stable.
+> I suggest you look at [4] and have your test placed similarly, and
+> mention that your test specifically test a Rust/Aya pattern.
+>
+>
+> Thanks,
+> Shung-Hsi
+>
+> 1: https://lore.kernel.org/r/20231102033759.2541186-1-andrii@kernel.org
+> 2: https://lore.kernel.org/bpf/20260601182508.29C811F00893@smtp.kernel.or=
+g/
+> 3: https://lore.kernel.org/bpf/20240718202357.1746514-1-eddyz87@gmail.com=
+/
+> 4: https://lore.kernel.org/bpf/20240718202357.1746514-4-eddyz87@gmail.com=
+/
+>
+> [...]
