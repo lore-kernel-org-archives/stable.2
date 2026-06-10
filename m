@@ -1,69 +1,56 @@
-Received: from mail-ot1-f52.google.com (mail-ot1-f52.google.com [209.85.210.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpbguseast1.qq.com (smtpbguseast1.qq.com [54.204.34.129])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D6C7331EDA
-	for <stable@vger.kernel.org>; Wed, 10 Jun 2026 07:10:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 585743839AF;
+	Wed, 10 Jun 2026 07:12:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.204.34.129
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781075405; cv=none; b=mB1iIZZRVaSflY5rvWg4OUS5efrn3qBtdaAp5cMZrGCsxLL84kWXqlwNIHWnInM5ssrM/jJ1qaHHqKlPpirnFuiZL7x3DMINpkVXxbB7mkSzOSR64rkQ3SsB7MrNrsutaWzNTZ8Js6iva1nP451iQF+YLv7/MP3vRepwsmBO9tA=
+	t=1781075539; cv=none; b=WEwZsvgvtKXrc38Is7PyLYhrjT83ruFECQYrDo5SQHGwUJfLKX10QOYJUBUxFN+ck+0snE/TfYjJPXmAFJysjYeGgY6Eu2+/nuHeQKDpu3aJTGWQg4+vsljkJ7LH695SKcKLOBIsWtyXxUaJZ0uMb80AlKEM4NFr+QV5/SODyaQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781075405; c=relaxed/simple;
-	bh=46eYrWMMOwque0hGIWlgjDSe6yByv2jADvlK9lMcif4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=b7seOKxs/dVZXDSvWDpM8DUf5R2x3+SK2Xk1GqU2VM4F8Jjon+pnVtKqiV1v3B8IvpEdr5zWPlHEW/HTnyWwkXUlD0ODhNQAwQgs3IoCj7YkbdJo7tJcXCkOQbQYQ5mW2AiGVuy2OOo5ty4RPedcazlzAFQLzbKd0ckKvzXJH68=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=j3yzACNQ; arc=none smtp.client-ip=209.85.210.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781075539; c=relaxed/simple;
+	bh=Va/x2fqxUYV30kGVCxqH/tEstcHoycOGRwN8DJNv7CQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=Bdxtp2Z4M0VtvHF5OteP2aPFMQeNPikv4qP0G5qkEOQIuZXbq9LqOdPQLsRCxFHZ7Px1GK48cYHdRLJwD/NSMdoQcnkC+ufgIeg5RZH5sG9ZuRgp3VZOJwQTPt5Gfgpm3r8lJ/qDPQuW15ZxhmggVWd4GVVj3bfuNE72ubJmUdw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=lxoC9Ba5; arc=none smtp.client-ip=54.204.34.129
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="j3yzACNQ"
-Received: by mail-ot1-f52.google.com with SMTP id 46e09a7af769-7e6fe199b81so2263297a34.1
-        for <stable@vger.kernel.org>; Wed, 10 Jun 2026 00:10:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781075403; x=1781680203; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=GS3IvbRaVRHuQ7jWVUtX/UMvAifgWuNPLIfjnTq2Txo=;
-        b=j3yzACNQ3Nr2fHBfdHzsaq3WlgXk+09MzwesdZ4DbtyFSyRoHNNOu/W5lcXj1qvtF6
-         dApklx0dZarGhd4XuU/p/rfy51Ti99MrmDt5VjapO5c3MXnV9mh6c5zgPqcbSNBm4XCZ
-         9am03fJPi/VMUG6wZMDS6C7A/ybxxNKk8zBfm49BuNk/oenGz7f/cSao7S2FaIwgiik2
-         Qt7/qmP/NTa/aOiGxPBcSNobB2+2ZvWBKr1HY6P3Qfi1+MHkkJgAcwrWeULqReZZTNlM
-         KlpsZZ/K8qnh0PZBQNJ+fklabPiVSJYVrkuWDRYzClNyqU3IhZUjttbmMkqFa3dML3vW
-         kZ/Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781075403; x=1781680203;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=GS3IvbRaVRHuQ7jWVUtX/UMvAifgWuNPLIfjnTq2Txo=;
-        b=rRD8gJsO6f3nvBomB8Pwfy8kNR1/P+JeqihoLD0OiOFVFUhvfVLAWRxKC4TpDCwuvt
-         PLsn+EPdouZEFwL3Dn/mCAwA1pifwfndfuEWbR3BhZr0K/CDbnlHiYdGN/kmd13sz06l
-         Icz07a9tw9e5MK+kJBE4rNw3Cx8EJeinKUBj32ujR845RxHMKvKlcJh+feEr/Yg9r3ZA
-         vcFAEZM3M7Upjl28hQF9BrNsSlBDjLl5iloHkojRaR/S30DwYVWkk2ixD6c7SZGj/AAu
-         pBzr/60WqS7GO01Jt8d0NVU2LQzIjEFnHvXftos5wkEmvR7d/PBjNPvz47ofY19tmNpU
-         476A==
-X-Gm-Message-State: AOJu0YygSW24g7S59pQhBHE9IYaf6+gXSytWHDzgT/ZodH2A4nMMWmx3
-	rRDLgMK60m58gxeyLhw/sf3oFNNF8i3RCU2ImElyR9VR+JSuqjAAY7dbNTHJ7ghHn/lvJA==
-X-Gm-Gg: Acq92OHMN0gqOM/Ag5Z7BLdnNaS7OK/TtY4cC4WrKVhcQOSFn/Ov8fUhkhl7Lq4AkXY
-	gw94Ha5LY8dHFaDLqrZQxmMkuIQMAtbfNL/fDGzijlSrE0qFNf8yvoTRwEi44wk1NG4/KgRpQjl
-	QKmHRRyw0g1Q4cTm2+rxBddDeU+renmH/4F/Yoa+MJdeayyHSLkhccYY5ITzmXY//Yb+AHmKUxA
-	zINobG4SpIz00SdpMMXbU6x2c1gce8UdV6agXYawtL2LdD1gkBEOEM1P4exk4aNLS3VEIGoXfvN
-	YqvIYOIIF39g3kAuq1b0qXFKEM8ivgkut85HG22BlNRH9BDRobBgbriKbs3rsBW3giZ2BTkSbUB
-	tLRleSj6zHtn+k8lxx+7wN5rRK+26EdSIioVoJ2UvLdDKJ/i7W2XXnem3V6WUP0lbNvS79F19qk
-	4WuiBA98V6PIKrZ0NZxtJhjDvexuF/bSb1NzNy1PhgnWC/GtfgJwgJvlGVdA==
-X-Received: by 2002:a05:6830:2b0b:b0:7dc:d7e8:cb37 with SMTP id 46e09a7af769-7e70ca635fdmr14003665a34.21.1781075403469;
-        Wed, 10 Jun 2026 00:10:03 -0700 (PDT)
-Received: from localhost.localdomain ([47.246.98.85])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7e6e79821edsm15939572a34.27.2026.06.10.00.10.00
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 10 Jun 2026 00:10:02 -0700 (PDT)
-From: "=?UTF-8?q?=E9=93=AD=E5=AE=A3?=" <omeux327@gmail.com>
-X-Google-Original-From: =?UTF-8?q?=E9=93=AD=E5=AE=A3?= <yangmingxuan.ymx@antgroup.com>
-To: omeux327@gmail.com
-Cc: stable@vger.kernel.org,
-	HanQuan <eilaimemedsnaimel@gmail.com>
-Subject: [PATCH] bpf: Reject programs where arena and non-arena paths converge on ALU insn
-Date: Wed, 10 Jun 2026 15:09:52 +0800
-Message-ID: <20260610070952.43103-1-yangmingxuan.ymx@antgroup.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="lxoC9Ba5"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1781075482;
+	bh=Lz7tRcHhsQMSOJADDW7TXRw2/HZdu+zrYPBgdVPaoJ0=;
+	h=From:To:Subject:Date:Message-Id:MIME-Version;
+	b=lxoC9Ba5gdZVCGgoP21Tk4kTElzw7kh8mZhoCWjlZADl69kDfRwrG8DfQUD2NNoxZ
+	 TWkQ/JfLg5gPy07a0bsCWaAbhlEIadlrOp54vUlcJEoGE0pYJdbMXwUCqMu3M8iCoM
+	 dQg9VyytfZGnabcTS4oq8zE65SXW6VXXmUUq0DWE=
+X-QQ-mid: esmtpsz20t1781075463tdf94633b
+X-QQ-Originating-IP: u7bnKZCN2RIVwN7K432cgmAtncJafcjvuAwIW4UI9ss=
+Received: from localhost.localdomain ( [1.202.39.170])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Wed, 10 Jun 2026 15:11:00 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 18434185685029258688
+EX-QQ-RecipientCnt: 11
+From: ZhaoJinming <zhaojinming@uniontech.com>
+To: Tomeu Vizoso <tomeu@tomeuvizoso.net>,
+	Oded Gabbay <ogabbay@kernel.org>
+Cc: Sumit Semwal <sumit.semwal@linaro.org>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	linaro-mm-sig@lists.linaro.org,
+	ZhaoJinming <zhaojinming@uniontech.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v6 2/2] accel/rocket: Fix iommu_group leak and unsafe IRQ register access
+Date: Wed, 10 Jun 2026 15:10:45 +0800
+Message-Id: <20260610071045.3414828-2-zhaojinming@uniontech.com>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20260610071045.3414828-1-zhaojinming@uniontech.com>
+References: <20260610061915.1CA281F00893@smtp.kernel.org>
+ <20260610071045.3414828-1-zhaojinming@uniontech.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -71,61 +58,114 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpsz:uniontech.com:qybglogicsvrsz:qybglogicsvrsz4b-0
+X-QQ-XMAILINFO: NRaYAQcThOfQHS/M6CWXU1r/FUxQh0b6LxZ09Zc3ZxGh05Mzzmcp16ME
+	tw3CHItjPoiD/3EYQHqYiuzdEdLnkneXhPuvv1xn9DhKn9ezirxBhdb0tBy9n3rXPaH+/FR
+	AHjKoOi2gFpasAn/s1MrE+ExYqgyX8RqNFTNoLya6u2ebW4FdTjSdv9NpUvj3IGzHxgPk3m
+	wX9YawW9y+N8HgS64TRhD4eeVwR5mZSdDefEoKUPu+If/KYfsIOCEUBbbBQ65NA5sdPCnQ3
+	hGu6xJo5kZLIhLuBWnQh8jCwxS5Yt5QBBhFBiPuPVsbq3txBNe7Pltwqgqr2YYTFsXCSMGy
+	5PYgztGJXSXciFa8pVL9WxmngHKCoE1f1Zau/gJy3pj41YlM4XVMa9Ksj5SGHLjGAvXOcXs
+	yEav71TcBoOGR2D/Rww9c+X3H4UdnO3F6OeZY2HUgv4hPxV6av3F+EyA/G9zIIYVvy94b9n
+	LU8Y5vY0MRWtjLiZwMNo91bUXAeE2SBzWwTJpDSUkt1wi3pDgEB0OMxvbdMqTXmhpIXfQoa
+	N15PBAuy3JALOkfnth5Va/rwHH8+6fUgoscePceIcpGitIglYPPbLEG9LBCrgyAwd6RxAVn
+	qjZT9Vkn892aTVmfvy/1DRR9Z662ngIAA2nmumCKuvKNWvu82PSEJe4fksrdONuDFTN1GIL
+	+5GBv4RVMlbJ3AeUN78UAjZlp8bOKLDiGLTSPnM8bEcD+7ghTYPJ7O/1qz7Rc40kcY6jGIJ
+	Wnwh46+DpveLuYYSClYEAHTS+s236maKXlMfCG+rDT+qfxJQnqCAydSu2ZnvzyL4cVKNvNe
+	I+U61TNedif0/WutKQjAYsYdRxX1KwuKpaEaOPHuoXOUHacNmlf4VudLi6Uk8FayV87SjuT
+	b9LTHZkLk1J+MFlz0fjdn9vRSwGeRJNorZpAJmr0yHWPoXRazM1srfnszDgiUm1DuIfL2ir
+	iMHY9C8+/2hVJP8oZOuYWyrQA+Rq/58x3HGqdCNI6VqYTCc8sYWq+1LTLY5wZ/ExSW/rXHn
+	8FzdCvFKYCLIHmS/W73Ymr1ae205QzKL9iAIVDQbW2KT6etzbafoRTeZzxl/e8iVf7dYUcF
+	NlZoc2ewBHpnpm60X5b/asSZw0+ZEpJinL9gG4xmQtbnPO+RDmA3nP78a+Qzf6/jYGO2FxJ
+	0Fv3kENyyw0h44A2Be+upcDR4g==
+X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
+X-QQ-RECHKSPAM: 0
 
-From: Mingxuan <omeux327@gmail.com>
+Two bugs in the IRQ handling path:
 
-The needs_zext flag is per-instruction but set per-path. When a single
-ALU64 instruction is reachable via both a PTR_TO_ARENA path and a
-SCALAR path, the arena path sets needs_zext=true which causes
-opt_subreg_zext_lo32() to convert the instruction to ALU32 for all
-paths. This creates a verifier-runtime semantic mismatch on the scalar
-path: the verifier tracked ALU64 semantics while runtime executes ALU32.
+1) iommu_group reference leak in rocket_job_handle_irq():
+   iommu_group_get() increments the reference count but the returned
+   pointer is passed directly to iommu_detach_group() which does not
+   consume it. Since this runs on every completed job, the reference
+   count accumulates and prevents the group from being freed. Use
+   core->iommu_group instead, consistent with rocket_reset().
 
-This mismatch enables an attacker to create a controlled 4GB
-out-of-bounds write primitive, leading to kernel panic or local
-privilege escalation with only CAP_BPF.
+2) Unsafe hardware register access in shared IRQ handler:
+   rocket_job_irq_handler() is registered with IRQF_SHARED but accesses
+   hardware registers without checking runtime PM status. If another
+   device on the same IRQ line triggers an interrupt while the NPU is
+   suspended, register reads return 0xffffffff, spuriously triggering
+   WARN_ON macros and falsely returning IRQ_WAKE_THREAD.
 
-Fix by rejecting programs where arena and non-arena paths converge on
-the same ALU instruction, which would create conflicting needs_zext
-requirements.
+   Add pm_runtime_get_if_active() in the hardirq handler to atomically
+   verify the device is active before accessing registers. Each handler
+   (hardirq and threaded) independently acquires and releases its own
+   runtime PM reference to avoid coalescing-related leaks when the
+   IRQ core coalesces multiple wakeups into a single thread execution.
 
-Fixes: 6082b6c328b5 ("bpf: Recognize addr_space_cast instruction in the verifier.")
 Cc: stable@vger.kernel.org
-Reported-by: Mingxuan <omeux327@gmail.com>
-Reported-by: HanQuan <eilaimemedsnaimel@gmail.com>
-Signed-off-by: Mingxuan <omeux327@gmail.com>
+Fixes: 0810d5ad88a1 ("accel/rocket: Add job submission IOCTL")
+Signed-off-by: ZhaoJinming <zhaojinming@uniontech.com>
 ---
- kernel/bpf/verifier.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ drivers/accel/rocket/rocket_job.c | 23 +++++++++++++++++++----
+ 1 file changed, 19 insertions(+), 4 deletions(-)
 
-diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
-index 7fb88e1cd7c4..9d7218340683 100644
---- a/kernel/bpf/verifier.c
-+++ b/kernel/bpf/verifier.c
-@@ -15083,6 +15083,11 @@ static int adjust_reg_min_max_vals(struct bpf_verifier_env *env,
- 	if (dst_reg->type == PTR_TO_ARENA || (src_reg && src_reg->type == PTR_TO_ARENA)) {
- 		struct bpf_insn_aux_data *aux = cur_aux(env);
+diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/rocket_job.c
+index e8a073e22ac2..334bf01c3382 100644
+--- a/drivers/accel/rocket/rocket_job.c
++++ b/drivers/accel/rocket/rocket_job.c
+@@ -349,7 +349,7 @@ static void rocket_job_handle_irq(struct rocket_core *core)
+ 				return;
+ 			}
  
-+		if (aux->seen && !aux->needs_zext) {
-+			verbose(env, "BPF_ALU64 with arena and non-arena paths converge; needs_zext conflict\n");
-+			return -EACCES;
-+		}
-+
- 		if (dst_reg->type != PTR_TO_ARENA)
- 			*dst_reg = *src_reg;
+-			iommu_detach_group(NULL, iommu_group_get(core->dev));
++			iommu_detach_group(NULL, core->iommu_group);
+ 			dma_fence_signal(core->in_flight_job->done_fence);
+ 			pm_runtime_put_autosuspend(core->dev);
+ 			core->in_flight_job = NULL;
+@@ -420,7 +420,10 @@ static irqreturn_t rocket_job_irq_handler_thread(int irq, void *data)
+ {
+ 	struct rocket_core *core = data;
  
-@@ -15099,6 +15104,11 @@ static int adjust_reg_min_max_vals(struct bpf_verifier_env *env,
- 		return 0;
- 	}
- 
-+	if (cur_aux(env)->needs_zext) {
-+		verbose(env, "non-arena ALU path conflicts with prior arena needs_zext\n");
-+		return -EACCES;
+-	rocket_job_handle_irq(core);
++	if (pm_runtime_get_if_active(core->dev) == 1) {
++		rocket_job_handle_irq(core);
++		pm_runtime_put(core->dev);
 +	}
-+
- 	if (dst_reg->type != SCALAR_VALUE)
- 		ptr_reg = dst_reg;
  
+ 	return IRQ_HANDLED;
+ }
+@@ -428,16 +431,28 @@ static irqreturn_t rocket_job_irq_handler_thread(int irq, void *data)
+ static irqreturn_t rocket_job_irq_handler(int irq, void *data)
+ {
+ 	struct rocket_core *core = data;
+-	u32 raw_status = rocket_pc_readl(core, INTERRUPT_RAW_STATUS);
++	u32 raw_status;
++	int ret;
++
++	ret = pm_runtime_get_if_active(core->dev);
++	if (ret == 0)
++		return IRQ_NONE;
++
++	raw_status = rocket_pc_readl(core, INTERRUPT_RAW_STATUS);
+ 
+ 	WARN_ON(raw_status & PC_INTERRUPT_RAW_STATUS_DMA_READ_ERROR);
+ 	WARN_ON(raw_status & PC_INTERRUPT_RAW_STATUS_DMA_WRITE_ERROR);
+ 
+ 	if (!(raw_status & PC_INTERRUPT_RAW_STATUS_DPU_0 ||
+-	      raw_status & PC_INTERRUPT_RAW_STATUS_DPU_1))
++	      raw_status & PC_INTERRUPT_RAW_STATUS_DPU_1)) {
++		if (ret > 0)
++			pm_runtime_put(core->dev);
+ 		return IRQ_NONE;
++	}
+ 
+ 	rocket_pc_writel(core, INTERRUPT_MASK, 0x0);
++	if (ret > 0)
++		pm_runtime_put(core->dev);
+ 
+ 	return IRQ_WAKE_THREAD;
+ }
 -- 
-2.50.1 (Apple Git-155)
+2.20.1
 
