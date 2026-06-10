@@ -1,72 +1,87 @@
-Received: from mail-qv1-f42.google.com (mail-qv1-f42.google.com [209.85.219.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp-relay-internal-1.canonical.com (smtp-relay-internal-1.canonical.com [185.125.188.123])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A94F540D562
-	for <stable@vger.kernel.org>; Wed, 10 Jun 2026 00:38:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D7961A0BF3
+	for <stable@vger.kernel.org>; Wed, 10 Jun 2026 00:47:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.125.188.123
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781051928; cv=none; b=JgSKPuzlUNDvfprMQJFXVRdZQfxyLRsQJLROFyoiQUvM5LCpHj6vf9noXq0mQ7Bo//jhy/O4vb7VA6Msz4G3UFvglND5d6SMlutLaxBaSweomkak+qgxAtqmCZMu081leyaOt/s7RrKA0khurKmsi/wJlrbpa4iaIE7nkijtlaE=
+	t=1781052442; cv=none; b=AymlP0SkTYi6YLGkMsX8iJjIl6qLFDc0fdGzQTHw3HQ6JNi59qh87WFqguQ10yKNdjzcBZ4p4K1A4F9NJYfb2rdPIViOQ8EiAluytSjz/6Up+X+B9vCu4CisR5wGSKP7hvrybEGeRueHtLvShEVD9XWa7WAl/dwH/eKmuLnBPrA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781051928; c=relaxed/simple;
-	bh=8W4LSmmAd4tjAcHgGMcfpD9VPEhPb8gkaJNtbe3vw1s=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XH4L52elQZyuj5FXVis4UXY/E54rrFOPZH/f7e28kSTzRX0d6gq/qIrZ+njTZPiWq89yEF8Pp1gZFlxnoXK5qrQkiIi2wq9tvpnRCbg2gWcJkXzNK0dloDNMe7d93lZ5tWl3IzJua+i7aJ6FZXY2AeGko6CuBP3LLD8H76S0faA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=SVgEui6f; arc=none smtp.client-ip=209.85.219.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
+	s=arc-20240116; t=1781052442; c=relaxed/simple;
+	bh=pWLBNG7am5Ns9ULjZtOZJaEKaBc+vooUVAdjN9uiChE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mDToyZGsUNHq3SKC27QToyiLVYh7x0iZJHyf1tze/DAJCRyNWlyFTAtcqiWBRotvbKv6+n7D6qsc7MRTuIOta5H2kBb03t9lTHccHT37ytLPzuqjfTCjly2WszxTfc/nnch+i04boEMwR3yQJw+4Ti/WOU3MiXhfzhDreveEsec=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com; spf=pass smtp.mailfrom=canonical.com; dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b=fcu321lP; arc=none smtp.client-ip=185.125.188.123
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="SVgEui6f"
-Received: by mail-qv1-f42.google.com with SMTP id 6a1803df08f44-8cebfb15413so64346676d6.0
-        for <stable@vger.kernel.org>; Tue, 09 Jun 2026 17:38:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trailofbits.com; s=google; t=1781051926; x=1781656726; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=4HD4CyZy0JUNR44EyaczU983Jr0FqnBLzgetNoKQtXo=;
-        b=SVgEui6fE3h+dNzu5aucN1MJsBt+3NjSylE9GeKvSY3GAb7OOBbkIOjXlpzzhameSn
-         ViBxRi9OLZBMgQfaPcYsPLyLqXSyJY+92j5x5I7hgXgmGCZkW/z3f+1aqD15tMOEfh5q
-         fCDDgguR0dv4t0c51slBTI8fg2uXmY94YjFWcxBjmpuXlGmdMS1k+8lNRZSi8OTZfE+e
-         W12Le4QSGNZR7jglmErVHv/JE+OJjMEVXKTFYRcOi5gCW+cpFo0Nev337xFTqhY7oqbR
-         HjXPXoANA9jByfM2pZBnFmKYs8lbhlo+4a4ni6AzMFSk2IJ1ke+8MPHHeXVKDq7NHecO
-         fSEg==
+	dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b="fcu321lP"
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 1CD123F4CA
+	for <stable@vger.kernel.org>; Wed, 10 Jun 2026 00:47:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+	s=20251003; t=1781052431;
+	bh=n/KWPxeRKoug9fzHkoO8Q3MP+ErNXigBpMsHQwhtS50=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version;
+	b=fcu321lP2TV41U53GqljUtAwa2GYeTtAQ8cg9UbpF0CeGtAp7uY0b+tl4iVd5/pc8
+	 e4I85gS2c3jnFWbNrI0VTUvfbXkT7FUX31UUk9QIv0kRPqRzONxTbKIuw9u+2mkoAb
+	 fLgI2XeuBLs00qa04VGw3/QQ9SBoBTxfeEJ/9SEDnvch53Sm2gmgExGL8hs/OMx2t4
+	 5c7xxQlwDAtlJfBLopZZuBoR+Dq64ifT/zn+t4YBTkykqD0gCRmMq6rtgfooM6Bk2v
+	 oCN+YepG5oVSjEMssDc393Sc7qtKH5Uk+ps1v5jEnWLs50OLWwxcy2ExZqMcjaZYm3
+	 /1KtySfv11t8fGCXAW7SsB/N/yPED+GscmCxEJ5oUqJIetYEYExrvg0IUa/coon2J/
+	 /yIPdhgBBBlHY2Fc7N86ItU+XZSw2wRgPfdnzgW2oV9BBqtzvDJxT+VwRj0qpqh+yY
+	 jr00SAH2FHeuTIo4EGpQMEWp4OugnG1t00uoIfAo5fVZ4ZicVfCYOkWsxXJneColjQ
+	 YHVlSzpqm1mRE2kwZ+uU/YYYP79GJp2M4GMC84vKtE0jMHGj5ingJrdeJ526+ibm57
+	 IxBMIA/VYevSWscJdxcU6NZUyiob/57f1b9AWhAKtUP+RZYO7w5CyH+R3QWsBX8fT4
+	 zzpl3jfMjS52L1BKjHHzLiOw=
+Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2bfdd99f6b7so86577635ad.0
+        for <stable@vger.kernel.org>; Tue, 09 Jun 2026 17:47:10 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781051926; x=1781656726;
+        d=1e100.net; s=20251104; t=1781052429; x=1781657229;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=4HD4CyZy0JUNR44EyaczU983Jr0FqnBLzgetNoKQtXo=;
-        b=gcRveJAbFfGNaQNeF38FkK9EkZ9YC3bcvPeyIm+QkWQjejt9EhXzv+CCAUBKPlkAXq
-         PZ6ywI0J8pgLOxewv9jFS1LvE5yMr9kli4xgtlegubuzeY2834OMCCCMoivUHZm9hNiU
-         //cQEhRAElwHHzotD77UoM1excfNYEXUwRBmyuNhISW4MKk+NyEsZfOOcRm9iuKpMHM/
-         zF+GsvoGz8X8Eyyn0xVZulgh+1y2EY8qUB9hdzWw5CQfLBYtPhTFRDZdjIrrHoQNKNAz
-         RbMoQnrHLRIll3dwNtYY+36WTKFove9WVtM9tT4/mRzOvlc3Y1XKifisWnRUn6JhViHg
-         RUzw==
-X-Forwarded-Encrypted: i=1; AFNElJ+Ev8qKEBUmml8rQVJd9A5AwL22NtRGt3yDgXRfwYuVwNC5LwwJjN29j0/9GZoaUKV+mbSnoxQ=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyRQIvrI5Zc7LSOj/SIYbw5OVz02tOatxZ2+5zh95s+Fhs5mkdt
-	GJICMvpSqF/iu4ShoA3mJNP8lDLW36PPdFh2iiE2glkf7QX0sfGInvxqOxxw9+VpgIo=
-X-Gm-Gg: Acq92OG73PookuVDUjaL3Te2qrogXC7j2vixmy3dNkMCof6tzyXzoiVHFMHGhf4//dr
-	GcaZXcE3cY4ojARd27NMmSkdlvCwPEZRrPg6qnp3VaWnG2aSdBTBWfwaC2YuOH7oOvUZA03oqqD
-	LrbDjoBil+GYUrDXsscTPHkezPH9EH68EnlLFK6Cfmyj03K29/PT017+VD0H9ReScj3VhZKGG5Q
-	NwP/BN/keTpX+ILAIp4NDEz68LqpOydKIR9FJ6t6t16wnX2eFUtGcgqxYmL9uVAr4cpuknRDMlx
-	EAi+DxBqZvJPZgE28pFN1Osz2Md0LcM8cd0s1XY2Y+zHEbNwDi6cnlXu6XNe3gR2v95kealc96M
-	F/SLaPNKgXEBqxOOcyetWo6s1fEIIaByxfIj6PIbV7p2w8eJjmuBrX/p5Y+jCxEQHDUmlKVisNP
-	fp9DgMzhj0iqcmtP7uxg6lU6CRtYOJhNGtuaUplw==
-X-Received: by 2002:a05:622a:400c:b0:517:7971:a234 with SMTP id d75a77b69052e-51795b729ffmr331041021cf.4.1781051925756;
-        Tue, 09 Jun 2026 17:38:45 -0700 (PDT)
-Received: from localhost ([161.35.96.86])
-        by smtp.gmail.com with UTF8SMTPSA id d75a77b69052e-51775c297a8sm196989031cf.8.2026.06.09.17.38.44
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 09 Jun 2026 17:38:45 -0700 (PDT)
-From: Samuel Moelius <sam.moelius@trailofbits.com>
-To: Miklos Szeredi <miklos@szeredi.hu>
-Cc: Samuel Moelius <sam.moelius@trailofbits.com>,
+        bh=n/KWPxeRKoug9fzHkoO8Q3MP+ErNXigBpMsHQwhtS50=;
+        b=G7phEfSpkHGMSQTDEloAfuZt4EMR1+aCfDFaxEkiCNlJtcIqMr914NmS3yfecBgV3N
+         6N/QSW7G9eDxhqZeJvWr875v1uFU4x9/Kh5szCuL4To1yOnRyFIPSX9jRgMG3M3A7AsP
+         O3uWz9rfQOYmmOfI4ASWVH+OBe10ycdS9JrxYxCrG0nUBuvNnRc4Ga6gUMAba32Lg6Xn
+         PRhRLHiUoA+Q+ZVQ+v6tU3AVo/HZMPV8BsUkfDxlt4W5/5gmC054mZNGNIGRED4Q/mzH
+         ei7679gGG8gONyS7T27+hHrB8+LMGSc2j0bS5stRE1Ad+pURd9BP5XXG6H+HKdpSFopp
+         eT2A==
+X-Forwarded-Encrypted: i=1; AFNElJ8aS1zowmYhXTWSrBUHtbYmZJ7vEYQFwkl5sfUvGWCu+21PxHmUVATRg18zCOMV3AGc+H7UxBU=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyfFOQSIcAZ/yODxBN8W2nfb+xQ2nsfxAbkcKO2qOrXV3V0cXMR
+	+ok5P4vciJaSaPHFEG+5P/bWDpjnLcjaPKUilGIndzRCfZmQS+6RpUAl4Dywh5bTi6WYe7Qf39V
+	cvyago8owEs+yq3QR07lZbW+yl+1zzbp50OUWZsf88p3QcEoObWHmZy0vq4SfjtL8KMzl9EbQ+w
+	==
+X-Gm-Gg: Acq92OEsC93u0zaT5x7Vt7vh5HkSw8GgX7HhgO5IF51LRtYJJqjVfLuauKwuv8lm3AB
+	Sxf71OBYaBJPnVCuGbXlpmoTQgz6lgLp7jqsfV4DZj2pewXweP36iTTzB5YjAEo053lq3kvcfwr
+	Fe2Y5DVzIvs5XBtG+qhUgwzzgxXBC5EqPp9g2EJLTZGRDMhWxmStww4/ibFrlvrqJuZLHGBd+h1
+	jWFpRdUQYaeKhZ4cdjIHwOZ780P8Oag71Z6eRnGtgG5N38PaVGC7uaMdBO5vKPRqnkFzH0ttljy
+	lmSee43B3C0ZCk/vy79fDe9qok/F92Q2F7pRm95PSTcOnr/beCMGscEBrPp0aFWt/+1rnelsQKC
+	9utyWXdKAy7aUzAht7+EJxVVOsB/5ZViwTD6CopLx/F7l28e3rnYhYxlJ4KQK2dNv+d7HWur+Mv
+	gkcj82bfh+SmE63DlMBOeVBUOEZw==
+X-Received: by 2002:a17:902:bd0a:b0:2bf:2e93:c624 with SMTP id d9443c01a7336-2c1e85aad5emr181303295ad.27.1781052429308;
+        Tue, 09 Jun 2026 17:47:09 -0700 (PDT)
+X-Received: by 2002:a17:902:bd0a:b0:2bf:2e93:c624 with SMTP id d9443c01a7336-2c1e85aad5emr181303155ad.27.1781052428977;
+        Tue, 09 Jun 2026 17:47:08 -0700 (PDT)
+Received: from localhost (2403-5803-7ed2-0-44ce-9172-4c63-78c1.ip6.aussiebb.net. [2403:5803:7ed2:0:44ce:9172:4c63:78c1])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c164f6d211sm229874265ad.3.2026.06.09.17.47.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 09 Jun 2026 17:47:08 -0700 (PDT)
+From: Stewart Hore <stewart.hore@canonical.com>
+To: linux-kernel@vger.kernel.org
+Cc: krzysztof.kozlowski@linaro.org,
+	myungjoo.ham@samsung.com,
+	cw00.choi@samsung.com,
+	vijaikumar.kanagarajan@gmail.com,
 	stable@vger.kernel.org,
-	Joanne Koong <joannelkoong@gmail.com>,
-	linux-fsdevel@vger.kernel.org (open list:FUSE: FILESYSTEM IN USERSPACE),
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH v2] fuse: avoid 32-bit prune notification count wrap
-Date: Wed, 10 Jun 2026 00:37:18 +0000
-Message-ID: <20260610003717.1720575.7a414fc8c0ea.fuse-notify-prune-count-wrap@trailofbits.com>
-X-Mailer: git-send-email 2.43.0
+	stewart.hore@canonical.com
+Subject: [PATCH 0/1] extcon: ptn5150: Request IRQ after device init
+Date: Wed, 10 Jun 2026 10:47:04 +1000
+Message-ID: <20260610004705.265619-1-stewart.hore@canonical.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -75,45 +90,24 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-FUSE_NOTIFY_PRUNE validates the nodeid payload length with:
+The ptn5150 probe requests its threaded INTB IRQ before the extcon
+device is allocated/registered and before ptn5150_init_dev_type() has
+run. If the INTB line is already asserted (e.g. a cable was attached
+before probe, or across a warm reboot), the handler can fire and the
+work item can run against a half-initialised device.
 
-    size - sizeof(outarg) != outarg.count * sizeof(u64)
+This patch moves the IRQ request to after device initialisation and
+registration are complete, so the handler only runs once the driver is
+ready to service it.
 
-On 32-bit kernels, size_t is also 32 bits, so the daemon-controlled
-count multiplication can wrap.  A prune notification with count
-0x20000000 and no nodeid payload passes the check, enters the copy
-loop, and asks the device copy path to read nodeids that are not
-present in the userspace write buffer.  In QEMU this reaches the
-fuse_copy_fill() BUG_ON(!err) path.
+Verified with a reboot-cycle stress test on an i.MX (6.8.0-imx) target.
 
-Validate the payload length with array_size() instead.  That accepts
-exactly the same valid messages, but avoids wrapping arithmetic before
-the copy loop consumes the count.
+Stewart Hore (1):
+  extcon: ptn5150: Request IRQ after device init
 
-Assisted-by: Codex:gpt-5.5-cyber-preview
-Fixes: 3f29d59e92a9 ("fuse: add prune notification")
-Cc: stable@vger.kernel.org
-Signed-off-by: Samuel Moelius <sam.moelius@trailofbits.com>
----
-Changes in v2:
-  - Use array_size macro
+ drivers/extcon/extcon-ptn5150.c | 20 ++++++++++----------
+ 1 file changed, 10 insertions(+), 10 deletions(-)
 
- fs/fuse/dev.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/fs/fuse/dev.c b/fs/fuse/dev.c
-index c105aaf9ff5d..0c6d1855003e 100644
---- a/fs/fuse/dev.c
-+++ b/fs/fuse/dev.c
-@@ -2081,7 +2081,7 @@ static int fuse_notify_prune(struct fuse_conn *fc, unsigned int size,
- 	if (err)
- 		return err;
- 
--	if (size - sizeof(outarg) != outarg.count * sizeof(u64))
-+	if (size - sizeof(outarg) != array_size(outarg.count, sizeof(u64)))
- 		return -EINVAL;
- 
- 	for (; outarg.count; outarg.count -= num) {
--- 
-2.43.0
+--
+2.54.0
 
