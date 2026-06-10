@@ -1,376 +1,143 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 074F33B5307
-	for <stable@vger.kernel.org>; Wed, 10 Jun 2026 21:09:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781125754; cv=none; b=uw1g/jBBh6ivS3PopYWuO9HKR9D2wmmZe9wrwziMvEw2hTnzojOX4WdjO0+6FcPl0BxEpKr1n4fPad4tVJOe5zbWFK4UXk63NX9sPIornV1WWrsqd/J5rICmWhY70dADniw1zHlUEYLk/k9/zLHNdiuHZIwjbK4kc6ZOVzyOwdQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781125754; c=relaxed/simple;
-	bh=wKXhUOb8QJv18JYDD4lQ0zn76L+2Ebxocy9z9I2NsF8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Y5PbgN5jrum0b6q5fbVRsVOfzcbbD3zz/H2p79k2R9iJTt+MvgrwT6gohTBgh09HclOjr3J3nBgqWI+Gu03xDuHKxQdT5vOfjXaz0nwAw6pIND6mhyKnyI1na3jRLgR176wQTjwwTUoA/IkJVAfzOFzW3XnA6oO7dAPIMObJKcU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=jeOcNFUY; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=rOQcGMDg; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=jeOcNFUY; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=rOQcGMDg; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 970693A6B8F
+	for <stable@vger.kernel.org>; Wed, 10 Jun 2026 21:10:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.129.124
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781125830; cv=pass; b=n4U/9kbKhqrxrNWBuXEjuwomMOExgEQSZ9qsd5vOzUm/I0k6NAihFD/mI9i3V36TulH9bkmoHAGku5aENUf2e5lAQiQTLaNkmnxXipRRV/nUnnwr5bN2+3XRM4o27M4vgY/P1PsEfbtcsVr4SLRYNR9pZGizJtQVJOAaYaeASc0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781125830; c=relaxed/simple;
+	bh=zn+metQNd/XG/ZUgXyMP5j+F+hyFwWJJHw2ChAA//AA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=WOTOB+8oNwV1v+Iz0j0HO83XxrJriQKwg8hr9JugQJzOi03kW/dxuA6G5ui7w6G3TT/GJpK6AFTb49ecQTUeQi54OLg5ZVksrku6x8OFN9zRy2oSB7UBfmqOFc0PoOMzeySddVydIREexo3AjDd0w0FMDodfnbetbdg9/pqUUdc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=K7ZqVJ+q; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=PjYIBu3v; arc=pass smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="jeOcNFUY";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="rOQcGMDg";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="jeOcNFUY";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="rOQcGMDg"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 25ABE6ADA1;
-	Wed, 10 Jun 2026 21:09:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1781125749; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="K7ZqVJ+q";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="PjYIBu3v"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1781125828;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=R/oUisWKduESdoTOz8Qt4RfHWc07Vz5ChYp1HSUJ9Xg=;
-	b=jeOcNFUY+tkK+hdtjOOgnJ3Y4Nnz9ZfxIQ+WLWiV0y0GeO4cnxzF8fkpaMC/RtDbW2xzRU
-	Gsxdrqxb7oBMArhg6U2LfCvmtluOQQG38Zvgbf3zBrGNURVnMbFRQsmwtLTlZOLHc4oR0v
-	ct5q9NTPTqbIR+byK10NMMfPLvcztkM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1781125749;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=R/oUisWKduESdoTOz8Qt4RfHWc07Vz5ChYp1HSUJ9Xg=;
-	b=rOQcGMDgcZldiOKjvVt5vxSBnpW58qDy4gNNEM9Ce8BQmOYknnsnj7CC7Zj+FoeXGU5J/S
-	ZGW0XjZmIh3qKcBA==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=jeOcNFUY;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=rOQcGMDg
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1781125749; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=R/oUisWKduESdoTOz8Qt4RfHWc07Vz5ChYp1HSUJ9Xg=;
-	b=jeOcNFUY+tkK+hdtjOOgnJ3Y4Nnz9ZfxIQ+WLWiV0y0GeO4cnxzF8fkpaMC/RtDbW2xzRU
-	Gsxdrqxb7oBMArhg6U2LfCvmtluOQQG38Zvgbf3zBrGNURVnMbFRQsmwtLTlZOLHc4oR0v
-	ct5q9NTPTqbIR+byK10NMMfPLvcztkM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1781125749;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=R/oUisWKduESdoTOz8Qt4RfHWc07Vz5ChYp1HSUJ9Xg=;
-	b=rOQcGMDgcZldiOKjvVt5vxSBnpW58qDy4gNNEM9Ce8BQmOYknnsnj7CC7Zj+FoeXGU5J/S
-	ZGW0XjZmIh3qKcBA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5C6D5779A7;
-	Wed, 10 Jun 2026 21:09:08 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 8RCTE3TSKWr4YwAAD6G6ig
-	(envelope-from <clopez@suse.de>); Wed, 10 Jun 2026 21:09:08 +0000
-Message-ID: <2258e3b4-3718-4142-9627-8b5451a5eb54@suse.de>
-Date: Wed, 10 Jun 2026 23:09:03 +0200
+	bh=zn+metQNd/XG/ZUgXyMP5j+F+hyFwWJJHw2ChAA//AA=;
+	b=K7ZqVJ+qE7yKELZBT3yT7zFdj7n7FoOOoNDJPuYPRFEbnxknqg4PLUI9U8J8bpwnakEgoc
+	sLXJrbBs/ruTnq8OVrynTsaeGDax7jjJ7rxo8iVOLr28vMrynDDcDPutRweIJAP7C2qz80
+	/kDSXf9RwIxmGOizdUyxnHsG1PnVoJk=
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com
+ [74.125.82.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-455-0zaYoK02OSyztn2mU6gbGw-1; Wed, 10 Jun 2026 17:10:27 -0400
+X-MC-Unique: 0zaYoK02OSyztn2mU6gbGw-1
+X-Mimecast-MFC-AGG-ID: 0zaYoK02OSyztn2mU6gbGw_1781125826
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-304dd917645so8375696eec.1
+        for <stable@vger.kernel.org>; Wed, 10 Jun 2026 14:10:26 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781125826; cv=none;
+        d=google.com; s=arc-20240605;
+        b=I0VI1DnLfKx6jjW+Xcn8Pb3n7ewp3CHazzsP1ouO1Mx/hwszRDXw1RIFWjBXtCxltF
+         F4eqqeA2XkyChx9RzwExvXxUR+XMcp3/ijZQmVGoVSg+pLRXbYczzXxMf5tbNz6XmLKA
+         eY8zFTiq0HRZWxW4PpX//fdUF2RdOmgs+FRV594JltufnlMleQz/q5KM0Ihwd8NCuaxJ
+         9d8WevUcvsD7Sq4tr4nCeJ3jF3LDm0mUOqNU/jszJqNbq58g8ZWVZZ9zSB0JtQOiIvGH
+         Df4/Z2y7IPCSicDj2rwJLdRxN74Qa6IEWKIizju7g7pmAan5t7uC9fp+fOsC1SEFWOzO
+         VkQQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=zn+metQNd/XG/ZUgXyMP5j+F+hyFwWJJHw2ChAA//AA=;
+        fh=oaV7Wy0G6rIrjt/m0nQl/7lhLt7DHYdKl61dOSL7Omc=;
+        b=Li+PGPEdsl2w+dw0XCTn2zZD9OO/VGpPR5GcBWBGAYs6r3VKrEpjjvb+PMGNz6mQcR
+         FJf/QJKS9H8yHGcdKwM46+poWLsmRvi0yWXD7zR1HNNVmZYOCONTj5VlcFT6zjkYlI/3
+         IYwUrMdks1BYExq0j1vV7liRnI3+s7tovjczV0tG/csUB5XNRe1Vr6yFTKJGDxCRNKX5
+         8MZeFcU2BIhb1A08zm8FGUCcHqkawifm+MXOewahZHtqjTQNtCtSaMhpD6WoDUpjB/Ps
+         IGXHLvEoEQOi4XvmMc6b3f7fhmq0fgNHLcgG6HTFGAvaxSJ3hWkdqsQBqRZ6j5qW91w3
+         8QmA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1781125826; x=1781730626; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=zn+metQNd/XG/ZUgXyMP5j+F+hyFwWJJHw2ChAA//AA=;
+        b=PjYIBu3vWBGLiQnBIurspXeDmPAB8cELUGCmL82/bR5t5cD3wL00S9Xa13KSYDJBzL
+         4oCr0NIFRfggHiZ30Ecq9HawnOZQXeMgb60BkOjqwc7mo10MzIaBEPkM3bbgMWnAF9yN
+         ebTxdx7bmyu3NFAiw6iVO/XinpFGtuWpAx6xyTSQ+RXdqe2ba8IiW4mOxiqWijupdFsJ
+         dpCrW4qryMhUvGuWZBBCxD4OUSgg3D/z0G7qRZavyngHgWbq5vZIXKFEQBh3n6N/1Zoz
+         Z9TPN8HTV+Ls1xJvheeB1NipZmO0Q9iT9WewYUnLmfZhgSi+YYK7zOGYKrORK9cupgae
+         NXqA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781125826; x=1781730626;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=zn+metQNd/XG/ZUgXyMP5j+F+hyFwWJJHw2ChAA//AA=;
+        b=Cl63oCNAVxhHml5de4+ULSCSbOun59fuIu3P8wWyXRr+Tt8oFnzJuIoIWeC/7hFR7l
+         g3Jq0DJK1biMOsLeWzxCuYOFCPwMo+RDNn0MZ36HZZp/GsbvKBdy7xfq9OBi8ZQr9MIm
+         nk+4q7Do4xfrvp1qx+eMgBmG5duW3D0dG/Qe1RcXZFchpIbRgZjjDZPJNxawkZd9cgYH
+         G0GCMBptNRg3jwsNlk1D4MOMTjaBYlmpbeYR7Fbhlgj3VjM75kw1ga92pu9v85FtK5Qf
+         QFVtzMRHPKUFfi+dICh/vK4V6aNDJs+O6y0gdAPFUfp36BGkjaf1S57mKaT5WqI0ar3S
+         yVKw==
+X-Forwarded-Encrypted: i=1; AFNElJ+aCwKvrVJwLZFylWNoN9sqKAWvAZZujeeIc9/m6zoACYxZxAXNYv9k8iSWcDbb/ZDKQ6MjIT4=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzShMdkjQx1Yf71Mpxk21v6n4zkf/JWRh+99fzhlVX0HyVktf7e
+	blrc3Usc6FSEHDWyDrn0QZlouXqCL5ky9IuY9PA7TQc+0icO7o91K1xQegefLa27SaBd/+w8g7l
+	1NbCJD+hOk4c0/vkTAV7Sg9R+k5zcU7OuJptZEHo7xwCNMzGJeaHmzWC9iVv4Q6LUKcff5oWDkv
+	swHWnJwCTH/3epdeczpPMFEIHz2G/g8xG9
+X-Gm-Gg: Acq92OHcNoRMcO2XkEiRvhusJ62OeEXyeho3q+NuRtnpsSC0WvZwl/F5Bv7Orh3WoH4
+	5pn9cbItaFWExjLL/h74kdLEJrvWdwW7JxbHJZQCGFEnpqCXOj7017Ytz/d9X6SmZ7HXowiu50o
+	+Y+HbHiJY9xywByckn7cnJCB79kFxI6E6ayniuZR1056QkWU3Qe0zMTXf4qrX9RD307WY6/lP9o
+	QmtBBzXRm5Vynayadrt1ro/ya9jsPVJpM26zM+4hvvzfUNk
+X-Received: by 2002:a05:7300:8ca0:b0:2ed:e12:376d with SMTP id 5a478bee46e88-307ff820bdbmr662236eec.35.1781125825961;
+        Wed, 10 Jun 2026 14:10:25 -0700 (PDT)
+X-Received: by 2002:a05:7300:8ca0:b0:2ed:e12:376d with SMTP id
+ 5a478bee46e88-307ff820bdbmr662199eec.35.1781125825460; Wed, 10 Jun 2026
+ 14:10:25 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] KVM: VMX: Raise KVM_REQ_EVENT on TPR below threshold exit
-To: Sean Christopherson <seanjc@google.com>
-Cc: kvm@vger.kernel.org, pbonzini@redhat.com, osteffen@redhat.com,
- Stefano Garzarella <sgarzare@redhat.com>, stable@vger.kernel.org,
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- "maintainer:X86 ARCHITECTURE (32-BIT AND 64-BIT)" <x86@kernel.org>,
- "H. Peter Anvin" <hpa@zytor.com>, Roman Kagan <rkagan@virtuozzo.com>,
- "open list:X86 ARCHITECTURE (32-BIT AND 64-BIT)"
- <linux-kernel@vger.kernel.org>
-References: <20260610185042.2810880-2-clopez@suse.de>
- <aim2_s0loBcb3fav@google.com>
-From: =?UTF-8?Q?Carlos_L=C3=B3pez?= <clopez@suse.de>
-Content-Language: en-US
-In-Reply-To: <aim2_s0loBcb3fav@google.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Action: no action
-X-Rspamd-Queue-Id: 25ABE6ADA1
-X-Spam-Flag: NO
-X-Spam-Score: -4.51
-X-Spam-Level: 
-X-Spamd-Result: default: False [-4.51 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	ARC_NA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FUZZY_RATELIMITED(0.00)[rspamd.com];
-	MIME_TRACE(0.00)[0:+];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCPT_COUNT_TWELVE(0.00)[14];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RCVD_TLS_ALL(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+References: <20260610141549.555605-1-jani.nikula@intel.com>
+In-Reply-To: <20260610141549.555605-1-jani.nikula@intel.com>
+From: David Airlie <airlied@redhat.com>
+Date: Thu, 11 Jun 2026 07:10:13 +1000
+X-Gm-Features: AVVi8Ce5IWVyE8AXhZUnTXwJ31lTOn-qBi0p3ZXgtCPUjD5gRdicD1lr4IH92yI
+Message-ID: <CAMwc25ow-MehYN8u0EFkEW-JB2CYL+od9xja0WBK0-msWMHOww@mail.gmail.com>
+Subject: Re: [PATCH] drm/displayid: fix Tiled Display Topology ID size
+To: Jani Nikula <jani.nikula@intel.com>
+Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
+	intel-xe@lists.freedesktop.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 6/10/26 9:11 PM, Sean Christopherson wrote:
-> On Wed, Jun 10, 2026, Carlos López wrote:
->> The TPR_THRESHOLD field in the VMCS is used by VMX to induce VM exits
->> when the guest's virtual TPR falls under the specified threshold,
->> allowing KVM to inject previously masked interrupts.
->>
->> KVM handles these VM exits in handle_tpr_below_threshold().
->> Commit eb90f3417a0c ("KVM: vmx: speed up TPR below threshold vmexits")
->> optimized this function by calling apic_update_ppr() instead of raising
->> KVM_REQ_EVENT. apic_update_ppr() then raises KVM_REQ_EVENT if there is
->> a pending, deliverable interrupt.
->>
->> However, if there are no new interrupts pending, apic_update_ppr()
->> does not issue the request. This skips calling update_cr8_intercept(),
->> and thus vmx_update_cr8_intercept() before VM entry, which results in
->> a high, stale TPR_THRESHOLD. This is problematic due to the following
->> sentence in 28.2.1.1 "VM-Execution Control Fields" in the SDM:
->>
->>   The following check is performed if the “use TPR shadow” VM-execution
->>   control is 1 and the “virtualize APIC accesses” and “virtual-interrupt
->>   delivery” VM-execution controls are both 0: the value of bits 3:0 of
->>   the TPR threshold VM-execution control field should not be greater
->>   than the value of bits 7:4 of VTPR.
->>
->> This error condition is typically not observed when KVM runs on a bare
->> metal system because modern processors support APICv, which enables
->> virtual-interrupt delivery, and which KVM uses when possible. This
->> causes the processor to no longer generate TPR-below threshold exits
->> and to no longer check TPR_THRESHOLD on entry. However, when running
->> on older platforms, or under nested virtualization on a hypervisor that
->> does not support virtual-interrupt delivery and enforces this check
->> (like Hyper-V) this can cause a VM entry failure with hardware error
->> 0x7, as seen in [1].
->>
->> Fix this by re-introducing an unconditional KVM_REQ_EVENT when reacting
->> to a TPR-below-threshold exit, ensuring that vmx_update_cr8_intercept()
->> is called to re-evaluate TPR_THRESHOLD before entering the guest.
->>
->> Link: https://github.com/coconut-svsm/svsm/issues/1081 [1]
->> Tested-by: Stefano Garzarella <sgarzare@redhat.com>
->> Cc: stable@vger.kernel.org
->> Fixes: eb90f3417a0c ("KVM: vmx: speed up TPR below threshold vmexits")
->> Signed-off-by: Carlos López <clopez@suse.de>
->> ---
->>  arch/x86/kvm/vmx/vmx.c | 1 +
->>  1 file changed, 1 insertion(+)
->>
->> diff --git a/arch/x86/kvm/vmx/vmx.c b/arch/x86/kvm/vmx/vmx.c
->> index c548f22375ad..21a469d3ba21 100644
->> --- a/arch/x86/kvm/vmx/vmx.c
->> +++ b/arch/x86/kvm/vmx/vmx.c
->> @@ -5824,6 +5824,7 @@ void vmx_set_dr7(struct kvm_vcpu *vcpu, unsigned long val)
->>  static int handle_tpr_below_threshold(struct kvm_vcpu *vcpu)
->>  {
->>  	kvm_apic_update_ppr(vcpu);
->> +	kvm_make_request(KVM_REQ_EVENT, vcpu);
->>  	return 1;
->>  }
-> 
-> Don't all the other flows that update PPR have the same bug, at least in theory?
-> Forcing KVM_REQ_EVENT is a bit of a hack, it seems like we should instead be able
-> to do something like this (probably not this aggressively for stable@):
+On Thu, Jun 11, 2026 at 12:16=E2=80=AFAM Jani Nikula <jani.nikula@intel.com=
+> wrote:
+>
+> The Tiled Display Topology ID of a DisplayID Tiled Display Topology Data
+> Block consists of three fields:
+>
+> - Tiled Display Manufacturer/Vendor ID Field (3 bytes)
+> - Tiled Display Product ID Code Field (2 bytes)
+> - Tiled Display Serial Number Field (4 bytes)
+>
+> i.e. a total of 9 bytes, not 8.
+>
+> The DisplayID Tiled Display Topology ID is used as the tile group
+> identifier.
+>
+> Update both struct displayid_tiled_block topology_id member and struct
+> drm_tile_group group_data member to full 9 bytes.
+>
+> The group data was missing the last byte of the serial number. I don't
+> know whether there are known bug reports that might be linked to this,
+> but it's plausible the last byte could be the differentiating part for
+> the tile groups, and fewer tile groups might have been created than
+> intended.
 
-Right, I guess an EOI could lower PPR with no interrupts pending, so we
-would need to update TPR_THRESHOLD as well, or figure out whether CR8
-should be intercepted at all on SVM.
+I pulled out my spec, and indeed I can confirm this is the correct reading!
 
-> ---
->  arch/x86/kvm/lapic.c | 31 +++++++++++++++++++++++++++++++
->  arch/x86/kvm/x86.c   | 37 ++-----------------------------------
->  2 files changed, 33 insertions(+), 35 deletions(-)
-> 
-> diff --git a/arch/x86/kvm/lapic.c b/arch/x86/kvm/lapic.c
-> index 4078e624ca66..1b66c878bb67 100644
-> --- a/arch/x86/kvm/lapic.c
-> +++ b/arch/x86/kvm/lapic.c
-> @@ -939,6 +939,32 @@ static bool pv_eoi_test_and_clr_pending(struct kvm_vcpu *vcpu)
->  	return val;
->  }
->  
-> +static void update_cr8_intercept(struct kvm_vcpu *vcpu)
-> +{
-> +	int max_irr, tpr;
-> +
-> +	if (!kvm_x86_ops.update_cr8_intercept)
-> +		return;
-> +
-> +	if (WARN_ON_ONCE(!lapic_in_kernel(vcpu)))
-> +		return;
-> +
-> +	if (vcpu->arch.apic->apicv_active)
-> +		return;
-> +
-> +	if (!vcpu->arch.apic->vapic_addr)
-> +		max_irr = kvm_lapic_find_highest_irr(vcpu);
-> +	else
-> +		max_irr = -1;
-> +
-> +	if (max_irr != -1)
-> +		max_irr >>= 4;
-> +
-> +	tpr = kvm_lapic_get_cr8(vcpu);
-> +
-> +	kvm_x86_call(update_cr8_intercept)(vcpu, tpr, max_irr);
-> +}
-> +
+Reviewed-by: Dave Airlie <airlied@redhat.com>
 
-AFAICT you already moved this function in c7722e5e1dae ("KVM: x86: Move
-update_cr8_intercept() to lapic.c"), which is only in kvm-x86/next. So
-the diff on that tree is smaller really.
-
->  static int apic_has_interrupt_for_ppr(struct kvm_lapic *apic, u32 ppr)
->  {
->  	int highest_irr;
-> @@ -980,6 +1006,8 @@ static void apic_update_ppr(struct kvm_lapic *apic)
->  	if (__apic_update_ppr(apic, &ppr) &&
->  	    apic_has_interrupt_for_ppr(apic, ppr) != -1)
->  		kvm_make_request(KVM_REQ_EVENT, apic->vcpu);
-> +	else
-> +		update_cr8_intercept(apic->vcpu);
->  }
-
-Fine with me. This also addresses Sashiko's comment.
-
->  void kvm_apic_update_ppr(struct kvm_vcpu *vcpu)
-> @@ -3290,6 +3318,7 @@ int kvm_apic_set_state(struct kvm_vcpu *vcpu, struct kvm_lapic_state *s)
->  	kvm_apic_update_apicv(vcpu);
->  	if (apic->apicv_active)
->  		kvm_x86_call(apicv_post_state_restore)(vcpu);
-> +
->  	kvm_make_request(KVM_REQ_EVENT, vcpu);
->  
->  #ifdef CONFIG_KVM_IOAPIC
-> @@ -3394,6 +3423,8 @@ void kvm_lapic_sync_to_vapic(struct kvm_vcpu *vcpu)
->  	int max_irr, max_isr;
->  	struct kvm_lapic *apic = vcpu->arch.apic;
->  
-> +	update_cr8_intercept(vcpu);
-> +
->  	apic_sync_pv_eoi_to_guest(vcpu, apic);
->  
->  	if (!test_bit(KVM_APIC_CHECK_VAPIC, &vcpu->arch.apic_attention))
-
-Fine, seems aggressive as you said, update_cr8_intercept() is already
-called before the single kvm_lapic_sync_to_vapic() use. This is a
-follow-up cleanup in my humble opinion.
-
-> diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
-> index 0550359ed798..116ce6209c67 100644
-> --- a/arch/x86/kvm/x86.c
-> +++ b/arch/x86/kvm/x86.c
-> @@ -128,7 +128,6 @@ static u64 __read_mostly efer_reserved_bits = ~((u64)EFER_SCE);
->  				    KVM_X2APIC_ENABLE_SUPPRESS_EOI_BROADCAST	| \
->  				    KVM_X2APIC_DISABLE_SUPPRESS_EOI_BROADCAST)
->  
-> -static void update_cr8_intercept(struct kvm_vcpu *vcpu);
->  static void process_nmi(struct kvm_vcpu *vcpu);
->  static void __kvm_set_rflags(struct kvm_vcpu *vcpu, unsigned long rflags);
->  static void store_regs(struct kvm_vcpu *vcpu);
-> @@ -5340,7 +5339,6 @@ static int kvm_vcpu_ioctl_set_lapic(struct kvm_vcpu *vcpu,
->  	r = kvm_apic_set_state(vcpu, s);
->  	if (r)
->  		return r;
-> -	update_cr8_intercept(vcpu);
->  
->  	return 0;
->  }
-
-Okay, because kvm_apic_set_state() -> apic_update_ppr().
-
-> @@ -10595,33 +10593,6 @@ static void post_kvm_run_save(struct kvm_vcpu *vcpu)
->  		kvm_run->flags |= KVM_RUN_X86_GUEST_MODE;
->  }
->  
-> -static void update_cr8_intercept(struct kvm_vcpu *vcpu)
-> -{
-> -	int max_irr, tpr;
-> -
-> -	if (!kvm_x86_ops.update_cr8_intercept)
-> -		return;
-> -
-> -	if (!lapic_in_kernel(vcpu))
-> -		return;
-> -
-> -	if (vcpu->arch.apic->apicv_active)
-> -		return;
-> -
-> -	if (!vcpu->arch.apic->vapic_addr)
-> -		max_irr = kvm_lapic_find_highest_irr(vcpu);
-> -	else
-> -		max_irr = -1;
-> -
-> -	if (max_irr != -1)
-> -		max_irr >>= 4;
-> -
-> -	tpr = kvm_lapic_get_cr8(vcpu);
-> -
-> -	kvm_x86_call(update_cr8_intercept)(vcpu, tpr, max_irr);
-> -}
-> -
-> -
->  int kvm_check_nested_events(struct kvm_vcpu *vcpu)
->  {
->  	if (kvm_test_request(KVM_REQ_TRIPLE_FAULT, vcpu)) {
-> @@ -11361,10 +11332,8 @@ static int vcpu_enter_guest(struct kvm_vcpu *vcpu)
->  		if (req_int_win)
->  			kvm_x86_call(enable_irq_window)(vcpu);
->  
-> -		if (kvm_lapic_enabled(vcpu)) {
-> -			update_cr8_intercept(vcpu);
-> +		if (kvm_lapic_enabled(vcpu))
->  			kvm_lapic_sync_to_vapic(vcpu);
-> -		}
->  	}
->  
->  	r = kvm_mmu_reload(vcpu);
-
-The other side of the refactor, sure.
-
-> @@ -12481,8 +12450,6 @@ static int __set_sregs_common(struct kvm_vcpu *vcpu, struct kvm_sregs *sregs,
->  	kvm_register_mark_dirty(vcpu, VCPU_EXREG_CR3);
->  	kvm_x86_call(post_set_cr3)(vcpu, sregs->cr3);
->  
-> -	kvm_set_cr8(vcpu, sregs->cr8);
-> -
->  	*mmu_reset_needed |= vcpu->arch.efer != sregs->efer;
->  	kvm_x86_call(set_efer)(vcpu, sregs->efer);
->  
-> @@ -12511,7 +12478,7 @@ static int __set_sregs_common(struct kvm_vcpu *vcpu, struct kvm_sregs *sregs,
->  	kvm_set_segment(vcpu, &sregs->tr, VCPU_SREG_TR);
->  	kvm_set_segment(vcpu, &sregs->ldt, VCPU_SREG_LDTR);
->  
-> -	update_cr8_intercept(vcpu);
-> +	kvm_set_cr8(vcpu, sregs->cr8);
->  
->  	/* Older userspace won't unhalt the vcpu on reset. */
->  	if (kvm_vcpu_is_bsp(vcpu) && kvm_rip_read(vcpu) == 0xfff0 &&
-
-Right, because kvm_set_cr8() -> kvm_lapic_set_tpr() -> apic_set_tpr() ->
-apic_update_ppr(), so setting cr8 and updating the intercept are merged
-into one step.
-
-I can send a v2 which applies on kvm-x86/next without the refactor, the
-diff should be quite small.
