@@ -1,72 +1,72 @@
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 615424028E8
-	for <stable@vger.kernel.org>; Wed, 10 Jun 2026 13:06:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37FD237F8D6
+	for <stable@vger.kernel.org>; Wed, 10 Jun 2026 13:06:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781096805; cv=none; b=ubOugOUWb8j8+n2e6cvhN+xqp9+O/7zsSE/dAG38IdhYrrczL0CNUcOYaHs+WXiCOHIAocSAQJr1DqolyhCjFi6ulBy7nGWmzSnty4AT3Ajc2GGcjks89z6K5unSURFJ0782U8K65lwBEHZbVa2gZPNKjKmjwGlEbGKy9eFeZxs=
+	t=1781096808; cv=none; b=WdkBXDzzw16Sz8rOaWpDyZRwYioyW9LfCbI7M7YGAfPxJZqaouq7DWt9PD288YUp0VsMLfMyL5jcA4AWd6VRxAuHx++QtV+pADHL7Dh9R5GbZ5O10RNNXucG3Ph+PZHtr84cyTE3mNeFE7nVSEz+InYZUwFEmE2ozPtK5L+5Smw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781096805; c=relaxed/simple;
-	bh=GCNb3jasKO6nopDqk9sCd2N7tayU62u18NPv4F9E5wo=;
+	s=arc-20240116; t=1781096808; c=relaxed/simple;
+	bh=WaosMbjfwHRBHBEEDV3W8lJK6/4vapnN1+pjcrONctQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JyO0cY3sIGtbt7dxQ3QCvBnvvdI38u2WFVmPS06JSUM0Y00HuFjQeHO6AU2enVsQrDwy2U79D2PXjI4OTs1o052do0zB3mtLz+3H4B7jPH/2SMzj+S4eEJIktnyNxcdrPWhwUBVjkTY6IQFqnHsJRKpYLnLeFpqSWY6ytwu2Nis=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NMJAaJqW; arc=none smtp.client-ip=209.85.214.174
+	 MIME-Version; b=H9YCDsuYOxQ2v753R26+XF6nwmxN/dvyxr+cwoZy1y36LsSFzwzpEpFhsaDxJEa466GK7rC32WdouNvr9du0ikABvfHLsrT9mykyPIOtE9ODZ3Sh/Ns2iP5CfIWKUo4BO58Su723d4Y+qHL+9Yy2PRPrIdopscsGSUJUCd6iV/o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kJ+/o6WC; arc=none smtp.client-ip=209.85.214.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NMJAaJqW"
-Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2bf2247e38eso69556735ad.3
-        for <stable@vger.kernel.org>; Wed, 10 Jun 2026 06:06:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kJ+/o6WC"
+Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2c0c32f6ce1so46827485ad.2
+        for <stable@vger.kernel.org>; Wed, 10 Jun 2026 06:06:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781096804; x=1781701604; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1781096807; x=1781701607; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=2qCxOpd6GcFF1a8SEEvdg2ZJnAIlzX8WCb8r3Ehd1kA=;
-        b=NMJAaJqWL6pWyrSc1WbVuk4KYpPzcY5zmApbnbicoGNoOO6yVWjQ1MDw534Nfmtw+P
-         qtpxabZaTlpPFV60yiGkscF9D3mtMsgfzW1UDBygPP35AlceNq6jW6O3UI8fyzgMpqhG
-         2+EOnveo3bsC1m95c+RsElKA9wTrFn/7Wx6+4tacby7B99RORrAP0v2ecGnSJogYkoUv
-         BjtRHPcY7itSfz0RYwF4H0RStq+YGrkLaSODmD+RfCmRpFly2kZMyaEp2tgH6E74kipx
-         UEnTsHxH9fLDxqxhH+QEgcnT2UxMRgDhYv+doHud7DU1MyphPnmFp3C+cl2EQOSm1fTJ
-         aw0w==
+        bh=bPY6kv+qAU78zF0fcea5dJTa14wAhSte/v9aqMKiagg=;
+        b=kJ+/o6WCK4jUFde5B5aMGjZIoCB61ZcSQy2gjffYO4fWL4VrIko4+iJGMsdGiocBbi
+         BKAklRL6kaYPguGQDEkRsXd/DBuL/1Hb79E0HFHms7W+oGiYPJCahbS9At/9XHAP06uU
+         eDuwh8akAqvZ1QPAOGoe+DnweESrw9IgymJ2OhJ62mRNvOmqA07nesJmSDqUammLnoEb
+         Ic1YHkEn7kahnXdZN8lmBmNAxC7iL+pWFrHwXHEakwbqifUHrQn3ZiRdrJfhJcAiTu+W
+         vwiDL13adJjUC5GuMNEo7luD+2w64IBFGoTCpKdNyRAXbviAo5NedPIczkpz98aEOTNt
+         My3Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781096804; x=1781701604;
+        d=1e100.net; s=20251104; t=1781096807; x=1781701607;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=2qCxOpd6GcFF1a8SEEvdg2ZJnAIlzX8WCb8r3Ehd1kA=;
-        b=Q4IDU2Hr8TZiYNhK/d2HE6V1uQHB8s4zQNEmMlb1ehc/TdgQjezaqSxPV08MfcmEKs
-         2WqbIJO5BfGX5Int93A2sBZj7Bwf0TthsOMmQEFVBLlNYsMwoT7Yin9cn+Y69G8RD3qG
-         ihlRKQLknn8fJ/g1hmv1wNOCVRA++NhGJPO7DU1rQP0M5C0n12jA7vtAv7sDNGOCZhVV
-         g6h0OMObSqrv5lmruJ0Spto8bxvWlYSLfYDT9ghCTScIJyB/I0oRdpN6mnePvaVDOfRL
-         sqAREHSLhtg007U8qLNDavuOd63dQxisd6DfRgefUT3yK8RSKfGGArAYLIUSyh3O1n6l
-         Ph7g==
-X-Forwarded-Encrypted: i=1; AFNElJ+bW09SQULjtMjnzc+MsJ9rKAJCIVKjxdd3rBjGTLO/hvZDOEcVa7RarIUl2I7t5d7Uh+6C+Dk=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwxIXPyil6vt2pg0p3ZAY5Oe9LUyAgmbJ9bAxsSPnYUmcfYCWsr
-	HVlVdo1OzRPsFbsWj+u7hrpn/uNzclOuSysp7dhReizz/kOP1n7c59Qb
-X-Gm-Gg: Acq92OEE/S4GhbOHNTUDv4S2Tj3wpNF6reh4X6Ulch9v5bNwKpthw5NRJaWYlsr5Fh1
-	cO+0ZEwMRJJIkifOTEUgGX3uReuX0zXO/A9VK8zs36Vwdv23e3H2TqZeEGABGOvDtKUzCTwjgXm
-	HtGJ4HU6rn1o8t7QOiT64NPepNUS5MXa1sjqf43V9on9j4RoFyKOwCFEYpElLyhB1kNq351J3h7
-	MNx9dJtWAWxqDBZRb9Xy6N5I2YFRTnJ4Gu+Xk7juUDHwJlXXNuuTIf7BcCmhXw5kCDknINsfV4w
-	6w22TeITuk/UaXJ7QdqEy+rqRNnOCaoSA34UxB4CRpKojfKytPEIk46HCfbLL8vWvePvO+oAyr+
-	RcBC05QACvqptPKgsDTDiKUeFjA/l1FdLVFUqYQ6QhzGKZtw9C0Z2ItZgAeNesG7HUeuZ3y0io/
-	3h4GHHr2hf+r7n5cW+xUGCTHfhK2aPkyuC6tbtv7WAh1bs3Og6OHL9nha0SwNqDuV7uw==
-X-Received: by 2002:a17:902:e883:b0:2c0:ca93:1303 with SMTP id d9443c01a7336-2c1e80e4313mr288788555ad.6.1781096803762;
-        Wed, 10 Jun 2026 06:06:43 -0700 (PDT)
+        bh=bPY6kv+qAU78zF0fcea5dJTa14wAhSte/v9aqMKiagg=;
+        b=jZ3Y1YzHq0sufDGmxd5n8wKrq0eu3vaiVPPBlQIHXGa2O2VRoaltSfH0l6x9OTfQg+
+         +cyDmIf2SCdMYsSOM5/A3d4Gobf46JZLbsXNLc7wdHS/OdEVvtXy2X8ZELV+bLgB9QKu
+         7DB76RHK361DkhMisuqJiallHrsHMOspx0zWNaKWpcciV4cWOnXxhOQuufITWHP/I4Jj
+         4DaH43IdIHd3uYNOvhocX5tSPg0Uq03xYVZa9yYGukgNaS0omMXt7tLwPDSQIJGnB/JC
+         9lmok1vED4Vu1JeZREQvUvs7p97MSZJyShTeYq40IGb4L1dwrbQ2Y54t/YWjGMEtJLxm
+         935A==
+X-Forwarded-Encrypted: i=1; AFNElJ/PbTPwNBv/Hl3t5nG0CRbCQO8DGfekXjLruD9DLso1jAoCCRIbS0lCGMjWfK0mYWH9B26soi8=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzvWSDD0Vr1xkyUM+mdUtzgmQOVGcAmBm67PUKrV6fFO2hvKb6+
+	PNnfni5A0/zbHD3lBOs25762ffkCG9DX7v889i5BJ8lmky9yT9HToLTX
+X-Gm-Gg: Acq92OGa0tmlTjawM37dsUB0qXqTa8OcC8HTMM2u0m7fE6DKBYLFshOBDmwqIHDLXRa
+	USjBF63oxp5dZ61XyoMhArwVYrMQuL3zYR8UgihSLCA9TGoSzK5ESKYPOeTL5v0WLwwzmQ37tpo
+	vjlv+aSoUT4rkOqnZ20KtAEd/lKkaRugI+9oNgNrXWxd7ZWsyuspapez3JM+JwbhtIoihPOlfR5
+	ACdY51WczNv4V6nCCMhFlMCVXN+tSEFX14h+TPUjg6wnaOq1J05hHIIr2qqiOJvOlRT8Oxajhg9
+	arV4aKuBJOnvrLhqObiFkWT7au3n1Ao6UnP64Y8spLjqXK8rmUQW1NwTZ3D0fVf3fHBWTgr7+sG
+	IPb6dWL5gz3n306ejQW/QYI9rIt5uONlnxRDKLB/tF5o/kewXg4FYVGq6K0cLbfSfFtuQp8e31+
+	k9fjWNPdfzijPQWDo3Fdfk/4z6iLtyrD24S7Ws39b6dMyqrdcJ0bAkO5pHhyVtOibuWA==
+X-Received: by 2002:a17:903:3805:b0:2b2:57f3:8d07 with SMTP id d9443c01a7336-2c1e78e4d1bmr312576555ad.7.1781096806541;
+        Wed, 10 Jun 2026 06:06:46 -0700 (PDT)
 Received: from localhost.localdomain ([14.22.11.167])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c164f8679esm238523865ad.21.2026.06.10.06.06.41
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c164f8679esm238523865ad.21.2026.06.10.06.06.44
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 10 Jun 2026 06:06:43 -0700 (PDT)
+        Wed, 10 Jun 2026 06:06:46 -0700 (PDT)
 From: Yuguo Li <cs.hugolee@gmail.com>
 X-Google-Original-From: Yuguo Li <hugoolli@tencent.com>
 To: ruippan@tencent.com,
 	leonzzhu@tencent.com
 Cc: hugoolli@tencent.com,
 	stable@vger.kernel.org
-Subject: [PATCH 1/2] PCI: Bail out of pci_read_bridge_bases() for SR-IOV virtual buses
-Date: Wed, 10 Jun 2026 21:06:25 +0800
-Message-ID: <20260610130627.1601141-2-hugoolli@tencent.com>
+Subject: [PATCH 2/2] PCI: setup-res: Guard against bus->self == NULL in _pci_assign_resource()
+Date: Wed, 10 Jun 2026 21:06:26 +0800
+Message-ID: <20260610130627.1601141-3-hugoolli@tencent.com>
 X-Mailer: git-send-email 2.43.7
 In-Reply-To: <20260610130627.1601141-1-hugoolli@tencent.com>
 References: <20260610130627.1601141-1-hugoolli@tencent.com>
@@ -78,100 +78,58 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-pci_iov_add_virtfn() routes through virtfn_add_bus(), which calls
-pci_add_new_bus(parent, NULL, busnr) whenever a VF lands on a bus
-number different from its PF.  This produces a pci_bus with a valid
-parent but no bridge device (bus->self == NULL).  There is no bridge
-to read, and the SR-IOV add path never invokes pci_scan_child_bus_*(),
-so bus->is_added stays 0 on these buses.
+_pci_assign_resource() walks up the parent buses looking for a
+transparent bridge to retry resource allocation against.  The
+termination check dereferences bus->self->transparent without first
+testing bus->self.
 
-That stays harmless until something invokes pci_rescan_bus() on a
-virtual bus, e.g. via the per-device sysfs entry:
+For SR-IOV virtual buses created by virtfn_add_bus() via
+pci_add_new_bus(parent, NULL, busnr) -- which happens when a VF lands
+on a bus number different from its PF -- bus->self is NULL.  When
+__pci_assign_resource() is invoked on such a VF (e.g. via
+pci_assign_resource() from userspace-triggered LTP coverage) and the
+allocation fails on the first iteration, the !bus->parent test passes
+because the virtual bus does have a parent, and the next term then
+NULL-derefs bus->self.
 
-    echo 1 > /sys/bus/pci/devices/<VF>/rescan
+Add an explicit !bus->self check, mirroring the established pattern
+elsewhere in drivers/pci/ (e.g. pci.c, probe.c, pciehp_hpc.c).
 
-On x86, pci_scan_child_bus_extend() then sees !bus->is_added and
-calls pcibios_fixup_bus(), which unconditionally calls
-pci_read_bridge_bases().  The function only guards against root
-buses, so it dereferences child->self and oopses.  The fault address
-is the offset of pci_dev->transparent, reached via the dev->transparent
-test in the pci_info() call.
-
-Reproduced on mainline 7.1.0-rc7+ on x86_64 with an SR-IOV-capable PF
-whose VFs span multiple bus numbers, by writing "1" to a VF's sysfs
-rescan attribute (LTP's tpci test does this implicitly via
-pci_rescan_bus()):
+Reproduced on mainline 7.1.0-rc7+ on x86_64 with an SR-IOV PF whose
+VFs span multiple bus numbers, by triggering pci_assign_resource() on
+a VF that lives on a virtual bus:
 
     BUG: kernel NULL pointer dereference, address: 0000000000000860
-    #PF: supervisor read access in kernel mode
-    Oops: Oops: 0000 [#1] SMP NOPTI
-    CPU: 12 ... 7.1.0-rc7+ ... PREEMPTLAZY
-    RIP: 0010:pci_read_bridge_bases+0x39/0x120
-    RBX: 0000000000000000  (= bus->self)
+    RIP: 0010:_pci_assign_resource+0x63/0x130
     Call Trace:
-     <TASK>
-     pcibios_fixup_bus+0xe/0xd0
-     pci_scan_child_bus_extend+0x6b/0x2e0
-     pci_rescan_bus+0x11/0x30
-     ... (sysfs write to .../rescan)
+     pci_assign_resource+0xe9/0x370
+     ... (LTP tpci test-case 12 driving pci_assign_resource via sysfs)
      do_syscall_64+0xab/0x500
 
-With this patch applied to the same tree, the trigger sequence
-completes without crashing.
+This is the same SR-IOV-virtual-bus / self == NULL pattern fixed for
+pci_read_bridge_bases() in commit ("PCI: Bail out of
+pci_read_bridge_bases() for SR-IOV virtual buses").
 
-Triggering this only requires:
-
-  - x86_64 (or any arch whose pcibios_fixup_bus() calls
-    pci_read_bridge_bases()),
-  - any SR-IOV-capable PF (e.g. mlx5, i40e, ixgbe, igb) where
-    sriov_numvfs is large enough that at least one VF crosses to a
-    new bus number, and
-  - a write to that VF's sysfs rescan attribute.
-
-The same NULL self pattern on SR-IOV virtual buses was already
-addressed for the MSI IRQ domain path in commit 38ea72bdb65d
-("PCI/MSI: Fix MSI IRQ domains for VFs on virtual buses"), but
-pci_read_bridge_bases() was not updated in step.  The hidden
-assumption that non-root buses always have a bridge dates back to
-commit f92d4e29d785 ("PCI: fix wrong assumption in
-pci_read_bridge_bases"), which tightened the entry guard from
-"if (!dev)" to "if (!child->parent)" to handle root buses that do
-have a self, but inadvertently exposed the "non-root + self == NULL"
-SR-IOV virtual bus case.
-
-Add an explicit early return for bus->self == NULL.  There are no
-bridge windows or transparent decode flags to propagate when no
-bridge device exists, so returning early is semantically correct and
-matches the existing pci_is_root_bus() bail-out.
-
-Fixes: f92d4e29d785 ("PCI: fix wrong assumption in pci_read_bridge_bases")
+Fixes: d09ee9687e02 ("PCI: improve resource allocation under transparent bridges")
 Cc: stable@vger.kernel.org
 Signed-off-by: Yuguo Li <hugoolli@tencent.com>
 ---
- drivers/pci/probe.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ drivers/pci/setup-res.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/pci/probe.c b/drivers/pci/probe.c
-index b63cd0c310bc..6bcc3b58031b 100644
---- a/drivers/pci/probe.c
-+++ b/drivers/pci/probe.c
-@@ -577,6 +577,16 @@ void pci_read_bridge_bases(struct pci_bus *child)
- 	if (pci_is_root_bus(child))	/* It's a host bus, nothing to read */
- 		return;
+diff --git a/drivers/pci/setup-res.c b/drivers/pci/setup-res.c
+index 991d3ed543f5..e8bd3d4ff923 100644
+--- a/drivers/pci/setup-res.c
++++ b/drivers/pci/setup-res.c
+@@ -353,7 +353,7 @@ static int _pci_assign_resource(struct pci_dev *dev, int resno,
  
-+	/*
-+	 * SR-IOV virtual buses are created by virtfn_add_bus() via
-+	 * pci_add_new_bus(parent, NULL, busnr) when a VF lands on a bus
-+	 * number different from its PF.  Such buses have a valid parent
-+	 * but no bridge device (->self == NULL), so there are no bridge
-+	 * windows to read.  Bail out before dereferencing @dev.
-+	 */
-+	if (!dev)
-+		return;
-+
- 	pci_info(dev, "PCI bridge to %pR%s\n",
- 		 &child->busn_res,
- 		 dev->transparent ? " (subtractive decode)" : "");
+ 	bus = dev->bus;
+ 	while ((ret = __pci_assign_resource(bus, dev, resno, size, min_align))) {
+-		if (!bus->parent || !bus->self->transparent)
++		if (!bus->parent || !bus->self || !bus->self->transparent)
+ 			break;
+ 		bus = bus->parent;
+ 	}
 -- 
 2.43.7
 
