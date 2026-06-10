@@ -1,107 +1,115 @@
-Received: from mail-qk1-f181.google.com (mail-qk1-f181.google.com [209.85.222.181])
+Received: from mail-yx1-f45.google.com (mail-yx1-f45.google.com [74.125.224.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6184347536
-	for <stable@vger.kernel.org>; Wed, 10 Jun 2026 17:29:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.222.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39092340411
+	for <stable@vger.kernel.org>; Wed, 10 Jun 2026 17:32:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.45
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781112559; cv=pass; b=s7wL5SjqT8dRU6erDwKoXmLL4vTZnU9c1FH5Sxv/mEDVTm2H57gjYtIaxu/yxwwoL9cYWyhPhwJum2f4ff4L6/Y+NAR40xDfAiXCKLPVm4Lk2XeXn9B6/EcsM7rq1k4BtaCG7qS5hPr9IoEBujvA+RCWibzZFOD0SBcec2pvFB0=
+	t=1781112758; cv=pass; b=fRSIEr+IvEZ5mk1JefSxGKpsjXQxNbr7o/ZANURpADUc0YIzMLX87xyDwb9vt7M/tzG3ALaiQ8OGvY/37YqinAgOua+uhqw8RAO6Jq4ge6IPRS17f//QCXkPB+XmToDNe9RoHoquOoDr7Pc6CkYEgo+FNUNolZdmXkFGq89bIXQ=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781112559; c=relaxed/simple;
-	bh=dZtPxZ7QvCP8QQ0yBF7ZU2Un31AenUtTLmqw2AbkwR4=;
+	s=arc-20240116; t=1781112758; c=relaxed/simple;
+	bh=pv27nD72m+0lU+Zg8Sfz05ZN+Nn05pr71ShMvkiRWec=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=SeVjpQFiyU8CoGscCi8rb5wx94/ofQUvLOoJ0p4j4L9vPRXp2XW/Y0DR7JaU7UQXIs7xcGF67oFaQEmRdJfh+c3vhDi4uHT6KCX4B2swDnxa7XZNWSE6NuATX8sxgSy0bjL7OTteuI5BWWs0nOk/SLxO5P9GiPCL7PO7ZpmxfoY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lge5Djye; arc=pass smtp.client-ip=209.85.222.181
+	 To:Cc:Content-Type; b=niSvW0ftxJeBQiUpjcn+q+IygrDA56E+t6fS3b+bIW2lnBvYLoLnUBrVr2NO9Xwz6VpsMotpI+/Z9TCjvny2FnlyVye1JdJFLlClqKFmkDcUqJW/Y7zTvz8+82R+32Eqziy7dx2XJxGygcmFD+H733r7eFT2NSKn4XxOUQrFsOE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KP7Dn7GQ; arc=pass smtp.client-ip=74.125.224.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lge5Djye"
-Received: by mail-qk1-f181.google.com with SMTP id af79cd13be357-915767ea2d0so536284585a.1
-        for <stable@vger.kernel.org>; Wed, 10 Jun 2026 10:29:18 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781112558; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KP7Dn7GQ"
+Received: by mail-yx1-f45.google.com with SMTP id 956f58d0204a3-6606d5900dbso2756354d50.2
+        for <stable@vger.kernel.org>; Wed, 10 Jun 2026 10:32:37 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781112756; cv=none;
         d=google.com; s=arc-20240605;
-        b=CsOjTcF5JL6G2qD/9Czs58M0mf16nnG2HEvbx9GKmQP+ihaKXCBrisQyv/VsTpVeJL
-         LM2zTUEfoYoweJBsHIWZWFjZ/p/CQenhFk50u2nXa/NM8SrP1TH6WURGIhAJ1V0vKXBW
-         bMytQ+SK+rIKr3uCO9VA12TxQchgEs0nXxsXuqtUWq+1c3oVGwAs6y/rroLj3Ry06nF7
-         GpNiRZd8qSU1R0FeRNz3Ou7AMGgTsDjYaIfE5l2Li4bqifZg70bJTakT1k+CHQi2C0G0
-         LMuNTdYDFsyuNlO82b6UdiXtpTGwYDCwjwawMnvHx+CVw+QjcJzZKlHItbA2xxHDyt10
-         c6iA==
+        b=h2PnaP5QIfkvmxn1p01UmebZ31nu4pDofUhi+imJnqH2wbPsVYImUj02iXuSlehPGo
+         LhGP3810cisAySHCylAo++xlLF90OV9tjlgc9/IXkQ2zl+3ZhrnEpMsVy8aftNfGjMLQ
+         gifzpWelXO26ILMzSltjq/2RD9sxl3FhI7rp1UXe72WwxUL+5QDtZKfPm3u0gTbXYRmx
+         WO4jGy2Eb53xJmPMDGc75O4cNVg52RqEYyABGyKVUf6nRHH1aHSvU5/qSXb2ttQp2w9Q
+         6iujqPwPnWw3owFkoMn5DNYCQdGqIkWF+mwe6mYzLvL4zvvDBeSCauw6YWosPvFGxOe+
+         c2iw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=YvcRBNwGrBXez69ZPOl81reRTKhIzImY1y43ld3hni8=;
-        fh=e8UD/e8s0edFmXOu0sPdcHfvz0gdxQzVcbC7ezgooP4=;
-        b=e0IJhWXz+zCZp4nmrQx2S87I8t2E1bbBl3LZ6AVZf+y7vY3RjpbKqKir0HXbzJK1Sb
-         EmvPHIwq0025zUE9bjCUdlO8yBCbsud/kXvOXPlu1CAs8h8SsJpYsewwSijEO2REqAFy
-         w2SXGnWt1+ongK9Ycsri55f+2tO6x1AqZ/6x3LHnlAGNmn3BsjFyU1qJdKrbgUOZqYjX
-         cWXOJrVH9/e7taB4J9zVSOMISvTbEowRKRScVTa5CmyoFc4YGFCd0nl1E+ZGhiHRvzoP
-         QsSdCZ0eksDYxaahlMOPA6ZJ7weukn0G3YJiExbwbzvcB3bP5csV7JvBGSwP+q7erGk5
-         Fh8A==;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=TwPccAVt1qmj9UT4eXbvYpUbw68SGsfYYMuRUSdO1Mw=;
+        fh=JQKIzIx3CuGvxnVpqT8nvOZT+vrAAdq/0DauXgCf28k=;
+        b=dQMPCOpFHkHHgP5pyLh/0j3ODWMWutH45wshGbF8jfwtJtyIt9BTQHtUnSZQo4XI3Z
+         qsmRDoa4iUbC6t+q1UCATzCJZBVrQrFiya++yFLwujZjpZVVYsaTMyYjcCbBGc05fDMC
+         0Jtw4pE66YclWBG5Woyo26P5rSqEAQbzQuVf+Kt9p0O1VNRYWIsl70snGVeViCsAypdV
+         DeM7CwbG5Xa+vgjrTK+pZxvESXHrzxDuInlaW7aMYEovglwM/GjkDq09CF1FEYkdeshO
+         h0Dg+vhlGy5BnwqvgtwLLGvEQHN+6fonj6E2efoI667kjDBWVKf/A6zAnuXwHVNbcCBr
+         FqJw==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781112558; x=1781717358; darn=vger.kernel.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=YvcRBNwGrBXez69ZPOl81reRTKhIzImY1y43ld3hni8=;
-        b=lge5Djye+DBe/ykOA/LaRSmTMgG9b0L6j1M+r5mkT9PwZn1LU42MJi7K6jAzq5tHjG
-         o5WnT0IQAD1R3P3BctgGHyo5QchZl6YGJGkTforj3wqV/oC7hZjSXaL2SdkvaBaXU2iG
-         iKTNuc9JF/ERouWZsn+fU6kiDSig7L/+fSIxtR0PD4YF6ZmKU9M4ivfJ2tXXvzT9mGEH
-         hb7nm3t8qJxWL+YkEM8d6Ja6TPJu4Wt5oq1ZlFtOOwVfZNi+/U7KYEA1uk2QfsvlTjZ2
-         NfQhezC9yAEitkBl5+O97wd+BcUJZYwVpxy+6ntOuzCXH1vCxL/hsup7R4k4y+DpoROq
-         zGyQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781112558; x=1781717358;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1781112756; x=1781717556; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=YvcRBNwGrBXez69ZPOl81reRTKhIzImY1y43ld3hni8=;
-        b=oyZDf/tyPOXK7U+ru7Pq+GPgrz23DoKGxjbYOPoqMEBu9wt01LaMtMLL7vZN9OS0Sm
-         usxbNqP2jGfilcXuBVEd5fGfwaKe/ksL3Yts3hYVRAQOd1bB0ygqQR2ULvkvrcvzE4M6
-         tagiJIb6UfPZ0qx/lgsqSrc1exx0/btBSILsoHAAMbhPjqreZzTC3iPQJVPyIrE6A41d
-         7IhYh+nudVYFTrQgtOIRYplXgZt0yIC5Yz2Tj/YCj2tmbV4y1CnksSrGiZpZgyNJzQDN
-         0XE6+YwPdGisVKOTnUYfYU+e4oUKyqhWXq/2DK49UD9cDKv6cqlekBC2dNKdwsKJt/Xv
-         qhYQ==
-X-Forwarded-Encrypted: i=1; AFNElJ/SqGs1FVrW++AITS/lqz/miYtAx8ey+xAL9PCYNhtWhiDX+1ZzAHnclrTaVOY7fzJkNRBDXrg=@vger.kernel.org
-X-Gm-Message-State: AOJu0YykLPPm3FnECHqc9ogrhX34p3hpWEJsO8VYCdxc4Me21RiqFPuf
-	wAONx/5tdIWeZwnd/MN1+kPho6A6FJWmTN1A6ABWUrR8V2nYf7TqirNnKh2EHldmO9T+z1bbcu2
-	63lWUMSYnpylylfaWWJUHnqkzfvrMbjg=
-X-Gm-Gg: Acq92OFuZx0EW1jugnRvSHxrusfFkChu2AE8kCn7xZmEmNVtETSYtJGlFeu93xkS2XJ
-	meyxPBtuHD+vBReGYFXzmY5WjNZ0E3YY4TBUr/r+NCbSZiKjgCQM2xkGCXN1kBaqyqKQXyoCNlz
-	f49WxWuXRomuU3xDwFDjwpKpwswqLrvdaWaYWFjEWtTcZrkxHgQnaOZ4p1jj+HF1NsmesSVQIoo
-	cL48x7qaGnIFhzOUEgWe++c8aTy58TM5e3XD2N/A8rnn/+MzCjOQ/nqGPSIS/3anmjE0xTpd0L1
-	4Vo3TnyhjR3pA84jUOyKRx5/VmJYPtdjESZWWeQRK8vJQPUA/KU=
-X-Received: by 2002:a05:620a:1d01:b0:915:9e84:85ee with SMTP id
- af79cd13be357-915a9ca7655mr3990050385a.15.1781112557739; Wed, 10 Jun 2026
- 10:29:17 -0700 (PDT)
+        bh=TwPccAVt1qmj9UT4eXbvYpUbw68SGsfYYMuRUSdO1Mw=;
+        b=KP7Dn7GQBNvb471v+u4CUHwOVL5SvkytqQzQ7g6dm7yTO6JGqxI95SdH5pS2+P8HW/
+         kE/Pu26RsRA5Gudt+TtWrBANl/gqH7E5hhy2tiFS/vOLkCdww4mMtOchzTSiq/zd7YaQ
+         rTe/PebNxpzavdzds/3A2j4caXPCgRzexSiia1vGnmv0EsfOERiGEvfAQBVknXfVF82t
+         zWE0OS9LOJBpAIeXu3QEczdsfvBQ1oIBXHc0QLKHxUm1mTMW/KYMZkCudsPegrtGwPUL
+         FGk8I1q0j3+F3GPT5oEfpdLS5f4YObwvXCBxTJxeMN7XzNyOXUiLZp8cVQXczDGMA89z
+         +a5g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781112756; x=1781717556;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=TwPccAVt1qmj9UT4eXbvYpUbw68SGsfYYMuRUSdO1Mw=;
+        b=RuM3m3GvQxIHd9IiN/Zs2fn2W6w+uomQ1JhShH+0yRHtYiG/AOaJFyB4A12dzhp4jI
+         0jkKhnRMSbrNFQT40e7DnZJIt8BxUj+xLQbn+rg6uS0sVRk2+KVMFTUgKXJZRu56qYGG
+         zDv0Eknuebb57k+oF3FQJEk0eB2tXpqib8QoTfKJZT7l42f/DeImVbokkLE6fRelq/uI
+         7s5PHsHvNtHeaVCvsrkxXM4V8bnVncbkgddSMTk6Gnit5d71sWaEF/CY8BwxjrcgH0oK
+         qLubUD4PjDoi/K6ufLDFFYDbQJhETSnxlxUx5MwrkGwQdiz+/FOQS9bXb6wj7TItn1Z/
+         3RnA==
+X-Forwarded-Encrypted: i=1; AFNElJ/XN5sqB931NeX296xsQxxqZyObECX2yBQvv8RKDJug7ory/SIb2btWxqlZrgw68sc9ZYkCUmI=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzSNS542noFL79jqeNWf53jt9MYKo6HT6GsDSuhuI9hQab1xLFv
+	EB4sGv9bR47nAPDMSGuCCAs62HHzaqrGue21ta9z27gYlNkpuzjUAiOYpLhMmWsA0SJ2XD43Sq2
+	qTfRmdV7XEVF3AMQ9fuNmZQAtMfMsJM8=
+X-Gm-Gg: Acq92OEHsejBYvCfcXhVTXJ5K+UcmRBFsVSnJJnm9CJ0JHw4UeM/99M4gLdNcYDaqPl
+	LgptSVefya2ONjMAQ4Ldcngn0W/yRJ32w74U4xjQl3clbuITqCtW1kGL4c8QaJnWwSbc0RLTyGk
+	w6s4ApxJ7KRfD2DwQcrSvdcwpUMEDMd/UmEyeJCDRXGwcFw3T7p/ZffU7GyUoULB2ntKWMChk4l
+	V7oIZ8AUtag4m1sVX0tkhRpvLLcy5+T/9k2/5gMdfCGY3BmXBXXUsMazgBCboYVURbrCox9jPKR
+	6CtKi3TaGHoz0kpJ/vowx/tKgfCSlyf6+cc9loiJJh1B8+g=
+X-Received: by 2002:a05:690e:d45:b0:652:ddea:1679 with SMTP id
+ 956f58d0204a3-6626582c171mr122992d50.16.1781112756029; Wed, 10 Jun 2026
+ 10:32:36 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260610114120.3748526-1-michael.bommarito@gmail.com>
-In-Reply-To: <20260610114120.3748526-1-michael.bommarito@gmail.com>
-From: Justin Tee <justintee8345@gmail.com>
-Date: Wed, 10 Jun 2026 10:27:27 -0700
-X-Gm-Features: AVVi8Cf6zx6NBJB4VzYXKUC0RH2Yw7GxC4AbEF3c7mLb_BtSx5NBpesjROBhCBM
-Message-ID: <CABPRKS_HbtV5vWx5nHT9rwJV4TGmOPj670yUuLK-Hd-r6TBF1g@mail.gmail.com>
+References: <20260610114120.3748526-1-michael.bommarito@gmail.com> <CABPRKS_HbtV5vWx5nHT9rwJV4TGmOPj670yUuLK-Hd-r6TBF1g@mail.gmail.com>
+In-Reply-To: <CABPRKS_HbtV5vWx5nHT9rwJV4TGmOPj670yUuLK-Hd-r6TBF1g@mail.gmail.com>
+From: Michael Bommarito <michael.bommarito@gmail.com>
+Date: Wed, 10 Jun 2026 13:32:24 -0400
+X-Gm-Features: AVVi8CcXqdpLUnD172xmFbgGPxwwTP7xSfHNWUNfDHYPtVKWYaJD2heVrYF3UV4
+Message-ID: <CAJJ9bXxMvSfzttjiRATN1vkVP9-RyyH-P6O4yMwVJGcpZVOCFg@mail.gmail.com>
 Subject: Re: [PATCH] scsi: lpfc: bound RPL ACC payload size to the response structure
-To: Michael Bommarito <michael.bommarito@gmail.com>
+To: Justin Tee <justintee8345@gmail.com>
 Cc: Justin Tee <justin.tee@broadcom.com>, 
 	"James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>, 
 	"Martin K . Petersen" <martin.petersen@oracle.com>, Paul Ely <paul.ely@broadcom.com>, 
 	linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org, 
 	stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Michael,
+On Wed, Jun 10, 2026 at 1:29=E2=80=AFPM Justin Tee <justintee8345@gmail.com=
+> wrote:
+> Thanks for bringing this to attention.  The RPL ELS command has been
+> obsoleted from Fibre Channel specifications since FC-LS-2, and there
+> are current plans to remove RPL ELS handling routines from the lpfc
+> driver entirely.  Therefore, the issue this patch is trying to address
+> will no longer exist by the next lpfc version update.
 
-Thanks for bringing this to attention.  The RPL ELS command has been
-obsoleted from Fibre Channel specifications since FC-LS-2, and there
-are current plans to remove RPL ELS handling routines from the lpfc
-driver entirely.  Therefore, the issue this patch is trying to address
-will no longer exist by the next lpfc version update.
+Glad to hear!
 
-Regards,
-Justin
+Will you be sending the refactor through stable@ to backport too?  I'm
+not sure how this works if there might be reasons to backport but
+obviously next+ are safe
+
+Thanks,
+Mike
