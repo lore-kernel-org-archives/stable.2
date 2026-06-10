@@ -1,76 +1,61 @@
-Received: from mail-oa1-f51.google.com (mail-oa1-f51.google.com [209.85.160.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out203-205-221-205.mail.qq.com (out203-205-221-205.mail.qq.com [203.205.221.205])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E794379C48
-	for <stable@vger.kernel.org>; Wed, 10 Jun 2026 07:14:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19BDC38D406;
+	Wed, 10 Jun 2026 07:20:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.205.221.205
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781075674; cv=none; b=LMpcbZ7dL55JBCxYdKO/eosFqLeWhQ2m1UuD2pJ9AJ8uQ5aJewTRiu+gg2/qIGLh+b0FiK2BAL9Ks0yvwO4WU0Rdi+0BGNItjUBQJLkUthHeDqBnScYdMc75W7Kwok7dPmhK8zHUvQ0hTmRMasTIPKGI0kOuTs0jG17GdimXJuM=
+	t=1781076059; cv=none; b=jfH+bIpftZDZHRajV50MlIIY9EWTsB0y7WEWYLoZe7nselihIdCUlCFrqde/5rYUro6I7nhqcs6bqC2M3wvQPitELOTLdhFPAojArcJtgGijFMWlSni/Q8YPykMziFlpS3AKI40wxL70nPldJRgkJWXvl1TWLgv99fWNZG1x/rU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781075674; c=relaxed/simple;
-	bh=46eYrWMMOwque0hGIWlgjDSe6yByv2jADvlK9lMcif4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JeYybT3qmtaO6L8V1/aOykH1c6+qhYq+iLIxDpNgJeej//k5nfv2sMK82BEMIGOmdS4EFmeLNSZ27TE5/ZJxJe2RuGrPmdAQzgSol9aXhrIbDrAYC9QXAB8ymXMoXXGgwUtDxXZMUY9wIcfIavRnorvaJ3aOBAk6usfb7SdAKhc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Vk7emvOM; arc=none smtp.client-ip=209.85.160.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781076059; c=relaxed/simple;
+	bh=nawfURoVNcY1y+AlEZusxpWV8BH3+chGLBW4FIW3N1Q=;
+	h=Message-ID:From:To:Cc:Subject:Date:MIME-Version; b=PzFF3g+ad5zwGEPAd/e27Zzeg/LfwCLD5C1I94L31Osvb8LhGFypbfCud5eHNsZ2fJUqfQfXEA5i933b4zvAQv0Nlbma6ZopzgjTAAoiG/RmxhETlEI3XU/XSHlphX07PW3m4lSNPbAImQUneIMnn3vi7srNRcDMhflmQ/xPZ+w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foxmail.com; spf=pass smtp.mailfrom=foxmail.com; dkim=pass (1024-bit key) header.d=foxmail.com header.i=@foxmail.com header.b=Mn3FTlXu; arc=none smtp.client-ip=203.205.221.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foxmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foxmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Vk7emvOM"
-Received: by mail-oa1-f51.google.com with SMTP id 586e51a60fabf-43d2ff651f2so5185690fac.2
-        for <stable@vger.kernel.org>; Wed, 10 Jun 2026 00:14:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781075672; x=1781680472; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=GS3IvbRaVRHuQ7jWVUtX/UMvAifgWuNPLIfjnTq2Txo=;
-        b=Vk7emvOMxDR7nl2FpWOz0jzA/aia3fTFl0GVrxqSHS7ixtTl9yw7uiIlIAK9uMa/y9
-         vx5sPw2eE8hoQyyDhRLojCkrt3WOOHjhMDYIXHjEc/6CuQ7njGiXxS3Faxwp7nvfXwrX
-         1zUkcyIgRKg8z0Khfz+GxQhubDAjWj2uoVA5SkvJWkQhi1lRT4Cj5TtMC2uOrREBb1CG
-         8SjHg0df50nIfwaqhQdxh8NPcLZvN07dHFbhIhNT/RmLAPLJDmENQTQSKmYsHg6hwevI
-         rs+kBLSJfvWx0T3mpMZQOIduFjL6Zi/X7t/6HZdMbSSTW/4YZbNxnUw6gC6oqehz1RnL
-         V3ew==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781075672; x=1781680472;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=GS3IvbRaVRHuQ7jWVUtX/UMvAifgWuNPLIfjnTq2Txo=;
-        b=CNVx6zSAkJKKWqLHU+8aeS+CL8wXwfxpbMfqHV3cX993G68pRPV9pXG7+gRoAWkBIi
-         Sd4hYb7ZkjkjqjxYJjJVHcyE7V8ILzg0EtSObk/cbLlFtpQsf8SQ9k2XXLsjKEesCmHp
-         2tmrPITDwTXUg57baTKeO0G32uUwNVMCKstRN4XeGShw1OuNwSqi504OvtSWHtxVMQdS
-         lP1newj2zhgsqrtYPwWrQVxTw1SCxogtRiUDPhN8BgE11Q2vZYZQlIDtpopuj93HWhKt
-         xqPv7YzQ/ucu5HVLIK5/K7S1m3lhhRD6MZb9xtSf0I86BebT1wmCVEX6Xea6juoVWq/X
-         9b8A==
-X-Forwarded-Encrypted: i=1; AFNElJ/t11cUPNtDkEeWrFSuKY31Vv5y+WpKDJ32avyE3tVnbe+5RhjtOiQcLxqXOjM6pQj4B9vg0Fs=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzrdZmwPVQrUZ+jiTj44iL43DkY7VYc1eo1EmaN9thNCjpmU2h1
-	Tx9ugg9uS+VdLJFG7TRIr3TRzq+emsgvpLtnVpWlL8nhgX3ylm1pEaBT
-X-Gm-Gg: Acq92OFo448aN2z2wkEbnlEs031cFakpNIiT1Z64uEKeXz3CZibjbT4rLQI4WefFEsH
-	pqe+mvjKzWW6SBJDeie6c5wt3fX4vV35vH/hGDl/xUIIqoS6Hj0wiUv6Y1DqvNLFPDm353wvULh
-	l+WWEA4UqOFF4PKi9yXshHMpKZmvJ21ryUYs7s+LhcswQtCKLEnSXyCVE7z5eA3vblP6UjT15/o
-	9kXv94fwf2IhuahhcFfTvEVS9pI1wS8kJLPRk/c5DdZYmBs+wFmqvj2N2Ydi2mSFle4hemFaIEh
-	Gj3vU/krYmlHmcO6Xlpnutm3zM8moO+uGYmEm3f82BFksUbpkWUxbAbux6XZt1UPAnpGLXClvK9
-	JGyss0Lr4Y0FKe/AOZd5CKLooJCOAUS3S34jl95lOor3ZWdzk4LrfbHMXRk90KnB3CQSv6UxtiI
-	vSYHy60OtCCJOd68/ngzxDBIblTK1fxIEFu9Ugf7QWF46+bIRkmCmLaechrA==
-X-Received: by 2002:a05:6870:489:b0:43b:7f1e:6d20 with SMTP id 586e51a60fabf-4413d242f73mr13745935fac.7.1781075672474;
-        Wed, 10 Jun 2026 00:14:32 -0700 (PDT)
-Received: from localhost.localdomain ([47.246.98.85])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-440d7b79ad4sm20408841fac.4.2026.06.10.00.14.27
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 10 Jun 2026 00:14:31 -0700 (PDT)
-From: "=?UTF-8?q?=E9=93=AD=E5=AE=A3?=" <omeux327@gmail.com>
-X-Google-Original-From: =?UTF-8?q?=E9=93=AD=E5=AE=A3?= <yangmingxuan.ymx@antgroup.com>
-To: ast@kernel.org,
-	daniel@iogearbox.net,
-	eddyz87@gmail.com
-Cc: security@kernel.org,
-	andrii@kernel.org,
-	memxor@gmail.com,
-	stable@vger.kernel.org,
-	eilaimemedsnaimel@gmail.com,
-	Mingxuan <omeux327@gmail.com>
-Subject: [PATCH] bpf: Reject programs where arena and non-arena paths converge on ALU insn
-Date: Wed, 10 Jun 2026 15:14:09 +0800
-Message-ID: <20260610071409.43721-1-yangmingxuan.ymx@antgroup.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (1024-bit key) header.d=foxmail.com header.i=@foxmail.com header.b="Mn3FTlXu"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
+	s=s201512; t=1781076048;
+	bh=PDzkjA71F3P9PqlsL+WLSt4JFrm5GDZf8QurqsS0AaI=;
+	h=From:To:Cc:Subject:Date;
+	b=Mn3FTlXu2oWWqQVhdUNfIzSh5PYAOPNAMn8QS4jOKj57kiiVEypkPUuxUURL5BXa1
+	 JwGUESMb2p8HXF7YV3IElQVQER4zArKPL1wIeX1mmIl+ZO+hLVwXMs266nWS+fQkaT
+	 lNt9lop88dyRJw+Jd28J9Ac1NF+84wCjrnqihPk0=
+Received: from localhost.localdomain ([116.128.244.169])
+	by newxmesmtplogicsvrszc50-0.qq.com (NewEsmtp) with SMTP
+	id 52E32E9C; Wed, 10 Jun 2026 15:20:46 +0800
+X-QQ-mid: xmsmtpt1781076046tvj5gzq2y
+Message-ID: <tencent_3EED6D778DC52C3703A2D1EE8119372E8E08@qq.com>
+X-QQ-XMAILINFO: OVFdYp27KdlJTcpz2bT5k+e18oexLPWuzKNjAUUqbJvfmbv4VfEBsjO5LGrtGy
+	 u/66wmQlyBEXQzGXMe7lpPu11x7xC61eaikH9FY4NoTChs1lbWS0ugp1XssIcbhK6EzQpDWu+8pI
+	 NrgexXFw972N3Q7jG2mYjrdkYoIQTZDCEURsdwKMWCc70TS9cQeU5cQfNC16BzdRQdhBiuqCUIQR
+	 nrQTeK3ZITJJEAv6nZ/nLh8OdOUQ7wZnMdrDFWVbAJmmDCzmNmhMAENPlrHITUlPmZbO9ewpg3f+
+	 3WkeRj0dGxZF4KNIx9vZsLgvq9Pw8BgKTvQRZSLcbb5qqNaGByhpa1ZigQ3gv4oZ1m7v8cvPelYk
+	 zCClS5PoByEF+HMGuu8GN8UBRIRGmeTFdELZzPg3sbT1qghcrQann8UBnuZ/VIcE3KI/lSnrvlst
+	 CnBn9CNQWnUjbmBS6+uAHKN44xri0R/s4FpSlHihJnaSpvqttpqFhEk3qQnjUwXFlJa6cZQZ19VQ
+	 Bi0nneiJU8WV92GE8sYWAUPFhqsdqYrpFWWwqHAhxKln7m+aEnDxUTO41MbhAqPRlGcQcYoFniqe
+	 b2CeDASVq/u8KQfyu+vPuwII1lD/A5o2yKfmtsmM77QXS+dHMnZvE7yKKBDDFkjg6JBQNcNAQ70V
+	 VAPO2dsPR6bMie82ayofATzFB27i5Vk8zjIQ6NQ26x8Sx5W5hmWAK3Q4qtjtkydKPosQPnP7D/Al
+	 4mtIE442UL527kyrMiLLHJIPJsHu+DNWpOVBV+ak7ct34OoWNj3qY8JUZA0V6SwcBPKDmYHdgZ+2
+	 IlD/St1YfOqshB2K8He/PY/QTXf/qo572JpnUmPUVKiS1uTKt5gTJFWBK2Ip7G2udEJCc2wL/5bd
+	 ObOIEhHe3c6KA4ddkC3dWVW4iAOC2lBFuSWCEa2LDShQafqtxBBdtojmg2tVpUoUTq64DGZyHE6U
+	 7XUVSB7/1sZqrSzgI0alBMjtDWB5QdtfVZaepXnKqcvjWGL0MiSKf94yRiKbV2gOebCtjbRWOEjC
+	 SlzsbpNCupLzpXdRZncYBmWEM8DMO6+r+p1dUTsMuEjPb4i18NktEcsy+XUEOKM6YjVIZR7b6rj5
+	 u86wckrdMD5Cgu1jk=
+X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
+From: Zhao Dongdong <winter91@foxmail.com>
+To: lgirdwood@gmail.com,
+	peter.ujfalusi@linux.intel.com,
+	daniel.baluta@nxp.com
+Cc: linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Zhao Dongdong <zhaodongdong@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] ASoC: SOF: topology: fix memory leak in snd_sof_load_topology
+Date: Wed, 10 Jun 2026 15:20:43 +0800
+X-OQ-MSGID: <20260610072043.336869-1-winter91@foxmail.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -79,60 +64,39 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Mingxuan <omeux327@gmail.com>
+From: Zhao Dongdong <zhaodongdong@kylinos.cn>
 
-The needs_zext flag is per-instruction but set per-path. When a single
-ALU64 instruction is reachable via both a PTR_TO_ARENA path and a
-SCALAR path, the arena path sets needs_zext=true which causes
-opt_subreg_zext_lo32() to convert the instruction to ALU32 for all
-paths. This creates a verifier-runtime semantic mismatch on the scalar
-path: the verifier tracked ALU64 semantics while runtime executes ALU32.
+When the topology filename contains "dummy" and tplg_cnt is 0, the
+function returns -EINVAL directly without freeing the tplg_files
+allocated by kcalloc() at line 2497. This leaks memory on every
+such topology load attempt.
 
-This mismatch enables an attacker to create a controlled 4GB
-out-of-bounds write primitive, leading to kernel panic or local
-privilege escalation with only CAP_BPF.
+Fix this by setting ret = -EINVAL and jumping to the out: label,
+which already handles the kfree(tplg_files) cleanup.
 
-Fix by rejecting programs where arena and non-arena paths converge on
-the same ALU instruction, which would create conflicting needs_zext
-requirements.
-
-Fixes: 6082b6c328b5 ("bpf: Recognize addr_space_cast instruction in the verifier.")
+Fixes: 99c159279c6d ("ASoC: SOF: don't check the existence of dummy topology")
 Cc: stable@vger.kernel.org
-Reported-by: Mingxuan <omeux327@gmail.com>
-Reported-by: HanQuan <eilaimemedsnaimel@gmail.com>
-Signed-off-by: Mingxuan <omeux327@gmail.com>
+Signed-off-by: Zhao Dongdong <zhaodongdong@kylinos.cn>
 ---
- kernel/bpf/verifier.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+v2: add kfree(tplg_files) before the return
+v1: https://lore.kernel.org/all/tencent_D87B6446BC0B517BEF9D4731C6CD8B288206@qq.com/
+---
+ sound/soc/sof/topology.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
-index 7fb88e1cd7c4..9d7218340683 100644
---- a/kernel/bpf/verifier.c
-+++ b/kernel/bpf/verifier.c
-@@ -15083,6 +15083,11 @@ static int adjust_reg_min_max_vals(struct bpf_verifier_env *env,
- 	if (dst_reg->type == PTR_TO_ARENA || (src_reg && src_reg->type == PTR_TO_ARENA)) {
- 		struct bpf_insn_aux_data *aux = cur_aux(env);
- 
-+		if (aux->seen && !aux->needs_zext) {
-+			verbose(env, "BPF_ALU64 with arena and non-arena paths converge; needs_zext conflict\n");
-+			return -EACCES;
-+		}
+diff --git a/sound/soc/sof/topology.c b/sound/soc/sof/topology.c
+index 63d582c65891..a368e257c459 100644
+--- a/sound/soc/sof/topology.c
++++ b/sound/soc/sof/topology.c
+@@ -2534,6 +2534,8 @@ int snd_sof_load_topology(struct snd_soc_component *scomp, const char *file)
+ 		if (strstr(file, "dummy")) {
+ 			dev_err(scomp->dev,
+ 				"Function topology is required, please upgrade sof-firmware\n");
 +
- 		if (dst_reg->type != PTR_TO_ARENA)
- 			*dst_reg = *src_reg;
- 
-@@ -15099,6 +15104,11 @@ static int adjust_reg_min_max_vals(struct bpf_verifier_env *env,
- 		return 0;
- 	}
- 
-+	if (cur_aux(env)->needs_zext) {
-+		verbose(env, "non-arena ALU path conflicts with prior arena needs_zext\n");
-+		return -EACCES;
-+	}
-+
- 	if (dst_reg->type != SCALAR_VALUE)
- 		ptr_reg = dst_reg;
- 
++			kfree(tplg_files);
+ 			return -EINVAL;
+ 		}
+ 		tplg_files[0] = file;
 -- 
-2.50.1 (Apple Git-155)
+2.25.1
 
