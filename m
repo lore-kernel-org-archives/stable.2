@@ -1,351 +1,187 @@
-Received: from out-188.mta0.migadu.com (out-188.mta0.migadu.com [91.218.175.188])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f181.google.com (mail-qk1-f181.google.com [209.85.222.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44A553FADE8
-	for <stable@vger.kernel.org>; Thu, 11 Jun 2026 12:38:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.188
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B20753F660F
+	for <stable@vger.kernel.org>; Thu, 11 Jun 2026 12:48:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781181516; cv=none; b=lxsCfCobxCi0XEjo8MuWlI/uVAplCjyFqy1cP2X6sp05fyp2pWpk2wL3YppPQOsofdMtCq33F3m0XY8MzZUAuwqfB1XcsyiGJCgSCaUlz5ALmiCNYJ2nWszeVoI0dr6oDM4SnSI09QLMdcJAjlU+2GYVKwGUznmsZFUm6qeEBu0=
+	t=1781182101; cv=none; b=MvVnl87guM8sE4l6HZ1f4uDhA4y6dJIhxAgHCZZ88g9eNDvukqUlUaMrwD363grZbqRn50jyXckPyyv1datoM6m2VHAWs2PZjbLvY1gD2R08fdtG3flM/2eB8pGos/0/rML2HJfi+JQkeRR7veTnAs4yM3gwsLCyjuqMzre/tDw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781181516; c=relaxed/simple;
-	bh=haEccmhqC7VmWW+0DSMapViaZBrWcsJHhtn5EvyTuag=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=azPkKNkMgxzLE6VHJCmsDaPyJZum3D23gRdyXitwnCpCsH7+whj43ZP90WxFRIbu0fYbvy56WFgG1tGZ6fFIs3GDqB94pHTfOze1qIPcziJlTsyTLZHcZqrCFmpeRP/XrzuO5epfz6jiT0IeyzmxNPJT7/uHEigyMBlV8+D54K0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=AKCI8xX6; arc=none smtp.client-ip=91.218.175.188
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1781182101; c=relaxed/simple;
+	bh=jswscyQO7qxXCvv4Y1PfbCoSNO4Ch1dNjHJqtmcgpNQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FRwq2a4i5XTKzG8HwB8X2T0sCOgIz1YX2u5mgXt9eppLP8RrpK4SZgtEcvzbYjCsBsgTHtyrFNGJg8KB/6eZJgpQKl6Y7r0ZY4iOTFm7rZNUiPYwcy/aLIWc73ga9jLDtKvniyhHz9N4l5sC9aiSZ6CNOjLiQa/iqeLI18eJEhg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Zh6yemuh; arc=none smtp.client-ip=209.85.222.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="AKCI8xX6"
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1781181511;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=z3RQOZCpkPzTNjmfTMEyMYiXFULFskQUrtntUJzV76c=;
-	b=AKCI8xX6vjsjwdWFni0qBmSGXe6SMtpwVhdeEol05oi5RYHPS4DFVD3lxpEms9kT+Y9+LJ
-	gqV5gkY2OmgH8+fcorngwF80CmQk6NE4TI5Ut+tNXl9fbbtCIB8MPIzyyU8Y4YabnTloLf
-	K5ErMtKqZbyfhrpKPycSz9hlSRRSmBI=
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-To: bpf@vger.kernel.org
-Cc: Zhang Cen <rollkingzzc@gmail.com>,
-	stable@vger.kernel.org,
-	Han Guidong <2045gemini@gmail.com>,
-	Jiayuan Chen <jiayuan.chen@linux.dev>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Stanislav Fomichev <sdf@fomichev.me>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Jakub Sitnicki <jakub@cloudflare.com>,
-	Shuah Khan <shuah@kernel.org>,
-	Jesper Dangaard Brouer <hawk@kernel.org>,
-	Sechang Lim <rhkrqnwk98@gmail.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	Cong Wang <cong.wang@bytedance.com>,
-	linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: [PATCH bpf v2 4/7] bpf, sockmap: keep sk_msg copy state in sync
-Date: Thu, 11 Jun 2026 20:34:12 +0800
-Message-ID: <20260611123538.156005-5-jiayuan.chen@linux.dev>
-In-Reply-To: <20260611123538.156005-1-jiayuan.chen@linux.dev>
-References: <20260611123538.156005-1-jiayuan.chen@linux.dev>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Zh6yemuh"
+Received: by mail-qk1-f181.google.com with SMTP id af79cd13be357-9158629a220so882365085a.1
+        for <stable@vger.kernel.org>; Thu, 11 Jun 2026 05:48:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781182098; x=1781786898; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=T+pTu6sknGcI/PaeXRmshhqG/nGTT+PmPs7yDZdMNV8=;
+        b=Zh6yemuh2m5vSK2LCqVb0yVmwOOIwNHIDU1KpjZ0sLC+sDn1m9inJmZdKW2u480/DZ
+         bj4RsL7miTX7xN8s6n7MUWuWFAF7+QMENfkUf0HTiS+a/y9Jm8FYbpKHonXh+4C0YIBA
+         ZjKVcPVm8lSRAPqIGnYg23Z4vwuSruOBwXS00fjfNj2kmTRxevBApkJ48Fa1AIYXFdzo
+         pIWj1IGXHvxazWNnDcLMaLv+IdyjAbBhTrR/c3L+gJvZ0luHxx58Mop3KDlawGmu882X
+         S67g20ihxsA98ri2/3U501LntEjw9ITz0mkbUqvIBdg5/BMklf0hSTcoX4PZ8x0Qn1bi
+         1xlw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781182098; x=1781786898;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=T+pTu6sknGcI/PaeXRmshhqG/nGTT+PmPs7yDZdMNV8=;
+        b=B/iUJJ7iRZclmPFpDjcoschOvkj9H0tiu03UPY+0ShnsS9nVsGybyM0rpnwz6TSSMC
+         pm8+qqTNitkaA26I6mfKdNrsggGFx2ajGEEIsOZJgWdv/FHYt+A8cjGoVASLOKNhC/RN
+         45/Pwsw9LU1ZYKOB47+RykkA5Sd26ysuUvRBYYY/hRTw3s7ZXyjIqS3xHVoo0XCgJkBL
+         Z83IaR4CVsLrzjGgRcvV/QiJZQL6Kun8f5z+cjkq+RnyUpAyJQ6TinfjtHShdFwO1kX5
+         cYU6BMP+PqFuIwLrsOMzjpxZFK5tJQ5NWgBxszvfdsmQ+IadXSOyyHCZaqwznjeeqDsY
+         ZxfQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+Az95n42z+4mknUiTbtgqJ28jRx61kTMIqyZfbmxRtT58My9shMehHXdl19+MKz367ocebJ/s=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxeKqEzGSV7lNpKcUcwDYx0JSWUgf4+0caE3O6ACXXSdnIXyFo2
+	NKW7aLhdJ07rvjvC1SwozRcXFPrxtphbILEvPCDnjmdJ4xMPLoPI7OSm
+X-Gm-Gg: Acq92OEGFCtDljWYI9sIff+SNJo9dZF+KF8LD8PpuRVwKllaFZtjNZ6dzrnfNlPJ77g
+	OP2Q2tJ+IO3UbNxKnLVclX5fM8LqqT7yWhccOv/bHMeOQgvYQXFH8xzlJI28nIPVdgzLD0mO1xg
+	ZMo1iYSYft+YrEy93S4IkkfqNHmoknd3y9TL8EVdAtudVFhdez+GXo/dcpN+nXKMawMRWDsR0na
+	Y8mK0PXHeoKBY0bGkshXRxPcFXY7+cbRn89xWHBDvmPI6dHS/XpAqLeClp8WZCgugxCN7Q0mIev
+	TTAhL/Mq8UORNPfN+SgWJWBAUBEc1PUw3mwbiqyR8j+XD0GlgVIGxwsUVXH9v4xv9LhtVikVIQ0
+	zZNexn6QcFeH07b+uq6+1xmqrSyuFicWnDTKo+U5qBoj0zUaVrytkuIkgXhoe97FDW7V+eMtYPI
+	EBqHC0ej0PRxSc4URCFxhoTVauuv4mKLk5ETcuXA==
+X-Received: by 2002:a05:620a:19a6:b0:915:8c48:4975 with SMTP id af79cd13be357-9160ad9784fmr371779485a.34.1781182097698;
+        Thu, 11 Jun 2026 05:48:17 -0700 (PDT)
+Received: from localhost ([149.40.50.215])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9160adf5118sm180036285a.24.2026.06.11.05.48.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 11 Jun 2026 05:48:16 -0700 (PDT)
+Date: Thu, 11 Jun 2026 15:48:11 +0300
+From: Dan Carpenter <error27@gmail.com>
+To: WenTao Liang <vulab@iscas.ac.cn>
+Cc: parthiban.veerasooran@microchip.com, christian.gromm@microchip.com,
+	gregkh@linuxfoundation.org, hverkuil+cisco@kernel.org,
+	laurent.pinchart+renesas@ideasonboard.com, s9430939@naver.com,
+	kees@kernel.org, linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] staging: most: video: fix refcount leak in
+ comp_probe_channel()
+Message-ID: <aiquiwEtXTmSpyJf@stanley.mountain>
+References: <20260611114335.77216-1-vulab@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260611114335.77216-1-vulab@iscas.ac.cn>
 
-From: Zhang Cen <rollkingzzc@gmail.com>
+On Thu, Jun 11, 2026 at 07:43:35PM +0800, WenTao Liang wrote:
+> If v4l2_device_register() fails in comp_probe_channel(), the
+> function frees the allocated mdev with kfree() without releasing the
+> reference count held by the embedded v4l2_device.  Because
+> v4l2_device_register() initializes a kref in the v4l2_device, the
+> reference count is already 1 on failure.  Dropping the last reference
+> must be done with v4l2_device_put() so that the release callback can
+> unregister the v4l2_device and free mdev.
 
-SK_MSG uses msg->sg.copy as per-scatterlist-entry provenance. Entries
-with this bit set are copied before data/data_end are exposed to SK_MSG
-BPF programs for direct packet access.
+What are you talking about here?
 
-bpf_msg_pull_data(), bpf_msg_push_data(), and bpf_msg_pop_data()
-rewrite the sk_msg scatterlist ring by collapsing, splitting, and
-shifting entries. These operations move msg->sg.data[] entries, but the
-parallel copy bitmap can be left behind on the old slot. A copied entry
-can then return to msg->sg.start with its copy bit clear and be exposed
-as directly writable packet data.
+	kref_init(&v4l2_dev->ref);
 
-This corruption path requires an attached SK_MSG BPF program that calls
-the mutating helpers; ordinary sockmap/TLS traffic that never runs
-push/pop/pull helper sequences is not affected.
+This is just a "refcount = 1" assignment.  There is no allocation or
+need to free anything.
 
-Keep msg->sg.copy synchronized with scatterlist entry moves, preserve
-the copy bit when an entry is split, clear it when a helper replaces an
-entry with a private page, and clear slots vacated by pull-data
-compaction.
+> 
+> Replace the kfree(mdev) with v4l2_device_put(&mdev->v4l2_dev).  The
+> error path for comp_register_videodev() failure already does this
+> correctly.
 
-Fixes: 015632bb30da ("bpf: sk_msg program helper bpf_sk_msg_pull_data")
-Fixes: 6fff607e2f14 ("bpf: sk_msg program helper bpf_msg_push_data")
-Fixes: 7246d8ed4dcc ("bpf: helper to pop data from messages")
-Cc: stable@vger.kernel.org
-Co-developed-by: Han Guidong <2045gemini@gmail.com>
-Cc: Jiayuan Chen <jiayuan.chen@linux.dev>
-Reviewed-by: John Fastabend <john.fastabend@gmail.com>
-Signed-off-by: Han Guidong <2045gemini@gmail.com>
-Signed-off-by: Zhang Cen <rollkingzzc@gmail.com>
----
- net/core/filter.c | 88 ++++++++++++++++++++++++++++++++++++++++++++---
- 1 file changed, 83 insertions(+), 5 deletions(-)
+This is a weird and confusing to say.  In comp_register_videodev()
+we call video_device_release() which is a wrapper around kfree() and
+here the original code calls kfree() directly...  The original code
+is more similar to comp_register_videodev() than the new code.
 
-diff --git a/net/core/filter.c b/net/core/filter.c
-index 6e345ca65ca14..e35e681a15dca 100644
---- a/net/core/filter.c
-+++ b/net/core/filter.c
-@@ -2654,6 +2654,38 @@ static void sk_msg_reset_curr(struct sk_msg *msg)
- 	}
- }
- 
-+static bool sk_msg_elem_is_copy(const struct sk_msg *msg, u32 i)
-+{
-+	return test_bit(i, msg->sg.copy);
-+}
-+
-+static void sk_msg_clear_elem_copy(struct sk_msg *msg, u32 i)
-+{
-+	__clear_bit(i, msg->sg.copy);
-+}
-+
-+static void sk_msg_set_elem_copy(struct sk_msg *msg, u32 i)
-+{
-+	__set_bit(i, msg->sg.copy);
-+}
-+
-+static void sk_msg_clear_copy_range(struct sk_msg *msg, u32 start, u32 end)
-+{
-+	while (start != end) {
-+		sk_msg_clear_elem_copy(msg, start);
-+		sk_msg_iter_var_next(start);
-+	}
-+}
-+
-+static void sk_msg_sg_move(struct sk_msg *msg, u32 dst, u32 src)
-+{
-+	msg->sg.data[dst] = msg->sg.data[src];
-+	if (sk_msg_elem_is_copy(msg, src))
-+		sk_msg_set_elem_copy(msg, dst);
-+	else
-+		sk_msg_clear_elem_copy(msg, dst);
-+}
-+
- static const struct bpf_func_proto bpf_msg_cork_bytes_proto = {
- 	.func           = bpf_msg_cork_bytes,
- 	.gpl_only       = false,
-@@ -2692,7 +2724,7 @@ BPF_CALL_4(bpf_msg_pull_data, struct sk_msg *, msg, u32, start,
- 	 * account for the headroom.
- 	 */
- 	bytes_sg_total = start - offset + bytes;
--	if (!test_bit(i, msg->sg.copy) && bytes_sg_total <= len)
-+	if (!sk_msg_elem_is_copy(msg, i) && bytes_sg_total <= len)
- 		goto out;
- 
- 	/* At this point we need to linearize multiple scatterlist
-@@ -2738,6 +2770,7 @@ BPF_CALL_4(bpf_msg_pull_data, struct sk_msg *, msg, u32, start,
- 	} while (i != last_sge);
- 
- 	sg_set_page(&msg->sg.data[first_sge], page, copy, 0);
-+	sk_msg_clear_elem_copy(msg, first_sge);
- 
- 	/* To repair sg ring we need to shift entries. If we only
- 	 * had a single entry though we can just replace it and
-@@ -2747,8 +2780,14 @@ BPF_CALL_4(bpf_msg_pull_data, struct sk_msg *, msg, u32, start,
- 	shift = last_sge > first_sge ?
- 		last_sge - first_sge - 1 :
- 		NR_MSG_FRAG_IDS - first_sge + last_sge - 1;
--	if (!shift)
-+	if (!shift) {
-+		sk_msg_clear_elem_copy(msg, msg->sg.end);
- 		goto out;
-+	}
-+
-+	i = first_sge;
-+	sk_msg_iter_var_next(i);
-+	sk_msg_clear_copy_range(msg, i, last_sge);
- 
- 	i = first_sge;
- 	sk_msg_iter_var_next(i);
-@@ -2762,16 +2801,18 @@ BPF_CALL_4(bpf_msg_pull_data, struct sk_msg *, msg, u32, start,
- 		if (move_from == msg->sg.end)
- 			break;
- 
--		msg->sg.data[i] = msg->sg.data[move_from];
-+		sk_msg_sg_move(msg, i, move_from);
- 		msg->sg.data[move_from].length = 0;
- 		msg->sg.data[move_from].page_link = 0;
- 		msg->sg.data[move_from].offset = 0;
-+		sk_msg_clear_elem_copy(msg, move_from);
- 		sk_msg_iter_var_next(i);
- 	} while (1);
- 
- 	msg->sg.end = msg->sg.end - shift > msg->sg.end ?
- 		      msg->sg.end - shift + NR_MSG_FRAG_IDS :
- 		      msg->sg.end - shift;
-+	sk_msg_clear_elem_copy(msg, msg->sg.end);
- out:
- 	sk_msg_reset_curr(msg);
- 	msg->data = sg_virt(&msg->sg.data[first_sge]) + start - offset;
-@@ -2794,6 +2835,8 @@ BPF_CALL_4(bpf_msg_push_data, struct sk_msg *, msg, u32, start,
- {
- 	struct scatterlist sge, nsge, nnsge, rsge = {0}, *psge;
- 	u32 new, i = 0, l = 0, space, copy = 0, offset = 0;
-+	bool sge_copy = false, nsge_copy = false, nnsge_copy = false;
-+	bool rsge_copy = false;
- 	u8 *raw, *to, *from;
- 	struct page *page;
- 
-@@ -2869,6 +2912,7 @@ BPF_CALL_4(bpf_msg_push_data, struct sk_msg *, msg, u32, start,
- 			sk_msg_iter_var_prev(i);
- 		psge = sk_msg_elem(msg, i);
- 		rsge = sk_msg_elem_cpy(msg, i);
-+		rsge_copy = sk_msg_elem_is_copy(msg, i);
- 
- 		psge->length = start - offset;
- 		rsge.length -= psge->length;
-@@ -2894,23 +2938,34 @@ BPF_CALL_4(bpf_msg_push_data, struct sk_msg *, msg, u32, start,
- 	/* Shift one or two slots as needed */
- 	sge = sk_msg_elem_cpy(msg, new);
- 	sg_unmark_end(&sge);
-+	sge_copy = sk_msg_elem_is_copy(msg, new);
- 
- 	nsge = sk_msg_elem_cpy(msg, i);
-+	nsge_copy = sk_msg_elem_is_copy(msg, i);
- 	if (rsge.length) {
- 		sk_msg_iter_var_next(i);
- 		nnsge = sk_msg_elem_cpy(msg, i);
-+		nnsge_copy = sk_msg_elem_is_copy(msg, i);
- 		sk_msg_iter_next(msg, end);
- 	}
- 
- 	while (i != msg->sg.end) {
- 		msg->sg.data[i] = sge;
-+		if (sge_copy)
-+			sk_msg_set_elem_copy(msg, i);
-+		else
-+			sk_msg_clear_elem_copy(msg, i);
- 		sge = nsge;
-+		sge_copy = nsge_copy;
- 		sk_msg_iter_var_next(i);
- 		if (rsge.length) {
- 			nsge = nnsge;
-+			nsge_copy = nnsge_copy;
- 			nnsge = sk_msg_elem_cpy(msg, i);
-+			nnsge_copy = sk_msg_elem_is_copy(msg, i);
- 		} else {
- 			nsge = sk_msg_elem_cpy(msg, i);
-+			nsge_copy = sk_msg_elem_is_copy(msg, i);
- 		}
- 	}
- 
-@@ -2918,13 +2973,18 @@ BPF_CALL_4(bpf_msg_push_data, struct sk_msg *, msg, u32, start,
- 	/* Place newly allocated data buffer */
- 	sk_mem_charge(msg->sk, len);
- 	msg->sg.size += len;
--	__clear_bit(new, msg->sg.copy);
-+	sk_msg_clear_elem_copy(msg, new);
- 	sg_set_page(&msg->sg.data[new], page, len + copy, 0);
- 	if (rsge.length) {
- 		get_page(sg_page(&rsge));
- 		sk_msg_iter_var_next(new);
- 		msg->sg.data[new] = rsge;
-+		if (rsge_copy)
-+			sk_msg_set_elem_copy(msg, new);
-+		else
-+			sk_msg_clear_elem_copy(msg, new);
- 	}
-+	sk_msg_clear_elem_copy(msg, msg->sg.end);
- 
- 	sk_msg_reset_curr(msg);
- 	sk_msg_compute_data_pointers(msg);
-@@ -2950,27 +3010,38 @@ static void sk_msg_shift_left(struct sk_msg *msg, int i)
- 	do {
- 		prev = i;
- 		sk_msg_iter_var_next(i);
--		msg->sg.data[prev] = msg->sg.data[i];
-+		sk_msg_sg_move(msg, prev, i);
- 	} while (i != msg->sg.end);
- 
- 	sk_msg_iter_prev(msg, end);
-+	sk_msg_clear_elem_copy(msg, msg->sg.end);
- }
- 
- static void sk_msg_shift_right(struct sk_msg *msg, int i)
- {
- 	struct scatterlist tmp, sge;
-+	bool tmp_copy, sge_copy;
- 
- 	sk_msg_iter_next(msg, end);
- 	sge = sk_msg_elem_cpy(msg, i);
-+	sge_copy = sk_msg_elem_is_copy(msg, i);
- 	sk_msg_iter_var_next(i);
- 	tmp = sk_msg_elem_cpy(msg, i);
-+	tmp_copy = sk_msg_elem_is_copy(msg, i);
- 
- 	while (i != msg->sg.end) {
- 		msg->sg.data[i] = sge;
-+		if (sge_copy)
-+			sk_msg_set_elem_copy(msg, i);
-+		else
-+			sk_msg_clear_elem_copy(msg, i);
- 		sk_msg_iter_var_next(i);
- 		sge = tmp;
-+		sge_copy = tmp_copy;
- 		tmp = sk_msg_elem_cpy(msg, i);
-+		tmp_copy = sk_msg_elem_is_copy(msg, i);
- 	}
-+	sk_msg_clear_elem_copy(msg, msg->sg.end);
- }
- 
- BPF_CALL_4(bpf_msg_pop_data, struct sk_msg *, msg, u32, start,
-@@ -3027,8 +3098,10 @@ BPF_CALL_4(bpf_msg_pop_data, struct sk_msg *, msg, u32, start,
- 	 */
- 	if (start != offset) {
- 		struct scatterlist *nsge, *sge = sk_msg_elem(msg, i);
-+		u32 sge_idx = i;
- 		int a = start - offset;
- 		int b = sge->length - pop - a;
-+		bool sge_copy = sk_msg_elem_is_copy(msg, sge_idx);
- 
- 		sk_msg_iter_var_next(i);
- 
-@@ -3041,6 +3114,10 @@ BPF_CALL_4(bpf_msg_pop_data, struct sk_msg *, msg, u32, start,
- 				sg_set_page(nsge,
- 					    sg_page(sge),
- 					    b, sge->offset + pop + a);
-+				if (sge_copy)
-+					sk_msg_set_elem_copy(msg, i);
-+				else
-+					sk_msg_clear_elem_copy(msg, i);
- 			} else {
- 				struct page *page, *orig;
- 				u8 *to, *from;
-@@ -3057,6 +3134,7 @@ BPF_CALL_4(bpf_msg_pop_data, struct sk_msg *, msg, u32, start,
- 				memcpy(to, from, a);
- 				memcpy(to + a, from + a + pop, b);
- 				sg_set_page(sge, page, a + b, 0);
-+				sk_msg_clear_elem_copy(msg, sge_idx);
- 				put_page(orig);
- 			}
- 			pop = 0;
--- 
-2.43.0
+> 
+> Cc: stable@vger.kernel.org
 
+CCing stable isn't necessary since v4l2_device_register() can't actually
+fail here in real life.
+
+drivers/media/v4l2-core/v4l2-device.c
+    17  int v4l2_device_register(struct device *dev, struct v4l2_device *v4l2_dev)
+    18  {
+    19          if (v4l2_dev == NULL)
+
+v4l2_dev is non-NULL.
+
+    20                  return -EINVAL;
+    21  
+    22          INIT_LIST_HEAD(&v4l2_dev->subdevs);
+    23          spin_lock_init(&v4l2_dev->lock);
+    24          v4l2_prio_init(&v4l2_dev->prio);
+    25          kref_init(&v4l2_dev->ref);
+    26          get_device(dev);
+    27          v4l2_dev->dev = dev;
+    28          if (dev == NULL) {
+
+dev is NULL
+
+    29                  /* If dev == NULL, then name must be filled in by the caller */
+    30                  if (WARN_ON(!v4l2_dev->name[0]))
+
+The name is filled in.
+
+    31                          return -EINVAL;
+    32                  return 0;
+                        ^^^^^^^^
+We return success.
+
+    33          }
+
+> Fixes: 3d31c0cb6c12 ("Staging: most: add MOST driver's aim-v4l2 module")
+> Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
+
+Please put in the commit message if this that this was discovered via AI
+and not tested or whatever...
+
+> ---
+>  drivers/staging/most/video/video.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/staging/most/video/video.c b/drivers/staging/most/video/video.c
+> index 04351f8ccccf..aa846959b217 100644
+> --- a/drivers/staging/most/video/video.c
+> +++ b/drivers/staging/most/video/video.c
+> @@ -491,7 +491,7 @@ static int comp_probe_channel(struct most_interface *iface, int channel_idx,
+>  	ret = v4l2_device_register(NULL, &mdev->v4l2_dev);
+>  	if (ret) {
+>  		pr_err("v4l2_device_register() failed\n");
+> -		kfree(mdev);
+> +		v4l2_device_put(&mdev->v4l2_dev);
+
+v4l2_device_put() will call comp_v4l2_dev_release() which is calls:
+
+	v4l2_device_unregister(v4l2_dev);
+	kfree(mdev);
+
+The call to v4l2_device_unregister() is a no-op since the register
+failed (pretending that were possible) so at runtime this is the exact
+same as calling kfree(mdev);
+
+So this is not a bug.  The original code is fine.  We could argue
+about readability, but I feel like the original code is in some ways
+more readable.  I don't like calling unregister() when the device
+is not registered.
+
+regards,
+dan carpenter
+
+>  		return ret;
+>  	}
+>  
+> -- 
+> 2.50.1 (Apple Git-155)
