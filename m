@@ -1,96 +1,183 @@
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from sipsolutions.net (s3.sipsolutions.net [168.119.38.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8D193E8359;
-	Thu, 11 Jun 2026 11:44:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F129A3C3440;
+	Thu, 11 Jun 2026 12:03:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=168.119.38.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781178246; cv=none; b=pu5tvU/BdB6sf/nefkh09U4rfohUIw1CUgKG/bV5v+JCUvnRh4yZbRmakPeqao7JIGiR9rImSrMoWeisRtlx6iUZfbKbSOj1COf5C7vgvhvddqgRtL/E1PYs5mcZeNc4Pa1R+Hy09gAVTVByBA1UyKtBaWO0CcwaSrB34WDq45w=
+	t=1781179395; cv=none; b=VP9w7/vrjlB6p/yWupIjfaHVO+21pJciM1BTEhh3UxlNUNqvHFwM9EyLU4H0bM8PauijtEo5977tMvRJl339GrbTtkOc+SOc4qXUf0vDErTzfb6lmjKBD12p7RTBgDsKRk1LvkmrLZg/Rme2YxmwgvroT0eS/oSriwKN36Jsmks=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781178246; c=relaxed/simple;
-	bh=/YXxyHXTqHsqvEX56BgGHLdQeyr8pfFezDRaGSt+e4I=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BW10RuT3X8dN5wC+9EtkeFsM37GAaxUsfqt57FzYNp5yI0aERASW4HdBPh3FZJV330rywN8b6oMJO/qUVcXDKeEtS2Tpf/FVoE1WzEwPsixzX5/gp8pIN/Ovcyatq7wGTOz6wFangL0Sts6LUj66bvsohH2YASMMx7GNsRnY6gQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from localhost.localdomain (unknown [117.182.75.76])
-	by APP-03 (Coremail) with SMTP id rQCowADH5dx2nypqC0heFA--.468S2;
-	Thu, 11 Jun 2026 19:43:52 +0800 (CST)
-From: WenTao Liang <vulab@iscas.ac.cn>
-To: parthiban.veerasooran@microchip.com,
-	christian.gromm@microchip.com,
-	gregkh@linuxfoundation.org
-Cc: hverkuil+cisco@kernel.org,
-	laurent.pinchart+renesas@ideasonboard.com,
-	s9430939@naver.com,
-	error27@gmail.com,
-	vulab@iscas.ac.cn,
-	kees@kernel.org,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] staging: most: video: fix refcount leak in comp_probe_channel()
-Date: Thu, 11 Jun 2026 19:43:35 +0800
-Message-ID: <20260611114335.77216-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.50.1
+	s=arc-20240116; t=1781179395; c=relaxed/simple;
+	bh=/fUpixw+/gkwEfyiVOnxj2mfAUO/8ScqgNcaMofLPJE=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=LhXyXm0jHEwzMPHnFbXRR9b5tL3TuuS0gYkkrAMNfXDFRi1pBbGrZeRyMYE8BEP/lK87qE0EiH1WOITyJoU68OYIPMOviXCZ3XKv50W6JmYCBZkVMLNaxr/DPc5b2agfI4dVtHHJ81j47R1BEdIekjCSvSgIvmJMqTslYduFkrU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net; spf=none smtp.mailfrom=sipsolutions.net; dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b=HiJ36jWV; arc=none smtp.client-ip=168.119.38.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=sipsolutions.net
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b="HiJ36jWV"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=sipsolutions.net; s=mail; h=MIME-Version:Content-Transfer-Encoding:
+	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
+	Resent-Cc:Resent-Message-ID; bh=h9MY53Lx0odhbNmI7hrmapkJ6J6ieLYo16xN5ivxFd0=;
+	t=1781179393; x=1782388993; b=HiJ36jWVL9vbmcsEzS5CGg7u5rVcdcxl8heQTYx/qQN6MLS
+	uqsJjvnAIOGVN5XSqAR8p0OorAoya3GM5GPyhjEjZGWzHl3Lnw9QG2UV27mx4y5Qt/Q8YZV7/32mU
+	TxawfFyKycCdJWWr7EiOa36if/t7IiY8h1cUcEV4NGyd8wYtVEf7D9hkEV9VXl/1iKZMFXaOiG8cj
+	/ZthIxTRlttnp4sUOFoYDi2T9ccv1UIwxIbRLSpbt8DJApm131QkpPp0ZGzQRoXvceLuFtgC7xFIj
+	1+0uVS1E2ZGqgXKtytjhHY5ESi2HkxwRUIx2hxvMrzERv38U2GHd3+Lt2kluPOYw==;
+Received: by sipsolutions.net with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.98.2)
+	(envelope-from <johannes@sipsolutions.net>)
+	id 1wXe7j-00000008zDV-3g96;
+	Thu, 11 Jun 2026 14:03:04 +0200
+Message-ID: <2dbb5e703e5d7fa787c9f0debcedb3dc73c1643d.camel@sipsolutions.net>
+Subject: Re: [PATCH] wifi: mac80211: validate S1G beacon length before RX
+From: Johannes Berg <johannes@sipsolutions.net>
+To: Zhao Li <enderaoelyther@gmail.com>
+Cc: Thomas Pedersen <thomas@adapt-ip.com>, linux-wireless@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Thu, 11 Jun 2026 14:03:03 +0200
+In-Reply-To: <20260610162700.58722-1-enderaoelyther@gmail.com>
+References: <20260610162700.58722-1-enderaoelyther@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowADH5dx2nypqC0heFA--.468S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7tFWxAw4DKr1xAw4DXFyDGFg_yoW8GFW7pa
-	y5Kay5tryYga1j9a9rWF1UXFyrCwnFy34fCFy0kw1S9ryfGFyfZr4vq34UKr4xX3yxAr4Y
-	qa47Jw4rZa15ZF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9j14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
-	0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
-	jxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr
-	1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxa
-	n2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4
-	AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE
-	17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMI
-	IF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4l
-	IxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvf
-	C2KfnxnUUI43ZEXa7VUbGQ6JUUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwwPA2oqhtFJ6wAAsy
+X-malware-bazaar: not-scanned
 
-If v4l2_device_register() fails in comp_probe_channel(), the
-function frees the allocated mdev with kfree() without releasing the
-reference count held by the embedded v4l2_device.  Because
-v4l2_device_register() initializes a kref in the v4l2_device, the
-reference count is already 1 on failure.  Dropping the last reference
-must be done with v4l2_device_put() so that the release callback can
-unregister the v4l2_device and free mdev.
+On Thu, 2026-06-11 at 00:27 +0800, Zhao Li wrote:
+> S1G beacons are extension frames, so ieee80211_hdrlen() only guarantees
+> the extension header before the generic RX path starts dispatching the
+> frame.
+>=20
+> The RX path can then reach helpers and interface handling code that read
+> regular 802.11 header address fields, which are not present at those
+> offsets in an S1G beacon.
+>=20
+> Pull the complete S1G beacon fixed header, including optional fixed
+> fields indicated by frame control, before generic RX dispatch.
+>=20
+> Also make ieee80211_get_bssid() length-safe for S1G beacons and avoid
+> regular-header address reads for S1G frames in accept/interface/MLO
+> address handling. Skip extension frames in duplicate detection for the
+> same reason, since that path consumes the regular sequence-control field.
 
-Replace the kfree(mdev) with v4l2_device_put(&mdev->v4l2_dev).  The
-error path for comp_register_videodev() failure already does this
-correctly.
+This is all true, but all of the below seems far too complicated a fix?
 
-Cc: stable@vger.kernel.org
-Fixes: 3d31c0cb6c12 ("Staging: most: add MOST driver's aim-v4l2 module")
-Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
----
- drivers/staging/most/video/video.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Also seems like you should probably disclose some LLM usage, unless
+you're going to tell me you wrote all this code yourself?
 
-diff --git a/drivers/staging/most/video/video.c b/drivers/staging/most/video/video.c
-index 04351f8ccccf..aa846959b217 100644
---- a/drivers/staging/most/video/video.c
-+++ b/drivers/staging/most/video/video.c
-@@ -491,7 +491,7 @@ static int comp_probe_channel(struct most_interface *iface, int channel_idx,
- 	ret = v4l2_device_register(NULL, &mdev->v4l2_dev);
- 	if (ret) {
- 		pr_err("v4l2_device_register() failed\n");
--		kfree(mdev);
-+		v4l2_device_put(&mdev->v4l2_dev);
- 		return ret;
- 	}
- 
--- 
-2.50.1 (Apple Git-155)
 
+> @@ -4487,12 +4490,17 @@ static bool ieee80211_accept_frame(struct ieee802=
+11_rx_data *rx)
+>  	struct ieee80211_hdr *hdr =3D (void *)skb->data;
+>  	struct ieee80211_rx_status *status =3D IEEE80211_SKB_RXCB(skb);
+>  	u8 *bssid =3D ieee80211_get_bssid(hdr, skb->len, sdata->vif.type);
+> -	bool multicast =3D is_multicast_ether_addr(hdr->addr1) ||
+> -			 ieee80211_is_s1g_beacon(hdr->frame_control);
+> +	bool s1g =3D ieee80211_is_s1g_beacon(hdr->frame_control);
+> +	bool multicast;
+>  	static const u8 nan_network_id[ETH_ALEN] __aligned(2) =3D {
+>  		0x51, 0x6F, 0x9A, 0x01, 0x00, 0x00
+>  	};
+> =20
+> +	if (s1g)
+
+no need to introduce the 's1g' variable, and it sounds weird anyway
+because s1g uses other frames too, not just beacons
+
+> @@ -5175,11 +5183,13 @@ static bool ieee80211_prepare_and_rx_handle(struc=
+t ieee80211_rx_data *rx,
+>  	}
+> =20
+>  	/* Store a copy of the pre-translated link addresses for SW crypto */
+> -	if (unlikely(is_unicast_ether_addr(hdr->addr1) &&
+> +	if (unlikely(!ieee80211_is_s1g_beacon(hdr->frame_control) &&
+> +		     is_unicast_ether_addr(hdr->addr1) &&
+>  		     !ieee80211_is_data(hdr->frame_control)))
+>  		memcpy(rx->link_addrs, &hdr->addrs, 3 * ETH_ALEN);
+> =20
+>  	if (unlikely(rx->sta && rx->sta->sta.mlo) &&
+> +	    !ieee80211_is_s1g_beacon(hdr->frame_control) &&
+>  	    is_unicast_ether_addr(hdr->addr1) &&
+>  	    !ieee80211_is_probe_resp(hdr->frame_control) &&
+>  	    !ieee80211_is_beacon(hdr->frame_control)) {
+
+This seems very ... specific, and doing the same thing twice also seems
+odd. While not great, I'd probably advocate for a goto or just doing the
+invoke() separately for s1g beacons.
+
+> @@ -5260,23 +5270,30 @@ static bool ieee80211_rx_for_interface(struct iee=
+e80211_rx_data *rx,
+>  {
+>  	struct link_sta_info *link_sta;
+>  	struct ieee80211_hdr *hdr =3D (void *)skb->data;
+> +	u8 *sta_addr =3D hdr->addr2;
+>  	struct sta_info *sta;
+>  	int link_id =3D -1;
+> =20
+> +	if (ieee80211_is_s1g_beacon(hdr->frame_control)) {
+> +		sta_addr =3D ieee80211_get_bssid(hdr, skb->len, rx->sdata->vif.type);
+> +		if (!sta_addr)
+> +			return false;
+> +	}
+
+That one seems even weirder - especially in the face of your *other*
+changes that attempt to never access hdr-> without making sure it's
+actually the right format ... you still create a pointer to addr2 here.
+It's valid since you never use it, but it's also weird because it pretty
+much looks like hdr->addr2 _is_ OK at the whole function level.
+
+> +
+>  	/*
+>  	 * Look up link station first, in case there's a
+>  	 * chance that they might have a link address that
+>  	 * is identical to the MLD address, that way we'll
+>  	 * have the link information if needed.
+>  	 */
+> -	link_sta =3D link_sta_info_get_bss(rx->sdata, hdr->addr2);
+> +	link_sta =3D link_sta_info_get_bss(rx->sdata, sta_addr);
+
+Obviously, if things work today, we didn't really need the link_sta for
+these frames, and that makes some sense since there's no MLO and it's
+just ieee80211_rx_mgmt_beacon() basically. Probably better to just skip
+this entirely and handle s1g beacons separately.
+
+>  	if (link_sta) {
+>  		sta =3D link_sta->sta;
+>  		link_id =3D link_sta->link_id;
+>  	} else {
+>  		struct ieee80211_rx_status *status =3D IEEE80211_SKB_RXCB(skb);
+> =20
+> -		sta =3D sta_info_get_bss(rx->sdata, hdr->addr2);
+> +		sta =3D sta_info_get_bss(rx->sdata, sta_addr);
+>  		if (status->link_valid) {
+>  			link_id =3D status->link_id;
+>  		} else if (ieee80211_vif_is_mld(&rx->sdata->vif) &&
+> @@ -5347,6 +5364,12 @@ static void __ieee80211_rx_handle_packet(struct ie=
+ee80211_hw *hw,
+>  		return;
+>  	}
+> =20
+> +	if (ieee80211_is_s1g_beacon(fc) &&
+> +	    !pskb_may_pull(skb, ieee80211_s1g_beacon_min_len(fc))) {
+> +		dev_kfree_skb(skb);
+> +		return;
+> +	}
+
+I'm fairly certain this still leaves things (e.g.
+ieee80211_rx_mgmt_beacon()) wrong if the driver ever reports an s1g
+beacon as a frag skb.
+
+I think much better to just treat this frame=C2=A0like mgmt frames and
+linearize it earlier in the function along with mgmt frames etc. Still
+need to check the length, but we could even do that there as well,
+rather than this late.
+
+johannes
