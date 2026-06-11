@@ -1,31 +1,76 @@
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mail-dl1-f66.google.com (mail-dl1-f66.google.com [74.125.82.66])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27B84189B84;
-	Thu, 11 Jun 2026 00:53:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D92714BF92
+	for <stable@vger.kernel.org>; Thu, 11 Jun 2026 01:09:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.66
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781139214; cv=none; b=bD0Gv6e3zO/b8hU8Phrh2dnrx/869X58Yz2xp9i9C2QiecP1j12FEF4b4DSLm7gXe/wG5m7+CE9+g8J6KVMKh/o6676Wet1foOHJETVcIix1v4DnC3D9VGeqqlv/JIYJHmNy5TCMdZfxn1l9AmoVMlI6NyzNrcZCqCzXWSxyxeg=
+	t=1781140162; cv=none; b=fMj70J4HIInWpIActqy7gBu1Z23ZhYJZqdiIKaut7I9K8R9sSETJUC1eIgfGVtrOY4EEgwPQXoKhDUKSM/HORM0/fytaQH33D5YPCfyDYStxjtXe9PUFWEok9xVU7aN+45Jb1X/leYj4KByqrngbSlXrAR9Kc+HlfUI865cqX3k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781139214; c=relaxed/simple;
-	bh=dGQdlwbgsdkIxpBZitrio/lsX3jJhO449XatFFL3Ajk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jQvz4fJOdnHd88GBCav3jbgR3wPKLH9YSA4XMfLycIMLs6S5H9tn58S620CSvQXu4H/Hr/6XRKy2Oc9x8UogJVJP2FCgF8snNrl6rk7Ldu/QPN5uDFjjHSifKgbh6faBv5lG481thcsd/T88FsQbZkRlgoosBZs2Tw35WRhSZ8o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from localhost.localdomain (unknown [117.182.75.76])
-	by APP-03 (Coremail) with SMTP id rQCowACHp94EBypq43hSFA--.3604S2;
-	Thu, 11 Jun 2026 08:53:26 +0800 (CST)
-From: WenTao Liang <vulab@iscas.ac.cn>
-To: Sebastian Reichel <sre@kernel.org>
-Cc: linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	WenTao Liang <vulab@iscas.ac.cn>,
+	s=arc-20240116; t=1781140162; c=relaxed/simple;
+	bh=6KNTz/ZwbwhW/tHYlmAtIJz5wzkhbvWdHahK176PG/w=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dXSP5cuAOtkbZWzijDaIQGStWRAdoOpb6UowO9FdAiqyDZmkD0inmYG96cJbMrAj0PwZRumDW+UDFA/7ZFGGxIet4t50bSOX3WRyFjTDA3FS0ggdyuTjxdUUQDG0AMTMF+EnqRbC+Ifa6XDQYg3nFsvGg7+xKma70uR9mJTWRuE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sL8bjxAm; arc=none smtp.client-ip=74.125.82.66
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sL8bjxAm"
+Received: by mail-dl1-f66.google.com with SMTP id a92af1059eb24-138405b7bc5so1234251c88.1
+        for <stable@vger.kernel.org>; Wed, 10 Jun 2026 18:09:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781140160; x=1781744960; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=wVFUmgfZWQUg8yb+neHfsaKcJQcz+e1b1jXoBTh5r50=;
+        b=sL8bjxAm/CVo1j5SpH7Fdn79hVi9GWASd2Db0FaqT0Ed7ZQsATMMgsSuUR8zBL+kVJ
+         eQ4YLYBL5bsTybJPG56unJ8wzH6v/Wb1xc71EtsoxNaTWs+njPfToYDtdLNIeEdXUxns
+         99xflWI8/wWrr/ozw+2EX8zYvU9bydUOsPTCL1G3ncpV+UmPFy9ro+SVwrlXVZUwZI3o
+         UJc6+/1bFQkkT+ICnP/ru80KD4FTS68WgerdwpipAN/P/piUoYkACAyJG2R0mM2BBunt
+         wJEnPfBm+ac0ZV+YrsBQIstkn6j8M6efKhnmVHvTy+XULO2AjIX6YGRtrnolJjEh7xio
+         ZXfw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781140160; x=1781744960;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=wVFUmgfZWQUg8yb+neHfsaKcJQcz+e1b1jXoBTh5r50=;
+        b=LWtfe5dyhqTzgDKF9bJVZU4QkknpXOF+XugjoLPV4qjxah5JCPRTrJ5nsM227oBDBY
+         x/7VfZdgqZ//YZCjVQet/yP6aOqvLMBqAGbVML1A4u/ySTucjhBvxO0MiIX01XSCYJka
+         QDHUvlTVxzkNiNoSh4PVFRCtnsfRy+WGCZe3xrILfEw5a9FAiqcSasMoo6kD/hrKNyFw
+         e/mT/8GAm5WsXh3zY5VS9ZWiIXXjsmsvJTPxIqrxLnpEgOnqBTCJGA0nYFzXv/wnKKsY
+         mOAf0LN11al0opGxkB3CGqe2yuEU7xf5IFIwjUV8KBglyXHcvrF5uNqmEHh0O+6gGuKk
+         VyAg==
+X-Forwarded-Encrypted: i=1; AFNElJ+9yZ1c6BeIS+p1oseFzPyJvqNPirXc4NF0eEUhMgePh9Gn5gqT0CTLxtzY2vtCMh8e5jrE4ew=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxNv+1hSMi5LbKkzhNl+3lOMebJPHEbsZxhPPCYZwxbXzQ3sZTf
+	2rtHvSZRVknnsuhv1i+PTQQPG3gNReuSujEC5HFl3xsyTEHpZsfC7iPj
+X-Gm-Gg: Acq92OEprjGtalPJh/RK1QViNsikfH/0/dKohLIKB3iRJ3nFLvpfzP/CQuThyaYurWJ
+	jJYLA8M2Q/n5rriw4XdTNYMZzUScNYL6dxsAvih5iI68r8QKESCqezZXBMvbMfSYO/kM4NtCmAv
+	+tbpm8msfotqHSBXxrZWt0HxpMBMIhMAkVubOToa4YI3LxNbuGh10n21aFTpYrJcWi555fO/+KS
+	cOqLfFeRShUP2FY3qwpRXLpuMYRdQ4dzwj5CCgqsl953mo80QFienoarWQitsHAfKOagMWwnIIC
+	EZ4QooB4dAgTUtQV8XKlZd5dN5mMf5Elr6aBq73BkW0ltvZHuvw2q5ZN9hCTZNKp9gNddiEIwEd
+	idbfVbWZUcdBslwJ3BEYPVSxT1fsoDDsxMWE99WETiYv0yDubYXQ4rlsqZRoi3zzqOMB+QjUqzn
+	gy4h2az9dontyjjY3fGUyUdzA4fTlaOA5hH/xZl7ixPzh6BP8eBj57jUeMpi/uJoRcRFpFDCbAN
+	baRKuZ6Bp8PBSyicTAiZm6pmeFiw1HVBEbnesePy1MgVuCU2wtFoEhSHJtIa4v5pJFTdheZLpMq
+	FyE+J9eGvR1l62gHc2BI1W5M3g7s
+X-Received: by 2002:a05:701b:2914:b0:136:e42d:2c2b with SMTP id a92af1059eb24-138421be22fmr248006c88.17.1781140159987;
+        Wed, 10 Jun 2026 18:09:19 -0700 (PDT)
+Received: from ethan-latitude5420.. (host-127-24.cafrjco.fresno.ca.us.clients.pavlovmedia.net. [68.180.127.24])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13843790552sm117029c88.13.2026.06.10.18.09.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 10 Jun 2026 18:09:19 -0700 (PDT)
+From: Ethan Nelson-Moore <enelsonmoore@gmail.com>
+To: Nicholas Piggin <npiggin@gmail.com>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Sayali Patil <sayalip@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	linuxppc-dev@lists.ozlabs.org
+Cc: Ethan Nelson-Moore <enelsonmoore@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH v2] power: supply: charger-manager: fix refcount leak in is_full_charged()
-Date: Thu, 11 Jun 2026 08:53:21 +0800
-Message-ID: <20260611005322.53096-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.50.1
+Subject: [PATCH] powerpc/uaccess: correct check for CONFIG_PPC_E500 in mask_user_address()
+Date: Wed, 10 Jun 2026 18:09:12 -0700
+Message-ID: <20260611010914.429574-1-enelsonmoore@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -33,58 +78,33 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowACHp94EBypq43hSFA--.3604S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Ar1fZryfCr48GF43WFWfZrb_yoW8JFy3pF
-	ZYkr9rC345XrW5t3WDJw1jkFyrKa9avry5CF1kG34Svr13Wws8t34UGF15tr18tF1fAF4Y
-	qFW3tw17tFnxCaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUkK14x267AKxVWUJVW8JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr
-	1j6F4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
-	7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r
-	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AK
-	xVWUAVWUtwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F4
-	0E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1l
-	IxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxV
-	AFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j
-	6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa7VUjuHq7
-	UUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwoPA2op-r4W1AAAsA
 
-In is_full_charged(), power_supply_get_by_name() is called to
-obtain a reference to the fuel_gauge power supply. If the
-voltage check (uV >= desc->fullbatt_uV) succeeds, the function
-returns true directly without releasing the reference, leaking
-the refcount.
+CONFIG_E500 was renamed to CONFIG_PPC_E500 in commit 688de017efaa
+("powerpc: Change CONFIG_E500 to CONFIG_PPC_E500"), but the check for
+it in mask_user_address() was not updated, causing
+mask_user_address_isel() to no longer be used on E500 hardware. Fix the
+check to use the correct name.
 
-Fix this by setting a flag and jumping to the out label where
-power_supply_put() properly drops the reference.
-
-Cc: stable@vger.kernel.org
-Fixes: e132fc6bb89b ("power: supply: charger-manager: Make decisions focussed on battery status")
-Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
+Fixes: 688de017efaa ("powerpc: Change CONFIG_E500 to CONFIG_PPC_E500")
+Cc: stable@vger.kernel.org # 6.1+
+Signed-off-by: Ethan Nelson-Moore <enelsonmoore@gmail.com>
 ---
- drivers/power/supply/charger-manager.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ arch/powerpc/include/asm/uaccess.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/power/supply/charger-manager.c b/drivers/power/supply/charger-manager.c
-index c49e0e4d02f7..c3644018b6bb 100644
---- a/drivers/power/supply/charger-manager.c
-+++ b/drivers/power/supply/charger-manager.c
-@@ -303,8 +303,10 @@ static bool is_full_charged(struct charger_manager *cm)
- 			if (cm->battery_status == POWER_SUPPLY_STATUS_FULL
- 					&& desc->fullbatt_vchkdrop_uV)
- 				uV += desc->fullbatt_vchkdrop_uV;
--			if (uV >= desc->fullbatt_uV)
--				return true;
-+			if (uV >= desc->fullbatt_uV) {
-+				is_full = true;
-+				goto out;
-+			}
- 		}
- 	}
+diff --git a/arch/powerpc/include/asm/uaccess.h b/arch/powerpc/include/asm/uaccess.h
+index e98c628e3899..619270bb7380 100644
+--- a/arch/powerpc/include/asm/uaccess.h
++++ b/arch/powerpc/include/asm/uaccess.h
+@@ -511,7 +511,7 @@ static inline void __user *mask_user_address(const void __user *ptr)
  
+ 	if (IS_ENABLED(CONFIG_PPC64))
+ 		return mask_user_address_simple(ptr);
+-	if (IS_ENABLED(CONFIG_E500))
++	if (IS_ENABLED(CONFIG_PPC_E500))
+ 		return mask_user_address_isel(ptr);
+ 	if (TASK_SIZE <= UL(SZ_2G) && border >= UL(SZ_2G))
+ 		return mask_user_address_simple(ptr);
 -- 
-2.50.1 (Apple Git-155)
+2.43.0
 
