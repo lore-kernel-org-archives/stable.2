@@ -1,47 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7E541519B4;
-	Thu, 11 Jun 2026 00:45:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED67A1E7660;
+	Thu, 11 Jun 2026 00:45:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781138746; cv=none; b=cGal/bj4vR29Hbs2dmeydTgbhH0MaQUcuCcNdpCIZpqHCaFg0LthVULbUHUqWXgD++XD+CgMEKpnjncadknYq2ITDvqt8QQtYSZErcK21ltrEux57TVNTQBYPGTXFUvbccyKLR3ByhafCGyou/Wml97i1FvClH/pkf5CGdk4w2s=
+	t=1781138757; cv=none; b=e4LwkCGMV5YZqIulOl3Usy7WSf/LqM1rCTeajwRfkVb6bynGz1Wii05mnfheTDoNV2/ozI2Yswrjg9jRRUZrGBZ1DN0YpjOhtArj1UAzZWUZTBa8//4DXC7FXN+GOaS5XXtToOw1LECiFe9iZqcN/YbOVh8lXNZQrnsClyr27zU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781138746; c=relaxed/simple;
-	bh=lTAxjqD2ptN6Nytpf7j8GNCCjkya1kMoimCQC87flzQ=;
+	s=arc-20240116; t=1781138757; c=relaxed/simple;
+	bh=gScZvmFNCIbsaB8hGl7ro2smwAQIdPTmDjW80PbH9fw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=R/E+M26Vr04U35a2SyZzho8rHvtWUScHZV3Y1diRc/kf+EN+pIXoe/ovINmaQ5M3w+ywwD3Z0yjcK4/Z5BgDN+u/jeVBsD+Aui2MbpnJflU3zeC2DEHsDAd2+sTB/oCOhbGOygnZ7rCX/s4rkvmLzh9eet7zzVJ+0A+mT98f10E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b+/A4ZE5; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=WL78JxHkt5ZoXk10aDTFEOTBvwkrh5etG7eGQjMT1pdHiXndxBPVBFv/z8k63N0UuK3Lu6njXc1JhNdi/9ATtG9UuxgcVwuq4LsFzDp7eLpOVqCE7Y3IHHPxYbfF2+qjNSn2scUCEwBBse5OGXoKxPRNohfnIZ8hHvZkn400nkQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=crLZqNOv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b+/A4ZE5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1A851F0089A;
-	Thu, 11 Jun 2026 00:45:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="crLZqNOv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8C991F0089C;
+	Thu, 11 Jun 2026 00:45:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781138745;
-	bh=lTAxjqD2ptN6Nytpf7j8GNCCjkya1kMoimCQC87flzQ=;
+	s=k20260515; t=1781138746;
+	bh=Rz7r393CVmwuTcN3F9sCaR4ab1crKIHvHMF5mdpAUTE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=b+/A4ZE56l6Pfm7lGyz4H6+jKBFDShNu22o7NhZqMicwC4iFgSQ/a6vmf00nQLty9
-	 rPrSNk4FqbPzSsE38L3RHqA+MwgmEBzCPoZ54Oz6ULFeQDBHYo5oInUBAQHU1Pp+jD
-	 SdCqakzWEaPuy7QRIw5tpovn4oORxvXDf/wbq53wL9MDenyw3satNCEALLTAmVcGxe
-	 xLExiUEsadcLBEjdQXDZdB7k1nA5Z4jydP/T3gN/VDhMABxpa0oNVB7Ch/XLQuXk0q
-	 yJknVGOPFgjepPa4GXt0M4XL1O68bxHPSXyTYRhubEt9d6Sv6LWW4A2bhsf+WfGYB7
-	 VO1vyD1ZGDaHg==
+	b=crLZqNOvmyJv3eoUlKUEUP18KLvhdS0jCyGR4YdF1vmp+YRTTC+kwJOSHK0kUhQyn
+	 za35zlMKACIojmV769SaNBV/Yj+Nd5BdwWQ53Z5Wi3jGQSArOpI8kV+Ju6YmSwjpjo
+	 gkAZ7khknpF8mlCJbufeWKaAIcuyv6PgSCLiig+HiInNSbnXLnWXDIOwmEcF5iRA60
+	 ymSQvMEM0e9/IK43L+p0HqKke8HpI6ogiNgvZ5Y/kbHEh54GiI/QhaocaZZkWql1dJ
+	 jlFcaqJ3xXkFWOEvO1+isajJXSzmDVAiAmv2uHTWVGHlIoTq+nbeZl8m1JUyncR2s0
+	 sHP+YknEOxlcg==
 From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org,
-	Johan Hovold <johan@kernel.org>
+To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	Mark Brown <broonie@kernel.org>,
-	Dhruva Gole <d-gole@ti.com>,
-	Apurva Nandan <a-nandan@ti.com>,
-	Robert Garcia <rob_garcia@163.com>,
-	linux-spi@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 6.12.y] spi: cadence-quadspi: fix unclocked access on unbind
-Date: Wed, 10 Jun 2026 20:45:26 -0400
-Message-ID: <20260610-stable-reply-0013@kernel.org>
+	Felix Fietkau <nbd@nbd.name>,
+	Lorenzo Bianconi <lorenzo@kernel.org>,
+	Ryder Lee <ryder.lee@mediatek.com>,
+	Shayne Chen <shayne.chen@mediatek.com>,
+	Sean Wang <sean.wang@mediatek.com>,
+	linux-wireless@vger.kernel.org,
+	Ajrat Makhmutov <rauty@altlinux.org>
+Subject: Re: [stable request] mt7921e: backport two mt76 fixes to 6.12.y
+Date: Wed, 10 Jun 2026 20:45:27 -0400
+Message-ID: <20260610-stable-reply-0014@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260610020809.2695490-1-rob_garcia@163.com>
-References: <20260610020809.2695490-1-rob_garcia@163.com>
+In-Reply-To: <20260610080943.17734-1-rauty@altlinux.org>
+References: <20260610080943.17734-1-rauty@altlinux.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -50,16 +50,19 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Tue, Jun 10, 2026 at 10:08:09AM +0800, Robert Garcia wrote:
-> [PATCH 6.12.y] spi: cadence-quadspi: fix unclocked access on unbind
+On Tue, Jun 10, 2026 at 11:09:43AM +0300, Ajrat Makhmutov wrote:
+> Please backport to 6.12.y:
+>   2425dc7beaad wifi: mt76: mt7921: avoid undesired changes of the preset regulatory domain
+>   5ed54896b6bd wifi: mt76: mt7921: fix a potential scan no APs
 
-I can't take this into 6.12 on its own. We don't backport a fix to an
-older tree while it's missing from a newer one, and 233db2cb14db isn't
-in 6.18.y yet.
+I'm going to hold off on this one. The second commit, 5ed54896b6bd,
+introduces a reachable dev->mutex self-deadlock on STA-remove-while-ROC;
+the follow-up that cures it (d5059e52) isn't in any stable tree and was
+never marked for stable (it's only in linux-next so far).
 
-If you can send a 6.18.y backport as well (adapted to the older
-cqspi_remove() there), I'll queue both together; the 6.12 patch itself
-looks fine.
+So taking these two alone would queue a deadlock. If d5059e52 lands
+upstream (or you can confirm it's headed to stable), please resend the
+request as all three together and I'll take them for 6.12.y.
 
 --
 Thanks,
