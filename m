@@ -1,167 +1,154 @@
-Received: from mail-lj1-f177.google.com (mail-lj1-f177.google.com [209.85.208.177])
+Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com [209.85.160.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4517219CD1D
-	for <stable@vger.kernel.org>; Thu, 11 Jun 2026 21:28:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.177
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781213326; cv=pass; b=eD4uNsaeeJqvrGbi3SO+b+Dyn/q4jW9D3RjKrDZbH2FicTFw2LvRID4IrZUMA3XyBWnrQ+Q2ab2uPQ+m7w9NkUL0tm6Kj+UwEEgMzMRNHMa+pDIzeTqx5MgvnygCDPEOfIZ+3/PjNz1Gl9nOKRjcPcv+y0SszPyHQFwoYqdlskU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781213326; c=relaxed/simple;
-	bh=JG0UY0hvctnnEYPQF9ZNiBocNFE2TPO4VyqhkwRG92g=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=XTfyAACXH8R1Sbbt5o1s7qqYuZkKRAg3ux9LK8T65b93xg3XqT9UQBmKx9gy58DvdvygrHbqwUM+/3/RyyTzM6libufwhVqsLg+5NNLQBk5XIgG8D9LYOjOWxU/LSy3t7Nz3ort/l90OW2zvrAHPjXa3ENbPNytMoKq5ZCTqqNg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QxKLmXbz; arc=pass smtp.client-ip=209.85.208.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E7AA31F98D
+	for <stable@vger.kernel.org>; Thu, 11 Jun 2026 21:30:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.182
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781213405; cv=none; b=TgMB11SnvBrxhMHuU1y5UXY72lbkUcfC7LuPTFgsUcUkx6Z6LJdRF2Wrt4qIV6IKqlcyRjteXZWyNlbuleOa7yocd3tcrzIZBbavbwV9N1XOkHn1vUxXdQfQLSyj3eCVNirok8JtVeuzPqCW0aCrb32P9h3g1664TUBeyWQRDAE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781213405; c=relaxed/simple;
+	bh=qncT6NDd6JhRmOmDFyKI61QSOG/2RiTMhamk92H2Hms=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=S3lStRRt/2QnFWDTXl7xLqIaD0ha8gv/tdGekoQug3MW3VxJ52T0zx1TuFssD05wjn4eQMLbZ/n8+0LD3pzm/OG9NF3wAuEahsZ6m9paTFbr+ctc9klowecfG9bcQTMStdBdtiY3dctf7a4+uyi75fFUDClmbDm04QRiUin8WVw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com; spf=pass smtp.mailfrom=openai.com; dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b=YhmDfLc6; arc=none smtp.client-ip=209.85.160.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=openai.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QxKLmXbz"
-Received: by mail-lj1-f177.google.com with SMTP id 38308e7fff4ca-396aacc5bcfso2866581fa.3
-        for <stable@vger.kernel.org>; Thu, 11 Jun 2026 14:28:44 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781213322; cv=none;
-        d=google.com; s=arc-20240605;
-        b=iP3s84wU1koDjZhKiNBjgMiOk1EYz6rQ0yC+6IwCkdRmJ3C/VKQd7aRHFXJUbGOfjT
-         SwA24D6N0bWgDzlxhykvfFMgYy+s4C2qPhCFU2aIGoRf+dJqeelX2Kgc4uExoeKPJbYZ
-         mUF6NJ58XCfn60knfu7TuTvKFg6R7VyPz2qSW3KpR4ebGxvejqqzMVdNE7H5jsA3SOoK
-         3wP3p1474/GwM6Q+HUuEDKyauU5/VGgsK5frWLliGZQGMGs8zlw4ohVRAK8PeN6kEheq
-         sUJUrgGxj995UY5AwhUs6ldd6GBNkCdEy7kJb0HvhiSZjAneGxhsBSM/rUFQrkqmYypW
-         CCkA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=kSiS9b/TUc41z1o4dQeNRT9cctSComdBL7vLtn1IdDE=;
-        fh=lXwxGxrQ65epqb9RuyE3aAmz6EVqBh5biIqpIqvxNeQ=;
-        b=fennjAIOrNay3e7A95RHHb2+skP75uyoudzfuhYvrDAyd/F63Dd8IQQgCHvRfkrnjR
-         UZ9oFZC+VJ45BmP2mua55Ijy+OWgkPBP/RfvEcvPiKAPx71WeL684uVMq1SkzcysRm0x
-         SwFlA57A7kO3Pg1x68sGv/4AQP8fFqwyMMgblAXM6Gy+2MthdktmoSNW+gPG9fZ/ut2w
-         yphlYoWjIwu7tCTqnCloU7c4xUsS49vePPLCeZ0X6zb8JqkGRz6JGgs08CvSIh1HbLno
-         ihq9kp24taOM3sKxX2eFPBQf1s5+uXcgFYlF3Y3zOyQ+tICMOl9ZI0yw9PUzSYWn31nD
-         Nvnw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b="YhmDfLc6"
+Received: by mail-qt1-f182.google.com with SMTP id d75a77b69052e-51778069c31so2049071cf.1
+        for <stable@vger.kernel.org>; Thu, 11 Jun 2026 14:30:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781213322; x=1781818122; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=kSiS9b/TUc41z1o4dQeNRT9cctSComdBL7vLtn1IdDE=;
-        b=QxKLmXbzSrkfMbSN7IcFxO/glPZNelMpCBHTyFR/1Qx9lK0WYKcQTHifBw4NuJ29r+
-         dlbIe4A/VwmiMmYc2PX6SmZp/4520tClKBuvInjVtTkKGAmjZrtuZLnRvX9J+rF6uF1w
-         8c0AoR2gdrmjzSvgmu/++jpXZKnhdr2GXGATaI5anogSch/t5UVAp1lB088kZAmhCvhf
-         qqLSjZBpdCO7NuAnQxVvhys4HF1ZfVljnx+hAzD3wpNnujQIgGK0WPepKXNmkBeAtbll
-         xW9801Er2jeIp9X2DsG7PE7YX9+u7wy6nVqCdLEOOULI/2fyuKabIAvcvE3HLg56n+c5
-         bnOg==
+        d=openai.com; s=google; t=1781213403; x=1781818203; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=TppE9VVZzzsG0FEL4LkniPJZYJl0Js22EJTHP0ev2zw=;
+        b=YhmDfLc6ERff98USi5iAoCyltlokgncgd8MebNrheLXe9y49s9JzOJnJJOBkB8ow+T
+         /reSOgGUrhWCk4e89wDvIcHQATIMvIW1bIpzhrtSzaTQ+wj3pxuWjMICkFoB/TGkXqps
+         SfvLHKhz4kuL0ESdFOwFVxGSVl1fIN7IlhH3M=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781213322; x=1781818122;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=kSiS9b/TUc41z1o4dQeNRT9cctSComdBL7vLtn1IdDE=;
-        b=mx6vNp/DbmX8A2TGnywlRhCLKQNGLvWkbYwpZn8rK2Ulx4YPEOq9m5bWjg2RDHA+R9
-         CgvM4k5vnCwna12rA8idRi4x/SQuQY86ocBmx/m3iaFtI+2V9tpvB96kaw4mosuyCN8q
-         NUuZQuKNMo4wkO3lk6U2xgIca26iN+JeZjSXd9ADHQuSrWYAAEj5da8apHbQRjTW0cOi
-         cQL2akBufQjMprDEfm47V1p9NFdW4t23OS1WjQClaB/ZxPRzd91CRIqkWcycf3qjI4uf
-         WRiurkJnXAqngLabmcdXMDh376m+DyuYBlThNqmSSmzwX6L7QFaRet1H5ImxuuHTNKxh
-         M8uw==
-X-Forwarded-Encrypted: i=1; AFNElJ/l9vbF6t+O++/zYtauVNUfpSei0lfYcmWb2OLhZfmA5DMGpRY2Qvy9CJw55Z2bhaNo+wC3O40=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxz3nRNWDkxa8y8oH3f1S9Gi4tTDy0jtDnfRhqRZYCR5lq57Lps
-	3DOhppumjPMxNHEB9zloxF7a7KPTUFhYf2xX3qBlt0eyZp7OM5/JsLCme79GWskKFbLjpQMiqoK
-	aF3z6u7Jiq5fRZs4SZPptDNweo9a+gzY=
-X-Gm-Gg: Acq92OHYIoual06mLAQWWAH/bWVXoN1kdGU+eeKNnEFJhcfelpjlkYLWeudVveqD1kP
-	K6K99s/Brhlbs8Hwa9wcVxD5YN+s509sVhCiJmW6cPq9FxrBSfS5cnpIrQ5APnO+VjsriLsTQHJ
-	2TjAHry+QTR0PIAdGl3uU+USTXKAT0mD2az3YneQrARZBWMDKIvK6jizGQ+Et3dG3Fv77u0xM1/
-	ONxmZ1mRpTfkP2SWLZKcdql+8I39ipzipmSgG0XxoXzjiEljBfaeKzQVTK/tlZ7KLYroSi/suPM
-	6l8mjIJa
-X-Received: by 2002:a05:651c:2107:b0:38e:d3ec:4f87 with SMTP id
- 38308e7fff4ca-3992b27b888mr126891fa.21.1781213322252; Thu, 11 Jun 2026
- 14:28:42 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1781213403; x=1781818203;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=TppE9VVZzzsG0FEL4LkniPJZYJl0Js22EJTHP0ev2zw=;
+        b=po8QID2uF5OwuesCZ/EWQwM/w8e2NveXEz7XAu2R7+EbsCWs7l/zJM414MBS820T1r
+         e4zWeDmQgZzTD59wZzrx7o+aRdV2hvpXpmypVBK3sVU9uHn03ta+wU5L9joGmk/vdkD4
+         C7AZUcpJupjT+vUijwqDY6ke5Sp44C4sVTVf63tV9nSNFW8VPTyopjgB+0ZkyC3M2JnV
+         tUS7KYmDA/P+UTvfbamSg1qqYM/uLvJcxgqp4xaSLaN9g/SzPpAxtdeg8+IdHuwJvjqh
+         laJ0WGZ5kRYMYjZZ2XqI3kuq+xCpW0VuWfIqLm0R/XYi3a2UwMSe4PLFo40YENi+jWlZ
+         yiyw==
+X-Forwarded-Encrypted: i=1; AFNElJ/OftwvbioylK15UXtle32+MlalLMPewWYRgTFXq6B0pB3ngki/thw133nBc2188ZKN9E5Qvh8=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz3PesINYowVIYXvwnD51pKat+ZeTsajbABaUlA5n15G6ou1O5W
+	zMynA7zYY7+8V4ZrxwmDJO2JDJn5M039gUu6keWxTvKGglOXYpQxZSGX67wMyX0rXfo=
+X-Gm-Gg: Acq92OEqrydE9SeZMz1AzPMTZqqqjepzWQS2IQcA+7KUUFomHWknAL13/ZJJ1eg8Eig
+	xX7ZBjjyDJklhi6NPuEsc3XiGE19zpYI8LPrvbHGx60WbvkVKo/4tUvk1g5KaFlNG4ysWG1giKq
+	AjZQIgp8uJLqeVICBS0ZXIPWQd/imsA6I4ceJKyF5ISaP5YU9C1IRqQA5ebUIXzsJEVfg8gUhIL
+	DIFjSR9pPlhlQxJUzac1DfWElMWRKJMtlJDDl4nP2ZsDPqoWvxOPQZApe1loMfYty9AZaUlB4/k
+	41cAdjxkkgTLdqLYP2Fz8y4SjpxKuaNlp0iNzu5tWY1/GQ3e4HcsW+lFeVRQ0QhPAVNJnxCMUcX
+	DW8HVlT0jC4DbG3tTiop/rIit9L+oYLvi3S3Cd5VORvTHTid3VZUDqGivbFXQ/N4HIykbxX7sXM
+	QEenh+pPrGwcTUwJLeM66A1lYRkj1gRfEwu7pta7aOZmG0pawQ2C2D1qR3njL6zDH0YudZo3jNM
+	vgZ2z03epporx+GQxy/IrtSnOqX4d4uEOY=
+X-Received: by 2002:ac8:5a43:0:b0:517:8069:8b04 with SMTP id d75a77b69052e-517ee2805a0mr72360891cf.37.1781213402803;
+        Thu, 11 Jun 2026 14:30:02 -0700 (PDT)
+Received: from com-75606.node.ndb.openai.org ([209.249.37.146])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8d30457764esm4788426d6.26.2026.06.11.14.30.01
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 11 Jun 2026 14:30:02 -0700 (PDT)
+From: Kyle Zeng <kylebot@openai.com>
+To: jfs-discussion@lists.sourceforge.net
+Cc: linux-kernel@vger.kernel.org,
+	Christian Brauner <brauner@kernel.org>,
+	Dave Kleikamp <shaggy@kernel.org>,
+	outbounddisclosures@openai.com,
+	Kyle Zeng <kylebot@openai.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] jfs: validate active AG before updating db_active
+Date: Thu, 11 Jun 2026 14:29:56 -0700
+Message-ID: <20260611212956.10206-1-kylebot@openai.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260611151848.2573316-1-runyu.xiao@seu.edu.cn>
-In-Reply-To: <20260611151848.2573316-1-runyu.xiao@seu.edu.cn>
-From: Steve deRosier <derosier@gmail.com>
-Date: Thu, 11 Jun 2026 14:28:04 -0700
-X-Gm-Features: AVVi8CcdEwJqkM5Tqp2QM09ml7ba32VLHw3QbyaKpzeUkeRS1S1Zxfwfe-iE90c
-Message-ID: <CALLGbRKs0ETDKNQXyCEJniGMj3htJgYmNn55_upcwjvS+0poyg@mail.gmail.com>
-Subject: Re: [PATCH] wifi: libertas_tf: kill shared URB before resubmitting it
-To: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Cc: linux-wireless@vger.kernel.org, libertas-dev@lists.infradead.org, 
-	linville@tuxdriver.com, luisca@cozybit.com, linux-kernel@vger.kernel.org, 
-	jianhao.xu@seu.edu.cn, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Thu, Jun 11, 2026 at 8:19=E2=80=AFAM Runyu Xiao <runyu.xiao@seu.edu.cn> =
-wrote:
->
-> libertas_tf's usb_tx_block() reuses a shared send URB and immediately
-> does usb_fill_bulk_urb() plus usb_submit_urb() on it. Depending on the
-> caller, that shared carrier is either cardp->tx_urb or cardp->cmd_urb.
-> There is no patch-local usb_kill_urb() before reuse, and the file-local
-> completion path provides no busy flag, completion, or other ownership
-> handoff that would make active reuse safe.
->
-> A running system can reach this through if_usb_host_to_card() for normal
-> data or command traffic, if_usb_issue_boot_command() for firmware boot
-> commands, and if_usb_send_fw_pkt() for firmware download packets. Those
-> paths all feed back into the same helper, so a second submission can
-> refill and resubmit an URB while the previous transfer is still active.
->
-> The issue was found by our static analysis tool and manually audited on
-> Linux v6.18.21. It was further validated with a focused QEMU no-device KC=
-SAN
-> harness, which reproduced active reuse of both shared carriers:
-> cardp->tx_urb through if_usb_host_to_card(), and cardp->cmd_urb through
-> if_usb_issue_boot_command() and if_usb_send_fw_pkt().
->
-> Call usb_kill_urb(urb) after selecting the shared target URB and before
-> refilling it, so both tx_urb and cmd_urb are quiesced before reuse.
->
-> Fixes: c305a19a0d0a ("libertas_tf: usb specific functions")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-> ---
->  drivers/net/wireless/marvell/libertas_tf/if_usb.c | 2 ++
->  1 file changed, 2 insertions(+)
->
-> diff --git a/drivers/net/wireless/marvell/libertas_tf/if_usb.c b/drivers/=
-net/wireless/marvell/libertas_tf/if_usb.c
-> index 5662a244f82a..7542956d3c47 100644
-> --- a/drivers/net/wireless/marvell/libertas_tf/if_usb.c
-> +++ b/drivers/net/wireless/marvell/libertas_tf/if_usb.c
-> @@ -387,6 +387,8 @@ static int usb_tx_block(struct if_usb_card *cardp, ui=
-nt8_t *payload,
->         else
->                 urb =3D cardp->cmd_urb;
->
-> +       usb_kill_urb(urb);
-> +
->         usb_fill_bulk_urb(urb, cardp->udev,
->                           usb_sndbulkpipe(cardp->udev,
->                                           cardp->ep_out),
-> --
-> 2.34.1
+When an empty regular file is opened for write, jfs_open() tracks a
+single active file per allocation group. The allocation group is derived
+from ji->ixpxd, which is copied from the on-disk inode in
+copy_from_dinode().
 
-So, If I'm reading this right, you've basically compile checked and
-such on this, but you haven't actually tried this on real hardware. If
-you had, you'd have noticed it splats all over the place.
-`usb_kill_urb()` can not be called from within an atomic context and 3
-of the 5 contexts where this is called are atomic.
+A corrupted image can set di_ixpxd to an address that maps beyond the
+mounted bmap's db_numag. The existing code stores that unchecked result
+in signed char active_ag and then uses it to index db_active[]. For
+example, an AG value of 249 wraps to -7 before the atomic increment,
+causing a write before db_active and corrupting adjacent struct bmap
+state.
 
-You've gone and fixed a very unlikely but theoretical race condition
-in a way that causes actual real damage.
+Compute the AG in an unsigned type and reject values outside db_numag
+before storing active_ag or indexing db_active[]. dbMount() already
+validates db_numag <= MAXAG, so accepted values fit in active_ag and in
+the db_active[] array.
 
-This is targeting an old Marvell 8388 which is a 802.11b/g chip. With
-a custom thin-firmware created by Cozybit for OLPC and AFAIK only ever
-used on those units. While I appreciate the "fix it for sake of
-correctness" (if indeed this would fix it, which clearly it doesn't),
-I'm not sure what the value proposition is for fixing something that
-basically isn't used anymore.
+Fixes: d31b53e3cd06 ("JFS: Don't save agno in the inode")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:gpt-5.5
+Signed-off-by: Kyle Zeng <kylebot@openai.com>
+---
+ fs/jfs/file.c | 30 ++++++++++++++++++++++++++----
+ 1 file changed, 26 insertions(+), 4 deletions(-)
 
-Anyway, this is a hard NACK.
-
-- Steve
+diff --git a/fs/jfs/file.c b/fs/jfs/file.c
+index 81556da507b9..6d5f336b7a19 100644
+--- a/fs/jfs/file.c
++++ b/fs/jfs/file.c
+@@ -38,6 +38,24 @@ int jfs_fsync(struct file *file, loff_t start, loff_t end, int datasync)
+ 	return rc ? -EIO : 0;
+ }
+ 
++static int jfs_get_active_ag(struct inode *inode, int *agp)
++{
++	struct jfs_inode_info *ji = JFS_IP(inode);
++	struct jfs_sb_info *sbi = JFS_SBI(inode->i_sb);
++	struct bmap *bmap = sbi->bmap;
++	u64 ag = BLKTOAG(addressPXD(&ji->ixpxd), sbi);
++
++	if (ag >= bmap->db_numag) {
++		jfs_error(inode->i_sb,
++			  "inode %lu has invalid active ag %llu\n",
++			  inode->i_ino, (unsigned long long)ag);
++		return -EIO;
++	}
++
++	*agp = ag;
++	return 0;
++}
++
+ static int jfs_open(struct inode *inode, struct file *file)
+ {
+ 	int rc;
+@@ -63,11 +81,18 @@ static int jfs_open(struct inode *inode, struct file *file)
+ 	if (S_ISREG(inode->i_mode) && file->f_mode & FMODE_WRITE &&
+ 	    (inode->i_size == 0)) {
+ 		struct jfs_inode_info *ji = JFS_IP(inode);
++		struct bmap *bmap;
++		int active_ag;
++
++		rc = jfs_get_active_ag(inode, &active_ag);
++		if (rc)
++			return rc;
++
+ 		spin_lock_irq(&ji->ag_lock);
+ 		if (ji->active_ag == -1) {
+-			struct jfs_sb_info *jfs_sb = JFS_SBI(inode->i_sb);
+-			ji->active_ag = BLKTOAG(addressPXD(&ji->ixpxd), jfs_sb);
+-			atomic_inc(&jfs_sb->bmap->db_active[ji->active_ag]);
++			bmap = JFS_SBI(inode->i_sb)->bmap;
++			ji->active_ag = active_ag;
++			atomic_inc(&bmap->db_active[active_ag]);
+ 		}
+ 		spin_unlock_irq(&ji->ag_lock);
+ 	}
+-- 
+2.43.0
