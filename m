@@ -1,121 +1,87 @@
-Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com [209.85.160.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 151E43CEB9D
-	for <stable@vger.kernel.org>; Thu, 11 Jun 2026 11:03:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.178
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781175828; cv=pass; b=S5K/rIaoabPFBBgLqL210XMBnHpmwfqlPF7dIjhURd1D6Ld2+mjihckrTXYShZq3+4gUzVCu0q74NDaDygcr40W2gE8qSYqwohLibLl24I7PjfhCpMiNnQv6eqqQ/Xthh6+pIXaYLaJLQ7ZiA/RVK7SjMds9GAdOo8LxZpTp0l0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781175828; c=relaxed/simple;
-	bh=cHETbsmXAI1Cmtw3DF/yWUnOAWL8bhnYgym+tiYQBYg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=sZS+IdFN5MOQWwlzJR+BW/NoLXox+JShWUfVTOs0zT9TlekT+p1zOS0RirozuTpZA0ny/CKiSYQIjvWBz5/OjLYoyKLjSTq6hPND8TYajUjuz6N6Ndw675JExUuuEHRpfUB/ceyX4QLJbgpjK0n2gxMB5MsGG6VDtcIxTGbw5Xc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=szeredi.hu; spf=pass smtp.mailfrom=szeredi.hu; dkim=pass (1024-bit key) header.d=szeredi.hu header.i=@szeredi.hu header.b=Rd49jsO3; arc=pass smtp.client-ip=209.85.160.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=szeredi.hu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=szeredi.hu
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=szeredi.hu header.i=@szeredi.hu header.b="Rd49jsO3"
-Received: by mail-qt1-f178.google.com with SMTP id d75a77b69052e-51778069c31so61902231cf.1
-        for <stable@vger.kernel.org>; Thu, 11 Jun 2026 04:03:46 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781175826; cv=none;
-        d=google.com; s=arc-20240605;
-        b=Nx2ic7F4Vfxz9i92BevaQI4wtTQRQjQ3/C6pj6adpLjgQaoD07wqbGMB8b/EZcHiFl
-         RpV/V9jX2p54/u5Yxnv6MPgc8V0k0Hd1O/mvAzP3NDzKV2xtKYiXXN8cSXiHmRxwdCUZ
-         JD0U1N0kxK58exQz2LHrednOwsuLzHgokb6aLGjYh9f5W7KaOmsUVUsarwEw9zEC+xjF
-         D4Hu4q6f7g4qWRh2jgg9bM3karOXuF6o8j28Hi8Hi2GaY5Rozc8Lmy3v3k/ocqNTvyj5
-         B2W97uH59y0FE+PFtM/1Ned+MqgCzKZvqQsr7AAQw2yd0E7cWLAEpYg7VJMOTDRsGwHl
-         rgQA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=cHETbsmXAI1Cmtw3DF/yWUnOAWL8bhnYgym+tiYQBYg=;
-        fh=MgAmkMQ4r9GKBeKrHRvwMSJHBKLrRXmehAGjDF90U/s=;
-        b=K2iJtifR84nnU+Deyfo8icpNGgUdYfffeNHEFYPG1qkzhjGL74Gv3lLF+kqx2KOrtP
-         OoKJHlqUZ1WdzQS3na8twjaBWIm4G2elpe9R1e8QNXfeG+HFjdh9lJs0+aaJge/yrBKB
-         dmzh4he+T3JSmlEOkCLav9lUmyx3RSqxy4mCHzMAra81MXrMvYk87nF8YjxZkFAlhHej
-         NMAzQATsHXeXvbSmARBqIcDIfe6rHqcGMuE74xyo02cPX+tz8McsfcCIl+pghPOqF063
-         /15InV/KjUUWv4XSQ+5Msl0Sxwvb+bC+ciMN6Nf/7wN/zR/M6JjasahPIlbyn50Hleob
-         gmFg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=szeredi.hu; s=google; t=1781175826; x=1781780626; darn=vger.kernel.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=cHETbsmXAI1Cmtw3DF/yWUnOAWL8bhnYgym+tiYQBYg=;
-        b=Rd49jsO3l1lY3RF2KuX+rknXELNjOpxr3qKIOIMJXqckJl2Q7OpEoPruQKFd1YtF//
-         6HKpdxKxwHbuI1nGdgr8AgF4Iyfo6I43U9pgrZ5wKFNCXpwKm7WBbjdJ9Zt5BnqhuEuk
-         A+6gq0nxvufyjLi6zTxBR2cfkRJpuWhRJh56U=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781175826; x=1781780626;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=cHETbsmXAI1Cmtw3DF/yWUnOAWL8bhnYgym+tiYQBYg=;
-        b=h24cuLbEy8mj7s73Hx3td+Aqtnid6MUL6zluzWpTrro4Kz8AWHRXSx3gRrJr3EExtd
-         Y+P2tS5c4tTRlFBhk2/eGApGOlwaphP83/bGDp3fDhgPFuDuwGIDi3XNnQLUrBAnvTDo
-         5P0Nhihq/PD++cBYUdKOuOrwHTC/yfD6lUMKfiIUaYPy2CHZxIa/kauXeX1NbUWgxI4r
-         HDCZAu1IYbv1UWRNkeyMiXkfzhAmeK8yrxwKDk/CpQsfJUw95Rliv48MahsEugrZPJ2a
-         /hVQsqBrlbcRHrxCWSxH0fCsB7ypsHN4xllyygciR5PJ9x3y0SFqqGeePnZGEtAmsFhq
-         kWCQ==
-X-Forwarded-Encrypted: i=1; AFNElJ/t5zOZZnZtHOtlT6EnMexs7maqWRKq8BEYpStckCMmoGdUQUYHaZf1MUAr9HjNvoi2fkAk7oE=@vger.kernel.org
-X-Gm-Message-State: AOJu0YymHntgIK4mzgRZaQye4BXVF2UGeheo9Yr2v9yX2SfR+amjlNl7
-	gFwwvpvrFzN08Iev3MqFWin+EBfZMBs7KhB0K5HRrgMvFwgQQbjnY5EOWYSWgmwqFMdj7zCEVlJ
-	QyX5DoQ3INYo0a3rzZfalwPgPpJsWVOJjpmwUtbeiUg==
-X-Gm-Gg: Acq92OFkbvsWkX6QkApi+hHLBj3op6vlfMTZrqWJkSmfzYkghX3gqnSMv/UgrKbQvHF
-	wyh3J+zUVpfKKgkD9gA5wfMnkaZiQIO6ZA82HGYSQCD4JG2oasvB6DgfqY9jgFe5kqvc0RgMr+y
-	V7WCqm8gmM3bBMgm8CDUpe+dybFw5KQATDjD1g2zr1j/5dQ6smYZGv+kUrp97WWFH0zppy0cDNR
-	Y1xGYedBAOjjbtepVVA5rp5oGG3JCn5EO92EkJPWFQ9Ub53sh8h5xgmqeqarm/Vb8jfPlpzjs/S
-	ATs0MmWjfqAjfetIitQhQ7PEafpF4rlx9kkip/QlfAVQI2zYSWo=
-X-Received: by 2002:a05:622a:5a09:b0:517:8315:d6a5 with SMTP id
- d75a77b69052e-517ee3ecc73mr34001861cf.55.1781175825944; Thu, 11 Jun 2026
- 04:03:45 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A90243B9D95;
+	Thu, 11 Jun 2026 11:09:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781176175; cv=none; b=Kd4Yd0IpDp9/96YQpHxIVq5hz1jvXIkEP8jLYc0VJPgFW6JanuJu7IbgvOuHCcCIZltMO5smIVyBX4vd2gMOS4QnzjZ+owjSizBjUiLBdMNlPK5Ple/a1j1qN0qkwFYU7/lw5e+dl3uqmWE6LNG2z6qAxcG1nimo4d7dHBPM9rM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781176175; c=relaxed/simple;
+	bh=r4yk5gLKbqPyq4I6SokKO0R2ZRD6eTlTtlo8Fqk1tPU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PmYX/AgODm3CONzIpNzknLs1cGYX0snvcbVu+Pn6W/sb+cpyYw3augYUXdJWsfqzu6SwRcGxefPj273FSBD9PCqRx0zBuXbYh30/O+e/9Z3q0K0TBijKOTGhJ+pwn92GK8F67YwOaDpT04ePn9Z+UkjpUlmjxhR0Kpy6YaUYGZY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from localhost.localdomain (unknown [117.182.75.76])
+	by APP-03 (Coremail) with SMTP id rQCowACHp95hlypq_bldFA--.8073S2;
+	Thu, 11 Jun 2026 19:09:23 +0800 (CST)
+From: WenTao Liang <vulab@iscas.ac.cn>
+To: njavali@marvell.com,
+	GR-QLogic-Storage-Upstream@marvell.com,
+	James.Bottomley@HansenPartnership.com,
+	martin.petersen@oracle.com
+Cc: linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	WenTao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] scsi: qla2xxx: fix refcount leak in qla24xx_async_prli()
+Date: Thu, 11 Jun 2026 19:09:19 +0800
+Message-ID: <20260611110919.74911-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260408172510.52950-1-joannelkoong@gmail.com>
-In-Reply-To: <20260408172510.52950-1-joannelkoong@gmail.com>
-From: Miklos Szeredi <miklos@szeredi.hu>
-Date: Thu, 11 Jun 2026 13:03:35 +0200
-X-Gm-Features: AVVi8Cdo4QiSj1oTyoStt3uNLXQRdQ43vrDqaYk9NAzSVhSlqcEh0yVVAFo3E4w
-Message-ID: <CAJfpegtR2ghZLZ2_O-YCWdMoPPEKE1naiTkmoang-=S_As72CA@mail.gmail.com>
-Subject: Re: [PATCH v2] fuse: fix io-uring background queue dispatch on
- request completion
-To: Joanne Koong <joannelkoong@gmail.com>
-Cc: bernd@bsbernd.com, hbirthelmer@ddn.com, linux-fsdevel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowACHp95hlypq_bldFA--.8073S2
+X-Coremail-Antispam: 1UD129KBjvdXoW7XF4UGr4xuF1UCFW3tw4DCFg_yoWktrg_uF
+	4UXryI9ryUursrW3WxurWfArWS9FZ7Xryvvw1jqrWfAry5u3W7Jr15uF9xXa4xt3yjvFZ8
+	Gws7WrW8ZryUujkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbcAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr0_
+	Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_GcCE3s
+	1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0
+	cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8Jw
+	ACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AFwI0_JF0_
+	Jw1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxV
+	WUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI
+	7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r
+	1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI
+	42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjfUYCJmUUUUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgsPA2oqhg409AAAsJ
 
-On Wed, 8 Apr 2026 at 19:28, Joanne Koong <joannelkoong@gmail.com> wrote:
->
-> When a background request completes via the io_uring path, the
-> background queue gets flushed to dispatch pending background requests,
-> but this is done before the connection-level background counters
-> (fc->num_background, fc->active_background) are properly accounted,
-> which may reduce effective queue depth to one.
->
-> The connection-level counters are decremented in fuse_request_end(), but
-> flush_bg_queue() flushes the /dev/fuse path queue (fc->bg_queue), not
-> the io_uring per-queue bg one, which means pending uring background
-> requests on the queue are never dispatched in this path.
->
-> Fix this by accounting the connection-level background counters first
-> before flushing the queue's background queue. Since
-> fuse_request_bg_finish() clears FR_BACKGROUND, fuse_request_end() will
-> skip the background cleanup branch entirely, which avoids any
-> double-decrements; it will call the wake_up(&req->waitq) branch but this
-> is effectively a no-op as background requests have no waiters on
-> req->waitq.
->
-> Reviewed-by: Bernd Schubert <bernd@bsbernd.com>
-> Fixes: 857b0263f30e ("fuse: Allow to queue bg requests through io-uring")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Joanne Koong <joannelkoong@gmail.com>
+When qla24xx_async_prli() fails to start an SP, it jumps to the
+done_free_sp error path and releases only the command kref via
+kref_put.  However, the vha reference count obtained earlier by
+qla2x00_get_sp() through qla_vha_mark_busy() is never released on
+this path, leading to a permanent leak of vha->vref_count.
 
-Applied, thanks.
+Fix the leak by explicitly calling QLA_VHA_MARK_NOT_BUSY(vha) in
+the error path before returning.
 
-Miklos
+Cc: stable@vger.kernel.org
+Fixes: a5d42f4cffa5 ("scsi: qla2xxx: Add FC-NVMe port discovery and PRLI handling")
+Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
+---
+ drivers/scsi/qla2xxx/qla_init.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/scsi/qla2xxx/qla_init.c b/drivers/scsi/qla2xxx/qla_init.c
+index e746c9274cde..8dd717dfcc14 100644
+--- a/drivers/scsi/qla2xxx/qla_init.c
++++ b/drivers/scsi/qla2xxx/qla_init.c
+@@ -1352,6 +1352,7 @@ qla24xx_async_prli(struct scsi_qla_host *vha, fc_port_t *fcport)
+ done_free_sp:
+ 	/* ref: INIT */
+ 	kref_put(&sp->cmd_kref, qla2x00_sp_release);
++	QLA_VHA_MARK_NOT_BUSY(vha);
+ 	fcport->flags &= ~FCF_ASYNC_SENT;
+ 	return rval;
+ }
+-- 
+2.50.1 (Apple Git-155)
+
