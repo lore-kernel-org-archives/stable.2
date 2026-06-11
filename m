@@ -1,46 +1,49 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57FA940F8CC
-	for <stable@vger.kernel.org>; Thu, 11 Jun 2026 15:26:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91A3341C302;
+	Thu, 11 Jun 2026 15:26:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781191596; cv=none; b=GvaS1nyLT7gb/p7fVC7hZ8BuJqjEgAIeeg3wEdMtJutTvylQWftAS3QHVHNlYy9gp6o0X+QJBmZnAnaYMrmYahW6pVuccH0ej7LUprzinlUCTQd7gc+MzW+oUL1/xeDLxlAsy55NA5t5INOv9Pgzw6jBi8wlBiCBUtRTWLjrBG8=
+	t=1781191598; cv=none; b=fQQGaiet62j/MOeNXgZnXl9o31KOZMYLZvSuRDaV2m1N78I6bjuqdfvAj2vwnw5w8aEFV6u0mu9cOEnMa/K5Y0vSqEEOmC8wGcdHg0S6iDq0imeDl7TTeXDJb6WUJ5ODCUnxv8+fAaLvEhtiykGyCa1Mn7I4/ra3mCn7REafvVU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781191596; c=relaxed/simple;
-	bh=t8o/UGgityGJMHj76HO8iaVSRXTqkeYimX5nVorT8Ps=;
+	s=arc-20240116; t=1781191598; c=relaxed/simple;
+	bh=DBqicv98CNBfeibSXsJa778cvJt3FtvD4CmXE/vj5ns=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=sD2hBX9mz/h9ViG0wSA/MGkToS/GwP4w9gP136imB8L5q3eXTOkP/Rs2fi/5F2/hdnTxiXH+GuszpgKFlHqYh+7Dm/IfpJKwre6JY7tGZP0XpXiKY/NxUOwrrwnxXprFj/UCdgQskCMu5vJ9VsCOwj4lJo2oBrkQDVtlq24LlMU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jwRq6ZWj; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=MOEFXRsuPaP3MGSRBPsjbC+zfuc/aBuij2BZtN8WLwIBTrD7H+/J5Y8dPvCz14EMadjxSzPzC/RxclSB+RbmT42b3X9uWQmjWhf8tnSm6DBxW1nvCkvCB0d54os083FXh4ZZQqAeciFD3J0xSLtOE3VHLC7f+unMp2b9K2TgWAE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E2IAczJH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jwRq6ZWj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 414821F00899;
-	Thu, 11 Jun 2026 15:26:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E2IAczJH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B6561F0089A;
+	Thu, 11 Jun 2026 15:26:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781191595;
-	bh=t8o/UGgityGJMHj76HO8iaVSRXTqkeYimX5nVorT8Ps=;
+	s=k20260515; t=1781191596;
+	bh=DBqicv98CNBfeibSXsJa778cvJt3FtvD4CmXE/vj5ns=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jwRq6ZWj/VLEqSLG+wXtgjJbRFSZ2OqciUOqqXBljPbUx++OwxhrCwF5HBpER8mR7
-	 kg7dMQaMiOrN25riM3UZ8Ky0EokXYJ9RJJKoFmLF9bHznRWiJxBpzfbuE6NxZbz5OQ
-	 IlKmb4v8NKmun4Yj9tn38aRQN91WqUdU7P8i+lAanpRhItVn9XZQXrAv7wEHSVE8cg
-	 KODMQEmNWQr4jdJWcMBgDvcL5T6PI+jTYG4oCbOVIA8LG3v8VK2h2nfelA1Wd42vYV
-	 NPXVRA2v1KQwwO+nRXkWZgsO7Xjjj2oJJ2YgLdBtSso6K35GSc+SVefQgtbL/s1Hnf
-	 NnTYOG3yNjRvQ==
+	b=E2IAczJHXaOhDUioPEcN2QaawM0NOCZXvaU1aIYetgS5fjVWWIqAWOjbrZAsr3rKE
+	 jPd/i2ZwvdlvJh/zo0EL4NA8he+zSYOcbF2Ry3mvItgl4SM7yIdWSJdmRl8VVL8npl
+	 TiDh87bTK5nN/O5mbn5koGg3CGcuDeA8lCSSpADbqs+d5A80RZSAQpES8D59+O90By
+	 d3CIoFqaQ6f0xz8Xfmc69fgpZDoeZscXI54uEVP9UsubdcoFIkGHszjhWmK+WWczSh
+	 pvbCGd48BX4iJwg+5CkjdbLuGispmUIneoPcMcYIfs0moESl3XKxfOD8F4+XGIBOTZ
+	 KLF8QcqX7az7Q==
 From: Sasha Levin <sashal@kernel.org>
-To: Salvatore Bonaccorso <carnil@debian.org>
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Cc: Sasha Levin <sashal@kernel.org>,
-	stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Minh Nguyen <minhnguyen.080505@gmail.com>,
-	Willem de Bruijn <willemb@google.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Ben Hutchings <ben@decadent.org.uk>
-Subject: Re: Please apply 98d0912e9f84 ("net: skbuff: fix missing zerocopy reference in pskb_carve helpers") to 6.1.y
-Date: Thu, 11 Jun 2026 11:26:23 -0400
-Message-ID: <20260611-stable-reply-0105@kernel.org>
+	Alexey Panov <apanov@astralinux.ru>,
+	Jens Axboe <axboe@kernel.dk>,
+	Pavel Begunkov <asml.silence@gmail.com>,
+	Prithvi Tambewagh <activprithvi@gmail.com>,
+	linux-kernel@vger.kernel.org,
+	io-uring@vger.kernel.org,
+	lvc-project@linuxtesting.org,
+	Li Zetao <lizetao1@huawei.com>
+Subject: Re: [PATCH 5.10] io_uring: prevent opcode speculation
+Date: Thu, 11 Jun 2026 11:26:24 -0400
+Message-ID: <20260611-stable-reply-0106@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <aioyuCnSKlch1wdv@eldamar.lan>
-References: <aioyuCnSKlch1wdv@eldamar.lan>
+In-Reply-To: <20260610172203.27999-1-apanov@astralinux.ru>
+References: <20260610172203.27999-1-apanov@astralinux.ru>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,19 +52,19 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Thu, Jun 11, 2026 at 05:59:52AM +0200, Salvatore Bonaccorso wrote:
-> I tested down to 6.1.y; the 6.6.y commit needs to be slightly
-> different. I have not tested 5.15/5.10 (no net_zcopy_get() in 5.10.y,
-> so more work there). Should I send an explicit 6.6.y patch, or will
-> you pick the change for 6.6.y and 6.1.y yourself?
+On Wed, Jun 10, 2026 at 08:22:03PM +0300, Alexey Panov wrote:
+> From: Pavel Begunkov <asml.silence@gmail.com>
+>
+> commit 1e988c3fe1264708f4f92109203ac5b1d65de50b upstream.
+>
+> sqe->opcode is used for different tables, make sure we santitise it
+> against speculations.
 
-Your 6.1.y patch applies cleanly and looks correct. But I can't queue it
-on its own: 98d0912e9f84 isn't in 6.6.y yet, and I don't add a fix to an
-older tree while a newer one is missing it. So I'm holding the 6.1.y
-change until 6.6.y is sorted.
-
-Rather than have me hand-adapt the other trees, please send explicit
-per-branch backports: your 6.1 patch doesn't apply cleanly to 6.6.y
+The 5.10 backport itself looks fine, but I can't take it on its own:
+1e988c3fe126 is still missing from 6.6.y and 6.12.y (it's present in
+7.0, 6.18, 6.1 and 5.15), and we don't add a fix to an older tree while
+a newer one is missing it. Once 6.6.y and 6.12.y carry it, I'll queue
+the 5.10 backport.
 
 --
 Thanks,
