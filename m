@@ -1,147 +1,279 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD7532D8DB5
-	for <stable@vger.kernel.org>; Thu, 11 Jun 2026 02:50:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E48411A9F83;
+	Thu, 11 Jun 2026 02:51:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.29.241.158
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781146251; cv=none; b=LH7z/QOAkFpsuR64QSGlq2ANgF8ZOlLgEproB7GjRaTXQq4k7UPIBEoBfyqxNS9BRICktYHf8eB3hBPk0+BoxkAFhFtwFD+wfnoYf8a6VzJq4XBot+svgcCdA8pBMChQ+bdQHAGjgdpe0ltDw7qKrBmIy0RL0SXmLbPzX1B9o8s=
+	t=1781146262; cv=none; b=Ph1Lk5BUXkVTf1g9UtxyqIqd2a9cqf2Iq6/gE2HB70bb/ng8ok7Q/m1k7UnIuRDw2SwesJxaV3zfBYTe1fxOAvpaw2MTf7XgAbSzsq6SHOzBQtWko9zCeazYG9W5p4a8zUHcPHrQUMA4hN4lcIbeJpN7PYgcdZzEOGXeRxDirs0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781146251; c=relaxed/simple;
-	bh=5xCwTikiya66h9P56QgbjupR8T8Zpq6Mr2nqwVAVxkI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=mx16icearcwX++79u4PU/XB637+ZsLEH5rOva2cBglx6XCbe3PntaTJauyt+I06rSZI/j4a8DOrPSq/pDlcXNkbmGNJzLDn0duyKSIof2jQ6+bBgpO/GMD27o5nfSQpysY2mX+RN8Awa9+J79l5yo2Z6yRGaP33Ay6b5ddKfieA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=PSFbKFrl; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1781146262; c=relaxed/simple;
+	bh=C3YTxhG6yw9+1kzmS/holNzq9WZBoZgPlwMhdmYMrfw=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=IOa7h+uxtPRgbrCRhFn1uFlzfPxWoxAZxPxadUJ7XxypkOUgyGDLslWFcspkpy1QJaFewQclsY2AfEKuOrEe7mrIgAM4ceKQGqxa+GhoI/qBK6jlwTQ/yfCXdxGFTVXm4Re4ghC3E31l5DjOZZ3oyR8/3mtbsB7VsNAkuXycMXU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au; spf=pass smtp.mailfrom=codeconstruct.com.au; dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b=SYVLyqrQ; arc=none smtp.client-ip=203.29.241.158
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codeconstruct.com.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="PSFbKFrl"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1781146249;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=zeTt+ma90++oB/pmg/novekOFyYf+u+Cy444ynH4ojc=;
-	b=PSFbKFrl/rO23Ry29nmZxVR9x1UlI2tCf9j86gWzipJVyOhExPHaTXCyL53CBZvyaCEP3R
-	nPdShKcqySh3xwWZuvpKkhoxJZdHUwRhBZwOoKkb/5zdVq0hM1UpS2dddu57iIXXVwn9qh
-	0i6lmz/puRe8b2jkWvCTbMgPo45YRJ4=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-533-4GuzfYPJNDWLqOuDDRCa9Q-1; Wed,
- 10 Jun 2026 22:50:45 -0400
-X-MC-Unique: 4GuzfYPJNDWLqOuDDRCa9Q-1
-X-Mimecast-MFC-AGG-ID: 4GuzfYPJNDWLqOuDDRCa9Q_1781146243
-Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 41C861964CF2;
-	Thu, 11 Jun 2026 02:50:42 +0000 (UTC)
-Received: from [10.22.81.61] (unknown [10.22.81.61])
-	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 4CE7E2ED4;
-	Thu, 11 Jun 2026 02:50:39 +0000 (UTC)
-Message-ID: <c1cb5025-d089-4e73-8bb4-d7b8cc0badf7@redhat.com>
-Date: Wed, 10 Jun 2026 22:50:38 -0400
+	dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b="SYVLyqrQ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=codeconstruct.com.au; s=2022a; t=1781146253;
+	bh=jC17BLRupxjFh4QurP21wywIDB1dwNBEJxTReffswGw=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=SYVLyqrQiN1Offva8UPZ/gcqnw2zJNMdKsotwp/JLCuPsS3QbUUTWLgd3VSMGSx4r
+	 5lNrAFl0iQ3VyHQIhNRslyvUoQegK1YJJyYIAmSLlcH7SQ295Iurh6pvD2LRT0tS+2
+	 Vy7YqlcusxaPBLVl7Qr8IDkViYYromvKsx1lbSv2soYjuVT2VMp/P5xdFe3MAkHBbc
+	 TQxiaY/7wvy1R/wqtie29/p7FPHVYpvL0c+u/zRts/P49RXY/SZGPdtIdqtW8GiU10
+	 r9MpCEybw18qEdiOALgdqtormaeygxfVlaMpcKEFkh2Rx077FgY1Q7uEdgLXbpMoCc
+	 GaFVW+6bDAG4A==
+Received: from [192.168.68.117] (unknown [180.150.112.11])
+	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id 6573D60A0C;
+	Thu, 11 Jun 2026 10:50:51 +0800 (AWST)
+Message-ID: <64f8d88bf4cd72d8120baaa304dfe34bb66cbe0b.camel@codeconstruct.com.au>
+Subject: Re: [PATCH v5] soc: aspeed: lpc-snoop: Fix usercopy overflow in
+ snoop_file_read
+From: Andrew Jeffery <andrew@codeconstruct.com.au>
+To: Karthikeyan KS <karthiproffesional@gmail.com>
+Cc: joel@jms.id.au, andrew@aj.id.au, Kees Cook <kees@kernel.org>, 
+	linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org, 
+	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, 
+	stable@vger.kernel.org
+Date: Thu, 11 Jun 2026 12:20:50 +0930
+In-Reply-To: <20260610172310.163321-1-karthiproffesional@gmail.com>
+References: 
+	<033f2657ae6a94ad13d22f717a2900afb75d892d.camel@codeconstruct.com.au>
+	 <20260610172310.163321-1-karthiproffesional@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] cgroup/cpuset: rebind mm mempolicy to effective_mems, not
- mems_allowed
-To: Farhad Alemi <farhad.alemi@berkeley.edu>,
- Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, Gregory Price <gourry@gourry.net>
-Cc: Farhad Alemi <falemi@asu.edu>, Yury Norov <ynorov@nvidia.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Zi Yan <ziy@nvidia.com>,
- Matthew Brost <matthew.brost@intel.com>, Rakie Kim <rakie.kim@sk.com>,
- Byungchul Park <byungchul@sk.com>, Ying Huang
- <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
- Rasmus Villemoes <linux@rasmusvillemoes.dk>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, cgroups@vger.kernel.org, stable@vger.kernel.org
-References: <25c4bc47-b65d-4c04-8a8f-18eef2b5566a@kernel.org>
- <CA+0ovCg05rUk1-3k2ysdxmbcER8aG-wVh9SSTrrbp6LPWpPHYA@mail.gmail.com>
-Content-Language: en-US
-From: Waiman Long <longman@redhat.com>
-In-Reply-To: <CA+0ovCg05rUk1-3k2ysdxmbcER8aG-wVh9SSTrrbp6LPWpPHYA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
-On 6/9/26 7:57 PM, Farhad Alemi wrote:
-> cpuset_update_tasks_nodemask() rebinds a task's own mempolicy to the
-> cpuset's effective, online mems (newmems, from guarantee_online_mems()),
-> but rebinds that task's VMA mempolicies to the *configured* mask instead:
->
-> 	cpuset_change_task_nodemask(task, &newmems);
-> 	...
-> 	mpol_rebind_mm(mm, &cs->mems_allowed);
->
-> On the default (v2) hierarchy a cpuset that has never had cpuset.mems
-> written keeps mems_allowed empty while effective_mems is inherited
-> non-empty from the parent, and tasks may be attached to it (the
-> empty-mems attach check is v1-only).  A subsequent rebind -- e.g. from a
-> CPU hotplug event walking the cpuset -- then calls mpol_rebind_mm() with
-> an empty mask.  For a VMA policy created with MPOL_F_RELATIVE_NODES this
-> reaches mpol_relative_nodemask() ->
-> nodes_fold(..., nodes_weight(cs->mems_allowed) == 0) -> bitmap_fold(),
-> whose set_bit(oldbit % sz, dst) divides by zero:
->
->    Oops: divide error: 0000 [#1] SMP KASAN NOPTI
->    RIP: 0010:bitmap_fold+0x5e/0xb0
->     mpol_rebind_nodemask
->     mpol_rebind_mm
->     cpuset_update_tasks_nodemask
->     cpuset_handle_hotplug
->     sched_cpu_deactivate
->     cpuhp_thread_fun
->
-> cs->mems_allowed is the only nodemask in this function that is not the
-> effective set: the task-policy rebind, the page-migration target and
-> cs->old_mems_allowed all use newmems.  The sibling cpuset_attach() path
-> already rebinds VMA policies against the effective mems
-> (cpuset_attach_nodemask_to = cs->effective_mems) and explicitly notes
-> that mems_allowed can be empty under hotplug.  Rebind the VMA policies to
-> newmems too: it is guaranteed non-empty by guarantee_online_mems(), which
-> fixes the divide-by-zero, and it makes the VMA policies consistent with
-> the task policy and with the nodes the task is actually allowed to use.
->
-> Fixes: ae1c802382f7 ("cpuset: apply cs->effective_{cpus,mems}")
-> Suggested-by: Gregory Price <gourry@gourry.net>
-> Signed-off-by: Farhad Alemi <farhad.alemi@berkeley.edu>
+Hi Karthikeyan,
+
+On Wed, 2026-06-10 at 17:23 +0000, Karthikeyan KS wrote:
+> put_fifo_with_discard() acts as both producer and consumer on the kfifo:
+> it calls kfifo_skip() (advances out) and kfifo_put() (advances in) from
+> the IRQ handler without synchronizing with snoop_file_read(), which also
+> consumes via kfifo_to_user(). On SMP systems this concurrent access can
+> leave (in - out) larger than the ring buffer, so __kfifo_to_user()'s clam=
+p
+> to (in - out) is ineffective and kfifo_copy_to_user() can attempt a
+> copy_to_user() past the kmalloc-2k backing store:
+>=20
+> =C2=A0 usercopy: Kernel memory exposure attempt detected from SLUB object
+> =C2=A0 'kmalloc-2k' (offset 0, size 2049)!
+> =C2=A0 kernel BUG at mm/usercopy.c!
+> =C2=A0 Call trace:
+> =C2=A0=C2=A0 usercopy_abort
+> =C2=A0=C2=A0 __check_heap_object
+> =C2=A0=C2=A0 __check_object_size
+> =C2=A0=C2=A0 kfifo_copy_to_user
+> =C2=A0=C2=A0 __kfifo_to_user
+> =C2=A0=C2=A0 snoop_file_read
+> =C2=A0=C2=A0 vfs_read
+>=20
+> Serialize kfifo access with a per-channel spinlock. The reader drains
+> into a bounce buffer under the lock with kfifo_out_spinlocked() and then
+> copies to userspace after dropping it, since copy_to_user() may sleep on
+> a page fault.
+>=20
+> Fixes: 3772e5da4454 ("drivers/misc: Aspeed LPC snoop output using misc ch=
+ardev")
 > Cc: stable@vger.kernel.org
+> Signed-off-by: Karthikeyan KS <karthiproffesional@gmail.com>
 > ---
->   kernel/cgroup/cpuset.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-> --- a/kernel/cgroup/cpuset.c
-> +++ b/kernel/cgroup/cpuset.c
-> @@ -2649,7 +2649,7 @@ void cpuset_update_tasks_nodemask(struct cpuset *cs)
->
->   		migrate = is_memory_migrate(cs);
->
-> -		mpol_rebind_mm(mm, &cs->mems_allowed);
-> +		mpol_rebind_mm(mm, &newmems);
->   		if (migrate)
->   			cpuset_migrate_mm(mm, &cs->old_mems_allowed, &newmems);
->   		else
+> Andrew,
+>=20
+> Thanks for the review.
+>=20
+> Changes since v4:
+> - Use __free(kfree) for automatic cleanup
+> - Allocate clamped count instead of full SNOOP_FIFO_SIZE
+> - Use kfifo_out_spinlocked() in snoop_file_read
+> - Use scoped_guard(spinlock) in put_fifo_with_discard
+>=20
+> =C2=A0drivers/soc/aspeed/aspeed-lpc-snoop.c | 25 +++++++++++++++++++-----=
+-
+> =C2=A01 file changed, 19 insertions(+), 6 deletions(-)
+>=20
+> diff --git a/drivers/soc/aspeed/aspeed-lpc-snoop.c b/drivers/soc/aspeed/a=
+speed-lpc-snoop.c
+> index b03310c0830d..c9c87a794228 100644
+> --- a/drivers/soc/aspeed/aspeed-lpc-snoop.c
+> +++ b/drivers/soc/aspeed/aspeed-lpc-snoop.c
+> @@ -11,6 +11,7 @@
+> =C2=A0 */
+> =C2=A0
+> =C2=A0#include <linux/bitops.h>
+> +#include <linux/cleanup.h>
+> =C2=A0#include <linux/clk.h>
+> =C2=A0#include <linux/dev_printk.h>
+> =C2=A0#include <linux/interrupt.h>
+> @@ -74,6 +75,7 @@ struct aspeed_lpc_snoop_channel_cfg {
+> =C2=A0struct aspeed_lpc_snoop_channel {
+> =C2=A0	const struct aspeed_lpc_snoop_channel_cfg *cfg;
+> =C2=A0	bool enabled;
+> +	spinlock_t		lock;=C2=A0=C2=A0=C2=A0 /* serialises @fifo: irq producer v=
+s reader */
 
-Could you change it to &cs->effecitve_mems instead? For v2, 
-effective_mems will never be empty.
+I'd prefer we avoid trailing comments, which it seems you've added this
+time around. Since you did that ...
 
-In fact, this is part of the following patch
+> =C2=A0	struct kfifo		fifo;
 
-https://lore.kernel.org/lkml/20260604150229.414135-2-longman@redhat.com/
+... in this specific case we can improve on the comment, with:
 
-Given that this bug can crash the kernel, it should be separated out as 
-a separate patch.
+   struct kfifo fifo __guarded_by(&lock);
 
-Cheers,
-Longman
+More details here:
 
+   https://docs.kernel.org/dev-tools/context-analysis.html
 
+Adding a change along these lines currently produces:
+
+   ../drivers/soc/aspeed/aspeed-lpc-snoop.c:164:32: warning: reading variab=
+le 'fifo' requires holding spinlock '&aspeed_lpc_snoop_channel::lock' [-Wth=
+read-safety-analysis]
+     164 |         if (!kfifo_initialized(&chan->fifo))
+         |                                       ^
+
+I ended up applying this on top of your patch:
+
+   diff --git a/drivers/soc/aspeed/Makefile b/drivers/soc/aspeed/Makefile
+   index b35d74592964..9cba7be8c395 100644
+   --- a/drivers/soc/aspeed/Makefile
+   +++ b/drivers/soc/aspeed/Makefile
+   @@ -4,3 +4,5 @@ obj-$(CONFIG_ASPEED_LPC_SNOOP)          +=3D aspeed-lpc-=
+snoop.o
+    obj-$(CONFIG_ASPEED_UART_ROUTING)      +=3D aspeed-uart-routing.o
+    obj-$(CONFIG_ASPEED_P2A_CTRL)          +=3D aspeed-p2a-ctrl.o
+    obj-$(CONFIG_ASPEED_SOCINFO)           +=3D aspeed-socinfo.o
+   +
+   +CONTEXT_ANALYSIS_aspeed-lpc-snoop.o    :=3D y
+   diff --git a/drivers/soc/aspeed/aspeed-lpc-snoop.c b/drivers/soc/aspeed/=
+aspeed-lpc-snoop.c
+   index 9165a543a250..7fa1a345acac 100644
+   --- a/drivers/soc/aspeed/aspeed-lpc-snoop.c
+   +++ b/drivers/soc/aspeed/aspeed-lpc-snoop.c
+   @@ -75,8 +75,8 @@ struct aspeed_lpc_snoop_channel_cfg {
+    struct aspeed_lpc_snoop_channel {
+           const struct aspeed_lpc_snoop_channel_cfg *cfg;
+           bool enabled;
+   -       spinlock_t              lock;    /* serialises @fifo: irq produc=
+er vs reader */
+   -       struct kfifo            fifo;
+   +       spinlock_t              lock;
+   +       struct kfifo            fifo __guarded_by(&lock);
+           wait_queue_head_t       wq;
+           struct miscdevice       miscdev;
+    };
+   @@ -161,9 +161,9 @@ static const struct file_operations snoop_fops =3D {
+    /* Save a byte to a FIFO and discard the oldest byte if FIFO is full */
+    static void put_fifo_with_discard(struct aspeed_lpc_snoop_channel *chan=
+, u8 val)
+    {
+   -       if (!kfifo_initialized(&chan->fifo))
+   -               return;
+           scoped_guard(spinlock, &chan->lock) {
+   +               if (!kfifo_initialized(&chan->fifo))
+   +                       return;
+                   if (kfifo_is_full(&chan->fifo))
+                           kfifo_skip(&chan->fifo);
+                   kfifo_put(&chan->fifo, val);
+   @@ -240,7 +240,6 @@ static int aspeed_lpc_enable_snoop(struct device *de=
+v,
+                   return -EBUSY;
+   =20
+           init_waitqueue_head(&channel->wq);
+   -       spin_lock_init(&channel->lock);
+   =20
+           channel->cfg =3D cfg;
+           channel->miscdev.minor =3D MISC_DYNAMIC_MINOR;
+   @@ -252,9 +251,11 @@ static int aspeed_lpc_enable_snoop(struct device *d=
+ev,
+           if (!channel->miscdev.name)
+                   return -ENOMEM;
+   =20
+   -       rc =3D kfifo_alloc(&channel->fifo, SNOOP_FIFO_SIZE, GFP_KERNEL);
+   -       if (rc)
+   -               return rc;
+   +       scoped_guard(spinlock_init, &channel->lock) {
+   +               rc =3D kfifo_alloc(&channel->fifo, SNOOP_FIFO_SIZE, GFP_=
+KERNEL);
+   +               if (rc)
+   +                       return rc;
+   +       }
+   =20
+           rc =3D misc_register(&channel->miscdev);
+           if (rc)
+  =20
+I prefer that we add the annotation as the compiler analysis provides
+some comfort in contrast to the comment.
+
+Otherwise, the rest of the fix seems okay to me.
+
+Andrew
+
+> =C2=A0	wait_queue_head_t	wq;
+> =C2=A0	struct miscdevice	miscdev;
+> @@ -114,6 +116,7 @@ static ssize_t snoop_file_read(struct file *file, cha=
+r __user *buffer,
+> =C2=A0				size_t count, loff_t *ppos)
+> =C2=A0{
+> =C2=A0	struct aspeed_lpc_snoop_channel *chan =3D snoop_file_to_chan(file)=
+;
+> +	u8 *buf __free(kfree) =3D NULL;
+> =C2=A0	unsigned int copied;
+> =C2=A0	int ret =3D 0;
+> =C2=A0
+> @@ -125,9 +128,16 @@ static ssize_t snoop_file_read(struct file *file, ch=
+ar __user *buffer,
+> =C2=A0		if (ret =3D=3D -ERESTARTSYS)
+> =C2=A0			return -EINTR;
+> =C2=A0	}
+> -	ret =3D kfifo_to_user(&chan->fifo, buffer, count, &copied);
+> -	if (ret)
+> -		return ret;
+> +
+> +	count =3D min_t(size_t, count, SNOOP_FIFO_SIZE);
+> +
+> +	buf =3D kmalloc(count, GFP_KERNEL);
+> +	if (!buf)
+> +		return -ENOMEM;
+> +
+> +	copied =3D kfifo_out_spinlocked(&chan->fifo, buf, count, &chan->lock);
+> +	if (copied && copy_to_user(buffer, buf, copied))
+> +		return -EFAULT;
+> =C2=A0
+> =C2=A0	return copied;
+> =C2=A0}
+> @@ -153,9 +163,11 @@ static void put_fifo_with_discard(struct aspeed_lpc_=
+snoop_channel *chan, u8 val)
+> =C2=A0{
+> =C2=A0	if (!kfifo_initialized(&chan->fifo))
+> =C2=A0		return;
+> -	if (kfifo_is_full(&chan->fifo))
+> -		kfifo_skip(&chan->fifo);
+> -	kfifo_put(&chan->fifo, val);
+> +	scoped_guard(spinlock, &chan->lock) {
+> +		if (kfifo_is_full(&chan->fifo))
+> +			kfifo_skip(&chan->fifo);
+> +		kfifo_put(&chan->fifo, val);
+> +	}
+> =C2=A0	wake_up_interruptible(&chan->wq);
+> =C2=A0}
+> =C2=A0
+> @@ -228,6 +240,7 @@ static int aspeed_lpc_enable_snoop(struct device *dev=
+,
+> =C2=A0		return -EBUSY;
+> =C2=A0
+> =C2=A0	init_waitqueue_head(&channel->wq);
+> +	spin_lock_init(&channel->lock);
+> =C2=A0
+> =C2=A0	channel->cfg =3D cfg;
+> =C2=A0	channel->miscdev.minor =3D MISC_DYNAMIC_MINOR;
