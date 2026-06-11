@@ -1,148 +1,118 @@
-Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com [209.85.160.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E403530BF66
-	for <stable@vger.kernel.org>; Thu, 11 Jun 2026 18:26:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.181
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781202397; cv=pass; b=H0W2YhPc6vR0NkHjBs8u4CdTJO8Ws2swQfFeDgLirOg/mwW8s7TzKxhNp+BDqlDM3nuVbWJD41YoC9aCxk6eJOIwtsu6+tykBhJTRiwGHii4ahqzCZ5AL+Jl28Og9xvZduWNtp+hrVv9ojnna5LTlVNK8DfWmpaOk3CPxWQALac=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781202397; c=relaxed/simple;
-	bh=itDhPXr2ym6uljZNFH7ztIm2NNS8EYC6wS0LUwCLuIY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=uLH0BSTs2/3IHOPxm12zUxt1sGXm7HKZNGahOmmDdaM5fXsAomUSoqQEbvBHjfmfnkcSLfDzQ3H/EzjLnwHCn9VRGmHkQuYPYqNO7kWcnBDdxx/APPAwcANt6uOpRgG1WMFqcIfmX18o9YQEUQgSmWskUcRd0gDoLz4MgIekfG0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=CtfNN5vE; arc=pass smtp.client-ip=209.85.160.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3EC4E4D2ECC
+	for <stable@vger.kernel.org>; Thu, 11 Jun 2026 18:39:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781203163; cv=none; b=HrOXXPbgCrbwqKkEfwjJmfDlrZKGyIUeYAb421rDaUOtEFAGzToqIb6gQb9matfOtec94OjTHpbzjJeW4ABZqox3pp5FZka1BZvXSJCiBCVuPtqbVjXp4ydbrfljbVLPYrskgqRescdlEVoGBUeHo2j3gUerKvBIXuej9G7tFsI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781203163; c=relaxed/simple;
+	bh=umO5DFW5EcWoAgilQ2RtuVGrb6J99JQZBfqeOfDjBhM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=k7aRpphFn6K5HVyDSb8kazqugYiFhws/SCvtfio5gea6MBp6pdVLk9I/3J8E4T8vXYqwr6OADPUcV1VytZp04yRv4J39dUS3o1PaTymvJ9M9/QuFILu1ku3wyOif390KPrUnm9cYoACgfNGXTIuOryP2G7qopqlaR2IJhdO1o6w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=I7RdgEet; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="CtfNN5vE"
-Received: by mail-qt1-f181.google.com with SMTP id d75a77b69052e-51765531803so89221cf.0
-        for <stable@vger.kernel.org>; Thu, 11 Jun 2026 11:26:32 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781202392; cv=none;
-        d=google.com; s=arc-20240605;
-        b=Ml26UfOK627Y3nwBvB24TozTJLpKSWJUC4n1Ju2SmAVMSgYvi97kQBkLdtm6wHDXjb
-         9WpsagERT1YS4tH0H5e9QCl3b+fILi67pl0xC7pG4xBPWrjHQ1pm0vgL2GgVthL75OPW
-         kznO7IhP8AJ3ogXb6OD1OeDmUTbF6C4m0jSG03XHrl2QoXHsJYPbS0/ilWlkktcv/CMd
-         d3lThEuJWyY409R1I0ZWjB1o2FCA8PnPWWH4DGeBjUTMXwv7U7kce8ZaqdY3eAF1iIdt
-         fEYljFr0kmccdb5ykA/XSdBZ7uZIoAsG8IYp43YNvTnHnP5JgTOuhrpufS90dQnJOvex
-         yE/w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=RjO+U1+VNdBV2gUvNtl1hA8qIVDLyU6x+S8pv+zOymo=;
-        fh=JOWjdt8JhJo4H7gUCeoYX2kjLw/H2MvKsOQ6iGHTkyc=;
-        b=DkZmM+dyAUS3AaEu7cwnSAP4CO3yb5NNR7YIukQmIx9Ygcgcklmw7Xn2HUjmp2OhuD
-         Ur1zzf3SFEFXKylw4T9xkquEdjDBZ0qJ6fQa/muYd8ZBTLiIUP3CiSPfwi5yXVIzQK/Q
-         bXRKTnJ1I2yFhZsrrw0aVZKxkykaMyQH934F0zwBuToEsUZ7THL9TETviLxvEO7ehU1L
-         26C7LFGClPtFoW59VOz4q4maAhtAltiEbwaNRKFuY2lcCrdB3ItcJOJf+N8e/KItTxQ/
-         hYM8AIQ3RzvMXwMPsxM3KnwUoATRG5oi1PhE+MmGi8pTxiMid31tDVDsGIsi8LQiOgP0
-         cl2A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1781202392; x=1781807192; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=RjO+U1+VNdBV2gUvNtl1hA8qIVDLyU6x+S8pv+zOymo=;
-        b=CtfNN5vEAglz/8F5pdX68J+4E9uhHfYYmwGU1B68Eu9gVtKL6Y0oktf5KbBNyq2XTP
-         tjbyCvLWvsx3apKKKDjs4bGRz9Ze5bepSWprMJoa/zDg5FHI9B8FcIw9aXCfaGvopZEr
-         Qq9F3PzPI2uBvVia9D+uZXQvmqALavDO1QTte9X3VAJ8u6x46HwE/UrNBTXQGOazrNSx
-         Vwmtimj5BTZjJcdc26JLPUfpDWhU/en+kW5xFQIx9LcHNnVqy8ff0n+zg2Nw1ctlsjCx
-         dvy4Ab7Lj1W4yrA7EZmvAdiUJ0v2dp53FiNWm9/z5+kFlwYhMkcJf83KpvAbR3sbOf3B
-         +19A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781202392; x=1781807192;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=RjO+U1+VNdBV2gUvNtl1hA8qIVDLyU6x+S8pv+zOymo=;
-        b=LuPKcKVbKQZJiSeEdrxbzHH0ncNyuaAF7+Ek4z+pRepLNaVQkPhYZ3e6RQikvfSwZG
-         3sA5Rb4XDuD/zNnT5qDfMApaSJ76sjkdyYKYhyutKbCI+B/bPdzZEUbPjKs45Zsc+0h2
-         O/yk1+uS5oA/lpnqMwfmsY4KHf0OZynMLn9QXz+o0BBE6Nx1+CBBx6xcc00Ie/6PG1yH
-         7ZwioLRTi1n4fQJ7Xd18sXe8s5KM94RyTktY1/A++JOQWPjGJR7uVBNS4sUJ5pXdZHm8
-         FK1X31LqJCH/G3TnUSJvLfKB3nDPkBJBAdkYzXDlDscgGA/N+1wFGd0R+L6s5oWwPHmj
-         p0tg==
-X-Forwarded-Encrypted: i=1; AFNElJ8vllB69kCcU9VzK7GNQeFJzYVFKhC+5Oko1BDlM2xIuoVQxSisMz1sdkUaRgb6TeIb50Ia9O4=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx1VXTq9udAMvLg41GxeFPi0761QOh1jfCY+RaCQUm7fRX/6kyp
-	Px9bcLrtH52CUFLXlsnzm3H3ruF1ql8NiD8uIMqrE8P42DPWg30Uc2qkjWHT4iWN7ulpv/7gbEX
-	NrSLRJwPe6zDBo8rlhEMOkV81w4oKHby9cNUnUsA1
-X-Gm-Gg: Acq92OFz2hookDzqBovAULEzaH1p1kpGGh7oqNv/XamWJzFVzxMV6JaPCC52dZONOlK
-	FzyI8r1R+zEliiN7WyNzL+ruMoC34fdLJ7shSiK7jVAtGDYc9QdKIiG2UENuUz2tbUpbbq93U+z
-	pI8/B4YtXA0qYY0q50V3NFZUEqSVBEJ8QxdaE9DeV1jUDaXC/RfGv+SCsWYRzPLlg6MMjQPT49U
-	wAh2u4MCL5uylvh7/IqVR/dQe6WtodeBPVLXefOa00PYqRDENtVgByeN5LWl3raVAq7UlSlKk2T
-	pszfzk9W1BDSnVsE0JchKXxS1B9H0qf85O4V9g==
-X-Received: by 2002:a05:622a:130e:b0:510:f9b:fb5f with SMTP id
- d75a77b69052e-517fb08448bmr937311cf.16.1781202391118; Thu, 11 Jun 2026
- 11:26:31 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="I7RdgEet"
+Received: by linux.microsoft.com (Postfix, from userid 1216)
+	id 712A120B7167; Thu, 11 Jun 2026 11:39:03 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 712A120B7167
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1781203143;
+	bh=GU4z/IiDEL3THNKz/dG9OMy+D0d55stkPSMejtG0Jho=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=I7RdgEetfOcOB1k+ypB4y18dL0vHpfgfkKnI2F2sG+8+Ezgxp8xWXw1RI+5nYaVy3
+	 NM7Lf4XgeLkKVdmrdCpJjwoFvkv5vys+AWlaCmDa5DhB+HWRsiTdblrwJxa/qGUco2
+	 np0C6of2lN1qNFE6atfkplkMINv7MFhl0V45MiUw=
+Date: Thu, 11 Jun 2026 14:39:03 -0400
+From: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
+To: Fedor Pchelkin <pchelkin@ispras.ru>
+Cc: Leah Rumancik <leah.rumancik@gmail.com>, stable@vger.kernel.org,
+	xfs-stable@lists.linux.dev, "Darrick J. Wong" <djwong@kernel.org>,
+	Christoph Hellwig <hch@lst.de>,
+	Catherine Hoang <catherine.hoang@oracle.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	lvc-project@linuxtesting.org
+Subject: Re: [PATCH 6.6 0/4] fix kernel crash for xfs/235 test
+Message-ID: <aisAxyXVxf4wql2u@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
+References: <20250322143418.216654-1-pchelkin@ispras.ru>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260611002437.1671401-1-digonzal@google.com> <b601d0d4-d472-450d-a966-e18c9642a433@intel.com>
-In-Reply-To: <b601d0d4-d472-450d-a966-e18c9642a433@intel.com>
-From: Danny Gonzalez <digonzal@google.com>
-Date: Thu, 11 Jun 2026 11:26:18 -0700
-X-Gm-Features: AVVi8CeVv_8rnqLZqyyC2rJzhiRpf4iydHkPcuGojuZUr1GdzQIsaDm1AuaaoYo
-Message-ID: <CAH1CuA-zQveU_pzopVMnDM11Kbz8wTzMP=SvSDBEq8Tk3RaebQ@mail.gmail.com>
-Subject: Re: [PATCH iwl-net] idpf: decrease statistics refresh interval
-To: Alexander Lobakin <aleksander.lobakin@intel.com>
-Cc: Tony Nguyen <anthony.l.nguyen@intel.com>, 
-	Przemek Kitszel <przemyslaw.kitszel@intel.com>, "David S. Miller" <davem@davemloft.net>, 
-	Jakub Kicinski <kuba@kernel.org>, Eric Dumazet <edumazet@google.com>, intel-wired-lan@lists.osuosl.org, 
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	David Decotigny <decot@google.com>, Anjali Singhai <anjali.singhai@intel.com>, 
-	Sridhar Samudrala <sridhar.samudrala@intel.com>, Brian Vazquez <brianvv@google.com>, 
-	Li Li <boolli@google.com>, emil.s.tantilov@intel.com, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250322143418.216654-1-pchelkin@ispras.ru>
 
-On Thu, Jun 11, 2026 at 8:57=E2=80=AFAM Alexander Lobakin
-<aleksander.lobakin@intel.com> wrote:
->
-> From: Danny Gonzalez <digonzal@google.com>
-> Date: Thu, 11 Jun 2026 00:24:37 +0000
->
-> > The default 10s statistics refresh interval is too slow for real-time
-> > monitoring and causes network selftests (e.g., uso.py) to fail when
-> > verifying traffic immediately after transmission.
-> >
-> > A 10s delay also causes aliasing in telemetry tools polling at shorter
-> > intervals (e.g., 5s), leading to inaccurate rate calculations on
-> > high-throughput NICs.
-> >
-> > Decrease the refresh interval to 250ms to ensure fresh stats and fix
-> > test failures.
->
-> Have you tried a bit more conservate value like 1s? Wouldn't it be
-> enough for tests to pass?
->
-> 250 ms is also okay, just curious.
+On Sat, Mar 22, 2025 at 05:34:11PM +0300, Fedor Pchelkin wrote:
+> Incomplete backport of series "xfs: log intent item recovery should
+> reconstruct defer work state" [1] leads to a kernel crash during the
+> xfs/235 test execution on top of 6.6.y stable.
+> 
+> Tested (briefly) with my local xfstests setup. Additional testing would
+> be much appreciated.
 
-Yes, 1s also allows the tests to pass.
+Any idea what happened to this series? It resolves an issue that I've
+hit in a production environment FWIW.
 
-We have a preference for 250 ms since High-Freq Telemetry (1s poll)
-1s driver refresh rate causes aliasing:
+Series is:
 
-# sar -n DEV 1 | grep eth1
-10:52:15         eth1    390.00    339.00     51.92     55.54
-0.00      0.00      0.00      0.00
-10:52:16         eth1    409.00    360.00     54.72     58.64
-0.00      0.00      0.00      0.00
-10:52:17         eth1      0.00      0.00      0.00      0.00
-0.00      0.00      0.00      0.00
+Tested-by: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
 
-Thanks,
-Danny
-
-
->
-> >
-> > Tested: drivers/net/hw:uso.py now passes
-> > Fixes: a251eee62133 ("idpf: add SRIOV support and other ndo_ops")
-> > Signed-off-by: Danny Gonzalez <digonzal@google.com>
->
-> Thanks,
-> Olek
+> 
+> [1]: https://lore.kernel.org/linux-xfs/170191741007.1195961.10092536809136830257.stg-ugh@frogsfrogsfrogs/
+> 
+>  XFS (loop1): Corruption of in-memory data (0x8) detected at xfs_trans_cancel+0x4d9/0x610 (fs/xfs/xfs_trans.c:1097).  Shutting down filesystem.
+>  XFS (loop1): Please unmount the filesystem and rectify the problem(s)
+>  general protection fault, probably for non-canonical address 0xdffffc000000000c: 0000 [#1] PREEMPT SMP KASAN NOPTI
+>  KASAN: null-ptr-deref in range [0x0000000000000060-0x0000000000000067]
+>  CPU: 1 PID: 2011 Comm: mount Not tainted 6.6.84-rc2+ #12
+>  Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.16.3-3.fc41 04/01/2014
+>  RIP: 0010:xlog_recover_cancel_intents+0xad/0x1b0
+>  Call Trace:
+>   <TASK>
+>   xlog_recover_finish+0x7f6/0x9a0
+>   xfs_log_mount_finish+0x386/0x650
+>   xfs_mountfs+0x1405/0x1fb0
+>   xfs_fs_fill_super+0x11d6/0x1ca0
+>   get_tree_bdev+0x3b4/0x650
+>   vfs_get_tree+0x92/0x370
+>   path_mount+0x13b9/0x1f10
+>   __x64_sys_mount+0x286/0x310
+>   do_syscall_64+0x39/0x90
+>   entry_SYSCALL_64_after_hwframe+0x78/0xe2
+>   </TASK>
+>  Modules linked in:
+>  ---[ end trace 0000000000000000 ]---
+>  RIP: 0010:xlog_recover_cancel_intents+0xad/0x1b0
+> 
+> 
+> Link to the original bug report [2].
+> 
+> [2]: https://lore.kernel.org/stable/6pxyzwujo52p4bp2otliyssjcvsfydd6ju32eusdlyhzhpjh4q@eze6eh7rtidg/
+> 
+> Found by Linux Verification Center (linuxtesting.org).
+> 
+> Darrick J. Wong (4):
+>   xfs: recreate work items when recovering intent items
+>   xfs: dump the recovered xattri log item if corruption happens
+>   xfs: use xfs_defer_finish_one to finish recovered work items
+>   xfs: move ->iop_recover to xfs_defer_op_type
+> 
+>  fs/xfs/libxfs/xfs_defer.c       |  22 ++++-
+>  fs/xfs/libxfs/xfs_defer.h       |  14 +++
+>  fs/xfs/libxfs/xfs_log_recover.h |   4 +-
+>  fs/xfs/xfs_attr_item.c          | 115 ++++++++++++------------
+>  fs/xfs/xfs_bmap_item.c          |  92 ++++++++++---------
+>  fs/xfs/xfs_extfree_item.c       | 117 +++++++++++--------------
+>  fs/xfs/xfs_log_recover.c        |  37 ++++----
+>  fs/xfs/xfs_refcount_item.c      | 127 +++++++++------------------
+>  fs/xfs/xfs_rmap_item.c          | 151 ++++++++++++++++----------------
+>  fs/xfs/xfs_trans.h              |   4 -
+>  10 files changed, 326 insertions(+), 357 deletions(-)
+> 
+> -- 
+> 2.49.0
+> 
