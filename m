@@ -1,96 +1,91 @@
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C00A2512C8
-	for <stable@vger.kernel.org>; Thu, 11 Jun 2026 14:54:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBD83304BCB;
+	Thu, 11 Jun 2026 15:00:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781189681; cv=none; b=M72b9/AGRQ3DJOW0E/htq33zMjU7qTT6zCf02MAYWBE2jbpnGrPUthXZ0koSocxiElmXahJswJZqbE9DiXAgg7l08chLm/x+eUUKi3d1UD9rgh66TGwBdsF914Aeqtl1rZyzt64ouzXKcSenAxemA8rM6kT3WEdBpG6H5o9xtWQ=
+	t=1781190005; cv=none; b=drm3jhfA3gBwoEli9Qyn0UwmrXC1qOwSgC3UPpFZBhjYdXfQjpa3b6mxcUhxyjhz6gnos4fW7wxnkj1ZKJBliQ/7PKyeGxpAyUv98ZkzN8RbqQiwbFTU1wGJa7mUe+ru3R/67f1sWJDXByswI5Pj5yAL2RzDwJlt8jYfwxxjZ3I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781189681; c=relaxed/simple;
-	bh=i9goQK+PfYxDMzpCTFRX9PHYViJz9NrGz6efZpUIYp4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=IpK3ZOBV/b85D7am1Tz2Tt9/2ESntzaBUAMF4WlRzXnAvNeNfeKcqlPdGV8ypsBzs65RYd8UYoRge57gxTOIin8Tvem0MfCs9+u7/LWpdSW6Ep7JswW83XorFmZJIU0RYFzf6FtW2uFoPhwqxErpFr8OtRYCilqgYiLB5xX5Xf0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=XW54+iVu; arc=none smtp.client-ip=185.11.138.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="XW54+iVu"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=L7V10b80aH2eAPlxp6gsdj3fgz/Fgp1to3s7xDTV0x0=; b=XW54+iVublKhNpEzF1YWUiUMyw
-	Cq2XoLLaCfEBTWihUWiE5efWodqtb437avV+hx/WWyMLE7b6NcEomzOqwlDSeW23wt0osIC79wCDt
-	fKiNoab6q2tasjw8kcVmjBbGAzJ13xZMZup/UhRsqTdbqejm/DudlUtS1I99Zck4q8qrxrDnpUQmO
-	blSh74DGqa2bhbzoh4L9HkfLy6/LfQJir9qe+HigrQckXPaDBAi3PuJJNRMKGnkAgMAgZkr9LTyEj
-	Zwdq3U+BvwdGcZf0loLFt88lCZuh/k0K/mBjRq7rBoh2glCkdSgRbPDX07hQ6TxOe3gkIgthnfy0n
-	oWADHfXQ==;
-From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
-To: stable@vger.kernel.org
-Cc: Shardul Bankar <shardul.b@mpiricsoftware.com>,
- syzbot+f2fbf7478a35a94c8b7c@syzkaller.appspotmail.com,
- "Jason A. Donenfeld" <Jason@zx2c4.com>, Jakub Kicinski <kuba@kernel.org>,
- Heiko Stuebner <heiko.stuebner@cherry.de>
-Subject:
- Re: [PATCH 6.12.y] wireguard: device: use exit_rtnl callback instead of
- manual rtnl_lock in pre_exit
-Date: Thu, 11 Jun 2026 16:54:37 +0200
-Message-ID: <2278549.Icojqenx9y@diego>
-In-Reply-To: <20260611144615.478035-1-heiko@sntech.de>
-References: <20260611144615.478035-1-heiko@sntech.de>
+	s=arc-20240116; t=1781190005; c=relaxed/simple;
+	bh=du8BpUZ+F7Kv67ckLTr3vZYuPRS1w5nKj+rf6KIhMQM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=FZlXntVv6muhUfaJLCecqPKrl870pujeoKRAg8Rv2uxMQ0Vi7QUMqjlqS3aijkJfZ0O8tViRZzS0dSXYhS+aSVAFwLyOp4/9xW9wLHFDsea0mH2iW5PL9Rp4hmZfaToMk2l9QXzIEN6EOJYWDzjgZzW37YFOJelcGDtFY/lgiFQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from localhost.localdomain (unknown [117.182.75.76])
+	by APP-05 (Coremail) with SMTP id zQCowAD3Z+tuzSpqTQcYEw--.25433S2;
+	Thu, 11 Jun 2026 23:00:00 +0800 (CST)
+From: WenTao Liang <vulab@iscas.ac.cn>
+To: trondmy@kernel.org,
+	anna@kernel.org
+Cc: linux-nfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	WenTao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] nfs: fix refcount leak in nfs_direct_read_schedule_iovec()
+Date: Thu, 11 Jun 2026 22:59:56 +0800
+Message-ID: <20260611145956.90270-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowAD3Z+tuzSpqTQcYEw--.25433S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Zr17tr4xGFW5CF47XF4fKrg_yoW8Gr1Upr
+	Wrur9xKrn5ArWxtrZruF40vw17ZFZrAFW5Kr18Aw4xCwn5G3W3XFyUKFy5uFnIkr4rCF47
+	Zrs0gw13G3Z0vaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUkG14x267AKxVWUJVW8JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
+	0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
+	jxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr
+	1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v26r12
+	6r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI
+	0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y
+	0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxV
+	WUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1l
+	IxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUcBMtUUU
+	UU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAYPA2oqh3jWrQAAsC
 
-Hi all,
+When nfs_direct_read_schedule_iovec() encounters an error after
+get_dreq(dreq) increments the io_count but fails to start any I/O
+(requested_bytes == 0), it falls through to the error path. That
+path calls nfs_direct_req_release() to drop the I/O path’s kref,
+but it never calls put_dreq() to balance the io_count. This leaves
+the request’s io_count permanently elevated, a reference counting
+violation that corrupts the teardown logic once the object is
+freed via the remaining kref.
 
-Am Donnerstag, 11. Juni 2026, 16:46:15 Mitteleurop=C3=A4ische Sommerzeit sc=
-hrieb Heiko Stuebner:
-> From: Shardul Bankar <shardul.b@mpiricsoftware.com>
->=20
-> [ Upstream commit 60a25ef8dacb3566b1a8c4de00572a498e2a3bf9 ]
->=20
-> wg_netns_pre_exit() manually acquires rtnl_lock() inside the
-> pernet .pre_exit callback.  This causes a hung task when another
-> thread holds rtnl_mutex - the cleanup_net workqueue (or the
-> setup_net failure rollback path) blocks indefinitely in
-> wg_netns_pre_exit() waiting to acquire the lock.
->=20
-> Convert to .exit_rtnl, introduced in commit 7a60d91c690b ("net:
-> Add ->exit_rtnl() hook to struct pernet_operations."), where the
-> framework already holds RTNL and batches all callbacks under a
-> single rtnl_lock()/rtnl_unlock() pair, eliminating the contention
-> window.
->=20
-> The rcu_assign_pointer(wg->creating_net, NULL) is safe to move
-> from .pre_exit to .exit_rtnl (which runs after synchronize_rcu())
-> because all RCU readers of creating_net either use maybe_get_net()
-> - which returns NULL for a dying namespace with zero refcount - or
-> access net->user_ns which remains valid throughout the entire
-> ops_undo_list sequence.
->=20
-> Reported-by: syzbot+f2fbf7478a35a94c8b7c@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?id=3Dcb64c22a492202ca929e18262f=
-db8cb89e635c70
-> Signed-off-by: Shardul Bankar <shardul.b@mpiricsoftware.com>
-> [ Jason: added __net_exit and __read_mostly annotations that were missing=
-=2E ]
-> Fixes: 900575aa33a3 ("wireguard: device: avoid circular netns references")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Jason A. Donenfeld <Jason@zx2c4.com>
-> Link: https://patch.msgid.link/20260414153944.2742252-5-Jason@zx2c4.com
-> Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-> Signed-off-by: Heiko Stuebner <heiko.stuebner@cherry.de>
+Fix the leak by calling put_dreq(dreq) before
+nfs_direct_req_release() in the zero-bytes error path, so the
+io_count is properly balanced.
 
-sorry about the mail-noise, but I messed up sending this :-(
-Will re-try once I fixed my mistake.
+Cc: stable@vger.kernel.org
+Fixes: 65caafd0d214 ("SUNRPC reverting d03727b248d0 ("NFSv4 fix CLOSE not waiting for direct IO compeletion")")
+Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
+---
+ fs/nfs/direct.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Heiko
-
-
+diff --git a/fs/nfs/direct.c b/fs/nfs/direct.c
+index 48d89716193a..41a6cabb0592 100644
+--- a/fs/nfs/direct.c
++++ b/fs/nfs/direct.c
+@@ -400,6 +400,7 @@ static ssize_t nfs_direct_read_schedule_iovec(struct nfs_direct_req *dreq,
+ 	 */
+ 	if (requested_bytes == 0) {
+ 		inode_dio_end(inode);
++		put_dreq(dreq);
+ 		nfs_direct_req_release(dreq);
+ 		return result < 0 ? result : -EIO;
+ 	}
+-- 
+2.50.1 (Apple Git-155)
 
