@@ -1,50 +1,44 @@
-Received: from canpmsgout05.his.huawei.com (canpmsgout05.his.huawei.com [113.46.200.220])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9167940D57C;
-	Thu, 11 Jun 2026 13:32:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.220
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B44A33F788A
+	for <stable@vger.kernel.org>; Thu, 11 Jun 2026 13:40:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781184776; cv=none; b=WFmMxV/EaWxfHUDcqiXSjr0FyceRE/metFkXCwg/wT4TGwZUsc0yISZhdTy2bbmNYLduxmbQtLytzswKQSczEJ42QyZhLJGjP/sa61faV6zJErZwHAkk7GKvddIUAYW3L4cx4jOUXUtyRkKTn8dBNGunfwkC8BDcaf+bGg5bCbs=
+	t=1781185236; cv=none; b=i7mif2WCoJasOt+YarNWsinmN+X7ie+In9B3xJ0YMjmqqQmi8z3jbdzoDlfgaV/Q6UQoN1LuRusWLelaxbwwCtd9N1VrGhGcSbdh6bQQZo8yotHXwmtuz5TwbMjDmhy+9UHImB7cCA1JSWjMCTF1wh4bzBUhoak2RbN7FQE6Yhs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781184776; c=relaxed/simple;
-	bh=aAUIfoeB922EjpETo28UDuNkRtVHZL8vk/eG5Ayv0bQ=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=q8aUEgkONYVRd8ufVh1RkCbPIWgvAZBMIeGQJqrSslPVjVBo+3H7bzG2nx4tU0OJ2PAH1LwDKcKlidnnViZagNo/0tI1CCbmUyHDK9VzAsg3fxCVIxDyoT4STGgfSqbl0ufUo8/zwcd/qKlBiFVBAsv/3elPtyXNGoPxS/ngcro=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=g3rNdNo1; arc=none smtp.client-ip=113.46.200.220
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1781185236; c=relaxed/simple;
+	bh=yrKs/eMhesXtTbBGx0mb3B4KBmCw2f6TOht/07OU9FQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Xb0tRabmE+hrpNXcdVyzOyT5N6xR0cHIJfbL1YuaUY0PrsFW7sUtLy4u4Df9qSKqSWc2onKzj17TMTYPCppk+rK4bzf6a/JFoXnQqfkoKPKqib/aNzM8ftTu3A1HVrVrCLONiE9qpM8gK5onJtC+Av0sp8h49qfirhR9g8JKRjY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=SXH17Raq; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="g3rNdNo1"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=/bIB0l/jYMMTpucxs3QWzKVYPY3EBurRt7wmrGdoY6M=;
-	b=g3rNdNo1r7KHDOHpO16wEv374RGl3AjqTQvF/ZwqkCYFQ/Owzr7mFm5mWS/PadJlWRxXsrvwL
-	efIGyI0naSWBsbOs2/HoAG5l4QfSdrze+MA1dHm/Q2aKHyZxMqVyaVSa/ieaZARwBqltIOVL8S4
-	ktdTBCLXVqFVanoKdEugJtU=
-Received: from mail.maildlp.com (unknown [172.19.162.223])
-	by canpmsgout05.his.huawei.com (SkyGuard) with ESMTPS id 4gbk040zShz12LD7;
-	Thu, 11 Jun 2026 21:24:52 +0800 (CST)
-Received: from kwepemj500018.china.huawei.com (unknown [7.202.194.48])
-	by mail.maildlp.com (Postfix) with ESMTPS id 2960140670;
-	Thu, 11 Jun 2026 21:32:43 +0800 (CST)
-Received: from huawei.com (10.50.85.128) by kwepemj500018.china.huawei.com
- (7.202.194.48) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.11; Thu, 11 Jun
- 2026 21:32:42 +0800
-From: Li Xiasong <lixiasong1@huawei.com>
-To: Jon Maloy <jmaloy@redhat.com>
-CC: <stable@vger.kernel.org>, "David S. Miller" <davem@davemloft.net>, Eric
- Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
-	<pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Ying Xue
-	<ying.xue@windriver.com>, Tuong Lien <tuong.t.lien@dektech.com.au>,
-	<netdev@vger.kernel.org>, <tipc-discussion@lists.sourceforge.net>,
-	<yuehaibing@huawei.com>, <zhangchangzhong@huawei.com>,
-	<weiyongjun1@huawei.com>
-Subject: [PATCH net] tipc: restrict socket queue dumps in enqueue tracepoints
-Date: Thu, 11 Jun 2026 21:56:47 +0800
-Message-ID: <20260611135647.3666727-1-lixiasong1@huawei.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="SXH17Raq"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8B62D1DB5;
+	Thu, 11 Jun 2026 06:40:28 -0700 (PDT)
+Received: from lakrids.cambridge.arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 2E2633FAF5;
+	Thu, 11 Jun 2026 06:40:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1781185233; bh=yrKs/eMhesXtTbBGx0mb3B4KBmCw2f6TOht/07OU9FQ=;
+	h=From:To:Cc:Subject:Date:From;
+	b=SXH17RaqpbDtQGhYW85l/MWOqI2NpjT09jeIbJXXGQJ7Vq7AtxB4qu9scgq5PgIej
+	 KgftCCm+yT9atJw6vA5hm1ZTdAqwmJOXlqD3HWyS5y7/NJI6MHNWV9GZV5MSrg28qN
+	 KLnV+Z/e+39ZG5rKXr/BtDpidS1lt1pnzC4Rgb7A=
+From: Mark Rutland <mark.rutland@arm.com>
+To: stable@vger.kernel.org
+Cc: catalin.marinas@arm.com,
+	gregkh@linuxfoundation.org,
+	lee@kernel.org,
+	mark.rutland@arm.com,
+	maz@kernel.org,
+	oupton@kernel.org,
+	ryan.roberts@arm.com,
+	will@kernel.org
+Subject: [PATCH 6.12.y 0/2] arm64: tlb: Prerequisites for TLBI erratum workaround
+Date: Thu, 11 Jun 2026 14:40:22 +0100
+Message-Id: <20260611134024.1700323-1-mark.rutland@arm.com>
+X-Mailer: git-send-email 2.30.2
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -52,92 +46,48 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
- kwepemj500018.china.huawei.com (7.202.194.48)
 
-tipc_sk_enqueue() runs with sk->sk_lock.slock held while the socket is
-owned by user context. The spinlock protects the backlog queue in this
-path, but it does not serialize against the socket owner consuming or
-purging sk_receive_queue.
+This is a v6.12.y-only backport of updates to arm64's
+ARM64_WORKAROUND_REPEAT_TLBI erratum workaround, which have been
+upstream since v7.0 and have already been backported to v6.18.y. These
+are prerequisites for patches to enable the workaround for many more
+CPUs, which are queued in the arm64 tree targetting v7.2-rc1:
 
-KASAN reported:
+  https://lore.kernel.org/linux-arm-kernel/20260609101203.1512409-1-mark.rutland@arm.com/
+  https://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux.git/log/?h=for-next/errata
 
-  CPU: 14 UID: 0 PID: 1050 Comm: tipc3 Not tainted 7.1.0-rc6+ #126 PREEMPT(lazy)
-  Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.15.0-1 04/01/2014
-  Call Trace:
-    <TASK>
-    dump_stack_lvl+0x76/0xa0 lib/dump_stack.c:123
-    print_report+0xce/0x5b0 mm/kasan/report.c:482
-    kasan_report+0xc6/0x100 mm/kasan/report.c:597
-    __asan_report_load4_noabort+0x14/0x30 mm/kasan/report_generic.c:380
-    tipc_skb_dump+0x1327/0x16f0 net/tipc/trace.c:73
-    tipc_list_dump+0x208/0x2e0 net/tipc/trace.c:187
-    tipc_sk_dump+0xaf6/0xd60 net/tipc/socket.c:3996
-    trace_event_raw_event_tipc_sk_class+0x312/0x5a0 net/tipc/trace.h:188
-    tipc_sk_rcv+0xb1d/0x1d50 net/tipc/socket.c:2497
-    tipc_node_xmit+0x1c3/0x1440 net/tipc/node.c:1689
-    __tipc_sendmsg+0x97a/0x1440 net/tipc/socket.c:1512
-    tipc_sendmsg+0x52/0x80 net/tipc/socket.c:1400
-    sock_sendmsg+0x2f6/0x3e0 net/socket.c:825
-    splice_to_socket+0x7f9/0x1010 fs/splice.c:884
-    do_splice+0xe21/0x2330 fs/splice.c:936
-    __do_splice+0x153/0x260 fs/splice.c:1431
-    __x64_sys_splice+0x150/0x230 fs/splice.c:1616
-    x64_sys_call+0xeb5/0x2790 arch/x86/entry/syscall_64.c:41
-    do_syscall_64+0xf3/0x620 arch/x86/entry/syscall_64.c:63
-    entry_SYSCALL_64_after_hwframe+0x76/0x7e arch/x86/entry/entry_64.S:130
-  RIP: 0033:0x71624e8aafe2
-  Code: 08 0f 85 71 3a ff ff 49 89 fb 48 89 f0 48 89 d7 48 89 ce 4c 89 c2 4d 89 ca 4c 8b 44 24 08 4c 8b 4c 24 10 4c 89 5c 24 08 0f 05 <c3> 66 2e 0f 1f 84 00 00 00 00 00 66 2e 0f 1f 84 00 00 00 00 00 66
-  RSP: 002b:0000716157ffed68 EFLAGS: 00000246 ORIG_RAX: 0000000000000113
-  RAX: ffffffffffffffda RBX: 0000716157fff6c0 RCX: 000071624e8aafe2
-  RDX: 000000000000005f RSI: 0000000000000000 RDI: 0000000000000066
-  RBP: 0000716157ffed90 R08: 0000000000008000 R09: 0000000000000001
-  R10: 0000000000000000 R11: 0000000000000246 R12: ffffffffffffff00
-  R13: 0000000000000021 R14: 0000000000000000 R15: 00007fff89799c40
-    </TASK>
+I'm sending backports of these ahead of backports of the
+not-yet-upstream portion as these have the key logic changes and I'm
+hoping they could be queued early and see more testing. On their own
+they serve as an optimization to existing users of the workaround.
 
-The TIPC_DUMP_ALL tracepoints in tipc_sk_enqueue() also dump
-sk_receive_queue and can therefore dereference skbs that the socket
-owner has already dequeued or freed. Restrict these dumps to
-TIPC_DUMP_SK_BKLGQ, which matches the queue protected by the held
-spinlock.
+I've pushed this series to my stable-6.12/arm-4118414/prerequisites
+branch:
 
-Keep the change limited to the enqueue path, where the unsafe queue dump
-is reachable while the socket is owned by user context.
+  https://git.kernel.org/pub/scm/linux/kernel/git/mark/linux.git/log/?h=stable-6.12/arm-4118414/prerequisites
 
-Fixes: 01e661ebfbad ("tipc: add trace_events for tipc socket")
-Cc: stable@vger.kernel.org
-Signed-off-by: Li Xiasong <lixiasong1@huawei.com>
----
- net/tipc/socket.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+I've pushed a v6.12.y backport of all the not yet upstream patches to my
+stable-6.12/arm-4118414/backport branch:
 
-diff --git a/net/tipc/socket.c b/net/tipc/socket.c
-index 9329919fb07f..6b761003bcd1 100644
---- a/net/tipc/socket.c
-+++ b/net/tipc/socket.c
-@@ -2452,17 +2452,17 @@ static void tipc_sk_enqueue(struct sk_buff_head *inputq, struct sock *sk,
- 			atomic_set(dcnt, 0);
- 		lim = rcvbuf_limit(sk, skb) + atomic_read(dcnt);
- 		if (likely(!sk_add_backlog(sk, skb, lim))) {
--			trace_tipc_sk_overlimit1(sk, skb, TIPC_DUMP_ALL,
-+			trace_tipc_sk_overlimit1(sk, skb, TIPC_DUMP_SK_BKLGQ,
- 						 "bklg & rcvq >90% allocated!");
- 			continue;
- 		}
- 
--		trace_tipc_sk_dump(sk, skb, TIPC_DUMP_ALL, "err_overload!");
-+		trace_tipc_sk_dump(sk, skb, TIPC_DUMP_SK_BKLGQ, "err_overload!");
- 		/* Overload => reject message back to sender */
- 		onode = tipc_own_addr(sock_net(sk));
- 		sk_drops_inc(sk);
- 		if (tipc_msg_reverse(onode, &skb, TIPC_ERR_OVERLOAD)) {
--			trace_tipc_sk_rej_msg(sk, skb, TIPC_DUMP_ALL,
-+			trace_tipc_sk_rej_msg(sk, skb, TIPC_DUMP_SK_BKLGQ,
- 					      "@sk_enqueue!");
- 			__skb_queue_tail(xmitq, skb);
- 		}
+  https://git.kernel.org/pub/scm/linux/kernel/git/mark/linux.git/log/?h=stable-6.12/arm-4118414/backport
+
+... and once those are merged into mainline I will submit stable
+backports.
+
+Mark.
+
+Mark Rutland (2):
+  arm64: tlb: Allow XZR argument to TLBI ops
+  arm64: tlb: Optimize ARM64_WORKAROUND_REPEAT_TLBI
+
+ arch/arm64/include/asm/tlbflush.h | 63 ++++++++++++++++++-------------
+ arch/arm64/kernel/sys_compat.c    |  2 +-
+ arch/arm64/kvm/hyp/nvhe/mm.c      |  2 +-
+ arch/arm64/kvm/hyp/nvhe/tlb.c     |  8 ++--
+ arch/arm64/kvm/hyp/pgtable.c      |  2 +-
+ arch/arm64/kvm/hyp/vhe/tlb.c      | 10 ++---
+ 6 files changed, 49 insertions(+), 38 deletions(-)
+
 -- 
-2.34.1
+2.30.2
 
