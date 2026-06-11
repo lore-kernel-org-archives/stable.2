@@ -1,64 +1,68 @@
-Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com [209.85.222.173])
+Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com [209.85.160.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C30B632ABC0
-	for <stable@vger.kernel.org>; Thu, 11 Jun 2026 21:19:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0DB5319601
+	for <stable@vger.kernel.org>; Thu, 11 Jun 2026 21:21:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781212748; cv=none; b=ABO2wATFf/0lS5uDfA+Qoi3RE4+u8w1I6ZBQmBp5AzMzhiFMRSffmTA1e01KVyyW4N+TguzXAGdvSQy54b8AXmXEGB3AQrx2wliBcHcIj1+NJXYSNpltbcF2j0nSS5Wpna4sNTAT7D2yMmwDzvonCYo0OosnkKvBXHMC+2TEttU=
+	t=1781212879; cv=none; b=FxzFs5UlChOFHQwHOkYQSC5roZA2nd3mJ3v5pj9sZHBBU1lMI3F793SAf6PdLR/t4eEvxAxLWfvuCZ6K3h/aF7SRgrirxuM6YOWQhwGgvT00awEkfjxnW0DKs/ZV33PNQ9gklbEv99DDAU6PVOr1ubTTo/1P+yQMkTOMB0cP1+k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781212748; c=relaxed/simple;
+	s=arc-20240116; t=1781212879; c=relaxed/simple;
 	bh=gz8XXCvKDIUvwALZy3EPayeAQ0OgphiwA++tk+FDTuc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=k9xI2CIvZ0fah1mnepoMwWnSYgwLG0MFpuuf1vU1MOsN7SB1qoc2DRVDMEoVlo+pW6n/RwSlycwSy3kdSqp/hDNpod4csf9hdb3h0H84GG8Ogd3USLXwsx4INKsBnD3GqyZk7GqXICGzPbTqTKMR4iTBWZhTOLqxZV7YrYGtgBk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com; spf=pass smtp.mailfrom=openai.com; dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b=FrCuAGLb; arc=none smtp.client-ip=209.85.222.173
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MTXXKAI3pKRkxcwEktb371FGEcNSDTN8a1nHLtCOHFzBkTPenSn+6jWEplLFC4TnjQhqrVrI1guZFDZsRg9xAh2828ikMx9dGE3LbnHZsmXNc51UfMNbfedIf7LfC9pyCVvO7KPsZORWJ0qHDFF1xp5/W+jZt48xYMHlpBBLo60=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com; spf=pass smtp.mailfrom=openai.com; dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b=L+MxZmCY; arc=none smtp.client-ip=209.85.160.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=openai.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b="FrCuAGLb"
-Received: by mail-qk1-f173.google.com with SMTP id af79cd13be357-915bf8800a2so40029685a.0
-        for <stable@vger.kernel.org>; Thu, 11 Jun 2026 14:19:06 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b="L+MxZmCY"
+Received: by mail-qt1-f171.google.com with SMTP id d75a77b69052e-5176465a4a4so2648541cf.2
+        for <stable@vger.kernel.org>; Thu, 11 Jun 2026 14:21:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=openai.com; s=google; t=1781212746; x=1781817546; darn=vger.kernel.org;
+        d=openai.com; s=google; t=1781212876; x=1781817676; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to;
         bh=G9gu0vVO+upgROS7/Iq8V7N+x8+Xf5/itiHQvLUydmI=;
-        b=FrCuAGLbpYWbe7JoXGoxC59kngoAd/ndrY5P84QwVk3ykfLK652BRh0z6GtK0qxtwg
-         mem6SxQcZoP0fcfIjA1Fcw/xLF9R1NjJOyhfFk/PQxF/Wp3m0dhqdekvaRIiWjkPyBwB
-         8V67qZU5BR6pdR6ir8xoH5wWDQ8O0VcqGANpo=
+        b=L+MxZmCY/6A2WvmS0Msem7/23zhTU5D6xyYFWirum4xSS+ciNFkioAm6ySqBOKvYel
+         clZXy3OpxBkxh8KR32I2MS1ngm7mbZFU6vaLn2z94hvU9KSk5vArrqoIZb519kufcykK
+         u0znP7JSOusSw7OEdbWlR6r0Qrl2T3CWwU38c=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781212746; x=1781817546;
+        d=1e100.net; s=20251104; t=1781212876; x=1781817676;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
         bh=G9gu0vVO+upgROS7/Iq8V7N+x8+Xf5/itiHQvLUydmI=;
-        b=f3Lei02BSxE7eb3TVyE/AQi58dHIb3KYkUg9s+zNlfTHE8u/jjeOfo0tNf7CxKMhe/
-         2bSSomZa5ehPpefABW0CzoKWZu3lF+wxv7iKDPWuz+qrEiyf6uAy8/NFVV9YSny20Hg9
-         iKSpmGwqJon86WkXuwLICfi3AtiGKEr5RMhQdsGP9+IxPV+k9hMmBGrknnw9bsz/Bojr
-         0I+1niel9ChBJaMojtMCiHLh3vZ9xxEvjn1U9xC+G36PNbxrJdxC3Nc296Bo1PrG/WHG
-         h1XKgbYaKDGKuxGYlYrIZPzKw2mgdUMymQuwNiJkZToGxtfW2QBst5nLxRb2EQKTOCh6
-         S5SQ==
-X-Gm-Message-State: AOJu0YygG/9RPqJGQkCMEV0ylKTTVKuvMxmEG3WNtehpiBr/aR+TbDH6
-	r7Qsmp2EzYekEr4g+GNU0ya0f0VCieCHGGwVnoVXyEfbdyV2Y8F/CoK5VsIOsNRKhDw=
-X-Gm-Gg: Acq92OEqMJBehiZI3OLgWXmVrGuaGw6SLK68AfTEE21Ok1pvRlGobJWC6cJq5+I5VFv
-	WAHydBodEJ4Y9EqW7j1SG3Wn17pIS0ncy8gnO5ParCGheVmVcLpmDqG05cPpPHCXvKutuEfDBt/
-	C95U3vwRDSFW83EROM/R8UpYMGUG+0INLr0h5h7vnl4LisG3/o9nztWakBagnJ3O83ON3z0Fj22
-	XqoCbv/HwOtk3Y8SLh7voYNiWbVEtMcZ97/oSXXrYO7C9/+gT74qhgHTfFlcnhIBGVDLqaUbWQ1
-	O/HNoh2nXoE0t9R2/bruGUY3xpzxvB5OT9lAkcZW1cKMUnykgGiYwjBB05+Vnsbq20GgBvP78u0
-	W6Hqsqaek0+VRRdS7sxHxamK4mJ0e754daKlZ//Ar9dXhGd+ONQwPrlYGRHIBXNO+Wg8SusNt4u
-	ebt5q2DWC9wTGLlT5kU2wnHJWOUqvGbpTLLCkvGtmJUrU+0G9VwWWnK9v64N6jUG4fke6UYl5D8
-	Vo1w4bFmGXBR1RZlDeFc8mtrXby9yIIA5Q=
-X-Received: by 2002:a05:620a:3724:b0:915:9984:5781 with SMTP id af79cd13be357-9160ad7073dmr708074585a.51.1781212745651;
-        Thu, 11 Jun 2026 14:19:05 -0700 (PDT)
+        b=tD8PJlCbTCp1Uwdr/RmsKJ3tD1QE85LcAkeEoxEF+GupjMsOY2NO9MPnqR5aAlH7hN
+         FmmEpXBpPNYcsYAT5//na40Y72nSeIhP9Jiq2LllgrLDokUE+gm8ThPAmepe2sw1l/gt
+         bK73YL3eOOhs0HzTEnzxjnM4NIBMbb1gBHBreMfo8qIr9YsXjSLrrJeQ3naRvbuRDJ9B
+         63phB6IRumm2YQn83k4LCGQH8IBScydeqijvsWRBWuOE/43wbElQUcDwSSYeItNzKKqX
+         kC+J/MHnYXFB5ufZPmx+56iv/v42R6aYd0c54KJDTf1mB4zLnujhs6Zf0+zvxLjyNrnW
+         Kgig==
+X-Forwarded-Encrypted: i=1; AFNElJ9va7fk3r2AbWV1d26MG1nHfJxU4/HTn6b/r89SSQWBz9/Kzdzka9iecZpIk8A2v7dgHldXuBo=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx8VfwV76OfKVLsbLA7zl5CIzeK91d/sZkS2af4tQKWJq+gTVYT
+	/F6JcuuwmkpLDFMUdVTC3LuiaMMbq3pjKthyccWqZSJ0JWRNz0owZi016QYRyRFRqP0=
+X-Gm-Gg: Acq92OE+UpwVyVJLbtp/VZTU91uaN8PXZvMs3uqNOzZ1FOa1SY8EWA0wvoySZkphf49
+	5Lb3tSt28W4xhgJkVi7QVjtrHnOgrjKJ8BuYOflUNz/mfPMMt1Ou1A0XW3iDcZoS5KJzoBmdjOb
+	W98UCbV5c9puohSChmneZxsl6PCHpHP6MIusjGF/DcAjibkWnWeHrnS8YBj8WBwOzm6P942PkOp
+	Dr8mCQQBB2hrUGxCPV23tDHnlRtQNn2ZjzUT+EbKnW9d90qFd8wB+8n6GWc1gqVMJlEpnWGI92I
+	heeT9yU/U34jR34Jvgt/56ZqoBuxQPMZnfyOQK3Qv/p+TtI7VjKwoZxM81Ya4RCpRkVriEO1zFf
+	vyr6c7mMYyzyjpvis1Yc99yADin8XDgVRwfcYXPGvD9rwudfR9iyz7XJ8HDTz7XDnWbN0gjKt1f
+	2md5KdeeQY8VrCGVe6/NAukcOBC930jquj4HPVX+N37bGBnVOVUwh4gLkRjLtzncjNcQ8BK7v4a
+	oXUpxiF+Gb+OYYhKncEhCf1JRToA2L/SwY=
+X-Received: by 2002:a05:622a:4a0a:b0:50d:6b06:a453 with SMTP id d75a77b69052e-517ede809c0mr72010571cf.18.1781212875850;
+        Thu, 11 Jun 2026 14:21:15 -0700 (PDT)
 Received: from com-75606.node.ndb.openai.org ([209.249.37.146])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9161a069389sm23600185a.45.2026.06.11.14.19.04
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8d30105fd75sm4844076d6.2.2026.06.11.14.21.14
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 11 Jun 2026 14:19:05 -0700 (PDT)
+        Thu, 11 Jun 2026 14:21:15 -0700 (PDT)
 From: Kyle Zeng <kylebot@openai.com>
-To: kylebot@openai.com
-Cc: stable@vger.kernel.org
+To: linux-fsdevel@vger.kernel.org
+Cc: David Sterba <dsterba@suse.com>,
+	outbounddisclosures@openai.com,
+	Kyle Zeng <kylebot@openai.com>,
+	stable@vger.kernel.org
 Subject: [PATCH] affs: validate blocks before freeing them
-Date: Thu, 11 Jun 2026 14:19:00 -0700
-Message-ID: <20260611211900.3720-1-kylebot@openai.com>
+Date: Thu, 11 Jun 2026 14:21:10 -0700
+Message-ID: <20260611212110.4042-1-kylebot@openai.com>
 X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
