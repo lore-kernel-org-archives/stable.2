@@ -1,42 +1,33 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F24725B0B9;
-	Thu, 11 Jun 2026 06:37:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8B3F349CFD;
+	Thu, 11 Jun 2026 06:41:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781159861; cv=none; b=iuEysodcNBiH7zmhIFN7CIMVrk2+uPA8HDauFwD/LPem+VR1XuQFYO7Blf+No5Q6ypoT8h2jeWnE9DxxmEZoroFQEP1JeZ9cHQKMsba1DldI14/glCOk7JZI4dElVLqpEq2eJP7TUXBqkDOBHr8hriwRDnVlwxARwL1z68xS2HQ=
+	t=1781160073; cv=none; b=Ke6z6uQZjc8abwXtHn49Hd8wyInN5/rUSodeuuT5tkV39d9fZTE0ST93Z4iT45Nt3sV15vpv1khvf9SrK9qtyCT7QwO9+3WpOBXtNAXNclpvdQO9qZz2juIGwC4b3WP5EjlSdXysFn7ZHtF3KR4CrP2FDPArVL6257XZLZGbLIU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781159861; c=relaxed/simple;
-	bh=Eeq9S5dJSEaZkUN3/e9n9FlbRu/629zoxI90oAbQJGM=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=mGy66v6F7dV6lcBfTqPEA5yD03nz5Dv6z9gAffC4tM2bj50W2UJrCg2Hfz2yR0nDxKI8hR7L4M2BXPC9h9jzGEALqN1XNfhLAGXwZ9IB8vNFS17tECPptNN/kiJ6aBC0vZXwa1g/22QJ8ioOO78aL38ijmKCTkE7p54hw6cPwcg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=RwmxpiOE; arc=none smtp.client-ip=220.197.31.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="RwmxpiOE"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=k4
-	PQhwFSLv+1p2nsZ97XbNmbrHAbiI1RCwE+ou8p1ac=; b=RwmxpiOEk2mCxYBGjT
-	vCMrMNdtW6GfzupGAxI7etU9O1E8E5PjsuL+yOaW5IB17ECy+5GGtQxQ5nD6SgLU
-	pvmd91GWvpgdXeTC6gNjwCbEhlY5bc81+S2eULCXilN9Hrt4RMcD5ps2Jd8/8hI9
-	mVO9tcX5lmYzfUd0xiZlpjo78=
-Received: from pek-lpg-core5.wrs.com (unknown [])
-	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wD395ifVypqDRVvCw--.712S2;
-	Thu, 11 Jun 2026 14:37:20 +0800 (CST)
-From: Robert Garcia <rob_garcia@163.com>
-To: stable@vger.kernel.org,
-	Johan Hovold <johan@kernel.org>
-Cc: Mark Brown <broonie@kernel.org>,
-	Dhruva Gole <d-gole@ti.com>,
-	Apurva Nandan <a-nandan@ti.com>,
-	Robert Garcia <rob_garcia@163.com>,
-	linux-spi@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 6.18.y] spi: cadence-quadspi: fix unclocked access on unbind
-Date: Thu, 11 Jun 2026 14:37:19 +0800
-Message-Id: <20260611063719.3528053-1-rob_garcia@163.com>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1781160073; c=relaxed/simple;
+	bh=50lJLGZmrBZeK3yQ37YckRkxQSVXxLtcS8G0nBDtokU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=sG8gqJCxMRJV6oeQhEqkMTZ+Ng/lcYBj/H80Efp5QRDHwkE/NJQIifmg4HFCLinEB6BMPb8CrVQPRAm1EbBMoZ1rK3UqJLKrxGfgRceTtFMhYAkCXCPDdX177Hz6jhzBiNemakk4oIC0J4CLnQwRQo/Qw1wPoMjrb2gk6GXhxV0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from localhost.localdomain (unknown [117.182.75.76])
+	by APP-03 (Coremail) with SMTP id rQCowAC31dx+WCpq2xZZFA--.13226S2;
+	Thu, 11 Jun 2026 14:41:04 +0800 (CST)
+From: WenTao Liang <vulab@iscas.ac.cn>
+To: linuxdrivers@attotech.com,
+	James.Bottomley@HansenPartnership.com,
+	martin.petersen@oracle.com
+Cc: linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	WenTao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] scsi: esas2r: fix refcount leak in esas2r_resume()
+Date: Thu, 11 Jun 2026 14:41:00 +0800
+Message-ID: <20260611064100.65731-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -44,60 +35,68 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD395ifVypqDRVvCw--.712S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7Kr4xArW3Cr48JrWUXw1fWFg_yoW8Cr1kpF
-	47JF4UtFWjqr4Uta1kCw4j9Fy5t397Ja4jgwsrKw1fZryaqF95XF1Fva4YqFW5AFZrKF42
-	kFs7Jrs3tF15ZFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zMZXO9UUUUU=
-X-CM-SenderInfo: 5uresw5dufxti6rwjhhfrp/xtbC5QEjjmoqV6EGPAAA3F
+X-CM-TRANSID:rQCowAC31dx+WCpq2xZZFA--.13226S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxJrWDXw17Cry5Xr1DuF4xXrb_yoW8CrWkpF
+	WFkw1v9F18AayxJw4UCr1YvryrXayUGFyfurW8u397u3Z8JFWrXr1IqFyjyFykKrykX3s8
+	tFsYq3s8Wa4DJF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUkK14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+	JVWxJr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87Iv6xkF7I0E14v26r
+	xl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
+	6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr
+	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v2
+	6r126r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrV
+	AFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCI
+	c40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267
+	AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_
+	Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VUbSfO7
+	UUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgsPA2oqQMk8QAABs1
 
-From: Johan Hovold <johan@kernel.org>
+In esas2r_resume(), the function unconditionally calls
+esas2r_disable_chip_interrupts() which increments the adapter's
+dis_ints_cnt atomic counter. The counter is supposed to be
+decremented by esas2r_enable_chip_interrupts(), but this only
+happens on the success path when AF2_IRQ_CLAIMED is set. If
+esas2r_power_up() fails or AF2_IRQ_CLAIMED is not set, the
+function returns via error_exit without calling
+esas2r_enable_chip_interrupts(), leaving the counter permanently
+incremented. This refcount leak means the next disable/enable
+cycle will not properly unmask interrupts (counter goes 1->2 on
+disable, 2->1 on enable, never reaching 0), breaking interrupt
+operation.
 
-[ Upstream commit 233db2cb14db8b1935dda52a6affd97276462b82 ]
+Fix it by calling esas2r_enable_chip_interrupts() before jumping
+to error_exit on both error paths.
 
-Make sure that the controller is runtime resumed before disabling it
-during driver unbind to avoid an unclocked register access.
-
-This issue was flagged by Sashiko when reviewing a controller
-deregistration fix.
-
-Fixes: 0578a6dbfe75 ("spi: spi-cadence-quadspi: add runtime pm support")
-Cc: stable@vger.kernel.org	# 6.7
-Cc: Dhruva Gole <d-gole@ti.com>
-Link: https://sashiko.dev/#/patchset/20260414134319.978196-1-johan%40kernel.org?part=2
-Signed-off-by: Johan Hovold <johan@kernel.org>
-Link: https://patch.msgid.link/20260421125354.1534871-4-johan@kernel.org
-Signed-off-by: Mark Brown <broonie@kernel.org>
-[ Context adaptation performed. ]
-Signed-off-by: Robert Garcia <rob_garcia@163.com>
+Cc: stable@vger.kernel.org
+Fixes: 26780d9e12ed ("[SCSI] esas2r: ATTO Technology ExpressSAS 6G SAS/SATA RAID Adapter Driver")
+Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
 ---
- drivers/spi/spi-cadence-quadspi.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ drivers/scsi/esas2r/esas2r_init.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/spi/spi-cadence-quadspi.c b/drivers/spi/spi-cadence-quadspi.c
-index d61bc678b6f8..0a32e28eefd5 100644
---- a/drivers/spi/spi-cadence-quadspi.c
-+++ b/drivers/spi/spi-cadence-quadspi.c
-@@ -2055,7 +2055,6 @@ static void cqspi_remove(struct platform_device *pdev)
- 		cqspi_wait_idle(cqspi);
+diff --git a/drivers/scsi/esas2r/esas2r_init.c b/drivers/scsi/esas2r/esas2r_init.c
+index 0a35f1953768..727ddcebec9f 100644
+--- a/drivers/scsi/esas2r/esas2r_init.c
++++ b/drivers/scsi/esas2r/esas2r_init.c
+@@ -683,6 +683,7 @@ static int __maybe_unused esas2r_resume(struct device *dev)
+ 	if (!esas2r_power_up(a, true)) {
+ 		esas2r_debug("yikes, esas2r_power_up failed");
+ 		rez = -ENOMEM;
++		esas2r_enable_chip_interrupts(a);
+ 		goto error_exit;
+ 	}
  
- 	spi_unregister_controller(cqspi->host);
--	cqspi_controller_enable(cqspi, 0);
+@@ -699,6 +700,7 @@ static int __maybe_unused esas2r_resume(struct device *dev)
+ 		esas2r_debug("yikes, unable to claim IRQ");
+ 		esas2r_log(ESAS2R_LOG_CRIT, "could not re-claim IRQ!");
+ 		rez = -ENOMEM;
++		esas2r_enable_chip_interrupts(a);
+ 		goto error_exit;
+ 	}
  
- 	if (cqspi->rx_chan)
- 		dma_release_channel(cqspi->rx_chan);
-@@ -2063,8 +2062,10 @@ static void cqspi_remove(struct platform_device *pdev)
- 	if (!(ddata && (ddata->quirks & CQSPI_DISABLE_RUNTIME_PM)))
- 		ret = pm_runtime_get_sync(&pdev->dev);
- 
--	if (ret >= 0)
-+	if (ret >= 0) {
-+		cqspi_controller_enable(cqspi, 0);
- 		clk_disable(cqspi->clk);
-+	}
- 
- 	if (cqspi->is_jh7110)
- 		cqspi_jh7110_disable_clk(pdev, cqspi);
 -- 
-2.34.1
+2.50.1 (Apple Git-155)
 
