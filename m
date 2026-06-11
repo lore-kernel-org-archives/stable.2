@@ -1,165 +1,78 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D0D538398D
-	for <stable@vger.kernel.org>; Thu, 11 Jun 2026 22:56:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FF963803D9;
+	Thu, 11 Jun 2026 23:00:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781218603; cv=none; b=VJ85jvYgsXcj+Jepi7010QRqcCmlb5CP00C+yDHi5/gne58nRBY9OTCboQKAkuG/6r33HezcN5PF0R9600nVn5uDgnPRCaFCu8k050CBi/2hx6HYeL1LJS1LWpwCVctQXqu98O2DxiF+7BZrEvS8WSQM4OPUklCGylq8J/6JSDQ=
+	t=1781218822; cv=none; b=bGDky6bVkMI2SI7i+OBYerKUCQotklRLLI2SxvS7Rs6EYv+cWOVhKwHwVpO3VTs+0ASXiP3CE70k6NyWgY2VnXR9faXnjbyUkB5Wu8lvVuYRPqwB4UTV8xRtIK3zRbtV8K5wV+PJZtLCGaNeLgckUMV0Nr5XxYDodvxRo8PH2FE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781218603; c=relaxed/simple;
-	bh=kDAIqXWz1E/I0LK0cVdx/EYaIgPxvlGOf46EX9S5tyc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Luoi0yq6CbWUXU419yohOrDciAAX2Hs9F+I7sBTDuu4DNHwa12FFH1Hr94S0ij9oWbBHGmuw3+hPHERNOLLYQxv4P8y2KOQg87e6WV+a0GSJnLqZO2DVrA+yzhHEJjTA4jiK7+OXuLUa6A0ivlK0HfioFAvoswe7mNX4p9HPWGc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=IByxDIx7; arc=none smtp.client-ip=209.85.128.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1781218822; c=relaxed/simple;
+	bh=wl0QIuKggj8Rvf3hNU5aOtP6Jx6G53FKrBCQYHZ2EDE=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=UC7AZf74/QKVhi0iLLCOa/Khaj2pYqh9VF5L/uHGNQcS9DQJzg9NwkENXhrbmzVfWpkRF0YR1OnQWZtfoEfWVntnY0ru/6NGBFBvCLeaWzZLyMbOqQFqVlS2w1rcYEtwx66dAH7jzPDcl0dzdQek4xUTT5X7zGnqMN+aHP1xZ8o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nkqEHVmw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="IByxDIx7"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-490a76757e5so2246425e9.2
-        for <stable@vger.kernel.org>; Thu, 11 Jun 2026 15:56:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1781218598; x=1781823398; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=oXcZK8qp7QLk+DdLmv6M/5Jfzy4SnHpAz6K348JDz18=;
-        b=IByxDIx77UsOmqHWuzyl5cPeUDEFHZdDjEq40WBQeVuVuKnWEbJC2rsW9s0gtsJfqG
-         8PgXJDJHWUkYeIU8KMGdzIWSEYrvEB8IW2jmLz1pi8VwBNOcjiNbbafcTxq2S/pmwg/u
-         1A8sHCQXVU1zviNvv2w4DzTh1M9XN0tmQ2ymJvZdNlb/kPhkXckYsAHFtKl7KChXzkF1
-         reaWppjoljIgBI02/NrkJIncQ4Ur+ix3Kmtajc5YdpbtZp3qgiCo0gfvrvAyoIACpzzu
-         RwWqvpHNDRaFFJbslhgG9+FYJm1kfE9v/fmuyDAh9fCKRJZWZncNmWGDlPT6MqjAyndv
-         Rcpw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781218598; x=1781823398;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=oXcZK8qp7QLk+DdLmv6M/5Jfzy4SnHpAz6K348JDz18=;
-        b=rLT3xocaQowExYAimFpByA0SuOskn1p+Fkz4RXVvIs4wazsJuUEsp4MNxMrRT4U+y7
-         WPy4L3r+EF9lMVxF8/Nzu1IBb80PBtuFypi8+Ou1d+9ij14oVBdFaEeZtqjDLighbk7O
-         RL2FGtJWkQXp87U/66uAc+Gx2I6cecBW9rYx9d7/jfInt4VUf4fmfy+0opbPFLGYq+fW
-         oET016iJuYoo5XJaogzkkPPMzRXd7zkM3SUxTVV/vAqxqLvrSy3k2Ogw8Q68zoiKzFf0
-         3PwtOe7MUft63ypK84hqAlusvtVDg+hdijQhC2MCCEOrJvMeSd0RFnGy+PE+HCkRHuWF
-         Pk0g==
-X-Forwarded-Encrypted: i=1; AFNElJ/zjhL88j37ZaoSJ17eTWPHpOEWhCrtPO1o93jlIa9ibTbGGNzziiIrHW42JTYsPE/WFXaDf0M=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz+FKrfxH/pu2aIRTIxevStp8kgwvCy39zyai5oh3fU4eYn25hu
-	zCSbnfSlc5kad4xyYctvLgzsaJRsdTvbzn1yNk/KJF2nv3g0sMgYn9VeJBULyBgoB0E=
-X-Gm-Gg: Acq92OFNOa0p7mFxZIxl2xq1Z3i1Uestc15OdwHgfuyVrRSUZn2ICSYtExcYKxeWpdL
-	PCc/2LOU7QOyQgkfEXwpZsYaQK83cFsbPACZyWJK0ziYYOliwxrdO+tFLXDr5vWMATnRFHmqaQ6
-	iP9Hb6MANOSILTsREd7oFQ5VRrCxP14YjWgWCNfYLE4yq3dgZHE2PnCziGZmGb+GDdv7Zcc/rDa
-	fF7ZdkrLBmzLdSFaAH4icI2ArHlUDSdsAEKvVbIuYc7Ya9oRLmMvfCrezT5x1SDJY/tI96XPuDG
-	yStSMOfFxzwGp7PPyNLOsMA13r9OIqVU2At914c/vLEIUPFIQrlTuZj7mfd2216Ftpt73WtN1yx
-	k/OwUsc01otr/TJYki1J6Z37iL5q0zuFc3vU51un35GtayTbMuPnrxbl1jAkIBnuZzY29WInzl9
-	rZPRS1hCC72tlwxC5F/JVNSan0BVX+DsyDmnIZhc7JXap7MPIe2K2t4rNRDloU5Cf9mdMpS7xoL
-	1EBkYykII9gA5guFhosyHWikkcNTkeVANwkf1Wg9sEtcA==
-X-Received: by 2002:a05:600c:314a:b0:490:4e3e:b483 with SMTP id 5b1f17b1804b1-490ec502cacmr416665e9.22.1781218598274;
-        Thu, 11 Jun 2026 15:56:38 -0700 (PDT)
-Received: from ?IPV6:2403:580d:fda1:0:2bb5:f164:6e6a:38d8? (2403-580d-fda1-0-2bb5-f164-6e6a-38d8.ip6.aussiebb.net. [2403:580d:fda1:0:2bb5:f164:6e6a:38d8])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c42f2e52a9sm87765ad.11.2026.06.11.15.56.34
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 11 Jun 2026 15:56:37 -0700 (PDT)
-Message-ID: <dbb8c9d8-346a-486e-9e23-f200f6bebb5f@suse.com>
-Date: Fri, 12 Jun 2026 08:26:31 +0930
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nkqEHVmw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F1481F000E9;
+	Thu, 11 Jun 2026 23:00:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781218821;
+	bh=wtGa6+1BtelsAGDuuKGrfoq5Ahdw17vFw8gqBmiODD4=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=nkqEHVmwtibwZ1xAJNvjkWlVbjT/NvmsodglpYkPiZoki6ZR+zKJz0wwch92Lo/w0
+	 VrKQJVlFWWmXw49nHWcs9Fa8dfHFrWq+cT+eEXB+LejirTyC7s+g+nZRPH9i9a8EXP
+	 7kvGmJMLM0s8TunUpkJIAG4BIUu2vH2+4KUbts3yl4/k4MGmrg32o33EIDH7GS9kvA
+	 /BRKVoivPrGiE7ubjKquW+QrH6CbK+gopmNJR7kvRlGDWjMmYx9MVEFIQPlnvHEtKR
+	 l5/6315J13qrw7gReuTMOWpvPtOontrMH1QdHjf88Rb3t+yL2vh8/5QOVRNMyQYZ9t
+	 5+gnqTKlx27tw==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 9383B3930FB3;
+	Thu, 11 Jun 2026 23:00:19 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] btrfs: validate root ref item size and name length
-To: Kyle Zeng <kylebot@openai.com>, linux-btrfs@vger.kernel.org
-Cc: Chris Mason <clm@fb.com>, David Sterba <dsterba@suse.com>,
- outbounddisclosures@openai.com, stable@vger.kernel.org
-References: <20260611212445.4848-1-kylebot@openai.com>
-Content-Language: en-US
-From: Qu Wenruo <wqu@suse.com>
-Autocrypt: addr=wqu@suse.com; keydata=
- xsBNBFnVga8BCACyhFP3ExcTIuB73jDIBA/vSoYcTyysFQzPvez64TUSCv1SgXEByR7fju3o
- 8RfaWuHCnkkea5luuTZMqfgTXrun2dqNVYDNOV6RIVrc4YuG20yhC1epnV55fJCThqij0MRL
- 1NxPKXIlEdHvN0Kov3CtWA+R1iNN0RCeVun7rmOrrjBK573aWC5sgP7YsBOLK79H3tmUtz6b
- 9Imuj0ZyEsa76Xg9PX9Hn2myKj1hfWGS+5og9Va4hrwQC8ipjXik6NKR5GDV+hOZkktU81G5
- gkQtGB9jOAYRs86QG/b7PtIlbd3+pppT0gaS+wvwMs8cuNG+Pu6KO1oC4jgdseFLu7NpABEB
- AAHNGFF1IFdlbnJ1byA8d3F1QHN1c2UuY29tPsLAlAQTAQgAPgIbAwULCQgHAgYVCAkKCwIE
- FgIDAQIeAQIXgBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJnEXVgBQkQ/lqxAAoJEMI9kfOh
- Jf6o+jIH/2KhFmyOw4XWAYbnnijuYqb/obGae8HhcJO2KIGcxbsinK+KQFTSZnkFxnbsQ+VY
- fvtWBHGt8WfHcNmfjdejmy9si2jyy8smQV2jiB60a8iqQXGmsrkuR+AM2V360oEbMF3gVvim
- 2VSX2IiW9KERuhifjseNV1HLk0SHw5NnXiWh1THTqtvFFY+CwnLN2GqiMaSLF6gATW05/sEd
- V17MdI1z4+WSk7D57FlLjp50F3ow2WJtXwG8yG8d6S40dytZpH9iFuk12Sbg7lrtQxPPOIEU
- rpmZLfCNJJoZj603613w/M8EiZw6MohzikTWcFc55RLYJPBWQ+9puZtx1DopW2jOwE0EWdWB
- rwEIAKpT62HgSzL9zwGe+WIUCMB+nOEjXAfvoUPUwk+YCEDcOdfkkM5FyBoJs8TCEuPXGXBO
- Cl5P5B8OYYnkHkGWutAVlUTV8KESOIm/KJIA7jJA+Ss9VhMjtePfgWexw+P8itFRSRrrwyUf
- E+0WcAevblUi45LjWWZgpg3A80tHP0iToOZ5MbdYk7YFBE29cDSleskfV80ZKxFv6koQocq0
- vXzTfHvXNDELAuH7Ms/WJcdUzmPyBf3Oq6mKBBH8J6XZc9LjjNZwNbyvsHSrV5bgmu/THX2n
- g/3be+iqf6OggCiy3I1NSMJ5KtR0q2H2Nx2Vqb1fYPOID8McMV9Ll6rh8S8AEQEAAcLAfAQY
- AQgAJgIbDBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJnEXWBBQkQ/lrSAAoJEMI9kfOhJf6o
- cakH+QHwDszsoYvmrNq36MFGgvAHRjdlrHRBa4A1V1kzd4kOUokongcrOOgHY9yfglcvZqlJ
- qfa4l+1oxs1BvCi29psteQTtw+memmcGruKi+YHD7793zNCMtAtYidDmQ2pWaLfqSaryjlzR
- /3tBWMyvIeWZKURnZbBzWRREB7iWxEbZ014B3gICqZPDRwwitHpH8Om3eZr7ygZck6bBa4MU
- o1XgbZcspyCGqu1xF/bMAY2iCDcq6ULKQceuKkbeQ8qxvt9hVxJC2W3lHq8dlK1pkHPDg9wO
- JoAXek8MF37R8gpLoGWl41FIUb3hFiu3zhDDvslYM4BmzI18QgQTQnotJH8=
-In-Reply-To: <20260611212445.4848-1-kylebot@openai.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH] mlxsw: fix refcount leak in mlxsw_sp_port_lag_join()
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <178121881813.398116.915603452601810782.git-patchwork-notify@kernel.org>
+Date: Thu, 11 Jun 2026 23:00:18 +0000
+References: <20260609083709.209743-1-vulab@iscas.ac.cn>
+In-Reply-To: <20260609083709.209743-1-vulab@iscas.ac.cn>
+To: WenTao Liang <vulab@iscas.ac.cn>
+Cc: idosch@nvidia.com, petrm@nvidia.com, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
 
+Hello:
 
+This patch was applied to netdev/net-next.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-在 2026/6/12 06:54, Kyle Zeng 写道:
-> ROOT_REF and ROOT_BACKREF items contain a struct btrfs_root_ref followed
-> by one variable-length name.  The tree checker validates only generic leaf
-> geometry for these item types, so corrupted metadata can expose a root-ref
-> item whose item size does not match the embedded name_len field.
+On Tue,  9 Jun 2026 08:37:09 +0000 you wrote:
+> When mlxsw_sp_port_lag_index_get() fails, mlxsw_sp_port_lag_join()
+> returns an error without releasing the lag reference obtained by
+> the earlier mlxsw_sp_lag_get().  All other error paths in the
+> function jump to the cleanup label that ends with
+> mlxsw_sp_lag_put(), so this is a single missed release.
 > 
-> Several readers later trust the item size or the name_len field when
-> copying the name into fixed-size buffers.  For example,
-> BTRFS_IOC_GET_SUBVOL_INFO subtracts sizeof(struct btrfs_root_ref) from
-> the item size and copies that many bytes into the 256-byte subvolume name
-> field.  A crafted ROOT_BACKREF item can therefore trigger a kernel heap
-> out-of-bounds write.
+> Fix the leak by replacing the bare 'return err' with a goto to the
+> existing error cleanup label, which will drop the reference safely.
 > 
-> Validate root refs in the tree checker before other Btrfs code consumes
-> them.  Reject items that are too small for the fixed header, names larger
-> than BTRFS_NAME_LEN, and item sizes that do not exactly match
-> sizeof(struct btrfs_root_ref) plus the embedded name length.
-> 
-> Fixes: 23d0b79dfaed ("btrfs: Add unprivileged version of ino_lookup ioctl")
-> Fixes: b64ec075bded ("btrfs: Add unprivileged ioctl which returns subvolume information")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Codex:gpt-5.5
-> Signed-off-by: Kyle Zeng <kylebot@openai.com>
+> [...]
 
-Tell you stupid agent to grab the correct branch.
+Here is the summary with links:
+  - mlxsw: fix refcount leak in mlxsw_sp_port_lag_join()
+    https://git.kernel.org/netdev/net-next/c/41c8c1d65b32
 
-All it's doing is just a worse version of the existing check in for-next 
-tree.
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
-> ---
->   fs/btrfs/tree-checker.c | 38 ++++++++++++++++++++++++++++++++++++++
->   1 file changed, 38 insertions(+)
-> 
-> diff --git a/fs/btrfs/tree-checker.c b/fs/btrfs/tree-checker.c
-> index 1f15d0793a9c..fb072045ca18 100644
-> --- a/fs/btrfs/tree-checker.c
-> +++ b/fs/btrfs/tree-checker.c
-> @@ -1915,6 +1915,40 @@ static int check_inode_extref(struct extent_buffer *leaf,
->   	return 0;
->   }
->   
-> +static int check_root_ref(struct extent_buffer *leaf, int slot)
-> +{
-> +	struct btrfs_root_ref *rref;
-> +	const u32 item_size = btrfs_item_size(leaf, slot);
-> +	u32 expect_size;
-> +	u16 name_len;
-> +
-> +	if (unlikely(item_size < sizeof(*rref))) {
-> +		generic_err(leaf, slot,
-> +			    "invalid root ref item size, have %u expect >= %zu",
-> +			    item_size, sizeof(*rref));
-> +		return -EUCLEAN;
-> +	}
 
-Your stupid agent doesn't reject name_len == 0 case, meanwhile the 
-for-next one does.
