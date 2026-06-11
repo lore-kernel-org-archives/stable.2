@@ -1,426 +1,138 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id CA8AF2DB7A9
-	for <stable@vger.kernel.org>; Thu, 11 Jun 2026 13:49:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED1433F99FB
+	for <stable@vger.kernel.org>; Thu, 11 Jun 2026 13:58:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781185759; cv=none; b=tQozDyRAtkmVFdlvNTYFc6URX3bnyUbq5CN1T6+ch/5xBwz4VJmu4IuabqILOjcSSL6cZD32sucjloiOX0U/xAak6JqGjXA8KWzciBo7BrNLhWdaFM8JP2VmLPtK3gPTo4CEe0DTdBVqFPqSUEBNA658MlxJgxjeOxQ63lileCg=
+	t=1781186318; cv=none; b=gc9lEofwPVXT+JQW/WhPnlb68rZ11OjBORurqAi2dAYtTS2cVJRP8nXnitfmcJzaaWTNiqF1We/Slf+z7WZUiFFvsDOX2bDhSHWJWG0uNcjj42LqQ9nzo5PGhSQQM71LDj2SeH0oR+STajVuChZ+tYoxKV6CBxCLx3nrA945qpw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781185759; c=relaxed/simple;
-	bh=Y7cGNdleSkzIZxnhVBRL1SwBPglbnuywtgVy4hBRlO8=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=YzuGBHHr2Z6COOqDNojVlnKd8hr6Eb8CDeAOH+UBcx+g/aakVPE8cFBANzMVRgTEqcNgb5df/U5eGYFnivh2G2OdkkolJIF05Gvyy6ehcgogy5gSnrCgdMQgijlJpyvBoKCOdfuxzTGpfr1PDPO7pYv3knt4WUWswhvJhab3mNU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=cKdDfvS4; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1781186318; c=relaxed/simple;
+	bh=xIJdNAINqMHY3wozYjPB/A3uLvZ4O8AYKbA3/Mtoyjo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=lmPo+TnDWX+zFzYKapD5n+Nbtb1ubEcwYcaC1Lid2bMGsuVynTdBxqzrlG19N/GwynXfwP5pLDhCZWrYN34GaN+22Jvjx2rxWYLa8rir4ft5q+FJ3E2nupZO60/SM1FG0+E02/ecc8kSyE28eBgYCxRGaWBCSbrBGLP/bs5o5yI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LUxdJjvy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="cKdDfvS4"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7552D1F91;
-	Thu, 11 Jun 2026 06:49:12 -0700 (PDT)
-Received: from lakrids.cambridge.arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 796633FAF5;
-	Thu, 11 Jun 2026 06:49:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1781185757; bh=Y7cGNdleSkzIZxnhVBRL1SwBPglbnuywtgVy4hBRlO8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=cKdDfvS43BtmSHtSqqv6cFel4XeSvda6JnKgg6Jz64ymgpd8I/3HD64cG3+jM9+Z8
-	 F4o//aWg7E3pKFWsOKeGUUH/JAUYUT67V0hKe79TgSlZ4TTaHR4CNNPy0BSNROfyIl
-	 1RfxuU8H5LM1Lq6SlyU65Hmk/JpQwMCsI7iLwWwI=
-From: Mark Rutland <mark.rutland@arm.com>
-To: stable@vger.kernel.org
-Cc: anshuman.khandual@arm.com,
-	catalin.marinas@arm.com,
-	gregkh@linuxfoundation.org,
-	lee@kernel.org,
-	mark.rutland@arm.com,
-	maz@kernel.org,
-	oupton@kernel.org,
-	ryan.roberts@arm.com,
-	will@kernel.org,
-	yuzenghui@huawei.com
-Subject: [PATCH 5.10.y 3/3] arm64: tlb: Optimize ARM64_WORKAROUND_REPEAT_TLBI
-Date: Thu, 11 Jun 2026 14:49:03 +0100
-Message-Id: <20260611134903.1700976-4-mark.rutland@arm.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20260611134903.1700976-1-mark.rutland@arm.com>
-References: <20260611134903.1700976-1-mark.rutland@arm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LUxdJjvy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDE1C1F0089D
+	for <stable@vger.kernel.org>; Thu, 11 Jun 2026 13:58:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781186317;
+	bh=qt0rAO3O4OzD7kus6DSawT6EwGSm1ycFDJui1h2LqMM=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=LUxdJjvyIcJRPgXd/+MNJN8uGfhJrjnibJ6v37ZBFA36E16aoiH97y+qCSQQDziFi
+	 IQwCrEE9RyTqnm+CV0OHLrkLelC+Z5+Js3VqyXqB7YQnjPIDujdjw/jxdYMwKAVfpb
+	 OCklcyjRL7WeKtDexn5zKEWoPpxpsZYpkJj+nyKRLgN9eKUUsFgVNhhj3xMkg790yd
+	 txHVvGD+QdQSmPwK6vRTnONx6Q8PLer2EeEkiMjZ/n1hljE/NCDz4sIwK1IY61ACRF
+	 8xBGM/QRtfH8EgGcYEXkQO6ZBZcAAaXyS7lRduxctIAIQf4wCUy/RA1PDyTHIMrTJU
+	 BJ4EDxe5Qer3g==
+Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-bf0170c80f7so1379643966b.3
+        for <stable@vger.kernel.org>; Thu, 11 Jun 2026 06:58:37 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ9RBITW7rezAolP1UHeI2fmi9dFa9uJPEyyy0yYeWHXwKir7SvW0VX6wJTVI6qT3lxIV4RwuR0=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyI+v5aSfBoH2vSbdzQat8O5zwUn3rL9YzBslVFnhd5MwB5ysnr
+	Yf2JBXf7uVUcC9afz1SD8Uu7qjJby//BwKejX6fYCNSfAUKhILnhdr7JdGVDUvpu4GIK850h7Qj
+	AgfENvSH9/HGmWPLGaLvhqt+wlS96Pm8=
+X-Received: by 2002:a17:907:b09:b0:bed:a7d7:82c8 with SMTP id
+ a640c23a62f3a-bfc889552fcmr97629666b.37.1781186316400; Thu, 11 Jun 2026
+ 06:58:36 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260611132450.971236-1-runyu.xiao@seu.edu.cn>
+In-Reply-To: <20260611132450.971236-1-runyu.xiao@seu.edu.cn>
+From: Filipe Manana <fdmanana@kernel.org>
+Date: Thu, 11 Jun 2026 14:57:58 +0100
+X-Gmail-Original-Message-ID: <CAL3q7H46-8+f9MGbQYpB8k7HTyzA6Fy53_TZ5UStT00buPqHFA@mail.gmail.com>
+X-Gm-Features: AVVi8Cf6TYXZDXzFEtHvShl-L8W5UnyyVCpjWZTo4fEuSHH9NhcD7cY_G45ryIc
+Message-ID: <CAL3q7H46-8+f9MGbQYpB8k7HTyzA6Fy53_TZ5UStT00buPqHFA@mail.gmail.com>
+Subject: Re: [PATCH] btrfs: zoned: protect sb_write_pointer() reads with
+ invalidate lock
+To: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Cc: clm@fb.com, dsterba@suse.com, linux-btrfs@vger.kernel.org, 
+	naohiro.aota@wdc.com, linux-kernel@vger.kernel.org, jianhao.xu@seu.edu.cn, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-commit a8f78680ee6bf795086384e8aea159a52814f827 upstream.
+On Thu, Jun 11, 2026 at 2:33=E2=80=AFPM Runyu Xiao <runyu.xiao@seu.edu.cn> =
+wrote:
+>
+> When both zoned superblock log zones are full, sb_write_pointer() reads
+> the last superblock page from each zone with read_cache_page_gfp() to
+> compare generations. Those reads go through bdev->bd_mapping without
+> filemap_invalidate_lock(), even though the same zoned discovery flow
+> later reaches btrfs_read_disk_super(), whose final read already takes
+> filemap_invalidate_lock(mapping).
+>
+> A running system can reach this while mounting or scanning a zoned
+> filesystem whose superblock log has both zones full. In that state,
+> sb_write_pointer() performs two unprotected page-cache reads before
+> btrfs_read_disk_super() does its later protected final read.
+>
+> This leaves the early discovery reads outside the same synchronization
+> domain used by set_blocksize() when it changes the block-device mapping
+> geometry. As a result, read_cache_page_gfp() can race a concurrent
+> block-size/layout update on the same mapping and see inconsistent
+> geometry across folio allocation and mapping state.
+>
+> This issue was found by our static analysis tool while scanning
+> read_cache_page_gfp(bdev->bd_mapping, ...) sites for missing
+> filemap_invalidate_lock() coverage, and then manually audited on Linux
+> v6.18.21. The same synchronization requirement is already enforced for
+> the final read in btrfs_read_disk_super().
+>
+> A focused QEMU KCSAN test then raced the zoned superblock discovery
+> path against a set_blocksize-style mapping update on the same
+> bdev->bd_mapping. It reported a race between
+> blkbszset_update_mapping() and read_cache_page_gfp(), with the read
+> side reaching:
+>
+>   sb_write_pointer()
+>   sb_log_location()
+>   btrfs_sb_log_location_bdev()
+>   btrfs_read_disk_super()
+>
+> Add filemap_invalidate_lock()/unlock() around the two
+> read_cache_page_gfp() calls in sb_write_pointer() so the zoned
+> superblock discovery path uses the same invalidate-lock contract as the
+> final read in btrfs_read_disk_super().
+>
+> Fixes: 12659251ca5d ("btrfs: implement log-structured superblock for ZONE=
+D mode")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
 
-The ARM64_WORKAROUND_REPEAT_TLBI workaround is used to mitigate several
-errata where broadcast TLBI;DSB sequences don't provide all the
-architecturally required synchronization. The workaround performs more
-work than necessary, and can have significant overhead. This patch
-optimizes the workaround, as explained below.
+There's already a patch for this, and it's in linux-next:
 
-The workaround was originally added for Qualcomm Falkor erratum 1009 in
-commit:
+https://lore.kernel.org/linux-btrfs/20260521122945.524890-1-lkangn.kernel@g=
+mail.com/
 
-  d9ff80f83ecb ("arm64: Work around Falkor erratum 1009")
 
-As noted in the message for that commit, the workaround is applied even
-in cases where it is not strictly necessary.
-
-The workaround was later reused without changes for:
-
-* Arm Cortex-A76 erratum #1286807
-  SDEN v33: https://developer.arm.com/documentation/SDEN-885749/33-0/
-
-* Arm Cortex-A55 erratum #2441007
-  SDEN v16: https://developer.arm.com/documentation/SDEN-859338/1600/
-
-* Arm Cortex-A510 erratum #2441009
-  SDEN v19: https://developer.arm.com/documentation/SDEN-1873351/1900/
-
-The important details to note are as follows:
-
-1. All relevant errata only affect the ordering and/or completion of
-   memory accesses which have been translated by an invalidated TLB
-   entry. The actual invalidation of TLB entries is unaffected.
-
-2. The existing workaround is applied to both broadcast and local TLB
-   invalidation, whereas for all relevant errata it is only necessary to
-   apply a workaround for broadcast invalidation.
-
-3. The existing workaround replaces every TLBI with a TLBI;DSB;TLBI
-   sequence, whereas for all relevant errata it is only necessary to
-   execute a single additional TLBI;DSB sequence after any number of
-   TLBIs are completed by a DSB.
-
-   For example, for a sequence of batched TLBIs:
-
-       TLBI <op1>[, <arg1>]
-       TLBI <op2>[, <arg2>]
-       TLBI <op3>[, <arg3>]
-       DSB ISH
-
-   ... the existing workaround will expand this to:
-
-       TLBI <op1>[, <arg1>]
-       DSB ISH                  // additional
-       TLBI <op1>[, <arg1>]     // additional
-       TLBI <op2>[, <arg2>]
-       DSB ISH                  // additional
-       TLBI <op2>[, <arg2>]     // additional
-       TLBI <op3>[, <arg3>]
-       DSB ISH                  // additional
-       TLBI <op3>[, <arg3>]     // additional
-       DSB ISH
-
-   ... whereas it is sufficient to have:
-
-       TLBI <op1>[, <arg1>]
-       TLBI <op2>[, <arg2>]
-       TLBI <op3>[, <arg3>]
-       DSB ISH
-       TLBI <opX>[, <argX>]     // additional
-       DSB ISH                  // additional
-
-   Using a single additional TBLI and DSB at the end of the sequence can
-   have significantly lower overhead as each DSB which completes a TLBI
-   must synchronize with other PEs in the system, with potential
-   performance effects both locally and system-wide.
-
-4. The existing workaround repeats each specific TLBI operation, whereas
-   for all relevant errata it is sufficient for the additional TLBI to
-   use *any* operation which will be broadcast, regardless of which
-   translation regime or stage of translation the operation applies to.
-
-   For example, for a single TLBI:
-
-       TLBI ALLE2IS
-       DSB ISH
-
-   ... the existing workaround will expand this to:
-
-       TLBI ALLE2IS
-       DSB ISH
-       TLBI ALLE2IS             // additional
-       DSB ISH                  // additional
-
-   ... whereas it is sufficient to have:
-
-       TLBI ALLE2IS
-       DSB ISH
-       TLBI VALE1IS, XZR        // additional
-       DSB ISH                  // additional
-
-   As the additional TLBI doesn't have to match a specific earlier TLBI,
-   the additional TLBI can be implemented in separate code, with no
-   memory of the earlier TLBIs. The additional TLBI can also use a
-   cheaper TLBI operation.
-
-5. The existing workaround is applied to both Stage-1 and Stage-2 TLB
-   invalidation, whereas for all relevant errata it is only necessary to
-   apply a workaround for Stage-1 invalidation.
-
-   Architecturally, TLBI operations which invalidate only Stage-2
-   information (e.g. IPAS2E1IS) are not required to invalidate TLB
-   entries which combine information from Stage-1 and Stage-2
-   translation table entries, and consequently may not complete memory
-   accesses translated by those combined entries. In these cases,
-   completion of memory accesses is only guaranteed after subsequent
-   invalidation of Stage-1 information (e.g. VMALLE1IS).
-
-Taking the above points into account, this patch reworks the workaround
-logic to reduce overhead:
-
-* New __tlbi_sync_s1ish() and __tlbi_sync_s1ish_hyp() functions are
-  added and used in place of any dsb(ish) which is used to complete
-  broadcast Stage-1 TLB maintenance. When the
-  ARM64_WORKAROUND_REPEAT_TLBI workaround is enabled, these helpers will
-  execute an additional TLBI;DSB sequence.
-
-  For consistency, it might make sense to add __tlbi_sync_*() helpers
-  for local and stage 2 maintenance. For now I've left those with
-  open-coded dsb() to keep the diff small.
-
-* The duplication of TLBIs in __TLBI_0() and __TLBI_1() is removed. This
-  is no longer needed as the necessary synchronization will happen in
-  __tlbi_sync_s1ish() or __tlbi_sync_s1ish_hyp().
-
-* The additional TLBI operation is chosen to have minimal impact:
-
-  - __tlbi_sync_s1ish() uses "TLBI VALE1IS, XZR". This is only used at
-    EL1 or at EL2 with {E2H,TGE}=={1,1}, where it will target an unused
-    entry for the reserved ASID in the kernel's own translation regime,
-    and have no adverse affect.
-
-  - __tlbi_sync_s1ish_hyp() uses "TLBI VALE2IS, XZR". This is only used
-    in hyp code, where it will target an unused entry in the hyp code's
-    TTBR0 mapping, and should have no adverse effect.
-
-* As __TLBI_0() and __TLBI_1() no longer replace each TLBI with a
-  TLBI;DSB;TLBI sequence, batching TLBIs is worthwhile, and there's no
-  need for arch_tlbbatch_should_defer() to consider
-  ARM64_WORKAROUND_REPEAT_TLBI.
-
-When building defconfig with GCC 15.1.0, compared to v6.19-rc1, this
-patch saves ~1KiB of text, makes the vmlinux ~42KiB smaller, and makes
-the resulting Image 64KiB smaller:
-
-| [mark@lakrids:~/src/linux]% size vmlinux-*
-|    text    data     bss     dec     hex filename
-| 21179831        19660919         708216 41548966        279fca6 vmlinux-after
-| 21181075        19660903         708216 41550194        27a0172 vmlinux-before
-| [mark@lakrids:~/src/linux]% ls -l vmlinux-*
-| -rwxr-xr-x 1 mark mark 157771472 Feb  4 12:05 vmlinux-after
-| -rwxr-xr-x 1 mark mark 157815432 Feb  4 12:05 vmlinux-before
-| [mark@lakrids:~/src/linux]% ls -l Image-*
-| -rw-r--r-- 1 mark mark 41007616 Feb  4 12:05 Image-after
-| -rw-r--r-- 1 mark mark 41073152 Feb  4 12:05 Image-before
-
-Signed-off-by: Mark Rutland <mark.rutland@arm.com>
-Cc: Catalin Marinas <catalin.marinas@arm.com>
-Cc: Marc Zyngier <maz@kernel.org>
-Cc: Oliver Upton <oupton@kernel.org>
-Cc: Ryan Roberts <ryan.roberts@arm.com>
-Cc: Will Deacon <will@kernel.org>
-Signed-off-by: Will Deacon <will@kernel.org>
-Signed-off-by: Catalin Marinas <catalin.marinas@arm.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-[Mark: Backport to v5.10.y; use inline ALTERNATIVE() sequence]
-Signed-off-by: Mark Rutland <mark.rutland@arm.com>
----
- arch/arm64/include/asm/tlbflush.h | 51 ++++++++++++++++++++++---------
- arch/arm64/kernel/sys_compat.c    |  2 +-
- arch/arm64/kvm/hyp/nvhe/tlb.c     |  6 ++--
- arch/arm64/kvm/hyp/vhe/tlb.c      |  6 ++--
- 4 files changed, 44 insertions(+), 21 deletions(-)
-
-diff --git a/arch/arm64/include/asm/tlbflush.h b/arch/arm64/include/asm/tlbflush.h
-index b17d8b049d258..0fd1bb180561c 100644
---- a/arch/arm64/include/asm/tlbflush.h
-+++ b/arch/arm64/include/asm/tlbflush.h
-@@ -30,18 +30,10 @@
-  */
- #define __TLBI_0(op, arg) asm (ARM64_ASM_PREAMBLE			       \
- 			       "tlbi " #op "\n"				       \
--		   ALTERNATIVE("nop\n			nop",		       \
--			       "dsb ish\n		tlbi " #op,	       \
--			       ARM64_WORKAROUND_REPEAT_TLBI,		       \
--			       CONFIG_ARM64_WORKAROUND_REPEAT_TLBI)	       \
- 			    : : )
- 
- #define __TLBI_1(op, arg) asm (ARM64_ASM_PREAMBLE			       \
- 			       "tlbi " #op ", %x0\n"			       \
--		   ALTERNATIVE("nop\n			nop",		       \
--			       "dsb ish\n		tlbi " #op ", %x0",    \
--			       ARM64_WORKAROUND_REPEAT_TLBI,		       \
--			       CONFIG_ARM64_WORKAROUND_REPEAT_TLBI)	       \
- 			    : : "rZ" (arg))
- 
- #define __TLBI_N(op, arg, n, ...) __TLBI_##n(op, arg)
-@@ -158,6 +150,37 @@ static inline unsigned long get_trans_granule(void)
- #define __TLBI_RANGE_NUM(pages, scale)	\
- 	((((pages) >> (5 * (scale) + 1)) & TLBI_RANGE_MASK) - 1)
- 
-+#define __repeat_tlbi_sync(op, arg)						\
-+do {										\
-+	asm volatile(								\
-+	ALTERNATIVE("nop\n			nop",				\
-+		    "tlbi " #op ", %x0\n	dsb ish",			\
-+		    ARM64_WORKAROUND_REPEAT_TLBI,				\
-+		    CONFIG_ARM64_WORKAROUND_REPEAT_TLBI)			\
-+	:									\
-+	: "rZ" (arg));								\
-+} while (0)
-+
-+/*
-+ * Complete broadcast TLB maintenance issued by the host which invalidates
-+ * stage 1 information in the host's own translation regime.
-+ */
-+static inline void __tlbi_sync_s1ish(void)
-+{
-+	dsb(ish);
-+	__repeat_tlbi_sync(vale1is, 0);
-+}
-+
-+/*
-+ * Complete broadcast TLB maintenance issued by hyp code which invalidates
-+ * stage 1 translation information in any translation regime.
-+ */
-+static inline void __tlbi_sync_s1ish_hyp(void)
-+{
-+	dsb(ish);
-+	__repeat_tlbi_sync(vale2is, 0);
-+}
-+
- /*
-  *	TLB Invalidation
-  *	================
-@@ -239,7 +262,7 @@ static inline void flush_tlb_all(void)
- {
- 	dsb(ishst);
- 	__tlbi(vmalle1is);
--	dsb(ish);
-+	__tlbi_sync_s1ish();
- 	isb();
- }
- 
-@@ -251,7 +274,7 @@ static inline void flush_tlb_mm(struct mm_struct *mm)
- 	asid = __TLBI_VADDR(0, ASID(mm));
- 	__tlbi(aside1is, asid);
- 	__tlbi_user(aside1is, asid);
--	dsb(ish);
-+	__tlbi_sync_s1ish();
- }
- 
- static inline void flush_tlb_page_nosync(struct vm_area_struct *vma,
-@@ -269,7 +292,7 @@ static inline void flush_tlb_page(struct vm_area_struct *vma,
- 				  unsigned long uaddr)
- {
- 	flush_tlb_page_nosync(vma, uaddr);
--	dsb(ish);
-+	__tlbi_sync_s1ish();
- }
- 
- /*
-@@ -357,7 +380,7 @@ static inline void __flush_tlb_range(struct vm_area_struct *vma,
- 		}
- 		scale++;
- 	}
--	dsb(ish);
-+	__tlbi_sync_s1ish();
- }
- 
- static inline void flush_tlb_range(struct vm_area_struct *vma,
-@@ -386,7 +409,7 @@ static inline void flush_tlb_kernel_range(unsigned long start, unsigned long end
- 	dsb(ishst);
- 	for (addr = start; addr < end; addr += 1 << (PAGE_SHIFT - 12))
- 		__tlbi(vaale1is, addr);
--	dsb(ish);
-+	__tlbi_sync_s1ish();
- 	isb();
- }
- 
-@@ -400,7 +423,7 @@ static inline void __flush_tlb_kernel_pgtable(unsigned long kaddr)
- 
- 	dsb(ishst);
- 	__tlbi(vaae1is, addr);
--	dsb(ish);
-+	__tlbi_sync_s1ish();
- 	isb();
- }
- #endif
-diff --git a/arch/arm64/kernel/sys_compat.c b/arch/arm64/kernel/sys_compat.c
-index 51274bab25653..a42266f495d46 100644
---- a/arch/arm64/kernel/sys_compat.c
-+++ b/arch/arm64/kernel/sys_compat.c
-@@ -38,7 +38,7 @@ __do_compat_cache_op(unsigned long start, unsigned long end)
- 			 * We pick the reserved-ASID to minimise the impact.
- 			 */
- 			__tlbi(aside1is, __TLBI_VADDR(0, 0));
--			dsb(ish);
-+			__tlbi_sync_s1ish();
- 		}
- 
- 		ret = __flush_cache_user_range(start, start + chunk);
-diff --git a/arch/arm64/kvm/hyp/nvhe/tlb.c b/arch/arm64/kvm/hyp/nvhe/tlb.c
-index 435d0a54ab9a2..deeb4bc943d89 100644
---- a/arch/arm64/kvm/hyp/nvhe/tlb.c
-+++ b/arch/arm64/kvm/hyp/nvhe/tlb.c
-@@ -79,7 +79,7 @@ void __kvm_tlb_flush_vmid_ipa(struct kvm_s2_mmu *mmu,
- 	 */
- 	dsb(ish);
- 	__tlbi(vmalle1is);
--	dsb(ish);
-+	__tlbi_sync_s1ish_hyp();
- 	isb();
- 
- 	__tlb_switch_to_host(&cxt);
-@@ -95,7 +95,7 @@ void __kvm_tlb_flush_vmid(struct kvm_s2_mmu *mmu)
- 	__tlb_switch_to_guest(mmu, &cxt);
- 
- 	__tlbi(vmalls12e1is);
--	dsb(ish);
-+	__tlbi_sync_s1ish_hyp();
- 	isb();
- 
- 	__tlb_switch_to_host(&cxt);
-@@ -120,5 +120,5 @@ void __kvm_flush_vm_context(void)
- {
- 	dsb(ishst);
- 	__tlbi(alle1is);
--	dsb(ish);
-+	__tlbi_sync_s1ish_hyp();
- }
-diff --git a/arch/arm64/kvm/hyp/vhe/tlb.c b/arch/arm64/kvm/hyp/vhe/tlb.c
-index 67047feb30687..ac695f43f651f 100644
---- a/arch/arm64/kvm/hyp/vhe/tlb.c
-+++ b/arch/arm64/kvm/hyp/vhe/tlb.c
-@@ -105,7 +105,7 @@ void __kvm_tlb_flush_vmid_ipa(struct kvm_s2_mmu *mmu,
- 	 */
- 	dsb(ish);
- 	__tlbi(vmalle1is);
--	dsb(ish);
-+	__tlbi_sync_s1ish_hyp();
- 	isb();
- 
- 	__tlb_switch_to_host(&cxt);
-@@ -121,7 +121,7 @@ void __kvm_tlb_flush_vmid(struct kvm_s2_mmu *mmu)
- 	__tlb_switch_to_guest(mmu, &cxt);
- 
- 	__tlbi(vmalls12e1is);
--	dsb(ish);
-+	__tlbi_sync_s1ish_hyp();
- 	isb();
- 
- 	__tlb_switch_to_host(&cxt);
-@@ -146,5 +146,5 @@ void __kvm_flush_vm_context(void)
- {
- 	dsb(ishst);
- 	__tlbi(alle1is);
--	dsb(ish);
-+	__tlbi_sync_s1ish_hyp();
- }
--- 
-2.30.2
-
+> ---
+>  fs/btrfs/zoned.c | 2 ++
+>  1 file changed, 2 insertions(+)
+>
+> diff --git a/fs/btrfs/zoned.c b/fs/btrfs/zoned.c
+> index e14a4234954b..edc797a43fb5 100644
+> --- a/fs/btrfs/zoned.c
+> +++ b/fs/btrfs/zoned.c
+> @@ -130,8 +130,10 @@ static int sb_write_pointer(struct block_device *bde=
+v, struct blk_zone *zones,
+>                         u64 bytenr =3D ALIGN_DOWN(zone_end, BTRFS_SUPER_I=
+NFO_SIZE) -
+>                                                 BTRFS_SUPER_INFO_SIZE;
+>
+> +                       filemap_invalidate_lock(mapping);
+>                         page[i] =3D read_cache_page_gfp(mapping,
+>                                         bytenr >> PAGE_SHIFT, GFP_NOFS);
+> +                       filemap_invalidate_unlock(mapping);
+>                         if (IS_ERR(page[i])) {
+>                                 if (i =3D=3D 1)
+>                                         btrfs_release_disk_super(super[0]=
+);
+> --
+> 2.34.1
+>
