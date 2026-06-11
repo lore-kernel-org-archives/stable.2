@@ -1,112 +1,167 @@
-Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com [209.85.160.182])
+Received: from mail-lj1-f177.google.com (mail-lj1-f177.google.com [209.85.208.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3458919CD1D
-	for <stable@vger.kernel.org>; Thu, 11 Jun 2026 21:27:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.182
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781213237; cv=none; b=aTdAMpMAH5kj2X72i9ghu6Kspu0yMP/pf0haEAe/kRlL+J0EEpOgseeyaUncJktYOUKB18eJJtwpaG2KLpn7MaFpoZaA8OMKzK58CH7xoWcPmsd4Wav8J2b5+U6ihwTkYmDlgGvBecTkVFA9j+aQ4pKegHBkVbhHI4x6U1IpNHM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781213237; c=relaxed/simple;
-	bh=C6j3x5WYRRV6ciwLPPZ8nA7aPINWU6dJHmIiSTjVJHA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=joT1uUNIjvQUZqs5WKJTMLjrfdKS4caD3gGRlOfK1Ow63VJVpMgeNjUOzRL7+cYaVlb8SZAgOqjVTlHypyUN9/JTxM491rNqIoQUgzgVo5o3dNSyg7bPLvXaAcVDlZBRg0v7msWkK9tf1ScorvqV2e2vU08FI1LvOUUEkbnsAhE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com; spf=pass smtp.mailfrom=openai.com; dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b=A8Fl0Gc2; arc=none smtp.client-ip=209.85.160.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=openai.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4517219CD1D
+	for <stable@vger.kernel.org>; Thu, 11 Jun 2026 21:28:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.177
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781213326; cv=pass; b=eD4uNsaeeJqvrGbi3SO+b+Dyn/q4jW9D3RjKrDZbH2FicTFw2LvRID4IrZUMA3XyBWnrQ+Q2ab2uPQ+m7w9NkUL0tm6Kj+UwEEgMzMRNHMa+pDIzeTqx5MgvnygCDPEOfIZ+3/PjNz1Gl9nOKRjcPcv+y0SszPyHQFwoYqdlskU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781213326; c=relaxed/simple;
+	bh=JG0UY0hvctnnEYPQF9ZNiBocNFE2TPO4VyqhkwRG92g=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=XTfyAACXH8R1Sbbt5o1s7qqYuZkKRAg3ux9LK8T65b93xg3XqT9UQBmKx9gy58DvdvygrHbqwUM+/3/RyyTzM6libufwhVqsLg+5NNLQBk5XIgG8D9LYOjOWxU/LSy3t7Nz3ort/l90OW2zvrAHPjXa3ENbPNytMoKq5ZCTqqNg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QxKLmXbz; arc=pass smtp.client-ip=209.85.208.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b="A8Fl0Gc2"
-Received: by mail-qt1-f182.google.com with SMTP id d75a77b69052e-5176465a4a4so2723691cf.2
-        for <stable@vger.kernel.org>; Thu, 11 Jun 2026 14:27:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QxKLmXbz"
+Received: by mail-lj1-f177.google.com with SMTP id 38308e7fff4ca-396aacc5bcfso2866581fa.3
+        for <stable@vger.kernel.org>; Thu, 11 Jun 2026 14:28:44 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781213322; cv=none;
+        d=google.com; s=arc-20240605;
+        b=iP3s84wU1koDjZhKiNBjgMiOk1EYz6rQ0yC+6IwCkdRmJ3C/VKQd7aRHFXJUbGOfjT
+         SwA24D6N0bWgDzlxhykvfFMgYy+s4C2qPhCFU2aIGoRf+dJqeelX2Kgc4uExoeKPJbYZ
+         mUF6NJ58XCfn60knfu7TuTvKFg6R7VyPz2qSW3KpR4ebGxvejqqzMVdNE7H5jsA3SOoK
+         3wP3p1474/GwM6Q+HUuEDKyauU5/VGgsK5frWLliGZQGMGs8zlw4ohVRAK8PeN6kEheq
+         sUJUrgGxj995UY5AwhUs6ldd6GBNkCdEy7kJb0HvhiSZjAneGxhsBSM/rUFQrkqmYypW
+         CCkA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=kSiS9b/TUc41z1o4dQeNRT9cctSComdBL7vLtn1IdDE=;
+        fh=lXwxGxrQ65epqb9RuyE3aAmz6EVqBh5biIqpIqvxNeQ=;
+        b=fennjAIOrNay3e7A95RHHb2+skP75uyoudzfuhYvrDAyd/F63Dd8IQQgCHvRfkrnjR
+         UZ9oFZC+VJ45BmP2mua55Ijy+OWgkPBP/RfvEcvPiKAPx71WeL684uVMq1SkzcysRm0x
+         SwFlA57A7kO3Pg1x68sGv/4AQP8fFqwyMMgblAXM6Gy+2MthdktmoSNW+gPG9fZ/ut2w
+         yphlYoWjIwu7tCTqnCloU7c4xUsS49vePPLCeZ0X6zb8JqkGRz6JGgs08CvSIh1HbLno
+         ihq9kp24taOM3sKxX2eFPBQf1s5+uXcgFYlF3Y3zOyQ+tICMOl9ZI0yw9PUzSYWn31nD
+         Nvnw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=openai.com; s=google; t=1781213235; x=1781818035; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=2uVyCKJxMa4TJzaUAXJP9RjvhqBIOc1qSJCsvifbc2k=;
-        b=A8Fl0Gc2rkMygUOSVpZyDvRwtdDAD4T8fIsjjP5oMeZxHy+W6BfmQ+xKorHOsOLdKJ
-         T8dGTYUyItRQGLnMAPcXVTepU5KpsZlusYV9Y1CfCg6XdjM+fyTn8uh8cMXtZyhTikYK
-         MAnSxUKifk/uq/r7ea1ic+9p6y9RBci3WQFQs=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781213235; x=1781818035;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1781213322; x=1781818122; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=2uVyCKJxMa4TJzaUAXJP9RjvhqBIOc1qSJCsvifbc2k=;
-        b=eGJEp9BXKJcDDxe2rt8NU99l496DeOCDU2VM5W/T6tSeI1oUvCI/h5+kARQuKX+3mG
-         hMe1IE+pgm7PPt92AtEj7tq1rVlEOw3zLAqlTH9rSaLwyXN1hdDtRVakoNerJGtV8CJI
-         PU+IlffKak1Lhb6I6zXjKAvdE898XSmLNK4zxfok+2cu4cNIbG1eqC/33TnDRmf5Xwo4
-         Mrh5lnDk7om8cRYp3Izi2nmqsJb1vCo3JlkGq7rbi0BnnXn/4PglTVgvvgzJ5ysSQedi
-         GkQfKQA+cafHxSthvP30zCOZ2No3hAX5O1RSGkUkGP2uWWWaJEINNjt31liENFUaIPey
-         T47g==
-X-Forwarded-Encrypted: i=1; AFNElJ+Xv2ZF4jYonBXmI1wwnDBM6kRps4p3QjeaDBR4eBRgxwbuBbHstaL7SuVv6QpU69di0sAvM5o=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwfS4xp86M1K/E/tHenQ3nz5I23IW3svD+TyQgocAFKCojRKdem
-	+3yb3WbnsXFHMXGLFeEp0Wyu9/R5BfmcTjSc2Q6w9Ca9tN3ZZfUqUstRLzvAsMEYDiE=
-X-Gm-Gg: Acq92OEkF/OLZAr+X6LH1ZPVy4Jc6m+GR6MX5jltsdOGzXn9IBTjVwvwCe3xOoSe19+
-	P+DzA8STPjXEwdav+s6bytKog732cdpo9Dm6lEzYGBLSeOBqbJJHszs1Ou6Es+PgLA4EKwcULMB
-	WOvhbArDFazd0BvpG65RO+U1jtC+55vnQneC+hgxm0/QQ23XckdxwWGE9q/zcQWGv5ff2uKpDxl
-	nw9FoSZVTuGsOo6bfmaJqZskcN6WMQ/RvrVKxiS8V0GX2LqzCQZpSf6h89DKVSDQ8OU5OE1krr+
-	gS/5pRyP74JfutKoB0+sgzkfl1jPwDLgkmIYPDNnYs5fhtIQuTq6QbIrfL9szMwCf+S3IJbWMsO
-	XBZlH+JcQ0SD1KiP0jimh1gqZD6glQquOWAsTCUG9ER+r5G4jRbZJDk4wCENekGAwqfQaohyu+D
-	6zOa/2UbP3f8mw+sWfsW5P5t2xbaigOuSbCMOhZSD6AmZWrvAFjGTdjpNBhQ6JyKhCob/thUwr4
-	4AEbuiGFJgoX+OT5OdOI0DyK3KpaQ2LL1QjmXppW9lfxQ==
-X-Received: by 2002:a05:622a:4a0a:b0:50d:6b06:a453 with SMTP id d75a77b69052e-517ede809c0mr72346601cf.18.1781213235116;
-        Thu, 11 Jun 2026 14:27:15 -0700 (PDT)
-Received: from com-75606.node.ndb.openai.org ([209.249.37.146])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-517fb7ec47asm3717861cf.24.2026.06.11.14.27.14
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 11 Jun 2026 14:27:14 -0700 (PDT)
-From: Kyle Zeng <kylebot@openai.com>
-To: linux-fsdevel@vger.kernel.org
-Cc: Yangtao Li <frank.li@vivo.com>,
-	Viacheslav Dubeyko <slava@dubeyko.com>,
-	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
-	outbounddisclosures@openai.com,
-	Kyle Zeng <kylebot@openai.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] hfsplus: terminate xattr names before listing them
-Date: Thu, 11 Jun 2026 14:27:10 -0700
-Message-ID: <20260611212710.5134-1-kylebot@openai.com>
-X-Mailer: git-send-email 2.54.0
+        bh=kSiS9b/TUc41z1o4dQeNRT9cctSComdBL7vLtn1IdDE=;
+        b=QxKLmXbzSrkfMbSN7IcFxO/glPZNelMpCBHTyFR/1Qx9lK0WYKcQTHifBw4NuJ29r+
+         dlbIe4A/VwmiMmYc2PX6SmZp/4520tClKBuvInjVtTkKGAmjZrtuZLnRvX9J+rF6uF1w
+         8c0AoR2gdrmjzSvgmu/++jpXZKnhdr2GXGATaI5anogSch/t5UVAp1lB088kZAmhCvhf
+         qqLSjZBpdCO7NuAnQxVvhys4HF1ZfVljnx+hAzD3wpNnujQIgGK0WPepKXNmkBeAtbll
+         xW9801Er2jeIp9X2DsG7PE7YX9+u7wy6nVqCdLEOOULI/2fyuKabIAvcvE3HLg56n+c5
+         bnOg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781213322; x=1781818122;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=kSiS9b/TUc41z1o4dQeNRT9cctSComdBL7vLtn1IdDE=;
+        b=mx6vNp/DbmX8A2TGnywlRhCLKQNGLvWkbYwpZn8rK2Ulx4YPEOq9m5bWjg2RDHA+R9
+         CgvM4k5vnCwna12rA8idRi4x/SQuQY86ocBmx/m3iaFtI+2V9tpvB96kaw4mosuyCN8q
+         NUuZQuKNMo4wkO3lk6U2xgIca26iN+JeZjSXd9ADHQuSrWYAAEj5da8apHbQRjTW0cOi
+         cQL2akBufQjMprDEfm47V1p9NFdW4t23OS1WjQClaB/ZxPRzd91CRIqkWcycf3qjI4uf
+         WRiurkJnXAqngLabmcdXMDh376m+DyuYBlThNqmSSmzwX6L7QFaRet1H5ImxuuHTNKxh
+         M8uw==
+X-Forwarded-Encrypted: i=1; AFNElJ/l9vbF6t+O++/zYtauVNUfpSei0lfYcmWb2OLhZfmA5DMGpRY2Qvy9CJw55Z2bhaNo+wC3O40=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxz3nRNWDkxa8y8oH3f1S9Gi4tTDy0jtDnfRhqRZYCR5lq57Lps
+	3DOhppumjPMxNHEB9zloxF7a7KPTUFhYf2xX3qBlt0eyZp7OM5/JsLCme79GWskKFbLjpQMiqoK
+	aF3z6u7Jiq5fRZs4SZPptDNweo9a+gzY=
+X-Gm-Gg: Acq92OHYIoual06mLAQWWAH/bWVXoN1kdGU+eeKNnEFJhcfelpjlkYLWeudVveqD1kP
+	K6K99s/Brhlbs8Hwa9wcVxD5YN+s509sVhCiJmW6cPq9FxrBSfS5cnpIrQ5APnO+VjsriLsTQHJ
+	2TjAHry+QTR0PIAdGl3uU+USTXKAT0mD2az3YneQrARZBWMDKIvK6jizGQ+Et3dG3Fv77u0xM1/
+	ONxmZ1mRpTfkP2SWLZKcdql+8I39ipzipmSgG0XxoXzjiEljBfaeKzQVTK/tlZ7KLYroSi/suPM
+	6l8mjIJa
+X-Received: by 2002:a05:651c:2107:b0:38e:d3ec:4f87 with SMTP id
+ 38308e7fff4ca-3992b27b888mr126891fa.21.1781213322252; Thu, 11 Jun 2026
+ 14:28:42 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260611151848.2573316-1-runyu.xiao@seu.edu.cn>
+In-Reply-To: <20260611151848.2573316-1-runyu.xiao@seu.edu.cn>
+From: Steve deRosier <derosier@gmail.com>
+Date: Thu, 11 Jun 2026 14:28:04 -0700
+X-Gm-Features: AVVi8CcdEwJqkM5Tqp2QM09ml7ba32VLHw3QbyaKpzeUkeRS1S1Zxfwfe-iE90c
+Message-ID: <CALLGbRKs0ETDKNQXyCEJniGMj3htJgYmNn55_upcwjvS+0poyg@mail.gmail.com>
+Subject: Re: [PATCH] wifi: libertas_tf: kill shared URB before resubmitting it
+To: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Cc: linux-wireless@vger.kernel.org, libertas-dev@lists.infradead.org, 
+	linville@tuxdriver.com, luisca@cozybit.com, linux-kernel@vger.kernel.org, 
+	jianhao.xu@seu.edu.cn, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-hfsplus_uni2asc_xattr_str() returns the converted byte count but does not
-append a trailing NUL. hfsplus_listxattr() then passes the reusable
-conversion buffer to string helpers such as can_list(), name_len(), and
-copy_name().
+On Thu, Jun 11, 2026 at 8:19=E2=80=AFAM Runyu Xiao <runyu.xiao@seu.edu.cn> =
+wrote:
+>
+> libertas_tf's usb_tx_block() reuses a shared send URB and immediately
+> does usb_fill_bulk_urb() plus usb_submit_urb() on it. Depending on the
+> caller, that shared carrier is either cardp->tx_urb or cardp->cmd_urb.
+> There is no patch-local usb_kill_urb() before reuse, and the file-local
+> completion path provides no busy flag, completion, or other ownership
+> handoff that would make active reuse safe.
+>
+> A running system can reach this through if_usb_host_to_card() for normal
+> data or command traffic, if_usb_issue_boot_command() for firmware boot
+> commands, and if_usb_send_fw_pkt() for firmware download packets. Those
+> paths all feed back into the same helper, so a second submission can
+> refill and resubmit an URB while the previous transfer is still active.
+>
+> The issue was found by our static analysis tool and manually audited on
+> Linux v6.18.21. It was further validated with a focused QEMU no-device KC=
+SAN
+> harness, which reproduced active reuse of both shared carriers:
+> cardp->tx_urb through if_usb_host_to_card(), and cardp->cmd_urb through
+> if_usb_issue_boot_command() and if_usb_send_fw_pkt().
+>
+> Call usb_kill_urb(urb) after selecting the shared target URB and before
+> refilling it, so both tx_urb and cmd_urb are quiesced before reuse.
+>
+> Fixes: c305a19a0d0a ("libertas_tf: usb specific functions")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+> ---
+>  drivers/net/wireless/marvell/libertas_tf/if_usb.c | 2 ++
+>  1 file changed, 2 insertions(+)
+>
+> diff --git a/drivers/net/wireless/marvell/libertas_tf/if_usb.c b/drivers/=
+net/wireless/marvell/libertas_tf/if_usb.c
+> index 5662a244f82a..7542956d3c47 100644
+> --- a/drivers/net/wireless/marvell/libertas_tf/if_usb.c
+> +++ b/drivers/net/wireless/marvell/libertas_tf/if_usb.c
+> @@ -387,6 +387,8 @@ static int usb_tx_block(struct if_usb_card *cardp, ui=
+nt8_t *payload,
+>         else
+>                 urb =3D cardp->cmd_urb;
+>
+> +       usb_kill_urb(urb);
+> +
+>         usb_fill_bulk_urb(urb, cardp->udev,
+>                           usb_sndbulkpipe(cardp->udev,
+>                                           cardp->ep_out),
+> --
+> 2.34.1
 
-If a shorter converted xattr name follows a longer one, stale bytes after
-the new byte count can make strscpy() fail with -E2BIG. The caller adds
-copy_name()'s return value to the running output offset, so a negative
-return can move the next write before the listxattr buffer.
+So, If I'm reading this right, you've basically compile checked and
+such on this, but you haven't actually tried this on real hardware. If
+you had, you'd have noticed it splats all over the place.
+`usb_kill_urb()` can not be called from within an atomic context and 3
+of the 5 contexts where this is called are atomic.
 
-Explicitly terminate the converted name at the returned byte count before
-treating it as a C string.
+You've gone and fixed a very unlikely but theoretical race condition
+in a way that causes actual real damage.
 
-Fixes: 127e5f5ae51ef ("hfsplus: rework functionality of getting, setting and deleting of extended attributes")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.5
-Signed-off-by: Kyle Zeng <kylebot@openai.com>
----
- fs/hfsplus/xattr.c | 1 +
- 1 file changed, 1 insertion(+)
+This is targeting an old Marvell 8388 which is a 802.11b/g chip. With
+a custom thin-firmware created by Cozybit for OLPC and AFAIK only ever
+used on those units. While I appreciate the "fix it for sake of
+correctness" (if indeed this would fix it, which clearly it doesn't),
+I'm not sure what the value proposition is for fixing something that
+basically isn't used anymore.
 
-diff --git a/fs/hfsplus/xattr.c b/fs/hfsplus/xattr.c
-index 452a1f9becb2..35fcbc397b62 100644
---- a/fs/hfsplus/xattr.c
-+++ b/fs/hfsplus/xattr.c
-@@ -870,6 +870,7 @@ ssize_t hfsplus_listxattr(struct dentry *dentry, char *buffer, size_t size)
- 			res = -EIO;
- 			goto end_listxattr;
- 		}
-+		strbuf[xattr_name_len] = '\0';
- 
- 		if (!buffer || !size) {
- 			if (can_list(strbuf))
--- 
-2.54.0
+Anyway, this is a hard NACK.
 
+- Steve
