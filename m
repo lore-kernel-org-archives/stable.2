@@ -1,66 +1,66 @@
-Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com [209.85.222.182])
+Received: from mail-qk1-f177.google.com (mail-qk1-f177.google.com [209.85.222.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD83D38E11C
-	for <stable@vger.kernel.org>; Thu, 11 Jun 2026 22:40:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3D2C38D3F1
+	for <stable@vger.kernel.org>; Thu, 11 Jun 2026 22:41:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781217634; cv=none; b=FH5UEQBYQOkB4Axxw9u+/fckvYE+Uo9+FxYjv1NDwH6BYgjyhRaZhpzFzY5cHSxba9VSSRom92EvnOS9UcTcUKjdEzFxbna4EZ2j2jdYiDZgILtaInVbplkbgRLjR1oMevHaGKQIFnx3KVycYPzeLASwISr5UBonkg2n72yz+wM=
+	t=1781217666; cv=none; b=MdFXlFzdUEstlT0iC+hVknqIJovYuz/+yRi/Nue0K8Mi5EEoSEKsX7OG3GME/HF9awr74RUlDVM6J81OvJOzpk2RFnsmHdm+tnsCjgO0pf3pNp0XAaPBoKYV1FY8phqJX7o6/hCFjWuGbS+QG0c4zeMBBKXnm1DZ/TDZREwHAe0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781217634; c=relaxed/simple;
-	bh=WEVzdHnIrxW7ukPFi3t/nbWPNFeamWzAa1bOWFuAGbs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Yd0+bd75rCUeitAB9/kxKilQAydMRt4pgN8vos/LlbZ9fYlOb36u/AKu/gSJmjBDrL9z4Qx9BtZdBIhJyuulG/3g3WFRcKwsjaTDpya3xo+tykFWfhoWEtsm1Lj1N4QiSKkRRG2iPbxoL6+KI38XFlvG+lW8H4os0ukQ1ePhH08=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com; spf=pass smtp.mailfrom=openai.com; dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b=agEFV1CD; arc=none smtp.client-ip=209.85.222.182
+	s=arc-20240116; t=1781217666; c=relaxed/simple;
+	bh=c8+5gsDcbu85UlXQBPGgv2ThaqMzxsz1J3fkg3m5+7c=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LUriMiKrHxCFWJDoEBlD3wdUljmWb6igDN1s8wgtUxdqOV41G64oL2+xj/NQX4csI/TKsszOTxeK0uGqlYNbeaeajkPK0kuDcMLPvOb9zBmJBpJXLOgqDYtCvbxcXC1VWlSJnrEOIph/t81hNB2B8KVWINYw28VtxUbdK8e4gjk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com; spf=pass smtp.mailfrom=openai.com; dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b=LpTyqhPK; arc=none smtp.client-ip=209.85.222.177
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=openai.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b="agEFV1CD"
-Received: by mail-qk1-f182.google.com with SMTP id af79cd13be357-915d64fead9so161032785a.0
-        for <stable@vger.kernel.org>; Thu, 11 Jun 2026 15:40:32 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b="LpTyqhPK"
+Received: by mail-qk1-f177.google.com with SMTP id af79cd13be357-91578122305so57507485a.0
+        for <stable@vger.kernel.org>; Thu, 11 Jun 2026 15:41:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=openai.com; s=google; t=1781217632; x=1781822432; darn=vger.kernel.org;
+        d=openai.com; s=google; t=1781217664; x=1781822464; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=OivJuIkzftvepgBn4SH1tH/D3MOGhONxBQFKa9XkFbs=;
-        b=agEFV1CD9uXxWGpDGstZgq8uIv74/bS6xvUvu2BHfvUJ/tJ1m+6zxf+HpC/64TbpAA
-         gB67bcPChYMgZkayQhR7gn4cIfymrgGKs9LWLJgVAh9JylL0PDITOWmrNEzzTiu5pPw7
-         PqEgrTFvecYojJSEicpHdgGxcR9MUkKixO6qU=
+        bh=+oAze3O4D+kWXYDV0GKpNw5gMSt74lXkoTZLWlVoQKY=;
+        b=LpTyqhPK1RGlCIkBGgZWvk+kWK5MCfJKo7N52jWb2T8T5NTKegE5bXeUcJ78KLHw5E
+         IZMUzJS29WAeCl0mYLInpmppY7SE2solEZHgxEG01K9sSSR+wNkfINapbxP3YTkag+rG
+         O+QmwMwBllcCcwLqL1UZDIDC/g8tOIXT0QEII=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781217632; x=1781822432;
+        d=1e100.net; s=20251104; t=1781217664; x=1781822464;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=OivJuIkzftvepgBn4SH1tH/D3MOGhONxBQFKa9XkFbs=;
-        b=ePy59Ghzdat4FgcUvApc/cSph5dT9/h5sm2XmZn7//wG7LdicW++HpRjir+3TMSoaB
-         PX6xmpHzGBSbw6NjehsERJicyXgJdkLGbB2vIlKMOxDu04h+H3Pq+PS7fUdEYP3JSpzj
-         PzKZ1avrpYjyvHLEvPLfn8DOE2FO0Kz0jfimhREXaEFiDgBN0JgbKsi5UnTU0XDidQf/
-         j5soQLO1vae9u+t5jZ/gtfMYsq2+ZFCEm64E7vRi2bOsWRPr5iP/BYJXHnYk1D9qKJtn
-         LluTVbP2vn0o2nICYLcOe+XadLDzb9hNrckYyDwrGfGF5J9KirEq3Aq4IQ4bR4NASEK0
-         dq5g==
-X-Gm-Message-State: AOJu0YzukHB2C7WwrpioGvzKAZ3A+4obANo4Sc0DCNziXiarSuBXe219
-	1TzYltqCSnCncVJHiNPHY6P/kS/uReWjlYT/WLqcZ9iushZW6hdK2H9T90hH71xTrCxxOtrkD6z
-	aYVstYig=
-X-Gm-Gg: Acq92OElHb3dS9vqSAT0LU5Yodb6Mgqmocn5gRMUAtRZ9xMbAJnTgc1zg2+H/F7gncP
-	bMQwjg1/3LuAF3nqXaequgw3r+m1DswfdaZg+Lb2K71MjkfVQsfYXrHQ9j6CFRaAT+5vakYqL3F
-	OnEpyAwPzYVEYrIh1Wo069E2dZsriYBhllpjH0h/bir8OKZLOzFBviU60ULAqMu5dYLWtx2Bem4
-	X+1OZj+kQ7a3ahhez5zDytguW97aJpHa8u9Bc6PjZ7yWW8xf1B1D0lJ9+CLU8wctiwOsPrEDHU7
-	JpR8buParELcQ8L5wXavDtPs4hNxpIWHH70XRUkIuBp+v+L46HN7prVDjSzUNEQpQtYEttDAzQf
-	zLfpm60MyACPRbMTUJc0SaleOxRe2Fm3POlv020AIPXMXIWZK1EvSdD+ShdX+HLUVNrJExWLoHg
-	2AqGEOMdkJ+mhXu9Jfm7wtoBeAR6wLP8c9thp1qcb5Yf4lQAPJQLEVSD5jZHwoRF9cAo/T4QXFp
-	/bMnSy7Zk/BoA9ODnuVKOw9SbJzS7FY/A4=
-X-Received: by 2002:a05:620a:450c:b0:916:1765:b774 with SMTP id af79cd13be357-91619eff271mr105185785a.21.1781217631701;
-        Thu, 11 Jun 2026 15:40:31 -0700 (PDT)
+        bh=+oAze3O4D+kWXYDV0GKpNw5gMSt74lXkoTZLWlVoQKY=;
+        b=lYH/w5raeWOXTr1EsNCS9zE46cxBZuBTlHI6ajAAVSrpUFBFizPxgnk+as8o0XZfFz
+         cvd9sD7D4XhQ486WDxPpMGfiZS5+TOr6Pqn8bG2nN1l7+V8+oqEPVOEDT1QDr1YASeLD
+         EgQcsQYqskkCg7mGaZFAMqVwIvAigrTTw6MH23bZp/J0JUPuLW6/LaKsnyHF/NXedrQI
+         UJcRjw7ncmD3E5fqI+9F98Ymw2fBxiFY7hzkB90k/OxSF/P1A1Dqwkz6314F9KxxYGRz
+         kgjDca7OfDZshEtXEQfOLSGrQShxU3VycV7VO799oRtk3UoaLN0lZi/mKrqCHBAuWpef
+         29FQ==
+X-Gm-Message-State: AOJu0Yxpz4wE/Inpb5zOUqG/kKYt7+maMZjqJNhTePA+HbazUNYk7K5c
+	eQrUy7++KBUWOVV6MkBCvr5sb8ZQ5PzcddEBcbJSLNA32vYJw1k8aVNRtg7SW1Udd5RG8xlRxVe
+	izFi+u+g=
+X-Gm-Gg: Acq92OEnHsN/kxZIvzH0sUiCy8iZ19RtfqZauuwmN1CruWVJOOq1m6g/cEUQVXWV0i4
+	36eFWbOJ7E5KHjO2GmIZHdi0/mHe28yGWEvDPCzHhP518OEO7ileXKrpFGozL2VaemhCXPcjpud
+	d9mtO6ru3PuKWi4q02NEq8+ZnqMuxyiDo0Au0BvR9w/aOoFkC6H+Cv8XdtnLP/dDYJczkDvqXyK
+	Ycl4RTzZPBSOi3OpmpVtY+MJ2/zLykC9AEYJt4pfTyA/whKHSD+FXKua/kA9jRfejkgk39TMP4C
+	trIDrxLL4Q//ftvyIp6YqCiG3AoccoUfxebZU3io5d/voS/cf0/Rwrml1y6WBgxMyWQuNfdszaI
+	Fw2Tp64lO5zQbD0qqWFfUa/BYLSXGSx1d0uDjo3OIJLB2PeqbTnNddSsPkmF89mBx9Y8u7UOeO9
+	inDa9zLuHDlAY1SeYzVBef4oLISH4UgUfZlcp51us2AxKcmrTbhifnoMn0zKRn2Uv81AT3fJv1r
+	Re5qRwnJWb6FlPu+rvqEa1l0csu8nHXJz0=
+X-Received: by 2002:a05:620a:c4a:b0:915:9e84:85df with SMTP id af79cd13be357-9161bc547d7mr11408585a.17.1781217663830;
+        Thu, 11 Jun 2026 15:41:03 -0700 (PDT)
 Received: from com-75606.node.ndb.openai.org ([209.249.37.146])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-91619f05fe7sm46133785a.12.2026.06.11.15.40.30
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9161a069389sm39280985a.45.2026.06.11.15.41.02
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 11 Jun 2026 15:40:31 -0700 (PDT)
+        Thu, 11 Jun 2026 15:41:03 -0700 (PDT)
 From: Kyle Zeng <kylebot@openai.com>
 To: stable@vger.kernel.org
 Cc: outbounddisclosures@openai.com,
 	Kyle Zeng <kylebot@openai.com>
-Subject: [PATCH 6.12.y] reiserfs: validate tail item bounds before conversion
-Date: Thu, 11 Jun 2026 15:40:27 -0700
-Message-ID: <20260611224027.74281-1-kylebot@openai.com>
+Subject: [PATCH] reiserfs: continue checking leaf items after directories
+Date: Thu, 11 Jun 2026 15:40:59 -0700
+Message-ID: <20260611224059.76010-1-kylebot@openai.com>
 X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -70,58 +70,42 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-direct2indirect() moves direct items into an unformatted-node page while
-deleting them from the tree. It assumes the item body copied by
-reiserfs_delete_item() and the aggregate number of copied tail bytes both
-fit in the target tail page.
+is_leaf() validates each item header in a leaf before the leaf is
+trusted by search_by_key().  The directory-item case currently returns
+the result of has_valid_deh_location() directly from inside that loop.
+If the first directory item is valid, the whole leaf is accepted and any
+later item headers are never checked.
 
-A corrupted filesystem can violate those assumptions. Multiple direct
-items can each fit in the page while their aggregate length exceeds the
-filesystem block size, which underflows the final zero-fill length. A
-malformed item can also describe an offset and length that cross the page
-boundary before the aggregate length is checked.
+A crafted leaf can put a valid directory item before a malformed later
+stat-data, direct, indirect, or directory item.  search_by_key() can then
+select the unchecked item and consumers use ih_item_body() on attacker
+controlled ih_location/ih_item_len values.
 
-Validate the per-item page copy and aggregate tail length before calling
-reiserfs_delete_item(), and reject corrupt metadata with -EIO after
-reporting a filesystem error.
+Keep the directory-entry validation, but only fail the leaf when that
+validation fails.  If it succeeds, continue the item-header loop so the
+remaining headers are checked.
 
+Fixes: 13d257503c09 ("reiserfs: check directory items on read from disk")
+Cc: stable@vger.kernel.org
 Assisted-by: Codex:gpt-5.5
 Signed-off-by: Kyle Zeng <kylebot@openai.com>
 ---
- fs/reiserfs/tail_conversion.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+ fs/reiserfs/stree.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/fs/reiserfs/tail_conversion.c b/fs/reiserfs/tail_conversion.c
-index 2cec61af2a9e..ba3dd6770d46 100644
---- a/fs/reiserfs/tail_conversion.c
-+++ b/fs/reiserfs/tail_conversion.c
-@@ -106,6 +106,8 @@ int direct2indirect(struct reiserfs_transaction_handle *th, struct inode *inode,
- 	 * and delete them.
- 	 */
- 	while (1) {
-+		unsigned long item_len;
-+		unsigned long pgoff;
- 		int tail_size;
- 
- 		/*
-@@ -120,6 +122,17 @@ int direct2indirect(struct reiserfs_transaction_handle *th, struct inode *inode,
- 		RFALSE(!is_direct_le_ih(p_le_ih),
- 		       "vs-14055: direct item expected(%K), found %h",
- 		       &end_key, p_le_ih);
-+		item_len = ih_item_len(p_le_ih);
-+		pgoff = (le_ih_k_offset(p_le_ih) - 1) & (PAGE_SIZE - 1);
-+		if (item_len > PAGE_SIZE - pgoff ||
-+		    item_len > blk_size ||
-+		    total_tail > blk_size - item_len) {
-+			reiserfs_error(sb, "PAP-14060",
-+				       "direct item %h does not fit in tail page",
-+				       p_le_ih);
-+			pathrelse(path);
-+			return -EIO;
-+		}
- 		tail_size = (le_ih_k_offset(p_le_ih) & (blk_size - 1))
- 		    + ih_item_len(p_le_ih) - 1;
- 
+diff --git a/fs/reiserfs/stree.c b/fs/reiserfs/stree.c
+index 5faf702f8d15..0f4eb9627a39 100644
+--- a/fs/reiserfs/stree.c
++++ b/fs/reiserfs/stree.c
+@@ -479,7 +479,8 @@ static int is_leaf(char *buf, int blocksize, struct buffer_head *bh)
+ 						 ih);
+ 				return 0;
+ 			}
+-			return has_valid_deh_location(bh, ih);
++			if (!has_valid_deh_location(bh, ih))
++				return 0;
+ 		}
+ 		prev_location = ih_location(ih);
+ 	}
 -- 
-2.54.0
-
+2.43.0
