@@ -1,153 +1,96 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64C04416D1D;
-	Thu, 11 Jun 2026 14:23:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEFEC3FBB68;
+	Thu, 11 Jun 2026 14:23:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781187792; cv=none; b=n5N4D6wtG22ekdghYa8w9Jb5YlosxTIR7uQKmGRfPGdnoAxxwZK0pzSJfu+2kNDDVIb9IbsaKSRWbvueT+8QVOlI3ldwMDmi5xtnY8Myd6PGM2G+DCBggULCoZtcFKXskO/I6D75RRzvbGjNs6I6G4jQKuOSI8FENITW0xM62q0=
+	t=1781187823; cv=none; b=IhJE+gI6Trf1Ont1c2jQCzk1AY/xCeVXkY2ljQMEP7//mhGcGSqhmje+etOEkVtG3lzclNAKGXp//W6ICnW+TwX/wmfZr1JBWw6k52dAydNSrLDjFFvzYUr19L9XjVv5urrEw03LvWxYM4o51w675VjyxNPjXkMgsGFS1HPS3W0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781187792; c=relaxed/simple;
-	bh=Z5tnKsqQw7EiBeSDr2ywtUGax4C0M+Mxkthf6nfbtWw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Y4b5+izqgLjrwJJ22qcq8gWXsW9MYkCV3RBxwSJeNUuFEJQyXo8xeuZ7SV18ysGGIng7WqjJjde0tiNhKzRGyWSFVTRDfUH6xux3sKiahfpZdeDWqRStmZ+MpDG0j47h5V5pFbWR8sygtWenp/fySoBkx8BhFX48oCrJyh90rw0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=UVIQdvgR; arc=none smtp.client-ip=198.175.65.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="UVIQdvgR"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1781187791; x=1812723791;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=Z5tnKsqQw7EiBeSDr2ywtUGax4C0M+Mxkthf6nfbtWw=;
-  b=UVIQdvgR5EE1URFVe3KPyT3bT2gwd46605Rp4oNpemTZTXn4BM2+Sf6j
-   okyJ4NCpXG1Ze6ARKmQu7miD7L1XegF9LNYi/uFdsnwU4iJ75KKiOeSX1
-   b5jJYoPOHWe0hZEzn38WA5RNpmkAYbZyo+4+x7K9CnlewV+ppsprDQcsM
-   sk7Nx4MKdNRXsjQSQ8158DjOZ81ivXqmO6a3X9D2JFc2S0ajMsM403pVJ
-   s9GO/B+OtKXW1Ax+W/6JcEJwXA+rAAhlGyxP9PwV3dQX2B77W/gUC/WUA
-   6Y2WIELHUFxa+/DpX8piMWp5yL0FGUiVA3LgnHQyc5Yxk1dxCL8LJ1o8H
-   g==;
-X-CSE-ConnectionGUID: 4uomZwj6RS2vW6lTW8F7EQ==
-X-CSE-MsgGUID: +Xed/1PiS0KBWRj14xUm6w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11813"; a="81983387"
-X-IronPort-AV: E=Sophos;i="6.24,199,1774335600"; 
-   d="scan'208";a="81983387"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Jun 2026 07:23:11 -0700
-X-CSE-ConnectionGUID: ls8D193aSy+NbZ18+dH9iQ==
-X-CSE-MsgGUID: 2WcjWr9lQoWra8BBCBbOXg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,199,1774335600"; 
-   d="scan'208";a="284574291"
-Received: from amilburn-desk.amilburn-desk (HELO fedora) ([10.245.244.169])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Jun 2026 07:23:06 -0700
-From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-To: intel-xe@lists.freedesktop.org
-Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
-	Sashiko-bot <sashiko-bot@kernel.org>,
-	Friedrich Vock <friedrich.vock@gmx.de>,
-	Maarten Lankhorst <dev@lankhorst.se>,
-	Tejun Heo <tj@kernel.org>,
-	Maxime Ripard <mripard@kernel.org>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	stable@vger.kernel.org,
-	Natalie Vock <natalie.vock@gmx.de>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
-	cgroups@vger.kernel.org,
-	Huang Rui <ray.huang@amd.com>,
-	Matthew Brost <matthew.brost@intel.com>,
-	Matthew Auld <matthew.auld@intel.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Simona Vetter <simona@ffwll.ch>,
-	David Airlie <airlied@gmail.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v5 1/6] drm/amdgpu: Fix init ordering in amdgpu_vram_mgr_init()
-Date: Thu, 11 Jun 2026 16:22:37 +0200
-Message-ID: <20260611142242.2529-2-thomas.hellstrom@linux.intel.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260611142242.2529-1-thomas.hellstrom@linux.intel.com>
-References: <20260611142242.2529-1-thomas.hellstrom@linux.intel.com>
+	s=arc-20240116; t=1781187823; c=relaxed/simple;
+	bh=G5Pr4BkAuQKpXrwT2yliKLKk5qHfhm68D/Gbf5xozuI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KL9tB/1qwSgXNKSZUnMSTftBi6yTWyvb0IWgBytW5sroO7ONRxMNC6cRqg2DJMr9WkCJgcL6crTlH01ZVpOtZ0IfrfbDnPPKasfDBrnjmokTT1y2OBvO9EAZPD3aIBgascZJJgBYAWY2RIPWMWK5RZlVCY7y9ibG5D519B94RFM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from localhost.localdomain (unknown [117.182.75.76])
+	by APP-05 (Coremail) with SMTP id zQCowACXHgLixCpq43AXEw--.957S2;
+	Thu, 11 Jun 2026 22:23:32 +0800 (CST)
+From: WenTao Liang <vulab@iscas.ac.cn>
+To: jgross@suse.com,
+	sstabellini@kernel.org
+Cc: oleksandr_tyshchenko@epam.com,
+	xen-devel@lists.xenproject.org,
+	linux-kernel@vger.kernel.org,
+	WenTao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] xen/gntdev: fix refcount leak in gntdev_ioctl_map_grant_ref()
+Date: Thu, 11 Jun 2026 22:23:28 +0800
+Message-ID: <20260611142328.87566-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowACXHgLixCpq43AXEw--.957S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7AF13Zw4kWr1UXFyxtFy8Grg_yoW8GF1fpa
+	9xCa43ArWrXw1Iq3WqqayagFy5X3sxJFy3Cry0k3s8ZFnIy3WIyr15tFy8ur4UJrs7CrW5
+	Ar4kCFyruFW5A3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUkG14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
+	0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
+	jxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr
+	1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v26r12
+	6r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI
+	0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y
+	0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxV
+	WUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1l
+	IxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUf8nOUUU
+	UU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRAPA2oqh4XCBgAAsT
 
-drmm_cgroup_register_region() is called before INIT_LIST_HEAD() and
-gpu_buddy_init() in amdgpu_vram_mgr_init(). If it fails, the function
-returns early and bypasses those initializations.
+When gntdev_ioctl_map_grant_ref() fails to copy the operation
+result back to userspace after successfully adding the mapping to
+the list, the error path returns -EFAULT without releasing the
+reference acquired by gntdev_alloc_map(). The mapping remains in
+priv->maps with a refcount of 1, causing a memory leak and a
+dangling list entry.
 
-Since adev->mman.initialized is set to true before amdgpu_vram_mgr_init()
-is called, a failure triggers amdgpu_ttm_fini(), which calls
-amdgpu_vram_mgr_fini(), which then:
+Fix this by moving the copy_to_user() before gntdev_add_map(),
+so that the mapping is only inserted into the list on success.
+This avoids the need to remove the mapping from the list on error.
 
- - Calls list_for_each_entry_safe() on reservations_pending and
-   reserved_pages, whose list_head::next pointers are zero-initialized
-   (NULL). The loop does not recognize them as empty and dereferences NULL.
-
- - Calls gpu_buddy_fini(), which iterates free_trees[] unconditionally
-   via for_each_free_tree(). Since mm->free_trees is NULL
-   (never allocated), this dereferences NULL.
-
-Both result in a kernel panic on the module load error path.
-
-Fix by moving drmm_cgroup_register_region() to after the list and buddy
-allocator are fully initialized, so the teardown path is safe to run.
-
-Reported-by: Sashiko-bot <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20260428073116.15687-1-thomas.hellstrom@linux.intel.com?part=4
-Fixes: 2b624a2c1865 ("drm/ttm: Handle cgroup based eviction in TTM")
-Cc: Friedrich Vock <friedrich.vock@gmx.de>
-Cc: Maarten Lankhorst <dev@lankhorst.se>
-Cc: Tejun Heo <tj@kernel.org>
-Cc: Maxime Ripard <mripard@kernel.org>
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org
-Cc: <stable@vger.kernel.org> # v6.14+
-Assisted-by: GitHub_Copilot:claude-sonnet-4.6
-Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Cc: stable@vger.kernel.org
+Fixes: 68b025c813c2 ("xen-gntdev: Add reference counting to maps")
+Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ drivers/xen/gntdev.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-index 2a241a5b12c4..ac3f71d77140 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-@@ -918,9 +918,6 @@ int amdgpu_vram_mgr_init(struct amdgpu_device *adev)
- 	struct ttm_resource_manager *man = &mgr->manager;
- 	int err;
+diff --git a/drivers/xen/gntdev.c b/drivers/xen/gntdev.c
+index 61ea855c4508..a1c230756b3d 100644
+--- a/drivers/xen/gntdev.c
++++ b/drivers/xen/gntdev.c
+@@ -672,8 +672,13 @@ static long gntdev_ioctl_map_grant_ref(struct gntdev_priv *priv,
+ 	op.index = map->index << PAGE_SHIFT;
+ 	mutex_unlock(&priv->lock);
  
--	man->cg = drmm_cgroup_register_region(adev_to_drm(adev), "vram", adev->gmc.real_vram_size);
--	if (IS_ERR(man->cg))
--		return PTR_ERR(man->cg);
- 	ttm_resource_manager_init(man, &adev->mman.bdev,
- 				  adev->gmc.real_vram_size);
+-	if (copy_to_user(u, &op, sizeof(op)) != 0)
++	if (copy_to_user(u, &op, sizeof(op)) != 0) {
++		mutex_lock(&priv->lock);
++		list_del(&map->next);
++		mutex_unlock(&priv->lock);
++		gntdev_put_map(priv, map);
+ 		return -EFAULT;
++	}
  
-@@ -935,6 +932,10 @@ int amdgpu_vram_mgr_init(struct amdgpu_device *adev)
- 	if (err)
- 		return err;
- 
-+	man->cg = drmm_cgroup_register_region(adev_to_drm(adev), "vram", adev->gmc.real_vram_size);
-+	if (IS_ERR(man->cg))
-+		return PTR_ERR(man->cg);
-+
- 	ttm_set_driver_manager(&adev->mman.bdev, TTM_PL_VRAM, &mgr->manager);
- 	ttm_resource_manager_set_used(man, true);
  	return 0;
+ }
 -- 
-2.54.0
+2.50.1 (Apple Git-155)
 
