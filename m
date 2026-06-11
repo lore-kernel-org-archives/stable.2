@@ -1,59 +1,59 @@
-Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com [209.85.160.182])
+Received: from mail-qk1-f172.google.com (mail-qk1-f172.google.com [209.85.222.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E7AA31F98D
-	for <stable@vger.kernel.org>; Thu, 11 Jun 2026 21:30:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF8593314C4
+	for <stable@vger.kernel.org>; Thu, 11 Jun 2026 21:30:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781213405; cv=none; b=TgMB11SnvBrxhMHuU1y5UXY72lbkUcfC7LuPTFgsUcUkx6Z6LJdRF2Wrt4qIV6IKqlcyRjteXZWyNlbuleOa7yocd3tcrzIZBbavbwV9N1XOkHn1vUxXdQfQLSyj3eCVNirok8JtVeuzPqCW0aCrb32P9h3g1664TUBeyWQRDAE=
+	t=1781213433; cv=none; b=BQobMl8H8r3dh0hcZ74TwzrMmQEyTxq3oDBq7/QyeeHcICm7D8e3ki4NJArdCqsxRnbOoTR7kP1sr+Gi2mEb16EZVxx9QarfrLELPGGJLTd/ajKd9eRIwj2QXl83oWABFV3kdL8tg5Y4cTlxpdHRXptJHLctcEUqCEvTaMzS/7c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781213405; c=relaxed/simple;
-	bh=qncT6NDd6JhRmOmDFyKI61QSOG/2RiTMhamk92H2Hms=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=S3lStRRt/2QnFWDTXl7xLqIaD0ha8gv/tdGekoQug3MW3VxJ52T0zx1TuFssD05wjn4eQMLbZ/n8+0LD3pzm/OG9NF3wAuEahsZ6m9paTFbr+ctc9klowecfG9bcQTMStdBdtiY3dctf7a4+uyi75fFUDClmbDm04QRiUin8WVw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com; spf=pass smtp.mailfrom=openai.com; dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b=YhmDfLc6; arc=none smtp.client-ip=209.85.160.182
+	s=arc-20240116; t=1781213433; c=relaxed/simple;
+	bh=1ojnM+ca62Hur14sQ1BvBHTUsOVDrBtkpIrpG/aMOlw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kqE/O49HLmlkKvbkxMkbldybRfGWbiT3MwolyXlwgtzVeaTQN9kKacQz0Bg0y7VAc01tSZk3quMZbx/EJYQBULOwf/HNXVMOCFeq8AQ1HGeb0rhX2ixMhx0GobmU9N83hb5aCditn7cGRqsDz0V6o0DbdyBXI7HnYfAb6JbH+vo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com; spf=pass smtp.mailfrom=openai.com; dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b=DhBcxowd; arc=none smtp.client-ip=209.85.222.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=openai.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b="YhmDfLc6"
-Received: by mail-qt1-f182.google.com with SMTP id d75a77b69052e-51778069c31so2049071cf.1
-        for <stable@vger.kernel.org>; Thu, 11 Jun 2026 14:30:03 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b="DhBcxowd"
+Received: by mail-qk1-f172.google.com with SMTP id af79cd13be357-915767ea2d0so28856985a.1
+        for <stable@vger.kernel.org>; Thu, 11 Jun 2026 14:30:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=openai.com; s=google; t=1781213403; x=1781818203; darn=vger.kernel.org;
+        d=openai.com; s=google; t=1781213431; x=1781818231; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=TppE9VVZzzsG0FEL4LkniPJZYJl0Js22EJTHP0ev2zw=;
-        b=YhmDfLc6ERff98USi5iAoCyltlokgncgd8MebNrheLXe9y49s9JzOJnJJOBkB8ow+T
-         /reSOgGUrhWCk4e89wDvIcHQATIMvIW1bIpzhrtSzaTQ+wj3pxuWjMICkFoB/TGkXqps
-         SfvLHKhz4kuL0ESdFOwFVxGSVl1fIN7IlhH3M=
+        bh=OgrHRlb31PNlK7ylFz1YKYLL0ZIzxKfy2sHe06P0fhM=;
+        b=DhBcxowdTWEniaxZakVmdeNtYqZju6VUe9PKccDhwbenFs2NjSQH/ph1liNyNzFWe6
+         xLyQv0c1t7SdYQ8QB4Va61gE1TcJzIg5JCc9CEosHZCPwfRevnfOYpotSl+f45i2l1QN
+         6SKRzebn+zV92HeloeWnp2Xv+uiei6iaCS0EM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781213403; x=1781818203;
+        d=1e100.net; s=20251104; t=1781213431; x=1781818231;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=TppE9VVZzzsG0FEL4LkniPJZYJl0Js22EJTHP0ev2zw=;
-        b=po8QID2uF5OwuesCZ/EWQwM/w8e2NveXEz7XAu2R7+EbsCWs7l/zJM414MBS820T1r
-         e4zWeDmQgZzTD59wZzrx7o+aRdV2hvpXpmypVBK3sVU9uHn03ta+wU5L9joGmk/vdkD4
-         C7AZUcpJupjT+vUijwqDY6ke5Sp44C4sVTVf63tV9nSNFW8VPTyopjgB+0ZkyC3M2JnV
-         tUS7KYmDA/P+UTvfbamSg1qqYM/uLvJcxgqp4xaSLaN9g/SzPpAxtdeg8+IdHuwJvjqh
-         laJ0WGZ5kRYMYjZZ2XqI3kuq+xCpW0VuWfIqLm0R/XYi3a2UwMSe4PLFo40YENi+jWlZ
-         yiyw==
-X-Forwarded-Encrypted: i=1; AFNElJ/OftwvbioylK15UXtle32+MlalLMPewWYRgTFXq6B0pB3ngki/thw133nBc2188ZKN9E5Qvh8=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz3PesINYowVIYXvwnD51pKat+ZeTsajbABaUlA5n15G6ou1O5W
-	zMynA7zYY7+8V4ZrxwmDJO2JDJn5M039gUu6keWxTvKGglOXYpQxZSGX67wMyX0rXfo=
-X-Gm-Gg: Acq92OEqrydE9SeZMz1AzPMTZqqqjepzWQS2IQcA+7KUUFomHWknAL13/ZJJ1eg8Eig
-	xX7ZBjjyDJklhi6NPuEsc3XiGE19zpYI8LPrvbHGx60WbvkVKo/4tUvk1g5KaFlNG4ysWG1giKq
-	AjZQIgp8uJLqeVICBS0ZXIPWQd/imsA6I4ceJKyF5ISaP5YU9C1IRqQA5ebUIXzsJEVfg8gUhIL
-	DIFjSR9pPlhlQxJUzac1DfWElMWRKJMtlJDDl4nP2ZsDPqoWvxOPQZApe1loMfYty9AZaUlB4/k
-	41cAdjxkkgTLdqLYP2Fz8y4SjpxKuaNlp0iNzu5tWY1/GQ3e4HcsW+lFeVRQ0QhPAVNJnxCMUcX
-	DW8HVlT0jC4DbG3tTiop/rIit9L+oYLvi3S3Cd5VORvTHTid3VZUDqGivbFXQ/N4HIykbxX7sXM
-	QEenh+pPrGwcTUwJLeM66A1lYRkj1gRfEwu7pta7aOZmG0pawQ2C2D1qR3njL6zDH0YudZo3jNM
-	vgZ2z03epporx+GQxy/IrtSnOqX4d4uEOY=
-X-Received: by 2002:ac8:5a43:0:b0:517:8069:8b04 with SMTP id d75a77b69052e-517ee2805a0mr72360891cf.37.1781213402803;
-        Thu, 11 Jun 2026 14:30:02 -0700 (PDT)
+        bh=OgrHRlb31PNlK7ylFz1YKYLL0ZIzxKfy2sHe06P0fhM=;
+        b=HYQEUmrAy0x6PhM30Ttipt85fO1YaLBw/Z4EszGyxa8gTw63btqp5qvLqK34d7263H
+         K5T3zsqXuywRHu3gKGjZcPaWDw6eRre0gIWNHQgx7GLeiYh4TonDbJRLbP/YNWGTdUTF
+         s6rAPLcowzY5/2/Ekf6eFRcUn3GXr/xUBxY1Om5Uc1U6FKOGAUE7hHpi5WjL6fMP7Sqy
+         Bw4UERe1aVlaCKkBEFUFGAyRPcCv4U/viAutu3J2ATiIuBxpFeanRSX0gbSXJ5Vw7VTf
+         AdHgdVqfriiJZzIW1bz608VS9xD+2wKw5KHxaK+PWc1OXZfNyEoOq55y6/j7TqKW0VT0
+         YodQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+w14L+iSPOwb4lX64XKbYyJzL8J2JZ08/hAHMgJxwXUo+iLqKe3hazCGLw6blanQ82b5jbIBs=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyEgs/CXemKTlge6UesX6I1taMyDwWJjW6kNaJo9vyZ+bH720XL
+	7BIf1/EBX6A8+7Rdw1X4J1i7yicmAVWFOFnBzx80MwVHHVX7Ee8Faz44lIFrgAWLEeQ=
+X-Gm-Gg: Acq92OHprojFcCWhYDVs6HwsIDsieiqIOK7lovvegoQI9Y+AwT82Jx4hK15ebiaD4RL
+	PNr7uZ1wiSjKVKiy1eTSTCwlJghzZXtWFB/BWg5MjQpevI+s9QpUlO0YnJTTRg3yKU0x0Bq1KR2
+	zvfTKrUhfAVyeTnCZ4kKvzAZ2Dun1r9HSHvxz4WcExWItuL6HbYC0a3619hNH0PwbeiUjBAHCpk
+	omVHnj1pQ+Svbdoc95wyqr/Llw6B5YNl5OTR5NaI7ydmcvQP3HCot8MchxsDVsWuhkI7N4uvV20
+	bUGkHecWjgWiYi88GHqSQFgArsFtWPLPp/enn6ZNVKX6aoJHufWVC8Y645DEzeiKHPMr/FG38SS
+	uoZdf+emBPCP59W8Nthb6o3re4sG4MzbErj9K1xN/YUxIEMB0Xd5ycjIPdvaFm9xzKH/R59iXgV
+	IhTkEAukiva1haNSO8NtaoeuGINMYsM+JV0DB6xRHPZQhOjHE4gAybtng2VLbHaeVDCYcb/LflG
+	bFZ+ieHS6hjn6A4zpZgO+lUO2QjJ4u0kJI=
+X-Received: by 2002:a05:620a:2704:b0:914:7e9a:2716 with SMTP id af79cd13be357-9160ae0ac85mr738496085a.38.1781213430744;
+        Thu, 11 Jun 2026 14:30:30 -0700 (PDT)
 Received: from com-75606.node.ndb.openai.org ([209.249.37.146])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8d30457764esm4788426d6.26.2026.06.11.14.30.01
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-91619f06835sm29843685a.14.2026.06.11.14.30.29
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 11 Jun 2026 14:30:02 -0700 (PDT)
+        Thu, 11 Jun 2026 14:30:30 -0700 (PDT)
 From: Kyle Zeng <kylebot@openai.com>
 To: jfs-discussion@lists.sourceforge.net
 Cc: linux-kernel@vger.kernel.org,
@@ -62,9 +62,9 @@ Cc: linux-kernel@vger.kernel.org,
 	outbounddisclosures@openai.com,
 	Kyle Zeng <kylebot@openai.com>,
 	stable@vger.kernel.org
-Subject: [PATCH] jfs: validate active AG before updating db_active
-Date: Thu, 11 Jun 2026 14:29:56 -0700
-Message-ID: <20260611212956.10206-1-kylebot@openai.com>
+Subject: [PATCH] jfs: reject malformed xattr entries in ea_get
+Date: Thu, 11 Jun 2026 14:30:26 -0700
+Message-ID: <20260611213026.12684-1-kylebot@openai.com>
 X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -74,81 +74,85 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When an empty regular file is opened for write, jfs_open() tracks a
-single active file per allocation group. The allocation group is derived
-from ji->ixpxd, which is copied from the on-disk inode in
-copy_from_dinode().
+JFS checks that an extended attribute list's top-level size field
+matches the inode EA descriptor before returning the list to callers.
+That is not enough to prove that every entry in the list is contained
+within that size.
 
-A corrupted image can set di_ixpxd to an address that maps beyond the
-mounted bmap's db_numag. The existing code stores that unchecked result
-in signed char active_ag and then uses it to index db_active[]. For
-example, an AG value of 249 wraps to -7 before the atomic increment,
-causing a write before db_active and corrupting adjacent struct bmap
-state.
+__jfs_setxattr() walks existing entries and trusts EA_SIZE(ea). A
+crafted filesystem can store an inline EA list whose aggregate size is
+self-consistent, but whose first entry advertises a value length that
+extends past END_EALIST(). Replacing that attribute then subtracts the
+oversized old entry from xattr_size and appends the replacement at an
+out-of-bounds address.
 
-Compute the AG in an unsigned type and reject values outside db_numag
-before storing active_ag or indexing db_active[]. dbMount() already
-validates db_numag <= MAXAG, so accepted values fit in active_ag and in
-the db_active[] array.
+Validate each EA entry in ea_get() before any get, list, or set path can
+consume it. Reject entries whose header is truncated, whose encoded
+length crosses the end of the list, or whose encoded name lacks the
+required trailing NUL byte.
 
-Fixes: d31b53e3cd06 ("JFS: Don't save agno in the inode")
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
 Assisted-by: Codex:gpt-5.5
 Signed-off-by: Kyle Zeng <kylebot@openai.com>
 ---
- fs/jfs/file.c | 30 ++++++++++++++++++++++++++----
- 1 file changed, 26 insertions(+), 4 deletions(-)
+ fs/jfs/xattr.c | 36 ++++++++++++++++++++++++++++++++++++
+ 1 file changed, 36 insertions(+)
 
-diff --git a/fs/jfs/file.c b/fs/jfs/file.c
-index 81556da507b9..6d5f336b7a19 100644
---- a/fs/jfs/file.c
-+++ b/fs/jfs/file.c
-@@ -38,6 +38,24 @@ int jfs_fsync(struct file *file, loff_t start, loff_t end, int datasync)
- 	return rc ? -EIO : 0;
- }
+diff --git a/fs/jfs/xattr.c b/fs/jfs/xattr.c
+index 11d7f74d207b..a7432cfabea2 100644
+--- a/fs/jfs/xattr.c
++++ b/fs/jfs/xattr.c
+@@ -118,6 +118,33 @@ static inline int copy_name(char *buffer, struct jfs_ea *ea)
+ /* Forward references */
+ static void ea_release(struct inode *inode, struct ea_buffer *ea_buf);
  
-+static int jfs_get_active_ag(struct inode *inode, int *agp)
++static bool ea_entries_valid(struct jfs_ea_list *ealist, int size)
 +{
-+	struct jfs_inode_info *ji = JFS_IP(inode);
-+	struct jfs_sb_info *sbi = JFS_SBI(inode->i_sb);
-+	struct bmap *bmap = sbi->bmap;
-+	u64 ag = BLKTOAG(addressPXD(&ji->ixpxd), sbi);
++	char *p = (char *)FIRST_EA(ealist);
++	char *end = (char *)ealist + size;
 +
-+	if (ag >= bmap->db_numag) {
-+		jfs_error(inode->i_sb,
-+			  "inode %lu has invalid active ag %llu\n",
-+			  inode->i_ino, (unsigned long long)ag);
-+		return -EIO;
++	if (size < sizeof(*ealist))
++		return false;
++
++	while (p < end) {
++		struct jfs_ea *ea = (struct jfs_ea *)p;
++		int ea_size;
++
++		if (p + sizeof(*ea) > end)
++			return false;
++
++		ea_size = EA_SIZE(ea);
++		if (p + ea_size > end)
++			return false;
++		if (ea->name[ea->namelen] != '\0')
++			return false;
++
++		p += ea_size;
 +	}
 +
-+	*agp = ag;
-+	return 0;
++	return p == end;
 +}
 +
- static int jfs_open(struct inode *inode, struct file *file)
- {
- 	int rc;
-@@ -63,11 +81,18 @@ static int jfs_open(struct inode *inode, struct file *file)
- 	if (S_ISREG(inode->i_mode) && file->f_mode & FMODE_WRITE &&
- 	    (inode->i_size == 0)) {
- 		struct jfs_inode_info *ji = JFS_IP(inode);
-+		struct bmap *bmap;
-+		int active_ag;
-+
-+		rc = jfs_get_active_ag(inode, &active_ag);
-+		if (rc)
-+			return rc;
-+
- 		spin_lock_irq(&ji->ag_lock);
- 		if (ji->active_ag == -1) {
--			struct jfs_sb_info *jfs_sb = JFS_SBI(inode->i_sb);
--			ji->active_ag = BLKTOAG(addressPXD(&ji->ixpxd), jfs_sb);
--			atomic_inc(&jfs_sb->bmap->db_active[ji->active_ag]);
-+			bmap = JFS_SBI(inode->i_sb)->bmap;
-+			ji->active_ag = active_ag;
-+			atomic_inc(&bmap->db_active[active_ag]);
- 		}
- 		spin_unlock_irq(&ji->ag_lock);
+ /*
+  * NAME: ea_write_inline
+  *
+@@ -574,6 +601,15 @@ static int ea_get(struct inode *inode, struct ea_buffer *ea_buf, int min_size)
+ 		goto clean_up;
  	}
+ 
++	if (!ea_entries_valid(ea_buf->xattr, ea_size)) {
++		pr_err("%s: invalid extended attribute entry\n", __func__);
++		print_hex_dump(KERN_ERR, "", DUMP_PREFIX_ADDRESS, 16, 1,
++			       ea_buf->xattr, ea_size, 1);
++		ea_release(inode, ea_buf);
++		rc = -EIO;
++		goto clean_up;
++	}
++
+ 	return ea_size;
+ 
+       clean_up:
 -- 
-2.43.0
+2.54.0
+
