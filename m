@@ -1,44 +1,36 @@
-Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A6A0425CF7;
-	Thu, 11 Jun 2026 16:21:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35072426EBF;
+	Thu, 11 Jun 2026 16:26:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781194882; cv=none; b=Op5QUHmFEnIj1juv2/h1DXmTD7NUMJjIyI56GUc/l4hu+VYkMuPlc9B4GrWRgNCGwXw7U0ypdDiaSUQYlteiuh43pHGMKbA+WHhN8kyOg6SAwHy7QniJ9WUyZ3XoRNrbhkOrRCo5d05xmFEsia1G42ZzW/5ip3I7gKCXqKkokxw=
+	t=1781195168; cv=none; b=Zz3X02an3RvTKSOd9w66k2pe7RuaoUhY9Rbe66D8Le+p7MAa9Y0jLwh9Ep5m6tn52FPL2DUQjkP1wvntfm2AQHbn5qflkd2MwPE1t+KYRMthZNd3SwNekkT86TPN7orJog2qs//0hn19uAnHz1a0NxRuxfpRQJ6yjUIINkES97A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781194882; c=relaxed/simple;
-	bh=/t4jyeDK2IvqS0+9MlVEkaR3MYfgo1rC9yuzyQbe5oo=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=JqYv+CsgxHyv924JcAAe0bqtWfVBv3s77PaRogiER1NOfrwWw4odkkO3pFs822HPlADjaGDKHn9Bs97b08SLQkzvhnZQszFVFABQYh0/uKmo5q0WrwZAc46BYWdJcAmytYsNmMyxKbza4EatosjiXV0F81TZKVdPZYDPL64JiGE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=BpRjE/DB; arc=none smtp.client-ip=45.254.49.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="BpRjE/DB"
-Received: from PC-202605011814.localdomain (unknown [58.241.16.34])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 420765eaa;
-	Fri, 12 Jun 2026 00:16:07 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: broonie@kernel.org
-Cc: david.rhodes@cirrus.com,
-	rf@opensource.cirrus.com,
-	lgirdwood@gmail.com,
-	perex@perex.cz,
-	tiwai@suse.com,
-	Paul.Handrigan@cirrus.com,
-	linux-sound@vger.kernel.org,
-	patches@opensource.cirrus.com,
+	s=arc-20240116; t=1781195168; c=relaxed/simple;
+	bh=HQwtJaedgsqPooR7mPQBcOpOaTxPXNP5nqSTbE6Ent8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=slo4V0nN8nYgMKUz/PDgkHlXP55oNtEINQe8/mcHSv/csp1EjQDfQSjUaUtRSoen34sA8nekYMHQpLbP3HekB4ZwCHwX9Wnwe3txojMiAZL/xxZMddqefvCdPSz0RovrTiELnF+2cZppRiw3WWiTkovXUWPGpy32jbda+z/GJYk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from localhost.localdomain (unknown [117.182.75.76])
+	by APP-05 (Coremail) with SMTP id zQCowABX7RCW4SpqkvQZEw--.3644S2;
+	Fri, 12 Jun 2026 00:25:59 +0800 (CST)
+From: WenTao Liang <vulab@iscas.ac.cn>
+To: jiri@resnulli.us,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com
+Cc: horms@kernel.org,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	jianhao.xu@seu.edu.cn,
-	runyu.xiao@seu.edu.cn,
+	WenTao Liang <vulab@iscas.ac.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH 2/2] ASoC: cs35l34: drain threaded IRQ before runtime suspend
-Date: Fri, 12 Jun 2026 00:15:53 +0800
-Message-Id: <20260611161553.3378721-3-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260611161553.3378721-1-runyu.xiao@seu.edu.cn>
-References: <20260611161553.3378721-1-runyu.xiao@seu.edu.cn>
+Subject: [PATCH] devlink: fix refcount leak in devlink_nl_reload_doit()
+Date: Fri, 12 Jun 2026 00:25:57 +0800
+Message-ID: <20260611162557.98150-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,92 +38,57 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9eb77830f003a1kunmccb51b6d16b65d
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCSE0YVhpJSkpNQ0xDTkpCTVYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlOQ1VJT0pVSk1VSE9ZV1kWGg8SFR0UWUFZT0tIVUpLSEpPSE
-	xVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=BpRjE/DBu48nvcOQ6bkGn7W+jne3svKx0CeX2CxLeeMB40JSDFNT38Fa0MTlAZlrWMi9mBId907AzeAjl8ANqtczDnR0fdSaqEa47McTuNI7iJn7EpY2V0P9ooHx7QYJ8b3HuqTQfFr091XYmaypcxCoMTmpx0PeQ1wmkp1lqWI=; s=default; c=relaxed/relaxed; d=seu.edu.cn; v=1;
-	bh=i0Zv/u7L567sfUl0cz5HV/ubd0jANpYYqAp7pHutO1U=;
-	h=date:mime-version:subject:message-id:from;
+X-CM-TRANSID:zQCowABX7RCW4SpqkvQZEw--.3644S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7ZFW5Zr1UCw1fZr1UJr4xWFg_yoW8Gw1UpF
+	1Sk3ZrCrW7Jr13KayDXw43WF429F1jqrW5Cr1Sk3WfC3ZYgFnYqr18G3WS9ay8Ars3K34j
+	qrWUKrWrZrWDuFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9014x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4j6r
+	4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUGVWUXwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r
+	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628v
+	n2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7x
+	kEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E
+	67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCw
+	CI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1x
+	MIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIda
+	VFxhVjvjDU0xZFpf9x0JUZYFZUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgoPA2oqzjQvPwADsp
 
-cs35l34_runtime_suspend() currently switches the codec into
-regcache_cache_only(true), asserts reset low, and powers the device off
-without first quiescing the threaded IRQ registered by
-devm_request_threaded_irq(). That leaves a window where
-cs35l34_irq_thread() can still run after suspend has removed live
-hardware access.
+When devlink_nl_reload_doit() is asked to change network namespace
+(via DEVLINK_ATTR_NETNS_*) but the reload action is not
+DEVLINK_RELOAD_ACTION_DRIVER_REINIT, it calls devlink_netns_get()
+which acquires a reference on the destination net namespace. Then,
+after detecting that namespace change is only supported for reinit
+action, it returns -EOPNOTSUPP without releasing the reference, thus
+leaking the net namespace.
 
-A running system can reach this during runtime PM while the driver still
-has critical fault IRQs unmasked. If the threaded handler runs in that
-window, it reads volatile INT_STATUS_1..4 after cache_only has been
-enabled, ignores the regmap_read() failures, and can still execute the
-PROT_RELEASE_CTL release sequence or the BST fault power-down writes.
+Fix the leak by releasing the reference with put_net() before
+returning the error, for example by adding it directly on that error
+path. A cleaner alternative is to introduce a common cleanup label
+that performs the put_net() if the pointer is non-NULL.
 
-Use disable_irq() before entering cache_only/reset-low/power-off so any
-in-flight threaded handler is drained and no new IRQ thread can run
-while the device is suspended. Re-enable the IRQ only after
-runtime_resume() has restored live register access with regcache_sync().
-Since probe only logs request_threaded_irq() failures and keeps going,
-track whether the IRQ was actually installed before disabling or
-re-enabling it.
-
-Fixes: c1124c09e103 ("ASoC: cs35l34: Initial commit of the cs35l34 CODEC driver.")
 Cc: stable@vger.kernel.org
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Fixes: 2edd92570441 ("devlink: don't allow to change net namespace for FW_ACTIVATE reload action")
+Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
 ---
- sound/soc/codecs/cs35l34.c | 14 ++++++++++++--
- 1 file changed, 12 insertions(+), 2 deletions(-)
+ net/devlink/dev.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/sound/soc/codecs/cs35l34.c b/sound/soc/codecs/cs35l34.c
-index a5a8075598ff..35bc38132f23 100644
---- a/sound/soc/codecs/cs35l34.c
-+++ b/sound/soc/codecs/cs35l34.c
-@@ -45,6 +45,7 @@ struct  cs35l34_private {
- 	int num_core_supplies;
- 	int mclk_int;
- 	bool tdm_mode;
-+	bool irq_requested;
- 	struct gpio_desc *reset_gpio;	/* Active-low reset GPIO */
- };
- 
-@@ -1032,10 +1033,12 @@ static int cs35l34_i2c_probe(struct i2c_client *i2c_client)
+diff --git a/net/devlink/dev.c b/net/devlink/dev.c
+index 57b2b8f03543..fd5633fa88ec 100644
+--- a/net/devlink/dev.c
++++ b/net/devlink/dev.c
+@@ -578,6 +578,7 @@ int devlink_nl_reload_doit(struct sk_buff *skb, struct genl_info *info)
+ 		    action != DEVLINK_RELOAD_ACTION_DRIVER_REINIT) {
+ 			NL_SET_ERR_MSG_MOD(info->extack,
+ 					   "Changing namespace is only supported for reinit action");
++			put_net(dest_net);
+ 			return -EOPNOTSUPP;
+ 		}
  	}
- 
- 	ret = devm_request_threaded_irq(&i2c_client->dev, i2c_client->irq, NULL,
--			cs35l34_irq_thread, IRQF_ONESHOT | IRQF_TRIGGER_LOW,
--			"cs35l34", cs35l34);
-+				cs35l34_irq_thread, IRQF_ONESHOT | IRQF_TRIGGER_LOW,
-+				"cs35l34", cs35l34);
- 	if (ret != 0)
- 		dev_err(&i2c_client->dev, "Failed to request IRQ: %d\n", ret);
-+	else
-+		cs35l34->irq_requested = true;
- 
- 	cs35l34->reset_gpio = devm_gpiod_get_optional(&i2c_client->dev,
- 				"reset", GPIOD_OUT_LOW);
-@@ -1140,6 +1143,9 @@ static int cs35l34_runtime_resume(struct device *dev)
- 		dev_err(dev, "Failed to restore register cache\n");
- 		goto err;
- 	}
-+
-+	if (cs35l34->irq_requested)
-+		enable_irq(to_i2c_client(dev)->irq);
- 	return 0;
- err:
- 	regcache_cache_only(cs35l34->regmap, true);
-@@ -1153,6 +1159,10 @@ static int cs35l34_runtime_suspend(struct device *dev)
- {
- 	struct cs35l34_private *cs35l34 = dev_get_drvdata(dev);
- 
-+	/* Drain and block the threaded IRQ before cache_only/power-off. */
-+	if (cs35l34->irq_requested)
-+		disable_irq(to_i2c_client(dev)->irq);
-+
- 	regcache_cache_only(cs35l34->regmap, true);
- 	regcache_mark_dirty(cs35l34->regmap);
- 
 -- 
-2.34.1
+2.50.1 (Apple Git-155)
+
