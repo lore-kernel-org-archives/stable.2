@@ -1,153 +1,154 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F8B7400E0C;
-	Thu, 11 Jun 2026 17:33:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EA233F1AB6
+	for <stable@vger.kernel.org>; Thu, 11 Jun 2026 17:35:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781199225; cv=none; b=OC9m3B6n+CEcgjWIESuckX55XmXB0E5qJebVGa9NnqqGMMYH05w3SvqxxnFY3Ouwa/cqLaEI6TVGB4E22giKMKSxrGOHoVfuXfR/vLi20mdd7MVKo3bW1MtZi2oyVIl+a2fwdeaC+LPJdh2r5gDX5UOMMrAJ90/PlV8FvSfqEvQ=
+	t=1781199315; cv=none; b=njccDxhcVbwbcEXMU1J8+sJhFhfK5c5E7ezMe4bd8GffSX6N1JfRgFEPW1obP0i3yYE8cXdFh3ccjiupH4LG/5FAxao/YqUyIMzC29O+FBSNYffwx/34FpBV31e1fYx4upf2agSyUbtoT0vmpc7yiyPnh283hi4ZlEk+WyaNCNI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781199225; c=relaxed/simple;
-	bh=Z5tnKsqQw7EiBeSDr2ywtUGax4C0M+Mxkthf6nfbtWw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=GeJue9JX9JmocqsBtFerlkQHKlrlXsoBa1NsBtUnuNjmBfiIdigVU9UzaJihhfPuqCm5rJWwf+BvsTzMrV734BV9kWQAAzaTS32ax8P5sUhCffnHK5UdxNejWulujJsAuS1udLHKUGgRE6efk7/P5hviy9GTYBgiMWZqS5dR/lM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=afIBjI2f; arc=none smtp.client-ip=198.175.65.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1781199315; c=relaxed/simple;
+	bh=FuQd8meff7oP6JE01DWJHh6bS3K5BZBiEhXwQSMVXEs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iZNIucF7L7VhpR9/TvMa+3/H0ZIkJmFgieJ714GlY/bQ0VzGYnpeH/CbtNSzGh6W6XP5jaLEqKiSsfVbfD6eC6eYPtFmLVzN3i0dyZDoZrSjIugEFE38GuHPPZ76a0mAXpb3784SA2rMjECm7/hMP9zEeoiAUv5Ne+0aYISg5a8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FRRf6KQF; arc=none smtp.client-ip=209.85.216.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="afIBjI2f"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1781199222; x=1812735222;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=Z5tnKsqQw7EiBeSDr2ywtUGax4C0M+Mxkthf6nfbtWw=;
-  b=afIBjI2fZ+5e6PQIyzZe988SmLNRnxvQLoR9C3ht+8O11pqEiszA855B
-   yQcg7S0aXa5DIQNwgW8wm3p6PeJEdgjojzEmuilKfnXBa8rg5KX8wyAQ4
-   XOWNJ2SIu3BevDRzcyzCMtWSe2i6lfKGDUO67y/cY40ImIwf7MnSFjFhD
-   B/NpfUEBMgcjqmnCxrUDe1aCNZKcjUYhlh8C2KqzW2LWze/bPAljQ3z/a
-   HmAtx6S8AkjMZoROXwTImcgCHmyMWizIdwohKQaA+vdL9CjXkKl7LkymW
-   aikJdTs+WBpC1XRTcm39xzn4CdhPPTQq2kaCq9bTcb8s1MD9s5sbtxAlH
-   w==;
-X-CSE-ConnectionGUID: R78LUHMiS9yrYrFxrZAtpQ==
-X-CSE-MsgGUID: psFuireuRyeuOSjYEOjTxg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11813"; a="81761970"
-X-IronPort-AV: E=Sophos;i="6.24,199,1774335600"; 
-   d="scan'208";a="81761970"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Jun 2026 10:33:41 -0700
-X-CSE-ConnectionGUID: GxumfVM7QL+FVW9FnHpWZw==
-X-CSE-MsgGUID: 1q5hoG8NS+u828BimQLcbw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,199,1774335600"; 
-   d="scan'208";a="240214931"
-Received: from amilburn-desk.amilburn-desk (HELO fedora) ([10.245.244.169])
-  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Jun 2026 10:33:35 -0700
-From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-To: intel-xe@lists.freedesktop.org
-Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
-	Sashiko-bot <sashiko-bot@kernel.org>,
-	Friedrich Vock <friedrich.vock@gmx.de>,
-	Maarten Lankhorst <dev@lankhorst.se>,
-	Tejun Heo <tj@kernel.org>,
-	Maxime Ripard <mripard@kernel.org>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	stable@vger.kernel.org,
-	Natalie Vock <natalie.vock@gmx.de>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
-	cgroups@vger.kernel.org,
-	Huang Rui <ray.huang@amd.com>,
-	Matthew Brost <matthew.brost@intel.com>,
-	Matthew Auld <matthew.auld@intel.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Simona Vetter <simona@ffwll.ch>,
-	David Airlie <airlied@gmail.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v6 1/6] drm/amdgpu: Fix init ordering in amdgpu_vram_mgr_init()
-Date: Thu, 11 Jun 2026 19:32:56 +0200
-Message-ID: <20260611173301.17473-2-thomas.hellstrom@linux.intel.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260611173301.17473-1-thomas.hellstrom@linux.intel.com>
-References: <20260611173301.17473-1-thomas.hellstrom@linux.intel.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FRRf6KQF"
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-36bdda53d99so110902a91.0
+        for <stable@vger.kernel.org>; Thu, 11 Jun 2026 10:35:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781199314; x=1781804114; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=ZOh4h1Jbp5Tyf36zO2G+zbdh9lsb9GzpQeGsDyR6Flo=;
+        b=FRRf6KQF4azGjv6YThEWK0B7Fv1icigJzi6/4MaDWj0bv7CizKCkan3LR9Dt7w0IGZ
+         9Kh5B3caJVj8y3EBgaBjU2KXelvrkCNyW75nwX3KlJo8sm55zV/2jB4bFxla3p5yIRI3
+         /+zKqOGpgYpgaI3xbG07RQzPfk4i7RwKl+Rhxx9UJU6O8BiMKck0NFmZiIUMiws/IuEM
+         IqUzeeFGlQE03Gle8bNNOE+yZrRd6s6uwoEscGCAYl8jcfEhljIpyrFoDDv7CxyAVQnt
+         WAMmpcQRrSRI4h72ECiarOTOj65MwvmeyLSAuhPjGH2QfPzha7EHMrUevrR+tMgBppMe
+         zQ9w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781199314; x=1781804114;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ZOh4h1Jbp5Tyf36zO2G+zbdh9lsb9GzpQeGsDyR6Flo=;
+        b=j8bXm6FNw+1zIuf0nojHtR4T4UOtugXgnscsqJqwsYrM8P51abNe5xdwKdfbCkQ5mB
+         XmKFHN3xD79hi1cfyh6gdGlNwfmJGM3HB5Ft8Z31mhwHrcHAgmVO6h5tp5AYm/Zp374Z
+         vRvf439VDusUr4IhuBGuyy342293JB3FVNY8Ahjzuy7VaYC39j5o2gBcOKsoXOZ7oyWU
+         pRBKcYMcOp66yUjj3sxCNeaNc1Uc3+kv4kKBARCuBF/Wor21tjuEZSRxaM+cM0OTd44g
+         VRsXPEzJw3Y9yzPEieMsDM9q/FTYyP8llkM0Qle6imjoah6Em0A09Y5y+n0hEQnPKWra
+         vgpA==
+X-Forwarded-Encrypted: i=1; AFNElJ/RRBjwkFHkWDYYVZfToLwHXtP5OEWyNW2e75ve3MA5J3wLtbO4hAGCciNOOZKx2NHssVux8XY=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwewDTTD7L/6FdPYF/khJxiQsjv+VVeviLmEycyUBtJxI5T49co
+	YUtgv05XdruNpAJfozNwNuNg4S7oK++U/4dziHocHk9fY8ubgIfLTYdR
+X-Gm-Gg: Acq92OG7a2N1awM6yptX3CP8wiy4lBx0Ykk1Y3cPHFe3Cl3hFUpCZ19pyKZ3qrYDzy7
+	Nhl1TzEPhNWryFtKksHSAHCnTJV611nJ01L6v6DpwxJacBqWITgh9HQma7tM2MAt9LW2XuPQyhu
+	W9lO7fajt8o1KY1tc/igz3wFGVtM/E65HiL/Bxdy6RcRGenBTwlqOsZ2t7xyYiz+NBSZqJvil46
+	bFAVZomIf3gN0994svZgfkwc2C32PIV2Lvj2BNBduDeRyHNO7n4rg4onKg370m7wFUi28JXssgl
+	XDjhpx7/slsDfH9L8DpfW3Pit2fKIS9AxF6H7Je2LpB4PpggaauLzD30JLTRpPAi7ErjAhzjvza
+	1kSG3hWDMPgzXeZbGMSD5ofD9BrFaJFqxjYREEeMjtCA0QlUJ0ZPWI17lU06xLEtGplaMXmMS8m
+	34W2lPu7UmKicMSRTUFJdmLnTDHjeoio7b4SUUb8vLzbLfCzPTChBnKnd6WuK/v64=
+X-Received: by 2002:a17:90b:394d:b0:366:3517:1a95 with SMTP id 98e67ed59e1d1-3778edd65b1mr4601128a91.0.1781199313748;
+        Thu, 11 Jun 2026 10:35:13 -0700 (PDT)
+Received: from KRHW1CJW23.bytedance.net ([139.177.225.238])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-843380c9307sm2416294b3a.29.2026.06.11.10.35.10
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 11 Jun 2026 10:35:13 -0700 (PDT)
+From: Zhao Li <enderaoelyther@gmail.com>
+To: johannes@sipsolutions.net
+Cc: linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Zhao Li <enderaoelyther@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] wifi: ieee80211: validate MLE common info length
+Date: Fri, 12 Jun 2026 01:35:07 +0800
+Message-ID: <20260611173506.36838-2-enderaoelyther@gmail.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-drmm_cgroup_register_region() is called before INIT_LIST_HEAD() and
-gpu_buddy_init() in amdgpu_vram_mgr_init(). If it fails, the function
-returns early and bypasses those initializations.
+ieee80211_mle_common_size() uses the first common-info octet as the
+common information length for all known MLE types. However,
+ieee80211_mle_size_ok() only validates that octet for Basic, Probe
+Request, and TDLS MLEs.
 
-Since adev->mman.initialized is set to true before amdgpu_vram_mgr_init()
-is called, a failure triggers amdgpu_ttm_fini(), which calls
-amdgpu_vram_mgr_fini(), which then:
+Reconfiguration MLEs also skipped the length octet when calculating the
+minimum common size, and Priority Access MLEs skipped validation of the
+advertised common information length.
 
- - Calls list_for_each_entry_safe() on reservations_pending and
-   reserved_pages, whose list_head::next pointers are zero-initialized
-   (NULL). The loop does not recognize them as empty and dereferences NULL.
+Account for the Reconfiguration common-info length octet and validate
+the advertised common information length for all known MLE types. Keep
+unknown-type handling unchanged.
 
- - Calls gpu_buddy_fini(), which iterates free_trees[] unconditionally
-   via for_each_free_tree(). Since mm->free_trees is NULL
-   (never allocated), this dereferences NULL.
-
-Both result in a kernel panic on the module load error path.
-
-Fix by moving drmm_cgroup_register_region() to after the list and buddy
-allocator are fully initialized, so the teardown path is safe to run.
-
-Reported-by: Sashiko-bot <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20260428073116.15687-1-thomas.hellstrom@linux.intel.com?part=4
-Fixes: 2b624a2c1865 ("drm/ttm: Handle cgroup based eviction in TTM")
-Cc: Friedrich Vock <friedrich.vock@gmx.de>
-Cc: Maarten Lankhorst <dev@lankhorst.se>
-Cc: Tejun Heo <tj@kernel.org>
-Cc: Maxime Ripard <mripard@kernel.org>
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org
-Cc: <stable@vger.kernel.org> # v6.14+
-Assisted-by: GitHub_Copilot:claude-sonnet-4.6
-Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Fixes: 0f48b8b88aa9 ("wifi: ieee80211: add definitions for multi-link element")
+Cc: stable@vger.kernel.org
+Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ include/linux/ieee80211-eht.h | 13 +++++--------
+ 1 file changed, 5 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-index 2a241a5b12c4..ac3f71d77140 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-@@ -918,9 +918,6 @@ int amdgpu_vram_mgr_init(struct amdgpu_device *adev)
- 	struct ttm_resource_manager *man = &mgr->manager;
- 	int err;
+diff --git a/include/linux/ieee80211-eht.h b/include/linux/ieee80211-eht.h
+index a97b1d01f3acf..a557df0088c08 100644
+--- a/include/linux/ieee80211-eht.h
++++ b/include/linux/ieee80211-eht.h
+@@ -844,7 +844,7 @@ static inline bool ieee80211_mle_size_ok(const u8 *data, size_t len)
+ 	const struct ieee80211_multi_link_elem *mle = (const void *)data;
+ 	u8 fixed = sizeof(*mle);
+ 	u8 common = 0;
+-	bool check_common_len = false;
++	u8 common_len;
+ 	u16 control;
  
--	man->cg = drmm_cgroup_register_region(adev_to_drm(adev), "vram", adev->gmc.real_vram_size);
--	if (IS_ERR(man->cg))
--		return PTR_ERR(man->cg);
- 	ttm_resource_manager_init(man, &adev->mman.bdev,
- 				  adev->gmc.real_vram_size);
+ 	if (!data || len < fixed)
+@@ -855,7 +855,6 @@ static inline bool ieee80211_mle_size_ok(const u8 *data, size_t len)
+ 	switch (u16_get_bits(control, IEEE80211_ML_CONTROL_TYPE)) {
+ 	case IEEE80211_ML_CONTROL_TYPE_BASIC:
+ 		common += sizeof(struct ieee80211_mle_basic_common_info);
+-		check_common_len = true;
+ 		if (control & IEEE80211_MLC_BASIC_PRES_LINK_ID)
+ 			common += 1;
+ 		if (control & IEEE80211_MLC_BASIC_PRES_BSS_PARAM_CH_CNT)
+@@ -875,9 +874,9 @@ static inline bool ieee80211_mle_size_ok(const u8 *data, size_t len)
+ 		common += sizeof(struct ieee80211_mle_preq_common_info);
+ 		if (control & IEEE80211_MLC_PREQ_PRES_MLD_ID)
+ 			common += 1;
+-		check_common_len = true;
+ 		break;
+ 	case IEEE80211_ML_CONTROL_TYPE_RECONF:
++		common += 1;
+ 		if (control & IEEE80211_MLC_RECONF_PRES_MLD_MAC_ADDR)
+ 			common += ETH_ALEN;
+ 		if (control & IEEE80211_MLC_RECONF_PRES_EML_CAPA)
+@@ -889,7 +888,6 @@ static inline bool ieee80211_mle_size_ok(const u8 *data, size_t len)
+ 		break;
+ 	case IEEE80211_ML_CONTROL_TYPE_TDLS:
+ 		common += sizeof(struct ieee80211_mle_tdls_common_info);
+-		check_common_len = true;
+ 		break;
+ 	case IEEE80211_ML_CONTROL_TYPE_PRIO_ACCESS:
+ 		common = ETH_ALEN + 1;
+@@ -902,11 +900,10 @@ static inline bool ieee80211_mle_size_ok(const u8 *data, size_t len)
+ 	if (len < fixed + common)
+ 		return false;
  
-@@ -935,6 +932,10 @@ int amdgpu_vram_mgr_init(struct amdgpu_device *adev)
- 	if (err)
- 		return err;
- 
-+	man->cg = drmm_cgroup_register_region(adev_to_drm(adev), "vram", adev->gmc.real_vram_size);
-+	if (IS_ERR(man->cg))
-+		return PTR_ERR(man->cg);
+-	if (!check_common_len)
+-		return true;
+-
+ 	/* if present, common length is the first octet there */
+-	return mle->variable[0] >= common;
++	common_len = mle->variable[0];
 +
- 	ttm_set_driver_manager(&adev->mman.bdev, TTM_PL_VRAM, &mgr->manager);
- 	ttm_resource_manager_set_used(man, true);
- 	return 0;
++	return common_len >= common && common_len <= len - fixed;
+ }
+ 
+ /**
 -- 
-2.54.0
+2.50.1 (Apple Git-155)
 
