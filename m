@@ -1,109 +1,94 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 867673AA4EF;
-	Thu, 11 Jun 2026 15:44:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E93712580F2;
+	Thu, 11 Jun 2026 15:47:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781192651; cv=none; b=gVdppmIn3sTOpGDJjw5lyIhCnTM1SeSu7FRy6SrClBZQSa7RR11GkH7kb4itkJIvssAnSXRB5r94UtdAoO4SfK7APXOO2B6YRkqH0DXNwFa7ZkmsQPPmJwQaiLNHecxYX6PGRwvK2xmGVx84tOEPSexTq+5N1x/e//C7p3NTqF8=
+	t=1781192877; cv=none; b=dfV0PfzDLGo7vCoPub07bsZHQhjZy1cIqMu0QYC6ZbaAm9HJgBI0sY8IUKWjfg7jlKzqkQnQARRCWvy873mAxtunx+CgEaeZ5ZGETpkiGpeqeqt8Umt6IRP3yMT12mTKa4X5vfi4CDXj49enGy69jZaPFXHhoHFAcxXBYocpNpA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781192651; c=relaxed/simple;
-	bh=h4jvRN4E19dkpQ5yFK5n2JakFhO2aBg/U/ArfFskC4c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FDid4+Le9lJ3b6CFU3o/y1YSiG0/0beJTnF4FEXuYdJ7XOSyi8VT1Ax37H3eBYJI7mwYFzEZO92V04WAB2dd/ThTEwSniHFjoixhoApEddZW4fbTIOVAHCyCwAml/QWrMJcZCNYrAGVcWtQFL+mQTeeLVtDO2XxnYArGENsTDZo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YaY7LoFa; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YaY7LoFa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D871F1F00893;
-	Thu, 11 Jun 2026 15:44:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781192650;
-	bh=pmsBVymF0RW9AqgzB2dQja46aWO5BZy9eGdHvQpD6ek=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=YaY7LoFaeAUVz9gq9ORvzSAqAeLeuR/CxFTi6xjrHFXmJbXd3lydvX41hXg1wR22o
-	 isLmPS/+YZA+NapMuA/f5wryeKj82fKhibKJJydc18pUa5xPRkJxENudaoQxX1lGWh
-	 dWWf8wqsrvbtBakrfVvbphsuWEpLzxm8stkQ+IretBeNylcXMUvr+6Enbo8WLnm9ql
-	 IMNPtiEcpMJ4moID7tLnWgMsgfeeH3nglCbIOBgXPzCllWOoc8XAwVD47e7c5FMVQy
-	 lIFgOUwraZYeNutL3iQ9LGosIqvBVpNBm8U0TH9ejug6YIcf4aG/LnXMknoitgcWk/
-	 BNWJbVjB4rgdg==
-Date: Thu, 11 Jun 2026 11:44:08 -0400
-From: Sasha Levin <sashal@kernel.org>
-To: Steffen Klassert <steffen.klassert@secunet.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S . Miller" <davem@davemloft.net>,
-	David Ahern <dsahern@kernel.org>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-	Simon Liebold <lieboldsimonpaul@gmail.com>
-Cc: Qi Tang <tpluszz77@gmail.com>, Florian Westphal <fw@strlen.de>,
-	Simon Liebold <simonlie@amazon.de>
-Subject: Re: [PATCH 6.12.y v2] xfrm: hold dev ref until after
- transport_finish NF_HOOK
-Message-ID: <airXyC2CaS0kO84h@laps>
-References: <20260611121127.3908131-1-simonlie@amazon.de>
- <20260611-stable-reply-0102@kernel.org>
+	s=arc-20240116; t=1781192877; c=relaxed/simple;
+	bh=kNrKk5l1Gt8OvBbcZPhYp+2wcuU0yVvLXqJKt2RWbIU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=g3E0m7rZS58alxVLpriWZeLVOTwAkbHXRU5W0I9e9UOBBSqNUVXAp3kdEig4/J2eSaWn4yUkldFsTnmUCqsdALye+PBmoTFAZO2H5bHgP5JxBZwx6HlhO1dgmHBRuB5aCfN3CpYj96iwORFhUU4mS82L0F2gBkdl7nI6w48gKX8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from localhost.localdomain (unknown [117.182.75.76])
+	by APP-05 (Coremail) with SMTP id zQCowACXCOyl2CpqzgQZEw--.1470S2;
+	Thu, 11 Jun 2026 23:47:51 +0800 (CST)
+From: WenTao Liang <vulab@iscas.ac.cn>
+To: trondmy@kernel.org,
+	anna@kernel.org
+Cc: linux-nfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	WenTao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] pnfs: fix refcount leak in pnfs_report_layoutstat()
+Date: Thu, 11 Jun 2026 23:47:47 +0800
+Message-ID: <20260611154747.94154-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <20260611-stable-reply-0102@kernel.org>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowACXCOyl2CpqzgQZEw--.1470S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7CF4UJry3KryUGw1rGF15Arb_yoW8Xr15pr
+	Wruw4Y9F98Xr10yr9Fyws3Zw1I9Fs3Xw4UCrn7Kr1293WrJw1SqFWFv340qr10yF48Z3Wj
+	g3y5KFWI9a4DZrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUkG14x267AKxVWUJVW8JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
+	0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
+	jxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr
+	1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v26r12
+	6r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI
+	0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y
+	0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxV
+	WUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1l
+	IxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUcBMtUUU
+	UU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwoPA2oqzu4deAAAsE
 
-On Thu, Jun 11, 2026 at 11:26:20AM -0400, Sasha Levin wrote:
->On Thu, Jun 11, 2026 at 12:11:27PM +0000, Simon Liebold wrote:
->> [ Upstream commit 1c428b03840094410c5fb6a5db30640486bbbfcb ]
->>
->> After async crypto completes, xfrm_input_resume() calls dev_put()
->> immediately on re-entry before the skb reaches transport_finish.
->
->Queued for 6.12, thanks.
+When pnfs_report_layoutstat() calls pnfs_get_layout_hdr() and passes
+the reference through the inode field of the layoutstats data to
+nfs42_proc_layoutstats_generic(), if rpc_run_task() in that function
+fails (IS_ERR), nfs42_proc_layoutstats_generic() returns immediately
+without releasing the reference.  This leaks the layout header
+reference, leaks the allocated data, and leaves the
+NFS_INO_LAYOUTSTATS flag stuck on the inode, preventing further
+layoutstat reporting.
 
-Ugh... Looking at it again, I've dropped it.
+Fix by calling nfs42_layoutstat_release(data) before returning on
+rpc_run_task() error, matching the existing error handling for a
+missing inode.
 
-The problem is the assumption that "the dev_put in the encap_type == -1
-async-resumption block does not exist" in 6.12.y. It's true there is no dev_put
-inside the 'if (encap_type == -1)' block, but that is only because the early
-drop lives somewhere else here: it's the dev_put right at the 'resume:' label.
+Cc: stable@vger.kernel.org
+Fixes: be3a5d233922 ("NFSv.2/pnfs Add a LAYOUTSTATS rpc function")
+Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
+---
+ fs/nfs/nfs42proc.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-Look at where 'resume:' sits relative to the per-iteration dev_put:
-
-   mainline (post-fix):              6.12.y:
-         dev_hold(skb->dev);               dev_hold(skb->dev);
-         nexthdr = ...input(x, skb);       nexthdr = ...input(x, skb);
-         if (nexthdr == -EINPROGRESS) {    if (nexthdr == -EINPROGRESS)
-                 if (async)                        return 0;
-                         dev_put(...);     resume:
-                 return 0;                         dev_put(skb->dev);   <-- early drop
-         }
-         dev_put(skb->dev);
-   resume:                                 [async re-entry does goto resume,
-         ...                                so this dev_put runs immediately]
-
-In mainline the fix works because 'resume:' is *after* the per-iteration
-dev_put, so when xfrm_input_resume() re-enters and does 'goto resume', the
-async ref taken at the loop-top dev_hold is *not* dropped - it is held
-continuously until after the NF_HOOK (plus the inline 'if (async) dev_put()' it
-adds at the decaps/gro/drop/secondary-EINPROGRESS exits).
-
-In 6.12.y 'resume:' is *before* that dev_put, so the async 'goto resume' hits
-'dev_put(skb->dev)' straight away and drops the ref at the very start of resume
-processing. The fresh 'dev_hold(skb->dev)' added before transport_finish does
-not save it:
-
-   - between the early dev_put and the re-hold, skb->dev is held by no
-     xfrm reference at all - the exact window device teardown can race; and
-   - 'dev_hold(skb->dev)' itself dereferences skb->dev to bump the
-     refcount, so if the device was already freed in that window the
-     re-hold is itself a use-after-free.
-
-So this is a lifetime bug, not a refcount-balance bug: every hold still has a
-matching put, but the reference no longer covers the critical window.
-
+diff --git a/fs/nfs/nfs42proc.c b/fs/nfs/nfs42proc.c
+index 7602ede6f75f..7637ad894563 100644
+--- a/fs/nfs/nfs42proc.c
++++ b/fs/nfs/nfs42proc.c
+@@ -1076,8 +1076,10 @@ int nfs42_proc_layoutstats_generic(struct nfs_server *server,
+ 	nfs4_init_sequence(server->nfs_client, &data->args.seq_args,
+ 			   &data->res.seq_res, 0, 0);
+ 	task = rpc_run_task(&task_setup);
+-	if (IS_ERR(task))
++	if (IS_ERR(task)) {
++		nfs42_layoutstat_release(data);
+ 		return PTR_ERR(task);
++	}
+ 	rpc_put_task(task);
+ 	return 0;
+ }
 -- 
-Thanks,
-Sasha
+2.50.1 (Apple Git-155)
+
