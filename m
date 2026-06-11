@@ -1,86 +1,50 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D57E8376465
-	for <stable@vger.kernel.org>; Thu, 11 Jun 2026 09:04:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 810D13546ED;
+	Thu, 11 Jun 2026 09:08:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781168697; cv=none; b=uNEGJBE4zOWCj0o5FD8ffVPG6h0ooN6wbkOwp4/B+UJshe5eWYt1F6+ZPH/vi46gMIwnSGZJwur1VY3hTguftg8acWoOwRM0pwuW27y1S//l2NZj+OEEql26fG1dRgJo1HLr3O1sFgYW3DcBDcVoHm7OFCUhijyFCDmZTdpuMXQ=
+	t=1781168934; cv=none; b=VUd8KoxAukzy2rxzNbFxZGJitPvmLiFSCOEGkeXjM9gCFwe7ltvckLJMzOjGNUf/t8Rwayhh59eE249MJRSExAaqqHel9xytFRJz+XfuJTGl1PPXVkRTIk6IPrhwb/gZ75w95aK8VUwWF31ioQuGsIRLjtmjVCffWuAuQdehSrs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781168697; c=relaxed/simple;
-	bh=Ah7Hp7ftJHUPWtLQZ0o+NHG8g+aUB0BccvnJf0PTTVc=;
+	s=arc-20240116; t=1781168934; c=relaxed/simple;
+	bh=9dOwlq1ZJAzjZVJ7G/FREjR9Du4oROYSoKMF+/A0j5M=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=MoWdteRKwhT3hf8cAmbhz6HpilXGB0JDiJtIoKpm9abamyOW8YQU/SANWYUcyXVh4HIbnvxi/lcKmwxMxKR2kxmsVTzzQx/OUGsswgN4qIAcRo1iPTw56Ietrrm677cIYfvIL4mfZ+MTEDTmytcy1gVYZ4Q2vAnGHqenYs5YnfQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=GcH+PdUQ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=dPNQeGhz; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:Content-Type; b=cCrrZFPLbOVNV3G3jiBblxCarnb2mNLVIqIC2j8GOt1vsXTQSLXTCul2QAOmuLHPpwrAaUQDeFxXdP3B07gdAYW1gp2K3H8W7mDoMYK/DV9oYE5hRXyOijUrtGLF+A8O3rjqEIPeJmBRaRvzS7NsH/P3m9FTG3MgFyhWlpQSMcc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Zwn3hk9u; arc=none smtp.client-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="GcH+PdUQ";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="dPNQeGhz"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65B5GEHs3724538
-	for <stable@vger.kernel.org>; Thu, 11 Jun 2026 09:04:55 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	42ytVJQyLSNNdfS3jOnCdpT27ZxKZp4RInVBR5BAPyY=; b=GcH+PdUQYWcC35Tn
-	4/cw48A6pCYIIrrLVRliK1ncR5ScUg2SJiV3W1X9JcJNeioridAgQBiZkWK9T2gt
-	Ax3JO8tf1mIDXdXx9d/8dqFCcZmoPsHdBafeeBxiojm/nED+uMIAPW6uBo72qWG7
-	J74/qMV6VqbpnYSXqoj1Tn6qY/j8evBVdNVt05muRfQ/gtm7hAP+A3Ib+9PMdL5Z
-	rAv7aHXObo7bBozu8nrUorD7Iq5JMfiA3AsTb++oL8EUOSCcIzbfzrppXHswPIav
-	2DJ7atJYa3TUr2ToMEPZrqZJsyds2JTuSjM4hmdxd4xdSgH7T2iYdFLVs+n4pfQW
-	oRwqPA==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eqe6vajhh-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Thu, 11 Jun 2026 09:04:55 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-5177b12d7bbso14426081cf.1
-        for <stable@vger.kernel.org>; Thu, 11 Jun 2026 02:04:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1781168694; x=1781773494; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=42ytVJQyLSNNdfS3jOnCdpT27ZxKZp4RInVBR5BAPyY=;
-        b=dPNQeGhz5gb0rphKRglGqAqpVRZQ5KeOZx1Mi+q2NcRCuVlFIA5bAGybUqM9ieM0zd
-         1SsrMpSdhesEax5ydNWj2Vu+bWDHQpygcguKrZx3ysWeaVfHm1ruiXzneEBBmFT7F+Gr
-         PqJjP7swQNy2GBGKRbiyPHByxpG9+A1FyHqYP5eSe5AFJiQN/C/OV+r7OmeseuR0ESGy
-         5++1Qjzo3Bw1BuyEw99KRJNqTIJISWVtDPjS6AFUgBCBQntKiwR83zVjpGgttPPgyVOK
-         k0aed6kSGx0Oy4UU89yOJEc9kiNROpEAYOs+njIQYYhfV6S3WLBMFFHk6UsBmCwNU9zc
-         K3Xg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781168694; x=1781773494;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=42ytVJQyLSNNdfS3jOnCdpT27ZxKZp4RInVBR5BAPyY=;
-        b=E4Kib88WCWtzDPUqVJdw6sH3/h/DkCagLkrN5cibFXCszl/n/gZ052hhtmiDHeIEgY
-         SykgT9+0ioYxxnVq1T4ojvucvuLLeBIBJFXpPPfxgGHWUijRMlmkI+HdysZ8dVvmvIIB
-         NXEuFvpmP/we5SOeEddw0QmVlYSqVuoJTmeCDL1wtLyZJ05y7wYZiZZnSzkAz1Ot1LSs
-         TqjOGqkQNG7frQLIvqqgtiF3MIx4mHsCHl6FxvZWuk8XxP7lMEHbswNZeNQHEBZRGJDN
-         QS4Pb2ufcPmf/MmnhAFirl6SSYLHPHib+WWwdVi154CuyLHlny9t/u//dwBfZ+3ZLnTi
-         4Qbg==
-X-Forwarded-Encrypted: i=1; AFNElJ/yvc0gd34C05fTsvKStKpyigElfRWQ1dmHyTtXpkF+8CPAIee6yS6QvMxNFXH5H/4PPxO0Q14=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyCbdoV/QcqxZQc8KTo+tGx6ETrDALo4OQzzFlJTMmeMp1ufYD8
-	fl2Vcm0qZ2MJRYoUraZivKc4LzrhM35xtncwZuCcKh6U+Eop+d83/jC35quzxF3gAJiRbckwTdA
-	nbGNbCh6GWarOzss9xlsc9mI9rInX9PfTW4ld+sYhvei2tOL8/Q7JpwJdxf0=
-X-Gm-Gg: Acq92OGz+vAjbrhUip4n87dWFgbL3CIqTNmMwdfBTMQWnwVSj7SPHOOOK1lEfbh60ym
-	CdC/CW1glQ1/E/EHZhTI9HNof2Pl5KkDxmXqVwTZRPZU52F+AC8q2Vj7PlcOUavfuz57mBfwqve
-	QXtOgLs+zLZjFnBORw4WzqiWMT+MyTIF0rf6kLYxFhs0vAIptjyPa7v8hgj5XHh7giLdOarHY6c
-	z1hxsEhqY7kVRKTYB0/7bFWRtUaH8/XRHrpGiSqXT4Njr4j8z839TS8lZtrLRwUKuReeHKMPQTN
-	RS3l40SnxcR6Mj2DenVlIoR5jbsYKfJkoSesXo3tYGagcDi7dW/ALMeZvTqXbkl1+LCPQP3JSFw
-	7IW+TKBe/i3xDbwguAfkAQHa/ZwiO2r2uiSAJ7CxQZ2uiDzVq0ASr5x6B
-X-Received: by 2002:a05:622a:89:b0:50e:5cc1:1de9 with SMTP id d75a77b69052e-517ee27fe16mr16804971cf.7.1781168694208;
-        Thu, 11 Jun 2026 02:04:54 -0700 (PDT)
-X-Received: by 2002:a05:622a:89:b0:50e:5cc1:1de9 with SMTP id d75a77b69052e-517ee27fe16mr16804711cf.7.1781168693670;
-        Thu, 11 Jun 2026 02:04:53 -0700 (PDT)
-Received: from [192.168.120.170] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bfcb668c9f4sm35813866b.56.2026.06.11.02.04.50
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 11 Jun 2026 02:04:52 -0700 (PDT)
-Message-ID: <1cc052aa-8274-4560-886d-2b821715aa0d@oss.qualcomm.com>
-Date: Thu, 11 Jun 2026 11:04:49 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Zwn3hk9u"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1781168933; x=1812704933;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=9dOwlq1ZJAzjZVJ7G/FREjR9Du4oROYSoKMF+/A0j5M=;
+  b=Zwn3hk9u/2uXGu0CUTvDRFTmawUndrhZLpELfpBSwcpQLJkpHPnBwwVA
+   GOARaR+XDjjHG+XNTEMMEqwYOE/FE47kwk6XZDcqMfQrGONfiLWE696sV
+   cN1AnZH3bCmiSFLTmVKpV97IZ0bQLhfUnDh2lruLrTbigWeZUR267aPhh
+   UcX+V+8M/eAJvI6GjJSun/7g0mC8S2zbh9Kaksi543f5hJUxEuE0n4zyg
+   rdI1h073xf0Z+1XqSCsfMxf5Cu5uoqVlEhibzWh+daPlkKvz7evJfepq7
+   cgGFRS2gAHG8c/p4afH4xnFfv8ik3BIY6MjzhcyeVLWAz4i7t6d7yXc2S
+   w==;
+X-CSE-ConnectionGUID: Fmu5CyfAQ0+PG4QxQGOnAA==
+X-CSE-MsgGUID: 1u2OtcQjRyi/Qqetk6RUUg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11813"; a="99400456"
+X-IronPort-AV: E=Sophos;i="6.24,198,1774335600"; 
+   d="scan'208";a="99400456"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Jun 2026 02:08:52 -0700
+X-CSE-ConnectionGUID: qnb7Nqr9Tu+e3JIvc57UNw==
+X-CSE-MsgGUID: GcE9VWftR4mL6Mc2qenqmA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,198,1774335600"; 
+   d="scan'208";a="276614160"
+Received: from carterle-desk.ger.corp.intel.com (HELO [10.245.246.63]) ([10.245.246.63])
+  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Jun 2026 02:08:49 -0700
+Message-ID: <5e05e954-338c-4a87-8a60-1fd2bd6bb8ce@linux.intel.com>
+Date: Thu, 11 Jun 2026 12:08:57 +0300
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -88,61 +52,110 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] regulator: qcom-refgen: correct the regulator type
- to CURRENT
-To: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>,
-        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        devicetree@vger.kernel.org, stable@vger.kernel.org
-References: <20260611-ipq9650_refgen-v2-0-d96a91d5b99e@oss.qualcomm.com>
- <20260611-ipq9650_refgen-v2-1-d96a91d5b99e@oss.qualcomm.com>
+Subject: Re: [PATCH] ALSA: hda/hdmi: disable KAE for Intel Panther Lake
+To: Alexander Kaplan <alexander.kaplan@sms-medipool.de>,
+ Takashi Iwai <tiwai@suse.com>, linux-sound@vger.kernel.org
+Cc: Jaroslav Kysela <perex@perex.cz>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+ stable@vger.kernel.org, "Shankar, Uma" <uma.shankar@intel.com>
+References: <20260610174834.6301-1-alexander.kaplan@sms-medipool.de>
 Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260611-ipq9650_refgen-v2-1-d96a91d5b99e@oss.qualcomm.com>
+From: =?UTF-8?Q?P=C3=A9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>
+In-Reply-To: <20260610174834.6301-1-alexander.kaplan@sms-medipool.de>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: TowHeu1eNLpODjhaCuzLjJwJ6c7fkQV4
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjExMDA4OSBTYWx0ZWRfXxfudvaUT3cTY
- CQHtPVW7JCMs+Dj2cXwgl/m4pb0F0RAQ9LQOrvBGynYKdf7TWFxvP+1vorXkA+BvFx75PBgjBdW
- vN3CzRcxzBTwvC186gV4QvuQiRVj5Ko=
-X-Proofpoint-GUID: TowHeu1eNLpODjhaCuzLjJwJ6c7fkQV4
-X-Authority-Analysis: v=2.4 cv=UsRT8ewB c=1 sm=1 tr=0 ts=6a2a7a37 cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=NMBPdCelTQKdMlTKoVgA:9 a=QEXdDO2ut3YA:10
- a=a_PwQJl-kcHnX1M80qC6:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjExMDA4OSBTYWx0ZWRfX0Ubi8VLr8uz1
- UGO84dtVnit3fmP74cJ56daZoxksODV6n+GwydVdpVeg1OctFD1BY4gJsol5unkDSzP8opYrEdx
- 3dq9T6TluKb4ozNBqq+BffizTJSylInBmFCkfAVM2ZEq4tHdds6NLel1L6nqwoUfTAo6odOjSer
- /BSARJ/ctt9ci2j09IRp17wpiEfc8/C279viUQF0EDF8Z5DIrVcKz8NQstUsu2NGEV+Lyy5Z5oC
- iM4Ubr9ixXAdJUpx7iSaCIXsCJ4d2w00KfKf0sgyqiLTOW3GhlVrQ10N4yOTnYannEWDWTrQk7t
- IJmby4Rsrp5LEV7PnoRik48Pdabi7aNJ+Ix33WZU2WOqbmvUOpr/Uoo7fu+Q/MTrWcO1iYSxJoA
- TfoRKxoEKtxnzqoRiY5b09ItgmjlT7tuabFTEnp1WYm2W0MEoRFO6FpzymUjlxfop8mXeq139Vw
- EPOKCHEDv4guC3M/Ncw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-11_01,2026-06-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 phishscore=0 clxscore=1015 lowpriorityscore=0 spamscore=0
- adultscore=0 bulkscore=0 suspectscore=0 impostorscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606040000 definitions=main-2606110089
+Content-Transfer-Encoding: 8bit
 
-On 6/11/26 11:03 AM, Kathiravan Thirumoorthy wrote:
-> As per the REFGEN IP team, this block supplies the reference current to
-> the PHYs in the SoC. So, correct the regulator type to REGULATOR_CURRENT
-> to match with the HW behavior.
+Hi,
+
+On 10/06/2026 20:48, Alexander Kaplan wrote:
+> On Panther Lake the keep-alive engine poisons the display side of the
+> audio path for multichannel PCM.
+> Once KAE has been active in the running display power cycle, the first
+> 6 or 8 channel stream on that pin plays silent and wedges the pin.
+> All subsequent streams stay silent regardless of their format.
+> Only a display power domain cycle recovers the pin, in practice a
+> reboot or one suspend cycle.
 > 
-> Fixes: 7cbfbe237960 ("regulator: Introduce Qualcomm REFGEN regulator driver")
+> The wedge sits behind the audio converter.
+> Sample counters in the display audio register block keep running during
+> the silent playback while the output stays dead.
+> The wedge survives clearing the KAE bit ahead of the stream id
+> programming, fully quiescing the converter (KAE bit, stream id and
+> format cleared before the multichannel setup), a complete codec and
+> controller reset through a driver rebind with the keep-alive kept off,
+> and powering down the audio well for ten minutes.
+> The sequence is harmless when the keep-alive was never enabled in the
+> running display power cycle, which isolates the KAE hardware as the
+> trigger.
+> 
+> Easy reproducer on a sink whose LPCM capability is limited to
+> 2 channels:
+> speaker-test -c2 plays, one speaker-test -c6 run plays silent and every
+> following speaker-test -c2 stays silent until reboot.
+> With enable_silent_stream=0 the same sequence plays normally.
+
+Normally I have KAE disabled for power saving reasons on my laptops, but
+did a quick test on my PTL:
+# cat /proc/asound/card0/codec#2 | grep KAE
+  Digital: Enabled KAE
+
+speaker-test -c2 / -c6 works as many times as I run them in all permutation.
+
+> 
+> This is the failure class already known from commit 6ab6f98fcdc9
+> ("ALSA: hda/hdmi: disable KAE for Intel DG2").
+> Handle Panther Lake like DG2 and fall back to the older i915 silent
+> stream method, which uses the regular stream path instead of the
+> keep-alive engine.
+> Like on DG2 this keeps the codec powered while the silent stream runs.
+> 
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
+> Fixes: e9481d9b83f8 ("ALSA: hda: add HDMI codec ID for Intel PTL")
+> Signed-off-by: Alexander Kaplan <alexander.kaplan@sms-medipool.de>
 > ---
+> Found and verified on an ASUS NUC 16 Pro (Panther Lake H, codec
+> 0x80862822) driving an LG TV through a Synaptics VMM7100 DP-to-HDMI
+> protocol converter, kernel 7.1-rc7.
+> The poisoning is independent of the sink and of the video mode.
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+My setup is: laptop HDMI -> SYNIC HDMI audio extractor -> HDMI KVM ->
+monitor w/o speakers.
+I use the extractor to grab the audio and it is clean every time I play
+audio to HDMI.
 
-Konrad
+Can this be somehow related to the DP-to-HDMI converter? Have you tested
+that with other machine?
+Or a combination of xe2+DP-to-HDMI?
+
+Ccing Uma for display side
+> This may also fix the silent Dolby TrueHD passthrough on Battlemage
+> reported in
+> https://gitlab.freedesktop.org/drm/xe/kernel/-/issues/7515.
+> Battlemage uses the same keep-alive code path and TrueHD passthrough
+> is the same first-multichannel-stream pattern, but I could not test
+> that hardware.
+> 
+> Workaround for affected systems without this patch:
+> snd_hda_codec_intelhdmi.enable_silent_stream=0.
+> 
+>  sound/hda/codecs/hdmi/intelhdmi.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/sound/hda/codecs/hdmi/intelhdmi.c b/sound/hda/codecs/hdmi/intelhdmi.c
+> index 6a7882544a..52997caae9 100644
+> --- a/sound/hda/codecs/hdmi/intelhdmi.c
+> +++ b/sound/hda/codecs/hdmi/intelhdmi.c
+> @@ -791,7 +791,7 @@ static const struct hda_device_id snd_hda_id_intelhdmi[] = {
+>  	HDA_CODEC_ID_MODEL(0x8086281e, "Battlemage HDMI",	MODEL_ADLP),
+>  	HDA_CODEC_ID_MODEL(0x8086281f, "Raptor Lake P HDMI",	MODEL_ADLP),
+>  	HDA_CODEC_ID_MODEL(0x80862820, "Lunar Lake HDMI",	MODEL_ADLP),
+> -	HDA_CODEC_ID_MODEL(0x80862822, "Panther Lake HDMI",	MODEL_ADLP),
+> +	HDA_CODEC_ID_MODEL(0x80862822, "Panther Lake HDMI",	MODEL_TGL),
+>  	HDA_CODEC_ID_MODEL(0x80862823, "Wildcat Lake HDMI",	MODEL_ADLP),
+>  	HDA_CODEC_ID_MODEL(0x80862824, "Nova Lake HDMI",	MODEL_ADLP),
+>  	HDA_CODEC_ID_MODEL(0x80862882, "Valleyview2 HDMI",	MODEL_BYT),
+
+-- 
+Péter
+
