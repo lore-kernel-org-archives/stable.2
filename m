@@ -1,122 +1,197 @@
-Received: from mail-qv1-f42.google.com (mail-qv1-f42.google.com [209.85.219.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp-8fa9.mail.infomaniak.ch (smtp-8fa9.mail.infomaniak.ch [83.166.143.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE575407CCF
-	for <stable@vger.kernel.org>; Thu, 11 Jun 2026 14:11:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDDAD40683D
+	for <stable@vger.kernel.org>; Thu, 11 Jun 2026 14:20:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=83.166.143.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781187116; cv=none; b=fWBp+ld2Dm9AV4FJqbobaBZJEOmGZC7ruukhyAAtbKbOAyMQQMzp3V8KbZitAdeqSpfYlhKjJYQSUXMUxz+7OwNQTic107GRYF4f7A++3livH+6ayOlZ7U1OirN+fO1yM6TiNpDYyj2Ml/lSdTJDltu8pDXgb4hBRMVPgVJNE2E=
+	t=1781187622; cv=none; b=aHHOjFShMJXE//rMFWfODmHznsjMnYXC0OQyaXXiLRDsD/twgm23Tmq1qtXT3SEXsnx4yt/1tkQvfwEUSpUhJwdQqpcee/Fk3wefs8w6pew+/O0QAtCrMcNbBydusixzhMh+AQmoD9SuCq+mWtGK06CCozKCogYPeohLNUzp+cw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781187116; c=relaxed/simple;
-	bh=9CbWY5bVY3WPiB2hF0opJQ3dHD20rbFUitVIN5OFEeM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ges7lddgDLJXpEk9tBytjkxARBOkUQ0n3NGhHyt+VX1fICR2rqEztbDQPHfL9hiB99hiO/D3dp/2QIOlGU+x5ArfoWPMVs4zhxYutz/NOEjDvv2JTMEKK1q6SyDcgkStw67PfACV+z+aG2TGWhO5/9XitDcn01gyf1cp6ronhPY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu; spf=fail smtp.mailfrom=g.harvard.edu; dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b=nmYKUGVX; arc=none smtp.client-ip=209.85.219.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
+	s=arc-20240116; t=1781187622; c=relaxed/simple;
+	bh=brkNIuGpLgiXdVlMrRBDOd1Hl5+Wk3ZdSGY2cHZbQQU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=hZ7ec/kf/mx39CpTzOIC+V98ZHBhi4IMnP49cihB/7UehPBNfAeUBLTpuZZpkfCwOGxopc4cHLY6CBWvkOnLurnuY+svs0itofACOcW5St4AyM48oSBdIUFDEKMRlRIVInzpjN4Uw71cmFqz9QUh2dTNQKPJQUCOHiQBy63iwRg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.sh; spf=pass smtp.mailfrom=gibson.sh; dkim=pass (2048-bit key) header.d=gibson.sh header.i=@gibson.sh header.b=OUhWreUH; arc=none smtp.client-ip=83.166.143.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.sh
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gibson.sh
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b="nmYKUGVX"
-Received: by mail-qv1-f42.google.com with SMTP id 6a1803df08f44-8ce9df4732cso82546676d6.1
-        for <stable@vger.kernel.org>; Thu, 11 Jun 2026 07:11:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rowland.harvard.edu; s=google; t=1781187113; x=1781791913; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=/dniOIRcqBtEvdCN2h2so0q8LhV25xoLRKWKiAUTeFA=;
-        b=nmYKUGVX6Som6rOt+ZpvWLstw1H4nj8n5JgK/5mc3KNZojNE9yr2bJpEKbWVuzzzfG
-         ab3FHj+Jt0Z/nUvHejbXBZR//egOuOyaB/DsLujY3sMyR3TrJmrWW18bxhQY4WEZu0Al
-         fowhEjqJqU5SqMNOMqmmQ6ZYWMq51/vMC7kA8b9BcaYnQPKJsSeQgPVGB9RAAl7MyfcZ
-         hr3ns+rjL2tRC26I/dDtk6LOg6vhKl/PGd7XWrpAqp+ePIUMAO3CVtSanZ8sGSbLpbZ+
-         oOmHL67og6AY5GTAZCF3AbvI3aGmi/Z/cnTdmIWdYOcJ4bbl/egG+uuRwAWZsih67f0h
-         en5w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781187113; x=1781791913;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=/dniOIRcqBtEvdCN2h2so0q8LhV25xoLRKWKiAUTeFA=;
-        b=SkR858P9ZqTua2FDeAI+lOzuU8OZktnMbDd13C9Yz83JnxshwJn527nic6mDAn8JhK
-         uOtYQndm/J6zPoKPNxdOjbpytZAa4EV+/5kxH4brnuhQPu38SmZSLEf2A69RToECq/ki
-         5ylX1MlRseVRWWslnOfhNAQjxCuGePzmxYFoWl6nzMaVUR13zIuMVSj99xMiB/i2Wkv2
-         5mDGC+US0wFwFQr1wcMjC/JsUy1A+RoanuG0do2viN5NEKbaRmrWUSTC40pimlBkHGxv
-         3Tdx1547K4jt9+0gwXA3CdNrMwrXGgM3poDbZ61vXpYyVDbkjeFiNeux+bFiNarJXKwu
-         aD4Q==
-X-Forwarded-Encrypted: i=1; AFNElJ9+1OTMict5UBVw5idrfmlYHJ1WfEBMNKp+yLRp4JrvHYMzbcMzc4UATMzNHtd/LL8B3OM5gts=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz4LvIQSRBbMGW1101k/vvo0mCCsWg/ZUuHAQYu0K8QaAQ9XTtv
-	QhOIyOvB9Jc4xhgPZSfjt0cGcAHAqNis4385Cbxd79QOp949qMpqI7ZslO4N92yy7g==
-X-Gm-Gg: Acq92OFaSWtWJ2HG4K7UJ8i3JOasXWmhIHL1pn3ngB3xqrn7kTzMlSNvJWoVMOhzD5W
-	BlNePPjsebiL1/J4a3Zhe7bvIAuVS9taqEfXXdeigfJvo3fW/265nSLjo/4t4lHQv6QSaEM/XB7
-	6NjkDlEzQeKB002WQGsfemEuAE/ut0vMxikodC39uv71pCwvBGKUGqwxttz6vvG1PdwjnSb3eUW
-	l58qK6nJrFXNJB2vOKkqJBsabASxzkNKO4S0705bLDGPf2hCkIBJBV6ikHMVEs/+DMy37SPCdDv
-	rmCjZQ5iz4TXF12t1FVVnVk5TxQHuV7QzrkDf/xfMmkS5vCXp+cjwa8FVL0DgHnH4j0J0Wdx49b
-	GFu2AH0JjLBWjk9nrPtCtE38HXhiN3ymJSBGDKyT9m7s0WRFYynR6EHK14iqfVFSpNQ+BOPHdSr
-	MQYHzjnWrYbqgwJFyT+XLojncEn+2xz8aRifg/25CfFoDIEPHsVtDAScjZqhACjHM=
-X-Received: by 2002:a05:6214:311e:b0:8cc:f3bb:e15c with SMTP id 6a1803df08f44-8d1db5ed518mr43456926d6.41.1781187112314;
-        Thu, 11 Jun 2026 07:11:52 -0700 (PDT)
-Received: from rowland.harvard.edu ([140.247.181.15])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8d1eb2b40acsm18450906d6.45.2026.06.11.07.11.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 11 Jun 2026 07:11:51 -0700 (PDT)
-Date: Thu, 11 Jun 2026 10:11:49 -0400
-From: Alan Stern <stern@rowland.harvard.edu>
-To: WenTao Liang <vulab@iscas.ac.cn>
-Cc: gregkh@linuxfoundation.org, mathias.nyman@linux.intel.com,
-	khtsai@google.com, thorsten.blum@linux.dev, kees@kernel.org,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] usb: hub: fix refcount leak in usb_new_device()
-Message-ID: <e7077523-3558-48e9-9fd8-4e2f266437e5@rowland.harvard.edu>
-References: <20260611130223.80884-1-vulab@iscas.ac.cn>
+	dkim=pass (2048-bit key) header.d=gibson.sh header.i=@gibson.sh header.b="OUhWreUH"
+Received: from smtp-4-0000.mail.infomaniak.ch (smtp-4-0000.mail.infomaniak.ch [10.7.10.107])
+	by smtp-4-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4gblCw3g3YzDnN;
+	Thu, 11 Jun 2026 16:20:12 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gibson.sh;
+	s=20260228; t=1781187612;
+	bh=tPxdcxLEy6pAalTNE6zjKloyxL4UuKa+Sj/8bGNM4Z0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=OUhWreUH2gZ7J00ndoMDmbTXNUrKFKb0W6I2KU/gVQtVnc75o6r2EWSe+YbYek4y2
+	 sEeuElYGpyidp/qEiYwoz1Kp+XUb3S0h0PjSpN4/siqC7L1z9L+g4ASy8aCAaRIxxT
+	 yjsNnU7ejMbz2pD+W8sGUvMDRkCDDAMqSQJRwd7rs7jU9tNiFs1dRCqZ6eoGIQjSP6
+	 4GQYjSupTlQXvfzmADED4cb6wvX+/UwqZqiIKl2rVZcU23YfwM34ao4YBA25kKpyGq
+	 muag9VOXEdHduKepyksjKEOvjByUz4z2pbSljL+XsNiICHQSwB5ZTTfBds+7vVJSZg
+	 9KPyJ9WqoG3yg==
+Received: from unknown by smtp-4-0000.mail.infomaniak.ch (Postfix) with ESMTPA id 4gblCv3Mtmz7fZ;
+	Thu, 11 Jun 2026 16:20:11 +0200 (CEST)
+Message-ID: <d522d2c1-5058-421b-97b9-bb106b7efd06@gibson.sh>
+Date: Thu, 11 Jun 2026 16:20:10 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260611130223.80884-1-vulab@iscas.ac.cn>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 4/4] platform/x86/amd/pmc: Don't log during
+ intermediate wakeups
+To: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>,
+ Hans de Goede <hansg@kernel.org>, platform-driver-x86@vger.kernel.org,
+ LKML <linux-kernel@vger.kernel.org>, Mario Limonciello <superm1@kernel.org>,
+ Hans de Goede <johannes.goede@oss.qualcomm.com>, stable@vger.kernel.org
+References: <20260609105756.2813669-1-daniel@gibson.sh>
+ <20260609105756.2813669-5-daniel@gibson.sh>
+ <4bc20ca2-8544-e36e-70af-a19364e59eba@linux.intel.com>
+Content-Language: de-DE, en-GB
+From: Daniel Gibson <daniel@gibson.sh>
+In-Reply-To: <4bc20ca2-8544-e36e-70af-a19364e59eba@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Infomaniak-Routing: alpha
 
-On Thu, Jun 11, 2026 at 09:02:23PM +0800, WenTao Liang wrote:
-> If usb_new_device() fails after pm_runtime_get_noresume() has
-> been called, it does not release the corresponding reference.
-> In the successful path, the reference is properly dropped via
-> pm_runtime_put_sync_autosuspend().  However, when an error
-> occurs during enumeration (e.g. usb_enumerate_device() failure)
-> or device registration (e.g. device_add() failure), the function
-> jumps to the "fail" label.  That error cleanup path only disables
-> runtime PM and marks the device as suspended, never putting the
-> usage count back.  This results in a permanent imbalance of
-> power.usage_count, preventing future runtime PM state transitions
-> and proper device cleanup.
+On 11.06.26 16:02, Ilpo Järvinen wrote:
+> On Tue, 9 Jun 2026, Daniel Gibson wrote:
 > 
-> Fix the leak by adding a pm_runtime_put_noidle() call before
-> pm_runtime_disable() in the fail error path, which releases the
-> reference without queuing any suspend work and appropriately
-> matches the pm_runtime_get
+>> The ECs in the IdeaPads that need the delay_suspend quirk send lots
+>> of messages when charging, which not only causes intermediate wakeups
+>> when suspended, but also prevents the device from reaching the deepest
+>> suspend state.
+>>
+>> Because of this amd_pmc_intermediate_wakeup_need_delay() returns false
+>> during intermediate wakeups and amd_pmc_want_suspend_delay() is called.
+>> So far it always logged its "Delaying suspend by 2.5s ..." messages
+>> then, which spams dmesg. This commit makes sure that those messages are
+>> only logged once per suspend.
+>>
+>> Link: https://bugzilla.kernel.org/show_bug.cgi?id=221383
+>> Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
+>> Signed-off-by: Daniel Gibson <daniel@gibson.sh>
+>> Cc: stable@vger.kernel.org
+>> ---
+>>  drivers/platform/x86/amd/pmc/pmc.c | 39 ++++++++++++++++++++++++------
+>>  drivers/platform/x86/amd/pmc/pmc.h |  1 +
+>>  2 files changed, 32 insertions(+), 8 deletions(-)
+>>
+>> diff --git a/drivers/platform/x86/amd/pmc/pmc.c b/drivers/platform/x86/amd/pmc/pmc.c
+>> index 2d3d180c15d2..7d772ccd17a6 100644
+>> --- a/drivers/platform/x86/amd/pmc/pmc.c
+>> +++ b/drivers/platform/x86/amd/pmc/pmc.c
+>> @@ -619,6 +619,20 @@ static bool amd_pmc_intermediate_wakeup_need_delay(struct amd_pmc_dev *pdev)
+>>  
+>>  static bool amd_pmc_want_suspend_delay(struct amd_pmc_dev *pdev)
+>>  {
+>> +	/*
+>> +	 * intermediate_wakeup implies that the machine didn't get to deepest sleep
+>> +	 * state before - otherwise this function isn't called in amd_pmc_s2idle_check()
+>> +	 * because amd_pmc_intermediate_wakeup_need_delay() returns true first.
+>> +	 * On some IdeaPads that happens when charging, because the EC seems
+>> +	 * to send lots of messages then that wake the machine.
+>> +	 *
+>> +	 * But even in that case, the sleep here is necessary (on those IdeaPads),
+>> +	 * otherwise they wake up completely (resume) after a few seconds.
+>> +	 * So this variable is only used to avoid spamming dmesg on each
+>> +	 * intermediate wakeup.
+>> +	 */
+>> +	bool intermediate_wakeup = !pdev->is_first_check_after_suspend;
+>> +
+>>  	/*
+>>  	 * Some Lenovo Laptops (like different IdeaPad 3 Slims) need some
+>>  	 * me-time before sleeping or they get uncooperative after waking
+>> @@ -637,17 +651,20 @@ static bool amd_pmc_want_suspend_delay(struct amd_pmc_dev *pdev)
+>>  		 * disabled with disable_workarounds or delay_suspend=0
+>>  		 */
+>>  		if (delay_suspend == 1 || (delay_suspend == -1 && !disable_workarounds)) {
+>> -			dev_info(pdev->dev, "Delaying suspend by 2.5s to avoid platform bug\n");
+>> +			if (!intermediate_wakeup)
+>> +				dev_info(pdev->dev, "Delaying suspend by 2.5s to avoid platform bug\n");
+>>  			return true;
+>>  		}
+>> -		dev_info(pdev->dev, "Not delaying suspend because of module parameter, even though your device is assumed to need it!\n");
+>> +		if (!intermediate_wakeup)
+>> +			dev_info(pdev->dev, "Not delaying suspend because of module parameter, even though your device is assumed to need it!\n");
+>>  	} else if (delay_suspend == 1) {
+>> -		dev_info(pdev->dev, "Delaying suspend by 2.5s because delay_suspend=1. If this solves problems on your machine, please report this whole line to: platform-driver-x86@vger.kernel.org so it can be automatically detected as affected in the future. System Vendor: \"%s\" Product Name: \"%s\" Product Family: \"%s\" Board Vendor: \"%s\" Board Name: \"%s\"\n",
+>> -			 dmi_get_system_info(DMI_SYS_VENDOR),
+>> -			 dmi_get_system_info(DMI_PRODUCT_NAME),
+>> -			 dmi_get_system_info(DMI_PRODUCT_FAMILY),
+>> -			 dmi_get_system_info(DMI_BOARD_VENDOR),
+>> -			 dmi_get_system_info(DMI_BOARD_NAME));
+>> +		if (!intermediate_wakeup)
+>> +			dev_info(pdev->dev, "Delaying suspend by 2.5s because delay_suspend=1. If this solves problems on your machine, please report this whole line to: platform-driver-x86@vger.kernel.org so it can be automatically detected as affected in the future. System Vendor: \"%s\" Product Name: \"%s\" Product Family: \"%s\" Board Vendor: \"%s\" Board Name: \"%s\"\n",
+>> +				 dmi_get_system_info(DMI_SYS_VENDOR),
+>> +				 dmi_get_system_info(DMI_PRODUCT_NAME),
+>> +				 dmi_get_system_info(DMI_PRODUCT_FAMILY),
+>> +				 dmi_get_system_info(DMI_BOARD_VENDOR),
+>> +				 dmi_get_system_info(DMI_BOARD_NAME));
+>>  		return true;
+>>  	}
+>>  	return false;
+>> @@ -660,6 +677,9 @@ static void amd_pmc_s2idle_prepare(void)
+>>  	u8 msg;
+>>  	u32 arg = 1;
+>>  
+>> +	/* Reset this variable because this is a fresh suspend */
+>> +	pdev->is_first_check_after_suspend = true;
+>> +
+>>  	/* Reset and Start SMU logging - to monitor the s0i3 stats */
+>>  	amd_pmc_setup_smu_logging(pdev);
+>>  
+>> @@ -699,6 +719,9 @@ static void amd_pmc_s2idle_check(void)
+>>  	rc = amd_stb_write(pdev, AMD_PMC_STB_S2IDLE_CHECK);
+>>  	if (rc)
+>>  		dev_err(pdev->dev, "error writing to STB: %d\n", rc);
+>> +
+>> +	/* remember that first check after suspend is done (until next prepare) */
+>> +	pdev->is_first_check_after_suspend = false;
+>>  }
+>>  
+>>  static int amd_pmc_dump_data(struct amd_pmc_dev *pdev)
+>> diff --git a/drivers/platform/x86/amd/pmc/pmc.h b/drivers/platform/x86/amd/pmc/pmc.h
+>> index f5257e47b8c4..8aa7073ed09f 100644
+>> --- a/drivers/platform/x86/amd/pmc/pmc.h
+>> +++ b/drivers/platform/x86/amd/pmc/pmc.h
+>> @@ -114,6 +114,7 @@ struct amd_pmc_dev {
+>>  	struct dentry *dbgfs_dir;
+>>  	struct quirk_entry *quirks;
+>>  	bool disable_8042_wakeup;
+>> +	bool is_first_check_after_suspend;
+>>  	struct amd_mp2_dev *mp2;
+>>  	struct stb_arg stb_arg;
+>>  };
+>>
 > 
-> Cc: stable@vger.kernel.org
-> Fixes: 9bbdf1e0afe7 ("USB: convert to the runtime PM framework")
-> Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
-> ---
+> Hi,
+> 
+> This fails to apply to the review-ilpo-next branch and I don't want to 
+> spend time at this point to figure it out so please send v6 which is 
+> based on the for-next or review-ilpo-next branch:
+> 
+> Applying: platform/x86/amd/pmc: Check for intermediate wakeup in function
+> Applying: platform/x86/amd/pmc: Delay suspend for some Lenovo Laptops
+> Applying: platform/x86/amd/pmc: Add delay_suspend module parameter
+> Applying: platform/x86/amd/pmc: Don't log during intermediate wakeups
+> error: patch failed: drivers/platform/x86/amd/pmc/pmc.c:660
+> error: drivers/platform/x86/amd/pmc/pmc.c: patch does not apply
+> error: patch failed: drivers/platform/x86/amd/pmc/pmc.h:114
+> error: drivers/platform/x86/amd/pmc/pmc.h: patch does not apply
+> Patch failed at 0004 platform/x86/amd/pmc: Don't log during intermediate wakeups
+> 
+> 
 
-Reviewed-by: Alan Stern <stern@rowland.harvard.edu>
+Hi,
 
->  drivers/usb/core/hub.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/usb/core/hub.c b/drivers/usb/core/hub.c
-> index 24960ba9caa9..05f1a4267aec 100644
-> --- a/drivers/usb/core/hub.c
-> +++ b/drivers/usb/core/hub.c
-> @@ -2731,6 +2731,7 @@ int usb_new_device(struct usb_device *udev)
->  	device_del(&udev->dev);
->  fail:
->  	usb_set_device_state(udev, USB_STATE_NOTATTACHED);
-> +	pm_runtime_put_noidle(&udev->dev);
->  	pm_runtime_disable(&udev->dev);
->  	pm_runtime_set_suspended(&udev->dev);
->  	return err;
-> -- 
-> 2.50.1 (Apple Git-155)
-> 
+is the review-ilpo-next branch on
+https://git.kernel.org/pub/scm/linux/kernel/git/pdx86/platform-drivers-x86.git/?h=review-ilpo-next
+up-to-date?
+I checked it out and cherry-picked my patches from my original branch
+and all applied without conflicts, so I wonder if I'm missing commits
+introducing conflicts.
+
