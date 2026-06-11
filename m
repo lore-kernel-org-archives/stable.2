@@ -1,138 +1,72 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED1433F99FB
-	for <stable@vger.kernel.org>; Thu, 11 Jun 2026 13:58:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3331B3EDE61;
+	Thu, 11 Jun 2026 14:01:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781186318; cv=none; b=gc9lEofwPVXT+JQW/WhPnlb68rZ11OjBORurqAi2dAYtTS2cVJRP8nXnitfmcJzaaWTNiqF1We/Slf+z7WZUiFFvsDOX2bDhSHWJWG0uNcjj42LqQ9nzo5PGhSQQM71LDj2SeH0oR+STajVuChZ+tYoxKV6CBxCLx3nrA945qpw=
+	t=1781186474; cv=none; b=c/oPEZJN1qu8SycUrS+BekUPmopY09kG64oDGUChFaccA4eJ1PCs87pm4SHP1HtpTtVbvYOLeDm4tMmWt0jb70/KNR00/VcWAEiA2v8KwPV1PU3zWwao7WTYuUUgPlEZu7AgptAvNoITdjF292+JwJzq1h98bVq8a2EGD1ACc88=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781186318; c=relaxed/simple;
-	bh=xIJdNAINqMHY3wozYjPB/A3uLvZ4O8AYKbA3/Mtoyjo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=lmPo+TnDWX+zFzYKapD5n+Nbtb1ubEcwYcaC1Lid2bMGsuVynTdBxqzrlG19N/GwynXfwP5pLDhCZWrYN34GaN+22Jvjx2rxWYLa8rir4ft5q+FJ3E2nupZO60/SM1FG0+E02/ecc8kSyE28eBgYCxRGaWBCSbrBGLP/bs5o5yI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LUxdJjvy; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781186474; c=relaxed/simple;
+	bh=TVWPiGxrSgezWlwbj60FVQeK7nFLbzLjvGXBQ5/tZlA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SZ2tXA8SYAyMjNlsPmjj8IYJYUdFzMoe+RlHXLCSEQ5CcJLJkIMvUeRqkCGEhVwn8o9v19+CGw7DS3NGAT/m1VxLo3iIlUWqb+DsC0VJNko3glggCBhRI41U741Hb26EbDVHl6ZhgyR7xYgM6CTC1q4RfFeM3XrWL9Tx7uMMrr0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QVl2JW8b; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LUxdJjvy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDE1C1F0089D
-	for <stable@vger.kernel.org>; Thu, 11 Jun 2026 13:58:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QVl2JW8b"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1DF941F00893;
+	Thu, 11 Jun 2026 14:01:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781186317;
-	bh=qt0rAO3O4OzD7kus6DSawT6EwGSm1ycFDJui1h2LqMM=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=LUxdJjvyIcJRPgXd/+MNJN8uGfhJrjnibJ6v37ZBFA36E16aoiH97y+qCSQQDziFi
-	 IQwCrEE9RyTqnm+CV0OHLrkLelC+Z5+Js3VqyXqB7YQnjPIDujdjw/jxdYMwKAVfpb
-	 OCklcyjRL7WeKtDexn5zKEWoPpxpsZYpkJj+nyKRLgN9eKUUsFgVNhhj3xMkg790yd
-	 txHVvGD+QdQSmPwK6vRTnONx6Q8PLer2EeEkiMjZ/n1hljE/NCDz4sIwK1IY61ACRF
-	 8xBGM/QRtfH8EgGcYEXkQO6ZBZcAAaXyS7lRduxctIAIQf4wCUy/RA1PDyTHIMrTJU
-	 BJ4EDxe5Qer3g==
-Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-bf0170c80f7so1379643966b.3
-        for <stable@vger.kernel.org>; Thu, 11 Jun 2026 06:58:37 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ9RBITW7rezAolP1UHeI2fmi9dFa9uJPEyyy0yYeWHXwKir7SvW0VX6wJTVI6qT3lxIV4RwuR0=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyI+v5aSfBoH2vSbdzQat8O5zwUn3rL9YzBslVFnhd5MwB5ysnr
-	Yf2JBXf7uVUcC9afz1SD8Uu7qjJby//BwKejX6fYCNSfAUKhILnhdr7JdGVDUvpu4GIK850h7Qj
-	AgfENvSH9/HGmWPLGaLvhqt+wlS96Pm8=
-X-Received: by 2002:a17:907:b09:b0:bed:a7d7:82c8 with SMTP id
- a640c23a62f3a-bfc889552fcmr97629666b.37.1781186316400; Thu, 11 Jun 2026
- 06:58:36 -0700 (PDT)
+	s=k20260515; t=1781186473;
+	bh=M5bIcWhv/OWdGZjF2z3Jaxz5u3oE53odG++5eqZWP9U=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=QVl2JW8bAclirz3a1EYtL3eblzB/KT7URc+EG/pG3GhHuMfuiyqM+xogm1KIRTcMF
+	 MI5eBiGdHSGJDOHXvGMk1fRzRaTaJ8kl2gPUVwEH6q+SL9g3anFWpLdD+eZai3KvKl
+	 4vPvKIMxEdi0skJvZnqlnmIfr/rptL2WExpm6byiTYKNFdC0e6Pnre6r3O4SXzB9g9
+	 GYR0gAE0pf/5OrDVd69LpE2WkW9Fbwl51V3dSpSirJncNMVRoudB9xtOMye400L4ph
+	 I2V25P6MFmEI/WrcZYs/OOwTtHHxAmOeFybuUAAFS0TVhhP6A30keNaxjCESo3pMzO
+	 +PY+kHKwSBZdA==
+Date: Thu, 11 Jun 2026 15:01:08 +0100
+From: Simon Horman <horms@kernel.org>
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: olteanv@gmail.com, andrew@lunn.ch, davem@davemloft.net,
+	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+	linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] net: dsa: sja1105: fix refcount leak in
+ sja1105_setup_tc_taprio()
+Message-ID: <20260611140108.GR3920875@horms.kernel.org>
+References: <20260609074002.204113-1-vulab@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260611132450.971236-1-runyu.xiao@seu.edu.cn>
-In-Reply-To: <20260611132450.971236-1-runyu.xiao@seu.edu.cn>
-From: Filipe Manana <fdmanana@kernel.org>
-Date: Thu, 11 Jun 2026 14:57:58 +0100
-X-Gmail-Original-Message-ID: <CAL3q7H46-8+f9MGbQYpB8k7HTyzA6Fy53_TZ5UStT00buPqHFA@mail.gmail.com>
-X-Gm-Features: AVVi8Cf6TYXZDXzFEtHvShl-L8W5UnyyVCpjWZTo4fEuSHH9NhcD7cY_G45ryIc
-Message-ID: <CAL3q7H46-8+f9MGbQYpB8k7HTyzA6Fy53_TZ5UStT00buPqHFA@mail.gmail.com>
-Subject: Re: [PATCH] btrfs: zoned: protect sb_write_pointer() reads with
- invalidate lock
-To: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Cc: clm@fb.com, dsterba@suse.com, linux-btrfs@vger.kernel.org, 
-	naohiro.aota@wdc.com, linux-kernel@vger.kernel.org, jianhao.xu@seu.edu.cn, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260609074002.204113-1-vulab@iscas.ac.cn>
 
-On Thu, Jun 11, 2026 at 2:33=E2=80=AFPM Runyu Xiao <runyu.xiao@seu.edu.cn> =
-wrote:
->
-> When both zoned superblock log zones are full, sb_write_pointer() reads
-> the last superblock page from each zone with read_cache_page_gfp() to
-> compare generations. Those reads go through bdev->bd_mapping without
-> filemap_invalidate_lock(), even though the same zoned discovery flow
-> later reaches btrfs_read_disk_super(), whose final read already takes
-> filemap_invalidate_lock(mapping).
->
-> A running system can reach this while mounting or scanning a zoned
-> filesystem whose superblock log has both zones full. In that state,
-> sb_write_pointer() performs two unprotected page-cache reads before
-> btrfs_read_disk_super() does its later protected final read.
->
-> This leaves the early discovery reads outside the same synchronization
-> domain used by set_blocksize() when it changes the block-device mapping
-> geometry. As a result, read_cache_page_gfp() can race a concurrent
-> block-size/layout update on the same mapping and see inconsistent
-> geometry across folio allocation and mapping state.
->
-> This issue was found by our static analysis tool while scanning
-> read_cache_page_gfp(bdev->bd_mapping, ...) sites for missing
-> filemap_invalidate_lock() coverage, and then manually audited on Linux
-> v6.18.21. The same synchronization requirement is already enforced for
-> the final read in btrfs_read_disk_super().
->
-> A focused QEMU KCSAN test then raced the zoned superblock discovery
-> path against a set_blocksize-style mapping update on the same
-> bdev->bd_mapping. It reported a race between
-> blkbszset_update_mapping() and read_cache_page_gfp(), with the read
-> side reaching:
->
->   sb_write_pointer()
->   sb_log_location()
->   btrfs_sb_log_location_bdev()
->   btrfs_read_disk_super()
->
-> Add filemap_invalidate_lock()/unlock() around the two
-> read_cache_page_gfp() calls in sb_write_pointer() so the zoned
-> superblock discovery path uses the same invalidate-lock contract as the
-> final read in btrfs_read_disk_super().
->
-> Fixes: 12659251ca5d ("btrfs: implement log-structured superblock for ZONE=
-D mode")
+On Tue, Jun 09, 2026 at 07:40:02AM +0000, Wentao Liang wrote:
+> In sja1105_setup_tc_taprio(), taprio_offload_get() acquires a
+> reference on the new offload and stores it in
+> tas_data->offload[port]. If sja1105_init_scheduling() or
+> sja1105_static_config_reload() later fails, the function returns
+> without releasing the reference via taprio_offload_free(). The
+> stored pointer is thus leaked, as the driver will not clean it up
+> unless a subsequent TAPRIO_CMD_DESTROY is received, which may
+> never happen.
+> 
+> Fix the leak by calling taprio_offload_free() and resetting
+> tas_data->offload[port] to NULL on both error paths.
+> 
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+> Fixes: 317ab5b86c8e ("net: dsa: sja1105: Configure the Time-Aware Scheduler via tc-taprio offload")
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 
-There's already a patch for this, and it's in linux-next:
+Hi Wentao,
 
-https://lore.kernel.org/linux-btrfs/20260521122945.524890-1-lkangn.kernel@g=
-mail.com/
-
-
-> ---
->  fs/btrfs/zoned.c | 2 ++
->  1 file changed, 2 insertions(+)
->
-> diff --git a/fs/btrfs/zoned.c b/fs/btrfs/zoned.c
-> index e14a4234954b..edc797a43fb5 100644
-> --- a/fs/btrfs/zoned.c
-> +++ b/fs/btrfs/zoned.c
-> @@ -130,8 +130,10 @@ static int sb_write_pointer(struct block_device *bde=
-v, struct blk_zone *zones,
->                         u64 bytenr =3D ALIGN_DOWN(zone_end, BTRFS_SUPER_I=
-NFO_SIZE) -
->                                                 BTRFS_SUPER_INFO_SIZE;
->
-> +                       filemap_invalidate_lock(mapping);
->                         page[i] =3D read_cache_page_gfp(mapping,
->                                         bytenr >> PAGE_SHIFT, GFP_NOFS);
-> +                       filemap_invalidate_unlock(mapping);
->                         if (IS_ERR(page[i])) {
->                                 if (i =3D=3D 1)
->                                         btrfs_release_disk_super(super[0]=
-);
-> --
-> 2.34.1
->
+There is AI-generated review of this patch-set available on both
+https://sashiko.dev and https://netdev-ai.bots.linux.dev/sashiko/
+I would appreciate it if you could look over that with a view
+to addressing any issues that directly affect this patch.
