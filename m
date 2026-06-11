@@ -1,165 +1,140 @@
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 098204266B1
-	for <stable@vger.kernel.org>; Thu, 11 Jun 2026 16:27:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 134FF44D011;
+	Thu, 11 Jun 2026 16:28:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781195246; cv=none; b=LMBzr8PhFdTo3UFB/piwOPyFLa242j5nPt6QHMNAdv6CHkmLCKtTD+u/VKSk6eMAbEZvEwo+EuTj+XmUMulvbJ0qSygD3Wzcl/sEYHfSIESYvuhvOqvuIYZ2im4YJjjaQjJWJf46s3vS5vICisUm+u7ITi5ZqMDaFueHwwxdWbw=
+	t=1781195321; cv=none; b=qMfpaJnu50MB8ImwTcGyzdpj0CL1NHcYy7BzEf+WGxH7hafBDmJaYr5MPtvwSq8HDPxvqtBgIY65c16AxxUWHQnasKUrd7GXVaErh8jeAO5da6FH1VGW70fp0i0E2v057HSz5HnrKSHW8HvYU3IeSEpuy98Mz31wPHM4XF+yizY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781195246; c=relaxed/simple;
-	bh=A8tMHRZ+jlwjkwTJ703+ZnI5YYR5LiNC6BgBVzaV7sU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=c83CwocDsHEIPMxN7h7fgamZEThYjIIzyfII4KI8JHGZcK5V0Y+9vtmWx05VldUm+WgCNQeDOv7m3zb6Xo7WFHb4WKKUbSVFudx5AAaRJt+19gSGiHt3KQF+mv29TXr7aMWNX2eWLIVbSgfcmL2Akbn2wmnFtyzYL6xanbUlKRM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Xs6XbelL; arc=none smtp.client-ip=209.85.221.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781195321; c=relaxed/simple;
+	bh=C0oszD8SAqpd1jfUd3Z9NcqatEKo9eoDC7luL7OG+UU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=SHZSGIo8RX9ogf9/UI9VwW5XdQSUAA4e6wKe4hd2gbrwuPKHdhqnKayMnkDqPzKOlY2J8minCEiHnmt3AD0KBse30Dn+OXdbWhlmiQyJ0/RkZ9/mWU3iCst49idbE7zp2BPD1y5VPgHjYjDlatMxlHgTAekLkvWmpuSFmhsnbqY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Lu6dPLx6; arc=none smtp.client-ip=198.175.65.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Xs6XbelL"
-Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-45ef93a0b0fso1457f8f.2
-        for <stable@vger.kernel.org>; Thu, 11 Jun 2026 09:27:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781195241; x=1781800041; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=KkKnjsGGzb7NsTQucsijuq+HFGUV8ktC3DxrHhupXYA=;
-        b=Xs6XbelLYzLmrFvcTwifisxbRuBjCQ7pRQIv+EPghzMn2A89yjtTOgVvRYLPhS68/M
-         d2oQyM+jq0fG57XtmGW0NvZI9nLgjtOPSl5owZGTN4jPzE5AF56X4YMDxBut0qRPl2Au
-         M/Yl1mgAipKzyLsAoYd4wkYbh6H2d3sxnjJJkmXR3YPQQghgVESjxzYLwq7E59EmnHDB
-         uPcMZmojOG239FdbDjYqt9OpyzakTT4y8ktyumXZPAMe/TLqvghEpF/wZHpuLhUiJooY
-         1SYOWjmVQwfVj7mzWge67L7nOo2lVq6ThosyhEyif6GjAfXiGLVCQEMtTgWVtyWUciFA
-         Q2UA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781195241; x=1781800041;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=KkKnjsGGzb7NsTQucsijuq+HFGUV8ktC3DxrHhupXYA=;
-        b=e8hm3KI1gj9uA0yqRFMBgMgxPKYjk+Bf8d8uVEiT5WplyWXRVYgRHaf7HQ755FmzJb
-         /eAfs6KF/4KJ01XTUA7NGVCG9QqBduzrzmc8D3ypzcbJ95LfcjR56cTYDX+/lj12y6VG
-         LgllwFc3sNanTbK2wk02a4aJvDCM87QNc77kU8p9RKJhBiwt3Sc/6pAsKvMH9AlIDwD5
-         8V+DT+veWyxAGyTEbyw79UB21H8QXSZPso0yQe+yBAL4GaHJwGemXTzsOhP0HgMdATby
-         fVVl8bdMmwilp1ET/kt933Af8lGtEU+jin7XSE9ofGD9Lnkc4fW7/lRVsfKURfX5yXrI
-         hCbA==
-X-Forwarded-Encrypted: i=1; AFNElJ/wnQLyXbd5rTNtWEThUXEWv3V4cu1bRFtcd2W9+WYfjZCLYxFjZqnX9KewGgJ6KVC0jKtePgw=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxD3lBXBxhEbUl1SPwroN9MJgtwTuCZyNUevGSRtNghotDzH3Kk
-	WHoR8qE7omWhxUfZLWO2cNprsx7fdajdh4Ae+DaBgEZdawDUKfwr8KYb
-X-Gm-Gg: Acq92OHnL/vlmV3x+TFMEflP/4Bt6A22SFQOJ1ETCjF4vsHN7yWmgiXuflDb+suXC4R
-	3ZPnazUHeNyAxxtl8IuJiDbVmSLDgqb9EJf2Ha6mYZglCHSusdCcN70IfGkiEQEBArIu0PSkDUZ
-	vC7yPGUf4Pbm4GivO7VoVioTARv3ctfkbEOWPgOmDITEhz3opS4ClJFZ+7cgYBzvtqOxZtJG2Zx
-	Ze0WcULcm9lZtme2+86bmUr0SEOigN/TWKG0a1oA9000xFTwdhqc8xSrJQxLkZRBRmp99d+o2N/
-	W9R7nrzf1qAz+fv3mapl44JREMpAXgy9oIm1b4mAIbxi99YRBH6xrm6UCtIjOyEQn9Q/en6cyCm
-	9dSvoYWDwnKwhC1/mdyBar7wsd5BeWrns2Kos7JIEJ2OTQmoJT7W+qZoDfjpzToOZ6Q9c3k1UfL
-	Nw9qEt105DiihbQb7lLH/l/Dt+g7l01EzXFs1R+0IvTENe/3448kHWAkDhhNc2v1i0AxO5o0wrF
-	yLukgc=
-X-Received: by 2002:a05:600c:4443:b0:490:e190:39b1 with SMTP id 5b1f17b1804b1-490e564075dmr23542205e9.7.1781195241107;
-        Thu, 11 Jun 2026 09:27:21 -0700 (PDT)
-Received: from ast-epyc5.inf.ethz.ch (ast-epyc4.inf.ethz.ch. [129.132.161.179])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490e52ac9aasm64984155e9.4.2026.06.11.09.27.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 11 Jun 2026 09:27:20 -0700 (PDT)
-From: Zijing Yin <yzjaurora@gmail.com>
-To: David Heidelberg <david+nfc@ixit.cz>
-Cc: Zijing Yin <yzjaurora@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	oe-linux-nfc@lists.linux.dev,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH net] nfc: nci: validate packet length when parsing NCI 2.x RF interfaces
-Date: Thu, 11 Jun 2026 09:27:16 -0700
-Message-ID: <20260611162718.2301552-1-yzjaurora@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Lu6dPLx6"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1781195319; x=1812731319;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=C0oszD8SAqpd1jfUd3Z9NcqatEKo9eoDC7luL7OG+UU=;
+  b=Lu6dPLx6GcyFI+MLZIt7SrYpATlCl8CyyLH36uDziriGefqKR4Eg3YuO
+   WV+NlIrXIH22RvVyDiuoohu7c43vCMkBePr3FzfTOLIEUDGMdOnvQ0hRp
+   MowzqfD4GyRNjKfsaYcnZpAPzoIhVMnjYP2Xn87BVEn3c5WcMfjmjWzKA
+   3cVgZ+zulYc/Hhk9/+swMYfsJwP64gAAmx9TRuFD1GYOy0ob5lrhKKHAE
+   +F1ccr+qLS1znpsBY0E9cYEpgebNo5uhaFrLfnIVRrK7uu1mEmwvhy5G8
+   SC6xL7qE/Kad291euXvoN67/nJQd80t+qx+75VwZpLihUqRH19PuLTi4x
+   g==;
+X-CSE-ConnectionGUID: 4HHPueiWSzGhDvIrfrNpYA==
+X-CSE-MsgGUID: Tl65XeZPT4Oxz5EatgLTEg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11813"; a="81997700"
+X-IronPort-AV: E=Sophos;i="6.24,199,1774335600"; 
+   d="scan'208";a="81997700"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Jun 2026 09:28:38 -0700
+X-CSE-ConnectionGUID: uzMx9dBpTBG2E2LPhIiqaQ==
+X-CSE-MsgGUID: qud89/ILT0GMkTpBqsxf3g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,199,1774335600"; 
+   d="scan'208";a="276720633"
+Received: from mszycik-mobl1.ger.corp.intel.com (HELO [10.246.20.168]) ([10.246.20.168])
+  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Jun 2026 09:28:35 -0700
+Message-ID: <8d96249e-1492-4111-83e7-b84914e6dc90@linux.intel.com>
+Date: Thu, 11 Jun 2026 18:28:32 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [Intel-wired-lan] [PATCH net v2] ice: fix memory leak in
+ ice_lbtest_prepare_rings()
+To: Dawei Feng <dawei.feng@seu.edu.cn>,
+ Tony Nguyen <anthony.l.nguyen@intel.com>
+Cc: Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ intel-wired-lan@lists.osuosl.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, zilin@seu.edu.cn, stable@vger.kernel.org
+References: <20260611161204.605962-1-dawei.feng@seu.edu.cn>
+Content-Language: en-US
+From: Marcin Szycik <marcin.szycik@linux.intel.com>
+In-Reply-To: <20260611161204.605962-1-dawei.feng@seu.edu.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-nci_core_init_rsp_packet_v2() parses the variable-length list of
-supported RF interfaces carried in an NCI 2.x CORE_INIT_RSP without ever
-validating the controller-supplied lengths against the size of the
-received packet.
 
-Each list entry is a (RF interface, RF extension count, RF extensions[])
-tuple. The loop walks the list using the per-entry extension count
-(rf_extension_cnt, up to 255) taken straight from the packet, so a
-malformed CORE_INIT_RSP can advance the read pointer far past the end of
-the skb data buffer. The stored interface count is clamped to
-NCI_MAX_SUPPORTED_RF_INTERFACES so the write side is bounded, but the
-read side runs off the end of the buffer.
 
-A malformed CORE_INIT_RSP from the controller, also reachable from user
-space through the virtual NCI device (CONFIG_NFC_VIRTUAL_NCI) once the
-device has entered NCI 2.x mode, therefore makes the parser read past the
-end of the response buffer while walking the interface list, copying the
-out-of-bounds bytes into ndev->supported_rf_interfaces[].
+On 11.06.2026 18:12, Dawei Feng wrote:
+> ice_lbtest_prepare_rings() frees Rx rings only when
+> ice_vsi_start_all_rx_rings() fails. If ice_vsi_setup_rx_rings() fails
+> after allocating some descriptors, or if ice_vsi_cfg_lan() fails after
+> the Rx rings were prepared, the function reaches the Tx cleanup path
+> without releasing the initialized Rx resources.
+> 
+> Fix this by adding separate unwind paths for Rx setup failure and LAN
+> configuration failure. The Rx setup failure path releases the partially
+> prepared Rx rings before freeing Tx rings, while later failures first
+> undo the LAN Tx configuration and then release the Rx rings in reverse
+> setup order.
+> 
+> The bug was first flagged by an experimental analysis tool we are
+> developing for kernel memory-management bugs while analyzing
+> v6.13-rc1. The tool is still under development and is not yet publicly
+> available. Manual inspection confirms that the bug is still
+> present in v7.1-rc5.
+> 
+> An x86_64 allyesconfig build showed no new warnings. As we do not have an
+> Intel E800 Series adapter available to run the ethtool offline loopback
+> selftest, no runtime testing was able to be performed.
+> 
+> Fixes: 0e674aeb0b77 ("ice: Add handler for ethtool selftest")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Zilin Guan <zilin@seu.edu.cn>
+> Signed-off-by: Dawei Feng <dawei.feng@seu.edu.cn>
 
-Reject responses shorter than the fixed part of the structure, and make
-sure each interface entry and its extension bytes lie within the received
-packet before dereferencing them. A truncated or malformed list is
-treated as a syntax error, which fails the CORE_INIT request instead of
-reading out of bounds.
+LGTM
+Reviewed-by: Marcin Szycik <marcin.szycik@linux.intel.com>
 
-Fixes: bcd684aace34 ("net/nfc/nci: Support NCI 2.x initial sequence")
-Cc: stable@vger.kernel.org
-Signed-off-by: Zijing Yin <yzjaurora@gmail.com>
----
- net/nfc/nci/rsp.c | 18 +++++++++++++++++-
- 1 file changed, 17 insertions(+), 1 deletion(-)
-
-diff --git a/net/nfc/nci/rsp.c b/net/nfc/nci/rsp.c
-index 9eeb86282..152b5f57e 100644
---- a/net/nfc/nci/rsp.c
-+++ b/net/nfc/nci/rsp.c
-@@ -87,7 +87,8 @@ static u8 nci_core_init_rsp_packet_v2(struct nci_dev *ndev,
- 				      const struct sk_buff *skb)
- {
- 	const struct nci_core_init_rsp_nci_ver2 *rsp = (void *)skb->data;
--	const u8 *supported_rf_interface = rsp->supported_rf_interfaces;
-+	const u8 *skb_end = skb->data + skb->len;
-+	const u8 *supported_rf_interface;
- 	u8 rf_interface_idx = 0;
- 	u8 rf_extension_cnt = 0;
- 
-@@ -96,6 +97,11 @@ static u8 nci_core_init_rsp_packet_v2(struct nci_dev *ndev,
- 	if (rsp->status != NCI_STATUS_OK)
- 		return rsp->status;
- 
-+	if (skb->len < sizeof(*rsp))
-+		return NCI_STATUS_SYNTAX_ERROR;
-+
-+	supported_rf_interface = rsp->supported_rf_interfaces;
-+
- 	ndev->nfcc_features = __le32_to_cpu(rsp->nfcc_features);
- 	ndev->num_supported_rf_interfaces = rsp->num_supported_rf_interfaces;
- 
-@@ -104,10 +110,20 @@ static u8 nci_core_init_rsp_packet_v2(struct nci_dev *ndev,
- 		    NCI_MAX_SUPPORTED_RF_INTERFACES);
- 
- 	while (rf_interface_idx < ndev->num_supported_rf_interfaces) {
-+		/* The supported RF interfaces are a variable-length list of
-+		 * (interface, extension count, extensions[]) tuples supplied by
-+		 * the NFCC; bail out if its lengths would take us past the end
-+		 * of the received packet.
-+		 */
-+		if (skb_end - supported_rf_interface < 2)
-+			return NCI_STATUS_SYNTAX_ERROR;
-+
- 		ndev->supported_rf_interfaces[rf_interface_idx++] = *supported_rf_interface++;
- 
- 		/* skip rf extension parameters */
- 		rf_extension_cnt = *supported_rf_interface++;
-+		if (skb_end - supported_rf_interface < rf_extension_cnt)
-+			return NCI_STATUS_SYNTAX_ERROR;
- 		supported_rf_interface += rf_extension_cnt;
- 	}
- 
--- 
-2.43.0
+> ---
+> Changes in v2:
+> - Fix cleanup order
+> 
+>  drivers/net/ethernet/intel/ice/ice_ethtool.c | 10 +++++-----
+>  1 file changed, 5 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/intel/ice/ice_ethtool.c b/drivers/net/ethernet/intel/ice/ice_ethtool.c
+> index f28416a707d7..10a4abc66974 100644
+> --- a/drivers/net/ethernet/intel/ice/ice_ethtool.c
+> +++ b/drivers/net/ethernet/intel/ice/ice_ethtool.c
+> @@ -1069,18 +1069,18 @@ static int ice_lbtest_prepare_rings(struct ice_vsi *vsi)
+>  
+>  	status = ice_vsi_cfg_lan(vsi);
+>  	if (status)
+> -		goto err_setup_rx_ring;
+> +		goto err_cfg_lan;
+>  
+>  	status = ice_vsi_start_all_rx_rings(vsi);
+>  	if (status)
+> -		goto err_start_rx_ring;
+> +		goto err_cfg_lan;
+>  
+>  	return 0;
+>  
+> -err_start_rx_ring:
+> -	ice_vsi_free_rx_rings(vsi);
+> -err_setup_rx_ring:
+> +err_cfg_lan:
+>  	ice_vsi_stop_lan_tx_rings(vsi, ICE_NO_RESET, 0);
+> +err_setup_rx_ring:
+> +	ice_vsi_free_rx_rings(vsi);
+>  err_setup_tx_ring:
+>  	ice_vsi_free_tx_rings(vsi);
+>  
 
