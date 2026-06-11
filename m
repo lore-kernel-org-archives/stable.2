@@ -1,96 +1,135 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2076A2D94BA;
-	Thu, 11 Jun 2026 16:45:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F001E317145;
+	Thu, 11 Jun 2026 16:48:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781196357; cv=none; b=HG2IMaKwI8Zaz1lNF+QnUbNqhF8JH2ISjnZbkDAeZf9kks42tRwmworxAPQqQ4hmU9cKnwPdCC2pr9oD+yQmgb90ZDlKO/fzP3bs5j8fx0HbQUQ1x1366x8/oIsNmtIAXwmDdjbrPRRRrlvSQXSxFrBJPRrNpnK6D73rW6EPTmI=
+	t=1781196518; cv=none; b=RbuwpTSIWZo5cbA57IKuWurp9k3y6HILyYGVgA9iwGcReNRrihazK432B/CZGCdgNvxKpqAgy/rXHzFHO9p5rzmVT4h3BrOi/lcCGaspStuxSRLg/njf+RvxmEmxUJNnRUVcTixfQ3qOxrW0UczeUjb2qwJQq2616jP8pa1FJwk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781196357; c=relaxed/simple;
-	bh=CEd1ITtNJ1dtQfGGL+BtTaRF/mDIRvk8WQFomVTCwcE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=co3TrWygIJypkeDgRmpvrkhxkBB0DTgJOLcETIDZP4ethOz8kmzeE1xQcJrQB/wdJv6urzrHhCnEuvxM4czaT8RMAi6th0RYWPZd6XcUgcs9dnnln8VuzGaHcSzZMeiLOjkIs6pUo0or4XxFVWk1lZzIiXbUqrL6fNKjJyPZgEQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from localhost.localdomain (unknown [117.182.75.76])
-	by APP-05 (Coremail) with SMTP id zQCowABnvhE35ipqz20aEw--.26018S2;
-	Fri, 12 Jun 2026 00:45:44 +0800 (CST)
-From: WenTao Liang <vulab@iscas.ac.cn>
-To: jchapman@katalix.com,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com
-Cc: horms@kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	WenTao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] net: l2tp: fix refcount leak in pppol2tp_tunnel_get()
-Date: Fri, 12 Jun 2026 00:45:42 +0800
-Message-ID: <20260611164542.1031-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.50.1
+	s=arc-20240116; t=1781196518; c=relaxed/simple;
+	bh=rBJ9afOA/bVjFNjhNE0EjYjuArt/4EBnlHJ19qvrP7c=;
+	h=Date:To:From:Subject:Message-Id; b=mpuVV9kNVhFXGGouPh4X0JYCC5Cje81eL8i3MbqX1NPI9bVhmjb95ymSeqDx9fN/uDBqpioIZf5xAEDbyuvzsS0TCLw6y6whI9aRFbM0Dq9Club98RfX8ZcJOoQDy3wwZvacoX6GGVl6b+I8LI3nMyhEFq7xgzXMPY6JkwYk6K0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=l5Y6gYkp; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="l5Y6gYkp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F6C71F00893;
+	Thu, 11 Jun 2026 16:48:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1781196516;
+	bh=CDA8w4OtKvS5XoTW+gbDG90BRFfFcRfr3ZoME+3PPpw=;
+	h=Date:To:From:Subject;
+	b=l5Y6gYkpPKgNq+9b70QQvtP6gzRuFiYQWXTd/cNrvShwSBYlBVL1Rh5L3wEBNsq9b
+	 Pll5LPDq/vjLqyZrMReI14RurmllmeFsohqiUaNbFCeC+rdpEImN9h7mYKScCniTPQ
+	 G8TS0yOI3gJTv2nqLa62I56/PiwI3V69tdUuTLDs=
+Date: Thu, 11 Jun 2026 09:48:36 -0700
+To: mm-commits@vger.kernel.org,zenghui.yu@linux.dev,stable@vger.kernel.org,sj@kernel.org,roman.gushchin@linux.dev,qi.zheng@linux.dev,nphamcs@gmail.com,muchun.song@linux.dev,david@fromorbit.com,shakeel.butt@linux.dev,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + mm-shrinker-do-not-hold-rcu-lock-in-shrinker_debugfs_count_show.patch added to mm-unstable branch
+Message-Id: <20260611164836.6F6C71F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowABnvhE35ipqz20aEw--.26018S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7uF1kJr48urWrtw47Cr4UJwb_yoW8Gw18pr
-	15Cw4kWFWktF93Aws0va1kXa43urZayayrGFyDGw12vw1rX3yxC3y5WFyxWF1UGFWktw1Y
-	vr1jgry8Z3WDJ3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9014x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4j6r
-	4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
-	I7IYx2IY67AKxVWUGVWUXwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r
-	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628v
-	n2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7x
-	kEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E
-	67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCw
-	CI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1x
-	MIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIda
-	VFxhVjvjDU0xZFpf9x0JUZYFZUUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwoPA2oqzu5B1wAAs3
 
-pppol2tp_tunnel_get() increments the tunnel's refcount via
-refcount_inc() on the tunnel returned from l2tp_tunnel_create(). If
-l2tp_tunnel_register() subsequently fails, the error path frees the
-tunnel via kfree(), bypassing the refcount entirely. At that point the
-refcount is 2 (one from l2tp_tunnel_create() and one from the
-refcount_inc()), so the reference counts leak and the memory is freed
-while still referenced, creating use-after-free potential.
 
-Fix this by using the standard reference counting API: replace the
-kfree() with two l2tp_tunnel_put() calls to properly release both
-references. This mirrors the cleanup used in other error paths within
-the same function.
+The patch titled
+     Subject: mm/shrinker: do not hold RCU lock in shrinker_debugfs_count_show()
+has been added to the -mm mm-unstable branch.  Its filename is
+     mm-shrinker-do-not-hold-rcu-lock-in-shrinker_debugfs_count_show.patch
 
-Cc: stable@vger.kernel.org
-Fixes: 6b9f34239b00 ("l2tp: fix races in tunnel creation")
-Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-shrinker-do-not-hold-rcu-lock-in-shrinker_debugfs_count_show.patch
+
+This patch will later appear in the mm-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
+
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: Shakeel Butt <shakeel.butt@linux.dev>
+Subject: mm/shrinker: do not hold RCU lock in shrinker_debugfs_count_show()
+Date: Wed, 10 Jun 2026 16:20:48 -0700
+
+Reading the debugfs "count" file of a memcg-aware shrinker can sleep
+inside an RCU read-side critical section:
+
+  BUG: sleeping function called from invalid context at kernel/cgroup/rstat.c:421
+  RCU nest depth: 1, expected: 0
+   css_rstat_flush
+   mem_cgroup_flush_stats
+   zswap_shrinker_count
+   shrinker_debugfs_count_show
+
+shrinker_debugfs_count_show() invokes the ->count_objects() callback under
+rcu_read_lock().  The zswap callback flushes memcg stats via
+css_rstat_flush(), which may sleep, so it must not run under RCU.
+
+The RCU lock is not needed here.  mem_cgroup_iter() takes RCU internally
+and returns a memcg holding a css reference (dropped on the next iteration
+or by mem_cgroup_iter_break()), so the memcg stays alive without it.  The
+shrinker is kept alive by the open debugfs file: shrinker_free() removes
+the debugfs entries via debugfs_remove_recursive(), which waits for
+in-flight readers to drain, before call_rcu(..., shrinker_free_rcu_cb). 
+The sibling "scan" handler already invokes the sleeping ->scan_objects()
+callback with no RCU section.
+
+Drop the rcu_read_lock()/rcu_read_unlock().
+
+Link: https://lore.kernel.org/20260610232048.62930-1-shakeel.butt@linux.dev
+Fixes: 5035ebc644ae ("mm: shrinkers: introduce debugfs interface for memory shrinkers")
+Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
+Reported-by: Zenghui Yu <zenghui.yu@linux.dev>
+Closes: https://lore.kernel.org/all/c052a064-cddb-494f-a0d8-f8a10b4b1c4d@linux.dev/
+Suggested-by: Nhat Pham <nphamcs@gmail.com>
+Reviewed-by: SeongJae Park <sj@kernel.org>
+Reviewed-by: Qi Zheng <qi.zheng@linux.dev>
+Tested-by: Zenghui Yu (Huawei) <zenghui.yu@linux.dev>
+Reviewed-by: Nhat Pham <nphamcs@gmail.com>
+Cc: Dave Chinner <david@fromorbit.com>
+Cc: Muchun Song <muchun.song@linux.dev>
+Cc: Roman Gushchin <roman.gushchin@linux.dev>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 ---
- net/l2tp/l2tp_ppp.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/net/l2tp/l2tp_ppp.c b/net/l2tp/l2tp_ppp.c
-index e0b1915be1a6..0ddfc1893121 100644
---- a/net/l2tp/l2tp_ppp.c
-+++ b/net/l2tp/l2tp_ppp.c
-@@ -661,7 +661,8 @@ static struct l2tp_tunnel *pppol2tp_tunnel_get(struct net *net,
- 			refcount_inc(&tunnel->ref_count);
- 			error = l2tp_tunnel_register(tunnel, net, &tcfg);
- 			if (error < 0) {
--				kfree(tunnel);
-+				l2tp_tunnel_put(tunnel);
-+				l2tp_tunnel_put(tunnel);
- 				return ERR_PTR(error);
- 			}
+ mm/shrinker_debug.c |    4 ----
+ 1 file changed, 4 deletions(-)
+
+--- a/mm/shrinker_debug.c~mm-shrinker-do-not-hold-rcu-lock-in-shrinker_debugfs_count_show
++++ a/mm/shrinker_debug.c
+@@ -57,8 +57,6 @@ static int shrinker_debugfs_count_show(s
+ 	if (!count_per_node)
+ 		return -ENOMEM;
  
--- 
-2.50.1 (Apple Git-155)
+-	rcu_read_lock();
+-
+ 	memcg_aware = shrinker->flags & SHRINKER_MEMCG_AWARE;
+ 
+ 	memcg = mem_cgroup_iter(NULL, NULL, NULL);
+@@ -88,8 +86,6 @@ static int shrinker_debugfs_count_show(s
+ 		}
+ 	} while ((memcg = mem_cgroup_iter(NULL, memcg, NULL)) != NULL);
+ 
+-	rcu_read_unlock();
+-
+ 	kfree(count_per_node);
+ 	return ret;
+ }
+_
+
+Patches currently in -mm which might be from shakeel.butt@linux.dev are
+
+mm-shrinker-do-not-hold-rcu-lock-in-shrinker_debugfs_count_show.patch
 
