@@ -1,117 +1,121 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+Received: from mail.netfilter.org (mail.netfilter.org [217.70.190.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 476B43BA235;
-	Thu, 11 Jun 2026 09:33:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DF6E3C4552;
+	Thu, 11 Jun 2026 09:49:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.190.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781170425; cv=none; b=sexisG3Y4gmK9cuiHfjuIi9Dhh3JMWvvpUBm7SwKEP/fomd+j7KwJywAHRUMGebZ5szw3ZTFnALfbwd2CXh+SljPjBuHZJD56JIqx5QibHy3lkY/1WJPe7qy/1Z00wlehe8WMfLxFyOu1OiUvl4yUQNz8lNwy8yzIrgu5po6UyY=
+	t=1781171377; cv=none; b=FEGN7yrWGRuGGclXhjT7p03TFHJMbOOs105UmzlJqTsHILSL1tRKX4yG6/s2Fdw3TWXfXgluisk2A+FPz3mYyJNf+0VLp5hcQnZxVYciTR0N0qCDDuU9l2lmom39xks5CbwmFljwjApo+nwhzRkqeIgJN8mG+FcnfGtKlAdYVQ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781170425; c=relaxed/simple;
-	bh=qOCCFlc+PSyf1avdq3ICE35rnneoH7tC3PkRXdj2zcI=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=fd+VxuIXyzo7uPD8+ObeogSHhOw8Psk1hzZUBVvTEI8ScmxwWrPT1YU2OvISeFqy3DDbFP9rwYodvzRNRYC4+ETMDA9zDdp7f8JQNPfIsUP5bmX4KEjWFnOIV78HBZqk8994sgWIdq6b6NlTq6iph1JmgupF50GxDZDZvPFen6o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ldQ+n31G; arc=none smtp.client-ip=192.198.163.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1781171377; c=relaxed/simple;
+	bh=8PwBJNKvCWu7D867umcy85vVVL6UUfHlUGn4wj1H8hM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=OaAYRIUZhDfp+Y8SpYVh7KtwIztbj00RAiyARaSJOCo515l20hk3Cb+LRF1cQDVdt11X95fZdNBdIkV2koMvHO1TzJAZU+eQfIOsdfiPwMX1iL4+itHl/UH4oJauQMqunblvPCX7a6iuqnJJEbkC7/bQBaevj1q7Gmjpwlrex8o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=netfilter.org; spf=pass smtp.mailfrom=netfilter.org; dkim=pass (2048-bit key) header.d=netfilter.org header.i=@netfilter.org header.b=V8Wwlqmg; arc=none smtp.client-ip=217.70.190.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=netfilter.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=netfilter.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ldQ+n31G"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1781170424; x=1812706424;
-  h=message-id:date:mime-version:subject:from:to:cc:
-   references:in-reply-to:content-transfer-encoding;
-  bh=qOCCFlc+PSyf1avdq3ICE35rnneoH7tC3PkRXdj2zcI=;
-  b=ldQ+n31GgVZFPgtvc6UGdf/SYRiduxToyf8bjMSjdbArwgq8z83lo+r1
-   1gDL4CizTb8bpAFVTvCMdHjTAKQY272wwGVorgpAzXjwY+vra84ZtN3AB
-   Czg+i9Yw0RaKaiqVk+wfDgKiiLCm1BD9MNaX0+SvJb9MReApHODLm1uxy
-   Eqig+9uQbAVOHGCdPEiQW7w4zOek0wh+3AYhMKxKK7OESSajKM3uXDw9a
-   +O8bwMuldfv7Y1CYJmLWmTlVEhdD5cCgP4dbTyiWZKbXHfC6znyJPvpWM
-   +IyAYETqmPbBtfg+rlBJS7kfNHwgqTyYtsTwVnrnwHpm6Mwu9K9yK9YLV
-   g==;
-X-CSE-ConnectionGUID: G2olyCWYSmiMlkNqDVa5DA==
-X-CSE-MsgGUID: 2GU4A7v4S7mFTYFXvFhWEg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11813"; a="92543609"
-X-IronPort-AV: E=Sophos;i="6.24,198,1774335600"; 
-   d="scan'208";a="92543609"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Jun 2026 02:33:44 -0700
-X-CSE-ConnectionGUID: IFfu+EXtSfq6SIViYZWVpA==
-X-CSE-MsgGUID: YEEHzjp7TKmCkXnMGfQFpQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,198,1774335600"; 
-   d="scan'208";a="243988556"
-Received: from carterle-desk.ger.corp.intel.com (HELO [10.245.246.63]) ([10.245.246.63])
-  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Jun 2026 02:33:41 -0700
-Message-ID: <ec0d51a0-a31d-4c06-92f6-e38c408884b9@linux.intel.com>
-Date: Thu, 11 Jun 2026 12:33:50 +0300
+	dkim=pass (2048-bit key) header.d=netfilter.org header.i=@netfilter.org header.b="V8Wwlqmg"
+Received: from netfilter.org (mail-agni [217.70.190.124])
+	by mail.netfilter.org (Postfix) with UTF8SMTPSA id 60AF16017E;
+	Thu, 11 Jun 2026 11:49:31 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netfilter.org;
+	s=2025; t=1781171371;
+	bh=IAx6z5nKjv31pKJhfY/EOEB8pHgNNHKKE/M2NRERuZk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=V8Wwlqmg58ES6cZkrdbuntKZ6YhgWamCuAIe1zUEzp/qXJb368x5sYZuAjQoiMUjd
+	 0lcfzG+uLwXc6UYe2VJyGHIEOpzntFvNZ1BN8qEPJXsiQI9YLaDSft/Y8zXGYvN3Bw
+	 ItfkUf7YeliI+usVyNzGHMIosQo5GrZKP+cq8W7KZb5L4YOn0E4igUuhSXXKGeQJwD
+	 4C+zbFIQ8u4t5VlbJBufvyHKiBbva9L11393KbgglRIGWms+p8qqQw4luEJ4y7QU82
+	 QDD+Ca5LZpUmyX9kR/oI+7cIFUJcdgaG3kdg9qqg5R0txHwn3zPoX0mHAoL6gxdaUP
+	 iLeLk3d02NmGA==
+Date: Thu, 11 Jun 2026 11:49:28 +0200
+From: Pablo Neira Ayuso <pablo@netfilter.org>
+To: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Cc: fw@strlen.de, netfilter-devel@vger.kernel.org, coreteam@netfilter.org,
+	phil@nwl.cc, davem@davemloft.net, edumazet@google.com,
+	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+	ffmancera@riseup.net, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+	jianhao.xu@seu.edu.cn
+Subject: Re: [PATCH net] netfilter: nft_synproxy: stop bypassing the
+ priv->info snapshot
+Message-ID: <aiqEqH9GsBV4t_GU@chamomile>
+References: <20260611042120.1462249-1-runyu.xiao@seu.edu.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ALSA: hda/hdmi: disable KAE for Intel Panther Lake
-From: =?UTF-8?Q?P=C3=A9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>
-To: Alexander Kaplan <alexander.kaplan@sms-medipool.de>,
- Takashi Iwai <tiwai@suse.com>, linux-sound@vger.kernel.org
-Cc: Jaroslav Kysela <perex@perex.cz>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
- stable@vger.kernel.org, "Shankar, Uma" <uma.shankar@intel.com>
-References: <20260610174834.6301-1-alexander.kaplan@sms-medipool.de>
- <5e05e954-338c-4a87-8a60-1fd2bd6bb8ce@linux.intel.com>
-Content-Language: en-US
-In-Reply-To: <5e05e954-338c-4a87-8a60-1fd2bd6bb8ce@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260611042120.1462249-1-runyu.xiao@seu.edu.cn>
 
+Hi,
 
-
-On 11/06/2026 12:08, Péter Ujfalusi wrote:
-> My setup is: laptop HDMI -> SYNIC HDMI audio extractor -> HDMI KVM ->
-> monitor w/o speakers.
-> I use the extractor to grab the audio and it is clean every time I play
-> audio to HDMI.
-
-Just to rule out iffy equipment on my side, I have connected the PTL
-laptop to my Denon AVR both in SOF and legacy HDA mode. I cannot hear
-any issue regarding to audio on my 5.1 speaker set.
-
-> Can this be somehow related to the DP-to-HDMI converter? Have you tested
-> that with other machine?
-> Or a combination of xe2+DP-to-HDMI?
+On Thu, Jun 11, 2026 at 12:21:20PM +0800, Runyu Xiao wrote:
+> nft_synproxy_eval_v4() and nft_synproxy_eval_v6() already take a
+> whole-object READ_ONCE() snapshot of the shared priv->info state before
+> building the SYNACK reply, but nft_synproxy_tcp_options() still masks
+> opts->options with priv->info.options from the live shared object.
 > 
-> Ccing Uma for display side
->> This may also fix the silent Dolby TrueHD passthrough on Battlemage
->> reported in
->> https://gitlab.freedesktop.org/drm/xe/kernel/-/issues/7515.
->> Battlemage uses the same keep-alive code path and TrueHD passthrough
->> is the same first-multichannel-stream pattern, but I could not test
->> that hardware.
->>
->> Workaround for affected systems without this patch:
->> snd_hda_codec_intelhdmi.enable_silent_stream=0.
->>
->>  sound/hda/codecs/hdmi/intelhdmi.c | 2 +-
->>  1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/sound/hda/codecs/hdmi/intelhdmi.c b/sound/hda/codecs/hdmi/intelhdmi.c
->> index 6a7882544a..52997caae9 100644
->> --- a/sound/hda/codecs/hdmi/intelhdmi.c
->> +++ b/sound/hda/codecs/hdmi/intelhdmi.c
->> @@ -791,7 +791,7 @@ static const struct hda_device_id snd_hda_id_intelhdmi[] = {
->>  	HDA_CODEC_ID_MODEL(0x8086281e, "Battlemage HDMI",	MODEL_ADLP),
->>  	HDA_CODEC_ID_MODEL(0x8086281f, "Raptor Lake P HDMI",	MODEL_ADLP),
->>  	HDA_CODEC_ID_MODEL(0x80862820, "Lunar Lake HDMI",	MODEL_ADLP),
->> -	HDA_CODEC_ID_MODEL(0x80862822, "Panther Lake HDMI",	MODEL_ADLP),
->> +	HDA_CODEC_ID_MODEL(0x80862822, "Panther Lake HDMI",	MODEL_TGL),
->>  	HDA_CODEC_ID_MODEL(0x80862823, "Wildcat Lake HDMI",	MODEL_ADLP),
->>  	HDA_CODEC_ID_MODEL(0x80862824, "Nova Lake HDMI",	MODEL_ADLP),
->>  	HDA_CODEC_ID_MODEL(0x80862882, "Valleyview2 HDMI",	MODEL_BYT),
+> When a named synproxy object is updated concurrently with SYN traffic,
+> the eval path can then mix mss and timestamp handling from the local
+> snapshot with an options mask taken from a newer configuration, so one
+> SYNACK no longer reflects a coherent synproxy configuration.
 > 
+> Use info->options so nft_synproxy_tcp_options() stays on the same local
+> snapshot that the eval path already copied from priv->info.
 
--- 
-Péter
+I'll incorporate this to nf-next, this is good for correctness, but no
+crash is associated.
 
+> Fixes: ee394f96ad75 ("netfilter: nft_synproxy: add synproxy stateful object support")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+> ---
+>  net/netfilter/nft_synproxy.c | 9 ++++-----
+>  1 file changed, 4 insertions(+), 5 deletions(-)
+> 
+> diff --git a/net/netfilter/nft_synproxy.c b/net/netfilter/nft_synproxy.c
+> index 7641f249614c..9ed288c9d168 100644
+> --- a/net/netfilter/nft_synproxy.c
+> +++ b/net/netfilter/nft_synproxy.c
+> @@ -24,14 +24,13 @@ static const struct nla_policy nft_synproxy_policy[NFTA_SYNPROXY_MAX + 1] = {
+>  static void nft_synproxy_tcp_options(struct synproxy_options *opts,
+>  				     const struct tcphdr *tcp,
+>  				     struct synproxy_net *snet,
+> -				     struct nf_synproxy_info *info,
+> -				     const struct nft_synproxy *priv)
+> +				     struct nf_synproxy_info *info)
+>  {
+>  	this_cpu_inc(snet->stats->syn_received);
+>  	if (tcp->ece && tcp->cwr)
+>  		opts->options |= NF_SYNPROXY_OPT_ECN;
+>  
+> -	opts->options &= priv->info.options;
+> +	opts->options &= info->options;
+>  	opts->mss_encode = opts->mss_option;
+>  	opts->mss_option = info->mss;
+>  	if (opts->options & NF_SYNPROXY_OPT_TIMESTAMP)
+> @@ -56,7 +55,7 @@ static void nft_synproxy_eval_v4(const struct nft_synproxy *priv,
+>  
+>  	if (tcp->syn) {
+>  		/* Initial SYN from client */
+> -		nft_synproxy_tcp_options(opts, tcp, snet, &info, priv);
+> +		nft_synproxy_tcp_options(opts, tcp, snet, &info);
+>  		synproxy_send_client_synack(net, skb, tcp, opts);
+>  		consume_skb(skb);
+>  		regs->verdict.code = NF_STOLEN;
+> @@ -87,7 +86,7 @@ static void nft_synproxy_eval_v6(const struct nft_synproxy *priv,
+>  
+>  	if (tcp->syn) {
+>  		/* Initial SYN from client */
+> -		nft_synproxy_tcp_options(opts, tcp, snet, &info, priv);
+> +		nft_synproxy_tcp_options(opts, tcp, snet, &info);
+>  		synproxy_send_client_synack_ipv6(net, skb, tcp, opts);
+>  		consume_skb(skb);
+>  		regs->verdict.code = NF_STOLEN;
+> -- 
+> 2.34.1
