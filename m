@@ -1,95 +1,102 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fout-a3-smtp.messagingengine.com (fout-a3-smtp.messagingengine.com [103.168.172.146])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66E0A279329;
-	Thu, 11 Jun 2026 17:36:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9140334252C;
+	Thu, 11 Jun 2026 17:49:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.146
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781199417; cv=none; b=NvTqUKNFIQ0e+mUOd+P0o9HDPcS4SXsDEjUMvQfDYu3viS3wBWk1bR5tjrPmgDwj4s9VHJQs/YHdA0dtsaUSPJZUP9CdxTaG9gkeLm2mVKE58J9q9RvF3xqsFCJtWgqQZ6tW+0Ll1/9PYqcFlNAP1hJqNZPIarO0gV/KRMgcf8Y=
+	t=1781200199; cv=none; b=MAXCyvb0B+7urThmICUG8hCIcwb3O7/OwQ/h20O3BWhQTO1D8F3LSTMXYn6jCLkjzllS8HyfHLLJOVZKfZ+o4nv0xjSPR6DbThSLnUWMVocuNVnGGzR0ko1/X2ow1i4nKtmL3d9RYePGfqnB0zmvBcVtMg8CD+NaANWeG3/llcg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781199417; c=relaxed/simple;
-	bh=wfGP2RdSlvkde6gwEfLSMenPaIi8cg7Cob7YhrGwLIs=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=rpjF6fl1gRWQN9SgD7RJ5vRRGkqkDaCtuj3cqrdITIHpuJEmU0gXlaDnpttZsqJ/pBs7ccgEWKolppc/xFGn+aq+fTcbdnoQWMQLpUHlhPrmp/kr7pDWkxWYY0P7ZG+mkMMp3kLQsWgQ9S01JttQel3Ke1Ugczk2JgCYD84lVwM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XQVbXdUL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781200199; c=relaxed/simple;
+	bh=A0tgh4WnHTxGBmbh+DeIP5G40O2qNmEvB42OOSSf30c=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZLCFK3Xgdz7e2MtikdKZFTkJY/GM4BxMfpk2np1T/0SQQeVF2ipWzm+4Uq0FKr2rmccvGHgCOkf7wiwbDPe5Vl8KoI5GfOS/BQS2r76LFn93D/WBhj8qHw05pV0lbKO1RtnJ1mMwtw+/14AbIsEKRy+6biiLHM+zBbK0bsAnSA0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=queasysnail.net; spf=pass smtp.mailfrom=queasysnail.net; dkim=pass (2048-bit key) header.d=queasysnail.net header.i=@queasysnail.net header.b=aYDpwFG6; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=ZalM005o; arc=none smtp.client-ip=103.168.172.146
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=queasysnail.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=queasysnail.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XQVbXdUL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96D651F00893;
-	Thu, 11 Jun 2026 17:36:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781199416;
-	bh=7uJf1KWAZ07eRdULf62uTEfXmSe8P4z5DXy6/o8rLx4=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=XQVbXdULFkOreztsGFSZeAilZy6FXL9t70QIBCSJrdPAIzTYmOzWtpxLMXFYYA90Y
-	 k+H/mCqbYW3JidfiCrh2i1UpmzwH7ovbkOSmH/D35pT8KQHnQ05F91nT6vzEawkCFg
-	 onCq9Jl1++beOCZ5aZKVGX/Pg28TloFHSw6uaruxDbDZZppMfw5qQoeUSsdHOZidIX
-	 Vkw0nwnMqR+PItDFUKOfeUkMiA0PjFBRiklxRGdsiOP9ZVhIrZHheOdK+Pn9VCm+W/
-	 Cg+N58Psa7xTg6+pK3K+7Q9pm13QYrZiHIxCmuXYflOWIUf907OmxoUs4oVMum0qOw
-	 RfX1RiTlAV4iA==
-Message-ID: <9a42893cb1c829b943bd40dbb55151e97499916a.camel@kernel.org>
-Subject: Re: [PATCH] pnfs: fix refcount leak in pnfs_report_layoutstat()
-From: Trond Myklebust <trondmy@kernel.org>
-To: WenTao Liang <vulab@iscas.ac.cn>, anna@kernel.org
-Cc: linux-nfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Date: Thu, 11 Jun 2026 13:36:54 -0400
-In-Reply-To: <20260611154747.94154-1-vulab@iscas.ac.cn>
-References: <20260611154747.94154-1-vulab@iscas.ac.cn>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+	dkim=pass (2048-bit key) header.d=queasysnail.net header.i=@queasysnail.net header.b="aYDpwFG6";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="ZalM005o"
+Received: from phl-compute-09.internal (phl-compute-09.internal [10.202.2.49])
+	by mailfout.phl.internal (Postfix) with ESMTP id AF36CEC01F5;
+	Thu, 11 Jun 2026 13:49:55 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-09.internal (MEProxy); Thu, 11 Jun 2026 13:49:55 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=queasysnail.net;
+	 h=cc:cc:content-type:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm2; t=1781200195; x=
+	1781286595; bh=Fv3zltmQZuUcdgjP+FmX8anaVH8F8UP5gl9/ld5PYuQ=; b=a
+	YDpwFG6N42MTs/xsMq0oIwkEr28q4aqM59KBJJkB9mX1zMJRZysGXeNRAjLEXKSj
+	yXcwNgaFHSWNTHtFvcLufn2pCVK1FQyKAlxwGyP8UPYFhw9w3u/qr5LCQmWLzjsT
+	1myyRuHh74RJEAhtNlmXXuO73XucbW6Njv/gjWYMTzCJ9XhWUC1P6z3qnC3+3XtX
+	gB3kQTb9zjCa3mDTYzCmybNS+laNfe44NUoTL38zUfB/d5EwBleieY38RfgefHXj
+	FMHDGPZs73v8Ne+s3t+2KhWM7rgZuRjYeFi9nt/B0xtfxVlWAuvfuMHIHSUeQI9d
+	W5PCr4b0hgSp2ecgMF9qw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1781200195; x=1781286595; bh=Fv3zltmQZuUcdgjP+FmX8anaVH8F8UP5gl9
+	/ld5PYuQ=; b=ZalM005o+Fz9LA8WRNXfAuVxBM/jX/JF16Yc1RFoZY5E2OQdsiT
+	94eZFeSfKJ5fT2Sk7jvQUvvMirT8+3w9KbwlGVWkDKiGczFUL6BsxeMLeYD2bXxB
+	NPL4ykPQv6oe8+BuYfZ/yWgityw8KmYbfOSY32atOBgOKCdTvb5Y98Fi7ZpqoXzb
+	EgCzJBDBRo+m8cV55/37SaZn6khOONL3ULhZB3WjtNjw3hdfjlPrmtxQcwba9KZk
+	jd9rVQgNcOV1FyQsrx4NUbthdkSy8titp8IOpxG0CMoS/C7DgiqTsGo57nrnEPaS
+	kEDQQbxQruQ/JsRmTy2s6eXvuEmZ/QY4ycQ==
+X-ME-Sender: <xms:QvUqahe7RnBPgWL6EOHhl5zjyDVWufkn5LD5rboL7X6m2-56O8ct-g>
+    <xme:QvUqanUkZ_CDy38EzZahBIZrrIfZf7ac1GvhDxAbwk-SI9xP6_4udYPRk0fC6K8W2
+    Bj0c4X0u2gubSBqVF4F1iJ2RdjlKLrGrv8dB3U8AucyOA9aZwR1xQ>
+X-ME-Received: <xmr:QvUqaqCxIOJIimaCFDhUzzc-3jyXfARjKam3fMduxoptvWeEhNVBVm0v74OwKI8J-LnIjzVd8g9Qaf96zWsgkeo>
+X-ME-Proxy-Cause: dmFkZTE+9xNvn3jpTJhf5GiPXg4ArdU+aLZLs6IgDmj1lh17R+bGZ2cfhULK8LvQkOC6gd
+    sPJ6Z5hKhXLloLTmhArtHiDtixi5soLxdAS28QGjPdxD1iV7YmP//vgXDKz7NmqIa1S0bc
+    c5crwom/9jSFmNqoWJvAhczVhCcwguIaKir/9l2kMPoBJHCcmqEw8AliwQ7S6OJxaiTvKD
+    zIowhRtEvSyO4vLm5xP0vRjK8EDlS4oOH8Dr/oCWsw0TZOGQLsYqjUd0VjGSarwzwlNEf9
+    mCZ/pyzObhJLqbkR9hcMb7WHtd5BvJA7pQx2cSXH/meQqQbbs2oUFJxmV281gKYuJSHqMr
+    iasO144mTjSoImMMtv6J8Q0RYf9jFuAlTQDAibYpomlp3CKZeSm2hSznAYYRdVmClniBkn
+    +3AGUmVNdFzw82QA+4DUttwAwSrUhwicxxdPlC37Ja8k8D0Q6Y1Tj+074DJokv4/Ho10vV
+    LZ/oMFtRjmLJ301e4ZE8DgFv3HfHnO+88s+EXF5PvRx6d5zFyzxQT8xQYGhssC8/Jl5GB1
+    i8BSrCOyCEVn1PvBz0yZcY2+FlwI7R7J+uux4Kk9zt8Hfic4DVniK4f4U1Mgj30O0zM31r
+    EKcZ5L2uXwP2W7TjqInWREzz2MOKLTqAv0VAKEY54emai4RZ57L9EMtV/3TQ
+X-ME-Proxy: <xmx:QvUqaq7fa3n3xS01vwny9P0EOVxsp69qQsvCdghPQlfEp_vokN6w_g>
+    <xmx:QvUqap2yPDNeAi1FRbmd0AGELdYZTb_gRQ3AUqq0ppcBBMfj4nsK1g>
+    <xmx:QvUqamm6eo28Ta_xIIdmW2WLOmv98GuUGqamMKBoAlwgOtKWgYLrgA>
+    <xmx:QvUqan6_cQBUrz0kb9VnQmu-stU2Nvnv_PrUTX50wL7jiNEDLFHx9g>
+    <xmx:Q_UqajkLvOsay_46oH49iZPloH6_rY6ZuBkIysmWeWhmHaH060qpCgKq>
+Feedback-ID: i934648bf:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 11 Jun 2026 13:49:53 -0400 (EDT)
+Date: Thu, 11 Jun 2026 19:49:51 +0200
+From: Sabrina Dubroca <sd@queasysnail.net>
+To: WenTao Liang <vulab@iscas.ac.cn>
+Cc: steffen.klassert@secunet.com, herbert@gondor.apana.org.au,
+	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+	pabeni@redhat.com, horms@kernel.org, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] net: af_key: fix refcount leak in pfkey_spdadd()
+Message-ID: <air1P8N3WC8mG4Vf@krikkit>
+References: <20260611163743.99526-1-vulab@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260611163743.99526-1-vulab@iscas.ac.cn>
 
-On Thu, 2026-06-11 at 23:47 +0800, WenTao Liang wrote:
-> When pnfs_report_layoutstat() calls pnfs_get_layout_hdr() and passes
-> the reference through the inode field of the layoutstats data to
-> nfs42_proc_layoutstats_generic(), if rpc_run_task() in that function
-> fails (IS_ERR), nfs42_proc_layoutstats_generic() returns immediately
-> without releasing the reference.=C2=A0 This leaks the layout header
-> reference, leaks the allocated data, and leaves the
-> NFS_INO_LAYOUTSTATS flag stuck on the inode, preventing further
-> layoutstat reporting.
->=20
-> Fix by calling nfs42_layoutstat_release(data) before returning on
-> rpc_run_task() error, matching the existing error handling for a
-> missing inode.
->=20
-> Cc: stable@vger.kernel.org
-> Fixes: be3a5d233922 ("NFSv.2/pnfs Add a LAYOUTSTATS rpc function")
-> Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
-> ---
-> =C2=A0fs/nfs/nfs42proc.c | 4 +++-
-> =C2=A01 file changed, 3 insertions(+), 1 deletion(-)
->=20
-> diff --git a/fs/nfs/nfs42proc.c b/fs/nfs/nfs42proc.c
-> index 7602ede6f75f..7637ad894563 100644
-> --- a/fs/nfs/nfs42proc.c
-> +++ b/fs/nfs/nfs42proc.c
-> @@ -1076,8 +1076,10 @@ int nfs42_proc_layoutstats_generic(struct
-> nfs_server *server,
-> =C2=A0	nfs4_init_sequence(server->nfs_client, &data->args.seq_args,
-> =C2=A0			=C2=A0=C2=A0 &data->res.seq_res, 0, 0);
-> =C2=A0	task =3D rpc_run_task(&task_setup);
-> -	if (IS_ERR(task))
-> +	if (IS_ERR(task)) {
-> +		nfs42_layoutstat_release(data);
-> =C2=A0		return PTR_ERR(task);
+2026-06-12, 00:37:43 +0800, WenTao Liang wrote:
+> In pfkey_spdadd(), an xfrm policy is allocated via xfrm_policy_alloc()
+> with a refcount of 1. On the success path the policy is eventually freed
+> by xfrm_pol_put(), which decrements the refcount and calls
+> xfrm_policy_destroy() only when it reaches zero. However, all error
+> paths directly call xfrm_policy_destroy() without releasing the initial
+> reference, leaking the policy object.
 
-NACK! If you'd bothered to read the code, you would have found that
-rpc_run_task() already cleans up on failure. This patch just introduces
-a massive use-after-free.
+Uhm... have you looked at what xfrm_policy_destroy and xfrm_pol_put
+do?
 
-> +	}
-> =C2=A0	rpc_put_task(task);
-> =C2=A0	return 0;
-> =C2=A0}
-
---=20
-Trond Myklebust
-Linux NFS client maintainer, Hammerspace
-trondmy@kernel.org, trond.myklebust@hammerspace.com
+-- 
+Sabrina
