@@ -1,175 +1,134 @@
-Received: from sonic309-24.consmr.mail.ir2.yahoo.com (sonic309-24.consmr.mail.ir2.yahoo.com [77.238.179.82])
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1FC840BCB6
-	for <stable@vger.kernel.org>; Thu, 11 Jun 2026 13:21:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=77.238.179.82
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EF6F408029
+	for <stable@vger.kernel.org>; Thu, 11 Jun 2026 13:28:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781184120; cv=none; b=bPtBZqJhrCdvHLSNPXUsKhC9ZZnWzJVM08Ls1qH4R6iqN4Un2puwTAvpQ4E6+yCUp2zdXWcsGIMWa4/6VeBHeCTiClT1hU3tUQGwSNH6AFBl8BBrFhosE1ULLKDfBaxmtZJkI5UGaUvnoZJ8N4TKpCQgV1ucRpUELhXitX7AJmY=
+	t=1781184531; cv=none; b=aOjrKUyRC1Sb7x0bs7tfd2HBMc4N1OObV2RbXNfCJct3BMZNnskg6YfyELmrrfRrr8ukR0xLlr0hYKzg6Hhw2S/1zh+ICx4n1trtCcRoxb/YUpaxGtUo7i0UQaaOmIvbDHwI00nFTzmRC6CatSwSxqhJo2epYKyGcftgnziShIo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781184120; c=relaxed/simple;
-	bh=QinLdydYFFzhfzCwGWVsMabc9s7iP5QrwIHt7oRNp5U=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=LOLFpVOI5AQGHiwKggEKj6Wqa+lQFcLDqMwK+GHbzpk00KbW83P50IsMfldQgL8Mo1mvo68D/SsXpbKsvSybEXWtKvQBuz2oPf3GtA0zcAM0NRgHQTt1h3aebC2ZbRlU4cewKV+qLDqmeS2TKPtRekJFCCipBoCzeZncvGfAhxA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.it; spf=pass smtp.mailfrom=yahoo.it; dkim=pass (2048-bit key) header.d=yahoo.it header.i=@yahoo.it header.b=uUMEo1Bv; arc=none smtp.client-ip=77.238.179.82
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.it
+	s=arc-20240116; t=1781184531; c=relaxed/simple;
+	bh=crKmGM2BPtU1gWofMArc5RSNIxo8syCXCMCQHJjzvSk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uXfE8l57FDaM6jl4CiSRNmRUR7RRmDoCXioFoZqaGEMDe2p4thnhqFRaMG5V0UOcBnrEdu5nlTCUn+hgkcGyAZbZc+rhErY91r88n4KeTPCKLfh4ZfMYLheu7+lRIbh2koUWbRzsgrJhlBQ0gGzHCCvhevf6oW51qMAurwLViJE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=e7juqfne; arc=none smtp.client-ip=209.85.214.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=yahoo.it header.i=@yahoo.it header.b="uUMEo1Bv"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.it; s=s2048; t=1781184107; bh=aVPPymS4lmAww1BY+GTvl9Z2HVdq0OQBfTx60YXSaGA=; h=Date:Subject:To:Cc:References:From:In-Reply-To:From:Subject:Reply-To; b=uUMEo1Bv+HdV0my4FJKuohIsKH+EafUNp+7I1V7ZaPUbfS6zzhVF3K6YKHvYDSC1kZJzn4HElSREx7d4RBVgctC7W30hy2YCJXu6nD7kBqfbIlJH5CEPbXr8VpDJQRKdspRxoOZdRsJ3s49noukdEhtNxpVBz0qUrHJweaZRgO5TWjGjFs5Lc0adw3pDgpNzJvGbIoSHA1T1zz6TRIr57IeO0dkewDCgvFk/t8IEgA85utoj/ycL3sml5niDE+H7xX8fq06pHdJMTPVZKat9V1Fium+pbcddx9utawRJRwTWI/lsMY68MVQSXa9Vc9tLWGguMNGCOhuqiFsZxVIL3g==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1781184107; bh=esQrL3F81tozhGDmLu/0nW5V5/vWcXWKDDoeCtW7wfj=; h=X-Sonic-MF:Date:Subject:To:From:From:Subject; b=NFjGojXunYNObufgScdDMku2DXvLLddFsPX0Jtd9RGkCFWQP4HxIez/wXE0IA+fPBc6Sftt2at9pphJl0z49f8BJnNqhzoVvF3e5LYKkq7xQL2WbhqX+4kAWN9/PfdquLduzH1ESs5HiUnNxpLmKwXhXcY9AEPMHpaMAfhqDrNNlRYyGU/WLZZ8sxz7MBanlRkPTZGWwJMAQh9rJ/lsa6/RjG/BCYK0kyirtt4FvFNdpjGvCE7hfrzJfxm+mC6DYtK22rswv7/vUoG/a9+g2onTQf6nPEZgRm77rofJu5ggJQ/8G5ImsU0ENXugbyQwrcbUxfu4QZKtP3nf5LGyHXQ==
-X-YMail-OSG: SrEcXyYVM1lFX3z1r73VM_ycb7gDGeEIp_Mph53lqH9BEDhFPAPgXZwGJyO9Dxa
- lOsaS96VL5wCBA7izgjkPpszO4tpa.b4pQ79ZAjemLy8Y357ebaA.utd2LIyxEBKKxXpbc1b7.W.
- Mq3AlpX8hqh2aPPS4pSMT2m1p1IDZbcfvlf5Qz5SqJQAfVsXKIsPlkP4v9sHebWEDDiTB1oQuf8e
- 0XbNTUTEJsRg.GlrDFbUzGgfcbMHHvksfWf8YUhQZCNBY2jfi5EyfhVJEmLA7NbpYs8Q0Wlz6xbY
- A8yE7db48ArCxGCUmx7gWU.FPeXkUT4Yrhc8Byf6wKpkYoPIpmxaCpFxuhLtV2i7gCGcK5k_Klft
- B3dsBUoZYCBAYeYWs8r37HudBiZcZM.uULVYHXQ6udiioAy68txzH_lSB.p_0G2xX0eCVTAimqqO
- lhwFtz1VAo8xsryXQxFbk2TapoRboHuUE0QRa6MF99ry81BF8vACUWxeo8K5uvWLr4PlyPgQmi0W
- VwAxj7NOliJbFNARsJQWiFBhAw9kRMkhhEhy2QT1j0IoQdcYqitnl3VTd5ArNvPoKzYEQV4ai13w
- TyDMoZJnEz2dHXTyDh0FQ1TbPL7tjLcWyVctfM3enfN0KuenMlLB.30xOCnW9JZHrGP3yNG.pzHO
- iPPqTleSCdwvOq.gT8Gmgww1TQsTji1KQT9rjS84nQH3BgfuII8GnHvNZKqDrVufjFVnUyNx2cjJ
- uzZdbR4tj0zGR.d4y2NlJAfg0yZDqKTMZdAm0LfqQD8ut.F_P6Q52kJytsmbU6w2AMyS5Z7aQWuv
- x1JySvyhbbXzQNxgpKWFjlWOmPahJUtcw1TiHeaj35uBiCBuDT3oEGWvXNaGLCsXwhiYhuTN8fgZ
- J9ZetMmaUVeX3.9Ks2MMaJxst6MozsI1TZZHP5c_M882hKT1vBgqU2WvR8bTiNocEb9ktOLuF4Ou
- KsulfHWBrCSY7hGQYtEjUd7B95De5Gkgp2.UKZH8eVLjyvj9v7vgtRjutbaYoAzOlXwosb.Hu2wc
- vwirXTFDRJSCJk0Xrcd1loJkqFguASeKHiLmRnMEy6l4epcQ2K.jvrch2GBdgTGzwf6EaJ8uSWAJ
- 1gKvr7T2y6eqwBZsdvfBByKhFe7UQiSirj54LeTNIFhbe6ijKlWa09NMBBNMcYh8QirWGrOKUTDT
- 4fXAZaeRqS0C2vnJ8mVN3JRhAFv86Z1vH3rkugaC2VEdhvoj2WshsQWRjjkwY68Osuxm_t.B.ZGN
- DdOWDlaHa_.OStV8S24VD3G4FZTneuuU64cC5CjXwZ.CmjMMDd6NA.cd7suz05j5NyAM.ta3pynn
- CEdrvOTPj_gEAqmlzm51d2VTuzX.jEJZzadUWLJrkpFhtNUyBbq851YyWtgGc.ELU2.qpwAHiifx
- idl3PubAb_Z_BmVos4P8tV5FRYMWNLvdHsx1oVV03ACnv6pEnAoxMizxKo09IToCG5lBhl5P47Ym
- VRBK7Du4l7lcXytotGXlzlXZkskHmk9GCn6iMpGgxy5PGVi1m2odmZYONaFS67urnZZqVGRhzPEt
- SsTUe1qSCE79yvUT4Y.BLnyIGbo1cgvR5ImHVWwL5yGcTBesiu505JMHKmiuNqB88zf7r4ee6Xwb
- .rDYEKokTOsNfKP3nBtEndRNSPXSkoJBUdzNEGg7YIOlvTfg4zOTG3up6.DSc98Wnl4Vco7ocK88
- tEJcq5YxVOCSNAZZ46n63AJOGGFvMvZvSX52TO.HZNBdYnkDPcbHVtgzAOwO1uY9kvYcsYhmbApf
- 5nU51aNl2qHQHMwiO5y5uEfYsvPQIODgUs31y3kk7MWeid4vvIFdMxeZzXY5JRaFqel4gAtFBO2v
- 3A53IF9u.OnhpS2iUzZ.W5py2CMMxW.btEMUb9TddX4n9bhL1y7pCAVCRJ8w0sNK60PrWE9yUFL1
- euwT1Tv6lIBbbkepbIQCSW.axbdrqaPCFL8bGFu0O_EnnbvZ66dLbe2xJPwZbLl005fMjPKohEtB
- 1josW5v.akdn6i1YaTo1fSy.8YImDYVREnGAmflR2MumRA36jUIKabe2Ms0.9I5Hh23ezMoxCRjM
- AsSiPbHoTYhjhcop8umObPBPevxjnvoOYQmWPQqhrTm7Q1BQa_y3heBG7wKVjHsbza5jNJzwCt3R
- 3gNDEuRF4qtSdu4LxK.FqM.6z3tVzly4Qm8ywWzypwPr2lfthvdKEpHouhLnGXojyEf7Ov.swD3B
- GCjlQerwjBhprGJEMxgz.odYDk0mOAoaUOH5742WKgvUTwXSYquAJthQQtK.1168i5pP5Rozc5Ge
- WeGP7A79.DKRzArohqFY-
-X-Sonic-MF: <giovannisantini93@yahoo.it>
-X-Sonic-ID: dabd766f-5f74-40af-bf73-06a68c4b29e2
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic309.consmr.mail.ir2.yahoo.com with HTTP; Thu, 11 Jun 2026 13:21:47 +0000
-Received: by hermes--production-ir2-89844b765-gkszj (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID c4171e10cdbfd69951135a50765e3e49;
-          Thu, 11 Jun 2026 13:11:27 +0000 (UTC)
-Message-ID: <02e09f1a-2807-4fec-aacf-1bc4bbb1ccd1@yahoo.it>
-Date: Thu, 11 Jun 2026 15:11:26 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="e7juqfne"
+Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2c0aa420401so61377505ad.3
+        for <stable@vger.kernel.org>; Thu, 11 Jun 2026 06:28:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781184528; x=1781789328; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=kr6lr/Zk4qDdZQL9yjJdI0zh4QdrOtRvdN1aN8UPXKU=;
+        b=e7juqfne4BEQWFb7uAsbNpZ6bBRPG3XKGRIkDFcLIKc8iHJxeg9PA4FwMuKx7izMrC
+         zvcAYxmIVlTvSVBp+TMJHP0r1EQvwEbLGK1fGIJ+6nyoZvSRfLUe1zf5TI8PldPbCOr+
+         ExKcFbrPiAyvvEReMVudx9VRa36T2oNDa4o4DPEoXd+cy+n4LSq6ciplza6ioTStRog5
+         CwEA07jb4eRKzZ2RQU/QQ1bYgjYeve4XXm+ZtkLjWDdzygl5E8vZhMSF7XVlOeJPpmcQ
+         13yn1ybBiP5X0e0jfSA0u4mDoweAI90lqnk/Xl4BwjhN5Oif7gfuybYKUrNhIT7cAMPW
+         yw/w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781184528; x=1781789328;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=kr6lr/Zk4qDdZQL9yjJdI0zh4QdrOtRvdN1aN8UPXKU=;
+        b=FBuoxY4DyfDa0qUMERl0kULLCxhyUR2LMlN+WsguwRTxVwE9QwVUny1EsZKtbayuBi
+         ezuziB93uKakWQqRqqCjsYO/oP34dyQlpzS+wrlerYm9s6ReSnV3oBMG+rogDfif7oEb
+         TYe7IaADc1qpSWQqFqC0Lk61cprNNXGuLODqpKnlM8hHsZG5ZT0GfoYpVNr20ir1bhaz
+         2yCcIOvWWNZ1Ci1GPrkAYaawFH/Fij3DmqXQoZ+9kyq+RQHPtob41q85SzMeYT5P8+oq
+         Ywpx0TYqFsUthOnsHOMApMCyDwlIRXb6OkY1/Gq+9e0qk8b1a1QRry2Gta36tsyoAamt
+         sK5A==
+X-Forwarded-Encrypted: i=1; AFNElJ9I1VsdTBDbeCasTN4KHMMNxBycoEiWAfvpt8mdKB6yPAjlCmEdlo0mtF3Oww9HYgWqtYeA8/M=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxkU4cQ5L2MXYU7wwlpDSsSp+8R/72FOBsWPKPVLuo+RFxjN2Q1
+	vyywh2kDSO/6cIDibBRUxRWklPaR6qBOGCvgYFqP7UBBsgsu5hwAuVmV
+X-Gm-Gg: Acq92OE5AXWwsaTgdpwvyiYEIacHDCy5i/RNX88MZOygxt0ozkt246Rf+QvF06WdQfn
+	Y88HWK31YVfcTRoxUMfmzzuOXem9SMxDC62d8vPk1qgI8VmRmdeJCOE2HkCzl59aQfvMOK16r1Y
+	ejkRZ0sJOZzfXDmzw9g4VM0sScm1dwjlwewTTMi8WJtE43MQj9hhEVpb4ke89km80aHb/VoJgSE
+	BFhIuYlv0GkJzxEZeGdwUnr/JgNjewWruboaNVkjUYqfkc1soB2yRJ3Va+7mOlOI/ANLLNeKvGE
+	BSWud6Fr2CyeTKdQpATA5oATPjr0Jmj3CMjRR1SaBKnwdeEh10tHHNEtMZxhHw8GAmqvirXopBS
+	5W47qoeS/GIu7OOusT8CmGh8X2p5nBcha2hIYaa9z5tP0saKPxfjev4L4uK0TUmEvaAzNwZ7DZ+
+	1IkivqCfk2Mopmlg8F6hk0mI/rfDqfzgXxAFCAK+SltGoz2lVQkUrs3AHOMIEy4WmZEAGbspnoK
+	GeslLDEC/FIBp5JkDOoVzidfcLbi9kgiUCVijP/qXsFVZ3JjDmCGbn5kMUBbCEHIfZavHew/ix9
+	9zKnD4W5Cp8NDOYAkJod0xqaeQnK+z7K4HhhjyEiOHrk5fKj
+X-Received: by 2002:a17:903:90c:b0:2bf:dd8b:7cd with SMTP id d9443c01a7336-2c2f10165e3mr31858515ad.10.1781184528412;
+        Thu, 11 Jun 2026 06:28:48 -0700 (PDT)
+Received: from jfk-HP-EliteBook-640-14-inch-G10-Notebook-PC.cse.unsw.EDU.AU (dyn-dhcp-226.cse.unsw.EDU.AU. [129.94.175.226])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c16629cfb4sm292927115ad.59.2026.06.11.06.28.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 11 Jun 2026 06:28:47 -0700 (PDT)
+From: Weigang He <geoffreyhe2@gmail.com>
+To: Hans Verkuil <hverkuil@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: linux-media@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Weigang He <geoffreyhe2@gmail.com>
+Subject: [PATCH] media: cec: stm32: prevent out-of-bounds write on RX overflow
+Date: Thu, 11 Jun 2026 23:22:48 +1000
+Message-ID: <20260611132248.114519-1-geoffreyhe2@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: rtw88: WiFi card is not offloaded properly when suspending the OS
-To: Ping-Ke Shih <pkshih@realtek.com>,
- "stable@vger.kernel.org" <stable@vger.kernel.org>,
- "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>
-Cc: Linux regressions mailing list <regressions@lists.linux.dev>
-References: <10da4c45-74ed-4deb-8c88-6d0b803465ba.ref@yahoo.it>
- <10da4c45-74ed-4deb-8c88-6d0b803465ba@yahoo.it>
- <efae0a4db2ab4b6193922b393d3dcdd6@realtek.com>
-Content-Language: en-US
-From: Giovanni Santini <giovannisantini93@yahoo.it>
-Autocrypt: addr=giovannisantini93@yahoo.it; keydata=
- xjMEaH5G6BYJKwYBBAHaRw8BAQdAZnF+SJD511cVwFnagEObR10TvHEDWiUkXn55qPW4mEPN
- LUdpb3Zhbm5pIFNhbnRpbmkgPGdpb3Zhbm5pc2FudGluaTkzQHlhaG9vLml0PsKTBBMWCgA7
- AhsDBQsJCAcCBhUKCQgLAgQWAgMBAh4BAheAFiEEsZlH+Qx7w0bL59UyBjXtZomc07YFAmh+
- UU4CGQEACgkQBjXtZomc07aqRAD/dTapfdaiXcED3umK46Ef4oj+4yMmgvILQvAzbTWCW8oB
- AMbcBT7PaB6GuHTLiM0mZwLaB8koObNKxw3XtV7kMw4HzjgEaH5G6BIKKwYBBAGXVQEFAQEH
- QI7SNDV1L0Dq0IjkhOsUDwU7Wzr+AunkhuOy1hUDbY1UAwEIB8J4BBgWCgAgFiEEsZlH+Qx7
- w0bL59UyBjXtZomc07YFAmh+RugCGwwACgkQBjXtZomc07YxZQD9GgcfEawEgJeUijTqZtoq
- /knXol2L++0rMJkdr1SODwYA/07vSweYeVzo00XbyjcQ1le1Y852Ktp6A7O+DZsQJZoG
-In-Reply-To: <efae0a4db2ab4b6193922b393d3dcdd6@realtek.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Mailer: WebService/1.1.25942 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
+Content-Transfer-Encoding: 8bit
 
-Hi Ping-Ke,
+stm32_rx_done() appends each received CEC byte to rx_msg.msg[] using
+rx_msg.len as the write index, incrementing it on every RXBR
+(receive-byte-ready) interrupt without checking it against the buffer
+size:
 
-In short I should build the LTS kernel using the provided source with 
-all the module patches applied one by one, correct?
+	cec->rx_msg.msg[cec->rx_msg.len++] = val & 0xFF;
 
-If so, should I also set the modprobe.d options plus disable IOMMU?
+rx_msg.msg[] is a fixed CEC_MAX_MSG_SIZE (16) byte array in struct
+cec_msg, and rx_msg.len is only reset on RXACKE/RXOVR or after a
+completed message (RXEND). The number of bytes received before RXEND is
+decided by the remote CEC device (it sets EOM), not by the driver. A
+peer that keeps sending bytes without ending the message drives RXBR
+repeatedly, pushing rx_msg.len past 16 and writing peer-controlled bytes
+out of bounds into the surrounding memory. This is reachable in normal
+operation once the driver has probed and receiving is enabled, from the
+IRQ thread, without any local privilege.
 
-After I know this I can start testing.
+The length check in the CEC core runs on the consumer side, after the
+byte has been stored, so it does not prevent the overflow. Bound the
+index in the driver before the store, as the other platform CEC drivers
+already do (e.g. tegra_cec), dropping the excess bytes of an overlong
+frame.
 
+Found by static analysis tool CodeQL.
 
-Small update: the .35 LTS kernel has no issues for me, while 7.0.11 works.
+Fixes: d69ae57453c8 ("[media] cec: add STM32 cec driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Weigang He <geoffreyhe2@gmail.com>
+---
+ drivers/media/cec/platform/stm32/stm32-cec.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-I was able to get my laptop to sleep a few times, but at a certain point 
-the issue happened.
+diff --git a/drivers/media/cec/platform/stm32/stm32-cec.c b/drivers/media/cec/platform/stm32/stm32-cec.c
+index 1ec0cece0a5b7..8c2fc232202de 100644
+--- a/drivers/media/cec/platform/stm32/stm32-cec.c
++++ b/drivers/media/cec/platform/stm32/stm32-cec.c
+@@ -132,7 +132,8 @@ static void stm32_rx_done(struct stm32_cec *cec, u32 status)
+ 		u32 val;
+ 
+ 		regmap_read(cec->regmap, CEC_RXDR, &val);
+-		cec->rx_msg.msg[cec->rx_msg.len++] = val & 0xFF;
++		if (cec->rx_msg.len < CEC_MAX_MSG_SIZE)
++			cec->rx_msg.msg[cec->rx_msg.len++] = val & 0xFF;
+ 	}
+ 
+ 	if (cec->irq_status & RXEND) {
 
-It is a bit hard to replicate the issue, so I will try my best.
-
-
-On 2026-06-08 03:32, Ping-Ke Shih wrote:
-> Giovanni Santini <giovannisantini93@yahoo.it> wrote:
->> Jun 02 17:25:33 archlinux-tug kernel: rtw88_8822ce 0000:03:00.0: failed
->> to send h2c command
->> Jun 02 17:25:33 archlinux-tug kernel: rtw88_8822ce 0000:03:00.0: failed
->> to send h2c command
->> Jun 02 17:25:33 archlinux-tug kernel: rtw88_8822ce 0000:03:00.0: failed
->> to send h2c command
->> Jun 02 17:25:33 archlinux-tug kernel: rtw88_8822ce 0000:03:00.0: failed
->> to send h2c command
->> Jun 02 17:25:36 archlinux-tug kernel: rtw88_8822ce 0000:03:00.0: failed
->> to poll offset=0x5 mask=0x2 value=0x0
->> Jun 02 17:25:36 archlinux-tug kernel: ------------[ cut here ]------------
->> Jun 02 17:25:36 archlinux-tug kernel: failed to read DBI register,
->> addr=0x0719
-> Add these below to see if it can help.
->
-> sudo nano /etc/modprobe.d/rtw88.conf
-> options rtw88_core disable_lps_deep=y
-> options rtw88_pci disable_aspm=y
->
-> After cold reboot, check /sys/modules/rtw88_*/paramters/* to see if
-> the modification takes effect.
->
->> I'm attaching the full boot log, if you need a fresh one I can provide it.
-> Before "failed to poll ..." log, I also see
->
-> Jun 02 17:25:02 archlinux-tug kernel: rtw88_8822ce 0000:03:00.0: AMD-Vi:
->   Event logged [IO_PAGE_FAULT domain=0x000e address=0xae9668bc flags=0x0000]
->
-> Please try to turn off IOMMU by editing /etc/default/grub
-> GRUB_CMDLINE_LINUX_DEFAULT="quiet splash amd_iommu=off iommu=off"
->
-> And then update-grub
->
->> I run ArchLinux with KDE Plasma, for networking I use NetworkManager and
->> wpa_supplicant.
->>
->> If you would like me to run tests with e.g. just iwd I can do so, just
->> let me know what setup you would like me to have.
->>
->> I do not have this issue with the LTS kernel 6.18.34. This affects 7.0
->> and 7.1.
->> I believe this issue was not present in < 7 kernels, but I cannot guarantee.
->> I can however downgrade to previous kernels to understand where the
->> issue was introduced.
-> The commits between 6.18.34 ~ 7.0.10 are quite few, and I can't find the
-> one that can affect the behavior. Please switch your kernel back to 6.18.34,
-> and apply rtw88's patches added until 7.0.10.
->
-> Since the last commit of 6.18 is fce6fee0817b8899e0ee38ab6b98f0d7e939ceed
->
-> Please use below commands to get the (20) patches:
-> drivers/net/wireless/realtek/rtw88$ git format-patch v7.0.10...fce6fee0817b8899e0ee38ab6b98f0d7e939ceed -- ./
->
-> Then you can add them one by one to see which one is the cause.
->
-> The git repository you need is:
-> git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
->
->
-> Ping-Ke
->
->
+base-commit: 9716c086c8e8b141d35aa61f2e96a2e83de212a7
 -- 
-Giovanni Santini
+2.43.0
 
