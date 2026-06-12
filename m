@@ -1,102 +1,198 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id AEE9339901C;
-	Fri, 12 Jun 2026 17:40:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781286038; cv=none; b=tgZNM77qsF8767Tu1QF+E5YsJivByOlRMphaIz5GBWaDerqcfMMug197ULUtIgPuhutdeOBb2UCRmVVLcti8eFflQD6DrneHILJqP1dk4iIsj4xsh8JfrJS/e2R3l1M3DBUdLU4/gGudk815iiZbZpmFN37UDqFCYFcA78MQ/e0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781286038; c=relaxed/simple;
-	bh=rxYD3iGHnqWVu5XQl3U9EwVXyhVxQt9pX+gvx+rskU4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OtxTv9gQMdnQHaCIH1gPR7Y4bEae1rICS4QpM3F8do58ZmfN0QAo8sxdelQ3fO0vXdLMTXaUg3zv/3SbM9M7QCnpJ0mgFYQ6RkPCcaTpq3iJQJf9QRvAJuNhTd042Gk92jX/tW8idpp0EF8KUU33C+0yOj84zZFNLaLAx5Nk6cE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=LtOvuQx7; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11020088.outbound.protection.outlook.com [40.93.198.88])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F94011CA9;
+	Fri, 12 Jun 2026 18:04:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.198.88
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781287466; cv=fail; b=fb5vW0Vy4N1wsZIt1V21Nd7xCDcBhL0Od2c0nTd4KgGPlxdFBnEHKoNpxbKV5OcTGXDr/U8FO/8sdt+WQcMNrfSbfWYNuD2OK4TbdnxaRxQdOpldAoiFtFZHp487JbkvoB8f96+BEHeC3hys5UJtKzbfg9NImMBuUnrWH0XAjsE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781287466; c=relaxed/simple;
+	bh=Yj3n+dS6cyeortWRdL2zTTdSyb8HJIgKiY6WgKiS8Ok=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=hROjB2rtmvopp/Qe0HBhph40FDxBDlDVm2IS5/kOSnQr8MahGv6sQBPeq1hUsJLbo8yOAYrhdv0m9JqoG0zJpkbrqn0xK+gQN69g38/EzUtBnkAVy7kjih298WJ8JHYn3GVvL2kAq3IMe2r5yE43HEfTA3A0jkUBs/aTWvmNZ3k=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microsoft.com; spf=pass smtp.mailfrom=microsoft.com; dkim=pass (1024-bit key) header.d=microsoft.com header.i=@microsoft.com header.b=Q0Au6mQr; arc=fail smtp.client-ip=40.93.198.88
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="LtOvuQx7"
-Received: by linux.microsoft.com (Postfix, from userid 1216)
-	id 68AA620B716A; Fri, 12 Jun 2026 10:40:18 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 68AA620B716A
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1781286018;
-	bh=vr0Gms8K+x62jEtAJpSeA2K2xp0MKc2fsrScko8ouYA=;
-	h=From:To:Cc:Subject:Date:From;
-	b=LtOvuQx7ZoFBUtZsD+GWZ9prPtIJOd55WTQuIbsqZi5iKhZPp7/GG1l6Fd2p0xlE6
-	 RFr7xvrQDfxWzEKh3c3lNk9gYdis5v1p17BW1AM39MPAJm4+acDI13t+UI5wD8/1B7
-	 IInEUH8CWIZaWhxwUeVpc02YV974N5cU62XNb4ZQ=
-From: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
-To: linux-hyperv@vger.kernel.org
-Cc: "K. Y. Srinivasan" <kys@microsoft.com>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	Wei Liu <wei.liu@kernel.org>,
-	Dexuan Cui <decui@microsoft.com>,
-	Long Li <longli@microsoft.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	linux-pci@vger.kernel.org,
-	Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] PCI: hv: add hard timeout to wait_for_response()
-Date: Fri, 12 Jun 2026 13:40:10 -0400
-Message-ID: <20260612174010.2598695-1-hamzamahfooz@linux.microsoft.com>
-X-Mailer: git-send-email 2.43.7
+	dkim=pass (1024-bit key) header.d=microsoft.com header.i=@microsoft.com header.b="Q0Au6mQr"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=UcTSRUx2dowEXJFmHAm6kr7ki2zqWCk6CLsUOsSRqMqOG4UL0Txh/uwgZkVZytgHQW+FZPWC7SDSifB5MHvMCjkxt+aOqcsKOe/THzl733FIrLPiRoGSREsrGQV6X62n92kPiofHLSYIIZGiW94HTBuhhnVzDoEs7Gt44XOwW4cwEdo9grF1Jk4vvCRmSF+NDWAtsYW69biu+4m8ccEIx6kTC4C8hu33jTXi8vrwiadAf4A/Tj96QtyK4ZwAYCjQZuOFfVFZ1fHDwVHDj0uvESrdPnebDvtq421G7j7fD++Kce1wGolV2Z5q98K1dLRWtuIrJiGI7dzocbsxIs/aqA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=TckYa7PCTOLxd8aisG8gm/5rO15sH4j7JiLPgdO8rA4=;
+ b=XTRIouIUuAi1ZcSOSI9H2QyVdY6o3w+RoffpruUY7KNpcO0cSYvg5ymTYXKz9FzCysSLPx6SGomlVdJCC6+u4wyBh9e7Mz4A1bzpW2Ik8FBfqFY6P/anhedETe0hB+o7x3IJZUKKgOtFIWPxZ1PcUdjHhvHg5gozpZGCHA8jFbffC5x6kEBtFxKPEjCpTVPUq83EkgHV0oLfpk3hhumGFhYTYCNpjZi1rOhSRPw8NIn65WrhGVpHgv1TSoRPBQ0QsUQ0h87j3DnwvLgxZKGQH9L3O1LHwOdgxl/GU9FBjtFDMyUtd5br7+W1vGoUbYQJX1zqs2C9/hQArJey+D5W6w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=microsoft.com; dmarc=pass action=none
+ header.from=microsoft.com; dkim=pass header.d=microsoft.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=TckYa7PCTOLxd8aisG8gm/5rO15sH4j7JiLPgdO8rA4=;
+ b=Q0Au6mQrcqxyKId8ERzG23MhMtEcxQgFNvYqT3hOEJuTGiyMfvXzNiLVcHwmlZW3ZBBTLtLzxhx6bp+4cb8IchupqvKWQOqcfiMHNoLrn7pueHtHupwzQGwRrIXRODOwsKcI3DW2Tjfb5E057ToGBxOlcUjIOHJ8qNhQXW/eyF4=
+Received: from SA1PR21MB6683.namprd21.prod.outlook.com (2603:10b6:806:4a4::6)
+ by SA1PR21MB6034.namprd21.prod.outlook.com (2603:10b6:806:4af::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.6; Fri, 12 Jun
+ 2026 18:04:22 +0000
+Received: from SA1PR21MB6683.namprd21.prod.outlook.com
+ ([fe80::8bad:6294:8a07:fe18]) by SA1PR21MB6683.namprd21.prod.outlook.com
+ ([fe80::8bad:6294:8a07:fe18%3]) with mapi id 15.21.0113.013; Fri, 12 Jun 2026
+ 18:04:22 +0000
+From: Long Li <longli@microsoft.com>
+To: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>,
+	"linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>
+CC: KY Srinivasan <kys@microsoft.com>, Haiyang Zhang <haiyangz@microsoft.com>,
+	Wei Liu <wei.liu@kernel.org>, Dexuan Cui <DECUI@microsoft.com>, Lorenzo
+ Pieralisi <lpieralisi@kernel.org>, =?iso-8859-2?Q?Krzysztof_Wilczy=F1ski?=
+	<kwilczynski@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>, Rob
+ Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+	"linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
+	"stable@vger.kernel.org" <stable@vger.kernel.org>
+Subject: RE: [PATCH] PCI: hv: add hard timeout to wait_for_response()
+Thread-Topic: [PATCH] PCI: hv: add hard timeout to wait_for_response()
+Thread-Index: AQHc+pKWKwCco4Www0Sez45fGXnTmbY7NNFA
+Date: Fri, 12 Jun 2026 18:04:22 +0000
+Message-ID:
+ <SA1PR21MB6683BAA40F52C52150D7811ECE182@SA1PR21MB6683.namprd21.prod.outlook.com>
+References: <20260612174010.2598695-1-hamzamahfooz@linux.microsoft.com>
+In-Reply-To: <20260612174010.2598695-1-hamzamahfooz@linux.microsoft.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+ MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_ActionId=495da86f-76e1-492e-89db-92b4c7f99e36;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_ContentBits=0;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Enabled=true;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Method=Standard;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Name=Internal;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_SetDate=2026-06-12T17:57:49Z;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_SiteId=72f988bf-86f1-41af-91ab-2d7cd011db47;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Tag=10,
+ 3, 0, 1;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=microsoft.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SA1PR21MB6683:EE_|SA1PR21MB6034:EE_
+x-ms-office365-filtering-correlation-id: a7a52910-ed44-41ad-d453-08dec8ad080b
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|366016|376014|1800799024|23010399003|56012099006|11063799006|38070700021|18002099003|22082099003;
+x-microsoft-antispam-message-info:
+ oQNl3DMkdK3MMT0CZMlH0hVpLx3j3MNq6BtN+cRtLW5yq2yqth07mF8YWY8fX47LvRxHxHyYoKyV1O9kGpY1nSE48zvhUqxBeAk4CoQCsxYR626AF3/BAvozisI1CMlas/uYKQK0UFCPKyhhEZ2BXpCxuLZq1ljDfC5Bj0Ubm6ZlZBDYvoTN19w8OyGXoiChSnHGViVEC/zOyE/io4ooGBsfRY4p0WRLVa5Fk4M6Px9BW38AxZvvhpwCAQNO+Ls58n89qd2UQ5Ja+o6HmxVUBC8fFwvSU6P4q0sjvk3YArNe+eonj5pz4BwiocMhYsCBbSacPQH4mVKoxnadfpnyK+TAI/flCpJqv1QzxppfiIooGdLdwaYnaE9d+ZxilFYJA/BKjX+xnaL24tn0u6M+NF9ts7iBSHKLza54JhrzJ6OnS/D3A2n6K4OMeX10oaqaDwWP6Ubl/GqPx2BXaBoVJo95UiGS3ZQ/wYfFqqehVhZxieWPZeLel3gu0vwBQq8zwPUDhJ2LeZHchKoo4WEQlPToMVu/itJHtrSBNhbVd9aI7bUjfDKVdInZY6D4AzDdiJkCXbtp12BmwHpNfhksbwSHk7SHo6el+DmLltseNv/Dnoi6lGVzsCrP06sAKv3TUcKGVF2PrSKKMKNncXF4mhEqnMEx8zcb1p8yWhuehh1Qps7HtNhZofmwIx0+gk4Nx7cTb4rWcdl59HQLZOtfcCk48K79bFvkSseKapCwNGxcftKbI+2+r+wUqOGwYUXn
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA1PR21MB6683.namprd21.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(23010399003)(56012099006)(11063799006)(38070700021)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-2?Q?BH0Xqo38ubvDUDxfPUvYYziIci/qmcJJsOCCitvKe1Add3eWjWdo3YnVbQ?=
+ =?iso-8859-2?Q?J27FVD8ctWGsyw98XTMtmGSwIw0g9cZSEF7xr6iYHEhw+HcOLWKPDDGmqp?=
+ =?iso-8859-2?Q?yA7hIWBooVhKDzKxoHonH2UVlOlmfOJABeqKqIEukdz6V93kAw5STJ/Tlx?=
+ =?iso-8859-2?Q?HnsilVFiC9bxK+SkKR+HvSAZHYo8jQ03Zyd53Jnj6K0H6JMvmmVbHGro0D?=
+ =?iso-8859-2?Q?kUtJkaRZWit0hJ4sm575O/ZfIRqGtSDC1tTtNwwNAvva42LuVEoXSAKsFt?=
+ =?iso-8859-2?Q?gwY92nk5v0yArx2lycMDLaq+9GuTf4zkQpMD3YYvI6R4/g+y8pBJwZd5Xk?=
+ =?iso-8859-2?Q?QYn1NPRrIgz4NzhGk7ZiFH7Yi+RxjNBJAIiNob1Y0Z3EH++9UYYKOqer+P?=
+ =?iso-8859-2?Q?iT4/DHXTmb1WfIDs8uFDIgOPmxdIQdUTPQf+iTJDq/1pkt8l+bRx6s9qRy?=
+ =?iso-8859-2?Q?Uj1lX2bA9Qbt4sqRM+Er38sOambDERBV6xuHuh8gSeYczjnCgK37AdfmD9?=
+ =?iso-8859-2?Q?NwQGMghTvFYYPPzKDPCTWO1Yqa22L5wT5xGenY29lBRvL/n1mtjWPrlxBc?=
+ =?iso-8859-2?Q?lK++YpWWDq84Jyy14G/FsH3X0fFTO7LM8iRaplKHi3xKQUyRb2dtsBj9AN?=
+ =?iso-8859-2?Q?bz0ur0aTzHPL65tCzCujWgyJMQAky/dJm3PkkGWdeaX879A/wS+KLg0XRh?=
+ =?iso-8859-2?Q?FVwmMX10P0euEOMdwwaz0D3g9jsMG0VRUFc+jTIt1dwpcl2zTClsgkz7T6?=
+ =?iso-8859-2?Q?EpkXDyminsuHTn5auC3jAVYXFYWhOGLJ3YrCweKowCdDfyyelMijFKDDwQ?=
+ =?iso-8859-2?Q?A8oCx2sN7yOKn4X4EFY1tFN313dHmvzxQtoqfsIQFPzXwc+j9/pWRr2ywN?=
+ =?iso-8859-2?Q?2npBgYJN/awMmoGlQ5XKtbUYnyIpBvoMXX5OJkToU30Wh9Y9KAviMYrxl7?=
+ =?iso-8859-2?Q?qUWyKI1+sO4EQ8l3gBZGa91Jlfs2IKeduM4iI19vADFKbJK5r21SdU7KQq?=
+ =?iso-8859-2?Q?zQFLgt8+0u1KAcKZLbu7YfXxqmS4FBmhCAky9wdptIOEZCcuDFi2ugTl05?=
+ =?iso-8859-2?Q?C/9ipIdHx7bblO/i10BbRVAw9stOw9v03VW7RC0RvheQBace24VhyhMn9f?=
+ =?iso-8859-2?Q?1qJ7fqyFj11y3Bc+qemarOvWZsQQA4VTPskmLkGJR7Pkj+4K2d48M4tau0?=
+ =?iso-8859-2?Q?AZqkAPeoqrqKyg0gdeflFFCe/bS5JEoDJ6xXMZUEbTPuO3vNGz6nFFgh28?=
+ =?iso-8859-2?Q?3qELXbwbWmGUdHQy4yDqpS6+hJPMoFxDlsu/WdFZOPQfI94UuCHTvc0R4+?=
+ =?iso-8859-2?Q?Y81FDx/OcZO9AlUXD4bWFljkzGOpaCe2CZ/6Wg3BIZpBOZzmBWgpFwCpCF?=
+ =?iso-8859-2?Q?SCpLfT36TMscv+SeNlfXuSQ18sDNyRaYNFf1DUvUcz9a3mIdBRCvWQD7ZN?=
+ =?iso-8859-2?Q?mQUImGxBdAnUHjgnlHKN8kTMKEu7z/eUa7r40BWLo7HAjlmNPWRkKBVV5P?=
+ =?iso-8859-2?Q?P1KJf0J2zytGyc/VUeUxpt6VptIVfume+yYRzVfPeCMHjz9noOCI2oHA5P?=
+ =?iso-8859-2?Q?vhoMHRbuajA83l29Dxy9M0p2mJ13ThEUQJALo21gR9y/UmoPuC+N3iC45G?=
+ =?iso-8859-2?Q?Z8MDo8U8fQKhkyyJuDxgNQmwL2TuvawqecdaXvWGgIgIJYV7KpLXRcLAwa?=
+ =?iso-8859-2?Q?Jni3ae/21Kidlew9cEK52XjFgNAZtPTN32s0Bs1GnvVUmIgxg8ZREUK1HE?=
+ =?iso-8859-2?Q?HJPfiadAW8JZbT1Qzl/iAvg5hdFF6SvgIX2PG/3T99yunV?=
+Content-Type: text/plain; charset="iso-8859-2"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: microsoft.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SA1PR21MB6683.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a7a52910-ed44-41ad-d453-08dec8ad080b
+X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Jun 2026 18:04:22.2722
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 72f988bf-86f1-41af-91ab-2d7cd011db47
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: HYo0GD4cCO8tmVedBo9P7aowVMmQqDR6L90wsyNwLQcPLt/dhKqucR4PV1u38qjGhC9ROYvTXpP9Qtng6+OEig==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR21MB6034
 
-It is possible that we never receive a rescind event, in which case we
-will wait indefinitely for a device that will never show up. So, assume
-a device is gone if have been polling for more than 5 seconds.
+> Subject: [PATCH] PCI: hv: add hard timeout to wait_for_response()
+>=20
+> It is possible that we never receive a rescind event, in which case we wi=
+ll wait
+> indefinitely for a device that will never show up. So, assume a device is=
+ gone if
+> have been polling for more than 5 seconds.
 
-Cc: stable@vger.kernel.org
-Fixes: c3635da2a336 ("PCI: hv: Do not wait forever on a device that has disappeared")
-Signed-off-by: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
----
- drivers/pci/controller/pci-hyperv.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+Can you explain in what situation we never receive a rescind event? If this=
+ for dealing a device unload when the vmbus is dead? Please provide more co=
+ntext. A kernel trace is helpful.
 
-diff --git a/drivers/pci/controller/pci-hyperv.c b/drivers/pci/controller/pci-hyperv.c
-index cfc8fa403dad..bd63efc4a210 100644
---- a/drivers/pci/controller/pci-hyperv.c
-+++ b/drivers/pci/controller/pci-hyperv.c
-@@ -52,6 +52,7 @@
- #include <linux/acpi.h>
- #include <linux/sizes.h>
- #include <linux/of_irq.h>
-+#include <linux/jiffies.h>
- #include <asm/mshyperv.h>
- 
- /*
-@@ -1038,6 +1039,8 @@ static void put_pcichild(struct hv_pci_dev *hpdev)
- 		kfree(hpdev);
- }
- 
-+#define TIMEOUT_MS 5000
-+
- /*
-  * There is no good way to get notified from vmbus_onoffer_rescind(),
-  * so let's use polling here, since this is not a hot path.
-@@ -1045,8 +1048,13 @@ static void put_pcichild(struct hv_pci_dev *hpdev)
- static int wait_for_response(struct hv_device *hdev,
- 			     struct completion *comp)
- {
-+	unsigned long timeout = get_jiffies_64() + msecs_to_jiffies(TIMEOUT_MS);
-+	unsigned long now;
-+
- 	while (true) {
--		if (hdev->channel->rescind) {
-+		now = get_jiffies_64();
-+		if (hdev->channel->rescind ||
-+		    time_after(now, timeout)) {
- 			dev_warn_once(&hdev->device, "The device is gone.\n");
- 			return -ENODEV;
- 		}
--- 
-2.54.0
+Does this patch handle the case where the rescind event comes in right afte=
+r the timeout?
+
+>=20
+> Cc: stable@vger.kernel.org
+> Fixes: c3635da2a336 ("PCI: hv: Do not wait forever on a device that has
+> disappeared")
+> Signed-off-by: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
+> ---
+>  drivers/pci/controller/pci-hyperv.c | 10 +++++++++-
+>  1 file changed, 9 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/pci/controller/pci-hyperv.c b/drivers/pci/controller=
+/pci-
+> hyperv.c
+> index cfc8fa403dad..bd63efc4a210 100644
+> --- a/drivers/pci/controller/pci-hyperv.c
+> +++ b/drivers/pci/controller/pci-hyperv.c
+> @@ -52,6 +52,7 @@
+>  #include <linux/acpi.h>
+>  #include <linux/sizes.h>
+>  #include <linux/of_irq.h>
+> +#include <linux/jiffies.h>
+>  #include <asm/mshyperv.h>
+>=20
+>  /*
+> @@ -1038,6 +1039,8 @@ static void put_pcichild(struct hv_pci_dev *hpdev)
+>  		kfree(hpdev);
+>  }
+>=20
+> +#define TIMEOUT_MS 5000
+> +
+>  /*
+>   * There is no good way to get notified from vmbus_onoffer_rescind(),
+>   * so let's use polling here, since this is not a hot path.
+> @@ -1045,8 +1048,13 @@ static void put_pcichild(struct hv_pci_dev *hpdev)
+> static int wait_for_response(struct hv_device *hdev,
+>  			     struct completion *comp)
+>  {
+> +	unsigned long timeout =3D get_jiffies_64() +
+> msecs_to_jiffies(TIMEOUT_MS);
+> +	unsigned long now;
+> +
+>  	while (true) {
+> -		if (hdev->channel->rescind) {
+> +		now =3D get_jiffies_64();
+> +		if (hdev->channel->rescind ||
+> +		    time_after(now, timeout)) {
+
+What if the VMBUS response comes in right after this check? The completion =
+is allocated on the caller stack, and it will cause kernel OOP.
+
+How do you test this patch?
 
