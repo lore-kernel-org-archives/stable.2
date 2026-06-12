@@ -1,144 +1,162 @@
-Received: from smtpbgbr2.qq.com (smtpbgbr2.qq.com [54.207.22.56])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F43012B143
-	for <stable@vger.kernel.org>; Fri, 12 Jun 2026 09:03:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.207.22.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D576F3932CA;
+	Fri, 12 Jun 2026 09:06:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781255014; cv=none; b=ZhlAEyRZp50J+AcnCawP3NPY3mnkmEyMyPfXp3JFpLfjSCGRwL+2h2WT4KK8t6LskM3bdGtYsFIhdPMT3LQifVCtL4buDk6/0atzilhRAq9iTH99seeWUEHEC+zEpoczQHuSKXJjE8JhFVab3IZJHWFdgKdwDdz/hkuwkleVbTU=
+	t=1781255198; cv=none; b=MkyB0G09ojiDxGkr/00RPlLyUfbqHNlaUfSteRoq21Xq4mALQwwI1Ng7mldyMVIpz2V7fjICPUx3r4lzJYGdCuJ0kZiRl3P41+HTuwRF91NreJSrR+WtNd+D8aMf5EkhOW1BJFGVj8uiYEI73WI+NLFU6aKRXbd7JeoiTR0e/mw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781255014; c=relaxed/simple;
-	bh=X31Kl78dLCDCMcs/F4rY6Z35nCi57iiNHRU1BErIdDQ=;
-	h=Date:From:To:Cc:Subject:References:Mime-Version:Message-ID:
-	 Content-Type; b=kSrrvKCw6oJnDWZRlNoJdO4PxOObfoyCi/mei7VUakDh27b6PD5uDgE1aOFz2ZqA3LVofQmlIJCMYFuUu7vdn74Wx9dlHv2y7jDVGF/CT/Sz9h/Z+0LizXLL4mZEK952Mmb3jJmqchBgO3Sb7+VHP+3WDNzxMz7vrPqhlBsJUk0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=FGr99Ahu; arc=none smtp.client-ip=54.207.22.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	s=arc-20240116; t=1781255198; c=relaxed/simple;
+	bh=bD1BoXiqmyShSlNLT1bIG3TBncZCHp9m1WFvtZGgQc0=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=GHVcuZpCdn8kqcfKUGE3cg81G7EnSlbo88mXj7grbYGRtkAg3eFZwxPWxqRnRQiKjmh7hQkQk1t3jHdPPZSWCKeWoMWvrMeQ/el5cX3uejh7ICR24YLoQkBKoaPJytuvdgUbURJtiz93STAxSIxY8ANIKEMTD3Pd6Ody/u+QXh0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=FhTI3J9w; arc=none smtp.client-ip=198.175.65.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="FGr99Ahu"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1781255001;
-	bh=X31Kl78dLCDCMcs/F4rY6Z35nCi57iiNHRU1BErIdDQ=;
-	h=Date:From:To:Subject:Mime-Version:Message-ID;
-	b=FGr99AhuZrENoWY9GqknwkZKnCG24UG8f7JxFUKExJepDUYL8n2WAhFvwmtGBEbd0
-	 kJJW4xOMMvVxZYv1bxWkfqLtjgxhZY4CpwhGpeudRCdi80pc7Zm9a2bfPBSsMLYtwn
-	 qwLjRSwZKdAqep/8QKUFKip7XKZeZofpkWvVde9Q=
-X-QQ-mid: esmtpsz11t1781254994td821a0de
-X-QQ-Originating-IP: JrpDEooSWmrGcBEWkJGnwpiWz7pwTm7IZMXTQ257GmE=
-Received: from PEN002676 ( [1.202.39.170])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Fri, 12 Jun 2026 17:03:11 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 13897525409563887300
-Date: Fri, 12 Jun 2026 17:03:12 +0800
-From: =?GB2312?B?1dS98MP3?= <zhaojinming@uniontech.com>
-To: "Nicolas Dufresne" <nicolas@ndufresne.ca>, 
-	tomeu <tomeu@tomeuvizoso.net>, 
-	ogabbay <ogabbay@kernel.org>
-Cc: sumit.semwal <sumit.semwal@linaro.org>, 
-	christian.koenig <christian.koenig@amd.com>, 
-	jeff.hugo <jeff.hugo@oss.qualcomm.com>, 
-	dri-devel <dri-devel@lists.freedesktop.org>, 
-	linux-kernel <linux-kernel@vger.kernel.org>, 
-	linux-media <linux-media@vger.kernel.org>, 
-	linaro-mm-sig <linaro-mm-sig@lists.linaro.org>, 
-	stable <stable@vger.kernel.org>
-Subject: Re: [PATCH v6 1/2] accel/rocket: Fix error path handling in rocket_job_run()
-References: <20260610061915.1CA281F00893@smtp.kernel.org>, 
-	<20260610071045.3414828-1-zhaojinming@uniontech.com>, 
-	<0e3b9cdb9d8bd692290dfabafb32d7faa5bd50f8.camel@ndufresne.ca>
-X-Priority: 3
-X-GUID: D35A159F-6825-4573-AE95-48F50940D356
-X-Has-Attach: no
-X-Mailer: Foxmail 7.2.25.375[cn]
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="FhTI3J9w"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1781255194; x=1812791194;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=bD1BoXiqmyShSlNLT1bIG3TBncZCHp9m1WFvtZGgQc0=;
+  b=FhTI3J9wErRBQoxmu7mM8aAflNnDbYp2wWoBRYlBohekdIMNuEKeMPIg
+   aA0V0wNBCFw+QO2zO2be9wjZePjqwERV1+f4ywB6Z5rvd2URThfuK1jcW
+   07sXxE8NSQvtWt+zPBe1KtHDMyiOitqTxbD/+gFmRM+nQrn/a/bzfbsVd
+   DZhWqEPfs8U0ksIQWEI+VlrRkBRikegSDzwcoLMJIex+1YuJlM9Qf3lrw
+   VzDrZ+DuCA0Nf3PKx+VAVYeSdR/rf0gFDt+BTVAqNfK5OFh+GxaYwCHGW
+   uV9QlI+/mjuX3iTlv1vxxg3uHbJHSJ3fZXO+69FcAesiR3FBbGqiJIRAo
+   A==;
+X-CSE-ConnectionGUID: Bp/lW3JOTsSW72+QSh9riA==
+X-CSE-MsgGUID: vwMdoXf+SiGwJP2rfmS/cQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11813"; a="85714427"
+X-IronPort-AV: E=Sophos;i="6.24,200,1774335600"; 
+   d="scan'208";a="85714427"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Jun 2026 02:06:34 -0700
+X-CSE-ConnectionGUID: EheoKvP3R/uuYRbPgxi40Q==
+X-CSE-MsgGUID: qOaetd5vRrOPJGqT8pxa/Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,200,1774335600"; 
+   d="scan'208";a="246838638"
+Received: from spr.sh.intel.com ([10.112.230.239])
+  by orviesa007.jf.intel.com with ESMTP; 12 Jun 2026 02:06:30 -0700
+From: Dapeng Mi <dapeng1.mi@linux.intel.com>
+To: Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Andi Kleen <ak@linux.intel.com>,
+	Eranian Stephane <eranian@google.com>
+Cc: linux-kernel@vger.kernel.org,
+	linux-perf-users@vger.kernel.org,
+	Dapeng Mi <dapeng1.mi@intel.com>,
+	Zide Chen <zide.chen@intel.com>,
+	Falcon Thomas <thomas.falcon@intel.com>,
+	Xudong Hao <xudong.hao@intel.com>,
+	Dapeng Mi <dapeng1.mi@linux.intel.com>,
+	stable@vger.kernel.org
+Subject: [Patch v3 1/8] perf/x86/intel: Remove anythread_deprecated bit from perf_capabilities
+Date: Fri, 12 Jun 2026 17:01:07 +0800
+Message-Id: <20260612090114.3188886-2-dapeng1.mi@linux.intel.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260612090114.3188886-1-dapeng1.mi@linux.intel.com>
+References: <20260612090114.3188886-1-dapeng1.mi@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Message-ID: <F5773C4B33DAB9B9+2026061217031108584617@uniontech.com>
-Content-Type: text/plain;
-	charset="GB2312"
-Content-Transfer-Encoding: base64
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpsz:uniontech.com:qybglogicsvrsz:qybglogicsvrsz4b-0
-X-QQ-XMAILINFO: NT7uTz3cNku21O2Qpo49ZX3qbjMEcHHwjR20QJ5Txmp+WOmPrG2dMary
-	MoRC55frpzDTh1rJAnmt0+nJsxhsJMTHgyRzJQliUkf8bPIgfDt/jfK3pNzgUytYBlGTp40
-	zvyjspZVajS+j7JObT4x+hciDJDR4o6JQhLI5d/3Jva6U9ecm8y9ZW2+vZ4WtZA4ayL7nun
-	dJbM3gzZry6V1zuR6GiI5jz82nguhi6Hjf8VDiMOMcSZBE6VKbeUAcHTxgS6HtYUSZAhwsI
-	V5OE4eG8pE1zjr0kb3S5WE3Yv+2OLfcEnTjgLdOL3Py6G0McN004WipMiEtHvOyUODvk6bQ
-	OOCjW/cVcTQCfM7Nkc2s8ogAZUmViVy3dILv77j/Btv6pjVfFFI5LAM4ts07ST1/V2sEHUG
-	b7klWidN3QCOAK2Oapyo2E+xrm+Y6PQ2qSRlBlGtj13iQN4aO+bHC8MFfB+/uSn/tkGg0k2
-	eNwZyAnc2eVNXHCNJIWPOQ25r442+VEbceBnDU/4Z5fX6eyQNj2LDIaJM665qvxx/OVLrrD
-	xRSw1dhibFd41cz18FV+6QdKPp3I3vTmKOzJtZA5fvM8fKVlOesAbcpaaeVeLhupCx1hp3R
-	aUNevySTmcVCKzPP13ZVFVxBq3A1h22QpHOvWP9ky/AU+3QgCq4Iqcpog1hn+q3Wb1Y1gFd
-	vsou7uZT1WMsfJGYhr4x+Egcp0g6RCetmYfGOeXS7gydbrwOwb3LECrtkmB+Og/2KDsEijh
-	JxJzMt0QUKBqLpIMYd71Rm2Ar93fvdUd0e1jPVXzHp2fe07PHhSFMSvd0PTr89dfKJg+ci8
-	m3E7Rc20hM2LTF4qs0WVBqMV41V3yXDsUMyXh9HtbQGQxHac+C/VLRebBV1x6HiANw0jJit
-	/UZY9uWkh0OB60ZCrtMUGW53e8pYjz3Ol3qHzXcJ5THa5Z+wt8KMya3l0IpyIRng5h27ZbH
-	BD3qxsFBEA3eLGDAc0X5znxpxtfhTzSmQSrmiJklC6W/RjdJxEOxugdW4JTowO8cH3sUqEo
-	TxL4ijRTcYOVVUQiBhsP+D1Fvyce8=
-X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
-X-QQ-RECHKSPAM: 0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-SGksCgpBcG9sb2dpZXMgZm9yIHRoZSBjb25mdXNpb24gY2F1c2VkLiBJIHdhcyB0cnlpbmcgdG8g
-aW5jb3Jwb3JhdGUgZmVlZGJhY2sgZnJvbSB0aGUgQUkgdG8gbWFrZSBteSBjaGFuZ2VzIHNhZmVy
-LCBidXQgdGhlIHJlc3VsdCBzZWVtcyB1bnNhdGlzZmFjdG9yeS4KCkknZCBsaWtlIHRvIHNwbGl0
-IHRoZSB0d28gaW5kZXBlbmRlbnQgZml4ZXMgYW5kIHRhY2tsZSB0aGVtIHNlcGFyYXRlbHkuIExl
-dCdzIGZpcnN0IHJldmlldyBbUEFUQ0ggdjYgMS8yXSBhY2NlbC9yb2NrZXQ6IEZpeCBlcnJvciBw
-YXRoIGhhbmRsaW5nIGluIHJvY2tldF9qb2JfcnVuKCkuCgpJIGN1cnJlbnRseSBkb24ndCBmdWxs
-eSBncmFzcCB0aGUgQUkncyBwcm9ibGVtIGRlc2NyaXB0aW9uIHJlZ2FyZGluZyBbUEFUQ0ggdjYg
-Mi8yXSBhY2NlbC9yb2NrZXQ6IEZpeCBpb21tdV9ncm91cCBsZWFrIGFuZCB1bnNhZmUgSVJRIHJl
-Z2lzdGVyIGFjY2Vzcy4KClBsZWFzZSBsZXQgbWUga25vdyBpZiBJIHNob3VsZCBzdGFydCBhIG5l
-dyB0aHJlYWQgZm9yIFtQQVRDSCB2NiAxLzJdLgoKVGhhbmtzLAoKCi0tLS0tLS0tLS0tLS0tCgoK
-ClpoYW8gSmlubWluZwoKCj5IaSwKCgoKPgoKCgo+TGUgbWVyY3JlZGkgMTAganVpbiAyMDI2IKik
-IDE1OjEwICswODAwLCBaaGFvSmlubWluZyBhIKimY3JpdD86CgoKCj4+IEluIHJvY2tldF9qb2Jf
-cnVuKCksIGFmdGVyIHRha2luZyBhbiBleHRyYSBmZW5jZSByZWZlcmVuY2UgZm9yCgoKCj4+IGpv
-Yi0+ZG9uZV9mZW5jZSB2aWEgZG1hX2ZlbmNlX2dldCgpLCB0aGUgZXJyb3IgcGF0aHMgaGF2ZSB0
-aHJlZSBidWdzOgoKCgo+PiAKCgoKPj4gLSBUaGUgZG1hX2ZlbmNlIHJlZmVyZW5jZSBoZWxkIGJ5
-IGpvYi0+ZG9uZV9mZW5jZSBpcyBuZXZlciByZWxlYXNlZCwKCgoKPj4gPyBjYXVzaW5nIGEgcmVm
-ZXJlbmNlIGxlYWsuCgoKCj4+IC0gcG1fcnVudGltZV9nZXRfc3luYygpIGluY3JlbWVudHMgdGhl
-IHVzYWdlIGNvdW50ZXIgZXZlbiBvbiBmYWlsdXJlLAoKCgo+PiA/IGJ1dCB0aGUgZXJyb3IgcGF0
-aCBkb2VzIG5vdCBkZWNyZW1lbnQgaXQsIGxlYWtpbmcgdGhlIHJ1bnRpbWUgUE0KCgoKPj4gPyBy
-ZWZlcmVuY2UgYW5kIHByZXZlbnRpbmcgdGhlIE5QVSBmcm9tIHN1c3BlbmRpbmcuCgoKCj4+IC0g
-QSB2YWxpZCBidXQgdW5zaWduYWxlZCBmZW5jZSBpcyByZXR1cm5lZCB0byB0aGUgRFJNIHNjaGVk
-dWxlciwKCgoKPj4gPyB3aGljaCB0cmlnZ2VycyBXQVJOKCJGZW5jZSAuLi4gcmVsZWFzZWQgd2l0
-aCBwZW5kaW5nIHNpZ25hbHMhIikKCgoKPj4gPyB3aGVuIHRoZSBzY2hlZHVsZXIgZHJvcHMgaXRz
-IHJlZmVyZW5jZS4KCgoKPj4gCgoKCj4+IEZpeCBieSByZXBsYWNpbmcgcG1fcnVudGltZV9nZXRf
-c3luYygpIHdpdGggcG1fcnVudGltZV9yZXN1bWVfYW5kX2dldCgpCgoKCj4+IHdoaWNoIGF1dG8t
-YmFsYW5jZXMgdGhlIHVzYWdlIGNvdW50ZXIgb24gZmFpbHVyZSwgcmVsZWFzaW5nIGJvdGggZmVu
-Y2UKCgoKPj4gcmVmZXJlbmNlcyBvbiBlcnJvciwgYW5kIHJldHVybmluZyBFUlJfUFRSKHJldCkg
-aW5zdGVhZCBvZiB0aGUKCgoKPj4gdW5zaWduYWxlZCBmZW5jZS4KCgoKPj4gCgoKCj4+IENjOiBz
-dGFibGVAdmdlci5rZXJuZWwub3JnCgoKCj4+IEZpeGVzOiAwODEwZDVhZDg4YTEgKCJhY2NlbC9y
-b2NrZXQ6IEFkZCBqb2Igc3VibWlzc2lvbiBJT0NUTCIpCgoKCj4+IFNpZ25lZC1vZmYtYnk6IFpo
-YW9KaW5taW5nIDx6aGFvamlubWluZ0B1bmlvbnRlY2guY29tPgoKCgo+PiAtLS0KCgoKPgoKCgo+
-VGhpcyBpcyBhIGxvdCBvZiB2ZXJzaW9ucyB3aXRoaW4gdGhlIHNhbWUgZGF5LiBZb3Ugc2hvdWxk
-IHNsb3cgZG93biBhIGxpdHRsZSBzbwoKCgo+YSBodW1hbiBjYW4gcHJvdmlkZSBhIHJldmlldywg
-YW5kIGFsc28gZG9jdW1lbnQgdGhlIGRpZmZlcmVuY2VzIGluIHRoaXMgc2VjdGlvbiwKCgoKPmFm
-dGVyIHRoZSAtLS0sIG9yIHVzaW5nIGEgY292ZXIgbGV0dGVyLgoKCgo+CgoKCj5OaWNvbGFzCgoK
-Cj4KCgoKPj4gP2RyaXZlcnMvYWNjZWwvcm9ja2V0L3JvY2tldF9qb2IuYyB8IDE5ICsrKysrKysr
-KysrKysrLS0tLS0KCgoKPj4gPzEgZmlsZSBjaGFuZ2VkLCAxNCBpbnNlcnRpb25zKCspLCA1IGRl
-bGV0aW9ucygtKQoKCgo+PiAKCgoKPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvYWNjZWwvcm9ja2V0
-L3JvY2tldF9qb2IuYwoKCgo+PiBiL2RyaXZlcnMvYWNjZWwvcm9ja2V0L3JvY2tldF9qb2IuYwoK
-Cgo+PiBpbmRleCBhYzUxYmZmMzk4MzMuLmU4YTA3M2UyMmFjMiAxMDA2NDQKCgoKPj4gLS0tIGEv
-ZHJpdmVycy9hY2NlbC9yb2NrZXQvcm9ja2V0X2pvYi5jCgoKCj4+ICsrKyBiL2RyaXZlcnMvYWNj
-ZWwvcm9ja2V0L3JvY2tldF9qb2IuYwoKCgo+PiBAQCAtMzEwLDEzICszMTAsMjIgQEAgc3RhdGlj
-IHN0cnVjdCBkbWFfZmVuY2UgKnJvY2tldF9qb2JfcnVuKHN0cnVjdAoKCgo+PiBkcm1fc2NoZWRf
-am9iICpzY2hlZF9qb2IpCgoKCj4+ID8JCWRtYV9mZW5jZV9wdXQoam9iLT5kb25lX2ZlbmNlKTsK
-CgoKPj4gPwlqb2ItPmRvbmVfZmVuY2UgPSBkbWFfZmVuY2VfZ2V0KGZlbmNlKTsKCgoKPj4gPwoK
-Cgo+PiAtCXJldCA9IHBtX3J1bnRpbWVfZ2V0X3N5bmMoY29yZS0+ZGV2KTsKCgoKPj4gLQlpZiAo
-cmV0IDwgMCkKCgoKPj4gLQkJcmV0dXJuIGZlbmNlOwoKCgo+PiArCXJldCA9IHBtX3J1bnRpbWVf
-cmVzdW1lX2FuZF9nZXQoY29yZS0+ZGV2KTsKCgoKPj4gKwlpZiAocmV0IDwgMCkgewoKCgo+PiAr
-CQlkbWFfZmVuY2VfcHV0KGpvYi0+ZG9uZV9mZW5jZSk7CgoKCj4+ICsJCWpvYi0+ZG9uZV9mZW5j
-ZSA9IE5VTEw7CgoKCj4+ICsJCWRtYV9mZW5jZV9wdXQoZmVuY2UpOwoKCgo+PiArCQlyZXR1cm4g
-RVJSX1BUUihyZXQpOwoKCgo+PiArCX0KCgoKPj4gPwoKCgo+PiA/CXJldCA9IGlvbW11X2F0dGFj
-aF9ncm91cChqb2ItPmRvbWFpbi0+ZG9tYWluLCBjb3JlLT5pb21tdV9ncm91cCk7CgoKCj4+IC0J
-aWYgKHJldCA8IDApCgoKCj4+IC0JCXJldHVybiBmZW5jZTsKCgoKPj4gKwlpZiAocmV0IDwgMCkg
-ewoKCgo+PiArCQlwbV9ydW50aW1lX3B1dChjb3JlLT5kZXYpOwoKCgo+PiArCQlkbWFfZmVuY2Vf
-cHV0KGpvYi0+ZG9uZV9mZW5jZSk7CgoKCj4+ICsJCWpvYi0+ZG9uZV9mZW5jZSA9IE5VTEw7CgoK
-Cj4+ICsJCWRtYV9mZW5jZV9wdXQoZmVuY2UpOwoKCgo+PiArCQlyZXR1cm4gRVJSX1BUUihyZXQp
-OwoKCgo+PiArCX0KCgoKPj4gPwoKCgo+PiA/CXNjb3BlZF9ndWFyZChtdXRleCwgJmNvcmUtPmpv
-Yl9sb2NrKSB7CgoKCj4+ID8JCWNvcmUtPmluX2ZsaWdodF9qb2IgPSBqb2I7CgoK
+AnyThread mode deprecation is enumerated by CPUID.0AH:EDX[15] instead of
+PERF_CAPABILITIES MSR. It's not a good practice to define a bit to
+represent "anythread deprecation" in perf_capabilities. It leads to the
+anythread_deprecated bit could be overwritten by the real value of
+PERF_CAPABILITIES MSR, just like the below code in update_pmu_cap() does.
+
+```
+if (!intel_pmu_broken_perf_cap()) {
+	/* Perf Metric (Bit 15) and PEBS via PT (Bit 16) are hybrid enumeration */
+	rdmsrq(MSR_IA32_PERF_CAPABILITIES, hybrid(pmu, intel_cap).capabilities);
+}
+```
+
+It leads to the anythread_deprecated bit is cleared to 0 and the "any"
+attribute is incorrectly shown in the /sys/devices/cpu/format/ folder on
+these support Perfmon v6 platforms, like Clearwater Forest.
+
+```
+$grep . /sys/devices/cpu/format/*
+/sys/devices/cpu/format/acr_mask:config2:0-63
+/sys/devices/cpu/format/any:config:21
+/sys/devices/cpu/format/cmask:config:24-31
+```
+
+So remove the anythread_deprecated bit from perf_capabilities structure
+and directly depends on CPUID.0AH:EDX[15] to judge if anythread is
+deprecated.
+
+Cc: stable@vger.kernel.org
+Reported-by: Namhyung Kim <namhyung@kernel.org>
+Fixes: cadbaa039b99 ("perf/x86/intel: Make anythread filter support conditional")
+Acked-by: Namhyung Kim <namhyung@kernel.org>
+Signed-off-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
+Reviewed-by: Zide Chen <zide.chen@intel.com>
+Reviewed-by: Thomas Falcon <thomas.falcon@intel.com>
+---
+ arch/x86/events/intel/core.c | 10 +++-------
+ arch/x86/events/perf_event.h |  2 +-
+ 2 files changed, 4 insertions(+), 8 deletions(-)
+
+diff --git a/arch/x86/events/intel/core.c b/arch/x86/events/intel/core.c
+index 0217e701aeeb..ea3ab3050a3b 100644
+--- a/arch/x86/events/intel/core.c
++++ b/arch/x86/events/intel/core.c
+@@ -7946,12 +7946,6 @@ __init int intel_pmu_init(void)
+ 
+ 	x86_add_quirk(intel_arch_events_quirk); /* Install first, so it runs last */
+ 
+-	if (version >= 5) {
+-		x86_pmu.intel_cap.anythread_deprecated = edx.split.anythread_deprecated;
+-		if (x86_pmu.intel_cap.anythread_deprecated)
+-			pr_cont(" AnyThread deprecated, ");
+-	}
+-
+ 	/* The perf side of core PMU is ready to support the mediated vPMU. */
+ 	x86_get_pmu(smp_processor_id())->capabilities |= PERF_PMU_CAP_MEDIATED_VPMU;
+ 
+@@ -8828,8 +8822,10 @@ __init int intel_pmu_init(void)
+ 				      &x86_pmu.intel_ctrl);
+ 
+ 	/* AnyThread may be deprecated on arch perfmon v5 or later */
+-	if (x86_pmu.intel_cap.anythread_deprecated)
++	if (version >= 5 && edx.split.anythread_deprecated) {
+ 		x86_pmu.format_attrs = intel_arch_formats_attr;
++		pr_cont("AnyThread deprecated, ");
++	}
+ 
+ 	intel_pmu_check_event_constraints_all(NULL);
+ 
+diff --git a/arch/x86/events/perf_event.h b/arch/x86/events/perf_event.h
+index eae24bb35dc1..5902a297daa1 100644
+--- a/arch/x86/events/perf_event.h
++++ b/arch/x86/events/perf_event.h
+@@ -668,7 +668,7 @@ union perf_capabilities {
+ 		u64	perf_metrics:1;
+ 		u64	pebs_output_pt_available:1;
+ 		u64	pebs_timing_info:1;
+-		u64	anythread_deprecated:1;
++		u64	__reserved:1;
+ 		u64	rdpmc_metrics_clear:1;
+ 	};
+ 	u64	capabilities;
+-- 
+2.34.1
 
