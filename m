@@ -1,99 +1,99 @@
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E01322E7BD9;
-	Fri, 12 Jun 2026 02:27:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BEB33385B6
+	for <stable@vger.kernel.org>; Fri, 12 Jun 2026 02:29:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781231236; cv=none; b=FoBBfPEEdnYIxTJO+GbnRw2XXPpCMxAfHQnwcv5/2zhN9aibpwQ6NxJTnEtX4XTUtDcrm4P8y6rOIf05EuPFNW8QqLebrEivl31YF1VspcKlE9ajaREFCC1ZsdbKnj36N9NNoAirAWOKRcWx5uch9UBdHjjJZ8ee0JUqQ8C25r4=
+	t=1781231343; cv=none; b=mz/djubqQCATkXB2VC2NyzHktciRlZGgSy/vCgMg4uYXEgzL7j7Cm5J8voEBUjKnzEefG8wl2zPB5QdSJGSeWiIDTjJw8wEuA+fOi78gbb5wyL+t0LXOhgN8XOLrAJHrrZALqsSzvn9YX6hyuZXz+DmwjwdyiAtRjcIEJluz6tk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781231236; c=relaxed/simple;
-	bh=4/9DIboo16CwMWTWGVTrdIxfi7nFUdiTLnCoCXD7wEY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=m12TZ0mqRAFIILLQtChCUyp2gBawtnyULBXqGPnHoTun4mbUn2QhVKJQz2RqIaClO9steg5H6mP+j8ddiI4mhIg/+byu3eWUjj8xsSrxhIw7uXJuvg2rrxSzwNJZh0AQcI0sb26hcS/C3tP8F4S8ynVGe/RvM6iyFPrRjzVa8fY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from localhost.localdomain (unknown [117.182.75.76])
-	by APP-01 (Coremail) with SMTP id qwCowACXPNV3bitqk_pbAQ--.10710S2;
-	Fri, 12 Jun 2026 10:27:04 +0800 (CST)
-From: WenTao Liang <vulab@iscas.ac.cn>
-To: perex@perex.cz,
-	tiwai@suse.com
-Cc: vulab@iscas.ac.cn,
-	chenziqing@xiaomi.com,
-	broonie@kernel.org,
-	cezary.rojewski@intel.com,
-	kees@kernel.org,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
+	s=arc-20240116; t=1781231343; c=relaxed/simple;
+	bh=7Iqd72ncQvRQKUtOsv57UJkiBgYzW1kb6U9Ky0hglWE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=KPqGQIonFlM5U/HwM2VTgLcbGKUDxJD9L/DojmpP0a6NJaMkWKshHwcCQPNbiss4jDH0qiGmddrT6/TmgCSlSPdFFdLG13YM/ZCfsF4JIJQZ00KtO7b9G4voKTX/0dXp960j+R+fkPsC4Y0Z9+ritzfAR3PrxsL2KsIZ0I9I91k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=morsemicro.com; spf=pass smtp.mailfrom=morsemicro.com; dkim=pass (2048-bit key) header.d=morsemicro-com.20251104.gappssmtp.com header.i=@morsemicro-com.20251104.gappssmtp.com header.b=twaQxo7Q; arc=none smtp.client-ip=209.85.214.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=morsemicro.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=morsemicro.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=morsemicro-com.20251104.gappssmtp.com header.i=@morsemicro-com.20251104.gappssmtp.com header.b="twaQxo7Q"
+Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2bf237e1433so5271325ad.1
+        for <stable@vger.kernel.org>; Thu, 11 Jun 2026 19:29:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=morsemicro-com.20251104.gappssmtp.com; s=20251104; t=1781231342; x=1781836142; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=bgU70E34PD3X1yhIwgVvpjjd0mgVE/TPAEH2m3iVtzI=;
+        b=twaQxo7Qa4Wxhdxe128gyoII3L8LIsd9YsFSrCZdlsUV/slimGEZTUAXYV0sDGxm+K
+         t2c5UvaGNVga3geif7U6zX31VeDGsbTsCvf7JLyEO/FfH5fO5ONSOEyxIJTlyQv2dnwO
+         SOxxYziWIs+Qrh24K/ow3/10+BmseOysapNsO+UIVTbTC2QmKeug7vcuZmqPKmNanGf4
+         AGdloaKnJD78cu8lHuU5TwgymuT0YZMqS2ft7CqlEAOY1joe3Ft6YuBjY1jI1+LRyVle
+         KSFi4tAcEd2I4uMuYKZqLHDD0Q8XtTJdwiZXhtXIw5HIbuvNFOT1Zurggae5fROKKanU
+         HGcQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781231342; x=1781836142;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=bgU70E34PD3X1yhIwgVvpjjd0mgVE/TPAEH2m3iVtzI=;
+        b=tRIauzPUupXjQzhh8QipOSMnCOGzHbwJ/lb1ZjfDJDvvftxpai/AnObaNErkNaLzou
+         uOmiAZXZRjNj43DJIW6/ZIdZop9HZIyuWUJaXfaTbowsxYEMasOa+P+SZtw9hM69NA+3
+         cHOIZxb62WfFlXR1tdaAw6YRgdk3pYTYh12zejFkFEwc5njB0GeUuxSI742B5vguqKo0
+         zJI1tftm5xBUG6jD1GXvItEBXZBU0Sir7qGgSYW7v6kznitQbqs8K8zh1sMO0ZtYIxX0
+         /WHhcY2v1r0Ggy5K3/mJJZRCI9VmMBq6LEHP565vBLuqcQb/9XWMLv+u+aHYEfOcIZrL
+         LMcQ==
+X-Forwarded-Encrypted: i=1; AFNElJ8arK1NbOUtXIns4rOSDTNJiZDCaDaCjF7+4k9W7F7bGVMQQafzWOBdk4PE3i2xphQ6ofsBJtA=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxVdQATG+pWq2KT0Zr35zjGlr3wXlKatAoP7YXh7N2rnlTWR5zY
+	YVY1mYl8w/we0l8e7a9rOH3M0hRVb64bWglO+lkTDmwCyT8DQfbqONKNnFcO6gGfnDY=
+X-Gm-Gg: Acq92OG9oTarECn3OTr8FGCUnRFtAcUbgy/6n+nJD/JnZq7TfHRdU/HqRKNqUHAGFuc
+	PwHHhoQV6gYDiO4P/aPgaQ7jLeQ1gMDuW6qJ0m6sYNkJF23lUQfnWDUpMi2TbgOKqOgzzyomEtE
+	o0d/Pd83/KWdF5CsomLG0GyOtLRO/yUCSw7yCx/SAtSGw9Ai1rJ5pEUl4eQy+hLRJ2olY7HQdtu
+	VbxdngOG43cWi+0KrCPkvgTfQCrLlS4aDlJQsdtN88tkZsf/Weq6rthvLKu/dWJmrQJpmBVEJbi
+	65Hl3izyO+LV+xbt3LjcNpstjSIZNBwjCTEIGaS8kM3f2Z4SIwHm2HAvXnQSX6rj1Bo/3wV0MDS
+	Za4IabW/E8d0zhERbSrI8MzvfwfNmREuS2iySehn44o8Amj87qgVoPs5znDD7M03dA/LlY3im1n
+	Uku49ugxM8ObRdIWa84b6SrmbuzZ4SAFEOhgQliZzlotPuaP9+mr0v3ZMz61ExaWsK
+X-Received: by 2002:a17:902:e750:b0:2c1:e04d:7cb5 with SMTP id d9443c01a7336-2c412841372mr11649715ad.34.1781231341705;
+        Thu, 11 Jun 2026 19:29:01 -0700 (PDT)
+Received: from localhost ([60.227.167.223])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c42f7c651dsm2952795ad.26.2026.06.11.19.29.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 11 Jun 2026 19:29:01 -0700 (PDT)
+Date: Fri, 12 Jun 2026 12:28:58 +1000
+From: Lachlan Hodges <lachlan.hodges@morsemicro.com>
+To: Zhao Li <enderaoelyther@gmail.com>
+Cc: Johannes Berg <johannes@sipsolutions.net>, 
+	Thomas Pedersen <thomas@adapt-ip.com>, linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, 
 	stable@vger.kernel.org
-Subject: [PATCH] ALSA: control: Fix power refcount leak in snd_ctl_elem_read_user
-Date: Fri, 12 Jun 2026 10:27:02 +0800
-Message-ID: <20260612022702.15371-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.50.1
+Subject: Re: [PATCH v2 2/2] wifi: cfg80211: derive S1G beacon TSF from S1G
+ fields
+Message-ID: <d65nudgv7m4s4ymi6vplknhibbqo44vetpt6fjdig65tahz5dh@7p4wzkmpjbm2>
+References: <20260610162700.58722-1-enderaoelyther@gmail.com>
+ <20260611161943.91069-4-enderaoelyther@gmail.com>
+ <20260611161943.91069-6-enderaoelyther@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qwCowACXPNV3bitqk_pbAQ--.10710S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7trWrWFyUurWrtFy7uF45ZFb_yoW8Gr17pr
-	4vgrZrKFyrtF4Fyay2qa10gr1fua43AFy3J3y8Gw1fGr13Wwn5ZrykA34rCF4YkFykWr4Y
-	qrsFkw1xJF9xCaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9214x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
-	6r4UJwA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Cr
-	1j6rxdM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
-	6xIIjxv20xvE14v26r106r15McIj6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr
-	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E
-	8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFV
-	Cjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWl
-	x4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r
-	1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_
-	JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYx
-	BIdaVFxhVjvjDU0xZFpf9x0JUQZ2fUUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAgQA2orLhmwpwAAs2
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260611161943.91069-6-enderaoelyther@gmail.com>
 
-snd_power_ref_and_wait() increments the power refcount before waiting.
-When it returns an error (e.g., -ENODEV due to card shutdown), the
-refcount is still held, as documented in its comment:
+On Fri, Jun 12, 2026 at 12:19:46AM +0800, Zhao Li wrote:
+> cfg80211_inform_bss_frame_data() parses S1G beacons with the extension
+> frame layout, but still reads the TSF from the regular probe response
+> layout after the S1G branch. For S1G beacons that reads bytes at the
+> regular management-frame timestamp offset instead of the S1G timestamp.
+> 
+> Use the 32-bit S1G beacon timestamp and the S1G Beacon Compatibility
+> element's TSF completion field when informing an S1G BSS. Keep the
+> regular management-frame timestamp read in the non-S1G branch.
+> 
+> Fixes: 9eaffe5078ca ("cfg80211: convert S1G beacon to scan results")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
 
-  "The caller needs to pull down the refcount via snd_power_unref()
-   later no matter whether the error is returned from this function
-   or not."
+Looks much better now when passive scanning, thanks :)
 
-snd_ctl_elem_read_user() fails to release this refcount on the error
-path, leaking a reference. This can impede proper card resource
-cleanup during shutdown sequences.
-
-Fix by calling snd_power_unref() before returning the error.
-
-Cc: stable@vger.kernel.org
-Fixes: fcc62b19104a ("ALSA: control: Take power_ref lock primarily")
-Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
----
- sound/core/control.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/sound/core/control.c b/sound/core/control.c
-index 135a994e2d9e..e3bb26206c39 100644
---- a/sound/core/control.c
-+++ b/sound/core/control.c
-@@ -1261,8 +1261,10 @@ static int snd_ctl_elem_read_user(struct snd_card *card,
- 		return PTR_ERR(control);
- 
- 	result = snd_power_ref_and_wait(card);
--	if (result)
-+	if (result) {
-+		snd_power_unref(card);
- 		return result;
-+	}
- 	result = snd_ctl_elem_read(card, control);
- 	snd_power_unref(card);
- 	if (result < 0)
--- 
-2.50.1 (Apple Git-155)
-
+Tested-by: Lachlan Hodges <lachlan.hodges@morsemicro.com>
+Reviewed-by: Lachlan Hodges <lachlan.hodges@morsemicro.com>
