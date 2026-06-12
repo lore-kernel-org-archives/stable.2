@@ -1,141 +1,158 @@
-Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com [209.85.210.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fout-a6-smtp.messagingengine.com (fout-a6-smtp.messagingengine.com [103.168.172.149])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63892376A1C
-	for <stable@vger.kernel.org>; Fri, 12 Jun 2026 13:58:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.180
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781272699; cv=pass; b=KHgRH0HMh95I4knRk/MBnhJBAqfDTe4P5EfGXwUBgfNppvkb/mrU/Z1gZhVjlxckSz8q+z9rz3DzNnBUfLjKsikJnOCLXb5KcT+sSnTkwpZIc9n5KX894OkjPWnAJ0jPBPLSa/wo/tz150/QirzqSs+/LiW15XG+wUZKOGRyp/0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781272699; c=relaxed/simple;
-	bh=7nkmyuk+mVPRHuMjba29kjsd8mvWEce3DORmTPAygTo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=uhwTFYAOun5BgYu3DdB3MrX6Q1yPKUNDWHHm1IUFEifNjtgQHZ/33pyQ9iTBPMJ8gIgIwjECApfhpYG6fGOoxUQvVPPNo3waVY0gSxiPM7nG0J9GebjrEaxENjGzfP0mc6UhCZ0MJMds18lkhz7OEsj99v2LlBT6bCujer6/qkc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Uvzkse3t; arc=pass smtp.client-ip=209.85.210.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CDBA27281E;
+	Fri, 12 Jun 2026 14:11:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.149
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781273507; cv=none; b=UQO/7UvBGud+HwGPbEFGHxC3AKRIbWcCML21MBKN7R4cOmjzzfXglB9CCEjHO8bf/f6JkN/OGlupjabtg1sohJvxVRLiPSpLK66D6N2IPpotl2gZwiIuPNe+fKp26K9nXiyI1oqMk4uRQ7GcSMDEvap2RRR0hD7C7doN8u72AKY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781273507; c=relaxed/simple;
+	bh=Df4fCoUdcVs0djnRvnPR6LDljKZzDQBUtAwHAx8rc+s=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QSVQGXh+DmtV077rRMnIlBkVBbkJ2HRqzGw7jAwwLUnqRB7LC/1l3Rt0PdaKh5c6FRMO9ZFCxPSrgyvYuzp/QVFYCKudgqU0qUf25DQJUL12HLA7ySV8EopULPDFyfmzpqTB+MSceYNZOGMxcyDpdSQwiZ4MBRrwVP1LUYedgQM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=queasysnail.net; spf=pass smtp.mailfrom=queasysnail.net; dkim=pass (2048-bit key) header.d=queasysnail.net header.i=@queasysnail.net header.b=ElouQG+G; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=WUr0fT8e; arc=none smtp.client-ip=103.168.172.149
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=queasysnail.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=queasysnail.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Uvzkse3t"
-Received: by mail-pf1-f180.google.com with SMTP id d2e1a72fcca58-842273a2c4dso726262b3a.3
-        for <stable@vger.kernel.org>; Fri, 12 Jun 2026 06:58:15 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781272695; cv=none;
-        d=google.com; s=arc-20240605;
-        b=ZmV4a5FLRxmAxJhsb6k9sE/Lqdgf1SCOG8J/Mdlbem86weL4Xb3jwizQAXNlRjyayS
-         xyQ6F327XXZ0WUDAPdqFzA67uC0+jzz0ZUS2+2J44oXspVARb+TXGaGQrssOxPHEF8pH
-         oSd+10YFOWjTFQv56hb9Ror05mnzqpiXE3GAQZM8WIjGDQBtMELbcRNcn75Y0j9W32Gy
-         6n101E6ZvHN76XH6QCVcnSSlv7MmVtyIIzefiu4O7wuwvYKWS9wvDp6MbdYBsUcPu1VK
-         brj6JScB7FEDKMoF8GvIceW6K54MeeBGRerXTQUfppt07b9+pSezH7qT7mGihawXIxfL
-         0SpQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=39JwziAVEtMY+TsSm//5hIngMfgIk9ci79M8m9H/nTI=;
-        fh=o0fl3Bh83bvlfg31i43fLGr86aw86whPwIkARPnSsF4=;
-        b=lZD1HSDWK2eNlvi6R9VV1J6GHSL8JZSTmVSMQkLLG/eys/AG9b1IFo+/Tf87IZ4Vm2
-         5x09EAZ55iurxhz4tT8VJ5LdsDzo7LIqY6Qm5UWKKnK4z5jygd15yKpw5bbfyr+v2teT
-         xMaQyv8qjBMAChYJptkJ8dsILo2VHenuuQEic766AM5YVWnb7py2YvCen3+LO3S33Zo9
-         OXZpiVTn3k2ymdYd8vPBHhLyiTUK8h0itAMgwXYta0G4Zu0DqOfYV21JxjuvsvXAml96
-         gwEGlypIMlVw7axSZ2bvkhkeHVYkf39/nrNbqMy0V222eqAZn81HkvFYvUSA/tWRFacl
-         Vhhg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781272695; x=1781877495; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=39JwziAVEtMY+TsSm//5hIngMfgIk9ci79M8m9H/nTI=;
-        b=Uvzkse3t6M4ckXfvjk3Dlo+4IHwe/pS0AIOu8/D+u+EsH6RRqbZK4F3nKFv14I28wv
-         fOzP/Dz6vHuorsA61dOZmcxHvuJvsRKcD+Xz9wtEk/eON7HDutc/89yuaz9NQGiVbh0O
-         cUpTyYdxv5ysumMmoIOmtcERqvU24+GH4qL0X1cyKY8oBJTbcCu2VpZuhauxdKa9KPta
-         NQNF8SWIB72XYi/iErktdgmEucuKSCHk8hWn4edjStKc1SKiB194WIbGTS6LRS5PMlR7
-         GA5uy1f8H5FVasaUoC+HpGSbQuIacUqk95e8echa8+OREBWN6aa+N/HTMoKdXYoZ8vnT
-         fDcw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781272695; x=1781877495;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=39JwziAVEtMY+TsSm//5hIngMfgIk9ci79M8m9H/nTI=;
-        b=TsXJf/aLbwdYozsCQprOnHyzEPgVZCvuOAlgsUvFHYGQh6dYnjeIW957HO6s1JJVm9
-         RbHFJptJCgehdlslzzsnnymXTvAeqdY4i/YLUL0Y13fDTjkqjBn2gr7abkEa6jZrkApy
-         KS6OprAKu3koA0d+JF0bk5DVr4KY6h139EcTzmVb11Rgu8mqyfbVy07F56Cpr5uT0zeG
-         U9gJlB0m4VWsRC3ZIjS8cCDNS01poFMHqWcBsumzRBIRqVzgkn5fmuANokK6PiK9Oh9j
-         fzBOWgsr0E+zP5F4LmzFYx4MT1CrlDeZc6gcpuaIGySioCxvuYST84EHCkjZwpT/km3Y
-         LoxQ==
-X-Forwarded-Encrypted: i=1; AFNElJ/N3hU+DgvlMk7Vsi18dsA6P4TEHGD4f7Bcq2WOhl/WUMH8oOl00zrrfpY7dPgpd014/3Gl9e0=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwtG7Ap11mAt+u45US+UxdQTftJfe80Gb4NcUvzPl1iaPfaEBsY
-	fSuuVTi1dODv9w+ul1nVy906WFcqKD4ifSvWJ7rNJCddXwo+iPWVOnQXcnhNg09RrWX04gLprsZ
-	DXoDitAamdE/kV37ZexqpW41ezmIZT9U=
-X-Gm-Gg: Acq92OHq5NkGXsijJto5ml4pmbzwpGQYFFGfQyAdPZlU1iOIbz3vDYwEx21KWyPLPTz
-	L/03hpZn6Q53z1vu3wqdt0+J0MEPUkkA+OoQ2WNNG9JJuax8nbHgjP8kJscPUwVswF9yp+O5BmY
-	TabV2QZJ/A6YCRy9Xa0OYAUe23NuSQw0fClViy0MlPYhyyNEQ6vQIhXNeENXlQ4bHLucmBI2NT8
-	PVJn5IEVhZX4BcBkRyc3R9KKcFj0h7AfGzQUlvdQqeAk+8lQGCY/K6OqOZTCozus/UUIvZa+ASM
-	+vEMSxBP8PgokskC3kUxuIFt4QLQyFe7FhMAmW4sSZKSjRSIAJCUP5oo1q2Jf/b3Cp2gVtKq0Hq
-	jadk6H8deRP0qtqEY
-X-Received: by 2002:a05:6a00:1884:b0:82f:50cd:e586 with SMTP id
- d2e1a72fcca58-8434cc0b172mr3363582b3a.13.1781272694689; Fri, 12 Jun 2026
- 06:58:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=queasysnail.net header.i=@queasysnail.net header.b="ElouQG+G";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="WUr0fT8e"
+Received: from phl-compute-09.internal (phl-compute-09.internal [10.202.2.49])
+	by mailfout.phl.internal (Postfix) with ESMTP id 31208EC01EA;
+	Fri, 12 Jun 2026 10:11:43 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-09.internal (MEProxy); Fri, 12 Jun 2026 10:11:43 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=queasysnail.net;
+	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
+	:from:in-reply-to:message-id:mime-version:reply-to:subject
+	:subject:to:to; s=fm2; t=1781273503; x=1781359903; bh=dEndtmW8Zt
+	TMda7QIg6sF0vFVj4BGicCZFpkRK9VafY=; b=ElouQG+GIFDhOUBu3oBk3Px/MS
+	V9EgwOfZSEplRumeb20VFnAJoSDjpWsC4kAdvc6+fpd07KlSYSnOERaUZ2N3VVqL
+	YI/i703LM6fMTEcSBuI5zUd0ymGqf7kdYY9VSz9kWCnneGsg4hzWDb6/1Mt1fJyz
+	P+mp6dev/slEH0s4yXTjfpeb30qvM5CmGiE04eHUKSldE2ZYYsUoVxTsj03zUfJ1
+	xhDHKRCqXZtSbu7KH2a2B5KZTXXen6WeVxd8UGW70UuB4g+S8ikC3PkoFKGEoZvY
+	Wii65cQnHN54GUfaC4HAiqUqadaQ+3flqdKN2NYP47VpnueBVtQIG36jmXxA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1781273503; x=1781359903; bh=dEndtmW8ZtTMda7QIg6sF0vFVj4BGicCZFp
+	kRK9VafY=; b=WUr0fT8e5tgXVvapB9+/n1GD1CEwsxdkNBoNvscT3J3Tq0gdIYt
+	Ww7tAKEMA1r7LFRxl6uPgAD1aLRUSaKpIUewTRGw4YGTA4QoCPCOJ2CEnNH8s7XI
+	zvVHyzRqzIGRUtMjXB2SqXISCbbsBsrjieeaj9P2jtyOtEkfQhe5aY1GuGCTGULN
+	gwayvtjnKCOITzXP0rtdeQtB1NgdlaYI45jYuei0jj8rkWKIdxjKDp+k+XPnNZYV
+	7UXMfFMtNNnP2L9DMyDB7iVMGBgsFoh8KA7QbyDxsOIT8ogvXSn0DW8IxNG8859B
+	xzJW3AnWDigbjBRnq8Kv+RNYlaRlgk3/4tg==
+X-ME-Sender: <xms:nhMsamMNeYKrQzeUTQIWhDwgWG40H7gU0DagZwsvqAph6uKAmAH9pw>
+    <xme:nhMsauQUw2RaZcKYOOwK4Or6IOMzFdXdTsNTJe5Jd9_1ibed_YGBXWHosevxntW7B
+    U_fbBxSFf2XW0eES4L9_exf0CpEl5o3QnQvgs45sMQ6hO39uWO0cv0X>
+X-ME-Received: <xmr:nhMsakiMeow-vYPlbmiqfVjM0ZI5IvYqMpSeL212ea59wrQfM_zp3ejEJfZaGJvpfC4P9oJCXyBiaogxGyj95HI>
+X-ME-Proxy-Cause: dmFkZTFutu7fOSifSPdZiAkew9cmWxaMqNAh3g8o5NsOswDzwZRgs0NZ+oY17XNpHjSuA8
+    RJeZpr7zwtEu1POda10jnW/hnR+L7fhsDtniyqd03iDU0sHf+Uh9sFXBw6CTQytn5u8LWt
+    a+Jr7ZndpeMAAKvKoJVEkSAXMJtTow7qRyUvVBSv38AJQYAhqKRjz1tC73/yBzWDEgafZ9
+    5c/I8rJqxwRX+ZMmmmkRyU89F55wFCwEQ2FSoy5MEq7VHOUxfUHALA63wlTSZroEQzBsAZ
+    VyIITlsj4fT0/x95UjLmqzlGA0uJGihETw2m7XRu7XXo9LOjhXTN4qSXVe5L9Ji8X+mbQR
+    MjWPl+MFxuyBdJkxBm8YP/YsywOqf80cXcqEWRCCAD3Cafh5GQtPQoDtM4/UaZLKc4HPUf
+    TOJhMBmJg5iLSnboXSGbWPwGSzj8L0Zt3aLkOXZ6+SfO7XSVKf/1THfZkb0XqmDsh0Vz0N
+    DgRuc5YtM9tSP/S1om2VHIMor9qRbR93e1U+iWOasyPG3uLIf9dG+Rk2D00kwTcakw7yxG
+    /6OKiZZn6yJ+LAqbq3Eq9fDCvDj40X8EqfrMZRNU0ygjc8bCAK25epIwSlwEaD1geDSYMw
+    sPckpfq1p6TdnflFWlpaKbKsFolTnsfGqZtlidV8SdJr5uYu9Lgp6i7GXB9g
+X-ME-Proxy: <xmx:nhMsan-Jxjv9xc1-2RGi5ZFpKI-96cpA-1D_hz0sVXZGu6SPVFcvDw>
+    <xmx:nhMsarEbLcRQ--gysMg3ccBj8vagembYgCo124xvqxxxKJet4-jlAA>
+    <xmx:nhMsaqnUDxLeutwf4aWpIOVDZlwaDtj7GFr48plNuLMzNd_PcEdIxg>
+    <xmx:nhMsavY93W7WbXBwpC-dOGHkoD0vUQoaZCOnA7mAdzRLLwfoWYHDMA>
+    <xmx:nxMsatHStJf9Uvb0GBYccK0KpZnh9sOYhiG07CHxsJxM2nPyiZwazUY0>
+Feedback-ID: i934648bf:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 12 Jun 2026 10:11:42 -0400 (EDT)
+From: Sabrina Dubroca <sd@queasysnail.net>
+To: netdev@vger.kernel.org,
+	steffen.klassert@secunet.com
+Cc: Sabrina Dubroca <sd@queasysnail.net>,
+	stable@vger.kernel.org,
+	Aaron Esau <aaron1esau@gmail.com>,
+	Yiming Qian <yimingqian591@gmail.com>
+Subject: [PATCH ipsec] espintcp: use sk_msg_free_partial to fix partial send
+Date: Fri, 12 Jun 2026 16:11:39 +0200
+Message-ID: <68ef5bdae251f605b0743d2e51c2a5cb285e5772.1781270325.git.sd@queasysnail.net>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260612012530.7889-1-vulab@iscas.ac.cn>
-In-Reply-To: <20260612012530.7889-1-vulab@iscas.ac.cn>
-From: Xin Long <lucien.xin@gmail.com>
-Date: Fri, 12 Jun 2026 09:58:03 -0400
-X-Gm-Features: AVVi8CdGRRqHLxpu5pXSGqJ6sSUoP3MuudWkexvLo07GnoDx744Nx0AV02fwFSE
-Message-ID: <CADvbK_fTdr7rtwK7jgO8wveVptnAK=JhBr_L+d7NaDv-6td6DQ@mail.gmail.com>
-Subject: Re: [PATCH] sctp: auth: fix inconsistent key release in
- sctp_auth_set_key error path
-To: WenTao Liang <vulab@iscas.ac.cn>
-Cc: marcelo.leitner@gmail.com, davem@davemloft.net, edumazet@google.com, 
-	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, 
-	linux-sctp@vger.kernel.org, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Thu, Jun 11, 2026 at 9:25=E2=80=AFPM WenTao Liang <vulab@iscas.ac.cn> wr=
-ote:
->
-> When sctp_auth_create_key() fails in sctp_auth_set_key(), the newly
-> allocated shared key was freed via kfree() instead of the proper
-> refcount-aware helper sctp_auth_shkey_release(). While both are
-> functionally equivalent in this specific error path (cur_key->key is
-> NULL, refcnt is 1, and the key is not yet shared), using kfree()
-> bypasses the refcount abstraction and creates a latent bug if the
-> code is later reordered (e.g. cur_key->key set before the allocation
-> check). All other error and success paths in this function correctly
-> use sctp_auth_shkey_release().
->
-> Cc: stable@vger.kernel.org
-> Fixes: 1b1e0bc99474 ("sctp: add refcnt support for sh_key")
-> Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
-> ---
->  net/sctp/auth.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/net/sctp/auth.c b/net/sctp/auth.c
-> index be9782760f50..84708f87392f 100644
-> --- a/net/sctp/auth.c
-> +++ b/net/sctp/auth.c
-> @@ -753,7 +753,7 @@ int sctp_auth_set_key(struct sctp_endpoint *ep,
->         /* Create a new key data based on the info passed in */
->         key =3D sctp_auth_create_key(auth_key->sca_keylength, GFP_KERNEL)=
-;
->         if (!key) {
-> -               kfree(cur_key);
-> +               sctp_auth_shkey_release(cur_key);
->                 return -ENOMEM;
->         }
->
-> --
-> 2.50.1 (Apple Git-155)
->
-This is more of a defensive programming change, so please target it to
-net-next and may drop the =E2=80=9CFixes=E2=80=9D tag.
+sk_msg_free_partial() ensures consistency of the skmsg at every
+iteration, without having to manually handle uncharges and offsets.
+This simplifies the code, and fixes some bugs in skmsg accounting when
+we don't send the full contents.
 
-Thanks.
+Cc: stable@vger.kernel.org
+Fixes: e27cca96cd68 ("xfrm: add espintcp (RFC 8229)")
+Reported-by: Aaron Esau <aaron1esau@gmail.com>
+Reported-by: Yiming Qian <yimingqian591@gmail.com>
+Signed-off-by: Sabrina Dubroca <sd@queasysnail.net>
+---
+ net/xfrm/espintcp.c | 34 +++++++---------------------------
+ 1 file changed, 7 insertions(+), 27 deletions(-)
+
+diff --git a/net/xfrm/espintcp.c b/net/xfrm/espintcp.c
+index d9035546375e..374e1b964438 100644
+--- a/net/xfrm/espintcp.c
++++ b/net/xfrm/espintcp.c
+@@ -212,43 +212,23 @@ static int espintcp_sendskmsg_locked(struct sock *sk,
+ 	struct sk_msg *skmsg = &emsg->skmsg;
+ 	bool more = flags & MSG_MORE;
+ 	struct scatterlist *sg;
+-	int done = 0;
+ 	int ret;
+ 
+-	sg = &skmsg->sg.data[skmsg->sg.start];
+ 	do {
+ 		struct bio_vec bvec;
+-		size_t size = sg->length - emsg->offset;
+-		int offset = sg->offset + emsg->offset;
+-		struct page *p;
+-
+-		emsg->offset = 0;
+ 
++		sg = &skmsg->sg.data[skmsg->sg.start];
+ 		if (sg_is_last(sg) && !more)
+ 			msghdr.msg_flags &= ~MSG_MORE;
+ 
+-		p = sg_page(sg);
+-retry:
+-		bvec_set_page(&bvec, p, size, offset);
+-		iov_iter_bvec(&msghdr.msg_iter, ITER_SOURCE, &bvec, 1, size);
+-		ret = tcp_sendmsg_locked(sk, &msghdr, size);
+-		if (ret < 0) {
+-			emsg->offset = offset - sg->offset;
+-			skmsg->sg.start += done;
++		bvec_set_page(&bvec, sg_page(sg), sg->length, sg->offset);
++		iov_iter_bvec(&msghdr.msg_iter, ITER_SOURCE, &bvec, 1, sg->length);
++		ret = tcp_sendmsg_locked(sk, &msghdr, sg->length);
++		if (ret < 0)
+ 			return ret;
+-		}
+-
+-		if (ret != size) {
+-			offset += ret;
+-			size -= ret;
+-			goto retry;
+-		}
+ 
+-		done++;
+-		put_page(p);
+-		sk_mem_uncharge(sk, sg->length);
+-		sg = sg_next(sg);
+-	} while (sg);
++		sk_msg_free_partial(sk, skmsg, ret);
++	} while (skmsg->sg.size);
+ 
+ 	memset(emsg, 0, sizeof(*emsg));
+ 
+-- 
+2.54.0
+
