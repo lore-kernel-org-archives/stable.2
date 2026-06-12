@@ -1,113 +1,144 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5CF63E9C2D
-	for <stable@vger.kernel.org>; Fri, 12 Jun 2026 11:41:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8437312831
+	for <stable@vger.kernel.org>; Fri, 12 Jun 2026 12:10:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781264520; cv=none; b=ZIxkVumg1RPx8XydeavHShVgnU0u4hvVw8q9ZCFy4igZAgfTK+gqqz5zf0gmGq0nNBimWVxNM6PChJy7mlc1U64DiFv4zlyYhjiOgZgpCKiEbPol4zhhQeTolB1Ilsuogjyq7gta8lFJBaLFZPr0RHbyuy/jF+CTiBjMr25OanM=
+	t=1781266254; cv=none; b=mxxFmVDXeScPj90AMOdUXraZuF9w6YB4nL2Zbe7JjpJ4Yfy/nTciztnXXEezeOzq0BpAajVJ/T1/UgJ/BYSt1+J67m8UubZGnWsQZmAZCwFiog3rHJweXBx8iLJhKeEf7qFx6hkhGWjuu26hE7m9OeRFyH09+LBueeWPik0cKtg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781264520; c=relaxed/simple;
-	bh=foR7FDI0458xlh+ugYqRvXItyPjd8fdWRXmqavzCmwE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jDX3ogqsRru5fbjPGO7vlZhQtzDCr719KaFD787mGGsJuO+xrvNmLE1VVeqfSuM+M9EQK51EK+bq/TjEhPBKn9Q0ziAQ53UToUf/OTTNMYF9Kau5w0X1G1SL4QbemkeHGHEn+5PYTlP1r8EN2PjalXguD6SvNV6+NgjANChlmbc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Iv/yMtR1; arc=none smtp.client-ip=209.85.128.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781266254; c=relaxed/simple;
+	bh=HZ9Ks0XPk0YTR1RMBY9S7/jI8tTrBBoWbjsfOfflUkk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=rcMAMG8pYO/gIJu+MWOwV3TF45+OsbmzxWeYGBF1XVrUG2txJy4CqplcySjES1NXxZpJvjH0fpAhSjfSI1/78zROyjmDDWXyHgYpQvUzX+nam+baueVBHWK9oymLAqQjY6hOzn98/CW3lbp0LRTMPBJJgIS22cuL8XhmtY/Jpgw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=BJFWQyuY; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Iv/yMtR1"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-490b211ee6aso5982185e9.3
-        for <stable@vger.kernel.org>; Fri, 12 Jun 2026 04:41:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781264517; x=1781869317; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=PsfAOfi1Tsu5nPJOTn7sIWBkXPhQghFPoGo70TQpeaM=;
-        b=Iv/yMtR1HzxzhrCnT6IgnTKDWXfRAek14KBOyEgza3MLsekBO7g6g4MAQdVFZ8DodL
-         Z4QI3kjFQUE7sGAmhkRpVu+MwfILCI6zOUe4D3lhRij4L8nvd4koArB5YkLt3VyUvll1
-         RO0PhZesoqv1PngNZM8YDFMiQgtUdI1aw8pn3snThYfm0gFmOYC1YEXjbf3FjdfJwMwI
-         z4+JASfEvfvEQmfHgDNigDFtpiYe7hs+LHDtWyeJTWa9iZ7HPzLv185IVGKfoBwBKdFp
-         tlBMg2YgGDEGRAWDywUYutXnj8YuI0eBM83cc/ySQnwLRAZnIF6z82vXA/7lZtXhml1U
-         0YjA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781264517; x=1781869317;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=PsfAOfi1Tsu5nPJOTn7sIWBkXPhQghFPoGo70TQpeaM=;
-        b=Gc5DPYAe75jI/TIoc8Ab7sJbqB1geH3ut+vSs3a+TPjh9jDFD0mYBcwF8lu4poyLg6
-         ZNensIDdWUeR+gWd/NmTZy5ndA40D+SfLQ8iAGSvDm/vM2/EVqHJqmx4uS6jZKDBWOz3
-         2xTWbSDLn4RkWCiiOKxxuzioMkhAR7wPxzEdqEjh54u+SLeLhoiraw23uqIxctxQctgq
-         4YnFN3koDhHX75EcpNQNi1HbewSjemwf4qBsz8SDT4fOEWZzMEW78oawCRW4w4XJ5oi+
-         6GFtoMJazdqZKRt6y1LvUyDdSPtupKhuCplFdkj9zd1s3SJnN91wVSYD6UR70OaeRarH
-         XkEg==
-X-Forwarded-Encrypted: i=1; AFNElJ946YpBO53T3if/6ZaN/ijtR5qOzU3zZuf0tztsvCMpGARJYvpDqNb2tA36TVyBCx2KxcNhJWM=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwsPNjAo9qlHSq/YTHnA62IyQORM4F6Si2InM0uhR+0nULEaXy1
-	Hlqp812Wp1Kpu/1h3hOuIt9zR5/gEFkMv+81XhfOhgC1E+WaoKUDnpfB
-X-Gm-Gg: Acq92OHTrVfNr+pnzqDwMZSO6J3I1rV81x1ZEcSEr81SidUG4MGyUr+RB8ROeYwkT61
-	gbQFuDuV9ovoqqsL+liiGkKdPFS/3D8bRGjDmegNO4pxDBqb6ZHYZO0cICbo8RURsNpqeTBhf96
-	XEUVLNzzOoVfjwCjwhP+9ZOyonjOAnkq96qQ3evKidq4AhN+9xUZaEJor4e0HgTz23rCzz6ntbA
-	tkLJME7HIZXl0qtkhFMKhBhI86sAelj2Jb2GZjM4WjmoLnJ+TSWGWwmpNa0H5U2VsnXrbyKJS56
-	biSuoJdzE28/1DgF3+YowKzKCmuUK/t1604exQiNeINDKxtXu4oD210/QJ/twOnm+zMQGwsVsx3
-	xsFslOdXiSlyuvLQfEDuJmaI9FMA4cppm0zQUGeuCXuyVztul6pJ861gticopMW9Z6FLKtRlQtB
-	GlAnppHYVdqsqJhItuEMnuX8B/laOvpByC5H0=
-X-Received: by 2002:a05:600c:2d84:b0:490:c2a3:1781 with SMTP id 5b1f17b1804b1-490ec50a93dmr19734205e9.34.1781264516906;
-        Fri, 12 Jun 2026 04:41:56 -0700 (PDT)
-Received: from localhost.localdomain ([92.180.79.206])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490ea4a128csm72735105e9.0.2026.06.12.04.41.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 12 Jun 2026 04:41:55 -0700 (PDT)
-From: Jipa Alexandru-Ionut <jipaionut@gmail.com>
-To: valentina.manea.m@gmail.com,
-	shuah@kernel.org,
-	i@zenithal.me,
-	gregkh@linuxfoundation.org
-Cc: linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Jipa Alexandru-Ionut <jipaionut@gmail.com>
-Subject: [PATCH] usbip: vudc: fix NULL pointer dereference in vep_dequeue
-Date: Fri, 12 Jun 2026 14:41:48 +0300
-Message-ID: <20260612114148.6849-1-jipaionut@gmail.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="BJFWQyuY"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1781266251;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=bAG/aaleL+KGNyeyu+ILijGdPmXoI66HYof8HAvsvrY=;
+	b=BJFWQyuYVpBx0tN6I6MqUehlsSHc7TBx/jLjtywXvtfaBAKwnqZCivghnO+t6c0mKSbqVe
+	8xGlcNjjUtrNZeFSHiqI4FcDDZrP/UEmxSmKqg8xalaSZedQ/vrViu2l7UENWSyHrB0/en
+	//FchL4uBsTF8/9rMmhVxHYxtscY4CM=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-5-3v5IX6EUPKqTgzN8ju9jJw-1; Fri,
+ 12 Jun 2026 08:10:50 -0400
+X-MC-Unique: 3v5IX6EUPKqTgzN8ju9jJw-1
+X-Mimecast-MFC-AGG-ID: 3v5IX6EUPKqTgzN8ju9jJw_1781266249
+Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 2CFA21800A7B;
+	Fri, 12 Jun 2026 12:10:49 +0000 (UTC)
+Received: from bfoster.redhat.com (unknown [10.22.80.93])
+	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 4E1E33008B34;
+	Fri, 12 Jun 2026 12:10:48 +0000 (UTC)
+From: Brian Foster <bfoster@redhat.com>
+To: stable@vger.kernel.org
+Cc: linux-fsdevel@vger.kernel.org,
+	linux-xfs@vger.kernel.org,
+	Gregg Leventhal <gleventhal@janestreet.com>,
+	Eric Hagberg <ehagberg@janestreet.com>
+Subject: [PATCH 6.12.y] iomap: don't revert iov_iter on partially completed buffered writes
+Date: Fri, 12 Jun 2026 08:10:47 -0400
+Message-ID: <20260612121047.397754-1-bfoster@redhat.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain
 Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
 
-vep_dequeue() reads the udc from req->udc, but struct vrequest's udc
-field is never assigned anywhere in the driver, so it is always NULL.
-The following dereference of udc->driver then oopses.
+Gregg reports that the iomap retry behavior for nonblocking (nowait)
+append writes is broken. The problem occurs when an append write is
+first submitted in non-blocking mode (i.e. via io_uring), partially
+completes before hitting -EAGAIN, and then is resubmitted from
+blocking context.
 
-vep_queue(), the symmetric path, correctly derives the udc from the
-endpoint via ep_to_vudc(ep); vep_dequeue() must do the same.
+The specific problem is that at least one iteration of the loop in
+iomap_write_iter() completes in non-blocking context and thus has
+bumped i_size. The next iteration hits -EAGAIN, reverts the iov_iter
+and returns. io_uring retries the entire append write from blocking
+context, but since i_size has already been increased, the data that
+was partially written on the first attempt is rewritten at the new
+i_size. This is essentially an intra-write data corruption since the
+data written to the file does not reflect the write from userspace.
 
-This is only reached when a request is queued at the time of dequeue.
-A FunctionFS gadget keeps OUT requests queued, so unbinding such a
-gadget from a usbip-vudc UDC (ffs_func_unbind -> usb_ep_dequeue)
-hits it and wedges the vudc subsystem.
+This problem is already fixed on master as of commit 1a1a3b574b97
+("iomap: advance the iter directly on buffered writes"). That commit
+was primarily intended to clean up iomap iter state tracking, but it
+also happened to remove the iov_iter revert and thus accidentally
+fix this problem as well. Without the revert, iomap will commit
+partial progress internally and loop once more before it more than
+likely hits -EAGAIN and returns partial progress consistent with the
+inode updates. This means the blocking retry from io_uring will pick
+up where the first attempt left off at the current i_size and
+perform the remainder of the write correctly.
 
-Fixes: b6a0ca111867 ("usbip: vudc: Add UDC specific ops")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jipa Alexandru-Ionut <jipaionut@gmail.com>
+Cc: <stable@vger.kernel.org>
+Fixes: 18e419f6e80a ("iomap: Return -EAGAIN from iomap_write_iter()")
+Reported-by: Gregg Leventhal <gleventhal@janestreet.com>
+Reported-by: Eric Hagberg <ehagberg@janestreet.com>
+Signed-off-by: Brian Foster <bfoster@redhat.com>
 ---
- drivers/usb/usbip/vudc_dev.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/usb/usbip/vudc_dev.c b/drivers/usb/usbip/vudc_dev.c
-index 100000000000..100000000001 100644
---- a/drivers/usb/usbip/vudc_dev.c
-+++ b/drivers/usb/usbip/vudc_dev.c
-@@ -344,7 +344,7 @@ static int vep_dequeue(struct usb_ep *_ep, struct usb_request *_req)
+Hi all,
 
- 	ep = to_vep(_ep);
- 	req = to_vrequest(_req);
--	udc = req->udc;
-+	udc = ep_to_vudc(ep);
+This relates to the discussion here[1]. Refer to the link for further
+details and the custom reproducer. Since this is a stable-only patch,
+I'd like to see at least one ack if possible from an iomap developer.
 
- 	if (!udc->driver)
- 		return -ESHUTDOWN;
---
-2.47.0
+Note that this patch introduces an extra iomap iteration in the write
+iter path before an -EAGAIN will return, but I went this route because
+this is current upstream behavior and I didn't want to introduce novel
+behavior in -stable, as trivial as it might be. This was initially
+developed as a custom/selective backport of 1a1a3b574b97, but as it
+turns out this is also effectively a revert of commit 18e419f6e80a. So
+FWIW, this is somewhat historical behavior as well.
+
+I plan to float a patch upstream to fix that loop wart soon. That would
+seem overkill to fix in stable to me, but if it does prove necessary we
+can revisit something like the custom version posted in [1] as a
+stable-worthy variant. I'd just prefer to only do that if/after that
+change proves acceptable upstream.
+
+Finally, note that I'm not intimately familiar with -stable process so
+I'm just sending a 6.12.y version here. Earlier branches can either also
+include this, revert 18e419f6e80a directly, or I can post targeted
+patches if needed. Thoughts, reviews, flames appreciated.
+
+Brian
+
+[1] https://lore.kernel.org/linux-fsdevel/CAFN_u7FrgM4Dzie2jjkLwWV8P0dvUG_Wwy3Q9B3-2HnnWiDu8w@mail.gmail.com/
+
+ fs/iomap/buffered-io.c | 4 ----
+ 1 file changed, 4 deletions(-)
+
+diff --git a/fs/iomap/buffered-io.c b/fs/iomap/buffered-io.c
+index 0178292c1864..5f885286b2f4 100644
+--- a/fs/iomap/buffered-io.c
++++ b/fs/iomap/buffered-io.c
+@@ -1037,10 +1037,6 @@ static loff_t iomap_write_iter(struct iomap_iter *iter, struct iov_iter *i)
+ 		}
+ 	} while (iov_iter_count(i) && length);
+ 
+-	if (status == -EAGAIN) {
+-		iov_iter_revert(i, total_written);
+-		return -EAGAIN;
+-	}
+ 	return total_written ? total_written : status;
+ }
+ 
+-- 
+2.54.0
+
