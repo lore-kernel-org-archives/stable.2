@@ -1,108 +1,80 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C113B3019C8;
-	Fri, 12 Jun 2026 09:08:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD71B363C45;
+	Fri, 12 Jun 2026 09:18:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781255329; cv=none; b=fORcVHzBfqKOjzsxiXMgUsI/3yx2grfxb6yP6syLWDY7GCua+R9HTWbozoz7wnLETjzlTH/8UCK7rqF8UtgpL/1Z29f1oVme+Ytg1dQodKBRMor+7bU/zETT9Oe/QTIW/7tgu5dK9C/TKn9JR0XxZDxPYDAjKvEosrH2afhxkPk=
+	t=1781255905; cv=none; b=PkRqrPYEY3M7xxfP1ijLr0y2vEbWBmcED5DYd6N3Yp6jQj2AgRm0dvDyiB/oYwl1mSTGu0GdUvMHZBW8rQgwsYOavVrOUAnAGo7AHdVIWZhf6ZhNIr+lPv7bGuAS388NH2731KYLP/sc0QHMqLtA+ZGFzWLjpL9QWhkq6G0COYU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781255329; c=relaxed/simple;
-	bh=X0h9qzffs4Mr+jLbQ6wsfgUWcYZaSs/OHsx1tSguQhA=;
+	s=arc-20240116; t=1781255905; c=relaxed/simple;
+	bh=p6mLgEebamRSmFLInTmIJ8H8nKUH3M3khSkpNIeMo10=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ESEz5m5y3cYI58i6eL+lOUok2ZpO3lpXo8Q0Nq68BTU+0OwpIxHBRsQx4njBjjDkOitRLKnMMKBwJaUNporkMpz1rxbyqaTHGPdLoQONs8q2J70r57nx8fFV89hU/bg7wNmTD9XTsS/tih/Pmdt+vvMj/V7azXmKGqWF2qnchNQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FFo6c/gw; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=VKCgR+wTB/EMia2O2eEnvtT4adIBxm3kMpNxOc88dQZBXVnwnRtceZ56Bru6ZmrCU+X2+e0DHNDHuLwRstLpgMdXNvPBBgN1cHBhXUbUDoyyUAfEVBsDQJaYuCe62zSinrK4IZN4VQ80oKKa8qLi5XtPGnvDqh9qhiV0Xg/spYg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oNKKriFS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FFo6c/gw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56C4A1F00A3A;
-	Fri, 12 Jun 2026 09:08:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oNKKriFS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 516721F000E9;
+	Fri, 12 Jun 2026 09:18:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781255328;
-	bh=uFe+jQS8ife+ArR1PefA5xIjFY5vP2b+bv7MvqxNs90=;
+	s=k20260515; t=1781255904;
+	bh=+C4NgQq6SCabqH2BMmWykUbryNnQiXiiBgq8CnIfvUY=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=FFo6c/gwD5+/iMeteUmloxED+zhI1Jsefq05Le1kipgpQnHu/2MhqurllCutE3XLq
-	 wYxFJrjztv+7CGF+DguhK4C/ZQlkOGTG1rftY6t73Qbd2lNklOILx6n8pMNUDpm0iQ
-	 tsK6OybAzAHvrYxFUy32m0j6P1FaZPRYWhMi0TRYdatebDbeKWfyq+X1b6duVSWUFB
-	 ypdQFpq50xfdR6eteNidBnHOUgszRuyQfT6wIiL5XcNDWHmUZyNsiLvyHBhJR3jYEO
-	 I213v0/uufi/t5ljalanAoJeMM7qMf7o9yA6RybVGjgQC7ixxt5AejlZ3rJ+zmzBQQ
-	 V2LyLKSCWIfOQ==
+	b=oNKKriFSCHWU/6nj6/FY+Wsn/qE1UuPYL5xwMEsu9hbCAtOFk9MFnUkUpTwvaj27G
+	 gPUWwE4zmNY8l4ThHGsQccuWydyXj2MKUSNrKJW0I86DFk3vn3dm4ijxea4CIFuH9X
+	 4A9fvrmwbelc4d3iB5yYNcHh+6PbxydCqRbK/2FL4VF52oB0S5HKPMe9rSR/uYWRU2
+	 wkihsEsQxcpPoJ/5b9D/P/SAz++9KXpk5TPcCzSykd+Ws5kgKnv1K7vzde4BX8mmrT
+	 4mxsefEfFe0n2Rnhd0thsp7I3O+0hZajx/JJd4cxUPZsIpI+TW72L8DeMXSSXjsJSO
+	 V+SwS6Dd9Ltbg==
 Received: from johan by xi.lan with local (Exim 4.99.3)
 	(envelope-from <johan@kernel.org>)
-	id 1wXxsb-00000002A1O-4AO2;
-	Fri, 12 Jun 2026 11:08:46 +0200
-Date: Fri, 12 Jun 2026 11:08:45 +0200
+	id 1wXy1u-00000002AFE-11eJ;
+	Fri, 12 Jun 2026 11:18:22 +0200
+Date: Fri, 12 Jun 2026 11:18:22 +0200
 From: Johan Hovold <johan@kernel.org>
 To: WenTao Liang <vulab@iscas.ac.cn>
-Cc: gregkh@linuxfoundation.org, stern@rowland.harvard.edu,
-	mathias.nyman@linux.intel.com, khtsai@google.com,
-	thorsten.blum@linux.dev, kees@kernel.org, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] usb: hub: fix refcount leak in usb_new_device()
-Message-ID: <aivMnTkZ-jTRH2Jy@hovoldconsulting.com>
-References: <20260611130223.80884-1-vulab@iscas.ac.cn>
+Cc: mathias.nyman@intel.com, gregkh@linuxfoundation.org,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] usb: xhci: fix refcount leak in xhci_port_bw_show()
+Message-ID: <aivO3rqbF6Mkjoxs@hovoldconsulting.com>
+References: <20260611132120.83185-1-vulab@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260611130223.80884-1-vulab@iscas.ac.cn>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260611132120.83185-1-vulab@iscas.ac.cn>
 
-On Thu, Jun 11, 2026 at 09:02:23PM +0800, WenTao Liang wrote:
-> If usb_new_device() fails after pm_runtime_get_noresume() has
-> been called, it does not release the corresponding reference.
-> In the successful path, the reference is properly dropped via
-> pm_runtime_put_sync_autosuspend().  However, when an error
-> occurs during enumeration (e.g. usb_enumerate_device() failure)
-> or device registration (e.g. device_add() failure), the function
-> jumps to the "fail" label.  That error cleanup path only disables
-> runtime PM and marks the device as suspended, never putting the
-> usage count back.
+On Thu, Jun 11, 2026 at 09:21:20PM +0800, WenTao Liang wrote:
+> If xhci_port_bw_show() calls pm_runtime_get_sync() and it fails with
+> a negative return value, the function returns the error directly without
+> calling pm_runtime_put_sync(). This leaks the runtime PM usage count,
+> preventing the device from ever suspending again.
 
-> This results in a permanent imbalance of
-> power.usage_count, preventing future runtime PM state transitions
-> and proper device cleanup.
+A failure to resume to the device will generally prevent the device from
+ever resuming again in itself.
 
-Not really, as the device is about to be freed. Sure, the runtime pm
-usage count is never balanced, but it does not have any practical
-implications whatsoever.
+> pm_runtime_get_sync() unconditionally increments dev->power.usage_count
+> before calling rpm_resume(). If rpm_resume() fails, the usage count is
+> not decremented — a well-known API pitfall. Add a pm_runtime_put_sync()
 
-> Fix the leak by adding a pm_runtime_put_noidle() call before
-> pm_runtime_disable() in the fail error path, which releases the
-> reference without queuing any suspend work and appropriately
-> matches the pm_runtime_get
+You are using pm_runtime_put_noidle() (as you should), not _sync().
+
+> call on the error path to balance the reference.
 > 
 > Cc: stable@vger.kernel.org
-> Fixes: 9bbdf1e0afe7 ("USB: convert to the runtime PM framework")
-
-So there is no need for either a Fixes or CC-stable tag here.
-
+> Fixes: 59d50e53e070 ("usb: xhci: Add debugfs support for xHCI port bandwidth")
 > Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
 
-How was this "issue" found? Are you using some kind of static checker or
-LLM?
+Again, how was this issue found?
 
-> ---
->  drivers/usb/core/hub.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/usb/core/hub.c b/drivers/usb/core/hub.c
-> index 24960ba9caa9..05f1a4267aec 100644
-> --- a/drivers/usb/core/hub.c
-> +++ b/drivers/usb/core/hub.c
-> @@ -2731,6 +2731,7 @@ int usb_new_device(struct usb_device *udev)
->  	device_del(&udev->dev);
->  fail:
->  	usb_set_device_state(udev, USB_STATE_NOTATTACHED);
-> +	pm_runtime_put_noidle(&udev->dev);
-
-The reference should be dropped after disabling (so that the device
-cannot possibly be suspended here).
-
->  	pm_runtime_disable(&udev->dev);
->  	pm_runtime_set_suspended(&udev->dev);
->  	return err;
+Also, "refcount" in the summary is a bit misleading as it makes it
+sounds like you're fixing a memory leak. Please use something like
+"runtime pm (reference) leak" instead.
 
 Johan
