@@ -1,158 +1,119 @@
-Received: from fout-a6-smtp.messagingengine.com (fout-a6-smtp.messagingengine.com [103.168.172.149])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CDBA27281E;
-	Fri, 12 Jun 2026 14:11:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.149
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96C86374E71
+	for <stable@vger.kernel.org>; Fri, 12 Jun 2026 14:14:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781273507; cv=none; b=UQO/7UvBGud+HwGPbEFGHxC3AKRIbWcCML21MBKN7R4cOmjzzfXglB9CCEjHO8bf/f6JkN/OGlupjabtg1sohJvxVRLiPSpLK66D6N2IPpotl2gZwiIuPNe+fKp26K9nXiyI1oqMk4uRQ7GcSMDEvap2RRR0hD7C7doN8u72AKY=
+	t=1781273651; cv=none; b=PVwiJMSgfbhjYJucgovz5nEivM+uiAjaGju9rVY8UtkrNMvFAuS+0XjkV75Q8L51gl3UvpcuiV4jxqha85Qi+CsA5p6vBnenwPNtxWusfecHnSXpYPpL3djH3Pzx2CI1sRpiG8R3sYYEt4UZfjhIbRSyDfCUpip0knt52EQuMRM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781273507; c=relaxed/simple;
-	bh=Df4fCoUdcVs0djnRvnPR6LDljKZzDQBUtAwHAx8rc+s=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QSVQGXh+DmtV077rRMnIlBkVBbkJ2HRqzGw7jAwwLUnqRB7LC/1l3Rt0PdaKh5c6FRMO9ZFCxPSrgyvYuzp/QVFYCKudgqU0qUf25DQJUL12HLA7ySV8EopULPDFyfmzpqTB+MSceYNZOGMxcyDpdSQwiZ4MBRrwVP1LUYedgQM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=queasysnail.net; spf=pass smtp.mailfrom=queasysnail.net; dkim=pass (2048-bit key) header.d=queasysnail.net header.i=@queasysnail.net header.b=ElouQG+G; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=WUr0fT8e; arc=none smtp.client-ip=103.168.172.149
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=queasysnail.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=queasysnail.net
+	s=arc-20240116; t=1781273651; c=relaxed/simple;
+	bh=vx8DmG5UbqBiDuSam9D1jCMImr/IEBCJFdfijvNQdKk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=aBeGTAsxluSuP6sbqWLo9OMKhcJ/wDbU2WSmcd4DQ+MO7FemPvhByUWQmFVo/VUkhZotg++LJKH3UYjQ/coq8n3eWXNmBgSUnFhQl+CMJt+Uv/V8qa4O+gfyGIx/C2Cgbya+RHwY74z5WaRkiYZO/mE59pt39daM6IGl+HOO68I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=En8tTTKU; arc=none smtp.client-ip=209.85.221.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=queasysnail.net header.i=@queasysnail.net header.b="ElouQG+G";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="WUr0fT8e"
-Received: from phl-compute-09.internal (phl-compute-09.internal [10.202.2.49])
-	by mailfout.phl.internal (Postfix) with ESMTP id 31208EC01EA;
-	Fri, 12 Jun 2026 10:11:43 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-09.internal (MEProxy); Fri, 12 Jun 2026 10:11:43 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=queasysnail.net;
-	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
-	:from:in-reply-to:message-id:mime-version:reply-to:subject
-	:subject:to:to; s=fm2; t=1781273503; x=1781359903; bh=dEndtmW8Zt
-	TMda7QIg6sF0vFVj4BGicCZFpkRK9VafY=; b=ElouQG+GIFDhOUBu3oBk3Px/MS
-	V9EgwOfZSEplRumeb20VFnAJoSDjpWsC4kAdvc6+fpd07KlSYSnOERaUZ2N3VVqL
-	YI/i703LM6fMTEcSBuI5zUd0ymGqf7kdYY9VSz9kWCnneGsg4hzWDb6/1Mt1fJyz
-	P+mp6dev/slEH0s4yXTjfpeb30qvM5CmGiE04eHUKSldE2ZYYsUoVxTsj03zUfJ1
-	xhDHKRCqXZtSbu7KH2a2B5KZTXXen6WeVxd8UGW70UuB4g+S8ikC3PkoFKGEoZvY
-	Wii65cQnHN54GUfaC4HAiqUqadaQ+3flqdKN2NYP47VpnueBVtQIG36jmXxA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1781273503; x=1781359903; bh=dEndtmW8ZtTMda7QIg6sF0vFVj4BGicCZFp
-	kRK9VafY=; b=WUr0fT8e5tgXVvapB9+/n1GD1CEwsxdkNBoNvscT3J3Tq0gdIYt
-	Ww7tAKEMA1r7LFRxl6uPgAD1aLRUSaKpIUewTRGw4YGTA4QoCPCOJ2CEnNH8s7XI
-	zvVHyzRqzIGRUtMjXB2SqXISCbbsBsrjieeaj9P2jtyOtEkfQhe5aY1GuGCTGULN
-	gwayvtjnKCOITzXP0rtdeQtB1NgdlaYI45jYuei0jj8rkWKIdxjKDp+k+XPnNZYV
-	7UXMfFMtNNnP2L9DMyDB7iVMGBgsFoh8KA7QbyDxsOIT8ogvXSn0DW8IxNG8859B
-	xzJW3AnWDigbjBRnq8Kv+RNYlaRlgk3/4tg==
-X-ME-Sender: <xms:nhMsamMNeYKrQzeUTQIWhDwgWG40H7gU0DagZwsvqAph6uKAmAH9pw>
-    <xme:nhMsauQUw2RaZcKYOOwK4Or6IOMzFdXdTsNTJe5Jd9_1ibed_YGBXWHosevxntW7B
-    U_fbBxSFf2XW0eES4L9_exf0CpEl5o3QnQvgs45sMQ6hO39uWO0cv0X>
-X-ME-Received: <xmr:nhMsakiMeow-vYPlbmiqfVjM0ZI5IvYqMpSeL212ea59wrQfM_zp3ejEJfZaGJvpfC4P9oJCXyBiaogxGyj95HI>
-X-ME-Proxy-Cause: dmFkZTFutu7fOSifSPdZiAkew9cmWxaMqNAh3g8o5NsOswDzwZRgs0NZ+oY17XNpHjSuA8
-    RJeZpr7zwtEu1POda10jnW/hnR+L7fhsDtniyqd03iDU0sHf+Uh9sFXBw6CTQytn5u8LWt
-    a+Jr7ZndpeMAAKvKoJVEkSAXMJtTow7qRyUvVBSv38AJQYAhqKRjz1tC73/yBzWDEgafZ9
-    5c/I8rJqxwRX+ZMmmmkRyU89F55wFCwEQ2FSoy5MEq7VHOUxfUHALA63wlTSZroEQzBsAZ
-    VyIITlsj4fT0/x95UjLmqzlGA0uJGihETw2m7XRu7XXo9LOjhXTN4qSXVe5L9Ji8X+mbQR
-    MjWPl+MFxuyBdJkxBm8YP/YsywOqf80cXcqEWRCCAD3Cafh5GQtPQoDtM4/UaZLKc4HPUf
-    TOJhMBmJg5iLSnboXSGbWPwGSzj8L0Zt3aLkOXZ6+SfO7XSVKf/1THfZkb0XqmDsh0Vz0N
-    DgRuc5YtM9tSP/S1om2VHIMor9qRbR93e1U+iWOasyPG3uLIf9dG+Rk2D00kwTcakw7yxG
-    /6OKiZZn6yJ+LAqbq3Eq9fDCvDj40X8EqfrMZRNU0ygjc8bCAK25epIwSlwEaD1geDSYMw
-    sPckpfq1p6TdnflFWlpaKbKsFolTnsfGqZtlidV8SdJr5uYu9Lgp6i7GXB9g
-X-ME-Proxy: <xmx:nhMsan-Jxjv9xc1-2RGi5ZFpKI-96cpA-1D_hz0sVXZGu6SPVFcvDw>
-    <xmx:nhMsarEbLcRQ--gysMg3ccBj8vagembYgCo124xvqxxxKJet4-jlAA>
-    <xmx:nhMsaqnUDxLeutwf4aWpIOVDZlwaDtj7GFr48plNuLMzNd_PcEdIxg>
-    <xmx:nhMsavY93W7WbXBwpC-dOGHkoD0vUQoaZCOnA7mAdzRLLwfoWYHDMA>
-    <xmx:nxMsatHStJf9Uvb0GBYccK0KpZnh9sOYhiG07CHxsJxM2nPyiZwazUY0>
-Feedback-ID: i934648bf:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 12 Jun 2026 10:11:42 -0400 (EDT)
-From: Sabrina Dubroca <sd@queasysnail.net>
-To: netdev@vger.kernel.org,
-	steffen.klassert@secunet.com
-Cc: Sabrina Dubroca <sd@queasysnail.net>,
-	stable@vger.kernel.org,
-	Aaron Esau <aaron1esau@gmail.com>,
-	Yiming Qian <yimingqian591@gmail.com>
-Subject: [PATCH ipsec] espintcp: use sk_msg_free_partial to fix partial send
-Date: Fri, 12 Jun 2026 16:11:39 +0200
-Message-ID: <68ef5bdae251f605b0743d2e51c2a5cb285e5772.1781270325.git.sd@queasysnail.net>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="En8tTTKU"
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-45efa80e0afso817273f8f.2
+        for <stable@vger.kernel.org>; Fri, 12 Jun 2026 07:14:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781273648; x=1781878448; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=vx8DmG5UbqBiDuSam9D1jCMImr/IEBCJFdfijvNQdKk=;
+        b=En8tTTKUgsgEKsbp4c067InHO3bs7OhMsj9WkHHY2W3zznqnGrfv2c+V/2I5rm5RMi
+         Lx49edctNFLWTUZ4kae5iRxq+APAIJk2h98QfTkeXXcE0Tn6pjJK9zpmCWCZgLuqnQYs
+         4NC1uloUq4X0+zeHqfUQWANvpAOwfpCJdR5KYywYnY7tZOEAIlz/7htodYb5rQ/riiY9
+         rUe1WK235zsSxCZVI0l2Oi8LLkXgJKhcwoApeNe/r3O3YZeLtb9Oo+lk9EXIGsZnrvax
+         j4jKazjqvdApeK6D95VRZj72KTo5YQ94KQ8IYxA9T53gEdFkkFzhvcJdsDmUQmpFAIBv
+         h7Yg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781273648; x=1781878448;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=vx8DmG5UbqBiDuSam9D1jCMImr/IEBCJFdfijvNQdKk=;
+        b=cTJ1OB9pUp9Q9J8tM2KLWl5UrfRSLcY2QQuw4jorX2cCuzWEbWLZ9bwd/lCONY7LgQ
+         MqmYknIigsQB7l+2MOpex24o5FrxLGbx4Qy1F7H+7n2teHWXMkr0zbXDlMvax8NvlYK7
+         KfibXdn2pr+oQDbzB3IrdTziZBF0IyKXjYb7mdwB3H4yuFA1rWwihWtvazYiSrN0mpIB
+         nI6JwPW1V1AtKWNkMGEnHJQX7XoXJR4PpM72sP5/ZTuULTusdbSAos5WaGCj15ZUJBAt
+         vd2TNjH8/uy1GSqmAhIG4GSdmckvr+BHcUVVrgiOQ6iLUUfLu0/IoiO2oScR2qN4rnlX
+         HU8A==
+X-Forwarded-Encrypted: i=1; AFNElJ+fTOYZHNfHoep2oRluGzhXM8c8ZazQ4CB2nZ9GGGlbIyHGn8KgH6ftqSh0zo0H51tfS3MmtUQ=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz6TG3UHdL51qdExI4J5HcWOiXKQ1CrvSY7+vE/bYRWIbc6pCgu
+	BD4kMb5V9qYs4/ClW+oQIBHc+WJqjbl1ZsvgyI7tLuFifU1Y9o/tN99r
+X-Gm-Gg: Acq92OHb+xWrzLO4rBfn5nTN8lWC5WWOrnRPTJ0W0yYQ3lGEA9VS4EyYU4+DpieYyhW
+	XuwdMRzcsPhFuilTDHxnKmF3xKjN9SPkCf2VjjVNXwEqaHJsjZ00p5vjvXk2e97Pw11+ZMiHpMU
+	SeXB1C5+QlXx736XtHydLpaqXvinK0Qz4GlWXJ3LM0vk6gwhNcJlyGwdOvvNN/bvvpODqzKQrdm
+	TBpfoPc4Kwd0TbjBvAS9SPDFvlLq/yEVtzFdXUhujZ+kLeU/Vsd4qyhyJqjcNyDIlB34f75eSK4
+	IT8R6+D6UVKbW+GStz7nkPdflLVPpjaFP+DT/+kEFJe54HIi3qFOfZ1XUtzEUIDgqCZwohUs7/B
+	Z57wtkdrdGAbQcgTp1fNxyv8RLyXrG0UCavYcPhcYczZDuzhouBSbs8jOSdrpm3I9xXsc0UNpf7
+	Q5kKcDSRcHD5pFGawIWjeOERU/D/aMJfjApPImNImHZcvGnTbH8rJX06DI7oqHkK4YZX5e/K8Bm
+	ybF8YzlaCoscypC9vDhaz4=
+X-Received: by 2002:a05:6000:228a:b0:460:1957:1b33 with SMTP id ffacd0b85a97d-4606db96685mr4520852f8f.3.1781273647702;
+        Fri, 12 Jun 2026 07:14:07 -0700 (PDT)
+Received: from ?IPV6:2001:9e8:f11c:fd01:da7:7547:99a1:b76a? ([2001:9e8:f11c:fd01:da7:7547:99a1:b76a])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4606f26392esm6485031f8f.3.2026.06.12.07.14.06
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 12 Jun 2026 07:14:07 -0700 (PDT)
+Message-ID: <ec27912c-a66e-4a81-8c8c-318d27ec62b5@gmail.com>
+Date: Fri, 12 Jun 2026 16:14:06 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v9 1/3] net: sfp: initialize i2c_block_size at
+ adapter configure time
+Content-Language: en-US
+To: Jakub Kicinski <kuba@kernel.org>
+Cc: Russell King <linux@armlinux.org.uk>, Andrew Lunn <andrew@lunn.ch>,
+ Heiner Kallweit <hkallweit1@gmail.com>,
+ "David S . Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
+ Maxime Chevallier <maxime.chevallier@bootlin.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, =?UTF-8?Q?Bj=C3=B8rn_Mork?= <bjorn@mork.no>,
+ Simon Horman <horms@kernel.org>, stable@vger.kernel.org
+References: <20260528205242.971410-1-jelonek.jonas@gmail.com>
+ <20260528205242.971410-2-jelonek.jonas@gmail.com>
+ <20260603180607.353551af@kernel.org>
+From: Jonas Jelonek <jelonek.jonas@gmail.com>
+In-Reply-To: <20260603180607.353551af@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-sk_msg_free_partial() ensures consistency of the skmsg at every
-iteration, without having to manually handle uncharges and offsets.
-This simplifies the code, and fixes some bugs in skmsg accounting when
-we don't send the full contents.
+Hi Jakub,
 
-Cc: stable@vger.kernel.org
-Fixes: e27cca96cd68 ("xfrm: add espintcp (RFC 8229)")
-Reported-by: Aaron Esau <aaron1esau@gmail.com>
-Reported-by: Yiming Qian <yimingqian591@gmail.com>
-Signed-off-by: Sabrina Dubroca <sd@queasysnail.net>
----
- net/xfrm/espintcp.c | 34 +++++++---------------------------
- 1 file changed, 7 insertions(+), 27 deletions(-)
+sorry for the noise.
 
-diff --git a/net/xfrm/espintcp.c b/net/xfrm/espintcp.c
-index d9035546375e..374e1b964438 100644
---- a/net/xfrm/espintcp.c
-+++ b/net/xfrm/espintcp.c
-@@ -212,43 +212,23 @@ static int espintcp_sendskmsg_locked(struct sock *sk,
- 	struct sk_msg *skmsg = &emsg->skmsg;
- 	bool more = flags & MSG_MORE;
- 	struct scatterlist *sg;
--	int done = 0;
- 	int ret;
- 
--	sg = &skmsg->sg.data[skmsg->sg.start];
- 	do {
- 		struct bio_vec bvec;
--		size_t size = sg->length - emsg->offset;
--		int offset = sg->offset + emsg->offset;
--		struct page *p;
--
--		emsg->offset = 0;
- 
-+		sg = &skmsg->sg.data[skmsg->sg.start];
- 		if (sg_is_last(sg) && !more)
- 			msghdr.msg_flags &= ~MSG_MORE;
- 
--		p = sg_page(sg);
--retry:
--		bvec_set_page(&bvec, p, size, offset);
--		iov_iter_bvec(&msghdr.msg_iter, ITER_SOURCE, &bvec, 1, size);
--		ret = tcp_sendmsg_locked(sk, &msghdr, size);
--		if (ret < 0) {
--			emsg->offset = offset - sg->offset;
--			skmsg->sg.start += done;
-+		bvec_set_page(&bvec, sg_page(sg), sg->length, sg->offset);
-+		iov_iter_bvec(&msghdr.msg_iter, ITER_SOURCE, &bvec, 1, sg->length);
-+		ret = tcp_sendmsg_locked(sk, &msghdr, sg->length);
-+		if (ret < 0)
- 			return ret;
--		}
--
--		if (ret != size) {
--			offset += ret;
--			size -= ret;
--			goto retry;
--		}
- 
--		done++;
--		put_page(p);
--		sk_mem_uncharge(sk, sg->length);
--		sg = sg_next(sg);
--	} while (sg);
-+		sk_msg_free_partial(sk, skmsg, ret);
-+	} while (skmsg->sg.size);
- 
- 	memset(emsg, 0, sizeof(*emsg));
- 
--- 
-2.54.0
+On 04.06.26 03:06, Jakub Kicinski wrote:
+> In the meantime - AI seems to also be saying something the cap being
+> potentially off by 1 in patch 2? We add 1 to the len? Maybe I'm
+> misunderstanding..
+>
+> https://sashiko.dev/#/patchset/20260528205242.971410-2-jelonek.jonas@gmail.com
 
+I had another look at that. The concern is theoretically valid, the I2C
+write path prepends the length byte to the data buffer. This could exceed
+the limit and would be rejected by I2C core/driver. But this is not a result
+of my patch, it can also happen without. My patch probably just brought
+that more into awareness.
+
+However, this isn't triggerable right now IMO, thus has no practical
+impact. In v8 I had a look at in-tree drivers with a potentially problematic
+constellation of max_read_len and max_write_len [1]. And looking at the
+SFP code, the biggest write being issued might end up with 3+1 bytes.
+This doesn't reach any existing driver limit.
+
+Given that, I'll send a v10.
+
+Best,
+Jonas
+
+[1] https://lore.kernel.org/netdev/4a1b13f4-9c68-4f4c-a676-fd61e2aeeab0@gmail.com/
