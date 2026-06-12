@@ -1,101 +1,65 @@
-Received: from mail-gw02.astralinux.ru (mail-gw02.astralinux.ru [93.188.205.243])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A9433659F9;
-	Fri, 12 Jun 2026 08:17:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=93.188.205.243
+Received: from mx.socionext.com (mx.socionext.com [202.248.49.38])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6F0AD2F5485;
+	Fri, 12 Jun 2026 08:17:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.248.49.38
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781252273; cv=none; b=U/LVWVVyJecNhP7uttwDruk44+fNPOPExxoXdSBoprcJQi6/fZGTHJQN2nAGcwTCMUYgrgE+6S7OrUBoHI1F7j0Q4o1KbBCoadNtDlbLPo1Q5bzWni3w418BKEEbVG0tgA0zAP5/XlFwGHdpPlPpd62UnvDOgRtuNy1698ND89w=
+	t=1781252280; cv=none; b=Cb2U1dNnvR+Q+CP/wRj+KFw+msgEgVPvc3jvv80nN8e+ko4+Is95dF9JxI9nBgDHbHgA54PKoCL9qECuAy4HOWL7NYeixTiD80lHg5jdY6U6MPLiPVOqRKt2R4NNtnphc6tMXLqmp037WaTLAwyTYXlZxjIi/MLwKVR1DrzoDGI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781252273; c=relaxed/simple;
-	bh=TxJTtvUFQGiGeIsHQ/Y8ukaeDA+u3Xj/pL//b+ibwEk=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=pyLbi8ETzkNgUpBZLynmQfrcv0VM5pDJ1/WTi4+1PTrdyy9PtN+FZ25RTvJv3e/SHC38YzLFipRg+65zaD7BQb6Bwb4ANKZSnQ0hTEbysNI5NO9OP13xJwwsglUGakyjtipb2xTdzwNb/pieBtyN7jV7EHXdXAJdUGdJYT8ocP4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru; spf=pass smtp.mailfrom=astralinux.ru; dkim=pass (2048-bit key) header.d=astralinux.ru header.i=@astralinux.ru header.b=i//JWAfY; arc=none smtp.client-ip=93.188.205.243
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=astralinux.ru
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=astralinux.ru header.i=@astralinux.ru header.b="i//JWAfY"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=astralinux.ru;
-	s=mail; t=1781252257;
-	bh=TxJTtvUFQGiGeIsHQ/Y8ukaeDA+u3Xj/pL//b+ibwEk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=i//JWAfYarjzo/tMRnjWIgQ9/CvkPb551veH9RktaKftyuKyE7uDNpVPEduZci6xl
-	 UEMLNmhCy7tr0d/FOo5lvOwGjgTHjzJjrVAJ/nFaKINPq8e/wE0czstcZdNCF8MwYj
-	 0vRRGFxHZsuzUpYpQksNR1S5hbJYGMoa3yfFBP0ISH5vKoa9a2ASNBAKBzcS5KkMZ7
-	 OpE29ZP0Jv/2sp479LnbG3o6Oeg9yzoqIhfjPLaV94ZuRQPy2nrrDkRX13Mxd1WpiR
-	 nCVzqrVnX29LYM1oEFGIicZ3MQfcZ8FXeaNf24tx/sKL3PDeYzUI2Uhor1ug3RdzBD
-	 cs6uk/FOIBsIg==
-Received: from gca-msk-a-srv-ksmg01.astralinux.ru (localhost [127.0.0.1])
-	by mail-gw02.astralinux.ru (Postfix) with ESMTP id 737CA1F95A;
-	Fri, 12 Jun 2026 11:17:37 +0300 (MSK)
-Received: from new-mail.astralinux.ru (unknown [10.205.207.6])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mail-gw02.astralinux.ru (Postfix) with ESMTPS;
-	Fri, 12 Jun 2026 11:17:35 +0300 (MSK)
-Received: from rbta-msk-lt-156703.astralinux.ru (unknown [10.198.16.160])
-	by new-mail.astralinux.ru (Postfix) with ESMTPA id 4gcC724lH1zwQNq;
-	Fri, 12 Jun 2026 11:17:34 +0300 (MSK)
-From: Alexey Panov <apanov@astralinux.ru>
-To: Sasha Levin <sashal@kernel.org>
-Cc: Alexey Panov <apanov@astralinux.ru>,
-	stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jens Axboe <axboe@kernel.dk>,
-	Pavel Begunkov <asml.silence@gmail.com>,
-	Prithvi Tambewagh <activprithvi@gmail.com>,
-	linux-kernel@vger.kernel.org,
-	io-uring@vger.kernel.org,
-	lvc-project@linuxtesting.org,
-	Li Zetao <lizetao1@huawei.com>
-Subject: Re: [PATCH 5.10] io_uring: prevent opcode speculation
-Date: Fri, 12 Jun 2026 11:17:20 +0300
-Message-Id: <20260612081720.3632-1-apanov@astralinux.ru>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20260611-stable-reply-0106@kernel.org>
-References: <20260610172203.27999-1-apanov@astralinux.ru> <20260611-stable-reply-0106@kernel.org>
+	s=arc-20240116; t=1781252280; c=relaxed/simple;
+	bh=d9UZVK29jJEql6NUZAMfkQ8JdAbaLItWGUyRU5X8ztY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=nKRCpJNDX1se5Ctg4ml3RcioVbcWZul6JNfTSmla5bwBkIl8B8M719tulDReDVTM2QCgWK5uxmHH63JauZYePo5C5BNc/AhE8emAr2uGe5oPL9NvOk0iEmhjAtB9n1FWsGswRHRVBH0PfeoH0UOT3w+pwjAWUFEuOLTFvMgvcpM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=socionext.com; spf=pass smtp.mailfrom=socionext.com; arc=none smtp.client-ip=202.248.49.38
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=socionext.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=socionext.com
+Received: from unknown (HELO iyokan3-ex.css.socionext.com) ([172.31.9.54])
+  by mx.socionext.com with ESMTP; 12 Jun 2026 17:17:50 +0900
+Received: from mail.mfilter.local (mail-arc02.css.socionext.com [10.213.46.40])
+	by iyokan3-ex.css.socionext.com (Postfix) with ESMTP id BDD322091480;
+	Fri, 12 Jun 2026 17:17:50 +0900 (JST)
+Received: from iyokan3.css.socionext.com ([172.31.9.53]) by m-FILTER with ESMTP; Fri, 12 Jun 2026 17:17:50 +0900
+Received: from [10.212.247.31] (unknown [10.212.247.31])
+	by iyokan3.css.socionext.com (Postfix) with ESMTP id 0C716107185;
+	Fri, 12 Jun 2026 17:17:50 +0900 (JST)
+Message-ID: <cd454dac-868d-43b9-9b50-9ba9f3f370a9@socionext.com>
+Date: Fri, 12 Jun 2026 17:17:49 +0900
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-KSMG-AntiPhishing: NotDetected
-X-KSMG-AntiSpam-Auth: dkim=none
-X-KSMG-AntiSpam-Envelope-From: apanov@astralinux.ru
-X-KSMG-AntiSpam-Info: LuaCore: 107 0.3.107 575e75fe8e3b9d45c142d144823c5de38605099e, {Tracking_internal2}, {Tracking_from_domain_doesnt_match_to}, new-mail.astralinux.ru:7.1.1;astralinux.ru:7.1.1;127.0.0.199:7.1.2;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1, FromAlignment: s
-X-KSMG-AntiSpam-Interceptor-Info: scan successful
-X-KSMG-AntiSpam-Lua-Profiles: 203816 [Jun 11 2026]
-X-KSMG-AntiSpam-Method: none
-X-KSMG-AntiSpam-Rate: 0
-X-KSMG-AntiSpam-Status: not_detected
-X-KSMG-AntiSpam-Version: 6.1.1.22
-X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.1.0.7854, bases: 2026/06/12 03:36:00 #28231850
-X-KSMG-AntiVirus-Status: NotDetected, skipped
-X-KSMG-LinksScanning: NotDetected
-X-KSMG-Message-Action: skipped
-X-KSMG-Rule-ID: 1
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] spi: uniphier: Fix completion initialization order before
+ devm_request_irq()
+To: Mark Brown <broonie@kernel.org>
+Cc: linux-spi@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Sangyun Kim <sangyun.kim@snu.ac.kr>,
+ Kyungwook Boo <bookyungwook@gmail.com>, stable@vger.kernel.org,
+ Masami Hiramatsu <mhiramat@kernel.org>
+References: <20260611113137.139673-1-hayashi.kunihiko@socionext.com>
+ <airBmzYhnxuK_xdh@sirena.co.uk>
+Content-Language: en-US
+From: Kunihiko Hayashi <hayashi.kunihiko@socionext.com>
+In-Reply-To: <airBmzYhnxuK_xdh@sirena.co.uk>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Jun 11, 2026 at 11:26:24AM -0400, Sasha Levin wrote:
-> The 5.10 backport itself looks fine, but I can't take it on its own:
-> 1e988c3fe126 is still missing from 6.6.y and 6.12.y (it's present in
-> 7.0, 6.18, 6.1 and 5.15), and we don't add a fix to an older tree while
-> a newer one is missing it. Once 6.6.y and 6.12.y carry it, I'll queue
-> the 5.10 backport.
+Hi Mark,
 
-Hi Sasha,
+On 2026/06/11 23:09, Mark Brown wrote:
+> On Thu, Jun 11, 2026 at 08:31:37PM +0900, Kunihiko Hayashi wrote:
+>> The driver calls devm_request_irq() before initializing the completion
+>> used by the interrupt handler. Because the interrupt may occur immediately
+>> after devm_request_irq(), the handler may execute before init_completion().
+> 
+> This doesn't apply against current code, please check and resend.
 
-Unless I am missing something, the fix is already present in both trees:
+That seems a bit strange. I applied this patch to v7.0 and linux-next successfully.
+Which tree did you apply to and fail?
 
-  6.6.y:  b9826e3b26ec ("io_uring: prevent opcode speculation"),
-          included since v6.6.80
-  6.12.y: 506b9b5e8c2d ("io_uring: prevent opcode speculation"),
-          included since v6.12.17
+Thank you,
 
-Both commits explicitly reference upstream commit 1e988c3fe126 and were
-committed on February 27, 2025.
-
-Could you please re-check and queue the 5.10 backport?
+---
+Best Regards
+Kunihiko Hayashi
