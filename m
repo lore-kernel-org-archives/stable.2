@@ -1,148 +1,282 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from pdx-out-012.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-012.esa.us-west-2.outbound.mail-perimeter.amazon.com [35.162.73.231])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCA503242D9
-	for <stable@vger.kernel.org>; Fri, 12 Jun 2026 20:30:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1A462BE051;
+	Fri, 12 Jun 2026 20:39:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.162.73.231
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781296230; cv=none; b=bUWYPYlENc+8mYpmcL08tUIRjSwmM71/Lx8ym14iVjwUzAxS+ZEhWT6moRRjWP99DuTbT7IO8WBj5vDbBYRBJGWtT+6qXzBBfYT32SU9AIFxWqHhboL3cwNaxJ8m0xKb7yGhmtczBlry4s/7s3SnYMOsU48zjNnuMX1AKgCXk+o=
+	t=1781296767; cv=none; b=papJeDYSYMIz8E5gkE1m+L6zpyHlFmXs3le3pCwmtYE6VDN1L5nYCK0wi6FRDD5b/ugWgI5v2PNsh5w/MMLXqmJ3dLK41mZJOyAylw/wclLoh4PLO656KIpHGLBdygTQjIcoebdB40JubPKHxCaimrRy+b41v+0p/6eWX2nMfKg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781296230; c=relaxed/simple;
-	bh=Lt0k7jTl9l5Je/muEANY8WmcYg3cqaLLaJEUOSsDldY=;
-	h=Message-ID:Subject:From:To:Cc:In-Reply-To:References:Content-Type:
-	 Date:MIME-Version; b=SNK2SouFRwGZZlQXK3nbfkUCcHB6QTz0lbCThgHXH/TOexER4tj6aVXhr5Oxw2IwPzPOnyVXZHh+iVAd1D3rc2ZCd6xyTpGZvMxX0LEjvTAl1MzAzulW3OknGZUizAiF2GwAlIfU15xhVeR4Y+5ZYBdAhvunznILE/r0noGotbk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=S2vliFHj; arc=none smtp.client-ip=209.85.128.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781296767; c=relaxed/simple;
+	bh=O6uXEHCEENslGyHqpXetmNJvmRta+pvq57ub6gleW/w=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=KqLrib968DL+8vl7aI+kAyk0eNA4k+gdIdzR9LSifxNV3C/Yw3LxxJqVy1MAQ7DoAvVGWpaTe8gbifkawsapLmwDukPQdlxTIIhNWheSPROEoGos+vUdL4UaUTw/BeXsyxjBy80YLvNWyQoHOlUpB1aOIFLb1aVIaQlNC62V3Qw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=pnrKfPd/; arc=none smtp.client-ip=35.162.73.231
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S2vliFHj"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-490cdae130cso7546765e9.0
-        for <stable@vger.kernel.org>; Fri, 12 Jun 2026 13:30:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="pnrKfPd/"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781296227; x=1781901027; darn=vger.kernel.org;
-        h=user-agent:mime-version:date:content-transfer-encoding:references
-         :in-reply-to:cc:to:from:subject:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=8htq1iA3RMdrMAEb9/pJl3QbqhjPj8uKRlayNFVpG8w=;
-        b=S2vliFHjQ0WyVNDCV+A6eTsG9B3JMAPFGST8SX8NRhzjG09q0GfP1qcw0Q3jUJhnMj
-         djeRNlkP/WCxqgLpAqffcuUTa4NM6Fy9/mVK08yXrs+sXHtoh9vY+yu+EXvmzbkHnJB+
-         dFAzl/8tqGVd1Ce9nFFmzOzSVpFGqzlxKVwUSjCtOXTsl5RsvuRW3ni4hJ9kdrzW/fX9
-         HmiK5kMEUW9xRPvzzFDMeyOHBZr44FZKMEv/1/KR9myLW4FpLRYNjTDctXwvmxtbEqYO
-         A4ceJzSCZnKnejFEZQYuo09QSaTyEYCykcU6u/CdoNlVzcTOEJqhy62OF1Be4Pp9kilD
-         dyaw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781296227; x=1781901027;
-        h=user-agent:mime-version:date:content-transfer-encoding:references
-         :in-reply-to:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=8htq1iA3RMdrMAEb9/pJl3QbqhjPj8uKRlayNFVpG8w=;
-        b=FI2qY70hHM4Kg/GDIMDF6KTmvQzFL+dlN3zfdnE85eF88u/0RjgrSmV6aWQ3vnriU+
-         T8DrLzs5D8A6UCiFcHR7B9HeAub3rYIuo8jcppLU9m3ZujFW4D2ua7661/0B7aaCK6im
-         bAFqEYFOBDJlDCzkiLWGPe3D0nmOTGL2eRqWdm+CcRhwZj3Y38z4sPqVonE+/Gwey8qH
-         nRaZdBMZ364J8ZFNMGh2O+Exx67Qh29C67wJR1qgouK4GjboNvPx1+stLNRBIdokyknJ
-         3NI4z6sfIkItT376a3J41npwvwxc4yDbNA0a3YaHDeTaVJoSrK76lqWEt9zgnVU0WO63
-         mU1A==
-X-Forwarded-Encrypted: i=1; AFNElJ/UVluqfVYeoX2iYQqTzNu3sOXeQb5oi1kIerZy8UQb/y1GSSd0rG8LRczOovTzI6u424Fgals=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxRtkVQEsCK9VKcSZ2/+pOx9rMxMY4B9UZdYTxJMoelQJwbRX0H
-	IeVm/RrGwctpqSCMXK3f7rZaeiVDOZxkvFeobdeWF/S8Lq64iyjZkNN7
-X-Gm-Gg: Acq92OGWNR1MKW+d65YqyQ8cgPd/Gq8a/XoX5nIGa9ibQd21p40oT7fkcGBe8xQdZUL
-	iP6cw7jLMvpm5yFbSkEEpNg0Dautv5NaK74rXiCPW9n/B4cKfYVg6bmvl7mDJG14TUeU7+9o3ch
-	iGOdBSsY7Z0CNWPZjLeve9cKK7jbHRb8Umi4hhayB4ZmYoyAHzkaN7cTOKb5FvUnmv0XDe6R8FA
-	qRQ5UlThJSWgXE9Mcu1CfY83SCZcSJBeLAOT+8NNiOE8b/8p1WXKOZC4/NMnuJY+xvi37GmP3TA
-	V0iekG/2zdOFZ2R+5yYznnqYooB57WCY81h7hSXtGEbrj5kdiVrOhgphE/s9jcQs7ZnbdDuqUkT
-	6pDRsQyqQjxjEsKx73E+pH5EwQOh4LnnjS59Oj5dmPgbhV/cEdPfBPHmdYNsEjIBxjuijtTLMQf
-	r4sNE4JAnbGin3kGhmuY8nvZxzSrzlVX43NUhpPOtw1d7u560cSdTpdCqbe3JK1gHimqLQVFKj7
-	O/7FHHWbpCo6IxOukMV5yj3G2RYxe1wAiM=
-X-Received: by 2002:a05:600c:2d88:b0:48e:7854:1608 with SMTP id 5b1f17b1804b1-492200e24cfmr7047295e9.25.1781296227009;
-        Fri, 12 Jun 2026 13:30:27 -0700 (PDT)
-Received: from denis-elite6.lan (178-222-30-44.dynamic.isp.telekom.rs. [178.222.30.44])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-492203d05d1sm19055385e9.12.2026.06.12.13.30.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 12 Jun 2026 13:30:26 -0700 (PDT)
-Message-ID: <81d699c6fafb51c3f5d5adc657057706b07d9ee1.camel@gmail.com>
-Subject: Re: [PATCH v2] ALSA: hda/realtek: Enable micmute LED on HP
- EliteBook 6 G1a
-From: Denis Batishchev <ii343hbka@gmail.com>
-To: Geraldo Nascimento <geraldogabriel@gmail.com>
-Cc: tiwai@suse.com, perex@perex.cz, linux-sound@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-In-Reply-To: <aiggF41W3LlKDts4@geday>
-References: <20260604131518.45993-1-ii343hbka@gmail.com>
-	 <20260609135607.3960625-1-ii343hbka@gmail.com> <aiggF41W3LlKDts4@geday>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 12 Jun 2026 22:30:20 +0200
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+  t=1781296765; x=1812832765;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=Yxk3xIKub+LA83N8JcwbIaqhC4cAlRXngQJ1uLCPwXM=;
+  b=pnrKfPd//KV36rNF9i47O/HBb/CFv2H4iewaJ7DWjFNH2CtIwg1zOxeB
+   mtwOmmF9ZmVvvMbUW9wvqpaviJbTWez30+FBocVNo/yxFZ4+G3aT9vU7E
+   gEry99eTtFthzL/8ogQebpm4oYy/8V2W5rZHAlZZSkH7IcqkV4Plbg2az
+   EIv3h7co8zrLZoTPWILmbC1aTytcrCgRky7F2IUD79SEalIPSlPUcssBV
+   0+siAJaOY/mRqySNAPxWn43WyltmIj07FXTqmxjLbDai0bjpnGt2Q88eO
+   Cz5L8zN5N0jrj4hf+abv3WGgsrwmQaqvgocxDLtM9cdwYTiT0CU+fR+Kz
+   Q==;
+X-CSE-ConnectionGUID: M1F3v13xQAGQM8DDuC2WtA==
+X-CSE-MsgGUID: 3M+C78j0RkST3fT/EBBVMg==
+X-IronPort-AV: E=Sophos;i="6.24,201,1774310400"; 
+   d="scan'208";a="21456951"
+Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
+  by internal-pdx-out-012.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Jun 2026 20:39:24 +0000
+Received: from EX19MTAUWC002.ant.amazon.com [205.251.233.51:13680]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.31.226:2525] with esmtp (Farcaster)
+ id 1f061510-d6b5-4aa2-bad8-0c5eb748715c; Fri, 12 Jun 2026 20:39:21 +0000 (UTC)
+X-Farcaster-Flow-ID: 1f061510-d6b5-4aa2-bad8-0c5eb748715c
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWC002.ant.amazon.com (10.250.64.143) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.37;
+ Fri, 12 Jun 2026 20:39:20 +0000
+Received: from dev-dsk-mkbund-2b-ce767ba1.us-west-2.amazon.com (10.169.40.81)
+ by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.37;
+ Fri, 12 Jun 2026 20:39:20 +0000
+From: Mark Bundschuh <mkbund@amazon.com>
+To: <stable@vger.kernel.org>
+CC: <netfilter-devel@vger.kernel.org>, Pablo Neira Ayuso
+	<pablo@netfilter.org>, Florian Westphal <fw@strlen.de>
+Subject: [PATCH 6.1.y] netfilter: ctnetlink: ensure safe access to master conntrack
+Date: Fri, 12 Jun 2026 20:39:06 +0000
+Message-ID: <20260612203906.1139574-1-mkbund@amazon.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Evolution 3.56.2-9 
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D044UWB002.ant.amazon.com (10.13.139.188) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-Hi Geraldo,
+From: Pablo Neira Ayuso <pablo@netfilter.org>
 
-Sorry about wrong email threading. That's first time I'm sending patch to k=
-ernel.
+[ Upstream commit bffcaad9afdfe45d7fc777397d3b83c1e3ebffe5 ]
 
-My laptop's SKUs is AD3Q9ET#UUG.
-It's HP Elitebook G1A 14" too but with a bit different audio chip as I unde=
-rstand.
-And quirk is indeed copy-pasted but with different device id.
-I can change quirk description string to reflect my laptop version.
+Holding reference on the expectation is not sufficient, the master
+conntrack object can just go away, making exp->master invalid.
 
-Best regards,
-Denis B.
+To access exp->master safely:
 
-On Tue, 2026-06-09 at 11:15 -0300, Geraldo Nascimento wrote:
-> Hi Denis,
->=20
-> On Tue, Jun 09, 2026 at 03:56:07PM +0200, Denis Batishchev wrote:
-> > The HP EliteBook 6 G1a (SSID 103c:8e0d) uses a Realtek ALC236 codec.
-> > Without a quirk no fixup is selected and the mic-mute LED stays off.
-> > It needs the same ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF quirk as the
-> > already-supported 14" variant (SSID 103c:8dfb), so add it.
->=20
-> What is your exact variant of this hardware? Also please refrain from
-> sending V2 in response to V1: it makes patches harder to track.
->=20
-> >=20
-> > Signed-off-by: Denis Batishchev <ii343hbka@gmail.com>
-> > Cc: <stable@vger.kernel.org>
-> > ---
-> > v2: reword commit message as was required by Takashi Iwai
-> >=20
-> >  sound/hda/codecs/realtek/alc269.c | 1 +
-> >  1 file changed, 1 insertion(+)
-> >=20
-> > diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realt=
-ek/alc269.c
-> > index 78a865709635..8eebf91595d3 100644
-> > --- a/sound/hda/codecs/realtek/alc269.c
-> > +++ b/sound/hda/codecs/realtek/alc269.c
-> > @@ -7274,6 +7274,7 @@ static const struct hda_quirk alc269_fixup_tbl[] =
-=3D {
-> >  	SND_PCI_QUIRK(0x103c, 0x8df1, "HP EliteBook 630 G12", ALC236_FIXUP_HP=
-_GPIO_LED),
-> >  	SND_PCI_QUIRK(0x103c, 0x8df7, "HP Z66 G6", ALC236_FIXUP_HP_GPIO_LED),
-> >  	SND_PCI_QUIRK(0x103c, 0x8dfb, "HP EliteBook 6 G1a 14", ALC236_FIXUP_H=
-P_MUTE_LED_MICMUTE_VREF),
-> > +	SND_PCI_QUIRK(0x103c, 0x8e0d, "HP EliteBook 6 G1a 14", ALC236_FIXUP_H=
-P_MUTE_LED_MICMUTE_VREF),
->=20
-> The description string of the quirk seems copy-pasted. Are you sure
-> you have the 14" variant?
->=20
-> Thanks,
-> Geraldo Nascimento
->=20
-> >  	SND_PCI_QUIRK(0x103c, 0x8dfc, "HP EliteBook 645 G12", ALC236_FIXUP_HP=
-_GPIO_LED),
-> >  	SND_PCI_QUIRK(0x103c, 0x8dfd, "HP EliteBook 6 G1a 16", ALC236_FIXUP_H=
-P_MUTE_LED_MICMUTE_VREF),
-> >  	SND_PCI_QUIRK(0x103c, 0x8dfe, "HP EliteBook 665 G12", ALC236_FIXUP_HP=
-_GPIO_LED),
-> > --=20
-> > 2.53.0
-> >=20
-> >=20
+- Grab the nf_conntrack_expect_lock, this gets serialized with
+  clean_from_lists() which also holds this lock when the master
+  conntrack goes away.
+
+- Hold reference on master conntrack via nf_conntrack_find_get().
+  Not so easy since the master tuple to look up for the master conntrack
+  is not available in the existing problematic paths.
+
+This patch goes for extending the nf_conntrack_expect_lock section
+to address this issue for simplicity, in the cases that are described
+below this is just slightly extending the lock section.
+
+The add expectation command already holds a reference to the master
+conntrack from ctnetlink_create_expect().
+
+However, the delete expectation command needs to grab the spinlock
+before looking up for the expectation. Expand the existing spinlock
+section to address this to cover the expectation lookup. Note that,
+the nf_ct_expect_iterate_net() calls already grabs the spinlock while
+iterating over the expectation table, which is correct.
+
+The get expectation command needs to grab the spinlock to ensure master
+conntrack does not go away. This also expands the existing spinlock
+section to cover the expectation lookup too. I needed to move the
+netlink skb allocation out of the spinlock to keep it GFP_KERNEL.
+
+For the expectation events, the IPEXP_DESTROY event is already delivered
+under the spinlock, just move the delivery of IPEXP_NEW under the
+spinlock too because the master conntrack event cache is reached through
+exp->master.
+
+While at it, add lockdep notations to help identify what codepaths need
+to grab the spinlock.
+
+Signed-off-by: Florian Westphal <fw@strlen.de>
+Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
+[ fix timer_delete -> del_timer in diff context lines since 8fa7292
+("treewide: Switch/rename to timer_delete[_sync]()") landed in 6.15 ]
+Signed-off-by: Mark Bundschuh <mkbund@amazon.com>
+---
+ include/net/netfilter/nf_conntrack_core.h |  5 ++++
+ net/netfilter/nf_conntrack_ecache.c       |  2 ++
+ net/netfilter/nf_conntrack_expect.c       | 10 +++++++-
+ net/netfilter/nf_conntrack_netlink.c      | 28 +++++++++++++++--------
+ 4 files changed, 35 insertions(+), 10 deletions(-)
+
+diff --git a/include/net/netfilter/nf_conntrack_core.h b/include/net/netfilter/nf_conntrack_core.h
+index a36f87af415c..8ea16b0ba1c9 100644
+--- a/include/net/netfilter/nf_conntrack_core.h
++++ b/include/net/netfilter/nf_conntrack_core.h
+@@ -84,6 +84,11 @@ void nf_conntrack_lock(spinlock_t *lock);
+ 
+ extern spinlock_t nf_conntrack_expect_lock;
+ 
++static inline void lockdep_nfct_expect_lock_held(void)
++{
++	lockdep_assert_held(&nf_conntrack_expect_lock);
++}
++
+ /* ctnetlink code shared by both ctnetlink and nf_conntrack_bpf */
+ 
+ static inline void __nf_ct_set_timeout(struct nf_conn *ct, u64 timeout)
+diff --git a/net/netfilter/nf_conntrack_ecache.c b/net/netfilter/nf_conntrack_ecache.c
+index 69948e1d6974..6526bdcca580 100644
+--- a/net/netfilter/nf_conntrack_ecache.c
++++ b/net/netfilter/nf_conntrack_ecache.c
+@@ -237,6 +237,8 @@ void nf_ct_expect_event_report(enum ip_conntrack_expect_events event,
+ 	struct nf_ct_event_notifier *notify;
+ 	struct nf_conntrack_ecache *e;
+ 
++	lockdep_nfct_expect_lock_held();
++
+ 	rcu_read_lock();
+ 	notify = rcu_dereference(net->ct.nf_conntrack_event_cb);
+ 	if (!notify)
+diff --git a/net/netfilter/nf_conntrack_expect.c b/net/netfilter/nf_conntrack_expect.c
+index 70bcddfc17cc..379711ea5ab6 100644
+--- a/net/netfilter/nf_conntrack_expect.c
++++ b/net/netfilter/nf_conntrack_expect.c
+@@ -51,6 +51,7 @@ void nf_ct_unlink_expect_report(struct nf_conntrack_expect *exp,
+ 	struct net *net = nf_ct_exp_net(exp);
+ 	struct nf_conntrack_net *cnet;
+ 
++	lockdep_nfct_expect_lock_held();
+ 	WARN_ON(!master_help);
+ 	WARN_ON(timer_pending(&exp->timeout));
+ 
+@@ -118,6 +119,8 @@ nf_ct_exp_equal(const struct nf_conntrack_tuple *tuple,
+ 
+ bool nf_ct_remove_expect(struct nf_conntrack_expect *exp)
+ {
++	lockdep_nfct_expect_lock_held();
++
+ 	if (del_timer(&exp->timeout)) {
+ 		nf_ct_unlink_expect(exp);
+ 		nf_ct_expect_put(exp);
+@@ -177,6 +180,8 @@ nf_ct_find_expectation(struct net *net,
+ 	struct nf_conntrack_expect *i, *exp = NULL;
+ 	unsigned int h;
+ 
++	lockdep_nfct_expect_lock_held();
++
+ 	if (!cnet->expect_count)
+ 		return NULL;
+ 
+@@ -459,6 +464,8 @@ static inline int __nf_ct_expect_check(struct nf_conntrack_expect *expect,
+ 	unsigned int h;
+ 	int ret = 0;
+ 
++	lockdep_nfct_expect_lock_held();
++
+ 	if (!master_help) {
+ 		ret = -ESHUTDOWN;
+ 		goto out;
+@@ -515,8 +522,9 @@ int nf_ct_expect_related_report(struct nf_conntrack_expect *expect,
+ 
+ 	nf_ct_expect_insert(expect);
+ 
+-	spin_unlock_bh(&nf_conntrack_expect_lock);
+ 	nf_ct_expect_event_report(IPEXP_NEW, expect, portid, report);
++	spin_unlock_bh(&nf_conntrack_expect_lock);
++
+ 	return 0;
+ out:
+ 	spin_unlock_bh(&nf_conntrack_expect_lock);
+diff --git a/net/netfilter/nf_conntrack_netlink.c b/net/netfilter/nf_conntrack_netlink.c
+index bcbd77608365..f6e9d9bc1886 100644
+--- a/net/netfilter/nf_conntrack_netlink.c
++++ b/net/netfilter/nf_conntrack_netlink.c
+@@ -3330,31 +3330,37 @@ static int ctnetlink_get_expect(struct sk_buff *skb,
+ 	if (err < 0)
+ 		return err;
+ 
++	skb2 = nlmsg_new(NLMSG_DEFAULT_SIZE, GFP_KERNEL);
++	if (!skb2)
++		return -ENOMEM;
++
++	spin_lock_bh(&nf_conntrack_expect_lock);
+ 	exp = nf_ct_expect_find_get(info->net, &zone, &tuple);
+-	if (!exp)
++	if (!exp) {
++		spin_unlock_bh(&nf_conntrack_expect_lock);
++		kfree_skb(skb2);
+ 		return -ENOENT;
++	}
+ 
+ 	if (cda[CTA_EXPECT_ID]) {
+ 		__be32 id = nla_get_be32(cda[CTA_EXPECT_ID]);
+ 
+ 		if (id != nf_expect_get_id(exp)) {
+ 			nf_ct_expect_put(exp);
++			spin_unlock_bh(&nf_conntrack_expect_lock);
++			kfree_skb(skb2);
+ 			return -ENOENT;
+ 		}
+ 	}
+ 
+-	skb2 = nlmsg_new(NLMSG_DEFAULT_SIZE, GFP_KERNEL);
+-	if (!skb2) {
+-		nf_ct_expect_put(exp);
+-		return -ENOMEM;
+-	}
+-
+ 	rcu_read_lock();
+ 	err = ctnetlink_exp_fill_info(skb2, NETLINK_CB(skb).portid,
+ 				      info->nlh->nlmsg_seq, IPCTNL_MSG_EXP_NEW,
+ 				      exp);
+ 	rcu_read_unlock();
+ 	nf_ct_expect_put(exp);
++	spin_unlock_bh(&nf_conntrack_expect_lock);
++
+ 	if (err <= 0) {
+ 		kfree_skb(skb2);
+ 		return -ENOMEM;
+@@ -3401,22 +3407,26 @@ static int ctnetlink_del_expect(struct sk_buff *skb,
+ 		if (err < 0)
+ 			return err;
+ 
++		spin_lock_bh(&nf_conntrack_expect_lock);
++
+ 		/* bump usage count to 2 */
+ 		exp = nf_ct_expect_find_get(info->net, &zone, &tuple);
+-		if (!exp)
++		if (!exp) {
++			spin_unlock_bh(&nf_conntrack_expect_lock);
+ 			return -ENOENT;
++		}
+ 
+ 		if (cda[CTA_EXPECT_ID]) {
+ 			__be32 id = nla_get_be32(cda[CTA_EXPECT_ID]);
+ 
+ 			if (id != nf_expect_get_id(exp)) {
+ 				nf_ct_expect_put(exp);
++				spin_unlock_bh(&nf_conntrack_expect_lock);
+ 				return -ENOENT;
+ 			}
+ 		}
+ 
+ 		/* after list removal, usage count == 1 */
+-		spin_lock_bh(&nf_conntrack_expect_lock);
+ 		if (del_timer(&exp->timeout)) {
+ 			nf_ct_unlink_expect_report(exp, NETLINK_CB(skb).portid,
+ 						   nlmsg_report(info->nlh));
+-- 
+2.50.1
+
