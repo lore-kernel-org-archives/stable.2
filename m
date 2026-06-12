@@ -1,218 +1,169 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+Received: from out-181.mta1.migadu.com (out-181.mta1.migadu.com [95.215.58.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEFC42DB791;
-	Fri, 12 Jun 2026 09:29:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.18
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781256598; cv=fail; b=sgqGOzCar49aKClPZqMbIOmAbgU+CbyyhCwrpFplqA1yYEUefz59rfC4wZ/DHyHsFmVKWj54+BnTxiljh7C9zI9AL1FTY/70UCyUC+GmTqANIkNXAU82PDTbr/hvaBnmif5qBfCKfOs94bewvfBsUlqDYLSyi6P1pAFc3BbWL1g=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781256598; c=relaxed/simple;
-	bh=v8cNtT7ibESaMykhtYOduaMM1fZhipZ3jlgoyY88SO0=;
-	h=Message-ID:Date:Subject:To:CC:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=o3jZ1eXjvcFUP32FfAnrzFxW7I+IvY5nJ3cCW/0nHmUJNbCte1c45lyQvxn9hWhQY01I8pGervwaANiS2qnZyuc6qD0BjCKjL2HV2h+XB36dODLiM83ZtorKrVo/OyNxS/Icl+9nTwZ1XOAeLsto3OXGFtoJMqQrTnOiIWaJG38=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Vu4RTfYT; arc=fail smtp.client-ip=192.198.163.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B0563596F8
+	for <stable@vger.kernel.org>; Fri, 12 Jun 2026 09:40:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.181
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781257259; cv=none; b=MS/c1fk7fwu3KYavMzTOUeDtZPshFMnMkF+rilBGYVcV6AVKSSzWHajxCc0dcCOpopX9QRoQCVO7kfcyaJsVBJsAe/ttxJlqpvPMpLApIal7fKqexfUZ/InpTYAsIBFLWuRykr5RHluh8a1MngpWRYUrJZwmUbPrxJkcl/G6XDg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781257259; c=relaxed/simple;
+	bh=RdtnOaQ/45dYn/VGBVrYYUdalAsIkR0FBWEJgJ/G6PA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ZVK7g76IRpBZXTP6jPqMLKv4yyK+vJ4r2GdscaHqY1424oZMBk82880w+4CK9KApciS07ZWr0YXnJmNVqYs15RdqJjGczYcEkli2pwu64f5yD3ZX+V99nJ8/557tzsU0rB6/S0cHVDNidg2z5GBn7ug+I0rFYxNg+yPasiqmPG0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=hRZ7YAGr; arc=none smtp.client-ip=95.215.58.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Vu4RTfYT"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1781256597; x=1812792597;
-  h=message-id:date:subject:to:cc:references:from:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=v8cNtT7ibESaMykhtYOduaMM1fZhipZ3jlgoyY88SO0=;
-  b=Vu4RTfYTo73igawkJJfT0dd2ooPP7V/cZdK+i96ICB3Tpu5wMcD/l6Fm
-   7H7rC8HC3rXTp1P0VS1cN2GNka58aPzdR0V0M8ntIeDgs7i8mZf+9McBx
-   Q76v9vkHGNREWd2iPkWqGMCO2YWoQiMT/kyDze1kV7vbwjROtXiU/c3+U
-   /u2HQc/bMerYqhJxjt1t247uP4tjl96oXtPpxdpqJNkmEBkbqqKKy6Ab7
-   44vur22zD3njxx+CX95plt6Ws7Xf89cyvPeqvLelf3dllDLaY3r91ijcw
-   /CDjCV/z06lIJQbxdDADY8aoo3JdMCWCbJw/MVoOdc+ym3yWiJNku6EWw
-   w==;
-X-CSE-ConnectionGUID: ZNV4UiU0SpCuAomtE2oh3w==
-X-CSE-MsgGUID: 84U5GAFkTSGgjBkwrA/Wpw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11813"; a="81219777"
-X-IronPort-AV: E=Sophos;i="6.24,200,1774335600"; 
-   d="scan'208";a="81219777"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Jun 2026 02:29:56 -0700
-X-CSE-ConnectionGUID: cugmoW/jRtCZ+mKt9acjHQ==
-X-CSE-MsgGUID: 6gGkseWuTyuC1uhSIsbMnQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,200,1774335600"; 
-   d="scan'208";a="270816105"
-Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
-  by fmviesa001.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Jun 2026 02:29:56 -0700
-Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
- fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Fri, 12 Jun 2026 02:29:55 -0700
-Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
- FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37 via Frontend Transport; Fri, 12 Jun 2026 02:29:55 -0700
-Received: from BN8PR05CU002.outbound.protection.outlook.com (52.101.57.19) by
- edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Fri, 12 Jun 2026 02:29:55 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pMUDx2O6Ke1wZfr8zBAZXybxvgplqesS5IXXsZng7pV/XyvGS9paQzwhRj0F4rRTosX0Oi+cVmJFtZDBbR90mn2qpZC2gWakHKmt+kCLxxtz4ifOYAwHMtEG3BJwGiqGnrT16W8SwVH3f1c0pmexnhARRgDsq+K/tOuYBT7+uOfraNi7dy+eYIkpL4FrLD6/JNpLAdZ1mINB/8bXrcU3WEJ7Gto4Rtbx45Z+hIE/o7Bxx6wX9TYOCPo++ugJCLQfZbCT0B4JA9AThA1LgkhbGb0jqyPfyNg5aGeeCTblaqALFBs0f2bYNQSpBU8PPKSxjiFHchQxMzUfTF16VhLw0A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+5hoV03g0lWx0RvXcqChplLjd/zUlAFG05+8Fx5UOgU=;
- b=qNz848GSXOJKSnIgwMKTBbDHL6I79WhgVVxm9NGjZlOGN0wEoIbzu5YUHZnTCRgQeqUz1aAwskyogm2OpZiG59FldwGfSH8LldlL3/9xfNfez9uLkVJHf+eDGLQyBVgQEWX3DI9mCQQWmpFatEsAhFGPvDyzznKTNXC2/Wq0C8Zfzk+YLhhTBN1eN6Z9I5TeiAoRkJ+lUHsPT/EofgL1/FNsmxTSdAtQEDjcS6QhDrCxLZ1IlgJtxTdKagD3/fX12Zxntx0ahA5UMvgBJ1gy6iC2RQ2nBzHAGyxzXXmlzwU3XZJ28B56Dmh2oFj9O+ah1B2LmAwbRFc9CO6r3bMtCQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DS0PR11MB8718.namprd11.prod.outlook.com (2603:10b6:8:1b9::20)
- by PH0PR11MB4901.namprd11.prod.outlook.com (2603:10b6:510:3a::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.14; Fri, 12 Jun
- 2026 09:29:52 +0000
-Received: from DS0PR11MB8718.namprd11.prod.outlook.com
- ([fe80::6aa:411d:4bfa:619c]) by DS0PR11MB8718.namprd11.prod.outlook.com
- ([fe80::6aa:411d:4bfa:619c%4]) with mapi id 15.21.0113.013; Fri, 12 Jun 2026
- 09:29:52 +0000
-Message-ID: <7a6a3f63-0b69-4e1f-997e-f198e2bc43e9@intel.com>
-Date: Fri, 12 Jun 2026 11:29:45 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH iwl-net] idpf: decrease statistics refresh interval
-To: Danny Gonzalez <digonzal@google.com>
-CC: Tony Nguyen <anthony.l.nguyen@intel.com>, Przemek Kitszel
-	<przemyslaw.kitszel@intel.com>, "David S. Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>, Eric Dumazet <edumazet@google.com>,
-	<intel-wired-lan@lists.osuosl.org>, <netdev@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, David Decotigny <decot@google.com>, "Anjali
- Singhai" <anjali.singhai@intel.com>, Sridhar Samudrala
-	<sridhar.samudrala@intel.com>, Brian Vazquez <brianvv@google.com>, Li Li
-	<boolli@google.com>, <emil.s.tantilov@intel.com>, <stable@vger.kernel.org>
-References: <20260611002437.1671401-1-digonzal@google.com>
- <b601d0d4-d472-450d-a966-e18c9642a433@intel.com>
- <CAH1CuA-zQveU_pzopVMnDM11Kbz8wTzMP=SvSDBEq8Tk3RaebQ@mail.gmail.com>
-Content-Language: en-US
-From: Alexander Lobakin <aleksander.lobakin@intel.com>
-In-Reply-To: <CAH1CuA-zQveU_pzopVMnDM11Kbz8wTzMP=SvSDBEq8Tk3RaebQ@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: DU7P189CA0024.EURP189.PROD.OUTLOOK.COM
- (2603:10a6:10:552::11) To DS0PR11MB8718.namprd11.prod.outlook.com
- (2603:10b6:8:1b9::20)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="hRZ7YAGr"
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1781257253;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=bw1xWLPB0CZgS93U9XBxSKNhegqUQ0O3PEyPxeYXm5M=;
+	b=hRZ7YAGr1p84LtrvGgfOgrRKgPfQfKkMR3+8HJUZIvIReXEvJ/9W3TkLHsHIyyi4ddUIL4
+	SqMaysNj+BsyDcIOuGmTnSnqOBQn1ryR2y0gDgeZft/lK+uHsN83KUvUNKqWPa8FAQ8KrS
+	JdFj/BeP5avW7NREx86ZgvsVE9kM4TQ=
+From: Usama Arif <usama.arif@linux.dev>
+To: axboe@kernel.dk,
+	linux-block@vger.kernel.org,
+	bsegall@google.com,
+	dietmar.eggemann@arm.com,
+	juri.lelli@redhat.com,
+	kprateek.nayak@amd.com,
+	linux-kernel@vger.kernel.org,
+	mgorman@suse.de,
+	mingo@redhat.com,
+	peterz@infradead.org,
+	rostedt@goodmis.org,
+	vincent.guittot@linaro.org,
+	vschneid@redhat.com
+Cc: shakeel.butt@linux.dev,
+	hannes@cmpxchg.org,
+	riel@surriel.com,
+	kernel-team@meta.com,
+	Usama Arif <usama.arif@linux.dev>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] block: invalidate cached plug timestamp after task switch
+Date: Fri, 12 Jun 2026 02:40:42 -0700
+Message-ID: <20260612094042.3350401-1-usama.arif@linux.dev>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR11MB8718:EE_|PH0PR11MB4901:EE_
-X-MS-Office365-Filtering-Correlation-Id: f19aa5e9-e435-41f0-5236-08dec86527b0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|7416014|1800799024|366016|23010399003|6133799003|22082099003|18002099003|4143699003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info: z2KA/T79bhg6DHwDYN4QeTy2n1zSSc0Ip6AVqrNt9Gu+ZoCPJUfyTO38k+3HonwN9uEURvxZL2cybNA7MMPke8ztI5VkHVEpfEc24fucfmupbrx8TXe6tvh5dneoN4LLorzP0Bg85fZi4W/Zp7Gs9Ew1SUTCoQb/pifJACLmAMor+q79X9PwTXZ9XJnb1h04hBbiXP2Hs940LrOuag4uKeALNiujZqqY3GIunjl0DCS85G/pLE5QdPZeF5mgE9wUxIMf9YeGCtir8fWEwreG/0mwBcCShlcfp7XhgxO6FuXja4AbFcq2iQBA8f8Y60GUza84+6s2+sR2bTfkqxJxkonGqwGTle6OkI1aUe1ZzAecKiWDRrBDw7qIe9wbs11rsB85q44pJ35/qCERu7qoNNv808bSMLOk53Zy18qM3sus0APEyO67cGGFVl7TODsJbpXjdkUzxj1FSCYv60Z1KFcpdwIWUyetY6uNDC9vu4naHzh+cfmtDJLj9OTpt41yXz3aiq5aFzgDSgXCsIE0YtxG9HuPzXqoqSI/K7p3qOSLSFt4W5CEwdxlON/VDnViyJEEJyM630MHIIR1ekBeH2zOo8P27EhfzHv1b4z4zF+CA8zjh62A5ShWdMC1BGYccfw7PzDo0CGTQ9v6L+2W051aFvlCGv4DTw4NtPThuf5kKUFkQChpYNYg0b2oMMFq
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR11MB8718.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(366016)(23010399003)(6133799003)(22082099003)(18002099003)(4143699003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MlpUUUQ0bzVRN2RhRGpFdDd4UkJlQnA3eDA2TXhKNEIweUVyRkdSRlpWZzBD?=
- =?utf-8?B?REtNODdFcndPTUEvUllxRmg3bE8rSm1GNVpsc3IvSDlrQm5tYm1kT0NZS2o4?=
- =?utf-8?B?RHluVWU0cG5QNlM5emRnTHZMRWlET1pUL2pxRW1RMERzK05kTE9TQTRoVk1t?=
- =?utf-8?B?VzYxVk5LOTQ5VEZHYmF3dndiK2tMTGJiOE1oVjB6VVhCaUVsSHpLUGxwdXFM?=
- =?utf-8?B?N3hsLy9hUDNJRG9JQVZONXdNTUZSVHgwUHBkZjloQVpHK0V3OWM4TGdCYjhM?=
- =?utf-8?B?NXJ5c202UjN1Sk9XS1ptOW9RMGllVW85V2VBSXJVQSt6aVdURVBNeC9UTUMz?=
- =?utf-8?B?SVF6L213WUIxcld1UXBIVDhEZTVQZmJVdXIvQVBQcTR5VEtCU2ZDQkZxZ1pN?=
- =?utf-8?B?NjJtbko1cGxuaUdyalVUMGdxVUptTkgvZS9teXZBeEVFN00xTE1PNk5neVUv?=
- =?utf-8?B?K09LWGI5dGFqdGVJRm9aUDI5S2pzUUI5Yi93WTlaNlVCVVR6WGhnNVBLRmNS?=
- =?utf-8?B?Rzg4YU5Qc1ByUjB3czk0VFp5d3dSeWhkRENpOXhYak1XTVNvclY0RWZicjFp?=
- =?utf-8?B?UmhLb2NCNS9HNC84QXFIRzNHTHFTbW1CZlBTT0lJL2hmRkJpOTc0SHExdHVz?=
- =?utf-8?B?b3JmTEwrRkRBRHdrZ2lYQ2hlWmJsZWl1RGM1YTMrQXNGQTR6VTMvMVFiT29U?=
- =?utf-8?B?b1pSREZuSzdMSFlpTHlzNlRseGdBRlMwRHFlZll3QTZqdjZLNVhQTjRGNWlV?=
- =?utf-8?B?cDJDVnZkRWU1aldLNVlVOXhFYWczWUdOUkVVcGk4STdiaXRHY3B0OU9QMEhq?=
- =?utf-8?B?MndXT3RTaVZYR1k3UUJwcjdEWnBqV2MrN3EyekszTnRZRmllOU93WS8zT0NH?=
- =?utf-8?B?WitjSmcxNk03Q0FiZFJSZk5rUHEwaUdKRW1WTDlXUHNUem9hY3J0NmNHTGhy?=
- =?utf-8?B?Q0hiUXFuRm5VOVUvd2puUHBXK2F1QkltYVFLSWVuN2p0V0tIYnhBelIya0V5?=
- =?utf-8?B?cWNkS1pWOTJBL0pTdHlrclhQcTVrZ3B3MzBjMHVsVjVYemNieFlQT0pLZENk?=
- =?utf-8?B?S1lDQ1h4UEhQM3ZiWmlrSHM0RlVuZnJKR011VjY4cCtHcnZhbEJPempXcWk1?=
- =?utf-8?B?S2VCRUhqWWorTk8xU01xOUtXODBpVHR6cFlJbURQNVBvelNucHNiUnlPSFgy?=
- =?utf-8?B?Y3QrcVp5YUFrUnMxY0g2WWtNOHBnT3lnTFk3Sm1YanVoNnZOeWpBS3FYYWdv?=
- =?utf-8?B?d0crNmU4STY0RlNoaGVJSWNqSmJCWGs4dTJDcGdTN1YwanlkcTRib1F2OWdQ?=
- =?utf-8?B?T1BjSFZPdG1iOHArTU0yd1dFYUpJUXQ4L2ZNdG14K0w0VTZjZGlOdlRiUDRO?=
- =?utf-8?B?a1AycTdZNHBXSWZGay9jOXJUNFVNMFdiWDI5a0VmOGJzdGlReWFLQ2Z2S29j?=
- =?utf-8?B?UkhUUkR4a1lZZVIreWx3VXJRYXltOEFMc2FrQ0tlSFNyeEdxVklzMERrVW5n?=
- =?utf-8?B?aFlXMEp5ZzkrdDk5TVMzSklZQWU0WW10TUs3cFZPZzdKaTJOd09XTnBFK3p0?=
- =?utf-8?B?K2dZeU03M3hDZ3dZdVlVYlN6c0JOSXAvZzErWFBGdllBOWhydTZERlpISmVI?=
- =?utf-8?B?dVFOTHZhOFgweUxBQnBDY3BkeUVQeEcvbFNvU2ozclhOZ0tjY3I3bTVhb1Vy?=
- =?utf-8?B?cnpyMFFqQ3I1SnRSb1RieDVEZ25HYkFnU1JGQTY3eFVoL2tSNk1CTFVhS1hr?=
- =?utf-8?B?RWhMRmVNNFRSNUtXVTZlNDIvSkJLdjRGblJGNDZZMG1sK09US3orUUsrcUZG?=
- =?utf-8?B?MmlyMi9oYUpxYjA3Y00zanQrS28zbjI2dHJBblZacWtIcmp5NjhPM0MvdmNQ?=
- =?utf-8?B?N2I2NlpRcHhDbk5Xc3pFQ3JKaUszdm5xQ3lWTmVLaHZIU3FZaVhKVEluTDVl?=
- =?utf-8?B?WnNmakV6T2NzeU5OTXpyVWJRNER5SVhaNE9paGg5cWV6UzE2SklLRXJGTFIy?=
- =?utf-8?B?eUxxL1A5b012VStlc0dOTW1mWk5qWC9telJmdXI3TkF4N3JtTFRGZjdiUDVC?=
- =?utf-8?B?aTVlY1F2V1NjOHFhYnY1WkxIM2o5dVBIRGlNejdCZktHNDgxQytqZEJNNHN3?=
- =?utf-8?B?NGJrVXg3Z01LakhSZFhHZDdKQ2Z2eGZEdVltRmZJYk5HMG9UVjZRZXpqUkla?=
- =?utf-8?B?VWw4MGd1dGVDNFZTSFdLSmZxVmJFWXh4Z0xUNS96b0Job295WGxRT1ZWNTRO?=
- =?utf-8?B?VmJpcnNyVzQvSHlQM1JycSs0amlTUVRyUG1uUkNacDd1NTcvNXRva2haQ3pu?=
- =?utf-8?B?STRIeFY3bU5TbjFaMGxNaDhXRTl3Zkd2M2d6WVZTSjJZWno0SDNmRDBFSlJX?=
- =?utf-8?Q?O4vHMzNtqKS/kmt0=3D?=
-X-Exchange-RoutingPolicyChecked: CzXe2GNwR/ZbwAkIw2iHeNtvD7WDf1eY8Z235zMqCyU2OaIKwBcwvImZVJ+ZwEFNczQJ6bBr8w5DM3Y/u5XE7PfkidSJc+1JKiVaz4uyvdPR4ZucV3qdO4FxJYWORhJs3ufz5tHvxkEgbjfMimHB2DOgtH2ndNfgYhCsD9bua+5JWfOh7Y1g60jmcikgNUG0qbftjLH+C2d3VYbm/v9+ersQa349NHnCHfohVXrd2UnDICLk92dk7NQhI9gkHUVr6vFQnamPMl4AzOAexlQ2USJL0BVxgJ5B6KbOKuZbDeRbGldZ4ZWtoxttug5i07opkeh2LC0WpP9FDkg7lyoXJA==
-X-MS-Exchange-CrossTenant-Network-Message-Id: f19aa5e9-e435-41f0-5236-08dec86527b0
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB8718.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jun 2026 09:29:51.8873
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: U+st1D7kSeL+KwOTd35+ATT5axcKKzLILEABq+jT/nFweFZp2eBSGyGSytoDmwMbyxGAs7SCz4pt4YEZQ6Rz+6wcPtyQ5CumRSE2kbryu4U=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR11MB4901
-X-OriginatorOrg: intel.com
+Content-Transfer-Encoding: 8bit
+X-Migadu-Flow: FLOW_OUT
 
-From: Danny Gonzalez <digonzal@google.com>
-Date: Thu, 11 Jun 2026 11:26:18 -0700
+blk_time_get_ns() caches ktime_get_ns() in current->plug->cur_ktime
+and marks the task with PF_BLOCK_TS. That cache is only valid while the
+task keeps running; if the task is switched out, wall-clock time
+advances and the cached value must not be reused when the task runs again.
 
-> On Thu, Jun 11, 2026 at 8:57 AM Alexander Lobakin
-> <aleksander.lobakin@intel.com> wrote:
->>
->> From: Danny Gonzalez <digonzal@google.com>
->> Date: Thu, 11 Jun 2026 00:24:37 +0000
->>
->>> The default 10s statistics refresh interval is too slow for real-time
->>> monitoring and causes network selftests (e.g., uso.py) to fail when
->>> verifying traffic immediately after transmission.
->>>
->>> A 10s delay also causes aliasing in telemetry tools polling at shorter
->>> intervals (e.g., 5s), leading to inaccurate rate calculations on
->>> high-throughput NICs.
->>>
->>> Decrease the refresh interval to 250ms to ensure fresh stats and fix
->>> test failures.
->>
->> Have you tried a bit more conservate value like 1s? Wouldn't it be
->> enough for tests to pass?
->>
->> 250 ms is also okay, just curious.
-> 
-> Yes, 1s also allows the tests to pass.
-> 
-> We have a preference for 250 ms since High-Freq Telemetry (1s poll)
-> 1s driver refresh rate causes aliasing:
-> 
-> # sar -n DEV 1 | grep eth1
-> 10:52:15         eth1    390.00    339.00     51.92     55.54
-> 0.00      0.00      0.00      0.00
-> 10:52:16         eth1    409.00    360.00     54.72     58.64
-> 0.00      0.00      0.00      0.00
-> 10:52:17         eth1      0.00      0.00      0.00      0.00
-> 0.00      0.00      0.00      0.00
+The existing invalidation covers explicit plug flushes through
+__blk_flush_plug(), and the schedule() / rtmutex paths through
+sched_update_worker(). It does not cover in-kernel preemption paths such
+as preempt_schedule(), preempt_schedule_notrace(), and
+preempt_schedule_irq(), which enter __schedule(SM_PREEMPT) directly and
+return without calling sched_update_worker().
 
-Ack!
+As a result, a task preempted while holding a plug with PF_BLOCK_TS set
+can reuse a stale plug->cur_ktime after it is scheduled back in. blk-iocost
+then consumes that stale timestamp through ioc_now(), producing stale vnow
+values for throttle decisions, and through ioc_rqos_done(), inflating
+on-queue time and feeding false missed-QoS samples into vrate
+adjustment.
 
-Reviewed-by: Alexander Lobakin <aleksander.lobakin@intel.com>
+Move the schedule-side invalidation to finish_task_switch(), which runs
+for the scheduled-in task after every actual context switch regardless
+of which schedule entry point was used. Keep __blk_flush_plug() as the
+explicit flush/finish-plug invalidation path, and remove only the
+PF_BLOCK_TS handling from sched_update_worker().
 
-> 
-> Thanks,
-> Danny
+Fixes: 06b23f92af87 ("block: update cached timestamp post schedule/preemption")
+Cc: stable@vger.kernel.org
+Signed-off-by: Usama Arif <usama.arif@linux.dev>
+---
+v1 -> v2: https://lore.kernel.org/all/20260611231428.345098-1-usama.arif@linux.dev/
+- Make the function just blk_plug_invalidate_ts(), move the check for
+PF_BLOCK_TS flag into blk_plug_invalidate_ts and make it __always_inline
+(Peter Zijlstra).
+---
+ include/linux/blkdev.h | 17 ++++++++---------
+ kernel/sched/core.c    | 12 ++++++++----
+ 2 files changed, 16 insertions(+), 13 deletions(-)
 
-Thanks,
-Olek
+diff --git a/include/linux/blkdev.h b/include/linux/blkdev.h
+index 57e84d59a642..1c1fd31ce187 100644
+--- a/include/linux/blkdev.h
++++ b/include/linux/blkdev.h
+@@ -1216,16 +1216,15 @@ static inline void blk_flush_plug(struct blk_plug *plug, bool async)
+ 		__blk_flush_plug(plug, async);
+ }
+ 
+-/*
+- * tsk == current here
+- */
+-static inline void blk_plug_invalidate_ts(struct task_struct *tsk)
++static __always_inline void blk_plug_invalidate_ts(void)
+ {
+-	struct blk_plug *plug = tsk->plug;
++	if (unlikely(current->flags & PF_BLOCK_TS)) {
++		struct blk_plug *plug = current->plug;
+ 
+-	if (plug)
+-		plug->cur_ktime = 0;
+-	current->flags &= ~PF_BLOCK_TS;
++		if (plug)
++			plug->cur_ktime = 0;
++		current->flags &= ~PF_BLOCK_TS;
++	}
+ }
+ 
+ int blkdev_issue_flush(struct block_device *bdev);
+@@ -1251,7 +1250,7 @@ static inline void blk_flush_plug(struct blk_plug *plug, bool async)
+ {
+ }
+ 
+-static inline void blk_plug_invalidate_ts(struct task_struct *tsk)
++static inline void blk_plug_invalidate_ts(void)
+ {
+ }
+ 
+diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+index 8b791e9e9f67..e97e98c33be5 100644
+--- a/kernel/sched/core.c
++++ b/kernel/sched/core.c
+@@ -5368,6 +5368,12 @@ static struct rq *finish_task_switch(struct task_struct *prev)
+ 	 */
+ 	kmap_local_sched_in();
+ 
++	/*
++	 * Any cached block-layer timestamp (plug->cur_ktime) is stale now,
++	 * invalidate it.
++	 */
++	blk_plug_invalidate_ts();
++
+ 	fire_sched_in_preempt_notifiers(current);
+ 	/*
+ 	 * When switching through a kernel thread, the loop in
+@@ -7290,12 +7296,10 @@ static inline void sched_submit_work(struct task_struct *tsk)
+ 
+ static void sched_update_worker(struct task_struct *tsk)
+ {
+-	if (tsk->flags & (PF_WQ_WORKER | PF_IO_WORKER | PF_BLOCK_TS)) {
+-		if (tsk->flags & PF_BLOCK_TS)
+-			blk_plug_invalidate_ts(tsk);
++	if (tsk->flags & (PF_WQ_WORKER | PF_IO_WORKER)) {
+ 		if (tsk->flags & PF_WQ_WORKER)
+ 			wq_worker_running(tsk);
+-		else if (tsk->flags & PF_IO_WORKER)
++		else
+ 			io_wq_worker_running(tsk);
+ 	}
+ }
+-- 
+2.53.0-Meta
+
