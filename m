@@ -1,128 +1,147 @@
-Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E895437DEBC
-	for <stable@vger.kernel.org>; Fri, 12 Jun 2026 06:45:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.46
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781246744; cv=pass; b=e/g2Q/3JVvWU4kST7ICPYLscXl1yAzT2hJS/IBCrjZm0yXywZncYgSeCDlnHmWPKFsmsNw5pqpkvq7EiBQVQYnqtJe4cFCvlHm90a+kSLMo367BpO04ebUmkNQdrV74aXi0ckMY239bZVthGHHU4Jp447hSeJKuhLeDl5yyvDU0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781246744; c=relaxed/simple;
-	bh=nhEFFflgD8hYkfYPqSBKzKXl/2KrcZWE8+1yPCxDWKM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=NR6527lji9RSXnW0kwlLz1Xrlf31RuU7tQlYaqvYMIBYif4kz5o18wvwPFah001moe8Mo+Thp0R1Mh/K44PIj5sJQ9p6THZNZYwiXbOs3DDACK05D/8CBArFZVBymO+UEWR3RkW9vtDEc/nV6YMowubT30nRsi7CjypfAOcAi0k=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=l6LAupRV; arc=pass smtp.client-ip=74.125.82.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 069FA1DDC38;
+	Fri, 12 Jun 2026 06:48:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781246881; cv=none; b=S/hoKo1R6BAq9QAEtP9bzxcoQ9KZqIqVGaoD1cQgFni09+BrjYuVBHCDi7YtAf8ym6BTyxXYO+cyOQgBUuWRUnP+IhyNZ3qXXj/QvAFTlodBR31UOmqb7l014Y4e6NaKBQWCXXdeuOI1BQ8rEMjr7z8Zl/C7tiFGJdxIyYivXYo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781246881; c=relaxed/simple;
+	bh=FF+cw+CNSSNDRA9Was9F2hF2dvZAVfbX7TDinDXXC5k=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=koA0o0TktzMIAS4uRZVVQJ8eWBYDmsQM8TsZqmSoGe58O5bR/xucAPEUd5gYF4aJcPeCnFr6q0+xFntsL7KyzvjIW9gC36VxMBqGsZyMIP9tkv0TeuF+/AKuwzleCDqll5YO43L/hSHnC2P/8hYAaMR5UzjgR+6X++gRLVLtbV0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZYA1nWDv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="l6LAupRV"
-Received: by mail-dl1-f46.google.com with SMTP id a92af1059eb24-13832028e9fso588808c88.1
-        for <stable@vger.kernel.org>; Thu, 11 Jun 2026 23:45:41 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781246741; cv=none;
-        d=google.com; s=arc-20240605;
-        b=PXXQkFzSKWH7UNXRkW314UCSlRb1dCWhYAuRqx7+EkUA/Tjp8fkLl+8XJLwomCOhYR
-         hCrGoxba9bV7VJprZ1wmJlLY1UMlbqn+Hv9GLW8yhvVR/kJh3Dd/Xo3DgNB1O/VyQwSR
-         ChhyUSNO05a8zFDPlNKHXV4sTGb0v+yAA6+PzxEzQHWKdKEdENtQjQr3DVLe3S6VCMy2
-         nqj1wuLMK/STBhUDJuIVgNbYymgsD9fUMKILVCvbTnJzNoRFR4629rRI+s7W+vhiOxpl
-         PLv4YOYbOQ2Q8ePy0l9Bse1TJC6hsWenzmgFMknHLUYu6OaLKoWRXSrmHFoQ4Fo8dcUl
-         bnVw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=nhEFFflgD8hYkfYPqSBKzKXl/2KrcZWE8+1yPCxDWKM=;
-        fh=Hb1EJltM3r8uC5B/pRTTG3AtOAZ3x3gth8xKIh67vnM=;
-        b=Pm/K7IRoqb508M0tQM1E6ISQknFNCKB+WrTjRrnaS5KEYm1+RewmADagh0a7vPrdt/
-         OzRepSbzN+ov/P/4M4cwy30Mi0yLk6F8erXKiMEJ6HuG/Ip0J/0oIxcfjf0dvafsscY0
-         qgyvCE5BjoZ63vwqL5fZJx+g1tDIWaYW8fjEpcH60Z8ap4qPVdn47oJCUugLG1CLuWR0
-         GUHScekIVQY0IY118biTEyrb21Br6KXGwe8ktRQtwLm0WWGJtPos4V4/v1Z6/H04Xhc0
-         MwH+9lKYWUNyTWjtu8ftyICtDWji7WgoZHYuVwdlOIP4+dNFJgRk9o/GcEESXZJU56zd
-         gzlQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1781246741; x=1781851541; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=nhEFFflgD8hYkfYPqSBKzKXl/2KrcZWE8+1yPCxDWKM=;
-        b=l6LAupRVSl2c6T/trhMOUfkI+N+NbvzGGEwMG8IhUjiS779OzDaSM6tPKhYrL2mnEt
-         tk+ETpORJf0bij7SrL9Vp4vQfkGh3WojWSuSZMyd6FmbksAVQZAfto6i5y5xCpmVwsRE
-         B0ptRUfV4VpPPeoXDAm1/FTDzLwfXX8N4Qle3Xtz+5YYQfh2AKB/DHLemELOCX+e1+tq
-         siPED2aPOvJWhHHecFzZPMlLJWsF4qFFGv3SqUrZrZhtQRcaVFG2HqwXhfKQfrFe+LvG
-         m/5FZg2YwYl478MxUufGkM9zIG1DCCNSBljxU/vzERHFQn0/pBt2wPKg1h3qW2nJh0Pw
-         wMBg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781246741; x=1781851541;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=nhEFFflgD8hYkfYPqSBKzKXl/2KrcZWE8+1yPCxDWKM=;
-        b=gE2n9lcSNOS5h6aayINoxFoEWeVM2EtFzOiML9HIYr9iybvkmpnzxO+YM99uQIqUaY
-         Zi69WDlzJqsWKAUtobGUBXNRcOojPncDnY9THl6S4crrskGdSWBnfplKY+8vLJo+P2lO
-         vdE7Ffh7T0nwkKNC5Wpt6G9xbCXKsAnBkMK66tyApxbvy8w3HVcwWkPFg/8YiwItcmRn
-         uZaz/DkN53o/nF40Iv7Pf0L3y4AAvoYFyRPP9s1wiUw5UVDNgmwhgZhgCCRiYZSO9G8O
-         AV4QWK4oBk3SCUoqxDXvZnTkT2iLoDR1EuWOUSNd5mhrHxe3qJ9/kK8bzhW+xgErzgdx
-         nxUg==
-X-Forwarded-Encrypted: i=1; AFNElJ8oFTbe489VGdoeWFxu0M+N8kIlUzokt0VJNCtzFcZuE6UQiBD9+V6f8L/4nxI1Pt4dqLgTBMw=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxAY2aO1G7NRL9HchXgthrRiz8FnOjd5nDOnzHoKHVixjmkbN9J
-	WAq+Og3+pQ7Ai593Q+WA9QVRksfWVxOJzqWjbee9+/pTQGS3yBC/QfLvSkrQF7R0NTKj82sEQrU
-	Nn1etH094jjKxy1pxoS2eoCPYXZiEYZR1cGnRgyEq
-X-Gm-Gg: Acq92OELTjxvKzlM2a0Mz+v8s87tlYggIL6NzWLBiRfhfyOV+hVkd/GJRx/5cW2BuIe
-	C+BaZ3M3NyQmpKzHtiU+5k2Mb717lmDw6it3RzOHrjAKJFPPpSCln6E5IE2vdUL8K1/NbBB+Q8t
-	8mAX7KcWzKUxbna9KttEezSCV9lmuR2GDNaSrBUOkG+0xsvxUbg7rJkDTMNJ6z1e1Q2+zXyr7Or
-	nblsjxhTlFMkR9Lr8FqmyttTZpH45MdM318aUEAvCP7ZFDty3mjf5Y9WWeagDnfin8fj27FO89q
-	s5fu4IS2ilzX5YpJi+vuMK3YTSegPvz7FxpyTzdWIS+AW0iBNjsmlLqV95mcCDExhQ8NojbUQ6H
-	ZqroGm5DVeL1cAh0Ay/HPWe+fhsp6Q/H1ibeJ3u08VU5cuG9hJdqv
-X-Received: by 2002:a05:7022:5f04:b0:137:ec94:b487 with SMTP id
- a92af1059eb24-1384bb877f6mr373348c88.30.1781246740207; Thu, 11 Jun 2026
- 23:45:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZYA1nWDv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 797EA1F000E9;
+	Fri, 12 Jun 2026 06:47:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781246880;
+	bh=PYKn3nqZTI2tONzA/mOunAmSCw2g+cgo26Rk9W8RKAY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=ZYA1nWDv5Kwx1F24wjee8yzwFfyzxfMG+g8cWzvDB3bEUM+EMfkYHp6ABVQ9fRMRd
+	 T5YaKhfOZpYQjxQU55MBSKLYilBqhXMvNrhHHGQz0r5o04LvFzqj1rNcrziQdVjqP5
+	 mgtT8FWQIY1P31vj/uykTfWkQu0gBpfZw99wjX6jGNrUV2PDEYvnBtoqU3CySIrALy
+	 c0uK5vi5VyyvoR4M61Fey8iKtYLRqwIN9V4ezzbThVuHfPlSWKV9B5KcQUd5VfJtEf
+	 LhU0zo6Whc6grmxDSJ4nryzfJ1hJZmrVx0NeoenuHrCQEF05auuoCz8/cxxtl4d03M
+	 Q5Rw7oS+Las7Q==
+Message-ID: <884cf1df-2256-4eb9-a2cb-67377a3bd8f6@kernel.org>
+Date: Fri, 12 Jun 2026 08:47:55 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260611062814.2528793-1-maoyixie.tju@gmail.com> <20260611062814.2528793-3-maoyixie.tju@gmail.com>
-In-Reply-To: <20260611062814.2528793-3-maoyixie.tju@gmail.com>
-From: Kuniyuki Iwashima <kuniyu@google.com>
-Date: Thu, 11 Jun 2026 23:45:29 -0700
-X-Gm-Features: AVVi8Ceb_WszCLrvRcLCFH8FpJsAV2LIBVuQJNjjqU_Xa2Ev1Ja5-d4kf85ySDE
-Message-ID: <CAAVpQUCL834OQfOWBmYnAGHNtrKhecdm-_qK5F8A9uyQ9cF=BA@mail.gmail.com>
-Subject: Re: [PATCH net v5 2/7] net: ipip: require CAP_NET_ADMIN in the device
- netns for changelink
-To: Maoyi Xie <maoyixie.tju@gmail.com>
-Cc: "David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, David Ahern <dsahern@kernel.org>, 
-	Xiao Liang <shaw.leon@gmail.com>, Steffen Klassert <steffen.klassert@secunet.com>, 
-	Herbert Xu <herbert@gondor.apana.org.au>, Simon Horman <horms@kernel.org>, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/gup_test: fix race with PIN_LONGTERM_TEST ioctls
+To: John Hubbard <jhubbard@nvidia.com>, Yunhui Cui <cuiyunhui@bytedance.com>,
+ akpm@linux-foundation.org, jgg@ziepe.ca, peterx@redhat.com,
+ yang.lee@linux.alibaba.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+References: <20260608025043.88087-1-cuiyunhui@bytedance.com>
+ <932e1fa0-dd9e-47d2-9133-d3b2f78dcd97@nvidia.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <932e1fa0-dd9e-47d2-9133-d3b2f78dcd97@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Jun 10, 2026 at 11:28=E2=80=AFPM Maoyi Xie <maoyixie.tju@gmail.com>=
- wrote:
->
-> ipip_changelink() operates on at most two netns, dev_net(dev) and the
-> tunnel link netns t->net. They differ once the device is created in or
-> moved to a netns other than the one the request runs in. The rtnl
-> changelink path checks CAP_NET_ADMIN only against dev_net(dev), so a
-> caller privileged there but not in t->net can rewrite a tunnel that
-> lives in t->net.
->
-> Gate ipip_changelink() on rtnl_dev_link_net_capable() at its top,
-> before any attribute is parsed.
->
-> Reported-by: Xiao Liang <shaw.leon@gmail.com>
-> Closes: https://lore.kernel.org/netdev/CABAhCOSzP1vaThGV35_VnsRCb=3D87_CP=
-jPVsTHbq905k8A+BuUg@mail.gmail.com/
-> Fixes: d0f418516022 ("net, ip_tunnel: fix namespaces move")
+On 6/12/26 06:20, John Hubbard wrote:
+> On 6/7/26 7:50 PM, Yunhui Cui wrote:
+>> The PIN_LONGTERM_TEST helpers keep their state in global variables that
+>> are protected by pin_longterm_test_mutex when accessed from ioctl().
+>> However, gup_test_release() calls pin_longterm_test_stop() without
+>> holding that mutex.
+>>
+>> This can race with PIN_LONGTERM_TEST_STOP and let two callers operate on
+>> the same pages array concurrently, corrupting the test state and possibly
+>> freeing it twice:
+> 
+> Let's add here that there are *no* such callers in the kernel, today.
+> 
+>>
+>>  CPU 0                              CPU 1
+>>  -----                              -----
+>>  ioctl(PIN_LONGTERM_TEST_STOP)
+>>    mutex_lock(&pin_longterm_test_mutex)
+>>    pin_longterm_test_stop()
+>>      if (pin_longterm_test_pages)
+>>        kvfree(pin_longterm_test_pages)
+>>
+>>                                     close()
+>>                                       gup_test_release()
+>>                                         pin_longterm_test_stop()
+>>                                           if (pin_longterm_test_pages)
+>>                                             kvfree(pin_longterm_test_pages)
+>>
+>>      pin_longterm_test_pages = NULL
+>>    mutex_unlock(&pin_longterm_test_mutex)
+>>
+>> Protect the release path with the same mutex so that stop and release
+>> cannot run pin_longterm_test_stop() concurrently.
+>>
+>> Fixes: c77369b437f9 ("mm/gup_test: start/stop/read functionality for PIN LONGTERM test")
+>> Cc: stable@vger.kernel.org
+> 
+> umm, no, to "Cc: stable". This is the sort of thing that gives AI
+> a bad name. Specifically:
+> 
+> * Nothing in tree can possibly hit this race condition.
+> 
+> * This fix is purely static code analysis hygiene: correcting
+>   a theoretical problem that does not actually provide any
+>   sort of vulnerability fix in the kernel.
+> 
 
-This is wrong too.
+Yes, all rather useless churn that consumes our capacity.
 
-Fixes: 6c742e714d8c ("ipip: add x-netns support")
+-- 
+Cheers,
 
-
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Maoyi Xie <maoyixie.tju@gmail.com>
-
-Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
+David
