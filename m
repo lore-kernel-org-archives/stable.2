@@ -1,138 +1,202 @@
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A00C832572F
-	for <stable@vger.kernel.org>; Fri, 12 Jun 2026 15:12:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9000E29B8D0;
+	Fri, 12 Jun 2026 15:16:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781277122; cv=none; b=olUmnqyZd1Hx0F8TMQH2XuCUvWFd5G3QBwSR2eXJ35OU8Z9Ho1AlAa4NM6xRe4nTT6aFdHuMBXNk4bIXjBSuyECBfdhRJA/FxnHKoP8+6GBl17/u4bf7nMPQqhtXrIfsso/seobu0GDKCUwDg7+yFUK0edAQurXwgqrfVKBVk2k=
+	t=1781277394; cv=none; b=hg5ktYbKF8C1kyeY3rfuK++TJHBL7UqJ0M1//vLlIEJMI20IAHEu3/3OLdf97I7e7B4ieC/3ASOZOdQkpmcJh9FYiT4B9I+fRzBKxt/hhGAUO6JeVdKzRuzg7Bw+X9B+DEO8P0wnFhvpB0yDiHfzlKaEBlh+bOskJtm5MMBm798=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781277122; c=relaxed/simple;
-	bh=G75brgHYs2YfSe+Qlduz0qj9/u727IddI66jXx2vWFs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=O76wmp6XzOdN2G5hNJ1KCRq8VtNI1fYpb87CcYyDvzjmh6oIU8cjmdZNvAYJTWAkfxmcoBh2/jsIcFpj6kdm15bSSK5EbrYLtTd/l2OK9ry1wmhm3G7o0/ffNNN7y0A2CNmXeE8tPr/+i9jTmOiIYF5zu+P9Q0fqOguhAs6Z/0U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=R8F3NSXq; arc=none smtp.client-ip=209.85.221.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1781277394; c=relaxed/simple;
+	bh=YqdxA8lDwTZ30H8uk3yN+D0ArneX4WyXPA7uWMS+uas=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=e6mSDmKe9z2UI9+otT6xPwBG1N35i1ZfCiaF/MZ+xtq7uKDrTtpSYkEnIIQJWwxlZve24alQx3UR4/vPwiR4RZ6UHV+JcwNBkgzCbia4oJsEX3fIZXVnIQZ/gPtssyZeHHUoCqAk8PR+aJ0uzQz7WBMZy8AIg2zNOc9DUUonZBw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=gzXerX05; arc=none smtp.client-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="R8F3NSXq"
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-45eedc94d37so646031f8f.3
-        for <stable@vger.kernel.org>; Fri, 12 Jun 2026 08:12:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1781277119; x=1781881919; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=uHz30rGtCI4aGvtHgmZ0RxbN8WTv9zc5L1bDGGQ4qcI=;
-        b=R8F3NSXqmvxuJiPVMiMTT2M7+gajgYka5n3GMB/HqQshDvfcEDzCIKmjn5RgZK3KAl
-         dYTNE5pMIgvPaIwfWFIgLtRF7ZwN7dPUx4G4YYmYEaj29y81BkpRhfclM1IXTCu6c+Tc
-         F1AuXKVttlc3KmKirfr56KMjIA25UjKMAJfhLen/o/+AQp5MtxGVHp+f9EfMbsnmoo3z
-         OfNj94Yxnr5ZspVAeW5Pj6hHfaTRy/Xfk8Ci8RPnNKAA9o482SSl6eOmZ60F6C32ACbd
-         YRMdrKvQWqOT+QXrUfvQGiiqSZL3TflypsRFGdFU5Mfvn/74t/v9mS4g3IxE2cdxQvO3
-         TtrA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781277119; x=1781881919;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=uHz30rGtCI4aGvtHgmZ0RxbN8WTv9zc5L1bDGGQ4qcI=;
-        b=B+wGNrvd7bykAsf5MVLq/qASCfFdZX6J2t3VIvZwK2qtrlx4jkPnsLgwsupqsOXa8i
-         6afRL5BRdGl6O01aS6LyBrJUM4UWLDlBThE/Ci4yFIVfhXknrBIn8aMyZpf06x+xPwAa
-         owsSIHBF+UQWd3LAPsuQ/x753ed6+lBfq9CRKFpBd0iCOnuTHr9uD2MAxRdnjVVMe9Un
-         r6dj1f19OyMwkIrJlma7w5u1wZvmi8SqYlimCOExkDdkxhSElbWeRedbpAXaw97qt0FJ
-         PcKV9zQe7edds1OXAQ8pJVKAOwsN+SnTxpZPE2xZCRMaQ+Oi/bZveggd3D6mcaj/dF6A
-         zp8g==
-X-Forwarded-Encrypted: i=1; AFNElJ8NOPbmi7pzoG7Kz13+xYri/sS06q4tmxeA+qQjPZVttpnIN5BDH462sm0VtqDd7PUIfGRFcgs=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzpxqQnueEcC7JQXELkVy1DEr/NwAiBtzxMzdTM56xVcOFSdjqZ
-	Q6HR9b/r3nvmN0//fSBaSBnMZVMaFgRG/HVwq54rPWS9Q+zpGgLBRuRcZ4B2YWiSRpo=
-X-Gm-Gg: Acq92OEt+B3q8mLuGLnJOTmI9Pz4G9RrWXnnaSSC3opKA4/+QjB8QEsSvNNYn6cf69k
-	/jXwGHxgHc6f2uHkGo1I5puS1XIeJEZkd9cZ1w6LWpCDuZPbr50O6uCYxVeZASObrn8vrM008Wa
-	RD9QVABKioKWkM3p0jZILsJRNvqTdVYbSZsQPj6AY9SRCqEyfq2S9bO8stSa0A0/WFSFg/Ib8WV
-	zmkD4M44PDp+6txWW3VKWaO9BcHCIVd7N1R+KeUhytVskdcHSGG/hxU/6EefCovlnZTYVVPzwyU
-	NysdtmbtcZW5LNo1sjS300ZRBzxwo3VWgEPYCa8weIfnpQBsIYdop+u0fo4xSSY/XcwMXSJkexh
-	P8WII06dv5JFaQsjB2SSDekKO4rOCSTwcNWf10vfWj4xZv8y1ffdv5C69Y05/8QV8phaiUOKrk5
-	AW9Ehr/gR5aIg6lsiTw9jN3trMDw==
-X-Received: by 2002:a05:6000:41f6:b0:45e:ed7f:1dd with SMTP id ffacd0b85a97d-4606db96b8dmr5403781f8f.25.1781277119080;
-        Fri, 12 Jun 2026 08:11:59 -0700 (PDT)
-Received: from pathway.suse.cz ([176.114.240.130])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4606f2dbfb1sm6913084f8f.35.2026.06.12.08.11.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 12 Jun 2026 08:11:58 -0700 (PDT)
-Date: Fri, 12 Jun 2026 17:11:56 +0200
-From: Petr Mladek <pmladek@suse.com>
-To: Tamir Duberstein <tamird@kernel.org>
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	mm-commits@vger.kernel.org, stable@vger.kernel.org,
-	nathan@kernel.org, hca@linux.ibm.com, gor@linux.ibm.com,
-	ansuelsmth@gmail.com, andersson@kernel.org,
-	aleksander.lobakin@intel.com, agordeev@linux.ibm.com, arnd@arndb.de
-Subject: Re: + errh-use-__always_inline-on-all-error-pointer-helpers.patch
- added to mm-nonmm-unstable branch
-Message-ID: <aiwhvPaHef0pdm3-@pathway.suse.cz>
-References: <20260526184100.3BA431F000E9@smtp.kernel.org>
- <ah6WDkwO8eYY5f2a@ashevche-desk.local>
- <ah7PWK4gTdOYG1t_@pathway>
- <CAJ-ks9nHkcgwdh7i8efAv=ka2rtX9o6ZnGZk5KeroCX2G_t3mg@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="gzXerX05"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:Message-Id:
+	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:
+	Reply-To:Content-ID:Content-Description:In-Reply-To:References;
+	bh=eq+a+KnqGzNi4HyIs0mxE4TbBTE8NXVHXZDMscDgWS0=; b=gzXerX057qpBFVEofLLo2N9TMx
+	AdxIRdxLB+aZaMI6JoVrPCb4mZ+1Y0wC8YDS9iEYQBIMQUmxWncem72VsAS1QGgYUg7vwEApCl6a4
+	RUzDOMYtlXlbwr6ZRTsPkiMdr/gVaJDwJg8OoZ7k66cDt2iOgcXUgguYyfM0N9WoNcVe6jNZiRz41
+	pJyhlhq7Cz/oN3Ejz/ATxVYuVDSWuLTD+uLDMcNHGl/tv4+vGpJ+DNa0BsLO3eRqoPnuxVQv9Xjfm
+	7d6xNHDl54TfTk6t/Y5++QzKAWjNb5T5OI2ytZi1XviBvpjcpP8b9M0gRvWzjye/esBFU5LJMX/m0
+	Y9SCoCIA==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1wY3cI-00Ap9I-1u;
+	Fri, 12 Jun 2026 15:16:18 +0000
+From: Breno Leitao <leitao@debian.org>
+Date: Fri, 12 Jun 2026 08:16:07 -0700
+Subject: [PATCH v2] mm/kmemleak: avoid soft lockup when scanning task
+ stacks
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAJ-ks9nHkcgwdh7i8efAv=ka2rtX9o6ZnGZk5KeroCX2G_t3mg@mail.gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260612-kmemleak-stack-resched-v2-1-53240de79e88@debian.org>
+X-B4-Tracking: v=1; b=H4sIALYiLGoC/4XNSwqDMBCA4auEWTslCT6Cq96juJia0QypDxKRF
+ vHupV6g23/x/QdkTsIZWnVA4l2yLDO0yhYK+kDzyCgeWgVW21rXxmCceHoxRcwb9RET5z6wR23
+ YN9ZVjpoBCgVr4kHeF/zoCgVB8rakz/XZza/+JXeDBn1tS0eeq6Gku+en0Hxb0gjdeZ5fCn5UL
+ b0AAAA=
+X-Change-ID: 20260611-kmemleak-stack-resched-01ed72858a7f
+To: Catalin Marinas <catalin.marinas@arm.com>, 
+ Andrew Morton <akpm@linux-foundation.org>, lance.yang@linux.dev, 
+ Davidlohr Bueso <dave@stgolabs.net>, Oleg Nesterov <oleg@redhat.com>, 
+ Qian Cai <cai@lca.pw>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com, 
+ stable@vger.kernel.org, Breno Leitao <leitao@debian.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3856; i=leitao@debian.org;
+ h=from:subject:message-id; bh=YqdxA8lDwTZ30H8uk3yN+D0ArneX4WyXPA7uWMS+uas=;
+ b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBqLCK+KeZhZ/0czOX44dEskonjj0kdt7xN8EkyV
+ qM5CBZ/8c2JAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCaiwivgAKCRA1o5Of/Hh3
+ baHnEACPH/Rjrg3dMQQCKefIg8nwHNE9e2mAk+oaWbU1PUyHR2IB9l/4EtJnhylA7yT8FP8JGwO
+ JFFIOEEE5bKMzcduTkvVnhDMHzbKN4XzOVOymLStVK6QFqt0JNo1QNe30ArPxrxoU8AVw5T2PgL
+ daRYarEOgN2jWGSAOubiNnILqVcBNO8unGk9UZgTM76YiMHZFIfRTDMvEoLj+O84DNa5YGJrYKc
+ k5I65y7B7iPwAwSCz/Rsryq9YzIV4Oeg0sUYGIxUM1/BSEir/F3G1PMWhLmVnfNx+0b5NAdRjRy
+ h4+vBvABVAhOb8xoThpRDtS8m1nRKUMLZMnzBiVAgSevly4dYAcYW9DXod01Yk4D8KAIZrCTmYy
+ bktn9FrdDIXmNy7DpaRZ3fWakbYpI7j7CBMQYhtAH9vlDXk8kc//xEdQo8S5E9VKWN9txjBPpir
+ wiVuTkoq3o5aNa5XCG+r2iZm4yJxJJATlWbqju4btTdqreOibO4F6Y9JGiX1a2nPAVruqFm1WrM
+ /GtnDyDk5r9AyU+PLjKmgsO+nzRWkhtAs6cn89h738woIY9ShP47rMsYcXve6LislFS/H8OOqUy
+ CaPnHAP4AXgY1fv74QaUd3fGdFywIZ9Og0Xcgfl7CePOk1cklS4uJ1pEI2eRKQwx4ORR252cYIm
+ 7JBXJPF+Ww9U4fw==
+X-Developer-Key: i=leitao@debian.org; a=openpgp;
+ fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
+X-Debian-User: leitao
 
-On Tue 2026-06-02 09:46:33, Tamir Duberstein wrote:
-> On Tue, Jun 2, 2026 at 8:41 AM Petr Mladek <pmladek@suse.com> wrote:
-> >
-> > Adding Tamir into Cc.
-> >
-> > On Tue 2026-06-02 11:36:30, Andy Shevchenko wrote:
-> > > On Tue, May 26, 2026 at 11:40:59AM -0700, Andrew Morton wrote:
-> > >
-> > > > The patch titled
-> > > >      Subject: err.h: use __always_inline on all error pointer helpers
-> > > > has been added to the -mm mm-nonmm-unstable branch.  Its filename is
-> > > >      errh-use-__always_inline-on-all-error-pointer-helpers.patch
-> > > >
-> > > > This patch will shortly appear at
-> > > >      https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/errh-use-__always_inline-on-all-error-pointer-helpers.patch
-> > >
-> > > Petr, shouldn't this also fix the problem with old (buggy) GCC for xtensa
-> > > (IIRC) that we encountered in some tests a couple of months ago?
-> >
-> > It might here there as well. Unfortunately, I could not test it easily
-> > because it required some old GCC.
-> >
-> > I wonder if Tamir could try to revert the commit 8901ac9d2c7eb8ed
-> > ("printf: Compile the kunit test with DISABLE_BRANCH_PROFILING")
-> > and try this patch instead.
-> 
-> Yes, confirmed.
-> 
-> I rebuilt xtensa-linux GCC 8.5.0 and tested printf_kunit.c with the original
-> randconfig and branch profiling enabled, without DISABLE_BRANCH_PROFILING.
-> 
-> Without Arnd's patch, the original failure reproduces:
-> 
-> printf_kunit.c: In function 'errptr.part.2': error: call to
-> '__compiletime_assert_313' declared with attribute error: BUILD_BUG_ON failed:
-> IS_ERR(PTR)
-> 
-> With "err.h: use __always_inline on all error pointer helpers" applied, the same
-> compile succeeds.
-> 
-> So Arnd's patch fixes this case and commit 8901ac9d2c7e ("printf: Compile the
-> kunit test with DISABLE_BRANCH_PROFILING") can be reverted once it lands.
+kmemleak_scan() walks every thread and scans its kernel stack under a
+single rcu_read_lock() with no reschedule point. On a host with very
+many threads -- amplified by KASAN/lockdep in debug builds -- this loop
+can hog a CPU long enough to trip the soft lockup watchdog:
 
-Great. Thank you both for pointing it out and testing it!
+  watchdog: BUG: soft lockup - CPU#35 stuck for 22s! [kmemleak:537]
+   scan_block
+   kmemleak_scan
+   kmemleak_scan_thread
+   kthread
 
-It seems that it is not in the Linus' tree yet. I guess
-that it will appear in the 7.2 merge window, ...
-I set up reminder to myself.
+A cond_resched() cannot be added directly: the loop runs inside an RCU
+read-side critical section.
 
-Best Regards,
-Petr
+Borrow the rcu_lock_break() pattern from kernel/hung_task.c: when a
+reschedule is needed, pin the two iteration cursors, drop the RCU read
+lock, cond_resched(), then re-acquire it and continue only if both
+cursors are still hashed.
+
+If a cursor was unhashed while the lock was dropped, the thread list
+cannot be walked further, so the round is aborted. Such a round scans
+only part of the task stacks, which would make live objects look
+unreferenced, so reuse the existing "scan interrupted" path to skip
+reporting; the next full scan reports the real leaks.
+
+Fixes: c4b28963fd79 ("mm/kmemleak: rely on rcu for task stack scanning")
+Cc: stable@vger.kernel.org
+Signed-off-by: Breno Leitao <leitao@debian.org>
+---
+Changes in v2:
+- Do not create the nasty array, but use the same pattern as
+  kernel/hung_task.c.
+- Link to v1: https://lore.kernel.org/r/20260611-kmemleak-stack-resched-v1-1-d6248ade5f4a@debian.org
+---
+ mm/kmemleak.c | 42 ++++++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 40 insertions(+), 2 deletions(-)
+
+diff --git a/mm/kmemleak.c b/mm/kmemleak.c
+index 7c7ba17ce7af0..d88274dc0c605 100644
+--- a/mm/kmemleak.c
++++ b/mm/kmemleak.c
+@@ -1695,6 +1695,32 @@ static void kmemleak_cond_resched(struct kmemleak_object *object)
+ 	put_object(object);
+ }
+ 
++/*
++ * Briefly drop the RCU read lock to reschedule during the task stack scan.
++ * Both cursors are pinned across the gap; return false if either one was
++ * unhashed meanwhile, so the caller stops this round instead of walking a
++ * stale list.
++ */
++static bool kmemleak_stack_scan_break(struct task_struct *g,
++				      struct task_struct *p)
++{
++	bool can_cont;
++
++	get_task_struct(g);
++	get_task_struct(p);
++
++	rcu_read_unlock();
++	cond_resched();
++	rcu_read_lock();
++
++	can_cont = pid_alive(g) && pid_alive(p);
++
++	put_task_struct(p);
++	put_task_struct(g);
++
++	return can_cont;
++}
++
+ /*
+  * Print one leak inline. The hex dump is gated on OBJECT_ALLOCATED so it
+  * does not touch user memory that was freed concurrently; the rest of the
+@@ -1804,6 +1830,7 @@ static void kmemleak_scan(void)
+ 	int __maybe_unused i;
+ 	struct xarray dedup;
+ 	int new_leaks = 0;
++	bool aborted = false;
+ 
+ 	jiffies_last_scan = jiffies;
+ 
+@@ -1890,11 +1917,21 @@ static void kmemleak_scan(void)
+ 		rcu_read_lock();
+ 		for_each_process_thread(g, p) {
+ 			void *stack = try_get_task_stack(p);
++
+ 			if (stack) {
+ 				scan_block(stack, stack + THREAD_SIZE, NULL);
+ 				put_task_stack(p);
+ 			}
++			/*
++			 * This is an expensive loop, we must to call the
++			 * scheduler to avoid lockups
++			 */
++			if (need_resched() && !kmemleak_stack_scan_break(g, p)) {
++				aborted = true;
++				goto unlock;
++			}
+ 		}
++unlock:
+ 		rcu_read_unlock();
+ 	}
+ 
+@@ -1937,9 +1974,10 @@ static void kmemleak_scan(void)
+ 	scan_gray_list();
+ 
+ 	/*
+-	 * If scanning was stopped do not report any new unreferenced objects.
++	 * If scanning was stopped or a stack scan round was aborted, do not
++	 * report any new unreferenced objects.
+ 	 */
+-	if (scan_should_stop())
++	if (scan_should_stop() || aborted)
+ 		return;
+ 
+ 	/*
+
+---
+base-commit: abe651837cb394f76d738a7a747322fca3bf17ba
+change-id: 20260611-kmemleak-stack-resched-01ed72858a7f
+
+Best regards,
+-- 
+Breno Leitao <leitao@debian.org>
+
