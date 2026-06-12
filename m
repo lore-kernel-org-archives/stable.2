@@ -1,69 +1,130 @@
-Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
+Received: from mail-244106.protonmail.ch (mail-244106.protonmail.ch [109.224.244.106])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4D5D26E71E;
-	Fri, 12 Jun 2026 12:22:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BCA038D401;
+	Fri, 12 Jun 2026 12:26:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.106
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781266949; cv=none; b=gH7N7k/xjCvCA0FAASOf/6A4WEu7Do4nTAia8ul5EjkhbJJ9xss0oOonLn2RxKjW6bHzPRsWGZyncsAZpttV/0qSpzuiw55/X9TrXkhrLKRP1qWXx3oa1HLpQ/plC4PhR8vZXW/GGvMOez9OQHxiaYHRukMqelUY7f2RqaQbn68=
+	t=1781267178; cv=none; b=gmPObTLss2dbziU4dNUxRKU237W96n0CIW5mJS2G4C4ivswV6FpU1GXsZsA+bK6e/A7hPa4BAc8DKxkvSj8a39VNYkQMr3OGjJa8B2pmgXil1C2qmNtk3xWl+i3zJ8OAUU3GXrp4njm5QQQN5eKPC16KgnQlyeccC1hEb/8h3Gs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781266949; c=relaxed/simple;
-	bh=IUeAJ5+dySEN5WgxzQxh+CK9mQ+YBfKhP8x6h0oQkbI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=h6/Z4XdFUi3gmDXHBpQiJYCqtC1o/YT3D4NdJFx0x6Y8NjisheJferxdazi0iloWga3FzrFWS/SVzx2Zu+th0dfNGCLStWLZM7LQRqDtoXNYbf0VlI4bs2n+mqZr9et9QJqAHEt4gLcOuFW4a5uIxWysh+hOvU/fOcpNM3FM7sI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=Dcv8zf0x; arc=none smtp.client-ip=180.181.231.80
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
+	s=arc-20240116; t=1781267178; c=relaxed/simple;
+	bh=hgtOZ8lYZtFq+NHOsMNMTyTdOQVZUSuvYG0eSd+mVb8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OS/45ymLxxPJTMJ2/K/xXrsORQLWAdm50CE0EtvxJ3//cXwTri50OS2w00uDUbTE9glCKbH3Qv23fpK5HfPwpmGzvCix2fK+hq0sixKppTAGq6Xhf/uf4j+SNqOkc1+A2SCxTIgRlQ+jlT9GpBhY6lo0hxew6Wz01YRGWdA4orQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=beims.me; spf=pass smtp.mailfrom=beims.me; dkim=pass (2048-bit key) header.d=beims.me header.i=@beims.me header.b=M6QcHuzF; arc=none smtp.client-ip=109.224.244.106
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=beims.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=beims.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="Dcv8zf0x"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
-	from:content-type:reply-to; bh=uacM3fp+zTvq2ZzUoLDnYJ26A/sGMeP6MVc0khN1l08=; 
-	b=Dcv8zf0xzhZqxmqodkE8AxA0FpgsTz+NWUDK+vOYkntRCbfGlfwATtEuWchTDEX/zLfhFrE6SVB
-	zcchTNcHStA+2/ywP0j42HLVZrPiq/T0QQSbCDZBeG+I5zXU4mP5KDrDv4KjgJ7vGJS9VdE2Mmrn6
-	0CAWA7+U4Ih/wHZEjhZoElOcgDBoxQuWskzuHLEibzyeU1vzM+3leC6KqFVz/wNtal0ccQkVJtopC
-	mzxGaMN5I1ZGlZiydb0GjSx4Vhl/ifD+7TdXC6DFJTLvegTEHSRjsZ3UfvwowVJn7ghZcgMbq9hBt
-	Dz6rkskFp7C/+2Q496nij5v2irecy/BbrQgA==;
-Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
-	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
-	id 1wY0tq-00000004taX-2oJr;
-	Fri, 12 Jun 2026 20:22:15 +0800
-Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Fri, 12 Jun 2026 20:22:14 +0800
-Date: Fri, 12 Jun 2026 20:22:14 +0800
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: Eric Dumazet <edumazet@google.com>
-Cc: WenTao Liang <vulab@iscas.ac.cn>, steffen.klassert@secunet.com,
-	davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com,
-	horms@kernel.org, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] net/xfrm: fix refcount leak in clone_policy()
-Message-ID: <aiv59s6XS-_4iwlv@gondor.apana.org.au>
-References: <20260612020941.12694-1-vulab@iscas.ac.cn>
- <CANn89iJVksVj+tnSgGFeWo9C1m7V6gM7pA_badBs6G5Z=GMO9Q@mail.gmail.com>
- <CANn89i+bQHftM4-36j6+8Hn6iQgTi6Z8r5+YOFDju2KXCU-Jmw@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=beims.me header.i=@beims.me header.b="M6QcHuzF"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=beims.me;
+	s=protonmail; t=1781267165; x=1781526365;
+	bh=5CkDE/i7eq2wBiCJ3Txx9dUxykLNkoLdpbgIzBTZve8=;
+	h=From:To:Cc:Subject:Date:Message-ID:From:To:Cc:Date:Subject:
+	 Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=M6QcHuzFDXVFVyUL8aZ77j/hVhkJyFDM5zS1S4SKi8iPzsaxRGzdMC+jjhyrOEIHu
+	 oH3n7e8KJKgKS2KpnCLj7UxmgwRTiORpt9zrcDwsO+AHpPwkSdUgrOEMTaDIWTjbrQ
+	 49N6mcBN50S9jzI5L2gvHm4xwaO6f/nrlhGvv6dBxNe1vczSC7wgcXqvQu9i0kd/Fu
+	 lnV09+eJdzYPWhttIFGgxAu3CDwczx0CsvjFawDEw0WH/DNcNWgQ2TomJYhYk/KUGO
+	 Jh+XRTS1+wbbhziAD6uNYUgfWzfnHbZIh5sImpGwpacjtZRQHReldCFzpPvg6mMc80
+	 9qcKFCmxNrK4A==
+X-Pm-Submission-Id: 4gcJdk4VgVz1DDrT
+From: Rafael Beims <rafael@beims.me>
+To: Brian Norris <briannorris@chromium.org>,
+	Francesco Dolcini <francesco@dolcini.it>
+Cc: Rafael Beims <rafael.beims@toradex.com>,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Jeff Chen <jeff.chen_1@nxp.com>,
+	stable@vger.kernel.org
+Subject: [PATCH wireless-next v1] wifi: mwifiex: fix permanently busy scans after multiple roam iterations
+Date: Fri, 12 Jun 2026 09:25:46 -0300
+Message-ID: <20260612122547.1586872-2-rafael@beims.me>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CANn89i+bQHftM4-36j6+8Hn6iQgTi6Z8r5+YOFDju2KXCU-Jmw@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Jun 11, 2026 at 11:01:12PM -0700, Eric Dumazet wrote:
->
-> Having to clear a refcount before kfree() is a new thing for me.
-> 
-> Just curious of why this is needed on a private object (not visible yet)
+From: Rafael Beims <rafael.beims@toradex.com>
 
-It's not the first time this guy has sent nonsense like this:
+In order for the firmware to sleep, the driver has to confirm a
+previously received sleep request. The normal sequence of evets goes
+like this:
+EVENT_SLEEP -> adapter->ps_state = PS_STATE_PRE_SLEEP -> sleep-confirm
+-> SLEEP -> EVENT_AWAKE -> AWAKE.
+Before sending the sleep-confirm command, the driver must make sure
+there are no commands either running or waiting to be completed.
 
-https://lore.kernel.org/all/aiDcg4CL92mdFqfA@gondor.apana.org.au/
+mwifiex_ret_802_11_associate() unconditionally sets
+ps_state = PS_STATE_AWAKE when it processes the association command
+response, outside of the normal powersave management flow. If
+EVENT_SLEEP arrives while the association command is in flight,
+ps_state is PRE_SLEEP when the association command response is parsed,
+and the forced AWAKE overwrites it. The deferred sleep-confirm is
+never sent.
 
-Cheers,
+A subsequent scan_start command is correctly acknowledged, but the
+firmware doesn't generate scan_result events. The scan request never
+finishes, and additional requests from userspace fail with -EBUSY.
+
+After testing on both IW412 and W8997, I could only trigger the bug on
+the IW412 and observed the firmwares behave differently. On the IW412
+the firmware still sends EVENT_SLEEP while the authentication /
+association process is ongoing. A W8997 under the same
+conditions seems to suppress power-save for the duration of the
+association, so PRE_SLEEP never coincided with the association response
+even after extended periods of testing using the loops
+described below (>12hours).
+
+On the IW412, the delay between commands that triggers an EVENT_SLEEP
+was empirically determined to be ~20ms. This delay can naturally occur
+when the driver is outputting debugging information
+(debug_mask = 0x00000037), in which situation the busy scans issue is
+repeatable while running "test 1)" as described below. If the delay
+between commands is less than ~20ms, the firmware stays awake and
+the issue was not reproducible running the same test.
+
+The host_mlme=false path also behaves differently. In this case, the
+entire authentication / association transaction is executed by one
+command (HostCmd_CMD_802_11_ASSOCIATE), and the firmware doesn't emit
+EVENT_SLEEP while the command is running.
+
+Remove the assignment so the ps_state is only manipulated in the paths
+that are related to powersave event handling and on the main workqueue
+for correct sleep confirmation.
+
+The following loop tests were performed (with debugging output enabled):
+1) force roaming between two AP's, one 5GHz and one 2.4GHz, same
+SSID. Use wpa_cli to trigger the roaming behavior, sleep 2s
+between iterations.
+2) force a disconnection to AP 1 and a connection to AP 2, test
+scan. Use wpa_cli to trigger the connection changes, sleep 2s
+between iterations.
+
+Each test ran in each device for at least 3 hours.
+
+Fixes: 5e6e3a92b9a4 ("wireless: mwifiex: initial commit for Marvell mwifiex driver")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-4-7
+Signed-off-by: Rafael Beims <rafael.beims@toradex.com>
+---
+ drivers/net/wireless/marvell/mwifiex/join.c | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/drivers/net/wireless/marvell/mwifiex/join.c b/drivers/net/wireless/marvell/mwifiex/join.c
+index 5a1a0287c1d5..b48f7febaf03 100644
+--- a/drivers/net/wireless/marvell/mwifiex/join.c
++++ b/drivers/net/wireless/marvell/mwifiex/join.c
+@@ -736,7 +736,6 @@ int mwifiex_ret_802_11_associate(struct mwifiex_private *priv,
+ 	/* Send a Media Connected event, according to the Spec */
+ 	priv->media_connected = true;
+ 
+-	priv->adapter->ps_state = PS_STATE_AWAKE;
+ 	priv->adapter->pps_uapsd_mode = false;
+ 	priv->adapter->tx_lock_flag = false;
+ 
 -- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+2.53.0
+
