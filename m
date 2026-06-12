@@ -1,128 +1,158 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A521933C1AD;
-	Fri, 12 Jun 2026 19:10:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E72AD3A872A
+	for <stable@vger.kernel.org>; Fri, 12 Jun 2026 19:12:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781291432; cv=none; b=VHarNAIF5EuDDI6cD4fhyB7X70ifPPGhVM6uxvzxndI/80jNHSizdHWNk0fc6C8WGBUigmcwZrOFvW9dneCOY50IKnga3GSur8dqEeeefryJqCta26fXO9uU74jjeJ2pTnhm0UDsAX+yfoRsnEOjCuH9ssZcypi5hTQIVHpLhdc=
+	t=1781291537; cv=none; b=bx5wH9jLSSBtsb/TUxaJQc/2oNeWPB88STB4PonbWH+e4W45m9BFje5lj8xanCoG0kitVdvY7VlsR8pEh4RI5ztx3Bx8FJPDdN2IpwUZGKtYoASeh//rJAb6iXK7NqU3FDX6cznSgyZGJtSUFdutjhmLNMjBt09lTGDySMsbs8g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781291432; c=relaxed/simple;
-	bh=Ind7OMFAL3B7N2bgDg5escGqPCGjAbL1eUprnuhrvd8=;
-	h=Date:To:From:Subject:Message-Id; b=oY7fbJIXmlbh7WWlbt6OQqHhv0IO8XVL0i+9hxQ6RFL464NyOXB2qUdRrR8nKjVEEHjLubpeVfFVaG1qd340PCLepA1rdZxTkPh3iBHGyQxpjjwNdaQ58lnBojwyVJG7vXWu5uqh0d7PfayB+Ms928qsGOD5HxjKkV2L/oFnqZw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=tke3v0+a; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781291537; c=relaxed/simple;
+	bh=UeIrXYW/VOxDTD1TKQsKUhc6+O1yPrNl8u07x7at6IA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CwUUOKUHx6CixTcTnukyh5EaO88FdOaZ/Ip1zdL+KyM2glSDpwPb+hptZI52R6MBEAGPocfR03TbcrtqsPSP2MT2X1ytq1PNZ+KlSLfsHW1cci/XAuQk4CJdLMcS2BA2eqWq3aSPQv+lUfXb8uQ20Fn8z8RTkBM7NRSF3AszCew=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RVXj74Kz; arc=none smtp.client-ip=209.85.210.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="tke3v0+a"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 337831F000E9;
-	Fri, 12 Jun 2026 19:10:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RVXj74Kz"
+Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-8422871b42dso864499b3a.3
+        for <stable@vger.kernel.org>; Fri, 12 Jun 2026 12:12:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1781291431;
-	bh=XXmmT7lZZeyxX4+epgjzp56hFjVQgxBr29JCGmGjhGo=;
-	h=Date:To:From:Subject;
-	b=tke3v0+apKPXCUt5RuVCSfCZsiQpOdh9V1g80t3Ge1tMhjPmu+mUHZVftzE/Pb/Yo
-	 IvhpgKu+8w3duJAQLtYGJkw2zApIEzk7lP0i1obEu0zLsbDxHexwvz3zzpTK3ReWHC
-	 3QnRMm3eZWWBT+KSrzSDXnUbRjfecssZZsBE0Zv4=
-Date: Fri, 12 Jun 2026 12:10:30 -0700
-To: mm-commits@vger.kernel.org,stable@vger.kernel.org,piaojun@huawei.com,mark@fasheh.com,junxiao.bi@oracle.com,joseph.qi@linux.alibaba.com,jlbec@evilplan.org,heming.zhao@suse.com,gechangwei@live.cn,kylebot@openai.com,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + ocfs2-avoid-moving-extents-to-occupied-clusters.patch added to mm-nonmm-unstable branch
-Message-Id: <20260612191031.337831F000E9@smtp.kernel.org>
+        d=gmail.com; s=20251104; t=1781291534; x=1781896334; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=wgxUDA4EtUN42F2Wh6P6RN7etfV8gAwcKvN+qwmZsAw=;
+        b=RVXj74KzO2qZGtobSQcwZuoykj85mBdAG1t6MRSNnqlxOqay0QXJ8L30J3hW7cCSLT
+         RLKShI86qLmd2mQK6z2RY82YWynRkWf5+dS/SgVYpJ8zk9oLxWXL43SZdVC3GMBpHNsL
+         O/jXUKSuGr9OqpXe21po/KAD6bhn7eWP+cZ8mGyl+PoZFAvnF+iW4Rm3sehR2ngHp//p
+         QsV1/N+KhvzgJP6svO0tQN2NWs8jswXAWqJcLn+TUYFf05Vibc/bxekFY3qRUOVSCo4l
+         ozCh3N/pa1K0nOHQ3WcOmhUHFc2/wbfoDBwHd+V1i+vOw39weXc09ITzvVwqoVexjyOE
+         og0Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781291534; x=1781896334;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=wgxUDA4EtUN42F2Wh6P6RN7etfV8gAwcKvN+qwmZsAw=;
+        b=KU7YXocKRfIqJGj2YPNug1EeQB3CINF0ZZTSMvx+yCBe2vW+G8n5sq2GvPA1bBSFbO
+         y/HeWrsyD+fFBWyaPfAkpSnInwRtXXpD0iYyyaEui1wiQQvCJVjnczvs1OUl0fYox11M
+         J3oritkbdIVlQrjGV3aVMxaaVfBjIppOMayJvhuc4tv9yC9nBj+fTJ3OX/dgCH9W6t6C
+         3oBop4b8xMqQPLEDFrlAEwCao8UT0xKXtJxksJVYGmeMO33KuB1cRCnvzm0uxdLBqnNN
+         RTXAkI0J+mAKXdrEOEXc8Ew0r0bdOy6iGKfp/IPhATRKWilRe/H4e/LVuy0KEHy7H/7M
+         +ziA==
+X-Forwarded-Encrypted: i=1; AFNElJ9E1rBxIaHcuKHLFQH494JJNpi+5O+VUH5IwCvBzAUEjpolJM1tYIAAx3N3cuLdQ2DtcSUZn24=@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywsbi+sS/bnCahdJAKG0OW9X5BHfFUtfqfQSdjyUC4tKFMtA6Oa
+	dgvjwibE5nl/AKneUmm/r5QUiHccKEth9zrc9+ig54p+1yFQTpHqj2dfd1+IYyOl
+X-Gm-Gg: Acq92OHo4Nl5Ob6yzjU1pkg+BAPLH3ZiT7SKSiPwbng0JjVrba8dqC7O7cWvhP2nIZ7
+	fkd4ciV4aAxm+M/SJNIi/tOBq1ivfhgcDFCbAN1551LcAYiYQVHz+M2pDaKO6rUjNVuNeUJ/VDK
+	Hqo0c5qzkwDzSGaazURzGNCxwxpgAQPJ5GngpAteawDB/gtrpERbqN54VVUMdB0CrHZ1gdE0jGg
+	On+ytCcSeW+4kQK/AD9pqmGTDrb0svwpSS9qpRG59YErxp1cjGmzhcgOWPVMr1eEC80TvAirGeR
+	bey37WqIZkRqC7n4STmxPoQ1Efsrm/6UD06gomndgImBesgpiFyVDsFHJalovRs7jOSW8M25FIB
+	qOvtcDZUHWH28LOGCeXnRzoIMwF6k1qSQVMrT/Zi1W8k4pwSTBd9jSshslmxiYlp4DR72dFIYW8
+	X/zhvvdf1GyI8v359saizHlWKwFB2UcC4+c3Wb+6kqdrse1uGI
+X-Received: by 2002:a05:6a00:1404:b0:836:3f6a:3e77 with SMTP id d2e1a72fcca58-8434cd4b0abmr4520090b3a.17.1781291534135;
+        Fri, 12 Jun 2026 12:12:14 -0700 (PDT)
+Received: from localhost.localdomain ([61.185.160.132])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8434b020b53sm2952868b3a.47.2026.06.12.12.12.11
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Fri, 12 Jun 2026 12:12:13 -0700 (PDT)
+From: Jenny Guanni Qu <qguanni@gmail.com>
+To: shaggy@kernel.org
+Cc: jfs-discussion@lists.sourceforge.net,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Jenny Guanni Qu <qguanni@gmail.com>,
+	syzbot+a98891ce2318fe7baf05@syzkaller.appspotmail.com
+Subject: [PATCH] jfs: fix use-after-free in jfs_readdir on legacy non-indexed directories
+Date: Sat, 13 Jun 2026 04:12:04 +0900
+Message-ID: <20260612191204.95876-1-qguanni@gmail.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+In the legacy (non-indexed) readdir path, jfs_readdir calls dtReadNext
+to advance through the directory's dtree. When dtReadNext reaches the
+last leaf page, it frees the metapage via DT_PUTPAGE(mp), sets bn = -1,
+and falls through to the out label, which stores the stale mp pointer
+into btstack->top->mp.
 
-The patch titled
-     Subject: ocfs2: avoid moving extents to occupied clusters
-has been added to the -mm mm-nonmm-unstable branch.  Its filename is
-     ocfs2-avoid-moving-extents-to-occupied-clusters.patch
+Back in jfs_readdir, DT_GETSEARCH dereferences btstack.top->mp to
+extract the dtpage pointer. It guards this with "if (BN)", intending to
+distinguish root (bn=0) from non-root pages, but the -1 EOF sentinel
+also passes this check, causing a read from the freed metapage slab
+object.
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/ocfs2-avoid-moving-extents-to-occupied-clusters.patch
+The existing code already had the correct EOF check ("offset beyond
+directory eof?") immediately after DT_GETSEARCH, but the dereference
+inside the macro fires first. Fix this by moving the bn < 0 check
+before the DT_GETSEARCH call, reading btstack.top->bn directly since
+the local bn variable is not yet populated.
 
-This patch will later appear in the mm-nonmm-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+Also null out the stale mp pointer in dtReadNext when bn is -1, so the
+btstack does not retain a dangling pointer to freed memory.
 
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
+The buggy ordering predates the git history; the EOF check has followed
+DT_GETSEARCH since the initial JFS merge, so there is no specific
+commit to reference in a Fixes: tag.
 
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: Kyle Zeng <kylebot@openai.com>
-Subject: ocfs2: avoid moving extents to occupied clusters
-Date: Thu, 11 Jun 2026 14:35:10 -0700
-
-For non-auto OCFS2_IOC_MOVE_EXT operations, userspace supplies a physical
-me_goal.  ocfs2_move_extent() initializes new_phys_cpos from that goal and
-expects ocfs2_probe_alloc_group() to replace it with a free run in the
-target block group.
-
-The probe currently leaves *phys_cpos unchanged if the scan reaches the
-end of the group without finding a free run.  An occupied goal at the last
-bit can therefore survive the probe and be passed to
-__ocfs2_move_extent(), which copies file data into a cluster still owned
-by another inode before the bitmap is updated.
-
-When the probe does find a free run, it also subtracts move_len from the
-ending bit.  The start of an N-bit run ending at i is i - N + 1, so the
-current calculation can report the bit immediately before the free run.
-
-Clear *phys_cpos before scanning and use the correct free-run start. 
-Callers already treat a zero result as -ENOSPC, so failed probes no longer
-continue with an occupied caller-controlled goal.
-
-Link: https://lore.kernel.org/20260611213510.16956-1-kylebot@openai.com
-Fixes: e6b5859cccfa ("Ocfs2/move_extents: helper to probe a proper region to move in an alloc group.")
-Fixes: 236b9254f8d1 ("ocfs2: fix non-auto defrag path not working issue")
-Assisted-by: Codex:gpt-5.5
-Signed-off-by: Kyle Zeng <kylebot@openai.com>
-Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
-Cc: Mark Fasheh <mark@fasheh.com>
-Cc: Joel Becker <jlbec@evilplan.org>
-Cc: Junxiao Bi <junxiao.bi@oracle.com>
-Cc: Changwei Ge <gechangwei@live.cn>
-Cc: Jun Piao <piaojun@huawei.com>
-Cc: Heming Zhao <heming.zhao@suse.com>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reported-by: syzbot+a98891ce2318fe7baf05@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=a98891ce2318fe7baf05
+Cc: stable@vger.kernel.org
+Signed-off-by: Jenny Guanni Qu <qguanni@gmail.com>
 ---
+Reproduced the crash on an x86_64 KASAN kernel (v7.1-rc6) using a C
+reproducer that mounts a JFS image, clears JFS_DIR_INDEX in the
+superblock to force the legacy non-indexed readdir path, and calls
+getdents64 past the last leaf page. The faulting access resolves via
+faddr2line to the DT_GETSEARCH dereference in jfs_readdir, and the free
+to release_metapage in dtReadNext, matching the syzbot report. syzbot's
+own published C reproducer produces an identical crash signature on the
+same kernel.
 
- fs/ocfs2/move_extents.c |    4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+With this patch applied (v7.1-rc8), the same reproducer drives the
+identical code path (600 entries, repeated getdents64 calls through the
+legacy jfs_readdir loop) and completes with no KASAN report.
 
---- a/fs/ocfs2/move_extents.c~ocfs2-avoid-moving-extents-to-occupied-clusters
-+++ a/fs/ocfs2/move_extents.c
-@@ -534,6 +534,8 @@ static void ocfs2_probe_alloc_group(stru
- 	u32 base_cpos = ocfs2_blocks_to_clusters(inode->i_sb,
- 						 le64_to_cpu(gd->bg_blkno));
- 
-+	*phys_cpos = 0;
+ fs/jfs/jfs_dtree.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/fs/jfs/jfs_dtree.c b/fs/jfs/jfs_dtree.c
+index ac0f79fafaca..037121587571 100644
+--- a/fs/jfs/jfs_dtree.c
++++ b/fs/jfs/jfs_dtree.c
+@@ -2874,14 +2874,14 @@ int jfs_readdir(struct file *file, struct dir_context *ctx)
+ 			ctx->pos = DIREND;
+ 			return 0;
+ 		}
+-		/* get start leaf page and index */
+-		DT_GETSEARCH(ip, btstack.top, bn, mp, p, index);
+-
+ 		/* offset beyond directory eof ? */
+-		if (bn < 0) {
++		if (btstack.top->bn < 0) {
+ 			ctx->pos = DIREND;
+ 			return 0;
+ 		}
 +
- 	for (i = base_bit; i < le16_to_cpu(gd->bg_bits); i++) {
++		/* get start leaf page and index */
++		DT_GETSEARCH(ip, btstack.top, bn, mp, p, index);
+ 	}
  
- 		used = ocfs2_test_bit(i, (unsigned long *)gd->bg_bitmap);
-@@ -555,7 +557,7 @@ static void ocfs2_probe_alloc_group(stru
- 			last_free_bits++;
+ 	dirent_buf = __get_free_page(GFP_KERNEL);
+@@ -3293,7 +3293,7 @@ static int dtReadNext(struct inode *ip, loff_t * offset,
+ 	btsp = btstack->top;
+ 	btsp->bn = bn;
+ 	btsp->index = dtoffset->index;
+-	btsp->mp = mp;
++	btsp->mp = (bn == -1) ? NULL : mp;
  
- 		if (last_free_bits == move_len) {
--			i -= move_len;
-+			i = i - move_len + 1;
- 			*goal_bit = i;
- 			*phys_cpos = base_cpos + i;
- 			break;
-_
-
-Patches currently in -mm which might be from kylebot@openai.com are
-
-ocfs2-avoid-moving-extents-to-occupied-clusters.patch
+ 	return 0;
+ }
+-- 
+2.50.1 (Apple Git-155)
 
