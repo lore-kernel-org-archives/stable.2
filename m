@@ -1,218 +1,178 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+Received: from smtp-bc0c.mail.infomaniak.ch (smtp-bc0c.mail.infomaniak.ch [45.157.188.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFB6F3A9D94
-	for <stable@vger.kernel.org>; Fri, 12 Jun 2026 17:26:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.16
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781285211; cv=fail; b=j5r8kKeGaYHGENslLM2X6Am7gj3xxdRGsVFKUnI7dd6Jxt1yHYbuvHRZX2lITddIZ8nIqmunBC5D8pHJDEfZk/8fGiG1Z7wcG56DCuoh/r8we7lwzA9aWVhUMvZ2rrfOF1f55XKS1owdbdf6IgjnipT9S9+kcVmu09UzsN8afis=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781285211; c=relaxed/simple;
-	bh=Bt/4TKgqtIE7INEOtffhvGTRSYaWOK5R0v81Io01aHc=;
-	h=From:To:CC:Subject:Date:Message-ID:Content-Type:MIME-Version; b=Cc8N6yfBWasmdGbQX1kHTDR2xbDY64C/WbmItNo0ccWl+1RzoDmAkaSNEtWDux6JmhZ4WP2fflFNPxVydA86NIx8/tQwRm1eIHJ4y8hQatTbta9a9CLHOGxWPdO7zVs1g1UAZudfJvEk5SEFonOD/N6EvcDVaJZvVICe8y6QUXY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=gx+RNGyg; arc=fail smtp.client-ip=198.175.65.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE2FB407569
+	for <stable@vger.kernel.org>; Fri, 12 Jun 2026 17:28:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.157.188.12
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781285299; cv=none; b=dpBAqdKg0of3ueCGw4m4tw01sbYUn7TylOqpDq2BmD+RRllsJjlmqyEn9DZMkmVLf9hURO/Gwn/OiVCc6Vn2sa3n09EzxMhKGKr2nyPr7Y9JJUhELIh+iobm5pSsNEr/Yv9EBYjsLpnGsM3bDq0xwbsNX+OWzhYKqeiWimoNOEw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781285299; c=relaxed/simple;
+	bh=UlvAvuQWbi916cPi3vd2hGdWyMhMGyJ8nVfPJ8HJzUw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=u5pWMvRdyPJZQuwNFrYwIuDXTCddPpvFUY9bZf0hTNEapWn9KOsa3EmOEowcO72nG+0qTUfmni4e4pIZJUOFxJMNsTfpxYp2p2tUY6pUAKiOz6jQU2gn2IcbKIuKJJj1K+lRXt+mu5KVpzVbmUouz46ZN0AwGXOJHVvP1as4xps=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net; spf=pass smtp.mailfrom=digikod.net; dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b=jJjUIBYn; arc=none smtp.client-ip=45.157.188.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digikod.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="gx+RNGyg"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1781285209; x=1812821209;
-  h=from:to:cc:subject:date:message-id:
-   content-transfer-encoding:mime-version;
-  bh=Bt/4TKgqtIE7INEOtffhvGTRSYaWOK5R0v81Io01aHc=;
-  b=gx+RNGygx+pQ3/XJIErxhPHte2D/H1NNPnfLYYgwka7NoNcLWVfuq2P/
-   RHm1yvl9yk6aHL2vDuQNIVrSLWpPl9kf3AWgW+z74hdNkcemLfMpkfMyE
-   ilLdN7/rHqt4W+OSoybT/6S5hXg84lwH8a3x4rB52cANd4ltyIWPqCyW2
-   +iIaopvBa1g0xCU/tR+jbqNrVuNTTAbmyQtXfkOLRsqJhOGlP8ovU/f9M
-   pKpL8TJLRhane+VV3xbcoNeGE9/1WJfv+7MLfzR6U60wl61FSyOyEvLQF
-   23WySK/8l7I1G1A0WbMvAad8QxKwieOHkmMUPTESuEJZMOPKH/hPOqW9B
-   Q==;
-X-CSE-ConnectionGUID: cIAAWRNNQh+E6MKXpKoV1w==
-X-CSE-MsgGUID: yIGQHiWDQ02fG3YKvszLWw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11815"; a="82311046"
-X-IronPort-AV: E=Sophos;i="6.24,201,1774335600"; 
-   d="scan'208";a="82311046"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Jun 2026 10:26:48 -0700
-X-CSE-ConnectionGUID: YlyhpMWNT86tXAHpA4ljsw==
-X-CSE-MsgGUID: sxu1MYXqRuuBPcUuGfXu9Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,201,1774335600"; 
-   d="scan'208";a="242729558"
-Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
-  by fmviesa010.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Jun 2026 10:26:48 -0700
-Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
- fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Fri, 12 Jun 2026 10:26:47 -0700
-Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
- FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37 via Frontend Transport; Fri, 12 Jun 2026 10:26:47 -0700
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (40.93.195.23)
- by edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Fri, 12 Jun 2026 10:26:47 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bSMl1StCe6UaSlN5nEzg5TLqwnBdLCzhg9M8FEpSkvuKSUe2f6la2MtKLIyPZ27cjeMLE6EZapLOsdD2JMzlkRIxjwSugsnMgIqK09F9BOHcY2KjidGiluIDBcmDR17dQPrrbtPHLGGmV7/AuNMq+7cWc5UVc4IlpYA/7sqG5o54yI6mYng+C8TeLR3dG3XwZJmZcXcSH7YzHU/JyeXV+bsV8gTbrsEcm/wjg+FPOxELBCK/jdYWCvidz8fbrXuRcdmN0HB6I5UoW3klGtbD1qvYbmtuYm7BuAldEDug45t4B7Gkng2NKPWeaDPWzC8HNTyNakxnjMA79jiFCvNV1g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=D0dYU+eK3CHXsgAYlAiQ/TZRNsCRGfmXxJ8yO/t3w14=;
- b=QzwLmkBVDGMqICWXEsa0a6ZVufoEv3Ee7cor0G8XoucYnQGFv8YjSWnWqDPk7wE9RXyyjGTjCwtV7KpUQ5PTm7D/GiAXSfja66Sg5PpUpOBmr77VJZLU9qVlF1jAupwFbtwRYoogxxPVpeEScF6AKwDDj2c72rsqEdhFzI+oBsHvHsAk5ImPNnwqTgZ0AByMWzoJbk7JXD/ITp/QemipVTVpkN8KgJ8ECi4QYJV5d+asQcDVQkO98JDTyI4gR40Fvf560dTCpihQP9IQ0uDF783d/6vpE3U6Ry/z9Bey/y/IJPL1qa05ZBLOOBlJTYcd0pdLpPzHsWMGdzPzk23pVw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from IA3PR11MB9273.namprd11.prod.outlook.com (2603:10b6:208:573::17)
- by DM4PR11MB6456.namprd11.prod.outlook.com (2603:10b6:8:bc::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.13; Fri, 12 Jun
- 2026 17:26:43 +0000
-Received: from IA3PR11MB9273.namprd11.prod.outlook.com
- ([fe80::31a4:58c:e3b5:43fa]) by IA3PR11MB9273.namprd11.prod.outlook.com
- ([fe80::31a4:58c:e3b5:43fa%4]) with mapi id 15.21.0092.017; Fri, 12 Jun 2026
- 17:26:42 +0000
-From: Imre Deak <imre.deak@intel.com>
-To: <intel-gfx@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>
-CC: Mika Kahola <mika.kahola@intel.com>, <stable@vger.kernel.org>,
-	=?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>, "Marco
- Nenciarini" <mnencia@kcore.it>
-Subject: [PATCH] drm/i915/mtl+: Enable PPS before PLL
-Date: Fri, 12 Jun 2026 20:26:17 +0300
-Message-ID: <20260612172617.3427027-1-imre.deak@intel.com>
-X-Mailer: git-send-email 2.49.1
-Content-Type: text/plain; charset="UTF-8"
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: GVZP280CA0076.SWEP280.PROD.OUTLOOK.COM
- (2603:10a6:150:274::13) To IA3PR11MB9273.namprd11.prod.outlook.com
- (2603:10b6:208:573::17)
+	dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b="jJjUIBYn"
+Received: from smtp-4-0001.mail.infomaniak.ch (unknown [IPv6:2001:1600:7:10::a6c])
+	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4gcRLH1NkMzFfP;
+	Fri, 12 Jun 2026 19:28:07 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=digikod.net;
+	s=20191114; t=1781285287;
+	bh=sDCihnMM6e2PYF53CG6R2LkXlUSqFxRVN5xeVo/MXqs=;
+	h=From:To:Cc:Subject:Date:From;
+	b=jJjUIBYnhlYxMkejfqsj9acvWky3jud1X62xkUDGHdnq475Q8TDkAMcAZeQwrob0u
+	 PAplumpngjg/Fd/gRK/A516vTctbU7dVBnI3j/W5GOnyOEXEA1XjHkMPYco2YV9pG7
+	 KzTeIK7c1QQy1/NAeVBb9J5dfOBX6+EOqmbebF+U=
+Received: from unknown by smtp-4-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4gcRLG3QkmzK5Q;
+	Fri, 12 Jun 2026 19:28:06 +0200 (CEST)
+From: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>
+To: =?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack@google.com>
+Cc: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>,
+	linux-security-module@vger.kernel.org,
+	Tingmao Wang <m@maowtm.org>,
+	Matthieu Buffet <matthieu@buffet.re>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] landlock: Set audit_net.sk for socket access checks
+Date: Fri, 12 Jun 2026 19:27:55 +0200
+Message-ID: <20260612172757.1003481-1-mic@digikod.net>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA3PR11MB9273:EE_|DM4PR11MB6456:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2ef348ea-c363-4882-bdb2-08dec8a7c520
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|23010399003|366016|1800799024|56012099006|11063799006|3023799007|18002099003;
-X-Microsoft-Antispam-Message-Info: VgDB+ubW7939mRpvRpqT0DSbzWqgubv8LEdG3wiJBDyJ8QDCNZU6P/nGjc9Q84T2KTrYbX5s2C9BKBNtMNXEPx7YIITVa04AojpCkHR6lWGHLmg8EdhfyaMRPWWuM2Ne/cUiHUkn/7QOQT74W24Z/AZhhyenbobYj3AgZLeTyTV3nDojBCmiReQ0Mlanlq8EgDiaL+73hGrFzzGZwHkA9tEWVrvYvqtHXiDDMwiP8PhSC4DPvmWnhMnT6IH3okMQCccy5ALKUa1ejWUKRtlQVLGudr9yHGXBmZc8fOW0+OcZ4HqC0M3Za2dHM51ZJEMgul6Tc8R+YWIpY/WzLjpBydjE74ZqjEkjyHVB4ezhO5gfstJH9CckY+Qm8b1Z5d7MXlQoUI67yPT5bvhTU3CfRq1mCsss3ZAO9wV0dsfaurYL6TSIaRqUMEyasdfj8IAz+pwdYFmfu8NeexDKm8bn75+2dTU7A4emDqBDhXknrzBy+hPxwO/sZ0z1VMN5srkiHeGMo5f9AauVwlePenWEzAx5RD69lYq9ikKGaaWFumDZh7PCahQXSxAEvT18YcuT8VWFurfq13UYoTvOaH6xG7JBijSQC6w0V7C06pgbmpEKrFkNQ+C75F//cs57bvZSZmHEPnZ5xLe0kfLM4wN5Tw==
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA3PR11MB9273.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(366016)(1800799024)(56012099006)(11063799006)(3023799007)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Znptd1F6ZGxIZkhHMnJVUTFwZTcyT21HcVRBdldpRk5rc0ZSYUNZdHRXWVNR?=
- =?utf-8?B?UWt3TnJNamMrMXlPNWNJWDdGTG8zTTZqSG5kU3Z5ZTNod0Q0dWNKRVBkK0cx?=
- =?utf-8?B?S2F5TnVYTXdPemd6OHlxRXZ5eXVBdjVqWHBFOVZQVDFtSWNXWFYxSE9UQWh5?=
- =?utf-8?B?VnFtQmJsZmpnWjcxTDZZTllwYTdEcGdaOEdFTDVQVVlhNUJybWhkeEFyUzNU?=
- =?utf-8?B?TjVhbTRJc242R2hLb3E2K25WU3RJcGVTMjNhQ2FYbjNwWFMvOFZBalcrYUhZ?=
- =?utf-8?B?aFpKODRvaHM2Ynh3bkh6MEtudkhodlU1U0xkRjVtMkxBVEFIRTdlSjdrbTlW?=
- =?utf-8?B?cldUVTRkaWg3Y055ZWtld3g1Sm5ncXhTV3JoUkw2YnVCQjNtSEVXUUlpb0k4?=
- =?utf-8?B?RmliQTNNRTEzOGVIaVVPODhVM1h4NEpudTlNSWJmMzRUblYxeW0vTSt3eCtz?=
- =?utf-8?B?VVIzYnl1WmJhMExnNVJaRFZDQzFKZjhOTUlUeDlBYXhKbm56ZC9LdkxJVW02?=
- =?utf-8?B?QVVVRk5TMWlQaHlMM1ZmZEliSzNOSG4rTG5QZTRrblJTbzRTLzlCeGdFMTg1?=
- =?utf-8?B?eUowQmJwT2IvZVVlMjRmS0J2TWpzbEtCSEVkSnUrZTlUMVZiazMvcUU0c1oz?=
- =?utf-8?B?VlNYL01jemR2dkRNV0NQTHk2a20vOVA1QW1Lb2wrdmRCazIwdmRmU3p1Tnkx?=
- =?utf-8?B?V0NBblo3QmJDaU1ybit1WG5pRDNZd09maDdndjBUOTRaaVQrenBkdURmY0Ro?=
- =?utf-8?B?N1VtUjhUWGZaZmxPcndBZVB2RG1OMFhnbkZveU5DWXBXQXhkOHJkNWV4TTg1?=
- =?utf-8?B?N0UxNE1PS25qY1VRd25odE5Gak5JQVpaUWxyeHpiY1lnOUxtWGxNdjFJWm51?=
- =?utf-8?B?azhCR21uRVJ1M3d2QWhUZUsxT05neVYwbjdKaHFvbDlhaVFBM1FiTGt3b3Iw?=
- =?utf-8?B?UzM3YXh0TVBsT05teEt0VlpEVnlKcSswWWEySEF1Q1d1K3EweGpkWUNxM3NN?=
- =?utf-8?B?TmNhaTl0VFVxb3BBbVB1aDRPZ0NJOWlFczNsallBaGk5Zm8zUzBqWjc2Tml6?=
- =?utf-8?B?WHA5VWFnNHlhb2pMNEpZZnJMTWk5OExISUszSG1TVWVOK2llbVZ2c1pLb280?=
- =?utf-8?B?TzEzMWF1Qzd5dFFvL05QbEhQU3VqSHFDM1hjR1ZLbEt5a2xPdEpxMzVudkhT?=
- =?utf-8?B?TkpVZGk2ckxuYzdrYitLQ0NQWnQ0amJmaExuaXk0cEZ0LysyWVVHZktYV3dY?=
- =?utf-8?B?eSt4c3lJS08rejVXT2twR0JuVW1BUUZGMkExQ2dqV0xZR0ZQKy9RaDBZTVR5?=
- =?utf-8?B?T2VRMzJJWmJucXdGR012R1FLYXV0Vyt0MjlSQUVLM0pRQ0lZRnA2MCt2UXR3?=
- =?utf-8?B?cFpEV0UzQnVvSHdkT1Iya0E3elBZcjFIUGlXQ0QrSUpLUzl2ZElpVSt1VWN0?=
- =?utf-8?B?ZzJhSmJ1Sk1QR3NwMmNtbTJ4UFVKbzV3ZHp6czZoemFST3Mva004YUUvT0Rk?=
- =?utf-8?B?V0pUb0IyV1RhcGZ1eHNaYXZGN29RNEFxUUhWWEIzM0RsQ3hmUkJ3L1RlWG1l?=
- =?utf-8?B?Y3lWbkY3VEZFejgrY1ZESzhsNFVrcUNsc1ZBRmhJV1BTZFpuWURGSlI1ZFMy?=
- =?utf-8?B?SjBVZnBCZStwQitOemQ0TkJ3T3lyRHdEcXBXcUlEeW9taTBaZi9KbHNBL2JZ?=
- =?utf-8?B?c2xyQmRpczFXY3VERkFnVW5VaTllOU91blhSUEN5UHZWU3pOSzB3dzdUL0lU?=
- =?utf-8?B?dlByZ3dJQVBwRlUvNFVRd1EvUWpxR2EySUp6b0EwR21VRTJLRk5BOXBmWDVk?=
- =?utf-8?B?K3ZKMnVMalVGRWpZTjZzUWZ2MDMxNThCUXRibmhQckF3dVVVQVpoaVdFRWtR?=
- =?utf-8?B?aFNwNlpqQmZNZG9BOWhIQVJ2czAwU1RDVGtPSzVqVGgyTVl3OGxIdWk1Y0Yw?=
- =?utf-8?B?bXdwQlB1MGt4N3RNdExBVXhKUnZZSDJOMVdxQm55d20wa3l3Zi9KL1ltM0Vq?=
- =?utf-8?B?NUQxOTRVRlNCNGNnaUtDRlBtYWJHMFlGM29pbitPZnYrd05WY1JMUU5KeXoy?=
- =?utf-8?B?L1VrM1c2S2lrRVBPUW5YMnlYa0J1VUZOZElUQW94QTRlRzY2cm5Wd2tuVzFx?=
- =?utf-8?B?QVBHc0dVWjFqbzNTTHRNR0ozV001RFNWVXV1NGRtcFBDdFN2N0VjQWtjSEVo?=
- =?utf-8?B?azlSL2ZDazNQMUlaTU8xWXZGT2xsTUhCL2Y5UjBMODNZSHNVUGdwdGR3WUhJ?=
- =?utf-8?B?TE1oVyt0dmRQdW5INTR3b056bEZOVFdURFBvaTkvQ0tVZ0pwMTlUNnQwUjVp?=
- =?utf-8?B?a3FBYU1BdnBVR2pxSFlvRmd5Z3ZKTXo5dEJhQmd5UGZLOWVCT1NvZz09?=
-X-Exchange-RoutingPolicyChecked: J6f4TEcBhK0Gtm+C6RIAlBuG+2KEctW3PxHO0s7cWw6mSDKgKHB16qUsnY9yj8aCcfB3irKcOEs1t+SxZCzxs79t/4x3G4z0CPysqK0/8xbg2KZUBktYlF4SeBw3k8q/2XkauzKlmcqW9AwXBbXcRV45O/iBIS3bumL/SK8IIMttLMxs7bcB6GiwlJooaHhd0jOQ9q2rwMSEVk7+UHM3jXFGhbSAaWCO3Y3tWpxHRosS5VMOGUG6YH0W345jDKIsOHRhledlncifAQ5lPtNzFoJGXpublyhSDj4qi1Er0D0KSpmWo+HLfLRqHweSCgYkjVxfM4OD0jUussMmcBV6MQ==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2ef348ea-c363-4882-bdb2-08dec8a7c520
-X-MS-Exchange-CrossTenant-AuthSource: IA3PR11MB9273.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jun 2026 17:26:42.8259
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: mU6Mg2pxUTXp3kCzgiabqFn9uI6O5x75Jz8yCeF4tG2GXbDZEqi0dK+MNJndRCsksoWSIeY0WqgvlUace67W8Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR11MB6456
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Infomaniak-Routing: alpha
 
-Enabling PPS after a display port's PLL is enabled leads to PLL / DDI
-BUF timeouts during system resuming after a long (> 45 mins) suspended
-state, at least on some ARL and MTL laptops, either all or some of them
-also containing an Nvidia GPU. Enabling PPS first and then the PLL fixes
-the problem for all the reporters.
+Set audit_net.sk in current_check_access_socket() to provide the socket
+object to audit_log_lsm_data().  This makes Landlock consistent with
+AppArmor, which always sets .sk for socket operations, and with
+SELinux's generic socket permission checks.
 
-A similar issue is seen when enabling an external DP output on PHY B
-(vs. PHY A in the above eDP cases), where this change will not have any
-effect (since no PPS is used in that case). There isn't any direct
-connection between PPS and PLL, so the fix for eDP works by some
-side-effect only. However Bspec does seem to require enabling PPS first,
-so let's do that. Further investigation continues on the actual root
-cause and a cure for external panels.
+The socket's local and foreign address information (laddr, lport, faddr,
+fport) is logged by the shared lsm_audit.c infrastructure when the
+socket has bound or connected state.  Fields with zero values are
+suppressed by print_ipv4_addr()/print_ipv6_addr(), so the audit output
+is unchanged for the common case of bind denials on unbound sockets.
+For connect denials after a prior bind, the bound local address (laddr,
+lport) appears before the existing sockaddr fields (daddr, dest).
 
-Fixes: 1a7fad2aea74 ("drm/i915/cx0: Enable dpll framework for MTL+")
-Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/16098
-Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/16064
-Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/16042
-Cc: Mika Kahola <mika.kahola@intel.com>
-Cc: stable@vger.kernel.org # v7.0+
-Tested-by: Jouni Högander <jouni.hogander@intel.com>
-Tested-by: Marco Nenciarini <mnencia@kcore.it>
-Signed-off-by: Imre Deak <imre.deak@intel.com>
+No existing fields are removed or reordered, and the new field names
+(laddr, lport, faddr, fport) are standard audit fields already emitted
+by other LSMs through the same lsm_audit.c code path.
+
+Add a connect_tcp_bound audit test that binds to an allowed port and
+then connects to a denied one, verifying that the denial record reports
+laddr/lport from the bound socket in addition to the connect
+destination.
+
+Cc: Günther Noack <gnoack@google.com>
+Cc: Tingmao Wang <m@maowtm.org>
+Cc: stable@vger.kernel.org
+Fixes: 9f74411a40ce ("landlock: Log TCP bind and connect denials")
+Signed-off-by: Mickaël Salaün <mic@digikod.net>
 ---
- drivers/gpu/drm/i915/display/intel_ddi.c | 11 ++++++++---
- 1 file changed, 8 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
-index 2684e33b602d1..25314ec65ae77 100644
---- a/drivers/gpu/drm/i915/display/intel_ddi.c
-+++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-@@ -2652,9 +2652,6 @@ static void mtl_ddi_pre_enable_dp(struct intel_atomic_state *state,
- 	/* 3. Select Thunderbolt */
- 	mtl_port_buf_ctl_io_selection(encoder);
+Changes since v1:
+https://lore.kernel.org/r/20260406143717.1815792-11-mic@digikod.net
+- Move the new socket-audit coverage into the network test fixture,
+  which sets up an isolated network namespace with a configured
+  loopback interface; the previous location ran without a network
+  namespace (reported by Tingmao Wang).  Cover the enriched laddr/lport
+  via a connect-after-bind denial.
+---
+ security/landlock/net.c                     |  1 +
+ tools/testing/selftests/landlock/net_test.c | 62 +++++++++++++++++++++
+ 2 files changed, 63 insertions(+)
+
+diff --git a/security/landlock/net.c b/security/landlock/net.c
+index c368649985c5..a38bdfcffc22 100644
+--- a/security/landlock/net.c
++++ b/security/landlock/net.c
+@@ -198,6 +198,7 @@ static int current_check_access_socket(struct socket *const sock,
+ 		return 0;
  
--	/* 4. Enable Panel Power if PPS is required */
--	intel_pps_on(intel_dp);
--
- 	/* 5. Enable the port PLL */
- 	intel_ddi_enable_clock(encoder, crtc_state);
- 
-@@ -3710,6 +3707,14 @@ intel_ddi_pre_pll_enable(struct intel_atomic_state *state,
- 	else if (display->platform.geminilake || display->platform.broxton)
- 		bxt_dpio_phy_set_lane_optim_mask(encoder,
- 						 crtc_state->lane_lat_optim_mask);
-+
-+	/*
-+	 * There is no direct connection between the PLL and PPS, however
-+	 * enabling PPS before PLL is required to avoid PLL/DDI BUF timeouts
-+	 * during system resume. Do that matching the Bspec order as well.
-+	 */
-+	if (DISPLAY_VER(display) >= 14)
-+		intel_pps_on(&dig_port->dp);
+ 	audit_net.family = address->sa_family;
++	audit_net.sk = sock->sk;
+ 	landlock_log_denial(subject,
+ 			    &(struct landlock_request){
+ 				    .type = LANDLOCK_REQUEST_NET_ACCESS,
+diff --git a/tools/testing/selftests/landlock/net_test.c b/tools/testing/selftests/landlock/net_test.c
+index 4c528154ea92..0c256e7c8675 100644
+--- a/tools/testing/selftests/landlock/net_test.c
++++ b/tools/testing/selftests/landlock/net_test.c
+@@ -2026,4 +2026,66 @@ TEST_F(audit, connect)
+ 	EXPECT_EQ(0, close(sock_fd));
  }
  
- static void adlp_tbt_to_dp_alt_switch_wa(struct intel_encoder *encoder)
++static int matches_log_tcp_bound(int audit_fd, const char *const addr,
++				 __u16 lport, __u16 dport)
++{
++	static const char log_template[] = REGEX_LANDLOCK_PREFIX
++		" blockers=net\\.connect_tcp laddr=%s lport=%u daddr=%s dest=%u$";
++	/* Slack for two addresses and two port numbers. */
++	char log_match[sizeof(log_template) + 40];
++	int log_match_len;
++
++	log_match_len = snprintf(log_match, sizeof(log_match), log_template,
++				 addr, lport, addr, dport);
++	if (log_match_len > sizeof(log_match))
++		return -E2BIG;
++
++	return audit_match_record(audit_fd, AUDIT_LANDLOCK_ACCESS, log_match,
++				  NULL);
++}
++
++/*
++ * After a bind() to an allowed port, a denied connect must report laddr/lport
++ * from the bound socket (made available through audit_net.sk) in addition to
++ * the connect sockaddr's daddr/dest.
++ */
++TEST_F(audit, connect_tcp_bound)
++{
++	const struct landlock_ruleset_attr ruleset_attr = {
++		.handled_access_net = LANDLOCK_ACCESS_NET_BIND_TCP |
++				      LANDLOCK_ACCESS_NET_CONNECT_TCP,
++	};
++	const struct landlock_net_port_attr rule_bind = {
++		.allowed_access = LANDLOCK_ACCESS_NET_BIND_TCP,
++		.port = self->srv0.port,
++	};
++	struct service_fixture srv_remote;
++	struct audit_records records;
++	int ruleset_fd, sock_fd;
++
++	/* Uses a second port as the denied connect target. */
++	ASSERT_EQ(0, set_service(&srv_remote, variant->prot, 1));
++
++	ruleset_fd =
++		landlock_create_ruleset(&ruleset_attr, sizeof(ruleset_attr), 0);
++	ASSERT_LE(0, ruleset_fd);
++	ASSERT_EQ(0, landlock_add_rule(ruleset_fd, LANDLOCK_RULE_NET_PORT,
++				       &rule_bind, 0));
++	enforce_ruleset(_metadata, ruleset_fd);
++	EXPECT_EQ(0, close(ruleset_fd));
++
++	sock_fd = socket_variant(&self->srv0);
++	ASSERT_LE(0, sock_fd);
++	EXPECT_EQ(0, bind_variant(sock_fd, &self->srv0));
++	EXPECT_EQ(-EACCES, connect_variant(sock_fd, &srv_remote));
++	EXPECT_EQ(0, matches_log_tcp_bound(self->audit_fd, variant->addr,
++					   self->srv0.port, srv_remote.port));
++
++	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
++	EXPECT_EQ(0, records.access);
++	EXPECT_EQ(1, records.domain);
++
++	EXPECT_EQ(0, close(sock_fd));
++}
++
+ TEST_HARNESS_MAIN
+
+base-commit: d8dfb4c7faa87c3e41a8678f38f136c2c7c036fa
 -- 
-2.49.1
+2.54.0
 
