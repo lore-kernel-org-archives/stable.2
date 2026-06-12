@@ -1,127 +1,144 @@
-Received: from out-171.mta1.migadu.com (out-171.mta1.migadu.com [95.215.58.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FE273C9EE8
-	for <stable@vger.kernel.org>; Thu, 11 Jun 2026 23:15:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8DD6946A;
+	Fri, 12 Jun 2026 00:30:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781219705; cv=none; b=dQY8iiliNMOzn88mXgyfwwcNwN8VLG7FP1+TUvKg4Zda42s4VLpjaCrqG8hRweLxF8UArAPw80KI85JeOfLzqeoreCsXO6lmCe7mZaB4HyB9TNO1MLh6JIChTBVGKmZBc0pELEOHk53wrAN10+ap0V8xjC4rkMXue24sPJ8jHSQ=
+	t=1781224226; cv=none; b=jizyp90P2wFRBUr/1J7qcvJjOoVvz+bX40PmR6kPw5qXtQ0+VlHN+8Mpxe0RCWZ4rXtjq5Xefneqy4Fq4zKc2OUD9LROrs0xW6Z1XuUWT7CtbK2XPS4cWpiyo0l7ybkybRe5ehVXjTF8WHlpsRc3D2+Fu51zKWfKs2XqBgLK2Kk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781219705; c=relaxed/simple;
-	bh=QD69d2OJHwOtuSaX+DoKywFbAEQo0UEq/e3/Fn2QjUI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=A7+VjQPp6mWajaVnZZzRZF0xFim02ZPmtNkUzc6LSI9gFjESSd/MJ8E6NME0EXQH+p11K1qoq1vHL7RZKZ+oAWe+JvyV58UScepSS8+LZCn5XQCCgzzpQnB0AIB2KtwVeM//1oi2ru4uC/iOyoTVYYTS4cVQtAdAPpcDlSeIHgc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=NVtko3so; arc=none smtp.client-ip=95.215.58.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1781224226; c=relaxed/simple;
+	bh=sl6TUBBBCoIQnTU7GsgG5is62CkRYeza+L8accszNvo=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=rAR3RWak4Pk6rK587p7rTAbZD2jM/k90KiqKMOnYLtX50rX9C2vg0jWLAv6DugEmjuqEzdQMEIKcQh7Za66+6YlAxKrQf+NFe/OtFaeGePWAzulMEYsix/ygPDSVr0QED59saj1Qb4Bv/PQS/Hy4eOww7Y37MDosOGCTU0yXcRk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=LhGbktSK; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="NVtko3so"
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1781219700;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=ShBjYPEYExajE8ngaKwJEtPoM9APFzTLlxCb37S7wzg=;
-	b=NVtko3soc9++gRfLlIoaBBOFQi0d+fACKKMTE/tCvKwXnD6KettXDw90iH4kYyHTlloMkV
-	Dq3bDtenVXhDxGVOo+guXKNmUzUGkxUOvAeeu0ETMVdZyBdZ6TA1UHu4fh05hjy/Y0/hFO
-	sif6VgxrLQBckRWUx1Jvkn7itQFCQCI=
-From: Usama Arif <usama.arif@linux.dev>
-To: axboe@kernel.dk,
-	linux-block@vger.kernel.org,
-	bsegall@google.com,
-	dietmar.eggemann@arm.com,
-	juri.lelli@redhat.com,
-	kprateek.nayak@amd.com,
-	linux-kernel@vger.kernel.org,
-	mgorman@suse.de,
-	mingo@redhat.com,
-	peterz@infradead.org,
-	rostedt@goodmis.org,
-	vincent.guittot@linaro.org,
-	vschneid@redhat.com
-Cc: shakeel.butt@linux.dev,
-	hannes@cmpxchg.org,
-	riel@surriel.com,
-	kernel-team@meta.com,
-	Usama Arif <usama.arif@linux.dev>,
-	stable@vger.kernel.org
-Subject: [PATCH] block: invalidate cached plug timestamp after task switch
-Date: Thu, 11 Jun 2026 16:14:28 -0700
-Message-ID: <20260611231428.345098-1-usama.arif@linux.dev>
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="LhGbktSK"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 65C0UKrI42321161, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1781224220; bh=sl6TUBBBCoIQnTU7GsgG5is62CkRYeza+L8accszNvo=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=LhGbktSKfddXCX7iFwvvPZR/BHqIWRd+MzmUlLWaa4CWtox3QkbyosUqahZUGHRBB
+	 4m0fFvz7ntdnaHfbRVP1N2/Z3o0Z9uWkKn4e8FZdjaQfF2BIHJL4egU1/2EzePSnZn
+	 WjjKJruVU1+qxM2K3bvYIYlhk4tX0isyw9jW9HAtbfY4i5b0E/L5hn3+H1K07LQsYn
+	 RzeoYEk+iKcVxAX0SYBjVINYRlF2t74DT4JHau0jNA5S5rk9LTnjdPu1IF+RrQsmOU
+	 rLZQTU3rEwJG9pVuyDxWYqIaD6CGmVAFSsgfssLLYqs30LbtJHxWt6flaiJHVJ7r29
+	 kBVHZoVrqRT5A==
+Received: from mail.realtek.com (rtkexhmbs02.realtek.com.tw[172.21.6.41])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 65C0UKrI42321161
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Fri, 12 Jun 2026 08:30:20 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS02.realtek.com.tw (172.21.6.41) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.17; Fri, 12 Jun 2026 08:30:20 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS06.realtek.com.tw (10.21.1.56) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.17; Fri, 12 Jun 2026 08:30:20 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::e6fd:5a3f:8946:92c4%10]) with mapi id
+ 15.02.2562.017; Fri, 12 Jun 2026 08:30:20 +0800
+From: Ping-Ke Shih <pkshih@realtek.com>
+To: Giovanni Santini <giovannisantini93@yahoo.it>, "stable@vger.kernel.org"
+	<stable@vger.kernel.org>, "linux-wireless@vger.kernel.org"
+	<linux-wireless@vger.kernel.org>
+CC: Linux regressions mailing list <regressions@lists.linux.dev>
+Subject: RE: rtw88: WiFi card is not offloaded properly when suspending the OS
+Thread-Topic: rtw88: WiFi card is not offloaded properly when suspending the
+ OS
+Thread-Index: AQHc9MfBVY8tNqpB4kyHWDTYuLp5JLYzXc0ggAV6JACAAT8YUA==
+Date: Fri, 12 Jun 2026 00:30:20 +0000
+Message-ID: <b3d2c32150884cdcae21b3bec5062864@realtek.com>
+References: <10da4c45-74ed-4deb-8c88-6d0b803465ba.ref@yahoo.it>
+ <10da4c45-74ed-4deb-8c88-6d0b803465ba@yahoo.it>
+ <efae0a4db2ab4b6193922b393d3dcdd6@realtek.com>
+ <02e09f1a-2807-4fec-aacf-1bc4bbb1ccd1@yahoo.it>
+In-Reply-To: <02e09f1a-2807-4fec-aacf-1bc4bbb1ccd1@yahoo.it>
+Accept-Language: en-US, zh-TW
+Content-Language: zh-TW
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
 
-blk_time_get_ns() caches ktime_get_ns() in current->plug->cur_ktime
-and marks the task with PF_BLOCK_TS. That cache is only valid while the
-task keeps running; if the task is switched out, wall-clock time
-advances and the cached value must not be reused when the task runs again.
-
-The existing invalidation covers explicit plug flushes through
-__blk_flush_plug(), and the schedule() / rtmutex paths through
-sched_update_worker(). It does not cover in-kernel preemption paths such
-as preempt_schedule(), preempt_schedule_notrace(), and
-preempt_schedule_irq(), which enter __schedule(SM_PREEMPT) directly and
-return without calling sched_update_worker().
-
-As a result, a task preempted while holding a plug with PF_BLOCK_TS set
-can reuse a stale plug->cur_ktime after it is scheduled back in. blk-iocost
-then consumes that stale timestamp through ioc_now(), producing stale vnow
-values for throttle decisions, and through ioc_rqos_done(), inflating
-on-queue time and feeding false missed-QoS samples into vrate
-adjustment.
-
-Move the schedule-side invalidation to finish_task_switch(), which runs
-for the scheduled-in task after every actual context switch regardless
-of which schedule entry point was used. Keep __blk_flush_plug() as the
-explicit flush/finish-plug invalidation path, and remove only the
-PF_BLOCK_TS handling from sched_update_worker().
-
-Fixes: 06b23f92af87 ("block: update cached timestamp post schedule/preemption")
-Cc: stable@vger.kernel.org
-Signed-off-by: Usama Arif <usama.arif@linux.dev>
----
- kernel/sched/core.c | 13 +++++++++----
- 1 file changed, 9 insertions(+), 4 deletions(-)
-
-diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-index 8b791e9e9f67..bf024ca115ff 100644
---- a/kernel/sched/core.c
-+++ b/kernel/sched/core.c
-@@ -5368,6 +5368,13 @@ static struct rq *finish_task_switch(struct task_struct *prev)
- 	 */
- 	kmap_local_sched_in();
- 
-+	/*
-+	 * Any cached block-layer timestamp (plug->cur_ktime) is stale now,
-+	 * invalidate it.
-+	 */
-+	if (unlikely(current->flags & PF_BLOCK_TS))
-+		blk_plug_invalidate_ts(current);
-+
- 	fire_sched_in_preempt_notifiers(current);
- 	/*
- 	 * When switching through a kernel thread, the loop in
-@@ -7290,12 +7297,10 @@ static inline void sched_submit_work(struct task_struct *tsk)
- 
- static void sched_update_worker(struct task_struct *tsk)
- {
--	if (tsk->flags & (PF_WQ_WORKER | PF_IO_WORKER | PF_BLOCK_TS)) {
--		if (tsk->flags & PF_BLOCK_TS)
--			blk_plug_invalidate_ts(tsk);
-+	if (tsk->flags & (PF_WQ_WORKER | PF_IO_WORKER)) {
- 		if (tsk->flags & PF_WQ_WORKER)
- 			wq_worker_running(tsk);
--		else if (tsk->flags & PF_IO_WORKER)
-+		else
- 			io_wq_worker_running(tsk);
- 	}
- }
--- 
-2.53.0-Meta
-
+Ly8gbm90IHRvcCBwb3N0aW5nLg0KDQpHaW92YW5uaSBTYW50aW5pIDxnaW92YW5uaXNhbnRpbmk5
+M0B5YWhvby5pdD4gd3JvdGU6DQo+IE9uIDIwMjYtMDYtMDggMDM6MzIsIFBpbmctS2UgU2hpaCB3
+cm90ZToNCj4gPiBHaW92YW5uaSBTYW50aW5pIDxnaW92YW5uaXNhbnRpbmk5M0B5YWhvby5pdD4g
+d3JvdGU6DQo+ID4+IEp1biAwMiAxNzoyNTozMyBhcmNobGludXgtdHVnIGtlcm5lbDogcnR3ODhf
+ODgyMmNlIDAwMDA6MDM6MDAuMDogZmFpbGVkDQo+ID4+IHRvIHNlbmQgaDJjIGNvbW1hbmQNCj4g
+Pj4gSnVuIDAyIDE3OjI1OjMzIGFyY2hsaW51eC10dWcga2VybmVsOiBydHc4OF84ODIyY2UgMDAw
+MDowMzowMC4wOiBmYWlsZWQNCj4gPj4gdG8gc2VuZCBoMmMgY29tbWFuZA0KPiA+PiBKdW4gMDIg
+MTc6MjU6MzMgYXJjaGxpbnV4LXR1ZyBrZXJuZWw6IHJ0dzg4Xzg4MjJjZSAwMDAwOjAzOjAwLjA6
+IGZhaWxlZA0KPiA+PiB0byBzZW5kIGgyYyBjb21tYW5kDQo+ID4+IEp1biAwMiAxNzoyNTozMyBh
+cmNobGludXgtdHVnIGtlcm5lbDogcnR3ODhfODgyMmNlIDAwMDA6MDM6MDAuMDogZmFpbGVkDQo+
+ID4+IHRvIHNlbmQgaDJjIGNvbW1hbmQNCj4gPj4gSnVuIDAyIDE3OjI1OjM2IGFyY2hsaW51eC10
+dWcga2VybmVsOiBydHc4OF84ODIyY2UgMDAwMDowMzowMC4wOiBmYWlsZWQNCj4gPj4gdG8gcG9s
+bCBvZmZzZXQ9MHg1IG1hc2s9MHgyIHZhbHVlPTB4MA0KPiA+PiBKdW4gMDIgMTc6MjU6MzYgYXJj
+aGxpbnV4LXR1ZyBrZXJuZWw6IC0tLS0tLS0tLS0tLVsgY3V0IGhlcmUgXS0tLS0tLS0tLS0tLQ0K
+PiA+PiBKdW4gMDIgMTc6MjU6MzYgYXJjaGxpbnV4LXR1ZyBrZXJuZWw6IGZhaWxlZCB0byByZWFk
+IERCSSByZWdpc3RlciwNCj4gPj4gYWRkcj0weDA3MTkNCj4gPiBBZGQgdGhlc2UgYmVsb3cgdG8g
+c2VlIGlmIGl0IGNhbiBoZWxwLg0KPiA+DQo+ID4gc3VkbyBuYW5vIC9ldGMvbW9kcHJvYmUuZC9y
+dHc4OC5jb25mDQo+ID4gb3B0aW9ucyBydHc4OF9jb3JlIGRpc2FibGVfbHBzX2RlZXA9eQ0KPiA+
+IG9wdGlvbnMgcnR3ODhfcGNpIGRpc2FibGVfYXNwbT15DQo+ID4NCj4gPiBBZnRlciBjb2xkIHJl
+Ym9vdCwgY2hlY2sgL3N5cy9tb2R1bGVzL3J0dzg4XyovcGFyYW10ZXJzLyogdG8gc2VlIGlmDQo+
+ID4gdGhlIG1vZGlmaWNhdGlvbiB0YWtlcyBlZmZlY3QuDQo+ID4NCj4gPj4gSSdtIGF0dGFjaGlu
+ZyB0aGUgZnVsbCBib290IGxvZywgaWYgeW91IG5lZWQgYSBmcmVzaCBvbmUgSSBjYW4gcHJvdmlk
+ZSBpdC4NCj4gPiBCZWZvcmUgImZhaWxlZCB0byBwb2xsIC4uLiIgbG9nLCBJIGFsc28gc2VlDQo+
+ID4NCj4gPiBKdW4gMDIgMTc6MjU6MDIgYXJjaGxpbnV4LXR1ZyBrZXJuZWw6IHJ0dzg4Xzg4MjJj
+ZSAwMDAwOjAzOjAwLjA6IEFNRC1WaToNCj4gPiAgIEV2ZW50IGxvZ2dlZCBbSU9fUEFHRV9GQVVM
+VCBkb21haW49MHgwMDBlIGFkZHJlc3M9MHhhZTk2NjhiYyBmbGFncz0weDAwMDBdDQo+ID4NCj4g
+PiBQbGVhc2UgdHJ5IHRvIHR1cm4gb2ZmIElPTU1VIGJ5IGVkaXRpbmcgL2V0Yy9kZWZhdWx0L2dy
+dWINCj4gPiBHUlVCX0NNRExJTkVfTElOVVhfREVGQVVMVD0icXVpZXQgc3BsYXNoIGFtZF9pb21t
+dT1vZmYgaW9tbXU9b2ZmIg0KPiA+DQo+ID4gQW5kIHRoZW4gdXBkYXRlLWdydWINCj4gPg0KPiA+
+PiBJIHJ1biBBcmNoTGludXggd2l0aCBLREUgUGxhc21hLCBmb3IgbmV0d29ya2luZyBJIHVzZSBO
+ZXR3b3JrTWFuYWdlciBhbmQNCj4gPj4gd3BhX3N1cHBsaWNhbnQuDQo+ID4+DQo+ID4+IElmIHlv
+dSB3b3VsZCBsaWtlIG1lIHRvIHJ1biB0ZXN0cyB3aXRoIGUuZy4ganVzdCBpd2QgSSBjYW4gZG8g
+c28sIGp1c3QNCj4gPj4gbGV0IG1lIGtub3cgd2hhdCBzZXR1cCB5b3Ugd291bGQgbGlrZSBtZSB0
+byBoYXZlLg0KPiA+Pg0KPiA+PiBJIGRvIG5vdCBoYXZlIHRoaXMgaXNzdWUgd2l0aCB0aGUgTFRT
+IGtlcm5lbCA2LjE4LjM0LiBUaGlzIGFmZmVjdHMgNy4wDQo+ID4+IGFuZCA3LjEuDQo+ID4+IEkg
+YmVsaWV2ZSB0aGlzIGlzc3VlIHdhcyBub3QgcHJlc2VudCBpbiA8IDcga2VybmVscywgYnV0IEkg
+Y2Fubm90IGd1YXJhbnRlZS4NCj4gPj4gSSBjYW4gaG93ZXZlciBkb3duZ3JhZGUgdG8gcHJldmlv
+dXMga2VybmVscyB0byB1bmRlcnN0YW5kIHdoZXJlIHRoZQ0KPiA+PiBpc3N1ZSB3YXMgaW50cm9k
+dWNlZC4NCj4gPiBUaGUgY29tbWl0cyBiZXR3ZWVuIDYuMTguMzQgfiA3LjAuMTAgYXJlIHF1aXRl
+IGZldywgYW5kIEkgY2FuJ3QgZmluZCB0aGUNCj4gPiBvbmUgdGhhdCBjYW4gYWZmZWN0IHRoZSBi
+ZWhhdmlvci4gUGxlYXNlIHN3aXRjaCB5b3VyIGtlcm5lbCBiYWNrIHRvIDYuMTguMzQsDQo+ID4g
+YW5kIGFwcGx5IHJ0dzg4J3MgcGF0Y2hlcyBhZGRlZCB1bnRpbCA3LjAuMTAuDQo+ID4NCj4gPiBT
+aW5jZSB0aGUgbGFzdCBjb21taXQgb2YgNi4xOCBpcyBmY2U2ZmVlMDgxN2I4ODk5ZTBlZTM4YWI2
+Yjk4ZjBkN2U5MzljZWVkDQo+ID4NCj4gPiBQbGVhc2UgdXNlIGJlbG93IGNvbW1hbmRzIHRvIGdl
+dCB0aGUgKDIwKSBwYXRjaGVzOg0KPiA+IGRyaXZlcnMvbmV0L3dpcmVsZXNzL3JlYWx0ZWsvcnR3
+ODgkIGdpdCBmb3JtYXQtcGF0Y2gNCj4gdjcuMC4xMC4uLmZjZTZmZWUwODE3Yjg4OTllMGVlMzhh
+YjZiOThmMGQ3ZTkzOWNlZWQgLS0gLi8NCj4gPg0KPiA+IFRoZW4geW91IGNhbiBhZGQgdGhlbSBv
+bmUgYnkgb25lIHRvIHNlZSB3aGljaCBvbmUgaXMgdGhlIGNhdXNlLg0KPiA+DQo+ID4gVGhlIGdp
+dCByZXBvc2l0b3J5IHlvdSBuZWVkIGlzOg0KPiA+IGdpdDovL2dpdC5rZXJuZWwub3JnL3B1Yi9z
+Y20vbGludXgva2VybmVsL2dpdC9zdGFibGUvbGludXgtc3RhYmxlLmdpdA0KPiA+DQo+IA0KPiBJ
+biBzaG9ydCBJIHNob3VsZCBidWlsZCB0aGUgTFRTIGtlcm5lbCB1c2luZyB0aGUgcHJvdmlkZWQg
+c291cmNlIHdpdGgNCj4gYWxsIHRoZSBtb2R1bGUgcGF0Y2hlcyBhcHBsaWVkIG9uZSBieSBvbmUs
+IGNvcnJlY3Q/DQoNClllcywgeW91IGNhbiB1c2UgTFRTIGtlcm5lbCBvciBkaXN0cm8gcmVsZWFz
+ZSB2ZXJzaW9uLCBhbmQgb25seSByZS1idWlsZA0KYW5kIHJlcGxhY2UgZHJpdmVyLg0KDQo+IA0K
+PiBJZiBzbywgc2hvdWxkIEkgYWxzbyBzZXQgdGhlIG1vZHByb2JlLmQgb3B0aW9ucyBwbHVzIGRp
+c2FibGUgSU9NTVU/DQo+IA0KPiBBZnRlciBJIGtub3cgdGhpcyBJIGNhbiBzdGFydCB0ZXN0aW5n
+Lg0KDQpUd28gZGlyZWN0aW9uczoNCg0KMS4gdHJ5IHRvIGZpeCBvbiAocHJvYmxlbWF0aWMpIDcu
+MC4xMA0KDQogICBUcnkgbW9kcHJvYmUuZCBvcHRpb25zIGFuZC9vciBkaXNhYmxlIElPTU1VLg0K
+DQoyLiBzdGFydCBmcm9tICh3b3JrYWJsZSkgNi4xOA0KDQogICBQaWNrIGFuZCBhcHBseSBwYXRj
+aGVzIGZyb20gNi4xOCB0byA3LjAuMTAgb25lIGJ5IG9uZSB0byBmaW5kIHRoZSBjYXVzZS4NCg0K
+ICAgQnV0IGFzIEkgbWVudGlvbmVkLCBJIGNhbid0IGZpbmQgd2hhdCBjYW4gYWZmZWN0IHRoZSBi
+ZWhhdmlvciB5b3UgZW5jb3VudGVyZWQuDQoNCj4gDQo+IFNtYWxsIHVwZGF0ZTogdGhlIC4zNSBM
+VFMga2VybmVsIGhhcyBubyBpc3N1ZXMgZm9yIG1lLCB3aGlsZSA3LjAuMTEgd29ya3MuDQoNCkRp
+ZCB5b3UgbWVhbiA3LjAuMTAgZG9lc24ndCB3b3JrIHRvIHlvdSwgYnV0IDcuMC4xMSB3b3JrcyB3
+ZWxsPw0KDQpIb3dldmVyLCB0aGUgcnR3ODggZHJpdmVyIGhhcyBubyBjaGFuZ2UgYmV0d2VlbiA3
+LjAuMTAgYW5kIDcuMC4xMS4NCkkgZmVlbCB0aGUgY2F1c2UgbWlnaHQgYmUgY2hhbmdlcyBvZiBQ
+Q0kgaG9zdCwgYnV0IGRyaXZlcnMvcGNpLyBoYXMgbm8gY2hhbmdlcw0KbmVpdGhlci4gTm8gb2J2
+aW91cyBpZGVhIGZvciBub3cuDQoNCj4gDQo+IEkgd2FzIGFibGUgdG8gZ2V0IG15IGxhcHRvcCB0
+byBzbGVlcCBhIGZldyB0aW1lcywgYnV0IGF0IGEgY2VydGFpbiBwb2ludA0KPiB0aGUgaXNzdWUg
+aGFwcGVuZWQuDQo+IA0KPiBJdCBpcyBhIGJpdCBoYXJkIHRvIHJlcGxpY2F0ZSB0aGUgaXNzdWUs
+IHNvIEkgd2lsbCB0cnkgbXkgYmVzdC4NCg0KSSBzdWdnZXN0IHRoYXQgeW91IGNhbiBnbyBiYWNr
+IHRvIDcuMC4xMCBhbmQgdHJ5IDEwIG9yIDIwIHRpbWVzLCBhbmQgdGhlbg0KY29tcGFyZSB0aGUg
+cmVzdWx0cyBiZXR3ZWVuIDcuMC4xMCBhbmQgNy4wLjExLg0KDQpQaW5nLUtlDQoNCg==
