@@ -1,196 +1,144 @@
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB4A4399017
-	for <stable@vger.kernel.org>; Fri, 12 Jun 2026 06:32:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BD603D6476
+	for <stable@vger.kernel.org>; Fri, 12 Jun 2026 06:41:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.43
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781245965; cv=pass; b=GOLQvJ5q/yL9UlUAqtw14WnE5ASq1El8R7WSfHpqnxx0+g087vuT+J0NpWTpDMoi0L1KezbnrATy+WA32BLKrZocgWsKFCwqsmnZoSAS3nxWWhOeIayehfo74EMD93eyaqp5HxaYP9bXCsDT+ShXiOZxC1RrqDbCHF0cuSVgkVY=
+	t=1781246519; cv=pass; b=IkgDwOvB0vKLjOi3lZ8IKNKmdBOFViU9KgSXIA0GdDMPpVagVgBlzRvY+hrV3t0jWhQR1QSMPq98x+tFXXGTTxRZe2UkLmVaOQUbe6l18AXB8RyCwJd7V9shTAxOjNKOyKMGNyupNZ3cN+xxbZIsLd3aeSPEF5TAsnVDSdAxASQ=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781245965; c=relaxed/simple;
-	bh=E70qoRUfGKWHoRfDr/vGHx+xj9G4daC6qsXk61KaDnQ=;
+	s=arc-20240116; t=1781246519; c=relaxed/simple;
+	bh=il9gLlDK2ryI0ZJU3Rk08iTfXQVb81d8dYDWL7SRAzw=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=exK+MKDyn6iMVGvp3QcVHJPm1lj374k199ZiW+taB+WMWjwcxT39kXZ8qxD7y2l1N14tpmWOiniwgEBmjGr1xqXFssOpGIfj3OT56e23BARHzGhPaDYGZvbWxfNSw6WPtUwotehy0GBUnstvqj4lXlObuHzmtlCNSVC7Fbi35xQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=e8aetRYR; arc=pass smtp.client-ip=209.85.128.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 To:Cc:Content-Type; b=GmPJbyrBvPt6Ic+ToNztQWD4e88Zf53cqV6lFgAKGzdSGECCaeYIq8EPfDIZdNpj6qajWHb9of3Btgy/jP1WQadnrnBk/Ck27ljwFSP3gTPKqMs7LmMpMlHAjQt0/kKUdxmWOUvMjlbB3FEnolPLRYti43Zj9lS4Nh/2CT1VWOA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ViBKG8bN; arc=pass smtp.client-ip=74.125.82.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="e8aetRYR"
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4903d730b1fso6907835e9.2
-        for <stable@vger.kernel.org>; Thu, 11 Jun 2026 23:32:43 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781245962; cv=none;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ViBKG8bN"
+Received: by mail-dl1-f43.google.com with SMTP id a92af1059eb24-13807d2f898so714384c88.0
+        for <stable@vger.kernel.org>; Thu, 11 Jun 2026 23:41:58 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781246517; cv=none;
         d=google.com; s=arc-20240605;
-        b=kPcIuxM1UOD661IzsEY+7y/Zc6LyVGYY/RS7Z1bQcDUBhpF30TTjrbilmH0J5ifm5r
-         JAQra8xgvGqJeQrHe9ppgPhc7Nr9p6AEULV3XJW/3zqL9JeKPDm891yhjxGIVxEBkAZJ
-         ki+2DKFXvpn4bs1XCunxkvClRc4IMvPPqZ2mXUk7cVk69D6PRlhjsCJt7wOUijGgMMpS
-         Pcvax2EvpChJLdJh6TLo8vx+ln2Aq8jPLjRT71/2XfEEWE8DXq1AizfNaFbw8tRgrxs/
-         AWDGlnoI0mdy6Lq8eT+FDr/vSgYD0H7+x89uryrsBr4lsqTiUjXn1+AUolbNolneJDHg
-         T2Dg==
+        b=AceYg818HFBkLl0sVWlaUjHKzIcBuQPhlEXDxn+sxfNLt9lorHizVPtV4Mwuh7MWIt
+         LcgUWDNIOXlpnNKF/v5iMf4gSr+2lFK2FAlrcyGQs5hP7qcOfcCl2RpsZ7AwuHxaZImv
+         xd/i7sKT7znBq5KROVwiFYx/vWIVrLYU+Y1YiKymVl2upaOhaAlLWfB3TWmsj0o+dee/
+         lhK/BesRKNL5P5cwLwpmU3ZzBqiVKLd8+4Hfo6wuHH8UnVuOjPrN4ya3M5Li/uMGf/aJ
+         IZsZDpEwUSFWNUfuyGXPD3ZiMGokRBxalD1sqTWOSbfpYumEI9hmXH0/79JdPY3eT+rk
+         4nHg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=1CO6Doo//w2RGkJIhLZDU9oQk9kpI1zOxu1zlLLy3gI=;
-        fh=Q2D+w7IUnBE4swLVzK4kzARQWzbDA4Ha76yc9HOZ8R4=;
-        b=OHv9uog85fZnMNRIwlIoYhJZJpYNDMWRNawDuHbRLnMm56l5wxgzihuqd5pAymiiKd
-         j4JqWl4LOGGCLq1bNU8S8opaEZhqdRbqn6kNuge6FtJpDvpbapui67aasAGK+cI/FlXm
-         PRgf4jD/zu8BAYkjnThf9ysf97URnGtIJTOhdtWVJ2HC7j2YvP0AYGwda46BI/Cnybe2
-         CfTyelu3/Gv3KeseHSMvJM2aTn+omxKxZv73raiiwjSOC5mj88ADXykHxlQjRGlYYFad
-         JbB1RxXY7SHzeNG0UnvcHnBitVsUwiwUvnO9VGCOcsBb8BeGmr3Pke243XDzdvzw3vvg
-         AM7Q==;
+        bh=il9gLlDK2ryI0ZJU3Rk08iTfXQVb81d8dYDWL7SRAzw=;
+        fh=REDPunMhtE7b1U6dmjTRagCEYLqCJ8jJHlfddKVq784=;
+        b=F3h8rDqMU7VDp0/xzMb8/dH2pIFly/vbUQVT3XUQINqTwM7GEHIJ3wl1N+tVAOyXd2
+         qIJ72PoIduDkDopzlHGzFSiUdWGhWFxHznP9ouYLUYsX88PYXk8h1GSUtxiTDwDdykHB
+         JnwwdHMARzVTX5aIHGEJSpea+mKEue8daGo0rcAC85fuC+9/WQLjS5qx+oX2LstTR44M
+         sLIYYM0dTiFO9sADZoGumgOGjkwF96QEm1Asep9uzMz8pHe9EyXgeUuB1rWpmwnd5uRe
+         P6zqPE9VoNj3indfa1qNlAfShIHm2XgLvVSkPQIB8MX0nYqkvNb4oCwecVxUqxBj5xJ9
+         iPMA==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781245962; x=1781850762; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1781246517; x=1781851317; darn=vger.kernel.org;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=1CO6Doo//w2RGkJIhLZDU9oQk9kpI1zOxu1zlLLy3gI=;
-        b=e8aetRYRQwZmtknKmu4v4+nYP6KiEPcT3u7uPP2jMrifEHDi3ShhupYI/IxSHv3shr
-         1dJkXYHifLJPIe21NAXm1R+kVzAxqgCJt0wtRJBMbTmvOpt0RL9xEvmIr7zIVgfQT9HR
-         aLU9mFOllcrO2VBIYWEjVfKzuWOqhvPdDN88rgXJRtr3NHe5iGKxtYsKTcxv1c2+YO7H
-         aLdwPJuT9S7OtJJbNPfGODmU4R9CwTWtHs8tlbpVVBIsiA1UWsm1ek0OHuVzOJ8fjpqc
-         +8ieKRcj0mjWWVUtk3CVH98yJ7jyFOOjRuopbtOR5qqD82x+EC0O0JU23Z+oMc6TjcYb
-         pR+w==
+        bh=il9gLlDK2ryI0ZJU3Rk08iTfXQVb81d8dYDWL7SRAzw=;
+        b=ViBKG8bN2Dc+86Ra8JFtji3ftEKhz/WdcpPwgiIRTpexMojvsr3LIfAENOZwbOLWJN
+         8WTsWlTVDMCu295oCTzVI6eGiP1T1JCGxpiXRC4/2lQF4JFY9hilSlahiWZpphIbzarg
+         GU8epCY1VdMbEfDpK3x4WEL2haHGFoJel16jcVD9m05Y9InEBcbIGT7Tdq+euBOauh9z
+         PoTgCjSNqZwx67yfEEXU6L91kQqxIRQIHjkkeK0GP4PS7upsAiazDvHWqJFkjOJtUfod
+         VWKIYLoz62rHkg8HiKHrr/vdVPBnRCF7FBCKDa1DkRcv+mnksW0URqFfzRdx0kcG0qd7
+         A7Hg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781245962; x=1781850762;
+        d=1e100.net; s=20251104; t=1781246517; x=1781851317;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=1CO6Doo//w2RGkJIhLZDU9oQk9kpI1zOxu1zlLLy3gI=;
-        b=qoojCjeNl1YLYALXEtUKO3KPNgjkDA764KpGwQWWOo/LIM3TwyUKw4sI8jEP41ir8M
-         8svPE0tzPWz7NQPSEMGC3gL8EEQzcGzQvWD5ObcyHHRjV/gsWWalxxyo9tqvQ1Jqf+1w
-         3MVnJGJMZm0VhrjimePXi0Wueo225ba2raL9+SqKWSiVYj1kHEy2bb7IjG+GMAdOhKkU
-         rbCEfL58IuCnLDRZayf2YernvSwzeimDTkI8ZaJZpqdHUniO3qABVxQl/WJr/S3Z9KEI
-         p1SLnQHz9Jy6SMsITUDVMsA2J4ptxUDipojMjtkOgH6rkAY/xvQIRTsWm2JGYF6twsUB
-         5czA==
-X-Forwarded-Encrypted: i=1; AFNElJ9PD04klz0Of2HmBcIfPKIXjQlggjee93hxoqdB0k4WeC3PM1+QFMB/I4uNGFNP6WNRp5Ng6s0=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwMF4ww91hXXfwdC637rmQj7o46BMHRIqgxy7Qy5BHEk8RkY7z+
-	j+CEv99FC2OP7I+B/5YkSIG+TcHV6llxpXId33FDjw1Xwu5HLai7RzeQ+64xv0OPem39vDbpTBR
-	B2h4aMrJvt2CuYfLkCxW6/1gpO4WbpGHTivG7MxpYrewG
-X-Gm-Gg: Acq92OF/gELILt25W6UUIW98s5gCzppLcD2T019VBwpLrpkZYo6UODFPtUm0bNrw+w3
-	u1dwngrMACbVHEUQ322MuIiPZ3phHVjSAbsaYFZskaXYv3zu5If2KXaqjQ5tR4OHZIB/wnOx0TJ
-	Pji4CSUmeYAK4NyDmetEglrvLXYefdToRig2mqc6mK3X2fq+a/29tU32YM1dXV3l8rXWefnKNft
-	CLr5kUfcPIRxpDtV5PkL8yNvAeYGvbtEWtLfsPLzPZ5gQCJt4HjVmU0MsILoCXMh/4WenV/89yI
-	Ndq0
-X-Received: by 2002:a05:600c:3b90:b0:490:b629:286c with SMTP id
- 5b1f17b1804b1-490ec4c4d5dmr13864405e9.12.1781245961963; Thu, 11 Jun 2026
- 23:32:41 -0700 (PDT)
+        bh=il9gLlDK2ryI0ZJU3Rk08iTfXQVb81d8dYDWL7SRAzw=;
+        b=koyhGqYIkbEvJrvFRnVzjl/uqaIWTy2MUhSmL4PEbnzPsxwgovhT/d4R+2kFp6nsBi
+         ikwJNkNP17G+bS8WAt0p7TQ/EA76BRPKq4uDBJhwxC7kCE02cQo6MEmbtyst5BPXQgL0
+         tYMCaLxG7p+QrxBfn3ualpBAv5hn6ID4A7N/CFWhAxjGDxx8dTM2GK4PvYs7nk+13+eK
+         4FwdjXZHmSRVwk+5WR0iSnHQ3/7ujXRMxzsSlcBDDiyf8E+Y4REsBqKLVzwpRZtfIp/x
+         0G7LLpABTq5Jt0TE9L575s/YvfBl2U4mezQPdsWXXn+wgS7T++jPL66ghEFf0lnSoFDL
+         8GXQ==
+X-Forwarded-Encrypted: i=1; AFNElJ9uKuDegLqarOplaKpc3pnf9k9oloFed5Mkeyd62R9MxHj9TqRUsTsYykQy6pyXoFUxccue7hc=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw7VAtzmNNkPjIoUBjjrbE7vOnhvAE+ivQ6AmzsOWyPYGTv/DZr
+	c6y4HFq7K/au9SDWDeha2/fS2udJTQbCbdgUHyjBgrUx/nYskN/aR1vzfxtunRMaMQInRHq5Y9N
+	Z2Yrms9E/WuD+UcQq9omtEkd4brvkHAiII+6Jik8g
+X-Gm-Gg: Acq92OFvw6Ub41abFmK6CCgs8hurlgMeEgGMOs1rSu7maCKf0DC9+xtdnnzTm6UXIge
+	K8M/R/uGtad9NK8OQ1WwjN+40fh9uQ4Z0cNA+pyqLc1H98RFIMtgY6tnT4bBVVKDaJYW8XRe8bK
+	69wSMVHp8YBFYo0f+4yuLohKX0r0GYJj8dpYB36COrZBApcDcomJlgVvZvcEJhQJ64k+AGRMutl
+	A6ZKPQRshgqPqKQV1YAUJUAWp8F5LWWZdklETx/RivwsLd6Vw0p/qaUbVEbEUMHpQsAoIQDZsIZ
+	CL8hh6VuFBRCLsiLdrjKQBJm/vkcw3bySxGJih6kAkTTHuWiknSJGRPZg2alvzgyCyrsXN6ZL33
+	Z+ePZZci/MWkFY6meQ5P8IyUABp1xIEphIHvEooGlEPUQVCOI5hp2
+X-Received: by 2002:a05:7022:6a4:b0:138:407c:1d0f with SMTP id
+ a92af1059eb24-1384baef0b4mr595568c88.1.1781246516575; Thu, 11 Jun 2026
+ 23:41:56 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260611160749.391279-1-jt26wzz@gmail.com> <6e70a018efc87ba1334617b2e6c75ca003e7b1345affe15f1b605634a4ebd183@mail.kernel.org>
-In-Reply-To: <6e70a018efc87ba1334617b2e6c75ca003e7b1345affe15f1b605634a4ebd183@mail.kernel.org>
-From: Zhenzhong Wu <jt26wzz@gmail.com>
-Date: Fri, 12 Jun 2026 14:32:30 +0800
-X-Gm-Features: AVVi8CezUJQ5dJo2tCsl4YwT6OFMv_yZWKbGu9cEm2eLDv1JPD0X-poujETqbbQ
-Message-ID: <CALgi0XntTQpXBPG-znFGohvSMHDmMf93kqz9K6k2dN2rPE_ABA@mail.gmail.com>
-Subject: Re: [PATCH bpf-next] selftests/bpf: add helper retval linked scalar
- pruning selftest
-To: bot+bpf-ci@kernel.org
-Cc: bpf@vger.kernel.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	ast@kernel.org, daniel@iogearbox.net, john.fastabend@gmail.com, 
-	andrii@kernel.org, martin.lau@linux.dev, song@kernel.org, 
-	yonghong.song@linux.dev, kpsingh@kernel.org, haoluo@google.com, 
-	jolsa@kernel.org, menglong8.dong@gmail.com, eddyz87@gmail.com, 
-	shung-hsi.yu@suse.com, stable@vger.kernel.org, mykolal@fb.com, 
-	tamird@kernel.org, martin.lau@kernel.org, clm@meta.com, 
-	ihor.solodrai@linux.dev
+References: <20260611062814.2528793-1-maoyixie.tju@gmail.com> <20260611062814.2528793-2-maoyixie.tju@gmail.com>
+In-Reply-To: <20260611062814.2528793-2-maoyixie.tju@gmail.com>
+From: Kuniyuki Iwashima <kuniyu@google.com>
+Date: Thu, 11 Jun 2026 23:41:43 -0700
+X-Gm-Features: AVVi8CeF5TL34MXY3AZ5iYUyue6WIxsN_f4iunM0aCi1eakSENdPJq2jGVYJej4
+Message-ID: <CAAVpQUBnqtBAO=AzAKckuuLZdHQdt6Z0dxPDxTdT1rpcV3JL5A@mail.gmail.com>
+Subject: Re: [PATCH net v5 1/7] net: ip_gre: require CAP_NET_ADMIN in the
+ device netns for changelink
+To: Maoyi Xie <maoyixie.tju@gmail.com>
+Cc: "David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, David Ahern <dsahern@kernel.org>, 
+	Xiao Liang <shaw.leon@gmail.com>, Steffen Klassert <steffen.klassert@secunet.com>, 
+	Herbert Xu <herbert@gondor.apana.org.au>, Simon Horman <horms@kernel.org>, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Thanks for taking a look.
-
-I used `r0 +=3D 1` only to shift the helper success value from 0 to
-1, so this test is not masked by the verifier's not-equal-zero
-refinement. In this reproducer, `r0 +=3D 1` does not enter the internal
-BPF_ADD_CONST linked-scalar path.
-
-The helper returns an integer with `R0 id=3D0`, `r0 +=3D 1` keeps
-`R0 id=3D0`, and the `r0`/`r7` scalar-id relation is established later
-by the `r7 =3D r0` move on the failure path.
-
-The success path skips that move and keeps `r7` independent. The test
-is intended to cover pruning between those two different state shapes,
-not ADD_CONST delta propagation.
-
-Separately, I don't think the Fixes tag suggested by the bot is
-appropriate. I do not have evidence that b0388bafa494 introduced this
-issue. I can reproduce the issue on v5.10.258, v5.15.209, v6.1.91 and
-v6.6.142. The upstream change that fixes this state shape is the later
-linked-scalar precision tracking change:
-
-  4bf79f9be434
-  ("bpf: Track equal scalars history on per-instruction level")
-
-More background is in the v2 thread:
-
-  https://lore.kernel.org/r/20260607170959.823755-1-jt26wzz@gmail.com/
-
-BR,
-Zhenzhong
-
-On Fri, Jun 12, 2026 at 12:58=E2=80=AFAM <bot+bpf-ci@kernel.org> wrote:
+On Wed, Jun 10, 2026 at 11:28=E2=80=AFPM Maoyi Xie <maoyixie.tju@gmail.com>=
+ wrote:
 >
-> > selftests/bpf: add helper retval linked scalar pruning selftest
-> >
-> >     Add a verifier runtime test for a branch pattern where a helper ret=
-urn
-> >     value and a related scalar stay live across the same control-flow
-> >     sequence. Rust/Aya-generated eBPF can naturally produce this shape =
-when
-> >     a match on a helper status keeps data derived before the helper cal=
-l
-> >     live across the same branches. Such code commonly uses the helper r=
-eturn
-> >     value in r0, where 0 means success, producing an r0 =3D=3D 0 / r0 !=
-=3D 0
-> >     branch shape.
-> >
-> >     The test preserves that branch shape but shifts the success value t=
-o 1
-> >     before branching. Using r0 =3D=3D 1 / r0 !=3D 1 avoids depending on=
- the
-> >     verifier's not-equal-zero refinement, so the test exercises linked
-> >     scalar precision and pruning behavior directly instead of being mas=
-ked
-> >     by zero-specific range refinement.
-> >
-> >     On affected kernels the verifier can explore an impossible path whe=
-re
-> >     r0 and r7 are linked by scalar ID, keep the wrong branch, and make =
-the
-> >     test return 1. With linked scalar precision tracked per instruction=
-,
-> >     state pruning keeps the real success path, and the test returns 0.
-> >
-> >     Suggested-by: Shung-Hsi Yu <shung-hsi.yu@suse.com>
-> >     Signed-off-by: Zhenzhong Wu <jt26wzz@gmail.com>
+> A tunnel changelink() operates on at most two netns, dev_net(dev) and
+> the tunnel link netns t->net. They differ once the device is created in
+> or moved to a netns other than the one the request runs in. The rtnl
+> changelink path checks CAP_NET_ADMIN only against dev_net(dev), so a
+> caller privileged there but not in t->net can rewrite a tunnel that
+> lives in t->net.
 >
-> This adds a regression test for a verifier state-pruning issue with
-> scalars linked by scalar ID, but there is no Fixes: tag.
+> Add rtnl_dev_link_net_capable() next to rtnl_get_net_ns_capable() in
+> net/core/rtnetlink.c. It requires CAP_NET_ADMIN in the link netns and is
+> skipped when the link netns is dev_net(dev), where the rtnl path already
+> checked it. The other patches in this series use the same helper.
 >
-> The test structure (success path keeps r7 independent with id=3D0, failur=
-e
-> path links r7 to r0) matches the "registers with id=3D0 in cached state v=
-s
-> linked in current state" pruning scenario that was addressed by changing
-> check_scalar_ids() and regsafe() to treat rold->id =3D=3D 0 as independen=
-t.
+> Gate ipgre_changelink() and erspan_changelink() with it, at the top of
+> the op before any attribute is parsed, because the parsers update live
+> tunnel fields first. ipgre_netlink_parms() sets t->collect_md before
+> ip_tunnel_changelink() runs.
 >
-> Should this carry:
+> Commit 8b484efd5cb4 ("ip6: vti: Use ip6_tnl.net in
+> vti6_siocdevprivate().") added the same check on the ioctl path. This
+> adds it on RTM_NEWLINK.
 >
->   Fixes: b0388bafa494 ("bpf: Relax scalar id equivalence for state prunin=
-g")
->
->
-> ---
-> AI reviewed your patch. Please fix the bug or email reply why it's not a =
-bug.
-> See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/READM=
-E.md
->
-> CI run summary: https://github.com/kernel-patches/bpf/actions/runs/273612=
-18656
+> Reported-by: Xiao Liang <shaw.leon@gmail.com>
+> Closes: https://lore.kernel.org/netdev/CABAhCOSzP1vaThGV35_VnsRCb=3D87_CP=
+jPVsTHbq905k8A+BuUg@mail.gmail.com/
+> Fixes: d0f418516022 ("net, ip_tunnel: fix namespaces move")
+
+This tag looks wrong, the correct one should be
+
+Fixes: b57708add314 ("gre: add x-netns support")
+
+This also applies to erspan since it shared the code until
+e1f8f78ffe985.
+
+
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Maoyi Xie <maoyixie.tju@gmail.com>
+
+The change itself looks good.
+
+Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
