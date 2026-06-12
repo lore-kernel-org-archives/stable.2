@@ -1,126 +1,144 @@
-Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpbgbr2.qq.com (smtpbgbr2.qq.com [54.207.22.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13516352017
-	for <stable@vger.kernel.org>; Fri, 12 Jun 2026 09:00:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F43012B143
+	for <stable@vger.kernel.org>; Fri, 12 Jun 2026 09:03:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.207.22.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781254814; cv=none; b=eE+RRUemorFo7kKt+MEEUxFvAfr1tj3l5Jp/BBeGIcDU1ou9RBFfx91E1ntpXFebkxI8l+laSnT21O0pU+FHUAV+u831TbDejASIe31/iJthUK28+fOGE5lJlg9Py/4vaENjupUl2xVag4czCXX6j/DvJGpIP8IR17djIBgL5HQ=
+	t=1781255014; cv=none; b=ZhlAEyRZp50J+AcnCawP3NPY3mnkmEyMyPfXp3JFpLfjSCGRwL+2h2WT4KK8t6LskM3bdGtYsFIhdPMT3LQifVCtL4buDk6/0atzilhRAq9iTH99seeWUEHEC+zEpoczQHuSKXJjE8JhFVab3IZJHWFdgKdwDdz/hkuwkleVbTU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781254814; c=relaxed/simple;
-	bh=b1Ef7m01SlvbqYksVxxjRq3JiNuZbQ9XJSkONcITG2c=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=OXkoUKfRR1p4y9nxBAVd5d9/Q2vMEYgtzPFq68+HqrVh8T3I/wM38yLj0sp9oa7Ex2FgkDebrmuC2E6+Ie9q49ho0OgO/wf9w3kFN+DCfc2SkWmPMnsoUqmtMflgjufMv4ciEF6b5klYoJecMn6QcrPnsh26DqxlopFzbHm+yqA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=csT6t/ve; arc=none smtp.client-ip=209.85.210.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781255014; c=relaxed/simple;
+	bh=X31Kl78dLCDCMcs/F4rY6Z35nCi57iiNHRU1BErIdDQ=;
+	h=Date:From:To:Cc:Subject:References:Mime-Version:Message-ID:
+	 Content-Type; b=kSrrvKCw6oJnDWZRlNoJdO4PxOObfoyCi/mei7VUakDh27b6PD5uDgE1aOFz2ZqA3LVofQmlIJCMYFuUu7vdn74Wx9dlHv2y7jDVGF/CT/Sz9h/Z+0LizXLL4mZEK952Mmb3jJmqchBgO3Sb7+VHP+3WDNzxMz7vrPqhlBsJUk0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=FGr99Ahu; arc=none smtp.client-ip=54.207.22.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="csT6t/ve"
-Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-8434840cea8so371307b3a.3
-        for <stable@vger.kernel.org>; Fri, 12 Jun 2026 02:00:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781254812; x=1781859612; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=am9un3Mpyi4zgWESM9WSZJ/9n4NAc/vveWguadq2LnY=;
-        b=csT6t/veI9lYyoxo+o4M26sc7eObWSVqBuM4P1YzcJq90dMpzaN9wjYNGCC73kzxqe
-         yHfM92J+TcObWIwCIbRbPvckqsOn/Ydr3npyaQRcp/ogN+PSUzyHyVeXjWnr+yW+PgBx
-         DlDNSjBL/G4mAzHynrm1l6bwn842YVsyjQwij+BLOF15V/thrhlC67SH4fumujEyz5G9
-         81DZywt1+H1HJvpQHAB/ZFBt3jVPitHog08VCpiPuYja3WCeHNuuOkcOh81tblqs1TXJ
-         6YbXbWp9zo0VIE7EN9uGAss5M/Qk68Eod+BZ80l2VVwfFMPmge9WiCzpOMYIncvH2Cop
-         8qnQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781254812; x=1781859612;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=am9un3Mpyi4zgWESM9WSZJ/9n4NAc/vveWguadq2LnY=;
-        b=NxHrQ7uq2l/1eJTMUJdKtHg5TguhmaVW9LwV7GdE33P9goJSjGIfMQdwPPr3TsOn1I
-         4Oz6JdTr77tfAD6ZshqKefjwZNyMgcHSOX2U89t+iO/pS3AWe0JPnRu+RpEYzHaqVGzn
-         RIkMlEEAtr9xyJGv2qKJ8EE2IZ5uCorPxFqtAOxGlruS1V7VX0D5ZD6PS5DOF6wkFMwo
-         Edlg7CQ9CMrsg9yM3y2cRSeqJ1Rf5Fh9x39OPJ1pi2N1UGZ7uNDZcrbLvsfUZ/nEwNN7
-         zBQPTG3RnsQrpaY2R7t1B0mfIC7nMSPuBQ3YccdamYgh3Ev5hYxFGrQ2JSPbIIJncqeA
-         5A7A==
-X-Forwarded-Encrypted: i=1; AFNElJ+bQfth+Ir9ZFv9OTUbcVljnyKzNYeAiHY3gzWCnTjSfpAMfFfGSZVQrGXwz4g/IPllwqmTMtI=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzMko6EH6LCRl0Q+vgco163SnWk9cHD2rkVPMHp4go7kGcOeACU
-	sM5gIPePCcCVdUNths6Yq60tffvtZv9q10y+x+WjYYbSTV4Kcqw9CLdH
-X-Gm-Gg: Acq92OHA1ELIQVh09jn9Tbwj/BUlxRQKKxWBzrnaGDn6cHJtKV4ats8dwqJ38qkA6x0
-	iIqMQii9+J1EAqnYZmn+ldzgtFqu17T1DRuZaqtigWq4iLQafeV70uqt0YX94WVDZiZ050XLfQd
-	hLPuJ3YNNUbYUgFiy9sKtzZbfbDAhO+sBZf+pZIy5KcAZLNAC8wE/drsncPaswrszbhxkjj5rwT
-	iH9yqs1YvUeW3NKCVAs2yzXhP4BLU8oGF0wtZlp+XG8gVGKj0/3MUPcmYR5VL3m0nqNoqDmNal2
-	D8Ptg71XUKmDhqObLp+2Nfj1fO3UcJ7L1lIem3SGba38wDuBQO0Po/e9t3Mcvz0zUXvqBKBiYIe
-	fcCDECBNHeGxxJVMkeoEt1iPdpql4ru+K4sZDhEwfx4KQa6iQ2zG8F/cdakqWT058FCFYQzf176
-	T6Wk78HLaIKZJyRbUvXyCf8TFxvbU4n3tMbgGuZtSnk1Gcu/Qp1y9JZg4ms8c=
-X-Received: by 2002:a05:6a00:2354:b0:835:3f51:730e with SMTP id d2e1a72fcca58-8434cd24381mr2048514b3a.13.1781254812154;
-        Fri, 12 Jun 2026 02:00:12 -0700 (PDT)
-Received: from csl-conti-dell7858.ntu.edu.sg ([155.69.195.57])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8434a934a97sm1646892b3a.0.2026.06.12.02.00.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 12 Jun 2026 02:00:11 -0700 (PDT)
-From: Maoyi Xie <maoyixie.tju@gmail.com>
-To: "David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: David Ahern <dsahern@kernel.org>,
-	Steffen Klassert <steffen.klassert@secunet.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	Simon Horman <horms@kernel.org>,
-	Kuniyuki Iwashima <kuniyu@google.com>,
-	Xiao Liang <shaw.leon@gmail.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Maoyi Xie <maoyixie.tju@gmail.com>
-Subject: [PATCH net v6 7/7] xfrm: xfrm_interface: require CAP_NET_ADMIN in the device netns for changelink
-Date: Fri, 12 Jun 2026 16:59:41 +0800
-Message-Id: <20260612085941.3158249-8-maoyixie.tju@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260612085941.3158249-1-maoyixie.tju@gmail.com>
-References: <20260612085941.3158249-1-maoyixie.tju@gmail.com>
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="FGr99Ahu"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1781255001;
+	bh=X31Kl78dLCDCMcs/F4rY6Z35nCi57iiNHRU1BErIdDQ=;
+	h=Date:From:To:Subject:Mime-Version:Message-ID;
+	b=FGr99AhuZrENoWY9GqknwkZKnCG24UG8f7JxFUKExJepDUYL8n2WAhFvwmtGBEbd0
+	 kJJW4xOMMvVxZYv1bxWkfqLtjgxhZY4CpwhGpeudRCdi80pc7Zm9a2bfPBSsMLYtwn
+	 qwLjRSwZKdAqep/8QKUFKip7XKZeZofpkWvVde9Q=
+X-QQ-mid: esmtpsz11t1781254994td821a0de
+X-QQ-Originating-IP: JrpDEooSWmrGcBEWkJGnwpiWz7pwTm7IZMXTQ257GmE=
+Received: from PEN002676 ( [1.202.39.170])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Fri, 12 Jun 2026 17:03:11 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 13897525409563887300
+Date: Fri, 12 Jun 2026 17:03:12 +0800
+From: =?GB2312?B?1dS98MP3?= <zhaojinming@uniontech.com>
+To: "Nicolas Dufresne" <nicolas@ndufresne.ca>, 
+	tomeu <tomeu@tomeuvizoso.net>, 
+	ogabbay <ogabbay@kernel.org>
+Cc: sumit.semwal <sumit.semwal@linaro.org>, 
+	christian.koenig <christian.koenig@amd.com>, 
+	jeff.hugo <jeff.hugo@oss.qualcomm.com>, 
+	dri-devel <dri-devel@lists.freedesktop.org>, 
+	linux-kernel <linux-kernel@vger.kernel.org>, 
+	linux-media <linux-media@vger.kernel.org>, 
+	linaro-mm-sig <linaro-mm-sig@lists.linaro.org>, 
+	stable <stable@vger.kernel.org>
+Subject: Re: [PATCH v6 1/2] accel/rocket: Fix error path handling in rocket_job_run()
+References: <20260610061915.1CA281F00893@smtp.kernel.org>, 
+	<20260610071045.3414828-1-zhaojinming@uniontech.com>, 
+	<0e3b9cdb9d8bd692290dfabafb32d7faa5bd50f8.camel@ndufresne.ca>
+X-Priority: 3
+X-GUID: D35A159F-6825-4573-AE95-48F50940D356
+X-Has-Attach: no
+X-Mailer: Foxmail 7.2.25.375[cn]
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Message-ID: <F5773C4B33DAB9B9+2026061217031108584617@uniontech.com>
+Content-Type: text/plain;
+	charset="GB2312"
+Content-Transfer-Encoding: base64
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpsz:uniontech.com:qybglogicsvrsz:qybglogicsvrsz4b-0
+X-QQ-XMAILINFO: NT7uTz3cNku21O2Qpo49ZX3qbjMEcHHwjR20QJ5Txmp+WOmPrG2dMary
+	MoRC55frpzDTh1rJAnmt0+nJsxhsJMTHgyRzJQliUkf8bPIgfDt/jfK3pNzgUytYBlGTp40
+	zvyjspZVajS+j7JObT4x+hciDJDR4o6JQhLI5d/3Jva6U9ecm8y9ZW2+vZ4WtZA4ayL7nun
+	dJbM3gzZry6V1zuR6GiI5jz82nguhi6Hjf8VDiMOMcSZBE6VKbeUAcHTxgS6HtYUSZAhwsI
+	V5OE4eG8pE1zjr0kb3S5WE3Yv+2OLfcEnTjgLdOL3Py6G0McN004WipMiEtHvOyUODvk6bQ
+	OOCjW/cVcTQCfM7Nkc2s8ogAZUmViVy3dILv77j/Btv6pjVfFFI5LAM4ts07ST1/V2sEHUG
+	b7klWidN3QCOAK2Oapyo2E+xrm+Y6PQ2qSRlBlGtj13iQN4aO+bHC8MFfB+/uSn/tkGg0k2
+	eNwZyAnc2eVNXHCNJIWPOQ25r442+VEbceBnDU/4Z5fX6eyQNj2LDIaJM665qvxx/OVLrrD
+	xRSw1dhibFd41cz18FV+6QdKPp3I3vTmKOzJtZA5fvM8fKVlOesAbcpaaeVeLhupCx1hp3R
+	aUNevySTmcVCKzPP13ZVFVxBq3A1h22QpHOvWP9ky/AU+3QgCq4Iqcpog1hn+q3Wb1Y1gFd
+	vsou7uZT1WMsfJGYhr4x+Egcp0g6RCetmYfGOeXS7gydbrwOwb3LECrtkmB+Og/2KDsEijh
+	JxJzMt0QUKBqLpIMYd71Rm2Ar93fvdUd0e1jPVXzHp2fe07PHhSFMSvd0PTr89dfKJg+ci8
+	m3E7Rc20hM2LTF4qs0WVBqMV41V3yXDsUMyXh9HtbQGQxHac+C/VLRebBV1x6HiANw0jJit
+	/UZY9uWkh0OB60ZCrtMUGW53e8pYjz3Ol3qHzXcJ5THa5Z+wt8KMya3l0IpyIRng5h27ZbH
+	BD3qxsFBEA3eLGDAc0X5znxpxtfhTzSmQSrmiJklC6W/RjdJxEOxugdW4JTowO8cH3sUqEo
+	TxL4ijRTcYOVVUQiBhsP+D1Fvyce8=
+X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
+X-QQ-RECHKSPAM: 0
 
-xfrmi_changelink() operates on at most two netns, dev_net(dev) and the
-interface link netns xi->net. They differ once the device is created in
-or moved to a netns other than the one the request runs in. The rtnl
-changelink path checks CAP_NET_ADMIN only against dev_net(dev), so a
-caller privileged there but not in xi->net can rewrite an interface that
-lives in xi->net.
-
-Gate xfrmi_changelink() on rtnl_dev_link_net_capable() at its top,
-before any attribute is parsed.
-
-Reported-by: Xiao Liang <shaw.leon@gmail.com>
-Closes: https://lore.kernel.org/netdev/CABAhCOSzP1vaThGV35_VnsRCb=87_CPjPVsTHbq905k8A+BuUg@mail.gmail.com/
-Fixes: f203b76d7809 ("xfrm: Add virtual xfrm interfaces")
-Cc: stable@vger.kernel.org
-Signed-off-by: Maoyi Xie <maoyixie.tju@gmail.com>
-Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
----
- net/xfrm/xfrm_interface_core.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/net/xfrm/xfrm_interface_core.c b/net/xfrm/xfrm_interface_core.c
-index 330a05286a56..688306bf62c5 100644
---- a/net/xfrm/xfrm_interface_core.c
-+++ b/net/xfrm/xfrm_interface_core.c
-@@ -869,6 +869,9 @@ static int xfrmi_changelink(struct net_device *dev, struct nlattr *tb[],
- 	struct net *net = xi->net;
- 	struct xfrm_if_parms p = {};
- 
-+	if (!rtnl_dev_link_net_capable(dev, net))
-+		return -EPERM;
-+
- 	xfrmi_netlink_parms(data, &p);
- 	if (!p.if_id) {
- 		NL_SET_ERR_MSG(extack, "if_id must be non zero");
--- 
-2.34.1
+SGksCgpBcG9sb2dpZXMgZm9yIHRoZSBjb25mdXNpb24gY2F1c2VkLiBJIHdhcyB0cnlpbmcgdG8g
+aW5jb3Jwb3JhdGUgZmVlZGJhY2sgZnJvbSB0aGUgQUkgdG8gbWFrZSBteSBjaGFuZ2VzIHNhZmVy
+LCBidXQgdGhlIHJlc3VsdCBzZWVtcyB1bnNhdGlzZmFjdG9yeS4KCkknZCBsaWtlIHRvIHNwbGl0
+IHRoZSB0d28gaW5kZXBlbmRlbnQgZml4ZXMgYW5kIHRhY2tsZSB0aGVtIHNlcGFyYXRlbHkuIExl
+dCdzIGZpcnN0IHJldmlldyBbUEFUQ0ggdjYgMS8yXSBhY2NlbC9yb2NrZXQ6IEZpeCBlcnJvciBw
+YXRoIGhhbmRsaW5nIGluIHJvY2tldF9qb2JfcnVuKCkuCgpJIGN1cnJlbnRseSBkb24ndCBmdWxs
+eSBncmFzcCB0aGUgQUkncyBwcm9ibGVtIGRlc2NyaXB0aW9uIHJlZ2FyZGluZyBbUEFUQ0ggdjYg
+Mi8yXSBhY2NlbC9yb2NrZXQ6IEZpeCBpb21tdV9ncm91cCBsZWFrIGFuZCB1bnNhZmUgSVJRIHJl
+Z2lzdGVyIGFjY2Vzcy4KClBsZWFzZSBsZXQgbWUga25vdyBpZiBJIHNob3VsZCBzdGFydCBhIG5l
+dyB0aHJlYWQgZm9yIFtQQVRDSCB2NiAxLzJdLgoKVGhhbmtzLAoKCi0tLS0tLS0tLS0tLS0tCgoK
+ClpoYW8gSmlubWluZwoKCj5IaSwKCgoKPgoKCgo+TGUgbWVyY3JlZGkgMTAganVpbiAyMDI2IKik
+IDE1OjEwICswODAwLCBaaGFvSmlubWluZyBhIKimY3JpdD86CgoKCj4+IEluIHJvY2tldF9qb2Jf
+cnVuKCksIGFmdGVyIHRha2luZyBhbiBleHRyYSBmZW5jZSByZWZlcmVuY2UgZm9yCgoKCj4+IGpv
+Yi0+ZG9uZV9mZW5jZSB2aWEgZG1hX2ZlbmNlX2dldCgpLCB0aGUgZXJyb3IgcGF0aHMgaGF2ZSB0
+aHJlZSBidWdzOgoKCgo+PiAKCgoKPj4gLSBUaGUgZG1hX2ZlbmNlIHJlZmVyZW5jZSBoZWxkIGJ5
+IGpvYi0+ZG9uZV9mZW5jZSBpcyBuZXZlciByZWxlYXNlZCwKCgoKPj4gPyBjYXVzaW5nIGEgcmVm
+ZXJlbmNlIGxlYWsuCgoKCj4+IC0gcG1fcnVudGltZV9nZXRfc3luYygpIGluY3JlbWVudHMgdGhl
+IHVzYWdlIGNvdW50ZXIgZXZlbiBvbiBmYWlsdXJlLAoKCgo+PiA/IGJ1dCB0aGUgZXJyb3IgcGF0
+aCBkb2VzIG5vdCBkZWNyZW1lbnQgaXQsIGxlYWtpbmcgdGhlIHJ1bnRpbWUgUE0KCgoKPj4gPyBy
+ZWZlcmVuY2UgYW5kIHByZXZlbnRpbmcgdGhlIE5QVSBmcm9tIHN1c3BlbmRpbmcuCgoKCj4+IC0g
+QSB2YWxpZCBidXQgdW5zaWduYWxlZCBmZW5jZSBpcyByZXR1cm5lZCB0byB0aGUgRFJNIHNjaGVk
+dWxlciwKCgoKPj4gPyB3aGljaCB0cmlnZ2VycyBXQVJOKCJGZW5jZSAuLi4gcmVsZWFzZWQgd2l0
+aCBwZW5kaW5nIHNpZ25hbHMhIikKCgoKPj4gPyB3aGVuIHRoZSBzY2hlZHVsZXIgZHJvcHMgaXRz
+IHJlZmVyZW5jZS4KCgoKPj4gCgoKCj4+IEZpeCBieSByZXBsYWNpbmcgcG1fcnVudGltZV9nZXRf
+c3luYygpIHdpdGggcG1fcnVudGltZV9yZXN1bWVfYW5kX2dldCgpCgoKCj4+IHdoaWNoIGF1dG8t
+YmFsYW5jZXMgdGhlIHVzYWdlIGNvdW50ZXIgb24gZmFpbHVyZSwgcmVsZWFzaW5nIGJvdGggZmVu
+Y2UKCgoKPj4gcmVmZXJlbmNlcyBvbiBlcnJvciwgYW5kIHJldHVybmluZyBFUlJfUFRSKHJldCkg
+aW5zdGVhZCBvZiB0aGUKCgoKPj4gdW5zaWduYWxlZCBmZW5jZS4KCgoKPj4gCgoKCj4+IENjOiBz
+dGFibGVAdmdlci5rZXJuZWwub3JnCgoKCj4+IEZpeGVzOiAwODEwZDVhZDg4YTEgKCJhY2NlbC9y
+b2NrZXQ6IEFkZCBqb2Igc3VibWlzc2lvbiBJT0NUTCIpCgoKCj4+IFNpZ25lZC1vZmYtYnk6IFpo
+YW9KaW5taW5nIDx6aGFvamlubWluZ0B1bmlvbnRlY2guY29tPgoKCgo+PiAtLS0KCgoKPgoKCgo+
+VGhpcyBpcyBhIGxvdCBvZiB2ZXJzaW9ucyB3aXRoaW4gdGhlIHNhbWUgZGF5LiBZb3Ugc2hvdWxk
+IHNsb3cgZG93biBhIGxpdHRsZSBzbwoKCgo+YSBodW1hbiBjYW4gcHJvdmlkZSBhIHJldmlldywg
+YW5kIGFsc28gZG9jdW1lbnQgdGhlIGRpZmZlcmVuY2VzIGluIHRoaXMgc2VjdGlvbiwKCgoKPmFm
+dGVyIHRoZSAtLS0sIG9yIHVzaW5nIGEgY292ZXIgbGV0dGVyLgoKCgo+CgoKCj5OaWNvbGFzCgoK
+Cj4KCgoKPj4gP2RyaXZlcnMvYWNjZWwvcm9ja2V0L3JvY2tldF9qb2IuYyB8IDE5ICsrKysrKysr
+KysrKysrLS0tLS0KCgoKPj4gPzEgZmlsZSBjaGFuZ2VkLCAxNCBpbnNlcnRpb25zKCspLCA1IGRl
+bGV0aW9ucygtKQoKCgo+PiAKCgoKPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvYWNjZWwvcm9ja2V0
+L3JvY2tldF9qb2IuYwoKCgo+PiBiL2RyaXZlcnMvYWNjZWwvcm9ja2V0L3JvY2tldF9qb2IuYwoK
+Cgo+PiBpbmRleCBhYzUxYmZmMzk4MzMuLmU4YTA3M2UyMmFjMiAxMDA2NDQKCgoKPj4gLS0tIGEv
+ZHJpdmVycy9hY2NlbC9yb2NrZXQvcm9ja2V0X2pvYi5jCgoKCj4+ICsrKyBiL2RyaXZlcnMvYWNj
+ZWwvcm9ja2V0L3JvY2tldF9qb2IuYwoKCgo+PiBAQCAtMzEwLDEzICszMTAsMjIgQEAgc3RhdGlj
+IHN0cnVjdCBkbWFfZmVuY2UgKnJvY2tldF9qb2JfcnVuKHN0cnVjdAoKCgo+PiBkcm1fc2NoZWRf
+am9iICpzY2hlZF9qb2IpCgoKCj4+ID8JCWRtYV9mZW5jZV9wdXQoam9iLT5kb25lX2ZlbmNlKTsK
+CgoKPj4gPwlqb2ItPmRvbmVfZmVuY2UgPSBkbWFfZmVuY2VfZ2V0KGZlbmNlKTsKCgoKPj4gPwoK
+Cgo+PiAtCXJldCA9IHBtX3J1bnRpbWVfZ2V0X3N5bmMoY29yZS0+ZGV2KTsKCgoKPj4gLQlpZiAo
+cmV0IDwgMCkKCgoKPj4gLQkJcmV0dXJuIGZlbmNlOwoKCgo+PiArCXJldCA9IHBtX3J1bnRpbWVf
+cmVzdW1lX2FuZF9nZXQoY29yZS0+ZGV2KTsKCgoKPj4gKwlpZiAocmV0IDwgMCkgewoKCgo+PiAr
+CQlkbWFfZmVuY2VfcHV0KGpvYi0+ZG9uZV9mZW5jZSk7CgoKCj4+ICsJCWpvYi0+ZG9uZV9mZW5j
+ZSA9IE5VTEw7CgoKCj4+ICsJCWRtYV9mZW5jZV9wdXQoZmVuY2UpOwoKCgo+PiArCQlyZXR1cm4g
+RVJSX1BUUihyZXQpOwoKCgo+PiArCX0KCgoKPj4gPwoKCgo+PiA/CXJldCA9IGlvbW11X2F0dGFj
+aF9ncm91cChqb2ItPmRvbWFpbi0+ZG9tYWluLCBjb3JlLT5pb21tdV9ncm91cCk7CgoKCj4+IC0J
+aWYgKHJldCA8IDApCgoKCj4+IC0JCXJldHVybiBmZW5jZTsKCgoKPj4gKwlpZiAocmV0IDwgMCkg
+ewoKCgo+PiArCQlwbV9ydW50aW1lX3B1dChjb3JlLT5kZXYpOwoKCgo+PiArCQlkbWFfZmVuY2Vf
+cHV0KGpvYi0+ZG9uZV9mZW5jZSk7CgoKCj4+ICsJCWpvYi0+ZG9uZV9mZW5jZSA9IE5VTEw7CgoK
+Cj4+ICsJCWRtYV9mZW5jZV9wdXQoZmVuY2UpOwoKCgo+PiArCQlyZXR1cm4gRVJSX1BUUihyZXQp
+OwoKCgo+PiArCX0KCgoKPj4gPwoKCgo+PiA/CXNjb3BlZF9ndWFyZChtdXRleCwgJmNvcmUtPmpv
+Yl9sb2NrKSB7CgoKCj4+ID8JCWNvcmUtPmluX2ZsaWdodF9qb2IgPSBqb2I7CgoK
 
