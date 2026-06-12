@@ -1,63 +1,63 @@
 Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com [209.85.210.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E02CF346E43
-	for <stable@vger.kernel.org>; Fri, 12 Jun 2026 03:59:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 072AB346E43
+	for <stable@vger.kernel.org>; Fri, 12 Jun 2026 03:59:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781236763; cv=none; b=TqPv6s+fivg3vPUvyMH27w1OP13AZz2PaHL+HUTbQ2Ghh217fqT54pv3x2RrMsWjZiW0ioPRT8vgoLJMTcgd5/81mhLZkH+9q6HeHWLLoFSyRyu0BwwYSAqngikQU2/lGrl+w4/xaW9fZyh7vgB6qU/WAkiCVSfQOMvbHk5xuCI=
+	t=1781236768; cv=none; b=Gb2igfn6pMhRsPRAIJx3IE3p+6F8tI9Cf+mIpASDRnAD9p7OuaDSN0ttAXjyArTYwKgN5v+B9RhUvzdexMD69rkqBh8ibAHyhJi7Tah0nLx3vV2ztYZJ1HBbEGL/KBskZ+GXTSLujjTQTe8ae1aulV8IiyzlOhFAVnd703udwN0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781236763; c=relaxed/simple;
-	bh=FFo5YVsN5RJTkQY/ToQ5Yxygot9j3fKn+T8WvprpE+0=;
+	s=arc-20240116; t=1781236768; c=relaxed/simple;
+	bh=it3esgE937uFjKRnmVX2qECQgX5Lg/OcvcB1PIsf0q0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dWUWmdg5wbb5hZ9pBIgYCRqCzuHmV0KjZxi8mjY6Iu/vCFsWdGoOp/B/0884Oh9RweiGK7CJJcPy546VD/vXlL3mMi42rrKMnE3Rs+lZ/qQUSuUkLzA7WTsdUTdr7/kATQeqcSMiDgUGGS3u8zEYEnVCR20gjHi21DUwaNq/+zw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=MvIHTsmB; arc=none smtp.client-ip=209.85.210.180
+	 MIME-Version; b=tqg8S9r1udI1KxkmTE+e6UqNZlnLWdq78bk1cx144ozVcufK17eTdO0w2RFn0DNmka0qZVZXz1taINiu8BOtsmViqFpL6eoPp1D1Mr2v1arCMhF3EmDmLiwUtckS0OI3EiwjGo/KRugDzTSn0AtwHQPH2nXv38E5sP5ToYzoLys=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=KZF3MpPD; arc=none smtp.client-ip=209.85.210.180
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="MvIHTsmB"
-Received: by mail-pf1-f180.google.com with SMTP id d2e1a72fcca58-842307473b5so454759b3a.2
-        for <stable@vger.kernel.org>; Thu, 11 Jun 2026 20:59:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="KZF3MpPD"
+Received: by mail-pf1-f180.google.com with SMTP id d2e1a72fcca58-8422871b42dso382407b3a.3
+        for <stable@vger.kernel.org>; Thu, 11 Jun 2026 20:59:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bytedance.com; s=google; t=1781236761; x=1781841561; darn=vger.kernel.org;
+        d=bytedance.com; s=google; t=1781236766; x=1781841566; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=GLckvYu5EL2MaiuWaMvOvK8C88YkCBw4frh2Emu1ze4=;
-        b=MvIHTsmBhUSl3/N+RL4IOIs3LDxos8NdcD6WI3EBazC5Y0nXuIWaaZbE8j3uY4lZbU
-         TGWBomM7h7Pu7MkXJHrXUhSgVBNKGlQLYCWpkXKgP3P8LhH4DGIJ6HuqpACIT7Vi2e9S
-         7F0c4DzAYZ+NMjfwLX2IdfMWRzXlo+3bAqCxgY+TbjWCcq56/RkdvEAjLQTcYbF19M6Q
-         /jwpLIxbZ60Nh+7tY0s3hOaYHKRO6GZO8md9ON+AW1djPnoQdsoWpSdN3UVDMIOfhyRm
-         1Y1zDyTeeJKKEQEtPNb4rl/5EvFhP9NOMx81AbbmtaYITdcuRhJkxLMAShPihGGAP4Rr
-         pJ1A==
+        bh=A38edv4qBFIhST2C0H/v4DfDnWwAK1V2ZV54LtDXngc=;
+        b=KZF3MpPDUOP61IlwzBlYHkDDlUC3aJgzIzEOTTk1BrbKrCGD/6RnXmiy/pWqbxlano
+         11gnYXiMYJ9aNcWizy37Zi8SEwOVK5srQKbBRfUEr4mbt7EoGYyVjnZ9I2PFWetVTOwW
+         UCuIxX2pkSHXMY0CvkcwPIeQSFOJqPUcxshxGY76baW2ikiATHUnIWxgeVaeG4C22I63
+         vlCoyeFd7HOs8VqRrOx4JDbtzp5fgLo5RqXWPH0O0PIDsu+KjeCWi0soVmdiZsbPlNmo
+         Ssx96Wanvu0z6kpNPJ857WCYu8ipv7YMEJrGv331Dg/i3E5W1vc8GZkM35IOsLfIgd63
+         /5BQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781236761; x=1781841561;
+        d=1e100.net; s=20251104; t=1781236766; x=1781841566;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=GLckvYu5EL2MaiuWaMvOvK8C88YkCBw4frh2Emu1ze4=;
-        b=gcpq4rBn253spQT/1G+Mj9xi/y1aHUnAvjG4GI7PP1fDYQr4MEbyPpWQ6sSZskyH2Z
-         aliFv+sopkjiQIwr8c3YjuljYJbfcF9IbiAVmXhU6mQnNc1ZP53Njnqzn1MfnF0Cvg4r
-         GxvQln/+B9cdbRsTlP4iReHGNZCgnd++6CKIbOQLpvz0RZXX7P6sz7GgsKvIa1s+b59A
-         TEsQu2C6O+7lQQF6fF48aj1G/HxUOrBVo0OwOM9TH0H3yvNM8zPbF4zcIMPc/excJxWN
-         2SxyBUpSFeHZ3+0tLwjpCSgZPwErVnPzmzpDR12ohv5yx4DDE0tE0eOM0A4WIgumZ6Lt
-         Z8BQ==
-X-Forwarded-Encrypted: i=1; AFNElJ+wujODrNvG5FBj4AEuN3P91UBENgnhHBMQmRskWxpvbP4e4Fz9w42MGQtoOjWn+A5GQLp9pnk=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxdLpVsXubePlpJcdgVQ9yd2FYfp9608liTMysOjexIuAa/WO7N
-	y90Ewl9teLICLjtGN2C7b2U6JyYJ9A+ziWUXWzoGNCnE43B99J4IhaglEJfKl3Otc9o=
-X-Gm-Gg: Acq92OHqwZ8HeXBr+ew8M82aqJTYxOgMklPlj6G1mPBN018mAtQgNPDmIKdQyWEQhTD
-	ziIaXLOqo8ZtXlnh1LsIcxtGBEJKTnI37I8rcSbyJ+OiSQABKBVqftfYZVJ02oTeEQMJc2R6+AI
-	OyavTpcgYXetnHdwQN3lA3mKCR2L/6+9E+PNL0Qib0WWAnbAmgYUBk0s3dXf+NBVt36bc6FjB9Q
-	ptvg0NufCtovS1YOrbUUF6W1oeNRj6d7zV7MgHL0Z9RV9rQr2bFBndn7Nwd+sGQmMEJ9Vmx2Cip
-	mTTG+TETxrH6sUx2fkdjvHiqfeukWenMH7c0apk6UffkeQHei/5wo/qWxpct1fyCH0qB/ltbR3m
-	m5Dh1NFcOmDYmJV6A0cnUycbdkvPZg2RhWq5GhMPbvzHEtK0snD4QTW5LhnK+rHKHv0+YGUmi49
-	pve2ZX39svH6eOZT7hhcLodaxU0th7/Eu1X+IhIfNARt4=
-X-Received: by 2002:a05:6a00:2d19:b0:842:4f49:71bc with SMTP id d2e1a72fcca58-8434cecab4dmr1092576b3a.46.1781236761177;
-        Thu, 11 Jun 2026 20:59:21 -0700 (PDT)
+        bh=A38edv4qBFIhST2C0H/v4DfDnWwAK1V2ZV54LtDXngc=;
+        b=oQzbku6CAF935iWL1Ov7L1eMYTvsG7B4HGOyJTFUCCIl+7KUgmUb8Rkn2/S9h1yh2e
+         E4YgEk7i7G5lFc+GPflVU1bF4fMDLvgTyk7/XjFp5ozgnzitv1bsiFbvu3uZahNu2yhb
+         NutDdANoo8R6KlxpYLTqgOyQ0TTH2tnWdilRtrdJ4qavHLNRr3f7DtiDt1roigee4r6H
+         JhbT6cyz6cZnYqJ655A7mH2e9Ye4ZG/Z9anzsOVlM8NEjMhtpcF1iNN7P+eGwS7lnpjE
+         dSCO3AmMvfWwx56W3DsMU4+TL47xC1FFzomnUN4T/pPN/7X44AZn7eEv8NkJkZPpGyVU
+         7udw==
+X-Forwarded-Encrypted: i=1; AFNElJ+DBUR/5KNIv4Q4dRPVekJ7ydiE8iKeykGyJ8W1RfU7Czjfpt0BykG5D50+bskPemkkx2lDyuQ=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyFICIgNYthTvp7etnuHNv/l1HiMp9QGawEsikCp9LcfG/owfQ9
+	I0CoPhh49xa7es6N9DV8qzHlo8/G68of3hN0PKCLZU4iiTFi7tcrMzoVnSsnA4wtBBg=
+X-Gm-Gg: Acq92OHBQ3PA3ZxmjpnFp9BtujVbUJqzUEQcLz3/A9dRtKpfD6wNMno/2lu2X5rnvVc
+	BAmfKVYj7pDIzPyHuvucZNvT/uo+ccipibIHD95cF9JAm27txtYvpb8wkFoCMGP3Oc9zX6jtbIQ
+	PCVWDHNVS6BD4nG/nl3ybHOwfh99mTjfuLUucQ3ibKWaL/uW4lm2z+B/lSbQSGlypxMU2vx+ntO
+	P8sEO+nLVGiqNkaJp0WxfFwn3NGRdT/OTCpoo1vyBJV2Yor1lOCQbi5Boiy5yMDGn+H/akkWYuk
+	uoFDncNRzlVJRR2bW39EkedwFJKRgxcQoG4gh/wr8H33NTczQsrJLnuuyUoVhezN3pt+8qf/9Cb
+	Ew9RuaRPJindbEk/nXcBQBL2e8PgCcqY0B0ARX1KAGRIpoz4EbAPIoFTj2407lS13PY/z+vDqS2
+	L22YIQtsWr+nWlQhEpnHarr2R/rwrhOn2Kw1KSZRdmL4U=
+X-Received: by 2002:a05:6a00:2288:b0:842:5988:470b with SMTP id d2e1a72fcca58-8434cc161cfmr1136338b3a.1.1781236766275;
+        Thu, 11 Jun 2026 20:59:26 -0700 (PDT)
 Received: from n232-176-004.byted.org ([36.110.163.99])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8434ad03fdcsm643352b3a.24.2026.06.11.20.59.16
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8434ad03fdcsm643352b3a.24.2026.06.11.20.59.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 11 Jun 2026 20:59:20 -0700 (PDT)
+        Thu, 11 Jun 2026 20:59:25 -0700 (PDT)
 From: Muchun Song <songmuchun@bytedance.com>
 To: Oscar Salvador <osalvador@suse.de>,
 	David Hildenbrand <david@kernel.org>,
@@ -79,9 +79,9 @@ Cc: Muchun Song <muchun.song@linux.dev>,
 	Mike Kravetz <mike.kravetz@oracle.com>,
 	Muchun Song <songmuchun@bytedance.com>,
 	stable@vger.kernel.org
-Subject: [PATCH v4 02/19] mm/hugetlb_vmemmap: Fix __hugetlb_vmemmap_optimize_folios()
-Date: Fri, 12 Jun 2026 11:58:46 +0800
-Message-ID: <20260612035903.2468601-3-songmuchun@bytedance.com>
+Subject: [PATCH v4 03/19] powerpc/mm: Fix wrong addr_pfn tracking in compound vmemmap population
+Date: Fri, 12 Jun 2026 11:58:47 +0800
+Message-ID: <20260612035903.2468601-4-songmuchun@bytedance.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260612035903.2468601-1-songmuchun@bytedance.com>
 References: <20260612035903.2468601-1-songmuchun@bytedance.com>
@@ -93,49 +93,96 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-__hugetlb_vmemmap_optimize_folios() uses incorrect arguments when handling
-bootmem HugeTLB folios.
+vmemmap_populate_compound_pages() uses addr_pfn to determine the PFN
+offset within a compound page and to decide whether the current
+vmemmap slot should be populated as a head page mapping or should reuse
+a tail page mapping.
 
-The section number passed to register_page_bootmem_memmap() is derived from
-the vmemmap virtual address of folio->page instead of the folio PFN, so the
-bootmem memmap metadata can be registered against the wrong section. The
-helper is also given HUGETLB_VMEMMAP_RESERVE_SIZE even though it expects a
-page count, not a size in bytes. In addition, the write-protect range is
-based on pages_per_huge_page(h), which does not cover the full HugeTLB
-vmemmap area and can leave part of the shared tail vmemmap mapping writable.
+However, addr_pfn is advanced manually in parallel with addr.  The loop
+itself progresses in vmemmap address space, so each PAGE_SIZE step in
+addr covers PAGE_SIZE / sizeof(struct page) struct page slots.  Since
+addr_pfn is compared against nr_pages in data-PFN units, it should
+advance by the same number of PFNs.  The existing manual increments do
+not match that and therefore do not reliably track the PFN
+corresponding to the current addr.
 
-Fix the section lookup to use folio_pfn(folio), use
-HUGETLB_VMEMMAP_RESERVE_PAGES when registering the reserved memmap pages, and
-use hugetlb_vmemmap_size(h) for the write-protect range.
+As a result, pfn_offset can be computed from the wrong PFN and the code
+can make the head/tail decision for the wrong compound-page position.
 
-Fixes: 752fe17af693 ("mm/hugetlb: add pre-HVO framework")
+Fix this by deriving addr_pfn directly from the current vmemmap address
+instead of carrying it as loop state.
+
+Fixes: f2b79c0d7968 ("powerpc/book3s64/radix: add support for vmemmap optimization for radix")
 Cc: stable@vger.kernel.org
 Signed-off-by: Muchun Song <songmuchun@bytedance.com>
 Acked-by: Oscar Salvador <osalvador@suse.de>
----
- mm/hugetlb_vmemmap.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+Reviewed-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
 
-diff --git a/mm/hugetlb_vmemmap.c b/mm/hugetlb_vmemmap.c
-index c713c0d2593a..ea6af85bfec1 100644
---- a/mm/hugetlb_vmemmap.c
-+++ b/mm/hugetlb_vmemmap.c
-@@ -635,12 +635,12 @@ static void __hugetlb_vmemmap_optimize_folios(struct hstate *h,
- 			 * mirrored tail page structs RO.
- 			 */
- 			spfn = (unsigned long)&folio->page;
--			epfn = spfn + pages_per_huge_page(h);
-+			epfn = spfn + hugetlb_vmemmap_size(h);
- 			vmemmap_wrprotect_hvo(spfn, epfn, folio_nid(folio),
- 					HUGETLB_VMEMMAP_RESERVE_SIZE);
--			register_page_bootmem_memmap(pfn_to_section_nr(spfn),
-+			register_page_bootmem_memmap(pfn_to_section_nr(folio_pfn(folio)),
- 					&folio->page,
--					HUGETLB_VMEMMAP_RESERVE_SIZE);
-+					HUGETLB_VMEMMAP_RESERVE_PAGES);
+---
+v3->v4:
+- Add Cc: stable@vger.kernel.org (suggested by Ritesh Harjani)
+- Collect Reviewed-by from Ritesh Harjani
+---
+ arch/powerpc/mm/book3s64/radix_pgtable.c | 7 +------
+ 1 file changed, 1 insertion(+), 6 deletions(-)
+
+diff --git a/arch/powerpc/mm/book3s64/radix_pgtable.c b/arch/powerpc/mm/book3s64/radix_pgtable.c
+index 10aced261cff..cf692b2b5f7b 100644
+--- a/arch/powerpc/mm/book3s64/radix_pgtable.c
++++ b/arch/powerpc/mm/book3s64/radix_pgtable.c
+@@ -1314,7 +1314,6 @@ int __meminit vmemmap_populate_compound_pages(unsigned long start_pfn,
+ 	 * covering out both edges.
+ 	 */
+ 	unsigned long addr;
+-	unsigned long addr_pfn = start_pfn;
+ 	unsigned long next;
+ 	pgd_t *pgd;
+ 	p4d_t *p4d;
+@@ -1335,7 +1334,6 @@ int __meminit vmemmap_populate_compound_pages(unsigned long start_pfn,
+ 
+ 		if (pmd_leaf(READ_ONCE(*pmd))) {
+ 			/* existing huge mapping. Skip the range */
+-			addr_pfn += (PMD_SIZE >> PAGE_SHIFT);
+ 			next = pmd_addr_end(addr, end);
  			continue;
  		}
+@@ -1348,11 +1346,11 @@ int __meminit vmemmap_populate_compound_pages(unsigned long start_pfn,
+ 			 * page whose VMEMMAP_RESERVE_NR pages were mapped and
+ 			 * this request fall in those pages.
+ 			 */
+-			addr_pfn += 1;
+ 			next = addr + PAGE_SIZE;
+ 			continue;
+ 		} else {
+ 			unsigned long nr_pages = pgmap_vmemmap_nr(pgmap);
++			unsigned long addr_pfn = page_to_pfn((struct page *)addr);
+ 			unsigned long pfn_offset = addr_pfn - ALIGN_DOWN(addr_pfn, nr_pages);
+ 			pte_t *tail_page_pte;
  
+@@ -1376,7 +1374,6 @@ int __meminit vmemmap_populate_compound_pages(unsigned long start_pfn,
+ 				if (!pte)
+ 					return -ENOMEM;
+ 
+-				addr_pfn += 2;
+ 				next = addr + 2 * PAGE_SIZE;
+ 				continue;
+ 			}
+@@ -1392,7 +1389,6 @@ int __meminit vmemmap_populate_compound_pages(unsigned long start_pfn,
+ 					return -ENOMEM;
+ 				vmemmap_verify(pte, node, addr, addr + PAGE_SIZE);
+ 
+-				addr_pfn += 1;
+ 				next = addr + PAGE_SIZE;
+ 				continue;
+ 			}
+@@ -1402,7 +1398,6 @@ int __meminit vmemmap_populate_compound_pages(unsigned long start_pfn,
+ 				return -ENOMEM;
+ 			vmemmap_verify(pte, node, addr, addr + PAGE_SIZE);
+ 
+-			addr_pfn += 1;
+ 			next = addr + PAGE_SIZE;
+ 			continue;
+ 		}
 -- 
 2.54.0
 
