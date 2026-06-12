@@ -1,108 +1,120 @@
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E99028C2A1;
-	Fri, 12 Jun 2026 07:21:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AACDD314A73
+	for <stable@vger.kernel.org>; Fri, 12 Jun 2026 07:31:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781248881; cv=none; b=i6ljCpPlMxoxcZfion6fJPooFPFQotnGmhFCxHklFdPq51qLE1zkMQZxjG7OY7KUpWRaFuM2ObYxhHRFUYdFs6FTApHBkNmLR1lwifWm/oZtnXLTRszRt/j2urUXsHN+q51oChX2jPn3M2RfzR3rvKydELLfFYfKlt5irDxzPSw=
+	t=1781249498; cv=none; b=Gfi+I/xR7DrmpujKCyKNXoZVZjGn6iOa0+0ZjDCbfgyDKrmf1Zznsz/70evhyhG63Sf+sAlvB4IHAraWkGUFSNj2nfr9FEFemABgbnxdfZ/Ab0cwKbgKDYUOPEIVD/mr3KWkK/XnvIjPATTLjmwiGu1dYR71fOE+F13Cd7OKzPI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781248881; c=relaxed/simple;
-	bh=BtKo2A0QgcltJ9m1dlsBtgJJWnQ7TNgQwxMy3bgVK2c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ItUrgdsxLP9FGhA9PhiT80Vr5TdDIKS0klG8NY0MIHWpiGtWNONKtGwZHtTHko8rBPIiK5hTnU4WYa5TaIZHsHiob2PG05Z5xxdzCWP/0G1VK0jNZqyBDU/aw7W+nEzRgK+yWvmWYQscG5+mXJB9a1geYLWgdBo5kf2gd0j3lPg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=PB0Ba+SN; arc=none smtp.client-ip=90.155.50.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1781249498; c=relaxed/simple;
+	bh=eHmMfifAH+b/pWnLwnIAEeQbfu0AqydXxKUsBJd0qp8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DZFUJNgWPlEcmH1Va7GBgtGDXWKmbGwhF6OoM/0OfUbIlSmP9Ly7/Y0Sux1uyUCy06K616NZj1Zj8w2RXfZd4BtuglXdKHFnkMiAqkxtg+GHNGJQqO3qoKCIkyAVixADS2bFJDHjhbDkixrjgtCe95HUlxOiqwIQPQyiaCKH+YE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dF8nUp1S; arc=none smtp.client-ip=209.85.215.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="PB0Ba+SN"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=h8ENVMjf1uMEpzt8YW7jdaVX+LrwHEufa96AeJ7JWAU=; b=PB0Ba+SNulcjALMzbFBU5gV8yu
-	zCj1DoXGcXVadqtlirOy6AlcxtbHD2aEfbtF3IdTchQeCTzVSlEqyAm5Vg1Frklub/PCAtyRRM6Zq
-	cTK02m2j2pWwEqcTmk2o7z1PAyUtg58yc9uatuk60bJ19mGaKxNBcF7lMS4WzBofVSjCVtqDOKUdj
-	NZw5jmV7CpWlJsTySLHDCB1xO3J6fCVoytfns8QxRldONQr4BCNgW39WvEA7gHDVTLHgeVoDWeYKx
-	amPkP1zRB7cglqNnUo9XcWhpuw1YocwMJtHyDg88yJWu2xaM+fn+fgK8IIjZgaCJXsgBR02ziM3lm
-	8IMW5AUg==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1wXwCS-00000003KRb-0FxV;
-	Fri, 12 Jun 2026 07:21:08 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 551DB300673; Fri, 12 Jun 2026 09:21:07 +0200 (CEST)
-Date: Fri, 12 Jun 2026 09:21:07 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Usama Arif <usama.arif@linux.dev>
-Cc: axboe@kernel.dk, linux-block@vger.kernel.org, bsegall@google.com,
-	dietmar.eggemann@arm.com, juri.lelli@redhat.com,
-	kprateek.nayak@amd.com, linux-kernel@vger.kernel.org,
-	mgorman@suse.de, mingo@redhat.com, rostedt@goodmis.org,
-	vincent.guittot@linaro.org, vschneid@redhat.com,
-	shakeel.butt@linux.dev, hannes@cmpxchg.org, riel@surriel.com,
-	kernel-team@meta.com, stable@vger.kernel.org
-Subject: Re: [PATCH] block: invalidate cached plug timestamp after task switch
-Message-ID: <20260612072107.GR187714@noisy.programming.kicks-ass.net>
-References: <20260611231428.345098-1-usama.arif@linux.dev>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dF8nUp1S"
+Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-c8588f8fef3so226147a12.0
+        for <stable@vger.kernel.org>; Fri, 12 Jun 2026 00:31:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781249497; x=1781854297; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=IMrdpBLwtgNudIzjWDD987f63Qm2qC8/+0JNe44FmBw=;
+        b=dF8nUp1SX6TQ9dB/UNyphtkfB2amuX9N3Tr0eRoungcXSMSJ4BCdFuwzDHRw8GdZK3
+         RdLMjmqCkURNyXzbdrLzestaBrEFNyt+MzqSqPbtt1oRPv8krlBmPxRa/iuCaTvBTbB8
+         SFR04Y3gu65Q6usIlhwZK37Dz1K3ZZMYJvzmHZUyiOZN4tukgZqOm1Aq3fCqZZaLJiok
+         dEmIfC6JYA1Nsnd9WU3r60vDMpA2xqSpn9KpBw7A8N32h5vM+ZjWiCZd5dZjjhIdNsXS
+         2SngPF+HP0juWqrS572JECQZGxpi9qNgcqpI0aIwt50sSdz4+3ua8Gweyo7gyjIJPHNf
+         Nb+A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781249497; x=1781854297;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=IMrdpBLwtgNudIzjWDD987f63Qm2qC8/+0JNe44FmBw=;
+        b=D1qk+sf0L2EXwf810vzW+9wgKWuKyDjJJHAVgD2okhRKrqmkKniht9JTb2sxMxFhce
+         aHCRcC5P2aqmbtgNvEbSFSlB5zSOGuVhtCwLhR4XM0Ut/MFWCRfh+R69EZRVl2iYrV0B
+         dkIzp8WFtaOi+1mCHTluYaQfBmb3a154nSX4H9Q4+lk59bgrNFYrElfChVSZlu3++zpn
+         Evbn+bqLY4JHFtzffw2ARVBQVtYcm1hAzTBPB4FxQZi2aRuw7F0m82cIMpRWqHFIpNIl
+         LtZACYH81yR1tYD19Lp/DhTzNNsfN0wbKb+JqSB0ziGUZomZ8e4S17GbMFadl8TLsEnG
+         GYGA==
+X-Gm-Message-State: AOJu0Yxmduf3ZL3sfw5BeYl25JpQVSuLSeunVYl9wyVU4sxf21LQMn8B
+	wyEXF45C3s0OH0NNRAlWoZhZ9ZbDVEvYrRvapvXTwRv/ZjxMuRP6qHcMPqTC7Q==
+X-Gm-Gg: Acq92OGwZOoNw+Zh4uiKkwIvoYx8orMnLQZFdhlUJAcnFrPvkU8dbwFgHRmdqudcyN0
+	v0oPsWPFZGWJU0ZmkyxXJFXVxApSAZrAdvjT6O1HY+Pog+PVgdfP90ojhPvxGI4h2KgiwSaHeI9
+	nz6rlANT0geCaN1WHzZb5en6f3V9BQd3SQJrCPP9bmhG0OGAOhnCdJ5uQyL36soUWIPuwToHuCf
+	YFh9gHcRCaeZ0Yj4r/gQ1aYvZoowuqIIE4LHXn1KuXhKfsSfl8jLzxuhEGunbzv7ThX40aAKY8r
+	GzyJzIx39QtBO1b3Em03WkZqrZPyKcIuMf4V1DLVgaa9/EPHw3TM6Ie/pGn7tns+Ahm//uvlMDj
+	OI4p5DDBUeC85ny4e+tpUkTU2Hx0bjMYaY3XVYaesJ3Tllxyi9dpq9umwQ8MYvtcphw0ShTjPrR
+	THUvH/2v7qo4tk9l6YKo34uLzfbMj2Pvl4VAmw5TBWKiwL2A/XxtzxwZY=
+X-Received: by 2002:a05:6a20:7f86:b0:39b:dea7:5626 with SMTP id adf61e73a8af0-3b783fb321dmr2475342637.35.1781249496917;
+        Fri, 12 Jun 2026 00:31:36 -0700 (PDT)
+Received: from localhost.localdomain ([116.72.140.90])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c866519f0a6sm1221208a12.22.2026.06.12.00.31.35
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Fri, 12 Jun 2026 00:31:36 -0700 (PDT)
+From: Piyush Paliwal <piyushthepal@gmail.com>
+To: piyushthepal@gmail.com
+Cc: stable@vger.kernel.org
+Subject: [PATCH] net: cdp: reject CDP TLVs with a length below the 4-byte header
+Date: Fri, 12 Jun 2026 13:01:17 +0530
+Message-ID: <20260612073117.81940-1-piyushthepal@gmail.com>
+X-Mailer: git-send-email 2.41.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260611231428.345098-1-usama.arif@linux.dev>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Jun 11, 2026 at 04:14:28PM -0700, Usama Arif wrote:
-> blk_time_get_ns() caches ktime_get_ns() in current->plug->cur_ktime
-> and marks the task with PF_BLOCK_TS. That cache is only valid while the
-> task keeps running; if the task is switched out, wall-clock time
-> advances and the cached value must not be reused when the task runs again.
-> 
-> The existing invalidation covers explicit plug flushes through
-> __blk_flush_plug(), and the schedule() / rtmutex paths through
-> sched_update_worker(). It does not cover in-kernel preemption paths such
-> as preempt_schedule(), preempt_schedule_notrace(), and
-> preempt_schedule_irq(), which enter __schedule(SM_PREEMPT) directly and
-> return without calling sched_update_worker().
-> 
-> As a result, a task preempted while holding a plug with PF_BLOCK_TS set
-> can reuse a stale plug->cur_ktime after it is scheduled back in. blk-iocost
-> then consumes that stale timestamp through ioc_now(), producing stale vnow
-> values for throttle decisions, and through ioc_rqos_done(), inflating
-> on-queue time and feeding false missed-QoS samples into vrate
-> adjustment.
-> 
-> Move the schedule-side invalidation to finish_task_switch(), which runs
-> for the scheduled-in task after every actual context switch regardless
-> of which schedule entry point was used. Keep __blk_flush_plug() as the
-> explicit flush/finish-plug invalidation path, and remove only the
-> PF_BLOCK_TS handling from sched_update_worker().
-> 
-> Fixes: 06b23f92af87 ("block: update cached timestamp post schedule/preemption")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Usama Arif <usama.arif@linux.dev>
-> ---
->  kernel/sched/core.c | 13 +++++++++----
->  1 file changed, 9 insertions(+), 4 deletions(-)
-> 
-> diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-> index 8b791e9e9f67..bf024ca115ff 100644
-> --- a/kernel/sched/core.c
-> +++ b/kernel/sched/core.c
-> @@ -5368,6 +5368,13 @@ static struct rq *finish_task_switch(struct task_struct *prev)
->  	 */
->  	kmap_local_sched_in();
->  
-> +	/*
-> +	 * Any cached block-layer timestamp (plug->cur_ktime) is stale now,
-> +	 * invalidate it.
-> +	 */
-> +	if (unlikely(current->flags & PF_BLOCK_TS))
-> +		blk_plug_invalidate_ts(current);
+cdp_receive() reads a 16-bit TLV length (tlen) from the packet and only
+checks that it does not exceed the remaining buffer (tlen > len). It then
+unconditionally does "tlen -= 4" to skip the TLV header. As tlen is a
+u16, a crafted TLV with a length of 0..3 underflows tlen to ~65532-65535.
 
-Can you make that just blk_plug_invalidate_ts() and move the branch into
-the function itself, which is already inline anyway (but perhaps upgrade
-it to __always_inline).
+For a CDP_APPLIANCE_VLAN_TLV the underflowed length then drives the inner
+"while (tlen > 0)" loop, which walks ~64KB past the receive buffer reading
+*ss each step -> out-of-bounds read (crash / info-influence). A length of
+0 additionally fails to advance pkt/len, hanging the parse loop.
+
+Reject any TLV whose declared length is smaller than its own 4-byte
+header. This is the same class of bug as the recent bootp/dhcpv6/sntp/nfs
+fixes (unchecked length field), in a sibling LAN parser that was missed.
+
+Verified with a standalone AddressSanitizer harness using the verbatim
+cdp_receive()/cdp_compute_csum() routines: a 16-byte CDP frame with an
+appliance-VLAN TLV of length 3 triggers a heap-buffer-overflow READ that
+the check eliminates.
+
+Fixes: f575ae1f7d39 ("net: Move CDP out of net.c")
+Cc: stable@vger.kernel.org
+Signed-off-by: Piyush Paliwal <piyushthepal@gmail.com>
+---
+ net/cdp.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/net/cdp.c b/net/cdp.c
+index 6e404981d4a..300b3d5c409 100644
+--- a/net/cdp.c
++++ b/net/cdp.c
+@@ -276,7 +276,13 @@ void cdp_receive(const uchar *pkt, unsigned len)
+ 		ss = (const ushort *)pkt;
+ 		type = ntohs(ss[0]);
+ 		tlen = ntohs(ss[1]);
+-		if (tlen > len)
++		/*
++		 * tlen includes the 4-byte TLV header, so it must be at
++		 * least 4.  Without this check a crafted tlen < 4 makes the
++		 * "tlen -= 4" below underflow (tlen is a ushort), and a tlen
++		 * of 0 also fails to advance pkt/len, hanging the loop.
++		 */
++		if (tlen < 4 || tlen > len)
+ 			goto pkt_short;
+ 
+ 		pkt += tlen;
+-- 
+2.41.0
+
