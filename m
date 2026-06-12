@@ -1,91 +1,95 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7287D31ED8B
-	for <stable@vger.kernel.org>; Fri, 12 Jun 2026 13:28:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B51D72CCC5;
+	Fri, 12 Jun 2026 13:57:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781270896; cv=none; b=KtF3hygtYwwJ1mzL9+LSHG3B0fxSvIyMsM2IM8xC757tGoCJi/sqjsbIES8fyGFLnpZ43Hy4msa7g5sZmeMku8S9MqzleFO2tR5RE5HQD2KcAw96uEt0oc6Oky+/BOH+HRZvrDp3VL8awBfB5yqOg6XEnS+CH4kaMluMUN9nsSg=
+	t=1781272632; cv=none; b=YlBpSEjdDfCCQi5zvsvhX1DODiWQE22m8okw1wCgorRE9uBj+p8N2kKXLQ9KPqEWk1Xwgpw9f7byvJqGTYIRILma6847EC1pWmBc7g0SLnlkCWoGk08XBcbyl7m4rvSWjVSH7UsbeiqK8OrK1z5oXYLrM8VDvkLW7CdJctxt3uI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781270896; c=relaxed/simple;
-	bh=Qmn08evHSMv43v0YQCFOwx+bcM/SBxpKzIKiC36SEYw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Tr1cQ4VVroftBJvyiqWDTnZd9br3n8g9x2DUbuM+4LqaKALZbZ4CCwf9g0rpS1XqcCcFRilojlaPLucx/Qh2CNVHObDi8hyMawqgwNO+XEgFLhV4jvhJqevXOm1wJRyC47tbMzROftofV6MvB6V/sRdFXgfj3TfX2zZwZdFLgFk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XwrXLtFZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781272632; c=relaxed/simple;
+	bh=aAEGomf7fCgMtXxusNJUXzl2v7qaXrMxpBgHmFxftuE=;
+	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
+	 Subject:From:To:Cc:Date; b=C7F1AlpS5iy6iQCMnQydL9OAZqk9O6mLQ8x4gvom3dNb3rfcwx6cibbYBVOGPL0c0l8cfpRIHfjhXgyY9N4+1oKf5zATnbB9tmmSH7meaY2xnDotqxwhZS2GQv0DCjck8IGF34QyTjvJH4crmPlb9seEvHLL1A9yGrQsf1hFaGI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DUY+W1Z2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XwrXLtFZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C62EF1F000E9;
-	Fri, 12 Jun 2026 13:28:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DUY+W1Z2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2B961F000E9;
+	Fri, 12 Jun 2026 13:57:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781270895;
-	bh=ch+yj1d1xkzfN77vmuNFUc+RE3Ma28b1qL2J7+Wwpio=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=XwrXLtFZu0cYo0VsvAzGGWQxsiuhprgFN6uuIaAcoT50FCyGnbLkikPtvpaa6L/cw
-	 mVbiF85+bI1U/QlZyHoQ9bH8GMYsougELaMNGRU7ydYqK2muhA4SDF8oY6JSgCoRpp
-	 INLlVP4JfrpmSJslGc3SRz8LkbGv/NHVDg8GmvGLC8AjlWEA08COsuFFqRoeT5G1rs
-	 mr0Iruqh0RPhkfJhJXLtkJlo9IDKaCUlshgcwYI67ZMPT/1XwVFvyfpbjkwqQCBGFl
-	 u78f6X/L7enyc5+o/+phLuv0S7cG5/qk3fmA+52i4liKEkgQ2BReLWv65C8ETUIziD
-	 nwhkRaqGvTdRw==
-Message-ID: <598af26b-0f1d-4015-a3c7-b738a7364ab2@kernel.org>
-Date: Fri, 12 Jun 2026 15:28:10 +0200
+	s=k20260515; t=1781272631;
+	bh=/lNiQ+egB50H4alLMWj6od03wquW6amLjzzkohRA0d4=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=DUY+W1Z27/fC+4LPI0X2jfJqGuKqlJeoS/uhj4/K+P1cr53u29Kmma93piFm5BlHV
+	 oGCBD9jRI8Z7OpTiTrVRQO3l0XFDGa2+SG9vw0e6K5Z6iHshBf3hKa8M/X6a4dIcG/
+	 t7WbDvKam1Goi6VI/cpuH88y8S+F8PJvkCLF+mhsZF/Rs+M4C2MT1D8YZv3U9wTNsY
+	 l5sFE4Djs0GF21+ReBYB+miaZOFK4cKi5rET8vGr3up/4clG0O5p20JjvfjSCDg8ax
+	 BwAnqLfulfxsDLVCjkoQEkt5Fp92TggFpEQY6My0IxbyTpfaNsXeQE0z/Q3PVOLMsl
+	 pr7yFpvf7iqEQ==
+Content-Type: multipart/mixed; boundary="===============2909177856742632511=="
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] powerpc/uaccess: correct check for CONFIG_PPC_E500 in
- mask_user_address()
-To: Ethan Nelson-Moore <enelsonmoore@gmail.com>,
- Nicholas Piggin <npiggin@gmail.com>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Sayali Patil <sayalip@linux.ibm.com>, Michael Ellerman <mpe@ellerman.id.au>,
- linuxppc-dev@lists.ozlabs.org
-Cc: stable@vger.kernel.org
-References: <20260611010914.429574-1-enelsonmoore@gmail.com>
-Content-Language: fr-FR
-From: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
-In-Reply-To: <20260611010914.429574-1-enelsonmoore@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Message-Id: <6f5a32184a62bf2ef732ef44788fe82ec726bc12d59534ff0e23c3f0f103bfd0@mail.kernel.org>
+In-Reply-To: <20260612130919.299124-5-jiayuan.chen@linux.dev>
+References: <20260612130919.299124-5-jiayuan.chen@linux.dev>
+Subject: Re: [PATCH bpf-next v3 4/7] bpf, sockmap: keep sk_msg copy state in sync
+From: bot+bpf-ci@kernel.org
+To: jiayuan.chen@linux.dev,bpf@vger.kernel.org
+Cc: rollkingzzc@gmail.com,stable@vger.kernel.org,2045gemini@gmail.com,john.fastabend@gmail.com,emil@etsalapatis.com,jiayuan.chen@linux.dev,daniel@iogearbox.net,sdf@fomichev.me,martin.lau@linux.dev,ast@kernel.org,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,davem@davemloft.net,edumazet@google.com,kuba@kernel.org,pabeni@redhat.com,horms@kernel.org,jakub@cloudflare.com,shuah@kernel.org,hawk@kernel.org,rhkrqnwk98@gmail.com,ihor.solodrai@linux.dev,cong.wang@bytedance.com,linux-kernel@vger.kernel.org,netdev@vger.kernel.org,linux-kselftest@vger.kernel.org,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,clm@meta.com,ihor.solodrai@linux.dev
+Date: Fri, 12 Jun 2026 13:57:09 +0000 (UTC)
+
+--===============2909177856742632511==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+> diff --git a/net/core/filter.c b/net/core/filter.c
+> index 6e345ca65ca1..643411e292ce 100644
+> --- a/net/core/filter.c
+> +++ b/net/core/filter.c
+
+[ ... ]
+
+> @@ -2792,8 +2833,10 @@ static const struct bpf_func_proto bpf_msg_pull_data_proto = {
+>  BPF_CALL_4(bpf_msg_push_data, struct sk_msg *, msg, u32, start,
+>  	   u32, len, u64, flags)
+>  {
+> +	bool sge_copy = false, nsge_copy = false, nnsge_copy = false;
+>  	struct scatterlist sge, nsge, nnsge, rsge = {0}, *psge;
+>  	u32 new, i = 0, l = 0, space, copy = 0, offset = 0;
+> +	bool rsge_copy = false;
+>  	u8 *raw, *to, *from;
+>  	struct page *page;
+
+The netdev reverse xmas tree convention orders declarations longest to
+shortest (Documentation/process/maintainer-netdev.rst).  Here the new
+"bool rsge_copy = false;" sits below the shorter "u32 new, ..." line.
+Should rsge_copy move up with the other bool declarations?
+
+[ ... ]
+
+> @@ -3027,8 +3098,10 @@ BPF_CALL_4(bpf_msg_pop_data, struct sk_msg *, msg, u32, start,
+>  	 */
+>  	if (start != offset) {
+>  		struct scatterlist *nsge, *sge = sk_msg_elem(msg, i);
+> +		bool sge_copy = sk_msg_elem_is_copy(msg, i);
+>  		int a = start - offset;
+>  		int b = sge->length - pop - a;
+> +		u32 sge_idx = i;
+
+The same ordering question applies here.  The new "bool sge_copy" and
+"u32 sge_idx" are interleaved with the shorter "int a" / "int b"
+declarations rather than sorted longest to shortest.  Should these be
+reordered to follow the reverse xmas tree style?
 
 
+---
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
 
-Le 11/06/2026 à 03:09, Ethan Nelson-Moore a écrit :
-> CONFIG_E500 was renamed to CONFIG_PPC_E500 in commit 688de017efaa
-> ("powerpc: Change CONFIG_E500 to CONFIG_PPC_E500"), but the check for
-> it in mask_user_address() was not updated, causing
-> mask_user_address_isel() to no longer be used on E500 hardware. Fix the
-> check to use the correct name.
-> 
-> Fixes: 688de017efaa ("powerpc: Change CONFIG_E500 to CONFIG_PPC_E500")
-
-Correct Fixes tag is:
-
-Fixes: 861574d51bbd ("powerpc/uaccess: Implement masked user access")
-
-
-> Cc: stable@vger.kernel.org # 6.1+
-> Signed-off-by: Ethan Nelson-Moore <enelsonmoore@gmail.com>
-
-Reviewed-by: Christophe Leroy (CS GROUP) <chleroy@kernel.org>
-
-> ---
->   arch/powerpc/include/asm/uaccess.h | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/arch/powerpc/include/asm/uaccess.h b/arch/powerpc/include/asm/uaccess.h
-> index e98c628e3899..619270bb7380 100644
-> --- a/arch/powerpc/include/asm/uaccess.h
-> +++ b/arch/powerpc/include/asm/uaccess.h
-> @@ -511,7 +511,7 @@ static inline void __user *mask_user_address(const void __user *ptr)
->   
->   	if (IS_ENABLED(CONFIG_PPC64))
->   		return mask_user_address_simple(ptr);
-> -	if (IS_ENABLED(CONFIG_E500))
-> +	if (IS_ENABLED(CONFIG_PPC_E500))
->   		return mask_user_address_isel(ptr);
->   	if (TASK_SIZE <= UL(SZ_2G) && border >= UL(SZ_2G))
->   		return mask_user_address_simple(ptr);
-
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/27418314509
+--===============2909177856742632511==--
