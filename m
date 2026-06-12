@@ -1,37 +1,36 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
 	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D809156C6A;
-	Fri, 12 Jun 2026 01:25:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 095071C68F;
+	Fri, 12 Jun 2026 02:01:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781227547; cv=none; b=l4EkmM3KyaelX0ItmHEXCIZSb0pfv/oJSwm3LE+Im8oPIXOgqvxEik0rkN9A60v4L1+erFjQG5JKYUJk2Vdu9bkjH++Qi+a+sv2Fl4SbMmIQqR2J/WCjSnzh+Wurl7vV0EiLPE6kfDYhehQZ34P3jaFDIo89updgP74rjwQEUDI=
+	t=1781229709; cv=none; b=lOsJ5MQ4ADzHPdg1UocYKQDUHzHmRV77XSeJ9vay7Z7papCcQXVANVrLK1xetPwbUk5YYF+zInJgTLx1UX+vA3nrrZI6fBJWF+NZrcQhjAFc/NQPh1yqq3HNa5PTeseIqYBHiLmHjemCJUuNssFKe1j+auo0W4B8RlDz53QiOO4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781227547; c=relaxed/simple;
-	bh=alKnvACIKzCCoeHPjD16t1heXUmtzyHSAtiWeM7D2OA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kaKVEmdTJ88tZzdW0vkMAIK+Opoh0xxs55YlWwesIhBBBe1x1a0ljn9mupWwelggPe5DJQMdNpZLLxAb48DcOqmOIRAL6Y3RZ4V4oA7YVpbMQtOyBSRvszHA0TNhRtqX0KwCJoJZO7il8uhmwxgybFbhKwyc/cyMnqOGvAp9a0k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+	s=arc-20240116; t=1781229709; c=relaxed/simple;
+	bh=He6/QblW5rhMu1qmOEpGRtr4ZWdWCzuW1bZ56CfRt2g=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IkwfG9nwQSgG55clz0TM01tJN8Wbv4JOg7Qpcti0TxAkGk0TFahjtT8vkZUAb5MhYV8vhUy3LebD7r2qPztOn7w+TZ89aaXLZlyXkthZToNKr9kXYQvi8D7mT1JoanzKrFdnsSnRsQ9D2xn7CWLYZ3ONaaxYP+j5ZsT3ttlkZNU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
 Received: from localhost.localdomain (unknown [117.182.75.76])
-	by APP-05 (Coremail) with SMTP id zQCowABHntENYCtqtTQlEw--.5250S2;
-	Fri, 12 Jun 2026 09:25:35 +0800 (CST)
+	by APP-01 (Coremail) with SMTP id qwCowAD3l9B_aCtqcW9bAQ--.10757S2;
+	Fri, 12 Jun 2026 10:01:37 +0800 (CST)
 From: WenTao Liang <vulab@iscas.ac.cn>
-To: marcelo.leitner@gmail.com,
-	lucien.xin@gmail.com,
+To: john.fastabend@gmail.com,
+	kuba@kernel.org,
+	sd@queasysnail.net,
 	davem@davemloft.net,
 	edumazet@google.com,
-	kuba@kernel.org,
 	pabeni@redhat.com
 Cc: horms@kernel.org,
-	linux-sctp@vger.kernel.org,
 	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	WenTao Liang <vulab@iscas.ac.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH] sctp: auth: fix inconsistent key release in sctp_auth_set_key error path
-Date: Fri, 12 Jun 2026 09:25:30 +0800
-Message-ID: <20260612012530.7889-1-vulab@iscas.ac.cn>
+Subject: [PATCH] tls: fix encrypt_pending refcount leak on -EBUSY error path
+Date: Fri, 12 Jun 2026 10:01:33 +0800
+Message-ID: <20260612020133.11427-1-vulab@iscas.ac.cn>
 X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -40,10 +39,10 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowABHntENYCtqtTQlEw--.5250S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7JFW7WF1kGr43ZFy3Jw43ZFb_yoW8JF1Dpa
-	15Zr4S9ryxGr4IqFykuw4xZa4F9ws7X345GF40vF13A3s8Jry0yry8uFW0grW7ArWkCFWU
-	Zr1jg3W3ZF1DZaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+X-CM-TRANSID:qwCowAD3l9B_aCtqcW9bAQ--.10757S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Wry3Wr1xZw4xuF4DGw4xXrb_yoW8GFW7pr
+	1YyFnIkFZ8tr15Gryktw1fGF1rZrWrZFW3CrWDu34UWrnxJr40v34akF4jgFyUCFs5Gas7
+	ZF4vkF45CanFyrDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
 	9KBjDU0xBIdaVrnRJUUU9Y14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
 	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
 	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
@@ -57,38 +56,42 @@ X-Coremail-Antispam: 1UD129KBjvJXoW7JFW7WF1kGr43ZFy3Jw43ZFb_yoW8JF1Dpa
 	4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWU
 	CwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCT
 	nIWIevJa73UjIFyTuYvjfUonmRUUUUU
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgoQA2orLjJ1qwAAsc
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAYQA2orLhmVVQAAsv
 
-When sctp_auth_create_key() fails in sctp_auth_set_key(), the newly
-allocated shared key was freed via kfree() instead of the proper
-refcount-aware helper sctp_auth_shkey_release(). While both are
-functionally equivalent in this specific error path (cur_key->key is
-NULL, refcnt is 1, and the key is not yet shared), using kfree()
-bypasses the refcount abstraction and creates a latent bug if the
-code is later reordered (e.g. cur_key->key set before the allocation
-check). All other error and success paths in this function correctly
-use sctp_auth_shkey_release().
+In tls_do_encryption(), when crypto_aead_encrypt() returns -EBUSY,
+tls_encrypt_async_wait() drains pending completions and restores
+encrypt_pending to 1, expecting the caller to issue the final
+decrement. However, if tls_encrypt_async_wait() returns an error
+(rc != -EINPROGRESS), the function returns early at the error
+cleanup block without decrementing encrypt_pending.
+
+Since the -EBUSY path never submitted the request to the crypto
+engine, tls_encrypt_done() callback will not fire for this request,
+and the synchronous cleanup path (atomic_dec at line 599) is also
+skipped. This leaves encrypt_pending permanently elevated by 1.
+
+Fix the leak by adding atomic_dec(&ctx->encrypt_pending) before
+returning on the -EBUSY error path.
 
 Cc: stable@vger.kernel.org
-Fixes: 1b1e0bc99474 ("sctp: add refcnt support for sh_key")
+Fixes: a9b8b18364ff ("net/tls: fix use-after-free in -EBUSY error path of tls_do_encryption")
 Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
 ---
- net/sctp/auth.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ net/tls/tls_sw.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/net/sctp/auth.c b/net/sctp/auth.c
-index be9782760f50..84708f87392f 100644
---- a/net/sctp/auth.c
-+++ b/net/sctp/auth.c
-@@ -753,7 +753,7 @@ int sctp_auth_set_key(struct sctp_endpoint *ep,
- 	/* Create a new key data based on the info passed in */
- 	key = sctp_auth_create_key(auth_key->sca_keylength, GFP_KERNEL);
- 	if (!key) {
--		kfree(cur_key);
-+		sctp_auth_shkey_release(cur_key);
- 		return -ENOMEM;
- 	}
- 
+diff --git a/net/tls/tls_sw.c b/net/tls/tls_sw.c
+index 964ebc268ee4..97cfe06b1529 100644
+--- a/net/tls/tls_sw.c
++++ b/net/tls/tls_sw.c
+@@ -591,6 +591,7 @@ static int tls_do_encryption(struct sock *sk,
+ 		 * below on error, just remove the record and return.
+ 		 */
+ 		if (rc != -EINPROGRESS) {
++			atomic_dec(&ctx->encrypt_pending);
+ 			list_del(&rec->list);
+ 			return rc;
+ 		}
 -- 
 2.50.1 (Apple Git-155)
 
