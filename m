@@ -1,167 +1,99 @@
-Received: from mail-qv1-f49.google.com (mail-qv1-f49.google.com [209.85.219.49])
+Received: from mail-pf1-f202.google.com (mail-pf1-f202.google.com [209.85.210.202])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F2EB3D3D19
-	for <stable@vger.kernel.org>; Fri, 12 Jun 2026 23:41:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED9C0368282
+	for <stable@vger.kernel.org>; Fri, 12 Jun 2026 23:58:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.202
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781307703; cv=none; b=jiwbkCkNgO1LV5KDeu2b9qpts3Wv/1ThIm4F4oiq1bEhKiRS0KuJqVpYMrQZ3tla36adzm0BdnRU7EBGZEZq3CXOgXWtaPIeusokA8ySHCWZk+aBDtsN+i/xOhPkxKZZI1YPRlwEyqlOT3S2qYdbGKhHsaoA2PVipZI1X858eqQ=
+	t=1781308726; cv=none; b=KUY7034k9c4aQ1lo91LJ+FM0HirAfUf3P+BDg6m/La4FDTcm1wRScqcbrcK569o0r4tYJPpyjNGPaGdxwb1XinF1yLY9wa8UqSsZSTeyTdrXKSH38o99Q4Rp1eRGYQKj+OcEEbmtBySMEk4QxCP+L9UWTw5MRQW2lcBD+APnyj8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781307703; c=relaxed/simple;
-	bh=3k5EOV2H7Ew1pBeahoyYXsJrMNLueDRTtGteJGX5rq8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=AJom6IkMY8LAmlumSY/2OvA5O6u2kzATgioECp97KgmdbJYaYKMrZ/jbNhSpAajDi13WSCGQBbKSKpt+McygBHOmBkAM9xNicvdahcVDwBZv1qS0MeHzqhnPOHHrr3ezhChDzqvsrIahRK7mhxpVHFfioLGUk5ie+08SPDux8jA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com; spf=pass smtp.mailfrom=openai.com; dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b=IxCUT53V; arc=none smtp.client-ip=209.85.219.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=openai.com
+	s=arc-20240116; t=1781308726; c=relaxed/simple;
+	bh=PAO/ZdFHpG8p47uzDf0v9ZshqHFw00+CHAz03syre2s=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=KiT1uTonQgViFJloVdp4wl+QWxOpSo11omFNF9+4E0qX8s1qtq4m4vES5d088PiZQY3rnDyR6X9MVKPkApnWa0DdroL0vKKl0PE8UNRWyhDAOEFKM+hULJ0NMZJaWjfA+e5eoBQYmi9CvWLVLogAHs5lEWCGsv52o0uxBvHp6cc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ete//sbB; arc=none smtp.client-ip=209.85.210.202
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b="IxCUT53V"
-Received: by mail-qv1-f49.google.com with SMTP id 6a1803df08f44-8ccef25789fso11751806d6.3
-        for <stable@vger.kernel.org>; Fri, 12 Jun 2026 16:41:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ete//sbB"
+Received: by mail-pf1-f202.google.com with SMTP id d2e1a72fcca58-84235f9b91fso1169186b3a.2
+        for <stable@vger.kernel.org>; Fri, 12 Jun 2026 16:58:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=openai.com; s=google; t=1781307700; x=1781912500; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=64IeahYqMleypy9da2mixo6bk83c69QHdNbzudLxr7k=;
-        b=IxCUT53V4bwP4f7aEI3+uDjh6ARWaFiH4+GAq9GQSZbNDIz1Q7wB9KaHDzDu0cPZ+f
-         6mTOFZBve98lu7tf6LQXfTvDn8KZfqYqM3EKkf1vpDq8N+jDMm1Yw+dooXxD+X32pk+5
-         csnWcnaWjQIjbxF2C5xElA7nSpZxjTjJXRTQ4=
+        d=google.com; s=20251104; t=1781308724; x=1781913524; darn=vger.kernel.org;
+        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
+         :date:from:to:cc:subject:date:message-id:reply-to;
+        bh=gk2NaAkgAd4F0bK8xaCGSvSSoNoqRgl1vb4vACV/z+A=;
+        b=ete//sbBEoH2luI4TPH/DwQfreFOu18Li1sbkqnH2F8XNYWaRnIp9SLr8DFUOx+A8g
+         uGzG5va28/PvazgMAn0Iw8BOS9WtmAbHU/6LjuAeCCP2Keh/4kN8qc1xuCWd+LMOLbAk
+         SErIgs1U3f9nLgnaULXRMtaShPGdHZMyUyRbTxRskmQqlm366L3m9oqdBA0kg/nyB4gD
+         taogDrUh/mkm5bB8TsXLxi2Q++lkoic2/rA0FuMXvW4QXlyxAS/t4p/BLCbd9yiSarg0
+         SyrrA++NJb6SBwcjgmjvkiA2+Ug78pDLzsr90N0wvfqh/LDU8emQ7EKDHsDUMLAeb2Jo
+         RV6g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781307700; x=1781912500;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=64IeahYqMleypy9da2mixo6bk83c69QHdNbzudLxr7k=;
-        b=WX/yOaE/G1SVbqSBH6RUwDyyGomAC3oli6LjzSQG61986OwwYAyye7V1g5CdJNWmpO
-         2TTPntYT7KWojRQQF96n/p+fPYRa5h56Q8lhNp3Tt+2FwLL55ERqO5ICe/Wr/XgW/clp
-         ASvJp+lVBIAlkarQYyQtQU4SPQyQxSvaDWpTfHKBytutwaArPgkJ8H1+Fb2mtMnPsANZ
-         DmHJe12SUB62gPzAnoW4xypkHRlN+GACZXSZW1K45xUk1INGSBnv4HAS4iCsI2r2C5Q/
-         SpuGHygiebb2Prh9w6JDC/+eYtXPtbKu8bAOInRe0rwZ5RU8g64o+UYA7vOU0x+IzQEb
-         QaNw==
-X-Forwarded-Encrypted: i=1; AFNElJ+53up+85AT2MWUzK3FX/ly/QnhCLKn8vOeUONSBfkQ1/q9RCz7MKeTLaghFV3cOJByjwgvDEI=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy11m+jAqM4VetZYUi8gUN7H9lufQ1tSfkoWrqufR7Ywrc5T5rQ
-	5tvvJLYZy104rUHBjBXnRUrt9QYsWQWcM3khiTrUX0svm0YQtjZNpRTq7H9t1ZSi5qk=
-X-Gm-Gg: Acq92OG6z2Pdq9RU7ivdQUvHz3T8mdwFVWNaJsljv76PpVWnb7WVpmFIZbfq2jQK3U7
-	Fmef4FI1oVPqNlKSWQZ+kxKVtt/c3EtvuXIVgq6lMtASsiJCo1aIzb8f0sLh6NfKa4Och3ekXhn
-	KremrK08N34IRBsYf2o4WFiYpRYkMr/xp/7iL8IJqaF/8FZVoYVuWHv9YlUkBe15ClDMmKHCx0c
-	vnjjEv5tNXbo66rh2RxngK7lJE1iVaMYRAhbDCh+3kCx8FaP0nml3PY8VE7KYGU4lJLXPXxc2on
-	61F1himCOp+0Cpgnbze2E/ueoWZ3V9rnv37sb+54uJj4eFpsiXmg5L2ljYtp3C2K0cadmMku1Z4
-	bDy92zP4qbkeC6yW/I0pJ/A2jb6ItJUhMiukugb5WyGkPLLWinrut6sCSKnG2qlaJrNF8lDADby
-	q45TMMQnI9gxlb2V1acFWduSiZByunmfZEmjAC0gKczvB/ItPNq2131DmoZ5fX/IXdm1v+w3I68
-	RcwUNHVPlcv1x/+Ubn565/8p2xy/gEBJWo=
-X-Received: by 2002:a05:6214:238a:b0:8ce:ba08:fbe6 with SMTP id 6a1803df08f44-8d32eadaa55mr90575206d6.40.1781307700413;
-        Fri, 12 Jun 2026 16:41:40 -0700 (PDT)
-Received: from com-75606.node.ndb.openai.org ([209.249.37.149])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8d300f6b1c5sm38296276d6.3.2026.06.12.16.41.39
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 12 Jun 2026 16:41:40 -0700 (PDT)
-From: Kyle Zeng <kylebot@openai.com>
-To: jfs-discussion@lists.sourceforge.net
-Cc: linux-kernel@vger.kernel.org,
-	Christian Brauner <brauner@kernel.org>,
-	Dave Kleikamp <shaggy@kernel.org>,
-	outbounddisclosures@openai.com,
-	Kyle Zeng <kylebot@openai.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] jfs: validate active AG before updating db_active
-Date: Fri, 12 Jun 2026 16:41:35 -0700
-Message-ID: <20260612234135.47450-1-kylebot@openai.com>
-X-Mailer: git-send-email 2.54.0
+        d=1e100.net; s=20251104; t=1781308724; x=1781913524;
+        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
+         :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=gk2NaAkgAd4F0bK8xaCGSvSSoNoqRgl1vb4vACV/z+A=;
+        b=HX85RmB10copADFz5v2wLHio/WTGamXj8fSv7LEjBRdJRxjz37jULycqJ3wx3adgsY
+         x7sQ0Yc/y0DVWpmAQFN8LxqHt1oTAVmoY5tgTSz9ifXzyr5AxFJFlVziXL0G/FgQs7Yq
+         jbHcywAZAkwQgC6HoxwWVVReQnTFxFraq9Yck16J3U64GICp2vGNJ4E4S05z0yvda3Th
+         WIlP6rEnWKfG44+NZ1qVJP574TbZdtWL6jiTDzWQWMquU7mjB4BGRFsp0rRmzuwweRCm
+         x0T44zmQgZmatppNVDIwSbh/bU59/j1M8ebZrVAGDCrV0JCtoLfgSZKShdD5Zeom0HEX
+         0iew==
+X-Forwarded-Encrypted: i=1; AFNElJ8g6643i1+09AyrTC3gKs68J18CiuVT8eJuEvE9uf55mh5+JJd06iF6Zqw9d4bLCeVQrx9DKcw=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxv7NWohIVuSSO4O/0lDl42A9YAqXE7YKFXu4yjJPnlk6n+SUhY
+	Nrvv8gSlhtPqL1w9aZl0J3lUmLAOKF3FHYE196BZNeogCnsBYB6TC/SBwIWNGJ0v4dx81k0WLLv
+	i8moL4w==
+X-Received: from pfaf14.prod.google.com ([2002:a05:6a00:a11e:b0:842:37d7:2fef])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:2ea5:b0:82c:d7c4:4c5c
+ with SMTP id d2e1a72fcca58-8434cd5cf1dmr5684595b3a.20.1781308724122; Fri, 12
+ Jun 2026 16:58:44 -0700 (PDT)
+Date: Fri, 12 Jun 2026 16:58:43 -0700
+In-Reply-To: <20260612211003.2503400-1-jon@nutanix.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20260612211003.2503400-1-jon@nutanix.com>
+Message-ID: <aiydM6OKxEhsGF57@google.com>
+Subject: Re: [PATCH 6.18.y] KVM: VMX: Update SVI during runtime APICv activation
+From: Sean Christopherson <seanjc@google.com>
+To: Jon Kohler <jon@nutanix.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, Thomas Gleixner <tglx@linutronix.de>, 
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	"H. Peter Anvin" <hpa@zytor.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	jonmkohler@gmail.com, Dongli Zhang <dongli.zhang@oracle.com>, 
+	Chao Gao <chao.gao@intel.com>, stable@vger.kernel.org, 
+	Gulshan Gabel <gulshan.gabel@nutanix.com>
+Content-Type: text/plain; charset="us-ascii"
 
-When an empty regular file is opened for write, jfs_open() tracks a
-single active file per allocation group. The allocation group is derived
-from ji->ixpxd, which is copied from the on-disk inode in
-copy_from_dinode().
+On Fri, Jun 12, 2026, Jon Kohler wrote:
+> From: Dongli Zhang <dongli.zhang@oracle.com>
+> 
+> commit b2849bec936be642b5420801f902337f2507648e upstream.
 
-A corrupted image can set di_ixpxd to an address that maps beyond the
-mounted bmap's db_numag. The existing code stores that unchecked result
-in signed char active_ag and then uses it to index db_active[]. For
-example, an AG value of 249 wraps to -7 before the atomic increment,
-causing a write before db_active and corrupting adjacent struct bmap
-state.
+...
 
-Compute the AG in an unsigned type and reject values outside db_numag
-before storing active_ag or indexing db_active[]. dbMount() already
-validates db_numag <= MAXAG, so accepted values fit in active_ag and in
-the db_active[] array.
+> Signed-off-by: Dongli Zhang <dongli.zhang@oracle.com>
+> Reviewed-by: Chao Gao <chao.gao@intel.com>
+> Link: https://patch.msgid.link/20251110063212.34902-1-dongli.zhang@oracle.com
+> [sean: call out that SVM writes vmcb01 directly, tweak comment]
+> Link: https://patch.msgid.link/20251205231913.441872-2-seanjc@google.com
+> Signed-off-by: Sean Christopherson <seanjc@google.com>
+> (cherry picked from commit b2849bec936be642b5420801f902337f2507648e)
+> Cc: stable@vger.kernel.org # 6.6.x and above
+> Cc: Gulshan Gabel <gulshan.gabel@nutanix.com>
+> Signed-off-by: Jon Kohler <jon@nutanix.com>
+> ---
+> 
+> This issue is pervasive and has been observed in production with QEMU
+> as the VMM. One scenario where this occurs is with Windows guests that
+> use the AutoEOI feature, which inhibits APICv
+> (APICV_INHIBIT_REASON_HYPERV).
 
-Fixes: d31b53e3cd06 ("JFS: Don't save agno in the inode")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.5
-Signed-off-by: Kyle Zeng <kylebot@openai.com>
----
+Gah, sorry, my bad.  I don't know why I didn't tag this for stable@.
 
-Changes in v2:
-- Fix build issues.
-- Avoid unnecessary type casts.
-
- fs/jfs/file.c | 32 +++++++++++++++++++++++++++++---
- 1 file changed, 29 insertions(+), 3 deletions(-)
-
-diff --git a/fs/jfs/file.c b/fs/jfs/file.c
-index 81556da507b9..d34a4e95a809 100644
---- a/fs/jfs/file.c
-+++ b/fs/jfs/file.c
-@@ -12,6 +12,7 @@
- #include "jfs_incore.h"
- #include "jfs_inode.h"
- #include "jfs_dmap.h"
-+#include "jfs_superblock.h"
- #include "jfs_txnmgr.h"
- #include "jfs_xattr.h"
- #include "jfs_acl.h"
-@@ -38,6 +38,24 @@ int jfs_fsync(struct file *file, loff_t start, loff_t end, int datasync)
- 	return rc ? -EIO : 0;
- }
- 
-+static int jfs_get_active_ag(struct inode *inode, int *agp)
-+{
-+	struct jfs_inode_info *ji = JFS_IP(inode);
-+	struct jfs_sb_info *sbi = JFS_SBI(inode->i_sb);
-+	struct bmap *bmap = sbi->bmap;
-+	u64 ag = BLKTOAG(addressPXD(&ji->ixpxd), sbi);
-+
-+	if (ag >= bmap->db_numag) {
-+		jfs_error(inode->i_sb,
-+			  "inode %llu has invalid active ag %llu\n",
-+			  inode->i_ino, ag);
-+		return -EIO;
-+	}
-+
-+	*agp = ag;
-+	return 0;
-+}
-+
- static int jfs_open(struct inode *inode, struct file *file)
- {
- 	int rc;
-@@ -63,11 +82,18 @@ static int jfs_open(struct inode *inode, struct file *file)
- 	if (S_ISREG(inode->i_mode) && file->f_mode & FMODE_WRITE &&
- 	    (inode->i_size == 0)) {
- 		struct jfs_inode_info *ji = JFS_IP(inode);
-+		struct bmap *bmap;
-+		int active_ag;
-+
-+		rc = jfs_get_active_ag(inode, &active_ag);
-+		if (rc)
-+			return rc;
-+
- 		spin_lock_irq(&ji->ag_lock);
- 		if (ji->active_ag == -1) {
--			struct jfs_sb_info *jfs_sb = JFS_SBI(inode->i_sb);
--			ji->active_ag = BLKTOAG(addressPXD(&ji->ixpxd), jfs_sb);
--			atomic_inc(&jfs_sb->bmap->db_active[ji->active_ag]);
-+			bmap = JFS_SBI(inode->i_sb)->bmap;
-+			ji->active_ag = active_ag;
-+			atomic_inc(&bmap->db_active[active_ag]);
- 		}
- 		spin_unlock_irq(&ji->ag_lock);
- 	}
--- 
-2.43.0
+Acked-by: Sean Christopherson <seanjc@google.com>
