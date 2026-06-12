@@ -1,100 +1,350 @@
-Received: from out-189.mta0.migadu.com (out-189.mta0.migadu.com [91.218.175.189])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6342346AD5;
-	Fri, 12 Jun 2026 15:48:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.189
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7739F218EB1
+	for <stable@vger.kernel.org>; Fri, 12 Jun 2026 16:02:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781279286; cv=none; b=Np5ck5ep44rDWJodp01oE3ERnwxBerjmsTh+mG4X9aV7uTerpcBDptcP1030OI8AtnRWqBVzs/Qs92NN91rurWZb/23wEKylIdIcir+P3VUDHZ/7o/PqNNM/sYBbtGaTCsOd8E0RLj2b4lt7GI53RToNrWYsybJMe9t3fXRO8i0=
+	t=1781280177; cv=none; b=N6Z2rNez9jWTMQp/e6B1jYmJnibmqCHspE15msl4CqVA857wy3jPktv/1OfQGnVQrXFnJdujEmH04ZhjLoIEtJEH5gQIT1JdDBHoQkeD57UyeFEnPJXtSydqPmq+InAFw9/tfUrmi5QGAH9egB4ovniLVW/Vp6iG+yp1+OZTMUQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781279286; c=relaxed/simple;
-	bh=6K8FSuxGS7DzQXw94cc4A6qXFrcvNSm//A+mQ5cQP2Q=;
+	s=arc-20240116; t=1781280177; c=relaxed/simple;
+	bh=XViigdT/Pl+ukAx+fIIQI5Xa9vNp+of/LfWHxYFNrvo=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=SaMnWtxL7OmV/vktnVHCAKjQk7LjS5b5l/lm7PRPCY3xm0RIGb5aNm/MNZAH890lHptAIghlaCPIF7X168+MJw6EKEY3jJ9AP0FMy2RiaBOGZ1p+Jy8m0dXz36OyRAW1K4Znl2znRkcI4g5GOmmYWMAd6MhKpCE+xGF+nRsgFlo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=IOYvMA/w; arc=none smtp.client-ip=91.218.175.189
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	 In-Reply-To:Content-Type; b=FsW0vGRa7xygXnDYqUpZ243LJS0ua0LoICm+mwBp6NSDDDtj5ENErS2VUcGh9zKkPKwKoif3teSQ1GeKs0qqYi+9ENFf4e/QSxrRTCdKrTR/qbtMh5qaUFpq7dYuXilRTeLe1104t+Mp9777mUkv5Jyte1u17snjy89zNKKDV1A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=JyK5y/Ma; arc=none smtp.client-ip=192.198.163.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="IOYvMA/w"
-Message-ID: <e4389390-754e-4bae-9037-94e59b909167@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1781279282;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5Fh+vjUZKoL1EKjRYhR5JmBkOdTqGqdFV3r0ymMPHps=;
-	b=IOYvMA/wTuMYX5DHV9xO+WNpVgu+c5HymjLCJ87RpjAV3CV2WSgBqjA17EkhiLtAF9tTYN
-	k7SciId1OIeZuLnRrLMWD/Y084uFZdDho/QwoOncz8wdKZvnZV3nwmhoDDaVaXJ4GfDS1M
-	9zYa3oyFR+60wz5ME0EmJg1TVx9Nzzk=
-Date: Fri, 12 Jun 2026 16:47:55 +0100
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="JyK5y/Ma"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1781280174; x=1812816174;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=XViigdT/Pl+ukAx+fIIQI5Xa9vNp+of/LfWHxYFNrvo=;
+  b=JyK5y/MatTpV2w9p/jQFreRxHr1w54QJgtAuOc5K+3jHfKcaTcb2pRul
+   /MTxLFrEEvjMyoa9lLo+rRmVJ5eNZyogXfGS/QMZupt3hyqffsFjs72QK
+   iQ59ELzo1qbWxmXXU6CX/nuGtOW3+3wl2aSNRKmcfGNdXuTR70pyfDRGA
+   ez8c6aTJ5UNZgO1UL1wzQRZagTJYrqNdeJ/P3xxt376a94bj5Oc4imITB
+   27CZ4Oc2pRfnv2fDkSUADoFGdz7XRRlNPSeWxSRBOXztaNS1N/dzswfQV
+   lh76hEFG4VUc6iFTlIxJefdvcMQ6joo9NcPVAcf1KXjC35NGGFw1SZXes
+   A==;
+X-CSE-ConnectionGUID: Cxgmq1miSTqs1ky7KDSzmQ==
+X-CSE-MsgGUID: uM6pm7t+Rf26j0rGRRqZYQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11815"; a="84682032"
+X-IronPort-AV: E=Sophos;i="6.24,200,1774335600"; 
+   d="scan'208";a="84682032"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Jun 2026 09:02:54 -0700
+X-CSE-ConnectionGUID: k2GnOqcNQaCw1Z/b1hsaHg==
+X-CSE-MsgGUID: kInILO6DTQic9OEqTrY8xQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,200,1774335600"; 
+   d="scan'208";a="251795193"
+Received: from hrotuna-mobl2.ger.corp.intel.com (HELO [10.245.245.97]) ([10.245.245.97])
+  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Jun 2026 09:02:54 -0700
+Message-ID: <3ef6baf7-4a46-4b9b-8776-7b0a0105c8b9@intel.com>
+Date: Fri, 12 Jun 2026 17:02:51 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [PATCH v2] block: invalidate cached plug timestamp after task
- switch
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: axboe@kernel.dk, linux-block@vger.kernel.org, bsegall@google.com,
- dietmar.eggemann@arm.com, juri.lelli@redhat.com, kprateek.nayak@amd.com,
- linux-kernel@vger.kernel.org, mgorman@suse.de, mingo@redhat.com,
- rostedt@goodmis.org, vincent.guittot@linaro.org, vschneid@redhat.com,
- shakeel.butt@linux.dev, hannes@cmpxchg.org, riel@surriel.com,
- kernel-team@meta.com, stable@vger.kernel.org
-References: <20260612094042.3350401-1-usama.arif@linux.dev>
- <20260612094520.GA42921@noisy.programming.kicks-ass.net>
- <789fd34a-d051-4f98-bd66-e3d99ec2dbb1@linux.dev>
- <20260612154022.GC42921@noisy.programming.kicks-ass.net>
-Content-Language: en-US
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Usama Arif <usama.arif@linux.dev>
-In-Reply-To: <20260612154022.GC42921@noisy.programming.kicks-ass.net>
-Content-Type: text/plain; charset=UTF-8
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] drm/xe: Add compact-PT and addr mask handling for page
+ reclaim
+To: Brian Nguyen <brian3.nguyen@intel.com>, intel-xe@lists.freedesktop.org
+Cc: stable@vger.kernel.org, Zongyao Bai <zongyao.bai@intel.com>
+References: <20260605224257.2194194-2-brian3.nguyen@intel.com>
+Content-Language: en-GB
+From: Matthew Auld <matthew.auld@intel.com>
+In-Reply-To: <20260605224257.2194194-2-brian3.nguyen@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Migadu-Flow: FLOW_OUT
 
-
-
-On 12/06/2026 16:40, Peter Zijlstra wrote:
-> On Fri, Jun 12, 2026 at 11:02:58AM +0100, Usama Arif wrote:
->>
->>
->> On 12/06/2026 10:45, Peter Zijlstra wrote:
->>> On Fri, Jun 12, 2026 at 02:40:42AM -0700, Usama Arif wrote:
->>>
->>>> +static __always_inline void blk_plug_invalidate_ts(void)
->>>>  {
->>>> +	if (unlikely(current->flags & PF_BLOCK_TS)) {
->>>> +		struct blk_plug *plug = current->plug;
->>>>  
->>>> +		if (plug)
->>>> +			plug->cur_ktime = 0;
->>>> +		current->flags &= ~PF_BLOCK_TS;
->>>> +	}
->>>>  }
->>>
->>> If you can guarantee PF_BLOCK_TS is only ever set when current->plug,
->>> this can be reduced further.
->>
->> Thanks for the reviews!
->>
->> The invariant holds at set time (the only set in blk_time_get_ns() is
->> gated by if (!plug)) and through the only legitimate plug clear in
->> blk_finish_plug() (which goes through __blk_flush_plug() that clears
->> PF_BLOCK_TS first).
->>
->> However, copy_process() sets p->plug = NULL for the child but doesn't
->> strip PF_BLOCK_TS from the inherited flags.
->>
->> I think the if(plug) is a good defensive check, but can also do the below
->> if you prefer?
+On 05/06/2026 23:42, Brian Nguyen wrote:
+> Current implementation of generate_reclaim_entry() overlooks some
+> differences between the different page implementations: address masking
+> and compact 64K page handling.
 > 
-> I think that's worth the extra few lines.
+> Address masking of each leaf varies depending on the leaf entry size.
+> generate_reclaim_entry() is using XE_PTE_ADDR_MASK [51:12] for all leaf
+> entries. For 2MB PTEs, bit 12 (PAT) is part of the flags so the old mask
+> corrupts the physical address extraction.
+> 
+> 64K pages can be represented as PS64 and a compact PT, which the latter
+> was not handled. Compact pages aren't walked by the unbind walker, so we
+> separately walk through the compact PT to ensure none of the leaf 64K
+> PTEs are dropped. Previously, compact PT were causing an abort since it
+> was considered covered and not descended into.
+> 
+> v2:
+>   - Update 64K entry/unbind walker for 64K compact PT handling. (Matthew)
+>   - Rework calculations of reclamation and address mask size.
+>   - Add new func abstracting the error handling before generating the
+>     reclaim entry.
+> 
+> v3:
+>   - Report finer addr granularity in abort debug print for compact.
+>     (Zongyao)
+>   - Add comments for ADDR_MASK usage. (Zongyao)
+>   - Drop existing phys_addr asserts, the new XE_PAGE_ADDR_MASK clears
+>     bits checked, so redundant asserts. (Sashiko)
+>   - WARN_ON to verify compact pt and edge pt won't be possible.
+> 
+> Fixes: b912138df299 ("drm/xe: Create page reclaim list on unbind")
+> Assisted-by: Sashiko-Review:gemini-3.1-pro-preview
+> Cc: stable@vger.kernel.org
+> Cc: Matthew Auld <matthew.auld@intel.com>
+> Suggested-by: Zongyao Bai <zongyao.bai@intel.com>
+> Signed-off-by: Brian Nguyen <brian3.nguyen@intel.com>
 
-ah sorry didnt understand you completely, by extra lines do you mean keep
-the if(plug) or get rid of it and clear the flag in fork?
+I guess this could be treated as two separate fixes? One patch for the 
+mask issue and another patch for the missing compact handling? It might 
+make the diff a little easier to review.
 
-I though more about it and I think its much nicer to get rid of the if(plug)
-and clear the flag in fork.
+Anyway:
+Reviewed-by: Matthew Auld <matthew.auld@intel.com>
+
+> ---
+>   drivers/gpu/drm/xe/regs/xe_gtt_defs.h |   6 +-
+>   drivers/gpu/drm/xe/xe_pt.c            | 131 +++++++++++++++-----------
+>   2 files changed, 82 insertions(+), 55 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/xe/regs/xe_gtt_defs.h b/drivers/gpu/drm/xe/regs/xe_gtt_defs.h
+> index 4d83461e538b..d6bc19ef277b 100644
+> --- a/drivers/gpu/drm/xe/regs/xe_gtt_defs.h
+> +++ b/drivers/gpu/drm/xe/regs/xe_gtt_defs.h
+> @@ -9,7 +9,11 @@
+>   #define XELPG_GGTT_PTE_PAT0	BIT_ULL(52)
+>   #define XELPG_GGTT_PTE_PAT1	BIT_ULL(53)
+>   
+> -#define XE_PTE_ADDR_MASK	GENMASK_ULL(51, 12)
+> +/*
+> + * Mask for PTE address bits [51:shift].
+> + * shift is the lower address boundary of page.
+> + */
+> +#define XE_PAGE_ADDR_MASK(shift)	GENMASK_ULL(51, (shift))
+>   #define GGTT_PTE_VFID		GENMASK_ULL(11, 2)
+>   
+>   #define GUC_GGTT_TOP		0xFEE00000
+> diff --git a/drivers/gpu/drm/xe/xe_pt.c b/drivers/gpu/drm/xe/xe_pt.c
+> index 2669ff5ee747..18a98667c0e6 100644
+> --- a/drivers/gpu/drm/xe/xe_pt.c
+> +++ b/drivers/gpu/drm/xe/xe_pt.c
+> @@ -1602,23 +1602,21 @@ static bool xe_pt_check_kill(u64 addr, u64 next, unsigned int level,
+>   	return false;
+>   }
+>   
+> -/* page_size = 2^(reclamation_size + XE_PTE_SHIFT) */
+> -#define COMPUTE_RECLAIM_ADDRESS_MASK(page_size)				\
+> -({									\
+> -	BUILD_BUG_ON(!__builtin_constant_p(page_size));			\
+> -	ilog2(page_size) - XE_PTE_SHIFT;				\
+> -})
+> -
+>   static int generate_reclaim_entry(struct xe_tile *tile,
+>   				  struct xe_page_reclaim_list *prl,
+>   				  u64 pte, struct xe_pt *xe_child)
+>   {
+>   	struct xe_gt *gt = tile->primary_gt;
+>   	struct xe_guc_page_reclaim_entry *reclaim_entries = prl->entries;
+> -	u64 phys_addr = pte & XE_PTE_ADDR_MASK;
+> +	bool is_2m = xe_child->level == 1 && (pte & XE_PDE_PS_2M);
+> +	bool is_64k = xe_child->level == 0 && ((pte & XE_PTE_PS64) || xe_child->is_compact);
+> +	u32 page_shift = is_2m ? ilog2(SZ_2M) : is_64k ? ilog2(SZ_64K) : ilog2(SZ_4K);
+> +	/* Physical address bits start at page shift: 2M->[51:21], 64K->[51:16], 4K->[51:12] */
+> +	u64 phys_addr = pte & XE_PAGE_ADDR_MASK(page_shift);
+> +	/* Page address is relative to 4K page regardless of entry level */
+>   	u64 phys_page = phys_addr >> XE_PTE_SHIFT;
+>   	int num_entries = prl->num_entries;
+> -	u32 reclamation_size;
+> +	u32 reclamation_size = page_shift - XE_PTE_SHIFT;
+>   
+>   	xe_tile_assert(tile, xe_child->level <= MAX_HUGEPTE_LEVEL);
+>   	xe_tile_assert(tile, reclaim_entries);
+> @@ -1633,18 +1631,12 @@ static int generate_reclaim_entry(struct xe_tile *tile,
+>   	 * Page size is computed as 2^(reclamation_size + XE_PTE_SHIFT) bytes.
+>   	 * Only 4K, 64K (level 0), and 2M pages are supported by hardware for page reclaim
+>   	 */
+> -	if (xe_child->level == 0 && !(pte & XE_PTE_PS64)) {
+> -		xe_gt_stats_incr(gt, XE_GT_STATS_ID_PRL_4K_ENTRY_COUNT, 1);
+> -		reclamation_size = COMPUTE_RECLAIM_ADDRESS_MASK(SZ_4K);  /* reclamation_size = 0 */
+> -		xe_tile_assert(tile, phys_addr % SZ_4K == 0);
+> -	} else if (xe_child->level == 0) {
+> -		xe_gt_stats_incr(gt, XE_GT_STATS_ID_PRL_64K_ENTRY_COUNT, 1);
+> -		reclamation_size = COMPUTE_RECLAIM_ADDRESS_MASK(SZ_64K); /* reclamation_size = 4 */
+> -		xe_tile_assert(tile, phys_addr % SZ_64K == 0);
+> -	} else if (xe_child->level == 1 && pte & XE_PDE_PS_2M) {
+> +	if (is_2m) {
+>   		xe_gt_stats_incr(gt, XE_GT_STATS_ID_PRL_2M_ENTRY_COUNT, 1);
+> -		reclamation_size = COMPUTE_RECLAIM_ADDRESS_MASK(SZ_2M);  /* reclamation_size = 9 */
+> -		xe_tile_assert(tile, phys_addr % SZ_2M == 0);
+> +	} else if (is_64k) {
+> +		xe_gt_stats_incr(gt, XE_GT_STATS_ID_PRL_64K_ENTRY_COUNT, 1);
+> +	} else if (xe_child->level == 0) {
+> +		xe_gt_stats_incr(gt, XE_GT_STATS_ID_PRL_4K_ENTRY_COUNT, 1);
+>   	} else {
+>   		xe_page_reclaim_list_abort(tile->primary_gt, prl,
+>   					   "unsupported PTE level=%u pte=%#llx",
+> @@ -1665,6 +1657,48 @@ static int generate_reclaim_entry(struct xe_tile *tile,
+>   	return 0;
+>   }
+>   
+> +static int add_pte_to_prl(struct xe_tile *tile, struct xe_page_reclaim_list *prl,
+> +			  struct xe_pt *xe_child, u64 pte, u64 addr)
+> +{
+> +	/*
+> +	 * In rare scenarios, pte may not be written yet due to racy conditions.
+> +	 * In such cases, invalidate the PRL and fallback to full PPC invalidation.
+> +	 */
+> +	if (!pte) {
+> +		xe_page_reclaim_list_abort(tile->primary_gt, prl,
+> +					   "found zero pte at addr=%#llx", addr);
+> +		return -EINVAL;
+> +	}
+> +
+> +	/* Ensure it is a defined page */
+> +	xe_tile_assert(tile, xe_child->level == 0 ||
+> +		       (pte & (XE_PDE_PS_2M | XE_PDPE_PS_1G)));
+> +
+> +	/* Account for NULL terminated entry on end (-1) */
+> +	if (prl->num_entries >= XE_PAGE_RECLAIM_MAX_ENTRIES - 1) {
+> +		xe_page_reclaim_list_abort(tile->primary_gt, prl,
+> +					   "overflow while adding pte=%#llx", pte);
+> +		return -ENOSPC;
+> +	}
+> +
+> +	return generate_reclaim_entry(tile, prl, pte, xe_child);
+> +}
+> +
+> +static bool add_compact_pt_prl(struct xe_tile *tile, struct xe_page_reclaim_list *prl,
+> +			       struct xe_device *xe, struct xe_pt *compact_pt, u64 addr)
+> +{
+> +	struct iosys_map *map = &compact_pt->bo->vmap;
+> +
+> +	for (pgoff_t i = 0; i < SZ_2M / SZ_64K && xe_page_reclaim_list_valid(prl); i++) {
+> +		u64 pte = xe_map_rd(xe, map, i * sizeof(u64), u64);
+> +
+> +		if (add_pte_to_prl(tile, prl, compact_pt, pte, addr + i * SZ_64K))
+> +			break;
+> +	}
+> +
+> +	return xe_page_reclaim_list_valid(prl);
+> +}
+> +
+>   static int xe_pt_stage_unbind_entry(struct xe_ptw *parent, pgoff_t offset,
+>   				    unsigned int level, u64 addr, u64 next,
+>   				    struct xe_ptw **child,
+> @@ -1674,21 +1708,22 @@ static int xe_pt_stage_unbind_entry(struct xe_ptw *parent, pgoff_t offset,
+>   	struct xe_pt *xe_child = container_of(*child, typeof(*xe_child), base);
+>   	struct xe_pt_stage_unbind_walk *xe_walk =
+>   		container_of(walk, typeof(*xe_walk), base);
+> -	struct xe_device *xe = tile_to_xe(xe_walk->tile);
+> +	struct xe_page_reclaim_list *prl = xe_walk->prl;
+> +	struct xe_tile *tile = xe_walk->tile;
+> +	struct xe_device *xe = tile_to_xe(tile);
+>   	pgoff_t first = xe_pt_offset(addr, xe_child->level, walk);
+>   	bool killed;
+>   
+>   	XE_WARN_ON(!*child);
+>   	XE_WARN_ON(!level);
+>   	/* Check for leaf node */
+> -	if (xe_walk->prl && xe_page_reclaim_list_valid(xe_walk->prl) &&
+> +	if (prl && xe_page_reclaim_list_valid(prl) &&
+>   	    xe_child->level <= MAX_HUGEPTE_LEVEL) {
+>   		struct iosys_map *leaf_map = &xe_child->bo->vmap;
+>   		pgoff_t count = xe_pt_num_entries(addr, next, xe_child->level, walk);
+>   
+>   		for (pgoff_t i = 0; i < count; i++) {
+>   			u64 pte;
+> -			int ret;
+>   
+>   			/*
+>   			 * If not a leaf pt, skip unless non-leaf pt is interleaved between
+> @@ -1698,10 +1733,23 @@ static int xe_pt_stage_unbind_entry(struct xe_ptw *parent, pgoff_t offset,
+>   				u64 pt_size = 1ULL << walk->shifts[xe_child->level];
+>   				bool edge_pt = (i == 0 && !IS_ALIGNED(addr, pt_size)) ||
+>   					       (i == count - 1 && !IS_ALIGNED(next, pt_size));
+> +				struct xe_pt *child_pt =
+> +					container_of(xe_child->base.children[first + i],
+> +						     struct xe_pt, base);
+>   
+> -				if (!edge_pt) {
+> -					xe_page_reclaim_list_abort(xe_walk->tile->primary_gt,
+> -								   xe_walk->prl,
+> +				/* Compact PTs always fill a full 2M-aligned slot, never an edge. */
+> +				XE_WARN_ON(child_pt->is_compact && edge_pt);
+> +				if (edge_pt)
+> +					continue;
+> +
+> +				/* Walker never descends into compact PTs, descend now */
+> +				if (child_pt->is_compact) {
+> +					if (!add_compact_pt_prl(tile, prl, xe, child_pt,
+> +								addr + (u64)i * pt_size))
+> +						break;
+> +				} else {
+> +					xe_page_reclaim_list_abort(tile->primary_gt,
+> +								   prl,
+>   								   "PT is skipped by walk at level=%u offset=%lu",
+>   								   xe_child->level, first + i);
+>   					break;
+> @@ -1711,37 +1759,12 @@ static int xe_pt_stage_unbind_entry(struct xe_ptw *parent, pgoff_t offset,
+>   
+>   			pte = xe_map_rd(xe, leaf_map, (first + i) * sizeof(u64), u64);
+>   
+> -			/*
+> -			 * In rare scenarios, pte may not be written yet due to racy conditions.
+> -			 * In such cases, invalidate the PRL and fallback to full PPC invalidation.
+> -			 */
+> -			if (!pte) {
+> -				xe_page_reclaim_list_abort(xe_walk->tile->primary_gt, xe_walk->prl,
+> -							   "found zero pte at addr=%#llx", addr);
+> +			if (add_pte_to_prl(tile, prl, xe_child, pte, addr))
+>   				break;
+> -			}
+> -
+> -			/* Ensure it is a defined page */
+> -			xe_tile_assert(xe_walk->tile, xe_child->level == 0 ||
+> -				       (pte & (XE_PDE_PS_2M | XE_PDPE_PS_1G)));
+>   
+>   			/* An entry should be added for 64KB but contigious 4K have XE_PTE_PS64 */
+>   			if (pte & XE_PTE_PS64)
+>   				i += 15; /* Skip other 15 consecutive 4K pages in the 64K page */
+> -
+> -			/* Account for NULL terminated entry on end (-1) */
+> -			if (xe_walk->prl->num_entries < XE_PAGE_RECLAIM_MAX_ENTRIES - 1) {
+> -				ret = generate_reclaim_entry(xe_walk->tile, xe_walk->prl,
+> -							     pte, xe_child);
+> -				if (ret)
+> -					break;
+> -			} else {
+> -				/* overflow, mark as invalid */
+> -				xe_page_reclaim_list_abort(xe_walk->tile->primary_gt, xe_walk->prl,
+> -							   "overflow while adding pte=%#llx",
+> -							   pte);
+> -				break;
+> -			}
+>   		}
+>   	}
+>   
+> @@ -1751,7 +1774,7 @@ static int xe_pt_stage_unbind_entry(struct xe_ptw *parent, pgoff_t offset,
+>   	 * Verify if any PTE are potentially dropped at non-leaf levels, either from being
+>   	 * killed or the page walk covers the region.
+>   	 */
+> -	if (xe_walk->prl && xe_page_reclaim_list_valid(xe_walk->prl) &&
+> +	if (prl && xe_page_reclaim_list_valid(prl) &&
+>   	    xe_child->level > MAX_HUGEPTE_LEVEL && xe_child->num_live) {
+>   		bool covered = xe_pt_covers(addr, next, xe_child->level, &xe_walk->base);
+>   
+> @@ -1760,7 +1783,7 @@ static int xe_pt_stage_unbind_entry(struct xe_ptw *parent, pgoff_t offset,
+>   		 * we need to invalidate the PRL.
+>   		 */
+>   		if (killed || covered)
+> -			xe_page_reclaim_list_abort(xe_walk->tile->primary_gt, xe_walk->prl,
+> +			xe_page_reclaim_list_abort(tile->primary_gt, prl,
+>   						   "kill at level=%u addr=%#llx next=%#llx num_live=%u",
+>   						   level, addr, next, xe_child->num_live);
+>   	}
+
