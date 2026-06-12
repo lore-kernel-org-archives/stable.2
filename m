@@ -1,43 +1,44 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 684E43FC5AC;
-	Fri, 12 Jun 2026 17:11:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39D563603C2;
+	Fri, 12 Jun 2026 17:12:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781284310; cv=none; b=aIIoF1aw07ea25SB7eyPvGxDguFcqI8HlQDh9i0qVvORsP5yoy4s1FpEnDay/Wha491YzIBv2SdCeebqhI0A+TvD+sKSTxaFw/n9ijNJj04Je8EMAaG5plIhIT+8kwE45HORhGGm1BeyAGDGsGvcIS81Oc64+dnsTmhu7r2QLtQ=
+	t=1781284330; cv=none; b=r4qUcbCFZ6ohaecJFCxyz/l8BsryT9gZRoGdCWNwjep6ypW4lSWIFQhRKS77YS06qlGVLJvt0GVmD90AI43+cukVft3DoyCQ8vlTEty+OALtqNm6F1UoBa6d7/TKwKjKY52kILd/m6u87hlJu2BHQQqn+ez8iDWk1orMc3cbGBY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781284310; c=relaxed/simple;
-	bh=B8U2SJ40bu19l1Bskx20byRPuGWvv8sRp2tUqOV1an0=;
+	s=arc-20240116; t=1781284330; c=relaxed/simple;
+	bh=bc18bAhS36XRAYC7QXisQiDCW1+OxMc13lXuzWt/c2U=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VjIsQM5mchwH/L/xGxHnjBhmboUdIegbJh8hJN0WckQC/vvWvTTG1yFzdvpZkj4rSQN4ieDx5/S7xKlT9nwdEkm7lgQk2j2Nzi5sCEjWf+K+aH8DS8nfQ+dLOFVdscVMDYzTWKXqmf428nKnG4KvgYhPfgQOwT77SLDNQINLzw4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Og5VSvJA; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=sXb2FuupgitotqLau7zSvg/heNce4YcABx3Tb8wFLZJa7RF9Z9+slkg067+vDwGoxtY0FUAwHebkoQ6sTvrBjRN3oOhTfAChJkxTod1IXiamh39XhryIqYlfxUaFdDV3E9yCgpLs6pmIlnpEDF/r6D7D7rvf9W9YShVw9yPoSAo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gfQdzHZm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Og5VSvJA"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 748C032FA;
-	Fri, 12 Jun 2026 10:11:40 -0700 (PDT)
-Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A787F3FAA1;
-	Fri, 12 Jun 2026 10:11:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1781284305; bh=B8U2SJ40bu19l1Bskx20byRPuGWvv8sRp2tUqOV1an0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Og5VSvJAAlHUGjKrOzD4piBhFGiPI+J5r/NwPCyMSH3gJTspQtQivSq1JH74Z7/eH
-	 f7k1bfn4d6+KHKf+m1kvJ0ha6lOeqn20It1hbK7TJSrqkQynn7wQQ8PQYtzm4V0srr
-	 AURlD06hsSLGaXiRox4Fc2dDzt+MTNOBGbeEiQhA=
-Date: Fri, 12 Jun 2026 18:11:40 +0100
-From: Catalin Marinas <catalin.marinas@arm.com>
-To: Breno Leitao <leitao@debian.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, lance.yang@linux.dev,
-	Davidlohr Bueso <dave@stgolabs.net>,
-	Oleg Nesterov <oleg@redhat.com>, Qian Cai <cai@lca.pw>,
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
-	kernel-team@meta.com, stable@vger.kernel.org
-Subject: Re: [PATCH v2] mm/kmemleak: avoid soft lockup when scanning task
- stacks
-Message-ID: <aiw9u4BllwZXDH2S@arm.com>
-References: <20260612-kmemleak-stack-resched-v2-1-53240de79e88@debian.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gfQdzHZm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 26E601F000E9;
+	Fri, 12 Jun 2026 17:12:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781284329;
+	bh=wxd21VZqQeGRt+phJQqIcHHa+IBS41s3vD59iytiz7o=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=gfQdzHZmmtGbA4HG0Zl8teTV1U48VvfwbdR6UQ5kyDlq6woHLjA/nxXh71Q4rzJF4
+	 Lqf6UHMgqavS/2KXqi/5U2yfSGGK1E1b+NzUgQHuYU2Rc0YfE7tQjdsW0wxzEouiko
+	 GiR9eMMR7Q5rdifJkk9fUW2Xemm2mSi2MIntN5uVb82QsJxYAe3B8lvcA/QM5/Hpg0
+	 /BYqzulauAF6h6PtdFwypafhx7jJXVkaGoOWmiIsZbgbW6io+pBg38gskIMK0q2AW2
+	 k0sip6ycuLmSy5+PZLws8dvowu0MqU+vXC39ecTB9jj3ARAU1I0S38N0DoULVXahRu
+	 dKl7XLFA5FNAA==
+Date: Fri, 12 Jun 2026 18:12:04 +0100
+From: Simon Horman <horms@kernel.org>
+To: Michael Bommarito <michael.bommarito@gmail.com>
+Cc: Manivannan Sadhasivam <mani@kernel.org>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+	stable@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] net: qrtr: fix 32-bit integer overflow in
+ qrtr_endpoint_post()
+Message-ID: <20260612171204.GK671640@horms.kernel.org>
+References: <20260611125455.2352279-1-michael.bommarito@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,78 +47,33 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260612-kmemleak-stack-resched-v2-1-53240de79e88@debian.org>
+In-Reply-To: <20260611125455.2352279-1-michael.bommarito@gmail.com>
 
-Hi Breno,
+On Thu, Jun 11, 2026 at 08:54:55AM -0400, Michael Bommarito wrote:
+> qrtr_endpoint_post() validates an incoming packet with
+> 
+> 	if (!size || len != ALIGN(size, 4) + hdrlen)
+> 		goto err;
+> 
+> where size comes from the wire. On 32-bit, size_t is 32 bits and
+> ALIGN(size, 4) wraps to 0 for size >= 0xfffffffd, so the check
+> passes and skb_put_data(skb, data + hdrlen, size) writes past the
+> hdrlen-sized skb and oopses the kernel. 64-bit is unaffected.
+> 
+> This is the 32-bit residual of ad9d24c9429e2 ("net: qrtr: fix OOB
+> Read in qrtr_endpoint_post"), which fixed only the 64-bit case.
+> 
+> Reject any size that cannot fit the buffer before the ALIGN.
+> 
+> Fixes: ad9d24c9429e2 ("net: qrtr: fix OOB Read in qrtr_endpoint_post")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Claude:claude-opus-4-8
+> Signed-off-by: Michael Bommarito <michael.bommarito@gmail.com>
+> ---
+> 32-bit only; reachable via /dev/qrtr-tun (CONFIG_QRTR_TUN) or a QMI modem.
+> Reproduced on i386 (a 32-byte write with size 0xfffffffd faults; well-formed
+> writes are unaffected).  QRTR mostly runs on 64-bit now, so this is a
+> correctness fix completing ad9d24c9429e2, not a high-severity bug.
 
-Thanks for addressing this long-standing soft lockup problem.
+Reviewed-by: Simon Horman <horms@kernel.org>
 
-On Fri, Jun 12, 2026 at 08:16:07AM -0700, Breno Leitao wrote:
-> +/*
-> + * Briefly drop the RCU read lock to reschedule during the task stack scan.
-> + * Both cursors are pinned across the gap; return false if either one was
-> + * unhashed meanwhile, so the caller stops this round instead of walking a
-> + * stale list.
-> + */
-> +static bool kmemleak_stack_scan_break(struct task_struct *g,
-> +				      struct task_struct *p)
-> +{
-> +	bool can_cont;
-> +
-> +	get_task_struct(g);
-> +	get_task_struct(p);
-> +
-> +	rcu_read_unlock();
-> +	cond_resched();
-> +	rcu_read_lock();
-> +
-> +	can_cont = pid_alive(g) && pid_alive(p);
-> +
-> +	put_task_struct(p);
-> +	put_task_struct(g);
-> +
-> +	return can_cont;
-> +}
-
-While this matches rcu_lock_break(), it looks to me like we rely too
-much on the internals of kernel/exit.c. Ideally this function should be
-provided as an API alongside for_each_process_thread() so that we only
-have the idiom in one place in case something changes in the future.
-
-Yet anther variant below, untested. Basically, it follows the
-next_tgid() or task_seq_get_next() approach (we might as well move this
-to a separate function to avoid excessive indentation):
-
-	if (kmemleak_stack_scan) {
-		struct pid *pid;
-		int nr = 1;
-
-		do {
-			struct task_struct *p = NULL;
-
-			rcu_read_lock();
-			pid = find_ge_pid(nr, &init_pid_ns);
-			if (pid) {
-				nr = pid_nr(pid) + 1;
-				p = pid_task(pid, PIDTYPE_PID);
-				if (p)
-					get_task_struct(p);
-			}
-			rcu_read_unlock();
-
-			if (p) {
-				void *stack = try_get_task_stack(p);
-
-				if (stack) {
-					scan_block(stack, stack + THREAD_SIZE,
-							NULL);
-					put_task_stack(p);
-				}
-				put_task_struct(p);
-			}
-			cond_resched();
-		} while (pid);
-	}
-
--- 
-Catalin
