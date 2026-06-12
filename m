@@ -1,125 +1,193 @@
-Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E035E370D4F
-	for <stable@vger.kernel.org>; Fri, 12 Jun 2026 07:47:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46B513D1AB7
+	for <stable@vger.kernel.org>; Fri, 12 Jun 2026 07:53:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781250460; cv=none; b=d7B/LMrVRuaxhVXstoMS87o21MUk/akT4MmMRN264S82wIiTVqulZDvncqWyI4RBXxEw3kWQh2merTZLiSvPdw+DF3kLUt7q1KT0nYUzDs1lD0D4P17VVFHTj9gmcbc0W+bjIXGEXl/sgyFUD/5VkpZU1Q5Ilg5TDMku017vgaE=
+	t=1781250811; cv=none; b=UZvxpCD/+TWLBLtPoyhRXcvpMBEQMMQsZkONfOy2AjaTdhwN8nBrNiAGqXSchfnmgpq0iAQqByKJ1TFyRmnJPnIymWXNCCkObyeZlTzaF6vWhKnkBdwD0NQX8jmWM+BODykS2+R2aLWHnNx7PiPV8xk2yVjts9md1ohTHolv2xg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781250460; c=relaxed/simple;
-	bh=eHmMfifAH+b/pWnLwnIAEeQbfu0AqydXxKUsBJd0qp8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=EO8f9cFV1hkpvtK8dvsprfrLcomlLrsz0f39/izQdd/tE9HmPC1N+Q70ai7UqpFqRcKMm9biQl37rKb2TvjJLVEIt2D9/ctpuByZCO4DYNvgj9Wvu4b8QMe/TyQJS9xlN+2WPV5MmyP9Of2qpBJeZ2bKq0EJentx8VCVRaIrGfY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RMuSIQPJ; arc=none smtp.client-ip=209.85.210.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781250811; c=relaxed/simple;
+	bh=RgmrGkntq3tc8bk5cbEi2dvBK+qiA7b1mod7DP0Dlkc=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=jIcUwdJP0kArN0PnDXv464hiEDQzopr+2iknCqBB7RfyHMKrzqzJCdH4EBFKFgDTl1ZSuc1jkuXBw1TzJTPIFY/2+Y9/OtKdk9as15AKYXv7/6fCkoTdnldV24E+0wwJfoneqypb6z95sEPEe+y/b/lMyT0Uo07twEjWezCqgTg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=ihjRCR7h; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=7TGofvaK; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=ihjRCR7h; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=7TGofvaK; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RMuSIQPJ"
-Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-8423610ec93so640025b3a.2
-        for <stable@vger.kernel.org>; Fri, 12 Jun 2026 00:47:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781250458; x=1781855258; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=IMrdpBLwtgNudIzjWDD987f63Qm2qC8/+0JNe44FmBw=;
-        b=RMuSIQPJAfK1o3ep1fZHK6FXPoVi9kJL26sCNz32rS3chkAWxU2Pm5r/TGsIcqhiIY
-         CVYkAL9QNVvZGqo/WbJQcsqV16AztBncgV2L/BPFkBkXbi8Rjg+5CL2vXqNFTy38O9gq
-         RAYYxfopApSbGY5Ljjn6bKkfLHjQQCvDf/fIKtvrQR79szWInJiJzERVOWYRwTkhTdfZ
-         grAlV1F4BUqyDqxwZxaX52mnR918Hu5Ji/VhFGOoAfSCMzDb50e6Dn40HTM3478ZiW+T
-         a6rjbUDncnckNhSoLkYm2XQZwn/4K6twUsakmciT8dTFnFp/vXYfc1S6QoooNVVozupB
-         yjlA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781250458; x=1781855258;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=IMrdpBLwtgNudIzjWDD987f63Qm2qC8/+0JNe44FmBw=;
-        b=Z9D8Ka+gQlm4fXtfVr7JQFsGv3R1/FLRRt5kGiWPJDcS50sNVqZ7fC6l4se9StYfrF
-         hmtTJzjts4hYtIKu1hy9YN+gcMWhVjWbzlIUlqzqitwBZPFc8jAwQ/YIiNsxRcyww+xf
-         xUEtKu91F1Lgnkbd7ovxLonRixqB/q9H/TW+LJXFqb2BUYPmFCgpSw2T3jwxvzJg0E+n
-         Ek8fTtvUWq4pIyBa2I6UvfgJe6vaIOUOE8UIpn5puR2OcOQyIdlou+ipe/GBI41+yZN+
-         LV52C0NgK6hzyxC17RFSGoV1l3nLOWWoYddDPpxx2477eyQx1wz6VHSkEKv1Y5Zj8krY
-         2Grw==
-X-Forwarded-Encrypted: i=1; AFNElJ/VjvNs3/VXiRRiroZH2DsYlNgCH7+nDA7DVXC/VJgoJMZm5SL82IqNSJYW9ubM2003hUVXuZQ=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxbdtv/6TZ88xlOtdfQFDOmG6Mp8gwgShrRiWLTDIa0IHZrQsiI
-	lcHBeOvc6GXOVWrv6xgq+GZTCVcUcjuIby/yVocA5HG7JO38+YqQ4dAf
-X-Gm-Gg: Acq92OENZfVPwuGel4PpXpt+HMcBj8AzY5g6l4GQYRjDMw8B4ACFGAo4FkvNUrGUtGA
-	MROEm4rKUEEQVYE9Qchfg5I2iaMuPnw30h8IV2eowRNLOZirVMpa8/ljsEzR3NH3HZDfbG2lXYl
-	DbyMtPDGdDgBNDgd8NXvS7/vbk8JoggHCcgWCjHU6GHn7WcdHXSV2GBHXXTthiP+qBpbqi7xek1
-	Y7UstnycnOmMsOvG0/3gTuUwA2iD9ayb2f0e7f1hKt8HsbdOd75pc/8CUcU7cLosCGyIUv3Mbje
-	8ogEHsYUjt6y7resWGFF4QHBaezpYCJFYDAkAgcdEgdg+IQFiC/PkjwxSlhw0jumCw3ikuxNvtU
-	N1ZPS2qpRErsIIpQbmsBakFmnwzbfV3CO0FttO5m33dloaMn4sbPDxAG8M6AkfIMJ1kuAA3YXS0
-	7AB5nOiYGObsMMX08MIs8qEWInBg4VN4Jrtt4ebwcy4ZV3Dc5fayDlKQA=
-X-Received: by 2002:a05:6a00:84e:b0:841:d7f6:7297 with SMTP id d2e1a72fcca58-8434ce6b927mr1957626b3a.40.1781250458164;
-        Fri, 12 Jun 2026 00:47:38 -0700 (PDT)
-Received: from localhost.localdomain ([116.72.140.90])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8434afd50e6sm1337683b3a.30.2026.06.12.00.47.35
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 12 Jun 2026 00:47:37 -0700 (PDT)
-From: Piyush Paliwal <piyushthepal@gmail.com>
-To: u-boot@lists.denx.de
-Cc: jerome.forissier@arm.com,
-	trini@konsulko.com,
-	fberder@outlook.fr,
-	Piyush Paliwal <piyushthepal@gmail.com>,
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="ihjRCR7h";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="7TGofvaK";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="ihjRCR7h";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="7TGofvaK"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 4BA1575C2A;
+	Fri, 12 Jun 2026 07:53:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1781250803; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=KT9QNd5js3x5JI/IG3pj1OAG4bVWN2GVWEIZCojdHnk=;
+	b=ihjRCR7h0XgYsoaJt0Aoli/KjiYPhTYwQlx++hw94NlRvTcE+SF+9YvpmrdiEPMJuDfvOn
+	7gFNMzVJ/l/SYXEOmNgCCQXGcP5h2apGBN0BG/CyJAIZKh5ypVmhNnao901Qk6gLzFBM6y
+	N1R0ZchrErp/T0GGxAFZUu5aQv+8Jls=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1781250803;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=KT9QNd5js3x5JI/IG3pj1OAG4bVWN2GVWEIZCojdHnk=;
+	b=7TGofvaKbYdP5iq5zdK50e5JWXzloxQ5KqxRlT90/9VL3PGSj2Uk+i24XVMtIDbvpDazly
+	EYWVHTEVnoluliAQ==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=ihjRCR7h;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=7TGofvaK
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1781250803; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=KT9QNd5js3x5JI/IG3pj1OAG4bVWN2GVWEIZCojdHnk=;
+	b=ihjRCR7h0XgYsoaJt0Aoli/KjiYPhTYwQlx++hw94NlRvTcE+SF+9YvpmrdiEPMJuDfvOn
+	7gFNMzVJ/l/SYXEOmNgCCQXGcP5h2apGBN0BG/CyJAIZKh5ypVmhNnao901Qk6gLzFBM6y
+	N1R0ZchrErp/T0GGxAFZUu5aQv+8Jls=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1781250803;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=KT9QNd5js3x5JI/IG3pj1OAG4bVWN2GVWEIZCojdHnk=;
+	b=7TGofvaKbYdP5iq5zdK50e5JWXzloxQ5KqxRlT90/9VL3PGSj2Uk+i24XVMtIDbvpDazly
+	EYWVHTEVnoluliAQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id F2F60779A7;
+	Fri, 12 Jun 2026 07:53:22 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id +sQPOvK6K2qrIwAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Fri, 12 Jun 2026 07:53:22 +0000
+Date: Fri, 12 Jun 2026 09:53:22 +0200
+Message-ID: <87y0gki499.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: WenTao Liang <vulab@iscas.ac.cn>
+Cc: perex@perex.cz,
+	tiwai@suse.com,
+	chenziqing@xiaomi.com,
+	broonie@kernel.org,
+	cezary.rojewski@intel.com,
+	kees@kernel.org,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH] net: cdp: reject CDP TLVs with a length below the 4-byte header
-Date: Fri, 12 Jun 2026 13:17:30 +0530
-Message-ID: <20260612074730.82719-1-piyushthepal@gmail.com>
-X-Mailer: git-send-email 2.41.0
+Subject: Re: [PATCH] sound/core: fix refcount leak in snd_ctl_elem_info_user()
+In-Reply-To: <20260612022121.14329-1-vulab@iscas.ac.cn>
+References: <20260612022121.14329-1-vulab@iscas.ac.cn>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spam-Flag: NO
+X-Rspamd-Action: no action
+X-Spam-Level: 
+X-Spamd-Result: default: False [-3.51 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	FUZZY_RATELIMITED(0.00)[rspamd.com];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	TO_DN_SOME(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCVD_TLS_ALL(0.00)[];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[10];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:mid,suse.de:dkim];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 4BA1575C2A
+X-Spam-Score: -3.51
 
-cdp_receive() reads a 16-bit TLV length (tlen) from the packet and only
-checks that it does not exceed the remaining buffer (tlen > len). It then
-unconditionally does "tlen -= 4" to skip the TLV header. As tlen is a
-u16, a crafted TLV with a length of 0..3 underflows tlen to ~65532-65535.
+On Fri, 12 Jun 2026 04:21:21 +0200,
+WenTao Liang wrote:
+> 
+> snd_ctl_elem_info_user() calls snd_power_ref_and_wait() to obtain
+> a power reference for the sound card.  If that function returns an
+> error (e.g. -ENODEV when the card is shutting down), the reference
+> is still held because snd_power_ref_and_wait() always acquires it
+> unconditionally.  However, the error path in snd_ctl_elem_info_user()
+> directly returns the error without releasing the reference, causing
+> a refcount leak.
+> 
+> Fix it by calling snd_power_unref() before returning the error,
+> matching the successful path that already does the paired unref.
+> 
+> Cc: stable@vger.kernel.org
+> Fixes: fcc62b19104a ("ALSA: control: Take power_ref lock primarily")
+> Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
 
-For a CDP_APPLIANCE_VLAN_TLV the underflowed length then drives the inner
-"while (tlen > 0)" loop, which walks ~64KB past the receive buffer reading
-*ss each step -> out-of-bounds read (crash / info-influence). A length of
-0 additionally fails to advance pkt/len, hanging the parse loop.
+Judging from the current code patterns, it's better to fix the
+function behavior itself -- unreference in snd_power_ref_and_wait()
+itself when returning an error; otherwise there are way too many
+callers to fix up, and the current behavior is rather confusing.
 
-Reject any TLV whose declared length is smaller than its own 4-byte
-header. This is the same class of bug as the recent bootp/dhcpv6/sntp/nfs
-fixes (unchecked length field), in a sibling LAN parser that was missed.
+Could you try the patch below instead?
 
-Verified with a standalone AddressSanitizer harness using the verbatim
-cdp_receive()/cdp_compute_csum() routines: a 16-byte CDP frame with an
-appliance-VLAN TLV of length 3 triggers a heap-buffer-overflow READ that
-the check eliminates.
 
-Fixes: f575ae1f7d39 ("net: Move CDP out of net.c")
-Cc: stable@vger.kernel.org
-Signed-off-by: Piyush Paliwal <piyushthepal@gmail.com>
----
- net/cdp.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+thanks,
 
-diff --git a/net/cdp.c b/net/cdp.c
-index 6e404981d4a..300b3d5c409 100644
---- a/net/cdp.c
-+++ b/net/cdp.c
-@@ -276,7 +276,13 @@ void cdp_receive(const uchar *pkt, unsigned len)
- 		ss = (const ushort *)pkt;
- 		type = ntohs(ss[0]);
- 		tlen = ntohs(ss[1]);
--		if (tlen > len)
-+		/*
-+		 * tlen includes the 4-byte TLV header, so it must be at
-+		 * least 4.  Without this check a crafted tlen < 4 makes the
-+		 * "tlen -= 4" below underflow (tlen is a ushort), and a tlen
-+		 * of 0 also fails to advance pkt/len, hanging the loop.
-+		 */
-+		if (tlen < 4 || tlen > len)
- 			goto pkt_short;
+Takashi
+
+-- 8< --
+--- a/sound/core/init.c
++++ b/sound/core/init.c
+@@ -1139,7 +1139,7 @@ EXPORT_SYMBOL(snd_card_file_remove);
+  * typically around calling control ops.
+  *
+  * The caller needs to pull down the refcount via snd_power_unref() later
+- * no matter whether the error is returned from this function or not.
++ * when this function returns 0.
+  *
+  * Return: Zero if successful, or a negative error code.
+  */
+@@ -1152,7 +1152,11 @@ int snd_power_ref_and_wait(struct snd_card *card)
+ 		       card->shutdown ||
+ 		       snd_power_get_state(card) == SNDRV_CTL_POWER_D0,
+ 		       snd_power_unref(card), snd_power_ref(card));
+-	return card->shutdown ? -ENODEV : 0;
++	if (card->shutdown) {
++		snd_power_unref(card);
++		return  -ENODEV;
++	}
++	return 0;
+ }
+ EXPORT_SYMBOL_GPL(snd_power_ref_and_wait);
  
- 		pkt += tlen;
--- 
-2.41.0
-
+@@ -1169,7 +1173,8 @@ int snd_power_wait(struct snd_card *card)
+ 	int ret;
+ 
+ 	ret = snd_power_ref_and_wait(card);
+-	snd_power_unref(card);
++	if (!ret)
++		snd_power_unref(card);
+ 	return ret;
+ }
+ EXPORT_SYMBOL(snd_power_wait);
