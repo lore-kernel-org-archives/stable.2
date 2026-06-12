@@ -1,120 +1,358 @@
-Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AACDD314A73
-	for <stable@vger.kernel.org>; Fri, 12 Jun 2026 07:31:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B1863093DD;
+	Fri, 12 Jun 2026 07:36:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781249498; cv=none; b=Gfi+I/xR7DrmpujKCyKNXoZVZjGn6iOa0+0ZjDCbfgyDKrmf1Zznsz/70evhyhG63Sf+sAlvB4IHAraWkGUFSNj2nfr9FEFemABgbnxdfZ/Ab0cwKbgKDYUOPEIVD/mr3KWkK/XnvIjPATTLjmwiGu1dYR71fOE+F13Cd7OKzPI=
+	t=1781249765; cv=none; b=K0Z5ym7H7vVjmksO9w36xg6jGrDFHY2z5kdG5tdeaigyxA3+47kV7RjMn8jGmMA/qWOkmvHtJjK2BcZmdLlFxWlFhzWDkb5H7v9ATaEwLDYIdXDB3RpHmlK47O8WjzOp999/lImMir32y9YOwuHdmgHzBk0tuaZnNpIeM4g+JZ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781249498; c=relaxed/simple;
-	bh=eHmMfifAH+b/pWnLwnIAEeQbfu0AqydXxKUsBJd0qp8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DZFUJNgWPlEcmH1Va7GBgtGDXWKmbGwhF6OoM/0OfUbIlSmP9Ly7/Y0Sux1uyUCy06K616NZj1Zj8w2RXfZd4BtuglXdKHFnkMiAqkxtg+GHNGJQqO3qoKCIkyAVixADS2bFJDHjhbDkixrjgtCe95HUlxOiqwIQPQyiaCKH+YE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dF8nUp1S; arc=none smtp.client-ip=209.85.215.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781249765; c=relaxed/simple;
+	bh=amWtrN9ebYHEFBhQNOxoiQaXTaktTxRaZK6iSH1pCGE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=P/8D9tjGrpVViJ3127eE2YBjuVDxUMvhTvfdTut+mRLO/HKZKsU7CfXllKAQ/f0P3HWjbvlSOEFx/92ci7YZlgs1qSpSvymR1H2trej1/rDLEeb1by31p2PvgzTFHRmEXIQIXwNZUkyHLHdrvW39W9hli/g3/oE80uNs6dq05Wc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YpHb8phY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dF8nUp1S"
-Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-c8588f8fef3so226147a12.0
-        for <stable@vger.kernel.org>; Fri, 12 Jun 2026 00:31:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781249497; x=1781854297; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=IMrdpBLwtgNudIzjWDD987f63Qm2qC8/+0JNe44FmBw=;
-        b=dF8nUp1SX6TQ9dB/UNyphtkfB2amuX9N3Tr0eRoungcXSMSJ4BCdFuwzDHRw8GdZK3
-         RdLMjmqCkURNyXzbdrLzestaBrEFNyt+MzqSqPbtt1oRPv8krlBmPxRa/iuCaTvBTbB8
-         SFR04Y3gu65Q6usIlhwZK37Dz1K3ZZMYJvzmHZUyiOZN4tukgZqOm1Aq3fCqZZaLJiok
-         dEmIfC6JYA1Nsnd9WU3r60vDMpA2xqSpn9KpBw7A8N32h5vM+ZjWiCZd5dZjjhIdNsXS
-         2SngPF+HP0juWqrS572JECQZGxpi9qNgcqpI0aIwt50sSdz4+3ua8Gweyo7gyjIJPHNf
-         Nb+A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781249497; x=1781854297;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=IMrdpBLwtgNudIzjWDD987f63Qm2qC8/+0JNe44FmBw=;
-        b=D1qk+sf0L2EXwf810vzW+9wgKWuKyDjJJHAVgD2okhRKrqmkKniht9JTb2sxMxFhce
-         aHCRcC5P2aqmbtgNvEbSFSlB5zSOGuVhtCwLhR4XM0Ut/MFWCRfh+R69EZRVl2iYrV0B
-         dkIzp8WFtaOi+1mCHTluYaQfBmb3a154nSX4H9Q4+lk59bgrNFYrElfChVSZlu3++zpn
-         Evbn+bqLY4JHFtzffw2ARVBQVtYcm1hAzTBPB4FxQZi2aRuw7F0m82cIMpRWqHFIpNIl
-         LtZACYH81yR1tYD19Lp/DhTzNNsfN0wbKb+JqSB0ziGUZomZ8e4S17GbMFadl8TLsEnG
-         GYGA==
-X-Gm-Message-State: AOJu0Yxmduf3ZL3sfw5BeYl25JpQVSuLSeunVYl9wyVU4sxf21LQMn8B
-	wyEXF45C3s0OH0NNRAlWoZhZ9ZbDVEvYrRvapvXTwRv/ZjxMuRP6qHcMPqTC7Q==
-X-Gm-Gg: Acq92OGwZOoNw+Zh4uiKkwIvoYx8orMnLQZFdhlUJAcnFrPvkU8dbwFgHRmdqudcyN0
-	v0oPsWPFZGWJU0ZmkyxXJFXVxApSAZrAdvjT6O1HY+Pog+PVgdfP90ojhPvxGI4h2KgiwSaHeI9
-	nz6rlANT0geCaN1WHzZb5en6f3V9BQd3SQJrCPP9bmhG0OGAOhnCdJ5uQyL36soUWIPuwToHuCf
-	YFh9gHcRCaeZ0Yj4r/gQ1aYvZoowuqIIE4LHXn1KuXhKfsSfl8jLzxuhEGunbzv7ThX40aAKY8r
-	GzyJzIx39QtBO1b3Em03WkZqrZPyKcIuMf4V1DLVgaa9/EPHw3TM6Ie/pGn7tns+Ahm//uvlMDj
-	OI4p5DDBUeC85ny4e+tpUkTU2Hx0bjMYaY3XVYaesJ3Tllxyi9dpq9umwQ8MYvtcphw0ShTjPrR
-	THUvH/2v7qo4tk9l6YKo34uLzfbMj2Pvl4VAmw5TBWKiwL2A/XxtzxwZY=
-X-Received: by 2002:a05:6a20:7f86:b0:39b:dea7:5626 with SMTP id adf61e73a8af0-3b783fb321dmr2475342637.35.1781249496917;
-        Fri, 12 Jun 2026 00:31:36 -0700 (PDT)
-Received: from localhost.localdomain ([116.72.140.90])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c866519f0a6sm1221208a12.22.2026.06.12.00.31.35
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 12 Jun 2026 00:31:36 -0700 (PDT)
-From: Piyush Paliwal <piyushthepal@gmail.com>
-To: piyushthepal@gmail.com
-Cc: stable@vger.kernel.org
-Subject: [PATCH] net: cdp: reject CDP TLVs with a length below the 4-byte header
-Date: Fri, 12 Jun 2026 13:01:17 +0530
-Message-ID: <20260612073117.81940-1-piyushthepal@gmail.com>
-X-Mailer: git-send-email 2.41.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YpHb8phY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB1AF1F000E9;
+	Fri, 12 Jun 2026 07:36:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781249763;
+	bh=kOX08Qpl3nLj8+/bGT7gMI+71ks0J39RDfqBI01e/bs=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=YpHb8phYvCXL//PMNv6jJibMmIvbuZmFBd81SZPjBSMR8ToRShtN3aXcZQR5xRGOF
+	 5D1aoLZGabiAlDqIpuffzOCx97pcxQ9zSS0/JgxMXO0J1HfPqTEC0I21xlyTI22bSc
+	 rD+sjQ6+hPGHfZzV1cRQjhR1zP4JNTPuaZ+xJ/FAeHV1xlSYiVsoxlMVjMqbpvaDCn
+	 qXB2IXqiuMyKCLM/AHpVj7C5sVFvpbcSlfU8SBPVkLFWPROv5ffLzAAo4FsdEkp6Vv
+	 GDjbVyismAzQ8Yj41kuEmLVoZ66puCR7NZaY5e7pk5iSCZXrGdKNdkltMZnHJIkraK
+	 nd5WalUl+cWLw==
+Message-ID: <09ee2ea0-c93f-406c-b5af-1fe3a50c8989@kernel.org>
+Date: Fri, 12 Jun 2026 09:36:00 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-
-cdp_receive() reads a 16-bit TLV length (tlen) from the packet and only
-checks that it does not exceed the remaining buffer (tlen > len). It then
-unconditionally does "tlen -= 4" to skip the TLV header. As tlen is a
-u16, a crafted TLV with a length of 0..3 underflows tlen to ~65532-65535.
-
-For a CDP_APPLIANCE_VLAN_TLV the underflowed length then drives the inner
-"while (tlen > 0)" loop, which walks ~64KB past the receive buffer reading
-*ss each step -> out-of-bounds read (crash / info-influence). A length of
-0 additionally fails to advance pkt/len, hanging the parse loop.
-
-Reject any TLV whose declared length is smaller than its own 4-byte
-header. This is the same class of bug as the recent bootp/dhcpv6/sntp/nfs
-fixes (unchecked length field), in a sibling LAN parser that was missed.
-
-Verified with a standalone AddressSanitizer harness using the verbatim
-cdp_receive()/cdp_compute_csum() routines: a 16-byte CDP frame with an
-appliance-VLAN TLV of length 3 triggers a heap-buffer-overflow READ that
-the check eliminates.
-
-Fixes: f575ae1f7d39 ("net: Move CDP out of net.c")
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/gup_test: fix race with PIN_LONGTERM_TEST ioctls
+To: Yunhui Cui <cuiyunhui@bytedance.com>, akpm@linux-foundation.org,
+ jgg@ziepe.ca, jhubbard@nvidia.com, peterx@redhat.com,
+ yang.lee@linux.alibaba.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Signed-off-by: Piyush Paliwal <piyushthepal@gmail.com>
+References: <20260608025043.88087-1-cuiyunhui@bytedance.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260608025043.88087-1-cuiyunhui@bytedance.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+On 6/8/26 04:50, Yunhui Cui wrote:
+> The PIN_LONGTERM_TEST helpers keep their state in global variables that
+> are protected by pin_longterm_test_mutex when accessed from ioctl().
+> However, gup_test_release() calls pin_longterm_test_stop() without
+> holding that mutex.
+> 
+> This can race with PIN_LONGTERM_TEST_STOP and let two callers operate on
+> the same pages array concurrently, corrupting the test state and possibly
+> freeing it twice:
+> 
+>  CPU 0                              CPU 1
+>  -----                              -----
+>  ioctl(PIN_LONGTERM_TEST_STOP)
+>    mutex_lock(&pin_longterm_test_mutex)
+>    pin_longterm_test_stop()
+>      if (pin_longterm_test_pages)
+>        kvfree(pin_longterm_test_pages)
+> 
+>                                     close()
+>                                       gup_test_release()
+>                                         pin_longterm_test_stop()
+>                                           if (pin_longterm_test_pages)
+>                                             kvfree(pin_longterm_test_pages)
+> 
+>      pin_longterm_test_pages = NULL
+>    mutex_unlock(&pin_longterm_test_mutex)
+
+Okay, thinking about this some more ...
+
+I think what's really required here is that we have two separate "struct file",
+because otherwise release() cannot race with unlocked_ioctl().
+
+Which is something we didn't expect when we added this functionality.
+
+I think the proper way to handle this is by moving the state to the
+"struct file", to actually cleanly allow concurrent usage.
+
+So instead, I think we should do the following (untested):
+
+From 29e3d6fe00c4bd843d11bb548efa89bca478436c Mon Sep 17 00:00:00 2001
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Date: Fri, 12 Jun 2026 09:22:25 +0200
+Subject: [PATCH] mm/gup_test: keep longterm pin state per file
+
+The pin longterm test currently stores its data globally, shared among
+multiple concurrent users of the interface (multiple open file
+descriptors -> multiple "struct file"'s). That makes
+the gup_test interface problematic to use concurrently: two users, such
+as concurrent selftest runs, can interfere with the same longterm
+pin state.
+
+While this has not been observed as a problem so far in practice, let's
+just handle it cleanly. There could be a way to trigger selftest
+failures by e.g., running the cow.c and gup_longerm.c selftests
+concurrently, but we usually run them sequentially. Let's add a "Fixes"
+tag to be safe.
+
+Fixes: c77369b437f9 ("mm/gup_test: start/stop/read functionality for PIN LONGTERM test")
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- net/cdp.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+ mm/gup_test.c | 93 +++++++++++++++++++++++++++++++++------------------
+ 1 file changed, 61 insertions(+), 32 deletions(-)
 
-diff --git a/net/cdp.c b/net/cdp.c
-index 6e404981d4a..300b3d5c409 100644
---- a/net/cdp.c
-+++ b/net/cdp.c
-@@ -276,7 +276,13 @@ void cdp_receive(const uchar *pkt, unsigned len)
- 		ss = (const ushort *)pkt;
- 		type = ntohs(ss[0]);
- 		tlen = ntohs(ss[1]);
--		if (tlen > len)
-+		/*
-+		 * tlen includes the 4-byte TLV header, so it must be at
-+		 * least 4.  Without this check a crafted tlen < 4 makes the
-+		 * "tlen -= 4" below underflow (tlen is a ushort), and a tlen
-+		 * of 0 also fails to advance pkt/len, hanging the loop.
-+		 */
-+		if (tlen < 4 || tlen > len)
- 			goto pkt_short;
+diff --git a/mm/gup_test.c b/mm/gup_test.c
+index 9dd48db897b9..16916056677e 100644
+--- a/mm/gup_test.c
++++ b/mm/gup_test.c
+@@ -8,6 +8,12 @@
+ #include <linux/highmem.h>
+ #include "gup_test.h"
  
- 		pkt += tlen;
++struct gup_test_data {
++	struct mutex longterm_mutex;
++	struct page **longterm_pages;
++	unsigned long longterm_nr_pages;
++};
++
+ static void put_back_pages(unsigned int cmd, struct page **pages,
+ 			   unsigned long nr_pages, unsigned int gup_test_flags)
+ {
+@@ -204,23 +210,20 @@ static int __gup_test_ioctl(unsigned int cmd,
+ 	return ret;
+ }
+ 
+-static DEFINE_MUTEX(pin_longterm_test_mutex);
+-static struct page **pin_longterm_test_pages;
+-static unsigned long pin_longterm_test_nr_pages;
+-
+-static inline void pin_longterm_test_stop(void)
++static inline void pin_longterm_test_stop(struct gup_test_data *data)
+ {
+-	if (pin_longterm_test_pages) {
+-		if (pin_longterm_test_nr_pages)
+-			unpin_user_pages(pin_longterm_test_pages,
+-					 pin_longterm_test_nr_pages);
+-		kvfree(pin_longterm_test_pages);
+-		pin_longterm_test_pages = NULL;
+-		pin_longterm_test_nr_pages = 0;
++	if (data->longterm_pages) {
++		if (data->longterm_nr_pages)
++			unpin_user_pages(data->longterm_pages,
++					 data->longterm_nr_pages);
++		kvfree(data->longterm_pages);
++		data->longterm_pages = NULL;
++		data->longterm_nr_pages = 0;
+ 	}
+ }
+ 
+-static inline int pin_longterm_test_start(unsigned long arg)
++static inline int pin_longterm_test_start(struct gup_test_data *data,
++		unsigned long arg)
+ {
+ 	long nr_pages, cur_pages, addr, remaining_pages;
+ 	int gup_flags = FOLL_LONGTERM;
+@@ -229,7 +232,7 @@ static inline int pin_longterm_test_start(unsigned long arg)
+ 	int ret = 0;
+ 	bool fast;
+ 
+-	if (pin_longterm_test_pages)
++	if (data->longterm_pages)
+ 		return -EINVAL;
+ 
+ 	if (copy_from_user(&args, (void __user *)arg, sizeof(args)))
+@@ -259,12 +262,12 @@ static inline int pin_longterm_test_start(unsigned long arg)
+ 		return -EINTR;
+ 	}
+ 
+-	pin_longterm_test_pages = pages;
+-	pin_longterm_test_nr_pages = 0;
++	data->longterm_pages = pages;
++	data->longterm_nr_pages = 0;
+ 
+-	while (nr_pages - pin_longterm_test_nr_pages) {
+-		remaining_pages = nr_pages - pin_longterm_test_nr_pages;
+-		addr = args.addr + pin_longterm_test_nr_pages * PAGE_SIZE;
++	while (nr_pages - data->longterm_nr_pages) {
++		remaining_pages = nr_pages - data->longterm_nr_pages;
++		addr = args.addr + data->longterm_nr_pages * PAGE_SIZE;
+ 
+ 		if (fast)
+ 			cur_pages = pin_user_pages_fast(addr, remaining_pages,
+@@ -273,11 +276,11 @@ static inline int pin_longterm_test_start(unsigned long arg)
+ 			cur_pages = pin_user_pages(addr, remaining_pages,
+ 						   gup_flags, pages);
+ 		if (cur_pages < 0) {
+-			pin_longterm_test_stop();
++			pin_longterm_test_stop(data);
+ 			ret = cur_pages;
+ 			break;
+ 		}
+-		pin_longterm_test_nr_pages += cur_pages;
++		data->longterm_nr_pages += cur_pages;
+ 		pages += cur_pages;
+ 	}
+ 
+@@ -286,19 +289,20 @@ static inline int pin_longterm_test_start(unsigned long arg)
+ 	return ret;
+ }
+ 
+-static inline int pin_longterm_test_read(unsigned long arg)
++static inline int pin_longterm_test_read(struct gup_test_data *data,
++		unsigned long arg)
+ {
+ 	__u64 user_addr;
+ 	unsigned long i;
+ 
+-	if (!pin_longterm_test_pages)
++	if (!data->longterm_pages)
+ 		return -EINVAL;
+ 
+ 	if (copy_from_user(&user_addr, (void __user *)arg, sizeof(user_addr)))
+ 		return -EFAULT;
+ 
+-	for (i = 0; i < pin_longterm_test_nr_pages; i++) {
+-		void *addr = kmap_local_page(pin_longterm_test_pages[i]);
++	for (i = 0; i < data->longterm_nr_pages; i++) {
++		void *addr = kmap_local_page(data->longterm_pages[i]);
+ 		unsigned long ret;
+ 
+ 		ret = copy_to_user((void __user *)(unsigned long)user_addr, addr,
+@@ -314,25 +318,26 @@ static inline int pin_longterm_test_read(unsigned long arg)
+ static long pin_longterm_test_ioctl(struct file *filep, unsigned int cmd,
+ 				    unsigned long arg)
+ {
++	struct gup_test_data *data = filep->private_data;
+ 	int ret = -EINVAL;
+ 
+-	if (mutex_lock_killable(&pin_longterm_test_mutex))
++	if (mutex_lock_killable(&data->longterm_mutex))
+ 		return -EINTR;
+ 
+ 	switch (cmd) {
+ 	case PIN_LONGTERM_TEST_START:
+-		ret = pin_longterm_test_start(arg);
++		ret = pin_longterm_test_start(data, arg);
+ 		break;
+ 	case PIN_LONGTERM_TEST_STOP:
+-		pin_longterm_test_stop();
++		pin_longterm_test_stop(data);
+ 		ret = 0;
+ 		break;
+ 	case PIN_LONGTERM_TEST_READ:
+-		ret = pin_longterm_test_read(arg);
++		ret = pin_longterm_test_read(data, arg);
+ 		break;
+ 	}
+ 
+-	mutex_unlock(&pin_longterm_test_mutex);
++	mutex_unlock(&data->longterm_mutex);
+ 	return ret;
+ }
+ 
+@@ -371,15 +376,39 @@ static long gup_test_ioctl(struct file *filep, unsigned int cmd,
+ 	return 0;
+ }
+ 
++static int gup_test_open(struct inode *inode, struct file *file)
++{
++	struct gup_test_data *data;
++	int ret;
++
++	data = kzalloc(sizeof(*data), GFP_KERNEL);
++	if (!data)
++		return -ENOMEM;
++
++	ret = nonseekable_open(inode, file);
++	if (ret) {
++		kfree(data);
++		return ret;
++	}
++
++	mutex_init(&data->longterm_mutex);
++	file->private_data = data;
++	return 0;
++}
++
+ static int gup_test_release(struct inode *inode, struct file *file)
+ {
+-	pin_longterm_test_stop();
++	struct gup_test_data *data = file->private_data;
++
++	pin_longterm_test_stop(data);
++	kfree(data);
++	file->private_data = NULL;
+ 
+ 	return 0;
+ }
+ 
+ static const struct file_operations gup_test_fops = {
+-	.open = nonseekable_open,
++	.open = gup_test_open,
+ 	.unlocked_ioctl = gup_test_ioctl,
+ 	.compat_ioctl = compat_ptr_ioctl,
+ 	.release = gup_test_release,
 -- 
-2.41.0
+2.43.0
 
+
+
+Can you review+test that change? Thanks!
+
+-- 
+Cheers,
+
+David
