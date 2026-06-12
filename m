@@ -1,63 +1,63 @@
-Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com [209.85.210.180])
+Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 072AB346E43
-	for <stable@vger.kernel.org>; Fri, 12 Jun 2026 03:59:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A4D23290BD
+	for <stable@vger.kernel.org>; Fri, 12 Jun 2026 03:59:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781236768; cv=none; b=Gb2igfn6pMhRsPRAIJx3IE3p+6F8tI9Cf+mIpASDRnAD9p7OuaDSN0ttAXjyArTYwKgN5v+B9RhUvzdexMD69rkqBh8ibAHyhJi7Tah0nLx3vV2ztYZJ1HBbEGL/KBskZ+GXTSLujjTQTe8ae1aulV8IiyzlOhFAVnd703udwN0=
+	t=1781236773; cv=none; b=JgBRhBJLOZmvxZ/G85YMLOPk0gAg8F6Dy3GWyHiaIJWtYLnHCe8QfGP6bVT6jYfJkQ/xCtZ+iPBY43Qgu/FVWCyZDYNzC6aJ+BRBY+gMb6nwS5p/cDThB3Y3aocl5DA6WSgGqSM8qaEA8Xbn0Ij0xDv+Ra9dDl0l3UzW+H5iDog=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781236768; c=relaxed/simple;
-	bh=it3esgE937uFjKRnmVX2qECQgX5Lg/OcvcB1PIsf0q0=;
+	s=arc-20240116; t=1781236773; c=relaxed/simple;
+	bh=x9z/vRDeyr9Fu3596Te+LWfQJ5AgaVC79DfGI8JIx6c=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=tqg8S9r1udI1KxkmTE+e6UqNZlnLWdq78bk1cx144ozVcufK17eTdO0w2RFn0DNmka0qZVZXz1taINiu8BOtsmViqFpL6eoPp1D1Mr2v1arCMhF3EmDmLiwUtckS0OI3EiwjGo/KRugDzTSn0AtwHQPH2nXv38E5sP5ToYzoLys=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=KZF3MpPD; arc=none smtp.client-ip=209.85.210.180
+	 MIME-Version; b=uP6FtjDrNmCbR88TXcoHIKs8tWb8xuxxTISvag6JTUCPG3NO0HRQqkhlabhtbrEDwIFLXSGQCLnpbvoLJXqfwAoPFwpmLsqSskVGRPYN/m8YKLqZ/R9UZACQvGdJuHeEqLStIdnr2R3cVzfXf9p4YbOtZrReTY21WP+wZyFNiS8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=kmwW1qEf; arc=none smtp.client-ip=209.85.210.181
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="KZF3MpPD"
-Received: by mail-pf1-f180.google.com with SMTP id d2e1a72fcca58-8422871b42dso382407b3a.3
-        for <stable@vger.kernel.org>; Thu, 11 Jun 2026 20:59:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="kmwW1qEf"
+Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-842307472d4so251565b3a.0
+        for <stable@vger.kernel.org>; Thu, 11 Jun 2026 20:59:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bytedance.com; s=google; t=1781236766; x=1781841566; darn=vger.kernel.org;
+        d=bytedance.com; s=google; t=1781236772; x=1781841572; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=A38edv4qBFIhST2C0H/v4DfDnWwAK1V2ZV54LtDXngc=;
-        b=KZF3MpPDUOP61IlwzBlYHkDDlUC3aJgzIzEOTTk1BrbKrCGD/6RnXmiy/pWqbxlano
-         11gnYXiMYJ9aNcWizy37Zi8SEwOVK5srQKbBRfUEr4mbt7EoGYyVjnZ9I2PFWetVTOwW
-         UCuIxX2pkSHXMY0CvkcwPIeQSFOJqPUcxshxGY76baW2ikiATHUnIWxgeVaeG4C22I63
-         vlCoyeFd7HOs8VqRrOx4JDbtzp5fgLo5RqXWPH0O0PIDsu+KjeCWi0soVmdiZsbPlNmo
-         Ssx96Wanvu0z6kpNPJ857WCYu8ipv7YMEJrGv331Dg/i3E5W1vc8GZkM35IOsLfIgd63
-         /5BQ==
+        bh=bw/+TUFGRb1cb6WBPutvKTpZXTM41uBrQaMLYOSWWQg=;
+        b=kmwW1qEf4ygSo/Dk1/wfbv7+s6AQOGo8HVpFwtOgKs1jx1hdAWIg9tUaGPTa8rYY4/
+         6tpRTtwsh1Al+VSrm8aOzRoumuSpH726blbJxVcKcQCbHbl1wZKCyydcyg/5SKA+aiZC
+         sqjKnKDx2fhKE7tl4H09HmjQauaDR5x5yeiemxDwll7jU8bXqMS4enGbJYRHmeDNKk6f
+         UE6nLNQWWKyB+f5rC9Tp+MxoDGpCSJtj2vy+yIn0F6a8slvj+rrNS4I+eLDe3oikVWxz
+         G+WN+0hJN7YYhistgtuTLaK4y9Hd3I4WagA55SpnAjHY5lBVoq5pINo/inGtVu2P0S3w
+         vEog==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781236766; x=1781841566;
+        d=1e100.net; s=20251104; t=1781236772; x=1781841572;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=A38edv4qBFIhST2C0H/v4DfDnWwAK1V2ZV54LtDXngc=;
-        b=oQzbku6CAF935iWL1Ov7L1eMYTvsG7B4HGOyJTFUCCIl+7KUgmUb8Rkn2/S9h1yh2e
-         E4YgEk7i7G5lFc+GPflVU1bF4fMDLvgTyk7/XjFp5ozgnzitv1bsiFbvu3uZahNu2yhb
-         NutDdANoo8R6KlxpYLTqgOyQ0TTH2tnWdilRtrdJ4qavHLNRr3f7DtiDt1roigee4r6H
-         JhbT6cyz6cZnYqJ655A7mH2e9Ye4ZG/Z9anzsOVlM8NEjMhtpcF1iNN7P+eGwS7lnpjE
-         dSCO3AmMvfWwx56W3DsMU4+TL47xC1FFzomnUN4T/pPN/7X44AZn7eEv8NkJkZPpGyVU
-         7udw==
-X-Forwarded-Encrypted: i=1; AFNElJ+DBUR/5KNIv4Q4dRPVekJ7ydiE8iKeykGyJ8W1RfU7Czjfpt0BykG5D50+bskPemkkx2lDyuQ=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyFICIgNYthTvp7etnuHNv/l1HiMp9QGawEsikCp9LcfG/owfQ9
-	I0CoPhh49xa7es6N9DV8qzHlo8/G68of3hN0PKCLZU4iiTFi7tcrMzoVnSsnA4wtBBg=
-X-Gm-Gg: Acq92OHBQ3PA3ZxmjpnFp9BtujVbUJqzUEQcLz3/A9dRtKpfD6wNMno/2lu2X5rnvVc
-	BAmfKVYj7pDIzPyHuvucZNvT/uo+ccipibIHD95cF9JAm27txtYvpb8wkFoCMGP3Oc9zX6jtbIQ
-	PCVWDHNVS6BD4nG/nl3ybHOwfh99mTjfuLUucQ3ibKWaL/uW4lm2z+B/lSbQSGlypxMU2vx+ntO
-	P8sEO+nLVGiqNkaJp0WxfFwn3NGRdT/OTCpoo1vyBJV2Yor1lOCQbi5Boiy5yMDGn+H/akkWYuk
-	uoFDncNRzlVJRR2bW39EkedwFJKRgxcQoG4gh/wr8H33NTczQsrJLnuuyUoVhezN3pt+8qf/9Cb
-	Ew9RuaRPJindbEk/nXcBQBL2e8PgCcqY0B0ARX1KAGRIpoz4EbAPIoFTj2407lS13PY/z+vDqS2
-	L22YIQtsWr+nWlQhEpnHarr2R/rwrhOn2Kw1KSZRdmL4U=
-X-Received: by 2002:a05:6a00:2288:b0:842:5988:470b with SMTP id d2e1a72fcca58-8434cc161cfmr1136338b3a.1.1781236766275;
-        Thu, 11 Jun 2026 20:59:26 -0700 (PDT)
+        bh=bw/+TUFGRb1cb6WBPutvKTpZXTM41uBrQaMLYOSWWQg=;
+        b=n+whGO3xn0hfBFgmcudaqdb1pjsQZKwIpxa14+HpDkueTNvdrOOnvld1+3QztB9ohe
+         kRFaoFqlv58Df4P6fvjrAAoVevKuwhaECChP5xRSLnbIpJV0oH0358JDeIQc4Lkb6+ew
+         hFRHuiJm689UQKrsQkp8AYEHPEh74HQQFlIyCghdGXhx8J42CFiAcJ4POnrj+Dfw18Xb
+         /9RSmQY4zr59SStKDJuLXCH3jDrmOxr5BxT6A2e8G07XZEslcOSIGgE2jXDY9mPj4RAI
+         SCdFq7NW3hdF8zY76iAWrblRjEOxaWFfUyK7Vp9aDvX545mVWMgdsJ9BNE1iyljGR/cy
+         jKmQ==
+X-Forwarded-Encrypted: i=1; AFNElJ/4FmiUhbagUp7enBilLzQOF76TWnmqOrQGcd26qkdxtlj3/yjGUtRc/Ny6/4kgyFTUsV2J7b8=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyVaY0PigTHei48qrlFMulEVBefLydGg+26tQ25F3UHWOS7fW2/
+	6ICQClqthfBs5kfyPPzzYG5Eg2tBmrds/WCYiWzFr0lnaYdYfQlzp+2gucM32pp8wvQ=
+X-Gm-Gg: Acq92OEasEGsmMDFMbtw864z83IxNaQK/MINs8gWFBG0z0miuLqXDUZLq0fJQSSeofY
+	SdtPXg+4s80TwoAKYK4kqvE9TrQ4dKNKYpzKZAoHwdjaCRkv/SqoXC3/7zdW+oDAKQgxOaOLW+t
+	Sq7VR999NjcnV+zwV969Ceolq6w5tQGwe2V4460BcesK2KMchIw+CkRtcxHSfEx7ce9pmw3jVoP
+	R3JcyMU468ADy3HZZa5BPZWldpG/r0O4XsTWnEHm9dpAi0fMNY4HpvxL21vc16k6RrbWUX0vIJL
+	UYNXLF6Fq2EZSuvDrQOEPfOnifsndPrmIrc8KltjGmqZpeHpzTEqiq3JelUq21u0VEzRtmikraj
+	Nd1pcnztsWGI5KUXtGtBSEYu0qb9LHG0uZG2MyRpfDCj+vE0ZRURWjO3CYPK3VBYfcfWqTFnUgk
+	Sff1ND+NGPNnu15N1ir338s29fSl8EyHUKMr/TfhFgQYM=
+X-Received: by 2002:a05:6a00:3395:b0:842:5b1e:5908 with SMTP id d2e1a72fcca58-8434d0795a6mr1106623b3a.25.1781236771699;
+        Thu, 11 Jun 2026 20:59:31 -0700 (PDT)
 Received: from n232-176-004.byted.org ([36.110.163.99])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8434ad03fdcsm643352b3a.24.2026.06.11.20.59.21
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8434ad03fdcsm643352b3a.24.2026.06.11.20.59.26
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 11 Jun 2026 20:59:25 -0700 (PDT)
+        Thu, 11 Jun 2026 20:59:31 -0700 (PDT)
 From: Muchun Song <songmuchun@bytedance.com>
 To: Oscar Salvador <osalvador@suse.de>,
 	David Hildenbrand <david@kernel.org>,
@@ -79,9 +79,9 @@ Cc: Muchun Song <muchun.song@linux.dev>,
 	Mike Kravetz <mike.kravetz@oracle.com>,
 	Muchun Song <songmuchun@bytedance.com>,
 	stable@vger.kernel.org
-Subject: [PATCH v4 03/19] powerpc/mm: Fix wrong addr_pfn tracking in compound vmemmap population
-Date: Fri, 12 Jun 2026 11:58:47 +0800
-Message-ID: <20260612035903.2468601-4-songmuchun@bytedance.com>
+Subject: [PATCH v4 04/19] mm/hugetlb: Initialize gigantic bootmem hugepage struct pages earlier
+Date: Fri, 12 Jun 2026 11:58:48 +0800
+Message-ID: <20260612035903.2468601-5-songmuchun@bytedance.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260612035903.2468601-1-songmuchun@bytedance.com>
 References: <20260612035903.2468601-1-songmuchun@bytedance.com>
@@ -93,96 +93,115 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-vmemmap_populate_compound_pages() uses addr_pfn to determine the PFN
-offset within a compound page and to decide whether the current
-vmemmap slot should be populated as a head page mapping or should reuse
-a tail page mapping.
+Gigantic bootmem HugeTLB pages are currently initialized from hugetlb_init(),
+but page_alloc_init_late() runs earlier and walks pageblocks to determine
+zone contiguity.
 
-However, addr_pfn is advanced manually in parallel with addr.  The loop
-itself progresses in vmemmap address space, so each PAGE_SIZE step in
-addr covers PAGE_SIZE / sizeof(struct page) struct page slots.  Since
-addr_pfn is compared against nr_pages in data-PFN units, it should
-advance by the same number of PFNs.  The existing manual increments do
-not match that and therefore do not reliably track the PFN
-corresponding to the current addr.
+If a bootmem HugeTLB region is marked noinit, set_zone_contiguous() can
+observe still-uninitialized struct pages through __pageblock_pfn_to_page().
+This may not trigger an immediate failure, but it can make
+set_zone_contiguous() compute the wrong zone contiguity state. If extra
+poisoned-page checks are added in this path, such as PF_POISONED_CHECK()
+in page_zone_id(), it can also trigger an early boot panic.
 
-As a result, pfn_offset can be computed from the wrong PFN and the code
-can make the head/tail decision for the wrong compound-page position.
+Initialize gigantic bootmem HugeTLB struct pages from page_alloc_init_late(),
+before zone contiguity is evaluated, so later page allocator setup only
+sees valid struct page state. This also makes the initialization order
+more natural, as struct pages should be initialized before later code
+inspects them.
 
-Fix this by deriving addr_pfn directly from the current vmemmap address
-instead of carrying it as loop state.
-
-Fixes: f2b79c0d7968 ("powerpc/book3s64/radix: add support for vmemmap optimization for radix")
+Fixes: fde1c4ecf916 ("mm: hugetlb: skip initialization of gigantic tail struct pages if freed by HVO")
 Cc: stable@vger.kernel.org
 Signed-off-by: Muchun Song <songmuchun@bytedance.com>
+Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
 Acked-by: Oscar Salvador <osalvador@suse.de>
-Reviewed-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
-
 ---
-v3->v4:
-- Add Cc: stable@vger.kernel.org (suggested by Ritesh Harjani)
-- Collect Reviewed-by from Ritesh Harjani
----
- arch/powerpc/mm/book3s64/radix_pgtable.c | 7 +------
- 1 file changed, 1 insertion(+), 6 deletions(-)
+ include/linux/hugetlb.h | 5 +++++
+ mm/hugetlb.c            | 5 ++---
+ mm/mm_init.c            | 1 +
+ mm/sparse-vmemmap.c     | 4 ++--
+ 4 files changed, 10 insertions(+), 5 deletions(-)
 
-diff --git a/arch/powerpc/mm/book3s64/radix_pgtable.c b/arch/powerpc/mm/book3s64/radix_pgtable.c
-index 10aced261cff..cf692b2b5f7b 100644
---- a/arch/powerpc/mm/book3s64/radix_pgtable.c
-+++ b/arch/powerpc/mm/book3s64/radix_pgtable.c
-@@ -1314,7 +1314,6 @@ int __meminit vmemmap_populate_compound_pages(unsigned long start_pfn,
- 	 * covering out both edges.
+diff --git a/include/linux/hugetlb.h b/include/linux/hugetlb.h
+index 2abaf99321e9..3700c0a1f6ff 100644
+--- a/include/linux/hugetlb.h
++++ b/include/linux/hugetlb.h
+@@ -171,6 +171,7 @@ extern int movable_gigantic_pages __read_mostly;
+ extern int sysctl_hugetlb_shm_group __read_mostly;
+ extern struct list_head huge_boot_pages[MAX_NUMNODES];
+ 
++void hugetlb_bootmem_struct_page_init(void);
+ void hugetlb_bootmem_alloc(void);
+ extern nodemask_t hugetlb_bootmem_nodes;
+ void hugetlb_bootmem_set_nodes(void);
+@@ -1293,6 +1294,10 @@ static inline bool hugetlbfs_pagecache_present(
+ static inline void hugetlb_bootmem_alloc(void)
+ {
+ }
++
++static inline void hugetlb_bootmem_struct_page_init(void)
++{
++}
+ #endif	/* CONFIG_HUGETLB_PAGE */
+ 
+ static inline spinlock_t *huge_pte_lock(struct hstate *h,
+diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+index cd55524c7e30..2bf9fe16abb9 100644
+--- a/mm/hugetlb.c
++++ b/mm/hugetlb.c
+@@ -3353,7 +3353,7 @@ static void __init gather_bootmem_prealloc_parallel(unsigned long start,
+ 		gather_bootmem_prealloc_node(nid);
+ }
+ 
+-static void __init gather_bootmem_prealloc(void)
++void __init hugetlb_bootmem_struct_page_init(void)
+ {
+ 	struct padata_mt_job job = {
+ 		.thread_fn	= gather_bootmem_prealloc_parallel,
+@@ -3582,7 +3582,7 @@ static unsigned long __init hugetlb_pages_alloc_boot(struct hstate *h)
+  * - For gigantic pages, this is called early in the boot process and
+  *   pages are allocated from memblock allocated or something similar.
+  *   Gigantic pages are actually added to pools later with the routine
+- *   gather_bootmem_prealloc.
++ *   hugetlb_bootmem_struct_page_init.
+  * - For non-gigantic pages, this is called later in the boot process after
+  *   all of mm is up and functional.  Pages are allocated from buddy and
+  *   then added to hugetlb pools.
+@@ -4152,7 +4152,6 @@ static int __init hugetlb_init(void)
+ 	}
+ 
+ 	hugetlb_init_hstates();
+-	gather_bootmem_prealloc();
+ 	report_hugepages();
+ 
+ 	hugetlb_sysfs_init();
+diff --git a/mm/mm_init.c b/mm/mm_init.c
+index 0f64909e8d20..92e88fca717f 100644
+--- a/mm/mm_init.c
++++ b/mm/mm_init.c
+@@ -2323,6 +2323,7 @@ void __init page_alloc_init_late(void)
+ 	/* Reinit limits that are based on free pages after the kernel is up */
+ 	files_maxfiles_init();
+ #endif
++	hugetlb_bootmem_struct_page_init();
+ 
+ 	/* Accounting of total+free memory is stable at this point. */
+ 	mem_init_print_info();
+diff --git a/mm/sparse-vmemmap.c b/mm/sparse-vmemmap.c
+index bb23fb3077a3..6e09000ed3e1 100644
+--- a/mm/sparse-vmemmap.c
++++ b/mm/sparse-vmemmap.c
+@@ -342,8 +342,8 @@ static __meminit struct page *vmemmap_get_tail(unsigned int order, struct zone *
+ 	 *
+ 	 * Any initialization done here will be overwritten by memmap_init().
+ 	 *
+-	 * gather_bootmem_prealloc() will take care of initialization after
+-	 * memmap_init().
++	 * hugetlb_bootmem_struct_page_init() will take care of initialization
++	 * after memmap_init().
  	 */
- 	unsigned long addr;
--	unsigned long addr_pfn = start_pfn;
- 	unsigned long next;
- 	pgd_t *pgd;
- 	p4d_t *p4d;
-@@ -1335,7 +1334,6 @@ int __meminit vmemmap_populate_compound_pages(unsigned long start_pfn,
  
- 		if (pmd_leaf(READ_ONCE(*pmd))) {
- 			/* existing huge mapping. Skip the range */
--			addr_pfn += (PMD_SIZE >> PAGE_SHIFT);
- 			next = pmd_addr_end(addr, end);
- 			continue;
- 		}
-@@ -1348,11 +1346,11 @@ int __meminit vmemmap_populate_compound_pages(unsigned long start_pfn,
- 			 * page whose VMEMMAP_RESERVE_NR pages were mapped and
- 			 * this request fall in those pages.
- 			 */
--			addr_pfn += 1;
- 			next = addr + PAGE_SIZE;
- 			continue;
- 		} else {
- 			unsigned long nr_pages = pgmap_vmemmap_nr(pgmap);
-+			unsigned long addr_pfn = page_to_pfn((struct page *)addr);
- 			unsigned long pfn_offset = addr_pfn - ALIGN_DOWN(addr_pfn, nr_pages);
- 			pte_t *tail_page_pte;
- 
-@@ -1376,7 +1374,6 @@ int __meminit vmemmap_populate_compound_pages(unsigned long start_pfn,
- 				if (!pte)
- 					return -ENOMEM;
- 
--				addr_pfn += 2;
- 				next = addr + 2 * PAGE_SIZE;
- 				continue;
- 			}
-@@ -1392,7 +1389,6 @@ int __meminit vmemmap_populate_compound_pages(unsigned long start_pfn,
- 					return -ENOMEM;
- 				vmemmap_verify(pte, node, addr, addr + PAGE_SIZE);
- 
--				addr_pfn += 1;
- 				next = addr + PAGE_SIZE;
- 				continue;
- 			}
-@@ -1402,7 +1398,6 @@ int __meminit vmemmap_populate_compound_pages(unsigned long start_pfn,
- 				return -ENOMEM;
- 			vmemmap_verify(pte, node, addr, addr + PAGE_SIZE);
- 
--			addr_pfn += 1;
- 			next = addr + PAGE_SIZE;
- 			continue;
- 		}
+ 	p = vmemmap_alloc_block_zero(PAGE_SIZE, node);
 -- 
 2.54.0
 
