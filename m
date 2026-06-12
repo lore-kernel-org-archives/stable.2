@@ -1,227 +1,279 @@
-Received: from pdx-out-014.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-014.esa.us-west-2.outbound.mail-perimeter.amazon.com [35.83.148.184])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E59E1347505;
-	Fri, 12 Jun 2026 11:14:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.83.148.184
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74495337BBD
+	for <stable@vger.kernel.org>; Fri, 12 Jun 2026 11:39:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781262851; cv=none; b=jtE5Rp8WXtpbGKEtREa9v6sk1NdhTcYSSpiwWEfErvkgaXTUXEKo4S0hvTi0VWr6Z7Mx7WkqfpSmg50ybnpR1NLvBGog72pUAU9gXmypt0sQ6k1ZCTWf2YmRhqbSFADRb5Gl8PdYoeu1SNVEaIjlV0RMbm9OA23o5kTgtTiTfA0=
+	t=1781264367; cv=none; b=pM8YhPQ59Q/7Go6No6aevGudLh7ZcF/ebG3jCKDJVOezFTtPjpfBvfDw67JKLOl0IEiWRgKK+ob7iW8mjQ2g5HVSgSSDHZ7y2GoF0lgAOWxWCQvJxIqmRsTc+vcfAn23PLYlJ5Lg7q8e8CF2Ig/F2uuR2L/5G+wEQg0nUyNKWgo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781262851; c=relaxed/simple;
-	bh=GBYSV6A5tccGUE0oT6ivWvJZ/ohDk35J4eMtKS9d7QY=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=FAZMKY/SobEoPjWh2JRPIiIvVF9UwND1VgiJVtjdmqY2RW6XtilRqXeqr3sm+6obF02l+9TO5mSQcprjfODlwunDEvfVUVcxSKlLm4dWlmK/GuKdZAvmP1KK5dQEF1jmioEIbWWDWIn7Ko2kB0R9BsNcy6RodnWN/vIiXY3lYBE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de; spf=pass smtp.mailfrom=amazon.de; dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b=bFlvP03H; arc=none smtp.client-ip=35.83.148.184
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
+	s=arc-20240116; t=1781264367; c=relaxed/simple;
+	bh=k/Oih+sY/+gan98CIeSU6NqC/gMIaHic+Zj1neRyjcw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=sVLJF8c86jBr/QPsw0IVcXdKJ4TFPPJjsoZ92fuO4hg9i6w6eL3U+iaL8WoQLK/8BDyW2MZjPMQa76mGtW6nvLHxTHJgjIaLx1qVWr/3IHJdWJmMXgQ1XCQj0eAUYyR9j7XY5idwYngudArveklYOmTWUSRO4NGShz96BG5ZO/A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RutIyfEa; arc=none smtp.client-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b="bFlvP03H"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RutIyfEa"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-490b3637b90so6584175e9.3
+        for <stable@vger.kernel.org>; Fri, 12 Jun 2026 04:39:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
-  t=1781262849; x=1812798849;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=O6maA1P8mQJhlYNJMrel0YDj+XCc5ClmP8RSR3FP0Ho=;
-  b=bFlvP03HJKBy+SZsqDuoxvcse0u9bIcOttw+QSOHxVm7ojhQKSAtQF4G
-   iDYfzu1fzMaL1N44GKO80Ft2EBVzLXdwCkQXVNRCvuywF7rCyYYfNxp9y
-   3w4Ai8h5KbpOiR5WME9/UK0/MJrgMZcSt2JsQYkHuWHOnVXN27AfxmJ1V
-   4bCWNfuvoWfGW29oXY+np88nHWeTrGqfE0tc+QFqv+MP7U6ptGTeptIze
-   mdCsyVvV6kGZzvvUQMcwe9d/PyxTZG6P7XLgtsXJM3+7JhrULbKvsMQ8a
-   fzUYvhlJVLpRaBR9Ae2RwDAwH9y9Nhlaq0Qg2OUvrE8Hph+XxTp7skDW6
-   A==;
-X-CSE-ConnectionGUID: b4zvW5FTRQKflrCU9kXBcg==
-X-CSE-MsgGUID: WSFdfmgHTZixR0aIOu7pqw==
-X-IronPort-AV: E=Sophos;i="6.24,200,1774310400"; 
-   d="scan'208";a="21414278"
-Received: from ip-10-5-9-48.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.9.48])
-  by internal-pdx-out-014.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Jun 2026 11:14:06 +0000
-Received: from EX19MTAUWA001.ant.amazon.com [205.251.233.236:10127]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.47.233:2525] with esmtp (Farcaster)
- id 3d02e454-747b-49e8-af8e-3b981077653a; Fri, 12 Jun 2026 11:14:06 +0000 (UTC)
-X-Farcaster-Flow-ID: 3d02e454-747b-49e8-af8e-3b981077653a
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWA001.ant.amazon.com (10.250.64.218) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.37;
- Fri, 12 Jun 2026 11:14:06 +0000
-Received: from dev-dsk-simonlie-1b-ad174abf.eu-west-1.amazon.com
- (172.19.78.185) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.37; Fri, 12 Jun 2026
- 11:14:03 +0000
-From: Simon Liebold <simonlie@amazon.de>
-To: Steffen Klassert <steffen.klassert@secunet.com>, Herbert Xu
-	<herbert@gondor.apana.org.au>, "David S . Miller" <davem@davemloft.net>,
-	David Ahern <dsahern@kernel.org>, Eric Dumazet <edumazet@google.com>, "Jakub
- Kicinski" <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman
-	<horms@kernel.org>, <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<stable@vger.kernel.org>, Simon Liebold <lieboldsimonpaul@gmail.com>,
-	<sashal@kernel.org>
-CC: Qi Tang <tpluszz77@gmail.com>, Florian Westphal <fw@strlen.de>, "Simon
- Liebold" <simonlie@amazon.de>
-Subject: [PATCH 6.12.y v3 2/2] xfrm: hold dev ref until after transport_finish NF_HOOK
-Date: Fri, 12 Jun 2026 11:13:27 +0000
-Message-ID: <20260612111327.1613710-3-simonlie@amazon.de>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260612111327.1613710-1-simonlie@amazon.de>
-References: <20260612111327.1613710-1-simonlie@amazon.de>
+        d=gmail.com; s=20251104; t=1781264364; x=1781869164; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=dYzBj4KAEohmk943ubVvAhlBJJuDPWUg6WZCNaevSRo=;
+        b=RutIyfEaFt4VPDJT7E4ONmZAcRbiOD/pTJkIQEWWgosnH5+rkOoxpZQJ6tEHGF75Cn
+         g8UGEWiPQEEkp/qtUtNy+pVn0h8QUVarzLNnINP/CwIEjnHwo5935AA3l/AOhCFGsK5M
+         ApWlA+72Y77dqAW4udpkhA5uK3fapdU0hHhtF3sLo6XkYar+qgyFi+qbQdrOyq4MpWRb
+         y9NYViHrcnii6n6rjddDhpvFPLw5KLGGC7Nqdu5GpTQNKajM4PuED7bkwXse0kQxqZMA
+         zsqBWCoWNs5vgQLRNCWfCbY9PCzAepzHKiu6xqAwXIeOFKoHeA9VSesVuLHo3+mdbIUQ
+         QeqQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781264364; x=1781869164;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=dYzBj4KAEohmk943ubVvAhlBJJuDPWUg6WZCNaevSRo=;
+        b=HNx0ifvIMSlZFTxzZgWuO7O5xsI1TuCRFLN4bruiJXM2fVSUgkkXzhJHf7Xpajmv90
+         epXTTvs37XNCF8BW4JIDL06gcwmD0RRJoxY0bo2oc57dNfzSFwoZ1VKtVO6K7s4Q8j1M
+         zVxO0miVfR37hDphxFaf3RSoIHOz4Z2VGAi/JHFPQ39Ird3pnChM1b1VPFnFAfoFt980
+         ICuS92iWcTRd97yhmTj0we1Ef4rOGnYPOHq31QVFjZwuehgXiKTV59LHJqpwSWJA9EUg
+         zZK6vmPpyiwBMOsEMazY3QF3fSLWgEvMF5P76ypc1Yw64wwxZo+g2CCgpm5DBk1oGeHC
+         JuOw==
+X-Forwarded-Encrypted: i=1; AFNElJ9lw2QfSdDjWiLkby318Q2eLHdpR1jnYkgWRqlxqeCWkvxacV9Bq4NvozrXBnwRdWfVgwaAQUM=@vger.kernel.org
+X-Gm-Message-State: AOJu0YysN91GsZJy9xsHA824Ve/Vjm2zO96Gy216Sak7U0Z4r2dMJulw
+	6bgVvnT/5CzRQWYP21VufdrxScuZyFFBfESGzm0ZLYBPZF7Bhtev20Mp
+X-Gm-Gg: Acq92OH3nE/GfoNFl9wFwGjyckJhvieQSFJJcZLxw2dHV0GUWQZvOk63Be9qBLC62lK
+	ZPZEySPAoTATJnkBjze0SnJLo4ZMUGW8be+lMKwxJin7TFPYwelQANKGMzRJkqt6nH7tuMamu45
+	kJrNcVBtGDOFmxgshg0RWNQHA8WUEniSkxUciTtYGOAXZVOAKS2TQEtlGa9fqa+svc8TMSTBait
+	hOYoehW2Gn/o9IZfXwliyuQ2SsTG3Ytpp8LpCMzmZrotYMoqFnY4p16evcj6C36oiNWRme7bhXo
+	AtJJFvT1RFsSPeJsdRRJbCgzTA/kC/0DiSQ1SETSDpCf5yb/h9/PYYeHhPXqry+5IuIrAq7ItFP
+	K6d/2zjM0FERWI6pujArac3C7Yg60T0TkZ1fxztIZ/6pGbw/Sllb2Ji3879//6MndLZ08pffVNI
+	RYguUpym6FP2jHiae6FMcCXOqTTLbR9mq7tNnitILkB83GozWg+PRMuf+6hmkhChxAWfWk+dcLb
+	//FP8wqvp/l1t4H2YLEm/1Dg5zzvley8whBUVFTww==
+X-Received: by 2002:a05:600c:a085:b0:490:b58a:e6ff with SMTP id 5b1f17b1804b1-490ec4df3e7mr26623245e9.22.1781264363440;
+        Fri, 12 Jun 2026 04:39:23 -0700 (PDT)
+Received: from labdl-itc-sw01.tmt.telital.com ([2a01:7d0:4800:7:a04:488a:882a:de93])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490ea843d6fsm62510675e9.14.2026.06.12.04.39.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 12 Jun 2026 04:39:22 -0700 (PDT)
+From: Fabio Porcedda <fabio.porcedda@gmail.com>
+To: Johan Hovold <johan@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-usb@vger.kernel.org,
+	Daniele Palmas <dnlplm@gmail.com>,
+	Fabio Porcedda <fabio.porcedda@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] USB: serial: option: add Telit Cinterion FE990D50 compositions
+Date: Fri, 12 Jun 2026 13:39:16 +0200
+Message-ID: <20260612113916.34894-1-fabio.porcedda@gmail.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ClientProxiedBy: EX19D032UWB003.ant.amazon.com (10.13.139.165) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-From: Qi Tang <tpluszz77@gmail.com>
+Add support for Telit Cinterion FE990D50 compositions:
 
-[ Upstream commit 1c428b03840094410c5fb6a5db30640486bbbfcb ]
+0x990: RNDIS + tty (AT/NMEA) + tty (AT) + tty (AT) + tty (AT) +
+       tty (diag) + ADPL + adb
+T:  Bus=01 Lev=01 Prnt=01 Port=06 Cnt=03 Dev#=  3 Spd=480  MxCh= 0
+D:  Ver= 2.10 Cls=00(>ifc ) Sub=00 Prot=00 MxPS=64 #Cfgs=  1
+P:  Vendor=1bc7 ProdID=0990 Rev=06.06
+S:  Manufacturer=Telit Cinterion
+S:  Product=FE990
+S:  SerialNumber=90b6a3ed
+C:  #Ifs=10 Cfg#= 1 Atr=e0 MxPwr=500mA
+I:  If#= 0 Alt= 0 #EPs= 1 Cls=ef(misc ) Sub=04 Prot=01 Driver=rndis_host
+E:  Ad=82(I) Atr=03(Int.) MxPS=   8 Ivl=32ms
+I:  If#= 1 Alt= 0 #EPs= 2 Cls=0a(data ) Sub=00 Prot=00 Driver=rndis_host
+E:  Ad=01(O) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+E:  Ad=81(I) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+I:  If#= 2 Alt= 0 #EPs= 3 Cls=ff(vend.) Sub=ff Prot=60 Driver=option
+E:  Ad=02(O) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+E:  Ad=83(I) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+E:  Ad=84(I) Atr=03(Int.) MxPS=  10 Ivl=32ms
+I:  If#= 3 Alt= 0 #EPs= 3 Cls=ff(vend.) Sub=ff Prot=40 Driver=option
+E:  Ad=03(O) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+E:  Ad=85(I) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+E:  Ad=86(I) Atr=03(Int.) MxPS=  10 Ivl=32ms
+I:  If#= 4 Alt= 0 #EPs= 3 Cls=ff(vend.) Sub=ff Prot=40 Driver=option
+E:  Ad=04(O) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+E:  Ad=87(I) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+E:  Ad=88(I) Atr=03(Int.) MxPS=  10 Ivl=32ms
+I:  If#= 5 Alt= 0 #EPs= 3 Cls=ff(vend.) Sub=ff Prot=40 Driver=option
+E:  Ad=05(O) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+E:  Ad=89(I) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+E:  Ad=8a(I) Atr=03(Int.) MxPS=  10 Ivl=32ms
+I:  If#= 6 Alt= 0 #EPs= 2 Cls=ff(vend.) Sub=ff Prot=30 Driver=option
+E:  Ad=06(O) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+E:  Ad=8b(I) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+I:  If#= 7 Alt= 0 #EPs= 1 Cls=ff(vend.) Sub=ff Prot=80 Driver=(none)
+E:  Ad=8c(I) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+I:  If#= 8 Alt= 0 #EPs= 1 Cls=ff(vend.) Sub=ff Prot=70 Driver=(none)
+E:  Ad=8d(I) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+I:  If#= 9 Alt= 0 #EPs= 2 Cls=ff(vend.) Sub=42 Prot=01 Driver=(none)
+E:  Ad=07(O) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+E:  Ad=8e(I) Atr=02(Bulk) MxPS= 512 Ivl=0ms
 
-After async crypto completes, xfrm_input_resume() calls dev_put()
-immediately on re-entry before the skb reaches transport_finish.
-The skb->dev pointer is then used inside NF_HOOK and its okfn,
-which can race with device teardown.
+0x991: rmnet + tty (AT/NMEA) + tty (AT) + tty (AT) + tty (AT) +
+       tty (diag) + ADPL + adb
+T:  Bus=01 Lev=01 Prnt=01 Port=06 Cnt=03 Dev#=  9 Spd=480  MxCh= 0
+D:  Ver= 2.10 Cls=00(>ifc ) Sub=00 Prot=00 MxPS=64 #Cfgs=  1
+P:  Vendor=1bc7 ProdID=0991 Rev=06.06
+S:  Manufacturer=Telit Cinterion
+S:  Product=FE990
+S:  SerialNumber=90b6a3ed
+C:  #Ifs= 9 Cfg#= 1 Atr=e0 MxPwr=500mA
+I:  If#= 0 Alt= 0 #EPs= 3 Cls=ff(vend.) Sub=ff Prot=50 Driver=(none)
+E:  Ad=01(O) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+E:  Ad=81(I) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+E:  Ad=82(I) Atr=03(Int.) MxPS=   8 Ivl=32ms
+I:  If#= 1 Alt= 0 #EPs= 3 Cls=ff(vend.) Sub=ff Prot=60 Driver=option
+E:  Ad=02(O) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+E:  Ad=83(I) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+E:  Ad=84(I) Atr=03(Int.) MxPS=  10 Ivl=32ms
+I:  If#= 2 Alt= 0 #EPs= 3 Cls=ff(vend.) Sub=ff Prot=40 Driver=option
+E:  Ad=03(O) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+E:  Ad=85(I) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+E:  Ad=86(I) Atr=03(Int.) MxPS=  10 Ivl=32ms
+I:  If#= 3 Alt= 0 #EPs= 3 Cls=ff(vend.) Sub=ff Prot=40 Driver=option
+E:  Ad=04(O) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+E:  Ad=87(I) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+E:  Ad=88(I) Atr=03(Int.) MxPS=  10 Ivl=32ms
+I:  If#= 4 Alt= 0 #EPs= 3 Cls=ff(vend.) Sub=ff Prot=40 Driver=option
+E:  Ad=05(O) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+E:  Ad=89(I) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+E:  Ad=8a(I) Atr=03(Int.) MxPS=  10 Ivl=32ms
+I:  If#= 5 Alt= 0 #EPs= 2 Cls=ff(vend.) Sub=ff Prot=30 Driver=option
+E:  Ad=06(O) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+E:  Ad=8b(I) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+I:  If#= 6 Alt= 0 #EPs= 1 Cls=ff(vend.) Sub=ff Prot=80 Driver=(none)
+E:  Ad=8c(I) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+I:  If#= 7 Alt= 0 #EPs= 1 Cls=ff(vend.) Sub=ff Prot=70 Driver=(none)
+E:  Ad=8d(I) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+I:  If#= 8 Alt= 0 #EPs= 2 Cls=ff(vend.) Sub=42 Prot=01 Driver=(none)
+E:  Ad=07(O) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+E:  Ad=8e(I) Atr=02(Bulk) MxPS= 512 Ivl=0ms
 
-Remove the dev_put from the async resumption entry and instead
-drop the reference after the NF_HOOK call in transport_finish,
-using a saved device pointer since NF_HOOK may consume the skb.
-This covers NF_DROP, NF_QUEUE and NF_STOLEN paths that skip
-the okfn.
+0x992: MBIM + tty (AT/NMEA) + tty (AT) + tty (AT) + tty (AT) +
+       tty (diag) + ADPL + adb
+T:  Bus=01 Lev=01 Prnt=01 Port=06 Cnt=03 Dev#= 12 Spd=480  MxCh= 0
+D:  Ver= 2.10 Cls=ef(misc ) Sub=02 Prot=01 MxPS=64 #Cfgs=  1
+P:  Vendor=1bc7 ProdID=0992 Rev=06.06
+S:  Manufacturer=Telit Cinterion
+S:  Product=FE990
+S:  SerialNumber=90b6a3ed
+C:  #Ifs=10 Cfg#= 1 Atr=e0 MxPwr=500mA
+I:  If#= 0 Alt= 0 #EPs= 1 Cls=02(commc) Sub=0e Prot=00 Driver=cdc_mbim
+E:  Ad=82(I) Atr=03(Int.) MxPS=  64 Ivl=32ms
+I:  If#= 1 Alt= 1 #EPs= 2 Cls=0a(data ) Sub=00 Prot=02 Driver=cdc_mbim
+E:  Ad=01(O) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+E:  Ad=81(I) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+I:  If#= 2 Alt= 0 #EPs= 3 Cls=ff(vend.) Sub=ff Prot=60 Driver=option
+E:  Ad=02(O) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+E:  Ad=83(I) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+E:  Ad=84(I) Atr=03(Int.) MxPS=  10 Ivl=32ms
+I:  If#= 3 Alt= 0 #EPs= 3 Cls=ff(vend.) Sub=ff Prot=40 Driver=option
+E:  Ad=03(O) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+E:  Ad=85(I) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+E:  Ad=86(I) Atr=03(Int.) MxPS=  10 Ivl=32ms
+I:  If#= 4 Alt= 0 #EPs= 3 Cls=ff(vend.) Sub=ff Prot=40 Driver=option
+E:  Ad=04(O) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+E:  Ad=87(I) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+E:  Ad=88(I) Atr=03(Int.) MxPS=  10 Ivl=32ms
+I:  If#= 5 Alt= 0 #EPs= 3 Cls=ff(vend.) Sub=ff Prot=40 Driver=option
+E:  Ad=05(O) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+E:  Ad=89(I) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+E:  Ad=8a(I) Atr=03(Int.) MxPS=  10 Ivl=32ms
+I:  If#= 6 Alt= 0 #EPs= 2 Cls=ff(vend.) Sub=ff Prot=30 Driver=option
+E:  Ad=06(O) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+E:  Ad=8b(I) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+I:  If#= 7 Alt= 0 #EPs= 1 Cls=ff(vend.) Sub=ff Prot=80 Driver=(none)
+E:  Ad=8c(I) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+I:  If#= 8 Alt= 0 #EPs= 1 Cls=ff(vend.) Sub=ff Prot=70 Driver=(none)
+E:  Ad=8d(I) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+I:  If#= 9 Alt= 0 #EPs= 2 Cls=ff(vend.) Sub=42 Prot=01 Driver=(none)
+E:  Ad=07(O) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+E:  Ad=8e(I) Atr=02(Bulk) MxPS= 512 Ivl=0ms
 
-For non-transport exits (decaps, gro, drop) and secondary
-async return points, release the reference inline when
-async is set.
+0x993: ECM + tty (AT/NMEA) + tty (AT) + tty (AT) + tty (AT) +
+       tty (diag) + ADPL + adb
+T:  Bus=01 Lev=01 Prnt=01 Port=06 Cnt=03 Dev#= 15 Spd=480  MxCh= 0
+D:  Ver= 2.10 Cls=00(>ifc ) Sub=00 Prot=00 MxPS=64 #Cfgs=  1
+P:  Vendor=1bc7 ProdID=0993 Rev=06.06
+S:  Manufacturer=Telit Cinterion
+S:  Product=FE990
+S:  SerialNumber=90b6a3ed
+C:  #Ifs=10 Cfg#= 1 Atr=e0 MxPwr=500mA
+I:  If#= 0 Alt= 0 #EPs= 1 Cls=02(commc) Sub=06 Prot=00 Driver=cdc_ether
+E:  Ad=82(I) Atr=03(Int.) MxPS=  16 Ivl=32ms
+I:  If#= 1 Alt= 1 #EPs= 2 Cls=0a(data ) Sub=00 Prot=00 Driver=cdc_ether
+E:  Ad=01(O) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+E:  Ad=81(I) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+I:  If#= 2 Alt= 0 #EPs= 3 Cls=ff(vend.) Sub=ff Prot=60 Driver=option
+E:  Ad=02(O) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+E:  Ad=83(I) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+E:  Ad=84(I) Atr=03(Int.) MxPS=  10 Ivl=32ms
+I:  If#= 3 Alt= 0 #EPs= 3 Cls=ff(vend.) Sub=ff Prot=40 Driver=option
+E:  Ad=03(O) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+E:  Ad=85(I) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+E:  Ad=86(I) Atr=03(Int.) MxPS=  10 Ivl=32ms
+I:  If#= 4 Alt= 0 #EPs= 3 Cls=ff(vend.) Sub=ff Prot=40 Driver=option
+E:  Ad=04(O) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+E:  Ad=87(I) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+E:  Ad=88(I) Atr=03(Int.) MxPS=  10 Ivl=32ms
+I:  If#= 5 Alt= 0 #EPs= 3 Cls=ff(vend.) Sub=ff Prot=40 Driver=option
+E:  Ad=05(O) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+E:  Ad=89(I) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+E:  Ad=8a(I) Atr=03(Int.) MxPS=  10 Ivl=32ms
+I:  If#= 6 Alt= 0 #EPs= 2 Cls=ff(vend.) Sub=ff Prot=30 Driver=option
+E:  Ad=06(O) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+E:  Ad=8b(I) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+I:  If#= 7 Alt= 0 #EPs= 1 Cls=ff(vend.) Sub=ff Prot=80 Driver=(none)
+E:  Ad=8c(I) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+I:  If#= 8 Alt= 0 #EPs= 1 Cls=ff(vend.) Sub=ff Prot=70 Driver=(none)
+E:  Ad=8d(I) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+I:  If#= 9 Alt= 0 #EPs= 2 Cls=ff(vend.) Sub=42 Prot=01 Driver=(none)
+E:  Ad=07(O) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+E:  Ad=8e(I) Atr=02(Bulk) MxPS= 512 Ivl=0ms
 
-Suggested-by: Florian Westphal <fw@strlen.de>
-Fixes: acf568ee859f ("xfrm: Reinject transport-mode packets through tasklet")
 Cc: stable@vger.kernel.org
-Signed-off-by: Qi Tang <tpluszz77@gmail.com>
-Signed-off-by: Steffen Klassert <steffen.klassert@secunet.com>
-[ xfrm_inner_mode_input() always completes synchronously in this kernel
-version and cannot return -EINPROGRESS. That requires
-7ac64f4598b4 ("xfrm: add mode_cbs module functionality"), which is not
-present, so the async dev_put path is unreachable and the hunk was
-omitted ]
-Signed-off-by: Simon Liebold <simonlie@amazon.de>
+Signed-off-by: Fabio Porcedda <fabio.porcedda@gmail.com>
 ---
- net/ipv4/xfrm4_input.c |  5 ++++-
- net/ipv6/xfrm6_input.c |  5 ++++-
- net/xfrm/xfrm_input.c  | 12 ++++++++++--
- 3 files changed, 18 insertions(+), 4 deletions(-)
+ drivers/usb/serial/option.c | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
-diff --git a/net/ipv4/xfrm4_input.c b/net/ipv4/xfrm4_input.c
-index 12a1a0f421956..adf21d6b6076c 100644
---- a/net/ipv4/xfrm4_input.c
-+++ b/net/ipv4/xfrm4_input.c
-@@ -50,6 +50,7 @@ int xfrm4_transport_finish(struct sk_buff *skb, int async)
- {
- 	struct xfrm_offload *xo = xfrm_offload(skb);
- 	struct iphdr *iph = ip_hdr(skb);
-+	struct net_device *dev = skb->dev;
- 
- 	iph->protocol = XFRM_MODE_SKB_CB(skb)->protocol;
- 
-@@ -73,8 +74,10 @@ int xfrm4_transport_finish(struct sk_buff *skb, int async)
- 	}
- 
- 	NF_HOOK(NFPROTO_IPV4, NF_INET_PRE_ROUTING,
--		dev_net(skb->dev), NULL, skb, skb->dev, NULL,
-+		dev_net(dev), NULL, skb, dev, NULL,
- 		xfrm4_rcv_encap_finish);
-+	if (async)
-+		dev_put(dev);
- 	return 0;
- }
- 
-diff --git a/net/ipv6/xfrm6_input.c b/net/ipv6/xfrm6_input.c
-index 9005fc156a20e..699a001ac1662 100644
---- a/net/ipv6/xfrm6_input.c
-+++ b/net/ipv6/xfrm6_input.c
-@@ -43,6 +43,7 @@ static int xfrm6_transport_finish2(struct net *net, struct sock *sk,
- int xfrm6_transport_finish(struct sk_buff *skb, int async)
- {
- 	struct xfrm_offload *xo = xfrm_offload(skb);
-+	struct net_device *dev = skb->dev;
- 	int nhlen = -skb_network_offset(skb);
- 
- 	skb_network_header(skb)[IP6CB(skb)->nhoff] =
-@@ -68,8 +69,10 @@ int xfrm6_transport_finish(struct sk_buff *skb, int async)
- 	}
- 
- 	NF_HOOK(NFPROTO_IPV6, NF_INET_PRE_ROUTING,
--		dev_net(skb->dev), NULL, skb, skb->dev, NULL,
-+		dev_net(dev), NULL, skb, dev, NULL,
- 		xfrm6_transport_finish2);
-+	if (async)
-+		dev_put(dev);
- 	return 0;
- }
- 
-diff --git a/net/xfrm/xfrm_input.c b/net/xfrm/xfrm_input.c
-index 90a79558dca25..5d3633ce6ba32 100644
---- a/net/xfrm/xfrm_input.c
-+++ b/net/xfrm/xfrm_input.c
-@@ -492,7 +492,6 @@ int xfrm_input(struct sk_buff *skb, int nexthdr, __be32 spi, int encap_type)
- 		/* An encap_type of -1 indicates async resumption. */
- 		if (encap_type == -1) {
- 			async = 1;
--			dev_put(skb->dev);
- 			seq = XFRM_SKB_CB(skb)->seq.input.low;
- 			goto resume;
- 		}
-@@ -645,8 +644,11 @@ int xfrm_input(struct sk_buff *skb, int nexthdr, __be32 spi, int encap_type)
- 			dev_hold(skb->dev);
- 
- 			nexthdr = x->type->input(x, skb);
--			if (nexthdr == -EINPROGRESS)
-+			if (nexthdr == -EINPROGRESS) {
-+				if (async)
-+					dev_put(skb->dev);
- 				return 0;
-+			}
- 
- 			dev_put(skb->dev);
- 		}
-@@ -717,6 +719,8 @@ int xfrm_input(struct sk_buff *skb, int nexthdr, __be32 spi, int encap_type)
- 			sp->olen = 0;
- 		if (skb_valid_dst(skb))
- 			skb_dst_drop(skb);
-+		if (async)
-+			dev_put(skb->dev);
- 		gro_cells_receive(&gro_cells, skb);
- 		return 0;
- 	} else {
-@@ -736,6 +740,8 @@ int xfrm_input(struct sk_buff *skb, int nexthdr, __be32 spi, int encap_type)
- 				sp->olen = 0;
- 			if (skb_valid_dst(skb))
- 				skb_dst_drop(skb);
-+			if (async)
-+				dev_put(skb->dev);
- 			gro_cells_receive(&gro_cells, skb);
- 			return err;
- 		}
-@@ -746,6 +752,8 @@ int xfrm_input(struct sk_buff *skb, int nexthdr, __be32 spi, int encap_type)
- drop_unlock:
- 	spin_unlock(&x->lock);
- drop:
-+	if (async)
-+		dev_put(skb->dev);
- 	xfrm_rcv_cb(skb, family, x && x->type ? x->type->proto : nexthdr, -1);
- 	kfree_skb(skb);
- 	return 0;
+diff --git a/drivers/usb/serial/option.c b/drivers/usb/serial/option.c
+index a34e79cfd5b6..7a0f37feb9f2 100644
+--- a/drivers/usb/serial/option.c
++++ b/drivers/usb/serial/option.c
+@@ -1326,6 +1326,22 @@ static const struct usb_device_id option_ids[] = {
+ 	{ USB_DEVICE(TELIT_VENDOR_ID, TELIT_PRODUCT_CC864_SINGLE) },
+ 	{ USB_DEVICE(TELIT_VENDOR_ID, TELIT_PRODUCT_DE910_DUAL) },
+ 	{ USB_DEVICE(TELIT_VENDOR_ID, TELIT_PRODUCT_UE910_V2) },
++	{ USB_DEVICE_AND_INTERFACE_INFO(TELIT_VENDOR_ID, 0x0990, 0xff, 0xff, 0x30),	/* Telit FE990D50 (RNDIS) */
++	  .driver_info = NCTRL(6) },
++	{ USB_DEVICE_AND_INTERFACE_INFO(TELIT_VENDOR_ID, 0x0990, 0xff, 0xff, 0x40) },
++	{ USB_DEVICE_AND_INTERFACE_INFO(TELIT_VENDOR_ID, 0x0990, 0xff, 0xff, 0x60) },
++	{ USB_DEVICE_AND_INTERFACE_INFO(TELIT_VENDOR_ID, 0x0991, 0xff, 0xff, 0x30),	/* Telit FE990D50 (rmnet) */
++	  .driver_info = NCTRL(5) },
++	{ USB_DEVICE_AND_INTERFACE_INFO(TELIT_VENDOR_ID, 0x0991, 0xff, 0xff, 0x40) },
++	{ USB_DEVICE_AND_INTERFACE_INFO(TELIT_VENDOR_ID, 0x0991, 0xff, 0xff, 0x60) },
++	{ USB_DEVICE_AND_INTERFACE_INFO(TELIT_VENDOR_ID, 0x0992, 0xff, 0xff, 0x30),	/* Telit FE990D50 (MBIM) */
++	  .driver_info = NCTRL(6) },
++	{ USB_DEVICE_AND_INTERFACE_INFO(TELIT_VENDOR_ID, 0x0992, 0xff, 0xff, 0x40) },
++	{ USB_DEVICE_AND_INTERFACE_INFO(TELIT_VENDOR_ID, 0x0992, 0xff, 0xff, 0x60) },
++	{ USB_DEVICE_AND_INTERFACE_INFO(TELIT_VENDOR_ID, 0x0993, 0xff, 0xff, 0x30),	/* Telit FE990D50 (ECM) */
++	  .driver_info = NCTRL(6) },
++	{ USB_DEVICE_AND_INTERFACE_INFO(TELIT_VENDOR_ID, 0x0993, 0xff, 0xff, 0x40) },
++	{ USB_DEVICE_AND_INTERFACE_INFO(TELIT_VENDOR_ID, 0x0993, 0xff, 0xff, 0x60) },
+ 	{ USB_DEVICE_INTERFACE_CLASS(TELIT_VENDOR_ID, 0x1031, 0xff),	/* Telit LE910C1-EUX */
+ 	 .driver_info = NCTRL(0) | RSVD(3) },
+ 	{ USB_DEVICE_INTERFACE_CLASS(TELIT_VENDOR_ID, 0x1033, 0xff),	/* Telit LE910C1-EUX (ECM) */
 -- 
-2.50.1
-
-
-
-
-Amazon Web Services Development Center Germany GmbH
-Tamara-Danz-Str. 13
-10243 Berlin
-Geschaeftsfuehrung: Christof Hellmis, Andreas Stieger
-Eingetragen am Amtsgericht Charlottenburg unter HRB 257764 B
-Sitz: Berlin
-Ust-ID: DE 365 538 597
+2.54.0
 
