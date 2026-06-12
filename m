@@ -1,154 +1,108 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E7D83932CA;
-	Fri, 12 Jun 2026 09:06:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C113B3019C8;
+	Fri, 12 Jun 2026 09:08:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781255212; cv=none; b=IHiazXRwdJSc1+9V0VCadubSKna4HLrzfQBk8fzNjT2RB0uLbd2S6NUDfrpAouPmvjQwT4AjAGvlD7PHnjcBcRoiT1qYOgcb4esVrQraJcqg8Vbleh8m7e1bQ3CMvI11JDbW/jmSfuPfdB0KNIQ+tJo+Z2qGL7czhCki0i5SPRg=
+	t=1781255329; cv=none; b=fORcVHzBfqKOjzsxiXMgUsI/3yx2grfxb6yP6syLWDY7GCua+R9HTWbozoz7wnLETjzlTH/8UCK7rqF8UtgpL/1Z29f1oVme+Ytg1dQodKBRMor+7bU/zETT9Oe/QTIW/7tgu5dK9C/TKn9JR0XxZDxPYDAjKvEosrH2afhxkPk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781255212; c=relaxed/simple;
-	bh=QvBoFxlF5mWX2U7pNRAm7c9fH9xGLdrQEs/g5ovKvgQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=DdKa1ui8po2I1HmlJl1+8j7m/wxmqeHrkqJPCe1vC8GEjDsDppXtQ7QOx6RYXkyGPLFlG7PsvHiz+B8xc6JdFaHFeXjSOnP5Mzywu04fYg0h73RmV90qCCneyQlWeX8NkAMJkL0SNu0L5+siAR8FiqTcMoeEulsc5oPRA1/0wyA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=QuhHOyw5; arc=none smtp.client-ip=198.175.65.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1781255329; c=relaxed/simple;
+	bh=X0h9qzffs4Mr+jLbQ6wsfgUWcYZaSs/OHsx1tSguQhA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ESEz5m5y3cYI58i6eL+lOUok2ZpO3lpXo8Q0Nq68BTU+0OwpIxHBRsQx4njBjjDkOitRLKnMMKBwJaUNporkMpz1rxbyqaTHGPdLoQONs8q2J70r57nx8fFV89hU/bg7wNmTD9XTsS/tih/Pmdt+vvMj/V7azXmKGqWF2qnchNQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FFo6c/gw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="QuhHOyw5"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1781255207; x=1812791207;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=QvBoFxlF5mWX2U7pNRAm7c9fH9xGLdrQEs/g5ovKvgQ=;
-  b=QuhHOyw5L3BMRrh80lFC7JFhKLlDJBD7ONEg4zZTooO5swtZzMG7fCwn
-   zcbvS2LN3QgEdndcfV1fzKdkwc538SI9hI7ARqg+Rum9dcIVXgABvQlmo
-   HnjDfUZIf3UmXeYtBoghAYDoXjGKPSsXUmQ4elsc+y8C4twA5EGxPCBUF
-   9XJGb3v42uDavyymBJeDqVejAkSMY7g/QQBtEHFjxFxjcQ4CLseKj9fLq
-   PrBgBflMVLONP9obtFH18oTgGqmHMKModirelllTOEWXw8hS4Ms1XbuAI
-   GzT7gQeUMgcU848yZ0JxfL/16H4MsLT2za7TkQ/vR4i39UuNYZWsTZc+q
-   Q==;
-X-CSE-ConnectionGUID: /vcGdTvYQaaZVyhZwTjbeA==
-X-CSE-MsgGUID: Ult9b4fURvCTH+81oIPSKw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11813"; a="85714453"
-X-IronPort-AV: E=Sophos;i="6.24,200,1774335600"; 
-   d="scan'208";a="85714453"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Jun 2026 02:06:46 -0700
-X-CSE-ConnectionGUID: cu5sOpG9RcuYaupmW+VEiQ==
-X-CSE-MsgGUID: nsySTU8CS1SBaFUVLgZuXQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,200,1774335600"; 
-   d="scan'208";a="246838732"
-Received: from spr.sh.intel.com ([10.112.230.239])
-  by orviesa007.jf.intel.com with ESMTP; 12 Jun 2026 02:06:42 -0700
-From: Dapeng Mi <dapeng1.mi@linux.intel.com>
-To: Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Andi Kleen <ak@linux.intel.com>,
-	Eranian Stephane <eranian@google.com>
-Cc: linux-kernel@vger.kernel.org,
-	linux-perf-users@vger.kernel.org,
-	Dapeng Mi <dapeng1.mi@intel.com>,
-	Zide Chen <zide.chen@intel.com>,
-	Falcon Thomas <thomas.falcon@intel.com>,
-	Xudong Hao <xudong.hao@intel.com>,
-	Dapeng Mi <dapeng1.mi@linux.intel.com>,
-	stable@vger.kernel.org
-Subject: [Patch v3 4/8] perf/x86/intel: Fix kernel address leakages in LBR stack
-Date: Fri, 12 Jun 2026 17:01:10 +0800
-Message-Id: <20260612090114.3188886-5-dapeng1.mi@linux.intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260612090114.3188886-1-dapeng1.mi@linux.intel.com>
-References: <20260612090114.3188886-1-dapeng1.mi@linux.intel.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FFo6c/gw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56C4A1F00A3A;
+	Fri, 12 Jun 2026 09:08:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781255328;
+	bh=uFe+jQS8ife+ArR1PefA5xIjFY5vP2b+bv7MvqxNs90=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=FFo6c/gwD5+/iMeteUmloxED+zhI1Jsefq05Le1kipgpQnHu/2MhqurllCutE3XLq
+	 wYxFJrjztv+7CGF+DguhK4C/ZQlkOGTG1rftY6t73Qbd2lNklOILx6n8pMNUDpm0iQ
+	 tsK6OybAzAHvrYxFUy32m0j6P1FaZPRYWhMi0TRYdatebDbeKWfyq+X1b6duVSWUFB
+	 ypdQFpq50xfdR6eteNidBnHOUgszRuyQfT6wIiL5XcNDWHmUZyNsiLvyHBhJR3jYEO
+	 I213v0/uufi/t5ljalanAoJeMM7qMf7o9yA6RybVGjgQC7ixxt5AejlZ3rJ+zmzBQQ
+	 V2LyLKSCWIfOQ==
+Received: from johan by xi.lan with local (Exim 4.99.3)
+	(envelope-from <johan@kernel.org>)
+	id 1wXxsb-00000002A1O-4AO2;
+	Fri, 12 Jun 2026 11:08:46 +0200
+Date: Fri, 12 Jun 2026 11:08:45 +0200
+From: Johan Hovold <johan@kernel.org>
+To: WenTao Liang <vulab@iscas.ac.cn>
+Cc: gregkh@linuxfoundation.org, stern@rowland.harvard.edu,
+	mathias.nyman@linux.intel.com, khtsai@google.com,
+	thorsten.blum@linux.dev, kees@kernel.org, linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] usb: hub: fix refcount leak in usb_new_device()
+Message-ID: <aivMnTkZ-jTRH2Jy@hovoldconsulting.com>
+References: <20260611130223.80884-1-vulab@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260611130223.80884-1-vulab@iscas.ac.cn>
 
-Before Arch LBR gained CPL filtering support, a user-only branch stack
-could still contain kernel addresses. As a result, kernel branch records
-may be exposed to user space even when PERF_SAMPLE_BRANCH_USER is
-requested.
+On Thu, Jun 11, 2026 at 09:02:23PM +0800, WenTao Liang wrote:
+> If usb_new_device() fails after pm_runtime_get_noresume() has
+> been called, it does not release the corresponding reference.
+> In the successful path, the reference is properly dropped via
+> pm_runtime_put_sync_autosuspend().  However, when an error
+> occurs during enumeration (e.g. usb_enumerate_device() failure)
+> or device registration (e.g. device_add() failure), the function
+> jumps to the "fail" label.  That error cleanup path only disables
+> runtime PM and marks the device as suspended, never putting the
+> usage count back.
 
-For example, on Intel Tiger Lake, the following command can still report
-SYSRET/ERET entries with kernel-space from addresses:
+> This results in a permanent imbalance of
+> power.usage_count, preventing future runtime PM state transitions
+> and proper device cleanup.
 
-```
-$./perf record -e cycles:p -o - --branch-filter any,save_type,u -- \
- 	./perf bench syscall basic --loop 1000 | \
-	./perf script -i - --fields brstack|tr ' ' '\n'| \
-	grep -E '0x[89a-f][0-9a-f]{15}'
+Not really, as the device is about to be freed. Sure, the runtime pm
+usage count is never balanced, but it does not have any practical
+implications whatsoever.
 
-    Total time: 0.000 [sec]
+> Fix the leak by adding a pm_runtime_put_noidle() call before
+> pm_runtime_disable() in the fail error path, which releases the
+> reference without queuing any suspend work and appropriately
+> matches the pm_runtime_get
+> 
+> Cc: stable@vger.kernel.org
+> Fixes: 9bbdf1e0afe7 ("USB: convert to the runtime PM framework")
 
-      0.219000 usecs/op
-     4,566,210 ops/sec
-[ perf record: Woken up 1 times to write data ]
-[ perf record: Captured and wrote 0.551 MB - ]
-0xffffffff93c001c8/0x7f12a2b1d647/P/-/-/16959/SYSRET/-
-0xffffffff93c001c8/0x7f12a2b1d5c2/P/-/-/17535/SYSRET/-
-0xffffffff93c01928/0x7f12a2861000/P/-/-/6719/ERET/-
-0xffffffff93c01928/0x7f12a297a000/P/-/-/8575/ERET/-
-```
+So there is no need for either a Fixes or CC-stable tag here.
 
-The problem is that intel_pmu_lbr_filter() does not fully validate the
-privilege level of sampled entries. It filters some mismatches based on
-the branch type and the to address, but it does not reject entries whose
-from address violates the requested branch privilege filter.
+> Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
 
-Fix this by extending software filtering to validate both from and to
-addresses against br_sel. Any LBR entry contains kernel address does not
-match the requested user filter is dropped. This prevents kernel
-addresses from appearing in user-only branch stacks.
+How was this "issue" found? Are you using some kind of static checker or
+LLM?
 
-Cc: stable@vger.kernel.org
-Reported-by: Ian Rogers <irogers@google.com>
-Fixes: 47125db27e47 ("perf/x86/intel/lbr: Support Architectural LBR")
-Signed-off-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
----
- arch/x86/events/intel/lbr.c | 12 +++++++++---
- 1 file changed, 9 insertions(+), 3 deletions(-)
+> ---
+>  drivers/usb/core/hub.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/drivers/usb/core/hub.c b/drivers/usb/core/hub.c
+> index 24960ba9caa9..05f1a4267aec 100644
+> --- a/drivers/usb/core/hub.c
+> +++ b/drivers/usb/core/hub.c
+> @@ -2731,6 +2731,7 @@ int usb_new_device(struct usb_device *udev)
+>  	device_del(&udev->dev);
+>  fail:
+>  	usb_set_device_state(udev, USB_STATE_NOTATTACHED);
+> +	pm_runtime_put_noidle(&udev->dev);
 
-diff --git a/arch/x86/events/intel/lbr.c b/arch/x86/events/intel/lbr.c
-index e2657f791e50..16eef1537816 100644
---- a/arch/x86/events/intel/lbr.c
-+++ b/arch/x86/events/intel/lbr.c
-@@ -1212,7 +1212,7 @@ intel_pmu_lbr_filter(struct cpu_hw_events *cpuc)
- {
- 	u64 from, to;
- 	int br_sel = cpuc->br_sel;
--	int i, j, type, to_plm;
-+	int i, j, type, from_plm, to_plm;
- 	bool compress = false;
- 
- 	/* if sampling all branches, then nothing to filter */
-@@ -1244,8 +1244,14 @@ intel_pmu_lbr_filter(struct cpu_hw_events *cpuc)
- 				type |= X86_BR_NO_TX;
- 		}
- 
--		/* if type does not correspond, then discard */
--		if (type == X86_BR_NONE || (br_sel & type) != type) {
-+		from_plm = kernel_ip(from) ? X86_BR_KERNEL : X86_BR_USER;
-+		/*
-+		 * If type does not correspond, then discard.
-+		 * Specifically reject entries whose from address is in
-+		 * kernel space when only X86_BR_USER is requested.
-+		 */
-+		if (type == X86_BR_NONE || (br_sel & type) != type ||
-+		    (!(br_sel & X86_BR_KERNEL) && (from_plm & X86_BR_KERNEL))) {
- 			cpuc->lbr_entries[i].from = 0;
- 			compress = true;
- 		}
--- 
-2.34.1
+The reference should be dropped after disabling (so that the device
+cannot possibly be suspended here).
 
+>  	pm_runtime_disable(&udev->dev);
+>  	pm_runtime_set_suspended(&udev->dev);
+>  	return err;
+
+Johan
