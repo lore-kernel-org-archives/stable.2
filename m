@@ -1,148 +1,153 @@
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.katalix.com (mail.katalix.com [3.9.82.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2816D37756E
-	for <stable@vger.kernel.org>; Fri, 12 Jun 2026 10:18:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E412C339844;
+	Fri, 12 Jun 2026 10:23:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=3.9.82.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781259533; cv=none; b=SLOeH3BOIYYjpUZiZs07hCFXujmjUV7HdLXZoM40clfbHfjF5gT+EWC742tulJwWL34unlGmxWMU6cmdUCX+tb25keDpS2sEFHSzvES4WZGieZOor8brymyCUKqj1yYAZkS32Wqy4rayYTqV/kl+oP03CqUSQVhUUSVO++0wKQM=
+	t=1781259796; cv=none; b=u9UTOXPkA+kn5L1WVLyWX6rn/ynH7nJ89lZKX9ue+J7pkoH+SoeRwBBr0WZ+R961SPKZnVAHNe6fzMODnz5Hz8nVRoSRdm/aY6KTnXuGD5WVI01kayfC1bT2Gsd7cwmiUA1wLC7EEoFrIV9dMxccT7sdtyjsL6R1M/buVzY4ZyI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781259533; c=relaxed/simple;
-	bh=Iu+WsPA3d5zC/vpm66sf0PXFm63IcdCvAGgoL0vzIyI=;
+	s=arc-20240116; t=1781259796; c=relaxed/simple;
+	bh=y7ZsiiApGtMB9h0eGkrwxtAixLDfbxxgVvN0++xbn7A=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OiwB5xuKSX5v9NXOPRz3ezuQBmVOv81h/gP2K1heFdXIm3Pf7trS3RM65IvugnaYCAEYx1q2raPjnlQTvdAJl6GB5jXPdpMT+hFrbCWlBEj+FnfzzUeshTrl6Z6p1H9o+e0xz3ZBs80Z89CWBsl/osrtrsPS6k3CVk2PdJ1QCRI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=bBME3aOj; arc=none smtp.client-ip=209.85.128.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=p4PnWy+zRUpyk3M1hlYzOrG8YvbbtYb38U2IflmAKB8cYlnsbVyGsZh0ZVhxFUKeDQ9PNRpWZiM1+GmyVt8QSuUrlUm9V+Kw5FvP7YgYCOSgr8V6+XjVeSVNwSoaVO5vKDkNXQlXKsWWadARhzp+yu2Kw6kdI9pCC1u2w4vfrx8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=katalix.com; spf=pass smtp.mailfrom=katalix.com; dkim=pass (2048-bit key) header.d=katalix.com header.i=@katalix.com header.b=SPRRr0gI; arc=none smtp.client-ip=3.9.82.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=katalix.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=katalix.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="bBME3aOj"
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-490b8a97b11so9319215e9.0
-        for <stable@vger.kernel.org>; Fri, 12 Jun 2026 03:18:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1781259530; x=1781864330; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=wZYS51t2QXr2ZWiJCJ2esfR2JgSuWZes3mVwU5icUks=;
-        b=bBME3aOjy09Ne3TOuJciwQgMQrD3QA56oZBnha0V1aiAml8vZFjlLytwRDLcbAjTfK
-         gs0paoiXwr+SoduVvkIUms0MRhDY4psKxnYztyMXaCgHdKmYEU1TrRrQrbGmf78LFKLy
-         Nb7MwXBQq6cZ5ahJc1jkRoGezwCEYiQdNVic+lM3Sq67OQ6+JDEzb5aqGGVaMTwwdG8l
-         Y1dVVIssm8yet7XPKGHJgxwSWw7e8nfefziTDbuAI1WXNifv4/FxN7bnwKl7QZznlsK+
-         /L52yU+EIT8vhOhbInFxE4932yW9o6b9QOztuVi07hqQf1r1TUk1zeLIEwTU7TKGdYaS
-         IVHg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781259530; x=1781864330;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=wZYS51t2QXr2ZWiJCJ2esfR2JgSuWZes3mVwU5icUks=;
-        b=bmj6/lSjj/1sjdij1Z6uk9ITGbqmIUWtRxsWsIFoYRpfw3ARSXgTaZqhvKx2NNJWWi
-         WL6WqFJ8BbBCQCJnEHYXukL+HUuqWN2IKCKa1Duz/7H9iGitm3F+5ZzHy41YeAhYr9dP
-         H1CffSaFZJlowJ6oi37doprRhg/Vk7hussHtVs1tSnJP2ZWSRFPTJJlQWKmvHs1e6mAZ
-         VJoszgASOL7H5Bh/ncztEiFvbDKVDQfPKEnM9ZRVVUWchNC/POitLuVtFh0yRiUdkA14
-         xEy+aQnZQcbHmXnOwPEuOsGUPdChm6n7noSICPVObr/4AJH0Ahm51i5BJUz4Qs301baZ
-         x6EA==
-X-Forwarded-Encrypted: i=1; AFNElJ+7PDmQ8/E1NrQqLvc8bCOGdwseX3SaxWSAEhPzGDnoUulH+5fk2K8OmeSTeuu6kDaQSZkQSL4=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyjUw0T0shuc58A8MCMGFrd0ZEJWoNVQTU4SO3hH71gcddOCJsB
-	iLthwazs5psXwStZXO894zx5oSH+ClrqELsi0KRMhD7bobgM1LCg8L/QNS9CgxxJWd4=
-X-Gm-Gg: Acq92OHEBk2njsjDabrUkYzVJGRjUtLUeQbB8tC4m25aUhRkehtPeLSHou2LsWSJAJ3
-	9NrIEfp9C1HNyXm8T5wPH4INw5+cVLa3lhF9MAc0QjKtVgsG6vm+7RDAmKk0liIpxY9y0rDDlBQ
-	xUQkmhfOuuW2utL466cCZ4rp7x+JFRpBRuYEJesZRxSI9BAuXhp/84rRj6+m9GAJECgLNvkzWUR
-	SNIsKmjEy0V2q9eTuKQHQc9tHRg+5e38eJIBAiMl5luFF1zad9JcS0NCT8g0/wxfI0wZQR3EoTS
-	/g/n8HlxZoGsTKf4cXVWsJDgfI2NaKCp0n+cNSISLPXo/PTE3HdxLFxa23cmPGNxMORwbwzZklg
-	rcc3qJfg9aobVMu6Lcoc6rjna+UVuZwl+a2xV7UpIfHBNbVq75oedi2adDuB1UVo1HI67x4QmUS
-	/o4X88s8Upfbsr0UJ+oaFL/aal8u4/c9ioyTcWSZXs
-X-Received: by 2002:a05:600c:5493:b0:490:3c15:7146 with SMTP id 5b1f17b1804b1-490ec4f26ecmr26968165e9.19.1781259530302;
-        Fri, 12 Jun 2026 03:18:50 -0700 (PDT)
-Received: from u94a (27-51-56-85.adsl.fetnet.net. [27.51.56.85])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3081eb95342sm2857806eec.29.2026.06.12.03.18.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 12 Jun 2026 03:18:48 -0700 (PDT)
-Date: Fri, 12 Jun 2026 18:18:39 +0800
-From: Shung-Hsi Yu <shung-hsi.yu@suse.com>
-To: Alexei Starovoitov <alexei.starovoitov@gmail.com>
-Cc: Zhenzhong Wu <jt26wzz@gmail.com>, bpf@vger.kernel.org, 
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, ast@kernel.org, 
-	daniel@iogearbox.net, john.fastabend@gmail.com, andrii@kernel.org, 
-	martin.lau@linux.dev, song@kernel.org, yonghong.song@linux.dev, kpsingh@kernel.org, 
-	haoluo@google.com, jolsa@kernel.org, menglong8.dong@gmail.com, eddyz87@gmail.com, 
-	stable@vger.kernel.org, mykolal@fb.com, tamird@kernel.org
-Subject: Re: [PATCH bpf-next] selftests/bpf: add helper retval linked scalar
- pruning selftest
-Message-ID: <aivZ9jYGw6QRxLQQ@u94a>
-References: <20260611160749.391279-1-jt26wzz@gmail.com>
- <DJ6DMGTPWXJN.1YKSBHULQ1PB9@gmail.com>
+	dkim=pass (2048-bit key) header.d=katalix.com header.i=@katalix.com header.b="SPRRr0gI"
+Received: from localhost (unknown [IPv6:2a02:8012:909b:0:5ee2:e15d:59c1:9a64])
+	(Authenticated sender: tom)
+	by mail.katalix.com (Postfix) with ESMTPSA id E34927D30F;
+	Fri, 12 Jun 2026 11:13:22 +0100 (BST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=katalix.com; s=mail;
+	t=1781259203; bh=y7ZsiiApGtMB9h0eGkrwxtAixLDfbxxgVvN0++xbn7A=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Disposition:In-Reply-To:From;
+	z=Date:=20Fri,=2012=20Jun=202026=2011:13:22=20+0100|From:=20Tom=20P
+	 arkin=20<tparkin@katalix.com>|To:=20WenTao=20Liang=20<vulab@iscas.
+	 ac.cn>|Cc:=20jchapman@katalix.com,=20davem@davemloft.net,=20edumaz
+	 et@google.com,=0D=0A=09kuba@kernel.org,=20pabeni@redhat.com,=20hor
+	 ms@kernel.org,=0D=0A=09netdev@vger.kernel.org,=20linux-kernel@vger
+	 .kernel.org,=0D=0A=09stable@vger.kernel.org|Subject:=20Re:=20[PATC
+	 H]=20net:=20l2tp:=20fix=20refcount=20leak=20in=20pppol2tp_tunnel_g
+	 et()|Message-ID:=20<aivbwg0RMONNEyVm@katalix.com>|References:=20<2
+	 0260611164542.1031-1-vulab@iscas.ac.cn>|MIME-Version:=201.0|Conten
+	 t-Disposition:=20inline|In-Reply-To:=20<20260611164542.1031-1-vula
+	 b@iscas.ac.cn>;
+	b=SPRRr0gITTHjJUHq2yg70ZLej9siW6AZi3htjSrx+ML4Sq3qEZM8qW4elAvodA/t4
+	 qVhQECyNQyvfZ1n65OBPmEnSSt/wgN8naUbfr87WS5kAD0NeuHb199iwYU3d68wIgD
+	 sPSXL24Pm4ovVtXxMHfaZX2D7YXGcRW5G9eEugVgP8aY2PZeGilEgx37U/+L+/gOe1
+	 Z3mrua7stKni19m8r/jgRa/dZS9/6OEoFDCprAdr/DpPHr+yqREt+Blx55IBBXZSt+
+	 MCNtbNc+FrejcPVgJN2PH0yYD3elQ9XYlKCBD29jD4L21XjqffImQ7Wi/mUwFx5eS2
+	 HezmtG8jkzqNA==
+Date: Fri, 12 Jun 2026 11:13:22 +0100
+From: Tom Parkin <tparkin@katalix.com>
+To: WenTao Liang <vulab@iscas.ac.cn>
+Cc: jchapman@katalix.com, davem@davemloft.net, edumazet@google.com,
+	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] net: l2tp: fix refcount leak in pppol2tp_tunnel_get()
+Message-ID: <aivbwg0RMONNEyVm@katalix.com>
+References: <20260611164542.1031-1-vulab@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="3LnzsMWY4dGz5zTq"
+Content-Disposition: inline
+In-Reply-To: <20260611164542.1031-1-vulab@iscas.ac.cn>
+
+
+--3LnzsMWY4dGz5zTq
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <DJ6DMGTPWXJN.1YKSBHULQ1PB9@gmail.com>
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Jun 11, 2026 at 09:55:55AM -0700, Alexei Starovoitov wrote:
-> On Thu Jun 11, 2026 at 9:07 AM PDT, Zhenzhong Wu wrote:
-> > Add a verifier runtime test for a branch pattern where a helper return
-> > value and a related scalar stay live across the same control-flow
-> > sequence. Rust/Aya-generated eBPF can naturally produce this shape when
-> > a match on a helper status keeps data derived before the helper call
-> > live across the same branches. Such code commonly uses the helper return
-> > value in r0, where 0 means success, producing an r0 == 0 / r0 != 0
-> > branch shape.
-[...]
-> > +SEC("tc")
-> > +__description("helper retval linked scalar pruning")
-> > +__success __retval(0)
-> > +__naked void helper_retval_linked_scalar_pruning(void)
-> > +{
-> > +	asm volatile (
-> > +	"r7 = *(u32 *)(r1 + %[__sk_buff_data_end]);"
-> > +	"r5 = *(u32 *)(r1 + %[__sk_buff_data]);"
-> > +	"r7 -= r5;"
-> > +	"r2 = 0;"
-> > +	"r3 = r10;"
-> > +	"r3 += -8;"
-> > +	"r4 = 1;"
-> > +	"call %[bpf_skb_load_bytes];"
-> > +	"r0 += 1;"
-> > +	"r6 = 1;"
-> > +	/* success path keeps r7 independent; failure path links r7 to r0. */
-> > +	"if r0 == 1 goto l0_%=;"
-> 
-> this exercises linked registers with BPF_ADD_CONST logic.
-> We already have such tests. Why do we need this one?
-> How is it different?
+On  Fri, Jun 12, 2026 at 00:45:42 +0800, WenTao Liang wrote:
+> pppol2tp_tunnel_get() increments the tunnel's refcount via
+> refcount_inc() on the tunnel returned from l2tp_tunnel_create(). If
+> l2tp_tunnel_register() subsequently fails, the error path frees the
+> tunnel via kfree(), bypassing the refcount entirely. At that point the
+> refcount is 2 (one from l2tp_tunnel_create() and one from the
+> refcount_inc()), so the reference counts leak and the memory is freed
+> while still referenced, creating use-after-free potential.
 
-BPF_ADD_CONST wasn't what was meant to be tested.
+l2tp_tunnel_register only adds the newly created tunnel instance to
+the per-net IDR once all the validation and initialisation steps have
+completed successfully: there's no way for it to add the tunnel to the
+IDR and still return an error.
 
-The main logic is r7.id == r0.id only happens on "if r0 == 1 goto l0_%="
-fall through, and does not have such link otherwise. I only check tests
-added in commit c0087d59e504 ("selftests/bpf: tests for per-insn
-sync_linked_regs() precision tracking"), but it doesn't seem like such
-conditional linking was tested. 
+Hence the new tunnel instance isn't visible to the rest of the system
+if l2tp_tunnel_register returns an error.
 
-The other rational is that this seem like a common pattern that is
-genereated from Rust-based BPF program.
+As such, there's no potential for UAF when directly freeing the tunnel
+structure in the way the code currently does.
 
-> > +	/* success path keeps r7 independent; failure path links r7 to r0. */
-> > +	"if r0 == 1 goto l0_%=;"
-> > +	"r7 = r0;"
-         ^^^^^^^ conditional scalar linking
+Possibly there's value to altering the error path since it'll free the
+tunnel instance via. l2tp_tunnel_free which will perform tidyup that
+calling kfree() directly doesn't.
 
-> > +"l0_%=: if r0 != 1 goto l1_%=;"
-> > +	"r7 <<= 32;"
-> > +	"r7 >>= 32;"
-> > +	"if r7 != %[test_data_len] goto l1_%=;"
-> > +	"r0 = 0;"
-> > +	"exit;"
-> > +"l1_%=: r0 = r6;"
-> > +	"exit;"
-> > +	:
-> > +	: __imm(bpf_skb_load_bytes),
-> > +	  __imm_const(__sk_buff_data, offsetof(struct __sk_buff, data)),
-> > +	  __imm_const(__sk_buff_data_end, offsetof(struct __sk_buff, data_end)),
-> > +	  __imm_const(test_data_len, TEST_DATA_LEN)
-> > +	: __clobber_all);
-> > +}
-[...]
+If the latter is a motivation it'd make more sense to say so in the
+commit comment IMO since I don't think the UAF argument holds in the
+current codebase.
+
+> Fix this by using the standard reference counting API: replace the
+> kfree() with two l2tp_tunnel_put() calls to properly release both
+> references. This mirrors the cleanup used in other error paths within
+> the same function.
+
+There's no other double l2tp_tunnel_put in pppol2tp_tunnel_get that I
+can see.
+
+>=20
+> Cc: stable@vger.kernel.org
+> Fixes: 6b9f34239b00 ("l2tp: fix races in tunnel creation")
+> Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
+> ---
+>  net/l2tp/l2tp_ppp.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/net/l2tp/l2tp_ppp.c b/net/l2tp/l2tp_ppp.c
+> index e0b1915be1a6..0ddfc1893121 100644
+> --- a/net/l2tp/l2tp_ppp.c
+> +++ b/net/l2tp/l2tp_ppp.c
+> @@ -661,7 +661,8 @@ static struct l2tp_tunnel *pppol2tp_tunnel_get(struct=
+ net *net,
+>  			refcount_inc(&tunnel->ref_count);
+>  			error =3D l2tp_tunnel_register(tunnel, net, &tcfg);
+>  			if (error < 0) {
+> -				kfree(tunnel);
+> +				l2tp_tunnel_put(tunnel);
+> +				l2tp_tunnel_put(tunnel);
+>  				return ERR_PTR(error);
+>  			}
+> =20
+> --=20
+> 2.50.1 (Apple Git-155)
+--=20
+Tom Parkin
+Katalix Systems Ltd
+https://katalix.com
+Catalysts for your Embedded Linux software development
+
+--3LnzsMWY4dGz5zTq
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEsUkgyDzMwrj81nq0lIwGZQq6i9AFAmor274ACgkQlIwGZQq6
+i9By3QgArjYsTrMwH9TtRzeemN27rroTsGDL567doXcmhfYgh0DLg8daadZHlFic
+yBv2zw8OgOpdx+unI0VvxntPrYATuwoKRgYsxp/qH9020bzTwXcmTWtW8PMwsuG6
+kBh1vmsDC8InKEbDtd2+hsJJfGzmIVUPX51224vf2ucbYXCRWQOXXQq5LSdmeryE
+SyqGJcCli1nvldgsujUra7/Jt9YvmO84UJdtL/exXXxYXgeQ6hIsQLrivfJ4YAK+
+dUQthkagMPxxNBu2ZeIN/GtZJdVs9kOsKpCpnQvN+iQohmKAt+K4i2h0Z7gSRewC
+/HkVxwvRm3dtripMW3MdWJa6wK1ELg==
+=WBgU
+-----END PGP SIGNATURE-----
+
+--3LnzsMWY4dGz5zTq--
