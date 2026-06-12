@@ -1,162 +1,221 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D27323839AD;
-	Fri, 12 Jun 2026 14:24:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781274296; cv=none; b=N/qku9mHNxxMouTZgSepHWm7XmrInsttabtd+HslA27DBCJWW6hMFn7WlvY7PcNBCv7XIAeZka0QTw6kL/TpfQZ8vGDkvW/lUj+ECrrnRSNX1Vh879JX3UpF0joRg8rZmLQfFCkqm9n1qriYGCud4RPmtB4xhzCWhj1zFpgOt6M=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781274296; c=relaxed/simple;
-	bh=o9FmxhXkdy8nu7c7PeyhmJ87iJ6ZqDGwT8/Z7FIizAM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZhYcpuSFZaSGTI9kiOaDv09/roDXQQLR0XCoEFvd0OO2FE4EsoRfninPMu/bfbLicFWD1ArddVeAfyHapyzFnBpjk5viIdZilHWqsbskT76JOZY8uNPzfJQQExyBiSr3k7fb3J3NCQvWI7Up6DYR4rSwe6sV1HZ20moCBnNrLR4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=yN++Ar4U; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=Fw/CS40E; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCB793845BD
+	for <stable@vger.kernel.org>; Fri, 12 Jun 2026 14:33:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.16
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781274804; cv=fail; b=WjXmeDmmOAbIL8TvFHsGWMThb8wKrXmk6Fn6BbkhhTh07v7lF0+nLMH3eUddjkPAT3HkhvSmZ6Z9MwndPuKxWE6m3qq226UywqplUxU4KyvgFutiWgnXkyHh0HjMe/0D/x0VNBcdhdhMh88Kbs8HPom9Ys//2JoxcgpLWNucVbM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781274804; c=relaxed/simple;
+	bh=oQ06BjbUcO7YwEfXu77Uo6jD0lyo7qRdHkzC+12uEzE=;
+	h=Message-ID:Date:Subject:To:CC:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=SHX1iPT/er+juAstVLfUiBBaB4GA9IAvB5J8uV5aFM1omcTuoYngI5yVHIUrM0gcxtWU4auibT7SZAmI3pDExomxLjplef4hW4A6xS3rZp4ShLVOQnTBkGNYdOYeSEDPI46AGrKKbG6tgcWIoZrbgcJMBfk7sTroDGZZ+DL1fvk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=fZWySIH0; arc=fail smtp.client-ip=192.198.163.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="yN++Ar4U";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="Fw/CS40E"
-Date: Fri, 12 Jun 2026 16:24:46 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1781274291;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=rwVtWQfu240VJ6rqsKtn7HxHk2R31SZbP2CkXTGyVBw=;
-	b=yN++Ar4UPeFVObgPptrM588vgWIw15P7N4oXqSzIGyFQOf7x7CuItiHn6bBlXUdRbH+axN
-	cxeXNn9myH56N2/BOTWRv5I7U8xz2ahAuqxtOjs44Y3LN3KzmtViijfT3xmoFWC3fYywgC
-	kdA5dD3bEqw8r/tQcN3waQH5d3f78ixh5AeNCpzcyxsKx5QLrYM81+yA6PadxpruigX+2y
-	yMHPec+j0IT3CFCARpo6yNoAGFxdEHrOCyXSCcbTlK8229Y/u0vIU868LvZkG1isqj5X/s
-	shtQSjoIxeiw44nTiY3N4xwJaXBVysKjTYpH81IBW6iV1cOjhGLr9CIDNM9lEg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1781274291;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=rwVtWQfu240VJ6rqsKtn7HxHk2R31SZbP2CkXTGyVBw=;
-	b=Fw/CS40Emarj/k0CM4lLjf3k6omNTZJE0zu0chda+lYYSWq7q5sblGyvvDa0yVi5lfqMRN
-	8BnlkiroEJEQ0CAQ==
-From: Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>
-To: Andrey Smirnov <andrey.smirnov@siderolabs.com>
-Cc: pasha.tatashin@soleen.com, akpm@linux-foundation.org, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, 
-	pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr, 
-	syzbot+2b5fe617654be3d8848b@syzkaller.appspotmail.com, Thomas Gleixner <tglx@linutronix.de>, 
-	Andrei Vagin <avagin@gmail.com>, Andy Lutomirski <luto@kernel.org>, 
-	Vincenzo Frascino <vincenzo.frascino@arm.com>, stable@vger.kernel.org
-Subject: Re: [PATCH] mm/page_table_check: do not track special (PFN-mapped)
- PTEs
-Message-ID: <20260612162031-b4731d21-b293-4d36-8582-26394bd55a1f@linutronix.de>
-References: <20260608155758.1220420-1-andrey.smirnov@siderolabs.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="fZWySIH0"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1781274801; x=1812810801;
+  h=message-id:date:subject:to:cc:references:from:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=oQ06BjbUcO7YwEfXu77Uo6jD0lyo7qRdHkzC+12uEzE=;
+  b=fZWySIH0juNgpvts+hMJt1xvB4SBF5wtAgSZP+NngPgfya+w2D8i2+h7
+   r40v1Kj7EBZs1jWdKMSEwoGesDHHDgnZanh/RLQoVrwyNLh/kTs5GVhfu
+   zIy+Lc7J3SPoAQ6QSp/2T4tlJb8UwqXhwWrABAxDvk/DZPY726QmiUsjK
+   6mKHAkJYBMzSQFzER/LJN50ONKGRCb6TesfoKKGxX+CIF8xpZWo4ww6pP
+   +g0zk1yVxb68z6oqDt7sTjPyqb50IB99RihtnFsHswq9psnig41zf4kTP
+   XY1/SeOxKHfobJOC9AaD5m0CNTdryVJeUOe1U70Ok6NXL67X3bsFjk57n
+   g==;
+X-CSE-ConnectionGUID: UWVTvr34Rw26z7RrmnEnFA==
+X-CSE-MsgGUID: UFJZzCjWTSShgclXDM5tRw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11813"; a="69652205"
+X-IronPort-AV: E=Sophos;i="6.24,200,1774335600"; 
+   d="scan'208";a="69652205"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Jun 2026 07:33:17 -0700
+X-CSE-ConnectionGUID: IDMtVLb2R0ugNRic/qV4OQ==
+X-CSE-MsgGUID: i3JhO+a8SGW65Nlek/djAA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,200,1774335600"; 
+   d="scan'208";a="246861633"
+Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
+  by orviesa009.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Jun 2026 07:33:17 -0700
+Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
+ fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Fri, 12 Jun 2026 07:33:16 -0700
+Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
+ FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37 via Frontend Transport; Fri, 12 Jun 2026 07:33:16 -0700
+Received: from DM5PR21CU001.outbound.protection.outlook.com (52.101.62.1) by
+ edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Fri, 12 Jun 2026 07:33:16 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ntGeMnH9LOEQ/teoVfvSZFSzD+YVcevbGlYYNmGsvPi2aFtwmJ/NflUS7J+R/OUorzZnXIVKf81rlSew3qgFrGd8lS7VaXbD9pNzZfvS0+fAhzy58CS6WxajZZrt0r7xFVJj88nQlN+E4cmQOBHzYPyUStcueIG91AV1Tf9ccpwoAOvW7Y9ilfpkAFPeO9sMrCdfkKOPlzIbPKi8YIJofNj8rSCkm84SrasvoLDVJeKkQFN1FWZM3/KGoGuFWZAR3rr1apU9hKiWpctbtwsowGJmA7kT6+CB0a3KtoodW4nho1PikUS/RWjkjLMM98x9BsbZn3sSS1o9TBKeItraPw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=eNGFssLZ0f8JCAnfUL6s3lh9ikAqqMjxIKDNC2K1qFk=;
+ b=m1PoL0tNK5WWvaVDrjOs48+mIIhw5ukujBAwHjyRLN2KrsP3pLTSU8meNOMHuWiQC7IQUo3MrOEnA5QE0iodzEr069a4PUP8ncYARzBJJqjYHWg5O+d3CcPlF+reQlRYddwibOaTOAuAROMwrlBpYmpD3DvvI9ppb8VaRQ9VlZAggYKsCzPkfn09kI3Kg7H/1PM7v9pEJ5y2sItYf5/p/my/Y9SQCdbHP/tHm/kpK5aR4oYYzM4nL6wUgLtqp514BsXELpwVmxP8/NCb9mHa4pkTEE783c2uVrGugiCTiVNux5VOecvS46+m6AWXmWRI/rtYmmtKWIlDYI6ZitaTmA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from IA1PR11MB8200.namprd11.prod.outlook.com (2603:10b6:208:454::6)
+ by CH2PR11MB8835.namprd11.prod.outlook.com (2603:10b6:610:285::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.13; Fri, 12 Jun
+ 2026 14:33:14 +0000
+Received: from IA1PR11MB8200.namprd11.prod.outlook.com
+ ([fe80::e0e6:a2f:a53b:4414]) by IA1PR11MB8200.namprd11.prod.outlook.com
+ ([fe80::e0e6:a2f:a53b:4414%4]) with mapi id 15.21.0113.013; Fri, 12 Jun 2026
+ 14:33:14 +0000
+Message-ID: <d46890f1-f881-40cd-bea5-0b4980fdfdcd@intel.com>
+Date: Fri, 12 Jun 2026 10:33:11 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/xe/guc: Fix buffer overflow in steered register list
+ allocation
+To: Tejas Upadhyay <tejas.upadhyay@intel.com>,
+	<intel-xe@lists.freedesktop.org>
+CC: <stable@vger.kernel.org>
+References: <20260612070401.543305-2-tejas.upadhyay@intel.com>
+Content-Language: en-US
+From: "Dong, Zhanjun" <zhanjun.dong@intel.com>
+In-Reply-To: <20260612070401.543305-2-tejas.upadhyay@intel.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MW4PR03CA0205.namprd03.prod.outlook.com
+ (2603:10b6:303:b8::30) To IA1PR11MB8200.namprd11.prod.outlook.com
+ (2603:10b6:208:454::6)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260608155758.1220420-1-andrey.smirnov@siderolabs.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA1PR11MB8200:EE_|CH2PR11MB8835:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1585cc00-93ea-4198-5ec6-08dec88f8907
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|23010399003|366016|1800799024|18002099003|22082099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info: /y4G6i1l9pzNdwofUBs7rOHM1HT2DnHyGgQ3XQbwWzqbbUCS2E+Uiqyx8WRxRfuHHb3592CrTrBec+lnHaA1+4ppbtG6S/MguxpqGspgl3mpggpaZE04OARoQ6h+Qn8OutueSdqyZFM/5t47qTa3/XTFVj8LA8xCwdkZ9BmSkPhTNOjhhWj5cql7BOOFz93uSHikiO+f66zoeN87WCpEz6nqkylDzsugMkmEhgloa2LVLyXdxcgehV0P9l5WhkWUdca35lhD7CODlVikqalkRidcW7pq6v7hfRr6tM8BzfZPyskOsTtTu6201ahxAl2YulOIfff21ZgklwZkH1lkgwshOHP4/5rE0Kqgf/zfkw7fK7nlBOVH+hQU0auckcmE1cC2EhlV5grges2eeafhfXhaVw8QzsEKLOwDsvMzj090yEguPuH2yANSnNrqY+qcs28x+G5aDyIhyb5tUpmsrhFhaBHaYMOrZNtq5/CdipwWeNmT9Ep0AQNYg2HKiIM5WaR1Ap3pr0xIq3+R8g6wLooOi5yWciYo1lX4523yFicqnOhXd9C/zStpsx8KY/4Q7c4u1UjvWivw67bpcUZf9KSoCUZy86R4MTGVv8Z04JKMcqsHJay0QVsjZfXRpDxR3nAudVSs7GXwZF3NJUoItZGkhiilqCLB5jSUxHTDSoWpGrRBIhD7H7AJ1M5Hk8L5
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA1PR11MB8200.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(366016)(1800799024)(18002099003)(22082099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MTJSdEpiQnZBVjVEcE1rVTVHeVE1SEpKUS9pREMvd3EwVWpXUC9BWUxIUDVm?=
+ =?utf-8?B?dnlaWHQ0Q2c0eUNUS0s5elBkUXNpUEdOYWdnUnNIMytWeE1Nd2RTM2RMOVF5?=
+ =?utf-8?B?N0c0b3VwSmVqMHhkUFBsU0xCTkt0Z2hwTU9tWUplK3lsUW9sdkhjUEMzaWY4?=
+ =?utf-8?B?b3BrWVJjeDZCNXNCN0xYY1IrT2Yyc0s0eGdMamp0VVJwdUtFOTJ6WDFwaDZj?=
+ =?utf-8?B?eS9oNzZWd2E4MVhVd3p0WW4rb2puQ004ZFczbW00M1BScWhWak5TOVNSRFZC?=
+ =?utf-8?B?elFKOVRHRjZoQ1g3eGFGZDBobWRaMldUclRqWlpIUS9mM3psdkhBWS8vb2tI?=
+ =?utf-8?B?YVpQckFETVd5MGFDY3dVLzgzS0IzZnNWajEvT1huTnhQaU9ZanhEVkxHK0xF?=
+ =?utf-8?B?RldRNHJCWnNBcGltd3JGMWpDaFRFcThJWEtCNENOM0p1R2crblBLRk5WbGE0?=
+ =?utf-8?B?TG96WEJIYi9lNnR1S1pyUFo3UHJOV2c3aDFlTndYNEpDa2ZMa0t5Rk9rVlBa?=
+ =?utf-8?B?Mi9rWEh5Mjd6WDZlanl0c01xdFppYlVEYUJKVkRPdTREZG44dWFxNmwrSTRL?=
+ =?utf-8?B?elJ5eU5aaGRKeTlnNm1kM2JzVFdIa2pHdHVmSDIzeExuT3Fmd0JSekszZE5X?=
+ =?utf-8?B?a0tWK0V4elNWMVMxY1doMUFKcUgzc3R4bEZ1d2dsdEplQlRpM3ZoQVozbWcx?=
+ =?utf-8?B?ZWQrVm8xM3JUNXp2Y0c1THQvN1A5OGIvbDVMMmEzZ3E2KzlibENwdHRHS0ZX?=
+ =?utf-8?B?WU9kRytiZkxIRzBJN0oyZWdnd0xwWTBRZERlY1NZcHY5c1FXS2wvWXIwaHg4?=
+ =?utf-8?B?RXdXdXdOWjZzc2VpVHplL0tLMm1iYzhwamlHR09TV09VSStMWUtVZ0xZMVc3?=
+ =?utf-8?B?TlFlV0t3ajBFMllJdlNIbDlWZG9EMGVpS2UvU1c5R1FYR29rWU8xeFQ2cjE1?=
+ =?utf-8?B?TTAyZ3VuZkpQN2swMmppNVJhUUl1V1J0Q3JqS3RleGVZNy9yK1RTSHJrRWRC?=
+ =?utf-8?B?TkVYa3YvdVJvRUZzNXR5anNqMU1XRXhFaW9aVVBJaGx3SnVPcEpRQnROZUNO?=
+ =?utf-8?B?TVVLR2lBTjNraVlEUHdBbDFZTTREdUcwWnMrV1ZOaVdxTm1RbG9LU3d4Uklz?=
+ =?utf-8?B?UElxcFg0bmhFdXhWTUFtRUlOWm9PZ1g0K2l0ZTYxSStXQW1HcnlkWUpyTXd2?=
+ =?utf-8?B?ZTE4Y0xXRi9CTFg0N3MwckxjVHZBalZPYzdMVVJrZENvNXRSaEIzOHFHU3dz?=
+ =?utf-8?B?emJBYTJCdlAyeXpjN3dqV0RWUlJGbmRROWlSVit6Y3Jrdml5OXY1T3lnOTJU?=
+ =?utf-8?B?U0xabytEM0hySy9uTUw0eXVqK3AydjJyc3ArMVNHTzNkVmFVV0d5d2NHKzVN?=
+ =?utf-8?B?blFvUkdaTzNsZ2FRellUV1loVWJESTg5ZFNlcXhza2ZLK3d0bUFMWVJkcFFk?=
+ =?utf-8?B?Z0ZTNjdXQngwRTJxd0orVGVwaXVsQXJMdVp5N3NoRHRGQWdhVFVBQjhMakpW?=
+ =?utf-8?B?VXRsUWpQcElmb3ZwYnF3T3I1aXJRdFNDZlU0QnZLQ0dSRC9PMlpqUGZlUWZx?=
+ =?utf-8?B?UllnVVV1dW42YjY0MGUxRVpLVkNGTHIxa0Jlb1RUTWVuMzdUNjVmK2doV3l5?=
+ =?utf-8?B?ZXJETFBCdlRqR2JUVTlMa0Y4U29BZ1lDLytNRFFncFFxR0xWNFVzT1NxOWZ4?=
+ =?utf-8?B?MG5uNWRXSk9qN0FSLzFkODNJa1VYS3U5MnQxeXNMVGhNdVVQNm1uTnh5M2ZR?=
+ =?utf-8?B?STRoc2YwVnpsU2xPdUhxcTZkemR2SjRxOEJNZ0RVRGhTOXNPVXBrTDVtT1h1?=
+ =?utf-8?B?WVBncHJKU2YyNEx3OXBPSU9WWExld3NPQUlJb3l6YmpWbmZtZko3cXJUWHFU?=
+ =?utf-8?B?ZEFoSXBPWWpSY3pBN3JwVVhWWnZweDByWUhOaDhVcWRtV2o1bW94S2huZ01a?=
+ =?utf-8?B?c0orYlA1VlVSbFljQkNra2hSQVE3VzRtelFFODcvbVNsa1EwME9XRWt5Y2hX?=
+ =?utf-8?B?Vm5PVURuQ1JqOGltaW5oTjIrbWNWL0gxeHZsTDVoSzFnb1lEZ0lXQk5MWmVu?=
+ =?utf-8?B?TFBRZzdDTWZwdWttUTNuWnVZS096STVPNlFRamlHVy9sTzNWbUo2UythbHZL?=
+ =?utf-8?B?YjlLZFU0SDF6NDZnZWZvak5qS3Q5YksvZTFEZTJYQzVCenM0aTVnSXNuN1ds?=
+ =?utf-8?B?RXlJMDlyRVdYTG4wbVZWZGlvVk13M2tTQ3k2ZEpVTTRJS3B4ZWNCTVRybVRv?=
+ =?utf-8?B?dlZSVGFxOUJ1TmFFRzd5SlJxclpDWVk4QytSZTR2UlJ3NTNYd0d1QTVzM2ZI?=
+ =?utf-8?B?WitUak4wMGNENXNyK2VoTmRJQ2hxVnZHUnRpN0pHbVZrc0JCc2dVZz09?=
+X-Exchange-RoutingPolicyChecked: MEo1HybSm9ph2wOp22S7AnbdC9G2AVE1iXFU9iy4f8uMyJMGOzPoEGiWQvMsiFvIdRl2gPAnlD9Kpr8diMeLXpvVzvmJ5COnUtg0sMVt73cfJn4OWjWXryIvFbUw/iUenfzsl7BBNfS88eIfU/B77UWW1GowW6jlJDMFybNThximWZceP3mgfsbW6g4V2c+yj+8tB4CUkBqwBc6/NCixT+z1Bob5szMUioHgsSvqLO180WhkrVWu8phrbnnGJmvJwkXAXTk+gsVwHdChPPehuFXgkj+ODrf5OxDEftr6g7xDkWG1LU4EbAA2FlBNRaBgDgR7nM/DfZT9C9EUeZ10Hw==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1585cc00-93ea-4198-5ec6-08dec88f8907
+X-MS-Exchange-CrossTenant-AuthSource: IA1PR11MB8200.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jun 2026 14:33:14.0838
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: SN5Mp8vt5r41QgHF8yDOPEKvhDi7p4GqjgI1Vf0+QYDof3t/EYehm9Z4ep3/QOgtXvX4u/wj6XTWHM/7oJMHLA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR11MB8835
+X-OriginatorOrg: intel.com
 
-On Mon, Jun 08, 2026 at 07:57:58PM +0400, Andrey Smirnov wrote:
-> The vDSO data store ("[vvar]") special mapping is created as a VM_PFNMAP
-> mapping and its pages are installed into userspace with vmf_insert_pfn(),
-> which produces special PTEs (pte_special()). On x86 and arm64 (and riscv)
-> pte_user_accessible_page() only tests the PRESENT/USER bits and does not
-> exclude special PTEs, so page_table_check accounts these PFN mappings in
-> the per-page anon/file map counters even though they are not rmap-managed
-> pages (vm_normal_page() returns NULL for them).
+LGTM
+
+Reviewed-by: Zhanjun Dong <zhanjun.dong@intel.com>
+
+
+On 2026-06-12 3:04 a.m., Tejas Upadhyay wrote:
+> The size calculation for the steered register extarray uses only the
+> geometry DSS mask (g_dss_mask) to determine the number of entries to
+> allocate:
 > 
-> Most of these data pages live in the kernel image and are never freed, so
-> the stray accounting is invisible. The time-namespace VVAR page is the
-> exception: it is a real alloc_page() page that is released with
-> __free_page() in free_time_ns() when the last task of a time namespace
-> exits. Across the map / unmap / vdso_join_timens() zap transitions the
-> special-PTE accounting is not balanced for this page, so a non-zero
-> file_map_count survives to the free path and trips:
+>    total = bitmap_weight(gt->fuse_topo.g_dss_mask, ...) * steer_reg_num;
 > 
->   kernel BUG at mm/page_table_check.c:143!
->   __page_table_check_zero+0xfb/0x130
->   __free_frozen_pages+0x52f/0x650
->   free_time_ns+0x85/0xc0
->   free_nsproxy+0x7f/0x130
->   do_exit+0x313/0xa60
->   do_group_exit+0x77/0x90
+> However, the filling loop uses for_each_dss_steering(), which iterates
+> over for_each_dss(), defined as the union of g_dss_mask and c_dss_mask
+> (geometry + compute DSS). On platforms with compute-only DSS bits, the
+> loop writes past the allocated buffer, corrupting adjacent slab objects.
 > 
-> This is reliably reproducible on x86_64 and arm64 under heavy container/CI
-> churn that rapidly creates and destroys time namespaces (CLONE_NEWTIME via
-> runc / docker-init / tini), and was independently reported by syzbot on
-> riscv. It only manifests when CONFIG_PAGE_TABLE_CHECK is active.
+> This manifests as list_del corruption and SLUB redzone overwrites during
+> drm_managed_release on device unbind, since the overflow corrupts the
+> drmres list_head of neighboring allocations.
 > 
-> Special PTEs have no struct-page rmap semantics and must never have been
-> tracked by page table check. Skip them in both the set and clear paths so
-> the counters stay balanced (always zero) for PFN-mapped pages, regardless
-> of how the architecture defines pte_user_accessible_page(). pte_special()
-> is available generically (it is a no-op returning false on architectures
-> without ARCH_HAS_PTE_SPECIAL), so this is a single, arch-independent fix.
+> Fix by computing the allocation size using the union of both DSS masks,
+> matching the iteration pattern of for_each_dss_steering().
 > 
-> Note that the v7.0 generic vDSO datastore rework in commit 05988dba1179
-> ("vdso/datastore: Allocate data pages dynamically") incidentally avoids
-> the problem by switching the mapping to VM_MIXEDMAP + vmf_insert_page()
-> with balanced struct-page accounting. This patch fixes the still-affected
-> VM_PFNMAP path used by 6.18.y and earlier, and additionally makes
-> page_table_check robust against any future PFN-mapped user pages.
-> 
-> Fixes: df4e817b7108 ("mm: page table check")
-> Cc: Thomas Gleixner <tglx@linutronix.de>
-> Cc: Thomas Weiﬂschuh <thomas.weissschuh@linutronix.de>
-> Cc: Andrei Vagin <avagin@gmail.com>
-> Cc: Andy Lutomirski <luto@kernel.org>
-> Cc: Vincenzo Frascino <vincenzo.frascino@arm.com>
-> Reported-by: syzbot+2b5fe617654be3d8848b@syzkaller.appspotmail.com
-> Closes: https://github.com/siderolabs/talos/issues/13496
+> Fixes: b170d696c1e2 ("drm/xe/guc: Add XE_LP steered register lists")
+> Closes: https://gitlab.freedesktop.org/drm/xe/kernel/-/issues/8049
+> Cc: Zhanjun Dong <zhanjun.dong@intel.com>
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Andrey Smirnov <andrey.smirnov@siderolabs.com>
+> Signed-off-by: Tejas Upadhyay <tejas.upadhyay@intel.com>
+> Assisted-by: GitHub Copilot:Claude Opus 4.6
+> --
+> v2:
+> - use bitmap_weighted_or() (Zhanjun)
 > ---
->  mm/page_table_check.c | 13 ++++++++++---
->  1 file changed, 10 insertions(+), 3 deletions(-)
+>   drivers/gpu/drm/xe/xe_guc_capture.c | 10 ++++++++--
+>   1 file changed, 8 insertions(+), 2 deletions(-)
 > 
-> diff --git a/mm/page_table_check.c b/mm/page_table_check.c
-> index 4eeca782b888..ee492d5389b9 100644
-> --- a/mm/page_table_check.c
-> +++ b/mm/page_table_check.c
-> @@ -150,9 +150,16 @@ void __page_table_check_pte_clear(struct mm_struct *mm, pte_t pte)
->  	if (&init_mm == mm)
->  		return;
->  
-> -	if (pte_user_accessible_page(pte)) {
-> +	/*
-> +	 * PFN-mapped (special) PTEs - e.g. the vDSO/time-namespace "[vvar]"
-> +	 * mapping installed via vmf_insert_pfn() - are not rmap-managed and
-> +	 * must not be tracked here. Tracking them can leave a non-zero map
-> +	 * count on a struct page that is later freed (the time namespace VVAR
-> +	 * page in free_time_ns()), tripping the BUG_ON() in
-> +	 * __page_table_check_zero().
+> diff --git a/drivers/gpu/drm/xe/xe_guc_capture.c b/drivers/gpu/drm/xe/xe_guc_capture.c
+> index 21f7caf9ea08..1a019137ddf4 100644
+> --- a/drivers/gpu/drm/xe/xe_guc_capture.c
+> +++ b/drivers/gpu/drm/xe/xe_guc_capture.c
+> @@ -461,8 +461,14 @@ static void guc_capture_alloc_steered_lists(struct xe_guc *guc)
+>   	if (!list || guc->capture->extlists)
+>   		return;
+>   
+> -	total = bitmap_weight(gt->fuse_topo.g_dss_mask, sizeof(gt->fuse_topo.g_dss_mask) * 8) *
+> -		guc_capture_get_steer_reg_num(guc_to_xe(guc));
+> +	{
+> +		xe_dss_mask_t all_dss;
+> +
+> +		total = bitmap_weighted_or(all_dss, gt->fuse_topo.g_dss_mask,
+> +					   gt->fuse_topo.c_dss_mask,
+> +					   XE_MAX_DSS_FUSE_BITS) *
+> +			guc_capture_get_steer_reg_num(guc_to_xe(guc));
+> +	}
+>   
+>   	if (!total)
+>   		return;
 
-As this comment mentioning the [vvar] pages is already stale, IMO this should
-not be mentioned specifically. It is also not clear to me why this only happens
-now and where the non-zero map count comes from.
-
-> +	 */
-> +	if (pte_user_accessible_page(pte) && !pte_special(pte))
->  		page_table_check_clear(pte_pfn(pte), PAGE_SIZE >> PAGE_SHIFT);
-> -	}
->  }
->  EXPORT_SYMBOL(__page_table_check_pte_clear);
->  
-> @@ -205,7 +212,7 @@ void __page_table_check_ptes_set(struct mm_struct *mm, pte_t *ptep, pte_t pte,
->  
->  	for (i = 0; i < nr; i++)
->  		__page_table_check_pte_clear(mm, ptep_get(ptep + i));
-> -	if (pte_user_accessible_page(pte))
-> +	if (pte_user_accessible_page(pte) && !pte_special(pte))
->  		page_table_check_set(pte_pfn(pte), nr, pte_write(pte));
->  }
->  EXPORT_SYMBOL(__page_table_check_ptes_set);
-> -- 
-> 2.53.0
-> 
