@@ -1,46 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30B231A9F8C
-	for <stable@vger.kernel.org>; Sat, 13 Jun 2026 00:20:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F50121256C;
+	Sat, 13 Jun 2026 00:20:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781310044; cv=none; b=FPPIe+dr+40mJjpC4CAj/ibRg+yzO4fY2lCNtm7tk+1k82QFZ5WiHOB0z/ERp7raGfdjTLasYsjGdY79aZKy75hUb5SowYXsej4ZLbzELjcumpdZIxTKNMhk+MRslu5pmZHGxn+poW/Me2s8MVyj4UgrbBLk5RlN6EowOWjOSjM=
+	t=1781310044; cv=none; b=VmWbkrW1HC/weSfzMF2WEKZo3mnXCCuT0fXFccpkVQ0YeqXpZW+6lHMN0DmDroLH0rZINbIIHzkc9kZkJrJ+7UtEUORW+817tkvcm0eN/fdkbBcxLVpTOtNLax2MxgOFX52E4QHyF5GpF1/g8unWwzC/MAG+Hp6X/WHth82/zEc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1781310044; c=relaxed/simple;
-	bh=HAhhcYjAKT5J+ykF1nq/n9Mf/eHOm482fWFb2rB2ZH0=;
+	bh=XhLh+iI/QONB3oW3qacur9cMXq/IPbi9hgDtfjhJjEE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=e9xwCa1jCoN9DKzouyTkbvzaC2APs+rQn4tpAtqhaKCpWxD3GJ9Gz5Ba+LKTTaadLMBcY0wNXaKTS5V8uyEfihv4Es4j+YI76CtSIy6u3S62X5yMCqO9Say21EVaBS0jwC33kEK4SGM/0WqFKpGX9Ue+C6cLeowOrLbhOcSXJwE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eDBYadxX; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Tm7mjTYDnVFyEUGzHO3sSKcNzrng4J/GH+5qZYRf/PJGOHYTCCEk0YQLK22FwjV9gpXcaFWd7BvkAPC8Y/pq+Q0gqjkLmfXaArvs5MXcQfa+HGSK7ihD8SegOU+wWPc1fS08rq1HkKlViiH89hsstsXGRH47g7YFahiFWHirB7Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xtn+nvhE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eDBYadxX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2322B1F000E9;
-	Sat, 13 Jun 2026 00:20:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xtn+nvhE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5BEE1F00A3A;
+	Sat, 13 Jun 2026 00:20:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781310041;
-	bh=HAhhcYjAKT5J+ykF1nq/n9Mf/eHOm482fWFb2rB2ZH0=;
+	s=k20260515; t=1781310038;
+	bh=XhLh+iI/QONB3oW3qacur9cMXq/IPbi9hgDtfjhJjEE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=eDBYadxXt+9KG6UQeQxrlKq49Lojq8gJmm7PrRXl3YuFWZ8SB2Z/6Dsxz0sFiq2w4
-	 T8thAjnACRGSHTVHO+R4ssLOFmpL+blUNiAzuFM3vWNR5bfRLzwrmIz81t9ykCMVPH
-	 3VODfyeH/Z61YW6nD2gP40MJvL0hm1KD3eLMuBXGMWCxWaI6ynwo0Uyq4NHzwXbs62
-	 lkKWD6woRaNlLpRX6TWc5BJrOY1Uqxn2BCbTqR2L00a8m7XuNS+8ZeCkhTGie5OELM
-	 lz5W9pViJN6Gd9jhU4Ysj+gJo6VJym3Qe54PrdkI+IBc+DpF0HdtQVqGglzoZ7MzL9
-	 C/VvFcKj+W7Sg==
+	b=Xtn+nvhEtUmKY9aYa/p0QFigyg93czwUpAavsl7UDTbijmbG85KT7Q+muQPKuvrJR
+	 OTDUqgzS8Lg1lPI2oarSwkOol5ioAA0sNMOn7jxjhMEGzLvTOiH3qrFvF6vINMBuZt
+	 gQD8GsUGMp6RNnZFjZYAbtinNESBlTc/GBJSLfCUhx4PzMHBycCaplNYq270D8TavG
+	 iF76+MTR+Gdee+pR838xC98/D7iRuSBXrTwZkUOWOqtkHthb6HHbxI9EwHBdQgGcYb
+	 O1gYGQ89rz/xgFpTtC4M7KD7jzfbneT5LLzJ83xNGbx1T0v0m+hO5Zea/itEk2A1qq
+	 kk2eAdHZwMnag==
 From: Sasha Levin <sashal@kernel.org>
-To: Salvatore Bonaccorso <carnil@debian.org>
+To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Minh Nguyen <minhnguyen.080505@gmail.com>,
-	Willem de Bruijn <willemb@google.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Ben Hutchings <ben@decadent.org.uk>
-Subject: Re: Please apply 98d0912e9f84 ("net: skbuff: fix missing zerocopy reference in pskb_carve helpers") down to 6.1.y
-Date: Fri, 12 Jun 2026 20:20:35 -0400
-Message-ID: <20260612233120.3-1-sashal@kernel.org>
+	linux-fsdevel@vger.kernel.org,
+	linux-xfs@vger.kernel.org,
+	Gregg Leventhal <gleventhal@janestreet.com>,
+	Eric Hagberg <ehagberg@janestreet.com>,
+	Brian Foster <bfoster@redhat.com>
+Subject: Re: [PATCH 6.12.y] iomap: don't revert iov_iter on partially completed buffered writes
+Date: Fri, 12 Jun 2026 20:20:33 -0400
+Message-ID: <20260612233100.1-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <airicdmj6A7ZRGxs@eldamar.lan>
-References: <airicdmj6A7ZRGxs@eldamar.lan>
+In-Reply-To: <20260612121047.397754-1-bfoster@redhat.com>
+References: <20260612121047.397754-1-bfoster@redhat.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,14 +48,13 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Thu, Jun 11, 2026 at 06:29:37PM +0200, Salvatore Bonaccorso wrote:
-> Here is the backport for the 6.6.y series as well.
->
-> As mentioned in the other mail, I could not have looked explicitly for
-> the 5.15.y and 5.10.y. In particular for the later I think more work
-> is required.
+On Fri, Jun 12, 2026 at 08:10:47AM -0400, Brian Foster wrote:
+> Finally, note that I'm not intimately familiar with -stable process so
+> I'm just sending a 6.12.y version here. Earlier branches can either also
+> include this, revert 18e419f6e80a directly, or I can post targeted
+> patches if needed. Thoughts, reviews, flames appreciated.
 
-Thanks, the 6.6.y backport is queued, and 6.1.y is queued on top of it.
+Queued for 6.12.y, 6.6.y and 6.1.y. Thanks!
 
 --
 Thanks,
