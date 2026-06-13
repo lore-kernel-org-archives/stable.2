@@ -1,148 +1,136 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43DD1217659
-	for <stable@vger.kernel.org>; Sat, 13 Jun 2026 08:42:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A7673769E6
+	for <stable@vger.kernel.org>; Sat, 13 Jun 2026 10:45:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781340121; cv=none; b=o+Sf6czNBHy/gQ5agqR3HxG5ezfOSTSi/oMw0TBQLtG4RriWnf/bGYMFR3AJ9XMTM/2anCH4QmLSd427Ro7EVUFC1ikX7w8k4fL1ewmSYPbUVw/lt+vjPY1DrTA5tYSnMX4nLnukK57atR6iU80DHq8OkegCyrT5mVzuLNg4lEY=
+	t=1781347534; cv=none; b=BPj2xrdyzuDEZ2a6WY8JfQujaP4V52ue623xenhutUeoqQONJ9rWTGRHgAkK+s5E2GeWLXSjkk3DpvFqCkXLU2GsY8TkOjILD+BR7OpvRLIWhgeW6RqCdGkAA0/IH35VEpV8Jy854nSsMV7Sgo8EIvyed8dtFkpzEu//vE5zCNg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781340121; c=relaxed/simple;
-	bh=IaywYboz+fU/JPKklrGFTfyvFjd1tpc8+yXTZw7fh2M=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=c4FSZDKfQjUxP7UURCsajBKb9BXNQxz4X3PJdrZv3XIVTR2KaOIYulAT1kyPvG8uL3WfXlRLRBVuwMlg4QBq7veLD4XsZQnbePEMSyjgmF9U0RX7nMmZCMkXRrP16jyun0KQ/2AERh/cWokN23HDbLFbOk7WS3KGtGEaZtU7IuE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=ita42ngD; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=FDnv1mUS; arc=none smtp.client-ip=170.10.129.124
+	s=arc-20240116; t=1781347534; c=relaxed/simple;
+	bh=emc8m6OlD7VMdxRW7IDvqajEHlfMACphdp9G63UhcRA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pMp6pFhMeF5J9TlAALKjGTHC2DAoEekbrusHsDQF6SEDEONQ3f7iWSivTm2gNdDOOrkzBtCkeFvq8IfFIEDP5VryttVsnWJHFYsYnhXGQFGmyu7L0dYnhYYf9MBq/aWTK90CZaFdPmrgIZbSRPN8q80oyVPw+7VWuUTE3PJXjTw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=XG1hBZab; arc=none smtp.client-ip=170.10.133.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="ita42ngD";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="FDnv1mUS"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="XG1hBZab"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1781340119;
+	s=mimecast20190719; t=1781347532;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=8uJWP9tqMCHTtoSkkYE0M+RWI1R32XPw5b0Ycy+j2b8=;
-	b=ita42ngDDabhD3UqUk8rgrIEbkUT84cyLrt+0IDkRwPxwlm5n6j4ugt8PaClJAHilmbxNE
-	+xtnBuO98x5xRkHbjaS8D1s5+Ke8DriPTZWT6kb+qztsU8aEhMjC3qGwX7SHfVxc7wHsJk
-	aLCgDXtBp0NDxeKpQQqZvmNraRnl4jM=
-Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
- [209.85.219.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-329-em7U7o35OOCUeg_jdnrD0w-1; Sat, 13 Jun 2026 04:41:57 -0400
-X-MC-Unique: em7U7o35OOCUeg_jdnrD0w-1
-X-Mimecast-MFC-AGG-ID: em7U7o35OOCUeg_jdnrD0w_1781340117
-Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-8ccd3213beaso35785226d6.0
-        for <stable@vger.kernel.org>; Sat, 13 Jun 2026 01:41:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1781340117; x=1781944917; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=8uJWP9tqMCHTtoSkkYE0M+RWI1R32XPw5b0Ycy+j2b8=;
-        b=FDnv1mUSUxntJSIH0LFoCseFFFewp2hlRQj+pUshQhnxBmh+SzZwPW3Sx94u6jjaKd
-         b8ZbOSh3zuxcDjuUNb08iW1nHLAzL6xbUuJiX2gOh6geLiC8Hhy68AkGw+29WwU1xKsj
-         dt30oSVmVO/c6FwAL1Ca30MjYYb1rSbrUoHr7+kJUvWoiJsHxSKzhYiKAvesIwu6bukg
-         NPWqmbkY+Kx0Q7Ke7BDJEfAcoPaRsMGGnIvx0a7E1d+Hrgskj060YjNN8kYwTdv6ex3s
-         IYVImq1+WQxrdu1bDZRtD9eAhIi/thAJQB6bAfSL9PnYnlXqobKudMlYZiDD0dpu0l2Q
-         xW4Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781340117; x=1781944917;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=8uJWP9tqMCHTtoSkkYE0M+RWI1R32XPw5b0Ycy+j2b8=;
-        b=m2WQrCifQi8JW57+BXA4ML7tZYMIOdaZnSKmYDwA5b5Z2HDHqifqPP4d/6NfDS7QJT
-         m5V2l23AEA6AYHHbKMltmsqrmAq5AuUkVHgeptEm0A2Q03wzm3CvojY4XQRiHCbfNtO+
-         ZsoI2TrOUFWj8/YZmRRQT/hP//TxfqUjxa/G4SVW305RYsCbf7nJjjC4Y4e0V4tHpnTD
-         5/N48dToRuYtwUIQpVP3L1T9zAj/neLXSHYwYMepQElrm2O51lTWsStXfsdsJ20GV5k7
-         e+mOs5Fl2jHFKvJloWgRRGPtXJYUojrnki40zhmR1YC0zHMR8K2UQqAE5XUDU2P4nYrT
-         14cw==
-X-Forwarded-Encrypted: i=1; AFNElJ/tpu4SI5UMvOdDSbMgF6mBzO1jxnsFLkBbTddz67YN4LHDfFJGgdDofG+1bjePGZa2YJqgokY=@vger.kernel.org
-X-Gm-Message-State: AOJu0YylQSVwoGECietl42/QuRgCmIA1DJSYnKNVszrdgKjJvCEY9zCG
-	lZrnUmQjEfHyREBpsUJKKXFfQ9gZF6O+K594HhZZiHlkH7SsfFt2igkIMCbNXsJy/J7hYopBvuu
-	ZmrnVOtwENDIvUiCn47yGU2uLS9KHC8K5p1Q7gY4+uO2UX8fpyGnhJXM7PXoRAIbw0w==
-X-Gm-Gg: Acq92OFH0KewWlvyLMXEoI1SaRDX/1kAx8oNl0GlrXAHimCYrsKhyOgJ2xvadz4f15E
-	9zAANxZNCEXQld5CQJG8LL5p+Ai7965nUxFB8Oux+hzMWii4ikbZgmWyTdtAUi2JqtX0YRFW/63
-	0VYNaARx9c25STnNDAPXOFAUKNGcvq9hAnYXokOqXg8CyF4YmRkEJ6aeqHkdBztGT7/4yCgo+D7
-	0SOzct95TfekzKBYStWbjHoijIqHeZ3IS8DH1eAOXLUbJUTlbA4IMYVrmhuhPSBvQQedMhGsVen
-	JdKxOCffuIraQ5+tZ7shHDaD241KpMkgZfjVWmncTdfNTalv/JmwvMZ+CLUkX4nUvN/lL90KyMZ
-	pAUgaxBwpqAGy9ftPiuinMOl5dsrS4yBnBR0h015Alg74dyZ03yIHgKY=
-X-Received: by 2002:a05:622a:1102:b0:516:e086:89a with SMTP id d75a77b69052e-517fe4ddbddmr84850801cf.26.1781340117268;
-        Sat, 13 Jun 2026 01:41:57 -0700 (PDT)
-X-Received: by 2002:a05:622a:1102:b0:516:e086:89a with SMTP id d75a77b69052e-517fe4ddbddmr84850531cf.26.1781340116835;
-        Sat, 13 Jun 2026 01:41:56 -0700 (PDT)
-Received: from [192.168.88.32] ([150.228.25.72])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-517fb841970sm44912311cf.30.2026.06.13.01.41.54
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 13 Jun 2026 01:41:56 -0700 (PDT)
-Message-ID: <9b78ed2c-f664-4c56-9626-63ee73c6177e@redhat.com>
-Date: Sat, 13 Jun 2026 10:41:53 +0200
+	bh=t0Rdn7ZGItclRk/+njrMNwKPmYdf4WznHl68jVY8zfQ=;
+	b=XG1hBZabBIkpL36bh+g4EvuvOFm4yjvsfFicNrPrWms7ju6SDWd/FnmjpLmYty5ldgnVtw
+	ZLvoND3Ms26x1E5gvlwN2d4dST8btCG7dJJ0yCwmYz2daI0k5lfN3T/hrXXMx4kp1ndAxt
+	u9Ggt9OqOTgRIul6fbeaqDNbtOxl6jo=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-592-1KrHt5iEPg-CfOpTqeYkSw-1; Sat,
+ 13 Jun 2026 06:45:26 -0400
+X-MC-Unique: 1KrHt5iEPg-CfOpTqeYkSw-1
+X-Mimecast-MFC-AGG-ID: 1KrHt5iEPg-CfOpTqeYkSw_1781347525
+Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 33E3719540C3;
+	Sat, 13 Jun 2026 10:45:25 +0000 (UTC)
+Received: from fedora (unknown [10.22.88.101])
+	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id D834D180049F;
+	Sat, 13 Jun 2026 10:45:21 +0000 (UTC)
+Received: by fedora (nbSMTP-1.00) for uid 1000
+	oleg@redhat.com; Sat, 13 Jun 2026 12:45:24 +0200 (CEST)
+Date: Sat, 13 Jun 2026 12:45:20 +0200
+From: Oleg Nesterov <oleg@redhat.com>
+To: Breno Leitao <leitao@debian.org>
+Cc: Catalin Marinas <catalin.marinas@arm.com>,
+	Andrew Morton <akpm@linux-foundation.org>, lance.yang@linux.dev,
+	Davidlohr Bueso <dave@stgolabs.net>, Qian Cai <cai@lca.pw>,
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+	kernel-team@meta.com, stable@vger.kernel.org
+Subject: Re: [PATCH v2] mm/kmemleak: avoid soft lockup when scanning task
+ stacks
+Message-ID: <ai00wD4ICs1nk4zf@redhat.com>
+References: <20260612-kmemleak-stack-resched-v2-1-53240de79e88@debian.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] net: dsa: sja1105: fix refcount leak in
- sja1105_setup_tc_taprio()
-To: Wentao Liang <vulab@iscas.ac.cn>, olteanv@gmail.com, andrew@lunn.ch,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org
-Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260609074002.204113-1-vulab@iscas.ac.cn>
-Content-Language: en-US
-From: Paolo Abeni <pabeni@redhat.com>
-In-Reply-To: <20260609074002.204113-1-vulab@iscas.ac.cn>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260612-kmemleak-stack-resched-v2-1-53240de79e88@debian.org>
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
 
-On 6/9/26 9:40 AM, Wentao Liang wrote:
-> In sja1105_setup_tc_taprio(), taprio_offload_get() acquires a
-> reference on the new offload and stores it in
-> tas_data->offload[port]. If sja1105_init_scheduling() or
-> sja1105_static_config_reload() later fails, the function returns
-> without releasing the reference via taprio_offload_free(). The
-> stored pointer is thus leaked, as the driver will not clean it up
-> unless a subsequent TAPRIO_CMD_DESTROY is received, which may
-> never happen.
-> 
-> Fix the leak by calling taprio_offload_free() and resetting
-> tas_data->offload[port] to NULL on both error paths.
-> 
-> Cc: stable@vger.kernel.org
-> Fixes: 317ab5b86c8e ("net: dsa: sja1105: Configure the Time-Aware Scheduler via tc-taprio offload")
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-> ---
->  drivers/net/dsa/sja1105/sja1105_tas.c | 12 ++++++++++--
->  1 file changed, 10 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/net/dsa/sja1105/sja1105_tas.c b/drivers/net/dsa/sja1105/sja1105_tas.c
-> index e47967b12d5d..96cb5aa04910 100644
-> --- a/drivers/net/dsa/sja1105/sja1105_tas.c
-> +++ b/drivers/net/dsa/sja1105/sja1105_tas.c
-> @@ -575,10 +575,18 @@ int sja1105_setup_tc_taprio(struct dsa_switch *ds, int port,
->  	tas_data->offload[port] = taprio_offload_get(admin);
->  
->  	rc = sja1105_init_scheduling(priv);
-> -	if (rc < 0)
-> +	if (rc < 0) {
-> +		taprio_offload_free(tas_data->offload[port]);
-> +		tas_data->offload[port] = NULL;
->  		return rc;
-> +	}
->  
-> -	return sja1105_static_config_reload(priv, SJA1105_SCHEDULING);
-> +	rc = sja1105_static_config_reload(priv, SJA1105_SCHEDULING);
-> +	if (rc < 0) {
-> +		taprio_offload_free(tas_data->offload[port]);
-> +		tas_data->offload[port] = NULL;
+To avoid the confusion, I see nothing wrong in this patch, but see
+the question at the end.
 
-I think the config-cleanup issues mentioned by sashiko here should be
-addressed.
+On 06/12, Breno Leitao wrote:
+>
+> +/*
+> + * Briefly drop the RCU read lock to reschedule during the task stack scan.
+> + * Both cursors are pinned across the gap; return false if either one was
+> + * unhashed meanwhile, so the caller stops this round instead of walking a
+> + * stale list.
+> + */
+> +static bool kmemleak_stack_scan_break(struct task_struct *g,
+> +				      struct task_struct *p)
+> +{
+> +	bool can_cont;
+> +
+> +	get_task_struct(g);
+> +	get_task_struct(p);
+> +
+> +	rcu_read_unlock();
+> +	cond_resched();
+> +	rcu_read_lock();
+> +
+> +	can_cont = pid_alive(g) && pid_alive(p);
+> +
+> +	put_task_struct(p);
+> +	put_task_struct(g);
+> +
+> +	return can_cont;
+> +}
 
-/P
+Perhaps we can rename and export rcu_lock_break() to avoid the duplication...
+
+And, this is slightly off-topic, please ignore, but this reminds me about
+[PATCH 1/2] introduce for_each_process_thread_break() and for_each_process_thread_continue()
+https://lore.kernel.org/all/20180912163335.GA18748@redhat.com/
+
+> @@ -1890,11 +1917,21 @@ static void kmemleak_scan(void)
+>  		rcu_read_lock();
+>  		for_each_process_thread(g, p) {
+>  			void *stack = try_get_task_stack(p);
+> +
+>  			if (stack) {
+>  				scan_block(stack, stack + THREAD_SIZE, NULL);
+>  				put_task_stack(p);
+>  			}
+> +			/*
+> +			 * This is an expensive loop, we must to call the
+> +			 * scheduler to avoid lockups
+> +			 */
+> +			if (need_resched() && !kmemleak_stack_scan_break(g, p)) {
+> +				aborted = true;
+> +				goto unlock;
+
+Can this need_resched() check actually help if CONFIG_PREEMPTION &&
+CONFIG_PREEMPT_RCU ?
+
+In this case (lets ignore PREEMPT_DYNAMIC to simplify) rcu_read_lock()
+doesn't disable preemption and cond_resched() is nop, need_resched() is
+(almost) never true. Right?
+
+I guess even in this case it makes sense to not abuse rcu_read_lock()
+"too much", but perhaps we need something more clever than need_resched() ?
+
+Note that check_hung_uninterruptible_tasks() uses time_after()...
+
+Oleg.
 
