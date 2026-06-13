@@ -1,123 +1,91 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6274235E949
-	for <stable@vger.kernel.org>; Sat, 13 Jun 2026 19:27:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC2C730AD0A;
+	Sat, 13 Jun 2026 21:32:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781378830; cv=none; b=erqD0Z74rBRJEED7wD/KG7+ykaqnkRIpPC3YyuPmWlGd30wu41XAS1n6ZCL2zsmgkSGxDYo/cMBLIqtbKy82cQsYD6ecnyNyxTnY03igLQRhESJv+VepMhzLT7OEvB5O4rYKtew2DLVJIahOvSGKdVkGtamv+MLOKZq6abGhFjM=
+	t=1781386377; cv=none; b=ggx0yZXvi4nJfvZ2VY6AskxIpEq3ecK4j54Ju9LgLXfv/KWMmqFuc3l2sRaZXDyfqWcasB5LOuLMz14RF6Roc1DN777gl2fqkKwtMNTnG3LP/JlsuNvN6vM69EC4cuh84WszPoN21XtOhASSb7y7RpCS1F+2aUxOg4ZuYRm91r8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781378830; c=relaxed/simple;
-	bh=xVelLjBz1oChDfGaccyQlEKkrUo4O0HxtFhkEf12Xyc=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=YDsDT3uit9tC3sN4cgskCdgDnOvUJFpGwMKCt9AQrILcqiQv/sWwHAS1ycjrMLO3jUw5AmFZN7yY45vxJrSesEuOYOmQuvRwOvz96T1iCuMfSypP0qzQZGDgTcVYNlK0adiIRsHfoeyk/UlW8pydGim0Fna+WedUAXcJWQc+O50=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84A521F000E9;
-	Sat, 13 Jun 2026 19:27:07 +0000 (UTC)
-Date: Sat, 13 Jun 2026 14:27:06 -0500
-From: Clark Williams <clark.williams@gmail.com>
-To: sashal@kernel.org
-Cc: stable@vger.kernel.org
-Subject: Problems building RT stable for v6.1.175
-Message-ID: <ai2vCqAXVEMQJDOJ@demetrius>
+	s=arc-20240116; t=1781386377; c=relaxed/simple;
+	bh=1ePKK1uBddvt8IcbqEa6hzeh6HaEwuiVvRdF2I8sBcM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Ocf5SD7MHpdnc10RUM6jq8I/EV0f/NfUXLeKwU1Ixnc318UntQchnfMsWP11IV7JuCDWmDwYWLhJ/vENgwzqSXCF/Qje6CbszgghZ1OPuNpazWw/9Zgni0EEDhFjyJNooc7wIfv/asQtqAmj9bQD/o5BbhkmPKuxhEElWVcSDt8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JdQF043+; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JdQF043+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2DF71F000E9;
+	Sat, 13 Jun 2026 21:32:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781386376;
+	bh=YB1JXlPzAQ3TuwLY8z4xGmL3KXEI9zb1N75EJCQ/LDs=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=JdQF043+uFhcasM3V54cbTs4EzE6labIe/wpvptCORM/1C3CaYDEQ36gDWTJ0eNUn
+	 OMfRrxmNDYWptiEL6V92MgFj2/9zm8Gi4vEkGKv5lhWl52ank5AETAMC/Jqq5aGe9W
+	 X7rOgenKPCOcAM4g6w1Q/WXH5FUInVw+7UEmQQOpPsLr/b3ZDuuYvP5gYxWISTQ8Hl
+	 iD3sff/Ky5OBXpP4fVqtEFxEAmkxSePdIOtqLa5KQaAuXoPFu+DnI31uOXrnxooums
+	 03Ci9inpN+CopkXP/8B2chRm6Heqjzie+6G8UQYCUORuitTGRfpAfvO2ij1S3yaNZd
+	 dGhyZTys2No3w==
+From: Jakub Kicinski <kuba@kernel.org>
+To: ross.porter@canonical.com
+Cc: Jakub Kicinski <kuba@kernel.org>,
+	linux-kselftest@vger.kernel.org,
+	netdev@vger.kernel.org,
+	stable@vger.kernel.org,
+	edoardo.canepa@canonical.com,
+	davem@davemloft.net,
+	edumazet@google.com,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	shuah@kernel.org,
+	oscmaes92@gmail.com,
+	bacs@librecast.net,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/1] selftests: net: fix file owner for broadcast_ether_dst test
+Date: Sat, 13 Jun 2026 14:32:54 -0700
+Message-ID: <20260613213254.174421-1-kuba@kernel.org>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260610062230.71573-2-ross.porter@canonical.com>
+References: <20260610062230.71573-2-ross.porter@canonical.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
 
-Sasha, 
+This is an AI-generated review of your patch. The human sending this
+email has considered the AI review valid, or at least plausible.
+---
+selftests: net: fix file owner for broadcast_ether_dst test
 
-I was having some compilation problems building the v6.1-rt branch after merging v6.1.175.
-I'm building on an up-to-date Fedora 44, using gcc 16.1.1.
+This commit ensures the tcpdump output file in the broadcast_ether_dst test
+is always owned by root by passing the -Z root argument.
 
-------------------------
-First I saw this:
+> diff --git a/tools/testing/selftests/net/broadcast_ether_dst.sh b/tools/testing/selftests/net/broadcast_ether_dst.sh
+> --- a/tools/testing/selftests/net/broadcast_ether_dst.sh
+> +++ b/tools/testing/selftests/net/broadcast_ether_dst.sh
+> @@ -44,7 +44,7 @@ test_broadcast_ether_dst() {
+>  	# tcpdump will exit after receiving a single packet
+>  	# timeout will kill tcpdump if it is still running after 2s
+>  	timeout 2s ip netns exec "${CLIENT_NS}" \
+> -		tcpdump -i link0 -c 1 -w "${CAPFILE}" icmp &> "${OUTPUT}" &
+> +		tcpdump -i link0 -c 1 -w "${CAPFILE}" icmp -Z root &> "${OUTPUT}" &
 
-  CC [M]  arch/x86/kvm/vmx/vmx.o
-In file included from /lilnas/src/stable-rt/v6.1-rt/arch/x86/kvm/vmx/vmx.h:15,
-                 from /lilnas/src/stable-rt/v6.1-rt/arch/x86/kvm/vmx/nested.h:7,
-                 from /lilnas/src/stable-rt/v6.1-rt/arch/x86/kvm/vmx/vmx.c:63:
-/lilnas/src/stable-rt/v6.1-rt/arch/x86/kvm/vmx/vmx_ops.h:15:58: error: ‘regparm’ attribute ignored [-Werror=attributes]
-   15 |                                                          bool fault);
-      |                                                          ^~~~
-cc1: all warnings being treated as errors
-make[4]: *** [/lilnas/src/stable-rt/v6.1-rt/scripts/Makefile.build:250: arch/x86/kvm/vmx/vmx.o] Error 1
-make[3]: *** [/lilnas/src/stable-rt/v6.1-rt/scripts/Makefile.build:503: arch/x86/kvm] Error 2
-make[2]: *** [/lilnas/src/stable-rt/v6.1-rt/scripts/Makefile.build:503: arch/x86] Error 2
-make[1]: *** [/lilnas/src/stable-rt/v6.1-rt/Makefile:2025: .] Error 2
-make: *** [Makefile:238: __sub-make] Error 2
+[Severity: Medium]
+Will this tcpdump command fail with a syntax error in test_broadcast_ether_dst()
+on systems that use musl libc or when POSIXLY_CORRECT is set?
 
-The fix there is to add const to the definition of next_path:
+By placing the -Z root option after the positional filter expression icmp,
+standard POSIX option parsing will stop at the first non-option argument.
 
-diff --git a/tools/lib/bpf/libbpf.c b/tools/lib/bpf/libbpf.c
-index 7bd6aff6e260..33b214a91338 100644
---- a/tools/lib/bpf/libbpf.c
-+++ b/tools/lib/bpf/libbpf.c
-@@ -10748,7 +10748,7 @@ static int resolve_full_path(const char *file, char *result, size_t result_sz)
-                if (!search_paths[i])
-                        continue;
-                for (s = search_paths[i]; s != NULL; s = strchr(s, ':')) {
--                       char *next_path;
-+                       const char *next_path;
-                        int seg_len;
- 
-                        if (s[0] == ':')
+While this works on glibc systems because getopt() permutes arguments by
+default, on strict POSIX systems tcpdump might treat -Z root as part of the
+filter expression. This would concatenate the arguments into "icmp -Z root"
+and cause a fatal pcap filter compilation error, breaking the selftest
+unconditionally in those environments.
 
-------------------------
-next up is a warning-as-failure in libbpf.c:
-
-   CC [M]  arch/x86/kvm/vmx/vmx.o
-   In file included from /lilnas/src/stable-rt/v6.1-rt/arch/x86/kvm/vmx/vmx.h:15,
-   from /lilnas/src/stable-rt/v6.1-rt/arch/x86/kvm/vmx/nested.h:7,
-   from /lilnas/src/stable-rt/v6.1-rt/arch/x86/kvm/vmx/vmx.c:63:
-   /lilnas/src/stable-rt/v6.1-rt/arch/x86/kvm/vmx/vmx_ops.h:15:58: error: ‘regparm’ attribute ignored [-Werror=attributes]
-   15 |                                                          bool fault);
-      |                                                          ^~~~
-   cc1: all warnings being treated as errors
-   make[4]: *** [/lilnas/src/stable-rt/v6.1-rt/scripts/Makefile.build:250: arch/x86/kvm/vmx/vmx.o] Error 1
-   make[3]: *** [/lilnas/src/stable-rt/v6.1-rt/scripts/Makefile.build:503: arch/x86/kvm] Error 2
-   make[2]: *** [/lilnas/src/stable-rt/v6.1-rt/scripts/Makefile.build:503: arch/x86] Error 2
-   make[1]: *** [/lilnas/src/stable-rt/v6.1-rt/Makefile:2025: .] Error 2
-   make: *** [Makefile:238: __sub-make] Error 2
-
-
-I'll admit I had to ask my buddy Claude about this one. Turns out that the regparm attribute is relevant only on x86-32
-and is meaningless on x86-64, so treated as a warning and a failure. The fix is to wrap the definition in an #ifdef
-for CONFIG_X86_32:
-
-
-diff --git a/arch/x86/kvm/vmx/vmx_ops.h b/arch/x86/kvm/vmx/vmx_ops.h
-index 5edab28dfb2e..50328be40b2b 100644
---- a/arch/x86/kvm/vmx/vmx_ops.h
-+++ b/arch/x86/kvm/vmx/vmx_ops.h
-@@ -11,8 +11,11 @@
- #include "../x86.h"
- 
- void vmread_error(unsigned long field, bool fault);
--__attribute__((regparm(0))) void vmread_error_trampoline(unsigned long field,
--                                                        bool fault);
-+/* regparm(0) overrides -mregparm=3 so args are stack-passed, matching asm callers */
-+#ifdef CONFIG_X86_32
-+__attribute__((regparm(0)))
-+#endif
-+void vmread_error_trampoline(unsigned long field, bool fault);
- void vmwrite_error(unsigned long field, unsigned long value);
- void vmclear_error(struct vmcs *vmcs, u64 phys_addr);
- void vmptrld_error(struct vmcs *vmcs, u64 phys_addr);
-
-------------------------
-
-Pretty sure you'll need these (or something equivalent) on 6.1 stable, when more people start using gcc 16.
-
-Don't know if this email is enough but if you want I'll send you a patch series. 
-
-Regards,
-Clark
+Could the -Z root argument be moved before the icmp filter expression?
 -- 
-The United States Coast Guard
-Ruining Natural Selection since 1790
+pw-bot: cr
