@@ -1,148 +1,123 @@
-Received: from meesny.iki.fi (meesny.iki.fi [195.140.195.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F30CA38F935;
-	Sat, 13 Jun 2026 18:45:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=195.140.195.201
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781376336; cv=pass; b=ZHXZsU/3kc4FLiSddTtRGAcBpkSNRZroWWvOv3iFsTXFjNcPZMA8XkWjIwuH2MI1t/mT7gz4niObiufcbRpHqjWaQGIDVajSi2AdXW2X06AtR0WeidZaqK2JtxYTTND8bPCphzhJO/PwZNoswQYh1Kk6uO57YjqnTJck3bwdDyw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781376336; c=relaxed/simple;
-	bh=9f+zVou29lEV9SZuVJJgXyhDEy7OX65g9PxBdn7gSTg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KBMG3IF2pKuiMtt/9no+sylOgWrLAewcgnEUQjiHkevQg6zrKX+tXqlaNju9dR9+oiVNdq+lvxMEoEOSRiKrJoYTyc4DubkwHKeE+0nHQDK9akbWxuyqpcCYzKhXb+YMCkXiMj6AYkZum+6kCoK5wQ+gyBNUyG5GfRuTMKMUueQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi; spf=pass smtp.mailfrom=iki.fi; dkim=pass (1024-bit key) header.d=iki.fi header.i=@iki.fi header.b=V6jX7q2d; arc=pass smtp.client-ip=195.140.195.201
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iki.fi
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=iki.fi header.i=@iki.fi header.b="V6jX7q2d"
-Received: from monolith.lan (unknown [IPv6:2a0c:f040:0:2790::a03d])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: pav)
-	by meesny.iki.fi (Postfix) with ESMTPSA id 4gd5153shVzyQ6;
-	Sat, 13 Jun 2026 21:45:29 +0300 (EEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi; s=meesny;
-	t=1781376330;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=MV4P8RB45pbcl8M0UwnNRzaYkSS0MYDpNa9SCfx3QoA=;
-	b=V6jX7q2dNEoRlDrF5/sysb5RCJ4ERNgS+d1j1qg0XGlri0PAi6lgh56zKLpOEcrGLm4hRB
-	Jsq4XTA591vh+uWLjYAaD67qrRNLoazWKcdyVtY5HFwDJEQbiBaX1FPqcIMQZWm/begQtF
-	oEJPTdxy0tgtT+l2sk79Z20M7x6I6ts=
-ARC-Seal: i=1; a=rsa-sha256; d=iki.fi; s=meesny; cv=none; t=1781376330;
-	b=Qaz/SrHFMPRsi/LvZ/m1mLACk+u89gFhQpcyeS79IG58WMFl2o6guiBfEmsoQfbuc/OSpD
-	ctLnAxAirNNusQxiSoVRlCDd0sJha/8TGZoUeWV/oRQT0nMiSs38JAS8l4CbA2SNs5YIp6
-	Vev2PrNY5+JCnIdHs/YQe2HKxFL85T8=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi;
-	s=meesny; t=1781376330;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=MV4P8RB45pbcl8M0UwnNRzaYkSS0MYDpNa9SCfx3QoA=;
-	b=iqazC5aRuB/pce7fVHTxe4sw2DcEGm4Gqan0UgmpzG2U9SbFV6a2KWsaeQlg0BcjAVXlPc
-	O85/1+eGr+b8QQRSDlADqr1UCOEouv92WbOaYuPsDv72nyRN5+09b0Vd4qCqK5by1FcdTX
-	tKK1RbFDaAgjz8TKvodfDzAJWv2Nv2w=
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=pav smtp.mailfrom=pav@iki.fi
-From: Pauli Virtanen <pav@iki.fi>
-To: linux-bluetooth@vger.kernel.org
-Cc: Pauli Virtanen <pav@iki.fi>,
-	marcel@holtmann.org,
-	luiz.dentz@gmail.com,
-	25181214217@stu.xidian.edu.cn,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v2] Bluetooth: hci_uart: clear HCI_UART_SENDING when write_work is canceled
-Date: Sat, 13 Jun 2026 21:43:37 +0300
-Message-ID: <9fdead8517c36f37c0b23b7b60f590d735792cfa.1781375875.git.pav@iki.fi>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <6888691461070a011d31632e6dcbfd73016dcc6e.1781364475.git.pav@iki.fi>
-References: <6888691461070a011d31632e6dcbfd73016dcc6e.1781364475.git.pav@iki.fi>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6274235E949
+	for <stable@vger.kernel.org>; Sat, 13 Jun 2026 19:27:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781378830; cv=none; b=erqD0Z74rBRJEED7wD/KG7+ykaqnkRIpPC3YyuPmWlGd30wu41XAS1n6ZCL2zsmgkSGxDYo/cMBLIqtbKy82cQsYD6ecnyNyxTnY03igLQRhESJv+VepMhzLT7OEvB5O4rYKtew2DLVJIahOvSGKdVkGtamv+MLOKZq6abGhFjM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781378830; c=relaxed/simple;
+	bh=xVelLjBz1oChDfGaccyQlEKkrUo4O0HxtFhkEf12Xyc=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=YDsDT3uit9tC3sN4cgskCdgDnOvUJFpGwMKCt9AQrILcqiQv/sWwHAS1ycjrMLO3jUw5AmFZN7yY45vxJrSesEuOYOmQuvRwOvz96T1iCuMfSypP0qzQZGDgTcVYNlK0adiIRsHfoeyk/UlW8pydGim0Fna+WedUAXcJWQc+O50=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84A521F000E9;
+	Sat, 13 Jun 2026 19:27:07 +0000 (UTC)
+Date: Sat, 13 Jun 2026 14:27:06 -0500
+From: Clark Williams <clark.williams@gmail.com>
+To: sashal@kernel.org
+Cc: stable@vger.kernel.org
+Subject: Problems building RT stable for v6.1.175
+Message-ID: <ai2vCqAXVEMQJDOJ@demetrius>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
 
-HCI_UART_SENDING bit in tx_state means write_work is pending and blocks
-queueing it again.  Currently this bit is not cleared when canceling the
-work in hci_uart_close(), which blocks future writes when device is
-reopened later if write_work was pending.
+Sasha, 
 
-Fix by clearing HCI_UART_SENDING when canceling the work.
+I was having some compilation problems building the v6.1-rt branch after merging v6.1.175.
+I'm building on an up-to-date Fedora 44, using gcc 16.1.1.
 
-Also make clearing of tx_skb safe by using disable_work_sync +
-enable_work instead of just cancel_work_sync.  hci_uart_flush() purges
-the proto tx queue so we can cancel the pending write_work there,
-instead of doing it just in hci_uart_close().  Re-enable and possibly
-requeue the work after queue flush.
+------------------------
+First I saw this:
 
-Fixes: c1bb9336ae6b ("Bluetooth: hci_uart: fix UAFs and race conditions in close and init paths")
-Link: https://lore.kernel.org/linux-bluetooth/07e0a28650773abec711ee492fdb1bf5d21a6c98.camel@iki.fi/
-Cc: stable@vger.kernel.org
-Signed-off-by: Pauli Virtanen <pav@iki.fi>
----
+  CC [M]  arch/x86/kvm/vmx/vmx.o
+In file included from /lilnas/src/stable-rt/v6.1-rt/arch/x86/kvm/vmx/vmx.h:15,
+                 from /lilnas/src/stable-rt/v6.1-rt/arch/x86/kvm/vmx/nested.h:7,
+                 from /lilnas/src/stable-rt/v6.1-rt/arch/x86/kvm/vmx/vmx.c:63:
+/lilnas/src/stable-rt/v6.1-rt/arch/x86/kvm/vmx/vmx_ops.h:15:58: error: ‘regparm’ attribute ignored [-Werror=attributes]
+   15 |                                                          bool fault);
+      |                                                          ^~~~
+cc1: all warnings being treated as errors
+make[4]: *** [/lilnas/src/stable-rt/v6.1-rt/scripts/Makefile.build:250: arch/x86/kvm/vmx/vmx.o] Error 1
+make[3]: *** [/lilnas/src/stable-rt/v6.1-rt/scripts/Makefile.build:503: arch/x86/kvm] Error 2
+make[2]: *** [/lilnas/src/stable-rt/v6.1-rt/scripts/Makefile.build:503: arch/x86] Error 2
+make[1]: *** [/lilnas/src/stable-rt/v6.1-rt/Makefile:2025: .] Error 2
+make: *** [Makefile:238: __sub-make] Error 2
 
-Notes:
-    v2:
-    - extend disable_work section to after proto->flush where the queue is
-      supposed to be empty
-    - clear HCI_UART_SENDING after enable_work() to avoid concurrent
-      bt_tx_wakeup() having set it
-    - requeue write_work in case something concurrently added more tx
+The fix there is to add const to the definition of next_path:
 
- drivers/bluetooth/hci_ldisc.c | 14 ++++++++++----
- 1 file changed, 10 insertions(+), 4 deletions(-)
+diff --git a/tools/lib/bpf/libbpf.c b/tools/lib/bpf/libbpf.c
+index 7bd6aff6e260..33b214a91338 100644
+--- a/tools/lib/bpf/libbpf.c
++++ b/tools/lib/bpf/libbpf.c
+@@ -10748,7 +10748,7 @@ static int resolve_full_path(const char *file, char *result, size_t result_sz)
+                if (!search_paths[i])
+                        continue;
+                for (s = search_paths[i]; s != NULL; s = strchr(s, ':')) {
+-                       char *next_path;
++                       const char *next_path;
+                        int seg_len;
+ 
+                        if (s[0] == ':')
 
-diff --git a/drivers/bluetooth/hci_ldisc.c b/drivers/bluetooth/hci_ldisc.c
-index 47f4902b40b4..2ad42c3bbaac 100644
---- a/drivers/bluetooth/hci_ldisc.c
-+++ b/drivers/bluetooth/hci_ldisc.c
-@@ -239,6 +239,8 @@ static int hci_uart_flush(struct hci_dev *hdev)
+------------------------
+next up is a warning-as-failure in libbpf.c:
+
+   CC [M]  arch/x86/kvm/vmx/vmx.o
+   In file included from /lilnas/src/stable-rt/v6.1-rt/arch/x86/kvm/vmx/vmx.h:15,
+   from /lilnas/src/stable-rt/v6.1-rt/arch/x86/kvm/vmx/nested.h:7,
+   from /lilnas/src/stable-rt/v6.1-rt/arch/x86/kvm/vmx/vmx.c:63:
+   /lilnas/src/stable-rt/v6.1-rt/arch/x86/kvm/vmx/vmx_ops.h:15:58: error: ‘regparm’ attribute ignored [-Werror=attributes]
+   15 |                                                          bool fault);
+      |                                                          ^~~~
+   cc1: all warnings being treated as errors
+   make[4]: *** [/lilnas/src/stable-rt/v6.1-rt/scripts/Makefile.build:250: arch/x86/kvm/vmx/vmx.o] Error 1
+   make[3]: *** [/lilnas/src/stable-rt/v6.1-rt/scripts/Makefile.build:503: arch/x86/kvm] Error 2
+   make[2]: *** [/lilnas/src/stable-rt/v6.1-rt/scripts/Makefile.build:503: arch/x86] Error 2
+   make[1]: *** [/lilnas/src/stable-rt/v6.1-rt/Makefile:2025: .] Error 2
+   make: *** [Makefile:238: __sub-make] Error 2
+
+
+I'll admit I had to ask my buddy Claude about this one. Turns out that the regparm attribute is relevant only on x86-32
+and is meaningless on x86-64, so treated as a warning and a failure. The fix is to wrap the definition in an #ifdef
+for CONFIG_X86_32:
+
+
+diff --git a/arch/x86/kvm/vmx/vmx_ops.h b/arch/x86/kvm/vmx/vmx_ops.h
+index 5edab28dfb2e..50328be40b2b 100644
+--- a/arch/x86/kvm/vmx/vmx_ops.h
++++ b/arch/x86/kvm/vmx/vmx_ops.h
+@@ -11,8 +11,11 @@
+ #include "../x86.h"
  
- 	BT_DBG("hdev %p tty %p", hdev, tty);
- 
-+	disable_work_sync(&hu->write_work);
-+
- 	if (hu->tx_skb) {
- 		kfree_skb(hu->tx_skb); hu->tx_skb = NULL;
- 	}
-@@ -254,6 +256,14 @@ static int hci_uart_flush(struct hci_dev *hdev)
- 
- 	percpu_up_read(&hu->proto_lock);
- 
-+	/* Resume TX. Also reschedule in case work was queued concurrently;
-+	 * this may schedule write_work although there's nothing to do.
-+	 */
-+	enable_work(&hu->write_work);
-+	clear_bit(HCI_UART_SENDING, &hu->tx_state);
-+	if (test_bit(HCI_UART_TX_WAKEUP, &hu->tx_state))
-+		hci_uart_tx_wakeup(hu);
-+
- 	return 0;
- }
- 
-@@ -271,12 +281,8 @@ static int hci_uart_open(struct hci_dev *hdev)
- /* Close device */
- static int hci_uart_close(struct hci_dev *hdev)
- {
--	struct hci_uart *hu = hci_get_drvdata(hdev);
--
- 	BT_DBG("hdev %p", hdev);
- 
--	cancel_work_sync(&hu->write_work);
--
- 	hci_uart_flush(hdev);
- 	hdev->flush = NULL;
- 	return 0;
+ void vmread_error(unsigned long field, bool fault);
+-__attribute__((regparm(0))) void vmread_error_trampoline(unsigned long field,
+-                                                        bool fault);
++/* regparm(0) overrides -mregparm=3 so args are stack-passed, matching asm callers */
++#ifdef CONFIG_X86_32
++__attribute__((regparm(0)))
++#endif
++void vmread_error_trampoline(unsigned long field, bool fault);
+ void vmwrite_error(unsigned long field, unsigned long value);
+ void vmclear_error(struct vmcs *vmcs, u64 phys_addr);
+ void vmptrld_error(struct vmcs *vmcs, u64 phys_addr);
+
+------------------------
+
+Pretty sure you'll need these (or something equivalent) on 6.1 stable, when more people start using gcc 16.
+
+Don't know if this email is enough but if you want I'll send you a patch series. 
+
+Regards,
+Clark
 -- 
-2.54.0
-
+The United States Coast Guard
+Ruining Natural Selection since 1790
