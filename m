@@ -1,127 +1,91 @@
-Received: from meesny.iki.fi (meesny.iki.fi [195.140.195.201])
+Received: from out-174.mta1.migadu.com (out-174.mta1.migadu.com [95.215.58.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A78A6379C29;
-	Sat, 13 Jun 2026 15:30:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=195.140.195.201
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781364611; cv=pass; b=eKSsHkBiUWgPIgo5iln9J948fuXQ6BoF5vEpFXOEEE7Ly4Ydb3yxWga+NV+Dp4K7BjqG3ySXhtbRYP9LKD12ANnRABTexTs2rZhgOZIC0on2IiNCVTz5a7YqplHw8JndsqjyzSraTz61/q4Nd4apcsr8hSfIsnNLP+aQlxdWqD4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781364611; c=relaxed/simple;
-	bh=S5dYuLv4N6nSh5hPQxsSe7bwHSQolb/RIp7nc0RL5mo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nvZZTZhuUVoNNcXxVx3imJZgp2kGOhtPkIY61aYpWjTVZUcVbugUh6n8h/568hOX+hYI91DJFE24w/1aOiYiLEdBE5KWDM31FewZ1U3Fo8e+hp1Lc/2HmVFcUh3gPjHS04oE18JFycruT9YLE18oHDo2B+5so33jna0e2L+iuNc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi; spf=pass smtp.mailfrom=iki.fi; dkim=pass (1024-bit key) header.d=iki.fi header.i=@iki.fi header.b=LtaD9Kax; arc=pass smtp.client-ip=195.140.195.201
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iki.fi
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9FF33264F1
+	for <stable@vger.kernel.org>; Sat, 13 Jun 2026 15:37:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.174
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781365026; cv=none; b=gtAw1rBfgX9EoweD6Aa06Cwi87wsse2tWIJBf3eMs/lVkI68Jq2CtzaAkswoQ8PZQO4pP/iJPoTL4IKUx0wo6bB648fHPfHyoHB9pYPoC1+vabqDtovWWN+0pwSpXL3zv2MyAcYi/z3y8ukjjmywFN6uuHXalyO8rkrBZ4OS5gs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781365026; c=relaxed/simple;
+	bh=5qsifoWP8fmSJQM5dHwZSEdbauOe3h4dtgn+oQ6R7fg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=DtaXJLEMKk0AlTpiXiBEYDRDK8Z/xE3uU662jwekdJXvj3Ygo23X4S1EB59YkHLuB3fqlPYUwxi+vfCH6UI44ic5GnkYvy1027QyCVwaRAT+McQS2aOK1/F9LjOY8/n6xDsif4E7IOXkXrNSAJoTFG8A5+dTl2Gb1aRfD6t6gRo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=N4MmU8ye; arc=none smtp.client-ip=95.215.58.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=iki.fi header.i=@iki.fi header.b="LtaD9Kax"
-Received: from monolith.lan (unknown [IPv6:2a0c:f040:0:2790::a03d])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: pav)
-	by meesny.iki.fi (Postfix) with ESMTPSA id 4gd0gX118dzyWH;
-	Sat, 13 Jun 2026 18:30:00 +0300 (EEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi; s=meesny;
-	t=1781364601;
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="N4MmU8ye"
+Message-ID: <683801c1-23a7-424c-ac8d-12a24961088d@linux.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1781365009;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=88kYt8eEzESBaOFkzHodNaDnLTBS/6KbUlbalEizkuQ=;
-	b=LtaD9KaxYsUBRvLjRL3HZ3fm+hbqg3IpBEjjeL7uNiNLIO6JKoqOP4vza/48ow6NUo+RQ3
-	nMz/mUyqet4TixRacAXeb/sFBP/g8r7xDBaLgizt+LbEkuuahP6n6EjOzTm00gAiAJuZdO
-	bo0yPSrdUnNJH/5LmaJ5J4DpAaBAslk=
-ARC-Seal: i=1; a=rsa-sha256; d=iki.fi; s=meesny; cv=none; t=1781364601;
-	b=c/V1stdoTxgI5F+IotZtXx1Nn/PSuYXn5Dp08Mt/X3VSbSMNONN5J4yx3Xu1wKfzl+4Mth
-	Vqv6AVAmcYZMSzW2KfmFwKy96YZ+CuhWQdGYm0Sa4Ss6ZGeTTwe7/e81kNdpSdKBZjNVT1
-	8U9ox/jSqmkNVeytZO4rOBueYxBUgwA=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi;
-	s=meesny; t=1781364601;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=88kYt8eEzESBaOFkzHodNaDnLTBS/6KbUlbalEizkuQ=;
-	b=jyl6WKH7bM6pbuj6iUc+6dMbSuNvJirPEO5WryTycekiA2S4zmn9rCYyPkGHrNwTkiu5/a
-	PQkhcaadpyI7VkWpepVBsYGi2XeWwyzjwbsIY1PNueiTeQ22RTuVfjLklq1iG/9jC9H59c
-	WhWczRVcjeBZ7Uam+7+hK5CqPjc1hQ0=
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=pav smtp.mailfrom=pav@iki.fi
-From: Pauli Virtanen <pav@iki.fi>
-To: linux-bluetooth@vger.kernel.org
-Cc: Pauli Virtanen <pav@iki.fi>,
-	marcel@holtmann.org,
-	luiz.dentz@gmail.com,
-	25181214217@stu.xidian.edu.cn,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] Bluetooth: hci_uart: clear HCI_UART_SENDING when write_work is canceled
-Date: Sat, 13 Jun 2026 18:29:57 +0300
-Message-ID: <6888691461070a011d31632e6dcbfd73016dcc6e.1781364475.git.pav@iki.fi>
-X-Mailer: git-send-email 2.54.0
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=kAnta1paEwdFIQxih/xgWEJ4+KGJdhDjTjYkexN5zvo=;
+	b=N4MmU8yeOUrd20h8DE2N3CrJynJuhtfy2OdKynqokByRbOz2lu15GrpNB3K1dOvVaJUE+N
+	Z3cEr1BqUE2WZFHW+Wejet/iGlHgNbbc2zM60EMC7N9GfpAASmkSPZNWTVTRFoR4EeHDFJ
+	ukvsUWELv05KfVVr/HIcMUzLDaYttmQ=
+Date: Sat, 13 Jun 2026 23:33:30 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Subject: Re: [RFC PATCH v4 0/6] samples/damon: handle damon_{start,stop}()
+ failures
+To: SeongJae Park <sj@kernel.org>
+Cc: "# 6 . 14 . x" <stable@vger.kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>, damon@lists.linux.dev,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org
+References: <20260610135546.64943-1-sj@kernel.org>
+Content-Language: en-US
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: Zenghui Yu <zenghui.yu@linux.dev>
+In-Reply-To: <20260610135546.64943-1-sj@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Migadu-Flow: FLOW_OUT
 
-HCI_UART_SENDING bit in tx_state means write_work is pending and blocks
-queueing it again.  Currently this bit is not cleared when canceling the
-work in hci_uart_close(), which blocks future writes when device is
-reopened later if write_work was pending.
+On 6/10/26 9:55 PM, SeongJae Park wrote:
+> All DAMON sample modules are not correctly handling failures from
+> damon_start().  Among those, mtier also has an additional problem for
+> handling of damon_stop() failures.  wsse and prcl also have a problem in
+> their damon_call() failure handling.  As a result, memory leaks, next
+> DAMON operation disruptions, and use-after-free can happen.  Fix those.
+> 
+> Note that only the damon_start() failure caused issues can reliably be
+> reproduced.  Reproducing those issues require the admin permission,
+> though.
+> 
+> Changes from RFC v3
+> - RFC v3: https://lore.kernel.org/20260610011420.3018-1-sj@kernel.org
+> - Add damon_Call() failure handling fixes for wsse and prcl.
+> Changes from RFC v2
+> - RFC v2: https://lore.kernel.org/20260609142119.68120-1-sj@kernel.org
+> - Add damon_start() failure handling fixes for wsse and prcl.
+> Changes from RFC v1
+> - RFC v1: https://lore.kernel.org/20260609005443.2122-1-sj@kernel.org
+> - Add damon_stop() failure handling fix to the series.
+> 
+> SeongJae Park (6):
+>   samples/damon/wsse: handle damon_start() failure
+>   samples/damon/prcl: handle damon_start() failure
+>   samples/damon/mtier: handle damon_start() failure
+>   samples/damon/mtier: handle damon_stop() failure
+>   samples/damon/wsse: stop and free damon ctx when damon_call() fails
+>   samples/damon/prcl: stop and free damon ctx when damon_call() fails
+> 
+>  samples/damon/mtier.c | 14 ++++++++++++--
+>  samples/damon/prcl.c  | 11 +++++++++--
+>  samples/damon/wsse.c  | 11 +++++++++--
+>  3 files changed, 30 insertions(+), 6 deletions(-)
 
-Fix by clearing HCI_UART_SENDING when canceling the work.
+Looks good,
 
-Also make clearing of tx_skb safe by using disable_work_sync +
-enable_work instead of just cancel_work_sync.  hci_uart_flush() purges
-the proto tx queue so we can cancel the pending write_work there,
-instead of doing it just in hci_uart_close().
+Reviewed-by: Zenghui Yu <zenghui.yu@linux.dev>
 
-Fixes: c1bb9336ae6b ("Bluetooth: hci_uart: fix UAFs and race conditions in close and init paths")
-Link: https://lore.kernel.org/linux-bluetooth/07e0a28650773abec711ee492fdb1bf5d21a6c98.camel@iki.fi/
-Cc: stable@vger.kernel.org
-Signed-off-by: Pauli Virtanen <pav@iki.fi>
----
- drivers/bluetooth/hci_ldisc.c | 11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/bluetooth/hci_ldisc.c b/drivers/bluetooth/hci_ldisc.c
-index 47f4902b40b4..b0708ec9751c 100644
---- a/drivers/bluetooth/hci_ldisc.c
-+++ b/drivers/bluetooth/hci_ldisc.c
-@@ -239,10 +239,17 @@ static int hci_uart_flush(struct hci_dev *hdev)
- 
- 	BT_DBG("hdev %p tty %p", hdev, tty);
- 
-+	disable_work_sync(&hu->write_work);
-+
- 	if (hu->tx_skb) {
- 		kfree_skb(hu->tx_skb); hu->tx_skb = NULL;
- 	}
- 
-+	if (test_and_clear_bit(HCI_UART_SENDING, &hu->tx_state))
-+		wake_up_bit(&hu->tx_state, HCI_UART_SENDING);
-+
-+	enable_work(&hu->write_work);
-+
- 	/* Flush any pending characters in the driver and discipline. */
- 	tty_ldisc_flush(tty);
- 	tty_driver_flush_buffer(tty);
-@@ -271,12 +278,8 @@ static int hci_uart_open(struct hci_dev *hdev)
- /* Close device */
- static int hci_uart_close(struct hci_dev *hdev)
- {
--	struct hci_uart *hu = hci_get_drvdata(hdev);
--
- 	BT_DBG("hdev %p", hdev);
- 
--	cancel_work_sync(&hu->write_work);
--
- 	hci_uart_flush(hdev);
- 	hdev->flush = NULL;
- 	return 0;
--- 
-2.54.0
-
+Thanks,
+Zenghui
