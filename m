@@ -1,44 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0FA131F9B7;
-	Sat, 13 Jun 2026 14:51:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 203763368BF
+	for <stable@vger.kernel.org>; Sat, 13 Jun 2026 14:51:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781362304; cv=none; b=qX88f26avn344gD6Qmxk41dzzw/DOt7TEoMU5kJWmj2h5/1a97/o6LsT/kc54/hQbaS2KKo6j6b4Gb2hIPXsOPXAUbJ3wPI1ULtqrEp/3KslJfHPnszZrL/1s9LfmzT8pHXL7gvQo+FgiFgNoOWjKh65IrKGYI5591mMl7a0h10=
+	t=1781362304; cv=none; b=GlfjEJ6Q6mBMhAQCbZbXSdblDjzukDEvhrIL8GZEdbRcV7XarFoSQxCTNnueFQunqbwRQQtR8fK8mfPVumc3TwI7Ljbtmz7um6PGVZ0duABxCw2GXrCSla15rdrKf3fuC2n2/OkK3Uk65Lxinb04Y8AidklUbzwsnKHTnF67LDg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1781362304; c=relaxed/simple;
-	bh=+mzCkrPeOkAvwKjhFQKRdI15toB9RxRz9EPGwvt0ovg=;
+	bh=YxcKzlWBR0/NXF7dD9595Lk32P57Q6IUNKkhluQziJs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Rj5ebGptWHrBLCA0QDRZLA1FJb4WVdQrVpM5aTz56xmRTVda7tSnH0GgyrqgEbJyX1qZPWHeKGV6y7aTe93CZRZjv51cBoQAKxHVLkKqeTURdlUCoyeekqn3++FxxPJ5fm74fl7PqJ4mOvMnWGgHUU1LYlysMNMZw72PzKed0cM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d2OTvTBH; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=mQ2iJ27ThUNzJf6w3hEJS+d6BXO362+LCNK/vwmNqn6vq3IZC2QgvYV03KZkz2WFQPL5EbAo/CODEXIOVI8i3Pev7GVY+EK85Lv++tenS1U2N5k5nNfgrRJ53ZFawjSZlesYWt8pgEflTm0PmQBqer9y+Z+P9oREaOJj8vDyqPs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jq2UyUfl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d2OTvTBH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52DDF1F00A3D;
-	Sat, 13 Jun 2026 14:51:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jq2UyUfl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A2391F00AC4;
+	Sat, 13 Jun 2026 14:51:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781362299;
-	bh=+mzCkrPeOkAvwKjhFQKRdI15toB9RxRz9EPGwvt0ovg=;
+	s=k20260515; t=1781362300;
+	bh=YxcKzlWBR0/NXF7dD9595Lk32P57Q6IUNKkhluQziJs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=d2OTvTBHMhIa0SIQEQ3JP4plP7n6TV/yDQJqhthEc0j/cK/d4NYKI/d0kZiyO6KWt
-	 j4bJdiDYVHRFF1Gkl86LWbWd2WFAqX/sY4PzMNeWTKYj0EyF3N4MiD92PWA2wGtv0o
-	 O8CTHV6EiOe3QipHzJ2KR+8p/qsOJjqNtfYv7Qe/8Z+K3fJkf+pKrwCvOhFnKX9e0B
-	 9WnE46lYaWY9+FjdfbdD1a1zlnKwknskYjmWPiuu/8B5mmq6YAyC7C5N6F3CH3A2+F
-	 I60ogrjEJkAEErCrI1TPj7snEh9e5ccXjXJqeJD2EdVtxCLTma21a1R7fnH+IxX1FI
-	 oy0lXBdkmQrfg==
+	b=jq2UyUflIAjJ6cteoYW1j0JpRqy6zQWK01TkB5Tl6g+eYpV/pn0I2G4tcegSao3yw
+	 cWH7iTLqqE/N4eaHCaBpL5uPIE7dSfEclL8ERhuWPHDfDndCHgdENRTqkeNGhDdJ3b
+	 h/yir8qadKNxjHXf90v+boKFE+MRThUYnn271uzAo4K8UcVKGty5I6lTvL3ruHaaUR
+	 z+9jnp+ZbR8QKONWrnBqGFjDhiKugGcV9harOAxgLeF2QEGActy0vIUdIW0/pZ0As8
+	 dCcbRXyx90DJ8mPmL33WwUCpXWjUzm5IYu57JXxfoFbJOgMJgSLhkhQiULwaz1k3y7
+	 LYvgc2RBKd1+A==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	netfilter-devel@vger.kernel.org,
-	Pablo Neira Ayuso <pablo@netfilter.org>,
-	Florian Westphal <fw@strlen.de>,
-	Mark Bundschuh <mkbund@amazon.com>
-Subject: Re: [PATCH 6.6.y] netfilter: ctnetlink: ensure safe access to master conntrack
-Date: Sat, 13 Jun 2026 10:51:28 -0400
-Message-ID: <20260613143002.0003-1-sashal@kernel.org>
+	Josef Bacik <josef@toxicpanda.com>
+Subject: Re: Please apply e1b849cfa6b61f1c866a908c9e8dd9b5aaab820b to 6.12.y
+Date: Sat, 13 Jun 2026 10:51:30 -0400
+Message-ID: <20260613143004.0005-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260612202408.1045757-1-mkbund@amazon.com>
-References: <20260612202408.1045757-1-mkbund@amazon.com>
+In-Reply-To: <20260612212134.GA3841315@perftesting>
+References: <20260612212134.GA3841315@perftesting>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,12 +44,18 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Fri, Jun 12, 2026 at 08:24:08PM +0000, Mark Bundschuh wrote:
-> From: Pablo Neira Ayuso <pablo@netfilter.org>
->
-> [ Upstream commit bffcaad9afdfe45d7fc777397d3b83c1e3ebffe5 ]
+On Fri, Jun 12, 2026 at 05:21:34PM -0400, Josef Bacik wrote:
+> AUTOSEL already grabbed the other two patches in this series, but this one is
+> equally important and we're currently hitting problems in production without
+> this patch. It applies cleanly to 6.12.y. Thanks,
 
-Queued for 6.6.y, thanks.
+Queued for 6.12.y, thanks.
+
+Note that e1b849cfa6b6 introduced a use-after-free in
+inode_switch_wbs_work_fn() that was fixed later by 6689f01d6740
+("writeback: Fix use after free in inode_switch_wbs_work_fn()", which
+carries Fixes: e1b849cfa6b6 and Cc: stable). That fix wasn't in 6.12.y
+yet either, so I've queued it on top to avoid reintroducing the UAF.
 
 --
 Thanks,
