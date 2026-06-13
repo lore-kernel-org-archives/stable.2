@@ -1,50 +1,35 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 094D01917FB;
-	Sat, 13 Jun 2026 00:53:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF7C8381B00;
+	Sat, 13 Jun 2026 01:50:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781311999; cv=none; b=c/Hlj6xIj9CrG6UANheT9ArWNb2zhUXVChdC76eSigJapdLQx4LJgcjS2Umg6tAGDYOcxW5z8FKayCBe7FUkZ/HkhRX0dkccRnr03I4Fe/JiYf2X+m8/wQV+6LHlkh6acjt9XkYAUqXebhUV9Vyb0orl2//B93ECWos04D0ru/8=
+	t=1781315412; cv=none; b=tbsP3nT+yM39Iv49dhAF0ZNSNg13+PvV/343BERbbdkRYzJk5fouQtzb3SSlSrVMoEUx4/hB1ZQp2MCKyzbRC2vqWqQZ1SfLZwdeFeR/jdnhe/y6/1GLuHOIAxIuLdN74ZN9lssYBeOAunwby64CuQOphVaAnflomgtOEuE1qcM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781311999; c=relaxed/simple;
-	bh=blMYnaojF0GC/Gm3Ho9sgHT4gawEbGvWRJKdjxTamPg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DSTyZk8+ywqC2IOqB0OXub2FV7eOtMQ+b51Lw1h6h+bfks9IsllkQw0nvjHb2zDTokjLI2vDZjVEabBFDHgGia/Ztg8LYgnaVgzjmGNrthQq4w3UXEhkIaTEKJtfD+4v7+iuiPn1nylcHPm+BFZPPBzThwtBFvDJiHnnxPH5RG8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J51QmfVH; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781315412; c=relaxed/simple;
+	bh=TRzImSY2SWfPCS/SC4hzYAUtCdHbgMPdEyve7qgHvYw=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=b83pWgD+9GAgx44rTMQVfIO+d1oNOf8iZ9VEnUMfIBOy+2nuqJ65iU59sNTLqnYU6+UC0RKQjydC+fmkBe6QBDNX9fK1D6Wpt5rYRgDmtSCGAAsHt5fnFbsiryg4UWnCEEnlqDyg0bwjQtobap0mKkW/EK0Hhcdq5dSaI0G/aqk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Nty8gno+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J51QmfVH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 352481F000E9;
-	Sat, 13 Jun 2026 00:53:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Nty8gno+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4EED1F000E9;
+	Sat, 13 Jun 2026 01:50:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781311997;
-	bh=nhowGWyw12bvZh9JeBeCLCL7/SYp3UQQwnsR0tQHv60=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=J51QmfVHX75UM5QrzmUrUsWsKlvTnDo4hcc+W/tyuE5FmH6ZU5is9fRfnwE0sLGiE
-	 SFyvVpCbiFQrdwEFi2gflZ5z1XyQT/MZbmBDV/ie+Zb7PsRagrP1RGrvt65XyWLU/I
-	 VRq4KHbS9YQSL7tYaaTuZkfgD6qfW/R0npDo+NfCMrBcvydZEzoWGJmKTzGjYiXMEI
-	 ISUzCfHzWEf652McBgivQ0Sv2oJDojH+IP97pijy9k+vrlKUPhOVtpiYT1QGsbnGM7
-	 sSKyP/nk1SXjbGTjg1O3dvr14EaSAVIawAudOSA+bMo6r+GTIO/56rJLZKBLo4YOHI
-	 xEMO9MRE05Okg==
-From: SeongJae Park <sj@kernel.org>
-To: Breno Leitao <leitao@debian.org>
-Cc: SeongJae Park <sj@kernel.org>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	lance.yang@linux.dev,
-	Davidlohr Bueso <dave@stgolabs.net>,
-	Oleg Nesterov <oleg@redhat.com>,
-	Qian Cai <cai@lca.pw>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	kernel-team@meta.com,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2] mm/kmemleak: avoid soft lockup when scanning task stacks
-Date: Fri, 12 Jun 2026 17:53:09 -0700
-Message-ID: <20260613005310.2120-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260612-kmemleak-stack-resched-v2-1-53240de79e88@debian.org>
-References: 
+	s=k20260515; t=1781315411;
+	bh=BOrpAwxya2ulIk5fBuqfmGjMy6iJn8EB2CWDGvWEvVQ=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=Nty8gno+USU0MPJhHhS/9BAxmozZ8icTE0SgdpejcL/tH2L3owgJemxxL8aTxXznI
+	 0q3rWUJsuSglcxJRQXK+Yt6FoZA1nhE0BX59u3yFhswOayKo3f1814KOS8f8Ia7hLm
+	 QAAGtQNClt9dgG3i0/+DDRWEt6CoumNzEa3HnyTnh3fbFFXo4Jr+P1YXp87Eu7dt3Y
+	 NAt0ka22rKt7BYUSpC5it07gaFc+dOqpKDAQVcMuSr1NLIWfdIO07HmucAQIW7O+SB
+	 y53SeuC9bJf5Id9YESiiYNUxAZHhelVoDbWVZ0kdaFoclmIzz7f/BZKn27IKd5GTVP
+	 VHeuAlORJHwOQ==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 939A339E9607;
+	Sat, 13 Jun 2026 01:50:09 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -52,65 +37,45 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH] net: qrtr: fix 32-bit integer overflow in
+ qrtr_endpoint_post()
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <178131540813.1328827.18042311383082528410.git-patchwork-notify@kernel.org>
+Date: Sat, 13 Jun 2026 01:50:08 +0000
+References: <20260611125455.2352279-1-michael.bommarito@gmail.com>
+In-Reply-To: <20260611125455.2352279-1-michael.bommarito@gmail.com>
+To: Michael Bommarito <michael.bommarito@gmail.com>
+Cc: mani@kernel.org, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, netdev@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, stable@vger.kernel.org,
+ linux-kernel@vger.kernel.org
 
-On Fri, 12 Jun 2026 08:16:07 -0700 Breno Leitao <leitao@debian.org> wrote:
+Hello:
 
-> kmemleak_scan() walks every thread and scans its kernel stack under a
-> single rcu_read_lock() with no reschedule point. On a host with very
-> many threads -- amplified by KASAN/lockdep in debug builds -- this loop
-> can hog a CPU long enough to trip the soft lockup watchdog:
+This patch was applied to netdev/net.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
+
+On Thu, 11 Jun 2026 08:54:55 -0400 you wrote:
+> qrtr_endpoint_post() validates an incoming packet with
 > 
->   watchdog: BUG: soft lockup - CPU#35 stuck for 22s! [kmemleak:537]
->    scan_block
->    kmemleak_scan
->    kmemleak_scan_thread
->    kthread
+> 	if (!size || len != ALIGN(size, 4) + hdrlen)
+> 		goto err;
 > 
-> A cond_resched() cannot be added directly: the loop runs inside an RCU
-> read-side critical section.
+> where size comes from the wire. On 32-bit, size_t is 32 bits and
+> ALIGN(size, 4) wraps to 0 for size >= 0xfffffffd, so the check
+> passes and skb_put_data(skb, data + hdrlen, size) writes past the
+> hdrlen-sized skb and oopses the kernel. 64-bit is unaffected.
 > 
-> Borrow the rcu_lock_break() pattern from kernel/hung_task.c: when a
-> reschedule is needed, pin the two iteration cursors, drop the RCU read
-> lock, cond_resched(), then re-acquire it and continue only if both
-> cursors are still hashed.
-> 
-> If a cursor was unhashed while the lock was dropped, the thread list
-> cannot be walked further, so the round is aborted. Such a round scans
-> only part of the task stacks, which would make live objects look
-> unreferenced, so reuse the existing "scan interrupted" path to skip
-> reporting; the next full scan reports the real leaks.
-> 
-> Fixes: c4b28963fd79 ("mm/kmemleak: rely on rcu for task stack scanning")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Breno Leitao <leitao@debian.org>
+> [...]
 
-Thank you for fixing this, Breno.  Nothing stood out to me while reading the
-patch, other than the below tiny and trivial nit.  Regardless of that, please
-feel free to add
+Here is the summary with links:
+  - net: qrtr: fix 32-bit integer overflow in qrtr_endpoint_post()
+    https://git.kernel.org/netdev/net/c/20054869770c
 
-Reviewed-by: SeongJae Park <sj@kernel.org>
-
-[...]
-> @@ -1890,11 +1917,21 @@ static void kmemleak_scan(void)
->  		rcu_read_lock();
->  		for_each_process_thread(g, p) {
->  			void *stack = try_get_task_stack(p);
-> +
->  			if (stack) {
->  				scan_block(stack, stack + THREAD_SIZE, NULL);
->  				put_task_stack(p);
->  			}
-> +			/*
-> +			 * This is an expensive loop, we must to call the
-> +			 * scheduler to avoid lockups
-
-s/must to call/must call/ ?
-
-I saw Lance also provided a suggestion for making this comment better.  I think
-that's also good and maybe even better than my suggestion. :)
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
 
-Thanks,
-SJ
-
-[...]
