@@ -1,166 +1,214 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from lahtoruutu.iki.fi (lahtoruutu.iki.fi [185.185.170.37])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8CD6136351;
-	Sat, 13 Jun 2026 12:49:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781354959; cv=none; b=Fo2T2RuZa1kWwtq9uGyWbXQboJVDoS4HOqy6W4dRyo1OrJMLXeDAOR1oBk+9oQEriVQAKPvFMDjazEKmhe/CQdcS2NwtCdbhCx/8sm30+DkSg6Ea1LDGc+JWzQ2M0zFlItSHMkfWZ3/yI8uqgKz4MQMduxXpmp1LHg+RvV6VB58=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781354959; c=relaxed/simple;
-	bh=q/XwynGT8GH0L771RBDMZka+i5feFkj0Mdu0afgv1Wo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=d77kQ2zOUY3it8UUL6xH39BVg8dCE7i4TskJwR0dgcIJm+OdR4uNEzrb4WS5TivTLZwZcpTD/QgzXPLCJP8HtodLfS5FfcY7Kuwd11/irocDWxw2QNQiBFtXTbXBoWQs5xbEegMEG1xykzTly2WHCgg5FIfGrIbiKTqPIRLUYIU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=NTsNM86l; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEAB9377ED9;
+	Sat, 13 Jun 2026 12:58:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.185.170.37
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781355512; cv=pass; b=Eddvbn99jnkidfW/1u2ZMW47KYTDK4XKsROdS2iJaAXilAVmQqQGQr4EjAm9UtKVp47jXXxBINarmjqw72ofW9b7TB3BpvzeX77olCr/z0dN6akgrYQetgdpi99K3tbNQbQA/QgbpH+XJDMAp3v/m8Gmz68TPAODbCeYVTeMT2k=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781355512; c=relaxed/simple;
+	bh=68KGUyBjo+fzLshBhbAwE3/fouemAtBaudDx6jPTuzA=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=OziynPFTcdBBVjJBuw/qzBhFkz0naiMsr6rHS+v5RiwDA9YbXXC2vzRZ7H1vknlybBukuQwPkqfPCtWfOIRKc17nXKx0mnO1zZEoyfVE9KiS2zuw7Ouz6aSdcIgtpc+v1An2UNOPbzMR5QFVxnbeltqNvDN6o7aA+OsQ7P05ts0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi; spf=pass smtp.mailfrom=iki.fi; dkim=pass (2048-bit key) header.d=iki.fi header.i=@iki.fi header.b=UNQpPJN9; arc=pass smtp.client-ip=185.185.170.37
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iki.fi
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="NTsNM86l"
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65DBIb0b596718;
-	Sat, 13 Jun 2026 12:49:01 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=hLHStC
-	VWrOOTfNcvUH5pjn9Lz2VtviDgQgAnmcQa6yM=; b=NTsNM86lytCt+5Jwc/yNFy
-	+KGmVoYHar/m48/K/T5B+wQfXUtyoZmlKF412ireuFotG5VtFOpRSR027aMp5Eoc
-	ZtMeCKdtDi+2VDqrQ50jKrZJaQVkdPXUXQyG4R+unzjhb7D5mFT76mFB0rkUpLDZ
-	GWKSdpxuOIYx8gBm4mTzU4JbGh8xpqiM53Ef5BNQ/+iB0OH/SQPV0KwuGYFNR2/u
-	qUyTIzqUxtbJyppEoH6bFrEVl6LrlN7F6smfkduiKLUk+2WIXw1LCMHJ1PZAcM5B
-	DQAmtGC8kHEKI9AcXJ4iBqiBxY7OTV4FQQEz+5EqT9h3JjkD0BMaqkZPeLPVCjjA
-	==
-Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4es1wkrqty-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Sat, 13 Jun 2026 12:49:01 +0000 (GMT)
-Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma12.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 65DCYfHR014798;
-	Sat, 13 Jun 2026 12:49:00 GMT
-Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
-	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4eqe09v0a6-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Sat, 13 Jun 2026 12:49:00 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
-	by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 65DCmvch56361244
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Sat, 13 Jun 2026 12:48:57 GMT
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 1099620043;
-	Sat, 13 Jun 2026 12:48:57 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 495E420040;
-	Sat, 13 Jun 2026 12:48:54 +0000 (GMT)
-Received: from [9.124.210.219] (unknown [9.124.210.219])
-	by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Sat, 13 Jun 2026 12:48:53 +0000 (GMT)
-Message-ID: <0c29bb5a-6869-43be-9056-99321ff999f2@linux.ibm.com>
-Date: Sat, 13 Jun 2026 18:18:53 +0530
+	dkim=pass (2048-bit key) header.d=iki.fi header.i=@iki.fi header.b="UNQpPJN9"
+Received: from [192.168.1.196] (unknown [IPv6:2a0c:f040:0:2790::a03d])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: pav@iki.fi)
+	by lahtoruutu.iki.fi (Postfix) with ESMTPSA id 4gcxJP37bcz49Q4q;
+	Sat, 13 Jun 2026 15:58:13 +0300 (EEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi; s=lahtoruutu;
+	t=1781355497;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=c3ls4ECWuCoS9r4NamQm+xC5GAqMUHvmtN0e218XRNg=;
+	b=UNQpPJN9txIAkS1HT7z1bTp9Rp9Itx1kPGRh6x+8XyKH6Eb2n+0hhjZJkUiBzwPFFxu0QE
+	XDPxYzi0xtpmzofz5kLTafb99v1/UPOK5Namn6Za5fWMQogd2W8sLUpeDIDnaW5GghwLay
+	1VlR1LT4xhO5stihpEREQzJL+XWSJ2+L+I1FgKai47KX4ZCQOpYDH1EbClIsV9bt07nLmZ
+	5yzAe8994gvLqBqeHWYte83Z2XZuCU4i7bD+M0oEnLs+WaEJouHh217nSQh0lxORZX1KIE
+	gQi0hGaTDefxRT/vm2xzB2AmzIEPbLrgEWNLPaWP99nYY3at2RVIeOk+Y2r93Q==
+ARC-Seal: i=1; a=rsa-sha256; d=iki.fi; s=lahtoruutu; cv=none; t=1781355497;
+	b=Wo22xLSOhfFL43hWbaKOmf9o/yTNFJ/DSn7be35IE1elF4AQqaTsU6ES9FAY/kj4lgxPyd
+	/NzxkLZMymIXVTFWCIjTbU0DWgkNQBKP9WfJ3AZrKmd649SDjNhtUauphQz4rsqcaQzYsi
+	ED47MISEmWw6QyW2ESxcN3VaDAn5J46mYhnilQTM5gNGxA3evxeFmAoFcgMeuZ9C+JdiJe
+	A+xOGF0QlVz5VJLcEhS4rYw3MGPPOKae2kRR0uc5ww6/fahu9zG9ydJWTac7BE4P1FaU45
+	HWyS44+ga1D2JZWnEYInlFtPFnzZI28oYHqe3anE1aPu0Cu3UjZMkw8FqJ+koA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi;
+	s=lahtoruutu; t=1781355497;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=c3ls4ECWuCoS9r4NamQm+xC5GAqMUHvmtN0e218XRNg=;
+	b=ny/vXsXFuQyuiViFzynozNVbKI5lCSOIqOq7A122OCsH119e89RknR275vE8iJJxeMaPLo
+	0NjmWCp9pDPt/pq4P/1+P0BDKAaNGWTvvS9ahdLGHm0NjEDZJKYFSpOONUUCIdAW6xKp9b
+	V2H0NyCzvEAU/rUgv2wKMxsCAXqt72aeZ4Zy5rPHons1tYW04JhGSaALiL5fAiA2j8hn+R
+	XHMzycMvXcngEN4py6glMhZ4Kbh4sZ49TpTo2WQNU7J4egcNtOn7hqNBlM+hQHqj+EZ8li
+	ikSeK1ACDZ5brJd9rUfeXVr/nBQxeCM/u48HLuHeZV95wYXfg8jW0n1KiMCINw==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=pav@iki.fi smtp.mailfrom=pav@iki.fi
+Message-ID: <07e0a28650773abec711ee492fdb1bf5d21a6c98.camel@iki.fi>
+Subject: [REGRESSION] Bluetooth: hci_uart: fix UAFs and race conditions in
+ close and init paths
+From: Pauli Virtanen <pav@iki.fi>
+To: patchwork-bot+bluetooth@kernel.org, w15303746062 <w15303746062@163.com>
+Cc: luiz.dentz@gmail.com, pmenzel@molgen.mpg.de, marcel@holtmann.org, 
+	linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org, 25181214217@stu.xidian.edu.cn
+Date: Sat, 13 Jun 2026 15:58:11 +0300
+In-Reply-To: <177920280488.2756414.8251481561878776667.git-patchwork-notify@kernel.org>
+References: <20260518024949.439299-1-w15303746062@163.com>
+	 <177920280488.2756414.8251481561878776667.git-patchwork-notify@kernel.org>
+Autocrypt: addr=pav@iki.fi; prefer-encrypt=mutual;
+ keydata=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
+ bzyGkKh2h8XdrYhtDjw9LmrprPQ==
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 4/7] selftest/bpf: Enable verifier selftest for
- powerpc64
-To: adubey@linux.ibm.com, bpf@vger.kernel.org
-Cc: linuxppc-dev@lists.ozlabs.org, maddy@linux.ibm.com, ast@kernel.org,
-        andrii@kernel.org, daniel@iogearbox.net, shuah@kernel.org,
-        linux-kselftest@vger.kernel.org, stable@vger.kernel.org
-References: <20260611153826.31187-1-adubey@linux.ibm.com>
- <20260611153826.31187-5-adubey@linux.ibm.com>
-Content-Language: en-US
-From: Hari Bathini <hbathini@linux.ibm.com>
-In-Reply-To: <20260611153826.31187-5-adubey@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjEzMDEzMSBTYWx0ZWRfXyNaAh+jrea5Y
- B/iEV6vOcu542ilfBZh9hkwyFnm8DSQyuvn9K7ArRCT/qn1Yvo4TGcMHdK3QBACxk/EgE0Fj8uk
- bfqliD+1NdKtsZXkekTwN6RM/yN/6Nc=
-X-Proofpoint-GUID: ybCa8I_HRitgvY1iayfA85ezoQ_cdyye
-X-Authority-Analysis: v=2.4 cv=SY/HsPRu c=1 sm=1 tr=0 ts=6a2d51bd cx=c_pps
- a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VnNF1IyMAAAA:8
- a=YUt_uYXBFAbkqV_xTswA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjEzMDEzMSBTYWx0ZWRfX7DhMBC/Xzqbl
- YCBONIDCH59Gf7k6bc0W0Y/oTx4sHWr5Oj5vPMrrP8NikaRt871n7QP09VPB5m4T59xuU8inSmc
- q6NHsVTc27OMA3HlTYQduu1OgqB0mWAVKq7EcvdsqJy8CPUWIrs5y0T4V9US9uw5Znf0RKClap6
- P+xukrBbqzKCzd28GvRqsjn25rJaDkQ091Mg+15RkNn1CUVE+daQRY7lzN2NuLEDMS8Z7xqQ2Dd
- 4SXWMjsXdjsAI/ONOcvhtUp3MDes61piGF3ey/LfseJNEtbC7Wyse3QNh/cATYtouqSvXJCbH/K
- Ogm8SJRBCgG695lt7gKydcLsL9Go9rIFSMf/48ODSlZRnIyqdWc20DczyBi/cVFUmaBfs5YXk8j
- TgcdNmCcJhj9TLjbftGbmXtvpWURppDv7T6M/NO5eKH4cBAPN3mRDMR28v96WDPdGlE2ntr9TIs
- b5SzkHAxCX9uLyHCqkw==
-X-Proofpoint-ORIG-GUID: ybCa8I_HRitgvY1iayfA85ezoQ_cdyye
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-13_02,2026-06-12_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 phishscore=0 suspectscore=0 spamscore=0 impostorscore=0
- malwarescore=0 bulkscore=0 lowpriorityscore=0 clxscore=1015
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606040000
- definitions=main-2606130131
+
+Hi,
+
+ti, 2026-05-19 kello 15:00 +0000, patchwork-bot+bluetooth@kernel.org
+kirjoitti:
+> Hello:
+>=20
+> This patch was applied to bluetooth/bluetooth-next.git (master)
+> by Luiz Augusto von Dentz <luiz.von.dentz@intel.com>:
+>=20
+> On Mon, 18 May 2026 10:49:49 +0800 you wrote:
+> > From: Mingyu Wang <25181214217@stu.xidian.edu.cn>
+> >=20
+> > Vulnerabilities leading to Use-After-Free (UAF) and Null Pointer
+> > Dereference (NPD) conditions were observed in the lifecycle management
+> > of hci_uart.
+> >=20
+> > The primary issue arises because the workqueues (init_ready and
+> > write_work) are only flushed/cancelled if the HCI_UART_PROTO_READY
+> > flag is set during TTY close. If a hangup occurs before setup completes=
+,
+> > hci_uart_tty_close() skips the teardown of these workqueues and
+> > proceeds to free the `hu` struct. When the scheduled work executes
+> > later, it blindly dereferences the freed `hu` struct.
+> >=20
+> > [...]
+>=20
+> Here is the summary with links:
+>   - [v9] Bluetooth: hci_uart: fix UAFs and race conditions in close and i=
+nit paths
+>     https://git.kernel.org/bluetooth/bluetooth-next/c/7db62a762f61
+>=20
+> You are awesome, thank you!
+
+This patch (c1bb9336ae6b54a5f6a353c4bd4ed9a4307e429b upstream) appears
+to cause a regression in the following test case,=C2=A0which does=C2=A0
+btmgmt power off; btmgmt power on; in a loop.
+
+At some point response to Reset command is not received, and the
+(emulated) controller can no longer be powered on.
+
+Found by noting that newer kernel versions fail automated testing.
+
+Kernel built with the bluez tester config
+https://git.kernel.org/pub/scm/bluetooth/bluez.git/tree/doc/tester.config
+
+With c1bb9336ae6b54a5f6a353c4bd4ed9a4307e429b reverted, the power
+off/on toggle continues indefinitely without errors.
+
+Didn't investigate so far why precisely it starts failing.
 
 
+$ cd bluez
+$ git rev-parse HEAD
+40f2e34b373944cf8142154881ce69f92c2be68d
+$ make tools/test-runner emulator/btvirt
+$ bash xtest.sh
+...
+hci0 Set Powered complete, settings: powered br/edr=20
+hci0 Set Powered complete, settings: br/edr=20
+hci0 Set Powered complete, settings: powered br/edr=20
+hci0 Set Powered complete, settings: br/edr=20
+Bluetooth: hci0: Opcode 0x0c03 failed: -110
+Set Powered for hci0 failed with status 0x05 (Authentication Failed)
+Set Powered for hci0 failed with status 0x05 (Authentication Failed)
+Process 38 exited with status 0
+reboot: Restarting system
+reboot: machine restart
+Set Powered for hci0 failed with status 0x05 (Authentication Failed)
+Set Powered for hci0 failed with status 0x05 (Authentication Failed)
+FAIL
 
-On 11/06/26 9:08 pm, adubey@linux.ibm.com wrote:
-> From: Abhishek Dubey <adubey@linux.ibm.com>
-> 
-> This patch enables arch specifier "__powerpc64" in verifier
-> selftest for ppc64. Power 32-bit would require separate
-> handling. Changes tested for 64-bit only.
-> 
-Reviewed-by: Hari Bathini <hbathini@linux.ibm.com>
+----8<---- xtest.sh
+#!/bin/sh
 
-> Signed-off-by: Abhishek Dubey <adubey@linux.ibm.com>
-> ---
->   tools/testing/selftests/bpf/progs/bpf_misc.h | 1 +
->   tools/testing/selftests/bpf/test_loader.c    | 5 +++++
->   2 files changed, 6 insertions(+)
-> 
-> diff --git a/tools/testing/selftests/bpf/progs/bpf_misc.h b/tools/testing/selftests/bpf/progs/bpf_misc.h
-> index 9eeb5b0b63d6..cdc2a3de3054 100644
-> --- a/tools/testing/selftests/bpf/progs/bpf_misc.h
-> +++ b/tools/testing/selftests/bpf/progs/bpf_misc.h
-> @@ -158,6 +158,7 @@
->   #define __arch_arm64		__arch("ARM64")
->   #define __arch_riscv64		__arch("RISCV64")
->   #define __arch_s390x		__arch("s390x")
-> +#define __arch_powerpc64	__arch("POWERPC64")
->   #define __caps_unpriv(caps)	__test_tag("test_caps_unpriv=" EXPAND_QUOTE(caps))
->   #define __load_if_JITed()	__test_tag("load_mode=jited")
->   #define __load_if_no_JITed()	__test_tag("load_mode=no_jited")
-> diff --git a/tools/testing/selftests/bpf/test_loader.c b/tools/testing/selftests/bpf/test_loader.c
-> index abdb9e6e3713..d5589355ed9e 100644
-> --- a/tools/testing/selftests/bpf/test_loader.c
-> +++ b/tools/testing/selftests/bpf/test_loader.c
-> @@ -377,6 +377,7 @@ enum arch {
->   	ARCH_ARM64	= 0x4,
->   	ARCH_RISCV64	= 0x8,
->   	ARCH_S390X	= 0x10,
-> +	ARCH_POWERPC64	= 0x20,
->   };
->   
->   static int get_current_arch(void)
-> @@ -389,6 +390,8 @@ static int get_current_arch(void)
->   	return ARCH_RISCV64;
->   #elif defined(__s390x__)
->   	return ARCH_S390X;
-> +#elif defined(__powerpc64__)
-> +	return ARCH_POWERPC64;
->   #endif
->   	return ARCH_UNKNOWN;
->   }
-> @@ -580,6 +583,8 @@ static int parse_test_spec(struct test_loader *tester,
->   				arch = ARCH_RISCV64;
->   			} else if (strcmp(val, "s390x") == 0) {
->   				arch = ARCH_S390X;
-> +			} else if (strcmp(val, "POWERPC64") == 0) {
-> +				arch = ARCH_POWERPC64;
->   			} else {
->   				PRINT_FAIL("bad arch spec: '%s'\n", val);
->   				err = -EINVAL;
+KERNEL=3D../linux/arch/x86_64/boot/bzImage
 
+cat <<EOF > xtest-run.sh
+for j in \$(seq 1 100); do
+    ./tools/btmgmt power off 2>&1 | tee /tmp/test.log
+    ./tools/btmgmt power on 2>&1 | tee -a /tmp/test.log
+    if grep 'Authentication Failed' /tmp/test.log; then break; fi
+done
+EOF
+
+./emulator/btvirt -s &
+trap 'kill $(jobs -p)' EXIT
+
+./tools/test-runner -k $KERNEL -u/tmp/bt-server-bredrle -- bash xtest-run.s=
+h 2>&1 | tee xtest.log
+
+if grep 'Authentication Failed' xtest.log; then
+    echo "FAIL"
+    exit 1
+else
+    echo "OK"
+    exit 0
+fi
+----8<----
+
+--=20
+Pauli Virtanen
