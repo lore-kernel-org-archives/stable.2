@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4378F247291
-	for <Stable@vger.kernel.org>; Sun, 14 Jun 2026 05:59:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB022247291
+	for <Stable@vger.kernel.org>; Sun, 14 Jun 2026 05:59:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781416747; cv=none; b=q8kgpDF/WVeje92Eo3VHIqjq28rBAbjYT75KEMXV6s++oKsnEsm12aKfQAG1vWD8L5iOBm+FGleGh8lEpset0VIYqaIRY5QHMb5EYS3srnXhHuufZugDErblpK8I6k3tqtH1JppygaWD+jygSoAUXY68Ve/hKcg8K+3tgpmznyQ=
+	t=1781416753; cv=none; b=aXNmPZmsa5ztCe3K6sopX4gwLgQrFMWGZMZ/dIXFyXws0NCnNT24vH2ssEpktrYGuUr94XQff/TcFmpG3xhk0A3DXKnd5sEJJkcP1d89Yrh6/vAOSNnEJN6uO8UGF5SRY6kzuoz+5zUtKHQ5E/Hrabch34p1cv0swrCbowL7b7A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781416747; c=relaxed/simple;
-	bh=yHFoU28+oE6QkQ2Y9cSXhcf5wdh3MdYOT10y0zMx54A=;
-	h=Subject:To:From:Date:Message-ID:MIME-Version:Content-Type; b=XMyl3lj9E2gbA/DZam0rH4NNwQrrUs+weAG6KUbWCEUYooPHa3xraYqhC44IZdMbFVpU2ieImF8aBfFt4r2JjYtlJWewUyabd42TPYRDnC3IOHS6GO/N0p94GIDPO0wGsQTG6aGHmXjzuNlEIABXl12RZYWVLzo+la2VDWWYNk0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=GweusqpX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781416753; c=relaxed/simple;
+	bh=jE/Yk60TyFHssu0a8LnyeHWYzDFY55l8OvDScEVkfe0=;
+	h=Subject:To:From:Date:Message-ID:MIME-Version:Content-Type; b=AzoRuxJL33x5nhLbuX/FfW+1DwzT5YCmTAaUEE6AnU6vXcl7jKE0PYOaNZSZzUAQMY5dFsFKO3q4lymCBXxQpUFtArzivQFoOSRPUU3eaEQc7aC46RG/bAraxGVFqmFF+rczz94K9IpMF68C9UYNB0y66TAn2sqd4GtyDd1TOIo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=WKzBZuyx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="GweusqpX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 479651F000E9;
-	Sun, 14 Jun 2026 05:59:05 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="WKzBZuyx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0AFF1F000E9;
+	Sun, 14 Jun 2026 05:59:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1781416745;
-	bh=Ue7bMf87M9uVaBBmgpvKaWK8h8XBwjy/SuGW6areccQ=;
+	s=korg; t=1781416752;
+	bh=/ao3otWrIZ6d6wFroZmqkg8EC6zPouPyEEeqvWdkHME=;
 	h=Subject:To:From:Date;
-	b=GweusqpXezj1aOtRA4y9KXCYntPC/pNUGxjIBcLZj6aVxN94OzfHaTym+S5enQvCe
-	 aTfK/ecsIlDIJH8zgbdVmNQz9k1joJkecBIhFGPslClhd1A816/2niulObj/lobMfz
-	 vA/MHjwJraxyd9qE2P4vBWGUZqzhOPHp0MVnEpLM=
-Subject: patch "iio: light: al3320a: read both ALS ADC registers again" added to char-misc-testing
-To: grandmaster@al2klimov.de,Stable@vger.kernel.org,jic23@kernel.org
+	b=WKzBZuyx8d45lT1h1H1CEDKdEm1GDbFn5AVptYcysWGu4aeRz+Nu6fnsZk1C7OhOF
+	 hA6VFErkltxUaQ/p64vfXakZsh1SprppiebkB2lK+a49BiUsbeDUyl4tRs3Tqb9hp6
+	 +1XYjpSVXYnWN0Q4PPgHGTdZ/m1JevKF11Kb+DK4=
+Subject: patch "iio: dac: ad3552r-hs: fix uninitialized data ni" added to char-misc-testing
+To: error27@gmail.com,Stable@vger.kernel.org,adureghello@baylibre.com,jic23@kernel.org
 From: <gregkh@linuxfoundation.org>
-Date: Sun, 14 Jun 2026 07:57:22 +0200
-Message-ID: <2026061422-custodian-cash-92cd@gregkh>
+Date: Sun, 14 Jun 2026 07:57:23 +0200
+Message-ID: <2026061423-unwrapped-flavored-5154@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -39,7 +39,7 @@ Content-Transfer-Encoding: 8bit
 
 This is a note to let you know that I've just added the patch titled
 
-    iio: light: al3320a: read both ALS ADC registers again
+    iio: dac: ad3552r-hs: fix uninitialized data ni
 
 to my char-misc git tree which can be found at
     git://git.kernel.org/pub/scm/linux/kernel/git/gregkh/char-misc.git
@@ -54,53 +54,39 @@ after it passes testing, and the merge window is open.
 If you have any questions about this process, please let me know.
 
 
-From 744bccc2647c6b2206290e8e40890a23812116b3 Mon Sep 17 00:00:00 2001
-From: "Alexander A. Klimov" <grandmaster@al2klimov.de>
-Date: Sat, 23 May 2026 13:44:58 +0200
-Subject: iio: light: al3320a: read both ALS ADC registers again
+From eaaa7eef181892ef7ba56c6295b81f0ae4492c13 Mon Sep 17 00:00:00 2001
+From: Dan Carpenter <error27@gmail.com>
+Date: Mon, 25 May 2026 10:15:46 +0300
+Subject: iio: dac: ad3552r-hs: fix uninitialized data ni
+ ad3552r_hs_write_data_source()
 
-al3320a_read_raw() used to read two adjacent registers
-until the driver was modernized using the regmap framework.
-That cleanup accidentally replaced the 16-bit word read
-with a single byte read. I'm reverting latter.
+If the *ppos value is non-zero then the simple_write_to_buffer() function
+won't initialized the start of the buf[] buffer.  Non-zero values for
+*ppos won't work here generally, so just test for them and return -ENOSPC
+at the start of the function.
 
-Fixes: 1850e6ae7f91 ("iio: light: al3320a: Implement regmap support")
-Signed-off-by: Alexander A. Klimov <grandmaster@al2klimov.de>
+Fixes: b1c5d68ea66e ("iio: dac: ad3552r-hs: add support for internal ramp")
+Signed-off-by: Dan Carpenter <error27@gmail.com>
+Reviewed-by: Angelo Dureghello <adureghello@baylibre.com>
 Cc: <Stable@vger.kernel.org>
 Signed-off-by: Jonathan Cameron <jic23@kernel.org>
 ---
- drivers/iio/light/al3320a.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+ drivers/iio/dac/ad3552r-hs.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/iio/light/al3320a.c b/drivers/iio/light/al3320a.c
-index 63f5a85912fc..b9076f434417 100644
---- a/drivers/iio/light/al3320a.c
-+++ b/drivers/iio/light/al3320a.c
-@@ -135,7 +135,8 @@ static int al3320a_read_raw(struct iio_dev *indio_dev,
- 			    int *val2, long mask)
- {
- 	struct al3320a_data *data = iio_priv(indio_dev);
--	int ret, gain, raw;
-+	int ret, gain;
-+	__le16 raw;
+diff --git a/drivers/iio/dac/ad3552r-hs.c b/drivers/iio/dac/ad3552r-hs.c
+index a9578afa7015..6bc64f53bce9 100644
+--- a/drivers/iio/dac/ad3552r-hs.c
++++ b/drivers/iio/dac/ad3552r-hs.c
+@@ -549,7 +549,7 @@ static ssize_t ad3552r_hs_write_data_source(struct file *f,
  
- 	switch (mask) {
- 	case IIO_CHAN_INFO_RAW:
-@@ -144,11 +145,12 @@ static int al3320a_read_raw(struct iio_dev *indio_dev,
- 		 * - low byte of output is stored at AL3320A_REG_DATA_LOW
- 		 * - high byte of output is stored at AL3320A_REG_DATA_LOW + 1
- 		 */
--		ret = regmap_read(data->regmap, AL3320A_REG_DATA_LOW, &raw);
-+		ret = regmap_bulk_read(data->regmap, AL3320A_REG_DATA_LOW,
-+				       &raw, sizeof(raw));
- 		if (ret)
- 			return ret;
+ 	guard(mutex)(&st->lock);
  
--		*val = raw;
-+		*val = le16_to_cpu(raw);
+-	if (count >= sizeof(buf))
++	if (*ppos != 0 || count >= sizeof(buf))
+ 		return -ENOSPC;
  
- 		return IIO_VAL_INT;
- 	case IIO_CHAN_INFO_SCALE:
+ 	ret = simple_write_to_buffer(buf, sizeof(buf) - 1, ppos, userbuf,
 -- 
 2.54.0
 
