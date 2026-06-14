@@ -1,128 +1,131 @@
-Received: from mail.netfilter.org (mail.netfilter.org [217.70.190.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f65.google.com (mail-qv1-f65.google.com [209.85.219.65])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D68533AD9A;
-	Sun, 14 Jun 2026 22:28:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.190.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781476135; cv=none; b=StFRC56Zg+jdzsnGsvcr4+f2z/52dgCmwqvd2hMpm2OB/uEnVwK/nqUK6Cw/1sVhTWhZTnsLsN9H2/g9b9rzKGfQsITvI89ou/BrHWdsiaYt2XtACSHJ1jrVkF+58jxUbSbhYmKL84sBc3lthI5idR1Nv2WD7cct3M04XY6gtfk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781476135; c=relaxed/simple;
-	bh=ABURyU1V3mecvrhWUnHt39hy2OScN13aV8oQpR0sbVo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JDCOslxhVtmYPMEuRCIcZNp9bslOp+5YZy2+Lxi8Uvr0jstnP14sqMHsDFNOd5EyIkCtOr0j/0wP1CCOMQlCPJqK9Jl/jhKie4yzqrqivVH1XlMmO95E8CndSBeJ8VzMq9/qME8A62tl4P2eCZPf+DJkCxEmgVKuvROO+wvbals=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=netfilter.org; spf=pass smtp.mailfrom=netfilter.org; dkim=pass (2048-bit key) header.d=netfilter.org header.i=@netfilter.org header.b=su9oJQAZ; arc=none smtp.client-ip=217.70.190.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=netfilter.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=netfilter.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A042E2E228D
+	for <stable@vger.kernel.org>; Sun, 14 Jun 2026 22:41:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.219.65
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781476892; cv=pass; b=lM1GiwluAQ1hXZ1cSM3joXcfOdY6xKZAus2vtrTSIQHdjl6YPpcq4yj1OI51P1Gmyc5i7pI9m/ORgYtA5yX5iN5ZN6apXolKcsZvzHlsJBnHACP0fABcAQyOCsHHrcc8oDu07C+2HMwM4dqiMQE37fn9hpSw6tCRhJc/oZGJM84=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781476892; c=relaxed/simple;
+	bh=8Tu8HEOwDGsG2Hq2gF5ZhLKZeg2lUpEAdn6TcRtkruQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=iu/M6JO5Zc8jzbiH/IFvUMDNBotBur3QdjF/ab4MZtNn/lT/A2UaVT669GSHaqn1gc2noP/RbJ6MxOzg7BhoJXbePqMPyQ8P0/frEycIPyHl5jA9ZioxOnmZeo/N36TQHv6/78bY6U8/lmMoJCk4+osrHSpZwEYie24skJHgfQI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lPgsPwYl; arc=pass smtp.client-ip=209.85.219.65
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=netfilter.org header.i=@netfilter.org header.b="su9oJQAZ"
-Received: from netfilter.org (mail-agni [217.70.190.124])
-	by mail.netfilter.org (Postfix) with UTF8SMTPSA id 339F8600B5;
-	Mon, 15 Jun 2026 00:28:44 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netfilter.org;
-	s=2025; t=1781476124;
-	bh=+y0oMMzJ8dGenJ1y6ujNCOKYta4OAPczMAXEIb9g7zY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=su9oJQAZAHHzjoP5TIpOvfhcDt9EjuD3+SizHqmsWtkE2Yw532y+27DPGDntzOCsz
-	 DKILpuMP/TcePqDzXZ3S2Ue3vKCuZXAZCGUtI9Df9L7QWpYEzn4RyqZqi2E7HhKKMF
-	 DGacrdOAN9BrvnITPKNXuaZervYcsr4xezHaFOgHw4C2kakoqNjigWlE6eZpECNYAE
-	 UjHnGrF2onVdMqbAOD/epwl8FqIHZbWIzn7mmePWCjyMNIFD8mFrjCera3ZyqNeZ4L
-	 PSTgw70wEZelUYum+Tz1L/9NO+C5Lrs89E44WdA7cFsQhjXB7NKIWIgR09ctlHH+vA
-	 oH8TH8cTJIt2Q==
-Date: Mon, 15 Jun 2026 00:28:41 +0200
-From: Pablo Neira Ayuso <pablo@netfilter.org>
-To: XIAO WU <xiaowu.417@qq.com>
-Cc: Mark Bundschuh <mkbund@amazon.com>, stable@vger.kernel.org,
-	LKML <linux-kernel@vger.kernel.org>,
-	netfilter-devel@vger.kernel.org, Florian Westphal <fw@strlen.de>
-Subject: Re: [PATCH 6.6.y] netfilter: ctnetlink: ensure safe access to master
- conntrack
-Message-ID: <ai8rGfyUPgAe-eg_@chamomile>
-References: <20260612202408.1045757-1-mkbund@amazon.com>
- <tencent_DFE6466C14D93204DE976442E459443CB807@qq.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lPgsPwYl"
+Received: by mail-qv1-f65.google.com with SMTP id 6a1803df08f44-8cceaacd07bso34562506d6.3
+        for <stable@vger.kernel.org>; Sun, 14 Jun 2026 15:41:31 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781476890; cv=none;
+        d=google.com; s=arc-20240605;
+        b=YB9y3IvYG2OoARgHNkm9pwh3cO8o5NShKSBgocwLFMAbsNylWUKBi23gxf7ZXvOOvw
+         MS3+GS+g7acNnIktkMx8kffhy1F1DVjuPgx0Y+TjjLId+6jaZW+lqIzt95eGKx2B0s/A
+         5qXxpD/MfMEYDIN6H7nlJW6Qi2yE31If3rJSQIWGMv0s25mHYHbmsTOK2k5BA/fleHd2
+         HYyXG7rbcaP/BOGqVCzME+rdKj6Nw58npAeufFNVRtEOhPtWPx95oMwz9oSp87eetKt/
+         YvS3CiXpYoqCbcRTCcckRmwbPiJKRIU0e45hQJh6Jn++x5gUf4MqRBtzqJm5yE3EfMd6
+         JlqA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=8Tu8HEOwDGsG2Hq2gF5ZhLKZeg2lUpEAdn6TcRtkruQ=;
+        fh=IVC1UZEkCl3h0qLLJUrovjq6GIJ/LtQIrdKVNmW1e60=;
+        b=anv3syqyubHdnvFVBtKWfGiQrNDzUksNfad7BvqFBtvbfmUYpvWjFwIcCdKnTh19ap
+         L4CmeCigfS7fnbdv3As0ehzMe70LrGLtOZUIxWo185cuHyks6NeMkMuXx6GXu9RlSUx1
+         fG9uIZNTVlKA0/+peALBZn/HvU9urO2FIRfHdwfHINJ6aXbJlT59iEofI2M/4TEE4Yiz
+         pzVEpsR/frMFT/1AjboNNIFhIaVmcuCovOTz0UA19RbL9AbF6JF1nQo25QrTXQbgo5sg
+         PYj0NsbdA4UkSLUSdaL4gSRkheefXUOHPmCJhuYaqufvdy1TjPgmlnWfqqz68+Ak+lnI
+         FKDA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781476890; x=1782081690; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=8Tu8HEOwDGsG2Hq2gF5ZhLKZeg2lUpEAdn6TcRtkruQ=;
+        b=lPgsPwYl5vnNL6YMbKXbMXcw4J6c4XGZw1LoZfJvd4PJpmjqMPLSjt5tP9fVb052E0
+         sQ2kzc85vc299LyvbmjVrisYVwhe0wsfyAcesPIE1I7cVZv8ozqFtwHSbM23DkBMu8GN
+         5id+yYSIySjdrNTuG48ODglDiwNkpV9z3TT5BvbgkaABruem+00gG2pkxyM+S7q0lc/7
+         9SvQ4o+p113/3MhuRfdyCdZr7Qz9JWuO7WqJCwAm0vyrLEtyEiOQ8j0pHHoE5QVj5PiH
+         LAZ6aGmibZ2dRYboUlkZx92hcQe+pi6I9X/VC4l5rcbP9irtpEsIU1CYbr/Q5B/4LUY2
+         73Ig==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781476890; x=1782081690;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=8Tu8HEOwDGsG2Hq2gF5ZhLKZeg2lUpEAdn6TcRtkruQ=;
+        b=Gvw1Maed0/hqWJATOH/QokixF+aID6SjDcK+9k6ooAQoMlR+c8951VucJ1dNo+HUD0
+         fNZLi/nD0Wo7mRvPmJFPBFr/6KV4dSShYOPSzzQp1kEIvh23hsdQATqrNgIi3kK7ivLl
+         Ws4Di4XX/3BveVsykMx27KCQIXslrgSKAofxQP9tgFEW2Xjmpg6FwPGcZL0tVW9qVwtC
+         5OCBsvp7nI2OGfK0VoBTRKR93TftQk0iJKkIxUSCngyDN12IWtzkPq+2GwsSgtLzRrKz
+         KBxpEiPvCmqdWQjR5BRQl58EmjK7gzYYI6j61uEyNjkF2rTnftwk0aXtQT7FRNFxFFrM
+         COmg==
+X-Forwarded-Encrypted: i=1; AFNElJ+FdC0cyHsXOq0ODRxyGcxa/RIBEOBWthkAZJRZpVpHaMpDE8nEtzQ9NGCBjvU6VYSsHJcexME=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxnsXrm5hnU86BjXAmg/7ZGKpwtekvhGlvS0UIe8dQcdv3U7qxp
+	3yHICeI9KyMRa2q87XFrv1uKgryJsFKvPpTa3YRk5lEkog1trOViRiyvcBKxGmFTbE9zoUorAVJ
+	njnIGGTjp8D/gAO1qmPaRxi/nCivFPkM=
+X-Gm-Gg: Acq92OFY/p0NRRrJ8Xx+a4vRj7KRNJCJY7oZ0xHnD7IgSA2QEz+q61I1tHDIBBKehHf
+	ZnZs/Sa0F8DY2fB7/dPoYOua/oLZSTnBt/fuTIYeZM5yyuJi04zz1C0dyISwtlidh0M6M+Nk94S
+	M4jYKEOU1H/tvC86aFCEVekq7gN2iP/FbSidK84Udc+CaW5iDgBarKE1PkonoqE1409qMHjvYpk
+	ExWbuBKmEWG++/OJSkmCqtBWluhL2MOo17wkok4Be4mGuQ2fQ2v2VAPzPUfRXk4hegmE6FU+6lP
+	Y8DcxlbXfJFPiBjUEHR/vSt9HQ7lmE7n8QIU+OLoIxXgy/vGxuK3l/OZ5dIQ7xw3I92f30Pp+mr
+	uXWc=
+X-Received: by 2002:ad4:5ba5:0:b0:8ce:9cbd:b0ce with SMTP id
+ 6a1803df08f44-8d32e8e00a9mr187888716d6.34.1781476890554; Sun, 14 Jun 2026
+ 15:41:30 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <tencent_DFE6466C14D93204DE976442E459443CB807@qq.com>
+References: <20260518014920.135011-1-enelsonmoore@gmail.com>
+ <CAD++jL=0qYGoygUwGEXQL7C_ROnC7kfpRv8RA+H5tNWwYu+pQA@mail.gmail.com>
+ <CADkSEUjsS8bOXDhgZ2EW40xifDZ-pk5y=YqyWT-+vQNd8JikUw@mail.gmail.com> <ai8nrc0ZUfPaqC_7@shell.armlinux.org.uk>
+In-Reply-To: <ai8nrc0ZUfPaqC_7@shell.armlinux.org.uk>
+From: Ethan Nelson-Moore <enelsonmoore@gmail.com>
+Date: Sun, 14 Jun 2026 15:41:18 -0700
+X-Gm-Features: AVVi8CeloLf3X89X-vuKdzus8DF70VSI7924-eHPEfeAfFNfJzWn8AlfAejHrA0
+Message-ID: <CADkSEUhx_KDQ6LGEqEfGuB38HM-Xg45jYSUDcp6T_QLbS+ZWeA@mail.gmail.com>
+Subject: Re: [PATCH] ARM: disable broken eBPF JIT on the Risc PC
+To: "Russell King (Oracle)" <linux@armlinux.org.uk>
+Cc: Linus Walleij <linusw@kernel.org>, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	Arnd Bergmann <arnd@arndb.de>, Kees Cook <kees@kernel.org>, Nathan Chancellor <nathan@kernel.org>, 
+	Thomas Weissschuh <thomas.weissschuh@linutronix.de>, Peter Zijlstra <peterz@infradead.org>, 
+	Shubham Bansal <illusionist.neo@gmail.com>, "David S. Miller" <davem@davemloft.net>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi,
+Hi, Russell,
 
-On Sun, Jun 14, 2026 at 10:38:16PM +0800, XIAO WU wrote:
-> Hi,
-> 
-> Pablo Neira Ayuso <pablo@netfilter.org> wrote:
-> > Holding reference on the expectation is not sufficient, the master
-> > conntrack object can just go away, making exp->master invalid.
-> >
-> > [...]
-> >
-> > This patch goes for extending the nf_conntrack_expect_lock section
-> > to address this issue for simplicity, in the cases that are described
-> > below this is just slightly extending the lock section.
-> 
-> I tested this patch on 6.6.142-g005cf9204c4e with KASAN + lockdep
-> enabled and found that the lock extension in ctnetlink_get_expect()
-> and ctnetlink_del_expect() does address the expectation-lookup paths,
-> but one other path still races:
-> 
->   clean_from_lists()
->     nf_ct_remove_expectations()          // holds nf_conntrack_expect_lock
->       list_for_each_entry_safe(exp, ...)
->         nf_ct_remove_expect(exp)
->           del_timer(&exp->timeout)       // returns false if timer is
->                                          // already executing on another CPU
->           // expectation NOT unlinked
->   ...
->   nf_conntrack_free(ct)                  // master is freed
-> 
->   // meanwhile, on another CPU:
->   nf_ct_expectation_timed_out()          // timer callback fires
->     nf_ct_unlink_expect_report(exp, ...) // acquires
-> nf_conntrack_expect_lock
->       nf_ct_expect_event_report(...)
->         e = nf_ct_ecache_find(exp->master);  // UAF -- master already freed
-> 
-> nf_ct_remove_expect() already has the lockdep annotation added by this
-> patch:
-> 
-> > +    lockdep_nfct_expect_lock_held();
-> > +
-> >      if (del_timer(&exp->timeout)) {
-> >          nf_ct_unlink_expect(exp);
-> >          nf_ct_expect_put(exp);
-> 
-> But holding the lock is not enough: del_timer() cannot cancel a timer
-> that is already running on another CPU.  When it returns false, the
-> expectation stays in the hash table, the master is freed immediately
-> afterward, and the in-flight timer callback hits a dangling exp->master.
-> 
-> The same del_timer() pattern also exists in ctnetlink_del_expect(),
-> which the patch already extends:
-> 
-> > +        spin_lock_bh(&nf_conntrack_expect_lock);
-> > +
-> >          /* bump usage count to 2 */
-> >          exp = nf_ct_expect_find_get(info->net, &zone, &tuple);
-> > [...]
-> >          /* after list removal, usage count == 1 */
-> > -        spin_lock_bh(&nf_conntrack_expect_lock);
-> >          if (del_timer(&exp->timeout)) {
-> >              nf_ct_unlink_expect_report(exp, NETLINK_CB(skb).portid,
-> >                             nlmsg_report(info->nlh));
-> 
-> This del_timer() call has the same vulnerability -- just holding the
-> lock doesn't prevent the timer from executing concurrently before the
-> lock was acquired.  The timer callback will spin-wait for the lock,
-> acquire it after ctnetlink_del_expect() drops it, and then access the
-> now-freed (or about-to-be-freed) master.
+On Sun, Jun 14, 2026 at 3:14=E2=80=AFPM Russell King (Oracle)
+<linux@armlinux.org.uk> wrote:
+> > https://www.arm.linux.org.uk/developer/patches/viewpatch.php?id=3D9477/=
+1
+>
+> Should be s/arm\./arm/
 
-Thanks for your report.
+Got it. Would it make sense to make the domain with the dot 301
+redirect to the same URL at the one without the dot? Right now, Google
+is indexing both, and this would remedy that.
 
-I started a patch to replace the existing expectation timers by GC
-workqueue to address this issue.
+> Also, you can use:
+>
+> Link: https://lore.kernel.org/all/CAD++jL=3D0qYGoygUwGEXQL7C_ROnC7kfpRv8R=
+A+H5tNWwYu+pQA@mail.gmail.com/
+>
+> in the attributions in the commit message to indicate where more
+> patch context can be found.
+
+Thanks. I knew that but didn't think of it at the time I submitted.
+
+> Lastly, too late for v7.1 as a fix, I already sent the pull request
+> for that, sorry.
+
+That's okay. It's not a particularly high priority :p
+
+Ethan
