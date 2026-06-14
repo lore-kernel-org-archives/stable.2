@@ -1,83 +1,118 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from pdx-out-001.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-001.esa.us-west-2.outbound.mail-perimeter.amazon.com [44.245.243.92])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACEAB27456;
-	Sun, 14 Jun 2026 18:39:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4A66146D53
+	for <stable@vger.kernel.org>; Sun, 14 Jun 2026 19:53:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=44.245.243.92
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781462365; cv=none; b=oj9SQMfUaEVPT+6mcKRM/5iUueDIPuiyEE9z7Zt0aupG9yf+jrSjWWGPk7DnGlfqI8UPqbELcUFt2so0MdwolTlGCIgqAqyZlocXWJ42v8b5K35GGQDdKeAQCko5fThsVKVvF5Zo9oARdKtiI3y+X4eBjehCFp2bcOd5i1cOXOw=
+	t=1781466831; cv=none; b=Fssg6EpkPyWb+WpamOT+hCy6tEILXgPLc3b6i7PIYtFxxGQ81hRc1CnCMtTJrM63DXGFseJeu/LAPh5hjMdojcajr/T+p4ioltwDBCSjXuvDsszaeQmFhdqjJioinGJwd2XIRY2sSqduk1c6TvCQtOQk4ealq1nziee4gE0VJJg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781462365; c=relaxed/simple;
-	bh=XWeJ+VAo5WoGAHZj20GCG/MtvCQ96kosUj0MbYlCE2A=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CNKSS3tdMfBQlpcfeDP5ZnObUmbpvDUNinC//tX7z5L8NQZuL96xLr/I1zwgZga/HsF5T/n1b5QpnSXL0AqyfperwhuQjbUVS9+ZgmmpDDiB1rxHRJ73Cdle4Zrbdv2ova3/mxGBBd/aYRSqFIqm7Z6F/pZ/ErK2tgqVeSwssUY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=XoeQRymO; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1781466831; c=relaxed/simple;
+	bh=qy6XB5ftcsKKrvYeQQ1x/CaoDMgoBHrsLjrbSIhuOK8=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Nh6tJ+mC34ScSmXqyXUahU8Hr88t28ntAn9Kj6Au4lSrMst6aZIqeKdXgXlpCRs3tW1gH0SHG/jCuKfyA2Jg4+oPG3/NOIZvtSkpEnwQcPQ84iSIsFoqz34wByBt+jM1y05l9kXUh5Bg+tShUexbr9zmI32QXE9hEML41MjajVk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.at; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=mMbRAbw5; arc=none smtp.client-ip=44.245.243.92
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.at
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="XoeQRymO"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=TXNeFJn+AG/aK3bbUBS/Q7VeiAGyp4weS0aoeXvjXUA=; b=XoeQRymOQBh8G5gC64tIq3y5eM
-	R+4VJiZGkpv6ehvpJ8zQon7ElnXs9P3Pgv2n+UzS7FVo3Yv0ckPpRsk9TwOhIGO/+wL6U+DFNj1km
-	0bvkBvOcIOPKai4R0N4qDhOa0HDadUIgApcz71vsNDHsd3VtMoV3YUWcgJa2PnTve/k4=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1wYpjk-007gbh-Ja; Sun, 14 Jun 2026 20:39:12 +0200
-Date: Sun, 14 Jun 2026 20:39:12 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
-Cc: netdev@vger.kernel.org, "David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>, Kees Cook <kees@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>,
-	Ao Wang <wangao@seu.edu.cn>, Xuewei Feng <fengxw06@126.com>,
-	Qi Li <qli01@tsinghua.edu.cn>, Ke Xu <xuke@tsinghua.edu.cn>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH net] atm: br2684: reject short VC-MUX bridged frames
-Message-ID: <26ebc58c-6399-4a45-aa55-91a3bf398fef@lunn.ch>
-References: <20260614152746.308-1-zhaoyz24@mails.tsinghua.edu.cn>
+	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="mMbRAbw5"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+  t=1781466829; x=1813002829;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=qy6XB5ftcsKKrvYeQQ1x/CaoDMgoBHrsLjrbSIhuOK8=;
+  b=mMbRAbw5PdN+KK43rv9l2CwhxwDjH6wYr4Ymz2xX0pD2RNP/nqvQgJVd
+   RykJy0+vEJU/bKVJzKWd/f0mncfl9I/4srQ+vnHfAV13hsTlQ6GG3z6+B
+   A4d2EtruY285y1YnrFwB38Pksxi+7Eg69iKVLsNPHWaZ6phkukmGX1Oc/
+   OzPSJ2Q61FG4EV/0j5QVNC3aqGqY/jAZlmlxS3Nem+CF2me13buWCuODw
+   fvxCQdNrkGhlnfDucQDDIce9HUXaE/NSqG0r+NrEDf9jJlu9SMCnAmNlc
+   gE8oBEbkEwlNkWC1IW32m0qD1GlEhpfJnTpuszv/sQigbpZKKNqf9bmVG
+   g==;
+X-CSE-ConnectionGUID: RzcBb7dOQY+d3KoMa4Wy4Q==
+X-CSE-MsgGUID: blzlnT/cS/2e+HEIqZvDaw==
+X-IronPort-AV: E=Sophos;i="6.24,205,1774310400"; 
+   d="scan'208";a="21239188"
+Received: from ip-10-5-12-219.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.12.219])
+  by internal-pdx-out-001.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Jun 2026 19:53:49 +0000
+Received: from EX19MTAUWA001.ant.amazon.com [205.251.233.182:18514]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.41.143:2525] with esmtp (Farcaster)
+ id ce7173d4-7a96-42f6-958f-54e175b5517f; Sun, 14 Jun 2026 19:53:49 +0000 (UTC)
+X-Farcaster-Flow-ID: ce7173d4-7a96-42f6-958f-54e175b5517f
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWA001.ant.amazon.com (10.250.64.218) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.37;
+ Sun, 14 Jun 2026 19:53:48 +0000
+Received: from bcd0741a98fd.amazon.com (10.106.100.56) by
+ EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.37;
+ Sun, 14 Jun 2026 19:53:47 +0000
+From: Michael Tautschnig <tautschn@amazon.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+CC: Michael Tautschnig <tautschn@amazon.com>, <stable@vger.kernel.org>
+Subject: [PATCH] staging: vme_user: fix heap OOB in buffer_from_user and buffer_to_user
+Date: Sun, 14 Jun 2026 21:53:08 +0200
+Message-ID: <20260614195318.40397-1-tautschn@amazon.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260614152746.308-1-zhaoyz24@mails.tsinghua.edu.cn>
+X-ClientProxiedBy: EX19D042UWB004.ant.amazon.com (10.13.139.150) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-On Sun, Jun 14, 2026 at 11:27:45PM +0800, Yizhou Zhao wrote:
-> br2684_push() validates the two-byte pad at the start of received
-> VC-MUX bridged frames with memcmp(), but does not first make sure that
-> those two bytes are present in the skb.
-> 
-> A short AAL5 PDU can reach this path after a BR2684 VCC is attached with
-> BR2684_ENCAPS_VC and bridged payload.  If skb->len is 0 or 1, the pad
-> comparison reads beyond the valid skb data.  When the bytes beyond
-> skb->len compare as zero, the code then continues toward eth_type_trans()
-> with the malformed frame.
-> 
-> Reject frames shorter than BR2684_PAD_LEN before checking the pad.  This
-> keeps the existing validation for valid VC-MUX bridged frames, which must
-> carry the two-byte pad before the Ethernet header.
-> 
-> Fixes: 7e903c2ae36e ("atm: [br2864] fix routed vcmux support")
-> Cc: stable@vger.kernel.org
-> Reported-by: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
-> Reported-by: Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>
-> Reported-by: Ao Wang <wangao@seu.edu.cn>
-> Reported-by: Xuewei Feng <fengxw06@126.com>
-> Reported-by: Qi Li <qli01@tsinghua.edu.cn>
-> Reported-by: Ke Xu <xuke@tsinghua.edu.cn>
-> Assisted-by: GLM:GLM-5.1
+VGhlIFNMQVZFLXBhdGggcmVhZC93cml0ZSBoZWxwZXJzIGJ1ZmZlcl90b191c2VyKCkgYW5kCmJ1
+ZmZlcl9mcm9tX3VzZXIoKSBjb3B5ICdjb3VudCcgYnl0ZXMgaW50by9vdXQgb2YgdGhlIGZpeGVk
+LXNpemUKa2Vybl9idWYgKFBDSV9CVUZfU0laRSA9IDB4MjAwMDAgPSAxMjggS2lCKSB3aXRob3V0
+IGJvdW5kaW5nCmNvdW50IGFnYWluc3Qgc2l6ZV9idWYuCgpUaGUgY2FsbGVyIHZtZV91c2VyX3dy
+aXRlKCkvdm1lX3VzZXJfcmVhZCgpIG9ubHkgY2xhbXBzIGNvdW50IHRvCnRoZSBWTUUgd2luZG93
+IHNpemUgKGltYWdlX3NpemUgPSB2bWVfZ2V0X3NpemUocmVzb3VyY2UpKSwgd2hpY2gKVk1FX1NF
+VF9TTEFWRSBzZXRzIGZyb20gdXNlci1zdXBwbGllZCBzbGF2ZS5zaXplIOKAlCB2YWxpZGF0ZWQK
+YWdhaW5zdCB0aGUgVk1FIGFkZHJlc3Mgc3BhY2UgKHVwIHRvIFZNRV9BMzJfTUFYID0gNCBHaUIp
+LCBOT1QKYWdhaW5zdCBQQ0lfQlVGX1NJWkUuICBXaGVuIHRoZSB3aW5kb3cgZXhjZWVkcyAxMjgg
+S2lCLCBhCndyaXRlKCkvcmVhZCgpIGNvcGllcyBwYXN0IHRoZSBrZXJuX2J1ZiBhbGxvY2F0aW9u
+LgoKRml4IGJ5IGNsYW1waW5nIGNvdW50IGFnYWluc3Qgc2l6ZV9idWYgaW4gYm90aCBidWZmZXJf
+ZnJvbV91c2VyKCkKYW5kIGJ1ZmZlcl90b191c2VyKCksIHdpdGggYW4gZWFybHkgcmV0dXJuIHdo
+ZW4gKnBwb3MgPj0gc2l6ZV9idWYuClRoaXMgbWlycm9ycyB0aGUgZXhpc3RpbmcgYm91bmRzIGNo
+ZWNrIGluIHJlc291cmNlX2Zyb21fdXNlcigpICh0aGUKTUFTVEVSLXBhdGggaGVscGVyKS4KClRo
+ZSBidWcgd2FzIGZvdW5kIGJ5IHN0YXRpYyBhbmFseXNpcyAoQ29kZVFMIHRhaW50IHRyYWNraW5n
+ICsgQ0JNQwpib3VuZGVkIG1vZGVsIGNoZWNraW5nKSBhbmQgZHluYW1pY2FsbHkgY29uZmlybWVk
+IHVuZGVyIEtBU0FOIHdpdGgKdGhlIHZtZV9mYWtlIGJyaWRnZToKCiAgQlVHOiBLQVNBTjogc2xh
+Yi1vdXQtb2YtYm91bmRzIGluIF9jb3B5X2Zyb21fdXNlcisweDJkLzB4ODAKICBXcml0ZSBvZiBz
+aXplIDI2MjE0NCBhdCBhZGRyIGZmZmY4ODgwMDQxMDAwMDAgYnkgdGFzayB0cmlnZ2VyLzY4CiAg
+ICBfY29weV9mcm9tX3VzZXIrMHgyZC8weDgwCiAgICB2bWVfdXNlcl93cml0ZSsweDEzZS8weDI0
+MCBbdm1lX3VzZXJdCiAgICB2ZnNfd3JpdGUrMHgxYjgvMHg3YTAKICAgIGtzeXNfd3JpdGUrMHhi
+OC8weDE1MAoKQ2M6IHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmcKU2lnbmVkLW9mZi1ieTogTWljaGFl
+bCBUYXV0c2NobmlnIDx0YXV0c2NobkBhbWF6b24uY29tPgotLS0KIGRyaXZlcnMvc3RhZ2luZy92
+bWVfdXNlci92bWVfdXNlci5jIHwgMTggKysrKysrKysrKysrKysrKysrCiAxIGZpbGUgY2hhbmdl
+ZCwgMTggaW5zZXJ0aW9ucygrKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvc3RhZ2luZy92bWVfdXNl
+ci92bWVfdXNlci5jIGIvZHJpdmVycy9zdGFnaW5nL3ZtZV91c2VyL3ZtZV91c2VyLmMKaW5kZXgg
+NTgyOWE0MTQxLi5iYWNmNmE3ZDYgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvc3RhZ2luZy92bWVfdXNl
+ci92bWVfdXNlci5jCisrKyBiL2RyaXZlcnMvc3RhZ2luZy92bWVfdXNlci92bWVfdXNlci5jCkBA
+IC0xNTYsNiArMTU2LDE1IEBAIHN0YXRpYyBzc2l6ZV90IGJ1ZmZlcl90b191c2VyKHVuc2lnbmVk
+IGludCBtaW5vciwgY2hhciBfX3VzZXIgKmJ1ZiwKIHsKIAl2b2lkICppbWFnZV9wdHI7CiAKKwkv
+KiBDbGFtcCB0byB0aGUgZml4ZWQga2Vybl9idWYgKHNpemVfYnVmKTogdGhlIFZNRSB3aW5kb3cK
+KwkgKiAoaW1hZ2Vfc2l6ZSkgbWF5IGV4Y2VlZCBQQ0lfQlVGX1NJWkUsIHNvICpwcG9zICsgY291
+bnQgY2FuCisJICogcnVuIHBhc3Qga2Vybl9idWYgb3RoZXJ3aXNlLgorCSAqLworCWlmICgqcHBv
+cyA+PSBpbWFnZVttaW5vcl0uc2l6ZV9idWYpCisJCXJldHVybiAwOworCWlmIChjb3VudCA+IGlt
+YWdlW21pbm9yXS5zaXplX2J1ZiAtICpwcG9zKQorCQljb3VudCA9IGltYWdlW21pbm9yXS5zaXpl
+X2J1ZiAtICpwcG9zOworCiAJaW1hZ2VfcHRyID0gaW1hZ2VbbWlub3JdLmtlcm5fYnVmICsgKnBw
+b3M7CiAJaWYgKGNvcHlfdG9fdXNlcihidWYsIGltYWdlX3B0ciwgKHVuc2lnbmVkIGxvbmcpY291
+bnQpKQogCQlyZXR1cm4gLUVGQVVMVDsKQEAgLTE2OCw2ICsxNzcsMTUgQEAgc3RhdGljIHNzaXpl
+X3QgYnVmZmVyX2Zyb21fdXNlcih1bnNpZ25lZCBpbnQgbWlub3IsIGNvbnN0IGNoYXIgX191c2Vy
+ICpidWYsCiB7CiAJdm9pZCAqaW1hZ2VfcHRyOwogCisJLyogQ2xhbXAgdG8gdGhlIGZpeGVkIGtl
+cm5fYnVmIChzaXplX2J1Zik6IHRoZSBWTUUgd2luZG93CisJICogKGltYWdlX3NpemUpIG1heSBl
+eGNlZWQgUENJX0JVRl9TSVpFLCBzbyAqcHBvcyArIGNvdW50IGNhbgorCSAqIHJ1biBwYXN0IGtl
+cm5fYnVmIG90aGVyd2lzZS4KKwkgKi8KKwlpZiAoKnBwb3MgPj0gaW1hZ2VbbWlub3JdLnNpemVf
+YnVmKQorCQlyZXR1cm4gMDsKKwlpZiAoY291bnQgPiBpbWFnZVttaW5vcl0uc2l6ZV9idWYgLSAq
+cHBvcykKKwkJY291bnQgPSBpbWFnZVttaW5vcl0uc2l6ZV9idWYgLSAqcHBvczsKKwogCWltYWdl
+X3B0ciA9IGltYWdlW21pbm9yXS5rZXJuX2J1ZiArICpwcG9zOwogCWlmIChjb3B5X2Zyb21fdXNl
+cihpbWFnZV9wdHIsIGJ1ZiwgKHVuc2lnbmVkIGxvbmcpY291bnQpKQogCQlyZXR1cm4gLUVGQVVM
+VDsKLS0gCjIuNDMuMAoKCkFtYXpvbiBEZXZlbG9wbWVudCBDZW50ZXIgQXVzdHJpYSBHbWJICkJy
+dWVja2Vua29wZmdhc3NlIDEKODAyMCBHcmF6Ck9lc3RlcnJlaWNoClNpdHogaW4gR3JhegpGaXJt
+ZW5idWNobnVtbWVyOiBGTiA0Mzk0NTMgZgpGaXJtZW5idWNoZ2VyaWNodDogTGFuZGVzZ2VyaWNo
+dCBmdWVyIFppdmlscmVjaHRzc2FjaGVuIEdyYXoKCgo=
 
-Same questions as for the previous patch. Lots of parallel
-discoveries? What hardware was used, etc.
-
-	     Andrew
