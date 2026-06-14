@@ -1,45 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21698269D18
-	for <Stable@vger.kernel.org>; Sun, 14 Jun 2026 05:59:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 014E7247291
+	for <Stable@vger.kernel.org>; Sun, 14 Jun 2026 05:59:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781416770; cv=none; b=fSJHlP3s00csu/RHnbeTkTYNGevQEufOqBMeR1CUmqz8mgPgBXvXzCb6PFoX7awJgA40tF08TrsX1zoj+5EBEILi/ICL496wnatsHhKEQCDN8wJQ/t7ottoESGaahR8fvUUqSp99x6XZjgrKWQLcr/3lWUKs5zMwFicDDeCEoQQ=
+	t=1781416777; cv=none; b=tgGc7nxYMqxiptN2Xd3uR1gLvW6TXVkWe3Y/tIHSVFl09S0wFutvLk4JMfHB9hcfyAKVZjHJ85Do+nsocN6LDPQaSPFjdSIoOSDbQlNI6fl2IiZCRvg8byAcweY0DJitthV5z+GGMYJbnROleMS/hz+jU8xup94zdEiaNRUXfOQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781416770; c=relaxed/simple;
-	bh=pv5mT/gB9vjdZTlhK6c0+syyaAZ+ZeHAuZBWHdDcECM=;
-	h=Subject:To:From:Date:Message-ID:MIME-Version:Content-Type; b=EIsUtBqKRBXQPPTyBlI/LN4WBygMW8nzdWveviIv1WLbe6oXmvqVO1cLB2OThFPsu6AVBmxyIUqVOsJGyF77ErB8f9QYPFhmMxUu78XUP0AFD+lZpn1TGA4Yy1fhK+Y5Dsy7n4SudEJfUtrcqoom/UDApaijuwDTcs6UBaeSX6Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=zhK6TBF0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781416777; c=relaxed/simple;
+	bh=+FIKRxBw6lN0AQG6DUBMYUV54i6EbfD2UiwY43krGe8=;
+	h=Subject:To:From:Date:Message-ID:MIME-Version:Content-Type; b=GryZPQkOLUnvpt1V9euuDy2VV7GSBd706qH54KBEQeCUNm7cokWkUe7ItYKE/oNt7n2iqc2Zv99PbsxSkAUrautUKsxPOY0a00RVKkgapfnkloQibVWEn7BTbEFJGG9BuC4mOJy704pP2LDMnP0d+N/1CfyZv1NQYsXDIFArZBE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=kli91Gz/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="zhK6TBF0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F82A1F000E9;
-	Sun, 14 Jun 2026 05:59:28 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="kli91Gz/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0615D1F000E9;
+	Sun, 14 Jun 2026 05:59:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1781416769;
-	bh=wG1G+sQYbQ0NK9zGvELFJNYdeWJ5acZxYwe21Rv6ZOs=;
+	s=korg; t=1781416775;
+	bh=UNvQMebKjyDQ4b5KbfDWxuA/BI6Kjm+VUSOjfrZ8Rp8=;
 	h=Subject:To:From:Date;
-	b=zhK6TBF02g2wOTdxaD6ZI49Xak6JvlnYPUQJ7mDWPmaV2dqf0DusiNKgCSBVRZqUo
-	 7Q0IW5ReDG3tjfUhUEhgUAdIguXoTFycnDkqw7RmPi/i2q1IyVxfknCEfts5ZtzBSC
-	 +HBFRD4lXBOl9dp2Eqmx6l+NUlkzitsZUeEhqQ2M=
-Subject: patch "iio: adc: ad_sigma_delta: fix CS held asserted and state leaks" added to char-misc-testing
+	b=kli91Gz/GCfJZaVjgnRauVqPkf7M6SOoqxCgrtCocGMX6Mc8F0Ifc/0Mpw6IksGOB
+	 WJuD6dRRV6cooiv8WhfMZB2WUqMs7RRgfr/w/UXmwo+v+LHAOaV2YYnPMgT682zKjF
+	 ahGTQ5vEf2Q6+rijAtLKxT7t/7jXPYdTVe3eFz+Q=
+Subject: patch "iio: adc: ad_sigma_delta: fix clear_pending_event for registerless" added to char-misc-testing
 To: radu.sabau@analog.com,Stable@vger.kernel.org,jic23@kernel.org
 From: <gregkh@linuxfoundation.org>
-Date: Sun, 14 Jun 2026 07:57:25 +0200
-Message-ID: <2026061425-quintet-overcook-bcf7@gregkh>
+Date: Sun, 14 Jun 2026 07:57:26 +0200
+Message-ID: <2026061426-tweak-universal-be07@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 
 This is a note to let you know that I've just added the patch titled
 
-    iio: adc: ad_sigma_delta: fix CS held asserted and state leaks
+    iio: adc: ad_sigma_delta: fix clear_pending_event for registerless
 
 to my char-misc git tree which can be found at
     git://git.kernel.org/pub/scm/linux/kernel/git/gregkh/char-misc.git
@@ -54,72 +54,112 @@ after it passes testing, and the merge window is open.
 If you have any questions about this process, please let me know.
 
 
-From c72da0688575e5ef39c36bb44fed53aa18f8ae65 Mon Sep 17 00:00:00 2001
+From 91bc6767a4f55dc470d8a56b55b9f2ea09094efe Mon Sep 17 00:00:00 2001
 From: Radu Sabau <radu.sabau@analog.com>
-Date: Wed, 27 May 2026 12:38:38 +0300
-Subject: iio: adc: ad_sigma_delta: fix CS held asserted and state leaks
+Date: Wed, 27 May 2026 12:38:39 +0300
+Subject: iio: adc: ad_sigma_delta: fix clear_pending_event for registerless
+ devices
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-In ad_sigma_delta_single_conversion(), set_mode(AD_SD_MODE_IDLE) and
-disable_one() were called from the out: block while keep_cs_asserted
-was still true. This caused any SPI transfer issued by those callbacks
-to carry cs_change=1, leaving CS permanently asserted after the
-conversion. Fix by moving both calls into the out_unlock: block, after
-keep_cs_asserted is cleared, matching the pattern already used in
-ad_sd_calibrate().
+ad_sigma_delta_clear_pending_event() falls through to the status register
+read path for devices with has_registers = false and no rdy_gpiod. For
+such devices, ad_sd_read_reg() skips the address byte entirely and clocks
+raw MISO bytes with no address phase — making it byte-for-byte identical
+to reading conversion data. If a pending conversion result is present,
+this partially consumes it and corrupts the data stream for the subsequent
+ad_sd_read_reg() call in ad_sigma_delta_single_conversion().
 
-In the error path of ad_sd_buffer_postenable(), if an operation fails
-after set_mode(AD_SD_MODE_CONTINUOUS) has already succeeded (e.g.
-spi_offload_trigger_enable()), the device is left in continuous
-conversion mode with CS physically asserted. Additionally,
-bus_locked remaining true after spi_bus_unlock() causes subsequent
-SPI operations to call spi_sync_locked() without the bus lock actually
-held, allowing concurrent SPI access.
+Furthermore, with num_resetclks = 0 on these devices, data_read_len
+evaluates to 0. If the clocked byte has bit 7 clear, pending_event is set
+and the code attempts memset(data + 2, 0xff, 0 - 1), overflowing to
+SIZE_MAX and corrupting the heap.
 
-Fix the error path by clearing keep_cs_asserted first, then calling
-set_mode(AD_SD_MODE_IDLE) to revert the device mode and deassert CS,
-then clearing bus_locked before releasing the bus.
+Fix by returning 0 immediately when neither rdy_gpiod nor has_registers
+is set. This is safe for all current registerless devices: ad7191 and
+ad7780 (with powerdown GPIO) are reset between conversions by CS
+deassertion, so there is no stale result to drain; ad7780 (without
+powerdown GPIO) and max11205 are continuously-converting and cycle ~DRDY
+at the output data rate regardless of whether the previous result was
+read, so the next falling edge fires naturally.
 
-For devices that implement neither set_mode nor disable_one (such as
-MAX11205, which has no physical CS pin), no SPI transfer is issued
-during cleanup and the cs_change flag has no effect on any physical
-line.
+A future registerless device that holds ~DRDY asserted until data is read
+would be broken by this early return and would require either
+num_resetclks set or a rdy-gpio.
+
+The same heap corruption is reachable on any device with rdy_gpiod set
+but num_resetclks = 0: if the GPIO indicates a pending event, the drain
+path executes memset(data + 2, 0xff, 0 - 1) regardless of has_registers.
+Add an explicit data_read_len == 0 guard after the pending event check;
+the stale result is then consumed by the first ad_sd_read_reg() call in
+ad_sigma_delta_single_conversion().
 
 Fixes: 132d44dc6966 ("iio: adc: ad_sigma_delta: Check for previous ready signals")
 Signed-off-by: Radu Sabau <radu.sabau@analog.com>
 Cc: <Stable@vger.kernel.org>
 Signed-off-by: Jonathan Cameron <jic23@kernel.org>
 ---
- drivers/iio/adc/ad_sigma_delta.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+ drivers/iio/adc/ad_sigma_delta.c | 31 +++++++++++++++++++++++++++++--
+ 1 file changed, 29 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/iio/adc/ad_sigma_delta.c b/drivers/iio/adc/ad_sigma_delta.c
-index a955556f9ec8..651ade67ad2e 100644
+index 651ade67ad2e..1b410291da53 100644
 --- a/drivers/iio/adc/ad_sigma_delta.c
 +++ b/drivers/iio/adc/ad_sigma_delta.c
-@@ -441,11 +441,10 @@ int ad_sigma_delta_single_conversion(struct iio_dev *indio_dev,
- out:
- 	ad_sd_disable_irq(sigma_delta);
+@@ -262,11 +262,25 @@ static int ad_sigma_delta_clear_pending_event(struct ad_sigma_delta *sigma_delta
  
--	ad_sigma_delta_set_mode(sigma_delta, AD_SD_MODE_IDLE);
--	ad_sigma_delta_disable_one(sigma_delta, chan->address);
--
- out_unlock:
- 	sigma_delta->keep_cs_asserted = false;
-+	ad_sigma_delta_set_mode(sigma_delta, AD_SD_MODE_IDLE);
-+	ad_sigma_delta_disable_one(sigma_delta, chan->address);
- 	sigma_delta->bus_locked = false;
- 	spi_bus_unlock(sigma_delta->spi->controller);
- out_release:
-@@ -578,6 +577,9 @@ static int ad_sd_buffer_postenable(struct iio_dev *indio_dev)
- 	return 0;
+ 	/*
+ 	 * Read R̅D̅Y̅ pin (if possible) or status register to check if there is an
+-	 * old event.
++	 * old event. For devices with neither an RDY GPIO nor registers,
++	 * ad_sd_read_reg() transmits no address byte and clocks raw MISO bytes,
++	 * which is indistinguishable from reading conversion data and would
++	 * partially consume a pending result. Skip the check for such devices.
++	 *
++	 * This is safe for all current registerless devices: ad7191 and ad7780
++	 * (with powerdown GPIO) are reset between conversions by CS deassertion,
++	 * so there is no stale result to drain; ad7780 (without powerdown GPIO)
++	 * and max11205 are continuously-converting and cycle ~DRDY at the output
++	 * data rate regardless of whether the previous result was read, so the
++	 * next falling edge fires naturally.
++	 *
++	 * A future registerless device that holds ~DRDY asserted until data is
++	 * read would be broken by this early return and would need either
++	 * num_resetclks set or a rdy-gpio.
+ 	 */
+ 	if (sigma_delta->rdy_gpiod) {
+ 		pending_event = gpiod_get_value(sigma_delta->rdy_gpiod);
+-	} else {
++	} else if (sigma_delta->info->has_registers) {
+ 		unsigned int status_reg;
  
- err_unlock:
-+	sigma_delta->keep_cs_asserted = false;
-+	ad_sigma_delta_set_mode(sigma_delta, AD_SD_MODE_IDLE);
-+	sigma_delta->bus_locked = false;
- 	spi_bus_unlock(sigma_delta->spi->controller);
- 	spi_unoptimize_message(&sigma_delta->sample_msg);
+ 		ret = ad_sd_read_reg(sigma_delta, AD_SD_REG_STATUS, 1, &status_reg);
+@@ -274,11 +288,24 @@ static int ad_sigma_delta_clear_pending_event(struct ad_sigma_delta *sigma_delta
+ 			return ret;
  
+ 		pending_event = !(status_reg & AD_SD_REG_STATUS_RDY);
++	} else {
++		return 0;
+ 	}
+ 
+ 	if (!pending_event)
+ 		return 0;
+ 
++	/*
++	 * With num_resetclks = 0, data_read_len is 0 and the drain sequence
++	 * below would compute memset(data + 2, 0xff, 0 - 1), underflowing to
++	 * SIZE_MAX and corrupting the heap. There is no safe way to drain the
++	 * stale result without knowing the data register size; it will be
++	 * consumed by the first ad_sd_read_reg() call in
++	 * ad_sigma_delta_single_conversion().
++	 */
++	if (!data_read_len)
++		return 0;
++
+ 	/*
+ 	 * In general the size of the data register is unknown. It varies from
+ 	 * device to device, might be one byte longer if CONTROL.DATA_STATUS is
 -- 
 2.54.0
 
