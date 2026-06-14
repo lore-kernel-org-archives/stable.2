@@ -1,124 +1,149 @@
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+Received: from mail-yw1-f169.google.com (mail-yw1-f169.google.com [209.85.128.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C71E231E83E
-	for <stable@vger.kernel.org>; Sun, 14 Jun 2026 11:59:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781438342; cv=none; b=ks6VynPHadVIeN9f2iEORJZRh/BKf0lNz5aoby/RDH2Tq62Yha/XQd23EhiOMvzhue+tfPsY6nNmY14tTcv0xXbA11JPkOeqILw2YQi6NtKcFlB4u6yZ1++rPtEu84YtXtAc4Us4WE2oC5eFS9cWRTSWqeDC4iiVic63zBvKXjY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781438342; c=relaxed/simple;
-	bh=zTZl0e0yVWVcYo5BuaNiFPRWvG+d9puULyPrTvQy33A=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=WqJulpLGyzjKPmsR6g1crafZvBa66mJTykqPRidmkcjVPDAGuA3dJLPLuPId678qIXzX62JOcv967CDtN1rMQm/bhPq95nSs658lp7VFSivrYa3Sn3wyCsPFHfUHvpRFym5xB3Ig5MRJBBR90wBsWwUTXdKjsTEUetmHO5EXYjk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BKWYqvsn; arc=none smtp.client-ip=209.85.221.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08A5F2F7EF2
+	for <stable@vger.kernel.org>; Sun, 14 Jun 2026 13:25:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.169
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781443559; cv=pass; b=mreYB2JKidjTBRKC1mQdTdM4FhXujvg+Mhx+GVGwc63T+1YICMkhJOypzrCTRepf+P8WlXtbR7OVwb0IwhhDl4SvATytd5Q3QoShzo+Eqmnl83FPgHY0yvp7Lwqs1YiYY0Yazfx4u/D6y9cBThzkMTiByoZopRboHr1cWgFvE4s=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781443559; c=relaxed/simple;
+	bh=8a8z9o8uhQwn072Nwdwrsu8F50f0ae0l8EpJfnSe8Zs=;
+	h=From:In-Reply-To:References:MIME-Version:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=V7CkWP2FOX6zFRqPoyQ00ytbT7ubZPl50jwlAsDSXRGwgLVGkGgtbV0d+X2rAkGvYyJD0e7RrAr2zAuymPqRxAw7HolzhL9w/CVv2qxLL+FDkzAs9sWCNYMZnOoAOcp/vxJYgABrYcTz51UcWdSqg1gtgMqOBTPUPD+bSO6fcUQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=berkeley.edu; spf=pass smtp.mailfrom=berkeley.edu; dkim=pass (2048-bit key) header.d=berkeley.edu header.i=@berkeley.edu header.b=s3ZdgQ0j; arc=pass smtp.client-ip=209.85.128.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=berkeley.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=berkeley.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BKWYqvsn"
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-45fd461e4a5so1933878f8f.0
-        for <stable@vger.kernel.org>; Sun, 14 Jun 2026 04:59:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=berkeley.edu header.i=@berkeley.edu header.b="s3ZdgQ0j"
+Received: by mail-yw1-f169.google.com with SMTP id 00721157ae682-7e86d46b02dso25741447b3.3
+        for <stable@vger.kernel.org>; Sun, 14 Jun 2026 06:25:57 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781443557; cv=none;
+        d=google.com; s=arc-20240605;
+        b=eH1gxjtK8G/nwa4UJ8HOL1HLGK8ADE6TT02u6ijliIgYoj+Z0PZWtiLPrQ06Qw+NWx
+         i+KfaR4wAelWOh2nL6wJljwqjG/4SDJJGqw+leRmJq/B9kPPyT3HBL/m0kUUWNg+1LWI
+         PRytBDk1OSETZqwDQL3AvUG2tYQJUR/UaS6JYQ1ms/RxBdi5+5teDMw4fPaUXw42yz65
+         GEJU9s1tVvPqUx/15PdoG5muWJ1hQdZi3OUbvmYw2VYP5FEobM6KDPOLr/yrmrfB1J1P
+         2T2wlkK9qbOj9JSCs5Hl1CjNrXzKHfnoPc4cEP1xsMN+edLQa39t8lLWejfzvRiHpTRd
+         m+ow==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=cc:to:subject:message-id:date:mime-version:references:in-reply-to
+         :from:dkim-signature;
+        bh=my7WznhvuaINq07i0eln+93EnzFiKa95Z+VUna30ulc=;
+        fh=9iU1PycPfPGbvpVX8z/siv35/GTBBfVqRdgSTgmgwW8=;
+        b=FrWVDWexE/OZXrEplCTpDKvx/oUG7xEQRH1G5QaydIfgLKVTAOxaO8VadOIobSyiJ+
+         DYcHjvNdjxDf8t4HTpEXWWvbeBjotjw45XnKa1yLWJPKGvDm64cb7qE3wRA3KmWwzt38
+         47+Iy6PX1E3ljZebfGi9zhOlpaj2rz7dCX66g2TkBl65yhoKrXWQRxzR9H3cpADP5Lec
+         IiRclHCgEaqgnnuLZcfgZdu1wCxnFRm3R/quF6mHHUCs6lMONtmb+T0FU1JW1zpJf0ig
+         ZHaUnhXP01f9DaQzFtOz0qZBommiO1jOyH7nmbhcndqBd5sB50UypDAjtAHz+RbRH9vQ
+         NuHw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781438339; x=1782043139; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:subject:cc:to:from:date:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=eSovo2PZqoPUZzCz7TwsyL7/LMkogfDdhMF3mspVec8=;
-        b=BKWYqvsnEBTCMu/EDkWqIDaUHB3lEjnxO01iZG5NQTVYbm6XykZLJlVwjjgqWNDEqC
-         pU40foGahLk+1qi/Qv1H2VuMcKrgAhzCroCPw7ch/Bp+JRHzmXxZ71rDqT6PkEoGQUK1
-         jSjLxgWWg0a433qSlZNKEYvp64uTk7EvK+VKc+xKwGgEsOwvdf+QgODH1jCmLGnBlVIn
-         /8tOljLOJ9c4y7qORdXoVqzAMn7z7XncLDlqhfz3Oz5xE+aw7bya32blH6/DFRvcICCP
-         83B/AIVuukEOKVH7mPyj+GEouOC2hNf7nJx7QwS86cMuHrMqd51yHQ2QqDmCZ36Sd+aV
-         J9zw==
+        d=berkeley.edu; s=google; t=1781443557; x=1782048357; darn=vger.kernel.org;
+        h=cc:to:subject:message-id:date:mime-version:references:in-reply-to
+         :from:from:to:cc:subject:date:message-id:reply-to;
+        bh=my7WznhvuaINq07i0eln+93EnzFiKa95Z+VUna30ulc=;
+        b=s3ZdgQ0j6wdDyJK+1d22+jBZLt2LhR2Mi8jqPQ3z/isAwctf3ViXA56e3N8khKKhww
+         vmnVZeVAW1wDeL+KZtU2URDcwHYxTdvDKj7dQAg2rIz9I+oy4ubfKlsNI32QZ+LDw4Oe
+         qW7GQAFqe+cJvP/0VHfPgrO58FSi8UglgtTFX9H9cSpSqkzpIwpgD4WzFLBDKHVkuTAe
+         bKPdX19pyf2uEXOILG62k3EUQwNZ+3JbH4EA72HLdrw6dba8fYV0Vaemkuy56hwM0oWI
+         FG1mbyrtkMB8CbtPKlmsvp7y845jcXXgqpVuTaB9qMLiIVdu5T9KBNz8Tat5V81a9/KG
+         LwOg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781438339; x=1782043139;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=eSovo2PZqoPUZzCz7TwsyL7/LMkogfDdhMF3mspVec8=;
-        b=ju8PVUk1k3/3S3r6b4YZp9BF6KKWBY6HlQ/BAmMoWD7FEKz7ynTRqPPxQGOZGNscYC
-         EhRn5Y2Mo+CQ9l3IODbyy/P2cTFNNPXQFrv+ThmwBDRDhTwMKJPljcvvV9NlK9W/zpXl
-         SqLZ6/sTpe50zO0Iz9ksd6niPh5mjMpeK+evVS2r+m1pK6qFgKMnJzBGqP1D0VTBIfbo
-         s+MKefUC5oFFtoQGmdoFgZffHA2oneNI3PQaC6NT+qHITqdSLy2S4yVvGdguOdT4Ugvy
-         sDX/OCMx9rtANiJnN7IYebgPmQDlAi10ElHyPWhM/XlnH9CXNEfo66/JVhkRju1CsnrZ
-         sXng==
-X-Forwarded-Encrypted: i=1; AFNElJ/cMDpfkHvYmp9nvtk9MgChE5i6UuSzTY4bN8tBxk9VwUmf/XDykC/lILn7TMx4LO1xyOdOkH0=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwUHfmThKB/cT7JKDrKl+VR6W/pTJuMZ0hWJ0pk+xXVjbe5PkKK
-	HMOr+B/K7CYER9x7sRcm6tYMvr2QIqItvo+Emp4UQQyPsm1E32vx3guw
-X-Gm-Gg: Acq92OGT/wKy+u9oRcjZe9ZjSRw/pqghGJeXl+/kqmmWqcxfbKQv5FMwhzQAzlnKcXX
-	HXxe/xj9elYMCKbGYLN845sXKwyuKs+9XhxWdjltGKISj/EJOIFA+vDu2LAwSuRharke/GUtkzi
-	hDWmWvmyKgIy2NWU0aPfipEKo4IDuFj+XME9g7tyMp41LUqPN9QFKyapBuXHtlUj3mixTTzHGFj
-	QuP+Anln3A/o9lUHVMTMnqWQi+JNhfmPEIOVUB/Wi6hm6eBbQlQxuE9q96zU0840b1mr8BDSjAn
-	mVAXU8d50DadX2FaPwWnlY4FfoVCmCHHYR9IHJWosPoTy892w6FLB21iC9quUf+J+mbS2rdGih2
-	PHSH/b+FPppwZ+okESjEus7QssJ0PbMwWplC0GpsLZD9npWX/qSPxGJR00GWKGT6gEX4wqrJvKu
-	2NzinQglQoGpDTSSy9xNsEW6Nhcwx46wQHyqW2MMmXgsQZed/aeLxBM4E4NZmJ
-X-Received: by 2002:a05:6000:4912:b0:45e:de0a:1773 with SMTP id ffacd0b85a97d-4606dbf15b7mr14210900f8f.33.1781438339050;
-        Sun, 14 Jun 2026 04:58:59 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4606f2b0c35sm24759410f8f.22.2026.06.14.04.58.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 14 Jun 2026 04:58:58 -0700 (PDT)
-Date: Sun, 14 Jun 2026 12:58:57 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: Ethan Nelson-Moore <enelsonmoore@gmail.com>
-Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, Russell King <linux@armlinux.org.uk>, "Russell King
- (Oracle)" <rmk+kernel@armlinux.org.uk>, Arnd Bergmann <arnd@arndb.de>,
- Linus Walleij <linusw@kernel.org>, Kees Cook <kees@kernel.org>, Nathan
- Chancellor <nathan@kernel.org>, Thomas Weissschuh
- <thomas.weissschuh@linutronix.de>, Peter Zijlstra <peterz@infradead.org>,
- Shubham Bansal <illusionist.neo@gmail.com>, "David S. Miller"
- <davem@davemloft.net>
-Subject: Re: [PATCH] ARM: disable broken eBPF JIT on the Risc PC
-Message-ID: <20260614125857.398a0e13@pumpkin>
-In-Reply-To: <20260518014920.135011-1-enelsonmoore@gmail.com>
-References: <20260518014920.135011-1-enelsonmoore@gmail.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+        d=1e100.net; s=20251104; t=1781443557; x=1782048357;
+        h=cc:to:subject:message-id:date:mime-version:references:in-reply-to
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=my7WznhvuaINq07i0eln+93EnzFiKa95Z+VUna30ulc=;
+        b=DJQ/Z0TLg0OOJI+S4v6JTG5gu1KXGk2UAYGEJ1jfXqiiuLMzOObPt8acaVX2aZUcdO
+         JDLlJQDlmwHxKJ0bTejvG7O5kurqBGNW2kbkKxg7oYmFKV3It1CY/sortF9lSCqSCs3f
+         B8CGuYKMPsg0aHFMPB9/28THQUmbPdatCQxhViexsDnWnuVw0Nm7FMqHagK1LHv+HP/2
+         ytLWiiYn1MKykrHi66iWJCOpRhbvw9Ij5dBv0UHmey0pESrnk7dIRoQtBTYRRbkoCc6a
+         fiTLi76KQXpVuGmbMaxHYxCC2oybvxFQBMZQZcbRRM2F8idPwXCf+oZnq4e0MUyx+EG4
+         6z0A==
+X-Forwarded-Encrypted: i=1; AFNElJ9bgtVoeNZWju3yJTTa4RuXbF8cNK5w2A5gX1xl1P8tcjzVQMywcui8j2FkjZ0bUdr0NV+VTMY=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy2c83nVpCqziaZC9p4bl41xy4sSUQlF8og9YWVevG00/p0uXsf
+	6KepiHA8WgWSLQC7E6+3sC6XaPZ+IcY4jrrY6pF0AEwWNmdMC6U3jqSvYcIWfGDsQeDgDBLN/g5
+	kYsm7uXStDoslm55DeMPK+b+G/U2Z+tqq/YOLB8VZ
+X-Gm-Gg: Acq92OG2Is1k7ykQG1FTmxb/Q89B/aBuHn964mOiNn6QBJ+jDFC+dodE6b6qUSbo26P
+	h7uNPC1RC5l6fDXL4eW4sa7x7Nr+33U91cTasoFIGi4zZltrBU0iW2m2C3igsxE1/hzl8Kdr+Qt
+	NGLIZ0nhHB29d6yK34QHbWY9nmrEyOEzUPlaAiTCDflSlRId6px1JBSAQ8xeXE85kPUcUiiIE5P
+	mu5K/Ln/ia45IvB14rsJz8P6e4napSuojNgppx17mkl6ub6m0pculBvc49ZbI3nv2IBFv3lh9N+
+	r3dK7gd7CQ==
+X-Received: by 2002:a05:690c:3745:b0:7e2:a956:4083 with SMTP id
+ 00721157ae682-7f8c1f15742mr70603597b3.20.1781443555816; Sun, 14 Jun 2026
+ 06:25:55 -0700 (PDT)
+Received: from 474444807712 named unknown by gmailapi.google.com with
+ HTTPREST; Sun, 14 Jun 2026 06:25:55 -0700
+Received: from 474444807712 named unknown by gmailapi.google.com with
+ HTTPREST; Sun, 14 Jun 2026 06:25:55 -0700
+From: Farhad Alemi <farhad.alemi@berkeley.edu>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <CA+0ovCg05rUk1-3k2ysdxmbcER8aG-wVh9SSTrrbp6LPWpPHYA@mail.gmail.com>
+References: <CA+0ovCg05rUk1-3k2ysdxmbcER8aG-wVh9SSTrrbp6LPWpPHYA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Date: Sun, 14 Jun 2026 06:25:55 -0700
+X-Gm-Features: AVVi8CdOyddTc0VCwydJ03Yt1oOOOGpiCzbsY_HpVqvtkDz1Xj3Bl7yujHIBV_M
+Message-ID: <CA+0ovCgfHJHv5d1mzapWWvF-LhjppzDX8NPPLvCPZxPKg8RiYw@mail.gmail.com>
+Subject: [PATCH v2] cgroup/cpuset: rebind mm mempolicy to effective_mems, not mems_allowed
+To: Andrew Morton <akpm@linux-foundation.org>, Waiman Long <longman@redhat.com>
+Cc: Farhad Alemi <falemi@asu.edu>, David Hildenbrand <david@kernel.org>, Gregory Price <gourry@gourry.net>, 
+	Yury Norov <ynorov@nvidia.com>, Joshua Hahn <joshua.hahnjy@gmail.com>, Zi Yan <ziy@nvidia.com>, 
+	Matthew Brost <matthew.brost@intel.com>, Rakie Kim <rakie.kim@sk.com>, 
+	Byungchul Park <byungchul@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>, 
+	Alistair Popple <apopple@nvidia.com>, Rasmus Villemoes <linux@rasmusvillemoes.dk>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, cgroups@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Sun, 17 May 2026 18:49:17 -0700
-Ethan Nelson-Moore <enelsonmoore@gmail.com> wrote:
+Creating a child cpuset where cpuset.mems is never set leads to a div/0
+when a VMA mempolicy with MPOL_F_RELATIVE_NODES rebinds in response to a
+CPU hotplug event.
 
-> The eBPF JIT unconditionally generates ldrh/strh instructions, which do
-> not function correctly on the Risc PC because its bus is unable to
-> signal half-word accesses. Work around this issue by disabling the eBPF
-> JIT when building for ARMv3 (the Risc PC is the only currently
-> supported ARMv3 machine).
+Reproduction steps:
+ 1) Create a cgroup w/ cpuset controls (do not set cpuset.mems)
+ 2) Move the task into the child cpuset
+ 3) Create a VMA mempolicy for that task with MPOL_F_RELATIVE_NODES
+ 4) unplug and hotplug a cpu
+      echo 0 > /sys/devices/system/cpu/cpu1/online
+      echo 1 > /sys/devices/system/cpu/cpu1/online
+ 5) mempolicy rebind does a div/0 in mpol_relative_nodemask on the
+    call to __nodes_fold()
 
-Isn't it more the case that the ldrh/strh instructions were added for armv4.
-Whether the bus supports 16bit accesses is entirely different.
+The cpuset code passes (cs->mems_allowed) which is not guaranteed to have
+nodes to the rebind routine.  Use cs->effective_mems instead, which is
+guaranteed to have a non-empty nodemask.
 
-I'm guessing that WRITE_ONCE() gets implemented as two 8-bit writes and
-the code 'just hopes' than an ISR won't care and won't do an update.
+Link: https://lore.kernel.org/linux-mm/CA+0ovCgxbZkXa+OU8w3s84R3KNPNxxRfmsNR-udh+afQBbGNmw@mail.gmail.com/
+Link: https://lore.kernel.org/all/CA+0ovCiEz6SP_sn3kN4Tb+_oC=eHMXy_Ffj=usV3wREdQrUtww@mail.gmail.com/
+Fixes: ae1c802382f7 ("cpuset: apply cs->effective_{cpus,mems}")
+Suggested-by: Gregory Price <gourry@gourry.net>
+Suggested-by: Waiman Long <longman@redhat.com>
+Signed-off-by: Farhad Alemi <farhad.alemi@berkeley.edu>
+Cc: stable@vger.kernel.org
+---
+v2: rebind to cs->effective_mems instead of newmems (Waiman Long);
+    condense the changelog.
 
-	David
+ kernel/cgroup/cpuset.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> 
-> Fixes: 39c13c204bb1 ("arm: eBPF JIT compiler")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Ethan Nelson-Moore <enelsonmoore@gmail.com>
-> ---
->  arch/arm/Kconfig | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/arch/arm/Kconfig b/arch/arm/Kconfig
-> index 1155c78bb6aa..8185d013e5d1 100644
-> --- a/arch/arm/Kconfig
-> +++ b/arch/arm/Kconfig
-> @@ -98,7 +98,7 @@ config ARM
->  	select HAVE_ARCH_TRACEHOOK
->  	select HAVE_ARCH_TRANSPARENT_HUGEPAGE if ARM_LPAE
->  	select HAVE_ARM_SMCCC if CPU_V7
-> -	select HAVE_EBPF_JIT if !CPU_ENDIAN_BE32
-> +	select HAVE_EBPF_JIT if !CPU_ENDIAN_BE32 && !CPU_32v3
->  	select HAVE_CONTEXT_TRACKING_USER
->  	select HAVE_C_RECORDMCOUNT
->  	select HAVE_BUILDTIME_MCOUNT_SORT
+diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+--- a/kernel/cgroup/cpuset.c
++++ b/kernel/cgroup/cpuset.c
+@@ -2649,7 +2649,7 @@ void cpuset_update_tasks_nodemask(struct cpuset *cs)
 
+ 		migrate = is_memory_migrate(cs);
+
+-		mpol_rebind_mm(mm, &cs->mems_allowed);
++		mpol_rebind_mm(mm, &cs->effective_mems);
+ 		if (migrate)
+ 			cpuset_migrate_mm(mm, &cs->old_mems_allowed, &newmems);
+ 		else
+-- 
+2.43.0
