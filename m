@@ -1,149 +1,93 @@
-Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBE0A29992A
-	for <stable@vger.kernel.org>; Sun, 14 Jun 2026 05:39:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 865B2247291
+	for <Stable@vger.kernel.org>; Sun, 14 Jun 2026 05:58:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781415596; cv=none; b=WXTh4OEIvoRa07LV39IUTpM+WXWaDBCoDMRcLQCogncKrLP1EnFjhC1Pdjh2azoNOBEYYV48tXdouFJ8geGcCcfJ/fcHX4eBiydIxB35EJVvGWNOukwb8ftY5XKQqn7Yqf1YP/bSK1UDT9+0Wo8f8VXoyJYQjts7KkLWYz7rfnk=
+	t=1781416697; cv=none; b=cW6d1wO3I/KLLjKqem0mHnCqiSbmB3AZIbbjsfluRL7zWIxAWgXToWz2yO3tDSPNhaJA8YNxPHqTKe4p5iXmt3mdnfsjyDLlQD+qHZMxDFPQuGlN8z0wVzIbLV2KOho3ln5L1TQyIW+2+kI7/CX80fog1Os/W9KX+RWwolYpxMU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781415596; c=relaxed/simple;
-	bh=lhowr9EjwPapIm5LZ9CUvqkGMBmfsnVS9rihubPA5e4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kFFrmfL3XEoDHswaiF69ruN8qg4RmUkLeI7bkgbdgHmjKOR1O0YMqh5cyCHF5Qn8Q4p5IK+rJEwTikhQ5bUHM374NCccQv1W1e7LuaiQ6hqHmLB451W1xoXuDaJeFk9JiC8VFlqA+adp9GQm91rXGQ1uCAaWcuZjri0RcNoj+xg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=k7Y+ZSnn; arc=none smtp.client-ip=209.85.210.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781416697; c=relaxed/simple;
+	bh=TMpdAV35MZkiZegHnUGOg35OOF+7mtE2IHk3xbECTro=;
+	h=Subject:To:From:Date:Message-ID:MIME-Version:Content-Type; b=qmlV3Z7U0kCbQTj3zKYheVZ2D/vXWpIAxdFPZYDTPV5pW18O+uqxo/qnCcrciPMzamQN2d5uwXLI0qBn3SNNIwx9nhO6WcEtvbtj4bu0GepCOO6iMWInIYmSQb1au9run2GIH/Kd80YZSRt2lmv1o8rren9cI4dpRcUncOGg9yA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=tD7EVDg8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="k7Y+ZSnn"
-Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-8419ab3a297so965368b3a.2
-        for <stable@vger.kernel.org>; Sat, 13 Jun 2026 22:39:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781415594; x=1782020394; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=NT1UtqM2AmX11NcJjNv9n62UrLKyvxdMBYbCsYRy7Tg=;
-        b=k7Y+ZSnnWZdZwA16LI1jjwiD9wmD/pD5qjRx+SZt0TGO6PL2TosKf3zQEYuBOOo3jl
-         IXJ4DI3O4DDszR3h7L9hsel/+bPebrxhlHnILMSml/PubyVW7QOXg1OZ1IQjVxyYLYvL
-         G+GTWiX5utKgMFP/sZdfS5XtLxR6fJRhBnqIpJ+HfwsYfQCgvlHQ73MoPZHw+4V973cM
-         bQv32r09k21FrpEdUOr8k2FRrQL48VY7QkXDDHHv3/r8R+9EEDheSZEmL9oDq4sQXVAR
-         0qnaR5hyIdLRgKWW9t4bFk/tV0M7f1t88wCinuopPv37POBxtYYjol63QqGanP1jEGSO
-         g72A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781415594; x=1782020394;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=NT1UtqM2AmX11NcJjNv9n62UrLKyvxdMBYbCsYRy7Tg=;
-        b=pbyEYEtczgVWHs15MKq9OzuraqcNXM8ACLs/jACcO74CpJMCYSo2r3ka4RFOEqn6eQ
-         6q3uHxHEQptEp9uAPfBNPd019J8jHNTkpJTsOQgPTH0s37byRPNzgT1oJRKfbsDMPJui
-         kcCJtd9F4bkthTm58l8UIiiL6de6ub/RLvTntm3kak9C/owrEopBxqMiSRlQLF5I7IlO
-         6liAb8J2N8H1/9q1ZWbjNl4CfzzGZmuaLsZZUufd6GiReJOB/0kzDtHpHkdDvKT0Scfk
-         5plVb42rGQ236CEdgkrE0U4O1BscJDZ9YUK6PHbWDOcWn8pklYXVblYN0a0XYOZQVPDz
-         nnFA==
-X-Forwarded-Encrypted: i=1; AFNElJ/EUAo72f+0Vt1ayvsYNNpAhy3lTNPYg9xIIJ7VGUs2z7nkittAYBbW5gnOvEE92CEic8HlQds=@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywz5sUUbIwBGS1/xTvswjsqq9cVc5uu8QXK0hzNxFAwDKVrCAjR
-	xQZBPovqXaVOXnwIkH9+c8yaaZU0pkGDNVWJ69w5nLqesE7WeAZqR1iT
-X-Gm-Gg: Acq92OG1lv7GfXUU0ViBij/yQqjLM9YwcSBip7R28nL1KSCKv3advUxAtaM4NIo/RS8
-	cKVB8mZF8usQcPXm8jAhHw6Pog2998rT9EUH+z7UI0TGYQgqVch9l/xzDt5CS6VaFKQRqbeim0w
-	RXQ9BkVM6g2Ck73F4khMQlhBsvYVbGnKUwYvfirpWqPujsb+wmt/Hog1OXBp5GwSp34D61ewOyb
-	/Zu1rINOwPufouu3hzGxzH2axBfieOPiP3o9FFqrwSsdpGEMnuYicoFQZe70FsvnsrRYB79ZM+b
-	yk4XPYX08cQKVC7TWhUq47wtBSZbDVBX5U2MU1s1mqefNBOgl8orm7ZNp79ZpLWu4l6+SuJiCS1
-	oN8m3QHCOPd4XAtrwqAVXR7eBlSIiyHJJ3aOzLiCft5rCUEUi6nJlxCWAcsJnMqYep5+am9qXR2
-	x/pmaaCMonbE7gS2cNdFM3u0p6XCcLejFNcVH0KeQxLEFmnP636H2dO/Vy9WEhXlOmuBJATiE5I
-	xjkln/FsNBjXTqg
-X-Received: by 2002:a05:6a00:4fcf:b0:842:5711:9a2f with SMTP id d2e1a72fcca58-8434cf4f362mr10259911b3a.36.1781415594241;
-        Sat, 13 Jun 2026 22:39:54 -0700 (PDT)
-Received: from nugod-NUC15CRHU5.tail9f095a.ts.net ([218.237.104.87])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8434acffd04sm6387078b3a.26.2026.06.13.22.39.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 13 Jun 2026 22:39:53 -0700 (PDT)
-From: HyeongJun An <sammiee5311@gmail.com>
-To: Andrii Nakryiko <andrii@kernel.org>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>
-Cc: Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Shuah Khan <shuah@kernel.org>,
-	bpf@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	HyeongJun An <sammiee5311@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH bpf 1/2] libbpf: Reject out-of-range linker relocation offsets
-Date: Sun, 14 Jun 2026 14:39:26 +0900
-Message-ID: <20260614053927.160566-2-sammiee5311@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260614053927.160566-1-sammiee5311@gmail.com>
-References: <20260614053927.160566-1-sammiee5311@gmail.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="tD7EVDg8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92FC21F000E9;
+	Sun, 14 Jun 2026 05:58:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1781416696;
+	bh=sofgPu6UVYSUNB3gG/HhnE9cABL7H8cKsYR63vW0v74=;
+	h=Subject:To:From:Date;
+	b=tD7EVDg8vRXQWHsZvqev5uh7QNkDTyBbRWIrO5hFQBGmRZSqJ2L0Tk7JoTEZvg7JG
+	 4iwJMyPzucpmH+PWSKqJ7baA2vTl2pGxLnriABgC/wtdci4y95NknotQL6O1WTYCwH
+	 1Q87/bG4NeH/hKQC0kGYru+FSULNk4Hw8CDRgnHw=
+Subject: patch "iio: adc: ad4062: add GPIOLIB dependency" added to char-misc-testing
+To: arnd@arndb.de,Stable@vger.kernel.org,jic23@kernel.org
+From: <gregkh@linuxfoundation.org>
+Date: Sun, 14 Jun 2026 07:57:15 +0200
+Message-ID: <2026061415-bacon-thirty-8021@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
-The static linker sanity-checks relocation sections before appending them,
-but for executable target sections it only verifies that r_offset is
-BPF-instruction aligned.  It does not verify that the offset is inside the
-relocated section.
 
-A malformed object can therefore pass an out-of-range offset through
-linker_sanity_check_elf_relos().  When the relocation is against an
-STT_SECTION symbol, linker_append_elf_relos() uses the unchecked offset to
-find the instruction to adjust:
+This is a note to let you know that I've just added the patch titled
 
-  insn = dst_linked_sec->raw_data + dst_rel->r_offset;
+    iio: adc: ad4062: add GPIOLIB dependency
 
-and then reads insn->code and updates insn->imm.
+to my char-misc git tree which can be found at
+    git://git.kernel.org/pub/scm/linux/kernel/git/gregkh/char-misc.git
+in the char-misc-testing branch.
 
-This is reproducible with bpftool's static linker by crafting a BPF object
-with a 16-byte executable section and a relocation in its .rel section
-whose r_offset is 0x1000:
+The patch will show up in the next release of the linux-next tree
+(usually sometime within the next 24 hours during the week.)
 
-  BUG: AddressSanitizer: heap-buffer-overflow in linker_append_elf_relos
-  READ of size 1
-   linker_append_elf_relos
-   bpf_linker_add_file
-   bpf_linker__add_file
-   do_object
+The patch will be merged to the char-misc-next branch sometime soon,
+after it passes testing, and the merge window is open.
 
-Reject relocation offsets that are outside the relocated section before any
-later use.  This mirrors the normal object loading path, which already
-rejects executable relocations whose r_offset is not inside the program
-section.
+If you have any questions about this process, please let me know.
 
-Fixes: faf6ed321cf6 ("libbpf: Add BPF static linker APIs")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5
-Signed-off-by: HyeongJun An <sammiee5311@gmail.com>
+
+From a5b7991d5a737df71a5e4230554481255af64ed4 Mon Sep 17 00:00:00 2001
+From: Arnd Bergmann <arnd@arndb.de>
+Date: Fri, 15 May 2026 11:07:53 +0200
+Subject: iio: adc: ad4062: add GPIOLIB dependency
+
+The ad4062 driver gained support for the gpiochip and now fails
+to build when GPIOLIB is disabled:
+
+390-linux-ld: drivers/iio/adc/ad4062.o: in function `ad4062_gpio_get':
+drivers/iio/adc/ad4062.c:1383:(.text+0x3dc): undefined reference to `gpiochip_get_data`
+
+Add a Kconfig dependency for this.
+
+Fixes: da1d3596b1e4 ("iio: adc: ad4062: Add GPIO Controller support")
+Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+Cc: <Stable@vger.kernel.org>
+Signed-off-by: Jonathan Cameron <jic23@kernel.org>
 ---
- tools/lib/bpf/linker.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/iio/adc/Kconfig | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/tools/lib/bpf/linker.c b/tools/lib/bpf/linker.c
-index 78f92c39290a..3eb23da167d2 100644
---- a/tools/lib/bpf/linker.c
-+++ b/tools/lib/bpf/linker.c
-@@ -1048,6 +1048,12 @@ static int linker_sanity_check_elf_relos(struct src_obj *obj, struct src_sec *se
- 			return -EINVAL;
- 		}
- 
-+		if (relo->r_offset >= link_sec->shdr->sh_size) {
-+			pr_warn("ELF relo #%d in section #%zu has invalid offset %zu in %s\n",
-+				i, sec->sec_idx, (size_t)relo->r_offset, obj->filename);
-+			return -EINVAL;
-+		}
-+
- 		if (link_sec->shdr->sh_flags & SHF_EXECINSTR) {
- 			if (relo->r_offset % sizeof(struct bpf_insn) != 0) {
- 				pr_warn("ELF relo #%d in section #%zu points to missing symbol #%zu in %s\n",
+diff --git a/drivers/iio/adc/Kconfig b/drivers/iio/adc/Kconfig
+index a9dedbb8eb46..2dcb9980d7c8 100644
+--- a/drivers/iio/adc/Kconfig
++++ b/drivers/iio/adc/Kconfig
+@@ -78,6 +78,7 @@ config AD4030
+ config AD4062
+ 	tristate "Analog Devices AD4062 Driver"
+ 	depends on I3C
++	depends on GPIOLIB
+ 	select REGMAP_I3C
+ 	select IIO_BUFFER
+ 	select IIO_TRIGGERED_BUFFER
 -- 
-2.43.0
+2.54.0
+
 
