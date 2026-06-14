@@ -1,89 +1,124 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24F3835E95F;
-	Sun, 14 Jun 2026 11:20:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C71E231E83E
+	for <stable@vger.kernel.org>; Sun, 14 Jun 2026 11:59:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781436035; cv=none; b=b4abwLzWnTRNMNrVlYPCSIrsqKQKdXED5agXo3hH/2nFh3kBrzVFJ3me8+CxM4xgZNH76uQXC7gH8g6KSYivPorLRvSPmd0DT0zcmk1t+OEzxAMi+xEHy9263RSSYAZlMe9kJ1eYlZfvZLh5F2igKGcUD34BBEHZ8LOx+hUIDME=
+	t=1781438342; cv=none; b=ks6VynPHadVIeN9f2iEORJZRh/BKf0lNz5aoby/RDH2Tq62Yha/XQd23EhiOMvzhue+tfPsY6nNmY14tTcv0xXbA11JPkOeqILw2YQi6NtKcFlB4u6yZ1++rPtEu84YtXtAc4Us4WE2oC5eFS9cWRTSWqeDC4iiVic63zBvKXjY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781436035; c=relaxed/simple;
-	bh=9bnu40qoEGssx8pIaOPs0+3SkSACtTQtNIpNavpjTjw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ss0G+MVBeR43sdBL00kuxYw97PDIARgd5kcInhwT6arFbD9gMz9WphCJ3ILivenEDPuyG1qBGFjGYIqRbpwQj15dgBU6Z9n2EtitUTOWcUuz6j7plwwoqbCbDrGClbkrU4UFeXeBGdb8j7suJ6FoDFdDEMRpNpduDa3Wfr7t9mk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=t8IBpmE3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781438342; c=relaxed/simple;
+	bh=zTZl0e0yVWVcYo5BuaNiFPRWvG+d9puULyPrTvQy33A=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=WqJulpLGyzjKPmsR6g1crafZvBa66mJTykqPRidmkcjVPDAGuA3dJLPLuPId678qIXzX62JOcv967CDtN1rMQm/bhPq95nSs658lp7VFSivrYa3Sn3wyCsPFHfUHvpRFym5xB3Ig5MRJBBR90wBsWwUTXdKjsTEUetmHO5EXYjk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BKWYqvsn; arc=none smtp.client-ip=209.85.221.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="t8IBpmE3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DC431F000E9;
-	Sun, 14 Jun 2026 11:20:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1781436033;
-	bh=HkbSBTjLVZy3QDSNHMO9AiH5XKRueg+mXoVnWQwxDKk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=t8IBpmE3bRoFxgVhKjWDaMZynZzBTsqwvcUtJj1iYyQapydiLTvGvGiy2rSYqQmB5
-	 H1+6WH35A/7cZY2i3On6dSF/WfN8kIZ+pGBKpHkv1cEKSrpGMp7zW8ffyMVF+Qf/dV
-	 Mw2fugdI9Q6AjFIDGeLcHGFBiMCXkmQQkIQRFnFA=
-Date: Sun, 14 Jun 2026 13:19:32 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: "Artem S. Tashkinov" <aros@gmx.com>
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Sasha Levin <sashal@kernel.org>, stable@vger.kernel.org
-Subject: Re: [RFC/PROPOSAL] Shifting the x.y.z Stable Tree to a Continuous,
- Signed Patch-Stream Model
-Message-ID: <2026061420-emote-resend-9ad0@gregkh>
-References: <cdb0dd2f-f331-46ed-8439-1609173f083a@gmx.com>
- <2026052444-unlawful-eskimo-9c41@gregkh>
- <5f62925e-0faf-40aa-a594-10ef6d50f24e@gmx.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BKWYqvsn"
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-45fd461e4a5so1933878f8f.0
+        for <stable@vger.kernel.org>; Sun, 14 Jun 2026 04:59:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781438339; x=1782043139; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:subject:cc:to:from:date:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=eSovo2PZqoPUZzCz7TwsyL7/LMkogfDdhMF3mspVec8=;
+        b=BKWYqvsnEBTCMu/EDkWqIDaUHB3lEjnxO01iZG5NQTVYbm6XykZLJlVwjjgqWNDEqC
+         pU40foGahLk+1qi/Qv1H2VuMcKrgAhzCroCPw7ch/Bp+JRHzmXxZ71rDqT6PkEoGQUK1
+         jSjLxgWWg0a433qSlZNKEYvp64uTk7EvK+VKc+xKwGgEsOwvdf+QgODH1jCmLGnBlVIn
+         /8tOljLOJ9c4y7qORdXoVqzAMn7z7XncLDlqhfz3Oz5xE+aw7bya32blH6/DFRvcICCP
+         83B/AIVuukEOKVH7mPyj+GEouOC2hNf7nJx7QwS86cMuHrMqd51yHQ2QqDmCZ36Sd+aV
+         J9zw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781438339; x=1782043139;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=eSovo2PZqoPUZzCz7TwsyL7/LMkogfDdhMF3mspVec8=;
+        b=ju8PVUk1k3/3S3r6b4YZp9BF6KKWBY6HlQ/BAmMoWD7FEKz7ynTRqPPxQGOZGNscYC
+         EhRn5Y2Mo+CQ9l3IODbyy/P2cTFNNPXQFrv+ThmwBDRDhTwMKJPljcvvV9NlK9W/zpXl
+         SqLZ6/sTpe50zO0Iz9ksd6niPh5mjMpeK+evVS2r+m1pK6qFgKMnJzBGqP1D0VTBIfbo
+         s+MKefUC5oFFtoQGmdoFgZffHA2oneNI3PQaC6NT+qHITqdSLy2S4yVvGdguOdT4Ugvy
+         sDX/OCMx9rtANiJnN7IYebgPmQDlAi10ElHyPWhM/XlnH9CXNEfo66/JVhkRju1CsnrZ
+         sXng==
+X-Forwarded-Encrypted: i=1; AFNElJ/cMDpfkHvYmp9nvtk9MgChE5i6UuSzTY4bN8tBxk9VwUmf/XDykC/lILn7TMx4LO1xyOdOkH0=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwUHfmThKB/cT7JKDrKl+VR6W/pTJuMZ0hWJ0pk+xXVjbe5PkKK
+	HMOr+B/K7CYER9x7sRcm6tYMvr2QIqItvo+Emp4UQQyPsm1E32vx3guw
+X-Gm-Gg: Acq92OGT/wKy+u9oRcjZe9ZjSRw/pqghGJeXl+/kqmmWqcxfbKQv5FMwhzQAzlnKcXX
+	HXxe/xj9elYMCKbGYLN845sXKwyuKs+9XhxWdjltGKISj/EJOIFA+vDu2LAwSuRharke/GUtkzi
+	hDWmWvmyKgIy2NWU0aPfipEKo4IDuFj+XME9g7tyMp41LUqPN9QFKyapBuXHtlUj3mixTTzHGFj
+	QuP+Anln3A/o9lUHVMTMnqWQi+JNhfmPEIOVUB/Wi6hm6eBbQlQxuE9q96zU0840b1mr8BDSjAn
+	mVAXU8d50DadX2FaPwWnlY4FfoVCmCHHYR9IHJWosPoTy892w6FLB21iC9quUf+J+mbS2rdGih2
+	PHSH/b+FPppwZ+okESjEus7QssJ0PbMwWplC0GpsLZD9npWX/qSPxGJR00GWKGT6gEX4wqrJvKu
+	2NzinQglQoGpDTSSy9xNsEW6Nhcwx46wQHyqW2MMmXgsQZed/aeLxBM4E4NZmJ
+X-Received: by 2002:a05:6000:4912:b0:45e:de0a:1773 with SMTP id ffacd0b85a97d-4606dbf15b7mr14210900f8f.33.1781438339050;
+        Sun, 14 Jun 2026 04:58:59 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4606f2b0c35sm24759410f8f.22.2026.06.14.04.58.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 14 Jun 2026 04:58:58 -0700 (PDT)
+Date: Sun, 14 Jun 2026 12:58:57 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Ethan Nelson-Moore <enelsonmoore@gmail.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, Russell King <linux@armlinux.org.uk>, "Russell King
+ (Oracle)" <rmk+kernel@armlinux.org.uk>, Arnd Bergmann <arnd@arndb.de>,
+ Linus Walleij <linusw@kernel.org>, Kees Cook <kees@kernel.org>, Nathan
+ Chancellor <nathan@kernel.org>, Thomas Weissschuh
+ <thomas.weissschuh@linutronix.de>, Peter Zijlstra <peterz@infradead.org>,
+ Shubham Bansal <illusionist.neo@gmail.com>, "David S. Miller"
+ <davem@davemloft.net>
+Subject: Re: [PATCH] ARM: disable broken eBPF JIT on the Risc PC
+Message-ID: <20260614125857.398a0e13@pumpkin>
+In-Reply-To: <20260518014920.135011-1-enelsonmoore@gmail.com>
+References: <20260518014920.135011-1-enelsonmoore@gmail.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <5f62925e-0faf-40aa-a594-10ef6d50f24e@gmx.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Sun, Jun 14, 2026 at 08:16:06AM +0000, Artem S. Tashkinov wrote:
-> Hi Greg,
+On Sun, 17 May 2026 18:49:17 -0700
+Ethan Nelson-Moore <enelsonmoore@gmail.com> wrote:
+
+> The eBPF JIT unconditionally generates ldrh/strh instructions, which do
+> not function correctly on the Risc PC because its bus is unable to
+> signal half-word accesses. Work around this issue by disabling the eBPF
+> JIT when building for ARMv3 (the Risc PC is the only currently
+> supported ARMv3 machine).
+
+Isn't it more the case that the ldrh/strh instructions were added for armv4.
+Whether the bus supports 16bit accesses is entirely different.
+
+I'm guessing that WRITE_ONCE() gets implemented as two 8-bit writes and
+the code 'just hopes' than an ISR won't care and won't do an update.
+
+	David
+
 > 
-> Let me try to restate the proposal more narrowly, because I think my
-> previous wording mixed several related issues together.
+> Fixes: 39c13c204bb1 ("arm: eBPF JIT compiler")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Ethan Nelson-Moore <enelsonmoore@gmail.com>
+> ---
+>  arch/arm/Kconfig | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> I am not arguing that stable.git is not already continuous. It obviously is.
-> Nor am I arguing that cutting a point release is expensive for upstream. I
-> understand that from the stable maintainer side, tagging a release is cheap
-> and well automated.
-> 
-> The problem is that the ecosystem still treats the x.y.z point release as
-> the main externally visible consumption boundary, even though it is neither
-> the real upstream unit nor the real downstream deployment unit.
+> diff --git a/arch/arm/Kconfig b/arch/arm/Kconfig
+> index 1155c78bb6aa..8185d013e5d1 100644
+> --- a/arch/arm/Kconfig
+> +++ b/arch/arm/Kconfig
+> @@ -98,7 +98,7 @@ config ARM
+>  	select HAVE_ARCH_TRACEHOOK
+>  	select HAVE_ARCH_TRANSPARENT_HUGEPAGE if ARM_LPAE
+>  	select HAVE_ARM_SMCCC if CPU_V7
+> -	select HAVE_EBPF_JIT if !CPU_ENDIAN_BE32
+> +	select HAVE_EBPF_JIT if !CPU_ENDIAN_BE32 && !CPU_32v3
+>  	select HAVE_CONTEXT_TRACKING_USER
+>  	select HAVE_C_RECORDMCOUNT
+>  	select HAVE_BUILDTIME_MCOUNT_SORT
 
-Not true at all, I would argue that this is the ONLY real deployment
-unit as things are NOT tested in the stable releases except on that
-boundry.  We do not do full testing on each individual commit, only at
-the release points.  So to assume that you can consume a portion of the
-stable release feed is not correct at all.
-
-> The real upstream unit is the stable git branch: a linear sequence of
-> accepted backports.
-> 
-> The real downstream deployment unit is a distro-built kernel package: base
-> kernel, stable backports through some point in git history, distro
-> patches/configuration, compiler/toolchain, signing, modules, CI, and
-> user-visible packaging.
-> 
-> The x.y.z point release sits awkwardly in between. It is a useful
-> compatibility marker for consumers that want that workflow, but it should
-> not have to be the canonical boundary for everyone else.
-
-Nope, sorry, unless you want to run all tests on each individual point,
-this isn't going to change.
-
-Also, you failed to answer my previous questions, like who is "we" that
-is having problems with the current release process that is so difficult
-to consume as-is?
-
-thanks,
-
-greg k-h
