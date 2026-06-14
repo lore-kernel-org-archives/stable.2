@@ -1,74 +1,128 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.netfilter.org (mail.netfilter.org [217.70.190.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5EF6292B54;
-	Sun, 14 Jun 2026 22:20:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D68533AD9A;
+	Sun, 14 Jun 2026 22:28:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.190.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781475627; cv=none; b=n2hzQDf0w5FH23aq+rqYtbTzOKZIPLCY0F85T8xlGAedBGxflsVCB1wz4GodMtSHDI+Ru1FeMREIqV3ASFRrd+ldG3G4zsUSQxRzvtm3EI5XA/6udCAsO41ixKnJ/ekffSLF0T67b3Vx32pogX65O5PIKgWu2qsksSb4n54Nd/E=
+	t=1781476135; cv=none; b=StFRC56Zg+jdzsnGsvcr4+f2z/52dgCmwqvd2hMpm2OB/uEnVwK/nqUK6Cw/1sVhTWhZTnsLsN9H2/g9b9rzKGfQsITvI89ou/BrHWdsiaYt2XtACSHJ1jrVkF+58jxUbSbhYmKL84sBc3lthI5idR1Nv2WD7cct3M04XY6gtfk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781475627; c=relaxed/simple;
-	bh=AolzJ5fBKCYhdZoy8bTLrjEDJd4XB/zbqN6ZB63xKyI=;
+	s=arc-20240116; t=1781476135; c=relaxed/simple;
+	bh=ABURyU1V3mecvrhWUnHt39hy2OScN13aV8oQpR0sbVo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NpPtA0nlyGckXCDD+JVm0f1BjqQzr1W7H4xWzYKxuJkVpEnGBr/xZyJMzh9TA+CXTMiOK4DQGWfskl3GEKKzvPM5o6ph/ZpKhEhJeIDKwOGVWZF7AR8twUyPc9VfrHllyIxpoePaesiF4AG1ucuEQjCj0pNoscmvWEZq+jY124Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Pk+PbvAQ; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=JDCOslxhVtmYPMEuRCIcZNp9bslOp+5YZy2+Lxi8Uvr0jstnP14sqMHsDFNOd5EyIkCtOr0j/0wP1CCOMQlCPJqK9Jl/jhKie4yzqrqivVH1XlMmO95E8CndSBeJ8VzMq9/qME8A62tl4P2eCZPf+DJkCxEmgVKuvROO+wvbals=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=netfilter.org; spf=pass smtp.mailfrom=netfilter.org; dkim=pass (2048-bit key) header.d=netfilter.org header.i=@netfilter.org header.b=su9oJQAZ; arc=none smtp.client-ip=217.70.190.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=netfilter.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=netfilter.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Pk+PbvAQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2474C1F000E9;
-	Sun, 14 Jun 2026 22:20:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781475626;
-	bh=7RDOpRHXsto/ZnZ2BpjuO3i0UoV7uNmp1csBtkTg2I0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Pk+PbvAQog32lrbAeLhyfFZRdotgRwJRA1rtRd9LNXuh1UGqwuW6tP6p5vMmdWJ05
-	 nAAKVx2vh77PZThJWidRzxlpmog9S3x/hpE3pRiZWSg5IYrdmMnqVuEud1HKr1xzei
-	 186KjRZjhSXxiSm05dgb1CLShHW1x/u47FAOkISaFjRjzKqGQbWND3jBADRVPwFobl
-	 my+NJDRgFV/r01dr6QLOXteOs/yDysxqNkFAqK830UUymDlUoQQVK2vtgxnefmQlBG
-	 NRrj6/Kddf4Ace8BhzhxyqeOZBooxM23swbnVklJPRA6qbpmcO9QtYTcq8g0q1icz9
-	 NJb9eKmlGjWnQ==
-Date: Mon, 15 Jun 2026 00:20:21 +0200
-From: Andi Shyti <andi.shyti@kernel.org>
-To: Hongliang Wang <wanghongliang@loongson.cn>
-Cc: Binbin Zhou <zhoubinbin@loongson.cn>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Wolfram Sang <wsa+renesas@sang-engineering.com>, linux-i2c@vger.kernel.org, devicetree@vger.kernel.org, 
-	loongarch@lists.linux.dev, Huacai Chen <chenhuacai@loongson.cn>, stable@vger.kernel.org
-Subject: Re: [PATCH v6 2/2] i2c: ls2x: Add clocks property parsing and adjust
- bus speed
-Message-ID: <ai8o9vxUX6rbZNV4@zenone.zhora.eu>
-References: <20260608024533.32419-1-wanghongliang@loongson.cn>
- <20260608024533.32419-3-wanghongliang@loongson.cn>
+	dkim=pass (2048-bit key) header.d=netfilter.org header.i=@netfilter.org header.b="su9oJQAZ"
+Received: from netfilter.org (mail-agni [217.70.190.124])
+	by mail.netfilter.org (Postfix) with UTF8SMTPSA id 339F8600B5;
+	Mon, 15 Jun 2026 00:28:44 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netfilter.org;
+	s=2025; t=1781476124;
+	bh=+y0oMMzJ8dGenJ1y6ujNCOKYta4OAPczMAXEIb9g7zY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=su9oJQAZAHHzjoP5TIpOvfhcDt9EjuD3+SizHqmsWtkE2Yw532y+27DPGDntzOCsz
+	 DKILpuMP/TcePqDzXZ3S2Ue3vKCuZXAZCGUtI9Df9L7QWpYEzn4RyqZqi2E7HhKKMF
+	 DGacrdOAN9BrvnITPKNXuaZervYcsr4xezHaFOgHw4C2kakoqNjigWlE6eZpECNYAE
+	 UjHnGrF2onVdMqbAOD/epwl8FqIHZbWIzn7mmePWCjyMNIFD8mFrjCera3ZyqNeZ4L
+	 PSTgw70wEZelUYum+Tz1L/9NO+C5Lrs89E44WdA7cFsQhjXB7NKIWIgR09ctlHH+vA
+	 oH8TH8cTJIt2Q==
+Date: Mon, 15 Jun 2026 00:28:41 +0200
+From: Pablo Neira Ayuso <pablo@netfilter.org>
+To: XIAO WU <xiaowu.417@qq.com>
+Cc: Mark Bundschuh <mkbund@amazon.com>, stable@vger.kernel.org,
+	LKML <linux-kernel@vger.kernel.org>,
+	netfilter-devel@vger.kernel.org, Florian Westphal <fw@strlen.de>
+Subject: Re: [PATCH 6.6.y] netfilter: ctnetlink: ensure safe access to master
+ conntrack
+Message-ID: <ai8rGfyUPgAe-eg_@chamomile>
+References: <20260612202408.1045757-1-mkbund@amazon.com>
+ <tencent_DFE6466C14D93204DE976442E459443CB807@qq.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260608024533.32419-3-wanghongliang@loongson.cn>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <tencent_DFE6466C14D93204DE976442E459443CB807@qq.com>
 
-Hi Hongliang,
+Hi,
 
-On Mon, Jun 08, 2026 at 10:45:33AM +0800, Hongliang Wang wrote:
-> The i2c-ls2x driver supports dts and acpi parameter passing.
+On Sun, Jun 14, 2026 at 10:38:16PM +0800, XIAO WU wrote:
+> Hi,
 > 
-> In dts, uses clock framework, by parsing clocks property to
-> get i2c bus reference clock, and define the div of reference
-> clock by device data.
+> Pablo Neira Ayuso <pablo@netfilter.org> wrote:
+> > Holding reference on the expectation is not sufficient, the master
+> > conntrack object can just go away, making exp->master invalid.
+> >
+> > [...]
+> >
+> > This patch goes for extending the nf_conntrack_expect_lock section
+> > to address this issue for simplicity, in the cases that are described
+> > below this is just slightly extending the lock section.
 > 
-> In acpi, by passing clocks property to describe i2c bus reference
-> clock and clock-div property to describe the div of reference clock.
+> I tested this patch on 6.6.142-g005cf9204c4e with KASAN + lockdep
+> enabled and found that the lock extension in ctnetlink_get_expect()
+> and ctnetlink_del_expect() does address the expectation-lookup paths,
+> but one other path still races:
 > 
-> Based on i2c bus reference clock(clock_a), i2c bus speed(clock_s)
-> and div, calculate the prcescale of i2c divider register. The
-> calculation formula is
+>   clean_from_lists()
+>     nf_ct_remove_expectations()          // holds nf_conntrack_expect_lock
+>       list_for_each_entry_safe(exp, ...)
+>         nf_ct_remove_expect(exp)
+>           del_timer(&exp->timeout)       // returns false if timer is
+>                                          // already executing on another CPU
+>           // expectation NOT unlinked
+>   ...
+>   nf_conntrack_free(ct)                  // master is freed
 > 
-> prcescale = (clock_a*10)/(div*clock_s)-1
+>   // meanwhile, on another CPU:
+>   nf_ct_expectation_timed_out()          // timer callback fires
+>     nf_ct_unlink_expect_report(exp, ...) // acquires
+> nf_conntrack_expect_lock
+>       nf_ct_expect_event_report(...)
+>         e = nf_ct_ecache_find(exp->master);  // UAF -- master already freed
 > 
-> Reviewed-by: Huacai Chen <chenhuacai@loongson.cn>
+> nf_ct_remove_expect() already has the lockdep annotation added by this
+> patch:
+> 
+> > +    lockdep_nfct_expect_lock_held();
+> > +
+> >      if (del_timer(&exp->timeout)) {
+> >          nf_ct_unlink_expect(exp);
+> >          nf_ct_expect_put(exp);
+> 
+> But holding the lock is not enough: del_timer() cannot cancel a timer
+> that is already running on another CPU.  When it returns false, the
+> expectation stays in the hash table, the master is freed immediately
+> afterward, and the in-flight timer callback hits a dangling exp->master.
+> 
+> The same del_timer() pattern also exists in ctnetlink_del_expect(),
+> which the patch already extends:
+> 
+> > +        spin_lock_bh(&nf_conntrack_expect_lock);
+> > +
+> >          /* bump usage count to 2 */
+> >          exp = nf_ct_expect_find_get(info->net, &zone, &tuple);
+> > [...]
+> >          /* after list removal, usage count == 1 */
+> > -        spin_lock_bh(&nf_conntrack_expect_lock);
+> >          if (del_timer(&exp->timeout)) {
+> >              nf_ct_unlink_expect_report(exp, NETLINK_CB(skb).portid,
+> >                             nlmsg_report(info->nlh));
+> 
+> This del_timer() call has the same vulnerability -- just holding the
+> lock doesn't prevent the timer from executing concurrently before the
+> lock was acquired.  The timer callback will spin-wait for the lock,
+> acquire it after ctnetlink_del_expect() drops it, and then access the
+> now-freed (or about-to-be-freed) master.
 
-I think Huacai has not reviewed this patch, his review was only
-for patch 1. Am I right?
+Thanks for your report.
 
-Andi
+I started a patch to replace the existing expectation timers by GC
+workqueue to address this issue.
