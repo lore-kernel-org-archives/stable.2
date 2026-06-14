@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB022247291
-	for <Stable@vger.kernel.org>; Sun, 14 Jun 2026 05:59:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 209A22F7EED
+	for <Stable@vger.kernel.org>; Sun, 14 Jun 2026 05:59:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781416753; cv=none; b=aXNmPZmsa5ztCe3K6sopX4gwLgQrFMWGZMZ/dIXFyXws0NCnNT24vH2ssEpktrYGuUr94XQff/TcFmpG3xhk0A3DXKnd5sEJJkcP1d89Yrh6/vAOSNnEJN6uO8UGF5SRY6kzuoz+5zUtKHQ5E/Hrabch34p1cv0swrCbowL7b7A=
+	t=1781416757; cv=none; b=J7gC0iVIyxaV/734tj07fibZpvs84cknnu1XUj6KGiFHnrBaUSDkxbme3KZMPP9ICjfMLEVT/7fdnRlw3pDOmd3PZ5AC73U2UHdaD3CiladcFefoGixzX1Y38YrtxSyli8J3VIg+1BW5VJsMC/TipwC3ajtL80dUne/6Xh3Jlqk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781416753; c=relaxed/simple;
-	bh=jE/Yk60TyFHssu0a8LnyeHWYzDFY55l8OvDScEVkfe0=;
-	h=Subject:To:From:Date:Message-ID:MIME-Version:Content-Type; b=AzoRuxJL33x5nhLbuX/FfW+1DwzT5YCmTAaUEE6AnU6vXcl7jKE0PYOaNZSZzUAQMY5dFsFKO3q4lymCBXxQpUFtArzivQFoOSRPUU3eaEQc7aC46RG/bAraxGVFqmFF+rczz94K9IpMF68C9UYNB0y66TAn2sqd4GtyDd1TOIo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=WKzBZuyx; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781416757; c=relaxed/simple;
+	bh=EDn7lPcyz5No05rPAZ6B63rzdWT+9cO9q/D2vOMYvD0=;
+	h=Subject:To:From:Date:Message-ID:MIME-Version:Content-Type; b=rQsI8BIMUR8yNhVNR350L8PArhlJFqR4OUKSocdUsN2h0fl1GKKyw6sleUnjEl5dO+8+x0s7ANSjad7Mt8QBY50R6c+2FN40VJFHtrI2lJNK2oAroIkMa0YjsUZwJEsMjEUCmWiv92BXK6XDBOBe0BOJnLGBxSQtt/IaRbHsBUE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=xYnfTrv7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="WKzBZuyx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0AFF1F000E9;
-	Sun, 14 Jun 2026 05:59:11 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="xYnfTrv7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 361261F000E9;
+	Sun, 14 Jun 2026 05:59:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1781416752;
-	bh=/ao3otWrIZ6d6wFroZmqkg8EC6zPouPyEEeqvWdkHME=;
+	s=korg; t=1781416755;
+	bh=pONxs0l81RoTZu7YKfQ8Rjdl1dfk+RNIgZZEtuxW9dA=;
 	h=Subject:To:From:Date;
-	b=WKzBZuyx8d45lT1h1H1CEDKdEm1GDbFn5AVptYcysWGu4aeRz+Nu6fnsZk1C7OhOF
-	 hA6VFErkltxUaQ/p64vfXakZsh1SprppiebkB2lK+a49BiUsbeDUyl4tRs3Tqb9hp6
-	 +1XYjpSVXYnWN0Q4PPgHGTdZ/m1JevKF11Kb+DK4=
-Subject: patch "iio: dac: ad3552r-hs: fix uninitialized data ni" added to char-misc-testing
-To: error27@gmail.com,Stable@vger.kernel.org,adureghello@baylibre.com,jic23@kernel.org
+	b=xYnfTrv7+kTnF0djBx6v8OicEuwitxZtqOf9M5cHlb0a5pElHhK56xAo7EZqMhhre
+	 ePuEBv37oOqu3DCmq8TzS5oD+ks5w8prSnVBaxaspgXWMljlzHfS32cKStC0AtCCro
+	 te0/0HaQMoqko35+8Zic+s8RF4/n/mAa0p/WyKl0=
+Subject: patch "iio: backend: fix uninitialized data in debugfs" added to char-misc-testing
+To: error27@gmail.com,Stable@vger.kernel.org,jic23@kernel.org
 From: <gregkh@linuxfoundation.org>
 Date: Sun, 14 Jun 2026 07:57:23 +0200
-Message-ID: <2026061423-unwrapped-flavored-5154@gregkh>
+Message-ID: <2026061423-unloader-hardwood-a0cb@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -39,7 +39,7 @@ Content-Transfer-Encoding: 8bit
 
 This is a note to let you know that I've just added the patch titled
 
-    iio: dac: ad3552r-hs: fix uninitialized data ni
+    iio: backend: fix uninitialized data in debugfs
 
 to my char-misc git tree which can be found at
     git://git.kernel.org/pub/scm/linux/kernel/git/gregkh/char-misc.git
@@ -54,39 +54,37 @@ after it passes testing, and the merge window is open.
 If you have any questions about this process, please let me know.
 
 
-From eaaa7eef181892ef7ba56c6295b81f0ae4492c13 Mon Sep 17 00:00:00 2001
+From a6e8b14a4897d0b6df9744f33d0a30e6b92368eb Mon Sep 17 00:00:00 2001
 From: Dan Carpenter <error27@gmail.com>
-Date: Mon, 25 May 2026 10:15:46 +0300
-Subject: iio: dac: ad3552r-hs: fix uninitialized data ni
- ad3552r_hs_write_data_source()
+Date: Mon, 25 May 2026 10:16:11 +0300
+Subject: iio: backend: fix uninitialized data in debugfs
 
-If the *ppos value is non-zero then the simple_write_to_buffer() function
-won't initialized the start of the buf[] buffer.  Non-zero values for
-*ppos won't work here generally, so just test for them and return -ENOSPC
-at the start of the function.
+If the *ppos value is non-zero then simple_write_to_buffer() will not
+initialize the start of the buf[] buffer.  Non-zero ppos values aren't
+going to work at all.  Check for that at the start of the function and
+return -ENOSPC.
 
-Fixes: b1c5d68ea66e ("iio: dac: ad3552r-hs: add support for internal ramp")
+Fixes: cdf01e0809a4 ("iio: backend: add debugFs interface")
 Signed-off-by: Dan Carpenter <error27@gmail.com>
-Reviewed-by: Angelo Dureghello <adureghello@baylibre.com>
 Cc: <Stable@vger.kernel.org>
 Signed-off-by: Jonathan Cameron <jic23@kernel.org>
 ---
- drivers/iio/dac/ad3552r-hs.c | 2 +-
+ drivers/iio/industrialio-backend.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/iio/dac/ad3552r-hs.c b/drivers/iio/dac/ad3552r-hs.c
-index a9578afa7015..6bc64f53bce9 100644
---- a/drivers/iio/dac/ad3552r-hs.c
-+++ b/drivers/iio/dac/ad3552r-hs.c
-@@ -549,7 +549,7 @@ static ssize_t ad3552r_hs_write_data_source(struct file *f,
- 
- 	guard(mutex)(&st->lock);
+diff --git a/drivers/iio/industrialio-backend.c b/drivers/iio/industrialio-backend.c
+index 10e689f49441..cd697fbeae47 100644
+--- a/drivers/iio/industrialio-backend.c
++++ b/drivers/iio/industrialio-backend.c
+@@ -156,7 +156,7 @@ static ssize_t iio_backend_debugfs_write_reg(struct file *file,
+ 	ssize_t rc;
+ 	int ret;
  
 -	if (count >= sizeof(buf))
 +	if (*ppos != 0 || count >= sizeof(buf))
  		return -ENOSPC;
  
- 	ret = simple_write_to_buffer(buf, sizeof(buf) - 1, ppos, userbuf,
+ 	rc = simple_write_to_buffer(buf, sizeof(buf) - 1, ppos, userbuf, count);
 -- 
 2.54.0
 
