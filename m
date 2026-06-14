@@ -1,89 +1,72 @@
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68CC63CD8A1
-	for <stable@vger.kernel.org>; Sun, 14 Jun 2026 16:59:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8CCF311C35;
+	Sun, 14 Jun 2026 17:35:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781456355; cv=none; b=mZwp4DBGWiVnoAk5t0bC6lDPg+0e6x0bfDZ1xOFnVDB2Rp6pcw6fu7twfpdu0oAsV7AeJzKtTSdMJg844+bPXq0e4TrtMRXKgR3JydDLZkoj/YsZD5973YKkCiMxJFqjX/nvEd/F0jc1vbH+9FNa8ae/zNFQPNmeaDFfvGQSKz4=
+	t=1781458522; cv=none; b=CX8d/2YHXs4BH4ZRsTkRM3IinTO8k5qBM1v+4V/NmqsrtyIMhmz91qMRDCLs1YgSEab5qfriLNdVn/TpA83E+WdCvHLugc2QxGh706q0yIqbJwmBDogVt6cXNSkNYAu5oEaXowN8ccgdRqzilmV1yOK9dYd8BIB/iBWL2suEee4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781456355; c=relaxed/simple;
-	bh=FrdCFvpw9MoOQ0+PkoEs5DFfpaCKlDpBo6fwG5E9ypo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=t2THIu0MF+j3lLSyOKyABt2KIuymvS3ckxZh/6fTc1SG+o9jEff1EEsoaYjUwHNDOxy0a0jBUUmZ1M2mvT7sgFxIc6xS70XYmfhGjYeWBHHP+IVuyjNIO1gq1pH/6z1uYtTq6AXUv38OxUloHzER8jfpBX4j7W9exT9ZgCgO/dM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=G2FSOKdF; arc=none smtp.client-ip=209.85.214.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781458522; c=relaxed/simple;
+	bh=TpWRXGn4jCvVBExSh+p7F25yWDsZVl6qZH8StbGmeQw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Xrrl9h/9oUAekJWoBlPugWsZNtDd/wMAZxIv8JlidHNCQlFdHB6hcvTOiCmXpLBAqdxSr6DnFQ1zQ3q3CYlota8vUqEFQdrEyTyaZsW8EXFTEdSbu0bjJGgS+SEPXSS8k6jlJ6CZBxsePQtJm0cIsKiHAHshgnjZYc9R9uMUmMo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=Axcwt2rY; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="G2FSOKdF"
-Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2c0aa420401so18319265ad.3
-        for <stable@vger.kernel.org>; Sun, 14 Jun 2026 09:59:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781456353; x=1782061153; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=z3rN8waOyeNHOu4xKjl7MMlKsb/kdxpH+0daFeUyAvA=;
-        b=G2FSOKdFwQB13J5J8gIr5yRDvQTS4MNA42/W8Ff/ytJadLTWEpV4xOolmHCDa4e2vg
-         lW2u2IsxAQEnZZYxBiQVmXJlaNY0UReLg+yq2Epses5U8MnRJaoqUZoRzkcdfJbr9lWt
-         G+FJZV54xgAbL/mZXNatMVBCh2Tx8V8nfreOMJYLB5rTGX+ZMEb6qy8m+hlI9Yrm+Tjs
-         IScyLeZkFDk8i++cTsKcWqPl75ed2YLmmPFoaC8a7oeeKAkOIesR3xvPlbtf31tZglWH
-         aivb+hHGeEVxZlr/sJltVaWdVHtDL1an5td7hyOF9J5OD4iCzQ2VKjtI8cmvyswz8Ugx
-         f1Lw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781456353; x=1782061153;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=z3rN8waOyeNHOu4xKjl7MMlKsb/kdxpH+0daFeUyAvA=;
-        b=ZQ7NYC++B6hEp04+jo7E7NDv9NgSmJOeWawrqPPAkuvpQzYKztRtYV9LV1QzgrXWv4
-         CBo+XWavTTwAD1LL5QYLcs6F4Dl11JvEI8/8MBs/dICI8KQFJDRxhxdvb5uRG52RdJrX
-         fBQZSwp3JFguN+FzzHQj5cyWhANUBanWFzaXa/jwMSJp08QMgiY3qZibWYHZj1izmyda
-         3FdjNmlmHMRWBnmhTo3PbtMwkF3+yiJ3Fi1gBGlHQ77fx/kimbsQ7uHlF9/dauzQ0x6L
-         2IqBl1N9ixcjgCC3doh51/nBP8Ux8N/Cxu7+l32h0cTPAmMIHVzgLuvkT+cJ/KgAG2O1
-         b/GA==
-X-Forwarded-Encrypted: i=1; AFNElJ+ttOl8w+luK5uz6KcGIgiTTk5siwLLscO1KLg3RkLv806zKbqqgr7u+r8KJdrcs3ceV44yIBE=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy32bpxW21k7T+iyHUyRpkFdtZOcWik+hXWZiFz8CkXGw+YteXr
-	5s8JINx8ORK+Z7+T13A2vvkYPM2M83RGPIbBxOTfJTBWRe5QKuuN/5rF
-X-Gm-Gg: Acq92OEQaLTMS+KEsEDFefd3Yse7xq6GLrjSAcp5dW+B7FBkzUcUNREbRefA+nN/pn0
-	vel3nES9zuk/SgqTTovnY8W4NQ5tveFM2pBQM9wxN1OMYOqwZNUHul9BvBTEW3It1QfgGFv6kQD
-	LZgFDr6//99uwVFaGPM6WYBmbZ5868cnoR1uUzQaqWx718H6VFlG/RhyMmCJCp4H12Ln0W47H+4
-	1r0qbSgmK4of49LriAaxsaN2cXNbof5YIHPJV2wreA7/uPIUKiuXkCcptDH5YqNX2VElJ5ZBx3Q
-	SPKGIrYBfOGIUbKQaCGsLHlhdlGtZBiv6t2K/FCMsxIiza8Ti2HbzloRnhrfhoEumMV1L9R8DVV
-	04al6ds6sBdLokjtZoQdF6p5lmzFMdIyOum8XPEPLoXVBmJFoW1syNl1fqC2+HEqvvnLPsUN5IV
-	YbVDjNpcP+7/0xsUxB4bsUVKYFuuX7Slg=
-X-Received: by 2002:a17:903:3887:b0:2b2:4d36:7ba with SMTP id d9443c01a7336-2c40e0350d2mr121454055ad.0.1781456352693;
-        Sun, 14 Jun 2026 09:59:12 -0700 (PDT)
-Received: from DESKTOP-MUHC17F.lan ([188.253.121.147])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c42fbb5b79sm74457405ad.36.2026.06.14.09.59.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 14 Jun 2026 09:59:12 -0700 (PDT)
-From: Zhenzhong Wu <jt26wzz@gmail.com>
-To: bpf@vger.kernel.org
-Cc: netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	ast@kernel.org,
-	daniel@iogearbox.net,
-	john.fastabend@gmail.com,
-	andrii@kernel.org,
-	martin.lau@linux.dev,
-	song@kernel.org,
-	yonghong.song@linux.dev,
-	kpsingh@kernel.org,
-	haoluo@google.com,
-	jolsa@kernel.org,
-	menglong8.dong@gmail.com,
-	eddyz87@gmail.com,
-	shung-hsi.yu@suse.com,
-	stable@vger.kernel.org,
-	mykolal@fb.com,
-	tamird@kernel.org
-Subject: [PATCH stable 6.6.y v3 4/4] selftests/bpf: Update comments find_equal_scalars->sync_linked_regs
-Date: Mon, 15 Jun 2026 00:58:41 +0800
-Message-ID: <3b5b6d9879fac3fb22b76c8249bd7c71609e1c39.1781194510.git.jt26wzz@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1781194510.git.jt26wzz@gmail.com>
-References: <cover.1781194510.git.jt26wzz@gmail.com>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="Axcwt2rY"
+Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65EHIRg54151687;
+	Sun, 14 Jun 2026 17:34:53 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=pp1; bh=M6uwfLSCCl68CdWp8kdRQnl9eN3dzx0UzhJ2FTIJy
+	vk=; b=Axcwt2rYwaZMi+polLDIuEc3VhZtBIN54xT3Xnp4S+Sey7954ld9wmMCe
+	RpXr+CDSxh5M48hTFoj1Mq+iGY/BzrpSV6/bu1tFImpQtlcyDQ1ZrxlT1zmbVBjV
+	CRDG9sA7/r68UR3msy4qrZ4oAhqhzbXE7Xjo738MTy39Jr8c3hs2j4o8RvlX7fMo
+	vfx0DoBX5mlBnL3LXmoqMJ9DU6bXb3PvmsKaoaHrF6+XX8ry1mXnFjDrTvzW+anB
+	PqN/zAZlgJBNUZnrTwjP2EuRHsFWEtG+uQrOjFB1G1vzw8XwOwu7oZsg3m6rDilu
+	NsoHMeyCAj3uDkBFaknruQxq29DTA==
+Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4es1v24tum-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Sun, 14 Jun 2026 17:34:52 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma21.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 65EHYdR7007033;
+	Sun, 14 Jun 2026 17:34:52 GMT
+Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
+	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4esjhju467-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Sun, 14 Jun 2026 17:34:51 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
+	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 65EHYmIo51511728
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Sun, 14 Jun 2026 17:34:48 GMT
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id F0CE720043;
+	Sun, 14 Jun 2026 17:34:47 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 01EA320040;
+	Sun, 14 Jun 2026 17:34:44 +0000 (GMT)
+Received: from localhost.localdomain (unknown [9.39.30.128])
+	by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Sun, 14 Jun 2026 17:34:43 +0000 (GMT)
+From: Amit Machhiwal <amachhiw@linux.ibm.com>
+To: linuxppc-dev@lists.ozlabs.org, Madhavan Srinivasan <maddy@linux.ibm.com>
+Cc: Amit Machhiwal <amachhiw@linux.ibm.com>,
+        Vaibhav Jain <vaibhav@linux.ibm.com>,
+        Harsh Prateek Bora <harshpb@linux.ibm.com>,
+        Ritesh Harjani <ritesh.list@gmail.com>,
+        Anushree Mathur <anushree.mathur@linux.ibm.com>,
+        Gautam Menghani <gautam@linux.ibm.com>,
+        Nicholas Piggin <npiggin@gmail.com>,
+        Michael Ellerman <mpe@ellerman.id.au>,
+        "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+        stable@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] powerpc/dt_cpu_ftrs: Set CPU_FTR_P11_PVR for Power11 and later processors
+Date: Sun, 14 Jun 2026 23:04:37 +0530
+Message-ID: <20260614173437.26352-1-amachhiw@linux.ibm.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -91,45 +74,102 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE0MDE4MSBTYWx0ZWRfX25LaSoS5Brwk
+ KaGYPclNcoE87khX27nDLggb+BZ5BmWZUmBvWMzUGBJS1PmxXiVKQk/Owa4RbmG85pMP7D1aV2N
+ rWFX/N9/t8cwlwfRotfAt0MWxJ1W9sE=
+X-Proofpoint-GUID: f3HYISmmWK1FFVXaYcFsx-blu_6K8pPS
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE0MDE4MSBTYWx0ZWRfX/wt1i8SW/arx
+ FY0/pZcVYuEL7/bTO5TMnjfCJThbU6BNoQO5PSwNoVhAZckxWd1iS7Amq3OqspidihnWsH0MOZX
+ csjHWNP+9Gm5u13bc9kfq2uDIuo8qHgrJqFRSqW22/FJzgAOl/+YgLq/el/u9jZHpvUywNn8gTC
+ pjBdf/Oqc3uDnX6iR1CR5NRB3CcEgQo/x1aiFCp0lZaXyjhGCAxfFGMnwlhSsWHTBGPEe6AZRdT
+ Zwrnhf3wpVXWgMa71espMhMwyUtHVB8/pM4WfGxeDQAY/e9YKwl7XazLjAD7WPATqmru62KXt2p
+ 0wxuMe4yo4DExQYF3NRKwQ2VScmhwoQA9vp9nADuIcKrUfjykFVXnUpeCe+RtVq81QA1KE7xVxW
+ tBKUxrweIkJocaiivH5PmCOq2eg5kIQMTCGcBGIPi0FLz3EIAzhoSjNQnZDe1VWmYHhG02aL921
+ HKfU0tIck+HWJr4yDbQ==
+X-Proofpoint-ORIG-GUID: 7X9SvMqcsHuSui-NHCuD2yrme5VKuOM4
+X-Authority-Analysis: v=2.4 cv=Dd0nbPtW c=1 sm=1 tr=0 ts=6a2ee63d cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=FelO9ux0wxsA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=RzCfie-kr_QcCd8fBx8p:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
+ a=NKTdka9ramWRCaAy5DwA:9
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-14_04,2026-06-12_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 clxscore=1015 priorityscore=1501 impostorscore=0
+ lowpriorityscore=0 adultscore=0 suspectscore=0 phishscore=0 spamscore=0
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2606040000
+ definitions=main-2606140181
 
-From: Eduard Zingerman <eddyz87@gmail.com>
+When using device tree CPU features (dt-cpu-ftrs), the kernel bypasses
+the traditional cputable-based CPU identification and instead derives
+CPU features from the device tree's "ibm,powerpc-cpu-features" node
+provided by firmware.
 
-[ Upstream commit cfbf25481d6dec0089c99c9d33a2ea634fe8f008 ]
+However, CPU_FTR_P11_PVR is a kernel-internal feature flag used to
+identify Power11 and later processors, and is not represented in the
+device tree's ISA feature set. While ISA v3.1 support (indicated by
+CPU_FTR_ARCH_31) is present on both Power10 and Power11, the
+CPU_FTR_P11_PVR flag is specifically needed by code that must
+distinguish between Power10 and Power11 processors.
 
-find_equal_scalars() is renamed to sync_linked_regs(),
-this commit updates existing references in the selftests comments.
+Without this flag set, code that checks for Power11 using
+cpu_has_feature(CPU_FTR_P11_PVR) will incorrectly return false on
+Power11+ systems using dt-cpu-ftrs, leading to incorrect behavior.
 
-Signed-off-by: Eduard Zingerman <eddyz87@gmail.com>
-Signed-off-by: Andrii Nakryiko <andrii@kernel.org>
-Link: https://lore.kernel.org/bpf/20240718202357.1746514-5-eddyz87@gmail.com
-[ zhenzhong: only two pre-existing comments still needed updating in 6.6.y. ]
-Signed-off-by: Zhenzhong Wu <jt26wzz@gmail.com>
+This issue manifests specifically in powernv environments (bare-metal
+or QEMU TCG with powernv machine type), where skiboot/OPAL firmware
+provides the "ibm,powerpc-cpu-features" node, causing the kernel to
+use dt-cpu-ftrs. The issue does not affect pseries guests, where SLOF
+firmware does not provide this node, causing the kernel to fall back
+to the traditional cputable path (identify_cpu) which correctly sets
+CPU_FTR_P11_PVR during PVR-based CPU identification.
+
+In powernv TCG guests, the missing flag causes KVM code to trigger
+warnings when attempting to create KVM guests, as cpu_features shows
+0x000c00eb8f4fb187 (missing bit 53) instead of the correct
+0x002c00eb8f4fb187 (with bit 53 set).
+
+Fix this by setting CPU_FTR_P11_PVR for all processors with
+PVR >= PVR_POWER11 when ISA v3.1 support is detected in
+cpufeatures_setup_start(). This approach ensures forward
+compatibility with future processor generations.
+
+Fixes: 96e266e3bcd6 ("KVM: PPC: Book3S HV: Add Power11 capability support for Nested PAPR guests")
+Cc: stable@vger.kernel.org # v6.13+
+Signed-off-by: Amit Machhiwal <amachhiw@linux.ibm.com>
 ---
- tools/testing/selftests/bpf/progs/verifier_spill_fill.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Related: https://lore.kernel.org/all/20260609053327.61563-1-amachhiw@linux.ibm.com/
+---
 
-diff --git a/tools/testing/selftests/bpf/progs/verifier_spill_fill.c b/tools/testing/selftests/bpf/progs/verifier_spill_fill.c
-index 1f71f596d..07a2527a8 100644
---- a/tools/testing/selftests/bpf/progs/verifier_spill_fill.c
-+++ b/tools/testing/selftests/bpf/progs/verifier_spill_fill.c
-@@ -392,7 +392,7 @@ __naked void spill_32bit_of_64bit_fail(void)
- 	*(u32*)(r10 - 8) = r1;				\
- 	/* 32-bit fill r2 from stack. */		\
- 	r2 = *(u32*)(r10 - 8);				\
--	/* Compare r2 with another register to trigger find_equal_scalars.\
-+	/* Compare r2 with another register to trigger sync_linked_regs.\
- 	 * Having one random bit is important here, otherwise the verifier cuts\
- 	 * the corners. If the ID was mistakenly preserved on spill, this would\
- 	 * cause the verifier to think that r1 is also equal to zero in one of\
-@@ -431,7 +431,7 @@ __naked void spill_16bit_of_32bit_fail(void)
- 	*(u16*)(r10 - 8) = r1;				\
- 	/* 16-bit fill r2 from stack. */		\
- 	r2 = *(u16*)(r10 - 8);				\
--	/* Compare r2 with another register to trigger find_equal_scalars.\
-+	/* Compare r2 with another register to trigger sync_linked_regs.\
- 	 * Having one random bit is important here, otherwise the verifier cuts\
- 	 * the corners. If the ID was mistakenly preserved on spill, this would\
- 	 * cause the verifier to think that r1 is also equal to zero in one of\
+ arch/powerpc/kernel/dt_cpu_ftrs.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/arch/powerpc/kernel/dt_cpu_ftrs.c b/arch/powerpc/kernel/dt_cpu_ftrs.c
+index 3af6c06af02f..e5853daa6a48 100644
+--- a/arch/powerpc/kernel/dt_cpu_ftrs.c
++++ b/arch/powerpc/kernel/dt_cpu_ftrs.c
+@@ -704,6 +704,15 @@ static void __init cpufeatures_setup_start(u32 isa)
+ 	if (isa >= ISA_V3_1) {
+ 		cur_cpu_spec->cpu_features |= CPU_FTR_ARCH_31;
+ 		cur_cpu_spec->cpu_user_features2 |= PPC_FEATURE2_ARCH_3_1;
++
++		/*
++		 * CPU_FTR_P11_PVR is a kernel-internal flag to identify
++		 * Power11 and later processors. While ISA v3.1 is supported
++		 * by Power10+, this flag specifically indicates Power11+
++		 * for code that needs to distinguish between P10 and P11.
++		 */
++		if (PVR_VER(mfspr(SPRN_PVR)) >= PVR_POWER11)
++			cur_cpu_spec->cpu_features |= CPU_FTR_P11_PVR;
+ 	}
+ }
+ 
+
+base-commit: 424280953322cf66314f3ba5e2d1ef345f21c770
 -- 
-2.43.0
+2.50.1 (Apple Git-155)
 
