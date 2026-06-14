@@ -1,94 +1,74 @@
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A20B01FC7FB;
-	Sun, 14 Jun 2026 22:14:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=78.32.30.218
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5EF6292B54;
+	Sun, 14 Jun 2026 22:20:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781475262; cv=none; b=jSKj1O0sZfGjHJZtny0giL0lt5UQEAF27V0vAS06fcP8GSZrCymPHe+NR2F/wvW6RAph3/TAyMoAgucP0p/2e9j+7JNYUvR1yoKbo8dv6fLK79X+nq9XxSsQOTFyIsqhNuWVknS585/kQl9Cvn25CE4esPlo/btQV6/HRTfwEUw=
+	t=1781475627; cv=none; b=n2hzQDf0w5FH23aq+rqYtbTzOKZIPLCY0F85T8xlGAedBGxflsVCB1wz4GodMtSHDI+Ru1FeMREIqV3ASFRrd+ldG3G4zsUSQxRzvtm3EI5XA/6udCAsO41ixKnJ/ekffSLF0T67b3Vx32pogX65O5PIKgWu2qsksSb4n54Nd/E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781475262; c=relaxed/simple;
-	bh=+E3d0LLzA0PaeI1TlJPLlKpJnQsoR1bCRLmFPH3SYuI=;
+	s=arc-20240116; t=1781475627; c=relaxed/simple;
+	bh=AolzJ5fBKCYhdZoy8bTLrjEDJd4XB/zbqN6ZB63xKyI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aXAM8LOm1xkKQ0WNrs6w1z7ZrgBSjp3HCiE673tldAovhaq29Lbmg279a38bJ+KFEo4Lwg3LUmWiPWX+E1jIzVwxGTZv9TAW/c01iusnm/RdMoR/tOsN0QL5pb5fnW6oZNWlgRumlgyNNaD0iWgwfdau2dx+EbNAf/6GrjWBzU0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=armlinux.org.uk; spf=none smtp.mailfrom=armlinux.org.uk; dkim=pass (2048-bit key) header.d=armlinux.org.uk header.i=@armlinux.org.uk header.b=HIbAbVud; arc=none smtp.client-ip=78.32.30.218
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=armlinux.org.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=armlinux.org.uk
+	 Content-Type:Content-Disposition:In-Reply-To; b=NpPtA0nlyGckXCDD+JVm0f1BjqQzr1W7H4xWzYKxuJkVpEnGBr/xZyJMzh9TA+CXTMiOK4DQGWfskl3GEKKzvPM5o6ph/ZpKhEhJeIDKwOGVWZF7AR8twUyPc9VfrHllyIxpoePaesiF4AG1ucuEQjCj0pNoscmvWEZq+jY124Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Pk+PbvAQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=armlinux.org.uk header.i=@armlinux.org.uk header.b="HIbAbVud"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:
-	Content-Transfer-Encoding:Content-Type:MIME-Version:References:Message-ID:
-	Subject:Cc:To:From:Date:Reply-To:Content-ID:Content-Description:Resent-Date:
-	Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
-	List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=aoouwIl7ENWFJcsKQwFnZPx//JfMbetXKC3Kqh1HdNY=; b=HIbAbVudDeCzIlARtEGn/DlQl9
-	2382Mvs6aHVELbjukDg/2u+y9823wKm/qSAsfk4S4d3lrCvRq/HWbcDuBua34khCh6J8VVTlZdbJ4
-	r8ynAIJnhdpoSXWgM/oEtBsQAgPcpTJ3W0kOTvnRrkbf+ElP3qehqs6n6OvO1FQUKOt5x7hk/kMt9
-	P81xCFQAr4T66cIGXAstuO+3EleyabhEH7Mh1kidvm1mev/VgWSAQXlWgugt8XaiTTiyEiFACdG5t
-	927yJaXHunSXsm0nZJ2J7VRRFn0J6cn2sDbRs2VlF3O22P9y7QJGjLiuL5tlnvntMHE3mvysPgwKC
-	aj8YdlkQ==;
-Received: from shell.armlinux.org.uk ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:57636)
-	by pandora.armlinux.org.uk with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <linux@armlinux.org.uk>)
-	id 1wYt5k-000000004xx-2dXf;
-	Sun, 14 Jun 2026 23:14:08 +0100
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
-	(envelope-from <linux@shell.armlinux.org.uk>)
-	id 1wYt5h-000000008QG-2EyH;
-	Sun, 14 Jun 2026 23:14:05 +0100
-Date: Sun, 14 Jun 2026 23:14:05 +0100
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Ethan Nelson-Moore <enelsonmoore@gmail.com>
-Cc: Linus Walleij <linusw@kernel.org>, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-	Arnd Bergmann <arnd@arndb.de>, Kees Cook <kees@kernel.org>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Thomas Weissschuh <thomas.weissschuh@linutronix.de>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Shubham Bansal <illusionist.neo@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>
-Subject: Re: [PATCH] ARM: disable broken eBPF JIT on the Risc PC
-Message-ID: <ai8nrc0ZUfPaqC_7@shell.armlinux.org.uk>
-References: <20260518014920.135011-1-enelsonmoore@gmail.com>
- <CAD++jL=0qYGoygUwGEXQL7C_ROnC7kfpRv8RA+H5tNWwYu+pQA@mail.gmail.com>
- <CADkSEUjsS8bOXDhgZ2EW40xifDZ-pk5y=YqyWT-+vQNd8JikUw@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Pk+PbvAQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2474C1F000E9;
+	Sun, 14 Jun 2026 22:20:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781475626;
+	bh=7RDOpRHXsto/ZnZ2BpjuO3i0UoV7uNmp1csBtkTg2I0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Pk+PbvAQog32lrbAeLhyfFZRdotgRwJRA1rtRd9LNXuh1UGqwuW6tP6p5vMmdWJ05
+	 nAAKVx2vh77PZThJWidRzxlpmog9S3x/hpE3pRiZWSg5IYrdmMnqVuEud1HKr1xzei
+	 186KjRZjhSXxiSm05dgb1CLShHW1x/u47FAOkISaFjRjzKqGQbWND3jBADRVPwFobl
+	 my+NJDRgFV/r01dr6QLOXteOs/yDysxqNkFAqK830UUymDlUoQQVK2vtgxnefmQlBG
+	 NRrj6/Kddf4Ace8BhzhxyqeOZBooxM23swbnVklJPRA6qbpmcO9QtYTcq8g0q1icz9
+	 NJb9eKmlGjWnQ==
+Date: Mon, 15 Jun 2026 00:20:21 +0200
+From: Andi Shyti <andi.shyti@kernel.org>
+To: Hongliang Wang <wanghongliang@loongson.cn>
+Cc: Binbin Zhou <zhoubinbin@loongson.cn>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Wolfram Sang <wsa+renesas@sang-engineering.com>, linux-i2c@vger.kernel.org, devicetree@vger.kernel.org, 
+	loongarch@lists.linux.dev, Huacai Chen <chenhuacai@loongson.cn>, stable@vger.kernel.org
+Subject: Re: [PATCH v6 2/2] i2c: ls2x: Add clocks property parsing and adjust
+ bus speed
+Message-ID: <ai8o9vxUX6rbZNV4@zenone.zhora.eu>
+References: <20260608024533.32419-1-wanghongliang@loongson.cn>
+ <20260608024533.32419-3-wanghongliang@loongson.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CADkSEUjsS8bOXDhgZ2EW40xifDZ-pk5y=YqyWT-+vQNd8JikUw@mail.gmail.com>
-Sender: "Russell King,,," <linux@armlinux.org.uk>
+In-Reply-To: <20260608024533.32419-3-wanghongliang@loongson.cn>
 
-On Sat, Jun 13, 2026 at 06:50:40PM -0700, Ethan Nelson-Moore wrote:
-> On Mon, May 25, 2026 at 1:18 AM Linus Walleij <linusw@kernel.org> wrote:
-> > Looks correct to me.
-> > Reviewed-by: Linus Walleij <linusw@kernel.org>
-> >
-> > Please put this into Russell's patch tracker!
+Hi Hongliang,
+
+On Mon, Jun 08, 2026 at 10:45:33AM +0800, Hongliang Wang wrote:
+> The i2c-ls2x driver supports dts and acpi parameter passing.
 > 
-> Done!
+> In dts, uses clock framework, by parsing clocks property to
+> get i2c bus reference clock, and define the div of reference
+> clock by device data.
 > 
-> https://www.arm.linux.org.uk/developer/patches/viewpatch.php?id=9477/1
+> In acpi, by passing clocks property to describe i2c bus reference
+> clock and clock-div property to describe the div of reference clock.
+> 
+> Based on i2c bus reference clock(clock_a), i2c bus speed(clock_s)
+> and div, calculate the prcescale of i2c divider register. The
+> calculation formula is
+> 
+> prcescale = (clock_a*10)/(div*clock_s)-1
+> 
+> Reviewed-by: Huacai Chen <chenhuacai@loongson.cn>
 
-Should be s/arm\./arm/
+I think Huacai has not reviewed this patch, his review was only
+for patch 1. Am I right?
 
-Also, you can use:
-
-Link: https://lore.kernel.org/all/CAD++jL=0qYGoygUwGEXQL7C_ROnC7kfpRv8RA+H5tNWwYu+pQA@mail.gmail.com/
-
-in the attributions in the commit message to indicate where more
-patch context can be found.
-
-Lastly, too late for v7.1 as a fix, I already sent the pull request
-for that, sorry.
-
--- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+Andi
