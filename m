@@ -1,47 +1,47 @@
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.20])
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.22])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F00B427603F;
-	Sun, 14 Jun 2026 07:49:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.17.20
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0455DDDA9;
+	Sun, 14 Jun 2026 08:16:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.17.22
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781423390; cv=none; b=uabrK8HfleU7fpJQWfjBswNi5IpBoEDea6Xf0AV91dOSJBC5+pNiS5ATV8unn1S9/cjZT2UYZMxKe6NmnEt59N/V7D/H9vtGA7bhrMmnQCePnTUHI+orNi3TWENU4lBlP3oPCNW/E74tngFHUYurdz26vWIA3t3guJpylJvKaRU=
+	t=1781424974; cv=none; b=S2/KpDsGlwbHTUgOvrmFI1fMzIPEnOninpgwAPfy3C/rFw8PFVz4jeBd9dc2CgMSl7M5KMjQOn0e3o7hJJt2DWZI5rlxaf9QO8KOitP0SpKk0R3ekE5+nAYE2cF+xbGneRD1LT7l+un/pMFAtB8D1JgApIcDKqpuh34luD/JpVM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781423390; c=relaxed/simple;
-	bh=rLneSnfI+cOEZE1DXR5m4pXRZinG3H0vkJIHnFF6Y64=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=OycjO3r6VB5aG8MFWFrho85CTbAv+MSHHVMVdH073Jj+JMSxy6vPbEJ1YaqUfF7/jWneFy99PLz4GbkEQIKmb55OYb0VYPTUIoCJ3/iHG89kziPiaHuPIrmtQLWUn3QjuYfj25RL4Zv+Ekzoe4DJZQEtSpn4tiSkP04RtnQRkMk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.com; spf=pass smtp.mailfrom=gmx.com; dkim=pass (2048-bit key) header.d=gmx.com header.i=aros@gmx.com header.b=ek+6nwUJ; arc=none smtp.client-ip=212.227.17.20
+	s=arc-20240116; t=1781424974; c=relaxed/simple;
+	bh=SvUi/YcOlXgiuiVraTP8nfIOD9x6eoE10ik9gST3DFM=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=G9oqGIYsNcXBw7UQ3UMJiGQ4rOVdttcG8+emEBR28Ox1By9c4iRziOQ8NADn1BJaSpHyU4TzXKPLEx0DoTLXE9tfY7scxTdn+4PiZe3DMZ6Il3h64/dnJ3yDWd7Cqk4QmBYhhDcduqAKAv1dl3NSaT5wAdoW4ftbMUIFzU4RnRY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.com; spf=pass smtp.mailfrom=gmx.com; dkim=pass (2048-bit key) header.d=gmx.com header.i=aros@gmx.com header.b=ZVJNNbmM; arc=none smtp.client-ip=212.227.17.22
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmx.com header.i=aros@gmx.com header.b="ek+6nwUJ"
+	dkim=pass (2048-bit key) header.d=gmx.com header.i=aros@gmx.com header.b="ZVJNNbmM"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.com;
-	s=s31663417; t=1781423386; x=1782028186; i=aros@gmx.com;
-	bh=kr4+MYzhOgQWjZPUEO/g/d5b7EB7U8bI8dOrhPm1Cr8=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
-	 References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:cc:content-transfer-encoding:
-	 content-type:date:from:message-id:mime-version:reply-to:subject:
-	 to;
-	b=ek+6nwUJIzZOLLd38IiYitX0d3fuQQV9zWpM+IDPhLtLVWtxFbM2TebgBNBdETmy
-	 tnOVW+KT/L4+vokqEc8W0pgXiDgw/9ZGv2nx7lJMYCJCPrT4G9YxImG8lY1htoB8T
-	 U0PvfS3fJRvSzVTcVkK20IC4fYeq4qtIPaH2nKTFnxL1FhOYHLM3kA1qix6D2HGPr
-	 VcnSwibuoChN40YweD4YnD4fGbTLdc9uFnoQS3jtCBWuca4kY0idDPmSlfhb+9f0I
-	 bNmQH2vz7YaxsQDgq+zWgp3sEeHWnPEcTjMVioTmhC4vsSbDh9Q87yW73l2oXi6LN
-	 QYhqVg2GthmkGfYr3A==
+	s=s31663417; t=1781424967; x=1782029767; i=aros@gmx.com;
+	bh=SvUi/YcOlXgiuiVraTP8nfIOD9x6eoE10ik9gST3DFM=;
+	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:From:Subject:To:
+	 Cc:References:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 cc:content-transfer-encoding:content-type:date:from:message-id:
+	 mime-version:reply-to:subject:to;
+	b=ZVJNNbmMqfrrsIIh3IlCJt1vN8YcT+oExcwnHHh7izu5YtEA2wXgd342GcwRQu2y
+	 HVyIwc0VOTBC/Wl53EFt6PozMSIlM9EK2GTBAeL4q8GPwoHuARt3wYaDjdwxGANsz
+	 KpK7xyjEr4VHhCljkdnUV8D0a0JIAOSBIkeglBlioUNTzWBOwYbhvH7s/qQ2aKujZ
+	 7sEBI/Fp6eAqT+EHvFgmLicega64gDK5JWJC22dKuaBw2GhzY7RMcSWvSRzdRZG5W
+	 3Rf921HA53igIGN/NjBCMrPSY8eYuOUbskxGv9YCafROv9m9F8u0BfH1d8YMTjHRG
+	 baIhGPL5micQa4ScXQ==
 X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx105
- [212.227.17.174]) with ESMTPSA (Nemesis) id 1N2E1G-1xCuWd49ao-00ru8U; Sun, 14
- Jun 2026 09:49:46 +0200
-Message-ID: <c526fab7-c323-4712-989b-88c4da82a289@gmx.com>
-Date: Sun, 14 Jun 2026 07:49:44 +0000
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx104
+ [212.227.17.174]) with ESMTPSA (Nemesis) id 1MGQnF-1wRFN41vtF-008jOT; Sun, 14
+ Jun 2026 10:16:07 +0200
+Message-ID: <5f62925e-0faf-40aa-a594-10ef6d50f24e@gmx.com>
+Date: Sun, 14 Jun 2026 08:16:06 +0000
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+From: "Artem S. Tashkinov" <aros@gmx.com>
 Subject: Re: [RFC/PROPOSAL] Shifting the x.y.z Stable Tree to a Continuous,
  Signed Patch-Stream Model
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
@@ -49,427 +49,195 @@ Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
  Sasha Levin <sashal@kernel.org>, stable@vger.kernel.org
 References: <cdb0dd2f-f331-46ed-8439-1609173f083a@gmx.com>
  <2026052444-unlawful-eskimo-9c41@gregkh>
-From: "Artem S. Tashkinov" <aros@gmx.com>
 In-Reply-To: <2026052444-unlawful-eskimo-9c41@gregkh>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:soW/S79zUlA2yNiHUgMPm+KVVj56fRVDN91p5PZd705OD7FGFqK
- TgB+NNpc5RSMb2qxyqHY8+usmRc5qJxxJOZNmYRTL1o2oaaJG/wPrS9EFp+CmGUakn24KKn
- Ndr4byaiWo55uTKTC1QY99LwqN3V0r2K8WJLAN5ReCpiXAxw7zy9NmAzMrWF0CwNWxr4fbR
- ixFTE5mLwxLOOQ03gN02g==
+X-Provags-ID: V03:K1:9la3y/SVybdYPglDKuFAqCNqknIY8Ez5f7U+dDt7LOxnz1hGP0m
+ Bh0gb7o5iI/oV/B6aacfG9/cbY6bTSkdXP7l4tZ6EwBuv3gsmmXRMJHD+cRmFBIJ1SJwwy5
+ lLoaxklxLUwr0dbqRnJTo0cdsaGdxdGDzohAIPTGnOgSaH6pDNPbWrgV+cYAJ4cDmkK4kGr
+ I03Jt/LTUjqNLx8J9zhZg==
 X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:J9189sXbKb8=;18U0i8hIhMXlLsCDU1EXdSaIGHk
- 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
- DLjSPKnKvHaVviiMRytzIokcLpg=
-
-
-
-On 5/24/26 10:56 AM, Greg Kroah-Hartman wrote:
-> On Sun, May 24, 2026 at 01:38:55PM +0400, Artem S. Tashkinov wrote:
->> Hi all,
->>
->> The relentless cadence of critical vulnerability disclosures and public
->> exploits over the past month=E2=80=94including Copy Fail (CVE-2026-3143=
-1), Dirty
->> Frag (CVE-2026-43284/500), Fragnesia (CVE-2026-46300), and the ptrace e=
-xit
->> race (CVE-2026-46333)=E2=80=94has highlighted a severe structural bottl=
-eneck in how
->> we package and distribute stable backports.
->=20
-> Who is "we"?
->=20
-> And there's nothing really "new" here, these issues are all normal,
-> remember, we resolve, on average, 13 CVEs a day, most much more severe
-> than the ones that happened to get marketing names that you list here
-> (and how many systems have untrusted users?)
->=20
->> When fatal logic flaws or memory corruptions strike core subsystems, ou=
-r
->> current point-release model fractures. Spinning up whole new point rele=
-ases
->> (7.0.4, 7.0.5, 7.0.7) in a matter of days just to address incomplete fi=
-xes,
->> subsystem regressions, or independent public disclosures (such as the r=
-ecent
->> GRO managed-frag UAF exploit dropped directly to GitHub gists by
->> researchers) creates massive administrative fatigue for maintainers and
->> downstream teams alike.
->=20
-> it takes just a minute to "spin up" a point release, what is difficult
-> about that?  If needed, just let us know and we can easily do so.
->=20
->> Upstream has long maintained that the stable tree is effectively a
->> continuous stream of fixes, and that users should track the tip of the
->> stable branch rather than cherry-picking. It is time our release
->> infrastructure matches this reality.
->>
->> ### The Proposal
->>
->> I propose transitioning the stable tree (`linux-x.y.y`) away from
->> manual,discrete point-release tarballs (`x.y.z`). Instead, we should tr=
-eat
->> the stable sub-version purely as an append-only, continuous, git-native
->> patch stream.
->=20
-> That's what we do today, we just happen go "jump" on a weekly basis.
->=20
->> Major releases (e.g., 7.0, 7.1) remain the foundational code boundaries=
-, but
->> sub-versions are eliminated as monolithic manual artifacts.
->>
->> ### The Implementation: How It Works
->>
->> To ensure downstream distributions, enterprise compliance engines, and
->> automated testing rings can still securely ingest code, we can replace =
-the
->> manual tarball with a decoupled, automated asset pipeline:
->>
->> 1. **The Git-First Stream:** The stable branch (`linux-7.0.y`) remains =
-the
->> single source of truth. Commits are pushed as soon as they pass stable
->> criteria and automated sanity testing.
->=20
-> Again, that's what we do today.
->=20
->> 2. **The Signed Patch-Stream Archive:** Instead of packaging the entire=
- 30M+
->> line source code tree into a new tarball for every quick fix, upstream
->> infrastructure maintains a rolling, cumulative patch sequence for the m=
-ajor
->> cycle:
->>
->> linux-7.0-stable.series =3D \sum (patch_1 + patch_2 + ... + patch_n)
->>
->> Every time a fix is merged to the stable branch, the patch is appended =
-to a
->> publicly accessible, cryptographically signed manifest file
->> (`linux-7.0-stable-patches.tar.bz2` or a standard `series` file) alongs=
-ide a
->> detached signature.
->=20
-> Who would use/need such a thing?  What's wrong with the 2 systems we
-> have today that this would somehow help out with?
->=20
->> 3. **Automated Snapshot Tags:** If the industry strictly requires an
->> immutable archive for compliance,
->=20
-> What "compliance"?
->=20
->> point-release numbers can be replaced by
->> automated, time-stamped git tags and machine-generated source snapshots=
- cut
->> on a strict, automated interval (e.g., every 48 hours), removing human
->> maintainers entirely from the release timing.
->=20
-> That's probably not a good idea anyway.  Are you doing continous testing
-> of the stable queue?  If so, great, just take from there today.
-> Everyone adds patches on top of releases anyway, what's a few more if it
-> happens to resolve specific issues for a day or so before a .y release
-> can be cut?
->=20
->> ### Why This Benefits the Ecosystem
->>
->> * **Eliminates Churn and Latency:**
->>
->> When a patch introduces an edge-case regression or requires an immediat=
-e
->> follow-up (a common reason for rapid point-release sequences), maintain=
-ers
->> do not need to coordinate a whole new release event.
->=20
-> No real "coordination" happens here.
->=20
->> The follow-up fix is simply patch $n+1$. Downstream CI pipelines
->> ingest it natively via standard git fetches.
->=20
-> Again, we do that today.
->=20
->> * **Maintains Git-Native Debugging:**
->>
->> Debugging stable regressions via `git bisect` has always been patch-bas=
-ed,
->> not release-based. Since point releases are meant strictly for backport=
-ed
->> bug fixes, removing the arbitrary `x.y.z` release tags changes nothing =
-about
->> a developer's ability to isolate a regression. If anything, it prevents
->> downstream vendors from pulling out-of-order patches that complicate
->> bisection across distros.
->=20
-> Who bisects across distros?
->=20
->> * **Eases Downstream Automation:**
->>
->> Modern tracking distributions (Arch, Fedora snapshotting, etc.) can swi=
-tch
->> to trunk-based intake, automatically building from the signed tip.
->=20
-> Have you asked them if they need/want this?
->=20
->> For enterprise distributions (RHEL, Ubuntu LTS) where constant kernel
->> packaging and reboots are untenable,
->=20
-> Why are reboots for these systems untenable?  Why not fix that root
-> problem instead?
->=20
->> a fluid patch stream allows vendor
->> security teams to more rapidly feed live-patching infrastructure (`kpat=
-ch`,
->> `kgraft`), applying critical CVE fixes directly to runtime memory witho=
-ut
->> changing the base package version.
->=20
-> They can do that today, and do do that today.  So again, what distro
-> needs this?
->=20
->> * **Bridges the Compliance Gap:**
->>
->> Embedded, automotive, or medical compliance pipelines
->> that legally require a static, verifiable code artifact can validate th=
-eir
->> software against the base major release tarball ($7.0.0$) plus the
->> cryptographically signed, append-only stable patch series manifest.
->=20
-> Do they really need that?  Again, they can have that today, nothing new
-> here.
->=20
->> The manual compilation, testing, and cutting of sub-version tarballs is=
- an
->> administrative artifact of the late 1990s.
->=20
-> Weekly releases is not an artivact of the 1990s :)
->=20
->> Shifting to an explicit, signed
->> patch-stream architecture acknowledges the velocity of modern vulnerabi=
-lity
->> research, strips away artificial latency, and frees our stable maintain=
-ers
->> to focus on code quality rather than release management overhead.
->=20
-> Again, we have that today, on a weekly basis.
->=20
-> greg k-h
+UI-OutboundReport: notjunk:1;M01:P0:Ei55huHJlEM=;1y9s3OyB+NDXCHEJPV3azwQ2KIr
+ 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
 
 Hi Greg,
 
-I understand completely that from an upstream maintainer perspective,=20
-the current pipeline feels seamless. Running a script to cut a tag takes=
+Let me try to restate the proposal more narrowly, because I think my=20
+previous wording mixed several related issues together.
+
+I am not arguing that stable.git is not already continuous. It obviously=
 =20
-a minute, and git-stable is inherently fluid. But looking at the=20
-ecosystem from the downstream and infrastructure side, the view is a bit=
+is. Nor am I arguing that cutting a point release is expensive for=20
+upstream. I understand that from the stable maintainer side, tagging a=20
+release is cheap and well automated.
+
+The problem is that the ecosystem still treats the x.y.z point release=20
+as the main externally visible consumption boundary, even though it is=20
+neither the real upstream unit nor the real downstream deployment unit.
+
+The real upstream unit is the stable git branch: a linear sequence of=20
+accepted backports.
+
+The real downstream deployment unit is a distro-built kernel package:=20
+base kernel, stable backports through some point in git history, distro=20
+patches/configuration, compiler/toolchain, signing, modules, CI, and=20
+user-visible packaging.
+
+The x.y.z point release sits awkwardly in between. It is a useful=20
+compatibility marker for consumers that want that workflow, but it=20
+should not have to be the canonical boundary for everyone else.
+
+A better model, in my view, would be:
+
+* stable.git remains the canonical source of truth;
+* every downstream-consumable stable state is identified by branch +=20
+signed commit ID, optionally with a signed machine-readable manifest;
+* distros consume `v7.0 + stable commits through <commit>` or=20
+`linux-7.0.y as of <date/commit>`, according to their own testing and=20
+release policy;
+* point releases may continue to exist for consumers that require them,=20
+but they become one possible checkpoint format rather than the central=20
+model.
+
+This decouples two decisions that are currently conflated:
+
+1. upstream=E2=80=99s decision that a commit belongs in the stable branch;
+2. a downstream=E2=80=99s decision that a particular aggregate is ready to=
+ ship=20
+to its users.
+
+Those are not the same decision. Fedora, Arch, Debian, Ubuntu,=20
+enterprise vendors, embedded vendors, and live-patching teams all have=20
+different risk tolerances, hardware exposure, CI capacity, reboot=20
+policies, module/signing workflows, and urgency. A single upstream x.y.z=
 =20
-different.
+cadence cannot be the right integration boundary for all of them.
 
-Here is where the current model introduces friction that a patch-stream=20
-or automated snapshot approach could solve:
+In the recent 7.0 security/regression mess, the useful downstream=20
+question should not have been =E2=80=9Cwhich point release has Greg cut ye=
+t?=E2=80=9D It=20
+should have been =E2=80=9Cwhich stable commits are required for the comple=
+te fix=20
+set, and has our actual distro kernel artifact built from that stable=20
+commit range passed enough testing to ship?=E2=80=9D
 
-### 1. The Compounding Downstream Tax
-
-When you spin up a rapid sequence like 7.0.4, 7.0.5, and 7.0.7 to=20
-address the immediate fallout of complex CVEs, it takes a minute for=20
-upstream, but it triggers a massive domino effect downstream. Hundreds=20
-of distribution mirrors sync gigabytes of redundant source data, package=
+If distros routinely consumed the stable branch as a signed linear=20
+stream, they could pin a specific stable commit, build from it, test it,=
 =20
-maintainers rewrite specs, and automated build farms recreate full=20
-packages. When a fix is incomplete or causes an immediate regression=20
-requiring a follow-up version 48 hours later, that entire global compute=
+and declare exactly what they shipped:
+
+```
+base: v7.0
+stable branch: linux-7.0.y
+stable commit: <hash>
+included range: v7.0..<hash>
+downstream patches/reverts: <list>
+```
+
+That is more auditable than chasing point releases or cherry-picking=20
+individual commits from intermediate states. It also makes clear that=20
+the distro package, not the upstream tarball, is the object that was=20
+actually tested and deployed.
+
+There is also a practical artifact problem here. For long-lived stable=20
+series, publishing a complete source tarball for every x.y.z release is=20
+very wasteful. By 5.10.258, the 5.10.y series has hundreds of distinct=20
+tarballs, each over 100 MB compressed, representing tens of gigabytes of=
 =20
-and human cycle repeats for what amounts to a few lines of diff.
+mostly duplicated source snapshots for one stable line. The real=20
+information is the base tree plus the incremental stable deltas. Git=20
+already represents that naturally.
 
-### 2. The Infrastructure Reality of Reboots
+So I am not asking to remove point releases from users that still need=20
+them. Keep them for conservative workflows, existing scripts,=20
+announcements, and consumers that require a simple named snapshot.
 
-You mentioned that systems should just be fixed so reboots aren't=20
-untenable. In an ideal architectural world, yes. But in production=20
-reality, orchestrating reboots across thousands of live cloud nodes=20
-running high-availability workloads carries immense risk and scheduling=20
-overhead.
+What I am arguing is that point releases should no longer be the=20
+privileged stable consumption model. The canonical model should be the=20
+signed stable git stream, with downstreams free to define their own=20
+tested integration points on that stream.
 
-Enterprise distros absolutely do use live-patching (`kpatch`/`kgraft`)=20
-to mitigate this, but tracking a shifting landscape of discrete=20
-point-release tarballs complicates their internal backport verification.=
+That would make the stable process match what it already is technically:=
 =20
-A continuous, signed patch-stream would give vendor security teams a=20
-clean, linear ledger of upstream-approved deltas to feed directly into=20
-live-patch compilation engines without the noise of full tree packaging.
+a continuous sequence of accepted backports, not a sequence of magic=20
+tarball events.
 
-### 3. Archive Bloat on the Mirror Network
-
-Every stable point release requires a new ~130MB `.tar.xz` full source=20
-archive. Multiplying that across multiple active LTS branches, dozens of=
-=20
-point releases, and hundreds of worldwide mirrors results in massive=20
-data duplication just to distribute a cumulative handful of text diffs.=20
-The ecosystem is essentially re-shipping the entire ocean every time we=20
-need to add a cup of water.
-
-### Why the Proposal Matters
-
-When independent researchers drop working exploit primitives directly to=
-=20
-public gists (like the recent GRO managed-frag UAF), the turnaround time=
-=20
-to protected production systems needs to be near-zero.
-
-The proposal wasn't meant to imply that the stable team isn't working=20
-fast enough=E2=80=94you guys are incredibly fast. It was an observation th=
-at the=20
-*delivery mechanism* (the discrete, human-timed tarball) forces=20
-downstream consumers to choose between packaging fatigue or artificial=20
-patch latency. Shifting the sub-version boundary to a machine-managed,=20
-append-only signed patch stream bridges that gap.
-
-I know you have a workflow that works for **you**, and I respect the=20
-hell out of the massive volume of fixes you ship daily. I just wanted to=
-=20
-share the perspective of how that weekly "jump" ripples out to the=20
-people who have to deploy it.
-
-### Truly Massive Distro Churn Issue
-
-There's also a very important downstream packaging issue that I think=20
-the current stable-kernel release model underestimates.
-
-Debian and Ubuntu already diverge from the upstream stable versioning=20
-model in a useful way: they package kernels around their own ABI=20
-versioning. In practice, this means they can often ship fixes without=20
-forcing users to install an entirely new `/lib/modules/<kernel-version>`=
-=20
-tree every time an upstream stable micro-release appears. A new=20
-ABI/package line is only needed when the kernel ABI they expose to=20
-packaged or out-of-tree modules changes.
-
-That model is a major downstream advantage. It avoids needless module=20
-churn, avoids retaining multiple near-identical kernel trees, and makes=20
-security/regression updates cheaper to ship. ABI-breaking changes do=20
-happen, but in stable kernels they are rare enough that treating them as=
-=20
-exceptional events is perfectly reasonable.
-
-My proposal takes this idea further.
-
-Stable kernel releases frequently contain important fixes for=20
-regressions introduced either in `.0` releases or in earlier stable=20
-updates. But the current release cadence means that downstream=20
-distributions often have to react before the next stable point release=20
-exists. They either wait, leaving users exposed to known regressions, or=
-=20
-they cherry-pick individual commits from the stable queue. That creates=20
-avoidable work: maintainers have to select fixes, update packaging=20
-metadata, rebuild, test, and publish a distro-specific kernel update=20
-that is supposed to correspond to a =E2=80=9Cstable=E2=80=9D upstream seri=
-es.
-
-Fedora=E2=80=99s 7.0 cycle is a good example of the downstream churn this=
-=20
-creates: multiple downstream updates may be needed for what is logically=
-=20
-the same upstream stable series, simply because important fixes land=20
-between formal stable releases.
-
-Under the model I am proposing, stable would be treated less like a=20
-sequence of isolated point releases and more like a continuously=20
-updated, signed stable branch. Distributions could pin a specific signed=
-=20
-stable commit and trigger a rebuild from that point, instead of=20
-maintaining their own ad hoc selection of fixes while waiting for the=20
-next point release.
-
-This would not remove the need for distro testing or for avoiding=20
-known-bad commits. But in the common case it would simplify the workflow=
-=20
-enormously: downstreams would consume the stable branch directly,=20
-rebuild from a known commit, and get all accepted stable fixes together.=
-=20
-Only in rare cases would they need to temporarily blacklist or revert a=20
-problematic stable commit.
-
-That is still much easier than every distribution independently deciding=
-=20
-which urgent fixes to cherry-pick from the stable queue.
-
-The end result would be less downstream packaging churn, faster delivery=
-=20
-of regression fixes, fewer distro-specific stable-kernel deltas, and a=20
-model that better reflects how many downstreams already consume stable=20
-kernels in practice.
-
-Best regards,
+Regards,
 Artem
-
