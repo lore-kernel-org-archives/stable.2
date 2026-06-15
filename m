@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 433924071D6
-	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 15:50:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76016407577
+	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 15:51:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781538655; cv=none; b=YbQi7H1kvK22pk35hjQoQPAPuQvc9BHBAZeJijS8P9hsxXrU2Y//OIS0KXvs39NYIYgSrSy/rtOMBPclA/QHp40H0MfbxAfib0FUE2/sDjyrg2FyYPI8dGHcZGN3ER34TE+Q96IDNxC1Lb12nilFD9o9zaPzOUfLCqxVP7eX/50=
+	t=1781538664; cv=none; b=vDbQKaM9YU1bJu6TmhMUo3PyZCT7PKYF38mqvLlhdSockpd70lZRo/TedInKpoV2KZrjg63JC5/u/4wGalBh71t5FuUN/AH+lM1RdHADU5zb01t8AuGOMbrT+UJuG5ibGN6lgF5vOHFLciBpVbyAprCVZU0ZzUF8PbeoE+lSBE4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781538655; c=relaxed/simple;
-	bh=d7BfPRwr35FLvH0ybPGxxpZUAEsE/X6NllkFhN1GC0s=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=TAsyJXY0slw+PMcw9o0MlmRfFy4OjetuYrYXzCOsGsmKKnqpyJ4fWETfUTBweynjzKWGQC+ZAGaRHH+BkbPmQF9dVFIhvIkIRtdOpP/KOP0SyrnOnX0DZFWxPUSbH4fcf6f4XNgtIGiQAysWicE+sYchf86jK/C1bFghqwgzbKw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=UTn1FmzC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781538664; c=relaxed/simple;
+	bh=VuILkwClZZOfzgu5L9chbcBYbrkwOWsjQi6LMYgKo74=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=ff93exFksI8jTl6yEnp7Bjx2dFmsgyqJPyJ4Z9nCtGLX9U15pViA2+hv12upGFupnZmrYSsonA+KMeuNCk7Z9SHo4DdE8mZOvd3HAaXWAzby7DSirwgwTTiRrd5kvwUll4eNWv15q81Cx5B5LwgpbhhAwR1w8pp3uV96EN6WDfw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=JlgFs26Q; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="UTn1FmzC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F25EE1F000E9;
-	Mon, 15 Jun 2026 15:50:52 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="JlgFs26Q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18B751F000E9;
+	Mon, 15 Jun 2026 15:51:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1781538653;
-	bh=uF7JCpUX2LyNly3BpZ2hkZoqXVq2Iq6YZMoOPnPtz/E=;
+	s=korg; t=1781538663;
+	bh=q70IZ0x3HAlxMdOuQ3Kwy047oMDURp0Eo+ShDbsox6g=;
 	h=Subject:To:Cc:From:Date;
-	b=UTn1FmzCC90EzQNMm12swHaRLbndAopwk762U2+7vbJFFThkDcLozCXftDcYOehdT
-	 52V5uk38alV34WchTsGMYHq6qlCFVWDwBYIYxTjxp5Bq7uZPNK6WrxxqSm87QGfWZw
-	 fkj1obbQUOd3Hm89JkhdeabxmQn50h8mk7+MtcSA=
-Subject: FAILED: patch "[PATCH] mmc: renesas_sdhi: Add OF entry for RZ/G2H SoC" failed to apply to 5.10-stable tree
-To: prabhakar.mahadev-lad.rj@bp.renesas.com,geert+renesas@glider.be,ulfh@kernel.org,wsa+renesas@sang-engineering.com
+	b=JlgFs26QLmrIkSgpSrCVutXUyd4h8rkR+aoRxn2dHVDJaHLJlLrrTVrpBD5IQv+oc
+	 Xf5tq8Mxpm4uRK6TE1WXKRIE0UL/okZoGzNoVZe/M6xCLVewo6//RZ1UK1m084Pa9b
+	 gWP3p7Yw7sbl4uUegRIJDCC4VwRavEu5a14epqRw=
+Subject: FAILED: patch "[PATCH] rxrpc: Fix the ACK parser to extract the SACK table for" failed to apply to 6.12-stable tree
+To: dhowells@redhat.com,davem@davemloft.net,edumazet@google.com,horms@kernel.org,jaltman@auristor.com,kuba@kernel.org,marc.dionne@auristor.com,michael.bommarito@gmail.com,pabeni@redhat.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 15 Jun 2026 17:42:46 +0200
-Message-ID: <2026061546-plexiglas-flaky-762c@gregkh>
+Date: Mon, 15 Jun 2026 17:43:41 +0200
+Message-ID: <2026061541-settle-letdown-ad0c@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x f48ee49726ee4ab545fd2dc644f169c0809b19b3
+git cherry-pick -x 333b6d5bb9f87827ac2639c737bf9613dbae7253
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026061546-plexiglas-flaky-762c@gregkh' --subject-prefix 'PATCH 5.10.y' HEAD^..
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026061541-settle-letdown-ad0c@gregkh' --subject-prefix 'PATCH 6.12.y' HEAD^..
 
 Possible dependencies:
 
@@ -62,38 +62,99 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From f48ee49726ee4ab545fd2dc644f169c0809b19b3 Mon Sep 17 00:00:00 2001
-From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Date: Tue, 19 May 2026 14:53:40 +0100
-Subject: [PATCH] mmc: renesas_sdhi: Add OF entry for RZ/G2H SoC
+From 333b6d5bb9f87827ac2639c737bf9613dbae7253 Mon Sep 17 00:00:00 2001
+From: David Howells <dhowells@redhat.com>
+Date: Thu, 4 Jun 2026 12:46:00 +0100
+Subject: [PATCH] rxrpc: Fix the ACK parser to extract the SACK table for
+ parsing
 
-The RZ/G2H (R8A774E1) SoC was previously handled via the generic
-"renesas,rcar-gen3-sdhi" fallback compatible string. However, because
-the SDHI IP on RZ/G2H is identical with the R-Car H3-N (R8A77951), it
-requires the specific quirks and configuration defined in
-`of_r8a7795_compatible` rather than the generic Gen3 data.
+Fix modification of the received skbuff in rxrpc_input_soft_acks() and a
+potential incorrect access of the buffer in a fragmented UDP packet (the
+packet would probably have to be deliberately pre-generated as fragmented)
+when AF_RXRPC tries to extract the contents of the SACK table by copying
+out the contents of the SACK table into a buffer before attempting to parse
 
-Add the explicit "renesas,sdhi-r8a774e1" match entry to map it correctly.
-Note that the DT binding file renesas,sdhi.yaml does not need an update
-as the entry for this SoC is already present.
+AF_RXRPC assumes that it can just call skb_condense() and then validly
+access the SACK table from skb->data and that it will be a flat buffer -
+but skb_condense() can silently fail to do anything under some
+circumstances.
 
-Fixes: 31941342888d ("arm64: dts: renesas: r8a774e1: Add SDHI nodes")
-Cc: stable@vger.kernel.org
-Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-Signed-off-by: Ulf Hansson <ulfh@kernel.org>
+Note that whilst rxrpc_input_soft_acks() should be able to parse extended
+ACKs, the rest of AF_RXRPC doesn't currently support that.
 
-diff --git a/drivers/mmc/host/renesas_sdhi_internal_dmac.c b/drivers/mmc/host/renesas_sdhi_internal_dmac.c
-index f6ebb7bc7ede..838248bf8dd6 100644
---- a/drivers/mmc/host/renesas_sdhi_internal_dmac.c
-+++ b/drivers/mmc/host/renesas_sdhi_internal_dmac.c
-@@ -279,6 +279,7 @@ static const struct renesas_sdhi_of_data_with_quirks of_rza2_compatible = {
- static const struct of_device_id renesas_sdhi_internal_dmac_of_match[] = {
- 	{ .compatible = "renesas,sdhi-r7s9210", .data = &of_rza2_compatible, },
- 	{ .compatible = "renesas,sdhi-mmc-r8a77470", .data = &of_rcar_gen3_compatible, },
-+	{ .compatible = "renesas,sdhi-r8a774e1", .data = &of_r8a7795_compatible, },
- 	{ .compatible = "renesas,sdhi-r8a7795", .data = &of_r8a7795_compatible, },
- 	{ .compatible = "renesas,sdhi-r8a77961", .data = &of_r8a77961_compatible, },
- 	{ .compatible = "renesas,sdhi-r8a77965", .data = &of_r8a77965_compatible, },
+Further, there's then no need to call skb_condense() in rxrpc_input_ack(),
+so don't.
+
+Fixes: d57a3a151660 ("rxrpc: Save last ACK's SACK table rather than marking txbufs")
+Reported-by: Michael Bommarito <michael.bommarito@gmail.com>
+Link: https://lore.kernel.org/r/20260513180907.2061972-1-michael.bommarito@gmail.com
+Signed-off-by: David Howells <dhowells@redhat.com>
+cc: Marc Dionne <marc.dionne@auristor.com>
+cc: Jeffrey Altman <jaltman@auristor.com>
+cc: Eric Dumazet <edumazet@google.com>
+cc: "David S. Miller" <davem@davemloft.net>
+cc: Jakub Kicinski <kuba@kernel.org>
+cc: Paolo Abeni <pabeni@redhat.com>
+cc: Simon Horman <horms@kernel.org>
+cc: linux-afs@lists.infradead.org
+cc: netdev@vger.kernel.org
+cc: stable@kernel.org
+Link: https://patch.msgid.link/105362.1780573560@warthog.procyon.org.uk
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+
+diff --git a/net/rxrpc/input.c b/net/rxrpc/input.c
+index 24aceb183c2c..ce761466b02d 100644
+--- a/net/rxrpc/input.c
++++ b/net/rxrpc/input.c
+@@ -963,23 +963,34 @@ static void rxrpc_input_soft_acks(struct rxrpc_call *call,
+ 	struct rxrpc_skb_priv *sp = rxrpc_skb(skb);
+ 	struct rxrpc_txqueue *tq = call->tx_queue;
+ 	unsigned long extracted = ~0UL;
+-	unsigned int nr = 0;
++	unsigned int nr = 0, nsack;
+ 	rxrpc_seq_t seq = call->acks_hard_ack + 1;
+ 	rxrpc_seq_t lowest_nak = seq + sp->ack.nr_acks;
+-	u8 *acks = skb->data + sizeof(struct rxrpc_wire_header) + sizeof(struct rxrpc_ackpacket);
++	u8 sack[256] __aligned(sizeof(unsigned long));
++	u8 *acks = sack;
+ 
+ 	_enter("%x,%x,%u", tq->qbase, seq, sp->ack.nr_acks);
+ 
+ 	while (after(seq, tq->qbase + RXRPC_NR_TXQUEUE - 1))
+ 		tq = tq->next;
+ 
++	/* Extract an individual SACK table.  A normal SACK table is up to 255
++	 * bytes with 1 ACK flag per byte, but an extended SACK table can be up
++	 * to 256 bytes with up to 8 ACK/NACK flags per byte.  The ACK flags go
++	 * across all bit 0's then all bit 1's, then all bit 2's, ...
++	 */
++	memset(sack, 0, sizeof(sack));
++	nsack = umin(sp->ack.nr_acks, 256);
++	if (skb_copy_bits(skb,
++			  sizeof(struct rxrpc_wire_header) + sizeof(struct rxrpc_ackpacket),
++			  sack, nsack) < 0)
++		return;
++
+ 	for (unsigned int i = 0; i < sp->ack.nr_acks; i++) {
+ 		/* Decant ACKs until we hit a txqueue boundary. */
++		if ((i & 255) == 0)
++			acks = sack;
+ 		shiftr_adv_rotr(acks, extracted);
+-		if (i == 256) {
+-			acks -= i;
+-			i = 0;
+-		}
+ 		seq++;
+ 		nr++;
+ 		if ((seq & RXRPC_TXQ_MASK) != 0)
+@@ -1117,9 +1128,6 @@ static void rxrpc_input_ack(struct rxrpc_call *call, struct sk_buff *skb)
+ 	    skb_copy_bits(skb, ioffset, &trailer, sizeof(trailer)) < 0)
+ 		return rxrpc_proto_abort(call, 0, rxrpc_badmsg_short_ack_trailer);
+ 
+-	if (nr_acks > 0)
+-		skb_condense(skb);
+-
+ 	call->acks_latest_ts = ktime_get_real();
+ 	call->acks_hard_ack = hard_ack;
+ 	call->acks_prev_seq = prev_pkt;
 
