@@ -1,42 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97BEC2F7EE5
-	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 21:16:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 424D63845CE
+	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 21:16:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781558179; cv=none; b=oip5hWCql0j4vPmph8AS2KRWFhwvxxIoiE/PiER9gNOQaUqAYPOF6in3egZe/R1mw4fDxgoN+uxFYfAWqR4FXDZRkSJ/gZzuLPKANjAb6kb2pkMNhbf0yu/TPrnmFEd1Dq8J8SWcZKipgumkQ7K9itmWNvsIP5zF3QT5LMmAMak=
+	t=1781558180; cv=none; b=BbSTJWkLX/e86uu0hI0OJ1GYWtA7mqxrxOQnMHvY3+LNWsfm7TDOrjzYZjY/mtMrSX5A5F06J06sSRa2LxjJ/9U6wLXKON9JBjf2VglVfFGmbtMF636TrVly9BV5UjFcHx9Nu5/Fgl4voLyMD4cY4aavtCbqzxoOzF2Drb0uqfo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781558179; c=relaxed/simple;
-	bh=yJGWcQ6IELS1y9y7+HZXl0+l1lwaC+8QZa7LIgtdf3c=;
+	s=arc-20240116; t=1781558180; c=relaxed/simple;
+	bh=3G7mFK1ZdIWoiNhGyc7v5JuNYpf1OWguiMFGf+E+E94=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=pFOftHfI2XR3yCzpyGgzapS0tzF1adKl3xfB+jyqkLobhi+IwUph6gKttFBMhB6XoYkRQKGhxQO/jXwYt3rUi3ps0j7zL7Jo5JqYzdPfMZCmg5Iwom2rd+QE+4Iufq99f+DrGIAt+H1uAimolEid/JX+xg3+82+5L6oqa78QcR0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=auBaBFpx; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=eqtZ1vwXQONAe0sNyU7fK4BoP5Z0fyeqAAc2lhe1ZPPkmOPpV+W742oDkKt5hX9luvcXXjmVal/AJR0B1NGfjCwOAyXicWOFSg/C0E4U+uAkgflz9VwQR02C+wIUtgMzGXfRbvx9+tVnSuV6WL/Wksmc8K4JxvJIUuh5TCxjJLM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=az+XbB1Y; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="auBaBFpx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B73551F000E9;
-	Mon, 15 Jun 2026 21:16:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="az+XbB1Y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78D921F00A3E;
+	Mon, 15 Jun 2026 21:16:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781558178;
-	bh=CNhagq5u5ewT+yAUnuEis//mLMud3uPz6O1z/1OWULE=;
+	s=k20260515; t=1781558179;
+	bh=FjirVKDkH3qdM39UzAmWvoyPWdH7AsBUgT4+UkRLTFQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=auBaBFpxrfbcxyR5EhPP7HxYFHL/TEfRqK3ytNFSTaJMb/NcqB5RJFGtGAM/XlruF
-	 hnC6AJS1E/Xk/8iC7ISb0SjsXWliIKmJXIqE9AHajEsyRWWbRNhcbWqKd6XSC5j5U+
-	 7te56HiLrzFosntiAA5sQbR1rYo87uCJu5RRlNATab0jOIViQ7kGKViAwIgp3xOueY
-	 iR27V/OOmkJmrQEJ9PLOoq6V3g6wtT9Lc9cBfXlLzGNzw+xNaM5wv5NSvZ6dHn+Myc
-	 h0OY+h5FqeayHCN9eLsktp+8/FYyLB91BLCtzQNMCcwZQogSL8vbziccXZftKXkvhL
-	 oBA8WIJz1u53g==
+	b=az+XbB1Yv7AEn3HUUiIZv+mi/14CSsY3P4o5DGLM6ux0v4NHaO+QLqlbs6nTvRlY5
+	 ui0q3bu+K21RTx2cnAq4vfRusVj4r+BTY8lvhqjtCmYe/geTgZPanF8TxXIXqVsypm
+	 1baUDD/oijmP3QBMcg87z0akCZtVoPfGtHhHfrsn9nOjz2k05N5IkptwOv3Zy9rly6
+	 9TDNw0WwImRfx3fJ/8n13QjOITtuPHUCDysZiw0c8AM9/d03lwxbBbPHRcQ532hJdF
+	 CjViQtvpgU4J/Tq9qb8x9sXKUo3yCy1d6Ay6jEnOvLvK9QUTLpphKbcyRQOhrSVCQp
+	 ER8QtZriibEVg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Jacob Moroni <jmoroni@google.com>,
 	Leon Romanovsky <leon@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 1/4] RDMA/umem: Add ib_umem_dmabuf_get_pinned_and_lock helper
-Date: Mon, 15 Jun 2026 17:16:13 -0400
-Message-ID: <20260615211616.2460210-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 2/4] RDMA/umem: Move umem dmabuf revoke logic into helper function
+Date: Mon, 15 Jun 2026 17:16:14 -0400
+Message-ID: <20260615211616.2460210-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026061550-repaying-riddance-1fc6@gregkh>
+In-Reply-To: <20260615211616.2460210-1-sashal@kernel.org>
 References: <2026061550-repaying-riddance-1fc6@gregkh>
+ <20260615211616.2460210-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,87 +48,65 @@ Content-Transfer-Encoding: 8bit
 
 From: Jacob Moroni <jmoroni@google.com>
 
-[ Upstream commit 553dfa8cbd0c6d36adae042d9738ddf8f8765ac7 ]
+[ Upstream commit 797291a66ce346c96114b72222fc290d402da005 ]
 
-Move the inner logic of ib_umem_dmabuf_get_pinned_with_dma_device()
-to a new static function that returns with the lock held upon success.
-
-The intent is to allow reuse for the future get_pinned_revocable_and_lock
-function.
+This same logic will eventually be reused from within the
+invalidate_mappings callback which already has the dma_resv_lock
+held, so break it out into a separate function so it can be reused.
 
 Signed-off-by: Jacob Moroni <jmoroni@google.com>
-Link: https://patch.msgid.link/20260305170826.3803155-2-jmoroni@google.com
+Link: https://patch.msgid.link/20260305170826.3803155-3-jmoroni@google.com
 Signed-off-by: Leon Romanovsky <leon@kernel.org>
 Stable-dep-of: badad6fad60d ("RDMA: During rereg_mr ensure that REREG_ACCESS is compatible")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/infiniband/core/umem_dmabuf.c | 35 ++++++++++++++++++++-------
- 1 file changed, 26 insertions(+), 9 deletions(-)
+ drivers/infiniband/core/umem_dmabuf.c | 26 +++++++++++++++++---------
+ 1 file changed, 17 insertions(+), 9 deletions(-)
 
 diff --git a/drivers/infiniband/core/umem_dmabuf.c b/drivers/infiniband/core/umem_dmabuf.c
-index 17b16fe0e49d94..09ab54950e2fac 100644
+index 09ab54950e2fac..fa31a21a970da0 100644
 --- a/drivers/infiniband/core/umem_dmabuf.c
 +++ b/drivers/infiniband/core/umem_dmabuf.c
-@@ -198,18 +198,19 @@ static struct dma_buf_attach_ops ib_umem_dmabuf_attach_pinned_ops = {
+@@ -198,6 +198,22 @@ static struct dma_buf_attach_ops ib_umem_dmabuf_attach_pinned_ops = {
  	.move_notify = ib_umem_dmabuf_unsupported_move_notify,
  };
  
--struct ib_umem_dmabuf *
--ib_umem_dmabuf_get_pinned_with_dma_device(struct ib_device *device,
--					  struct device *dma_device,
--					  unsigned long offset, size_t size,
--					  int fd, int access)
-+static struct ib_umem_dmabuf *
-+ib_umem_dmabuf_get_pinned_and_lock(struct ib_device *device,
-+				   struct device *dma_device,
-+				   unsigned long offset,
-+				   size_t size, int fd, int access,
-+				   const struct dma_buf_attach_ops *ops)
- {
- 	struct ib_umem_dmabuf *umem_dmabuf;
- 	int err;
- 
--	umem_dmabuf = ib_umem_dmabuf_get_with_dma_device(device, dma_device, offset,
--							 size, fd, access,
--							 &ib_umem_dmabuf_attach_pinned_ops);
-+	umem_dmabuf =
-+		ib_umem_dmabuf_get_with_dma_device(device, dma_device, offset,
-+						   size, fd, access, ops);
- 	if (IS_ERR(umem_dmabuf))
- 		return umem_dmabuf;
- 
-@@ -222,7 +223,6 @@ ib_umem_dmabuf_get_pinned_with_dma_device(struct ib_device *device,
- 	err = ib_umem_dmabuf_map_pages(umem_dmabuf);
- 	if (err)
- 		goto err_release;
--	dma_resv_unlock(umem_dmabuf->attach->dmabuf->resv);
- 
- 	return umem_dmabuf;
- 
-@@ -231,6 +231,23 @@ ib_umem_dmabuf_get_pinned_with_dma_device(struct ib_device *device,
- 	ib_umem_release(&umem_dmabuf->umem);
- 	return ERR_PTR(err);
- }
-+
-+struct ib_umem_dmabuf *
-+ib_umem_dmabuf_get_pinned_with_dma_device(struct ib_device *device,
-+					  struct device *dma_device,
-+					  unsigned long offset, size_t size,
-+					  int fd, int access)
++static void ib_umem_dmabuf_revoke_locked(struct dma_buf_attachment *attach)
 +{
-+	struct ib_umem_dmabuf *umem_dmabuf =
-+		ib_umem_dmabuf_get_pinned_and_lock(device, dma_device, offset,
-+						   size, fd, access,
-+						   &ib_umem_dmabuf_attach_pinned_ops);
-+	if (IS_ERR(umem_dmabuf))
-+		return umem_dmabuf;
++	struct ib_umem_dmabuf *umem_dmabuf = attach->importer_priv;
 +
-+	dma_resv_unlock(umem_dmabuf->attach->dmabuf->resv);
-+	return umem_dmabuf;
++	dma_resv_assert_held(attach->dmabuf->resv);
++
++	if (umem_dmabuf->revoked)
++		return;
++	ib_umem_dmabuf_unmap_pages(umem_dmabuf);
++	if (umem_dmabuf->pinned) {
++		dma_buf_unpin(umem_dmabuf->attach);
++		umem_dmabuf->pinned = 0;
++	}
++	umem_dmabuf->revoked = 1;
 +}
- EXPORT_SYMBOL(ib_umem_dmabuf_get_pinned_with_dma_device);
++
+ static struct ib_umem_dmabuf *
+ ib_umem_dmabuf_get_pinned_and_lock(struct ib_device *device,
+ 				   struct device *dma_device,
+@@ -265,15 +281,7 @@ void ib_umem_dmabuf_revoke(struct ib_umem_dmabuf *umem_dmabuf)
+ 	struct dma_buf *dmabuf = umem_dmabuf->attach->dmabuf;
  
- struct ib_umem_dmabuf *ib_umem_dmabuf_get_pinned(struct ib_device *device,
+ 	dma_resv_lock(dmabuf->resv, NULL);
+-	if (umem_dmabuf->revoked)
+-		goto end;
+-	ib_umem_dmabuf_unmap_pages(umem_dmabuf);
+-	if (umem_dmabuf->pinned) {
+-		dma_buf_unpin(umem_dmabuf->attach);
+-		umem_dmabuf->pinned = 0;
+-	}
+-	umem_dmabuf->revoked = 1;
+-end:
++	ib_umem_dmabuf_revoke_locked(umem_dmabuf->attach);
+ 	dma_resv_unlock(dmabuf->resv);
+ }
+ EXPORT_SYMBOL(ib_umem_dmabuf_revoke);
 -- 
 2.53.0
 
