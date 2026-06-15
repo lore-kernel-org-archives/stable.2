@@ -1,141 +1,134 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 811DB3E832B
-	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 12:50:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE5533033D6
+	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 13:04:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781527853; cv=none; b=KhpzzPuXmvTQKN7wDxF9zgu59XGXUKPzx/bqkhp4abctxeo42wljwQnIRodfiAp5OOWFoDT6iW8z5IyoSEYKkxM4liPDCIlpWqnsMDE+uL04oLkQVG5cJ23OFn6XmcVitqOaXpjd667Kcw3zEvPPr6eWwC/BsRgktqvPndN3dus=
+	t=1781528652; cv=none; b=YiEFnyJTK6zUp+JxvYy2R+KuqQVEManFSipoIVmE1jwXLyU4cerHKvnTl8xUuzOmQB9MWfWVIJXUGY5352DOnVw7ljRT+6tqpRF/9l2wkePV5onX5/WbOZt0EELPwmFHYY7YoDHWHr7idUzGLsxUNS0t05WdpcoA6BQreykLjV0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781527853; c=relaxed/simple;
-	bh=90lNY/xulwxZB3P0r/Sl5+VB4wxDcP0LsgmgJy3StvU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ilVeVY4FW98TA23PfD4vVSt/zsSImNRNfaCTFujP77MVZkzZ9g/m/3B2PkKUYJ9GbjS7plExs/P2TH7XEKjyreQeg6iZX7c9ZeXIe3Hoyndq51ch/vh8Ot5oB0pja+H9k5gG9R48bLflotCTMleSxYlilsnsEmnQERS7HTB/9Wo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=Evbs9KgL; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=RyskRKZ9; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=Evbs9KgL; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=RyskRKZ9; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1781528652; c=relaxed/simple;
+	bh=PYr/P5p9USRlZDfXmQJGLEjgbW2FKXvbtbeGNA4umxo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=LQKVefQ9FrPjWyYy4RqxYFq3Gbk//9UFkoTOtmSqjYFPJ2s01qyTkgDfwLrQG8z+kFRNl+hWkUgmRq6Vp59SGE7503MQrBnhQ/Z15T3q1rFOMf/iRhUrVIisN95Xr3+PI+W2XJ9eFRHL+PbgDCTCjljbR9jiX1jBJsAfmtCbdbg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K1yzPnnS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Evbs9KgL";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="RyskRKZ9";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Evbs9KgL";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="RyskRKZ9"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id D1DE67590E;
-	Mon, 15 Jun 2026 12:50:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1781527850; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=e0zrWRe7Z9SAiwhFvATDSnMn5xVCuXFJp4Ikm9O6onk=;
-	b=Evbs9KgLfizUaZ/VECHepxUbjD+yabEonPD0PYn3ZXleglxZzhmRRlTT5bwz+sAjw6bAcS
-	9BepBxm28g5HceQuSWgs/AarLzazVuzRwVRIt6oXimC7jmvIPGr88YZ5rZ35ljfHC5u8MC
-	l0szJyp8h3aF0CTm/jBXGTCjmICXxF8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1781527850;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=e0zrWRe7Z9SAiwhFvATDSnMn5xVCuXFJp4Ikm9O6onk=;
-	b=RyskRKZ9V6QtGltkNx3r/EmwY1e+Z0R2P9PA42VYr3sNdfhoo+OnRtyTlh5Ez5R9kvtkzA
-	eyEJB2HcTRrpMLBQ==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1781527850; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=e0zrWRe7Z9SAiwhFvATDSnMn5xVCuXFJp4Ikm9O6onk=;
-	b=Evbs9KgLfizUaZ/VECHepxUbjD+yabEonPD0PYn3ZXleglxZzhmRRlTT5bwz+sAjw6bAcS
-	9BepBxm28g5HceQuSWgs/AarLzazVuzRwVRIt6oXimC7jmvIPGr88YZ5rZ35ljfHC5u8MC
-	l0szJyp8h3aF0CTm/jBXGTCjmICXxF8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1781527850;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=e0zrWRe7Z9SAiwhFvATDSnMn5xVCuXFJp4Ikm9O6onk=;
-	b=RyskRKZ9V6QtGltkNx3r/EmwY1e+Z0R2P9PA42VYr3sNdfhoo+OnRtyTlh5Ez5R9kvtkzA
-	eyEJB2HcTRrpMLBQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B7DB9779A9;
-	Mon, 15 Jun 2026 12:50:50 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id SXpCKyr1L2qtCwAAD6G6ig
-	(envelope-from <dwagner@suse.de>); Mon, 15 Jun 2026 12:50:50 +0000
-Date: Mon, 15 Jun 2026 14:50:49 +0200
-From: Daniel Wagner <dwagner@suse.de>
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: Ram Vegesna <ram.vegesna@broadcom.com>, 
-	"James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>, "Martin K . Petersen" <martin.petersen@oracle.com>, 
-	Kees Cook <kees@kernel.org>, Vitaliy Shevtsov <v.shevtsov@mt-integration.ru>, 
-	linux-scsi@vger.kernel.org, target-devel@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH] scsi: elx: efct: fix IO refcount leak in
- efct_hw_io_abort()
-Message-ID: <faf11a92-55e0-49e3-955f-80fe5b44f83d@flourine.local>
-References: <20260527100935.868042-1-vulab@iscas.ac.cn>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K1yzPnnS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBBEB1F000E9;
+	Mon, 15 Jun 2026 13:04:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781528651;
+	bh=TMlDCoYoSrO3vdRyX1vZusXJAZ9OvXBopTNdM5QHveQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=K1yzPnnSnvxBx2qOPDZP5UjicRYIdXc4VHSCis3c18g9FhRQ8n4TjPFTLVp7usXdn
+	 9gI2B2gEl4dUidGVJ8uA5j+3MWpdBq6jgOlJXJ+rUJX6wpX0ldUmFB/BvZ0fxGLm5i
+	 U6TyWkSdUJFvMbxfE3WiKUFbVv4PTWaRMTq0PB/M2H+XtTNn5gEh24l6lDN/pYgkJg
+	 1Xtbj3wvBdciyUFgM/O6DmsvvX+XbSfFiCGNgNliUsJubkNxMskuJH4c498B/e1HEK
+	 TmJZB8num8Op6CsuVrW6W2tYRoP7YyJuHUnhdWR2IhT8r3/CWngH+kvZhV6+7fmAdr
+	 QRvi1Wqzl48Fg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Davide Ornaghi <d.ornaghi97@gmail.com>,
+	Florian Westphal <fw@strlen.de>,
+	Pablo Neira Ayuso <pablo@netfilter.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.0.y] netfilter: nft_fib: fix stale stack leak via the OIFNAME register
+Date: Mon, 15 Jun 2026 09:04:08 -0400
+Message-ID: <20260615130408.2055029-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026061540-whomever-shading-96d4@gregkh>
+References: <2026061540-whomever-shading-96d4@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260527100935.868042-1-vulab@iscas.ac.cn>
-X-Spam-Flag: NO
-X-Spam-Score: -4.30
-X-Spamd-Result: default: False [-4.30 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	ARC_NA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FUZZY_RATELIMITED(0.00)[rspamd.com];
-	RCPT_COUNT_SEVEN(0.00)[10];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
-X-Spam-Level: 
+Content-Transfer-Encoding: 8bit
 
-On Wed, May 27, 2026 at 10:09:35AM +0000, Wentao Liang wrote:
->  drivers/scsi/elx/efct/efct_hw.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/scsi/elx/efct/efct_hw.c b/drivers/scsi/elx/efct/efct_hw.c
-> index 1838032f6486..4ecd6f4165f4 100644
-> --- a/drivers/scsi/elx/efct/efct_hw.c
-> +++ b/drivers/scsi/elx/efct/efct_hw.c
-> @@ -1997,6 +1997,7 @@ efct_hw_io_abort(struct efct_hw *hw, struct efct_hw_io *io_to_abort,
->  	wqcb = efct_hw_reqtag_alloc(hw, efct_hw_wq_process_abort, io_to_abort);
->  	if (!wqcb) {
->  		efc_log_err(hw->os, "can't allocate request tag\n");
-> +		kref_put(&io_to_abort->ref, io_to_abort->release);
->  		return -ENOSPC;
->  	}
+From: Davide Ornaghi <d.ornaghi97@gmail.com>
 
-I think the Sashiko review is wrong. efct_hw_reqtag_alloc will only use
-the list_del_init when it was able to allocate an element, thus it
-wont return NULL. The Shashiko argument seems to miss how the life time
-of those io object are handled and there doesn't seem to be any code
-depended on the return value of efct_hw_io_abort too.
+[ Upstream commit ab185e0c4fb82dfba6fb86f8271e06f931d9c64c ]
 
-Thus it doesn't really matter if efct_hw_io_abort is set or not. It is
-more consistent to do so. And efct_hw_init_free_io will initialize
-abort_in_progress anyway.
+For NFT_FIB_RESULT_OIFNAME the destination register is declared with
+len = IFNAMSIZ (four 32-bit registers), but on the lookup-fail,
+RTN_LOCAL and oif-mismatch paths nft_fib{4,6}_eval() only writes one
+register via "*dest = 0". The remaining three registers are left as
+whatever was on the stack in nft_do_chain()'s struct nft_regs, and a
+downstream expression that loads the register span can leak that
+uninitialised kernel stack to userspace.
+
+The NFTA_FIB_F_PRESENT existence check has the same shape: it is only
+meaningful for NFT_FIB_RESULT_OIF, yet it was accepted for any result type
+while the eval stores a single byte via nft_reg_store8(), leaving the rest
+of the declared span stale.
+
+Fix both:
+
+ - replace the bare "*dest = 0" in the eval with nft_fib_store_result(),
+   which strscpy_pad()s the whole IFNAMSIZ for OIFNAME (and is already
+   used on the other early-return path), and
+
+ - restrict NFTA_FIB_F_PRESENT to NFT_FIB_RESULT_OIF and declare its
+   destination as a single u8, so the marked span matches the one byte
+   the eval writes.
+
+Fixes: f6d0cbcf09c5 ("netfilter: nf_tables: add fib expression")
+Suggested-by: Florian Westphal <fw@strlen.de>
+Cc: stable@vger.kernel.org
+Signed-off-by: Davide Ornaghi <d.ornaghi97@gmail.com>
+Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
+[ kept the tree's older `ip6_route_lookup()`/`rt6_info` IPv6 context and changed only `*dest = 0;` to `nft_fib_store_result(dest, priv, NULL);` ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ net/ipv4/netfilter/nft_fib_ipv4.c | 2 +-
+ net/ipv6/netfilter/nft_fib_ipv6.c | 2 +-
+ net/netfilter/nft_fib.c           | 6 ++++++
+ 3 files changed, 8 insertions(+), 2 deletions(-)
+
+diff --git a/net/ipv4/netfilter/nft_fib_ipv4.c b/net/ipv4/netfilter/nft_fib_ipv4.c
+index 82af6cd76d13e0..e695283aeb2d04 100644
+--- a/net/ipv4/netfilter/nft_fib_ipv4.c
++++ b/net/ipv4/netfilter/nft_fib_ipv4.c
+@@ -128,7 +128,7 @@ void nft_fib4_eval(const struct nft_expr *expr, struct nft_regs *regs,
+ 		fl4.saddr = get_saddr(iph->daddr);
+ 	}
+ 
+-	*dest = 0;
++	nft_fib_store_result(dest, priv, NULL);
+ 
+ 	if (fib_lookup(nft_net(pkt), &fl4, &res, FIB_LOOKUP_IGNORE_LINKSTATE))
+ 		return;
+diff --git a/net/ipv6/netfilter/nft_fib_ipv6.c b/net/ipv6/netfilter/nft_fib_ipv6.c
+index 421036a3605b46..3005dfbca6155b 100644
+--- a/net/ipv6/netfilter/nft_fib_ipv6.c
++++ b/net/ipv6/netfilter/nft_fib_ipv6.c
+@@ -192,7 +192,7 @@ void nft_fib6_eval(const struct nft_expr *expr, struct nft_regs *regs,
+ 
+ 	lookup_flags = nft_fib6_flowi_init(&fl6, priv, pkt, oif, iph);
+ 
+-	*dest = 0;
++	nft_fib_store_result(dest, priv, NULL);
+ 	rt = (void *)ip6_route_lookup(nft_net(pkt), &fl6, pkt->skb,
+ 				      lookup_flags);
+ 	if (rt->dst.error)
+diff --git a/net/netfilter/nft_fib.c b/net/netfilter/nft_fib.c
+index 96e02a83c045e2..22846136c754a2 100644
+--- a/net/netfilter/nft_fib.c
++++ b/net/netfilter/nft_fib.c
+@@ -107,6 +107,12 @@ int nft_fib_init(const struct nft_ctx *ctx, const struct nft_expr *expr,
+ 		return -EINVAL;
+ 	}
+ 
++	if (priv->flags & NFTA_FIB_F_PRESENT) {
++		if (priv->result != NFT_FIB_RESULT_OIF)
++			return -EINVAL;
++		len = sizeof(u8);
++	}
++
+ 	err = nft_parse_register_store(ctx, tb[NFTA_FIB_DREG], &priv->dreg,
+ 				       NULL, NFT_DATA_VALUE, len);
+ 	if (err < 0)
+-- 
+2.53.0
 
