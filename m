@@ -1,95 +1,54 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3D1E3264E5
-	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 06:09:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [4.193.249.245])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 896763AF65C;
+	Mon, 15 Jun 2026 06:11:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=4.193.249.245
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781503760; cv=none; b=M13JU3oVF2sTiSWX3gRNxYfWabuzxeGS21MA5FbEnwSsVSEv7Qc+RkoeipnUBsKt2zAR84snD1rsejX93eXjb7Z/054D/UZmrl9KZmiyak4sv0Y+v1TX6z0VdS9d6DwKBsqG59VhjkildKM/PmhVdRoUYeJqTWgvi2Sqxs9NYDI=
+	t=1781503884; cv=none; b=Wy4kI9ckSdHy74gTXbLg+3b30g5iu8rr/QIEUwFAagiDLY2DaZNe9FUQ3xhoMIzU2UJXxoRxCjun/qURYhtAkCVNaYpuYKG8i9Q0CmtcaTPiTW/oMPkVnIUKgXmTHY69JcR7rjMK4osjAMPqHhWJ998FLSCkRJMgCSdsjyq2nh0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781503760; c=relaxed/simple;
-	bh=PKgXeShLxwaVF7Anm07f409jvOs7I7Dr6y/VL6J/1Xk=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=iICvkP5wuAg+rshGFp9zaXpYK/frDZ9TZo10e2xPTpuuQb9fnMltDjGQntLT8F1oM9zJRVgiguARMU63Fa3g7I/Vr6WbEyqAJ/swmUKpAW/E+EWC2EvuOZ6VtKW6IUY3K9T7tPn/cIjcgpaM9KHeCPf5R2q3F6A0umqxnRIElAI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=pPk1l+WS; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=L1xbMGw4; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1781503884; c=relaxed/simple;
+	bh=IKFQJZ2rcM5VGT41bxkBMTa5XBj5aJ3t2zTnTTGoqvk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Cyu3fEFKTFxLIG0XCPiYA2YGIVrnx2Af6jG5nWDftJEx5km68eFtp7Eq1aXNWEDZ3HeezmLwZlLEMRqGgVW8WB9N9pc1UcyX6K4GbqiNp/CaKw8xFLQGw4Mq8tPnxl+3yhSsaYvyYgE754mPT20tMIAuQl0E0zXI8PmbM5haCAo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mails.tsinghua.edu.cn; spf=pass smtp.mailfrom=mails.tsinghua.edu.cn; dkim=pass (1024-bit key) header.d=mails.tsinghua.edu.cn header.i=@mails.tsinghua.edu.cn header.b=M+vB9Mvo; arc=none smtp.client-ip=4.193.249.245
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mails.tsinghua.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mails.tsinghua.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="pPk1l+WS";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="L1xbMGw4"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65F1htoT2741829
-	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 06:09:18 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=dbrKRlXF9XHpr7RYXjth0KtQKdDkWR8x8tS
-	Y4BCig+o=; b=pPk1l+WSLZ+ykDB+yhIWI6qvYtp1eYTclvYXJS7ZQV6bim4LQAH
-	7gaWpMOcagPltj6XRGey+dezLl4hObcOAODz2+Dol7qGKzif+m9SAs9Y/dKzCigU
-	96qcun0jKsXnPM5fYnlYaXffErRiUVaHJQd7KcDz1K6eJhRPErqIveB+G9cxXhs0
-	cnXCqoFCvpEADWsxp30N4DKuMwu5eKzI3KCIfN05aDgbG1yF+Q7zC7s+ndROJ/8L
-	WqX8alAJFwV8EQV9m9P0pOL738fy/eFOxYRsujTbhSVP89FbZi1XVWvrSAndgZKy
-	bbLOvLJ/+siCNNGvP1qFC5ujeRM71Bd5ypQ==
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4es0g85t32-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 06:09:18 +0000 (GMT)
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-36b934a336eso2409583a91.2
-        for <stable@vger.kernel.org>; Sun, 14 Jun 2026 23:09:18 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=mails.tsinghua.edu.cn header.i=@mails.tsinghua.edu.cn header.b="M+vB9Mvo"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1781503757; x=1782108557; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=dbrKRlXF9XHpr7RYXjth0KtQKdDkWR8x8tSY4BCig+o=;
-        b=L1xbMGw4nqSuNxjx1Aal/IZSgkhGWA53kvI39qj+P58s3Olq1e3qJdQgkkPmsDAc+c
-         ZtWmzi6GhLvgRmUDDMx6qi1CPEgcuuYMDnzPBHaqJcInYNz7tuW9t0p2Uf1187Fu748D
-         pZd9lsIYc2yP+4saum6b3EHlVaHy8AfrINdfQkpoSiAxFamnO3GgDogGKCFRu335xiPx
-         QF3BlEeh/BLXfauSS280flcjcA+IM8JE3golntCMnR9XJMO5cjnobbZ6PK8hfPPg9gub
-         oKO2Ivot0UpUj5WB7jlSTcXGfVS8ET45IXtv0h22f2hMkNyrYz4/0jFQCtZdZw4skzpN
-         29kw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781503757; x=1782108557;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=dbrKRlXF9XHpr7RYXjth0KtQKdDkWR8x8tSY4BCig+o=;
-        b=tZFrm5LToEjZ5do1dLnYQ+lVBF7vAQGxNcq9YfCPTpUfWKmlZAH4vCKeObPJOzNoTM
-         KZ5ZxKbDrIAzMWzaLNWu5YipeaE6MijUpvRtCKEuj6uVJ3OxncsZz8+D83l+GaWgra58
-         bateGH7INn1uDZu1rn05S/Xl9IKKYoxEbHuzKX1JcyFF5WWn6HeCeY/FwjT2UuuiwHUX
-         OHHVro9LYKIjx1W/69O7SUG7H/P529df3BR653vRe+e5zXBvv3rbM2ir93Gbz9sQsrpo
-         ZNy/b/NdkjbTCllDnJmtyvkD/ggW+5tGfgvzfiOn7Y24/xFcMaAq+ShVrJ+Yak9Xnj8+
-         gc3Q==
-X-Forwarded-Encrypted: i=1; AFNElJ8VDXHYcG04kZZ8tKJQm17VeYSX8+Q8C0iBgzrllxMqH/2TzkJy3j0Y2FcMdZx4FvmCv2VibuI=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzo0+z1p3NO0JqLUYApdO4KGyR7KnjYLZTnPwbEITcJyuCzlTm/
-	XuyNLf5VbmPyIb88fxBp7ucoMOapsE2dgPI/y3sJN9/q1JTSG3FHtKKSGqg0MTeXXv++pWBcnek
-	W8FoB4BgAsIiVoQa53MVraFnDDUTyQ3/ee2L6M5CEWA3YiCGfR6Lu9S4dZ3U=
-X-Gm-Gg: Acq92OG9EclGvS3Yn34jMXxLy/RhkRse8m5qX145XwGKy5UysLVz+tPRbY62DGbUQtZ
-	4NiCgI1tWk7T21IhGXbBzvBeO+xksAJzECAAzvOuqnb0vlm6Iaujx3EIt6+OjJqFj0sZnXytp63
-	Zd5mbLBlsLKgmQSdpdm1MMx4KzeIglqSADtYHyPA0jXg5JdLh3/0BZSHPrMKLWVitT8+8tgGB5p
-	2LgmSQg8BZ+QTT4VKNNRVHhOE+Qsu00mzvj8UNOcxQRFmNY8EktAKi1f9LhcRcydOSJ+cu793QY
-	PSzvD87ur/DbRnKnCGZL+MZ2zrpQ7CNgkkuTWhcmL5iJ0xGo8PpZ3bS+aKUat08b39CMCTPGn3Q
-	RnrkUzPcrk3hpGhEOa5r0XsexKyw2tSY5wrzJsSw+v4MgaNTUjiNuBjqs+W1XTeAJnBKmCqSjU5
-	7pgm0Z4+AK56MzE9xqDZ2iamOkcurwB1b/1ZzZCu6GaN7XwLcLg/k=
-X-Received: by 2002:a17:90b:4c4b:b0:36d:dfe4:387c with SMTP id 98e67ed59e1d1-37c2bc7a4fdmr9216738a91.10.1781503757250;
-        Sun, 14 Jun 2026 23:09:17 -0700 (PDT)
-X-Received: by 2002:a17:90b:4c4b:b0:36d:dfe4:387c with SMTP id 98e67ed59e1d1-37c2bc7a4fdmr9216714a91.10.1781503756727;
-        Sun, 14 Jun 2026 23:09:16 -0700 (PDT)
-Received: from hu-varada-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-37a2678375fsm11063580a91.17.2026.06.14.23.09.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 14 Jun 2026 23:09:16 -0700 (PDT)
-From: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
-To: vkoul@kernel.org, Frank.Li@kernel.org, absahu@codeaurora.org,
-        linux-arm-msm@vger.kernel.org, dmaengine@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Cc: Md Sadre Alam <md.alam@oss.qualcomm.com>,
-        Lakshmi Sowjanya D <lakshmi.d@oss.qualcomm.com>,
-        Frank Li <Frank.Li@nxp.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        stable@vger.kernel.org,
-        Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
-Subject: [PATCH v7] dmaengine: qcom: bam_dma: Fix command element mask field for BAM v1.6.0+
-Date: Mon, 15 Jun 2026 11:39:08 +0530
-Message-Id: <20260615060908.1263171-1-varadarajan.narayanan@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
+	d=mails.tsinghua.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:
+	Date:Message-ID:In-Reply-To:References:MIME-Version:
+	Content-Transfer-Encoding; bh=LLe8r0M8kVzK4RUW49U9dZFwBdCrOZ48uT
+	Bo2j0abfs=; b=M+vB9MvohVqWP0Bm2dRz5MNKb23NYZm5wPhKRloAqsxRlMDi6J
+	2ZebcbEHJom8TDrB25B51TmcfSNpriAfvbMvdTP+tQpQQyVBEwrJOoDxZVvYBoI1
+	Gtrj/4x4uaHh9LQqDh8Ry8UGZW1vJ+5urA2nrVZjMNABgUb9J7JmsvyKQ=
+Received: from localhost.localdomain (unknown [59.66.142.89])
+	by web3 (Coremail) with SMTP id ygQGZQA3hJFvly9qZMNyAg--.13458S2;
+	Mon, 15 Jun 2026 14:10:55 +0800 (CST)
+From: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
+To: andrew@lunn.ch
+Cc: 3chas3@gmail.com,
+	davem@davemloft.net,
+	edumazet@google.com,
+	fengxw06@126.com,
+	horms@kernel.org,
+	kees@kernel.org,
+	kuba@kernel.org,
+	linux-atm-general@lists.sourceforge.net,
+	linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org,
+	pabeni@redhat.com,
+	qli01@tsinghua.edu.cn,
+	stable@vger.kernel.org,
+	wangao@seu.edu.cn,
+	xuke@tsinghua.edu.cn,
+	yangyx22@mails.tsinghua.edu.cn,
+	zhaoyz24@mails.tsinghua.edu.cn
+Subject: Re: [PATCH net] atm: br2684: validate IP header length before filtering
+Date: Mon, 15 Jun 2026 14:10:55 +0800
+Message-ID: <20260615061055.30419-1-zhaoyz24@mails.tsinghua.edu.cn>
+X-Mailer: git-send-email 2.46.2
+In-Reply-To: <e85fe7cc-05d1-4fb1-a919-baa170d08307@lunn.ch>
+References: <e85fe7cc-05d1-4fb1-a919-baa170d08307@lunn.ch>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -97,163 +56,67 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=OOoXGyaB c=1 sm=1 tr=0 ts=6a2f970e cx=c_pps
- a=vVfyC5vLCtgYJKYeQD43oA==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=COk6AnOGAAAA:8 a=8AirrxEcAAAA:8 a=qeNJoaxpl3A19PTdgUYA:9
- a=rl5im9kqc5Lf4LNbBjHf:22 a=TjNXssC_j7lpFel5tvFf:22 a=ST-jHhOKWsTCqRlWije3:22
-X-Proofpoint-GUID: j3pBxc5bt-6-J3wPRfrLc3CTcmAF1H_t
-X-Proofpoint-ORIG-GUID: j3pBxc5bt-6-J3wPRfrLc3CTcmAF1H_t
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE1MDA2MSBTYWx0ZWRfX2LQdRq4/r9fN
- hUgDxxSLg0jC350sIU93N6itR6ZdmtZBEaVV+wg/WYsTJoZf8RKiJcogWmh9ExZN0sy2f504xnR
- 7Y/GeOZ/6kAth+xqX6oDdQegwYAfGkJItKmSMWQvSBtOVJS7pn+BTwB4Zp9o8vwgb6XBbI0mALy
- XwlZgmyFonGWRcr7terdgci/aBkOxdRI40IAAQSj8H4aERAQrOclRi5MBw+jgUMGpdjWluSys1j
- iwZufKrDH8OenI+82buP6Nqc92sj5S6VwTzaSwzXYltu+Xl6d5P9fhVKH8lYLtL8LVbm1TslEM8
- droq+qMm3+bmo2TlMDgAiFemiJnHKvSsGuo/cKUfZbGtiXi7HCT+Of3qWfQjiHDjevqZ5p1tzE+
- PcFPXpWOxEWdE+Mw0My8yKaIvPBA5jSyUCKUTaHLBSf2LLHLeDe6uFEKMH1/xyvIZ35rJOL0T7f
- sFHICzU2ddEz81KieOQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE1MDA2MSBTYWx0ZWRfXy3ugoaULKID2
- x6x4e6/673K2/cNL1WVyMlOXZN47X4hZd+ELODfUp/ATzm1MO7TZ/yyf+JiH7ne3d4ByDI2EOg+
- hGfzKi9lEfgPVQ6aFEyHtmiIn2Rz3tQ=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-15_01,2026-06-12_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 clxscore=1011 adultscore=0 spamscore=0 phishscore=0
- lowpriorityscore=0 bulkscore=0 malwarescore=0 impostorscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606040000 definitions=main-2606150061
+X-CM-TRANSID:ygQGZQA3hJFvly9qZMNyAg--.13458S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7uw47uw43Ww1xKr18GFyDZFb_yoW8uw4Upa
+	yfW3Z0yF4kt3WIkw1vka13A3yrtr4jya43Jan8KrWUuw45JryakrWfKFZ8K3srCr1kZ343
+	ZrWDXw1UAa4kZFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9m1xkIjI8I6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l8cAvFVAK
+	0II2c7xJM28CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVWDJVCq3wA2z4
+	x0Y4vE2Ix0cI8IcVCY1x0267AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l
+	84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s0DM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcx
+	kEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6x8ErcxFaVAv8VW8
+	Ww4UJr1UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6I
+	AqYI8I648v4I1lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_GFv_Wrylc2xS
+	Y4AK67AK6r47MxAIw28IcxkI7VAKI48JMxAIw28IcVCjz48v1sIEY20_GrWkJr1UJwCFx2
+	IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v2
+	6r106r1rMI8E67AF67kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67
+	AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IY
+	s7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr
+	0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUHKZAUUUUU=
+X-CM-SenderInfo: 52kd05r2suqzpdlo2hxwvl0wxkxdhvlgxou0/1tbiAQATAWovKbDInQAAsa
 
-From: Md Sadre Alam <md.alam@oss.qualcomm.com>
+Hi Andrew,
 
-BAM version 1.6.0 and later changed the behavior of the mask field in
-command elements for read operations.
+On Sun, Jun 14, 2026 at 08:36:57PM +0800, Andrew Lunn wrote:
+> So did all these people find the problem at the same time in parallel?
+> Can you point to their reports?
 
-In older BAM versions, or prior implementation assumptions, the mask
-field was effectively ignored for read commands. However, starting from
-BAM v1.6.0, the mask field for read commands is repurposed to carry the
-upper 4 bits of the destination address, enabling support for 36-bit
-addressing. For write commands, the mask field continues to function as
-a traditional write mask.
+No, they were not independent reports found in parallel. This came from
+one internal analysis/reproducer effort, and I do not have separate
+public reports to point to. Sorry for the confusion.
 
-The current driver sets mask = 0xffffffff for all command elements.
-While this works for write operations, it breaks read operations on
-BAM v1.6.0+ hardware. In such cases, the hardware interprets the upper
-address bits as 0xf, resulting in an invalid destination address
-(0xf_xxxxxxxx instead of 0x0_xxxxxxxx).
+> It is a long time since i worked with ATM. From what i remember, ATM
+> cells are 48 bytes in size. So can the packet actually be smaller than
+> 48? Would a 48 byte packet trigger this? Or is AAL5 involved here? Can
+> AAL5 carry a frame smaller than 48 bytes?
 
-This leads to failures such as NAND enumeration issues observed on
-platforms like IPQ5424.
+On the cell-size question: yes, ATM cells carry 48 bytes of payload, but
+br2684_push() does not receive raw ATM cells.  It receives the
+reassembled AAL5 CPCS-SDU/PDU from the ATM layer.  AAL5 can carry a
+shorter user payload in one cell by padding the final cell, with the AAL5
+trailer carrying the real payload length.  So an 8-byte LLC/SNAP BR2684
+PDU can be carried in a single ATM cell with padding, while br2684 still
+sees skb->len == 8 after AAL5 reassembly.
 
-Fix this by assigning the mask field based on command type:
-  - For read commands: set mask = 0 (upper address bits = 0)
-  - For write commands: retain mask = 0xffffffff
+A reassembled 48-byte BR2684 PDU would not trigger the issue in the LLC
+case: after pulling the 8-byte LLC/SNAP header, 40 bytes remain, so the
+IPv4 daddr access is in bounds. The problematic case is a reassembled
+AAL5 PDU shorter than the encapsulation header plus a minimum IPv4
+header, for example an 8-byte LLC/SNAP IPv4 PDU with no IP payload. The
+VC-routed case is similar: the current code reads iph->version before
+checking that the reassembled PDU contains an IPv4 header.
 
-Also update the bam_cmd_element structure documentation to reflect the
-dual purpose of the mask field across BAM versions.
+> What hardware was used when finding this problem? I know DSL often
+> used ATM underneath, so was it a DSL modem?
 
-This ensures correct behavior on BAM v1.6.0+ while maintaining backward
-compatibility with older hardware.
+I'm sorry that no physical ATM/DSL hardware was used. I verified this in
+QEMU/KVM with a small dummy ATM device that registers an atm_dev and 
+injects reassembled AAL5 PDUs through the real VCC receive callback after
+BR2684 is attached.  That exercises the BR2684 receive and IP filter path,
+but not a hardware SAR implementation. However, this is a real logical bug
+existing in the kernel, but it is not verified that if it will be triggered
+by a real hardware.
 
-Fixes: dfebb055f73a2 ("dmaengine: qcom: bam_dma: wrapper functions for command descriptor")
-Tested-by: Lakshmi Sowjanya D <lakshmi.d@oss.qualcomm.com>
-Signed-off-by: Md Sadre Alam <md.alam@oss.qualcomm.com>
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: stable@vger.kernel.org
-Signed-off-by: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
----
-Change in [v7] -
-	- Remove blank line after 'Fixes' tag
-	- Add 'Cc: stable@vger.kernel.org'
-	- Add R-b Dmitry Baryshkov
-	- No code changes
-
-Change in [v6] - https://lore.kernel.org/linux-arm-msm/20260611045757.2841252-1-varadarajan.narayanan@oss.qualcomm.com/
-	- Commit message updated, no code changes
-	- Pick R-b Frank Li (given in v4)
-	- Change 'Lakshmi Sowjanya D' e-mail id to oss.qualcomm.com instead of quicinc.com
-
-Change in [v5] - https://lore.kernel.org/linux-arm-msm/20260514-bam-fix-v5-1-58f6edb34969@oss.qualcomm.com/#t
-	- Split the driver change into a separate patch
-	- Update commit log with 'Fixes' tag
-
-Change in [v4] - https://lore.kernel.org/linux-arm-msm/20260206100202.413834-2-quic_mdalam@quicinc.com/
-
-* No change
-
-Change in [v3]
-
-* Added Tested-by tag
-
-Change in [v2]
-
-* No change
-
-Change in [v1]
-
-* Updated bam_prep_ce_le32() to set the mask field conditionally based on
-  command type
-
-* Enhanced kernel-doc comments to clarify mask behavior for BAM v1.6.0+
----
- include/linux/dma/qcom_bam_dma.h | 21 ++++++++++++++++-----
- 1 file changed, 16 insertions(+), 5 deletions(-)
-
-diff --git a/include/linux/dma/qcom_bam_dma.h b/include/linux/dma/qcom_bam_dma.h
-index 68fc0e643b1b..d9d07a9ab313 100644
---- a/include/linux/dma/qcom_bam_dma.h
-+++ b/include/linux/dma/qcom_bam_dma.h
-@@ -13,9 +13,12 @@
-  * supported by BAM DMA Engine.
-  *
-  * @cmd_and_addr - upper 8 bits command and lower 24 bits register address.
-- * @data - for write command: content to be written into peripheral register.
-- *	   for read command: dest addr to write peripheral register value.
-- * @mask - register mask.
-+ * @data - For write command: content to be written into peripheral register.
-+ *	   For read command: lower 32 bits of destination address.
-+ * @mask - For write command: register write mask.
-+ *	   For read command on BAM v1.6.0+: upper 4 bits of destination address.
-+ *	   For read command on BAM < v1.6.0: ignored by hardware.
-+ *	   Setting to 0 ensures 32-bit addressing compatibility.
-  * @reserved - for future usage.
-  *
-  */
-@@ -42,6 +45,10 @@ enum bam_command_type {
-  * @addr: target address
-  * @cmd: BAM command
-  * @data: actual data for write and dest addr for read in le32
-+ *
-+ * For BAM v1.6.0+, the mask field behavior depends on command type:
-+ * - Write commands: mask = write mask (typically 0xffffffff)
-+ * - Read commands: mask = upper 4 bits of destination address (0 for 32-bit)
-  */
- static inline void
- bam_prep_ce_le32(struct bam_cmd_element *bam_ce, u32 addr,
-@@ -50,7 +57,11 @@ bam_prep_ce_le32(struct bam_cmd_element *bam_ce, u32 addr,
- 	bam_ce->cmd_and_addr =
- 		cpu_to_le32((addr & 0xffffff) | ((cmd & 0xff) << 24));
- 	bam_ce->data = data;
--	bam_ce->mask = cpu_to_le32(0xffffffff);
-+	if (cmd == BAM_READ_COMMAND)
-+		bam_ce->mask = cpu_to_le32(0x0); /* 32-bit addressing */
-+	else
-+		bam_ce->mask = cpu_to_le32(0xffffffff); /* Write mask */
-+	bam_ce->reserved = 0;
- }
- 
- /*
-@@ -60,7 +71,7 @@ bam_prep_ce_le32(struct bam_cmd_element *bam_ce, u32 addr,
-  * @bam_ce: BAM command element
-  * @addr: target address
-  * @cmd: BAM command
-- * @data: actual data for write and dest addr for read
-+ * @data: actual data for write and destination address for read
-  */
- static inline void
- bam_prep_ce(struct bam_cmd_element *bam_ce, u32 addr,
--- 
-2.34.1
+Yours Sincerely,
+Yizhou
 
