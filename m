@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36AB23FD12E
-	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 15:21:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48A044028CC
+	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 15:21:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781536892; cv=none; b=qk93tfMlX+OkcWLqNM1m4vqvIDePW7CYPLnhfIYaF3P1I0h2NMol94ARqjw7YGa8Hqyc4hF/ZmtpmipZsIG35+Utf/Ljaz89tzyGcS2+9mycbbGngix7cxV49AKWunzoweOHNzyZCWK2DLBkru/aMbvOe1lVitVgM1l34UHe9UA=
+	t=1781536900; cv=none; b=cV0hqWwJsZXQTKkdG6YGANalgVQnK++X4cSarS4tkeSYjtA61fDDOSMzzOXM2rbsmqyV0tpWftwdfQjodTkO/J/rGZTx+KnCB2JtZFOzne8nZ7Zf9rOS0Sos+sw+DkKJCSwgJdtx0JPfxyioiImHqqdWsfNRXKDKAY1Z/h/HPkk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781536892; c=relaxed/simple;
-	bh=K/XYJLofJ1w5vHoV5Gk+HlOI6cb4DoIdVW+WqVKgfCs=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=WNzCGhWz1/o6mmwCrdj4wiTVYuNrOqXP3fwB8x/aMv0qNoDYOoTHDoD17pXfydGmQS6GXWCx8+MKV3CeXZA2r84lCidJpKXyycp50ppWiSu/tVtQW1hIqz0tHvMtSDAb441tmVLXaj22UuMsCZFZYrvHOiNjJXpgUJvPzs2bo20=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Ag9e623f; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781536900; c=relaxed/simple;
+	bh=7+MpybiRpOVGHD7vxHccp3WYL8c2B8HWWwxCQ38h4U8=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=UZX6A+SS2A4DJqS4DRhZ6pWdhzUO0WyJA0KTOcjVLJa4+QzypGZ3T02pi0sqNk1iu/0lzizbgdgGO4WIHCqn45pkPMDSjlDBwsYUW5tLqmggvUP8nyuSGivU34depSNZpD8+dRCklbOPO8gNtyXb5fYbLstbBH0jJDRbXzHEfK8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=wZcgeeU6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Ag9e623f"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 415031F000E9;
-	Mon, 15 Jun 2026 15:21:30 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="wZcgeeU6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 536E71F000E9;
+	Mon, 15 Jun 2026 15:21:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1781536891;
-	bh=F6hC0NaV/r/Fk1KRrBolEwfnbbO6frbhmWSln22rSpg=;
+	s=korg; t=1781536899;
+	bh=12tTEfzWcs1fI2qtmSkFc6lJycvqtbZ5N6Ctbda3rqs=;
 	h=Subject:To:Cc:From:Date;
-	b=Ag9e623ftlhGMwZlEIDHZL2kcjDnUWkrmYFULFQ8OYnQdIybi45y01fOZ7Tuq2CnX
-	 0/yCFXyKzdljo31zidXGvpQfXCezz0Vz/fDgsQhgJWgu/orvYRePVZzMW1mRU43usg
-	 JE/khj5Rtb6oYyOCwccVHlBCgGQK0JMLhVBSeY+4=
-Subject: FAILED: patch "[PATCH] firmware: samsung: acpm: Fix infinite loop on sequence number" failed to apply to 7.0-stable tree
+	b=wZcgeeU63cu58UHs5UVAKwYePMJr8OFOaCMIniJbpeO/n6NpGqNInM/9NxbgEdp5B
+	 ipAsa0pykc3Q+Ld+lwFC5iSiX8JBq10z2FSGTuWVFQqGWgAWutqLj1LX/EhUDBPJJ3
+	 E/Ot7AWCT/l0hrmfzkeTyl6sojcwsEb0sBos7md4=
+Subject: FAILED: patch "[PATCH] firmware: samsung: acpm: Fix infinite loop on sequence number" failed to apply to 6.18-stable tree
 To: tudor.ambarus@linaro.org,krzk@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 15 Jun 2026 16:49:42 +0200
-Message-ID: <2026061542-daintily-knickers-a496@gregkh>
+Date: Mon, 15 Jun 2026 16:49:44 +0200
+Message-ID: <2026061544-rinsing-fragrance-9ee5@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 7.0-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.0.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
 git cherry-pick -x 7fe40c32a33905302341797b5d12c541729dd08d
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026061542-daintily-knickers-a496@gregkh' --subject-prefix 'PATCH 7.0.y' HEAD^..
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026061544-rinsing-fragrance-9ee5@gregkh' --subject-prefix 'PATCH 6.18.y' HEAD^..
 
 Possible dependencies:
 
