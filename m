@@ -1,145 +1,145 @@
-Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
+Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55EE57080D
-	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 17:46:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F073275B1A
+	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 17:46:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781545583; cv=none; b=o9DUoZD8wRhPXUkUPjPChT34kkY4ZxOYrc0mvXEkA5baA6Zoqe6/KNNDF2uD8w5wcdeBaKFCtlK9zxy4COJpZ6yOK+2nCUfRUqU0b3anSEMoGgfGk1qnaHSst9nk46A558fcnEsgu4WnXqvEByVDur0lssO++kVzAMjjODzZF/g=
+	t=1781545584; cv=none; b=d9CuxSuN5l1TAivUUZP5vEriRrL6DMEomXGAWXp/dyVhq5EhH2zXkcDOb3rT+HK5u0GDjL/iLP38gGWp4hJZK8KVPq6R+8/2p5ud6noKi6nG53eiodh0x3iURES1aYrzBIQcHWYACLEW1qTwsuNeEE306fi1+oxJ93DvwlM0vE8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781545583; c=relaxed/simple;
-	bh=ocWgTOMXwjI5TVoyjUAYU/X/PDgJy39gHQDLgMO3Sw4=;
-	h=From:Subject:Date:To:Cc:Message-ID; b=YlkGzQL1lU6io0K8psMq4Fk8Q4DhZ8m6A9UWgp4OR35+I6A5bT/2zIe3XHLVb0fMoDMb4voRqesZu+0GJnjDe7rKxnUFNKnRRAMaS4YnpWqLG8SSEWGBqI5sXpkJJGM8ZYf45qu+UfcmpNO1rnsVeHqyfRfEIhZs3oQFEFXjrCk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ankey.net; spf=none smtp.mailfrom=ankey.net; dkim=pass (2048-bit key) header.d=ankey-net.20251104.gappssmtp.com header.i=@ankey-net.20251104.gappssmtp.com header.b=On5wCwtp; arc=none smtp.client-ip=209.85.210.176
+	s=arc-20240116; t=1781545584; c=relaxed/simple;
+	bh=6FChuiiY1Ab4DoQ0VIjmNXOowo/9a9Qo6Y6YIXFBBsw=;
+	h=From:Subject:Date:To:Cc:Message-ID:In-Reply-To:References; b=ojO+k0wOeCU5y1lPs0/pRHvZL0z2sKdRkGdr3oVH4YBlDvAh9zDswUZOkX8E6uREjnOd0093HZmrrIfzI49XPTHEX7fCUdVaYsQcAcOw1cnSZ6QzSGSxmHjMO4nFHHIL+GP3gZE6e8UB6wYaUn329temeySz7sWn4O/AuQyJkgA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ankey.net; spf=none smtp.mailfrom=ankey.net; dkim=pass (2048-bit key) header.d=ankey-net.20251104.gappssmtp.com header.i=@ankey-net.20251104.gappssmtp.com header.b=pa4XmYcx; arc=none smtp.client-ip=209.85.210.170
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ankey.net
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=ankey.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ankey-net.20251104.gappssmtp.com header.i=@ankey-net.20251104.gappssmtp.com header.b="On5wCwtp"
-Received: by mail-pf1-f176.google.com with SMTP id d2e1a72fcca58-8423efd76c8so2645489b3a.0
-        for <stable@vger.kernel.org>; Mon, 15 Jun 2026 10:46:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ankey-net.20251104.gappssmtp.com header.i=@ankey-net.20251104.gappssmtp.com header.b="pa4XmYcx"
+Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-8422f395a4aso2433437b3a.0
+        for <stable@vger.kernel.org>; Mon, 15 Jun 2026 10:46:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ankey-net.20251104.gappssmtp.com; s=20251104; t=1781545581; x=1782150381; darn=vger.kernel.org;
-        h=message-id:cc:to:date:subject:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=qetJH6uAcYEaNA7WIluzKnDC7IXjgavBC++l+5U3BLA=;
-        b=On5wCwtp1pRC//8FxcyVQdPIIYJ8md7OxsbdrFC5TeeDB+qJ7En0EZ+l+966KKogis
-         PV6pOh2cf5bcGKzyuu6B3v6MR+Sld5jzWd3xZLfm4YEkBIIT0dvK1gm+NrgwXX1D+3C3
-         LhEwApg4gRtFX5dO3cdJw4SORuHloUcsTwI3bKFRIsaOEMvWbhQrrPQrK/jHn05fzEZL
-         TkzDLxpziMM/K6Cbq202f2v5FCiqU8tHX5hkMTQPmIlmDfvkcVn8oeMO8nmfmiCtm++F
-         q86y4EbPVZ9LWqDMAi/vT83BO7qLwrKhlDSzsig8m64AtvMeG6YCQaEb/DIKGDeRb/U7
-         IYrg==
+        d=ankey-net.20251104.gappssmtp.com; s=20251104; t=1781545582; x=1782150382; darn=vger.kernel.org;
+        h=references:in-reply-to:message-id:cc:to:date:subject:from:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=EM3udb0oDgJN3cKMNmux7YsMkV9lDzcITmGFkVGmGqE=;
+        b=pa4XmYcxUADAHuHOG3K+8NWlvTj24h7N/JrEGIWqgFjPaNqTt8HiBJ+eoGjulX/tUt
+         +GUNCsQTohhqIdY5rMnCUWZ2ekPSoktw03uR919hD+dEbcbTsaITMxciZoi9m5eecfvY
+         dficIhVifwvF3fTY9VW7a4+h9lHFkys+yMnbSaBCs3FyENYYY55zELXDODf0bUhEBvbj
+         syVrsfj/eZDyPVndaVB0NdpPF/d2ipaPG3vFycXzQsPYHQzE+HXtwD8/FZpywpdM8O5C
+         4UEIHFQNqxOXUo3tP8E8smAzX1qCU/5nGX3B0iElMJ49cN//YnqkHYF6e5ptCX8Ytbvq
+         0OUQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781545581; x=1782150381;
-        h=message-id:cc:to:date:subject:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=qetJH6uAcYEaNA7WIluzKnDC7IXjgavBC++l+5U3BLA=;
-        b=QkKlgqRKIgzwF94ZK3AENiuEQdXQX9Ru+iaskrn/gneIPpDcTcciauXoVrMpsDg4KG
-         7O2vX6X5d7SWT17GlH/48mF5w/DEyu3lg7wi/04eJ4YR78C+3XD/5rxnDwylcHTnxJVV
-         ElQjSHf1CD3ZdMPpNC492yze5c+R2G0VKMAxu1lx2+IafoH6yQ3JiCyXgyks2tLGnKaH
-         ql+MwAaGdqmKnieCUH0WsMJnpVoKt7wJcFK11huvvYWDIHLj9MxfKM+Meolbzq7mtF+f
-         o+k9n2H0WeQDv0yxsnb7J/Loc8XBcaOogwabmqNgta+GqA+PBr2GpWsxJDvNcL1zX3By
-         KygA==
-X-Forwarded-Encrypted: i=1; AFNElJ++WRmkq/L84b23g9RKMhvBkplRb4MrgVexXuYHNYViipRs/AkUNPPgwpgzf79vZjmwqj+49pI=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxaeZZZViABzNnJ7wnUbfsxOMqxNFVCdXy0Bfroed299EUVaYtv
-	GNc1ab1r4ITJgD4q2xVTFxmTh96g3v4eDaxCcfbFL3IIIMV5D3+GuPcJzQiPbo1kmg==
-X-Gm-Gg: Acq92OEgQqsRIlKDhnvIUKK+pxR431Uq6wuwyb4ewB2FcFo7mm8BSOopnlgcBIQnlbb
-	8rkBjIz7D/kh4DeyOhp2CVKadxG0ajB76SOIekwjytKhIwGUDpoc/pedGA/019FZHUm7Yu5khYX
-	7EZzMYUVL8ys0hGsTL56B3A7gDQ2Pxv7mVdqOU+FJgM3h+N7WJZc+IEHeRpLE3nGcGmBUZQoljZ
-	pXy1I59wcF36UxrWG4jPsQAK6dfruhqBQmyDTNPy1+08Junajlljl/WQOVM3vVJV5aBYk2lNaEL
-	sUN1BRti+ibze0cOB5pxvktF36EuSH2Osx3ofa/dKxvjsftiyJDob7f3vwFzDPr6UKpDzwMk215
-	HotQC8z9AT7EBw/E19ivCy7FdCBqSfjvgRVAxCdzykHuUnJS8nMGEZjd3wgnLg7gSay5fuV/YBU
-	LiwzMRRe27yncwKMDq4kbm6AoRsnXk8AWdqvLMYFPgnY9vqye8b3Q0+J5BtvxXCJOKsxDejuze4
-	jPWrBD5NqoovVczRWgK8BXJxf5zHpq7HB3Dy6Z1Urx4oQI=
-X-Received: by 2002:a05:6a00:1311:b0:842:7867:430b with SMTP id d2e1a72fcca58-8434ce40e46mr16487940b3a.29.1781545580609;
-        Mon, 15 Jun 2026 10:46:20 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1781545582; x=1782150382;
+        h=references:in-reply-to:message-id:cc:to:date:subject:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=EM3udb0oDgJN3cKMNmux7YsMkV9lDzcITmGFkVGmGqE=;
+        b=gRpd4pAa0P5SP8A6cOho6R1LDYa86VpveF47XgJ+2viWd7GHmiLJTtoi6NYC/l9MNF
+         6CL5trcIcAW8y+HlriayfPy9B0TsB7ObaVF/1hV6qa2Zrr/4cYbTP1l1R1yg1PhUCEwP
+         T2tr+NU99Knnz3GVWctA4CacvmRo/EMVgZ26v/3pKWqqmH8kicPlB3bPmmYoUYKsMDDi
+         w1uLldfnEIcag1aEBpn85B+CUVAp6YZot1AmGmdXnNpAbn9+B70DwCiNdx3uTyGziUf4
+         e4H1wCeZVgrIz3bSWQPV8Juwx3FZZVI7SsuRU5IF+bLaxIVewXRitCpvssvVSpFn3Zon
+         3hhA==
+X-Forwarded-Encrypted: i=1; AFNElJ+/TC46KY01pq+g4jFdk+XYoOpdh5E34TfqkZj/sjKBWLhgDvD2hTa1J//uU/sjOLaA2sS8iSE=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyXVIsAQVKu29JTC+qTRKoA8gnLXfx46Kmvc5JKC1zAzeTdeq7k
+	djNyt/t4BP4XccNboelAg0427q06Ihl+xxoWvJO9dpI9M/IDMASzGMOI6Qu9lfhB5kauS/LsXTX
+	7RS+NYw==
+X-Gm-Gg: Acq92OHw5NvG9sttTFzeL7HHBAWXBui17nlh0OdQOKLprIKfM7RzjzalLLENno1fxlp
+	iKP/1lYlYQOxHKM8Y47LxuS42JNmaoHXtrSDdyLyEQOWMoE3q6lHr75wTuHJwV3rPnrrHD+ObWX
+	Ow3SHWjnImbhYjqVauzNFSrcp0nLzcPPzH5sLpBYcejPHER3NilULGZQVayjAkfBwELd98Ki+Ox
+	g0y6SsRPV8CzRq0oZeSge9xAy4l2s3zzUWCxHwpPwc2AXUCuajbbcRcBHsoE3+hRs2EGdV0Iz+b
+	qa7PIYTium+UwR1iwhGLr1wz7JKv+ZLJ9mWVImNHq+r2ihpG3QZxv4gXvLQlBABXkKV4N4g7LOH
+	ejQ+pT2zXoUu6gc5birqGqqc7ehMN0bfTXKOi3npumTwywVsmY7DKsti1wENDMfUEhJ1g4c57I9
+	LJd7W+ZZPe5GU1qFleyVYkkhj9ER7YOZ/MHP+uO/rlyQDIIoXfy49CzIdWWFDPOmJxghpK6+B3r
+	tza38d8zod4Jrnb59kJ0CfUTw1glrWUuuB3
+X-Received: by 2002:a05:6a00:813:b0:842:614b:50e1 with SMTP id d2e1a72fcca58-84513e3c998mr348207b3a.12.1781545581724;
+        Mon, 15 Jun 2026 10:46:21 -0700 (PDT)
 Received: from atimofey-ld1.linkedin.biz ([52.149.25.61])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8434accae18sm11214086b3a.17.2026.06.15.10.46.19
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8434accae18sm11214086b3a.17.2026.06.15.10.46.20
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 15 Jun 2026 10:46:19 -0700 (PDT)
+        Mon, 15 Jun 2026 10:46:21 -0700 (PDT)
 From: Alex Timofeyev <sashka@ankey.net>
-Subject:
- [PATCH rdma-next v1 0/2] RDMA: fix cross-NIC same-host IPv6 RDMA-CM connect
+Subject: [PATCH rdma-next v1 1/2] RDMA/core: use destination netdev MAC for
+ cross-NIC same-host local dst
 Date: Mon, 15 Jun 2026 17:46:19 +0000
 To: Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
  linux-rdma@vger.kernel.org
 Cc: Parav Pandit <parav@nvidia.com>, Edward Srouji <edwards@nvidia.com>,
  Vlad Dumitrescu <vdumitrescu@nvidia.com>, stable@vger.kernel.org,
  linux-kernel@vger.kernel.org
-Message-ID: <1781545579.1-sashka@ankey.net>
+Message-ID: <1781545579.2-sashka@ankey.net>
+In-Reply-To: <1781545579.1-sashka@ankey.net>
+References: <1781545579.1-sashka@ankey.net>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 
-RDMA-CM cannot establish an IPv6 RoCEv2 connection between two NICs that
-live on the same host. This shows up on hosts that pin one process per
-NUMA-local NIC and let those processes talk to each other over each NIC's
-global IPv6 GID (e.g. a storage daemon with one engine per NUMA node on
-dual ConnectX-7). rdma_resolve_addr() and ib_send_cm_req() both return
-success, but the destination NIC silently drops the frame and the peer
-never sees the REQ; the connection times out.
+addr_resolve_neigh() treats every is_dst_local() destination as loopback
+and copies the source device's MAC into the path record's destination MAC
+(dst_dev_addr <- src_dev_addr). That is correct for true loopback (source
+and destination on the same netdev), but wrong when the local destination
+address lives on a different netdev of the same host.
 
-The bug has two halves, one on each side of the connection:
+In that cross-NIC same-host case the destination NIC will not accept a
+frame whose destination MAC is the source NIC's MAC, and drops it in
+hardware before it reaches the peer. rdma_resolve_addr() and
+ib_send_cm_req() both return success, but the CM REQ never arrives and the
+connection times out.
 
-1) Send side (patch 1, drivers/infiniband/core/addr.c)
+Look up the netdev that owns the destination address and copy its MAC into
+dst_dev_addr instead. Fall back to the source MAC when no netdev claims the
+address (true loopback), preserving the existing behaviour.
 
-   When the destination address is local, addr_resolve_neigh() copies the
-   *source* device's MAC into the path record's destination MAC. That is
-   right for true loopback (same netdev), but for a destination that lives
-   on a different netdev of the same host the destination NIC will not
-   accept a frame addressed to the source NIC's MAC and drops it in HW.
-   The fix resolves the netdev that owns the destination address and uses
-   its MAC.
+This was observed with two RoCEv2 ConnectX-7 ports on the same host, each
+holding a global IPv6 GID, when one process pinned per NUMA NIC connected
+to the other over RDMA-CM: the resolved destination MAC was the source
+port's MAC instead of the destination port's, and the REQ was silently
+dropped. With the fix the resolved MAC is the destination port's and the
+connection completes.
 
-2) Receive side (patch 2, drivers/infiniband/core/cma.c)
-
-   Once the REQ does reach the peer, validate_ipv6_net_dev() rejects it:
-   rt6_lookup() of a same-host destination collapses onto the loopback
-   netdev, so the strict rt6i_idev->dev == net_dev check fails with
-   -EHOSTUNREACH even though the REQ arrived on the right net_dev. The fix
-   accepts an RTF_LOCAL route when net_dev itself owns the listener
-   address. This half is only observable once patch 1 lets the REQ arrive.
-
-Both halves are needed for a working connection; patch 1 alone makes the
-REQ reach the peer but it is then rejected by the unfixed receive side.
-
-Verification
-------------
-Measured on two RoCEv2 ConnectX-7 ports on the same host, each with a
-global IPv6 GID (port A "src", port B "dst"), driving a cross-NIC
-RDMA-CM connect (rping, src GID on port A -> dst GID on port B) while
-tracing the destination MAC resolved in addr_resolve():
-
-  without the series:  resolved dst MAC = port A's MAC (the *source* NIC)
-                        -> frame dropped, connect times out
-  with the series:     resolved dst MAC = port B's MAC (the *dest* NIC)
-                        -> connect completes
-
-The kernel under test carried c31e4038c97f and its dst_rtable() prereq
-(i.e. the same addr_resolve_neigh()/is_dst_local() shape as for-next);
-the change applies unmodified to rdma.git for-next.
-
-Note on stable: the Fixes: tags bound the backport to where each construct
-exists in its current form. Trees predating c31e4038c97f have the
-equivalent send-side gap in the older IFF_LOOPBACK form of
-addr_resolve_neigh() and would need a separately shaped backport.
-
-The patches are independent files but should be applied as a pair so the
-connection works end to end.
-
-Alex Timofeyev (2):
-  RDMA/core: use destination netdev MAC for cross-NIC same-host local
-    dst
-  RDMA/cma: accept cross-NIC same-host local dst in
-    validate_ipv6_net_dev
-
+Fixes: c31e4038c97f ("RDMA/core: Use route entry flag to decide on loopback traffic")
+Cc: stable@vger.kernel.org
+Cc: Parav Pandit <parav@nvidia.com>
+Signed-off-by: Alex Timofeyev <sashka@ankey.net>
+---
  drivers/infiniband/core/addr.c | 22 +++++++++++++++++++---
- drivers/infiniband/core/cma.c  | 15 ++++++++++++++-
- 2 files changed, 33 insertions(+), 4 deletions(-)
+ 1 file changed, 19 insertions(+), 3 deletions(-)
 
-
-base-commit: 20ff9350862468af21b46cae2c22d17d6ec637f9
+diff --git a/drivers/infiniband/core/addr.c b/drivers/infiniband/core/addr.c
+index 7e62b5b1ffaa..84aa43436bfe 100644
+--- a/drivers/infiniband/core/addr.c
++++ b/drivers/infiniband/core/addr.c
+@@ -451,10 +451,26 @@ static int addr_resolve_neigh(const struct dst_entry *dst,
+ 			      u32 seq)
+ {
+ 	if (is_dst_local(dst)) {
+-		/* When the destination is local entry, source and destination
+-		 * are same. Skip the neighbour lookup.
++		struct net_device *dst_ndev;
++
++		/* When the destination is local, source and destination are on
++		 * the same host. For true loopback (same netdev) the source and
++		 * destination MACs are equal, but when the destination address
++		 * lives on a different netdev of the same host the destination
++		 * MAC must be that netdev's MAC -- otherwise the destination NIC
++		 * silently drops the frame. Look up the netdev that owns the
++		 * destination address and copy its MAC; fall back to the source
++		 * MAC if no netdev claims the address.
+ 		 */
+-		memcpy(addr->dst_dev_addr, addr->src_dev_addr, MAX_ADDR_LEN);
++		rcu_read_lock();
++		dst_ndev = rdma_find_ndev_for_src_ip_rcu(dev_net(dst->dev), dst_in);
++		if (!IS_ERR(dst_ndev))
++			memcpy(addr->dst_dev_addr, dst_ndev->dev_addr,
++			       MAX_ADDR_LEN);
++		else
++			memcpy(addr->dst_dev_addr, addr->src_dev_addr,
++			       MAX_ADDR_LEN);
++		rcu_read_unlock();
+ 		return 0;
+ 	}
+ 
 -- 
 2.40.4
 
