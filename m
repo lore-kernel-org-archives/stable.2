@@ -1,192 +1,308 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59D1540E8D2
-	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 15:50:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2202C40C5BC
+	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 15:50:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781538638; cv=none; b=RmToGgO8gHfqcbnk8yPJaH1jpYVCsbMkZvvFaGJ8dUOi+m4S2i0LBUALHIip9f8Iue/IckNg/9v3Yw+Wp4r68ZofeQFWllTXuFyQgYag3dJI6naRfgnQf1dDG7h83QJPUM38lYGtnyV7aSGTkyN3WpJp+QToABvJ8mNHps3IZHk=
+	t=1781538638; cv=none; b=ZvmLNCbpeJBBb9NK7dAJMVyIg6lMIBI5OhIQMHeLKuImDwQ2jcbNQx/OD3FV14OsYCAcjj5q6rGu8PFScIh6doUUhWVbhenopifxtitFfAFeYZnjRxeRNb6KZ3qHhaj0umkVc/POURaMuhZb+dXhy/Y8xwfx7N9ar2MVJB4gAQk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1781538638; c=relaxed/simple;
-	bh=jQ3wLVE7GjY3KrZpgyZfT+6PvlaYTHrdGrhp4PJA/FE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=O8dTBd2tFwD5ZGea5sFqy4D4D0Mw89LvG0zI2Jz8YefniG9v77aXiWYbqG0MNSVHL7DGnseoW6ic5KCQ9/ZuAoLINaoSs0syqXMNYkByM1iZBAk91ctB47jAE+/i/b7GROVFZF9kZo9ppb4rP1I4tXMNubf6StEq38Mph4VUbqY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=hftmdIKO; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=VLEoMAag; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	bh=PHeNW8GlIXgF/tW49BV2duj0qWTPnMqD+lkwv/MSw5s=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=opJptJ+bRkAyLndhQGgnTrOtRcyaL3T/t0XXfRaui3az7+Xd6Pfy55VppYvTKgJ085GGaT3rY7rp/xJWcVp9k6EeGOXCijoExlkkfCaKdsmrAfSGaoWBfV2dJUHrNPlB3gpVL4SP2zYn1zgF/5Hk90uaUxk3o57V2S6syyXVu1M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=kB/iZ0B8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="hftmdIKO";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="VLEoMAag"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65FFhP2r430451
-	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 15:50:36 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	DL3WkxaAIXpqgOzUtt1ueuSKLkNRCCjmcACm38hAbmw=; b=hftmdIKO1iYG5q9R
-	txKvEz3EJl8Nps5FsUNOFsdRrKYPakclaekoTbFSc+Gx/VC+/o/Ml4us8F7alC9S
-	zR0kWe7yMcsL7fPmYOP6GTeOA80zIMUh5CznbmrMqcP3Jt0EemBDuQwxZ5txaSgc
-	B2BI4D2f2KUDbFGW0mC7HeX4SilS7tDvhI7d8C58wA9CfIHTzLadkkHkYq+Fg/2y
-	F5vpqpj3eDMMsWzEYpKl4kHBRZQs208xZGhn6Jb+fM4kFVGzEu9u3rIoQl7B4ZPe
-	/yTvZu/ZDrHP7xGPMpE7jL0lhex5hYEu6JxvyjfFqHyynlcj9I3BTFKPabNyn0kP
-	EJnlGQ==
-Received: from mail-ua1-f72.google.com (mail-ua1-f72.google.com [209.85.222.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eteyd9hpt-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 15:50:36 +0000 (GMT)
-Received: by mail-ua1-f72.google.com with SMTP id a1e0cc1a2514c-963b11561bbso1269053241.0
-        for <stable@vger.kernel.org>; Mon, 15 Jun 2026 08:50:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1781538636; x=1782143436; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=DL3WkxaAIXpqgOzUtt1ueuSKLkNRCCjmcACm38hAbmw=;
-        b=VLEoMAagVxvyhduVPED/o+hcjZoafVDG4Zgbrndrj/h4a3/xf2azYJ24ZYESXIwVoJ
-         ve9kGbv1vhUdNEBX9jDsnkQ66mRsQBmG0spKxn7iaVR258Nso++4qco9AfeFYn4lwMyW
-         OtnOEjydAuhi/P6FkkOl5tFj70vcv1yttijOFLj2CZdqbQbBGxBntyAPkR7gTl4rRF9n
-         tqQmK7XSy77M5drfpkj5G3ThxLtmMPMP9iS8Fee1Yt8cXSkpnSwULz+QU0T+otx07gdG
-         YIhq5eycRJOY4jP9NKVQJBrl/+A3rqJWCMstkFDXHkxmcoEgKjRV5L3INKXDGN/fKsav
-         z2sQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781538636; x=1782143436;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=DL3WkxaAIXpqgOzUtt1ueuSKLkNRCCjmcACm38hAbmw=;
-        b=ODBWi4KNZdN0U9mH9LpN2Adcb0cMAcUtadh7NHFYns291VTQCE2lyC5nWiJ40fYXix
-         RDxuN6T924/d8owl35HJWOJeuLTXipcr2k8MElhBnkEYFsyAFGJDt7XP4zjsV3aEQ5Ml
-         SNmaz7AA5Ss6R4B6v+s0WW/eZQOsDTprK/R54YC20jSbn3L4CcVt6Ablk85EQh2mG5Kv
-         AMXjRGI3WBVVCHPsKPe5gdGcP2ggy+jSlzxBuF3IiQt0BxF0bF8ivoZfKXs4k8AJgqxx
-         WMWRB6X0nxxZaYHrCZs9r+cZS8nnuRGPF2+bpOI/pOViplOWnJLGcstBQ3liRDW76J7v
-         oyMw==
-X-Forwarded-Encrypted: i=1; AFNElJ+WPwrEr4pkV01LXFr5rkP2iq2j5gUGsu5731swx5gMjuN7x8KD+SXvAqawYihknMN3HfPduek=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzyywvwO67j82+wYmZo/izPO+rCTsOjz3COKXtU1wuh6pJdFq02
-	Bl1uqLYRAsuF6XvddYQbvGujxMKz6mdCkAVMGOaZGNRwgp8JGNVbSGJe647067nvvfVaGh/LrrD
-	jRk6W6j40jo+2ZnTCV6J2gfBmhMcUTQeI4ywDlvSfZAlsAWEXvOaW9FyRIAxESi7XD+IPrA==
-X-Gm-Gg: Acq92OGH5FQeBXdB7eEbDKhvCP7EReMEQo0JYul27UsMdlI7uuSx/zfKYWBfljdhJCd
-	nwxgX/80TaF/0NHLUfE2X1cAe4UA0JQbCysKDoYaHlAjBf+hOcL+ina/psQVqOxVU9Ur8s5nzaO
-	RfIbeDw5Wgy6kjO24u2PLTRAVg5Am6ukKfrFJ/Il/wr0Q0y46v3EBazzxBgFH0FgfEEm4FYpImy
-	HFjZV1LY6FOJqpgvaUFJCTs4V9jIf04GC9I56wkf+LFHQNmDWzj9minZ4xvjYfWYblBx6rBxlOZ
-	ThOq9FLsznyhADJmos9JeTrAmxkLsgYTUCZdK8XZVBa/nj8QGp4iDKCF7rsMqdANyQcSZmfvz3m
-	vmBUWhqXduIMbe46U6qIkXHt9jSj5mYhp4nu+BsfXfT2sgb10cbU=
-X-Received: by 2002:a05:6102:5812:b0:631:23fa:38d7 with SMTP id ada2fe7eead31-71e88c56801mr6702991137.14.1781538635608;
-        Mon, 15 Jun 2026 08:50:35 -0700 (PDT)
-X-Received: by 2002:a05:6102:5812:b0:631:23fa:38d7 with SMTP id ada2fe7eead31-71e88c56801mr6702979137.14.1781538635163;
-        Mon, 15 Jun 2026 08:50:35 -0700 (PDT)
-Received: from brgl-qcom.local ([2a01:cb1d:dc:7e00:7fe3:eaf0:5a0b:2610])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4606f26f450sm38643032f8f.10.2026.06.15.08.50.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 15 Jun 2026 08:50:33 -0700 (PDT)
-From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Date: Mon, 15 Jun 2026 17:49:58 +0200
-Subject: [PATCH v2 7/8] crypto: qce - Use a fallback for CCM with a partial
- final block
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="kB/iZ0B8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E970F1F000E9;
+	Mon, 15 Jun 2026 15:50:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1781538636;
+	bh=pnRI/7xqYjZK3WSnsEp5SWknb5ZLD1yTGC7Hfh1/8pM=;
+	h=Subject:To:Cc:From:Date;
+	b=kB/iZ0B8wI7kDtRLNVZeZiLC6G9TBGidDlmwTbxROcTcuLp8DKADevctn4mhk541/
+	 F6kQrzrzCNl2vGEuf9PQen7s7lMxGrrlQmwgQMw5mYKCJ3UxXQ1HUtP5P0IYhrDvw4
+	 vGDDwuMDpOR3nGsbvNNEwSM12FOQXvLjlJMLTdgc=
+Subject: FAILED: patch "[PATCH] mm/hugetlb: avoid false positive lockdep assertion" failed to apply to 5.15-stable tree
+To: ljs@kernel.org,akpm@linux-foundation.org,david@kernel.org,jannh@google.com,muchun.song@linux.dev,osalvador@suse.de,stable@vger.kernel.org
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Mon, 15 Jun 2026 17:41:21 +0200
+Message-ID: <2026061521-prodigy-probiotic-0f3b@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260615-qce-fix-self-tests-v2-7-dc911f1aad42@oss.qualcomm.com>
-References: <20260615-qce-fix-self-tests-v2-0-dc911f1aad42@oss.qualcomm.com>
-In-Reply-To: <20260615-qce-fix-self-tests-v2-0-dc911f1aad42@oss.qualcomm.com>
-To: Thara Gopinath <thara.gopinath@gmail.com>,
-        Herbert Xu <herbert@gondor.apana.org.au>,
-        "David S. Miller" <davem@davemloft.net>,
-        Stanimir Varbanov <svarbanov@mm-sol.com>,
-        Eneas U de Queiroz <cotequeiroz@gmail.com>,
-        Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
-        Eric Biggers <ebiggers@kernel.org>
-Cc: linux-crypto@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, brgl@kernel.org,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-        stable@vger.kernel.org
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1563;
- i=bartosz.golaszewski@oss.qualcomm.com; h=from:subject:message-id;
- bh=jQ3wLVE7GjY3KrZpgyZfT+6PvlaYTHrdGrhp4PJA/FE=;
- b=owEBbQKS/ZANAwAKAQWdLsv/NoTDAcsmYgBqMB8zdAFIxUHikN73T7KAyXFU5NTKujwi+FmJj
- 9Rv5g4joB2JAjMEAAEKAB0WIQSR5RMt5bVGHXuiZfwFnS7L/zaEwwUCajAfMwAKCRAFnS7L/zaE
- w2RAEACygrV04TmSEgKNzna+3CMJoCsR0G+gJIIImhCtU2OJBJLsg5ksC4DM6kMrPzOifVoMPi7
- Je/NVIdO8jKqOnpWXfw1vK6RIU+TnBIHPAo8zwDl5RYFawd/R9aNfwkq8n2vv4ImmeaMJhdIDD7
- 4+nnQ3/xuTVZA7EEfhJn6FwPZ06g+dntFrm0ajut945qIFmE55Ut5R9gb/5+utrrrZ8jklitMmq
- RcUITJcgSZpPI88B9s1IJggylLCFoTpeSeeN2Jh4cPPY6vdL4+JsNLTZIfybVuvf3fROq+xGdC2
- yanPVctQTPDB6HFOGJVzRzlwGsArdGC3CyAHkuTqZQwLbgeQMVvd1ZTzqXqSdeM3SOSpiaLRpcS
- GZOmIPgW7r7Jdr1BAnsGpruLuBR8rhKtK/Ggjdfl6SXKa7mGZ0Iwv+mDRpC1zSlHqwwm3gqLLvZ
- WyZH4PHAAWtvXMl+riDsPjjGJwfwNf1Iv7glgX9xfn9N/LW9RaIPKFy6UbBOBbqN/1K9NzaJfdi
- VLkFcO9On2FuGfALcjheMSC6yrDTLyjnZF+Us7Hv60xQFK3g0H4EoV0Q/765Md7rZjq84KVcc/a
- NptjcPHIURtJcTLgc0qKDXQb8DbT4XR1SM7znD7DlBf93lepI4BdCiP5QjfssXtpTZqQu6hE9ji
- NeQXPgKORQpAzPg==
-X-Developer-Key: i=bartosz.golaszewski@oss.qualcomm.com; a=openpgp;
- fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
-X-Proofpoint-GUID: A0pDtav4AB9PEJV7f5yTf_WNmUhZjlny
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE1MDE2NyBTYWx0ZWRfX9Ee+rw1auXJZ
- iVn2LrYwmdm7pRuQDW2Qq4UsWfm8EroLR0Sj+weJ8A3SDFGAPlNu8luxpav16MEPrODsJGqPUXC
- f90bR1esMRANeA8i3HDRdi4m2V0UaHo=
-X-Authority-Analysis: v=2.4 cv=QrJuG1yd c=1 sm=1 tr=0 ts=6a301f4c cx=c_pps
- a=ULNsgckmlI/WJG3HAyAuOQ==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=dx2SfONCXZg6tt9xEGkA:9 a=QEXdDO2ut3YA:10
- a=1WsBpfsz9X-RYQiigVTh:22
-X-Proofpoint-ORIG-GUID: A0pDtav4AB9PEJV7f5yTf_WNmUhZjlny
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE1MDE2NyBTYWx0ZWRfX2LSL+JPTKc1r
- UYFArr2kNwY3TM77Vyh6ZkAbXrp3lcjJJj2cz2mB86EvgWgBagQTKfo3S0om8HOEoWzUfVOeKOy
- WIsuGiJ5Y0ju+eXnJfpvVl9/uqCxFEx09XMN7EXbs7wctizdv+iwXrC8h+P+LJA4bKoLiRfbud5
- hLEnvI+0Gx8DidYxt3qOap0Wm7rsE26/9KFHd7uPWwFU0OCF6gan9hgzSafDNldoazyxycDbVYP
- vjlGl0pEgf8DAClzXqYadCUN/zfYxBW05OOBeQMNNtA87PB+PhYs2yi3MjxPUOL4mHLblWXuD5+
- Pv75uhPOhe6mpGrEE2jMQzs/jzN7YXpL5mdSTpzt997N7apLAsZUrC0z82nzicKF7Ev7Sdcs2ck
- WFJDFTrls0BEaVkf8v1Q2MAd4LlidYsKtZif/zDO2LxuLfGWtKgdK6U7iFtZqAMWWqhW6fTsbSl
- jqHfbQzl6iMYLrs4lNw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-15_04,2026-06-15_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 priorityscore=1501 lowpriorityscore=0 suspectscore=0
- phishscore=0 spamscore=0 impostorscore=0 malwarescore=0 adultscore=0
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2606040000
- definitions=main-2606150167
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
 
-CCM builds on AES-CTR for encryption, and the crypto engine stalls on a
-partial final block just as it does for plain ctr(aes): a payload whose
-length is not a multiple of the AES block size leaves the operation
-incomplete and fails with a hardware operation error. This was caught by
-the ccm(aes) crypto self-tests.
 
-Force the software fallback for CCM requests whose message length is not
-block aligned, reusing the driver's existing need_fallback mechanism.
+The patch below does not apply to the 5.15-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-Cc: stable@vger.kernel.org
-Fixes: 9363efb4181c ("crypto: qce - Add support for AEAD algorithms")
-Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
----
- drivers/crypto/qce/aead.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+To reproduce the conflict and resubmit, you may use the following commands:
 
-diff --git a/drivers/crypto/qce/aead.c b/drivers/crypto/qce/aead.c
-index 6a511e5d7f6290a1df0093e463f39f5f2db25f88..46d3e3eb53b271e2ce755847bbcc83f81b9bda7e 100644
---- a/drivers/crypto/qce/aead.c
-+++ b/drivers/crypto/qce/aead.c
-@@ -516,6 +516,14 @@ static int qce_aead_crypt(struct aead_request *req, int encrypt)
- 			ctx->need_fallback = true;
- 	}
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git checkout FETCH_HEAD
+git cherry-pick -x b4aea43cd37afad714b5684fe9fdfcb0e78dba26
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026061521-prodigy-probiotic-0f3b@gregkh' --subject-prefix 'PATCH 5.15.y' HEAD^..
+
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From b4aea43cd37afad714b5684fe9fdfcb0e78dba26 Mon Sep 17 00:00:00 2001
+From: Lorenzo Stoakes <ljs@kernel.org>
+Date: Wed, 13 May 2026 09:56:58 +0100
+Subject: [PATCH] mm/hugetlb: avoid false positive lockdep assertion
+
+Commit 081056dc00a2 ("mm/hugetlb: unshare page tables during VMA split,
+not before") changed the locking model around hugetlbfs PMD unsharing on
+VMA split, but did not update the function which asserts the locks,
+hugetlb_vma_assert_locked().
+
+This function asserts that either the hugetlb VMA lock is held (if a
+shared mapping) or that the reservation map lock is held (if private).
+
+If you get an unfortunate race between something which results in one of
+these locks being released and a hugetlb VMA split and you have
+CONFIG_LOCKDEP enabled, you can therefore see a false positive assertion
+arise when there is in fact no issue.
+
+Since this change introduced a new take_locks parameter to
+hugetlb_unshare_pmds(), which, when set to false, indicates that locking
+is sufficient, simply pass this to the unsharing logic and predicate the
+lock assertions on this.
+
+This is safe, as we already asserted the file rmap lock and the VMA write
+lock prior to this (implying exclusive mmap write lock), so we cannot be
+raced by either rmap or page fault page table walkers which the asserted
+locks are intended to protect against (we don't mind GUP-fast).
+
+Separate out huge_pmd_unshare() into __huge_pmd_unshare() to add a
+check_locks parameter, and update hugetlb_unshare_pmds() to pass this
+parameter to it.
+
+This leaves all other callers of huge_pmd_unshare() still correctly
+asserting the locks.
+
+The below reproducer will trigger the assert in a kernel with
+CONFIG_LOCKDEP enabled by racing process teardown (which will release the
+hugetlb lock) against a hugetlb split.
+
+void execute_one(void)
+{
+	void *ptr;
+	pid_t pid;
+
+	/*
+	 * Create a hugetlb mapping spanning a PUD entry.
+	 *
+	 * We force the hugetlb page allocation with populate and
+	 * noreserve.
+	 *
+	 * |---------------------|
+	 * |                     |
+	 * |---------------------|
+	 * 0                 PUD boundary
+	 */
+	ptr = mmap(0, PUD_SIZE, PROT_READ | PROT_WRITE,
+		   MAP_FIXED | MAP_SHARED | MAP_ANON |
+		   MAP_NORESERVE | MAP_HUGETLB | MAP_POPULATE,
+		   -1, 0);
+	if (ptr == MAP_FAILED) {
+		perror("mmap");
+		exit(EXIT_FAILURE);
+	}
+
+	/*
+	 * Fork but with a bogus stack pointer so we try to execute code in
+	 * a non-VM_EXEC VMA, causing segfault + teardown via exit_mmap().
+	 *
+	 * The clone will cause PMD page table sharing between the
+	 * processes first via:
+	 * copy_process() -> ... -> huge_pte_alloc() -> huge_pmd_share()
+	 *
+	 * Then tear down and release the hugetlb 'VMA' lock via:
+	 * exit_mmap() -> ... -> vma_close() -> hugetlb_vma_lock_free()
+	 */
+	pid = syscall(__NR_clone, 0, 2 * PMD_SIZE, 0, 0, 0);
+	if (pid < 0) {
+		perror("clone");
+		exit(EXIT_FAILURE);
+	} if (pid == 0) {
+		/* Pop stack... */
+		return;
+	}
+
+	/*
+	 * We are the parent process.
+	 *
+	 * Race the child process's teardown with a PMD unshare.
+	 *
+	 * We do this by triggering:
+	 *
+	 * __split_vma() -> hugetlb_split() -> hugetlb_unshare_pmds()
+	 *
+	 * Which, importantly, doesn't hold the hugetlb VMA lock (nor can
+	 * it), meaning we assert in hugetlb_vma_assert_locked().
+	 *
+	 *            .
+	 * |----------.----------|
+	 * |          .          |
+	 * |----------.----------|
+	 * 0          .     PUD boundary
+	 */
+	mmap(0, PUD_SIZE / 2, PROT_READ | PROT_WRITE,
+	     MAP_FIXED | MAP_ANON | MAP_PRIVATE, -1, 0);
+}
+
+int main(void)
+{
+	int i;
+
+	/* Kick off fork children. */
+	for (i = 0; i < NUM_FORKS; i++) {
+		pid_t pid = fork();
+
+		if (pid < 0) {
+			perror("fork");
+			exit(EXIT_FAILURE);
+		}
+
+		/* Fork children do their work and exit. */
+		if (!pid) {
+			int j;
+
+			for (j = 0; j < NUM_ITERS; j++)
+				execute_one();
+			return EXIT_SUCCESS;
+		}
+	}
+
+	/* If we succeeded, wait on children. */
+	for (i = 0; i < NUM_FORKS; i++)
+		wait(NULL);
+
+	return EXIT_SUCCESS;
+}
+
+[ljs@kernel.org: account for the !CONFIG_HUGETLB_PMD_PAGE_TABLE_SHARING case]
+  Link: https://lore.kernel.org/agWZsPGYid08uU6O@lucifer
+Link: https://lore.kernel.org/20260513085658.45264-1-ljs@kernel.org
+Fixes: 081056dc00a2 ("mm/hugetlb: unshare page tables during VMA split, not before")
+Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Acked-by: Oscar Salvador <osalvador@suse.de>
+Cc: Jann Horn <jannh@google.com>
+Cc: Muchun Song <muchun.song@linux.dev>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+
+diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+index 4b80b167cc9c..ece86d9339ce 100644
+--- a/mm/hugetlb.c
++++ b/mm/hugetlb.c
+@@ -118,6 +118,9 @@ static int hugetlb_acct_memory(struct hstate *h, long delta);
+ static void hugetlb_vma_lock_free(struct vm_area_struct *vma);
+ static void hugetlb_vma_lock_alloc(struct vm_area_struct *vma);
+ static void __hugetlb_vma_unlock_write_free(struct vm_area_struct *vma);
++static int __huge_pmd_unshare(struct mmu_gather *tlb,
++		struct vm_area_struct *vma, unsigned long addr, pte_t *ptep,
++		bool check_locks);
+ static void hugetlb_unshare_pmds(struct vm_area_struct *vma,
+ 		unsigned long start, unsigned long end, bool take_locks);
+ static struct resv_map *vma_resv_map(struct vm_area_struct *vma);
+@@ -6891,6 +6894,31 @@ pte_t *huge_pmd_share(struct mm_struct *mm, struct vm_area_struct *vma,
+ 	return pte;
+ }
  
-+	/*
-+	 * CCM uses AES-CTR internally and the CE stalls on a partial final
-+	 * block, so a payload that is not a multiple of the block size has to
-+	 * be handled by the fallback.
-+	 */
-+	if (IS_CCM(rctx->flags) && !IS_ALIGNED(rctx->cryptlen, AES_BLOCK_SIZE))
-+		ctx->need_fallback = true;
++static int __huge_pmd_unshare(struct mmu_gather *tlb,
++		struct vm_area_struct *vma, unsigned long addr, pte_t *ptep,
++		bool check_locks)
++{
++	unsigned long sz = huge_page_size(hstate_vma(vma));
++	struct mm_struct *mm = vma->vm_mm;
++	pgd_t *pgd = pgd_offset(mm, addr);
++	p4d_t *p4d = p4d_offset(pgd, addr);
++	pud_t *pud = pud_offset(p4d, addr);
 +
- 	/* If fallback is needed, schedule and exit */
- 	if (ctx->need_fallback) {
- 		/* Reset need_fallback in case the same ctx is used for another transaction */
-
--- 
-2.47.3
++	if (sz != PMD_SIZE)
++		return 0;
++	if (!ptdesc_pmd_is_shared(virt_to_ptdesc(ptep)))
++		return 0;
++	i_mmap_assert_write_locked(vma->vm_file->f_mapping);
++	if (check_locks)
++		hugetlb_vma_assert_locked(vma);
++	pud_clear(pud);
++
++	tlb_unshare_pmd_ptdesc(tlb, virt_to_ptdesc(ptep), addr);
++
++	mm_dec_nr_pmds(mm);
++	return 1;
++}
++
+ /**
+  * huge_pmd_unshare - Unmap a pmd table if it is shared by multiple users
+  * @tlb: the current mmu_gather.
+@@ -6910,24 +6938,7 @@ pte_t *huge_pmd_share(struct mm_struct *mm, struct vm_area_struct *vma,
+ int huge_pmd_unshare(struct mmu_gather *tlb, struct vm_area_struct *vma,
+ 		unsigned long addr, pte_t *ptep)
+ {
+-	unsigned long sz = huge_page_size(hstate_vma(vma));
+-	struct mm_struct *mm = vma->vm_mm;
+-	pgd_t *pgd = pgd_offset(mm, addr);
+-	p4d_t *p4d = p4d_offset(pgd, addr);
+-	pud_t *pud = pud_offset(p4d, addr);
+-
+-	if (sz != PMD_SIZE)
+-		return 0;
+-	if (!ptdesc_pmd_is_shared(virt_to_ptdesc(ptep)))
+-		return 0;
+-	i_mmap_assert_write_locked(vma->vm_file->f_mapping);
+-	hugetlb_vma_assert_locked(vma);
+-	pud_clear(pud);
+-
+-	tlb_unshare_pmd_ptdesc(tlb, virt_to_ptdesc(ptep), addr);
+-
+-	mm_dec_nr_pmds(mm);
+-	return 1;
++	return __huge_pmd_unshare(tlb, vma, addr, ptep, /*check_locks=*/true);
+ }
+ 
+ /*
+@@ -6961,6 +6972,13 @@ pte_t *huge_pmd_share(struct mm_struct *mm, struct vm_area_struct *vma,
+ 	return NULL;
+ }
+ 
++static int __huge_pmd_unshare(struct mmu_gather *tlb,
++		struct vm_area_struct *vma, unsigned long addr, pte_t *ptep,
++		bool check_locks)
++{
++	return 0;
++}
++
+ int huge_pmd_unshare(struct mmu_gather *tlb, struct vm_area_struct *vma,
+ 		unsigned long addr, pte_t *ptep)
+ {
+@@ -7269,7 +7287,7 @@ static void hugetlb_unshare_pmds(struct vm_area_struct *vma,
+ 		if (!ptep)
+ 			continue;
+ 		ptl = huge_pte_lock(h, mm, ptep);
+-		huge_pmd_unshare(&tlb, vma, address, ptep);
++		__huge_pmd_unshare(&tlb, vma, address, ptep, take_locks);
+ 		spin_unlock(ptl);
+ 	}
+ 	huge_pmd_unshare_flush(&tlb, vma);
 
