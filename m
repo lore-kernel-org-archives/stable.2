@@ -1,43 +1,61 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.35.192.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE5533033D6
-	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 13:04:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 470CE353EC0;
+	Mon, 15 Jun 2026 13:07:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.35.192.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781528652; cv=none; b=YiEFnyJTK6zUp+JxvYy2R+KuqQVEManFSipoIVmE1jwXLyU4cerHKvnTl8xUuzOmQB9MWfWVIJXUGY5352DOnVw7ljRT+6tqpRF/9l2wkePV5onX5/WbOZt0EELPwmFHYY7YoDHWHr7idUzGLsxUNS0t05WdpcoA6BQreykLjV0=
+	t=1781528848; cv=none; b=LfPtG2ZfRe5t8Ye8hJPFBZXsslXnACgLTwwaFo9QMFP63K8JZ/9Guzr0cnCWHiRJT7PbO18nPRWpHvv5oEsd12CbfoT4Ws2bG4PZDhr+tsls9xZ+pG67LajPAxWgYxN5Rgr0k5U/2byjTDgDAIY1n1V6V7x4uegHzGbFIDnzfhQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781528652; c=relaxed/simple;
-	bh=PYr/P5p9USRlZDfXmQJGLEjgbW2FKXvbtbeGNA4umxo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=LQKVefQ9FrPjWyYy4RqxYFq3Gbk//9UFkoTOtmSqjYFPJ2s01qyTkgDfwLrQG8z+kFRNl+hWkUgmRq6Vp59SGE7503MQrBnhQ/Z15T3q1rFOMf/iRhUrVIisN95Xr3+PI+W2XJ9eFRHL+PbgDCTCjljbR9jiX1jBJsAfmtCbdbg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K1yzPnnS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781528848; c=relaxed/simple;
+	bh=OEZiHIIE9ZX02seRqu2Yy/X8d5oWjiuZLrGCD33SD/k=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=kdQDcVzVCsrzTzGkMA33F3mPng/lvUZNkoPfouVzJGnxX/b4bqnwOPRpibrx9jQDo3nNw2WMLEnVuIR5rXBt2ePIwojepBDB31bDluYt62w9yQiFt9cI6gHm90DBjVQjd0MlYy/j70C++E9nHWxOAll7dlcrpbGfj7NlKil8k28=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.co.uk; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=aFqQbDpM; arc=none smtp.client-ip=52.35.192.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.co.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K1yzPnnS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBBEB1F000E9;
-	Mon, 15 Jun 2026 13:04:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781528651;
-	bh=TMlDCoYoSrO3vdRyX1vZusXJAZ9OvXBopTNdM5QHveQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=K1yzPnnSnvxBx2qOPDZP5UjicRYIdXc4VHSCis3c18g9FhRQ8n4TjPFTLVp7usXdn
-	 9gI2B2gEl4dUidGVJ8uA5j+3MWpdBq6jgOlJXJ+rUJX6wpX0ldUmFB/BvZ0fxGLm5i
-	 U6TyWkSdUJFvMbxfE3WiKUFbVv4PTWaRMTq0PB/M2H+XtTNn5gEh24l6lDN/pYgkJg
-	 1Xtbj3wvBdciyUFgM/O6DmsvvX+XbSfFiCGNgNliUsJubkNxMskuJH4c498B/e1HEK
-	 TmJZB8num8Op6CsuVrW6W2tYRoP7YyJuHUnhdWR2IhT8r3/CWngH+kvZhV6+7fmAdr
-	 QRvi1Wqzl48Fg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Davide Ornaghi <d.ornaghi97@gmail.com>,
-	Florian Westphal <fw@strlen.de>,
-	Pablo Neira Ayuso <pablo@netfilter.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.0.y] netfilter: nft_fib: fix stale stack leak via the OIFNAME register
-Date: Mon, 15 Jun 2026 09:04:08 -0400
-Message-ID: <20260615130408.2055029-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026061540-whomever-shading-96d4@gregkh>
-References: <2026061540-whomever-shading-96d4@gregkh>
+	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="aFqQbDpM"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+  t=1781528847; x=1813064847;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=Nhr6SuT2FEDobG6OCE/2kYZvgYlb8rGVuwF+ofYdc2A=;
+  b=aFqQbDpM9c7VTGXdsJc1bBniyS9ExJ27qpt3kKgR3At6p8jf7USFcMwL
+   oWk9w4xzqh47T/WdG1IAtjemJQLKkMjH+Fx+k8kxMXJnOl+aCNBjY40Rb
+   ULu4kRX90G1Z+l6kimW8YFy3wV9CUpWEFZFI4lAsAvO/dK/N6f0K4yJ29
+   JA4r5p9a3GXjxTLKwcNQNZMnvEWPg1swM37l0XNSBYKpA/PhLAFRBo2Hs
+   vjbDKyNFeq9tXFYMWSqc3q0QNxyu4exA+i2Jp8diprX6OjbdFac6j6hqx
+   pcFKu0TerLjKYjITeYxAaJIYxRP0ZdjlWCckoDP2Q1PIFqPeZD5RDatf5
+   Q==;
+X-CSE-ConnectionGUID: FOOgvbopSX6M9m77WNzVzg==
+X-CSE-MsgGUID: ZtFaur2iRae9EEkxMPDqjA==
+X-IronPort-AV: E=Sophos;i="6.24,206,1774310400"; 
+   d="scan'208";a="21547809"
+Received: from ip-10-5-12-219.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.12.219])
+  by internal-pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Jun 2026 13:07:24 +0000
+Received: from EX19MTAUWA002.ant.amazon.com [205.251.233.178:15341]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.58.234:2525] with esmtp (Farcaster)
+ id 2d1f6771-3b89-456b-9a62-54bab84b91af; Mon, 15 Jun 2026 13:07:23 +0000 (UTC)
+X-Farcaster-Flow-ID: 2d1f6771-3b89-456b-9a62-54bab84b91af
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWA002.ant.amazon.com (10.250.64.202) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.37;
+ Mon, 15 Jun 2026 13:07:23 +0000
+Received: from dev-dsk-connordw-1a-43da851f.eu-west-1.amazon.com
+ (172.19.98.255) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.37; Mon, 15 Jun 2026
+ 13:07:21 +0000
+From: Connor Williamson <connordw@amazon.com>
+To: <axboe@kernel.dk>
+CC: <linux-block@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<stable@vger.kernel.org>, <yukuai3@huawei.com>, <hch@lst.de>, <jack@suse.cz>,
+	<nh-open-source@amazon.com>, <connordw@amazon.com>
+Subject: [PATCH] block: remove redundant GD_NEED_PART_SCAN in add_disk_final()
+Date: Mon, 15 Jun 2026 13:07:15 +0000
+Message-ID: <20260615130715.53693-1-connordw@amazon.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,90 +63,60 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D041UWB001.ant.amazon.com (10.13.139.132) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-From: Davide Ornaghi <d.ornaghi97@gmail.com>
+add_disk_final() sets GD_NEED_PART_SCAN before calling bdev_add(),
+then calls disk_scan_partitions() which sets the flag itself. The
+early set is redundant and introduces a race.
 
-[ Upstream commit ab185e0c4fb82dfba6fb86f8271e06f931d9c64c ]
+Between bdev_add() and disk_scan_partitions(), concurrent openers
+(multipathd, blkid, LVM) see the flag in blkdev_get_whole() and
+trigger bdev_disk_changed(). When disk_scan_partitions() then runs,
+it calls bdev_disk_changed() again, dropping the partitions the
+concurrent opener already created before re-adding them, which can
+result in transient partition disappearances.
 
-For NFT_FIB_RESULT_OIFNAME the destination register is declared with
-len = IFNAMSIZ (four 32-bit registers), but on the lookup-fail,
-RTN_LOCAL and oif-mismatch paths nft_fib{4,6}_eval() only writes one
-register via "*dest = 0". The remaining three registers are left as
-whatever was on the stack in nft_do_chain()'s struct nft_regs, and a
-downstream expression that loads the register span can leak that
-uninitialised kernel stack to userspace.
+The race is observable by inserting an msleep() between bdev_add()
+and disk_scan_partitions() while running concurrent open() calls
+during device bind. Without artificial delay, it manifests under
+scheduling pressure during boot on systems with aggressive device
+scanners (multipathd, systemd-udevd).
 
-The NFTA_FIB_F_PRESENT existence check has the same shape: it is only
-meaningful for NFT_FIB_RESULT_OIF, yet it was accepted for any result type
-while the eval stores a single byte via nft_reg_store8(), leaving the rest
-of the declared span stale.
+Therefore, do not set GD_NEED_PART_SCAN in add_disk_final(). Other
+GD_NEED_PART_SCAN consumers (blkdev_get_whole(),
+sd_need_revalidate()) should not be affected as the flag
+is set internally by disk_scan_partitions().
 
-Fix both:
+The retry-on-next-open intention from commit e5cfefa97bcc
+("block: fix scan partition for exclusively open device again")
+should also not be affected as the early return paths in
+disk_scan_partitions() should be unreachable at device registration
+time (bd_holder is NULL and open_partitions is zero).
 
- - replace the bare "*dest = 0" in the eval with nft_fib_store_result(),
-   which strscpy_pad()s the whole IFNAMSIZ for OIFNAME (and is already
-   used on the other early-return path), and
-
- - restrict NFTA_FIB_F_PRESENT to NFT_FIB_RESULT_OIF and declare its
-   destination as a single u8, so the marked span matches the one byte
-   the eval writes.
-
-Fixes: f6d0cbcf09c5 ("netfilter: nf_tables: add fib expression")
-Suggested-by: Florian Westphal <fw@strlen.de>
+Fixes: e5cfefa97bcc ("block: fix scan partition for exclusively open device again")
 Cc: stable@vger.kernel.org
-Signed-off-by: Davide Ornaghi <d.ornaghi97@gmail.com>
-Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
-[ kept the tree's older `ip6_route_lookup()`/`rt6_info` IPv6 context and changed only `*dest = 0;` to `nft_fib_store_result(dest, priv, NULL);` ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Connor Williamson <connordw@amazon.com>
 ---
- net/ipv4/netfilter/nft_fib_ipv4.c | 2 +-
- net/ipv6/netfilter/nft_fib_ipv6.c | 2 +-
- net/netfilter/nft_fib.c           | 6 ++++++
- 3 files changed, 8 insertions(+), 2 deletions(-)
+ block/genhd.c | 4 ----
+ 1 file changed, 4 deletions(-)
 
-diff --git a/net/ipv4/netfilter/nft_fib_ipv4.c b/net/ipv4/netfilter/nft_fib_ipv4.c
-index 82af6cd76d13e0..e695283aeb2d04 100644
---- a/net/ipv4/netfilter/nft_fib_ipv4.c
-+++ b/net/ipv4/netfilter/nft_fib_ipv4.c
-@@ -128,7 +128,7 @@ void nft_fib4_eval(const struct nft_expr *expr, struct nft_regs *regs,
- 		fl4.saddr = get_saddr(iph->daddr);
- 	}
- 
--	*dest = 0;
-+	nft_fib_store_result(dest, priv, NULL);
- 
- 	if (fib_lookup(nft_net(pkt), &fl4, &res, FIB_LOOKUP_IGNORE_LINKSTATE))
- 		return;
-diff --git a/net/ipv6/netfilter/nft_fib_ipv6.c b/net/ipv6/netfilter/nft_fib_ipv6.c
-index 421036a3605b46..3005dfbca6155b 100644
---- a/net/ipv6/netfilter/nft_fib_ipv6.c
-+++ b/net/ipv6/netfilter/nft_fib_ipv6.c
-@@ -192,7 +192,7 @@ void nft_fib6_eval(const struct nft_expr *expr, struct nft_regs *regs,
- 
- 	lookup_flags = nft_fib6_flowi_init(&fl6, priv, pkt, oif, iph);
- 
--	*dest = 0;
-+	nft_fib_store_result(dest, priv, NULL);
- 	rt = (void *)ip6_route_lookup(nft_net(pkt), &fl6, pkt->skb,
- 				      lookup_flags);
- 	if (rt->dst.error)
-diff --git a/net/netfilter/nft_fib.c b/net/netfilter/nft_fib.c
-index 96e02a83c045e2..22846136c754a2 100644
---- a/net/netfilter/nft_fib.c
-+++ b/net/netfilter/nft_fib.c
-@@ -107,6 +107,12 @@ int nft_fib_init(const struct nft_ctx *ctx, const struct nft_expr *expr,
- 		return -EINVAL;
- 	}
- 
-+	if (priv->flags & NFTA_FIB_F_PRESENT) {
-+		if (priv->result != NFT_FIB_RESULT_OIF)
-+			return -EINVAL;
-+		len = sizeof(u8);
-+	}
-+
- 	err = nft_parse_register_store(ctx, tb[NFTA_FIB_DREG], &priv->dreg,
- 				       NULL, NFT_DATA_VALUE, len);
- 	if (err < 0)
--- 
-2.53.0
+diff --git a/block/genhd.c b/block/genhd.c
+index 7d6854fd28e95..0da6cdf3d5fb0 100644
+--- a/block/genhd.c
++++ b/block/genhd.c
+@@ -407,10 +407,6 @@ static void add_disk_final(struct gendisk *disk)
+ 	struct device *ddev = disk_to_dev(disk);
+
+ 	if (!(disk->flags & GENHD_FL_HIDDEN)) {
+-		/* Make sure the first partition scan will be proceed */
+-		if (get_capacity(disk) && disk_has_partscan(disk))
+-			set_bit(GD_NEED_PART_SCAN, &disk->state);
+-
+ 		bdev_add(disk->part0, ddev->devt);
+ 		if (get_capacity(disk))
+ 			disk_scan_partitions(disk, BLK_OPEN_READ);
+--
+2.47.3
 
