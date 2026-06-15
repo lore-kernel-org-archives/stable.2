@@ -1,134 +1,72 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85AD83E3172
-	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 16:17:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C14E8409139
+	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 16:19:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.164.118
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781540253; cv=none; b=EuQ8/0RUCVzCT+mkon8KGb6HN0mJ8XMNTnOd8UETRZ6u1oSPzsU30hywwB1pm4/m0Y0OywM0fPLXaPJCZdQZzyidOc2L6bA1OBFYjDeqQ5hFdHOQGKNWMiPZH3DA9c1/syelZHB2cVJjp2HvI76AA5f+TbsIUGc3c5sRwlZ13PU=
+	t=1781540364; cv=none; b=lTX2S0Pu75kchdGBbV+B44dxjy9+8GNF8xurVyanHwuZcV8VOnJr982ByTunGfuShsmzY0Yu6M9Ef37XfyGPccFRNjhNF8h/R+5OywF9RAuDKNuIe/YZYIhm/h6jmA1D5NNew7r2i0yC1Sgh7rv0rMbOrbyp/4FftyEGE541Z+4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781540253; c=relaxed/simple;
-	bh=g0ioa68U7ZEIJ74ouQqs01lSXDzPaRKGg3h51u6uh78=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=f24TJLcchROqUrQGHVkfaWIV+19krSjAOgKM2VE11mQMJ5FDQUGEnXwvn4u4tTABuFqhrw7ajqfvRx3hIF8/bC+o1zgmdbhKymo455WQObpnVQYmCxDGiUXIF8gIcxI6wpqbCX1Oz/VonLSGTAJC27R18NNhaG37pxY80/Lp0+w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m1TTJ9WO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781540364; c=relaxed/simple;
+	bh=7QOl0baV//09jdK85RZ41ArwmFSYrP/yQKGL8mlYvbE=;
+	h=Message-ID:Date:MIME-Version:To:Cc:From:Subject:Content-Type; b=Wi8u8JM2MjirQ6IgohemrxBPrNGGcn1/Qc1vK4dDh03lelu98vH2j5z6XSbornuhh7j7IumRtLrqSCZOaworvy3nVCdOS82nTEhEAhsEAxWkYA7HAEyikbSowEHUacFeU0GJIGk0ueWR9e9+8eDxmSLHYpqO5tMhKMo2zZOJzEc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn; spf=pass smtp.mailfrom=stu.xidian.edu.cn; dkim=fail (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b=mXmGjvt1 reason="key not found in DNS"; arc=none smtp.client-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m1TTJ9WO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB3F91F00A3A;
-	Mon, 15 Jun 2026 16:17:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781540252;
-	bh=THFOqtpPGEuY7XJ3AXGm/LTAaE5h49FxuyjRk8aqMqo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=m1TTJ9WOiAx48pILIMID6+jjEvqQio66BEaCuMosiuZ0DKvHkt1HMWi0xXVqBtT62
-	 cf0/YQZmNTRJzfkMeZ0T86vkkwS+mHRgrv7S/enE7fr2gn1H1buoQPCN032O8tNwFq
-	 Hh7hAtbux1UHIf5c5i+GqfnsbsPOwjA3gGoRHKX5YmL8RUil2mmn73VgVUT07MOMeP
-	 GEbN+tCxdMVNjOk7tUNTogcfN2+zicdWGaqodnANt+whhe2j6ctxYdpnYuGulDF5Sf
-	 6bBBIc6slnB5F6J2/pc6N13gz7KVS++tjyrBCJqbbdf06heGGoDWDscLDB6hir9LNv
-	 erGZ6k6L+rv4Q==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Davide Ornaghi <d.ornaghi97@gmail.com>,
-	Florian Westphal <fw@strlen.de>,
-	Pablo Neira Ayuso <pablo@netfilter.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] netfilter: nft_fib: fix stale stack leak via the OIFNAME register
-Date: Mon, 15 Jun 2026 12:17:29 -0400
-Message-ID: <20260615161729.2239291-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026061543-grumble-playset-f6ba@gregkh>
-References: <2026061543-grumble-playset-f6ba@gregkh>
+	dkim=fail reason="key not found in DNS" (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b="mXmGjvt1"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=stu.xidian.edu.cn; s=dkim; h=Received:Message-ID:Date:
+	MIME-Version:User-Agent:To:Cc:From:Subject:Content-Type:
+	Content-Transfer-Encoding; bh=po1F5BiTs7L3Ey/ZTbCyJrFoKJPlLpuXmp
+	dDJd3M33A=; b=mXmGjvt1m3wjIwNRKVSSd7BuSPXYwH+bL/J59+f9BIe/yZ7s7n
+	kjdef5BykQblcQ3NOTg4b2xQxSVJPPSFDUPI+M5vFQeMGk5HSez4hcMs0HEHf+0w
+	gfD6a6nWXC30oZqTHBMFD0kb6RDeNF+VE2AFj6gtZbmb4J4VRnmGjhcUk=
+Received: from [10.196.180.86] (unknown [113.200.174.80])
+	by hzbj-edu-front-4.icoremail.net (Coremail) with SMTP id BrQMCkA217ICJjBqWlW2Ag--.44222S3;
+	Tue, 16 Jun 2026 00:19:15 +0800 (CST)
+Message-ID: <d161697b-7c51-4ad7-b697-7ae3a3a78b9b@stu.xidian.edu.cn>
+Date: Tue, 16 Jun 2026 00:19:13 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+To: stable@vger.kernel.org
+Cc: Greg KH <gregkh@linuxfoundation.org>, sashal@kernel.org,
+ brauner@kernel.org, jlayton@kernel.org, w15303746062@163.com
+From: Mingyu Wang <25181214217@stu.xidian.edu.cn>
+Subject: Please cherry-pick commit 00633c468382 to stable
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:BrQMCkA217ICJjBqWlW2Ag--.44222S3
+X-Coremail-Antispam: 1UD129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
+	VFW2AGmfu7bjvjm3AaLaJ3UjIYCTnIWjp_UUUYB7k0a2IF6F4UM7kC6x804xWl14x267AK
+	xVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGw
+	A2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjxv20xvE14v26r1j
+	6r1xM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r1j6r4UM28EF7xvwVC2z280aVAFwI0_Jr
+	0_Gr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4j6r4UJwAac4AC62xK8xCEY4vEwIxC4wAS
+	0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2
+	IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0
+	Y48IcVAKI48JMxkIecxEwVAFwVWUMxAIw28IcxkI7VAKI48JMxAqzxv26xkF7I0En4kS14
+	v26r126r1DMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2Iq
+	xVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42
+	IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY
+	6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aV
+	CY1x0267AKxVWUJVW8JbIYCTnIWIevJa73UjIFyTuYvjxUI9NVDUUUU
+X-CM-SenderInfo: qsvrmiqsrujiux6v33wo0lvxldqovvfxof0/1tbiAgUFEWowFvEJQgABsk
 
-From: Davide Ornaghi <d.ornaghi97@gmail.com>
+Hi,
 
-[ Upstream commit ab185e0c4fb82dfba6fb86f8271e06f931d9c64c ]
+Please cherry-pick the following upstream commit into active stable trees:
 
-For NFT_FIB_RESULT_OIFNAME the destination register is declared with
-len = IFNAMSIZ (four 32-bit registers), but on the lookup-fail,
-RTN_LOCAL and oif-mismatch paths nft_fib{4,6}_eval() only writes one
-register via "*dest = 0". The remaining three registers are left as
-whatever was on the stack in nft_do_chain()'s struct nft_regs, and a
-downstream expression that loads the register span can leak that
-uninitialised kernel stack to userspace.
+00633c4683828acd5256fa8d5163f440d74bbe71
 
-The NFTA_FIB_F_PRESENT existence check has the same shape: it is only
-meaningful for NFT_FIB_RESULT_OIF, yet it was accepted for any result type
-while the eval stores a single byte via nft_reg_store8(), leaving the rest
-of the declared span stale.
+It fixes a SOFTIRQ-unsafe lock order deadlock that can lead to a remote 
+Denial of Service (DoS) via crafted TCP URG packets in fasync signaling.
 
-Fix both:
+The patch applies cleanly to recent LTS branches.
 
- - replace the bare "*dest = 0" in the eval with nft_fib_store_result(),
-   which strscpy_pad()s the whole IFNAMSIZ for OIFNAME (and is already
-   used on the other early-return path), and
-
- - restrict NFTA_FIB_F_PRESENT to NFT_FIB_RESULT_OIF and declare its
-   destination as a single u8, so the marked span matches the one byte
-   the eval writes.
-
-Fixes: f6d0cbcf09c5 ("netfilter: nf_tables: add fib expression")
-Suggested-by: Florian Westphal <fw@strlen.de>
-Cc: stable@vger.kernel.org
-Signed-off-by: Davide Ornaghi <d.ornaghi97@gmail.com>
-Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
-[ kept the tree's existing `ip6_route_lookup`/`rt6_info` machinery (missing `fib6_lookup` refactor) and changed only `*dest = 0;` to `nft_fib_store_result(dest, priv, NULL)` ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- net/ipv4/netfilter/nft_fib_ipv4.c | 2 +-
- net/ipv6/netfilter/nft_fib_ipv6.c | 2 +-
- net/netfilter/nft_fib.c           | 6 ++++++
- 3 files changed, 8 insertions(+), 2 deletions(-)
-
-diff --git a/net/ipv4/netfilter/nft_fib_ipv4.c b/net/ipv4/netfilter/nft_fib_ipv4.c
-index edec5c8f59ac84..31a96aaeccec53 100644
---- a/net/ipv4/netfilter/nft_fib_ipv4.c
-+++ b/net/ipv4/netfilter/nft_fib_ipv4.c
-@@ -122,7 +122,7 @@ void nft_fib4_eval(const struct nft_expr *expr, struct nft_regs *regs,
- 		fl4.saddr = get_saddr(iph->daddr);
- 	}
- 
--	*dest = 0;
-+	nft_fib_store_result(dest, priv, NULL);
- 
- 	if (fib_lookup(nft_net(pkt), &fl4, &res, FIB_LOOKUP_IGNORE_LINKSTATE))
- 		return;
-diff --git a/net/ipv6/netfilter/nft_fib_ipv6.c b/net/ipv6/netfilter/nft_fib_ipv6.c
-index a89ce0fbfe4b12..da4a35c20f1017 100644
---- a/net/ipv6/netfilter/nft_fib_ipv6.c
-+++ b/net/ipv6/netfilter/nft_fib_ipv6.c
-@@ -193,7 +193,7 @@ void nft_fib6_eval(const struct nft_expr *expr, struct nft_regs *regs,
- 		}
- 	}
- 
--	*dest = 0;
-+	nft_fib_store_result(dest, priv, NULL);
- 	rt = (void *)ip6_route_lookup(nft_net(pkt), &fl6, pkt->skb,
- 				      lookup_flags);
- 	if (rt->dst.error)
-diff --git a/net/netfilter/nft_fib.c b/net/netfilter/nft_fib.c
-index 0f17ace9722765..7a92a5e5508fdf 100644
---- a/net/netfilter/nft_fib.c
-+++ b/net/netfilter/nft_fib.c
-@@ -107,6 +107,12 @@ int nft_fib_init(const struct nft_ctx *ctx, const struct nft_expr *expr,
- 		return -EINVAL;
- 	}
- 
-+	if (priv->flags & NFTA_FIB_F_PRESENT) {
-+		if (priv->result != NFT_FIB_RESULT_OIF)
-+			return -EINVAL;
-+		len = sizeof(u8);
-+	}
-+
- 	err = nft_parse_register_store(ctx, tb[NFTA_FIB_DREG], &priv->dreg,
- 				       NULL, NFT_DATA_VALUE, len);
- 	if (err < 0)
--- 
-2.53.0
+Thanks,
+Mingyu Wang
 
