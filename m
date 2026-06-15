@@ -1,128 +1,212 @@
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BD773BAD94
-	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 22:51:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 349583A59A3
+	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 22:52:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781563900; cv=none; b=g2FwdnlRtmdHGumbT+jQjnohbTE39hCT6jdchOWHHXba1+gUdLFpO8wjKwUOO8dWRcjIKHvC6RJFjDpxhzb19/0Eep+mwnStkg544PpRWK0hkK+4ond4HKt6f+okZIbJLLRZjpBglOrNo/0pjiECX3vhSOK55LiBidxtgPzXUps=
+	t=1781563932; cv=none; b=KDp+6a/JrJEOJRLNyL7d0ehBp5FH19n3m7B2GhFTUbaZ+ymeOuE8rm/pio9AB4CM+T35zgMTiDpW6y1GH0V1O4QWWASPOCHQRV3mXRM9uQVCBRXYLmZxNFF3K0wqtVRoyYbwoED/6UfrS7l/Atmv0VlMQajZ1vCZ/kHL2tdVSfQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781563900; c=relaxed/simple;
-	bh=ujAjSm7BhxUMJVslQmleewg+/DVfcJZ1Gp/kz42YP3M=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nAYY2tB2cQbt3AI7xE5oLDGRVPFA11icN1dO8P2fBb88h1HHdSDabRNVp50ouqUEZGQ7L2/euInCCyClxGHuWlUgYCojswvptaiuYrxArW9i5RJCF+lqQ2+IFl8ee0CoQLDBjGIEO4JXlmyDXXq/TbjSX+Mz6qsLIrY361gNVpU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jJnI8+oY; arc=none smtp.client-ip=209.85.128.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781563932; c=relaxed/simple;
+	bh=YGqJ/JMAgzG5+JMO9EDUZRXgVDCVDl1KOt5TmUehV50=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=mOTLrCOOKVDHgGIvA+ljCdKX2sSA4bkAcMUpL935fJYLXesvuTRPRwWvElC862fv1g2d6xLuXMDhzvX+8rIF2XP+68AmnVs25vXTJ7yqoFAwe8OpZ1v6CmTwLD9SMNAlFqYKqxYUWwTBFK1HFylV0UPh0lLIuS1JcYKzsLrwUPo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iCsq6UqZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jJnI8+oY"
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-490cdae130cso19000695e9.0
-        for <stable@vger.kernel.org>; Mon, 15 Jun 2026 15:51:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781563898; x=1782168698; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=uaij0ssiVLSTJF7l7+mwMdVljWqS/GPd6aqJhzAQirw=;
-        b=jJnI8+oYnPGKCz46aKZOuPWQYTSJIPRsolTSYqKCWQAgDyxI1SUBQmqFPHVks2+TpB
-         4iXUTu4TTtWwNv9roSa/ClXgKgXKToEWTkT5BT1YsaXY0a0ggqk0Itry41UPBWBcZx0C
-         j6EyCnwFF4AW2Picfnn1NUNOzYJyfPmMqXugAScEXFMIGSbi/W1/C78bkBUiTLVluXcf
-         u3FhIRglS783WShkExW2P+uIZbMqLgPGCGcUvPcfBSc0F26elNnxjbXSnVXwPr7BoKts
-         aM1OlsjHoXBbJqJG5ZNbuq1j4NVigLqHwX44DiwSdmYm6d8mC17tDemNvS19f5Gnx132
-         n6OA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781563898; x=1782168698;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=uaij0ssiVLSTJF7l7+mwMdVljWqS/GPd6aqJhzAQirw=;
-        b=S6XIxs2wVyQMYUo3ueH3go7eRHkqWsh5deNhtDo4DAYlIzCFwf3YMW5t2albK8WdUB
-         J7aozlf0g6e8IDdllOg3XCLRV7ra+qc283qB2oZ17rPDPTRUwMaFP2GWcAkuViWkdY8z
-         16JeQiHITFrgz7fsEQ/S77sczgpz4F77B/t7QcudNL+JlzHZuN7pEqWSMG8TzNwcvvoQ
-         mN76d5I0rQsAtp3cwFdogcRsfjkW3JCXRAc6Tq/CxD3dds1gyQvFs6vPO4yPkB+UJAMK
-         1Tl+rw6aDmTVhQmGlNV2Nk8MsPrpzZ6QJrTz62KAEbbhPJhQlxctdcpvVacn4s3f0rkO
-         xQKA==
-X-Forwarded-Encrypted: i=1; AFNElJ+DoldPmpp6v2u1VPoF6sUDdfsmJupSCx5FSeKT/qvGGxW1Fw4VTknII74RM5VSywzJX9W64Yk=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyuRldJWziaktdHxR99tNXvWk1cRXbJ1zdsPGC/MiJ68IBJA1fk
-	DisRaq4OwWc7sUQxFPP3nLfcJpDK0NwQKo4dHKG5oHAdg1xg/bi4V/cl
-X-Gm-Gg: Acq92OGSxr0JV+HKX+vFKO+XO1XmUga0+4/S77DHym+iYzhFjLnHfjakc5hc7QmCpuV
-	qDsjlk/RRkgXuZnOvP5REGKIcc08SyQDKvz3mySkT/foqcwO9bzWtIW70Njth7o9faU+q0mjZK3
-	p/4uVATyFDU2vh5CVc9QbpoQKlZWPZBJpHA67Z6Pu2BCLTTAcbb3hE7Kj8G4xqZAUZvWLoHlrsc
-	94ghjHn6dbhQeOX8avZmtE0sYoIoF+juLCyciUGbWIbbjlW6/+KqQO0OLaSycR28tn8DGHi+lJ2
-	l2yKisWwgrLg81NhD+yT6tx1ENfvY20s8nL+P2fzkWqQb63pQV4gpzau2kALGx5oWh6dzsetuDM
-	lUOZf5/NufRgij4LKVzUzMBmb/WB8XhlRvLYA1CmYjpWr8Pw4zEmNmwkrCiPSZSKCjiQpXsm6t0
-	gRn2g74PKYJ8Vb6YBYHDYplE8rQQ3XRZRxSPa2xg21cl9b3vLuhNoJadeqPa7PKdErnXtck3tDU
-	R0PfSakfNy8CZR74s9tHclgI1FvvOyGRFhr8RLMsXLcW0BAQJtFC2wpX0cKx8mOYi8Z/swouzD1
-	OLR6gDYeKVaHDAxZl2mouZVmMU33KYbhXmh1j7cI9/0=
-X-Received: by 2002:a05:600c:3b02:b0:492:2f3c:d0ed with SMTP id 5b1f17b1804b1-4922f3cd1a2mr28492865e9.30.1781563897718;
-        Mon, 15 Jun 2026 15:51:37 -0700 (PDT)
-Received: from mail.gmail.com (2a01cb0889497e009a0d3db09e2f2ffb.ipv6.abo.wanadoo.fr. [2a01:cb08:8949:7e00:9a0d:3db0:9e2f:2ffb])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4606f2cd6c2sm38392917f8f.30.2026.06.15.15.51.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 15 Jun 2026 15:51:36 -0700 (PDT)
-Date: Tue, 16 Jun 2026 00:51:34 +0200
-From: Paul Chaignon <paul.chaignon@gmail.com>
-To: Zhenzhong Wu <jt26wzz@gmail.com>
-Cc: bpf@vger.kernel.org, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, ast@kernel.org, daniel@iogearbox.net,
-	john.fastabend@gmail.com, andrii@kernel.org, martin.lau@linux.dev,
-	song@kernel.org, yonghong.song@linux.dev, kpsingh@kernel.org,
-	haoluo@google.com, jolsa@kernel.org, menglong8.dong@gmail.com,
-	eddyz87@gmail.com, shung-hsi.yu@suse.com, stable@vger.kernel.org,
-	mykolal@fb.com, tamird@kernel.org, Sasha Levin <sashal@kernel.org>
-Subject: Re: [PATCH stable 6.6.y v3 0/4] bpf: linked scalar precision fixes
-Message-ID: <ajCB9jXBzPyaDNSQ@mail.gmail.com>
-References: <cover.1781194510.git.jt26wzz@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iCsq6UqZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5DD831F000E9;
+	Mon, 15 Jun 2026 22:52:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781563930;
+	bh=PBTLfHh8MkPH4XLg6HWSKTMHTItBCTDs8EEK4U/Mqj0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=iCsq6UqZezkmZNJXC7N+R/ZKZiHeJUDEHmsrWMSAP4vMgsFlBZFvELmYZdbcD0OVU
+	 pGiTd7dUNFASC1hDlb7Ib1tuxtLd5jWyeHBH4u61YuGW+7X3GECsYT4qWzuRIzP5Fz
+	 AUFb/iSOlWykiTXYSnchLpzLkewKUvaK+9b0ADbuCnPQlshLCtgsT5Ys+z1/iiXyZ7
+	 tN03ROk56EG+qsFNeUqftHwK9SyghoK+HCcjl6+cNZiVWcuYYqNsK6f+ydewgcJ5C7
+	 EHV3xOV4GWchP3vcIP906I/csg29Zrmjgls1LW3oB1WZNZONiWnKHkLHvnI4xXG61l
+	 jGAILBEWHgebg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Jason Gunthorpe <jgg@nvidia.com>,
+	Philip Tsukerman <philiptsukerman@gmail.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y] RDMA: During rereg_mr ensure that REREG_ACCESS is compatible
+Date: Mon, 15 Jun 2026 18:52:07 -0400
+Message-ID: <20260615225207.2520056-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026061553-octane-pegboard-7dac@gregkh>
+References: <2026061553-octane-pegboard-7dac@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <cover.1781194510.git.jt26wzz@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Jun 15, 2026 at 12:58:37AM +0800, Zhenzhong Wu wrote:
-> Hi,
-> 
-> This v3 targets 6.6.y and changes the backport strategy based on review
-> feedback on v2.
+From: Jason Gunthorpe <jgg@nvidia.com>
 
-[...]
+[ Upstream commit badad6fad60def1b9805559dd81dbab3d97b82aa ]
 
-> Relevant QEMU selftest results on 6.6.y with this backport:
-> 
->   verifier_scalar_ids passed all 18 subtests, including the newly
->   backported linked-scalar precision tests and the related
->   check_ids_in_regsafe tests.
+If IB_MR_REREG_ACCESS changes from RO to RW then the umem has to be
+re-evaluated to ensure it is properly pinned as RW. Since the umem is
+hidden inside each driver's mr struct add a ib_umem_check_rereg() function
+that each driver has to call before processing IB_MR_REREG_ACCESS.
 
-The first patch in this backport series is actually breaking the
-"precise: test 1" selftest from test_verifier. You can see the full
-error at [1]. I haven't yet checked if it's the test or the backport
-that needs to be adjusted.
+mlx4 has to retain its duplicate ib_access_writable check because it
+implements IB_MR_REREG_ACCESS | IB_MR_REREG_TRANS by changing both items
+in place sequentially while the MR is live, so it will continue to not
+support this combination.
 
-1: https://github.com/shunghsiyu/libbpf/actions/runs/27575831217/job/81523786835
+Cc: stable@vger.kernel.org
+Fixes: b40656aa7d55 ("RDMA/umem: remove FOLL_FORCE usage")
+Link: https://patch.msgid.link/r/0-v1-06fb1a2d6cf5+107-rereg_access_jgg@nvidia.com
+Reported-by: Philip Tsukerman <philiptsukerman@gmail.com>
+Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/infiniband/core/umem.c          | 16 ++++++++++++++++
+ drivers/infiniband/hw/hns/hns_roce_mr.c |  4 ++++
+ drivers/infiniband/hw/irdma/verbs.c     |  4 ++++
+ drivers/infiniband/hw/mlx4/mr.c         |  4 ++++
+ drivers/infiniband/hw/mlx5/mr.c         |  4 ++++
+ drivers/infiniband/sw/rxe/rxe_verbs.c   |  5 +++++
+ include/rdma/ib_umem.h                  |  8 ++++++++
+ 7 files changed, 45 insertions(+)
 
-> 
-> Thanks to Shung-Hsi Yu for reviewing v2 and suggesting the upstream
-> linked-scalar precision series as the preferred backport direction.
-> 
-> Eduard Zingerman (4):
->   bpf: Track equal scalars history on per-instruction level
->   bpf: Remove mark_precise_scalar_ids()
->   selftests/bpf: Tests for per-insn sync_linked_regs() precision
->     tracking
->   selftests/bpf: Update comments find_equal_scalars->sync_linked_regs
-> 
->  include/linux/bpf_verifier.h                  |   4 +
->  kernel/bpf/verifier.c                         | 367 +++++++++++-------
->  .../selftests/bpf/progs/verifier_scalar_ids.c | 253 ++++++++----
->  .../selftests/bpf/progs/verifier_spill_fill.c |   4 +-
->  .../bpf/progs/verifier_subprog_precision.c    |   2 +-
->  .../testing/selftests/bpf/verifier/precise.c  |   2 +-
->  6 files changed, 417 insertions(+), 215 deletions(-)
-> 
-> 
-> base-commit: 924b4a879cbb75aef37c160b955b92f6894b11a4
-> -- 
-> 2.43.0
+diff --git a/drivers/infiniband/core/umem.c b/drivers/infiniband/core/umem.c
+index c5b68639476058..fd3a774904f8d2 100644
+--- a/drivers/infiniband/core/umem.c
++++ b/drivers/infiniband/core/umem.c
+@@ -326,3 +326,19 @@ int ib_umem_copy_from(void *dst, struct ib_umem *umem, size_t offset,
+ 		return 0;
+ }
+ EXPORT_SYMBOL(ib_umem_copy_from);
++
++/*
++ * Called during rereg mr if the driver is able to re-use a umem for
++ * IB_MR_REREG_ACCESS.
++ */
++int ib_umem_check_rereg(struct ib_umem *umem, int flags, int new_access_flags)
++{
++	if (!umem)
++		return 0;
++
++	if ((flags & IB_MR_REREG_ACCESS) && !(flags & IB_MR_REREG_TRANS))
++		if (ib_access_writable(new_access_flags) && !umem->writable)
++			return -EACCES;
++	return 0;
++}
++EXPORT_SYMBOL(ib_umem_check_rereg);
+diff --git a/drivers/infiniband/hw/hns/hns_roce_mr.c b/drivers/infiniband/hw/hns/hns_roce_mr.c
+index 408ef2a9614927..aca079c120fbc7 100644
+--- a/drivers/infiniband/hw/hns/hns_roce_mr.c
++++ b/drivers/infiniband/hw/hns/hns_roce_mr.c
+@@ -277,6 +277,10 @@ struct ib_mr *hns_roce_rereg_user_mr(struct ib_mr *ibmr, int flags, u64 start,
+ 	if (!mr->enabled)
+ 		return ERR_PTR(-EINVAL);
+ 
++	ret = ib_umem_check_rereg(mr->pbl_mtr.umem, flags, mr_access_flags);
++	if (ret)
++		return ERR_PTR(ret);
++
+ 	mailbox = hns_roce_alloc_cmd_mailbox(hr_dev);
+ 	if (IS_ERR(mailbox))
+ 		return ERR_CAST(mailbox);
+diff --git a/drivers/infiniband/hw/irdma/verbs.c b/drivers/infiniband/hw/irdma/verbs.c
+index a18b249fe550e1..2358fab95784b0 100644
+--- a/drivers/infiniband/hw/irdma/verbs.c
++++ b/drivers/infiniband/hw/irdma/verbs.c
+@@ -3244,6 +3244,10 @@ static struct ib_mr *irdma_rereg_user_mr(struct ib_mr *ib_mr, int flags,
+ 	if (flags & ~(IB_MR_REREG_TRANS | IB_MR_REREG_PD | IB_MR_REREG_ACCESS))
+ 		return ERR_PTR(-EOPNOTSUPP);
+ 
++	ret = ib_umem_check_rereg(iwmr->region, flags, new_access);
++	if (ret)
++		return ERR_PTR(ret);
++
+ 	ret = irdma_hwdereg_mr(ib_mr);
+ 	if (ret)
+ 		return ERR_PTR(ret);
+diff --git a/drivers/infiniband/hw/mlx4/mr.c b/drivers/infiniband/hw/mlx4/mr.c
+index a40bf58bcdd3ae..04c370fbdba095 100644
+--- a/drivers/infiniband/hw/mlx4/mr.c
++++ b/drivers/infiniband/hw/mlx4/mr.c
+@@ -466,6 +466,10 @@ struct ib_mr *mlx4_ib_rereg_user_mr(struct ib_mr *mr, int flags, u64 start,
+ 	struct mlx4_mpt_entry **pmpt_entry = &mpt_entry;
+ 	int err;
+ 
++	err = ib_umem_check_rereg(mmr->umem, flags, mr_access_flags);
++	if (err)
++		return ERR_PTR(err);
++
+ 	/* Since we synchronize this call and mlx4_ib_dereg_mr via uverbs,
+ 	 * we assume that the calls can't run concurrently. Otherwise, a
+ 	 * race exists.
+diff --git a/drivers/infiniband/hw/mlx5/mr.c b/drivers/infiniband/hw/mlx5/mr.c
+index 9e465cf99733ee..6968092b6a413e 100644
+--- a/drivers/infiniband/hw/mlx5/mr.c
++++ b/drivers/infiniband/hw/mlx5/mr.c
+@@ -1698,6 +1698,10 @@ struct ib_mr *mlx5_ib_rereg_user_mr(struct ib_mr *ib_mr, int flags, u64 start,
+ 	if (flags & ~(IB_MR_REREG_TRANS | IB_MR_REREG_PD | IB_MR_REREG_ACCESS))
+ 		return ERR_PTR(-EOPNOTSUPP);
+ 
++	err = ib_umem_check_rereg(mr->umem, flags, new_access_flags);
++	if (err)
++		return ERR_PTR(err);
++
+ 	if (!(flags & IB_MR_REREG_ACCESS))
+ 		new_access_flags = mr->access_flags;
+ 	if (!(flags & IB_MR_REREG_PD))
+diff --git a/drivers/infiniband/sw/rxe/rxe_verbs.c b/drivers/infiniband/sw/rxe/rxe_verbs.c
+index 102fc5f56ca7e2..5a9826de59d4c0 100644
+--- a/drivers/infiniband/sw/rxe/rxe_verbs.c
++++ b/drivers/infiniband/sw/rxe/rxe_verbs.c
+@@ -1316,6 +1316,7 @@ static struct ib_mr *rxe_rereg_user_mr(struct ib_mr *ibmr, int flags,
+ 	struct rxe_mr *mr = to_rmr(ibmr);
+ 	struct rxe_pd *old_pd = to_rpd(ibmr->pd);
+ 	struct rxe_pd *pd = to_rpd(ibpd);
++	int err;
+ 
+ 	/* for now only support the two easy cases:
+ 	 * rereg_pd and rereg_access
+@@ -1325,6 +1326,10 @@ static struct ib_mr *rxe_rereg_user_mr(struct ib_mr *ibmr, int flags,
+ 		return ERR_PTR(-EOPNOTSUPP);
+ 	}
+ 
++	err = ib_umem_check_rereg(mr->umem, flags, access);
++	if (err)
++		return ERR_PTR(err);
++
+ 	if (flags & IB_MR_REREG_PD) {
+ 		rxe_put(old_pd);
+ 		rxe_get(pd);
+diff --git a/include/rdma/ib_umem.h b/include/rdma/ib_umem.h
+index 565a850445414d..4f9ed0c79e16d2 100644
+--- a/include/rdma/ib_umem.h
++++ b/include/rdma/ib_umem.h
+@@ -154,6 +154,8 @@ int ib_umem_dmabuf_map_pages(struct ib_umem_dmabuf *umem_dmabuf);
+ void ib_umem_dmabuf_unmap_pages(struct ib_umem_dmabuf *umem_dmabuf);
+ void ib_umem_dmabuf_release(struct ib_umem_dmabuf *umem_dmabuf);
+ 
++int ib_umem_check_rereg(struct ib_umem *umem, int flags, int new_access_flags);
++
+ #else /* CONFIG_INFINIBAND_USER_MEM */
+ 
+ #include <linux/err.h>
+@@ -203,5 +205,11 @@ static inline int ib_umem_dmabuf_map_pages(struct ib_umem_dmabuf *umem_dmabuf)
+ static inline void ib_umem_dmabuf_unmap_pages(struct ib_umem_dmabuf *umem_dmabuf) { }
+ static inline void ib_umem_dmabuf_release(struct ib_umem_dmabuf *umem_dmabuf) { }
+ 
++static inline int ib_umem_check_rereg(struct ib_umem *umem, int flags,
++				      int new_access_flags)
++{
++	return -EOPNOTSUPP;
++}
++
+ #endif /* CONFIG_INFINIBAND_USER_MEM */
+ #endif /* IB_UMEM_H */
+-- 
+2.53.0
+
