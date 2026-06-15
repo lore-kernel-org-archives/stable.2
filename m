@@ -1,42 +1,35 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 917AC3090E2
-	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 18:08:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6D182EB5B8;
+	Mon, 15 Jun 2026 18:10:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781546883; cv=none; b=NlMO2F8w+IzA6CIHFdzxw+DBogu28ks2b1jlrzusUquDaWJePMybnp/4d8xJacjdD4gLQXXpjEVE+JdlDIt1TO5jYZxSZkcsFBqltqGedUl1wTJ+J35CbpSl8XH5PmzLWQfoMpZwzPOTUPHSDQVRA/rPs+jtJ0l5kMs/mRXV8r4=
+	t=1781547011; cv=none; b=ahbT4mOwIfBFa1IEPh2SKdSLr2do/oI3l4txZM8s5e1PWaj2I5bGx1/6kmYmhSVYK1J+C09SJWvett2N8BThdQNjsPNII2IKjj6bR8XpAEiTW3Nfo42wf2KfLk1Fiakn86ZTuXx7BbYytYa2R1ESQoEdNEhpr6fNZbuirtFl9Vo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781546883; c=relaxed/simple;
-	bh=/h1+dNCUHviCkxz38fBDxOOGbiYsL+D80lsQoSs2GJg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fXLao5jX7j+G5iG5LhqYCdVx2AMxjwzguF7C1gz/vskt9AdgcPkhP89ur677hogbJYhaaBQOanO3YECgUZJybnFp7kozQaLkmIVNY1UupO6QXUQMSu3B7n4EwJhmuAdZ2w8VQdAzWoLeLdtOYbhvtOtt/dTTuq000PC9bH+sl9s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TASM/aOa; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781547011; c=relaxed/simple;
+	bh=9bGJPAAQWrSiefUyfK2vvzRYymLRr0ggWFXKFmaNQwk=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=fh368z5PZj7kwJE9ggREwy/q2Xa9qk1MObAJiO43LSBqN+dXIVU0uF/BKyYRrTzo+oel5UF3sFfnP2K/dOOke3elxDIG7JxW+IZBIaL8y1CPd5NA4qOTYAeBtdO5Sgko2NKLCEYFAp8ON3nBN5cIvyyk2hBI6deUoA45ERDhkro=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Aj1WyhWk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TASM/aOa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD18E1F000E9;
-	Mon, 15 Jun 2026 18:08:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Aj1WyhWk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DD441F000E9;
+	Mon, 15 Jun 2026 18:10:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781546882;
-	bh=YLvXLudnM303hmLlfql7h67w9XDNgrTQ72DzX0dRIcY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=TASM/aOa0AA4Tz+3Zk4P3ZmKEKlYI/pjowBANfGE+SOFn3gX6TUvsJ1uOfvR9D8rY
-	 qgeK4R/Q/ymBF+INbG9/dC2f/A6krcTYQIM8Lq6+PEGtXzmmTkpLZ7bi2t1g/D+WbH
-	 fY+d0MBHwhTIx1UirWhAaJn8dSOmzf/lso+S5CMoR5e2rx5xCD+zl/j/BjaKqhFSu3
-	 ifKK/grBDDT03hEYo3O3qcPTS/bX3AQYgf0CFHNM+YdaZl4k4dd8ku1s82eab4gYUD
-	 UqSpx/7obx4MEj3lDJY3ugJYRLjOIBRO6BPdUJZTrgDH7WCsHlJHVm6qFlKQ8pEWAj
-	 oEhwbvtZ3Zvjg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Anton Leontev <leontyevantony@gmail.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] hv_netvsc: use kmap_local_page in netvsc_copy_to_send_buf
-Date: Mon, 15 Jun 2026 14:08:00 -0400
-Message-ID: <20260615180800.2317919-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026061523-fragility-angler-a2a5@gregkh>
-References: <2026061523-fragility-angler-a2a5@gregkh>
+	s=k20260515; t=1781547010;
+	bh=cIN7Q2WGpJ4nSTosWIwtbS/aqJIMSj9ILTwihRVKATE=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=Aj1WyhWk6c1oSzbN2H4HLBtLlQlCEmfHRCIcrTLiaJjARqwGcMMyA+w5zTtyHZApf
+	 mfvn+1DuwbwyqDqhTtMIjGhoB99iiUiMZgKvKLukGGOACWkSQZKFaxhwFUQBMUH+cQ
+	 ZW5yzn0+zzV5gH4jhxTDZsOMHyiO0n4SyRmpituzT3DWMk9gWPIviIoSkoOzWNG6wi
+	 b3DfXiO/4zwd2y3OV+q9uKk2FkpmnYt73BZL9n7GJK3OUoYTpeooOiFihVHwh0fbIk
+	 s8pCMXYn9tn/pGYzF1ji2A8YAbZ5+9lIy0p1fpQtfzg9XMh0L17hXeb142ClXCMbmh
+	 fBPmZMy64MuLw==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 9396D3839A06;
+	Mon, 15 Jun 2026 18:10:06 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -44,92 +37,43 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH v2] Bluetooth: hci_uart: clear HCI_UART_SENDING when
+ write_work is canceled
+From: patchwork-bot+bluetooth@kernel.org
+Message-Id: 
+ <178154700514.231677.2643745417902047047.git-patchwork-notify@kernel.org>
+Date: Mon, 15 Jun 2026 18:10:05 +0000
+References: 
+ <9fdead8517c36f37c0b23b7b60f590d735792cfa.1781375875.git.pav@iki.fi>
+In-Reply-To: 
+ <9fdead8517c36f37c0b23b7b60f590d735792cfa.1781375875.git.pav@iki.fi>
+To: Pauli Virtanen <pav@iki.fi>
+Cc: linux-bluetooth@vger.kernel.org, marcel@holtmann.org,
+ luiz.dentz@gmail.com, 25181214217@stu.xidian.edu.cn,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
 
-From: Anton Leontev <leontyevantony@gmail.com>
+Hello:
 
-[ Upstream commit 004e9ecfe6c5384f9e0b2f6f6389d42ec22789af ]
+This patch was applied to bluetooth/bluetooth-next.git (master)
+by Luiz Augusto von Dentz <luiz.von.dentz@intel.com>:
 
-netvsc_copy_to_send_buf() copies page buffer entries into the VMBus
-send buffer using phys_to_virt() on the entry PFN. Entries for the
-RNDIS header and the skb linear data come from kmalloc'd memory and
-are always in the kernel direct map, but entries for skb fragments
-reference page cache or user pages, which on 32-bit x86 with
-CONFIG_HIGHMEM=y can live above the LOWMEM boundary. For such a page
-phys_to_virt() returns an address outside the direct map and the
-subsequent memcpy() faults on the transmit softirq path, which is
-fatal.
+On Sat, 13 Jun 2026 21:43:37 +0300 you wrote:
+> HCI_UART_SENDING bit in tx_state means write_work is pending and blocks
+> queueing it again.  Currently this bit is not cleared when canceling the
+> work in hci_uart_close(), which blocks future writes when device is
+> reopened later if write_work was pending.
+> 
+> Fix by clearing HCI_UART_SENDING when canceling the work.
+> 
+> [...]
 
-Map the pages with kmap_local_page() instead, handling two properties
-of the page buffer entries:
+Here is the summary with links:
+  - [v2] Bluetooth: hci_uart: clear HCI_UART_SENDING when write_work is canceled
+    https://git.kernel.org/bluetooth/bluetooth-next/c/3b7686310806
 
- - pb[i].pfn is a Hyper-V PFN at HV_HYP_PAGE_SIZE (4K) granularity,
-   not a native PFN. Reconstruct the physical address first and derive
-   the native page from it, so the mapping stays correct where
-   PAGE_SIZE > HV_HYP_PAGE_SIZE (e.g. arm64 with 64K pages).
-
- - Since commit 41a6328b2c55 ("hv_netvsc: Preserve contiguous PFN
-   grouping in the page buffer array"), an entry describes a full
-   physically contiguous fragment and pb[i].len can exceed PAGE_SIZE,
-   while kmap_local_page() maps a single page. Copy page by page,
-   splitting at native page boundaries.
-
-The copy path only handles packets smaller than the send section size
-(6144 bytes by default); larger packets take the cp_partial path where
-only the RNDIS header is copied. So entries here are bounded by the
-section size and a copy is split at most once on 4K-page systems. On
-!CONFIG_HIGHMEM configs kmap_local_page() folds to page_address() and
-no mapping work is added.
-
-Fixes: c25aaf814a63 ("hyperv: Enable sendbuf mechanism on the send path")
-Cc: stable@vger.kernel.org
-Signed-off-by: Anton Leontev <leontyevantony@gmail.com>
-Link: https://patch.msgid.link/20260604165938.32033-1-leontyevantony@gmail.com
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-[ adapted `phys_to_page(paddr)` to `pfn_to_page(PHYS_PFN(paddr))` ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/net/hyperv/netvsc.c | 19 +++++++++++++++----
- 1 file changed, 15 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/net/hyperv/netvsc.c b/drivers/net/hyperv/netvsc.c
-index 61584b40cb0386..2f09b07d809e32 100644
---- a/drivers/net/hyperv/netvsc.c
-+++ b/drivers/net/hyperv/netvsc.c
-@@ -12,6 +12,7 @@
- #include <linux/sched.h>
- #include <linux/wait.h>
- #include <linux/mm.h>
-+#include <linux/highmem.h>
- #include <linux/delay.h>
- #include <linux/io.h>
- #include <linux/slab.h>
-@@ -957,12 +958,22 @@ static void netvsc_copy_to_send_buf(struct netvsc_device *net_device,
- 	}
- 
- 	for (i = 0; i < page_count; i++) {
--		char *src = phys_to_virt(pb[i].pfn << HV_HYP_PAGE_SHIFT);
--		u32 offset = pb[i].offset;
-+		phys_addr_t paddr = (pb[i].pfn << HV_HYP_PAGE_SHIFT) +
-+				    pb[i].offset;
- 		u32 len = pb[i].len;
- 
--		memcpy(dest, (src + offset), len);
--		dest += len;
-+		while (len) {
-+			struct page *page = pfn_to_page(PHYS_PFN(paddr));
-+			u32 off = offset_in_page(paddr);
-+			u32 chunk = min_t(u32, len, PAGE_SIZE - off);
-+			char *src = kmap_local_page(page);
-+
-+			memcpy(dest, src + off, chunk);
-+			kunmap_local(src);
-+			dest += chunk;
-+			paddr += chunk;
-+			len -= chunk;
-+		}
- 	}
- 
- 	if (padding)
+You are awesome, thank you!
 -- 
-2.53.0
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
 
