@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B09826A1AF
-	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 03:51:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A8C926A1AF
+	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 03:52:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781495518; cv=none; b=bDS9jDgvsb4wTmsS2fUYmuH0V/FvrGVMMtRVQ+38s8jlQXIFHb0BYwHShfF5iMhjGVQQCS8qk5XOk3CoLkn4/x+XO50dB+baKRy/MP7+Wnq4Y1MdJxqUfvZUUZY38Au8oK7ajgFNTPSWuhxvF4lA/kO3AdOr1XHJQI5zP9fh/FM=
+	t=1781495536; cv=none; b=Id07JfRXENzC5HBD9W3yr1rthrH6Xp0TKtgCfTTtcey/CwA3mjvcc42UR4Jx4TPxLHkZXTNV9z6UPCrp54BVMC2shiBV5AuX00yDoy4PdzYEuk9OBJNJZlXzjnNPVPCRIGhA48s28qlXed4J314XTkSFRZ8ubTQXs8+BiCLT3Os=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781495518; c=relaxed/simple;
-	bh=t8EJEUUqdj/9sNPeU5CSu6HDzruY9jlA7yzotRJYX5A=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=CP0mCffD4i+KYeJuNzEIhz7Cdwi8yghMLSR+GbU7/93Imp3d6cgW54SLZsFAUv2iVmYo54bYJVhEYHki9Pe1QJcEwX7xHhW9nb9xqjS0ELopTpCIh891GoMYhKfxfi1HSlqLpnU+zFy/ra+94Hw9sh5IL4tDT89JXqfGW2Ssaio=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=fgv05xp1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781495536; c=relaxed/simple;
+	bh=Xq7yJbnvaC5wDvUPLvFK+dFj/Bvjh++yx232yl3KQGA=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=DD/4+Gnwu/onBcXMKVObZQYhjgJD4zVDV+QizKOLR3JKLjZpnsstHTftsuqXO29rXufDHJTsvZvLnpVMkR608OMIGMZVD8DM3ypMphL5wr60xJ9XtUlI2VIpX79KJ410F4ihiWkl9qn6cvE8LHJ77WmCk7sZLdf+OrzuKDZZGQY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Ut34AfAE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="fgv05xp1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE8B31F000E9;
-	Mon, 15 Jun 2026 03:51:55 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Ut34AfAE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C4001F000E9;
+	Mon, 15 Jun 2026 03:52:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1781495516;
-	bh=2Sx1P3/+7q+B2ZTb+dv6BiMSy5ZsLpI8Z83oxQrcWT8=;
+	s=korg; t=1781495535;
+	bh=WiTyI1dJ2PaY/HdRlPty+jeVZNcR/+rm63CXPW+lf1g=;
 	h=Subject:To:Cc:From:Date;
-	b=fgv05xp1+mkFjhIcSmEUbGBL9NMgy1AFhoBrlrYHPd+ZdfPhRxLeIRJMsSH3YquYx
-	 f3C3MMPwWYeWDwbvva7R27x58jtK/HlCN62TZYze/GEHVC6Qrn2Pd3GdcHtrmWH8KK
-	 x7uCBESBOvMtujtM5qM92b64mcdI81ulTuVJiq+E=
-Subject: FAILED: patch "[PATCH] soc: qcom: ice: Fix race between qcom_ice_probe() and" failed to apply to 6.6-stable tree
-To: manivannan.sadhasivam@oss.qualcomm.com,andersson@kernel.org,sumit.garg@oss.qualcomm.com
+	b=Ut34AfAETaoaPqM/ah16nyMwdoiI+YxIoTFVDshFQV8iWyMbDRKQjqvQ5Gdlht6+0
+	 /aBZfrAEvF5vKJGrdgHo5MCnLktCldBEMgDp0B13H8uVnxLIujsHDIlG4mWb9KXTq2
+	 ftgltTzazcH1z4iGNFv3jv54o5ONoB7FhhtJv+Fg=
+Subject: FAILED: patch "[PATCH] mm/memory-failure: fix hugetlb_lock AA deadlock in" failed to apply to 6.12-stable tree
+To: mawupeng1@huawei.com,akpm@linux-foundation.org,david@kernel.org,liam.howlett@oracle.com,linmiaohe@huawei.com,ljs@kernel.org,mhocko@suse.com,muchun.song@linux.dev,nao.horiguchi@gmail.com,osalvador@kernel.org,rppt@kernel.org,stable@vger.kernel.org,surenb@google.com,vbabka@kernel.org,wangkefeng.wang@huawei.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 15 Jun 2026 05:50:54 +0200
-Message-ID: <2026061554-legal-rubbing-8905@gregkh>
+Date: Mon, 15 Jun 2026 05:51:13 +0200
+Message-ID: <2026061513-catalog-deviant-3f62@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x d922113ef91e6e7e8065e9070f349365341ba32e
+git cherry-pick -x 3c2d42b8ee345b17a4ba56b0f6492d1ff4c1178e
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026061554-legal-rubbing-8905@gregkh' --subject-prefix 'PATCH 6.6.y' HEAD^..
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026061513-catalog-deviant-3f62@gregkh' --subject-prefix 'PATCH 6.12.y' HEAD^..
 
 Possible dependencies:
 
@@ -62,149 +62,197 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From d922113ef91e6e7e8065e9070f349365341ba32e Mon Sep 17 00:00:00 2001
-From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-Date: Mon, 18 May 2026 19:22:17 +0530
-Subject: [PATCH] soc: qcom: ice: Fix race between qcom_ice_probe() and
- of_qcom_ice_get()
+From 3c2d42b8ee345b17a4ba56b0f6492d1ff4c1178e Mon Sep 17 00:00:00 2001
+From: Wupeng Ma <mawupeng1@huawei.com>
+Date: Fri, 22 May 2026 09:03:05 +0800
+Subject: [PATCH] mm/memory-failure: fix hugetlb_lock AA deadlock in
+ get_huge_page_for_hwpoison
 
-The current platform driver design causes probe ordering races with
-consumers (UFS, eMMC) due to ICE's dependency on SCM firmware calls. If ICE
-probe fails (missing ICE SCM or DT registers), devm_of_qcom_ice_get() loops
-with -EPROBE_DEFER, leaving consumers non-functional even when ICE should
-be gracefully disabled. devm_of_qcom_ice_get() doesn't know if the ICE
-driver probe has failed due to above reasons or it is waiting for the SCM
-driver.
+Two concurrent madvise(MADV_HWPOISON) calls on the same hugetlb page can
+trigger a recursive spinlock self-deadlock (AA deadlock) on hugetlb_lock
+when racing with a concurrent unmap:
 
-Moreover, there is no devlink dependency between ICE and consumer drivers
-as 'qcom,ice' is not considered as a DT 'supplier'. So the consumer drivers
-have no idea of when the ICE driver is going to probe.
+  thread#0                              thread#1
+  --------                              --------
+  madvise(folio, MADV_HWPOISON)
+    -> poisons the folio successfully
+  madvise(folio, MADV_HWPOISON)         unmap(folio)
+    try_memory_failure_hugetlb
+      get_huge_page_for_hwpoison
+        spin_lock_irq(&hugetlb_lock)    <- held
+        __get_huge_page_for_hwpoison
+          hugetlb_update_hwpoison()
+            -> MF_HUGETLB_FOLIO_PRE_POISONED
+          goto out:
+            folio_put()
+              refcount: 1 -> 0
+              free_huge_folio()
+                spin_lock_irqsave(&hugetlb_lock)
+                  -> AA DEADLOCK!
 
-To address these issues, store the error pointer in a global xarray with
-ice node phandle as a key during probe in addition to the valid ice pointer
-and synchronize both qcom_ice_probe() and of_qcom_ice_get() using a mutex.
+The out: path in __get_huge_page_for_hwpoison() calls folio_put() to drop
+the GUP reference while the hugetlb_lock is still held by the hugetlb.c
+wrapper get_huge_page_for_hwpoison().  If concurrent unmap has released
+the page table mapping reference, folio_put() drops the folio refcount to
+zero, triggering free_huge_folio() which attempts to re-acquire the
+non-recursive hugetlb_lock.
 
-If the xarray entry is NULL, then it implies that the driver is not
-probed yet, so return -EPROBE_DEFER. If it has any error pointer, return
-that error pointer directly. Otherwise, add the devlink as usual and return
-the valid pointer to the consumer.
+Fix this by moving hugetlb_lock acquisition from the hugetlb.c wrapper
+into get_huge_page_for_hwpoison().  Place spin_unlock_irq() before the
+folio_put() at the out: label so the folio is always released outside the
+lock.
 
-Xarray is used instead of platform drvdata, since driver core frees the
-drvdata during probe failure. So it cannot be used to pass the error
-pointer to the consumers.
+[akpm@linux-foundation.org: fix race, rename label per Miaohe]
+  Link: https://sashiko.dev/#/patchset/20260522010305.4099834-1-mawupeng1@huawei.com
+  Link: https://lore.kernel.org/f39f405e-4b4b-8f79-70fe-a2b5b62114eb@huawei.com
+Link: https://lore.kernel.org/20260522010305.4099834-1-mawupeng1@huawei.com
+Fixes: 405ce051236c ("mm/hwpoison: fix race between hugetlb free/demotion and memory_failure_hugetlb()")
+Signed-off-by: Wupeng Ma <mawupeng1@huawei.com>
+Acked-by: Oscar Salvador (SUSE) <osalvador@kernel.org>
+Acked-by: Muchun Song <muchun.song@linux.dev>
+Reviewed-by: Kefeng Wang <wangkefeng.wang@huawei.com>
+Acked-by: Miaohe Lin <linmiaohe@huawei.com>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Liam Howlett <liam.howlett@oracle.com>
+Cc: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Mike Rapoport <rppt@kernel.org>
+Cc: Naoya Horiguchi <nao.horiguchi@gmail.com>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 
-Note that this change only fixes the standalone ICE DT node bindings and
-not the ones with 'ice' range embedded in the consumer nodes, where there
-is no issue.
-
-Fixes: 2afbf43a4aec ("soc: qcom: Make the Qualcomm UFS/SDCC ICE a dedicated driver")
-Reported-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
-Tested-by: Sumit Garg <sumit.garg@oss.qualcomm.com> # OP-TEE as TZ
-Acked-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
-Cc: stable@vger.kernel.org # 6.4
-Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-Link: https://lore.kernel.org/r/20260518-qcom-ice-fix-v7-1-2a595382185b@oss.qualcomm.com
-Signed-off-by: Bjorn Andersson <andersson@kernel.org>
-
-diff --git a/drivers/soc/qcom/ice.c b/drivers/soc/qcom/ice.c
-index b203bc685cad..91991864b4a3 100644
---- a/drivers/soc/qcom/ice.c
-+++ b/drivers/soc/qcom/ice.c
-@@ -16,6 +16,7 @@
- #include <linux/of.h>
- #include <linux/of_platform.h>
- #include <linux/platform_device.h>
-+#include <linux/xarray.h>
- 
- #include <linux/firmware/qcom/qcom_scm.h>
- 
-@@ -113,6 +114,9 @@ struct qcom_ice {
- 	u8 hwkm_version;
- };
- 
-+static DEFINE_XARRAY(ice_handles);
-+static DEFINE_MUTEX(ice_mutex);
-+
- static bool qcom_ice_check_supported(struct qcom_ice *ice)
- {
- 	u32 regval = qcom_ice_readl(ice, QCOM_ICE_REG_VERSION);
-@@ -631,6 +635,8 @@ static struct qcom_ice *of_qcom_ice_get(struct device *dev)
- 		return qcom_ice_create(&pdev->dev, base);
- 	}
- 
-+	guard(mutex)(&ice_mutex);
-+
- 	/*
- 	 * If the consumer node does not provider an 'ice' reg range
- 	 * (legacy DT binding), then it must at least provide a phandle
-@@ -647,12 +653,13 @@ static struct qcom_ice *of_qcom_ice_get(struct device *dev)
- 		return ERR_PTR(-EPROBE_DEFER);
- 	}
- 
--	ice = platform_get_drvdata(pdev);
--	if (!ice) {
--		dev_err(dev, "Cannot get ice instance from %s\n",
--			dev_name(&pdev->dev));
-+	ice = xa_load(&ice_handles, pdev->dev.of_node->phandle);
-+	if (IS_ERR_OR_NULL(ice)) {
- 		platform_device_put(pdev);
--		return ERR_PTR(-EPROBE_DEFER);
-+		if (!ice)
-+			return ERR_PTR(-EPROBE_DEFER);
-+		else
-+			return ice;
- 	}
- 
- 	link = device_link_add(dev, &pdev->dev, DL_FLAG_AUTOREMOVE_SUPPLIER);
-@@ -716,24 +723,40 @@ EXPORT_SYMBOL_GPL(devm_of_qcom_ice_get);
- 
- static int qcom_ice_probe(struct platform_device *pdev)
- {
-+	unsigned long phandle = pdev->dev.of_node->phandle;
- 	struct qcom_ice *engine;
- 	void __iomem *base;
- 
-+	guard(mutex)(&ice_mutex);
-+
- 	base = devm_platform_ioremap_resource(pdev, 0);
- 	if (IS_ERR(base)) {
- 		dev_warn(&pdev->dev, "ICE registers not found\n");
-+		/* Store the error pointer for devm_of_qcom_ice_get() */
-+		xa_store(&ice_handles, phandle, (__force void *)base, GFP_KERNEL);
- 		return PTR_ERR(base);
- 	}
- 
- 	engine = qcom_ice_create(&pdev->dev, base);
--	if (IS_ERR(engine))
-+	if (IS_ERR(engine)) {
-+		/* Store the error pointer for devm_of_qcom_ice_get() */
-+		xa_store(&ice_handles, phandle, engine, GFP_KERNEL);
- 		return PTR_ERR(engine);
-+	}
- 
--	platform_set_drvdata(pdev, engine);
-+	xa_store(&ice_handles, phandle, engine, GFP_KERNEL);
- 
+diff --git a/include/linux/hugetlb.h b/include/linux/hugetlb.h
+index 5957bc25efa8..2abaf99321e9 100644
+--- a/include/linux/hugetlb.h
++++ b/include/linux/hugetlb.h
+@@ -153,8 +153,6 @@ long hugetlb_unreserve_pages(struct inode *inode, long start, long end,
+ 						long freed);
+ bool folio_isolate_hugetlb(struct folio *folio, struct list_head *list);
+ int get_hwpoison_hugetlb_folio(struct folio *folio, bool *hugetlb, bool unpoison);
+-int get_huge_page_for_hwpoison(unsigned long pfn, int flags,
+-				bool *migratable_cleared);
+ void folio_putback_hugetlb(struct folio *folio);
+ void move_hugetlb_state(struct folio *old_folio, struct folio *new_folio, int reason);
+ void hugetlb_fix_reserve_counts(struct inode *inode);
+@@ -421,12 +419,6 @@ static inline int get_hwpoison_hugetlb_folio(struct folio *folio, bool *hugetlb,
  	return 0;
  }
  
-+static void qcom_ice_remove(struct platform_device *pdev)
-+{
-+	unsigned long phandle = pdev->dev.of_node->phandle;
-+
-+	guard(mutex)(&ice_mutex);
-+	xa_store(&ice_handles, phandle, NULL, GFP_KERNEL);
-+}
-+
- static const struct of_device_id qcom_ice_of_match_table[] = {
- 	{ .compatible = "qcom,inline-crypto-engine" },
- 	{ },
-@@ -742,6 +765,7 @@ MODULE_DEVICE_TABLE(of, qcom_ice_of_match_table);
+-static inline int get_huge_page_for_hwpoison(unsigned long pfn, int flags,
+-					bool *migratable_cleared)
+-{
+-	return 0;
+-}
+-
+ static inline void folio_putback_hugetlb(struct folio *folio)
+ {
+ }
+diff --git a/include/linux/mm.h b/include/linux/mm.h
+index 06bbe9eba636..fc2acedf0b76 100644
+--- a/include/linux/mm.h
++++ b/include/linux/mm.h
+@@ -4975,8 +4975,6 @@ extern int soft_offline_page(unsigned long pfn, int flags);
+  */
+ extern const struct attribute_group memory_failure_attr_group;
+ extern void memory_failure_queue(unsigned long pfn, int flags);
+-extern int __get_huge_page_for_hwpoison(unsigned long pfn, int flags,
+-					bool *migratable_cleared);
+ void num_poisoned_pages_inc(unsigned long pfn);
+ void num_poisoned_pages_sub(unsigned long pfn, long i);
+ #else
+@@ -4984,12 +4982,6 @@ static inline void memory_failure_queue(unsigned long pfn, int flags)
+ {
+ }
  
- static struct platform_driver qcom_ice_driver = {
- 	.probe	= qcom_ice_probe,
-+	.remove	= qcom_ice_remove,
- 	.driver = {
- 		.name = "qcom-ice",
- 		.of_match_table = qcom_ice_of_match_table,
+-static inline int __get_huge_page_for_hwpoison(unsigned long pfn, int flags,
+-					bool *migratable_cleared)
+-{
+-	return 0;
+-}
+-
+ static inline void num_poisoned_pages_inc(unsigned long pfn)
+ {
+ }
+diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+index 1b1d4f87a3a4..c921287489de 100644
+--- a/mm/hugetlb.c
++++ b/mm/hugetlb.c
+@@ -7161,17 +7161,6 @@ int get_hwpoison_hugetlb_folio(struct folio *folio, bool *hugetlb, bool unpoison
+ 	return ret;
+ }
+ 
+-int get_huge_page_for_hwpoison(unsigned long pfn, int flags,
+-				bool *migratable_cleared)
+-{
+-	int ret;
+-
+-	spin_lock_irq(&hugetlb_lock);
+-	ret = __get_huge_page_for_hwpoison(pfn, flags, migratable_cleared);
+-	spin_unlock_irq(&hugetlb_lock);
+-	return ret;
+-}
+-
+ /**
+  * folio_putback_hugetlb - unisolate a hugetlb folio
+  * @folio: the isolated hugetlb folio
+diff --git a/mm/memory-failure.c b/mm/memory-failure.c
+index ee42d4361309..d47aef256a32 100644
+--- a/mm/memory-failure.c
++++ b/mm/memory-failure.c
+@@ -1966,20 +1966,19 @@ void folio_clear_hugetlb_hwpoison(struct folio *folio)
+ 	folio_free_raw_hwp(folio, true);
+ }
+ 
+-/*
+- * Called from hugetlb code with hugetlb_lock held.
+- */
+-int __get_huge_page_for_hwpoison(unsigned long pfn, int flags,
++static int get_huge_page_for_hwpoison(unsigned long pfn, int flags,
+ 				 bool *migratable_cleared)
+ {
+ 	struct page *page = pfn_to_page(pfn);
+-	struct folio *folio = page_folio(page);
++	struct folio *folio;
+ 	bool count_increased = false;
+ 	int ret, rc;
+ 
++	spin_lock_irq(&hugetlb_lock);
++	folio = page_folio(page);
+ 	if (!folio_test_hugetlb(folio)) {
+ 		ret = MF_HUGETLB_NON_HUGEPAGE;
+-		goto out;
++		goto out_unlock;
+ 	} else if (flags & MF_COUNT_INCREASED) {
+ 		ret = MF_HUGETLB_IN_USED;
+ 		count_increased = true;
+@@ -1995,13 +1994,13 @@ int __get_huge_page_for_hwpoison(unsigned long pfn, int flags,
+ 	} else {
+ 		ret = MF_HUGETLB_RETRY;
+ 		if (!(flags & MF_NO_RETRY))
+-			goto out;
++			goto out_unlock;
+ 	}
+ 
+ 	rc = hugetlb_update_hwpoison(folio, page);
+ 	if (rc >= MF_HUGETLB_FOLIO_PRE_POISONED) {
+ 		ret = rc;
+-		goto out;
++		goto out_unlock;
+ 	}
+ 
+ 	/*
+@@ -2013,8 +2012,10 @@ int __get_huge_page_for_hwpoison(unsigned long pfn, int flags,
+ 		*migratable_cleared = true;
+ 	}
+ 
++	spin_unlock_irq(&hugetlb_lock);
+ 	return ret;
+-out:
++out_unlock:
++	spin_unlock_irq(&hugetlb_lock);
+ 	if (count_increased)
+ 		folio_put(folio);
+ 	return ret;
 
