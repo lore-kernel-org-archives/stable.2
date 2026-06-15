@@ -1,206 +1,153 @@
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE6E9212F89
-	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 11:46:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5650237DE90
+	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 11:58:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781523987; cv=none; b=Fppn14xNGY44uGjdtJqZ9bxE5Ktdudfn7jI/KknWv+EskuTT2tG2gIyr5BTHh6w6pflIC6MMPC+Lsi9MwEk8eqUP5q/Wnm1VS9knqmYBOR7Z0Y6qKUgLZa8Z/Vb331rCr5TsIpWhgjzW/rGUR4cVrMlFB+BmtCuCBHGujEWKUfk=
+	t=1781524701; cv=none; b=RE0qVNBe3nk0nzhhm5wM0tvgieprhvKP4qhqXMw0GfTtN6SOkM0ae2JrF5xiGzzz/IBSa2t+V6ap65OqtnZMEBjUMi4Le+ZfTM6VMmp/oHLJ+Ie/VHd/jowrTLPEmmh8NivJoPV9jJkIq9laagtM6TWI/VPjeR+53NReYELDpec=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781523987; c=relaxed/simple;
-	bh=2bQGxVUZ9MTPf1QkyzYPrKWsuFsxCujrar5IyTh0Oi0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=I2qYYkwPD/WhOq85oqDdmIWel40b8ox3KxA5albAkAoK+RuD2rzU8TuPZzUMUFllr+6+vMi0ZQ97Dhlcl8wlpZPiTkxhAVcHPedl3ZQSXgEf2rnKo5R5wbLkMMG9bGpjcNF6w7Hm181LldosZn9Fa4GqVsbjJ0fig/e4RNz1OcU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0sec.ai; spf=pass smtp.mailfrom=0sec.ai; dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b=mhpO0K3H; arc=none smtp.client-ip=209.85.128.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0sec.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=0sec.ai
+	s=arc-20240116; t=1781524701; c=relaxed/simple;
+	bh=L7fk/4qLaxRDYCD7ibe4niYeMQzHBYURzEMuLpzu9Vs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=VnDPAhR0h0hjI8XQwWRp8Ble2ha6tBIOv9MO+xaD97XYD7JaH9eYjSsWTmDKrvN/cVig3UZ0rJ93xc1BsbrQwoGn2nFqMfhbUS4g4kST5wYadZIcOLf0DsiJKsx80AD7B6PvcZiZJiKLkVONAgOveJEvDJ3Ws4IvB7nfNC9Obco=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=luqAq5Ws; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b="mhpO0K3H"
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-490b9318997so23114735e9.2
-        for <stable@vger.kernel.org>; Mon, 15 Jun 2026 04:46:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=0sec.ai; s=google; t=1781523983; x=1782128783; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=1jEKzIBUOghNkvDTiM29+zsP3vkJkDD0mPoUSzkRcsQ=;
-        b=mhpO0K3HZ2ZSwmb6umjVEf6bbJFuKXL3cx3AszmYxxQZotchT41kuof7xar2hYwxvh
-         0l8zytrGOgthdJH0fj68NMIFHlQlmb5I7vUqHqU6XjAlQ18CaUOKWJBt/TGX4pTNdrFi
-         BfLUHN6KtEp7EqzfxFHQi+FHpGH+QE7MpDmrj9wq5TwYHHXegBZZ0DH3zr90fG8UeRHT
-         eWeUhEY6BC4nBC5Vn065Gw8Oiwpa/CU28iPsbhT8hfeb6zOwneyzEqgHaJyPKdYHUmPG
-         0VSGYJIdaTOVAFRqwBaZwpwS10Mbety/Qu/bfeyzIsLqo4NtRMf0bDwD9R27p/qaIfhA
-         BL4A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781523983; x=1782128783;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=1jEKzIBUOghNkvDTiM29+zsP3vkJkDD0mPoUSzkRcsQ=;
-        b=E+5CiGhPuTndX4cAsKY/Gq18oR70gXPsFxFpFNbiqf8O+cKKuHsBGqag5vvycbi7Ex
-         F9R66+aXeH5i/CxUQHrlrbiSpG0rC2N2dSZ5MpVfIHAmvu4ZNk7uTwsW9YidE2EA3Ewq
-         0rEd+soFiPcOuyvUJ4hXvps+pJ8UtFiJN2IFcpyxWCqOc32EjmmsSsyvNEeJVM5Et6KD
-         HIF/Mxb5U3H6cI4OJutkLj0Mn4oAYtrI0s8ZlYEEFC9BQRHc2yHwmx7VgMc/8s2lJlCw
-         Z7yBcGbB86MFwXKWHVLmpP848N2IJ1pHd0/psE5fjC5r6+8GE3hhBHSOoVQK5I7Yr8CW
-         4N9w==
-X-Forwarded-Encrypted: i=1; AFNElJ8HKl2sRhV1ZUL5L5ckOmx6ZvfKsb+S5sqY9ovq/bjSpZD4yLGdXCff3bgR3F5Hp0AlvVmvFew=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxR1JTAMAEnCAVUlvgqSBl7BBVyakhk0/uwySpbkombwESNBzpI
-	spm44rPHbcmgFMbKq/balklXKf6K2Gl/0H1BpTZQbDkL0cyBPmQKRLKwTIAxwVbNx/OA
-X-Gm-Gg: Acq92OFqtyHBCmAimMPRxLcVOH0/svovKrf+qqT958x2JlDlnhb8uid4Cx3uuY3rTKg
-	p+Rz4sexbufkA4F/CK8nt1cI25JJq+Jy0AJE4VTDZqYPXSr8Jn2BBxR1wVxKMtM++hGWD7/iQ/6
-	uA4QnuEnTVZOrHD8p6ERQF6P8z/0++XZYDyXB/BBf2FgG3WGczxERKMqy/5Xwmet+ua1I/XkeN6
-	ib9yBsmj4cuawNgbmQIJwqt/3M7St7x2dvNwMIvfRpn4lBE7kDiM4IUgzIAMDXh0J9r+XxFoTvB
-	sNr5s0sxAjnXf2HLOXm+mnYdSf6HeWbszT18Z8rahyFWtNJ6JLWSQwjPRTIenbzh+5UqyOGhtwp
-	ldqYsyuTlY56plt25la4lGlAe9r4lw0QN9uG34Jpw4U9kbTDZxCfSLJRxfFd6OzHQpIjAbWf7xD
-	381IQgUXM8ekuWI0lRmwDHNine3A/Wm48Hw8pu4+wJ6UkH5L4Js0GQbK3Q/9++/m9pnHXsQ7tys
-	Y5peM81+a3ZAWIK0qoOvPN+K/vCBuWhstsAr9AeOWtd9Q==
-X-Received: by 2002:a7b:c017:0:b0:48e:6db3:ff2e with SMTP id 5b1f17b1804b1-49220093459mr95390895e9.15.1781523982724;
-        Mon, 15 Jun 2026 04:46:22 -0700 (PDT)
-Received: from PeakBook-Mini.tail8e484.ts.net ([178.197.218.209])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49220207efesm212347605e9.0.2026.06.15.04.46.19
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 15 Jun 2026 04:46:21 -0700 (PDT)
-From: Doruk Tan Ozturk <doruk@0sec.ai>
-To: jmaloy@redhat.com
-Cc: davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	aleksander.lobakin@intel.com,
-	tipc-discussion@lists.sourceforge.net,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Doruk Tan Ozturk <doruk@0sec.ai>,
-	stable@vger.kernel.org
-Subject: [PATCH net v3] tipc: fix slab-use-after-free Read in tipc_aead_decrypt_done
-Date: Mon, 15 Jun 2026 13:46:18 +0200
-Message-ID: <20260615114618.71249-1-doruk@0sec.ai>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="luqAq5Ws"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02C3B1F000E9;
+	Mon, 15 Jun 2026 11:58:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781524700;
+	bh=nob7Ef0LhlOFzeo/NONUfcSw5/BZ0C2rsatl1k+CwG0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=luqAq5Ws195uyaNNIqx+TtXLqYwS693yXltM2TcKwMEPE9xcEJ9gXkebKd6da5RvT
+	 aAetj7reft8CUSF4tJAD9LUsRfwVv1o2iMAeKI/D7fY+9cxkdZ8RXhupWE6A+X0sNy
+	 70pSyWH+eg6GmOqPpzWKo59VOZ0tk8aIB7nMONpv10msu/A1w2CjvA7BTKHvlLk6N6
+	 dnfzbUvRsGafRRh5PlQymk0GdV65M+uNECKCD6FD5LatW1RC9OMb1pD8sOcqeir4Tx
+	 8O8slBqcLy7jGqX7aUP7Xe7pJfZyrQqbfh1MxNrMTin+UGI3DGmGdHLxFhBTsdAGKT
+	 O/UMy/Lz0NpJw==
+Message-ID: <2d48ef0d-1110-4a9d-adcb-f701a1ce2cfa@kernel.org>
+Date: Mon, 15 Jun 2026 13:58:15 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/page_vma_mapped: revalidate and do proper check before
+ return device-private pmd
+To: Wei Yang <richard.weiyang@gmail.com>
+Cc: Balbir Singh <balbirs@nvidia.com>, akpm@linux-foundation.org,
+ ljs@kernel.org, riel@surriel.com, liam@infradead.org, vbabka@kernel.org,
+ harry@kernel.org, jannh@google.com, sj@kernel.org, ziy@nvidia.com,
+ linux-mm@kvack.org, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+ stable@vger.kernel.org
+References: <20260508013728.21285-1-richard.weiyang@gmail.com>
+ <5e9ee072-b927-41e0-ba98-c9fdf11eccbc@nvidia.com>
+ <0aab59b8-71c5-4059-8281-5dd876946528@kernel.org>
+ <20260512143542.izpp3gu4iqxttw3f@master>
+ <113dddc5-27e3-4e9e-a90c-f076a4629f51@kernel.org>
+ <20260612024840.qdw76serbgj67yrv@master>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260612024840.qdw76serbgj67yrv@master>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-tipc_aead_decrypt() goes straight from tipc_bearer_hold(b) to
-crypto_aead_decrypt(req) without taking a reference on the netns, unlike
-the encrypt path. When crypto_aead_decrypt() is offloaded asynchronously
-(e.g. the SIMD aead wrapper queuing to cryptd), the cryptd worker runs
-tipc_aead_decrypt_done() later. If the bearer's netns is torn down in the
-meantime, cleanup_net() -> tipc_exit_net() -> tipc_crypto_stop() frees the
-per-netns tipc_crypto, and the completion then reads it:
-tipc_aead_decrypt_done() dereferences aead->crypto->stats and
-aead->crypto->net, and tipc_crypto_rcv_complete() dereferences
-aead->crypto->aead[] and the node table -- reading freed memory.
+On 6/12/26 04:48, Wei Yang wrote:
+> On Tue, May 12, 2026 at 08:55:47PM +0200, David Hildenbrand (Arm) wrote:
+>> On 5/12/26 16:35, Wei Yang wrote:
+>>>
+>>> I tried to compress above logic like this, hope it could look cleaner.
+>>>
+>>> 	if (pmd_trans_huge(pmde) || pmd_is_valid_softleaf(pmde)) {
+>>> 		unsigned long pfn;
+>>> 		bool is_migration = pmd_is_migration_entry(pmde);
+>>> 		bool for_migration = !!(pvmw->flags & PVMW_MIGRATION);
+>>>
+>>> 		if (is_migration != for_migration)
+>>> 			return not_found(pvmw);
+>>>
+>>> 		if (pmd_trans_huge(pmde))
+>>> 			pfn = pmd_pfn(pmde);
+>>> 		else
+>>> 			pfn = softleaf_to_pfn(softleaf_from_pmd(pmde));
+>>>
+>>> 		if (!check_pmd(pfn, pvmw))
+>>> 			return not_found(pvmw);
+>>> 	} else if (!pmd_present(pmde)) {
+>>
+>> It's more compact, but not necessarily cleaner. In particular, I detest
+>> pmd_trans_huge(), we should phase it out.
+>>
+>> if (pmd_present(pmde) && !pmd_leaf(pmde)) {
+>> 	goto pte_table;
+>> } else if (pmd_present(pmde) || pmd_is_valid_softleaf(pmde))
+>>
+>> ...
+>>
+>> Might work as well. But once we add support for other softleaf types, we'll have
+>> to touch it again. So I'd rather just list what we actually expect.
+>>
+> 
+> Hi, David
 
-Decoded KASAN splat (v7.1-rc7, CONFIG_KASAN_INLINE + TIPC + TIPC_CRYPTO):
+Hi,
 
-  BUG: KASAN: slab-use-after-free in tipc_aead_decrypt_done (net/tipc/crypto.c:999)
-  Read of size 8 at addr ffff8881056258a8 by task kworker/u16:2/51
-  Workqueue: events_unbound
-  Call Trace:
-   tipc_aead_decrypt_done (net/tipc/crypto.c:999)
-   process_one_work (kernel/workqueue.c:3314)
-   worker_thread (kernel/workqueue.c:3397 kernel/workqueue.c:3478)
-   kthread (kernel/kthread.c:436)
-   ret_from_fork (arch/x86/kernel/process.c:158)
-   ret_from_fork_asm (arch/x86/entry/entry_64.S:245)
+> 
+> I may not follow you. Just want to confirm whether you prefer this goes as a
+> fix first, or you prefer it goes as what you suggested here as a cleanup?
 
-  Allocated by task 169:
-   __kasan_kmalloc (mm/kasan/common.c:398 mm/kasan/common.c:415)
-   tipc_crypto_start (net/tipc/crypto.c:1502)
-   tipc_init_net (net/tipc/core.c:72)
-   ops_init (net/core/net_namespace.c:137)
-   setup_net (net/core/net_namespace.c:446)
-   copy_net_ns (net/core/net_namespace.c:579)
-   create_new_namespaces (kernel/nsproxy.c:132)
-   __x64_sys_unshare (kernel/fork.c:3316)
-   do_syscall_64 (arch/x86/entry/syscall_64.c:63)
-   entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
+I guess we should just do it properly when we're touching the code already.
 
-  Freed by task 8:
-   kfree (mm/slub.c:6566)
-   tipc_exit_net (net/tipc/core.c:119)
-   cleanup_net (net/core/net_namespace.c:704)
-   process_one_work (kernel/workqueue.c:3314)
-   kthread (kernel/kthread.c:436)
+Does that answer your question? Will you send a proper patch?
 
-This is the same class of bug that commit e279024617134 ("net/tipc: fix
-slab-use-after-free Read in tipc_aead_encrypt_done") fixed for the encrypt
-side. The encrypt path takes maybe_get_net(aead->crypto->net) before
-crypto_aead_encrypt() and drops it with put_net() on the synchronous
-return paths and in tipc_aead_encrypt_done(); the -EINPROGRESS/-EBUSY
-return keeps the reference for the async callback to release. The decrypt
-path was left without the equivalent guard.
-
-Mirror the encrypt-side fix on the decrypt path: take a net reference
-before crypto_aead_decrypt() (failing with -ENODEV and the matching
-bearer put if it cannot be acquired), keep it across the
--EINPROGRESS/-EBUSY async return, and drop it with put_net() on the
-synchronous success/error return and at the end of
-tipc_aead_decrypt_done().
-
-Reproduced under KASAN on v7.1-rc7: a UDP bearer with a cluster key is
-flooded with crafted encrypted frames from an unknown peer (driving the
-cluster-key decrypt path) while the bearer's netns is repeatedly torn
-down. The completion must run asynchronously to outlive
-tipc_crypto_stop(); on x86 the stock aesni gcm(aes) now decrypts
-synchronously, so the async path was exercised via cryptd offload. The
-unguarded aead->crypto dereference in tipc_aead_decrypt_done() is the
-unpatched upstream path; tipc_aead_decrypt() still lacks
-maybe_get_net(aead->crypto->net), so the completion can outlive the free
-on any config where crypto_aead_decrypt() goes async.
-
-Found by 0sec automated security-research tooling (https://0sec.ai).
-
-Fixes: fc1b6d6de220 ("tipc: introduce TIPC encryption & authentication")
-Cc: stable@vger.kernel.org
-Signed-off-by: Doruk Tan Ozturk <doruk@0sec.ai>
-Reviewed-by: Alexander Lobakin <aleksander.lobakin@intel.com>
----
-v3:
- - Rewrite the changelog with the decoded stack trace and frame the
-   reproduction on the current tree (v7.1-rc7); drop the v6.12.92
-   references (Tung Quang Nguyen).
-v2:
- - Add Cc: stable@vger.kernel.org and Alexander Lobakin's Reviewed-by.
-   No functional change.
- net/tipc/crypto.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
-
-diff --git a/net/tipc/crypto.c b/net/tipc/crypto.c
-index 6d3b6b89b1d1..84a6489da036 100644
---- a/net/tipc/crypto.c
-+++ b/net/tipc/crypto.c
-@@ -941,12 +941,20 @@ static int tipc_aead_decrypt(struct net *net, struct tipc_aead *aead,
- 		goto exit;
- 	}
- 
-+	/* Get net to avoid freed tipc_crypto when delete namespace */
-+	if (!maybe_get_net(aead->crypto->net)) {
-+		tipc_bearer_put(b);
-+		rc = -ENODEV;
-+		goto exit;
-+	}
-+
- 	/* Now, do decrypt */
- 	rc = crypto_aead_decrypt(req);
- 	if (rc == -EINPROGRESS || rc == -EBUSY)
- 		return rc;
- 
- 	tipc_bearer_put(b);
-+	put_net(aead->crypto->net);
- 
- exit:
- 	kfree(ctx);
-@@ -984,6 +992,7 @@ static void tipc_aead_decrypt_done(void *data, int err)
- 	}
- 
- 	tipc_bearer_put(b);
-+	put_net(net);
- }
- 
- static inline int tipc_ehdr_size(struct tipc_ehdr *ehdr)
 -- 
-2.43.0
+Cheers,
 
+David
