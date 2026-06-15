@@ -1,129 +1,123 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C74B81C84D0;
-	Mon, 15 Jun 2026 20:33:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAC773B71A0
+	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 20:43:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781555608; cv=none; b=cxw47OC268o1nvFySPJe7YDqG/MB2iBd/1yDui4PXExljAbX5aFU8Sm5lGgpKlFUm5r1fXdctlxm/jmmrXozH3APyV+QQ43DxIoPYVgwsGq5uzRT20PabNzn7dRHeGilb1liecoASjA9106TZI+QGsmBbUcEhlvAoh4np50Gucc=
+	t=1781556202; cv=none; b=H99yeJFKoUPFE5AsSzdeiVZYE9GbCfUBwA5JhWwpHuN2b/Me5lniAFH8EVYh7pDb8BsWU+hmp+WqGr0yDimydn2xZahsjkwAF/hwTgWsrBfHU+9FUvsn8ORh4GACUJJMCRNsrX5VI8Q+88e2sBy4Nlri/16TCFqViKIRtTA5f0Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781555608; c=relaxed/simple;
-	bh=jt500s7MUtArMPZ/k5LIAYQukTNw0+26fQiIROkmkl0=;
-	h=Date:To:From:Subject:Message-Id; b=DG0n4o2rrWahnmVJSmbkoEhkhKmdkCShyuIEAAnnQb7HmokjrFiglTPDmdmPVvNq/wOYyGZUtiVdMD1q0vo825Tl7LXK3jOcSicJWetLB6jKxDa7oBauqhifdR6B5vgOs/jPEt7yq9/bhnkjjZamjmGms6CzWRfBDXOGJEeny/k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=SskUi4Ck; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781556202; c=relaxed/simple;
+	bh=ItAbYBi28K0MNqBDjO6bRAnm3lIyowUJvCtTVyIeJGc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=IJlDxdzAaUOeHrN4UXjOhrWhAkSqjm5PW9mNvVyuVG5QsFBFKPFj4Wvkfo9ay/M8G3XusziDyyWIx76fHQD1rswtE4WyeXo/Y0JGgwXCaXeSoXu8l43Y/K4NeJ/eqkYt26TkzZe6rmUZXi4DOFBnV9zcidy8S20wBrqnNcbHMYQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to; spf=none smtp.mailfrom=dama.to; dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b=trofXPR9; arc=none smtp.client-ip=209.85.214.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=dama.to
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="SskUi4Ck"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55E0D1F000E9;
-	Mon, 15 Jun 2026 20:33:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b="trofXPR9"
+Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2bf1f074a12so38626055ad.0
+        for <stable@vger.kernel.org>; Mon, 15 Jun 2026 13:43:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1781555607;
-	bh=x8CxbOFJKvFn7+t5U5BKpm3qVzT6qZUhy9t6Ay5wFC8=;
-	h=Date:To:From:Subject;
-	b=SskUi4CkslzRZtsW9v9fQAvd9VQcy78y2UF03J0VWQtbJX3B+/mUTkYbnayxr7Rk7
-	 KEkGFPuE+vcjgBzoQvcSreHTXYK2X8EVaClFp1CbSBK0tNJdGf9XGs2cegxBs12+rW
-	 0rWkDRnp8e+hFk5t4VJss/rAyL1Aow5YDCeoGPHQ=
-Date: Mon, 15 Jun 2026 13:33:26 -0700
-To: mm-commits@vger.kernel.org,stable@vger.kernel.org,piaojun@huawei.com,mark@fasheh.com,junxiao.bi@oracle.com,joseph.qi@linux.alibaba.com,jlbec@evilplan.org,heming.zhao@suse.com,gechangwei@live.cn,icb@fastmail.org,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + ocfs2-fix-null-h_transaction-deref-in-ocfs2_assure_trans_credits.patch added to mm-nonmm-unstable branch
-Message-Id: <20260615203327.55E0D1F000E9@smtp.kernel.org>
+        d=dama-to.20251104.gappssmtp.com; s=20251104; t=1781556200; x=1782161000; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references
+         :mail-followup-to:message-id:subject:cc:to:from:date:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=IppM0Vc4ukPCYxBBrz8f6rK4ET/XTsCGtsSBhGqG1J4=;
+        b=trofXPR9avEaWyEiAggHZBjsxDpClaiod04+q/w0NIffxaRJmxX+BIMANJkrhsUwRp
+         Vmg61WY8sa2JMUctGUd/Bl3dEAdt/fjMprARaRyPuOK4RSopIT6+ACXytNhZitie4ktu
+         vPkeH2lat88n7jRM5r4zhK+3D6ZvqyMFus5TmWpBxRTbOM5pzloSnCm5cn9lJcEtAjFD
+         29VQjju6VtFUMfuGHHxRlkE7GV/F/b0vp4yKFaln2JWy2XOw5deS3ToR+VpDxPAN4VZO
+         jj1UMfsiOs8tIwOQCXYxf+Sacss4ETAidsQS4pqR8zT7fFWK59llP0oTR2YdQDcP7Sc4
+         mxvg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781556200; x=1782161000;
+        h=in-reply-to:content-disposition:mime-version:references
+         :mail-followup-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=IppM0Vc4ukPCYxBBrz8f6rK4ET/XTsCGtsSBhGqG1J4=;
+        b=VotfzwdB55W400HbplqH2pcpDh7/48n217TO9JgAaw5AbH6Y6qfkeQLxVCMgvQrNvZ
+         6GHDfPvuIRn4960I827+gSNfbyoZwc9hwMtQd2Bw9Z6kMU3NWfcLiIdcKGr/JGzyAuV5
+         PgbWetsvdNsDrxyMeyBRGFjqfpcAq9JGj1vxBPHnCflESKZRdSAYbq/9Hg9lHX1oH8df
+         Ci4K40gr8P/cCD4rBXSmTG2v5ZOAclvN/3TAKyHdO2SXKlCs1b0pGk8oKjuy25l1IgTU
+         9ngKHH9pAYMPHF6CfU23YTuyviCvYi5VeYJBX/xl87mNSZYUajT5nZJloGNNvchGGklF
+         6+mQ==
+X-Forwarded-Encrypted: i=1; AFNElJ/iMPjb+IxJvfISOU7KhwsaWBltIMCuJl/R2GVQxazUQ7X82J6UD3xDr8AIXjfJN4TyXhE8XSk=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwXRjM+uIxsJU89uaGQesimyIG11ka2T6N7J0LAYCvrhqKv5+9P
+	HGM5sRuD7oyu8WzK2vf/ZxpmnCcLJnNl7cKvdCimKMuNpbPwHJZ7EGjaHk02RKerkQ4=
+X-Gm-Gg: Acq92OE5P40mJHZgsSaDId+A2JOAJCljKah8m5kwU3aVm87suJNaI8GNWVco2NOvxKl
+	U4CpMet3MEt5OzhP/3tNbmXEV6/S446ukO8Nqb2sUOM4PglEt1PhwDRV06m6vSvNEV18tK/ofQf
+	x9+u9v11OfuGnxOflW0GGV16EW4qBEDbDEuCD8axAUNFH88L9+FwwrgqtkAg5UdJ3wU6L0Jln86
+	ZbYzRgYOWwdsVV6/eEFGhBR6zwIYna1ac3b0+/s8JUsWq6ZzTG/bsauEj3fnTbWaL+jmiX+DrRV
+	C+wRvcENAhucw1BEWYvEu46MlKApMCTzLRmGWvcoux9MzHfebY8fZtmv7a9mBKWHc6rZ0I2TzoC
+	fwE9eIHGeZFP9cXBwkOZcJoE+yh0cmAt+r0zS03OJDELshyIjxHxQTRJTcj/vfTR5SiA8mp9hEj
+	t9qEo=
+X-Received: by 2002:a17:903:950:b0:2c0:b319:fb43 with SMTP id d9443c01a7336-2c69a1731a1mr8508155ad.21.1781556200372;
+        Mon, 15 Jun 2026 13:43:20 -0700 (PDT)
+Received: from localhost ([2a03:2880:2ff:9::])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c433558449sm114681195ad.78.2026.06.15.13.43.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 15 Jun 2026 13:43:19 -0700 (PDT)
+Date: Mon, 15 Jun 2026 13:43:18 -0700
+From: Joe Damato <joe@dama.to>
+To: Maoyi Xie <maoyixie.tju@gmail.com>
+Cc: "David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Nikolay Aleksandrov <razor@blackwall.org>,
+	David Wei <dw@davidwei.uk>, Stanislav Fomichev <sdf@fomichev.me>,
+	Dragos Tatulea <dtatulea@nvidia.com>,
+	Samiullah Khawaja <skhawaja@google.com>, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH net] netdev-genl: report NAPI thread PID in the caller's
+ pid namespace
+Message-ID: <ajBj5j01YmdS02Uw@devvm20253.cco0.facebook.com>
+Mail-Followup-To: Joe Damato <joe@dama.to>,
+	Maoyi Xie <maoyixie.tju@gmail.com>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Nikolay Aleksandrov <razor@blackwall.org>,
+	David Wei <dw@davidwei.uk>, Stanislav Fomichev <sdf@fomichev.me>,
+	Dragos Tatulea <dtatulea@nvidia.com>,
+	Samiullah Khawaja <skhawaja@google.com>, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260615171736.1709318-1-maoyixie.tju@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260615171736.1709318-1-maoyixie.tju@gmail.com>
 
+On Tue, Jun 16, 2026 at 01:17:36AM +0800, Maoyi Xie wrote:
+> netdev_nl_napi_fill_one() reports the NAPI kthread PID in NETDEV_A_NAPI_PID
+> using task_pid_nr(), which returns the PID in the initial pid namespace.
+> 
+> NETDEV_CMD_NAPI_GET does not have GENL_ADMIN_PERM and the netdev genl family
+> is netnsok, so a caller in a child pid namespace can issue it. That caller
+> then sees the kthread's global PID, even though the kthread is not visible
+> in its pid namespace, where the value should be 0.
+> 
+> Translate the PID through the caller's pid namespace, the same way commit
+> 3799c2570982 ("io_uring/fdinfo: translate SqThread PID through caller's
+> pid_ns") did for the io_uring SQPOLL thread. The doit and dumpit paths both
+> run synchronously in the caller's context, so task_active_pid_ns(current) is
+> the caller's pid namespace.
+> 
+> Fixes: db4704f4e4df ("netdev-genl: Add PID for the NAPI thread")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Maoyi Xie <maoyixie.tju@gmail.com>
+> ---
+>  net/core/netdev-genl.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+>
 
-The patch titled
-     Subject: ocfs2: fix NULL h_transaction deref in ocfs2_assure_trans_credits
-has been added to the -mm mm-nonmm-unstable branch.  Its filename is
-     ocfs2-fix-null-h_transaction-deref-in-ocfs2_assure_trans_credits.patch
-
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/ocfs2-fix-null-h_transaction-deref-in-ocfs2_assure_trans_credits.patch
-
-This patch will later appear in the mm-nonmm-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: Ian Bridges <icb@fastmail.org>
-Subject: ocfs2: fix NULL h_transaction deref in ocfs2_assure_trans_credits
-Date: Thu, 11 Jun 2026 09:46:38 -0500
-
-[BUG]
-A direct write over unwritten extents can panic the kernel in
-ocfs2_assure_trans_credits() when the journal aborts during DIO
-completion. The crash is a general protection fault from a NULL pointer
-dereference.
-
-[CAUSE]
-ocfs2_dio_end_io_write() loops over a direct write's unwritten extents,
-marking each written under a single journal handle. If the journal
-aborts (for example after an I/O error) while the extent tree is being
-updated, the handle is left aborted with its transaction pointer
-cleared. The extent merge treats that failure as not critical and
-reports success, so the loop keeps using the handle.
-ocfs2_assure_trans_credits() reads the handle's remaining credits
-without first checking whether the handle is aborted, and that read
-dereferences the cleared transaction pointer.
-
-[FIX]
-A journal abort is recorded in the handle itself, so callers are
-expected to test the handle rather than rely on a returned error.
-Make ocfs2_assure_trans_credits() do that, as the other ocfs2 journal
-helpers already do, and return -EROFS when the handle is aborted.
-
-Link: https://lore.kernel.org/airKTsM1fRVN-Wj7@dev
-Fixes: be346c1a6eeb ("ocfs2: fix DIO failure due to insufficient transaction credits")
-Signed-off-by: Ian Bridges <icb@fastmail.org>
-Reported-by: syzbot+e9c15ff790cea6a0cfae@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=e9c15ff790cea6a0cfae
-Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
-Cc: Mark Fasheh <mark@fasheh.com>
-Cc: Joel Becker <jlbec@evilplan.org>
-Cc: Junxiao Bi <junxiao.bi@oracle.com>
-Cc: Changwei Ge <gechangwei@live.cn>
-Cc: Jun Piao <piaojun@huawei.com>
-Cc: Heming Zhao <heming.zhao@suse.com>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
----
-
- fs/ocfs2/journal.c |    6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
-
---- a/fs/ocfs2/journal.c~ocfs2-fix-null-h_transaction-deref-in-ocfs2_assure_trans_credits
-+++ a/fs/ocfs2/journal.c
-@@ -473,8 +473,12 @@ bail:
-  */
- int ocfs2_assure_trans_credits(handle_t *handle, int nblocks)
- {
--	int old_nblks = jbd2_handle_buffer_credits(handle);
-+	int old_nblks;
- 
-+	if (is_handle_aborted(handle))
-+		return -EROFS;
-+
-+	old_nblks = jbd2_handle_buffer_credits(handle);
- 	trace_ocfs2_assure_trans_credits(old_nblks);
- 	if (old_nblks >= nblocks)
- 		return 0;
-_
-
-Patches currently in -mm which might be from icb@fastmail.org are
-
-ocfs2-fix-ubsan-array-index-out-of-bounds-in-ocfs2_sum_rightmost_rec.patch
-ocfs2-fix-null-h_transaction-deref-in-ocfs2_assure_trans_credits.patch
-
+Reviewed-by: Joe Damato <joe@dama.to>
