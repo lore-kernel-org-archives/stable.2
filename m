@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5726401A3B
-	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 15:20:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12FCC402429
+	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 15:20:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781536851; cv=none; b=Jw5ko4U0lXYu5SwIY3JeaShz7XodZaZvf5OePzvx/MgnoxIwOO8OPeaqxa3DfAswb3xy0lJjSvzX1GTUubm8gVxhs2FJTlT/UOYGP/KEd9zezT+mD3zW9HKyiyLe7xJB/9YmiPiTsBm9c9IO7xbrs9313odiA+A+qwBrsxSiFAw=
+	t=1781536860; cv=none; b=UKTyIx1lPtwjZTFw363IcK+0RqyVZNhwSo7p4Ok3zHgHZAdw2KQkHd257r/pTCEElZHNurEzx5sEya0/HvYGwyAfRP5poZCSod8JaVugt8A7O2Zon94syNQ1nkjzkc8/iVdsiZp+XPBI5+/7/WuaW8FKYx1EpljqN3CY/GAooVw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781536851; c=relaxed/simple;
-	bh=SsVoKSAo8l53XfO0ODz7+AIXmpXTb8YmXeilWEEFMjY=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=oiE1YSwHB8/O1SBv/z2lHIxauqkU+qWdwmychivJqp9Ihd4hgfuAng/JeuObrbCLRXR5UxHWLq31Voipyaht8iGaAu/pquxoC62LB5xdIrpbRym73hIPPbttKIh9+aoKTw49wV7gyRzloLq+HH9v1r2H9J551PyelZgYM0Vt/RI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=eb0zMxrX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781536860; c=relaxed/simple;
+	bh=36ioJ9Bi6W22evfpxbkBPvTx5s6LNks8EubuqluqORk=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=XBCO2A3P0Mc/qZUk5lRoPvHhmeex7gY9VZuLaNitF67+EibVkjhW0oLq5XgI25gTrFo58M8gOL1NwJKY13IVnDclGxXNIyJUwbNsxMgCmqieN6jobb/kLbTuBXMkdoxES0MWctKt4ELvX2e2FaPm9VGijlzwsinakl03nmChVVk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=QkFRxiDN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="eb0zMxrX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AEDCC1F000E9;
-	Mon, 15 Jun 2026 15:20:49 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="QkFRxiDN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCD581F000E9;
+	Mon, 15 Jun 2026 15:20:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1781536850;
-	bh=jDLU5ra6NEWPt7DstHb4i5yku0zLwZiqWhoEBUx1EJw=;
+	s=korg; t=1781536858;
+	bh=v6szXlmguP8yO8kXTlEThfRsK+1XeTmELsJcGUSwoDU=;
 	h=Subject:To:Cc:From:Date;
-	b=eb0zMxrXziIxVFVf+SVCqfsjjP/fAMT1dNrh1HAqkzBg/w2QPFxvLpq+h2XXGyMZ4
-	 h/Vx6J73y7TgqYoorYZ/D/QZck1yy4ppnlzpleu5wi0HjlaT+sx6mZbnESKus9gQh4
-	 iajWgEKDJ0jaQF7kX7b/M2KbX5tAd3oX80+oVVxM=
-Subject: FAILED: patch "[PATCH] misc: fastrpc: Fix NULL pointer dereference in rpmsg callback" failed to apply to 5.10-stable tree
-To: mukesh.ojha@oss.qualcomm.com,andersson@kernel.org,gregkh@linuxfoundation.org,srini@kernel.org
+	b=QkFRxiDNfUpPIW3QGUFD6WVl5as9aG2xh3IsMDs4F43c5K+QAUm/L07A5jmKriTWM
+	 zYv1GTAvNtHLySsIi3RmNHpP1rlRwdSjxisTqrTmgCl1w0lUIWvJoD8UMX/IikN6GU
+	 lp5SnS2zqCwICIP8Wsugd4tiG/kZGqnf2i9KzFAc=
+Subject: FAILED: patch "[PATCH] firmware: samsung: acpm: Fix cross-thread RX length" failed to apply to 7.0-stable tree
+To: tudor.ambarus@linaro.org,krzk@kernel.org,titouan.ameline@gmail.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 15 Jun 2026 16:48:34 +0200
-Message-ID: <2026061534-unlikable-frolic-167a@gregkh>
+Date: Mon, 15 Jun 2026 16:49:24 +0200
+Message-ID: <2026061524-schematic-trapeze-18dc@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 7.0-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.0.y
 git checkout FETCH_HEAD
-git cherry-pick -x 5401fb4fe10fac6134c308495df18ed74aebb9c4
+git cherry-pick -x f133bd4b5daf71bccdde0ad1a4f47fac76a6bfb1
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026061534-unlikable-frolic-167a@gregkh' --subject-prefix 'PATCH 5.10.y' HEAD^..
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026061524-schematic-trapeze-18dc@gregkh' --subject-prefix 'PATCH 7.0.y' HEAD^..
 
 Possible dependencies:
 
@@ -62,77 +62,115 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 5401fb4fe10fac6134c308495df18ed74aebb9c4 Mon Sep 17 00:00:00 2001
-From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-Date: Sat, 30 May 2026 21:45:27 +0100
-Subject: [PATCH] misc: fastrpc: Fix NULL pointer dereference in rpmsg callback
+From f133bd4b5daf71bccdde0ad1a4f47fac76a6bfb1 Mon Sep 17 00:00:00 2001
+From: Tudor Ambarus <tudor.ambarus@linaro.org>
+Date: Tue, 5 May 2026 13:12:58 +0000
+Subject: [PATCH] firmware: samsung: acpm: Fix cross-thread RX length
+ corruption
 
-A NULL pointer dereference was observed on Hawi at boot when the DSP
-sends a glink message before fastrpc_rpmsg_probe() has completed
-initialization:
+Sashiko identified a cross-thread RX length corruption bug when
+reviewing the thermal addition to ACPM [1].
 
-  Unable to handle kernel NULL pointer dereference at virtual address 0000000000000178
-  pc : _raw_spin_lock_irqsave+0x34/0x8c
-  lr : fastrpc_rpmsg_callback+0x3c/0xcc [fastrpc]
-  ...
-  Call trace:
-   _raw_spin_lock_irqsave+0x34/0x8c (P)
-   fastrpc_rpmsg_callback+0x3c/0xcc [fastrpc]
-   qcom_glink_native_rx+0x538/0x6a4
-   qcom_glink_smem_intr+0x14/0x24 [qcom_glink_smem]
+When multiple threads concurrently send IPC requests, the ACPM polling
+mechanism can encounter responses belonging to other threads. To drain
+the queue, the driver saves these concurrent responses into an internal
+cache (`rx_data->cmd`) to be retrieved later by the owning thread.
 
-The faulting address 0x178 corresponds to the lock variable inside
-struct fastrpc_channel_ctx, confirming that cctx is NULL when
-fastrpc_rpmsg_callback() attempts to take the spinlock.
+Previously, the driver incorrectly used `xfer->rxcnt` (the expected
+receive length of the *current* polling thread) when copying data for
+*other* threads into this cache. If the threads expected responses of
+different lengths, this resulted in buffer underflows (leading to reads
+of uninitialized memory) or potential buffer overflows.
 
-There are two issues here. First, dev_set_drvdata() is called before
-spin_lock_init() and idr_init(), leaving a window where the callback
-can retrieve a valid cctx pointer but operate on an uninitialized
-spinlock. Second, the rpmsg channel becomes live as soon as the driver
-is bound, so fastrpc_rpmsg_callback() can fire before dev_set_drvdata()
-is called at all, resulting in dev_get_drvdata() returning NULL.
+Fix this by replacing the boolean `response` flag in
+`struct acpm_rx_data` with `rxcnt`, caching the exact expected receive
+length for each specific transaction during transfer preparation. Use
+this cached length when saving concurrent responses.
 
-Fix both issues by moving all cctx initialization ahead of
-dev_set_drvdata() so the structure is fully initialized before it
-becomes visible to the callback, and add a NULL check in
-fastrpc_rpmsg_callback() as a guard against any remaining window.
+Consequently, ensure that `xfer->rxcnt` is explicitly zeroed in driver
+helpers (e.g., `acpm_dvfs_set_xfer`) for fire-and-forget messages to
+prevent uninitialized stack garbage from being interpreted as a massive
+expected receive length.
 
-Fixes: f6f9279f2bf0 ("misc: fastrpc: Add Qualcomm fastrpc basic driver model")
 Cc: stable@vger.kernel.org
-Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-Reviewed-by: Bjorn Andersson <andersson@kernel.org>
-Signed-off-by: Srinivas Kandagatla <srini@kernel.org>
-Link: https://patch.msgid.link/20260530204528.116920-4-srini@kernel.org
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Fixes: a88927b534ba ("firmware: add Exynos ACPM protocol driver")
+Closes: https://sashiko.dev/#/patchset/20260420-acpm-tmu-v3-0-3dc8e93f0b26%40linaro.org [1]
+Reported-by: Titouan Ameline de Cadeville <titouan.ameline@gmail.com>
+Closes: https://lore.kernel.org/r/20260426210255.73674-1-titouan.ameline@gmail.com/
+Signed-off-by: Tudor Ambarus <tudor.ambarus@linaro.org>
+Link: https://patch.msgid.link/20260505-acpm-fixes-sashiko-reports-v5-1-43b5ee7f1674@linaro.org
+Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
 
-diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-index cca7489605c5..47cf3d21b51d 100644
---- a/drivers/misc/fastrpc.c
-+++ b/drivers/misc/fastrpc.c
-@@ -2460,7 +2460,6 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
+diff --git a/drivers/firmware/samsung/exynos-acpm-dvfs.c b/drivers/firmware/samsung/exynos-acpm-dvfs.c
+index 06bdf62dea1f..fdea7aa24ca0 100644
+--- a/drivers/firmware/samsung/exynos-acpm-dvfs.c
++++ b/drivers/firmware/samsung/exynos-acpm-dvfs.c
+@@ -31,6 +31,9 @@ static void acpm_dvfs_set_xfer(struct acpm_xfer *xfer, u32 *cmd, size_t cmdlen,
+ 	if (response) {
+ 		xfer->rxcnt = cmdlen;
+ 		xfer->rxd = cmd;
++	} else {
++		xfer->rxcnt = 0;
++		xfer->rxd = NULL;
+ 	}
+ }
  
- 	kref_init(&data->refcount);
+diff --git a/drivers/firmware/samsung/exynos-acpm.c b/drivers/firmware/samsung/exynos-acpm.c
+index 16c46ed60837..e95edc350efa 100644
+--- a/drivers/firmware/samsung/exynos-acpm.c
++++ b/drivers/firmware/samsung/exynos-acpm.c
+@@ -104,12 +104,12 @@ struct acpm_queue {
+  *
+  * @cmd:	pointer to where the data shall be saved.
+  * @n_cmd:	number of 32-bit commands.
+- * @response:	true if the client expects the RX data.
++ * @rxcnt:	expected length of the response in 32-bit words.
+  */
+ struct acpm_rx_data {
+ 	u32 *cmd;
+ 	size_t n_cmd;
+-	bool response;
++	size_t rxcnt;
+ };
  
--	dev_set_drvdata(&rpdev->dev, data);
- 	rdev->dma_mask = &data->dma_mask;
- 	dma_set_mask_and_coherent(rdev, DMA_BIT_MASK(32));
- 	INIT_LIST_HEAD(&data->users);
-@@ -2469,6 +2468,7 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
- 	idr_init(&data->ctx_idr);
- 	data->domain_id = domain_id;
- 	data->rpdev = rpdev;
-+	dev_set_drvdata(&rpdev->dev, data);
+ #define ACPM_SEQNUM_MAX    64
+@@ -199,7 +199,7 @@ static void acpm_get_saved_rx(struct acpm_chan *achan,
+ 	const struct acpm_rx_data *rx_data = &achan->rx_data[tx_seqnum - 1];
+ 	u32 rx_seqnum;
  
- 	err = of_platform_populate(rdev->of_node, NULL, NULL, rdev);
- 	if (err)
-@@ -2542,6 +2542,9 @@ static int fastrpc_rpmsg_callback(struct rpmsg_device *rpdev, void *data,
- 	if (len < sizeof(*rsp))
- 		return -EINVAL;
+-	if (!rx_data->response)
++	if (!rx_data->rxcnt)
+ 		return;
  
-+	if (!cctx)
-+		return -ENODEV;
-+
- 	ctxid = ((rsp->ctx & FASTRPC_CTXID_MASK) >> 4);
+ 	rx_seqnum = FIELD_GET(ACPM_PROTOCOL_SEQNUM, rx_data->cmd[0]);
+@@ -256,7 +256,7 @@ static int acpm_get_rx(struct acpm_chan *achan, const struct acpm_xfer *xfer)
+ 		seqnum = rx_seqnum - 1;
+ 		rx_data = &achan->rx_data[seqnum];
  
- 	spin_lock_irqsave(&cctx->lock, flags);
+-		if (rx_data->response) {
++		if (rx_data->rxcnt) {
+ 			if (rx_seqnum == tx_seqnum) {
+ 				__ioread32_copy(xfer->rxd, addr, xfer->rxcnt);
+ 				rx_set = true;
+@@ -268,7 +268,8 @@ static int acpm_get_rx(struct acpm_chan *achan, const struct acpm_xfer *xfer)
+ 				 * clear yet the bitmap. It will be cleared
+ 				 * after the response is copied to the request.
+ 				 */
+-				__ioread32_copy(rx_data->cmd, addr, xfer->rxcnt);
++				__ioread32_copy(rx_data->cmd, addr,
++						rx_data->rxcnt);
+ 			}
+ 		} else {
+ 			clear_bit(seqnum, achan->bitmap_seqnum);
+@@ -380,8 +381,8 @@ static void acpm_prepare_xfer(struct acpm_chan *achan,
+ 	/* Clear data for upcoming responses */
+ 	rx_data = &achan->rx_data[achan->seqnum - 1];
+ 	memset(rx_data->cmd, 0, sizeof(*rx_data->cmd) * rx_data->n_cmd);
+-	if (xfer->rxd)
+-		rx_data->response = true;
++	/* zero means no response expected */
++	rx_data->rxcnt = xfer->rxcnt;
+ 
+ 	/* Flag the index based on seqnum. (seqnum: 1~63, bitmap: 0~62) */
+ 	set_bit(achan->seqnum - 1, achan->bitmap_seqnum);
 
