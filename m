@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8191B3F39C5
-	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 14:45:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97A963F39C5
+	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 14:45:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781534716; cv=none; b=CJsTqDFF/nFs0PZokzZC3LwRshCv4CQKKsiBqLhyCCVXnM95mXZaGkarCl3KNKGwBIsgGdSGOJQzJIWTx6xVqjvTJp/Ik5wNr4XamNjwQzFwwcQK+vBkRTlkTLjvux9ezyJ6GiUvhkL4sGfEPxkQMHFX/Tu25Z/XlgVcfTmt8S4=
+	t=1781534724; cv=none; b=e+myndd128sanN3i7bmzxFIuJMYLSwNxENFhrLeRjBjDJlmGmPdPh6fN1W9Uy+1I9fCLFtaylfmIYa/ZvcuWrSJsdHIFiI6bIqDu5TIVgiifcfBPexNmwP8fCu34dVVnnardxgm7brStmNYIoTJGuEq0E6jDSm1UluV7G4ZQtcY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781534716; c=relaxed/simple;
-	bh=mqbkLD4sZuAFS5J+OJoLi6FGPbeXNBt/RLAY9JghGmI=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=cBf0JI1N67/35cpwjMwa1HTZDmY0lFZf7+d5f0fHa1XSn+fLyNMcJ38mLMbIWyPeh0chikmB5X4+kmvwzia7WdwmSo4tXPQlbD9rzA+woYdzxgGxMBHyaaa8239W/f4joSgDKecqDFAfqyjl2rTvH+3494kfwDgjiNKvBsnJEF8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ULGHZz4+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781534724; c=relaxed/simple;
+	bh=lBZ/kbNFi3ErxmoWjTIwfxdiiZ4e9eSmJ8lmPVhavU8=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=QeBzpbb7waEsDOLTlFnBP1lrduTzD4Vq0LJAiCwioreOsQXuPwXl95Nfwi6jlmkpr0+xRt3JUCOLnjaTctwDATT2b+s/pp5j4Fa5KFZYeGtprFEhFypBJhdsgmnbsl6wsEO0IEPme3OQ8mKgYMIJrkyPwlC+A2Ru/cjxwwXBC04=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=YlK4e+cN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ULGHZz4+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B1D21F000E9;
-	Mon, 15 Jun 2026 14:45:14 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="YlK4e+cN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E9681F000E9;
+	Mon, 15 Jun 2026 14:45:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1781534715;
-	bh=gxfQYXUTUXPrxb5Ki3nrllYhFUIz9Xx5RCMG3nppwyM=;
+	s=korg; t=1781534723;
+	bh=+0WovA5n2UQ475yEfY8UiAQrjQ+Wdc9fXF4TYUbq5Do=;
 	h=Subject:To:Cc:From:Date;
-	b=ULGHZz4+LPYdf/w9MnvgQeXG7HUIRYYgHfoR84Mtu4X8xG2Wv2YH4GudFEEkBng/n
-	 +75l6Z3yFeza1qXt2W25tFQQF8s4aqK6uAwLMcdo951qgtASmogOmeqXoueda6QZm9
-	 36YUpCKkCslTbawWBupFaoA4AvixpcJ+6SB69wWo=
-Subject: FAILED: patch "[PATCH] debugobjects: Don't call fill_pool() in early boot hardirq" failed to apply to 7.0-stable tree
-To: longman@redhat.com,bigeasy@linutronix.de,tglx@kernel.org,tglx@linutronix.de
+	b=YlK4e+cNOa6cFepr9TzLHFPc8YbgW4OsQXaPnFN2uh15f0kdR4Lu5P0QBxnF1Zc+s
+	 QmhzgvEA/K/Le/+o3CukUC+sFYDRnoYZfskADVrJjJK6yHKqqghedDpu5aCVhtpqAV
+	 3ENfB/P9Uw45ADz/JuAYFdcnx54u3diWy/2HbF8g=
+Subject: FAILED: patch "[PATCH] Drivers: hv: vmbus: Improve the logic of reserving fb_mmio on" failed to apply to 6.18-stable tree
+To: decui@microsoft.com,kjlx@templeofstupid.com,matthew.ruffell@canonical.com,mhklinux@outlook.com,wei.liu@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 15 Jun 2026 16:31:58 +0200
-Message-ID: <2026061558-amiable-showman-7ea7@gregkh>
+Date: Mon, 15 Jun 2026 16:32:12 +0200
+Message-ID: <2026061512-crevice-luckily-0ea9@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 7.0-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.0.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 0d046ae106255cba5eb83b23f78ee93f3620247d
+git cherry-pick -x 016a25e4b0df4d77e7c258edee4aaf982e4ee809
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026061558-amiable-showman-7ea7@gregkh' --subject-prefix 'PATCH 7.0.y' HEAD^..
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026061512-crevice-luckily-0ea9@gregkh' --subject-prefix 'PATCH 6.18.y' HEAD^..
 
 Possible dependencies:
 
@@ -62,101 +62,148 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 0d046ae106255cba5eb83b23f78ee93f3620247d Mon Sep 17 00:00:00 2001
-From: Waiman Long <longman@redhat.com>
-Date: Fri, 5 Jun 2026 13:30:38 -0400
-Subject: [PATCH] debugobjects: Don't call fill_pool() in early boot hardirq
- context
+From 016a25e4b0df4d77e7c258edee4aaf982e4ee809 Mon Sep 17 00:00:00 2001
+From: Dexuan Cui <decui@microsoft.com>
+Date: Thu, 7 May 2026 14:28:38 -0700
+Subject: [PATCH] Drivers: hv: vmbus: Improve the logic of reserving fb_mmio on
+ Gen2 VMs
 
-When booting a debug PREEMPT_RT kernel on an ARM64 system, a "inconsistent
-{HARDIRQ-ON-W} -> {IN-HARDIRQ-W} usage" lockdep warning message was
-reported to the console.
+If vmbus_reserve_fb() in the kdump/kexec kernel fails to properly reserve
+the framebuffer MMIO range (which is below 4GB) due to a Gen2 VM's
+screen.lfb_base being zero [1], there is an MMIO conflict between the
+drivers hyperv-drm and pci-hyperv: when the driver pci-hyperv's
+hv_allocate_config_window() calls vmbus_allocate_mmio() to get an
+MMIO range, typically it gets a 32-bit MMIO range that overlaps with the
+framebuffer MMIO range, and later hv_pci_enter_d0() fails with an
+error message "PCI Pass-through VSP failed D0 Entry with status" since
+the host thinks that PCI devices must not use MMIO space that the
+host has assigned to the framebuffer.
 
-During early boot, interrupts are enabled before the scheduler is
-enabled. In this window (before SYSTEM_SCHEDULING is set) interrupts can
-fire and in the hard interrupt context handler attempt to fill the pool
+This is especially an issue if pci-hyperv is built-in and hyperv-drm is
+built as a module. Consequently, the kdump/kexec kernel fails to detect
+PCI devices via pci-hyperv, and may fail to mount the root file system,
+which may reside in a NVMe disk. The issue described here has existed
+for SR-IOV VF NICs since day one of the pci-hyperv driver, and has been
+worked around on x64 when possible. With the recent introduction of
+ARM64 VMs that boot from NVMe, there is no workaround, so we need a
+formal fix.
 
-This can lead to a deadlock when the interrupt occurred when the interrupt
-hits a region which holds a lock that is required to be taken in the
-allocation path.
+On Gen2 VMs, if the screen.lfb_base is 0 in the kdump/kexec kernel [1],
+fall back to the low MMIO base, which should be equal to the framebuffer
+MMIO base [2] (the statement is true according to my testing on x64
+Windows Server 2016, and on x64 and ARM64 Windows Server 2025 and on
+Azure. I checked with the Hyper-V team and they said the statement should
+continue to be true for Gen2 VMs). In the first kernel, screen.lfb_base
+is not 0; if the user specifies a very high resolution, it's not enough
+to only reserve 8MB: let's always reserve half of the space below 4GB,
+but cap the reservation to 128MB, which is the required framebuffer size
+of the highest resolution 7680*4320 supported by Hyper-V.
 
-Add a new can_fill_pool() helper and reorder the exception rule and forbid
-this scenario by excluding allocations from hard interrupt context.
+While at it, fix the comparison "end > VTPM_BASE_ADDRESS" by changing
+the > to >=. Here the 'end' is an inclusive end (typically, it's
+0xFFFF_FFFF for the low MMIO range).
 
-Fixes: 06e0ae988f6e ("debugobjects: Allow to refill the pool before SYSTEM_SCHEDULING")
-Suggested-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Suggested-by: Thomas Gleixner <tglx@linutronix.de>
-Signed-off-by: Waiman Long <longman@redhat.com>
-Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Reviewed-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260605173038.495075-1-longman@redhat.com
+Note: vmbus_reserve_fb() now also reserves an MMIO range at the beginning
+of the low MMIO range on CVMs, which have no framebuffers (the
+'screen.lfb_base' in vmbus_reserve_fb() is 0 for CVMs), just in case the
+host might treat the beginning of the low MMIO range specially [3]. BTW,
+the OpenHCL kernel is not affected by the change, because that kernel
+boots with DeviceTree rather than ACPI (so vmbus_reserve_fb() won't run
+there), and there is no framebuffer device for that kernel.
 
-diff --git a/lib/debugobjects.c b/lib/debugobjects.c
-index 772ddabcbe7d..1fa156c45c09 100644
---- a/lib/debugobjects.c
-+++ b/lib/debugobjects.c
-@@ -720,6 +720,41 @@ static inline bool debug_objects_is_pi_blocked_on(void)
- #endif
+Note: normally Gen1 VMs don't have the MMIO conflict issue because the
+framebuffer MMIO range (which is hardcoded to base=4GB-128MB and
+size=64MB for Gen1 VMs by the host) is always reported via the legacy PCI
+graphics device's BAR, so the kdump/kexec kernel can reserve the 64MB
+MMIO range; however, if the VM is configured to use a very high resolution
+and the required framebuffer size exceeds 64MB (AFAIK, in practice, this
+isn't a typical configuration by users), the hyperv-drm driver may need to
+allocate an MMIO range above 4GB and change the framebuffer MMIO location
+to the allocated MMIO range -- in this case, there can still be issues [4]
+which can't be easily fixed: any possible affected Gen1 users would have
+to use a resolution whose framebuffer size is <= 64MB, or switch to Gen2
+VMs.
+
+[1] https://lore.kernel.org/all/SA1PR21MB692176C1BC53BFC9EAE5CF8EBF51A@SA1PR21MB6921.namprd21.prod.outlook.com/
+[2] https://lore.kernel.org/all/SA1PR21MB69218F955B62DFF62E3E88D2BF222@SA1PR21MB6921.namprd21.prod.outlook.com/
+[3] https://lore.kernel.org/all/SN6PR02MB415726B17D5A6027CD1717E8D4342@SN6PR02MB4157.namprd02.prod.outlook.com/
+[4] https://lore.kernel.org/all/SA1PR21MB69213486F821CA5A2C793C81BF342@SA1PR21MB6921.namprd21.prod.outlook.com/
+
+Fixes: 4daace0d8ce8 ("PCI: hv: Add paravirtual PCI front-end for Microsoft Hyper-V VMs")
+CC: stable@vger.kernel.org
+Reviewed-by: Michael Kelley <mhklinux@outlook.com>
+Tested-by: Krister Johansen <kjlx@templeofstupid.com>
+Tested-by: Matthew Ruffell <matthew.ruffell@canonical.com>
+Signed-off-by: Dexuan Cui <decui@microsoft.com>
+Signed-off-by: Wei Liu <wei.liu@kernel.org>
+
+diff --git a/drivers/hv/vmbus_drv.c b/drivers/hv/vmbus_drv.c
+index c9eeb2ec365d..b80a35c778ab 100644
+--- a/drivers/hv/vmbus_drv.c
++++ b/drivers/hv/vmbus_drv.c
+@@ -2327,8 +2327,8 @@ static acpi_status vmbus_walk_resources(struct acpi_resource *res, void *ctx)
+ 		return AE_NO_MEMORY;
+ 
+ 	/* If this range overlaps the virtual TPM, truncate it. */
+-	if (end > VTPM_BASE_ADDRESS && start < VTPM_BASE_ADDRESS)
+-		end = VTPM_BASE_ADDRESS;
++	if (end >= VTPM_BASE_ADDRESS && start < VTPM_BASE_ADDRESS)
++		end = VTPM_BASE_ADDRESS - 1;
+ 
+ 	new_res->name = "hyperv mmio";
+ 	new_res->flags = IORESOURCE_MEM;
+@@ -2395,6 +2395,7 @@ static void vmbus_mmio_remove(void)
+ static void __maybe_unused vmbus_reserve_fb(void)
+ {
+ 	resource_size_t start = 0, size;
++	resource_size_t low_mmio_base;
+ 	struct pci_dev *pdev;
+ 
+ 	if (efi_enabled(EFI_BOOT)) {
+@@ -2402,6 +2403,24 @@ static void __maybe_unused vmbus_reserve_fb(void)
+ 		if (IS_ENABLED(CONFIG_SYSFB)) {
+ 			start = sysfb_primary_display.screen.lfb_base;
+ 			size = max_t(__u32, sysfb_primary_display.screen.lfb_size, 0x800000);
++
++			low_mmio_base = hyperv_mmio->start;
++			if (!low_mmio_base || upper_32_bits(low_mmio_base) ||
++			    (start && start < low_mmio_base)) {
++				pr_warn("Unexpected low mmio base %pa\n", &low_mmio_base);
++			} else {
++				/*
++				 * If the kdump/kexec or CVM kernel's lfb_base
++				 * is 0, fall back to the low mmio base.
++				 */
++				if (!start)
++					start = low_mmio_base;
++				/*
++				 * Reserve half of the space below 4GB for high
++				 * resolutions, but cap the reservation to 128MB.
++				 */
++				size = min((SZ_4G - start) / 2, SZ_128M);
++			}
+ 		}
+ 	} else {
+ 		/* Gen1 VM: get FB base from PCI */
+@@ -2422,8 +2441,10 @@ static void __maybe_unused vmbus_reserve_fb(void)
+ 		pci_dev_put(pdev);
+ 	}
+ 
+-	if (!start)
++	if (!start) {
++		pr_warn("Unexpected framebuffer mmio base of zero\n");
+ 		return;
++	}
+ 
+ 	/*
+ 	 * Make a claim for the frame buffer in the resource tree under the
+@@ -2433,6 +2454,8 @@ static void __maybe_unused vmbus_reserve_fb(void)
+ 	 */
+ 	for (; !fb_mmio && (size >= 0x100000); size >>= 1)
+ 		fb_mmio = __request_region(hyperv_mmio, start, size, fb_mmio_name, 0);
++
++	pr_info("hv_mmio=%pR,%pR fb=%pR\n", hyperv_mmio, hyperv_mmio->sibling, fb_mmio);
  }
  
-+static inline bool can_fill_pool(void)
-+{
-+	/*
-+	 * On !RT enabled kernels there are no restrictions and spinlock_t and
-+	 * raw_spinlock_t are the same types.
-+	 */
-+	if (!IS_ENABLED(CONFIG_PREEMPT_RT))
-+		return true;
-+
-+	/*
-+	 * On RT enabled kernels, the task must not be blocked on a lock as
-+	 * that could corrupt the PI state when blocking on a lock in the
-+	 * allocation path.
-+	 */
-+	if (debug_objects_is_pi_blocked_on())
-+		return false;
-+
-+	/*
-+	 * On RT enabled kernels the pool refill should happen in preemptible
-+	 * context.
-+	 */
-+	if (preemptible())
-+		return true;
-+
-+	/*
-+	 * Though during system boot before scheduling is set up, preemption is
-+	 * disabled and the pool can get exhausted. Before scheduling is active
-+	 * a task cannot be blocked on a sleeping lock, but it might hold a lock
-+	 * and if interrupted then hard interrupt context might run into a lock
-+	 * inversion. So exclude hard interrupt context from allocations before
-+	 * scheduling is active.
-+	 */
-+	return system_state < SYSTEM_SCHEDULING && !in_hardirq();
-+}
-+
- static void debug_objects_fill_pool(void)
- {
- 	if (!static_branch_likely(&obj_cache_enabled))
-@@ -734,18 +769,11 @@ static void debug_objects_fill_pool(void)
- 	if (likely(!pool_should_refill(&pool_global)))
- 		return;
- 
--	/*
--	 * On RT enabled kernels the pool refill must happen in preemptible
--	 * context and not enqueued on an rt_mutex -- for !RT kernels we rely
--	 * on the fact that spinlock_t and raw_spinlock_t are basically the
--	 * same type and this lock-type inversion works just fine.
--	 */
--	if (!IS_ENABLED(CONFIG_PREEMPT_RT) || system_state < SYSTEM_SCHEDULING ||
--	    (preemptible() && !debug_objects_is_pi_blocked_on())) {
-+	if (can_fill_pool()) {
- 		/*
- 		 * Annotate away the spinlock_t inside raw_spinlock_t warning
- 		 * by temporarily raising the wait-type to LD_WAIT_CONFIG, matching
--		 * the preemptible() condition above.
-+		 * the preemptible() condition in can_fill_pool().
- 		 */
- 		static DEFINE_WAIT_OVERRIDE_MAP(fill_pool_map, LD_WAIT_CONFIG);
- 		lock_map_acquire_try(&fill_pool_map);
+ /**
 
