@@ -1,40 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BE2140961E
-	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 16:21:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 625AC409DF0
+	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 16:21:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781540489; cv=none; b=iZtO7NFw68d8YTym7fRclSy8rsp0uQIqxbDmWqqGdhQ70RM/l3xBD8n4eoP1MGCeEO+URtB5TwLIqJG2BND10RPQ9/maVyj36klSJT1Mxq3ZDGTXXW3XhMIL5fyGom6GxZWiWt43NHfBBs1y2Asv7tBfRVz/zmUI0e3PPhRJ+/w=
+	t=1781540497; cv=none; b=DWNTq/lX4bVpsnyGVobKX3ZJUTE8/UTgWoRVGjlmWzOy+Spa71ZAlwin9roRIaXZINqFVKo92b70StMTFf+fSByT3CDzsp4G/ChmcQ5jpjl9QxDkf9i5VrE+QuKwtJcomiRsRuyTzE92tsTdhATbJV73kDC80tL1ua/DakI9bUY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781540489; c=relaxed/simple;
-	bh=6d9+ptbLyx12poobEuqZtDy2ri+1lQcXgeshHluHZo4=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=YwiF6rjYxna5W279J5ELzPlS0LgsZY4g+I4hcc5OyOO5GiItCsq9RqrBzVy2GuNmzQxpjG4ffKqOR3FwQVYKKlGoMGGxO7UFLn3ppxYgEV3QL0XrdWEJXkricjN88iViRj+hQnTGKMYf1LdXpPNO+irLCuiSyPlbdcVzYKFg3WQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=hvDAf6R9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781540497; c=relaxed/simple;
+	bh=8Eyo4qERNXlOk3wHlXBc5J1fnKZ2lrUL+ZEJx+Ro7Ts=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=WlQ+vUqHC0wqHlFi66BU7oDOQWHmksERqW/PUo2diQNt2owF6NhqRnOQDLx8+s8aPVmNih+03aOpTJt9gSJKrRvoMANcr9PkObClfyGT5Ym2pZeUyau9qpHnN70IdhFJwzjGqkoE7jCTtRk6DutxKjQvOJZ8L9sXA1l1C3MxYSI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Bdl625gM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="hvDAf6R9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39EFE1F000E9;
-	Mon, 15 Jun 2026 16:21:27 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Bdl625gM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 580031F00A3A;
+	Mon, 15 Jun 2026 16:21:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1781540488;
-	bh=JdmBSZRKgNwqRPMw3SghRZKwrgIj2OvJ+9vUFn5HWcs=;
+	s=korg; t=1781540496;
+	bh=ULXnesS75vdddC71Tyk+mw8STELCeniUYXzbCsJ0n1U=;
 	h=Subject:To:Cc:From:Date;
-	b=hvDAf6R9k2QQWXyWXVoOC6F9PqCHZEvuW2SDIcGN1NjqsbpcImTPWubTW/hzIFVNH
-	 2FU1QWDBn74MeR9TWoG9eO2XZoXHLdpYfjup6oncabK2k5DzWoSSvv5BIzVasYDsVE
-	 EKUWSOgCj+6H91LEd1fBKn+dMkzsTi66LxQpOmcY=
-Subject: FAILED: patch "[PATCH] drm/xe/display: fix oops in suspend/shutdown without display" failed to apply to 6.12-stable tree
-To: jani.nikula@intel.com,matthew.brost@intel.com,suraj.kandpal@intel.com
+	b=Bdl625gML8qt2n+Iepay7R8urtdQvjvoEb6ex1ECMfylaPAaCRZrgWZu/454Kwr6g
+	 xspj2QMEv7QertmHJhOZxsHmt5g6erjNNUfwsx3YWc33iZNNnbW2GvhtcvQBEQIAXO
+	 QJc+dRC2APcB875Kfg1b+UumNbiJkM3OZBCNt5Dg=
+Subject: FAILED: patch "[PATCH] drm/v3d: Skip CSD when it has zeroed workgroups" failed to apply to 6.12-stable tree
+To: mcanal@igalia.com,itoral@igalia.com,jmcasanova@igalia.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 15 Jun 2026 18:00:20 +0200
-Message-ID: <2026061520-pediatric-private-c0b5@gregkh>
+Date: Mon, 15 Jun 2026 18:01:21 +0200
+Message-ID: <2026061521-hardship-pebbly-50b5@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 
@@ -47,10 +47,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 68938cc08e23a94fd881e845837ff918de005ce7
+git cherry-pick -x 7f93fad5ea0affc9e1505dd0f7596c0fdb496213
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026061520-pediatric-private-c0b5@gregkh' --subject-prefix 'PATCH 6.12.y' HEAD^..
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026061521-hardship-pebbly-50b5@gregkh' --subject-prefix 'PATCH 6.12.y' HEAD^..
 
 Possible dependencies:
 
@@ -62,78 +62,73 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 68938cc08e23a94fd881e845837ff918de005ce7 Mon Sep 17 00:00:00 2001
-From: Jani Nikula <jani.nikula@intel.com>
-Date: Fri, 15 May 2026 19:09:20 +0300
-Subject: [PATCH] drm/xe/display: fix oops in suspend/shutdown without display
+From 7f93fad5ea0affc9e1505dd0f7596c0fdb496213 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>
+Date: Tue, 2 Jun 2026 14:50:15 -0300
+Subject: [PATCH] drm/v3d: Skip CSD when it has zeroed workgroups
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-The xe driver keeps track of whether to probe display, and whether
-display hardware is there, using xe->info.probe_display. It gets set to
-false if there's no display after intel_display_device_probe(). However,
-the display may also be disabled via fuses, detected at a later time in
-intel_display_device_info_runtime_init().
+A compute shader dispatch encodes its workgroup counts in the CFG0..CFG2
+registers. Kicking off a dispatch with a zero count in any of the three
+dimensions is invalid. First, the hardware will process 0 as 65536,
+while the user-space driver exposes a maximum of 65535. Over that, a
+submission with a zeroed workgroup dimension should be a no-op.
 
-In this case, the xe driver does for_each_intel_crtc() on uninitialized
-mode config in xe_display_flush_cleanup_work(), leading to a NULL
-pointer dereference, and generally calls display code with display info
-cleared.
+These zeroed counts can reach the dispatch path through an indirect CSD
+job, whose workgroup counts are only known once the indirect buffer is
+read and may legitimately be zero, but such scenario should only result in
+a no-op.
 
-Check for intel_display_device_present() after
-intel_display_device_info_runtime_init(), and reset
-xe->info.probe_display as necessary. Also do unset_display_features()
-for completeness, although display runtime init has already done
-that. This will need to be unified across all cases later.
+Overwrite the indirect CSD job workgroup counts with the indirect BO
+ones, even if they are zeroed, and don't submit the job to the hardware
+when any of the workgroup counts is zero, so the job completes immediately
+instead of running the shader.
 
-Move intel_display_device_info_runtime_init() call slightly earlier,
-similar to i915, to avoid a bunch of unnecessary setup for no display
-cases.
+Cc: stable@vger.kernel.org
+Fixes: d223f98f0209 ("drm/v3d: Add support for compute shader dispatch.")
+Suggested-by: Jose Maria Casanova Crespo <jmcasanova@igalia.com>
+Reviewed-by: Iago Toral Quiroga <itoral@igalia.com>
+Link: https://patch.msgid.link/20260602-v3d-fix-indirect-csd-v4-2-654309e32bc0@igalia.com
+Signed-off-by: Maíra Canal <mcanal@igalia.com>
 
-Note #1: The xe driver has no business doing low level display plumbing
-like for_each_intel_crtc() to begin with. It all needs to happen in
-display code.
-
-Note #2: The actual bug is present already in commit 44e694958b95
-("drm/xe/display: Implement display support"), but the oops was likely
-introduced later at commit ddf6492e0e50 ("drm/xe/display: Make display
-suspend/resume work on discrete").
-
-Fixes: 44e694958b95 ("drm/xe/display: Implement display support")
-Closes: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/7904
-Closes: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/6150
-Cc: stable@vger.kernel.org # v6.8+
-Reviewed-by: Suraj Kandpal <suraj.kandpal@intel.com>
-Link: https://patch.msgid.link/20260515160920.1082842-1-jani.nikula@intel.com
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
-(cherry picked from commit 7c3eb9f47533220888a67266448185fd0775d4da)
-Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-
-diff --git a/drivers/gpu/drm/xe/display/xe_display.c b/drivers/gpu/drm/xe/display/xe_display.c
-index 00dfa68af29a..b17fb698d2f8 100644
---- a/drivers/gpu/drm/xe/display/xe_display.c
-+++ b/drivers/gpu/drm/xe/display/xe_display.c
-@@ -124,6 +124,15 @@ int xe_display_init_early(struct xe_device *xe)
+diff --git a/drivers/gpu/drm/v3d/v3d_sched.c b/drivers/gpu/drm/v3d/v3d_sched.c
+index 47f83936cd73..8a635a9ec046 100644
+--- a/drivers/gpu/drm/v3d/v3d_sched.c
++++ b/drivers/gpu/drm/v3d/v3d_sched.c
+@@ -352,6 +352,16 @@ v3d_csd_job_run(struct drm_sched_job *sched_job)
+ 		return NULL;
+ 	}
  
- 	intel_display_driver_early_probe(display);
- 
-+	intel_display_device_info_runtime_init(display);
++	/* The HW interprets a workgroup size of 0 as 65536; however, the
++	 * user-space driver exposes a maximum of 65535. Therefore, a 0 in
++	 * any dimension means that we have no workgroups and the compute
++	 * shader should not be dispatched.
++	 */
++	if (!V3D_GET_FIELD(job->args.cfg[0], V3D_CSD_QUEUED_CFG0_NUM_WGS_X) ||
++	    !V3D_GET_FIELD(job->args.cfg[1], V3D_CSD_QUEUED_CFG1_NUM_WGS_Y) ||
++	    !V3D_GET_FIELD(job->args.cfg[2], V3D_CSD_QUEUED_CFG2_NUM_WGS_Z))
++		return NULL;
 +
-+	/* Display may have been disabled at runtime init */
-+	if (!intel_display_device_present(display)) {
-+		xe->info.probe_display = false;
-+		unset_display_features(xe);
-+		return 0;
-+	}
-+
- 	/* Early display init.. */
- 	intel_opregion_setup(display);
+ 	v3d->queue[V3D_CSD].active_job = &job->base;
  
-@@ -137,8 +146,6 @@ int xe_display_init_early(struct xe_device *xe)
+ 	v3d_invalidate_caches(v3d);
+@@ -402,13 +412,13 @@ v3d_rewrite_csd_job_wg_counts_from_indirect(struct v3d_cpu_job *job)
  
- 	intel_bw_init_hw(display);
+ 	wg_counts = (uint32_t *)(bo->vaddr + indirect_csd->offset);
  
--	intel_display_device_info_runtime_init(display);
+-	if (wg_counts[0] == 0 || wg_counts[1] == 0 || wg_counts[2] == 0)
+-		goto unmap_bo;
 -
- 	err = intel_display_driver_probe_noirq(display);
- 	if (err)
- 		goto err_opregion;
+ 	args->cfg[0] = wg_counts[0] << V3D_CSD_CFG012_WG_COUNT_SHIFT;
+ 	args->cfg[1] = wg_counts[1] << V3D_CSD_CFG012_WG_COUNT_SHIFT;
+ 	args->cfg[2] = wg_counts[2] << V3D_CSD_CFG012_WG_COUNT_SHIFT;
+ 
++	if (wg_counts[0] == 0 || wg_counts[1] == 0 || wg_counts[2] == 0)
++		goto unmap_bo;
++
+ 	num_batches = DIV_ROUND_UP(indirect_csd->wg_size, 16) *
+ 		      (wg_counts[0] * wg_counts[1] * wg_counts[2]);
+ 
 
