@@ -1,108 +1,107 @@
-Received: from bird.elm.relay.mailchannels.net (bird.elm.relay.mailchannels.net [23.83.212.17])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B1FF312814;
-	Mon, 15 Jun 2026 18:56:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=23.83.212.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11DE121D596
+	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 19:03:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781549806; cv=none; b=Fs/MsnAizhIAtPT6UscGhWRPKSTAQ36ARVjiaMlitSfpEvMnzgIdyptf/pBNyoOrtO+zSoS4f+XFMB/NSNfYvCXaxbB2nAiG5R+OtIoUYB1lWy+qxfG4KjSIAJE/TGagBNSQ+4EZGNnp6OWCzCud0szCjFzyCNnRmr74UQIlxog=
+	t=1781550213; cv=none; b=KFhyKqQ5jkeS6w45DJdvKhBfHjkS6fmOK94go9bBuXzbr5QVnrdadERCRUE6raUzzJ0tgXIlnfI5dY2qUMBKoO0s+s9cKfkXJ2xaBx8ISxgw78SAEsvfMUMIFf9SF6bAndo/LlBMgq5H0aU/3/7DEzKbNj3x7eybA5zhZRO+YOE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781549806; c=relaxed/simple;
-	bh=0+yV9+OEAzkyCRU0bfrqAlQuJ+tnl0nRv3mz1HJIBpg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=A8ZBxDemlQc2kXjEgR7ZnJT26fVfa7ghPWP9pi1iUUWQpDZVB8Z+mYza61SvZwhmMiYqXRtYO+2peTQv7DHTIW6OqppVnn2Mh27LxdcVnm4Kcl5bvVs1lgOYUxB+f515ullNgbscZrA19tXwocB9hNtjuiN7QSqZCCw9SEbLtKM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stgolabs.net; spf=fail smtp.mailfrom=stgolabs.net; dkim=pass (2048-bit key) header.d=stgolabs.net header.i=@stgolabs.net header.b=h5zVgg5+; arc=none smtp.client-ip=23.83.212.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stgolabs.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=stgolabs.net
+	s=arc-20240116; t=1781550213; c=relaxed/simple;
+	bh=pKZtcY7s8BKoTGS0uHvLQiuPSzwRBP9uZ/ADqfcnH40=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=aZbhiAnLKUmLXDi22qB8hLdtaX2EykNstRl+bJFmy19FI7m8WmHD+Ts81np55McRv22cFp5XsGhiyf5HQSEU8YIzYGKPBhllxJiPg6W5LvzHQnLKMpHtYOWHLZHLsEMwVUhFK2EHLxvQcKo9TZENHk7OqsAZ2JGV1hARq5zZ8Lc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ediAjHmy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=stgolabs.net header.i=@stgolabs.net header.b="h5zVgg5+"
-X-Sender-Id: dreamhost|x-authsender|dave@stgolabs.net
-Received: from relay.mailchannels.net (localhost [127.0.0.1])
-	by relay.mailchannels.net (Postfix) with ESMTP id 0A7BF8C0E98;
-	Mon, 15 Jun 2026 18:46:41 +0000 (UTC)
-Received: from pdx1-sub0-mail-a218.dreamhost.com (trex-green-0.trex.outbound.svc.cluster.local [100.96.13.226])
-	(Authenticated sender: dreamhost)
-	by relay.mailchannels.net (Postfix) with ESMTPA id 277928C0055;
-	Mon, 15 Jun 2026 18:46:39 +0000 (UTC)
-X-Sender-Id: dreamhost|x-authsender|dave@stgolabs.net
-X-MC-Relay: Neutral
-X-MailChannels-SenderId: dreamhost|x-authsender|dave@stgolabs.net
-X-MailChannels-Auth-Id: dreamhost
-X-Slimy-Cooperative: 79e29464737e996a_1781549200868_3726778055
-X-MC-Loop-Signature: 1781549200868:2144093325
-X-MC-Ingress-Time: 1781549200866
-Received: from pdx1-sub0-mail-a218.dreamhost.com (pop.dreamhost.com
- [64.90.62.162])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
-	by 100.96.13.226 (trex/7.1.5);
-	Mon, 15 Jun 2026 18:46:40 +0000
-Received: from offworld (unknown [179.57.115.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: dave@stgolabs.net)
-	by pdx1-sub0-mail-a218.dreamhost.com (Postfix) with ESMTPSA id 4gfJxR0zWfz1k5;
-	Mon, 15 Jun 2026 11:46:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=stgolabs.net;
-	s=dreamhost; t=1781549199;
-	bh=nN55lehzz+w0yHRGnkVVeGnjB1aJFWW1xqDvT5yfQok=;
-	h=Date:From:To:Cc:Subject:Content-Type;
-	b=h5zVgg5+fJ46Y7qOwB2mz+n9EPQL8yskxm+zf4HZYaY+wX+h/KLMqLxeGsyIpn7Q2
-	 KR2tF24YP8EbOxD7dk7AGFsIevPoYBlkl2UfsVQXAk2jDkZJknpIebYFsE7cQQ3R8m
-	 f+sox8QGLf095mymW5vKo3p9xs+prDhxK9ctxAL3H11gJYYWuMIScyQVwmgADH7569
-	 H99BK0UPDZbstZYApEwi3CfVSAGQoqK3fFJcOO9OdSjW7cg1OurZ1nmjufoa6hIGBJ
-	 9bVepJVRS06/1dltq0fwVDJBHgxclSU2rIFMDeUoRKKPPQmvy18GX5FK5YwKq5KRgU
-	 OIH1ZyyaWF39g==
-Date: Mon, 15 Jun 2026 11:46:20 -0700
-From: Davidlohr Bueso <dave@stgolabs.net>
-To: Breno Leitao <leitao@debian.org>
-Cc: Catalin Marinas <catalin.marinas@arm.com>,
-	Andrew Morton <akpm@linux-foundation.org>, lance.yang@linux.dev,
-	Oleg Nesterov <oleg@redhat.com>, Qian Cai <cai@lca.pw>,
-	sj@kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
-	kernel-team@meta.com, stable@vger.kernel.org
-Subject: Re: [PATCH v3 1/3] mm/kmemleak: avoid soft lockup when scanning task
- stacks
-Message-ID: <20260615184620.jakmruj7czdkawk3@offworld>
-References: <20260615-kmemleak-stack-resched-v3-0-acecd7d7fd92@debian.org>
- <20260615-kmemleak-stack-resched-v3-1-acecd7d7fd92@debian.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ediAjHmy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1144B1F000E9;
+	Mon, 15 Jun 2026 19:03:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781550211;
+	bh=6eIAYBQbkcdv9t2ktHqB++NElMOL2b5Lt9PeL8KjFq8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ediAjHmyQN9C41dIAyJhple2NqsCSF3WMeMVmFhJm3pbp7VmVV0fgbKiFR1u+LvXn
+	 K3vKCb+NF23vWKGiV6h1Ifuy2qJFQk2rmjO9ruPV8ZoqJ39tqPRbKPvdiJY56yzUfV
+	 Y7ybuVdUDpBK0cdzr4Y1rJFdXohDyxou9AKAAacoO4J7Yw9sRiZt+rTjtehkcngL0S
+	 9AIBpZRfVp77SeyI2xHNMWU1FhaZHDLkcmdIX6Gdp7Ys0sa02tcRt2gm9tEtSy5iwE
+	 f8ReIDewn78iNo/Eg1VE4naXe04D0vhlbr3nvYTxoQt8/95rrH4Xpltc3IFp2OibXx
+	 J0RMbAaghLFRg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: SeongJae Park <sj@kernel.org>,
+	Fernand Sieber <sieberf@amazon.com>,
+	Leonard Foerster <foersleo@amazon.de>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y] mm/damon/ops-common: call folio_test_lru() after folio_get()
+Date: Mon, 15 Jun 2026 15:03:29 -0400
+Message-ID: <20260615190329.2368312-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026061530-traps-spool-56b7@gregkh>
+References: <2026061530-traps-spool-56b7@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <20260615-kmemleak-stack-resched-v3-1-acecd7d7fd92@debian.org>
-User-Agent: NeoMutt/20220429
+Content-Transfer-Encoding: 8bit
 
-On Mon, 15 Jun 2026, Breno Leitao wrote:
+From: SeongJae Park <sj@kernel.org>
 
->kmemleak_scan() walks every thread and scans its kernel stack under a
->single rcu_read_lock() with no reschedule point. On a host with very
->many threads -- amplified by KASAN/lockdep in debug builds -- this loop
->can hog a CPU long enough to trip the soft lockup watchdog:
->
->  watchdog: BUG: soft lockup - CPU#35 stuck for 22s! [kmemleak:537]
->   scan_block
->   kmemleak_scan
->   kmemleak_scan_thread
->   kthread
->
->A cond_resched() cannot be added directly: the loop runs inside an RCU
->read-side critical section.
->
->Walk the tasks one PID at a time with find_ge_pid(), taking the RCU read
->lock only to look up and pin each task. The stack is then scanned with no
->lock held, so cond_resched() runs between tasks and the scan stops early
->on scan_should_stop(). This follows the next_tgid()/task_seq_get_next()
->iteration pattern and keeps each RCU critical section short.
->
->Fixes: c4b28963fd79 ("mm/kmemleak: rely on rcu for task stack scanning")
->Cc: stable@vger.kernel.org
->Signed-off-by: Breno Leitao <leitao@debian.org>
+[ Upstream commit d6b8b02a27b3dd09ec12144322b3dac46d9bc9ef ]
 
-LGTM
+damon_get_folio() speculatively calls folio_test_lru() before
+folio_try_get().  The folio can get freed and reallocated to a tail page.
+In the case, VM_BUG_ON_PGFLAGS() in const_folio_flags() can be triggered.
+Remove the speculative call.
 
-Reviewed-by: Davidlohr Bueso <dave@stgolabs.net>
+Also mark folio_test_lru() check right after folio_try_get() success as no
+more unlikely.
+
+The race should be rare.  Also the problem can happen only if the kernel
+has enabled CONFIG_DEBUG_VM_PGFLAGS.  No real world report of this issue
+has been made so far.  This fix is based on only theoretical analysis.
+That said, a bug is a bug.  A similar issue was also fixed via commit
+3203b3ab0fcf ("mm/filemap: don't call folio_test_locked() without a
+reference in next_uptodate_folio()").  I don't expect this change will
+make a meaningful impact to DAMON performance in the real world, though I
+will be happy to be corrected from the real world reports.
+
+The issue was discovered [1] by Sashiko.
+
+Link: https://lore.kernel.org/20260525162256.8317-1-sj@kernel.org
+Link: https://lore.kernel.org/20260517234112.89245-1-sj@kernel.org [1]
+Fixes: 3f49584b262c ("mm/damon: implement primitives for the virtual memory address spaces")
+Signed-off-by: SeongJae Park <sj@kernel.org>
+Cc: Fernand Sieber <sieberf@amazon.com>
+Cc: Leonard Foerster <foersleo@amazon.de>
+Cc: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: <stable@vger.kernel.org> # 5.15.x
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ mm/damon/ops-common.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/mm/damon/ops-common.c b/mm/damon/ops-common.c
+index 0b75a8d5c70684..cea4401e95a35e 100644
+--- a/mm/damon/ops-common.c
++++ b/mm/damon/ops-common.c
+@@ -23,10 +23,10 @@ struct page *damon_get_page(unsigned long pfn)
+ {
+ 	struct page *page = pfn_to_online_page(pfn);
+ 
+-	if (!page || !PageLRU(page) || !get_page_unless_zero(page))
++	if (!page || !get_page_unless_zero(page))
+ 		return NULL;
+ 
+-	if (unlikely(!PageLRU(page))) {
++	if (!PageLRU(page)) {
+ 		put_page(page);
+ 		page = NULL;
+ 	}
+-- 
+2.53.0
+
