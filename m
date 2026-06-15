@@ -1,246 +1,204 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAB75396B7F
-	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 19:42:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F07B3AA4E1
+	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 20:03:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781552567; cv=none; b=bTh/izFSutbFL23ovcHrdRNrjau5N32W0m0hp5mLGv6q/6nki8j05kekjWHbfbEickoWBO9kfdM36XfAAa1ESxsAWHdICkrf57eB9gMYJ8w0Vn0iaL5+808udug7q9Wme1cALTm+zGQgtZQtX6Hg9qProuvINypprg+F87/XGXc=
+	t=1781553797; cv=none; b=jgXSPx0Lyb0RmPXSlQ6BUwvSIS/38cpoEYqLuQpsGwKR7x4a0TBMS5cVZJfS/5REHn0g8R2pA+UFRfd9i6VzQywADvAtupCI+tjXtRj7/5mXkWvnUBoesM7cm3zgvq2YH25/OOwJZI66EZbWfzo/oqtmWDCACXFkoLyYHnIkBgc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781552567; c=relaxed/simple;
-	bh=4kUR5csRb6vXqBV0gNRUctv42djXbsCSROH5V2lTNys=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Vj+rE2YYxlYhZTbGKoVOX5Qszi6vIUXpHzKYdm8iOH/Q/vZiuyCIQKv25y7EXiBxe7FE0M7A96Tt5WuMUUxgDqo3YAtPu7bM9z1MSTi8C6EGxWaFEK5QyKqkU1zxjV7jjcgP0anoN6ZWRJwJtHFSK9Da74SzMQwPiK2MMJ7Xmis=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QTaYAMFO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781553797; c=relaxed/simple;
+	bh=SUq9iKxQn5lLu4iBO706He/bKeek8Dg7871HIBNatB8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=YTIijc6DITyMGZzjLwxr+ZHofQq4AD2NZa3IHyebUIiLmcO1LjEsyiSuZsKoO5oHWkjnAC5nMfIOGlhEX0Dsky8YPBmAG1q/JGBLFC1cVkZgknXRcBMtvf5fu62IzcUs5v7lypkk2bmXtwIBRxg2rNZebLGv95rrnIQPz0NlaZY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=X8nuoNLD; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QTaYAMFO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12C481F00A3A;
-	Mon, 15 Jun 2026 19:42:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781552565;
-	bh=0G1+fTAMztvpKDSXRTS9b0XYK7OON/eceF4Tpp354kQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QTaYAMFO/ukc2BB6soV0Fvb7z+z/tg8ieaKeIys8i1obvj8jsRg7d8JwSoyFK0jAb
-	 agCg+loAfRWRL4ZSIdhsoi5vahTWhqQthNQ97ffiU5lAA4bNNVxffN8cfPJp54bQ4v
-	 WTvUDtesgKU1WXQ8EUnUX5C7lc2c0tkuZHTIQuVm9P5noo+gbyX8Z85p6av9/7StwZ
-	 8xJTUkDl3mVC64+uWhBajmQrf1FZwWFKJH1enTjFHyagJ2w3rMEIC/Tz65vyI5Fz97
-	 yWM1B8A3gYStrTUQu2B0GDfW6dG62y3GxtM9K3i/fnSgFUsZiE4DSweEdpkemurnu+
-	 KHmQwfNswy86A==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Wupeng Ma <mawupeng1@huawei.com>,
-	"Oscar Salvador (SUSE)" <osalvador@kernel.org>,
-	Muchun Song <muchun.song@linux.dev>,
-	Kefeng Wang <wangkefeng.wang@huawei.com>,
-	Miaohe Lin <linmiaohe@huawei.com>,
-	David Hildenbrand <david@kernel.org>,
-	Liam Howlett <liam.howlett@oracle.com>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Michal Hocko <mhocko@suse.com>,
-	Mike Rapoport <rppt@kernel.org>,
-	Naoya Horiguchi <nao.horiguchi@gmail.com>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 5/5] mm/memory-failure: fix hugetlb_lock AA deadlock in get_huge_page_for_hwpoison
-Date: Mon, 15 Jun 2026 15:42:37 -0400
-Message-ID: <20260615194237.2391157-5-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260615194237.2391157-1-sashal@kernel.org>
-References: <2026061514-giblet-unsworn-8735@gregkh>
- <20260615194237.2391157-1-sashal@kernel.org>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="X8nuoNLD"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1781553795;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Nys48/KdCPu7erZEVP0pTQ4EccdIQbCXyeeBZUzmgvY=;
+	b=X8nuoNLDfu245SQZsff17P4qreMrKKapmyoBH+J5It/fNFwa04OVNyXeRx1ua/5YFyypeK
+	HwHxJ9169I5bBw03Yi0hiKA4aCwLZGKFHxi3Pxb41vaEgF6FwleHIkzINH2XNHI5oQoFLP
+	9eDXcHSLBLwxlQBF8Gn8ndTqw+OqhQs=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-185-FAIdYIB8OUO_Vg0-Hp2LPQ-1; Mon,
+ 15 Jun 2026 16:03:12 -0400
+X-MC-Unique: FAIdYIB8OUO_Vg0-Hp2LPQ-1
+X-Mimecast-MFC-AGG-ID: FAIdYIB8OUO_Vg0-Hp2LPQ_1781553790
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id B9A0F19560AD;
+	Mon, 15 Jun 2026 20:03:10 +0000 (UTC)
+Received: from [10.22.89.117] (unknown [10.22.89.117])
+	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id E2C791800367;
+	Mon, 15 Jun 2026 20:03:09 +0000 (UTC)
+Message-ID: <1ba5a885-ac2b-46e2-b18f-f5b3e02e8094@redhat.com>
+Date: Mon, 15 Jun 2026 16:03:09 -0400
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: FAILED: patch "[PATCH] debugobjects: Don't call fill_pool() in
+ early boot hardirq" failed to apply to 7.0-stable tree
+To: gregkh@linuxfoundation.org, bigeasy@linutronix.de, tglx@kernel.org,
+ tglx@linutronix.de
+Cc: stable@vger.kernel.org
+References: <2026061558-amiable-showman-7ea7@gregkh>
+Content-Language: en-US
+From: Waiman Long <longman@redhat.com>
+In-Reply-To: <2026061558-amiable-showman-7ea7@gregkh>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
-From: Wupeng Ma <mawupeng1@huawei.com>
 
-[ Upstream commit 3c2d42b8ee345b17a4ba56b0f6492d1ff4c1178e ]
+On 6/15/26 10:31 AM, gregkh@linuxfoundation.org wrote:
+> The patch below does not apply to the 7.0-stable tree.
+> If someone wants it applied there, or to any other stable or longterm
+> tree, then please email the backport, including the original git commit
+> id to <stable@vger.kernel.org>.
+>
+> To reproduce the conflict and resubmit, you may use the following commands:
+>
+> git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.0.y
+> git checkout FETCH_HEAD
+> git cherry-pick -x 0d046ae106255cba5eb83b23f78ee93f3620247d
+> # <resolve conflicts, build, test, etc.>
+> git commit -s
+> git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026061558-amiable-showman-7ea7@gregkh' --subject-prefix 'PATCH 7.0.y' HEAD^..
+>
+> Possible dependencies:
+>
+>
+>
+> thanks,
+>
+> greg k-h
 
-Two concurrent madvise(MADV_HWPOISON) calls on the same hugetlb page can
-trigger a recursive spinlock self-deadlock (AA deadlock) on hugetlb_lock
-when racing with a concurrent unmap:
+Commit 0d046ae10625 ("debugobjects: Don't call fill_pool() in early boot 
+hardirq context") has dependency on commit 5f41161059fd ("debugobjects: 
+Do not fill_pool() if pi_blocked_on") as they both modify 
+debug_objects_fill_pool(). So commit 5f41161059fd has to be applied 
+before commit 0d046ae10625 to avoid a merge conflict. Since both are fix 
+commits, I supposed they should both be applied to v7.0.y in the right 
+order. Similarly for the other stable branches.
 
-  thread#0                              thread#1
-  --------                              --------
-  madvise(folio, MADV_HWPOISON)
-    -> poisons the folio successfully
-  madvise(folio, MADV_HWPOISON)         unmap(folio)
-    try_memory_failure_hugetlb
-      get_huge_page_for_hwpoison
-        spin_lock_irq(&hugetlb_lock)    <- held
-        __get_huge_page_for_hwpoison
-          hugetlb_update_hwpoison()
-            -> MF_HUGETLB_FOLIO_PRE_POISONED
-          goto out:
-            folio_put()
-              refcount: 1 -> 0
-              free_huge_folio()
-                spin_lock_irqsave(&hugetlb_lock)
-                  -> AA DEADLOCK!
+Cheers,
+Longman
 
-The out: path in __get_huge_page_for_hwpoison() calls folio_put() to drop
-the GUP reference while the hugetlb_lock is still held by the hugetlb.c
-wrapper get_huge_page_for_hwpoison().  If concurrent unmap has released
-the page table mapping reference, folio_put() drops the folio refcount to
-zero, triggering free_huge_folio() which attempts to re-acquire the
-non-recursive hugetlb_lock.
 
-Fix this by moving hugetlb_lock acquisition from the hugetlb.c wrapper
-into get_huge_page_for_hwpoison().  Place spin_unlock_irq() before the
-folio_put() at the out: label so the folio is always released outside the
-lock.
-
-[akpm@linux-foundation.org: fix race, rename label per Miaohe]
-  Link: https://sashiko.dev/#/patchset/20260522010305.4099834-1-mawupeng1@huawei.com
-  Link: https://lore.kernel.org/f39f405e-4b4b-8f79-70fe-a2b5b62114eb@huawei.com
-Link: https://lore.kernel.org/20260522010305.4099834-1-mawupeng1@huawei.com
-Fixes: 405ce051236c ("mm/hwpoison: fix race between hugetlb free/demotion and memory_failure_hugetlb()")
-Signed-off-by: Wupeng Ma <mawupeng1@huawei.com>
-Acked-by: Oscar Salvador (SUSE) <osalvador@kernel.org>
-Acked-by: Muchun Song <muchun.song@linux.dev>
-Reviewed-by: Kefeng Wang <wangkefeng.wang@huawei.com>
-Acked-by: Miaohe Lin <linmiaohe@huawei.com>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Liam Howlett <liam.howlett@oracle.com>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: Naoya Horiguchi <nao.horiguchi@gmail.com>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- include/linux/hugetlb.h |  6 ------
- include/linux/mm.h      |  5 -----
- mm/hugetlb.c            | 10 ----------
- mm/memory-failure.c     | 19 ++++++++++---------
- 4 files changed, 10 insertions(+), 30 deletions(-)
-
-diff --git a/include/linux/hugetlb.h b/include/linux/hugetlb.h
-index 9a0e8aa442b3e5..6b78a0f457d953 100644
---- a/include/linux/hugetlb.h
-+++ b/include/linux/hugetlb.h
-@@ -184,7 +184,6 @@ long hugetlb_unreserve_pages(struct inode *inode, long start, long end,
- 						long freed);
- int folio_isolate_hugetlb(struct page *page, struct list_head *list);
- int get_hwpoison_huge_page(struct page *page, bool *hugetlb);
--int get_huge_page_for_hwpoison(unsigned long pfn, int flags);
- void folio_putback_hugetlb(struct page *page);
- void move_hugetlb_state(struct page *oldpage, struct page *newpage, int reason);
- void free_huge_page(struct page *page);
-@@ -438,11 +437,6 @@ static inline int get_hwpoison_huge_page(struct page *page, bool *hugetlb)
- 	return 0;
- }
- 
--static inline int get_huge_page_for_hwpoison(unsigned long pfn, int flags)
--{
--	return 0;
--}
--
- static inline void folio_putback_hugetlb(struct page *page)
- {
- }
-diff --git a/include/linux/mm.h b/include/linux/mm.h
-index cf0cc4a64887c9..ac0638a8c38dba 100644
---- a/include/linux/mm.h
-+++ b/include/linux/mm.h
-@@ -3429,15 +3429,10 @@ extern atomic_long_t num_poisoned_pages __read_mostly;
- extern int soft_offline_page(unsigned long pfn, int flags);
- #ifdef CONFIG_MEMORY_FAILURE
- extern void memory_failure_queue(unsigned long pfn, int flags);
--extern int __get_huge_page_for_hwpoison(unsigned long pfn, int flags);
- #else
- static inline void memory_failure_queue(unsigned long pfn, int flags)
- {
- }
--static inline int __get_huge_page_for_hwpoison(unsigned long pfn, int flags)
--{
--	return 0;
--}
- #endif
- 
- #ifndef arch_memory_failure
-diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-index 20095df62be4ba..ee753b2ff09f82 100644
---- a/mm/hugetlb.c
-+++ b/mm/hugetlb.c
-@@ -7481,16 +7481,6 @@ int get_hwpoison_huge_page(struct page *page, bool *hugetlb)
- 	return ret;
- }
- 
--int get_huge_page_for_hwpoison(unsigned long pfn, int flags)
--{
--	int ret;
--
--	spin_lock_irq(&hugetlb_lock);
--	ret = __get_huge_page_for_hwpoison(pfn, flags);
--	spin_unlock_irq(&hugetlb_lock);
--	return ret;
--}
--
- /**
-  * folio_putback_hugetlb - unisolate a hugetlb page
-  * @page: the isolated hugetlb page
-diff --git a/mm/memory-failure.c b/mm/memory-failure.c
-index 1d39bdb434e734..776a37ae4eb695 100644
---- a/mm/memory-failure.c
-+++ b/mm/memory-failure.c
-@@ -1812,19 +1812,18 @@ void hugetlb_clear_page_hwpoison(struct page *hpage)
- 	free_raw_hwp_pages(hpage, true);
- }
- 
--/*
-- * Called from hugetlb code with hugetlb_lock held.
-- */
--int __get_huge_page_for_hwpoison(unsigned long pfn, int flags)
-+static int get_huge_page_for_hwpoison(unsigned long pfn, int flags)
- {
- 	struct page *page = pfn_to_page(pfn);
--	struct page *head = compound_head(page);
-+	struct page *head;
- 	bool count_increased = false;
- 	int ret, rc;
- 
-+	spin_lock_irq(&hugetlb_lock);
-+	head = compound_head(page);
- 	if (!PageHeadHuge(head)) {
- 		ret = MF_HUGETLB_NON_HUGEPAGE;
--		goto out;
-+		goto out_unlock;
- 	} else if (flags & MF_COUNT_INCREASED) {
- 		ret = MF_HUGETLB_IN_USED;
- 		count_increased = true;
-@@ -1840,17 +1839,19 @@ int __get_huge_page_for_hwpoison(unsigned long pfn, int flags)
- 	} else {
- 		ret = MF_HUGETLB_RETRY;
- 		if (!(flags & MF_NO_RETRY))
--			goto out;
-+			goto out_unlock;
- 	}
- 
- 	rc = hugetlb_update_hwpoison(head, page);
- 	if (rc >= MF_HUGETLB_FOLIO_PRE_POISONED) {
- 		ret = rc;
--		goto out;
-+		goto out_unlock;
- 	}
- 
-+	spin_unlock_irq(&hugetlb_lock);
- 	return ret;
--out:
-+out_unlock:
-+	spin_unlock_irq(&hugetlb_lock);
- 	if (count_increased)
- 		put_page(head);
- 	return ret;
--- 
-2.53.0
+>
+> ------------------ original commit in Linus's tree ------------------
+>
+>  From 0d046ae106255cba5eb83b23f78ee93f3620247d Mon Sep 17 00:00:00 2001
+> From: Waiman Long <longman@redhat.com>
+> Date: Fri, 5 Jun 2026 13:30:38 -0400
+> Subject: [PATCH] debugobjects: Don't call fill_pool() in early boot hardirq
+>   context
+>
+> When booting a debug PREEMPT_RT kernel on an ARM64 system, a "inconsistent
+> {HARDIRQ-ON-W} -> {IN-HARDIRQ-W} usage" lockdep warning message was
+> reported to the console.
+>
+> During early boot, interrupts are enabled before the scheduler is
+> enabled. In this window (before SYSTEM_SCHEDULING is set) interrupts can
+> fire and in the hard interrupt context handler attempt to fill the pool
+>
+> This can lead to a deadlock when the interrupt occurred when the interrupt
+> hits a region which holds a lock that is required to be taken in the
+> allocation path.
+>
+> Add a new can_fill_pool() helper and reorder the exception rule and forbid
+> this scenario by excluding allocations from hard interrupt context.
+>
+> Fixes: 06e0ae988f6e ("debugobjects: Allow to refill the pool before SYSTEM_SCHEDULING")
+> Suggested-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+> Suggested-by: Thomas Gleixner <tglx@linutronix.de>
+> Signed-off-by: Waiman Long <longman@redhat.com>
+> Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+> Reviewed-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+> Cc: stable@vger.kernel.org
+> Link: https://patch.msgid.link/20260605173038.495075-1-longman@redhat.com
+>
+> diff --git a/lib/debugobjects.c b/lib/debugobjects.c
+> index 772ddabcbe7d..1fa156c45c09 100644
+> --- a/lib/debugobjects.c
+> +++ b/lib/debugobjects.c
+> @@ -720,6 +720,41 @@ static inline bool debug_objects_is_pi_blocked_on(void)
+>   #endif
+>   }
+>   
+> +static inline bool can_fill_pool(void)
+> +{
+> +	/*
+> +	 * On !RT enabled kernels there are no restrictions and spinlock_t and
+> +	 * raw_spinlock_t are the same types.
+> +	 */
+> +	if (!IS_ENABLED(CONFIG_PREEMPT_RT))
+> +		return true;
+> +
+> +	/*
+> +	 * On RT enabled kernels, the task must not be blocked on a lock as
+> +	 * that could corrupt the PI state when blocking on a lock in the
+> +	 * allocation path.
+> +	 */
+> +	if (debug_objects_is_pi_blocked_on())
+> +		return false;
+> +
+> +	/*
+> +	 * On RT enabled kernels the pool refill should happen in preemptible
+> +	 * context.
+> +	 */
+> +	if (preemptible())
+> +		return true;
+> +
+> +	/*
+> +	 * Though during system boot before scheduling is set up, preemption is
+> +	 * disabled and the pool can get exhausted. Before scheduling is active
+> +	 * a task cannot be blocked on a sleeping lock, but it might hold a lock
+> +	 * and if interrupted then hard interrupt context might run into a lock
+> +	 * inversion. So exclude hard interrupt context from allocations before
+> +	 * scheduling is active.
+> +	 */
+> +	return system_state < SYSTEM_SCHEDULING && !in_hardirq();
+> +}
+> +
+>   static void debug_objects_fill_pool(void)
+>   {
+>   	if (!static_branch_likely(&obj_cache_enabled))
+> @@ -734,18 +769,11 @@ static void debug_objects_fill_pool(void)
+>   	if (likely(!pool_should_refill(&pool_global)))
+>   		return;
+>   
+> -	/*
+> -	 * On RT enabled kernels the pool refill must happen in preemptible
+> -	 * context and not enqueued on an rt_mutex -- for !RT kernels we rely
+> -	 * on the fact that spinlock_t and raw_spinlock_t are basically the
+> -	 * same type and this lock-type inversion works just fine.
+> -	 */
+> -	if (!IS_ENABLED(CONFIG_PREEMPT_RT) || system_state < SYSTEM_SCHEDULING ||
+> -	    (preemptible() && !debug_objects_is_pi_blocked_on())) {
+> +	if (can_fill_pool()) {
+>   		/*
+>   		 * Annotate away the spinlock_t inside raw_spinlock_t warning
+>   		 * by temporarily raising the wait-type to LD_WAIT_CONFIG, matching
+> -		 * the preemptible() condition above.
+> +		 * the preemptible() condition in can_fill_pool().
+>   		 */
+>   		static DEFINE_WAIT_OVERRIDE_MAP(fill_pool_map, LD_WAIT_CONFIG);
+>   		lock_map_acquire_try(&fill_pool_map);
+>
 
