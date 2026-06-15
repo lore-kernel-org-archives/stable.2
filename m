@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7BCB3ACA52
-	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 15:34:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9ACB402438
+	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 15:34:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781537656; cv=none; b=XQFxeQFXZaiVHWwYCX8rinZ2ftWsy9gI8ZI25LIyOSAZ9XLgAwMe6ehKcd5zZSs+qXdxGRBgw8HJiuhHlAMlXHZXvoxVTvecQOKLFpL8HN26tRPZvdDSa2HsRLD/6qtDFIPqAlFaNeoCC7G/czWIyES47DipH4sdBgpDGnb7KKE=
+	t=1781537665; cv=none; b=Tb2hbOKGrITIGEeF+d5GtxDu/7JANw4TfTdIvxPa1zu7EUnHE5eQqPIIximD/n8cjRtIAnIY8AoCLw7g8SW76g3PGrInsKcsB860JBnJ9bz+8MDlquKoet+pY+JAE0t9cigm+69fSoNyxD2OhCCShKUrqNFXvP/McMsI3a3SHZM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781537656; c=relaxed/simple;
-	bh=+K3lWJszTbNI52o4L/hC7wog5/Bc71btM3vuw3r9dws=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=NfGV24sDixJDTwlGabMXok68uZcokyVyjCXpy0uIodcctrW4j+zYqnWISjk05c3DSfboou5t9l6G+3hSav8/SDwa6mWp6jpdDt+t/gzsz8DzPOggC6QwD7I6SWcD2+5wG+4czaZzoQbT+YmUccmT9f0fZ9uJEXB8Q/PfS2LeEVg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=2hm8vNww; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781537665; c=relaxed/simple;
+	bh=u4oSeovYu/yVCaaOtrmdnWBeVJRPvcPHt45wMnUEY5U=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Lc/o8MUcfunimIkHdpgqvspOmyr4p/WNqAc/kwBJrCQ/pa6FQaFqo7oG0mfiyjsS2JemAg4Mcnw+Os1rQX1aNibrx5CzEzd/dQ5ONsdrxfkYCFc27dBYoPL/yd0W6igHm+2IaltMZxSGab+pkMh2vOfTgtu/YEEdURF9liQ/xfo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=CtXHC/0B; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="2hm8vNww"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD8E31F000E9;
-	Mon, 15 Jun 2026 15:34:14 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="CtXHC/0B"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE0901F000E9;
+	Mon, 15 Jun 2026 15:34:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1781537655;
-	bh=FDmKe+92WhVOwL3PGEppCYFoucgnDOKjxtHubkp+dnU=;
+	s=korg; t=1781537664;
+	bh=8i7eSPpEpIzyI0Ak44RoZ7iMh4yga+a59dh5nrvqrdw=;
 	h=Subject:To:Cc:From:Date;
-	b=2hm8vNww4mAyY8MidZRRU3/NeudevAFmc4UZSS7CKqN8jMQXw5hQh+1jeHCJrZf3G
-	 exjB/4a8jvWBoBk3Jfa03zObNT8ebMW3SQJ3fqEAO8EHAtz3+lhnLAaav+bAkNk4L0
-	 LFPP1P3mVp0eEUBUnpOrdsLnihDCGyjU0QFQCiJE=
-Subject: FAILED: patch "[PATCH] fuse: limit FUSE_NOTIFY_RETRIEVE to uptodate folios" failed to apply to 5.10-stable tree
-To: jannh@google.com,brauner@kernel.org,mszeredi@redhat.com
+	b=CtXHC/0BKiT3CBEPBt/VsT4KFGeFmS6HAUGyVryEqXaA+F11ospzIdtCpUkCy6XNT
+	 EjKJ7hQqysspd9oa+pxVe4Y7+B36LBzCKrfXZBB1lDCqypqIWLaTHudB5XoVN9GBfK
+	 t6AMXZJeS4uIMFu0T+6DLWmGGtzBTW1V15prX+ZI=
+Subject: FAILED: patch "[PATCH] misc: fastrpc: fix DMA address corruption due to find_vma" failed to apply to 5.10-stable tree
+To: moonafterrain@outlook.com,danisjiang@gmail.com,dmitry.baryshkov@oss.qualcomm.com,gregkh@linuxfoundation.org,srini@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 15 Jun 2026 16:55:31 +0200
-Message-ID: <2026061531-salvage-winnings-04e9@gregkh>
+Date: Mon, 15 Jun 2026 16:59:42 +0200
+Message-ID: <2026061542-daybreak-anemic-ed9c@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,10 +47,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 4e3d1b2c48ca6c55f1e9ca7f8dccc76f120f276c
+git cherry-pick -x 464c6ad2aa16e1e1df9d559289199356493d1e00
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026061531-salvage-winnings-04e9@gregkh' --subject-prefix 'PATCH 5.10.y' HEAD^..
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026061542-daybreak-anemic-ed9c@gregkh' --subject-prefix 'PATCH 5.10.y' HEAD^..
 
 Possible dependencies:
 
@@ -62,41 +62,40 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 4e3d1b2c48ca6c55f1e9ca7f8dccc76f120f276c Mon Sep 17 00:00:00 2001
-From: Jann Horn <jannh@google.com>
-Date: Tue, 19 May 2026 16:40:34 +0200
-Subject: [PATCH] fuse: limit FUSE_NOTIFY_RETRIEVE to uptodate folios
+From 464c6ad2aa16e1e1df9d559289199356493d1e00 Mon Sep 17 00:00:00 2001
+From: Junrui Luo <moonafterrain@outlook.com>
+Date: Sat, 30 May 2026 21:45:26 +0100
+Subject: [PATCH] misc: fastrpc: fix DMA address corruption due to find_vma
+ misuse
 
-FUSE_NOTIFY_RETRIEVE must be limited to uptodate folios; !uptodate folios
-can contain uninitialized data.
-Since FUSE_NOTIFY_RETRIEVE is intended to only return data that is already
-in the page cache and not wait for data from the FUSE daemon, treat
-!uptodate folios as if they weren't present.
+fastrpc_get_args() uses find_vma() to look up the VMA for a user-provided
+pointer and compute a DMA address offset. When the address falls in a gap
+before the returned VMA, (ptr & PAGE_MASK) - vma->vm_start underflows,
+corrupting the DMA address sent to the DSP.
 
-This only has security impact on systems that don't enable automatic
-zero-initialization of all page allocations via
-CONFIG_INIT_ON_ALLOC_DEFAULT_ON or init_on_alloc=1.
+Replace find_vma() with vma_lookup(), which returns NULL when the address
+is not contained within any VMA.
 
-Cc: stable@kernel.org
-Fixes: 2d45ba381a74 ("fuse: add retrieve request")
-Signed-off-by: Jann Horn <jannh@google.com>
-Link: https://patch.msgid.link/20260519-fuse-retrieve-uptodate-v1-1-a7a1912a37f9@google.com
-Acked-by: Miklos Szeredi <mszeredi@redhat.com>
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Cc: stable@vger.kernel.org
+Fixes: 80f3afd72bd4 ("misc: fastrpc: consider address offset before sending to DSP")
+Reported-by: Yuhao Jiang <danisjiang@gmail.com>
+Signed-off-by: Junrui Luo <moonafterrain@outlook.com>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Signed-off-by: Srinivas Kandagatla <srini@kernel.org>
+Link: https://patch.msgid.link/20260530204528.116920-3-srini@kernel.org
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
-diff --git a/fs/fuse/dev.c b/fs/fuse/dev.c
-index 5dda7080f4a9..08d364ed7d6c 100644
---- a/fs/fuse/dev.c
-+++ b/fs/fuse/dev.c
-@@ -1912,6 +1912,10 @@ static int fuse_retrieve(struct fuse_mount *fm, struct inode *inode,
- 		folio = filemap_get_folio(mapping, index);
- 		if (IS_ERR(folio))
- 			break;
-+		if (!folio_test_uptodate(folio)) {
-+			folio_put(folio);
-+			break;
-+		}
+diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
+index 48f8262af539..cca7489605c5 100644
+--- a/drivers/misc/fastrpc.c
++++ b/drivers/misc/fastrpc.c
+@@ -1090,7 +1090,7 @@ static int fastrpc_get_args(u32 kernel, struct fastrpc_invoke_ctx *ctx)
+ 			pages[i].addr = ctx->maps[i]->dma_addr;
  
- 		folio_offset = offset_in_folio(folio, pos);
- 		nr_bytes = min(folio_size(folio) - folio_offset, num);
+ 			mmap_read_lock(current->mm);
+-			vma = find_vma(current->mm, ctx->args[i].ptr);
++			vma = vma_lookup(current->mm, ctx->args[i].ptr);
+ 			if (vma)
+ 				pages[i].addr += (ctx->args[i].ptr & PAGE_MASK) -
+ 						 vma->vm_start;
 
