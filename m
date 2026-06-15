@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B6752AD2C
-	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 03:58:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ECBA2DC798
+	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 03:58:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781495920; cv=none; b=Cpsu3qtZ3CKE4DMxBYZZF6vuNjzggvEFbM2SvBRk4oo3V1by51jYkcS3zK2h9UKkRyoyimsxhmzgObL4+TfqKk5XE2KvP5iGWQwW3cx8ZY4ypLk8o7OWsWxLI36N/Sxcjv2fFrULY+gPrc2DDbG9WeMJIQfB3hycsSUH74FWRDY=
+	t=1781495923; cv=none; b=j//r43p5wpfFzkGiQW9WnwIoDUHCByLaGqUJ9Ze3pppUCL5KH/qMZxMBhhqMF5Ub9K7JRsxxC8zL3efszeDB2igB38KGcKeUFqmfHYyKX+UtqivgAAZF/hBMlAqdrmCVMhNoJkH58RzkaZ+csnQaN2uivMd9cdaxyfRnLQ63cs8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781495920; c=relaxed/simple;
-	bh=jrJ1Ky8xqPKQNakElW5oIN3XjKr7xo1b5PKWUCzCbPY=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=lRV2cmaf34QdWFxu/VFRJkRHid2hLUjJPK7hFlddiKHERsdlH0Z7+ODjuUwdTX16PvGUHeC9qjN5MJpiH65MzJMem+C3o3swsdaVWv1kSZNAFN0315KU9cHev0a7JWpjCrCEvODzHdUKwMut28rSwWfkUuIMRdWBfQ5eHyQIqXE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=14wy0A8G; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781495923; c=relaxed/simple;
+	bh=9UnWuxlDIt02FlobJ9F61P36RcHWQbIkVMjHmYcTfMo=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Kv+aSQBpBoyGygn643IFfyCozsYidCT1RjdGmGw6NDonyYBO1VT/IoydEuUYvQwBtWA5U+n3nbQJ88mXjP+pTY9sOgg683rx9Yc8v3Er8MEj65U2OiItNbiCtxJXYYdWVJQg+ygtPer3CU3STSlZW+Suc95CuirZLi48OO7eej4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=jxxX2lqf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="14wy0A8G"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99B2C1F000E9;
-	Mon, 15 Jun 2026 03:58:38 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="jxxX2lqf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4BB81F00A3A;
+	Mon, 15 Jun 2026 03:58:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1781495919;
-	bh=vNyqCRIvFUzOt41dG5kIGZNdin8BcscExbrs606Oo9o=;
+	s=korg; t=1781495922;
+	bh=gESUqLSVQKN5g0bF4Na7us7aAn0QI3O1pnzun44EMqQ=;
 	h=Subject:To:Cc:From:Date;
-	b=14wy0A8GF3Q+pZQbhMnXYfSZWPxkmonifmG5buEUcvqvWXJFHT3zMRyEmz/7pO3h8
-	 4EbUs1mHiH/v6XnO40C2JwNigfIQcHBZkagmHLebGI6CaQn72GYl/ytYjctMjEruAt
-	 qGDs8vRuB0m0FsQ7KE7V1iMP47mo6DZHtQNkbVxc=
-Subject: FAILED: patch "[PATCH] KVM: SEV: Unmap and unpin the GHCB as needed on vCPU free" failed to apply to 5.15-stable tree
+	b=jxxX2lqfVtaYGomAsgNdFRMsfjgWph5hHVn8YvDEyHjeraf0+JiTGKaroOcSSMlZC
+	 9Ortzll2pQ06Gph4x45LR5duOhtrCHkyw2pSMjJnmrfolnUDgJFRX3fVmk4eZaC8cT
+	 ifkZV2a8Dc34qhIQTa1FSTSMIP0PeiU8l4PDQcJg=
+Subject: FAILED: patch "[PATCH] KVM: SEV: Unmap and unpin the GHCB as needed on vCPU free" failed to apply to 6.1-stable tree
 To: seanjc@google.com,michael.roth@amd.com,pbonzini@redhat.com,thomas.lendacky@amd.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Mon, 15 Jun 2026 05:57:21 +0200
-Message-ID: <2026061521-rejoicing-pried-f615@gregkh>
+Message-ID: <2026061520-nutrient-overripe-e496@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
 git cherry-pick -x db38bcb3311053954f62b865cd2d86e164b04351
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026061521-rejoicing-pried-f615@gregkh' --subject-prefix 'PATCH 5.15.y' HEAD^..
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026061520-nutrient-overripe-e496@gregkh' --subject-prefix 'PATCH 6.1.y' HEAD^..
 
 Possible dependencies:
 
