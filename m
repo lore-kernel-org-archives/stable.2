@@ -1,59 +1,80 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F25A918DB26;
-	Mon, 15 Jun 2026 14:02:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A069C2309AA
+	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 14:05:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781532160; cv=none; b=Jx1rfqol2MbM6Z73H/ZxCyGu2d4Ses4DjY/TM44wUjYGwNiTMhzjbg4wl8kYeltnHIgPXBjetnLNbALUVB8wN+BDamkQIWBY6AZKz5ow0/ISFXcLpXmWyVM3wQo14GBr4yafWkRzlXIJmSGXUHmyS4Ka4Zyr29v54xra4w6oIAI=
+	t=1781532334; cv=none; b=ZeSsOw60w0aoeUgqWo8g9cZWa3sVoNSwawYbA0G1tEQcNjRv7NBmm0o8y7hQeIM0RwA3gmlKsaYO6Dv/B+G614DBtgpD7wza+Ka+lzABBjTpEMYi821RZs/D6rgBltDTKdK+bilxeStY9g+eYN3n9aCsL8K+EIjEN5CG5wowvpQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781532160; c=relaxed/simple;
-	bh=O2oz+YnWJmC4JgtulW/2JODfUkQWfikW4hVPPr2vh3Q=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=uxCo3SjrBwNVxUVzL9RNehNOdiTIN3BJyZ0VG1iPmXRqodm0ShA/1KxS2M3kJWp1tnF8ShwJihAzNYsVvkQ2bSZAQyeu2kKIAZuao3DT4qA8Iktdli/oF+OkCQ55Mm1SCGryiGPGLbxmVn4+aWuDqa0PJWlDM0kjp7E56z6YaCs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n8R6xhDb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781532334; c=relaxed/simple;
+	bh=xI4wpcGzBLNVDobrh+mh7oauWpw6MFYfwjQLeCAf9tk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WJjETVacKOeCoafNwhY9k9cmy9f4inVV8uNWHUCb2RsRiD4oLe6aCbiLwTD+LIpaWmQiPkRVJu1gzR22kJin5xt5kvvg/QE8IdAg6rxtL8VoDE6Dp73sRWj75PCkVUAryjgavtj4nSSpKpXCecxKk3/b2WwepXkok/QEnF0RbhY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0sec.ai; spf=pass smtp.mailfrom=0sec.ai; dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b=fGLS6Syd; arc=none smtp.client-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0sec.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=0sec.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n8R6xhDb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 91ADD1F000E9;
-	Mon, 15 Jun 2026 14:02:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781532159;
-	bh=O2oz+YnWJmC4JgtulW/2JODfUkQWfikW4hVPPr2vh3Q=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=n8R6xhDbQNeH0CpiO3pxS4wzkXwpkFOPTjjuix9kl2zZLbclLlOcjy9j362vGhm4S
-	 QTwkyAEQ7eFelnlgSnwckrefqMl1sMmWz3zggI1hfw7YGnW9gzG8ZjVQxxelBchh3T
-	 sudVbslxvZnc8yUscHmviLNd+JRhLn6pl5qpW8ZKW5BToHShUNlYDBAN9kgfOsv9TA
-	 MJzwwZqhuxq+Gw9I7BFg2i5+pW5OEgpMvVZ1Rph4YCR01Me22nBXvfZkn3qTtPe+uk
-	 62ebY8co1aqpXXuFFGi7Gcq38x4zboiWwm752cw/TweZ58FiXlBSnCGZcmPX6M9wXB
-	 cn15dg91j9zRA==
-From: Sasha Levin <sashal@kernel.org>
-To: bpf@vger.kernel.org
-Cc: Sasha Levin <sashal@kernel.org>,
-	netdev@vger.kernel.org,
+	dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b="fGLS6Syd"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-490b1bbcf3aso25431085e9.1
+        for <stable@vger.kernel.org>; Mon, 15 Jun 2026 07:05:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=0sec.ai; s=google; t=1781532330; x=1782137130; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=cWcO4px56bciI2pw+C/GD4p6lsmnspj/GXwm9bAVCbo=;
+        b=fGLS6SydEuYONujiwQ5f7Ut8sI3BivGjb8qKC0SE8v5YDy4F+c8uEh2lbKoz7MgGLm
+         gDRRqbmASB6wpi4G5C6w/sqbVrDk4EUwdbDIp6l210Gvc5rIkPASLZnCfZHxUm17jDWB
+         G322h7TYGD/JC3EEowbgClzcqIibkGH2YCIsXrUuJO2ZgN/5r4N3BFxgv4dU1ZUaQ6G/
+         NhDzTF0lB9C+Ev0dmJWEWGEMn+ueh4QUSdl/u4q9UIsDEiffzYZxOaPYblWsm5EXwMH8
+         bid5QvYupkzb1LVJQ0e/Rb8x9WedF5a0Q0YxdoCYBJ1HH8PzUQFGWSK5u/wd3lpdZHfz
+         Zn3A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781532330; x=1782137130;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=cWcO4px56bciI2pw+C/GD4p6lsmnspj/GXwm9bAVCbo=;
+        b=q5LemInAwJFey5cRh4Zee4aDQiPbFnTj1ey+jfcMiPpH/z43cIqB55/+kZp4SWp8tY
+         WlLNGxtaYCRwvCdbj1DCmW9keC9R1pO7Lo9oqXe2ZCgqwhjfQrYfZwBJ0ebkBQMm0e4J
+         WCSnATBNTB4qXHf/tzDzWyju8eSEZesivQwaZUlv0ccNqsXCfHxh8uaNt60TYWGcYapt
+         rSaxiTOvOYOrrlvSxsENB9VNHZWYHDIWblUUFrtgI93ZX/DnVDiVlyUFESRKeCrhs6lW
+         84EHxkJwOTmwiFZUTF4e1oqTHo/fj43w5Ajp1Y87FXxn36nl+qRQwwcM7pZoe2kwue17
+         TUVQ==
+X-Forwarded-Encrypted: i=1; AFNElJ8+g5COETSLjkyefHOOw2eU1wzlGFNi9E/rBfpMAJ6hobJgBLjPc2ta0M9ux8OFwSgyfWATNfo=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyKwb4A9VWWoT60I3yuJDe2AY9bpZTz5ohnV2vKYoIos10gI0tA
+	a0BYzUI3TMRjoBzvWNndmjICnYkcTzWZyIfV/pq6CdnYGa/BqQiNh6DmcvyZiTvf2XbU
+X-Gm-Gg: Acq92OFwHIgVt302Lw/9Zn2XvKdELT0T+CqjYGQM6jtBkVBHpk97BxQhjfjpkCt2kva
+	usyRfSP7P/JHNwxslVOoFWTuCwlxsbU38HcWDbLU/arkVSn/DsbdMaQ7NmEAWAPhKYn3xfQAgty
+	v/REmY/AsyWsru/7auUnD8EblFJmO+KZmntq7n5fEv7ie9mbTEy7ImS3z0QOaBt+k7UmKxqwbIc
+	2ARtrZxLu68b14vh6y/048HsQVLJh4GgZXC3Iy7eHVaDRG65OFaczyEcO8ij+cBnu6IToBKR7PQ
+	Zq+NU/VFEl6895w7ALfvp7ywAwYAq4jpuALR4mtzJFZpDKvcrUKXaikOYB6gWpiIa57fnIWDVQW
+	3jEzvHzyAiwFKm5vmZ0hnLDG6OcSBNgjXzHk7Fqq7HwLZN//NSObz1dP541lEnXYNLBVEGDtWaj
+	u/c79y7riRT3YgdLzET6qzUo41f1HEgISvYJaIdQGpyMAGIrt3GfBqy0GikiXhKtSilqZqU2ER2
+	Zs/PIKYIdyiJaHoYYDcXxvGzD6zeLStX7NEMNbIp2Etqw==
+X-Received: by 2002:a05:600c:6b69:b0:490:b642:ce2c with SMTP id 5b1f17b1804b1-490ec4df221mr128435735e9.14.1781532329599;
+        Mon, 15 Jun 2026 07:05:29 -0700 (PDT)
+Received: from PeakBook-Mini.tail8e484.ts.net ([178.197.218.209])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-492203d05d1sm350721705e9.12.2026.06.15.07.05.28
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 15 Jun 2026 07:05:29 -0700 (PDT)
+From: Doruk Tan Ozturk <doruk@0sec.ai>
+To: tiffany.lin@mediatek.com,
+	andrew-ct.chen@mediatek.com,
+	yunfei.dong@mediatek.com,
+	mchehab@kernel.org,
+	matthias.bgg@gmail.com,
+	angelogioacchino.delregno@collabora.com
+Cc: hverkuil+cisco@kernel.org,
+	linux-media@vger.kernel.org,
+	linux-mediatek@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	ast@kernel.org,
-	daniel@iogearbox.net,
-	john.fastabend@gmail.com,
-	andrii@kernel.org,
-	martin.lau@linux.dev,
-	song@kernel.org,
-	yonghong.song@linux.dev,
-	kpsingh@kernel.org,
-	haoluo@google.com,
-	jolsa@kernel.org,
-	menglong8.dong@gmail.com,
-	eddyz87@gmail.com,
-	shung-hsi.yu@suse.com,
-	stable@vger.kernel.org,
-	mykolal@fb.com,
-	tamird@kernel.org,
-	Zhenzhong Wu <jt26wzz@gmail.com>
-Subject: Re: [PATCH stable 6.6.y v3 0/4] bpf: linked scalar precision fixes
-Date: Mon, 15 Jun 2026 10:02:34 -0400
-Message-ID: <20260615132154.0001-1-sashal@kernel.org>
+	Doruk Tan Ozturk <doruk@0sec.ai>,
+	stable@vger.kernel.org
+Subject: [PATCH] media: mediatek: vcodec: fix use-after-free in decoder release path
+Date: Mon, 15 Jun 2026 16:05:26 +0200
+Message-ID: <20260615140526.52617-1-doruk@0sec.ai>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <cover.1781194510.git.jt26wzz@gmail.com>
-References: <cover.1781194510.git.jt26wzz@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -62,12 +83,55 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Mon, Jun 15, 2026 at 00:58:37AM +0800, Zhenzhong Wu wrote:
-> This v3 targets 6.6.y and changes the backport strategy based on review
-> feedback on v2.
+fops_vcodec_release() frees the decoder context with kfree(ctx) but
+never cancels the per-context decode_work worker first. Although
+v4l2_m2m_ctx_release() waits for any in-flight m2m job to finish, the
+workqueue handler (mtk_vdec_worker) may still be running and accessing
+the context after v4l2_m2m_job_finish() returns. Once kfree(ctx) runs,
+that worker dereferences freed memory, resulting in a use-after-free.
 
-Queued all four for 6.6.y, thanks.
+Cancel the pending decode work with cancel_work_sync(&ctx->decode_work)
+after the controls and m2m context are torn down and before kfree(ctx),
+mirroring the fix already applied to the encoder release path in
+commit 76e35091ffc7 ("media: mediatek: vcodec: fix use-after-free in encoder release path").
 
---
-Thanks,
-Sasha
+decode_work is always initialised before release can run:
+fops_vcodec_open() calls mtk_vcodec_dec_set_default_params() (its only
+caller) unconditionally after a successful v4l2_m2m_ctx_init(), and that
+function runs INIT_WORK(&ctx->decode_work, ...). A context can only reach
+fops_vcodec_release() via an open() that returned 0, i.e. one that passed
+that INIT_WORK. cancel_work_sync() on a properly initialised work_struct
+is therefore always safe, even if the work was never queued. This is
+unlike the 2023 msg_queue->core_work regression, where the work item
+could be uninitialised at cancel time.
+
+Fixes: 590577a4e525 ("[media] vcodec: mediatek: Add Mediatek V4L2 Video Decoder Driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Doruk Tan Ozturk <doruk@0sec.ai>
+---
+ .../mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c         | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c
+index e936ed8dffbaf..30906b24c608a 100644
+--- a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c
++++ b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c
+@@ -313,6 +313,15 @@ static int fops_vcodec_release(struct file *file)
+ 	v4l2_fh_exit(&ctx->fh);
+ 	v4l2_ctrl_handler_free(&ctx->ctrl_hdl);
+ 
++	/*
++	 * Cancel any pending decode work before freeing the context.
++	 * Although v4l2_m2m_ctx_release() waits for m2m job completion,
++	 * the workqueue handler (mtk_vdec_worker) may still be accessing
++	 * the context after v4l2_m2m_job_finish() returns. Without this,
++	 * a use-after-free occurs when the worker accesses ctx after kfree.
++	 */
++	cancel_work_sync(&ctx->decode_work);
++
+ 	mtk_vcodec_dbgfs_remove(dev, ctx->id);
+ 	spin_lock_irqsave(&dev->dev_ctx_lock, flags);
+ 	list_del_init(&ctx->list);
+-- 
+2.43.0
+
