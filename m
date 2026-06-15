@@ -1,56 +1,76 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f194.google.com (mail-dy1-f194.google.com [74.125.82.194])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 301A233A6E2
-	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 22:52:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1520027FD51
+	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 23:37:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.194
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781563958; cv=none; b=BdqQEB1iD7rmo2RrBmeb6HxGzMKoD+BqO8W2jkdDBucutr1eTdgIGRcsld9mDsnQhiELiPUpSeizKIXbxc2aVphCx9eGb6/qN1yBs44ffiKAN3FZEPgkUaJxZ+RzmfPrAJwpYkthOafbn8NmdrixERT+RTUiWUPwbr7mgpJD+1U=
+	t=1781566669; cv=none; b=WmOIxEFX+2HQRBsHHUc4KK1TVqGEZuCxsg8KLdprX8rQijiejx+FwxTF9QhDQKv4X0ytKgOO4dIkp/EzhvxRlk+AdJrP7mUmpF9cw6M7gHJlBTGhN6pHEwkUcTi1ijnzqKj29+l/ZxLvB0qFa7+yXyNFbsy0L3iVJug5boGMp5w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781563958; c=relaxed/simple;
-	bh=vK7U92GBSn6kfYoxz+DT7CVIBlEaka7Y8boJhmDM4OA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bJZUcmka0xmu6R/yAMQZmmu6QbjzzMv5t1dyv4bDA4wuIf1/miBFIr1rtmZE+M9q8Vfve48DTjk8UuZbNGlOUIEOTTlQSItidnmL9PEho9XDUEahtL61Qa8vX8mA+nyFlFgIdJRNxMkunxk8voZPRUq0OHGaWX61Zomo/dOXzJQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KQa74io7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781566669; c=relaxed/simple;
+	bh=OSQi0fnYoZLN0FaALBw41Iujl6gFOLhSbHvLSxxbDsg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dPubi8nH8ZUiGZOXz1yb5pqiPe9Jf+qeg98I+q1rfofZGq1QMry4wdDxMbjvvSOVKQxyBWTQ71EEDW7MY6V0u4KpA6/6lLsAnwMlHC3yHG+u8MDt7FabcFxodIH8DgPJVB/TpJtVdBS3GyzdmfdUUm9dRgDtKZxuIhXOys8qGlk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=i34wUUbP; arc=none smtp.client-ip=74.125.82.194
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KQa74io7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BE151F000E9;
-	Mon, 15 Jun 2026 22:52:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781563957;
-	bh=0GFs4O2Q7lHnz+oyRZGzqXMb5TIUW1yK3MW98AsNtqQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=KQa74io7fnKc4beSWszb9ixSEw3wx6bX+7qjnAjV3+TM9mtVRq2wZvznH6zPOi2N8
-	 yCdi1T0yz1+bBlIa962DRNPt9CgHO37SbXqs8zdIxEeYqi6umY7L2ZU2d/rfNm5P4V
-	 2LG4QJyq8qj27VskZ1EEUosF9i/IANMSc/A55/F/XudgTVOpZU2XImadoDZkV2TfW3
-	 Kle+INRm8bO+BruARYP0TE8q0eTEC7WIRR2e2oE9dBC7mm2Ra/S748e3Pcg69D547X
-	 ctwYVO+/vtJJY4YqjHQYawQIQG+915DktRfEeDQG9z82F3LL/QPjHAMjtXFyzMZe4G
-	 3mzuhe/ZXt9Hg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Yin Tirui <yintirui@huawei.com>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"David Hildenbrand (arm)" <david@kernel.org>,
-	Lance Yang <lance.yang@linux.dev>,
-	Dev Jain <dev.jain@arm.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Barry Song <baohua@kernel.org>,
-	Chen Jun <chenjun102@huawei.com>,
-	Kefeng Wang <wangkefeng.wang@huawei.com>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Nico Pache <npache@redhat.com>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Yang Shi <yang.shi@linux.alibaba.com>,
-	Zi Yan <ziy@nvidia.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] mm/huge_memory: update file PMD counter before folio_put()
-Date: Mon, 15 Jun 2026 18:52:33 -0400
-Message-ID: <20260615225233.2520866-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026061508-robin-cupid-c1e8@gregkh>
-References: <2026061508-robin-cupid-c1e8@gregkh>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="i34wUUbP"
+Received: by mail-dy1-f194.google.com with SMTP id 5a478bee46e88-304ec41197bso4408937eec.1
+        for <stable@vger.kernel.org>; Mon, 15 Jun 2026 16:37:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781566667; x=1782171467; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=IWtsgQMgLXtZgryprx/woRtK4v3sMFHFdfoF1UZkXmE=;
+        b=i34wUUbPp2pdZed9i5ljz0De73kt5VEqSpMCeSuE21/+aeF5zyu5rnHhIDvjbwR8FU
+         XeSXkVxKl9FD7laKN2NUeHSaYnOO7Ihupws13fMMlIzrclZZSw4KVk0CWA46fLowHjDr
+         +Uyck2XFN0eAGZSWKW3OjqIvN2gJYG00fHxzUbD10PG6eNTYGLnbEcQJcQU9Yr6m2fMe
+         7NG0XZBMnOktkT7ClEuJDjAbqV67MWwlO5SZm3YS9oqaKw6RE33pT4LQszjey5lVWZB2
+         +YbEsPM1lKMO7KLkirzVDo4xmCH4Bml9f3QPc8hEaLW6rdqKyweAfVNpKhGNu7hUpj+6
+         +ULQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781566667; x=1782171467;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=IWtsgQMgLXtZgryprx/woRtK4v3sMFHFdfoF1UZkXmE=;
+        b=o+Bx4RWacRmjWYXWSfQMcJI7Qlsx1pKkvu6lo7jyty7V6IiIw/Ox48TP3OlaUxH/U1
+         U6NIgkOye4cB585HyI58BBsAnXWSaXYgWWMCaBoxyqbzDKOjtRmyc9cU3ndj4xn7CCmR
+         fZGP0a1Bii6bwKl++cdO3IQFM9u+p8Y6z38L1MVbI+tCHMOgVMbSKbNEKtRvtgqOpOO9
+         FXYRF56OTCaGBYd0JFkUvyKhZ1XDx2g9ZIZsEVIxiV1gSiI2rzOdaWYOlIcy7dbaKqiu
+         9T5ajfQcgUhKQ7elb719Jki4l77pgfKEG6g7219/ML+e8jDCrj6nuHjqgQ6Mg/Ff+XNp
+         PEUQ==
+X-Forwarded-Encrypted: i=1; AFNElJ8Xh9CCJrxN8cOEpn7aZ+/tvESu2nFnECuhla5t2wWgdguvIORsJ9fG5YN3hW8tQtO4t0uvLeA=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwBC+3VATv1bCgub7SxQRyN+lLShM5DCISohS0snupVJgTSmABR
+	h3BJ2hOXYrl27PD6W1reQIaaSQTXfffPD4JpBo9qBr5dcto+1TYZ78If
+X-Gm-Gg: Acq92OHKYrlrqFK2hG2BVFQIRkOt4ugaufrUr32GtsTFq1TWJ1u8DgMcH0AMUO0pHIo
+	j6nI1Yr5wZRR4mFJ40KKlUMDD/pw/utvKmTPZxwtV32LBMmAtxg893vuWPIBwhNJlUHhKGDHcko
+	PgugF8NE3sehyI8a/yX8dcBHyPPpu5lcOVwQgR8MT1RRTksdLORXjVljiAq/5cJcdncg2THKZwt
+	mU/SmfjSZ/PkBHblFImRgL8JtNlv+6NxyTI4pc9s0I68yXkwG2uuTyPslJty4RGqIB5PPM9+/HL
+	SSXg3omPhZyd74doXSZ4fBunEcop7Ms8s6y84Qln3w4Is66n3ZndF6BY+qbm+U8Sp1qk05lmWcL
+	K9kLzpB2fMRVf00QR65K/zAyCHg5Cv/+FTrZRd6eMHPnB58c1usiV3j3VK1vP200WBZV0L98dpp
+	3439gPUbi6qY+F3xrVdoe+17zRxC8yB06s0RvrJ4U8HAd7MNhJX4lm4073pMvAxWFwAZXxEpWlj
+	RTDE+5WnRB4fGfFwEK6vZqYpgCc9EH1YkVNyBxtmopoVSG1f7zlZgSAdIMc92AAHXJbiVEfbzHm
+	5l6/Jn4O9JXEBj7nng==
+X-Received: by 2002:a05:7300:1827:b0:2dd:8ac2:9f7a with SMTP id 5a478bee46e88-30ba59d3517mr869225eec.11.1781566667050;
+        Mon, 15 Jun 2026 16:37:47 -0700 (PDT)
+Received: from ethan-latitude5420.. (host-127-24.cafrjco.fresno.ca.us.clients.pavlovmedia.net. [68.180.127.24])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3081e5d0828sm18158501eec.10.2026.06.15.16.37.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 15 Jun 2026 16:37:46 -0700 (PDT)
+From: Ethan Nelson-Moore <enelsonmoore@gmail.com>
+To: Nicholas Piggin <npiggin@gmail.com>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Sayali Patil <sayalip@linux.ibm.com>,
+	linuxppc-dev@lists.ozlabs.org
+Cc: Ethan Nelson-Moore <enelsonmoore@gmail.com>,
+	stable@vger.kernel.org,
+	Michael Ellerman <mpe@ellerman.id.au>
+Subject: [PATCH v2] powerpc/uaccess: correct check for CONFIG_PPC_E500 in mask_user_address()
+Date: Mon, 15 Jun 2026 16:37:26 -0700
+Message-ID: <20260615233729.29386-1-enelsonmoore@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -59,56 +79,33 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Yin Tirui <yintirui@huawei.com>
+mask_user_address() incorrectly checks for CONFIG_E500 instead of
+CONFIG_PPC_E500, causing mask_user_address_isel() to not be used on
+E500 hardware. Fix the check to use the correct name.
 
-[ Upstream commit 8d878059924f12c1bc24556a92ec56add74de3c8 ]
+Fixes: 861574d51bbd ("powerpc/uaccess: Implement masked user access")
+Cc: stable@vger.kernel.org # 7.0+
 
-__split_huge_pmd_locked() updates the file/shmem RSS counter after
-dropping the PMD mapping's folio reference.  If folio_put() drops the last
-reference, mm_counter_file() can later read freed folio state via
-folio_test_swapbacked().
-
-Move the counter update before folio_put().
-
-Link: https://lore.kernel.org/20260526101337.1984081-1-yintirui@huawei.com
-Fixes: fadae2953072 ("thp: use mm_file_counter to determine update which rss counter")
-Signed-off-by: Yin Tirui <yintirui@huawei.com>
-Reviewed-by: Lorenzo Stoakes <ljs@kernel.org>
-Acked-by: David Hildenbrand (arm) <david@kernel.org>
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
-Reviewed-by: Dev Jain <dev.jain@arm.com>
-Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: Barry Song <baohua@kernel.org>
-Cc: Chen Jun <chenjun102@huawei.com>
-Cc: Kefeng Wang <wangkefeng.wang@huawei.com>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Nico Pache <npache@redhat.com>
-Cc: Ryan Roberts <ryan.roberts@arm.com>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Yang Shi <yang.shi@linux.alibaba.com>
-Cc: Zi Yan <ziy@nvidia.com>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-[ changed folio API calls (folio_remove_rmap_pmd/mm_counter_file(folio)/folio_put) to page-based equivalents (page_remove_rmap/mm_counter_file(page)/put_page) ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Ethan Nelson-Moore <enelsonmoore@gmail.com>
 ---
- mm/huge_memory.c | 2 ++
- 1 file changed, 2 insertions(+)
+Changes in v2: Correct explanation and Fixes tag (thanks Christophe)
 
-diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index 78f5df12b8eb37..4443cc44cbf9f1 100644
---- a/mm/huge_memory.c
-+++ b/mm/huge_memory.c
-@@ -2095,7 +2095,9 @@ static void __split_huge_pmd_locked(struct vm_area_struct *vma, pmd_t *pmd,
- 			if (!PageReferenced(page) && pmd_young(old_pmd))
- 				SetPageReferenced(page);
- 			page_remove_rmap(page, vma, true);
-+			add_mm_counter(mm, mm_counter_file(page), -HPAGE_PMD_NR);
- 			put_page(page);
-+			return;
- 		}
- 		add_mm_counter(mm, mm_counter_file(page), -HPAGE_PMD_NR);
- 		return;
+ arch/powerpc/include/asm/uaccess.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/powerpc/include/asm/uaccess.h b/arch/powerpc/include/asm/uaccess.h
+index e98c628e3899..619270bb7380 100644
+--- a/arch/powerpc/include/asm/uaccess.h
++++ b/arch/powerpc/include/asm/uaccess.h
+@@ -511,7 +511,7 @@ static inline void __user *mask_user_address(const void __user *ptr)
+ 
+ 	if (IS_ENABLED(CONFIG_PPC64))
+ 		return mask_user_address_simple(ptr);
+-	if (IS_ENABLED(CONFIG_E500))
++	if (IS_ENABLED(CONFIG_PPC_E500))
+ 		return mask_user_address_isel(ptr);
+ 	if (TASK_SIZE <= UL(SZ_2G) && border >= UL(SZ_2G))
+ 		return mask_user_address_simple(ptr);
 -- 
-2.53.0
+2.43.0
 
