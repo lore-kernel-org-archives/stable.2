@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACD492DC76F
-	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 03:58:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09DE12D9EDC
+	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 03:58:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781495933; cv=none; b=r6qs4j2yTIEL77NnY4JNmXO//FBeERpSksCs6odWBL9GCT9DUsNZzBgNYQYf0X/1Z7td/ZVQ2hn/xG4SfFDPDNG0NC3NZLlsUlWJo4BmNWRFruVoIHjTkJCHgT0MFhVpF/EYH+Hfed7fORlS7HHteopgsa/c/6yrRJHJCYFUa98=
+	t=1781495937; cv=none; b=h0UrXmRfzt9IVrzv59mi09TA3C2YyAFu8Usvzssz+cqA3BRD38ouqHvS8SWL7nA/j6kv22b+WLgo2Xxt4SgHDLVDgJ7CbLQ2g6YnFp8uKMnsXRGkWliJkIqnju2mgKeC/pfpgzMmL8UJT4kwF3D0/zZrmoZPNOBsFl7+bCZpxCM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781495933; c=relaxed/simple;
-	bh=gCZyo/DC922Dz5kccEESc0Z0FKQjdyep7Tg2qxST52Y=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=uprvLhWRXZRtxuK6fypN/iQHx/JM8TUi2GKTaotIzhU+aQ9Fw+N1ns/1MzDzoKi12IqK6wfjZA/zW79sjf1vKgsUFkPsjsOpzmby03CqVGmARompUXoWIQqpC7YUEr5ARR6djdCw0/ys24T9VDcZCTQaAHChl8DflTmldQnKybk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=svste79G; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781495937; c=relaxed/simple;
+	bh=U1sccNZYW56lsgIv36NRPIuEV+Y1Tpw5UBUDPzlyfMM=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=ZSP3EG6DUXAU3NvQL3KhEYOlaMiRdQZMo8gmDs/oUmghWcMKCqZNzi47aNuHsrj0e7lFJNGrLrKP0w8PS//TDA5y95bpbW02E+8kehsgmKOL92BnpvbIENhxVAJWIujT7sksifPgNUqPggoX/kosMjh4QEm7leRGxx6mT92cHXE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=TUpx3xcs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="svste79G"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1D8F1F000E9;
-	Mon, 15 Jun 2026 03:58:51 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="TUpx3xcs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 472861F000E9;
+	Mon, 15 Jun 2026 03:58:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1781495932;
-	bh=Q9B9tCZJx5Y02GkQq7LPIumZAmxyFq320XLnWHD4iDg=;
+	s=korg; t=1781495935;
+	bh=XwTLzy0Rnr9/Jd2zEgtVslVIajMqQvjUTA3WHYUbGJg=;
 	h=Subject:To:Cc:From:Date;
-	b=svste79GUv5edFD6Dl7OnEW3G2EWhgQrCRzSgfwSuF7WsQKXhrDivC/IZkT7fvd+F
-	 6Lfo8c/74g0jWj9luUDlcOYZqdLIj1eYR2zzN77N29GQFN36kMlvsCe10a9xd3OGZM
-	 wFqx9HJfIR+sPJBveKvK1apwyodDBWXsBm2Eag+4=
-Subject: FAILED: patch "[PATCH] KVM: SEV: Move sev_free_vcpu() down below sev_es_unmap_ghcb()" failed to apply to 6.18-stable tree
+	b=TUpx3xcsOdtwwmQYuzZ7ycLs0K+Rmm6r2CCxrE0ZlKmXfktMo8DjVplY7Ww0By/jc
+	 xB5dzXxSy2Zm/DdONoLpCJvUi/B9GK2uM0dY2MUUecjZk6xzpeira6r11g7XwKTnfr
+	 vgrG8J28rrIBa9ZqEVTMQghLIGH+p140KJRueZMI=
+Subject: FAILED: patch "[PATCH] KVM: SEV: Move sev_free_vcpu() down below sev_es_unmap_ghcb()" failed to apply to 6.1-stable tree
 To: seanjc@google.com,michael.roth@amd.com,pbonzini@redhat.com,thomas.lendacky@amd.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 15 Jun 2026 05:57:32 +0200
-Message-ID: <2026061531-lagging-sketch-8a96@gregkh>
+Date: Mon, 15 Jun 2026 05:57:33 +0200
+Message-ID: <2026061533-jailhouse-diabetes-57da@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
 git cherry-pick -x 08385c5e1814edee829ffe475d559ed730354335
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026061531-lagging-sketch-8a96@gregkh' --subject-prefix 'PATCH 6.18.y' HEAD^..
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026061533-jailhouse-diabetes-57da@gregkh' --subject-prefix 'PATCH 6.1.y' HEAD^..
 
 Possible dependencies:
 
