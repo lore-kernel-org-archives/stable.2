@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B91DF3F825F
-	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 14:44:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3230433711D
+	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 14:45:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781534699; cv=none; b=sDO3yvQneKCBk7ICO8il3BO4oMFpsi/4rnkCrgFmAij/uta8FkiY3MisC7xWVZlzvNrQdHRhsJnCHnvDVHTtz02jMjNNc5TAPLvFC0b4OR5/eICXeVW5QnMc6g35RyGJfUqa1Djrm9AU75ExtpoG2GWaYNCVrg0xgUzbqqvb+3k=
+	t=1781534708; cv=none; b=TOnqmsfJ464Ru77AbTRyJvZQNBtaTAm7LdVeBoWnwE4HbTDwSDZUxLGLzQ0qic6XfENfAtM0Lcwwr++ZDaF2HS9lg3tWr4Md6yBHiwr3KFliR3qa8+Jdrh0ekC+LrcV4Lcox1qTYWO0w+6IhazEjKuIATRcIIxlO8oK46S6EESc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781534699; c=relaxed/simple;
-	bh=Vi6s8X/q/XzgGdVvh5EXFxftOIgRm/Vs89kDmIoRmlc=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=qVw41uHzPBMk5WKKCsSRmgCzzl48VoAJPoMNndaDfTeW8au8ir2od7i51pmsq0UE9S0Zef6coDlYmhd+mj/XFadjybFQL8d/oiDSjGxD/agOj3PABFVxnHNkwWUYY2Sni8k3ACh/rte7gTbQo9g3w4XGVqFeGiU1S43qaBX9xJ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=PY3JGxpA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781534708; c=relaxed/simple;
+	bh=Hb+1aM1QgQOAf/rAwtbvoZAkfuB3J8c1OCRmCO3z3wg=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Wwrryk23v3KsIppaN0x+fiLeftzSYjbCGBaVnvJUGDPUbrwuh+G/p9V4YEou6AG+epSJS1i+C8y000Vwa70E9MqfOzKJugUP/tlJ/t4ZwBcX7JfDDykKOOgh+TSNppF2jW7gu8DZF3/x98GITLk7/d55N/VufcpYLLEm+Xvht+c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=aTwGM1E2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="PY3JGxpA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A27771F000E9;
-	Mon, 15 Jun 2026 14:44:57 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="aTwGM1E2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03CDB1F000E9;
+	Mon, 15 Jun 2026 14:45:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1781534698;
-	bh=Ibq6Kay+XkkitxGXn2HgJbTUFZAeYOi24VNjy+jqnq8=;
+	s=korg; t=1781534706;
+	bh=+oqflPb66iireci+kyNdWzR2ITmO87xPgyejKxWBawE=;
 	h=Subject:To:Cc:From:Date;
-	b=PY3JGxpAIyoyZzNP81Az5eaGHe4olJlgLB4FNoRjIkbYfVo6Ri/DKS/1B29gbKh9d
-	 ZvzT6HNBk4Bh++Ggo5kH+5KB5ESPTGRPwOSNM3wdKOWojHELsuCfOUgKor0/95zy/8
-	 XzqKShHJLmOYdAW+7ku7LU3byVBzWFbGJJAFIXQ4=
-Subject: FAILED: patch "[PATCH] staging: rtl8723bs: rtw_mlme: add bounds checks before" failed to apply to 5.15-stable tree
-To: me@cipherat.com,gregkh@linuxfoundation.org,luka.gejak@linux.dev,stable@kernel.org
+	b=aTwGM1E2j2Y497WlIwLZSd2fhJjIYcgpzj9mQudhi8VlrqroqO2uShqvyXoOKfpEo
+	 sGdesxOVwgK0rPcgCCIOSZfrve258HJK6ryb8upxz8ozlnjSkX9ZOSGoTdnIxwpD1c
+	 F3htSjvJdSnFPNvoUqvHS4OZSNzP/tTSnLxeOuiI=
+Subject: FAILED: patch "[PATCH] bnxt_en: Fix NULL pointer dereference" failed to apply to 5.10-stable tree
+To: kyle.meyer@hpe.com,kuba@kernel.org,pavan.chebbi@broadcom.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 15 Jun 2026 16:30:56 +0200
-Message-ID: <2026061556-unlovable-moonlight-0cab@gregkh>
+Date: Mon, 15 Jun 2026 16:31:44 +0200
+Message-ID: <2026061544-stony-launder-1952@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 88e994c57a79f62d5338231d8d37ee8dd98baffe
+git cherry-pick -x d930276f2cddd0b7294cac7a8fe7b877f6d9e08d
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026061556-unlovable-moonlight-0cab@gregkh' --subject-prefix 'PATCH 5.15.y' HEAD^..
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026061544-stony-launder-1952@gregkh' --subject-prefix 'PATCH 5.10.y' HEAD^..
 
 Possible dependencies:
 
@@ -62,55 +62,43 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 88e994c57a79f62d5338231d8d37ee8dd98baffe Mon Sep 17 00:00:00 2001
-From: Salman Alghamdi <me@cipherat.com>
-Date: Wed, 13 May 2026 23:34:40 +0300
-Subject: [PATCH] staging: rtl8723bs: rtw_mlme: add bounds checks before
- ie_length subtraction
+From d930276f2cddd0b7294cac7a8fe7b877f6d9e08d Mon Sep 17 00:00:00 2001
+From: Kyle Meyer <kyle.meyer@hpe.com>
+Date: Fri, 5 Jun 2026 17:25:24 -0500
+Subject: [PATCH] bnxt_en: Fix NULL pointer dereference
 
-Add guards to ensure ie_length is large enough before subtracting
-fixed IE offsets to prevent unsigned integer underflow.
+PCIe errors detected by a Root Port or Downstream Port cause error
+recovery services to run on all subordinate devices regardless of
+administrative state.
 
-Fixes: 2038fe84b8bd ("staging: rtl8723bs: fix spacing around operators")
-Fixes: d3fcee1b78a5 ("staging: rtl8723bs: fix camel case in struct wlan_bssid_ex")
-Closes: https://lore.kernel.org/linux-staging/DI2H39EAAFBZ.3KI5NWN02AQ2S@linux.dev/
-Cc: stable <stable@kernel.org>
-Signed-off-by: Salman Alghamdi <me@cipherat.com>
-Reviewed-by: Luka Gejak <luka.gejak@linux.dev>
-Link: https://patch.msgid.link/20260513203455.31792-1-me@cipherat.com
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+The .error_detected() callback, bnxt_io_error_detected(), disables
+and synchronizes IRQs via bnxt_disable_int_sync(), which calls
+bnxt_cp_num_to_irq_num() to map completion rings to IRQs using
+bp->bnapi.
 
-diff --git a/drivers/staging/rtl8723bs/core/rtw_mlme.c b/drivers/staging/rtl8723bs/core/rtw_mlme.c
-index 268f294528e6..9f21a2226dbd 100644
---- a/drivers/staging/rtl8723bs/core/rtw_mlme.c
-+++ b/drivers/staging/rtl8723bs/core/rtw_mlme.c
-@@ -604,6 +604,8 @@ static bool rtw_is_desired_network(struct adapter *adapter, struct wlan_network
- 	privacy = pnetwork->network.privacy;
+Since bp->bnapi is allocated on NIC open and freed on NIC close, PCIe
+error recovery on a closed NIC can dereference a NULL pointer.
+
+Check if bp->bnapi is NULL before disabling and synchronizing IRQs.
+
+Fixes: e5811b8c09df ("bnxt_en: Add IRQ remapping logic.")
+Cc: stable@vger.kernel.org
+Signed-off-by: Kyle Meyer <kyle.meyer@hpe.com>
+Reviewed-by: Pavan Chebbi <pavan.chebbi@broadcom.com>
+Link: https://patch.msgid.link/aiNM1CY2-StPilxW@hpe.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+
+diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt.c b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
+index 35e1f8f663c7..c999f9733326 100644
+--- a/drivers/net/ethernet/broadcom/bnxt/bnxt.c
++++ b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
+@@ -5748,7 +5748,7 @@ static void bnxt_disable_int_sync(struct bnxt *bp)
+ {
+ 	int i;
  
- 	if (check_fwstate(pmlmepriv, WIFI_UNDER_WPS)) {
-+		if (pnetwork->network.ie_length < _FIXED_IE_LENGTH_)
-+			return false;
- 		if (rtw_get_wps_ie(pnetwork->network.ies + _FIXED_IE_LENGTH_, pnetwork->network.ie_length - _FIXED_IE_LENGTH_, NULL, &wps_ielen))
- 			return true;
- 		else
-@@ -617,11 +619,15 @@ static bool rtw_is_desired_network(struct adapter *adapter, struct wlan_network
- 			bselected = false;
+-	if (!bp->irq_tbl)
++	if (!bp->irq_tbl || !bp->bnapi)
+ 		return;
  
- 		if (psecuritypriv->ndisauthtype == Ndis802_11AuthModeWPA2PSK) {
--			p = rtw_get_ie(pnetwork->network.ies + _BEACON_IE_OFFSET_, WLAN_EID_RSN, &ie_len, (pnetwork->network.ie_length - _BEACON_IE_OFFSET_));
--			if (p && ie_len > 0)
--				bselected = true;
--			else
-+			if (pnetwork->network.ie_length < _BEACON_IE_OFFSET_) {
- 				bselected = false;
-+			} else {
-+				p = rtw_get_ie(pnetwork->network.ies + _BEACON_IE_OFFSET_, WLAN_EID_RSN, &ie_len, (pnetwork->network.ie_length - _BEACON_IE_OFFSET_));
-+				if (p && ie_len > 0)
-+					bselected = true;
-+				else
-+					bselected = false;
-+			}
- 		}
- 	}
- 
+ 	atomic_inc(&bp->intr_sem);
 
