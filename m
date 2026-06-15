@@ -1,70 +1,107 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A536431716E
-	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 19:19:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C98B3B27DF
+	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 19:37:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781551193; cv=none; b=N6Lo7PgMvw+iQnTyBr44Bh5EIBwwgjMhVBQNKCKlYTZgaoJp8FDn4ypv+S9b8OsKNe1qMVpvpxLQ42WkPUAFzoSXJRaJhLzKY/YI3G7Mn0PQKGPjOxjQ8CCyGlAApjtw6Z/+a0lkhLphSHi9X3OfWkx6g8KE/AGufj7saSAU6zg=
+	t=1781552259; cv=none; b=ClJiqwq2U95FQjtppxBGC0KDlwoCDw3niFjMzeYMbO8EbHXjqO6tbaoPSws58sv6IbuExi3n8QE9kgBO7naGrvam895A6Z+R8Sral3LkrdtMU7RK7Ncz2jCOyiidcSsNRerczCVRELEazHPheVVRfx78exCx7aUs3lTpTvvXAg4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781551193; c=relaxed/simple;
-	bh=+ZOfGZ1by/uPHVPyspzXNtx+PYPMX2eGAfzJchhKm14=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aFxhIEv8M63krq/XT1SArSq6nIihhYU4V3rge046OedVBqaO9SngSpPrmUzQ11XOyGYG75LS8wB05A3qiaPbsRCSZiN7DZl35Cq9v4SQSm6FcVYXyBhb2SBOZRNNp5AZzxYaY587Sy03elUzuvVJRznQ0oKa4esY6lbp90GvLwc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=nRNVHeji; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	s=arc-20240116; t=1781552259; c=relaxed/simple;
+	bh=hrO1p3Flczlpy63OXoBUozbBPvL34FX/Zlc6CkozlbI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=JIvB5z1JV7nDtwu+3J6i6Z/zha1aAuBEWAsPmjg00Vm5+1kLkReJf8qLc5iPXMpD+lRMpDzLwosOvHNSoG19IMw2OBsYnVOOUvX3ZyzhRBkvmLIWqpAVBZcs63xSXcap/+8id5Sa3TYFOjYXZO7/yxkDWiBg3NFaDru9fFj7xcc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CXNsInsv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="nRNVHeji"
-Received: by linux.microsoft.com (Postfix, from userid 1216)
-	id 4565720B716A; Mon, 15 Jun 2026 12:19:24 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 4565720B716A
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1781551164;
-	bh=aKf6h5cUYFFHKVBv3a+IMLxZrckdPxgcuNeUPEqUFKc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=nRNVHejiQ4uUl3nhUpvMuygjgABajhbjC/tSUQLBOKR4kAtMA5r8VbZ3kSBPYQC3N
-	 G3eKE65J2oFVhzPebubYeeNDglFnTqKkHTvOklPGI9hTYRo36+A3LOEsVUrzPxSHj2
-	 dslQRNGy+4VlslmrYtoIPc5EfelgqmY/g+5PjCQ8=
-Date: Mon, 15 Jun 2026 15:19:24 -0400
-From: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
-To: Sasha Levin <sashal@kernel.org>
-Cc: Fedor Pchelkin <pchelkin@ispras.ru>,
-	Leah Rumancik <leah.rumancik@gmail.com>, stable@vger.kernel.org,
-	xfs-stable@lists.linux.dev, "Darrick J. Wong" <djwong@kernel.org>,
-	Christoph Hellwig <hch@lst.de>,
-	Catherine Hoang <catherine.hoang@oracle.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	lvc-project@linuxtesting.org, Carlos Maiolino <cem@kernel.org>
-Subject: Re: [PATCH 6.6 0/4] fix kernel crash for xfs/235 test
-Message-ID: <ajBQPNuKCruxhkXX@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
-References: <20250322143418.216654-1-pchelkin@ispras.ru>
- <aisAxyXVxf4wql2u@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
- <20260612233110.2-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CXNsInsv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E9751F00A3E;
+	Mon, 15 Jun 2026 19:37:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781552253;
+	bh=MUJPp3ptbuvo28ndU79lO2ZThsS/yPH6M/1hFz/JeOY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=CXNsInsvTPahxm1DUtIYG6nAtVPR6iFBLQvvyMlxzQkex7hwoUgNVU4S3BbUeGQow
+	 6bX1DVRjEmVfq/+OC4+sNczs17I/UEvenuYWMdF1V6efcTcFogXueTT3SYsxvBv7Yw
+	 mbPiMCiyu+CVkWY0M/z7g1kEuVpYn8k8p/cZedqh/XhVe1HGFlTCSdNi2Jmi77PrDS
+	 fisF6BM/MhVcvNG3bCsx283Hpt1FNKoh9Wke/iqaL1YmXMbTyae3T2j31+JW88mENM
+	 Ws0sqWph2ey08fNwiYYgf3L8xAYziwGa7HGibJXsFrC8/eE2uIvW2PsHeLi3vaNX4U
+	 Y2BQ2FlOzZbMg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: SeongJae Park <sj@kernel.org>,
+	Fernand Sieber <sieberf@amazon.com>,
+	Leonard Foerster <foersleo@amazon.de>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] mm/damon/ops-common: call folio_test_lru() after folio_get()
+Date: Mon, 15 Jun 2026 15:37:31 -0400
+Message-ID: <20260615193731.2389762-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026061532-emu-stopped-b17a@gregkh>
+References: <2026061532-emu-stopped-b17a@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260612233110.2-1-sashal@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-Cc: Carlos Maiolino <cem@kernel.org>
+From: SeongJae Park <sj@kernel.org>
 
-On Fri, Jun 12, 2026 at 08:20:34PM -0400, Sasha Levin wrote:
-> On Wed, Jun 11, 2026 at 02:39:03PM -0400, Hamza Mahfooz wrote:
-> > Any idea what happened to this series? It resolves an issue that I've
-> > hit in a production environment FWIW.
-> >
-> > Series is:
-> >
-> > Tested-by: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
-> 
-> Thanks for the nudge, and thanks Fedor for putting the backport together.
-> 
-> We generally don't take XFS backports without a maintainer signing off on them,
-> so right now we're waiting for one to do so :)
-> 
-> --
-> Thanks,
-> Sasha
+[ Upstream commit d6b8b02a27b3dd09ec12144322b3dac46d9bc9ef ]
+
+damon_get_folio() speculatively calls folio_test_lru() before
+folio_try_get().  The folio can get freed and reallocated to a tail page.
+In the case, VM_BUG_ON_PGFLAGS() in const_folio_flags() can be triggered.
+Remove the speculative call.
+
+Also mark folio_test_lru() check right after folio_try_get() success as no
+more unlikely.
+
+The race should be rare.  Also the problem can happen only if the kernel
+has enabled CONFIG_DEBUG_VM_PGFLAGS.  No real world report of this issue
+has been made so far.  This fix is based on only theoretical analysis.
+That said, a bug is a bug.  A similar issue was also fixed via commit
+3203b3ab0fcf ("mm/filemap: don't call folio_test_locked() without a
+reference in next_uptodate_folio()").  I don't expect this change will
+make a meaningful impact to DAMON performance in the real world, though I
+will be happy to be corrected from the real world reports.
+
+The issue was discovered [1] by Sashiko.
+
+Link: https://lore.kernel.org/20260525162256.8317-1-sj@kernel.org
+Link: https://lore.kernel.org/20260517234112.89245-1-sj@kernel.org [1]
+Fixes: 3f49584b262c ("mm/damon: implement primitives for the virtual memory address spaces")
+Signed-off-by: SeongJae Park <sj@kernel.org>
+Cc: Fernand Sieber <sieberf@amazon.com>
+Cc: Leonard Foerster <foersleo@amazon.de>
+Cc: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: <stable@vger.kernel.org> # 5.15.x
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ mm/damon/vaddr.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/mm/damon/vaddr.c b/mm/damon/vaddr.c
+index 6d8036671e60e5..dbb0f0fb2e598c 100644
+--- a/mm/damon/vaddr.c
++++ b/mm/damon/vaddr.c
+@@ -383,10 +383,10 @@ static struct page *damon_get_page(unsigned long pfn)
+ {
+ 	struct page *page = pfn_to_online_page(pfn);
+ 
+-	if (!page || !PageLRU(page) || !get_page_unless_zero(page))
++	if (!page || !get_page_unless_zero(page))
+ 		return NULL;
+ 
+-	if (unlikely(!PageLRU(page))) {
++	if (!PageLRU(page)) {
+ 		put_page(page);
+ 		page = NULL;
+ 	}
+-- 
+2.53.0
+
