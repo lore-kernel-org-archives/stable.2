@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 708523542F4
-	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 14:46:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E333731CA4A
+	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 14:46:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781534774; cv=none; b=AiYTGxvBwtPc/dMANOY99qtDzQ3tDX2jDTyzChoX4hsH4BrfQScjiRMpRc/4yCMtxM4s+bENJdAb0/fNIjIY45O0cvhqSQZA9xVmS+mPZVk056wWP//F8xFkcbAaPVI5dSpzMIgIVdIPVDJEBpVWqqH2nqTRgQM5VIll2UFYznc=
+	t=1781534783; cv=none; b=KfBlXhyI9kFCNrLUBcQkQ99wGi5VwPueA4TrOr3Toh6TZD/2Rm+XpAB4/HyHKFTxY/zUgRCacYTdD68CDFNS57zULAzDK5cbFmWTsofYccStK43gwguVFViD4JQ7sBHj/ov2hZrC9vrBFUU5QQhBqWIJzvVM8EGoOVhxMssOJWo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781534774; c=relaxed/simple;
-	bh=cxfCRPuXLzFW1/3FPR4rC1XHt1wfYbhoG9a27BIPENc=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=m79YD+7AkfS7dgg12+CzmVLZtPvurVWOL2QdDVOc86L1UTAge0/7ogooVF2iq+HeXK7a+L5fI/9e2rjcyuvWREe5A73nn7JOquX3OoH6UgYIN/iVefW7ZwUAk7rFLc7MgzsOW4U5XLf5Yo8srtkBF2b0sTZPShGDRxT7X2H1AVI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ZryZn86h; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781534783; c=relaxed/simple;
+	bh=7xQ5LLAX8F4HBVgx58FxxtK9KvptNpU/m27kRnLlSWY=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=lNs8mTyU7bCZANTktPmO+xZO7UelcTHPtrVlUoSD0L7UP6bQX+hNdBA8ceokEZX38UjGoulFcf5hjJX5AVQaymGVdEs6eqZNmBRMElgCqgX49JwgxBlaR/meC/JT/6/6yDp/+wZTeE5gyPhRuy182yUDVJgMvDLJkRfM/WxGMeo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=1TM+6x6V; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ZryZn86h"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 704B91F000E9;
-	Mon, 15 Jun 2026 14:46:12 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="1TM+6x6V"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ACB181F000E9;
+	Mon, 15 Jun 2026 14:46:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1781534773;
-	bh=hmwBhP/T4Gslw26Kh9dL6t4cKWB8WOkZvNH25OkrUJA=;
+	s=korg; t=1781534782;
+	bh=ZihHoYbnpxUniEMC9eCSD8WwXM1MxSFY9r1y+Mk989Y=;
 	h=Subject:To:Cc:From:Date;
-	b=ZryZn86hxpHij5EfT+Diwut7J7Pd8E86SVVTPwabk6m5LclqgUg2NyxpiJY+fPWNw
-	 qTlspqMpWWM6+NnGGQi7UoArs2zE/HUrpjdHHbfMyLLPfkJmIEQiM2ra4kQc1fljg+
-	 rqXdYryBmsiP3DDrBZJbv3pirutWr4nKuOrb+XU8=
-Subject: FAILED: patch "[PATCH] fhandle: fix UAF due to unlocked ->mnt_ns read in" failed to apply to 6.12-stable tree
-To: jannh@google.com,brauner@kernel.org
+	b=1TM+6x6VjMiFbMX+tYZuPIlNb4Q0Q5bdaSoxE+O98rkVAk+pzvmEDsmdfNbG/CrZE
+	 jegsyIqLLiAD+ZHLszmzVlpNX/STO13/bpAF+Uxpjee7dioj2ek5FTd7Onx9MjzKsr
+	 I0Pvn1M18EJo8MYWFV1+xYTEbBLcG3SXhqihBeUQ=
+Subject: FAILED: patch "[PATCH] hv: utils: handle and propagate errors in kvp_register" failed to apply to 6.18-stable tree
+To: thorsten.blum@linux.dev,longli@microsoft.com,wei.liu@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 15 Jun 2026 16:32:43 +0200
-Message-ID: <2026061543-clavicle-quote-2f44@gregkh>
+Date: Mon, 15 Jun 2026 16:32:57 +0200
+Message-ID: <2026061557-scraggly-diligent-2098@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 40ab6644b99685755f740b872c00ef40d9aa870e
+git cherry-pick -x 3fcf923302a8f5c0dc3af3d2ca2657cb5fae4297
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026061543-clavicle-quote-2f44@gregkh' --subject-prefix 'PATCH 6.12.y' HEAD^..
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026061557-scraggly-diligent-2098@gregkh' --subject-prefix 'PATCH 6.18.y' HEAD^..
 
 Possible dependencies:
 
@@ -62,150 +62,82 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 40ab6644b99685755f740b872c00ef40d9aa870e Mon Sep 17 00:00:00 2001
-From: Jann Horn <jannh@google.com>
-Date: Wed, 3 Jun 2026 21:31:57 +0200
-Subject: [PATCH] fhandle: fix UAF due to unlocked ->mnt_ns read in
- may_decode_fh()
+From 3fcf923302a8f5c0dc3af3d2ca2657cb5fae4297 Mon Sep 17 00:00:00 2001
+From: Thorsten Blum <thorsten.blum@linux.dev>
+Date: Tue, 14 Apr 2026 13:10:08 +0200
+Subject: [PATCH] hv: utils: handle and propagate errors in kvp_register
 
-may_decode_fh() accesses mount::mnt_ns without holding any locks; that
-means the mount can concurrently be unmounted, and the mnt_namespace can
-concurrently be freed after an RCU grace period.
+Make kvp_register() return an error code instead of silently ignoring
+failures, and propagate the error from kvp_handle_handshake() instead of
+returning success.
 
-This race can happens as follows, assuming that the mount point was
-created by open_tree(..., OPEN_TREE_CLONE):
+This propagates both kzalloc_obj() and hvutil_transport_send() failures
+to kvp_handle_handshake() and thus to kvp_on_msg().
 
-thread 1            thread 2            RCU
-                    __do_sys_open_by_handle_at
-                      do_handle_open
-                        handle_to_path
-                          may_decode_fh
-                            is_mounted
-                              [mount::mnt_ns access]
-                            [mount::mnt_ns access]
-__do_sys_close
-  fput_close_sync
-    __fput
-      dissolve_on_fput
-        umount_tree
-        class_namespace_excl_destructor
-          namespace_unlock
-            free_mnt_ns
-              mnt_ns_tree_remove
-                call_rcu(mnt_ns_release_rcu)
-                                        mnt_ns_release_rcu
-                                          mnt_ns_release
-                                            kfree
-                            [mnt_namespace::user_ns access] **UAF**
-
-Fix it by taking rcu_read_lock() around the mount::mnt_ns access, like
-in __prepend_path().
-Additionally, document the semantics of mount::mnt_ns, and use WRITE_ONCE()
-for writers that can race with lockless readers.
-
-This bug is unreachable unless one of the following is set:
-
- - CONFIG_PREEMPTION
- - CONFIG_RCU_STRICT_GRACE_PERIOD
-
-because it requires an RCU grace period to happen during a syscall without
-an explicit preemption.
-
-This doesn't seem to have interesting security impact; worst-case, it could
-leak the result of an integer comparison to userspace (from the level
-check in cap_capable()), cause an endless loop, or crash the kernel by
-dereferencing an invalid address.
-
-Fixes: 620c266f3949 ("fhandle: relax open_by_handle_at() permission checks")
+Fixes: 245ba56a52a3 ("Staging: hv: Implement key/value pair (KVP)")
 Cc: stable@vger.kernel.org
-Signed-off-by: Jann Horn <jannh@google.com>
-Link: https://patch.msgid.link/20260603-vfs-fhandle-uaf-fix-v2-1-d05db76a5084@google.com
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
+Reviewed-by: Long Li <longli@microsoft.com>
+Signed-off-by: Wei Liu <wei.liu@kernel.org>
 
-diff --git a/fs/fhandle.c b/fs/fhandle.c
-index 642e3d569497..1ca7eb3a6cb5 100644
---- a/fs/fhandle.c
-+++ b/fs/fhandle.c
-@@ -285,6 +285,19 @@ static int do_handle_to_path(struct file_handle *handle, struct path *path,
- 	return 0;
+diff --git a/drivers/hv/hv_kvp.c b/drivers/hv/hv_kvp.c
+index 0d73daf745a7..6180ebe040ff 100644
+--- a/drivers/hv/hv_kvp.c
++++ b/drivers/hv/hv_kvp.c
+@@ -93,7 +93,7 @@ static void kvp_send_key(struct work_struct *dummy);
+ static void kvp_respond_to_host(struct hv_kvp_msg *msg, int error);
+ static void kvp_timeout_func(struct work_struct *dummy);
+ static void kvp_host_handshake_func(struct work_struct *dummy);
+-static void kvp_register(int);
++static int kvp_register(int);
+ 
+ static DECLARE_DELAYED_WORK(kvp_timeout_work, kvp_timeout_func);
+ static DECLARE_DELAYED_WORK(kvp_host_handshake_work, kvp_host_handshake_func);
+@@ -127,24 +127,26 @@ static void kvp_register_done(void)
+ 	hv_poll_channel(kvp_transaction.recv_channel, kvp_poll_wrapper);
  }
  
-+static bool capable_wrt_mount(struct mount *mount)
-+{
-+	struct mnt_namespace *mnt_ns;
-+
-+	/*
-+	 * For ->mnt_ns access.
-+	 * The following READ_ONCE() is semantically rcu_dereference().
-+	 */
-+	guard(rcu)();
-+	mnt_ns = READ_ONCE(mount->mnt_ns);
-+	return ns_capable(mnt_ns->user_ns, CAP_SYS_ADMIN);
-+}
-+
- static inline int may_decode_fh(struct handle_to_path_ctx *ctx,
- 				unsigned int o_flags)
+-static void
++static int
+ kvp_register(int reg_value)
  {
-@@ -320,8 +333,7 @@ static inline int may_decode_fh(struct handle_to_path_ctx *ctx,
- 	if (ns_capable(root->mnt->mnt_sb->s_user_ns, CAP_SYS_ADMIN))
- 		ctx->flags = HANDLE_CHECK_PERMS;
- 	else if (is_mounted(root->mnt) &&
--		 ns_capable(real_mount(root->mnt)->mnt_ns->user_ns,
--			    CAP_SYS_ADMIN) &&
-+		 capable_wrt_mount(real_mount(root->mnt)) &&
- 		 !has_locked_children(real_mount(root->mnt), root->dentry))
- 		ctx->flags = HANDLE_CHECK_PERMS | HANDLE_CHECK_SUBTREE;
- 	else
-diff --git a/fs/mount.h b/fs/mount.h
-index e0816c11a198..5c120f8361bd 100644
---- a/fs/mount.h
-+++ b/fs/mount.h
-@@ -71,7 +71,15 @@ struct mount {
- 	struct hlist_head mnt_slave_list;/* list of slave mounts */
- 	struct hlist_node mnt_slave;	/* slave list entry */
- 	struct mount *mnt_master;	/* slave is on master->mnt_slave_list */
--	struct mnt_namespace *mnt_ns;	/* containing namespace */
-+	/*
-+	 * Containing namespace (active or deactivating, non-refcounted).
-+	 * Normally protected by namespace_sem.
-+	 * Can also be accessed locklessly under RCU. RCU readers can't rely on
-+	 * the namespace still being active, but implicitly hold a passive
-+	 * reference (because an RCU delay happens between a namespace being
-+	 * deactivated and the corresponding passive refcount drop).
-+	 */
-+	struct mnt_namespace *mnt_ns;
- 	struct mountpoint *mnt_mp;	/* where is it mounted */
- 	union {
- 		struct hlist_node mnt_mp_list;	/* list mounts with the same mountpoint */
-diff --git a/fs/namespace.c b/fs/namespace.c
-index fe919abd2f01..f5905f4ec560 100644
---- a/fs/namespace.c
-+++ b/fs/namespace.c
-@@ -1079,7 +1079,7 @@ static void mnt_add_to_ns(struct mnt_namespace *ns, struct mount *mnt)
- 	bool mnt_first_node = true, mnt_last_node = true;
  
- 	WARN_ON(mnt_ns_attached(mnt));
--	mnt->mnt_ns = ns;
-+	WRITE_ONCE(mnt->mnt_ns, ns);
- 	while (*link) {
- 		parent = *link;
- 		if (mnt->mnt_id_unique < node_to_mount(parent)->mnt_id_unique) {
-@@ -1434,7 +1434,7 @@ EXPORT_SYMBOL(mntget);
- void mnt_make_shortterm(struct vfsmount *mnt)
- {
- 	if (mnt)
--		real_mount(mnt)->mnt_ns = NULL;
-+		WRITE_ONCE(real_mount(mnt)->mnt_ns, NULL);
+ 	struct hv_kvp_msg *kvp_msg;
+ 	char *version;
++	int ret;
+ 
+ 	kvp_msg = kzalloc_obj(*kvp_msg);
++	if (!kvp_msg)
++		return -ENOMEM;
+ 
+-	if (kvp_msg) {
+-		version = kvp_msg->body.kvp_register.version;
+-		kvp_msg->kvp_hdr.operation = reg_value;
+-		strcpy(version, HV_DRV_VERSION);
++	version = kvp_msg->body.kvp_register.version;
++	kvp_msg->kvp_hdr.operation = reg_value;
++	strcpy(version, HV_DRV_VERSION);
+ 
+-		hvutil_transport_send(hvt, kvp_msg, sizeof(*kvp_msg),
+-				      kvp_register_done);
+-		kfree(kvp_msg);
+-	}
++	ret = hvutil_transport_send(hvt, kvp_msg, sizeof(*kvp_msg),
++				    kvp_register_done);
++	kfree(kvp_msg);
++	return ret;
  }
  
- /**
-@@ -1806,7 +1806,7 @@ static void umount_tree(struct mount *mnt, enum umount_tree_flags how)
- 			ns->nr_mounts--;
- 			__touch_mnt_namespace(ns);
- 		}
--		p->mnt_ns = NULL;
-+		WRITE_ONCE(p->mnt_ns, NULL);
- 		if (how & UMOUNT_SYNC)
- 			p->mnt.mnt_flags |= MNT_SYNC_UMOUNT;
+ static void kvp_timeout_func(struct work_struct *dummy)
+@@ -186,9 +188,8 @@ static int kvp_handle_handshake(struct hv_kvp_msg *msg)
+ 	 */
+ 	pr_debug("KVP: userspace daemon ver. %d connected\n",
+ 		 msg->kvp_hdr.operation);
+-	kvp_register(dm_reg_value);
+ 
+-	return 0;
++	return kvp_register(dm_reg_value);
+ }
+ 
  
 
