@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BD9C3F9A0B
-	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 14:21:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFA1D3FB069
+	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 14:21:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781533269; cv=none; b=aG1nUiAms8m0Ct8OqY7iFBnoz5oQPrGArbcmpKhM+BGEmoNnRk1LakzHPNAV5SE7XDBqoJlWYv20Y7PW+tCtcYwMhyPq2Z2B/jiarpA04eqay8jgZRjVjBJb2IGt//ncS3zAiTl+BmyXN8i8yOBav7emFrcvVEb79gp/Fs8P9Aw=
+	t=1781533323; cv=none; b=BU5ooeJevkmPscoLBUASdSieJfaqm9FGRcsceUkBeSKhVvEend8iLUapD6QI6zDfQptaY2NXrslh+Gn4EmYWXH7Kj9odYGqfbwXl9SER7GH1Pt/VtYSeHYg/9VOR3DzE6bmpL0UNjiw+d3952qY4X5zKw6VrFxWu9Et58AYAHqE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781533269; c=relaxed/simple;
-	bh=4LQm53I0dvc96s74Y13Tcrw++bBeCF3WBndnnvMBWj8=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=I8ML5d7ogQDk0Xg2J0xTK7+ApKu1i+vZ0losaellpkVeKsd1QMLBrNUEIEUAkPmr68n1h/SFzHJP542UmpHcGkbneyNDiy0+vKVr8RaCZRr+MxNiO4yWADm3OODiXqu02I5pXbKTE0OzF5B0+mi1bSTMRUWV+EfMKcos3ZLcxEU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=JMr0s1H8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781533323; c=relaxed/simple;
+	bh=UeNa11ql1yfbSZVU68wYT18Cxt3TXyeZcmN8+Vl9bZk=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=hzI4jXNpwt6cYPPgVgLRn/aCxHCeGpKmL3L/C4remjuR8fEVCuc7tUNEzauXgU2tT2/xmjBp5DOsabeum1k3XSBZuKTE7VabFz6d0kPQknc7vak9EdrHalOX/sV9hksWvG6QzFV1uTGrx1o+RivzuVTs8/us2KFzs640ii0x1Sk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=aNDtpU43; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="JMr0s1H8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1C791F00A3A;
-	Mon, 15 Jun 2026 14:20:59 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="aNDtpU43"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B87B1F000E9;
+	Mon, 15 Jun 2026 14:21:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1781533261;
-	bh=kHPe7bH9RCKn9nrR83RUG2epj1UICpiwncmZPfhVjoc=;
+	s=korg; t=1781533317;
+	bh=eP4ZGjEhRkvTG1Epz7Y5OVvFLQ1WjLPPiYK0Ag4KaVA=;
 	h=Subject:To:Cc:From:Date;
-	b=JMr0s1H8LHxaN4YhmbsL00zEVn3/6ErlOEQ70wGQGWoYSQ3L78duhacWC2icDpVzL
-	 fjhMXQ9oN7gfqbBZ2XQkkzyGhkoPAifoAG5nHcI3NNXT9E8LGPXgVi+qYWVJyaav6z
-	 XlrabNO6Vyu/j2d/Vu/yfBN1+2Go5xx3kXKRAkdA=
-Subject: FAILED: patch "[PATCH] mm/damon/ops-common: call folio_test_lru() after folio_get()" failed to apply to 5.15-stable tree
-To: sj@kernel.org,akpm@linux-foundation.org,foersleo@amazon.de,shakeel.butt@linux.dev,sieberf@amazon.com,stable@vger.kernel.org
+	b=aNDtpU43pqPNe6xWUxVecZibc7dlp3NL17NixE4Ckj1fscxbn01kXBgAh+Nx19d8s
+	 BDqiQgj4SZgf4BxRqdzv4/OqeNJJpe5U5a4ghQHHKbi+Izv3/BAPunLSg1fTAIVYwg
+	 /OJW8fwnui731724M+wDUvacz9hDTwehdDP53G90=
+Subject: FAILED: patch "[PATCH] RDMA: During rereg_mr ensure that REREG_ACCESS is compatible" failed to apply to 7.0-stable tree
+To: jgg@ziepe.ca,jgg@nvidia.com,philiptsukerman@gmail.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 15 Jun 2026 16:19:32 +0200
-Message-ID: <2026061532-emu-stopped-b17a@gregkh>
+Date: Mon, 15 Jun 2026 16:20:48 +0200
+Message-ID: <2026061548-onshore-amendment-9a93@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 7.0-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.0.y
 git checkout FETCH_HEAD
-git cherry-pick -x d6b8b02a27b3dd09ec12144322b3dac46d9bc9ef
+git cherry-pick -x badad6fad60def1b9805559dd81dbab3d97b82aa
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026061532-emu-stopped-b17a@gregkh' --subject-prefix 'PATCH 5.15.y' HEAD^..
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026061548-onshore-amendment-9a93@gregkh' --subject-prefix 'PATCH 7.0.y' HEAD^..
 
 Possible dependencies:
 
@@ -62,55 +62,157 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From d6b8b02a27b3dd09ec12144322b3dac46d9bc9ef Mon Sep 17 00:00:00 2001
-From: SeongJae Park <sj@kernel.org>
-Date: Mon, 25 May 2026 09:22:55 -0700
-Subject: [PATCH] mm/damon/ops-common: call folio_test_lru() after folio_get()
+From badad6fad60def1b9805559dd81dbab3d97b82aa Mon Sep 17 00:00:00 2001
+From: Jason Gunthorpe <jgg@ziepe.ca>
+Date: Thu, 4 Jun 2026 15:03:13 -0300
+Subject: [PATCH] RDMA: During rereg_mr ensure that REREG_ACCESS is compatible
 
-damon_get_folio() speculatively calls folio_test_lru() before
-folio_try_get().  The folio can get freed and reallocated to a tail page.
-In the case, VM_BUG_ON_PGFLAGS() in const_folio_flags() can be triggered.
-Remove the speculative call.
+If IB_MR_REREG_ACCESS changes from RO to RW then the umem has to be
+re-evaluated to ensure it is properly pinned as RW. Since the umem is
+hidden inside each driver's mr struct add a ib_umem_check_rereg() function
+that each driver has to call before processing IB_MR_REREG_ACCESS.
 
-Also mark folio_test_lru() check right after folio_try_get() success as no
-more unlikely.
+mlx4 has to retain its duplicate ib_access_writable check because it
+implements IB_MR_REREG_ACCESS | IB_MR_REREG_TRANS by changing both items
+in place sequentially while the MR is live, so it will continue to not
+support this combination.
 
-The race should be rare.  Also the problem can happen only if the kernel
-has enabled CONFIG_DEBUG_VM_PGFLAGS.  No real world report of this issue
-has been made so far.  This fix is based on only theoretical analysis.
-That said, a bug is a bug.  A similar issue was also fixed via commit
-3203b3ab0fcf ("mm/filemap: don't call folio_test_locked() without a
-reference in next_uptodate_folio()").  I don't expect this change will
-make a meaningful impact to DAMON performance in the real world, though I
-will be happy to be corrected from the real world reports.
+Cc: stable@vger.kernel.org
+Fixes: b40656aa7d55 ("RDMA/umem: remove FOLL_FORCE usage")
+Link: https://patch.msgid.link/r/0-v1-06fb1a2d6cf5+107-rereg_access_jgg@nvidia.com
+Reported-by: Philip Tsukerman <philiptsukerman@gmail.com>
+Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
 
-The issue was discovered [1] by Sashiko.
-
-
-Link: https://lore.kernel.org/20260525162256.8317-1-sj@kernel.org
-Link: https://lore.kernel.org/20260517234112.89245-1-sj@kernel.org [1]
-Fixes: 3f49584b262c ("mm/damon: implement primitives for the virtual memory address spaces")
-Signed-off-by: SeongJae Park <sj@kernel.org>
-Cc: Fernand Sieber <sieberf@amazon.com>
-Cc: Leonard Foerster <foersleo@amazon.de>
-Cc: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: <stable@vger.kernel.org> # 5.15.x
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-
-diff --git a/mm/damon/ops-common.c b/mm/damon/ops-common.c
-index 8c6d613425c1..c3e4c871b0bb 100644
---- a/mm/damon/ops-common.c
-+++ b/mm/damon/ops-common.c
-@@ -32,9 +32,9 @@ struct folio *damon_get_folio(unsigned long pfn)
- 		return NULL;
- 
- 	folio = page_folio(page);
--	if (!folio_test_lru(folio) || !folio_try_get(folio))
-+	if (!folio_try_get(folio))
- 		return NULL;
--	if (unlikely(page_folio(page) != folio || !folio_test_lru(folio))) {
-+	if (unlikely(page_folio(page) != folio) || !folio_test_lru(folio)) {
- 		folio_put(folio);
- 		folio = NULL;
+diff --git a/drivers/infiniband/core/umem.c b/drivers/infiniband/core/umem.c
+index 786fa1aa8e55..4b055712b0d0 100644
+--- a/drivers/infiniband/core/umem.c
++++ b/drivers/infiniband/core/umem.c
+@@ -332,3 +332,19 @@ int ib_umem_copy_from(void *dst, struct ib_umem *umem, size_t offset,
+ 		return 0;
+ }
+ EXPORT_SYMBOL(ib_umem_copy_from);
++
++/*
++ * Called during rereg mr if the driver is able to re-use a umem for
++ * IB_MR_REREG_ACCESS.
++ */
++int ib_umem_check_rereg(struct ib_umem *umem, int flags, int new_access_flags)
++{
++	if (!umem)
++		return 0;
++
++	if ((flags & IB_MR_REREG_ACCESS) && !(flags & IB_MR_REREG_TRANS))
++		if (ib_access_writable(new_access_flags) && !umem->writable)
++			return -EACCES;
++	return 0;
++}
++EXPORT_SYMBOL(ib_umem_check_rereg);
+diff --git a/drivers/infiniband/hw/hns/hns_roce_mr.c b/drivers/infiniband/hw/hns/hns_roce_mr.c
+index 896af1828a38..25bfd3970f5b 100644
+--- a/drivers/infiniband/hw/hns/hns_roce_mr.c
++++ b/drivers/infiniband/hw/hns/hns_roce_mr.c
+@@ -300,6 +300,10 @@ struct ib_mr *hns_roce_rereg_user_mr(struct ib_mr *ibmr, int flags, u64 start,
+ 		goto err_out;
  	}
+ 
++	ret = ib_umem_check_rereg(mr->pbl_mtr.umem, flags, mr_access_flags);
++	if (ret)
++		goto err_out;
++
+ 	mailbox = hns_roce_alloc_cmd_mailbox(hr_dev);
+ 	ret = PTR_ERR_OR_ZERO(mailbox);
+ 	if (ret)
+diff --git a/drivers/infiniband/hw/irdma/verbs.c b/drivers/infiniband/hw/irdma/verbs.c
+index 17086048d2d7..8cd427532805 100644
+--- a/drivers/infiniband/hw/irdma/verbs.c
++++ b/drivers/infiniband/hw/irdma/verbs.c
+@@ -3803,6 +3803,10 @@ static struct ib_mr *irdma_rereg_user_mr(struct ib_mr *ib_mr, int flags,
+ 	if (flags & ~(IB_MR_REREG_TRANS | IB_MR_REREG_PD | IB_MR_REREG_ACCESS))
+ 		return ERR_PTR(-EOPNOTSUPP);
+ 
++	ret = ib_umem_check_rereg(iwmr->region, flags, new_access);
++	if (ret)
++		return ERR_PTR(ret);
++
+ 	if (dmabuf_revocable) {
+ 		umem_dmabuf = to_ib_umem_dmabuf(iwmr->region);
+ 
+diff --git a/drivers/infiniband/hw/mlx4/mr.c b/drivers/infiniband/hw/mlx4/mr.c
+index 650b4a9121ff..6747bca30677 100644
+--- a/drivers/infiniband/hw/mlx4/mr.c
++++ b/drivers/infiniband/hw/mlx4/mr.c
+@@ -209,6 +209,10 @@ struct ib_mr *mlx4_ib_rereg_user_mr(struct ib_mr *mr, int flags, u64 start,
+ 	struct mlx4_mpt_entry **pmpt_entry = &mpt_entry;
+ 	int err;
+ 
++	err = ib_umem_check_rereg(mmr->umem, flags, mr_access_flags);
++	if (err)
++		return ERR_PTR(err);
++
+ 	/* Since we synchronize this call and mlx4_ib_dereg_mr via uverbs,
+ 	 * we assume that the calls can't run concurrently. Otherwise, a
+ 	 * race exists.
+diff --git a/drivers/infiniband/hw/mlx5/mr.c b/drivers/infiniband/hw/mlx5/mr.c
+index 3b6da45061a5..fb40b44496f4 100644
+--- a/drivers/infiniband/hw/mlx5/mr.c
++++ b/drivers/infiniband/hw/mlx5/mr.c
+@@ -1179,6 +1179,10 @@ struct ib_mr *mlx5_ib_rereg_user_mr(struct ib_mr *ib_mr, int flags, u64 start,
+ 	if (flags & ~(IB_MR_REREG_TRANS | IB_MR_REREG_PD | IB_MR_REREG_ACCESS))
+ 		return ERR_PTR(-EOPNOTSUPP);
+ 
++	err = ib_umem_check_rereg(mr->umem, flags, new_access_flags);
++	if (err)
++		return ERR_PTR(err);
++
+ 	if (!(flags & IB_MR_REREG_ACCESS))
+ 		new_access_flags = mr->access_flags;
+ 	if (!(flags & IB_MR_REREG_PD))
+diff --git a/drivers/infiniband/sw/rxe/rxe_verbs.c b/drivers/infiniband/sw/rxe/rxe_verbs.c
+index 4d4891dc2884..4cf04a44189c 100644
+--- a/drivers/infiniband/sw/rxe/rxe_verbs.c
++++ b/drivers/infiniband/sw/rxe/rxe_verbs.c
+@@ -1319,6 +1319,7 @@ static struct ib_mr *rxe_rereg_user_mr(struct ib_mr *ibmr, int flags,
+ 	struct rxe_mr *mr = to_rmr(ibmr);
+ 	struct rxe_pd *old_pd = to_rpd(ibmr->pd);
+ 	struct rxe_pd *pd = to_rpd(ibpd);
++	int err;
+ 
+ 	/* for now only support the two easy cases:
+ 	 * rereg_pd and rereg_access
+@@ -1328,6 +1329,10 @@ static struct ib_mr *rxe_rereg_user_mr(struct ib_mr *ibmr, int flags,
+ 		return ERR_PTR(-EOPNOTSUPP);
+ 	}
+ 
++	err = ib_umem_check_rereg(mr->umem, flags, access);
++	if (err)
++		return ERR_PTR(err);
++
+ 	if (flags & IB_MR_REREG_PD) {
+ 		rxe_put(old_pd);
+ 		rxe_get(pd);
+diff --git a/include/rdma/ib_umem.h b/include/rdma/ib_umem.h
+index 2ad52cc1d52b..49172098a8de 100644
+--- a/include/rdma/ib_umem.h
++++ b/include/rdma/ib_umem.h
+@@ -156,6 +156,8 @@ void ib_umem_dmabuf_revoke_lock(struct ib_umem_dmabuf *umem_dmabuf);
+ void ib_umem_dmabuf_revoke_unlock(struct ib_umem_dmabuf *umem_dmabuf);
+ void ib_umem_dmabuf_revoke(struct ib_umem_dmabuf *umem_dmabuf);
+ 
++int ib_umem_check_rereg(struct ib_umem *umem, int flags, int new_access_flags);
++
+ #else /* CONFIG_INFINIBAND_USER_MEM */
+ 
+ #include <linux/err.h>
+@@ -230,5 +232,11 @@ static inline void ib_umem_dmabuf_revoke_lock(struct ib_umem_dmabuf *umem_dmabuf
+ static inline void ib_umem_dmabuf_revoke_unlock(struct ib_umem_dmabuf *umem_dmabuf) {}
+ static inline void ib_umem_dmabuf_revoke(struct ib_umem_dmabuf *umem_dmabuf) {}
+ 
++static inline int ib_umem_check_rereg(struct ib_umem *umem, int flags,
++				      int new_access_flags)
++{
++	return -EOPNOTSUPP;
++}
++
+ #endif /* CONFIG_INFINIBAND_USER_MEM */
+ #endif /* IB_UMEM_H */
 
