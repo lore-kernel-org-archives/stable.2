@@ -1,79 +1,81 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A069C2309AA
-	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 14:05:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3F083F661D
+	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 14:05:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781532334; cv=none; b=ZeSsOw60w0aoeUgqWo8g9cZWa3sVoNSwawYbA0G1tEQcNjRv7NBmm0o8y7hQeIM0RwA3gmlKsaYO6Dv/B+G614DBtgpD7wza+Ka+lzABBjTpEMYi821RZs/D6rgBltDTKdK+bilxeStY9g+eYN3n9aCsL8K+EIjEN5CG5wowvpQ=
+	t=1781532335; cv=none; b=av7/SYZ39IUCI1ooHko50q04yZPY3lbX7pA3+0+Zkw2s7GnWE2d3zByVIS+/Sek+6H/GNdgI1AGVAGy1gB3XNfsidokNiuHRw52AccprHCHBzlwYAqbrg4JbJSvi2WbEo4oBJmM7DeLJRFkY7XmWeamsPXr+mKLZzdEeCvSqsfo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781532334; c=relaxed/simple;
-	bh=xI4wpcGzBLNVDobrh+mh7oauWpw6MFYfwjQLeCAf9tk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WJjETVacKOeCoafNwhY9k9cmy9f4inVV8uNWHUCb2RsRiD4oLe6aCbiLwTD+LIpaWmQiPkRVJu1gzR22kJin5xt5kvvg/QE8IdAg6rxtL8VoDE6Dp73sRWj75PCkVUAryjgavtj4nSSpKpXCecxKk3/b2WwepXkok/QEnF0RbhY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0sec.ai; spf=pass smtp.mailfrom=0sec.ai; dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b=fGLS6Syd; arc=none smtp.client-ip=209.85.128.54
+	s=arc-20240116; t=1781532335; c=relaxed/simple;
+	bh=wNlRLgc+VfgMCDRAIjUgYi0AoA49S8oofmEjD+i/wcM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BU3xjU8YHmcHn7BnvMiVXqvZTgXenJrXFcNE/kKFsIPvWHy4XgKpayeX1/bpvR3zmAzvwf8rppm154Efjz9ueO3TqW25QlcRNb+/444qbrE+6TDVu/VcsFEYGdjB+8o/0o3r8jnymyQTuAlsW4eGV83rKeE12RIqkT46SvTdcl0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0sec.ai; spf=pass smtp.mailfrom=0sec.ai; dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b=ZWOerHzS; arc=none smtp.client-ip=209.85.221.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0sec.ai
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=0sec.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b="fGLS6Syd"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-490b1bbcf3aso25431085e9.1
-        for <stable@vger.kernel.org>; Mon, 15 Jun 2026 07:05:31 -0700 (PDT)
+	dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b="ZWOerHzS"
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-45efa80e0afso2693004f8f.2
+        for <stable@vger.kernel.org>; Mon, 15 Jun 2026 07:05:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=0sec.ai; s=google; t=1781532330; x=1782137130; darn=vger.kernel.org;
+        d=0sec.ai; s=google; t=1781532332; x=1782137132; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=cWcO4px56bciI2pw+C/GD4p6lsmnspj/GXwm9bAVCbo=;
-        b=fGLS6SydEuYONujiwQ5f7Ut8sI3BivGjb8qKC0SE8v5YDy4F+c8uEh2lbKoz7MgGLm
-         gDRRqbmASB6wpi4G5C6w/sqbVrDk4EUwdbDIp6l210Gvc5rIkPASLZnCfZHxUm17jDWB
-         G322h7TYGD/JC3EEowbgClzcqIibkGH2YCIsXrUuJO2ZgN/5r4N3BFxgv4dU1ZUaQ6G/
-         NhDzTF0lB9C+Ev0dmJWEWGEMn+ueh4QUSdl/u4q9UIsDEiffzYZxOaPYblWsm5EXwMH8
-         bid5QvYupkzb1LVJQ0e/Rb8x9WedF5a0Q0YxdoCYBJ1HH8PzUQFGWSK5u/wd3lpdZHfz
-         Zn3A==
+        bh=6MN3j+7e1dFG2jfIP/6dw1N/4Etu3I0/uUny4h6HJVI=;
+        b=ZWOerHzSZ938gXKvVOH4NC1cgH1XBk5z17+ek9oivHagntLg0w7XazcPwzCv+B25D8
+         rlI4yzMl+u2NLsEikki7kUhMGLCLyeoODNyOHoFr5c6tufbF1QpW0t+kOGefTK70Wcow
+         AG04xN8tTYWURz4pZk1c59Y+8P7sUuKEEb0wPthZIXTHBl8aJk4oI9WStlyziqTeaPmq
+         wxwLcOdHtEg8gKBOSI8S93m1VjrDxRWG7AxMt6QNvTit5FmkbqttONtfLubxOHT7RUJ3
+         e/Yp3k1eT+Fr21yUjFWXNs9SZwYEKl6tnS3n6+lqMxSzmwnoaqWZEcqZc5mhkcEyduaD
+         6H3Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781532330; x=1782137130;
+        d=1e100.net; s=20251104; t=1781532332; x=1782137132;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=cWcO4px56bciI2pw+C/GD4p6lsmnspj/GXwm9bAVCbo=;
-        b=q5LemInAwJFey5cRh4Zee4aDQiPbFnTj1ey+jfcMiPpH/z43cIqB55/+kZp4SWp8tY
-         WlLNGxtaYCRwvCdbj1DCmW9keC9R1pO7Lo9oqXe2ZCgqwhjfQrYfZwBJ0ebkBQMm0e4J
-         WCSnATBNTB4qXHf/tzDzWyju8eSEZesivQwaZUlv0ccNqsXCfHxh8uaNt60TYWGcYapt
-         rSaxiTOvOYOrrlvSxsENB9VNHZWYHDIWblUUFrtgI93ZX/DnVDiVlyUFESRKeCrhs6lW
-         84EHxkJwOTmwiFZUTF4e1oqTHo/fj43w5Ajp1Y87FXxn36nl+qRQwwcM7pZoe2kwue17
-         TUVQ==
-X-Forwarded-Encrypted: i=1; AFNElJ8+g5COETSLjkyefHOOw2eU1wzlGFNi9E/rBfpMAJ6hobJgBLjPc2ta0M9ux8OFwSgyfWATNfo=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyKwb4A9VWWoT60I3yuJDe2AY9bpZTz5ohnV2vKYoIos10gI0tA
-	a0BYzUI3TMRjoBzvWNndmjICnYkcTzWZyIfV/pq6CdnYGa/BqQiNh6DmcvyZiTvf2XbU
-X-Gm-Gg: Acq92OFwHIgVt302Lw/9Zn2XvKdELT0T+CqjYGQM6jtBkVBHpk97BxQhjfjpkCt2kva
-	usyRfSP7P/JHNwxslVOoFWTuCwlxsbU38HcWDbLU/arkVSn/DsbdMaQ7NmEAWAPhKYn3xfQAgty
-	v/REmY/AsyWsru/7auUnD8EblFJmO+KZmntq7n5fEv7ie9mbTEy7ImS3z0QOaBt+k7UmKxqwbIc
-	2ARtrZxLu68b14vh6y/048HsQVLJh4GgZXC3Iy7eHVaDRG65OFaczyEcO8ij+cBnu6IToBKR7PQ
-	Zq+NU/VFEl6895w7ALfvp7ywAwYAq4jpuALR4mtzJFZpDKvcrUKXaikOYB6gWpiIa57fnIWDVQW
-	3jEzvHzyAiwFKm5vmZ0hnLDG6OcSBNgjXzHk7Fqq7HwLZN//NSObz1dP541lEnXYNLBVEGDtWaj
-	u/c79y7riRT3YgdLzET6qzUo41f1HEgISvYJaIdQGpyMAGIrt3GfBqy0GikiXhKtSilqZqU2ER2
-	Zs/PIKYIdyiJaHoYYDcXxvGzD6zeLStX7NEMNbIp2Etqw==
-X-Received: by 2002:a05:600c:6b69:b0:490:b642:ce2c with SMTP id 5b1f17b1804b1-490ec4df221mr128435735e9.14.1781532329599;
-        Mon, 15 Jun 2026 07:05:29 -0700 (PDT)
+        bh=6MN3j+7e1dFG2jfIP/6dw1N/4Etu3I0/uUny4h6HJVI=;
+        b=ZXaSkmTGqH2BbfDytPUc1m0hkBnD+cPNuEFhD0iEEcNgoLxElhUmpUfIY/7/n+GqFv
+         AbRJYDPXaJcQU12nKWgWCMs/ZxLnMgUv5Yn+/iv8F4J7xaojGuBccXr2bOT1SiRK/Ktt
+         2SJvXmzfyofMYHfAZQ65co3ZgKfE/JABG1gff92LoVomwzqBqPk/fqDDe6LnICaOYi6I
+         zrEnshPnpx5RFi4ZVbUyqgfrVOH9Rbkt3/oiFUiwPe2TJ/NXzhPqDF9ucDEYttkHBjXQ
+         8aqpL7wrYsvfCPbXJQIkY+XNdfNhE7zIH4VtIOiN1xcsqsgN1fli9ui0ZuKMHjO9qTUi
+         K2NA==
+X-Forwarded-Encrypted: i=1; AFNElJ9ftucGkTQeCjJ6X2mNMi+5jE3db/cnIUkoUOCTKK4OU7bml/g/BdHBE4W27jCSuRvhnemmPHA=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyf2lRIWH1M5Bo7SxW8Dni+Pk8ytsiVwh4XrdE8OMZw3FHsz+HN
+	g24dwZUu6RAKi9MoDJ6rVQ+IYJ9RgHeE22GLXMQroU9fv7ge1EYqaFJld5a630jrbbmY
+X-Gm-Gg: Acq92OEjOJ9XCifeXdfUzhyUo/I7QyEjSPqKYMspnRAC0rx2fulH+ITfpmyCsVhGEMh
+	qdPQcrbMzU2XuG3QsXV5sV79Vs/imDieHfj/TZqlokmRVxzWbwteepHFiJwupKFGVs7ez1Q9b7B
+	kbG/mfbn7y1K1LCauO0BQvPOzh+LWGBNhVpFpsLGQ7u4brTZOe/C9N25TYEcI12SmDARcy8aQR0
+	8peespDbtCtPQwy0klcaqranIk36ll0s0USZuy7jeb6BmBXatvxHI6WLYdNgiguECz9//iIGbHa
+	N63aK8BoyRVA06q7ooln4C68Z4I3WxWbqT774x83ecKEVphfConqqqvOBldcnVBq5gbdO5g64Sw
+	t1OpySZ6V3bGqJ2KikJB4R/hnv3zN99lHaFlxp8MET+C5dc5Z7p9mIFYJSAmvATfl8zepylNALF
+	R8ovlCdESR91rMbxAgT0cqDrAqOUfpfhN23HftX8N2wdvjsNJmzHJEQfC1kswFrHp4n9G4E+LhD
+	NIwkBKAF76lS6/4chN20CkzvHqHwGv5G1dLfB5s7jxfvg==
+X-Received: by 2002:a05:6000:1844:b0:439:c18f:5aaf with SMTP id ffacd0b85a97d-4606dbf15f5mr21550537f8f.34.1781532332022;
+        Mon, 15 Jun 2026 07:05:32 -0700 (PDT)
 Received: from PeakBook-Mini.tail8e484.ts.net ([178.197.218.209])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-492203d05d1sm350721705e9.12.2026.06.15.07.05.28
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4606f26f3basm33177359f8f.12.2026.06.15.07.05.30
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 15 Jun 2026 07:05:29 -0700 (PDT)
+        Mon, 15 Jun 2026 07:05:31 -0700 (PDT)
 From: Doruk Tan Ozturk <doruk@0sec.ai>
-To: tiffany.lin@mediatek.com,
-	andrew-ct.chen@mediatek.com,
-	yunfei.dong@mediatek.com,
+To: neil.armstrong@linaro.org,
 	mchehab@kernel.org,
-	matthias.bgg@gmail.com,
-	angelogioacchino.delregno@collabora.com
-Cc: hverkuil+cisco@kernel.org,
+	gregkh@linuxfoundation.org,
+	khilman@baylibre.com
+Cc: jbrunet@baylibre.com,
+	martin.blumenstingl@googlemail.com,
+	mjourdan@baylibre.com,
+	hverkuil@kernel.org,
 	linux-media@vger.kernel.org,
-	linux-mediatek@lists.infradead.org,
+	linux-amlogic@lists.infradead.org,
+	linux-staging@lists.linux.dev,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	Doruk Tan Ozturk <doruk@0sec.ai>,
 	stable@vger.kernel.org
-Subject: [PATCH] media: mediatek: vcodec: fix use-after-free in decoder release path
-Date: Mon, 15 Jun 2026 16:05:26 +0200
-Message-ID: <20260615140526.52617-1-doruk@0sec.ai>
+Subject: [PATCH] media: meson: vdec: fix use-after-free of decode work in stop/close path
+Date: Mon, 15 Jun 2026 16:05:29 +0200
+Message-ID: <20260615140529.52653-1-doruk@0sec.ai>
 X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -83,55 +85,67 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-fops_vcodec_release() frees the decoder context with kfree(ctx) but
-never cancels the per-context decode_work worker first. Although
-v4l2_m2m_ctx_release() waits for any in-flight m2m job to finish, the
-workqueue handler (mtk_vdec_worker) may still be running and accessing
-the context after v4l2_m2m_job_finish() returns. Once kfree(ctx) runs,
-that worker dereferences freed memory, resulting in a use-after-free.
+vdec_close() calls v4l2_m2m_ctx_release() and then kfree(sess) without
+ever cancelling sess->esparser_queue_work. The worker
+esparser_queue_all_src() takes sess->lock and walks the source buffers
+of sess->m2m_ctx, so if it is still pending or running when the session
+is torn down it dereferences freed memory.
 
-Cancel the pending decode work with cancel_work_sync(&ctx->decode_work)
-after the controls and m2m context are torn down and before kfree(ctx),
-mirroring the fix already applied to the encoder release path in
-commit 76e35091ffc7 ("media: mediatek: vcodec: fix use-after-free in encoder release path").
+The work is (re-)armed from several places, including amvdec_buf_done(),
+which runs from the decode-completion/IRQ path. That makes the obvious
+fixes insufficient:
 
-decode_work is always initialised before release can run:
-fops_vcodec_open() calls mtk_vcodec_dec_set_default_params() (its only
-caller) unconditionally after a successful v4l2_m2m_ctx_init(), and that
-function runs INIT_WORK(&ctx->decode_work, ...). A context can only reach
-fops_vcodec_release() via an open() that returned 0, i.e. one that passed
-that INIT_WORK. cancel_work_sync() on a properly initialised work_struct
-is therefore always safe, even if the work was never queued. This is
-unlike the 2023 msg_queue->core_work regression, where the work item
-could be uninitialised at cancel time.
+  - v4l2_m2m_ctx_release() frees m2m_ctx (and runs stop_streaming via
+    vb2_queue_release()), but never cancels the work. Cancelling in
+    vdec_close() after v4l2_m2m_ctx_release() would wait on a worker that
+    may already be dereferencing the now-freed m2m_ctx.
 
-Fixes: 590577a4e525 ("[media] vcodec: mediatek: Add Mediatek V4L2 Video Decoder Driver")
+  - Cancelling in vdec_close() before v4l2_m2m_ctx_release() keeps
+    m2m_ctx valid, but the hardware is still live, so amvdec_buf_done()
+    can re-arm the work right after the cancel, reintroducing the UAF.
+
+Cancel the work in vdec_stop_streaming() instead, right after
+vdec_poweroff() has quiesced the hardware (so its IRQ can no longer
+re-arm the work) and while sess->m2m_ctx is still valid. Because
+v4l2_m2m_ctx_release() always tears the queues down through
+vb2_queue_release() -> __vb2_queue_cancel() -> stop_streaming, this
+single cancel covers both the STREAMOFF and the close paths.
+
+This does not deadlock: the queue lock (sess->lock, shared by both vb2
+queues) is taken by the worker, but neither the STREAMOFF path
+(video_ioctl2 serialises on vdev->lock == core->lock, and
+v4l2_m2m_streamoff() calls the lockless vb2_streamoff()) nor the close
+path (vb2_queue_release()) holds sess->lock when stop_streaming runs, so
+cancel_work_sync() can safely wait for the worker.
+
+Fixes: 3e7f51bd9607 ("media: meson: add v4l2 m2m video decoder driver")
 Cc: stable@vger.kernel.org
 Signed-off-by: Doruk Tan Ozturk <doruk@0sec.ai>
 ---
- .../mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c         | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ drivers/staging/media/meson/vdec/vdec.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c
-index e936ed8dffbaf..30906b24c608a 100644
---- a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c
-+++ b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c
-@@ -313,6 +313,15 @@ static int fops_vcodec_release(struct file *file)
- 	v4l2_fh_exit(&ctx->fh);
- 	v4l2_ctrl_handler_free(&ctx->ctrl_hdl);
+diff --git a/drivers/staging/media/meson/vdec/vdec.c b/drivers/staging/media/meson/vdec/vdec.c
+index 4b77ec1af5a7..42822064cf8d 100644
+--- a/drivers/staging/media/meson/vdec/vdec.c
++++ b/drivers/staging/media/meson/vdec/vdec.c
+@@ -419,6 +419,16 @@ static void vdec_stop_streaming(struct vb2_queue *q)
+ 		sess->status = STATUS_STOPPED;
+ 	}
  
 +	/*
-+	 * Cancel any pending decode work before freeing the context.
-+	 * Although v4l2_m2m_ctx_release() waits for m2m job completion,
-+	 * the workqueue handler (mtk_vdec_worker) may still be accessing
-+	 * the context after v4l2_m2m_job_finish() returns. Without this,
-+	 * a use-after-free occurs when the worker accesses ctx after kfree.
++	 * The esparser_queue_work worker dereferences sess->m2m_ctx and
++	 * sess->lock. The hardware (and its IRQ, which re-arms the work via
++	 * amvdec_buf_done()) has been quiesced by vdec_poweroff() above, so
++	 * no new work can be scheduled past this point. m2m_ctx is still
++	 * valid here. Wait for any in-flight worker to finish before the
++	 * buffers and (on the close path) m2m_ctx are torn down.
 +	 */
-+	cancel_work_sync(&ctx->decode_work);
++	cancel_work_sync(&sess->esparser_queue_work);
 +
- 	mtk_vcodec_dbgfs_remove(dev, ctx->id);
- 	spin_lock_irqsave(&dev->dev_ctx_lock, flags);
- 	list_del_init(&ctx->list);
+ 	if (q->type == V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE) {
+ 		while ((buf = v4l2_m2m_src_buf_remove(sess->m2m_ctx)))
+ 			v4l2_m2m_buf_done(buf, VB2_BUF_STATE_ERROR);
 -- 
 2.43.0
 
