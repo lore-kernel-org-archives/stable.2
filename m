@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0D502D9EDC
-	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 03:59:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D4EA249E5
+	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 04:09:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781495970; cv=none; b=OS8NdKvHgj4d4vZLpxvJukWaz/D8uX0qqK7xA3AwraaOmipO8UVJlWlY8sv7A5zMtqGIHeRVY7CAhKZM8FOTvGEARkNVZY+0x2SociLJ/tZzfrDmoQg95IRrtc5IU2vOOP2sZZrR4PDnx7rm2HFcHQNwumu0aPB2QKciKUmcEhM=
+	t=1781496566; cv=none; b=CbCkH1QlbnLvF6sUNLjx5nQS41UJoWfn/zCRBaHXAph1W83gZ+Ibt71v9GXXwilz28dmyGJ2dVe7QM6lK1K6ubdl09kbzquQt/yxjZh93op+53rD3DSCa8BEW2c7vtco/+Lhv08eyy2ohJU327p/Qp34W1Xrhb/x9uvaMN47f8Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781495970; c=relaxed/simple;
-	bh=E0KQ4eA+Zlhbl44M8baXfJ3OJ3c/ZYXN2qIN0lxvrIY=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=jSQ0PHXGUw0E3gEciXOFNaMOuy4kyLxeBKA9VzSN0sfstpu4s62Uji++FX1b9kiWgevI7pCKBpNYhT2x8/6Hh2T3h9n3a+VN/MKGFCz/AGZ9QlbaJnoMDNabTCtcMvAYjFBN7xQ4SDBQhR6wL8kUYw4VGOPZflk13GHBbB4JLAA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=nJWUvzzG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781496566; c=relaxed/simple;
+	bh=LERxF3GhD6tZ9/x8Ko3G9WQiih4RunrXy12wElJ1bSQ=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=OYz8oioVHJMo+wo0PtlfVHcCcYxjlZX5M9ke4Cye0C7qvRQ6kpc6Y3RXhQ/ECEVKy+Qxh9mu4KGWuvzTf8T0F8QR9YvxSuOQ5FhTve3BBra8BviBlTdU9jjfj7zpDXre6s/KK3JwAIGHSQoRi6Vb7S6vI0f8IYjRIuX9aqTTFQE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=QIqw50fG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="nJWUvzzG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 029631F000E9;
-	Mon, 15 Jun 2026 03:59:28 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="QIqw50fG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B5761F000E9;
+	Mon, 15 Jun 2026 04:09:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1781495969;
-	bh=n2Srmi6FwCuZfTb8I2ex8CA4MaYD5qi+1eyL5J4PzhE=;
+	s=korg; t=1781496565;
+	bh=X1XyxXuHszS/VxB97oPY28rWytCxGsorM+Qihc5UC14=;
 	h=Subject:To:Cc:From:Date;
-	b=nJWUvzzG80sZ4jUkhu4c06F80AJuVjB+H/empFGWO+fgsD4EBiiA7zkAH5VZdEjHS
-	 TmfVrfwRyUH20ioB26c/wfI4PA3JbK5trDklEJd7iIQPyRswnKhkdFtSEzd5+NPnT7
-	 BsvclUi2QJuGtoz7A0EJ19PppE72Wmz9XPR4S7LQ=
-Subject: FAILED: patch "[PATCH] KVM: arm64: Take the SRCU lock for page table walks in fault" failed to apply to 6.12-stable tree
-To: imv4bel@gmail.com,maz@kernel.org,oupton@kernel.org
+	b=QIqw50fG4it+o++GWPX2L89N755L1Bsp6OmgC+E2Y3GrbrRYSZ768PoKSS5fdLOdX
+	 /euBRtwpS5AvN0FrXc0XXDzMQ9ow/KWpzHzum+1SmKO85wAejyPS47NmdmniQ9DTTo
+	 IhYkAJyWzlB5HBK4HWadz393xHBxyJP+M/L0mgAA=
+Subject: FAILED: patch "[PATCH] hv_netvsc: use kmap_local_page in netvsc_copy_to_send_buf" failed to apply to 6.12-stable tree
+To: leontyevantony@gmail.com,pabeni@redhat.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 15 Jun 2026 05:58:27 +0200
-Message-ID: <2026061527-county-underwent-3b10@gregkh>
+Date: Mon, 15 Jun 2026 06:08:23 +0200
+Message-ID: <2026061523-ergonomic-illusive-5c64@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,10 +47,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x f2ca45b50d4216c9cc7ffabf50d9ad1932209251
+git cherry-pick -x 004e9ecfe6c5384f9e0b2f6f6389d42ec22789af
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026061527-county-underwent-3b10@gregkh' --subject-prefix 'PATCH 6.12.y' HEAD^..
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026061523-ergonomic-illusive-5c64@gregkh' --subject-prefix 'PATCH 6.12.y' HEAD^..
 
 Possible dependencies:
 
@@ -62,50 +62,85 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From f2ca45b50d4216c9cc7ffabf50d9ad1932209251 Mon Sep 17 00:00:00 2001
-From: Hyunwoo Kim <imv4bel@gmail.com>
-Date: Wed, 3 Jun 2026 21:09:33 +0900
-Subject: [PATCH] KVM: arm64: Take the SRCU lock for page table walks in fault
- injection and AT emulation
+From 004e9ecfe6c5384f9e0b2f6f6389d42ec22789af Mon Sep 17 00:00:00 2001
+From: Anton Leontev <leontyevantony@gmail.com>
+Date: Thu, 4 Jun 2026 19:59:38 +0300
+Subject: [PATCH] hv_netvsc: use kmap_local_page in netvsc_copy_to_send_buf
 
-walk_s1() and kvm_walk_nested_s2() expect to be called while holding
-kvm->srcu to guard against memslot changes. While this is generally
-the case, __kvm_at_s12() and __kvm_find_s1_desc_level() call into the
-respective walkers without taking kvm->srcu.
+netvsc_copy_to_send_buf() copies page buffer entries into the VMBus
+send buffer using phys_to_virt() on the entry PFN. Entries for the
+RNDIS header and the skb linear data come from kmalloc'd memory and
+are always in the kernel direct map, but entries for skb fragments
+reference page cache or user pages, which on 32-bit x86 with
+CONFIG_HIGHMEM=y can live above the LOWMEM boundary. For such a page
+phys_to_virt() returns an address outside the direct map and the
+subsequent memcpy() faults on the transmit softirq path, which is
+fatal.
 
-Fix by acquiring kvm->srcu prior to the table walk in both instances.
+Map the pages with kmap_local_page() instead, handling two properties
+of the page buffer entries:
 
+ - pb[i].pfn is a Hyper-V PFN at HV_HYP_PAGE_SIZE (4K) granularity,
+   not a native PFN. Reconstruct the physical address first and derive
+   the native page from it, so the mapping stays correct where
+   PAGE_SIZE > HV_HYP_PAGE_SIZE (e.g. arm64 with 64K pages).
+
+ - Since commit 41a6328b2c55 ("hv_netvsc: Preserve contiguous PFN
+   grouping in the page buffer array"), an entry describes a full
+   physically contiguous fragment and pb[i].len can exceed PAGE_SIZE,
+   while kmap_local_page() maps a single page. Copy page by page,
+   splitting at native page boundaries.
+
+The copy path only handles packets smaller than the send section size
+(6144 bytes by default); larger packets take the cp_partial path where
+only the RNDIS header is copied. So entries here are bounded by the
+section size and a copy is split at most once on 4K-page systems. On
+!CONFIG_HIGHMEM configs kmap_local_page() folds to page_address() and
+no mapping work is added.
+
+Fixes: c25aaf814a63 ("hyperv: Enable sendbuf mechanism on the send path")
 Cc: stable@vger.kernel.org
-Fixes: 50f77dc87f13 ("KVM: arm64: Populate level on S1PTW SEA injection")
-Fixes: be04cebf3e78 ("KVM: arm64: nv: Add emulation of AT S12E{0,1}{R,W}")
-Suggested-by: Oliver Upton <oupton@kernel.org>
-Signed-off-by: Hyunwoo Kim <imv4bel@gmail.com>
-Reviewed-by: Oliver Upton <oupton@kernel.org>
-Link: https://patch.msgid.link/aiAZfdeyanIvP8SD@v4bel
-Signed-off-by: Marc Zyngier <maz@kernel.org>
+Signed-off-by: Anton Leontev <leontyevantony@gmail.com>
+Link: https://patch.msgid.link/20260604165938.32033-1-leontyevantony@gmail.com
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
 
-diff --git a/arch/arm64/kvm/at.c b/arch/arm64/kvm/at.c
-index 9f8f0ae8e86e..889c2c15d7bd 100644
---- a/arch/arm64/kvm/at.c
-+++ b/arch/arm64/kvm/at.c
-@@ -1569,7 +1569,8 @@ int __kvm_at_s12(struct kvm_vcpu *vcpu, u32 op, u64 vaddr)
- 	/* Do the stage-2 translation */
- 	ipa = (par & GENMASK_ULL(47, 12)) | (vaddr & GENMASK_ULL(11, 0));
- 	out.esr = 0;
--	ret = kvm_walk_nested_s2(vcpu, ipa, &out);
-+	scoped_guard(srcu, &vcpu->kvm->srcu)
-+		ret = kvm_walk_nested_s2(vcpu, ipa, &out);
- 	if (ret < 0)
- 		return ret;
- 
-@@ -1665,7 +1666,8 @@ int __kvm_find_s1_desc_level(struct kvm_vcpu *vcpu, u64 va, u64 ipa, int *level)
+diff --git a/drivers/net/hyperv/netvsc.c b/drivers/net/hyperv/netvsc.c
+index 59e95341f9b1..4d319c50955e 100644
+--- a/drivers/net/hyperv/netvsc.c
++++ b/drivers/net/hyperv/netvsc.c
+@@ -12,6 +12,7 @@
+ #include <linux/sched.h>
+ #include <linux/wait.h>
+ #include <linux/mm.h>
++#include <linux/highmem.h>
+ #include <linux/delay.h>
+ #include <linux/io.h>
+ #include <linux/slab.h>
+@@ -965,12 +966,22 @@ static void netvsc_copy_to_send_buf(struct netvsc_device *net_device,
  	}
  
- 	/* Walk the guest's PT, looking for a match along the way */
--	ret = walk_s1(vcpu, &wi, &wr, va);
-+	scoped_guard(srcu, &vcpu->kvm->srcu)
-+		ret = walk_s1(vcpu, &wi, &wr, va);
- 	switch (ret) {
- 	case -EINTR:
- 		/* We interrupted the walk on a match, return the level */
+ 	for (i = 0; i < page_count; i++) {
+-		char *src = phys_to_virt(pb[i].pfn << HV_HYP_PAGE_SHIFT);
+-		u32 offset = pb[i].offset;
++		phys_addr_t paddr = (pb[i].pfn << HV_HYP_PAGE_SHIFT) +
++				    pb[i].offset;
+ 		u32 len = pb[i].len;
+ 
+-		memcpy(dest, (src + offset), len);
+-		dest += len;
++		while (len) {
++			struct page *page = phys_to_page(paddr);
++			u32 off = offset_in_page(paddr);
++			u32 chunk = min_t(u32, len, PAGE_SIZE - off);
++			char *src = kmap_local_page(page);
++
++			memcpy(dest, src + off, chunk);
++			kunmap_local(src);
++			dest += chunk;
++			paddr += chunk;
++			len -= chunk;
++		}
+ 	}
+ 
+ 	if (padding)
 
