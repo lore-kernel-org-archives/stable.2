@@ -1,165 +1,148 @@
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011026.outbound.protection.outlook.com [52.101.70.26])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 232682F7F0F;
-	Mon, 15 Jun 2026 09:33:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.26
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781516015; cv=fail; b=ldVw5Eqz0tJs8vYn5DJmeM45olAgzTv6XWdaN4waAISR4RyZltZrDlPj0g4fg+n/BtMXQslc8a8pyVk+YIQVnjdn+lAK7IYeEW8UAOf+37rvUxKlEZ0Wys04nDWMTUBURVtzMaXTeLA+YwOb7nyM98fYZ2B+4XDX/W2dhUQmv8A=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781516015; c=relaxed/simple;
-	bh=f2ri0jhIQgS+rtRP24hP6lx8Bx1/dZs3yAEdkhyW5WM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=PhMGs6ebG9ZcMzz2z8JdnpmSfyQO45YpoZav4GrD0S2BIA8Q2WkBI+154W9yCENHiRLGrLYvqriFeCSU8hJpMi7+BNmpX2oY7o7S9VcyDcDebrwDVRqimuGVEY+5GaRYkAchCgSsG6bMigkJt38NlSnPw8/21CoWAFYZDTsSHqs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=CZzUbEFA; arc=fail smtp.client-ip=52.101.70.26
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0AE93D6CC5
+	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 09:35:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781516130; cv=none; b=EXMbWNXhjtQFcnEE0EtlmJNDxKdK+LiipAnxICpupEx899wFBqXHm93C/Rq+W2elApuLoC9iFpnyQBwzKAymhYdgl+fI/JOnMP/DFO+YZUiMncb6wdUS8E+RTKiqoOqQ+fYwX5I5mQ4Gdq2JNy0nPVPP8F3c+CzHvaSpnw7iKuU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781516130; c=relaxed/simple;
+	bh=TObyHCrog0J37zOBX+KTGoi74gpbHRQn8XN9jcDMGEc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=QN6SWIatgo9oBe3AK2knnDbBwIZYpTgg/BE3h2wPct9Tit61KTJJlDS2ISq0MERY8rvApugoXV7pFuRSZ2FEtjZgH1sRRTf7J5ZcjO4bcy/FQA5AJeF/J1Ei/mKByA9iGSjobGnZeLgvYdGta1jaoVSg83eF7VTejLDECzfy2cM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=LjEH6Qhh; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Pt1yfHlk; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=A0wm2e9c; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=VQtO9FdC; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="CZzUbEFA"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=R1KfLBkyImQDzzQRVhEgfpoHmvLISaiqUmQ7pMMvCEuiJuAgiXEHGk5lDfNbqEdTtOcA6CoBpFqcfxavfzZ0P5y5N76x/C/efUi6dpbSAPQ+r7YjLErPMzo6Lr4B0UVqsIT6bdUR+CkoaqIE6zBygPElp9uFkAnkYpnGYVv3jcpztXkdu57B/5biNe8tqqK1B6Sk1UIzSbav58+/tZMuOFYECmAXZ2Sf9kZsCVJt2dbK3mEdbFq2xTHf7CG2nVlJMHmYpK6b7A/sleUCPY0EviZRgThbJP5iaiK6XOPCl/qH57A9WcYQkkiUrav6c2gmIuae4vCA0q1LRu2HTk2mDA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mDYXYf/z16PXp1dK8DmXw1iqVbHdAUD8BgWwfZZ7vOQ=;
- b=jd9XhH8dKQFrtJ2gjTjvc1Dfm0kMlRsnaKYqDUxbFvGcfHBHgPl150c1mMtbLVZKMA6+zPRrQ2+2FCTHxt4FCIQhdMzgZ3gpDgzo+XbMzWsRcQIe9QCnBaqoLE1iu/bnoBWG7IuLvh7bupWIUv982B8mtd3o6z5WbVYgN48/vK/wjjAe3RquIhmPIH6cst21AnaLlJ88KcSldmy1MGVcT0DJuIRcrOy8yQJJRy7U4P3zIcXB4Yo5xnbPi08R48WHuY0J1j+BpaAEK6SadV6asA5vzglKjYQjDb0CDcRQAZZEKsMLEIm8sZjvcPtBZLucbu0fPn82yZHlyi0EARk7Ew==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mDYXYf/z16PXp1dK8DmXw1iqVbHdAUD8BgWwfZZ7vOQ=;
- b=CZzUbEFArgSCsH8v9nHk1pecm0RtWEF+XCewIiQ+etTBxmF9M/NNMn4d3XKEa1axp3rEglKbd5Ghrn+4/LK5GkS5Xf1OOZ4b1RjCRFaTgApQENl/VIU2qPHZ0rXmMb7C1BB5zMxMHY4Ffq+jBvtctyacvrPmupIO+KER1Z3JGTSJaWmCc/9mZ60WzsDpyE3gTgHqV3hmhp3LrZ22/c9d7TRB2XCgcr+0fVXHL2A0c5LRDMLCB0ECAFb4tdOoQj2scf87BePU4EFq26EYQUpJzcYC2W/BJzqu4E2DskldVxvScE7GK18vNiOj0ygCk/ZtOHiO+N9BXa7chhRA04tWdw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from AM6PR04MB5239.eurprd04.prod.outlook.com (2603:10a6:20b:7::12)
- by DU2PR04MB8726.eurprd04.prod.outlook.com (2603:10a6:10:2dd::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.18; Mon, 15 Jun
- 2026 09:33:30 +0000
-Received: from AM6PR04MB5239.eurprd04.prod.outlook.com
- ([fe80::fa76:ead:9e21:f84e]) by AM6PR04MB5239.eurprd04.prod.outlook.com
- ([fe80::fa76:ead:9e21:f84e%6]) with mapi id 15.21.0113.015; Mon, 15 Jun 2026
- 09:33:30 +0000
-Date: Mon, 15 Jun 2026 17:33:48 +0800
-From: Jeff Chen <jeff.chen_1@nxp.com>
-To: Francesco Dolcini <francesco@dolcini.it>
-Cc: Rafael Beims <rafael@beims.me>, Brian Norris <briannorris@chromium.org>,
-	Rafael Beims <rafael.beims@toradex.com>,
-	linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="LjEH6Qhh";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Pt1yfHlk";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="A0wm2e9c";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="VQtO9FdC"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id C40D46AC95;
+	Mon, 15 Jun 2026 09:35:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1781516127; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=afhcBrMHwtuNpl6EOyz1Ve+TLR1X1Oc6pxCJDnx1z1w=;
+	b=LjEH6QhheCbXn2yYPxvbrQS4POOD1+xCC+LO3SkvS9XwqOGQegNJetZOCT4begs2XLaB9J
+	2h9aIEuCZvmyn/UuI2zWP4GX84GOGHRbAgh/rUEvfj0/D+nvYNAxwWZMIz8ctCyBduGet7
+	0S/z0OyZJNnyU/3lUIEQQnfWF0NGB/I=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1781516127;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=afhcBrMHwtuNpl6EOyz1Ve+TLR1X1Oc6pxCJDnx1z1w=;
+	b=Pt1yfHlktWylvTPkHQFn+SL7QASL8d9bAifpFbwv1SSVHNKU59GDIYbOX9vsWqe1JyoSyT
+	F65YD0EcejhkunAg==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=A0wm2e9c;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=VQtO9FdC
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1781516126; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=afhcBrMHwtuNpl6EOyz1Ve+TLR1X1Oc6pxCJDnx1z1w=;
+	b=A0wm2e9cm42qj6Nt6QFoHr1xCPbseD1yIj4YlRvk43PHySHrjrH5ewdfM1Olyx8hU8iSQ3
+	GRuql8ut/sAK6Zwm/zYmWkILVhPVh21xP/+WBQFnp6M/SXNt8/h4o/m8LRASOp8gjWX3DZ
+	YOWy+CzvrK4xB/kUSypZ0RXNMdThJLY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1781516126;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=afhcBrMHwtuNpl6EOyz1Ve+TLR1X1Oc6pxCJDnx1z1w=;
+	b=VQtO9FdC4JV39U9SaPNzDuOosxdZ2fjfbcabW45ia/MaienRPG4n1qi1Ubkn42EwpAr0Ne
+	0sFDJefdiMtxwlDg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id AB1E0779A7;
+	Mon, 15 Jun 2026 09:35:26 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id xk9TKF7HL2qVRgAAD6G6ig
+	(envelope-from <dwagner@suse.de>); Mon, 15 Jun 2026 09:35:26 +0000
+Date: Mon, 15 Jun 2026 11:35:25 +0200
+From: Daniel Wagner <dwagner@suse.de>
+To: WenTao Liang <vulab@iscas.ac.cn>
+Cc: Ram Vegesna <ram.vegesna@broadcom.com>, 
+	"James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>, "Martin K . Petersen" <martin.petersen@oracle.com>, 
+	Vitaliy Shevtsov <v.shevtsov@mt-integration.ru>, Kees Cook <kees@kernel.org>, James Smart <jsmart2021@gmail.com>, 
+	linux-scsi@vger.kernel.org, target-devel@vger.kernel.org, linux-kernel@vger.kernel.org, 
 	stable@vger.kernel.org
-Subject: Re: [PATCH wireless-next v1] wifi: mwifiex: fix permanently busy
- scans after multiple roam iterations
-Message-ID: <ai/G/C7VxxzDVWXW@nxpwireless-Inspiron-14-Plus-7440>
-References: <20260612122547.1586872-2-rafael@beims.me>
- <20260612130607.GA7651@francesco-nb>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260612130607.GA7651@francesco-nb>
-X-ClientProxiedBy: SI1PR02CA0019.apcprd02.prod.outlook.com
- (2603:1096:4:1f4::15) To AM6PR04MB5239.eurprd04.prod.outlook.com
- (2603:10a6:20b:7::12)
+Subject: Re: [PATCH] scsi: elx: efct: fix refcount leak in efct_hw_io_abort()
+Message-ID: <b601d4e2-8b10-417d-8d4d-1c09e556e94a@flourine.local>
+References: <20260611053037.63756-1-vulab@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM6PR04MB5239:EE_|DU2PR04MB8726:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0d6769a3-db24-4877-875f-08decac1292d
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
- BCL:0;ARA:13230040|19092799006|366016|1800799024|52116014|23010399003|376014|18002099003|22082099003|38350700014|56012099006|4143699003|3023799007|6133799003|11063799006;
-X-Microsoft-Antispam-Message-Info:
- 8kGuLamBirVw+qk4PBeGMyFQX4CFLmt6VAoRvkGz6Mdw/gEU8pJ1DpVAHz8Qm76YcU4VN7f92rO4QgKfoA2kXFzJVwGmAKsaAJ7Os86D+D4C35U5SWnskes1ktsa9tL9rsoybgc/XFQa7dWSLN3llqHePMIfmUkOLcMEWdaltssShLdC2Vg+sM2WQqc129pCROE0wjBXCqi1CIWyw65eYOwCHWAWgec1J9Cmg3ZZDX9u/y8l85GinN+joDv8EUhCXNRiq1W0gv5EY7QbvLmrQ/ZTH9s99qFrrlkT9WvKSAkwyl0Ee0EHNCI33LiTr9Vmlk3UblyA2cLBnR2ZaP1OzESSEHeOKRF2/MRaQFW5Wl9kOHovdMFwyv4YnEla7SGHUQaIxOn6Vpa7OBR9aGGnJaDRzM/nX6XNn3vPUM6GLlEiQDgATjUNiZ+Cp2k/KOwCHrAB+Fvp0VDWWXdo8OrM0wKzlfiMMxpYm8hAHbIppqMVBAXbD5VlxGfo+Or6PpjSNdGgY9Ei1z45QvVa+DrzwsA4AvHwqfr4gdaugvHU+lHHlKtO5qZS1OmBC5jU0IgIsZNenEIgXx5y//0vgrzv1tEw+OfaGEHDMSn8svFlGqdLj6JbnPLMDG4JiUee0sbq6BZckeXyJ9ikd2IyO9lOBBVi+ibZ60df7MS+gPC63djuwgoSbgGvhyqpSlFrUOTkBxZwTuABWloZX4fk32QB708vaTdmEPZ2S/ng4aYiJXpxQnLfuET3M55jao6E+MC4
-X-Forefront-Antispam-Report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR04MB5239.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(366016)(1800799024)(52116014)(23010399003)(376014)(18002099003)(22082099003)(38350700014)(56012099006)(4143699003)(3023799007)(6133799003)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
- =?us-ascii?Q?NSZpWgTcpe1KVC4MYZlnHF7ZC91NeTWQrF+3zXTvZRHeDo6raZdAoODnhhLD?=
- =?us-ascii?Q?X7X3Xk+eXe6lxBwq30ctO5b06hcz3wStiS2GMvAX9e69LgasTaCBVyq+i6Io?=
- =?us-ascii?Q?kqzq33wLk/9yHR+g95zU2Cj5KKeWpMjHHczE0yl+64t1jlWpqyQ4VJ8TFzrJ?=
- =?us-ascii?Q?bTgRQJmf863epqo1SwttxdZr3JyupdKf4FkFqBL3g2HcpFBLkWzZbK8kU6e/?=
- =?us-ascii?Q?xC2O1eURzQDQ6b7hvZOq5oTDI+U6hQZChNXtjeTFUsiJ69idFveJe0yXx5Fd?=
- =?us-ascii?Q?K8ZRYg+EV25c8SRCPd/RQtBEGjtqAMYiKYdY0wwOqc2YCLDj88lYms4wUTj4?=
- =?us-ascii?Q?qZqw4kbJVeLhHHmKqCwveG+mlO9ixEbXxSI1LDJw+CBYpl/XjkUnNVeq3KHf?=
- =?us-ascii?Q?ffEIBfEi5iEuV6BcCX6kfR3F6kMvq/Y9V+NoYwV2/cL1S/0VwWRTG9tso/YS?=
- =?us-ascii?Q?8rffMml5BCf4uOHVToBgBily9ouXl0pAa6KR5dCe1hFi2eoPkQx43rxNBW8C?=
- =?us-ascii?Q?DKOG+r5OZHdCxinv184xadosevuSQvnzG7OCjXPxzBhfR78psZnL7j8ftP0H?=
- =?us-ascii?Q?sYaiaOwRk7EgptLhA2dZcZfFuOwaLgpLP6SVAB4zLuKfQ/vnrlJZNIeEIe9v?=
- =?us-ascii?Q?brvkpx9D2WgWViCzgcUNaGiyO0Mtp/ehwMmxzeQmQ+Pn78+qrLRAn7CIA3uN?=
- =?us-ascii?Q?EKqj15w7aO9+ul4wtTVx9Ykmwt5WqG8dqvVTVS3NnXvyxMWLWUbv5AUDsS5m?=
- =?us-ascii?Q?oMY9N8YO3Yfw227v8D/0mo2gUQL6jWRjYJeyjNGW0iWH8cAfoYZlLzWO+67t?=
- =?us-ascii?Q?oXTYAGcujWpPCcgFo0lVu0E0zlk26NLFHxoWmnPgXyeS4f2AxLyBHaypReRh?=
- =?us-ascii?Q?iGch/vbMPsY0j0r7+9aUyHHvil5Ehf05n/yxxlfVEli29u8r/4turmyt+n76?=
- =?us-ascii?Q?V+OHDUKuuZhlpwV6TYOI9LORb6vEZnQjBqkErWd/+KhSBo8F45ebf4wM7WCS?=
- =?us-ascii?Q?dF2CKq5cCNNMjuv8LgPnrTrJ1joDgbvchpqYiqkDTW7trb/64QnWQ3AYTwcU?=
- =?us-ascii?Q?3acpreistADbbXgQa8jIJuLS2zijJ09y79TYg422S6sW283DhkKdNKxP7SAJ?=
- =?us-ascii?Q?wGNsGGms3qBpI89BVjrEFUAaMJ2WHZziA0VdNIQuVXFDvUd5SFxQ3/tObLoz?=
- =?us-ascii?Q?Sfz/EFQZU8z13loTZ5H/2CI7TDmC71zM+yb8clPNhK0L4F0N2h8qYbtQfL/I?=
- =?us-ascii?Q?/9vEtbgsUUgb6GXcHhzDDC4MREZYPejB//A8yuJgak6E8F4bzTVijco6d5PB?=
- =?us-ascii?Q?V8oUrMsJUXGzz+wHw41J0L+IXPuXtpGkU6dWHsO/l7d4CxjXfpv5ooZvTolX?=
- =?us-ascii?Q?zldy66hLBbdRCLKLmB8XdXmWDiuMYrmRnhgkglUYLSqI++RiixQQO2y2dSTu?=
- =?us-ascii?Q?DUfWCKFmy2ajbThZVxVnNV7uNtkV17t1fp/8zM88rCp9n5kFVnUszvOt1s/1?=
- =?us-ascii?Q?CdBFK6Cmy0U6ujUvJtJIi72KsO15OSZZO1/4d3+3MvBQ6MHoY/TBVYc8ur6F?=
- =?us-ascii?Q?/C7kwlF0ve6M5h8UXoF/FUcJZpQPhm4a1tX02XJG+DeYAptRacGcSrZ8o1x5?=
- =?us-ascii?Q?IA3yvw03sM2bXD+zAEeZKqu0j8bFk8zGHLtUcc0yekDlIqfEOGHld82djFQa?=
- =?us-ascii?Q?Le77kwjf4rBrgPEUVC8TJ+Lm4D294Uj4QTb/haeL6fcGdV7Eb5/skGxTczVN?=
- =?us-ascii?Q?sKyTNlXrSA=3D=3D?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0d6769a3-db24-4877-875f-08decac1292d
-X-MS-Exchange-CrossTenant-AuthSource: AM6PR04MB5239.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jun 2026 09:33:30.6493
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: lEwSyZ5cJaWVf5fY7BnJYPR4fY8AgH3trS4IEVGOr21Xwg+gvbwaOB5L8gasbY/oY/BxSYGpdZAHHpni9lj97Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU2PR04MB8726
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260611053037.63756-1-vulab@iscas.ac.cn>
+X-Rspamd-Action: no action
+X-Rspamd-Queue-Id: C40D46AC95
+X-Spam-Flag: NO
+X-Spam-Score: -4.51
+X-Spam-Level: 
+X-Spamd-Result: default: False [-4.51 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	FUZZY_RATELIMITED(0.00)[rspamd.com];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCPT_COUNT_SEVEN(0.00)[11];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[broadcom.com,hansenpartnership.com,oracle.com,mt-integration.ru,kernel.org,gmail.com,vger.kernel.org];
+	RCVD_TLS_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,iscas.ac.cn:email,suse.de:email,suse.de:dkim,flourine.local:mid];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 
-On Fri, Jun 12, 2026 at 03:06:28 PM +0200, Francesco Dolcini wrote:
-> On Fri, Jun 12, 2026 at 09:25:46AM -0300, Rafael Beims wrote:
-> > From: Rafael Beims <rafael.beims@toradex.com>
-> > 
-> > In order for the firmware to sleep, the driver has to confirm a
-> > previously received sleep request. The normal sequence of evets goes
-> > like this:
-> > EVENT_SLEEP -> adapter->ps_state = PS_STATE_PRE_SLEEP -> sleep-confirm
-> > -> SLEEP -> EVENT_AWAKE -> AWAKE.
-> > Before sending the sleep-confirm command, the driver must make sure
-> > there are no commands either running or waiting to be completed.
-> > 
-> > mwifiex_ret_802_11_associate() unconditionally sets
-> > ps_state = PS_STATE_AWAKE when it processes the association command
-> > response, outside of the normal powersave management flow. If
-> > EVENT_SLEEP arrives while the association command is in flight,
-> > ps_state is PRE_SLEEP when the association command response is parsed,
-> > and the forced AWAKE overwrites it. The deferred sleep-confirm is
-> > never sent.
+On Thu, Jun 11, 2026 at 01:30:37PM +0800, WenTao Liang wrote:
+> When efct_hw_reqtag_alloc() fails in efct_hw_io_abort(), the error
+> path returns -ENOSPC without releasing the reference obtained via
+> kref_get_unless_zero() earlier in the function. All other error
+> paths correctly drop the reference. This causes a permanent
+> reference leak on the io_to_abort object.
 > 
-> Brian / Jeff: I am not that familiar with this part of the code, it
-> sounds correct to me (and I discussed it with Rafael before he did send
-> the patch), maybe you can also have a look.
+> Additionally, the abort_in_progress flag is left set to true on
+> this path, which means future abort attempts for the same I/O will
+> immediately return -EINPROGRESS even though the abort was never
+> submitted, effectively blocking recovery.
 > 
-> Jeff: same issue in the nxpwifi driver.
+> Fix this by adding the missing kref_put() call and reset
+> abort_in_progress to false, matching the cleanup done in the
+> efct_hw_wq_write() failure path below.
 > 
-> Francesco
-> 
+> Cc: stable@vger.kernel.org
+> Fixes: 63de51327a64 ("scsi: elx: efct: Hardware I/O and SGL initialization")
+> Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
 
-Hi Francesco,
+Looks good to me.
 
-Thanks for the heads up.
-
-I looked into this for nxpwifi. The nxpwifi driver currently only
-supports IW61x. Based on our analysis of the IW61x firmware source code,
-the firmware stops the auto deep sleep idle timer upon receiving any host
-command and restarts it only after the command response is sent,
-preventing EVENT_SLEEP from being issued while the association command is
-in flight. This means the race condition described in the patch should
-not be triggered with IW61x.
-
-Jeff
+Reviewed-by: Daniel Wagner <dwagner@suse.de>
