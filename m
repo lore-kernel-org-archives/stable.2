@@ -1,136 +1,128 @@
-Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com [209.85.222.182])
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DED237F731
-	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 22:50:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BD773BAD94
+	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 22:51:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781563833; cv=none; b=BCIzcb4wa34WFv64EAtXtVYMCiOnmBjQYtYg3lbvWNkphIU6ucL0Q7kdexYc4tSmw15bVSeoUxOnU+Ok1oWjQW7qGOjZ/7vacyN9Sr+dqpOqJ6Bi2E0Varkslk0Pmelvo1wLLGDnZHtXNAh8u4w18hT4hEL9HLCdxqbKuWU/2ho=
+	t=1781563900; cv=none; b=g2FwdnlRtmdHGumbT+jQjnohbTE39hCT6jdchOWHHXba1+gUdLFpO8wjKwUOO8dWRcjIKHvC6RJFjDpxhzb19/0Eep+mwnStkg544PpRWK0hkK+4ond4HKt6f+okZIbJLLRZjpBglOrNo/0pjiECX3vhSOK55LiBidxtgPzXUps=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781563833; c=relaxed/simple;
-	bh=ZwxtX8vlpId8QMj7A7z/8r5GynOM1gv3V1E0mgepv7E=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YhETS7BiQie0CwEbk2OR2+xKdfjxgJCzdZUAaDH0j9kynh4uTfuQHtJ+reuqhLRRnJYNgs05R3X1iSt/DOmFv+BHXXA16e3vXowtFb+P728bfQ+ITsKLr9wJjtCGJxpOOoveHyl+I8esicQCkRrPNP51Y9NSFdNf6q92rW5Yw7k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pqWKyfyJ; arc=none smtp.client-ip=209.85.222.182
+	s=arc-20240116; t=1781563900; c=relaxed/simple;
+	bh=ujAjSm7BhxUMJVslQmleewg+/DVfcJZ1Gp/kz42YP3M=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nAYY2tB2cQbt3AI7xE5oLDGRVPFA11icN1dO8P2fBb88h1HHdSDabRNVp50ouqUEZGQ7L2/euInCCyClxGHuWlUgYCojswvptaiuYrxArW9i5RJCF+lqQ2+IFl8ee0CoQLDBjGIEO4JXlmyDXXq/TbjSX+Mz6qsLIrY361gNVpU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jJnI8+oY; arc=none smtp.client-ip=209.85.128.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pqWKyfyJ"
-Received: by mail-qk1-f182.google.com with SMTP id af79cd13be357-9159f631656so470560685a.1
-        for <stable@vger.kernel.org>; Mon, 15 Jun 2026 15:50:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jJnI8+oY"
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-490cdae130cso19000695e9.0
+        for <stable@vger.kernel.org>; Mon, 15 Jun 2026 15:51:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781563831; x=1782168631; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=VVS9U0UK2IIxJF55elsvQ+90uQ+p090ADnS+1Vo5OFY=;
-        b=pqWKyfyJZRvtJm5y3EUH7AbY3tutBR7ZpkQKu6/GRd5uyFdcEQTSKmBrW6R/qJ33ja
-         GmABCf5KW1yhC8dGjVoZtlPE+BcaHEoPnBrufXPJzh6r/W1V/pU7PIqaRkPmv+6+omlr
-         YPygfPMa14zP5QS20ZABhYfeeR4CRuse7xTE+Vlsny/XX/JfDrGcHjXjv+HpCI/GdkRD
-         aSsJlBvu0AgYPrvsm07er8t3sevbfi9WPiVzNvYEW0SPr9mDD5SaGqN/1W+Q99WhkE4O
-         0po2smcRnXv/0svjWUAHDPUtWmhLntraonJtucFhPBY1N4qh+o44s/iMN3CmRVzq7oCt
-         Twng==
+        d=gmail.com; s=20251104; t=1781563898; x=1782168698; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=uaij0ssiVLSTJF7l7+mwMdVljWqS/GPd6aqJhzAQirw=;
+        b=jJnI8+oYnPGKCz46aKZOuPWQYTSJIPRsolTSYqKCWQAgDyxI1SUBQmqFPHVks2+TpB
+         4iXUTu4TTtWwNv9roSa/ClXgKgXKToEWTkT5BT1YsaXY0a0ggqk0Itry41UPBWBcZx0C
+         j6EyCnwFF4AW2Picfnn1NUNOzYJyfPmMqXugAScEXFMIGSbi/W1/C78bkBUiTLVluXcf
+         u3FhIRglS783WShkExW2P+uIZbMqLgPGCGcUvPcfBSc0F26elNnxjbXSnVXwPr7BoKts
+         aM1OlsjHoXBbJqJG5ZNbuq1j4NVigLqHwX44DiwSdmYm6d8mC17tDemNvS19f5Gnx132
+         n6OA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781563831; x=1782168631;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=VVS9U0UK2IIxJF55elsvQ+90uQ+p090ADnS+1Vo5OFY=;
-        b=LalTRgMvaqUlpRHPtMKwhc8hsQJh6KeWm0rMkCUAjfJi6Qo7rG5eSs+wOzufjy6oHO
-         kPYiGUfnV81vsCltl9mqq3ta8gTycEPbZhIhCuZDOosTjvdq5uzCVjHcgz+34yi0bXT/
-         SWx0H8lBc0OA72fmmIniN1tySFscsIGRi8BXBQKViKChyfAemUC17H2znlIeSr6VckhQ
-         M3Zk86sGp3uOlD5oH/ZTwUQDFNzX/qV+L58f9RgFy+Am5nWyKpesv97z6bMPzeuV1cUk
-         +mAsLpf+0l5Jm36yENRyRYELwP83BUEgDvXl/+7/JfnatswxqBTZ4axt8wu9GrqCwuFN
-         9O9Q==
-X-Forwarded-Encrypted: i=1; AFNElJ+9BjSMCPwDE0lC4zIMBjqopIQQ+HSh8t49xJ9FBc3QVSA2FiaOYdw1xT7LzDfIZbvXQf1sT4M=@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywz7FNbago5UXmIqdsmaJzTLnMMQeXTudHL0Wk5J51uUFrPn7o/
-	dSRYqG1xjuYysAyvTK9IZ7o1Dam2Q+a/NbdvzUgUBdD5f/g3gPVS4pgl
-X-Gm-Gg: Acq92OEKNImk7fEiGVQn5ZLmRhEPPGcy3X5PMjM+Z1SOXEHd9j+yF1mDXb+lly4u62h
-	kefe3ifJONS6nA+mqjfx2s1yMCTq4il7fKHCZsjcV0u5jUUliPT0P+Htd0GQhxwQ+Dwb299w7nb
-	ViJmL/aaniYWMu5oLNfK1KqHlgtGcrkDSSCWPNTktEumMC3cQ5R0+9hBn+vSGMIHSjsHIcNo4Lf
-	bawCMtT5l3k9qX6nTHN42Xkv1WciVBnXETopwFZ95/I690/46c6hqOQkuZB5KfdklUUhR6RPE57
-	T7JxiFRVzfrNJdgMMSknNehrYf/67xHSmPlFU86uRPOYGcE2Hh0hI86/tsw7dZbDcqm6uK67x0T
-	ssEWrnp+1U17eygcDUGvnMKWvH7S/bK7MMM0ifmL/xmh4qUnYvbkFary9pUBDWApuGHBu9RSf21
-	KBoCda3kiug80+/ASKeLsnsMLSxwachALF2IysEAXUvXE+ctK30YfNlQ1Ky28nHlkJdOUzb0pOH
-	/MdtiWiXzc4
-X-Received: by 2002:a05:620a:4626:b0:915:422c:a0 with SMTP id af79cd13be357-91c2e9077admr216456585a.22.1781563830584;
-        Mon, 15 Jun 2026 15:50:30 -0700 (PDT)
-Received: from oklopfer.hsd1.ma.comcast.net (c-73-167-46-184.hsd1.ma.comcast.net. [73.167.46.184])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9161a069389sm1273568785a.45.2026.06.15.15.50.29
+        d=1e100.net; s=20251104; t=1781563898; x=1782168698;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=uaij0ssiVLSTJF7l7+mwMdVljWqS/GPd6aqJhzAQirw=;
+        b=S6XIxs2wVyQMYUo3ueH3go7eRHkqWsh5deNhtDo4DAYlIzCFwf3YMW5t2albK8WdUB
+         J7aozlf0g6e8IDdllOg3XCLRV7ra+qc283qB2oZ17rPDPTRUwMaFP2GWcAkuViWkdY8z
+         16JeQiHITFrgz7fsEQ/S77sczgpz4F77B/t7QcudNL+JlzHZuN7pEqWSMG8TzNwcvvoQ
+         mN76d5I0rQsAtp3cwFdogcRsfjkW3JCXRAc6Tq/CxD3dds1gyQvFs6vPO4yPkB+UJAMK
+         1Tl+rw6aDmTVhQmGlNV2Nk8MsPrpzZ6QJrTz62KAEbbhPJhQlxctdcpvVacn4s3f0rkO
+         xQKA==
+X-Forwarded-Encrypted: i=1; AFNElJ+DoldPmpp6v2u1VPoF6sUDdfsmJupSCx5FSeKT/qvGGxW1Fw4VTknII74RM5VSywzJX9W64Yk=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyuRldJWziaktdHxR99tNXvWk1cRXbJ1zdsPGC/MiJ68IBJA1fk
+	DisRaq4OwWc7sUQxFPP3nLfcJpDK0NwQKo4dHKG5oHAdg1xg/bi4V/cl
+X-Gm-Gg: Acq92OGSxr0JV+HKX+vFKO+XO1XmUga0+4/S77DHym+iYzhFjLnHfjakc5hc7QmCpuV
+	qDsjlk/RRkgXuZnOvP5REGKIcc08SyQDKvz3mySkT/foqcwO9bzWtIW70Njth7o9faU+q0mjZK3
+	p/4uVATyFDU2vh5CVc9QbpoQKlZWPZBJpHA67Z6Pu2BCLTTAcbb3hE7Kj8G4xqZAUZvWLoHlrsc
+	94ghjHn6dbhQeOX8avZmtE0sYoIoF+juLCyciUGbWIbbjlW6/+KqQO0OLaSycR28tn8DGHi+lJ2
+	l2yKisWwgrLg81NhD+yT6tx1ENfvY20s8nL+P2fzkWqQb63pQV4gpzau2kALGx5oWh6dzsetuDM
+	lUOZf5/NufRgij4LKVzUzMBmb/WB8XhlRvLYA1CmYjpWr8Pw4zEmNmwkrCiPSZSKCjiQpXsm6t0
+	gRn2g74PKYJ8Vb6YBYHDYplE8rQQ3XRZRxSPa2xg21cl9b3vLuhNoJadeqPa7PKdErnXtck3tDU
+	R0PfSakfNy8CZR74s9tHclgI1FvvOyGRFhr8RLMsXLcW0BAQJtFC2wpX0cKx8mOYi8Z/swouzD1
+	OLR6gDYeKVaHDAxZl2mouZVmMU33KYbhXmh1j7cI9/0=
+X-Received: by 2002:a05:600c:3b02:b0:492:2f3c:d0ed with SMTP id 5b1f17b1804b1-4922f3cd1a2mr28492865e9.30.1781563897718;
+        Mon, 15 Jun 2026 15:51:37 -0700 (PDT)
+Received: from mail.gmail.com (2a01cb0889497e009a0d3db09e2f2ffb.ipv6.abo.wanadoo.fr. [2a01:cb08:8949:7e00:9a0d:3db0:9e2f:2ffb])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4606f2cd6c2sm38392917f8f.30.2026.06.15.15.51.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 15 Jun 2026 15:50:29 -0700 (PDT)
-From: Oren Klopfer <oklopfer37@gmail.com>
-To: oklopfer37@gmail.com
-Cc: linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Heiko Stuebner <heiko@sntech.de>,
-	Peter Robinson <pbrobinson@gmail.com>,
-	Thorsten Leemhuis <regressions@leemhuis.info>,
-	stable@vger.kernel.org
-Subject: [PATCH] Revert "arm64: dts: rockchip: Further describe the WiFi for the Pinephone Pro"
-Date: Mon, 15 Jun 2026 18:50:13 -0400
-Message-ID: <20260615225014.219115-1-oklopfer37@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        Mon, 15 Jun 2026 15:51:36 -0700 (PDT)
+Date: Tue, 16 Jun 2026 00:51:34 +0200
+From: Paul Chaignon <paul.chaignon@gmail.com>
+To: Zhenzhong Wu <jt26wzz@gmail.com>
+Cc: bpf@vger.kernel.org, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, ast@kernel.org, daniel@iogearbox.net,
+	john.fastabend@gmail.com, andrii@kernel.org, martin.lau@linux.dev,
+	song@kernel.org, yonghong.song@linux.dev, kpsingh@kernel.org,
+	haoluo@google.com, jolsa@kernel.org, menglong8.dong@gmail.com,
+	eddyz87@gmail.com, shung-hsi.yu@suse.com, stable@vger.kernel.org,
+	mykolal@fb.com, tamird@kernel.org, Sasha Levin <sashal@kernel.org>
+Subject: Re: [PATCH stable 6.6.y v3 0/4] bpf: linked scalar precision fixes
+Message-ID: <ajCB9jXBzPyaDNSQ@mail.gmail.com>
+References: <cover.1781194510.git.jt26wzz@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <cover.1781194510.git.jt26wzz@gmail.com>
 
-This reverts commit 096bd8c679185f898cae9933c6a68650fa26ea4f.
+On Mon, Jun 15, 2026 at 12:58:37AM +0800, Zhenzhong Wu wrote:
+> Hi,
+> 
+> This v3 targets 6.6.y and changes the backport strategy based on review
+> feedback on v2.
 
-Just as with the Pinebook Pro, there are multiple chipset variants for the Pinephone Pro, and multiple firmware binaries for different distributions. The change causes issues with some of these combinations, and reverting it resolves the issues. See the Closes below for the full report.
+[...]
 
-Similarly with the Pinebook Pro adjustment, the original commit only indicates "further description" and not indicative of fixing any existing issues, so reverting should not kick any back up.
+> Relevant QEMU selftest results on 6.6.y with this backport:
+> 
+>   verifier_scalar_ids passed all 18 subtests, including the newly
+>   backported linked-scalar precision tests and the related
+>   check_ids_in_regsafe tests.
 
-Fixes: 096bd8c67918 ("arm64: dts: rockchip: Further describe the WiFi for the Pinephone Pro")
-Cc: Heiko Stuebner <heiko@sntech.de>
-Cc: Peter Robinson <pbrobinson@gmail.com>
-Cc: Thorsten Leemhuis <regressions@leemhuis.info>
-Cc: stable@vger.kernel.org
-Closes: https://lore.kernel.org/r/20260607225901.64019-1-oklopfer37@gmail.com/
-Signed-off-by: Oren Klopfer <oklopfer37@gmail.com>
----
- .../boot/dts/rockchip/rk3399-pinephone-pro.dts | 18 ------------------
- 1 file changed, 18 deletions(-)
+The first patch in this backport series is actually breaking the
+"precise: test 1" selftest from test_verifier. You can see the full
+error at [1]. I haven't yet checked if it's the test or the backport
+that needs to be adjusted.
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3399-pinephone-pro.dts b/arch/arm64/boot/dts/rockchip/rk3399-pinephone-pro.dts
-index 8d26bd9b7500..d46cdfe3f784 100644
---- a/arch/arm64/boot/dts/rockchip/rk3399-pinephone-pro.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3399-pinephone-pro.dts
-@@ -734,12 +734,6 @@ light_int_l: light-int-l {
-         };
-     };
- 
--    wifi {
--        wifi_host_wake_l: wifi-host-wake-l {
--            rockchip,pins = <4 RK_PD0 RK_FUNC_GPIO &pcfg_pull_none>;
--        };
--    };
--
-     wireless-bluetooth {
-         bt_wake_pin: bt-wake-pin {
-             rockchip,pins = <2 RK_PD2 RK_FUNC_GPIO &pcfg_pull_none>;
-@@ -766,19 +760,7 @@ &sdio0 {
-     pinctrl-names = "default";
-     pinctrl-0 = <&sdio0_bus4 &sdio0_cmd &sdio0_clk>;
-     sd-uhs-sdr104;
--    #address-cells = <1>;
--    #size-cells = <0>;
-     status = "okay";
--
--    brcmf: wifi@1 {
--        compatible = "brcm,bcm4329-fmac";
--        reg = <1>;
--        interrupt-parent = <&gpio4>;
--        interrupts = <RK_PD0 IRQ_TYPE_LEVEL_HIGH>;
--        interrupt-names = "host-wake";
--        pinctrl-names = "default";
--        pinctrl-0 = <&wifi_host_wake_l>;
--    };
- };
- 
- &pwm0 {
--- 
-2.53.0
+1: https://github.com/shunghsiyu/libbpf/actions/runs/27575831217/job/81523786835
+
+> 
+> Thanks to Shung-Hsi Yu for reviewing v2 and suggesting the upstream
+> linked-scalar precision series as the preferred backport direction.
+> 
+> Eduard Zingerman (4):
+>   bpf: Track equal scalars history on per-instruction level
+>   bpf: Remove mark_precise_scalar_ids()
+>   selftests/bpf: Tests for per-insn sync_linked_regs() precision
+>     tracking
+>   selftests/bpf: Update comments find_equal_scalars->sync_linked_regs
+> 
+>  include/linux/bpf_verifier.h                  |   4 +
+>  kernel/bpf/verifier.c                         | 367 +++++++++++-------
+>  .../selftests/bpf/progs/verifier_scalar_ids.c | 253 ++++++++----
+>  .../selftests/bpf/progs/verifier_spill_fill.c |   4 +-
+>  .../bpf/progs/verifier_subprog_precision.c    |   2 +-
+>  .../testing/selftests/bpf/verifier/precise.c  |   2 +-
+>  6 files changed, 417 insertions(+), 215 deletions(-)
+> 
+> 
+> base-commit: 924b4a879cbb75aef37c160b955b92f6894b11a4
+> -- 
+> 2.43.0
