@@ -1,115 +1,291 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3647C40BCCA
-	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 16:32:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE99C4048A7
+	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 16:44:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781541169; cv=none; b=clMp/yNCG7zHQ+VV69XUcuAkFUrqDIrWvkY7zmDQ9vG+XYu4Sf0ENHSkKXMOO4/PfxsMwNAbLm4iPasS71jbdxLX/CwxLvsByvQ9ym7EUtE6fbs9O03LswQGRRPXQ5cTUnUisfiFyBWGRYWyjJ0SvfzKSmNbJ6HRp/PWoyz6pEw=
+	t=1781541859; cv=none; b=uOmRNnpoe6X+ijIZI/CTcdLEUVcEuVQxMgp5cGeGx+QEyxnZMIz+d8mg6tPyylGSll+vVN3+S0DeF+K5nVX4SaVE/1KJ0HRGq60i1HkfDsE3b5gbzOXHtOKJrpTbqXFFQ4skde86wLtsJiytSBDokQoDBsdpmzFWbWXuRMprCwA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781541169; c=relaxed/simple;
-	bh=w+yettWEbO4HQd+AjKTwc0Fx05RcuCUOYg/X93t4kXM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=m5Tbk//wtNJFWTOJ8TTRtccAshNKAHWK4uzmV46RGOkaKbzUs4fb4QRuBJGqstYcXagP8krN65qiLqqReVrKmSfvNVmtDXDzjRIK3gE+IDU1/UyBHunf/DHa6x1lADq/Ekamf9W2F2iLUYuF+anicO0jIPChsoPwqChPOvrPpLI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=eRlQUlho; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=Lr3yHJw2; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1781541859; c=relaxed/simple;
+	bh=0B/dMn6a6LdTGWjHKZ4KfXxM/oNf5SCs1mHMr5R+6GQ=;
+	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=hlUCM7k86O8sdgivoWURBXejvFDKm4CHFsmU9jujONhg7JYb0bbB2jljeUfugm0aS55y2SIhbFHvD9s7DHlF2E1pk7IRRoc1OvqogFXK623t7nwxshJHnPxxTj4zAuBv8a6ItM3rtrUjMpIXC35oP611BCMJs2MtWdhN325Qnec=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BN9TDCHN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="eRlQUlho";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="Lr3yHJw2"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1781541167;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=bem14i6XFVMIN3uqnQMz5GECQrxxG7BjUnzzU6nRLFQ=;
-	b=eRlQUlhokSyjsW4CyFNCRcYuzbVlc1eHEFTn3B3OdwW4ap/k0agUCHxenNa6ScARkHZesT
-	z3Ti6cvUgscxEYjLRpdrQftlvqCofFLVTlgTqC7QCPKOjtzOnYeN3CNcXdXaJ78QqgIvMY
-	f777fzDVXCNqX9ecnP+yxI0lJf8Ayjs=
-Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
- [209.85.219.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-36-GKC55TsOM6-FEVGVJ64YKw-1; Mon, 15 Jun 2026 12:32:45 -0400
-X-MC-Unique: GKC55TsOM6-FEVGVJ64YKw-1
-X-Mimecast-MFC-AGG-ID: GKC55TsOM6-FEVGVJ64YKw_1781541165
-Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-8cceb5a9686so101583766d6.0
-        for <stable@vger.kernel.org>; Mon, 15 Jun 2026 09:32:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1781541165; x=1782145965; darn=vger.kernel.org;
-        h=user-agent:in-reply-to:content-transfer-encoding
-         :content-disposition:mime-version:references:message-id:subject:cc
-         :to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=bem14i6XFVMIN3uqnQMz5GECQrxxG7BjUnzzU6nRLFQ=;
-        b=Lr3yHJw2/XQG35P/BCQKt6nbkNUr/9hEXbiguf1GZz2iBUYNEmay1ZdhfEpitrHvsT
-         2RB+PU46xhViApqjo6u5moFQL+VTeP817kYDLeWqkD07wydzCkzvVlznj3egMmcnkPYs
-         IExhm+bvjhreaWZgAd0yD0XRJDeJ+QSsc6bKS/nilbQVmoKCCV15f0ZQlJBzWtz8xw+c
-         B/ci8ZGOVjpRskfApoBQaZcCZgqm4Wk4G9ZyDKYMYWzJXY1t3VZFAhoDuyFZYRjMs5+V
-         1WU8tK2JkNn9A7sCLjkjWU5q+fWzPn4YXvifqPbt5pPjNhOBJvBMXvFEfKDdX0Rw+VzT
-         OVIw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781541165; x=1782145965;
-        h=user-agent:in-reply-to:content-transfer-encoding
-         :content-disposition:mime-version:references:message-id:subject:cc
-         :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=bem14i6XFVMIN3uqnQMz5GECQrxxG7BjUnzzU6nRLFQ=;
-        b=HoJzUTjS0wXiYTTUvzQihUzcZamWihEdwMm9jgy0dXckTIv1GNkGpsYRBZA5wbAf7r
-         tM3MS8FisL9oB8rX83XTPfXf5HOLKEOY/TU9P/zwLzH0Gk1Nbfhl21gXyXZV0y/GhxuQ
-         EsHIgTaXM2Kjt/VZjSKOCEVgOlO5vqCvlIjDizeBXLTG6sAmyeSN/1IHkktPabjSKeHj
-         8i682TwYmi4/CB1dkkKe+WbYgF5N93HwbFOMWAG9KvXfdKkeuNwKRyYM2D3roa2Jd9AE
-         bSYtC+bIbfcaw8weQhfNKnk9C3bOJZRlQyU7x/DLtlcYgvNkcyCkx9Kcb06v/aEsQ4hJ
-         Axkw==
-X-Forwarded-Encrypted: i=1; AFNElJ9p4MAGC9XDDCMnn/TPzvMssgwiDHi2RXAGnuHV3CSLziHUiC0xwHTFB5msYSnry89UBtt/SY8=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwmmxuiraN+ZM8Ouv7NX5Y8852Veq/862DBYZVl0LLiLMIPpMbP
-	IGRouellhKvxYXejlS+/cQExIHkm65G1kni5AsC08ne5oWWzAribkF0MejYeF7X3ZzK9b7OmvIb
-	H8BWjP8HKbh5JquoMGuLlb3vh7wUyQ7uW09IM/QIB7q4I/P1qLX4FqmG/jw==
-X-Gm-Gg: Acq92OHrRs0nWK6U4JVsu48ehSGwpMDhYteyyHI+J78uUO/7Wju/+llzMtAGgvAEnew
-	8WW7JcEMQkN5eLXXojgg1aLxyZHTl7GY/WGEOQ/txui5a0V/V50CONrU36+EtXQoSgAU+sFaD5c
-	DHXwUiSM+aMo+2Yu9pq6kLGfu30pdMDNk998zKc0LhCkpRT02PC0m8Rr0p1sNisYVSplBYGDO7A
-	IHOv9qSMdYRC6O8J8DdvPhX/U+wsxwRQoVtweIkojaC4E0DFxiExkiF5sia7LT7uRA7s0Ru7h59
-	BGHGClTlMGWs1L86MpDvhptx/qhTvGrlvPWSpwXqBCZNCCp9eJGIisXsWJaa86nu4Ep/zgBEkEG
-	6KWe/o7jq8wxzgd5FoAHI0deKbdUHU9N5g0hu0f2rzbvlKEhTy+p/4LlB
-X-Received: by 2002:a05:6214:4ec3:b0:8cc:ebbb:8bda with SMTP id 6a1803df08f44-8d44ffc4615mr188041846d6.39.1781541165103;
-        Mon, 15 Jun 2026 09:32:45 -0700 (PDT)
-X-Received: by 2002:a05:6214:4ec3:b0:8cc:ebbb:8bda with SMTP id 6a1803df08f44-8d44ffc4615mr188041396d6.39.1781541164605;
-        Mon, 15 Jun 2026 09:32:44 -0700 (PDT)
-Received: from redhat.com (c-73-183-52-120.hsd1.pa.comcast.net. [73.183.52.120])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8d9f47408besm2913396d6.28.2026.06.15.09.32.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 15 Jun 2026 09:32:44 -0700 (PDT)
-Date: Mon, 15 Jun 2026 12:32:39 -0400
-From: Brian Masney <bmasney@redhat.com>
-To: Pavel =?iso-8859-1?Q?L=F6bl?= <pavel@loebl.cz>
-Cc: Stephen Boyd <sboyd@kernel.org>, Michal Simek <michal.simek@amd.com>,
-	linux-clk@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] clk: clocking-wizard: fix integer overflow in rate
- calculation
-Message-ID: <ajApJ5RDcffKtZOH@redhat.com>
-References: <20260605130340.3549582-1-pavel@loebl.cz>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BN9TDCHN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 49EF81F000E9;
+	Mon, 15 Jun 2026 16:44:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781541857;
+	bh=6wQTZbEHdEeA8EY+hlZi3luMhKupQcn7pfesPsS9AUc=;
+	h=From:To:Subject:Date:In-Reply-To:References;
+	b=BN9TDCHN11VcceuNmjuejJk/msS4i+kCWmWEcxnriDCheD5Rdfmpx7H3MmzpsFnqH
+	 Lz23CO+KrdkASutKy+Kf2iz8iGJL+sxmd8uoe05r9D79NEfeIh3ncWzdQtwgUW0dIC
+	 coyq3Ilmz4kCRINJo/E89vHmKM2MkSLAclCVPU2odsz7umG8jixBCPqq6Q30YGcRct
+	 UM70S3frTLi8nE07tWlm+CH4ZaDP/dHy9gZVzNjyhOAq/CPVwfMuGha8GPn6chfoRu
+	 5esx5KBteAE4WrMnZnI2s0ycH5Aqs29wxAO4EdAt6cO6eV8rAd1VI2EBKy8t5OqZ3q
+	 tnl3LyvgMG/rg==
+From: Lorenzo Stoakes <ljs@kernel.org>
+To: stable@vger.kernel.org
+Subject: [PATCH 6.6.y] mm/hugetlb: avoid false positive lockdep assertion
+Date: Mon, 15 Jun 2026 17:43:54 +0100
+Message-ID: <20260615164354.285032-1-ljs@kernel.org>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <2026061508-depose-sandbag-7fe6@gregkh>
+References: <2026061508-depose-sandbag-7fe6@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260605130340.3549582-1-pavel@loebl.cz>
-User-Agent: Mutt/2.3.1 (2026-03-20)
 
-On Fri, Jun 05, 2026 at 03:03:40PM +0200, Pavel Löbl wrote:
-> When using driver on Zynq-7000 (32-bit) determine_rate calculation
-> overflows. For instance requesting 32MHz with 100MHz parent clock
-> results in 100000000*(4*1000+0) 32-bit multiplication.
-> 
-> Replace the expression with mult_frac which is already used in
-> clk_wzrd_recalc_ratef.
-> 
-> Cc: stable@vger.kernel.org
-> Fixes: 7681f64e6404 ("clk: clocking-wizard: calculate dividers fractional parts")
-> Signed-off-by: Pale Löbl <pavel@loebl.cz>
+Commit 081056dc00a2 ("mm/hugetlb: unshare page tables during VMA split,
+not before") changed the locking model around hugetlbfs PMD unsharing on
+VMA split, but did not update the function which asserts the locks,
+hugetlb_vma_assert_locked().
 
-Reviewed-by: Brian Masney <bmasney@redhat.com>
+This function asserts that either the hugetlb VMA lock is held (if a
+shared mapping) or that the reservation map lock is held (if private).
+
+If you get an unfortunate race between something which results in one of
+these locks being released and a hugetlb VMA split and you have
+CONFIG_LOCKDEP enabled, you can therefore see a false positive assertion
+arise when there is in fact no issue.
+
+Since this change introduced a new take_locks parameter to
+hugetlb_unshare_pmds(), which, when set to false, indicates that locking
+is sufficient, simply pass this to the unsharing logic and predicate the
+lock assertions on this.
+
+This is safe, as we already asserted the file rmap lock and the VMA write
+lock prior to this (implying exclusive mmap write lock), so we cannot be
+raced by either rmap or page fault page table walkers which the asserted
+locks are intended to protect against (we don't mind GUP-fast).
+
+Separate out huge_pmd_unshare() into __huge_pmd_unshare() to add a
+check_locks parameter, and update hugetlb_unshare_pmds() to pass this
+parameter to it.
+
+This leaves all other callers of huge_pmd_unshare() still correctly
+asserting the locks.
+
+The below reproducer will trigger the assert in a kernel with
+CONFIG_LOCKDEP enabled by racing process teardown (which will release the
+hugetlb lock) against a hugetlb split.
+
+void execute_one(void)
+{
+	void *ptr;
+	pid_t pid;
+
+	/*
+	 * Create a hugetlb mapping spanning a PUD entry.
+	 *
+	 * We force the hugetlb page allocation with populate and
+	 * noreserve.
+	 *
+	 * |---------------------|
+	 * |                     |
+	 * |---------------------|
+	 * 0                 PUD boundary
+	 */
+	ptr = mmap(0, PUD_SIZE, PROT_READ | PROT_WRITE,
+		   MAP_FIXED | MAP_SHARED | MAP_ANON |
+		   MAP_NORESERVE | MAP_HUGETLB | MAP_POPULATE,
+		   -1, 0);
+	if (ptr == MAP_FAILED) {
+		perror("mmap");
+		exit(EXIT_FAILURE);
+	}
+
+	/*
+	 * Fork but with a bogus stack pointer so we try to execute code in
+	 * a non-VM_EXEC VMA, causing segfault + teardown via exit_mmap().
+	 *
+	 * The clone will cause PMD page table sharing between the
+	 * processes first via:
+	 * copy_process() -> ... -> huge_pte_alloc() -> huge_pmd_share()
+	 *
+	 * Then tear down and release the hugetlb 'VMA' lock via:
+	 * exit_mmap() -> ... -> vma_close() -> hugetlb_vma_lock_free()
+	 */
+	pid = syscall(__NR_clone, 0, 2 * PMD_SIZE, 0, 0, 0);
+	if (pid < 0) {
+		perror("clone");
+		exit(EXIT_FAILURE);
+	} if (pid == 0) {
+		/* Pop stack... */
+		return;
+	}
+
+	/*
+	 * We are the parent process.
+	 *
+	 * Race the child process's teardown with a PMD unshare.
+	 *
+	 * We do this by triggering:
+	 *
+	 * __split_vma() -> hugetlb_split() -> hugetlb_unshare_pmds()
+	 *
+	 * Which, importantly, doesn't hold the hugetlb VMA lock (nor can
+	 * it), meaning we assert in hugetlb_vma_assert_locked().
+	 *
+	 *            .
+	 * |----------.----------|
+	 * |          .          |
+	 * |----------.----------|
+	 * 0          .     PUD boundary
+	 */
+	mmap(0, PUD_SIZE / 2, PROT_READ | PROT_WRITE,
+	     MAP_FIXED | MAP_ANON | MAP_PRIVATE, -1, 0);
+}
+
+int main(void)
+{
+	int i;
+
+	/* Kick off fork children. */
+	for (i = 0; i < NUM_FORKS; i++) {
+		pid_t pid = fork();
+
+		if (pid < 0) {
+			perror("fork");
+			exit(EXIT_FAILURE);
+		}
+
+		/* Fork children do their work and exit. */
+		if (!pid) {
+			int j;
+
+			for (j = 0; j < NUM_ITERS; j++)
+				execute_one();
+			return EXIT_SUCCESS;
+		}
+	}
+
+	/* If we succeeded, wait on children. */
+	for (i = 0; i < NUM_FORKS; i++)
+		wait(NULL);
+
+	return EXIT_SUCCESS;
+}
+
+[ljs@kernel.org: account for the !CONFIG_HUGETLB_PMD_PAGE_TABLE_SHARING case]
+  Link: https://lore.kernel.org/agWZsPGYid08uU6O@lucifer
+Link: https://lore.kernel.org/20260513085658.45264-1-ljs@kernel.org
+Fixes: 081056dc00a2 ("mm/hugetlb: unshare page tables during VMA split, not before")
+Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Acked-by: Oscar Salvador <osalvador@suse.de>
+Cc: Jann Horn <jannh@google.com>
+Cc: Muchun Song <muchun.song@linux.dev>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+(cherry picked from commit b4aea43cd37afad714b5684fe9fdfcb0e78dba26)
+Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
+---
+ mm/hugetlb.c | 57 ++++++++++++++++++++++++++++++++++------------------
+ 1 file changed, 37 insertions(+), 20 deletions(-)
+
+diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+index 6a1e0eefd254..48452cb00e13 100644
+--- a/mm/hugetlb.c
++++ b/mm/hugetlb.c
+@@ -95,6 +95,9 @@ static int hugetlb_acct_memory(struct hstate *h, long delta);
+ static void hugetlb_vma_lock_free(struct vm_area_struct *vma);
+ static void hugetlb_vma_lock_alloc(struct vm_area_struct *vma);
+ static void __hugetlb_vma_unlock_write_free(struct vm_area_struct *vma);
++static int __huge_pmd_unshare(struct mmu_gather *tlb,
++		struct vm_area_struct *vma, unsigned long addr, pte_t *ptep,
++		bool check_locks);
+ static void hugetlb_unshare_pmds(struct vm_area_struct *vma,
+ 		unsigned long start, unsigned long end, bool take_locks);
+ static struct resv_map *vma_resv_map(struct vm_area_struct *vma);
+@@ -7030,6 +7033,31 @@ pte_t *huge_pmd_share(struct mm_struct *mm, struct vm_area_struct *vma,
+ 	return pte;
+ }
+ 
++static int __huge_pmd_unshare(struct mmu_gather *tlb,
++		struct vm_area_struct *vma, unsigned long addr, pte_t *ptep,
++		bool check_locks)
++{
++	unsigned long sz = huge_page_size(hstate_vma(vma));
++	struct mm_struct *mm = vma->vm_mm;
++	pgd_t *pgd = pgd_offset(mm, addr);
++	p4d_t *p4d = p4d_offset(pgd, addr);
++	pud_t *pud = pud_offset(p4d, addr);
++
++	if (sz != PMD_SIZE)
++		return 0;
++	if (!ptdesc_pmd_is_shared(virt_to_ptdesc(ptep)))
++		return 0;
++	i_mmap_assert_write_locked(vma->vm_file->f_mapping);
++	if (check_locks)
++		hugetlb_vma_assert_locked(vma);
++	pud_clear(pud);
++
++	tlb_unshare_pmd_ptdesc(tlb, virt_to_ptdesc(ptep), addr);
++
++	mm_dec_nr_pmds(mm);
++	return 1;
++}
++
+ /**
+  * huge_pmd_unshare - Unmap a pmd table if it is shared by multiple users
+  * @tlb: the current mmu_gather.
+@@ -7049,25 +7077,7 @@ pte_t *huge_pmd_share(struct mm_struct *mm, struct vm_area_struct *vma,
+ int huge_pmd_unshare(struct mmu_gather *tlb, struct vm_area_struct *vma,
+ 		unsigned long addr, pte_t *ptep)
+ {
+-	unsigned long sz = huge_page_size(hstate_vma(vma));
+-	struct mm_struct *mm = vma->vm_mm;
+-	pgd_t *pgd = pgd_offset(mm, addr);
+-	p4d_t *p4d = p4d_offset(pgd, addr);
+-	pud_t *pud = pud_offset(p4d, addr);
+-
+-	i_mmap_assert_write_locked(vma->vm_file->f_mapping);
+-	hugetlb_vma_assert_locked(vma);
+-	if (sz != PMD_SIZE)
+-		return 0;
+-	if (!ptdesc_pmd_is_shared(virt_to_ptdesc(ptep)))
+-		return 0;
+-
+-	pud_clear(pud);
+-
+-	tlb_unshare_pmd_ptdesc(tlb, virt_to_ptdesc(ptep), addr);
+-
+-	mm_dec_nr_pmds(mm);
+-	return 1;
++	return __huge_pmd_unshare(tlb, vma, addr, ptep, /*check_locks=*/true);
+ }
+ 
+ /*
+@@ -7101,6 +7111,13 @@ pte_t *huge_pmd_share(struct mm_struct *mm, struct vm_area_struct *vma,
+ 	return NULL;
+ }
+ 
++static int __huge_pmd_unshare(struct mmu_gather *tlb,
++		struct vm_area_struct *vma, unsigned long addr, pte_t *ptep,
++		bool check_locks)
++{
++	return 0;
++}
++
+ int huge_pmd_unshare(struct mmu_gather *tlb, struct vm_area_struct *vma,
+ 		unsigned long addr, pte_t *ptep)
+ {
+@@ -7375,7 +7392,7 @@ static void hugetlb_unshare_pmds(struct vm_area_struct *vma,
+ 		if (!ptep)
+ 			continue;
+ 		ptl = huge_pte_lock(h, mm, ptep);
+-		huge_pmd_unshare(&tlb, vma, address, ptep);
++		__huge_pmd_unshare(&tlb, vma, address, ptep, take_locks);
+ 		spin_unlock(ptl);
+ 	}
+ 	huge_pmd_unshare_flush(&tlb, vma);
+-- 
+2.54.0
 
