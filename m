@@ -1,140 +1,99 @@
-Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com [209.85.167.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E63C3E558F
-	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 12:23:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7E4E3EAC84
+	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 12:29:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781526207; cv=none; b=qCWr0Ot+CUYRSYbKYanYqHoojBkOjHlr308x4sbGeMnlPVvHycmGLBcFnCwPMURN2UOzQkZ+/Sb2iTEy9cuIdoRmhbjiPpN1BsX2fIhvNBMA8C0j22f1Z+ieuLM6Vqo4DTdqZ1yY/Fps0EIAxIQ3cmhiSnFfHISvOrXxLaupzb4=
+	t=1781526601; cv=none; b=JbocGBMnxxSB/keujp8hqzFaXtFAjLgEFwzqp3oO6UAvM89hVZIehT5wfbJmUY6UEbESjlByQWAaIOj/gG26uvIPSjMrqhLAr5kzPbowi/lOihqjwmbYN5AkbVsS0UnaakRGpFhcDSPLjJ9wjiVt8jAq37D7KUPVzpwN21LY6Ts=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781526207; c=relaxed/simple;
-	bh=9AhUzTPXW06iepjicTUk8KdUkKVvFXLZUIYC0xH75Ds=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=I+g5ghNULQ3cF/xM8Ig2re1un3H6eaY5w7coZ4TCovDSBWuU4+EgMrFKj9DweqcvRTe0sefUNo9H2w9Alx9kURPIh6V+JaopP+DksRlx1zvl3kSiG56HZS5Bmi4xpzLUBB3pcQk/XoA0JF0GIrf75zadnMr52AymhdEkO+Yabjs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GUm+VOIY; arc=none smtp.client-ip=209.85.167.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781526601; c=relaxed/simple;
+	bh=iTwPS/H/VVfDYH1eZmJBl+2KCDvMmgD693ZNAikgS7U=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=K9qxo61jrrP0OYSwPLPd3Imw/nv1ddvNFFqXI+CR/v2T1enW9z+7jk0Qw7aTD6hg+Ddl/g1NfDvX8jwe8T1d//PA6XVo+LUeNgbPwpVxo0jLsOqA1/ewOXgJ+Oqv97n8oRYNFmZPhKboW215Kvh9sMfVaun0thOqQBDVOnBFvZ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=HUEm963I; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GUm+VOIY"
-Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-5aa88b4f792so3785364e87.1
-        for <stable@vger.kernel.org>; Mon, 15 Jun 2026 05:23:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781526204; x=1782131004; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=NxNwzg+e+NRp49UH9pl97KcoyF640OFUJSGThEXSWcQ=;
-        b=GUm+VOIYllYVkvRxmQtrvp+Hls9NTGyRRj+H0Mj4NMXeAAkce0/r5OpY8x1SsZ8ug4
-         ZS0uzs94krtYnTstbzv66kgQdCzyOzhk/zTN005yDqZhBHFOSQtrPWtm4ZshQDttqFEg
-         aM4b47NDznyUclMJSLQFP0AuNOXgy58fOY59uFExHbyRWQDGyY573E5+14XAhbHFis9+
-         WP73ekHR4U/q0kpgNrXf3Cuk0TYdrMDtw8yEqi9iNNIpUKUOUSy1pPiY/E73kDm5fGtU
-         nuCPFvUDiSm9IOwB/yTYdjsY3Gxi9VVYnFphlokvZjFSKPGVyxnFv0I+2FSDFseM/fAK
-         cfXw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781526204; x=1782131004;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=NxNwzg+e+NRp49UH9pl97KcoyF640OFUJSGThEXSWcQ=;
-        b=JnvTrAnklWciq4t+EGOZbpcBzBWH99IYFM9222XA4NUGxclHuNDi7LMPO4UVkKCva6
-         1iwHXsb/jh8LE8sL3B0FMU59TxCqXdeaaJYw5nFtm3vwYgEsunM5W/aTExns7j1jJ1LV
-         Il/c9rTF3WTjqcNPKxyVjXsKo3XxHtdhvBOkdhEP1nzV9YFd2xrIyxq1JBXHIpTfQmsx
-         LVsrSc37rCNXSoY4My5aB5Nn0MoY/zHfEH65EjyLxP578H6haU7YzMOE2Ng4a0436sFj
-         x4h4DOyeWaIE51WdbUV7sE36n4ItN1pp7B/3vbnKiSva2ClIwEhrlFxFvMkPK2+tnF0U
-         p7qQ==
-X-Gm-Message-State: AOJu0YwpWGfcJHd9rTPCKy39FnyY5JvFvYxvf29kzFR0akquQd1tyLew
-	HZctKLjH2laKLUYLvhnPF9Ch3ECsw/kAOoetxUWhQR4V+XfYLhRxhX1vS3624R1V
-X-Gm-Gg: Acq92OHHsbJ1mF98emG2uWOTgC1vHVo86OX70s4gFkoW9lca01W/wJdVpKwmdauzyCe
-	wKwSYfT5sVo2xAOxKhJer5Jx5KuFFf/1LqE17oWXHvt3s1yHKINmzCmJnBzMCTBh8IHqZdjbXjR
-	56cCpfgsuLOthuAI93XnEKmPSw04kT0qvfdAhNwTPZT/YUsJxwqjBOIaRfpVCckYmxQtr3HL7NX
-	1vDkRm8T0oENltrKT7GqfR4Vh0wtSzVJQnCPmb9ekLqa8diMn4tKmLZYSQ2dnEfjtPZpofRT6Os
-	nGA+46jIrlDKF4Lpg7gbMlojnEHFUAKirPOMpJMNvHKNWmR+cgRqBBFkrXQUAx/IsvsiFOi1DL6
-	kCtNsi9vsIEVle1eG3eqUkJwlRl8ddtt/5Z4ujUrVT0Y+FHpfhnDA1LzcI5E3YYKivsGhQ+AMCF
-	3RI6oniU0iB0BG+7n7yVM2vpKqhpkh0eZXatZoprt1G5RVTzIjQwrqpqsCACw2+PEfAdyUawg=
-X-Received: by 2002:ac2:51d4:0:b0:5aa:8827:73bd with SMTP id 2adb3069b0e04-5ad2e13f751mr3102317e87.23.1781526204433;
-        Mon, 15 Jun 2026 05:23:24 -0700 (PDT)
-Received: from cherrypc.astra-academy.ru (109-252-17-231.nat.spd-mgts.ru. [109.252.17.231])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5ad2e1a7092sm2656037e87.50.2026.06.15.05.23.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 15 Jun 2026 05:23:23 -0700 (PDT)
-From: Nazar Kalashnikov <sivartiwe@gmail.com>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Nazar Kalashnikov <sivartiwe@gmail.com>,
-	Miri Korenblit <miriam.rachel.korenblit@intel.com>,
-	Kalle Valo <kvalo@kernel.org>,
-	Johannes Berg <johannes.berg@intel.com>,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Gregory Greenman <gregory.greenman@intel.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org,
-	Luca Coelho <luciano.coelho@intel.com>,
-	Kalle Valo <kvalo@codeaurora.org>,
-	lvc-project@linuxtesting.org
-Subject: [PATCH 5.15/6.1/6.6/6.12] wifi: iwlwifi: fix 22000 series SMEM parsing
-Date: Mon, 15 Jun 2026 15:20:58 +0300
-Message-ID: <20260615122100.137560-1-sivartiwe@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="HUEm963I"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1781526597;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=6MxYKjqmEg82jtzqXvEH2JnVszujlKcbr71SIAlxpqU=;
+	b=HUEm963IsBFLkR0/O/Z+tj+h+ioM+h4la93Si9b/1kpt3K5Rv6EbWH+CNSJTMBymsRdCKb
+	+TIapnupK/GkVlK3F5XSPNdnh9kUKyfwgeRGRWy8qZhxcrgVFS3oIXle5YFmfZ3Z6hmrxP
+	8TuQRbRI1udwN3mnXOQlpAMWAydXqJU=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-568-lvM1OmnNO4exSOp_USewIg-1; Mon,
+ 15 Jun 2026 08:29:56 -0400
+X-MC-Unique: lvM1OmnNO4exSOp_USewIg-1
+X-Mimecast-MFC-AGG-ID: lvM1OmnNO4exSOp_USewIg_1781526594
+Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id EC540195E928;
+	Mon, 15 Jun 2026 12:29:50 +0000 (UTC)
+Received: from fedora (unknown [10.44.32.13])
+	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id E639918001D2;
+	Mon, 15 Jun 2026 12:29:46 +0000 (UTC)
+Received: by fedora (nbSMTP-1.00) for uid 1000
+	oleg@redhat.com; Mon, 15 Jun 2026 14:29:50 +0200 (CEST)
+Date: Mon, 15 Jun 2026 14:29:45 +0200
+From: Oleg Nesterov <oleg@redhat.com>
+To: Catalin Marinas <catalin.marinas@arm.com>
+Cc: Breno Leitao <leitao@debian.org>,
+	Andrew Morton <akpm@linux-foundation.org>, lance.yang@linux.dev,
+	Davidlohr Bueso <dave@stgolabs.net>, Qian Cai <cai@lca.pw>,
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+	kernel-team@meta.com, stable@vger.kernel.org
+Subject: Re: [PATCH v2] mm/kmemleak: avoid soft lockup when scanning task
+ stacks
+Message-ID: <ai_wOdHprarXnURN@redhat.com>
+References: <20260612-kmemleak-stack-resched-v2-1-53240de79e88@debian.org>
+ <aiw9u4BllwZXDH2S@arm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aiw9u4BllwZXDH2S@arm.com>
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
 
-From: Johannes Berg <johannes.berg@intel.com>
+On 06/12, Catalin Marinas wrote:
+>
+> Yet anther variant below, untested. Basically, it follows the
+> next_tgid() or task_seq_get_next() approach (we might as well move this
+> to a separate function to avoid excessive indentation):
+>
+> 	if (kmemleak_stack_scan) {
+> 		struct pid *pid;
+> 		int nr = 1;
+>
+> 		do {
+> 			struct task_struct *p = NULL;
+>
+> 			rcu_read_lock();
+> 			pid = find_ge_pid(nr, &init_pid_ns);
+> 			if (pid) {
+> 				nr = pid_nr(pid) + 1;
+> 				p = pid_task(pid, PIDTYPE_PID);
+> 				if (p)
+> 					get_task_struct(p);
+> 			}
+> 			rcu_read_unlock();
 
-commit 58192b9ce09b0f0f86e2036683bd542130b91a98 upstream.
+I don't think we need get_task_struct(p), the code above can just do
 
-If the firmware were to report three LMACs (which doesn't
-exist in hardware) then using "fwrt->smem_cfg.lmac[2]" is
-an overrun of the array. Reject such and use IWL_FW_CHECK
-instead of WARN_ON in this function.
+				if (p)
+					stack = try_get_task_stack(p);
 
-Signed-off-by: Johannes Berg <johannes.berg@intel.com>
-Signed-off-by: Miri Korenblit <miriam.rachel.korenblit@intel.com>
-Link: https://patch.msgid.link/20251110150012.16e8c2d70c26.Iadfcc1aedf43c5175b3f0757bea5aa232454f1ac@changeid
-Signed-off-by: Nazar Kalashnikov <sivartiwe@gmail.com>
----
-Backport fix for CVE-2026-43172
- drivers/net/wireless/intel/iwlwifi/fw/smem.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+Oleg.
 
-diff --git a/drivers/net/wireless/intel/iwlwifi/fw/smem.c b/drivers/net/wireless/intel/iwlwifi/fw/smem.c
-index 3f1272014daf..e2fc2f5de442 100644
---- a/drivers/net/wireless/intel/iwlwifi/fw/smem.c
-+++ b/drivers/net/wireless/intel/iwlwifi/fw/smem.c
-@@ -6,6 +6,7 @@
-  */
- #include "iwl-drv.h"
- #include "runtime.h"
-+#include "dbg.h"
- #include "fw/api/commands.h"
- 
- static void iwl_parse_shared_mem_22000(struct iwl_fw_runtime *fwrt,
-@@ -17,7 +18,9 @@ static void iwl_parse_shared_mem_22000(struct iwl_fw_runtime *fwrt,
- 	u8 api_ver = iwl_fw_lookup_notif_ver(fwrt->fw, SYSTEM_GROUP,
- 					     SHARED_MEM_CFG_CMD, 0);
- 
--	if (WARN_ON(lmac_num > ARRAY_SIZE(mem_cfg->lmac_smem)))
-+	/* Note: notification has 3 entries, but we only expect 2 */
-+	if (IWL_FW_CHECK(fwrt, lmac_num > ARRAY_SIZE(fwrt->smem_cfg.lmac),
-+			 "FW advertises %d LMACs\n", lmac_num))
- 		return;
- 
- 	fwrt->smem_cfg.num_lmacs = lmac_num;
-@@ -26,7 +29,8 @@ static void iwl_parse_shared_mem_22000(struct iwl_fw_runtime *fwrt,
- 	fwrt->smem_cfg.rxfifo2_size = le32_to_cpu(mem_cfg->rxfifo2_size);
- 
- 	if (api_ver >= 4 &&
--	    !WARN_ON_ONCE(iwl_rx_packet_payload_len(pkt) < sizeof(*mem_cfg))) {
-+	    !IWL_FW_CHECK(fwrt, iwl_rx_packet_payload_len(pkt) < sizeof(*mem_cfg),
-+			  "bad shared mem notification size\n")) {
- 		fwrt->smem_cfg.rxfifo2_control_size =
- 			le32_to_cpu(mem_cfg->rxfifo2_control_size);
- 	}
--- 
-2.47.3
