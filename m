@@ -1,221 +1,250 @@
-Received: from mail-lf1-f52.google.com (mail-lf1-f52.google.com [209.85.167.52])
+Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com [209.85.218.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80FA3400E0D
-	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 15:09:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F058440149C
+	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 15:14:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781536197; cv=none; b=RUojpFBwC/xZNfpWC0UtPmb3L6RKpEUnkl16c4cO94OOtZiVnwbEjxSfTCeMNsfv4lrEZKd/a6K6w5H686hYkB06ogX3mBEG6mA9rzQ09YxOeIYkDs4M4xs3dxUEIS6ivFsmK8hx00tOyg5RGOaXtgAdMnQW/VtXR/x+53aH/88=
+	t=1781536444; cv=none; b=PGTdP6I7L5ab2TbUAGVDRYtuFFdsC4UX6ESOp9ng64dtE/1c2D2dH/n7+US3Obj2fzjHnfKF/RrnNDlM7QCBinniO16tra6LxjzYfpXg78Gb39TeYCxMFrDUM4+zImTwtXT4tLhT4qBL2QdhI9jjLwrhaPMeTBOKgQYvMWAHuc4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781536197; c=relaxed/simple;
-	bh=I1aHIggciL+96mvzHXJprXMWMGaZAV5N+Cv9vZJwvJ4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YwG3vhMdczDCFQ07slmOJraknigjbq1MfIVJ1o3VxIhGDw6XJ/BoWQEyLqPf6MAePSgcf1byu/vFsLaOSyUp/PGZ8oeRWXK3W4p4fsRrerioMhFeDR97+YeD9yxGfIbpuuhpgaYgAy6cbq5/ZYYB21rXjveO32AOUOgsAS8C2xc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bynar.io; spf=pass smtp.mailfrom=bynar.io; dkim=pass (2048-bit key) header.d=bynar.io header.i=@bynar.io header.b=FHWLj8ih; arc=none smtp.client-ip=209.85.167.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bynar.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bynar.io
+	s=arc-20240116; t=1781536444; c=relaxed/simple;
+	bh=baXP0rsce8RxgN3E4KwK75xIeIhqJL8ydG3/ruWWQ8Y=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=KCxVjSqiRVMMUOD6RnHn51LCFjjMVqTds+d1PU04QyIedPvjiCRjS5/bdI4Wm4i1haRfpJdYUxLnp6mkRUKYJVdVCeYUf6hEbcmJaUxY4tJaJdn2W9L0TWHXFgj6wLnVQfCyZI/zcATOaAjtlAGNp3hUzSxhi7zIVYhkbzDizqo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=dmXxw4Vq; arc=none smtp.client-ip=209.85.218.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bynar.io header.i=@bynar.io header.b="FHWLj8ih"
-Received: by mail-lf1-f52.google.com with SMTP id 2adb3069b0e04-5aa68cf9123so3453165e87.0
-        for <stable@vger.kernel.org>; Mon, 15 Jun 2026 08:09:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="dmXxw4Vq"
+Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-beb2a97cc9aso660239466b.2
+        for <stable@vger.kernel.org>; Mon, 15 Jun 2026 08:14:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bynar.io; s=google; t=1781536194; x=1782140994; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=vIrF5pxuCjnAJoxb4czrrpSavkn7esm67b6oFTzhZxA=;
-        b=FHWLj8ihporR9Czq90CI+DaF/arISq7/jThMw1lorsmMW4m4CYpM5d7rNMZ8msjmmQ
-         gdqOJaU2vpU+44ZKGAq6TSEqTddMaV5pnhOjlZjsP/fRn/qa7b9oXX9/nhnI9ZCM98zL
-         Lgl7bryR33aArrp6D5NAAM3/MjRFzhK4AA5suPBFnzTAQcYPzPd2cfJ//BCEnyzmnJZs
-         Mitun6PJn7IwcIX4CvLaLolWLtGwY65gYWXwR4mgZWXPdeTvN2E6EBqX5uYmM5Rwn9dd
-         iprfP/tnqySIxE7Tj4GHrY8640Bq7hcVnHSiSQQQy9qCzNpPOZTJVIO0TPyAlVVIpXRb
-         vM+w==
+        d=suse.com; s=google; t=1781536441; x=1782141241; darn=vger.kernel.org;
+        h=in-reply-to:autocrypt:from:content-language:references:cc:to
+         :subject:user-agent:mime-version:date:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=baXP0rsce8RxgN3E4KwK75xIeIhqJL8ydG3/ruWWQ8Y=;
+        b=dmXxw4VqX9rJy0Nhflkh1cPoaQJM3DIc7nUadqCoZsY8iPyJ+0sp3Y4XTCLdKUL1n5
+         PXsIc7sLksWgV6qPVOICCu5lKwf4VZchzqcV9/RDhRbVn/qBsbCcU084RA5yfrIeMslP
+         3Nf4lJZZSC6fOW/vnzC/7m1PS5ryUI4qgGJwhisLjONpzoQQtDczbj8lrAlxOuOHsFpf
+         U567u8i2qR3LXYq3Wefpd5YNM7Kr0U3shm/zjicIiwgz5UlDMMtUsKoJNL2nMuICXn6l
+         yaK2BBhtQ7omMTsqQV0EVSGpzNd23iuXTSACVfrfelKkd89Xoqe/2reCiRLCzWwIo9z9
+         WpUw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781536194; x=1782140994;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=vIrF5pxuCjnAJoxb4czrrpSavkn7esm67b6oFTzhZxA=;
-        b=HLV3d4D27R8KHrIPQZ3NnRCnQJZBGDCDSSWqHJ4ZA77zkF9jHKpdVLfdu0WhVm3uOz
-         LDhk5GEBFcWDW0HW8vZobCwnXEXRI0vGoXZuYwWRuGevwNnEaUgUkdO8BjXPOERW85CD
-         +uusst3QYwxkO3kaJeeD3vpBE3Vmdnl/kRccDQOFX+/Lx/bwAhrAAYZcTfUGVK3j+3Bn
-         nRS8KF9Bxk+cvzZcDT8alcChOYgchsP4In5gXsJTNGDgVIf8gwuo0nqO2ie0/o2XpUw2
-         /RiqO6+r8k6oY5sggqsaO8dM+WFAos3+hnfTEaQV9bT7wfj6U5lfI54sgoWzVmzRoYCK
-         pLlg==
-X-Forwarded-Encrypted: i=1; AFNElJ+zo6VIgtFB231xG4FOl8pjvnN+LCsEXlf+5SLjLgax2nPmSFLO+zn9qyMHOt6Q8M/MQuq3aYk=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzEyxKhzNJliFXkhJUumZCwopzTl8ElNYlxkHdNcZuHOe3o+O2b
-	uUnzt8KfaaGRHqOaodreLgHS/JiTYuqzWoju6l1Undd4SP0TKJnpWd+NNQc5J+hYPd01
-X-Gm-Gg: Acq92OFvqma/quR/VZ/gFYhua+JKafsRxgPDtR4NxrPzgQqf3Qc3/2TpyqpxB56Z634
-	nMORYXyYWsRZrM2emKCqYMgdoWOIEGHzEYPQh4mSVvx2Ds669+TAu11C8+PsAa7zzpgaEjLW+I4
-	KEVsdgxdHx2W3PJoMy8eN+s/an8CwBWhlVCZjfTjftxKNM+BQKn6lNFL2kT49GsbSV0hhgaVXd0
-	tK+4sLHCBeMy128guoJOz5njGJC8VJcs0ysF1ZxJVUbnHR6RY2cjI7mTL/0GRgeJm/h8MhmXSbD
-	Jm24SP+DQNGQx0MD9UuM3ynZWHx8CWBiF8aHyqoY1+lJj/mq0Cn0OqdGiM4WAxG9IE6k/OK4Uzb
-	MOOGmkWgoD08lg9OAnQ8oLQttUkM9tUr+hdxGudFmald5PQJudoIb9HEDASCKVHuuxw+zpgmQeD
-	8AFchWd+BFml0=
-X-Received: by 2002:ac2:5693:0:b0:5aa:656f:d4f0 with SMTP id 2adb3069b0e04-5ad2db83f52mr4145533e87.41.1781536193202;
-        Mon, 15 Jun 2026 08:09:53 -0700 (PDT)
-Received: from localhost ([2a06:61c2:d427:0:b321:1c7a:b072:326e])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5ad2e170386sm2869601e87.30.2026.06.15.08.09.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 15 Jun 2026 08:09:52 -0700 (PDT)
-From: Samuel Page <sam@bynar.io>
-To: Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-Cc: linux-bluetooth@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Samuel Page <sam@bynar.io>,
-	stable@vger.kernel.org
-Subject: [PATCH] Bluetooth: MGMT: Fix UAF of hci_conn_params in add_device_complete
-Date: Mon, 15 Jun 2026 16:09:22 +0100
-Message-ID: <20260615150922.1737274-1-sam@bynar.io>
-X-Mailer: git-send-email 2.54.0
+        d=1e100.net; s=20251104; t=1781536441; x=1782141241;
+        h=in-reply-to:autocrypt:from:content-language:references:cc:to
+         :subject:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=baXP0rsce8RxgN3E4KwK75xIeIhqJL8ydG3/ruWWQ8Y=;
+        b=JM+hMtSvyuvi5YrLVfu/Ew8FgRxC7bIKmxP18R4Ri0WAvSZ0eKAXrDm5WQDpIZ4/BQ
+         QI5hNlKnF6giOv3IN8obHxlFzg72R1UaJZEuGyJtEsCM6jnd2+sWuQXUv2jQvRkaHQ0M
+         O8JOaQ8HvDdD356k+SjZD/YwcH7Z6bZIxlMOo5L4n3LLK37HjyxPT9eG5tdUav7YPnPK
+         ORVWRnBFPJzfl5UPbyTBdzod8D5i/XbFuCIbtvXB1Oy+7cF4cFp7d2rCm9IzLjdmbY6A
+         49NMpuyMEbncwyKGA8ul1NDz+rWIcU50lemUvtrqMbEdm+AbXjisLLH+J2MqV0csP0v+
+         wclA==
+X-Forwarded-Encrypted: i=1; AFNElJ8V8NQeas0r7sWGCOP/0nlc02MRqQQUikr1sOedkvRgHpeXdcPrxD3SE9e69FzdoBsOQZPYOj8=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyVWH5OSZtus9WRSCTCZ2ytZEn89kiRpJ0AWBXBpf70A9XSJfI6
+	UErF17SXdiTnkIhcrCb3biZ5N8q+x99DwOz5JVlfcG0Y+JQcukp3vYqWM3Z72NmhCoE=
+X-Gm-Gg: Acq92OEqRQwdeaIB3GOiKfhvAggMysAM2ZYKPhzVNrZjrg5TFpt9jWqnW5FO7tHohMC
+	73d4mi8mpHWUYSiMl5Hi+2IYhh7s9DYyCBcrM5iHQtt7hwQShsNv9Ve87+RqtjBVWgaC9KhKbov
+	8e9AVow44N+9GdDvldCzaS7ZDQmKTIvdg5V1Lwh4KW+VCxcu13lltmtzUTMS4glsG7d0U+xJ7Wu
+	K921JO4MA4IjAwabfTcLhxNTadutmZkYo67utPeJCsDhXA1VDSgIZnuSZCahhCAFEDnx4/OlUxM
+	91CDuAh2+rHcxiA1qyXQxhsTIdhuSUBzcKHoX0lvHDYTFT5+X/zmtflB/yFm7NwBotP+L3jQ487
+	Vw3ovVZQiySjDH52dZ6On7cPmUq5qtuwMOjbGBnoJAe0+LVCNNAFci6PYvd7yqlEIT/EmSk2/kc
+	lrEvgJdEDkC158dg3VDSw3yCwrTh7qEXrKqMJpkQsuzIHL6q0bRe0vUB2OGz+idYxTm5ELtUOIB
+	yq3ihx9lvP01pNrCBEj6K8Se6Yg+TiP8pfkBJJgYUEPfmkXuVLCmA==
+X-Received: by 2002:a17:906:8a49:b0:bfe:ed25:c563 with SMTP id a640c23a62f3a-bfeed25c992mr358963766b.52.1781536441214;
+        Mon, 15 Jun 2026 08:14:01 -0700 (PDT)
+Received: from ?IPV6:2a00:12d0:af5d:ad01:5d3f:14e6:9bcb:5112? (2a00-12d0-af5d-ad01-5d3f-14e6-9bcb-5112.ip.tng.de. [2a00:12d0:af5d:ad01:5d3f:14e6:9bcb:5112])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bfdb5318d8dsm476577766b.26.2026.06.15.08.14.00
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 15 Jun 2026 08:14:00 -0700 (PDT)
+Message-ID: <dbc707b0-accd-49a0-96b8-7be2f19dac2f@suse.com>
+Date: Mon, 15 Jun 2026 17:14:00 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] xen/scsiback: free unsubmitted command instead of
+ double-putting it
+To: Michael Bommarito <michael.bommarito@gmail.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Cc: xen-devel@lists.xenproject.org, linux-scsi@vger.kernel.org,
+ stable@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260611123046.2323342-1-michael.bommarito@gmail.com>
+ <20260611123046.2323342-2-michael.bommarito@gmail.com>
+Content-Language: en-US
+From: Juergen Gross <jgross@suse.com>
+Autocrypt: addr=jgross@suse.com; keydata=
+ xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
+ ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
+ dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
+ NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
+ XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
+ AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
+ CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
+ mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
+ G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
+ kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
+ Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
+ RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
+ vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
+ sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
+ aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
+ w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
+ auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
+ 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
+ fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
+ HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
+ QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
+ ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
+In-Reply-To: <20260611123046.2323342-2-michael.bommarito@gmail.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------Jf4ySejmD5HzM4B60G7A8ifN"
 
-add_device_complete() runs from the hci_cmd_sync_work kworker, which
-holds only hci_req_sync_lock and *not* hci_dev_lock.  It calls
-hci_conn_params_lookup() and then dereferences the returned object
-(params->flags) without taking hci_dev_lock:
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------Jf4ySejmD5HzM4B60G7A8ifN
+Content-Type: multipart/mixed; boundary="------------gFy1erWC8z42liK4wRBk1f9H";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Michael Bommarito <michael.bommarito@gmail.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Cc: xen-devel@lists.xenproject.org, linux-scsi@vger.kernel.org,
+ stable@vger.kernel.org, linux-kernel@vger.kernel.org
+Message-ID: <dbc707b0-accd-49a0-96b8-7be2f19dac2f@suse.com>
+Subject: Re: [PATCH 1/2] xen/scsiback: free unsubmitted command instead of
+ double-putting it
+References: <20260611123046.2323342-1-michael.bommarito@gmail.com>
+ <20260611123046.2323342-2-michael.bommarito@gmail.com>
+In-Reply-To: <20260611123046.2323342-2-michael.bommarito@gmail.com>
 
-	params = hci_conn_params_lookup(hdev, &cp->addr.bdaddr,
-					le_addr_type(cp->addr.type));
-	...
-	device_flags_changed(NULL, hdev, &cp->addr.bdaddr,
-			     cp->addr.type, hdev->conn_flags,
-			     params ? params->flags : 0);
+--------------gFy1erWC8z42liK4wRBk1f9H
+Content-Type: multipart/mixed; boundary="------------d3RfpG0bv0bddNhBytEpBYqL"
 
-hci_conn_params_lookup() walks hdev->le_conn_params and is documented to
-require hdev->lock.  A concurrent MGMT_OP_REMOVE_DEVICE
-(remove_device()), which does run under hci_dev_lock, can call
-hci_conn_params_free() to list_del() and kfree() the very object the
-lookup returned, so the subsequent params->flags read touches freed
-memory [0].
+--------------d3RfpG0bv0bddNhBytEpBYqL
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-Hold hci_dev_lock() across the hci_conn_params_lookup() and the read of
-params->flags (and the matching event emission) so the lookup result
-cannot be freed by a concurrent remove_device() before it is used,
-honouring the locking contract of hci_conn_params_lookup().
+T24gMTEuMDYuMjYgMTQ6MzAsIE1pY2hhZWwgQm9tbWFyaXRvIHdyb3RlOg0KPiBzY3NpYmFj
+a19nZXRfcGVuZF9yZXEoKSBvYnRhaW5zIGEgY29tbWFuZCB0YWcgYW5kIHJldHVybnMgYQ0K
+PiB2c2NzaWJrX3BlbmQgd2hvc2UgZW1iZWRkZWQgc2VfY21kIGhhcyBvbmx5IGJlZW4gbWVt
+c2V0IHRvIDAsIHNvDQo+IGl0cyBjbWRfa3JlZiBpcyAwOyB0aGUgc2VfY21kIGlzIGluaXRp
+YWxpc2VkIChrcmVmX2luaXQoKSB2aWENCj4gdGFyZ2V0X2luaXRfY21kKCkpIG9ubHkgbGF0
+ZXIsIGluIHNjc2liYWNrX2NtZF9leGVjKCksIG9uIHRoZQ0KPiBzdWNjZXNzZnVsIFZTQ1NJ
+SUZfQUNUX1NDU0lfQ0RCIHBhdGguIFRoZSB0d28gZXJyb3IgcGF0aHMgaW4NCj4gc2NzaWJh
+Y2tfZG9fY21kX2ZuKCkgdGFrZW4gYmVmb3JlIHRoZSBjb21tYW5kIGlzIHN1Ym1pdHRlZCAt
+LSBhDQo+IGZhaWxlZCBzY3NpYmFja19nbnR0YWJfZGF0YV9tYXAoKSBhbmQgYW4gdW5rbm93
+biByaW5nX3JlcS5hY3QgLS0NCj4gY2FsbCB0cmFuc3BvcnRfZ2VuZXJpY19mcmVlX2NtZCgm
+cGVuZGluZ19yZXEtPnNlX2NtZCwgMCksIHdoaWNoDQo+IGtyZWZfcHV0KClzIGEgcmVmY291
+bnQgb2YgMC4gVGhhdCB1bmRlcmZsb3dzIGl0ICgicmVmY291bnRfdDoNCj4gdW5kZXJmbG93
+OyB1c2UtYWZ0ZXItZnJlZSIpIGFuZCwgYXMgdGhlIHJlbGVhc2UgZnVuY3Rpb24gaXMgbm90
+DQo+IHJ1biwgbGVha3MgdGhlIGNvbW1hbmQgdGFnLg0KPiANCj4gSW1wYWN0OiBhIHB2U0NT
+SSBndWVzdCBjYW4gbGVhayBldmVyeSBjb21tYW5kIHRhZyBvZiBhIExVTidzDQo+IHNlc3Np
+b24sIHN0b3BwaW5nIHRoZSBMVU4sIGJ5IHN1Ym1pdHRpbmcgcmVxdWVzdHMgd2l0aCBhIGJh
+ZA0KPiBncmFudCByZWZlcmVuY2Ugb3IgYW4gdW5rbm93biByZXF1ZXN0IHR5cGU7IHVuZGVy
+IHBhbmljX29uX3dhcm4NCj4gdGhlIHJlZmNvdW50IHVuZGVyZmxvdyBwYW5pY3MgdGhlIGhv
+c3QuDQo+IA0KPiBBZGQgYSBoZWxwZXIgdGhhdCBqdXN0IHJldHVybnMgdGhlIHRhZyB3aXRo
+IHRhcmdldF9mcmVlX3RhZygpIGFuZA0KPiBzZW5kcyB0aGUgZXJyb3IgcmVzcG9uc2UuIEl0
+IGZyZWVzIHRoZSB0YWcgd2hpbGUgdGhlIHYycCByZWZlcmVuY2UNCj4gc3RpbGwgcGlucyB0
+aGUgc2Vzc2lvbiwgYW5kIHNuYXBzaG90cyB0aGUgcmVzcG9uc2UgZmllbGRzDQo+IGJlZm9y
+ZWhhbmQgYmVjYXVzZSBmcmVlaW5nIHRoZSB0YWcgY2FuIGxldCBhbm90aGVyIHJpbmcgcmV1
+c2UgdGhlDQo+IHBlbmRpbmdfcmVxIHNsb3QuDQo+IA0KPiBGaXhlczogMmRiY2RmMzNkYmY2
+ICgieGVuLXNjc2liYWNrOiBDb252ZXJ0IHRvIHBlcmNwdV9pZGEgdGFnIGFsbG9jYXRpb24i
+KQ0KPiBDYzogc3RhYmxlQHZnZXIua2VybmVsLm9yZw0KPiBBc3Npc3RlZC1ieTogQ2xhdWRl
+OmNsYXVkZS1vcHVzLTQtOA0KPiBTaWduZWQtb2ZmLWJ5OiBNaWNoYWVsIEJvbW1hcml0byA8
+bWljaGFlbC5ib21tYXJpdG9AZ21haWwuY29tPg0KDQpSZXZpZXdlZC1ieTogSnVlcmdlbiBH
+cm9zcyA8amdyb3NzQHN1c2UuY29tPg0KDQoNCkp1ZXJnZW4NCg==
+--------------d3RfpG0bv0bddNhBytEpBYqL
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
 
-[0]: (trailing page/memory-state dump trimmed)
-BUG: KASAN: slab-use-after-free in add_device_complete+0x358/0x3d8 net/bluetooth/mgmt.c:7671
-Read of size 1 at addr ffff000017ab26c1 by task kworker/u9:8/388
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-CPU: 1 UID: 0 PID: 388 Comm: kworker/u9:8 Not tainted 7.0.11 #20 PREEMPT
-Hardware name: linux,dummy-virt (DT)
-Workqueue: hci0 hci_cmd_sync_work
-Call trace:
- show_stack+0x2c/0x3c arch/arm64/kernel/stacktrace.c:499 (C)
- __dump_stack lib/dump_stack.c:94 [inline]
- dump_stack_lvl+0xb4/0xd4 lib/dump_stack.c:120
- print_address_description mm/kasan/report.c:378 [inline]
- print_report+0x118/0x5d8 mm/kasan/report.c:482
- kasan_report+0xb0/0xf4 mm/kasan/report.c:595
- __asan_report_load1_noabort+0x20/0x2c mm/kasan/report_generic.c:378
- add_device_complete+0x358/0x3d8 net/bluetooth/mgmt.c:7671
- hci_cmd_sync_work+0x14c/0x240 net/bluetooth/hci_sync.c:334
- process_one_work+0x628/0xd38 kernel/workqueue.c:3289
- process_scheduled_works kernel/workqueue.c:3372 [inline]
- worker_thread+0x7a8/0xac0 kernel/workqueue.c:3453
- kthread+0x39c/0x444 kernel/kthread.c:436
- ret_from_fork+0x10/0x20 arch/arm64/kernel/entry.S:860
+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
+kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
+=3DeeAB
+-----END PGP PUBLIC KEY BLOCK-----
 
-Allocated by task 3401:
- kasan_save_stack+0x3c/0x64 mm/kasan/common.c:57
- kasan_save_track+0x20/0x3c mm/kasan/common.c:78
- kasan_save_alloc_info+0x40/0x54 mm/kasan/generic.c:570
- poison_kmalloc_redzone mm/kasan/common.c:398 [inline]
- __kasan_kmalloc+0xd4/0xd8 mm/kasan/common.c:415
- kasan_kmalloc include/linux/kasan.h:263 [inline]
- __kmalloc_cache_noprof+0x1b0/0x458 mm/slub.c:5385
- kmalloc_noprof include/linux/slab.h:950 [inline]
- kzalloc_noprof include/linux/slab.h:1188 [inline]
- hci_conn_params_add+0x10c/0x4b0 net/bluetooth/hci_core.c:2279
- hci_conn_params_set net/bluetooth/mgmt.c:5162 [inline]
- add_device+0x5b4/0xa54 net/bluetooth/mgmt.c:7755
- hci_mgmt_cmd net/bluetooth/hci_sock.c:1721 [inline]
- hci_sock_sendmsg+0x10b4/0x1dd0 net/bluetooth/hci_sock.c:1841
- sock_sendmsg_nosec net/socket.c:727 [inline]
- __sock_sendmsg+0xe0/0x128 net/socket.c:742
- sock_write_iter+0x250/0x390 net/socket.c:1195
- new_sync_write fs/read_write.c:595 [inline]
- vfs_write+0x66c/0xab0 fs/read_write.c:688
- ksys_write+0x1fc/0x24c fs/read_write.c:740
- __do_sys_write fs/read_write.c:751 [inline]
- __se_sys_write fs/read_write.c:748 [inline]
- __arm64_sys_write+0x70/0xa4 fs/read_write.c:748
- __invoke_syscall arch/arm64/kernel/syscall.c:35 [inline]
- invoke_syscall+0x84/0x2a8 arch/arm64/kernel/syscall.c:49
- el0_svc_common.constprop.0+0xe4/0x294 arch/arm64/kernel/syscall.c:132
- do_el0_svc+0x44/0x5c arch/arm64/kernel/syscall.c:151
- el0_svc+0x38/0xac arch/arm64/kernel/entry-common.c:724
- el0t_64_sync_handler+0xa0/0xe4 arch/arm64/kernel/entry-common.c:743
- el0t_64_sync+0x198/0x19c arch/arm64/kernel/entry.S:596
+--------------d3RfpG0bv0bddNhBytEpBYqL--
 
-Freed by task 3740:
- kasan_save_stack+0x3c/0x64 mm/kasan/common.c:57
- kasan_save_track+0x20/0x3c mm/kasan/common.c:78
- kasan_save_free_info+0x4c/0x74 mm/kasan/generic.c:584
- poison_slab_object mm/kasan/common.c:253 [inline]
- __kasan_slab_free+0x88/0xb8 mm/kasan/common.c:285
- kasan_slab_free include/linux/kasan.h:235 [inline]
- slab_free_hook mm/slub.c:2685 [inline]
- slab_free mm/slub.c:6170 [inline]
- kfree+0x14c/0x458 mm/slub.c:6488
- hci_conn_params_free+0x288/0x484 net/bluetooth/hci_core.c:2312
- remove_device+0x4b0/0x968 net/bluetooth/mgmt.c:7919
- hci_mgmt_cmd net/bluetooth/hci_sock.c:1721 [inline]
- hci_sock_sendmsg+0x10b4/0x1dd0 net/bluetooth/hci_sock.c:1841
- sock_sendmsg_nosec net/socket.c:727 [inline]
- __sock_sendmsg+0xe0/0x128 net/socket.c:742
- sock_write_iter+0x250/0x390 net/socket.c:1195
- new_sync_write fs/read_write.c:595 [inline]
- vfs_write+0x66c/0xab0 fs/read_write.c:688
- ksys_write+0x1fc/0x24c fs/read_write.c:740
- __do_sys_write fs/read_write.c:751 [inline]
- __se_sys_write fs/read_write.c:748 [inline]
- __arm64_sys_write+0x70/0xa4 fs/read_write.c:748
- __invoke_syscall arch/arm64/kernel/syscall.c:35 [inline]
- invoke_syscall+0x84/0x2a8 arch/arm64/kernel/syscall.c:49
- el0_svc_common.constprop.0+0xe4/0x294 arch/arm64/kernel/syscall.c:132
- do_el0_svc+0x44/0x5c arch/arm64/kernel/syscall.c:151
- el0_svc+0x38/0xac arch/arm64/kernel/entry-common.c:724
- el0t_64_sync_handler+0xa0/0xe4 arch/arm64/kernel/entry-common.c:743
- el0t_64_sync+0x198/0x19c arch/arm64/kernel/entry.S:596
+--------------gFy1erWC8z42liK4wRBk1f9H--
 
-Fixes: 1e2e3044c1bc ("Bluetooth: MGMT: Fix MGMT_OP_ADD_DEVICE invalid device flags")
-Cc: stable@vger.kernel.org
-Assisted-by: Bynario AI
-Signed-off-by: Samuel Page <sam@bynar.io>
----
- net/bluetooth/mgmt.c | 3 +++
- 1 file changed, 3 insertions(+)
+--------------Jf4ySejmD5HzM4B60G7A8ifN
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
-diff --git a/net/bluetooth/mgmt.c b/net/bluetooth/mgmt.c
-index d23ca1dd0893..dc55763f9e58 100644
---- a/net/bluetooth/mgmt.c
-+++ b/net/bluetooth/mgmt.c
-@@ -7658,6 +7658,8 @@ static void add_device_complete(struct hci_dev *hdev, void *data, int err)
- 	if (!err) {
- 		struct hci_conn_params *params;
- 
-+		hci_dev_lock(hdev);
-+
- 		params = hci_conn_params_lookup(hdev, &cp->addr.bdaddr,
- 						le_addr_type(cp->addr.type));
- 
-@@ -7666,6 +7668,7 @@ static void add_device_complete(struct hci_dev *hdev, void *data, int err)
- 		device_flags_changed(NULL, hdev, &cp->addr.bdaddr,
- 				     cp->addr.type, hdev->conn_flags,
- 				     params ? params->flags : 0);
-+		hci_dev_unlock(hdev);
- 	}
- 
- 	mgmt_cmd_complete(cmd->sk, hdev->id, MGMT_OP_ADD_DEVICE,
+-----BEGIN PGP SIGNATURE-----
 
-base-commit: f70f7f2512c6b9113dc78f6a25361166afd1412e
--- 
-2.54.0
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmowFrgFAwAAAAAACgkQsN6d1ii/Ey+O
+PAf/Qg12ML1MvaFXxcUkr/ZYb8gAt35wBMav4rH0yQXzWpF6WOyOrncQ6S5bzDOMyJffd+JlDsq9
+rvwh2VU3bzxlNzz8tzLk2CHOJ53bUyB/IfBkGmZN9hJ7zMPoUwEVyUxwkWp79JB1HDXWzIoBKpzs
+b6MGp3Sg/BwANrz4tKbbWJ+m/GrTOaJNAUb2rJb3XZ7SjcTTWnWPpE2g4ZI4djCbYIUsAXCJXX64
+HYkLfTrMWF9LbTjN8tkGy+kUVseyYRvG46nz2VCThoRHi9GZIkPZCHL79Tz1LnrWZ9xiBTMiZvfP
+leBsJB6fUa1Zc2v70+ANSnk7DB3hxjzsFc/LdcGFpQ==
+=3jap
+-----END PGP SIGNATURE-----
 
+--------------Jf4ySejmD5HzM4B60G7A8ifN--
