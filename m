@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03CA92DBF75
-	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 03:59:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0D502D9EDC
+	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 03:59:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781495947; cv=none; b=hPAcV1KSqa6AZlpoFwu+S+bs3n2OSKb6WUHdyyecWn6zWh/eP6A+tZw+EBACeE0XkRSq7xKA8NXG7qCU1cnnMEeGzwuMDYljTIfqMMYQZJL5r5TJhn1ORIJl1eaH/pvkC2Nr+eAQTHrIl6Sqk2H33qWcrIMlCpP5uLm/Zf3EFaw=
+	t=1781495970; cv=none; b=OS8NdKvHgj4d4vZLpxvJukWaz/D8uX0qqK7xA3AwraaOmipO8UVJlWlY8sv7A5zMtqGIHeRVY7CAhKZM8FOTvGEARkNVZY+0x2SociLJ/tZzfrDmoQg95IRrtc5IU2vOOP2sZZrR4PDnx7rm2HFcHQNwumu0aPB2QKciKUmcEhM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781495947; c=relaxed/simple;
-	bh=3PNjWcMs3sNVaSglkS5hK7DKGxbO6sBahBa6XrmNhxw=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=l/XkXrssnDBcOmKSD1WnbCaYKkaFQbze/IUnqgSQ1vwZ1Pmmrl/DJ5tqMdvvrsEVrcDS6MNJ7HK1SYKaM7sFNekK0uBASzPEF1H30cBGd1+8p4iipR0oIB/9fRLtTUIBnr/kMw1DlTlU2++jxyUjzMA3Yg2KNiFXC44IlY1zc1A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=zEUdRpYA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781495970; c=relaxed/simple;
+	bh=E0KQ4eA+Zlhbl44M8baXfJ3OJ3c/ZYXN2qIN0lxvrIY=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=jSQ0PHXGUw0E3gEciXOFNaMOuy4kyLxeBKA9VzSN0sfstpu4s62Uji++FX1b9kiWgevI7pCKBpNYhT2x8/6Hh2T3h9n3a+VN/MKGFCz/AGZ9QlbaJnoMDNabTCtcMvAYjFBN7xQ4SDBQhR6wL8kUYw4VGOPZflk13GHBbB4JLAA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=nJWUvzzG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="zEUdRpYA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DF9D1F000E9;
-	Mon, 15 Jun 2026 03:59:05 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="nJWUvzzG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 029631F000E9;
+	Mon, 15 Jun 2026 03:59:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1781495945;
-	bh=zEUopLE/4sK1qtwqAW9XEhVBTA8S3Bvb2CExZkpHwN8=;
+	s=korg; t=1781495969;
+	bh=n2Srmi6FwCuZfTb8I2ex8CA4MaYD5qi+1eyL5J4PzhE=;
 	h=Subject:To:Cc:From:Date;
-	b=zEUdRpYA5iAfrd3rafjWe/t0C61AbYS3eiC11iYfGydDQv2CyEvfvgw00+lULgiGE
-	 Q9aSSl3CSiWxJ8kbff0nP1SHhSkTrZWaDTL0fADsIKAjupG9vrwGyRH7Jy658e/Ynd
-	 OubngO8LmVXKd0wu1VURZWNVTgFAtDxh5bme/19s=
-Subject: FAILED: patch "[PATCH] KVM: SEV: Move sev_free_vcpu() down below sev_es_unmap_ghcb()" failed to apply to 5.15-stable tree
-To: seanjc@google.com,michael.roth@amd.com,pbonzini@redhat.com,thomas.lendacky@amd.com
+	b=nJWUvzzG80sZ4jUkhu4c06F80AJuVjB+H/empFGWO+fgsD4EBiiA7zkAH5VZdEjHS
+	 TmfVrfwRyUH20ioB26c/wfI4PA3JbK5trDklEJd7iIQPyRswnKhkdFtSEzd5+NPnT7
+	 BsvclUi2QJuGtoz7A0EJ19PppE72Wmz9XPR4S7LQ=
+Subject: FAILED: patch "[PATCH] KVM: arm64: Take the SRCU lock for page table walks in fault" failed to apply to 6.12-stable tree
+To: imv4bel@gmail.com,maz@kernel.org,oupton@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 15 Jun 2026 05:57:34 +0200
-Message-ID: <2026061534-gazing-everyone-43b3@gregkh>
+Date: Mon, 15 Jun 2026 05:58:27 +0200
+Message-ID: <2026061527-county-underwent-3b10@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 08385c5e1814edee829ffe475d559ed730354335
+git cherry-pick -x f2ca45b50d4216c9cc7ffabf50d9ad1932209251
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026061534-gazing-everyone-43b3@gregkh' --subject-prefix 'PATCH 5.15.y' HEAD^..
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026061527-county-underwent-3b10@gregkh' --subject-prefix 'PATCH 6.12.y' HEAD^..
 
 Possible dependencies:
 
@@ -62,105 +62,50 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 08385c5e1814edee829ffe475d559ed730354335 Mon Sep 17 00:00:00 2001
-From: Sean Christopherson <seanjc@google.com>
-Date: Fri, 29 May 2026 20:35:40 +0200
-Subject: [PATCH] KVM: SEV: Move sev_free_vcpu() down below sev_es_unmap_ghcb()
+From f2ca45b50d4216c9cc7ffabf50d9ad1932209251 Mon Sep 17 00:00:00 2001
+From: Hyunwoo Kim <imv4bel@gmail.com>
+Date: Wed, 3 Jun 2026 21:09:33 +0900
+Subject: [PATCH] KVM: arm64: Take the SRCU lock for page table walks in fault
+ injection and AT emulation
 
-Relocate sev_free_vcpu() down in sev.c so that it's definition comes after
-sev_es_unmap_ghcb().  This will allow sharing unmap functionality between
-the two functions without needing a forward declaration (or weird placement
-of the common code).
+walk_s1() and kvm_walk_nested_s2() expect to be called while holding
+kvm->srcu to guard against memslot changes. While this is generally
+the case, __kvm_at_s12() and __kvm_find_s1_desc_level() call into the
+respective walkers without taking kvm->srcu.
 
-No functional change intended.
+Fix by acquiring kvm->srcu prior to the table walk in both instances.
 
 Cc: stable@vger.kernel.org
-Reviewed-by: Tom Lendacky <thomas.lendacky@amd.com>
-Reviewed-by: Michael Roth <michael.roth@amd.com>
-Signed-off-by: Sean Christopherson <seanjc@google.com>
-Message-ID: <20260501202250.2115252-16-seanjc@google.com>
-Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-Message-ID: <20260529183549.1104619-16-pbonzini@redhat.com>
-Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+Fixes: 50f77dc87f13 ("KVM: arm64: Populate level on S1PTW SEA injection")
+Fixes: be04cebf3e78 ("KVM: arm64: nv: Add emulation of AT S12E{0,1}{R,W}")
+Suggested-by: Oliver Upton <oupton@kernel.org>
+Signed-off-by: Hyunwoo Kim <imv4bel@gmail.com>
+Reviewed-by: Oliver Upton <oupton@kernel.org>
+Link: https://patch.msgid.link/aiAZfdeyanIvP8SD@v4bel
+Signed-off-by: Marc Zyngier <maz@kernel.org>
 
-diff --git a/arch/x86/kvm/svm/sev.c b/arch/x86/kvm/svm/sev.c
-index 4ebe0d449789..437282f0ea94 100644
---- a/arch/x86/kvm/svm/sev.c
-+++ b/arch/x86/kvm/svm/sev.c
-@@ -3313,37 +3313,6 @@ void sev_guest_memory_reclaimed(struct kvm *kvm)
- 	sev_writeback_caches(kvm);
- }
+diff --git a/arch/arm64/kvm/at.c b/arch/arm64/kvm/at.c
+index 9f8f0ae8e86e..889c2c15d7bd 100644
+--- a/arch/arm64/kvm/at.c
++++ b/arch/arm64/kvm/at.c
+@@ -1569,7 +1569,8 @@ int __kvm_at_s12(struct kvm_vcpu *vcpu, u32 op, u64 vaddr)
+ 	/* Do the stage-2 translation */
+ 	ipa = (par & GENMASK_ULL(47, 12)) | (vaddr & GENMASK_ULL(11, 0));
+ 	out.esr = 0;
+-	ret = kvm_walk_nested_s2(vcpu, ipa, &out);
++	scoped_guard(srcu, &vcpu->kvm->srcu)
++		ret = kvm_walk_nested_s2(vcpu, ipa, &out);
+ 	if (ret < 0)
+ 		return ret;
  
--void sev_free_vcpu(struct kvm_vcpu *vcpu)
--{
--	struct vcpu_svm *svm;
--
--	if (!is_sev_es_guest(vcpu))
--		return;
--
--	svm = to_svm(vcpu);
--
--	/*
--	 * If it's an SNP guest, then the VMSA was marked in the RMP table as
--	 * a guest-owned page. Transition the page to hypervisor state before
--	 * releasing it back to the system.
--	 */
--	if (is_sev_snp_guest(vcpu)) {
--		u64 pfn = __pa(svm->sev_es.vmsa) >> PAGE_SHIFT;
--
--		if (kvm_rmp_make_shared(vcpu->kvm, pfn, PG_LEVEL_4K))
--			goto skip_vmsa_free;
--	}
--
--	if (vcpu->arch.guest_state_protected)
--		sev_flush_encrypted_page(vcpu, svm->sev_es.vmsa);
--
--	__free_page(virt_to_page(svm->sev_es.vmsa));
--
--skip_vmsa_free:
--	if (svm->sev_es.ghcb_sa_free)
--		kvfree(svm->sev_es.ghcb_sa);
--}
--
- static void dump_ghcb(struct vcpu_svm *svm)
- {
- 	struct vmcb_control_area *control = &svm->vmcb->control;
-@@ -3618,6 +3587,37 @@ void sev_es_unmap_ghcb(struct vcpu_svm *svm)
- 	svm->sev_es.ghcb = NULL;
- }
+@@ -1665,7 +1666,8 @@ int __kvm_find_s1_desc_level(struct kvm_vcpu *vcpu, u64 va, u64 ipa, int *level)
+ 	}
  
-+void sev_free_vcpu(struct kvm_vcpu *vcpu)
-+{
-+	struct vcpu_svm *svm;
-+
-+	if (!is_sev_es_guest(vcpu))
-+		return;
-+
-+	svm = to_svm(vcpu);
-+
-+	/*
-+	 * If it's an SNP guest, then the VMSA was marked in the RMP table as
-+	 * a guest-owned page. Transition the page to hypervisor state before
-+	 * releasing it back to the system.
-+	 */
-+	if (is_sev_snp_guest(vcpu)) {
-+		u64 pfn = __pa(svm->sev_es.vmsa) >> PAGE_SHIFT;
-+
-+		if (kvm_rmp_make_shared(vcpu->kvm, pfn, PG_LEVEL_4K))
-+			goto skip_vmsa_free;
-+	}
-+
-+	if (vcpu->arch.guest_state_protected)
-+		sev_flush_encrypted_page(vcpu, svm->sev_es.vmsa);
-+
-+	__free_page(virt_to_page(svm->sev_es.vmsa));
-+
-+skip_vmsa_free:
-+	if (svm->sev_es.ghcb_sa_free)
-+		kvfree(svm->sev_es.ghcb_sa);
-+}
-+
- int pre_sev_run(struct vcpu_svm *svm, int cpu)
- {
- 	struct svm_cpu_data *sd = per_cpu_ptr(&svm_data, cpu);
+ 	/* Walk the guest's PT, looking for a match along the way */
+-	ret = walk_s1(vcpu, &wi, &wr, va);
++	scoped_guard(srcu, &vcpu->kvm->srcu)
++		ret = walk_s1(vcpu, &wi, &wr, va);
+ 	switch (ret) {
+ 	case -EINTR:
+ 		/* We interrupted the walk on a match, return the level */
 
