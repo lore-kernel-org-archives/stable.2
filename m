@@ -1,134 +1,155 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vk1-f170.google.com (mail-vk1-f170.google.com [209.85.221.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 942E836AB7C
-	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 13:34:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C96830F55F
+	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 13:37:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781530496; cv=none; b=ncKMFxeqNPhH3Ducrdu19ZAHCGaApJoaw5byAR1UqEakqy2TJTaCX0dhsbc6PMVR+h4oEawFAYqyrnuo8W2n6A9+Sg4lkehrpuj6sEc9547Cwr5pheKI3Qe7kSCDReUfulyb7zANwKCB0UQL6sLpEsqJUAda0jGsGOj+eKwpko8=
+	t=1781530658; cv=none; b=sVFRbhGwZ6SxSP7J8ZRwFkqycxq6AFH4G1Ri5263GzQUpYM0ISPwMRQdk+vMZf8wmKlcaAU5SomlCMrfzH5ighTWphhZLG0gwWvs74yo3kWjGRxHWMDBkwOqCkkjnlrGUQRIIdykWUVe6EiiUFgsHNIDqGXXFTHM4zveFd2vtbo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781530496; c=relaxed/simple;
-	bh=reRdqiltAV6DfEIRFH9tdOFB9LH08SOE/inYOqD+HYk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JLUbd1V7ieordMmpGZdDU+Vex8tujThTwJvXABqmx9IUTfD9+Bljr1l7KSmv4fUengopaJFh4DId4tphCIVMFNmHIjdGKHGIQB16xHTBrJ2DE8MXtMsdzM7PBFQrMwti5PIjeLyFKcOpQ6FaIaZAfPZ9lrIrx/0sZVHrLssb00I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dZkBKm1y; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781530658; c=relaxed/simple;
+	bh=w5Bm4VuVxCQQ/wvB8MrTa3T3tyUvG30zDULIWN1Ib9E=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=EE1E/FAwL0o2ACPMgpUoBC3DUjozdA2nvvR+u7mk/t36UzlBqflzuzHPIcD/tnNM1fl+31ZQE0NTA2jJvuqDBtAnvwmZCpnhXFMSA3Au5gApWKTV05X/TIvUX6EQSfH04TFnUXcsk5ElsWENAi6cV/8IUBbZS+YUHk4hNvMAseg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Y/wbnnDk; arc=none smtp.client-ip=209.85.221.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dZkBKm1y"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7AA71F000E9;
-	Mon, 15 Jun 2026 13:34:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781530495;
-	bh=uaWLsc1CuijZ7cAk9DACC4TH4T0cKV+lrJGhKCBdy6U=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=dZkBKm1yJOn16u9URbV//OeEOVeSXQGLsrAPT2c9oKW+YGcSMUKASJ24LiEaQjJVO
-	 FxoXJRmv2YQ4oeEY1YK1j2uDPewgFfE5peOak7s8mXL/hvfAgkDKy/qv6+Se00gAJV
-	 Umhq/BhazaEEn/uA12whwfNJmt7VM1W32GX2rmWvF9vDxoLJ1xzTt3DAOa0OCbp3gY
-	 b8Qa5Hv2x3BPJ/v1uAIgLOCkTuAlT3MH7ey/U2MLflDIPPwWkvSUzc1srXNigXvQBb
-	 kjVceAcXtggNVXShUyUsoeErj45FPJtqexFSZjkdeBO6LvP6nmqhrB1jG3eJ4Yk5j8
-	 kViQFprIkPafQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Davide Ornaghi <d.ornaghi97@gmail.com>,
-	Florian Westphal <fw@strlen.de>,
-	Pablo Neira Ayuso <pablo@netfilter.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] netfilter: nft_fib: fix stale stack leak via the OIFNAME register
-Date: Mon, 15 Jun 2026 09:34:53 -0400
-Message-ID: <20260615133453.2065964-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026061542-secular-raking-01f3@gregkh>
-References: <2026061542-secular-raking-01f3@gregkh>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Y/wbnnDk"
+Received: by mail-vk1-f170.google.com with SMTP id 71dfb90a1353d-59c9b666822so2312858e0c.3
+        for <stable@vger.kernel.org>; Mon, 15 Jun 2026 06:37:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781530655; x=1782135455; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+         :date:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=MtCDXKwtPPC+mJQnDzrDC0nMi/ogBssTGKYuyEP+oYA=;
+        b=Y/wbnnDkVp3IPdKgL+nOK4bIb0ztXhxc7TsvUDvLfJrg0TKBUm6EjuhNCFcTKLHi51
+         /ZlQMP7ZSs8ti6YA8nLzF8l9eSnLs6AmM4wSp5lkBIVPcO0nzvck2dE6/eLigdHgZp3A
+         uiRhywmmXMiF+tn9orcn0SKV6apsaTi4txgfr1NE/tHiioGcUpsEqRT4ghukJhLQrFNC
+         H0xFrI/3CxzBpV6tbgmhmO+CYwwolwpa4+d4JbMWfQZRHYtaXNCEBgUnNOJ5mbvtsr3d
+         9XIrc28CChFJiGmfKWO6CRQ93shQODMgX614L5BM5QjyA1mzskZoq+Y4ehiIn3LYrbCh
+         gyJg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781530655; x=1782135455;
+        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+         :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=MtCDXKwtPPC+mJQnDzrDC0nMi/ogBssTGKYuyEP+oYA=;
+        b=U2/uy7qezWeUokbSe6IO/+QZLKgMiistNhYOcpIQ9sTEVNXIAEvlPLFAyhiNYJDTrA
+         Fia6dc+lNpB9L4kL0tMDra1pOj6CtF1EJWBvyqxtJoMLsFKp3XOFIJRNrcvXEy7b3gYb
+         koiBZ6OUbvhkVzOiGB29NDfe3of6uv8lsRAeGJFIpiR7+25Rgy2yoHIgTq1m+JP8rB/s
+         BIu9ZjOi4v1slHWYQFcW8x3a5DZWWjp2ZQ45zUHBEjB/GIbng+6IK3PNHCEohwXG2YXa
+         LHeRcXtEIcTOPsGBnYQzKuJk25opfN08JKAilFA2RPa3ApHyU7Xnhs/KeNwfVc17dYjY
+         Q1uQ==
+X-Forwarded-Encrypted: i=1; AFNElJ/5kns1IWSCxBYHP/UPjXBQ6NfrcEzT7vRqN73UPiL2ZGjGRLovTWGC0KSU2qezvnCa6mDxnOQ=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxU9/CiKB9ztLRrHyu1u2/8YRO6+BsNTtbh5niuxfgPAAGe0cyL
+	vYoC2MeLXrYfHzRjrKmF11DVtEk8+yAeQO80G4LCDMfLQ95jHnAgMCJk
+X-Gm-Gg: Acq92OHJMFWiMjhmAbZsECPOvRqlrgzo8l0PJRTt/KKsSbGO39rKFDYqF1G6M3pXMXX
+	JwqWkcuH2o6N90tjI+HjlvVhY+excWaj91RyY5149RY3PIzRsWpJ32QpCjRwj9r2VuRSzE1gaGG
+	EG4Nz9M9Xj8Do8l2owqzo61XX4Ax07OtlPJYnw8gLCYhVjg62VrjRYBTJm+ldkgzpQzRvzPLuGu
+	vTj32ffjd2ZC040aPKLoC6tVwFF3FtzNxv1fwIY0rKtDdY0gmYqx6a7ZX8xPVIIDqWLfWP5aSeC
+	5NotcdkDVZk5+dBUbNHbrRto4mgBeNqkU3+JnXoPN9dbL320nE3WqiTrl0Gi/QB+ugE/OAqPkLm
+	1R8NoGuXzkp7ZOhBUxF0+T5NFy3Sa4uWUF7lYhTR3Pbz3phrwAX+5j457vbdZDLgz8/ECDv6uJi
+	j46dSD219pj1pWG8MwyucpimyyYJYLMdLbuzmPN0rKHhXV7yvgORlBcle/F78rDqtGAcgt9gtbt
+	Q==
+X-Received: by 2002:a05:6123:2e3:b0:59e:f727:4bb4 with SMTP id 71dfb90a1353d-5bb6bfabf9amr7529733e0c.1.1781530655428;
+        Mon, 15 Jun 2026 06:37:35 -0700 (PDT)
+Received: from [192.168.1.18] (177-4-161-23.user3p.v-tal.net.br. [177.4.161.23])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5bb90180e79sm3527213e0c.12.2026.06.15.06.37.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 15 Jun 2026 06:37:34 -0700 (PDT)
+From: =?utf-8?q?C=C3=A1ssio_Gabriel?= <cassiogabrielcontato@gmail.com>
+Date: Mon, 15 Jun 2026 10:37:26 -0300
+Subject: [PATCH] ALSA: compress: Fix task creation error unwind
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Message-Id: <20260615-alsa-compress-task-unwind-v1-1-39e8ad3ddb27@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDQAyF4atI1g2o2CC9iriYjhmN1rFMtAri3
+ Tvq8oP3/h2Ug7DCK9kh8E9UJh+RPRKwnfEtozTRkKc5pZQ90XzUoJ3Gb2BVnI0OuPhVfINkqSg
+ L51xJBPEfF062q13Vt3V592znMwjH8Qef/rkHfQAAAA==
+X-Change-ID: 20260615-alsa-compress-task-unwind-6c6484fff866
+To: Vinod Koul <vkoul@kernel.org>, Takashi Iwai <tiwai@suse.com>, 
+ Jaroslav Kysela <perex@perex.cz>, 
+ =?utf-8?q?Amadeusz_S=C5=82awi=C5=84ski?= <amadeuszx.slawinski@linux.intel.com>
+Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ notify@kernel.org, stable@vger.kernel.org, 
+ =?utf-8?q?C=C3=A1ssio_Gabriel?= <cassiogabrielcontato@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2437;
+ i=cassiogabrielcontato@gmail.com; h=from:subject:message-id;
+ bh=w5Bm4VuVxCQQ/wvB8MrTa3T3tyUvG30zDULIWN1Ib9E=;
+ b=owGbwMvMwCV2IdZeKur/u2bG02pJDFkGDNLMBWtk++c+CTiko3y8r22Lkle4lXnx1SdT9jNOj
+ 8q/dGZVRykLgxgXg6yYIsvqpEWWe7oeXK2PW+EBM4eVCWQIAxenAEzk4ByG/5596+rrGOfnHjpa
+ dWVX8gKjh1sK5y7eVxzv5td14bnsmRmMDA/qsrRk6hS3OYunK3yZ5REn1FW/7fAn9rcJCm/7+R4
+ 9ZAUA
+X-Developer-Key: i=cassiogabrielcontato@gmail.com; a=openpgp;
+ fpr=AB62A239BC8AE0D57F5EA848D05D3F1A5AFFEE83
 
-From: Davide Ornaghi <d.ornaghi97@gmail.com>
+snd_compr_task_new() allocates the driver task before validating the
+returned DMA buffers and reserving file descriptors. When either of
+those later steps fails, the core frees its task wrapper and DMA-buffer
+references without calling the driver's task_free() callback. Any
+driver resources allocated by task_create() are therefore leaked.
 
-[ Upstream commit ab185e0c4fb82dfba6fb86f8271e06f931d9c64c ]
+The dual-fd allocation path also jumps to cleanup without storing the
+negative get_unused_fd_flags() result in retval. Since retval still
+contains the successful task_create() return value, TASK_CREATE can
+incorrectly report success although the task was discarded.
 
-For NFT_FIB_RESULT_OIFNAME the destination register is declared with
-len = IFNAMSIZ (four 32-bit registers), but on the lookup-fail,
-RTN_LOCAL and oif-mismatch paths nft_fib{4,6}_eval() only writes one
-register via "*dest = 0". The remaining three registers are left as
-whatever was on the stack in nft_do_chain()'s struct nft_regs, and a
-downstream expression that loads the register span can leak that
-uninitialised kernel stack to userspace.
+Preserve the fd allocation errors and call task_free() when failure
+occurs after a successful task_create() callback.
 
-The NFTA_FIB_F_PRESENT existence check has the same shape: it is only
-meaningful for NFT_FIB_RESULT_OIF, yet it was accepted for any result type
-while the eval stores a single byte via nft_reg_store8(), leaving the rest
-of the declared span stale.
-
-Fix both:
-
- - replace the bare "*dest = 0" in the eval with nft_fib_store_result(),
-   which strscpy_pad()s the whole IFNAMSIZ for OIFNAME (and is already
-   used on the other early-return path), and
-
- - restrict NFTA_FIB_F_PRESENT to NFT_FIB_RESULT_OIF and declare its
-   destination as a single u8, so the marked span matches the one byte
-   the eval writes.
-
-Fixes: f6d0cbcf09c5 ("netfilter: nf_tables: add fib expression")
-Suggested-by: Florian Westphal <fw@strlen.de>
+Fixes: 04177158cf98 ("ALSA: compress_offload: introduce accel operation mode")
+Fixes: 3d3f43fab4cf ("ALSA: compress_offload: improve file descriptors installation for dma-buf")
 Cc: stable@vger.kernel.org
-Signed-off-by: Davide Ornaghi <d.ornaghi97@gmail.com>
-Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
-[ kept the tree's older `ip6_route_lookup()`/`rt6_info` IPv6 context and changed only `*dest = 0;` to `nft_fib_store_result(dest, priv, NULL);` ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Cássio Gabriel <cassiogabrielcontato@gmail.com>
 ---
- net/ipv4/netfilter/nft_fib_ipv4.c | 2 +-
- net/ipv6/netfilter/nft_fib_ipv6.c | 2 +-
- net/netfilter/nft_fib.c           | 6 ++++++
- 3 files changed, 8 insertions(+), 2 deletions(-)
+base-commit: 419f8dc84429d67db48393ffe6aa420ea38064e0
+---
+ sound/core/compress_offload.c | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
 
-diff --git a/net/ipv4/netfilter/nft_fib_ipv4.c b/net/ipv4/netfilter/nft_fib_ipv4.c
-index f514eb52b8d4b2..1c22ee4e40aece 100644
---- a/net/ipv4/netfilter/nft_fib_ipv4.c
-+++ b/net/ipv4/netfilter/nft_fib_ipv4.c
-@@ -127,7 +127,7 @@ void nft_fib4_eval(const struct nft_expr *expr, struct nft_regs *regs,
- 		fl4.saddr = get_saddr(iph->daddr);
+diff --git a/sound/core/compress_offload.c b/sound/core/compress_offload.c
+index fd63d219bf86..ea699491f0c3 100644
+--- a/sound/core/compress_offload.c
++++ b/sound/core/compress_offload.c
+@@ -1083,15 +1083,18 @@ static int snd_compr_task_new(struct snd_compr_stream *stream, struct snd_compr_
+ 	   file descriptors are allocated before fd_install() */
+ 	if (!task->input || !task->input->file || !task->output || !task->output->file) {
+ 		retval = -EINVAL;
+-		goto cleanup;
++		goto free_driver_task;
  	}
- 
--	*dest = 0;
-+	nft_fib_store_result(dest, priv, NULL);
- 
- 	if (fib_lookup(nft_net(pkt), &fl4, &res, FIB_LOOKUP_IGNORE_LINKSTATE))
- 		return;
-diff --git a/net/ipv6/netfilter/nft_fib_ipv6.c b/net/ipv6/netfilter/nft_fib_ipv6.c
-index 421036a3605b46..3005dfbca6155b 100644
---- a/net/ipv6/netfilter/nft_fib_ipv6.c
-+++ b/net/ipv6/netfilter/nft_fib_ipv6.c
-@@ -192,7 +192,7 @@ void nft_fib6_eval(const struct nft_expr *expr, struct nft_regs *regs,
- 
- 	lookup_flags = nft_fib6_flowi_init(&fl6, priv, pkt, oif, iph);
- 
--	*dest = 0;
-+	nft_fib_store_result(dest, priv, NULL);
- 	rt = (void *)ip6_route_lookup(nft_net(pkt), &fl6, pkt->skb,
- 				      lookup_flags);
- 	if (rt->dst.error)
-diff --git a/net/netfilter/nft_fib.c b/net/netfilter/nft_fib.c
-index 96e02a83c045e2..22846136c754a2 100644
---- a/net/netfilter/nft_fib.c
-+++ b/net/netfilter/nft_fib.c
-@@ -107,6 +107,12 @@ int nft_fib_init(const struct nft_ctx *ctx, const struct nft_expr *expr,
- 		return -EINVAL;
- 	}
- 
-+	if (priv->flags & NFTA_FIB_F_PRESENT) {
-+		if (priv->result != NFT_FIB_RESULT_OIF)
-+			return -EINVAL;
-+		len = sizeof(u8);
+ 	fd_i = get_unused_fd_flags(O_WRONLY|O_CLOEXEC);
+-	if (fd_i < 0)
+-		goto cleanup;
++	if (fd_i < 0) {
++		retval = fd_i;
++		goto free_driver_task;
 +	}
-+
- 	err = nft_parse_register_store(ctx, tb[NFTA_FIB_DREG], &priv->dreg,
- 				       NULL, NFT_DATA_VALUE, len);
- 	if (err < 0)
--- 
-2.53.0
+ 	fd_o = get_unused_fd_flags(O_RDONLY|O_CLOEXEC);
+ 	if (fd_o < 0) {
++		retval = fd_o;
+ 		put_unused_fd(fd_i);
+-		goto cleanup;
++		goto free_driver_task;
+ 	}
+ 	/* keep dmabuf reference until freed with task free ioctl */
+ 	get_dma_buf(task->input);
+@@ -1103,6 +1106,8 @@ static int snd_compr_task_new(struct snd_compr_stream *stream, struct snd_compr_
+ 	list_add_tail(&task->list, &stream->runtime->tasks);
+ 	stream->runtime->total_tasks++;
+ 	return 0;
++free_driver_task:
++	stream->ops->task_free(stream, task);
+ cleanup:
+ 	snd_compr_task_free(task);
+ 	return retval;
+
+
 
