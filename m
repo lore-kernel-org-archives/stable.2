@@ -1,84 +1,134 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E85F6413608;
-	Mon, 15 Jun 2026 17:23:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E062440FDB6
+	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 17:37:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781544190; cv=none; b=OnNkNY89u+s4CdlelIDSQks9g0AngqahJvgE5sKP3T8OgEznsSBX9MZLM4yqmOMoykyoghWzSCVF1MOhnhLny6JFZbUzN+SeLWMXGf3Fzv0pT7K2bVeplwFZqhVEreE/14vCSv4KrXv9qeNuv0f9tcpm6sk7tkyShrjPNhSHWDw=
+	t=1781545041; cv=none; b=iXq8PkCaBBSQgR8HsRXYltWsDwabZaAJnoF/Ay7HLHbywFR5RYDXGtsEowj2LyJcdnhPWUm9xzjb9pNVDGbMpElPmqBXy4PgX6rR6vht5LGARHDdVUtuBZ7usoGPALELmL3m9yD7VKdDMQcntbtJnupcwOr5PXTBXpwrukl+VXk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781544190; c=relaxed/simple;
-	bh=N6y0vq+NaK23z9JhdIID744AoLD2BvsZNgbM1FPQweY=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ClqUd67gxztj/RaXmyZ598dkw3uA7idZqNw818P1ZkeoPb78lNroowMTH0E/+DPe9mRF1ua7qrxG8zSomzfe8JEnQOx5iL9pNUuXzm6ju5cGR2EOOtbr32tHX0cq3kQj7ktdpj0fJeQZbcr8sSiiaKxPTVG+dZk1MtcaJR+Md7M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mBf1ZR22; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781545041; c=relaxed/simple;
+	bh=zz23/PweprY6M6EdKHWBG6eAfqhkGOk82FJviZpKkWg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=QgF8uz+FMUBR21IQxtTY06GaRpEzUWXrjFCptICpuZgVhA1IcHqgcGK5BS2wG4sBp/V+N+wgcoVagvdYnJ7jHFgHO0PMA/j38uNw9sfK6cIu6Vnj3kb4oFtqvD5GYNGzL2pWForAztQmh6FTtE8/L6oLz6D/iKCD7aSJhyS6mQQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DqO7iN6h; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mBf1ZR22"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28F711F00A3A;
-	Mon, 15 Jun 2026 17:23:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DqO7iN6h"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E64261F000E9;
+	Mon, 15 Jun 2026 17:37:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781544189;
-	bh=v7e2Vt12tohS0iTXggAduooumafOG/B22gTZ2Fnf3bQ=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=mBf1ZR22843m/HP0p0Kme6PpVVQsMzWqqId0aVbZ6gL5s/TN+8H1J0oBDtKhG73wg
-	 NzW56imR8yE23jTopCHIfxuoNzVyJj03aryASnwAjtHNqfolpahhWMndvAUJ0IkWqr
-	 Gcr5ZRwha6ZvDUBj0Bh2qrOzvX2LxCctp7Wwl8dEjoOrYZRTJvSxF7qzbZ4bv8fe1d
-	 FyTRD14zTdRE0k+RtTUQV8DUUmifR6Ba2PsmPHrZx+D+sRWIIL0RwZ1vprBGCl0ixl
-	 6OssvyuxL/4LY4u7cOOY4CLmYqpNYBqsDQDTA8D8jRgogn8K+OvOlrG0G4rBddbipA
-	 kQG3qg+NkKXKw==
-Date: Mon, 15 Jun 2026 10:23:08 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Eric Dumazet <edumazet@google.com>
-Cc: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>, netdev@vger.kernel.org,
- "David S. Miller" <davem@davemloft.net>, Paolo Abeni <pabeni@redhat.com>,
- Simon Horman <horms@kernel.org>, Kees Cook <kees@kernel.org>, Kito Xu
- <veritas501@foxmail.com>, linux-kernel@vger.kernel.org, Yuxiang Yang
- <yangyx22@mails.tsinghua.edu.cn>, Ao Wang <wangao@seu.edu.cn>, Xuewei Feng
- <fengxw06@126.com>, Qi Li <qli01@tsinghua.edu.cn>, Ke Xu
- <xuke@tsinghua.edu.cn>, stable@vger.kernel.org
-Subject: Re: [PATCH net] appletalk: Hold socket reference in atalk_rcv()
-Message-ID: <20260615102308.49f90c0e@kernel.org>
-In-Reply-To: <CANn89iLwy0tsB5wMrREnGSvmPrThyCkjHEz0hpWbCiTJSG0NCA@mail.gmail.com>
-References: <20260614095226.1210-1-zhaoyz24@mails.tsinghua.edu.cn>
-	<CANn89iLwy0tsB5wMrREnGSvmPrThyCkjHEz0hpWbCiTJSG0NCA@mail.gmail.com>
+	s=k20260515; t=1781545040;
+	bh=LV3G/yHeHozmnHhkcEMAzksakmjXxAfXrxtfLWo5Rfc=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=DqO7iN6hzo4hmduIcN3Cv1XfMUaGf+pv795z7KEPnkEpDiIay9ocJytENak7H8Y2c
+	 ovgcEBf8wyL/yyP1UyJ1v+HgL09hbTxjk41JPToxMpkuqGaCBYGsW45O1pJxcfhsjC
+	 VFHzGkDx99L/neORtfSYuNc1QWBTqUvN2MSzCAGgCrIsHSk0w6TQIIh/+wIdyyZBKY
+	 NGpbefwmVVpfF1T/BK/BVW6e9yrSxajuK9AoNyxX0ljTw0xX2zXyG/EqaCn9Lc6YMl
+	 /8Lcg/AGRTaM/AeA5Ex+DdJW+2pohdgMcj2iZCS4czrF3yNRkLO2xE1A1MnwgKIJXU
+	 caGFWQQy4aowA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Davide Ornaghi <d.ornaghi97@gmail.com>,
+	Florian Westphal <fw@strlen.de>,
+	Pablo Neira Ayuso <pablo@netfilter.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] netfilter: nft_fib: fix stale stack leak via the OIFNAME register
+Date: Mon, 15 Jun 2026 13:37:18 -0400
+Message-ID: <20260615173718.2302669-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026061544-juicy-dispatch-14c9@gregkh>
+References: <2026061544-juicy-dispatch-14c9@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Mon, 15 Jun 2026 09:53:59 -0700 Eric Dumazet wrote:
-> > atalk_search_socket() walks the global atalk_sockets list while holding
-> > atalk_sockets_lock, but it returns the matching socket after dropping the
-> > lock without taking a reference.  atalk_rcv() then passes that pointer to
-> > sock_queue_rcv_skb().
-> >
-> > That leaves a race with close().  A concurrent atalk_release() can orphan
-> > the socket, remove it from atalk_sockets, and drop the final reference via
-> > atalk_destroy_socket(), freeing the socket before atalk_rcv() queues the
-> > incoming skb.
-> >
-> > On a KASAN-enabled kernel this can be reproduced by racing AppleTalk DDP
-> > delivery on loopback against close/rebind of the destination DGRAM socket:
-> >
-> >   BUG: KASAN: slab-use-after-free in selinux_socket_sock_rcv_skb()
-> >   sk_filter_trim_cap()
-> >   sock_queue_rcv_skb_reason()
-> >   atalk_rcv()
-> >   snap_rcv()
-> >   llc_rcv()
-> >
-> > Take a reference on the selected socket before dropping
-> > atalk_sockets_lock, and put it after sock_queue_rcv_skb() has finished.
-> > This keeps the socket alive for the receive path without changing socket
-> > lookup semantics.  A malformed or racing receive still drops the skb on
-> > queueing failure as before.  
-> 
-> No idea why linux still carries appletalk.
-> 
-> MacOS dropped it 20 years ago.
+From: Davide Ornaghi <d.ornaghi97@gmail.com>
 
-Yes. Let me try to move it to mod-orphan.
+[ Upstream commit ab185e0c4fb82dfba6fb86f8271e06f931d9c64c ]
+
+For NFT_FIB_RESULT_OIFNAME the destination register is declared with
+len = IFNAMSIZ (four 32-bit registers), but on the lookup-fail,
+RTN_LOCAL and oif-mismatch paths nft_fib{4,6}_eval() only writes one
+register via "*dest = 0". The remaining three registers are left as
+whatever was on the stack in nft_do_chain()'s struct nft_regs, and a
+downstream expression that loads the register span can leak that
+uninitialised kernel stack to userspace.
+
+The NFTA_FIB_F_PRESENT existence check has the same shape: it is only
+meaningful for NFT_FIB_RESULT_OIF, yet it was accepted for any result type
+while the eval stores a single byte via nft_reg_store8(), leaving the rest
+of the declared span stale.
+
+Fix both:
+
+ - replace the bare "*dest = 0" in the eval with nft_fib_store_result(),
+   which strscpy_pad()s the whole IFNAMSIZ for OIFNAME (and is already
+   used on the other early-return path), and
+
+ - restrict NFTA_FIB_F_PRESENT to NFT_FIB_RESULT_OIF and declare its
+   destination as a single u8, so the marked span matches the one byte
+   the eval writes.
+
+Fixes: f6d0cbcf09c5 ("netfilter: nf_tables: add fib expression")
+Suggested-by: Florian Westphal <fw@strlen.de>
+Cc: stable@vger.kernel.org
+Signed-off-by: Davide Ornaghi <d.ornaghi97@gmail.com>
+Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
+[ kept the tree's existing `ip6_route_lookup`/`rt6_info` machinery (missing `fib6_lookup` refactor) and changed only `*dest = 0;` to `nft_fib_store_result(dest, priv, NULL)` ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ net/ipv4/netfilter/nft_fib_ipv4.c | 2 +-
+ net/ipv6/netfilter/nft_fib_ipv6.c | 2 +-
+ net/netfilter/nft_fib.c           | 6 ++++++
+ 3 files changed, 8 insertions(+), 2 deletions(-)
+
+diff --git a/net/ipv4/netfilter/nft_fib_ipv4.c b/net/ipv4/netfilter/nft_fib_ipv4.c
+index 273b64e3f2f926..37d948d64f77c8 100644
+--- a/net/ipv4/netfilter/nft_fib_ipv4.c
++++ b/net/ipv4/netfilter/nft_fib_ipv4.c
+@@ -118,7 +118,7 @@ void nft_fib4_eval(const struct nft_expr *expr, struct nft_regs *regs,
+ 		fl4.saddr = get_saddr(iph->daddr);
+ 	}
+ 
+-	*dest = 0;
++	nft_fib_store_result(dest, priv, NULL);
+ 
+ 	if (fib_lookup(nft_net(pkt), &fl4, &res, FIB_LOOKUP_IGNORE_LINKSTATE))
+ 		return;
+diff --git a/net/ipv6/netfilter/nft_fib_ipv6.c b/net/ipv6/netfilter/nft_fib_ipv6.c
+index b7e543d4d57be3..a8343877fdf7fd 100644
+--- a/net/ipv6/netfilter/nft_fib_ipv6.c
++++ b/net/ipv6/netfilter/nft_fib_ipv6.c
+@@ -189,7 +189,7 @@ void nft_fib6_eval(const struct nft_expr *expr, struct nft_regs *regs,
+ 		}
+ 	}
+ 
+-	*dest = 0;
++	nft_fib_store_result(dest, priv, NULL);
+ 	rt = (void *)ip6_route_lookup(nft_net(pkt), &fl6, pkt->skb,
+ 				      lookup_flags);
+ 	if (rt->dst.error)
+diff --git a/net/netfilter/nft_fib.c b/net/netfilter/nft_fib.c
+index 1fd4b2054e8f75..6b4dc8d9eb6794 100644
+--- a/net/netfilter/nft_fib.c
++++ b/net/netfilter/nft_fib.c
+@@ -105,6 +105,12 @@ int nft_fib_init(const struct nft_ctx *ctx, const struct nft_expr *expr,
+ 		return -EINVAL;
+ 	}
+ 
++	if (priv->flags & NFTA_FIB_F_PRESENT) {
++		if (priv->result != NFT_FIB_RESULT_OIF)
++			return -EINVAL;
++		len = sizeof(u8);
++	}
++
+ 	err = nft_parse_register_store(ctx, tb[NFTA_FIB_DREG], &priv->dreg,
+ 				       NULL, NFT_DATA_VALUE, len);
+ 	if (err < 0)
+-- 
+2.53.0
+
