@@ -1,42 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 919C62EA171
-	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 18:13:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF0851FC7FB
+	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 18:16:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781547184; cv=none; b=IEOK3IUpt5llBslaCIhzYVnuvIAdPaS/gSYB8OzaGcwuOH8AG6ZN/751X0LydDPxTZntDWWKjyMRpyL+DpC5QHUhP1au5yQklVzCYv2Rf3z9fSvSWfA2WSmh0gqI54ZoqS5tMB04xtmzSVVwI7VhF8PVz3JVpSRWTVEzu6AK6vY=
+	t=1781547420; cv=none; b=dchD80kSOPtWqImUcF/mquzjyvRxiFxjLTHRIe6kyB/NEz5qKBcHleje5Pjm4YwrKhlpgHkYiHJ/6LrQWqP6QP/+kT78u+OyDOf6YIe8RpsgUp8bVM7fO90INhiZuB19usA1L67nJU5B+xCnzh2TnpL0o7gKqUGejMB/aIOT7wY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781547184; c=relaxed/simple;
-	bh=xzCgYMjpgAmReXW/sSLU+gYIo700v43ypLqcCd85EQg=;
+	s=arc-20240116; t=1781547420; c=relaxed/simple;
+	bh=sEXdGPedN6uN9q5DklVj6sClgG2bCpleL0pOtLB5loY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jGCOqP8vKAOxwPMyhzvUTwJEgOJWIJTFBmp63b1upCa1X+e4SqIJA/F+ySFNmDHp0ZwzqT/ecU/Ka6vDF2ajft/C/9N2nccTos3RpHCAhU082akOg2g7KjhpKWU+vOk5azS0dMIcpCUcgEPp42rbu45as3cy3+Vk8pKBqDXlR3o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U7zsDVLt; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=IQNf7Pix+gEBqhzQQjoCYoNdlQpMSSvO1QSYwPvG+2WXCEvRDv/2rFNPZmwkyHWSYMgjT5g/6WA275gq63pC/T6Rl2p72v5KUsxqTGi+x/crBbOG2xk6F8pnkThiAo+cKd36HgF7aFdGXQ8uA1ujpzckkCQquTEGnbSnxwTDWnE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G9TFxH0t; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U7zsDVLt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A80561F000E9;
-	Mon, 15 Jun 2026 18:13:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G9TFxH0t"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB0631F000E9;
+	Mon, 15 Jun 2026 18:16:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781547183;
-	bh=n2s3pbYmQnmxSsDcm8pHeqiI96srv2pR6iW+DTFIvw8=;
+	s=k20260515; t=1781547419;
+	bh=MvuekgrwLluhq3EMFmKJmqEg4BTJCrhLfG9w9BjvU2g=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=U7zsDVLtPQMDT0dskfO6WoP55trJl9Ur5gFFrjaiDNfenZ7/Jk1lhdxt8ul8KX5qs
-	 nQClzExIn+MOWWdGNRSH2Gq8lAi0P7dIY7+L1H9m16CE7ji6Td71+t1Pk6I6d3nwUp
-	 30YlZBSp/xxllrGddQuuWe8IitzrL3A7RWGszYAYycEURtVflHu8OyozJVcRjWVZ1t
-	 Ey6WWPr/ScLtxwRdehYr5fVCbMFqcZvCAUlpqLBR/K3XO3hd8bpt5KQIbNUr/mlXa5
-	 XS8WGKy4cc/3VttXXji8gcfPQpdfPEdg+Xy+UjJAeb6Adfri5XHSaquM36qc3FPBd4
-	 WIDHpr9LUVsIA==
+	b=G9TFxH0tIiKTLM3/P5mKtabRgS5y/uOO3JLxbHqMd354sfz5sh9m3hST+vpQUlyA/
+	 t++pfKExUyOnNLjsHocsgcAwggTCpu5OpqRkkHF8cO2FF2Qw3ucptq865FHrDLA+DB
+	 oknvvW0990nK2xA0t5H+pOPxHDj+W6Zl6lEZtPhXi47oCfV70IyeDZrnYJW+T6HeP7
+	 pRsZDmKRwsgoOBFIDRpXMrhPlRGsz7qYJFZ4alXx21pbispwJ7rdN7N7Qk+ZxsgzxP
+	 Mm4eDiQlBC6ug0jMqkufYSAwCZME19cJXX9k0rIsn5XOTrPNxzbq8t6HyKpv6FrOxE
+	 7CfANPRob7sZA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Anton Leontev <leontyevantony@gmail.com>,
 	Paolo Abeni <pabeni@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] hv_netvsc: use kmap_local_page in netvsc_copy_to_send_buf
-Date: Mon, 15 Jun 2026 14:13:00 -0400
-Message-ID: <20260615181300.2319407-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] hv_netvsc: use kmap_local_page in netvsc_copy_to_send_buf
+Date: Mon, 15 Jun 2026 14:16:57 -0400
+Message-ID: <20260615181657.2320366-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026061524-importer-bogged-4a5f@gregkh>
-References: <2026061524-importer-bogged-4a5f@gregkh>
+In-Reply-To: <2026061524-eatery-geek-6a96@gregkh>
+References: <2026061524-eatery-geek-6a96@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -92,7 +92,7 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 15 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/net/hyperv/netvsc.c b/drivers/net/hyperv/netvsc.c
-index ac2d706ef2d0ef..077595b42d4a77 100644
+index 058472f429386d..1e374de5cf8e63 100644
 --- a/drivers/net/hyperv/netvsc.c
 +++ b/drivers/net/hyperv/netvsc.c
 @@ -12,6 +12,7 @@
@@ -103,7 +103,7 @@ index ac2d706ef2d0ef..077595b42d4a77 100644
  #include <linux/delay.h>
  #include <linux/io.h>
  #include <linux/slab.h>
-@@ -992,12 +993,22 @@ static void netvsc_copy_to_send_buf(struct netvsc_device *net_device,
+@@ -956,12 +957,22 @@ static void netvsc_copy_to_send_buf(struct netvsc_device *net_device,
  	}
  
  	for (i = 0; i < page_count; i++) {
