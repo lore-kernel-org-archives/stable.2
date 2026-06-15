@@ -1,45 +1,42 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8452F340A4D;
-	Mon, 15 Jun 2026 11:16:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1125145B3F;
+	Mon, 15 Jun 2026 11:18:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781522166; cv=none; b=pY0jvc+DpcYY+xDu0KwCajyeNYVHy8Nc3gKUZ/LykfPf2faz/Z3G7N+kx6YN073ByhqxbjyBLWWJ4XF2YPCC2VM8/uIbwpgzjAJ6tHnqverfv2TxGfPfMULc9A3lfD92X0OJmmTE7wnwmJF3d10haUXQCgyfzrc7p1ttrpf+nv4=
+	t=1781522317; cv=none; b=mATRk1XJUGIjyM0TRdnkvXDPvroactHfT/dRWzDQfaAgXgkUgwHHyMrZ2of6da/HB2mZlKLDjQPhbTW0wLzzX5BwH8jIR11gjGnu2w2YU3RxVMUXa3QnRW504BDn21UHHLOIRiG2KTTX+zx8i2vBzb614K90WmuNBG3Bpqc5otQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781522166; c=relaxed/simple;
-	bh=Gy0LHTdLmlPA2i+iN2Je30fdWIJBmw4l6fKDIDT15Cc=;
+	s=arc-20240116; t=1781522317; c=relaxed/simple;
+	bh=0gwyROiMOHpdV2hu3dErFMBsHY+LszkmC9DeWK3L/yk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Ba/30AdFAiV72pduls/pmNoF3BolEeThvijThXerg4Lh2XY9ViGkdED0PgcHVAaHmugns1w+aM2qtrT1kjrDqWosLHOUeANC5QTHN1fAr+TZa2UAYZd41Wbq+r1hlbT4bxR8UPCsWGolgrr+H/OQWhuvctK2wAdoR7bouKWGRgg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=cdY4lVPE; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=A26xFVFBzJ0YPngLPd0fltQMeruhR9I5lUmQn0VW0ejLqMCr9U5IIPNtR1AyVNR0J6hloMK7DUdYT2WDjpr0IxzU2Zj5GQg5VLwcwiG7yLNGGKkdeoSeAGL/MrN1wA+05PHK+lQ3NJT0i/DWCI1jNJD20aqs5hBBgui3OrZiMRc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RuSW9N7q; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="cdY4lVPE"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C7194328D;
-	Mon, 15 Jun 2026 04:15:59 -0700 (PDT)
-Received: from arm.com (RQ4T19M611-7.cambridge.arm.com [10.1.32.56])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 17E643F915;
-	Mon, 15 Jun 2026 04:16:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1781522164; bh=Gy0LHTdLmlPA2i+iN2Je30fdWIJBmw4l6fKDIDT15Cc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=cdY4lVPEYrNPl4E1WB89Pyctf4ei4UjwuF0x5VaUZ/uHD8RP//KUfcDlDlXD/ZTMz
-	 4jsOCEDRAult1wHuB6kgB9dPNw4l/aXf3iKX5DOr7uzAVhOh5XiMoI801LGS3cOdFY
-	 iYUnfiVA+rR0pNdM9dXCMb8naE0yjNA7UicT2d5I=
-Date: Mon, 15 Jun 2026 12:15:58 +0100
-From: Catalin Marinas <catalin.marinas@arm.com>
-To: Breno Leitao <leitao@debian.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, lance.yang@linux.dev,
-	Davidlohr Bueso <dave@stgolabs.net>,
-	Oleg Nesterov <oleg@redhat.com>, Qian Cai <cai@lca.pw>,
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
-	kernel-team@meta.com, stable@vger.kernel.org
-Subject: Re: [PATCH v2] mm/kmemleak: avoid soft lockup when scanning task
- stacks
-Message-ID: <ai_e7gfv5vze5tB5@arm.com>
-References: <20260612-kmemleak-stack-resched-v2-1-53240de79e88@debian.org>
- <aiw9u4BllwZXDH2S@arm.com>
- <ai_EVJVfe42glgKI@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RuSW9N7q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 206551F000E9;
+	Mon, 15 Jun 2026 11:18:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781522316;
+	bh=nlAdSspiA7Bhnac4eiBLskoKBbZVwpaObQnTtm83GQQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=RuSW9N7qBidJDiUteYXSIlCbwiCepLdxJpiPmiOtkdSBPqJY1xUbriVTtbYZCkHLi
+	 1gohywC3PomqUI+T3gTvJ/+FpvnCQlTJpEijMmvWqs+is+WAOESNcSEDLV1Cs03Y0A
+	 M+Wa834/pEMq5jlCBoHDlEPXIW93Z72kDiyZrIXhJdJBOvNmmSGDKryAjZ2T0SZ37M
+	 GPzACIiBK2CqRIsCqDJmcTH9cG48yyTTPMpOdcxv13JjZbsK12qh0wWZjmWHDLMGE2
+	 VjHTT7agteubUJPoLQ454uHikep72PR8XisfpGDzAW7KQyNyaxTdeQw6NlRB+hZ8IK
+	 ckNyIpYvvvTUA==
+Date: Mon, 15 Jun 2026 12:18:29 +0100
+From: Lorenzo Stoakes <ljs@kernel.org>
+To: Chun-Yi Lee <joeyli.kernel@gmail.com>
+Cc: "Rafael J . Wysocki" <rafael@kernel.org>, Chun-Yi Lee <jlee@suse.com>, 
+	David Howells <dhowells@redhat.com>, Andy Shevchenko <andy.shevchenko@gmail.com>, 
+	Thomas Gleixner <tglx@linutronix.de>, Matthew Garrett <mjg59@srcf.ucam.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Danilo Krummrich <dakr@kernel.org>, driver-core@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] debugfs: Fix lockdown check for mmap_prepare
+Message-ID: <ai_fWlr61AzrNrDz@lucifer>
+References: <20260615104750.1000-1-jlee@suse.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,49 +45,66 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <ai_EVJVfe42glgKI@gmail.com>
+In-Reply-To: <20260615104750.1000-1-jlee@suse.com>
 
-Hi Breno,
+On Mon, Jun 15, 2026 at 06:47:50PM +0800, Chun-Yi Lee wrote:
+> From: Chun-Yi Lee <jlee@suse.com>
+>
+> Commit 651fdda8406d ("relay: update relay to use mmap_prepare")
+> changed the `mmap` file operation to `mmap_prepare` for relayfs, but
+> the lockdown check in debugfs was not updated accordingly.
+>
+> This prevents debugfs from being locked down when the kernel is in
+> integrity mode if a file uses `mmap_prepare` but not `mmap`.
+>
+> Since the conversion to `mmap_prepare` across the kernel is not yet
+> complete, update the lockdown check to look for both `mmap` and
+> `mmap_prepare` to ensure comprehensive coverage.
+>
+> Fixes: 651fdda8406d ("relay: update relay to use mmap_prepare")
+> Signed-off-by: Chun-Yi Lee <jlee@suse.com>
 
-On Mon, Jun 15, 2026 at 02:27:13AM -0700, Breno Leitao wrote:
-> On Fri, Jun 12, 2026 at 06:11:40PM +0100, Catalin Marinas wrote:
-> > 	if (kmemleak_stack_scan) {
-> > 		struct pid *pid;
-> > 		int nr = 1;
-> > 
-> > 		do {
-> > 			struct task_struct *p = NULL;
-> > 
-> > 			rcu_read_lock();
-> > 			pid = find_ge_pid(nr, &init_pid_ns);
-> > 			if (pid) {
-> > 				nr = pid_nr(pid) + 1;
-> > 				p = pid_task(pid, PIDTYPE_PID);
-> > 				if (p)
-> > 					get_task_struct(p);
-> > 			}
-> > 			rcu_read_unlock();
-> > 
-> > 			if (p) {
-> > 				void *stack = try_get_task_stack(p);
-> > 
-> > 				if (stack) {
-> > 					scan_block(stack, stack + THREAD_SIZE,
-> > 							NULL);
-> > 					put_task_stack(p);
-> > 				}
-> > 				put_task_struct(p);
-> > 			}
-> 
-> Should we add a scan_should_stop() check here to allow early
-> termination?
+LGTM so:
 
-Ah, yes, I think we should, maybe as 'while (pid && !scan_should_stop())'.
+Reviewed-by: Lorenzo Stoakes <ljs@kernel.org>
 
-scan_block() already bails out early but it will still go quickly
-through all the stacks which we don't need. As a later clean-up, I
-wonder whether we should change scan_block() to return non-zero and use
-that.
+> Cc: David Howells <dhowells@redhat.com>
+> Cc: Lorenzo Stoakes <ljs@kernel.org>
+> Cc: Andy Shevchenko <andy.shevchenko@gmail.com>
+> Cc: Thomas Gleixner <tglx@linutronix.de>
+> Cc: Rafael J. Wysocki <rafael@kernel.org>
+> Cc: Matthew Garrett <mjg59@srcf.ucam.org>
+> Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> Cc: Danilo Krummrich <dakr@kernel.org>
+> Cc: driver-core@lists.linux.dev
+> Cc: linux-kernel@vger.kernel.org
+> Cc: stable@vger.kernel.org
+> ---
+> v2:
+> - Add explicit From tag to match Signed-off-by.
+> - Fix Lorenzo's email address.
+> - Add Cc stable for backporting.
+> - Check both mmap and mmap_prepare as suggested by Lorenzo.
+>
+>  fs/debugfs/file.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+>
+> diff --git a/fs/debugfs/file.c b/fs/debugfs/file.c
+> index edd6aafbfbaa..08de6652a4f3 100644
+> --- a/fs/debugfs/file.c
+> +++ b/fs/debugfs/file.c
+> @@ -273,7 +273,8 @@ static int debugfs_locked_down(struct inode *inode,
+>  	    (!real_fops ||
+>  	     (!real_fops->unlocked_ioctl &&
+>  	      !real_fops->compat_ioctl &&
+> -	      !real_fops->mmap)))
+> +	      !real_fops->mmap &&
+> +	      !real_fops->mmap_prepare)))
+>  		return 0;
+>
+>  	if (security_locked_down(LOCKDOWN_DEBUGFS))
+> --
+> 2.43.0
+>
 
--- 
-Catalin
+Cheers, Lorenzo
