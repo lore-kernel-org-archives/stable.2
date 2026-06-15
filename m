@@ -1,101 +1,119 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9ACB402438
-	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 15:34:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A0EF406298
+	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 15:37:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781537665; cv=none; b=Tb2hbOKGrITIGEeF+d5GtxDu/7JANw4TfTdIvxPa1zu7EUnHE5eQqPIIximD/n8cjRtIAnIY8AoCLw7g8SW76g3PGrInsKcsB860JBnJ9bz+8MDlquKoet+pY+JAE0t9cigm+69fSoNyxD2OhCCShKUrqNFXvP/McMsI3a3SHZM=
+	t=1781537857; cv=none; b=QhVKY1I3AtK/+B7dWOXpmsuRtxRHaxTwAC9m8KNj1O0P2S90zPl9UAvEbgTzF2/HzSKZ0fv0aZUhMtvfuLJZIRJZS/uxcfYEMEEdR8XF8KqVPm7y+FoSjVOXh7ONnMarXOut4TwFeVLi28WWSlZpHKj+36HlqJ8f+K2nr0MWXnc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781537665; c=relaxed/simple;
-	bh=u4oSeovYu/yVCaaOtrmdnWBeVJRPvcPHt45wMnUEY5U=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Lc/o8MUcfunimIkHdpgqvspOmyr4p/WNqAc/kwBJrCQ/pa6FQaFqo7oG0mfiyjsS2JemAg4Mcnw+Os1rQX1aNibrx5CzEzd/dQ5ONsdrxfkYCFc27dBYoPL/yd0W6igHm+2IaltMZxSGab+pkMh2vOfTgtu/YEEdURF9liQ/xfo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=CtXHC/0B; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781537857; c=relaxed/simple;
+	bh=BCMUhtbdZZzKDDZa4idYCJZhFcNP/10olUtbiNPkVOs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=JVk2ZypYFadpu/mmLzkb0L76+t2JXN/Qgy6E85CAvAlU4LLETMLIVn/5MLJj0JGATJA4ale3+h4IS5Ua6FhquqAeJ83QqDLajnB7XcrUS17wXRoLObUwBWU+Av7yXX1xH8Cbp4Kr85xpYjBK9D5GdGfpEduX/l+aqd1wuE93/us=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HC3iCMNk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="CtXHC/0B"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE0901F000E9;
-	Mon, 15 Jun 2026 15:34:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1781537664;
-	bh=8i7eSPpEpIzyI0Ak44RoZ7iMh4yga+a59dh5nrvqrdw=;
-	h=Subject:To:Cc:From:Date;
-	b=CtXHC/0BKiT3CBEPBt/VsT4KFGeFmS6HAUGyVryEqXaA+F11ospzIdtCpUkCy6XNT
-	 EjKJ7hQqysspd9oa+pxVe4Y7+B36LBzCKrfXZBB1lDCqypqIWLaTHudB5XoVN9GBfK
-	 t6AMXZJeS4uIMFu0T+6DLWmGGtzBTW1V15prX+ZI=
-Subject: FAILED: patch "[PATCH] misc: fastrpc: fix DMA address corruption due to find_vma" failed to apply to 5.10-stable tree
-To: moonafterrain@outlook.com,danisjiang@gmail.com,dmitry.baryshkov@oss.qualcomm.com,gregkh@linuxfoundation.org,srini@kernel.org
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Mon, 15 Jun 2026 16:59:42 +0200
-Message-ID: <2026061542-daybreak-anemic-ed9c@gregkh>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HC3iCMNk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8270F1F00A3E;
+	Mon, 15 Jun 2026 15:37:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781537856;
+	bh=JD73ZmZn9/xEAKcgfr4nib3QjOwPG3zySjRTVt1eIWM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=HC3iCMNk4VEnr44930RZq/pgyjKDBjTh9/0NztqQTmTinIPUN8nJ5WlVBZiVtgCq2
+	 7X5sCdUYKfDNk9BbbGgUAS0If4Nh/Dq2KYDSOqZoUQa2AZ+x6U793D9rJe3iD1Ujcx
+	 cS4nu0c13a41hqF8dCBO++Jvgj6J5lKaIbpjkpxHyRkn2u3auey/f4HAXSMrQr78aO
+	 BlucokxE9LXxBz82kkV119ao14ZERcjWjUmTeox8rM7zRd/j4ICicn72virzpk3+Zc
+	 SxbGMf0wgucgfB6D+GsCgTKD0wwrhcD9e93NFgNFO05Y+Z2RsDKyPFL7em63fdJr5c
+	 K0FLWZx+Z6uGQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Tejun Heo <tj@kernel.org>,
+	Matt Fleming <mfleming@cloudflare.com>,
+	Andrea Righi <arighi@nvidia.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.0.y] sched_ext: Don't warn on NULL cgrp_moving_from in scx_cgroup_move_task()
+Date: Mon, 15 Jun 2026 11:37:32 -0400
+Message-ID: <20260615153732.2213055-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026061552-lividly-railcar-9730@gregkh>
+References: <2026061552-lividly-railcar-9730@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
+From: Tejun Heo <tj@kernel.org>
 
-The patch below does not apply to the 5.10-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+[ Upstream commit 02e545c4297a26dbbc41df81b831e7f605bcd306 ]
 
-To reproduce the conflict and resubmit, you may use the following commands:
+A WARN fires when systemd's user manager writes "+cpu +memory +pids" to
+its own subtree_control while a sched_ext scheduler is loaded:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
-git checkout FETCH_HEAD
-git cherry-pick -x 464c6ad2aa16e1e1df9d559289199356493d1e00
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026061542-daybreak-anemic-ed9c@gregkh' --subject-prefix 'PATCH 5.10.y' HEAD^..
+  WARNING: at kernel/sched/ext.c:3227 scx_cgroup_move_task+0xa8/0xb0
+   scx_cgroup_move_task+0xa8/0xb0
+   sched_move_task+0x134/0x290
+   cpu_cgroup_attach+0x39/0x70
+   cgroup_migrate_execute+0x37d/0x450
+   cgroup_update_dfl_csses+0x1e3/0x270
+   cgroup_subtree_control_write+0x3e7/0x440
 
-Possible dependencies:
+scx_cgroup_can_attach() arms cgrp_moving_from only when a task's cpu
+cgroup changes. It can still be NULL when scx_cgroup_move_task() runs,
+through this sequence:
 
+  Step                               Result
+  ---------------------------------  ----------------------------------
+  1. cpu enabled on cgroup G         cpu css = A
+  2. cpu toggled off then on for G   A killed, B created (same cgroup)
+  3. an exiting task keeps A alive   migration skips it, A now stale
+  4. +memory migrates G              stale A vs current B pulls cpu in
+  5. cpu attach runs for all tasks   hits a live, cpu-unchanged task
+  6. scx_cgroup_move_task() on it    cgrp_moving_from NULL -> WARN
 
+The mismatch is that scx_cgroup_can_attach() keys on cgroup identity
+while migration drives the move on css identity, so a NULL cgrp_moving_from
+here is a legitimate css-only migration, not a missing prep.
 
-thanks,
+The call is already gated on cgrp_moving_from, so just drop the warning.
+ops.cgroup_prep_move() and ops.cgroup_move() stay paired.
 
-greg k-h
+Fixes: 819513666966 ("sched_ext: Add cgroup support")
+Cc: stable@vger.kernel.org # v6.12+
+Reported-by: Matt Fleming <mfleming@cloudflare.com>
+Closes: https://lore.kernel.org/all/20260601124156.2205704-1-mfleming@cloudflare.com/
+Signed-off-by: Tejun Heo <tj@kernel.org>
+Reviewed-by: Andrea Righi <arighi@nvidia.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ kernel/sched/ext.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
------------------- original commit in Linus's tree ------------------
-
-From 464c6ad2aa16e1e1df9d559289199356493d1e00 Mon Sep 17 00:00:00 2001
-From: Junrui Luo <moonafterrain@outlook.com>
-Date: Sat, 30 May 2026 21:45:26 +0100
-Subject: [PATCH] misc: fastrpc: fix DMA address corruption due to find_vma
- misuse
-
-fastrpc_get_args() uses find_vma() to look up the VMA for a user-provided
-pointer and compute a DMA address offset. When the address falls in a gap
-before the returned VMA, (ptr & PAGE_MASK) - vma->vm_start underflows,
-corrupting the DMA address sent to the DSP.
-
-Replace find_vma() with vma_lookup(), which returns NULL when the address
-is not contained within any VMA.
-
-Cc: stable@vger.kernel.org
-Fixes: 80f3afd72bd4 ("misc: fastrpc: consider address offset before sending to DSP")
-Reported-by: Yuhao Jiang <danisjiang@gmail.com>
-Signed-off-by: Junrui Luo <moonafterrain@outlook.com>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Signed-off-by: Srinivas Kandagatla <srini@kernel.org>
-Link: https://patch.msgid.link/20260530204528.116920-3-srini@kernel.org
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-
-diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-index 48f8262af539..cca7489605c5 100644
---- a/drivers/misc/fastrpc.c
-+++ b/drivers/misc/fastrpc.c
-@@ -1090,7 +1090,7 @@ static int fastrpc_get_args(u32 kernel, struct fastrpc_invoke_ctx *ctx)
- 			pages[i].addr = ctx->maps[i]->dma_addr;
+diff --git a/kernel/sched/ext.c b/kernel/sched/ext.c
+index 38157fc58c5cc0..cfdd0d4a78ca58 100644
+--- a/kernel/sched/ext.c
++++ b/kernel/sched/ext.c
+@@ -3402,11 +3402,13 @@ void scx_cgroup_move_task(struct task_struct *p)
+ 		return;
  
- 			mmap_read_lock(current->mm);
--			vma = find_vma(current->mm, ctx->args[i].ptr);
-+			vma = vma_lookup(current->mm, ctx->args[i].ptr);
- 			if (vma)
- 				pages[i].addr += (ctx->args[i].ptr & PAGE_MASK) -
- 						 vma->vm_start;
+ 	/*
+-	 * @p must have ops.cgroup_prep_move() called on it and thus
+-	 * cgrp_moving_from set.
++	 * scx_cgroup_can_attach() sets cgrp_moving_from only when the task's
++	 * cgroup changes. Migration keys off css rather than cgroup identity,
++	 * so it can hand an unchanged-cgroup task here with cgrp_moving_from
++	 * NULL. Nothing to report to the BPF scheduler then, so skip it and
++	 * keep prep_move and move paired.
+ 	 */
+-	if (SCX_HAS_OP(sch, cgroup_move) &&
+-	    !WARN_ON_ONCE(!p->scx.cgrp_moving_from))
++	if (SCX_HAS_OP(sch, cgroup_move) && p->scx.cgrp_moving_from)
+ 		SCX_CALL_OP_TASK(sch, SCX_KF_REST, cgroup_move, task_rq(p),
+ 				 p, p->scx.cgrp_moving_from,
+ 				 tg_cgrp(task_group(p)));
+-- 
+2.53.0
 
