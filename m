@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCAD03FBED1
-	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 14:46:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 708523542F4
+	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 14:46:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781534767; cv=none; b=QP8vHw+8bJ0ZSJ1kMQBfN88pdnzJd2fn62dLMDjV5Y5ZlKjWYZRZPPlVCQ/4SOCeHLl75sACctCz+4cXyu5yghQitK5Jb0I1KPijefsEaQYflfCoAh7f/twjsq+3mK/f3KI/qlZvfgNe/grzfm3I18+3WAq1N+D8GpgtwHkkSoQ=
+	t=1781534774; cv=none; b=AiYTGxvBwtPc/dMANOY99qtDzQ3tDX2jDTyzChoX4hsH4BrfQScjiRMpRc/4yCMtxM4s+bENJdAb0/fNIjIY45O0cvhqSQZA9xVmS+mPZVk056wWP//F8xFkcbAaPVI5dSpzMIgIVdIPVDJEBpVWqqH2nqTRgQM5VIll2UFYznc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781534767; c=relaxed/simple;
-	bh=LSnIRQYbACXSScsz59S6a6fvJO8DIQ8hSiW2U8nkGkw=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=CRY9c0B9UP2FnrX5InM2kVYC0ie29/t1SWESst6InnH7ZPP9klKpXrZJszXY6c0bi/xUAPn0C+n40JjTb5x4yLK6samURm0uhnhLNMxRuM3BQWTwSaXnyQt+SXWRrMl9T/rr9NewHc1F/I4EQyBLI3TTVwMG6ue2yhECvS+CsUs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=X6EJMY4x; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781534774; c=relaxed/simple;
+	bh=cxfCRPuXLzFW1/3FPR4rC1XHt1wfYbhoG9a27BIPENc=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=m79YD+7AkfS7dgg12+CzmVLZtPvurVWOL2QdDVOc86L1UTAge0/7ogooVF2iq+HeXK7a+L5fI/9e2rjcyuvWREe5A73nn7JOquX3OoH6UgYIN/iVefW7ZwUAk7rFLc7MgzsOW4U5XLf5Yo8srtkBF2b0sTZPShGDRxT7X2H1AVI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ZryZn86h; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="X6EJMY4x"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85A781F000E9;
-	Mon, 15 Jun 2026 14:46:04 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ZryZn86h"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 704B91F000E9;
+	Mon, 15 Jun 2026 14:46:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1781534765;
-	bh=YxHLNx4JP/1ZJ4HK8Q41GpJlCvH5ibLOQ2XMgAujd1U=;
+	s=korg; t=1781534773;
+	bh=hmwBhP/T4Gslw26Kh9dL6t4cKWB8WOkZvNH25OkrUJA=;
 	h=Subject:To:Cc:From:Date;
-	b=X6EJMY4xyCzEAGbB4Cl+bkQLpq+YvwOvkqXqUsv5/Vx6nKN5LTfQXkER/r/p9vDsQ
-	 X07cteAp5EDagMUDiJiDLyv+zI9RIeFRWyI89RqjkuFnE0PY8JrVjS/GzYNoqjfuxv
-	 Gy+F+mc98RcyHCrypsBeuS+pWsjfqy3LjpxZLV3o=
-Subject: FAILED: patch "[PATCH] Drivers: hv: vmbus: Improve the logic of reserving fb_mmio on" failed to apply to 5.10-stable tree
-To: decui@microsoft.com,kjlx@templeofstupid.com,matthew.ruffell@canonical.com,mhklinux@outlook.com,wei.liu@kernel.org
+	b=ZryZn86hxpHij5EfT+Diwut7J7Pd8E86SVVTPwabk6m5LclqgUg2NyxpiJY+fPWNw
+	 qTlspqMpWWM6+NnGGQi7UoArs2zE/HUrpjdHHbfMyLLPfkJmIEQiM2ra4kQc1fljg+
+	 rqXdYryBmsiP3DDrBZJbv3pirutWr4nKuOrb+XU8=
+Subject: FAILED: patch "[PATCH] fhandle: fix UAF due to unlocked ->mnt_ns read in" failed to apply to 6.12-stable tree
+To: jannh@google.com,brauner@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 15 Jun 2026 16:32:24 +0200
-Message-ID: <2026061524-limb-radiance-9105@gregkh>
+Date: Mon, 15 Jun 2026 16:32:43 +0200
+Message-ID: <2026061543-clavicle-quote-2f44@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 016a25e4b0df4d77e7c258edee4aaf982e4ee809
+git cherry-pick -x 40ab6644b99685755f740b872c00ef40d9aa870e
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026061524-limb-radiance-9105@gregkh' --subject-prefix 'PATCH 5.10.y' HEAD^..
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026061543-clavicle-quote-2f44@gregkh' --subject-prefix 'PATCH 6.12.y' HEAD^..
 
 Possible dependencies:
 
@@ -62,148 +62,150 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 016a25e4b0df4d77e7c258edee4aaf982e4ee809 Mon Sep 17 00:00:00 2001
-From: Dexuan Cui <decui@microsoft.com>
-Date: Thu, 7 May 2026 14:28:38 -0700
-Subject: [PATCH] Drivers: hv: vmbus: Improve the logic of reserving fb_mmio on
- Gen2 VMs
+From 40ab6644b99685755f740b872c00ef40d9aa870e Mon Sep 17 00:00:00 2001
+From: Jann Horn <jannh@google.com>
+Date: Wed, 3 Jun 2026 21:31:57 +0200
+Subject: [PATCH] fhandle: fix UAF due to unlocked ->mnt_ns read in
+ may_decode_fh()
 
-If vmbus_reserve_fb() in the kdump/kexec kernel fails to properly reserve
-the framebuffer MMIO range (which is below 4GB) due to a Gen2 VM's
-screen.lfb_base being zero [1], there is an MMIO conflict between the
-drivers hyperv-drm and pci-hyperv: when the driver pci-hyperv's
-hv_allocate_config_window() calls vmbus_allocate_mmio() to get an
-MMIO range, typically it gets a 32-bit MMIO range that overlaps with the
-framebuffer MMIO range, and later hv_pci_enter_d0() fails with an
-error message "PCI Pass-through VSP failed D0 Entry with status" since
-the host thinks that PCI devices must not use MMIO space that the
-host has assigned to the framebuffer.
+may_decode_fh() accesses mount::mnt_ns without holding any locks; that
+means the mount can concurrently be unmounted, and the mnt_namespace can
+concurrently be freed after an RCU grace period.
 
-This is especially an issue if pci-hyperv is built-in and hyperv-drm is
-built as a module. Consequently, the kdump/kexec kernel fails to detect
-PCI devices via pci-hyperv, and may fail to mount the root file system,
-which may reside in a NVMe disk. The issue described here has existed
-for SR-IOV VF NICs since day one of the pci-hyperv driver, and has been
-worked around on x64 when possible. With the recent introduction of
-ARM64 VMs that boot from NVMe, there is no workaround, so we need a
-formal fix.
+This race can happens as follows, assuming that the mount point was
+created by open_tree(..., OPEN_TREE_CLONE):
 
-On Gen2 VMs, if the screen.lfb_base is 0 in the kdump/kexec kernel [1],
-fall back to the low MMIO base, which should be equal to the framebuffer
-MMIO base [2] (the statement is true according to my testing on x64
-Windows Server 2016, and on x64 and ARM64 Windows Server 2025 and on
-Azure. I checked with the Hyper-V team and they said the statement should
-continue to be true for Gen2 VMs). In the first kernel, screen.lfb_base
-is not 0; if the user specifies a very high resolution, it's not enough
-to only reserve 8MB: let's always reserve half of the space below 4GB,
-but cap the reservation to 128MB, which is the required framebuffer size
-of the highest resolution 7680*4320 supported by Hyper-V.
+thread 1            thread 2            RCU
+                    __do_sys_open_by_handle_at
+                      do_handle_open
+                        handle_to_path
+                          may_decode_fh
+                            is_mounted
+                              [mount::mnt_ns access]
+                            [mount::mnt_ns access]
+__do_sys_close
+  fput_close_sync
+    __fput
+      dissolve_on_fput
+        umount_tree
+        class_namespace_excl_destructor
+          namespace_unlock
+            free_mnt_ns
+              mnt_ns_tree_remove
+                call_rcu(mnt_ns_release_rcu)
+                                        mnt_ns_release_rcu
+                                          mnt_ns_release
+                                            kfree
+                            [mnt_namespace::user_ns access] **UAF**
 
-While at it, fix the comparison "end > VTPM_BASE_ADDRESS" by changing
-the > to >=. Here the 'end' is an inclusive end (typically, it's
-0xFFFF_FFFF for the low MMIO range).
+Fix it by taking rcu_read_lock() around the mount::mnt_ns access, like
+in __prepend_path().
+Additionally, document the semantics of mount::mnt_ns, and use WRITE_ONCE()
+for writers that can race with lockless readers.
 
-Note: vmbus_reserve_fb() now also reserves an MMIO range at the beginning
-of the low MMIO range on CVMs, which have no framebuffers (the
-'screen.lfb_base' in vmbus_reserve_fb() is 0 for CVMs), just in case the
-host might treat the beginning of the low MMIO range specially [3]. BTW,
-the OpenHCL kernel is not affected by the change, because that kernel
-boots with DeviceTree rather than ACPI (so vmbus_reserve_fb() won't run
-there), and there is no framebuffer device for that kernel.
+This bug is unreachable unless one of the following is set:
 
-Note: normally Gen1 VMs don't have the MMIO conflict issue because the
-framebuffer MMIO range (which is hardcoded to base=4GB-128MB and
-size=64MB for Gen1 VMs by the host) is always reported via the legacy PCI
-graphics device's BAR, so the kdump/kexec kernel can reserve the 64MB
-MMIO range; however, if the VM is configured to use a very high resolution
-and the required framebuffer size exceeds 64MB (AFAIK, in practice, this
-isn't a typical configuration by users), the hyperv-drm driver may need to
-allocate an MMIO range above 4GB and change the framebuffer MMIO location
-to the allocated MMIO range -- in this case, there can still be issues [4]
-which can't be easily fixed: any possible affected Gen1 users would have
-to use a resolution whose framebuffer size is <= 64MB, or switch to Gen2
-VMs.
+ - CONFIG_PREEMPTION
+ - CONFIG_RCU_STRICT_GRACE_PERIOD
 
-[1] https://lore.kernel.org/all/SA1PR21MB692176C1BC53BFC9EAE5CF8EBF51A@SA1PR21MB6921.namprd21.prod.outlook.com/
-[2] https://lore.kernel.org/all/SA1PR21MB69218F955B62DFF62E3E88D2BF222@SA1PR21MB6921.namprd21.prod.outlook.com/
-[3] https://lore.kernel.org/all/SN6PR02MB415726B17D5A6027CD1717E8D4342@SN6PR02MB4157.namprd02.prod.outlook.com/
-[4] https://lore.kernel.org/all/SA1PR21MB69213486F821CA5A2C793C81BF342@SA1PR21MB6921.namprd21.prod.outlook.com/
+because it requires an RCU grace period to happen during a syscall without
+an explicit preemption.
 
-Fixes: 4daace0d8ce8 ("PCI: hv: Add paravirtual PCI front-end for Microsoft Hyper-V VMs")
-CC: stable@vger.kernel.org
-Reviewed-by: Michael Kelley <mhklinux@outlook.com>
-Tested-by: Krister Johansen <kjlx@templeofstupid.com>
-Tested-by: Matthew Ruffell <matthew.ruffell@canonical.com>
-Signed-off-by: Dexuan Cui <decui@microsoft.com>
-Signed-off-by: Wei Liu <wei.liu@kernel.org>
+This doesn't seem to have interesting security impact; worst-case, it could
+leak the result of an integer comparison to userspace (from the level
+check in cap_capable()), cause an endless loop, or crash the kernel by
+dereferencing an invalid address.
 
-diff --git a/drivers/hv/vmbus_drv.c b/drivers/hv/vmbus_drv.c
-index c9eeb2ec365d..b80a35c778ab 100644
---- a/drivers/hv/vmbus_drv.c
-+++ b/drivers/hv/vmbus_drv.c
-@@ -2327,8 +2327,8 @@ static acpi_status vmbus_walk_resources(struct acpi_resource *res, void *ctx)
- 		return AE_NO_MEMORY;
+Fixes: 620c266f3949 ("fhandle: relax open_by_handle_at() permission checks")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jann Horn <jannh@google.com>
+Link: https://patch.msgid.link/20260603-vfs-fhandle-uaf-fix-v2-1-d05db76a5084@google.com
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+
+diff --git a/fs/fhandle.c b/fs/fhandle.c
+index 642e3d569497..1ca7eb3a6cb5 100644
+--- a/fs/fhandle.c
++++ b/fs/fhandle.c
+@@ -285,6 +285,19 @@ static int do_handle_to_path(struct file_handle *handle, struct path *path,
+ 	return 0;
+ }
  
- 	/* If this range overlaps the virtual TPM, truncate it. */
--	if (end > VTPM_BASE_ADDRESS && start < VTPM_BASE_ADDRESS)
--		end = VTPM_BASE_ADDRESS;
-+	if (end >= VTPM_BASE_ADDRESS && start < VTPM_BASE_ADDRESS)
-+		end = VTPM_BASE_ADDRESS - 1;
- 
- 	new_res->name = "hyperv mmio";
- 	new_res->flags = IORESOURCE_MEM;
-@@ -2395,6 +2395,7 @@ static void vmbus_mmio_remove(void)
- static void __maybe_unused vmbus_reserve_fb(void)
++static bool capable_wrt_mount(struct mount *mount)
++{
++	struct mnt_namespace *mnt_ns;
++
++	/*
++	 * For ->mnt_ns access.
++	 * The following READ_ONCE() is semantically rcu_dereference().
++	 */
++	guard(rcu)();
++	mnt_ns = READ_ONCE(mount->mnt_ns);
++	return ns_capable(mnt_ns->user_ns, CAP_SYS_ADMIN);
++}
++
+ static inline int may_decode_fh(struct handle_to_path_ctx *ctx,
+ 				unsigned int o_flags)
  {
- 	resource_size_t start = 0, size;
-+	resource_size_t low_mmio_base;
- 	struct pci_dev *pdev;
+@@ -320,8 +333,7 @@ static inline int may_decode_fh(struct handle_to_path_ctx *ctx,
+ 	if (ns_capable(root->mnt->mnt_sb->s_user_ns, CAP_SYS_ADMIN))
+ 		ctx->flags = HANDLE_CHECK_PERMS;
+ 	else if (is_mounted(root->mnt) &&
+-		 ns_capable(real_mount(root->mnt)->mnt_ns->user_ns,
+-			    CAP_SYS_ADMIN) &&
++		 capable_wrt_mount(real_mount(root->mnt)) &&
+ 		 !has_locked_children(real_mount(root->mnt), root->dentry))
+ 		ctx->flags = HANDLE_CHECK_PERMS | HANDLE_CHECK_SUBTREE;
+ 	else
+diff --git a/fs/mount.h b/fs/mount.h
+index e0816c11a198..5c120f8361bd 100644
+--- a/fs/mount.h
++++ b/fs/mount.h
+@@ -71,7 +71,15 @@ struct mount {
+ 	struct hlist_head mnt_slave_list;/* list of slave mounts */
+ 	struct hlist_node mnt_slave;	/* slave list entry */
+ 	struct mount *mnt_master;	/* slave is on master->mnt_slave_list */
+-	struct mnt_namespace *mnt_ns;	/* containing namespace */
++	/*
++	 * Containing namespace (active or deactivating, non-refcounted).
++	 * Normally protected by namespace_sem.
++	 * Can also be accessed locklessly under RCU. RCU readers can't rely on
++	 * the namespace still being active, but implicitly hold a passive
++	 * reference (because an RCU delay happens between a namespace being
++	 * deactivated and the corresponding passive refcount drop).
++	 */
++	struct mnt_namespace *mnt_ns;
+ 	struct mountpoint *mnt_mp;	/* where is it mounted */
+ 	union {
+ 		struct hlist_node mnt_mp_list;	/* list mounts with the same mountpoint */
+diff --git a/fs/namespace.c b/fs/namespace.c
+index fe919abd2f01..f5905f4ec560 100644
+--- a/fs/namespace.c
++++ b/fs/namespace.c
+@@ -1079,7 +1079,7 @@ static void mnt_add_to_ns(struct mnt_namespace *ns, struct mount *mnt)
+ 	bool mnt_first_node = true, mnt_last_node = true;
  
- 	if (efi_enabled(EFI_BOOT)) {
-@@ -2402,6 +2403,24 @@ static void __maybe_unused vmbus_reserve_fb(void)
- 		if (IS_ENABLED(CONFIG_SYSFB)) {
- 			start = sysfb_primary_display.screen.lfb_base;
- 			size = max_t(__u32, sysfb_primary_display.screen.lfb_size, 0x800000);
-+
-+			low_mmio_base = hyperv_mmio->start;
-+			if (!low_mmio_base || upper_32_bits(low_mmio_base) ||
-+			    (start && start < low_mmio_base)) {
-+				pr_warn("Unexpected low mmio base %pa\n", &low_mmio_base);
-+			} else {
-+				/*
-+				 * If the kdump/kexec or CVM kernel's lfb_base
-+				 * is 0, fall back to the low mmio base.
-+				 */
-+				if (!start)
-+					start = low_mmio_base;
-+				/*
-+				 * Reserve half of the space below 4GB for high
-+				 * resolutions, but cap the reservation to 128MB.
-+				 */
-+				size = min((SZ_4G - start) / 2, SZ_128M);
-+			}
- 		}
- 	} else {
- 		/* Gen1 VM: get FB base from PCI */
-@@ -2422,8 +2441,10 @@ static void __maybe_unused vmbus_reserve_fb(void)
- 		pci_dev_put(pdev);
- 	}
- 
--	if (!start)
-+	if (!start) {
-+		pr_warn("Unexpected framebuffer mmio base of zero\n");
- 		return;
-+	}
- 
- 	/*
- 	 * Make a claim for the frame buffer in the resource tree under the
-@@ -2433,6 +2454,8 @@ static void __maybe_unused vmbus_reserve_fb(void)
- 	 */
- 	for (; !fb_mmio && (size >= 0x100000); size >>= 1)
- 		fb_mmio = __request_region(hyperv_mmio, start, size, fb_mmio_name, 0);
-+
-+	pr_info("hv_mmio=%pR,%pR fb=%pR\n", hyperv_mmio, hyperv_mmio->sibling, fb_mmio);
+ 	WARN_ON(mnt_ns_attached(mnt));
+-	mnt->mnt_ns = ns;
++	WRITE_ONCE(mnt->mnt_ns, ns);
+ 	while (*link) {
+ 		parent = *link;
+ 		if (mnt->mnt_id_unique < node_to_mount(parent)->mnt_id_unique) {
+@@ -1434,7 +1434,7 @@ EXPORT_SYMBOL(mntget);
+ void mnt_make_shortterm(struct vfsmount *mnt)
+ {
+ 	if (mnt)
+-		real_mount(mnt)->mnt_ns = NULL;
++		WRITE_ONCE(real_mount(mnt)->mnt_ns, NULL);
  }
  
  /**
+@@ -1806,7 +1806,7 @@ static void umount_tree(struct mount *mnt, enum umount_tree_flags how)
+ 			ns->nr_mounts--;
+ 			__touch_mnt_namespace(ns);
+ 		}
+-		p->mnt_ns = NULL;
++		WRITE_ONCE(p->mnt_ns, NULL);
+ 		if (how & UMOUNT_SYNC)
+ 			p->mnt.mnt_flags |= MNT_SYNC_UMOUNT;
+ 
 
