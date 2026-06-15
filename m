@@ -1,103 +1,134 @@
-Received: from mail-ot1-f41.google.com (mail-ot1-f41.google.com [209.85.210.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DCBD423A74
-	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 16:11:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85AD83E3172
+	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 16:17:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781539883; cv=none; b=HxrsTnTTMCEXFZNgav9n8Q7o29n9e504SdZyVsyG0P6oQF7uxVPBoKDiG/LQvuhnPNBWRtBJXWJ2siBx2o66upk+dBj1ORrA2MX522SSKqeRJIK1zwrpYqBaMZ/K3It7jd5nQk8e7Eyf1qLR9ykURF7XlPGoOhUzG9TlX1J3ock=
+	t=1781540253; cv=none; b=EuQ8/0RUCVzCT+mkon8KGb6HN0mJ8XMNTnOd8UETRZ6u1oSPzsU30hywwB1pm4/m0Y0OywM0fPLXaPJCZdQZzyidOc2L6bA1OBFYjDeqQ5hFdHOQGKNWMiPZH3DA9c1/syelZHB2cVJjp2HvI76AA5f+TbsIUGc3c5sRwlZ13PU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781539883; c=relaxed/simple;
-	bh=v+O+yppkseenWDZs1JbF/AaLknmY2AN0YpoReeQBaRo=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=rpOsqaj3ORE7C71xXxinYZzcdrDbW0kYzrtzHze04NfxVBP9G5/z9TKaunaLFwF3QSAuW0Ga0DBtn8h4mWoZyTd5uXaX8sqZMNvxQQCXqR/la/c0iv8RAYTfa425kPnEJQDQgOLcPXL8Eow4/lcD0IPFQh/n8bfyyM1jZHhdNxI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk; spf=pass smtp.mailfrom=kernel.dk; dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b=GNo3F/Lw; arc=none smtp.client-ip=209.85.210.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
+	s=arc-20240116; t=1781540253; c=relaxed/simple;
+	bh=g0ioa68U7ZEIJ74ouQqs01lSXDzPaRKGg3h51u6uh78=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=f24TJLcchROqUrQGHVkfaWIV+19krSjAOgKM2VE11mQMJ5FDQUGEnXwvn4u4tTABuFqhrw7ajqfvRx3hIF8/bC+o1zgmdbhKymo455WQObpnVQYmCxDGiUXIF8gIcxI6wpqbCX1Oz/VonLSGTAJC27R18NNhaG37pxY80/Lp0+w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m1TTJ9WO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b="GNo3F/Lw"
-Received: by mail-ot1-f41.google.com with SMTP id 46e09a7af769-7e6e9408e30so2257161a34.2
-        for <stable@vger.kernel.org>; Mon, 15 Jun 2026 09:11:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1781539880; x=1782144680; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:date:message-id:subject
-         :references:in-reply-to:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=qj7icUEMs4GIx/u6FWTf4aEg63YvIWSyt4xXxioMfP0=;
-        b=GNo3F/Lwc8eWmcjX/yyBDPRLHwjBOnNzqbt0sItdN9OGWbppMkV8YclwQU9W5KAn9v
-         HA6+fWB+gUBaTLZPfVWxZ/9h4GkmY5FVSUP7oUb/FS1MlJi6N1Hff9TmU1L8lP6y0WpS
-         gsPnNarH8cegM0/A3u4OphUHpZ1FZi5XN4tVYkPvOPgo1FSxzmDG1g9/XiEXKLi6jVXd
-         2yW5zsA005RglNBPoSz5lIGCJxYQ2l24imDJrrGWFYPrPfhYWBD7fTl8q2tHwGgryk76
-         PuCPBb8XT43UqQ0eCRkqIByTbnuwuQ3ux9NpAml8VEWEigNc3DVxH8I31jc9H3AEA0kj
-         7AYg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781539880; x=1782144680;
-        h=content-transfer-encoding:mime-version:date:message-id:subject
-         :references:in-reply-to:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=qj7icUEMs4GIx/u6FWTf4aEg63YvIWSyt4xXxioMfP0=;
-        b=N33GIaNdy5oOAsxUZvKGESTTrGBQIpDBImCBhdYC4YD7whAHMxfelrjh9wfr8+a0XH
-         tWAshwFsZhMpR+CTB9DAOZNoRVqNpEmG690zVDuoZIz78AquceJnkNmiRjRZmhLMhF+6
-         UNXw6sIFrCCdz7iA5GxB33Dk28iyBaO96HYWopjCyifHT/dHElD2VwXBqweg1PkT/cxj
-         ti2SW8gjCDBrAmh2e3qxmWAK7O+Kb4feEzVGs8k8pOs1taYDlLpvvCCVvQKiz6TLdTrM
-         wxl8vAGyb54JJNCsDd6lD0l2PLfkDflg12u3V0N5khnrSbdLcWmAo2l5ewQA8DPj/GJl
-         gj6A==
-X-Forwarded-Encrypted: i=1; AFNElJ8aUgd1qxtFrox781gFvalDeTCcfXViiwtg+ULKOFx/ejfUuThMMhm4mKYNi2ZTmL9sgh9Xrt8=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyRZDoBOqIaMyvu8ZwB6d+ZBZe1YTiStzeirjsZNv822tfh6+4S
-	tVasf3ya3+79rJBCRjN1NIv2s+dEdS/1Xpn0YuItI5uXNBC9UBdttMqqZdDRNSOAAKs=
-X-Gm-Gg: Acq92OEwmhZP8Qg0svMweu503BpBJtmX5Zk9TpCM6BeheBKmFzQT9CzJsH1XTQTyYev
-	PGvJgVP2Q9VG6Nw3vsy6pKE9qkAr8eWnOEiS3WWWOxd5IuXhUSEt4iy/9WsbMoF4+DCrIZBt5gp
-	i0bFbDSzjLwdlMIKoZbwGwIZy9FIClNoQUY5tW4hxaj518ekNm5SW0ZEfrcML9DDf2gtBbSSKJe
-	iCL2EyriiLeUkfY1+cpJ5X+txyQzP4zrXrIo02X7+ura2AvuSQo1s41h2hr3k2zmJUjv6EjFAAH
-	7D/gK0VE2dPbit0tK6mbTzMatdnZThNv5KMlPRDoluFfG3jnnGgY0COxTr89V/pJETr8XrxT5+4
-	s3wIEze4SksU9ikiaRfgqgkOhE1tP3jvqWYYeXQIXmgOlINiGAG13JR8egChgN3jWv8PywfvOs8
-	9lqmq4Tm9UmegmLnDMp2yn6SbC0zRLksjEFfO2mV4+VNAZ/YBwXzLXbtqjkH0yEiokD0JgASxPI
-	VAVvPAoz571Xw==
-X-Received: by 2002:a05:6830:f90:b0:7e6:f7fb:967f with SMTP id 46e09a7af769-7e78e628c3fmr8131058a34.2.1781539880593;
-        Mon, 15 Jun 2026 09:11:20 -0700 (PDT)
-Received: from [127.0.0.1] ([96.43.243.2])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7e79f6fb5edsm4581811a34.26.2026.06.15.09.11.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 15 Jun 2026 09:11:19 -0700 (PDT)
-From: Jens Axboe <axboe@kernel.dk>
-To: Michael Wigham <michael@wigham.net>
-Cc: Pavel Begunkov <asml.silence@gmail.com>, io-uring@vger.kernel.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-In-Reply-To: <20260613225240.34032-1-michael@wigham.net>
-References: <20260613225240.34032-1-michael@wigham.net>
-Subject: Re: [PATCH] io_uring/rw: preserve partial result for iopoll
-Message-Id: <178153987932.2073745.6612566060392161190.b4-ty@b4>
-Date: Mon, 15 Jun 2026 10:11:19 -0600
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m1TTJ9WO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB3F91F00A3A;
+	Mon, 15 Jun 2026 16:17:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781540252;
+	bh=THFOqtpPGEuY7XJ3AXGm/LTAaE5h49FxuyjRk8aqMqo=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=m1TTJ9WOiAx48pILIMID6+jjEvqQio66BEaCuMosiuZ0DKvHkt1HMWi0xXVqBtT62
+	 cf0/YQZmNTRJzfkMeZ0T86vkkwS+mHRgrv7S/enE7fr2gn1H1buoQPCN032O8tNwFq
+	 Hh7hAtbux1UHIf5c5i+GqfnsbsPOwjA3gGoRHKX5YmL8RUil2mmn73VgVUT07MOMeP
+	 GEbN+tCxdMVNjOk7tUNTogcfN2+zicdWGaqodnANt+whhe2j6ctxYdpnYuGulDF5Sf
+	 6bBBIc6slnB5F6J2/pc6N13gz7KVS++tjyrBCJqbbdf06heGGoDWDscLDB6hir9LNv
+	 erGZ6k6L+rv4Q==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Davide Ornaghi <d.ornaghi97@gmail.com>,
+	Florian Westphal <fw@strlen.de>,
+	Pablo Neira Ayuso <pablo@netfilter.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y] netfilter: nft_fib: fix stale stack leak via the OIFNAME register
+Date: Mon, 15 Jun 2026 12:17:29 -0400
+Message-ID: <20260615161729.2239291-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026061543-grumble-playset-f6ba@gregkh>
+References: <2026061543-grumble-playset-f6ba@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15.2
+Content-Transfer-Encoding: 8bit
 
+From: Davide Ornaghi <d.ornaghi97@gmail.com>
 
-On Sat, 13 Jun 2026 23:52:16 +0100, Michael Wigham wrote:
-> A partial read will store the completed byte count in io->bytes_done.
-> The regular completion path applies io_fixup_rw_res() so that, when the
-> following operation reaches EOF, the number of bytes already read is
-> returned.
-> 
-> The iopoll completion path does not apply this fixup to the return value
-> and can return zero instead.
-> 
-> [...]
+[ Upstream commit ab185e0c4fb82dfba6fb86f8271e06f931d9c64c ]
 
-Applied, thanks!
+For NFT_FIB_RESULT_OIFNAME the destination register is declared with
+len = IFNAMSIZ (four 32-bit registers), but on the lookup-fail,
+RTN_LOCAL and oif-mismatch paths nft_fib{4,6}_eval() only writes one
+register via "*dest = 0". The remaining three registers are left as
+whatever was on the stack in nft_do_chain()'s struct nft_regs, and a
+downstream expression that loads the register span can leak that
+uninitialised kernel stack to userspace.
 
-[1/1] io_uring/rw: preserve partial result for iopoll
-      commit: 15a90c358c33871eec14588d4c72b548b4f679b2
+The NFTA_FIB_F_PRESENT existence check has the same shape: it is only
+meaningful for NFT_FIB_RESULT_OIF, yet it was accepted for any result type
+while the eval stores a single byte via nft_reg_store8(), leaving the rest
+of the declared span stale.
 
-Best regards,
+Fix both:
+
+ - replace the bare "*dest = 0" in the eval with nft_fib_store_result(),
+   which strscpy_pad()s the whole IFNAMSIZ for OIFNAME (and is already
+   used on the other early-return path), and
+
+ - restrict NFTA_FIB_F_PRESENT to NFT_FIB_RESULT_OIF and declare its
+   destination as a single u8, so the marked span matches the one byte
+   the eval writes.
+
+Fixes: f6d0cbcf09c5 ("netfilter: nf_tables: add fib expression")
+Suggested-by: Florian Westphal <fw@strlen.de>
+Cc: stable@vger.kernel.org
+Signed-off-by: Davide Ornaghi <d.ornaghi97@gmail.com>
+Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
+[ kept the tree's existing `ip6_route_lookup`/`rt6_info` machinery (missing `fib6_lookup` refactor) and changed only `*dest = 0;` to `nft_fib_store_result(dest, priv, NULL)` ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ net/ipv4/netfilter/nft_fib_ipv4.c | 2 +-
+ net/ipv6/netfilter/nft_fib_ipv6.c | 2 +-
+ net/netfilter/nft_fib.c           | 6 ++++++
+ 3 files changed, 8 insertions(+), 2 deletions(-)
+
+diff --git a/net/ipv4/netfilter/nft_fib_ipv4.c b/net/ipv4/netfilter/nft_fib_ipv4.c
+index edec5c8f59ac84..31a96aaeccec53 100644
+--- a/net/ipv4/netfilter/nft_fib_ipv4.c
++++ b/net/ipv4/netfilter/nft_fib_ipv4.c
+@@ -122,7 +122,7 @@ void nft_fib4_eval(const struct nft_expr *expr, struct nft_regs *regs,
+ 		fl4.saddr = get_saddr(iph->daddr);
+ 	}
+ 
+-	*dest = 0;
++	nft_fib_store_result(dest, priv, NULL);
+ 
+ 	if (fib_lookup(nft_net(pkt), &fl4, &res, FIB_LOOKUP_IGNORE_LINKSTATE))
+ 		return;
+diff --git a/net/ipv6/netfilter/nft_fib_ipv6.c b/net/ipv6/netfilter/nft_fib_ipv6.c
+index a89ce0fbfe4b12..da4a35c20f1017 100644
+--- a/net/ipv6/netfilter/nft_fib_ipv6.c
++++ b/net/ipv6/netfilter/nft_fib_ipv6.c
+@@ -193,7 +193,7 @@ void nft_fib6_eval(const struct nft_expr *expr, struct nft_regs *regs,
+ 		}
+ 	}
+ 
+-	*dest = 0;
++	nft_fib_store_result(dest, priv, NULL);
+ 	rt = (void *)ip6_route_lookup(nft_net(pkt), &fl6, pkt->skb,
+ 				      lookup_flags);
+ 	if (rt->dst.error)
+diff --git a/net/netfilter/nft_fib.c b/net/netfilter/nft_fib.c
+index 0f17ace9722765..7a92a5e5508fdf 100644
+--- a/net/netfilter/nft_fib.c
++++ b/net/netfilter/nft_fib.c
+@@ -107,6 +107,12 @@ int nft_fib_init(const struct nft_ctx *ctx, const struct nft_expr *expr,
+ 		return -EINVAL;
+ 	}
+ 
++	if (priv->flags & NFTA_FIB_F_PRESENT) {
++		if (priv->result != NFT_FIB_RESULT_OIF)
++			return -EINVAL;
++		len = sizeof(u8);
++	}
++
+ 	err = nft_parse_register_store(ctx, tb[NFTA_FIB_DREG], &priv->dreg,
+ 				       NULL, NFT_DATA_VALUE, len);
+ 	if (err < 0)
 -- 
-Jens Axboe
-
-
+2.53.0
 
