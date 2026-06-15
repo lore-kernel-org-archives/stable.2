@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E10A2853F2
-	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 03:52:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F27D1F4CB3
+	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 03:54:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781495552; cv=none; b=YFgSZ+5QNj8WrEsDhe/JGVPFVIEw95wi91BSolwnREf3rzChQ5bhgNrOQ9UeoIggeK6YfnTEOj6bKvHu+SEWRPY1zdOBISIEtkSZ/QHQ8sZIz/LZKgHa3pflAxC4FZ/Vq3kH7hGpdjAtcGeGTi2BG9neYoQWnhEVmZAA0FCTBog=
+	t=1781495696; cv=none; b=gybcxPAQiY/yg5CRdh0xMqGTAjLklR4lEHVFrUS67DnfR6AqAZqJlWpjlK2bwdtz8y+kIx9JekKv2xxji6ktxljmFQtmaCtopeP+xvUW39qBKeTCCRGJZOKuJUlw+nlHnm9GVnmmGebBWLFosuk7Q2ytUnzbwLBR17RzgEmkiJ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781495552; c=relaxed/simple;
-	bh=TCfFg/EahGQPLANsFuH9CVMJzQ9Y1pJA/gX8P/cqCzI=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=eSr13UF+hZnzuDLCRp6tL8CJdmQdiu7ONdh7MKzlFlBAMcEIs7ybXyMmucTEeFoHzYiDhS5RC/CaVzk3AHfL4gGix+WpdHkB0vX9bWO051vdaTWAdgZ0iqAszeNaSpUNmRhszHJKIfeedrcbdigs+RjUT17NlwCODl1xriYO/sI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=MmfH8+11; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781495696; c=relaxed/simple;
+	bh=VZ3qAQFH0Ny/I7BShf4jEkeD4Q4pb8h5/gQVz7KJN7g=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=VxXF7c6Bf01yUxB9RDUgeivG2ZPiQ87ccx9Ya91Rz6GEPe0Fap0U5gbDbKKTQiExO2332c8CAcnodfhdTnNphdVkXVPo1buxxKVRDpplOhOo8LRNPMrFGe0ZnqWjmKma+eBKFqk7WhbVuAI0Yw85j+CSedDGewyUp6yN9nEQk20=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Ppdrt53X; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="MmfH8+11"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 104B11F000E9;
-	Mon, 15 Jun 2026 03:52:29 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Ppdrt53X"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F0AB1F000E9;
+	Mon, 15 Jun 2026 03:54:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1781495550;
-	bh=G8wE0X3vMC2h9mIjZiNds4eiQKjQUwnbDcmqd7TkJ/Y=;
+	s=korg; t=1781495695;
+	bh=s4KnHiXoFGoVIs/fBRfD0dKcr8qGMa1uVwfctmbwhU0=;
 	h=Subject:To:Cc:From:Date;
-	b=MmfH8+11hrnndyC4JYcOZnKOdnbJZA1GCYBe5OYlk182H+rKcSoGgpB/yMYk9h7CE
-	 Yfi93MrO3qpSHvSTA2CvA/rY5f6jLByu80t1bJ+Rv4AvkLbaMF0qEIbhRqO6HZDMfX
-	 NnluZdvTICxdsnxCN/IE2SOY5rhL3qifPpfkrOCM=
-Subject: FAILED: patch "[PATCH] mm/memory-failure: fix hugetlb_lock AA deadlock in" failed to apply to 5.15-stable tree
-To: mawupeng1@huawei.com,akpm@linux-foundation.org,david@kernel.org,liam.howlett@oracle.com,linmiaohe@huawei.com,ljs@kernel.org,mhocko@suse.com,muchun.song@linux.dev,nao.horiguchi@gmail.com,osalvador@kernel.org,rppt@kernel.org,stable@vger.kernel.org,surenb@google.com,vbabka@kernel.org,wangkefeng.wang@huawei.com
+	b=Ppdrt53XpiWmuOLaCHScNqzKJ0fZeKvkadnYCx+IuVfoTm5UfAz4X4qsMNiDhh0s1
+	 w05SOuibFRZ3QR4X6tCxZm49WdxBUOmGdyndpWL8XPo88SQY/aHI+aMQM4S+QN5sCx
+	 sv7EI4qrjyPwTEDXP4J+ATmWdmT7xaaSJe6iNzqQ=
+Subject: FAILED: patch "[PATCH] sched_ext: Don't warn on NULL cgrp_moving_from in" failed to apply to 7.0-stable tree
+To: tj@kernel.org,arighi@nvidia.com,mfleming@cloudflare.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 15 Jun 2026 05:51:16 +0200
-Message-ID: <2026061516-devourer-tweet-8d3d@gregkh>
+Date: Mon, 15 Jun 2026 05:53:53 +0200
+Message-ID: <2026061552-lividly-railcar-9730@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 7.0-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.0.y
 git checkout FETCH_HEAD
-git cherry-pick -x 3c2d42b8ee345b17a4ba56b0f6492d1ff4c1178e
+git cherry-pick -x 02e545c4297a26dbbc41df81b831e7f605bcd306
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026061516-devourer-tweet-8d3d@gregkh' --subject-prefix 'PATCH 5.15.y' HEAD^..
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026061552-lividly-railcar-9730@gregkh' --subject-prefix 'PATCH 7.0.y' HEAD^..
 
 Possible dependencies:
 
@@ -62,197 +62,70 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 3c2d42b8ee345b17a4ba56b0f6492d1ff4c1178e Mon Sep 17 00:00:00 2001
-From: Wupeng Ma <mawupeng1@huawei.com>
-Date: Fri, 22 May 2026 09:03:05 +0800
-Subject: [PATCH] mm/memory-failure: fix hugetlb_lock AA deadlock in
- get_huge_page_for_hwpoison
+From 02e545c4297a26dbbc41df81b831e7f605bcd306 Mon Sep 17 00:00:00 2001
+From: Tejun Heo <tj@kernel.org>
+Date: Mon, 1 Jun 2026 09:22:37 -1000
+Subject: [PATCH] sched_ext: Don't warn on NULL cgrp_moving_from in
+ scx_cgroup_move_task()
 
-Two concurrent madvise(MADV_HWPOISON) calls on the same hugetlb page can
-trigger a recursive spinlock self-deadlock (AA deadlock) on hugetlb_lock
-when racing with a concurrent unmap:
+A WARN fires when systemd's user manager writes "+cpu +memory +pids" to
+its own subtree_control while a sched_ext scheduler is loaded:
 
-  thread#0                              thread#1
-  --------                              --------
-  madvise(folio, MADV_HWPOISON)
-    -> poisons the folio successfully
-  madvise(folio, MADV_HWPOISON)         unmap(folio)
-    try_memory_failure_hugetlb
-      get_huge_page_for_hwpoison
-        spin_lock_irq(&hugetlb_lock)    <- held
-        __get_huge_page_for_hwpoison
-          hugetlb_update_hwpoison()
-            -> MF_HUGETLB_FOLIO_PRE_POISONED
-          goto out:
-            folio_put()
-              refcount: 1 -> 0
-              free_huge_folio()
-                spin_lock_irqsave(&hugetlb_lock)
-                  -> AA DEADLOCK!
+  WARNING: at kernel/sched/ext.c:3227 scx_cgroup_move_task+0xa8/0xb0
+   scx_cgroup_move_task+0xa8/0xb0
+   sched_move_task+0x134/0x290
+   cpu_cgroup_attach+0x39/0x70
+   cgroup_migrate_execute+0x37d/0x450
+   cgroup_update_dfl_csses+0x1e3/0x270
+   cgroup_subtree_control_write+0x3e7/0x440
 
-The out: path in __get_huge_page_for_hwpoison() calls folio_put() to drop
-the GUP reference while the hugetlb_lock is still held by the hugetlb.c
-wrapper get_huge_page_for_hwpoison().  If concurrent unmap has released
-the page table mapping reference, folio_put() drops the folio refcount to
-zero, triggering free_huge_folio() which attempts to re-acquire the
-non-recursive hugetlb_lock.
+scx_cgroup_can_attach() arms cgrp_moving_from only when a task's cpu
+cgroup changes. It can still be NULL when scx_cgroup_move_task() runs,
+through this sequence:
 
-Fix this by moving hugetlb_lock acquisition from the hugetlb.c wrapper
-into get_huge_page_for_hwpoison().  Place spin_unlock_irq() before the
-folio_put() at the out: label so the folio is always released outside the
-lock.
+  Step                               Result
+  ---------------------------------  ----------------------------------
+  1. cpu enabled on cgroup G         cpu css = A
+  2. cpu toggled off then on for G   A killed, B created (same cgroup)
+  3. an exiting task keeps A alive   migration skips it, A now stale
+  4. +memory migrates G              stale A vs current B pulls cpu in
+  5. cpu attach runs for all tasks   hits a live, cpu-unchanged task
+  6. scx_cgroup_move_task() on it    cgrp_moving_from NULL -> WARN
 
-[akpm@linux-foundation.org: fix race, rename label per Miaohe]
-  Link: https://sashiko.dev/#/patchset/20260522010305.4099834-1-mawupeng1@huawei.com
-  Link: https://lore.kernel.org/f39f405e-4b4b-8f79-70fe-a2b5b62114eb@huawei.com
-Link: https://lore.kernel.org/20260522010305.4099834-1-mawupeng1@huawei.com
-Fixes: 405ce051236c ("mm/hwpoison: fix race between hugetlb free/demotion and memory_failure_hugetlb()")
-Signed-off-by: Wupeng Ma <mawupeng1@huawei.com>
-Acked-by: Oscar Salvador (SUSE) <osalvador@kernel.org>
-Acked-by: Muchun Song <muchun.song@linux.dev>
-Reviewed-by: Kefeng Wang <wangkefeng.wang@huawei.com>
-Acked-by: Miaohe Lin <linmiaohe@huawei.com>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Liam Howlett <liam.howlett@oracle.com>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: Naoya Horiguchi <nao.horiguchi@gmail.com>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+The mismatch is that scx_cgroup_can_attach() keys on cgroup identity
+while migration drives the move on css identity, so a NULL cgrp_moving_from
+here is a legitimate css-only migration, not a missing prep.
 
-diff --git a/include/linux/hugetlb.h b/include/linux/hugetlb.h
-index 5957bc25efa8..2abaf99321e9 100644
---- a/include/linux/hugetlb.h
-+++ b/include/linux/hugetlb.h
-@@ -153,8 +153,6 @@ long hugetlb_unreserve_pages(struct inode *inode, long start, long end,
- 						long freed);
- bool folio_isolate_hugetlb(struct folio *folio, struct list_head *list);
- int get_hwpoison_hugetlb_folio(struct folio *folio, bool *hugetlb, bool unpoison);
--int get_huge_page_for_hwpoison(unsigned long pfn, int flags,
--				bool *migratable_cleared);
- void folio_putback_hugetlb(struct folio *folio);
- void move_hugetlb_state(struct folio *old_folio, struct folio *new_folio, int reason);
- void hugetlb_fix_reserve_counts(struct inode *inode);
-@@ -421,12 +419,6 @@ static inline int get_hwpoison_hugetlb_folio(struct folio *folio, bool *hugetlb,
- 	return 0;
- }
- 
--static inline int get_huge_page_for_hwpoison(unsigned long pfn, int flags,
--					bool *migratable_cleared)
--{
--	return 0;
--}
--
- static inline void folio_putback_hugetlb(struct folio *folio)
- {
- }
-diff --git a/include/linux/mm.h b/include/linux/mm.h
-index 06bbe9eba636..fc2acedf0b76 100644
---- a/include/linux/mm.h
-+++ b/include/linux/mm.h
-@@ -4975,8 +4975,6 @@ extern int soft_offline_page(unsigned long pfn, int flags);
-  */
- extern const struct attribute_group memory_failure_attr_group;
- extern void memory_failure_queue(unsigned long pfn, int flags);
--extern int __get_huge_page_for_hwpoison(unsigned long pfn, int flags,
--					bool *migratable_cleared);
- void num_poisoned_pages_inc(unsigned long pfn);
- void num_poisoned_pages_sub(unsigned long pfn, long i);
- #else
-@@ -4984,12 +4982,6 @@ static inline void memory_failure_queue(unsigned long pfn, int flags)
- {
- }
- 
--static inline int __get_huge_page_for_hwpoison(unsigned long pfn, int flags,
--					bool *migratable_cleared)
--{
--	return 0;
--}
--
- static inline void num_poisoned_pages_inc(unsigned long pfn)
- {
- }
-diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-index 1b1d4f87a3a4..c921287489de 100644
---- a/mm/hugetlb.c
-+++ b/mm/hugetlb.c
-@@ -7161,17 +7161,6 @@ int get_hwpoison_hugetlb_folio(struct folio *folio, bool *hugetlb, bool unpoison
- 	return ret;
- }
- 
--int get_huge_page_for_hwpoison(unsigned long pfn, int flags,
--				bool *migratable_cleared)
--{
--	int ret;
--
--	spin_lock_irq(&hugetlb_lock);
--	ret = __get_huge_page_for_hwpoison(pfn, flags, migratable_cleared);
--	spin_unlock_irq(&hugetlb_lock);
--	return ret;
--}
--
- /**
-  * folio_putback_hugetlb - unisolate a hugetlb folio
-  * @folio: the isolated hugetlb folio
-diff --git a/mm/memory-failure.c b/mm/memory-failure.c
-index ee42d4361309..d47aef256a32 100644
---- a/mm/memory-failure.c
-+++ b/mm/memory-failure.c
-@@ -1966,20 +1966,19 @@ void folio_clear_hugetlb_hwpoison(struct folio *folio)
- 	folio_free_raw_hwp(folio, true);
- }
- 
--/*
-- * Called from hugetlb code with hugetlb_lock held.
-- */
--int __get_huge_page_for_hwpoison(unsigned long pfn, int flags,
-+static int get_huge_page_for_hwpoison(unsigned long pfn, int flags,
- 				 bool *migratable_cleared)
- {
- 	struct page *page = pfn_to_page(pfn);
--	struct folio *folio = page_folio(page);
-+	struct folio *folio;
- 	bool count_increased = false;
- 	int ret, rc;
- 
-+	spin_lock_irq(&hugetlb_lock);
-+	folio = page_folio(page);
- 	if (!folio_test_hugetlb(folio)) {
- 		ret = MF_HUGETLB_NON_HUGEPAGE;
--		goto out;
-+		goto out_unlock;
- 	} else if (flags & MF_COUNT_INCREASED) {
- 		ret = MF_HUGETLB_IN_USED;
- 		count_increased = true;
-@@ -1995,13 +1994,13 @@ int __get_huge_page_for_hwpoison(unsigned long pfn, int flags,
- 	} else {
- 		ret = MF_HUGETLB_RETRY;
- 		if (!(flags & MF_NO_RETRY))
--			goto out;
-+			goto out_unlock;
- 	}
- 
- 	rc = hugetlb_update_hwpoison(folio, page);
- 	if (rc >= MF_HUGETLB_FOLIO_PRE_POISONED) {
- 		ret = rc;
--		goto out;
-+		goto out_unlock;
- 	}
+The call is already gated on cgrp_moving_from, so just drop the warning.
+ops.cgroup_prep_move() and ops.cgroup_move() stay paired.
+
+Fixes: 819513666966 ("sched_ext: Add cgroup support")
+Cc: stable@vger.kernel.org # v6.12+
+Reported-by: Matt Fleming <mfleming@cloudflare.com>
+Closes: https://lore.kernel.org/all/20260601124156.2205704-1-mfleming@cloudflare.com/
+Signed-off-by: Tejun Heo <tj@kernel.org>
+Reviewed-by: Andrea Righi <arighi@nvidia.com>
+
+diff --git a/kernel/sched/ext.c b/kernel/sched/ext.c
+index c1762420cc35..8e88a25bc602 100644
+--- a/kernel/sched/ext.c
++++ b/kernel/sched/ext.c
+@@ -4402,11 +4402,13 @@ void scx_cgroup_move_task(struct task_struct *p)
+ 		return;
  
  	/*
-@@ -2013,8 +2012,10 @@ int __get_huge_page_for_hwpoison(unsigned long pfn, int flags,
- 		*migratable_cleared = true;
- 	}
- 
-+	spin_unlock_irq(&hugetlb_lock);
- 	return ret;
--out:
-+out_unlock:
-+	spin_unlock_irq(&hugetlb_lock);
- 	if (count_increased)
- 		folio_put(folio);
- 	return ret;
+-	 * @p must have ops.cgroup_prep_move() called on it and thus
+-	 * cgrp_moving_from set.
++	 * scx_cgroup_can_attach() sets cgrp_moving_from only when the task's
++	 * cgroup changes. Migration keys off css rather than cgroup identity,
++	 * so it can hand an unchanged-cgroup task here with cgrp_moving_from
++	 * NULL. Nothing to report to the BPF scheduler then, so skip it and
++	 * keep prep_move and move paired.
+ 	 */
+-	if (SCX_HAS_OP(sch, cgroup_move) &&
+-	    !WARN_ON_ONCE(!p->scx.cgrp_moving_from))
++	if (SCX_HAS_OP(sch, cgroup_move) && p->scx.cgrp_moving_from)
+ 		SCX_CALL_OP_TASK(sch, cgroup_move, task_rq(p),
+ 				 p, p->scx.cgrp_moving_from,
+ 				 tg_cgrp(task_group(p)));
 
