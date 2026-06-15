@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC8FE7081F
-	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 03:55:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B46F22AD2C
+	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 03:58:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781495708; cv=none; b=KaOriu0m3TKM7hz39TgG1gvuhFXOvG8UXe/1IDuUGBIPvYHXacKRQeIP86NquBH7C6PQAepUDzqF2fF3xhGEJfEMLWdASvin4TWBi0F8F03R0F3BMbWp8ns2JWyBGQdrYA3f/hTbNmH8ZR4SU96Jc2g/oAoTkPmicPJFGJiZT0A=
+	t=1781495902; cv=none; b=XlvV2gctBMxinnimR0pQVZRRemcpWh3RVp5RHn5D+UqGBMjoLHHKzpl6zCJtxpgHM6YfvLC8akJHa0uKFSTxO/x93TCM99oJWAnSgEj76Efo9hlK5m+4L59f3MXXX7+s4ShBFb1AluK/Xz4A8urIWXoGQieK7f9eXCAOzPVCP0Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781495708; c=relaxed/simple;
-	bh=9yHgUex2RH3TGKCPGb8301PK+PQEVR3Tj9cEto4/aNY=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=UNAiZvqEdjSqRVP/K8T7EGMq0rMOn+KRXt88jWqtQpO3kl/p2iOUcylC+YFZJMPOrI8aMwyHff099Ci/XNWNIJXVv5Ny2CNwrjODNgSoXYVnBg/gewhnLCWTa0vZJFLprtOy+mPB8pXyAUvHQpW3BW5PpZuuqDW5XthUjLML35M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=1hFatRrQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781495902; c=relaxed/simple;
+	bh=zWkJoCrF61VtWAoP0JpwqhVZFu7Q5gTprXqG6fuH8LE=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Tu4pL1i2Nws5ZWkWsTl/YpagK8t72Zccu7rT+aQZj1/DQ7egV+3zqxUKZw3oQt73ydu7mZ3ZMPcTaAdIWYDW2nweyEe6LJTAkN85UD3BpBkoH8VUpdUAMQpo8iMB6a/ORQuPBtNtcap/8eLXutG5z+VBucW7uVtmZPiNavIRDJw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=bvl3YMDN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="1hFatRrQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADE151F000E9;
-	Mon, 15 Jun 2026 03:55:06 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="bvl3YMDN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 992851F00A3A;
+	Mon, 15 Jun 2026 03:58:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1781495707;
-	bh=8vHg3X+BzFyqBR108N5rU0xnZRRAv/E1mPB1ViARdCw=;
+	s=korg; t=1781495901;
+	bh=NXh7WMccwu11zJIVc29RFejCz3Ig3qxlBj3MtnzQdgA=;
 	h=Subject:To:Cc:From:Date;
-	b=1hFatRrQw7l+EM9NzFU4c5ccPEGM6COo/dme5IDi7UQif+e8RgRVRMLHZwk2S0rGc
-	 DIJSvKAdNxFrEdGwVVR1t5V3h9aa2I6zV22T/ZaC8bUWBVZOmXtAFjWcbvFOlIUXZq
-	 uzXBAu2cnFiihpmlLtcs8dVSCd++H5ffpi6n34D4=
-Subject: FAILED: patch "[PATCH] sched_ext: Don't warn on NULL cgrp_moving_from in" failed to apply to 6.12-stable tree
-To: tj@kernel.org,arighi@nvidia.com,mfleming@cloudflare.com
+	b=bvl3YMDNIv4tOrCAeqt9axjQqUj/QpTpbGhV7PORcpb0Y2BNn+sgCoTlKO4g3tRqz
+	 ShiILrjrPgLuBobY4Vs1jLgd490SFE21seYW8P/ROrBofqCDZ8LJu4zX2MqNkIIh3Z
+	 pS7JlxiSejy/oQ9nE5aI56+6DaPM4AyzBHuRF2nI=
+Subject: FAILED: patch "[PATCH] KVM: SEV: Unmap and unpin the GHCB as needed on vCPU free" failed to apply to 7.0-stable tree
+To: seanjc@google.com,michael.roth@amd.com,pbonzini@redhat.com,thomas.lendacky@amd.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 15 Jun 2026 05:53:54 +0200
-Message-ID: <2026061554-brink-cesarean-5dc5@gregkh>
+Date: Mon, 15 Jun 2026 05:57:18 +0200
+Message-ID: <2026061518-creative-speak-4f8c@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 7.0-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.0.y
 git checkout FETCH_HEAD
-git cherry-pick -x 02e545c4297a26dbbc41df81b831e7f605bcd306
+git cherry-pick -x db38bcb3311053954f62b865cd2d86e164b04351
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026061554-brink-cesarean-5dc5@gregkh' --subject-prefix 'PATCH 6.12.y' HEAD^..
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026061518-creative-speak-4f8c@gregkh' --subject-prefix 'PATCH 7.0.y' HEAD^..
 
 Possible dependencies:
 
@@ -62,70 +62,80 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 02e545c4297a26dbbc41df81b831e7f605bcd306 Mon Sep 17 00:00:00 2001
-From: Tejun Heo <tj@kernel.org>
-Date: Mon, 1 Jun 2026 09:22:37 -1000
-Subject: [PATCH] sched_ext: Don't warn on NULL cgrp_moving_from in
- scx_cgroup_move_task()
+From db38bcb3311053954f62b865cd2d86e164b04351 Mon Sep 17 00:00:00 2001
+From: Sean Christopherson <seanjc@google.com>
+Date: Fri, 29 May 2026 20:35:42 +0200
+Subject: [PATCH] KVM: SEV: Unmap and unpin the GHCB as needed on vCPU free
 
-A WARN fires when systemd's user manager writes "+cpu +memory +pids" to
-its own subtree_control while a sched_ext scheduler is loaded:
+Unmap and unpin the GHCB as needed when freeing a vCPU.  If the VM is
+destroyed after mapping+pinning the GHCB on #VMGEXIT, without re-running
+the vCPU, KVM will effectively leak the GHCB and any mappings created for
+the GHCB.
 
-  WARNING: at kernel/sched/ext.c:3227 scx_cgroup_move_task+0xa8/0xb0
-   scx_cgroup_move_task+0xa8/0xb0
-   sched_move_task+0x134/0x290
-   cpu_cgroup_attach+0x39/0x70
-   cgroup_migrate_execute+0x37d/0x450
-   cgroup_update_dfl_csses+0x1e3/0x270
-   cgroup_subtree_control_write+0x3e7/0x440
+Fixes: 291bd20d5d88 ("KVM: SVM: Add initial support for a VMGEXIT VMEXIT")
+Cc: stable@vger.kernel.org
+Tested-by: Michael Roth <michael.roth@amd.com>
+Reviewed-by: Tom Lendacky <thomas.lendacky@amd.com>
+Reviewed-by: Michael Roth <michael.roth@amd.com>
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+Message-ID: <20260501202250.2115252-18-seanjc@google.com>
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+Message-ID: <20260529183549.1104619-18-pbonzini@redhat.com>
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 
-scx_cgroup_can_attach() arms cgrp_moving_from only when a task's cpu
-cgroup changes. It can still be NULL when scx_cgroup_move_task() runs,
-through this sequence:
-
-  Step                               Result
-  ---------------------------------  ----------------------------------
-  1. cpu enabled on cgroup G         cpu css = A
-  2. cpu toggled off then on for G   A killed, B created (same cgroup)
-  3. an exiting task keeps A alive   migration skips it, A now stale
-  4. +memory migrates G              stale A vs current B pulls cpu in
-  5. cpu attach runs for all tasks   hits a live, cpu-unchanged task
-  6. scx_cgroup_move_task() on it    cgrp_moving_from NULL -> WARN
-
-The mismatch is that scx_cgroup_can_attach() keys on cgroup identity
-while migration drives the move on css identity, so a NULL cgrp_moving_from
-here is a legitimate css-only migration, not a missing prep.
-
-The call is already gated on cgrp_moving_from, so just drop the warning.
-ops.cgroup_prep_move() and ops.cgroup_move() stay paired.
-
-Fixes: 819513666966 ("sched_ext: Add cgroup support")
-Cc: stable@vger.kernel.org # v6.12+
-Reported-by: Matt Fleming <mfleming@cloudflare.com>
-Closes: https://lore.kernel.org/all/20260601124156.2205704-1-mfleming@cloudflare.com/
-Signed-off-by: Tejun Heo <tj@kernel.org>
-Reviewed-by: Andrea Righi <arighi@nvidia.com>
-
-diff --git a/kernel/sched/ext.c b/kernel/sched/ext.c
-index c1762420cc35..8e88a25bc602 100644
---- a/kernel/sched/ext.c
-+++ b/kernel/sched/ext.c
-@@ -4402,11 +4402,13 @@ void scx_cgroup_move_task(struct task_struct *p)
- 		return;
+diff --git a/arch/x86/kvm/svm/sev.c b/arch/x86/kvm/svm/sev.c
+index 11d46600cbdc..6c6a6d663e29 100644
+--- a/arch/x86/kvm/svm/sev.c
++++ b/arch/x86/kvm/svm/sev.c
+@@ -3552,6 +3552,20 @@ static int sev_es_validate_vmgexit(struct vcpu_svm *svm)
+ 	return 1;
+ }
  
- 	/*
--	 * @p must have ops.cgroup_prep_move() called on it and thus
--	 * cgrp_moving_from set.
-+	 * scx_cgroup_can_attach() sets cgrp_moving_from only when the task's
-+	 * cgroup changes. Migration keys off css rather than cgroup identity,
-+	 * so it can hand an unchanged-cgroup task here with cgrp_moving_from
-+	 * NULL. Nothing to report to the BPF scheduler then, so skip it and
-+	 * keep prep_move and move paired.
- 	 */
--	if (SCX_HAS_OP(sch, cgroup_move) &&
--	    !WARN_ON_ONCE(!p->scx.cgrp_moving_from))
-+	if (SCX_HAS_OP(sch, cgroup_move) && p->scx.cgrp_moving_from)
- 		SCX_CALL_OP_TASK(sch, cgroup_move, task_rq(p),
- 				 p, p->scx.cgrp_moving_from,
- 				 tg_cgrp(task_group(p)));
++static void __sev_es_unmap_ghcb(struct vcpu_svm *svm)
++{
++	if (svm->sev_es.ghcb_sa_free) {
++		kvfree(svm->sev_es.ghcb_sa);
++		svm->sev_es.ghcb_sa = NULL;
++		svm->sev_es.ghcb_sa_free = false;
++	}
++
++	if (svm->sev_es.ghcb) {
++		kvm_vcpu_unmap(&svm->vcpu, &svm->sev_es.ghcb_map);
++		svm->sev_es.ghcb = NULL;
++	}
++}
++
+ void sev_es_unmap_ghcb(struct vcpu_svm *svm)
+ {
+ 	/* Clear any indication that the vCPU is in a type of AP Reset Hold */
+@@ -3570,18 +3584,11 @@ void sev_es_unmap_ghcb(struct vcpu_svm *svm)
+ 		svm->sev_es.ghcb_sa_sync = false;
+ 	}
+ 
+-	if (svm->sev_es.ghcb_sa_free) {
+-		kvfree(svm->sev_es.ghcb_sa);
+-		svm->sev_es.ghcb_sa = NULL;
+-		svm->sev_es.ghcb_sa_free = false;
+-	}
+-
+ 	trace_kvm_vmgexit_exit(svm->vcpu.vcpu_id, svm->sev_es.ghcb);
+ 
+ 	sev_es_sync_to_ghcb(svm);
+ 
+-	kvm_vcpu_unmap(&svm->vcpu, &svm->sev_es.ghcb_map);
+-	svm->sev_es.ghcb = NULL;
++	__sev_es_unmap_ghcb(svm);
+ }
+ 
+ void sev_free_vcpu(struct kvm_vcpu *vcpu)
+@@ -3611,8 +3618,7 @@ void sev_free_vcpu(struct kvm_vcpu *vcpu)
+ 	__free_page(virt_to_page(svm->sev_es.vmsa));
+ 
+ skip_vmsa_free:
+-	if (svm->sev_es.ghcb_sa_free)
+-		kvfree(svm->sev_es.ghcb_sa);
++	__sev_es_unmap_ghcb(svm);
+ }
+ 
+ int pre_sev_run(struct vcpu_svm *svm, int cpu)
 
