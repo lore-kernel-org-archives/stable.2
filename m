@@ -1,190 +1,113 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE7663F39C5
-	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 14:47:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF5483FD971
+	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 14:54:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781534857; cv=none; b=WcWzXh3UYbiUMPTMMkND2qEahAy2Kdu8DFPbGWZIkxBgwsdYZ8z6zD6MAj+uIhPkonEiLkCGVoA/L3Q+SM4DDC+52TqFwdmH676bAN/ZQsr91pGUzEgZG21MdZOasjXMDBdLmYF3k8EOpKWx3APdb8YJa4gX+aamRMOpYE1DCsQ=
+	t=1781535257; cv=none; b=g4F0xHHbXgrsXZBfdnXbY4HdNhic+YMlZYRwmpNZLaxiQ0NeuyQURMDE+EI7XvAq8yGoRuJljSkXrdGH1IBTKgCJ3j+f5yGAfVPq5io1EjGsWDUbZI8F5W7L2IC/ob4epg2N0oDnAkcLjH1QO29WSZLX1Q8mntL53iql12qCjn0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781534857; c=relaxed/simple;
-	bh=X/O4bovvKvBP2yZ34/iyt7NoRs9UIT0/o4Kh2T4E8gU=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=pIp5rUaASuQs4BBHS6wR24/ecwOAlknUJCus0VQmpoXbBI2LRE7x+ppE1kHvxJRGONct9J0uonKQCbMnBsbUWzkz44hKkg6bmmqV6GpLDx3p7giENibIvIkVLn4PPcdvQeDwK4PdS4sYBwwDt6VbsiZ13Vt5rJalYa0nvFQMYkY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=xNuRFf4O; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781535257; c=relaxed/simple;
+	bh=KYBcS7h0pNuUxhCatDx8FkyldB1WhenoX3VwO+hlFKw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ewMz7RfxS4g+vHVOigna2Mnt+L2SdpuqPW5uT5Xl7s/binidWv74D9se7bRX+AmAVa0dnLlWQV58vd1u1Xj2WyqvlAPJ1WIz4ujx7fheMQh6kHD7UmtatMmFIQzmrxgREbkCR3gFKYje37uT5RqY5Ky4KX7jtPBk2sd+qKPxvP0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=I6U+fGUn; arc=none smtp.client-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="xNuRFf4O"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF18C1F000E9;
-	Mon, 15 Jun 2026 14:47:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1781534855;
-	bh=CJiDCpyT/+On/k+9h6hVDc7cSjGm6WPJgd1wusIPClQ=;
-	h=Subject:To:Cc:From:Date;
-	b=xNuRFf4OiJZVvfDHLYrgmLUHroNqQcMf+GFektbovt5xPtV+wCSgtuB+/rgUYn7gk
-	 pBLzNDpR9ya/vf+FU7vS2AkacP2uq0GySV7dlhyYN169KFBzjqhFFKrMZzzSxrZAzq
-	 Em0FFNoVOawA7YVldToM8ntM8ydFRgz1j9JvvpB8=
-Subject: FAILED: patch "[PATCH] ASoC: fsl_sai: Support multiple data channel enable bits" failed to apply to 5.10-stable tree
-To: shengjiu.wang@nxp.com,broonie@kernel.org,nicoleotsuka@gmail.com
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Mon, 15 Jun 2026 16:38:01 +0200
-Message-ID: <2026061501-giggle-unspoiled-256e@gregkh>
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="I6U+fGUn"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-490be03d47bso36556825e9.0
+        for <stable@vger.kernel.org>; Mon, 15 Jun 2026 07:54:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1781535254; x=1782140054; darn=vger.kernel.org;
+        h=user-agent:in-reply-to:content-disposition:mime-version:references
+         :message-id:subject:cc:to:from:date:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=EmZs6H9aAPAvXyfQHo8A/76oZU6GrjxGn5dT6papBg4=;
+        b=I6U+fGUnmTPvxmxzjRlkS4MQ94VqKcEw6ZFKest3+ZNQ/qFrhhGWthehbgGfdsXVuj
+         tRjelmrXjtBcM1OYa6stoULIsKvm0rLypq7qOF/MGA8NdhSHiRJUGxLi+iXc+zkPxZih
+         9TYdPjPtas5SPwLMiveei6UrWs2cg8URlsBPPxU3BlNFFhWRU550t2Rn/+aANy4fuwb+
+         fi3gzTzFSnywHuaJ8gP/55Je2uLRWfOImeu9OxI2NERhv/efAqnuW7c3IFsTNZyGOm/U
+         V7ChYZnuLe3aIg/oPfCCVQerFyliwEqahsL26rhjUY1xHrSyrOqgXFjObCSoIyQN6ST6
+         6ppQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781535254; x=1782140054;
+        h=user-agent:in-reply-to:content-disposition:mime-version:references
+         :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=EmZs6H9aAPAvXyfQHo8A/76oZU6GrjxGn5dT6papBg4=;
+        b=sCUnVxXZExxqnI/lIpoyapnv5RQFtckhI6XdWlyDIo7pCLGcYFK7XFWhp0RNWuqX8+
+         WUvKuV7Yzie1eM30H9Q9HYJivLkjRTvRVPFkpS4JYuMh+7YG0ZqigiNs7KxkUN+GW62c
+         Uc4SU11UcNy9cuPztLlD9jh7n8D5NxA9t53QRAWc1a5qyzVisSVytJfGtRudgzHAgfqS
+         /irBcBBCSdB6FX+2t+8gY+9/zJ8ClqL2eYwasPw/Fv3T4yryglkuvvVsBlp5ks+QouhF
+         H/5sYVjpa7xlYRuJtWHcRg9LBgNHDQmLFntYfzkQHg9FanDGaHtWEZVxt4fXWQkz7PsM
+         g3VQ==
+X-Forwarded-Encrypted: i=1; AFNElJ9iygWg5s6fNY732kuqzAotEMjf0q9DVWhyZqAZQkkkYtVFcRNFKhJ5xCOC5E7swLG6SC7iqHQ=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw+dDp/1W5CO76eBS4+d7p7+sLx383dqUUaIaLcNLYX8qjoLyx6
+	a6pF5YcRYqvJPoNe9I5vOxFxaJt+Kmx6PFYIq01mll6vdxgiSOLE//ulr4jBZfvusU0=
+X-Gm-Gg: Acq92OFvng6ke+2ED0wwQRST78QwUo3h4aQofSahCCfZcaRqP3tebWUSkr9BN8PlNM1
+	vgg0CeUciN3yLU3eflyyCbBUITnwB8O9DDhoRqPhXKNmyoNrzeKz5wUvt+aOJZtRExsBexxFDKj
+	jzV7zUL2KUnpyGW95HDfSqOoK6+LbL19fF2cN8Knak6T18Dad5CedNlVaodfnFM8XEH4JnDIjP/
+	8+dVbJ9h8AbsOjWYSlRt+3wivNq6/AiTKHER2qg/jh7F8fbGyq4hEwAyxN/dgZToVC/UXL9oNeM
+	WzTXY4fPGSgdyQCnCcslYZ3Qr1mE1TtIBAowLAtaaOw2kWIXHiYlfLMg6L+kl5mF7n3yUxII2f4
+	CgK0KDqI26xZLQoIzyOj6Uzm2FeuViSBQn71F3k4cRnSKozgE0XOJT2iAKiTZT+E8RWNupuI2JT
+	T32hLy0wTaxftttg==
+X-Received: by 2002:a05:600c:3512:b0:490:bb45:79da with SMTP id 5b1f17b1804b1-490ec4d650amr196478285e9.13.1781535254039;
+        Mon, 15 Jun 2026 07:54:14 -0700 (PDT)
+Received: from linux-l9pv.suse ([124.11.22.254])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3081e5d0849sm16670216eec.7.2026.06.15.07.54.10
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Mon, 15 Jun 2026 07:54:12 -0700 (PDT)
+Date: Mon, 15 Jun 2026 22:54:06 +0800
+From: joeyli <jlee@suse.com>
+To: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Chun-Yi Lee <joeyli.kernel@gmail.com>,
+	"Rafael J . Wysocki" <rafael@kernel.org>,
+	David Howells <dhowells@redhat.com>,
+	Andy Shevchenko <andy.shevchenko@gmail.com>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Matthew Garrett <mjg59@srcf.ucam.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Danilo Krummrich <dakr@kernel.org>, driver-core@lists.linux.dev,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] debugfs: Fix lockdown check for mmap_prepare
+Message-ID: <20260615145406.GQ11413@linux-l9pv.suse>
+References: <20260615104750.1000-1-jlee@suse.com>
+ <ai_fWlr61AzrNrDz@lucifer>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ai_fWlr61AzrNrDz@lucifer>
+User-Agent: Mutt/1.11.4 (2019-03-13)
 
+On Mon, Jun 15, 2026 at 12:18:29PM +0100, Lorenzo Stoakes wrote:
+> On Mon, Jun 15, 2026 at 06:47:50PM +0800, Chun-Yi Lee wrote:
+> > From: Chun-Yi Lee <jlee@suse.com>
+> >
+> > Commit 651fdda8406d ("relay: update relay to use mmap_prepare")
+> > changed the `mmap` file operation to `mmap_prepare` for relayfs, but
+> > the lockdown check in debugfs was not updated accordingly.
+> >
+> > This prevents debugfs from being locked down when the kernel is in
+> > integrity mode if a file uses `mmap_prepare` but not `mmap`.
+> >
+> > Since the conversion to `mmap_prepare` across the kernel is not yet
+> > complete, update the lockdown check to look for both `mmap` and
+> > `mmap_prepare` to ensure comprehensive coverage.
+> >
+> > Fixes: 651fdda8406d ("relay: update relay to use mmap_prepare")
+> > Signed-off-by: Chun-Yi Lee <jlee@suse.com>
+> 
+> LGTM so:
+> 
+> Reviewed-by: Lorenzo Stoakes <ljs@kernel.org>
+>
 
-The patch below does not apply to the 5.10-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+Thanks for Lorenzo's review!
 
-To reproduce the conflict and resubmit, you may use the following commands:
-
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
-git checkout FETCH_HEAD
-git cherry-pick -x 770f58d7d2c58b8ff31d3694ce14a785c2e75009
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026061501-giggle-unspoiled-256e@gregkh' --subject-prefix 'PATCH 5.10.y' HEAD^..
-
-Possible dependencies:
-
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 770f58d7d2c58b8ff31d3694ce14a785c2e75009 Mon Sep 17 00:00:00 2001
-From: Shengjiu Wang <shengjiu.wang@nxp.com>
-Date: Tue, 1 Sep 2020 19:01:08 +0800
-Subject: [PATCH] ASoC: fsl_sai: Support multiple data channel enable bits
-
-One data channel is one data line. From imx7ulp, the SAI IP is
-enhanced to support multiple data channels.
-
-If there is only two channels input and slots is 2, then enable one
-data channel is enough for data transfer. So enable the TCE/RCE and
-transmit/receive mask register according to the input channels and
-slots configuration.
-
-Move the data channel enablement from startup() to hw_params().
-
-Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
-Acked-by: Nicolin Chen <nicoleotsuka@gmail.com>
-Link: https://lore.kernel.org/r/1598958068-10552-1-git-send-email-shengjiu.wang@nxp.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
-
-diff --git a/sound/soc/fsl/fsl_sai.c b/sound/soc/fsl/fsl_sai.c
-index 62c5fdb678fc..38c7bcbb361d 100644
---- a/sound/soc/fsl/fsl_sai.c
-+++ b/sound/soc/fsl/fsl_sai.c
-@@ -443,6 +443,7 @@ static int fsl_sai_hw_params(struct snd_pcm_substream *substream,
- 	u32 slots = (channels == 1) ? 2 : channels;
- 	u32 slot_width = word_width;
- 	int adir = tx ? RX : TX;
-+	u32 pins;
- 	int ret;
- 
- 	if (sai->slots)
-@@ -451,6 +452,8 @@ static int fsl_sai_hw_params(struct snd_pcm_substream *substream,
- 	if (sai->slot_width)
- 		slot_width = sai->slot_width;
- 
-+	pins = DIV_ROUND_UP(channels, slots);
-+
- 	if (!sai->is_slave_mode) {
- 		if (sai->bclk_ratio)
- 			ret = fsl_sai_set_bclk(cpu_dai, tx,
-@@ -501,13 +504,17 @@ static int fsl_sai_hw_params(struct snd_pcm_substream *substream,
- 				   FSL_SAI_CR5_FBT_MASK, val_cr5);
- 	}
- 
-+	regmap_update_bits(sai->regmap, FSL_SAI_xCR3(tx, ofs),
-+			   FSL_SAI_CR3_TRCE_MASK,
-+			   FSL_SAI_CR3_TRCE((1 << pins) - 1));
- 	regmap_update_bits(sai->regmap, FSL_SAI_xCR4(tx, ofs),
- 			   FSL_SAI_CR4_SYWD_MASK | FSL_SAI_CR4_FRSZ_MASK,
- 			   val_cr4);
- 	regmap_update_bits(sai->regmap, FSL_SAI_xCR5(tx, ofs),
- 			   FSL_SAI_CR5_WNW_MASK | FSL_SAI_CR5_W0W_MASK |
- 			   FSL_SAI_CR5_FBT_MASK, val_cr5);
--	regmap_write(sai->regmap, FSL_SAI_xMR(tx), ~0UL - ((1 << channels) - 1));
-+	regmap_write(sai->regmap, FSL_SAI_xMR(tx),
-+		     ~0UL - ((1 << min(channels, slots)) - 1));
- 
- 	return 0;
- }
-@@ -517,6 +524,10 @@ static int fsl_sai_hw_free(struct snd_pcm_substream *substream,
- {
- 	struct fsl_sai *sai = snd_soc_dai_get_drvdata(cpu_dai);
- 	bool tx = substream->stream == SNDRV_PCM_STREAM_PLAYBACK;
-+	unsigned int ofs = sai->soc_data->reg_offset;
-+
-+	regmap_update_bits(sai->regmap, FSL_SAI_xCR3(tx, ofs),
-+			   FSL_SAI_CR3_TRCE_MASK, 0);
- 
- 	if (!sai->is_slave_mode &&
- 			sai->mclk_streams & BIT(substream->stream)) {
-@@ -651,14 +662,9 @@ static int fsl_sai_startup(struct snd_pcm_substream *substream,
- 		struct snd_soc_dai *cpu_dai)
- {
- 	struct fsl_sai *sai = snd_soc_dai_get_drvdata(cpu_dai);
--	unsigned int ofs = sai->soc_data->reg_offset;
- 	bool tx = substream->stream == SNDRV_PCM_STREAM_PLAYBACK;
- 	int ret;
- 
--	regmap_update_bits(sai->regmap, FSL_SAI_xCR3(tx, ofs),
--			   FSL_SAI_CR3_TRCE_MASK,
--			   FSL_SAI_CR3_TRCE);
--
- 	/*
- 	 * EDMA controller needs period size to be a multiple of
- 	 * tx/rx maxburst
-@@ -675,17 +681,6 @@ static int fsl_sai_startup(struct snd_pcm_substream *substream,
- 	return ret;
- }
- 
--static void fsl_sai_shutdown(struct snd_pcm_substream *substream,
--		struct snd_soc_dai *cpu_dai)
--{
--	struct fsl_sai *sai = snd_soc_dai_get_drvdata(cpu_dai);
--	unsigned int ofs = sai->soc_data->reg_offset;
--	bool tx = substream->stream == SNDRV_PCM_STREAM_PLAYBACK;
--
--	regmap_update_bits(sai->regmap, FSL_SAI_xCR3(tx, ofs),
--			   FSL_SAI_CR3_TRCE_MASK, 0);
--}
--
- static const struct snd_soc_dai_ops fsl_sai_pcm_dai_ops = {
- 	.set_bclk_ratio	= fsl_sai_set_dai_bclk_ratio,
- 	.set_sysclk	= fsl_sai_set_dai_sysclk,
-@@ -695,7 +690,6 @@ static const struct snd_soc_dai_ops fsl_sai_pcm_dai_ops = {
- 	.hw_free	= fsl_sai_hw_free,
- 	.trigger	= fsl_sai_trigger,
- 	.startup	= fsl_sai_startup,
--	.shutdown	= fsl_sai_shutdown,
- };
- 
- static int fsl_sai_dai_probe(struct snd_soc_dai *cpu_dai)
-diff --git a/sound/soc/fsl/fsl_sai.h b/sound/soc/fsl/fsl_sai.h
-index 6aba7d28f5f3..5f630be74853 100644
---- a/sound/soc/fsl/fsl_sai.h
-+++ b/sound/soc/fsl/fsl_sai.h
-@@ -109,7 +109,7 @@
- #define FSL_SAI_CR2_DIV_MASK	0xff
- 
- /* SAI Transmit and Receive Configuration 3 Register */
--#define FSL_SAI_CR3_TRCE	BIT(16)
-+#define FSL_SAI_CR3_TRCE(x)     ((x) << 16)
- #define FSL_SAI_CR3_TRCE_MASK	GENMASK(23, 16)
- #define FSL_SAI_CR3_WDFL(x)	(x)
- #define FSL_SAI_CR3_WDFL_MASK	0x1f
-
+Joey Lee
