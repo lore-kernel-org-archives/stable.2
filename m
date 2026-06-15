@@ -1,69 +1,165 @@
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011026.outbound.protection.outlook.com [52.101.70.26])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79EDE3DA7E0;
-	Mon, 15 Jun 2026 09:30:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781515834; cv=none; b=F+5cadVnxhppeuOYL7Chv7HS1EP3PJIMSB/p6ZXokeww2EhgjAzxbrtHULdJaIOkCcvJLacqVz+uubXZG28PfsdgaYNThxypLtY9tz0zveS0xX4sil5xGFg22LFGGG+eJDBHIM65r3m+V3P/B4w9CzE2e2YbLsFRgWmIUq1HFj0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781515834; c=relaxed/simple;
-	bh=GEf1YDjpAHEtO/q/nECZh0WjUGBhL+tXiu7TmbhkuPk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HdubvuDpqyL6LNcG8bauS/8AhO6rSuBeP2gJbj79f86QWdMNfF3d4p3ysnLmDcF7qkIabkTuLYWqFZLP3C2b1Q0JQqfZQHb1/6cCQqEdsH9w1qpndnrLtFdx9sI0Ccpg9+p7tFC8s0W94+NrOzwCk+CjhZpHl10zfEldpHHSnTQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=a+1Z5x/d; arc=none smtp.client-ip=217.194.8.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 232682F7F0F;
+	Mon, 15 Jun 2026 09:33:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.26
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781516015; cv=fail; b=ldVw5Eqz0tJs8vYn5DJmeM45olAgzTv6XWdaN4waAISR4RyZltZrDlPj0g4fg+n/BtMXQslc8a8pyVk+YIQVnjdn+lAK7IYeEW8UAOf+37rvUxKlEZ0Wys04nDWMTUBURVtzMaXTeLA+YwOb7nyM98fYZ2B+4XDX/W2dhUQmv8A=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781516015; c=relaxed/simple;
+	bh=f2ri0jhIQgS+rtRP24hP6lx8Bx1/dZs3yAEdkhyW5WM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=PhMGs6ebG9ZcMzz2z8JdnpmSfyQO45YpoZav4GrD0S2BIA8Q2WkBI+154W9yCENHiRLGrLYvqriFeCSU8hJpMi7+BNmpX2oY7o7S9VcyDcDebrwDVRqimuGVEY+5GaRYkAchCgSsG6bMigkJt38NlSnPw8/21CoWAFYZDTsSHqs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=CZzUbEFA; arc=fail smtp.client-ip=52.101.70.26
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="a+1Z5x/d"
-Received: from francesco-nb (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch [83.173.201.248])
-	by mail11.truemail.it (Postfix) with ESMTPA id 3B1291F91B;
-	Mon, 15 Jun 2026 11:30:20 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1781515820;
-	bh=pCp36q52TfHBlGuY3sWDp8g2g42BeaTmVWH1Cfy0fWw=; h=From:To:Subject;
-	b=a+1Z5x/dzCYyPOKIUSgLeqRCcu8yYL0AngGL0uP0jzGDCwa9yjGLfRfEoDblH2mbS
-	 WnSJ8g0W8k5ai9c5Do7QtI0cZKpz7aaoJAMX47VNwTNpVYw1geAKaGVN468av/ST8Q
-	 QFm/GC1YqeXIwL0KWbLVEv+UvK4xmfgIrq3s3QcxPNan0MlvWGAgZZWYsypp2lNEP5
-	 NmXPVh4nd0L74bTybnV++JaOYW+JPLwLcQUs7rh2POL1Lf2m2zRRzjb0qyAeCheUHi
-	 NVkyxMsKanaY1y1lDzUxiqAt+pDYq/ipm7ITNh6WLhumdMunpKcG/bVw1Vx58ddH/2
-	 zznuiHsOlAXsw==
-Date: Mon, 15 Jun 2026 11:30:16 +0200
-From: Francesco Dolcini <francesco@dolcini.it>
-To: Jeff Chen <jeff.chen_1@nxp.com>
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="CZzUbEFA"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=R1KfLBkyImQDzzQRVhEgfpoHmvLISaiqUmQ7pMMvCEuiJuAgiXEHGk5lDfNbqEdTtOcA6CoBpFqcfxavfzZ0P5y5N76x/C/efUi6dpbSAPQ+r7YjLErPMzo6Lr4B0UVqsIT6bdUR+CkoaqIE6zBygPElp9uFkAnkYpnGYVv3jcpztXkdu57B/5biNe8tqqK1B6Sk1UIzSbav58+/tZMuOFYECmAXZ2Sf9kZsCVJt2dbK3mEdbFq2xTHf7CG2nVlJMHmYpK6b7A/sleUCPY0EviZRgThbJP5iaiK6XOPCl/qH57A9WcYQkkiUrav6c2gmIuae4vCA0q1LRu2HTk2mDA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=mDYXYf/z16PXp1dK8DmXw1iqVbHdAUD8BgWwfZZ7vOQ=;
+ b=jd9XhH8dKQFrtJ2gjTjvc1Dfm0kMlRsnaKYqDUxbFvGcfHBHgPl150c1mMtbLVZKMA6+zPRrQ2+2FCTHxt4FCIQhdMzgZ3gpDgzo+XbMzWsRcQIe9QCnBaqoLE1iu/bnoBWG7IuLvh7bupWIUv982B8mtd3o6z5WbVYgN48/vK/wjjAe3RquIhmPIH6cst21AnaLlJ88KcSldmy1MGVcT0DJuIRcrOy8yQJJRy7U4P3zIcXB4Yo5xnbPi08R48WHuY0J1j+BpaAEK6SadV6asA5vzglKjYQjDb0CDcRQAZZEKsMLEIm8sZjvcPtBZLucbu0fPn82yZHlyi0EARk7Ew==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=mDYXYf/z16PXp1dK8DmXw1iqVbHdAUD8BgWwfZZ7vOQ=;
+ b=CZzUbEFArgSCsH8v9nHk1pecm0RtWEF+XCewIiQ+etTBxmF9M/NNMn4d3XKEa1axp3rEglKbd5Ghrn+4/LK5GkS5Xf1OOZ4b1RjCRFaTgApQENl/VIU2qPHZ0rXmMb7C1BB5zMxMHY4Ffq+jBvtctyacvrPmupIO+KER1Z3JGTSJaWmCc/9mZ60WzsDpyE3gTgHqV3hmhp3LrZ22/c9d7TRB2XCgcr+0fVXHL2A0c5LRDMLCB0ECAFb4tdOoQj2scf87BePU4EFq26EYQUpJzcYC2W/BJzqu4E2DskldVxvScE7GK18vNiOj0ygCk/ZtOHiO+N9BXa7chhRA04tWdw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from AM6PR04MB5239.eurprd04.prod.outlook.com (2603:10a6:20b:7::12)
+ by DU2PR04MB8726.eurprd04.prod.outlook.com (2603:10a6:10:2dd::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.18; Mon, 15 Jun
+ 2026 09:33:30 +0000
+Received: from AM6PR04MB5239.eurprd04.prod.outlook.com
+ ([fe80::fa76:ead:9e21:f84e]) by AM6PR04MB5239.eurprd04.prod.outlook.com
+ ([fe80::fa76:ead:9e21:f84e%6]) with mapi id 15.21.0113.015; Mon, 15 Jun 2026
+ 09:33:30 +0000
+Date: Mon, 15 Jun 2026 17:33:48 +0800
+From: Jeff Chen <jeff.chen_1@nxp.com>
+To: Francesco Dolcini <francesco@dolcini.it>
 Cc: Rafael Beims <rafael@beims.me>, Brian Norris <briannorris@chromium.org>,
-	Francesco Dolcini <francesco@dolcini.it>,
 	Rafael Beims <rafael.beims@toradex.com>,
 	linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
 Subject: Re: [PATCH wireless-next v1] wifi: mwifiex: fix permanently busy
  scans after multiple roam iterations
-Message-ID: <20260615093016.GA6878@francesco-nb>
+Message-ID: <ai/G/C7VxxzDVWXW@nxpwireless-Inspiron-14-Plus-7440>
 References: <20260612122547.1586872-2-rafael@beims.me>
- <ai+tqAb/kCkwbh7l@nxpwireless-Inspiron-14-Plus-7440>
+ <20260612130607.GA7651@francesco-nb>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260612130607.GA7651@francesco-nb>
+X-ClientProxiedBy: SI1PR02CA0019.apcprd02.prod.outlook.com
+ (2603:1096:4:1f4::15) To AM6PR04MB5239.eurprd04.prod.outlook.com
+ (2603:10a6:20b:7::12)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <ai+tqAb/kCkwbh7l@nxpwireless-Inspiron-14-Plus-7440>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM6PR04MB5239:EE_|DU2PR04MB8726:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0d6769a3-db24-4877-875f-08decac1292d
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+ BCL:0;ARA:13230040|19092799006|366016|1800799024|52116014|23010399003|376014|18002099003|22082099003|38350700014|56012099006|4143699003|3023799007|6133799003|11063799006;
+X-Microsoft-Antispam-Message-Info:
+ 8kGuLamBirVw+qk4PBeGMyFQX4CFLmt6VAoRvkGz6Mdw/gEU8pJ1DpVAHz8Qm76YcU4VN7f92rO4QgKfoA2kXFzJVwGmAKsaAJ7Os86D+D4C35U5SWnskes1ktsa9tL9rsoybgc/XFQa7dWSLN3llqHePMIfmUkOLcMEWdaltssShLdC2Vg+sM2WQqc129pCROE0wjBXCqi1CIWyw65eYOwCHWAWgec1J9Cmg3ZZDX9u/y8l85GinN+joDv8EUhCXNRiq1W0gv5EY7QbvLmrQ/ZTH9s99qFrrlkT9WvKSAkwyl0Ee0EHNCI33LiTr9Vmlk3UblyA2cLBnR2ZaP1OzESSEHeOKRF2/MRaQFW5Wl9kOHovdMFwyv4YnEla7SGHUQaIxOn6Vpa7OBR9aGGnJaDRzM/nX6XNn3vPUM6GLlEiQDgATjUNiZ+Cp2k/KOwCHrAB+Fvp0VDWWXdo8OrM0wKzlfiMMxpYm8hAHbIppqMVBAXbD5VlxGfo+Or6PpjSNdGgY9Ei1z45QvVa+DrzwsA4AvHwqfr4gdaugvHU+lHHlKtO5qZS1OmBC5jU0IgIsZNenEIgXx5y//0vgrzv1tEw+OfaGEHDMSn8svFlGqdLj6JbnPLMDG4JiUee0sbq6BZckeXyJ9ikd2IyO9lOBBVi+ibZ60df7MS+gPC63djuwgoSbgGvhyqpSlFrUOTkBxZwTuABWloZX4fk32QB708vaTdmEPZ2S/ng4aYiJXpxQnLfuET3M55jao6E+MC4
+X-Forefront-Antispam-Report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR04MB5239.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(366016)(1800799024)(52116014)(23010399003)(376014)(18002099003)(22082099003)(38350700014)(56012099006)(4143699003)(3023799007)(6133799003)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+ =?us-ascii?Q?NSZpWgTcpe1KVC4MYZlnHF7ZC91NeTWQrF+3zXTvZRHeDo6raZdAoODnhhLD?=
+ =?us-ascii?Q?X7X3Xk+eXe6lxBwq30ctO5b06hcz3wStiS2GMvAX9e69LgasTaCBVyq+i6Io?=
+ =?us-ascii?Q?kqzq33wLk/9yHR+g95zU2Cj5KKeWpMjHHczE0yl+64t1jlWpqyQ4VJ8TFzrJ?=
+ =?us-ascii?Q?bTgRQJmf863epqo1SwttxdZr3JyupdKf4FkFqBL3g2HcpFBLkWzZbK8kU6e/?=
+ =?us-ascii?Q?xC2O1eURzQDQ6b7hvZOq5oTDI+U6hQZChNXtjeTFUsiJ69idFveJe0yXx5Fd?=
+ =?us-ascii?Q?K8ZRYg+EV25c8SRCPd/RQtBEGjtqAMYiKYdY0wwOqc2YCLDj88lYms4wUTj4?=
+ =?us-ascii?Q?qZqw4kbJVeLhHHmKqCwveG+mlO9ixEbXxSI1LDJw+CBYpl/XjkUnNVeq3KHf?=
+ =?us-ascii?Q?ffEIBfEi5iEuV6BcCX6kfR3F6kMvq/Y9V+NoYwV2/cL1S/0VwWRTG9tso/YS?=
+ =?us-ascii?Q?8rffMml5BCf4uOHVToBgBily9ouXl0pAa6KR5dCe1hFi2eoPkQx43rxNBW8C?=
+ =?us-ascii?Q?DKOG+r5OZHdCxinv184xadosevuSQvnzG7OCjXPxzBhfR78psZnL7j8ftP0H?=
+ =?us-ascii?Q?sYaiaOwRk7EgptLhA2dZcZfFuOwaLgpLP6SVAB4zLuKfQ/vnrlJZNIeEIe9v?=
+ =?us-ascii?Q?brvkpx9D2WgWViCzgcUNaGiyO0Mtp/ehwMmxzeQmQ+Pn78+qrLRAn7CIA3uN?=
+ =?us-ascii?Q?EKqj15w7aO9+ul4wtTVx9Ykmwt5WqG8dqvVTVS3NnXvyxMWLWUbv5AUDsS5m?=
+ =?us-ascii?Q?oMY9N8YO3Yfw227v8D/0mo2gUQL6jWRjYJeyjNGW0iWH8cAfoYZlLzWO+67t?=
+ =?us-ascii?Q?oXTYAGcujWpPCcgFo0lVu0E0zlk26NLFHxoWmnPgXyeS4f2AxLyBHaypReRh?=
+ =?us-ascii?Q?iGch/vbMPsY0j0r7+9aUyHHvil5Ehf05n/yxxlfVEli29u8r/4turmyt+n76?=
+ =?us-ascii?Q?V+OHDUKuuZhlpwV6TYOI9LORb6vEZnQjBqkErWd/+KhSBo8F45ebf4wM7WCS?=
+ =?us-ascii?Q?dF2CKq5cCNNMjuv8LgPnrTrJ1joDgbvchpqYiqkDTW7trb/64QnWQ3AYTwcU?=
+ =?us-ascii?Q?3acpreistADbbXgQa8jIJuLS2zijJ09y79TYg422S6sW283DhkKdNKxP7SAJ?=
+ =?us-ascii?Q?wGNsGGms3qBpI89BVjrEFUAaMJ2WHZziA0VdNIQuVXFDvUd5SFxQ3/tObLoz?=
+ =?us-ascii?Q?Sfz/EFQZU8z13loTZ5H/2CI7TDmC71zM+yb8clPNhK0L4F0N2h8qYbtQfL/I?=
+ =?us-ascii?Q?/9vEtbgsUUgb6GXcHhzDDC4MREZYPejB//A8yuJgak6E8F4bzTVijco6d5PB?=
+ =?us-ascii?Q?V8oUrMsJUXGzz+wHw41J0L+IXPuXtpGkU6dWHsO/l7d4CxjXfpv5ooZvTolX?=
+ =?us-ascii?Q?zldy66hLBbdRCLKLmB8XdXmWDiuMYrmRnhgkglUYLSqI++RiixQQO2y2dSTu?=
+ =?us-ascii?Q?DUfWCKFmy2ajbThZVxVnNV7uNtkV17t1fp/8zM88rCp9n5kFVnUszvOt1s/1?=
+ =?us-ascii?Q?CdBFK6Cmy0U6ujUvJtJIi72KsO15OSZZO1/4d3+3MvBQ6MHoY/TBVYc8ur6F?=
+ =?us-ascii?Q?/C7kwlF0ve6M5h8UXoF/FUcJZpQPhm4a1tX02XJG+DeYAptRacGcSrZ8o1x5?=
+ =?us-ascii?Q?IA3yvw03sM2bXD+zAEeZKqu0j8bFk8zGHLtUcc0yekDlIqfEOGHld82djFQa?=
+ =?us-ascii?Q?Le77kwjf4rBrgPEUVC8TJ+Lm4D294Uj4QTb/haeL6fcGdV7Eb5/skGxTczVN?=
+ =?us-ascii?Q?sKyTNlXrSA=3D=3D?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0d6769a3-db24-4877-875f-08decac1292d
+X-MS-Exchange-CrossTenant-AuthSource: AM6PR04MB5239.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jun 2026 09:33:30.6493
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: lEwSyZ5cJaWVf5fY7BnJYPR4fY8AgH3trS4IEVGOr21Xwg+gvbwaOB5L8gasbY/oY/BxSYGpdZAHHpni9lj97Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU2PR04MB8726
 
-On Mon, Jun 15, 2026 at 03:45:44PM +0800, Jeff Chen wrote:
-> On Fri, Jun 12, 2026 at 09:25:46 AM -0300, Rafael Beims wrote:
+On Fri, Jun 12, 2026 at 03:06:28 PM +0200, Francesco Dolcini wrote:
+> On Fri, Jun 12, 2026 at 09:25:46AM -0300, Rafael Beims wrote:
 > > From: Rafael Beims <rafael.beims@toradex.com>
 > > 
+> > In order for the firmware to sleep, the driver has to confirm a
+> > previously received sleep request. The normal sequence of evets goes
+> > like this:
+> > EVENT_SLEEP -> adapter->ps_state = PS_STATE_PRE_SLEEP -> sleep-confirm
+> > -> SLEEP -> EVENT_AWAKE -> AWAKE.
+> > Before sending the sleep-confirm command, the driver must make sure
+> > there are no commands either running or waiting to be completed.
 > > 
-> > After testing on both IW412 and W8997, I could only trigger the bug on
+> > mwifiex_ret_802_11_associate() unconditionally sets
+> > ps_state = PS_STATE_AWAKE when it processes the association command
+> > response, outside of the normal powersave management flow. If
+> > EVENT_SLEEP arrives while the association command is in flight,
+> > ps_state is PRE_SLEEP when the association command response is parsed,
+> > and the forced AWAKE overwrites it. The deferred sleep-confirm is
+> > never sent.
 > 
-> I don't think there's an IW412 in NXP's lineup — did you mean IW416?
+> Brian / Jeff: I am not that familiar with this part of the code, it
+> sounds correct to me (and I discussed it with Rafael before he did send
+> the patch), maybe you can also have a look.
+> 
+> Jeff: same issue in the nxpwifi driver.
+> 
+> Francesco
+> 
 
-Yes, I can confirm it is IW416.
+Hi Francesco,
 
-The commit message should be fixed.
+Thanks for the heads up.
 
-Francesco
+I looked into this for nxpwifi. The nxpwifi driver currently only
+supports IW61x. Based on our analysis of the IW61x firmware source code,
+the firmware stops the auto deep sleep idle timer upon receiving any host
+command and restarts it only after the command response is sent,
+preventing EVENT_SLEEP from being issued while the association command is
+in flight. This means the race condition described in the patch should
+not be triggered with IW61x.
 
+Jeff
