@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AFE526A08F
-	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 16:22:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9BBB409621
+	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 16:22:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781540522; cv=none; b=h7lgJE/vCRVYgdIvRodlMKrQcitJdDQdpMg83mwIzUKhAcgntARfU4N9Xt9bb44uxIY9WmE6bNLBF5lX9M0ZX7UkFtdDn5J+ijyzkTOesqbjuBXIPlKEzeGZPqemdFfX7bEB4eVHCF7a4cuzGNJygeEP62w8cPTyxpapoSdGGkA=
+	t=1781540529; cv=none; b=IigE5eE3x8CIgR7drhg/nLGg94oL9PSLdyX4ayTeWu10HLHyObp87KVsX3IHxs8/t88V1E3VBeKZVJ1oG8xkS265NcWpAGXcGvLNBMviB1r+oNqOUL4a4f0taPNrcCJl48XmDN9wOij0EFojFZmvhBzOYN38yllKT+eV145Olxw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781540522; c=relaxed/simple;
-	bh=4WbA5viBWbPpe+gKQu6vYQ7dnDIJV9n6EXZIA5q15cI=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=C3BVcV96k/qtYJ2rqI/+CNLEMtWg0IbI7HwUhgEO7MACXCaiwMvdlhwAF8fG6O+5D84ERB401VVR2/d7/E+vwI+KSxG/Jr/VJmhvIOkcgSFdI/Fb9ABsM4z6bkDNRWjAU5yaiZeRWSm2JIEGHUmmmLRhwKj/KNouCL5KiVWlpxQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Ae1aOWZj; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781540529; c=relaxed/simple;
+	bh=a5VPlCIfw73AxC2UWjalKClT1VYDWEVRJ5q6XeibAdo=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=nFL1BQRHr7JEPC+PdiAnjnoo2zh/dd17iqLBak3b/F7XcFVRBzIMzvvn3QVNQoQRniHnfql3WSge/AU4ciAeWjsDOBbekx06rAS7/j59C3kjM7SXYfHLM6LVvWP+HJENEAwUCyrEqqlvQ9j2HZrV/G/yXnefp1YX7k1VDqQeXI4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Ta7h7vO/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Ae1aOWZj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0739C1F000E9;
-	Mon, 15 Jun 2026 16:22:00 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Ta7h7vO/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E55BD1F000E9;
+	Mon, 15 Jun 2026 16:22:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1781540520;
-	bh=yCCq5siqI45AqB9MWbHylMCAf8FueweZkvBe1rzpNco=;
+	s=korg; t=1781540528;
+	bh=b95s2aau7bKrvjS1kyT8QnRyDF5VgDd3NuEMutyHXU0=;
 	h=Subject:To:Cc:From:Date;
-	b=Ae1aOWZj8KRPimV+RDn2Ml/FlHxLt/P0k/iaxffWmL9vGPktb5UHUEq9s435Uc7k1
-	 fA3hkhffZGP5xLYjrq9irvN9hP6BoqiybQyGF5JKk0jEJCSH0oi1TYXo/JpAxLdmth
-	 IxTpVMgalxPtvzkPfV/bvLcTbSjIbRK510eWDIgc=
-Subject: FAILED: patch "[PATCH] drm/v3d: Skip CSD when it has zeroed workgroups" failed to apply to 5.15-stable tree
+	b=Ta7h7vO/d/MP9yaGMy/DelxYbOAh43TA+Apqr/CMnMxKQihEtz1teHw4qlKXazzDJ
+	 7MquujPJkM9TURDLB8Tr2bZrGCWptyAxqUNKUMT1v+lxOPzJUhUR0TieirRGJDN1AY
+	 uBErL7wNi0pTqJbCygp4H/nlp0gd/H4xQk5w6EQU=
+Subject: FAILED: patch "[PATCH] drm/v3d: Skip CSD when it has zeroed workgroups" failed to apply to 5.10-stable tree
 To: mcanal@igalia.com,itoral@igalia.com,jmcasanova@igalia.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 15 Jun 2026 18:01:28 +0200
-Message-ID: <2026061528-cytoplast-unretired-0932@gregkh>
+Date: Mon, 15 Jun 2026 18:01:30 +0200
+Message-ID: <2026061530-phoniness-operative-8a96@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x 7f93fad5ea0affc9e1505dd0f7596c0fdb496213
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026061528-cytoplast-unretired-0932@gregkh' --subject-prefix 'PATCH 5.15.y' HEAD^..
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026061530-phoniness-operative-8a96@gregkh' --subject-prefix 'PATCH 5.10.y' HEAD^..
 
 Possible dependencies:
 
