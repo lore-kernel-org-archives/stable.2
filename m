@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C94B403E96
-	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 15:54:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE9973AB27D
+	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 15:54:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781538842; cv=none; b=tH+a2LPa0iMCmgaZ6iX4GM03V5ADKjI7NrQz/ABu+AQWAEa8TlJx4Mc3VgZ/BLBdTKo1gBzhn0ZTH0u9nFhQtXzW8dTlgZx/Tmlf69vIe4ofYt0rr2mWJD4ENAldvPEqT4hbGSgjbLaHdlGXHcdd2LAGhXhzEJNf9Gffe1UnOes=
+	t=1781538852; cv=none; b=Nsxa9HL2V527VXfb3/5rZTR5d7eQlIWfjJR10f+wECXRjVx5pkzahsjiij6+d+ZjJILxSQjJJAJ9/kKACH/6oCYcmn6nadFPzmscdxQhJx8FeinJnpBosiylrog0HR50Cy758yr/EU2N9D+3zxPI/vZ+ikS4RP6tvDEMYturU7o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781538842; c=relaxed/simple;
-	bh=Q0QsZvnVN1Isk2Cn5PBZpk+HNO9lN2b5Bi43ypsNRks=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Bf7EG6mN0PFiXuFCzu3xniYs8AcEZRoY9JY/CISjyoYOx1Gdw0i9ZaMcPpM2fJ3WmG/inPVrcUQizLp4xU48P2LAtwxkUlNPsr5+OxJmu/5BD59CFyXtbTzvH1OO06VsaHHrEK6b8GB4AAKrSRIUemQVgJEJPd256s5yTKCDYLU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=dQV/JSoG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781538852; c=relaxed/simple;
+	bh=Ig2B0cowF9fyEs1Js61q4tGPMTPbobWVKFxEJrNhkZU=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=gx2fAkLjwg1EU85mPYNcfK+k7cGibk44eAJitclgwsMX5NKzVOuTEVVNOhAnoH31fTu+kVQ2g2SRMvLZgSpwYcvfQJaiPEpxjYtieAikArQfv3bZzl22BGq/0g7KrCPHn1jiBXCc7Xw52f5qX49MqSlecbnlNwnKAWu05sLZlkA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=uPS2nm7l; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="dQV/JSoG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 999DA1F000E9;
-	Mon, 15 Jun 2026 15:53:59 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="uPS2nm7l"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 462C61F000E9;
+	Mon, 15 Jun 2026 15:54:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1781538841;
-	bh=qkkK4MugxtA9joaFefJIN9IWZVur1R3nbomtgymkHnc=;
+	s=korg; t=1781538850;
+	bh=3+92msRsLLVMDykFpOT5kKyJ0jXyHjZZl5kX+ZKEWgU=;
 	h=Subject:To:Cc:From:Date;
-	b=dQV/JSoG+plyFvr93lRn/+V3gsNmpg8ie0X81/oDaGgWud1T9ItYMzraPR4fPh4y9
-	 8E8rL/bizKZ7fSjsDfmldB2US8JHekMkN4utzcT0XLWBjD0LHghh2mlJQDUTIzxtZP
-	 /WIXgoH3y7NQZtPbC+FONEM3bkfBbL0ONM4A8Ax0=
-Subject: FAILED: patch "[PATCH] slimbus: qcom-ngd-ctrl: Initialize controller resources in" failed to apply to 5.15-stable tree
+	b=uPS2nm7lKWSRS4t74TS6XZg/Yc2WS6zDUuFeOKa6F+Y54fV0B4jAD2m+lDZY+OAKo
+	 EgSERQ4x0rgTkUNAD77Yu8B11lO6hUcSAkqTtsyqk+l54Da0xDyn+KZFC/9tXeXiEw
+	 r+Q6vtaXtYGhMcS499UeHWKVVSFdRC7VQEMo3ug0=
+Subject: FAILED: patch "[PATCH] slimbus: qcom-ngd-ctrl: Initialize controller resources in" failed to apply to 5.10-stable tree
 To: bjorn.andersson@oss.qualcomm.com,dmitry.baryshkov@oss.qualcomm.com,gregkh@linuxfoundation.org,mukesh.ojha@oss.qualcomm.com,srini@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 15 Jun 2026 17:47:37 +0200
-Message-ID: <2026061537-motto-browsing-ffb0@gregkh>
+Date: Mon, 15 Jun 2026 17:47:39 +0200
+Message-ID: <2026061539-consent-rewash-7dc9@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x 07c564ea5fb859b7381429de935d5df4781947c6
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026061537-motto-browsing-ffb0@gregkh' --subject-prefix 'PATCH 5.15.y' HEAD^..
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026061539-consent-rewash-7dc9@gregkh' --subject-prefix 'PATCH 5.10.y' HEAD^..
 
 Possible dependencies:
 
