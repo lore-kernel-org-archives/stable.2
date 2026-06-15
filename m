@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64EF83FB046
-	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 14:43:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F4413F926D
+	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 14:43:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781534617; cv=none; b=CS2m0pqLADJOz4Da7hw3O53G4dB+trV6HAUrACuPzTtq1G6mEMwjTIig+vr3uxS7hxUin9SKmosTfVJRGLTf9ogevhTZ5PFh5+Qz7d0myCHY39jSb28DdjFCEjsEZJzBWrOxNCpBk07s7b7UY4lBRy1+jaFFZp8aXW9DoxhBZ/Y=
+	t=1781534625; cv=none; b=b0TX/755oEE+AL7Z2hREIASRDWVvJpY0qFfLYMp2gCLzOxsNLWfj3zF88/xrfQtsNdcCP7qsFB+OpZzNiK8SkvJcooM+auxYp22xYCLQsD4zom96MxQFunBkb7Xu6yHXrmzzHk1POUG2CwU87pSPNdQkCBCa2c501lhgBoWHI7M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781534617; c=relaxed/simple;
-	bh=01cIyqjAVmnuBugl+gIpfg8ZqlOMGMvGSRLhXAAyDUg=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=kf8c+Yh3ek+V1twddvORluYq52E7l6zk+flYiF8ozCSrfS+BKyuPvt/P3EVa9bKQWjXEDcKIC/KVR1fZzUvVtnmpMj0VVVAwDQBeoTyBvjIRbMCQzCQHmfNvHu88H6ZWO4G9Ir3538irlDv2j1PIxB2Gaxv0dvrHoLRPOnejQxI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=pH3eyo0h; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781534625; c=relaxed/simple;
+	bh=UbcWWDUH+MC697yIXYmwChYge8m8IPQtriRFU04qdgQ=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=D7QoG0Vk0dg3QwKhaBZXFKAlWoe57Rs7C1xVUNb6fzHwxZaaihWRRQ58HkU3s8VaiflgHIcnyVE88r3YoaOkcaRkMNybFo8mSAuUsGmX5M4VDLRi9jGScFhSv4T2eVS/B2TzIEU3Sb9P+DOT3A0jsVrk7BS3PvA31gAccrUcIyM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Sy/79eJA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="pH3eyo0h"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 301A61F000E9;
-	Mon, 15 Jun 2026 14:43:35 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Sy/79eJA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4877E1F000E9;
+	Mon, 15 Jun 2026 14:43:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1781534616;
-	bh=JqkwQPK/1VnwLmFVJ9gW+s2KFFcqdHL3zql6pjMuQFw=;
+	s=korg; t=1781534624;
+	bh=stZt+V8z1ysnEwMlSy82QQCGSgXpC3Bry8mEm7TbKFo=;
 	h=Subject:To:Cc:From:Date;
-	b=pH3eyo0hJIlnVwloJfIFOA8vllE6d4KwplWlhRnPZzpGTtZ7heHRq8KQxJcnJ9+BR
-	 yGf8IoHIx74IInia/Aoub7hF+S9JVvjei6gj4kJGvtDtun63O3WeSW2Orko87PwMrX
-	 PbEb43qnXBiIB/0473KxPxxwgCqAVzhQMDipS2A8=
-Subject: FAILED: patch "[PATCH] mptcp: add-addr: always drop other suboptions" failed to apply to 5.15-stable tree
-To: matttbe@kernel.org,kuba@kernel.org
+	b=Sy/79eJAOj3LRk3ifVipsR/sLwZnH6kNRDoQiFEL3phRtE74Ldsp0cA5dcs/Z6sFY
+	 3q0sAiJdYuY49wKhI9+D/eBgZrSiaMUr2GRBpalbraqI4N0+JKtqecBmMt3uRTaxKI
+	 AMDg6MH0581H7GgxYTYFqgfummof8JM1IerhWUOo=
+Subject: FAILED: patch "[PATCH] xfs: fix error returns in CoW fork repair" failed to apply to 6.12-stable tree
+To: gaoyingjie@uniontech.com,cem@kernel.org,djwong@kernel.org,stable@vger.kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 15 Jun 2026 16:28:17 +0200
-Message-ID: <2026061517-grandpa-bondless-cbaa@gregkh>
+Date: Mon, 15 Jun 2026 16:28:44 +0200
+Message-ID: <2026061544-strife-handwork-2622@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x bd34fa0257261b76964df1c98f44b3cb4ee14620
+git cherry-pick -x fcf4faba9f986b3bb528da11913c9ec5d6e8f689
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026061517-grandpa-bondless-cbaa@gregkh' --subject-prefix 'PATCH 5.15.y' HEAD^..
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026061544-strife-handwork-2622@gregkh' --subject-prefix 'PATCH 6.12.y' HEAD^..
 
 Possible dependencies:
 
@@ -62,164 +62,52 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From bd34fa0257261b76964df1c98f44b3cb4ee14620 Mon Sep 17 00:00:00 2001
-From: "Matthieu Baerts (NGI0)" <matttbe@kernel.org>
-Date: Tue, 2 Jun 2026 22:14:18 +1000
-Subject: [PATCH] mptcp: add-addr: always drop other suboptions
+From fcf4faba9f986b3bb528da11913c9ec5d6e8f689 Mon Sep 17 00:00:00 2001
+From: Yingjie Gao <gaoyingjie@uniontech.com>
+Date: Wed, 27 May 2026 12:31:33 +0800
+Subject: [PATCH] xfs: fix error returns in CoW fork repair
 
-When an ADD_ADDR needs to be sent, it could be prepared if there is
-enough remaining space and even if the packet is not a pure ACK. But it
-would be dropped soon after.
+xrep_cow_find_bad() returns success after the cleanup labels even if
+AG setup, btree queries, or bitmap updates failed. This can make
+repair continue with an incomplete bad-file-offset bitmap instead of
+stopping at the original error.
 
-Indeed, in mptcp_pm_add_addr_signal(), there is enough space to fit a
-DSS of 20 octets and an ADD_ADDR echo containing an IPv4 address on 8
-octets for example. In this case, the packet would be prepared, the
-MPTCP_ADD_ADDR_ECHO bit would be removed from pm->addr_signal, but the
-option would be silently dropped in mptcp_established_options_add_addr()
-not to override DSS info in the union from 'struct mptcp_out_options',
-and also because mptcp_write_options() will enforce mutually exclusion
-with DSS.
+The force-rebuild path has a related cleanup problem. If
+xrep_cow_mark_file_range() fails, the function returns directly and
+skips the scrub AG context and perag cleanup.
 
-Instead, don't even try to send an ADD_ADDR if it is not a pure ACK.
-Retry for each new packet until a pure-ACK is emitted. That's fine to do
-that, because each time an ADD_ADDR (echo) is scheduled, a pure ACK is
-queued.
+Let the force-rebuild path fall through to the existing cleanup code
+and return the saved error after cleanup.
 
-This also simplifies the code, and the skb checks can be done earlier,
-before the lock.
+Fixes: dbbdbd008632 ("xfs: repair problems in CoW forks")
+Cc: <stable@vger.kernel.org> # v6.8
+Signed-off-by: Yingjie Gao <gaoyingjie@uniontech.com>
+Reviewed-by: "Darrick J. Wong" <djwong@kernel.org>
+Signed-off-by: Carlos Maiolino <cem@kernel.org>
 
-Note: also, since commit 6d0060f600ad ("mptcp: Write MPTCP DSS headers
-to outgoing data packets"), opts->ahmac would not have been set to 0
-when other suboptions were not dropped, and when sending an ADD_ADDR
-echo. That would have resulted in sending an ADD_ADDR using garbage
-info, where there was not enough space, instead of an echo one without
-the ADD_ADDR HMAC.
-
-Fixes: 1bff1e43a30e ("mptcp: optimize out option generation")
-Cc: stable@vger.kernel.org
-Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
-Link: https://patch.msgid.link/20260602-net-mptcp-misc-fixes-7-1-rc7-v2-11-856831229976@kernel.org
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-
-diff --git a/net/mptcp/options.c b/net/mptcp/options.c
-index f9f587203c35..b3ea7854818f 100644
---- a/net/mptcp/options.c
-+++ b/net/mptcp/options.c
-@@ -665,7 +665,6 @@ static bool mptcp_established_options_add_addr(struct sock *sk, struct sk_buff *
- {
- 	struct mptcp_subflow_context *subflow = mptcp_subflow_ctx(sk);
- 	struct mptcp_sock *msk = mptcp_sk(subflow->conn);
--	bool drop_other_suboptions = false;
- 	unsigned int opt_size = *size;
- 	struct mptcp_addr_info addr;
- 	bool echo;
-@@ -676,36 +675,20 @@ static bool mptcp_established_options_add_addr(struct sock *sk, struct sk_buff *
+diff --git a/fs/xfs/scrub/cow_repair.c b/fs/xfs/scrub/cow_repair.c
+index bffc4666ce60..a6ff09ace43d 100644
+--- a/fs/xfs/scrub/cow_repair.c
++++ b/fs/xfs/scrub/cow_repair.c
+@@ -300,18 +300,15 @@ xrep_cow_find_bad(
+ 	 * on the debugging knob, replace everything in the CoW fork.
  	 */
- 	if (!mptcp_pm_should_add_signal(msk) ||
- 	    (opts->suboptions & (OPTION_MPTCP_MPJ_ACK | OPTION_MPTCP_MPC_ACK)) ||
--	    !mptcp_pm_add_addr_signal(msk, skb, opt_size, remaining, &addr,
--		    &echo, &drop_other_suboptions))
-+	    !skb || !skb_is_tcp_pure_ack(skb) ||
-+	    !mptcp_pm_add_addr_signal(msk, opt_size, remaining, &addr, &echo))
- 		return false;
- 
--	/*
--	 * Later on, mptcp_write_options() will enforce mutually exclusion with
--	 * DSS, bail out if such option is set and we can't drop it.
--	 */
--	if (drop_other_suboptions)
--		remaining += opt_size;
--	else if (opts->suboptions & OPTION_MPTCP_DSS)
--		return false;
-+	remaining += opt_size;
- 
- 	len = mptcp_add_addr_len(addr.family, echo, !!addr.port);
- 	if (remaining < len)
- 		return false;
- 
- 	*size = len;
--	if (drop_other_suboptions) {
--		pr_debug("drop other suboptions\n");
--		opts->suboptions = 0;
--
--		/* note that e.g. DSS could have written into the memory
--		 * aliased by ahmac, we must reset the field here
--		 * to avoid appending the hmac even for ADD_ADDR echo
--		 * options
--		 */
--		opts->ahmac = 0;
--		*size -= opt_size;
+ 	if ((sc->sm->sm_flags & XFS_SCRUB_IFLAG_FORCE_REBUILD) ||
+-	    XFS_TEST_ERROR(sc->mp, XFS_ERRTAG_FORCE_SCRUB_REPAIR)) {
++	    XFS_TEST_ERROR(sc->mp, XFS_ERRTAG_FORCE_SCRUB_REPAIR))
+ 		error = xrep_cow_mark_file_range(xc, xc->irec.br_startblock,
+ 				xc->irec.br_blockcount);
+-		if (error)
+-			return error;
 -	}
-+	pr_debug("drop other suboptions\n");
-+	opts->suboptions = 0;
-+	*size -= opt_size;
- 	opts->addr = addr;
- 	opts->suboptions |= OPTION_MPTCP_ADD_ADDR;
- 	if (!echo) {
-@@ -715,6 +698,7 @@ static bool mptcp_established_options_add_addr(struct sock *sk, struct sk_buff *
- 						     &opts->addr);
- 	} else {
- 		MPTCP_INC_STATS(sock_net(sk), MPTCP_MIB_ECHOADDTX);
-+		opts->ahmac = 0;
- 	}
- 	pr_debug("addr_id=%d, ahmac=%llu, echo=%d, port=%d\n",
- 		 opts->addr.id, opts->ahmac, echo, ntohs(opts->addr.port));
-diff --git a/net/mptcp/pm.c b/net/mptcp/pm.c
-index 3e770c7407e1..470501470fe5 100644
---- a/net/mptcp/pm.c
-+++ b/net/mptcp/pm.c
-@@ -887,10 +887,9 @@ void mptcp_pm_mp_fail_received(struct sock *sk, u64 fail_seq)
- 	}
+ 
+ out_sa:
+ 	xchk_ag_free(sc, &sc->sa);
+ out_pag:
+ 	xfs_perag_put(pag);
+-	return 0;
++	return error;
  }
  
--bool mptcp_pm_add_addr_signal(struct mptcp_sock *msk, const struct sk_buff *skb,
--			      unsigned int opt_size, unsigned int remaining,
--			      struct mptcp_addr_info *addr, bool *echo,
--			      bool *drop_other_suboptions)
-+bool mptcp_pm_add_addr_signal(struct mptcp_sock *msk, unsigned int opt_size,
-+			      unsigned int remaining,
-+			      struct mptcp_addr_info *addr, bool *echo)
- {
- 	bool skip_add_addr = false;
- 	int ret = false;
-@@ -908,10 +907,7 @@ bool mptcp_pm_add_addr_signal(struct mptcp_sock *msk, const struct sk_buff *skb,
- 	 * plain dup-ack from TCP perspective. The other MPTCP-relevant info,
- 	 * if any, will be carried by the 'original' TCP ack
- 	 */
--	if (skb && skb_is_tcp_pure_ack(skb)) {
--		remaining += opt_size;
--		*drop_other_suboptions = true;
--	}
-+	remaining += opt_size;
- 
- 	*echo = mptcp_pm_should_add_signal_echo(msk);
- 	if (*echo) {
-@@ -929,9 +925,6 @@ bool mptcp_pm_add_addr_signal(struct mptcp_sock *msk, const struct sk_buff *skb,
- 	if (remaining < mptcp_add_addr_len(family, *echo, port)) {
- 		struct net *net = sock_net((struct sock *)msk);
- 
--		if (!*drop_other_suboptions)
--			goto out_unlock;
--
- 		if (*echo) {
- 			MPTCP_INC_STATS(net, MPTCP_MIB_ECHOADDTXDROP);
- 		} else {
-diff --git a/net/mptcp/protocol.h b/net/mptcp/protocol.h
-index e4f5aba24da7..b93b878478d2 100644
---- a/net/mptcp/protocol.h
-+++ b/net/mptcp/protocol.h
-@@ -1229,10 +1229,9 @@ static inline int mptcp_rm_addr_len(const struct mptcp_rm_list *rm_list)
- 	return TCPOLEN_MPTCP_RM_ADDR_BASE + roundup(rm_list->nr - 1, 4) + 1;
- }
- 
--bool mptcp_pm_add_addr_signal(struct mptcp_sock *msk, const struct sk_buff *skb,
--			      unsigned int opt_size, unsigned int remaining,
--			      struct mptcp_addr_info *addr, bool *echo,
--			      bool *drop_other_suboptions);
-+bool mptcp_pm_add_addr_signal(struct mptcp_sock *msk, unsigned int opt_size,
-+			      unsigned int remaining,
-+			      struct mptcp_addr_info *addr, bool *echo);
- bool mptcp_pm_rm_addr_signal(struct mptcp_sock *msk, unsigned int remaining,
- 			     struct mptcp_rm_list *rm_list);
- int mptcp_pm_get_local_id(struct mptcp_sock *msk, struct sock_common *skc);
+ /*
 
