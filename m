@@ -1,137 +1,148 @@
-Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C839740D586
-	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 10:47:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 438143E314E;
+	Mon, 15 Jun 2026 11:08:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781520480; cv=none; b=PkRI30JaItM4BdtmYDdQ2JxkJ9fnMs4rB1GleLNIfBB9QYJ5DhkU6jC+ImqNpdDLEfHJ/Kk9JM9Y+Uhx7rTy9Myf1gXj3ss12m5uxsd9bO0TE29HQqxmm/IYDHQdeLUk5k6j6rw+XbVAK/lpUUoBQx5HljafKD3JREZvw1pCkRQ=
+	t=1781521703; cv=none; b=IoWqGoCbZtCswJCoZOBiXrMpPcgAS1HEJXkJYV+XrvkU6/jYDJK5FaJ/Yo1CEJZR/3lB9xAatmTWrSgTDC09BRdaK4hUGLNvkQbqPq4JsoYE4BUxTYg6C9ozoNNwdetOznXOmmwYAYht64ABD8rfmUEVgHa7mvks9+N+kQ+zcX4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781520480; c=relaxed/simple;
-	bh=WJa4UCVH02RHe9+Oq31r/RrrcBb96N2j4OM1JKwV2Ig=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=i80W7CBCudus4hPCw8QW4mxcGaLivceR/EoMq2Q5aek2LwBD4jEKaCIDGBQY/KtfkxTBWFA+EsOQ7EZZe0/IPVuDYTnT5qya5TA//atSv6bf3daIKJGsBTNdpmeQodXAclHyejMriH+WuIXQUFrhyN1JA6fBeHimafWb8sK4Sgk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jifd+g8L; arc=none smtp.client-ip=74.125.82.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781521703; c=relaxed/simple;
+	bh=ATgExJOgzyjV+sm+MstzvyROByYOJuX8ajd7+gJayuo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=AwThrSE/Imjg4ltOkuhxVVdOv9DWW4DUfcDmdNrxt3o5FG0HONasOyMatHHMKeg9tzT7PETDXb63L4kgMpqC1MT66kocpv3ACacZWDX4cYU/rduVP3syN3D0YWEAkachFqvy4cs3H5NKarayM8jF6LMELurtQdOFsoQz8ByvQYs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KukOqma5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jifd+g8L"
-Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-304ec41197bso3473284eec.1
-        for <stable@vger.kernel.org>; Mon, 15 Jun 2026 03:47:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781520478; x=1782125278; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=eD5p1FqpKBE/WpLH7RPMIfnZsLIdey33cIaJtrksyMY=;
-        b=jifd+g8LSiYrnw3KRiC4cW2qqe5NgT3B0wGTZKVbYL1W11sFhdbm1j1f38eysN1OKd
-         SJKY1sd52d3r+uGjbOeN4bZ270lTjdHAUmq0Q4+ft7wFFRT3tA3tazIYWnVarSOqeE8Q
-         0DeDrPXKP5PdbN6uN3lQQW5kzYieiDyVFKe0lCN0zP8TkekMaZQA2tIIk8qycOhFGGDQ
-         LS5Bd/gkMAUHUpBqzpjgWHWPOLd/oFCPxfThUVeEEgvyoP4+X7UXqAzqYgXxXw0r4HhX
-         Cyk8eU/kx3NMi9cYtSFsLj7YWXmhgaNQim9zkISo9NR57KVYpTI0QnkTeEIopGxNoY3K
-         08xw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781520478; x=1782125278;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=eD5p1FqpKBE/WpLH7RPMIfnZsLIdey33cIaJtrksyMY=;
-        b=Py6cJzu5fPqr3M6iT+1bw0/+wrQruLFBJFohlvVFlTxufrQ+8nO3DHGP90hYPyZJkG
-         U5jNwVEyubUw4SZC6lhJHg61W/3hsDoVQtJPKzN5TPgKpHlwJqF6zRwdkmfACbtobms9
-         Cnc20d7Lwx/QBe5PZw0VLNvt1o0Zl/hDvOUGOEChUBfxqHgfe93xgN1MuBhvo51r/cle
-         BO2HUvuGYWBYE1r2KLnI4Bm/pt5uXH8Baovb9A3XZ1m7Jk0+ROg5IeHPKovZZ481f/Q5
-         9SNGuiX+tZdxwkjVCglCYO7drEn0/q4BH6ad24e6pdcQkGrRnyIbDJaIO4xJAhJ2BLuY
-         fPaQ==
-X-Forwarded-Encrypted: i=1; AFNElJ8dRrcUFPoV09j+qZLYm1ZZJRilelj8zLzft+iLh/ZrWxHSmKHUt+0IqgU3BCgIT+jL1AG6fEQ=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyyH2DjJv5yH+vt0xmgdAugtY0zHvz15IxKHhojyIpAlCLICbjK
-	3YSthHFn4fo4MWtrEiF4NlnlLsxpFZA6u9oObmrsG7kflFkMon5H9Gpa
-X-Gm-Gg: Acq92OEo0sNk3NbkrdQifEN8towhbJ4V7S54z985Sy06BRLLgxcv9xAxB0VtoXdI+5H
-	XVnqgu7aamG5haITD6yMs4amJUosAlsxRMQbg5FSmSdJq5jW6Hd0UUm3kn/US8wFbg9O1al2xw/
-	Awgr5t+Kc0+/IgoBIan1f3/tIZZkXDi5qyRe3C9BdVGywD15SfSa96tMXguFv35dDx6pBI90LYP
-	vRaPUQOcda2R4V5tN2xomBRSs9Un2BzOX3/UnRYz5h4XdCyOcVIIJeeUrVq13Ei8Cz3dhdqMnho
-	105PAiYTcsTXXLYorpFMeaIdHQ9eHggZZgngs3SMeJHCAF5hxWkRjaCZmAeHqObJzw6IXB5ODFR
-	i6vYWWFUQ93n69kJrPiiPkf4GfydoFh+2kTkBveYEz6AqSNPG6hmgr/xaJu/kHpd33gC0L0q2ts
-	nKlLFZXXEH/fP/05Oo39nNwA==
-X-Received: by 2002:a05:7300:501:b0:2ef:83d4:647f with SMTP id 5a478bee46e88-30820096d98mr7471008eec.25.1781520477763;
-        Mon, 15 Jun 2026 03:47:57 -0700 (PDT)
-Received: from linux-691t.suse.cz ([124.11.22.254])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3081e48e412sm15480774eec.4.2026.06.15.03.47.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 15 Jun 2026 03:47:57 -0700 (PDT)
-From: Chun-Yi Lee <joeyli.kernel@gmail.com>
-X-Google-Original-From: Chun-Yi Lee <jlee@suse.com>
-To: "Rafael J . Wysocki" <rafael@kernel.org>
-Cc: Chun-Yi Lee <jlee@suse.com>,
-	David Howells <dhowells@redhat.com>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Andy Shevchenko <andy.shevchenko@gmail.com>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Matthew Garrett <mjg59@srcf.ucam.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	driver-core@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v2] debugfs: Fix lockdown check for mmap_prepare
-Date: Mon, 15 Jun 2026 18:47:50 +0800
-Message-ID: <20260615104750.1000-1-jlee@suse.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KukOqma5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1D1D1F000E9;
+	Mon, 15 Jun 2026 11:08:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781521701;
+	bh=RIUp5vWqdwmbl/9QaibPZwFu1ibRd3NRISMKrd1mQUs=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=KukOqma5oU78wHocXEMOB2C3meoqCN9qVUAmBuHpOYbPa1W5lJXyz4jBph1wca+/+
+	 EIi4evOjLPYjh+lzE9XwByrE3EEuQYdjrCBxiRoSY+T6uDQbAfYXE3Fff634b8EFa3
+	 4eeqW3IQY3lw+9RJw99pGheVqXPAMgMIqIjsOliOsQboqN7rUYlOsvDEfau7zyfesJ
+	 ZzFoJitqUB7U1p27fsq+YPN8vxiwf9cckV+OeS2ikYQkSbQc2AJU1CQlHdA9OwC01k
+	 BQnGTBy+FWLnkyWa+d42BccbE8sv8EgUhKdxEE5eTEg2G3ERQ0E37m1kZGigTVbPCN
+	 2aXtF5sVsE87w==
+Message-ID: <ec4b4b70-dc01-41fc-ad58-e1c877f6a7eb@kernel.org>
+Date: Mon, 15 Jun 2026 13:08:16 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] cgroup/cpuset: rebind mm mempolicy to effective_mems,
+ not mems_allowed
+To: Gregory Price <gourry@gourry.net>
+Cc: Farhad Alemi <farhad.alemi@berkeley.edu>,
+ Andrew Morton <akpm@linux-foundation.org>, Waiman Long <longman@redhat.com>,
+ Farhad Alemi <falemi@asu.edu>, Yury Norov <ynorov@nvidia.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Zi Yan <ziy@nvidia.com>,
+ Matthew Brost <matthew.brost@intel.com>, Rakie Kim <rakie.kim@sk.com>,
+ Byungchul Park <byungchul@sk.com>, Ying Huang
+ <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, cgroups@vger.kernel.org, stable@vger.kernel.org
+References: <CA+0ovCg05rUk1-3k2ysdxmbcER8aG-wVh9SSTrrbp6LPWpPHYA@mail.gmail.com>
+ <CA+0ovCgfHJHv5d1mzapWWvF-LhjppzDX8NPPLvCPZxPKg8RiYw@mail.gmail.com>
+ <8d3b4561-92cd-4ebc-8462-5fb0fd659e8a@kernel.org>
+ <ai_IHvyptWPcTD0y@gourry-fedora-PF4VCD3F>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <ai_IHvyptWPcTD0y@gourry-fedora-PF4VCD3F>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Chun-Yi Lee <jlee@suse.com>
+On 6/15/26 11:38, Gregory Price wrote:
+> On Mon, Jun 15, 2026 at 10:08:51AM +0200, David Hildenbrand (Arm) wrote:
+>> On 6/14/26 15:25, Farhad Alemi wrote:
+>>>
+>>> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+>>> --- a/kernel/cgroup/cpuset.c
+>>> +++ b/kernel/cgroup/cpuset.c
+>>> @@ -2649,7 +2649,7 @@ void cpuset_update_tasks_nodemask(struct cpuset *cs)
+>>>
+>>>  		migrate = is_memory_migrate(cs);
+>>>
+>>> -		mpol_rebind_mm(mm, &cs->mems_allowed);
+>>> +		mpol_rebind_mm(mm, &cs->effective_mems);
+>>
+>> God this is confusing.
+>>
+> 
+> All interactions between mempolicy and cpuset are horrible and
+> confusing.  Much like Lorenzo's anon_vma work, I have to keep
+> notes on how this whole thing doesn't just spew SIGBUS constantly.
+> 
+> The short answer is: mempolicy is advisory and cpuset is strictly
+> followed - in a dispute cpuset wins... except for file backed memory,
+> then everyon loses and nothing is consistent.
+> 
+>> Naturally I wonder: Why are we not using "task->mems_allowed" (maybe cs vs. tsk
+>> was the original bug?), which is effectively just newmems?
+>>
+> 
+> Short answer: task->mems_allowed is protected by the task lock and we
+> don't hold the task lock for a foreign task (not-current) over mm
+> operations.
 
-Commit 651fdda8406d ("relay: update relay to use mmap_prepare")
-changed the `mmap` file operation to `mmap_prepare` for relayfs, but
-the lockdown check in debugfs was not updated accordingly.
+Well, we can just use newmems, which cannot change? Again, that is based on
+cs->effective_mems but is guaranteed to return something non-empty.
 
-This prevents debugfs from being locked down when the kernel is in
-integrity mode if a file uses `mmap_prepare` but not `mmap`.
+AI was not able to convince me (neither was I able to convince AI) that there is
+not some obscure cgroup v1 scenario where the current fix would also be wrong.
 
-Since the conversion to `mmap_prepare` across the kernel is not yet
-complete, update the lockdown check to look for both `mmap` and
-`mmap_prepare` to ensure comprehensive coverage.
+With newmems it's clear that it is guaranteed to not be empty.
 
-Fixes: 651fdda8406d ("relay: update relay to use mmap_prepare")
-Signed-off-by: Chun-Yi Lee <jlee@suse.com>
-Cc: David Howells <dhowells@redhat.com>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Andy Shevchenko <andy.shevchenko@gmail.com>
-Cc: Thomas Gleixner <tglx@linutronix.de>
-Cc: Rafael J. Wysocki <rafael@kernel.org>
-Cc: Matthew Garrett <mjg59@srcf.ucam.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Danilo Krummrich <dakr@kernel.org>
-Cc: driver-core@lists.linux.dev
-Cc: linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
----
-v2:
-- Add explicit From tag to match Signed-off-by.
-- Fix Lorenzo's email address.
-- Add Cc stable for backporting.
-- Check both mmap and mmap_prepare as suggested by Lorenzo.
-
- fs/debugfs/file.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/fs/debugfs/file.c b/fs/debugfs/file.c
-index edd6aafbfbaa..08de6652a4f3 100644
---- a/fs/debugfs/file.c
-+++ b/fs/debugfs/file.c
-@@ -273,7 +273,8 @@ static int debugfs_locked_down(struct inode *inode,
- 	    (!real_fops ||
- 	     (!real_fops->unlocked_ioctl &&
- 	      !real_fops->compat_ioctl &&
--	      !real_fops->mmap)))
-+	      !real_fops->mmap &&
-+	      !real_fops->mmap_prepare)))
- 		return 0;
- 
- 	if (security_locked_down(LOCKDOWN_DEBUGFS))
 -- 
-2.43.0
+Cheers,
 
+David
