@@ -1,54 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BA623F44D3
-	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 13:29:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 942E836AB7C
+	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 13:34:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781530144; cv=none; b=dIbjjj5SyijoTPqAyP42mMK+c/rWoln/XXTcYuo00vTarPBAOWxS/xORakG0hBFw70IwnELpvourjPMXXOfqWlafFyLo1LoP92Fc0K3uywCvtDkS/T9bdHENf8SWQQsrF3FKBoOh5yPIKWp58LUSsMqculVjfoB3QDXOn5R/Gqs=
+	t=1781530496; cv=none; b=ncKMFxeqNPhH3Ducrdu19ZAHCGaApJoaw5byAR1UqEakqy2TJTaCX0dhsbc6PMVR+h4oEawFAYqyrnuo8W2n6A9+Sg4lkehrpuj6sEc9547Cwr5pheKI3Qe7kSCDReUfulyb7zANwKCB0UQL6sLpEsqJUAda0jGsGOj+eKwpko8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781530144; c=relaxed/simple;
-	bh=CEQQAfhHfM1QBCsiJfu7bUuF78eYfWmGqBW0hBKqmIQ=;
+	s=arc-20240116; t=1781530496; c=relaxed/simple;
+	bh=reRdqiltAV6DfEIRFH9tdOFB9LH08SOE/inYOqD+HYk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fYAQmUg6XcE0ySXzVdKX47J6Swr/sPrOTi8jvRbV6aSxZKxCbFc9Wxmdnvld+bL1D2G9yMmpsiJu5YAC7j0VYK0CES8hbnSrTmQq6JLB1XeyA6bBi7SpfRX3ymKJAqJKeEtQntt61UG+3Rm3c1tfOF/zQtiesPNTtjLVDHkRyB8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EPQtu1RC; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=JLUbd1V7ieordMmpGZdDU+Vex8tujThTwJvXABqmx9IUTfD9+Bljr1l7KSmv4fUengopaJFh4DId4tphCIVMFNmHIjdGKHGIQB16xHTBrJ2DE8MXtMsdzM7PBFQrMwti5PIjeLyFKcOpQ6FaIaZAfPZ9lrIrx/0sZVHrLssb00I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dZkBKm1y; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EPQtu1RC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B56E1F00A3A;
-	Mon, 15 Jun 2026 13:29:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dZkBKm1y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7AA71F000E9;
+	Mon, 15 Jun 2026 13:34:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781530142;
-	bh=qQVC6j2p5OzjnT6uXo50tfAP5yEuWHvRoScrMb5XbMs=;
+	s=k20260515; t=1781530495;
+	bh=uaWLsc1CuijZ7cAk9DACC4TH4T0cKV+lrJGhKCBdy6U=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EPQtu1RCYzBtrLEGBQXsVCfr8uT0wcJZMuHqCUgqnFR9iO+TYusvk1o6UHaGYYANL
-	 ni7QiPaWM8iVvt6heVrJTsmGIQnSdFYJTwFv+TqmKHsOpOrqtjo4Zmu3Qol0pWvLu/
-	 pg42oezJOfEAOHT7kEVJyR8hK7fpxiO08e73bSwC+eZCno/SrE4dw8P6US9vgdIany
-	 InphFKX+auCZeAuTXHryNnx92TJ2SrLfwvdr4w1Ocdx+X77E/VQIca8ka0leNa88Yf
-	 mgbZFzroZ9iZbgNYjTI4bMupPW8Wy90XCUTfJMuxiBQzSBSdCIz0HSYePGNBwuZaXa
-	 Sl5QOY6OTqi+Q==
+	b=dZkBKm1yJOn16u9URbV//OeEOVeSXQGLsrAPT2c9oKW+YGcSMUKASJ24LiEaQjJVO
+	 FxoXJRmv2YQ4oeEY1YK1j2uDPewgFfE5peOak7s8mXL/hvfAgkDKy/qv6+Se00gAJV
+	 Umhq/BhazaEEn/uA12whwfNJmt7VM1W32GX2rmWvF9vDxoLJ1xzTt3DAOa0OCbp3gY
+	 b8Qa5Hv2x3BPJ/v1uAIgLOCkTuAlT3MH7ey/U2MLflDIPPwWkvSUzc1srXNigXvQBb
+	 kjVceAcXtggNVXShUyUsoeErj45FPJtqexFSZjkdeBO6LvP6nmqhrB1jG3eJ4Yk5j8
+	 kViQFprIkPafQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Wupeng Ma <mawupeng1@huawei.com>,
-	"Oscar Salvador (SUSE)" <osalvador@kernel.org>,
-	Muchun Song <muchun.song@linux.dev>,
-	Kefeng Wang <wangkefeng.wang@huawei.com>,
-	Miaohe Lin <linmiaohe@huawei.com>,
-	David Hildenbrand <david@kernel.org>,
-	Liam Howlett <liam.howlett@oracle.com>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Michal Hocko <mhocko@suse.com>,
-	Mike Rapoport <rppt@kernel.org>,
-	Naoya Horiguchi <nao.horiguchi@gmail.com>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
+Cc: Davide Ornaghi <d.ornaghi97@gmail.com>,
+	Florian Westphal <fw@strlen.de>,
+	Pablo Neira Ayuso <pablo@netfilter.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] mm/memory-failure: fix hugetlb_lock AA deadlock in get_huge_page_for_hwpoison
-Date: Mon, 15 Jun 2026 09:28:59 -0400
-Message-ID: <20260615132859.2064439-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] netfilter: nft_fib: fix stale stack leak via the OIFNAME register
+Date: Mon, 15 Jun 2026 09:34:53 -0400
+Message-ID: <20260615133453.2065964-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026061513-catalog-deviant-3f62@gregkh>
-References: <2026061513-catalog-deviant-3f62@gregkh>
+In-Reply-To: <2026061542-secular-raking-01f3@gregkh>
+References: <2026061542-secular-raking-01f3@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -57,204 +46,89 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Wupeng Ma <mawupeng1@huawei.com>
+From: Davide Ornaghi <d.ornaghi97@gmail.com>
 
-[ Upstream commit 3c2d42b8ee345b17a4ba56b0f6492d1ff4c1178e ]
+[ Upstream commit ab185e0c4fb82dfba6fb86f8271e06f931d9c64c ]
 
-Two concurrent madvise(MADV_HWPOISON) calls on the same hugetlb page can
-trigger a recursive spinlock self-deadlock (AA deadlock) on hugetlb_lock
-when racing with a concurrent unmap:
+For NFT_FIB_RESULT_OIFNAME the destination register is declared with
+len = IFNAMSIZ (four 32-bit registers), but on the lookup-fail,
+RTN_LOCAL and oif-mismatch paths nft_fib{4,6}_eval() only writes one
+register via "*dest = 0". The remaining three registers are left as
+whatever was on the stack in nft_do_chain()'s struct nft_regs, and a
+downstream expression that loads the register span can leak that
+uninitialised kernel stack to userspace.
 
-  thread#0                              thread#1
-  --------                              --------
-  madvise(folio, MADV_HWPOISON)
-    -> poisons the folio successfully
-  madvise(folio, MADV_HWPOISON)         unmap(folio)
-    try_memory_failure_hugetlb
-      get_huge_page_for_hwpoison
-        spin_lock_irq(&hugetlb_lock)    <- held
-        __get_huge_page_for_hwpoison
-          hugetlb_update_hwpoison()
-            -> MF_HUGETLB_FOLIO_PRE_POISONED
-          goto out:
-            folio_put()
-              refcount: 1 -> 0
-              free_huge_folio()
-                spin_lock_irqsave(&hugetlb_lock)
-                  -> AA DEADLOCK!
+The NFTA_FIB_F_PRESENT existence check has the same shape: it is only
+meaningful for NFT_FIB_RESULT_OIF, yet it was accepted for any result type
+while the eval stores a single byte via nft_reg_store8(), leaving the rest
+of the declared span stale.
 
-The out: path in __get_huge_page_for_hwpoison() calls folio_put() to drop
-the GUP reference while the hugetlb_lock is still held by the hugetlb.c
-wrapper get_huge_page_for_hwpoison().  If concurrent unmap has released
-the page table mapping reference, folio_put() drops the folio refcount to
-zero, triggering free_huge_folio() which attempts to re-acquire the
-non-recursive hugetlb_lock.
+Fix both:
 
-Fix this by moving hugetlb_lock acquisition from the hugetlb.c wrapper
-into get_huge_page_for_hwpoison().  Place spin_unlock_irq() before the
-folio_put() at the out: label so the folio is always released outside the
-lock.
+ - replace the bare "*dest = 0" in the eval with nft_fib_store_result(),
+   which strscpy_pad()s the whole IFNAMSIZ for OIFNAME (and is already
+   used on the other early-return path), and
 
-[akpm@linux-foundation.org: fix race, rename label per Miaohe]
-  Link: https://sashiko.dev/#/patchset/20260522010305.4099834-1-mawupeng1@huawei.com
-  Link: https://lore.kernel.org/f39f405e-4b4b-8f79-70fe-a2b5b62114eb@huawei.com
-Link: https://lore.kernel.org/20260522010305.4099834-1-mawupeng1@huawei.com
-Fixes: 405ce051236c ("mm/hwpoison: fix race between hugetlb free/demotion and memory_failure_hugetlb()")
-Signed-off-by: Wupeng Ma <mawupeng1@huawei.com>
-Acked-by: Oscar Salvador (SUSE) <osalvador@kernel.org>
-Acked-by: Muchun Song <muchun.song@linux.dev>
-Reviewed-by: Kefeng Wang <wangkefeng.wang@huawei.com>
-Acked-by: Miaohe Lin <linmiaohe@huawei.com>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Liam Howlett <liam.howlett@oracle.com>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: Naoya Horiguchi <nao.horiguchi@gmail.com>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+ - restrict NFTA_FIB_F_PRESENT to NFT_FIB_RESULT_OIF and declare its
+   destination as a single u8, so the marked span matches the one byte
+   the eval writes.
+
+Fixes: f6d0cbcf09c5 ("netfilter: nf_tables: add fib expression")
+Suggested-by: Florian Westphal <fw@strlen.de>
+Cc: stable@vger.kernel.org
+Signed-off-by: Davide Ornaghi <d.ornaghi97@gmail.com>
+Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
+[ kept the tree's older `ip6_route_lookup()`/`rt6_info` IPv6 context and changed only `*dest = 0;` to `nft_fib_store_result(dest, priv, NULL);` ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/hugetlb.h |  8 --------
- include/linux/mm.h      |  8 --------
- mm/hugetlb.c            | 11 -----------
- mm/memory-failure.c     | 19 ++++++++++---------
- 4 files changed, 10 insertions(+), 36 deletions(-)
+ net/ipv4/netfilter/nft_fib_ipv4.c | 2 +-
+ net/ipv6/netfilter/nft_fib_ipv6.c | 2 +-
+ net/netfilter/nft_fib.c           | 6 ++++++
+ 3 files changed, 8 insertions(+), 2 deletions(-)
 
-diff --git a/include/linux/hugetlb.h b/include/linux/hugetlb.h
-index 32c9bc8c750c59..739bc71c33fd19 100644
---- a/include/linux/hugetlb.h
-+++ b/include/linux/hugetlb.h
-@@ -155,8 +155,6 @@ long hugetlb_unreserve_pages(struct inode *inode, long start, long end,
- 						long freed);
- bool isolate_hugetlb(struct folio *folio, struct list_head *list);
- int get_hwpoison_hugetlb_folio(struct folio *folio, bool *hugetlb, bool unpoison);
--int get_huge_page_for_hwpoison(unsigned long pfn, int flags,
--				bool *migratable_cleared);
- void folio_putback_active_hugetlb(struct folio *folio);
- void move_hugetlb_state(struct folio *old_folio, struct folio *new_folio, int reason);
- void hugetlb_fix_reserve_counts(struct inode *inode);
-@@ -430,12 +428,6 @@ static inline int get_hwpoison_hugetlb_folio(struct folio *folio, bool *hugetlb,
- 	return 0;
- }
- 
--static inline int get_huge_page_for_hwpoison(unsigned long pfn, int flags,
--					bool *migratable_cleared)
--{
--	return 0;
--}
--
- static inline void folio_putback_active_hugetlb(struct folio *folio)
- {
- }
-diff --git a/include/linux/mm.h b/include/linux/mm.h
-index 544ee79faf37f8..ad38239294640f 100644
---- a/include/linux/mm.h
-+++ b/include/linux/mm.h
-@@ -3995,8 +3995,6 @@ extern int soft_offline_page(unsigned long pfn, int flags);
-  */
- extern const struct attribute_group memory_failure_attr_group;
- extern void memory_failure_queue(unsigned long pfn, int flags);
--extern int __get_huge_page_for_hwpoison(unsigned long pfn, int flags,
--					bool *migratable_cleared);
- void num_poisoned_pages_inc(unsigned long pfn);
- void num_poisoned_pages_sub(unsigned long pfn, long i);
- #else
-@@ -4004,12 +4002,6 @@ static inline void memory_failure_queue(unsigned long pfn, int flags)
- {
- }
- 
--static inline int __get_huge_page_for_hwpoison(unsigned long pfn, int flags,
--					bool *migratable_cleared)
--{
--	return 0;
--}
--
- static inline void num_poisoned_pages_inc(unsigned long pfn)
- {
- }
-diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-index c5975b411afbb2..bf675232b5aba4 100644
---- a/mm/hugetlb.c
-+++ b/mm/hugetlb.c
-@@ -7457,17 +7457,6 @@ int get_hwpoison_hugetlb_folio(struct folio *folio, bool *hugetlb, bool unpoison
- 	return ret;
- }
- 
--int get_huge_page_for_hwpoison(unsigned long pfn, int flags,
--				bool *migratable_cleared)
--{
--	int ret;
--
--	spin_lock_irq(&hugetlb_lock);
--	ret = __get_huge_page_for_hwpoison(pfn, flags, migratable_cleared);
--	spin_unlock_irq(&hugetlb_lock);
--	return ret;
--}
--
- void folio_putback_active_hugetlb(struct folio *folio)
- {
- 	spin_lock_irq(&hugetlb_lock);
-diff --git a/mm/memory-failure.c b/mm/memory-failure.c
-index efebd0a397cbe1..2dfbc8a8d505ee 100644
---- a/mm/memory-failure.c
-+++ b/mm/memory-failure.c
-@@ -2020,20 +2020,19 @@ void folio_clear_hugetlb_hwpoison(struct folio *folio)
- 	folio_free_raw_hwp(folio, true);
- }
- 
--/*
-- * Called from hugetlb code with hugetlb_lock held.
-- */
--int __get_huge_page_for_hwpoison(unsigned long pfn, int flags,
-+static int get_huge_page_for_hwpoison(unsigned long pfn, int flags,
- 				 bool *migratable_cleared)
- {
- 	struct page *page = pfn_to_page(pfn);
--	struct folio *folio = page_folio(page);
-+	struct folio *folio;
- 	bool count_increased = false;
- 	int ret, rc;
- 
-+	spin_lock_irq(&hugetlb_lock);
-+	folio = page_folio(page);
- 	if (!folio_test_hugetlb(folio)) {
- 		ret = MF_HUGETLB_NON_HUGEPAGE;
--		goto out;
-+		goto out_unlock;
- 	} else if (flags & MF_COUNT_INCREASED) {
- 		ret = MF_HUGETLB_IN_USED;
- 		count_increased = true;
-@@ -2049,13 +2048,13 @@ int __get_huge_page_for_hwpoison(unsigned long pfn, int flags,
- 	} else {
- 		ret = MF_HUGETLB_RETRY;
- 		if (!(flags & MF_NO_RETRY))
--			goto out;
-+			goto out_unlock;
+diff --git a/net/ipv4/netfilter/nft_fib_ipv4.c b/net/ipv4/netfilter/nft_fib_ipv4.c
+index f514eb52b8d4b2..1c22ee4e40aece 100644
+--- a/net/ipv4/netfilter/nft_fib_ipv4.c
++++ b/net/ipv4/netfilter/nft_fib_ipv4.c
+@@ -127,7 +127,7 @@ void nft_fib4_eval(const struct nft_expr *expr, struct nft_regs *regs,
+ 		fl4.saddr = get_saddr(iph->daddr);
  	}
  
- 	rc = hugetlb_update_hwpoison(folio, page);
- 	if (rc >= MF_HUGETLB_FOLIO_PRE_POISONED) {
- 		ret = rc;
--		goto out;
-+		goto out_unlock;
+-	*dest = 0;
++	nft_fib_store_result(dest, priv, NULL);
+ 
+ 	if (fib_lookup(nft_net(pkt), &fl4, &res, FIB_LOOKUP_IGNORE_LINKSTATE))
+ 		return;
+diff --git a/net/ipv6/netfilter/nft_fib_ipv6.c b/net/ipv6/netfilter/nft_fib_ipv6.c
+index 421036a3605b46..3005dfbca6155b 100644
+--- a/net/ipv6/netfilter/nft_fib_ipv6.c
++++ b/net/ipv6/netfilter/nft_fib_ipv6.c
+@@ -192,7 +192,7 @@ void nft_fib6_eval(const struct nft_expr *expr, struct nft_regs *regs,
+ 
+ 	lookup_flags = nft_fib6_flowi_init(&fl6, priv, pkt, oif, iph);
+ 
+-	*dest = 0;
++	nft_fib_store_result(dest, priv, NULL);
+ 	rt = (void *)ip6_route_lookup(nft_net(pkt), &fl6, pkt->skb,
+ 				      lookup_flags);
+ 	if (rt->dst.error)
+diff --git a/net/netfilter/nft_fib.c b/net/netfilter/nft_fib.c
+index 96e02a83c045e2..22846136c754a2 100644
+--- a/net/netfilter/nft_fib.c
++++ b/net/netfilter/nft_fib.c
+@@ -107,6 +107,12 @@ int nft_fib_init(const struct nft_ctx *ctx, const struct nft_expr *expr,
+ 		return -EINVAL;
  	}
  
- 	/*
-@@ -2067,8 +2066,10 @@ int __get_huge_page_for_hwpoison(unsigned long pfn, int flags,
- 		*migratable_cleared = true;
- 	}
- 
-+	spin_unlock_irq(&hugetlb_lock);
- 	return ret;
--out:
-+out_unlock:
-+	spin_unlock_irq(&hugetlb_lock);
- 	if (count_increased)
- 		folio_put(folio);
- 	return ret;
++	if (priv->flags & NFTA_FIB_F_PRESENT) {
++		if (priv->result != NFT_FIB_RESULT_OIF)
++			return -EINVAL;
++		len = sizeof(u8);
++	}
++
+ 	err = nft_parse_register_store(ctx, tb[NFTA_FIB_DREG], &priv->dreg,
+ 				       NULL, NFT_DATA_VALUE, len);
+ 	if (err < 0)
 -- 
 2.53.0
 
