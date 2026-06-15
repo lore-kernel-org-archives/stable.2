@@ -1,246 +1,134 @@
-Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA063314A84
-	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 15:14:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F22A2401A3B
+	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 15:16:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781536492; cv=none; b=eHQWXP5kHBavTqEvTVy281RG16jPaC8Wrr5/KIOozHq8p2OCLA2Szx6kuwAy6Oyfkp4AFIHyFnE4vFlOaL8C688JOuIr/PWTzvzV9OzfsVH4PmXzyK0sc2y/LRgE+lwzCeQBi61ZCwtffD6Vw5BwnSSPD5K39+vl5n7V4W6hEUU=
+	t=1781536599; cv=none; b=H1JpQQQwouLMYDZMlJ8gfSUx+7DzzPIBXk9YJIPBCV/ALiCk0rUtUOAv3bAwGhK0uAGWCDhToyUwD/T4xv2nrHKIBmhqc+POJ9aeMCZV587Ie9CIQ1kWA+0Q8RcI5mrg7Uztc443w92gsGeLnW4P6ax3E5umNUKAA1E8+UC0Cjs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781536492; c=relaxed/simple;
-	bh=B3sS3PLpEox/I90orKXtXi+fuwEPT4sqQMjXEhQJhEA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=m0RI32FsHfotiAcWeGnIV1tQxI0JyKKjj538IJAFFOL+O+gqTYlASzpr3L+bDikUrWjnWPzKxiQFCerKqPoNgbf78AKvrB7FCyglg2CkGdKpwywPzocAyyAZqPcYzzCx6OyNU886hT8xlnqtGGFEBx0zXl+1M/MrVkOlZ2yhngg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=HrTXfAhD; arc=none smtp.client-ip=209.85.208.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1781536599; c=relaxed/simple;
+	bh=cVhRkzPd0c9MRefK0il1yFDDjvGHViXOXXx1BoWa+ig=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=cworScXtKxreiEae+5k51BLbEyQNHnCnUUJI7zgOhP54EYbQ+mYr+P8/PrflsGskroo2PlkLXwewOQXzRmjOhYGAGe8E2uVLKo9nts542aRASggFsN6BgO4YrtHHcUFp2NK1393RZzixDVzn5S54qyR3kQLaUuCZe806BnGyBrk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RHp3R8Sc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="HrTXfAhD"
-Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-68d23430690so6472002a12.3
-        for <stable@vger.kernel.org>; Mon, 15 Jun 2026 08:14:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1781536489; x=1782141289; darn=vger.kernel.org;
-        h=in-reply-to:autocrypt:from:content-language:references:cc:to
-         :subject:user-agent:mime-version:date:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=B3sS3PLpEox/I90orKXtXi+fuwEPT4sqQMjXEhQJhEA=;
-        b=HrTXfAhDWjMGxswvU+8Hknzc0b+9X77PI62iuDAkcqYM3dzsPc6eUBv/luksP69eVf
-         YF+e6hlDUXnCxWzqocQdcW5Ma4+a5o4Mh9gddhgYMrdneLgZzDKGi6dsueq8p7iw50co
-         uaHB/TNthxu6aACzzBRTXgGiX22HlbAUZKLCpx8H2kKN/T5Q3kQTf0+s1usoU9qQZRaC
-         +FiUXDjpcrVhraMZkSvvJQqPEUQzt34HoJUpt4YrLLHibFxTA5sUOLLQuUY94PQhud39
-         n1fWluh1IV7tsbOonyNf9HcnCgaURbXJgi9nNhbFv+UTy6Bbtx5w+ZTUBpB0dV4w7Vri
-         sQ3A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781536489; x=1782141289;
-        h=in-reply-to:autocrypt:from:content-language:references:cc:to
-         :subject:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=B3sS3PLpEox/I90orKXtXi+fuwEPT4sqQMjXEhQJhEA=;
-        b=Dg8UZpTKBey+qs1R0xzUPFuhnW/g82PnPtB6UpeO+aTUmcYNNdvx2DuXGSksTLvMAH
-         K+kTv45XbnraNasKvzB37colD548DLsea1oinM6R1hyMIwawwPaud5iDTq/xnSob0nB0
-         L0eYnwWQ/72Sufr0Px5HSceZM21FT0T+dqTVVwicTO/sI+i+Ff2eTSJlTeYdc25GOY+R
-         /RBy7ZOkaCWO+z1O2IzL9HODjzByCRyuXgE4pBFuS2MJbPvdXEenPJzK30Vu4yxsZcfj
-         muSBhKjvvUUirO7p0fUswyNL3pk9Hc7SpnjcDn7dwp68DECVGN6xyjUTs+NR6nSGvgXS
-         RWdw==
-X-Forwarded-Encrypted: i=1; AFNElJ8EKnwyLnJl9mOfRL1IY96voNn/VlbA2uIXnUXQW8og2F9g/b7JXCqZiFmuqu3asC6Ovc+L3VA=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwE8lW2Fs5QyOhU7JneFGO0MZNrjjJ6nH80X2sT8f9bgcYUYVSW
-	Yx7Sj2LIK0SGKz5iDy4jbltVdeJFAQlKEPG+O47kqPg6QeNiYiB/JZguB9ZedUbhDCA=
-X-Gm-Gg: Acq92OF/I0rJ7Vvg34w7eCiuzaXbLgcodk6mCe+G4wz0q4FIA9dwjevEFfvvuG55TiC
-	Od+KTy/VyfmLV4BR5AFkSpCNRmAWFxfznfb+Jegpv+faUAmO1cPw7g0D0TKDD4j73Lr3sw2keE1
-	lC8QHNNY7dac7VsMNIESPbdy9pilwRGZC3KiT5Tx79l+kVOiiw6GFMnumE9IfxYNWhOhB5V+sX4
-	OEYQJQcRJ7W4iMnFFGX/TPq4ZHTinl2QmjK3f+q1wW+WVAHz/Ia5/QBdkOHkP/lUEpQ298HCeEX
-	/wIVhThXQNQZNxfvCWVDSFfn7JseqZDTcUC6nzngMper8i/5j+xyMVDFtSvlv1RUQMK0+qoIl8n
-	5nMxU730+rFZTstoBnvGVW+D0lkh90i7RLmwsRAW0cMglVAW8LlvzcT87L1B3DymfNXMYnwVnsp
-	WH1QRSsPrc7rsuxYrCWVcoJyNfw8D+8xK4Ei/RcO2jA3LCAu1F1K+aA0JrJxfBVPcc2Fvm3YYwP
-	DCPmdmwA0RISxEMXN3nOuUSQo9QDBLRZ56QLKlB7ES+DIqSPngjDA==
-X-Received: by 2002:a05:6402:3588:b0:68f:cc95:ba5b with SMTP id 4fb4d7f45d1cf-693c6a8cf7cmr5170579a12.27.1781536489059;
-        Mon, 15 Jun 2026 08:14:49 -0700 (PDT)
-Received: from ?IPV6:2a00:12d0:af5d:ad01:5d3f:14e6:9bcb:5112? (2a00-12d0-af5d-ad01-5d3f-14e6-9bcb-5112.ip.tng.de. [2a00:12d0:af5d:ad01:5d3f:14e6:9bcb:5112])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-693c43a6d9csm3070699a12.13.2026.06.15.08.14.48
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 15 Jun 2026 08:14:48 -0700 (PDT)
-Message-ID: <a2c4253b-99ed-4dab-9f2b-1906f958522b@suse.com>
-Date: Mon, 15 Jun 2026 17:14:48 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RHp3R8Sc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 427B31F00A3A;
+	Mon, 15 Jun 2026 15:16:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781536597;
+	bh=BNvtq7ffuZPe07PlMHWELX00CIeugMw6f6eY1Kmm2EQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=RHp3R8Sc3vk/LwhqMsAIoma1P4RexTufv0D+j7QF7TNcfWbtafCOklA53sJDN6VD7
+	 skp50Xi/Ukil+VAU528DUP01/LFqEWGnMGdrxzCn6xg8GqmIonngPanHk+XKAoxdSc
+	 I+NmLMc0ZU/e3ZZRYqDwVvFA9o62osznz+UeOAq7iZI12Sxx74Zz2Klrt9fqIxnJK6
+	 T3WDO63mT9ZRLqeiT9w/5rhmEJCnpMfX1wByCwjUtr74j+s6COhF/mrKplF/G15H6b
+	 RpjDzKKA7gDMbt8no7g3QZu1zPmNaKZVA6TsqqlGYwd+ORmsUXenal5+mpN0ir4VAo
+	 Y8sUktXlhNPnw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Davide Ornaghi <d.ornaghi97@gmail.com>,
+	Florian Westphal <fw@strlen.de>,
+	Pablo Neira Ayuso <pablo@netfilter.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y] netfilter: nft_fib: fix stale stack leak via the OIFNAME register
+Date: Mon, 15 Jun 2026 11:16:35 -0400
+Message-ID: <20260615151635.2204309-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026061542-rhyme-antacid-378f@gregkh>
+References: <2026061542-rhyme-antacid-378f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] xen/scsiback: free the command tag on the TMR
- submit-failure path
-To: Michael Bommarito <michael.bommarito@gmail.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Cc: xen-devel@lists.xenproject.org, linux-scsi@vger.kernel.org,
- stable@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260611123046.2323342-1-michael.bommarito@gmail.com>
- <20260611123046.2323342-3-michael.bommarito@gmail.com>
-Content-Language: en-US
-From: Juergen Gross <jgross@suse.com>
-Autocrypt: addr=jgross@suse.com; keydata=
- xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
- ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
- dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
- NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
- XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
- AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
- CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
- mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
- G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
- kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
- Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
- RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
- vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
- sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
- aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
- w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
- auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
- 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
- fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
- HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
- QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
- ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-In-Reply-To: <20260611123046.2323342-3-michael.bommarito@gmail.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------30fN0dc4b3OHkvjxlNkt3JWf"
+Content-Transfer-Encoding: 8bit
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------30fN0dc4b3OHkvjxlNkt3JWf
-Content-Type: multipart/mixed; boundary="------------JnwtXeAGP8AktzTMtTeWLuja";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Michael Bommarito <michael.bommarito@gmail.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Cc: xen-devel@lists.xenproject.org, linux-scsi@vger.kernel.org,
- stable@vger.kernel.org, linux-kernel@vger.kernel.org
-Message-ID: <a2c4253b-99ed-4dab-9f2b-1906f958522b@suse.com>
-Subject: Re: [PATCH 2/2] xen/scsiback: free the command tag on the TMR
- submit-failure path
-References: <20260611123046.2323342-1-michael.bommarito@gmail.com>
- <20260611123046.2323342-3-michael.bommarito@gmail.com>
-In-Reply-To: <20260611123046.2323342-3-michael.bommarito@gmail.com>
+From: Davide Ornaghi <d.ornaghi97@gmail.com>
 
---------------JnwtXeAGP8AktzTMtTeWLuja
-Content-Type: multipart/mixed; boundary="------------Lx4hjADfd9WcEZaF3yim000E"
+[ Upstream commit ab185e0c4fb82dfba6fb86f8271e06f931d9c64c ]
 
---------------Lx4hjADfd9WcEZaF3yim000E
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+For NFT_FIB_RESULT_OIFNAME the destination register is declared with
+len = IFNAMSIZ (four 32-bit registers), but on the lookup-fail,
+RTN_LOCAL and oif-mismatch paths nft_fib{4,6}_eval() only writes one
+register via "*dest = 0". The remaining three registers are left as
+whatever was on the stack in nft_do_chain()'s struct nft_regs, and a
+downstream expression that loads the register span can leak that
+uninitialised kernel stack to userspace.
 
-T24gMTEuMDYuMjYgMTQ6MzAsIE1pY2hhZWwgQm9tbWFyaXRvIHdyb3RlOg0KPiBzY3NpYmFj
-a19kZXZpY2VfYWN0aW9uKCkgb2J0YWlucyBhIGNvbW1hbmQgdGFnIGluDQo+IHNjc2liYWNr
-X2dldF9wZW5kX3JlcSgpIGFuZCBzdWJtaXRzIGEgdGFzay1tYW5hZ2VtZW50IHJlcXVlc3Qg
-d2l0aA0KPiB0YXJnZXRfc3VibWl0X3RtcigpLiBXaGVuIHRhcmdldF9zdWJtaXRfdG1yKCkg
-ZmFpbHMgaXQgcmV0dXJucyA8IDANCj4gYW5kIHNjc2liYWNrIGp1bXBzIHRvIHRoZSBlcnI6
-IGxhYmVsLCB3aGljaCBzZW5kcyBhIHJlc3BvbnNlIGJ1dA0KPiBmcmVlcyBub3RoaW5nLCBs
-ZWFraW5nIHRoZSB0YWcuDQo+IA0KPiBJbXBhY3Q6IGEgcHZTQ1NJIGd1ZXN0IGNhbiBsZWFr
-IHRoZSBjb21tYW5kIHRhZ3Mgb2YgYSBMVU4ncw0KPiBzZXNzaW9uLCBzdG9wcGluZyB0aGUg
-TFVOLCBieSBpc3N1aW5nIFZTQ1NJSUZfQUNUX1NDU0lfQUJPUlQgb3INCj4gUkVTRVQgcmVx
-dWVzdHMgd2hlbmV2ZXIgdGFyZ2V0X3N1Ym1pdF90bXIoKSBmYWlscy4NCj4gDQo+IHRyYW5z
-cG9ydF9nZW5lcmljX2ZyZWVfY21kKCkgY2Fubm90IGJlIHVzZWQgaGVyZS4gQnkgdGhlIHRp
-bWUNCj4gdGFyZ2V0X3N1Ym1pdF90bXIoKSByZXR1cm5zIGFuIGVycm9yIGl0IGhhcyBhbHJl
-YWR5IHJ1bg0KPiBfX3RhcmdldF9pbml0X2NtZCgpIChzbyBzZV9jbWQtPmNtZF9rcmVmIGlz
-IG9uZSwgbm90IHplcm8pLCBhbmQgb24NCj4gaXRzIHRhcmdldF9nZXRfc2Vzc19jbWQoKSBl
-cnJvciBwYXRoIGl0IGhhcyBmcmVlZCBzZV9jbWQtPnNlX3Rtcl9yZXENCj4gdmlhIGNvcmVf
-dG1yX3JlbGVhc2VfcmVxKCkgd2hpbGUgbGVhdmluZyBTQ0ZfU0NTSV9UTVJfQ0RCIHNldCBh
-bmQNCj4gdGhlIHBvaW50ZXIgZGFuZ2xpbmcuIExldHRpbmcgdGhlIGNvbW1hbmQgcmVsZWFz
-ZSBydW4NCj4gdGFyZ2V0X2ZyZWVfY21kX21lbSgpIHdvdWxkIHRoZW4gZG91YmxlLWZyZWUg
-c2VfdG1yX3JlcS4NCj4gDQo+IFVzZSB0aGUgc2FtZSBoZWxwZXIsIHdoaWNoIHJldHVybnMg
-anVzdCB0aGUgdGFnLCBvbiB0aGlzIHBhdGggdG9vLg0KPiANCj4gRml4ZXM6IDJkYmNkZjMz
-ZGJmNiAoInhlbi1zY3NpYmFjazogQ29udmVydCB0byBwZXJjcHVfaWRhIHRhZyBhbGxvY2F0
-aW9uIikNCj4gQ2M6IHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmcNCj4gQXNzaXN0ZWQtYnk6IENs
-YXVkZTpjbGF1ZGUtb3B1cy00LTgNCj4gU2lnbmVkLW9mZi1ieTogTWljaGFlbCBCb21tYXJp
-dG8gPG1pY2hhZWwuYm9tbWFyaXRvQGdtYWlsLmNvbT4NCg0KUmV2aWV3ZWQtYnk6IEp1ZXJn
-ZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT4NCg0KDQpKdWVyZ2VuDQo=
---------------Lx4hjADfd9WcEZaF3yim000E
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+The NFTA_FIB_F_PRESENT existence check has the same shape: it is only
+meaningful for NFT_FIB_RESULT_OIF, yet it was accepted for any result type
+while the eval stores a single byte via nft_reg_store8(), leaving the rest
+of the declared span stale.
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+Fix both:
 
-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
-kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
-=3DeeAB
------END PGP PUBLIC KEY BLOCK-----
+ - replace the bare "*dest = 0" in the eval with nft_fib_store_result(),
+   which strscpy_pad()s the whole IFNAMSIZ for OIFNAME (and is already
+   used on the other early-return path), and
 
---------------Lx4hjADfd9WcEZaF3yim000E--
+ - restrict NFTA_FIB_F_PRESENT to NFT_FIB_RESULT_OIF and declare its
+   destination as a single u8, so the marked span matches the one byte
+   the eval writes.
 
---------------JnwtXeAGP8AktzTMtTeWLuja--
+Fixes: f6d0cbcf09c5 ("netfilter: nf_tables: add fib expression")
+Suggested-by: Florian Westphal <fw@strlen.de>
+Cc: stable@vger.kernel.org
+Signed-off-by: Davide Ornaghi <d.ornaghi97@gmail.com>
+Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
+[ kept the tree's existing `ip6_route_lookup`/`rt6_info` machinery (missing `fib6_lookup` refactor) and changed only `*dest = 0;` to `nft_fib_store_result(dest, priv, NULL)` ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ net/ipv4/netfilter/nft_fib_ipv4.c | 2 +-
+ net/ipv6/netfilter/nft_fib_ipv6.c | 2 +-
+ net/netfilter/nft_fib.c           | 6 ++++++
+ 3 files changed, 8 insertions(+), 2 deletions(-)
 
---------------30fN0dc4b3OHkvjxlNkt3JWf
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+diff --git a/net/ipv4/netfilter/nft_fib_ipv4.c b/net/ipv4/netfilter/nft_fib_ipv4.c
+index ba233fdd81886b..94931d52048f11 100644
+--- a/net/ipv4/netfilter/nft_fib_ipv4.c
++++ b/net/ipv4/netfilter/nft_fib_ipv4.c
+@@ -122,7 +122,7 @@ void nft_fib4_eval(const struct nft_expr *expr, struct nft_regs *regs,
+ 		fl4.saddr = get_saddr(iph->daddr);
+ 	}
+ 
+-	*dest = 0;
++	nft_fib_store_result(dest, priv, NULL);
+ 
+ 	if (fib_lookup(nft_net(pkt), &fl4, &res, FIB_LOOKUP_IGNORE_LINKSTATE))
+ 		return;
+diff --git a/net/ipv6/netfilter/nft_fib_ipv6.c b/net/ipv6/netfilter/nft_fib_ipv6.c
+index a89ce0fbfe4b12..da4a35c20f1017 100644
+--- a/net/ipv6/netfilter/nft_fib_ipv6.c
++++ b/net/ipv6/netfilter/nft_fib_ipv6.c
+@@ -193,7 +193,7 @@ void nft_fib6_eval(const struct nft_expr *expr, struct nft_regs *regs,
+ 		}
+ 	}
+ 
+-	*dest = 0;
++	nft_fib_store_result(dest, priv, NULL);
+ 	rt = (void *)ip6_route_lookup(nft_net(pkt), &fl6, pkt->skb,
+ 				      lookup_flags);
+ 	if (rt->dst.error)
+diff --git a/net/netfilter/nft_fib.c b/net/netfilter/nft_fib.c
+index 507b7eba9bcdcb..b4f49f65fc42fd 100644
+--- a/net/netfilter/nft_fib.c
++++ b/net/netfilter/nft_fib.c
+@@ -107,6 +107,12 @@ int nft_fib_init(const struct nft_ctx *ctx, const struct nft_expr *expr,
+ 		return -EINVAL;
+ 	}
+ 
++	if (priv->flags & NFTA_FIB_F_PRESENT) {
++		if (priv->result != NFT_FIB_RESULT_OIF)
++			return -EINVAL;
++		len = sizeof(u8);
++	}
++
+ 	err = nft_parse_register_store(ctx, tb[NFTA_FIB_DREG], &priv->dreg,
+ 				       NULL, NFT_DATA_VALUE, len);
+ 	if (err < 0)
+-- 
+2.53.0
 
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmowFugFAwAAAAAACgkQsN6d1ii/Ey/u
-1QgAgMgugck5RFkPC7QeBaJ0LIT21B2fLVOBow5S7PSnFm6QhyL3zdSMJbufs0wxNTf286qDaqXy
-7ncVw63W4hvoOY0hkJQwGEqOB3JCJ+sK1recDIoFTLP3FEHHjVaWbXnlz1IZFEidgvzlgs0s1ZLW
-dF0wVrA1G5PXNixuoENucei6EiDC8lqFxFxEbBbby/1ZOi2yWjb5yycjWE5rFf8L+atKcPY24Mzg
-2E8/IRPNNFdaNPm2wFxh709znikGqTzzVTB10xD1s693wAwgInz4jyDvEDDGW2WZM9Diux/WatzF
-TBM0r3yfrZpWFpEHIeMUQ4mNXGRbalbyc/6zQ327Bw==
-=y292
------END PGP SIGNATURE-----
-
---------------30fN0dc4b3OHkvjxlNkt3JWf--
