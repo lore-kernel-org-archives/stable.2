@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEFFF279334
-	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 03:50:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B09826A1AF
+	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 03:51:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781495404; cv=none; b=j4UGBufT1O2WtclbTc+YXyjxWVpKFs6WuRDKyYYjYSdCemw+O+CmcW8m3MTrguRLd9gK2soivzTTBAFHPNi7ZwbJcsuYe2KgiD2npFtcRdMyjvywMBG3wBc1NaWhMPcyr8KNDS+DixuH+Wgf+7Xj1JqnMcoAXdpiPSDc1lKw/mo=
+	t=1781495518; cv=none; b=bDS9jDgvsb4wTmsS2fUYmuH0V/FvrGVMMtRVQ+38s8jlQXIFHb0BYwHShfF5iMhjGVQQCS8qk5XOk3CoLkn4/x+XO50dB+baKRy/MP7+Wnq4Y1MdJxqUfvZUUZY38Au8oK7ajgFNTPSWuhxvF4lA/kO3AdOr1XHJQI5zP9fh/FM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781495404; c=relaxed/simple;
-	bh=Nk/IeEZ8qNqc+fjf4dACllRGt8YlJ2ZP1qA6GPXm4HM=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=qrnp/NPEr6HgZaMSu/HkA1UHVfbiYn/siifMQQaQlhNcBSAC8LuRpGF6yhTZXxGhVyywPz0KxvYUS0eT9P7vrfbxd9BeKNHNC9lkUe/WKo0A/JGRNwfJQv28WYdfvzM/EsflO4uBFGDvz1N3YV2ytjrSVzZ/IdhhQU48o3NFHmo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=1kfCb8Wy; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781495518; c=relaxed/simple;
+	bh=t8EJEUUqdj/9sNPeU5CSu6HDzruY9jlA7yzotRJYX5A=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=CP0mCffD4i+KYeJuNzEIhz7Cdwi8yghMLSR+GbU7/93Imp3d6cgW54SLZsFAUv2iVmYo54bYJVhEYHki9Pe1QJcEwX7xHhW9nb9xqjS0ELopTpCIh891GoMYhKfxfi1HSlqLpnU+zFy/ra+94Hw9sh5IL4tDT89JXqfGW2Ssaio=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=fgv05xp1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="1kfCb8Wy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D76D31F000E9;
-	Mon, 15 Jun 2026 03:50:02 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="fgv05xp1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE8B31F000E9;
+	Mon, 15 Jun 2026 03:51:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1781495403;
-	bh=L1hUOUee1WFh1BrgMLO0p20sw9NdRXOwKM/Svl0aOJE=;
+	s=korg; t=1781495516;
+	bh=2Sx1P3/+7q+B2ZTb+dv6BiMSy5ZsLpI8Z83oxQrcWT8=;
 	h=Subject:To:Cc:From:Date;
-	b=1kfCb8WyuuyXHY84oDZIO/yPSNn6w48Fakgfc4DTCF/iBTliLIpqkM6uKiC+y3ou1
-	 W65bTTGY1AxTT6CoBgi4uEtI7epUB5sL2YD/IBLr6evmgRYia4Veldw2RCwrNIgO5z
-	 w5rKngOUQLpg+CinI4ELSftDGy7vgjgJCYIbjr1A=
-Subject: FAILED: patch "[PATCH] netfilter: nft_fib: fix stale stack leak via the OIFNAME" failed to apply to 5.10-stable tree
-To: d.ornaghi97@gmail.com,fw@strlen.de,pablo@netfilter.org
+	b=fgv05xp1+mkFjhIcSmEUbGBL9NMgy1AFhoBrlrYHPd+ZdfPhRxLeIRJMsSH3YquYx
+	 f3C3MMPwWYeWDwbvva7R27x58jtK/HlCN62TZYze/GEHVC6Qrn2Pd3GdcHtrmWH8KK
+	 x7uCBESBOvMtujtM5qM92b64mcdI81ulTuVJiq+E=
+Subject: FAILED: patch "[PATCH] soc: qcom: ice: Fix race between qcom_ice_probe() and" failed to apply to 6.6-stable tree
+To: manivannan.sadhasivam@oss.qualcomm.com,andersson@kernel.org,sumit.garg@oss.qualcomm.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 15 Jun 2026 05:48:45 +0200
-Message-ID: <2026061545-appealing-armed-d467@gregkh>
+Date: Mon, 15 Jun 2026 05:50:54 +0200
+Message-ID: <2026061554-legal-rubbing-8905@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x ab185e0c4fb82dfba6fb86f8271e06f931d9c64c
+git cherry-pick -x d922113ef91e6e7e8065e9070f349365341ba32e
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026061545-appealing-armed-d467@gregkh' --subject-prefix 'PATCH 5.10.y' HEAD^..
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026061554-legal-rubbing-8905@gregkh' --subject-prefix 'PATCH 6.6.y' HEAD^..
 
 Possible dependencies:
 
@@ -62,82 +62,149 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From ab185e0c4fb82dfba6fb86f8271e06f931d9c64c Mon Sep 17 00:00:00 2001
-From: Davide Ornaghi <d.ornaghi97@gmail.com>
-Date: Wed, 10 Jun 2026 12:39:12 +0200
-Subject: [PATCH] netfilter: nft_fib: fix stale stack leak via the OIFNAME
- register
+From d922113ef91e6e7e8065e9070f349365341ba32e Mon Sep 17 00:00:00 2001
+From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Date: Mon, 18 May 2026 19:22:17 +0530
+Subject: [PATCH] soc: qcom: ice: Fix race between qcom_ice_probe() and
+ of_qcom_ice_get()
 
-For NFT_FIB_RESULT_OIFNAME the destination register is declared with
-len = IFNAMSIZ (four 32-bit registers), but on the lookup-fail,
-RTN_LOCAL and oif-mismatch paths nft_fib{4,6}_eval() only writes one
-register via "*dest = 0". The remaining three registers are left as
-whatever was on the stack in nft_do_chain()'s struct nft_regs, and a
-downstream expression that loads the register span can leak that
-uninitialised kernel stack to userspace.
+The current platform driver design causes probe ordering races with
+consumers (UFS, eMMC) due to ICE's dependency on SCM firmware calls. If ICE
+probe fails (missing ICE SCM or DT registers), devm_of_qcom_ice_get() loops
+with -EPROBE_DEFER, leaving consumers non-functional even when ICE should
+be gracefully disabled. devm_of_qcom_ice_get() doesn't know if the ICE
+driver probe has failed due to above reasons or it is waiting for the SCM
+driver.
 
-The NFTA_FIB_F_PRESENT existence check has the same shape: it is only
-meaningful for NFT_FIB_RESULT_OIF, yet it was accepted for any result type
-while the eval stores a single byte via nft_reg_store8(), leaving the rest
-of the declared span stale.
+Moreover, there is no devlink dependency between ICE and consumer drivers
+as 'qcom,ice' is not considered as a DT 'supplier'. So the consumer drivers
+have no idea of when the ICE driver is going to probe.
 
-Fix both:
+To address these issues, store the error pointer in a global xarray with
+ice node phandle as a key during probe in addition to the valid ice pointer
+and synchronize both qcom_ice_probe() and of_qcom_ice_get() using a mutex.
 
- - replace the bare "*dest = 0" in the eval with nft_fib_store_result(),
-   which strscpy_pad()s the whole IFNAMSIZ for OIFNAME (and is already
-   used on the other early-return path), and
+If the xarray entry is NULL, then it implies that the driver is not
+probed yet, so return -EPROBE_DEFER. If it has any error pointer, return
+that error pointer directly. Otherwise, add the devlink as usual and return
+the valid pointer to the consumer.
 
- - restrict NFTA_FIB_F_PRESENT to NFT_FIB_RESULT_OIF and declare its
-   destination as a single u8, so the marked span matches the one byte
-   the eval writes.
+Xarray is used instead of platform drvdata, since driver core frees the
+drvdata during probe failure. So it cannot be used to pass the error
+pointer to the consumers.
 
-Fixes: f6d0cbcf09c5 ("netfilter: nf_tables: add fib expression")
-Suggested-by: Florian Westphal <fw@strlen.de>
-Cc: stable@vger.kernel.org
-Signed-off-by: Davide Ornaghi <d.ornaghi97@gmail.com>
-Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
+Note that this change only fixes the standalone ICE DT node bindings and
+not the ones with 'ice' range embedded in the consumer nodes, where there
+is no issue.
 
-diff --git a/net/ipv4/netfilter/nft_fib_ipv4.c b/net/ipv4/netfilter/nft_fib_ipv4.c
-index 9d0c6d75109b..177d738825b4 100644
---- a/net/ipv4/netfilter/nft_fib_ipv4.c
-+++ b/net/ipv4/netfilter/nft_fib_ipv4.c
-@@ -128,7 +128,7 @@ void nft_fib4_eval(const struct nft_expr *expr, struct nft_regs *regs,
- 		fl4.saddr = get_saddr(iph->daddr);
- 	}
+Fixes: 2afbf43a4aec ("soc: qcom: Make the Qualcomm UFS/SDCC ICE a dedicated driver")
+Reported-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
+Tested-by: Sumit Garg <sumit.garg@oss.qualcomm.com> # OP-TEE as TZ
+Acked-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
+Cc: stable@vger.kernel.org # 6.4
+Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Link: https://lore.kernel.org/r/20260518-qcom-ice-fix-v7-1-2a595382185b@oss.qualcomm.com
+Signed-off-by: Bjorn Andersson <andersson@kernel.org>
+
+diff --git a/drivers/soc/qcom/ice.c b/drivers/soc/qcom/ice.c
+index b203bc685cad..91991864b4a3 100644
+--- a/drivers/soc/qcom/ice.c
++++ b/drivers/soc/qcom/ice.c
+@@ -16,6 +16,7 @@
+ #include <linux/of.h>
+ #include <linux/of_platform.h>
+ #include <linux/platform_device.h>
++#include <linux/xarray.h>
  
--	*dest = 0;
-+	nft_fib_store_result(dest, priv, NULL);
+ #include <linux/firmware/qcom/qcom_scm.h>
  
- 	if (fib_lookup(nft_net(pkt), &fl4, &res, FIB_LOOKUP_IGNORE_LINKSTATE))
- 		return;
-diff --git a/net/ipv6/netfilter/nft_fib_ipv6.c b/net/ipv6/netfilter/nft_fib_ipv6.c
-index 2dbe44715df3..b9ad7cac1417 100644
---- a/net/ipv6/netfilter/nft_fib_ipv6.c
-+++ b/net/ipv6/netfilter/nft_fib_ipv6.c
-@@ -239,7 +239,7 @@ void nft_fib6_eval(const struct nft_expr *expr, struct nft_regs *regs,
+@@ -113,6 +114,9 @@ struct qcom_ice {
+ 	u8 hwkm_version;
+ };
  
- 	lookup_flags = nft_fib6_flowi_init(&fl6, priv, pkt, oif, iph);
- 
--	*dest = 0;
-+	nft_fib_store_result(dest, priv, NULL);
- 	ret = nft_fib6_lookup(nft_net(pkt), &fl6, &res, lookup_flags);
- 	if (ret || res.fib6_flags & (RTF_REJECT | RTF_ANYCAST | RTF_LOCAL))
- 		return;
-diff --git a/net/netfilter/nft_fib.c b/net/netfilter/nft_fib.c
-index 327a5f33659c..a1632e308f18 100644
---- a/net/netfilter/nft_fib.c
-+++ b/net/netfilter/nft_fib.c
-@@ -107,6 +107,12 @@ int nft_fib_init(const struct nft_ctx *ctx, const struct nft_expr *expr,
- 		return -EINVAL;
- 	}
- 
-+	if (priv->flags & NFTA_FIB_F_PRESENT) {
-+		if (priv->result != NFT_FIB_RESULT_OIF)
-+			return -EINVAL;
-+		len = sizeof(u8);
-+	}
++static DEFINE_XARRAY(ice_handles);
++static DEFINE_MUTEX(ice_mutex);
 +
- 	err = nft_parse_register_store(ctx, tb[NFTA_FIB_DREG], &priv->dreg,
- 				       NULL, NFT_DATA_VALUE, len);
- 	if (err < 0)
+ static bool qcom_ice_check_supported(struct qcom_ice *ice)
+ {
+ 	u32 regval = qcom_ice_readl(ice, QCOM_ICE_REG_VERSION);
+@@ -631,6 +635,8 @@ static struct qcom_ice *of_qcom_ice_get(struct device *dev)
+ 		return qcom_ice_create(&pdev->dev, base);
+ 	}
+ 
++	guard(mutex)(&ice_mutex);
++
+ 	/*
+ 	 * If the consumer node does not provider an 'ice' reg range
+ 	 * (legacy DT binding), then it must at least provide a phandle
+@@ -647,12 +653,13 @@ static struct qcom_ice *of_qcom_ice_get(struct device *dev)
+ 		return ERR_PTR(-EPROBE_DEFER);
+ 	}
+ 
+-	ice = platform_get_drvdata(pdev);
+-	if (!ice) {
+-		dev_err(dev, "Cannot get ice instance from %s\n",
+-			dev_name(&pdev->dev));
++	ice = xa_load(&ice_handles, pdev->dev.of_node->phandle);
++	if (IS_ERR_OR_NULL(ice)) {
+ 		platform_device_put(pdev);
+-		return ERR_PTR(-EPROBE_DEFER);
++		if (!ice)
++			return ERR_PTR(-EPROBE_DEFER);
++		else
++			return ice;
+ 	}
+ 
+ 	link = device_link_add(dev, &pdev->dev, DL_FLAG_AUTOREMOVE_SUPPLIER);
+@@ -716,24 +723,40 @@ EXPORT_SYMBOL_GPL(devm_of_qcom_ice_get);
+ 
+ static int qcom_ice_probe(struct platform_device *pdev)
+ {
++	unsigned long phandle = pdev->dev.of_node->phandle;
+ 	struct qcom_ice *engine;
+ 	void __iomem *base;
+ 
++	guard(mutex)(&ice_mutex);
++
+ 	base = devm_platform_ioremap_resource(pdev, 0);
+ 	if (IS_ERR(base)) {
+ 		dev_warn(&pdev->dev, "ICE registers not found\n");
++		/* Store the error pointer for devm_of_qcom_ice_get() */
++		xa_store(&ice_handles, phandle, (__force void *)base, GFP_KERNEL);
+ 		return PTR_ERR(base);
+ 	}
+ 
+ 	engine = qcom_ice_create(&pdev->dev, base);
+-	if (IS_ERR(engine))
++	if (IS_ERR(engine)) {
++		/* Store the error pointer for devm_of_qcom_ice_get() */
++		xa_store(&ice_handles, phandle, engine, GFP_KERNEL);
+ 		return PTR_ERR(engine);
++	}
+ 
+-	platform_set_drvdata(pdev, engine);
++	xa_store(&ice_handles, phandle, engine, GFP_KERNEL);
+ 
+ 	return 0;
+ }
+ 
++static void qcom_ice_remove(struct platform_device *pdev)
++{
++	unsigned long phandle = pdev->dev.of_node->phandle;
++
++	guard(mutex)(&ice_mutex);
++	xa_store(&ice_handles, phandle, NULL, GFP_KERNEL);
++}
++
+ static const struct of_device_id qcom_ice_of_match_table[] = {
+ 	{ .compatible = "qcom,inline-crypto-engine" },
+ 	{ },
+@@ -742,6 +765,7 @@ MODULE_DEVICE_TABLE(of, qcom_ice_of_match_table);
+ 
+ static struct platform_driver qcom_ice_driver = {
+ 	.probe	= qcom_ice_probe,
++	.remove	= qcom_ice_remove,
+ 	.driver = {
+ 		.name = "qcom-ice",
+ 		.of_match_table = qcom_ice_of_match_table,
 
