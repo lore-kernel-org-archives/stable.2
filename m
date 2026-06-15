@@ -1,142 +1,160 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013053.outbound.protection.outlook.com [40.107.162.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7097713AA2D
-	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 07:09:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781507350; cv=none; b=eKRXUVVUcn6xkshpvWMCTBGdMpSrK4gC2Z+vOzq9t9tE4HPINBKAy0Uu1pOReFN4m6FejFjmNz2XyfbV0RjPtIKWFSYxfYdc/OPGjID8R2WrfkC9O+gGr47ONTI6fZseOUODVIRdVDR3Br8r+0wPvKXfEfG2SXUYU28voV7c8UA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781507350; c=relaxed/simple;
-	bh=Pw30Cg2ID5sZL3rtyqO0peejxUwoMLJGIabKQ+hgHKE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Zu07Mhb6T7elwUgFjkdOxq5aJ4XTRNGq8bXYQufIBGplBp+JQsAyd0qy7JgcCnCephRzRYLccjMj9a5MG/YkSx9qEjjTBuEXbbrEob5Dc4rf+r8Le/k0fIhs8vkJvHWMt1w8GSWXQyYCEOd45z/Y3bAsGwGxlou0Ym+61L8CNbM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HIu4cA6u; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 169F013AA2D;
+	Mon, 15 Jun 2026 07:11:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.53
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781507474; cv=fail; b=pbhMZmk9GObmIu5d5/0X7ucC2LiOSROSZak3oWzneF4/Y2Y+Ss1Lf7/rdBZVAN4LTT5DWl1Jm7QWNfTZR8+EqSAW5Ch1NmVjEYBvJ7wZy6Ea2tEJ3s7FfVV/m2PqcDPusq+cW5Maua5+zueemkeAetCK1+Xib42K/jKZTx7hMWc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781507474; c=relaxed/simple;
+	bh=0FBuA9IYWuOkyANE6C6cb9CCI2f4rdHwP2DHpHlXfsg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=Z2fjtBYvJIvjtUdrau0vagjYBNNutJzfxTwpAsooVO2VUsMPLngfHqjwQcvW9yeUX7Jth843NS5i5pZlSXnizXXltq2RvxdXNRIpSHBU7AVokhbgmtrZKyl0f60mHBylJF323CQ4mCDTP2jKnMOUP0rYdkzIDEwA5aMO8muOL4o=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=VpS1yCO7; arc=fail smtp.client-ip=40.107.162.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HIu4cA6u"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 586B31F00AC4
-	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 07:09:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781507349;
-	bh=aMrYrifzAfDa/YgH0QBb/Gf0s0+C55KO5sVK6U8S2YU=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=HIu4cA6um9p7I9S44zPfge0r4P3WkNqhCq7tsMLnfGCHP+slh9+4Uw2Re2XXEtyIT
-	 SySVJR8W9rwgDXmdsDMO1TamJ0pDmfEvlVBnEra1uP0az3T8FMmBAyV7Vl90FIfbS7
-	 x0MT+l+XMKmYgyjjkClWVXA9tCvIcE7Qe1Zodbc4yO9ZEJZlMQCekF4mXuRJQ0dpou
-	 iL4GRXf6pSlz9tvWWBbphPTOl/Rk/BDd9J+lDTkUvUoL/YZUKGttFQsMsXp2iIZaTE
-	 5vioPa+Q29/iq8Yu+P/b8Fm5ixXh0OuFdlFd4Qk7KrcMK+152/pxT0g7MyZfP50WQ5
-	 Y2khzhrLrO58g==
-Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-68c3421b009so6028108a12.1
-        for <stable@vger.kernel.org>; Mon, 15 Jun 2026 00:09:09 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ+YQtNtb4/YYBzKYSYWqnitB8SG1eOZWV9Z7MBfkl7Nx4bPCW3jzR64D8hyw84yayER2Gzjv1k=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzQtfw9iEnrIII6psLHIv1JV/CU58lJpmmT2pUbwXENumbMDfzv
-	f4DCrYays7vO/aqwuptCCmcR4We0RP3MeoW165hZNuFK+QGpgWOK+zG4YDqdxZZ81J1IU3DAWKd
-	OTTKs9BC7jd1b5Bs25PFpa3xz4s+bOY4=
-X-Received: by 2002:a17:907:6d1e:b0:bc1:9d5d:e020 with SMTP id
- a640c23a62f3a-bfde279da40mr559925266b.10.1781507348044; Mon, 15 Jun 2026
- 00:09:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="VpS1yCO7"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=W2auz7EdNZY6ylZtC7bto0jCa6XjP03tqiG6+TSGhe6nIRA+hK/1wU9woLAGx/p84PsIQzrKsVJ/n5VACtDaERdWarCvZt7sqMFIA2QQiqnPi2UZUP0nTQFCZJx5cJx2m7/rod/hxnyhFH+AqgdBGIzGJ8+KPgKEjG7SICs8bpep0ZV9R0Y44Ji9rEzaGV7GYzF1ITvAsOaT5SPmAK00ZBUoKz7nAwbjw3ylcWWuxZ+KgcTJmiPp6K0kfR1orMij3yIMOh2ASQER/HQW/qu9CB40I2nPSROZGI9PAsQdkhoYVdunJ+7l6vDDvWw3aD3wAyU4Hm+Btx0SOM67mloTrg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=+XbbzzYjlPOaKG8U/6hpFiGljpTOJlMphjibu2IP1mQ=;
+ b=w5PkzPT72cKNnGOA/vrdTVN9jet3yjel4fsju3bT3juzhdCju/HxKRUDcKIQOyLNM+9FUQkeBTEVL56NG3rVRgy0cICMVutiq7MPgqMr1ECUSjSJvq9s/Hgs+RKrfE1TZg82TzPSly7d/miHf2KfaKpqSYiRT/Ahq+f3pQAR/8j1gftQSxI/bLc6Kcm8wDzy21qtVq51ldES4/woWC/OTL9+eBT19/0ZBjzKQYOH/1cdJDe3dytq5i1sy70dr3uQ4hYRr1uw6bnJjmK08LuPg1r0MfHF5I8gIkSMik/dYuKFMI7UROUja+63IuyWlv0cCxXNcuYEWRxE77+L82T4XA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+XbbzzYjlPOaKG8U/6hpFiGljpTOJlMphjibu2IP1mQ=;
+ b=VpS1yCO7baHE5MFMaLGzpBzRNqZZLMqP9D0wIzVpzwxwtKEUUND+0j8XUJhFT7Jyo02q8qqcd7V22ypXIsOrfnfH4o6OUyiGvc64SD23ZlNm2SDDMLZgGk2msm4yJtf3bewSaSog8yBlnfnnwsxqBfI+RizMdgZVu+K7kQ8kRyi5uaaHmMBVIBNJicmcCGl7iYgiKTdfFJxAIMu22BTtrhel7ziAmUuD7vM2s0ayCH2HnYNL59mqxZDCuKgCg2Q2G0UDD2SdhuNA1fZPm6JUvAWWzlbnUuYjTnLPYzHX1lXfDLahKQ1Ees1wKCBVtbHqUizWnlcL2wvg7VqABTVcRg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from AM6PR04MB5239.eurprd04.prod.outlook.com (2603:10a6:20b:7::12)
+ by VI0PR04MB10688.eurprd04.prod.outlook.com (2603:10a6:800:25c::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.18; Mon, 15 Jun
+ 2026 07:11:09 +0000
+Received: from AM6PR04MB5239.eurprd04.prod.outlook.com
+ ([fe80::fa76:ead:9e21:f84e]) by AM6PR04MB5239.eurprd04.prod.outlook.com
+ ([fe80::fa76:ead:9e21:f84e%6]) with mapi id 15.21.0113.015; Mon, 15 Jun 2026
+ 07:11:09 +0000
+Date: Mon, 15 Jun 2026 15:11:24 +0800
+From: Jeff Chen <jeff.chen_1@nxp.com>
+To: Rafael Beims <rafael@beims.me>
+Cc: Brian Norris <briannorris@chromium.org>,
+	Francesco Dolcini <francesco@dolcini.it>,
+	Rafael Beims <rafael.beims@toradex.com>,
+	linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH wireless-next v1] wifi: mwifiex: fix permanently busy
+ scans after multiple roam iterations
+Message-ID: <ai+lnN/mjS0mycdV@nxpwireless-Inspiron-14-Plus-7440>
+References: <20260612122547.1586872-2-rafael@beims.me>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260612122547.1586872-2-rafael@beims.me>
+X-ClientProxiedBy: FR4P281CA0046.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:cc::9) To AM6PR04MB5239.eurprd04.prod.outlook.com
+ (2603:10a6:20b:7::12)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260608093729.12111-1-jelonek.jonas@gmail.com>
- <CAAhV-H7vJ5YniUD8HhFWBbypNyWTo73M_vzw=Y-MZtR-b_RNfw@mail.gmail.com> <731bd6c4-0f70-45a2-8480-8fed315b82b4@gmail.com>
-In-Reply-To: <731bd6c4-0f70-45a2-8480-8fed315b82b4@gmail.com>
-From: Huacai Chen <chenhuacai@kernel.org>
-Date: Mon, 15 Jun 2026 15:09:31 +0800
-X-Gmail-Original-Message-ID: <CAAhV-H6Va1VzpvdA-w5fX9KrZQArdX_Bjpg6t+4QNn3jHfgjmA@mail.gmail.com>
-X-Gm-Features: AVVi8CeoZiCXh_iaiNOAdCzLnp4qE8NmR13eNXcLxV_r3rfRWyydEG7ciK48TeU
-Message-ID: <CAAhV-H6Va1VzpvdA-w5fX9KrZQArdX_Bjpg6t+4QNn3jHfgjmA@mail.gmail.com>
-Subject: Re: [PATCH v2] MIPS: smp: report dying CPU to RCU in stop_this_cpu()
-To: Jonas Jelonek <jelonek.jonas@gmail.com>
-Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>, linux-mips@vger.kernel.org, 
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>, Clark Williams <clrkwllms@kernel.org>, 
-	Steven Rostedt <rostedt@goodmis.org>, Thomas Gleixner <tglx@kernel.org>, 
-	Jiayuan Chen <jiayuan.chen@linux.dev>, linux-rt-devel@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM6PR04MB5239:EE_|VI0PR04MB10688:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1f930191-c7e7-4f00-4f12-08decaad4672
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+ BCL:0;ARA:13230040|376014|52116014|366016|1800799024|23010399003|19092799006|56012099006|11063799006|3023799007|22082099003|38350700014|18002099003;
+X-Microsoft-Antispam-Message-Info:
+ K/BRxEohbu54QRcr6MOjGxvJNMn0+Uuq38e7o748jDZc7ST3jtHBM5i11/i1hz6oIKgqGhZqoP1aSBO1TEvMnBRsR2MpK4jTSb7jOECNiKE49hn0RDS3DIY5T1U+kKpVft6AgNSO/PiZmNO+QBbpYLXJYgj1SbNPdI2x1fwZXUT7sC5Gliu7u8InfeBZL1x/CSc1EYRvFM80W3hC2zb5szPlyoQusKprMZZCefjD1Nux0qFuIhHo2IqoGOgU4owNk2daNokdDUoBf/DyZ6sjvIjTOYAj9sAlLqZJm6piOF4wi7ZIPwAbGISgzRyw3VPq8i0Cv2oAR9ZT9ukmg9/OshU+viNVR9qhMpV3/Vy7UkocNVIwnVhypu531mMU0iR4+vp/qaTLtgztZMqrkMUzE0pKgloZNP7TcmA61+YFUo2REzO3UvT+0R/FPIK3/UccXuT6DMA+9hbL7taY2i8Ha+Fs4zu9DUYFN83neyICimwoyVk/M7eErvonceEnpWMkgT3GvvQEfPWVET8B43QHMugFTmjvxwFESPoUnbOB+J89teD2bDeVbqTJJDiKU0rI7EaF9pcykhVicAJd4u2twFxcAgsi6Il5wDqkAgFJSFmZFEYRmDmjy9ZlLNrWV0BKwy1cAdQKZ/m9kftcqeOWIXr+5O4TDseo/gGO6+xC2b0fsYglYPXNaAG1fSNaqP6CB1u+vfw8YInFBN74cTSG/9LFQFJC3IJbrcL61HXvc3qDFmN8J6qCrAzVP46OaH+w
+X-Forefront-Antispam-Report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR04MB5239.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(52116014)(366016)(1800799024)(23010399003)(19092799006)(56012099006)(11063799006)(3023799007)(22082099003)(38350700014)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+ =?utf-8?B?dmtnaHAzWGVsdnUzZnhaWjBmU3NraXN1eEhqVXA3Y3BKZ1RNcFdFakFLQU8x?=
+ =?utf-8?B?ZXh5MWUvK2VmRlQ2M0NKMVBmL0FRbGtQbW9SZ0cra0tyd2tKY21RRG1DdDdJ?=
+ =?utf-8?B?NlEySGlmZ1hhUTR2NEd1S0gxSXFONm4wRW1LaElSQ2xpaS92alRaTUVyazVl?=
+ =?utf-8?B?UTQ0UHFBRWR3T1hNR0EzK25ZUXE4L044SDNPTGkwT2t2VnMra3NXT0Qwc0NX?=
+ =?utf-8?B?TE5XV0ZZcXgrSDdZYnJ4NkNNcHl3c0RoTzFzYW1OR3h1RksvakpnSTN2NTRU?=
+ =?utf-8?B?clFvMmkxZkNNa3hIUmRXV0xKVnlxNUczanFnOGdWL2RKbGMyUmR2OFFrZ3RS?=
+ =?utf-8?B?Z2FmTjhVMkJ5WmkrQXh4Y2ZBSmQvVmIvMTdXVVNNK2tubnJiSmFZVUZDM2k2?=
+ =?utf-8?B?TEVDOHpCbDFOdThNSmdvSWZhQmhNNDl0MUpUakhuM0M2YXkyelZiMVhXOUlR?=
+ =?utf-8?B?bmI0QnF3L2JZYlhBM2JoNlJndlVCeUZYQmtvM09vY0NlMWd3T29pQ0JUaDNl?=
+ =?utf-8?B?SlBVYWVJQzc3djcrSFMwbXlqbDBTaUxlRTdDeUlQSXNLNVlrUEdRTUlab0Vx?=
+ =?utf-8?B?eW40MEJadGtZVm9HNTNERE52cEQ0L3RuQzFBNGlHaVhlMlkrQkRnT0thSHJx?=
+ =?utf-8?B?RHVOS0grWHhWNWNtcFYzVDRHZ2VuaWxKRFlBTWxhYy9QMkNaUnk0RWRGc0lI?=
+ =?utf-8?B?djZpMVVaai9PcldMdGNLNVBjVWNVU0ZkdnNPSUEvMjQ2NXh5VTNlRENMKzAw?=
+ =?utf-8?B?MGZQcCtzcERKSkowNHlSM1JFN3pOYjRKQlpSTTVIOTRTNXdqQkdyMkJUemh6?=
+ =?utf-8?B?VXM1MEg0SG9pNVNLZ2JXTXRoWDlxS0pIc21GVGh1ejMwMlY4SHdidFA3RjVH?=
+ =?utf-8?B?NzZKcTJuSHZLRGZjd0VUam5wRUVMVzZCckY4S3RYSVNCUkEyeWcrSjAwVXZQ?=
+ =?utf-8?B?UmQ3cmVNVjhpQjVIenpadE9OQnpZQ1FTUWxDMFozbVB1SE5RL0g1cThjZHlD?=
+ =?utf-8?B?Y09ZKzdRcy9IZ0lreGlybzdHVmh2c1F5ZWwweDhjbGllQnFDMDhWM0tyTzNa?=
+ =?utf-8?B?MGhmQ2lpNTdYVy9GcGRBeEM1dHpMaUI3QWRiaENFbm9zVnhteElmaFJIclA4?=
+ =?utf-8?B?Qk5JQXBBOEZva2l4ZW8xVlJkeXU5ZlZEOUFLUEViQ1pwdkRnS3B4QzN6dk1n?=
+ =?utf-8?B?V1VoVUdNNVRscWxkaGFnbm56cmIyZDdjbVVtRU1KRkUvM0Q5TmV4VGRvNlpE?=
+ =?utf-8?B?dFRXak5BM3FqZkdBTE5sWVdNYW9KMlZLRHVMam1Xend3SG10M3Y5V241Tzhm?=
+ =?utf-8?B?Sm11d1Y1eXlPN0pmTDU2YlpFdkFQdFF6ZDRIYnZnemxLemZhdUtZc1UyQ2pt?=
+ =?utf-8?B?R1doNTJRS3JEMUI5VlRnakwyRW1nZURzUit4cXZFMy9tMUFQTGZsYUVzMGlk?=
+ =?utf-8?B?eTAxdnVxQXZTQU52MmlFQm5TeTB1aUFZdUtRYzNIMDFZNWVXbm1ReTE2Zmpm?=
+ =?utf-8?B?bkkyNjh4ZWNQdng5TytGNHRUcEJBWi9DZjJqdlBJOHgvTy9sa0tyMzhrb2hx?=
+ =?utf-8?B?NEgvcUttNWR0TFZ2UkxubWowN2h4WXFjdGFPSXlQV2JnY2ZCUmppT2tlN2U4?=
+ =?utf-8?B?YXdJbWlCZDh4eXJBenFZTlZPeFdSbUxHTzl0VnpCaks2MWRGTUdkVm85am8x?=
+ =?utf-8?B?UmZBYnhYYXh5cWZTUEdoYm9PTjBxWXoyakw3UEtqVFkzQXNnbXVQMUdBRzc0?=
+ =?utf-8?B?b1YxQysvWVdwdlJadFZVL09hNjAzaEExQWtQdVpsYTZQeFZrT2JWV0IwU2l0?=
+ =?utf-8?B?c0V2Z2FPbTlwTWxObGhpZkJSdXhhZ3NCT1ZPanZOYzByWnM3T2pETm5WUEZT?=
+ =?utf-8?B?SGVva0hFMmhEYUsvMVdsdU50YmVIODBJa2xwTzUxY1c4aGpmODdYNjR1TGE4?=
+ =?utf-8?B?bDVpR0x4RkNvNnkzLzNLa0tIUWVQWFdNWUVkbzFSc0hTQlVSbExCaDFtT2lU?=
+ =?utf-8?B?bTArMmdWZTk1TTVha2pOeGxpZGNuR3o2MkdHdlFCU21Wc2lTSDI4ZTQrSWVC?=
+ =?utf-8?B?K2toTmJEd2lZYXZzVlJsd1JPQWtyTXJ0U042aWw4aEpiUG15bFNaUVZraXBT?=
+ =?utf-8?B?L0Jva29hTXQ2NXM3VGZZbnVJbTkrRm9FeTFkSEdJVkpPK0RvL0FIYkh6azNo?=
+ =?utf-8?B?aG5sdU1MUGtweURCaGIycXdsOThTRXJnUWdxNndEZ1JPTWp6ZS81V0ZlTGdZ?=
+ =?utf-8?B?ZER6aE9ZN0hObW82bUIrS2toeUhCMDBBaDV2clFBUzYvenk2N24xZWphVmIz?=
+ =?utf-8?B?Ti9mTXFxYXNXZUw3cXF5b0Q4dTltOHNrM0hUQjI2T2NpTU5lNWxNQT09?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1f930191-c7e7-4f00-4f12-08decaad4672
+X-MS-Exchange-CrossTenant-AuthSource: AM6PR04MB5239.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jun 2026 07:11:09.6886
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: fVkYY+Xkj1fuXyCruTHAO15H10ZbZ/dpHFtpBMYZITzS2VOdrHFS7rbzSnQ7s1VT31YAymWBW4k8m98dv6yjbg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR04MB10688
 
-On Mon, Jun 15, 2026 at 3:00=E2=80=AFPM Jonas Jelonek <jelonek.jonas@gmail.=
-com> wrote:
->
-> Hi Huacai,
->
-> sorry for the reply delay.
->
-> On 10.06.26 08:05, Huacai Chen wrote:
-> > [...]
-> > In theory LoongArch has the same problem, but I cannot reproduce,
-> > should I enable PREEMPT_RT? Or there are some special configurations?
->
-> Sadly I cannot help with that. For MIPS, this seems to be the default
-> behavior.
-This patch fixes 91840be8f710, and 91840be8f710 adds synchronize_rcu()
-in irq_work_sync(). Your problem is caused by this synchronize_rcu(),
-right?
+On Fri, Jun 12, 2026 at 09:25:46 AM -0300, Rafael Beims wrote:
+> From: Rafael Beims <rafael.beims@toradex.com>
+> 
+> In order for the firmware to sleep, the driver has to confirm a
+> previously received sleep request. The normal sequence of evets goes
+> like this:
+> EVENT_SLEEP -> adapter->ps_state = PS_STATE_PRE_SLEEP -> sleep-confirm
+> -> SLEEP -> EVENT_AWAKE -> AWAKE.
+> Before sending the sleep-confirm command, the driver must make sure
+> there are no commands either running or waiting to be completed.
+> 
+> mwifiex_ret_802_11_associate() unconditionally sets
+> ps_state = PS_STATE_AWAKE when it processes the association command
+> response, outside of the normal powersave management flow. If
+> EVENT_SLEEP arrives while the association command is in flight,
+> ps_state is PRE_SLEEP when the association command response is parsed,
+> and the forced AWAKE overwrites it. The deferred sleep-confirm is
+> never sent.
+> 
 
-However, synchronize_rcu() only gets called in the
-IS_ENABLED(CONFIG_PREEMPT_RT) case, so I think your configuration
-needs PREEMPT_RT, right?
+Hi Rafael,
+Thanks for the clear analysis.
+Agreed with the fix — association response handling shouldn’t override ps_state.
+For reference, the NXP downstream driver also doesn’t update ps_state in the
+association response path, so this is consistent.
 
-You said this is the default behavior, but PREEMPT_RT is not enabled by def=
-ault.
-
-Huacai
-
->
-> > Huacai
-> >
-> >> This issue was noticed on several Realtek MIPS switch SoCs (MIPS
-> >> interAptiv) and came up during kernel bump downstream in OpenWrt from
-> >> 6.18.33 to 6.18.34, after the backport of the patch to the 6.18 stable
-> >> branch. The patch also has been backported all the way back to 6.1.
-> >>
-> >> Call rcutree_report_cpu_dead() once interrupts are disabled, mirroring=
- the
-> >> generic CPU-hotplug offline path, so RCU stops waiting on the parked C=
-PUs
-> >> and grace periods can still complete. MIPS shuts down all CPUs here
-> >> without going through the CPU-hotplug mechanism, so this report is not
-> >> otherwise issued. Reporting a dying CPU to RCU outside the regular hot=
-plug
-> >> offline path is not unprecedented: arm64 does the same in cpu_die_earl=
-y().
-> >> There it is an exception for a CPU that was coming online and is abort=
-ing
-> >> bringup, rather than the default shutdown action as on MIPS.
-> >>
-> >> Fixes: 91840be8f710 ("irq_work: Fix use-after-free in irq_work_single(=
-) on PREEMPT_RT")
-> >> CC: stable@vger.kernel.org
-> >> Signed-off-by: Jonas Jelonek <jelonek.jonas@gmail.com>
-> >>
-> >> diff --git a/arch/mips/kernel/smp.c b/arch/mips/kernel/smp.c
-> >> index 4868e79f3b30..0f28b4a62e72 100644
-> >> --- a/arch/mips/kernel/smp.c
-> >> +++ b/arch/mips/kernel/smp.c
-> >> @@ -20,6 +20,7 @@
-> >>  #include <linux/sched/mm.h>
-> >>  #include <linux/cpumask.h>
-> >>  #include <linux/cpu.h>
-> >> +#include <linux/rcupdate.h>
-> >>  #include <linux/err.h>
-> >>  #include <linux/ftrace.h>
-> >>  #include <linux/irqdomain.h>
-> >> @@ -422,6 +423,7 @@ static void stop_this_cpu(void *dummy)
-> >>         set_cpu_online(smp_processor_id(), false);
-> >>         calculate_cpu_foreign_map();
-> >>         local_irq_disable();
-> >> +       rcutree_report_cpu_dead();
-> >>         while (1);
-> >>  }
-> >>
-> >> --
-> >> 2.51.0
-> >>
-> >>
->
-> Best,
-> Jonas
+Reviewed-by: Jeff Chen <jeff.chen_1@nxp.com>
