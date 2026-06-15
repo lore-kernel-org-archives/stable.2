@@ -1,89 +1,147 @@
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [207.46.229.174])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4D24C3B14CB;
-	Mon, 15 Jun 2026 06:28:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=207.46.229.174
+Received: from out-182.mta0.migadu.com (out-182.mta0.migadu.com [91.218.175.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC49C212566
+	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 06:46:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781504893; cv=none; b=cLbSp/8FHwYujxy8ZLwufIlaiYbVC07Aw15ezy/rP3ETfRUB14juyE2RzClzEeBFBdhPkLXil9N+D0572dmCRKS3LOL9Q8zymAM2gZBIm1eCvRYmaHWCZFD4VBNjyumM5AmgWCpENCz7+XIJ/LnbmQ+yT8DMnci82NV9Oy8rfIg=
+	t=1781505997; cv=none; b=VMp3iNgGreEBu2fuZ/asKqf796yzSgss6P3oTyIrhkcqTqm5RuMZQFh1N0lPBdgOZgEl5y5/6MKD0yUX6rQquQobHLuJKjRWUH5/wHVKS8hoMH5SqSUcp8Q+t7A5YIrBDnNCoG6sarlV5GcsAkCf/v07ATEqljBRpEUKG97YhNQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781504893; c=relaxed/simple;
-	bh=y6XxhbY60dG0xbY+ie3dpqCXk+DmKuE1kabryxtn0PA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HTrkyAlqY/jot1JqgyInDVNJBEQUD3enkwYJGL+HpwBGZHh5VPGPRo6UMgW3Djc7ElTqX8JONyH9CoChP+LOE7zm96W8pq8uv3VQc86eomwadYv/oP9v+TWxXBLMhG9wun1ppwhuz53b28WpjBVQnnbcEX23YPrlRneBXDhPJ6Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mails.tsinghua.edu.cn; spf=pass smtp.mailfrom=mails.tsinghua.edu.cn; dkim=pass (1024-bit key) header.d=mails.tsinghua.edu.cn header.i=@mails.tsinghua.edu.cn header.b=RP7LsnDG; arc=none smtp.client-ip=207.46.229.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mails.tsinghua.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mails.tsinghua.edu.cn
+	s=arc-20240116; t=1781505997; c=relaxed/simple;
+	bh=V0lJACwgXhHJPicXPFvDru50IffzdKNMnTaHADa8x+M=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=l8hYmSFIKPNRyfiuo6ygRqSGOumV+J4gSQ2bB9GFlMW6CE+w48v/fAmehRO+9fbmLo15Q2CjIPSIPrEL5/XU6S/V4JhydkjPu+gqX66ToF+m1N4gYwy4BHiR1cHyJo7BGdwHXhXNU04mUOrH6bYpQ8S8mdyR0cHv02WsP90OLI4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=YRcccamq; arc=none smtp.client-ip=91.218.175.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mails.tsinghua.edu.cn header.i=@mails.tsinghua.edu.cn header.b="RP7LsnDG"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=mails.tsinghua.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:
-	Date:Message-ID:In-Reply-To:References:MIME-Version:
-	Content-Transfer-Encoding; bh=7AY37jUilyOOppCw24yu2Fs6f2pcjFO5/7
-	U8o9TKtYo=; b=RP7LsnDGbbIXyVMyb2LI1/zK1HQ2P8NedGTmh85BseubLQ2jwb
-	KuCH0QHa/RLCXK8A9vXADyogaMS6fMUMFA7lDJeetVP3lwX/l76FANVU/0bWQ2CA
-	+oXOcYr2xhW3tbHXIHF6U7Ym+SzHjMoD+aPYYDz7KG+eGDMOmYaNrr/QA=
-Received: from localhost.localdomain (unknown [59.66.142.89])
-	by web5 (Coremail) with SMTP id zAQGZQCHQcFsmy9qe1dwAg--.25454S2;
-	Mon, 15 Jun 2026 14:27:56 +0800 (CST)
-From: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
-To: andrew@lunn.ch
-Cc: davem@davemloft.net,
-	edumazet@google.com,
-	fengxw06@126.com,
-	horms@kernel.org,
-	kees@kernel.org,
-	kuba@kernel.org,
-	linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org,
-	pabeni@redhat.com,
-	qli01@tsinghua.edu.cn,
-	stable@vger.kernel.org,
-	wangao@seu.edu.cn,
-	xuke@tsinghua.edu.cn,
-	yangyx22@mails.tsinghua.edu.cn,
-	zhaoyz24@mails.tsinghua.edu.cn
-Subject: Re: [PATCH net] atm: br2684: reject short VC-MUX bridged frames
-Date: Mon, 15 Jun 2026 14:27:56 +0800
-Message-ID: <20260615062756.31081-1-zhaoyz24@mails.tsinghua.edu.cn>
-X-Mailer: git-send-email 2.46.2
-In-Reply-To: <26ebc58c-6399-4a45-aa55-91a3bf398fef@lunn.ch>
-References: <26ebc58c-6399-4a45-aa55-91a3bf398fef@lunn.ch>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="YRcccamq"
+Message-ID: <a1960092-f444-47fb-9358-aab0d4f43ce2@linux.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1781505983;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=kiNn3K9N6RX2fnyMI3v5LyzAfNqLkHIr+etJKHcVcyA=;
+	b=YRcccamqVeyplgLY6g72+XwGxO+KOB0ikzq1UXRC7/p4lfOmQX0k3VjQCMLC0GlIOpHmOJ
+	rTedpNt1ol98SksZxhCW/2LPFOdxJEuNfYs5Eoy04o1tH6u5LPsdD1Kuke0NCUTgrNQBGE
+	oz7flLfHA9VwpuU/4BfEr4brsMrHGdw=
+Date: Sun, 14 Jun 2026 23:46:16 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zAQGZQCHQcFsmy9qe1dwAg--.25454S2
-X-Coremail-Antispam: 1UD129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
-	VFW2AGmfu7bjvjm3AaLaJ3UjIYCTnIWjp_UUUYJ7CY07I20VC2zVCF04k26cxKx2IYs7xG
-	6rWj6s0DM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcV
-	AFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2
-	jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oVCq3wAac4AC62xK8xCEY4
-	vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
-	7VCjz48v1sIEY20_GrWkJr1UJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr4
-	1lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxan2IY04v7MxkIecxEwVAF
-	wVW8AwCF04k20xvY0x0EwIxGrwCF04k20xvE74AGY7Cv6cx26r4rKr1UJr1l4c8EcI0Ec7
-	CjxVAaw2AFwI0_Jw0_GFyl4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWU
-	JVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r4a6rW5MIIYrxkI7V
-	AKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42
-	IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjfUxeMNUUUUU
-X-CM-SenderInfo: 52kd05r2suqzpdlo2hxwvl0wxkxdhvlgxou0/1tbiAQITAWovKbDI+gABs+
+Subject: Re: [PATCH v3 2/4] KVM: selftests: Verify SNP VMs are rejected from
+ migration and mirroring
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: Atish Patra <atish.patra@linux.dev>
+To: Sean Christopherson <seanjc@google.com>,
+ Paolo Bonzini <pbonzini@redhat.com>, Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ "H. Peter Anvin" <hpa@zytor.com>, Tom Lendacky <thomas.lendacky@amd.com>,
+ Peter Gonda <pgonda@google.com>, Brijesh Singh <brijesh.singh@amd.com>,
+ Youngjae Lee <youngjaelee@meta.com>, Ashish Kalra <ashish.kalra@amd.com>,
+ Michael Roth <michael.roth@amd.com>, John Allen <john.allen@amd.com>,
+ Herbert Xu <herbert@gondor.apana.org.au>
+Cc: clm@meta.com, kvm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-crypto@vger.kernel.org, stable@vger.kernel.org,
+ Atish Patra <atishp@meta.com>
+References: <20260602-sev_snp_fixes-v3-0-585e4783a42f@meta.com>
+ <20260602-sev_snp_fixes-v3-2-585e4783a42f@meta.com>
+Content-Language: en-US
+In-Reply-To: <20260602-sev_snp_fixes-v3-2-585e4783a42f@meta.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Migadu-Flow: FLOW_OUT
 
-Hi Andrew,
 
-On Sun, Jun 14, 2026 at 08:39:12PM +0800, Andrew Lunn wrote:
-
-> Same questions as for the previous patch. Lots of parallel
-> discoveries? What hardware was used, etc.
-
-I'm sorry that in this case no physical ATM/DSL hardware was 
-used either. I verified this in QEMU/KVM with a small dummy 
-ATM device as in the previous patch. I think that this is a
-real logical bug, but whether it can be triggered by a real
-Device was not verified.
-
-Yours Sincerely,
-Yizhou
-
+On 6/2/26 3:11 PM, Atish Patra wrote:
+> From: Atish Patra <atishp@meta.com>
+>
+> Migration and mirroring of SEV-SNP VMs are not supported yet.
+>
+> Add two selftests that verify KVM rejects intra-host migration and
+> mirroring when the source VM is an SNP VM, so the restriction stays enforced
+> until proper SNP state transfer is implemented.
+>
+> Signed-off-by: Atish Patra <atishp@meta.com>
+> ---
+>   .../testing/selftests/kvm/x86/sev_migrate_tests.c  | 47 ++++++++++++++++++++++
+>   1 file changed, 47 insertions(+)
+>
+> diff --git a/tools/testing/selftests/kvm/x86/sev_migrate_tests.c b/tools/testing/selftests/kvm/x86/sev_migrate_tests.c
+> index 6b0928e69051..acef6ab26d3d 100644
+> --- a/tools/testing/selftests/kvm/x86/sev_migrate_tests.c
+> +++ b/tools/testing/selftests/kvm/x86/sev_migrate_tests.c
+> @@ -313,6 +313,49 @@ static void test_sev_mirror_parameters(void)
+>   	kvm_vm_free(vm_no_vcpu);
+>   }
+>   
+> +static void test_sev_snp_migrate_reject(void)
+> +{
+> +	struct kvm_vm *src_vm, *dst_vm;
+> +	int ret;
+> +
+> +	src_vm = vm_create_barebones_type(KVM_X86_SNP_VM);
+> +	snp_vm_init(src_vm);
+> +	__vm_vcpu_add(src_vm, 0);
+> +	vm_sev_launch(src_vm, snp_default_policy(), NULL);
+> +
+> +	dst_vm = vm_create_barebones_type(KVM_X86_SNP_VM);
+> +	__vm_vcpu_add(dst_vm, 0);
+> +
+> +	ret = __sev_migrate_from(dst_vm, src_vm);
+> +	TEST_ASSERT(ret == -1 && errno == EINVAL,
+> +		    "SNP VM migration should be rejected. ret: %d, errno: %d",
+> +		    ret, errno);
+> +
+> +	kvm_vm_free(src_vm);
+> +	kvm_vm_free(dst_vm);
+> +}
+> +
+> +static void test_sev_snp_mirror_reject(void)
+> +{
+> +	struct kvm_vm *src_vm, *dst_vm;
+> +	int ret;
+> +
+> +	src_vm = vm_create_barebones_type(KVM_X86_SNP_VM);
+> +	snp_vm_init(src_vm);
+> +	__vm_vcpu_add(src_vm, 0);
+> +	vm_sev_launch(src_vm, snp_default_policy(), NULL);
+> +
+> +	dst_vm = aux_vm_create(false);
+> +
+> +	ret = __sev_mirror_create(dst_vm, src_vm);
+> +	TEST_ASSERT(ret == -1 && errno == EINVAL,
+> +		    "SNP VM mirroring should be rejected. ret: %d, errno: %d",
+> +		    ret, errno);
+> +
+> +	kvm_vm_free(src_vm);
+> +	kvm_vm_free(dst_vm);
+> +}
+> +
+>   static void test_sev_move_copy(void)
+>   {
+>   	struct kvm_vm *dst_vm, *dst2_vm, *dst3_vm, *sev_vm, *mirror_vm,
+> @@ -384,12 +427,16 @@ int main(int argc, char *argv[])
+>   		test_sev_migrate_parameters();
+>   		if (kvm_has_cap(KVM_CAP_VM_COPY_ENC_CONTEXT_FROM))
+>   			test_sev_move_copy();
+> +		if (kvm_cpu_has(X86_FEATURE_SEV_SNP))
+> +			test_sev_snp_migrate_reject();
+>   	}
+>   	if (kvm_has_cap(KVM_CAP_VM_COPY_ENC_CONTEXT_FROM)) {
+>   		test_sev_mirror(/* es= */ false);
+>   		if (have_sev_es)
+>   			test_sev_mirror(/* es= */ true);
+>   		test_sev_mirror_parameters();
+> +		if (kvm_cpu_has(X86_FEATURE_SEV_SNP))
+> +			test_sev_snp_mirror_reject();
+>   	}
+>   	return 0;
+>   }
+>
+gentle ping for any feedback on this patch ?
