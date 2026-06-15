@@ -1,42 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1FBD3AC0DE
-	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 21:29:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15EFC38BF75
+	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 21:29:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781558953; cv=none; b=IcBxiMktx9uNzfoqh9SSFy2RG84Vn8WQ5xajqufFrOUaA1epIp6VqDbbIufwS1LuN4xvmR10+9Ymro3IIpHo2pDc8xnvk6Y+DIVlHGP6DWHf0+aPRCCKhG7YI67Cb5SBmVDW2raFzoeklrG0EKAuwkBeYv/QizoblK9gMVCwTOw=
+	t=1781558954; cv=none; b=nMlGst30KydUXWA84NG6VJhCnrjJN/3KaTxFGmfSPncy1EjUTA7a8GVk50ysKHsR4lx/4cg1ZAnSJTiDTHiXsFIM8M4T+iHYwCUEJcqYbqHbTSHrsFdhq6AwctWyWKoOBLiu/O3ZpjrTPZHBofkq1iBpzeQ40EI4R9o+kQ0F8zw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781558953; c=relaxed/simple;
-	bh=XX9NREEVL4LcB2J0tgseR8DPRAVA2lLy4m5DDY7AohU=;
+	s=arc-20240116; t=1781558954; c=relaxed/simple;
+	bh=1JKrmjf7fPdQ3viG2ZM7U0knx0ZDMAgdtttN6vJirwo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Cgez/wCE9LdB6EU2biklZtHAax0cVmGMbN/Z2HXAvav2c7TUdk2pI7OaG7nx+agYep+D5Vk89aV4euOgjRdoQfZGs0D5bf864kuxwna8MkU/j0O9y1p6Q/2Z9AKat0KVqIg0GJLZbu+sdwDPjR3WXF8fFRgMJCEjBkkf1Ftmwvk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dteQVuTx; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=g8gwO1qJ8DjYSr+TIJGcONySiTT4yM5a15XkvmTYQomEwhLSSLhoNSERB5TK4s/qUF4OdLlRPDD1s/GocajVb1lCcht3aJIuzGaWdv5L7P+j8bvvdjpu84EdungGg+AxHlBD0dNx+eGoeRvJdonMNuxeMVlNAkj7XW7wrNVnb8w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fshQ14mN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dteQVuTx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18DF31F00A3E;
-	Mon, 15 Jun 2026 21:29:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fshQ14mN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F56A1F00A3D;
+	Mon, 15 Jun 2026 21:29:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781558951;
-	bh=KFjx4yAs8YVVPzl3rDzoomN4IkY3u5v7ji1eWL/E2ZQ=;
+	s=k20260515; t=1781558952;
+	bh=piBfKzqz6iwFbEkNY0vkoSqRLKP1mD/h90Z608UmbAM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=dteQVuTxSPvp3WNwjeB0ahR3SEeDvN9fG5jgFgbPsFP16T8YT+crav5koxSAib0QZ
-	 +eRFditDocYW8Kko5+vIixPkBfbEg3Vlp94/GZlVO/vlfvg0Aq+3lIV2Blie4vxYCs
-	 XEPyQtvGBH7DPuaXS9O+cVZwhHk4XQ5BxDkucaGFwvYlQvOteQXIbFen8RyD0XfvxO
-	 tkCA/qyKz525zXMXJuZtkZX6ESLe7qw5P+mQGZ4MDQjWmLvu9SN/CrjrTBiB5R3JyB
-	 RjeUgqswUN/gY8kWz0ciKFqUphKWK4YGRBcGd0wfalC+h76gS/xGZX0pgcCT6RqZE3
-	 V43TIvLehVDow==
+	b=fshQ14mNTrjTy+9WGiGCDXG/Wwap75ZEIyZTW5WXbO99yXGYzQBWFBLiP4g1G0QAu
+	 liRgYn/k0Alf5wJOlkjgwAtki7c5BYz32jMHwhAnqVJKjxl86/6RFqKhSU8HEMgzEo
+	 qqitwCm5B2fiEuPXUpLQc1wUVaOKIiAMOptLKXw+/d04kVgSoiDo/rV/q+8lv+qomW
+	 SkExlK1bw37nR/vI4TWy4YYanRisfj3VdTcpY2ZgPR0rRijHZJkJ/IHCetaR0GG7bl
+	 M9xvvZEkIP6cSRLFO5eS7L6Bs/2tyeYz4k75iuo0ZF3xYF2qRzfoQcGvVI8/OzcgaO
+	 3TX6++Uow1wkg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jason Gunthorpe <jgg@nvidia.com>,
+Cc: Jacob Moroni <jmoroni@google.com>,
+	Leon Romanovsky <leon@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 3/3] RDMA/umem: Fix truncation for block sizes >= 4G
-Date: Mon, 15 Jun 2026 17:29:08 -0400
-Message-ID: <20260615212908.2473687-3-sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/4] RDMA/umem: Add ib_umem_dmabuf_get_pinned_and_lock helper
+Date: Mon, 15 Jun 2026 17:29:07 -0400
+Message-ID: <20260615212910.2473729-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260615212908.2473687-1-sashal@kernel.org>
-References: <2026061505-frayed-clergyman-65f9@gregkh>
- <20260615212908.2473687-1-sashal@kernel.org>
+In-Reply-To: <2026061551-manor-verbalize-74cb@gregkh>
+References: <2026061551-manor-verbalize-74cb@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,43 +45,89 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jason Gunthorpe <jgg@nvidia.com>
+From: Jacob Moroni <jmoroni@google.com>
 
-[ Upstream commit 15fe76e23615f502d051ef0768f86babaf08746c ]
+[ Upstream commit 553dfa8cbd0c6d36adae042d9738ddf8f8765ac7 ]
 
-When the iommu is used the linearization of the mapping can give a single
-block that is very large split across multiple SG entries.
+Move the inner logic of ib_umem_dmabuf_get_pinned_with_dma_device()
+to a new static function that returns with the lock held upon success.
 
-When __rdma_block_iter_next() reassembles the split SG entries it is
-overflowing the 32 bit stack values and computed the wrong DMA addresses
-for blocks after the truncation.
+The intent is to allow reuse for the future get_pinned_revocable_and_lock
+function.
 
-Use the right types to hold DMA addresses.
-
-Link: https://patch.msgid.link/r/1-v1-88303e9e509f+f7-ib_umem_types_jgg@nvidia.com
-Cc: stable@vger.kernel.org
-Fixes: a808273a495c ("RDMA/verbs: Add a DMA iterator to return aligned contiguous memory blocks")
-Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
+Signed-off-by: Jacob Moroni <jmoroni@google.com>
+Link: https://patch.msgid.link/20260305170826.3803155-2-jmoroni@google.com
+Signed-off-by: Leon Romanovsky <leon@kernel.org>
+Stable-dep-of: badad6fad60d ("RDMA: During rereg_mr ensure that REREG_ACCESS is compatible")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/infiniband/core/iter.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/infiniband/core/umem_dmabuf.c | 35 ++++++++++++++++++++-------
+ 1 file changed, 26 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/infiniband/core/iter.c b/drivers/infiniband/core/iter.c
-index 8e543d100657ee..3ed351e8fcf6c9 100644
---- a/drivers/infiniband/core/iter.c
-+++ b/drivers/infiniband/core/iter.c
-@@ -19,8 +19,8 @@ EXPORT_SYMBOL(__rdma_block_iter_start);
+diff --git a/drivers/infiniband/core/umem_dmabuf.c b/drivers/infiniband/core/umem_dmabuf.c
+index 44bb7449738cf4..acb0922a786131 100644
+--- a/drivers/infiniband/core/umem_dmabuf.c
++++ b/drivers/infiniband/core/umem_dmabuf.c
+@@ -198,18 +198,19 @@ static struct dma_buf_attach_ops ib_umem_dmabuf_attach_pinned_ops = {
+ 	.move_notify = ib_umem_dmabuf_unsupported_move_notify,
+ };
  
- bool __rdma_block_iter_next(struct ib_block_iter *biter)
+-struct ib_umem_dmabuf *
+-ib_umem_dmabuf_get_pinned_with_dma_device(struct ib_device *device,
+-					  struct device *dma_device,
+-					  unsigned long offset, size_t size,
+-					  int fd, int access)
++static struct ib_umem_dmabuf *
++ib_umem_dmabuf_get_pinned_and_lock(struct ib_device *device,
++				   struct device *dma_device,
++				   unsigned long offset,
++				   size_t size, int fd, int access,
++				   const struct dma_buf_attach_ops *ops)
  {
--	unsigned int block_offset;
--	unsigned int delta;
-+	dma_addr_t block_offset;
-+	dma_addr_t delta;
+ 	struct ib_umem_dmabuf *umem_dmabuf;
+ 	int err;
  
- 	if (!biter->__sg_nents || !biter->__sg)
- 		return false;
+-	umem_dmabuf = ib_umem_dmabuf_get_with_dma_device(device, dma_device, offset,
+-							 size, fd, access,
+-							 &ib_umem_dmabuf_attach_pinned_ops);
++	umem_dmabuf =
++		ib_umem_dmabuf_get_with_dma_device(device, dma_device, offset,
++						   size, fd, access, ops);
+ 	if (IS_ERR(umem_dmabuf))
+ 		return umem_dmabuf;
+ 
+@@ -222,7 +223,6 @@ ib_umem_dmabuf_get_pinned_with_dma_device(struct ib_device *device,
+ 	err = ib_umem_dmabuf_map_pages(umem_dmabuf);
+ 	if (err)
+ 		goto err_release;
+-	dma_resv_unlock(umem_dmabuf->attach->dmabuf->resv);
+ 
+ 	return umem_dmabuf;
+ 
+@@ -231,6 +231,23 @@ ib_umem_dmabuf_get_pinned_with_dma_device(struct ib_device *device,
+ 	ib_umem_release(&umem_dmabuf->umem);
+ 	return ERR_PTR(err);
+ }
++
++struct ib_umem_dmabuf *
++ib_umem_dmabuf_get_pinned_with_dma_device(struct ib_device *device,
++					  struct device *dma_device,
++					  unsigned long offset, size_t size,
++					  int fd, int access)
++{
++	struct ib_umem_dmabuf *umem_dmabuf =
++		ib_umem_dmabuf_get_pinned_and_lock(device, dma_device, offset,
++						   size, fd, access,
++						   &ib_umem_dmabuf_attach_pinned_ops);
++	if (IS_ERR(umem_dmabuf))
++		return umem_dmabuf;
++
++	dma_resv_unlock(umem_dmabuf->attach->dmabuf->resv);
++	return umem_dmabuf;
++}
+ EXPORT_SYMBOL(ib_umem_dmabuf_get_pinned_with_dma_device);
+ 
+ struct ib_umem_dmabuf *ib_umem_dmabuf_get_pinned(struct ib_device *device,
 -- 
 2.53.0
 
