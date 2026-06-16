@@ -1,46 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B4EB3C8C52;
-	Tue, 16 Jun 2026 04:20:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0177D2750ED;
+	Tue, 16 Jun 2026 04:48:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781583653; cv=none; b=isfl7PhuEpa0vejlmeODwgb2o8LM6B0rYFS4OT7y32gjpieiv8mFaupgyq5eYzMpx0f1YIt/CTDiir55F8s2WmP9V7WUWqHec7bDuoVU4lPewRPXNwgCVPdhja5WUJS2u14VIE8C5257PYj4TTGUzYaeDYsHKzn3ePfWCc2FE4Q=
+	t=1781585317; cv=none; b=nreUF1Psf/muToJaiD7Amb6XeNxpYGFsVHaMD3leGGt5c8cFPM9b8rniurun4FWANjLThX7Vrglc7Vx91S4kRYo4WCbRpezgAeyn21x5LfuxjkYSyV9Gr3IzfjhA2RkQAvFjII01fsqU13wA5gsj3OtjRSkM4M7+kr9l8kbEQFo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781583653; c=relaxed/simple;
-	bh=kuYuyJlyFwP8rCqtF/iLW97jrlFHOoBJ1HFbaTgxsXY=;
+	s=arc-20240116; t=1781585317; c=relaxed/simple;
+	bh=+GAzhuOVqYflmhuwdTsSL+/EE2isHEZUlqKl3kdaaSg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iU2FAxNTaUOOQalwfmKP5tJezlcYdjreGfNmF0aFhqCPNua4KU16KZ9Xd/UXDb7iXIQwzaSSi/VyTdZcc0sUqekd13AjB4GZZMpldYIZb7fFOJWstoAJ/mKbbHTp+DRbklOnO6e/b5k8oxWiQuPI0t6TA1UNJDEq18LdQL0uhvY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=uLg3Kmfa; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=ctSgDYwlFBZeNFa5CvihMp4cEtYwiS9qulso6v3C1D1HYBL02zAn3eVMR1/DXPUPphGjCJ9pxvwK4+T1qWwQSLgzw6gwZwhApu/5l+vYY/2+YMjO+06JKvY69OC2KxQXTpI18bZbUnXjjJTjdzuc3DS5RGf2LN/uwbz7ggSzcq0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=e8XJB3qN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="uLg3Kmfa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF06D1F000E9;
-	Tue, 16 Jun 2026 04:20:50 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="e8XJB3qN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E8671F000E9;
+	Tue, 16 Jun 2026 04:48:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1781583651;
-	bh=7Tcg+1GJwXzaapcROEHo1QViH6YgQaoh9TZcwcgDtXI=;
+	s=korg; t=1781585315;
+	bh=59eSE6Ypmdqidr8SEUba7qcDtoyeflow3dPcMaCCM1o=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=uLg3Kmfa84/3RSsI1lUf+rX7a8j3lgAAZZuYjSLc2q5mJoClAF27W/DR0/EQzAl0s
-	 I7B3S64w4UmstIAdPeJuxqO5L/zkPaF3QNgCgaTetUuxf6mBMw4wkUuIxoGR4UOzvX
-	 RVrrFG5cXVU3cpjvz6nteEyzEqAxj12Ax8Oyq5XQ=
-Date: Tue, 16 Jun 2026 09:49:47 +0530
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Nazar Kalashnikov <sivartiwe@gmail.com>
-Cc: stable@vger.kernel.org,
-	Miri Korenblit <miriam.rachel.korenblit@intel.com>,
-	Kalle Valo <kvalo@kernel.org>,
-	Johannes Berg <johannes.berg@intel.com>,
-	linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Gregory Greenman <gregory.greenman@intel.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org, Luca Coelho <luciano.coelho@intel.com>,
-	Kalle Valo <kvalo@codeaurora.org>, lvc-project@linuxtesting.org
-Subject: Re: [PATCH 5.15/6.1/6.6/6.12] wifi: iwlwifi: fix 22000 series SMEM
- parsing
-Message-ID: <2026061636-alike-triumph-743d@gregkh>
-References: <20260615122100.137560-1-sivartiwe@gmail.com>
+	b=e8XJB3qNY3Iia94LYouqyZznnC3rhYx8DuLLujNzA8u7k4pc7aXmt0u9DmxcJFZ4e
+	 +LnAFumMEsx4qzMgPHrn3TDLyxxvfW5JQFrBLww206+nSOjAG4ZsNotZKywj4t0u/r
+	 y0lfXc/2AVxNGdi01bFU6opnQOYlYzB2rJ5O3eDw=
+Date: Tue, 16 Jun 2026 10:17:31 +0530
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Stefano Garzarella <sgarzare@redhat.com>
+Cc: Sasha Levin <sashal@kernel.org>, "Michael S. Tsirkin" <mst@redhat.com>,
+	AVKrasnov@sberdevices.ru, edumazet@google.com, eperezma@redhat.com,
+	jasowang@redhat.com, kuba@kernel.org, leonardi@redhat.com,
+	stefanha@redhat.com, virtualization@lists.linux.dev,
+	xuanzhuo@linux.alibaba.com, stable-commits@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: Patch "vsock/virtio: fix potential unbounded skb queue" has been
+ added to the 6.6-stable tree
+Message-ID: <2026061624-harbor-capture-a5bf@gregkh>
+References: <2026051553-santa-unretired-a417@gregkh>
+ <20260515113503-mutt-send-email-mst@kernel.org>
+ <2026051526-banish-strife-6dba@gregkh>
+ <20260515114521-mutt-send-email-mst@kernel.org>
+ <20260516170159.vsock-virtio-unbounded-drop@kernel.org>
+ <ag8EvTp29B-Q3nCq@sgarzare-redhat>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,29 +49,30 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260615122100.137560-1-sivartiwe@gmail.com>
+In-Reply-To: <ag8EvTp29B-Q3nCq@sgarzare-redhat>
 
-On Mon, Jun 15, 2026 at 03:20:58PM +0300, Nazar Kalashnikov wrote:
-> From: Johannes Berg <johannes.berg@intel.com>
+On Thu, May 21, 2026 at 03:15:54PM +0200, Stefano Garzarella wrote:
+> On Sun, May 17, 2026 at 09:33:06AM -0400, Sasha Levin wrote:
+> > > > What's the status of that fix?
+> > > 
+> > > Stefano posted v3 and is working on v4.
+> > > 
+> > > >  Should it be reverted elsewhere?
+> > > 
+> > > Donnu. With the change we have no DoS but the socket gets silently
+> > > broken.  Eric felt given the brokenness is upstream already it's better
+> > > to work on a fix on top, not revert.
+> > 
+> > Dropped from the 6.6, 6.12, 6.18, and 7.0 queues. We'll pick up Stefano's
+> > follow-up once it lands upstream.
 > 
-> commit 58192b9ce09b0f0f86e2036683bd542130b91a98 upstream.
+> FYI v4 is now merged in the net tree, so I guess they will land upstream
+> soon. I CCed stable on both patches:
 > 
-> If the firmware were to report three LMACs (which doesn't
-> exist in hardware) then using "fwrt->smem_cfg.lmac[2]" is
-> an overrun of the array. Reject such and use IWL_FW_CHECK
-> instead of WARN_ON in this function.
+> a4f0b001782b ("vsock/virtio: reset connection on receiving queue overflow")
+> c6087c5aaad6 ("vsock/virtio: fix skb overhead accounting to preserve full
+> buf_alloc")
 > 
-> Signed-off-by: Johannes Berg <johannes.berg@intel.com>
-> Signed-off-by: Miri Korenblit <miriam.rachel.korenblit@intel.com>
-> Link: https://patch.msgid.link/20251110150012.16e8c2d70c26.Iadfcc1aedf43c5175b3f0757bea5aa232454f1ac@changeid
-> Signed-off-by: Nazar Kalashnikov <sivartiwe@gmail.com>
-> ---
-> Backport fix for CVE-2026-43172
->  drivers/net/wireless/intel/iwlwifi/fw/smem.c | 8 ++++++--
->  1 file changed, 6 insertions(+), 2 deletions(-)
+> Both are related, but the second is the main fix of this patch.
 
-This breaks the build, how did you test it?
-
-thanks,
-
-greg k-h
+THe second one doesn't apply at all :(
