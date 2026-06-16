@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53A5F169AD2;
-	Tue, 16 Jun 2026 16:55:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91693478E45
+	for <stable@vger.kernel.org>; Tue, 16 Jun 2026 16:55:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781628960; cv=none; b=DnWpMqONcR5aOyg3yIwsVU8l1aaVpDHfiZqHsPsWfl59iTvuMNjuWCuo5JJIOcRyaVa6OPOtB1sI2S+nq2Ignxe+i+mIRxVoCw1cIqxSkFMDXV4XMWeskh01wITLFc3HYMSvqp38lcBYvDE/8uB9A1sVm2ALlUjJCcFPUnhjrIE=
+	t=1781628960; cv=none; b=EvYtfp1ZeP5OjBxPiyVwCTAMK80CmKzWbFznq5S57dEW7Om5nRXpOCVe6pNWfkH/4T0lR/mXpDlcWBv+vE4MPlXPPerawbCmUOF47lT6LbMqDij8GTcEtYNSyXXr4FJlSYtu9cqcJlteOO7MfIPb/BpQDTLVnXyvtDc8Swp00Bw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1781628960; c=relaxed/simple;
-	bh=jBuim/tnwAJwnhBHhdx8y8PLr9yYtmFCTm0s5kVWPG4=;
+	bh=+L61YVI/UzHosdMdDao1u0equ7xUrsf4xUcdakFXRTg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=AV9l1TYYm0QRTBQ9vNemz/9y2DThK1xH2z03nUiWnDQS5AzK3HVHdEsDo5uelb/uVvX4r2fJRS8aOE1mXDPXN4KKA6vSpx3p9QkZ+YvDXyeD5H12kzMTLUiZTMPzCrjM6Nn08br0+UxmkQVakJSJWscodlPhLRGBkKbznlpx804=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=jSFowmBY; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=P0PN8Le89+PDjfMR5IGtrkp7ixSW2KEgUlB5QxBvgGzRX+LPG3p7M2Wlj4UOKRgA6kyjUnzyGkqtJuBPEHXX+5USLCMKLr8f9Iltqzag/j4mp5u462RecKOunRIXO4MN13fGiSWXYGd7IKuGosvl5aQRdZB26/WrdONbk/Pj5Ko=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BuqqTLqo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="jSFowmBY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57AA61F000E9;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BuqqTLqo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C69EF1F00A3A;
 	Tue, 16 Jun 2026 16:55:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1781628959;
-	bh=iWM3KWpStvbZ+EemuG3nvQVos0ucbNWQ1ZhdEcuq6t4=;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781628959;
+	bh=gsXqEi0Pna1I/n0mLJM7Hpshv6GCzUY8F5t9ogDVyr8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jSFowmBYgNakSGiP0DafbFTlinRAP7w0s43RrgOQjOdCB9VphTuevD3Ktm8lPp3Te
-	 CM7UzU4t1Tv0/GPenc4YtI+RsiAreJg43tdDBOapUYSbvkHdxkoBKp+72oEqWNoXrh
-	 sWuqFZeY9rlVBkevWnW3ISVhsyoRvbhl4NFuphMk=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=BuqqTLqodUBKV8l7V68v3yP8NMZcQ1+CNZT7GAK+0b9RZkdqkyL3TATSHjQUWV06t
+	 5fdan3qh0O4VQbCN9F7Ez4Y/ZOmQTb/trpnYJbsBTIS7Urk7OrNyxaEKM5BM53MxrT
+	 /dOr/n3S+TKE/rgyVqW+8DcEqwk2vF/yGjmsi0kN6X0ROtrFb3BLorEAxswzZRZk+R
+	 8mNO04CdKskEHg2OwQu+YsVjK/ntgEo+HAIepX/UzOcyGgT2O6HIESGEGw/TaeI/jz
+	 133H46MpJCNWTcX3qDPg3Tnxyxe9MX0Izht55goz3xgvoXGBdXWqRF1rKEGLhayHhG
+	 LPii2kfOQ9bXg==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Johan Hovold <johan@kernel.org>,
+Cc: Thorsten Blum <thorsten.blum@linux.dev>,
+	Long Li <longli@microsoft.com>,
+	Wei Liu <wei.liu@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6 195/452] USB: serial: digi_acceleport: fix memory corruption with small endpoints
-Date: Tue, 16 Jun 2026 20:27:02 +0530
-Message-ID: <20260616145128.070723428@linuxfoundation.org>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260616145117.796205997@linuxfoundation.org>
-References: <20260616145117.796205997@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Subject: [PATCH 6.18.y] hv: utils: handle and propagate errors in kvp_register
+Date: Tue, 16 Jun 2026 12:55:57 -0400
+Message-ID: <20260616165557.3366587-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026061557-scraggly-diligent-2098@gregkh>
+References: <2026061557-scraggly-diligent-2098@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,70 +46,87 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.6-stable review patch.  If anyone has any objections, please let me know.
+From: Thorsten Blum <thorsten.blum@linux.dev>
 
-------------------
+[ Upstream commit 3fcf923302a8f5c0dc3af3d2ca2657cb5fae4297 ]
 
-From: Johan Hovold <johan@kernel.org>
+Make kvp_register() return an error code instead of silently ignoring
+failures, and propagate the error from kvp_handle_handshake() instead of
+returning success.
 
-commit cb3560e8eab1dfa1cac1ed52631adf8ec6ff2cd5 upstream.
+This propagates both kzalloc_obj() and hvutil_transport_send() failures
+to kvp_handle_handshake() and thus to kvp_on_msg().
 
-Add the missing bulk-out buffer size sanity checks to avoid
-out-of-bounds memory accesses or slab corruption should a malicious
-device report smaller buffers than expected.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Fixes: 245ba56a52a3 ("Staging: hv: Implement key/value pair (KVP)")
 Cc: stable@vger.kernel.org
-Reviewed-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Signed-off-by: Johan Hovold <johan@kernel.org>
+Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
+Reviewed-by: Long Li <longli@microsoft.com>
+Signed-off-by: Wei Liu <wei.liu@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/usb/serial/digi_acceleport.c | 23 +++++++++++++++++++++--
- 1 file changed, 21 insertions(+), 2 deletions(-)
+ drivers/hv/hv_kvp.c | 25 +++++++++++++------------
+ 1 file changed, 13 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/usb/serial/digi_acceleport.c b/drivers/usb/serial/digi_acceleport.c
-index d1dea38505762c..5eac99407c1611 100644
---- a/drivers/usb/serial/digi_acceleport.c
-+++ b/drivers/usb/serial/digi_acceleport.c
-@@ -1231,15 +1231,34 @@ static int digi_port_init(struct usb_serial_port *port, unsigned port_num)
- static int digi_startup(struct usb_serial *serial)
+diff --git a/drivers/hv/hv_kvp.c b/drivers/hv/hv_kvp.c
+index 62795f6cbb0019..8b409a3d41f048 100644
+--- a/drivers/hv/hv_kvp.c
++++ b/drivers/hv/hv_kvp.c
+@@ -93,7 +93,7 @@ static void kvp_send_key(struct work_struct *dummy);
+ static void kvp_respond_to_host(struct hv_kvp_msg *msg, int error);
+ static void kvp_timeout_func(struct work_struct *dummy);
+ static void kvp_host_handshake_func(struct work_struct *dummy);
+-static void kvp_register(int);
++static int kvp_register(int);
+ 
+ static DECLARE_DELAYED_WORK(kvp_timeout_work, kvp_timeout_func);
+ static DECLARE_DELAYED_WORK(kvp_host_handshake_work, kvp_host_handshake_func);
+@@ -127,24 +127,26 @@ static void kvp_register_done(void)
+ 	hv_poll_channel(kvp_transaction.recv_channel, kvp_poll_wrapper);
+ }
+ 
+-static void
++static int
+ kvp_register(int reg_value)
  {
- 	struct digi_serial *serial_priv;
-+	int oob_port_num;
- 	int ret;
-+	int i;
-+
-+	/*
-+	 * The port bulk-out buffers must be large enough for header and
-+	 * buffered data.
-+	 */
-+	for (i = 0; i < serial->type->num_ports; i++) {
-+		if (serial->port[i]->bulk_out_size < DIGI_OUT_BUF_SIZE + 2)
-+			return -EINVAL;
-+	}
-+
-+	/*
-+	 * The OOB port bulk-out buffer must be large enough for the two
-+	 * commands in digi_set_modem_signals().
-+	 */
-+	oob_port_num = serial->type->num_ports;
-+	if (serial->port[oob_port_num]->bulk_out_size < 8)
-+		return -EINVAL;
  
- 	serial_priv = kzalloc(sizeof(*serial_priv), GFP_KERNEL);
- 	if (!serial_priv)
- 		return -ENOMEM;
+ 	struct hv_kvp_msg *kvp_msg;
+ 	char *version;
++	int ret;
  
- 	spin_lock_init(&serial_priv->ds_serial_lock);
--	serial_priv->ds_oob_port_num = serial->type->num_ports;
--	serial_priv->ds_oob_port = serial->port[serial_priv->ds_oob_port_num];
-+	serial_priv->ds_oob_port_num = oob_port_num;
-+	serial_priv->ds_oob_port = serial->port[oob_port_num];
+ 	kvp_msg = kzalloc(sizeof(*kvp_msg), GFP_KERNEL);
++	if (!kvp_msg)
++		return -ENOMEM;
  
- 	ret = digi_port_init(serial_priv->ds_oob_port,
- 						serial_priv->ds_oob_port_num);
+-	if (kvp_msg) {
+-		version = kvp_msg->body.kvp_register.version;
+-		kvp_msg->kvp_hdr.operation = reg_value;
+-		strcpy(version, HV_DRV_VERSION);
++	version = kvp_msg->body.kvp_register.version;
++	kvp_msg->kvp_hdr.operation = reg_value;
++	strcpy(version, HV_DRV_VERSION);
+ 
+-		hvutil_transport_send(hvt, kvp_msg, sizeof(*kvp_msg),
+-				      kvp_register_done);
+-		kfree(kvp_msg);
+-	}
++	ret = hvutil_transport_send(hvt, kvp_msg, sizeof(*kvp_msg),
++				    kvp_register_done);
++	kfree(kvp_msg);
++	return ret;
+ }
+ 
+ static void kvp_timeout_func(struct work_struct *dummy)
+@@ -186,9 +188,8 @@ static int kvp_handle_handshake(struct hv_kvp_msg *msg)
+ 	 */
+ 	pr_debug("KVP: userspace daemon ver. %d connected\n",
+ 		 msg->kvp_hdr.operation);
+-	kvp_register(dm_reg_value);
+ 
+-	return 0;
++	return kvp_register(dm_reg_value);
+ }
+ 
+ 
 -- 
 2.53.0
-
-
 
