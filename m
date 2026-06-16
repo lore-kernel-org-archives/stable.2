@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B25543D4E8
-	for <stable@vger.kernel.org>; Tue, 16 Jun 2026 17:05:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1954328610;
+	Tue, 16 Jun 2026 17:05:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781629515; cv=none; b=qdlbfWAl0k183hzcRXuAvKxiuCiYQZc5c7YiRDf6LEL7T4ScpsjkxwnDNoEgjY7yFf1YkMHDsCuhJMjqKf6EpL3BnNpOfGMcOS//aSh/CMhhGpIzg8pn9NCleDqTvduxkD2qDJXlLaIhhiipowD3F341oxXUj6CXA6xI5zGdYPk=
+	t=1781629518; cv=none; b=mYEWmvd+uBUaOPfR1squb2s0/Gvy30Wgctb7xotrufq3VVrOGYH9zSwbFcV4ZaygisPduCYcIi6G/LhhFMuE5I/JN7X3tH15Ho3lxYEFJ/A0bGY55nqGwVN8IEXCPtuRl2s1zHFZxOTuiNJOeZchqUXOth/ZpQtIygaFuf9v9Mc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781629515; c=relaxed/simple;
-	bh=sRO32Nws6B/xQoRqaeIWnb6n7Hg4q/oIxmARgeZ5F1o=;
+	s=arc-20240116; t=1781629518; c=relaxed/simple;
+	bh=C/ce/y3ePRfbqEUVOiWKqHMq1Ixjly/Q0+ODLYFxM8A=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=C1FOdz5hKzDo7TIbJC5oYGeUrGxFeYmSOZseTZeAfssI4kTwjJcAdQx98QAYmbScHT9J6ygkXaplGNnCTmzQvaXwXA2m//zp28/AllK/71JFpsRvZ37L9e2YaJUFlUsDiAi23B6PnTGRWruzuZVf4AmT2rl2vMXnkMVYzr/sHyo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aLJJVWG/; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=mO/jfnc+PQxDm4hHXE77lzUOMFndnEbFpJTZNFWd9ig3GElYpxS8+7De/fpaqbxS8haIkmnOnA2drk3PdKfRORgXpn0CvZ5pcZxvb/ADkJf1pvbPyw/XHxIMxaRq+pdGpc9gxBxIZS9aascjusAd4RVpr1VUdz8TMxzm6EV2iOc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Lff8iDdL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aLJJVWG/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 744001F00A3A;
-	Tue, 16 Jun 2026 17:05:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781629514;
-	bh=rb3o+O/RaY5zLsgupgwLYtGG7y6qHbxQ3K+rPM5tLFQ=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Lff8iDdL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC1811F000E9;
+	Tue, 16 Jun 2026 17:05:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1781629517;
+	bh=iJydEXHTU/xdU3/XmJsMeSkItJ3m22VCfItmTAU+rNs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=aLJJVWG/AW62VSTRisZswf4HPaeApizWGOVqRWy01yfTfszuxbUeunpOW7syuvzlQ
-	 CqLwtR/pu4vaYHXTKZNS12j7gqCSWhE50aG88XuMpfnh5QiIJZEd6v0xTnV8uxttI6
-	 FyPvyMQ3lXZn9rpjEGeJeDdP4IhdJfnntzO0doh+JHbWtdBPH+4Bm0d6XFDPSa05xy
-	 WTqCIKs9O0QIMWTn9fR9GDGSC7r3sNpkwj7/on3Dw4TGAQbr46mzpHMgFcN8bqhkR5
-	 4ocLfmWMrBERgJ9JnrTj+4VDxixKxLMFYh+gfw51msZa9WH1AbLBPEsjhmwbkaArSy
-	 UgngUQ4dueWzA==
-From: Sasha Levin <sashal@kernel.org>
+	b=Lff8iDdLhoy15ivvsl6ovJyn6wMmxT/j9VAXEaZza26WN3hLJ0qIKzMP5oOWAbeZf
+	 j5+asdO8lUAS5g/jen1AsrdKyWRqb6eCuSHa8hNtUVKIpC/x6oeLe/S+FcpYbg8Bc7
+	 rRTmmACVgZBPwuEM9mVeZwimqZxl/0byyh9yvhlw=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Thorsten Blum <thorsten.blum@linux.dev>,
-	Long Li <longli@microsoft.com>,
-	Wei Liu <wei.liu@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] hv: utils: handle and propagate errors in kvp_register
-Date: Tue, 16 Jun 2026 13:05:11 -0400
-Message-ID: <20260616170511.3370357-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026061501-ambush-comply-071d@gregkh>
-References: <2026061501-ambush-comply-071d@gregkh>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Adrian Korwel <adriank20047@gmail.com>,
+	Johan Hovold <johan@kernel.org>
+Subject: [PATCH 6.6 301/452] USB: serial: io_ti: fix heap overflow in build_i2c_fw_hdr()
+Date: Tue, 16 Jun 2026 20:28:48 +0530
+Message-ID: <20260616145133.326669574@linuxfoundation.org>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260616145117.796205997@linuxfoundation.org>
+References: <20260616145117.796205997@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,87 +46,49 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Thorsten Blum <thorsten.blum@linux.dev>
+6.6-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit 3fcf923302a8f5c0dc3af3d2ca2657cb5fae4297 ]
+------------------
 
-Make kvp_register() return an error code instead of silently ignoring
-failures, and propagate the error from kvp_handle_handshake() instead of
-returning success.
+From: Adrian Korwel <adriank20047@gmail.com>
 
-This propagates both kzalloc_obj() and hvutil_transport_send() failures
-to kvp_handle_handshake() and thus to kvp_on_msg().
+commit 0fd2b00b2d3d05e3eaa13342b3dfb0fa85c226ae upstream.
 
-Fixes: 245ba56a52a3 ("Staging: hv: Implement key/value pair (KVP)")
+build_i2c_fw_hdr() allocates a fixed-size buffer of
+(16*1024 - 512) + sizeof(struct ti_i2c_firmware_rec) bytes, then
+copies le16_to_cpu(img_header->Length) bytes into it without
+validating that Length fits within the available space after the
+firmware record header.
+
+img_header->Length is a __le16 from the firmware file and can be
+up to 65535. check_fw_sanity() validates the total firmware size
+but not img_header->Length specifically.
+
+Fix by rejecting images where img_header->Length exceeds the
+available destination space.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
-Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
-Reviewed-by: Long Li <longli@microsoft.com>
-Signed-off-by: Wei Liu <wei.liu@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Adrian Korwel <adriank20047@gmail.com>
+Signed-off-by: Johan Hovold <johan@kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/hv/hv_kvp.c | 25 +++++++++++++------------
- 1 file changed, 13 insertions(+), 12 deletions(-)
+ drivers/usb/serial/io_ti.c |    5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/drivers/hv/hv_kvp.c b/drivers/hv/hv_kvp.c
-index 77017d9518267c..8019ef2cdcf2a3 100644
---- a/drivers/hv/hv_kvp.c
-+++ b/drivers/hv/hv_kvp.c
-@@ -93,7 +93,7 @@ static void kvp_send_key(struct work_struct *dummy);
- static void kvp_respond_to_host(struct hv_kvp_msg *msg, int error);
- static void kvp_timeout_func(struct work_struct *dummy);
- static void kvp_host_handshake_func(struct work_struct *dummy);
--static void kvp_register(int);
-+static int kvp_register(int);
+--- a/drivers/usb/serial/io_ti.c
++++ b/drivers/usb/serial/io_ti.c
+@@ -844,6 +844,11 @@ static int build_i2c_fw_hdr(u8 *header,
+ 	/* Pointer to fw_down memory image */
+ 	img_header = (struct ti_i2c_image_header *)&fw->data[4];
  
- static DECLARE_DELAYED_WORK(kvp_timeout_work, kvp_timeout_func);
- static DECLARE_DELAYED_WORK(kvp_host_handshake_work, kvp_host_handshake_func);
-@@ -127,24 +127,26 @@ static void kvp_register_done(void)
- 	hv_poll_channel(kvp_transaction.recv_channel, kvp_poll_wrapper);
- }
- 
--static void
-+static int
- kvp_register(int reg_value)
- {
- 
- 	struct hv_kvp_msg *kvp_msg;
- 	char *version;
-+	int ret;
- 
- 	kvp_msg = kzalloc(sizeof(*kvp_msg), GFP_KERNEL);
-+	if (!kvp_msg)
-+		return -ENOMEM;
- 
--	if (kvp_msg) {
--		version = kvp_msg->body.kvp_register.version;
--		kvp_msg->kvp_hdr.operation = reg_value;
--		strcpy(version, HV_DRV_VERSION);
-+	version = kvp_msg->body.kvp_register.version;
-+	kvp_msg->kvp_hdr.operation = reg_value;
-+	strcpy(version, HV_DRV_VERSION);
- 
--		hvutil_transport_send(hvt, kvp_msg, sizeof(*kvp_msg),
--				      kvp_register_done);
--		kfree(kvp_msg);
--	}
-+	ret = hvutil_transport_send(hvt, kvp_msg, sizeof(*kvp_msg),
-+				    kvp_register_done);
-+	kfree(kvp_msg);
-+	return ret;
- }
- 
- static void kvp_timeout_func(struct work_struct *dummy)
-@@ -186,9 +188,8 @@ static int kvp_handle_handshake(struct hv_kvp_msg *msg)
- 	 */
- 	pr_debug("KVP: userspace daemon ver. %d connected\n",
- 		 msg->kvp_hdr.operation);
--	kvp_register(dm_reg_value);
- 
--	return 0;
-+	return kvp_register(dm_reg_value);
- }
- 
- 
--- 
-2.53.0
++	if (le16_to_cpu(img_header->Length) >
++			buffer_size - sizeof(struct ti_i2c_firmware_rec)) {
++		kfree(buffer);
++		return -EINVAL;
++	}
+ 	memcpy(buffer + sizeof(struct ti_i2c_firmware_rec),
+ 		&fw->data[4 + sizeof(struct ti_i2c_image_header)],
+ 		le16_to_cpu(img_header->Length));
+
 
