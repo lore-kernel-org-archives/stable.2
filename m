@@ -1,75 +1,115 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF67E43DA35;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E89643D50E;
 	Tue, 16 Jun 2026 15:09:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781622542; cv=none; b=SKh7RpXvBYKGHfmIFoX5r92kSNSxu6NRCVmP+1pzX8TINRgIY1tN5lVF4WVyM/UNOYnartKItcFIioRB3Yu2JRjKsA1g/PIDQCoVZJSfmUWdLcobfMvbnwdgM7VWFUNxEgnGttl2qCvw89RPwD1KuuWoXPFvtTZKc76msghpnYw=
+	t=1781622542; cv=none; b=BsAKJ4nyY3beL4jsB33tDw0It/M+sBPIrfUHBQLwyHsGRrQazOD3I65jihmLu3L+61brurXCKj6gutZoRd7YbxXFqUm7BR+5SGeYWipkOZKq5pH32C4yQa5mYYlQb+ZJ8ZssSZHFyOP1K1kK7oAVg/Kaiy2jFmXf8B+CG94mOAw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1781622542; c=relaxed/simple;
-	bh=axuln/tpi0HRr1x0QzwX+Gh3AZ1DBP1Jyz2a7F1Ej/g=;
+	bh=mIh9vPagVUdGEqF6ocQ5kW6lsnFCAHv/UC2MWauUKlE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=tPp3xMBDMrtLMaey4iBOEwYLuTyRJ5IptMq2kmDGc9h7/yn3qsqKH+/KX/I0kMeKo5hsEufaNZxCjJHvdHdafQJ1tOpFH/8LVKpnXHsKxziO9YNhwu6qVGG6y9KWMHufaKUSPL9UxVSg9tNtE/AQhp4H45Eh/d7wxCKDjz68mWE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NwyeCJDZ; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=tMm1G/Ztg9J7rJf8voXDSiTtS13TDG6/QfyIpFt0nhzSem6Kb4Wymf+l/zccjAUymTp58cU6S/iAuU3+82VFeE2Bh2gIlqp7CswNcsczwJtKBeIb+iwgzc2NL8Rdl0zlBIzYLcdbwTKu0t6pE4rtbfAerRbnzoB3JPyoMYcK6Eg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=zkSWAmWn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NwyeCJDZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 549761F00A3E;
-	Tue, 16 Jun 2026 15:09:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781622540;
-	bh=0szVMs69Uu2eAbLCAOXCLc5i2YnWrEQ3PmDutKfaOgw=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="zkSWAmWn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 568961F00A3A;
+	Tue, 16 Jun 2026 15:08:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1781622540;
+	bh=YA4Mtsjv4sc1BSfgdJzaCuDUOYH40SjA3JKQY9boMpU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NwyeCJDZzBpee8okpdb2TWe1r4JVbWLJdLqjGxcHtHjVhvyGgwkm6g+7FhSg1YNrh
-	 o3VXNGOV6H/r0kPCTl8lKhSkoesda7CUC2JdNfYaLZ3My3pfdkKxkH9ZoB6Wc5KvwT
-	 S/qnloRzUcZbcasS/nv/xWEr+zbOzOjCHsOVo1Q0lrAYPC2Th60vVz/g9IsCHcfJRc
-	 oAEnTQbbiqbpws2gOkLbeZWZthdB1WRN2oy90AZIobeCdUeZVVYd7Y4J89Ez8oglMZ
-	 ZkeP613l/DtcGsYhI4w072La1njLE10y+HElgyg+iUgeCeLaOW+FcDFXccbnV/uyHB
-	 sdnoVxYmAJinQ==
-From: SeongJae Park <sj@kernel.org>
-To: 
-Cc: SeongJae Park <sj@kernel.org>,
-	"# 5 . 18 . x" <stable@vger.kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [RFC PATCH 3/9] mm/damon/sysfs-schemes: kobject_del() scheme dirs
-Date: Tue, 16 Jun 2026 08:08:37 -0700
-Message-ID: <20260616150844.88305-4-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260616150844.88305-1-sj@kernel.org>
-References: <20260616150844.88305-1-sj@kernel.org>
+	b=zkSWAmWnfDhTcSoM5iguPKHoLAkmAFe1qj/rXfu7G6uyPyVjupdKPu4iY4BsJrUBn
+	 oSqLQVJ6H6E8ONK9hLiFhJY7s2fX97uB1WXKFbAdcFSUg6gL9kdrdHRltLPX0M5vQ1
+	 BcTv//azwpiuD6kAcKAkFrm2IyYA6x/kvNk+poQU=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Carlos Eduardo Gallo Filho <gcarlos@disroot.org>,
+	=?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1 005/522] drm: Remove plane hsub/vsub alignment requirement for core helpers
+Date: Tue, 16 Jun 2026 20:22:32 +0530
+Message-ID: <20260616145125.610761268@linuxfoundation.org>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260616145125.307082728@linuxfoundation.org>
+References: <20260616145125.307082728@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On CONFIG_DEBUG_KOBJECT_RELEASE enabled kernel, lack of kobject_del()
-could cause directories creation failures due to the name conflicts. Fix
-those issues for scheme directories by adding kobject_del() calls.
+6.1-stable review patch.  If anyone has any objections, please let me know.
 
-Fixes: 7e84b1f8212a ("mm/damon/sysfs: support DAMON-based Operation Schemes")
-Cc: <stable@vger.kernel.org> # 5.18.x
-Signed-off-by: SeongJae Park <sj@kernel.org>
+------------------
+
+From: Carlos Eduardo Gallo Filho <gcarlos@disroot.org>
+
+[ Upstream commit f2f455981a34ce8ca88a41458c09494b387d344f ]
+
+The drm_format_info_plane_{height,width} functions was implemented using
+regular division for the plane size calculation, which cause issues [1][2]
+when used on contexts where the dimensions are misaligned with relation
+to the subsampling factors. So, replace the regular division by the
+DIV_ROUND_UP macro.
+
+This allows these functions to be used in more drivers, making further
+work to bring more core presence on them possible.
+
+[1] http://patchwork.freedesktop.org/patch/msgid/20170321181218.10042-3-ville.syrjala@linux.intel.com
+[2] https://patchwork.freedesktop.org/patch/msgid/20211026225105.2783797-2-imre.deak@intel.com
+
+Signed-off-by: Carlos Eduardo Gallo Filho <gcarlos@disroot.org>
+Reviewed-by: André Almeida <andrealmeid@igalia.com>
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Link: https://patchwork.freedesktop.org/patch/msgid/20230926141519.9315-2-gcarlos@disroot.org
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/damon/sysfs-schemes.c | 1 +
- 1 file changed, 1 insertion(+)
+ include/drm/drm_fourcc.h | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/mm/damon/sysfs-schemes.c b/mm/damon/sysfs-schemes.c
-index 329cfd0bbe9f3..37cf6edb54f17 100644
---- a/mm/damon/sysfs-schemes.c
-+++ b/mm/damon/sysfs-schemes.c
-@@ -2686,6 +2686,7 @@ void damon_sysfs_schemes_rm_dirs(struct damon_sysfs_schemes *schemes)
+diff --git a/include/drm/drm_fourcc.h b/include/drm/drm_fourcc.h
+index 532ae78ca747e6..ccf91daa430702 100644
+--- a/include/drm/drm_fourcc.h
++++ b/include/drm/drm_fourcc.h
+@@ -22,6 +22,7 @@
+ #ifndef __DRM_FOURCC_H__
+ #define __DRM_FOURCC_H__
  
- 	for (i = 0; i < schemes->nr; i++) {
- 		damon_sysfs_scheme_rm_dirs(schemes_arr[i]);
-+		kobject_del(&schemes_arr[i]->kobj);
- 		kobject_put(&schemes_arr[i]->kobj);
- 	}
- 	schemes->nr = 0;
++#include <linux/math.h>
+ #include <linux/types.h>
+ #include <uapi/drm/drm_fourcc.h>
+ 
+@@ -279,7 +280,7 @@ int drm_format_info_plane_width(const struct drm_format_info *info, int width,
+ 	if (plane == 0)
+ 		return width;
+ 
+-	return width / info->hsub;
++	return DIV_ROUND_UP(width, info->hsub);
+ }
+ 
+ /**
+@@ -301,7 +302,7 @@ int drm_format_info_plane_height(const struct drm_format_info *info, int height,
+ 	if (plane == 0)
+ 		return height;
+ 
+-	return height / info->vsub;
++	return DIV_ROUND_UP(height, info->vsub);
+ }
+ 
+ const struct drm_format_info *__drm_format_info(u32 format);
 -- 
-2.47.3
+2.53.0
+
+
+
