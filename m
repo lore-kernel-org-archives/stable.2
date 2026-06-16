@@ -1,147 +1,92 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED09342EEA1;
-	Tue, 16 Jun 2026 10:35:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E115F324B31
+	for <stable@vger.kernel.org>; Tue, 16 Jun 2026 10:41:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781606136; cv=none; b=NZZb0GUb3n7yz2FIXFvh8twxdM7AgbR/RFwdxhUmBNlchgkGNyUPMDpBFJ8hgsvG4rlhj/B5xDghr6qzKxB3I4LdJYdwk0/njhaCCoUeZOLt0iXf6Xnh0hrbmlT4lT5LSV8OYQ3vaQ1uIpPv5SXp/O6bf04+Ue9IejNM5tlVuUA=
+	t=1781606485; cv=none; b=DHtVPOFd27k0LAFSI+8zkDK+UKH/fWfLmswuYz32pVSmaiLWmjt034eSkdBTxIoGaey4gtEpRLUjYkI17KeKma9YHB0pF5KAety76HJ85jKXE4NHkvsnTzbZbavwacXBNXUE3N//hCz/QqdCpacBPl1ZsWvbIw20HSNllm2seg4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781606136; c=relaxed/simple;
-	bh=RNLsRJqIsMcq5s1FV+cMEbdmzYKOwcmHfY4//2Qa9YQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gnH3bj4jbqWfDh9RQtvTqb4D2YMO+RatCBCW8eHLJ41C/daBLh0vkCdQip4FulyVL747yQLvBy/F0AUz3vEPhld1IirrKS+wR0gAatP1P8uHIt3VvHshQZvrNi2Gnms5uEsbySdgS2IcBw/FCjeQh9aI0KfLIlTLhjnukt9SPbU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=NUfoDcXo; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=wb2Bc7wj; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1781606485; c=relaxed/simple;
+	bh=GiwgUDhVPuccDsHM6fcajwPeBmdY/V23LoCQ/JyqQ5w=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=l5y7rkpxVJ2bKfoIHigBMNQVkKS25NPxBabL9MJX+rmk7XQfh33DJJYvYhWxkPW13QjlYxM0rdY4FJGUOj1spFYORhq+DsJp7ZrJtGhgbbA8uwHBpQMIZM4L2yWou1j/lmx4EkMRfQK7eU53+86e3gmfN1lT9S4tlZ21yaEbIAo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lDST57TJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="NUfoDcXo";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="wb2Bc7wj"
-Date: Tue, 16 Jun 2026 12:35:29 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1781606131;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=sOdqUcYnCHWecakifkfeakQfsbtnd8983iT9Id9elR8=;
-	b=NUfoDcXol+nCASxi0OGksSZDm2F5xru195qAuBmwWxzETiJ2pILP+m6Wlj+qsrl34gy9M2
-	5ed/dACqZ8hCaqjtFXrzVM/3mPMiQAJ0nJ9doirqBrEt1ILagRz/8/J9aHx4GboyKjmTE3
-	qXcTxAkSo7sYlt9zd0nzuQEVT8stcRES1Mdbo9sJTR2yuaQ2+Kv5Ty62Xaf9OghUu7FVrq
-	ox8mcmS142bJl+xy3bVrjnkDdCMYF30GiBAgSm78tW0bgOobkCqF+LmA/a4ryKJTBzllFe
-	ZYVvT90Scy7u0Ewiw21YhC2eoOcLvEyXEcki46jnXt90dZEubEreP7ITXUIjxw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1781606131;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=sOdqUcYnCHWecakifkfeakQfsbtnd8983iT9Id9elR8=;
-	b=wb2Bc7wjsy8vkfCE5HxWdCYFR1KTdlLWFTCeO63DyWIOz21yUr6KDUWEp4x2pn+DMQ5GoX
-	O+7GpqAGvexxjEDQ==
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: Jakub Kicinski <kuba@kernel.org>, Petr Mladek <pmladek@suse.com>,
-	John Ogness <john.ogness@linutronix.de>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Peter Zijlstra <peterz@infradead.org>
-Cc: Vlad Poenaru <vlad.wing@gmail.com>, Thomas Gleixner <tglx@kernel.org>,
-	netdev@vger.kernel.org, "David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>, Breno Leitao <leitao@debian.org>,
-	Clark Williams <clrkwllms@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	linux-rt-devel@lists.linux.dev, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org, Frederic Weisbecker <frederic@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>
-Subject: Re: [PATCH net] netpoll: run NAPI poll in softirq context to avoid
- rq->lock self-deadlock
-Message-ID: <20260616103529.Yh9Dxsjp@linutronix.de>
-References: <20260610183621.3915271-1-vlad.wing@gmail.com>
- <20260611191114.5bc43a59@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lDST57TJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA5AC1F00AC4
+	for <stable@vger.kernel.org>; Tue, 16 Jun 2026 10:41:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781606484;
+	bh=2tpmLa3dd6flsbsy+JH4P54/CMX4D7LsJ6W8CltvTok=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=lDST57TJodRceigb2VwiaQ0BBbw1vD9bcd9X+L/nZuc6pTHePvV4PTHHs537n9baA
+	 67mbbjNVI3bXFnrZcPIUhGxb4fRHzSstlZPhGjb1gUDOui4i92rQevtsl4KRu5s+/j
+	 2B9u0UDWiPDndFFN60XSAIdtKWCIPeoP+spHQctav/sGCBTE8KIcMW1AZtt5Ytfhjv
+	 nrJn6CdUEheRPHjszM3T5wAzpxGipr4r/hjfBCCTKzppunk8tdW7OYuxo0yDYA5C72
+	 RXkFbjX3cgn4dc3P9PweExe7AuoSMG7XiyGF+ZQad0sEK+YfaxLoOmf0/MV7haV9dG
+	 8+XZ1+sV/eSLw==
+Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5aa6863327fso3764820e87.0
+        for <stable@vger.kernel.org>; Tue, 16 Jun 2026 03:41:24 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ9WuVYrCMmfQCnWZqy3hpYgnyhrB5fiYsqflR12JHnin2vdZILIrReYSPdadb1iQIrSKxGRuJE=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw9npmYhPCXR+AsIXR0cTVJSmfRXDZY5LveTzf1IN4HZnwBUgr3
+	gQlzY+UY53/gdAa4i7lrSO7Hgcv5YMtmvvUtUjrONgK2Q/w8iyZLNfK6WnretfREKAhQFlkbNzB
+	dbo27l4PTX+9eKBcYFB3vkhLn+WC3rd3pBxPRMZoHKw==
+X-Received: by 2002:a05:6512:3e17:b0:5aa:6946:6e4d with SMTP id
+ 2adb3069b0e04-5ad4351b594mr963896e87.19.1781606483423; Tue, 16 Jun 2026
+ 03:41:23 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Tue, 16 Jun 2026 10:41:21 +0000
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Tue, 16 Jun 2026 10:41:21 +0000
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20260616051820.GA127019@sol>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20260611191114.5bc43a59@kernel.org>
+References: <20260615-qce-fix-self-tests-v2-0-dc911f1aad42@oss.qualcomm.com>
+ <20260615-qce-fix-self-tests-v2-1-dc911f1aad42@oss.qualcomm.com> <20260616051820.GA127019@sol>
+Date: Tue, 16 Jun 2026 10:41:21 +0000
+X-Gmail-Original-Message-ID: <CAMRc=McmpeWY2yVbf-KoAG-uC8_cvcW6MJXFSOjnEFqpmjaoig@mail.gmail.com>
+X-Gm-Features: AVVi8CfBtys2dQpRs7E2oMR0x48_wmRqAKjUTOb8b_ZnXmDQi8Ass0ebG3f0ZrY
+Message-ID: <CAMRc=McmpeWY2yVbf-KoAG-uC8_cvcW6MJXFSOjnEFqpmjaoig@mail.gmail.com>
+Subject: Re: [PATCH v2 1/8] crypto: qce - Remove unsafe/deprecated algorithms
+To: Eric Biggers <ebiggers@kernel.org>
+Cc: Thara Gopinath <thara.gopinath@gmail.com>, Herbert Xu <herbert@gondor.apana.org.au>, 
+	"David S. Miller" <davem@davemloft.net>, Stanimir Varbanov <svarbanov@mm-sol.com>, 
+	Eneas U de Queiroz <cotequeiroz@gmail.com>, Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>, 
+	linux-crypto@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, brgl@kernel.org, stable@vger.kernel.org, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On 2026-06-11 19:11:14 [-0700], Jakub Kicinski wrote:
-> On Wed, 10 Jun 2026 11:36:21 -0700 Vlad Poenaru wrote:
-> > @@ -194,11 +194,56 @@ void netpoll_poll_dev(struct net_device *dev)
-> > +	local_bh_disable();
-> > + 	poll_napi(dev);
-> > +	_local_bh_enable();
->=20
-> tglx, Sebastian, are you okay with using _local_bh_enable() to trick
-> softirq into not waking ksoftirqd? The problematic path is:
->=20
->   scheduler -> printk -> netconsole -> raise softirq -> scheduler (deadlo=
-ck)
->=20
-> so the softirq may never get serviced.
->=20
-> In netcons we try to avoid touching the network driver if the Tx path
-> locks are already held. Ideally we'd do something similar with the
-> scheduler. Try to do bare minimum if we may be in the scheduler.
-> Failing that - don't poll the driver if we were called with irqs
-> already disabled.
->=20
-> Or maybe we only poll from console->write_thread ?
+On Tue, 16 Jun 2026 07:18:20 +0200, Eric Biggers <ebiggers@kernel.org> said:
+> On Mon, Jun 15, 2026 at 05:49:52PM +0200, Bartosz Golaszewski wrote:
+>> Remove algorithms that are either unsafe or deprecated and have no
+>> in-kernel users that cannot be served by the ARM CE implementations.
+>>
+>> AES-ECB reveals plaintext patterns (identical plaintext blocks produce
+>> identical ciphertext blocks) and should not be exposed as a hardware-
+>> accelerated primitive. DES, Triple DES and HMAC-SHA1 have been
+>> deprecated for years.
+>>
+>> Remove ecb(aes), cbc(des), ecb(des3_ede), cbc(des3_ede), hmac(sha1) and
+>> all AEAD variants built on these primitives. Also clean up the - now dead
+>> - code, flags and constants.
+>>
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+>
+> What is the rationale for still supporting the following?
+>
+>     sha1
+>     ecb(des)
+>     authenc(hmac(sha256),cbc(des))
+>
 
-So this is not an issue since commit 7eab73b18630e ("netconsole: convert
-to NBCON console infrastructure"). Because from here now on writes are
-deferred to the nbcon thread. So this purely about -stable in this case.
+No, I should have removed those too. I'll update it in v3.
 
-Looking at the patch and the amount of comments vs code changes look
-somehow hackish. That ifdef for PREEMPT_RT is not needed because on
-PREEMPT_RT we have either nbcon or the legacy console (including
-netconsole before the mentioned commit) wrapped in a dedicated thread
-(via force_legacy_kthread()).
-That means in both cases the flow never ends there and the problem is
-limited to !PREEMPT_RT.
-
-Now. The scheduler usually does printk_deferred() because of the rq lock
-so it does not deadlock for various reasons. It is kind of a pity that
-the various WARN macros don't do that.
-I don't think that patch is enough. It works around the problem in this
-scenario but should the NIC driver invoke schedule_work() then we are
-back here again.
-Should the network driver acquire a lock then lockdep might observe
-rq -> driver-lock and then driver-lock -> rq and yell dead lock (CPU1
-doing AB and CPU2 doing BA). This includes also other console driver so
-it is not limited to netconsole.
-
-Point being made is that we should avoid the callchain:
-
-|  console_unlock
-|  vprintk_emit
-|  __warn
-|  __enqueue_entity                // WARN_ON_ONCE() here -- rq->lock held
-|  put_prev_entity
-|  put_prev_task_fair
-|  __schedule
-
-basically a printk under the rq lock.
-
-We could add printk_deferred_enter/exit() to all the rq_lock() variants.
-I think PeterZ loves this the most. And Greg will appreciate it too
-while backporting because of all the context changes.
-
-We could also introduce WARN_ON_DEFERRED +variants which do the
-printk_deferred_enter/exit() thingy should around the printk and replace
-all the WARNs in kernel/sched/.
-I *think* the tty/console layer has also a deadlock problem where it
-holds locks and then the WARN(), that never triggers, asks for the same
-locks again so we might have a second user=E2=80=A6
-
-Adding sched and printk folks for opinions while eyeballing
-WARN_ON_DEFERRED().
-
-Sebastian
+Bart
