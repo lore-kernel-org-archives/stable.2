@@ -1,72 +1,92 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 235123B9600
-	for <stable@vger.kernel.org>; Tue, 16 Jun 2026 10:05:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4603644CF25
+	for <stable@vger.kernel.org>; Tue, 16 Jun 2026 10:11:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781604334; cv=none; b=Zx+1zS0wE7C8Znovvhj/yfgXuVsh3QAUn3xbQsmsBV3lPbP9ubBFSKXja2VfK8STYz2xNHnmFxG9R+tFavyG5tZp53K2+q5NiIeP2trSz/iprOrIMPzpiUVrJswXwe1kaq8CewPwC4e8K9H7GutERu3t0G4pq0rxfGyIWeK9b9M=
+	t=1781604690; cv=none; b=LCVbvI1HGs4viidLdJIsvA9C2PVbBbXJGP5TAVfVAlgmb1/GLe+kaHSoWM4b9bNfXgiKsEYKbWTnVaxjG3A0x6lhf/bWQwsJrgObmdGCGdWSHhjWkpp0TovUKE9PcCljPd93qTB4+W9OONTTqfVhh8o0pEVZMNNCjlTFgo75peM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781604334; c=relaxed/simple;
-	bh=EE4/3PqhRvGpR6rd3FO4Ft9v4Z2G+ZlVJ1k9PqBKwQc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tPADCKQ6CIMpdX0WYjj/krPLkMHN+X7S84NufXOfErLkHgJnVBhm580RGyHcDM7xByb9eDfHJN2KO69J7BMSjh82+BNO4Z1XCQRYIEaOfZrttbq1gEq3ci3L0lfNsXNXitAHETejv6HMdsfGSdsjFiTk5zL+2skUsdN2WG3X9a0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ArH7H4wg; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781604690; c=relaxed/simple;
+	bh=EjK9bOT4HxhDpI2JWZDdTH2Qo6aFDccf6h//ov0/4Kk=;
+	h=From:To:Cc:Subject:In-Reply-To:Date:Message-ID:References; b=UF8N5NehNdM2ipxkrZJxKfCfsAQVqWyX03FqEju0XDLOW5d/qmcQGz5IYJDQfV97R57DX1KlF386+GISf7lzMyFz5DdnlZnsjypu8FVrWmzYQ5FYeMLlZb0HBaunWq785vgidSpd+TMGxlPybS8QVS5+0MPBt4Aetq8KSIWyuro=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EAAmH78+; arc=none smtp.client-ip=209.85.214.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ArH7H4wg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1ACD1F000E9;
-	Tue, 16 Jun 2026 10:05:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1781604332;
-	bh=IIHozKWyf1uQpSS5ZkawfF/SiTQFASoB6pE5GZb1o6Q=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ArH7H4wgWmBCfz3QqZqM106OB9IQRy5jniAzlE9QBRm7kGn7Uw12zbedwggH5i5Zt
-	 fYskpN7n7QGvCPS2QeWwPRJf+DrU49U6feDYiuTmatJo60CbXTDz5FY2jQObJawNNW
-	 DSIxIfN1WbkFkB3C3nhoiPgFcmo5d8pGBGx2Jalg=
-Date: Tue, 16 Jun 2026 15:34:27 +0530
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Mark Rutland <mark.rutland@arm.com>
-Cc: stable@vger.kernel.org, catalin.marinas@arm.com, lee@kernel.org,
-	sdonthineni@nvidia.com, will@kernel.org
-Subject: Re: [PATCH 6.18.y 0/5] arm64: errata: Mitigate TLBI errata on
- various Arm CPUs
-Message-ID: <2026061658-landowner-dangling-5d07@gregkh>
-References: <20260616051329.111597-1-mark.rutland@arm.com>
- <2026061655-veggie-rerun-83e6@gregkh>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EAAmH78+"
+Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2c40397e746so26018265ad.3
+        for <stable@vger.kernel.org>; Tue, 16 Jun 2026 03:11:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781604689; x=1782209489; darn=vger.kernel.org;
+        h=references:message-id:date:in-reply-to:subject:cc:to:from:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=EjK9bOT4HxhDpI2JWZDdTH2Qo6aFDccf6h//ov0/4Kk=;
+        b=EAAmH78+6LKt8AEpSpjsEorZmAj7+efTv6XZ6AEMFgWjBeZs2mJmIFD8gf00YhKd8n
+         tF3P//0JAF6hUuSgMFMr6p6f8InVyT6CVeWEzN5hZZjm0jBDmSxmNJzZnD4jMsB2H8zX
+         6JQXE3JouOedhaRgyRjGQf/jYW2VTrm2CGiHtsHcRJH83fA4x8ZrtVY3KAcQTBWi98Mc
+         2XHVDRIFGxzXU7asJcN20SGNcF25twGeETd3aH1HSISMkY6huTwN0o3vYVH2eXzGTBm/
+         Zw63cxbhLy9kuL1sSW1vB0guspBcpw4s0jdDaQAlfeu8m5KT3A3aHKloBMF0L4UwLUHq
+         Cnzw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781604689; x=1782209489;
+        h=references:message-id:date:in-reply-to:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=EjK9bOT4HxhDpI2JWZDdTH2Qo6aFDccf6h//ov0/4Kk=;
+        b=q7Gz+zVZN/nZpUbLxiEob2xj3KaWnpa6zfcqw8iiHWb96xUCxslBCx+G+E8RlKGiGB
+         iosETNVZWsbXIs3W46yEF/biB3AjFePqDqYBSamy+RZI37qIjzezO3qHyhhPI+7o/07y
+         f3hIqvJnNYsmWl6P4iGj8vORKoSv9bjtSvB3abFvw/amrsM8cyPsLGvHfQPrHgM5HGwB
+         ufbePSdB+jBDtK1SqDnUiWbZo+036MrZpPRvXUB/hKr5PId4asqUYS3MUPcg0s7NSiUX
+         tBhQ4wlLVW42njoJ9qYO9q9ZIwTk25INDrBEu91en/mQNKMOCwUlNFeLjMF6JtCDVYME
+         IXlQ==
+X-Forwarded-Encrypted: i=1; AFNElJ8jC7lkM5O0tUSAGCW//Yv++flnyNvAVX6UqoFsXlSaSnjhQrlyHyFZOrUnWOEFlqpV7J7lNwc=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzvk4BEpQTc8U5epro0P0JfupPWOduFISoDhlhv42g+sWaiqxhM
+	kMc4abS24AtrGsKwB+PZyCeSqVMX7tp3WenSfNuDZMe4+g2mPcWmS0pI
+X-Gm-Gg: Acq92OEE1HR9++VkbQzTcwpXhqpmABNhu5pml6M6Oq79D1OlO9KKn3NoMq3QOqwv2LD
+	x7NySFU/x2ykpj+MD/6lELTfXfjIUvFOgacC6BzgwIsQY+LYbLshy6W37djmI0EeabSsn1pNCfu
+	XZkOTec4OKXnjvLNxfzL1vRRFIwacZiW7oZOUtYOtp8TapyrUWEYgbeWatEDSTxXyZaPUvsGBZy
+	EBBOhYv2NI02Vhk8K0qnNSsV6Ra3jH5q9AoOp6ppQe253z6tIbizmFlYsSU6DVZCmzmrHEUrWhk
+	BOAWCpS0a7Q06zLq0VEcgJg1WJ8a/nOrZ3Z14jIY6H6hCmIV2GoRhopum/eYCfmwTZTjBjSxxUC
+	+VYjKJVF8gJQpH7B07SH9kYGLQsoCHdDF/2pz2YD/6ixFhipMuBueuR1sjgLSI6Q9Jq4uOKJsQW
+	UQ8N85SDOKf376GRd4H0sbe6U9KQ==
+X-Received: by 2002:a17:902:ef0b:b0:2c0:f807:9bf3 with SMTP id d9443c01a7336-2c69a142023mr30873995ad.10.1781604688658;
+        Tue, 16 Jun 2026 03:11:28 -0700 (PDT)
+Received: from pve-server ([49.205.216.49])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c432c8ce89sm128713805ad.57.2026.06.16.03.11.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 16 Jun 2026 03:11:26 -0700 (PDT)
+From: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+To: Gautam Menghani <gautam@linux.ibm.com>, maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com, chleroy@kernel.org
+Cc: Gautam Menghani <gautam@linux.ibm.com>, linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org, Sean Christopherson <seanjc@google.com>, Amit Machhiwal <amachhiw@linux.ibm.com>, Harsh Prateek Bora <harshpb@linux.ibm.com>
+Subject: Re: [PATCH v5] powerpc/pseries/Kconfig: Enable CONFIG_VPA_PMU to be used with KVM
+In-Reply-To: <20260615091120.84169-1-gautam@linux.ibm.com>
+Date: Tue, 16 Jun 2026 15:39:39 +0530
+Message-ID: <bjdaeqzg.ritesh.list@gmail.com>
+References: <20260615091120.84169-1-gautam@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2026061655-veggie-rerun-83e6@gregkh>
 
-On Tue, Jun 16, 2026 at 03:31:11PM +0530, Greg KH wrote:
-> On Tue, Jun 16, 2026 at 06:13:24AM +0100, Mark Rutland wrote:
-> > This is a v6.18-only backport of a workaround for a TLB invalidation
-> > issue affecting several CPUs. The final patches landed in mainline
-> > yesterday:
-> > 
-> >   https://lore.kernel.org/linux-arm-kernel/178157002783.358810.8206806281627742561.pr-tracker-bot@kernel.org/
-> >   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=80476f22b8b7e193b26f285a7c9f9e4b63abca16
-> > 
-> > This issue has been assigned CVE ID CVE-2025-10263, and Arm have
-> > published a security bulletin:
-> > 
-> >   https://developer.arm.com/documentation/112137/latest/
-> > 
-> > I've pushed a copy of this backport to my kernel.org repo:
-> > 
-> >   https://git.kernel.org/pub/scm/linux/kernel/git/mark/linux.git/log/?h=stable-6.18/arm-4118414/backport
-> 
-> Should I cherry-pick these to 7.1.y and 7.0.y as well?
+Gautam Menghani <gautam@linux.ibm.com> writes:
 
-Ok, cherry-picking didn't work well, I gave up on patch 3...
+> Currently, CONFIG_VPA_PMU is not enabled by default, and consequently
+> cannot be used for KVM guests at all, unless explicitly enabled on
+> host kernel.
+>
+> Mark CONFIG_VPA_PMU as "default m" to ensure it is available when KVM is
+> being used.
+>
+> Cc: stable@vger.kernel.org # v6.13+
+> Suggested-by: Sean Christopherson <seanjc@google.com>
+> Reviewed-by: Amit Machhiwal <amachhiw@linux.ibm.com>
+> Reviewed-by: Harsh Prateek Bora <harshpb@linux.ibm.com>
+> Signed-off-by: Gautam Menghani <gautam@linux.ibm.com>
+> ---
+> v4 -> v5:
+> 1. Drop the fixes tag (Ritesh)
 
-Can you send backports for those branches too?
+Thanks. LGTM, feel free to add:
+Reviewed-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
 
-thanks,
-
-greg k-h
