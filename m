@@ -1,135 +1,92 @@
-Received: from mail-pj1-f74.google.com (mail-pj1-f74.google.com [209.85.216.74])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAE0444CF4E
-	for <stable@vger.kernel.org>; Tue, 16 Jun 2026 15:54:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.74
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A25444CF4E;
+	Tue, 16 Jun 2026 15:54:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781625292; cv=none; b=GBfVsl1KXId1FFvAF10NRw1QaiUiVVHxrPIrwCm0clwuUgdPKzzo3t1xLLNEFgsSto2+z8sNqLsOWPoSx1RjVr2hxkkkshPJ9yLINnppw9YN3BtHfPHNDa/Noawy17ab/Uy6qgABFphL4aNpVQGoOdtLaMGE+nbVQw4thJSsI0k=
+	t=1781625295; cv=none; b=N1JgKLSNenFidVZjQrMH3/YTvAmdjVNyMm7iySEef9FkhUr35XgPp0nv/pYZ86uaUflxCpdkoEmI0uVy+MuSdDcBOdQIRsFD3SM9WeBSzPCrD3wWrD1d/crLNWGE+Sv9zf/XPJvlZHt97KzXpaNfQvjOcDwiFlwu99NWIjVmK5Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781625292; c=relaxed/simple;
-	bh=EA6WyWG10ZiYG3Ibe7F59PN3ZW0L1VzaSTTaHdsrgM0=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=ukV32hpTPIZrVErM1DzuXbAgC+jEIGuJmp5lfXMOpQ+JXNfEpknPW9PH+MQY4KX9RunLaASLY/DjIKeYDIIRKMLFbYUJ2qbCjFEiDjvF4ZTTF3aWNgFBpBBJ64SMzbm03dcWejdazkgD62fGPhtsdCcsNC5g0jpcX/hjGzkH06U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--kpberry.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=TEH8BfqJ; arc=none smtp.client-ip=209.85.216.74
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--kpberry.bounces.google.com
+	s=arc-20240116; t=1781625295; c=relaxed/simple;
+	bh=F4tr9gRmwFO4zTvpWPP+HUsYXto1XA9AAE7KHInQqWc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=osDEbwWdGsoX2Xx7aR0PkcDsMNuuSB4axQ4hOGE38uB/ruuwaQHrMqA4kPF5QWGjx1SJJrL3OkT55HLBaAo2FGXtkVRURPUKt0lJ/PQJTTRL+pd2zNumm05RA6KIbTZINh+yqNQK7hQeLRywpym2DfqYhblt/z2UpVNIS79w4TU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=sHMY7vas; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="TEH8BfqJ"
-Received: by mail-pj1-f74.google.com with SMTP id 98e67ed59e1d1-37c5bb1de23so574022a91.1
-        for <stable@vger.kernel.org>; Tue, 16 Jun 2026 08:54:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1781625290; x=1782230090; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:from:subject:message-id:references
-         :mime-version:in-reply-to:date:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=yC4/3ZYS5Vh/O2LjV/2TjbHuntR+M/N/R6QJ97IDDdA=;
-        b=TEH8BfqJzgt+EgXweLrcxxppYakWEtm5AkKExjKZ5V3h/lVQeTiZbvJBRogVFzTExB
-         /ETYZe17z+8KRXh5c3gTphn+Oc5SO4vjyDvkKQLb/EfCBm1PgI579Q/AAubt8eWeiGxH
-         ruStdZ+I9ZfxwJwMhF7EQAg79mLGyuolS+/m89jXg2AXcNte6EC+MQyU+GqNidHUkAGe
-         tWelA0Suyc7LVoSnNPoPuQzHci3eV3UdvqCXciYDwvL4ZtPwJh5aI/Y6xgHd/bSOmSC7
-         EXZQ7T3OSKTb85rnmYqlInRV42FRxh6KUmJvcliUBY2JfB+s9gqgM/R2SMCxRZTUgWdf
-         fMsw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781625290; x=1782230090;
-        h=content-transfer-encoding:cc:to:from:subject:message-id:references
-         :mime-version:in-reply-to:date:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=yC4/3ZYS5Vh/O2LjV/2TjbHuntR+M/N/R6QJ97IDDdA=;
-        b=YnkhY9bIYSbUeUEkHVRbHVWYwA0zZh6cO7RKn1kbFcSRtq13wcA/eYCR9lybwOAdCT
-         Wo0pdyXe5SMvf21PV7CBgBt+V/i4oF/Ki+K53f24712pPXa5x85XvvqQ95Y9fnfOgbZZ
-         K6ztPRl2IE0yAsZd3Bi8rmxH6w/4MrRiuZ5vhB/aVxaEula1CODa60raRJ6WUfgmISfJ
-         Mzihi5Lu9IQsZJi4lu9acoQagd2Nj1kP15+CWh2SrMiwZDw7duYz8rHfhYj9vrtPc6pf
-         GvykfzBlrG1QZmkAmNl4BTW26vEmkhZ1WkX8yY3NLF//WB30Kj7xMJxLZb6p+6Jf46cV
-         605w==
-X-Gm-Message-State: AOJu0YxEHj1SRArThEi5Unb+opt4ny/xEvIe5Z3N9WarOFk76psB5aHx
-	qXh9wtwSD7tu2tTd+G/ANEyfRHDSoWD1T+x2ZUDzayOvEQxg8MXXVUJuOUfOT1jm4kgaUoRdFmb
-	BZtMDbGOq1EuoxI8bXXlaJQDOba8Gt4OrxLCD2Um3IFRofDB+9KcxCvucqFI7BadrFSmshiMrEd
-	Ct5MnH2Vd27wbwmTkZnXZnZiWdFRShtsYMPTTJmdZNpg==
-X-Received: from plbkm5.prod.google.com ([2002:a17:903:27c5:b0:2c0:b7cf:e7ab])
- (user=kpberry job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:2ec3:b0:366:3517:1a95
- with SMTP id 98e67ed59e1d1-37c924904efmr107925a91.0.1781625289948; Tue, 16
- Jun 2026 08:54:49 -0700 (PDT)
-Date: Tue, 16 Jun 2026 15:54:30 +0000
-In-Reply-To: <20260616155432.2093908-1-kpberry@google.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="sHMY7vas"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54D4D1F000E9;
+	Tue, 16 Jun 2026 15:54:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1781625294;
+	bh=cD3WRKoJ2+ogYR+eEhUZk02Mjoo718x2HXATnyvXi+E=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=sHMY7vasFmcGeo6FPxdpQJbFbAKf1taF4beN66jpewg+w/ASAWzCmqvBON1g7jBZ9
+	 ePu2WZPDNJTV2auWboFwCr2FHFcKpkitaBI22TF8rXNvP7wGSoJFHkkRNj1qZtk2lc
+	 DFIag/18JB/iU57Q1Avy/h2rj/eq9SEOyTjHlJIk=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Jeremy Kerr <jk@codeconstruct.com.au>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18 113/325] net: mctp: usb: dont fail mctp_usb_rx_queue on a deferred submission
+Date: Tue, 16 Jun 2026 20:28:29 +0530
+Message-ID: <20260616145103.331554696@linuxfoundation.org>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260616145057.827196531@linuxfoundation.org>
+References: <20260616145057.827196531@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260616155432.2093908-1-kpberry@google.com>
-X-Mailer: git-send-email 2.54.0.1136.gdb2ca164c4-goog
-Message-ID: <20260616155432.2093908-8-kpberry@google.com>
-Subject: [PATCH 6.12 7/7] bonding: fix NULL pointer dereference in
- actor_port_prio setting
-From: Kevin Berry <kpberry@google.com>
-To: stable@vger.kernel.org
-Cc: gregkh@linuxfoundation.org, bestswngs@gmail.com, chenglongtang@google.com, 
-	joneslee@google.com, kpberry@google.com, pabeni@redhat.com, rnj@google.com, 
-	sashal@kernel.org, xmei5@asu.edu, Hangbin Liu <liuhangbin@gmail.com>, 
-	Liang Li <liali@redhat.com>, Jakub Kicinski <kuba@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-From: Hangbin Liu <liuhangbin@gmail.com>
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit 067bf016e99ad72aa4ff869d6dec1fd62a9c6202 ]
+------------------
 
-Liang reported an issue where setting a slave=E2=80=99s actor_port_prio to
-predefined values such as 0, 255, or 65535 would cause a system crash.
+From: Jeremy Kerr <jk@codeconstruct.com.au>
 
-The problem occurs because in bond_opt_parse(), when the provided value
-matches a predefined table entry, the function returns that table entry,
-which does not contain slave information. Later, in
-bond_option_actor_port_prio_set(), calling bond_slave_get_rtnl() leads
-to a NULL pointer dereference.
+[ Upstream commit 881a3113b74964918cdd72747e3bc119c02b0c0c ]
 
-Since actor_port_prio is defined as a u16 and initialized to the default
-value of 255 in ad_initialize_port(), there is no need for the
-bond_actor_port_prio_tbl. Using the BOND_OPTFLAG_RAWVAL flag is sufficient.
+In the ndo_open path, a deferred queue open will report a failure, and
+so the netdev will not be ndo_stop()ed, leaving us with the rx_retry
+work potentially pending.
 
-Fixes: 6b6dc81ee7e8 ("bonding: add support for per-port LACP actor priority=
-")
-Reported-by: Liang Li <liali@redhat.com>
-Signed-off-by: Hangbin Liu <liuhangbin@gmail.com>
-Link: https://patch.msgid.link/20251105072620.164841-1-liuhangbin@gmail.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Kevin Berry <kpberry@google.com>
+Don't report a deferred queue as an error, as we are still operational.
+This means we use the ndo_stop() path for future cleanup, which handles
+rx_retry_work cancellation.
+
+Fixes: 0791c0327a6e ("net: mctp: Add MCTP USB transport driver")
+Signed-off-by: Jeremy Kerr <jk@codeconstruct.com.au>
+Link: https://patch.msgid.link/20260608-dev-mctp-usb-rx-requeue-v2-2-29a3aa507609@codeconstruct.com.au
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/bonding/bond_options.c | 9 +--------
- 1 file changed, 1 insertion(+), 8 deletions(-)
+ drivers/net/mctp/mctp-usb.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/net/bonding/bond_options.c b/drivers/net/bonding/bond_=
-options.c
-index ddb3f06cbb75..4d01f1081956 100644
---- a/drivers/net/bonding/bond_options.c
-+++ b/drivers/net/bonding/bond_options.c
-@@ -225,13 +225,6 @@ static const struct bond_opt_value bond_ad_actor_sys_p=
-rio_tbl[] =3D {
- 	{ NULL,      -1,    0},
- };
-=20
--static const struct bond_opt_value bond_actor_port_prio_tbl[] =3D {
--	{ "minval",  0,     BOND_VALFLAG_MIN},
--	{ "maxval",  65535, BOND_VALFLAG_MAX},
--	{ "default", 255,   BOND_VALFLAG_DEFAULT},
--	{ NULL,      -1,    0},
--};
--
- static const struct bond_opt_value bond_ad_user_port_key_tbl[] =3D {
- 	{ "minval",  0,     BOND_VALFLAG_MIN | BOND_VALFLAG_DEFAULT},
- 	{ "maxval",  1023,  BOND_VALFLAG_MAX},
-@@ -497,7 +490,7 @@ static const struct bond_option bond_opts[BOND_OPT_LAST=
-] =3D {
- 		.id =3D BOND_OPT_ACTOR_PORT_PRIO,
- 		.name =3D "actor_port_prio",
- 		.unsuppmodes =3D BOND_MODE_ALL_EX(BIT(BOND_MODE_8023AD)),
--		.values =3D bond_actor_port_prio_tbl,
-+		.flags =3D BOND_OPTFLAG_RAWVAL,
- 		.set =3D bond_option_actor_port_prio_set,
- 	},
- 	[BOND_OPT_AD_ACTOR_SYSTEM] =3D {
---=20
-2.54.0.1136.gdb2ca164c4-goog
+diff --git a/drivers/net/mctp/mctp-usb.c b/drivers/net/mctp/mctp-usb.c
+index cf6f6a93a45112..fade65f2f26995 100644
+--- a/drivers/net/mctp/mctp-usb.c
++++ b/drivers/net/mctp/mctp-usb.c
+@@ -154,7 +154,7 @@ static int mctp_usb_rx_queue(struct mctp_usb *mctp_usb, gfp_t gfp)
+ 	if (!mctp_usb->rx_stopped)
+ 		schedule_delayed_work(&mctp_usb->rx_retry_work, RX_RETRY_DELAY);
+ 	spin_unlock_irqrestore(&mctp_usb->rx_lock, flags);
+-	return rc;
++	return 0;
+ }
+ 
+ static void mctp_usb_in_complete(struct urb *urb)
+-- 
+2.53.0
+
+
 
