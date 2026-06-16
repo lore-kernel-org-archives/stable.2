@@ -1,46 +1,81 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com [209.85.208.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2C44362149;
-	Tue, 16 Jun 2026 19:00:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95B363DE43F
+	for <stable@vger.kernel.org>; Tue, 16 Jun 2026 19:00:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781636454; cv=none; b=CGHK/0JFCF/z5gysMEwPhH5tri7RxXHsyweHSSyJt0U826XYIyrQwGyFTSaCQJCZOaah92S4FYjM3xhRn/SoNSyA91z11j/yX4uPlZYKldDKMoHkc46Kl9LuKeSEhU/4S2Ddu9auSkBG15ZvTrVdxFOW1Q1OR+h18agNf+IpHT4=
+	t=1781636456; cv=none; b=BaaoDvZjDa3BrcPV0tW90rIFnZNDAoYJuS4TAElluvWnJowZRxondiFTkPqpw7AsUuV3cYMkhoTQ5E/gNfYjOXhec3es/a7xyFqJjBcLJbrHznyp5FxJivQtB4qwxTx5GChZl6kgz9h6uAMRKX+80xVZ4wxDV2+xloA8EFTSFWc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781636454; c=relaxed/simple;
-	bh=Bhj39GY8eLiMPIRiInTbgSFElH6tuE95UUPoFW9Uy9g=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ndjepbHeFaE8LmD41ONxqy4tMk6ilyYaSbPoMKc/LRL1OCZ0tdr+Pcs7AG8RR9ufyzpWkuTUVSIESK/2k86iATkvKdm44SkGClZuAjOe8IM8HAuxh9YgOVrpYJ1Vob1EIa5pkGJK9HdQnhpzb/zgPhbu3RUhH2srD9qJlCps6Pw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=pTFke1bA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781636456; c=relaxed/simple;
+	bh=9Tyx3IZ683JCdQMRbGJeTjnP9qW7Us8tqu9ScIW2eJ0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ZulkPsnN3oHnEy1DdoEnSbMqdixKyd2QcNabVg6KkQ3LYMfzSC4/fx5EPHE18T66Ko2S09VwyBoyIUI9vF7HFT5sxav+5k4NltqFCm6ZawLy5FCl7Uxcr9WR5Z9VjgC3UwZEGlnrl6OCcYnka1gnhYI2oruTAelBRd2Fq0pqabo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bE3JPLzf; arc=none smtp.client-ip=209.85.208.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="pTFke1bA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7847A1F000E9;
-	Tue, 16 Jun 2026 19:00:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1781636451;
-	bh=kgrqs93fKGDJDoZy7AyuGcktjvvofH3ayWQUS0f1PHE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=pTFke1bAO6l27M1p/fDUAulrSUrtobzSYjufo+Qp6KcWs0xViDecfbJ79YVMkLiF1
-	 Cdxfp6OjBbiFFyAJbzFNFrpztw2GiLYl6HrGEeUNEGWqn1XWjVmL4KVxUacykj9XAn
-	 eC0s9wJcBPvELEPhYAUN2QVoJQ6tQqdbr3/hZgE8=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	syzbot+d80abb5b890d39261e72@syzkaller.appspotmail.com,
-	Viacheslav Dubeyko <slava@dubeyko.com>,
-	Charalampos Mitrodimas <charmitro@posteo.net>,
-	Deepanshu Kartikey <kartikey406@gmail.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10 241/342] hfsplus: fix uninit-value by validating catalog record size
-Date: Tue, 16 Jun 2026 20:28:57 +0530
-Message-ID: <20260616145059.434487261@linuxfoundation.org>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260616145048.348037099@linuxfoundation.org>
-References: <20260616145048.348037099@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bE3JPLzf"
+Received: by mail-lj1-f176.google.com with SMTP id 38308e7fff4ca-397e391cb2aso43986121fa.2
+        for <stable@vger.kernel.org>; Tue, 16 Jun 2026 12:00:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781636453; x=1782241253; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=hAylVLBoI1FWIRaqnARn0iCZWEh0HddelhXPEdFepIU=;
+        b=bE3JPLzf2Ayr90aodKGCy3QXSoUKQacdo32bqaaB1GxC8d2+KrbeH4ujPMw3Bl+Ln+
+         gwa8VvdpxKapffdh+G67FlMyVuI+I4LJO5A3Ccp8Egzw4O2fPhGc/BBWkC7ZhYQEDeTk
+         sEzsTIJG7g/PLmIPt3tCUemUUa3VLAP3/7e9XztNdxOLb/V04V/OAVWbt6Cydr8jKasl
+         A+3XsPRDsMxCfIRZQs5KueO/ftN/k6TvI6RamGeZ5cMrJHP20TIbEAS/oxVRHUi7sdMF
+         lcdnCQ/+gPvXMBIOXVo3B3uGTWZaoapq+rFjBPnS+a4WThbrFNL7v0O2cnvObe91sd9N
+         trsA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781636453; x=1782241253;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=hAylVLBoI1FWIRaqnARn0iCZWEh0HddelhXPEdFepIU=;
+        b=H8zy7Ug0em7uaYo7CApmrabwMHFJqwlGugXK0UeRBGWgZw3wg3qsRmsexHsjSVt/qq
+         ZW4Kt6hHC3tMZPYT62cdWLYjzFbsPrMA4/LTqimbH42jjx+mYZfl6lqDr4iTbS7eevCI
+         G3xcqfu3g3zTDavUHnk/id793n3G2r1eW9qxtJKYcPWssKupnm38q54lIzOGbQb9EkGd
+         MeVJrmW/eh/vCRNC3Lc8zW4YmePJRZRUvCbX/WoABCCjss/cjZsFjcxOoxIgfOEJnykV
+         FTLzeuVsMG4/wqaJXkIM1mDoCbm/pDf6MiPGh2ABtfu0BuisA05VEIOqfKqD06DEn7ZA
+         +a3g==
+X-Gm-Message-State: AOJu0YxvDIkMVVu6zni5g137FlqHd4KRka+XGn9UzQQtNUF0O7rAyEOr
+	KdiNR55t2prIVt9xsBMBRv9Kx7OcaKl5/2B0zLCsl7qIxKUlQpVtFGFOzpBP3b7VtJ7LbQ==
+X-Gm-Gg: Acq92OHUE5IUKST6JbkDLnSx4mh5hEBK7iKXY34NpnKxw8gckaAS928wqVN/wZbbd/Y
+	B0JSmtbPBkW/LQRtfWMhJ/jw1mciwt6crcPrEBfHKPIWJrPVORfi6y8SXqOxSvJlhgwsp8BN1gP
+	se5pwbZVRnH8uGtL7TVttyQC6LSIEYKmhkUTlYDTZezoZSieMZ2t7rrp9t+pZxsgaApPe5YSYB8
+	yrsiHQF2kkE4Rvu2nW7sKGQeARVN9U+IODzA0jwKfW45KjE8Nq3phNHfwTc+XESOxOWfEctO5wv
+	F5otQ1SPkfqoLBllCq8WX/D/C/buR7X+WIztabguESGk9DDTgouLPiSYXzbQbHubcT7kxkuSZad
+	pUeF4M6OTpTMo4mPfFRugzogTQhnX03tS+TfQCDJ5idAm7tshArNhFeFUi8dItaMGbAFTIcHQw/
+	3Y/fj7kguvljG0g6KfMqpbIfoH6k+nQttDC3UeIbo=
+X-Received: by 2002:a05:6512:baa:b0:5aa:74f8:72f4 with SMTP id 2adb3069b0e04-5ad46fe041bmr185686e87.32.1781636452394;
+        Tue, 16 Jun 2026 12:00:52 -0700 (PDT)
+Received: from grower.astra-academy.ru ([185.32.135.49])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5ad2e124462sm3738075e87.0.2026.06.16.12.00.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 16 Jun 2026 12:00:51 -0700 (PDT)
+From: Alexander Martyniuk <alexevgmart@gmail.com>
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Alexander Martyniuk <alexevgmart@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Sasha Levin <sashal@kernel.org>,
+	Sabrina Dubroca <sd@queasysnail.net>,
+	Hyunwoo Kim <imv4bel@gmail.com>,
+	Pavel Begunkov <asml.silence@gmail.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	lvc-project@linuxtesting.org,
+	Huzaifa Sidhpurwala <huzaifas@redhat.com>,
+	Willem de Bruijn <willemb@google.com>
+Subject: [PATCH 6.1] net: gro: don't merge zcopy skbs
+Date: Tue, 16 Jun 2026 22:00:36 +0000
+Message-ID: <20260616220038.87364-1-alexevgmart@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,190 +84,47 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-5.10-stable review patch.  If anyone has any objections, please let me know.
+From: Sabrina Dubroca <sd@queasysnail.net>
 
-------------------
+commit 4db79a322db8c97f7b73b8a347395ef4d685eb40 upstream.
 
-From: Deepanshu Kartikey <kartikey406@gmail.com>
+skb_gro_receive() can currently copy frags between the source and GRO
+skb, without checking the zerocopy status, and in particular the
+SKBFL_MANAGED_FRAG_REFS flag.
 
-[ Upstream commit b6b592275aeff184aa82fcf6abccd833fb71b393 ]
+When SKBFL_MANAGED_FRAG_REFS is set, the skb doesn't hold a reference
+on the pages in shinfo->frags. Appending those frags to another skb's
+frags without fixing up the page refcount can lead to UAF.
 
-Syzbot reported a KMSAN uninit-value issue in hfsplus_strcasecmp(). The
-root cause is that hfs_brec_read() doesn't validate that the on-disk
-record size matches the expected size for the record type being read.
+When either the last skb in the GRO chain (the one we would append
+frags to) or the source skb is zerocopy, don't merge the skbs.
 
-When mounting a corrupted filesystem, hfs_brec_read() may read less data
-than expected. For example, when reading a catalog thread record, the
-debug output showed:
-
-  HFSPLUS_BREC_READ: rec_len=520, fd->entrylength=26
-  HFSPLUS_BREC_READ: WARNING - entrylength (26) < rec_len (520) - PARTIAL READ!
-
-hfs_brec_read() only validates that entrylength is not greater than the
-buffer size, but doesn't check if it's less than expected. It successfully
-reads 26 bytes into a 520-byte structure and returns success, leaving 494
-bytes uninitialized.
-
-This uninitialized data in tmp.thread.nodeName then gets copied by
-hfsplus_cat_build_key_uni() and used by hfsplus_strcasecmp(), triggering
-the KMSAN warning when the uninitialized bytes are used as array indices
-in case_fold().
-
-Fix by introducing hfsplus_brec_read_cat() wrapper that:
-1. Calls hfs_brec_read() to read the data
-2. Validates the record size based on the type field:
-   - Fixed size for folder and file records
-   - Variable size for thread records (depends on string length)
-3. Returns -EIO if size doesn't match expected
-
-For thread records, check against HFSPLUS_MIN_THREAD_SZ before reading
-nodeName.length to avoid reading uninitialized data at call sites that
-don't zero-initialize the entry structure.
-
-Also initialize the tmp variable in hfsplus_find_cat() as defensive
-programming to ensure no uninitialized data even if validation is
-bypassed.
-
-Reported-by: syzbot+d80abb5b890d39261e72@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=d80abb5b890d39261e72
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Tested-by: syzbot+d80abb5b890d39261e72@syzkaller.appspotmail.com
-Reviewed-by: Viacheslav Dubeyko <slava@dubeyko.com>
-Tested-by: Viacheslav Dubeyko <slava@dubeyko.com>
-Suggested-by: Charalampos Mitrodimas <charmitro@posteo.net>
-Link: https://lore.kernel.org/all/20260120051114.1281285-1-kartikey406@gmail.com/ [v1]
-Link: https://lore.kernel.org/all/20260121063109.1830263-1-kartikey406@gmail.com/ [v2]
-Link: https://lore.kernel.org/all/20260212014233.2422046-1-kartikey406@gmail.com/ [v3]
-Link: https://lore.kernel.org/all/20260214002100.436125-1-kartikey406@gmail.com/T/ [v4]
-Link: https://lore.kernel.org/all/20260221061626.15853-1-kartikey406@gmail.com/T/ [v5]
-Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
-Signed-off-by: Viacheslav Dubeyko <slava@dubeyko.com>
-Link: https://lore.kernel.org/r/20260307010302.41547-1-kartikey406@gmail.com
-Signed-off-by: Viacheslav Dubeyko <slava@dubeyko.com>
-Stable-dep-of: 90c500e4fd83 ("hfsplus: fix held lock freed on hfsplus_fill_super()")
-Signed-off-by: Sasha Levin <sashal@kernel.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Fixes: 753f1ca4e1e5 ("net: introduce managed frags infrastructure")
+Reported-by: Huzaifa Sidhpurwala <huzaifas@redhat.com>
+Signed-off-by: Sabrina Dubroca <sd@queasysnail.net>
+Reviewed-by: Willem de Bruijn <willemb@google.com>
+Link: https://patch.msgid.link/c3b7f906bbfcbdfd7b4fa9d6c18a438870df85be.1779307748.git.sd@queasysnail.net
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Alexander Martyniuk <alexevgmart@gmail.com>
 ---
- fs/hfsplus/bfind.c      |   51 ++++++++++++++++++++++++++++++++++++++++++++++++
- fs/hfsplus/catalog.c    |    4 +--
- fs/hfsplus/dir.c        |    2 -
- fs/hfsplus/hfsplus_fs.h |    9 ++++++++
- fs/hfsplus/super.c      |    2 -
- 5 files changed, 64 insertions(+), 4 deletions(-)
+Backport fix for CVE-2026-46323
+ net/core/gro.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
---- a/fs/hfsplus/bfind.c
-+++ b/fs/hfsplus/bfind.c
-@@ -287,3 +287,54 @@ out:
- 	fd->bnode = bnode;
- 	return res;
- }
-+
-+/**
-+ * hfsplus_brec_read_cat - read and validate a catalog record
-+ * @fd: find data structure
-+ * @entry: pointer to catalog entry to read into
-+ *
-+ * Reads a catalog record and validates its size matches the expected
-+ * size based on the record type.
-+ *
-+ * Returns 0 on success, or negative error code on failure.
-+ */
-+int hfsplus_brec_read_cat(struct hfs_find_data *fd, hfsplus_cat_entry *entry)
-+{
-+	int res;
-+	u32 expected_size;
-+
-+	res = hfs_brec_read(fd, entry, sizeof(hfsplus_cat_entry));
-+	if (res)
-+		return res;
-+
-+	/* Validate catalog record size based on type */
-+	switch (be16_to_cpu(entry->type)) {
-+	case HFSPLUS_FOLDER:
-+		expected_size = sizeof(struct hfsplus_cat_folder);
-+		break;
-+	case HFSPLUS_FILE:
-+		expected_size = sizeof(struct hfsplus_cat_file);
-+		break;
-+	case HFSPLUS_FOLDER_THREAD:
-+	case HFSPLUS_FILE_THREAD:
-+		/* Ensure we have at least the fixed fields before reading nodeName.length */
-+		if (fd->entrylength < HFSPLUS_MIN_THREAD_SZ) {
-+			pr_err("thread record too short (got %u)\n", fd->entrylength);
-+			return -EIO;
-+		}
-+		expected_size = hfsplus_cat_thread_size(&entry->thread);
-+		break;
-+	default:
-+		pr_err("unknown catalog record type %d\n",
-+		       be16_to_cpu(entry->type));
-+		return -EIO;
-+	}
-+
-+	if (fd->entrylength != expected_size) {
-+		pr_err("catalog record size mismatch (type %d, got %u, expected %u)\n",
-+		       be16_to_cpu(entry->type), fd->entrylength, expected_size);
-+		return -EIO;
-+	}
-+
-+	return 0;
-+}
---- a/fs/hfsplus/catalog.c
-+++ b/fs/hfsplus/catalog.c
-@@ -194,12 +194,12 @@ static int hfsplus_fill_cat_thread(struc
- int hfsplus_find_cat(struct super_block *sb, u32 cnid,
- 		     struct hfs_find_data *fd)
- {
--	hfsplus_cat_entry tmp;
-+	hfsplus_cat_entry tmp = {0};
- 	int err;
- 	u16 type;
+diff --git a/net/core/gro.c b/net/core/gro.c
+index ea6571c01faa..c5a9733d929a 100644
+--- a/net/core/gro.c
++++ b/net/core/gro.c
+@@ -171,6 +171,9 @@ int skb_gro_receive(struct sk_buff *p, struct sk_buff *skb)
+ 	if (p->pp_recycle != skb->pp_recycle)
+ 		return -ETOOMANYREFS;
  
- 	hfsplus_cat_build_key_with_cnid(sb, fd->search_key, cnid);
--	err = hfs_brec_read(fd, &tmp, sizeof(hfsplus_cat_entry));
-+	err = hfsplus_brec_read_cat(fd, &tmp);
- 	if (err)
- 		return err;
- 
---- a/fs/hfsplus/dir.c
-+++ b/fs/hfsplus/dir.c
-@@ -49,7 +49,7 @@ static struct dentry *hfsplus_lookup(str
- 	if (unlikely(err < 0))
- 		goto fail;
- again:
--	err = hfs_brec_read(&fd, &entry, sizeof(entry));
-+	err = hfsplus_brec_read_cat(&fd, &entry);
- 	if (err) {
- 		if (err == -ENOENT) {
- 			hfs_find_exit(&fd);
---- a/fs/hfsplus/hfsplus_fs.h
-+++ b/fs/hfsplus/hfsplus_fs.h
-@@ -536,6 +536,15 @@ int hfsplus_submit_bio(struct super_bloc
- 		       void **data, int op, int op_flags);
- int hfsplus_read_wrapper(struct super_block *sb);
- 
-+static inline u32 hfsplus_cat_thread_size(const struct hfsplus_cat_thread *thread)
-+{
-+	return offsetof(struct hfsplus_cat_thread, nodeName) +
-+	       offsetof(struct hfsplus_unistr, unicode) +
-+	       be16_to_cpu(thread->nodeName.length) * sizeof(hfsplus_unichr);
-+}
++	if (skb_zcopy(p) || skb_zcopy(skb))
++		return -ETOOMANYREFS;
 +
-+int hfsplus_brec_read_cat(struct hfs_find_data *fd, hfsplus_cat_entry *entry);
-+
- /*
-  * time helpers: convert between 1904-base and 1970-base timestamps
-  *
---- a/fs/hfsplus/super.c
-+++ b/fs/hfsplus/super.c
-@@ -541,7 +541,7 @@ static int hfsplus_fill_super(struct sup
- 	err = hfsplus_cat_build_key(sb, fd.search_key, HFSPLUS_ROOT_CNID, &str);
- 	if (unlikely(err < 0))
- 		goto out_put_root;
--	if (!hfs_brec_read(&fd, &entry, sizeof(entry))) {
-+	if (!hfsplus_brec_read_cat(&fd, &entry)) {
- 		hfs_find_exit(&fd);
- 		if (entry.type != cpu_to_be16(HFSPLUS_FOLDER)) {
- 			err = -EIO;
-
+ 	/* pairs with WRITE_ONCE() in netif_set_gro_max_size() */
+ 	gro_max_size = READ_ONCE(p->dev->gro_max_size);
+ 
+-- 
+2.30.2
 
