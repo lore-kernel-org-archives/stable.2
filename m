@@ -1,34 +1,48 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CC131DF254;
-	Tue, 16 Jun 2026 00:40:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 222CB1DE8AE;
+	Tue, 16 Jun 2026 00:42:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781570414; cv=none; b=Y+l/E3eIqcDuK/muN5ZvG2GKxp9NdQnnVZVuI1n3N/6fRHxTxIYcOI+JD7tTw2jNy/lE8CgheHjKfcGUmyQ1IHeQyXOk2Cqt/Ox10XOqBOwNS2o39Ewi/OiGqTIxcyvKCs/SrbQOJ5BI3Ox/EguFFSzA0ZtvVq45kehxQ6pY0v4=
+	t=1781570543; cv=none; b=mAeKjl38Js/AoZRtjqWDXgQ2aZqm6fRvAL0qSTDcgd582cO6QttaGfUG5E7wu2kjYiuel5fkWMGNk78fpxRTJ41GG4Oai0jY3wlFjiAeIJ3+nXxLddSzrMS776yREfoR39v8yqFzg3OXFwqQPmPEjlrterGzeLH1ZGlZ34g6fxc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781570414; c=relaxed/simple;
-	bh=y64Hdsminmjx9W7ytFK33QvspXrgwqvY1MAxeWoKCYQ=;
+	s=arc-20240116; t=1781570543; c=relaxed/simple;
+	bh=FRilfmR+d+A25hTKp4FIVw/tyYYYRjLaVif+7ce2QNc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=c8mgYFpbktLHEwgxnQL2sY+4VPJN9BtB8r5VAX7RV4CmiAtaZyCcAVNTWSyCM2Qg24OFO6Y0i+AlUyE9Hal9Ppgb5NEhG70IrMJX1SCRAqGXlryKLuX5eyW0NElNeKPyJUIWTkNvTBJyA1nVkeTm7rXa9GPJEgL5LyBaoG7dFm8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C46CE1F000E9;
-	Tue, 16 Jun 2026 00:40:12 +0000 (UTC)
-From: Dave Jiang <dave.jiang@intel.com>
-To: linux-cxl@vger.kernel.org
-Cc: djbw@kernel.org,
-	dave@stgolabs.net,
-	jic23@kernel.org,
-	alison.schofield@intel.com,
-	vishal.l.verma@intel.com,
-	flavien@nus.edu.sg,
+	 MIME-Version; b=aSXRR6Jw0yW9mzD+Bys4wQwEsTYAHc4XInj+ZvO/KvyCt/Qbtl4VUHDPuGX+uW8YSDabir4FlAd3ltfF+zO9Omgch7algo+dXl4FV8wP3S7HOPVE7EmK7TYgmSEDWywOycsixe89ENExd4KiCbAHpTxV2aRPLVVxv4m5khwhdJE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RvrzJ/gg; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RvrzJ/gg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A22701F00A3A;
+	Tue, 16 Jun 2026 00:42:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781570542;
+	bh=B4F1ALEQLUiONmHOJm1mdesxSoMcf+r/fQlWcYw7h5c=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=RvrzJ/ggNqPQUeVdlY0kg9VztAKYSNNLEEYUY6L1DEzafooZG6soSG/63AxVuAb8g
+	 C2lsR4zmGXiuWJnMq2be92bT9mzm4P9LG4IgJduF/HVPkV2n3Aoltvifio4jcr9G/e
+	 v/3OVjEtMxOnDAwNSDNbotcpwqFd4xxuR0Uk4JNXdfMkGPjqdxq3H1ah+uORr/1ODa
+	 jyHW5F6Eq5AT6fsYkzIWB0grTbLmkvkfYgONrlaxla95nMt80/E36yi3JUlPHWlD0c
+	 2d3XgPirI9sjkWWXhoiqGOTwl7wt7SBMTrnc2qahiWPHhiYaA226i7ckpNFknNWMXz
+	 aLfCy3QKxrY7A==
+From: Yosry Ahmed <yosry@kernel.org>
+To: Sean Christopherson <seanjc@google.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>,
+	Jim Mattson <jmattson@google.com>,
+	Maxim Levitsky <mlevitsk@redhat.com>,
+	Vitaly Kuznetsov <vkuznets@redhat.com>,
+	Tom Lendacky <thomas.lendacky@amd.com>,
+	kvm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Yosry Ahmed <yosry@kernel.org>,
 	stable@vger.kernel.org
-Subject: [PATCH 2/2] cxl/mce: Serialize the MCE handler against endpoint teardown
-Date: Mon, 15 Jun 2026 17:40:07 -0700
-Message-ID: <20260616004007.4186004-3-dave.jiang@intel.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260616004007.4186004-1-dave.jiang@intel.com>
-References: <20260616004007.4186004-1-dave.jiang@intel.com>
+Subject: [RFC PATCH v2 01/25] KVM: nSVM: Flush the TLB after forcefully leaving nested
+Date: Tue, 16 Jun 2026 00:41:30 +0000
+Message-ID: <20260616004155.1435766-2-yosry@kernel.org>
+X-Mailer: git-send-email 2.54.0.1136.gdb2ca164c4-goog
+In-Reply-To: <20260616004155.1435766-1-yosry@kernel.org>
+References: <20260616004155.1435766-1-yosry@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -37,79 +51,34 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-CXL endpoint has a shorter lifetime than CXL memdev state (mds) and
-the MCE notifier is part of the mds. The MCE handler needs to take
-a reference on the endpoint in order to keep it alive while operating
-on it. Take the cxlmd lock to verify the endpoint is still valid and
-take a reference on it before accessing it.
+KVM flushes the TLB on nested VM-Enter and nested VM-Exit, but not when
+forcefully leaving nested. In this case, L2 TLB entries can leak into
+L1. Flush the TLB after forcefully exiting L2, similar to nested
+VM-Exits.
 
-Reported-by: Flavien Solt <flavien@nus.edu.sg>
-Fixes: 516e5bd0b6bf ("cxl: Add mce notifier to emit aliased address for extended linear cache")
+Note that vmx_leave_nested() handles this correctly, as it reuses
+nested_vmx_vmexit(), which handles the necessary TLB flushes on an L2 ->
+L1 transition.
+
 Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-4-8
-Signed-off-by: Dave Jiang <dave.jiang@intel.com>
+Signed-off-by: Yosry Ahmed <yosry@kernel.org>
 ---
- drivers/cxl/core/mce.c | 27 +++++++++++++++++++++++----
- 1 file changed, 23 insertions(+), 4 deletions(-)
+ arch/x86/kvm/svm/nested.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/cxl/core/mce.c b/drivers/cxl/core/mce.c
-index 47566015eb00..e684e411921b 100644
---- a/drivers/cxl/core/mce.c
-+++ b/drivers/cxl/core/mce.c
-@@ -7,13 +7,27 @@
- #include <cxlmem.h>
- #include "mce.h"
+diff --git a/arch/x86/kvm/svm/nested.c b/arch/x86/kvm/svm/nested.c
+index 1ab8b95975a4b..c85aa5cf670f4 100644
+--- a/arch/x86/kvm/svm/nested.c
++++ b/arch/x86/kvm/svm/nested.c
+@@ -1550,6 +1550,8 @@ void svm_leave_nested(struct kvm_vcpu *vcpu)
  
-+static struct device *cxlmd_get_endpoint_dev(struct cxl_memdev *cxlmd)
-+{
-+	struct cxl_port *endpoint;
-+
-+	if (!cxlmd)
-+		return NULL;
-+
-+	guard(device)(&cxlmd->dev);
-+	endpoint = cxlmd->endpoint;
-+	if (IS_ERR_OR_NULL(endpoint))
-+		return NULL;
-+
-+	return get_device(&endpoint->dev);
-+}
-+
- static int cxl_handle_mce(struct notifier_block *nb, unsigned long val,
- 			  void *data)
- {
- 	struct cxl_memdev_state *mds = container_of(nb, struct cxl_memdev_state,
- 						    mce_notifier);
- 	struct cxl_memdev *cxlmd = mds->cxlds.cxlmd;
--	struct cxl_port *endpoint;
- 	struct mce *mce = data;
- 	u64 spa, spa_alias;
- 	unsigned long pfn;
-@@ -24,8 +38,13 @@ static int cxl_handle_mce(struct notifier_block *nb, unsigned long val,
- 	if (!cxlmd)
- 		return NOTIFY_DONE;
+ 		svm_switch_vmcb(svm, &svm->vmcb01);
  
--	endpoint = cxlmd->endpoint;
--	if (IS_ERR_OR_NULL(endpoint))
-+	/*
-+	 * With the cxlmd device lock held, check the cxlmd->endpoint pointer
-+	 * and then take a reference of the device in order to keep it alive
-+	 * while accessing it.
-+	 */
-+	struct device *dev __free(put_device) = cxlmd_get_endpoint_dev(cxlmd);
-+	if (!dev)
- 		return NOTIFY_DONE;
- 
- 	spa = mce->addr & MCI_ADDR_PHYSADDR;
-@@ -34,7 +53,7 @@ static int cxl_handle_mce(struct notifier_block *nb, unsigned long val,
- 	if (!pfn_valid(pfn))
- 		return NOTIFY_DONE;
- 
--	spa_alias = cxl_port_get_spa_cache_alias(endpoint, spa);
-+	spa_alias = cxl_port_get_spa_cache_alias(to_cxl_port(dev), spa);
- 	if (spa_alias == ~0ULL)
- 		return NOTIFY_DONE;
++		nested_svm_transition_tlb_flush(vcpu);
++
+ 		nested_svm_uninit_mmu_context(vcpu);
+ 		vmcb_mark_all_dirty(svm->vmcb);
  
 -- 
-2.54.0
+2.54.0.1136.gdb2ca164c4-goog
 
