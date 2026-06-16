@@ -1,231 +1,158 @@
-Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com [209.85.160.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23B273CE099
-	for <stable@vger.kernel.org>; Tue, 16 Jun 2026 05:14:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.176
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781586857; cv=pass; b=GuFqVE+ukk4RsjX98MY2RmwFDxNT/6VkMpA1wE1OCymxtYFJleb1Df8vmBLRWgWI46j5wc7d+lsteE1lkG5eeAbw5msoIct8XIiE/cSEB4tYLyRH7cmVbx8Up+D9U9JSIyySedtPo4vrIcr/ElFUjBBORcrqsv2O7wIK5lIC8Rc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781586857; c=relaxed/simple;
-	bh=cdgthtRN3TaZug5RXpYRGPPhsYE+QJ6XysT3Mm820xc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=UbbO908LEDNV3DzkKL4R7BEowoldLFG7wssux0Wa4h+2kZAieJg4iery3hRTo3mGelv45FuxYMTgehKP6ty2zBsQD/D5q7C6Epd5GyP6zrZfM8L+JgWtnId5wlA3HFXQSg/S5ng8O2N6STv7NN8V5mv0qj894uhfmb/ImuTiOsc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xwf.google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=wEhFJAs0; arc=pass smtp.client-ip=209.85.160.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xwf.google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 218383CBE88
+	for <stable@vger.kernel.org>; Tue, 16 Jun 2026 05:15:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781586956; cv=none; b=KVWwemUVEemG1Iaq5PTqYCKcq++lgn2gDxJ1h6rxKcIHs6UXYL9xkVLZhgBRWsgIK41m+5/Bvay3acf8cmDjneu+xt/ar6HCIFBXTIKy0lgQnv0eW8e546aSPAT72hniUTdZjkwBEWoX7aACAKjD+UiWIQcvOrhi/1GjH7davyE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781586956; c=relaxed/simple;
+	bh=sUuL9yQCiCw2Oju+dasnu5OgNLBpPlAM6ZYEFhrQ81E=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=m8YZjD1zdHkVdVncbBE0wJEZMMFY3kyNLy7nNJHhmOsCHUTA4JsGsWZ7amz3ki/IHP46zedQp2NlnvxMAeTXrany5Utgckki8MgZrOpcU7STMKdR+/sDD482mmDSeQ1KgUokU8x76GWnANFINruDmTWHO/5Xum2x639cTXhCDHo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=j6K5dmwu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="wEhFJAs0"
-Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-5177d1ff061so97451cf.1
-        for <stable@vger.kernel.org>; Mon, 15 Jun 2026 22:14:15 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781586855; cv=none;
-        d=google.com; s=arc-20240605;
-        b=TBx3UBV5pP/SeY22qc5gu9g8YPFK1r9O82vijKxXa/uufUhThhl74Yf19g55NTgqBY
-         4e602vzGogc6+UQSXuzCOj3sRrx9dTJ/84cBRkiazvUS7wUldRDqsKjvqic7wZjnUTjO
-         o56XyPABJ0++V3z7rmBQHAnDcs0PImmhnsulfmnZu4nYKKqk9hwAlCiPrnm/IcvUag3q
-         VoHeE/AqB0b9xP4xoRVoda/K++1KBsssZWi/3/DwspIPIbP6a4UF/KTwDp66eo5qXwAp
-         CdAdCGtjCp+u8wz7pe7mF49g3pEWbrx0c8w8JA+AXQnXOYuzpa4p6nAE0J5IbgokGgWm
-         DoNQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :reply-to:in-reply-to:references:mime-version:dkim-signature;
-        bh=oZf9AADMW1nQW+AfyrB/2b+6l5AZvBA4C3NEgxXJMD8=;
-        fh=sfSKpGTph5GLR1Cw+KVyxaLw5B88TnJZo0D7oUNwHh8=;
-        b=VedvR5krHDloNQmxtSqdlBmHi7ewSpX80SpKg2Zr0u5V72LYmP8RS7pQ23uPVXzlZZ
-         879/tz2HhhBf6XqG0B9m2k4nkDhB6fv+VRI2GhXosYlfM/lzufWefcbsMi6kNEdmuBm6
-         GNXvDl7nu32gPPbL0XEHC3GOC5vQHrdb0pVMjXBL91BZmeSeDgNTXK1o67D8ilQxJr9L
-         cqdCN8oKxFBm4ogWParLsPqUPr/m+I0tg3oykqtRjw4yO+n3TixWv4dvOz5lBWRnvnX7
-         AfXxCzIu3BYXHolKGDmsE7OfmWq0vtta8u9OWLQ4y3wt5N5Pkq4e3hD8/MXfLh6Db/+V
-         gDww==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1781586855; x=1782191655; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :reply-to:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=oZf9AADMW1nQW+AfyrB/2b+6l5AZvBA4C3NEgxXJMD8=;
-        b=wEhFJAs0av8w0frst2D7qsBUT8oBcLWm8aYlIkItG1hd8gwjWVkBVSgFXm8eEBSn3s
-         YV45x1yVr1I5PTc3+Ianyb4QthYhFnI/YBFvU99FWYhwx/6HseDx+C8LuSGtV8/RfQPN
-         y47w44+eYAXnA7HZn4H9M+yrgkK3HxqpQyqdlQoGcyihqe69nYJmy8a8gc+Q9pa5tdi6
-         Y8U0i83xsIgj7MkIlOnNQI6eRcoJ5X5JgaPQvM+R0UJvl9YSPkpQO6ysA9ZrVyf8wYvu
-         WZC2RB27l19oh+0P80NXnnZLONclItXLSrVd32a6XjmhzIdlQtE6jdJ7xn20pnKeynkF
-         kFeQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781586855; x=1782191655;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :reply-to:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=oZf9AADMW1nQW+AfyrB/2b+6l5AZvBA4C3NEgxXJMD8=;
-        b=XdKkDvgT4o4+Iof8v7JlBQPnRkmqPgb1KXYGDePZ9HZXveqSvV7ggwLK0PVtX7ktDw
-         jHyJllNNjnC3rf4gSP6u+xPbdUbxqDHsKc5/ZyCv1e8bq7OtF5uaELKfhnaYY25yTxnC
-         ftiIhmyu/AKTXg58qCpDrE0X36ea8cCa+M4LagHXjZly59POEO41Qzufj2MGTdR5S33S
-         ifvbT+4x5Uog6JjNQVw8gNiPYuy65p+1hkT9X3L02vzHtIdkVAkASLdgiF6G39C7+nVu
-         9s13NYB+K4zuK+mD4kGa6VtuoaK71I9HVnenJRE4TKawIo7Zns8bA9t21Yu0KIAecLTa
-         C+vw==
-X-Forwarded-Encrypted: i=1; AFNElJ8sU9ktOULkQNSY4RiNbwn6QeShyDfwcqYnpGYsb4SGVEzRXssOqhurWR0cRuwml1HrQSoRwDM=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzIpbzOVJYVgvkp+FNJYZyNWk3oGWF5V7uYGGkjo+oLZdMH+4/n
-	fUJ6x0pHuzAyyJNGIemf8QkdoNIG1sutTWgCFIwrc40wEPLWVNKfjuSv/3RFEfOlkQUncNDHVtv
-	7/5pEsflxLzle1dV6THG6LDQvMrbewcdxsV1x7h2+YkEZY6AMwy1Gt/LYL7A=
-X-Gm-Gg: Acq92OFR+ou0riHu0Ehg0ADlkE8JbIdkagwVP1XB5vK0QC8CJXuTqPSGq4sxjb7WtSb
-	j/3ZucdIgOXGeKcxr0ZYuVsSoFFaNPbWLuCrhXPgoODwaELbn6LgYtgYjzUlMeYmgdAcRjj9Wwb
-	XcZvAITA5Mb8zy2dt/Jg8/IrkTGp1G/jyNDUhGuM+CdjoQE5QlX43x+WFJ7+NPaI/l5uuVhJx5p
-	yE7iwiiAGCRG1LlSXCoHPDvyXRUcCudU3WmQGSdBey1MI3/lr+8+oC98Wlcs6ifapAhojHfm0+Q
-	BNYG8sUdfw==
-X-Received: by 2002:a05:622a:1811:b0:50f:be7b:923a with SMTP id
- d75a77b69052e-51993b50849mr4108131cf.9.1781586854474; Mon, 15 Jun 2026
- 22:14:14 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="j6K5dmwu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D70311F000E9;
+	Tue, 16 Jun 2026 05:15:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1781586954;
+	bh=U8Ir9Qw6n3CG+NaJYg0I2zDCnQNVxX6+6DZf6x9SldE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=j6K5dmwu4YwXhOVJb53si8v4GDsw/RsM/a30MFrJ51KJZdKhRTX3qMPDy0J7VfeUP
+	 zg8Gzs8TglgTdpObkp+C4yUggNSXFYLFwvv4XyABlhpfp0JhYBxYX9xwvgXIlKbM96
+	 YzL8laXRtLgj2CHBeACTOoMgZbMPyeWePg/2F7AQ=
+Date: Tue, 16 Jun 2026 10:44:50 +0530
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Yunseong Kim <yunseong.kim@est.tech>
+Cc: "stable@vger.kernel.org" <stable@vger.kernel.org>,
+	"sashal@kernel.org" <sashal@kernel.org>,
+	Nikolay Aleksandrov <razor@blackwall.org>,
+	Chen Zhen <chenzhen126@huawei.com>, Jussi Maki <joamaki@gmail.com>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Paolo Abeni <pabeni@redhat.com>,
+	"ysk@kzalloc.com" <ysk@kzalloc.com>,
+	"42.4.sejin@gmail.com" <42.4.sejin@gmail.com>
+Subject: Re: [PATCH 6.1.y v2] bonding: fix use-after-free due to enslave fail
+ after slave array update
+Message-ID: <2026061638-doorknob-hypnosis-e76e@gregkh>
+References: <20260506131319.525949-2-yunseong.kim@est.tech>
+ <2026050615-quality-zit-9270@gregkh>
+ <b48fd28c-4117-4f56-afa9-dd0f7ae2033d@est.tech>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260526070635.839701-1-hhhuuu@google.com> <1f7a7bf2-4d21-4944-9da0-36082d052b25@rowland.harvard.edu>
- <CAJh=zjLLrY-NpV-ZcmH0V6q8CjNuKt7CmW-GEFQ8_y3zm9v1yw@mail.gmail.com> <d0042def-a513-479f-9742-12942346cd5a@rowland.harvard.edu>
-In-Reply-To: <d0042def-a513-479f-9742-12942346cd5a@rowland.harvard.edu>
-Reply-To: hhhuuu@xwf.google.com
-From: "Jimmy Hu (xWF)" <hhhuuu@xwf.google.com>
-Date: Tue, 16 Jun 2026 13:14:03 +0800
-X-Gm-Features: AVVi8CdpgkJIscAxcD7JJW8uf9rRWz1lpVf-Jfo1TjIojlCbI_U2UHaPHFSuQOY
-Message-ID: <CAJh=zjJqarEkrzajpdcUAZwOxisbdrwTPwX_jHWzuWZFSQ16SA@mail.gmail.com>
-Subject: Re: [PATCH] usb: gadget: udc: Fix NULL pointer dereference in gadget_match_driver
-To: Alan Stern <stern@rowland.harvard.edu>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <b48fd28c-4117-4f56-afa9-dd0f7ae2033d@est.tech>
 
-On Tue, Jun 2, 2026 at 10:30=E2=80=AFPM Alan Stern <stern@rowland.harvard.e=
-du> wrote:
->
-> On Tue, Jun 02, 2026 at 01:34:07PM +0800, Jimmy Hu (xWF) wrote:
-> > On Wed, May 27, 2026 at 2:00=E2=80=AFAM Alan Stern <stern@rowland.harva=
-rd.edu> wrote:
-> > >
-> > > On Tue, May 26, 2026 at 03:06:35PM +0800, Jimmy Hu wrote:
-> > > > A NULL pointer dereference occurs in gadget_match_driver() because =
-a
-> > > > race condition exists between the DRD mode-switch work and the
-> > > > configfs UDC write path:
-> > > >
-> > > > 1. The DRD mode-switch work invokes __dwc3_set_mode(), which calls
-> > > >    dwc3_gadget_exit() and subsequently frees the UDC device name vi=
-a
-> > > >    device_unregister(&udc->dev).
-> > > > 2. The configfs UDC write path invokes gadget_dev_desc_UDC_store(),
-> > > >    which calls usb_gadget_register_driver() and subsequently
-> > > >    compares the UDC device name via gadget_match_driver().
-> > > >
-> > > > If gadget_match_driver() runs concurrently during UDC unregistratio=
-n, it
-> > > > may access the freed UDC device name. Once the freed memory is zero=
-ed,
-> > > > dev_name(&udc->dev) returns NULL, causing a panic in strcmp().
-> > >
-> > > I don't see how this can happen.  gadget_match_driver() runs during
-> > > probing of a gadget, which takes place only while the gadget is
-> > > registered in the device core.  But usb_del_gadget() calls
-> > > device_del(&gadget->dev) before it calls device_unregister(&udc->dev)=
-.
-> > > This means that at any time when gadget_match_driver() can run, the U=
-DC
-> > > device name must still be allocated.
-> > >
-> > > You should run more tests.  Add debugging printk() calls just before =
-and
-> > > just after the device_del(&gadget->dev) and device_unregister(&udc->d=
-ev)
-> > > lines, and inside gadget_match_driver(), so the tests will show
-> > > unambiguously when these things happen with respect to each other.
-> > >
-> > > > Fix this by checking dev_name(&udc->dev) before calling strcmp().
-> > >
-> > > Adding a check like this will not fix a race; it will only make the r=
-ace
-> > > less likely to occur.  It won't prevent the name from being deallocat=
-ed
-> > > between the check and the strcmp() call.
-> > >
-> > > Alan Stern
-> >
-> > Hi Alan,
-> >
-> > Thank you for the review. You are absolutely right about the TOCTOU ris=
-k;
-> > the simple NULL check does not prevent the name from being deallocated
-> > after the check but before the strcmp() call.
-> >
-> > I will submit a v2 patch that uses get_device(&udc->dev) and put_device=
-()
-> > to increment the UDC reference count during the matching phase. This wi=
-ll
-> > guarantee that the UDC device name remains allocated and valid througho=
-ut
-> > the entire duration of strcmp(), eliminating the race condition structu=
-rally.
-> >
-> > Does this approach sound reasonable to you?
->
-> No, because you haven't addressed the issue I raised at the start of my
-> email, namely, how can this problem actually occur?  And you didn't run
-> additional tests with the extra debugging information that I asked for.
->
-> Alan Stern
+On Wed, May 06, 2026 at 01:54:30PM +0000, Yunseong Kim wrote:
+> Hi Greg,
+> 
+> Thank you for checking.
+> 
+> On 5/6/26 15:38, Greg KH wrote:
+> > On Wed, May 06, 2026 at 03:13:20PM +0200, Yunseong Kim wrote:
+> >> From: Nikolay Aleksandrov <razor@blackwall.org>
+> >>
+> >> [ Upstream commit e9acda52fd2ee0cdca332f996da7a95c5fd25294 ]
+> 
+> I wrote the wrong upstream sha1 and incorrectly assigned the author.
+> I updated it to right author and full sha 1 for upstream commit
+> 
+> >> Fix a use-after-free which happens due to enslave failure after the new
+> >> slave has been added to the array. Since the new slave can be used for Tx
+> >> immediately, we can use it after it has been freed by the enslave error
+> >> cleanup path which frees the allocated slave memory. Slave update array is
+> >> supposed to be called last when further enslave failures are not expected.
+> >> Move it after xdp setup to avoid any problems.
+> >>
+> >> It is very easy to reproduce the problem with a simple xdp_pass prog:
+> >>  ip l add bond1 type bond mode balance-xor
+> >>  ip l set bond1 up
+> >>  ip l set dev bond1 xdp object xdp_pass.o sec xdp_pass
+> >>  ip l add dumdum type dummy
+> >>
+> >> Then run in parallel:
+> >>  while :; do ip l set dumdum master bond1 1>/dev/null 2>&1; done;
+> >>  mausezahn bond1 -a own -b rand -A rand -B 1.1.1.1 -c 0 -t tcp "dp=1-1023, flags=syn"
+> >>
+> >> The crash happens almost immediately:
+> >>  [  605.602850] Oops: general protection fault, probably for non-canonical address 0xe0e6fc2460000137: 0000 [#1] SMP KASAN NOPTI
+> >>  [  605.602916] KASAN: maybe wild-memory-access in range [0x07380123000009b8-0x07380123000009bf]
+> >>  [  605.602946] CPU: 0 UID: 0 PID: 2445 Comm: mausezahn Kdump: loaded Tainted: G    B               6.19.0-rc6+ #21 PREEMPT(voluntary)
+> >>  [  605.602979] Tainted: [B]=BAD_PAGE
+> >>  [  605.602998] Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+> >>  [  605.603032] RIP: 0010:netdev_core_pick_tx+0xcd/0x210
+> >>  [  605.603063] Code: 48 89 fa 48 c1 ea 03 80 3c 02 00 0f 85 3e 01 00 00 48 b8 00 00 00 00 00 fc ff df 4c 8b 6b 08 49 8d 7d 30 48 89 fa 48 c1 ea 03 <80> 3c 02 00 0f 85 25 01 00 00 49 8b 45 30 4c 89 e2 48 89 ee 48 89
+> >>  [  605.603111] RSP: 0018:ffff88817b9af348 EFLAGS: 00010213
+> >>  [  605.603145] RAX: dffffc0000000000 RBX: ffff88817d28b420 RCX: 0000000000000000
+> >>  [  605.603172] RDX: 00e7002460000137 RSI: 0000000000000008 RDI: 07380123000009be
+> >>  [  605.603199] RBP: ffff88817b541a00 R08: 0000000000000001 R09: fffffbfff3ed8c0c
+> >>  [  605.603226] R10: ffffffff9f6c6067 R11: 0000000000000001 R12: 0000000000000000
+> >>  [  605.603253] R13: 073801230000098e R14: ffff88817d28b448 R15: ffff88817b541a84
+> >>  [  605.603286] FS:  00007f6570ef67c0(0000) GS:ffff888221dfa000(0000) knlGS:0000000000000000
+> >>  [  605.603319] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> >>  [  605.603343] CR2: 00007f65712fae40 CR3: 000000011371b000 CR4: 0000000000350ef0
+> >>  [  605.603373] Call Trace:
+> >>  [  605.603392]  <TASK>
+> >>  [  605.603410]  __dev_queue_xmit+0x448/0x32a0
+> >>  [  605.603434]  ? __pfx_vprintk_emit+0x10/0x10
+> >>  [  605.603461]  ? __pfx_vprintk_emit+0x10/0x10
+> >>  [  605.603484]  ? __pfx___dev_queue_xmit+0x10/0x10
+> >>  [  605.603507]  ? bond_start_xmit+0xbfb/0xc20 [bonding]
+> >>  [  605.603546]  ? _printk+0xcb/0x100
+> >>  [  605.603566]  ? __pfx__printk+0x10/0x10
+> >>  [  605.603589]  ? bond_start_xmit+0xbfb/0xc20 [bonding]
+> >>  [  605.603627]  ? add_taint+0x5e/0x70
+> >>  [  605.603648]  ? add_taint+0x2a/0x70
+> >>  [  605.603670]  ? end_report.cold+0x51/0x75
+> >>  [  605.603693]  ? bond_start_xmit+0xbfb/0xc20 [bonding]
+> >>  [  605.603731]  bond_start_xmit+0x623/0xc20 [bonding]
+> 
+> The upstream patch has conflicted, there is recently developed part in the code.
+> 
+> >> Backport commit:
+> >>
+> >>  commit e0caeb24f538 ("net: bonding: update the slave array for broadcast mode")
+> >>
+> >> The BOND_MODE_BROADCAST condition was removed. Because introduced by
+> >> supporting commit on the v6.17-rc1:
+> >>
+> >>  commit ce7a381697cb ("net: bonding: add broadcast_neighbor option for 802.3ad")
+> >>
+> >> Neither of which are present in this kernel version.
+> 
+> But I didn’t include the cherry-pick process information on the v1. So, I add it.
+> 
+> >> Fixes: 9e2ee5c7e7c3 ("net, bonding: Add XDP support to the bonding driver")
+> >> Signed-off-by: Nikolay Aleksandrov <razor@blackwall.org>
+> >> Reported-by: Chen Zhen <chenzhen126@huawei.com>
+> >> Closes: https://lore.kernel.org/netdev/fae17c21-4940-5605-85b2-1d5e17342358@huawei.com/
+> >> CC: Jussi Maki <joamaki@gmail.com>
+> >> CC: Daniel Borkmann <daniel@iogearbox.net>
+> >> Acked-by: Daniel Borkmann <daniel@iogearbox.net>
+> >> Link: https://patch.msgid.link/20260123120659.571187-1-razor@blackwall.org
+> >> Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+> >> Signed-off-by: Sasha Levin <sashal@kernel.org>
+> >> Tested-by: Yunseong Kim <yunseong.kim@est.tech>
+> >> Signed-off-by: Yunseong Kim <yunseong.kim@est.tech>
+> >> ---
+> >>  drivers/net/bonding/bond_main.c | 6 +++---
+> >>  1 file changed, 3 insertions(+), 3 deletions(-)
+> > 
+> > What changed from v1?
+> > 
+> 
+> I’ll include that information in the patch message next time.
 
-Hi Alan,
+Please fix this up and resend a new version.
 
-I have captured the KASAN log with the extra debugging information
-you requested, which shows how this race condition occurs.
+thanks,
 
-The log shows that after gadget_match_driver() enters execution on
-one core, a parallel core can invoke usb_del_gadget() and complete
-both device_del(&gadget->dev) and device_unregister(&udc->dev)
-before strcmp() executes.
-
-Here is the exact timeline from the dmesg output:
-
-1. At 268.595241, task 1374 (configfs path) enters
-gadget_match_driver() (on CPU6):
-[  268.595241][ T1374] [CPU6
-android.hardwar]:[JJ][core.c/gadget_match_driver/1568] Enter
-
-2. At 268.595250 (only 9 us later), DRD work invokes usb_del_gadget() (on C=
-PU3):
-[  268.595250][  T102] [CPU3
-kworker/3:1]:[JJ][core.c/usb_del_gadget/1529] Before
-device_del(&gadget->dev);
-[  268.598129][  T102] [CPU3
-kworker/3:1]:[JJ][core.c/usb_del_gadget/1531] After
-device_del(&gadget->dev);
-[  268.598159][  T102] [CPU3
-kworker/3:1]:[JJ][core.c/usb_del_gadget/1534] Before
-device_unregister(&udc->dev);
-[  268.599405][  T102] [CPU3
-kworker/3:1]:[JJ][core.c/usb_del_gadget/1536] After
-device_unregister(&udc->dev);
-
-3. At 268.599427, task 1374 starts comparison, where it triggers a
-KASAN invalid-access. (Due to kernel preemption, the task was migrated
-to CPU7):
-[  268.599434][ T1374] BUG: KASAN: invalid-access in
-gadget_match_driver+0x150/0x1cc
-[  268.599448][ T1374] Read of size 8 at addr 66ffff801a49b880 by task
-android.hardwar/1374
-[  268.599454][ T1374] Pointer tag: [66], memory tag: [fe]
-[  268.599456][ T1374]
-[  268.599460][ T1374] CPU: 7 PID: 1374 Comm: android.hardwar Tainted:
-G S      W  O       6.1.124-android14-11-ga633402dff84-dirty #1
-
-To resolve this object lifetime issue, I see two potential approaches:
-
-1. Protect the UDC device lifecycle during the comparison phase using
-   get_device(&udc->dev) and put_device() (as a lightweight fix).
-2. Serialize the configfs match path and the unregister path using
-   a subsystem mutex.
-
-I would highly appreciate your thoughts on which direction you prefer.
-Does this data address the scenario you raised?
-
-Thanks,
-Jimmy
+greg k-h
