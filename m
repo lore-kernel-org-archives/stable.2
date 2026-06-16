@@ -1,94 +1,108 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 518711A682B;
-	Tue, 16 Jun 2026 15:27:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE47B4418CA
+	for <stable@vger.kernel.org>; Tue, 16 Jun 2026 15:27:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781623646; cv=none; b=PKTe2+F0glC0BfMw7HLe6tSJ7O2fn4qAouaJypSx5ky/akH9//DjoIAyPj86fmpz6jGvMVXQzRQHYZGhrJs3bIVNoYijJv2R2IEJXQtzE5ndGVFvxbpywBjY3ihrfLswon+1M4HTFsQ/QK8E17wbwX1Lf8PzYB+bX0QmIYDFS8k=
+	t=1781623651; cv=none; b=VgIB0LOY4owWQC/9OoarVIGAqdYvL9nSpp+MRYQ9G7cSDS/M9NDleR2Q/6izk0qPpwmMYQTES9Uli+6Zw0xTkDmkIflMZYNmT6drE4RYpmp9lZHbp9arJAWTwD8SjaFHMRWslKl15JeIzpjC3fO1ykTbdKQP2kkiKeMr+za1J/Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781623646; c=relaxed/simple;
-	bh=9tXI9MQGL4B6qV3hjvrPMPAAXXL6d/DaxQ7MLUplzwI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NHUaN8HaGBBZfTmVwrtWmD/rcAocP5XnfuL9OsHgvdc+t1MG4qxFYkaLkoG+Ci3rqqR4c9vA45UMzGU7xMzmmyffv7GN3gm/R7lh12DHH5Jfu6qLZxuZ1YkHsHfgOEDp5pwdo3mILmu+g3oSj+8nLbMXVaNSvOZkv6tuQjDLRvQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=jkI1sokz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781623651; c=relaxed/simple;
+	bh=gWePh3Vznf74DWR5pPqi6EqAwqedNELsKH618o5hclA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=tUSNhgPajzOEE17012CJ8PhpZpWxrn7c+3mZJEbc2DtBUAyn9xR+grcpiDrPjPMZsEuw4PtfBI9MOjN8blqPwsp9iwZDllP0GZx5tPVIfYvIxLELMlq25clDRg0tbZeLmGN/AfrUbiOpC+hutF0WFJTLzFC8wh6nVjYNThdAM70=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=bQ5qFCuz; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="jkI1sokz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B83F1F000E9;
-	Tue, 16 Jun 2026 15:27:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1781623645;
-	bh=bABYLFc8yjP3jXPtaQePA0BbpEY2sYwVnZ6EnHFHncQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jkI1sokzp0SHPCscoHPgdmm52QTan7rHmoNMiqwF6CsVz6GTv+F2NHnP2k3nAw2Q1
-	 yLupEChIm0aJ70VlzA1KNHogMILgJA/Dasf6q9Gts5vOqLScI3rvwYg5f1OxauNFRg
-	 XSfU5DpDOMrVZdlZ/pBwByyMOjM7piIW0WKk8NiA=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Nathan Chancellor <nathan@kernel.org>,
-	Christian Schrefl <chrisi.schrefl@gmail.com>,
-	Miguel Ojeda <ojeda@kernel.org>
-Subject: [PATCH 7.0 189/378] ARM: Do not select HAVE_RUST when KASAN is enabled
-Date: Tue, 16 Jun 2026 20:27:00 +0530
-Message-ID: <20260616145120.331733976@linuxfoundation.org>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260616145109.744539446@linuxfoundation.org>
-References: <20260616145109.744539446@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="bQ5qFCuz"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1781623648;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=PM8sP3MAiJZZknY6HDXqfIBCoWcPf7VRCGmXyvu7wus=;
+	b=bQ5qFCuz9eyquc9xvxDd/jSfgyTLh+6X0HUuE3MfWHWfS067m8zqtZdz58kCzR0K6ND0pe
+	KMf9gpvDcfo8lzFGSo6wJmMYUnETSWti12L9hkdYgxsG94ClUbOaW8v9de++TZ0g7UY0fY
+	mqORZ95BnKUD3BR0uP74MYMdFRCVHek=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-563-jgGo_N4IM2WI6zmN4LSXbA-1; Tue,
+ 16 Jun 2026 11:27:23 -0400
+X-MC-Unique: jgGo_N4IM2WI6zmN4LSXbA-1
+X-Mimecast-MFC-AGG-ID: jgGo_N4IM2WI6zmN4LSXbA_1781623638
+Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 4AB4C1955F0D;
+	Tue, 16 Jun 2026 15:27:17 +0000 (UTC)
+Received: from [10.22.81.159] (unknown [10.22.81.159])
+	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 60017180058F;
+	Tue, 16 Jun 2026 15:27:13 +0000 (UTC)
+Message-ID: <cca24d1a-f4c9-43a2-8411-5b2919d4efb0@redhat.com>
+Date: Tue, 16 Jun 2026 11:27:12 -0400
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] cgroup/cpuset: rebind mm mempolicy to effective_mems,
+ not mems_allowed
+To: Gregory Price <gourry@gourry.net>,
+ "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Farhad Alemi <farhad.alemi@berkeley.edu>,
+ Andrew Morton <akpm@linux-foundation.org>, Farhad Alemi <falemi@asu.edu>,
+ Yury Norov <ynorov@nvidia.com>, Joshua Hahn <joshua.hahnjy@gmail.com>,
+ Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>,
+ Rakie Kim <rakie.kim@sk.com>, Byungchul Park <byungchul@sk.com>,
+ Ying Huang <ying.huang@linux.alibaba.com>,
+ Alistair Popple <apopple@nvidia.com>,
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, cgroups@vger.kernel.org, stable@vger.kernel.org
+References: <CA+0ovCg05rUk1-3k2ysdxmbcER8aG-wVh9SSTrrbp6LPWpPHYA@mail.gmail.com>
+ <CA+0ovCgfHJHv5d1mzapWWvF-LhjppzDX8NPPLvCPZxPKg8RiYw@mail.gmail.com>
+ <8d3b4561-92cd-4ebc-8462-5fb0fd659e8a@kernel.org>
+ <ai_IHvyptWPcTD0y@gourry-fedora-PF4VCD3F>
+ <70f486ce-5ef6-4d72-8cc3-7086f4eea930@redhat.com>
+ <c1495b1b-9dee-4cd5-ac8e-eeb7a2d968ed@redhat.com>
+ <51eafe6c-6622-479b-b391-6d3ff9350e75@kernel.org>
+ <ajFTVaMBeu-ViGIC@gourry-fedora-PF4VCD3F>
+Content-Language: en-US
+From: Waiman Long <longman@redhat.com>
+In-Reply-To: <ajFTVaMBeu-ViGIC@gourry-fedora-PF4VCD3F>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
 
-7.0-stable review patch.  If anyone has any objections, please let me know.
+On 6/16/26 9:44 AM, Gregory Price wrote:
+> On Tue, Jun 16, 2026 at 08:59:07AM +0200, David Hildenbrand (Arm) wrote:
+>> On 6/16/26 05:43, Waiman Long wrote:
+>>> On 6/15/26 10:26 PM, Waiman Long wrote:
+>>>>
+>>>> The reason why I am suggesting to use cs->effective_mems to keep the old
+>>>> cgroup v1 behavior. If the consensus is to use the output of
+>>>> guarantee_online_mems() for mpol_rebind_mm(), I will not be against that but
+>>>> it will be a slight change in user-visible behavior.
+> I'm not grok'ing what is user-visible here.
+>
+> The two values should effectively be equivalent because we're
+> using this value to constrain mpol's during a hotplug event.
+>
+> If the values differed, you would be saying there's a race condition
+> that could affect correctness of the rebind (which can't happen,
+> because this whole thing is done under the hotplug lock btw).
+>
+> Can you help me understand?
 
-------------------
+The effective_mems and guarantee_online_mems() should be more or less 
+equivalent for v2, but not for v1. In my response to David, I gave an 
+example of how the behavior will differ.
 
-From: Nathan Chancellor <nathan@kernel.org>
-
-commit 84a0f7caafc679f763d3868635837e22bb89651a upstream.
-
-When KASAN is enabled, such as with allmodconfig, the build fails when
-building the Rust code with:
-
-  error: kernel-address sanitizer is not supported for this target
-
-  error: aborting due to 1 previous error
-
-  make[4]: *** [rust/Makefile:654: rust/core.o] Error 1
-
-The arm-unknown-linux-gnueabi target does not support KASAN, so avoid
-saying Rust is supported when it is enabled.
-
-Cc: stable@vger.kernel.org
-Fixes: ccb8ce526807 ("ARM: 9441/1: rust: Enable Rust support for ARMv7")
-Link: https://github.com/Rust-for-Linux/linux/issues/1234
-Signed-off-by: Nathan Chancellor <nathan@kernel.org>
-Reviewed-by: Christian Schrefl <chrisi.schrefl@gmail.com>
-Link: https://patch.msgid.link/20260511-arm-avoid-rust-with-kasan-v1-1-24d55f4a900b@kernel.org
-Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- arch/arm/Kconfig |    2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
---- a/arch/arm/Kconfig
-+++ b/arch/arm/Kconfig
-@@ -135,7 +135,7 @@ config ARM
- 	select MMU_GATHER_RCU_TABLE_FREE if SMP && ARM_LPAE
- 	select HAVE_REGS_AND_STACK_ACCESS_API
- 	select HAVE_RSEQ
--	select HAVE_RUST if CPU_LITTLE_ENDIAN && CPU_32v7
-+	select HAVE_RUST if CPU_LITTLE_ENDIAN && CPU_32v7 && !KASAN
- 	select HAVE_STACKPROTECTOR
- 	select HAVE_SYSCALL_TRACEPOINTS
- 	select HAVE_UID16
-
+Cheers,
+Longman
 
