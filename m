@@ -1,36 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 957842EC0AE
-	for <stable@vger.kernel.org>; Tue, 16 Jun 2026 13:22:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C50B2EC0AE;
+	Tue, 16 Jun 2026 13:22:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781616122; cv=none; b=SzJA5KWOqJLFO7AbBQXS7Lw6XGmIdWOdxD+KKl1PICwfqSkHReKkc0O8lfzMJAayMLiOUwHwXP+Kww0/IOeAX1fcPLRB5jnJyu42Kpaj20PB7gr9iWdPoTWDDNUzvNj29I1wywN/nL/f6jBVnt1r619xyJUdkwr4gXHDS6QUMjM=
+	t=1781616138; cv=none; b=oUBW1p4Suw18+ceu1o49YH+siIf37vKcXJLCLEytoB9FQ5T8xu/aQN/D+dQjFYM24Khmp+9CUFgfBYEWC/XiWSfvYkORgJGUYOZxn3l8YuEYTD3/AsUkOfSJmDAKmFvOyJ2PWuedpmfPnnm0C9lBMd2wo5MVMbCKnLGb4lVgNpU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781616122; c=relaxed/simple;
-	bh=KRJ/LSYMqs/prOMG2KURVN0AKL9/cb2SXXvclwcslJo=;
+	s=arc-20240116; t=1781616138; c=relaxed/simple;
+	bh=TsXinStHtWl5K2yKuHlOl4bUsbZy1AvuMwCW0izFIC0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IUlv5cfXp8J5XWkp79tAudVAYFIt7Jq4XV+UwNKOvet8uW//8WqQZfot2YOkB9jMC/D6K47o2F0pBTwK1HxCEcybthgFiKQMpKV5t4goMpa5e92Z4EaMFC0aBxlM/flwd2Z9iDuqMdjVI3l4tx+JDOJ4R6NGrg2B0RSD9Dn5bfw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ICGfevQB; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=rGyxGqpfQ+O/2F+mSVJ1F5NiGhaFjXnkcVZGjert6grhoV29/XszEHdXQMIrpitOzNswJUFFo01PS/Q2IV0duY0vZ1oLyQ5QPIaj4cmz7WXpU/9F85KXBwr6AF3+VvW394hLu7sy84SXXbo8DTdbpNEGdwhg8052MxDib8RBWzI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cv7enJ9U; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ICGfevQB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F38F1F000E9;
-	Tue, 16 Jun 2026 13:22:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1781616121;
-	bh=6iG/EZwHxHHh0z5qkMGs9418TozMjPRUI7JpdzRblKs=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cv7enJ9U"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B45E71F000E9;
+	Tue, 16 Jun 2026 13:22:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781616136;
+	bh=1+P+K7C8m0gS0Giz5lDKi9nkVJKlfkfqXl54LcBLclk=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ICGfevQBzKSD6N/KOnlRzRCCg7n0ogl8WzSdy9L+XqrU5djvjM/jYL44K9tl2DdL+
-	 mx8ioDik6occBaii5exWSqF464VVxyulDO0P4rML5oYp8x133+ClmNIUq4FKoqPjas
-	 ZsaooKRwkcZ91Ww1eb7AfuxbJ1hNIso7oWcT9chk=
-Date: Tue, 16 Jun 2026 18:50:56 +0530
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Alex Deucher <alexander.deucher@amd.com>
-Cc: stable@vger.kernel.org, christian.koenig@amd.com,
-	Honglei Huang <honghuan@amd.com>
-Subject: Re: [PATCH] drm/amdgpu: drop retry loop in amdgpu_hmm_range_get_pages
-Message-ID: <2026061646-ship-culpable-1e01@gregkh>
-References: <20260616130531.738887-1-alexander.deucher@amd.com>
+	b=cv7enJ9UBb2POCviyNZNStx6GndmMuKnRkVvOD3ViojcbKq5JI/TVcWqwiI89e/Ik
+	 kSgGc3YJ85kE8kl/WvgQjuK08NQj0CxajlK2nr0nrQfz0ZpJykOligD5PryyE3piPk
+	 3t1Ls0JsJGieKh/RWTtOfroDJhz2awYJXmb4jAMu9HUcpGn7+t7GrXm5pOwuXvvvCr
+	 SS+Aw4wZJp2dUXuzMwoF/N5EOYoExSUjBKeIhAmp30fbsmnzwvV0lMWQdvMEr/A3G5
+	 Ds/NrzC5t+koTqX533cttr74mI/ATLNtRgKBOuICcR2l1a2Asm8SwgVMdccHKUYZ9J
+	 zkcyuTpkp2Kew==
+Date: Tue, 16 Jun 2026 14:22:11 +0100
+From: Simon Horman <horms@kernel.org>
+To: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
+Cc: netdev@vger.kernel.org, "David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Kees Cook <kees@kernel.org>, Kito Xu <veritas501@foxmail.com>,
+	linux-kernel@vger.kernel.org,
+	Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>,
+	Ao Wang <wangao@seu.edu.cn>, Xuewei Feng <fengxw06@126.com>,
+	Qi Li <qli01@tsinghua.edu.cn>, Ke Xu <xuke@tsinghua.edu.cn>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH net v2] appletalk: fix TOCTOU race in atalk_sendmsg
+Message-ID: <20260616132211.GT712698@horms.kernel.org>
+References: <20260615090635.1549-1-zhaoyz24@mails.tsinghua.edu.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -39,39 +49,49 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260616130531.738887-1-alexander.deucher@amd.com>
+In-Reply-To: <20260615090635.1549-1-zhaoyz24@mails.tsinghua.edu.cn>
 
-On Tue, Jun 16, 2026 at 09:05:31AM -0400, Alex Deucher wrote:
-> From: Honglei Huang <honghuan@amd.com>
+On Mon, Jun 15, 2026 at 05:06:33PM +0800, Yizhou Zhao wrote:
+> atalk_sendmsg() looks up an AppleTalk route, stores the returned
+> atalk_route and net_device pointers, and then drops the socket lock
+> around sock_alloc_send_skb().  The route pointer returned by
+> atrtr_find() is only protected while atalk_routes_lock is held; after
+> that lock is dropped, a concurrent SIOCDELRT or device-down path can
+> unlink the route, drop the device reference, and free the route.
 > 
-> Since commit c08972f55594 ("drm/amdgpu: fix amdgpu_hmm_range_get_pages")
-> moved mmu_interval_read_begin() out of the per-chunk loop, the
-> captured notifier_seq is no longer refreshed across retries. As a
-> result, the existing -EBUSY retry path can never make progress:
+> When sendmsg resumes, it can still dereference the stale route and
+> device pointers while building or transmitting the packet.  A KASAN
+> reproducer using AF_APPLETALK sockets and SIOCADDRT/SIOCDELRT reports
+> slab-use-after-free reads in atalk_sendmsg(), with the object allocated
+> by atrtr_create() and freed by atrtr_delete().
 > 
->   hmm_range_fault() returns -EBUSY only when
->   mmu_interval_check_retry(notifier, notifier_seq) reports that the
->   sequence is stale. Once the sequence has advanced, the stored seq
->   will never match again, so every subsequent call within the same
->   invocation returns -EBUSY immediately.
+> Fix this by splitting the route lookup into a helper that is called with
+> atalk_routes_lock already held.  atalk_sendmsg() now performs route
+> lookup, copies the route fields it needs, and takes references to the
+> selected devices with netdev_hold() while still holding
+> atalk_routes_lock.  After the lock is dropped and skb allocation sleeps,
+> the send path uses only the copied route data and the held net_device
+> references, which are released with netdev_put() before returning.
 > 
-> The "goto retry" therefore degenerates into a busy spin that simply
-> burns CPU for the full HMM_RANGE_DEFAULT_TIMEOUT (~1s) window before
-> finally bailing out with -EAGAIN. This is pure latency with no chance
-> of recovery, and it actively hurts the KFD userptr stack: the caller
-> ends up blocked for a second while holding mmap_lock, only to return
-> -EAGAIN to the restore worker (or to userspace) which would have
-> re-driven the operation immediately anyway.
+> This preserves the existing route selection behaviour, including the
+> separate loopback route used for broadcast loopback, while removing the
+> dangling route/device window.
 > 
-> Drop the retry/timeout entirely and let -EBUSY propagate straight to
-> out_free_pfns, where it is already translated to -EAGAIN. Recovery is
-> handled at a higher level: the KFD restore_userptr_worker reschedules
-> itself, and the userptr ioctl path returns -EAGAIN to userspace.
-> 
-> No functional regression: the previous behaviour on -EBUSY was already
-> to fail with -EAGAIN after a 1s stall; we just skip the stall.
-> 
-> Fixes: c08972f55594 ("drm/amdgpu: fix amdgpu_hmm_range_get_pages")
+> Fixes: 60d9f461a20b ("appletalk: remove the BKL")
+> Cc: stable@vger.kernel.org
+> Reported-by: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
+> Reported-by: Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>
+> Reported-by: Ao Wang <wangao@seu.edu.cn>
+> Reported-by: Xuewei Feng <fengxw06@126.com>
+> Reported-by: Qi Li <qli01@tsinghua.edu.cn>
+> Reported-by: Ke Xu <xuke@tsinghua.edu.cn>
+> Assisted-by: GLM:GLM-5.1
+> Signed-off-by: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
+> ---
+> Changes in v2:
+> - Use netdev_hold()/netdev_put() instead of dev_hold()/dev_put().
+> - Drop explicit NULL checks before releasing temporary device refs.
+> - Link to v1: https://lore.kernel.org/netdev/20260610052315.64504-1-zhaoyz24@mails.tsinghua.edu.cn/
 
-This commit is not anywhere...
+Reviewed-by: Simon Horman <horms@kernel.org>
 
