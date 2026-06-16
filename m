@@ -1,108 +1,119 @@
-Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com [209.85.167.48])
+Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D344F428838
-	for <stable@vger.kernel.org>; Tue, 16 Jun 2026 11:04:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3D53439008
+	for <stable@vger.kernel.org>; Tue, 16 Jun 2026 11:12:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781607882; cv=none; b=W8lEVCoDgnGgYfQ1X58g6ky5dG9xCLDv4DapmKm226KC7S1BUaMawkwsekFQJCP5yZHrmBX5t/KvtgJ68yfSrnmvciijXh2y3VRAO7xVM6dHrXrYneZX5r4Lp+vEXguWhIPpvy6cJbAwsH3yJQjcXsH0GX8FCVjnRIwQcrWpVFw=
+	t=1781608372; cv=none; b=eciQOlE62rbFhfR2IJXxqdsxJUXka1jWz3W4xwHfPJ3HHHKBxMhU1rnrnaOI5BPrS5hJY1zBnHnB4uMOt1z/5AhtMabNgCm7JM/trKLqukbbEYULBFHaA5vcDSZhMbMsoR6hph0XO40hsTd9Er+KMmB/Ju3f6Q/q6QvMqz1NSHw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781607882; c=relaxed/simple;
-	bh=jsrjb1gJOrLNfKVeyrgWHu2ndB1T3GxIUzfpraL1a4I=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QkoqK5juGrm80bGtiEiD2hJO5PlZqGEBGw/MFxUz4dQBUrJuRs0U00RcpcI8K81QAYS/qDi2wwrPGcEotwS9O3S/f0rhmO1aa1sgtQL+8f/qRPC3yUcRdEguMYttsFWMpXM98qFLuoI5McRDh1d+kVCzzBuV6PWL25H9nvrNiMY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bynar.io; spf=pass smtp.mailfrom=bynar.io; dkim=pass (2048-bit key) header.d=bynar.io header.i=@bynar.io header.b=cQ0V94Kh; arc=none smtp.client-ip=209.85.167.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bynar.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bynar.io
+	s=arc-20240116; t=1781608372; c=relaxed/simple;
+	bh=wPk0jvbiLk1gnxWCbBjPWoSYq2XDqp+9aHn95n8KQik=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=uiem/p14NxgXa3yLoD4U+uVSH84K6OXvGWI180spqjpcovz1m8x9G1uX9ifl3eNuIQIvZcyXfCzOcofwXFVv/VLaNxJiTH220q8Nyx32s//83kj37Uh3AEi1mQIr5DfSYKHeQie/j/6zZavoduC3dVX1OYRHnvk2Dt3tVXMoHFw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=CRHOB04C; arc=none smtp.client-ip=209.85.210.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bynar.io header.i=@bynar.io header.b="cQ0V94Kh"
-Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5aa2c25c632so4440292e87.1
-        for <stable@vger.kernel.org>; Tue, 16 Jun 2026 04:04:40 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="CRHOB04C"
+Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-8424b6792efso1827246b3a.3
+        for <stable@vger.kernel.org>; Tue, 16 Jun 2026 04:12:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bynar.io; s=google; t=1781607879; x=1782212679; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=be9SAeX73nlM0ApRPdBK338zST/MXfWJxoZEdM6cwMg=;
-        b=cQ0V94Kh4fDe7vFkKPmwOXcuNSXd18So0R13CfUVBT962BlpZwhVg904t8wEBD7oSN
-         eqsMjTfZCd2bCdBwGUKNds7CFinc+FgN0+q0bIA7KcMSdk3nD4jDre12sGDptmiJmqrb
-         XZXk9OsSeB4SFtzXNUcOKsCnl/l6jdy3CbuwGNkEIhsTPSXE9LJFwM9HC3F2Cwb5/y8k
-         0BXfguvH/qZnKSF8lz+Fm3nMxTzkCm6DVHEtJfLwVDsYUfiPQVyFSOq+rKI1pyufYBjx
-         l7pfCKPZsFgq7soo3MmXvzVxQk8V8kgIQHkqLJQ0GR86XqSAzpHhbqwAdLJ4pDFmwm+5
-         eIhQ==
+        d=chromium.org; s=google; t=1781608370; x=1782213170; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=on8hqRmuM/Ky2/WGRUWRuZiJutnnNXtBaovb+8l2mm4=;
+        b=CRHOB04CMAZ0FIHIqixvSm16DquGUwE/M4wDyyNgza76pSO4guxxOV+WlTwUn+BGvF
+         pO/NfJIF01xfUe3D9mQkmPcKMwZ/vxbz0p33+IO4Qylb7edf6YC0YYZXw0CcwiBUqNPo
+         h/VfSc3kjXUQyxOkE4vNELxYWcQKSi/7oQcg4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781607879; x=1782212679;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=be9SAeX73nlM0ApRPdBK338zST/MXfWJxoZEdM6cwMg=;
-        b=hu7AmgbJepTfVcu6lSkr6Z4sbOLFWv8VttzsHFUA6SP6grXvoXCNbFBhqAEMFibh7y
-         m2FCKjnRZgMdCQC3vwfrEEqgnR7i5uX2IdB1P7768qs7EDgCrE7yHKGR0QxU6t27wfrT
-         J++KExgCd9nxjJ4acuKTFBGwINKrycCaSCnvXHeJ/cvpNuuGIFjSaIsdDm50GdMY+H5a
-         j1xyu6GR7n2My6O01+sPo7WN5NGBkLovhdPMaMduM4j5Ui9FRf+mTaepBWJnQDTY2hdV
-         8zZ7JAFwF6p0r4EiNX6baJRy70OPGPcHBnXVYw7Y0VPI4lSRfFkgNB99gfF38o32SMwp
-         FA6g==
-X-Forwarded-Encrypted: i=1; AFNElJ9GFTayFoWI3jshAdA4vW8/1wsmMt49403Od7N4luTVkWi+KHlJ2cRQ1JeDDQxmsANcU1NZWxg=@vger.kernel.org
-X-Gm-Message-State: AOJu0YztcgjivWih8hTOAGO6TgIblyycRgE2qm9Z0Kn0662f+v5xSGuV
-	rwmKMBlQ8aheg6Ck/QTXGaOYnJhYOlj3oSjkJapJKcSRUWS9U5nYY5BHuOCqurr7SPrN
-X-Gm-Gg: Acq92OE8tmHcalIlz/mk48tskS7QLe9MsusOSxwijKMY6xU/DCUhtOYALg/VUbanszi
-	ZdqCYjZR2BBAyVZYyOEMyLwgceDk6zLBWP/g8Gu5Fwa+0OcybHNSjjPMQGTV6fDt7GuQ3aj7l0r
-	on4Xws16zAo9ioPwY70T6cw1Zfaq0Srb16i21TUfZ5cxlh1m9ClgO9Pb9NruLDQD9B/tPD+27FX
-	WNjvY2/JdgGJz+3nbLmRJpnJe3X1Iy6k4D+tu3AFQ6M91PmktwqUeVaPnZQY5u6HI8nI+2P1NDY
-	YJFB3+nlQU2I0W7C+YTUTjzHhEkFJZtlRIUZvLhlTQgoV/6l9LazPAS1kBiNC4rgDPaf5q9GrIA
-	wAbW/9KJOBZZkk9ucDjgnAJvf0+QXTV6C/8t7Cim71S0kJEjSYA0U1XMe20O1P3+S4S/ZAyvLSm
-	05D3tpZlVM5i6de31i2m3DIx/z5S6bEBgIA1CwqWvkPdUaADAJ5v6ANUh6Q6qa
-X-Received: by 2002:a05:6512:3984:b0:5aa:6290:f78d with SMTP id 2adb3069b0e04-5ad30d99426mr3972154e87.2.1781607878023;
-        Tue, 16 Jun 2026 04:04:38 -0700 (PDT)
-Received: from ?IPV6:2a00:23ee:1510:399a:1882:f251:1d3c:955? ([2a00:23ee:1510:399a:1882:f251:1d3c:955])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5ad2e16915dsm3486523e87.19.2026.06.16.04.04.36
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 16 Jun 2026 04:04:37 -0700 (PDT)
-Message-ID: <fa2e0cfb-9d60-4295-8a46-f69ce1229094@bynar.io>
-Date: Tue, 16 Jun 2026 12:04:32 +0100
+        d=1e100.net; s=20251104; t=1781608370; x=1782213170;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=on8hqRmuM/Ky2/WGRUWRuZiJutnnNXtBaovb+8l2mm4=;
+        b=ipN9/UhSzrrjzBRi7pF7EpNigbTYXQyzGlkP9358/gigbDJSX6F1D4qg/FMIjIlR82
+         adTjF+XqFbhHTJ0qCQjZIzvP//1lKmNp+wCLHKXwWRWvySd8hWGRhe9PC8RsQ3mDtdct
+         wEe7DgML7a3Ai/yxvkHFCSrlJM4sghd3TCVm+sRUoaSY2iOcr33DtsNJNnOGvmrphkgn
+         xg49uzYFFRqC5NYdSmoey2bYuzkcJlHl7elb+3nAGyjN2Zo8fQOQetquU5ZYss+E0aFz
+         IwEwAWANoj/6D/uhGkLU0gtop1xSs0fj150lVBHObyE6duCIOJDqYjCiukSQyTOfET/t
+         JCwg==
+X-Forwarded-Encrypted: i=1; AFNElJ+zFVZFnNTd9G9BRgIZVQvV1fmPIUfmRQJWihVV4PXnlYrY412yvHLKW615ou5kLBSlJOflL4c=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwgbEVh1lgaPvT6TBsstKMvCVwzhJnwVjI18HCRPn1gRkLgr3lc
+	MgEhx3wEO2UHpvEAnSuCA2clkOqQn4LnFMQKQj5t/g3saTjhnbPtiqnDwjc/nhA/Eg==
+X-Gm-Gg: Acq92OE+43zFE1Cp5sS3T3DdwMD69R/gQtSDX2Pa6DHMzQX7zlnqyzy9UxMsrlYH877
+	FeKXv1j0Lq5anyhpzAUxVA9sLL2tviibGYubeyHXaAWlZig+2mDfNlhW/+CYNb55yR3dY472PCS
+	loXVwyM4f9SpRxDj5v8HTij04dkJgzxqa2M/mPoIRUaTQvX3X11sVpN5bDyd0PowyHipNeDNMyH
+	fpHobXv+XSuFmhVpFX5XDx1Ly1RUbPbAhTwiPhUccU315UyKCDYeSNS17vlMACnEP40YTxad/wg
+	ufk6cU8ZADmBDQX5h+eIKNBdq4u1Oc3JPxyxORWK6ORsw/WvDDwaKAc8SIXa8HgJ58o0C7fBmD9
+	lh6wW0DLNlRQOnpueeDoS1jHcGCe289T6ErczkdZI8tLsYnZYAFi8pC1fP67XwGpNzTvgiNgouz
+	+nhjlz3qvUFbox7uXManxAEvIuHLBCpc5RugLzZ3NwLGXon06guD72kTabuAG1lOOgBdD3c3TNj
+	XWMWdLp1AlD
+X-Received: by 2002:a05:6a00:9285:b0:82f:abc8:ae0 with SMTP id d2e1a72fcca58-844e19879d5mr16162588b3a.17.1781608370193;
+        Tue, 16 Jun 2026 04:12:50 -0700 (PDT)
+Received: from tigerii.tok.corp.google.com ([2a00:79e0:2031:6:a0b:fabb:5b62:b85b])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8434b05921bsm12906321b3a.59.2026.06.16.04.12.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 16 Jun 2026 04:12:49 -0700 (PDT)
+From: Sergey Senozhatsky <senozhatsky@chromium.org>
+To: Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+	Mark-yw Chen <mark-yw.chen@mediatek.com>,
+	Sean Wang <sean.wang@mediatek.com>
+Cc: Tomasz Figa <tfiga@chromium.org>,
+	linux-bluetooth@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	Sergey Senozhatsky <senozhatsky@chromium.org>,
+	stable@vger.kernel.org
+Subject: [PATCH v2 1/3] Bluetooth: btmtksdio: correct btmtksdio_txrx_work() loop timeout check
+Date: Tue, 16 Jun 2026 20:12:06 +0900
+Message-ID: <20260616111224.152140-2-senozhatsky@chromium.org>
+X-Mailer: git-send-email 2.54.0.1136.gdb2ca164c4-goog
+In-Reply-To: <20260616111224.152140-1-senozhatsky@chromium.org>
+References: <20260616111224.152140-1-senozhatsky@chromium.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] tipc: free bearer discoverer via RCU to fix
- tipc_disc_rcv UAF
-To: Tung Quang Nguyen <tung.quang.nguyen@est.tech>
-Cc: "David S . Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "tipc-discussion@lists.sourceforge.net"
- <tipc-discussion@lists.sourceforge.net>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "stable@vger.kernel.org" <stable@vger.kernel.org>,
- Jon Maloy <jmaloy@redhat.com>, bestswngs@gmail.com
-References: <20260615150009.1734270-1-sam@bynar.io>
- <GV1P189MB19887A9A37B5B170C112DF8EC6E52@GV1P189MB1988.EURP189.PROD.OUTLOOK.COM>
-Content-Language: en-GB
-From: Sam P <sam@bynar.io>
-In-Reply-To: <GV1P189MB19887A9A37B5B170C112DF8EC6E52@GV1P189MB1988.EURP189.PROD.OUTLOOK.COM>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 16/06/2026 08:50, Tung Quang Nguyen wrote: 
-> A similar patch was submitted 6 days ago: https://patchwork.kernel.org/project/netdevbpf/patch/20260610153349.2546041-2-bestswngs@gmail.com/
-> 
-> I do not receive updated patch from the submitter yet.
-> Your patch has the same coding style issue (long line, over 80 columns), see linux/Documentation/process/coding-style.rst
-> 
-> If you break the long line into 2 lines and submit again, I think I can acknowledge your patch.
+The btmtksdio_txrx_work() loop is expected to be terminated if running
+for longer than 5*HZ.  However the timeout check is reversed:
+time_is_before_jiffies(old_jiffies + 5*HZ) evaluates to true when
+old_jiffies + 5*HZ is in the past i.e. when a timeout has occurred.
+Using OR with time_is_before_jiffies(txrx_timeout) means that:
+- before the 5-second timeout: the condition is `int_status || false`,
+  so it loops as long as there are pending interrupts.
+- after the 5-second timeout: the condition becomes `int_status || true`,
+  which is always true.
 
-Oops, I missed that patch! I'm not sure what the etiquette
-is in this case, but I'm happy to defer to the original
-submitter (CCd) if they're working on a new patch and/or
-add any appropriate trailers to my v2.
+Fix loop termination condition to actually enforce a 5*HZ timeout.
 
-I've prepared a v2 to submit after the ~24h period,
-addressing your changes and taking into account Eric's
-feedback from the earlier submission as well
-(adding an rcu_barrier() in tipc_exit()).
+Fixes: 26270bc189ea4 ("Bluetooth: btmtksdio: move interrupt service to work")
+Cc: stable@vger.kernel.org
+Signed-off-by: Sergey Senozhatsky <senozhatsky@chromium.org>
+---
+ drivers/bluetooth/btmtksdio.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/bluetooth/btmtksdio.c b/drivers/bluetooth/btmtksdio.c
+index 5b0fab7b89b5..c6f80c419e90 100644
+--- a/drivers/bluetooth/btmtksdio.c
++++ b/drivers/bluetooth/btmtksdio.c
+@@ -620,7 +620,7 @@ static void btmtksdio_txrx_work(struct work_struct *work)
+ 			if (btmtksdio_rx_packet(bdev, rx_size) < 0)
+ 				bdev->hdev->stat.err_rx++;
+ 		}
+-	} while (int_status || time_is_before_jiffies(txrx_timeout));
++	} while (int_status && time_is_after_jiffies(txrx_timeout));
+ 
+ 	/* Enable interrupt */
+ 	if (bdev->func->irq_handler)
+-- 
+2.54.0.1136.gdb2ca164c4-goog
 
