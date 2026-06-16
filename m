@@ -1,31 +1,31 @@
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E008E3C9889
-	for <stable@vger.kernel.org>; Tue, 16 Jun 2026 05:25:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D49B21EEA49
+	for <stable@vger.kernel.org>; Tue, 16 Jun 2026 05:26:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781587560; cv=none; b=EGrvE1Lafgj4IIMTtdsEfWsjfLQfCUgv1w4qdi5Z3rAKcF7lU+8TfbYimaqOmjvgfnQV/ZSboxJSkFDDQT5PGWE62pl4FEpPD/KG1Nlno4ONBNJYsPBR/jszH+DFB5seu5fdPuhlzcTrzLrkUG0o+Px6OBnmiu+NHTIcB5xrjDQ=
+	t=1781587561; cv=none; b=WRkMR6c1xrb8DZYzByibPL02/SGdKZSr9cFyr5Ng7UV/e0vIFCt+XCttZzt7fBgbc7FTDr3Bayk5JnGs7BIIU0+//+Kgxnpsvlp3baKXkWj7WjOduMJ1RppUqdnCCpFh7rztDMF/Xc2OztU7/KObESDGLoGufFYEYLkWRa0YOsw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781587560; c=relaxed/simple;
-	bh=8l5WZaYvBgTphZmdr9L3TssPYmCJMo0X6d7ka6mYlUU=;
+	s=arc-20240116; t=1781587561; c=relaxed/simple;
+	bh=uWYlm2RY2kzoF8Re4V71O2Utv+jbo6d9EN3B5pPfJNs=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=Q4dmb+K81aYRC19qwUKRAvAIjYfSUR7E2u+Uo0mfOxrx85pNlCUqEFfg9Rit/L3eT0OWrPrGGFUp1p3BFE/aPjKeUFlU4dqpga2kY+ZcbvoBX27IIeQVqX+pFVqfBRdOy2x0tH6qwZl0dAB8fLOy524Ibha3JeLHf4xeTq9lBsA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=cpnvr1y+; arc=none smtp.client-ip=217.140.110.172
+	 MIME-Version; b=iAN6doSBPH/F8SKMpUIm31OY1GJOkde8O0DI4JEOuFrGZJ/afYsqFEvBdHJ2aEKEAFN5rilOuFRLCnr1KPQ1PB9KSVv4iCMseTHU6G2m6/4rVbqutU5BSZOGtWDZdtpw5rty27PmWYl+MfY8/OEyTr19Lx9T+y/nhwqSLEmzORw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=XZh0FOax; arc=none smtp.client-ip=217.140.110.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="cpnvr1y+"
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="XZh0FOax"
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D154B4360;
-	Mon, 15 Jun 2026 22:25:53 -0700 (PDT)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C54B73D4B;
+	Mon, 15 Jun 2026 22:25:55 -0700 (PDT)
 Received: from lakrids.cambridge.arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id D782E3F763;
-	Mon, 15 Jun 2026 22:25:56 -0700 (PDT)
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id CC63B3F763;
+	Mon, 15 Jun 2026 22:25:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1781587558; bh=8l5WZaYvBgTphZmdr9L3TssPYmCJMo0X6d7ka6mYlUU=;
+	t=1781587560; bh=uWYlm2RY2kzoF8Re4V71O2Utv+jbo6d9EN3B5pPfJNs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=cpnvr1y+SOFySlR8fz5ScVdM/xGcQBPSdHdchOXy3c4Lq5HTEKE06jYRJSedOV+57
-	 HCjTcydm544aNEVq1iATWxdyVh8+p7uU68jnTK9Wm6dYGH7TYwammPn9NLaYJPb1Dv
-	 eiC0+eEkcpO4cajbPGv0I+mamVWFAIQ/TG79ZkbE=
+	b=XZh0FOaxNrZyHKRFOGaa/EWlpMm+uc0eWC5OLReebbnlnWchHC/GeZlNoDk+IU6jV
+	 dYqplQaCW1NnnZrLuO9kE4FQ3nRbIglu+I8eXp/40rYAWifDAG6vXqFUuazICMNXX2
+	 DCc4RVJIoeZIkhrP0uSlPrXOlN67Lnp7qMrTEUo8=
 From: Mark Rutland <mark.rutland@arm.com>
 To: stable@vger.kernel.org
 Cc: anshuman.khandual@arm.com,
@@ -41,9 +41,9 @@ Cc: anshuman.khandual@arm.com,
 	sdonthineni@nvidia.com,
 	will@kernel.org,
 	yuzenghui@huawei.com
-Subject: [PATCH 5.10.y 04/10] arm64: Subscribe Microsoft Azure Cobalt 100 to ARM Neoverse N2 errata
-Date: Tue, 16 Jun 2026 06:25:37 +0100
-Message-Id: <20260616052543.112176-5-mark.rutland@arm.com>
+Subject: [PATCH 5.10.y 05/10] arm64: cputype: Add NVIDIA Olympus definitions
+Date: Tue, 16 Jun 2026 06:25:38 +0100
+Message-Id: <20260616052543.112176-6-mark.rutland@arm.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20260616052543.112176-1-mark.rutland@arm.com>
 References: <20260616052543.112176-1-mark.rutland@arm.com>
@@ -55,59 +55,40 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Easwar Hariharan <eahariha@linux.microsoft.com>
+From: Shanker Donthineni <sdonthineni@nvidia.com>
 
-commit fb091ff394792c018527b3211bbdfae93ea4ac02 upstream.
+commit e185c8a0d84236d14af61faff8147c953a878a77 upstream.
 
-Add the MIDR value of Microsoft Azure Cobalt 100, which is a Microsoft
-implemented CPU based on r0p0 of the ARM Neoverse N2 CPU, and therefore
-suffers from all the same errata.
+Add cpu part and model macro definitions for NVIDIA Olympus core.
 
-CC: stable@vger.kernel.org # 5.15+
-Signed-off-by: Easwar Hariharan <eahariha@linux.microsoft.com>
-Reviewed-by: Anshuman Khandual <anshuman.khandual@arm.com>
-Acked-by: Mark Rutland <mark.rutland@arm.com>
-Acked-by: Marc Zyngier <maz@kernel.org>
-Reviewed-by: Oliver Upton <oliver.upton@linux.dev>
-Link: https://lore.kernel.org/r/20240214175522.2457857-1-eahariha@linux.microsoft.com
+Signed-off-by: Shanker Donthineni <sdonthineni@nvidia.com>
 Signed-off-by: Will Deacon <will@kernel.org>
-Signed-off-by: Easwar Hariharan <eahariha@linux.microsoft.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-[Mark: backport to v5.10.y; only the MIDR is relevant to v5.10.y]
+[Mark: backport to v5.10.y]
 Signed-off-by: Mark Rutland <mark.rutland@arm.com>
 ---
- arch/arm64/include/asm/cputype.h | 4 ++++
- 1 file changed, 4 insertions(+)
+ arch/arm64/include/asm/cputype.h | 2 ++
+ 1 file changed, 2 insertions(+)
 
 diff --git a/arch/arm64/include/asm/cputype.h b/arch/arm64/include/asm/cputype.h
-index 9974ef7c788d9..d49743d01fe66 100644
+index d49743d01fe66..d006b3e3cfc37 100644
 --- a/arch/arm64/include/asm/cputype.h
 +++ b/arch/arm64/include/asm/cputype.h
-@@ -61,6 +61,7 @@
- #define ARM_CPU_IMP_HISI		0x48
- #define ARM_CPU_IMP_APPLE		0x61
- #define ARM_CPU_IMP_AMPERE		0xC0
-+#define ARM_CPU_IMP_MICROSOFT		0x6D
+@@ -121,6 +121,7 @@
  
- #define ARM_CPU_PART_AEM_V8		0xD0F
- #define ARM_CPU_PART_FOUNDATION		0xD00
-@@ -130,6 +131,8 @@
+ #define NVIDIA_CPU_PART_DENVER		0x003
+ #define NVIDIA_CPU_PART_CARMEL		0x004
++#define NVIDIA_CPU_PART_OLYMPUS		0x010
  
- #define AMPERE_CPU_PART_AMPERE1		0xAC3
+ #define FUJITSU_CPU_PART_A64FX		0x001
  
-+#define MICROSOFT_CPU_PART_AZURE_COBALT_100	0xD49 /* Based on r0p0 of ARM Neoverse N2 */
-+
- #define MIDR_CORTEX_A53 MIDR_CPU_MODEL(ARM_CPU_IMP_ARM, ARM_CPU_PART_CORTEX_A53)
- #define MIDR_CORTEX_A57 MIDR_CPU_MODEL(ARM_CPU_IMP_ARM, ARM_CPU_PART_CORTEX_A57)
- #define MIDR_CORTEX_A72 MIDR_CPU_MODEL(ARM_CPU_IMP_ARM, ARM_CPU_PART_CORTEX_A72)
-@@ -185,6 +188,7 @@
+@@ -183,6 +184,7 @@
+ #define MIDR_QCOM_KRYO_4XX_SILVER MIDR_CPU_MODEL(ARM_CPU_IMP_QCOM, QCOM_CPU_PART_KRYO_4XX_SILVER)
+ #define MIDR_NVIDIA_DENVER MIDR_CPU_MODEL(ARM_CPU_IMP_NVIDIA, NVIDIA_CPU_PART_DENVER)
+ #define MIDR_NVIDIA_CARMEL MIDR_CPU_MODEL(ARM_CPU_IMP_NVIDIA, NVIDIA_CPU_PART_CARMEL)
++#define MIDR_NVIDIA_OLYMPUS MIDR_CPU_MODEL(ARM_CPU_IMP_NVIDIA, NVIDIA_CPU_PART_OLYMPUS)
+ #define MIDR_FUJITSU_A64FX MIDR_CPU_MODEL(ARM_CPU_IMP_FUJITSU, FUJITSU_CPU_PART_A64FX)
+ #define MIDR_HISI_TSV110 MIDR_CPU_MODEL(ARM_CPU_IMP_HISI, HISI_CPU_PART_TSV110)
  #define MIDR_APPLE_M1_ICESTORM MIDR_CPU_MODEL(ARM_CPU_IMP_APPLE, APPLE_CPU_PART_M1_ICESTORM)
- #define MIDR_APPLE_M1_FIRESTORM MIDR_CPU_MODEL(ARM_CPU_IMP_APPLE, APPLE_CPU_PART_M1_FIRESTORM)
- #define MIDR_AMPERE1 MIDR_CPU_MODEL(ARM_CPU_IMP_AMPERE, AMPERE_CPU_PART_AMPERE1)
-+#define MIDR_MICROSOFT_AZURE_COBALT_100 MIDR_CPU_MODEL(ARM_CPU_IMP_MICROSOFT, MICROSOFT_CPU_PART_AZURE_COBALT_100)
- 
- /* Fujitsu Erratum 010001 affects A64FX 1.0 and 1.1, (v0r0 and v1r0) */
- #define MIDR_FUJITSU_ERRATUM_010001		MIDR_FUJITSU_A64FX
 -- 
 2.30.2
 
