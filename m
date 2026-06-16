@@ -1,66 +1,113 @@
-Received: from mailout2.hostsharing.net (mailout2.hostsharing.net [83.223.78.233])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 735C83C277C;
-	Tue, 16 Jun 2026 03:16:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=83.223.78.233
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 077A91624D5
+	for <stable@vger.kernel.org>; Tue, 16 Jun 2026 03:17:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781579779; cv=none; b=qcXpkn4VuM8ZSSi8O5dXgVhUFUMIK7YWKQHU7XJSliFrb9ZR7o1bPdTGCeCIZu4qVnU2RfsK2Vj25kn0kdPemjkKikK8UyMn2S/agTLLYAzwSpOu8f1aRNm6luLWIoyit+ZyWow+PUR/kSTV2D+Fjkf8QfTYEGgKH1zzR8PQyH8=
+	t=1781579837; cv=none; b=PPUoTBIxXs4Tty/BWNeeyqf7nwCPXapFebCw7x3oe2WS5S+FuEcxa4VKbUDb5odzeY7HY0DqfOdNVT17K7Pyb/nggwc7g9Gs5+rd7qoTVWc78EnlpYyZHlvDPXf1a0FH/lTIoxDX/jQOxxRjUQ76bev2jZixm/YpotTLJjsl09o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781579779; c=relaxed/simple;
-	bh=qtqTjDdI6m+T4XN/N6CcVLUF+QBmCRwe8Yyo4kAe7/4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Cru0DenjTszwCoQkAnxB/Ik7GTkHsjMVahJQLcUFJ8zkq0iwgAmj/58mL3aTaHqqjkMAGsLYGiv+pvHouxow1QPkaUL3ocLH1dOU4mO47IkSa3ciqZBhDdlGRlChwrVzTkkYRyajQBV6JzIt7nqbPyKHMYCvpLdAM37Hpxu58U8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=wunner.de; spf=pass smtp.mailfrom=wunner.de; arc=none smtp.client-ip=83.223.78.233
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=wunner.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wunner.de
-Received: from h08.hostsharing.net (h08.hostsharing.net [83.223.95.28])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature ECDSA (secp384r1) server-digest SHA384
-	 client-signature ECDSA (secp384r1) client-digest SHA384)
-	(Client CN "*.hostsharing.net", Issuer "GlobalSign GCC R6 AlphaSSL CA 2025" (verified OK))
-	by mailout2.hostsharing.net (Postfix) with ESMTPS id 6A5EB10DD4;
-	Tue, 16 Jun 2026 05:16:13 +0200 (CEST)
-Received: by h08.hostsharing.net (Postfix, from userid 100393)
-	id 44434600DC48; Tue, 16 Jun 2026 05:16:13 +0200 (CEST)
-Date: Tue, 16 Jun 2026 05:16:13 +0200
-From: Lukas Wunner <lukas@wunner.de>
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: djbw@kernel.org, bhelgaas@google.com, linux-coco@lists.linux.dev,
-	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] PCI/TSM: fix use-after-free in find_dsm_dev()
-Message-ID: <ajC__b2Z3W_8746Z@wunner.de>
-References: <20260616030243.1661791-1-vulab@iscas.ac.cn>
+	s=arc-20240116; t=1781579837; c=relaxed/simple;
+	bh=MYyIY46OEMj1V7Xegxwtiy5iy1803yy/qq+NtwanQe0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=d1SzWGHA+rZNoaeGAjXT/z9TIo1DhzH7U1oZZf8RCXZP/HI41jHMFycQJW5a3nXYW0mFJEmyiySqt20c06hywiPz3RH1OOXME/BwgDNnjrxjwjrUELW/1nTTaji0m8urVnal2oq9N4qsAe7m+Hj+UXM1IqtWmFWHpQrwbM9iuvg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=de+CbaBZ; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="de+CbaBZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 389261F000E9;
+	Tue, 16 Jun 2026 03:17:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781579835;
+	bh=S4Df92AAoIYYlD3L2J6HEgIR23h3GtBrYG7PSjziyiM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=de+CbaBZBDxbAITeG2SpvbXxxtEsN172LOFTT0NmYIgFK0qOz4Up49CV9xna94m9s
+	 wYB15uuJDVBuWLVyqOgVx41PMVtBqp09BnUGnZgDIwCIHRPSHGx/13gNy4QB51frOc
+	 VX44JeuXAyr7afbtL9M+dh52WCvwe+8D+p1o+K8P/Q58OGVcANfi16XsEo1UmG1SP+
+	 wemL9rsc9sk0K0s9OpUjYE5n/12D6Cor7zBKKAfs5F0cwsMEmSM1ieBQqMRKcQGN44
+	 p51VT32ht1DnwnFSXDLyLer16F7Tq0WrbPgVi8bs0SAy/dtPK3pS/PCjyNwDIe/BSe
+	 Cyj4gMjxMWJYQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Yin Tirui <yintirui@huawei.com>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"David Hildenbrand (arm)" <david@kernel.org>,
+	Lance Yang <lance.yang@linux.dev>,
+	Dev Jain <dev.jain@arm.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Barry Song <baohua@kernel.org>,
+	Chen Jun <chenjun102@huawei.com>,
+	Kefeng Wang <wangkefeng.wang@huawei.com>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Nico Pache <npache@redhat.com>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Yang Shi <yang.shi@linux.alibaba.com>,
+	Zi Yan <ziy@nvidia.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y] mm/huge_memory: update file PMD counter before folio_put()
+Date: Mon, 15 Jun 2026 23:17:12 -0400
+Message-ID: <20260616031712.2780366-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026061514-baked-magnolia-385e@gregkh>
+References: <2026061514-baked-magnolia-385e@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260616030243.1661791-1-vulab@iscas.ac.cn>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Jun 16, 2026 at 03:02:43AM +0000, Wentao Liang wrote:
-> In find_dsm_dev(), pf0 is obtained via pf0_dev_get() which returns a
-> reference-counted pointer.  It is declared with __free(pci_dev_put),
-> so pci_dev_put() will be called when the variable goes out of scope.
-> Returning 'pf0' directly while it still has __free cleanup causes the
-> reference to be dropped before the caller can use the pointer, leading
-> to a use-after-free.
+From: Yin Tirui <yintirui@huawei.com>
 
-No, the code comment preceding find_dsm_dev() explicitly states:
+[ Upstream commit 8d878059924f12c1bc24556a92ec56add74de3c8 ]
 
-   "Note that no additional reference is held for the resulting device
-    because that resulting object always has a registered lifetime
-    greater-than-or-equal to that of the @pdev argument."
+__split_huge_pmd_locked() updates the file/shmem RSS counter after
+dropping the PMD mapping's folio reference.  If folio_put() drops the last
+reference, mm_counter_file() can later read freed folio state via
+folio_test_swapbacked().
 
-Your patch looks like it may be an LLM-generated hallucination.
-Did you use an LLM to come up with the patch?  If so, please use
-an Assisted-by tag per Documentation/process/coding-assistants.rst
-so that we know to expect hallucinations.
+Move the counter update before folio_put().
 
-Thanks,
+Link: https://lore.kernel.org/20260526101337.1984081-1-yintirui@huawei.com
+Fixes: fadae2953072 ("thp: use mm_file_counter to determine update which rss counter")
+Signed-off-by: Yin Tirui <yintirui@huawei.com>
+Reviewed-by: Lorenzo Stoakes <ljs@kernel.org>
+Acked-by: David Hildenbrand (arm) <david@kernel.org>
+Reviewed-by: Lance Yang <lance.yang@linux.dev>
+Reviewed-by: Dev Jain <dev.jain@arm.com>
+Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: Barry Song <baohua@kernel.org>
+Cc: Chen Jun <chenjun102@huawei.com>
+Cc: Kefeng Wang <wangkefeng.wang@huawei.com>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Nico Pache <npache@redhat.com>
+Cc: Ryan Roberts <ryan.roberts@arm.com>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Yang Shi <yang.shi@linux.alibaba.com>
+Cc: Zi Yan <ziy@nvidia.com>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ mm/huge_memory.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Lukas
+diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+index 92550e398e5da3..fdcf89e3b1d27d 100644
+--- a/mm/huge_memory.c
++++ b/mm/huge_memory.c
+@@ -2066,7 +2066,9 @@ static void __split_huge_pmd_locked(struct vm_area_struct *vma, pmd_t *pmd,
+ 			if (!PageReferenced(page) && pmd_young(old_pmd))
+ 				SetPageReferenced(page);
+ 			page_remove_rmap(page, true);
++			add_mm_counter(mm, mm_counter_file(page), -HPAGE_PMD_NR);
+ 			put_page(page);
++			return;
+ 		}
+ 		add_mm_counter(mm, mm_counter_file(page), -HPAGE_PMD_NR);
+ 		return;
+-- 
+2.53.0
+
