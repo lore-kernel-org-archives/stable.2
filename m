@@ -1,103 +1,83 @@
-Received: from maynard.decadent.org.uk (maynard.decadent.org.uk [65.21.191.19])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5560F331EA5;
-	Tue, 16 Jun 2026 21:51:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.21.191.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53D983AA1BB;
+	Tue, 16 Jun 2026 22:00:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781646672; cv=none; b=G61gv+bDtsrFjiO/Qwj+xIEIr6I1J6DR2Lv49JZHqEXHWS8QIKAuez5CcIbqLARdY0kUfWgN7IKQxGTtYDHL69BDPIpRFNp/Zntp15NgOky5+qfM2o7Y1i1v3Zyo0iUu0ErpPoBLEpwKpeGHDJTlyZmjoNdI3eF0vhFZZ5XrXEc=
+	t=1781647213; cv=none; b=C0F8gAjsTFC8JQmI1OaqTVNaIV35ogDL4dEO0Iv/4g+dnpUsqeXoZxdVCWVLTEQ4+4j9N1jESFB5UIumMlAkKgYJSA59deYbLcj7dBHGPDKJsMyVt+PX6aqLYts75z1oo7Wx0NtgdPFnurVMUtWHqWN2cA+HQW2SIjgdPTZmyEk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781646672; c=relaxed/simple;
-	bh=J6L2JqZOEO4VGS8RMRp8G7XSv26WMiGleJNndBZ67j8=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=ClddRDY6saYZzkghQ2tyH6cK/ArUdq68tkc1J0QIdAIRdFRGNlZ6SqjIuZbE9m4BFNHGwaH4oR1y4RsIsxDPIHd8r9mE4KmyLuKAC8KfNMzQWFaessvonfHLScmCm6WEjYpR+i8unqsuRHyMdBGGP/sdYf6H1xmz+z+Q6W/IQKQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=decadent.org.uk; spf=pass smtp.mailfrom=decadent.org.uk; arc=none smtp.client-ip=65.21.191.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=decadent.org.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=decadent.org.uk
-Received: from [2a02:578:851f:1502:391e:c5f5:10e2:b9a3] (helo=deadeye)
-	by maynard with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <ben@decadent.org.uk>)
-	id 1wZazo-002r0l-00;
-	Tue, 16 Jun 2026 21:06:56 +0000
-Received: from ben by deadeye with local (Exim 4.99.3)
-	(envelope-from <ben@decadent.org.uk>)
-	id 1wZazm-00000006Vwl-2AId;
-	Tue, 16 Jun 2026 23:06:54 +0200
-Message-ID: <9125d5976feb09ef919f2a287b079843c7671325.camel@decadent.org.uk>
-Subject: Re: [PATCH 6.1 011/522] tools/bootconfig: Cleanup bootconfig footer
- size calculations
-From: Ben Hutchings <ben@decadent.org.uk>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, "Masami Hiramatsu (Google)"
- <mhiramat@kernel.org>,  Sasha Levin <sashal@kernel.org>
-Date: Tue, 16 Jun 2026 23:06:49 +0200
-In-Reply-To: <20260616145125.946340231@linuxfoundation.org>
-References: <20260616145125.307082728@linuxfoundation.org>
-	 <20260616145125.946340231@linuxfoundation.org>
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-lCR5RCChjejQim0VI15B"
-User-Agent: Evolution 3.56.2-9 
+	s=arc-20240116; t=1781647213; c=relaxed/simple;
+	bh=kSovyPQf1u2/+wpyT4dQZ1O7R+GwVZMm10TSoSuDU04=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=YSzBMIbwkJ99NF4PgRb5oM/CMsrWRqGec3eMIoE9LzwJqC76SbKhqWU3IN2OooCvaIHMwO5lty8LuwtELEFaEqzY43oQl7PX7C946daM3FORAuxgcqRfyiKpJu6UsT08Sbh68jTwOcTDKGO/8VKFaJ/lRMBFfwJpsvPkVtjfGg0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TtNwvbPU; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TtNwvbPU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2EA21F000E9;
+	Tue, 16 Jun 2026 22:00:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781647210;
+	bh=QX+gVE0CESSzoDMopJzLLtkh0bSG3nJdRekHMwjNQJA=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=TtNwvbPUrr3/Ys4kJsn4oXYtTJdt5toBBhhuCa28ouxp/5yV3IUpohtwf63BP0mfv
+	 mw4cz5J0gwJF+gpfEUEeajUmenuw4PrE+lrF8XqdIGYX5juI255CSeZ4HQQhJnmsWu
+	 xaflEccirz9LQuM7g2TeX/gCaoH7Qahf4TdYVpjtCL6get8kH8AWA1+24dFB7MsLGe
+	 kmYIQrktAr6/Q1+vKWTyDZNi/cRwd085xqq59gii+ZETGDEUYpcjnJ8AAbIC6wWUgk
+	 v/vXYKFB8bbsLST362F0SozlIYrSb+hlAmmqFWK7WDljlxXLWFY1CxhCsSRGXMK95M
+	 4PlSl0i++NwEw==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 93B393930C2B;
+	Tue, 16 Jun 2026 22:00:06 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-SA-Exim-Connect-IP: 2a02:578:851f:1502:391e:c5f5:10e2:b9a3
-X-SA-Exim-Mail-From: ben@decadent.org.uk
-X-SA-Exim-Scanned: No (on maynard); SAEximRunCond expanded to false
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net v2] net: skmsg: preserve sg.copy across SG transforms
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <178164720514.1257010.17974091199123614376.git-patchwork-notify@kernel.org>
+Date: Tue, 16 Jun 2026 22:00:05 +0000
+References: <20260610062137.49075-1-yimingqian591@gmail.com>
+In-Reply-To: <20260610062137.49075-1-yimingqian591@gmail.com>
+To: Yiming Qian <yimingqian591@gmail.com>
+Cc: security@kernel.org, john.fastabend@gmail.com, jakub@cloudflare.com,
+ kuba@kernel.org, sd@queasysnail.net, davem@davemloft.net,
+ edumazet@google.com, pabeni@redhat.com, horms@kernel.org,
+ keenanat2000@gmail.com, netdev@vger.kernel.org, bpf@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+
+Hello:
+
+This patch was applied to netdev/net.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
+
+On Wed, 10 Jun 2026 06:21:36 +0000 you wrote:
+> The sk_msg sg.copy bitmap is part of the scatterlist entry ownership
+> state. A set bit tells sk_msg_compute_data_pointers() not to expose the
+> entry through writable BPF ctx->data. This protects entries backed by
+> pages that are not private to the sk_msg, such as splice-backed file
+> page-cache pages.
+> 
+> Several sk_msg transform paths move, copy, split, or compact
+> msg->sg.data[] entries without moving the matching sg.copy bit. This can
+> make an externally backed entry arrive at a new slot with a clear copy
+> bit. A later SK_MSG verdict can then expose sg_virt(sge) as writable
+> ctx->data and BPF stores can modify the original page cache.
+> 
+> [...]
+
+Here is the summary with links:
+  - [net,v2] net: skmsg: preserve sg.copy across SG transforms
+    https://git.kernel.org/netdev/net/c/406e8a651a7b
+
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
 
---=-lCR5RCChjejQim0VI15B
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Tue, 2026-06-16 at 20:22 +0530, Greg Kroah-Hartman wrote:
-> 6.1-stable review patch.  If anyone has any objections, please let me kno=
-w.
->=20
-> ------------------
->=20
-> From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
->=20
-> [ Upstream commit 26dda57695090e05c1a99c3e8f802f862d1ac474 ]
->=20
-> There are many same pattern of 8 + BOOTCONFIG_MAGIC_LEN for calculating
-> the size of bootconfig footer. Use BOOTCONFIG_FOOTER_SIZE macro to
-> clean up those magic numbers.
-[...]
-
-This causes a regression in some configurations, fixed by commit
-729dc340a4ed "bootconfig: Fix negative seeks on 32-bit with LFS
-enabled".
-
-Ben.
-
---=20
-Ben Hutchings
-For every complex problem
-there is a solution that is simple, neat, and wrong.
-
---=-lCR5RCChjejQim0VI15B
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEErCspvTSmr92z9o8157/I7JWGEQkFAmoxuukACgkQ57/I7JWG
-EQl4+A//TuIeXRd0kdF3l5DYV417IjO2eo3WiKdbBGVJnHV1Odw9fVb9ETGQ+fiD
-IB3j/0FAjx7ejLy8jpq/eikH05+5lzjZ4/zbPw7EiTh6JkeG5bAoyGqlitJ7vCdQ
-AitMdv0ihF5yD6HczapV3S3jsowMp/4TFKKeYw2IVZ1RL2yCGKffQPuuBXYBcleK
-Qk3veEdGvAD57bwluFE9jaJpI+Av5/bHlVZUfxDAxDfF4evEIjt1GOPp8Oln/LqN
-D7b/MWI6o7RLkZPidPTcFu/ananuQyYaRVmn1N1vuqLBhH03VSsqN4xhNIA1uhrt
-sDdg/RC8Is0QGFa1xOWTgJqB7LXgnrie6lDZJ5DQHkV4hcyZzAO6wb8BrHj7oxFR
-CwFr8lenCWI9j7gcx7aYIssDKb48ErxaUTCO3BC7gLRjcRJJW/H2jO1M06gGNTsR
-g+S0daMXwSrDr8cKnlXbdFAKTKX+bPFc4n1NIstbaAnpbR6vv1S4bMyEhtJ0FNoo
-o0hdhU9F/VLM+wE8EYf/FvjzBkikPCMtkwwUqRk/d4pPZY5ZhaP/UVpbdjE+S4/9
-Z071Ee4kYylCeqHf/91AxqEpHBavJBjB+bOYvDahhdWUQGo0bS0T3JZcbgVH4Z1I
-F02FSix7y5KpbutIvI/ywuPMA9pSsmQVRXbjuCYB/LTls/t1fTc=
-=NR/Z
------END PGP SIGNATURE-----
-
---=-lCR5RCChjejQim0VI15B--
