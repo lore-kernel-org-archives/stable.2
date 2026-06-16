@@ -1,222 +1,152 @@
-Received: from mail-qt1-f175.google.com (mail-qt1-f175.google.com [209.85.160.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5331F378D72
-	for <stable@vger.kernel.org>; Tue, 16 Jun 2026 14:28:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2A0A2E7367;
+	Tue, 16 Jun 2026 14:31:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781620093; cv=none; b=SQy32xfZLpITWZgkSznRWR0TEoF747rEcP6+Pa38CBv8yo2cBjDE8D3B/UwkvjfiYpkJqsUl6NoI1fSdA7v9wzjXKJ4tODav7HqpryhQQneKIYoYczep95VqNbLR9vr2g3g+pvPalcsefNqHmIvpiJlGnRLm5Vy6yGOlVlM/KIg=
+	t=1781620296; cv=none; b=sOt+uvavQVgapbjQAGatk93mlGN+1u18AwcIjY/rueUQbFFECA+N9DP9bcDstETZaa6o35h0XiB53R/xtOPz6c115x2P7rUwO5GUhaFYafcfiLf+iYh58/FwJcAVfzm3+wgezE3BfwfdkEP47+IvmH5EM1jyMkaz0lSA0hW5jvo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781620093; c=relaxed/simple;
-	bh=yvUtyGChRITdacoZi2gl3Px5RNLwduZ1sP3kH8lYtxE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=g2Y3XXeZO+tidQPkfvetUPX++i3upUAc1YuXtxtf0GEq5FCvecoR+WQ/V/eWpO2TFFY4/vjNnZly0tH3SrSiGob5aV6yiDrsa/b5EXoVrnI3kcsxCry4MEKNc+8wbWA1Jm7+//4r3EpDDfdNVDXEABbfu07ZyNJohi9b38tAlDE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu; spf=fail smtp.mailfrom=g.harvard.edu; dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b=ZtQ3S2lg; arc=none smtp.client-ip=209.85.160.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
+	s=arc-20240116; t=1781620296; c=relaxed/simple;
+	bh=S22LKOa2QssFN6e4vQn3hkibTDSKIiIgf0agqlJ4J2g=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IDEZOfd/vm0es9sDDC/J9BzOp7j9IjlQ7s93Psm21N+wgLl2CZAbIHyLoYhJhyy0Z1ZhqQC5Dxt57jV4rTSYAplTy8APIB07abvPIMO2SAf7ljZDmlWijahzjXWs35N1qAQ3rdsV9MbsdrHvVYahb5+S0p6MvDAiFwnNPm83V14=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=Xqfx3tyd; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b="ZtQ3S2lg"
-Received: by mail-qt1-f175.google.com with SMTP id d75a77b69052e-51790c0a692so54868121cf.2
-        for <stable@vger.kernel.org>; Tue, 16 Jun 2026 07:28:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rowland.harvard.edu; s=google; t=1781620091; x=1782224891; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=QBzxltYFB5IlhH9MRB9F4u0mC5z3CJixmHvtZ6C+QV8=;
-        b=ZtQ3S2lg+R58dMhjFI9tb2F5ZIzHQ5AqXdxiUnEdn+ZuLdneiX1VIpCVXa5Y92nszX
-         3B+RjNPtaGJtdrt0ckIrM7mt7JqB4HuS5KkPnSGRa5bBkp6lDeEz8W5ELrRkdRMOtRGu
-         YR/Y9lhRFyS76mYlzuXuE61PazZjbxxm9PVPGiny6mBgDXkkYbCe//xVHxWiR2ifJ+6n
-         x+TSz8O/i6BcGDo/g476DcUb3ONCLO1JxkO+2hFR/DTfWYVZuiOSIGPHYg6p9cC6U8xz
-         K7+gM6B5toYV+tJp6Qs6pChlcB4paEYtkxeBnwtzsdCL4p7zqs9K2WpZc3KRk6nCsgA4
-         E6lg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781620091; x=1782224891;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=QBzxltYFB5IlhH9MRB9F4u0mC5z3CJixmHvtZ6C+QV8=;
-        b=rU64LfTX04i4K7c4/Z5ZqN1wvpyZuNVlI77e0IRCcbOpMxiY89AxQfu8hSVDKIO+Zv
-         QSi5SAO8YkMYBqUFJDeIciDGqwkkZ7+846KZCSnFF4iaDb8DLnePjNUiK8SRg5N/3bYq
-         FdUQ4H14Z9qoDAHTkjPaZS13nXLic3fFreVLOdSZHFAV3pidcq7xAiJlyu8nekLC1WsZ
-         BzWqnnTIrY0jRJy9oVXO2ac4x+Y6j1NYzxOlkLVCwA4VzYpeGd+iBYCq5iTgzLNDJ3E2
-         eZmKmjrb6gSqyrTquM0Ol9PSF9TZp4hIeHLVCTMPD3b40fA12vsU1l2SJbLuzOQd290P
-         ZuXQ==
-X-Forwarded-Encrypted: i=1; AFNElJ8bVEvgPHkKvKcJRQTR+4JmX53+8syXFXJhAS4t8wQwEa4H+wvNYGX9zru/XIPugAz6piB51qs=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzKoqazB/KbWjJPi1/0FTKaeRneAd9/pXusisvoEweBEKNTROhv
-	vYU+sgDfrFLf2Y6iP/Bf+R7oX2SQVCnLVWPk8I/CuLumHy4oBXQyt+gMlxWWtG7bOlLcrWxOAMT
-	nU2Y=
-X-Gm-Gg: Acq92OHD77qKPogDPySOEXjKXJxzmjX3OuOrjKqI97xa7HXJZ84dNLuDnxHFLvzm5bM
-	7ksRib7Exl0hxR2AZh2xxbDa9WuenBHrPOI0nQR30X9h8FyBh+eDKl1VuLwI9u6RNHt8oyh5R9S
-	+B7YHY+gAXYVmplPLfQVuJJQc58ILsNJO1n3h1MDHnmg811wvsDR0m4AvDC9WWNPulnwcQ5gP7Z
-	ttFPaX0fBcQbJdNxWA+MLm48uT5n4g8wB2JjOSzoqvNCLgh1MgeQMzg3uUEcVrWKxJ1Aytq8S/+
-	QxsSd418hu/OgqFKRK4BkW8l4MCE8gti6h5flCLELY+Jx1axFPmpwwE65C5hh/6Ns9RfWijaYc0
-	ECQcl9iuRDi3A6sUhxStmiRqv6MKd4fbn/6kz8/K4Hln4t/1Ganve46TdDkgxUwVtkrn1qGuezg
-	1Ao9STsigtqc7YEK9a+oKCVXTUqerrhzWt3fhJVi9Kweg=
-X-Received: by 2002:a05:622a:2c8:b0:517:5ffc:4a11 with SMTP id d75a77b69052e-517fe4bc675mr269519021cf.36.1781620090787;
-        Tue, 16 Jun 2026 07:28:10 -0700 (PDT)
-Received: from rowland.harvard.edu ([2601:19b:d01:d210:d62f:1911:f952:16ba])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-51955b271fbsm107149761cf.22.2026.06.16.07.28.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 16 Jun 2026 07:28:09 -0700 (PDT)
-Date: Tue, 16 Jun 2026 10:28:06 -0400
-From: Alan Stern <stern@rowland.harvard.edu>
-To: "Jimmy Hu (xWF)" <hhhuuu@xwf.google.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] usb: gadget: udc: Fix NULL pointer dereference in
- gadget_match_driver
-Message-ID: <adbaf493-fe24-489f-9ad5-87eacc7c187e@rowland.harvard.edu>
-References: <20260526070635.839701-1-hhhuuu@google.com>
- <1f7a7bf2-4d21-4944-9da0-36082d052b25@rowland.harvard.edu>
- <CAJh=zjLLrY-NpV-ZcmH0V6q8CjNuKt7CmW-GEFQ8_y3zm9v1yw@mail.gmail.com>
- <d0042def-a513-479f-9742-12942346cd5a@rowland.harvard.edu>
- <CAJh=zjJqarEkrzajpdcUAZwOxisbdrwTPwX_jHWzuWZFSQ16SA@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="Xqfx3tyd"
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65GEIGMo1763950;
+	Tue, 16 Jun 2026 14:31:26 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=pp1; bh=yfsJLx3AzxPAjmyYxa3xQtCxnzMfmYeeWDoqcIhkI
+	XI=; b=Xqfx3tyd5fMnOYuJQD5vIayi63W27dhKKT2i3L+S3sdqMccrWEBlUh5rG
+	RpQwCR/iWsPwQ9Y4bOiXNEFhPnjy/bLt5r54u6ImiLxjDMg4Pl92k37Cr0D8Q9ic
+	mI0Msny1aa6QFqT6FF7QVqiIWHN4V4E3YpnAuvupuoIWW3yqG2zizKxngIqnDPIX
+	HK/xUA+aQf6p2woWLqxDDtKmJAJ4zJT+1DQPlyNmjTOez0CUhnHKnuvo+uMyNYfi
+	S4nwv4CHZWipFTBbPbJue18ZwHu0Mm4oWe+CLfFU9xEWtU4hBmibkNEt164sweJC
+	mtu+Zmf0y+sLuXfvCfqbrKXozaLzw==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4es23np57g-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 16 Jun 2026 14:31:25 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 65GEJaSW010401;
+	Tue, 16 Jun 2026 14:31:24 GMT
+Received: from smtprelay03.dal12v.mail.ibm.com ([172.16.1.5])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4esm7y3hss-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 16 Jun 2026 14:31:24 +0000 (GMT)
+Received: from smtpav06.wdc07v.mail.ibm.com (smtpav06.wdc07v.mail.ibm.com [10.39.53.233])
+	by smtprelay03.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 65GEVNYP8716872
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 16 Jun 2026 14:31:23 GMT
+Received: from smtpav06.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 564B55804E;
+	Tue, 16 Jun 2026 14:31:23 +0000 (GMT)
+Received: from smtpav06.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id B034258054;
+	Tue, 16 Jun 2026 14:31:22 +0000 (GMT)
+Received: from ltcrain119-lp2.ltc.tadn.ibm.com (unknown [9.5.7.39])
+	by smtpav06.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+	Tue, 16 Jun 2026 14:31:22 +0000 (GMT)
+From: wenxiong@linux.ibm.com
+To: linux-block@vger.kernel.org, axboe@kernel.dk
+Cc: tom.leiming@gmail.com, yukuai@fygo.io, stable@vger.kernel.org,
+        wenxiong@us.ibm.com, Wen Xiong <wenxiong@linux.ibm.com>
+Subject: [PATCH V2]block: Remove redundant plug in __submit_bio()
+Date: Tue, 16 Jun 2026 10:31:21 -0400
+Message-ID: <20260616143121.878021-1-wenxiong@linux.ibm.com>
+X-Mailer: git-send-email 2.52.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAJh=zjJqarEkrzajpdcUAZwOxisbdrwTPwX_jHWzuWZFSQ16SA@mail.gmail.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Authority-Analysis: v=2.4 cv=XtnK/1F9 c=1 sm=1 tr=0 ts=6a315e3d cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=FelO9ux0wxsA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=iQ6ETzBq9ecOQQE5vZCe:22 a=VnNF1IyMAAAA:8 a=pGLkceISAAAA:8
+ a=msvfNpiPRe6fYSCHkfsA:9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE2MDE0NSBTYWx0ZWRfXxZrP8twHDWqs
+ rb2r8fuDMaVlJfh0J5VF7rZK49AyHmvckzM1fQd/YB6uw9M5mr1Zsw4jdtYDaCA4Sc+7yB8oCOw
+ kMwrty57c+6Svg42KDMQnIP42+CNWZZ9RhO3uXzhwUe6JnEv44J59LCnx3YaN2cCAtx4vshwWeC
+ NHm7u6fx6LavbQtrQn63FwYazluerWC6UTcK2ag5bq3mI3RL78PYEKObloCYNgZibUP0BXpMxRl
+ G/yOGDFiTO8yCt5s+9vNhL0BbnGsWNXyzGU8GPOlWtYhbmUGmZY33mj4I/b03nC4OTuGVkjUULl
+ 93EMhDXWpWRSfKYeSYi8szcd4qh+tduplnwgX1xruHBTz1dCIDVHrc+RLlDoafnoelbRFRgSm5d
+ BCK0HLASDyL3cV8zeg6KvgKSDCxnXu1whoMM/8zS3TkOP0XRH24Io/TJTk9vjlilxJJJ/FWcIv/
+ LUwEe3jppAcdaUtP6aQ==
+X-Proofpoint-GUID: E07H0UIdpciIf_-pTdZFLG60Kx3ydEgU
+X-Proofpoint-ORIG-GUID: pSHATEIRlJweh0kssYPhpwLo7BVsL4Xi
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE2MDE0NSBTYWx0ZWRfX0Td7Mq5zNqjg
+ l3r1TmI8BgQhVb4OlRaXFukSlFkvg++DyYvdrh4qwynEuG6NJ476j+GjsmdY/osYqn1MvxBi90D
+ tDSPcNHWCcHiRF6mvbCS4XGDnxVDnbw=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-16_04,2026-06-15_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 adultscore=0 phishscore=0 lowpriorityscore=0 priorityscore=1501
+ suspectscore=0 clxscore=1011 malwarescore=0 spamscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606040000 definitions=main-2606160145
 
-On Tue, Jun 16, 2026 at 01:14:03PM +0800, Jimmy Hu (xWF) wrote:
-> On Tue, Jun 2, 2026 at 10:30 PM Alan Stern <stern@rowland.harvard.edu> wrote:
-> >
-> > On Tue, Jun 02, 2026 at 01:34:07PM +0800, Jimmy Hu (xWF) wrote:
-> > > On Wed, May 27, 2026 at 2:00 AM Alan Stern <stern@rowland.harvard.edu> wrote:
-> > > >
-> > > > On Tue, May 26, 2026 at 03:06:35PM +0800, Jimmy Hu wrote:
-> > > > > A NULL pointer dereference occurs in gadget_match_driver() because a
-> > > > > race condition exists between the DRD mode-switch work and the
-> > > > > configfs UDC write path:
-> > > > >
-> > > > > 1. The DRD mode-switch work invokes __dwc3_set_mode(), which calls
-> > > > >    dwc3_gadget_exit() and subsequently frees the UDC device name via
-> > > > >    device_unregister(&udc->dev).
-> > > > > 2. The configfs UDC write path invokes gadget_dev_desc_UDC_store(),
-> > > > >    which calls usb_gadget_register_driver() and subsequently
-> > > > >    compares the UDC device name via gadget_match_driver().
-> > > > >
-> > > > > If gadget_match_driver() runs concurrently during UDC unregistration, it
-> > > > > may access the freed UDC device name. Once the freed memory is zeroed,
-> > > > > dev_name(&udc->dev) returns NULL, causing a panic in strcmp().
-> > > >
-> > > > I don't see how this can happen.  gadget_match_driver() runs during
-> > > > probing of a gadget, which takes place only while the gadget is
-> > > > registered in the device core.  But usb_del_gadget() calls
-> > > > device_del(&gadget->dev) before it calls device_unregister(&udc->dev).
-> > > > This means that at any time when gadget_match_driver() can run, the UDC
-> > > > device name must still be allocated.
-> > > >
-> > > > You should run more tests.  Add debugging printk() calls just before and
-> > > > just after the device_del(&gadget->dev) and device_unregister(&udc->dev)
-> > > > lines, and inside gadget_match_driver(), so the tests will show
-> > > > unambiguously when these things happen with respect to each other.
-> > > >
-> > > > > Fix this by checking dev_name(&udc->dev) before calling strcmp().
-> > > >
-> > > > Adding a check like this will not fix a race; it will only make the race
-> > > > less likely to occur.  It won't prevent the name from being deallocated
-> > > > between the check and the strcmp() call.
-> > > >
-> > > > Alan Stern
-> > >
-> > > Hi Alan,
-> > >
-> > > Thank you for the review. You are absolutely right about the TOCTOU risk;
-> > > the simple NULL check does not prevent the name from being deallocated
-> > > after the check but before the strcmp() call.
-> > >
-> > > I will submit a v2 patch that uses get_device(&udc->dev) and put_device()
-> > > to increment the UDC reference count during the matching phase. This will
-> > > guarantee that the UDC device name remains allocated and valid throughout
-> > > the entire duration of strcmp(), eliminating the race condition structurally.
-> > >
-> > > Does this approach sound reasonable to you?
-> >
-> > No, because you haven't addressed the issue I raised at the start of my
-> > email, namely, how can this problem actually occur?  And you didn't run
-> > additional tests with the extra debugging information that I asked for.
-> >
-> > Alan Stern
-> 
-> Hi Alan,
-> 
-> I have captured the KASAN log with the extra debugging information
-> you requested, which shows how this race condition occurs.
-> 
-> The log shows that after gadget_match_driver() enters execution on
-> one core, a parallel core can invoke usb_del_gadget() and complete
-> both device_del(&gadget->dev) and device_unregister(&udc->dev)
-> before strcmp() executes.
-> 
-> Here is the exact timeline from the dmesg output:
-> 
-> 1. At 268.595241, task 1374 (configfs path) enters
-> gadget_match_driver() (on CPU6):
-> [  268.595241][ T1374] [CPU6
-> android.hardwar]:[JJ][core.c/gadget_match_driver/1568] Enter
-> 
-> 2. At 268.595250 (only 9 us later), DRD work invokes usb_del_gadget() (on CPU3):
-> [  268.595250][  T102] [CPU3
-> kworker/3:1]:[JJ][core.c/usb_del_gadget/1529] Before
-> device_del(&gadget->dev);
-> [  268.598129][  T102] [CPU3
-> kworker/3:1]:[JJ][core.c/usb_del_gadget/1531] After
-> device_del(&gadget->dev);
-> [  268.598159][  T102] [CPU3
-> kworker/3:1]:[JJ][core.c/usb_del_gadget/1534] Before
-> device_unregister(&udc->dev);
-> [  268.599405][  T102] [CPU3
-> kworker/3:1]:[JJ][core.c/usb_del_gadget/1536] After
-> device_unregister(&udc->dev);
-> 
-> 3. At 268.599427, task 1374 starts comparison, where it triggers a
-> KASAN invalid-access. (Due to kernel preemption, the task was migrated
-> to CPU7):
-> [  268.599434][ T1374] BUG: KASAN: invalid-access in
-> gadget_match_driver+0x150/0x1cc
-> [  268.599448][ T1374] Read of size 8 at addr 66ffff801a49b880 by task
-> android.hardwar/1374
-> [  268.599454][ T1374] Pointer tag: [66], memory tag: [fe]
-> [  268.599456][ T1374]
-> [  268.599460][ T1374] CPU: 7 PID: 1374 Comm: android.hardwar Tainted:
-> G S      W  O       6.1.124-android14-11-ga633402dff84-dirty #1
+From: Wen Xiong <wenxiong@linux.ibm.com>
 
-Now I see the problem.  I had thought that the gadget device would be 
-locked while gadget_match_driver() runs, but it isn't.
+The patch removes the automatic plug/unplug operations from __submit_bio()
+that were added to cache nsecs time when no explicit plug is used.
 
-> To resolve this object lifetime issue, I see two potential approaches:
-> 
-> 1. Protect the UDC device lifecycle during the comparison phase using
->    get_device(&udc->dev) and put_device() (as a lightweight fix).
-> 2. Serialize the configfs match path and the unregister path using
->    a subsystem mutex.
-> 
-> I would highly appreciate your thoughts on which direction you prefer.
-> Does this data address the scenario you raised?
+The plug mechanism is most effective when batching multiple I/O
+operations together. Creating a plug for every bio submission
+provides minimal benefit while adding function call overhead and
+stack usage for every I/O operation.
 
-The problem is to make sure that the udc structure (and its name) 
-remains allocated during the match.  The best way to do this is to have 
-the gadget take a reference to the udc when it is added, and have it 
-drop the reference when the gadget is released.  Not take and drop a 
-reference every time the comparison phase runs.
+Below is performance comparison with the latest upstream kernel.
 
-Unfortunately, this will require changing the way we handle releasing 
-gadgets.  The gadget driver's own release routine could be stored as a 
-pointer in the udc structure, and there would have to be a new 
-usb_gadget_release() routine added to the core.  This routine would drop 
-the reference to the udc and then call the gadget driver's release 
-routine.
+Iotype  qd nj  rmix  mpstat busy  mpstat busy without plug
+Randrw  1  20  100       53%                 24%
+Randrw  1  40  100       70%                 24%
+Randrw  1  20  70        40%                 24%
+Randrw  1  40  70        60%                 26%
+Randrw  1  20  0         14%                 6%
+Randrw  1  40  0         20%                 7%
 
-See how usb_initialize_gadget(), usb_add_gadget_udc(), 
-usb_add_gadget_udc_release(), and usb_udc_nop_release() interact -- that 
-whole arrangement would be affected.  But it wouldn't be a horribly 
-complicated change.
+Fixes: 060406c61c7c ("block: add plug while submitting IO")
+Signed-off-by: Wen Xiong <wenxiong@linux.ibm.com>
+Reviewed-by: Ming Lei <tom.leiming@gmail.com>
+---
+ block/blk-core.c | 7 -------
+ 1 file changed, 7 deletions(-)
 
-Alan Stern
+diff --git a/block/blk-core.c b/block/blk-core.c
+index 73a41df98c9a..365641266c9e 100644
+--- a/block/blk-core.c
++++ b/block/blk-core.c
+@@ -669,11 +669,6 @@ static inline blk_status_t blk_check_zone_append(struct request_queue *q,
+ 
+ static void __submit_bio(struct bio *bio)
+ {
+-	/* If plug is not used, add new plug here to cache nsecs time. */
+-	struct blk_plug plug;
+-
+-	blk_start_plug(&plug);
+-
+ 	if (!bdev_test_flag(bio->bi_bdev, BD_HAS_SUBMIT_BIO)) {
+ 		blk_mq_submit_bio(bio);
+ 	} else if (likely(bio_queue_enter(bio) == 0)) {
+@@ -686,8 +681,6 @@ static void __submit_bio(struct bio *bio)
+ 			disk->fops->submit_bio(bio);
+ 		blk_queue_exit(disk->queue);
+ 	}
+-
+-	blk_finish_plug(&plug);
+ }
+ 
+ /*
+-- 
+2.52.0
+
