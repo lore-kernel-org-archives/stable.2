@@ -1,166 +1,497 @@
-Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012071.outbound.protection.outlook.com [52.101.48.71])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1158C318EDA;
-	Tue, 16 Jun 2026 19:07:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.71
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781636845; cv=fail; b=AOh4dadC6m2kg/Or64mjRoH7fSvbr16Ee2wy6atgKpllA8xmAX2XkddcprWezKCtlGNlFBACdam1bHmGvBItoeRcJmEc3uLEZoYeYkapwWrLVlXqoZBmOC3q828RlXSLbH7FUMXS+Q9zvYe7y7IXvx0cmfNlKW7Da3lVOl7KLT8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781636845; c=relaxed/simple;
-	bh=Ht0c5wzMNQ1I05js+7k/8fnRA0/vPRVGrsd0a3kJW3U=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=aBAs+ELEnWP398Z7uI/Z+qDy3GQp9zvWzYCP4uw6MAZIyxaeUD5p6fZvYbhLJBlepH3awbhm4+Az9guDo+MREfZaX2gf58NhgvcJCqMToCTBGleGlpkaV3F3lYOkV5mQ/92K5A2aF4Vxmtw47R/zTYzC00jCy6n6TaGFAeFfW/c=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=lLxAb94o; arc=fail smtp.client-ip=52.101.48.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD5183DE450;
+	Tue, 16 Jun 2026 19:07:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781636848; cv=none; b=XAqiVo87L4L9dmPARo/d6VBY4qPjWMSkih+F9sSAk073K0jH9poP6anRsV8C1Zx2l1nde7sMePnYzlVN6/6Ny7lOoYVirS3J6T7Ssp8dhzG/lIogR4GfkUmWv1jDZDp3fIYlqX3d8kutOG0GTYuEkn0bb+77BH1E52qoUonoIm8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781636848; c=relaxed/simple;
+	bh=F93vQYTycT/w+sXCKZgsaQqc2Yp2KwzWxm4jvlkOueg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=HIN6iZ5eM3ws/uXaQecNzqZEwu3QUhBKLEO8DPW20hzIDI0JMNvpIupDc+cTLaEEdnpFXlAx9QfrLGHQg84XbRDBliaKfwCmmVFqzH3uYLZddfp6ZF/Pt6Fw+e/k3ysI+2ADskg0Vh6K6s9+CeRDDSa41WL80HaT0cc7ls/LLMc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=IX+voPsw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="lLxAb94o"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=GGk3zuL4lw2Rwf7iCnvlRfQpW4CrT6CVtV8XkFxv2DHQvdjy94xZLxYjPGwCX3XAbqfS3dKusJhd458hf6S98UavwPqvIFuR4eWjlLRPM5qNw2rr2vhKI0OXqi5L4MaOtyyV+ldBDXt79cMUKjFLpuILEcIoefH2g5vxAMiYqDZi7XKw92510P8BmCs3E4uwu70lO6SLYPMh4VPgpjoaicKfS8IO0n/VcA6R8LIySb4swxncbA/PLfBfP2zQ+NY3Q1yqt/d+djcO5Z+RD/+97K1SkYoGC6DBm/SRotMBLlj9GPF7t8yiuCm8Q18EbRcQzE5j0laVN4Llo6KKNlwF1w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=h6q7oRLOmMmVIuKFuP0SGu/L24Bss80w8q8ZnMxOJ08=;
- b=Qu+KgSbTeA44uyFgjDWPD7S+TZEy7AYcc537sD49O8zWnnCx0HC1/NP+By8d5YgIcpuJL8q7O3j1DxIZws/HivxSSUKPdDT6y521fvl8+ZGtJqh0U+EXCwIuZeLbj+fgOOJYeDrTaUcjO7XLrlLeCjyEsBcHAcSCD5sUBwDPM7X6q+bj8dgkkqtwlWtCRKd9Yk0rN7V+lXROUC54u7UY/B9odwBNzFb6xqN1BZWPSYaA2bvALz8qT+Zj5S6RUfmaA2GNcZJ/tct70Dh9DXWPfA/tywy80QYXucYT7xL6LVTzulOYf3IejQo+7hcGkbLMU1TV2BtKl8fq2oWzRCcV3g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=h6q7oRLOmMmVIuKFuP0SGu/L24Bss80w8q8ZnMxOJ08=;
- b=lLxAb94ogGQCU24i0O0AA5lmiaED13gMc7f+hcOmTKQORLubMzWQGnNMdtgQ4ZNTDdJ/gUDb7+N+lrjksCGgQ/bto+BVQq1MFvPlaS3ML+5vvcpYGDZeteB+RTiUcFHOnBzscKE/vG2l8ZQCrT6NEWRe0YRrmtcoUWtWyEqXC1KugwDBbBJKKLy+p+TDMfPubfjpVxNDM7fNB8dEbXjTjFbncirGoJJCqvsqAIPATTPGpruXRZyomR/C8gIvqKqGJJc/x147aKxDMNmtTQd11+Pc74WijR/laYJNXjbpa8iyxH4Pssd+xYfOlLRMPQcUhrmFZap2gc8nGnRKMb0VnQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from LV8PR12MB9620.namprd12.prod.outlook.com (2603:10b6:408:2a1::19)
- by DS7PR12MB6096.namprd12.prod.outlook.com (2603:10b6:8:9b::9) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.113.18; Tue, 16 Jun 2026 19:07:19 +0000
-Received: from LV8PR12MB9620.namprd12.prod.outlook.com
- ([fe80::299d:f5e0:3550:1528]) by LV8PR12MB9620.namprd12.prod.outlook.com
- ([fe80::299d:f5e0:3550:1528%4]) with mapi id 15.21.0113.015; Tue, 16 Jun 2026
- 19:07:19 +0000
-Date: Tue, 16 Jun 2026 16:07:18 -0300
-From: Jason Gunthorpe <jgg@nvidia.com>
-To: Zhenhao Wan <whi4ed0g@gmail.com>
-Cc: "Md. Haris Iqbal" <haris.iqbal@ionos.com>,
-	Jack Wang <jinpu.wang@ionos.com>, Leon Romanovsky <leon@kernel.org>,
-	Danil Kipnis <danil.kipnis@cloud.ionos.com>,
-	Jack Wang <jinpu.wang@cloud.ionos.com>, linux-rdma@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Yuhao Jiang <danisjiang@gmail.com>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] RDMA/rtrs-srv: Bound RDMA-Write length to chunk size in
- rdma_write_sg
-Message-ID: <20260616190718.GA3986358@nvidia.com>
-References: <20260612-master-v1-1-70cde5c6fdc9@gmail.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260612-master-v1-1-70cde5c6fdc9@gmail.com>
-X-ClientProxiedBy: BN0PR03CA0060.namprd03.prod.outlook.com
- (2603:10b6:408:e7::35) To LV8PR12MB9620.namprd12.prod.outlook.com
- (2603:10b6:408:2a1::19)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="IX+voPsw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A31001F000E9;
+	Tue, 16 Jun 2026 19:07:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1781636846;
+	bh=XaTK1MZ2aTeu9PaKB0EY4FqkGnvV4OLx/GZzuvptBg4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=IX+voPswAGQD7K8rm1AtR8Fb/BxyHIXHW6VDtUNy1DMnAYzObSF9Q0YHGCyotZgG8
+	 UYjYI2fBg7fs4mRcMM/ik0oKN49r+/Z3t9IT1uNerBI9RVIZ/q6nzHQ72TgD43sAdN
+	 /ZON2/0j0v6QzfdLVlnRd0frjuWnBWToHTC8/XHQ=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Leon Romanovsky <leonro@nvidia.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10 315/342] RDMA: Move DMA block iterator logic into dedicated files
+Date: Tue, 16 Jun 2026 20:30:11 +0530
+Message-ID: <20260616145103.184990607@linuxfoundation.org>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260616145048.348037099@linuxfoundation.org>
+References: <20260616145048.348037099@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV8PR12MB9620:EE_|DS7PR12MB6096:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5666d81b-9244-4f2d-5737-08decbda7cc9
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|23010399003|376014|366016|1800799024|56012099006|11063799006|3023799007|6133799003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	xPWmxpI5srT6sQ2AJxljI2NA/cQISB67CoFUQjumirvEoWhysI+V65wfBOJ0H7cO2PjU8cpTf/gOiHGzLhy51dpUTmoWi8uQdw24xdJuZO0fU8lt10tf/agzC9Y7gYsd+3vcS+6XF72zCG6XZ4gkWcXxFPycCEyQUyfBq7o2nuPcyxq14ATxd4FN8ca0DTN2LaPzOZoFKvKr+gIymO80VBdGxCznFZzAHeOZCwJDPtX1yMV0m2zfLyZeaILHNz28faV2gnvjvj3om68h2CX1mNO+8tiGgZGiY59E8KzhSEea/oMz18DuBSOHuZy6XCT2RPIpUGD8Ra58juJBscB5zEFoetTf04lh8uuUS1V9Q2RRekQbNjoZJwGXpp6O11Pftss3xMuMVmwz3uctmAy/ZYevXTRslZSMf+N0lxS8mUd/33IR233e5Z3dezNW4s6gEi95bkKuRq4nOsRI0aJUnNe9ncVrojRG724JM90kwSvdnDsN0IA7iqbd6ZOXH3+l7oHrGxwdxUP3/91Cihq3V6FTmdcMkcGaj6mtNo1U/l4FDeghqEgkduLkDqf3JLmWXZvRwdMQwJpbqU1ikwwzQYojS0FPPM9rvF6dNTwsicQoKvlPDqfPr5iA4uDyVSpj2Zgs7IjIrBJK+j1sg8raNb+wy+zHgLBqBhtgtp0e3e6XydwUOQzpqKnubEMoFf9o
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV8PR12MB9620.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(23010399003)(376014)(366016)(1800799024)(56012099006)(11063799006)(3023799007)(6133799003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?bAyzyGbqHLzwdvFlJhCZQBneaeRvA6MWcu+KBFt9dnkZRrDiWg/zUKrgFb8j?=
- =?us-ascii?Q?vjk1bq9ORNp4EdDjPoGoRDbE2yagbuRJfAFkor4lU1g6eYXk5favvDis0HBj?=
- =?us-ascii?Q?HuaCXTWsT56Xavzuy8yERdAk7SR6UnEOILCXSV27X+c9Qe6MgMK980K3363a?=
- =?us-ascii?Q?UssKs915dbhiNH8iwCp7sGIA4mvHMIa6gGGziwCPrMbqPdQJ14L8UX3DONb4?=
- =?us-ascii?Q?15jEA1SHMl5UwgttA6060MhUSJug++63RdgHh9qMH7c9r0SxM2Sji44RONEY?=
- =?us-ascii?Q?bTBHygTEbMo4W7nyHlUsIrwOvkeBGwHnGwRbn3pAq7mqaSa4PRbkxBlkGeJr?=
- =?us-ascii?Q?TFq44KdoGNvJdGNEeUMb24zbDqL7awmUVkVop7eoWgy3xeEZPYgQ6nlPwdPl?=
- =?us-ascii?Q?SStYTN8V1tuh1NYafhpfoUxXoODfmslyK2Jhcukx/nM8GPpTmIln3JWbKzre?=
- =?us-ascii?Q?GatfDP0sWE/Ll3plkKo74cL8SGGz2iO6m99msbAenZu27A125rzNZ55mvnqc?=
- =?us-ascii?Q?JALq2eO/62NZPbNlLgh0jpP1Vdkvz4ONouo6gJBe0xo95ovOeAQsEmNIJumH?=
- =?us-ascii?Q?GVEJvKwiDTbRlbOXTPyCGZqvO2wdyGdYcGX/GbQ9wPars3uiv+szq7cMC1tB?=
- =?us-ascii?Q?bxuqa1uZZCiOHz89SvQ2fXq0GkQiFfopJKuiS3dCd+I5zqhAkiAixOIYeGZt?=
- =?us-ascii?Q?EemAXxF8El2DbkXzmozEvQclJRRKk//y9z/at3wSCrE4yPBeH1ILe5jm2jZv?=
- =?us-ascii?Q?yySKO8Q9TI73wCb16TsbemqsLz3Ru4E6CIs56wsLP9j2N0iG7lQl8FgEgoJy?=
- =?us-ascii?Q?kOYbzWlYHOXy7dWfGka4VgtoZFge0xQeOgDPHja7+pCQqBz610WrFw6322+A?=
- =?us-ascii?Q?5HTNA2xLuokiTBAgx/9Rg+gQ6HFI7AshQf9Sh8qzCkLm+GcreAE4fNHQesTz?=
- =?us-ascii?Q?XWJc+JAyOkI3vWhZxYb6vk5lpK+JT8g9XHYL1/CNLh9WfBDvm9rcSjDL8+Bx?=
- =?us-ascii?Q?ANA7OsyYBrs1Va8/NOa2eCwiIPB7VIfdqU3TJpxeSLsc2+UqQsvUWRUaJ7gq?=
- =?us-ascii?Q?zHjuFCMFCXz2tji6OUR35jAhKp3bUSVwyKUzsAZr+PUluPiry3i1URbhtuUE?=
- =?us-ascii?Q?2ZLuw9M85RzO+EzRJHcI9k78pfBoxG7nb9dan9Aus05DbYPigIt5aVJTjHWO?=
- =?us-ascii?Q?aIcibuLuS9isPxbwQzolJKC9cQ9vFulD90Rck4bjkqpF/t+1UaTo3RK3AtZa?=
- =?us-ascii?Q?AmowDFyqsfC/JYMriWNLPxTer4CTHukLo2cRIHcYAtjXuKnAXd4RZFJ73IFi?=
- =?us-ascii?Q?2yA6pqGyiVPtnn53dPZBVNfWwHqsuDtlyl0pgEksOXvD351pRq7JjnFRcM97?=
- =?us-ascii?Q?gnPbwwF1Owjs3Brwnt/d8lBSOOkSFgOyCFuRNb/LNnZGuXh082vjoLhKLfsd?=
- =?us-ascii?Q?Z0b6Qt9BIF72fQDBlEDi74H1Qz1haxDGoT7XFVbqlqfzxqbv+dyNEhyG3j0B?=
- =?us-ascii?Q?WBwgS/VebytnR4aNyjLz7YZVnnpLUNyPHQbl6n5UU4+ooyNQBBjPBDo5Atuq?=
- =?us-ascii?Q?NUjALQHoiiC0PcNitym8PPTqw5nq3dVss53JSjY68/3LnqequYQs9MtQQGn9?=
- =?us-ascii?Q?Z6vynw+WJcU9hc9w8kqAeEEkZNxwHqDZWNGl7JZFPEvNeV/vPtfUkR1ddFaH?=
- =?us-ascii?Q?7EKpaBrCGm0UKwcRnuabvDmaq4/pFHTmD93Sl3fsHfjvDcGI?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5666d81b-9244-4f2d-5737-08decbda7cc9
-X-MS-Exchange-CrossTenant-AuthSource: LV8PR12MB9620.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jun 2026 19:07:19.2458
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: T5WJzSHzqqNdET7fnLgnh9Q8avKsXy0Zbnozf1CqdsbzRFPC0VL065HjViw1rwDE
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6096
+Content-Transfer-Encoding: 8bit
 
-On Fri, Jun 12, 2026 at 01:15:54AM +0800, Zhenhao Wan wrote:
-> When the server answers an RTRS READ, rdma_write_sg() builds the source
-> scatter/gather entry for the IB_WR_RDMA_WRITE that returns data to the
-> peer. Its length is taken directly from the wire descriptor:
-> 
->   plist->length = le32_to_cpu(id->rd_msg->desc[0].len);
-> 
-> rd_msg points into the chunk buffer that the remote peer filled via
-> RDMA-WRITE-WITH-IMM (rtrs_srv_rdma_done() -> process_io_req() ->
-> process_read()), so desc[0].len is attacker-controlled and, before this
-> change, was only rejected when zero. The source address is the fixed
-> chunk start (dma_addr[msg_id]) and the source lkey is the PD-wide
-> local_dma_lkey, which is not tied to the chunk's MR mapping, so the verbs
-> layer does not constrain the transfer length to max_chunk_size. msg_id
-> and off are bounded against queue_depth and max_chunk_size in
-> rtrs_srv_rdma_done(), but desc[0].len is a separate field that was not
-> checked against the chunk size.
-> 
-> A peer that advertises desc[0].len larger than max_chunk_size can make
-> the posted RDMA write read past the chunk's mapped region. The resulting
-> behaviour depends on the IOMMU configuration: with no IOMMU or in
-> passthrough mode the read may extend into memory adjacent to the chunk
-> and be returned to the peer, which can disclose host memory; with a
-> translating IOMMU the out-of-range access is expected to fault and abort
-> the connection. In either case the transfer exceeds what the protocol
-> permits and is driven by a remote peer.
-> 
-> Reject a descriptor length above max_chunk_size, mirroring the existing
-> off >= max_chunk_size bound in rtrs_srv_rdma_done(). Legitimate clients
-> do not exceed it: the client sets desc[0].len to its MR length, which is
-> capped at the negotiated max_io_size (max_chunk_size - MAX_HDR_SIZE).
-> 
-> Fixes: 9cb837480424 ("RDMA/rtrs: server: main functionality")
-> Reported-by: Yuhao Jiang <danisjiang@gmail.com>
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Zhenhao Wan <whi4ed0g@gmail.com>
-> Reviewed-by: Md Haris Iqbal <haris.iqbal@ionos.com>
-> ---
->  drivers/infiniband/ulp/rtrs/rtrs-srv.c | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
+5.10-stable review patch.  If anyone has any objections, please let me know.
 
-Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
+------------------
 
-Jason
+From: Leon Romanovsky <leonro@nvidia.com>
+
+[ Upstream commit 6094ea64c69520ed1e770e7c79c43412de202bfa ]
+
+The DMA iterator logic was mixed into verbs and umem-specific code,
+forcing all users to include rdma/ib_umem.h. Move the block iterator
+logic into iter.c and rdma/iter.h so that rdma/ib_umem.h and
+rdma/ib_verbs.h can be separated in a follow-up patch.
+
+Link: https://patch.msgid.link/20260213-refactor-umem-v1-1-f3be85847922@nvidia.com
+Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
+Stable-dep-of: 15fe76e23615 ("RDMA/umem: Fix truncation for block sizes >= 4G")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ drivers/infiniband/core/Makefile             |    2 
+ drivers/infiniband/core/iter.c               |   43 ++++++++++++++
+ drivers/infiniband/core/verbs.c              |   37 ------------
+ drivers/infiniband/hw/bnxt_re/qplib_res.c    |    2 
+ drivers/infiniband/hw/cxgb4/mem.c            |    2 
+ drivers/infiniband/hw/efa/efa_verbs.c        |    2 
+ drivers/infiniband/hw/hns/hns_roce_alloc.c   |    2 
+ drivers/infiniband/hw/i40iw/i40iw_verbs.c    |    1 
+ drivers/infiniband/hw/mlx4/mr.c              |    1 
+ drivers/infiniband/hw/mlx5/mem.c             |    1 
+ drivers/infiniband/hw/mthca/mthca_provider.c |    2 
+ drivers/infiniband/hw/ocrdma/ocrdma_verbs.c  |    2 
+ drivers/infiniband/hw/qedr/verbs.c           |    2 
+ drivers/infiniband/hw/vmw_pvrdma/pvrdma.h    |    2 
+ include/rdma/ib_umem.h                       |   24 --------
+ include/rdma/ib_verbs.h                      |   47 ---------------
+ include/rdma/iter.h                          |   80 +++++++++++++++++++++++++++
+ 17 files changed, 135 insertions(+), 117 deletions(-)
+ create mode 100644 drivers/infiniband/core/iter.c
+ create mode 100644 include/rdma/iter.h
+
+--- a/drivers/infiniband/core/Makefile
++++ b/drivers/infiniband/core/Makefile
+@@ -12,7 +12,7 @@ ib_core-y :=			packer.o ud_header.o verb
+ 				roce_gid_mgmt.o mr_pool.o addr.o sa_query.o \
+ 				multicast.o mad.o smi.o agent.o mad_rmpp.o \
+ 				nldev.o restrack.o counters.o ib_core_uverbs.o \
+-				trace.o lag.o
++				trace.o lag.o iter.o
+ 
+ ib_core-$(CONFIG_SECURITY_INFINIBAND) += security.o
+ ib_core-$(CONFIG_CGROUP_RDMA) += cgroup.o
+--- /dev/null
++++ b/drivers/infiniband/core/iter.c
+@@ -0,0 +1,43 @@
++// SPDX-License-Identifier: GPL-2.0 OR Linux-OpenIB
++/* Copyright (c) 2026, NVIDIA CORPORATION & AFFILIATES. */
++
++#include <linux/export.h>
++#include <rdma/iter.h>
++
++void __rdma_block_iter_start(struct ib_block_iter *biter,
++			     struct scatterlist *sglist, unsigned int nents,
++			     unsigned long pgsz)
++{
++	memset(biter, 0, sizeof(struct ib_block_iter));
++	biter->__sg = sglist;
++	biter->__sg_nents = nents;
++
++	/* Driver provides best block size to use */
++	biter->__pg_bit = __fls(pgsz);
++}
++EXPORT_SYMBOL(__rdma_block_iter_start);
++
++bool __rdma_block_iter_next(struct ib_block_iter *biter)
++{
++	unsigned int block_offset;
++	unsigned int delta;
++
++	if (!biter->__sg_nents || !biter->__sg)
++		return false;
++
++	biter->__dma_addr = sg_dma_address(biter->__sg) + biter->__sg_advance;
++	block_offset = biter->__dma_addr & (BIT_ULL(biter->__pg_bit) - 1);
++	delta = BIT_ULL(biter->__pg_bit) - block_offset;
++
++	while (biter->__sg_nents && biter->__sg &&
++	       sg_dma_len(biter->__sg) - biter->__sg_advance <= delta) {
++		delta -= sg_dma_len(biter->__sg) - biter->__sg_advance;
++		biter->__sg_advance = 0;
++		biter->__sg = sg_next(biter->__sg);
++		biter->__sg_nents--;
++	}
++	biter->__sg_advance += delta;
++
++	return true;
++}
++EXPORT_SYMBOL(__rdma_block_iter_next);
+--- a/drivers/infiniband/core/verbs.c
++++ b/drivers/infiniband/core/verbs.c
+@@ -2896,40 +2896,3 @@ int rdma_init_netdev(struct ib_device *d
+ 					     netdev, params.param);
+ }
+ EXPORT_SYMBOL(rdma_init_netdev);
+-
+-void __rdma_block_iter_start(struct ib_block_iter *biter,
+-			     struct scatterlist *sglist, unsigned int nents,
+-			     unsigned long pgsz)
+-{
+-	memset(biter, 0, sizeof(struct ib_block_iter));
+-	biter->__sg = sglist;
+-	biter->__sg_nents = nents;
+-
+-	/* Driver provides best block size to use */
+-	biter->__pg_bit = __fls(pgsz);
+-}
+-EXPORT_SYMBOL(__rdma_block_iter_start);
+-
+-bool __rdma_block_iter_next(struct ib_block_iter *biter)
+-{
+-	unsigned int block_offset;
+-	unsigned int sg_delta;
+-
+-	if (!biter->__sg_nents || !biter->__sg)
+-		return false;
+-
+-	biter->__dma_addr = sg_dma_address(biter->__sg) + biter->__sg_advance;
+-	block_offset = biter->__dma_addr & (BIT_ULL(biter->__pg_bit) - 1);
+-	sg_delta = BIT_ULL(biter->__pg_bit) - block_offset;
+-
+-	if (sg_dma_len(biter->__sg) - biter->__sg_advance > sg_delta) {
+-		biter->__sg_advance += sg_delta;
+-	} else {
+-		biter->__sg_advance = 0;
+-		biter->__sg = sg_next(biter->__sg);
+-		biter->__sg_nents--;
+-	}
+-
+-	return true;
+-}
+-EXPORT_SYMBOL(__rdma_block_iter_next);
+--- a/drivers/infiniband/hw/bnxt_re/qplib_res.c
++++ b/drivers/infiniband/hw/bnxt_re/qplib_res.c
+@@ -46,7 +46,7 @@
+ #include <linux/if_vlan.h>
+ #include <linux/vmalloc.h>
+ #include <rdma/ib_verbs.h>
+-#include <rdma/ib_umem.h>
++#include <rdma/iter.h>
+ 
+ #include "roce_hsi.h"
+ #include "qplib_res.h"
+--- a/drivers/infiniband/hw/cxgb4/mem.c
++++ b/drivers/infiniband/hw/cxgb4/mem.c
+@@ -32,9 +32,9 @@
+ 
+ #include <linux/module.h>
+ #include <linux/moduleparam.h>
+-#include <rdma/ib_umem.h>
+ #include <linux/atomic.h>
+ #include <rdma/ib_user_verbs.h>
++#include <rdma/iter.h>
+ 
+ #include "iw_cxgb4.h"
+ 
+--- a/drivers/infiniband/hw/efa/efa_verbs.c
++++ b/drivers/infiniband/hw/efa/efa_verbs.c
+@@ -7,9 +7,9 @@
+ #include <linux/log2.h>
+ 
+ #include <rdma/ib_addr.h>
+-#include <rdma/ib_umem.h>
+ #include <rdma/ib_user_verbs.h>
+ #include <rdma/ib_verbs.h>
++#include <rdma/iter.h>
+ #include <rdma/uverbs_ioctl.h>
+ 
+ #include "efa.h"
+--- a/drivers/infiniband/hw/hns/hns_roce_alloc.c
++++ b/drivers/infiniband/hw/hns/hns_roce_alloc.c
+@@ -34,7 +34,7 @@
+ #include <linux/platform_device.h>
+ #include <linux/vmalloc.h>
+ #include "hns_roce_device.h"
+-#include <rdma/ib_umem.h>
++#include <rdma/iter.h>
+ 
+ int hns_roce_bitmap_alloc(struct hns_roce_bitmap *bitmap, unsigned long *obj)
+ {
+--- a/drivers/infiniband/hw/i40iw/i40iw_verbs.c
++++ b/drivers/infiniband/hw/i40iw/i40iw_verbs.c
+@@ -45,6 +45,7 @@
+ #include <rdma/iw_cm.h>
+ #include <rdma/ib_user_verbs.h>
+ #include <rdma/ib_umem.h>
++#include <rdma/iter.h>
+ #include <rdma/uverbs_ioctl.h>
+ #include "i40iw.h"
+ 
+--- a/drivers/infiniband/hw/mlx4/mr.c
++++ b/drivers/infiniband/hw/mlx4/mr.c
+@@ -33,6 +33,7 @@
+ 
+ #include <linux/slab.h>
+ #include <rdma/ib_user_verbs.h>
++#include <rdma/iter.h>
+ 
+ #include "mlx4_ib.h"
+ 
+--- a/drivers/infiniband/hw/mlx5/mem.c
++++ b/drivers/infiniband/hw/mlx5/mem.c
+@@ -33,6 +33,7 @@
+ #include <linux/module.h>
+ #include <rdma/ib_umem.h>
+ #include <rdma/ib_umem_odp.h>
++#include <rdma/iter.h>
+ #include "mlx5_ib.h"
+ #include <linux/jiffies.h>
+ 
+--- a/drivers/infiniband/hw/mthca/mthca_provider.c
++++ b/drivers/infiniband/hw/mthca/mthca_provider.c
+@@ -35,8 +35,8 @@
+  */
+ 
+ #include <rdma/ib_smi.h>
+-#include <rdma/ib_umem.h>
+ #include <rdma/ib_user_verbs.h>
++#include <rdma/iter.h>
+ #include <rdma/uverbs_ioctl.h>
+ 
+ #include <linux/sched.h>
+--- a/drivers/infiniband/hw/ocrdma/ocrdma_verbs.c
++++ b/drivers/infiniband/hw/ocrdma/ocrdma_verbs.c
+@@ -44,9 +44,9 @@
+ #include <rdma/ib_verbs.h>
+ #include <rdma/ib_user_verbs.h>
+ #include <rdma/iw_cm.h>
+-#include <rdma/ib_umem.h>
+ #include <rdma/ib_addr.h>
+ #include <rdma/ib_cache.h>
++#include <rdma/iter.h>
+ #include <rdma/uverbs_ioctl.h>
+ 
+ #include "ocrdma.h"
+--- a/drivers/infiniband/hw/qedr/verbs.c
++++ b/drivers/infiniband/hw/qedr/verbs.c
+@@ -39,9 +39,9 @@
+ #include <rdma/ib_verbs.h>
+ #include <rdma/ib_user_verbs.h>
+ #include <rdma/iw_cm.h>
+-#include <rdma/ib_umem.h>
+ #include <rdma/ib_addr.h>
+ #include <rdma/ib_cache.h>
++#include <rdma/iter.h>
+ #include <rdma/uverbs_ioctl.h>
+ 
+ #include <linux/qed/common_hsi.h>
+--- a/drivers/infiniband/hw/vmw_pvrdma/pvrdma.h
++++ b/drivers/infiniband/hw/vmw_pvrdma/pvrdma.h
+@@ -53,8 +53,8 @@
+ #include <linux/pci.h>
+ #include <linux/semaphore.h>
+ #include <linux/workqueue.h>
+-#include <rdma/ib_umem.h>
+ #include <rdma/ib_verbs.h>
++#include <rdma/iter.h>
+ #include <rdma/vmw_pvrdma-abi.h>
+ 
+ #include "pvrdma_ring.h"
+--- a/include/rdma/ib_umem.h
++++ b/include/rdma/ib_umem.h
+@@ -46,30 +46,6 @@ static inline size_t ib_umem_num_pages(s
+ {
+ 	return ib_umem_num_dma_blocks(umem, PAGE_SIZE);
+ }
+-
+-static inline void __rdma_umem_block_iter_start(struct ib_block_iter *biter,
+-						struct ib_umem *umem,
+-						unsigned long pgsz)
+-{
+-	__rdma_block_iter_start(biter, umem->sg_head.sgl, umem->nmap, pgsz);
+-}
+-
+-/**
+- * rdma_umem_for_each_dma_block - iterate over contiguous DMA blocks of the umem
+- * @umem: umem to iterate over
+- * @biter: block iterator variable
+- * @pgsz: Page size to split the list into
+- *
+- * pgsz must be <= PAGE_SIZE or computed by ib_umem_find_best_pgsz(). The
+- * returned DMA blocks will be aligned to pgsz and span the range:
+- * ALIGN_DOWN(umem->address, pgsz) to ALIGN(umem->address + umem->length, pgsz)
+- *
+- * Performs exactly ib_umem_num_dma_blocks() iterations.
+- */
+-#define rdma_umem_for_each_dma_block(umem, biter, pgsz)                        \
+-	for (__rdma_umem_block_iter_start(biter, umem, pgsz);                  \
+-	     __rdma_block_iter_next(biter);)
+-
+ #ifdef CONFIG_INFINIBAND_USER_MEM
+ 
+ struct ib_umem *ib_umem_get(struct ib_device *device, unsigned long addr,
+--- a/include/rdma/ib_verbs.h
++++ b/include/rdma/ib_verbs.h
+@@ -2756,21 +2756,6 @@ struct ib_client {
+ 	u8 no_kverbs_req:1;
+ };
+ 
+-/*
+- * IB block DMA iterator
+- *
+- * Iterates the DMA-mapped SGL in contiguous memory blocks aligned
+- * to a HW supported page size.
+- */
+-struct ib_block_iter {
+-	/* internal states */
+-	struct scatterlist *__sg;	/* sg holding the current aligned block */
+-	dma_addr_t __dma_addr;		/* unaligned DMA address of this block */
+-	unsigned int __sg_nents;	/* number of SG entries */
+-	unsigned int __sg_advance;	/* number of bytes to advance in sg in next step */
+-	unsigned int __pg_bit;		/* alignment of current block */
+-};
+-
+ struct ib_device *_ib_alloc_device(size_t size);
+ #define ib_alloc_device(drv_struct, member)                                    \
+ 	container_of(_ib_alloc_device(sizeof(struct drv_struct) +              \
+@@ -2792,38 +2777,6 @@ void ib_unregister_device_queued(struct
+ int ib_register_client   (struct ib_client *client);
+ void ib_unregister_client(struct ib_client *client);
+ 
+-void __rdma_block_iter_start(struct ib_block_iter *biter,
+-			     struct scatterlist *sglist,
+-			     unsigned int nents,
+-			     unsigned long pgsz);
+-bool __rdma_block_iter_next(struct ib_block_iter *biter);
+-
+-/**
+- * rdma_block_iter_dma_address - get the aligned dma address of the current
+- * block held by the block iterator.
+- * @biter: block iterator holding the memory block
+- */
+-static inline dma_addr_t
+-rdma_block_iter_dma_address(struct ib_block_iter *biter)
+-{
+-	return biter->__dma_addr & ~(BIT_ULL(biter->__pg_bit) - 1);
+-}
+-
+-/**
+- * rdma_for_each_block - iterate over contiguous memory blocks of the sg list
+- * @sglist: sglist to iterate over
+- * @biter: block iterator holding the memory block
+- * @nents: maximum number of sg entries to iterate over
+- * @pgsz: best HW supported page size to use
+- *
+- * Callers may use rdma_block_iter_dma_address() to get each
+- * blocks aligned DMA address.
+- */
+-#define rdma_for_each_block(sglist, biter, nents, pgsz)		\
+-	for (__rdma_block_iter_start(biter, sglist, nents,	\
+-				     pgsz);			\
+-	     __rdma_block_iter_next(biter);)
+-
+ /**
+  * ib_get_client_data - Get IB client context
+  * @device:Device to get context for
+--- /dev/null
++++ b/include/rdma/iter.h
+@@ -0,0 +1,80 @@
++/* SPDX-License-Identifier: GPL-2.0 OR Linux-OpenIB */
++/* Copyright (c) 2026, NVIDIA CORPORATION & AFFILIATES. */
++
++#ifndef _RDMA_ITER_H_
++#define _RDMA_ITER_H_
++
++#include <linux/scatterlist.h>
++#include <rdma/ib_umem.h>
++
++/**
++ * IB block DMA iterator
++ *
++ * Iterates the DMA-mapped SGL in contiguous memory blocks aligned
++ * to a HW supported page size.
++ */
++struct ib_block_iter {
++	/* internal states */
++	struct scatterlist *__sg;	/* sg holding the current aligned block */
++	dma_addr_t __dma_addr;		/* unaligned DMA address of this block */
++	unsigned int __sg_nents;	/* number of SG entries */
++	unsigned int __sg_advance;	/* number of bytes to advance in sg in next step */
++	unsigned int __pg_bit;		/* alignment of current block */
++};
++
++void __rdma_block_iter_start(struct ib_block_iter *biter,
++			     struct scatterlist *sglist,
++			     unsigned int nents,
++			     unsigned long pgsz);
++bool __rdma_block_iter_next(struct ib_block_iter *biter);
++
++/**
++ * rdma_block_iter_dma_address - get the aligned dma address of the current
++ * block held by the block iterator.
++ * @biter: block iterator holding the memory block
++ */
++static inline dma_addr_t
++rdma_block_iter_dma_address(struct ib_block_iter *biter)
++{
++	return biter->__dma_addr & ~(BIT_ULL(biter->__pg_bit) - 1);
++}
++
++/**
++ * rdma_for_each_block - iterate over contiguous memory blocks of the sg list
++ * @sglist: sglist to iterate over
++ * @biter: block iterator holding the memory block
++ * @nents: maximum number of sg entries to iterate over
++ * @pgsz: best HW supported page size to use
++ *
++ * Callers may use rdma_block_iter_dma_address() to get each
++ * blocks aligned DMA address.
++ */
++#define rdma_for_each_block(sglist, biter, nents, pgsz)		\
++	for (__rdma_block_iter_start(biter, sglist, nents,	\
++				     pgsz);			\
++	     __rdma_block_iter_next(biter);)
++
++static inline void __rdma_umem_block_iter_start(struct ib_block_iter *biter,
++						struct ib_umem *umem,
++						unsigned long pgsz)
++{
++	__rdma_block_iter_start(biter, umem->sg_head.sgl, umem->nmap, pgsz);
++}
++
++/**
++ * rdma_umem_for_each_dma_block - iterate over contiguous DMA blocks of the umem
++ * @umem: umem to iterate over
++ * @biter: block iterator variable
++ * @pgsz: Page size to split the list into
++ *
++ * pgsz must be <= PAGE_SIZE or computed by ib_umem_find_best_pgsz(). The
++ * returned DMA blocks will be aligned to pgsz and span the range:
++ * ALIGN_DOWN(umem->address, pgsz) to ALIGN(umem->address + umem->length, pgsz)
++ *
++ * Performs exactly ib_umem_num_dma_blocks() iterations.
++ */
++#define rdma_umem_for_each_dma_block(umem, biter, pgsz)                        \
++	for (__rdma_umem_block_iter_start(biter, umem, pgsz);                  \
++	     __rdma_block_iter_next(biter);)
++
++#endif /* _RDMA_ITER_H_ */
+
+
