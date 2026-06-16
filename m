@@ -1,47 +1,45 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C916538837F;
-	Tue, 16 Jun 2026 15:35:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5DA943DA2C;
+	Tue, 16 Jun 2026 15:35:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781624115; cv=none; b=EmoLykHCudVd7uTT05A7vvmTlilBvuo/D2+KGw3xK3llH53l0Yi3IP40iM3JEbRvJ1wcHFGDRHbimJ0TSANJKP+qdnrYgaT7ZyUNaumJT/pljTylRMoNf0UqrHL0hiRILcjYcL0mUgaAbElLjyEXCmTVKObW7vvPmGj9eLdX3pY=
+	t=1781624119; cv=none; b=TMA/0vSZ9b6iCVmy6LUb5tXGVGMPOYu0gxkPu75Bjg4uhEEhdPgviHW6bqqyRnfYpabG3iFnqHyUZNx0GjnKNfC1hADGMJTbKsTldQyPjxu1c7Db0ewEtI259RXq3Ms5TJPxCD9eDd47u7IlKPZ/Tz12euLWh+MZ5HcjtjVXofQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781624115; c=relaxed/simple;
-	bh=QWKBrz7LtSasIw+aiaqCUmaUEjy3c5H8kzkQwe8/vUo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=EJhnb9xjsxkRzjTfqWyy3Nwp6Rl45Ltz30f7tbulqfkpUFIe8eHBsm+5QigAtU84d84QsKvmMhaHRnVa211IKOPLfsAJRq7MqaVw8TIxAMXvEdOjnNT0In6LFeXg+9cDvIoDVGJbm8TBc+4j3uXN1bVelj3+Yh6oNvPGta7BIkk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=0zyUzV7m; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="0zyUzV7m"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B12271F00AC4;
-	Tue, 16 Jun 2026 15:35:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1781624114;
-	bh=T7lSHEsKQUp/xKUG+6k8XcUxyR8q/iiWWl568ADM50Q=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=0zyUzV7mClcIuh1t8aVIOLJBHdLg1Xnfj2/H6JTTutl/T1WkSknNcaQj8ThaujLN8
-	 LOOybetSOvGjSgDl5s7Xerea96J4PVEI20MnPzIXR9dIlI4q6jjexKuN+6dQNdT018
-	 keBSOaHc07VkL5UvidS3mdzCcLojFyiNOpVX3wuk=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Mark Lord <mlord@pobox.com>,
-	Jason Gunthorpe <jgg@nvidia.com>,
-	Christoph Hellwig <hch@lst.de>,
-	Leon Romanovsky <leonro@nvidia.com>,
-	Samiullah Khawaja <skhawaja@google.com>,
-	Marek Szyprowski <m.szyprowski@samsung.com>
-Subject: [PATCH 7.0 277/378] iommu/dma: Do not try to iommu_map a 0 length region in swiotlb
-Date: Tue, 16 Jun 2026 20:28:28 +0530
-Message-ID: <20260616145124.689470923@linuxfoundation.org>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260616145109.744539446@linuxfoundation.org>
-References: <20260616145109.744539446@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	s=arc-20240116; t=1781624119; c=relaxed/simple;
+	bh=4yAVF82rBtjl5/KYDPf/gXf+TFBoOLYlbSssuGJpaW4=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=uPuLMntZfuGs2/HRN+sEvVQJaFQVwUdkIXOO2jX8KkqR47Zz3qciA0mxseIV87onhaP3Me97xBd/EJ++U6za5bUhvK6YU50UIzPGN3bSQ3U1YEA2lIXsOGwAVcVfnJ2HwUtU5sOKzlWVgxRh3jkDF6onMC+DSqby9sQZtwlppC8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowAD3Z+subTFqAR3GEw--.19654S2;
+	Tue, 16 Jun 2026 23:35:10 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: alexander.deucher@amd.com,
+	christian.koenig@amd.com,
+	airlied@gmail.com,
+	simona@ffwll.ch
+Cc: lijo.lazar@amd.com,
+	aurabindo.pillai@amd.com,
+	superm1@kernel.org,
+	xiaogang.chen@amd.com,
+	chongli2@amd.com,
+	pierre-eric.pelloux-prayer@amd.com,
+	Victor.Zhao@amd.com,
+	Jesse.Zhang@amd.com,
+	lang.yu@amd.com,
+	vulab@iscas.ac.cn,
+	Jack.Xiao@amd.com,
+	amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v2] drm/amdgpu: fix fence reference leak in amdgpu_gfx_run_cleaner_shader_job
+Date: Tue, 16 Jun 2026 15:35:06 +0000
+Message-Id: <20260616153506.1713376-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,80 +47,76 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowAD3Z+subTFqAR3GEw--.19654S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Zr13AFWUur43Cr45Ar18Krg_yoW8AF4xpF
+	s3Kry3tr48Za17K347A3Wjqa409w13XFy8WrnFya4I93Z8JFn8Jr15JayFqF1kurWkCa17
+	Kryqg3y5X3Z0kF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9014x267AKxVW5JVWrJwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
+	0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
+	jxv20xvE14v26r1Y6r17McIj6I8E87Iv67AKxVWxJr0_GcWlOx8S6xCaFVCjc4AY6r1j6r
+	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628v
+	n2kIc2xKxwCY1x0262kKe7AKxVW8ZVWrXwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7x
+	kEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E
+	67AF67kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCw
+	CI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1x
+	MIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIda
+	VFxhVjvjDU0xZFpf9x0JUFdgAUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgoAA2oxZbUPKgABsg
 
-7.0-stable review patch.  If anyone has any objections, please let me know.
+In amdgpu_gfx_run_cleaner_shader_job(), amdgpu_job_submit() returns a
+dma_fence with an elevated reference count. The function correctly
+releases this reference on the success path after dma_fence_wait().
+However, if dma_fence_wait() fails (though with infinite timeout and
+non-interruptible it never does), the code jumps to the error label
+without calling dma_fence_put(), resulting in a reference leak.
 
-------------------
+Fix the potential leak by adding dma_fence_put(f) before the goto err
+when dma_fence_wait() returns an error.
 
-From: Jason Gunthorpe <jgg@nvidia.com>
-
-commit 6ec91df8aff77e2e8fe3179c1f3fc15b43a40ba3 upstream.
-
-iommu_dma_iova_link_swiotlb() processes a mapping that is unaligned in three
-parts, the head, middle and trailer. If the middle is empty because there
-are no aligned pages it will call down to iommu_map() with a 0 size
-which the iommupt implementation will fail as illegal.
-
-It then tries to do an error unwind and starts from the wrong spot
-corrupting the mapping so the eventual destruction triggers a WARN_ON.
-
-Check for 0 length and avoid mapping and use offset not 0 as the starting
-point to unlink.
-
-This is frequently triggered by using some kinds of thunderbolt NVMe
-drives that trigger forced SWIOTLB for unaligned memory. NVMe seems to
-pass in oddly aligned buffers for the passthrough commands from smartctl
-that hit this condition.
-
+Fixes: 559a285816af ("drm/amdgpu: Replace 'amdgpu_job_submit_direct' with 'drm_sched_entity' in cleaner shader")
 Cc: stable@vger.kernel.org
-Fixes: 433a76207dcf ("dma-mapping: Implement link/unlink ranges API")
-Reported-by: Mark Lord <mlord@pobox.com>
-Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Reviewed-by: Leon Romanovsky <leonro@nvidia.com>
-Reviewed-by: Samiullah Khawaja <skhawaja@google.com>
-Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
-Link: https://lore.kernel.org/r/0-v1-8536728bc89f+469-swiotlb_warn_jgg@nvidia.com
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- drivers/iommu/dma-iommu.c |   19 +++++++++++++------
- 1 file changed, 13 insertions(+), 6 deletions(-)
+v2: Also cleanup the scheduler entity and simplify error handling paths.
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 9 +++------
+ 1 file changed, 3 insertions(+), 6 deletions(-)
 
---- a/drivers/iommu/dma-iommu.c
-+++ b/drivers/iommu/dma-iommu.c
-@@ -1895,12 +1895,18 @@ static int iommu_dma_iova_link_swiotlb(s
- 			return 0;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+index b8ca876694ff..be13ce6ce377 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+@@ -1658,7 +1658,7 @@ static int amdgpu_gfx_run_cleaner_shader_job(struct amdgpu_ring *ring)
+ 				  &sched, 1, NULL);
+ 	if (r) {
+ 		dev_err(adev->dev, "Failed setting up GFX kernel entity.\n");
+-		goto err;
++		return r;
  	}
  
-+	/*
-+	 * After removing the partial head and tail, there may be no aligned
-+	 * middle left to map.  The tail still gets bounced below.
-+	 */
- 	size -= iova_end_pad;
--	error = __dma_iova_link(dev, addr + mapped, phys + mapped, size, dir,
--			attrs);
--	if (error)
--		goto out_unmap;
--	mapped += size;
-+	if (size) {
-+		error = __dma_iova_link(dev, addr + mapped, phys + mapped,
-+				size, dir, attrs);
-+		if (error)
-+			goto out_unmap;
-+		mapped += size;
-+	}
+ 	/*
+@@ -1686,16 +1686,13 @@ static int amdgpu_gfx_run_cleaner_shader_job(struct amdgpu_ring *ring)
+ 	f = amdgpu_job_submit(job);
  
- 	if (iova_end_pad) {
- 		error = iommu_dma_iova_bounce_and_link(dev, addr + mapped,
-@@ -1913,7 +1919,8 @@ static int iommu_dma_iova_link_swiotlb(s
- 	return 0;
+ 	r = dma_fence_wait(f, false);
+-	if (r)
+-		goto err;
++	goto err;
  
- out_unmap:
--	dma_iova_unlink(dev, state, 0, mapped, dir, attrs);
-+	if (mapped)
-+		dma_iova_unlink(dev, state, offset, mapped, dir, attrs);
- 	return error;
+ 	dma_fence_put(f);
+ 
++err:
+ 	/* Clean up the scheduler entity */
+ 	drm_sched_entity_destroy(&entity);
+-	return 0;
+-
+-err:
+ 	return r;
  }
  
-
+-- 
+2.34.1
 
