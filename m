@@ -1,56 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 077A91624D5
-	for <stable@vger.kernel.org>; Tue, 16 Jun 2026 03:17:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 235E93C3C1E
+	for <stable@vger.kernel.org>; Tue, 16 Jun 2026 03:17:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781579837; cv=none; b=PPUoTBIxXs4Tty/BWNeeyqf7nwCPXapFebCw7x3oe2WS5S+FuEcxa4VKbUDb5odzeY7HY0DqfOdNVT17K7Pyb/nggwc7g9Gs5+rd7qoTVWc78EnlpYyZHlvDPXf1a0FH/lTIoxDX/jQOxxRjUQ76bev2jZixm/YpotTLJjsl09o=
+	t=1781579860; cv=none; b=ZItVgCM5K3v9Ntr5mqxk9XlAj1yP1ykzna1QQu17L7j0q32s2KcocqKMozGpWKBRZKr6DKtlnUopAooqaDbVtKcX2eQBq0f7PkMQCdCA4c+/oIvw177OtGDU9vN/bvypTGQgKSpSWzMMxBkz2PB90imZXJITedSmImPmyuxY2fI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781579837; c=relaxed/simple;
-	bh=MYyIY46OEMj1V7Xegxwtiy5iy1803yy/qq+NtwanQe0=;
+	s=arc-20240116; t=1781579860; c=relaxed/simple;
+	bh=MJZHPkPn3picYFOyl0gJWsXMt6Pe2GOtTUBDuC5RALQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=d1SzWGHA+rZNoaeGAjXT/z9TIo1DhzH7U1oZZf8RCXZP/HI41jHMFycQJW5a3nXYW0mFJEmyiySqt20c06hywiPz3RH1OOXME/BwgDNnjrxjwjrUELW/1nTTaji0m8urVnal2oq9N4qsAe7m+Hj+UXM1IqtWmFWHpQrwbM9iuvg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=de+CbaBZ; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=FKEPGaMJIcBhsUlAXjGqSnumESb0smQa34n7SaBODOtjl1n2LelGwPIzRZmcLKpodf9rLQgmHXl+AIxpRpBvKnfbO2z45uzhfd72d+gcqyiy52zO08KnSVhJsdCZzhBjcz2sLF7jzh3U9RfEMfOM6BCgxK7xmXRcvlBAMJeflOI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CwFDBXMV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="de+CbaBZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 389261F000E9;
-	Tue, 16 Jun 2026 03:17:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CwFDBXMV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80C861F000E9;
+	Tue, 16 Jun 2026 03:17:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781579835;
-	bh=S4Df92AAoIYYlD3L2J6HEgIR23h3GtBrYG7PSjziyiM=;
+	s=k20260515; t=1781579859;
+	bh=dxMmA+tZNAo3PYafx2VTJTi/44/cctvYz8tJc3+eE/E=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=de+CbaBZBDxbAITeG2SpvbXxxtEsN172LOFTT0NmYIgFK0qOz4Up49CV9xna94m9s
-	 wYB15uuJDVBuWLVyqOgVx41PMVtBqp09BnUGnZgDIwCIHRPSHGx/13gNy4QB51frOc
-	 VX44JeuXAyr7afbtL9M+dh52WCvwe+8D+p1o+K8P/Q58OGVcANfi16XsEo1UmG1SP+
-	 wemL9rsc9sk0K0s9OpUjYE5n/12D6Cor7zBKKAfs5F0cwsMEmSM1ieBQqMRKcQGN44
-	 p51VT32ht1DnwnFSXDLyLer16F7Tq0WrbPgVi8bs0SAy/dtPK3pS/PCjyNwDIe/BSe
-	 Cyj4gMjxMWJYQ==
+	b=CwFDBXMV3ch8eetHlviV/y8WPK6z81Yvm94w2WPn93Lte8/WJKud9gvhShZLcNCiy
+	 6HAZM9dvrR5MsZZME5JZ5++xScjO5vUFf/GwLeQvPEGCo1Fd8z0Pzobgwub2fhnQBv
+	 BGDr98QNH7/QSL4FsJEesoVsh6NDvPqZuQ01Kp6DOAtgCNwTUoceLexpux+nHyB5BZ
+	 KA5qfXkKiX5vifQ1zbrC5E2oiU2Ff8jO9wlIGCzfDFY7coz34KEM4SEu/jRev0ipQC
+	 7lm4y89R7Mfzg1IWEIoy/RBgE9+SFzfC8JMn0LD9YmTl0MROGPpV89bctHZn11HgZ4
+	 /pD2v4Hipbx9A==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Yin Tirui <yintirui@huawei.com>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"David Hildenbrand (arm)" <david@kernel.org>,
-	Lance Yang <lance.yang@linux.dev>,
-	Dev Jain <dev.jain@arm.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Barry Song <baohua@kernel.org>,
-	Chen Jun <chenjun102@huawei.com>,
-	Kefeng Wang <wangkefeng.wang@huawei.com>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Nico Pache <npache@redhat.com>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Yang Shi <yang.shi@linux.alibaba.com>,
-	Zi Yan <ziy@nvidia.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
+Cc: Randy Dunlap <rdunlap@infradead.org>,
+	Leon Romanovsky <leon@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] mm/huge_memory: update file PMD counter before folio_put()
-Date: Mon, 15 Jun 2026 23:17:12 -0400
-Message-ID: <20260616031712.2780366-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y 1/3] RDMA/umem: fix kernel-doc warnings
+Date: Mon, 15 Jun 2026 23:17:35 -0400
+Message-ID: <20260616031737.2781524-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026061514-baked-magnolia-385e@gregkh>
-References: <2026061514-baked-magnolia-385e@gregkh>
+In-Reply-To: <2026061513-rimless-afoot-0214@gregkh>
+References: <2026061513-rimless-afoot-0214@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -59,55 +45,40 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Yin Tirui <yintirui@huawei.com>
+From: Randy Dunlap <rdunlap@infradead.org>
 
-[ Upstream commit 8d878059924f12c1bc24556a92ec56add74de3c8 ]
+[ Upstream commit ff46d1392750444fab5ae5a0194764ffdc4ac0d2 ]
 
-__split_huge_pmd_locked() updates the file/shmem RSS counter after
-dropping the PMD mapping's folio reference.  If folio_put() drops the last
-reference, mm_counter_file() can later read freed folio state via
-folio_test_swapbacked().
+Add or correct kernel-doc comments to eliminate warnings:
 
-Move the counter update before folio_put().
+Warning: include/rdma/ib_umem.h:104 function parameter 'biter' not
+ described in 'rdma_umem_for_each_dma_block'
+Warning: include/rdma/ib_umem.h:140 function parameter 'pgsz_bitmap' not
+ described in 'ib_umem_find_best_pgoff'
+Warning: include/rdma/ib_umem.h:141 No description found for return
+ value of 'ib_umem_find_best_pgoff'
 
-Link: https://lore.kernel.org/20260526101337.1984081-1-yintirui@huawei.com
-Fixes: fadae2953072 ("thp: use mm_file_counter to determine update which rss counter")
-Signed-off-by: Yin Tirui <yintirui@huawei.com>
-Reviewed-by: Lorenzo Stoakes <ljs@kernel.org>
-Acked-by: David Hildenbrand (arm) <david@kernel.org>
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
-Reviewed-by: Dev Jain <dev.jain@arm.com>
-Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: Barry Song <baohua@kernel.org>
-Cc: Chen Jun <chenjun102@huawei.com>
-Cc: Kefeng Wang <wangkefeng.wang@huawei.com>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Nico Pache <npache@redhat.com>
-Cc: Ryan Roberts <ryan.roberts@arm.com>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Yang Shi <yang.shi@linux.alibaba.com>
-Cc: Zi Yan <ziy@nvidia.com>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+Link: https://patch.msgid.link/20260224003120.3173892-1-rdunlap@infradead.org
+Signed-off-by: Leon Romanovsky <leon@kernel.org>
+Stable-dep-of: 15fe76e23615 ("RDMA/umem: Fix truncation for block sizes >= 4G")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/huge_memory.c | 2 ++
- 1 file changed, 2 insertions(+)
+ include/rdma/ib_umem.h | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index 92550e398e5da3..fdcf89e3b1d27d 100644
---- a/mm/huge_memory.c
-+++ b/mm/huge_memory.c
-@@ -2066,7 +2066,9 @@ static void __split_huge_pmd_locked(struct vm_area_struct *vma, pmd_t *pmd,
- 			if (!PageReferenced(page) && pmd_young(old_pmd))
- 				SetPageReferenced(page);
- 			page_remove_rmap(page, true);
-+			add_mm_counter(mm, mm_counter_file(page), -HPAGE_PMD_NR);
- 			put_page(page);
-+			return;
- 		}
- 		add_mm_counter(mm, mm_counter_file(page), -HPAGE_PMD_NR);
- 		return;
+diff --git a/include/rdma/ib_umem.h b/include/rdma/ib_umem.h
+index 70597508c7656b..161c80e1d71957 100644
+--- a/include/rdma/ib_umem.h
++++ b/include/rdma/ib_umem.h
+@@ -57,6 +57,7 @@ static inline void __rdma_umem_block_iter_start(struct ib_block_iter *biter,
+ /**
+  * rdma_umem_for_each_dma_block - iterate over contiguous DMA blocks of the umem
+  * @umem: umem to iterate over
++ * @biter: block iterator variable
+  * @pgsz: Page size to split the list into
+  *
+  * pgsz must be <= PAGE_SIZE or computed by ib_umem_find_best_pgsz(). The
 -- 
 2.53.0
 
