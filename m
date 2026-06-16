@@ -1,144 +1,176 @@
-Received: from fout-a2-smtp.messagingengine.com (fout-a2-smtp.messagingengine.com [103.168.172.145])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C73D41C318
-	for <stable@vger.kernel.org>; Tue, 16 Jun 2026 09:54:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.145
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16BCD3AA9C4
+	for <stable@vger.kernel.org>; Tue, 16 Jun 2026 09:59:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781603690; cv=none; b=aKXLOuvoYymtKPFFtEY512qQCRlX0rT1AGMqT7+8Md6UeZZ8xVGrjwO5320SEhq+gd9bemSYfNtkiZqlyyDeOP6MYoxuuby5bThMxeQoEKmB9yTZXSzrj/fKjXqRN3jfZGqiepx98lysbnIWFGsvdXcl3L1+JRA7Q54qWu9wZgA=
+	t=1781603987; cv=none; b=o7W3TF/NQLRt1Zm2ql33zj3vFSVcLmp7iLINrPFlb61v/dX26CKh6c3eO+2FREuG/rYJbJvTK/XMPBpg38SnFrWrwYDtXVEiYQwFpxSAHo3oss9opQRiQMJ4/4AuH4HJ3c8xk08T0FgcoLXS7VSyKLCIsJ/Hz7N3+h+J39G7mIY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781603690; c=relaxed/simple;
-	bh=pU6gTMl7X9kwGR53DOfrBr86LhHw/3eOco4gmQF/7L8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=km3tAvdvKXQ/zvLFMfJtyxEGs+vASYtFS6hY4AvPeV9mOXAS7NQjr1qiQPwc+mj1Efi/7I6nEDoHtmu0Pt8Zpk7+zq7bwepD+GtQxuYXw+Z/P+wGBskCQ5g4SIurMfzQEElGN0SXDtPOmNeXdNKSAXFgsTlQ04FbbF2nu4rb0mM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com; spf=pass smtp.mailfrom=kroah.com; dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b=fVUZeGrh; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=MNXAexrD; arc=none smtp.client-ip=103.168.172.145
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
+	s=arc-20240116; t=1781603987; c=relaxed/simple;
+	bh=MQuDNs9DOFDasrbFxL0RULlj/5TRohoyZCluNgEoq8I=;
+	h=From:To:Cc:Subject:In-Reply-To:Date:Message-ID:References; b=E+HoChgPyqYYuP762yanZeaFOHpks3JPdF/q+o8z5qMlsSyLdh2mzkxb4dc6BFbSlqhH21saM0Iru0AZd87MUlNbP5AgCgUihmeKHUd0jc5KkOUQAdZxIYKTK3TPBg8d6QkegX8TG7bJPpJjox114iIKHBRCEulKRWqS1yLFA1E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ToII2jQH; arc=none smtp.client-ip=209.85.214.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b="fVUZeGrh";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="MNXAexrD"
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailfout.phl.internal (Postfix) with ESMTP id B9A73EC0188;
-	Tue, 16 Jun 2026 05:54:48 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-02.internal (MEProxy); Tue, 16 Jun 2026 05:54:48 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
-	:cc:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm1; t=1781603688; x=1781690088; bh=1QWE1n2xwG
-	AgXNs8551c0iCCcKqA3L0pxqjCZoShq44=; b=fVUZeGrhORkmAK2GgpcWujapsK
-	ODsffN3sIsS4TDCHDWhvKutxVv7kOcBh1ODIjIlgaMMF0FjXLS6lj2GOXZhgVvNW
-	xNWP+zxKr/qzb4iALq/6eloKL5eh3raIJYEfaHJFxWEBbrPK9Y8HthjE4dgKWvP1
-	mrB4Vp6Njx2b64vgoLh6CIaVYmK3Wm9nbRtmmcxSWDAfHS+B1gsMD7ONSgUgQylx
-	42S8I3F+n1zQ+0ybZoZFfwC2jmkl4Tps2t7DEPQH6UuwSlSiYv5TbW2rDm3FT5a5
-	wGLknvrhhEx+5CeYByr8MplTdekSkR3WBah2PfUF2Nl/o/qJk5/Y8lX5TaPg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1781603688; x=1781690088; bh=1QWE1n2xwGAgXNs8551c0iCCcKqA3L0pxqj
-	CZoShq44=; b=MNXAexrDAemjl27gJJdZnRM5lR8774/Ikhqtjn61iWkS6eOyr0m
-	WDCi5rHf0Pa1Tt41A6f1QX2UZni9dojeqwkp8fGYW+KRtkKyAyIa9tKJG7REd4oa
-	P/Cscl9UdHwzmOMfoZ/aEcjvPPO6eKkFFfRMkIwYLtEe//oJMmb8A2DljLPn44BC
-	Qt/dRuxmCUsgaxpyuQcldrTvBgo4YuQ+k8Moiik5QirhKDvfa9mmhAVo+F+cbUu2
-	ISzElFPo9tjityEMfLb5ZpsOFdqhuRJfwS/RI18rTWjyZKziCvi9Zmj16RaH8J3W
-	idHJw/KiThmmd0Bn6Jzg9iIwoIOvPme0y1g==
-X-ME-Sender: <xms:aB0xahkBchyogKtsmZzwJAc_S-MvZYvoNanl5FfSRbDCiGuF-Ky_bg>
-    <xme:aB0xaiA1E2uZPHSmCm7fXuk4xwVWyqzyQNFG_tGcAF1FqYWzzcxft1WVT1spdAxxO
-    Xd51anVPpO4d1N0jf4mujdUSTzG0mmDSk5PBzvv0V6OM1B5aw>
-X-ME-Received: <xmr:aB0xarDm0rG1Pb0P5ndcFrne2Tzi6WPuNw-cFqbFl355831YQGTQsRHn>
-X-ME-Proxy-Cause: dmFkZTEZGO/pP2+J+TXYi4CmYH0Pasm7UaNBgVGxK82OOl/H/7HRJRTMQmK5BJt3QOPxhl
-    Po+M/DiAq9ngT7MahLNwXaNcph7RM/TPZ6tZgKnCHnJO5NDf8zMIVWVsq+hZZykxYHWYXT
-    fPk0T7AWS95i1GArZr5wez7U4yj6XRwbQF20zTEhd5GNzhk1wDx6sEBRaLz3ItpCF40I0U
-    dYxzrG21meY9HDNN8t39MOI4C1F0RYvyZC0W5hyk7giByPsNCsDsosyBt0aqpm2YP+lOD+
-    wHo4PXlpDJ+x5XpjL26I+E0pQ6bxmFloi14uFFIhkA8gfuC1yDpMl9XWjt1xzxuqVU6RLE
-    QL8bX8+yYB9y1XnZ0BseaR+v1nTa7srYT1+QbmL+v+JxplI+LsQDAOSJq8wWG7NM7C8Tfi
-    ejvTAjr402vBVq/k5FoZuoR1p20KVczRGIAZFWS1jLDfXe/4aXL86APYJji9VfW/2QYXyO
-    4P/J4IVQyrY8zhRNg5PSeyKsTCep4zB1tZptX+MxtcdvK1qeX/5pgKyqn+EhT9iX8UTUGF
-    DCvqaL30Z6Fj4Jdqoqgz3TFUVVpX7Cc9D4m3vE5APBGkyp4D6ZuEr+MgP3Qn0dC4TxiPfS
-    VkW4vl+cL8+wg5RnYaePMkaXDM+wIC3gXv3iRp17U2DaxGNUgfzbmrLL86yA
-X-ME-Proxy: <xmx:aB0xahGYbBqGU5gVYIOEE9kDPRQaT7ZZF-gzV--1REAqpYxiEC4xww>
-    <xmx:aB0xaq6YA6GQVRSnimo5YAtDUAfPs0EWXyve4bCQXUF5V_aPuS8s_w>
-    <xmx:aB0xagTW_K5PWbrSjFIsAwJeify_abi93ZAhbsFdHs4rHgWwZF3wHQ>
-    <xmx:aB0xat5IWrBT1CbBbCMV0pFuzoRBMzZ3AEfRm47kpwuaag6JZfFTCg>
-    <xmx:aB0xaqasrRCkdSnHLLDH8osD877by5bkXAngJTbFNDUY7T-XDy6VGTyF>
-Feedback-ID: i787e41f1:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 16 Jun 2026 05:54:47 -0400 (EDT)
-Date: Tue, 16 Jun 2026 15:23:37 +0530
-From: Greg KH <greg@kroah.com>
-To: ALOK TIWARI <alok.a.tiwari@oracle.com>
-Cc: Sasha Levin <sashal@kernel.org>, stable@vger.kernel.org,
-	Jeff Layton <jlayton@kernel.org>, stable@kernel.org,
-	Nicholas Carlini <npc@anthropic.com>,
-	Chuck Lever <chuck.lever@oracle.com>
-Subject: Re: [PATCH 5.15.y] nfsd: fix heap overflow in NFSv4.0 LOCK replay
- cache
-Message-ID: <2026061626-ladder-unwired-2bd4@gregkh>
-References: <2026032010-shredding-stargazer-b481@gregkh>
- <20260320113941.3971332-1-sashal@kernel.org>
- <919817c7-2684-455b-8f62-14e31d2b5eb1@oracle.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ToII2jQH"
+Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2c132ac5ec2so43144705ad.1
+        for <stable@vger.kernel.org>; Tue, 16 Jun 2026 02:59:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781603985; x=1782208785; darn=vger.kernel.org;
+        h=references:message-id:date:in-reply-to:subject:cc:to:from:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=HbaHTZBnCq318ZtN8K7oKcSJ6YlokHTKs6GlCUe8GzU=;
+        b=ToII2jQH/n0Q+TKw1h7yoObpdUyHuoWVNb9URh+a/ji2DjtpgLSTMphggkhvoeKz7g
+         iVoCklWweB1KiJOv9sqgIh2gS/b8Atq38pSmwgCWymI1AFfbduu9uQg8Y7oIRVKH8jGU
+         c8xpO7xsUQ+zuT4WHcWcWHmF5UGg/2MrlQckAnjjxwcAN86wgnyN/44+3j+nKA+YHu3I
+         0cPwlh1C81cTjnZITu7/RNEq+pBV2KbteMfZJovW/xKDYhECaxB7NBlZn7zZ2lynJKQ/
+         wiwgQpBYxyDiJyOhqRMCAcrWOPKxaD3VKs47R7BCfsyIIrnpsJaePT9mDe9nDi6CK201
+         0DxA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781603985; x=1782208785;
+        h=references:message-id:date:in-reply-to:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=HbaHTZBnCq318ZtN8K7oKcSJ6YlokHTKs6GlCUe8GzU=;
+        b=nTYSOTeLAK0MPsANS7DwZ3DTYp2UlbRb5uaNX+wQJ+HEAhPx5sLkOmhkLd5GDfhCcg
+         DgV3/wqmtWR7kKeIq6XsXcxXtBgKdwbYMbk6tdTaYsXUmSCAMG+Hm/+/9BRGvVf3Y9p9
+         vGCoFUync1dbR5s/QQ2jA2VUGlXaWjgKEXCgYB4G5h/Hu/7cpirI8X6KUPIJfYZYjxwd
+         W24i2Uwnci8FhMdlVpewCuC7AEcsF0BgHsrd0fX1KPjRZWSBK9CfGxTxctquxkh//d0y
+         JD/TTamQpw2Kj8GM28J9KDjNc5t7J2IktOXj3I/7YAMJIizY30x+lq622MvLdo+cFcSd
+         WrFg==
+X-Forwarded-Encrypted: i=1; AFNElJ+E5VeP0Uq/3OcWgADgGNObfRgDRw+vTwfzNhz0n+M6/faGFBk7O+AX1BCKHOx7OUbzLF6furk=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwhY35k43BtVv/MxPM23GohkA+5qxGhqhP+EZELVCSdvbfVPux4
+	p5qnQ65cPKGlfPwaSXuELNqotEWkYaPHSfmLP8H0lrYl4gxdK/tQ+bQ3
+X-Gm-Gg: Acq92OEJaISaYEB9Hh4oiU2njyGnCl6ZHdaEqX5D4ddVFHGKnxBJboUbgE3anpIgBEZ
+	oTtDB7xMIhzL8SvtPIpDAG9HfkTDwZyhADUVJk3jMOkBDOMu3EjtXK5aCSi+rr57nDwWYehxBm/
+	DytX62TUR9mwSKxk5zOfuUWLPADFJc5MeG7UX07BvuTVGeAIM3nYST0bezddjf4j/m0uu09gt+Z
+	1yyCKPlfiJs81ZFA7sMHEyJVdHHTDFagu91qQLNoI1RF1YGAjF3Inn5u8UyL7FsL875atwHa3mq
+	onUwNBmQDCNO52gJ6/CW0Kv/fBO8+P9QMhAjKMMRPS4Pnp3SSbdbT/k/MGDLmoOcaQ1s6AXbhUc
+	TBA70FOfhSZPDFF6crcGzb+t13c8eHXsxCROq7U3gPWeIBKTAC1G/Hgbhmkozcnqy2HveDUwPR2
+	tEohn7QXMsqjrR8QzSWsytgloH1A==
+X-Received: by 2002:a17:903:234f:b0:2c6:a21d:5bb with SMTP id d9443c01a7336-2c6a21d0986mr10010875ad.33.1781603985350;
+        Tue, 16 Jun 2026 02:59:45 -0700 (PDT)
+Received: from pve-server ([49.205.216.49])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c433460a60sm153761925ad.76.2026.06.16.02.59.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 16 Jun 2026 02:59:44 -0700 (PDT)
+From: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+To: Amit Machhiwal <amachhiw@linux.ibm.com>, linuxppc-dev@lists.ozlabs.org, Madhavan Srinivasan <maddy@linux.ibm.com>
+Cc: Amit Machhiwal <amachhiw@linux.ibm.com>, Vaibhav Jain <vaibhav@linux.ibm.com>, Harsh Prateek Bora <harshpb@linux.ibm.com>, Anushree Mathur <anushree.mathur@linux.ibm.com>, Gautam Menghani <gautam@linux.ibm.com>, Mukesh Kumar Chaurasiya <mkchauras@gmail.com>, Nicholas Piggin <npiggin@gmail.com>, Michael Ellerman <mpe@ellerman.id.au>, "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, Thomas Huth <thuth@redhat.com>, kvm@vger.kernel.org, stable@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] KVM: PPC: Book3S HV: Validate arch_compat against host compatibility mode
+In-Reply-To: <20260609053327.61563-1-amachhiw@linux.ibm.com>
+Date: Tue, 16 Jun 2026 15:17:59 +0530
+Message-ID: <cxxqerzk.ritesh.list@gmail.com>
+References: <20260609053327.61563-1-amachhiw@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <919817c7-2684-455b-8f62-14e31d2b5eb1@oracle.com>
 
-On Tue, May 12, 2026 at 02:43:57PM +0530, ALOK TIWARI wrote:
-> Hi,
-> 
-> On 3/20/2026 5:09 PM, Sasha Levin wrote:
-> > From: Jeff Layton<jlayton@kernel.org>
-> > 
-> > [ Upstream commit 5133b61aaf437e5f25b1b396b14242a6bb0508e2 ]
-> > 
-> > The NFSv4.0 replay cache uses a fixed 112-byte inline buffer
-> > (rp_ibuf[NFSD4_REPLAY_ISIZE]) to store encoded operation responses.
-> > This size was calculated based on OPEN responses and does not account
-> > for LOCK denied responses, which include the conflicting lock owner as
-> > a variable-length field up to 1024 bytes (NFS4_OPAQUE_LIMIT).
-> > 
-> > When a LOCK operation is denied due to a conflict with an existing lock
-> > that has a large owner, nfsd4_encode_operation() copies the full encoded
-> > response into the undersized replay buffer via read_bytes_from_xdr_buf()
-> > with no bounds check. This results in a slab-out-of-bounds write of up
-> > to 944 bytes past the end of the buffer, corrupting adjacent heap memory.
-> > 
-> > This can be triggered remotely by an unauthenticated attacker with two
-> > cooperating NFSv4.0 clients: one sets a lock with a large owner string,
-> > then the other requests a conflicting lock to provoke the denial.
-> > 
-> > We could fix this by increasing NFSD4_REPLAY_ISIZE to allow for a full
-> > opaque, but that would increase the size of every stateowner, when most
-> > lockowners are not that large.
-> > 
-> > Instead, fix this by checking the encoded response length against
-> > NFSD4_REPLAY_ISIZE before copying into the replay buffer. If the
-> > response is too large, set rp_buflen to 0 to skip caching the replay
-> > payload. The status is still cached, and the client already received the
-> > correct response on the original request.
-> > 
-> > Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> > Cc:stable@kernel.org
-> > Reported-by: Nicholas Carlini<npc@anthropic.com>
-> > Tested-by: Nicholas Carlini<npc@anthropic.com>
-> > Signed-off-by: Jeff Layton<jlayton@kernel.org>
-> > Signed-off-by: Chuck Lever<chuck.lever@oracle.com>
-> > [ replaced `op_status_offset + XDR_UNIT` with existing `post_err_offset` variable ]
-> > Signed-off-by: Sasha Levin<sashal@kernel.org>
-> 
-> 
-> This patch does not appear to be queued in 5.15.y yet, although
-> it is already present in 5.10.y and 6.1.y.
-> 
-> Could this please also be queued for 5.15.y?
-> It seems it may have been missed inadvertently.
+Amit Machhiwal <amachhiw@linux.ibm.com> writes:
 
-Odd, I did miss it, now added, thanks!
+> On IBM POWER systems, newer processor generations can operate in
+> compatibility modes corresponding to earlier generations. This becomes
+> relevant for nested virtualization, where nested KVM guests may need to
+> run with a specific processor compatibility level.
+>
+> Currently, when running a nested KVM guest (L2) inside a Power11 pSeries
+> logical partition (L1) booted in Power10 compatibility mode, the guest
+> fails to boot while setting 'arch_compat'. This happens because the CPU
+> class is derived from the hardware PVR (via mfspr()), which reflects the
+> physical processor generation (Power11), rather than the effective
+> compatibility mode (Power10).
+>
+> As a result, userspace may request a Power11 arch_compat for the L2
+> guest. However, the L1 partition, running in Power10 compatibility, has
+> only negotiated support up to Power10 with the Power Hypervisor (L0).
+> When H_GUEST_SET_STATE is invoked with a Power11 Logical PVR, the
+> hypervisor rejects the request, leading to a late guest boot failure:
+>
+>   KVM-NESTEDv2: couldn't set guest wide elements
+>   [..KVM reg dump..]
+>
+> This situation should be detected earlier and rejected by KVM. Without
+> proper validation, if userspace ignores the error, the guest may continue
+> to boot in Power11 raw mode on a Power10 compatibility host, which should
+> not be allowed.
+>
+> Introduce a validation mechanism that detects unsupported arch_compat
+> values early in the guest initialization path. When an unsupported
+> arch_compat is requested (e.g., Power11 on a Power10 compatibility mode
+> host), kvmppc_set_arch_compat() uses cpu_has_feature(CPU_FTR_P11_PVR) to
+> detect the mismatch and sets arch_compat to PVR_ARCH_INVALID. This
+> triggers kvmppc_sanity_check() to mark the vCPU as invalid by setting
+> vcpu->arch.sane to false. On the next vCPU run, kvmppc_vcpu_run_hv()
+> checks this flag and returns -EINVAL, preventing the guest from running
+> with an invalid processor compatibility configuration.
+>
+> With this, when a Power11 arch_compat is requested on a Power10
+> compatibility mode host, the guest fails early during boot with:
+>
+>   error: kvm run failed Invalid argument
+>
+> This provides a much clearer failure mode compared to the previous
+> behavior where the guest could boot in Power11 raw mode (if userspace
+> ignored the error) or fail late during H_GUEST_SET_STATE.
+>
+> Suggested-by: Vaibhav Jain <vaibhav@linux.ibm.com>
+> Reviewed-by: Vaibhav Jain <vaibhav@linux.ibm.com>
+> Cc: stable@vger.kernel.org # v6.13+
+> Signed-off-by: Amit Machhiwal <amachhiw@linux.ibm.com>
+> ---
+> Changes in v3:
+> * Fixed null pointer dereference in kvmppc_sanity_check(): added check for
+>   vcpu->arch.vcore before accessing arch_compat, as vcore is NULL for Book3S
+>   PR and BookE guests (only Book3S HV uses vcore) [Reported by Sashiko AI]
+> * Added Reviewed-by tag from Vaibhav
+>
+> Changes in v2:
+> * Fixed issue where v1 allowed guest to boot in Power11 raw mode when
+>   userspace ignored the error, by adding validation in kvmppc_sanity_check()
+>   to ensure early failure during vCPU run [Found the issue after posting v1,
+>   also reported by Gautam.]
 
-greg k-h
+Would be nice if we could post the matrix test results which Gautam
+posted earlier with this v3. I guess you meant you already tested all of
+those - it would be nice if we could explicitely put that info in the changelog.
+
+> * Introduced PVR_ARCH_INVALID constant for marking invalid arch_compat
+> * Dropped all Reviewed-by and Tested-by tags due to code changes; requesting
+>   fresh reviews
+> * v1: https://lore.kernel.org/all/20260603141539.47620-1-amachhiw@linux.ibm.com/
+>
+> Changes in v1:
+> * Moved this patch out of the v3 series [1] as discussed here [2]
+> * Addressed below review comments from Ritesh:
+>   - Based the PVR validation on cpu features
+>   - Fixed hcall name typo
+>   - Stable backport
+>
+> [1] https://lore.kernel.org/all/20260522152744.55251-1-amachhiw@linux.ibm.com/
+> [2] https://lore.kernel.org/all/20260522152744.55251-2-amachhiw@linux.ibm.com/
+> ---
+>  arch/powerpc/include/asm/reg.h |  1 +
+>  arch/powerpc/kvm/book3s_hv.c   | 15 ++++++++++++++-
+>  arch/powerpc/kvm/powerpc.c     |  4 ++++
+>  3 files changed, 19 insertions(+), 1 deletion(-)
+>
+> diff --git a/arch/powerpc/include/asm/reg.h b/arch/powerpc/include/asm/reg.h
+> index 3449dd2b577d..7472b9522f71 100644
+> --- a/arch/powerpc/include/asm/reg.h
+> +++ b/arch/powerpc/include/asm/reg.h
+> @@ -1356,6 +1356,7 @@
+>  #define PVR_ARCH_300	0x0f000005
+>  #define PVR_ARCH_31	0x0f000006
+>  #define PVR_ARCH_31_P11	0x0f000007
+> +#define PVR_ARCH_INVALID	0xffffffff
+
+Logical processor version is defined as part of the PAPR spec. We should
+ensure that this invalid PVR is also documented in the PAPR spec.
+
+If you have already taken care of that, then please confirm and feel free to add:
+
+Reviewed-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+
