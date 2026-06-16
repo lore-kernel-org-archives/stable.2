@@ -1,96 +1,104 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12AAA466B70;
-	Tue, 16 Jun 2026 17:43:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DDD83BFAF7;
+	Tue, 16 Jun 2026 17:43:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781631786; cv=none; b=OyvZEfe9iWCLhsG7Mu8HqKqkgiuHYWJW/0XhZFvF36F+WXIC+zsiX8l8IFn55GSytj2V9nPiDNMN+c31QM4Rm49ydgq5PiiBFRZfwQ7M/Rtnv7SRxkaBeWzXfSTdsxM3tWGAF5ISv5XYvnZAVN0Oxy1B+h3gM9LBzHO0RAt9bJM=
+	t=1781631790; cv=none; b=n24DRbvsNQQc39Qb4Bv+F2kzkohV3NWFeM75mOtP3mxEyzxj5qf5OvJvIDxUVZbIWnYleVsucgO+2OowmiwwZZ5Y9Bp8SeT0gteO7000ONJCHefcS6qXSwze/XUvBhTLEX+zXOyfZ+5l/04qP+VxdhpmBZIJXrDlfhWi9bQEJyI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781631786; c=relaxed/simple;
-	bh=dQNRbLWCeK75DjPAA4SvrLHVQCql+QnUjpBh/EtC2qQ=;
-	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
-	 Mime-Version:Content-Type; b=Tp42j5yowTTwXvGAIhTtMq6kKPnptSVod12FHN3UBplV3XVLVbALfegJUPH0LN8vQ968d6ZT5ff5cBgnssF8/s2+ICjc/ge3hlDkcW+dMnC/Or7nYoWNzpknwDPax8oj+AhVd5aYeH5IUvP9X4RAtYeoP9l8T6D1kI18L8CtwK4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P+t9wQPy; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781631790; c=relaxed/simple;
+	bh=QfHgFIn1H8xX3coHCCnCS9ouNETVNx5fIuleY00SPHs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=mOGG71me/maMrJ/TyXlc1hKFnAipk4dpvE8RxT0+Yc/bEsLVdssiWRY2E04ddRRLLNeT+zZhhMIaUuryxt7hDf8dhhY+j4bnVocBPI9N3bz0N2EZ3V4242Y9WUIhxTsPnIBPFdESQk5LPss3ZohaS4gSDB5+03ijKbo6OLeZanE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=gsU3M0CT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P+t9wQPy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2083C1F00A3E;
-	Tue, 16 Jun 2026 17:43:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781631784;
-	bh=4ptMQMr4KtIeVMZTDIlvLJCuEPLicT91TQkRWriqoEE=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=P+t9wQPyQyqHiag8CbUw0ZigdC8hTZsq/2wgmwhFlK59NOxzh1lKOBeaBjpc2M8Fy
-	 EOHLRlcYOSHJysFmbzMpffOh9TpMUa50PIOhARH/JCb4sENkcflwL+7ZfVC1QSncfG
-	 4DKWlyAHdIQiCKa24840Gc3vUvJaDjOZyc/v2IN9s4SSygxuL4KwJgGGcM4BC9gcxB
-	 Y33cf9TJnuuE1wOGSyQbklajqObybF44Ifji/4VF3mAjAvgg/7Xa0IFLPEenOXPq1f
-	 vuK7XN7db2yF2IJyxCWFtfYYoqE4U/Eee3i9rwwiPlr4AHf88EXptjXvhDXLovaGY4
-	 yxUoVuvJMvgUw==
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfauth.phl.internal (Postfix) with ESMTP id 5818AF4007D;
-	Tue, 16 Jun 2026 13:43:03 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-05.internal (MEProxy); Tue, 16 Jun 2026 13:43:03 -0400
-X-ME-Sender: <xms:J4sxamlMnIor37gD6NzqrYdokrGSs4AezDPgHSQ1fLPFIpa7-AvXVQ>
-    <xme:J4sxauSUoAF4aol9z6hhtHc8XcM8ff53S4ahMYHPqZWDScWOgj27jqT4D_LhAsOTd
-    BQlOJ18ZwRgDSK9xc--1ARP68OoGsuFWQoK60kJkA2kPeErLjoN5A>
-X-ME-Received: <xmr:J4sxalU5W7ohEcEvZ2zJG4ScrdXAQ2dLQO0v8D76Q25e2kvd5sb7lVIFgb4UK9BqnZiewoflb00ZLwb2DCrMqUafUbPAFcLxhxs>
-X-ME-Proxy-Cause: dmFkZTFVmzI+6hvKUTzx/JJFF1J1hmHi57aeWtjxdAhQTt67E/BIs2S3ubLUOQPYWL0PZ9
-    JopxHLy26hoDd1Ef72pRzPs6xxpU8+i0esED/uHXQBBPKOtTeSsm4HXj/Kteumc0tlBu8G
-    aN4BRRk8pL+bqSUe6jTcAsnZjY/URusYaGyM+NaUQB2KtYpD/bWB1/PHkdDSVYFr+v6WYj
-    11EcVVMTPEJU5IaIFt6QVlFm3v4xKGXYdmE0BK2215qX9zi/knfoVlYhi3UZLSnX7bPJS0
-    shYv+fqn4facIQ97taWfSJQ5j2p37f6/crK+YmIfI9VeOwA7jF4KCN6OJinBO2rAN5Vpe5
-    iRN7x7NNAiihdpPLXEZrAc6pZ7nSeQWDYby7ARMaIm1ogCWplt9VhSREioSUHwlJxnKpZN
-    vydB/l32kdrsuZbKdJ29fB4iNPgbhB0ayHv2zGvAVXZmz4g//IIJuiDu4RcYjrZvCV/dig
-    H2TMglhvVQHb0Co4Lu/Aqoxa2428QmUv3FHdrCR0vLOnqapTI3IIhsUA06ibu6+GwT9EKS
-    8m4PBLKEx9cCQq6BXTC9AyEdyGbXRanKo/p5d2OpDBB10sHlZ68BGl0FAqn/8PjZ0njurT
-    S+K8rcVM1MROdLcXowrWGpjXuKE9pQtvldwnEmXZu+r5rtuO+xBnYi6HM2KA
-X-ME-Proxy: <xmx:J4sxaiKugVYqGOzfbTA_z70ll-xW7HZ8Qcfi58LimSBwKxfUXreYAw>
-    <xmx:J4sxal3pp86vrtNL8sIBk4dGtkJNzYKfRj3Cc0XhTyhsrYjzTlPF6g>
-    <xmx:J4sxavLrWNEYck1ROjIFxp077WfTVSSl9BpfXNwnD3_OWKXWOyxPxg>
-    <xmx:J4sxagi6DcIX-6S7o3ZUcwgggeOutsEfOCQpar_Zvok4zX_ZJIKrPg>
-    <xmx:J4sxavDcXT2HDUnQOV6LXoXLncJjIA37TMaUoqJsoNsWYjaTo6Pcu58d>
-Feedback-ID: i67ae4b3e:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 16 Jun 2026 13:43:02 -0400 (EDT)
-Date: Tue, 16 Jun 2026 10:43:01 -0700
-From: "Dan Williams (nvidia)" <djbw@kernel.org>
-To: Dave Jiang <dave.jiang@intel.com>, 
- linux-cxl@vger.kernel.org
-Cc: djbw@kernel.org, 
- dave@stgolabs.net, 
- jic23@kernel.org, 
- alison.schofield@intel.com, 
- vishal.l.verma@intel.com, 
- flavien@nus.edu.sg, 
- stable@vger.kernel.org
-Message-ID: <6a318b25443ad_199fc4100b5@djbw-dev.notmuch>
-In-Reply-To: <20260616004007.4186004-2-dave.jiang@intel.com>
-References: <20260616004007.4186004-1-dave.jiang@intel.com>
- <20260616004007.4186004-2-dave.jiang@intel.com>
-Subject: Re: [PATCH 1/2] cxl/mce: Validate memdev and endpoint before
- dereference in cxl_handle_mce()
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="gsU3M0CT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06A461F000E9;
+	Tue, 16 Jun 2026 17:43:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1781631788;
+	bh=BuL8qKhbld/IKqBds+XwNSpqfJt8vJmYns35E9RNS7M=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=gsU3M0CTJVHwR3jTkfndWhst+6Il8Lw2QFsP7oUbKHDP5eafgM/Q5/D946kT5JEYJ
+	 a3TC0PRxFdRf2X1bbiPUnieTtBfGlpLgN0xfcE9Wz1vKqZtqWT7pV3AvxBLG+hJdYi
+	 B1Dkw68bfkco5J4/Vznub6kGedKlvAE1wqblOVdo=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
+	Mat Martineau <martineau@kernel.org>,
+	"Matthieu Baerts (NGI0)" <matttbe@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>
+Subject: [PATCH 6.1 288/522] mptcp: sockopt: check timestamping ret value
+Date: Tue, 16 Jun 2026 20:27:15 +0530
+Message-ID: <20260616145139.411860498@linuxfoundation.org>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260616145125.307082728@linuxfoundation.org>
+References: <20260616145125.307082728@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Dave Jiang wrote:
-> cxlmd and endpoint are both used in cxl_handle_mce() without proper
-> validation, which can lead to NULL pointer dereference or invalid pointer
-> dereference. The notifier is registered in cxl_memdev_state_create()
-> when the CXL PCI driver first binds, before the memdev is published and
-> before it is attached to a CXL topology.
-> 
-> Add checks to cxlmd and endpoint to ensure they are valid before usage.
+6.1-stable review patch.  If anyone has any objections, please let me know.
 
-This looks to be trying to band-aid the original mistake of having
-cxl_memdev_state_create() register a region-relative callback.
+------------------
 
-Move the mce notifier registration to be per-region and all the lookup
-lifetime problems disappear.
+From: Matthieu Baerts (NGI0) <matttbe@kernel.org>
+
+commit 57132affbc89c02e1bf73fdf5724311bdc9a29da upstream.
+
+sock_set_timestamping() can fail for different reasons. The returned
+value should then be checked.
+
+If sock_set_timestamping() fails for at least one subflow, the first
+error is now reported to the userspace, similar to what is done with
+other socket options.
+
+Fixes: 9061f24bf82e ("mptcp: sockopt: propagate timestamp request to subflows")
+Cc: stable@vger.kernel.org
+Reported-by: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+Closes: https://lore.kernel.org/willemdebruijn.kernel.178a41a53d041@gmail.com
+Reviewed-by: Mat Martineau <martineau@kernel.org>
+Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
+Link: https://patch.msgid.link/20260602-net-mptcp-misc-fixes-7-1-rc7-v2-7-856831229976@kernel.org
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ net/mptcp/sockopt.c |    8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
+
+--- a/net/mptcp/sockopt.c
++++ b/net/mptcp/sockopt.c
+@@ -233,15 +233,19 @@ static int mptcp_setsockopt_sol_socket_t
+ 
+ 	mptcp_for_each_subflow(msk, subflow) {
+ 		struct sock *ssk = mptcp_subflow_tcp_sock(subflow);
++		int err;
+ 
+ 		lock_sock(ssk);
+-		sock_set_timestamping(ssk, optname, timestamping);
++		err = sock_set_timestamping(ssk, optname, timestamping);
+ 		release_sock(ssk);
++
++		if (err < 0 && ret == 0)
++			ret = err;
+ 	}
+ 
+ 	release_sock(sk);
+ 
+-	return 0;
++	return ret;
+ }
+ 
+ static int mptcp_setsockopt_sol_socket_linger(struct mptcp_sock *msk, sockptr_t optval,
+
+
