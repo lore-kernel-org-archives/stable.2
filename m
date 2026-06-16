@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5AE23128CC
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 573DA30C632
 	for <stable@vger.kernel.org>; Tue, 16 Jun 2026 01:07:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781572062; cv=none; b=IzOyR3xHUvJkyUTzviu6YCiY98Xf65ECNb6cmJSy3w9laQElvCaU4zL6SmHPVlQ+nVQPb4tJThNKYe4mHboKQMOYUHeAodoacydI9W7zv5m2WXV3o5REI46sqg30PtXdFlLZvY4Huyn9WVF2J5dGBhtpTrkEhKmKqfPb/YXuaTU=
+	t=1781572063; cv=none; b=QPxpqzgo0ObZky7ErcQf4ZdcOKjbq/xCynKVHpJ5H7UTt9aVokMDFVaFAp7cQpUAdbuBvf5FyB1GjNn1PWoKK95r5aBrY9FDVKFs+X+7zcrISFZVqzm0PJXFs3jX3SzK7zogrYR1EvaeGM5Mq0dX5kBolQl6YQFt5Gt0Gorw+Is=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781572062; c=relaxed/simple;
-	bh=XX9NREEVL4LcB2J0tgseR8DPRAVA2lLy4m5DDY7AohU=;
+	s=arc-20240116; t=1781572063; c=relaxed/simple;
+	bh=9nDz2CkiN0mWErMLFL19xtVrcGdYCnVa78pLKLl+2u8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kZ1oEMkFnTfrPNyAdZh7RI64ymdtO/BAHq/IQEAqRzJn8dR8ES59hEeftSQhcXtU8prR90zKxKh5mvs3ecKZ7WHXNsQ4tszlQSvym01O3Jl3Gcg8OqHaLYK2K6mNAJQkxCU+uNKG1K8tUj1gau1tl8DSfpevWBl3xTnJ3VVSLyE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Dxw2nhp4; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=ZFI5fn6Igkf3YmISFUeoACb9F9oAl6hQrxyF8jyuT5TNE4q/UYjWbc/zzJOVrUZ8cqnpwr5AojnX246m3kob08R1/7jNR+BYTqOgmWe7dAXDJCQeXFCfg2dVP8KD9GFs0zeAX5236IBwitbJmDt9k2D5+D5gjC2++oByHkg9BRo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MCXrkLEk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Dxw2nhp4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5AD2F1F00A3D;
-	Tue, 16 Jun 2026 01:07:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MCXrkLEk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B02E71F00A3A;
+	Tue, 16 Jun 2026 01:07:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1781572061;
-	bh=KFjx4yAs8YVVPzl3rDzoomN4IkY3u5v7ji1eWL/E2ZQ=;
+	bh=HPiKF2wRkOTn+2DRchs63f66gS3khhgBsOamcchUfaY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Dxw2nhp4OEI0dZeeusLc+7AuhL4JXs0hBGiYkuOBX3BFyRlUpCNQy6hOKbywcrsfx
-	 yOxVUnKN9ejkjQot+w/L5hjY/9/e16tBRUhpL/VXblxDrcYzYruXNTT+5c2GWe0rb9
-	 MKPX42NXl0RYQf9ovmSd0bsZKsHrJBP/7BrJVgMqeyXS5rC9JVX+24/i/Cic0VDFrp
-	 mx/fWOaKXH20tsXL93dd3sIYPbfRvYe9Ph6iQT52mwqJMnx66BEfCtRBoKLUl74VGm
-	 FcYxPsQ9C57KNQNWqm13X0JImAxQr1ppMMmacoAjudmUPcNf/v8n9/Mo0yu+ZAXvt6
-	 cFayW31jByCgw==
+	b=MCXrkLEkKSto1bLlP40+DpHmAnQcO8qQ8aYPVpaGac2rdzGwrW6cfOlCY4X1LqHO7
+	 fBT9iTc5mA9QvUfJkCMVCXS5S8pcDM2enlSsj4hKQ0KBrihOkt1CY/DihfIvo4BPE+
+	 XswuNXoNRUl+2nvsltUPsdODeq8tx4JtpFjKHMBiXzd00x+CUXH5Z3RU93pFoPogSZ
+	 Zap5im5GRFD2s8xquI+KRN+60Xst58QhYdl2MkDMLo0ihPBwr18lCGeuZmWeMxXCqN
+	 SrS01UC0xge/YX4CouN58aNFrIWu4azUcRu5ELgMQeCPf+QU09MIHWmna7Cc3yjepD
+	 8d9n0QZWTuAFQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jason Gunthorpe <jgg@nvidia.com>,
+Cc: Leon Romanovsky <leonro@nvidia.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 3/3] RDMA/umem: Fix truncation for block sizes >= 4G
-Date: Mon, 15 Jun 2026 21:07:38 -0400
-Message-ID: <20260616010738.2640782-3-sashal@kernel.org>
+Subject: [PATCH 5.15.y 2/3] RDMA: Move DMA block iterator logic into dedicated files
+Date: Mon, 15 Jun 2026 21:07:37 -0400
+Message-ID: <20260616010738.2640782-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260616010738.2640782-1-sashal@kernel.org>
 References: <2026061511-anchor-wriggly-5b25@gregkh>
@@ -45,43 +45,517 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jason Gunthorpe <jgg@nvidia.com>
+From: Leon Romanovsky <leonro@nvidia.com>
 
-[ Upstream commit 15fe76e23615f502d051ef0768f86babaf08746c ]
+[ Upstream commit 6094ea64c69520ed1e770e7c79c43412de202bfa ]
 
-When the iommu is used the linearization of the mapping can give a single
-block that is very large split across multiple SG entries.
+The DMA iterator logic was mixed into verbs and umem-specific code,
+forcing all users to include rdma/ib_umem.h. Move the block iterator
+logic into iter.c and rdma/iter.h so that rdma/ib_umem.h and
+rdma/ib_verbs.h can be separated in a follow-up patch.
 
-When __rdma_block_iter_next() reassembles the split SG entries it is
-overflowing the 32 bit stack values and computed the wrong DMA addresses
-for blocks after the truncation.
-
-Use the right types to hold DMA addresses.
-
-Link: https://patch.msgid.link/r/1-v1-88303e9e509f+f7-ib_umem_types_jgg@nvidia.com
-Cc: stable@vger.kernel.org
-Fixes: a808273a495c ("RDMA/verbs: Add a DMA iterator to return aligned contiguous memory blocks")
-Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
+Link: https://patch.msgid.link/20260213-refactor-umem-v1-1-f3be85847922@nvidia.com
+Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
+Stable-dep-of: 15fe76e23615 ("RDMA/umem: Fix truncation for block sizes >= 4G")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/infiniband/core/iter.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/infiniband/core/Makefile             |  2 +-
+ drivers/infiniband/core/iter.c               | 43 ++++++++++
+ drivers/infiniband/core/verbs.c              | 38 ---------
+ drivers/infiniband/hw/bnxt_re/qplib_res.c    |  2 +-
+ drivers/infiniband/hw/cxgb4/mem.c            |  2 +-
+ drivers/infiniband/hw/efa/efa_verbs.c        |  2 +-
+ drivers/infiniband/hw/hns/hns_roce_alloc.c   |  2 +-
+ drivers/infiniband/hw/irdma/main.h           |  2 +-
+ drivers/infiniband/hw/mlx4/mr.c              |  1 +
+ drivers/infiniband/hw/mlx5/mem.c             |  1 +
+ drivers/infiniband/hw/mlx5/mr.c              |  1 +
+ drivers/infiniband/hw/mthca/mthca_provider.c |  2 +-
+ drivers/infiniband/hw/ocrdma/ocrdma_verbs.c  |  2 +-
+ drivers/infiniband/hw/qedr/verbs.c           |  2 +-
+ drivers/infiniband/hw/vmw_pvrdma/pvrdma.h    |  2 +-
+ include/rdma/ib_umem.h                       | 32 -------
+ include/rdma/ib_verbs.h                      | 48 -----------
+ include/rdma/iter.h                          | 88 ++++++++++++++++++++
+ 18 files changed, 144 insertions(+), 128 deletions(-)
+ create mode 100644 drivers/infiniband/core/iter.c
+ create mode 100644 include/rdma/iter.h
 
-diff --git a/drivers/infiniband/core/iter.c b/drivers/infiniband/core/iter.c
-index 8e543d100657ee..3ed351e8fcf6c9 100644
---- a/drivers/infiniband/core/iter.c
-+++ b/drivers/infiniband/core/iter.c
-@@ -19,8 +19,8 @@ EXPORT_SYMBOL(__rdma_block_iter_start);
+diff --git a/drivers/infiniband/core/Makefile b/drivers/infiniband/core/Makefile
+index 8ab4eea5a0a5e4..394d7e1f737511 100644
+--- a/drivers/infiniband/core/Makefile
++++ b/drivers/infiniband/core/Makefile
+@@ -12,7 +12,7 @@ ib_core-y :=			packer.o ud_header.o verbs.o cq.o rw.o sysfs.o \
+ 				roce_gid_mgmt.o mr_pool.o addr.o sa_query.o \
+ 				multicast.o mad.o smi.o agent.o mad_rmpp.o \
+ 				nldev.o restrack.o counters.o ib_core_uverbs.o \
+-				trace.o lag.o
++				trace.o lag.o iter.o
  
- bool __rdma_block_iter_next(struct ib_block_iter *biter)
- {
+ ib_core-$(CONFIG_SECURITY_INFINIBAND) += security.o
+ ib_core-$(CONFIG_CGROUP_RDMA) += cgroup.o
+diff --git a/drivers/infiniband/core/iter.c b/drivers/infiniband/core/iter.c
+new file mode 100644
+index 00000000000000..8e543d100657ee
+--- /dev/null
++++ b/drivers/infiniband/core/iter.c
+@@ -0,0 +1,43 @@
++// SPDX-License-Identifier: GPL-2.0 OR Linux-OpenIB
++/* Copyright (c) 2026, NVIDIA CORPORATION & AFFILIATES. */
++
++#include <linux/export.h>
++#include <rdma/iter.h>
++
++void __rdma_block_iter_start(struct ib_block_iter *biter,
++			     struct scatterlist *sglist, unsigned int nents,
++			     unsigned long pgsz)
++{
++	memset(biter, 0, sizeof(struct ib_block_iter));
++	biter->__sg = sglist;
++	biter->__sg_nents = nents;
++
++	/* Driver provides best block size to use */
++	biter->__pg_bit = __fls(pgsz);
++}
++EXPORT_SYMBOL(__rdma_block_iter_start);
++
++bool __rdma_block_iter_next(struct ib_block_iter *biter)
++{
++	unsigned int block_offset;
++	unsigned int delta;
++
++	if (!biter->__sg_nents || !biter->__sg)
++		return false;
++
++	biter->__dma_addr = sg_dma_address(biter->__sg) + biter->__sg_advance;
++	block_offset = biter->__dma_addr & (BIT_ULL(biter->__pg_bit) - 1);
++	delta = BIT_ULL(biter->__pg_bit) - block_offset;
++
++	while (biter->__sg_nents && biter->__sg &&
++	       sg_dma_len(biter->__sg) - biter->__sg_advance <= delta) {
++		delta -= sg_dma_len(biter->__sg) - biter->__sg_advance;
++		biter->__sg_advance = 0;
++		biter->__sg = sg_next(biter->__sg);
++		biter->__sg_nents--;
++	}
++	biter->__sg_advance += delta;
++
++	return true;
++}
++EXPORT_SYMBOL(__rdma_block_iter_next);
+diff --git a/drivers/infiniband/core/verbs.c b/drivers/infiniband/core/verbs.c
+index 53552559917c6c..e18f1f211af050 100644
+--- a/drivers/infiniband/core/verbs.c
++++ b/drivers/infiniband/core/verbs.c
+@@ -2950,41 +2950,3 @@ int rdma_init_netdev(struct ib_device *device, u32 port_num,
+ 					     netdev, params.param);
+ }
+ EXPORT_SYMBOL(rdma_init_netdev);
+-
+-void __rdma_block_iter_start(struct ib_block_iter *biter,
+-			     struct scatterlist *sglist, unsigned int nents,
+-			     unsigned long pgsz)
+-{
+-	memset(biter, 0, sizeof(struct ib_block_iter));
+-	biter->__sg = sglist;
+-	biter->__sg_nents = nents;
+-
+-	/* Driver provides best block size to use */
+-	biter->__pg_bit = __fls(pgsz);
+-}
+-EXPORT_SYMBOL(__rdma_block_iter_start);
+-
+-bool __rdma_block_iter_next(struct ib_block_iter *biter)
+-{
 -	unsigned int block_offset;
 -	unsigned int delta;
-+	dma_addr_t block_offset;
-+	dma_addr_t delta;
+-
+-	if (!biter->__sg_nents || !biter->__sg)
+-		return false;
+-
+-	biter->__dma_addr = sg_dma_address(biter->__sg) + biter->__sg_advance;
+-	block_offset = biter->__dma_addr & (BIT_ULL(biter->__pg_bit) - 1);
+-	delta = BIT_ULL(biter->__pg_bit) - block_offset;
+-
+-	while (biter->__sg_nents && biter->__sg &&
+-	       sg_dma_len(biter->__sg) - biter->__sg_advance <= delta) {
+-		delta -= sg_dma_len(biter->__sg) - biter->__sg_advance;
+-		biter->__sg_advance = 0;
+-		biter->__sg = sg_next(biter->__sg);
+-		biter->__sg_nents--;
+-	}
+-	biter->__sg_advance += delta;
+-
+-	return true;
+-}
+-EXPORT_SYMBOL(__rdma_block_iter_next);
+diff --git a/drivers/infiniband/hw/bnxt_re/qplib_res.c b/drivers/infiniband/hw/bnxt_re/qplib_res.c
+index 2bdb428fd2731a..64c3ef8985ee15 100644
+--- a/drivers/infiniband/hw/bnxt_re/qplib_res.c
++++ b/drivers/infiniband/hw/bnxt_re/qplib_res.c
+@@ -46,7 +46,7 @@
+ #include <linux/if_vlan.h>
+ #include <linux/vmalloc.h>
+ #include <rdma/ib_verbs.h>
+-#include <rdma/ib_umem.h>
++#include <rdma/iter.h>
  
- 	if (!biter->__sg_nents || !biter->__sg)
- 		return false;
+ #include "roce_hsi.h"
+ #include "qplib_res.h"
+diff --git a/drivers/infiniband/hw/cxgb4/mem.c b/drivers/infiniband/hw/cxgb4/mem.c
+index a2c71a1d93d5a8..88db7e527728c0 100644
+--- a/drivers/infiniband/hw/cxgb4/mem.c
++++ b/drivers/infiniband/hw/cxgb4/mem.c
+@@ -32,9 +32,9 @@
+ 
+ #include <linux/module.h>
+ #include <linux/moduleparam.h>
+-#include <rdma/ib_umem.h>
+ #include <linux/atomic.h>
+ #include <rdma/ib_user_verbs.h>
++#include <rdma/iter.h>
+ 
+ #include "iw_cxgb4.h"
+ 
+diff --git a/drivers/infiniband/hw/efa/efa_verbs.c b/drivers/infiniband/hw/efa/efa_verbs.c
+index cacdf4af9206bf..7ef8bc61e56824 100644
+--- a/drivers/infiniband/hw/efa/efa_verbs.c
++++ b/drivers/infiniband/hw/efa/efa_verbs.c
+@@ -7,9 +7,9 @@
+ #include <linux/log2.h>
+ 
+ #include <rdma/ib_addr.h>
+-#include <rdma/ib_umem.h>
+ #include <rdma/ib_user_verbs.h>
+ #include <rdma/ib_verbs.h>
++#include <rdma/iter.h>
+ #include <rdma/uverbs_ioctl.h>
+ 
+ #include "efa.h"
+diff --git a/drivers/infiniband/hw/hns/hns_roce_alloc.c b/drivers/infiniband/hw/hns/hns_roce_alloc.c
+index d4fa0fd522946e..a34483af9696cf 100644
+--- a/drivers/infiniband/hw/hns/hns_roce_alloc.c
++++ b/drivers/infiniband/hw/hns/hns_roce_alloc.c
+@@ -34,7 +34,7 @@
+ #include <linux/platform_device.h>
+ #include <linux/vmalloc.h>
+ #include "hns_roce_device.h"
+-#include <rdma/ib_umem.h>
++#include <rdma/iter.h>
+ 
+ void hns_roce_buf_free(struct hns_roce_dev *hr_dev, struct hns_roce_buf *buf)
+ {
+diff --git a/drivers/infiniband/hw/irdma/main.h b/drivers/infiniband/hw/irdma/main.h
+index 0e998e0801982c..2e3a0933c0f0ac 100644
+--- a/drivers/infiniband/hw/irdma/main.h
++++ b/drivers/infiniband/hw/irdma/main.h
+@@ -37,8 +37,8 @@
+ #include <rdma/rdma_cm.h>
+ #include <rdma/iw_cm.h>
+ #include <rdma/ib_user_verbs.h>
+-#include <rdma/ib_umem.h>
+ #include <rdma/ib_cache.h>
++#include <rdma/iter.h>
+ #include <rdma/uverbs_ioctl.h>
+ #include "status.h"
+ #include "osdep.h"
+diff --git a/drivers/infiniband/hw/mlx4/mr.c b/drivers/infiniband/hw/mlx4/mr.c
+index a40bf58bcdd3ae..004311925dbf9b 100644
+--- a/drivers/infiniband/hw/mlx4/mr.c
++++ b/drivers/infiniband/hw/mlx4/mr.c
+@@ -33,6 +33,7 @@
+ 
+ #include <linux/slab.h>
+ #include <rdma/ib_user_verbs.h>
++#include <rdma/iter.h>
+ 
+ #include "mlx4_ib.h"
+ 
+diff --git a/drivers/infiniband/hw/mlx5/mem.c b/drivers/infiniband/hw/mlx5/mem.c
+index 844545064c9ea6..0ef192546f6d7a 100644
+--- a/drivers/infiniband/hw/mlx5/mem.c
++++ b/drivers/infiniband/hw/mlx5/mem.c
+@@ -33,6 +33,7 @@
+ #include <linux/module.h>
+ #include <rdma/ib_umem.h>
+ #include <rdma/ib_umem_odp.h>
++#include <rdma/iter.h>
+ #include "mlx5_ib.h"
+ #include <linux/jiffies.h>
+ 
+diff --git a/drivers/infiniband/hw/mlx5/mr.c b/drivers/infiniband/hw/mlx5/mr.c
+index 768aba0987cce5..adbd1509306a99 100644
+--- a/drivers/infiniband/hw/mlx5/mr.c
++++ b/drivers/infiniband/hw/mlx5/mr.c
+@@ -42,6 +42,7 @@
+ #include <rdma/ib_umem.h>
+ #include <rdma/ib_umem_odp.h>
+ #include <rdma/ib_verbs.h>
++#include <rdma/iter.h>
+ #include "dm.h"
+ #include "mlx5_ib.h"
+ 
+diff --git a/drivers/infiniband/hw/mthca/mthca_provider.c b/drivers/infiniband/hw/mthca/mthca_provider.c
+index 0db6b391fadad5..736c6500678956 100644
+--- a/drivers/infiniband/hw/mthca/mthca_provider.c
++++ b/drivers/infiniband/hw/mthca/mthca_provider.c
+@@ -35,8 +35,8 @@
+  */
+ 
+ #include <rdma/ib_smi.h>
+-#include <rdma/ib_umem.h>
+ #include <rdma/ib_user_verbs.h>
++#include <rdma/iter.h>
+ #include <rdma/uverbs_ioctl.h>
+ 
+ #include <linux/sched.h>
+diff --git a/drivers/infiniband/hw/ocrdma/ocrdma_verbs.c b/drivers/infiniband/hw/ocrdma/ocrdma_verbs.c
+index 4b8f990955f92b..df223f20e69654 100644
+--- a/drivers/infiniband/hw/ocrdma/ocrdma_verbs.c
++++ b/drivers/infiniband/hw/ocrdma/ocrdma_verbs.c
+@@ -44,9 +44,9 @@
+ #include <rdma/ib_verbs.h>
+ #include <rdma/ib_user_verbs.h>
+ #include <rdma/iw_cm.h>
+-#include <rdma/ib_umem.h>
+ #include <rdma/ib_addr.h>
+ #include <rdma/ib_cache.h>
++#include <rdma/iter.h>
+ #include <rdma/uverbs_ioctl.h>
+ 
+ #include "ocrdma.h"
+diff --git a/drivers/infiniband/hw/qedr/verbs.c b/drivers/infiniband/hw/qedr/verbs.c
+index c0993e3bad12d5..d1879483b2b931 100644
+--- a/drivers/infiniband/hw/qedr/verbs.c
++++ b/drivers/infiniband/hw/qedr/verbs.c
+@@ -39,9 +39,9 @@
+ #include <rdma/ib_verbs.h>
+ #include <rdma/ib_user_verbs.h>
+ #include <rdma/iw_cm.h>
+-#include <rdma/ib_umem.h>
+ #include <rdma/ib_addr.h>
+ #include <rdma/ib_cache.h>
++#include <rdma/iter.h>
+ #include <rdma/uverbs_ioctl.h>
+ 
+ #include <linux/qed/common_hsi.h>
+diff --git a/drivers/infiniband/hw/vmw_pvrdma/pvrdma.h b/drivers/infiniband/hw/vmw_pvrdma/pvrdma.h
+index 763ddc6f25d1ae..23e547d4b3a715 100644
+--- a/drivers/infiniband/hw/vmw_pvrdma/pvrdma.h
++++ b/drivers/infiniband/hw/vmw_pvrdma/pvrdma.h
+@@ -53,8 +53,8 @@
+ #include <linux/pci.h>
+ #include <linux/semaphore.h>
+ #include <linux/workqueue.h>
+-#include <rdma/ib_umem.h>
+ #include <rdma/ib_verbs.h>
++#include <rdma/iter.h>
+ #include <rdma/vmw_pvrdma-abi.h>
+ 
+ #include "pvrdma_ring.h"
+diff --git a/include/rdma/ib_umem.h b/include/rdma/ib_umem.h
+index 424c86d8601a9c..a08c4fac5788b4 100644
+--- a/include/rdma/ib_umem.h
++++ b/include/rdma/ib_umem.h
+@@ -70,38 +70,6 @@ static inline size_t ib_umem_num_pages(struct ib_umem *umem)
+ {
+ 	return ib_umem_num_dma_blocks(umem, PAGE_SIZE);
+ }
+-
+-static inline void __rdma_umem_block_iter_start(struct ib_block_iter *biter,
+-						struct ib_umem *umem,
+-						unsigned long pgsz)
+-{
+-	__rdma_block_iter_start(biter, umem->sgt_append.sgt.sgl,
+-				umem->sgt_append.sgt.nents, pgsz);
+-	biter->__sg_advance = ib_umem_offset(umem) & ~(pgsz - 1);
+-	biter->__sg_numblocks = ib_umem_num_dma_blocks(umem, pgsz);
+-}
+-
+-static inline bool __rdma_umem_block_iter_next(struct ib_block_iter *biter)
+-{
+-	return __rdma_block_iter_next(biter) && biter->__sg_numblocks--;
+-}
+-
+-/**
+- * rdma_umem_for_each_dma_block - iterate over contiguous DMA blocks of the umem
+- * @umem: umem to iterate over
+- * @biter: block iterator variable
+- * @pgsz: Page size to split the list into
+- *
+- * pgsz must be <= PAGE_SIZE or computed by ib_umem_find_best_pgsz(). The
+- * returned DMA blocks will be aligned to pgsz and span the range:
+- * ALIGN_DOWN(umem->address, pgsz) to ALIGN(umem->address + umem->length, pgsz)
+- *
+- * Performs exactly ib_umem_num_dma_blocks() iterations.
+- */
+-#define rdma_umem_for_each_dma_block(umem, biter, pgsz)                        \
+-	for (__rdma_umem_block_iter_start(biter, umem, pgsz);                  \
+-	     __rdma_umem_block_iter_next(biter);)
+-
+ #ifdef CONFIG_INFINIBAND_USER_MEM
+ 
+ struct ib_umem *ib_umem_get(struct ib_device *device, unsigned long addr,
+diff --git a/include/rdma/ib_verbs.h b/include/rdma/ib_verbs.h
+index eada75848eec3e..8e62e746842a0f 100644
+--- a/include/rdma/ib_verbs.h
++++ b/include/rdma/ib_verbs.h
+@@ -2808,22 +2808,6 @@ struct ib_client {
+ 	u8 no_kverbs_req:1;
+ };
+ 
+-/*
+- * IB block DMA iterator
+- *
+- * Iterates the DMA-mapped SGL in contiguous memory blocks aligned
+- * to a HW supported page size.
+- */
+-struct ib_block_iter {
+-	/* internal states */
+-	struct scatterlist *__sg;	/* sg holding the current aligned block */
+-	dma_addr_t __dma_addr;		/* unaligned DMA address of this block */
+-	size_t __sg_numblocks;		/* ib_umem_num_dma_blocks() */
+-	unsigned int __sg_nents;	/* number of SG entries */
+-	unsigned int __sg_advance;	/* number of bytes to advance in sg in next step */
+-	unsigned int __pg_bit;		/* alignment of current block */
+-};
+-
+ struct ib_device *_ib_alloc_device(size_t size);
+ #define ib_alloc_device(drv_struct, member)                                    \
+ 	container_of(_ib_alloc_device(sizeof(struct drv_struct) +              \
+@@ -2845,38 +2829,6 @@ void ib_unregister_device_queued(struct ib_device *ib_dev);
+ int ib_register_client   (struct ib_client *client);
+ void ib_unregister_client(struct ib_client *client);
+ 
+-void __rdma_block_iter_start(struct ib_block_iter *biter,
+-			     struct scatterlist *sglist,
+-			     unsigned int nents,
+-			     unsigned long pgsz);
+-bool __rdma_block_iter_next(struct ib_block_iter *biter);
+-
+-/**
+- * rdma_block_iter_dma_address - get the aligned dma address of the current
+- * block held by the block iterator.
+- * @biter: block iterator holding the memory block
+- */
+-static inline dma_addr_t
+-rdma_block_iter_dma_address(struct ib_block_iter *biter)
+-{
+-	return biter->__dma_addr & ~(BIT_ULL(biter->__pg_bit) - 1);
+-}
+-
+-/**
+- * rdma_for_each_block - iterate over contiguous memory blocks of the sg list
+- * @sglist: sglist to iterate over
+- * @biter: block iterator holding the memory block
+- * @nents: maximum number of sg entries to iterate over
+- * @pgsz: best HW supported page size to use
+- *
+- * Callers may use rdma_block_iter_dma_address() to get each
+- * blocks aligned DMA address.
+- */
+-#define rdma_for_each_block(sglist, biter, nents, pgsz)		\
+-	for (__rdma_block_iter_start(biter, sglist, nents,	\
+-				     pgsz);			\
+-	     __rdma_block_iter_next(biter);)
+-
+ /**
+  * ib_get_client_data - Get IB client context
+  * @device:Device to get context for
+diff --git a/include/rdma/iter.h b/include/rdma/iter.h
+new file mode 100644
+index 00000000000000..19d64ef04ba9b9
+--- /dev/null
++++ b/include/rdma/iter.h
+@@ -0,0 +1,88 @@
++/* SPDX-License-Identifier: GPL-2.0 OR Linux-OpenIB */
++/* Copyright (c) 2026, NVIDIA CORPORATION & AFFILIATES. */
++
++#ifndef _RDMA_ITER_H_
++#define _RDMA_ITER_H_
++
++#include <linux/scatterlist.h>
++#include <rdma/ib_umem.h>
++
++/**
++ * IB block DMA iterator
++ *
++ * Iterates the DMA-mapped SGL in contiguous memory blocks aligned
++ * to a HW supported page size.
++ */
++struct ib_block_iter {
++	/* internal states */
++	struct scatterlist *__sg;	/* sg holding the current aligned block */
++	dma_addr_t __dma_addr;		/* unaligned DMA address of this block */
++	size_t __sg_numblocks;		/* ib_umem_num_dma_blocks() */
++	unsigned int __sg_nents;	/* number of SG entries */
++	unsigned int __sg_advance;	/* number of bytes to advance in sg in next step */
++	unsigned int __pg_bit;		/* alignment of current block */
++};
++
++void __rdma_block_iter_start(struct ib_block_iter *biter,
++			     struct scatterlist *sglist,
++			     unsigned int nents,
++			     unsigned long pgsz);
++bool __rdma_block_iter_next(struct ib_block_iter *biter);
++
++/**
++ * rdma_block_iter_dma_address - get the aligned dma address of the current
++ * block held by the block iterator.
++ * @biter: block iterator holding the memory block
++ */
++static inline dma_addr_t
++rdma_block_iter_dma_address(struct ib_block_iter *biter)
++{
++	return biter->__dma_addr & ~(BIT_ULL(biter->__pg_bit) - 1);
++}
++
++/**
++ * rdma_for_each_block - iterate over contiguous memory blocks of the sg list
++ * @sglist: sglist to iterate over
++ * @biter: block iterator holding the memory block
++ * @nents: maximum number of sg entries to iterate over
++ * @pgsz: best HW supported page size to use
++ *
++ * Callers may use rdma_block_iter_dma_address() to get each
++ * blocks aligned DMA address.
++ */
++#define rdma_for_each_block(sglist, biter, nents, pgsz)		\
++	for (__rdma_block_iter_start(biter, sglist, nents,	\
++				     pgsz);			\
++	     __rdma_block_iter_next(biter);)
++
++static inline void __rdma_umem_block_iter_start(struct ib_block_iter *biter,
++						struct ib_umem *umem,
++						unsigned long pgsz)
++{
++	__rdma_block_iter_start(biter, umem->sgt_append.sgt.sgl,
++				umem->sgt_append.sgt.nents, pgsz);
++	biter->__sg_advance = ib_umem_offset(umem) & ~(pgsz - 1);
++	biter->__sg_numblocks = ib_umem_num_dma_blocks(umem, pgsz);
++}
++
++static inline bool __rdma_umem_block_iter_next(struct ib_block_iter *biter)
++{
++	return __rdma_block_iter_next(biter) && biter->__sg_numblocks--;
++}
++
++/**
++ * rdma_umem_for_each_dma_block - iterate over contiguous DMA blocks of the umem
++ * @umem: umem to iterate over
++ * @pgsz: Page size to split the list into
++ *
++ * pgsz must be <= PAGE_SIZE or computed by ib_umem_find_best_pgsz(). The
++ * returned DMA blocks will be aligned to pgsz and span the range:
++ * ALIGN_DOWN(umem->address, pgsz) to ALIGN(umem->address + umem->length, pgsz)
++ *
++ * Performs exactly ib_umem_num_dma_blocks() iterations.
++ */
++#define rdma_umem_for_each_dma_block(umem, biter, pgsz)                        \
++	for (__rdma_umem_block_iter_start(biter, umem, pgsz);                  \
++	     __rdma_umem_block_iter_next(biter);)
++
++#endif /* _RDMA_ITER_H_ */
 -- 
 2.53.0
 
