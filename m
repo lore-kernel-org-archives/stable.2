@@ -1,73 +1,73 @@
-Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
+Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D4BD3CF024
-	for <stable@vger.kernel.org>; Tue, 16 Jun 2026 05:12:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1B953CEB8F
+	for <stable@vger.kernel.org>; Tue, 16 Jun 2026 05:12:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781586769; cv=none; b=jXww8i8BNlrHpJghdYrNdO7/2l/Px/wbyvm+ftNyoE4F7HdCRReC1FakWlLtCnsDBpI2MgeHsQCIx6/8Db+2AHgbzQnm9ArmHM2IziPamTiTk7Nkhnlo0Zw1s7LIsIcPvanXXffNZBe1k7eI/7eput6nyMeoiUuD/GbbTHAOiEM=
+	t=1781586771; cv=none; b=P8Hq5Ebr4Dh1bFs29KBMfLjKapI+E4aBnwUtqSNO3UB/QaI244jc7q4qJzqZ+jrV1EK+xpyt8vFYBDDP8eLDRPZWYdyMREsDW1vDuY3K/65gwECk+YKKYa/s7iXo3HyEJAavVrKRW+1vqsuU46WFj3nb/r0NpogPUDnM2Asd0Co=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781586769; c=relaxed/simple;
-	bh=KCxdB9tKuM8Ldh97gSu/cGjuHoW55vbxKxPCupj1cXg=;
+	s=arc-20240116; t=1781586771; c=relaxed/simple;
+	bh=jRm5BKdrWbSx6QhorT2ZQ9qmT3GuxjxZKNXk1rRkeIg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FYYU5U103vuTSOCYIZzGPL3e/5c42a5r+NKUBsj+jF3FCCtqF84+h3NrSm+uldrq8D9YK+7cA0qY1DgPJP9rPpG6UrwCeC7RPj83rd40e/8zFt7XfNjmuNk/AVY4+WmH0guuXd9TAw2oxE92wzyK3jl52JOUAT3zTd6YRJzQcNM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=tM1nCD71; arc=none smtp.client-ip=74.125.82.172
+	 MIME-Version; b=YLbfz/Zr4zxTEf6HmJqtcs35SE1rLfIpMavMcItZF1hfxCeEu+AGFbqEIfTn2m9TgK4naE22xMeYVPBuxKK4jMUujwQLEHJcldosLy8D0IZ6zr9m0vsfk/wRlbYKoS8bfpju/tc880Bcscs4uMaTJhxUhyGJwgf0sNAR0kYlKhc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SYbSRDn7; arc=none smtp.client-ip=74.125.82.174
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tM1nCD71"
-Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-304ec41197bso4620902eec.1
-        for <stable@vger.kernel.org>; Mon, 15 Jun 2026 22:12:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SYbSRDn7"
+Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-304fb780deaso4274382eec.1
+        for <stable@vger.kernel.org>; Mon, 15 Jun 2026 22:12:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781586768; x=1782191568; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1781586769; x=1782191569; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=sCZvnCGRlKO/jFEMUOCjlpNZ45nZwP99ZmU//Z3m5ok=;
-        b=tM1nCD71TetJyAoZcU6wbpGzeebzgst1hHV/EYTA7aglEu5meOkOo3F1MEKHKeDHFb
-         4jQs26TaJMxa06JD+GYXFafBStMIjEFGR4RuL96CA17RikkqPwIqd9CgXkA3FIYX8xG6
-         RYcXV41epr3IELliLSvOs9BPY+W3Ib8MiLEtaeuN63DEVZvVAij1t6FWELf9rQhSVcgT
-         MxY1YSrvtAPxlSJ+zdOfbLxmt2cZiNAotyKxH+gcCb3KfREv4CvHONJ5MnFdi3ZsH0K2
-         L0OnDflLcsy+RAy6b5pLOVGKUBNfuodjShDEUIcL3HVChd+PZ/awL64YFyAvXO6tH+h/
-         uxZg==
+        bh=9a06GnFTgOZ8VawHWEGB4YwWHIzCduqDiZ9BtHLrmlk=;
+        b=SYbSRDn7p18XwSc57xUoJivPTMTs23UorX5eoCd+3F40Rpm1Mn4YhzUtDmAzT7vvHb
+         9wybNBIzJJYhV6vEJObGAqvHOXnya41pjHm09DEYpNDwZI6cTO3hdMq5ZdywzzhAJ7IT
+         CRYF7tUln3jAzsu+t+pdO4xl2sOK/B4vJu+9qXPufnYj/smWnJGMjunEGHCUnZAfXpZY
+         GXiDO51tMpDboqs9XBXU5aIe47rVmYaSKJ+zbpR3ANFGoPSdfRs/winGWhIH4eU0uYbF
+         M8a4eBsS60tA9lhk0ket2fCJjAKN5j68YdEUfDcuMPDOQZI9QZ2If0Sig/ZNfZT9il6H
+         SAQg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781586768; x=1782191568;
+        d=1e100.net; s=20251104; t=1781586769; x=1782191569;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=sCZvnCGRlKO/jFEMUOCjlpNZ45nZwP99ZmU//Z3m5ok=;
-        b=W0P++q07v4ybtvpnsLNfYfTyRe17x24YLCICUvZPUusKqEBhtv1WIDgs60fI0VLxUV
-         HxlzGDyUiVG3/wRc9EQITqNQ/umYrT5kzS7W1nFfPXGLp2HVlszHoHu1LdwtXsuZK55N
-         Dp23rPVrlbPRKsYHhnVR80DZuoK5wpp5xlWmoD0HB+Hw375Q+LNsJwPCur9l5+QOisTt
-         yP6hTLwlKTqV+g+XDxCy8KPOu746CvdTmXqZ19NKjOrhg7w3GB7tzjnC0cpGpc4TfE5J
-         DRqdde/aVSNnnLqRZuNKLhpgEI2ZvR8nB7onHBK0LGMBqfw9IDIm9OHju7CKmdVb1iCJ
-         9CJw==
-X-Forwarded-Encrypted: i=1; AFNElJ/EF9J3hiZI8DBlzORVkS9Y12PrgIOgpkl0q4QFjif4umcooMRS0SAyA62kuyadktyOBPeAIxo=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxKFiwNZPIJErkqcVajl0jogTMpBQ0zDT7vwFdg3YRhfHARdss+
-	40vUI/noeSGB2u8BLcuzkjxdY4/ITfDJD31dLlai2QX2u4Mg0pdD2Nmb
-X-Gm-Gg: Acq92OFTVEDtVufZJXRiaEOfXOxVKDKoxhMaB4fIiwX7peN7XqkDH+87ZeEwRCXCkK1
-	hcxWkUfG9ebWGA0HpiIQ7+1bOYd5Ium1WmIryajdlpPO0yr09CAP3UazKTfJU1KRSbnCVuf8fHG
-	sJhzGTJSgMsVfHXsRIhNmSVcwHu3CvINjbgJfIVqzXH653Lmp31x7db6hX5/dpjkZVR1NMn5GVE
-	fXq0jqYG+05LIEj/5EsqSDHNtnJFZUWRC1Wy7upXfuDSz6G5e3bd+4jcnxQK07b0bHNScH7qRcd
-	aOC+p+J+WSi3yB298VnN5HfdgR+xTh32VWhAQc2wDmvzeLhgGKtqrSoflTxi/8cxKWNh6P8PzyP
-	eQC/+WpXd68ed+LMtnxae1MUfneZcFnhVc7Qr1Uv5NEh1Bc4ShFMGHFTYP9rAmzEWtu+t7bitYk
-	duNL06IZiz7ukBZFtwyksT1pEw7k09E0DbTR9LhxrsE808HEE5asy7eAlR5lB24YyimyNPCrzrg
-	TzaHTxkQQv7ss0=
-X-Received: by 2002:a05:7300:4346:b0:2ed:e14:e956 with SMTP id 5a478bee46e88-30ba5fce46dmr1210450eec.32.1781586767417;
-        Mon, 15 Jun 2026 22:12:47 -0700 (PDT)
+        bh=9a06GnFTgOZ8VawHWEGB4YwWHIzCduqDiZ9BtHLrmlk=;
+        b=kbSauALGfWVfC3oe+kL6GRJAhrwdSOHufcy5O7f4x8xJ2F3tg9nTqQ78eTCmCwkQl4
+         HWwM7MY7eU5iW53k8IDi8vUOZURQpp2o7BAzL0QUITGzx6/VSZFvxOm0dSFz2U6gikC3
+         /kG5ptC6Lm9wjvpz7th1IG/RNCEh1A6tywActc4n/4JOQLYU5dO5y+JXM1EWsTlWBeCn
+         03pYeiFZ+qcRxuqwMZzISUj2GSRR/e3S73+LFHfRwEJs6o6O8+KdqVDr5o5Lt0m/m5L4
+         6X/gD8pzza/y9aCFKeNHcT4grLjmXjv3Lpz5zz2QkQtJzTNDgYhVLuOy9lYo9M85fci6
+         fB7A==
+X-Forwarded-Encrypted: i=1; AFNElJ8Et4+/6jnopHWCAumA2s8NSLPA6gm0zf8nkIEhDSnvRQ0PE5V/1EfAwB/cOQ37Rj3M7WcaOHU=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxKcsEnia9cKjnncPGSZ7QtyJL113VsIORxtuuWgkG8LXIYztC6
+	O8cPxa6D0kT7DRshNHi2I32WVS58GMRGGt9ToGWLHRVpeW2fWR9XScus
+X-Gm-Gg: Acq92OHLDniRxuR6SBjQq+J7wB1zUo2Z13ZbKIQNwLhKyfQl2/BK+IotOmd2MikILDu
+	cU4H3Xui2DHVZQ+yQola49IqRVVfjfqpH+RE0tnXJEUbBrE5hZz3KmgFaRElZMesXX2j6kcAMMa
+	pRbW8ssCWGC1dCcL1Rgp9NUDwmQdjHJohjmROgwdaAvv4L0HKH0xpvlaoNtkEHVlmV0rwXV3E4v
+	EET80vujJSA2kV4OVddmvUYOGMBG5IgE4/Et+xpiug6QHARmc+wlZK7OSb2P0amc0vmTHs8b/fg
+	v5fyv6zJFu9aljOMj++txHTWMpM6NmKrD3wzoabYHLpoKQ+++ZLebxoyfopkgxSHmr23oeYP4AK
+	lA0dfNljK17FYBNYP6UWmAc9wMl1zzR/RDUW7+Wgyv62y9OJY4dzKdCNE1NBUPvM6s1y2qo9JXt
+	psXveBLQymiCZgBayJ5EPPym0nGfOtRIrq9VZ/VOqrA6Wkv9mTGHcqRXrzfqFS1uOQ/SP4Q/1c8
+	YhrWuTUY2HXL3A=
+X-Received: by 2002:a05:7300:8b84:b0:304:e587:5063 with SMTP id 5a478bee46e88-3081ff7ca07mr9443416eec.12.1781586768879;
+        Mon, 15 Jun 2026 22:12:48 -0700 (PDT)
 Received: from dtor-ws.sjc.corp.google.com ([2a00:79e0:2ebe:8:3714:f5c2:9b83:3df1])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3081ea43b80sm16726052eec.21.2026.06.15.22.12.45
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3081ea43b80sm16726052eec.21.2026.06.15.22.12.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 15 Jun 2026 22:12:46 -0700 (PDT)
+        Mon, 15 Jun 2026 22:12:48 -0700 (PDT)
 From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 To: Hans Verkuil <hverkuil@kernel.org>,
 	linux-input@vger.kernel.org
 Cc: linux-kernel@vger.kernel.org,
 	sashiko-bot@kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH 3/4] Input: sur40 - factor out and move input device initialization
-Date: Mon, 15 Jun 2026 22:12:31 -0700
-Message-ID: <20260616051235.1549517-3-dmitry.torokhov@gmail.com>
+Subject: [PATCH 4/4] Input: sur40 - fix V4L2 video device lifetime
+Date: Mon, 15 Jun 2026 22:12:32 -0700
+Message-ID: <20260616051235.1549517-4-dmitry.torokhov@gmail.com>
 X-Mailer: git-send-email 2.54.0.1136.gdb2ca164c4-goog
 In-Reply-To: <20260616051235.1549517-1-dmitry.torokhov@gmail.com>
 References: <20260616051235.1549517-1-dmitry.torokhov@gmail.com>
@@ -79,169 +79,96 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The input device allocation, setup, and registration in sur40_probe() is
-quite verbose. Factor it out into a helper function sur40_init_input() to
-improve readability.
+sur40_disconnect() synchronously frees the sur40_state structure (kfree(sur40))
+while userspace might still hold an open file descriptor to the V4L2 video
+device node. When userspace later accesses or closes the lingering file
+descriptor, the V4L2 core invokes file operations (such as vb2_fop_release)
+that dereference the already freed sur40 memory, resulting in a use-after-free
+vulnerability.
 
-Additionally, call this helper at the very end of sur40_probe() instead of
-allocating the input device early. This ensures all video components are fully
-initialized before the input device is registered (which starts polling),
-and simplifies the early probe error paths since we don't have to carry and
-free the input device if probe fails during early V4L2 setup.
+Fix this by implementing a V4L2 release callback (sur40_video_release) in
+sur40_video_device to clean up V4L2 components and free the sur40 structure
+only when the last video file descriptor is closed.
+
+Additionally, update the sur40_probe() error path to call video_unregister_device()
+and return inline if input initialization fails after video device registration
+succeeded, allowing the V4L2 release callback to manage cleanup.
+
+Also, call v4l2_device_disconnect() in sur40_disconnect() to safely dissociate
+the V4L2 device from the parent USB device during unplug.
 
 Reported-by: sashiko-bot@kernel.org
 Cc: stable@vger.kernel.org
 Assisted-by: Antigravity:gemini-3.5-flash
 Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 ---
- drivers/input/touchscreen/sur40.c | 91 +++++++++++++++++--------------
- 1 file changed, 50 insertions(+), 41 deletions(-)
+ drivers/input/touchscreen/sur40.c | 27 ++++++++++++++++-----------
+ 1 file changed, 16 insertions(+), 11 deletions(-)
 
 diff --git a/drivers/input/touchscreen/sur40.c b/drivers/input/touchscreen/sur40.c
-index e9089b0c3e2f..1ad68131e3a6 100644
+index 1ad68131e3a6..2f0efee23d1e 100644
 --- a/drivers/input/touchscreen/sur40.c
 +++ b/drivers/input/touchscreen/sur40.c
-@@ -647,6 +647,53 @@ static int sur40_input_setup_events(struct input_dev *input_dev)
- 	return 0;
- }
+@@ -806,8 +806,10 @@ static int sur40_probe(struct usb_interface *interface,
+ 	}
  
-+static int sur40_init_input(struct sur40_state *sur40)
-+{
-+	struct input_dev *input;
-+	int error;
-+
-+	input = input_allocate_device();
-+	if (!input)
-+		return -ENOMEM;
-+
-+	/* Set up regular input device structure */
-+	input->name = DRIVER_LONG;
-+	usb_to_input_id(sur40->usbdev, &input->id);
-+	usb_make_path(sur40->usbdev, sur40->phys, sizeof(sur40->phys));
-+	strlcat(sur40->phys, "/input0", sizeof(sur40->phys));
-+	input->phys = sur40->phys;
-+	input->dev.parent = sur40->dev;
-+
-+	input->open = sur40_open;
-+	input->close = sur40_close;
-+
-+	error = sur40_input_setup_events(input);
-+	if (error)
-+		goto err_free_input;
-+
-+	input_set_drvdata(input, sur40);
-+	error = input_setup_polling(input, sur40_poll);
-+	if (error) {
-+		dev_err(sur40->dev, "failed to set up polling\n");
-+		goto err_free_input;
-+	}
-+
-+	input_set_poll_interval(input, POLL_INTERVAL);
-+
-+	error = input_register_device(input);
-+	if (error) {
-+		dev_err(sur40->dev, "Unable to register polled input device.\n");
-+		goto err_free_input;
-+	}
-+
-+	sur40->input = input;
-+	return 0;
-+
-+err_free_input:
-+	input_free_device(input);
-+	return error;
-+}
-+
- /* Check candidate USB interface. */
- static int sur40_probe(struct usb_interface *interface,
- 		       const struct usb_device_id *id)
-@@ -655,7 +702,6 @@ static int sur40_probe(struct usb_interface *interface,
- 	struct sur40_state *sur40;
- 	struct usb_host_interface *iface_desc;
- 	struct usb_endpoint_descriptor *endpoint;
--	struct input_dev *input;
- 	int error;
- 
- 	/* Check if we really have the right interface. */
-@@ -676,44 +722,13 @@ static int sur40_probe(struct usb_interface *interface,
- 	if (!sur40)
- 		return -ENOMEM;
- 
--	input = input_allocate_device();
--	if (!input) {
--		error = -ENOMEM;
--		goto err_free_dev;
--	}
--
- 	/* initialize locks/lists */
- 	INIT_LIST_HEAD(&sur40->buf_list);
- 	spin_lock_init(&sur40->qlock);
- 	mutex_init(&sur40->lock);
- 
--	/* Set up regular input device structure */
--	input->name = DRIVER_LONG;
--	usb_to_input_id(usbdev, &input->id);
--	usb_make_path(usbdev, sur40->phys, sizeof(sur40->phys));
--	strlcat(sur40->phys, "/input0", sizeof(sur40->phys));
--	input->phys = sur40->phys;
--	input->dev.parent = &interface->dev;
--
--	input->open = sur40_open;
--	input->close = sur40_close;
--
--	error = sur40_input_setup_events(input);
+ 	error = sur40_init_input(sur40);
 -	if (error)
--		goto err_free_input;
--
--	input_set_drvdata(input, sur40);
--	error = input_setup_polling(input, sur40_poll);
--	if (error) {
--		dev_err(&interface->dev, "failed to set up polling");
--		goto err_free_input;
--	}
--
--	input_set_poll_interval(input, POLL_INTERVAL);
--
- 	sur40->usbdev = usbdev;
- 	sur40->dev = &interface->dev;
--	sur40->input = input;
- 
- 	/* use the bulk-in endpoint tested above */
- 	sur40->bulk_in_size = usb_endpoint_maxp(endpoint);
-@@ -722,7 +737,7 @@ static int sur40_probe(struct usb_interface *interface,
- 	if (!sur40->bulk_in_buffer) {
- 		dev_err(&interface->dev, "Unable to allocate input buffer.");
- 		error = -ENOMEM;
--		goto err_free_input;
-+		goto err_free_dev;
- 	}
- 
- 	/* register the video master device */
-@@ -790,13 +805,9 @@ static int sur40_probe(struct usb_interface *interface,
- 		goto err_free_ctrl;
- 	}
- 
--	/* register the polled input device */
--	error = input_register_device(input);
--	if (error) {
--		dev_err(&interface->dev,
--			"Unable to register polled input device.");
-+	error = sur40_init_input(sur40);
-+	if (error)
- 		goto err_unreg_video;
--	}
+-		goto err_unreg_video;
++	if (error) {
++		video_unregister_device(&sur40->vdev);
++		return error;
++	}
  
  	/* we can register the device now, as it is ready */
  	usb_set_intfdata(interface, sur40);
-@@ -812,8 +823,6 @@ static int sur40_probe(struct usb_interface *interface,
- 	v4l2_device_unregister(&sur40->v4l2);
- err_free_buffer:
- 	kfree(sur40->bulk_in_buffer);
--err_free_input:
--	input_free_device(input);
- err_free_dev:
- 	kfree(sur40);
+@@ -815,8 +817,6 @@ static int sur40_probe(struct usb_interface *interface,
  
+ 	return 0;
+ 
+-err_unreg_video:
+-	video_unregister_device(&sur40->vdev);
+ err_free_ctrl:
+ 	v4l2_ctrl_handler_free(&sur40->hdl);
+ err_unreg_v4l2:
+@@ -835,13 +835,8 @@ static void sur40_disconnect(struct usb_interface *interface)
+ 	struct sur40_state *sur40 = usb_get_intfdata(interface);
+ 
+ 	input_unregister_device(sur40->input);
+-
+-	v4l2_ctrl_handler_free(&sur40->hdl);
+ 	video_unregister_device(&sur40->vdev);
+-	v4l2_device_unregister(&sur40->v4l2);
+-
+-	kfree(sur40->bulk_in_buffer);
+-	kfree(sur40);
++	v4l2_device_disconnect(&sur40->v4l2);
+ 
+ 	usb_set_intfdata(interface, NULL);
+ 	dev_dbg(&interface->dev, "%s is now disconnected\n", DRIVER_DESC);
+@@ -1176,11 +1171,21 @@ static const struct v4l2_ioctl_ops sur40_video_ioctl_ops = {
+ 	.vidioc_streamoff	= vb2_ioctl_streamoff,
+ };
+ 
++static void sur40_video_release(struct video_device *vdev)
++{
++	struct sur40_state *sur40 = video_get_drvdata(vdev);
++
++	v4l2_device_unregister(&sur40->v4l2);
++	v4l2_ctrl_handler_free(&sur40->hdl);
++	kfree(sur40->bulk_in_buffer);
++	kfree(sur40);
++}
++
+ static const struct video_device sur40_video_device = {
+ 	.name = DRIVER_LONG,
+ 	.fops = &sur40_video_fops,
+ 	.ioctl_ops = &sur40_video_ioctl_ops,
+-	.release = video_device_release_empty,
++	.release = sur40_video_release,
+ 	.device_caps = V4L2_CAP_VIDEO_CAPTURE | V4L2_CAP_TOUCH |
+ 		       V4L2_CAP_READWRITE | V4L2_CAP_STREAMING,
+ };
 -- 
 2.54.0.1136.gdb2ca164c4-goog
 
