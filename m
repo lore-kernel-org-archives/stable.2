@@ -1,45 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 269133D813F;
-	Tue, 16 Jun 2026 19:06:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEFF13DDDA1
+	for <stable@vger.kernel.org>; Tue, 16 Jun 2026 19:06:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781636763; cv=none; b=u+WYALigDJjz/A7UjZBuKE5aBdLtW8hevz5YjvhO+8bIEIoaIMIW17rgjz0y20lFe6olJ1rQAs3E8lzvDS1lCNk2exHCYxctMonEylwwB8Kl172iE4Lc80wL+Vdq6kbe+7r2aj0ZgZD0nG29I2Q0gBv38aqfV2gS4V5yGdr9Els=
+	t=1781636765; cv=none; b=QsYJcakQsCr0YY3ZOTebq0VVRGqdkseG9KIywihK0S2ALbDe9VQQbS8/N9HyZ5GpNkGfO2yTMYhTOg9Cd5ehebrOIw/F3ucu1HRmJ+xMOd/haxUSycfEX4p/PkLIhGb/n5ihNyMVI1kTdcfyFUym9BtCK9cXykX8P43Gj1ho23k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781636763; c=relaxed/simple;
-	bh=4MCAnWjGv+OENZQsvRzxt5E/AeooQqDtf2yQaU0tG48=;
+	s=arc-20240116; t=1781636765; c=relaxed/simple;
+	bh=WHhUjdFqclrLy2dVUo0Zh+NR1jvVZIVQfPfXgoP3hSI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=khocZmwBfBhpGQo8f7R4N2obVNEL1SeP8VbGIYwpqRyJ077hvHgZuLFLIhkvGmPrGD6Bqie0znGDdu/8EKKz4h4MkXYIwIUOD2lR3daEGCTU8gnPkU2tuQ7if0iWK3e/rYsXqIQ90OLay9wLBuKhde75lDVYkJz5qKtW/GbhxgQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=R35pXohz; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=BVmgRqWziQgV2twB1tACC4RRZQkgCANQfogEnmI84GA0JB5Nfi9FtqVm246eBGyH3XKleVDwqGtIp17EgOaN8oHmkMegBDySYkCazwjKlG9Qs+f7LWZ0EDq9dB+tBwds6KFCrXmUSZ++ceMksjuCAYK8EBcOtuo34jOsM7QUUeA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bbb3lfXb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="R35pXohz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 273D01F000E9;
-	Tue, 16 Jun 2026 19:06:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1781636762;
-	bh=sRQg1326RmNkMZSQtu6jX7ADGmDaAplSL0M89Rhae2k=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bbb3lfXb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07AD41F00A3D;
+	Tue, 16 Jun 2026 19:06:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781636764;
+	bh=3xOhdZQ8cSRd0tyUEbRatZKvxO5tENE1QTNWjC/AbWs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=R35pXohzFcc6+UFTe1VgQTJDzJYPC6Ik+oiQJpT1Dw0Jpb401HKhizff/oP1qJn+w
-	 75mQ6dRfFHSpk58TDNSHCplWOGVWxjGS4eRyVT3F8wektrZDES6Ks0aD/STHXLXQ+z
-	 05CXq6HSu72bko0u4vIBdmllIzdgrpNXMPpegYkU=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=bbb3lfXbUveyoi0BmrOTJ/GqKpB2bU13HmGtQ9x+hxK0obLNl4WhwhwnQACOcDVsT
+	 LL8ha/5Yu21iSdJ2r9QYUpYjjDveFZKljAR4utKt6qlkjsRVSI3m9WKXQqzICHVAK+
+	 bPzWOv0PAw5PNKkHN8nnR8aqkMcFpFd6igW7xasWl7rID4PULPB5FBQ+SqTnsc/UtP
+	 a/mTSxk1xV9gIjFa6WvLtBZjhyA51CaoUjk0Ir8QUUxM3RXyOaEFonp3SYsTEZjixZ
+	 4GAQ8DyBrlOXOoLkb0ROY/JwsN8+FvcoENz5BVq2G/ZGJ7YNK3ZhXYEbKFLD6i2JW6
+	 N3QlvIWTLJZOQ==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Michael Bommarito <michael.bommarito@gmail.com>,
-	John Garry <john.g.garry@oracle.com>,
-	"Martin K. Petersen" <martin.petersen@oracle.com>,
+Cc: Davidlohr Bueso <dave@stgolabs.net>,
+	syzbot+78147abe6c524f183ee9@syzkaller.appspotmail.com,
+	Thomas Gleixner <tglx@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10 301/342] scsi: target: iscsi: Bound iscsi_encode_text_output() appends to rsp_buf
-Date: Tue, 16 Jun 2026 20:29:57 +0530
-Message-ID: <20260616145102.456201054@linuxfoundation.org>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260616145048.348037099@linuxfoundation.org>
-References: <20260616145048.348037099@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Subject: [PATCH 6.12.y 2/2] locking/rtmutex: Skip remove_waiter() when waiter is not enqueued
+Date: Tue, 16 Jun 2026 15:06:01 -0400
+Message-ID: <20260616190601.3487860-2-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260616190601.3487860-1-sashal@kernel.org>
+References: <2026061513-dating-gaining-4f76@gregkh>
+ <20260616190601.3487860-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,204 +47,70 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-5.10-stable review patch.  If anyone has any objections, please let me know.
+From: Davidlohr Bueso <dave@stgolabs.net>
 
-------------------
+[ Upstream commit 40a25d59e85b3c8709ac2424d44f65610467871e ]
 
-From: Michael Bommarito <michael.bommarito@gmail.com>
+syzbot triggered the following splat in remove_waiter() via
+FUTEX_CMP_REQUEUE_PI:
 
-[ Upstream commit bf33e01f88388c43e285492a63e539df6ffed64c ]
+  KASAN: null-ptr-deref in range [0x0000000000000a88-0x0000000000000a8f]
+   class_raw_spinlock_constructor
+   remove_waiter+0x159/0x1200 kernel/locking/rtmutex.c:1561
+   rt_mutex_start_proxy_lock+0x103/0x120
+   futex_requeue+0x10e4/0x20d0
+   __x64_sys_futex+0x34f/0x4d0
 
-iscsi_encode_text_output() concatenates "key=value\0" records into
-login->rsp_buf, an 8192-byte kzalloc(MAX_KEY_VALUE_PAIRS) buffer
-allocated in iscsit_alloc_login_setup_buffer(). The three sprintf() call
-sites in this function (lines 1398, 1411, 1424 in v7.1-rc2) never check
-the remaining buffer capacity:
+task_blocks_on_rt_mutex() does not arm the waiter upon deadlock detection,
+leaving waiter->task nil, where 3bfdc63936dd ("rtmutex: Use waiter::task instead
+of current in remove_waiter()") made this fatal.
 
-	*length += sprintf(output_buf, "%s=%s", er->key, er->value);
-	*length += 1;
-	output_buf = textbuf + *length;
+Furthermore, rt_mutex_start_proxy_lock() should not be calling into remove_waiter()
+upon a successfully grabbing the rtmutex. 1a1fb985f2e2 ("futex: Handle early deadlock
+return correctly"), moved the remove_waiter() out of __rt_mutex_start_proxy_lock()
+(where 'ret' was only ever 0 or < 0) into the wrapper. Tighten this check to
+account for try_to_take_rt_mutex().
 
-The 8192-byte ceiling at iscsi_target_check_login_request() bounds the
-*input* Login PDU payload, but a single PDU can carry up to 2048 minimal
-four-byte "a=b\0" pairs, each unknown key expanding to a 16-byte
-"a=NotUnderstood\0" output record via iscsi_add_notunderstood_response().
-2048 * 16 = 32 KiB of output into an 8 KiB buffer, producing a ~24 KiB
-heap overrun in the kmalloc-8k slab.
-
-The fix introduces a static iscsi_encode_text_record() helper that uses
-snprintf() with a per-call bounds check against the remaining buffer,
-and threads a u32 textbuf_size parameter through
-iscsi_encode_text_output(). Both call sites in
-iscsi_target_handle_csg_zero() (PHASE_SECURITY) and
-iscsi_target_handle_csg_one() (PHASE_OPERATIONAL) pass
-MAX_KEY_VALUE_PAIRS. On overflow the encoder logs the condition, calls
-iscsi_release_extra_responses() to drop queued records, and returns -1;
-both caller sites now emit ISCSI_STATUS_CLS_INITIATOR_ERR /
-ISCSI_LOGIN_STATUS_INIT_ERR via iscsit_tx_login_rsp() before returning,
-so the initiator sees an explicit failed-login response rather than a
-silent connection drop. (Prior to this patch only the PHASE_OPERATIONAL
-caller did that; the PHASE_SECURITY caller is converted to the same
-shape.)
-
-Fixes: e48354ce078c ("iscsi-target: Add iSCSI fabric support for target v4.1")
+Fixes: 3bfdc63936dd ("rtmutex: Use waiter::task instead of current in remove_waiter()")
+Reported-by: syzbot+78147abe6c524f183ee9@syzkaller.appspotmail.com
+Signed-off-by: Davidlohr Bueso <dave@stgolabs.net>
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
 Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-4-7
-Signed-off-by: Michael Bommarito <michael.bommarito@gmail.com>
-Tested-by: John Garry <john.g.garry@oracle.com>
-Reviewed-by: John Garry <john.g.garry@oracle.com>
-Signed-off-by: Martin K. Petersen <martin.petersen@oracle.com>
+Closes: https://lore.kernel.org/all/69f114ac.050a0220.ac8b.0003.GAE@google.com/
+Link: https://patch.msgid.link/20260507112913.1019537-1-dave@stgolabs.net
 Signed-off-by: Sasha Levin <sashal@kernel.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/target/iscsi/iscsi_target_nego.c       |    7 ++
- drivers/target/iscsi/iscsi_target_parameters.c |   62 +++++++++++++++++++------
- drivers/target/iscsi/iscsi_target_parameters.h |    2 
- 3 files changed, 55 insertions(+), 16 deletions(-)
+ kernel/locking/rtmutex.c     | 3 +++
+ kernel/locking/rtmutex_api.c | 2 +-
+ 2 files changed, 4 insertions(+), 1 deletion(-)
 
---- a/drivers/target/iscsi/iscsi_target_nego.c
-+++ b/drivers/target/iscsi/iscsi_target_nego.c
-@@ -878,10 +878,14 @@ static int iscsi_target_handle_csg_zero(
- 			SENDER_TARGET,
- 			login->rsp_buf,
- 			&login->rsp_length,
-+			MAX_KEY_VALUE_PAIRS,
- 			conn->param_list,
- 			conn->tpg->tpg_attrib.login_keys_workaround);
--	if (ret < 0)
-+	if (ret < 0) {
-+		iscsit_tx_login_rsp(conn, ISCSI_STATUS_CLS_INITIATOR_ERR,
-+				ISCSI_LOGIN_STATUS_INIT_ERR);
- 		return -1;
-+	}
+diff --git a/kernel/locking/rtmutex.c b/kernel/locking/rtmutex.c
+index 8fdbd293180130..7110ee98391e2b 100644
+--- a/kernel/locking/rtmutex.c
++++ b/kernel/locking/rtmutex.c
+@@ -1550,6 +1550,9 @@ static void __sched remove_waiter(struct rt_mutex_base *lock,
  
- 	if (!iscsi_check_negotiated_keys(conn->param_list)) {
- 		if (conn->tpg->tpg_attrib.authentication &&
-@@ -949,6 +953,7 @@ static int iscsi_target_handle_csg_one(s
- 			SENDER_TARGET,
- 			login->rsp_buf,
- 			&login->rsp_length,
-+			MAX_KEY_VALUE_PAIRS,
- 			conn->param_list,
- 			conn->tpg->tpg_attrib.login_keys_workaround);
- 	if (ret < 0) {
---- a/drivers/target/iscsi/iscsi_target_parameters.c
-+++ b/drivers/target/iscsi/iscsi_target_parameters.c
-@@ -1421,19 +1421,42 @@ free_buffer:
- 	return -1;
- }
+ 	lockdep_assert_held(&lock->wait_lock);
  
-+/*
-+ * Append "key=value" plus a trailing NUL into @textbuf at *@length.
-+ * Returns 0 on success and advances *@length, or -EMSGSIZE if the
-+ * record (including the NUL) would not fit in the remaining buffer.
-+ */
-+static int iscsi_encode_text_record(char *textbuf, u32 *length,
-+				    u32 textbuf_size,
-+				    const char *key, const char *value)
-+{
-+	int n;
-+	u32 avail;
++	if (!waiter_task) /* never enqueued */
++		return;
 +
-+	if (*length >= textbuf_size)
-+		return -EMSGSIZE;
-+
-+	avail = textbuf_size - *length;
-+	n = snprintf(textbuf + *length, avail, "%s=%s", key, value);
-+	if (n < 0 || (u32)n + 1 > avail)
-+		return -EMSGSIZE;
-+
-+	*length += n + 1;
-+	return 0;
-+}
-+
- int iscsi_encode_text_output(
- 	u8 phase,
- 	u8 sender,
- 	char *textbuf,
- 	u32 *length,
-+	u32 textbuf_size,
- 	struct iscsi_param_list *param_list,
- 	bool keys_workaround)
- {
--	char *output_buf = NULL;
- 	struct iscsi_extra_response *er;
- 	struct iscsi_param *param;
--
--	output_buf = textbuf + *length;
-+	int ret;
+ 	scoped_guard(raw_spinlock, &waiter_task->pi_lock) {
+ 		rt_mutex_dequeue(lock, waiter);
+ 		waiter_task->pi_blocked_on = NULL;
+diff --git a/kernel/locking/rtmutex_api.c b/kernel/locking/rtmutex_api.c
+index 2bc14c049a644c..091b109acdc5ee 100644
+--- a/kernel/locking/rtmutex_api.c
++++ b/kernel/locking/rtmutex_api.c
+@@ -347,7 +347,7 @@ int __sched rt_mutex_start_proxy_lock(struct rt_mutex_base *lock,
  
- 	if (iscsi_enforce_integrity_rules(phase, param_list) < 0)
- 		return -1;
-@@ -1445,10 +1468,12 @@ int iscsi_encode_text_output(
- 		    !IS_PSTATE_RESPONSE_SENT(param) &&
- 		    !IS_PSTATE_REPLY_OPTIONAL(param) &&
- 		    (param->phase & phase)) {
--			*length += sprintf(output_buf, "%s=%s",
--				param->name, param->value);
--			*length += 1;
--			output_buf = textbuf + *length;
-+			ret = iscsi_encode_text_record(textbuf, length,
-+						       textbuf_size,
-+						       param->name,
-+						       param->value);
-+			if (ret < 0)
-+				goto err_overflow;
- 			SET_PSTATE_RESPONSE_SENT(param);
- 			pr_debug("Sending key: %s=%s\n",
- 				param->name, param->value);
-@@ -1458,10 +1483,12 @@ int iscsi_encode_text_output(
- 		    !IS_PSTATE_ACCEPTOR(param) &&
- 		    !IS_PSTATE_PROPOSER(param) &&
- 		    (param->phase & phase)) {
--			*length += sprintf(output_buf, "%s=%s",
--				param->name, param->value);
--			*length += 1;
--			output_buf = textbuf + *length;
-+			ret = iscsi_encode_text_record(textbuf, length,
-+						       textbuf_size,
-+						       param->name,
-+						       param->value);
-+			if (ret < 0)
-+				goto err_overflow;
- 			SET_PSTATE_PROPOSER(param);
- 			iscsi_check_proposer_for_optional_reply(param,
- 							        keys_workaround);
-@@ -1471,14 +1498,21 @@ int iscsi_encode_text_output(
- 	}
- 
- 	list_for_each_entry(er, &param_list->extra_response_list, er_list) {
--		*length += sprintf(output_buf, "%s=%s", er->key, er->value);
--		*length += 1;
--		output_buf = textbuf + *length;
-+		ret = iscsi_encode_text_record(textbuf, length, textbuf_size,
-+					       er->key, er->value);
-+		if (ret < 0)
-+			goto err_overflow;
- 		pr_debug("Sending key: %s=%s\n", er->key, er->value);
- 	}
- 	iscsi_release_extra_responses(param_list);
- 
- 	return 0;
-+
-+err_overflow:
-+	pr_err("iSCSI login response buffer (%u bytes) exhausted, dropping login.\n",
-+	       textbuf_size);
-+	iscsi_release_extra_responses(param_list);
-+	return -1;
- }
- 
- int iscsi_check_negotiated_keys(struct iscsi_param_list *param_list)
---- a/drivers/target/iscsi/iscsi_target_parameters.h
-+++ b/drivers/target/iscsi/iscsi_target_parameters.h
-@@ -46,7 +46,7 @@ extern struct iscsi_param *iscsi_find_pa
- extern int iscsi_extract_key_value(char *, char **, char **);
- extern int iscsi_update_param_value(struct iscsi_param *, char *);
- extern int iscsi_decode_text_input(u8, u8, char *, u32, struct iscsi_conn *);
--extern int iscsi_encode_text_output(u8, u8, char *, u32 *,
-+extern int iscsi_encode_text_output(u8, u8, char *, u32 *, u32,
- 			struct iscsi_param_list *, bool);
- extern int iscsi_check_negotiated_keys(struct iscsi_param_list *);
- extern void iscsi_set_connection_parameters(struct iscsi_conn_ops *,
-
+ 	raw_spin_lock_irq(&lock->wait_lock);
+ 	ret = __rt_mutex_start_proxy_lock(lock, waiter, task, &wake_q);
+-	if (unlikely(ret))
++	if (unlikely(ret < 0))
+ 		remove_waiter(lock, waiter);
+ 	preempt_disable();
+ 	raw_spin_unlock_irq(&lock->wait_lock);
+-- 
+2.53.0
 
