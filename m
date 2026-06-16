@@ -1,100 +1,147 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C77C544CF4E;
-	Tue, 16 Jun 2026 15:23:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD058449ED2
+	for <stable@vger.kernel.org>; Tue, 16 Jun 2026 15:23:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781623403; cv=none; b=hh3dsYNt6HvRTsniu5fWnSe8d3zAfDUhm9H8FUyoulyx0HTFAA19/jrp+8nf7WYJaRp0zeBDT649aUBeLvIxfaF0GSPOi8hQc3lSpWzPm3L6GQeo8e/TgnsYExYUaXl08k9yhqe2xTeSq6Tqdt6r7x5yCg60ZGiZL+isizY6HNk=
+	t=1781623406; cv=none; b=VTt889yqR1cH26wpI5W8La77WLr0JxP0YVsVkZ8FjTKw8A/3dEutuD5WOrQ2R9170eZOiNTcFdN6p3Vyw1VjM7eGDnaRkkK05E9pqJW1d/zqyyMYEN7H+vhg6Wn5l7MSuI0R/WQ3AkofsJj0kW3Aoc7GlhiFMQQjE/tIlfns9ZM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781623403; c=relaxed/simple;
-	bh=Lh9A2WXB47La7tdLzXw7GaIT8CPFq3L+2LbbHHi6OC8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=sv1h0hoIa8iTWZnl8+wPKlF8iTC52pQofEIzgFoXxErwZBWiKXtyir8YI3NmjoGZ8JtvKlWktxAsc8jSGWb3ne09olwBxRMI4vwAAC99N5azg8N9PYzsxgEJ+yxNI14mWAQXV7qF4X6SP3fBYlxVdz4g7WuJjwwh3SgvD54lgs8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=15bVgA8P; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781623406; c=relaxed/simple;
+	bh=8i4twbSNDv02zgD1VY8jsEZ9u0TWwzEkJYMF1EplDoo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=K0ZaalbribJgFWSx4pMDcUXWVlSi30qb5+xbfE+UUtS2HafFQDDbHLVaf2clEIDBPF+JGgV2gZ0tlQRlKkRJBwNFhcb/Q9VoLuwLCr+Rha32D7/P90AJA34sIqBXdHU8t9BTjeQQCkC51lAh73VTzAhCBhpzfIUla4yubngB4r8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=iXYICBmI; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="15bVgA8P"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 857B31F000E9;
-	Tue, 16 Jun 2026 15:23:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1781623402;
-	bh=MBV0it6997MHVUpHzMW2IXLAR8mgcLHwZuE6RzDwovE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=15bVgA8PZOWF8mP0zEooJFZPV0BRoyoccgI77kFwFSH4secv/TW1qSqobDOpzWLbt
-	 MMbLU5MrNudfu4WELImfOxpW6QZ2or6U6294UBSC5JuT6UqmQj7BZ8zqs/TPag8Pjz
-	 GsRiZToug9ztmoZ093t+4gMEkTlXxA53au3bfUao=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	Felix Gu <ustc.gu@gmail.com>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	Mark Brown <broonie@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.0 140/378] spi: rzv2h-rspi: Fix SPDR read access width for 16-bit RX
-Date: Tue, 16 Jun 2026 20:26:11 +0530
-Message-ID: <20260616145117.644200505@linuxfoundation.org>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260616145109.744539446@linuxfoundation.org>
-References: <20260616145109.744539446@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="iXYICBmI"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1781623403;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=r1AASZfTRVbzLt5I/0GBJdZ/bjP6ci4PfAYJuRBn4WE=;
+	b=iXYICBmIKMrnlDAChFObJdROiRo9Ei2YxtGi3XOh6sDiAB8NtOUxndNSeh5Smb0sGhHV88
+	jOt5fw1sOqnr1no5PjUhznVNiH5KedDrFin9cPLUgcxN3fHjWtxO6YiH5yGy6QHpzJfKt+
+	2kNbWvR4tiq3w+Wt7m1v6ERVIojAiGg=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-362-YOZ8QqoZNdCi67PK60bP_g-1; Tue,
+ 16 Jun 2026 11:23:22 -0400
+X-MC-Unique: YOZ8QqoZNdCi67PK60bP_g-1
+X-Mimecast-MFC-AGG-ID: YOZ8QqoZNdCi67PK60bP_g_1781623400
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 42A251954B17;
+	Tue, 16 Jun 2026 15:23:19 +0000 (UTC)
+Received: from [10.22.81.159] (unknown [10.22.81.159])
+	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 12209180059C;
+	Tue, 16 Jun 2026 15:23:14 +0000 (UTC)
+Message-ID: <c61c7925-b9e7-4a6f-82e2-398849ad9f27@redhat.com>
+Date: Tue, 16 Jun 2026 11:23:14 -0400
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] cgroup/cpuset: rebind mm mempolicy to effective_mems,
+ not mems_allowed
+To: "David Hildenbrand (Arm)" <david@kernel.org>,
+ Gregory Price <gourry@gourry.net>
+Cc: Farhad Alemi <farhad.alemi@berkeley.edu>,
+ Andrew Morton <akpm@linux-foundation.org>, Farhad Alemi <falemi@asu.edu>,
+ Yury Norov <ynorov@nvidia.com>, Joshua Hahn <joshua.hahnjy@gmail.com>,
+ Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>,
+ Rakie Kim <rakie.kim@sk.com>, Byungchul Park <byungchul@sk.com>,
+ Ying Huang <ying.huang@linux.alibaba.com>,
+ Alistair Popple <apopple@nvidia.com>,
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, cgroups@vger.kernel.org, stable@vger.kernel.org
+References: <CA+0ovCg05rUk1-3k2ysdxmbcER8aG-wVh9SSTrrbp6LPWpPHYA@mail.gmail.com>
+ <CA+0ovCgfHJHv5d1mzapWWvF-LhjppzDX8NPPLvCPZxPKg8RiYw@mail.gmail.com>
+ <8d3b4561-92cd-4ebc-8462-5fb0fd659e8a@kernel.org>
+ <ai_IHvyptWPcTD0y@gourry-fedora-PF4VCD3F>
+ <70f486ce-5ef6-4d72-8cc3-7086f4eea930@redhat.com>
+ <c1495b1b-9dee-4cd5-ac8e-eeb7a2d968ed@redhat.com>
+ <51eafe6c-6622-479b-b391-6d3ff9350e75@kernel.org>
+Content-Language: en-US
+From: Waiman Long <longman@redhat.com>
+In-Reply-To: <51eafe6c-6622-479b-b391-6d3ff9350e75@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
-7.0-stable review patch.  If anyone has any objections, please let me know.
+On 6/16/26 2:59 AM, David Hildenbrand (Arm) wrote:
+> On 6/16/26 05:43, Waiman Long wrote:
+>> On 6/15/26 10:26 PM, Waiman Long wrote:
+>>> On 6/15/26 5:38 AM, Gregory Price wrote:
+>>>> All interactions between mempolicy and cpuset are horrible and
+>>>> confusing.  Much like Lorenzo's anon_vma work, I have to keep
+>>>> notes on how this whole thing doesn't just spew SIGBUS constantly.
+>>>>
+>>>> The short answer is: mempolicy is advisory and cpuset is strictly
+>>>> followed - in a dispute cpuset wins... except for file backed memory,
+>>>> then everyon loses and nothing is consistent.
+>>> That is what I believe why mpol_rebind_mm() a bit differently from the others
+>>> and it is historically done this way a long time ago before cgroup v2.
+>>>
+>>> For cgroup v1, mems_allowed can't be empty or you can't put any task into the
+>>> cpuset. Also effective_mems is the same as mems_allowed. cgroup v2 is quite
+>>> different in how it handles memory nodes and CPUs. Users can isn't forced to
+>>> set mems_allowed and cpus_allowed as effective_mems and effective_cpus will
+>>> inherit parent version if mems_allowed and cpus_allowed are not set. IOW,
+>>> effective_mems will never be empty. Yes, it is a bug with the introduction of
+>>> cpuset v2 that we should have replaced mems_allowed by effective_mems at that
+>>> time. With v2, effective_mems should contain only online nodes. The only
+>>> exception is during the short transition period when a memory node hotunplug
+>>> operation is in progress when a write to cpuset.mems is happening at the same
+>>> time. With v1, it is theoretically possible that none of the nodes in
+>>> mems_allowed is online.
+>>>
+>>> The reason why I am suggesting to use cs->effective_mems to keep the old
+>>> cgroup v1 behavior. If the consensus is to use the output of
+>>> guarantee_online_mems() for mpol_rebind_mm(), I will not be against that but
+>>> it will be a slight change in user-visible behavior.
+>> BTW, I still prefer the v2 patch. If it is decided we should use the
+>> guarantee_online_mems() value instead, it will have to be a separate patch with
+>> changes in the relevant documentation like Documentation/admin-guide/cgroup-v1/
+>> cpuset.rst.
+> newmems is "obviously" correct, so I really don't see why we should add
+> something that needs half a page of text to explain why it is fine -- if newmems
+> just does the trick?
+>
+> Please enlighten me.
 
-------------------
+Yes, taking newmems is a reasonable choice and there are pros and cons 
+with each options. My focus is more on not changing how v1 cpuset 
+behaves as it is well defined in the v1 cpusets.rst file:
 
-From: Felix Gu <ustc.gu@gmail.com>
+     Requests by a task, using the sched_setaffinity(2) system call to
+     include CPUs in its CPU affinity mask, and using the mbind(2) and
+     set_mempolicy(2) system calls to include Memory Nodes in its memory
+     policy, are both filtered through that task's cpuset, filtering out any
+     CPUs or Memory Nodes not in that cpuset.  The scheduler will not
+     schedule a task on a CPU that is not allowed in its cpus_allowed
+     vector, and the kernel page allocator will not allocate a page on a
+     node that is not allowed in the requesting task's mems_allowed vector.
 
-[ Upstream commit 310628484ef06f95c5589374fade917a5689787b ]
+v2, OTOH, is more vague as to what setting cpuset.mems will mean and we 
+generally follow what v1 is doing, but we have more leeway of what we 
+can do.
 
-The RZ/V2H hardware manual (section 7.5.2.2.1) specifies that read access
-size for the SPI Data Register (SPDR) are fixed at 32 bits. The
-RZV2H_RSPI_RX macro for the 16-bit data path used readw(), violating
-this requirement.
+Using newmems will make the above text not totally correct. At least the 
+offline memory nodes will be filtered out which will not be utilized by 
+the task when the offline node becomes online. That is why I am saying 
+that we will have to correct the documentation if we want to make this 
+change.
 
-Switch to readl() for the 16-bit RX path to conform to the hardware
-specification.
-
-Fixes: 8b61c8919dff ("spi: Add driver for the RZ/V2H(P) RSPI IP")
-Suggested-by: Geert Uytterhoeven <geert@linux-m68k.org>
-Signed-off-by: Felix Gu <ustc.gu@gmail.com>
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-Reviewed-by: Fabrizio Castro <fabrizio.castro.jz@renesas.com>
-Link: https://patch.msgid.link/20260610-rzv2h-rspi-v2-1-40c80b4a2c90@gmail.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/spi/spi-rzv2h-rspi.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/spi/spi-rzv2h-rspi.c b/drivers/spi/spi-rzv2h-rspi.c
-index 53c44799fab71d..6fc81ccbcad5a2 100644
---- a/drivers/spi/spi-rzv2h-rspi.c
-+++ b/drivers/spi/spi-rzv2h-rspi.c
-@@ -133,8 +133,9 @@ static inline void rzv2h_rspi_rx_##type(struct rzv2h_rspi_priv *rspi,	\
- RZV2H_RSPI_TX(writel, u32)
- RZV2H_RSPI_TX(writew, u16)
- RZV2H_RSPI_TX(writeb, u8)
-+/* The read access size for RSPI_SPDR is fixed at 32 bits */
- RZV2H_RSPI_RX(readl, u32)
--RZV2H_RSPI_RX(readw, u16)
-+RZV2H_RSPI_RX(readl, u16)
- RZV2H_RSPI_RX(readl, u8)
- 
- static void rzv2h_rspi_reg_rmw(const struct rzv2h_rspi_priv *rspi,
--- 
-2.53.0
-
-
+Cheers,
+Longman
 
