@@ -1,50 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63C2535675A;
-	Tue, 16 Jun 2026 17:01:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B60084657CF
+	for <stable@vger.kernel.org>; Tue, 16 Jun 2026 17:01:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781629286; cv=none; b=JoI130ePfcBm1sUHxzH3lGamKM6pxGgcROolzbRq996Uqz1DATut4RGBnwQq5dv3uusoeKRDfYPJVNFYleEd4gY5HollUefr/387elIgBzN8wXVnW41uLV/PLeVgLOXeaVffMBQhO3W2drukqt+ypS1TsNMIpcyoYefu35HAcF0=
+	t=1781629286; cv=none; b=SUiDYP3glneWeSaHeJa1NGDae6kVevKtKf01zXhQbyvT5L6Zt70QAPORHwuZSog6vhbG5USMtVyqGl8QydzCCmUmoSLR4mekxAXnyMNRQHLgSbQ4g9A2USjv2UWBh7LTnBUo0f0J3mB3bXB+E3cuJsNHDyPk2xO32ny1QOhymGo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1781629286; c=relaxed/simple;
-	bh=6KA/6AiW08b0ljb694wt/TEGO7GFmld9wWeiGE4dSWA=;
+	bh=L7Ee1KvmbOENUvq1s/bHyaVLGPmVCnE0iWfoHFkyAYs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=K+Z1PVI1UCoa4V/l2h2iUCufZ+tleETngxgSDiWC38TRYUQDdLrrSveB//YFiBD+c1yI2vBXIHH+tXk07lDvFjZnp3HysBO4jTxmo9B21k4od66c0pQ/uDlMlTMBpmcpqFDKBeFJO9oefdAmvPOfdxXerXYNFYL2caqH7ElDkf0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=dDTiFYbg; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=tEACSfyXboqw+Of2wMRiQrPu4Ar3b/mDKG1IuPa9C4FqS25JB272Jd7MttWM7MwKkxXRk5XBnntcYqCeYKqQpqf+g0B0ZISXJUeMkmQfxLRxrf95GSRK3IFQviiI1Ihws3ykeHszj5Ny68DG/wSLTU9YvQnlalFqsdUSc2rrYoM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G86UgaNT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="dDTiFYbg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 581B11F000E9;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G86UgaNT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABD2D1F00A3A;
 	Tue, 16 Jun 2026 17:01:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1781629285;
-	bh=Jcs2EU16PKFMEBbA3fjxjuVv2TdDwrfGDXZ+4yOm/sE=;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781629285;
+	bh=Z3MDsqOslgylDxqO6Fx5O7Bw8+2NcvXxbQHkEUueqjM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=dDTiFYbgqnfbPG6yPSf4NmInLnF4wBKf5RoCNo5oJT8FMvIhdqBPxQqSiQLVcXoq4
-	 deA7Zt6cyf4N3sKadWubp7A0n+aCSF6QZAiEGN6Fq3/dw7bawbYSOZRtmzLQWKw5AG
-	 8dKaCWanCUSmZaEhqSCrIxt8zeeLmZTGyyGyfYng=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=G86UgaNTHVq6accGWRlupGZOlMBn+NUNmedQjFa5fkuDJXNKgUV8yAQaMXRRLjAwX
+	 GwoMGMLO/akplgyfUJi1S9aRyFVYc16qPim52ixCwgDJhG5jZxNSkBZQCbDyDpJT8W
+	 PCJdbHyFvLOceKuLVBNc8dy3gwfFbDnZ9swM81SGbi5DcBVe0c6NtQWfODJ/tXfE2L
+	 vN4KOsGR1v2N+/lKs2tqETIdXQK2R72PXIsz/EIvWmRL5eGth+gKr2tDlXmAK86otB
+	 muoUFzXoNFsJDqBhYE6aTxVsVtjbPBRO5K78wH7wvR8x9kqILBtRpKZ2dULt2lxLDY
+	 nfzliDZG5S5dQ==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>,
-	Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>,
-	Ao Wang <wangao@seu.edu.cn>,
-	Xuewei Feng <fengxw06@126.com>,
-	Qi Li <qli01@tsinghua.edu.cn>,
-	Ke Xu <xuke@tsinghua.edu.cn>,
-	Alexander Aring <aahringo@redhat.com>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: Dexuan Cui <decui@microsoft.com>,
+	Michael Kelley <mhklinux@outlook.com>,
+	Krister Johansen <kjlx@templeofstupid.com>,
+	Matthew Ruffell <matthew.ruffell@canonical.com>,
+	Wei Liu <wei.liu@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6 223/452] 6lowpan: fix off-by-one in multicast context address compression
-Date: Tue, 16 Jun 2026 20:27:30 +0530
-Message-ID: <20260616145129.469052615@linuxfoundation.org>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260616145117.796205997@linuxfoundation.org>
-References: <20260616145117.796205997@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Subject: [PATCH 6.12.y] Drivers: hv: vmbus: Improve the logic of reserving fb_mmio on Gen2 VMs
+Date: Tue, 16 Jun 2026 13:01:22 -0400
+Message-ID: <20260616170122.3368542-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026061514-petroleum-captivity-d49d@gregkh>
+References: <2026061514-petroleum-captivity-d49d@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -53,71 +48,152 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.6-stable review patch.  If anyone has any objections, please let me know.
+From: Dexuan Cui <decui@microsoft.com>
 
-------------------
+[ Upstream commit 016a25e4b0df4d77e7c258edee4aaf982e4ee809 ]
 
-From: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
+If vmbus_reserve_fb() in the kdump/kexec kernel fails to properly reserve
+the framebuffer MMIO range (which is below 4GB) due to a Gen2 VM's
+screen.lfb_base being zero [1], there is an MMIO conflict between the
+drivers hyperv-drm and pci-hyperv: when the driver pci-hyperv's
+hv_allocate_config_window() calls vmbus_allocate_mmio() to get an
+MMIO range, typically it gets a 32-bit MMIO range that overlaps with the
+framebuffer MMIO range, and later hv_pci_enter_d0() fails with an
+error message "PCI Pass-through VSP failed D0 Entry with status" since
+the host thinks that PCI devices must not use MMIO space that the
+host has assigned to the framebuffer.
 
-[ Upstream commit 2a58899d11009bffc7b4b32a571858f381121837 ]
+This is especially an issue if pci-hyperv is built-in and hyperv-drm is
+built as a module. Consequently, the kdump/kexec kernel fails to detect
+PCI devices via pci-hyperv, and may fail to mount the root file system,
+which may reside in a NVMe disk. The issue described here has existed
+for SR-IOV VF NICs since day one of the pci-hyperv driver, and has been
+worked around on x64 when possible. With the recent introduction of
+ARM64 VMs that boot from NVMe, there is no workaround, so we need a
+formal fix.
 
-The second memcpy in lowpan_iphc_mcast_ctx_addr_compress() uses
-&data[1] as destination and &ipaddr->s6_addr[11] as source, but
-both should be offset by one: &data[2] and &ipaddr->s6_addr[12]
-respectively.
+On Gen2 VMs, if the screen.lfb_base is 0 in the kdump/kexec kernel [1],
+fall back to the low MMIO base, which should be equal to the framebuffer
+MMIO base [2] (the statement is true according to my testing on x64
+Windows Server 2016, and on x64 and ARM64 Windows Server 2025 and on
+Azure. I checked with the Hyper-V team and they said the statement should
+continue to be true for Gen2 VMs). In the first kernel, screen.lfb_base
+is not 0; if the user specifies a very high resolution, it's not enough
+to only reserve 8MB: let's always reserve half of the space below 4GB,
+but cap the reservation to 128MB, which is the required framebuffer size
+of the highest resolution 7680*4320 supported by Hyper-V.
 
-This off-by-one has two consequences:
-1. data[1] is overwritten with s6_addr[11], corrupting the RIID
-   field in the compressed multicast address
-2. data[5] is never written, so uninitialized kernel stack memory
-   is transmitted over the network via lowpan_push_hc_data(),
-   leaking kernel stack contents
+While at it, fix the comparison "end > VTPM_BASE_ADDRESS" by changing
+the > to >=. Here the 'end' is an inclusive end (typically, it's
+0xFFFF_FFFF for the low MMIO range).
 
-The correct inline data layout must match what the decompression
-function lowpan_uncompress_multicast_ctx_daddr() expects:
-  data[0..1] = s6_addr[1..2]  (flags/scope + RIID)
-  data[2..5] = s6_addr[12..15] (group ID)
+Note: vmbus_reserve_fb() now also reserves an MMIO range at the beginning
+of the low MMIO range on CVMs, which have no framebuffers (the
+'screen.lfb_base' in vmbus_reserve_fb() is 0 for CVMs), just in case the
+host might treat the beginning of the low MMIO range specially [3]. BTW,
+the OpenHCL kernel is not affected by the change, because that kernel
+boots with DeviceTree rather than ACPI (so vmbus_reserve_fb() won't run
+there), and there is no framebuffer device for that kernel.
 
-Also zero-initialize the data array as a defensive measure against
-similar bugs in the future.
+Note: normally Gen1 VMs don't have the MMIO conflict issue because the
+framebuffer MMIO range (which is hardcoded to base=4GB-128MB and
+size=64MB for Gen1 VMs by the host) is always reported via the legacy PCI
+graphics device's BAR, so the kdump/kexec kernel can reserve the 64MB
+MMIO range; however, if the VM is configured to use a very high resolution
+and the required framebuffer size exceeds 64MB (AFAIK, in practice, this
+isn't a typical configuration by users), the hyperv-drm driver may need to
+allocate an MMIO range above 4GB and change the framebuffer MMIO location
+to the allocated MMIO range -- in this case, there can still be issues [4]
+which can't be easily fixed: any possible affected Gen1 users would have
+to use a resolution whose framebuffer size is <= 64MB, or switch to Gen2
+VMs.
 
-Fixes: 5609c185f24d ("6lowpan: iphc: add support for stateful compression")
-Reported-by: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
-Reported-by: Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>
-Reported-by: Ao Wang <wangao@seu.edu.cn>
-Reported-by: Xuewei Feng <fengxw06@126.com>
-Reported-by: Qi Li <qli01@tsinghua.edu.cn>
-Reported-by: Ke Xu <xuke@tsinghua.edu.cn>
-Signed-off-by: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
-Acked-by: Alexander Aring <aahringo@redhat.com>
-Link: https://patch.msgid.link/20260527081806.42747-1-zhaoyz24@mails.tsinghua.edu.cn
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+[1] https://lore.kernel.org/all/SA1PR21MB692176C1BC53BFC9EAE5CF8EBF51A@SA1PR21MB6921.namprd21.prod.outlook.com/
+[2] https://lore.kernel.org/all/SA1PR21MB69218F955B62DFF62E3E88D2BF222@SA1PR21MB6921.namprd21.prod.outlook.com/
+[3] https://lore.kernel.org/all/SN6PR02MB415726B17D5A6027CD1717E8D4342@SN6PR02MB4157.namprd02.prod.outlook.com/
+[4] https://lore.kernel.org/all/SA1PR21MB69213486F821CA5A2C793C81BF342@SA1PR21MB6921.namprd21.prod.outlook.com/
+
+Fixes: 4daace0d8ce8 ("PCI: hv: Add paravirtual PCI front-end for Microsoft Hyper-V VMs")
+CC: stable@vger.kernel.org
+Reviewed-by: Michael Kelley <mhklinux@outlook.com>
+Tested-by: Krister Johansen <kjlx@templeofstupid.com>
+Tested-by: Matthew Ruffell <matthew.ruffell@canonical.com>
+Signed-off-by: Dexuan Cui <decui@microsoft.com>
+Signed-off-by: Wei Liu <wei.liu@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/6lowpan/iphc.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/hv/vmbus_drv.c | 29 ++++++++++++++++++++++++++---
+ 1 file changed, 26 insertions(+), 3 deletions(-)
 
-diff --git a/net/6lowpan/iphc.c b/net/6lowpan/iphc.c
-index e116d308a8df6d..37eaff3f7b6940 100644
---- a/net/6lowpan/iphc.c
-+++ b/net/6lowpan/iphc.c
-@@ -1086,12 +1086,12 @@ static u8 lowpan_iphc_mcast_ctx_addr_compress(u8 **hc_ptr,
- 					      const struct lowpan_iphc_ctx *ctx,
- 					      const struct in6_addr *ipaddr)
+diff --git a/drivers/hv/vmbus_drv.c b/drivers/hv/vmbus_drv.c
+index 128d732665bf43..0191562e606d0c 100644
+--- a/drivers/hv/vmbus_drv.c
++++ b/drivers/hv/vmbus_drv.c
+@@ -2205,8 +2205,8 @@ static acpi_status vmbus_walk_resources(struct acpi_resource *res, void *ctx)
+ 		return AE_NO_MEMORY;
+ 
+ 	/* If this range overlaps the virtual TPM, truncate it. */
+-	if (end > VTPM_BASE_ADDRESS && start < VTPM_BASE_ADDRESS)
+-		end = VTPM_BASE_ADDRESS;
++	if (end >= VTPM_BASE_ADDRESS && start < VTPM_BASE_ADDRESS)
++		end = VTPM_BASE_ADDRESS - 1;
+ 
+ 	new_res->name = "hyperv mmio";
+ 	new_res->flags = IORESOURCE_MEM;
+@@ -2273,6 +2273,7 @@ static void vmbus_mmio_remove(void)
+ static void __maybe_unused vmbus_reserve_fb(void)
  {
--	u8 data[6];
-+	u8 data[6] = {};
+ 	resource_size_t start = 0, size;
++	resource_size_t low_mmio_base;
+ 	struct pci_dev *pdev;
  
- 	/* flags/scope, reserved (RIID) */
- 	memcpy(data, &ipaddr->s6_addr[1], 2);
- 	/* group ID */
--	memcpy(&data[1], &ipaddr->s6_addr[11], 4);
-+	memcpy(&data[2], &ipaddr->s6_addr[12], 4);
- 	lowpan_push_hc_data(hc_ptr, data, 6);
+ 	if (efi_enabled(EFI_BOOT)) {
+@@ -2280,6 +2281,24 @@ static void __maybe_unused vmbus_reserve_fb(void)
+ 		if (IS_ENABLED(CONFIG_SYSFB)) {
+ 			start = screen_info.lfb_base;
+ 			size = max_t(__u32, screen_info.lfb_size, 0x800000);
++
++			low_mmio_base = hyperv_mmio->start;
++			if (!low_mmio_base || upper_32_bits(low_mmio_base) ||
++			    (start && start < low_mmio_base)) {
++				pr_warn("Unexpected low mmio base %pa\n", &low_mmio_base);
++			} else {
++				/*
++				 * If the kdump/kexec or CVM kernel's lfb_base
++				 * is 0, fall back to the low mmio base.
++				 */
++				if (!start)
++					start = low_mmio_base;
++				/*
++				 * Reserve half of the space below 4GB for high
++				 * resolutions, but cap the reservation to 128MB.
++				 */
++				size = min((SZ_4G - start) / 2, SZ_128M);
++			}
+ 		}
+ 	} else {
+ 		/* Gen1 VM: get FB base from PCI */
+@@ -2300,8 +2319,10 @@ static void __maybe_unused vmbus_reserve_fb(void)
+ 		pci_dev_put(pdev);
+ 	}
  
- 	return LOWPAN_IPHC_DAM_00;
+-	if (!start)
++	if (!start) {
++		pr_warn("Unexpected framebuffer mmio base of zero\n");
+ 		return;
++	}
+ 
+ 	/*
+ 	 * Make a claim for the frame buffer in the resource tree under the
+@@ -2311,6 +2332,8 @@ static void __maybe_unused vmbus_reserve_fb(void)
+ 	 */
+ 	for (; !fb_mmio && (size >= 0x100000); size >>= 1)
+ 		fb_mmio = __request_region(hyperv_mmio, start, size, fb_mmio_name, 0);
++
++	pr_info("hv_mmio=%pR,%pR fb=%pR\n", hyperv_mmio, hyperv_mmio->sibling, fb_mmio);
+ }
+ 
+ /**
 -- 
 2.53.0
-
-
 
