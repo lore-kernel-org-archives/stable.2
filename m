@@ -1,96 +1,114 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D71D328610;
-	Tue, 16 Jun 2026 17:03:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0A7443E4BC;
+	Tue, 16 Jun 2026 17:03:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781629393; cv=none; b=p4R4QaaUTQpDWXu6HOpC9//GDdkNUSHcsCJVKexQMFCXw0D98A3svyIe7ju8qNwvbPbwoZlKfM2tA4X+43g3tZcLreHZG6tpU2ZV9XVEp9I326Tw1HxtHq0dAtq/Jbygz5rE2WUPeDVUeTlQzko2+WjJYfXWRnwwpNhu3K6G9xs=
+	t=1781629393; cv=none; b=g5/25hnX9nUO4VZY4mTgaN49M2CiCV2j3BfI4sZHjqtvRW8D6m6tiypy4KXapp5KeQdAW3/vSFaFaIHtEl1c0gogbxPitrKOQWqdQvdOK4ga3KXO0S6dNYoLL4hQjP32wedXL3JG4vQdo4J7wgz5Kk25AL5vKDVHrpd/o6q4sOc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1781629393; c=relaxed/simple;
-	bh=1uRm54xE73AUE/i1r2inNg5uXiABvQaoLKE0/wSPTgU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HWqvRdqlwmvyy0ivSCxT6f5nd8nfcJ7MqgCJdbhB7uG0LojBryY8ELezWbBHkjdO0wDmJhpiQA1nrJpUXLyQvYI6UHCw6KTxmiwZ3cwWC0Ze/imDvZsZVHnfgf04rgXMtXuLod1Zt3B0TQxxTkjxXueSv05H6WwOjTqpUnnAX6s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=xxmZZfPl; arc=none smtp.client-ip=100.103.45.18
+	bh=nXyaxubBahtAj4IF3o5TF1RlpykJP5S53+F1RX11ENA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DZeQ20ifgZwbGUPQmqT1d+Hvzoke+Y7/+htutAQB/PpmeFTVmmM/Dm34qbGz1gF53bODN8IifwkQ6uX+VBJXYNX3hkTby9Wun8Fo2evMwdLA6HFzPCoXGZq3gkz1H6bJEZsOQF7u9r8wp3/d6luyNSxcZqCUp6O05x1spWJG8Lc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=AZHf18eO; arc=none smtp.client-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="xxmZZfPl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1AD5F1F000E9;
-	Tue, 16 Jun 2026 17:03:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1781629391;
-	bh=G6WKqt59AbRgPj/wX+OQBBmZfX+vjE6+pXR9vWSAAZM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=xxmZZfPlKtYIVT6bWqKM52mDcsRdLVAsCuwFGeUU4VavSXRCiqlkZvW1Jkp1S7v97
-	 XKFL3gtQ1aEDVTrDmJM2/H+9vWUy7zId4kS4vw3MHjDsYECWUwh5hy1Zb8A4LcJaB3
-	 M86VcovdiwXco/j5/zD/UMTiHwC1VJ61Y+JLQvrM=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Breno Leitao <leitao@debian.org>,
-	Allison Henderson <achender@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6 276/452] rds: mark snapshot pages dirty in rds_info_getsockopt()
-Date: Tue, 16 Jun 2026 20:28:23 +0530
-Message-ID: <20260616145132.148085005@linuxfoundation.org>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260616145117.796205997@linuxfoundation.org>
-References: <20260616145117.796205997@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="AZHf18eO"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=gHmaC1y77edf1raPS3NRFAP5eOMW0ukbCIFVpK4KJzo=; b=AZHf18eOjKe9xide+CG8vnAQFU
+	CyIwrdZIxFmuVcYUeNJ1SRVrOv9o/aWH+PrOj61P+piOiP+qXU65EwjR5iCEvZApLA1IxtlhWHU2e
+	AvhCwKIL9gBTUQUxBV7V7ZCao42RwnH8WaeRPg8n0ss2L5JgRMveHDrRGIsGt3qMYolhWE3PlYW85
+	yt77XTh58IUQajIYIrRd7zx16Cexmz4jnPpl5BRxtGy6SzkrwwySN7pxp/DwBeLzFl0HzgKkJ+xY6
+	uDZqRwNGfxFhiBMoAbfSrNu+VMSLTgdd/hyGFlDR4YTEzzu+jfOGA5O3aZ8mBGW2nkR5jcG7/7/bj
+	kgNZrnjg==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1wZXBi-0000000BAAh-0hDh;
+	Tue, 16 Jun 2026 17:02:58 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 6C0F430039E; Tue, 16 Jun 2026 19:02:57 +0200 (CEST)
+Date: Tue, 16 Jun 2026 19:02:57 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Cc: Jakub Kicinski <kuba@kernel.org>, Petr Mladek <pmladek@suse.com>,
+	John Ogness <john.ogness@linutronix.de>,
+	Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Vlad Poenaru <vlad.wing@gmail.com>,
+	Thomas Gleixner <tglx@kernel.org>, netdev@vger.kernel.org,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>, Breno Leitao <leitao@debian.org>,
+	Clark Williams <clrkwllms@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	linux-rt-devel@lists.linux.dev, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org, Frederic Weisbecker <frederic@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>
+Subject: Re: [PATCH net] netpoll: run NAPI poll in softirq context to avoid
+ rq->lock self-deadlock
+Message-ID: <20260616170257.GH49951@noisy.programming.kicks-ass.net>
+References: <20260610183621.3915271-1-vlad.wing@gmail.com>
+ <20260611191114.5bc43a59@kernel.org>
+ <20260616103529.Yh9Dxsjp@linutronix.de>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260616103529.Yh9Dxsjp@linutronix.de>
 
-6.6-stable review patch.  If anyone has any objections, please let me know.
+On Tue, Jun 16, 2026 at 12:35:29PM +0200, Sebastian Andrzej Siewior wrote:
 
-------------------
+> So this is not an issue since commit 7eab73b18630e ("netconsole: convert
+> to NBCON console infrastructure"). Because from here now on writes are
+> deferred to the nbcon thread. So this purely about -stable in this case.
 
-From: Breno Leitao <leitao@debian.org>
+Hmm, I thought netconsole had some reserved skbs and could to writes
+'atomic' like? That said, it was 2.6 era the last time I looked at
+netconsole.
 
-[ Upstream commit 512db8267b73a220a64180d95ab5eebe7c4964a8 ]
+> Now. The scheduler usually does printk_deferred() because of the rq lock
+> so it does not deadlock for various reasons. It is kind of a pity that
+> the various WARN macros don't do that.
 
-rds_info_getsockopt() pins the destination user pages with FOLL_WRITE and
-the RDS_INFO_* producers memcpy the snapshot into them through
-kmap_atomic(). Because that copy goes through the kernel direct map, the
-dirty bit on the user PTE is never set, so unpin_user_pages() releases the
-pages without marking them dirty. A file-backed destination page can then
-be reclaimed without writeback, silently discarding the copied data.
+People have tried, last time was here:
 
-Use unpin_user_pages_dirty_lock() with make_dirty=true so the modified
-pages are marked dirty before they are unpinned.
+  https://lkml.kernel.org/r/20260611074344.GG48970@noisy.programming.kicks-ass.net
 
-Fixes: a8c879a7ee98 ("RDS: Info and stats")
-Signed-off-by: Breno Leitao <leitao@debian.org>
-Reviewed-by: Allison Henderson <achender@kernel.org>
-Link: https://patch.msgid.link/20260608-rds_fix-v1-1-006c88543408@debian.org
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- net/rds/info.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+and I hate deferred with a passion. It means you'll never see the
+message when you wreck the machine.
 
-diff --git a/net/rds/info.c b/net/rds/info.c
-index b6b46a8214a0a5..b3ee5f8238c44d 100644
---- a/net/rds/info.c
-+++ b/net/rds/info.c
-@@ -235,7 +235,7 @@ int rds_info_getsockopt(struct socket *sock, int optname, char __user *optval,
- 
- out:
- 	if (pages)
--		unpin_user_pages(pages, nr_pages);
-+		unpin_user_pages_dirty_lock(pages, nr_pages, true);
- 	kfree(pages);
- 
- 	return ret;
--- 
-2.53.0
+> We could add printk_deferred_enter/exit() to all the rq_lock() variants.
+> I think PeterZ loves this the most. And Greg will appreciate it too
+> while backporting because of all the context changes.
+
+No, not going to happen, ever, sorry. Instead printk should delete
+console sem and have printk() itself be atomic safe.
+
+As stated, printk deferred is an abomination and needs to die a horrible
+painful death.
+
+As described here:
+
+  https://lkml.kernel.org/r/20260611191922.GK187714@noisy.programming.kicks-ass.net
+
+"So printk should:
+
+ - stick msg in buffer (lockless)
+ - print to atomic consoles (lockless)
+ - use irq_work to wake console kthreads (lockless)
+ - each kthread then tries to flush buffer to its own non-atomic console
+   in non-atomic context."
 
 
 
