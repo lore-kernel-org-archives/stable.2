@@ -1,76 +1,45 @@
-Received: from mail-lj1-f177.google.com (mail-lj1-f177.google.com [209.85.208.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1562C3370EA
-	for <stable@vger.kernel.org>; Tue, 16 Jun 2026 15:05:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E657D3ACA42;
+	Tue, 16 Jun 2026 15:05:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781622323; cv=none; b=NtfFILo5957ltnNqSdERmi0DDBV27PfDE3R+aCu3sTFa9IwL1sZPQmgJzM8hMcxQ+X+kwp11nvVO+ibv6X8+GsmDUuzlHa4PZY39m3OcvXRG8GjDqPl4xKTqPkR6rH/UikiDgamhkvC6neyiCyY8VeLH9+MQAhAWGoMaI2iYC5k=
+	t=1781622324; cv=none; b=PktyG36nR7awk3gQ69UUdbZhLK1NO6bqSk/bWNgRtEgor/pA6nlMvtxAQNhGLNF7fF+m8Ns34+yAF9/WxeHW1v/HGTSxqelWI2LNWeHERtuGksGxFESxeku+Kg22CyQvlsl0C2OuRraH6dgOjJpRW/E0+mdAlZzn9jYPdS0cbI8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781622323; c=relaxed/simple;
-	bh=JEOLSZ1AJjN3AaMIcahaAX2ySPe5GUtyp0G050zEmnY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=T0CLm+33Okxnx2JgxwLUOogQzNksJ8RZwqCv3jIUQwCj7ZLV4UQengAy3bMgQJCOFJ5QTnGkVzIWUGYKfyj0s4cz9TGzWijBIMrusNQmduSIGatVIfw8pPpWF/SBgs32Ag8EKYShUyvjyg0ckP50gN4DpuF9SXvvJ30oGTuOejs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Tila2W1D; arc=none smtp.client-ip=209.85.208.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781622324; c=relaxed/simple;
+	bh=TxIVv78UYuCRrwVrA9JmLSPHapawmrR4aoF4kDtpTbw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=UsiMkVMmJZEgbWShRwB7FGmI/KYbXSyKr1voQHaPQwxNEjJlDwJczlFlzYoexP6TxmOmq7jezfFsz9Rsy76MBrdtjdz3vbWSaJCk8WCD8IRHu417p9t82H5/Nw0ql3ifY0aYZx1WhnYTEy4Y44YYDJaJSj/dL2jzyWUA+Qiu+TI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=jeZC0MQr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Tila2W1D"
-Received: by mail-lj1-f177.google.com with SMTP id 38308e7fff4ca-397e391cb2aso41485831fa.2
-        for <stable@vger.kernel.org>; Tue, 16 Jun 2026 08:05:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781622320; x=1782227120; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=jlLTtSeNFufiChT+v/pvFzDbVk/DIrJgt+8tFHA9RhY=;
-        b=Tila2W1DvzRJTB55xcM7xlq7CKDppjw4hpXFEaBXHT9uf98i8qdTTNP69YXA1a29jb
-         WVPB6+gdx3upwTaS29XSLMNWqChtMk4InK/wxyyo47Bb7Hb7AP/MCajHY/Ubq/+2clmQ
-         lBgpdkt0TQiJThQ5yHYuXTSd+4l06tEypP7QEJH7+fU/uiqjGZHUprHNZAALN7PIX/cv
-         8MWqIwSOaoWhrXmwWwt+w5pVEEdV7HiJqEFmJyLrxBcUx8EcclVAnk78qu0MXLI9QUmo
-         5EYBx1ZTVgwBQptMiUHcXSps2OdpoVgC+VKje/U/bTazT7n43/qUljzf+JtyP2VYMN8V
-         Rrrw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781622320; x=1782227120;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=jlLTtSeNFufiChT+v/pvFzDbVk/DIrJgt+8tFHA9RhY=;
-        b=Z6Q+2ZrcghJ9ofOUbBw9d8ZQUHBVL36cuzGRj4Q2OYhq0JNL4RaGqoSsboD+B4B8ug
-         ekXD4d5OHgnwLZh1s5Befg6bY/MRxjnihx/mEVFs3JzXS3+78eCF4WREAVd2ggdaiAzO
-         9ab2xnzkLUaz3u97JnUEQNuoUdNRxau53+XxtdSlaIAPXt1SHF0XGP7HlJH3cEHmJZhf
-         6weOYMp7hPAyJk3jhAYKF9eEFnKD+DsnXUWEh7wlVivTPDgJw14KS+Wm2c1ppSNZL12D
-         0shrA+Yc+SNDni1lDNtHmT6nD5dy+EE3NHNpElcFtUUM0p0kyKgDe7cF25eSjLgH2JsI
-         S9dA==
-X-Gm-Message-State: AOJu0YwsiC9epLcck1ojxI+G+3wnjA+yAs5UPrNRFQ1qVGiirSGDduQt
-	UHKvxB4mXclBE07Ntvj9nwfnJktf5YZYTPHi2UxM6OMm2003pXoao4R04IgiFcYrtJw=
-X-Gm-Gg: Acq92OGgpjOe4TsYziHvUsvYRecrV3einxPFADXvAc91I9bbqKnZczGA1DQG41mCKIe
-	RPIn+tS6UgVsb6H4jptd55s11egy2fOVHqQDAtWOz4avNitU55t1KowRiVHCur+I+3rU/qj6hlv
-	lDHlFVqXV9G5z4hTFgKTJjkmaaWtrYic99M8Sjlsztou+5gHXgM7dfRaJjOrL72Wh/OjZNwHiB2
-	r0hSfL0qUdrwewjMHp2+35SeVgG4+7pfpuD+KndzQO8pyxdXSgadVSEhTpNpRfNXBobOopGRrFM
-	yE4mOrGjEf5Hu5z0Eqm95dFjT8IDbC+qOPx6zN9nmm74tPpcjyamEDgK5NrSAdPjKU6zgzeB9Ts
-	V86RN3lHNXi5HLsjL8xHVhez5DryAYZdixd7uTt4hLpMwen3eXH3hZ6BBdsJAyVR3aEVJC4IZ4E
-	pL+LcuUUd77bMZ7QGMZr3kJLsTWoTGMxKikAA3lpEDkluY0BqF8vDVJnwV5S8zRIlz4O8=
-X-Received: by 2002:a2e:bba5:0:b0:38e:83a6:d37 with SMTP id 38308e7fff4ca-3993ef57664mr24550401fa.13.1781622319750;
-        Tue, 16 Jun 2026 08:05:19 -0700 (PDT)
-Received: from cherrypc.astra-academy.ru (109-252-17-231.nat.spd-mgts.ru. [109.252.17.231])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3995c191cd8sm7765001fa.20.2026.06.16.08.05.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 16 Jun 2026 08:05:19 -0700 (PDT)
-From: Nazar Kalashnikov <nazarkalashnikov0@gmail.com>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Nazar Kalashnikov <nazarkalashnikov0@gmail.com>,
-	Alexander Aring <aahringo@redhat.com>,
-	David Teigland <teigland@redhat.com>,
-	gfs2@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Christine Caulfield <ccaulfie@redhat.com>,
-	cluster-devel@redhat.com,
-	lvc-project@linuxtesting.org,
-	Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-Subject: [PATCH 6.1/6.6/6.12] dlm: prevent NPD when writing a positive value to event_done
-Date: Tue, 16 Jun 2026 18:05:34 +0300
-Message-ID: <20260616150535.810849-1-nazarkalashnikov0@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="jeZC0MQr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F222A1F000E9;
+	Tue, 16 Jun 2026 15:05:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1781622322;
+	bh=Y+pt4ENVo9y2wp3RM4lY5SVmRLZumn1iMoptSmGgnfw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=jeZC0MQrVqUYEs9GNyMe69+ejRsk6SovGGaI7IVmTkMSxA4iC0yLSbtHJ9a0j7WjM
+	 b1rDpY3fTs31mY7iLaxylC2QeZ5DN0kwNEAYjWVaOc6CyjGAFRN06htT2ee+F652KV
+	 BHX9VkoSeVy2u7DnUcM6WbCJOWskv2mthTYPDXfY=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Jamal Hadi Salim <jhs@mojatatu.com>,
+	Davide Caratti <dcaratti@redhat.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15 002/411] net/sched: cls_fw: fix NULL dereference of "old" filters before change()
+Date: Tue, 16 Jun 2026 20:24:00 +0530
+Message-ID: <20260616145100.499825803@linuxfoundation.org>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260616145100.376842714@linuxfoundation.org>
+References: <20260616145100.376842714@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -79,44 +48,125 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+5.15-stable review patch.  If anyone has any objections, please let me know.
 
-commit 8e2bad543eca5c25cd02cbc63d72557934d45f13 upstream.
+------------------
 
-do_uevent returns the value written to event_done. In case it is a
-positive value, new_lockspace would undo all the work, and lockspace
-would not be set. __dlm_new_lockspace, however, would treat that
-positive value as a success due to commit 8511a2728ab8 ("dlm: fix use
-count with multiple joins").
+From: Davide Caratti <dcaratti@redhat.com>
 
-Down the line, device_create_lockspace would pass that NULL lockspace to
-dlm_find_lockspace_local, leading to a NULL pointer dereference.
+[ Upstream commit 65782b2db7321d5f97c16718c4c7f6c7205a56be ]
 
-Treating such positive values as successes prevents the problem. Given
-this has been broken for so long, this is unlikely to break userspace
-expectations.
+Like pointed out by Sashiko [1], since commit ed76f5edccc9 ("net: sched:
+protect filter_chain list with filter_chain_lock mutex") TC filters are
+added to a shared block and published to datapath before their ->change()
+function is called. This is a problem for cls_fw: an invalid filter
+created with the "old" method can still classify some packets before it
+is destroyed by the validation logic added by Xiang.
+Therefore, insisting with repeated runs of the following script:
 
-Fixes: 8511a2728ab8 ("dlm: fix use count with multiple joins")
-Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-Signed-off-by: David Teigland <teigland@redhat.com>
-Signed-off-by: Nazar Kalashnikov <nazarkalashnikov0@gmail.com>
+ # ip link add dev crash0 type dummy
+ # ip link set dev crash0 up
+ # mausezahn  crash0 -c 100000 -P 10 \
+ > -A 4.3.2.1 -B 1.2.3.4 -t udp "dp=1234" -q &
+ # sleep 1
+ # tc qdisc add dev crash0 egress_block 1 clsact
+ # tc filter add block 1 protocol ip prio 1 matchall \
+ > action skbedit mark 65536 continue
+ # tc filter add block 1 protocol ip prio 2 fw
+ # ip link del dev crash0
+
+can still make fw_classify() hit the WARN_ON() in [2]:
+
+ WARNING: ./include/net/pkt_cls.h:88 at fw_classify+0x244/0x250 [cls_fw], CPU#18: mausezahn/1399
+ Modules linked in: cls_fw(E) act_skbedit(E)
+ CPU: 18 UID: 0 PID: 1399 Comm: mausezahn Tainted: G            E       7.0.0-rc6-virtme #17 PREEMPT(full)
+ Tainted: [E]=UNSIGNED_MODULE
+ Hardware name: Red Hat KVM, BIOS 1.16.3-2.el9 04/01/2014
+ RIP: 0010:fw_classify+0x244/0x250 [cls_fw]
+ Code: 5c 49 c7 45 00 00 00 00 00 41 5d 41 5e 41 5f 5d c3 cc cc cc cc 5b b8 ff ff ff ff 41 5c 41 5d 41 5e 41 5f 5d c3 cc cc cc cc 90 <0f> 0b 90 eb a0 0f 1f 80 00 00 00 00 90 90 90 90 90 90 90 90 90 90
+ RSP: 0018:ffffd1b7026bf8a8 EFLAGS: 00010202
+ RAX: ffff8c5ac9c60800 RBX: ffff8c5ac99322c0 RCX: 0000000000000004
+ RDX: 0000000000000001 RSI: ffff8c5b74d7a000 RDI: ffff8c5ac8284f40
+ RBP: ffffd1b7026bf8d0 R08: 0000000000000000 R09: ffffd1b7026bf9b0
+ R10: 00000000ffffffff R11: 0000000000000000 R12: 0000000000010000
+ R13: ffffd1b7026bf930 R14: ffff8c5ac8284f40 R15: 0000000000000000
+ FS:  00007fca40c37740(0000) GS:ffff8c5b74d7a000(0000) knlGS:0000000000000000
+ CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+ CR2: 00007fca40e822a0 CR3: 0000000005ca0001 CR4: 0000000000172ef0
+ Call Trace:
+  <TASK>
+  tcf_classify+0x17d/0x5c0
+  tc_run+0x9d/0x150
+  __dev_queue_xmit+0x2ab/0x14d0
+  ip_finish_output2+0x340/0x8f0
+  ip_output+0xa4/0x250
+  raw_sendmsg+0x147d/0x14b0
+  __sys_sendto+0x1cc/0x1f0
+  __x64_sys_sendto+0x24/0x30
+  do_syscall_64+0x126/0xf80
+  entry_SYSCALL_64_after_hwframe+0x77/0x7f
+ RIP: 0033:0x7fca40e822ba
+ Code: d8 64 89 02 48 c7 c0 ff ff ff ff eb b8 0f 1f 00 f3 0f 1e fa 41 89 ca 64 8b 04 25 18 00 00 00 85 c0 75 15 b8 2c 00 00 00 0f 05 <48> 3d 00 f0 ff ff 77 7e c3 0f 1f 44 00 00 41 54 48 83 ec 30 44 89
+ RSP: 002b:00007ffc248a42c8 EFLAGS: 00000246 ORIG_RAX: 000000000000002c
+ RAX: ffffffffffffffda RBX: 000055ef233289d0 RCX: 00007fca40e822ba
+ RDX: 000000000000001e RSI: 000055ef23328c30 RDI: 0000000000000003
+ RBP: 000055ef233289d0 R08: 00007ffc248a42d0 R09: 0000000000000010
+ R10: 0000000000000000 R11: 0000000000000246 R12: 000000000000001e
+ R13: 00000000000186a0 R14: 0000000000000000 R15: 00007fca41043000
+  </TASK>
+ irq event stamp: 1045778
+ hardirqs last  enabled at (1045784): [<ffffffff864ec042>] __up_console_sem+0x52/0x60
+ hardirqs last disabled at (1045789): [<ffffffff864ec027>] __up_console_sem+0x37/0x60
+ softirqs last  enabled at (1045426): [<ffffffff874d48c7>] __alloc_skb+0x207/0x260
+ softirqs last disabled at (1045434): [<ffffffff874fe8f8>] __dev_queue_xmit+0x78/0x14d0
+
+Then, because of the value in the packet's mark, dereference on 'q->handle'
+with NULL 'q' occurs:
+
+ BUG: kernel NULL  pointer dereference, address: 0000000000000038
+ [...]
+ RIP: 0010:fw_classify+0x1fe/0x250 [cls_fw]
+ [...]
+
+Skip "old-style" classification on shared blocks, so that the NULL
+dereference is fixed and WARN_ON() is not hit anymore in the short
+lifetime of invalid cls_fw "old-style" filters.
+
+[1] https://sashiko.dev/#/patchset/20260331050217.504278-1-xmei5%40asu.edu
+[2] https://elixir.bootlin.com/linux/v7.0-rc6/source/include/net/pkt_cls.h#L86
+
+Fixes: faeea8bbf6e9 ("net/sched: cls_fw: fix NULL pointer dereference on shared blocks")
+Fixes: ed76f5edccc9 ("net: sched: protect filter_chain list with filter_chain_lock mutex")
+Acked-by: Jamal Hadi Salim <jhs@mojatatu.com>
+Signed-off-by: Davide Caratti <dcaratti@redhat.com>
+Link: https://patch.msgid.link/e39cbd3103a337f1e515d186fe697b4459d24757.1775661704.git.dcaratti@redhat.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-Backport fix for CVE-2025-23131
- fs/dlm/lockspace.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ net/sched/cls_fw.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/fs/dlm/lockspace.c b/fs/dlm/lockspace.c
-index 7b4b6977dcd6..ee11a70def92 100644
---- a/fs/dlm/lockspace.c
-+++ b/fs/dlm/lockspace.c
-@@ -576,7 +576,7 @@ static int new_lockspace(const char *name, const char *cluster,
- 	   lockspace to start running (via sysfs) in dlm_ls_start(). */
+diff --git a/net/sched/cls_fw.c b/net/sched/cls_fw.c
+index a4ffee135c8557..60249d7b333af3 100644
+--- a/net/sched/cls_fw.c
++++ b/net/sched/cls_fw.c
+@@ -72,9 +72,13 @@ static int fw_classify(struct sk_buff *skb, const struct tcf_proto *tp,
+ 			}
+ 		}
+ 	} else {
+-		struct Qdisc *q = tcf_block_q(tp->chain->block);
++		struct Qdisc *q;
  
- 	error = do_uevent(ls, 1);
--	if (error)
-+	if (error < 0)
- 		goto out_recoverd;
- 
- 	/* wait until recovery is successful or failed */
+ 		/* Old method: classify the packet using its skb mark. */
++		if (tcf_block_shared(tp->chain->block))
++			return -1;
++
++		q = tcf_block_q(tp->chain->block);
+ 		if (id && (TC_H_MAJ(id) == 0 ||
+ 			   !(TC_H_MAJ(id ^ q->handle)))) {
+ 			res->classid = id;
 -- 
-2.47.3
+2.53.0
+
+
+
