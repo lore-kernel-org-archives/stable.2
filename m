@@ -1,40 +1,54 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBA5B43CEEF
-	for <stable@vger.kernel.org>; Tue, 16 Jun 2026 12:07:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A96D428838;
+	Tue, 16 Jun 2026 12:08:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781611666; cv=none; b=tzstQ0I+jw1UKoRbiP9LxbDdnz5s8H0EPTo1pYSgV5dhrZdnwYFyzzFrn+vWM/LBhnBZfpP983EaFHEEAtiRXYR8iRzWt5ERAgaGbYyrZOyB4XcbQzDAjf16twe8wLAPTtiZ6Y1BJplKYRGS3d6HiNjwVpAvcoW2h5+vfRK6E7A=
+	t=1781611692; cv=none; b=RjZqwh63aYA8T4rCAqGc8K1ZY9Mf34MRE/fOariZTTiI+ZMudRX2P2+ipqa2U2LDPQ3QHoI8BqQNBuLA4MV9pCJgN3T5bL3dsPXBrmawEqWLpJ3NAhKv26176r1DnaFIbRFVbaGSOaxyUWuc71Y93VVGgqs/12iFKhhsIRb98+0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781611666; c=relaxed/simple;
-	bh=aefywNorBjtG7Ab4/CtoyHSmkGL3g+aGnLYLrtcN6g8=;
+	s=arc-20240116; t=1781611692; c=relaxed/simple;
+	bh=BaAWpNVKQMEfnvgcIRLZekPNYX3WmRhGxIAXwl/oiYg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Ci0ZyN71a+kPcVcBluLp6lrwxnSLXANOAAs45GVulc1ZaKvwKxkUJ0cOzwDwrO7zjgWMiA1KAVyddeUTsHcm95kniKk5e5xO+tTBksI/rbkvKlqcWxE6VcFzNIr0FAIfmrRJN9pPI3399YQ7b1KSMwTAAdNOHfBrVOZREgT4WRw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=zNWF2Vvj; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=KzMS58BT4y1iXvuRH64+YqZjfov5n+uEigtqDT11a+rvfWQwneYNy7zi5OVIxTKKGN3/yZrwyo1kZ9v3TShNGwt1fZltt47H+/fu6aDdZr+gc20nZw/gSXVFVseZMs6+0RjgfDJazZfufVivNwBedkIOS2YPEOZes4ihKz0BvDQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=yL9AqO4p; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="zNWF2Vvj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B1D31F000E9;
-	Tue, 16 Jun 2026 12:07:44 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="yL9AqO4p"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D77861F000E9;
+	Tue, 16 Jun 2026 12:08:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1781611665;
-	bh=ny94/my199aySWtIHlh+NSB7NXA2rnfenepVm3aFYx0=;
+	s=korg; t=1781611691;
+	bh=ETN6Wp86AZDI+LcqBkfjnsNtdRhZ5m1ZDNOvIe3MfuE=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=zNWF2Vvj15y6z0+r5M8wHOaXSBWWgVb86AoWuE3R5fV/5C0Oqu6Q1mEwE3sPQBqjQ
-	 bqWrqHAtoPR/8YnOupdJGfJXodJXB0ZAA5zMLNu5usph9/VLYWUlKVpda5VRWZ9uUV
-	 wREaCwsSbq8Wph3jK943tpOIeG7dle78mGN2hcpE=
-Date: Tue, 16 Jun 2026 17:16:49 +0530
+	b=yL9AqO4pqlllMumOFWjObo8QKCy6ePj9J2fHy8PwCGp4Gja5K7q8vlAmGdfz2O3rJ
+	 V4G1c+1uKve1tW0NnXk0uRet/GTPYtUbafJq7Nx73ckplMjFc5QCafJPJqdYLUf+jb
+	 X1gItlxLtYWD2cWDDcFc6ciueBg2Lmx3CzKwGKJ8=
+Date: Tue, 16 Jun 2026 17:29:03 +0530
 From: Greg KH <gregkh@linuxfoundation.org>
-To: Mark Rutland <mark.rutland@arm.com>
-Cc: stable@vger.kernel.org, catalin.marinas@arm.com, lee@kernel.org,
-	sdonthineni@nvidia.com, will@kernel.org
-Subject: Re: [PATCH 6.18.y 0/5] arm64: errata: Mitigate TLBI errata on
- various Arm CPUs
-Message-ID: <2026061641-flip-baggage-b527@gregkh>
-References: <20260616051329.111597-1-mark.rutland@arm.com>
- <2026061655-veggie-rerun-83e6@gregkh>
- <2026061658-landowner-dangling-5d07@gregkh>
- <ajEq3rRp8rYQg7Fu@J2N7QTR9R3>
+To: Florian Fainelli <florian.fainelli@broadcom.com>
+Cc: stable@vger.kernel.org, Arnaldo Carvalho de Melo <acme@redhat.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Ian Rogers <irogers@google.com>, Jiri Olsa <jolsa@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Tom Rix <trix@redhat.com>,
+	"open list:PERFORMANCE EVENTS SUBSYSTEM" <linux-perf-users@vger.kernel.org>,
+	"open list:PERFORMANCE EVENTS SUBSYSTEM" <linux-kernel@vger.kernel.org>,
+	"open list:BPF [MISC]" <bpf@vger.kernel.org>,
+	"open list:CLANG/LLVM BUILD SUPPORT" <llvm@lists.linux.dev>,
+	bcm-kernel-feedback-list@broadcom.com
+Subject: Re: [PATCH stable 6.1 v2 5/5] perf build: Remove
+ -Wno-unused-but-set-variable from the flex flags when building with clang <
+ 13.0.0
+Message-ID: <2026061608-monorail-thread-bb53@gregkh>
+References: <20260520163320.3073037-1-florian.fainelli@broadcom.com>
+ <20260520163320.3073037-6-florian.fainelli@broadcom.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -43,38 +57,34 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <ajEq3rRp8rYQg7Fu@J2N7QTR9R3>
+In-Reply-To: <20260520163320.3073037-6-florian.fainelli@broadcom.com>
 
-On Tue, Jun 16, 2026 at 11:52:14AM +0100, Mark Rutland wrote:
-> On Tue, Jun 16, 2026 at 03:34:27PM +0530, Greg KH wrote:
-> > On Tue, Jun 16, 2026 at 03:31:11PM +0530, Greg KH wrote:
-> > > On Tue, Jun 16, 2026 at 06:13:24AM +0100, Mark Rutland wrote:
-> > > > This is a v6.18-only backport of a workaround for a TLB invalidation
-> > > > issue affecting several CPUs. The final patches landed in mainline
-> > > > yesterday:
-> > > > 
-> > > >   https://lore.kernel.org/linux-arm-kernel/178157002783.358810.8206806281627742561.pr-tracker-bot@kernel.org/
-> > > >   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=80476f22b8b7e193b26f285a7c9f9e4b63abca16
-> > > > 
-> > > > This issue has been assigned CVE ID CVE-2025-10263, and Arm have
-> > > > published a security bulletin:
-> > > > 
-> > > >   https://developer.arm.com/documentation/112137/latest/
-> > > > 
-> > > > I've pushed a copy of this backport to my kernel.org repo:
-> > > > 
-> > > >   https://git.kernel.org/pub/scm/linux/kernel/git/mark/linux.git/log/?h=stable-6.18/arm-4118414/backport
-> > > 
-> > > Should I cherry-pick these to 7.1.y and 7.0.y as well?
-> > 
-> > Ok, cherry-picking didn't work well, I gave up on patch 3...
-> > 
-> > Can you send backports for those branches too?
+On Wed, May 20, 2026 at 09:33:20AM -0700, Florian Fainelli wrote:
+> From: Arnaldo Carvalho de Melo <acme@redhat.com>
 > 
-> Sorry about that.
+> clang < 13.0.0 doesn't grok -Wno-unused-but-set-variable, so just remove
+> it to avoid:
 > 
-> I'll send out backports for v7.0.y and v7.1.y later today.
+>   error: unknown warning option '-Wno-unused-but-set-variable'; did you mean '-Wno-unused-const-variable'? [-Werror,-Wunknown-warning-option]
+>   make[4]: *** [/git/perf-6.5.0-rc4/tools/build/Makefile.build:128: /tmp/build/perf/util/pmu-flex.o] Error 1
+>   make[4]: *** Waiting for unfinished jobs....
+> 
+> Fixes: ddc8e4c966923ad1 ("perf build: Disable fewer bison warnings")
+> Cc: Adrian Hunter <adrian.hunter@intel.com>
+> Cc: Ian Rogers <irogers@google.com>
+> Cc: Jiri Olsa <jolsa@kernel.org>
+> Cc: Namhyung Kim <namhyung@kernel.org>
+> Link: https://lore.kernel.org/lkml/ZNUSWr52jUnVaaa%2F@kernel.org/
+> Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
+> Signed-off-by: Florian Fainelli <florian.fainelli@broadcom.com>
+> ---
+>  tools/perf/util/Build | 20 +++++++++++++++++---
+>  1 file changed, 17 insertions(+), 3 deletions(-)
+> 
 
-Wonderful, thanks!
+Oops, no upstream git id?  What is it?
+
+thanks,
 
 greg k-h
+
