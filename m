@@ -1,64 +1,45 @@
-Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA2444779AA
-	for <stable@vger.kernel.org>; Tue, 16 Jun 2026 17:59:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF4C147A0B0;
+	Tue, 16 Jun 2026 17:59:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781632768; cv=none; b=RvTHCS7AmFW69sVAf6nLxZKvbl79AGy1+WWhq6SBLYCNcgrAH1xk+bnU4MQS++kznc08uWRreVBcQ1adu01EzTbDPi4fC+CiE/UTuhSiocoXH7DbFk2i1g3LHJEQQiQI59mozMrYJPGOAk2m9wz4UIlKYEqDuuOJeJtYV8ewUxM=
+	t=1781632770; cv=none; b=DT32N5VXLTBdjRShunPTs2PuxU2Z3uyZ5x07yc6RncRQG9ocTyjR4F+VINs1QqxU3y/C2URcomu0FTucjJLI/H8cF/YdVtUwi6P8xK63HaxoVkHoBSjXLwStOzB+Q9HbWPEmbWLPLPwBao+RuRUwLKwEvOx0mu4RZmlrzzS4low=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781632768; c=relaxed/simple;
-	bh=iQ/QL//uLACXlqhIamA+VQKfR0n0uCfYATHVvOKleFg=;
-	h=Content-Type:MIME-Version:Subject:From:To:Cc:Date:Message-ID; b=LzrLvq2pCnH8pkZlp8BoDik2y7CJ2GBic9+sgCCZPkUBtJFr/KPb1L0jKhjSIby2/B3WOtI/B0a02UmRZXEYBK49vZkrPoyiQBd5snLOBkx2ZazePN2m66LVTDpyV56KpRRYISQ15mEtD3b3Znu5AYHwgT/rT8mzvARwoaSCYwA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org; spf=pass smtp.mailfrom=kernelci.org; dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b=Q5XR4PWW; arc=none smtp.client-ip=74.125.82.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelci.org
+	s=arc-20240116; t=1781632770; c=relaxed/simple;
+	bh=pPzWN6h0r4yndroGzhEPqP/FFJP+TGKn7rPPmETcWBk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=XoJZMepZ7KlfDc/g3n+eoCWkssQSUNqse5D7h4Z1xMhKzOVUEVzd+o3Pun/qH6xm6PSwU1XFzK+/RyOdXZljf4HiusFyRTfCSvfqUKBEPYfxrWqpMuMeaZ///MzCSuoxoRhePJ/DvREwVrM4D3Fb99IMZExpRvb6T/h6Aah4LW0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=OTsOB0yp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b="Q5XR4PWW"
-Received: by mail-dl1-f43.google.com with SMTP id a92af1059eb24-13988680a69so1986526c88.0
-        for <stable@vger.kernel.org>; Tue, 16 Jun 2026 10:59:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernelci.org; s=google; t=1781632766; x=1782237566; darn=vger.kernel.org;
-        h=message-id:date:reply-to:cc:to:from:subject
-         :content-transfer-encoding:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=0co8zyo++piCKAQU5sgxN4YzXVDezIl2LJDQ/lVY0Zk=;
-        b=Q5XR4PWWVU7al0EmQxb2LYcM3jM0wEOVCDSXH/vsFKpYEGAkSrxWovDOtQEv29/Gst
-         NaLBSbsjbdiU7h/JRmpFPST9TggAcDMUTDbY8d2m6NTDXdop8y7j0fR5xC6E2xuQIn5M
-         3fMy8d2LiCkdYAHR8ountYVwMK6FQqU73TKetyBIesBieQ9IeW3df5R3FfHqZFSZukNG
-         +Ow0Ep5w3x656fxTzslC98wlSlOBqvZF7PIYxspJPaa6AQV/ygBI+AbMiQKjMGbkOqQn
-         06jfiaaf/S2P3V0zBpmvwaaFuAIrNYRZeyXy3adYoCWE+4vzXOrH/nKR1ICHh4tBMxSw
-         LyBg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781632766; x=1782237566;
-        h=message-id:date:reply-to:cc:to:from:subject
-         :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=0co8zyo++piCKAQU5sgxN4YzXVDezIl2LJDQ/lVY0Zk=;
-        b=RxibJiQ+HFDa3dbw3z2T61bKl9FJpJAJSLAYAnpXDHGoZ9tea/oL4j0YNLEuLRvICe
-         6DsM1E4I6BXCwasV4Kui7ZMZFZAiujdkvCjxxPTyr6XJbhiukxWJTw81VAXmYpkTkO7q
-         aTdpo2N/Ju52lQHUADneW5xQPjHa0eVherZV43xSc/kLB4UCFoO/b3SJzRHbzne3PE5g
-         bcItZNhGryOYQGu8arOGxxbfoIXE7xfPtXiE59zzsGvUx/X9c8eC42t5MA/xW5R27YDm
-         yCYtbkm7dGy1CeOZ9+adYp8YLptN/8LkZ0ODCQBwoufLl+Lt2039V7PUM1qsx8avukQw
-         Guag==
-X-Forwarded-Encrypted: i=1; AFNElJ8kyBu3m8MPAeXDkjqh84JFjBLuIkL8LJP6Ut16NgITw1i89Em86+S6sSZHltzgkrrrbm9h3zY=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzmnt8jz0cYbeN53Fqm/wQTzxXdL13CHIkse/k06aFsxYf1XnCV
-	fpTQWrJUj7TNaCpXgweLqrZweYpdiwjzAbrTv0uCZWhmRb8RKXTL2bhhfDM72Kobs9PpW2BDWi0
-	5gPq/
-X-Gm-Gg: Acq92OH6lUW+2XAD9uaFT5qwG9G35AHV204YRBl+HUF6PlBYFMSCCeDGVtZlv+xRVjs
-	4maZKoc1y6keV/LRWkq79bRe9o12fkYoA23cN0KSiUD/0q/hYum0RKA4fo5HASmiztLVkcBVfCR
-	MsZQ1Equ86vknt32eHHoAjegXyreHccYmLsYy7UssHlAa/jhouBTiFeiSe+/V5VQXLpC5Sh0gY8
-	bcKceFEZd0Lg7hxNG8C3hGqs9qlEi8qFV1DqdhNZbcom2TAztm3FHjfRUjpLAeamdybb3SDDJjx
-	TH5c8V83Fyj+dSFYJFPORLycfhPeKdrAOGUUjZ3Dzedo8wYh0qL8e++8zYjVLncgfjrd2mHBPIt
-	GOklkB1nYVjsR2/89HQcFbYVO23qMC3cT8YEPlUX3VjgroM9xJamC3HjcJMpbHlx2JH415sk0g2
-	ommENlQiWzzWZVahgn
-X-Received: by 2002:a05:7300:6d15:b0:304:df0e:9db0 with SMTP id 5a478bee46e88-30bc9ce33e2mr259640eec.15.1781632766023;
-        Tue, 16 Jun 2026 10:59:26 -0700 (PDT)
-Received: from 330cfa3079ca ([20.38.40.137])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3081ddaf69asm20810980eec.0.2026.06.16.10.59.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 16 Jun 2026 10:59:25 -0700 (PDT)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="OTsOB0yp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9BFE1F000E9;
+	Tue, 16 Jun 2026 17:59:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1781632769;
+	bh=UTPT5jYvsau9bM3u6bWtSGB5mcLhnwFSTr9fIzNE5dA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=OTsOB0yphZiGaBgRUISklpxVHBt4h0wq0JZaQUMUUgj5XILRkTjD8+qzkYOb1nziO
+	 IOZcqZEftB8ytMouDPEy6Hqjf8uKvBaSUkrH5TZBAua5g4gQ5gMIsMvNTpRJuNVUsG
+	 g4/gGFvuDC9AKo2aGo73Shd8Lj+53dGgVoixCM0o=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	stable <stable@kernel.org>,
+	Johan Hovold <johan@kernel.org>,
+	Guangshuo Li <lgs201920130244@gmail.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1 472/522] usb: gadget: f_hid: fix device reference leak in hidg_alloc()
+Date: Tue, 16 Jun 2026 20:30:19 +0530
+Message-ID: <20260616145147.930358659@linuxfoundation.org>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260616145125.307082728@linuxfoundation.org>
+References: <20260616145125.307082728@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -66,66 +47,60 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: 
- =?utf-8?q?=5BREGRESSION=5D_stable-rc/linux-5=2E15=2Ey=3A_=28build=29_initial?=
- =?utf-8?q?ization_of_=E2=80=98void_*_=28*=29=28struct_crypto=5Fscomp_*=29?=
- =?utf-8?q?=E2=80=99_from_incompa=2E=2E=2E?=
-From: KernelCI bot <bot@kernelci.org>
-To: kernelci-results@groups.io
-Cc: gus@collabora.com, stable@vger.kernel.org
-Reply-To: kernelci@lists.linux.dev
-Date: Tue, 16 Jun 2026 17:59:25 -0000
-Message-ID: <178163274542.15780.10458817119163247870@330cfa3079ca>
 
+6.1-stable review patch.  If anyone has any objections, please let me know.
 
+------------------
 
+From: Guangshuo Li <lgs201920130244@gmail.com>
 
+[ Upstream commit 4f88d65def6f3c90121601b4f62a4c967f3063a6 ]
 
-Hello,
+hidg_alloc() initializes hidg->dev with device_initialize() before
+calling dev_set_name(). If dev_set_name() fails, the function currently
+jumps to err_unlock and returns without calling put_device().
 
-New build issue found on stable-rc/linux-5.15.y:
+This leaves the device reference unbalanced and prevents hidg_release()
+from being called. Calling put_device() here is also safe, since
+hidg_release() only frees resources owned by hidg.
 
+The issue was identified by a static analysis tool I developed and
+confirmed by manual review.
+
+Route the dev_set_name() failure path through err_put_device so the
+device reference is dropped properly.
+
+Fixes: 89ff3dfac604 ("usb: gadget: f_hid: fix f_hidg lifetime vs cdev")
+Cc: stable <stable@kernel.org>
+Reviewed-by: Johan Hovold <johan@kernel.org>
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+Reviewed-by: Johan Hovold johan@kernel.org
+Link: https://patch.msgid.link/20260413142119.2977716-1-lgs201920130244@gmail.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- initialization of ‘void * (*)(struct crypto_scomp *)’ from incompatible pointer type ‘void * (*)(void)’ [-Werror=incompatible-pointer-types] in drivers/crypto/nx/nx-common-pseries.o (drivers/crypto/nx/nx-common-pseries.c) [logspec:kbuild,kbuild.compiler.error]
----
+ drivers/usb/gadget/function/f_hid.c |    3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-- dashboard: https://d.kernelci.org/i/maestro:ac808b02ae66c254b1738fb240c91d4a180b45c6
-- giturl: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git
-- commit HEAD:  1447d275e58bdaca26b8afd80e370fa21f2ee717
-
-
-Please include the KernelCI tag when submitting a fix:
-
-Reported-by: kernelci.org bot <bot@kernelci.org>
-
-
-Log excerpt:
-=====================================================
-/tmp/kci/linux/drivers/crypto/nx/nx-common-pseries.c:1021:35: error: initialization of ‘void * (*)(struct crypto_scomp *)’ from incompatible pointer type ‘void * (*)(void)’ [-Werror=incompatible-pointer-types]
- 1021 |         .alloc_ctx              = nx842_pseries_crypto_alloc_ctx,
-      |                                   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/tmp/kci/linux/drivers/crypto/nx/nx-common-pseries.c:1021:35: note: (near initialization for ‘nx842_pseries_alg.alloc_ctx’)
-/tmp/kci/linux/drivers/crypto/nx/nx-common-pseries.c:1022:35: error: initialization of ‘void (*)(struct crypto_scomp *, void *)’ from incompatible pointer type ‘void (*)(void *)’ [-Werror=incompatible-pointer-types]
- 1022 |         .free_ctx               = nx842_crypto_free_ctx,
-      |                                   ^~~~~~~~~~~~~~~~~~~~~
-/tmp/kci/linux/drivers/crypto/nx/nx-common-pseries.c:1022:35: note: (near initialization for ‘nx842_pseries_alg.free_ctx’)
-cc1: some warnings being treated as errors
-
-=====================================================
+--- a/drivers/usb/gadget/function/f_hid.c
++++ b/drivers/usb/gadget/function/f_hid.c
+@@ -1278,7 +1278,7 @@ static struct usb_function *hidg_alloc(s
+ 	hidg->dev.devt = MKDEV(major, opts->minor);
+ 	ret = dev_set_name(&hidg->dev, "hidg%d", opts->minor);
+ 	if (ret)
+-		goto err_unlock;
++		goto err_put_device;
+ 
+ 	hidg->bInterfaceSubClass = opts->subclass;
+ 	hidg->bInterfaceProtocol = opts->protocol;
+@@ -1313,7 +1313,6 @@ static struct usb_function *hidg_alloc(s
+ 
+ err_put_device:
+ 	put_device(&hidg->dev);
+-err_unlock:
+ 	mutex_unlock(&opts->lock);
+ 	return ERR_PTR(ret);
+ }
 
 
-# Builds where the incident occurred:
-
-## ppc64le_defconfig on (powerpc):
-- compiler: gcc-14
-- config: None
-- dashboard: https://d.kernelci.org/build/maestro:6a316b0cec8c02389388bc08
-
-
-#kernelci issue maestro:ac808b02ae66c254b1738fb240c91d4a180b45c6
-
---
-This is an experimental report format. Please send feedback in!
-Talk to us at kernelci@lists.linux.dev
-
-Made with love by the KernelCI team - https://kernelci.org
