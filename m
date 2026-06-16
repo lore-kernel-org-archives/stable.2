@@ -1,42 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B45C305E1F
-	for <stable@vger.kernel.org>; Tue, 16 Jun 2026 01:07:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5AE23128CC
+	for <stable@vger.kernel.org>; Tue, 16 Jun 2026 01:07:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781572061; cv=none; b=NHpGMqgDRZ74JJx9TdbWpLMwH/umeBzAy9+Yjiv66B6XLdywhr5CxIPw6YMT/rFZn4i8KcqEi5r5XN3ZimZezoYd5X95f0KIYGcNR6UeutUtAMd+5zzda3bKm43PVD/g4/Db/3Dpj8CFBZfrbsULHg8HFCOAl8Lcj7GO/cCnwGk=
+	t=1781572062; cv=none; b=IzOyR3xHUvJkyUTzviu6YCiY98Xf65ECNb6cmJSy3w9laQElvCaU4zL6SmHPVlQ+nVQPb4tJThNKYe4mHboKQMOYUHeAodoacydI9W7zv5m2WXV3o5REI46sqg30PtXdFlLZvY4Huyn9WVF2J5dGBhtpTrkEhKmKqfPb/YXuaTU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781572061; c=relaxed/simple;
-	bh=pGOtwic0cl/R3mVv7XfNbH/65NXOf4x9lKML2K5BMu8=;
+	s=arc-20240116; t=1781572062; c=relaxed/simple;
+	bh=XX9NREEVL4LcB2J0tgseR8DPRAVA2lLy4m5DDY7AohU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CuAH8/gp49WQwl08UwTIup/HOPZ0L3jjE4PeuJRzSKbf7bswUHH8pFx6OlWPicaQnRptQ0rI2Q0yl45a6ou1wxSJES0LnAIrLTkk3BnQLxYHgpNMNSHKUj7ejTn8YyJNtuCaMAXL06E0Q2PmL2m5PackbKo/DtN/cfAoevI4Xow=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EM5vP3jF; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=kZ1oEMkFnTfrPNyAdZh7RI64ymdtO/BAHq/IQEAqRzJn8dR8ES59hEeftSQhcXtU8prR90zKxKh5mvs3ecKZ7WHXNsQ4tszlQSvym01O3Jl3Gcg8OqHaLYK2K6mNAJQkxCU+uNKG1K8tUj1gau1tl8DSfpevWBl3xTnJ3VVSLyE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Dxw2nhp4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EM5vP3jF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE9C01F000E9;
-	Tue, 16 Jun 2026 01:07:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Dxw2nhp4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5AD2F1F00A3D;
+	Tue, 16 Jun 2026 01:07:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781572060;
-	bh=2NmJnvGDfWIAfLBMoJqDKegQiVRj5XZHes0J56KRBEU=;
+	s=k20260515; t=1781572061;
+	bh=KFjx4yAs8YVVPzl3rDzoomN4IkY3u5v7ji1eWL/E2ZQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EM5vP3jFmGHoLJ2UnZENRLghPnKP+mks0y3h7xwKM3hXvwnZLa0GabwHJ98N8OoQr
-	 q7J+PZB3sHkvC83ahRZGIBp0PLZ63asQ3Kx3QZk+GqFeH5Td7kQaaS12N/JVRJmczO
-	 LE/8JdrxB0RYRRiENw8n7JXgkmZ4tvSVK3lCfNrm7NG+Kzk6uSkTWGDnODaW19vkid
-	 PAud/HyYIATO/wNqbn8tOO70BvsEbg4Jc4lrx7sS8C5fMmS9SvzzM8a9xA0dQwp3rM
-	 bS0StuBHVrlcVH6Gqsy5MmgtpqDnmK1AEd0o896Bvjz6Gz9sJpS9gTSDvnZfh8RhWl
-	 8vrNgAuKR55ZQ==
+	b=Dxw2nhp4OEI0dZeeusLc+7AuhL4JXs0hBGiYkuOBX3BFyRlUpCNQy6hOKbywcrsfx
+	 yOxVUnKN9ejkjQot+w/L5hjY/9/e16tBRUhpL/VXblxDrcYzYruXNTT+5c2GWe0rb9
+	 MKPX42NXl0RYQf9ovmSd0bsZKsHrJBP/7BrJVgMqeyXS5rC9JVX+24/i/Cic0VDFrp
+	 mx/fWOaKXH20tsXL93dd3sIYPbfRvYe9Ph6iQT52mwqJMnx66BEfCtRBoKLUl74VGm
+	 FcYxPsQ9C57KNQNWqm13X0JImAxQr1ppMMmacoAjudmUPcNf/v8n9/Mo0yu+ZAXvt6
+	 cFayW31jByCgw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Randy Dunlap <rdunlap@infradead.org>,
-	Leon Romanovsky <leon@kernel.org>,
+Cc: Jason Gunthorpe <jgg@nvidia.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 1/3] RDMA/umem: fix kernel-doc warnings
-Date: Mon, 15 Jun 2026 21:07:36 -0400
-Message-ID: <20260616010738.2640782-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y 3/3] RDMA/umem: Fix truncation for block sizes >= 4G
+Date: Mon, 15 Jun 2026 21:07:38 -0400
+Message-ID: <20260616010738.2640782-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026061511-anchor-wriggly-5b25@gregkh>
+In-Reply-To: <20260616010738.2640782-1-sashal@kernel.org>
 References: <2026061511-anchor-wriggly-5b25@gregkh>
+ <20260616010738.2640782-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,59 +45,43 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Randy Dunlap <rdunlap@infradead.org>
+From: Jason Gunthorpe <jgg@nvidia.com>
 
-[ Upstream commit ff46d1392750444fab5ae5a0194764ffdc4ac0d2 ]
+[ Upstream commit 15fe76e23615f502d051ef0768f86babaf08746c ]
 
-Add or correct kernel-doc comments to eliminate warnings:
+When the iommu is used the linearization of the mapping can give a single
+block that is very large split across multiple SG entries.
 
-Warning: include/rdma/ib_umem.h:104 function parameter 'biter' not
- described in 'rdma_umem_for_each_dma_block'
-Warning: include/rdma/ib_umem.h:140 function parameter 'pgsz_bitmap' not
- described in 'ib_umem_find_best_pgoff'
-Warning: include/rdma/ib_umem.h:141 No description found for return
- value of 'ib_umem_find_best_pgoff'
+When __rdma_block_iter_next() reassembles the split SG entries it is
+overflowing the 32 bit stack values and computed the wrong DMA addresses
+for blocks after the truncation.
 
-Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
-Link: https://patch.msgid.link/20260224003120.3173892-1-rdunlap@infradead.org
-Signed-off-by: Leon Romanovsky <leon@kernel.org>
-Stable-dep-of: 15fe76e23615 ("RDMA/umem: Fix truncation for block sizes >= 4G")
+Use the right types to hold DMA addresses.
+
+Link: https://patch.msgid.link/r/1-v1-88303e9e509f+f7-ib_umem_types_jgg@nvidia.com
+Cc: stable@vger.kernel.org
+Fixes: a808273a495c ("RDMA/verbs: Add a DMA iterator to return aligned contiguous memory blocks")
+Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/rdma/ib_umem.h | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ drivers/infiniband/core/iter.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/include/rdma/ib_umem.h b/include/rdma/ib_umem.h
-index 2381e482fab346..424c86d8601a9c 100644
---- a/include/rdma/ib_umem.h
-+++ b/include/rdma/ib_umem.h
-@@ -89,6 +89,7 @@ static inline bool __rdma_umem_block_iter_next(struct ib_block_iter *biter)
- /**
-  * rdma_umem_for_each_dma_block - iterate over contiguous DMA blocks of the umem
-  * @umem: umem to iterate over
-+ * @biter: block iterator variable
-  * @pgsz: Page size to split the list into
-  *
-  * pgsz must be <= PAGE_SIZE or computed by ib_umem_find_best_pgsz(). The
-@@ -116,7 +117,7 @@ unsigned long ib_umem_find_best_pgsz(struct ib_umem *umem,
-  * ib_umem_find_best_pgoff - Find best HW page size
-  *
-  * @umem: umem struct
-- * @pgsz_bitmap bitmap of HW supported page sizes
-+ * @pgsz_bitmap: bitmap of HW supported page sizes
-  * @pgoff_bitmask: Mask of bits that can be represented with an offset
-  *
-  * This is very similar to ib_umem_find_best_pgsz() except instead of accepting
-@@ -129,6 +130,9 @@ unsigned long ib_umem_find_best_pgsz(struct ib_umem *umem,
-  *
-  * If the pgoff_bitmask requires either alignment in the low bit or an
-  * unavailable page size for the high bits, this function returns 0.
-+ *
-+ * Returns: best HW page size for the parameters or 0 if none available
-+ *   for the given parameters.
-  */
- static inline unsigned long ib_umem_find_best_pgoff(struct ib_umem *umem,
- 						    unsigned long pgsz_bitmap,
+diff --git a/drivers/infiniband/core/iter.c b/drivers/infiniband/core/iter.c
+index 8e543d100657ee..3ed351e8fcf6c9 100644
+--- a/drivers/infiniband/core/iter.c
++++ b/drivers/infiniband/core/iter.c
+@@ -19,8 +19,8 @@ EXPORT_SYMBOL(__rdma_block_iter_start);
+ 
+ bool __rdma_block_iter_next(struct ib_block_iter *biter)
+ {
+-	unsigned int block_offset;
+-	unsigned int delta;
++	dma_addr_t block_offset;
++	dma_addr_t delta;
+ 
+ 	if (!biter->__sg_nents || !biter->__sg)
+ 		return false;
 -- 
 2.53.0
 
