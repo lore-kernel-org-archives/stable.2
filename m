@@ -1,87 +1,138 @@
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB10823EAB2;
-	Tue, 16 Jun 2026 02:22:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16B3A3C09EE
+	for <stable@vger.kernel.org>; Tue, 16 Jun 2026 02:26:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781576568; cv=none; b=VLIB/OUB7/DOR+BfcHqknKCbLG8Zeaz8/il+pL+ElX32CLmTWu2Jkbnt0lYQHr5/+mdWQTrNeCOTR00rzhvKjkU45Lap0liP0QqxhXPcEs12II3p+EGd4ZKzydNX2x7i+tzpeffa/Y7jwRH7RWtP+vLjL/wii0AA6+ZHrxWGF0Y=
+	t=1781576785; cv=none; b=fF/uT0/+a/fBuoDvTj3nPk3Oc2+NJb4dvnBfFO2MHnHwAF5+FhtW1PqGRQUVCRHbzngAHXWFoQzUXQlc3ty0Cvfvzr98h5h5BjeIBIC+QarATqGdQWGz5A2ZUXTJUyato8u7vkTfMoKG/fFwTkdqThk+bl3kuzcZyap/Rmtwo2Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781576568; c=relaxed/simple;
-	bh=S3mz17AhE2+LTLaXrzCJePSSSnwKBwPr5tsB0ra3wVI=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=GfGxoEqmuxfRkFum0xWkzX5lwU7AV41PSvBp4yMjo76+dgsAbVoqpjwBPiJPl4pyUUiMpu05cvJb/cXJ0EGyltFSo6FHGfcLYACen9MlyaUsNYgSl8jm413d7lAkxA7HaWv/gYKgZotKzOcn1Nd88xx4ERaVcn21/7+hziQsDK0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowAAHJt1xszBqCv7gFA--.37987S2;
-	Tue, 16 Jun 2026 10:22:41 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: brgl@kernel.org
-Cc: linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] pwrseq: core: fix use-after-free in pwrseq_debugfs_seq_next()
-Date: Tue, 16 Jun 2026 02:22:26 +0000
-Message-Id: <20260616022226.1655762-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1781576785; c=relaxed/simple;
+	bh=rXDiLHONRdX5xgJKk59Q2h6sS+qsbt8Lalr/InWKZS8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=iuY+c4j+Z3RsyB++GfA5U/6dAQq6pEXOcabcCK8XzOR9cOzCJ7hja4YHhQJRStOfmbYLSJ7ebyAd6d7Lu5h/weVtIrkwqieVDLCaQo0Pg0Q4xTOkNoM5z8cryg7eiO/irSr+sUWcRbwLuLwNT3kU1fsxcnnFiXV0dBRkFWBqEww=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=A9eP23dR; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="A9eP23dR"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1781576783;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Eb9pUs+M+9+MDnB/3Yt1uwyfMWxmUaDhKWEfbwTi46Y=;
+	b=A9eP23dRjlccSEUtrvX+WTPxP2Cy4NDvrynd8DcdI23arEgD8lw49Jcwc0D/S7VlAuQ4xI
+	dqIhwP5/jGEvrhQckr+Fqz1uvkiDKEcndwUxE1Bal1WRCL6vA8Ppydka07x1jHd2BVFl/O
+	kSrWt/BjRd8ZuJq0ZlZXftSebfgBix0=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-35-5arF6-6bNoeyheyT1mfSjg-1; Mon,
+ 15 Jun 2026 22:26:16 -0400
+X-MC-Unique: 5arF6-6bNoeyheyT1mfSjg-1
+X-Mimecast-MFC-AGG-ID: 5arF6-6bNoeyheyT1mfSjg_1781576774
+Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 7C9B71800655;
+	Tue, 16 Jun 2026 02:26:13 +0000 (UTC)
+Received: from [10.22.89.117] (unknown [10.22.89.117])
+	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 5920C1800347;
+	Tue, 16 Jun 2026 02:26:10 +0000 (UTC)
+Message-ID: <70f486ce-5ef6-4d72-8cc3-7086f4eea930@redhat.com>
+Date: Mon, 15 Jun 2026 22:26:09 -0400
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowAAHJt1xszBqCv7gFA--.37987S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7JryfKFyxKw1kXw1fCry8Xwb_yoW8JrWrp3
-	98G3sYyrWUWF47tF45tFW7XFy5Aa17J34fua9ruwnYvw15Xa4jyry5ArW5XryjyFy8ZFy3
-	tr1Iga48uryj9rJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUkE14x267AKxVWUJVW8JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
-	6r4UJwA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Cr
-	1j6rxdM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
-	6xIIjxv20xvE14v26r126r1DMcIj6I8E87Iv67AKxVW8Jr0_Cr1UMcvjeVCFs4IE7xkEbV
-	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AF
-	wI0_JF0_Jw1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4
-	xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1D
-	MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I
-	0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWU
-	JVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r1j6r4UYxBIdaVFxhVjvjDU0xZFpf9x0JUg4S
-	rUUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAYTA2owFOcJPwADsG
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] cgroup/cpuset: rebind mm mempolicy to effective_mems,
+ not mems_allowed
+To: Gregory Price <gourry@gourry.net>,
+ "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Farhad Alemi <farhad.alemi@berkeley.edu>,
+ Andrew Morton <akpm@linux-foundation.org>, Farhad Alemi <falemi@asu.edu>,
+ Yury Norov <ynorov@nvidia.com>, Joshua Hahn <joshua.hahnjy@gmail.com>,
+ Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>,
+ Rakie Kim <rakie.kim@sk.com>, Byungchul Park <byungchul@sk.com>,
+ Ying Huang <ying.huang@linux.alibaba.com>,
+ Alistair Popple <apopple@nvidia.com>,
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, cgroups@vger.kernel.org, stable@vger.kernel.org
+References: <CA+0ovCg05rUk1-3k2ysdxmbcER8aG-wVh9SSTrrbp6LPWpPHYA@mail.gmail.com>
+ <CA+0ovCgfHJHv5d1mzapWWvF-LhjppzDX8NPPLvCPZxPKg8RiYw@mail.gmail.com>
+ <8d3b4561-92cd-4ebc-8462-5fb0fd659e8a@kernel.org>
+ <ai_IHvyptWPcTD0y@gourry-fedora-PF4VCD3F>
+Content-Language: en-US
+From: Waiman Long <longman@redhat.com>
+In-Reply-To: <ai_IHvyptWPcTD0y@gourry-fedora-PF4VCD3F>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
 
-pwrseq_debugfs_seq_next() declares the 'next' device pointer with
-__free(put_device), which causes put_device() to drop the reference
-as soon as the variable goes out of scope. Returning 'next' directly
-thus gives the caller a pointer whose reference has already been
-decremented, resulting in a use-after-free.
 
-Fix this by returning no_free_ptr(next) so that the automatic
-cleanup is suppressed and ownership is properly transferred to
-the caller.
+On 6/15/26 5:38 AM, Gregory Price wrote:
+> On Mon, Jun 15, 2026 at 10:08:51AM +0200, David Hildenbrand (Arm) wrote:
+>> On 6/14/26 15:25, Farhad Alemi wrote:
+>>> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+>>> --- a/kernel/cgroup/cpuset.c
+>>> +++ b/kernel/cgroup/cpuset.c
+>>> @@ -2649,7 +2649,7 @@ void cpuset_update_tasks_nodemask(struct cpuset *cs)
+>>>
+>>>   		migrate = is_memory_migrate(cs);
+>>>
+>>> -		mpol_rebind_mm(mm, &cs->mems_allowed);
+>>> +		mpol_rebind_mm(mm, &cs->effective_mems);
+>> God this is confusing.
+>>
+> All interactions between mempolicy and cpuset are horrible and
+> confusing.  Much like Lorenzo's anon_vma work, I have to keep
+> notes on how this whole thing doesn't just spew SIGBUS constantly.
+>
+> The short answer is: mempolicy is advisory and cpuset is strictly
+> followed - in a dispute cpuset wins... except for file backed memory,
+> then everyon loses and nothing is consistent.
 
-Cc: stable@vger.kernel.org
-Fixes: 249ebf3f65f8 ("power: sequencing: implement the pwrseq core")
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/power/sequencing/core.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+That is what I believe why mpol_rebind_mm() a bit differently from the 
+others and it is historically done this way a long time ago before 
+cgroup v2.
 
-diff --git a/drivers/power/sequencing/core.c b/drivers/power/sequencing/core.c
-index 4dff71be11b6..1ec4f393994d 100644
---- a/drivers/power/sequencing/core.c
-+++ b/drivers/power/sequencing/core.c
-@@ -1010,7 +1010,7 @@ static void *pwrseq_debugfs_seq_next(struct seq_file *seq, void *data,
- 
- 	struct device *next __free(put_device) =
- 			bus_find_next_device(&pwrseq_bus, curr);
--	return next;
-+	return_ptr(next);
- }
- 
- static void pwrseq_debugfs_seq_show_target(struct seq_file *seq,
--- 
-2.34.1
+For cgroup v1, mems_allowed can't be empty or you can't put any task 
+into the cpuset. Also effective_mems is the same as mems_allowed. cgroup 
+v2 is quite different in how it handles memory nodes and CPUs. Users can 
+isn't forced to set mems_allowed and cpus_allowed as effective_mems and 
+effective_cpus will inherit parent version if mems_allowed and 
+cpus_allowed are not set. IOW, effective_mems will never be empty. Yes, 
+it is a bug with the introduction of cpuset v2 that we should have 
+replaced mems_allowed by effective_mems at that time. With v2, 
+effective_mems should contain only online nodes. The only exception is 
+during the short transition period when a memory node hotunplug 
+operation is in progress when a write to cpuset.mems is happening at the 
+same time. With v1, it is theoretically possible that none of the nodes 
+in mems_allowed is online.
+
+The reason why I am suggesting to use cs->effective_mems to keep the old 
+cgroup v1 behavior. If the consensus is to use the output of 
+guarantee_online_mems() for mpol_rebind_mm(), I will not be against that 
+but it will be a slight change in user-visible behavior.
+
+Cheers, Longman
+
+>> Naturally I wonder: Why are we not using "task->mems_allowed" (maybe cs vs. tsk
+>> was the original bug?), which is effectively just newmems?
+>>
+> Short answer: task->mems_allowed is protected by the task lock and we
+> don't hold the task lock for a foreign task (not-current) over mm
+> operations.
+>
+> Long answer: Reasons and "Stop looking at the spaghetti, it's going to
+> break"
+>
+> ~Gregory
+>
 
