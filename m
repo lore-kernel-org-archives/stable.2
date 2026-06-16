@@ -1,52 +1,52 @@
 Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4EBD43C04D;
-	Tue, 16 Jun 2026 11:51:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D54FA3B7750;
+	Tue, 16 Jun 2026 11:51:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781610692; cv=none; b=kYqL0WX+nyy9FawYUB4FajAIDIjpCjpn8cd2379l4UK+6j+tbGBUpfVV+3TbMtT6p8B8xQgoNxPd6C2K1ngjBQL1EtwZ0rpD9r+wzF8pk6RlQmJcjAr5EYg5OIogNKq6D8xfDmc/G8TOw6iRwKKO4tAMw4bwGAVpt8XmjlO9cEU=
+	t=1781610701; cv=none; b=Btx2KbvLWfA1swVKZs9XTjRVoQYHpjkFnVCEFZfAkQDngm+RgOhCYDr51PoSUeW2p9Nx9dncUT59jea79LBL9pS6jrJRUVNWAoEKPKBiQ3z+J1vY9QVSwKsaWyKLa8CooUxifpfcX0d9hpfkGrcaK0r4o6DWHNWR4xoQSXqRAZk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781610692; c=relaxed/simple;
-	bh=cCLIKWKoV+pM9BmnnWcEnecR8sN/bo+Sdop4+r942L4=;
+	s=arc-20240116; t=1781610701; c=relaxed/simple;
+	bh=SxzBbuBlwjbtjYGLmz2Oeyz/+xEFkhUQzeE9vbG913c=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=P4iIctXqeKwt3XI7FOS0p3zPMoV9FM69AzRIwOqC1twcGeRYom85MNMPn7b3RSje6AHFomkhfmnvo+/8F0ePgwToCVPdCFgqZwo4+z9QvljEzxIHNXdKjBY7fsUSGyHWP3bnBSEkKq349ItpE3jAPVQnBDp/f2wyBg81NB6iZf0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=Mm2V+HGy; arc=none smtp.client-ip=68.232.153.233
+	 In-Reply-To:To:CC; b=hxD/4t+7jA5bRjp+VwtjmgFszOpjW3luHysGQlD9OCChrdm/3g/6SKKdl09qhMubQf8xgMDDBowBy2rrBZCp9hvIuccIVWriKQQXLZUt2USiiWVb8ir0XJqawFnQsp0GQbD7aME9Do75pNOhrJhDvSrDV4w3umJSKR/vXqo+Lu4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=lcskD+PS; arc=none smtp.client-ip=68.232.153.233
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="Mm2V+HGy"
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="lcskD+PS"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1781610690; x=1813146690;
+  t=1781610699; x=1813146699;
   h=from:date:subject:mime-version:content-transfer-encoding:
    message-id:references:in-reply-to:to:cc;
-  bh=cCLIKWKoV+pM9BmnnWcEnecR8sN/bo+Sdop4+r942L4=;
-  b=Mm2V+HGyzyPUJQ6F+m1253+SXNOJE4LJM+Ify2pcAH2/4FXQuGP7Mm6o
-   zQ1TcRLQKrHNFk/tFC9sohi5g+n/botUz3OXXwEOaU4RlqSIPtLlv7/Ev
-   xzVJ5ax2mEsnwOShHJjBclyqQ/c221WC8Y4W5/aC6ov16/kFiWieVnEW4
-   Bd1LJhOLLADa5RNwdI093/oFJUB9wS0yRw4xIZmB4vPpk+/wS3FDh5jo0
-   JW+4Ol1tbVaoJ98hvK1g4/9wlZO+H5XIgCylRGUrV3KgV7Ufw0+Xr4wbN
-   XgsT6zc4ePbPGrV2KRSbrRqk8i9C8lyK04EbsqrBcZVRSChWJfOT5Q6nN
-   A==;
-X-CSE-ConnectionGUID: YOcoYM2ITimxpLKPM2PV2w==
-X-CSE-MsgGUID: n4F8pORkSlmo7Qw6svm7iw==
+  bh=SxzBbuBlwjbtjYGLmz2Oeyz/+xEFkhUQzeE9vbG913c=;
+  b=lcskD+PScwFMQr9T5MKNDvLlTsfNCTYy8NPaj0IZJGqwLhmVmbQ+TEBE
+   JQUKnfJ3SgrpHIJojuEYrpgqaDDD7nm7qCaBIDj48dwidazQRQIZ2Y8zH
+   eQ1iZtLSUORrJd5B6JQ3F7uuQfSkyf4yzPQDJ300o4i2UOYQI+xH2q231
+   QQMvWHzftTHirv+4cbZ1XpRErxOIFwuweAbGFLgzPnRkio+T3KNId/2AU
+   ukSAVDWx5o1Mf3A4I8tOU4aQBHORIo9qESAnda69P41jIYQs1ym2B/Iav
+   frtehMVxOlY9Bkf/kxx4SLmoAi5p/uae2IbTyEqmRAjxOxIXFbtn+0NMI
+   Q==;
+X-CSE-ConnectionGUID: yUEv8uVTS++fLEtg8vYCdA==
+X-CSE-MsgGUID: ZeilqATYRyqrf+8fsThokA==
 X-IronPort-AV: E=Sophos;i="6.24,208,1774335600"; 
-   d="scan'208";a="68270799"
+   d="scan'208";a="68270805"
 X-Amp-Result: SKIPPED(no attachment in message)
 Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa1.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 16 Jun 2026 04:51:30 -0700
+  by esa1.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 16 Jun 2026 04:51:37 -0700
 Received: from chn-vm-ex02.mchp-main.com (10.10.85.144) by
  chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.58; Tue, 16 Jun 2026 04:51:29 -0700
+ 15.1.2507.58; Tue, 16 Jun 2026 04:51:36 -0700
 Received: from [127.0.0.1] (10.10.85.11) by chn-vm-ex02.mchp-main.com
  (10.10.85.144) with Microsoft SMTP Server id 15.1.2507.58 via Frontend
- Transport; Tue, 16 Jun 2026 04:51:26 -0700
+ Transport; Tue, 16 Jun 2026 04:51:33 -0700
 From: Balakrishnan Sambath <balakrishnan.s@microchip.com>
-Date: Tue, 16 Jun 2026 17:21:03 +0530
-Subject: [PATCH 08/10] media: microchip-isc: fix PM runtime leak in AWB
- work handler
+Date: Tue, 16 Jun 2026 17:21:05 +0530
+Subject: [PATCH 10/10] media: microchip-isc: fix WB offset and gain
+ register field masking
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -55,7 +55,7 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID: <20260616-balki-isc-prefix-fixes-v1-v1-8-b23677fc5ab6@microchip.com>
+Message-ID: <20260616-balki-isc-prefix-fixes-v1-v1-10-b23677fc5ab6@microchip.com>
 References: <20260616-balki-isc-prefix-fixes-v1-v1-0-b23677fc5ab6@microchip.com>
 In-Reply-To: <20260616-balki-isc-prefix-fixes-v1-v1-0-b23677fc5ab6@microchip.com>
 To: Eugen Hristev <ehristev@kernel.org>, Mauro Carvalho Chehab
@@ -66,38 +66,53 @@ CC: Hans Verkuil <hverkuil@kernel.org>, Sakari Ailus
 	<balakrishnan.s@microchip.com>, <stable@vger.kernel.org>
 X-Mailer: b4 0.14.3
 
-Early return when streaming stops skips pm_runtime_put_sync(),
-leaking the reference and preventing runtime suspend.
+ISC_WB_O_* and ISC_WB_G_* pack two 13-bit fields per register. Sign
+extension from negative offsets corrupts the upper field. Mask both
+fields to 13 bits before packing.
 
 Fixes: 91b4e487b0c6 ("media: microchip: add ISC driver as Microchip ISC")
 Cc: stable@vger.kernel.org
 Signed-off-by: Balakrishnan Sambath <balakrishnan.s@microchip.com>
-Reviewed-by: Eugen Hristev <ehristev@kernel.org>
 ---
- drivers/media/platform/microchip/microchip-isc-base.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ .../media/platform/microchip/microchip-isc-base.c   | 21 +++++++++++++--------
+ 1 file changed, 13 insertions(+), 8 deletions(-)
 
 diff --git a/drivers/media/platform/microchip/microchip-isc-base.c b/drivers/media/platform/microchip/microchip-isc-base.c
-index 2911cfc660a0..a09d6d1ca7e5 100644
+index a09d6d1ca7e5..19c371458eee 100644
 --- a/drivers/media/platform/microchip/microchip-isc-base.c
 +++ b/drivers/media/platform/microchip/microchip-isc-base.c
-@@ -1430,7 +1430,7 @@ static void isc_awb_work(struct work_struct *w)
- 	/* streaming is not active anymore */
- 	if (isc->stop) {
- 		mutex_unlock(&isc->awb_mutex);
--		return;
-+		goto out_pm_put;
- 	}
+@@ -61,18 +61,23 @@ static inline void isc_update_awb_ctrls(struct isc_device *isc)
  
- 	isc_update_profile(isc);
-@@ -1441,6 +1441,7 @@ static void isc_awb_work(struct work_struct *w)
- 	if (ctrls->awb)
- 		regmap_write(regmap, ISC_CTRLEN, ISC_CTRL_HISREQ);
+ 	/* In here we set our actual hw pipeline config */
  
-+out_pm_put:
- 	pm_runtime_put_sync(isc->dev);
++	/*
++	 * Mask offset fields to 13 bits. Sign extension of negative s32
++	 * values would otherwise corrupt the adjacent field.
++	 */
+ 	regmap_write(isc->regmap, ISC_WB_O_RGR,
+-		     ((ctrls->offset[ISC_HIS_CFG_MODE_R])) |
+-		     ((ctrls->offset[ISC_HIS_CFG_MODE_GR]) << 16));
++		     ((u32)ctrls->offset[ISC_HIS_CFG_MODE_R] & GENMASK(12, 0)) |
++		     (((u32)ctrls->offset[ISC_HIS_CFG_MODE_GR] & GENMASK(12, 0)) << 16));
+ 	regmap_write(isc->regmap, ISC_WB_O_BGB,
+-		     ((ctrls->offset[ISC_HIS_CFG_MODE_B])) |
+-		     ((ctrls->offset[ISC_HIS_CFG_MODE_GB]) << 16));
++		     ((u32)ctrls->offset[ISC_HIS_CFG_MODE_B] & GENMASK(12, 0)) |
++		     (((u32)ctrls->offset[ISC_HIS_CFG_MODE_GB] & GENMASK(12, 0)) << 16));
++	/* Gains are 13-bit unsigned fields [12:0] and [28:16] */
+ 	regmap_write(isc->regmap, ISC_WB_G_RGR,
+-		     ctrls->gain[ISC_HIS_CFG_MODE_R] |
+-		     (ctrls->gain[ISC_HIS_CFG_MODE_GR] << 16));
++		     (ctrls->gain[ISC_HIS_CFG_MODE_R] & GENMASK(12, 0)) |
++		     ((ctrls->gain[ISC_HIS_CFG_MODE_GR] & GENMASK(12, 0)) << 16));
+ 	regmap_write(isc->regmap, ISC_WB_G_BGB,
+-		     ctrls->gain[ISC_HIS_CFG_MODE_B] |
+-		     (ctrls->gain[ISC_HIS_CFG_MODE_GB] << 16));
++		     (ctrls->gain[ISC_HIS_CFG_MODE_B] & GENMASK(12, 0)) |
++		     ((ctrls->gain[ISC_HIS_CFG_MODE_GB] & GENMASK(12, 0)) << 16));
  }
  
+ static inline void isc_reset_awb_ctrls(struct isc_device *isc)
 
 -- 
 2.34.1
