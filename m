@@ -1,291 +1,215 @@
-Received: from mail-lj1-f173.google.com (mail-lj1-f173.google.com [209.85.208.173])
+Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF746171CD
-	for <stable@vger.kernel.org>; Tue, 16 Jun 2026 06:30:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC53A3E9C20
+	for <stable@vger.kernel.org>; Tue, 16 Jun 2026 06:35:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781591416; cv=none; b=eoel/bWvLDqA4UeTuHLa0olzW90JEh55Y5rQjKYo+/8fP7OMM0+oZeKXxAG7piBiNfM+o7KtR1ZgD6OaWIkJNDYMb11oem9a3CXr/5FzPkOfEuGwH6ViBzop6gmhKupV5FWC4F4TbdJigLVJYvfVkDgcHEvUU0+b58RwcWb16h8=
+	t=1781591738; cv=none; b=muhM4SeKk5eShz78z2Mdu4T0usVxO7reuHTc9ICP8ux+DGBPcJ8AOzkg9Q2reXY/Hyu08DRHboPzSuw9HeSGJLr2R1ImVMnOgAJ3ybhNAtrTjwJG875kUAe4FP4sn3QwRA4gFaTUukV6aA2aU74q/XRZAZMNtn1vMdwZiMbcgAk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781591416; c=relaxed/simple;
-	bh=XEC36mzACGCHilvo4lAGsWnkBw/V81r5v4u6FQFOgvs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=AT0CsdZRU7pDK1S2XimdiFFiLXlEpMFpWecTQafl7z7Fp6uFxhTs5q9dswEg7sIsLb0BaEF0VacU8kz75Was7ZShCW253Nha/vOBfPXfJ8NxOl9L6ds/EU+fRMqjGFabJk3nWw+eRRYWUtbb/qTqOb/jOMPPKDi+aK4BV7+tSNA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aW3ZFOn/; arc=none smtp.client-ip=209.85.208.173
+	s=arc-20240116; t=1781591738; c=relaxed/simple;
+	bh=0gCKrHQkb+EVkGxEna2KyYT8qO7MWJfrHGhHwz4b1As=;
+	h=From:To:Cc:Subject:Date:Message-Id; b=pZn0WXF6v9BzdAOh0sLSRTcVg1rbk7eF1WWsdrJVnEddq4dL1CWn+1+4+8a4ylOlm5ntS13MyKZZ9rl+AIuW1MryAYOOLazDGi9X8OJdCGnxwOcDaqoYpamvqrOCXHbNGtnPEMihnb2qecZpR+EBcsAnuhA2jcC4VZVwVoE3YWA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KMSPwUiZ; arc=none smtp.client-ip=209.85.218.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aW3ZFOn/"
-Received: by mail-lj1-f173.google.com with SMTP id 38308e7fff4ca-39666aac20cso30749631fa.1
-        for <stable@vger.kernel.org>; Mon, 15 Jun 2026 23:30:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KMSPwUiZ"
+Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-bef8b97655eso789839266b.0
+        for <stable@vger.kernel.org>; Mon, 15 Jun 2026 23:35:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781591413; x=1782196213; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=hv4Oosl+VzlLTaV5qUQl01CH44gb7SsUdMG105aKzy0=;
-        b=aW3ZFOn/K+wf9orllp8Z5qGXbk3HAjMAdw5X5/TlzbdoOYU0HaM5jNQI5JXBJCgYND
-         0AME4Z1ZcJGJZAMpmva65dVhPsx4jDol1BkxKQ7o/rvzUELNznVxTW4yQKW8pYRZHIUg
-         dayoGb4Y5mLdwaCKy8G+Q6E5bpx3aH1/HX4o7gsWTvFcLa2+vwt+x44NHcPnWEGycdNJ
-         XezT0nPsMWHWVMfaLECS67Fx8C2Ud84TO+ZyCdd1VnnrVZRdTEM8dzHPJn0eEa3CKeGe
-         e/8KlnPrOnNw4OGhMLgMIFMFNARTGhKCot+0C9Iag0jf/TjPOHf5Wzuuo0JdX9iYGTH0
-         mmAA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781591413; x=1782196213;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1781591734; x=1782196534; darn=vger.kernel.org;
+        h=message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=hv4Oosl+VzlLTaV5qUQl01CH44gb7SsUdMG105aKzy0=;
-        b=bA9GKyXp9Papq6kb82UcceKOsTB/zACBBnMsrIwsNg+0S8s07P+PngafLsDjTyulC4
-         +U7NGKq6NF7zi4kM10J8Y9SgWrvrEbWxD5USs5BGZdnC5gQ/ojgJ/t8erDjYWSo/8vkW
-         t8ant8AS9Lpg3KMxSEkBH7xzWL1ywV1aqffbGRGHJ/X/bswz60CBzivg9uwYKO8ppi03
-         FhCIyJ5HNrue1Hoiup6JKE7Nqi84nCUQYkJaCYOU/M3sYLjVsEfllmc0kTyaCdNu2G97
-         NUGmLFs4ufNfPoD/y1d3gumYycKH4WIwPsBF5PHYInp/5Shvhq3NYp5iObJigMPcHVG5
-         OGaw==
-X-Gm-Message-State: AOJu0Yzbltoxh+wUdoHvRHVeSywBziKehPx1ZcE7XO2xRSzfMEi12/ac
-	IXGs0wBd0+4BSpfrjPxo2F7q6z4uMWQHDpQTp3rm5vBrNU3zulr5yefB4CnLsKFgMEAZVw==
-X-Gm-Gg: Acq92OGIqbCett7tX0ZstvimsgIF/qLdqOVT2A6BdEWAZm+MtJ0MrYv745r5amO8d1a
-	bqBqK1NMbP5GuPLAFSru0cZVnpREybVdRjLanN3k2ond36cGJO7+glEL01ipY7NyoxZd9xnKxxR
-	yD0Sbnvgl1BLnqFK9XCth7SXv9GvZkb0+V1pVdvd/kQ92Z8ijhKCLrfcLGVqXtV3aZGagrEjkbw
-	OTsrF92MZAwPiFhQnBDNFTxD18lxxWHIFzWuQ6amC1pDRZ9b4K8TwoAAP8Ep93wvhAC4sKpGPgj
-	6ySfQsoQY+QTXdbKWvt4O5rQTB+tMDfurhmRYS9hugsULF7OqUDDqjh5XbNRDSwAxOmvRSRrmLH
-	or246Gksjmig3k1l9WbRbr6zkykjoNAxC1Pkj3ShLDSBvsoBESyi/72XR3y+X68aa97nWvCM7LV
-	qfXF4eOjNPa7I46ydbkadgGtCvUUDILhqXW4k7V6nmO4a+OkLDneA4iSgGdnARIg4Gr+6x
-X-Received: by 2002:a2e:a80e:0:b0:396:6bd5:a9c7 with SMTP id 38308e7fff4ca-3995c85103dmr6238941fa.19.1781591412632;
-        Mon, 15 Jun 2026 23:30:12 -0700 (PDT)
-Received: from cherrypc.astra-academy.ru (109-252-17-231.nat.spd-mgts.ru. [109.252.17.231])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3995c1a3706sm4045501fa.42.2026.06.15.23.30.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 15 Jun 2026 23:30:12 -0700 (PDT)
-From: Nazar Kalashnikov <nazarkalashnikov0@gmail.com>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Nazar Kalashnikov <nazarkalashnikov0@gmail.com>,
-	Simon Horman <horms@verge.net.au>,
-	Julian Anastasov <ja@ssi.bg>,
-	Pablo Neira Ayuso <pablo@netfilter.org>,
-	Jozsef Kadlecsik <kadlec@netfilter.org>,
-	Florian Westphal <fw@strlen.de>,
-	Phil Sutter <phil@nwl.cc>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Venkata Mohan Reddy <mohanreddykv@gmail.com>,
-	Patrick McHardy <kaber@trash.net>,
-	Julius Volz <juliusv@google.com>,
-	netdev@vger.kernel.org,
-	lvs-devel@vger.kernel.org,
-	netfilter-devel@vger.kernel.org,
-	coreteam@netfilter.org,
-	linux-kernel@vger.kernel.org,
-	Wensong Zhang <wensong@linux-vs.org>,
-	lvc-project@linuxtesting.org
-Subject: [PATCH 5.10/5.15/6.1/6.6/6.12/6.18] ipvs: skip ipv6 extension headers for csum checks
-Date: Tue, 16 Jun 2026 09:30:23 +0300
-Message-ID: <20260616063025.648647-1-nazarkalashnikov0@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        bh=zcSp1ab9RHCfacXpIOA1Dw3GNq7dlQhldA+avXkmWd8=;
+        b=KMSPwUiZpSBSWPX9/IqatmSeY982tPCUbbAlcEc5uXVyf5/Uso5Hf3MUONG2TYLpHH
+         lmGhT+odKzrgiCkX1fPxU8zM3Y+2Nt1PFrmfJN+mTmFvnLMhRkkm0Sg31Fb9UFAfZhT9
+         yBNIigaD0rSVcg8QDSaHt8KFWDfiGOzl0G/dlwRPARE9fNdxKVgXVnySRtRxNL3xPFXV
+         1Ny7lkq7M6h4ab0dpl5U1NK3BYz4SMav3xP1fZuuINWqj3dW4ShPyjVcujvEAKsXOkXe
+         o5cc3ZFn0EUg8SrjVw5U9Rd08wLQb3yKFPKjTRLOWfY1d9NNE4uHeCYy7APmNA4k+hca
+         EVSw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781591734; x=1782196534;
+        h=message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=zcSp1ab9RHCfacXpIOA1Dw3GNq7dlQhldA+avXkmWd8=;
+        b=XTuxYeDA/48AewtIhrFqlCYhfwVkHJNe5YULLEN931t1LrPApp/LEavJ3TFXeVreXG
+         ioWF99CsOCclTShJbLNVCDfh/flf0l5Sab3Lhc2POlrIiI1bVvLjTSbQKXG3m8C6MWU/
+         jPamfd4ssttseDba8LbYeCp4irDME5H2MGJ1yRB48oNtEE+H0/EejCFyfXy7gj4GqSBx
+         XuzS7wTpYPZ2WO12mOvlzB8oANgADNkXNMJJFXrFZGIHaC5fX546SWv5s4lMvux4fF3B
+         6tC3tqoVrLfMX29IJc6QYA2BFLt36jLcz/wWP21Pm2fBBd+y7VIIArwFC6CmCG08ahc/
+         4Fww==
+X-Forwarded-Encrypted: i=1; AFNElJ/Cw4ifRoUzhhE04ondk5rQsfKqM6PYExjekjg4tuIfQTVeVKL0zFnWYG0hWn+HWkzTHdzxR5s=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxq5Nd2nrc7n8J0uhW/L25tT0KCPGRUliYE3+7wXFZgA0+S3pTB
+	jpD/9jAtRWKLpIKuj/Tw6VEDIp85UEwRbnSIDp3dEwiXm/f5iG27p7GB
+X-Gm-Gg: Acq92OEcSXdeAvBu6jZW4DQuLqUOS3OOdRpdizmRx0i3Xjyt9uB4HR2fSg0tWKQ/w/6
+	ij3x/nmpxKLFiKe9HpS2irlgNZj+aadwEQJEb89+ojEZoONkpAM2bfDv7IYLqwRgydEe4vHmGvk
+	e5kwG4MJvN0hW4BLDRJHDoJBNXPKZatPVdtA6zZnGbb/q6nGy+DjX+e+o/fJ1sfTq9W3Shfsr3y
+	NbDq8JWL21bcyV786EzdRMxdriVXJzxI2m63p6pBydrWqTqwaTBvKFhzzIdXh+dZhHE/TpRv+LZ
+	yFPPWL+bbyD2+j9MlDcnWFNHJJiMoqTNTHJnHBzZ5YmwEwvUSJBHVethxlWl2xV0kaSlkOmoyjY
+	DI+V7sY88cBmb8G0jQroNv9HjkJuBwPgyNYGRBOjx/LtB5H1ApFh5C4I5be2xEVLnHpi2yOPqjp
+	LbVcLvWQMqGUITFvgXuvw/eQ==
+X-Received: by 2002:a17:906:7315:b0:bfb:b43a:b078 with SMTP id a640c23a62f3a-c0417813164mr114432366b.29.1781591733715;
+        Mon, 15 Jun 2026 23:35:33 -0700 (PDT)
+Received: from localhost ([185.92.221.13])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bfdb4423439sm584158966b.2.2026.06.15.23.35.33
+        (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
+        Mon, 15 Jun 2026 23:35:33 -0700 (PDT)
+From: Wei Yang <richard.weiyang@gmail.com>
+To: akpm@linux-foundation.org,
+	david@kernel.org,
+	ljs@kernel.org,
+	riel@surriel.com,
+	liam@infradead.org,
+	vbabka@kernel.org,
+	harry@kernel.org,
+	jannh@google.com,
+	balbirs@nvidia.com,
+	ziy@nvidia.com,
+	sj@kernel.org
+Cc: linux-mm@kvack.org,
+	Wei Yang <richard.weiyang@gmail.com>,
+	Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+	stable@vger.kernel.org
+Subject: [Patch v2] mm/page_vma_mapped: revalidate and do proper check before return device-private pmd
+Date: Tue, 16 Jun 2026 06:34:36 +0000
+Message-Id: <20260616063436.20455-1-richard.weiyang@gmail.com>
+X-Mailer: git-send-email 2.11.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Julian Anastasov <ja@ssi.bg>
+For pmd_trans_huge() and pmd_is_migration_entry(), we does following
+before return the pmd entry:
 
-commit 05cfe9863ef049d98141dc2969eefde72fb07625 upstream.
+  * re-validate pmd entry after PTL
+  * check PVMW_MIGRATION
+  * check_pmd()
+  * handle on pte level if split under us
 
-Protocol checksum validation fails for IPv6 if there are extension
-headers before the protocol header. iph->len already contains its
-offset, so use it to fix the problem.
+But for device-private pmd, we just return after pmd_lock().
 
-Fixes: 2906f66a5682 ("ipvs: SCTP Trasport Loadbalancing Support")
-Fixes: 0bbdd42b7efa ("IPVS: Extend protocol DNAT/SNAT and state handlers")
-Signed-off-by: Julian Anastasov <ja@ssi.bg>
-Signed-off-by: Florian Westphal <fw@strlen.de>
-Signed-off-by: Nazar Kalashnikov <nazarkalashnikov0@gmail.com>
+This may return improper entry, e.g. if we are looking for a migration
+entry, device-private entry could still be returned, which leads to data
+corruption.
+
+This patch fixes commit 65edfda6f3f2 ("mm/rmap: extend rmap and migration
+support device-private entries") by following the same pattern as
+pmd_trans_huge() and pmd_is_migration_entry() for device private entry.
+
+While at it, it cleanups the pmd entry handling in page_vma_mapped_walk().
+
+  * Instead of handling trans huge/migration entry/device private entry
+    in a mixed manner, we put each case into its own if condition and
+    handle with the same pattern.
+  * Also we grab PTL and make sure pmd is not changed under us after
+    above check instead of do the check with PTL hold.
+  * restart the process if pmd is changed under us
+
+Fixes: 65edfda6f3f2 ("mm/rmap: extend rmap and migration support device-private entries")
+Signed-off-by: Wei Yang <richard.weiyang@gmail.com>
+Suggested-by: David Hildenbrand <david@kernel.org>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Balbir Singh <balbirs@nvidia.com>
+Cc: SeongJae Park <sj@kernel.org>
+Cc: Zi Yan <ziy@nvidia.com>
+Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+Cc: <stable@vger.kernel.org>
+
 ---
-Backport fix for CVE-2026-45850
- net/netfilter/ipvs/ip_vs_proto_sctp.c | 18 ++++++------------
- net/netfilter/ipvs/ip_vs_proto_tcp.c  | 21 +++++++--------------
- net/netfilter/ipvs/ip_vs_proto_udp.c  | 20 +++++++-------------
- 3 files changed, 20 insertions(+), 39 deletions(-)
+v2:
+  * specify the possible error case of current code and user visible effect
+  * besides fix, cleanup the pmd entry handling based on David's suggestion
 
-diff --git a/net/netfilter/ipvs/ip_vs_proto_sctp.c b/net/netfilter/ipvs/ip_vs_proto_sctp.c
-index 83e452916403..63c78a1f3918 100644
---- a/net/netfilter/ipvs/ip_vs_proto_sctp.c
-+++ b/net/netfilter/ipvs/ip_vs_proto_sctp.c
-@@ -10,7 +10,8 @@
- #include <net/ip_vs.h>
+v1: https://lore.kernel.org/linux-mm/20260508013728.21285-1-richard.weiyang@gmail.com/
+---
+ mm/page_vma_mapped.c | 63 +++++++++++++++++++++-----------------------
+ 1 file changed, 30 insertions(+), 33 deletions(-)
+
+diff --git a/mm/page_vma_mapped.c b/mm/page_vma_mapped.c
+index 2ccbabfb2cc1..21635fab209c 100644
+--- a/mm/page_vma_mapped.c
++++ b/mm/page_vma_mapped.c
+@@ -243,40 +243,28 @@ bool page_vma_mapped_walk(struct page_vma_mapped_walk *pvmw)
+ 		 */
+ 		pmde = pmdp_get_lockless(pvmw->pmd);
  
- static int
--sctp_csum_check(int af, struct sk_buff *skb, struct ip_vs_protocol *pp);
-+sctp_csum_check(int af, struct sk_buff *skb, struct ip_vs_protocol *pp,
-+		unsigned int sctphoff);
- 
- static int
- sctp_conn_schedule(struct netns_ipvs *ipvs, int af, struct sk_buff *skb,
-@@ -108,7 +109,7 @@ sctp_snat_handler(struct sk_buff *skb, struct ip_vs_protocol *pp,
- 		int ret;
- 
- 		/* Some checks before mangling */
--		if (!sctp_csum_check(cp->af, skb, pp))
-+		if (!sctp_csum_check(cp->af, skb, pp, sctphoff))
- 			return 0;
- 
- 		/* Call application helper if needed */
-@@ -156,7 +157,7 @@ sctp_dnat_handler(struct sk_buff *skb, struct ip_vs_protocol *pp,
- 		int ret;
- 
- 		/* Some checks before mangling */
--		if (!sctp_csum_check(cp->af, skb, pp))
-+		if (!sctp_csum_check(cp->af, skb, pp, sctphoff))
- 			return 0;
- 
- 		/* Call application helper if needed */
-@@ -185,19 +186,12 @@ sctp_dnat_handler(struct sk_buff *skb, struct ip_vs_protocol *pp,
- }
- 
- static int
--sctp_csum_check(int af, struct sk_buff *skb, struct ip_vs_protocol *pp)
-+sctp_csum_check(int af, struct sk_buff *skb, struct ip_vs_protocol *pp,
-+		unsigned int sctphoff)
- {
--	unsigned int sctphoff;
- 	struct sctphdr *sh;
- 	__le32 cmp, val;
- 
--#ifdef CONFIG_IP_VS_IPV6
--	if (af == AF_INET6)
--		sctphoff = sizeof(struct ipv6hdr);
--	else
--#endif
--		sctphoff = ip_hdrlen(skb);
+-		if (pmd_trans_huge(pmde) || pmd_is_migration_entry(pmde)) {
+-			pvmw->ptl = pmd_lock(mm, pvmw->pmd);
+-			pmde = *pvmw->pmd;
+-			if (!pmd_present(pmde)) {
+-				softleaf_t entry;
 -
- 	sh = (struct sctphdr *)(skb->data + sctphoff);
- 	cmp = sh->checksum;
- 	val = sctp_compute_cksum(skb, sctphoff);
-diff --git a/net/netfilter/ipvs/ip_vs_proto_tcp.c b/net/netfilter/ipvs/ip_vs_proto_tcp.c
-index 7da51390cea6..ede4fa3b63f5 100644
---- a/net/netfilter/ipvs/ip_vs_proto_tcp.c
-+++ b/net/netfilter/ipvs/ip_vs_proto_tcp.c
-@@ -29,7 +29,8 @@
- #include <net/ip_vs.h>
- 
- static int
--tcp_csum_check(int af, struct sk_buff *skb, struct ip_vs_protocol *pp);
-+tcp_csum_check(int af, struct sk_buff *skb, struct ip_vs_protocol *pp,
-+	       unsigned int tcphoff);
- 
- static int
- tcp_conn_schedule(struct netns_ipvs *ipvs, int af, struct sk_buff *skb,
-@@ -166,7 +167,7 @@ tcp_snat_handler(struct sk_buff *skb, struct ip_vs_protocol *pp,
- 		int ret;
- 
- 		/* Some checks before mangling */
--		if (!tcp_csum_check(cp->af, skb, pp))
-+		if (!tcp_csum_check(cp->af, skb, pp, tcphoff))
- 			return 0;
- 
- 		/* Call application helper if needed */
-@@ -244,7 +245,7 @@ tcp_dnat_handler(struct sk_buff *skb, struct ip_vs_protocol *pp,
- 		int ret;
- 
- 		/* Some checks before mangling */
--		if (!tcp_csum_check(cp->af, skb, pp))
-+		if (!tcp_csum_check(cp->af, skb, pp, tcphoff))
- 			return 0;
- 
- 		/*
-@@ -301,17 +302,9 @@ tcp_dnat_handler(struct sk_buff *skb, struct ip_vs_protocol *pp,
- 
- 
- static int
--tcp_csum_check(int af, struct sk_buff *skb, struct ip_vs_protocol *pp)
-+tcp_csum_check(int af, struct sk_buff *skb, struct ip_vs_protocol *pp,
-+	       unsigned int tcphoff)
- {
--	unsigned int tcphoff;
+-				if (!thp_migration_supported() ||
+-				    !(pvmw->flags & PVMW_MIGRATION))
+-					return not_found(pvmw);
+-				entry = softleaf_from_pmd(pmde);
 -
--#ifdef CONFIG_IP_VS_IPV6
--	if (af == AF_INET6)
--		tcphoff = sizeof(struct ipv6hdr);
--	else
--#endif
--		tcphoff = ip_hdrlen(skb);
+-				if (!softleaf_is_migration(entry) ||
+-				    !check_pmd(softleaf_to_pfn(entry), pvmw))
+-					return not_found(pvmw);
+-				return true;
+-			}
+-			if (likely(pmd_trans_huge(pmde))) {
+-				if (pvmw->flags & PVMW_MIGRATION)
+-					return not_found(pvmw);
+-				if (!check_pmd(pmd_pfn(pmde), pvmw))
+-					return not_found(pvmw);
+-				return true;
+-			}
+-			/* THP pmd was split under us: handle on pte level */
+-			spin_unlock(pvmw->ptl);
+-			pvmw->ptl = NULL;
+-		} else if (!pmd_present(pmde)) {
+-			const softleaf_t entry = softleaf_from_pmd(pmde);
 -
- 	switch (skb->ip_summed) {
- 	case CHECKSUM_NONE:
- 		skb->csum = skb_checksum(skb, tcphoff, skb->len - tcphoff, 0);
-@@ -322,7 +315,7 @@ tcp_csum_check(int af, struct sk_buff *skb, struct ip_vs_protocol *pp)
- 			if (csum_ipv6_magic(&ipv6_hdr(skb)->saddr,
- 					    &ipv6_hdr(skb)->daddr,
- 					    skb->len - tcphoff,
--					    ipv6_hdr(skb)->nexthdr,
-+					    IPPROTO_TCP,
- 					    skb->csum)) {
- 				IP_VS_DBG_RL_PKT(0, af, pp, skb, 0,
- 						 "Failed checksum for");
-diff --git a/net/netfilter/ipvs/ip_vs_proto_udp.c b/net/netfilter/ipvs/ip_vs_proto_udp.c
-index 68260d91c988..ffbebda547fc 100644
---- a/net/netfilter/ipvs/ip_vs_proto_udp.c
-+++ b/net/netfilter/ipvs/ip_vs_proto_udp.c
-@@ -25,7 +25,8 @@
- #include <net/ip6_checksum.h>
+-			if (softleaf_is_device_private(entry)) {
+-				pvmw->ptl = pmd_lock(mm, pvmw->pmd);
+-				return true;
+-			}
++		if (pmd_present(pmde)) {
++			if (!pmd_leaf(pmde))
++				goto pte_table;
++			if (pvmw->flags & PVMW_MIGRATION)
++				return not_found(pvmw);
++			if (!check_pmd(pmd_pfn(pmde), pvmw))
++				return not_found(pvmw);
++		} else if (pmd_is_migration_entry(pmde)) {
++			softleaf_t entry = softleaf_from_pmd(pmde);
++
++			if (!(pvmw->flags & PVMW_MIGRATION))
++				return not_found(pvmw);
++			if (!check_pmd(softleaf_to_pfn(entry), pvmw))
++				return not_found(pvmw);
++		} else if (pmd_is_device_private_entry(pmde)) {
++			softleaf_t entry = softleaf_from_pmd(pmde);
  
- static int
--udp_csum_check(int af, struct sk_buff *skb, struct ip_vs_protocol *pp);
-+udp_csum_check(int af, struct sk_buff *skb, struct ip_vs_protocol *pp,
-+	       unsigned int udphoff);
- 
- static int
- udp_conn_schedule(struct netns_ipvs *ipvs, int af, struct sk_buff *skb,
-@@ -155,7 +156,7 @@ udp_snat_handler(struct sk_buff *skb, struct ip_vs_protocol *pp,
- 		int ret;
- 
- 		/* Some checks before mangling */
--		if (!udp_csum_check(cp->af, skb, pp))
-+		if (!udp_csum_check(cp->af, skb, pp, udphoff))
- 			return 0;
- 
- 		/*
-@@ -238,7 +239,7 @@ udp_dnat_handler(struct sk_buff *skb, struct ip_vs_protocol *pp,
- 		int ret;
- 
- 		/* Some checks before mangling */
--		if (!udp_csum_check(cp->af, skb, pp))
-+		if (!udp_csum_check(cp->af, skb, pp, udphoff))
- 			return 0;
- 
- 		/*
-@@ -297,17 +298,10 @@ udp_dnat_handler(struct sk_buff *skb, struct ip_vs_protocol *pp,
- 
- 
- static int
--udp_csum_check(int af, struct sk_buff *skb, struct ip_vs_protocol *pp)
-+udp_csum_check(int af, struct sk_buff *skb, struct ip_vs_protocol *pp,
-+	       unsigned int udphoff)
- {
- 	struct udphdr _udph, *uh;
--	unsigned int udphoff;
--
--#ifdef CONFIG_IP_VS_IPV6
--	if (af == AF_INET6)
--		udphoff = sizeof(struct ipv6hdr);
--	else
--#endif
--		udphoff = ip_hdrlen(skb);
- 
- 	uh = skb_header_pointer(skb, udphoff, sizeof(_udph), &_udph);
- 	if (uh == NULL)
-@@ -325,7 +319,7 @@ udp_csum_check(int af, struct sk_buff *skb, struct ip_vs_protocol *pp)
- 				if (csum_ipv6_magic(&ipv6_hdr(skb)->saddr,
- 						    &ipv6_hdr(skb)->daddr,
- 						    skb->len - udphoff,
--						    ipv6_hdr(skb)->nexthdr,
-+						    IPPROTO_UDP,
- 						    skb->csum)) {
- 					IP_VS_DBG_RL_PKT(0, af, pp, skb, 0,
- 							 "Failed checksum for");
++			if (pvmw->flags & PVMW_MIGRATION)
++				return not_found(pvmw);
++			if (!check_pmd(softleaf_to_pfn(entry), pvmw))
++				return not_found(pvmw);
++		} else {
+ 			if ((pvmw->flags & PVMW_SYNC) &&
+ 			    thp_vma_suitable_order(vma, pvmw->address,
+ 						   PMD_ORDER) &&
+@@ -286,6 +274,15 @@ bool page_vma_mapped_walk(struct page_vma_mapped_walk *pvmw)
+ 			step_forward(pvmw, PMD_SIZE);
+ 			continue;
+ 		}
++
++		/* Double-check under PTL that the PMD didn't change. */
++		pvmw->ptl = pmd_lock(mm, pvmw->pmd);
++		if (pmd_same(pmde, pmdp_get(pvmw->pmd)))
++			return true;
++		spin_unlock(pvmw->ptl);
++		pvmw->ptl = NULL;
++		goto restart;
++pte_table:
+ 		if (!map_pte(pvmw, &pmde, &ptl)) {
+ 			if (!pvmw->pte)
+ 				goto restart;
 -- 
-2.47.3
+2.34.1
+
