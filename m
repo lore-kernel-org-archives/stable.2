@@ -1,77 +1,50 @@
-Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF03C397699
-	for <stable@vger.kernel.org>; Tue, 16 Jun 2026 09:27:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32EAA3254AF;
+	Tue, 16 Jun 2026 09:44:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781602068; cv=none; b=eWtopgO8uDjvEsYJNs+duOi7BmLLgE+cndA6Y4Ewe50lOtT+0U2Yb0itfBT754+kVGM6WciW2QSXGsJborOGko3orbdb0XDEeOx4Otqy2CEP8UIp2GK4kVaiINfcHWamAlBMoxADKcxh7y8hvvatW5JXpeKLs8BH92st5QloyVc=
+	t=1781603079; cv=none; b=ju8njIgU1ZSETgH9sToLB0wUu9dRjZ9iBrAc+coFdHbP8oISH/FYCO/hBVDSR9RHb77L02MYzBRFHhPMogI7Lo2koEGsHKzY7OKMaWySYxATQK9IyTkyoHugMjfXCF136ddlB623ng3K+X39/rDatIupFyk0r3v1L1rnwWXw9mE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781602068; c=relaxed/simple;
-	bh=vQc8JPsgCy5rS7aRYqbhoMRkYcxzNuV82AEkSLczNC4=;
+	s=arc-20240116; t=1781603079; c=relaxed/simple;
+	bh=u3lluoPEdWO0+dGbFE0Q9ERMeCLLYy3Of1xuBDYfdlY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ubd+Kaqxot/M8FYF/bsE84lZ9i1Ur7mbMuPB98gI5lnwDjXgwbOAyhSltAZo/ozXsr5dKzwn6Zu+PiZwTYfmzewXD6OnYP7NuMS92ZqBammNiNZs+CfA2mxuG3ravv97x95n7SNlud/waO2I2OLNNK5ScFwxcnMNa1/XEBLE7uU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LQ6xa5Oo; arc=none smtp.client-ip=209.85.218.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=jm+B0/TakROl77hgwo1CYSWmbs3Wth6hBJt4hrjdhx2f4mW0TGxd65jY6s3tZvqD7wqEhPQjc8q+rV+NXS/5mggTW2iGMen+6mG11BukzwHQutiUkQDvnywhinyC+qIgJyVYzncQZ+H856g21pcUZcz910KS3N2W2WKuURuAMns=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=h1NWGaeh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LQ6xa5Oo"
-Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-bec3f69d343so631813666b.0
-        for <stable@vger.kernel.org>; Tue, 16 Jun 2026 02:27:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781602065; x=1782206865; darn=vger.kernel.org;
-        h=user-agent:in-reply-to:content-disposition:mime-version:references
-         :reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=mGUhifIwbizeLq+2E6X1Zz6h5cAG7IwAkNPVZW+1qSc=;
-        b=LQ6xa5OogE5f+m4mhIlWpQ6Zetm2y1ZWw7923sBc0kber4OjhLj8M1PLGO1ViYXra/
-         WrGXRq8i7k/LmEBCmCYgVmBcIRhL0QPBwZTf8U9z9QOcD0KacGS4cmVjNer4RhmyPAyl
-         oJOH374wNSrP9gI+kNdkKoPVriQUgJ5sTrQfpfbvpx6WZz2rNqGM1lr8Sv44CfjSO1Fy
-         Y92jlsZPJkJg1xnT7MYAqfFopqqjEBx4ndIaoZ4k3hcgrju3PrqGvsq7bEQ9qlyhwZFA
-         Y336ICxqkGZYo8C+YqHO/786UzUEi4L4fvfvrtM4U+HiaVoj2hWaklwLM1f+PA3mRqj+
-         X36g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781602065; x=1782206865;
-        h=user-agent:in-reply-to:content-disposition:mime-version:references
-         :reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=mGUhifIwbizeLq+2E6X1Zz6h5cAG7IwAkNPVZW+1qSc=;
-        b=qn1T+GWWq8CFN/SjTDHXSoTM43W+4+kLDZewqhHk5uQJQEFy2UyzK9R37w0NQO+ysk
-         VDDcaPqbqfK4wOQi7gIqlnxCJIFuHg9CDKH6qhgWiGVjQUR+RWkeN5jcYrrZlnFgbJMR
-         gjzS35pOypMBNFFVNr52kiTpsN8/epuhJHUyl0qzSIRnrcYeSlcXV6eUzdwzKs7ZeT8D
-         2K6tfCWSJcrcCPnbUs1EQLokYAaAoqidmQrwpqTmygtF3iBIjqpsA6MQ74qrOqWyxfVQ
-         K14fKo/U7hYdrlWqeRpxmAyizafl9XJJnvB3zXx13aguMX/O6d4WWNlxWAF/o8be+s2J
-         tpTQ==
-X-Forwarded-Encrypted: i=1; AFNElJ9WiQLrvHnLbFyOxo+nY4p4RLzKDsf4uSP5Z6D2a9Jm49/Bd6wOuoKQdlVIp8E275bNAdnv5X4=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzLmP3GjzOI4kZO7E17rLScRVsbq7mTS6htYmW7NZA+TkFd7xJy
-	YyvbhcJbEUsPEe1TWcknzPMf/QfbfNKoGIulV+cvvz5uByLdgSUFu5vX
-X-Gm-Gg: Acq92OGxACJI8Cy2POpIbZLsYnp8WuV7g9rB6dp298G/fZ3czEJOkcA2nbbYiebcI7n
-	aNMzIsdUYAhRF29C4dJjBvsSl3/oN3GOI/duCecmns+ifjfAgi2ZEQWhO/R+QqkKfXCZJ9R3SdW
-	ThbmIxbLJ2rzSjaO9GoA0eI+jMr3wPuz+6BQhWdOIDMN3vs/MO7BiWQnYJTaM+asrXxWlfr7PEH
-	i5SPJZpDmGHEgPukteEGt3U0NHRgR8eOwcXyr8LZvXCp/dNvmW8C9Vby/zZLrQx05OzqNMPntJU
-	5D/MhhibA0RLYhxNxkssn6akzJMFKtlWl0rVxDjym9Pj6vSwVr5qUPimJQI5wWk/uR0CilfGghz
-	tJimdV3C6BbBfW533LE6q9wIJxwsBKBSlJ/EU1ATMZ+ywCkvHSvbhR7RqMonNqLVzdempDVia2I
-	fuQmpKLa4UrI8P8q44d/6ahw==
-X-Received: by 2002:a17:907:3d4f:b0:bfe:ed06:5a17 with SMTP id a640c23a62f3a-bff4cddba68mr638739466b.53.1781602064737;
-        Tue, 16 Jun 2026 02:27:44 -0700 (PDT)
-Received: from localhost ([185.92.221.13])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c0463a2d1f4sm92450866b.51.2026.06.16.02.27.44
-        (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
-        Tue, 16 Jun 2026 02:27:44 -0700 (PDT)
-Date: Tue, 16 Jun 2026 09:27:43 +0000
-From: Wei Yang <richard.weiyang@gmail.com>
-To: Lance Yang <lance.yang@linux.dev>
-Cc: david@kernel.org, richard.weiyang@gmail.com, balbirs@nvidia.com,
-	akpm@linux-foundation.org, ljs@kernel.org, riel@surriel.com,
-	liam@infradead.org, vbabka@kernel.org, harry@kernel.org,
-	jannh@google.com, sj@kernel.org, ziy@nvidia.com, linux-mm@kvack.org,
-	lorenzo.stoakes@oracle.com, stable@vger.kernel.org
-Subject: Re: [PATCH] mm/page_vma_mapped: revalidate and do proper check
- before return device-private pmd
-Message-ID: <20260616092743.kpzud5vrjj664b7o@master>
-Reply-To: Wei Yang <richard.weiyang@gmail.com>
-References: <2d48ef0d-1110-4a9d-adcb-f701a1ce2cfa@kernel.org>
- <20260616091522.83765-1-lance.yang@linux.dev>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="h1NWGaeh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D80E11F000E9;
+	Tue, 16 Jun 2026 09:44:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1781603077;
+	bh=uYKv1ykBzXWm3lpL8/mfBmwASj0+sYgUMr2UpvygTWo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=h1NWGaeh95BJ//WskBpG4gXvF+6ChJbz22mm9f/EOT97zuz1vSRgbT0Sq3GNBPEfa
+	 vPwBU/l4AvOuhoCBm+zaXrt2COzkqquUie9BXTv2zld3hS1Fst0ZEd3N3joMZG8xxH
+	 Wo+N0k/SO9dh8l+anhWGAs8e9Es7ZRAOECThJo34=
+Date: Tue, 16 Jun 2026 15:13:33 +0530
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Stefano Garzarella <sgarzare@redhat.com>
+Cc: Sasha Levin <sashal@kernel.org>, "Michael S. Tsirkin" <mst@redhat.com>,
+	AVKrasnov@sberdevices.ru, edumazet@google.com, eperezma@redhat.com,
+	jasowang@redhat.com, kuba@kernel.org, leonardi@redhat.com,
+	stefanha@redhat.com, virtualization@lists.linux.dev,
+	xuanzhuo@linux.alibaba.com, stable-commits@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: Patch "vsock/virtio: fix potential unbounded skb queue" has been
+ added to the 6.6-stable tree
+Message-ID: <2026061606-generous-smudge-2036@gregkh>
+References: <2026051553-santa-unretired-a417@gregkh>
+ <20260515113503-mutt-send-email-mst@kernel.org>
+ <2026051526-banish-strife-6dba@gregkh>
+ <20260515114521-mutt-send-email-mst@kernel.org>
+ <20260516170159.vsock-virtio-unbounded-drop@kernel.org>
+ <ag8EvTp29B-Q3nCq@sgarzare-redhat>
+ <2026061624-harbor-capture-a5bf@gregkh>
+ <ajD_FBEak8hKNdIK@sgarzare-redhat>
+ <2026061607-risotto-getaway-c57f@gregkh>
+ <CAGxU2F6PDqHKLsW97qLUg+7hWq=iYk5qDAGUuxWSbdkyEDmsQw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -80,183 +53,74 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260616091522.83765-1-lance.yang@linux.dev>
-User-Agent: NeoMutt/20170113 (1.7.2)
+In-Reply-To: <CAGxU2F6PDqHKLsW97qLUg+7hWq=iYk5qDAGUuxWSbdkyEDmsQw@mail.gmail.com>
 
-On Tue, Jun 16, 2026 at 05:15:22PM +0800, Lance Yang wrote:
->
->On Mon, Jun 15, 2026 at 01:58:15PM +0200, David Hildenbrand (Arm) wrote:
->>On 6/12/26 04:48, Wei Yang wrote:
->>> On Tue, May 12, 2026 at 08:55:47PM +0200, David Hildenbrand (Arm) wrote:
->>>> On 5/12/26 16:35, Wei Yang wrote:
->>>>>
->>>>> I tried to compress above logic like this, hope it could look cleaner.
->
->Emm ... spelling out the present/migration/device-private cases makes
->this easier to review, and avoids hiding future softleaf types behind
->pmd_is_valid_softleaf(), IMHO.
->
->So I'd prefer David's explicit version[1].
->
->>>>>
->>>>> 	if (pmd_trans_huge(pmde) || pmd_is_valid_softleaf(pmde)) {
->>>>> 		unsigned long pfn;
->>>>> 		bool is_migration = pmd_is_migration_entry(pmde);
->>>>> 		bool for_migration = !!(pvmw->flags & PVMW_MIGRATION);
->>>>>
->>>>> 		if (is_migration != for_migration)
->>>>> 			return not_found(pvmw);
->>>>>
->>>>> 		if (pmd_trans_huge(pmde))
->>>>> 			pfn = pmd_pfn(pmde);
->>>>> 		else
->>>>> 			pfn = softleaf_to_pfn(softleaf_from_pmd(pmde));
->>>>>
->>>>> 		if (!check_pmd(pfn, pvmw))
->>>>> 			return not_found(pvmw);
->>>>> 	} else if (!pmd_present(pmde)) {
->>>>
->>>> It's more compact, but not necessarily cleaner. In particular, I detest
->>>> pmd_trans_huge(), we should phase it out.
->>>>
->>>> if (pmd_present(pmde) && !pmd_leaf(pmde)) {
->>>> 	goto pte_table;
->>>> } else if (pmd_present(pmde) || pmd_is_valid_softleaf(pmde))
->>>>
->>>> ...
->>>>
->>>> Might work as well. But once we add support for other softleaf types, we'll have
->>>> to touch it again. So I'd rather just list what we actually expect.
->>>>
->>> 
->>> Hi, David
->>
->>Hi,
->>
->>> 
->>> I may not follow you. Just want to confirm whether you prefer this goes as a
->>> fix first, or you prefer it goes as what you suggested here as a cleanup?
->>
->>I guess we should just do it properly when we're touching the code already.
->
->+1 to that ;)
->
->>Does that answer your question? Will you send a proper patch?
->
->Copied the diff from [1] below, with a couple of tiny nits inline. Feel
->free to grab any of this if it looks sane :)
-
-Hi, Lance
-
-Thanks for taking a look.
-
-I just sent v2 [2] with the suggestion form David from [1]. So didn't include your
-suggestion yet.
-
-If it doesn't bother too much, would you mind reply there so that we could
-have the same base line?
-
-Thanks
-
-[2]: https://lore.kernel.org/all/20260616063436.20455-1-richard.weiyang@gmail.com/T/#u
-
->
->---8<---
->diff --git a/mm/page_vma_mapped.c b/mm/page_vma_mapped.c
->index a4d52fdb3056..de6a255cc847 100644
->--- a/mm/page_vma_mapped.c
->+++ b/mm/page_vma_mapped.c
->@@ -242,40 +242,28 @@ bool page_vma_mapped_walk(struct page_vma_mapped_walk *pvmw)
->                 */
->                pmde = pmdp_get_lockless(pvmw->pmd);
+On Tue, Jun 16, 2026 at 10:36:43AM +0200, Stefano Garzarella wrote:
+> On Tue, 16 Jun 2026 at 10:00, Greg KH <gregkh@linuxfoundation.org> wrote:
+> >
+> > On Tue, Jun 16, 2026 at 09:52:32AM +0200, Stefano Garzarella wrote:
+> > > On Tue, Jun 16, 2026 at 10:17:31AM +0530, Greg KH wrote:
+> > > > On Thu, May 21, 2026 at 03:15:54PM +0200, Stefano Garzarella wrote:
+> > > > > On Sun, May 17, 2026 at 09:33:06AM -0400, Sasha Levin wrote:
+> > > > > > > > What's the status of that fix?
+> > > > > > >
+> > > > > > > Stefano posted v3 and is working on v4.
+> > > > > > >
+> > > > > > > >  Should it be reverted elsewhere?
+> > > > > > >
+> > > > > > > Donnu. With the change we have no DoS but the socket gets silently
+> > > > > > > broken.  Eric felt given the brokenness is upstream already it's better
+> > > > > > > to work on a fix on top, not revert.
+> > > > > >
+> > > > > > Dropped from the 6.6, 6.12, 6.18, and 7.0 queues. We'll pick up Stefano's
+> > > > > > follow-up once it lands upstream.
+> > > > >
+> > > > > FYI v4 is now merged in the net tree, so I guess they will land upstream
+> > > > > soon. I CCed stable on both patches:
+> > > > >
+> > > > > a4f0b001782b ("vsock/virtio: reset connection on receiving queue overflow")
+> > > > > c6087c5aaad6 ("vsock/virtio: fix skb overhead accounting to preserve full
+> > > > > buf_alloc")
+> > > > >
+> > > > > Both are related, but the second is the main fix of this patch.
+> > > >
+> > > > THe second one doesn't apply at all :(
+> > > >
+> > >
+> > > The second one is the fix of the patch originally added to stable queue by
+> > > this thread, so should be applied on top of it (commit 059b7dbd20a6
+> > > ("vsock/virtio: fix potential unbounded skb queue")).
+> > >
+> > > I'm working on improving memory management, but for now I think it makes
+> > > sense to backport all three to the stable branches.
+> > >
+> > > So, in summary:
+> > > 059b7dbd20a6 ("vsock/virtio: fix potential unbounded skb queue")
+> > > a4f0b001782b ("vsock/virtio: reset connection on receiving queue overflow")
+> > > c6087c5aaad6 ("vsock/virtio: fix skb overhead accounting to preserve full buf_alloc")
+> >
+> > Again, this last one fails to apply everywhere :(
 > 
->-               if (pmd_trans_huge(pmde) || pmd_is_migration_entry(pmde)) {
->-                       pvmw->ptl = pmd_lock(mm, pvmw->pmd);
->-                       pmde = *pvmw->pmd;
->-                       if (!pmd_present(pmde)) {
->-                               softleaf_t entry;
->-
->-                               if (!thp_migration_supported() ||
->-                                   !(pvmw->flags & PVMW_MIGRATION))
->-                                       return not_found(pvmw);
->-                               entry = softleaf_from_pmd(pmde);
->-
->-                               if (!softleaf_is_migration(entry) ||
->-                                   !check_pmd(softleaf_to_pfn(entry), pvmw))
->-                                       return not_found(pvmw);
->-                               return true;
->-                       }
->-                       if (likely(pmd_trans_huge(pmde))) {
->-                               if (pvmw->flags & PVMW_MIGRATION)
->-                                       return not_found(pvmw);
->-                               if (!check_pmd(pmd_pfn(pmde), pvmw))
->-                                       return not_found(pvmw);
->-                               return true;
->-                       }
->-                       /* THP pmd was split under us: handle on pte level */
->-                       spin_unlock(pvmw->ptl);
->-                       pvmw->ptl = NULL;
->-               } else if (!pmd_present(pmde)) {
->-                       const softleaf_t entry = softleaf_from_pmd(pmde);
->-
->-                       if (softleaf_is_device_private(entry)) {
->-                               pvmw->ptl = pmd_lock(mm, pvmw->pmd);
->-                               return true;
->-                       }
->+               if (pmd_present(pmde)) {
->+                       if (!pmd_leaf(pmde))
->+                               goto pte_table;
->+                       if (pvmw->flags & PVMW_MIGRATION)
->+                               return not_found(pvmw);
->+                       if (!check_pmd(pmd_pfn(pmde), pvmw))
->+                               return not_found(pvmw);
->+               } else if (pmd_is_migration_entry(pmde)) {
->+                       softleaf_t entry = softleaf_from_pmd(pmde);
->
->Could be const.
->
->+
->+                       if (!(pvmw->flags & PVMW_MIGRATION))
->+                               return not_found(pvmw);
->+                       if (!check_pmd(softleaf_to_pfn(entry), pvmw))
->+                               return not_found(pvmw);
->+               } else if (pmd_is_device_private_entry(pmde)) {
->+                       softleaf_t entry = softleaf_from_pmd(pmde);
->
->Ditto.
+> Again, c6087c5aaad6 depends on 059b7dbd20a6 (as also indicated by the 
+> Fixes tag in the patch description).
 > 
->+                       if (pvmw->flags & PVMW_MIGRATION)
->+                               return not_found(pvmw);
->+                       if (!check_pmd(softleaf_to_pfn(entry), pvmw))
->+                               return not_found(pvmw);
->+               } else {
->                        if ((pvmw->flags & PVMW_SYNC) &&
->                            thp_vma_suitable_order(vma, pvmw->address,
->                                                   PMD_ORDER) &&
->@@ -285,6 +273,15 @@ bool page_vma_mapped_walk(struct page_vma_mapped_walk *pvmw)
->                        step_forward(pvmw, PMD_SIZE);
->                        continue;
->                }
->+
->+               /* Double-check under PTL that the PMD didn't change. */
->+               pvmw->ptl = pmd_lock(mm, pvmw->pmd);
->+               if (pmd_same(pmde, pmdp_get(pvmw->pmd)))
->
->Maybe worth a likely() here? The PMD normally shouldn't change under us.
->
->+                       return true;
->+               spin_unlock(pvmw->ptl);
->+               pvmw->ptl = NULL;
->+               goto restart;
->+pte_table:
->                if (!map_pte(pvmw, &pmde, &ptl)) {
->                        if (!pvmw->pte)
->---
->
->[1] https://lore.kernel.org/linux-mm/0aab59b8-71c5-4059-8281-5dd876946528@kernel.org/
->
->Cheers, Lance
+> I don't know what you meant with "everywhere", but I just run `git 
+> cherry-pick 059b7dbd20a6 c6087c5aaad6` on linux-6.12.y, linux-6.18.y, 
+> and linux-7.0.y without any issue.
 
--- 
-Wei Yang
-Help you, Help me
+Sorry, I was just searching for the short-id, which is in commits
+already in those trees.  The real commit worked, sorry for the
+confusion.
+
+> On linux-6.6.y it's failing because we are missing zero-copy support in 
+> AF_VSOCK. So, I guess we didn't backport commit 45ca7e9f0730 
+> ("vsock/virtio: fix `rx_bytes` accounting for stream sockets") because 
+> there were conflicts.  That patch is needed to apply commit 059b7dbd20a6 
+> ("vsock/virtio: fix potential unbounded skb queue") cleanly.
+
+That commit does not backport cleanly to 6.6.y, so I still need a patch
+series for that tree.
+
+thanks,
+
+greg k-h
