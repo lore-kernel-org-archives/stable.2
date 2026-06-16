@@ -1,109 +1,96 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 055F147AF6E;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12AAA466B70;
 	Tue, 16 Jun 2026 17:43:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781631785; cv=none; b=Jgf6mWQ2eGlTLmnHDY+HGRiW/KpIombK660l4ewi4cNbbL17GachtpH399Kf162IN3UzDKp3M6oA3CZ0MF3+NwmV+qvRPS6liretHdyW4GLn2nZaEB0eWz70LXEWBVX/SWMfumbXpihioWfvQ22NJrOjjc9OeG+OWsrVHHEcG38=
+	t=1781631786; cv=none; b=OyvZEfe9iWCLhsG7Mu8HqKqkgiuHYWJW/0XhZFvF36F+WXIC+zsiX8l8IFn55GSytj2V9nPiDNMN+c31QM4Rm49ydgq5PiiBFRZfwQ7M/Rtnv7SRxkaBeWzXfSTdsxM3tWGAF5ISv5XYvnZAVN0Oxy1B+h3gM9LBzHO0RAt9bJM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781631785; c=relaxed/simple;
-	bh=fq3ZK4TvPGaCPkNmaEXfBnuUhT956reA0vlkMHBNmbg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Ge9vWRaaXte5Q58kVzYLOTrhKJHn5LN+0U+xV85vFt9w4OBBU61tvHfGOH8l5LrEXVTWNi3Vk3ybgCyB+yigOo9XkjOyHq/SurYi50DFm9KnnxvBEo4aktoM1yG/03H7lqCckyD4gL+0ux8zAaBgBpoG0Ud9BZkAk+wFwDbCyL0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=KO+94wvh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781631786; c=relaxed/simple;
+	bh=dQNRbLWCeK75DjPAA4SvrLHVQCql+QnUjpBh/EtC2qQ=;
+	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
+	 Mime-Version:Content-Type; b=Tp42j5yowTTwXvGAIhTtMq6kKPnptSVod12FHN3UBplV3XVLVbALfegJUPH0LN8vQ968d6ZT5ff5cBgnssF8/s2+ICjc/ge3hlDkcW+dMnC/Or7nYoWNzpknwDPax8oj+AhVd5aYeH5IUvP9X4RAtYeoP9l8T6D1kI18L8CtwK4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P+t9wQPy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="KO+94wvh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DCEE1F000E9;
-	Tue, 16 Jun 2026 17:43:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1781631783;
-	bh=OqpYW5MlM6kyRRLAw91PXgL/dKZpRaFVGJNCi9dPQ94=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=KO+94wvh2oWqct1Dasc1z4CS1u9w+D0seAYdNvCYRnm7ulPNLfXIrKQiJt2sRjrXx
-	 qU/Ol9mKsTZM5r41fwhLNKhq3+Yhu5zeR7y8MsHN5OVD/soWBZGXK46THvnbqjYLuJ
-	 F0zNnRS/er/xEPfGuAHT/88HGwh+s+6XX0TPb9K0=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Paolo Abeni <pabeni@redhat.com>,
-	"Matthieu Baerts (NGI0)" <matttbe@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>
-Subject: [PATCH 6.1 287/522] mptcp: allow subflow rcv wnd to shrink
-Date: Tue, 16 Jun 2026 20:27:14 +0530
-Message-ID: <20260616145139.369104576@linuxfoundation.org>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260616145125.307082728@linuxfoundation.org>
-References: <20260616145125.307082728@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P+t9wQPy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2083C1F00A3E;
+	Tue, 16 Jun 2026 17:43:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781631784;
+	bh=4ptMQMr4KtIeVMZTDIlvLJCuEPLicT91TQkRWriqoEE=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject;
+	b=P+t9wQPyQyqHiag8CbUw0ZigdC8hTZsq/2wgmwhFlK59NOxzh1lKOBeaBjpc2M8Fy
+	 EOHLRlcYOSHJysFmbzMpffOh9TpMUa50PIOhARH/JCb4sENkcflwL+7ZfVC1QSncfG
+	 4DKWlyAHdIQiCKa24840Gc3vUvJaDjOZyc/v2IN9s4SSygxuL4KwJgGGcM4BC9gcxB
+	 Y33cf9TJnuuE1wOGSyQbklajqObybF44Ifji/4VF3mAjAvgg/7Xa0IFLPEenOXPq1f
+	 vuK7XN7db2yF2IJyxCWFtfYYoqE4U/Eee3i9rwwiPlr4AHf88EXptjXvhDXLovaGY4
+	 yxUoVuvJMvgUw==
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailfauth.phl.internal (Postfix) with ESMTP id 5818AF4007D;
+	Tue, 16 Jun 2026 13:43:03 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-05.internal (MEProxy); Tue, 16 Jun 2026 13:43:03 -0400
+X-ME-Sender: <xms:J4sxamlMnIor37gD6NzqrYdokrGSs4AezDPgHSQ1fLPFIpa7-AvXVQ>
+    <xme:J4sxauSUoAF4aol9z6hhtHc8XcM8ff53S4ahMYHPqZWDScWOgj27jqT4D_LhAsOTd
+    BQlOJ18ZwRgDSK9xc--1ARP68OoGsuFWQoK60kJkA2kPeErLjoN5A>
+X-ME-Received: <xmr:J4sxalU5W7ohEcEvZ2zJG4ScrdXAQ2dLQO0v8D76Q25e2kvd5sb7lVIFgb4UK9BqnZiewoflb00ZLwb2DCrMqUafUbPAFcLxhxs>
+X-ME-Proxy-Cause: dmFkZTFVmzI+6hvKUTzx/JJFF1J1hmHi57aeWtjxdAhQTt67E/BIs2S3ubLUOQPYWL0PZ9
+    JopxHLy26hoDd1Ef72pRzPs6xxpU8+i0esED/uHXQBBPKOtTeSsm4HXj/Kteumc0tlBu8G
+    aN4BRRk8pL+bqSUe6jTcAsnZjY/URusYaGyM+NaUQB2KtYpD/bWB1/PHkdDSVYFr+v6WYj
+    11EcVVMTPEJU5IaIFt6QVlFm3v4xKGXYdmE0BK2215qX9zi/knfoVlYhi3UZLSnX7bPJS0
+    shYv+fqn4facIQ97taWfSJQ5j2p37f6/crK+YmIfI9VeOwA7jF4KCN6OJinBO2rAN5Vpe5
+    iRN7x7NNAiihdpPLXEZrAc6pZ7nSeQWDYby7ARMaIm1ogCWplt9VhSREioSUHwlJxnKpZN
+    vydB/l32kdrsuZbKdJ29fB4iNPgbhB0ayHv2zGvAVXZmz4g//IIJuiDu4RcYjrZvCV/dig
+    H2TMglhvVQHb0Co4Lu/Aqoxa2428QmUv3FHdrCR0vLOnqapTI3IIhsUA06ibu6+GwT9EKS
+    8m4PBLKEx9cCQq6BXTC9AyEdyGbXRanKo/p5d2OpDBB10sHlZ68BGl0FAqn/8PjZ0njurT
+    S+K8rcVM1MROdLcXowrWGpjXuKE9pQtvldwnEmXZu+r5rtuO+xBnYi6HM2KA
+X-ME-Proxy: <xmx:J4sxaiKugVYqGOzfbTA_z70ll-xW7HZ8Qcfi58LimSBwKxfUXreYAw>
+    <xmx:J4sxal3pp86vrtNL8sIBk4dGtkJNzYKfRj3Cc0XhTyhsrYjzTlPF6g>
+    <xmx:J4sxavLrWNEYck1ROjIFxp077WfTVSSl9BpfXNwnD3_OWKXWOyxPxg>
+    <xmx:J4sxagi6DcIX-6S7o3ZUcwgggeOutsEfOCQpar_Zvok4zX_ZJIKrPg>
+    <xmx:J4sxavDcXT2HDUnQOV6LXoXLncJjIA37TMaUoqJsoNsWYjaTo6Pcu58d>
+Feedback-ID: i67ae4b3e:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 16 Jun 2026 13:43:02 -0400 (EDT)
+Date: Tue, 16 Jun 2026 10:43:01 -0700
+From: "Dan Williams (nvidia)" <djbw@kernel.org>
+To: Dave Jiang <dave.jiang@intel.com>, 
+ linux-cxl@vger.kernel.org
+Cc: djbw@kernel.org, 
+ dave@stgolabs.net, 
+ jic23@kernel.org, 
+ alison.schofield@intel.com, 
+ vishal.l.verma@intel.com, 
+ flavien@nus.edu.sg, 
+ stable@vger.kernel.org
+Message-ID: <6a318b25443ad_199fc4100b5@djbw-dev.notmuch>
+In-Reply-To: <20260616004007.4186004-2-dave.jiang@intel.com>
+References: <20260616004007.4186004-1-dave.jiang@intel.com>
+ <20260616004007.4186004-2-dave.jiang@intel.com>
+Subject: Re: [PATCH 1/2] cxl/mce: Validate memdev and endpoint before
+ dereference in cxl_handle_mce()
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 7bit
 
-6.1-stable review patch.  If anyone has any objections, please let me know.
+Dave Jiang wrote:
+> cxlmd and endpoint are both used in cxl_handle_mce() without proper
+> validation, which can lead to NULL pointer dereference or invalid pointer
+> dereference. The notifier is registered in cxl_memdev_state_create()
+> when the CXL PCI driver first binds, before the memdev is published and
+> before it is attached to a CXL topology.
+> 
+> Add checks to cxlmd and endpoint to ensure they are valid before usage.
 
-------------------
+This looks to be trying to band-aid the original mistake of having
+cxl_memdev_state_create() register a region-relative callback.
 
-From: Paolo Abeni <pabeni@redhat.com>
-
-commit da23be77e1292cd611e736c3aa17da633d7ddce7 upstream.
-
-In MPTCP connection, the `window` field in the TCP header refers to the
-MPTCP-level rcv_nxt and it's right edge should not move backward. Such
-constraint is enforced at DSS option generation time.
-
-At the same time, the TCP stack ensures independently that the TCP-level
-rcv wnd right's edge does not move backward. That in turn causes artificial
-inflating of the MPTCP rcv window when the incoming data is acked at the
-TCP level and is OoO in the MPTCP sequence space (or lands in the backlog).
-
-As a consequence, the incoming traffic can exceed the receiver rcvbuf size
-even when the sender is not misbehaving.
-
-Prevent such scenario forcibly allowing the TCP subflow to shrink the
-TCP-level rcv wnd regardless of the current netns setting.
-
-Fixes: f3589be0c420 ("mptcp: never shrink offered window")
-Cc: stable@vger.kernel.org
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
-Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
-Link: https://patch.msgid.link/20260602-net-mptcp-misc-fixes-7-1-rc7-v2-4-856831229976@kernel.org
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- net/mptcp/options.c |    7 +++++++
- 1 file changed, 7 insertions(+)
-
---- a/net/mptcp/options.c
-+++ b/net/mptcp/options.c
-@@ -564,6 +564,7 @@ static bool mptcp_established_options_ds
- {
- 	struct mptcp_subflow_context *subflow = mptcp_subflow_ctx(sk);
- 	struct mptcp_sock *msk = mptcp_sk(subflow->conn);
-+	struct tcp_sock *tp = tcp_sk(sk);
- 	unsigned int dss_size = 0;
- 	struct mptcp_ext *mpext;
- 	unsigned int ack_size;
-@@ -613,6 +614,12 @@ static bool mptcp_established_options_ds
- 	if (dss_size == 0)
- 		ack_size += TCPOLEN_MPTCP_DSS_BASE;
- 
-+	/* The caller is __tcp_transmit_skb(), and will compute the new rcv
-+	 * wnd soon: ensure that the window can shrink.
-+	 */
-+	if (skb)
-+		tp->rcv_wnd = tp->rcv_nxt - tp->rcv_wup;
-+
- 	dss_size += ack_size;
- 
- 	*size = ALIGN(dss_size, 4);
-
-
+Move the mce notifier registration to be per-region and all the lookup
+lifetime problems disappear.
