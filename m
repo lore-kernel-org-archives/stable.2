@@ -1,43 +1,41 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E206F3A16AC;
-	Tue, 16 Jun 2026 16:02:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 166A0450903;
+	Tue, 16 Jun 2026 16:02:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781625777; cv=none; b=pOB0TDYITm49L0vdEbHf3WTnARA1oYnbht5SRDxcICpOZoS5tWZY4Doop/9DtKf51FCe2m122UDVPrSLnaLaLRqjbheFuhVTR6bsoLvtjve1+7yGk1dBszU8zmI8VMzACF6sdx7kYq4d1WeIf2k0QpYnoNs4EtyrSpStg3RGFhE=
+	t=1781625783; cv=none; b=GK++a7eAjMV4CmcwgrcBP/M2rwMwwWCERkk7e1A68T5i5uK2ti+aZzWA5S+TWf4z7Rj3NYOBnmQbBg9DetJjbCtlz+TbtMoLgU2vWOw5wXVUd+y7tebw6QmEwLrkXVY8GZnNWry+e4XDP42N6YMOnuVHB/nUS8+IWk1mQARSAx0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781625777; c=relaxed/simple;
-	bh=wBIgiiaosq+JDkAogFtvjYOLQbKL4XJm3hlGYVfyopo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=L67Lq9+FYD4z7ANyPU6zZLgLvUlRaU9A62Von+HFhN9v2EfW8BOnyGSGfXoZqToqE+3RKxgnbu+CedfNvg63Mv8t7CSBXUU+3pRvaofSKIyLBA1lLMvC4aPcx6NZDJ4CEvJfvDhKt+2ibNaN0di6dwm6iYhZB6xCHz+iFArLyPQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=zSUCS0il; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781625783; c=relaxed/simple;
+	bh=CscwrQpvjj+N4uM5G00PJLqObAJAFGeM4PUVlMY4a/Y=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=b5TK4KsEfeT2fuox6KV2COoSyz/sCcyy3uZitc6xYdw2ILH/wo678jGYaXzYWfUMncP/zt4FZ5oUFAFNJIEzURIiEuXr0WggB9JzfXgZrW6bEE9iukHKHCi3i2yz7kzcGMmJGVddBkWq7g7HEcKiH89AeY1ipXxoHQchPfcNZyQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=Zth6olDn; arc=none smtp.client-ip=45.254.49.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="zSUCS0il"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BACC61F000E9;
-	Tue, 16 Jun 2026 16:02:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1781625776;
-	bh=JCx/ilaYQz/A6Dp11Fw0tVPN3d0JR7m3i1B3515DOIs=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=zSUCS0ilYrAsQIfgF41sKKvty2eOQ/mLjpoZxksmeRabOCGAO1AnmJhRtFaw7Ipco
-	 XyH5mT5DLrPivyxyuAhgYFHpvhU/tjko0DLh1iAqSM1KN4S/lpPtT2RZXMLOo5YQqr
-	 q01aubLkBOZkYBXA7XYZM+e9qtTpluxsg8Gt5am8=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Emmanuel Grumbach <emmanuel.grumbach@intel.com>,
-	Miri Korenblit <miriam.rachel.korenblit@intel.com>
-Subject: [PATCH 6.18 205/325] wifi: iwlwifi: pcie: simplify the resume flow if fast resume is not used
-Date: Tue, 16 Jun 2026 20:30:01 +0530
-Message-ID: <20260616145108.257211308@linuxfoundation.org>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260616145057.827196531@linuxfoundation.org>
-References: <20260616145057.827196531@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="Zth6olDn"
+Received: from DESKTOP-SUEFNF9.taila7e912.ts.net (unknown [221.228.238.82])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 429e07efd;
+	Tue, 16 Jun 2026 23:57:45 +0800 (GMT+08:00)
+From: Dawei Feng <dawei.feng@seu.edu.cn>
+To: Tony Nguyen <anthony.l.nguyen@intel.com>
+Cc: Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	intel-wired-lan@lists.osuosl.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	jianhao.xu@seu.edu.cn,
+	Dawei Feng <dawei.feng@seu.edu.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH net v2] ice: fix memory leak in ice_lbtest_prepare_rings()
+Date: Tue, 16 Jun 2026 23:57:42 +0800
+Message-Id: <20260616155742.4052021-1-dawei.feng@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,107 +43,76 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0a9ed127289903a2kunm68ae6ddd4b895
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZSx8fVkpJHUwYGRlJHUJNTVYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUpVSUlDVUlIQ1VDSVlXWRYaDxIVHRRZQVlPS0hVSktISk
+	9ITFVKS0tVSkJLS1kG
+DKIM-Signature: a=rsa-sha256;
+	b=Zth6olDn4pHnkHSYvSKvAJ+GMYqXvoyBC/nK4iBIFPu5OMaNLkNkpBk+4DNuVqwK0J+OEVAOv3rZ9QsQNaS6A+3+KoL8cIzxkV/jCJt9NuOwkxEpyg2jwT6v/b92TfSYPvOgEwkaLMi1oBLezu17n9/fyYWUPZPSf+TMAF7mLpU=; s=default; c=relaxed/relaxed; d=seu.edu.cn; v=1;
+	bh=nvoZVV9gxYlV8gdYEFEmCBm8zHB/8MAJLgD2t4vMXMc=;
+	h=date:mime-version:subject:message-id:from;
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+ice_lbtest_prepare_rings() frees Rx rings only when
+ice_vsi_start_all_rx_rings() fails. If ice_vsi_setup_rx_rings() fails
+after allocating some descriptors, or if ice_vsi_cfg_lan() fails after
+the Rx rings were prepared, the function reaches the Tx cleanup path
+without releasing the initialized Rx resources.
 
-------------------
+Fix this by adding separate unwind paths for Rx setup failure and LAN
+configuration failure. The Rx setup failure path releases the partially
+prepared Rx rings before freeing Tx rings, while later failures first
+undo the LAN Tx configuration and then release the Rx rings in reverse
+setup order.
 
-From: Emmanuel Grumbach <emmanuel.grumbach@intel.com>
+The bug was first flagged by an experimental analysis tool we are
+developing for kernel memory-management bugs while analyzing
+v6.13-rc1. The tool is still under development and is not yet publicly
+available. Manual inspection confirms that the bug is still
+present in v7.1-rc7.
 
-commit 093305d801fae6ff9b8bb531fd78b579794c4f80 upstream.
+An x86_64 allyesconfig build showed no new warnings. As we do not have an
+Intel E800 Series adapter available to run the ethtool offline loopback
+selftest, no runtime testing was able to be performed.
 
-In most distributions, NetworkManager shuts the device down before
-entering system suspend, so fast suspend is typically not used.
-
-On older devices, resume currently tries to grab NIC access to infer
-whether the device was powered off while suspended. That probe is only
-meaningful for the fast-suspend path where the device is expected to
-remain alive.
-
-Unfortunately, for unclear reasons, grabbing NIC access was harmful as
-reported in the bugzilla ticket below.
-
-Workaround this issue by simply not grabbing NIC access if fast suspend
-is not used.
-
+Fixes: 0e674aeb0b77 ("ice: Add handler for ethtool selftest")
 Cc: stable@vger.kernel.org
-Closes: https://bugzilla.kernel.org/show_bug.cgi?id=221501
-Assisted-by: GitHub Copilot:gpt-5.3-codex
-Signed-off-by: Emmanuel Grumbach <emmanuel.grumbach@intel.com>
-Link: https://patch.msgid.link/20260531133005.e2ed9e0cd44f.If283625983a843933e0c01561a421daff184e9e9@changeid
-Signed-off-by: Miri Korenblit <miriam.rachel.korenblit@intel.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Dawei Feng <dawei.feng@seu.edu.cn>
 ---
- drivers/net/wireless/intel/iwlwifi/pcie/drv.c |   56 ++++++++++++++------------
- 1 file changed, 32 insertions(+), 24 deletions(-)
+Changes in v2:
+- Fix cleanup order
 
---- a/drivers/net/wireless/intel/iwlwifi/pcie/drv.c
-+++ b/drivers/net/wireless/intel/iwlwifi/pcie/drv.c
-@@ -1224,33 +1224,41 @@ static int _iwl_pci_resume(struct device
- 	if (!trans->op_mode)
- 		return 0;
+ drivers/net/ethernet/intel/ice/ice_ethtool.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/net/ethernet/intel/ice/ice_ethtool.c b/drivers/net/ethernet/intel/ice/ice_ethtool.c
+index f28416a707d7..10a4abc66974 100644
+--- a/drivers/net/ethernet/intel/ice/ice_ethtool.c
++++ b/drivers/net/ethernet/intel/ice/ice_ethtool.c
+@@ -1069,18 +1069,18 @@ static int ice_lbtest_prepare_rings(struct ice_vsi *vsi)
  
--	/*
--	 * Scratch value was altered, this means the device was powered off, we
--	 * need to reset it completely.
--	 * Note: MAC (bits 0:7) will be cleared upon suspend even with wowlan,
--	 * but not bits [15:8]. So if we have bits set in lower word, assume
--	 * the device is alive.
--	 * Alternatively, if the scratch value is 0xFFFFFFFF, then we no longer
--	 * have access to the device and consider it powered off.
--	 * For older devices, just try silently to grab the NIC.
--	 */
--	if (trans->mac_cfg->device_family >= IWL_DEVICE_FAMILY_BZ) {
--		u32 scratch = iwl_read32(trans, CSR_FUNC_SCRATCH);
--
--		if (!(scratch & CSR_FUNC_SCRATCH_POWER_OFF_MASK) ||
--		    scratch == ~0U)
--			device_was_powered_off = true;
--	} else {
-+	if (test_bit(STATUS_DEVICE_ENABLED, &trans->status)) {
- 		/*
--		 * bh are re-enabled by iwl_trans_pcie_release_nic_access,
--		 * so re-enable them if _iwl_trans_pcie_grab_nic_access fails.
-+		 * Scratch value was altered, this means the device was powered
-+		 * off, we need to reset it completely.
-+		 * Note: MAC (bits 0:7) will be cleared upon suspend even with
-+		 * wowlan, but not bits [15:8]. So if we have bits set in lower
-+		 * word, assume the device is alive.
-+		 * Alternatively, if the scratch value is 0xFFFFFFFF, then we
-+		 * no longer have access to the device and consider it powered
-+		 * off.
-+		 * For older devices, just try silently to grab the NIC.
- 		 */
--		local_bh_disable();
--		if (_iwl_trans_pcie_grab_nic_access(trans, true)) {
--			iwl_trans_pcie_release_nic_access(trans);
-+		if (trans->mac_cfg->device_family >= IWL_DEVICE_FAMILY_BZ) {
-+			u32 scratch = iwl_read32(trans, CSR_FUNC_SCRATCH);
-+
-+			if (!(scratch & CSR_FUNC_SCRATCH_POWER_OFF_MASK) ||
-+			    scratch == ~0U) {
-+				IWL_DEBUG_WOWLAN(trans,
-+						 "Scratch 0x%08x indicates device was powered off\n",
-+						 scratch);
-+				device_was_powered_off = true;
-+			}
- 		} else {
--			device_was_powered_off = true;
--			local_bh_enable();
-+			/*
-+			 * bh are re-enabled by iwl_trans_pcie_release_nic_access,
-+			 * so re-enable them if _iwl_trans_pcie_grab_nic_access
-+			 * fails.
-+			 */
-+			local_bh_disable();
-+			if (_iwl_trans_pcie_grab_nic_access(trans, true)) {
-+				iwl_trans_pcie_release_nic_access(trans);
-+			} else {
-+				device_was_powered_off = true;
-+				local_bh_enable();
-+			}
- 		}
- 	}
+ 	status = ice_vsi_cfg_lan(vsi);
+ 	if (status)
+-		goto err_setup_rx_ring;
++		goto err_cfg_lan;
  
-
-
+ 	status = ice_vsi_start_all_rx_rings(vsi);
+ 	if (status)
+-		goto err_start_rx_ring;
++		goto err_cfg_lan;
+ 
+ 	return 0;
+ 
+-err_start_rx_ring:
+-	ice_vsi_free_rx_rings(vsi);
+-err_setup_rx_ring:
++err_cfg_lan:
+ 	ice_vsi_stop_lan_tx_rings(vsi, ICE_NO_RESET, 0);
++err_setup_rx_ring:
++	ice_vsi_free_rx_rings(vsi);
+ err_setup_tx_ring:
+ 	ice_vsi_free_tx_rings(vsi);
+ 
+-- 
+2.34.1
