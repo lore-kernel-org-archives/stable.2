@@ -1,180 +1,182 @@
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011061.outbound.protection.outlook.com [52.101.70.61])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 522A5369234;
-	Tue, 16 Jun 2026 12:50:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.61
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781614201; cv=fail; b=p7ZH14iOd/jIsWeLpcQbDGPykPY6s+xKj0jzJmCMpusBZnnsOxEXFHLoLMIu3KBG3+Gd03NMUjyftpRJtktj/YrElKCDP6JKTGVxB7KQ+SEACfd8OO2Lpjaz/IfwY30y11dv0LHCga55ooQ4L7YJHvu6ycqUsr1p0StxpQg/H/Y=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781614201; c=relaxed/simple;
-	bh=bTwQNugrjDaGkIbXPzwnSQfZ431yF4tX8xt3x+x1ZkE=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:CC:References:
-	 In-Reply-To:Content-Type; b=VzPIf3+4a942Vlnq2A4dGOMog3qMeJVpKDwpfpS5lVQ9I8PNHKpnQ6P+Csl2ODOX1PEeUJu5B6tkn8ZY8GvZw+S6vMMfEKA1ottRcj35fR2PF6BaYqIRaKRRgKkuL/U6Suqw2aGLkIj+MS/QwRVMRDBpNKQneRYwvAf/Tu72/mk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=UjkwBFCH; arc=fail smtp.client-ip=52.101.70.61
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BC8630C35E;
+	Tue, 16 Jun 2026 13:00:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781614817; cv=none; b=UhGgKecPDr/4Yodi+/gA6FgQuh+cAiDBJxz/QWh+tqtrS8v8wTOuw5BmE9gkqA7xh/jNyHyagCLsGvpj/j9FNgmmGUWQjOQ6EucY9fXY6/q3D0mHPfU+QILgC9D22b6Iuz/6UDJxt3NHuwFRtUY4VAvamKqLO4objXB2Wi0xFK0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781614817; c=relaxed/simple;
+	bh=QIPSpPuxqJhBVBvEnQiQXN02mwjOkEjIXCrUR584cgc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BhDop2C8do568MJVjxx/JNI1n0gfrtY91kz5i/C62FmWmh5XWa8BVKkS9z2kn01JbXyPiyxcE+G58jG5R7l7zirWMHab/67NsybUUdqm0L+kk53yAvPlFDPwLZSm1+/MRSuJ3DaPTbWL6V8WFcIgCZMg3xrrt7bnXo9oF5/nh9o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=JE1tARRp; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="UjkwBFCH"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YwKEcAc7DCW2td/Wu9rpolhValdSztw59g9LinVe6jDq9PpLyF+f2P/RB8FWEHoClMLdpudcmTB7P6Vvz4B8lhO0s06X8KRCX5xGRJgu8u4fLmg3cLdy7i/zhyu9I4wNDDm+eJywkk/dFJLnvrI/3WBa1vSs4A/enqTDAiOd3eM0rhopgjzAE5Oq3aUJ00BEXULt5GW7klY9V+EXvtimXxjHszkvSIX1ko/YsTjWXqWBBteUQvEG1hO9FuR83RGIO/RcTVGZ7pUcCjh24Z5jAQi22PH8cGpZVOCrXIyr9ZJ+b6CCdM9fLdyI5Ggmauj2UAy383v7OHT5d8TCYrIZzA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ARtL5GpDZXCklftGcgPhCYMNfTRiey75pCZCu9BB028=;
- b=f1TGN7IC8FGqfvPAWeeavPyb3KSD26irCdSWt2iWg9yKWZMTkygw7Nw5F5G3bJvW1CoiFxGmLLUpIEK7VlyX8V6iUJ/BD/0OK4KhoV6wNNvdbdkwwIuQcBjnvFWYvK6kFqIDuH5B3ePeGK60pGPfeq+7mYt34TaB2W63iCtYTeRKbM8VZVBscvxQ7mPefMBQDzlxMUb/XQJE74qEr2NlrBnmeblF86rRrGSudmNqcwfqzworfO6SpZZJ42NYgh+Xg7DqytenGWjvTtrcnNaMAXSPeagyC6rZLlTWSgJ90fsx324hsx/o1xZWMnA7E/d/RfUEBtdNhuBHwiwhBJ6KTQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.59) smtp.rcpttodomain=gmail.com smtp.mailfrom=foss.st.com;
- dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ARtL5GpDZXCklftGcgPhCYMNfTRiey75pCZCu9BB028=;
- b=UjkwBFCHBLb8sOpvjFfmormSEHkMfaKrgoD6I17hiavCGsDwzsyZJ7Tdgfa/7ZLnppHf4eji5DVFAo8dN0WYuUvoPiW1HhlPVAWmhuUXbMMNh9JMcwr+H/On37vPIHtrgkRIGVIqa3tgXo3Vr2ipkc7eqxW8Nv6KXvd0LqJ/8OqlRGEhsIpbc4yXuEhR2ehDY2F9JKlsPJB7qxW7+o1bKl/dTbdB4gImq51a9Caa9Q1FNAWTRBFdH++GrHnTTEU6CF1gfBmz+ydUhJnZmaQSgA4mN93QwTwkSwjSsvJK9dM9iXni76aID06m/IrLKxx8DWlwfrcnLX1GWtRDMDctIg==
-Received: from DU7P250CA0023.EURP250.PROD.OUTLOOK.COM (2603:10a6:10:54f::11)
- by MI3PR10MB9922.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:290:74::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.16; Tue, 16 Jun
- 2026 12:49:55 +0000
-Received: from DB1PEPF000509FA.eurprd03.prod.outlook.com
- (2603:10a6:10:54f:cafe::82) by DU7P250CA0023.outlook.office365.com
- (2603:10a6:10:54f::11) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.113.18 via Frontend Transport; Tue,
- 16 Jun 2026 12:49:55 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.59)
- smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.59; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.59) by
- DB1PEPF000509FA.mail.protection.outlook.com (10.167.242.36) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.113.7 via Frontend Transport; Tue, 16 Jun 2026 12:49:55 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
- (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.35; Tue, 16 Jun
- 2026 14:54:09 +0200
-Received: from [10.130.78.67] (10.130.78.67) by STKDAG1NODE2.st.com
- (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.35; Tue, 16 Jun
- 2026 14:49:51 +0200
-Message-ID: <c9c20bce-a1bb-4932-bfa0-c87f7156ff82@foss.st.com>
-Date: Tue, 16 Jun 2026 14:49:54 +0200
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="JE1tARRp"
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65GAIRnt1245517;
+	Tue, 16 Jun 2026 13:00:04 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pp1; bh=o0OMGFCLWCHw+FRZ2MHpY20rhePg8t
+	0ws3AIq6+7GZA=; b=JE1tARRpi3QXUdtr68hIO5rLIJ7ZEqnjHbYTN0Z/2iJFgb
+	1RfRJ4Lxv4RYwLD04wrcSYsDYbTr90Q4C4lOQS4VWfHofzPMamBhBqobbHk6XEMB
+	TKuraP8KdJ9nkVZCf7ByKR+Sc4XbH9DXxh88xNfzDLSx7etyj69DvtlUiwWdMv/c
+	aSkSjSNvPUbqquTv47DE1bsd1UUqIBMXmsDqdB3e0XupMlJ+CZadcWQlyFqs3piK
+	3+6ctJMJPHVgx3Pd2sSd/nwlPnKLPG1fBN+/b2qGBq6cr/iy2XbWeCawUmOmtgl8
+	P6/27ApafysfkAKO2NJOfrLaZci6muqmsACHIIXw==
+Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4es23nnp1c-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 16 Jun 2026 13:00:04 +0000 (GMT)
+Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma13.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 65GCna6T015445;
+	Tue, 16 Jun 2026 13:00:03 GMT
+Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
+	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4eskrgb6je-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 16 Jun 2026 13:00:03 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com [10.20.54.100])
+	by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 65GCxxV961342028
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 16 Jun 2026 12:59:59 GMT
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 5872E20040;
+	Tue, 16 Jun 2026 12:59:59 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 8B0C520043;
+	Tue, 16 Jun 2026 12:59:56 +0000 (GMT)
+Received: from fedora (unknown [9.5.7.39])
+	by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Tue, 16 Jun 2026 12:59:56 +0000 (GMT)
+Date: Tue, 16 Jun 2026 18:29:56 +0530
+From: Amit Machhiwal <amachhiw@linux.ibm.com>
+To: Ritesh Harjani <ritesh.list@gmail.com>
+Cc: Amit Machhiwal <amachhiw@linux.ibm.com>, linuxppc-dev@lists.ozlabs.org,
+        Madhavan Srinivasan <maddy@linux.ibm.com>,
+        Vaibhav Jain <vaibhav@linux.ibm.com>,
+        Harsh Prateek Bora <harshpb@linux.ibm.com>,
+        Anushree Mathur <anushree.mathur@linux.ibm.com>,
+        Gautam Menghani <gautam@linux.ibm.com>,
+        Mukesh Kumar Chaurasiya <mkchauras@gmail.com>,
+        Nicholas Piggin <npiggin@gmail.com>,
+        Michael Ellerman <mpe@ellerman.id.au>,
+        "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+        Thomas Huth <thuth@redhat.com>, kvm@vger.kernel.org,
+        stable@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] KVM: PPC: Book3S HV: Validate arch_compat against
+ host compatibility mode
+Message-ID: <20260616182627.2ebf3cfc-3a-amachhiw@linux.ibm.com>
+Mail-Followup-To: Ritesh Harjani <ritesh.list@gmail.com>, 
+	linuxppc-dev@lists.ozlabs.org, Madhavan Srinivasan <maddy@linux.ibm.com>, 
+	Vaibhav Jain <vaibhav@linux.ibm.com>, Harsh Prateek Bora <harshpb@linux.ibm.com>, 
+	Anushree Mathur <anushree.mathur@linux.ibm.com>, Gautam Menghani <gautam@linux.ibm.com>, 
+	Mukesh Kumar Chaurasiya <mkchauras@gmail.com>, Nicholas Piggin <npiggin@gmail.com>, 
+	Michael Ellerman <mpe@ellerman.id.au>, "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
+	Thomas Huth <thuth@redhat.com>, kvm@vger.kernel.org, stable@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+References: <20260609053327.61563-1-amachhiw@linux.ibm.com>
+ <cxxqerzk.ritesh.list@gmail.com>
+ <20260616161011.835c90f0-38-amachhiw@linux.ibm.com>
+ <a4suelh6.ritesh.list@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Benjamin Mugnier <benjamin.mugnier@foss.st.com>
-Subject: Re: [PATCH v2] media: i2c: vd56g3: clean up subdev state on probe
- failure
-To: Myeonghun Pak <mhun512@gmail.com>, Sylvain Petinot
-	<sylvain.petinot@foss.st.com>, Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-CC: <linux-media@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<stable@vger.kernel.org>
-References: <20260424165238.31333-1-mhun512@gmail.com>
-Content-Language: fr
-In-Reply-To: <20260424165238.31333-1-mhun512@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
- (10.75.128.133)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DB1PEPF000509FA:EE_|MI3PR10MB9922:EE_
-X-MS-Office365-Filtering-Correlation-Id: d29e93a7-c982-4edd-bd43-08decba5c44e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|376014|36860700016|1800799024|23010399003|56012099006|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	RMuIDFrbNpBBuY0GfpVAiFOTd0GJt7S5T0EDWyJppdrHZEK+PPiK4ZQ49uxczW2FKMy6QAfmf6lF1n4Ut1gQhODsHQrBv1B3cGM1ezNW6daV/zRvSlDS7kj7wtdmcdorh/n5g5F/AlQypVGDi0aBc9HWankgLxP5PLjrshsC+flh81x7OPAW2XnmM8PBlhV5e9lYT2iisNx6EUdjck8ccIGAjl2pdrGiD3dqDE+NMTAOktI+Zb3GJURz/Tt4sEQbF0wqt8rcWhwRUiZV04Pw23aWAET4ptj/lY27xD2sr0sgdmsVp2XOo0unMHcOuJIv4njdno+GpXNM24G2lCriY3JjvbxIlb43tS8bbke08U3u6ZIhMRMP3ctUjUWoNBEL49dweNRIoDHPkIEpOABVRKqqtpR3ZbdLY+6H+doW5BBlMMnhzGm1YELE3WEs6lQrR2GzRzjJLiJM/WqAW5zRR4WInebTVu1qM49Mqry0Xejc4mdiZfE2KOROeko0/gCaKjSuAN+EBuD9sFT+C9mrQI7cPdhkiof1EKKCmIvg1nwaX9YEQHNTCsFcuiB97biAHjRJjpVi2hYdNbslEib78i8N7biybYzlXnEd/CbSkIM3GyI13HDLfl1kG0kc2TG8rbk9548AhVJcWGU+upIGZUJr55Z47pD7ayOdYb/GNA7b1Q4qazuySVOvuk78uORvlHx+wA8Q0gLJhQSMOMLFffEYK6CMgNCAXp6EYF5Xnug=
-X-Forefront-Antispam-Report:
-	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(376014)(36860700016)(1800799024)(23010399003)(56012099006)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	zZk0RT6Ksol+ruMo3fb+5wz3iYomibOPikqoCisMaA1FI7Ncpi6ioXfFdjrTAtkddUGvy2CRNIcrm/vZ94zWStIK4JDKyBP9GHCMspqW1x4qWNAa2omvL81oV5huHQUsvyX4lBQdUSiF+Cvgs57dAUKE2CQ33Ew83dUKpYlo+zU2wO2Oz0bOW3UuumrTsJDlUS9EK/s+9LlQOTGPeAWFrP05cHP+uFKMu9eH4ACC8ulZxWg0zpXgAND97NA3+T2lcCzjZBUUpXh3enF8mMWZAFmF7Ac97qowD+QdwMChJrmN5xOEz60B0Km3dFHCI92EbULrFI70tEtOJ7V6sh6DcqAXllXXnrQL2n98b81es60te5JLYL2DCI+VR2ibRuxwp4z6W4Cl5AdEz0TOGYPLhYkDroFpiTeO3hzQYeIxBYB7eNXKfQVLz5+/WGfo4RA5
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jun 2026 12:49:55.5539
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d29e93a7-c982-4edd-bd43-08decba5c44e
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.59];Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DB1PEPF000509FA.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MI3PR10MB9922
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <a4suelh6.ritesh.list@gmail.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Authority-Analysis: v=2.4 cv=XtnK/1F9 c=1 sm=1 tr=0 ts=6a3148d4 cx=c_pps
+ a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
+ a=kj9zAlcOel0A:10 a=FelO9ux0wxsA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=VnNF1IyMAAAA:8
+ a=uf8v2oCiG3VMOCt4Q-kA:9 a=CjuIK1q_8ugA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE2MDEzMCBTYWx0ZWRfX91vnwEwCtJy9
+ 4IDmOLTbE+y8DUPjvS36//3OY99p6DXjdNMpj71GkbEJSLhWpyfBZaqBzTFk6448A5YRj12ezWB
+ R8yvr3Dg7VRm7IDBnV1rTJmt7D17ZSwnVN9oZVqalalgGnWmbwHBdabdX5L3h6zOIi34xhQndgm
+ 7R2LuqFmfLXWrrJay8AIY5eIOSzLbjrLebtTxSoKhkYeLicqQx5+hmiSyRTb2AFzWQgnZ7Ldi+n
+ mEMXSL4w9vaNGHex7I/bv3fW4gHsURorq3xJDdWsx+FWnJn5WcsGqe5RO2C2zrqNMBtSfJz1SST
+ Z8siC37jLCD9+JYFlDHU9/deo/9Gi80mvP8jPRkxo/ErTZVy0uSdxBbBnNXoj9qhRLy4LpraX08
+ U/JzZRWY/PeD76SK2y5zSK/MB4vgBruQVitnI73vikp0rjlBl2qiCJXobgjg1Qj4JdX6g8b2Iqe
+ 53NCo8DqgnakOeNfDww==
+X-Proofpoint-GUID: ML1oG-XSeM0TZNSTn72s47CE2A65pTRU
+X-Proofpoint-ORIG-GUID: Dn8v-j0Ix4nd1NZLCwUYhSMQ33CJcsZf
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE2MDEzMCBTYWx0ZWRfXzL3sb6EhLhtl
+ NyeV+ZS55PCR5V300919uyvbwEaBO43taHIPEmcNfN+Kl6C5ooxFrXvseH2sT3kidUJ71qvmxsK
+ 3ixNM0siM3sUr6UKjiM50esUg5ICdhM=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-16_03,2026-06-15_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 adultscore=0 phishscore=0 lowpriorityscore=0 priorityscore=1501
+ suspectscore=0 clxscore=1015 malwarescore=0 spamscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606040000 definitions=main-2606160130
 
-Hi,
-
-Thank you for your patch, and apologies for the delay.
-
-Le 24/04/2026 à 18:52, Myeonghun Pak a écrit :
-> vd56g3_subdev_init() calls v4l2_subdev_init_finalize(), which allocates
-> the subdev active state and requires v4l2_subdev_cleanup() to release it.
+On 2026/06/16 05:38 PM, Ritesh Harjani wrote:
+> Amit Machhiwal <amachhiw@linux.ibm.com> writes:
 > 
-> If vd56g3_update_controls() fails after finalize succeeds, the probe error
-> path currently skips v4l2_subdev_cleanup() and returns an error. The driver
-> .remove() callback is not called after a failed probe, so the active state
-> is leaked.
+> >> > diff --git a/arch/powerpc/include/asm/reg.h b/arch/powerpc/include/asm/reg.h
+> >> > index 3449dd2b577d..7472b9522f71 100644
+> >> > --- a/arch/powerpc/include/asm/reg.h
+> >> > +++ b/arch/powerpc/include/asm/reg.h
+> >> > @@ -1356,6 +1356,7 @@
+> >> >  #define PVR_ARCH_300	0x0f000005
+> >> >  #define PVR_ARCH_31	0x0f000006
+> >> >  #define PVR_ARCH_31_P11	0x0f000007
+> >> > +#define PVR_ARCH_INVALID	0xffffffff
+> >> 
+> >> Logical processor version is defined as part of the PAPR spec. We should
+> >> ensure that this invalid PVR is also documented in the PAPR spec.
+> >> 
+> >> If you have already taken care of that, then please confirm and feel free to add:
+> >
+> > Regarding the PAPR specification documentation: The PAPR spec documents
+> > the valid Processor Version Register (PVR) values for each processor
+> > generation (POWER8, POWER9, POWER10, POWER11, etc.). However, the
+> > PVR_ARCH_INVALID value (0xffffffff) introduced in this patch series is a
+> > KVM implementation detail used internally to mark invalid compatibility
+> > mode requests - it's not an architectural value that would be defined in
+> > PAPR itself.
+> >
+> > The validation logic and the use of PVR_ARCH_INVALID as a sentinel value
+> > are documented in the kernel code and commit message.
+> >
 > 
-> Route this error through a subdev cleanup label before freeing the control
-> handler and media entity.
+> But that still worries me on what if PAPR wants to re-use this value for
+> some other purpose in future. 
+
+This is a valid concern about potential future conflicts with PAPR.
+However, I'd like to point out that PAPR explicitly specifies:
+
+  "The first byte of the logical processor version value shall be 0x0F."
+
+Since PVR_ARCH_INVALID (0xffffffff) has a first byte of 0xFF, it's
+explicitly outside the valid PAPR-defined range for logical PVR values.
+This means there shouldn't be any risk of future conflict with PAPR
+specifications.
+
+Please let me know what you think about this?
+
+Thanks,
+Amit
+
 > 
-> Fixes: 87aa97fc3157 ("media: i2c: Add driver for ST VD56G3 camera sensor")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
-> ---
-> Changes in v2:
-> - Use a lowercase subject summary.
-
-Please keep the first character uppercase, just like other commits on
-this module.
-
+> BTW, thinking more about it, if we purely want this to be in kernel only,
+> can we instead add, something like:
 > 
->  drivers/media/i2c/vd56g3.c | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
+>      bool kpvr_compat;   /* Does kernel supports this PVR */
 > 
-> diff --git a/drivers/media/i2c/vd56g3.c b/drivers/media/i2c/vd56g3.c
-> index 157acea9e2..43f792288a 100644
-> --- a/drivers/media/i2c/vd56g3.c
-> +++ b/drivers/media/i2c/vd56g3.c
-> @@ -1427,11 +1427,14 @@ static int vd56g3_subdev_init(struct vd56g3 *sensor)
->  	v4l2_subdev_unlock_state(state);
->  	if (ret) {
->  		dev_err(sensor->dev, "Controls update failed: %d\n", ret);
-> -		goto err_ctrls;
-> +		goto err_subdev;
->  	}
->  
->  	return 0;
->  
-> +err_subdev:
-> +	v4l2_subdev_cleanup(&sensor->sd);
-
-v4l2_subdev_cleanup() is already performed in the caller (i.e.
-vd56g3_probe()), but as you noticed it is not called from this path. I'd
-rather have the return value route correctly through
-v4l2_subdev_cleanup() in  vd56g3_probe(), allowing to keep a unique call
-to v4l2_subdev_cleanup() instead.
-
-This patch looks like is LLM generated and sparks my curiosity. If so
-you must disclaim it using an Assisted-by tag [1]. Sorry if I’m mistaken.
-
-[1] https://docs.kernel.org/process/coding-assistants.html
-
-> +
->  err_ctrls:
->  	v4l2_ctrl_handler_free(sensor->sd.ctrl_handler);
->  
-
--- 
-Regards,
-Benjamin
-
+> rather than re-using & overloading arch_compat which has values that
+> comes from PAPR spec?
+> 
+> Thoughts?
+> 
+> -ritesh
