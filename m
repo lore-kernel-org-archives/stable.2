@@ -1,68 +1,134 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05EBA3D47AC
-	for <stable@vger.kernel.org>; Tue, 16 Jun 2026 05:38:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33BC93D5250;
+	Tue, 16 Jun 2026 05:39:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781588292; cv=none; b=Cc4e33uRMNqsg46rhJQPHfSZFZV08Q/K9pXIX5VSULFUh6nYvtvm4VwY3my16mGaMMeBAn1+Igs2e0UX4OSHVBHU21V6My0BJ+ub2GFjrcNC2b9I/6bZIBj18TsYnDs9UIorDEtCvPgI41aCNEI2VXeX/y3GKma1f7ldIze5S1k=
+	t=1781588360; cv=none; b=QtqF+7TPWq/CJqspGCoQN/ge8u0U8P89LcRlRobKzhdDQYb/t85/AJ8r/c30zS4RcuLJUIEY0DAHtiORlRXSIKF7ACCUyO5lG7sXvw5YpKTuB5TssVBRrZ7u96fhiCo76AJY6tmEsLbm8RwOrE1bRLXYmwjUVrLYzk8Ye7x7Hes=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781588292; c=relaxed/simple;
-	bh=XdS9IaH7eTSyUsehCTvsvI9k1zpbayLDDI9X3rBkMw0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CBQdG3AU3dzbFzhZC+/0h57k3zRocETkHyxRdzIbgO/HeGvFmmhbofOA9rhKFmSEZyGIr7tUuXc/BbTgwYt1GsQA6k/cw1CpViC9Tp3juT5kgwmmPYYW4h3EieneRJX8DPKsSGT9Y6A3f3Bj5m8RfZyMPP/Z9qt8543xCKfu08c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=E3CC8gBF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781588360; c=relaxed/simple;
+	bh=RrnAbk0HxpxtNPih57q6UzOQi/xIk22Mh82f9ozERM8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=HTL2X7lGI0d/ywLq1MaKMcUxe4V2A88/E0P1hjlEPvrP6kT0mNWDekYYLHN1B/LFXI9HueYNJCoyJRXdAgtuGlG3vueNV/OS6aK4xQY6iHhndW+odMlHSVURlltKPg0g8FpXikim68n+XwFID64n8FJwyKrdS4VwSnEWE3R3z9o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GKSXcyvu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="E3CC8gBF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E464D1F00A3E;
-	Tue, 16 Jun 2026 05:38:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1781588290;
-	bh=AEHZ/Qo/k60qpbZVbObGCFlQC7AjJAHcRqRaYGJR2yA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=E3CC8gBFkNYtROQnGXrq33d5frRo29xdG7M0KieHfRd8RBRVmp4tesxSHt89h0Udi
-	 uOhwIh/bIoWoCQhEXNGx1cU20miEr4c/LEpO+Xk0HGOqAU6T71pTCB+UTo0YxStBiH
-	 6fx5kfOO6lZZY9h/CZUELfkU0w2gvKu4+r3bj5FU=
-Date: Tue, 16 Jun 2026 10:57:20 +0530
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Jens Axboe <axboe@kernel.dk>
-Cc: ylong030@ucr.edu, asml.silence@gmail.com, bird@lzu.edu.cn,
-	n05ec@lzu.edu.cn, tomapufckgml@gmail.com, yifanwucs@gmail.com,
-	yuantan098@gmail.com, zcliangcn@gmail.com, stable@vger.kernel.org
-Subject: Re: FAILED: patch "[PATCH] io_uring/poll: fix signed comparison in"
- failed to apply to 5.15-stable tree
-Message-ID: <2026061613-purplish-macarena-b8f0@gregkh>
-References: <2026050147-vitality-crayfish-d8e1@gregkh>
- <c5c51528-5bbd-48d7-860f-e45f5bc42649@kernel.dk>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GKSXcyvu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F1531F000E9;
+	Tue, 16 Jun 2026 05:39:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781588355;
+	bh=kIf5jcPlK/FXHU7GwogCMydsg42yt/iPtkSvM9+H/BI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=GKSXcyvu+LE0qsL3QnTaDAzncwwZ2m/nhhOxeeWeAHbTB09uQJdFvQAcV+N3GHVzb
+	 w1xgQ5db/ZypQkGjNdN7fBbPx9XYQk94GAkqYzMnQwwI4+c+aRU5HajeoEK+sw4kkO
+	 RPxkRCiuEXTQW3R3TrrGeR13z0acza4vW/gQNlREHTLmQ6qZvChizlgIlgUHo57taX
+	 UaMSPQFRRgN6RA8blnyzfMjaPFJIRSXMGmc0wnSFiYEOKONxLOzGMxdoUdPlqA2rfQ
+	 JDubYHAoFeo8f9LO1Enso7Z9rKs6kRQ+PonNCZkqf0iFm6kN0j2X7Xn68LxnOSRI1b
+	 JcbvFugQ59tXg==
+Message-ID: <56dfa6bf-1eb0-4e27-974b-03f963c5eed1@kernel.org>
+Date: Tue, 16 Jun 2026 07:39:10 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <c5c51528-5bbd-48d7-860f-e45f5bc42649@kernel.dk>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] powerpc/dt_cpu_ftrs: Set CPU_FTR_P11_PVR for Power11 and
+ later processors
+To: Amit Machhiwal <amachhiw@linux.ibm.com>, linuxppc-dev@lists.ozlabs.org,
+ Madhavan Srinivasan <maddy@linux.ibm.com>
+Cc: Vaibhav Jain <vaibhav@linux.ibm.com>,
+ Harsh Prateek Bora <harshpb@linux.ibm.com>,
+ Ritesh Harjani <ritesh.list@gmail.com>,
+ Anushree Mathur <anushree.mathur@linux.ibm.com>,
+ Gautam Menghani <gautam@linux.ibm.com>, Nicholas Piggin <npiggin@gmail.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, stable@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260614173437.26352-1-amachhiw@linux.ibm.com>
+Content-Language: fr-FR
+From: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
+In-Reply-To: <20260614173437.26352-1-amachhiw@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Fri, May 01, 2026 at 08:50:20PM -0600, Jens Axboe wrote:
-> On 5/1/26 5:08 AM, gregkh@linuxfoundation.org wrote:
-> > 
-> > The patch below does not apply to the 5.15-stable tree.
-> > If someone wants it applied there, or to any other stable or longterm
-> > tree, then please email the backport, including the original git commit
-> > id to <stable@vger.kernel.org>.
-> > 
-> > To reproduce the conflict and resubmit, you may use the following commands:
-> > 
-> > git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
-> > git checkout FETCH_HEAD
-> > git cherry-pick -x 326941b22806cbf2df1fbfe902b7908b368cce42
-> > # <resolve conflicts, build, test, etc.>
-> > git commit -s
-> > git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026050147-vitality-crayfish-d8e1@gregkh' --subject-prefix 'PATCH 5.15.y' HEAD^..
+
+
+Le 14/06/2026 à 19:34, Amit Machhiwal a écrit :
+> When using device tree CPU features (dt-cpu-ftrs), the kernel bypasses
+> the traditional cputable-based CPU identification and instead derives
+> CPU features from the device tree's "ibm,powerpc-cpu-features" node
+> provided by firmware.
 > 
-> Here's a version of that for 5.15 AND 5.10-stable, please apply for both.
+> However, CPU_FTR_P11_PVR is a kernel-internal feature flag used to
+> identify Power11 and later processors, and is not represented in the
+> device tree's ISA feature set. While ISA v3.1 support (indicated by
+> CPU_FTR_ARCH_31) is present on both Power10 and Power11, the
+> CPU_FTR_P11_PVR flag is specifically needed by code that must
+> distinguish between Power10 and Power11 processors.
+> 
+> Without this flag set, code that checks for Power11 using
+> cpu_has_feature(CPU_FTR_P11_PVR) will incorrectly return false on
+> Power11+ systems using dt-cpu-ftrs, leading to incorrect behavior.
+> 
+> This issue manifests specifically in powernv environments (bare-metal
+> or QEMU TCG with powernv machine type), where skiboot/OPAL firmware
+> provides the "ibm,powerpc-cpu-features" node, causing the kernel to
+> use dt-cpu-ftrs. The issue does not affect pseries guests, where SLOF
+> firmware does not provide this node, causing the kernel to fall back
+> to the traditional cputable path (identify_cpu) which correctly sets
+> CPU_FTR_P11_PVR during PVR-based CPU identification.
+> 
+> In powernv TCG guests, the missing flag causes KVM code to trigger
+> warnings when attempting to create KVM guests, as cpu_features shows
+> 0x000c00eb8f4fb187 (missing bit 53) instead of the correct
+> 0x002c00eb8f4fb187 (with bit 53 set).
+> 
+> Fix this by setting CPU_FTR_P11_PVR for all processors with
+> PVR >= PVR_POWER11 when ISA v3.1 support is detected in
+> cpufeatures_setup_start(). This approach ensures forward
+> compatibility with future processor generations.
+> 
+> Fixes: 96e266e3bcd6 ("KVM: PPC: Book3S HV: Add Power11 capability support for Nested PAPR guests")
+> Cc: stable@vger.kernel.org # v6.13+
+> Signed-off-by: Amit Machhiwal <amachhiw@linux.ibm.com>
+> ---
+> Related: https://lore.kernel.org/all/20260609053327.61563-1-amachhiw@linux.ibm.com/
+> ---
+> 
+>   arch/powerpc/kernel/dt_cpu_ftrs.c | 9 +++++++++
+>   1 file changed, 9 insertions(+)
+> 
+> diff --git a/arch/powerpc/kernel/dt_cpu_ftrs.c b/arch/powerpc/kernel/dt_cpu_ftrs.c
+> index 3af6c06af02f..e5853daa6a48 100644
+> --- a/arch/powerpc/kernel/dt_cpu_ftrs.c
+> +++ b/arch/powerpc/kernel/dt_cpu_ftrs.c
+> @@ -704,6 +704,15 @@ static void __init cpufeatures_setup_start(u32 isa)
+>   	if (isa >= ISA_V3_1) {
+>   		cur_cpu_spec->cpu_features |= CPU_FTR_ARCH_31;
+>   		cur_cpu_spec->cpu_user_features2 |= PPC_FEATURE2_ARCH_3_1;
+> +
+> +		/*
+> +		 * CPU_FTR_P11_PVR is a kernel-internal flag to identify
+> +		 * Power11 and later processors. While ISA v3.1 is supported
+> +		 * by Power10+, this flag specifically indicates Power11+
+> +		 * for code that needs to distinguish between P10 and P11.
+> +		 */
+> +		if (PVR_VER(mfspr(SPRN_PVR)) >= PVR_POWER11)
 
-Now applied, thanks.
+Are we sure this test will always be correct ?
 
-greg k-h
+For instance PVR_PA6T is higher than PVR_POWER11 allthough it is not ISA 3.1
+
+Wouldn't is be cleaner and safer to just do:
+
+	PVR_VER(mfspr(SPRN_PVR)) == PVR_POWER11
+
+> +			cur_cpu_spec->cpu_features |= CPU_FTR_P11_PVR;
+>   	}
+>   }
+>   
+> 
+> base-commit: 424280953322cf66314f3ba5e2d1ef345f21c770
+
