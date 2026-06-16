@@ -1,115 +1,114 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-05.mail-europe.com (mail-05.mail-europe.com [85.9.206.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81F8F30F94B;
-	Tue, 16 Jun 2026 08:16:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5D9C3655F4;
+	Tue, 16 Jun 2026 08:16:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=85.9.206.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781597773; cv=none; b=Qwc9iqQKorQxAEwCGxTVVh4LImvA7c3wBIUgToc2BQ4rd8sJ4l9iwR6OLY+dXL1niJSYn+LbEd1wUhRP6k9XfZt8hDr1V8/NDmzUMGb8gh+D6DMiygxJQ/aC61o9t+7CQKIHLGadOMYuEQ033880uIAG00WUgttn5jrxI1l6xck=
+	t=1781597819; cv=none; b=r0/xb2sRCDjPDwQ3XCZZ1F8L2c+/Zm+ewoABW4Mqn2KK3u6dVNPOZJUMOiS871T+Px4eO6V5HlOuRaPuvAJHLcKWeMNRGmMfHb63UaZEfSqgZjBegJXR86JpodXiezBbuebfj6EFpJNksKl/ccxoYC8Kk6YwV6jKKEbvU43QOJE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781597773; c=relaxed/simple;
-	bh=i3Ys6nMGrYoaAZKUHMu2371/Hhb+1MgT45qrMlOz1Ew=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=bQXJZG8MYLDzlY85inoeyX26SlktiG3tr1lhIOWFkRaWzWRD4N/+Wvm0VD5OkTMfQ7ukfHXZ0FXZqpguAn7vodr/07tTMcKzs1Tt6gapbj+RjEXfgUoNmi22AoxUUuEiBDLBUk41gtrEElfA63iNfUisP4g8/pSPqpAzZRC0sA8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RSMDCDw5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781597819; c=relaxed/simple;
+	bh=qF4lbq48coGeLxO66I1Vw1XLaBAmpIRnv7yjWcLCKmM=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=nWTOGG8SWoDjMT+Q1KwzRl6NGDE3JOYc2ZHmO/VRkK+/AWFffrX23yvFieUS0rODMcREaLjGcwjtbwvjtm8z48YK8vjlJ0FpFZe6V02nWghqq59cH/JrAogH+K5i425oomxDnX/nMubmPilf99PlloYt9Sq+RCuOVj2aSqiwAks=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=aefJsPGo; arc=none smtp.client-ip=85.9.206.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RSMDCDw5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6AE71F000E9;
-	Tue, 16 Jun 2026 08:16:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781597772;
-	bh=KYszhK6WxOVPWQUbaHbnDx1n+yjag9Hv6cthNWEQF+0=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=RSMDCDw51+nLSofJBh02sdNbMVceO0cma1wN64jWmVAWTZULW2R3tYlmeQ1ZcxDY2
-	 MoW+axlsz5dL16v8oeezk2XDRiwwWXDct+8HBDTVreYhP42LWXkEEO0ewVtpk8xhsz
-	 5qj/tKR5hxlICXVGGooZZMeAB6/WfZ3JnkbzqycvfZqULcJreSon8ys8qGqSkyZU8C
-	 wIMRSzvtqFXKi0E6bJfaQE9eu50vt8jN4YaQe7Rtn2lmaawRpqo7+/PXz8CUMLWEaH
-	 ObVLa7PCJ123b5i6BN0sJxc+5xBNqJQkIcyya0Ox/8fOWxykP2+zrFACa38wlb4j3A
-	 JINTWWSXxukTQ==
-Date: Tue, 16 Jun 2026 17:16:09 +0900
-From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-To: Kunihiko Hayashi <hayashi.kunihiko@socionext.com>
-Cc: Mark Brown <broonie@kernel.org>, linux-spi@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, Sangyun
- Kim <sangyun.kim@snu.ac.kr>, Kyungwook Boo <bookyungwook@gmail.com>,
- stable@vger.kernel.org, Masami Hiramatsu <mhiramat@kernel.org>
-Subject: Re: [PATCH v2] spi: uniphier: Fix completion initialization order
- before devm_request_irq()
-Message-Id: <20260616171609.358d9d8c39ff7a59cd1559fc@kernel.org>
-In-Reply-To: <20260616011223.201357-1-hayashi.kunihiko@socionext.com>
-References: <20260616011223.201357-1-hayashi.kunihiko@socionext.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="aefJsPGo"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail; t=1781597804; x=1781857004;
+	bh=58Uh4BmTYBSHk+XlpcizYHlof13uI2OQMFFLUYMY02s=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=aefJsPGosdUrk/8b7SEsNnsTkFYymeQaGMz+PV28zYbZIDZg5oTRiMR02FkH72b1t
+	 4pffG42Fjr3jllCENEw0nRZpzrCrdLYGTTgD4jkIY/y9vch7UXevcMTZXdQxgD/ySv
+	 yEXrY1fSz4AJl/JQ8jgK3e5Tk3+zwtBmwt8d41mmkkaLg9LjHynjlTS8nwQmpuzpyT
+	 rg4tXby+nBjkwfPVvx3hfJpMIWgXKBOSdyrK/9iOpnoNFrC746vEAYwUhfVE5Qq5bW
+	 xdjfuC77leAMOmIvQBTTGdJqKFTA5zgrdksPxrZjkq51qOtGxXVPS2/mZuFNR8y3Nu
+	 TLcjWQ3+x3dsw==
+Date: Tue, 16 Jun 2026 08:16:39 +0000
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+From: Bryam Vargas <hexlabsecurity@proton.me>
+Cc: Dan Carpenter <error27@gmail.com>, Mark Greer <mgreer@animalcreek.com>, Vaibhav Agarwal <vaibhav.sr@gmail.com>, Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, linux-kernel@vger.kernel.org, linux-staging@lists.linux.dev, greybus-dev@lists.linaro.org, stable@vger.kernel.org
+Subject: Re: [PATCH] greybus: audio: bound the topology section sizes against the fetched size
+Message-ID: <20260616081635.169787-1-hexlabsecurity@proton.me>
+In-Reply-To: <2026061643-crowbar-handgrip-620d@gregkh>
+References: <20260616-b4-disp-4352e8b0-v1-1-3e09f62e0ad5@proton.me> <2026061643-crowbar-handgrip-620d@gregkh>
+Feedback-ID: 199661219:user:proton
+X-Pm-Message-ID: 084c8e8cd8c7820c2ed1ef584462455b8b1e9988
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, 16 Jun 2026 10:12:23 +0900
-Kunihiko Hayashi <hayashi.kunihiko@socionext.com> wrote:
+Hi Greg, and thanks Dan,
 
-> The driver calls devm_request_irq() before initializing the completion
-> used by the interrupt handler. Because the interrupt may occur immediately
-> after devm_request_irq(), the handler may execute before init_completion().
-> 
-> This may result in calling complete() on an uninitialized completion,
-> causing undefined behavior. This has been observed with KASAN.
-> 
-> Fix this by initializing the completion before registering the IRQ.
-> 
-> Reported-by: Sangyun Kim <sangyun.kim@snu.ac.kr>
-> Reported-by: Kyungwook Boo <bookyungwook@gmail.com>
-> Fixes: 5ba155a4d4cc ("spi: add SPI controller driver for UniPhier SoC")
-> Cc: stable@vger.kernel.org
-> Cc: Masami Hiramatsu <mhiramat@kernel.org>
-> Signed-off-by: Kunihiko Hayashi <hayashi.kunihiko@socionext.com>
+>> Are you sure these checks will not overflow?
+> Yep.  The cast to u64 ensures that.
 
-Looks good to me.
+Right, and to close the other side of the comparison too: `size` is a u16 a=
+nd
+the function already does `if (size < sizeof(*topo)) return -ENODATA;` abov=
+e
+this point, so `size - sizeof(*topo)` cannot underflow either. The left sid=
+e is
+the (u64) sum of four u32s (max ~2^34), so neither side wraps. The form
+`sizeof(*topo) + sum > size` is exactly equivalent if it reads more clearly=
+.
 
-Reviewed-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+> But we trust the hardware to send us proper data, right?  If we don't tru=
+st
+> modules, then there are lots of other places stuff like this needs to be
+> fixed, how many data paths did you audit?
 
+I audited the four size_* fields that gbaudio_tplg_parse_data() turns into
+section offsets -- those are the only module-supplied values that feed dire=
+ctly
+into unchecked pointer arithmetic (control/widget/route_offset are dai_offs=
+et
+plus those le32s, then dereferenced as structs). I am not claiming a broade=
+r
+greybus or topology-parser audit; that is welcome but separate.
 
-> ---
-> Changes in v2:
-> - Rebase onto latest, no functional changes
+It is less "modules are malicious" than "a malformed or buggy module respon=
+se
+should not walk the parser off a slab object" -- the same
+untrusted-length-to-offset shape already hardened for USB/HID/BT descriptor=
+s.
+If you would rather treat module data as trusted and drop the stable tag, t=
+hat
+is your call; I would keep the bound regardless, since it is one branch and=
+ the
+offsets are otherwise completely unchecked.
 
-BTW, please clarify the actual branch name instead of "latest".
+> How did you find/fix this?  You need to list what tools helped you...
+
+I do not have real greybus audio hardware, so I simulated the module side a=
+nd
+drove the negative case directly: a topology whose fetched `size` is small =
+but
+whose size_* fields are large -- exactly the invariant this patch enforces.
+With that I reproduced the read two ways:
+
+  - in-kernel under KASAN (7.1.0-rc5): slab-out-of-bounds 4 bytes past a
+    kmalloc-64 object; the patched arm (-EINVAL) and an in-bounds arm are c=
+lean;
+  - a userspace AddressSanitizer model of the process_header() offset walk,
+    both -m32 and -m64.
+
+Tools: a static read of the audio_gb.c -> audio_topology.c data flow, a lit=
+mus
+greybus module under KASAN in a VM, and the userspace ASan harness. The
+verifiable artifact is the KASAN splat (trimmed under the --- in the origin=
+al
+posting; full log on request).
 
 Thanks,
+Bryam
 
-> 
-> drivers/spi/spi-uniphier.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/spi/spi-uniphier.c b/drivers/spi/spi-uniphier.c
-> index cc20fd11f03f..86fce9a571da 100644
-> --- a/drivers/spi/spi-uniphier.c
-> +++ b/drivers/spi/spi-uniphier.c
-> @@ -656,6 +656,8 @@ static int uniphier_spi_probe(struct platform_device *pdev)
->  	priv->host = host;
->  	priv->is_save_param = false;
->  
-> +	init_completion(&priv->xfer_done);
-> +
->  	priv->base = devm_platform_get_and_ioremap_resource(pdev, 0, &res);
->  	if (IS_ERR(priv->base))
->  		return PTR_ERR(priv->base);
-> @@ -679,8 +681,6 @@ static int uniphier_spi_probe(struct platform_device *pdev)
->  		return ret;
->  	}
->  
-> -	init_completion(&priv->xfer_done);
-> -
->  	clk_rate = clk_get_rate(priv->clk);
->  
->  	host->max_speed_hz = DIV_ROUND_UP(clk_rate, SSI_MIN_CLK_DIVIDER);
-> -- 
-> 2.34.1
-> 
-
-
--- 
-Masami Hiramatsu (Google) <mhiramat@kernel.org>
