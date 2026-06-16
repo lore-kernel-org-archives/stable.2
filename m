@@ -1,116 +1,166 @@
-Received: from fout-b6-smtp.messagingengine.com (fout-b6-smtp.messagingengine.com [202.12.124.149])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BC503CD8A8
-	for <stable@vger.kernel.org>; Tue, 16 Jun 2026 05:06:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.149
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E9763CE48E
+	for <stable@vger.kernel.org>; Tue, 16 Jun 2026 05:12:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781586413; cv=none; b=Y7gllX5U/6APl48znJjm7WQ4/vDz0W6BFka6JrinIz4eivyqfmSIhsMn6A8gbThEDPpzOrhfk+fNQXlTiD0BfQlGzrp+kSTOR86+xXPd3R0haz06tWhcVDjtGgcANuV03IVcJ3mbnCmRsjLNMbQ63ef5NDx0uca0B/VJIkDBxuk=
+	t=1781586762; cv=none; b=DJAdOJ03CHQwq0KCEdqMOruETbISubRTyliT8US+GXOGTj1zdTarWB70IQXJpo6Cvx2xhzFWMwQZDCUIbIaSp7q3ug3I6Bhh6H5YqDo/c4AfCfdVzKhxrU17bIEop20bjDD9KKBUk0NSfQMGBqKuEpsTuUTqVnxa76Bl8ox+TWQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781586413; c=relaxed/simple;
-	bh=GqYOMS0tQ/zUf2ktF51zEA9/nsonMHVzRp3KK8Tnxvw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=S6nlY46M+gSS1GtkVTL6toVL2CBrM2wdAG6wrnsglacSqrIDrLRdGkyvjG3SKxUdWS+0RsbzJq2aAZ7QphehJv5zWOpwHIBEJynf2D6DYmQFvojkboasn3dlX03QPQDEp7sxBOBQUATRQZLT7DNS9gsf2xT324r2jaCmBIa9ghI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com; spf=pass smtp.mailfrom=kroah.com; dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b=PQ1dbdnm; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=G+xbG0bZ; arc=none smtp.client-ip=202.12.124.149
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
+	s=arc-20240116; t=1781586762; c=relaxed/simple;
+	bh=rANNsDQV7Y9xPKYr2MaoP+P4LqSIH4cyrTDkqqhOOEg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lrgT5n+4Y3iQpnx9Ao437Y6YJehV1fKTnIBGavrfCTPFi9prjkS/HmL7aD6Itef/h+4I0+1T8DfHddcOuEB07oeawVr91Pjac8lEPa3du0oBkOBOPiVue6UKv0QgXgRmvTosfce0qD1al6vs/xn5UyxrPNu/eiWlw8iL7bNa5nQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ewWGhR8I; arc=none smtp.client-ip=74.125.82.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b="PQ1dbdnm";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="G+xbG0bZ"
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailfout.stl.internal (Postfix) with ESMTP id 661DF1D00172;
-	Tue, 16 Jun 2026 01:06:51 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-06.internal (MEProxy); Tue, 16 Jun 2026 01:06:51 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
-	:cc:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm1; t=1781586411; x=1781672811; bh=h4gPK3FZ6b
-	63Jyfr6Z/suOoSJEvo2X3t8RLqUz9KcA8=; b=PQ1dbdnm+pQgs5f5kTl6KSz+ft
-	eaUZDsNJGJK3YztBcenK/Zu9hy4wRSncXPTCXHpye4jzHa4/OnXAYMNaoIqKh1nr
-	NzErS/2ZHIfH/x90iPSoSblWF5ZuVhg+8XwlA7tr8HBR7ggn1GZiUc57zKSHnD6L
-	oxbKWqFcPMZnXd6z7qKxeNvwIBhPHhkgGUYe5nGvwM59WbC7JInDQSub0Fyqi3F1
-	w0flBypf/78vbWlSDAfE8+ovyaB+kFlbFu7088DOwUJG9ugoNb7be+FFxu4UYbq1
-	TJhUifDBTbWVSOdV0ABhck/qXiN2p5qazch1Qv8lmVoXmTJAxs8jxPiMQZOA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1781586411; x=1781672811; bh=h4gPK3FZ6b63Jyfr6Z/suOoSJEvo2X3t8RL
-	qUz9KcA8=; b=G+xbG0bZPw2oyg2t1TYuRvnlTvk/gRiA1F12DM6vnsllfAaOda3
-	4Yb+Zsr20kLVC+mPLllqwgeq/ikuthfNZvQQH7rJGVMHmpovI6bobDybmjKOUUY8
-	rSrvwxfYSNaCv+mjJt+GDdfNbPzMcpunlg6Xx+ueMWyKQtIV9F24eCHl0G/j7LYk
-	n8oH1966mcLrAPaee92NUPgc/bxuCwzPqcINKJS3sbboxhUBtUVOvjJ+avuLxm8K
-	eySQQuftneJHue3Rw0gifQEQdFMwuWtZNMnfyu+TvefKuvDRu+8DniSXGjhTtdG/
-	+SARuW1DAYfcst8GWiZS/YMCMNvlHSi4LWw==
-X-ME-Sender: <xms:6tkwaoaK62zh_YQVFIoyStCIAqu3COMbjJbeDze6E2syWpCrMC-CYg>
-    <xme:6tkwatZ8L1samA_u5CePOG1KOXayBBlziYUwpFWnZDAoifIsRzAG-hl6s3R7_agYJ
-    idWxLvMx7VIq-amDQGldP9UM4dLTj7U76KShlZcRhlxa4HE>
-X-ME-Received: <xmr:6tkwapn55k5lWWpVpPd6kkI5rPJhNYwqFGXjWnNLuG_PB3xpIlvNRYho>
-X-ME-Proxy-Cause: dmFkZTF8J3kCHEzZJQ90lPsnhmT3IWK7e209v8VpFQC//OCwqkYdSlhrXdu3YuT+NPplhg
-    iBMz0zEz3dMylz1GVVDvIxnTLHpZoGg1DmRjwnZZIhzIR7oP/ZhX4AiHYm+PjYPbdfS/6f
-    puTzfiHkOHPW5j3wfLnMqvtpAS9Z/G4fPAzly2W0FnWj/UxsACH+fXG7S1mV3670P+KYel
-    h7dbv+3OpfOYiO7vxk95ulnh4CKibaiLpzaZbA56agLeKsr7BuSjZvql9pTRzzusEw9QNt
-    vqoSOp4D8z5gUeKMGobL6FMzSKaPcInq6XYY6JpxvWmiQ93Cbh61j+KhokxTnPOY5u97nB
-    Ne8sONMvHOFaCOKKL3i8dGx1QFwxtDGgUfQgEiVYVQwF1ktZS6xdQ3mbmNoPMeDGOZ67ui
-    kxXMaOCTA2kEZJFRcdH01GYCVLDrCNOjpsRtmx516hx8R7+MslK6Aa2IcpzVYXH2mXk4gO
-    5GRhjk8nPIGDd9oZeCZUhU2m3jx90QYe8mojVF5sA1NDbr/Gt2wMFDSD8YhJou6gyop1B1
-    6+ia+ogXZyymbrGmNcqoK8HOTQZCeVJMRTuz6DgQbSlEaqLeeJ5Kk7Ks9osGkT6xYKzdmC
-    ywQxjTToVGJrBYEi/daZngN6QxtZjaLcndM418OlxxFZpCRfHAfvwTOhClhw
-X-ME-Proxy: <xmx:6tkwag26W8S2XwGYHkuW5-wDVKuyfAH6C0apP9EwY6uPhEU_U76CvA>
-    <xmx:6tkwah029VB5nX60Wx2_hbmEUoHPRBvi4C4mj9Hzg-nC5owyH4n5uQ>
-    <xmx:6tkwaqr4dQKHe9omp2MqLG5Y5WBBs9wbrT-Oy6pe5l7KPfhxqq6cTg>
-    <xmx:6tkwalhxeTmyZsBgkcAAqHe-jXcOXePNRla1IS9gactI_AMqv4NfKw>
-    <xmx:69kwapSaM8_wUZ0n3efCKYjlohW0YYq0QahJw4P3bjhURLY3LcCalT5M>
-Feedback-ID: i787e41f1:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 16 Jun 2026 01:06:49 -0400 (EDT)
-Date: Tue, 16 Jun 2026 10:35:45 +0530
-From: Greg KH <greg@kroah.com>
-To: Sasha Levin <sashal@kernel.org>
-Cc: stable@vger.kernel.org, Rodrigo Alencar <rodrigo.alencar@analog.com>,
-	Jonathan Cameron <jic23@kernel.org>
-Subject: Re: [PATCH 6.6.y] iio: dac: ad5686: fix powerdown control on
- dual-channel devices
-Message-ID: <2026061638-struggle-enforced-f8d7@gregkh>
-References: <2026060441-corrosive-musky-8357@gregkh>
- <20260604161903.3777464-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ewWGhR8I"
+Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-30b9e755555so1920709eec.1
+        for <stable@vger.kernel.org>; Mon, 15 Jun 2026 22:12:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781586760; x=1782191560; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=npOZ0JdHRj0qzq/T7JuKw3W720zNV5l12WuNHIU6TT8=;
+        b=ewWGhR8IO6ksCF+h+x+YHNa/HOY5Uh5v4e9AKuqngPuvlCeI6hLmz0O1DpYfROYpdH
+         MIEHs0MHij6VXq170sj4yRJSxpfkCPkoKRcDNLXohYQFYAaXik1I9yI45F+HS693P+nE
+         p0ZMhHdlV3+QZpYo2N4Qs5V9pfHv9TQrYmmPzWF7fQ1j+/N2WGgi1wSCtrTJ0OOy9MiQ
+         EHcw11XArAQTlUHS/D80dOPvyZHyMtDHFP2kiK1ecuw7kl/ndpP9RSoQU2mdBYSFS9Nz
+         BBfruOcl/oDv1kvxN3L42BEs5wd4IyYQMujP3EiGMjQBvHtom+C4OSAbZOldTpc0SeLK
+         HRlQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781586760; x=1782191560;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=npOZ0JdHRj0qzq/T7JuKw3W720zNV5l12WuNHIU6TT8=;
+        b=ig+rPDQQ7Hht8YURO0ZColdnUDD/rtok0L8Acyrm2I3KlxoON4RVyovSViOHKjM/Et
+         rNkQU4wEjv5ExVBhjKcLjsvpWyMAazxyOZZHlJpe3hEQw1yU8HloRaOciyKTokOVTVLQ
+         GhJC9Fbs8MY/QI+ySOVi247qokLQfQ8bO2VjJg/mJNyt2tS9T95KWv2H2hoTSoZBEUx+
+         3tEUs6JDyigaPMA1t3Q4s19Z8rZDZ2l+A8Hf8uCOWul9DyPWz9gN9jcxXk0p2MZNVcCZ
+         wN4KsPEPd5ZTgIvkCs4kmmauVZcnGppFnBsz3hELrMzBd62t7PBrFt88bpqibwDiHPOT
+         V4LA==
+X-Forwarded-Encrypted: i=1; AFNElJ/EBH4bGVXM8iH/rsU6VwcV0tZSI/aDGKQP4lvwsOOE1t/1oVbhWpfUTtWu9BoPndDK0SqMkCc=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzphrC05GRZ1TRgQAjfAoJr9Ni66g4gsfXE8s3hcIAs48hhzyB+
+	OHagchundcJgW5FSK/V5HeW5CCLl8K6/N/njDT9MhdOGFflTt0A6o2QA
+X-Gm-Gg: Acq92OH2UqIScCaUPQeSiHo+Pxdm3frJJiGVubZ2pyOXADd49Obw0LSkrDO6suSb/dx
+	hnsrvECF4HHstVc+rr5xdadY+LxAAzG7BHsBjGVRJXsEE9D5gsuG4jiTDtpU1qoW77vuTXOOWEa
+	BGPD2qbdPbT5wJbjiKwR3V1gbPJ6RsaibS/oQazrC7zSWptQHmDGBw7DaU+3whxcTPZ4M13b1oh
+	xr+dukLxRbL8Bt0cMBnp5eX8me7pR2RS2oTz7BN8BAyP0bjsTYzbE8ME/HgyBU+0b3YPy0qTiXC
+	+SvVJTIEGyBBAuTQ9QIFumdZp+kc7Mex6q4rxG2UIICvQ1td7PsKKzLvq+zfXhYct+Izxwr5haI
+	49tSbA/8IkKcSBjmdWT7+yM1iVXjikzP2PdyVVhysfn5NjVNzWkXaW4KtJm0GtIpYfa3HMHGue0
+	ZVsln3Cq8DVAnQrEVrsqdo9iXf8eF0AFt96LTsU/z9/d8LFiSOCWtx8tRIC+eb+/mMjGHMf7iQX
+	wT3Ar6fq3Y6p5I=
+X-Received: by 2002:a05:7300:4304:b0:304:e58b:cccb with SMTP id 5a478bee46e88-3093816c7dbmr7715691eec.2.1781586759645;
+        Mon, 15 Jun 2026 22:12:39 -0700 (PDT)
+Received: from dtor-ws.sjc.corp.google.com ([2a00:79e0:2ebe:8:3714:f5c2:9b83:3df1])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3081ea43b80sm16726052eec.21.2026.06.15.22.12.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 15 Jun 2026 22:12:37 -0700 (PDT)
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Hans Verkuil <hverkuil@kernel.org>,
+	linux-input@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	sashiko-bot@kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH 1/4] Input: sur40 - fix input device registration ordering
+Date: Mon, 15 Jun 2026 22:12:29 -0700
+Message-ID: <20260616051235.1549517-1-dmitry.torokhov@gmail.com>
+X-Mailer: git-send-email 2.54.0.1136.gdb2ca164c4-goog
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260604161903.3777464-1-sashal@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Jun 04, 2026 at 12:19:03PM -0400, Sasha Levin wrote:
-> From: Rodrigo Alencar <rodrigo.alencar@analog.com>
-> 
-> [ Upstream commit 8aeaf25a85263a7a43357e16ad78ab969f6f8aeb ]
-> 
-> Fix powerdown control by using a proper bit shift for the powerdown mask
-> values. During initialization, powerdown bits are initialized so that
-> unused bits are set to 1 and the correct bit shift is used. Dual-channel
-> devices use one-hot encoding in the address and that reflects on the
-> position of the powerdown bits, which are not channel-index based
-> for that case. Quad-channel devices also use one-hot encoding for the
-> channel address but the result of log2(address) coincides with the channel
-> index value. Mask as 0x3U is used rather than 0x3, because shift can reach
-> value of 30 (last channel of a 16-channel device), which would mess with
-> the sign bit. The issue was introduced when first adding support for
-> dual-channel devices, which overlooked powerdown control differences.
-> 
-> Fixes: 7dc8faeab3e3 ("iio: dac: ad5686: add support for AD5338R")
-> Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
-> Cc: <Stable@vger.kernel.org>
-> Signed-off-by: Jonathan Cameron <jic23@kernel.org>
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
-> ---
->  drivers/iio/dac/ad5686.c | 46 +++++++++++++++++++++++++++++++---------
->  1 file changed, 36 insertions(+), 10 deletions(-)
-> 
+In sur40_probe(), input_register_device() was previously called early before
+the V4L2 video device and vb2_queue components were fully initialized. If
+userspace opened the input device immediately upon registration, sur40_open()
+would trigger and start the sur40_poll() worker thread. This worker thread
+invokes sur40_process_video() and accesses the uninitialized vb2_queue
+structure, leading to a data race and potential system crash.
 
-Does not apply :(
+Furthermore, if V4L2 or video registration failed after input_register_device()
+succeeded, the error path fell through to calling input_free_device() on a
+successfully registered device instead of input_unregister_device(), corrupting
+input core state.
+
+Move input_register_device() to the very end of sur40_probe(). This ensures
+the V4L2 and video queue structures are fully initialized before polling can
+start, and naturally resolves the error path bug since input_free_device()
+is now only called when input registration has not yet occurred.
+
+To maintain strict LIFO (Last-In, First-Out) teardown ordering, also move
+input_unregister_device() to the very beginning of sur40_disconnect(). This
+guarantees that the input polling worker thread is stopped before V4L2
+video components or control handlers are unregistered.
+
+Reported-by: sashiko-bot@kernel.org
+Cc: stable@vger.kernel.org
+Assisted-by: Antigravity:gemini-3.5-flash
+Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+---
+ drivers/input/touchscreen/sur40.c | 21 +++++++++++----------
+ 1 file changed, 11 insertions(+), 10 deletions(-)
+
+diff --git a/drivers/input/touchscreen/sur40.c b/drivers/input/touchscreen/sur40.c
+index fe63d53d56db..8639ec3ad703 100644
+--- a/drivers/input/touchscreen/sur40.c
++++ b/drivers/input/touchscreen/sur40.c
+@@ -725,21 +725,13 @@ static int sur40_probe(struct usb_interface *interface,
+ 		goto err_free_input;
+ 	}
+ 
+-	/* register the polled input device */
+-	error = input_register_device(input);
+-	if (error) {
+-		dev_err(&interface->dev,
+-			"Unable to register polled input device.");
+-		goto err_free_buffer;
+-	}
+-
+ 	/* register the video master device */
+ 	snprintf(sur40->v4l2.name, sizeof(sur40->v4l2.name), "%s", DRIVER_LONG);
+ 	error = v4l2_device_register(sur40->dev, &sur40->v4l2);
+ 	if (error) {
+ 		dev_err(&interface->dev,
+ 			"Unable to register video master device.");
+-		goto err_unreg_v4l2;
++		goto err_free_buffer;
+ 	}
+ 
+ 	/* initialize the lock and subdevice */
+@@ -798,6 +790,14 @@ static int sur40_probe(struct usb_interface *interface,
+ 		goto err_unreg_video;
+ 	}
+ 
++	/* register the polled input device */
++	error = input_register_device(input);
++	if (error) {
++		dev_err(&interface->dev,
++			"Unable to register polled input device.");
++		goto err_unreg_video;
++	}
++
+ 	/* we can register the device now, as it is ready */
+ 	usb_set_intfdata(interface, sur40);
+ 	dev_dbg(&interface->dev, "%s is now attached\n", DRIVER_DESC);
+@@ -823,11 +823,12 @@ static void sur40_disconnect(struct usb_interface *interface)
+ {
+ 	struct sur40_state *sur40 = usb_get_intfdata(interface);
+ 
++	input_unregister_device(sur40->input);
++
+ 	v4l2_ctrl_handler_free(&sur40->hdl);
+ 	video_unregister_device(&sur40->vdev);
+ 	v4l2_device_unregister(&sur40->v4l2);
+ 
+-	input_unregister_device(sur40->input);
+ 	kfree(sur40->bulk_in_buffer);
+ 	kfree(sur40);
+ 
+-- 
+2.54.0.1136.gdb2ca164c4-goog
+
