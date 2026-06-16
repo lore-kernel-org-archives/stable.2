@@ -1,103 +1,135 @@
-Received: from mail-oa1-f50.google.com (mail-oa1-f50.google.com [209.85.160.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73F90451056
-	for <stable@vger.kernel.org>; Tue, 16 Jun 2026 16:08:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02891466B57;
+	Tue, 16 Jun 2026 16:08:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781626119; cv=none; b=OFpZkU7nCpDFuAs5iZFoH7IRw01H/5aDghmJQbN7bmFupAidvarCr9YfyCXSJWEi9cr1zLkOamCqLBB1/kS+fvNULlCOU5V4hcbZ5McHQlJg7LxCBveezJpT0UJG2pI26gL/GmPUD6P2oe7auThu67x4cL9y0XNepSyNdNB37Cc=
+	t=1781626120; cv=none; b=PTctNbCW4AC6wU9kMMrmaUN8kDZjunduduJmwgs5OsljcWbmerLWDFWZL8O1zQa4u9ZiDL+7VQkbwh6vIoHJ/PjutduJjLqunOn+7kArX9AQLecSgPggHQXd9dwUi425VmXhjHjhRjSnhwrtDl1ECxXnOqP32FKKzCwI2ZbhDmg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781626119; c=relaxed/simple;
-	bh=xlJh76Md8wkh/Fi92cqhV/YXIDPiy9Lp3lrOEOU0ABc=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=RojlRiH53yWVAnkarzW6dYVUbA3G2bPp+levARHht42r0FwwkUrVZ2qKf0osKZdamNK1OQtYlvYA8xTrWunYrbPt4rMGB93Tv1olph0pUuFv0OfkT7F3FQiCnmn8KIbxwUZ+fm+83AI8RQFcmslUZK7k8XWF9Dx1yyrDnTSL1kY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk; spf=pass smtp.mailfrom=kernel.dk; dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b=S+8WAkJS; arc=none smtp.client-ip=209.85.160.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
+	s=arc-20240116; t=1781626120; c=relaxed/simple;
+	bh=QqrMUIwRo5zMZyQTlTI5sSau6HwOt3YuKSqJ8rENj2U=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=TNCR2Nvx/0sYN1c1WT0q8XsmWXFpZb4CUdlP148N8gAIRvwZX+C2905R7bB6oNEwDETkeDsQuZF875QunC1Hy1nE0vJaB7CdCAv2i79Wg6EkPbB+wExXvyNG2nQziFEy1bke0st2aVZBxcTYPYH7e5lN8SXYmpirrd2FPZAgA/E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ACBJRbCr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b="S+8WAkJS"
-Received: by mail-oa1-f50.google.com with SMTP id 586e51a60fabf-440d9bfa309so3576892fac.2
-        for <stable@vger.kernel.org>; Tue, 16 Jun 2026 09:08:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1781626116; x=1782230916; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:date:message-id:subject
-         :references:in-reply-to:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=wzIt4F8uHY1gHbYSazgMbvRJiX7QgA75YFrjgD4jGLA=;
-        b=S+8WAkJSCL9n69uYD7Pz1n2z0es32SQx6FJybPbUwamCPEcqvXdM+JXJeCFlpfNVEY
-         ++ObBrFQNcE5TGDEEueZqAtbOP9tgqaCHfLOjADTu2EJ8bRWYSU09tdNGC/Axo2sblgj
-         +e9m1T9hrAMicAYiN+QX1tfJa5oTGjA3seSUSWloqzUFJOMuThX8fkQLgVMjOWyAVHKq
-         BAvw9dGdIlL3KLmr32HKa1YiYfqboXrwRDnovhGAWE0WWeNu9UFw8aNRuw2chg9aZdgj
-         KWE49WKZttRoFIcgN6ZUc55Xmx3yBfOi+qceHCgoQB4Uop9Is7gVMKk7qwwj8544SPC/
-         E7YQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781626116; x=1782230916;
-        h=content-transfer-encoding:mime-version:date:message-id:subject
-         :references:in-reply-to:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=wzIt4F8uHY1gHbYSazgMbvRJiX7QgA75YFrjgD4jGLA=;
-        b=ePmFHil3GFP7MG5Xz3HBKEOSHOs6cPaqdhm4ab9CbkbC3iTCiY/IsV2LJxc2FpFPVj
-         MqsSlwOKVUfrFqDw1u1nkJISh6IZt0U6cCL9IG8SpKGuNLmKmjHADEydtkFMV+YxvoTS
-         UJK2UP1s5M93p9CUDVZypcbg7q0VuGK2Rov8mf63EW8cw4oLasBBvUyfosxjq/2mBovK
-         NoGkMHYjw2HXNaFjQDIKhENGq3PGMYKBQnn0G6SISzZfBslxIQMsBRKvSIY3ADDLSt1O
-         PcN7RTHeC9n0G0E9zTRPD5Whp7HVKk85BehZdnxV5vDEK+7jL1K5vsS7FCO4z4g1+SU1
-         Mu7g==
-X-Forwarded-Encrypted: i=1; AFNElJ+nEwFButu2T51oNVR3vsKnnrrn2fbEovLfRsL4veCfBdjBbVUryU8WqljObQ68Ar76zweHoU4=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzoSqPaz+Imb/ehIAYl9rLklV120lrQBYOad5wg9tMJ4PwMQiqq
-	4o9iQ/Stbqr9zv8FRS522rrN6eLivT7j/qRVz4vOlCzkIzG7JssZlK4d0kNHR4Yj3qA=
-X-Gm-Gg: Acq92OGeE/flg5jEA8ErTR5yPBq7yh5edteL4+cec8qgrrVzSunrYhAirlu004APThj
-	W15w+/RqExIiTsF6sybkOzWCWMjNaCSLrKIODxLXZa86ZLoxWNpecm/20kuKWhmod/DIyJzvyaC
-	Rw9Q4s0Hi6EVCAa2e7CE1fDDiNBAt4cXuMK39aBHwUxKMpGxNMKYwJahlPywDQv5TOlmenPmxj6
-	OFjk5hWP94B2lN5B6aSOdzOsNImIWzFotVqxfOidVv4XXQhIgUb9gQxlN7yOnCPM/lBLIqtQzvj
-	0WFX/b7XxN9PHpULFYjiRc143Biycx8Bh6wBFAgS+sbjuO3c6p3I7kLY71/lv6Zm7IdrH2XE6cU
-	zy0eZ9KJ7hpv+xXFFwpxRPslD+Y/qPHXrUplOo5h4yKQJwqw5/y5MD2VC6hP0mpIq97xLpldmKY
-	5cwQhofNFxUeqy9L+ItqEFYoU5k8ralufdu14NEV1Ymcng1SKr7p3fiPqHpiGOG3aDYNaBP4Rmr
-	3TZyaAnFUpVrFY=
-X-Received: by 2002:a05:6808:50a4:b0:486:a9d8:cddb with SMTP id 5614622812f47-48942b488d3mr229217b6e.27.1781626116373;
-        Tue, 16 Jun 2026 09:08:36 -0700 (PDT)
-Received: from [127.0.0.1] ([198.8.77.157])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-4875ddd9fd3sm4631101b6e.7.2026.06.16.09.08.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 16 Jun 2026 09:08:35 -0700 (PDT)
-From: Jens Axboe <axboe@kernel.dk>
-To: linux-block@vger.kernel.org, wenxiong@linux.ibm.com
-Cc: tom.leiming@gmail.com, yukuai@fygo.io, stable@vger.kernel.org, 
- wenxiong@us.ibm.com
-In-Reply-To: <20260616143121.878021-1-wenxiong@linux.ibm.com>
-References: <20260616143121.878021-1-wenxiong@linux.ibm.com>
-Subject: Re: [PATCH V2]block: Remove redundant plug in __submit_bio()
-Message-Id: <178162611541.2191657.11227673326428110022.b4-ty@b4>
-Date: Tue, 16 Jun 2026 10:08:35 -0600
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ACBJRbCr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4BCE41F000E9;
+	Tue, 16 Jun 2026 16:08:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1781626118;
+	bh=m24kn2yf1UYan2vgMG5K4TiCsfISK0TaXvyypRo4zAU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ACBJRbCrtI8hkmnNgCNj7DZiYPmzX4C2PmGQ2hp8gxiCwE9FqW2gCP9R6ZFz5q/Q+
+	 PQT0B7jOwrZR7q6Ck4KbuFYqEfZxsXKfFf7J31XGEUETZVhAvlaUxVYPn6/wts8eKO
+	 YCisv0b7y0j16lT4NNc2j41I9vAdTnL2WZJSEhcA=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	stable@kernel.org,
+	Yuan Tan <yuantan098@gmail.com>,
+	Yifan Wu <yifanwucs@gmail.com>,
+	Juefei Pu <tomapufckgml@gmail.com>,
+	Zhengchuan Liang <zcliangcn@gmail.com>,
+	Xin Liu <bird@lzu.edu.cn>,
+	Zhao Zhang <zzhan461@ucr.edu>,
+	Ren Wei <n05ec@lzu.edu.cn>,
+	Xin Long <lucien.xin@gmail.com>,
+	Jakub Kicinski <kuba@kernel.org>
+Subject: [PATCH 6.18 267/325] sctp: diag: reject stale associations in dump_one path
+Date: Tue, 16 Jun 2026 20:31:03 +0530
+Message-ID: <20260616145111.943389020@linuxfoundation.org>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260616145057.827196531@linuxfoundation.org>
+References: <20260616145057.827196531@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15.2
+Content-Transfer-Encoding: 8bit
 
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
-On Tue, 16 Jun 2026 10:31:21 -0400, wenxiong@linux.ibm.com wrote:
-> The patch removes the automatic plug/unplug operations from __submit_bio()
-> that were added to cache nsecs time when no explicit plug is used.
-> 
-> The plug mechanism is most effective when batching multiple I/O
-> operations together. Creating a plug for every bio submission
-> provides minimal benefit while adding function call overhead and
-> stack usage for every I/O operation.
-> 
-> [...]
+------------------
 
-Applied, thanks!
+From: Zhao Zhang <zzhan461@ucr.edu>
 
-[1/1] block: Remove redundant plug in __submit_bio()
-      commit: 9cbbac29d752fb5d95e375fa3685a359b89caa0a
+commit 5eba3e48d78edd7551b992cb7ba687019b3a78da upstream.
 
-Best regards,
--- 
-Jens Axboe
+The SCTP exact sock_diag lookup can hold a transport reference, block on
+lock_sock(sk), and then resume after sctp_association_free() has marked
+the association dead and freed its bind address list.
 
+When that happens, inet_assoc_attr_size() and
+inet_diag_msg_sctpasoc_fill() can still dereference association state
+that is no longer valid for reporting. In particular,
+inet_diag_msg_sctpasoc_fill() may read an empty bind-address list as a
+real sctp_sockaddr_entry and trigger an out-of-bounds read from
+unrelated association memory.
+
+Reject the association after taking the socket lock if it has been
+reaped or detached from the endpoint, and report the lookup as stale.
+This keeps the exact dump-one path from formatting torn association
+state.
+
+Fixes: 8f840e47f190 ("sctp: add the sctp_diag.c file")
+Cc: stable@kernel.org
+Reported-by: Yuan Tan <yuantan098@gmail.com>
+Reported-by: Yifan Wu <yifanwucs@gmail.com>
+Reported-by: Juefei Pu <tomapufckgml@gmail.com>
+Reported-by: Zhengchuan Liang <zcliangcn@gmail.com>
+Reported-by: Xin Liu <bird@lzu.edu.cn>
+Signed-off-by: Zhao Zhang <zzhan461@ucr.edu>
+Signed-off-by: Ren Wei <n05ec@lzu.edu.cn>
+Acked-by: Xin Long <lucien.xin@gmail.com>
+Link: https://patch.msgid.link/fac6043fa20a2ff68e12958c431836f692c51268.1780113823.git.zzhan461@ucr.edu
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ net/sctp/diag.c |   17 +++++++++--------
+ 1 file changed, 9 insertions(+), 8 deletions(-)
+
+--- a/net/sctp/diag.c
++++ b/net/sctp/diag.c
+@@ -266,15 +266,15 @@ static int sctp_sock_dump_one(struct sct
+ 
+ 	lock_sock(sk);
+ 
+-	rep = nlmsg_new(inet_assoc_attr_size(sk, assoc), GFP_KERNEL);
+-	if (!rep) {
+-		release_sock(sk);
+-		return -ENOMEM;
++	if (ep != assoc->ep || assoc->base.dead) {
++		err = -ESTALE;
++		goto out_unlock;
+ 	}
+ 
+-	if (ep != assoc->ep) {
+-		err = -EAGAIN;
+-		goto out;
++	rep = nlmsg_new(inet_assoc_attr_size(sk, assoc), GFP_KERNEL);
++	if (!rep) {
++		err = -ENOMEM;
++		goto out_unlock;
+ 	}
+ 
+ 	err = inet_sctp_diag_fill(sk, assoc, rep, req, sk_user_ns(NETLINK_CB(skb).sk),
+@@ -289,8 +289,9 @@ static int sctp_sock_dump_one(struct sct
+ 	return nlmsg_unicast(sock_net(skb->sk)->diag_nlsk, rep, NETLINK_CB(skb).portid);
+ 
+ out:
+-	release_sock(sk);
+ 	kfree_skb(rep);
++out_unlock:
++	release_sock(sk);
+ 	return err;
+ }
+ 
 
 
