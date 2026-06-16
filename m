@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 334413D8105;
-	Tue, 16 Jun 2026 18:37:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C33CA46AF3C
+	for <stable@vger.kernel.org>; Tue, 16 Jun 2026 18:37:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781635046; cv=none; b=pylcv8IFsfRfIKTnaCrUoJqd9GkzQXwxA/m1t6fpB7i29OAXBkN3BuBxfvpes5bteDbJcHd9b/1V2SBxPdCc8Hoxz8hPTLOSsWAhHOGVBiO27djW3Wu3cmEI6CoFpMKqDxvjcvAllhZ5claD1OM61ZflizYYhMTZzQ6c6Clcr0M=
+	t=1781635046; cv=none; b=WdOarALzMTJx29Xqi71MI7sN4a9ocPwf8SbqJgjp0cr0eCRXSr3uCI8uWiq3WsK2Y74Z4T8sZ89rop6b74+E6mmIuKGuU2WBQlWacmbbfKEKQepVtUwdzanDDpvJIfoF6E3ygdZWPfTJvie51iYTeTqXBIKSH27MNhKmCaufDDg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1781635046; c=relaxed/simple;
-	bh=Tji2aXtQlr/grkJQTnCAouXq/0XRmLbGfdtnGJjdsS8=;
+	bh=PZj2PhEExW/XMbCoVcIF2FAPE9rDiiDv6veCj5ow/94=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=pHZ8+9FxB5fEodBuQekk0nWaybfKvLyb/ktV4Cy0SpQUVLwx/77RkO883koJUh8aTwdeHSP8ECRD0FjW2e3OO3iX696NsYqpe+sJgp2tQr0ekNMBuQYw+6LyqfyBdH63Clq0BvDtU91+57UfRhtDpwowCUtz1Hpjf2Yq9jAIj1U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=k9rGDC/2; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=ec2xRy+kyiaAVFBy+Bnh7y/SpHWiNJd+1Mys1qcqWNJfVHraTkfDehhP5SazeZDHx/MpunqN0NDVBZwKBwFceVDUX47UvbNi7ie0y8Th6bK42Bo64iHzbQg+04AU8B6w8YRYCCwBrNGIkZu9eLC/H3yXwtswgOJZeZ4f+MzIjbk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m/SXEEpw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="k9rGDC/2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03DE31F000E9;
-	Tue, 16 Jun 2026 18:37:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1781635045;
-	bh=2z71P/r/entEIwtH0qmWrxaGMvBYwqvDLMhEuEZsFWw=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m/SXEEpw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D5131F00A3A;
+	Tue, 16 Jun 2026 18:37:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781635045;
+	bh=o5kwQyGbwZN/HYo7WG3uiylOYXq4OJItZtNKK4B7iRM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=k9rGDC/2FQTkkQ8B/2SgCWYPtLKTy0sgCO21I+Nd1mypAiJSSchnoiNRxZj4O9fUb
-	 nEZFQmuKxF9hGO0CMQeimC/DzZGY38875Jf9vAKppaJBuiMk44c1XhdA8lYnZWtqfr
-	 Ey6zaAnQ6SoNPJ2YrXoC7s2SeUjlT72rVI/saD4c=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=m/SXEEpwU537u5xdhg9Aex7I7P5k420O2wz0DvEC4M6en6KMqbnE9uY0BfG9yQdCr
+	 f2SX94n5RPmCDU415x+14tbOIPjLPDFdKivU3dSAwSekjqYJSuvWOWvm0NftmnSP3d
+	 UL/OipZNUOy5kslJATWlTRTbhZQUg/2JKevSh17SspZPU5xPYr21MkuX/MB+s23g8/
+	 h+sspJiungWe4jInZCim/DryUFmnQwHgwJBpvl+crQSYNuRxe8oaiJprgvcHP++kZZ
+	 EDs8qkbG3JAHqev8sKnhgQcpODcxjGjehbg7nD47ZN7a8LIFg1UXNeBe8sdydKzG2/
+	 GVlclo9IDRzOw==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+Cc: Paolo Abeni <pabeni@redhat.com>,
+	"Matthieu Baerts (NGI0)" <matttbe@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15 381/411] serial: altera_jtaguart: Use platform_get_irq_optional() to get the interrupt
-Date: Tue, 16 Jun 2026 20:30:19 +0530
-Message-ID: <20260616145121.528316852@linuxfoundation.org>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260616145100.376842714@linuxfoundation.org>
-References: <20260616145100.376842714@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Subject: [PATCH 5.10.y] mptcp: fix missing wakeups in edge scenarios
+Date: Tue, 16 Jun 2026 14:37:23 -0400
+Message-ID: <20260616183723.3474931-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026061549-throat-iodine-b864@gregkh>
+References: <2026061549-throat-iodine-b864@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,60 +46,48 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-5.15-stable review patch.  If anyone has any objections, please let me know.
+From: Paolo Abeni <pabeni@redhat.com>
 
-------------------
+[ Upstream commit 9d8d28738f24b75616d6ca7a27cb4aed88520343 ]
 
-From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+The mptcp_recvmsg() can fill MPTCP socket receive queue via
+mptcp_move_skbs(), but currently does not try to wakeup any listener,
+because the same process is going to check the receive queue soon.
 
-[ Upstream commit 60302276caff50f907bc3391a364691ab4a21b43 ]
+When multiple threads are reading from the same fd, the above can
+cause stall. Add the missing wakeup.
 
-platform_get_resource(pdev, IORESOURCE_IRQ, ..) relies on static
-allocation of IRQ resources in DT core code, this causes an issue
-when using hierarchical interrupt domains using "interrupts" property
-in the node as this bypasses the hierarchical setup and messes up the
-irq chaining.
-
-In preparation for removal of static setup of IRQ resource from DT core
-code use platform_get_irq_optional().
-
-Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Link: https://lore.kernel.org/r/20211224142917.6966-7-prabhakar.mahadev-lad.rj@bp.renesas.com
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Stable-dep-of: ea66be25f0e9 ("serial: altera_jtaguart: handle uart_add_one_port() failures")
+Fixes: 6771bfd9ee24 ("mptcp: update mptcp ack sequence from work queue")
+Cc: stable@vger.kernel.org
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
+Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
+Link: https://patch.msgid.link/20260602-net-mptcp-misc-fixes-7-1-rc7-v2-1-856831229976@kernel.org
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/tty/serial/altera_jtaguart.c |   11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
+ net/mptcp/protocol.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
---- a/drivers/tty/serial/altera_jtaguart.c
-+++ b/drivers/tty/serial/altera_jtaguart.c
-@@ -418,8 +418,9 @@ static int altera_jtaguart_probe(struct
- 	struct altera_jtaguart_platform_uart *platp =
- 			dev_get_platdata(&pdev->dev);
- 	struct uart_port *port;
--	struct resource *res_irq, *res_mem;
-+	struct resource *res_mem;
- 	int i = pdev->id;
-+	int irq;
+diff --git a/net/mptcp/protocol.c b/net/mptcp/protocol.c
+index 70bc440c615d7f..136f010d4b26ed 100644
+--- a/net/mptcp/protocol.c
++++ b/net/mptcp/protocol.c
+@@ -1555,6 +1555,14 @@ static bool __mptcp_move_skbs(struct mptcp_sock *msk)
  
- 	/* -1 emphasizes that the platform must have one port, no .N suffix */
- 	if (i == -1)
-@@ -438,9 +439,11 @@ static int altera_jtaguart_probe(struct
- 	else
- 		return -ENODEV;
- 
--	res_irq = platform_get_resource(pdev, IORESOURCE_IRQ, 0);
--	if (res_irq)
--		port->irq = res_irq->start;
-+	irq = platform_get_irq_optional(pdev, 0);
-+	if (irq < 0 && irq != -ENXIO)
-+		return irq;
-+	if (irq > 0)
-+		port->irq = irq;
- 	else if (platp)
- 		port->irq = platp->irq;
- 	else
-
+ 	if (mptcp_ofo_queue(msk) || moved > 0) {
+ 		mptcp_check_data_fin((struct sock *)msk);
++
++		/* When multiple threads read from the same socket, the caller
++		 * filling the receive queue does not try to wake up any other
++		 * listener, which can stall it. Flag the data as ready and
++		 * issue the missing wakeup here.
++		 */
++		set_bit(MPTCP_DATA_READY, &msk->flags);
++		((struct sock *)msk)->sk_data_ready((struct sock *)msk);
+ 		return true;
+ 	}
+ 	return false;
+-- 
+2.53.0
 
