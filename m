@@ -1,107 +1,231 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 29F603CE4B5
-	for <stable@vger.kernel.org>; Tue, 16 Jun 2026 05:13:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781586826; cv=none; b=cT9/La7ycdyAsKrFWGlhNBcvWtMyufwtjuB3Ps1y6jRiZJei4xIik7xQcSWdI6q5SxQy8v2TNlaqFKbNj17r0lXK1Iyr3dqtXjuXAE1rybafmFPuaWMBD1mgNHn5UaoUioXTUpM3sFOZ98nPoerSrTMh8QsFLqweOKZ4q03TkEw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781586826; c=relaxed/simple;
-	bh=iVyStQ9kpsOAiAOZ0XeA5f1xyatX9Dbxp9juktCldL0=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=SMWaiyw++7YvKPGdQ9KLIFJz59ZSjcU0nw3a6MeHOFWcQvP5a8Gdcm4olgwQvAqQcFC5ZxkcYgRuoE4IjHNJ0ZrSovuTAkuMdaE/hdnLmQ1tPjcmaOpzAP9MSMi5bXf/VYR3Pj6QwaCzXeY5siMDgrr0eZZsVPKjRo4ElrhsIDI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=DQnUtEFB; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com [209.85.160.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23B273CE099
+	for <stable@vger.kernel.org>; Tue, 16 Jun 2026 05:14:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.176
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781586857; cv=pass; b=GuFqVE+ukk4RsjX98MY2RmwFDxNT/6VkMpA1wE1OCymxtYFJleb1Df8vmBLRWgWI46j5wc7d+lsteE1lkG5eeAbw5msoIct8XIiE/cSEB4tYLyRH7cmVbx8Up+D9U9JSIyySedtPo4vrIcr/ElFUjBBORcrqsv2O7wIK5lIC8Rc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781586857; c=relaxed/simple;
+	bh=cdgthtRN3TaZug5RXpYRGPPhsYE+QJ6XysT3Mm820xc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=UbbO908LEDNV3DzkKL4R7BEowoldLFG7wssux0Wa4h+2kZAieJg4iery3hRTo3mGelv45FuxYMTgehKP6ty2zBsQD/D5q7C6Epd5GyP6zrZfM8L+JgWtnId5wlA3HFXQSg/S5ng8O2N6STv7NN8V5mv0qj894uhfmb/ImuTiOsc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xwf.google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=wEhFJAs0; arc=pass smtp.client-ip=209.85.160.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xwf.google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="DQnUtEFB"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id EFFF43D5D;
-	Mon, 15 Jun 2026 22:13:39 -0700 (PDT)
-Received: from lakrids.cambridge.arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id D01133F763;
-	Mon, 15 Jun 2026 22:13:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1781586824; bh=iVyStQ9kpsOAiAOZ0XeA5f1xyatX9Dbxp9juktCldL0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=DQnUtEFBlfyM9CkyIczwkYMHvhJYQ+LaRXJlTqRpCsxlhk8aeDbUjBSaZDBXA/z4x
-	 z1MDa1uVU8MS2m+J0Gr9lQAPemEiqCl7uoYCnR1vA6a4zbkq6T0cEjcfjpQYqMuFwg
-	 muq4WseCfDVhcS9xKpsnYJZcSRLVQDz9qZT2sShc=
-From: Mark Rutland <mark.rutland@arm.com>
-To: stable@vger.kernel.org
-Cc: catalin.marinas@arm.com,
-	lee@kernel.org,
-	mark.rutland@arm.com,
-	sdonthineni@nvidia.com,
-	will@kernel.org
-Subject: [PATCH 6.18.y 5/5] arm64: errata: Mitigate TLBI errata on Microsoft Azure Cobalt 100 CPU
-Date: Tue, 16 Jun 2026 06:13:29 +0100
-Message-Id: <20260616051329.111597-6-mark.rutland@arm.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20260616051329.111597-1-mark.rutland@arm.com>
-References: <20260616051329.111597-1-mark.rutland@arm.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="wEhFJAs0"
+Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-5177d1ff061so97451cf.1
+        for <stable@vger.kernel.org>; Mon, 15 Jun 2026 22:14:15 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781586855; cv=none;
+        d=google.com; s=arc-20240605;
+        b=TBx3UBV5pP/SeY22qc5gu9g8YPFK1r9O82vijKxXa/uufUhThhl74Yf19g55NTgqBY
+         4e602vzGogc6+UQSXuzCOj3sRrx9dTJ/84cBRkiazvUS7wUldRDqsKjvqic7wZjnUTjO
+         o56XyPABJ0++V3z7rmBQHAnDcs0PImmhnsulfmnZu4nYKKqk9hwAlCiPrnm/IcvUag3q
+         VoHeE/AqB0b9xP4xoRVoda/K++1KBsssZWi/3/DwspIPIbP6a4UF/KTwDp66eo5qXwAp
+         CdAdCGtjCp+u8wz7pe7mF49g3pEWbrx0c8w8JA+AXQnXOYuzpa4p6nAE0J5IbgokGgWm
+         DoNQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :reply-to:in-reply-to:references:mime-version:dkim-signature;
+        bh=oZf9AADMW1nQW+AfyrB/2b+6l5AZvBA4C3NEgxXJMD8=;
+        fh=sfSKpGTph5GLR1Cw+KVyxaLw5B88TnJZo0D7oUNwHh8=;
+        b=VedvR5krHDloNQmxtSqdlBmHi7ewSpX80SpKg2Zr0u5V72LYmP8RS7pQ23uPVXzlZZ
+         879/tz2HhhBf6XqG0B9m2k4nkDhB6fv+VRI2GhXosYlfM/lzufWefcbsMi6kNEdmuBm6
+         GNXvDl7nu32gPPbL0XEHC3GOC5vQHrdb0pVMjXBL91BZmeSeDgNTXK1o67D8ilQxJr9L
+         cqdCN8oKxFBm4ogWParLsPqUPr/m+I0tg3oykqtRjw4yO+n3TixWv4dvOz5lBWRnvnX7
+         AfXxCzIu3BYXHolKGDmsE7OfmWq0vtta8u9OWLQ4y3wt5N5Pkq4e3hD8/MXfLh6Db/+V
+         gDww==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1781586855; x=1782191655; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :reply-to:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=oZf9AADMW1nQW+AfyrB/2b+6l5AZvBA4C3NEgxXJMD8=;
+        b=wEhFJAs0av8w0frst2D7qsBUT8oBcLWm8aYlIkItG1hd8gwjWVkBVSgFXm8eEBSn3s
+         YV45x1yVr1I5PTc3+Ianyb4QthYhFnI/YBFvU99FWYhwx/6HseDx+C8LuSGtV8/RfQPN
+         y47w44+eYAXnA7HZn4H9M+yrgkK3HxqpQyqdlQoGcyihqe69nYJmy8a8gc+Q9pa5tdi6
+         Y8U0i83xsIgj7MkIlOnNQI6eRcoJ5X5JgaPQvM+R0UJvl9YSPkpQO6ysA9ZrVyf8wYvu
+         WZC2RB27l19oh+0P80NXnnZLONclItXLSrVd32a6XjmhzIdlQtE6jdJ7xn20pnKeynkF
+         kFeQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781586855; x=1782191655;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :reply-to:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=oZf9AADMW1nQW+AfyrB/2b+6l5AZvBA4C3NEgxXJMD8=;
+        b=XdKkDvgT4o4+Iof8v7JlBQPnRkmqPgb1KXYGDePZ9HZXveqSvV7ggwLK0PVtX7ktDw
+         jHyJllNNjnC3rf4gSP6u+xPbdUbxqDHsKc5/ZyCv1e8bq7OtF5uaELKfhnaYY25yTxnC
+         ftiIhmyu/AKTXg58qCpDrE0X36ea8cCa+M4LagHXjZly59POEO41Qzufj2MGTdR5S33S
+         ifvbT+4x5Uog6JjNQVw8gNiPYuy65p+1hkT9X3L02vzHtIdkVAkASLdgiF6G39C7+nVu
+         9s13NYB+K4zuK+mD4kGa6VtuoaK71I9HVnenJRE4TKawIo7Zns8bA9t21Yu0KIAecLTa
+         C+vw==
+X-Forwarded-Encrypted: i=1; AFNElJ8sU9ktOULkQNSY4RiNbwn6QeShyDfwcqYnpGYsb4SGVEzRXssOqhurWR0cRuwml1HrQSoRwDM=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzIpbzOVJYVgvkp+FNJYZyNWk3oGWF5V7uYGGkjo+oLZdMH+4/n
+	fUJ6x0pHuzAyyJNGIemf8QkdoNIG1sutTWgCFIwrc40wEPLWVNKfjuSv/3RFEfOlkQUncNDHVtv
+	7/5pEsflxLzle1dV6THG6LDQvMrbewcdxsV1x7h2+YkEZY6AMwy1Gt/LYL7A=
+X-Gm-Gg: Acq92OFR+ou0riHu0Ehg0ADlkE8JbIdkagwVP1XB5vK0QC8CJXuTqPSGq4sxjb7WtSb
+	j/3ZucdIgOXGeKcxr0ZYuVsSoFFaNPbWLuCrhXPgoODwaELbn6LgYtgYjzUlMeYmgdAcRjj9Wwb
+	XcZvAITA5Mb8zy2dt/Jg8/IrkTGp1G/jyNDUhGuM+CdjoQE5QlX43x+WFJ7+NPaI/l5uuVhJx5p
+	yE7iwiiAGCRG1LlSXCoHPDvyXRUcCudU3WmQGSdBey1MI3/lr+8+oC98Wlcs6ifapAhojHfm0+Q
+	BNYG8sUdfw==
+X-Received: by 2002:a05:622a:1811:b0:50f:be7b:923a with SMTP id
+ d75a77b69052e-51993b50849mr4108131cf.9.1781586854474; Mon, 15 Jun 2026
+ 22:14:14 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260526070635.839701-1-hhhuuu@google.com> <1f7a7bf2-4d21-4944-9da0-36082d052b25@rowland.harvard.edu>
+ <CAJh=zjLLrY-NpV-ZcmH0V6q8CjNuKt7CmW-GEFQ8_y3zm9v1yw@mail.gmail.com> <d0042def-a513-479f-9742-12942346cd5a@rowland.harvard.edu>
+In-Reply-To: <d0042def-a513-479f-9742-12942346cd5a@rowland.harvard.edu>
+Reply-To: hhhuuu@xwf.google.com
+From: "Jimmy Hu (xWF)" <hhhuuu@xwf.google.com>
+Date: Tue, 16 Jun 2026 13:14:03 +0800
+X-Gm-Features: AVVi8CdpgkJIscAxcD7JJW8uf9rRWz1lpVf-Jfo1TjIojlCbI_U2UHaPHFSuQOY
+Message-ID: <CAJh=zjJqarEkrzajpdcUAZwOxisbdrwTPwX_jHWzuWZFSQ16SA@mail.gmail.com>
+Subject: Re: [PATCH] usb: gadget: udc: Fix NULL pointer dereference in gadget_match_driver
+To: Alan Stern <stern@rowland.harvard.edu>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Will Deacon <will@kernel.org>
+On Tue, Jun 2, 2026 at 10:30=E2=80=AFPM Alan Stern <stern@rowland.harvard.e=
+du> wrote:
+>
+> On Tue, Jun 02, 2026 at 01:34:07PM +0800, Jimmy Hu (xWF) wrote:
+> > On Wed, May 27, 2026 at 2:00=E2=80=AFAM Alan Stern <stern@rowland.harva=
+rd.edu> wrote:
+> > >
+> > > On Tue, May 26, 2026 at 03:06:35PM +0800, Jimmy Hu wrote:
+> > > > A NULL pointer dereference occurs in gadget_match_driver() because =
+a
+> > > > race condition exists between the DRD mode-switch work and the
+> > > > configfs UDC write path:
+> > > >
+> > > > 1. The DRD mode-switch work invokes __dwc3_set_mode(), which calls
+> > > >    dwc3_gadget_exit() and subsequently frees the UDC device name vi=
+a
+> > > >    device_unregister(&udc->dev).
+> > > > 2. The configfs UDC write path invokes gadget_dev_desc_UDC_store(),
+> > > >    which calls usb_gadget_register_driver() and subsequently
+> > > >    compares the UDC device name via gadget_match_driver().
+> > > >
+> > > > If gadget_match_driver() runs concurrently during UDC unregistratio=
+n, it
+> > > > may access the freed UDC device name. Once the freed memory is zero=
+ed,
+> > > > dev_name(&udc->dev) returns NULL, causing a panic in strcmp().
+> > >
+> > > I don't see how this can happen.  gadget_match_driver() runs during
+> > > probing of a gadget, which takes place only while the gadget is
+> > > registered in the device core.  But usb_del_gadget() calls
+> > > device_del(&gadget->dev) before it calls device_unregister(&udc->dev)=
+.
+> > > This means that at any time when gadget_match_driver() can run, the U=
+DC
+> > > device name must still be allocated.
+> > >
+> > > You should run more tests.  Add debugging printk() calls just before =
+and
+> > > just after the device_del(&gadget->dev) and device_unregister(&udc->d=
+ev)
+> > > lines, and inside gadget_match_driver(), so the tests will show
+> > > unambiguously when these things happen with respect to each other.
+> > >
+> > > > Fix this by checking dev_name(&udc->dev) before calling strcmp().
+> > >
+> > > Adding a check like this will not fix a race; it will only make the r=
+ace
+> > > less likely to occur.  It won't prevent the name from being deallocat=
+ed
+> > > between the check and the strcmp() call.
+> > >
+> > > Alan Stern
+> >
+> > Hi Alan,
+> >
+> > Thank you for the review. You are absolutely right about the TOCTOU ris=
+k;
+> > the simple NULL check does not prevent the name from being deallocated
+> > after the check but before the strcmp() call.
+> >
+> > I will submit a v2 patch that uses get_device(&udc->dev) and put_device=
+()
+> > to increment the UDC reference count during the matching phase. This wi=
+ll
+> > guarantee that the UDC device name remains allocated and valid througho=
+ut
+> > the entire duration of strcmp(), eliminating the race condition structu=
+rally.
+> >
+> > Does this approach sound reasonable to you?
+>
+> No, because you haven't addressed the issue I raised at the start of my
+> email, namely, how can this problem actually occur?  And you didn't run
+> additional tests with the extra debugging information that I asked for.
+>
+> Alan Stern
 
-commit 1940e70a8144bf75e6df26bf6f600862ea7f7ea1 upstream.
+Hi Alan,
 
-Commit fb091ff39479 ("arm64: Subscribe Microsoft Azure Cobalt 100 to ARM
-Neoverse N2 errata") states that Microsoft Azure Cobalt 100 CPU "is a
-Microsoft implemented CPU based on r0p0 of the ARM Neoverse N2 CPU, and
-therefore suffers from all the same errata.".
+I have captured the KASAN log with the extra debugging information
+you requested, which shows how this race condition occurs.
 
-So enable the workaround for the latest broadcast TLB invalidation bug
-on these parts.
+The log shows that after gadget_match_driver() enters execution on
+one core, a parallel core can invoke usb_del_gadget() and complete
+both device_del(&gadget->dev) and device_unregister(&udc->dev)
+before strcmp() executes.
 
-Signed-off-by: Will Deacon <will@kernel.org>
-[Mark: backport to v6.18.y]
-Signed-off-by: Mark Rutland <mark.rutland@arm.com>
----
- Documentation/arch/arm64/silicon-errata.rst | 2 ++
- arch/arm64/Kconfig                          | 1 +
- arch/arm64/kernel/cpu_errata.c              | 1 +
- 3 files changed, 4 insertions(+)
+Here is the exact timeline from the dmesg output:
 
-diff --git a/Documentation/arch/arm64/silicon-errata.rst b/Documentation/arch/arm64/silicon-errata.rst
-index bf898b727e36d..1c5accd6dec49 100644
---- a/Documentation/arch/arm64/silicon-errata.rst
-+++ b/Documentation/arch/arm64/silicon-errata.rst
-@@ -351,3 +351,5 @@ stable kernels.
- +----------------+-----------------+-----------------+-----------------------------+
- | Microsoft      | Azure Cobalt 100| #3324339        | ARM64_ERRATUM_3194386       |
- +----------------+-----------------+-----------------+-----------------------------+
-+| Microsoft      | Azure Cobalt 100| #4193789        | ARM64_ERRATUM_4118414       |
-++----------------+-----------------+-----------------+-----------------------------+
-diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
-index 970b623a98955..9e834f0f8dd09 100644
---- a/arch/arm64/Kconfig
-+++ b/arch/arm64/Kconfig
-@@ -1194,6 +1194,7 @@ config ARM64_ERRATUM_4118414
- 	  * ARM Neoverse-V2 erratum 4193787
- 	  * ARM Neoverse-V3 erratum 4193784
- 	  * ARM Neoverse-V3AE erratum 4193784
-+	  * Microsoft Azure Cobalt 100 4193789
- 	  * NVIDIA Olympus erratum T410-OLY-1029
- 
- 	  On affected cores, some memory accesses might not be completed by
-diff --git a/arch/arm64/kernel/cpu_errata.c b/arch/arm64/kernel/cpu_errata.c
-index aee906fbd0881..30595bdadee9e 100644
---- a/arch/arm64/kernel/cpu_errata.c
-+++ b/arch/arm64/kernel/cpu_errata.c
-@@ -341,6 +341,7 @@ static const struct arm64_cpu_capabilities arm64_repeat_tlbi_list[] = {
- 			MIDR_ALL_VERSIONS(MIDR_NEOVERSE_V3),
- 			MIDR_ALL_VERSIONS(MIDR_NEOVERSE_V3AE),
- 			MIDR_ALL_VERSIONS(MIDR_NVIDIA_OLYMPUS),
-+			MIDR_ALL_VERSIONS(MIDR_MICROSOFT_AZURE_COBALT_100),
- 			{}
- 		})),
- 	},
--- 
-2.30.2
+1. At 268.595241, task 1374 (configfs path) enters
+gadget_match_driver() (on CPU6):
+[  268.595241][ T1374] [CPU6
+android.hardwar]:[JJ][core.c/gadget_match_driver/1568] Enter
 
+2. At 268.595250 (only 9 us later), DRD work invokes usb_del_gadget() (on C=
+PU3):
+[  268.595250][  T102] [CPU3
+kworker/3:1]:[JJ][core.c/usb_del_gadget/1529] Before
+device_del(&gadget->dev);
+[  268.598129][  T102] [CPU3
+kworker/3:1]:[JJ][core.c/usb_del_gadget/1531] After
+device_del(&gadget->dev);
+[  268.598159][  T102] [CPU3
+kworker/3:1]:[JJ][core.c/usb_del_gadget/1534] Before
+device_unregister(&udc->dev);
+[  268.599405][  T102] [CPU3
+kworker/3:1]:[JJ][core.c/usb_del_gadget/1536] After
+device_unregister(&udc->dev);
+
+3. At 268.599427, task 1374 starts comparison, where it triggers a
+KASAN invalid-access. (Due to kernel preemption, the task was migrated
+to CPU7):
+[  268.599434][ T1374] BUG: KASAN: invalid-access in
+gadget_match_driver+0x150/0x1cc
+[  268.599448][ T1374] Read of size 8 at addr 66ffff801a49b880 by task
+android.hardwar/1374
+[  268.599454][ T1374] Pointer tag: [66], memory tag: [fe]
+[  268.599456][ T1374]
+[  268.599460][ T1374] CPU: 7 PID: 1374 Comm: android.hardwar Tainted:
+G S      W  O       6.1.124-android14-11-ga633402dff84-dirty #1
+
+To resolve this object lifetime issue, I see two potential approaches:
+
+1. Protect the UDC device lifecycle during the comparison phase using
+   get_device(&udc->dev) and put_device() (as a lightweight fix).
+2. Serialize the configfs match path and the unregister path using
+   a subsystem mutex.
+
+I would highly appreciate your thoughts on which direction you prefer.
+Does this data address the scenario you raised?
+
+Thanks,
+Jimmy
