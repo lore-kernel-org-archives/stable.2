@@ -1,191 +1,87 @@
-Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com [205.220.165.32])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B9C737E314;
-	Tue, 16 Jun 2026 02:01:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=205.220.165.32
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781575261; cv=fail; b=mDvDK9AYJ40MZNWaZcraaThT4HHUVfpnvunsCMMffytPVe5+fZuXwKhgiBi2zCqbT+JpwBB7XBD6ezzlJzWhKaQIoooFeuzIeZs2gQrqBElR/xylpXSd0BKjtbHmkIqujHCL/0nOpW0eVwmwYIyS1dvRnVpfRQi8pM87vki47m8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781575261; c=relaxed/simple;
-	bh=xpu9MjKdTVGzC+ciwxCoZXCKHRQk/asI25jb/CfxfR8=;
-	h=To:Cc:Subject:From:In-Reply-To:Message-ID:References:Date:
-	 Content-Type:MIME-Version; b=KAl2dNrGGI9sSzi1hUVThLdPIm8/1lZ6nwivTMzDd8X1pi0qv+HnG1SJuqVm+WUsvE+A59FKT/vA8BQ0k+dQ/mCP9ixrK+DwncTTL0WqBc97ve+M6Pu8d04qxsatT0XvDZKJC2iuBbnT70jJounb3Ntsl6ihGUq8xG9zq/ybQVg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com; spf=pass smtp.mailfrom=oracle.com; dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b=mR8FO6LS; dkim=pass (1024-bit key) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.b=B5F5caGi; arc=fail smtp.client-ip=205.220.165.32
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oracle.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="mR8FO6LS";
-	dkim=pass (1024-bit key) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.b="B5F5caGi"
-Received: from pps.filterd (m0333521.ppops.net [127.0.0.1])
-	by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65FJNwYv1382432;
-	Tue, 16 Jun 2026 02:00:50 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=corp-2025-04-25; bh=aFn316IGv+KL1guyUZ
-	eCfFJv1oXasbSyu8/9/CADhq8=; b=mR8FO6LSTY7Sb2xQUkFUsLocLf63A5pTJ/
-	AEpSqbekWrZWfSj+CJG3vm1QGUdK5dp/Ur/X+VmIJnBaRX8Di89gk+QbCoeXCPOv
-	EFD4+bSl6NjveH5rTIze0k+Q1lEz58y9UlBQYSXqNvKpn5Kdy63OzuiY0/LhzY5j
-	GzM+k10X9DiQa9SMBRxSugup+hOIl2D3evMWe+Xg/mkqdgLcWUsnYzgiibq5+3F1
-	2qJUsoq//kfmS+J3VS7BGQ/JrCBUZZ6+naPoW1yYxXSrDRda8xlavtgMWB5Z5TUk
-	J3r/nWdUXWWi+U5Xd0vm/HkujyFH6aVVnHkuvTKte9blN7gj4MYA==
-Received: from phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com (phxpaimrmta01.appoci.oracle.com [138.1.114.2])
-	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4es1ay3n7n-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 16 Jun 2026 02:00:50 +0000 (GMT)
-Received: from pps.filterd (phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
-	by phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com (8.18.1.7/8.18.1.7) with ESMTP id 65G1r5b9007099;
-	Tue, 16 Jun 2026 02:00:50 GMT
-Received: from sa9pr02cu001.outbound.protection.outlook.com (mail-southcentralusazon11013030.outbound.protection.outlook.com [40.93.196.30])
-	by phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTPS id 4etq66v2qp-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 16 Jun 2026 02:00:50 +0000 (GMT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=RK6sV9HM5u0EuwtyAnWF8Y3fLAlgB1eAXBFeIxvI10DDR+rzwWDYAgNrpSkrYjQMlSiQi+obVyEtvbnr+5P6iSV10N6pWgLKSyGD7l8lSHmn9iRLMQ6VDxM1P/V66tOLDK2aWmxuqNPSOcMFXH//bAFdnb/WbOfkCU86tA64/lW/MhfYho3SvHicEUt5fJIRX/hPL43P03DgLhTrS+Qq5E9htEddNlVNq0yiKoUQXvhzKoN7VeIwR6l0MXzKgG9HmjBQpc3ESkFJDsquGFL7oQzfOHU9EQt0hyNNUko6iEZJAhEtJfAzyIhpBa/7sYNKR7zUrdnRZAWUqWvr7p/6Aw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=aFn316IGv+KL1guyUZeCfFJv1oXasbSyu8/9/CADhq8=;
- b=u6GZgxDnhvF3f3bQjn4bU1z8fNtK7yiFrtrp6lMwTgOOeo4yHkJcNUpOvzVeb8uJfLR2WOFt2QJcCwhAO2qRdyN86fTIM4nleova7HPLl8eU9/3xXxFAXiDIJVCt0wVeoDm86Vnf1VtD98MvBXkXZMyEm9s+S2wrvhtS4AeTPSIVgmNeHS4UdOVyysg4vvwNMLthzUB2hsSej6tRGFw0vH+yQ0zes5Svxm7/qqkrVc7BbtAvnoD2Yill9ZfCPKdam3OOy5LCbP1lITP7FSAzxMITYywHGqBHHODDNFy4GDmDKPhgYh/tsukzQAsn+F2r8WfvRUjLscRohLD+ZSHtoQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
- dkim=pass header.d=oracle.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=aFn316IGv+KL1guyUZeCfFJv1oXasbSyu8/9/CADhq8=;
- b=B5F5caGi7s9oMhRe0aYQaXUNCOjNup/fjh1FnWHw5oq9AW683xwFlyvpRThCwNGCYDIGRJfBxKUJsvSuV0BkL75yebaEGeapY8SF6LvhkOpdqP9WSlcZulKmeClOgtUKSgjFInt9Yn5Ky4GGSA5p7tmgrAnPJQAVhI8XWkCcMyk=
-Received: from CH0PR10MB5338.namprd10.prod.outlook.com (2603:10b6:610:cb::8)
- by CH0PR10MB4873.namprd10.prod.outlook.com (2603:10b6:610:c7::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.18; Tue, 16 Jun
- 2026 02:00:47 +0000
-Received: from CH0PR10MB5338.namprd10.prod.outlook.com
- ([fe80::e525:dd71:b002:6ad5]) by CH0PR10MB5338.namprd10.prod.outlook.com
- ([fe80::e525:dd71:b002:6ad5%6]) with mapi id 15.21.0113.015; Tue, 16 Jun 2026
- 02:00:47 +0000
-To: Michael Bommarito <michael.bommarito@gmail.com>
-Cc: Juergen Gross <jgross@suse.com>,
-        Stefano Stabellini
- <sstabellini@kernel.org>,
-        Oleksandr Tyshchenko
- <oleksandr_tyshchenko@epam.com>,
-        xen-devel@lists.xenproject.org, linux-scsi@vger.kernel.org,
-        stable@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/2] xen/scsiback: fix command-tag handling on
- pre-completion error paths
-From: "Martin K. Petersen" <martin.petersen@oracle.com>
-In-Reply-To: <20260611123046.2323342-1-michael.bommarito@gmail.com> (Michael
-	Bommarito's message of "Thu, 11 Jun 2026 08:30:44 -0400")
-Organization: Oracle
-Message-ID: <yq1cxxrutvh.fsf@ca-mkp.ca.oracle.com>
-References: <20260611123046.2323342-1-michael.bommarito@gmail.com>
-Date: Mon, 15 Jun 2026 22:00:45 -0400
-Content-Type: text/plain
-X-ClientProxiedBy: YQZPR01CA0005.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:85::29) To CH0PR10MB5338.namprd10.prod.outlook.com
- (2603:10b6:610:cb::8)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB10823EAB2;
+	Tue, 16 Jun 2026 02:22:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781576568; cv=none; b=VLIB/OUB7/DOR+BfcHqknKCbLG8Zeaz8/il+pL+ElX32CLmTWu2Jkbnt0lYQHr5/+mdWQTrNeCOTR00rzhvKjkU45Lap0liP0QqxhXPcEs12II3p+EGd4ZKzydNX2x7i+tzpeffa/Y7jwRH7RWtP+vLjL/wii0AA6+ZHrxWGF0Y=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781576568; c=relaxed/simple;
+	bh=S3mz17AhE2+LTLaXrzCJePSSSnwKBwPr5tsB0ra3wVI=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=GfGxoEqmuxfRkFum0xWkzX5lwU7AV41PSvBp4yMjo76+dgsAbVoqpjwBPiJPl4pyUUiMpu05cvJb/cXJ0EGyltFSo6FHGfcLYACen9MlyaUsNYgSl8jm413d7lAkxA7HaWv/gYKgZotKzOcn1Nd88xx4ERaVcn21/7+hziQsDK0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-03 (Coremail) with SMTP id rQCowAAHJt1xszBqCv7gFA--.37987S2;
+	Tue, 16 Jun 2026 10:22:41 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: brgl@kernel.org
+Cc: linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] pwrseq: core: fix use-after-free in pwrseq_debugfs_seq_next()
+Date: Tue, 16 Jun 2026 02:22:26 +0000
+Message-Id: <20260616022226.1655762-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH0PR10MB5338:EE_|CH0PR10MB4873:EE_
-X-MS-Office365-Filtering-Correlation-Id: 33cfa179-7675-404b-b5ff-08decb4b1510
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|376014|23010399003|22082099003|18002099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	zDtLDCZDF+wp+XYVfwaegJj3EiWZRBhkXGeJRxDDIcIpUclN3pQlmq9pNhi3wkDeixXhqq2oR1ZhIf+VxZlAnPG+FAsiCfRts+8rsqBLuTJdwR2xRfL1Ftz7qL41cg4RqWxxMqQeasCBWrTTvVuvxuXCGSobqwWYQZO/DOXJ0D7aXcgEOtWFy3jOQ/HlJoH2Jo4AhU44Yagu8GKLq8o5F3c6JS2lsX4GSntxpN+jdhDJEBLvbjqX24zpLrMNt+Oo1upKhyZ9jGinXibsioUwhR7qRTk4TQza1Wja3RGh/FBb+NSIEPuekZ0ARRyDAIrihClFNkM4brqF9swdF97V8YVCchEuxI8VIFK/xfT1BliqN7xsV4U2NiZ97DKMOLSuRqjz1wtG42P/QHSkKbG0PtMctwgjMp0iaTQQM6QnWib2w9pPaQPoVDWSObv4irVNTmz0HHHlpnw4dFLBPar0yT1o4+A0nK7OkaanByyO/qCXG9k5A3j4xd61im5gcq8N6p0tYaSPC/n4wjjvRyGyvhaIOJKpje2H7uer5egsQbY6l3uCJ+zpY6Pv9Ez2p8fx4Dc7UKdL8UJwsnpjX1xL2vANEXtrwPdMiMh7q+FLLqtjsIenaOsIo4xIBAKEme7L4RNHo/QfgQyEQTNadG8zw+LLAxKQhp3sVPPzonvUe19p4Z/xiYlm70bROJqRM4Jb
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH0PR10MB5338.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(22082099003)(18002099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?AFAKbgEr5bkjd5AkoetxQClQ3F9/UkkwnSq9bjXQwzJJB9ka3lG1b8oFjb4g?=
- =?us-ascii?Q?ZJ9ECwhEJEEE7XNiQHx+G+vX9Z5YQHUqmKqkT2ivCWN8dQBzq1GxMOUHalsv?=
- =?us-ascii?Q?Q+P5RzrZ5J1a4SrSEVn/maca0bbh2XkyoE9g65rdSt+EB2edCc16t/n675K6?=
- =?us-ascii?Q?2yoDK7OXkI9DSBPKXUv572mwAjGgwrQfRMw+MNHX6S9qgZOJaSx3vt6vRy0p?=
- =?us-ascii?Q?QVum4PLgFcKkcAAglMiXiB4KfR0oLBaH8HDW151foR68yGxEtjQLrmyAFflS?=
- =?us-ascii?Q?mRJzGyHX5OMK98GB2MOy+SCHXC5riaUWtbdLlXmzizBWOD3+e6seC7Lc8H64?=
- =?us-ascii?Q?vcSlaem/ZhdhyEMg8HMeOnsOMREevVkfUTPVkynRuUOShkKdtDtrY1DJmCrf?=
- =?us-ascii?Q?/Oop3V9a/zEOA9ApC7oKwG3aa+bntt2dCBsWq59BzV1JysyFYUHYwQ46OYcU?=
- =?us-ascii?Q?5rbaTcCJCWxfFBuBSWjkAdKcDFUUxkYSOZY6VZZ1TnDrjSZ/kXjyjcxt9qBs?=
- =?us-ascii?Q?H7C3Mr+BDVJhFF/NkkOqHYalv4NL+AupZd6i3Ys7zFh7JsA5R4M6oTkBn6By?=
- =?us-ascii?Q?VKFAJZzBHMS2Wd8LfeNHE3U2A2Ku2tD9IkYhO0J2qEKw+Ci0wk7PiYc3SDt3?=
- =?us-ascii?Q?V0jUfcGycN7PHOiDz5dHvslQcwd+Ww5vyNDiUne/mzxvNYBlTICtrmyZu6eI?=
- =?us-ascii?Q?BF48XBaiynUrzGejhCShxdyJneyaNd+QRmhQcNzHzZuJUVskCVMlauoNT2zE?=
- =?us-ascii?Q?g1d+aUU/agvbGAOe/F3550813C/+C+EsPb5tCx/tUXswnSPKqIRjvlykwAKG?=
- =?us-ascii?Q?EhHLsdbPPUlHHOigobi0j5/RI6o1AVj5qcHA1bUMbRtA6sjFVbkJnTbhdJ0L?=
- =?us-ascii?Q?I1fvWtGYw/FGG6um+H3nCcpnrABTAZcS3l9uN5vD27/+q21dgf6spOk2Tm3+?=
- =?us-ascii?Q?tpVE2jO0m4FW5NmCYJVb46esnwPek8Fc2McdpyI04sOOp8TFJLkpJ1LziJn8?=
- =?us-ascii?Q?uO/GlOP4KkwZBBz9k9Dwrz3WHQ+wxx19L/gCLXnNDn0E5cZQp3dLQJ9O0J3c?=
- =?us-ascii?Q?1TISqd5wKPkyLRzFiFTfgZvlPnv4lTnU8APQ0U1X2hZWAfksKyhfYBMi5l38?=
- =?us-ascii?Q?d84QQFZr/vf0+d65wskpiyXL76nnMus16eXaLpW0bQQDpUZiXD9STyS4wSKU?=
- =?us-ascii?Q?PZ+SFZ+vAPmxWJVcF3q5ZI1Um+a6C2KIUOpv55MU7X3aHS5HfCcjMGEHHurm?=
- =?us-ascii?Q?eFhODCqyYzVQr2zYaKFGXuMs+6rSNG23fSiu3+b6WCCTMEyMtpDCLstn4Pus?=
- =?us-ascii?Q?vxnagENl8nAc/dls+5sxjG87js2/cRBgpXjhfepXZ2vUlFsojJZIyCuLpENx?=
- =?us-ascii?Q?39NQWuF4PtfUj6KW9VMQsrXdJrKojEy7vegDOdt10M+6CLPDBiZfh/cCDmXn?=
- =?us-ascii?Q?jwmF6jfzHfapLYnA5SYc5H7mSc6hnZkIv8oCn6hVinSeB/IMzhWvAAyjOA1h?=
- =?us-ascii?Q?pQX5Ue+6EIS26iW5Ustsq2J/sLd/D3P7G/R15s4nl1aUfw7tAMb9KLjyy/+r?=
- =?us-ascii?Q?ODqbBnybxaQquvTMoWDlmVI1yFr8s/x8i/oMGyy2AGuVTdEJUgZ3xo+AUXsd?=
- =?us-ascii?Q?mWr7BDc/yElmbpZQlNZebSYz9ZJp+TzcurfD+lelTnbtmRX9SXiR6hSDQAl6?=
- =?us-ascii?Q?2uJcR1mp8HQmdSU1vronYh9un4/Qk71mHbIBDOEANoI7q6xrFCW9pZDpyFKA?=
- =?us-ascii?Q?88giEutBWTbi84SFggAJJiaPiECLc8k=3D?=
-X-Exchange-RoutingPolicyChecked:
-	MnhQTp/M0+9aPBw8jr7Spwisw9QhfMGJuUkv7r0oN06Mb95EqG1VjUSUYn17OW2s4soqGkfwmJllKwu/gX5eXGjVwuv0Ypl07IcTBSumYQXa58QgkDdHxJh6z2zPzQB0Bko426D9wBfKy5WfOop7xdPsX1IjXN8LdPLshUYyamCjUU1w/I2CGXPyr0kiCbkUhzY5EXIedgKdod1FUvWTRIIrpR2FUtlGZB8QkkE+C6+NvBfc4ttTK9cc9fVICyCLsEvbVw+VwdOy0/kyWR0QVf4ExdJU4M0bFlLijsm2fWxevoi+XBSKC45fuljtBKN7qXTps9/8EjvYCZ3CLFsgTw==
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
-	vwqAh3/Gw+pwne3r3oOF7iluqQC2AOr0EpONKaO2n27zlE+VywSV/RKq3KRJo/vk3O/QQuw5JbCPp0qtk+Q9qDhfPKzXB/ifP+JQaz+DHUg+kXTg2a3bxfmPBpgDT9Yo4vpPRvFrYKtt3A6ctoJxBK7xhT7+oj3Q9kR8nEjkwIyUJBaxBSHC1Bc5eiKBaOm8rQB3InVMBB0z80o1Fhb6+4A2tb4vVhEHJ2yAVNycU3jK/QkzQNqXNhHHGvX5oAJ4aJByagOTt2q/o+60Gb4WvcFklyKtd5w1HazxtyT6j9wK9sLKUWr973SJdw/wBSXFjRaFNtqQdJ6ephYQSllZtkrCZU2ek2std9oMh63VswNTMZr23Nv5Vk8uBOMI1P9ng2fTF/WSWOZ4LpTvw3qjGNA01J2LLykAL/0BMXqLDkY1icPcBfc6KjS6NpF8ErFJ8RYz5LLLma7uiI/jgQ/5Yo2Pt0byccxS4C+LZIIob7uwNKklZg9HY+pftWs0jPvAQfvRMPpcLeLzFQPn4SuFlbrWlYdSmE6aZtw8GjG0oGea6VbQHgGlrykw2KbCIkvf4shVy63zebat1JPfZVqVF2AEtdhc3rfC9H6Lj1HXxFU=
-X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 33cfa179-7675-404b-b5ff-08decb4b1510
-X-MS-Exchange-CrossTenant-AuthSource: CH0PR10MB5338.namprd10.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jun 2026 02:00:47.0844
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: aQZzZwNJuxUoziDFdbq0d+1pKswMMjNneiXgQXoAQhbfdMUrpTErAxydQ2LNPNCTN58mwjlxlLNE4wwuZYEMKBT5b8jdKo5j6fYwWhv616A=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR10MB4873
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-16_01,2026-06-15_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 bulkscore=0
- lowpriorityscore=0 phishscore=0 suspectscore=0 adultscore=0 mlxlogscore=999
- mlxscore=0 spamscore=0 malwarescore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.19.0-2606040000 definitions=main-2606160016
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE2MDAxNiBTYWx0ZWRfX62aGZj6Ch/TG
- UtJdYzqnPfZ2ioKclwAcjOYJOAvtvO7HBqevtHll7E4O0J4+RslZYkEYLlOtcosn88e2KxmtMAQ
- onAorksnLPJahbY5nuJr8E5TGIjYk3SHGQeHCGMvyVFnCWEx3cyw
-X-Proofpoint-GUID: Y_ZQnv_xGJZahWp83NTb00QZQ9hGbzh3
-X-Proofpoint-ORIG-GUID: Y_ZQnv_xGJZahWp83NTb00QZQ9hGbzh3
-X-Authority-Analysis: v=2.4 cv=PazPQChd c=1 sm=1 tr=0 ts=6a30ae52 cx=c_pps
- a=XiAAW1AwiKB2Y8Wsi+sD2Q==:117 a=XiAAW1AwiKB2Y8Wsi+sD2Q==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
- a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=FelO9ux0wxsA:10
- a=GoEa3M9JfhUA:10 a=VkNPw1HP01LnGYTKEx00:22 a=jiCTI4zE5U7BLdzWsZGv:22
- a=x0eKOSpe3m1H3M0S9YoZ:22 a=cd8x-zEzMShnuW5xUh0A:9
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE2MDAxNiBTYWx0ZWRfX77R8zl3HawcM
- ok7Ijme2Eb7UinyJ9s8TJIJ8jJywOIyEZvLyK7LJEYP4nUYglnDtNi+xEoKghJ79seBxYzV+aLK
- n2lsQ8iTuxXNDLuKoWtrFSsMLXQm8bOxEpBkyuAQN4HXLRKKpfok+POrSgpK2kqCh1f9ODB1nbK
- IpTgNNpG1h9Y+TgJfy4UFnPsMaTmEnq5juRu9qvUKkHbsf6LU0vMZlBmJLn22z1tOPdxaVxI6W8
- pKehQymnIUzuMnYQ7JBuEisLJRqp2HMbcczj8XtBs+q5tfBLdbNcDykesBQyl/kEQyWVhT7NDcm
- tv6/HWPjqquWw7Ioo+28D4bralwoLT+XovLZtwgW3vOeCnECXjm4S1fKnagjD6O4T4Fa4e18aps
- Rys/KIzULNics/oTnOye6KP9PzTA3Xa93yaPFDK/LIItCQgR4GDVR3yBn8vvwv3GkpTIahlHNen
- zoXH5ePhrao2qGrAxBg==
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowAAHJt1xszBqCv7gFA--.37987S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7JryfKFyxKw1kXw1fCry8Xwb_yoW8JrWrp3
+	98G3sYyrWUWF47tF45tFW7XFy5Aa17J34fua9ruwnYvw15Xa4jyry5ArW5XryjyFy8ZFy3
+	tr1Iga48uryj9rJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUkE14x267AKxVWUJVW8JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
+	6r4UJwA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Cr
+	1j6rxdM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
+	6xIIjxv20xvE14v26r126r1DMcIj6I8E87Iv67AKxVW8Jr0_Cr1UMcvjeVCFs4IE7xkEbV
+	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AF
+	wI0_JF0_Jw1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4
+	xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1D
+	MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I
+	0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWU
+	JVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r1j6r4UYxBIdaVFxhVjvjDU0xZFpf9x0JUg4S
+	rUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAYTA2owFOcJPwADsG
 
+pwrseq_debugfs_seq_next() declares the 'next' device pointer with
+__free(put_device), which causes put_device() to drop the reference
+as soon as the variable goes out of scope. Returning 'next' directly
+thus gives the caller a pointer whose reference has already been
+decremented, resulting in a use-after-free.
 
-Michael,
+Fix this by returning no_free_ptr(next) so that the automatic
+cleanup is suppressed and ownership is properly transferred to
+the caller.
 
-> scsiback_get_pend_req() hands a pvSCSI frontend request a session tag
-> and a zeroed se_cmd. Two error paths that run before the command
-> completes through the target core mishandle that command and leak (or,
-> in one case, underflow) the tag.
+Cc: stable@vger.kernel.org
+Fixes: 249ebf3f65f8 ("power: sequencing: implement the pwrseq core")
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/power/sequencing/core.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Applied to 7.2/scsi-staging, thanks!
-
+diff --git a/drivers/power/sequencing/core.c b/drivers/power/sequencing/core.c
+index 4dff71be11b6..1ec4f393994d 100644
+--- a/drivers/power/sequencing/core.c
++++ b/drivers/power/sequencing/core.c
+@@ -1010,7 +1010,7 @@ static void *pwrseq_debugfs_seq_next(struct seq_file *seq, void *data,
+ 
+ 	struct device *next __free(put_device) =
+ 			bus_find_next_device(&pwrseq_bus, curr);
+-	return next;
++	return_ptr(next);
+ }
+ 
+ static void pwrseq_debugfs_seq_show_target(struct seq_file *seq,
 -- 
-Martin K. Petersen
+2.34.1
+
