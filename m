@@ -1,87 +1,120 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4255B47AF5F;
-	Tue, 16 Jun 2026 17:44:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43BD44657D0;
+	Tue, 16 Jun 2026 17:44:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781631884; cv=none; b=E1JTEROV4ydsqU7m5lahwMBkXBPUCmzB3ASKHTcBvqexBsuTGZ/zJgFeYFnR4URQ3468pjFEpxXEyCCL0F209+CTYkhjSEWBpi0xKVx4MukxStrIQdcWBKSoLFIYg1hIDHU+1cHibtvOo6E2VOXHcqHIPH/vxUBZF7EfyMFRzZI=
+	t=1781631886; cv=none; b=oOOug7+5Kl4nQOJy6nf3KJoYPv1dOv0TEqlsFt6VSYoab3W0668wTv6pQs4p0jvXvntfnNw0qbBSBBgATS2HrH8yR0wFO96HZvjJnGYgJLlilP8MDrS5JTK2UPEUq2wH4vcyGZ3jFenCAyOtZsIy6p3kew2eF7KJ76oAzrBhoLw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781631884; c=relaxed/simple;
-	bh=PQA145YAA2CJZfOtrtPtkSQEG98dC0r4HRCTF/mgdjc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bcdPOBlNPlDVdWm4qofedNpZNYSS+TfrY84NXwvi2tQQNn15jW7TinNDzBUCyn87VRd3g2oFQ0IcVErpyS9A2VGW870YrT2xihcWfRWnWtTzXb2+TlfibVmJIFDYDRqAEJLny461Y9N9lzIOabcEk5EmdxgzJVNm35CAwxVZifw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=StKcjs5I; arc=none smtp.client-ip=192.198.163.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1781631886; c=relaxed/simple;
+	bh=Zw5gybPIR8O8ZH09DfyLuSDQCRgqhRX6tI6ibMoWpnk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Lf34wn2YqakHT3pU5ZxLfe1bFqid4Ci7iqp/Un+mBySUth0oORJVy0ZBFOjGe20wGHi23b1jfg5MD+0EHBfPOnl96UfkK4tmxt33K9bXjeCvVkBn01MD54DjfWl408RscT7R7dEWcEaBNO4IoGkwPEHPxpHwy6NUp1Usy9r7gGQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=MME5TgLa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="StKcjs5I"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1781631882; x=1813167882;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=PQA145YAA2CJZfOtrtPtkSQEG98dC0r4HRCTF/mgdjc=;
-  b=StKcjs5IG/IaKGzMI+JeQgQZlKWmOIPcJSQV5mSCyiwAenSxVdnKsccJ
-   xGDpdhwUmsQq9K/KxEvwKUsUprzarkokG68kjLdIKFVID2wBdDXnILhUn
-   k2lUooQCdfFN6Nk0inuSVYdyA9k40G6OsHaKr5SQ2uGPfv+rW2pUvHq0e
-   eSriDmsA1Nxh3DSyZLi4orSNVjC23cXR+RlYpNUSGE4rfnFNHWKf68rtm
-   rtSnTo6w5Jdna7TgahFRuv/VgsDwGV5VS2LK2hCx0qfGBvzijdCNiefLr
-   uCgKZFOfDTjUMQ8A18d6kMJyAGHck5tbr4uau7sAwcV+ZDslw6Jav5htE
-   A==;
-X-CSE-ConnectionGUID: HOGDe5ykTn+lxdAQhjCmxg==
-X-CSE-MsgGUID: qJgcM1a5TZ6H3lJK1QHmbQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11819"; a="84971395"
-X-IronPort-AV: E=Sophos;i="6.24,208,1774335600"; 
-   d="scan'208";a="84971395"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Jun 2026 10:44:42 -0700
-X-CSE-ConnectionGUID: EGu9RFbRTzqgHkXWAdaN6w==
-X-CSE-MsgGUID: tLFRqi/tTci1/3FLRF0UZw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,208,1774335600"; 
-   d="scan'208";a="271908495"
-Received: from aduenasd-mobl5.amr.corp.intel.com (HELO [10.125.111.91]) ([10.125.111.91])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Jun 2026 10:44:40 -0700
-Message-ID: <81f90f2e-a0df-483a-af25-7eac7a19049a@intel.com>
-Date: Tue, 16 Jun 2026 10:44:39 -0700
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="MME5TgLa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4822D1F000E9;
+	Tue, 16 Jun 2026 17:44:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1781631884;
+	bh=KSs0E6+BUnWohc/iXsNP3AESfeqpShjOQx9lzkZSnxA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=MME5TgLa/2jtstWU68uTdojsvACeVfEbDbFTg4jDW1aP1n8QK5gkIF1fJmI7wClnC
+	 z0mVFfOVgmsJuTvLwZ2nQ0fcKAohp9dlym/wl9EG9pskMAyCDP+4TzBK2Ph8XbK7lP
+	 kKnqpINfpJ1gOwDJk3PNnYTpxEfLhMFdmkMOEeJg=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Jack Wu <jackbb_wu@compal.com>,
+	Johan Hovold <johan@kernel.org>
+Subject: [PATCH 6.1 276/522] USB: serial: option: add usb-id for Dell Wireless DW5826e-m
+Date: Tue, 16 Jun 2026 20:27:03 +0530
+Message-ID: <20260616145138.867508772@linuxfoundation.org>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260616145125.307082728@linuxfoundation.org>
+References: <20260616145125.307082728@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] cxl/mce: Validate memdev and endpoint before
- dereference in cxl_handle_mce()
-To: "Dan Williams (nvidia)" <djbw@kernel.org>, linux-cxl@vger.kernel.org
-Cc: dave@stgolabs.net, jic23@kernel.org, alison.schofield@intel.com,
- vishal.l.verma@intel.com, flavien@nus.edu.sg, stable@vger.kernel.org
-References: <20260616004007.4186004-1-dave.jiang@intel.com>
- <20260616004007.4186004-2-dave.jiang@intel.com>
- <6a318b25443ad_199fc4100b5@djbw-dev.notmuch>
-Content-Language: en-US
-From: Dave Jiang <dave.jiang@intel.com>
-In-Reply-To: <6a318b25443ad_199fc4100b5@djbw-dev.notmuch>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+
+6.1-stable review patch.  If anyone has any objections, please let me know.
+
+------------------
+
+From: Jack Wu <jackbb_wu@compal.com>
+
+commit 1938fb9fe38c4f04a3f30bea44f8071c80a63be4 upstream.
+
+Add support for Dell DW5826e-m with USB-id 0x413c:0x81ea
+
+T:  Bus=03 Lev=01 Prnt=01 Port=04 Cnt=01 Dev#=  8 Spd=480  MxCh= 0
+D:  Ver= 2.10 Cls=ef(misc ) Sub=02 Prot=01 MxPS=64 #Cfgs=  1
+P:  Vendor=413c ProdID=81ea Rev= 5.04
+S:  Manufacturer=DELL
+S:  Product=DW5826e-m Qualcomm Snapdragon X12 Global LTE-A
+S:  SerialNumber=358988870177734
+C:* #Ifs= 7 Cfg#= 1 Atr=a0 MxPwr=500mA
+A:  FirstIf#=12 IfCount= 2 Cls=02(comm.) Sub=0e Prot=00
+I:* If#= 0 Alt= 0 #EPs= 2 Cls=ff(vend.) Sub=ff Prot=30 Driver=option
+E:  Ad=01(O) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+E:  Ad=81(I) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+I:* If#= 1 Alt= 0 #EPs= 2 Cls=ff(vend.) Sub=42 Prot=01 Driver=usbfs
+E:  Ad=02(O) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+E:  Ad=82(I) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+I:* If#= 2 Alt= 0 #EPs= 3 Cls=ff(vend.) Sub=ff Prot=60 Driver=option
+E:  Ad=84(I) Atr=03(Int.) MxPS=  10 Ivl=32ms
+E:  Ad=83(I) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+E:  Ad=03(O) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+I:* If#= 3 Alt= 0 #EPs= 3 Cls=ff(vend.) Sub=ff Prot=40 Driver=option
+E:  Ad=86(I) Atr=03(Int.) MxPS=  10 Ivl=32ms
+E:  Ad=85(I) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+E:  Ad=04(O) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+I:* If#= 4 Alt= 0 #EPs= 1 Cls=ff(vend.) Sub=ff Prot=ff Driver=(none)
+E:  Ad=87(I) Atr=03(Int.) MxPS=  64 Ivl=32ms
+I:* If#=12 Alt= 0 #EPs= 1 Cls=02(comm.) Sub=0e Prot=00 Driver=cdc_mbim
+E:  Ad=88(I) Atr=03(Int.) MxPS=  64 Ivl=32ms
+I:  If#=13 Alt= 0 #EPs= 0 Cls=0a(data ) Sub=00 Prot=02 Driver=cdc_mbim
+I:* If#=13 Alt= 1 #EPs= 2 Cls=0a(data ) Sub=00 Prot=02 Driver=cdc_mbim
+E:  Ad=8e(I) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+E:  Ad=0f(O) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+
+Signed-off-by: Jack Wu <jackbb_wu@compal.com>
+Reviewed-by: Lars Melin <larsm17@gmail>
+Cc: stable@vger.kernel.org
+[ johan: reserve also interface 4 ]
+Signed-off-by: Johan Hovold <johan@kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ drivers/usb/serial/option.c |    3 +++
+ 1 file changed, 3 insertions(+)
+
+--- a/drivers/usb/serial/option.c
++++ b/drivers/usb/serial/option.c
+@@ -202,6 +202,7 @@ static void option_instat_callback(struc
+ #define DELL_PRODUCT_5821E_ESIM			0x81e0
+ #define DELL_PRODUCT_5829E_ESIM			0x81e4
+ #define DELL_PRODUCT_5829E			0x81e6
++#define DELL_PRODUCT_5826E_ESIM			0x81ea
+ 
+ #define DELL_PRODUCT_FM101R_ESIM		0x8213
+ #define DELL_PRODUCT_FM101R			0x8215
+@@ -1123,6 +1124,8 @@ static const struct usb_device_id option
+ 	  .driver_info = RSVD(0) | RSVD(6) },
+ 	{ USB_DEVICE(DELL_VENDOR_ID, DELL_PRODUCT_5829E_ESIM),
+ 	  .driver_info = RSVD(0) | RSVD(6) },
++	{ USB_DEVICE_INTERFACE_CLASS(DELL_VENDOR_ID, DELL_PRODUCT_5826E_ESIM, 0xff),
++	  .driver_info = RSVD(1) | RSVD(4) },
+ 	{ USB_DEVICE_INTERFACE_CLASS(DELL_VENDOR_ID, DELL_PRODUCT_FM101R, 0xff) },
+ 	{ USB_DEVICE_INTERFACE_CLASS(DELL_VENDOR_ID, DELL_PRODUCT_FM101R_ESIM, 0xff) },
+ 	{ USB_DEVICE(ANYDATA_VENDOR_ID, ANYDATA_PRODUCT_ADU_E100A) },	/* ADU-E100, ADU-310 */
 
 
-
-On 6/16/26 10:43 AM, Dan Williams (nvidia) wrote:
-> Dave Jiang wrote:
->> cxlmd and endpoint are both used in cxl_handle_mce() without proper
->> validation, which can lead to NULL pointer dereference or invalid pointer
->> dereference. The notifier is registered in cxl_memdev_state_create()
->> when the CXL PCI driver first binds, before the memdev is published and
->> before it is attached to a CXL topology.
->>
->> Add checks to cxlmd and endpoint to ensure they are valid before usage.
-> 
-> This looks to be trying to band-aid the original mistake of having
-> cxl_memdev_state_create() register a region-relative callback.
-> 
-> Move the mce notifier registration to be per-region and all the lookup
-> lifetime problems disappear.
-
-ok that makes sense. 
