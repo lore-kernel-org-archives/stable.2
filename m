@@ -1,77 +1,107 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CADB3CF050;
-	Tue, 16 Jun 2026 05:19:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 224803CF1FD
+	for <stable@vger.kernel.org>; Tue, 16 Jun 2026 05:20:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781587191; cv=none; b=nM5Jja+UHYASYSZk1YLIcY3pqw6YtPqp71b+rtwUnvTwpCjCnYFzoD/XpG8ZI5MrD4CxTLMprspapupmMfC/98prtGY/tFjrv898ZVUVaYNukc+aYA7dzfuh7A0Fb7V346L9bFXOFYW0GJYZWA1n2UGvNGuFW5yqjP/H8MEFbF4=
+	t=1781587257; cv=none; b=Gy8S3LgPiHa6VuVdJJvqmOlIP6TP1h9NDL5aDqt0vmf6ao2RKtq5ANR+49iXkzBj3kkhVsRWUSI6m5o3FLSq13nVvt0/SFQkBG518nvkMODiD+i5gJSY6HkVk6ZEzOup373R7Xobjzm016B2TxZ3ysw8cONRZ/qqXO3ur0F+o0w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781587191; c=relaxed/simple;
-	bh=gLXwPiCRPIvq+YcbMIKq8VQg1wqJjHU8IQ5H1jeimw8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FdOIJ65eWx2JPOVa24NT+0OWfSNsuNNr2VWvCFJIlfdEimLZWjd1NF7KkbHgap3PKZtt9uHqVyikGsg9Mp2NaMHvYuVncgNNKzOpaVoOWX0J+jCasOb7qgl5D8kLBJeJBdvgR8ff48StwLkCRaFXgf+AC1i7+ARJDx4GJB1qBVM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U/vTdyzL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781587257; c=relaxed/simple;
+	bh=F8GMh151XZEH1IJGS4i2ScY6FZVvBKPAxosRptMbit4=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=uSZq1UcSZdFSyrLDj+4O/MKtnFWS82sHFkPBcBAVC520oHJ6pBHEWTc9JWUtPt9FZ8xG8XRywE0JK4G5HqpGILLfM9MbnmnhnoeT2V/vawLIcWPZkcJxAneUL+lsf7ZAoqyY2mYApZIbQItJV7RDMG7rB7JV05rRDtfAERth7FA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=WWNmMMum; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U/vTdyzL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B296E1F000E9;
-	Tue, 16 Jun 2026 05:19:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781587190;
-	bh=KvBrSwBFTSZ+t/K9ooRkcCfKUkhV2wprBH0/WVJTQv4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=U/vTdyzL1eIsF2urLv8BqnMYsg3bu3Wqb9Tq5VvEdjR6zHUSKSGcJz/iDWl3VPyti
-	 i5OIrYbpy7vEbeV+EkdAi5ZIR4ITxMob7Xme4VbYeVr4xMu/xgSHF4OHyxLU4FTKEu
-	 jNmav7I7y917ZQ+RBuFOP0yb1iNEXmy4dRr9pG8nWas2Htza2GeO4gsDTYCh7nYQKD
-	 N4kw69C5Om6+F6WX3GB+G+R9EIrasDdDQuhtUI9iHlMIBL42OjP5BSuy0dHtNbXHkU
-	 drHu/heyZesWAm6VR2246BSasG1m14t9J/HHBbFfceycEq8DwqFAPGY21nOd7xMoej
-	 IAIPPpAlCOyaQ==
-Date: Mon, 15 Jun 2026 22:18:20 -0700
-From: Eric Biggers <ebiggers@kernel.org>
-To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Cc: Thara Gopinath <thara.gopinath@gmail.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S. Miller" <davem@davemloft.net>,
-	Stanimir Varbanov <svarbanov@mm-sol.com>,
-	Eneas U de Queiroz <cotequeiroz@gmail.com>,
-	Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
-	linux-crypto@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org, brgl@kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/8] crypto: qce - Remove unsafe/deprecated algorithms
-Message-ID: <20260616051820.GA127019@sol>
-References: <20260615-qce-fix-self-tests-v2-0-dc911f1aad42@oss.qualcomm.com>
- <20260615-qce-fix-self-tests-v2-1-dc911f1aad42@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="WWNmMMum"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 080833D4B;
+	Mon, 15 Jun 2026 22:20:49 -0700 (PDT)
+Received: from lakrids.cambridge.arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id EEFA33F763;
+	Mon, 15 Jun 2026 22:20:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1781587253; bh=F8GMh151XZEH1IJGS4i2ScY6FZVvBKPAxosRptMbit4=;
+	h=From:To:Cc:Subject:Date:From;
+	b=WWNmMMumCoFvz54ZcA6C83G6nEVL8s0D/LA+2RyNczgokBvLm7ul7aFD6Uw9ItiNW
+	 N2jy+DGV4JxjRkGhlfwNjeV3sYFxJeB2KT+rwO+TzQhRKoI1xYAnOsKVW/jMQ3PJcP
+	 ldl8ioDe55JJvlMcRUVqaLyWFtJlP+l5oeQFkicY=
+From: Mark Rutland <mark.rutland@arm.com>
+To: stable@vger.kernel.org
+Cc: anshuman.khandual@arm.com,
+	catalin.marinas@arm.com,
+	gregkh@linuxfoundation.org,
+	lee@kernel.org,
+	mark.rutland@arm.com,
+	maz@kernel.org,
+	oupton@kernel.org,
+	ryan.roberts@arm.com,
+	sdonthineni@nvidia.com,
+	will@kernel.org,
+	yuzenghui@huawei.com
+Subject: [PATCH 6.1.y 0/9] arm64: errata: Mitigate TLBI errata on various Arm CPUs
+Date: Tue, 16 Jun 2026 06:20:37 +0100
+Message-Id: <20260616052046.112003-1-mark.rutland@arm.com>
+X-Mailer: git-send-email 2.30.2
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260615-qce-fix-self-tests-v2-1-dc911f1aad42@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Jun 15, 2026 at 05:49:52PM +0200, Bartosz Golaszewski wrote:
-> Remove algorithms that are either unsafe or deprecated and have no
-> in-kernel users that cannot be served by the ARM CE implementations.
-> 
-> AES-ECB reveals plaintext patterns (identical plaintext blocks produce
-> identical ciphertext blocks) and should not be exposed as a hardware-
-> accelerated primitive. DES, Triple DES and HMAC-SHA1 have been
-> deprecated for years.
-> 
-> Remove ecb(aes), cbc(des), ecb(des3_ede), cbc(des3_ede), hmac(sha1) and
-> all AEAD variants built on these primitives. Also clean up the - now dead
-> - code, flags and constants.
-> 
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+This is a v6.1-only backport of a workaround for a TLB invalidation
+issue affecting several CPUs. The final patches landed in mainline
+yesterday:
 
-What is the rationale for still supporting the following?
+  https://lore.kernel.org/linux-arm-kernel/178157002783.358810.8206806281627742561.pr-tracker-bot@kernel.org/
+  https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=80476f22b8b7e193b26f285a7c9f9e4b63abca16
 
-    sha1
-    ecb(des)
-    authenc(hmac(sha256),cbc(des))
+This issue has been assigned CVE ID CVE-2025-10263, and Arm have
+published a security bulletin:
 
-- Eric
+  https://developer.arm.com/documentation/112137/latest/
+
+This backport includes prerequisite patches which were previously sent
+on their own (unchanged since that posting):
+
+  https://lore.kernel.org/stable/20260611134451.1700637-1-mark.rutland@arm.com/
+
+I've pushed a copy of this backport to my kernel.org repo:
+
+  https://git.kernel.org/pub/scm/linux/kernel/git/mark/linux.git/log/?h=stable-6.1/arm-4118414/backport
+
+Mark.
+
+Marc Zyngier (1):
+  KVM: arm64: Remove VPIPT I-cache handling
+
+Mark Rutland (5):
+  arm64: tlb: Allow XZR argument to TLBI ops
+  arm64: tlb: Optimize ARM64_WORKAROUND_REPEAT_TLBI
+  arm64: cputype: Add C1-Ultra definitions
+  arm64: cputype: Add C1-Premium definitions
+  arm64: errata: Mitigate TLBI errata on various Arm CPUs
+
+Shanker Donthineni (2):
+  arm64: cputype: Add NVIDIA Olympus definitions
+  arm64: errata: Mitigate TLBI errata on NVIDIA Olympus CPU
+
+Will Deacon (1):
+  arm64: errata: Mitigate TLBI errata on Microsoft Azure Cobalt 100 CPU
+
+ Documentation/arm64/silicon-errata.rst | 46 +++++++++++++++++++++++
+ arch/arm64/Kconfig                     | 50 +++++++++++++++++++++++++
+ arch/arm64/include/asm/cputype.h       |  6 +++
+ arch/arm64/include/asm/kvm_mmu.h       |  4 +-
+ arch/arm64/include/asm/tlbflush.h      | 52 ++++++++++++++++++--------
+ arch/arm64/kernel/cpu_errata.c         | 34 ++++++++++++++++-
+ arch/arm64/kernel/sys_compat.c         |  2 +-
+ arch/arm64/kvm/hyp/nvhe/tlb.c          | 41 ++------------------
+ arch/arm64/kvm/hyp/pgtable.c           |  2 +-
+ arch/arm64/kvm/hyp/vhe/tlb.c           | 19 ++--------
+ 10 files changed, 180 insertions(+), 76 deletions(-)
+
+-- 
+2.30.2
+
