@@ -1,67 +1,73 @@
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
+Received: from mail-yw1-f171.google.com (mail-yw1-f171.google.com [209.85.128.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15689319852
-	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 21:57:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CB4B3B776A
+	for <stable@vger.kernel.org>; Mon, 15 Jun 2026 22:01:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781560631; cv=none; b=O+KHJ4h1zx+9hapMSc7EzqpG9aszes/PtWY9W49dKL8s3DG7MHEVtcSfqc9avgxsMRzX5W6MF7qvEvtI8pRIF1e5Jx/ft68SAzjVkhJnfBOzI8iP1gjsJbfGZ3KGHhIRp7dpArzpk8yK8DET7w/WL1VDh+Rp666/Zv4ASVhLlf0=
+	t=1781560884; cv=none; b=V6TAZYWsiJJC1x1g5xF7a6Ju9vDyJl8qrErAfVW7Q1wgJyNPXpJEjFUOODD8A/pzNYcxrrUPrVm9wDVKvKs6rEgpuCMxOcY8QKXi8fXm+vruweHvlCfjDQnlVOifZ41I9TOP3sHyRr0rnAZ2x7j8cJMjBQFIFbeLw8blYfJhOOU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781560631; c=relaxed/simple;
+	s=arc-20240116; t=1781560884; c=relaxed/simple;
 	bh=DCS6KZLUxkgrDiPxwM2MsNX+j4Hds16585emdMUCp2E=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gTAdcjvXW+OmStzmI6XjszTuziDrKqod9HuCojC+kY03FLLQ0bM8lZxS4xXEornUQ78+7tMKRfdadNW6zJhWklLiS860RSeBqWP+1N30967qmhXMwPi0DuPijegy58IAy8JJWtwjg7mMctm4CzBhiNxf3Ms5krvXAbQJvcqpOqs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CMPdLQMn; arc=none smtp.client-ip=209.85.214.178
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=opxsJlfx5hkUCkhG+ci2XpaU9zLK7wIAVnSX5d24Iu4ryR3DqRysAUcr9z6BDQZh73UvPAJewhk9KmAkU1eflxQAhNtCU3RV5/BcaxBy5NLZjAosmOEIw/9AgoeCuqD8A++H1P5yDA7T4y0R7sULBNkop4cZqppvTbuL9/u/rrI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YGsq5hGl; arc=none smtp.client-ip=209.85.128.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CMPdLQMn"
-Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2bf1cda2b17so27994805ad.1
-        for <stable@vger.kernel.org>; Mon, 15 Jun 2026 14:57:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YGsq5hGl"
+Received: by mail-yw1-f171.google.com with SMTP id 00721157ae682-7f015f87fddso41439487b3.0
+        for <stable@vger.kernel.org>; Mon, 15 Jun 2026 15:01:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781560629; x=1782165429; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1781560879; x=1782165679; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to;
         bh=FIyvWCdTdGpwmgLj68ZKIBwap2l4YcZzm7SxNeqPKYk=;
-        b=CMPdLQMnnW3Ou0jnYnnTXvOcWy03jCcIntl7rT7dQ2LhP98NOH2N3ugGI/9YoFiRsR
-         eLZQXpH0jU3deIPbrlix6VYmjWJZrx9YNhJ2ldQXP+0Gj/sn+2e47S9HCFhcSkkeqj9v
-         0zB07vhxydesMjlx1uhoVQFkVenJ6WDBgHMwrcghsudl0kuMMxh49CMsOc2OChLaDaVO
-         y7Z216c9aW68ALFJG1dQCS5BVJEhwRtd11cpNxhJEVYStWNmReuDsTU8T9u/Zp//Wcg+
-         LMuLSTp9stxB9UB7V8iv/pH+y02MxzqtaHUjohI7Db+V9cg8lv570uwcfNuuyioAcBAj
-         5inQ==
+        b=YGsq5hGlTNedC+24/Z1e6CgOVh6YD4DLFJWFZmdQ6q3XMPRYJ9zH8DN6XES+Ig2Xem
+         sxEVFGzZ76pVbVdxW1rcq6BDlE+vOCOaFL83mw/7q3Ys2xwm6QHc8X1+OE63vQuT+z66
+         nvPijqUp+n3SFkCURowKiq6P/vNDReq1obDnTKWr44rD553MXeI/ahnOE9cHU2EKKBeN
+         2Y/hxm/uhuYxsOdCIrArZs9gd5EOyDNX6/b25xD1JAuREi2QXsLYhn4Ur1syjzWJYXfq
+         d6Bb442CrPQAKzcvtdRexbg/R7G9ippVcb7XqfZZ8Bn8XBdX5SoX8Qh3VC+IdJKpowdC
+         qomw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781560629; x=1782165429;
+        d=1e100.net; s=20251104; t=1781560879; x=1782165679;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
         bh=FIyvWCdTdGpwmgLj68ZKIBwap2l4YcZzm7SxNeqPKYk=;
-        b=C6bGQOCF8w5M1JnEW10xj56sqWqUZ6I9T8C+w3Hju7ISvHdfwyvbnQn9V9DA3bCH6T
-         4xH4AQwcdn1dwwnflreQoWhe78/Ev/SI4ngf0y4+QU4BbPBf6r2ZhNR3NyQL6bg43XjA
-         UccqPP6lDy7jBZ2ud9yn/F8H0jWSoVTVK0+3Z/+3pEcRDdCKzJJDcmkc6aaeK13y9e4l
-         HFrMXuJdPrY//VexLoXOK10OoPzO3v7Y7sgAXUrvKs/hMZyHTyKgjgVkFzNsDBJtFcT+
-         TQ2tWqXaAwvihxJIRcWj1wa9dh9x9SjOBbdqFh+bPeBZx8OY5FDPK/ZxIzbRl7N0r9O/
-         E0BA==
-X-Gm-Message-State: AOJu0YxIuiz3yOyc4/1MbJUHlH4OzYgXYEfKjofUrCKbkFcbth+BuirT
-	AY0/7fq7EyZNW5o1ACyE0zV2cIG8DRcqBVfER/rDcXyF5MzOCQn1X7HAK2kVy6do
-X-Gm-Gg: Acq92OFhVH0kVTZnEl39EfFYH+N266ylDx6ZYzxQkn3Bzxpb7sugFxpkmVC7fP7n7pP
-	1SEhJE4/YCJKTwUqvTOGAkgLvXZBtUiRxDWvizyTenEUgouZrZmKIL4/3WdnrfMXB57SjYPq+XJ
-	Pl06zu8c6UaMmyozpq2Ojf+l6Dpi+f2zUezlfYDTnmGDRZl70nckDo+w5Rj1CeWjm7x6YNpwK78
-	5mV5BV3DdF7d0ChSgZ5o0s1/nKj1opTX9Y9k1b45lTZWSKVgYRvbZi8fAp5fJF+gJq5YlNLE81Q
-	q5kEdQ9yXhUTJzbv9yB/jeJfwglXdW/mqQDxLXez5GzHLCUu5AkzEAkqN/tWrTJsLNdMPgFN84X
-	xDj24uswEsfL9PAWIWEWldQq8XNrJdCUnxAOhmNVSAvjB0vJpGsEtkMgcLwmkfHdOO6jvvrO1Yz
-	1Yc162c3vCdPDvd2cJLvUIFmxZ7KxeGg26aWjdseFVc4sh+1r9qnhs4E8Bv3vY98AGp2MOGIANQ
-	CXOGg==
-X-Received: by 2002:a17:902:ef4d:b0:2c0:c262:b924 with SMTP id d9443c01a7336-2c699b03432mr8817225ad.13.1781560629203;
-        Mon, 15 Jun 2026 14:57:09 -0700 (PDT)
+        b=rciTpwvOukUyeGU00hOrLbUTCXBloi3OJYKOluyAblXr372T4kViS/VlnEiG5bPgky
+         dboMuXhU6MIirRnmt7pkAgVDUALBKUyJVxEfuOhXeyhymD4kSKpbuYdp6fZ9SXhRSBdC
+         v7ymySIDJJqzyzrZUmGzYvYhTzkhHMTrGOppaPyrL4h3cAGogRI/N1a5nWnpx0feSE1B
+         8ObfKjKP7K4ZBTHrpu3sIl/VLmoRFnN5NQJN5DfxyZ9hvnBtc7oD9H1bZE4nk7D6Ss8z
+         T3TV4ZPLVuLPNppCAd1Y7iPkKihtE53NSayh5BReJWCE7kW4bbja5aYEy3mKF/S2LrIk
+         UflA==
+X-Forwarded-Encrypted: i=1; AFNElJ9YFQQ/4gFs5SQayWns1PlZsrsbjRehTLxh0K+Bf1/Wgb8v5/cgZYTnf+vmDkQFb349XhumRxc=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxqpeGU1dQ8GDnY+mcH3B9RsANfoZKbfZ+GFUzvAYu16UYv1YX3
+	jPLHktFTNQvNWHl0AWqCUqdBl3YYvoMQn4gRikUhZNRMUcobAU1jiKz6
+X-Gm-Gg: Acq92OFq3Gd+RMSpE4h6O9UwTQvCuIDqEWWvicQdOb11pFtrEoIBrebhJ4Pq7CQ6sLl
+	+CfpB4lzrQTvwxNWQ0+94G2eN8mjvizHKtyoen+8NG2SvibzF5NuqwW3j7GqIyJJnYD6lyrsJOf
+	o+9EWOlIxZDWBBOlCg2jIAL/I6vSQ0MKEnhgqpDn3Eml0IVxqY40P0TC1Bj7mQd5CKpDwoQnjxZ
+	rcA6EKKZt9CtdyKh3A4QaGNF+o3NWjVBTVhkM7HRtBY4QOFWBMlcNTe5Smr38hpdQoeJnUW7XpX
+	29alscicefsoLFH6j28/6sGQN4Bc1mq428QNGNDFeZaUO737ylnmrIbzo5MQdmsAscjkZSjl7h+
+	DR6e+eQ6Q9X5j0KvgdWX6fe5Y83Pm9nLIHxTSjfxqzrOQiBsjdSvmla65tak41l960xcsL9dCMu
+	a4HiyasCzbm3SsLXEMpwF4EVCCsTBvzJefNPClJad4mGd+fDnO6wNpO1+ClFPlL1gtxJ+5AC4vl
+	2Z2tA==
+X-Received: by 2002:a05:690c:4a09:b0:7b6:783f:2122 with SMTP id 00721157ae682-7fce389261bmr12809317b3.9.1781560877980;
+        Mon, 15 Jun 2026 15:01:17 -0700 (PDT)
 Received: from ljh-System-Product-Name.tail61485f.ts.net ([203.246.85.145])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c43326b085sm107796755ad.70.2026.06.15.14.57.07
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-7fcd2c87028sm6021997b3.27.2026.06.15.15.01.15
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 15 Jun 2026 14:57:08 -0700 (PDT)
+        Mon, 15 Jun 2026 15:01:17 -0700 (PDT)
 From: JaeHoon Lee <dlwognsdc610@gmail.com>
-To: dlwognsdc610@gmail.com
-Cc: stable@vger.kernel.org
+To: Melissa Wen <mwen@igalia.com>,
+	=?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>
+Cc: Iago Toral Quiroga <itoral@igalia.com>,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	JaeHoon Lee <dlwognsdc610@gmail.com>,
+	stable@vger.kernel.org
 Subject: [PATCH] drm/v3d: reject an invalid indirect CSD buffer handle
-Date: Tue, 16 Jun 2026 06:57:21 +0000
-Message-ID: <20260616065721.1589362-1-dlwognsdc610@gmail.com>
+Date: Tue, 16 Jun 2026 07:00:48 +0000
+Message-ID: <20260616070048.1590551-1-dlwognsdc610@gmail.com>
 X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
