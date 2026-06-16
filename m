@@ -1,45 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D94647884C
-	for <stable@vger.kernel.org>; Tue, 16 Jun 2026 16:56:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8F2547A0D0;
+	Tue, 16 Jun 2026 16:56:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781628976; cv=none; b=Ayl3dm0OjflpwQr/oWKAQlYOf/gOV8b8w6cX/+m3UEW13km//KkBCIfimXYBwT+tVg9qyMg/Oh0eVFyJfYeEu2CWB31GcwaBLb4zxc+wNn1thQXy18xk5NQF2hZJbmLB15rNrqAb7Cy3eNA+f4g9wSkVNn3tw7iuIciyUFZ9zTQ=
+	t=1781628980; cv=none; b=Bm4PX9pcAyCIQNAf/4JJdixHx2ewG7UDBdJttMkOYbh5MpQ5449U9oDvtMoEG4ZI7xZikAwX/RWvSMDxZCsRn092GTIYZC2/wi1QzgcZc70efb+7AYd2dairYOzkJlZXpOz84fxGsicH5nLFbwA+A9t/7KidFN3otC2n/5eDVTY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781628976; c=relaxed/simple;
-	bh=APZA8FTgao5PXk5e6lb5S0DjXvq8kjGDS9BFrlvBjUU=;
+	s=arc-20240116; t=1781628980; c=relaxed/simple;
+	bh=pLl95MXFE0Td3bAHf3DfnAaHoZZ+WKwmGG2uRQc4/mQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Nr08Oy46E7hX1AzGJSVWzC3sAg9NWqAnb/L7s7ZZpogdQqSokkTShGYWqMs2+7AlhDuJOhOkHEnOtDjI2tffIa0aeJ1fJnIYqjQdu2SZhEBa2VOBQCSwaZ9Qe0bfRAC4mTgt5AsDDihaDDPtTpKZUFuV+dlkTmz69BpxggrLRao=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TR844aNd; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Vbhg0OCFzG9eNPhtc3uM0nNyrOpm1XJxgK4uDMU9Y7djrZU7+baUs5AXJbJSFsP+USQ/HXmLiVe3GlN5iL3XTsolhW7aNJwMmUljo0OCqLvfiPX1ZylcIT0qcKa/kEcioqyvIWorc2ihWvOApkSPgIJp1yGU7KkxF2ExtvmSMOA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=dg5Rcskz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TR844aNd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DEA291F00A3A;
-	Tue, 16 Jun 2026 16:56:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781628971;
-	bh=Y94JAZ8h6loG/EgYCxuqaRTkak3ukNf19iws3tW1Gbw=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="dg5Rcskz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 329991F00A3D;
+	Tue, 16 Jun 2026 16:56:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1781628975;
+	bh=FuPY7yhhazwo9DBlo9NGVTSU3tXSlbWYjWdjVuhh8kU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=TR844aNdXoOE1PaEf72yBun2Wgm/GFQGk7iFX0eyOlWSCf1sMg5C4sK5kVdVT8s0T
-	 Vk6m50A8wbm6QFONpCFQZIlJnZenCTqcj37vBUAkPOyaIz00hoVWzeknCOY1Y/4ibv
-	 Td8mEZyx1kDQKqM/CIdtwq5jzSsYrXQ6dXL3SlQvcXdQv0K0YXo7huYixsQvXexqck
-	 XgCPHdo7U2ftTVTa6FvbcCDu9hHitFB+pHnT8TnPTb2KXKEmJxyEOrKyZpVF1pZG57
-	 n23xqKDD5jl+kJQQd9Tf8gmQM5ztESDHXisYgH60vq5AWex6/vUyYwt9HKxoq2k6S0
-	 whKxGRxjSxelg==
-From: Sasha Levin <sashal@kernel.org>
+	b=dg5Rcskz6ZdiEAA3yA9/uXZqKT5FWrgKkKcH3lDvfmNlALR6IkQ81KKerTR+DMlv6
+	 3p/qX1Ifq3OVCUSJvByV9Kf8DugezlW6yfWhjWIogJLd28mdNwPcB/ETsbViaS91kJ
+	 aqY1gKzfavdKaZfcvcsG/0N5DyEr9Y3FfcAYSwH4=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Dexuan Cui <decui@microsoft.com>,
-	Michael Kelley <mhklinux@outlook.com>,
-	Krister Johansen <kjlx@templeofstupid.com>,
-	Matthew Ruffell <matthew.ruffell@canonical.com>,
-	Wei Liu <wei.liu@kernel.org>,
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	"Maciej W. Rozycki" <macro@orcam.me.uk>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] Drivers: hv: vmbus: Improve the logic of reserving fb_mmio on Gen2 VMs
-Date: Tue, 16 Jun 2026 12:56:09 -0400
-Message-ID: <20260616165609.3366925-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026061512-crevice-luckily-0ea9@gregkh>
-References: <2026061512-crevice-luckily-0ea9@gregkh>
+Subject: [PATCH 6.6 198/452] serial: dz: Convert to use a platform device
+Date: Tue, 16 Jun 2026 20:27:05 +0530
+Message-ID: <20260616145128.231176572@linuxfoundation.org>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260616145117.796205997@linuxfoundation.org>
+References: <20260616145117.796205997@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,152 +46,420 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Dexuan Cui <decui@microsoft.com>
+6.6-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit 016a25e4b0df4d77e7c258edee4aaf982e4ee809 ]
+------------------
 
-If vmbus_reserve_fb() in the kdump/kexec kernel fails to properly reserve
-the framebuffer MMIO range (which is below 4GB) due to a Gen2 VM's
-screen.lfb_base being zero [1], there is an MMIO conflict between the
-drivers hyperv-drm and pci-hyperv: when the driver pci-hyperv's
-hv_allocate_config_window() calls vmbus_allocate_mmio() to get an
-MMIO range, typically it gets a 32-bit MMIO range that overlaps with the
-framebuffer MMIO range, and later hv_pci_enter_d0() fails with an
-error message "PCI Pass-through VSP failed D0 Entry with status" since
-the host thinks that PCI devices must not use MMIO space that the
-host has assigned to the framebuffer.
+From: Maciej W. Rozycki <macro@orcam.me.uk>
 
-This is especially an issue if pci-hyperv is built-in and hyperv-drm is
-built as a module. Consequently, the kdump/kexec kernel fails to detect
-PCI devices via pci-hyperv, and may fail to mount the root file system,
-which may reside in a NVMe disk. The issue described here has existed
-for SR-IOV VF NICs since day one of the pci-hyperv driver, and has been
-worked around on x64 when possible. With the recent introduction of
-ARM64 VMs that boot from NVMe, there is no workaround, so we need a
-formal fix.
+commit 5d7a49d60b8fda66da60e240fd7315232fa1754f upstream.
 
-On Gen2 VMs, if the screen.lfb_base is 0 in the kdump/kexec kernel [1],
-fall back to the low MMIO base, which should be equal to the framebuffer
-MMIO base [2] (the statement is true according to my testing on x64
-Windows Server 2016, and on x64 and ARM64 Windows Server 2025 and on
-Azure. I checked with the Hyper-V team and they said the statement should
-continue to be true for Gen2 VMs). In the first kernel, screen.lfb_base
-is not 0; if the user specifies a very high resolution, it's not enough
-to only reserve 8MB: let's always reserve half of the space below 4GB,
-but cap the reservation to 128MB, which is the required framebuffer size
-of the highest resolution 7680*4320 supported by Hyper-V.
+Prevent a crash from happening as the first serial port is initialised:
 
-While at it, fix the comparison "end > VTPM_BASE_ADDRESS" by changing
-the > to >=. Here the 'end' is an inclusive end (typically, it's
-0xFFFF_FFFF for the low MMIO range).
+  Console: switching to colour frame buffer device 160x64
+  tgafb: SFB+ detected, rev=0x02
+  fb0: Digital ZLX-E1 frame buffer device at 0x1e000000
+  DECstation DZ serial driver version 1.04
+  CPU 0 Unable to handle kernel paging request at virtual address 000000bc, epc == 8048b3a4, ra == 80470a78
+  Oops[#1]:
+  CPU: 0 UID: 0 PID: 1 Comm: swapper/0 Not tainted 6.19.0-dirty #35 NONE
+  $ 0   : 00000000 1000ac00 00000004 804707ac
+  $ 4   : 00000000 80e20850 80e20858 81000030
+  $ 8   : 00000000 8072c81c 00000008 fefefeff
+  $12   : 6c616972 00000006 80c5917f 69726420
+  $16   : 80e20800 00000000 808f8968 80e20800
+  $20   : 00000000 807f5a90 808b0094 808d3bc8
+  $24   : 00000018 80479030
+  $28   : 80c2e000 80c2fd70 00000069 80470a78
+  Hi    : 00000004
+  Lo    : 00000000
+  epc   : 8048b3a4 __dev_fwnode+0x0/0xc
+  ra    : 80470a78 serial_base_ctrl_add+0xa0/0x168
+  Status: 1000ac04	IEp
+  Cause : 30000008 (ExcCode 02)
+  BadVA : 000000bc
+  PrId  : 00000220 (R3000)
+  Modules linked in:
+  Process swapper/0 (pid: 1, threadinfo=(ptrval), task=(ptrval), tls=00000000)
+  Stack : 00400044 00400040 8046f4cc 00000000 808a6148 808a0000 808f8968 8086983c
+          808e0000 8046fc84 1000ac01 00000028 80e20700 802ba3f8 80e20700 80d34a94
+          80c1b900 80e20700 80e20700 80e20700 80e20700 80444650 00000000 00000000
+          00000000 807f5a90 808b0094 80447080 00400040 808e0000 80d34a94 808a6148
+          80d34a94 00000004 80e20700 00000000 8076974c 80469810 80c2fe3c 1000ac01
+          ...
+  Call Trace:
+  [<8048b3a4>] __dev_fwnode+0x0/0xc
+  [<80470a78>] serial_base_ctrl_add+0xa0/0x168
+  [<8046fc84>] serial_core_register_port+0x1c8/0x974
+  [<808c6af0>] dz_init+0x74/0xc8
+  [<800470e0>] do_one_initcall+0x44/0x2d4
+  [<808b111c>] kernel_init_freeable+0x258/0x308
+  [<8072e434>] kernel_init+0x20/0x114
+  [<80049cd0>] ret_from_kernel_thread+0x14/0x1c
 
-Note: vmbus_reserve_fb() now also reserves an MMIO range at the beginning
-of the low MMIO range on CVMs, which have no framebuffers (the
-'screen.lfb_base' in vmbus_reserve_fb() is 0 for CVMs), just in case the
-host might treat the beginning of the low MMIO range specially [3]. BTW,
-the OpenHCL kernel is not affected by the change, because that kernel
-boots with DeviceTree rather than ACPI (so vmbus_reserve_fb() won't run
-there), and there is no framebuffer device for that kernel.
+  Code: 27bd0018  03e00008  2402ffea <8c8200bc> 03e00008  00000000  27bdffc0  afbe0038  afb30024
 
-Note: normally Gen1 VMs don't have the MMIO conflict issue because the
-framebuffer MMIO range (which is hardcoded to base=4GB-128MB and
-size=64MB for Gen1 VMs by the host) is always reported via the legacy PCI
-graphics device's BAR, so the kdump/kexec kernel can reserve the 64MB
-MMIO range; however, if the VM is configured to use a very high resolution
-and the required framebuffer size exceeds 64MB (AFAIK, in practice, this
-isn't a typical configuration by users), the hyperv-drm driver may need to
-allocate an MMIO range above 4GB and change the framebuffer MMIO location
-to the allocated MMIO range -- in this case, there can still be issues [4]
-which can't be easily fixed: any possible affected Gen1 users would have
-to use a resolution whose framebuffer size is <= 64MB, or switch to Gen2
-VMs.
+  ---[ end trace 0000000000000000 ]---
 
-[1] https://lore.kernel.org/all/SA1PR21MB692176C1BC53BFC9EAE5CF8EBF51A@SA1PR21MB6921.namprd21.prod.outlook.com/
-[2] https://lore.kernel.org/all/SA1PR21MB69218F955B62DFF62E3E88D2BF222@SA1PR21MB6921.namprd21.prod.outlook.com/
-[3] https://lore.kernel.org/all/SN6PR02MB415726B17D5A6027CD1717E8D4342@SN6PR02MB4157.namprd02.prod.outlook.com/
-[4] https://lore.kernel.org/all/SA1PR21MB69213486F821CA5A2C793C81BF342@SA1PR21MB6921.namprd21.prod.outlook.com/
+-- where a pointer is dereferenced that has been derived from a null
+pointer to the port's parent device.
 
-Fixes: 4daace0d8ce8 ("PCI: hv: Add paravirtual PCI front-end for Microsoft Hyper-V VMs")
-CC: stable@vger.kernel.org
-Reviewed-by: Michael Kelley <mhklinux@outlook.com>
-Tested-by: Krister Johansen <kjlx@templeofstupid.com>
-Tested-by: Matthew Ruffell <matthew.ruffell@canonical.com>
-Signed-off-by: Dexuan Cui <decui@microsoft.com>
-Signed-off-by: Wei Liu <wei.liu@kernel.org>
+Since no device is available with legacy probing and it's not anymore a
+preferable way to discover devices anyway, switch the driver to using a
+platform device and use it as the port's parent device.  Update resource
+handling accordingly and only request the actual span of addresses used
+within the slot, which will have had its resource already requested by
+generic platform device code.
+
+Use platform_driver_probe() not just because the DZ device is fixed with
+solder on board and not straightforward to remove, but foremost because
+the associated TTY's major device number is the same as used by the zs
+driver and the first driver to claim it will prevent the other one from
+using it.  Either one DZ device or some SCC devices will be present in a
+given system but never both at a time, and therefore we want the major
+device number to be claimed by the first driver to actually successfully
+bind to its device and platform_driver_probe() is a way to fulfil that.
+
+An unfortunate consequence of the switch to a platform device is we now
+hand the console over from the bootconsole much later in the bootstrap.
+The firmware console handler appears good enough though to work so late
+and in particular with interrupts enabled.
+
+Conversely only starting the console port so late lets the reset code
+fully utilise our delay handlers, so switch from udelay() to fsleep()
+for transmitter draining so as to avoid busy-waiting for an excessive
+amount of time.
+
+Fixes: 84a9582fd203 ("serial: core: Start managing serial controllers to enable runtime PM")
+Signed-off-by: Maciej W. Rozycki <macro@orcam.me.uk>
+Cc: stable@vger.kernel.org # needs to use .remove_new for <= 6.10
+Link: https://patch.msgid.link/alpine.DEB.2.21.2605062326540.46195@angie.orcam.me.uk
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/hv/vmbus_drv.c | 29 ++++++++++++++++++++++++++---
- 1 file changed, 26 insertions(+), 3 deletions(-)
+ arch/mips/dec/platform.c |  55 ++++++++++++++++++-
+ drivers/tty/serial/dz.c  | 116 +++++++++++++++++++--------------------
+ 2 files changed, 110 insertions(+), 61 deletions(-)
 
-diff --git a/drivers/hv/vmbus_drv.c b/drivers/hv/vmbus_drv.c
-index 3ab62277b6be6c..70e2275a03afae 100644
---- a/drivers/hv/vmbus_drv.c
-+++ b/drivers/hv/vmbus_drv.c
-@@ -2269,8 +2269,8 @@ static acpi_status vmbus_walk_resources(struct acpi_resource *res, void *ctx)
- 		return AE_NO_MEMORY;
+diff --git a/arch/mips/dec/platform.c b/arch/mips/dec/platform.c
+index c4fcb8c58e01ce..fdecc91ee22abb 100644
+--- a/arch/mips/dec/platform.c
++++ b/arch/mips/dec/platform.c
+@@ -10,6 +10,13 @@
+ #include <linux/mc146818rtc.h>
+ #include <linux/platform_device.h>
  
- 	/* If this range overlaps the virtual TPM, truncate it. */
--	if (end > VTPM_BASE_ADDRESS && start < VTPM_BASE_ADDRESS)
--		end = VTPM_BASE_ADDRESS;
-+	if (end >= VTPM_BASE_ADDRESS && start < VTPM_BASE_ADDRESS)
-+		end = VTPM_BASE_ADDRESS - 1;
++#include <asm/bootinfo.h>
++
++#include <asm/dec/interrupts.h>
++#include <asm/dec/kn01.h>
++#include <asm/dec/kn02.h>
++#include <asm/dec/system.h>
++
+ static struct resource dec_rtc_resources[] = {
+ 	{
+ 		.name = "rtc",
+@@ -30,11 +37,57 @@ static struct platform_device dec_rtc_device = {
+ 	.num_resources = ARRAY_SIZE(dec_rtc_resources),
+ };
  
- 	new_res->name = "hyperv mmio";
- 	new_res->flags = IORESOURCE_MEM;
-@@ -2337,6 +2337,7 @@ static void vmbus_mmio_remove(void)
- static void __maybe_unused vmbus_reserve_fb(void)
++static struct resource dec_dz_resources[] = {
++	{ .name = "dz", .flags = IORESOURCE_MEM, },
++	{ .name = "dz", .flags = IORESOURCE_IRQ, },
++};
++
++static struct platform_device dec_dz_device = {
++	.name = "dz",
++	.id = PLATFORM_DEVID_NONE,
++	.resource = dec_dz_resources,
++	.num_resources = ARRAY_SIZE(dec_dz_resources),
++};
++
++static struct platform_device *dec_dz_devices[] __initdata = {
++	&dec_dz_device,
++};
++
+ static int __init dec_add_devices(void)
  {
- 	resource_size_t start = 0, size;
-+	resource_size_t low_mmio_base;
- 	struct pci_dev *pdev;
- 
- 	if (efi_enabled(EFI_BOOT)) {
-@@ -2344,6 +2345,24 @@ static void __maybe_unused vmbus_reserve_fb(void)
- 		if (IS_ENABLED(CONFIG_SYSFB)) {
- 			start = screen_info.lfb_base;
- 			size = max_t(__u32, screen_info.lfb_size, 0x800000);
++	int ret1, ret2;
++	int num_dz;
++	int irq, i;
 +
-+			low_mmio_base = hyperv_mmio->start;
-+			if (!low_mmio_base || upper_32_bits(low_mmio_base) ||
-+			    (start && start < low_mmio_base)) {
-+				pr_warn("Unexpected low mmio base %pa\n", &low_mmio_base);
-+			} else {
-+				/*
-+				 * If the kdump/kexec or CVM kernel's lfb_base
-+				 * is 0, fall back to the low mmio base.
-+				 */
-+				if (!start)
-+					start = low_mmio_base;
-+				/*
-+				 * Reserve half of the space below 4GB for high
-+				 * resolutions, but cap the reservation to 128MB.
-+				 */
-+				size = min((SZ_4G - start) / 2, SZ_128M);
-+			}
- 		}
- 	} else {
- 		/* Gen1 VM: get FB base from PCI */
-@@ -2364,8 +2383,10 @@ static void __maybe_unused vmbus_reserve_fb(void)
- 		pci_dev_put(pdev);
- 	}
- 
--	if (!start)
-+	if (!start) {
-+		pr_warn("Unexpected framebuffer mmio base of zero\n");
- 		return;
+ 	dec_rtc_resources[0].start = RTC_PORT(0);
+ 	dec_rtc_resources[0].end = RTC_PORT(0) + dec_kn_slot_size - 1;
+-	return platform_device_register(&dec_rtc_device);
++
++	i = 0;
++	irq = dec_interrupt[DEC_IRQ_DZ11];
++	if (IS_ENABLED(CONFIG_32BIT) && irq >= 0) {
++		resource_size_t base;
++
++		switch (mips_machtype) {
++		case MACH_DS23100:
++		case MACH_DS5100:
++			base = dec_kn_slot_base + KN01_DZ11;
++			break;
++		default:
++			base = dec_kn_slot_base + KN02_DZ11;
++			break;
++		}
++		dec_dz_device.resource[0].start = base;
++		dec_dz_device.resource[0].end = base + dec_kn_slot_size - 1;
++		dec_dz_device.resource[1].start = irq;
++		dec_dz_device.resource[1].end = irq;
++		i++;
 +	}
- 
- 	/*
- 	 * Make a claim for the frame buffer in the resource tree under the
-@@ -2375,6 +2396,8 @@ static void __maybe_unused vmbus_reserve_fb(void)
- 	 */
- 	for (; !fb_mmio && (size >= 0x100000); size >>= 1)
- 		fb_mmio = __request_region(hyperv_mmio, start, size, fb_mmio_name, 0);
++	num_dz = i;
 +
-+	pr_info("hv_mmio=%pR,%pR fb=%pR\n", hyperv_mmio, hyperv_mmio->sibling, fb_mmio);
++	ret1 = platform_device_register(&dec_rtc_device);
++	ret2 = IS_ENABLED(CONFIG_32BIT) ?
++	       platform_add_devices(dec_dz_devices, num_dz) : 0;
++	return ret1 ? ret1 : ret2;
  }
  
- /**
+ device_initcall(dec_add_devices);
+diff --git a/drivers/tty/serial/dz.c b/drivers/tty/serial/dz.c
+index 90231ec00ff070..08f2414bf1d92e 100644
+--- a/drivers/tty/serial/dz.c
++++ b/drivers/tty/serial/dz.c
+@@ -40,6 +40,7 @@
+ #include <linux/kernel.h>
+ #include <linux/major.h>
+ #include <linux/module.h>
++#include <linux/platform_device.h>
+ #include <linux/serial.h>
+ #include <linux/serial_core.h>
+ #include <linux/sysrq.h>
+@@ -48,14 +49,6 @@
+ 
+ #include <linux/atomic.h>
+ #include <linux/io.h>
+-#include <asm/bootinfo.h>
+-
+-#include <asm/dec/interrupts.h>
+-#include <asm/dec/kn01.h>
+-#include <asm/dec/kn02.h>
+-#include <asm/dec/machtype.h>
+-#include <asm/dec/prom.h>
+-#include <asm/dec/system.h>
+ 
+ #include "dz.h"
+ 
+@@ -65,7 +58,9 @@ MODULE_LICENSE("GPL");
+ 
+ 
+ static char dz_name[] __initdata = "DECstation DZ serial driver version ";
+-static char dz_version[] __initdata = "1.04";
++static char dz_version[] __initdata = "1.05";
++
++#define DZ_IO_SIZE 0x20			/* IOMEM space size.  */
+ 
+ struct dz_port {
+ 	struct dz_mux		*mux;
+@@ -81,6 +76,7 @@ struct dz_mux {
+ };
+ 
+ static struct dz_mux dz_mux;
++static struct uart_driver dz_reg;
+ 
+ static inline struct dz_port *to_dport(struct uart_port *uport)
+ {
+@@ -565,7 +561,7 @@ static void dz_reset(struct dz_port *dport)
+ 			iob();
+ 			udelay(2);		/* 1.4us TRDY recovery.  */
+ 		}
+-		udelay(1200);			/* Transmitter drain.  */
++		fsleep(1200);			/* Transmitter drain.  */
+ 	}
+ 
+ 	dz_out(dport, DZ_CSR, DZ_CLR);
+@@ -682,14 +678,13 @@ static void dz_release_port(struct uart_port *uport)
+ 
+ 	map_guard = atomic_add_return(-1, &mux->map_guard);
+ 	if (!map_guard)
+-		release_mem_region(uport->mapbase, dec_kn_slot_size);
++		release_mem_region(uport->mapbase, DZ_IO_SIZE);
+ }
+ 
+ static int dz_map_port(struct uart_port *uport)
+ {
+ 	if (!uport->membase)
+-		uport->membase = ioremap(uport->mapbase,
+-						 dec_kn_slot_size);
++		uport->membase = ioremap(uport->mapbase, DZ_IO_SIZE);
+ 	if (!uport->membase) {
+ 		printk(KERN_ERR "dz: Cannot map MMIO\n");
+ 		return -ENOMEM;
+@@ -705,8 +700,7 @@ static int dz_request_port(struct uart_port *uport)
+ 
+ 	map_guard = atomic_add_return(1, &mux->map_guard);
+ 	if (map_guard == 1) {
+-		if (!request_mem_region(uport->mapbase, dec_kn_slot_size,
+-					"dz")) {
++		if (!request_mem_region(uport->mapbase, DZ_IO_SIZE, "dz")) {
+ 			atomic_add(-1, &mux->map_guard);
+ 			printk(KERN_ERR
+ 			       "dz: Unable to reserve MMIO resource\n");
+@@ -717,7 +711,7 @@ static int dz_request_port(struct uart_port *uport)
+ 	if (ret) {
+ 		map_guard = atomic_add_return(-1, &mux->map_guard);
+ 		if (!map_guard)
+-			release_mem_region(uport->mapbase, dec_kn_slot_size);
++			release_mem_region(uport->mapbase, DZ_IO_SIZE);
+ 		return ret;
+ 	}
+ 	return 0;
+@@ -769,20 +763,15 @@ static const struct uart_ops dz_ops = {
+ 	.verify_port	= dz_verify_port,
+ };
+ 
+-static void __init dz_init_ports(void)
++static int __init dz_probe(struct platform_device *pdev)
+ {
+-	static int first = 1;
+-	unsigned long base;
++	struct resource *mem_resource, *irq_resource;
+ 	int line;
+ 
+-	if (!first)
+-		return;
+-	first = 0;
+-
+-	if (mips_machtype == MACH_DS23100 || mips_machtype == MACH_DS5100)
+-		base = dec_kn_slot_base + KN01_DZ11;
+-	else
+-		base = dec_kn_slot_base + KN02_DZ11;
++	mem_resource = platform_get_resource(pdev, IORESOURCE_MEM, 0);
++	irq_resource = platform_get_resource(pdev, IORESOURCE_IRQ, 0);
++	if (!mem_resource || !irq_resource)
++		return -ENODEV;
+ 
+ 	for (line = 0; line < DZ_NB_PORT; line++) {
+ 		struct dz_port *dport = &dz_mux.dport[line];
+@@ -790,14 +779,33 @@ static void __init dz_init_ports(void)
+ 
+ 		dport->mux	= &dz_mux;
+ 
+-		uport->irq	= dec_interrupt[DEC_IRQ_DZ11];
++		uport->dev	= &pdev->dev;
++		uport->irq	= irq_resource->start;
+ 		uport->fifosize	= 1;
+ 		uport->iotype	= UPIO_MEM;
+ 		uport->flags	= UPF_BOOT_AUTOCONF;
+ 		uport->ops	= &dz_ops;
+ 		uport->line	= line;
+-		uport->mapbase	= base;
++		uport->mapbase	= mem_resource->start;
+ 		uport->has_sysrq = IS_ENABLED(CONFIG_SERIAL_DZ_CONSOLE);
++
++		if (uart_add_one_port(&dz_reg, uport))
++			uport->dev = NULL;
++	}
++
++	return 0;
++}
++
++static void __exit dz_remove(struct platform_device *pdev)
++{
++	int line;
++
++	for (line = DZ_NB_PORT - 1; line >= 0; line--) {
++		struct dz_port *dport = &dz_mux.dport[line];
++		struct uart_port *uport = &dport->port;
++
++		if (uport->dev)
++			uart_remove_one_port(&dz_reg, uport);
+ 	}
+ }
+ 
+@@ -880,21 +888,14 @@ static int __init dz_console_setup(struct console *co, char *options)
+ 	int bits = 8;
+ 	int parity = 'n';
+ 	int flow = 'n';
+-	int ret;
+-
+-	ret = dz_map_port(uport);
+-	if (ret)
+-		return ret;
+-
+-	dz_reset(dport);
+ 
++	if (!dport->mux)
++		return -ENODEV;
+ 	if (options)
+ 		uart_parse_options(options, &baud, &parity, &bits, &flow);
+-
+-	return uart_set_options(&dport->port, co, baud, parity, bits, flow);
++	return uart_set_options(uport, co, baud, parity, bits, flow);
+ }
+ 
+-static struct uart_driver dz_reg;
+ static struct console dz_console = {
+ 	.name	= "ttyS",
+ 	.write	= dz_console_print,
+@@ -905,18 +906,6 @@ static struct console dz_console = {
+ 	.data	= &dz_reg,
+ };
+ 
+-static int __init dz_serial_console_init(void)
+-{
+-	if (!IOASIC) {
+-		dz_init_ports();
+-		register_console(&dz_console);
+-		return 0;
+-	} else
+-		return -ENXIO;
+-}
+-
+-console_initcall(dz_serial_console_init);
+-
+ #define SERIAL_DZ_CONSOLE	&dz_console
+ #else
+ #define SERIAL_DZ_CONSOLE	NULL
+@@ -932,25 +921,32 @@ static struct uart_driver dz_reg = {
+ 	.cons			= SERIAL_DZ_CONSOLE,
+ };
+ 
++static struct platform_driver dz_driver = {
++	.remove_new = __exit_p(dz_remove),
++	.driver = { .name = "dz" },
++};
++
+ static int __init dz_init(void)
+ {
+-	int ret, i;
+-
+-	if (IOASIC)
+-		return -ENXIO;
++	int ret;
+ 
+ 	printk("%s%s\n", dz_name, dz_version);
+ 
+-	dz_init_ports();
+-
+ 	ret = uart_register_driver(&dz_reg);
+ 	if (ret)
+ 		return ret;
++	ret = platform_driver_probe(&dz_driver, dz_probe);
++	if (ret)
++		uart_unregister_driver(&dz_reg);
+ 
+-	for (i = 0; i < DZ_NB_PORT; i++)
+-		uart_add_one_port(&dz_reg, &dz_mux.dport[i].port);
++	return ret;
++}
+ 
+-	return 0;
++static void __exit dz_exit(void)
++{
++	platform_driver_unregister(&dz_driver);
++	uart_unregister_driver(&dz_reg);
+ }
+ 
+ module_init(dz_init);
++module_exit(dz_exit);
 -- 
 2.53.0
+
+
 
