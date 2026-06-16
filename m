@@ -1,170 +1,103 @@
-Received: from mail-10699.protonmail.ch (mail-10699.protonmail.ch [79.135.106.99])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E37F17555
-	for <stable@vger.kernel.org>; Tue, 16 Jun 2026 00:12:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 558672046BA
+	for <stable@vger.kernel.org>; Tue, 16 Jun 2026 00:19:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781568757; cv=none; b=HceZ5zy2B+HofTZMc6cmzlsIV04rN+SVxR0Qyhya8Xt9l+1S/NLYQTrVMvnk5RGEgyKKA82PidZr3rwjY+wxFSl4tpny3DXMqV1yH9tTcp7L+sMXLP4OCHeWwazT73n0y3cvmpykJdtmd7FRX3OWvplSnr+3sX0TOC6gn05mtKY=
+	t=1781569194; cv=none; b=rciNpxN5Kq886co1dkmrjVwyITEMbsgQj7x2qD4qFZ1/Y2p70Td1w6fdLZWVEmtt70VSTnW/mvVK9eCBT2Uj3VMxgwi3g3JfnPQ0Vq3bCdIQaEbyPl32OExPo8Htd3CXJEXmCi9nkRO4Vcd37j8V6WK9dN7iEcA/yf8JIvixfDo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781568757; c=relaxed/simple;
-	bh=gHU0o8P6ChzWk1DbkK6CCpDdRsvZfq8ko5gZbqJ1SWk=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=GM/e+G74KAmzha7m5A+AG8hE0X7EEdIxgbIdbgDFbP3CLFqbC6CH06cFQj948q6rvzxG379H/08/DklAOda7fYgwV+l54bgP4saotrIn7uLNQKOl892GrFpfp5q85572bAzd+SRrrTEQ1Y2SpRhplm0SHElTscTJ5K7Hja56Rlw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=m3Nq776i; arc=none smtp.client-ip=79.135.106.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	s=arc-20240116; t=1781569194; c=relaxed/simple;
+	bh=hdOA6lCIKuE2WuAIRdVYonUn1JQn3aSzNYqnfzz7BlE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=PDQiNFuGrO98DBUIxw27DsLzB9GdRuIhucQk3NwkZaQ3+5e9AUB9Ggag72ZE5s6keXkPh7ePDrYXj8bY2drG8o5aF26VnyM4FVw/HIxCmLUc0SZU4tjXujgHtby2glZAtb03B7UBdh4BesO71O5gMa/jv68I5MiUsgI6WMi2UCw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kWHHho+7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="m3Nq776i"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1781568749; x=1781827949;
-	bh=BdI7Z8rYqKCtK3JUz8tPFyG8Q3/wXtIHV1fyc1ijCZ4=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=m3Nq776i8+bwaRb3psuy6/brbJqb6ijM8Bn1ltCxzty17DZu0ed08n8RgoHt6Bpb/
-	 Jq706iwdCzqsNAqD4X4JN+BQ46dirWMMWnJrg+/B/LqVxpBhcVxwC3JYSU276B3AKm
-	 2iN9/EStJkNGhlpKAjzndDpHyxFrElWQDAm31AAxIIuWwe4F5WDzJHHaSMhGQZn5cH
-	 HscXpvn1WgVdPiL8spFfLZM8YQjhznbT2Xzs1nNcNaDuq4kpfdqEu3OET+oVp9pJQO
-	 7hiyL88Ay5E4plxiqtOXej4/gWvHOE+Tar+VeT6bGQ6GvCyT6QS/7Ji2l9TSS4rPVq
-	 43VtmwC2IVN3g==
-Date: Tue, 16 Jun 2026 00:12:24 +0000
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-From: =?utf-8?B?7KCV7KeA7IiY?= <jschung2@proton.me>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev, Gerlinde <lrGerlinde@mailfence.com>, zyc zyc <zyc199902@zohomail.cn>, Manas Ghandat <ghandatmanas@gmail.com>, Stephen Hemminger <stephen@networkplumber.org>, Jamal Hadi Salim <jhs@mojatatu.com>, Paolo Abeni <pabeni@redhat.com>, Sasha Levin <sashal@kernel.org>
-Subject: Re: [PATCH 6.12 073/307] net/sched: Revert "net/sched: Restrict conditions for adding duplicating netems to qdisc tree"
-Message-ID: <1vJDIl9l1-tRjd8Ud-slhuPjlivZ2VITgfJJiZ9QtYz9ljn1ItiHb1sZ_X2JgCO8qepuo1jb3N5HH6azmiky9NA66NeyBxzZzV7Bc03ulBI=@proton.me>
-In-Reply-To: <20260607095730.443050343@linuxfoundation.org>
-References: <20260607095727.647295505@linuxfoundation.org> <20260607095730.443050343@linuxfoundation.org>
-Feedback-ID: 167072316:user:proton
-X-Pm-Message-ID: 6f86f1f6be0a9a0aa17565ea756a4115eae5fb4d
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kWHHho+7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CC341F000E9;
+	Tue, 16 Jun 2026 00:19:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781569192;
+	bh=xb+KA31RS8b4riYY+6qbj0+Km82UKqzDD+KdrYjYeu8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=kWHHho+7oNbSm8I2F4q1gm6H+RAKlaCc2imr5Lmmr/9IrwYRG8F2pQ4PgI21NtjqC
+	 gHZFGLB7oN6NKa10jPe4td1l7kC5sdz8gnoy7TXAVJl8stc2PXuLYzhE5wuE5Y/aKj
+	 uAfn2LysIemrLymvVMdCPV8dzdgD++Oq65EX0SeU5dKn2Gc1bCzLsgHs6ABvTSTv/F
+	 EtUNxxsEfwdYnTx2k5UrgNd5yiRIalIfjSf1PrdUmXM1QnpbceWHiHB7eBf9nuOuvy
+	 gF0HVfXgV0ZDtrFJJttQVaEOnDIwUWY2NMxU4L6nHl7DsiZLbBkZj6cMd4/iiW2k9G
+	 zbbjDFCY2UUjw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Randy Dunlap <rdunlap@infradead.org>,
+	Leon Romanovsky <leon@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/3] RDMA/umem: fix kernel-doc warnings
+Date: Mon, 15 Jun 2026 20:19:48 -0400
+Message-ID: <20260616001950.2587230-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026061510-undamaged-opulently-daf3@gregkh>
+References: <2026061510-undamaged-opulently-daf3@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
+From: Randy Dunlap <rdunlap@infradead.org>
 
+[ Upstream commit ff46d1392750444fab5ae5a0194764ffdc4ac0d2 ]
 
+Add or correct kernel-doc comments to eliminate warnings:
 
+Warning: include/rdma/ib_umem.h:104 function parameter 'biter' not
+ described in 'rdma_umem_for_each_dma_block'
+Warning: include/rdma/ib_umem.h:140 function parameter 'pgsz_bitmap' not
+ described in 'ib_umem_find_best_pgoff'
+Warning: include/rdma/ib_umem.h:141 No description found for return
+ value of 'ib_umem_find_best_pgoff'
 
-=EC=95=88=EC=A0=84=ED=95=9C Proton Mail=EB=A1=9C =EC=A0=84=EC=86=A1=
-=EB=90=98=EC=97=88=EC=8A=B5=EB=8B=88=EB=8B=A4.
+Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+Link: https://patch.msgid.link/20260224003120.3173892-1-rdunlap@infradead.org
+Signed-off-by: Leon Romanovsky <leon@kernel.org>
+Stable-dep-of: 15fe76e23615 ("RDMA/umem: Fix truncation for block sizes >= 4G")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ include/rdma/ib_umem.h | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-=EC=97=90 2026=EB=85=84 6=EC=9B=94 7=EC=9D=BC =EC=9D=BC=EC=9A=94=EC=9D=
-=BC 10:20 Greg Kroah-Hartman <gregkh@linuxfoundation.org> =EB=8B=98=
-=EC=9D=B4 =EC=9E=91=EC=84=B1=ED=95=A8:
+diff --git a/include/rdma/ib_umem.h b/include/rdma/ib_umem.h
+index 77b83ea62dd69f..a18ece7d59a861 100644
+--- a/include/rdma/ib_umem.h
++++ b/include/rdma/ib_umem.h
+@@ -90,6 +90,7 @@ static inline bool __rdma_umem_block_iter_next(struct ib_block_iter *biter)
+ /**
+  * rdma_umem_for_each_dma_block - iterate over contiguous DMA blocks of the umem
+  * @umem: umem to iterate over
++ * @biter: block iterator variable
+  * @pgsz: Page size to split the list into
+  *
+  * pgsz must be <= PAGE_SIZE or computed by ib_umem_find_best_pgsz(). The
+@@ -117,7 +118,7 @@ unsigned long ib_umem_find_best_pgsz(struct ib_umem *umem,
+  * ib_umem_find_best_pgoff - Find best HW page size
+  *
+  * @umem: umem struct
+- * @pgsz_bitmap bitmap of HW supported page sizes
++ * @pgsz_bitmap: bitmap of HW supported page sizes
+  * @pgoff_bitmask: Mask of bits that can be represented with an offset
+  *
+  * This is very similar to ib_umem_find_best_pgsz() except instead of accepting
+@@ -130,6 +131,9 @@ unsigned long ib_umem_find_best_pgsz(struct ib_umem *umem,
+  *
+  * If the pgoff_bitmask requires either alignment in the low bit or an
+  * unavailable page size for the high bits, this function returns 0.
++ *
++ * Returns: best HW page size for the parameters or 0 if none available
++ *   for the given parameters.
+  */
+ static inline unsigned long ib_umem_find_best_pgoff(struct ib_umem *umem,
+ 						    unsigned long pgsz_bitmap,
+-- 
+2.53.0
 
-> 6.12-stable review patch.  If anyone has any objections, please let me kn=
-ow.
->=20
-> ------------------
->=20
-> From: Jamal Hadi Salim <jhs@mojatatu.com>
->=20
-> [ Upstream commit eda0b7f203bb166c98d1418b204135bd566ac83b ]
->=20
-> This reverts commit ec8e0e3d7adef940cdf9475e2352c0680189d14e.
->=20
-> The original patch rejects any tree containing two netems when
-> either has duplication set, even when they sit on unrelated classes
-> of the same classful parent. That broke configurations that have
-> worked since netem was introduced.
->=20
-> The re-entrancy problem the original commit was trying to solve is
-> handled by later patch using tc_depth flag.
->=20
-> Doing this revert will (re)expose the original bug with multiple
-> netem duplication. When this patch is backported make sure
-> and get the full series.
->=20
-> Fixes: ec8e0e3d7ade ("net/sched: Restrict conditions for adding duplicati=
-ng netems to qdisc tree")
-> Reported-by: Ji-Soo Chung <jschung2@proton.me>
-> Reported-by: Gerlinde <lrGerlinde@mailfence.com>
-> Closes: https://bugzilla.kernel.org/show_bug.cgi?id=3D220774
-> Reported-by: zyc zyc <zyc199902@zohomail.cn>
-> Closes: https://lore.kernel.org/all/19adda5a1e2.12410b78222774.9191120410=
-578703463@zohomail.cn/
-> Reported-by: Manas Ghandat <ghandatmanas@gmail.com>
-> Closes: https://lore.kernel.org/netdev/f69b2c8f-8325-4c2e-a011-6dbc089f30=
-e4@gmail.com/
-> Reviewed-by: Stephen Hemminger <stephen@networkplumber.org>
-> Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
-> Link: https://patch.msgid.link/20260525122556.973584-3-jhs@mojatatu.com
-> Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
-> ---
->  net/sched/sch_netem.c | 40 ----------------------------------------
->  1 file changed, 40 deletions(-)
->=20
-> diff --git a/net/sched/sch_netem.c b/net/sched/sch_netem.c
-> index 498c18d7d9c39b..1fdebf2ab7ee46 100644
-> --- a/net/sched/sch_netem.c
-> +++ b/net/sched/sch_netem.c
-> @@ -1005,41 +1005,6 @@ static int parse_attr(struct nlattr *tb[], int max=
-type, struct nlattr *nla,
->  =09return 0;
->  }
->=20
-> -static const struct Qdisc_class_ops netem_class_ops;
-> -
-> -static int check_netem_in_tree(struct Qdisc *sch, bool duplicates,
-> -=09=09=09       struct netlink_ext_ack *extack)
-> -{
-> -=09struct Qdisc *root, *q;
-> -=09unsigned int i;
-> -
-> -=09root =3D qdisc_root_sleeping(sch);
-> -
-> -=09if (sch !=3D root && root->ops->cl_ops =3D=3D &netem_class_ops) {
-> -=09=09if (duplicates ||
-> -=09=09    ((struct netem_sched_data *)qdisc_priv(root))->duplicate)
-> -=09=09=09goto err;
-> -=09}
-> -
-> -=09if (!qdisc_dev(root))
-> -=09=09return 0;
-> -
-> -=09hash_for_each(qdisc_dev(root)->qdisc_hash, i, q, hash) {
-> -=09=09if (sch !=3D q && q->ops->cl_ops =3D=3D &netem_class_ops) {
-> -=09=09=09if (duplicates ||
-> -=09=09=09    ((struct netem_sched_data *)qdisc_priv(q))->duplicate)
-> -=09=09=09=09goto err;
-> -=09=09}
-> -=09}
-> -
-> -=09return 0;
-> -
-> -err:
-> -=09NL_SET_ERR_MSG(extack,
-> -=09=09       "netem: cannot mix duplicating netems with other netems in =
-tree");
-> -=09return -EINVAL;
-> -}
-> -
->  /* Parse netlink message to set options */
->  static int netem_change(struct Qdisc *sch, struct nlattr *opt,
->  =09=09=09struct netlink_ext_ack *extack)
-> @@ -1116,11 +1081,6 @@ static int netem_change(struct Qdisc *sch, struct =
-nlattr *opt,
->  =09q->gap =3D qopt->gap;
->  =09q->counter =3D 0;
->  =09q->loss =3D qopt->loss;
-> -
-> -=09ret =3D check_netem_in_tree(sch, qopt->duplicate, extack);
-> -=09if (ret)
-> -=09=09goto unlock;
-> -
->  =09q->duplicate =3D qopt->duplicate;
->=20
->  =09/* for compatibility with earlier versions.
-> --
-> 2.53.0
->=20
->=20
->=20
-> 
