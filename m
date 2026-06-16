@@ -1,79 +1,122 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E53DA4218A3
-	for <stable@vger.kernel.org>; Tue, 16 Jun 2026 09:48:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 292483B637A
+	for <stable@vger.kernel.org>; Tue, 16 Jun 2026 09:51:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781603319; cv=none; b=gq+jwIauO90BYl8qcA4bGe9Ub7mKy6kM5+bUevnT3JDc2eUOljfx9MioZYtI+DV9gy+9OOhozivvIShSdNZWe5xaTjG2U+7esAfUn86W8FP1nOSLiZd7kSQ5oblFOVVHvSOwzXT8H4OXO0xh9vFYDMFKhTF3QE5xBh25VQy1Edo=
+	t=1781603477; cv=none; b=M5bAT7d50XIt5wrOmpcYlFF4TPGNlJDAhMLQ/ioJw8TBz8vH8QM4bVho0u8/+xpsappF4Y8AdCoI5xarYqVWfOfaOmDh5EVOtjNw5Bd5OW7XbOFbuSK7qKOKE2kZKDWeteo0HIeDOwWGp9UJ00N+WxAaRCVeaD5dVG46sqRsPfM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781603319; c=relaxed/simple;
-	bh=iG49210mPJRB346YjOoXvwu+ax2F6sy5x/U7luKa+dU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=p+G+7uNKJ9TcQQnW/FzDsuaWfPSQRvuuVlo0PJPUEH5g6FwiCvlc3VFymYxHllq6ZAINqbwJSmjge3fzjIJK+qYuj/X1ujW1AtX4wlirHrtZiKlvVKSsf5kx35S4cOx+ngZQPAl+NNeqglO7KbmNuC6JNAoY92K5CpTAA+sIwJA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=e8+W7b+l; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1781603477; c=relaxed/simple;
+	bh=zVfi/BYChxoKdJ6Tv7108C6vCG9Vkzr+xn0gMBzjxEQ=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Zi6atzdGAydFaibnwYcKVW1bccC1ZajFTBQAx3Z1mCsw7yeoZLSkWGxwUTl3wQSN3kOAqELNhoSCnKIR8osOKVNKEjWNJyIpC7ZyoTTwCleMe2IEHMbDgEiaDQYy5EvY97Gk7o4jyRrHeoaXqVW6tNERSmPjt10VaV8b1dZbzTU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=VtF0XozT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="e8+W7b+l"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1781603317;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=iG49210mPJRB346YjOoXvwu+ax2F6sy5x/U7luKa+dU=;
-	b=e8+W7b+lE7l9OKUNxUgMfSLavY/6tyid8em3BtUEWQMhBF+If9b+noxWBt9SVxObE1bZ7Z
-	OIAu1KBI3gVjqDgb7zYAUH6kQkbINxuEf84dZ6W7G6I4yAOPgmFkuf6brV5QhV/I7sVukE
-	srD7h4tbdPmttXoRbY8nbU0q5gU0uB0=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-663-3JPyiv44NBySqQcyDJU7qQ-1; Tue,
- 16 Jun 2026 05:48:33 -0400
-X-MC-Unique: 3JPyiv44NBySqQcyDJU7qQ-1
-X-Mimecast-MFC-AGG-ID: 3JPyiv44NBySqQcyDJU7qQ_1781603311
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 0E043180065E;
-	Tue, 16 Jun 2026 09:48:31 +0000 (UTC)
-Received: from fedora (unknown [10.44.32.13])
-	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id 100FF180028B;
-	Tue, 16 Jun 2026 09:48:26 +0000 (UTC)
-Received: by fedora (nbSMTP-1.00) for uid 1000
-	oleg@redhat.com; Tue, 16 Jun 2026 11:48:30 +0200 (CEST)
-Date: Tue, 16 Jun 2026 11:48:25 +0200
-From: Oleg Nesterov <oleg@redhat.com>
-To: Breno Leitao <leitao@debian.org>
-Cc: Catalin Marinas <catalin.marinas@arm.com>,
-	Andrew Morton <akpm@linux-foundation.org>, lance.yang@linux.dev,
-	Davidlohr Bueso <dave@stgolabs.net>, Qian Cai <cai@lca.pw>,
-	sj@kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
-	kernel-team@meta.com, stable@vger.kernel.org
-Subject: Re: [PATCH v3 1/3] mm/kmemleak: avoid soft lockup when scanning task
- stacks
-Message-ID: <ajEb6efEx1FexevD@redhat.com>
-References: <20260615-kmemleak-stack-resched-v3-0-acecd7d7fd92@debian.org>
- <20260615-kmemleak-stack-resched-v3-1-acecd7d7fd92@debian.org>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="VtF0XozT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C34831F000E9;
+	Tue, 16 Jun 2026 09:51:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1781603474;
+	bh=WV+iBhgs2X3phoayZiiU45zcnK1FJNm0tYKulNUX/ZI=;
+	h=Subject:To:Cc:From:Date;
+	b=VtF0XozTAXovPjRB82nefAcPEIDJC9gu+S0CPkyNjXVtcpT9FeAx64Zd0K9KwtDjE
+	 iF945NF+UX1OM2xjG8Vlr9dlsXpzeBiXTBZL+u7sRrz1Nk45HGh+noyqTtYKTZ5XfQ
+	 XXa5x3+Nj+zDcYESG0cnbXQhQd2IHQW068bEqKJw=
+Subject: FAILED: patch "[PATCH] debugobjects: Do not fill_pool() if pi_blocked_on" failed to apply to 6.18-stable tree
+To: koike@igalia.com,tglx@kernel.org
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Tue, 16 Jun 2026 15:20:09 +0530
+Message-ID: <2026061609-grievance-habitat-1c05@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260615-kmemleak-stack-resched-v3-1-acecd7d7fd92@debian.org>
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
 
-On 06/15, Breno Leitao wrote:
->
-> Walk the tasks one PID at a time with find_ge_pid(), taking the RCU read
-> lock only to look up and pin each task. The stack is then scanned with no
-> lock held, so cond_resched() runs between tasks and the scan stops early
-> on scan_should_stop(). This follows the next_tgid()/task_seq_get_next()
-> iteration pattern and keeps each RCU critical section short.
 
-Reviewed-by: Oleg Nesterov <oleg@redhat.com>
+The patch below does not apply to the 6.18-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
+
+To reproduce the conflict and resubmit, you may use the following commands:
+
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git checkout FETCH_HEAD
+git cherry-pick -x 5f41161059fd0f1bbf18c90f3180e38cc45a14eb
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026061609-grievance-habitat-1c05@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 5f41161059fd0f1bbf18c90f3180e38cc45a14eb Mon Sep 17 00:00:00 2001
+From: Helen Koike <koike@igalia.com>
+Date: Mon, 11 May 2026 18:53:05 -0300
+Subject: [PATCH] debugobjects: Do not fill_pool() if pi_blocked_on
+
+On RT enabled kernels, fill_pool() ends up calling rtlock_lock(), which
+asserts if current::pi_blocked_on is set, because a task can obviously only
+block on one lock as otherwise the priority inheritenace chain gets
+corrupted.
+
+Prevent this by expanding the conditional to take current::pi_blocked_on
+into account.
+
+Fixes: 4bedcc28469a ("debugobjects: Make them PREEMPT_RT aware")
+Reported-by: syzbot+b8ca586b9fc235f0c0df@syzkaller.appspotmail.com
+Signed-off-by: Helen Koike <koike@igalia.com>
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Link: https://patch.msgid.link/20260511215359.3351259-1-koike@igalia.com
+Closes: https://syzkaller.appspot.com/bug?extid=b8ca586b9fc235f0c0df
+
+diff --git a/lib/debugobjects.c b/lib/debugobjects.c
+index 12e2e42e6a31..772ddabcbe7d 100644
+--- a/lib/debugobjects.c
++++ b/lib/debugobjects.c
+@@ -711,6 +711,15 @@ static struct debug_obj *lookup_object_or_alloc(void *addr, struct debug_bucket
+ 	return NULL;
+ }
+ 
++static inline bool debug_objects_is_pi_blocked_on(void)
++{
++#ifdef CONFIG_RT_MUTEXES
++	return current->pi_blocked_on != NULL;
++#else
++	return false;
++#endif
++}
++
+ static void debug_objects_fill_pool(void)
+ {
+ 	if (!static_branch_likely(&obj_cache_enabled))
+@@ -727,11 +736,12 @@ static void debug_objects_fill_pool(void)
+ 
+ 	/*
+ 	 * On RT enabled kernels the pool refill must happen in preemptible
+-	 * context -- for !RT kernels we rely on the fact that spinlock_t and
+-	 * raw_spinlock_t are basically the same type and this lock-type
+-	 * inversion works just fine.
++	 * context and not enqueued on an rt_mutex -- for !RT kernels we rely
++	 * on the fact that spinlock_t and raw_spinlock_t are basically the
++	 * same type and this lock-type inversion works just fine.
+ 	 */
+-	if (!IS_ENABLED(CONFIG_PREEMPT_RT) || preemptible() || system_state < SYSTEM_SCHEDULING) {
++	if (!IS_ENABLED(CONFIG_PREEMPT_RT) || system_state < SYSTEM_SCHEDULING ||
++	    (preemptible() && !debug_objects_is_pi_blocked_on())) {
+ 		/*
+ 		 * Annotate away the spinlock_t inside raw_spinlock_t warning
+ 		 * by temporarily raising the wait-type to LD_WAIT_CONFIG, matching
 
