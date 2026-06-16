@@ -1,146 +1,241 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com [209.85.167.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F32523D6695
-	for <stable@vger.kernel.org>; Tue, 16 Jun 2026 05:51:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781589113; cv=none; b=MQcMzQWOfO+dBEscgJiTb9jKxLsGwlzvAwVc6DN30gCW9i3qt82qJZz6O8MbSh9VblupjLFb2wFhX+9gbnMsztrVC/QMW8+NBKDzdBarHkFnSFSlzLehYTlXXNvZXo4PJCNZOVYC3+lTyrXcb3F19DwLHLX7KVQJCy9AXKEPacI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781589113; c=relaxed/simple;
-	bh=7BG2QmmZRLh5N3+eiC64oaFFvrrLDzoLyfL/lriehHI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=l0IV11KFO+3nHTMbjvIfYfnC//VJbqLfU+Q4lr/o0c40szUbDDMsSqRCY/SUvIvQrMTjwPgJgTavsMFLsgKwiFibkYfCEfJZW2/T+MgYBNKFHoAjfgCRujEH7vZY9VWj9HMwkiHaMvFroNanfy269CQHfd3fMuZrlGpNgZtICsU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=QxDfpumc; arc=none smtp.client-ip=209.85.128.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F8A13D6CB2
+	for <stable@vger.kernel.org>; Tue, 16 Jun 2026 05:55:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.41
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781589320; cv=pass; b=t36uLWKnqy0lNdZW46LgMAf2UfhN1w+ARLWRN+o35Tq2o7wAcp8HxD0talBR88fr7wXIvsOAX1zGh68hPygWQfrkQIqP7XCwlUpAcZslt6GOJMhxQfj8LU4mgoLLPdWq97Q22yCFAAxJRUbNPUJE9BswvMUO+HWecAhOzloUzWM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781589320; c=relaxed/simple;
+	bh=Z3jnfgMw6pkdUvhW4Dhi6EEA51GOG97KK4o3VGAeE+I=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=pItxQMcvpn74tzTUnYLEljqXgZF7RFwHGGHQQ/rUDYN1WBINO1Ib2K4ceb4zI1mikyUPfrjlRZU0uYtRCEFeJ1NLDP8Cc4FY6QosDzpsQrtbNcshYu9O79xgk3nN3LceW0VDG5+j3TnbRNvWjXhRGXCHBqFCIdaKaXn3r00b+Tg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=UosNyJBx; arc=pass smtp.client-ip=209.85.167.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="QxDfpumc"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-490aaeabdb4so28041325e9.1
-        for <stable@vger.kernel.org>; Mon, 15 Jun 2026 22:51:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="UosNyJBx"
+Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5aa7a7ad4d3so3615946e87.1
+        for <stable@vger.kernel.org>; Mon, 15 Jun 2026 22:55:18 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781589317; cv=none;
+        d=google.com; s=arc-20240605;
+        b=ZqovddjcSVxIFU0iIoq8OorjpRAgeUxIIZ62O/N9NKHvn21Rwi0brub21VjoWvYc+v
+         igmJ2pBbdhex069RHc6wAek/nKuphQjdQKt6JcEjMDRjbX7kGVyuQoZBKzUzoaHs44fe
+         GsIhvVTgezGb0I6/gVjSgZUJnzje8x69fkOyu9a0hlaXdBhTkYjrTwGYypAYzMcUJIDP
+         9hv1FzjeRf3goilEFfluQurzHFqZNP2bMx9JsLGc2/p8DZXD36b+Krq8R9MqVf5O9a4b
+         SgBX0rEm3oJWUFkUQ/WoARZcRvZa+4cTbqPCI/ucCxHVAU2MM/UZmcTkLEG8EtBWeFrC
+         4zpg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=86O3OSyFfFjtEnp02Mufd0amyT+kxpMUNNgqXPU8C3s=;
+        fh=Hhj31Y0K6SBAut0CYC5nc2SjAlRnoPJy6mL/TczdNXs=;
+        b=QgEFer9QDtXE6Bvf0qX50CWUwogpVIzibZlR8CxXBy//0RE+MlgWTV3wkilJSpY3DV
+         RePL88xWSfDMvHZEMV0KeKSreVrqcF4S+8XPG63wIp7Xa0BFlalpPeN+Byib2cqfFJHi
+         hCd0v18x1/yAOzbxP89Lm51nquAxwRmvRm2b+akMeDjEpaWUg8+LcKsKNSzRzy4Loq3e
+         AxCdObeW15/uUzeQiKxKv3UIUMJ4j2YKvpmCV7HlIYRY6NUvqhoDSgUUUOXkTDvt1NVU
+         lQ5HyF0jza1XiQNa10vJUAjPCqSpsUBaI4lQGbL52xUpaUokfZNmGA4Fgjzeho3M3zCO
+         w+KQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1781589109; x=1782193909; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=pn+WbxeK/3ieMZ9WvMfWf1pVnmuN4tJPxKr7sK9EIcY=;
-        b=QxDfpumcliIkLkFyq2V538vW9GarjHCMoWbjN4HO8T6s/IiDNpncAa0mI5H4wdn/e0
-         2wJQDN0duell/pBFWpiRxlH/rx95giBgzcgD2VZ7/Xx6pXrTa5qEJIhfuN/TWR4EbWU8
-         pD1dM+RTYz9kjj8R6jAHI9PCvEmMvrnZy9qnsy6SNI8eMC83e4bZhq6PcZtpS4hRHmMW
-         fuRAnjH3iBxl/p7geKLZs9qwBBPfgIWIxvSSuosapzeO18oKP41Gc9WUig5HXSYSz+En
-         xdZ0j7pZdcayL5dGVLvPUfSL0b9imeKgdXiNL+RsMhqo6X1lko2slE4zbQt7HZ1564xR
-         rBNQ==
+        d=google.com; s=20251104; t=1781589317; x=1782194117; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=86O3OSyFfFjtEnp02Mufd0amyT+kxpMUNNgqXPU8C3s=;
+        b=UosNyJBxSsaEt0xGrFGBSiWiREpMC13dBwx0YjyGBdb1kpz1W/FGir2lpqC40xx6kL
+         eDP9ZI1XSWg9aHOHp1UdbPPL22Vxmo9TykNhl4PjVQYx2dSyKU3YvLxA4RM48GSaSFBW
+         G1+bxmdfJCFo6ERajHvUDNkXYqlHK0eCOJ6TaPD008pI45I+OJ+bYmw31qtypMyn21+d
+         PAWi+8ljGQhiaMw7d5AI/RSVPxn1sKbWcl2qd8QQuoZG2qQh9ztspPGh7IvavPiSxVMf
+         zA/4M6BZfGUV88BZuVPCO6ERTcP0dEWb6K51LNpyzyJU8Wbjvq7IJYiQxqm6VzeU+md4
+         VMpw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781589109; x=1782193909;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=pn+WbxeK/3ieMZ9WvMfWf1pVnmuN4tJPxKr7sK9EIcY=;
-        b=NQBF7hGUPEAjl4IHcGPViiGPt6YfwmxYFrDVLMOhlWbt8vQq3f7pcqV2weZmFMNJMd
-         /h/adKSA+QqNQdKGwJvnviI/GfDpOJDpWrlXHv10YtdAps4tEG26aVDQzNzLf3jRdS8a
-         5vmIzNYOtm+uHZ09W89pSbmE7ihW4LSHuPA6DnbAbFugXtY7U2doBv0sVgGkJNwjACc6
-         43fXcF57V1aaJV+CnInLGNAoogis76x7mgvqRxWTd4o+AdNtBwhon8q9WrJO1gSzvxLJ
-         gRYXM/449ZuZfPBd7Lz8L37pRbLvYCff8MXsWE96KoETZ1kwUeRWV6my+mtn2+DgMk08
-         uDIg==
-X-Forwarded-Encrypted: i=1; AFNElJ+GgRyZ++NO3lUYLBFUzJUl92K06WrZDGftYQdZs5SNu/70OK1Ike7V9ePEmodDGfk9a3QwYYY=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyojzZSvzPkY+7+LT86tdEc83/ElphJtJLfXKcGaw9Q5zb9DZq+
-	YwPCzk4m0VAmQFB+aU59R1hujnP5UX7teEgqJh5tgICKKTKoqBVN/2UFa1E1wc58shg=
-X-Gm-Gg: Acq92OG42+CbDwf6xZYxSYxtoMEj7CF3nnr9q0CGGMkB34k/wCb+zz5RJR6YMaVuTjb
-	u5JL06Y3Sj3oRQr9W5zggnQX/Jo+KOnbLbY/gqMSDRvOkNycgBbB/OxBrtUf7qQ6EAG6IYK59WU
-	SDy+kwXy7aa7mzHDTnY1ZdQdusTBx119MLW+Eo8xKp5Pg/3Kb1s940Lg1cxBTuFwDrTPDu+mLJ+
-	FSxQOawP/vABIp4Gp6rRKpJk7dcwc3rgY3c6G/wmhdKWNAyw6Sd3lFDpSLlhl0wEV1Jm0uzKNmJ
-	BebHOgEuNcQyxT/RKDM/kdg8x3i4GbDwswWMMY3QW3Fmob8BnDfo4gStO6Y0iq1E3q08OLulkC+
-	f7dVL1usgK1uoGblLPdEGDhYVBKTINvkkzqSt58bMdjQu7fQ6lRNlW+ta1zWikS9Ceepagnm58g
-	h8mtdxFRa/ixctGNUdZZjnXwyYPrFXHqcvRB2wDI0TLBCjhQ==
-X-Received: by 2002:a05:600c:1f8c:b0:488:d6eb:e63c with SMTP id 5b1f17b1804b1-492200768abmr192521925e9.15.1781589109336;
-        Mon, 15 Jun 2026 22:51:49 -0700 (PDT)
-Received: from u94a (39-12-139-247.adsl.fetnet.net. [39.12.139.247])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-30b6191bf9asm12009774eec.31.2026.06.15.22.51.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 15 Jun 2026 22:51:48 -0700 (PDT)
-Date: Tue, 16 Jun 2026 13:51:39 +0800
-From: Shung-Hsi Yu <shung-hsi.yu@suse.com>
-To: Zhenzhong Wu <jt26wzz@gmail.com>
-Cc: bpf@vger.kernel.org, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, ast@kernel.org, daniel@iogearbox.net, john.fastabend@gmail.com, 
-	andrii@kernel.org, martin.lau@linux.dev, song@kernel.org, yonghong.song@linux.dev, 
-	kpsingh@kernel.org, haoluo@google.com, jolsa@kernel.org, menglong8.dong@gmail.com, 
-	eddyz87@gmail.com, stable@vger.kernel.org, mykolal@fb.com, tamird@kernel.org, 
-	Hao Sun <sunhao.th@gmail.com>
-Subject: Re: [PATCH stable 6.6.y v3 1/4] bpf: Track equal scalars history on
- per-instruction level
-Message-ID: <ajDiLjjSYPp5p7KF@u94a>
-References: <cover.1781194510.git.jt26wzz@gmail.com>
- <7f27d335fa6280d5eb04e7b27a7e3d7e7ac1d641.1781194510.git.jt26wzz@gmail.com>
+        d=1e100.net; s=20251104; t=1781589317; x=1782194117;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=86O3OSyFfFjtEnp02Mufd0amyT+kxpMUNNgqXPU8C3s=;
+        b=Z/CbnLz/b7/93SLzamo5dYeRZ/w8IjgQFZs3z0/vFwaXFPhTHmhjfxPWVleM45ewBt
+         j4ifEJKYQtrKx8R8lYOeJQvhuGOUNUg2TIGSIKd0qdtq2Sce8Xc+oiLCSpd7r0HC5g7/
+         O9C1xuTh3nP1D9D1oy48EqH+H89VlhSiTmu0UAoTCBxo8D5SOi3qxgClUcBc8add4OCC
+         ejmreO6RUCnV7x3eH06XrhRfTfZAosgPUdQg3g19QXsLJjINIOgSmg4QI0WOhcUZ3pNw
+         zM0uWraXG+lWx8buR30XlVcSCt8RYoPVkNyKTbax8Cq56JLMahrjNzqTGal8lYQFTOYx
+         Q4hw==
+X-Forwarded-Encrypted: i=1; AFNElJ8b5i7k2cOZ+71ric24B+kUBXgtWN/Zy88Vl3wgMPvbpAupYqMHIDYWnCAeOPYuPk6YY+T14tQ=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz+VL6KGAckviKoU2ooEwvIjIGY1cqJXTa/96wWzoVq5Ytwq0SU
+	jVk2V5zvvv8h4Tn54r8XkOmEuRjhR33Q2a1Qk7gIIAiIbC8VvnR+nUCe/EINQTeKsr7cezkfc1t
+	8Fcjx7ijGQSYZRIhE1HsiU3d96maI+eecre66LWM0
+X-Gm-Gg: Acq92OEwLn/cZruXbAZLunEGTIWE7sMZIr1TMJYDjWIqleScNh3b1ROOMWFvQ8A+dXC
+	xaF6LMWNho3kQQSsCKIvyYiuVwMwQP1dL46WUWy8k3fif+JYlSOPs3rXLZC3GeR8Nfuhp4LaEcv
+	u3b+c8+PJVnT0aGENg5W3crEMhxKflKxwdgpe807sRgIglO02O6U4gEB8Rt681u6Zi4CyiuOK9R
+	Tene/YU7TOdxzzaCEMBFGTTqxriY5UlS9PRbn6FylF4kkUjCV4SxuKWtc3li4oAFsqA947VMVmE
+	++CSnw==
+X-Received: by 2002:a05:6512:118c:b0:5aa:671d:9966 with SMTP id
+ 2adb3069b0e04-5ad43216586mr600774e87.6.1781589316489; Mon, 15 Jun 2026
+ 22:55:16 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <7f27d335fa6280d5eb04e7b27a7e3d7e7ac1d641.1781194510.git.jt26wzz@gmail.com>
+References: <CAPpSM+TbMOPL93CkWtrYjYW+T+Q+iWuo+ZhfutYNFOuOCBU5fQ@mail.gmail.com>
+ <20260506202842.1788682-1-kpberry@google.com> <20260506202842.1788682-2-kpberry@google.com>
+ <2026061617-flyable-civic-a986@gregkh>
+In-Reply-To: <2026061617-flyable-civic-a986@gregkh>
+From: Kevin Berry <kpberry@google.com>
+Date: Tue, 16 Jun 2026 01:55:04 -0400
+X-Gm-Features: AVVi8CdwOzb5NX-Ni6CO2HpFzYvlbxAuOLezHmBwTkmzUTMm8Y5ZFVZ_KXaIg4Q
+Message-ID: <CAMAJAJE+w+vYwcEzkZoNDwoAC3PzJ54sGGr7s+5edBW3JJFKHQ@mail.gmail.com>
+Subject: Re: [PATCH] net: bonding: fix use-after-free in bond_xmit_broadcast()
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: xmei5@asu.edu, bestswngs@gmail.com, chenglongtang@google.com, 
+	joneslee@google.com, pabeni@redhat.com, rnj@google.com, 
+	stable@vger.kernel.org, Sasha Levin <sashal@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Jun 15, 2026 at 12:58:38AM +0800, Zhenzhong Wu wrote:
-[...]
-> +/* For all R being scalar registers or spilled scalar registers
-> + * in verifier state, save R in linked_regs if R->id == id.
-> + * If there are too many Rs sharing same id, reset id for leftover Rs.
-> + */
-> +static void collect_linked_regs(struct bpf_verifier_state *vstate, u32 id,
-> +				struct linked_regs *linked_regs)
-> +{
-> +	struct bpf_func_state *func;
->  	struct bpf_reg_state *reg;
-> +	int i, j;
->  
-> -	bpf_for_each_reg_in_vstate(vstate, state, reg, ({
-> -		if (reg->type == SCALAR_VALUE && reg->id == known_reg->id) {
-> +	for (i = vstate->curframe; i >= 0; i--) {
-> +		func = vstate->frame[i];
-> +		for (j = 0; j < BPF_REG_FP; j++) {
-> +			reg = &func->regs[j];
-> +			__collect_linked_regs(linked_regs, reg, id, i, j, true);
-> +		}
-> +		for (j = 0; j < func->allocated_stack / BPF_REG_SIZE; j++) {
-> +			if (!is_spilled_reg(&func->stack[j]))
-> +				continue;
-> +			reg = &func->stack[j].spilled_ptr;
-> +			__collect_linked_regs(linked_regs, reg, id, i, j, false);
-> +		}
-> +	}
-> +
-> +	if (linked_regs->cnt == 1)
-> +		linked_regs->cnt = 0;
+Hm, looks like the patch context changed because commit ce7a381697cb3
+("net: bonding: add broadcast_neighbor option for 802.3ad") was
+applied to the 6.6 stable tree after I sent my patch. With that,
+though, Xiang's original commit 2884bf72fb8f ("net: bonding: fix
+use-after-free in bond_xmit_broadcast()") applies cleanly to 6.6 and
+should fix the double-free. Would it be possible to cherry-pick that?
 
-This part seems new, not found on the original commit, and also not in
-bpf-next. Can you add some more explaining (in the notes before your
-signed-off-by) regarding why this is needed?
+-Kevin
 
-> +}
-[...]
-> @@ -14704,6 +14899,21 @@ static int check_cond_jmp_op(struct bpf_verifier_env *env,
->  		return 0;
->  	}
->  
-> +	/* Push scalar registers sharing same ID to jump history,
-> +	 * do this before creating 'other_branch', so that both
-> +	 * 'this_branch' and 'other_branch' share this history
-> +	 * if parent state is created.
-> +	 */
-> +	if (BPF_SRC(insn->code) == BPF_X && src_reg->type == SCALAR_VALUE && src_reg->id)
-> +		collect_linked_regs(this_branch, src_reg->id, &linked_regs);
-> +	if (dst_reg->type == SCALAR_VALUE && dst_reg->id)
-> +		collect_linked_regs(this_branch, dst_reg->id, &linked_regs);
-> +	if (linked_regs.cnt > 0) {
-
-Same here, the original commit and bpf-next has the '> 1' conditional,
-where as your has '> 0'. Can you also added some explanation on this
-part?
-
-> +		err = push_jmp_history(env, this_branch, 0, linked_regs_pack(&linked_regs));
-> +		if (err)
-> +			return err;
-> +	}
-> +
-...
+On Tue, Jun 16, 2026 at 1:13=E2=80=AFAM Greg Kroah-Hartman
+<gregkh@linuxfoundation.org> wrote:
+>
+> On Wed, May 06, 2026 at 08:28:42PM +0000, Kevin Berry wrote:
+> > From: Xiang Mei <xmei5@asu.edu>
+> >
+> > commit 2884bf72fb8f03409e423397319205de48adca16 upstream.
+> >
+> > bond_xmit_broadcast() reuses the original skb for the last slave
+> > (determined by bond_is_last_slave()) and clones it for others.
+> > Concurrent slave enslave/release can mutate the slave list during
+> > RCU-protected iteration, changing which slave is "last" mid-loop.
+> > This causes the original skb to be double-consumed (double-freed).
+> >
+> > Replace the racy bond_is_last_slave() check with a simple index
+> > comparison (i + 1 =3D=3D slaves_count) against the pre-snapshot slave
+> > count taken via READ_ONCE() before the loop.  This preserves the
+> > zero-copy optimization for the last slave while making the "last"
+> > determination stable against concurrent list mutations.
+> >
+> > The UAF can trigger the following crash:
+> >
+> > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> > BUG: KASAN: slab-use-after-free in skb_clone
+> > Read of size 8 at addr ffff888100ef8d40 by task exploit/147
+> >
+> > CPU: 1 UID: 0 PID: 147 Comm: exploit Not tainted 7.0.0-rc3+ #4 PREEMPTL=
+AZY
+> > Call Trace:
+> >  <TASK>
+> >  dump_stack_lvl (lib/dump_stack.c:123)
+> >  print_report (mm/kasan/report.c:379 mm/kasan/report.c:482)
+> >  kasan_report (mm/kasan/report.c:597)
+> >  skb_clone (include/linux/skbuff.h:1724 include/linux/skbuff.h:1792 inc=
+lude/linux/skbuff.h:3396 net/core/skbuff.c:2108)
+> >  bond_xmit_broadcast (drivers/net/bonding/bond_main.c:5334)
+> >  bond_start_xmit (drivers/net/bonding/bond_main.c:5567 drivers/net/bond=
+ing/bond_main.c:5593)
+> >  dev_hard_start_xmit (include/linux/netdevice.h:5325 include/linux/netd=
+evice.h:5334 net/core/dev.c:3871 net/core/dev.c:3887)
+> >  __dev_queue_xmit (include/linux/netdevice.h:3601 net/core/dev.c:4838)
+> >  ip6_finish_output2 (include/net/neighbour.h:540 include/net/neighbour.=
+h:554 net/ipv6/ip6_output.c:136)
+> >  ip6_finish_output (net/ipv6/ip6_output.c:208 net/ipv6/ip6_output.c:219=
+)
+> >  ip6_output (net/ipv6/ip6_output.c:250)
+> >  ip6_send_skb (net/ipv6/ip6_output.c:1985)
+> >  udp_v6_send_skb (net/ipv6/udp.c:1442)
+> >  udpv6_sendmsg (net/ipv6/udp.c:1733)
+> >  __sys_sendto (net/socket.c:730 net/socket.c:742 net/socket.c:2206)
+> >  __x64_sys_sendto (net/socket.c:2209)
+> >  do_syscall_64 (arch/x86/entry/syscall_64.c:63 arch/x86/entry/syscall_6=
+4.c:94)
+> >  entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:130)
+> >  </TASK>
+> >
+> > Allocated by task 147:
+> >
+> > Freed by task 147:
+> >
+> > The buggy address belongs to the object at ffff888100ef8c80
+> >  which belongs to the cache skbuff_head_cache of size 224
+> > The buggy address is located 192 bytes inside of
+> >  freed 224-byte region [ffff888100ef8c80, ffff888100ef8d60)
+> >
+> > Memory state around the buggy address:
+> >  ffff888100ef8c00: fb fb fb fb fc fc fc fc fc fc fc fc fc fc fc fc
+> >  ffff888100ef8c80: fa fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+> > >ffff888100ef8d00: fb fb fb fb fb fb fb fb fb fb fb fb fc fc fc fc
+> >                                                     ^
+> >  ffff888100ef8d80: fc fc fc fc fc fc fc fc fa fb fb fb fb fb fb fb
+> >  ffff888100ef8e00: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+> > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> >
+> > Fixes: 4e5bd03ae346 ("net: bonding: fix bond_xmit_broadcast return valu=
+e error bug")
+> > Reported-by: Weiming Shi <bestswngs@gmail.com>
+> > Signed-off-by: Xiang Mei <xmei5@asu.edu>
+> > Link: https://patch.msgid.link/20260326075553.3960562-1-xmei5@asu.edu
+> > Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+> > Signed-off-by: Sasha Levin <sashal@kernel.org>
+> > Signed-off-by: Kevin Berry <kpberry@google.com>
+> > Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> > ---
+> >  drivers/net/bonding/bond_main.c | 12 ++++++++----
+> >  1 file changed, 8 insertions(+), 4 deletions(-)
+> >
+> > diff --git a/drivers/net/bonding/bond_main.c b/drivers/net/bonding/bond=
+_main.c
+> > index 114ebaa284da..6484ba1ab14c 100644
+> > --- a/drivers/net/bonding/bond_main.c
+> > +++ b/drivers/net/bonding/bond_main.c
+> > @@ -5280,18 +5280,22 @@ static netdev_tx_t bond_xmit_broadcast(struct s=
+k_buff *skb,
+> >                                      struct net_device *bond_dev)
+> >  {
+> >       struct bonding *bond =3D netdev_priv(bond_dev);
+> > -     struct slave *slave =3D NULL;
+> > -     struct list_head *iter;
+> > +     struct bond_up_slave *slaves;
+> >       bool xmit_suc =3D false;
+> >       bool skb_used =3D false;
+> > +     int slaves_count, i;
+> >
+> > -     bond_for_each_slave_rcu(bond, slave, iter) {
+> > +     slaves =3D rcu_dereference(bond->all_slaves);
+> > +
+> > +     slaves_count =3D slaves ? READ_ONCE(slaves->count) : 0;
+> > +     for (i =3D 0; i < slaves_count; i++) {
+> > +             struct slave *slave =3D slaves->arr[i];
+> >               struct sk_buff *skb2;
+> >
+> >               if (!(bond_slave_is_up(slave) && slave->link =3D=3D BOND_=
+LINK_UP))
+> >                       continue;
+> >
+> > -             if (bond_is_last_slave(bond, slave)) {
+> > +             if (i + 1 =3D=3D slaves_count) {
+> >                       skb2 =3D skb;
+> >                       skb_used =3D true;
+> >               } else {
+> >
+> > base-commit: 258cf62a6dfde3c6a39d120a56a298f2ed6a8901
+> > --
+> > 2.54.0.563.g4f69b47b94-goog
+> >
+> >
+>
+> Does not apply at all :(
