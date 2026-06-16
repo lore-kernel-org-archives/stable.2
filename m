@@ -1,87 +1,125 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C65D3D5656;
-	Tue, 16 Jun 2026 18:09:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD9743D75AA;
+	Tue, 16 Jun 2026 18:09:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781633376; cv=none; b=MSt21zPIZVZV9z2eUkUU5qp5ESSf3hPq7h4MQsC4lKgJqlIqHEeZOtvS0/tG4ZFZ9YjpGjda/eXM+HUA9IsxoI2uVwMYXl/PrYWhUl4jd1Iytl2AAO8DLs1BCODIRfIfcLMUUyv0+k/sMHsS1x5ptxVzokl8KWVkD5rNHrzzbmk=
+	t=1781633378; cv=none; b=jGhbLYfjsxK9Z6tUcamSkF7nnMqbdRThTEhJXRqS73OrR/SNj1mzsj146a7I2Z3vDYPIOGlwr8l3igLEpIAWHHGfdjJ6hBQNGcpucRKxCFGCfDXu4XrYGnr9lKilgHudtrMeOP1bvc/MP+h77oWGrC9e1XRLdrgoeGTIu36OlQo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781633376; c=relaxed/simple;
-	bh=UJoJC+LPr5JtwIIYHRNLpKRTlx9rR3elzqKtpXIld5k=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kQ+tbAsPDyzvcojmJuvLgkP6M7eSD7Bm3dkkE4tTRNU1OqXKBhIIGXZOBp9lWdKrx/Cu8KVz4rYN1xuzxDTPsLzFmn3Zp8EvBSXtMr6SJ36KtvlF72QHR9Ni07qqfxVZ05v6QJOWkHvATDFjmk4H9e1gihUXjHPj0LpI40UonOs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y2a8nmRO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781633378; c=relaxed/simple;
+	bh=N+AXtiSIt5+73KQp2fnvxGKXvqiuLUlSytbFMKUFsKM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Wiq4IjlKUx+xEJAWGtTXdB8UX/7dkWWbH5Z4zPd6Zs2eC8rtwpEl5lSpQdjX1MZfm6hojgj9aackf3aNVgHveZgIj3KezX16+KF+lkV8FgjNRUCMPyFoICARQ/nRAAQn65PaavZEwFvuI9dWgBZph3x2ZJoI4gPO6QLqPhAI4+M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=EFNOwZ/c; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y2a8nmRO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 235891F000E9;
-	Tue, 16 Jun 2026 18:09:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781633375;
-	bh=HFFkLIXvkP/vvJblAmle3/icgdr5AJDzURgkhmjKBSY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Y2a8nmROpyirnyxwIZC529IvpjKMUhgG/4qT7Ag8oXGSPdofoSPMMmLXViCU3KfOT
-	 XHn97EYh/6IhRoLOUb8Pg9kA0VK0SbIoubG0dvaZ8E896HDP1Q1ynTW7eu0IPggdqM
-	 kAnW9VTPnxAy/bfqqmlTeK8sAi9YnRZrIHAUu24FMCRoH1sLZJbkV0h9vQW4PrHOO0
-	 NxevWZQw6upp/LnB2AhBOZ6kz+AVg7XDj+4x/hvzMaCCLoGI+gct23QInGMg8tnsiT
-	 i6oLFM12ExSXV9qZMUdX3u60pHgyqC04Lt0ApxgevzP9+w31jX7jb4XyUIDm5fwntE
-	 aIwJc+Y+p1YHw==
-Date: Tue, 16 Jun 2026 21:09:29 +0300
-From: Leon Romanovsky <leon@kernel.org>
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: jgg@ziepe.ca, fw@strlen.de, kees@kernel.org, linux-rdma@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] RDMA/iwpm: fix kref bypass in
- iwpm_add_and_query_mapping() error path
-Message-ID: <20260616180929.GR327369@unreal>
-References: <20260608154208.158175-1-vulab@iscas.ac.cn>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="EFNOwZ/c"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9C5B1F000E9;
+	Tue, 16 Jun 2026 18:09:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1781633377;
+	bh=yyLpLMBi3JbLUobClJ1JVJXeN3oZe4B5gLSSl3HhxOE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=EFNOwZ/cGQR4A/460mciKs61vbsP/Pu2yTZvZoyZ6j6mAeaCX012oJe72CgBQXmMH
+	 iqC7qn6xHHYVs+Gy6vLkAyUawSrnuYt3pwL1cB9oONaBG1bL00oaPr/qFi686v9NNt
+	 OsQsNulA6WNcNrSio35SEeIPPBbBfe7fvpIh5twQ=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Christofer Jonason <christofer.jonason@guidelinegeo.com>,
+	Andy Shevchenko <andriy.shevchenko@intel.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Salih Erim <salih.erim@amd.com>,
+	Jonathan Cameron <Jonathan.Cameron@huawei.com>
+Subject: [PATCH 5.15 068/411] iio: adc: xilinx-xadc: Fix sequencer mode in postdisable for dual mux
+Date: Tue, 16 Jun 2026 20:25:06 +0530
+Message-ID: <20260616145103.897168621@linuxfoundation.org>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260616145100.376842714@linuxfoundation.org>
+References: <20260616145100.376842714@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260608154208.158175-1-vulab@iscas.ac.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Mon, Jun 08, 2026 at 03:42:08PM +0000, Wentao Liang wrote:
-> iwpm_get_nlmsg_request() returns with kref_init() + kref_get()
-> (refcount=2). iwpm_add_and_query_mapping() calls
-> iwpm_free_nlmsg_request() directly on the error path instead of
-> using kref_put(), freeing the object while the refcount is still
-> non-zero. The success path correctly uses kref_put() via
-> iwpm_wait_complete_req().
-> 
-> Replace the direct iwpm_free_nlmsg_request() call with
-> kref_put(&nlmsg_request->kref, iwpm_free_nlmsg_request).
-> 
-> Fixes: 30dc5e63d6a5 ("RDMA/core: Add support for iWARP Port Mapper user space service")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-> ---
->  drivers/infiniband/core/iwpm_msg.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/infiniband/core/iwpm_msg.c b/drivers/infiniband/core/iwpm_msg.c
-> index 854c974d6586..bac3d1f321ab 100644
-> --- a/drivers/infiniband/core/iwpm_msg.c
-> +++ b/drivers/infiniband/core/iwpm_msg.c
-> @@ -296,7 +296,7 @@ int iwpm_add_and_query_mapping(struct iwpm_sa_data *pm_msg, u8 nl_client)
->  query_mapping_error_nowarn:
->  	dev_kfree_skb(skb);
->  	if (nlmsg_request)
-> -		iwpm_free_nlmsg_request(&nlmsg_request->kref);
-> +		kref_put(&nlmsg_request->kref, iwpm_free_nlmsg_request);
+5.15-stable review patch.  If anyone has any objections, please let me know.
 
-You should consolidate all related changes in iwpm_msg.c into a single patch.
-You also overlooked updating iwpm_add_mapping().
+------------------
 
-Thanks
+From: Christofer Jonason <christofer.jonason@guidelinegeo.com>
 
->  	return ret;
->  }
->  
-> -- 
-> 2.34.1
-> 
+commit 852534744c2d35626a604f128ff0b8ec12805591 upstream.
+
+xadc_postdisable() unconditionally sets the sequencer to continuous
+mode. For dual external multiplexer configurations this is incorrect:
+simultaneous sampling mode is required so that ADC-A samples through
+the mux on VAUX[0-7] while ADC-B simultaneously samples through the
+mux on VAUX[8-15]. In continuous mode only ADC-A is active, so
+VAUX[8-15] channels return incorrect data.
+
+Since postdisable is also called from xadc_probe() to set the initial
+idle state, the wrong sequencer mode is active from the moment the
+driver loads.
+
+The preenable path already uses xadc_get_seq_mode() which returns
+SIMULTANEOUS for dual mux. Fix postdisable to do the same.
+
+Fixes: bdc8cda1d010 ("iio:adc: Add Xilinx XADC driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Christofer Jonason <christofer.jonason@guidelinegeo.com>
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Reviewed-by: Nuno Sá <nuno.sa@analog.com>
+Reviewed-by: Salih Erim <salih.erim@amd.com>
+Signed-off-by: Jonathan Cameron <Jonathan.Cameron@huawei.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ drivers/iio/adc/xilinx-xadc-core.c |   11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
+
+--- a/drivers/iio/adc/xilinx-xadc-core.c
++++ b/drivers/iio/adc/xilinx-xadc-core.c
+@@ -819,6 +819,7 @@ static int xadc_postdisable(struct iio_d
+ {
+ 	struct xadc *xadc = iio_priv(indio_dev);
+ 	unsigned long scan_mask;
++	int seq_mode;
+ 	int ret;
+ 	int i;
+ 
+@@ -826,6 +827,12 @@ static int xadc_postdisable(struct iio_d
+ 	for (i = 0; i < indio_dev->num_channels; i++)
+ 		scan_mask |= BIT(indio_dev->channels[i].scan_index);
+ 
++	/*
++	 * Use the correct sequencer mode for the idle state: simultaneous
++	 * mode for dual external mux configurations, continuous otherwise.
++	 */
++	seq_mode = xadc_get_seq_mode(xadc, scan_mask);
++
+ 	/* Enable all channels and calibration */
+ 	ret = xadc_write_adc_reg(xadc, XADC_REG_SEQ(0), scan_mask & 0xffff);
+ 	if (ret)
+@@ -836,11 +843,11 @@ static int xadc_postdisable(struct iio_d
+ 		return ret;
+ 
+ 	ret = xadc_update_adc_reg(xadc, XADC_REG_CONF1, XADC_CONF1_SEQ_MASK,
+-		XADC_CONF1_SEQ_CONTINUOUS);
++				  seq_mode);
+ 	if (ret)
+ 		return ret;
+ 
+-	return xadc_power_adc_b(xadc, XADC_CONF1_SEQ_CONTINUOUS);
++	return xadc_power_adc_b(xadc, seq_mode);
+ }
+ 
+ static int xadc_preenable(struct iio_dev *indio_dev)
+
+
