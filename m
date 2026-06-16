@@ -1,43 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9C2444DB62
-	for <stable@vger.kernel.org>; Tue, 16 Jun 2026 15:55:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44CE944CAF9;
+	Tue, 16 Jun 2026 15:55:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781625323; cv=none; b=Cv4Y+rEkDH+66m+7UNVPMFdf46cq2efaEmPFnio6YBs/9hubjzvDlkaaRXmkDRmkhmsB+YJ3RQsPKYATAplW3dTAy0tQYz/qGRbkTtUidszXgtIqll+wOKSHREEnbd4W+yH9g3IrNs7iuXVCtu2Xvyo+mhHzDEfuFIpSuxHt/LA=
+	t=1781625325; cv=none; b=S9ou0O0aYdw6ralJWx0L4n9zkYVKK3z1To1Xg4/fEZ6+IMaZjt+dXNHUe4xAZxwcl4MRLGjLflvcu4ca2bz1ZLvJZ9rw48RjFvXLkXg5RjCddwbqrroyxy+OigGBeQXcs+CnGUrx23tyJ05x1pfDfXi01n91TETs7rx9L6Ar0Ww=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781625323; c=relaxed/simple;
-	bh=IIYESV4Jd8wPDviCiLsynfXTewWsfiOnRjQzfydbVa4=;
+	s=arc-20240116; t=1781625325; c=relaxed/simple;
+	bh=c3+J0awFJMtMqcppxYEEFJn5L52AAGPTajyzG/wRNhU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DbrK2UXT1rGkYGfkq+QN0t/yQKdfIXpfa8m9CrF/jwP5zSQIKL55jV5BgXI42Por9DkD1GCIfHDYVHvqcioyVnAwkPK9DvCNOlUKm2SLRcu1gx3jxuQwT5bVsgoeLUaSo1ArP+tHEhbkPabHddDHSQC8+iAM+cfgKjGh+wYQlHI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RKDFVych; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=T6/8YcJqhgz0cprHfXRpIVwUGouhSDFia3LKJpqDmGEo7uit/MhdYqeQUQxXjoVEWkzvO0BO5KP35fftGkHhM4TwJEfSRzwXqMbn3Ziv74jQQq4IoHz5AjXNtIGy65E0nhlHgf+f9AOyKxp4OsQrpGKl+RicEngktVOz7eMbPQs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=RrPbGw1R; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RKDFVych"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E03CE1F000E9;
-	Tue, 16 Jun 2026 15:55:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781625322;
-	bh=qlQXlBsHQbS15KuGoMocJqDC6olMMamHpXmLAA18KuY=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="RrPbGw1R"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09F3E1F00A3A;
+	Tue, 16 Jun 2026 15:55:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1781625323;
+	bh=Unv6er02GVHPClIkwqMHwPgausnu05qqCv3qkP8OypA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=RKDFVychmKEOUADHcDfgoxFFg2a9lC/ofuib1LSN7JPDFLK9edbrb2gQn8AtdPpKq
-	 BhFPiN9NcWAmq1T7N1nhQcDior3X7QLPB3MzRD8TCGgnSWArX5h97DRFjOHndlqhit
-	 ZRfjhlrnWgqKVxcvYeCKY3akngN5uRJQ11NnSiUFCJaaq9teCMnfQo1Cs+mD2D58Q7
-	 uIncBO8RLDZpmQgTiv00551k8jmOJQgOYb70fG1TxxfPNGIdXr9fTAk7AlvoVfIN8d
-	 6vetbKwUp252EqrbFAAREO4xc8R8NRUCX6mvF3TgW8MYiid7u0ATJIhSxNyoGXl3+0
-	 DTJoGyYCO29kw==
-From: Sasha Levin <sashal@kernel.org>
+	b=RrPbGw1RZoCrn9cmlmE5NFZ795w2xxuNE93EvgpzUeZMLFVlTDlebHypOpJ5lO79k
+	 Df29in7hTXPagPfTzfPmYhZfQ+wE2YquaPnA0Z0OvMPLgdTD6PzHdS9/jWCgn0rEZW
+	 nfnJQH9F8k5IQiCJMTYsMdperNegymK278tS4Uxo=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Salman Alghamdi <me@cipherat.com>,
-	Luka Gejak <luka.gejak@linux.dev>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Logan Gunthorpe <logang@deltatee.com>,
+	Li RongQing <lirongqing@baidu.com>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] staging: rtl8723bs: fix buffer over-read in rtw_update_protection
-Date: Tue, 16 Jun 2026 11:55:20 -0400
-Message-ID: <20260616155520.3322698-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026061501-overheat-caution-dc20@gregkh>
-References: <2026061501-overheat-caution-dc20@gregkh>
+Subject: [PATCH 6.18 087/325] dma-mapping: direct: fix missing mapping for THRU_HOST_BRIDGE segments
+Date: Tue, 16 Jun 2026 20:28:03 +0530
+Message-ID: <20260616145102.051597117@linuxfoundation.org>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260616145057.827196531@linuxfoundation.org>
+References: <20260616145057.827196531@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,58 +48,46 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Salman Alghamdi <me@cipherat.com>
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit 514ab98364595007d4557ecc85d7e5f012c504d3 ]
+------------------
 
-rtw_update_protection() is called with a pointer offset into the
-ies buffer but the full ie_length is passed, causing a potential
-buffer over-read.
+From: Li RongQing <lirongqing@baidu.com>
 
-Fixes: e945c43df60b ("Staging: rtl8723bs: Delete dead code from update_current_network()")
-Fixes: d3fcee1b78a5 ("staging: rtl8723bs: fix camel case in struct wlan_bssid_ex")
-Reported-by: Luka Gejak <luka.gejak@linux.dev>
-Closes: https://lore.kernel.org/linux-staging/DI2H39EAAFBZ.3KI5NWN02AQ2S@linux.dev
-Cc: stable@vger.kernel.org
-Signed-off-by: Salman Alghamdi <me@cipherat.com>
-Reviewed-by: Luka Gejak <luka.gejak@linux.dev>
-Link: https://patch.msgid.link/20260508222649.23989-1-me@cipherat.com
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+[ Upstream commit 560000d619ef162568746ce287f0c725e24ea967 ]
+
+In dma_direct_map_sg(), the case PCI_P2PDMA_MAP_THRU_HOST_BRIDGE
+incorrectly used 'break' instead of falling through to MAP_NONE.
+As a result, segments traversing the host bridge skipped the required
+dma_direct_map_phys() call entirely, leaving sg->dma_address
+uninitialized and leading to DMA failures. Fix this by using
+'fallthrough;'.
+
+Fixes: a25e7962db0d79 ("PCI/P2PDMA: Refactor the p2pdma mapping helpers")
+Reviewed-by: Logan Gunthorpe <logang@deltatee.com>
+Signed-off-by: Li RongQing <lirongqing@baidu.com>
+Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
+Link: https://lore.kernel.org/r/20260603013723.2439-1-lirongqing@baidu.com
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/staging/rtl8723bs/core/rtw_mlme.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+ kernel/dma/direct.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/staging/rtl8723bs/core/rtw_mlme.c b/drivers/staging/rtl8723bs/core/rtw_mlme.c
-index 3563017acc3136..d4b6e748f11fc2 100644
---- a/drivers/staging/rtl8723bs/core/rtw_mlme.c
-+++ b/drivers/staging/rtl8723bs/core/rtw_mlme.c
-@@ -449,8 +449,11 @@ static void update_current_network(struct adapter *adapter, struct wlan_bssid_ex
- 
- 	if ((check_fwstate(pmlmepriv, _FW_LINKED) == true) && (is_same_network(&(pmlmepriv->cur_network.network), pnetwork, 0))) {
- 		update_network(&(pmlmepriv->cur_network.network), pnetwork, adapter, true);
-+		if (pmlmepriv->cur_network.network.ie_length < sizeof(struct ndis_802_11_fix_ie))
-+			return;
-+
- 		rtw_update_protection(adapter, (pmlmepriv->cur_network.network.ies) + sizeof(struct ndis_802_11_fix_ie),
--								pmlmepriv->cur_network.network.ie_length);
-+								pmlmepriv->cur_network.network.ie_length - sizeof(struct ndis_802_11_fix_ie));
- 	}
- }
- 
-@@ -1070,8 +1073,11 @@ static void rtw_joinbss_update_network(struct adapter *padapter, struct wlan_net
- 			break;
- 	}
- 
-+	if (cur_network->network.ie_length < sizeof(struct ndis_802_11_fix_ie))
-+		return;
-+
- 	rtw_update_protection(padapter, (cur_network->network.ies) + sizeof(struct ndis_802_11_fix_ie),
--									(cur_network->network.ie_length));
-+									(cur_network->network.ie_length - sizeof(struct ndis_802_11_fix_ie)));
- 
- 	rtw_update_ht_cap(padapter, cur_network->network.ies, cur_network->network.ie_length, (u8) cur_network->network.configuration.ds_config);
- }
+diff --git a/kernel/dma/direct.c b/kernel/dma/direct.c
+index f973e7e73c90bb..fd483b558b504c 100644
+--- a/kernel/dma/direct.c
++++ b/kernel/dma/direct.c
+@@ -469,7 +469,7 @@ int dma_direct_map_sg(struct device *dev, struct scatterlist *sgl, int nents,
+ 			 * must be mapped with CPU physical address and not PCI
+ 			 * bus addresses.
+ 			 */
+-			break;
++			fallthrough;
+ 		case PCI_P2PDMA_MAP_NONE:
+ 			sg->dma_address = dma_direct_map_phys(dev, sg_phys(sg),
+ 					sg->length, dir, attrs);
 -- 
 2.53.0
+
+
 
