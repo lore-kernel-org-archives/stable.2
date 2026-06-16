@@ -1,45 +1,42 @@
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7CF98344DA4
-	for <stable@vger.kernel.org>; Tue, 16 Jun 2026 12:20:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C1AB0317161
+	for <stable@vger.kernel.org>; Tue, 16 Jun 2026 12:22:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781612445; cv=none; b=fGTMMtTzha6XacGmaQe+f0o4bozrDJt2eFZnYbBy0eqqoGqqZ1ll0cJ9C5+svDnjcOhP+O7s2qdaTuRJS0peDfWFHgfrh/tsiBOizGUAf454kyt7HeKhPRfCQcuwpGVRI3iQEnyNTmKD8bGl2WPS3tas0cZ5+bujbpnQdhWbmxM=
+	t=1781612562; cv=none; b=f1pdpdc2Lwtparla+NOsdm4dOFuL3prMAgxVnoq7zmFksZ2A9gOaI5SXoDXZ+amnwd7L0X1LJBAAFHO/oRzpnXML8wuqSSTzbfBfsIVxqOG8J3R2D35i3fgrIFU2BePGuOwLPKhkYi3hximAxeae5/bbQhnPh1A9oIpI4h0DBJg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781612445; c=relaxed/simple;
-	bh=9DgJW9qn6xyXWzt0ZLj/8XCD0M15p9RVEpIy/pvcNLw=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=o014ndKoM7yOGUM+8KKCTOqk/ppbiuFs3bvLupXWQTzzcHZS7n5k7XYkdYHsyeLrg6sOq3WhxYu3/mNz5jEOFLOpJ2deRcdX0sgawrbitYGydBgwZPQt6qiyPC4E/aXNtrfa0Bki7JAJjgPPlHjcLICDAsq2CpHcT54yhy31blg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=NcJjK+mH; arc=none smtp.client-ip=217.140.110.172
+	s=arc-20240116; t=1781612562; c=relaxed/simple;
+	bh=fbjWo2e26L2rnYEXwGVNXWf4t6/WcF3EsJa97yrJ7qU=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Rul8ZXNeh7ZnKj4YH6wslTTYhkEj8zFwT87+/fNVy3j70pxp6qp/yPNI8KKwI9ruQ1OEYLw0H1cpqx3vVaZE5s/OxH3DdJi6iwH1KQ6uxPLHuj4Wou+OZL+jzP2+ygquy9Wq5wthLWMNIjX2NrfI5QO63RLUQwFYvcmpL4DVR3s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=inatUXXF; arc=none smtp.client-ip=217.140.110.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="NcJjK+mH"
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="inatUXXF"
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7B8254507;
-	Tue, 16 Jun 2026 05:20:39 -0700 (PDT)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C6E4C4388;
+	Tue, 16 Jun 2026 05:22:34 -0700 (PDT)
 Received: from lakrids.cambridge.arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 3AAC33F915;
-	Tue, 16 Jun 2026 05:20:43 -0700 (PDT)
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 836CB3F915;
+	Tue, 16 Jun 2026 05:22:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1781612444; bh=9DgJW9qn6xyXWzt0ZLj/8XCD0M15p9RVEpIy/pvcNLw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=NcJjK+mHZd0fGQTtsYB6Pe4ohCthuxlYzHx7iT+I+bXvCvz1LqNr+V3Iyya/jEyUi
-	 aTDy51DDoMuzG3cGnHC94MCHxXST0ppancjS/kE/BcdWYIjcVpyb266DFdjyIyriVW
-	 tKqgg80FCny1uZ5QvlrObwvP4KE7qnw51s43Tr8E=
+	t=1781612559; bh=fbjWo2e26L2rnYEXwGVNXWf4t6/WcF3EsJa97yrJ7qU=;
+	h=From:To:Cc:Subject:Date:From;
+	b=inatUXXFF3tpDmb4Z76Vp3fGAhdHoajjkar2dipUMDgH8oVctJBZStx839tQ9zegZ
+	 BDdZtQlNBRtTJzPeGEATiYkpOCjRkpWL7W8oXe3RxFS7C9xmIXeLTocE1PIlfhNKVr
+	 78g4UC5mL4nxTdll1cRsDvAqEuyDvUNmFi44aeI0=
 From: Mark Rutland <mark.rutland@arm.com>
-To: stable@vger.kernel.org
+To: stable@vger.kernel.org,
+	Greg KH <gregkh@linuxfoundation.org>
 Cc: catalin.marinas@arm.com,
-	gregkh@linuxfoundation.org,
 	lee@kernel.org,
 	mark.rutland@arm.com,
 	sdonthineni@nvidia.com,
 	will@kernel.org
-Subject: [PATCH 7.1.y 5/5] arm64: errata: Mitigate TLBI errata on Microsoft Azure Cobalt 100 CPU
-Date: Tue, 16 Jun 2026 13:19:57 +0100
-Message-Id: <20260616121957.237072-6-mark.rutland@arm.com>
+Subject: [PATCH 7.0.y 0/5] arm64: errata: Mitigate TLBI errata on various Arm CPUs
+Date: Tue, 16 Jun 2026 13:22:26 +0100
+Message-Id: <20260616122231.237216-1-mark.rutland@arm.com>
 X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20260616121957.237072-1-mark.rutland@arm.com>
-References: <20260616121957.237072-1-mark.rutland@arm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,61 +45,49 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Will Deacon <will@kernel.org>
+Hi Greg,
 
-commit 1940e70a8144bf75e6df26bf6f600862ea7f7ea1 upstream.
+This is the v7.0 backport you requested at:
 
-Commit fb091ff39479 ("arm64: Subscribe Microsoft Azure Cobalt 100 to ARM
-Neoverse N2 errata") states that Microsoft Azure Cobalt 100 CPU "is a
-Microsoft implemented CPU based on r0p0 of the ARM Neoverse N2 CPU, and
-therefore suffers from all the same errata.".
+  https://lore.kernel.org/stable/2026061658-landowner-dangling-5d07@gregkh/
 
-So enable the workaround for the latest broadcast TLB invalidation bug
-on these parts.
+... regular spiel below.
 
-Signed-off-by: Will Deacon <will@kernel.org>
-[Mark: backport to v7.1.y]
-Signed-off-by: Mark Rutland <mark.rutland@arm.com>
----
- Documentation/arch/arm64/silicon-errata.rst | 2 ++
- arch/arm64/Kconfig                          | 1 +
- arch/arm64/kernel/cpu_errata.c              | 1 +
- 3 files changed, 4 insertions(+)
+This is a v7.0-only backport of a workaround for a TLB invalidation
+issue affecting several CPUs. The final patches landed in mainline
+recently:
 
-diff --git a/Documentation/arch/arm64/silicon-errata.rst b/Documentation/arch/arm64/silicon-errata.rst
-index ad09bbb10da80..ad04d1cdc0f05 100644
---- a/Documentation/arch/arm64/silicon-errata.rst
-+++ b/Documentation/arch/arm64/silicon-errata.rst
-@@ -367,3 +367,5 @@ stable kernels.
- +----------------+-----------------+-----------------+-----------------------------+
- | Microsoft      | Azure Cobalt 100| #3324339        | ARM64_ERRATUM_3194386       |
- +----------------+-----------------+-----------------+-----------------------------+
-+| Microsoft      | Azure Cobalt 100| #4193789        | ARM64_ERRATUM_4118414       |
-++----------------+-----------------+-----------------+-----------------------------+
-diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
-index 1069ae9535822..10c69474f2761 100644
---- a/arch/arm64/Kconfig
-+++ b/arch/arm64/Kconfig
-@@ -1182,6 +1182,7 @@ config ARM64_ERRATUM_4118414
- 	  * ARM Neoverse-V2 erratum 4193787
- 	  * ARM Neoverse-V3 erratum 4193784
- 	  * ARM Neoverse-V3AE erratum 4193784
-+	  * Microsoft Azure Cobalt 100 4193789
- 	  * NVIDIA Olympus erratum T410-OLY-1029
- 
- 	  On affected cores, some memory accesses might not be completed by
-diff --git a/arch/arm64/kernel/cpu_errata.c b/arch/arm64/kernel/cpu_errata.c
-index d597896b0f7f3..4b0d5d9328972 100644
---- a/arch/arm64/kernel/cpu_errata.c
-+++ b/arch/arm64/kernel/cpu_errata.c
-@@ -365,6 +365,7 @@ static const struct arm64_cpu_capabilities arm64_repeat_tlbi_list[] = {
- 			MIDR_ALL_VERSIONS(MIDR_NEOVERSE_V3),
- 			MIDR_ALL_VERSIONS(MIDR_NEOVERSE_V3AE),
- 			MIDR_ALL_VERSIONS(MIDR_NVIDIA_OLYMPUS),
-+			MIDR_ALL_VERSIONS(MIDR_MICROSOFT_AZURE_COBALT_100),
- 			{}
- 		})),
- 	},
+  https://lore.kernel.org/linux-arm-kernel/178157002783.358810.8206806281627742561.pr-tracker-bot@kernel.org/
+  https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=80476f22b8b7e193b26f285a7c9f9e4b63abca16
+
+This issue has been assigned CVE ID CVE-2025-10263, and Arm have
+published a security bulletin:
+
+  https://developer.arm.com/documentation/112137/latest/
+
+I've pushed a copy of this backport to my kernel.org repo:
+
+  https://git.kernel.org/pub/scm/linux/kernel/git/mark/linux.git/log/?h=stable-7.0/arm-4118414/backport
+
+Mark.
+
+Mark Rutland (3):
+  arm64: cputype: Add C1-Ultra definitions
+  arm64: cputype: Add C1-Premium definitions
+  arm64: errata: Mitigate TLBI errata on various Arm CPUs
+
+Shanker Donthineni (1):
+  arm64: errata: Mitigate TLBI errata on NVIDIA Olympus CPU
+
+Will Deacon (1):
+  arm64: errata: Mitigate TLBI errata on Microsoft Azure Cobalt 100 CPU
+
+ Documentation/arch/arm64/silicon-errata.rst | 48 +++++++++++++++++++++
+ arch/arm64/Kconfig                          | 38 ++++++++++++++++
+ arch/arm64/include/asm/cputype.h            |  4 ++
+ arch/arm64/kernel/cpu_errata.c              | 34 ++++++++++++++-
+ 4 files changed, 122 insertions(+), 2 deletions(-)
+
 -- 
 2.30.2
 
