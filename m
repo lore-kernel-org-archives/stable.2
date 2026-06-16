@@ -1,178 +1,180 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011061.outbound.protection.outlook.com [52.101.70.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62F7F345757;
-	Tue, 16 Jun 2026 12:49:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781614165; cv=none; b=URRcEShO/B4j/KH+3oaP92LxL9gA2XuusjLpYUaDFVdLJ6Jxn9qXIgn/Lm1c3RiAJss9jA7dRHcsBS16ZGDxpAHM0xqXfkQtapv11hKRuWnumeQESU6ahgfcMfcOQ00HmbQdZwqasLFS7OALScEExYom2jRa3DvLFsnywDTGg64=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781614165; c=relaxed/simple;
-	bh=Xc9ISkDUKfyGcb1GeVIjqxryF8rhgzOOSA581ACn6HE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bwZy39mo94T5WRS+TA/dA2UpUc7nJ4vF4Iq8Jko2My3AF+fVPgh95en/3cmR2/VajGX30Me7/HMBPDC9BSAQEc5VwmAypON+A7AfQWw6Z1sFxUyKcqba28k8jgvIg+WfJHD5xXP5keup6qvIPsS+CFEfbUbF9Z7pkT+AYD5lQKU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=S/1xhsGF; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 522A5369234;
+	Tue, 16 Jun 2026 12:50:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.61
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781614201; cv=fail; b=p7ZH14iOd/jIsWeLpcQbDGPykPY6s+xKj0jzJmCMpusBZnnsOxEXFHLoLMIu3KBG3+Gd03NMUjyftpRJtktj/YrElKCDP6JKTGVxB7KQ+SEACfd8OO2Lpjaz/IfwY30y11dv0LHCga55ooQ4L7YJHvu6ycqUsr1p0StxpQg/H/Y=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781614201; c=relaxed/simple;
+	bh=bTwQNugrjDaGkIbXPzwnSQfZ431yF4tX8xt3x+x1ZkE=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:CC:References:
+	 In-Reply-To:Content-Type; b=VzPIf3+4a942Vlnq2A4dGOMog3qMeJVpKDwpfpS5lVQ9I8PNHKpnQ6P+Csl2ODOX1PEeUJu5B6tkn8ZY8GvZw+S6vMMfEKA1ottRcj35fR2PF6BaYqIRaKRRgKkuL/U6Suqw2aGLkIj+MS/QwRVMRDBpNKQneRYwvAf/Tu72/mk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=UjkwBFCH; arc=fail smtp.client-ip=52.101.70.61
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="S/1xhsGF"
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65GAIY4Y1156309;
-	Tue, 16 Jun 2026 12:49:09 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=6BvKCzySK9Zv9PpZu
-	6TcSsU5oDF2XsF4jcw9XZlhRJA=; b=S/1xhsGFP8o+qpByPBnsEJWpV+ZyTFMaA
-	QhDYd2HX50ta9oSAmn49Ax6gCbAR5EaK8giSPtOSmN7tMoELse+6W5Wie3u8V/xL
-	g2XhcHOlpq7f7B3uLXjH049mojIcsQyk+AXn6vQOYY/Hbhc9cYFCUmoQuSJQpXHj
-	5fNcAi/b0Qtb+N8VDjQMZobf0jwjy6zTsGcK2lAfWmdKsUOX7o6f0jIR1VkqRBL+
-	5/htExvzcK2/QWKD+g0T0eRJiMVHiy42kxUne4lHclRrABmEPV+8uwZ6aJHSegTr
-	3/Phrn/3JqVhSI/gsg/Ud/OsjSRQ/W92vWX+xwDPaaqOf761+60HA==
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4es1eg5538-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 16 Jun 2026 12:49:09 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 65GCYbb2030945;
-	Tue, 16 Jun 2026 12:49:08 GMT
-Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4eskrgb5dm-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 16 Jun 2026 12:49:08 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
-	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 65GCn4BC43778360
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 16 Jun 2026 12:49:04 GMT
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id A124A2004F;
-	Tue, 16 Jun 2026 12:49:04 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 7FC8920043;
-	Tue, 16 Jun 2026 12:49:02 +0000 (GMT)
-Received: from ltcrain4-lp15.ltc.tadn.ibm.com (unknown [9.5.7.39])
-	by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Tue, 16 Jun 2026 12:49:02 +0000 (GMT)
-From: adubey@linux.ibm.com
-To: bpf@vger.kernel.org
-Cc: hbathini@linux.ibm.com, linuxppc-dev@lists.ozlabs.org, maddy@linux.ibm.com,
-        ast@kernel.org, andrii@kernel.org, daniel@iogearbox.net,
-        shuah@kernel.org, linux-kselftest@vger.kernel.org,
-        stable@vger.kernel.org, Abhishek Dubey <adubey@linux.ibm.com>,
-        sashiko-bot@kernel.org
-Subject: [bpf v8 7/7] powerpc/bpf: fix buffer overflow in JIT for large BPF programs
-Date: Tue, 16 Jun 2026 12:47:41 -0400
-Message-ID: <20260616164741.32252-8-adubey@linux.ibm.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20260616164741.32252-1-adubey@linux.ibm.com>
-References: <20260616164741.32252-1-adubey@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="UjkwBFCH"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=YwKEcAc7DCW2td/Wu9rpolhValdSztw59g9LinVe6jDq9PpLyF+f2P/RB8FWEHoClMLdpudcmTB7P6Vvz4B8lhO0s06X8KRCX5xGRJgu8u4fLmg3cLdy7i/zhyu9I4wNDDm+eJywkk/dFJLnvrI/3WBa1vSs4A/enqTDAiOd3eM0rhopgjzAE5Oq3aUJ00BEXULt5GW7klY9V+EXvtimXxjHszkvSIX1ko/YsTjWXqWBBteUQvEG1hO9FuR83RGIO/RcTVGZ7pUcCjh24Z5jAQi22PH8cGpZVOCrXIyr9ZJ+b6CCdM9fLdyI5Ggmauj2UAy383v7OHT5d8TCYrIZzA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ARtL5GpDZXCklftGcgPhCYMNfTRiey75pCZCu9BB028=;
+ b=f1TGN7IC8FGqfvPAWeeavPyb3KSD26irCdSWt2iWg9yKWZMTkygw7Nw5F5G3bJvW1CoiFxGmLLUpIEK7VlyX8V6iUJ/BD/0OK4KhoV6wNNvdbdkwwIuQcBjnvFWYvK6kFqIDuH5B3ePeGK60pGPfeq+7mYt34TaB2W63iCtYTeRKbM8VZVBscvxQ7mPefMBQDzlxMUb/XQJE74qEr2NlrBnmeblF86rRrGSudmNqcwfqzworfO6SpZZJ42NYgh+Xg7DqytenGWjvTtrcnNaMAXSPeagyC6rZLlTWSgJ90fsx324hsx/o1xZWMnA7E/d/RfUEBtdNhuBHwiwhBJ6KTQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.59) smtp.rcpttodomain=gmail.com smtp.mailfrom=foss.st.com;
+ dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ARtL5GpDZXCklftGcgPhCYMNfTRiey75pCZCu9BB028=;
+ b=UjkwBFCHBLb8sOpvjFfmormSEHkMfaKrgoD6I17hiavCGsDwzsyZJ7Tdgfa/7ZLnppHf4eji5DVFAo8dN0WYuUvoPiW1HhlPVAWmhuUXbMMNh9JMcwr+H/On37vPIHtrgkRIGVIqa3tgXo3Vr2ipkc7eqxW8Nv6KXvd0LqJ/8OqlRGEhsIpbc4yXuEhR2ehDY2F9JKlsPJB7qxW7+o1bKl/dTbdB4gImq51a9Caa9Q1FNAWTRBFdH++GrHnTTEU6CF1gfBmz+ydUhJnZmaQSgA4mN93QwTwkSwjSsvJK9dM9iXni76aID06m/IrLKxx8DWlwfrcnLX1GWtRDMDctIg==
+Received: from DU7P250CA0023.EURP250.PROD.OUTLOOK.COM (2603:10a6:10:54f::11)
+ by MI3PR10MB9922.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:290:74::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.16; Tue, 16 Jun
+ 2026 12:49:55 +0000
+Received: from DB1PEPF000509FA.eurprd03.prod.outlook.com
+ (2603:10a6:10:54f:cafe::82) by DU7P250CA0023.outlook.office365.com
+ (2603:10a6:10:54f::11) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.113.18 via Frontend Transport; Tue,
+ 16 Jun 2026 12:49:55 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.59)
+ smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.59; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.59) by
+ DB1PEPF000509FA.mail.protection.outlook.com (10.167.242.36) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.113.7 via Frontend Transport; Tue, 16 Jun 2026 12:49:55 +0000
+Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
+ (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.35; Tue, 16 Jun
+ 2026 14:54:09 +0200
+Received: from [10.130.78.67] (10.130.78.67) by STKDAG1NODE2.st.com
+ (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.35; Tue, 16 Jun
+ 2026 14:49:51 +0200
+Message-ID: <c9c20bce-a1bb-4932-bfa0-c87f7156ff82@foss.st.com>
+Date: Tue, 16 Jun 2026 14:49:54 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+From: Benjamin Mugnier <benjamin.mugnier@foss.st.com>
+Subject: Re: [PATCH v2] media: i2c: vd56g3: clean up subdev state on probe
+ failure
+To: Myeonghun Pak <mhun512@gmail.com>, Sylvain Petinot
+	<sylvain.petinot@foss.st.com>, Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+CC: <linux-media@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<stable@vger.kernel.org>
+References: <20260424165238.31333-1-mhun512@gmail.com>
+Content-Language: fr
+In-Reply-To: <20260424165238.31333-1-mhun512@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE2MDEzMCBTYWx0ZWRfX/+MYKPnl7OuF
- nF8RsgnOUo3ZEbCw3WDEcTUj3BPQg0bB8ccRILoSwt0kXwxkQhq5DD0p4z/DkMRVRkZA+pxE+/v
- +ag8gDvUS2qEo5AszNrsuqR3gJCOQrM=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE2MDEzMCBTYWx0ZWRfX0laae5ci+W07
- RD9xypHRs7ijd2yrEtqzEKj2yyRTP3hKy0GkS73lD1IhwUYqzsQPtkdlTHTePwnUjlmEsIupeH2
- bpR/F2V1XmPQglqbPa4TdGZX8fzTggFX6WK3Hoyltjx6ILb0RqzvTT+vA+BvSCbc9keNuAnVnYk
- 96paml8w8XfirccBIRZ0SIFJk38k06M9nSL1Bkk5hXVyXK52ZdNpNy1OzhydmQ6UtuAyvmgZEee
- z1dB+/uiSBE+xpwt9s3TJooxYOgWh1quOjzEdoT/Amuncj40jp1KHBq+rRe9DWS6nTvseFnDqwV
- qY/N3VchT+8btp3Jq6jmycBs0ckIBbUKQkso8f1NQ5sjZrstR1Z6SFbjxac07MBLq3zCv9T8o9T
- jNzMytuCUu+HM18S/g3gNVqcEgSA4fdParrZitmqjN7n9BvEvcBagtklEbm2XlRUw2SI94HPPCK
- uTpWKLTMDpIVcVD058Q==
-X-Proofpoint-GUID: hwu25mlypdz2NngOvoQ8zGwJ6B395rhR
-X-Authority-Analysis: v=2.4 cv=NuDhtcdJ c=1 sm=1 tr=0 ts=6a314645 cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=FelO9ux0wxsA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=V8glGbnc2Ofi9Qvn3v5h:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
- a=orbIJRQg7RPxDi6CqRQA:9
-X-Proofpoint-ORIG-GUID: hwu25mlypdz2NngOvoQ8zGwJ6B395rhR
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-16_03,2026-06-15_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 adultscore=0 suspectscore=0 impostorscore=0 clxscore=1015
- phishscore=0 bulkscore=0 malwarescore=0 priorityscore=1501 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606040000 definitions=main-2606160130
+X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
+ (10.75.128.133)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DB1PEPF000509FA:EE_|MI3PR10MB9922:EE_
+X-MS-Office365-Filtering-Correlation-Id: d29e93a7-c982-4edd-bd43-08decba5c44e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|376014|36860700016|1800799024|23010399003|56012099006|11063799006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	RMuIDFrbNpBBuY0GfpVAiFOTd0GJt7S5T0EDWyJppdrHZEK+PPiK4ZQ49uxczW2FKMy6QAfmf6lF1n4Ut1gQhODsHQrBv1B3cGM1ezNW6daV/zRvSlDS7kj7wtdmcdorh/n5g5F/AlQypVGDi0aBc9HWankgLxP5PLjrshsC+flh81x7OPAW2XnmM8PBlhV5e9lYT2iisNx6EUdjck8ccIGAjl2pdrGiD3dqDE+NMTAOktI+Zb3GJURz/Tt4sEQbF0wqt8rcWhwRUiZV04Pw23aWAET4ptj/lY27xD2sr0sgdmsVp2XOo0unMHcOuJIv4njdno+GpXNM24G2lCriY3JjvbxIlb43tS8bbke08U3u6ZIhMRMP3ctUjUWoNBEL49dweNRIoDHPkIEpOABVRKqqtpR3ZbdLY+6H+doW5BBlMMnhzGm1YELE3WEs6lQrR2GzRzjJLiJM/WqAW5zRR4WInebTVu1qM49Mqry0Xejc4mdiZfE2KOROeko0/gCaKjSuAN+EBuD9sFT+C9mrQI7cPdhkiof1EKKCmIvg1nwaX9YEQHNTCsFcuiB97biAHjRJjpVi2hYdNbslEib78i8N7biybYzlXnEd/CbSkIM3GyI13HDLfl1kG0kc2TG8rbk9548AhVJcWGU+upIGZUJr55Z47pD7ayOdYb/GNA7b1Q4qazuySVOvuk78uORvlHx+wA8Q0gLJhQSMOMLFffEYK6CMgNCAXp6EYF5Xnug=
+X-Forefront-Antispam-Report:
+	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(376014)(36860700016)(1800799024)(23010399003)(56012099006)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	zZk0RT6Ksol+ruMo3fb+5wz3iYomibOPikqoCisMaA1FI7Ncpi6ioXfFdjrTAtkddUGvy2CRNIcrm/vZ94zWStIK4JDKyBP9GHCMspqW1x4qWNAa2omvL81oV5huHQUsvyX4lBQdUSiF+Cvgs57dAUKE2CQ33Ew83dUKpYlo+zU2wO2Oz0bOW3UuumrTsJDlUS9EK/s+9LlQOTGPeAWFrP05cHP+uFKMu9eH4ACC8ulZxWg0zpXgAND97NA3+T2lcCzjZBUUpXh3enF8mMWZAFmF7Ac97qowD+QdwMChJrmN5xOEz60B0Km3dFHCI92EbULrFI70tEtOJ7V6sh6DcqAXllXXnrQL2n98b81es60te5JLYL2DCI+VR2ibRuxwp4z6W4Cl5AdEz0TOGYPLhYkDroFpiTeO3hzQYeIxBYB7eNXKfQVLz5+/WGfo4RA5
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jun 2026 12:49:55.5539
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d29e93a7-c982-4edd-bd43-08decba5c44e
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.59];Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DB1PEPF000509FA.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MI3PR10MB9922
 
-From: Abhishek Dubey <adubey@linux.ibm.com>
+Hi,
 
-During size calculation in pass-0, exit_addr is 0 since addrs[fp->len]
-is not yet populated. bpf_jit_emit_exit_insn() treats a zero exit_addr
-as in-range and skips bpf_jit_build_epilogue(), so the alternate inline
-epilogue instructions are not counted in alloclen.
+Thank you for your patch, and apologies for the delay.
 
-In later passes, if the real exit_addr falls outside the 32MB branch
-range, the full inline epilogue is emitted into the already-allocated
-buffer, writing past its end and corrupting adjacent memory.
+Le 24/04/2026 à 18:52, Myeonghun Pak a écrit :
+> vd56g3_subdev_init() calls v4l2_subdev_init_finalize(), which allocates
+> the subdev active state and requires v4l2_subdev_cleanup() to release it.
+> 
+> If vd56g3_update_controls() fails after finalize succeeds, the probe error
+> path currently skips v4l2_subdev_cleanup() and returns an error. The driver
+> .remove() callback is not called after a failed probe, so the active state
+> is leaked.
+> 
+> Route this error through a subdev cleanup label before freeing the control
+> handler and media entity.
+> 
+> Fixes: 87aa97fc3157 ("media: i2c: Add driver for ST VD56G3 camera sensor")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+> ---
+> Changes in v2:
+> - Use a lowercase subject summary.
 
-Fix by ensuring exit_addr is non-zero before treating it as in-range,
-so pass-0 always falls through to bpf_jit_build_epilogue() and
-conservatively accounts for all epilogue instructions in alloclen.
-Also range check alt_exit_addr directly in the else-if condition.
+Please keep the first character uppercase, just like other commits on
+this module.
 
-Since exit_addr handling now falls through to the epilogue, two
-related issues in bpf_int_jit_compile() must also be addressed:
+> 
+>  drivers/media/i2c/vd56g3.c | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/media/i2c/vd56g3.c b/drivers/media/i2c/vd56g3.c
+> index 157acea9e2..43f792288a 100644
+> --- a/drivers/media/i2c/vd56g3.c
+> +++ b/drivers/media/i2c/vd56g3.c
+> @@ -1427,11 +1427,14 @@ static int vd56g3_subdev_init(struct vd56g3 *sensor)
+>  	v4l2_subdev_unlock_state(state);
+>  	if (ret) {
+>  		dev_err(sensor->dev, "Controls update failed: %d\n", ret);
+> -		goto err_ctrls;
+> +		goto err_subdev;
+>  	}
+>  
+>  	return 0;
+>  
+> +err_subdev:
+> +	v4l2_subdev_cleanup(&sensor->sd);
 
-1. Reset cgctx.alt_exit_addr before the second size-calculation pass.
-   Without this, a stale alt_exit_addr from the first pass causes the
-   second pass to emit a single jump instead of the full epilogue,
-   undercounting alloclen and introducing the overflow.
+v4l2_subdev_cleanup() is already performed in the caller (i.e.
+vd56g3_probe()), but as you noticed it is not called from this path. I'd
+rather have the return value route correctly through
+v4l2_subdev_cleanup() in  vd56g3_probe(), allowing to keep a unique call
+to v4l2_subdev_cleanup() instead.
 
-2. Recompute addrs[fp->len] at the end of each code-generation pass.
-   The larger body from pass-0 might shrink in later passes; a stale
-   addrs[fp->len] would leave exit branching past the real epilogue
-   into the padding.
+This patch looks like is LLM generated and sparks my curiosity. If so
+you must disclaim it using an Assisted-by tag [1]. Sorry if I’m mistaken.
 
-Reported-by: sashiko-bot@kernel.org
-Closes: https://lore.kernel.org/bpf/20260529015855.364704-2-adubey@linux.ibm.com/T/#mfcb23909d977b949727cca4f59ee56a13fd69b92
-Fixes: d243b62b7bd3 ("powerpc64/bpf: Add support for bpf trampolines")
-Cc: stable@vger.kernel.org
-Signed-off-by: Abhishek Dubey <adubey@linux.ibm.com>
----
- arch/powerpc/net/bpf_jit_comp.c | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
+[1] https://docs.kernel.org/process/coding-assistants.html
 
-diff --git a/arch/powerpc/net/bpf_jit_comp.c b/arch/powerpc/net/bpf_jit_comp.c
-index 1c274df2b4f7..d48bc722d0dc 100644
---- a/arch/powerpc/net/bpf_jit_comp.c
-+++ b/arch/powerpc/net/bpf_jit_comp.c
-@@ -128,11 +128,10 @@ void bpf_jit_build_fentry_stubs(u32 *image, u32 *fimage, struct codegen_context
- int bpf_jit_emit_exit_insn(u32 *image, u32 *fimage, struct codegen_context *ctx,
- 							int tmp_reg, long exit_addr)
- {
--	if (!exit_addr || is_offset_in_branch_range(exit_addr - (ctx->idx * 4))) {
-+	if (exit_addr && is_offset_in_branch_range(exit_addr - (long)(ctx->idx * 4))) {
- 		PPC_JMP(exit_addr);
--	} else if (ctx->alt_exit_addr) {
--		if (WARN_ON(!is_offset_in_branch_range((long)ctx->alt_exit_addr - (ctx->idx * 4))))
--			return -1;
-+	} else if (ctx->alt_exit_addr && is_offset_in_branch_range(
-+			(long)(ctx->alt_exit_addr) - (long)(ctx->idx * 4))) {
- 		PPC_JMP(ctx->alt_exit_addr);
- 	} else {
- 		ctx->alt_exit_addr = ctx->idx * 4;
-@@ -303,6 +302,7 @@ struct bpf_prog *bpf_int_jit_compile(struct bpf_verifier_env *env, struct bpf_pr
- 	 */
- 	if (cgctx.seen & SEEN_TAILCALL || !is_offset_in_branch_range((long)cgctx.idx * 4)) {
- 		cgctx.idx = 0;
-+		cgctx.alt_exit_addr = 0;
- 		if (bpf_jit_build_body(fp, NULL, NULL, &cgctx, addrs, 0, false))
- 			goto out_err;
- 	}
-@@ -347,6 +347,7 @@ struct bpf_prog *bpf_int_jit_compile(struct bpf_verifier_env *env, struct bpf_pr
- 			bpf_jit_binary_pack_free(fhdr, hdr);
- 			goto out_err;
- 		}
-+		addrs[fp->len] = cgctx.idx * 4;
- 		bpf_jit_build_epilogue(code_base, fcode_base, &cgctx);
- 
- 		if (bpf_jit_enable > 1)
+> +
+>  err_ctrls:
+>  	v4l2_ctrl_handler_free(sensor->sd.ctrl_handler);
+>  
+
 -- 
-2.52.0
+Regards,
+Benjamin
 
