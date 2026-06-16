@@ -1,31 +1,31 @@
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A61763CF02C
-	for <stable@vger.kernel.org>; Tue, 16 Jun 2026 05:18:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B88C33CE4A6
+	for <stable@vger.kernel.org>; Tue, 16 Jun 2026 05:18:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781587124; cv=none; b=rK2OZfqevCd4ZSn/Ldjy7zakYwr6yX2ZWEKmvDyWaYy8FQ3isQQTnuc6Wom8wn3StLWGavemsPt1Y3SYKL9x2O373XGdHOtn+59neVY+Hw2UlpE9d0EL/xh355gYqKGvfP/+WhyIjJnAyGKYmWnecVEQe/TxMIA4Hzn67rGY69c=
+	t=1781587125; cv=none; b=aCc8peCJlWSQVW1DknTDwnh9Lx/HlNQtw6+mhjRNGrSF4LYGb7XHYNgZTvn/fLJqkiKz2hSOaNM8NEwxJzi2YPSiNgy0VaRD13yxkGF1gbXBuM3fTSSkHGLbCCJa8dtLvdu0kX0TBsQbIcVKr3Us/t+GqNw7Rc/AsRBAcQ7HRbU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781587124; c=relaxed/simple;
-	bh=Mtq8lQ2tzcLBEjaNp+ZdfmGnJx4w08Q1MXMeSDoGZgI=;
+	s=arc-20240116; t=1781587125; c=relaxed/simple;
+	bh=Lx216RC+h/xjkJAjT+RGIfhzjTKmYg0NPl6SS+2C6YE=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=Vl/CZiMV65pBKBBAxA1/ZBv+G2/xEBFuf70Oc+p14vgxEZsuvycTUd/7Zrn3YRzX0f6C1G5QUSQ2gR3UUL7ztTNmvpUaeAn4RmrBYgmqEOl4RlBcgXB/Fb3CfxGxLr/vdTxh0fWnvNir26Ro3rmIF6KO4eEI1YmKLXc2nnyOzrE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=aj4F1Q1F; arc=none smtp.client-ip=217.140.110.172
+	 MIME-Version; b=tpz+twFhGunRg1JQ1Dtwg4XOn+nYj0c635+tz5m/KGAM4qF7HuzC31SIYGRNWQ6tV/CWMeuDWxZOGZDfuzMy7Fg4inTA/XCAjHVIKZ01XAeBT1hpstJ70A9tcTMLTkWsRZ9jXAu2AZzqaZPp4Z+/D6L3qbnYTqAKl3Qva6ElsIo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=XiMn45fu; arc=none smtp.client-ip=217.140.110.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="aj4F1Q1F"
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="XiMn45fu"
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 957073D5D;
-	Mon, 15 Jun 2026 22:18:37 -0700 (PDT)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A8DAC3D9C;
+	Mon, 15 Jun 2026 22:18:39 -0700 (PDT)
 Received: from lakrids.cambridge.arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 880283F763;
-	Mon, 15 Jun 2026 22:18:40 -0700 (PDT)
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 9A6943F763;
+	Mon, 15 Jun 2026 22:18:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1781587122; bh=Mtq8lQ2tzcLBEjaNp+ZdfmGnJx4w08Q1MXMeSDoGZgI=;
+	t=1781587124; bh=Lx216RC+h/xjkJAjT+RGIfhzjTKmYg0NPl6SS+2C6YE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=aj4F1Q1FZC7YhJqmbj5qpmhUElJIC/eMiIifMaeaYwoAuO2NUeOwGuhySez+3jkcE
-	 LF3q8rW/tyIUSVlb9Y5ecfamIP8ZKPjvx/5qJ+QSWA3S5x8NAvCYhwFlR3kZaAJ99j
-	 xFtxfhnMFkPGJ9sJiaTVeFIGT0/YFQI7kdnu5Agw=
+	b=XiMn45fuG1yaTTV4dhv8PAKHFcZQ7xbpnJrl2l+iLGEiGB1907wkyfs8AwGA837Pc
+	 KH+DXH5p64jj2QCQDebY+MPPXDm/ldalcYCsVtidf0IyCRUcLfpaZu/01rn0KUtfPY
+	 i7U4ZCcpgDCyZo+alfK55tm+9Qwga97Bp2kdozlI=
 From: Mark Rutland <mark.rutland@arm.com>
 To: stable@vger.kernel.org
 Cc: anshuman.khandual@arm.com,
@@ -39,9 +39,9 @@ Cc: anshuman.khandual@arm.com,
 	sdonthineni@nvidia.com,
 	will@kernel.org,
 	yuzenghui@huawei.com
-Subject: [PATCH 6.6.y 4/9] arm64: cputype: Add NVIDIA Olympus definitions
-Date: Tue, 16 Jun 2026 06:18:17 +0100
-Message-Id: <20260616051822.111870-5-mark.rutland@arm.com>
+Subject: [PATCH 6.6.y 5/9] arm64: cputype: Add C1-Ultra definitions
+Date: Tue, 16 Jun 2026 06:18:18 +0100
+Message-Id: <20260616051822.111870-6-mark.rutland@arm.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20260616051822.111870-1-mark.rutland@arm.com>
 References: <20260616051822.111870-1-mark.rutland@arm.com>
@@ -53,13 +53,20 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Shanker Donthineni <sdonthineni@nvidia.com>
+commit 60349e64a6c65f9f0aa118af711b3c7e137f07ff upstream.
 
-commit e185c8a0d84236d14af61faff8147c953a878a77 upstream.
+Add cputype definitions for C1-Ultra. These will be used for errata
+detection in subsequent patches.
 
-Add cpu part and model macro definitions for NVIDIA Olympus core.
+These values can be found in the C1-Ultra TRM:
 
-Signed-off-by: Shanker Donthineni <sdonthineni@nvidia.com>
+  https://developer.arm.com/documentation/108014/0100/
+
+... in section A.5.1 ("MIDR_EL1, Main ID Register").
+
+Signed-off-by: Mark Rutland <mark.rutland@arm.com>
+Cc: Catalin Marinas <catalin.marinas@arm.com>
+Cc: Will Deacon <will@kernel.org>
 Signed-off-by: Will Deacon <will@kernel.org>
 [Mark: backport to v6.6.y]
 Signed-off-by: Mark Rutland <mark.rutland@arm.com>
@@ -68,25 +75,25 @@ Signed-off-by: Mark Rutland <mark.rutland@arm.com>
  1 file changed, 2 insertions(+)
 
 diff --git a/arch/arm64/include/asm/cputype.h b/arch/arm64/include/asm/cputype.h
-index c279a0a9b3660..41f55ba56e139 100644
+index 41f55ba56e139..5d1b1b33a80cd 100644
 --- a/arch/arm64/include/asm/cputype.h
 +++ b/arch/arm64/include/asm/cputype.h
-@@ -129,6 +129,7 @@
+@@ -97,6 +97,7 @@
+ #define ARM_CPU_PART_NEOVERSE_V3	0xD84
+ #define ARM_CPU_PART_CORTEX_X925	0xD85
+ #define ARM_CPU_PART_CORTEX_A725	0xD87
++#define ARM_CPU_PART_C1_ULTRA		0xD8C
+ #define ARM_CPU_PART_NEOVERSE_N3	0xD8E
  
- #define NVIDIA_CPU_PART_DENVER		0x003
- #define NVIDIA_CPU_PART_CARMEL		0x004
-+#define NVIDIA_CPU_PART_OLYMPUS		0x010
- 
- #define FUJITSU_CPU_PART_A64FX		0x001
- 
-@@ -209,6 +210,7 @@
- #define MIDR_QCOM_KRYO_4XX_SILVER MIDR_CPU_MODEL(ARM_CPU_IMP_QCOM, QCOM_CPU_PART_KRYO_4XX_SILVER)
- #define MIDR_NVIDIA_DENVER MIDR_CPU_MODEL(ARM_CPU_IMP_NVIDIA, NVIDIA_CPU_PART_DENVER)
- #define MIDR_NVIDIA_CARMEL MIDR_CPU_MODEL(ARM_CPU_IMP_NVIDIA, NVIDIA_CPU_PART_CARMEL)
-+#define MIDR_NVIDIA_OLYMPUS MIDR_CPU_MODEL(ARM_CPU_IMP_NVIDIA, NVIDIA_CPU_PART_OLYMPUS)
- #define MIDR_FUJITSU_A64FX MIDR_CPU_MODEL(ARM_CPU_IMP_FUJITSU, FUJITSU_CPU_PART_A64FX)
- #define MIDR_HISI_TSV110 MIDR_CPU_MODEL(ARM_CPU_IMP_HISI, HISI_CPU_PART_TSV110)
- #define MIDR_HISI_HIP09 MIDR_CPU_MODEL(ARM_CPU_IMP_HISI, HISI_CPU_PART_HIP09)
+ #define APM_CPU_PART_XGENE		0x000
+@@ -186,6 +187,7 @@
+ #define MIDR_NEOVERSE_V3 MIDR_CPU_MODEL(ARM_CPU_IMP_ARM, ARM_CPU_PART_NEOVERSE_V3)
+ #define MIDR_CORTEX_X925 MIDR_CPU_MODEL(ARM_CPU_IMP_ARM, ARM_CPU_PART_CORTEX_X925)
+ #define MIDR_CORTEX_A725 MIDR_CPU_MODEL(ARM_CPU_IMP_ARM, ARM_CPU_PART_CORTEX_A725)
++#define MIDR_C1_ULTRA MIDR_CPU_MODEL(ARM_CPU_IMP_ARM, ARM_CPU_PART_C1_ULTRA)
+ #define MIDR_NEOVERSE_N3 MIDR_CPU_MODEL(ARM_CPU_IMP_ARM, ARM_CPU_PART_NEOVERSE_N3)
+ #define MIDR_THUNDERX	MIDR_CPU_MODEL(ARM_CPU_IMP_CAVIUM, CAVIUM_CPU_PART_THUNDERX)
+ #define MIDR_THUNDERX_81XX MIDR_CPU_MODEL(ARM_CPU_IMP_CAVIUM, CAVIUM_CPU_PART_THUNDERX_81XX)
 -- 
 2.30.2
 
