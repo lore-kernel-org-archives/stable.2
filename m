@@ -1,43 +1,49 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60B63466B65
-	for <stable@vger.kernel.org>; Tue, 16 Jun 2026 16:18:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ADD34508E4;
+	Tue, 16 Jun 2026 16:18:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781626730; cv=none; b=DBHk6M1ZV04QL3yI98jQIDzQ1OclpqY6gaVUt+GNsMbUt7yT0GKZR4oQHuXOrRwwuhNbBtDhpN+BPpBmKdy5tcLA0M/3IOdaM7Fmre/bzNPXOOoh4IBikl9+px7Ly8VdlWkm3JfzDQcbEwX4yTXLARTNXZYVfAtx6jGqvyQL/M4=
+	t=1781626734; cv=none; b=bLwhQ9whalld7VvxHqz+cWBp7wyZ2lXcbKA3WoM4nSp0No6Sx+TSSFiZURqcn9LUtvK0fksTVxeGMWZj1JvDAbbHB+KOzXrzRJhZ6pFdWYoealthcPntfNI4zfLAGddTSYZMi94IKGEnAYp/ISXDOGpPDdTTycuV2MBunPDKXRM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781626730; c=relaxed/simple;
-	bh=bfYHa33ebgUatk7KX4hJI/IEYwJBMZsyQg7800Jj0KY=;
+	s=arc-20240116; t=1781626734; c=relaxed/simple;
+	bh=WBNa41RSC5F6TNSges+SlUR9T/ZxylgHM8BP5HgKIcg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=biO7TJYjjTtuY7I0um8pcrbkgyKd97UmU2YxmzBeSuKNPE5c39yCzC6Odx6Uu/kIRkNb5L9C+F3/5FwemctHUVdg26+/FowSsSfEeBTMm1bDGLJVN+azHV4ZI8h1fFEeR4MqxZ0XqNWjjKKROrjxm/xmpWLIs8ZphESmKDR6ZkE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xf0Mc9h3; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=QLvGOQ24bWQqtZG+Wi97x6NImon8dQPscMthWkee0ZGJTguENyApM+LTFXn56Y16Ir5bDpOS5j+eDYA/8hINmF2ho9+IqWFHYWmoGrgfAV1/C1Y14JMI638F4yE9Bvco8tRPeovKnKZ+MwGKBOJUD4GTkqXaq24pGq/q0XvdemE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=reT9KBtF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xf0Mc9h3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90AB41F00A3A;
-	Tue, 16 Jun 2026 16:18:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781626729;
-	bh=IsN/jdWIKBB1Qd/FIyO572YPQpuyYosA6vhI3XSTiyM=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="reT9KBtF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 920B01F000E9;
+	Tue, 16 Jun 2026 16:18:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1781626733;
+	bh=P2MbRQPG41QzH3cX4h/aNYJAQnAd+nNqFvpYWXc1RU8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Xf0Mc9h3kKOF+I/5pHjR4wVfGrpPRJHJxRUhxbksHoQrrqrQrjpqj4q8FmScL9FOy
-	 uoW7LAO9i7YjPCiU3/j+7AQ8C927g02IoMb8192STWlYEhurc/5ET4H3kLNUbeY8Gv
-	 zwjDlpXsCyo58cv3qWHyMVagKBCZkvFHDgHyMX2gPfvHYyqO3Um524KSVqrpi4Utde
-	 RU76HJTGAmsA0FgH/S42sCtJD2ILgOL58AEJBDWre8S+AWRkblVbnqBBnApARvs1Pt
-	 rMSGaJYoYE4H+hm4LMD8Axzj6cLz+GoxAWENVlST+s5jNamP6yWJAWMj/y71hxl0fC
-	 wkM5BFWxxgYLw==
-From: Sasha Levin <sashal@kernel.org>
+	b=reT9KBtF9NEVKV40CPvB0vkEhaOPKVEBgCCQKeKn29lIP/5KvVzQPc6MGQnKpxZWF
+	 FdgdlNUdXIPhpR3jIGByALDRNRR9Xbld8fr45ZNJgaBrHeCefbzQ7bpCpNSwVnWOqn
+	 Iqg8mphU30IB/80Z/4dF1YewkMqYTLpJRsTYPbEk=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Tao Cui <cuitao@kylinos.cn>,
-	"Matthieu Baerts (NGI0)" <matttbe@kernel.org>,
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>,
+	Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>,
+	Ao Wang <wangao@seu.edu.cn>,
+	Xuewei Feng <fengxw06@126.com>,
+	Qi Li <qli01@tsinghua.edu.cn>,
+	Ke Xu <xuke@tsinghua.edu.cn>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] mptcp: pm: fix extra_subflows underflow on userspace PM subflow creation
-Date: Tue, 16 Jun 2026 12:18:46 -0400
-Message-ID: <20260616161846.3332083-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026061557-pupil-lumber-1672@gregkh>
-References: <2026061557-pupil-lumber-1672@gregkh>
+Subject: [PATCH 6.12 058/261] net/802/mrp: fix vector attribute parsing in mrp_pdu_parse_vecattr
+Date: Tue, 16 Jun 2026 20:28:16 +0530
+Message-ID: <20260616145047.841708711@linuxfoundation.org>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260616145044.869532709@linuxfoundation.org>
+References: <20260616145044.869532709@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,64 +52,83 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Tao Cui <cuitao@kylinos.cn>
+6.12-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit 14e9fea30b68fc75b2b3d97396a7e6adb544bd2a ]
+------------------
 
-The userspace PM increments extra_subflows after __mptcp_subflow_connect()
-succeeds, but __mptcp_subflow_connect() calls mptcp_pm_close_subflow()
-on failure to roll back the pre-increment done by the kernel PM's fill_*()
-helpers. Because the userspace PM hasn't incremented yet at that point,
-this decrement is spurious and causes extra_subflows to underflow.
+From: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
 
-Fix it by aligning the userspace PM with the kernel PM: increment
-extra_subflows before calling __mptcp_subflow_connect(), so the existing
-error path in subflow.c correctly rolls it back on failure. Also simplify
-the error handling by taking pm.lock only when needed for cleanup.
+[ Upstream commit 7561c7fbc694308da73300f036719e63e42bf0b4 ]
 
-Fixes: 77e4b94a3de6 ("mptcp: update userspace pm infos")
-Cc: stable@vger.kernel.org
-Signed-off-by: Tao Cui <cuitao@kylinos.cn>
-Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
-Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
-Link: https://patch.msgid.link/20260602-net-mptcp-misc-fixes-7-1-rc7-v2-5-856831229976@kernel.org
+In mrp_pdu_parse_vecattr(), vector attribute events are encoded three
+per byte and valen tracks the number of events left to process.
+
+The parser decrements valen after processing the first and second events
+from each event byte, but not after processing the third one. When valen
+is exactly a multiple of three, the loop continues after the last valid
+event and consumes the next byte as a new event byte, applying a
+spurious event to the MRP applicant state.
+
+Additionally, when valen is zero the parser unconditionally consumes
+attrlen bytes as FirstValue and advances the offset, even though per
+IEEE 802.1ak a VectorAttribute with only a LeaveAllEvent has valen of
+zero and no FirstValue or Vector fields. This corrupts the offset for
+subsequent PDU parsing.
+
+Also, when valen exceeds three the loop crosses byte boundaries but
+the attribute value is not incremented between the last event of one
+byte and the first event of the next. This causes the first event of
+the next byte to use the same attribute value as the third event
+rather than the next consecutive value.
+
+Decrement valen after processing the third event, skip FirstValue
+consumption when valen is zero, and increment the attribute value at
+the end of each loop iteration.
+
+Fixes: febf018d2234 ("net/802: Implement Multiple Registration Protocol (MRP)")
+Reported-by: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
+Reported-by: Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>
+Reported-by: Ao Wang <wangao@seu.edu.cn>
+Reported-by: Xuewei Feng <fengxw06@126.com>
+Reported-by: Qi Li <qli01@tsinghua.edu.cn>
+Reported-by: Ke Xu <xuke@tsinghua.edu.cn>
+Signed-off-by: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
+Link: https://patch.msgid.link/20260603060016.21522-1-zhaoyz24@mails.tsinghua.edu.cn
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/mptcp/pm_userspace.c | 13 ++++++++-----
- 1 file changed, 8 insertions(+), 5 deletions(-)
+ net/802/mrp.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/net/mptcp/pm_userspace.c b/net/mptcp/pm_userspace.c
-index 9016f8900c1928..5260a34a617ebd 100644
---- a/net/mptcp/pm_userspace.c
-+++ b/net/mptcp/pm_userspace.c
-@@ -410,18 +410,21 @@ int mptcp_nl_cmd_sf_create(struct sk_buff *skb, struct genl_info *info)
- 		goto create_err;
- 	}
+diff --git a/net/802/mrp.c b/net/802/mrp.c
+index e0c96d0da8d599..8d08ace05fb8e8 100644
+--- a/net/802/mrp.c
++++ b/net/802/mrp.c
+@@ -703,6 +703,12 @@ static int mrp_pdu_parse_vecattr(struct mrp_applicant *app,
+ 	valen = be16_to_cpu(get_unaligned(&mrp_cb(skb)->vah->lenflags) &
+ 			    MRP_VECATTR_HDR_LEN_MASK);
  
-+	spin_lock_bh(&msk->pm.lock);
-+	msk->pm.subflows++;
-+	spin_unlock_bh(&msk->pm.lock);
++	/* If valen is 0, only a LeaveAllEvent is present; FirstValue and
++	 * Vector fields are absent per IEEE 802.1ak.
++	 */
++	if (valen == 0)
++		return 0;
 +
- 	lock_sock(sk);
- 
- 	err = __mptcp_subflow_connect(sk, &addr_l, &addr_r);
- 
- 	release_sock(sk);
- 
--	spin_lock_bh(&msk->pm.lock);
--	if (err)
-+	if (err) {
-+		spin_lock_bh(&msk->pm.lock);
- 		mptcp_userspace_pm_delete_local_addr(msk, &local);
--	else
--		msk->pm.subflows++;
--	spin_unlock_bh(&msk->pm.lock);
-+		spin_unlock_bh(&msk->pm.lock);
-+	}
- 
-  create_err:
- 	sock_put((struct sock *)msk);
+ 	/* The VectorAttribute structure in a PDU carries event information
+ 	 * about one or more attributes having consecutive values. Only the
+ 	 * value for the first attribute is contained in the structure. So
+@@ -753,6 +759,9 @@ static int mrp_pdu_parse_vecattr(struct mrp_applicant *app,
+ 		vaevents %= __MRP_VECATTR_EVENT_MAX;
+ 		vaevent = vaevents;
+ 		mrp_pdu_parse_vecattr_event(app, skb, vaevent);
++		valen--;
++		mrp_attrvalue_inc(mrp_cb(skb)->attrvalue,
++				  mrp_cb(skb)->mh->attrlen);
+ 	}
+ 	return 0;
+ }
 -- 
 2.53.0
+
+
 
