@@ -1,128 +1,184 @@
-Received: from mail-pl1-f201.google.com (mail-pl1-f201.google.com [209.85.214.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64AEF44B69C
-	for <stable@vger.kernel.org>; Tue, 16 Jun 2026 15:54:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BEB244D022;
+	Tue, 16 Jun 2026 15:54:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781625287; cv=none; b=t0kIqU8TEEQgT1lgP4tPgJHek6eJgzcC+3dC1EHgl51WeonzkPQ+rDxlrP48TT/qhZPtKTc7+qOE+M8jZq87hjvmo0HW1OR9YmV6FkJTeFhz1g9IXqoK/qQZJOGSYKrpObvrpSjFJE+osk2PCavUALF8p6jWK1jbYu5FT4YsXqo=
+	t=1781625290; cv=none; b=ofiC+7ApznaM4BeRS6CbBdJopr+nP5MGlVzbAaVQ41gsTZop+jC6rqtU0pV5dT512GMqinTz1A+kkYM6zOsD4wj3pPuJAeMz5R/KHU6ZSlEoyT/Mo2+xC86a/Siqyn12RPB4xE2Wf6J5Pv8nlwRmMUq39c5QDCJGz9+UbKU8+yQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781625287; c=relaxed/simple;
-	bh=lt7KJWxHanlC3JXGy1d9pRqJflP/ZJUOJYyG6HzY9II=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=TLKqnjGa0Eo7UIqLtDdyWAA5itzjogjL5MLwJNxRMdmel97Wg2V2EZDknOQtpBUQsCqZrlcuid/uRQrx5tZy64kQVKYVWQLrOU1Tv1BetrFpSZa3NK1glmn/QPVzLojqEkEEx31tAaTuXXbsBcf64o9zUnz8DMgbbLIA7QduUvA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--kpberry.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=h7EEI9MI; arc=none smtp.client-ip=209.85.214.201
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--kpberry.bounces.google.com
+	s=arc-20240116; t=1781625290; c=relaxed/simple;
+	bh=rzveqxFP9abPzbRLJkrJJ5XXdPOvbAIhXjxtBxg4Nck=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=e954TP2cD/J4Y42e260Ljh6ePFN6jhcY+/h4jemDlJ7X35//GcyYDKrGSOurwZuqhNBZDgok8frpPZ6OOZFklZtOUVW5mFhIPLkGg6oG2OPXARu2OCsoxUWRz35xJXdnWqrUcu7PkK9o6jYKZfsGhBCc9OIBFih+MtHXl7GfBF8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=TpgpqqGx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="h7EEI9MI"
-Received: by mail-pl1-f201.google.com with SMTP id d9443c01a7336-2bd04e4fe3dso119171265ad.3
-        for <stable@vger.kernel.org>; Tue, 16 Jun 2026 08:54:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1781625286; x=1782230086; darn=vger.kernel.org;
-        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
-         :date:from:to:cc:subject:date:message-id:reply-to;
-        bh=eB2+P3x9rTTEifWl/2rNhxGcg9EpjrZ/39h+Dy5yLtg=;
-        b=h7EEI9MIazZBmwH6U7yrPQXgLk0OxB6bV6wPVRYuZpABDC7VJVgfJkHAc7f3UvBqTH
-         DGIiRNTbrxQz/LqtfLwysu2p0df0vA504aoYaCq9SpBDPycZJJny+IFsU6Z1XWHC2iT2
-         pV3yQHVopVkcxJZX0KuII9XJdWdX+/j3vLiFpgInGvxxQgWUL61iAPTmY1nFzKMOQqRK
-         6QDMKdDrNZ2XUvKZtn3ZTJ+rx0255biQqUvBhTMnbLsbrfkJ34gOaOsFyI2DWnEE0zth
-         5cCW10H8XdE0d9+6mjLpabwWuvI55gNGQGc34MuMBszmbGav6vWm3k6yVXUHy7KnZpyt
-         yk7w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781625286; x=1782230086;
-        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
-         :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=eB2+P3x9rTTEifWl/2rNhxGcg9EpjrZ/39h+Dy5yLtg=;
-        b=OwAFErOhv2S6qUXCST4Lt+Pn50kCWr1SfpofYCdJWSNp4Q6McHkfeKHprVeL4NcIUo
-         sr8Y0P6QUHfyCqrgZV+wMc3OezjokM/z6E4UMXAH4IScxB59bd3EtNUgfJR4LXgSDO97
-         TUpDzJrTYxmYsxIg3XBG3n9lPphvzjHY84RwiGas/0g+F1VYAAzi1b2p/PFp1lBOysCb
-         37nUBA72XVpwuN/kqOEAjKp/yRqiY5JKHaNcuHQCF1CECnKHPDkwZd4xfwh/whHHNiju
-         64zqq61Tggx3bV5WBQ+1MaJvzr7W342Z9VNibcr9gklTC/G9/958fD7A9RTYGnb0fJPM
-         Xt6A==
-X-Gm-Message-State: AOJu0Ywq5iBZubojd4ryxMOeGhxMQ0AJ6ayG2ANRavGTGOjtgEZhl/oY
-	5pIA5g1UjQi4VYjhBAbsY+5rDO7hX9eeLmdK4RM+wOtcvRiXhuTroitZUKh19aDubPqBS4sCg7A
-	4RbR8sUFJ6+PGfNxepa9zZvVsVWw1qgmXU4RucCxoazsRIb620kbuaGk1UgPTOk2zLucQ4d1Cfj
-	pAYSwjOFR72FGQn75lMgXF1GVzEnDaNNZ/kXdivW/Zmg==
-X-Received: from pgac28.prod.google.com ([2002:a05:6a02:295c:b0:c85:9a33:baf4])
- (user=kpberry job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a21:6d9d:b0:3b4:7e2d:a3bc
- with SMTP id adf61e73a8af0-3b8b3146d8bmr3842637.0.1781625285236; Tue, 16 Jun
- 2026 08:54:45 -0700 (PDT)
-Date: Tue, 16 Jun 2026 15:54:27 +0000
-In-Reply-To: <20260616155432.2093908-1-kpberry@google.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="TpgpqqGx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08B831F000E9;
+	Tue, 16 Jun 2026 15:54:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1781625288;
+	bh=wYRYb1//isifMd7lwwTKHLolKJdbp0zpn3pWVmDAnUI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=TpgpqqGxUM04dsn0XjBkLWCsO3YrgfSuRGoDv9qPc+ebMfBQT9GnGcwUiLjRI2tz1
+	 SHLo4FrNKVczJbSq3xaVzaCbWl7IvXz/vbeo64yj5JKdw+hKhjXQlJhelboMnsl3y6
+	 2ihiVG0XEwK1b9+8fkMY+A4fj8bR+0j2yOCYB0lA=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Jeremy Kerr <jk@codeconstruct.com.au>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18 112/325] net: mctp: usb: fix race between urb completion and rx_retry cancellation
+Date: Tue, 16 Jun 2026 20:28:28 +0530
+Message-ID: <20260616145103.284449686@linuxfoundation.org>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260616145057.827196531@linuxfoundation.org>
+References: <20260616145057.827196531@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260616155432.2093908-1-kpberry@google.com>
-X-Mailer: git-send-email 2.54.0.1136.gdb2ca164c4-goog
-Message-ID: <20260616155432.2093908-5-kpberry@google.com>
-Subject: [PATCH 6.12 4/7] bonding: print churn state via netlink
-From: Kevin Berry <kpberry@google.com>
-To: stable@vger.kernel.org
-Cc: gregkh@linuxfoundation.org, bestswngs@gmail.com, chenglongtang@google.com, 
-	joneslee@google.com, kpberry@google.com, pabeni@redhat.com, rnj@google.com, 
-	sashal@kernel.org, xmei5@asu.edu, Hangbin Liu <liuhangbin@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-From: Hangbin Liu <liuhangbin@gmail.com>
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit 4916f2e2f3fc9aef289fcd07949301e5c29094c2 ]
+------------------
 
-Currently, the churn state is printed only in sysfs. Add netlink support
-so users could get the state via netlink.
+From: Jeremy Kerr <jk@codeconstruct.com.au>
 
-Signed-off-by: Hangbin Liu <liuhangbin@gmail.com>
-Link: https://patch.msgid.link/20260224020215.6012-1-liuhangbin@gmail.com
+[ Upstream commit 54665dce982689e2fd99b32e9a0dcc204fda8a51 ]
+
+It's possible that sequencing between setting ->stopped and cancelling
+the rx_retry work (in ndo_stop) could leave us with an urb queued:
+
+    T1: ndo_stop                  T2: rx_retry_work
+    ------------                  ----------------
+                                  LD: ->stopped => false
+    ST: ->stopped <= true
+    usb_kill_urb()
+                                  mctp_usb_rx_queue()
+                                    usb_submit_urb()
+    cancel_delayed_work_sync()
+
+That urb completion can then re-schedule rx_retry_work.
+
+Strenghen the sequencing between the stop (preventing another requeue)
+and the cancel by updating both atomically under a new rx lock. After
+setting ->rx_stopped, and cancelling pending work, we know that the
+requeue cannot occur, so all that's left is killing any pending urb.
+
+Fixes: 0791c0327a6e ("net: mctp: Add MCTP USB transport driver")
+Signed-off-by: Jeremy Kerr <jk@codeconstruct.com.au>
+Link: https://patch.msgid.link/20260608-dev-mctp-usb-rx-requeue-v2-1-29a3aa507609@codeconstruct.com.au
 Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-Signed-off-by: Kevin Berry <kpberry@google.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/bonding/bond_netlink.c | 9 +++++++++
- include/uapi/linux/if_link.h       | 2 ++
- 2 files changed, 11 insertions(+)
+ drivers/net/mctp/mctp-usb.c | 26 +++++++++++++++++---------
+ 1 file changed, 17 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/net/bonding/bond_netlink.c b/drivers/net/bonding/bond_netlink.c
-index f8fc6e5fd803..98e635717364 100644
---- a/drivers/net/bonding/bond_netlink.c
-+++ b/drivers/net/bonding/bond_netlink.c
-@@ -29,6 +29,8 @@ static size_t bond_get_slave_size(const struct net_device *bond_dev,
- 		nla_total_size(sizeof(u16)) +	/* IFLA_BOND_SLAVE_AD_PARTNER_OPER_PORT_STATE */
- 		nla_total_size(sizeof(s32)) +	/* IFLA_BOND_SLAVE_PRIO */
- 		nla_total_size(sizeof(u16)) +	/* IFLA_BOND_SLAVE_ACTOR_PORT_PRIO */
-+		nla_total_size(sizeof(u8)) +	/* IFLA_BOND_SLAVE_AD_CHURN_ACTOR_STATE */
-+		nla_total_size(sizeof(u8)) +	/* IFLA_BOND_SLAVE_AD_CHURN_PARTNER_STATE */
- 		0;
- }
+diff --git a/drivers/net/mctp/mctp-usb.c b/drivers/net/mctp/mctp-usb.c
+index 3b5dff14417747..cf6f6a93a45112 100644
+--- a/drivers/net/mctp/mctp-usb.c
++++ b/drivers/net/mctp/mctp-usb.c
+@@ -22,7 +22,6 @@
+ struct mctp_usb {
+ 	struct usb_device *usbdev;
+ 	struct usb_interface *intf;
+-	bool stopped;
  
-@@ -77,6 +79,13 @@ static int bond_fill_slave_info(struct sk_buff *skb,
- 					IFLA_BOND_SLAVE_AD_PARTNER_OPER_PORT_STATE,
- 					ad_port->partner_oper.port_state))
- 				goto nla_put_failure;
-+
-+			if (nla_put_u8(skb, IFLA_BOND_SLAVE_AD_CHURN_ACTOR_STATE,
-+				       ad_port->sm_churn_actor_state))
-+				goto nla_put_failure;
-+			if (nla_put_u8(skb, IFLA_BOND_SLAVE_AD_CHURN_PARTNER_STATE,
-+				       ad_port->sm_churn_partner_state))
-+				goto nla_put_failure;
- 		}
+ 	struct net_device *netdev;
  
- 		if (nla_put_u16(skb, IFLA_BOND_SLAVE_ACTOR_PORT_PRIO,
-diff --git a/include/uapi/linux/if_link.h b/include/uapi/linux/if_link.h
-index 1609450e5eaa..087048d620f3 100644
---- a/include/uapi/linux/if_link.h
-+++ b/include/uapi/linux/if_link.h
-@@ -1552,6 +1552,8 @@ enum {
- 	IFLA_BOND_SLAVE_AD_PARTNER_OPER_PORT_STATE,
- 	IFLA_BOND_SLAVE_PRIO,
- 	IFLA_BOND_SLAVE_ACTOR_PORT_PRIO,
-+	IFLA_BOND_SLAVE_AD_CHURN_ACTOR_STATE,
-+	IFLA_BOND_SLAVE_AD_CHURN_PARTNER_STATE,
- 	__IFLA_BOND_SLAVE_MAX,
+@@ -32,6 +31,9 @@ struct mctp_usb {
+ 	struct urb *tx_urb;
+ 	struct urb *rx_urb;
+ 
++	/* enforces atomic access to rx_stopped and requeuing the retry work */
++	spinlock_t rx_lock;
++	bool rx_stopped;
+ 	struct delayed_work rx_retry_work;
  };
  
+@@ -122,6 +124,7 @@ static const unsigned long RX_RETRY_DELAY = HZ / 4;
+ 
+ static int mctp_usb_rx_queue(struct mctp_usb *mctp_usb, gfp_t gfp)
+ {
++	unsigned long flags;
+ 	struct sk_buff *skb;
+ 	int rc;
+ 
+@@ -147,7 +150,10 @@ static int mctp_usb_rx_queue(struct mctp_usb *mctp_usb, gfp_t gfp)
+ 	return rc;
+ 
+ err_retry:
+-	schedule_delayed_work(&mctp_usb->rx_retry_work, RX_RETRY_DELAY);
++	spin_lock_irqsave(&mctp_usb->rx_lock, flags);
++	if (!mctp_usb->rx_stopped)
++		schedule_delayed_work(&mctp_usb->rx_retry_work, RX_RETRY_DELAY);
++	spin_unlock_irqrestore(&mctp_usb->rx_lock, flags);
+ 	return rc;
+ }
+ 
+@@ -248,9 +254,6 @@ static void mctp_usb_rx_retry_work(struct work_struct *work)
+ 	struct mctp_usb *mctp_usb = container_of(work, struct mctp_usb,
+ 						 rx_retry_work.work);
+ 
+-	if (READ_ONCE(mctp_usb->stopped))
+-		return;
+-
+ 	mctp_usb_rx_queue(mctp_usb, GFP_KERNEL);
+ }
+ 
+@@ -258,7 +261,7 @@ static int mctp_usb_open(struct net_device *dev)
+ {
+ 	struct mctp_usb *mctp_usb = netdev_priv(dev);
+ 
+-	WRITE_ONCE(mctp_usb->stopped, false);
++	WRITE_ONCE(mctp_usb->rx_stopped, false);
+ 
+ 	netif_start_queue(dev);
+ 
+@@ -268,17 +271,21 @@ static int mctp_usb_open(struct net_device *dev)
+ static int mctp_usb_stop(struct net_device *dev)
+ {
+ 	struct mctp_usb *mctp_usb = netdev_priv(dev);
++	unsigned long flags;
+ 
+ 	netif_stop_queue(dev);
+ 
+ 	/* prevent RX submission retry */
+-	WRITE_ONCE(mctp_usb->stopped, true);
++	spin_lock_irqsave(&mctp_usb->rx_lock, flags);
++	mctp_usb->rx_stopped = true;
++	cancel_delayed_work(&mctp_usb->rx_retry_work);
++	spin_unlock_irqrestore(&mctp_usb->rx_lock, flags);
++
++	flush_delayed_work(&mctp_usb->rx_retry_work);
+ 
+ 	usb_kill_urb(mctp_usb->rx_urb);
+ 	usb_kill_urb(mctp_usb->tx_urb);
+ 
+-	cancel_delayed_work_sync(&mctp_usb->rx_retry_work);
+-
+ 	return 0;
+ }
+ 
+@@ -331,6 +338,7 @@ static int mctp_usb_probe(struct usb_interface *intf,
+ 	dev->netdev = netdev;
+ 	dev->usbdev = interface_to_usbdev(intf);
+ 	dev->intf = intf;
++	spin_lock_init(&dev->rx_lock);
+ 	usb_set_intfdata(intf, dev);
+ 
+ 	dev->ep_in = ep_in->bEndpointAddress;
 -- 
-2.54.0.1136.gdb2ca164c4-goog
+2.53.0
+
+
 
