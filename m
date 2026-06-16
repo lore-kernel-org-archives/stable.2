@@ -1,73 +1,44 @@
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 628423DE421
-	for <stable@vger.kernel.org>; Tue, 16 Jun 2026 19:01:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F4CA3DD51C;
+	Tue, 16 Jun 2026 19:01:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781636462; cv=none; b=PED4ZOJwhyU5uXtpjoOp0sYE82kWGXCfPB/paFbpV2mqMDm7JMZMKTHrqRdQ1RbYTXVoyb7cx+TSliNMHBGZx7Lg9/Q6rWf9RsiyLO2dhE1i+vXFol72/jJATMp5AzuARB8Q6Mqe8ZzviM25C46i9T/PtJpUhnatl09oqUUsiek=
+	t=1781636463; cv=none; b=ZZX9t8WQS63+8igghUBHSp3/RNn4HlFnHwtMePHFPwVCbgO68uywpvl/2C9Uibma9Ede1/e7iFC1BbuQXjOEWLYV4fLtKqI0B4zSpdRe1H4mZi5UQo+TbtfAdhalTNP93XFr3/k4j/CgjsRnCeEFX5FXA69oZkP6cHf27jTpXZo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781636462; c=relaxed/simple;
-	bh=WjUt4hH3swZK2c44WIneb4BziDglIot3E54EZa61uxA=;
+	s=arc-20240116; t=1781636463; c=relaxed/simple;
+	bh=qflX20XZRTU7uvDMdpuLLJFLx7HeeUPFklzq7f2PR14=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fqW2YhLoHfZnnDHajurc8SYM1uh+I7900UoGv3z2KoebearyUD0+sC6G5Rq0JAleAqyncWNs5vuNHWDX1xQFG68pky22VM30XORFF83ht+qAzUeyFim27/GPiKmDXJ/jofGwhxeoqcRnzwnp9kcM+GXIjJxzzKzHB35aKjaXPV4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=jSppl8dO; arc=none smtp.client-ip=209.85.128.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	 MIME-Version; b=SUjPviJLqM6nrAa17Nj1Zo1XHEwzDsjaYhMu+WZmxTalMs2BRU1V717DyiVeMkziy6l+28cvU8DRNd3nAGqwybuJFBjCz0QacrNPlvLScmbCUck6mh6Px6AAPMD51bw8YYaAmT1hd3JkkW8ubUopLLuHxaAnugOc6rCu4+iGYPI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=iQEnrWbV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="jSppl8dO"
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4891b4934ffso11945e9.0
-        for <stable@vger.kernel.org>; Tue, 16 Jun 2026 12:00:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1781636458; x=1782241258; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=PpoNZhDWdaXeWZj6gk2tZlrUtO5Ws5Z2EZsM2UJIeeU=;
-        b=jSppl8dO1sT+PPY2HgyD1imWK1uKjn7fFoKj64QWsz6ZL5eNhKhbQIld7zpFmUS38B
-         9evK7hNlCDjF715ROC+jEv4i7+J2ji8Vads0pnk/T1YNaK/9/jFHWRQPXCqF63MAqUky
-         wKEabdSViBhGyDpFstpLsYSUKoD2CTX9UtvvoPYYpHUX0aHiZSCQg2kzGMiC5nPIxmpV
-         6qHpsJ5FMYlE+SwfvQQy9Fu4PrR9ImfZZFtRnoum2R/JnrqlqZ53rrApWvle4vtMgHhq
-         v4xqU0HSpa9PO/C7ni5h9hDQpY2BjgdZW6JCFIkdI+eSeddJ3F2kRBROenc+XvCH6wLh
-         Scgw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781636458; x=1782241258;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=PpoNZhDWdaXeWZj6gk2tZlrUtO5Ws5Z2EZsM2UJIeeU=;
-        b=aNCQFRJdVWDBlxoVAGc2uZK1UKNPLK3XfWpV69AjFTpC/RCzloL8oa/hOeMzy7lgLF
-         p8VfbTa2/2Qo8wOsONF4YvzIblS1arEw3O9K8TEJssY736tNjv4PB8bUBuDFMIU03GwR
-         NMzHGpz28KyJ05fxP1rijna1SHMP2pU/Pw3KyN2SgQnRm/2CiqtTxD/FAjF67Q4e7Eiz
-         a4einoOevqquzLeO9ghhJIW/9TOtfdFW9HikoSh4mEbdTeq9sE94eYQLuTC13lKZ/kti
-         CXzEiEzWArvzM9ExC/FbRITZQJhMIfKXtuDsC9GDK0FaYAPjFkgvsv5/bLS/OAZTsKfy
-         GMFQ==
-X-Gm-Message-State: AOJu0Ywhk9v350kyCht8rj63at4umLovyHQovt/c5dnk7bgZPatdc690
-	/HJf7Yyhh6BMH8WbSWpmmLpF7gr6jEOXns0yryhNLSOfUA1f+Y8GxYb7O927SrnPVyOxy+pkGlE
-	JT3PRTGHc
-X-Gm-Gg: Acq92OH8t/VfI02eb23JauEKA441uSuYZUvPucE/yqPixSSd1MdTDDOCh5ZtNxnkdc5
-	3KSXn+bOjlzj09LKNc8z2wbhuDPe45RA6pUk1ekE14uefrhyjXpYaCo+XgVr+x4e1Ymln1n0ARX
-	A8xpV8VT1x2Bvj9Kt50S/+yoGVdJwRRoqFSW81E+b9pmotNBbxE/l9rU8BIjaqhilQrfRIKK/UQ
-	/oNBXTM3rTVf6TMxCmpTIeP8NZxG0DBN0DS7GsXdJeZ4Ew9w70GI5BaJnVoNIRcPWFekq8QBH/d
-	ewyWs78PmV9YEpol6Z0r0dqGGyxy9/KYL5bTd9k8by10XMh5NVo7yaDfhOrUy7jXh3LVyOEM/ry
-	FFDxkAIiUkETppjspTLa75hHxfHjq+a54Fm1ufZ9oKE2GCI8kM0RwflSHA6qZyc/S4RJTWc2Cfk
-	bcMMGXgcMAvsHdIyT28KVCCs0mt/ovxGsAepDQIjKTl3s705kdvA==
-X-Received: by 2002:a05:600c:68ce:b0:48a:5d95:d33e with SMTP id 5b1f17b1804b1-49233a4a4a5mr151415e9.6.1781636458074;
-        Tue, 16 Jun 2026 12:00:58 -0700 (PDT)
-Received: from localhost ([2a00:79e0:288a:8:b65:978d:d3ee:460b])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4620b1083e3sm2809025f8f.20.2026.06.16.12.00.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 16 Jun 2026 12:00:57 -0700 (PDT)
-From: Jann Horn <jannh@google.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="iQEnrWbV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42D6D1F00A3A;
+	Tue, 16 Jun 2026 19:01:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1781636462;
+	bh=5RaXSEZKikKRfPK8HYZcss/okNLg1HQnjPA+ub6E2gg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=iQEnrWbVR17NNraq2DLSW56hqn1Eg+GEK1nQ5ARa+ydniiiDvcUOLCrohM02PTQQj
+	 qkruan3JXDYM5dDRVv8hIaq9NbAWxga0ImYN3X6YcEJZesgr9+MmFsYSc1Yury73Dl
+	 HvBDgBFrgyVkqu6YgqHxLXzAwniY+5941c2R+02w=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: brauner@kernel.org,
-	mszeredi@redhat.com
-Subject: [PATCH 5.10.y-6.12.y] fuse: limit FUSE_NOTIFY_RETRIEVE to uptodate folios
-Date: Tue, 16 Jun 2026 21:00:23 +0200
-Message-ID: <20260616190023.956982-1-jannh@google.com>
-X-Mailer: git-send-email 2.54.0.1136.gdb2ca164c4-goog
-In-Reply-To: <2026061523-blurt-traffic-e169@gregkh>
-References: <2026061523-blurt-traffic-e169@gregkh>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Zilin Guan <zilin@seu.edu.cn>,
+	Viacheslav Dubeyko <slava@dubeyko.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10 242/342] hfsplus: fix held lock freed on hfsplus_fill_super()
+Date: Tue, 16 Jun 2026 20:28:58 +0530
+Message-ID: <20260616145059.482673903@linuxfoundation.org>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260616145048.348037099@linuxfoundation.org>
+References: <20260616145048.348037099@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -76,44 +47,143 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-FUSE_NOTIFY_RETRIEVE must be limited to uptodate folios; !uptodate folios
-can contain uninitialized data.
-Since FUSE_NOTIFY_RETRIEVE is intended to only return data that is already
-in the page cache and not wait for data from the FUSE daemon, treat
-!uptodate folios as if they weren't present.
+5.10-stable review patch.  If anyone has any objections, please let me know.
 
-This only has security impact on systems that don't enable automatic
-zero-initialization of all page allocations via
-CONFIG_INIT_ON_ALLOC_DEFAULT_ON or init_on_alloc=1.
+------------------
 
-Cc: stable@kernel.org
-Fixes: 2d45ba381a74 ("fuse: add retrieve request")
-Signed-off-by: Jann Horn <jannh@google.com>
-Link: https://patch.msgid.link/20260519-fuse-retrieve-uptodate-v1-1-a7a1912a37f9@google.com
-Acked-by: Miklos Szeredi <mszeredi@redhat.com>
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-(cherry picked from commit 4e3d1b2c48ca6c55f1e9ca7f8dccc76f120f276c)
-[adjusted for stable: page instead of folio]
-Signed-off-by: Jann Horn <jannh@google.com>
+From: Zilin Guan <zilin@seu.edu.cn>
+
+[ Upstream commit 90c500e4fd83fa33c09bc7ee23b6d9cc487ac733 ]
+
+hfsplus_fill_super() calls hfs_find_init() to initialize a search
+structure, which acquires tree->tree_lock. If the subsequent call to
+hfsplus_cat_build_key() fails, the function jumps to the out_put_root
+error label without releasing the lock. The later cleanup path then
+frees the tree data structure with the lock still held, triggering a
+held lock freed warning.
+
+Fix this by adding the missing hfs_find_exit(&fd) call before jumping
+to the out_put_root error label. This ensures that tree->tree_lock is
+properly released on the error path.
+
+The bug was originally detected on v6.13-rc1 using an experimental
+static analysis tool we are developing, and we have verified that the
+issue persists in the latest mainline kernel. The tool is specifically
+designed to detect memory management issues. It is currently under active
+development and not yet publicly available.
+
+We confirmed the bug by runtime testing under QEMU with x86_64 defconfig,
+lockdep enabled, and CONFIG_HFSPLUS_FS=y. To trigger the error path, we
+used GDB to dynamically shrink the max_unistr_len parameter to 1 before
+hfsplus_asc2uni() is called. This forces hfsplus_asc2uni() to naturally
+return -ENAMETOOLONG, which propagates to hfsplus_cat_build_key() and
+exercises the faulty error path. The following warning was observed
+during mount:
+
+	=========================
+	WARNING: held lock freed!
+	7.0.0-rc3-00016-gb4f0dd314b39 #4 Not tainted
+	-------------------------
+	mount/174 is freeing memory ffff888103f92000-ffff888103f92fff, with a lock still held there!
+	ffff888103f920b0 (&tree->tree_lock){+.+.}-{4:4}, at: hfsplus_find_init+0x154/0x1e0
+	2 locks held by mount/174:
+	#0: ffff888103f960e0 (&type->s_umount_key#42/1){+.+.}-{4:4}, at: alloc_super.constprop.0+0x167/0xa40
+	#1: ffff888103f920b0 (&tree->tree_lock){+.+.}-{4:4}, at: hfsplus_find_init+0x154/0x1e0
+
+	stack backtrace:
+	CPU: 2 UID: 0 PID: 174 Comm: mount Not tainted 7.0.0-rc3-00016-gb4f0dd314b39 #4 PREEMPT(lazy)
+	Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.15.0-1 04/01/2014
+	Call Trace:
+	<TASK>
+	dump_stack_lvl+0x82/0xd0
+	debug_check_no_locks_freed+0x13a/0x180
+	kfree+0x16b/0x510
+	? hfsplus_fill_super+0xcb4/0x18a0
+	hfsplus_fill_super+0xcb4/0x18a0
+	? __pfx_hfsplus_fill_super+0x10/0x10
+	? srso_return_thunk+0x5/0x5f
+	? bdev_open+0x65f/0xc30
+	? srso_return_thunk+0x5/0x5f
+	? pointer+0x4ce/0xbf0
+	? trace_contention_end+0x11c/0x150
+	? __pfx_pointer+0x10/0x10
+	? srso_return_thunk+0x5/0x5f
+	? bdev_open+0x79b/0xc30
+	? srso_return_thunk+0x5/0x5f
+	? srso_return_thunk+0x5/0x5f
+	? vsnprintf+0x6da/0x1270
+	? srso_return_thunk+0x5/0x5f
+	? __mutex_unlock_slowpath+0x157/0x740
+	? __pfx_vsnprintf+0x10/0x10
+	? srso_return_thunk+0x5/0x5f
+	? srso_return_thunk+0x5/0x5f
+	? mark_held_locks+0x49/0x80
+	? srso_return_thunk+0x5/0x5f
+	? srso_return_thunk+0x5/0x5f
+	? irqentry_exit+0x17b/0x5e0
+	? trace_irq_disable.constprop.0+0x116/0x150
+	? __pfx_hfsplus_fill_super+0x10/0x10
+	? __pfx_hfsplus_fill_super+0x10/0x10
+	get_tree_bdev_flags+0x302/0x580
+	? __pfx_get_tree_bdev_flags+0x10/0x10
+	? vfs_parse_fs_qstr+0x129/0x1a0
+	? __pfx_vfs_parse_fs_qstr+0x3/0x10
+	vfs_get_tree+0x89/0x320
+	fc_mount+0x10/0x1d0
+	path_mount+0x5c5/0x21c0
+	? __pfx_path_mount+0x10/0x10
+	? trace_irq_enable.constprop.0+0x116/0x150
+	? trace_irq_enable.constprop.0+0x116/0x150
+	? srso_return_thunk+0x5/0x5f
+	? srso_return_thunk+0x5/0x5f
+	? kmem_cache_free+0x307/0x540
+	? user_path_at+0x51/0x60
+	? __x64_sys_mount+0x212/0x280
+	? srso_return_thunk+0x5/0x5f
+	__x64_sys_mount+0x212/0x280
+	? __pfx___x64_sys_mount+0x10/0x10
+	? srso_return_thunk+0x5/0x5f
+	? trace_irq_enable.constprop.0+0x116/0x150
+	? srso_return_thunk+0x5/0x5f
+	do_syscall_64+0x111/0x680
+	entry_SYSCALL_64_after_hwframe+0x77/0x7f
+	RIP: 0033:0x7ffacad55eae
+	Code: 48 8b 0d 85 1f 0f 00 f7 d8 64 89 01 48 83 c8 ff c3 66 2e 0f 1f 84 00 00 00 00 00 90 f3 0f 1e fa 49 89 ca b8 a5 00 00 8
+	RSP: 002b:00007fff1ab55718 EFLAGS: 00000246 ORIG_RAX: 00000000000000a5
+	RAX: ffffffffffffffda RBX: 0000000000000000 RCX: 00007ffacad55eae
+	RDX: 000055740c64e5b0 RSI: 000055740c64e630 RDI: 000055740c651ab0
+	RBP: 000055740c64e380 R08: 0000000000000000 R09: 0000000000000001
+	R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+	R13: 000055740c64e5b0 R14: 000055740c651ab0 R15: 000055740c64e380
+	</TASK>
+
+After applying this patch, the warning no longer appears.
+
+Fixes: 89ac9b4d3d1a ("hfsplus: fix longname handling")
+CC: stable@vger.kernel.org
+Signed-off-by: Zilin Guan <zilin@seu.edu.cn>
+Reviewed-by: Viacheslav Dubeyko <slava@dubeyko.com>
+Tested-by: Viacheslav Dubeyko <slava@dubeyko.com>
+Signed-off-by: Viacheslav Dubeyko <slava@dubeyko.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- fs/fuse/dev.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ fs/hfsplus/super.c |    4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/fs/fuse/dev.c b/fs/fuse/dev.c
-index 1a6efb7cd945..7480ea23aa64 100644
---- a/fs/fuse/dev.c
-+++ b/fs/fuse/dev.c
-@@ -1765,6 +1765,10 @@ static int fuse_retrieve(struct fuse_mount *fm, struct inode *inode,
- 		page = find_get_page(mapping, index);
- 		if (!page)
- 			break;
-+		if (!PageUptodate(page)) {
-+			put_page(page);
-+			break;
-+		}
- 
- 		this_num = min_t(unsigned, num, PAGE_SIZE - offset);
- 		ap->pages[ap->num_pages] = page;
--- 
-2.54.0.1136.gdb2ca164c4-goog
+--- a/fs/hfsplus/super.c
++++ b/fs/hfsplus/super.c
+@@ -539,8 +539,10 @@ static int hfsplus_fill_super(struct sup
+ 	if (err)
+ 		goto out_put_root;
+ 	err = hfsplus_cat_build_key(sb, fd.search_key, HFSPLUS_ROOT_CNID, &str);
+-	if (unlikely(err < 0))
++	if (unlikely(err < 0)) {
++		hfs_find_exit(&fd);
+ 		goto out_put_root;
++	}
+ 	if (!hfsplus_brec_read_cat(&fd, &entry)) {
+ 		hfs_find_exit(&fd);
+ 		if (entry.type != cpu_to_be16(HFSPLUS_FOLDER)) {
+
 
