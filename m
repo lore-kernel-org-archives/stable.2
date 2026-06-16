@@ -1,126 +1,108 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com [209.85.167.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 613C8388E4F
-	for <stable@vger.kernel.org>; Tue, 16 Jun 2026 11:01:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D344F428838
+	for <stable@vger.kernel.org>; Tue, 16 Jun 2026 11:04:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781607699; cv=none; b=gNn5yrgqaeTS+CKaylb+7fdZ4N5pnJkvgdzNPBaIA2MPtdCDTcsxRyyP/7xUspJ6MAiQg6SLsNxDOGLdc5aYSAMhnMQV0w6j+Z8sxI4bgzRSG73quKCmXYnYr5HB0wFobEvomwPSJtY2tnwSHq7py8Iu+ug3mN5X4AiWVXyNfIg=
+	t=1781607882; cv=none; b=W8lEVCoDgnGgYfQ1X58g6ky5dG9xCLDv4DapmKm226KC7S1BUaMawkwsekFQJCP5yZHrmBX5t/KvtgJ68yfSrnmvciijXh2y3VRAO7xVM6dHrXrYneZX5r4Lp+vEXguWhIPpvy6cJbAwsH3yJQjcXsH0GX8FCVjnRIwQcrWpVFw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781607699; c=relaxed/simple;
-	bh=hSWIMETETlHUtnWCk/PMdXPfbNopSY4DXQJ5FK4vuDw=;
+	s=arc-20240116; t=1781607882; c=relaxed/simple;
+	bh=jsrjb1gJOrLNfKVeyrgWHu2ndB1T3GxIUzfpraL1a4I=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=OydI3PFSDCBSHGG3a7ZAWarzu4JmzcxMSOE62m/Mjk/zVlY1QdClyKTrym5RFLV/yoOfj/CbpZysUn2Tmz8setg4pe2bpJw/ilLg/ZhH3ra/qXLEA3DjgZ0nHn976Y6KMS9epwtBtih+R6aZ0wesvktLPVwxQx8Pqkdi+HScp+I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CgZVaWlV; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=QkoqK5juGrm80bGtiEiD2hJO5PlZqGEBGw/MFxUz4dQBUrJuRs0U00RcpcI8K81QAYS/qDi2wwrPGcEotwS9O3S/f0rhmO1aa1sgtQL+8f/qRPC3yUcRdEguMYttsFWMpXM98qFLuoI5McRDh1d+kVCzzBuV6PWL25H9nvrNiMY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bynar.io; spf=pass smtp.mailfrom=bynar.io; dkim=pass (2048-bit key) header.d=bynar.io header.i=@bynar.io header.b=cQ0V94Kh; arc=none smtp.client-ip=209.85.167.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bynar.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bynar.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CgZVaWlV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35DB71F000E9;
-	Tue, 16 Jun 2026 11:01:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781607698;
-	bh=h9JjjslEp2KMjqAny2az8Dvl2pHBSCD6Zh+rTqyKa/U=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=CgZVaWlVB/Dg/GoNPgGqdw3LEaWk8g42LQrEdgPA5XV+Og95TKtU+qKQi5Hmev3ac
-	 Gi0KJ7S5aVaTFjZrdcJBc+jB/KUS66he00hTY8AsjujlPh4L3wkDL20Mk5Y+Jx5x4E
-	 8++/hEBy4s6X8xHXLDoDTdqp3Ppucnz8n7ubXIwYD7psTshh9vagQcwgGvCAi4d05/
-	 mBHy1KbEO29AhHX/jOcALOXrLQatnX0LY7+rVLbku+0GQsESd/I13vyeZQp36/y04A
-	 sl4ijiwYcj/CU1nE7TLvg63m+jBbrRqSiBjVbdSGWPBh7OitS2Pt/2Dp6A23dQuVNh
-	 9rQPxrBorWpuA==
-Message-ID: <a511d4e7-3b0c-41f3-830e-b32e27f9fe5a@kernel.org>
-Date: Tue, 16 Jun 2026 13:01:34 +0200
+	dkim=pass (2048-bit key) header.d=bynar.io header.i=@bynar.io header.b="cQ0V94Kh"
+Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5aa2c25c632so4440292e87.1
+        for <stable@vger.kernel.org>; Tue, 16 Jun 2026 04:04:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=bynar.io; s=google; t=1781607879; x=1782212679; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=be9SAeX73nlM0ApRPdBK338zST/MXfWJxoZEdM6cwMg=;
+        b=cQ0V94Kh4fDe7vFkKPmwOXcuNSXd18So0R13CfUVBT962BlpZwhVg904t8wEBD7oSN
+         eqsMjTfZCd2bCdBwGUKNds7CFinc+FgN0+q0bIA7KcMSdk3nD4jDre12sGDptmiJmqrb
+         XZXk9OsSeB4SFtzXNUcOKsCnl/l6jdy3CbuwGNkEIhsTPSXE9LJFwM9HC3F2Cwb5/y8k
+         0BXfguvH/qZnKSF8lz+Fm3nMxTzkCm6DVHEtJfLwVDsYUfiPQVyFSOq+rKI1pyufYBjx
+         l7pfCKPZsFgq7soo3MmXvzVxQk8V8kgIQHkqLJQ0GR86XqSAzpHhbqwAdLJ4pDFmwm+5
+         eIhQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781607879; x=1782212679;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=be9SAeX73nlM0ApRPdBK338zST/MXfWJxoZEdM6cwMg=;
+        b=hu7AmgbJepTfVcu6lSkr6Z4sbOLFWv8VttzsHFUA6SP6grXvoXCNbFBhqAEMFibh7y
+         m2FCKjnRZgMdCQC3vwfrEEqgnR7i5uX2IdB1P7768qs7EDgCrE7yHKGR0QxU6t27wfrT
+         J++KExgCd9nxjJ4acuKTFBGwINKrycCaSCnvXHeJ/cvpNuuGIFjSaIsdDm50GdMY+H5a
+         j1xyu6GR7n2My6O01+sPo7WN5NGBkLovhdPMaMduM4j5Ui9FRf+mTaepBWJnQDTY2hdV
+         8zZ7JAFwF6p0r4EiNX6baJRy70OPGPcHBnXVYw7Y0VPI4lSRfFkgNB99gfF38o32SMwp
+         FA6g==
+X-Forwarded-Encrypted: i=1; AFNElJ9GFTayFoWI3jshAdA4vW8/1wsmMt49403Od7N4luTVkWi+KHlJ2cRQ1JeDDQxmsANcU1NZWxg=@vger.kernel.org
+X-Gm-Message-State: AOJu0YztcgjivWih8hTOAGO6TgIblyycRgE2qm9Z0Kn0662f+v5xSGuV
+	rwmKMBlQ8aheg6Ck/QTXGaOYnJhYOlj3oSjkJapJKcSRUWS9U5nYY5BHuOCqurr7SPrN
+X-Gm-Gg: Acq92OE8tmHcalIlz/mk48tskS7QLe9MsusOSxwijKMY6xU/DCUhtOYALg/VUbanszi
+	ZdqCYjZR2BBAyVZYyOEMyLwgceDk6zLBWP/g8Gu5Fwa+0OcybHNSjjPMQGTV6fDt7GuQ3aj7l0r
+	on4Xws16zAo9ioPwY70T6cw1Zfaq0Srb16i21TUfZ5cxlh1m9ClgO9Pb9NruLDQD9B/tPD+27FX
+	WNjvY2/JdgGJz+3nbLmRJpnJe3X1Iy6k4D+tu3AFQ6M91PmktwqUeVaPnZQY5u6HI8nI+2P1NDY
+	YJFB3+nlQU2I0W7C+YTUTjzHhEkFJZtlRIUZvLhlTQgoV/6l9LazPAS1kBiNC4rgDPaf5q9GrIA
+	wAbW/9KJOBZZkk9ucDjgnAJvf0+QXTV6C/8t7Cim71S0kJEjSYA0U1XMe20O1P3+S4S/ZAyvLSm
+	05D3tpZlVM5i6de31i2m3DIx/z5S6bEBgIA1CwqWvkPdUaADAJ5v6ANUh6Q6qa
+X-Received: by 2002:a05:6512:3984:b0:5aa:6290:f78d with SMTP id 2adb3069b0e04-5ad30d99426mr3972154e87.2.1781607878023;
+        Tue, 16 Jun 2026 04:04:38 -0700 (PDT)
+Received: from ?IPV6:2a00:23ee:1510:399a:1882:f251:1d3c:955? ([2a00:23ee:1510:399a:1882:f251:1d3c:955])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5ad2e16915dsm3486523e87.19.2026.06.16.04.04.36
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 16 Jun 2026 04:04:37 -0700 (PDT)
+Message-ID: <fa2e0cfb-9d60-4295-8a46-f69ce1229094@bynar.io>
+Date: Tue, 16 Jun 2026 12:04:32 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-Subject: Re: [PATCH 6.18.y 1/2] mptcp: fix missing wakeups in edge scenarios
-Content-Language: fr
-To: Sasha Levin <sashal@kernel.org>, stable@vger.kernel.org
-Cc: Paolo Abeni <pabeni@redhat.com>, Jakub Kicinski <kuba@kernel.org>
-References: <2026061533-ninja-scrabble-539d@gregkh>
- <20260616001959.2587348-1-sashal@kernel.org>
-From: Matthieu Baerts <matttbe@kernel.org>
-Autocrypt: addr=matttbe@kernel.org; keydata=
- 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
- lzVbFe7fduHbABmYz9cefQpO7wDE/Q==
-Organization: NGI0 Core
-In-Reply-To: <20260616001959.2587348-1-sashal@kernel.org>
-Content-Type: text/plain; charset=UTF-8
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net] tipc: free bearer discoverer via RCU to fix
+ tipc_disc_rcv UAF
+To: Tung Quang Nguyen <tung.quang.nguyen@est.tech>
+Cc: "David S . Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "tipc-discussion@lists.sourceforge.net"
+ <tipc-discussion@lists.sourceforge.net>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "stable@vger.kernel.org" <stable@vger.kernel.org>,
+ Jon Maloy <jmaloy@redhat.com>, bestswngs@gmail.com
+References: <20260615150009.1734270-1-sam@bynar.io>
+ <GV1P189MB19887A9A37B5B170C112DF8EC6E52@GV1P189MB1988.EURP189.PROD.OUTLOOK.COM>
+Content-Language: en-GB
+From: Sam P <sam@bynar.io>
+In-Reply-To: <GV1P189MB19887A9A37B5B170C112DF8EC6E52@GV1P189MB1988.EURP189.PROD.OUTLOOK.COM>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi Sasha,
-
-On 16/06/2026 02:19, Sasha Levin wrote:
-> From: Paolo Abeni <pabeni@redhat.com>
+On 16/06/2026 08:50, Tung Quang Nguyen wrote: 
+> A similar patch was submitted 6 days ago: https://patchwork.kernel.org/project/netdevbpf/patch/20260610153349.2546041-2-bestswngs@gmail.com/
 > 
-> [ Upstream commit 9d8d28738f24b75616d6ca7a27cb4aed88520343 ]
+> I do not receive updated patch from the submitter yet.
+> Your patch has the same coding style issue (long line, over 80 columns), see linux/Documentation/process/coding-style.rst
 > 
-> The mptcp_recvmsg() can fill MPTCP socket receive queue via
-> mptcp_move_skbs(), but currently does not try to wakeup any listener,
-> because the same process is going to check the receive queue soon.
-> 
-> When multiple threads are reading from the same fd, the above can
-> cause stall. Add the missing wakeup.
-> 
-> Fixes: 6771bfd9ee24 ("mptcp: update mptcp ack sequence from work queue")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-> Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
-> Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
-> Link: https://patch.msgid.link/20260602-net-mptcp-misc-fixes-7-1-rc7-v2-1-856831229976@kernel.org
-> Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
+> If you break the long line into 2 lines and submit again, I think I can acknowledge your patch.
 
-Thank you for this patch. The subject shows "1/2", suggesting a 2nd
-patch is expected, but I don't see any, and it looks like no 2nd patch
-is needed here to resolve conflicts.
+Oops, I missed that patch! I'm not sure what the etiquette
+is in this case, but I'm happy to defer to the original
+submitter (CCd) if they're working on a new patch and/or
+add any appropriate trailers to my v2.
 
-So just to be sure: no patch 2/2 expected, right?
-
-Cheers,
-Matt
--- 
-Sponsored by the NGI0 Core fund.
+I've prepared a v2 to submit after the ~24h period,
+addressing your changes and taking into account Eric's
+feedback from the earlier submission as well
+(adding an rcu_barrier() in tipc_exit()).
 
