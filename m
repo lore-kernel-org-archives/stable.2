@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCBF3335081;
-	Tue, 16 Jun 2026 17:35:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B37A477E57
+	for <stable@vger.kernel.org>; Tue, 16 Jun 2026 17:35:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781631349; cv=none; b=WAjQUMTfE3uSMSr6S22zDqs0+mlsPJYXwfdNQuaZUp4dO+SCzJ0vCTZU/Lp68vVZGp1LyhFsDhX5mT5O3/VE2CkrVNPuDJWyw/DdKcDDpBeO1R+Sq7GA4YEAzYp34UBJ74sF4+3s0gAMI16uDQmfEThAQhGbMoNyA/90IASOo5o=
+	t=1781631354; cv=none; b=TGv6lLtfKQhAdfWzqistBiYWkNwhZGcvi2PPdTWUpx3GpdbIuwCSMWeg547VhTFF6/MG0LaToLR9XO/gQLWpJSv2d7wAwLG2gQ8y1WAVs3IiuVwZwKWLS/BKYm3fPn5ZroUH+Wv0U0T+jTm53iLRUgTwfqgwbF1rdZe2zYBeqGw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781631349; c=relaxed/simple;
-	bh=6Oix1n8M6TrjsRkU3lr8rdJrG0CwVKtYVb3OhUQtLmU=;
+	s=arc-20240116; t=1781631354; c=relaxed/simple;
+	bh=VJrGe2PBgcZ82vZ68S9owlOjrFti7BZzFWW9PW/Uyvs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=E3I5Lay3F0YNMPyUwwpihwlx+zKrGNdTh2+KfON00szrrcr8rMiChkdcO3iB9MCW6SIE03TyxwF2C6zLFJxyvhr4hF+ev1FTP93Q4FPSvcklFrTlHf0Nx6WbIOdez9xFFjWfszpJCHwqtXthHL/DAOfopkyNJVu35ePCIXNNGuM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=InSyps6O; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=im4N5HmKodvn2EGku3H09NBh+7SH/fcGidw5kJkmF2RNKhf/knxUARLLSo6T947NZfh2qwfQgX2rFlazrzsmR+vTRH08UKYTf2cqCz+Eko1YUUi9G3nk+MSV3IoMDpH4VOYCRUFEZO1SWonRWpDi6psoMCViB8iJJ0pbe5RyImE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IJlSkgoV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="InSyps6O"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B1701F000E9;
-	Tue, 16 Jun 2026 17:35:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1781631348;
-	bh=c3DGczNgkDFH8laobuQmIhNZBQEEO/fotqVghpQBE7c=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IJlSkgoV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 398EB1F000E9;
+	Tue, 16 Jun 2026 17:35:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781631352;
+	bh=OMDkbIpaHYz/GydYqr2N3E2ihdSRMgVL3qZhM2qM3Zc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=InSyps6OXGrm+KRPm+QSrUL7FLCPqj8ktVwY2GgfTyX+J7Xcnz3AL+sQ/vSPoBQST
-	 jPB2u1jTs5gI/w6aWPR1Nij3WQNKidmH1cc3e8FhVT54W1PYLeEEYoh7GMaHEHuSpE
-	 PB8O55YnkDmM5wTVpjyslbZqEOEdNy1b7g2Vri9c=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=IJlSkgoVTWFk80skWMZHIF9KjgSFE2dP0cY533auSZeZOOOfXKa684ZUSiLKoYO2c
+	 bCLAn9g4nr1A4pt0XMq/0RPZJHeilzB6+3VDM41NjFOXurK5fcZ/qA7y1h2GMGOThV
+	 +507O2CdRzD9c09a9f1CQgt9AeeAef6YzXVujyQGOG0fKgmJa5faJjDXSMvCyjbBO9
+	 vIc/lABmbDP2h758551qMUmty4KCqRFhAei1NLfcLYwyo9+fz2nhSfIQmim+pIJqgz
+	 O9DyX6LZ95vNYc68PYx7s+I1MX2wbXhzA9z4OQyCb3Wl2R4Glf5rd20nzTPtmaNy4B
+	 FZutkhY2/zplg==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Guangshuo Li <lgs201920130244@gmail.com>,
-	Mikulas Patocka <mpatocka@redhat.com>,
+Cc: Thorsten Blum <thorsten.blum@linux.dev>,
+	Long Li <longli@microsoft.com>,
+	Wei Liu <wei.liu@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1 203/522] dm cache policy smq: check allocation under invalidate lock
-Date: Tue, 16 Jun 2026 20:25:50 +0530
-Message-ID: <20260616145135.572231161@linuxfoundation.org>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260616145125.307082728@linuxfoundation.org>
-References: <20260616145125.307082728@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Subject: [PATCH 5.15.y] hv: utils: handle and propagate errors in kvp_register
+Date: Tue, 16 Jun 2026 13:35:50 -0400
+Message-ID: <20260616173550.3401658-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026061505-another-sensually-b0cb@gregkh>
+References: <2026061505-another-sensually-b0cb@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,75 +46,87 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.1-stable review patch.  If anyone has any objections, please let me know.
+From: Thorsten Blum <thorsten.blum@linux.dev>
 
-------------------
+[ Upstream commit 3fcf923302a8f5c0dc3af3d2ca2657cb5fae4297 ]
 
-From: Guangshuo Li <lgs201920130244@gmail.com>
+Make kvp_register() return an error code instead of silently ignoring
+failures, and propagate the error from kvp_handle_handshake() instead of
+returning success.
 
-[ Upstream commit d3f0a606b9f278ece8a0df626ded9c4044071235 ]
+This propagates both kzalloc_obj() and hvutil_transport_send() failures
+to kvp_handle_handshake() and thus to kvp_on_msg().
 
-commit 2d1f7b65f5de ("dm cache policy smq: fix missing locks in
-invalidating cache blocks") added mq->lock around the destructive part of
-smq_invalidate_mapping(), but left the e->allocated check outside the
-critical section.
-
-That leaves a check-then-act race. Two concurrent invalidators can both
-observe e->allocated as true before either of them takes mq->lock. The
-first invalidator that acquires the lock removes the entry from the
-queues and hash table and then calls free_entry(), which clears
-e->allocated and puts the entry back on the free list. The second
-invalidator can then acquire mq->lock and continue with the stale result
-of the unlocked check.
-
-This can corrupt the SMQ queues or hash table by deleting an entry that
-is no longer on those structures. It can also hit the allocation check in
-free_entry() when the same entry is freed again.
-
-Move the allocation check under mq->lock so the predicate and the
-destructive operations are serialized by the same lock.
-
-Fixes: 2d1f7b65f5de ("dm cache policy smq: fix missing locks in invalidating cache blocks")
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
+Fixes: 245ba56a52a3 ("Staging: hv: Implement key/value pair (KVP)")
+Cc: stable@vger.kernel.org
+Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
+Reviewed-by: Long Li <longli@microsoft.com>
+Signed-off-by: Wei Liu <wei.liu@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/md/dm-cache-policy-smq.c | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
+ drivers/hv/hv_kvp.c | 25 +++++++++++++------------
+ 1 file changed, 13 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/md/dm-cache-policy-smq.c b/drivers/md/dm-cache-policy-smq.c
-index d4c2bc5c0ef457..38fe5c31699bc1 100644
---- a/drivers/md/dm-cache-policy-smq.c
-+++ b/drivers/md/dm-cache-policy-smq.c
-@@ -1588,18 +1588,22 @@ static int smq_invalidate_mapping(struct dm_cache_policy *p, dm_cblock_t cblock)
- 	struct smq_policy *mq = to_smq_policy(p);
- 	struct entry *e = get_entry(&mq->cache_alloc, from_cblock(cblock));
- 	unsigned long flags;
--
--	if (!e->allocated)
--		return -ENODATA;
-+	int r = 0;
+diff --git a/drivers/hv/hv_kvp.c b/drivers/hv/hv_kvp.c
+index 2908fbb88f59a2..5431afcd577a39 100644
+--- a/drivers/hv/hv_kvp.c
++++ b/drivers/hv/hv_kvp.c
+@@ -93,7 +93,7 @@ static void kvp_send_key(struct work_struct *dummy);
+ static void kvp_respond_to_host(struct hv_kvp_msg *msg, int error);
+ static void kvp_timeout_func(struct work_struct *dummy);
+ static void kvp_host_handshake_func(struct work_struct *dummy);
+-static void kvp_register(int);
++static int kvp_register(int);
  
- 	spin_lock_irqsave(&mq->lock, flags);
-+	if (!e->allocated) {
-+		r = -ENODATA;
-+		goto out;
-+	}
- 	// FIXME: what if this block has pending background work?
- 	del_queue(mq, e);
- 	h_remove(&mq->table, e);
- 	free_entry(&mq->cache_alloc, e);
-+
-+out:
- 	spin_unlock_irqrestore(&mq->lock, flags);
- 
--	return 0;
-+	return r;
+ static DECLARE_DELAYED_WORK(kvp_timeout_work, kvp_timeout_func);
+ static DECLARE_DELAYED_WORK(kvp_host_handshake_work, kvp_host_handshake_func);
+@@ -127,24 +127,26 @@ static void kvp_register_done(void)
+ 	hv_poll_channel(kvp_transaction.recv_channel, kvp_poll_wrapper);
  }
  
- static uint32_t smq_get_hint(struct dm_cache_policy *p, dm_cblock_t cblock)
+-static void
++static int
+ kvp_register(int reg_value)
+ {
+ 
+ 	struct hv_kvp_msg *kvp_msg;
+ 	char *version;
++	int ret;
+ 
+ 	kvp_msg = kzalloc(sizeof(*kvp_msg), GFP_KERNEL);
++	if (!kvp_msg)
++		return -ENOMEM;
+ 
+-	if (kvp_msg) {
+-		version = kvp_msg->body.kvp_register.version;
+-		kvp_msg->kvp_hdr.operation = reg_value;
+-		strcpy(version, HV_DRV_VERSION);
++	version = kvp_msg->body.kvp_register.version;
++	kvp_msg->kvp_hdr.operation = reg_value;
++	strcpy(version, HV_DRV_VERSION);
+ 
+-		hvutil_transport_send(hvt, kvp_msg, sizeof(*kvp_msg),
+-				      kvp_register_done);
+-		kfree(kvp_msg);
+-	}
++	ret = hvutil_transport_send(hvt, kvp_msg, sizeof(*kvp_msg),
++				    kvp_register_done);
++	kfree(kvp_msg);
++	return ret;
+ }
+ 
+ static void kvp_timeout_func(struct work_struct *dummy)
+@@ -186,9 +188,8 @@ static int kvp_handle_handshake(struct hv_kvp_msg *msg)
+ 	 */
+ 	pr_debug("KVP: userspace daemon ver. %d connected\n",
+ 		 msg->kvp_hdr.operation);
+-	kvp_register(dm_reg_value);
+ 
+-	return 0;
++	return kvp_register(dm_reg_value);
+ }
+ 
+ 
 -- 
 2.53.0
-
-
 
