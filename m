@@ -1,45 +1,58 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5DA943DA2C;
-	Tue, 16 Jun 2026 15:35:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DEBF44CF25;
+	Tue, 16 Jun 2026 15:35:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781624119; cv=none; b=TMA/0vSZ9b6iCVmy6LUb5tXGVGMPOYu0gxkPu75Bjg4uhEEhdPgviHW6bqqyRnfYpabG3iFnqHyUZNx0GjnKNfC1hADGMJTbKsTldQyPjxu1c7Db0ewEtI259RXq3Ms5TJPxCD9eDd47u7IlKPZ/Tz12euLWh+MZ5HcjtjVXofQ=
+	t=1781624121; cv=none; b=lIaHngTJZVf9Mbzp5buWqU2oSoqSzaKBTwo5OfUyp/EEJ474FaRApx+5HumD34dWWauIsV9TruzpPZvbWO9t1okHf4rLj8zMwv0lO8aYSzWUoUbklxx7K9hNqTZ1kJlZqIuy1Dy5uE7kkeoiUn9+BDvsXyumbcpvmw5ImvES2T4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781624119; c=relaxed/simple;
-	bh=4yAVF82rBtjl5/KYDPf/gXf+TFBoOLYlbSssuGJpaW4=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=uPuLMntZfuGs2/HRN+sEvVQJaFQVwUdkIXOO2jX8KkqR47Zz3qciA0mxseIV87onhaP3Me97xBd/EJ++U6za5bUhvK6YU50UIzPGN3bSQ3U1YEA2lIXsOGwAVcVfnJ2HwUtU5sOKzlWVgxRh3jkDF6onMC+DSqby9sQZtwlppC8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowAD3Z+subTFqAR3GEw--.19654S2;
-	Tue, 16 Jun 2026 23:35:10 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: alexander.deucher@amd.com,
-	christian.koenig@amd.com,
-	airlied@gmail.com,
-	simona@ffwll.ch
-Cc: lijo.lazar@amd.com,
-	aurabindo.pillai@amd.com,
-	superm1@kernel.org,
-	xiaogang.chen@amd.com,
-	chongli2@amd.com,
-	pierre-eric.pelloux-prayer@amd.com,
-	Victor.Zhao@amd.com,
-	Jesse.Zhang@amd.com,
-	lang.yu@amd.com,
-	vulab@iscas.ac.cn,
-	Jack.Xiao@amd.com,
-	amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v2] drm/amdgpu: fix fence reference leak in amdgpu_gfx_run_cleaner_shader_job
-Date: Tue, 16 Jun 2026 15:35:06 +0000
-Message-Id: <20260616153506.1713376-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1781624121; c=relaxed/simple;
+	bh=GTjvjXjMm0w7EYy32WyMS0Jwqmv6ThyZ35NnkC76WIo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=pT/BWdudhmiGwQU5X1YRAkVnnS8Nhi5kQVz6wh7szf/gL0LhlnxIofX/7KikV0AmCOIeWBya2zSmwLV5w0Twos9ecp9t2Oiw8yr8xUd6/caxFU7YVVn6QDZsyGzqrsRKLEaHm/4wMvqahMvZGlTT+EQTLeHMTJ/0ifRZ6rF6Pug=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=PrT4w0g3; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="PrT4w0g3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0482A1F000E9;
+	Tue, 16 Jun 2026 15:35:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1781624120;
+	bh=TODYgo5XdkV3Xy3soeUgSMhU4YmpO9EbrqgNr8C5gIY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=PrT4w0g3+IGkqF1543/Ru0muby+qmxfLu1JK/L/Fj0Qef+WBPVlQ2PYgZShKWtzYW
+	 184a0MZP3oK4WHya6mT/fEZaq0d/1QP5v6PRWtG2tp1MIys/gK3tQimU+BJiIbI9c1
+	 MgAUnxKgKLplsyyvbo8OVN0V2ykwmlsMupOPmb5U=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Yuan Tan <yuantan098@gmail.com>,
+	Yifan Wu <yifanwucs@gmail.com>,
+	Juefei Pu <tomapufckgml@gmail.com>,
+	Xin Liu <bird@lzu.edu.cn>,
+	Yilin Zhu <zylzyl2333@gmail.com>,
+	Ren Wei <n05ec@lzu.edu.cn>,
+	Christian Brauner <brauner@kernel.org>,
+	Jeongjun Park <aha310510@gmail.com>,
+	Kees Cook <kees@kernel.org>,
+	Liam Howlett <liam@infradead.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Serge Hallyn <sergeh@kernel.org>,
+	Vasiliy Kulikov <segoon@openwall.com>,
+	Davidlohr Bueso <dave@stgolabs.net>,
+	Oleg Nesterov <oleg@redhat.com>,
+	Serge Hallyn <serge@hallyn.com>,
+	Andrew Morton <akpm@linux-foundation.org>
+Subject: [PATCH 7.0 278/378] ipc/shm: serialize orphan cleanup with shm_nattch updates
+Date: Tue, 16 Jun 2026 20:28:29 +0530
+Message-ID: <20260616145124.750102861@linuxfoundation.org>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260616145109.744539446@linuxfoundation.org>
+References: <20260616145109.744539446@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,76 +60,73 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowAD3Z+subTFqAR3GEw--.19654S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Zr13AFWUur43Cr45Ar18Krg_yoW8AF4xpF
-	s3Kry3tr48Za17K347A3Wjqa409w13XFy8WrnFya4I93Z8JFn8Jr15JayFqF1kurWkCa17
-	Kryqg3y5X3Z0kF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9014x267AKxVW5JVWrJwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
-	0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
-	jxv20xvE14v26r1Y6r17McIj6I8E87Iv67AKxVWxJr0_GcWlOx8S6xCaFVCjc4AY6r1j6r
-	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628v
-	n2kIc2xKxwCY1x0262kKe7AKxVW8ZVWrXwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7x
-	kEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E
-	67AF67kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCw
-	CI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1x
-	MIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIda
-	VFxhVjvjDU0xZFpf9x0JUFdgAUUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgoAA2oxZbUPKgABsg
 
-In amdgpu_gfx_run_cleaner_shader_job(), amdgpu_job_submit() returns a
-dma_fence with an elevated reference count. The function correctly
-releases this reference on the success path after dma_fence_wait().
-However, if dma_fence_wait() fails (though with infinite timeout and
-non-interruptible it never does), the code jumps to the error label
-without calling dma_fence_put(), resulting in a reference leak.
+7.0-stable review patch.  If anyone has any objections, please let me know.
 
-Fix the potential leak by adding dma_fence_put(f) before the goto err
-when dma_fence_wait() returns an error.
+------------------
 
-Fixes: 559a285816af ("drm/amdgpu: Replace 'amdgpu_job_submit_direct' with 'drm_sched_entity' in cleaner shader")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+From: Yilin Zhu <zylzyl2333@gmail.com>
+
+commit 2e5c6f4fd4001562781e99bbfc7f1f0127187542 upstream.
+
+shm_destroy_orphaned() walks the shm idr under shm_ids(ns).rwsem, but that
+does not serialize all fields tested by shm_may_destroy().  In particular,
+shm_nattch is updated while holding shm_perm.lock, and attach paths can do
+that without holding the rwsem.
+
+Do not decide that an orphaned segment is unused before taking the object
+lock.  Move the shm_may_destroy() check under shm_perm.lock, matching the
+other destroy paths, and unlock the segment when it no longer qualifies
+for removal.
+
+Link: https://lore.kernel.org/9d97cc1031de2d0bace0edf3a668818aa2f4eca6.1777410234.git.zylzyl2333@gmail.com
+Fixes: 4c677e2eefdb ("shm: optimize locking and ipc_namespace getting")
+Reported-by: Yuan Tan <yuantan098@gmail.com>
+Reported-by: Yifan Wu <yifanwucs@gmail.com>
+Reported-by: Juefei Pu <tomapufckgml@gmail.com>
+Reported-by: Xin Liu <bird@lzu.edu.cn>
+Signed-off-by: Yilin Zhu <zylzyl2333@gmail.com>
+Signed-off-by: Ren Wei <n05ec@lzu.edu.cn>
+Cc: Christian Brauner <brauner@kernel.org>
+Cc: Jeongjun Park <aha310510@gmail.com>
+Cc: Kees Cook <kees@kernel.org>
+Cc: Liam Howlett <liam@infradead.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Serge Hallyn <sergeh@kernel.org>
+Cc: Vasiliy Kulikov <segoon@openwall.com>
+Cc: Davidlohr Bueso <dave@stgolabs.net>
+Cc: Oleg Nesterov <oleg@redhat.com>
+Cc: Serge Hallyn <serge@hallyn.com>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
-v2: Also cleanup the scheduler entity and simplify error handling paths.
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 9 +++------
- 1 file changed, 3 insertions(+), 6 deletions(-)
+ ipc/shm.c |   10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-index b8ca876694ff..be13ce6ce377 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-@@ -1658,7 +1658,7 @@ static int amdgpu_gfx_run_cleaner_shader_job(struct amdgpu_ring *ring)
- 				  &sched, 1, NULL);
- 	if (r) {
- 		dev_err(adev->dev, "Failed setting up GFX kernel entity.\n");
--		goto err;
-+		return r;
- 	}
+--- a/ipc/shm.c
++++ b/ipc/shm.c
+@@ -418,15 +418,17 @@ static int shm_try_destroy_orphaned(int
+ 	 * We want to destroy segments without users and with already
+ 	 * exit'ed originating process.
+ 	 *
+-	 * As shp->* are changed under rwsem, it's safe to skip shp locking.
++	 * shm_nattch can be changed under shm_perm.lock without holding the
++	 * rwsem, so take the object lock before checking shm_may_destroy().
+ 	 */
+ 	if (!list_empty(&shp->shm_clist))
+ 		return 0;
  
- 	/*
-@@ -1686,16 +1686,13 @@ static int amdgpu_gfx_run_cleaner_shader_job(struct amdgpu_ring *ring)
- 	f = amdgpu_job_submit(job);
- 
- 	r = dma_fence_wait(f, false);
--	if (r)
--		goto err;
-+	goto err;
- 
- 	dma_fence_put(f);
- 
-+err:
- 	/* Clean up the scheduler entity */
- 	drm_sched_entity_destroy(&entity);
--	return 0;
--
--err:
- 	return r;
+-	if (shm_may_destroy(shp)) {
+-		shm_lock_by_ptr(shp);
++	shm_lock_by_ptr(shp);
++	if (shm_may_destroy(shp))
+ 		shm_destroy(ns, shp);
+-	}
++	else
++		shm_unlock(shp);
+ 	return 0;
  }
  
--- 
-2.34.1
+
 
