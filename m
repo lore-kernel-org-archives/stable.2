@@ -1,52 +1,51 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D54FA3B7750;
-	Tue, 16 Jun 2026 11:51:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D78D543C074;
+	Tue, 16 Jun 2026 11:51:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.154.123
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781610701; cv=none; b=Btx2KbvLWfA1swVKZs9XTjRVoQYHpjkFnVCEFZfAkQDngm+RgOhCYDr51PoSUeW2p9Nx9dncUT59jea79LBL9pS6jrJRUVNWAoEKPKBiQ3z+J1vY9QVSwKsaWyKLa8CooUxifpfcX0d9hpfkGrcaK0r4o6DWHNWR4xoQSXqRAZk=
+	t=1781610702; cv=none; b=KDKPhrQCvbr2oTmPhinMX3k6Y+9aGbPXgxc20Zs8khn+J9LEC1FZ0bHuWLLo30Xe+acen2CdTNX49sUKy7WZSo11JBAMBTCwRu7fKphL8orwJS+CjKB5deymeiunGFbua1bTKQamU7f252hb9D7MNzgYppVqombpQxjmfnR1oo0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781610701; c=relaxed/simple;
-	bh=SxzBbuBlwjbtjYGLmz2Oeyz/+xEFkhUQzeE9vbG913c=;
+	s=arc-20240116; t=1781610702; c=relaxed/simple;
+	bh=m6J6/NzkNyJDz37Ps+ORik98nptnpSCPcY+7qiRjZlU=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=hxD/4t+7jA5bRjp+VwtjmgFszOpjW3luHysGQlD9OCChrdm/3g/6SKKdl09qhMubQf8xgMDDBowBy2rrBZCp9hvIuccIVWriKQQXLZUt2USiiWVb8ir0XJqawFnQsp0GQbD7aME9Do75pNOhrJhDvSrDV4w3umJSKR/vXqo+Lu4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=lcskD+PS; arc=none smtp.client-ip=68.232.153.233
+	 In-Reply-To:To:CC; b=DPddN1B1Lu5mu4S7iJTkNh5K5WchjPHYTpbvEPdrDnHZnIZBg6CPNigzKSQuV4P7pqSXRDwMO06RAkJKbOckhMmo1iwsyJjBwuM1FUaCBjOYrBYy11TK/4JPZysGh8LnqWYp6LAFVInMFOQuCGjGUgjgnV56IEZOsN7AsEC7dlM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=m/zjlEDt; arc=none smtp.client-ip=68.232.154.123
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="lcskD+PS"
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="m/zjlEDt"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1781610699; x=1813146699;
+  t=1781610694; x=1813146694;
   h=from:date:subject:mime-version:content-transfer-encoding:
    message-id:references:in-reply-to:to:cc;
-  bh=SxzBbuBlwjbtjYGLmz2Oeyz/+xEFkhUQzeE9vbG913c=;
-  b=lcskD+PScwFMQr9T5MKNDvLlTsfNCTYy8NPaj0IZJGqwLhmVmbQ+TEBE
-   JQUKnfJ3SgrpHIJojuEYrpgqaDDD7nm7qCaBIDj48dwidazQRQIZ2Y8zH
-   eQ1iZtLSUORrJd5B6JQ3F7uuQfSkyf4yzPQDJ300o4i2UOYQI+xH2q231
-   QQMvWHzftTHirv+4cbZ1XpRErxOIFwuweAbGFLgzPnRkio+T3KNId/2AU
-   ukSAVDWx5o1Mf3A4I8tOU4aQBHORIo9qESAnda69P41jIYQs1ym2B/Iav
-   frtehMVxOlY9Bkf/kxx4SLmoAi5p/uae2IbTyEqmRAjxOxIXFbtn+0NMI
-   Q==;
-X-CSE-ConnectionGUID: yUEv8uVTS++fLEtg8vYCdA==
-X-CSE-MsgGUID: ZeilqATYRyqrf+8fsThokA==
+  bh=m6J6/NzkNyJDz37Ps+ORik98nptnpSCPcY+7qiRjZlU=;
+  b=m/zjlEDt3U9pO3bD6IRLQXxjeUwuZKmc1SaVDsLYHOyXL2Hbm85IaIBJ
+   bMV2XPxSXJUM9srvdu3SJL4uUX3IjSQSeswbjjUJwaCN4IsUUV3Rl+OVW
+   d8w38duogvbQ7kdYwXrGDxSDARuL7SJ0/4WkwniXdiyeHQG/Z+1WlJi9e
+   MmIGZxREPOwmm72WUMQ0cduD8oRLg3gLFHp5fac0orfRV75U+8opvXxkS
+   aJE/e7QjhuCnj1q5r6pg7z9qzBwKD4/QDPfT/xSxWO8xWg68KjU535B/P
+   48gtlDpFg1xf1D/IyUX+wiHoJZvE/0pVjT6GCVrazyJ07U4ZC3d8VLUFQ
+   g==;
+X-CSE-ConnectionGUID: uMihHcjKTp2VB2Y1xinPzQ==
+X-CSE-MsgGUID: J4XLBGDWRxS4C9nXagaNmw==
 X-IronPort-AV: E=Sophos;i="6.24,208,1774335600"; 
-   d="scan'208";a="68270805"
+   d="scan'208";a="59581936"
 X-Amp-Result: SKIPPED(no attachment in message)
 Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa1.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 16 Jun 2026 04:51:37 -0700
-Received: from chn-vm-ex02.mchp-main.com (10.10.85.144) by
- chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server
+  by esa2.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Jun 2026 04:51:33 -0700
+Received: from chn-vm-ex02.mchp-main.com (10.10.87.72) by
+ chn-vm-ex4.mchp-main.com (10.10.87.33) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.58; Tue, 16 Jun 2026 04:51:36 -0700
+ 15.2.2562.41; Tue, 16 Jun 2026 04:51:33 -0700
 Received: from [127.0.0.1] (10.10.85.11) by chn-vm-ex02.mchp-main.com
  (10.10.85.144) with Microsoft SMTP Server id 15.1.2507.58 via Frontend
- Transport; Tue, 16 Jun 2026 04:51:33 -0700
+ Transport; Tue, 16 Jun 2026 04:51:30 -0700
 From: Balakrishnan Sambath <balakrishnan.s@microchip.com>
-Date: Tue, 16 Jun 2026 17:21:05 +0530
-Subject: [PATCH 10/10] media: microchip-isc: fix WB offset and gain
- register field masking
+Date: Tue, 16 Jun 2026 17:21:04 +0530
+Subject: [PATCH 09/10] media: microchip-isc: fix SBGGR10 Bayer pattern
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -55,7 +54,7 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID: <20260616-balki-isc-prefix-fixes-v1-v1-10-b23677fc5ab6@microchip.com>
+Message-ID: <20260616-balki-isc-prefix-fixes-v1-v1-9-b23677fc5ab6@microchip.com>
 References: <20260616-balki-isc-prefix-fixes-v1-v1-0-b23677fc5ab6@microchip.com>
 In-Reply-To: <20260616-balki-isc-prefix-fixes-v1-v1-0-b23677fc5ab6@microchip.com>
 To: Eugen Hristev <ehristev@kernel.org>, Mauro Carvalho Chehab
@@ -66,53 +65,44 @@ CC: Hans Verkuil <hverkuil@kernel.org>, Sakari Ailus
 	<balakrishnan.s@microchip.com>, <stable@vger.kernel.org>
 X-Mailer: b4 0.14.3
 
-ISC_WB_O_* and ISC_WB_G_* pack two 13-bit fields per register. Sign
-extension from negative offsets corrupts the upper field. Mask both
-fields to 13 bits before packing.
+SBGGR10 was mapped to ISC_BAY_CFG_RGRG instead of ISC_BAY_CFG_BGBG,
+causing red/blue channel swap.
 
 Fixes: 91b4e487b0c6 ("media: microchip: add ISC driver as Microchip ISC")
 Cc: stable@vger.kernel.org
 Signed-off-by: Balakrishnan Sambath <balakrishnan.s@microchip.com>
+Reviewed-by: Eugen Hristev <ehristev@kernel.org>
 ---
- .../media/platform/microchip/microchip-isc-base.c   | 21 +++++++++++++--------
- 1 file changed, 13 insertions(+), 8 deletions(-)
+ drivers/media/platform/microchip/microchip-sama5d2-isc.c | 2 +-
+ drivers/media/platform/microchip/microchip-sama7g5-isc.c | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/media/platform/microchip/microchip-isc-base.c b/drivers/media/platform/microchip/microchip-isc-base.c
-index a09d6d1ca7e5..19c371458eee 100644
---- a/drivers/media/platform/microchip/microchip-isc-base.c
-+++ b/drivers/media/platform/microchip/microchip-isc-base.c
-@@ -61,18 +61,23 @@ static inline void isc_update_awb_ctrls(struct isc_device *isc)
- 
- 	/* In here we set our actual hw pipeline config */
- 
-+	/*
-+	 * Mask offset fields to 13 bits. Sign extension of negative s32
-+	 * values would otherwise corrupt the adjacent field.
-+	 */
- 	regmap_write(isc->regmap, ISC_WB_O_RGR,
--		     ((ctrls->offset[ISC_HIS_CFG_MODE_R])) |
--		     ((ctrls->offset[ISC_HIS_CFG_MODE_GR]) << 16));
-+		     ((u32)ctrls->offset[ISC_HIS_CFG_MODE_R] & GENMASK(12, 0)) |
-+		     (((u32)ctrls->offset[ISC_HIS_CFG_MODE_GR] & GENMASK(12, 0)) << 16));
- 	regmap_write(isc->regmap, ISC_WB_O_BGB,
--		     ((ctrls->offset[ISC_HIS_CFG_MODE_B])) |
--		     ((ctrls->offset[ISC_HIS_CFG_MODE_GB]) << 16));
-+		     ((u32)ctrls->offset[ISC_HIS_CFG_MODE_B] & GENMASK(12, 0)) |
-+		     (((u32)ctrls->offset[ISC_HIS_CFG_MODE_GB] & GENMASK(12, 0)) << 16));
-+	/* Gains are 13-bit unsigned fields [12:0] and [28:16] */
- 	regmap_write(isc->regmap, ISC_WB_G_RGR,
--		     ctrls->gain[ISC_HIS_CFG_MODE_R] |
--		     (ctrls->gain[ISC_HIS_CFG_MODE_GR] << 16));
-+		     (ctrls->gain[ISC_HIS_CFG_MODE_R] & GENMASK(12, 0)) |
-+		     ((ctrls->gain[ISC_HIS_CFG_MODE_GR] & GENMASK(12, 0)) << 16));
- 	regmap_write(isc->regmap, ISC_WB_G_BGB,
--		     ctrls->gain[ISC_HIS_CFG_MODE_B] |
--		     (ctrls->gain[ISC_HIS_CFG_MODE_GB] << 16));
-+		     (ctrls->gain[ISC_HIS_CFG_MODE_B] & GENMASK(12, 0)) |
-+		     ((ctrls->gain[ISC_HIS_CFG_MODE_GB] & GENMASK(12, 0)) << 16));
- }
- 
- static inline void isc_reset_awb_ctrls(struct isc_device *isc)
+diff --git a/drivers/media/platform/microchip/microchip-sama5d2-isc.c b/drivers/media/platform/microchip/microchip-sama5d2-isc.c
+index 5d49b9d48f57..f0954a1f6376 100644
+--- a/drivers/media/platform/microchip/microchip-sama5d2-isc.c
++++ b/drivers/media/platform/microchip/microchip-sama5d2-isc.c
+@@ -147,7 +147,7 @@ static struct isc_format sama5d2_formats_list[] = {
+ 		.fourcc		= V4L2_PIX_FMT_SBGGR10,
+ 		.mbus_code	= MEDIA_BUS_FMT_SBGGR10_1X10,
+ 		.pfe_cfg0_bps	= ISC_PFG_CFG0_BPS_TEN,
+-		.cfa_baycfg	= ISC_BAY_CFG_RGRG,
++		.cfa_baycfg	= ISC_BAY_CFG_BGBG,
+ 	},
+ 	{
+ 		.fourcc		= V4L2_PIX_FMT_SGBRG10,
+diff --git a/drivers/media/platform/microchip/microchip-sama7g5-isc.c b/drivers/media/platform/microchip/microchip-sama7g5-isc.c
+index 4f9e9a5ed4d1..59532fdecca3 100644
+--- a/drivers/media/platform/microchip/microchip-sama7g5-isc.c
++++ b/drivers/media/platform/microchip/microchip-sama7g5-isc.c
+@@ -156,7 +156,7 @@ static struct isc_format sama7g5_formats_list[] = {
+ 		.fourcc		= V4L2_PIX_FMT_SBGGR10,
+ 		.mbus_code	= MEDIA_BUS_FMT_SBGGR10_1X10,
+ 		.pfe_cfg0_bps	= ISC_PFG_CFG0_BPS_TEN,
+-		.cfa_baycfg	= ISC_BAY_CFG_RGRG,
++		.cfa_baycfg	= ISC_BAY_CFG_BGBG,
+ 	},
+ 	{
+ 		.fourcc		= V4L2_PIX_FMT_SGBRG10,
 
 -- 
 2.34.1
