@@ -1,31 +1,31 @@
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 645703CD8A8
-	for <stable@vger.kernel.org>; Tue, 16 Jun 2026 05:18:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2FC5E3CF02F
+	for <stable@vger.kernel.org>; Tue, 16 Jun 2026 05:18:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781587131; cv=none; b=Z+Kzb8goOR7fJyCzhBTsrb3tFg7LWVqdC5yAaUF+XnE78RZLejhroygRPN3B2R4qf0YKTkdVT/dXZteGpj66YHDMZrNiinBpe/EFz4dpo+4PLKFXWWfzuhdJz6DtJZ0P/fQFOPAoTtxA/LlFX1ftoetTFuJkkywmnRiDzRvQnew=
+	t=1781587132; cv=none; b=Ai3fAw3MrU4rOePwFHF3UM/XAASg5fbxEK/7se6DzmjzM6JKyKgJ6Z/wV1n71UnrFRoIKtNYQvVwwTrzpaCkfYDxbxRSw2/GZmrlQaa4lPB1DixAvjdHt97r7PhYleABKZXvol7++3WYgvDzScqam7N/ASY524ibj6AASMTOfbc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781587131; c=relaxed/simple;
-	bh=VB4taRBqcWCgvndOtffOLduZ8+5puomepT+W1yvK0Q0=;
+	s=arc-20240116; t=1781587132; c=relaxed/simple;
+	bh=bJ/s190lNMuIMKsl0uiZaY5U3zKWgwVSwTOqiQn2owM=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=dyFPDI2+T7/WvXA6RLtWirIZNSS3EWb0mEFnDX5r9JSW2zfFs9AZTewo2TzxVR/2Mb0mIvIoN5VM1FjVh1kO8jaOWCX4eRzpN9G7J9jDwR4jmW4RETJ4nlf34CoBWC7a7hLEf/O+sj0w9b/nypXMRu3i0EB+zrC6C0Irw1/Crfc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=IX0VdOGo; arc=none smtp.client-ip=217.140.110.172
+	 MIME-Version; b=AX4I5rNKZSLgyIRvnaSVFmHZs4uOwxnpDYZPKv8tz2guQlSEEWAAIzpBw1nHfzVaNEWQ+qr7uZpSSHC7Ng85aSqlHMXumkTFESXjc9KNo3UcbzuJn8H3IBsoOE4PkGqz76NBrtCV2GuZKcroPp39d+jdxMgU1Ecr5hqaY3N6Xqk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=neWmnn7U; arc=none smtp.client-ip=217.140.110.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="IX0VdOGo"
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="neWmnn7U"
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C88283D4B;
-	Mon, 15 Jun 2026 22:18:43 -0700 (PDT)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DCAE93D9B;
+	Mon, 15 Jun 2026 22:18:45 -0700 (PDT)
 Received: from lakrids.cambridge.arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id BE4E03F763;
-	Mon, 15 Jun 2026 22:18:46 -0700 (PDT)
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id CFF893F763;
+	Mon, 15 Jun 2026 22:18:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1781587128; bh=VB4taRBqcWCgvndOtffOLduZ8+5puomepT+W1yvK0Q0=;
+	t=1781587130; bh=bJ/s190lNMuIMKsl0uiZaY5U3zKWgwVSwTOqiQn2owM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=IX0VdOGoiBvtfaKmJvlahdivFa4aNIPv/C1lk/aK1JA19MnCrdA9yLnkoxjm1ese9
-	 K/AwupEgQ5QkkRhF0egVFZhXZY36UDUcfjg9U2EfVTNndg8theVanl1G4LyP20WTYI
-	 lyuXLM+73TQDAyB95Gw1mZbL7hWKKWUGTyXl7L/k=
+	b=neWmnn7U4MF/tCqiryGHCX87pvXcjxTUurhPmxihZEWB22iUuAVsuVPULdNdTCvWN
+	 ETVioxzWi50FMvtBB9FC9XfnawfydVI+ujhvdgX34k9FfasmqpMZcSR4chfTfFzTSO
+	 nzV+GcYS4aJInLXKtKj9GLgREZ2NbUDjp0c+VrfA=
 From: Mark Rutland <mark.rutland@arm.com>
 To: stable@vger.kernel.org
 Cc: anshuman.khandual@arm.com,
@@ -39,9 +39,9 @@ Cc: anshuman.khandual@arm.com,
 	sdonthineni@nvidia.com,
 	will@kernel.org,
 	yuzenghui@huawei.com
-Subject: [PATCH 6.6.y 7/9] arm64: errata: Mitigate TLBI errata on various Arm CPUs
-Date: Tue, 16 Jun 2026 06:18:20 +0100
-Message-Id: <20260616051822.111870-8-mark.rutland@arm.com>
+Subject: [PATCH 6.6.y 8/9] arm64: errata: Mitigate TLBI errata on NVIDIA Olympus CPU
+Date: Tue, 16 Jun 2026 06:18:21 +0100
+Message-Id: <20260616051822.111870-9-mark.rutland@arm.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20260616051822.111870-1-mark.rutland@arm.com>
 References: <20260616051822.111870-1-mark.rutland@arm.com>
@@ -53,269 +53,80 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-commit cfd391e74134db664feb499d43af286380b10ba8 upstream.
+From: Shanker Donthineni <sdonthineni@nvidia.com>
 
-A number of CPUs developed by Arm suffer from errata whereby a broadcast
-TLBI;DSB sequence may complete before the global observation of writes
-which are translated by an affected TLB entry.
+commit ec7216f92e4ebd485b1c6dc6aa3f6064b71a5768 upstream.
 
-These errata ONLY affect the completion of memory accesses which have
-been translated by an invalidated TLB entry, and these errata DO NOT
-affect the actual invalidation of TLB entries. TLB entries are removed
-correctly.
+NVIDIA Olympus cores are affected by the TLBI completion issue tracked as
+CVE-2025-10263. The existing ARM64_ERRATUM_4118414 handling already uses
+ARM64_WORKAROUND_REPEAT_TLBI to issue an additional broadcast TLBI;DSB
+sequence and ensure affected memory write effects are globally observed.
 
-This issue has been assigned CVE ID CVE-2025-10263.
+Add MIDR_NVIDIA_OLYMPUS to the repeat-TLBI match list so the same
+mitigation is enabled on affected Olympus systems. Also document the
+NVIDIA Olympus erratum in the arm64 silicon errata table and list it in
+the Kconfig help text.
 
-To mitigate this issue, Arm recommends that software follows any
-affected TLBI;DSB sequence with an additional TLBI;DSB, which will
-ensure that all memory write effects affected by the first TLBI have
-been globally observed. The additional TLBI can use any operation that
-is broadcast to affected CPUs, and the additional DSB can use any option
-that is sufficient to complete the additional TLBI.
-
-The ARM64_WORKAROUND_REPEAT_TLBI workaround is sufficient to mitigate
-the issue. Enable this workaround for affected CPUs, and update the
-silicon errata documentation accordingly.
-
-Note that due to the manner in which Arm develops IP and tracks errata,
-some CPUs share a common erratum number.
-
-Signed-off-by: Mark Rutland <mark.rutland@arm.com>
+Signed-off-by: Shanker Donthineni <sdonthineni@nvidia.com>
 Cc: Catalin Marinas <catalin.marinas@arm.com>
 Cc: Will Deacon <will@kernel.org>
+Cc: Mark Rutland <mark.rutland@arm.com>
+Acked-by: Mark Rutland <mark.rutland@arm.com>
 Signed-off-by: Will Deacon <will@kernel.org>
 [Mark: backport to v6.6.y]
-Signed-off-by: Mark Rutland <mark.rutland@arm.com>
+Signed-off-by: Shanker Donthineni <sdonthineni@nvidia.com>
 ---
- Documentation/arch/arm64/silicon-errata.rst | 44 +++++++++++++++++++
- arch/arm64/Kconfig                          | 48 +++++++++++++++++++++
- arch/arm64/kernel/cpu_errata.c              | 32 +++++++++++++-
- 3 files changed, 122 insertions(+), 2 deletions(-)
+ Documentation/arch/arm64/silicon-errata.rst | 2 ++
+ arch/arm64/Kconfig                          | 3 ++-
+ arch/arm64/kernel/cpu_errata.c              | 1 +
+ 3 files changed, 5 insertions(+), 1 deletion(-)
 
 diff --git a/Documentation/arch/arm64/silicon-errata.rst b/Documentation/arch/arm64/silicon-errata.rst
-index fbc833841bef5..b0642ecd2b83d 100644
+index b0642ecd2b83d..2a76d613a105e 100644
 --- a/Documentation/arch/arm64/silicon-errata.rst
 +++ b/Documentation/arch/arm64/silicon-errata.rst
-@@ -123,14 +123,26 @@ stable kernels.
+@@ -274,6 +274,8 @@ stable kernels.
  +----------------+-----------------+-----------------+-----------------------------+
- | ARM            | Cortex-A76      | #3324349        | ARM64_ERRATUM_3194386       |
+ | NVIDIA         | Carmel Core     | N/A             | NVIDIA_CARMEL_CNP_ERRATUM   |
  +----------------+-----------------+-----------------+-----------------------------+
-+| ARM            | Cortex-A76      | #4193800        | ARM64_ERRATUM_4118414       |
++| NVIDIA         | Olympus core    | T410-OLY-1029   | ARM64_ERRATUM_4118414       |
 ++----------------+-----------------+-----------------+-----------------------------+
-+| ARM            | Cortex-A76AE    | #4193801        | ARM64_ERRATUM_4118414       |
-++----------------+-----------------+-----------------+-----------------------------+
- | ARM            | Cortex-A77      | #1508412        | ARM64_ERRATUM_1508412       |
+ | NVIDIA         | T241 GICv3/4.x  | T241-FABRIC-4   | N/A                         |
  +----------------+-----------------+-----------------+-----------------------------+
- | ARM            | Cortex-A77      | #3324348        | ARM64_ERRATUM_3194386       |
  +----------------+-----------------+-----------------+-----------------------------+
-+| ARM            | Cortex-A77      | #4193798        | ARM64_ERRATUM_4118414       |
-++----------------+-----------------+-----------------+-----------------------------+
- | ARM            | Cortex-A78      | #3324344        | ARM64_ERRATUM_3194386       |
- +----------------+-----------------+-----------------+-----------------------------+
-+| ARM            | Cortex-A78      | #4193791        | ARM64_ERRATUM_4118414       |
-++----------------+-----------------+-----------------+-----------------------------+
-+| ARM            | Cortex-A78AE    | #4193793        | ARM64_ERRATUM_4118414       |
-++----------------+-----------------+-----------------+-----------------------------+
- | ARM            | Cortex-A78C     | #3324346,3324347| ARM64_ERRATUM_3194386       |
- +----------------+-----------------+-----------------+-----------------------------+
-+| ARM            | Cortex-A78C     | #4193794        | ARM64_ERRATUM_4118414       |
-++----------------+-----------------+-----------------+-----------------------------+
- | ARM            | Cortex-A710     | #2119858        | ARM64_ERRATUM_2119858       |
- +----------------+-----------------+-----------------+-----------------------------+
- | ARM            | Cortex-A710     | #2054223        | ARM64_ERRATUM_2054223       |
-@@ -139,6 +151,8 @@ stable kernels.
- +----------------+-----------------+-----------------+-----------------------------+
- | ARM            | Cortex-A710     | #3324338        | ARM64_ERRATUM_3194386       |
- +----------------+-----------------+-----------------+-----------------------------+
-+| ARM            | Cortex-A710     | #4193788        | ARM64_ERRATUM_4118414       |
-++----------------+-----------------+-----------------+-----------------------------+
- | ARM            | Cortex-A715     | #2645198        | ARM64_ERRATUM_2645198       |
- +----------------+-----------------+-----------------+-----------------------------+
- | ARM            | Cortex-A715     | #3456084        | ARM64_ERRATUM_3194386       |
-@@ -149,20 +163,32 @@ stable kernels.
- +----------------+-----------------+-----------------+-----------------------------+
- | ARM            | Cortex-X1       | #3324344        | ARM64_ERRATUM_3194386       |
- +----------------+-----------------+-----------------+-----------------------------+
-+| ARM            | Cortex-X1       | #4193791        | ARM64_ERRATUM_4118414       |
-++----------------+-----------------+-----------------+-----------------------------+
- | ARM            | Cortex-X1C      | #3324346        | ARM64_ERRATUM_3194386       |
- +----------------+-----------------+-----------------+-----------------------------+
-+| ARM            | Cortex-X1C      | #4193792        | ARM64_ERRATUM_4118414       |
-++----------------+-----------------+-----------------+-----------------------------+
- | ARM            | Cortex-X2       | #2119858        | ARM64_ERRATUM_2119858       |
- +----------------+-----------------+-----------------+-----------------------------+
- | ARM            | Cortex-X2       | #2224489        | ARM64_ERRATUM_2224489       |
- +----------------+-----------------+-----------------+-----------------------------+
- | ARM            | Cortex-X2       | #3324338        | ARM64_ERRATUM_3194386       |
- +----------------+-----------------+-----------------+-----------------------------+
-+| ARM            | Cortex-X2       | #4193788        | ARM64_ERRATUM_4118414       |
-++----------------+-----------------+-----------------+-----------------------------+
- | ARM            | Cortex-X3       | #3324335        | ARM64_ERRATUM_3194386       |
- +----------------+-----------------+-----------------+-----------------------------+
-+| ARM            | Cortex-X3       | #4193786        | ARM64_ERRATUM_4118414       |
-++----------------+-----------------+-----------------+-----------------------------+
- | ARM            | Cortex-X4       | #3194386        | ARM64_ERRATUM_3194386       |
- +----------------+-----------------+-----------------+-----------------------------+
-+| ARM            | Cortex-X4       | #4118414        | ARM64_ERRATUM_4118414       |
-++----------------+-----------------+-----------------+-----------------------------+
- | ARM            | Cortex-X925     | #3324334        | ARM64_ERRATUM_3194386       |
- +----------------+-----------------+-----------------+-----------------------------+
-+| ARM            | Cortex-X925     | #4193781        | ARM64_ERRATUM_4118414       |
-++----------------+-----------------+-----------------+-----------------------------+
- | ARM            | Neoverse-N1     | #1188873,1418040| ARM64_ERRATUM_1418040       |
- +----------------+-----------------+-----------------+-----------------------------+
- | ARM            | Neoverse-N1     | #1349291        | N/A                         |
-@@ -171,6 +197,8 @@ stable kernels.
- +----------------+-----------------+-----------------+-----------------------------+
- | ARM            | Neoverse-N1     | #3324349        | ARM64_ERRATUM_3194386       |
- +----------------+-----------------+-----------------+-----------------------------+
-+| ARM            | Neoverse-N1     | #4193800        | ARM64_ERRATUM_4118414       |
-++----------------+-----------------+-----------------+-----------------------------+
- | ARM            | Neoverse-N2     | #2139208        | ARM64_ERRATUM_2139208       |
- +----------------+-----------------+-----------------+-----------------------------+
- | ARM            | Neoverse-N2     | #2067961        | ARM64_ERRATUM_2067961       |
-@@ -179,16 +207,32 @@ stable kernels.
- +----------------+-----------------+-----------------+-----------------------------+
- | ARM            | Neoverse-N2     | #3324339        | ARM64_ERRATUM_3194386       |
- +----------------+-----------------+-----------------+-----------------------------+
-+| ARM            | Neoverse-N2     | #4193789        | ARM64_ERRATUM_4118414       |
-++----------------+-----------------+-----------------+-----------------------------+
- | ARM            | Neoverse-N3     | #3456111        | ARM64_ERRATUM_3194386       |
- +----------------+-----------------+-----------------+-----------------------------+
- | ARM            | Neoverse-V1     | #3324341        | ARM64_ERRATUM_3194386       |
- +----------------+-----------------+-----------------+-----------------------------+
-+| ARM            | Neoverse-V1     | #4193790        | ARM64_ERRATUM_4118414       |
-++----------------+-----------------+-----------------+-----------------------------+
- | ARM            | Neoverse-V2     | #3324336        | ARM64_ERRATUM_3194386       |
- +----------------+-----------------+-----------------+-----------------------------+
-+| ARM            | Neoverse-V2     | #4193787        | ARM64_ERRATUM_4118414       |
-++----------------+-----------------+-----------------+-----------------------------+
- | ARM            | Neoverse-V3     | #3312417        | ARM64_ERRATUM_3194386       |
- +----------------+-----------------+-----------------+-----------------------------+
-+| ARM            | Neoverse-V3     | #4193784        | ARM64_ERRATUM_4118414       |
-++----------------+-----------------+-----------------+-----------------------------+
- | ARM            | Neoverse-V3AE   | #3312417        | ARM64_ERRATUM_3194386       |
- +----------------+-----------------+-----------------+-----------------------------+
-+| ARM            | Neoverse-V3AE   | #4193784        | ARM64_ERRATUM_4118414       |
-++----------------+-----------------+-----------------+-----------------------------+
-+| ARM            | C1-Premium      | #4193780        | ARM64_ERRATUM_4118414       |
-++----------------+-----------------+-----------------+-----------------------------+
-+| ARM            | C1-Pro          | #4193714        | ARM64_ERRATUM_4193714       |
-++----------------+-----------------+-----------------+-----------------------------+
-+| ARM            | C1-Ultra        | #4193780        | ARM64_ERRATUM_4118414       |
-++----------------+-----------------+-----------------+-----------------------------+
- | ARM            | MMU-500         | #841119,826419  | N/A                         |
- +----------------+-----------------+-----------------+-----------------------------+
- | ARM            | MMU-600         | #1076982,1209401| N/A                         |
 diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
-index 1be9f1f6b3200..d9b8cc34f86c7 100644
+index d9b8cc34f86c7..1f61fa06f3457 100644
 --- a/arch/arm64/Kconfig
 +++ b/arch/arm64/Kconfig
-@@ -1108,6 +1108,54 @@ config ARM64_ERRATUM_3194386
- 
+@@ -1121,7 +1121,7 @@ config ARM64_ERRATUM_4193714
  	  If unsure, say Y.
  
-+config ARM64_ERRATUM_4193714
-+	bool "C1-Pro: 4193714: SME DVMSync early acknowledgement"
-+	depends on ARM64_SME
-+	default y
-+	help
-+	  Enable workaround for C1-Pro acknowledging the DVMSync before
-+	  the SME memory accesses are complete. This will cause TLB
-+	  maintenance for processes using SME to also issue an IPI to
-+	  the affected CPUs.
-+
-+	  If unsure, say Y.
-+
-+config ARM64_ERRATUM_4118414
-+	bool "Cortex-*/Neoverse-*/C1-*: Completion of affected memory accesses might not be guaranteed by completion of a TLBI"
-+	default y
-+	select ARM64_WORKAROUND_REPEAT_TLBI
-+	help
-+	  This option adds a workaround for the following errata:
-+
-+	  * ARM C1-Premium erratum 4193780
-+	  * ARM C1-Ultra erratum 4193780
-+	  * ARM Cortex-A76 erratum 4193800
-+	  * ARM Cortex-A76AE erratum 4193801
-+	  * ARM Cortex-A77 erratum 4193798
-+	  * ARM Cortex-A78 erratum 4193791
-+	  * ARM Cortex-A78AE erratum 4193793
-+	  * ARM Cortex-A78C erratum 4193794
-+	  * ARM Cortex-A710 erratum 4193788
-+	  * ARM Cortex-X1 erratum 4193791
-+	  * ARM Cortex-X1C erratum 4193792
-+	  * ARM Cortex-X2 erratum 4193788
-+	  * ARM Cortex-X3 erratum 4193786
-+	  * ARM Cortex-X4 erratum 4118414
-+	  * ARM Cortex-X925 erratum 4193781
-+	  * ARM Neoverse-N1 erratum 4193800
-+	  * ARM Neoverse-N2 erratum 4193789
-+	  * ARM Neoverse-V1 erratum 4193790
-+	  * ARM Neoverse-V2 erratum 4193787
-+	  * ARM Neoverse-V3 erratum 4193784
-+	  * ARM Neoverse-V3AE erratum 4193784
-+
-+	  On affected cores, some memory accesses might not be completed by
-+	  broadcast TLB invalidation.
-+
-+	  This issue is also known as CVE-2025-10263.
-+
-+	  If unsure, say Y.
-+
- config CAVIUM_ERRATUM_22375
- 	bool "Cavium erratum 22375, 24313"
+ config ARM64_ERRATUM_4118414
+-	bool "Cortex-*/Neoverse-*/C1-*: Completion of affected memory accesses might not be guaranteed by completion of a TLBI"
++	bool "Various: Completion of affected memory accesses might not be guaranteed by completion of a TLBI"
  	default y
+ 	select ARM64_WORKAROUND_REPEAT_TLBI
+ 	help
+@@ -1148,6 +1148,7 @@ config ARM64_ERRATUM_4118414
+ 	  * ARM Neoverse-V2 erratum 4193787
+ 	  * ARM Neoverse-V3 erratum 4193784
+ 	  * ARM Neoverse-V3AE erratum 4193784
++	  * NVIDIA Olympus erratum T410-OLY-1029
+ 
+ 	  On affected cores, some memory accesses might not be completed by
+ 	  broadcast TLB invalidation.
 diff --git a/arch/arm64/kernel/cpu_errata.c b/arch/arm64/kernel/cpu_errata.c
-index 23dcd0c4aad36..81685192b3a23 100644
+index 81685192b3a23..bb40764196d0d 100644
 --- a/arch/arm64/kernel/cpu_errata.c
 +++ b/arch/arm64/kernel/cpu_errata.c
-@@ -241,7 +241,35 @@ static const struct arm64_cpu_capabilities arm64_repeat_tlbi_list[] = {
- 		ERRATA_MIDR_RANGE(MIDR_CORTEX_A510, 0, 0, 1, 1),
+@@ -265,6 +265,7 @@ static const struct arm64_cpu_capabilities arm64_repeat_tlbi_list[] = {
+ 			MIDR_ALL_VERSIONS(MIDR_NEOVERSE_V2),
+ 			MIDR_ALL_VERSIONS(MIDR_NEOVERSE_V3),
+ 			MIDR_ALL_VERSIONS(MIDR_NEOVERSE_V3AE),
++			MIDR_ALL_VERSIONS(MIDR_NVIDIA_OLYMPUS),
+ 			{}
+ 		})),
  	},
- #endif
--	{},
-+#ifdef CONFIG_ARM64_ERRATUM_4118414
-+	{
-+		ERRATA_MIDR_RANGE_LIST(((const struct midr_range[]) {
-+			MIDR_ALL_VERSIONS(MIDR_C1_PREMIUM),
-+			MIDR_ALL_VERSIONS(MIDR_C1_ULTRA),
-+			MIDR_ALL_VERSIONS(MIDR_CORTEX_A76),
-+			MIDR_ALL_VERSIONS(MIDR_CORTEX_A76AE),
-+			MIDR_ALL_VERSIONS(MIDR_CORTEX_A77),
-+			MIDR_ALL_VERSIONS(MIDR_CORTEX_A78),
-+			MIDR_ALL_VERSIONS(MIDR_CORTEX_A78AE),
-+			MIDR_ALL_VERSIONS(MIDR_CORTEX_A78C),
-+			MIDR_ALL_VERSIONS(MIDR_CORTEX_A710),
-+			MIDR_ALL_VERSIONS(MIDR_CORTEX_X1),
-+			MIDR_ALL_VERSIONS(MIDR_CORTEX_X1C),
-+			MIDR_ALL_VERSIONS(MIDR_CORTEX_X2),
-+			MIDR_ALL_VERSIONS(MIDR_CORTEX_X3),
-+			MIDR_ALL_VERSIONS(MIDR_CORTEX_X4),
-+			MIDR_ALL_VERSIONS(MIDR_CORTEX_X925),
-+			MIDR_ALL_VERSIONS(MIDR_NEOVERSE_N1),
-+			MIDR_ALL_VERSIONS(MIDR_NEOVERSE_N2),
-+			MIDR_ALL_VERSIONS(MIDR_NEOVERSE_V1),
-+			MIDR_ALL_VERSIONS(MIDR_NEOVERSE_V2),
-+			MIDR_ALL_VERSIONS(MIDR_NEOVERSE_V3),
-+			MIDR_ALL_VERSIONS(MIDR_NEOVERSE_V3AE),
-+			{}
-+		})),
-+	},
-+#endif
-+	{}
- };
- #endif
- 
-@@ -569,7 +597,7 @@ const struct arm64_cpu_capabilities arm64_errata[] = {
- #endif
- #ifdef CONFIG_ARM64_WORKAROUND_REPEAT_TLBI
- 	{
--		.desc = "Qualcomm erratum 1009, or ARM erratum 1286807, 2441009",
-+		.desc = "Broken broadcast TLBI completion",
- 		.capability = ARM64_WORKAROUND_REPEAT_TLBI,
- 		.type = ARM64_CPUCAP_LOCAL_CPU_ERRATUM,
- 		.matches = cpucap_multi_entry_cap_matches,
 -- 
 2.30.2
 
