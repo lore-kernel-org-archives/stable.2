@@ -1,31 +1,31 @@
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5C03E3C8C69
-	for <stable@vger.kernel.org>; Tue, 16 Jun 2026 05:16:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 730BF21B9F6
+	for <stable@vger.kernel.org>; Tue, 16 Jun 2026 05:16:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781586976; cv=none; b=HVNwXjoP6kw3CBGxbxOdw8knJjwsV/S8ZDNyywtZQaLqOx4v7S4Jfg6pj9aJhvT8U7/jmoFqZyZ9LBUIwuPUee13Sp+XvdD9e5togDT/Gryp5qF2tejxpxQpQh/ykFssMXOOPrvtiEmNaA7beaHajwZAZVvrk+3vOWS1Lh9UY2A=
+	t=1781586978; cv=none; b=UmRgqhMFr3pbrCZT0TiNICboszLnGQSehz+CQCIN/XlP1dAmDwbOuTFxeUchANNttaGkh1Xr5bvPmCcOs21gdletW1ovSqf9sa+16ufbNk146M1F42Z1jxEmOWY/CZku3Fw0DmCrY53kC0vhoXkk4GT6/nyuwiLiFHirXVuOnQ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781586976; c=relaxed/simple;
-	bh=nkcGznM35SzKMiZsY5YzxcpGf1jBhvJlAECdH7aktzU=;
+	s=arc-20240116; t=1781586978; c=relaxed/simple;
+	bh=SwEBftIZ2VYRvw7ONXDEHmvbq05a5pzoTOXyzeWIGZQ=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=UzuqYJP4x6dgkME7reS8TryWb23NyNYCHqaoCS5jlHDJq8FJ4hrraDL2cZ6uEfotB5tzeu096OAPzXfiYFLGV+ZxBcR7ZshEdXvKSvpDmh5ZXThj/XjNeAwS/Ftg/PNvIUqdALIJbhFxtN/OF+2JdS4WfxtZ5hq3lB4cjPKGp5E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=bVoXam0V; arc=none smtp.client-ip=217.140.110.172
+	 MIME-Version; b=IpuxiXxtEWDrynIEZmLl8yKJgJQQIcySDcJfE0Ql5kA8ijx1+1pFzccPUpF5D3/7PRParQYT8kRE/2u1maQf6L5X8Xlgi78ZYXE4lO9wvOzr4dG0aNz9nZD5vzIocYLE0dU4MasfbHuyA/aq5sy1OmplQT4EftpFj6JACRkCYdo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=oTP/qsLa; arc=none smtp.client-ip=217.140.110.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="bVoXam0V"
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="oTP/qsLa"
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id F34EE3D9B;
-	Mon, 15 Jun 2026 22:16:09 -0700 (PDT)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7FEDE3D4B;
+	Mon, 15 Jun 2026 22:16:11 -0700 (PDT)
 Received: from lakrids.cambridge.arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 6CFC93F763;
-	Mon, 15 Jun 2026 22:16:13 -0700 (PDT)
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id ED1423F763;
+	Mon, 15 Jun 2026 22:16:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1781586974; bh=nkcGznM35SzKMiZsY5YzxcpGf1jBhvJlAECdH7aktzU=;
+	t=1781586976; bh=SwEBftIZ2VYRvw7ONXDEHmvbq05a5pzoTOXyzeWIGZQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=bVoXam0VtwqXeGHhq/7ZuVUThooEaLV2EKHCCSCLcKHs+mua1bgisowSIf+ORnYPX
-	 hHSVOzbMn4FzqxOWAUWxWWWpezklIeqHPAI3bNi3SEQxTqUXv5j7W77yDQH46pvbEX
-	 8CUvq+rE3jzXk1HKBaXTBGDZK0n32MuzOF93A0RY=
+	b=oTP/qsLaFSwbahZKkFvDxH4OCSx6tB8NLZkgnvFNw7sXxD2+PBiuUqM1g2W1iFdOQ
+	 hB39cBgvZsNTR9pMSfZgl9ChkYeCvmyxOhMFb2MG7uhLVF10c8YvRqWC3vnCRpXOoQ
+	 o4AXM8+3UxB+8+Bh8/EaXwNbrsNxonNmbCsYTPoA=
 From: Mark Rutland <mark.rutland@arm.com>
 To: stable@vger.kernel.org
 Cc: catalin.marinas@arm.com,
@@ -37,9 +37,9 @@ Cc: catalin.marinas@arm.com,
 	ryan.roberts@arm.com,
 	sdonthineni@nvidia.com,
 	will@kernel.org
-Subject: [PATCH 6.12.y 7/8] arm64: errata: Mitigate TLBI errata on NVIDIA Olympus CPU
-Date: Tue, 16 Jun 2026 06:15:51 +0100
-Message-Id: <20260616051552.111675-8-mark.rutland@arm.com>
+Subject: [PATCH 6.12.y 8/8] arm64: errata: Mitigate TLBI errata on Microsoft Azure Cobalt 100 CPU
+Date: Tue, 16 Jun 2026 06:15:52 +0100
+Message-Id: <20260616051552.111675-9-mark.rutland@arm.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20260616051552.111675-1-mark.rutland@arm.com>
 References: <20260616051552.111675-1-mark.rutland@arm.com>
@@ -51,77 +51,58 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Shanker Donthineni <sdonthineni@nvidia.com>
+From: Will Deacon <will@kernel.org>
 
-commit ec7216f92e4ebd485b1c6dc6aa3f6064b71a5768 upstream.
+commit 1940e70a8144bf75e6df26bf6f600862ea7f7ea1 upstream.
 
-NVIDIA Olympus cores are affected by the TLBI completion issue tracked as
-CVE-2025-10263. The existing ARM64_ERRATUM_4118414 handling already uses
-ARM64_WORKAROUND_REPEAT_TLBI to issue an additional broadcast TLBI;DSB
-sequence and ensure affected memory write effects are globally observed.
+Commit fb091ff39479 ("arm64: Subscribe Microsoft Azure Cobalt 100 to ARM
+Neoverse N2 errata") states that Microsoft Azure Cobalt 100 CPU "is a
+Microsoft implemented CPU based on r0p0 of the ARM Neoverse N2 CPU, and
+therefore suffers from all the same errata.".
 
-Add MIDR_NVIDIA_OLYMPUS to the repeat-TLBI match list so the same
-mitigation is enabled on affected Olympus systems. Also document the
-NVIDIA Olympus erratum in the arm64 silicon errata table and list it in
-the Kconfig help text.
+So enable the workaround for the latest broadcast TLB invalidation bug
+on these parts.
 
-Signed-off-by: Shanker Donthineni <sdonthineni@nvidia.com>
-Cc: Catalin Marinas <catalin.marinas@arm.com>
-Cc: Will Deacon <will@kernel.org>
-Cc: Mark Rutland <mark.rutland@arm.com>
-Acked-by: Mark Rutland <mark.rutland@arm.com>
 Signed-off-by: Will Deacon <will@kernel.org>
 [Mark: backport to v6.12.y]
-Signed-off-by: Shanker Donthineni <sdonthineni@nvidia.com>
+Signed-off-by: Mark Rutland <mark.rutland@arm.com>
 ---
  Documentation/arch/arm64/silicon-errata.rst | 2 ++
- arch/arm64/Kconfig                          | 3 ++-
+ arch/arm64/Kconfig                          | 1 +
  arch/arm64/kernel/cpu_errata.c              | 1 +
- 3 files changed, 5 insertions(+), 1 deletion(-)
+ 3 files changed, 4 insertions(+)
 
 diff --git a/Documentation/arch/arm64/silicon-errata.rst b/Documentation/arch/arm64/silicon-errata.rst
-index 5f417fe7f04ac..81e4ea2d4917b 100644
+index 81e4ea2d4917b..e2ec25d14f1c9 100644
 --- a/Documentation/arch/arm64/silicon-errata.rst
 +++ b/Documentation/arch/arm64/silicon-errata.rst
-@@ -285,6 +285,8 @@ stable kernels.
+@@ -346,3 +346,5 @@ stable kernels.
  +----------------+-----------------+-----------------+-----------------------------+
- | NVIDIA         | Carmel Core     | N/A             | NVIDIA_CARMEL_CNP_ERRATUM   |
+ | Microsoft      | Azure Cobalt 100| #3324339        | ARM64_ERRATUM_3194386       |
  +----------------+-----------------+-----------------+-----------------------------+
-+| NVIDIA         | Olympus core    | T410-OLY-1029   | ARM64_ERRATUM_4118414       |
++| Microsoft      | Azure Cobalt 100| #4193789        | ARM64_ERRATUM_4118414       |
 ++----------------+-----------------+-----------------+-----------------------------+
- | NVIDIA         | T241 GICv3/4.x  | T241-FABRIC-4   | N/A                         |
- +----------------+-----------------+-----------------+-----------------------------+
- +----------------+-----------------+-----------------+-----------------------------+
 diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
-index bb0f8b6a100cc..297e2e391104d 100644
+index 297e2e391104d..012ec170232ea 100644
 --- a/arch/arm64/Kconfig
 +++ b/arch/arm64/Kconfig
-@@ -1139,7 +1139,7 @@ config ARM64_ERRATUM_4193714
- 	  If unsure, say Y.
- 
- config ARM64_ERRATUM_4118414
--	bool "Cortex-*/Neoverse-*/C1-*: Completion of affected memory accesses might not be guaranteed by completion of a TLBI"
-+	bool "Various: Completion of affected memory accesses might not be guaranteed by completion of a TLBI"
- 	default y
- 	select ARM64_WORKAROUND_REPEAT_TLBI
- 	help
 @@ -1166,6 +1166,7 @@ config ARM64_ERRATUM_4118414
  	  * ARM Neoverse-V2 erratum 4193787
  	  * ARM Neoverse-V3 erratum 4193784
  	  * ARM Neoverse-V3AE erratum 4193784
-+	  * NVIDIA Olympus erratum T410-OLY-1029
++	  * Microsoft Azure Cobalt 100 4193789
+ 	  * NVIDIA Olympus erratum T410-OLY-1029
  
  	  On affected cores, some memory accesses might not be completed by
- 	  broadcast TLB invalidation.
 diff --git a/arch/arm64/kernel/cpu_errata.c b/arch/arm64/kernel/cpu_errata.c
-index fba5c4e7c8ca7..42699eb454df8 100644
+index 42699eb454df8..80e47d3e86af4 100644
 --- a/arch/arm64/kernel/cpu_errata.c
 +++ b/arch/arm64/kernel/cpu_errata.c
-@@ -249,6 +249,7 @@ static const struct arm64_cpu_capabilities arm64_repeat_tlbi_list[] = {
- 			MIDR_ALL_VERSIONS(MIDR_NEOVERSE_V2),
+@@ -250,6 +250,7 @@ static const struct arm64_cpu_capabilities arm64_repeat_tlbi_list[] = {
  			MIDR_ALL_VERSIONS(MIDR_NEOVERSE_V3),
  			MIDR_ALL_VERSIONS(MIDR_NEOVERSE_V3AE),
-+			MIDR_ALL_VERSIONS(MIDR_NVIDIA_OLYMPUS),
+ 			MIDR_ALL_VERSIONS(MIDR_NVIDIA_OLYMPUS),
++			MIDR_ALL_VERSIONS(MIDR_MICROSOFT_AZURE_COBALT_100),
  			{}
  		})),
  	},
