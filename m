@@ -1,147 +1,122 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD058449ED2
-	for <stable@vger.kernel.org>; Tue, 16 Jun 2026 15:23:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E52D8441035;
+	Tue, 16 Jun 2026 15:23:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781623406; cv=none; b=VTt889yqR1cH26wpI5W8La77WLr0JxP0YVsVkZ8FjTKw8A/3dEutuD5WOrQ2R9170eZOiNTcFdN6p3Vyw1VjM7eGDnaRkkK05E9pqJW1d/zqyyMYEN7H+vhg6Wn5l7MSuI0R/WQ3AkofsJj0kW3Aoc7GlhiFMQQjE/tIlfns9ZM=
+	t=1781623409; cv=none; b=SexqcClb3m7BwgaTm/MoJFVafTvswFIZnP/T1dUcigQ7c+aeEJ9oZn6YoeGOZBIzDYWCkb1ft/Wfe49NaipMz1FPQpmKKOg8/klyJJKAChnZAfpyfdulVE8xM0z87WXSQnwR3oQoqw3zrJXtMLotX8OPxsPLd3viQQHMTBHAk+8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781623406; c=relaxed/simple;
-	bh=8i4twbSNDv02zgD1VY8jsEZ9u0TWwzEkJYMF1EplDoo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=K0ZaalbribJgFWSx4pMDcUXWVlSi30qb5+xbfE+UUtS2HafFQDDbHLVaf2clEIDBPF+JGgV2gZ0tlQRlKkRJBwNFhcb/Q9VoLuwLCr+Rha32D7/P90AJA34sIqBXdHU8t9BTjeQQCkC51lAh73VTzAhCBhpzfIUla4yubngB4r8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=iXYICBmI; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1781623409; c=relaxed/simple;
+	bh=vik4wTngmoNu58hA5PcEN65uK9s6NgLFmn9rM3dzohY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=fqQp/0dInUksTmtMmtWptifBaUM+MqBOLhwxv98TDY2+1Oj1POKGPY/IHymU5M9xT5PAaY5ckEjIG6LeiO5E2I6K3H6qcIqdSZsgQL0Zi+pfMcHL0vgrldE+UYwn276gNNPsY4Jv+NXpW5B+p0jz+f7bhuul9qvloSoPwWsTGM4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=fasmTLF8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="iXYICBmI"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1781623403;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=r1AASZfTRVbzLt5I/0GBJdZ/bjP6ci4PfAYJuRBn4WE=;
-	b=iXYICBmIKMrnlDAChFObJdROiRo9Ei2YxtGi3XOh6sDiAB8NtOUxndNSeh5Smb0sGhHV88
-	jOt5fw1sOqnr1no5PjUhznVNiH5KedDrFin9cPLUgcxN3fHjWtxO6YiH5yGy6QHpzJfKt+
-	2kNbWvR4tiq3w+Wt7m1v6ERVIojAiGg=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-362-YOZ8QqoZNdCi67PK60bP_g-1; Tue,
- 16 Jun 2026 11:23:22 -0400
-X-MC-Unique: YOZ8QqoZNdCi67PK60bP_g-1
-X-Mimecast-MFC-AGG-ID: YOZ8QqoZNdCi67PK60bP_g_1781623400
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 42A251954B17;
-	Tue, 16 Jun 2026 15:23:19 +0000 (UTC)
-Received: from [10.22.81.159] (unknown [10.22.81.159])
-	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 12209180059C;
-	Tue, 16 Jun 2026 15:23:14 +0000 (UTC)
-Message-ID: <c61c7925-b9e7-4a6f-82e2-398849ad9f27@redhat.com>
-Date: Tue, 16 Jun 2026 11:23:14 -0400
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="fasmTLF8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88AF71F000E9;
+	Tue, 16 Jun 2026 15:23:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1781623407;
+	bh=u4u/ypzpXdqyvYPM92CC7qzGk/0TK/4RPUhDmlTkn4s=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=fasmTLF8KfCYmCT/pXmo75LL/9JqWW/rwVaVWXIZ5+OvAJyNbJOCcjp5IcIYSflr4
+	 g8JxRI098Z6Ooi0Gu0xJvb7KTvBoVdp2SgmHF4ddxjddQ3GSR7u+2RGmcei+OJgaxa
+	 m/oix+Qb2Cnsv7cs6vvtVWOCqXq1/dsOJ+0FAZT4=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Eric Dumazet <edumazet@google.com>,
+	Tamir Shahar <tamirthesis@gmail.com>,
+	Amit Klein <aksecurity@gmail.com>,
+	Willem de Bruijn <willemb@google.com>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Stanislav Fomichev <sdf@fomichev.me>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.0 109/378] tcp: restrict SO_ATTACH_FILTER to priv users
+Date: Tue, 16 Jun 2026 20:25:40 +0530
+Message-ID: <20260616145116.105508507@linuxfoundation.org>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260616145109.744539446@linuxfoundation.org>
+References: <20260616145109.744539446@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] cgroup/cpuset: rebind mm mempolicy to effective_mems,
- not mems_allowed
-To: "David Hildenbrand (Arm)" <david@kernel.org>,
- Gregory Price <gourry@gourry.net>
-Cc: Farhad Alemi <farhad.alemi@berkeley.edu>,
- Andrew Morton <akpm@linux-foundation.org>, Farhad Alemi <falemi@asu.edu>,
- Yury Norov <ynorov@nvidia.com>, Joshua Hahn <joshua.hahnjy@gmail.com>,
- Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>,
- Rakie Kim <rakie.kim@sk.com>, Byungchul Park <byungchul@sk.com>,
- Ying Huang <ying.huang@linux.alibaba.com>,
- Alistair Popple <apopple@nvidia.com>,
- Rasmus Villemoes <linux@rasmusvillemoes.dk>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, cgroups@vger.kernel.org, stable@vger.kernel.org
-References: <CA+0ovCg05rUk1-3k2ysdxmbcER8aG-wVh9SSTrrbp6LPWpPHYA@mail.gmail.com>
- <CA+0ovCgfHJHv5d1mzapWWvF-LhjppzDX8NPPLvCPZxPKg8RiYw@mail.gmail.com>
- <8d3b4561-92cd-4ebc-8462-5fb0fd659e8a@kernel.org>
- <ai_IHvyptWPcTD0y@gourry-fedora-PF4VCD3F>
- <70f486ce-5ef6-4d72-8cc3-7086f4eea930@redhat.com>
- <c1495b1b-9dee-4cd5-ac8e-eeb7a2d968ed@redhat.com>
- <51eafe6c-6622-479b-b391-6d3ff9350e75@kernel.org>
-Content-Language: en-US
-From: Waiman Long <longman@redhat.com>
-In-Reply-To: <51eafe6c-6622-479b-b391-6d3ff9350e75@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
-On 6/16/26 2:59 AM, David Hildenbrand (Arm) wrote:
-> On 6/16/26 05:43, Waiman Long wrote:
->> On 6/15/26 10:26 PM, Waiman Long wrote:
->>> On 6/15/26 5:38 AM, Gregory Price wrote:
->>>> All interactions between mempolicy and cpuset are horrible and
->>>> confusing.  Much like Lorenzo's anon_vma work, I have to keep
->>>> notes on how this whole thing doesn't just spew SIGBUS constantly.
->>>>
->>>> The short answer is: mempolicy is advisory and cpuset is strictly
->>>> followed - in a dispute cpuset wins... except for file backed memory,
->>>> then everyon loses and nothing is consistent.
->>> That is what I believe why mpol_rebind_mm() a bit differently from the others
->>> and it is historically done this way a long time ago before cgroup v2.
->>>
->>> For cgroup v1, mems_allowed can't be empty or you can't put any task into the
->>> cpuset. Also effective_mems is the same as mems_allowed. cgroup v2 is quite
->>> different in how it handles memory nodes and CPUs. Users can isn't forced to
->>> set mems_allowed and cpus_allowed as effective_mems and effective_cpus will
->>> inherit parent version if mems_allowed and cpus_allowed are not set. IOW,
->>> effective_mems will never be empty. Yes, it is a bug with the introduction of
->>> cpuset v2 that we should have replaced mems_allowed by effective_mems at that
->>> time. With v2, effective_mems should contain only online nodes. The only
->>> exception is during the short transition period when a memory node hotunplug
->>> operation is in progress when a write to cpuset.mems is happening at the same
->>> time. With v1, it is theoretically possible that none of the nodes in
->>> mems_allowed is online.
->>>
->>> The reason why I am suggesting to use cs->effective_mems to keep the old
->>> cgroup v1 behavior. If the consensus is to use the output of
->>> guarantee_online_mems() for mpol_rebind_mm(), I will not be against that but
->>> it will be a slight change in user-visible behavior.
->> BTW, I still prefer the v2 patch. If it is decided we should use the
->> guarantee_online_mems() value instead, it will have to be a separate patch with
->> changes in the relevant documentation like Documentation/admin-guide/cgroup-v1/
->> cpuset.rst.
-> newmems is "obviously" correct, so I really don't see why we should add
-> something that needs half a page of text to explain why it is fine -- if newmems
-> just does the trick?
->
-> Please enlighten me.
+7.0-stable review patch.  If anyone has any objections, please let me know.
 
-Yes, taking newmems is a reasonable choice and there are pros and cons 
-with each options. My focus is more on not changing how v1 cpuset 
-behaves as it is well defined in the v1 cpusets.rst file:
+------------------
 
-     Requests by a task, using the sched_setaffinity(2) system call to
-     include CPUs in its CPU affinity mask, and using the mbind(2) and
-     set_mempolicy(2) system calls to include Memory Nodes in its memory
-     policy, are both filtered through that task's cpuset, filtering out any
-     CPUs or Memory Nodes not in that cpuset.  The scheduler will not
-     schedule a task on a CPU that is not allowed in its cpus_allowed
-     vector, and the kernel page allocator will not allocate a page on a
-     node that is not allowed in the requesting task's mems_allowed vector.
+From: Eric Dumazet <edumazet@google.com>
 
-v2, OTOH, is more vague as to what setting cpuset.mems will mean and we 
-generally follow what v1 is doing, but we have more leeway of what we 
-can do.
+[ Upstream commit 5d39580f68e6ddeedd15e587282207489dfb3da2 ]
 
-Using newmems will make the above text not totally correct. At least the 
-offline memory nodes will be filtered out which will not be utilized by 
-the task when the offline node becomes online. That is why I am saying 
-that we will have to correct the documentation if we want to make this 
-change.
+This patch restricts the use of SO_ATTACH_FILTER (cBPF) on TCP sockets
+to users with CAP_NET_ADMIN capability.
 
-Cheers,
-Longman
+This blocks potential side-channel attack where an unprivileged application
+attaches a filter to leak TCP sequence/acknowledgment numbers.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Signed-off-by: Eric Dumazet <edumazet@google.com>
+Reported-by: Tamir Shahar <tamirthesis@gmail.com>
+Reported-by: Amit Klein <aksecurity@gmail.com>
+Cc: Willem de Bruijn <willemb@google.com>
+Cc: Alexei Starovoitov <ast@kernel.org>
+Cc: Daniel Borkmann <daniel@iogearbox.net>
+Cc: Andrii Nakryiko <andrii@kernel.org>
+Cc: Martin KaFai Lau <martin.lau@linux.dev>
+Cc: Eduard Zingerman <eddyz87@gmail.com>
+Cc: Kumar Kartikeya Dwivedi <memxor@gmail.com>
+Cc: Song Liu <song@kernel.org>
+Cc: Yonghong Song <yonghong.song@linux.dev>
+Cc: Jiri Olsa <jolsa@kernel.org>
+Cc: John Fastabend <john.fastabend@gmail.com>
+Cc: Stanislav Fomichev <sdf@fomichev.me>
+Acked-by: Daniel Borkmann <daniel@iogearbox.net>
+Reviewed-by: Willem de Bruijn <willemb@google.com>
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ net/core/sock.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/net/core/sock.c b/net/core/sock.c
+index b197a795306392..d317b4a8b85a25 100644
+--- a/net/core/sock.c
++++ b/net/core/sock.c
+@@ -1463,6 +1463,11 @@ int sk_setsockopt(struct sock *sk, int level, int optname,
+ 	case SO_ATTACH_FILTER: {
+ 		struct sock_fprog fprog;
+ 
++		if (sk_is_tcp(sk) &&
++		    !sockopt_ns_capable(sock_net(sk)->user_ns, CAP_NET_ADMIN)) {
++			ret = -EPERM;
++			break;
++		}
+ 		ret = copy_bpf_fprog_from_user(&fprog, optval, optlen);
+ 		if (!ret)
+ 			ret = sk_attach_filter(&fprog, sk);
+-- 
+2.53.0
+
+
 
