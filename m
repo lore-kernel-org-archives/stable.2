@@ -1,45 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 095B744E027;
-	Tue, 16 Jun 2026 15:55:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89A4037C912
+	for <stable@vger.kernel.org>; Tue, 16 Jun 2026 15:55:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781625336; cv=none; b=ZLdbmib536ZBI0ghffYMLUsmd3o5o1fxcvjBimyu97vDcr5s1pLlbppTnAPWlOC6ZYbvcfkbgbitZUP7u36KQnnIWj8xRmcNW8jjXoT86clQzIsxqKV+RWJEv+4Hwoe3bTKggW2pm2XWyYPO7fWKjL7UPodkyxPhjRuO0SalXqc=
+	t=1781625336; cv=none; b=GVHyyoh4TV7NA6+5MwU1iOcfWgHKJcUdjn1JHx/746Ht8rvNKKxTjl689OChOigaVyae6A60JU0yXj//CsAABZ/PJbMJwb67+ieaZpjb3UgYVwIL9RYAGMpz8+8wczogmXW9+gyYDfz8+eopgOQAfIt19IW+j5gxSRu/44tQwMc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1781625336; c=relaxed/simple;
-	bh=XxvSTalwbUbDsoU7FzsvmQ5+sG3PYsawLqkCq0AVbzg=;
+	bh=tLeVq7+n1v6EjWKWgf/AE15I8C4hwa7E5W/6XcldgVY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=LDZZaEepKeG3hIWWcnEVo0jVfsMU6I55JM17xfFvdPywubwXS4IDtaqFXFkz6nRExzOHWl8Kxzaj4ze8WgZVda2YOpxnE1SnnvDp1u9PNlPwbfQZNVUdQowm7+CrbtFD0ecbP7rHMzJOK7bK1Q+Obh2iuQNki4zptYPIeCbYR/8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=2pU4k6oq; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=XtOWCDvgH28yIU+bEgzbR6PqUUmvjW3cjQg4DE6pfwDPvBIPdmtKBvD6UhcVeDmsKGgKUWSLHwgEufsda8FxuH2sYG3oiVwoBj14xoxOsu9QFjsajhGkGyaJoTdkp8bQJzAZcHSnfOGd+9M7FrZANatwY+M/akI6aPRCW7P9B8Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KleP4s5d; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="2pU4k6oq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E15AB1F000E9;
-	Tue, 16 Jun 2026 15:55:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1781625334;
-	bh=Zx8tQ+VvrY6dJUNbHIu1m4OefYeUI5xWf1vkzJ3yhKo=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KleP4s5d"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9F891F00A3A;
+	Tue, 16 Jun 2026 15:55:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781625335;
+	bh=e9qoOgMtPh4U/TuzwBJX0HS9QwtFjrRRbjBYcVRcw7Q=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=2pU4k6oqldok8ez/zD7T5Wffos8CoJECwA3rcpzkyuQY5o76lPvXN3ilADr3ACc1b
-	 6RFmYkqw2Uy1MlLGjTj308472Ol+sDnBJXjcvTh08GVT+8+zWSD1hZUWzhkoWGAmcu
-	 i2G8+KmqP1KnoHFzu9oRBABKSwM6i/zPwtJL0Oi8=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=KleP4s5dMxyAq0eYUxPiECoWT8wvqOBgnYAFwpH144eezpcaRiYlHO8smT3Owb0ru
+	 DIGdG3k91UNrP+CCnRLFyUqDZSQBBCfKNdiKc714VP5X9SmIroj4iocFUm6r1ujkRA
+	 5lRAT9kyetjOrgzNbE8feo5FulM1zvkqaAKRX1KYwjjTiKCoJ5Xb+o4o2kO1sdEspM
+	 a8ZAPtEefcc1BH/UWHmk0o8kP3I122EeLiqc4aT+el95j6evUgE1mTPeVYACt4vwYG
+	 U//afD+4HIuWYq2WCvtcTIFdKJNSc7nAgnOQOwS8UH8yNmPZy1ZF7XysH7CHHy66Ct
+	 S4d3mJjcQpS1A==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Michael Bommarito <michael.bommarito@gmail.com>,
-	Xin Long <lucien.xin@gmail.com>,
+Cc: Tao Cui <cuitao@kylinos.cn>,
+	"Matthieu Baerts (NGI0)" <matttbe@kernel.org>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 115/325] sctp: fix uninit-value in __sctp_rcv_asconf_lookup()
-Date: Tue, 16 Jun 2026 20:28:31 +0530
-Message-ID: <20260616145103.432539458@linuxfoundation.org>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260616145057.827196531@linuxfoundation.org>
-References: <20260616145057.827196531@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Subject: [PATCH 6.6.y] mptcp: pm: fix extra_subflows underflow on userspace PM subflow creation
+Date: Tue, 16 Jun 2026 11:55:33 -0400
+Message-ID: <20260616155533.3323286-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026061555-garland-jailbird-8f3c@gregkh>
+References: <2026061555-garland-jailbird-8f3c@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,64 +46,64 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+From: Tao Cui <cuitao@kylinos.cn>
 
-------------------
+[ Upstream commit 14e9fea30b68fc75b2b3d97396a7e6adb544bd2a ]
 
-From: Michael Bommarito <michael.bommarito@gmail.com>
+The userspace PM increments extra_subflows after __mptcp_subflow_connect()
+succeeds, but __mptcp_subflow_connect() calls mptcp_pm_close_subflow()
+on failure to roll back the pre-increment done by the kernel PM's fill_*()
+helpers. Because the userspace PM hasn't incremented yet at that point,
+this decrement is spurious and causes extra_subflows to underflow.
 
-[ Upstream commit f8373d7090b745728de66308deeecc67e8d319ce ]
+Fix it by aligning the userspace PM with the kernel PM: increment
+extra_subflows before calling __mptcp_subflow_connect(), so the existing
+error path in subflow.c correctly rolls it back on failure. Also simplify
+the error handling by taking pm.lock only when needed for cleanup.
 
-__sctp_rcv_asconf_lookup() in net/sctp/input.c only checks that the ASCONF
-chunk can hold the ADDIP header and a parameter header, then calls
-af->from_addr_param(), which reads the full address (16 bytes for IPv6)
-trusting the parameter's declared length.
-
-An unauthenticated peer can send a truncated trailing ASCONF chunk that
-declares an IPv6 address parameter but stops after the 4-byte parameter
-header; reached from the no-association lookup path, from_addr_param() then
-reads uninitialized bytes past the parameter.
-
-Impact: an unauthenticated SCTP peer makes the receive path read up to 16
-bytes of uninitialized memory past a truncated ASCONF address parameter.
-
-The sibling __sctp_rcv_init_lookup() bounds parameters with
-sctp_walk_params(); this path open-codes the fetch and omits the bound.
-Verify the whole address parameter lies within the chunk before
-from_addr_param() reads it, the same class of fix as commit 51e5ad549c43
-("net: sctp: fix KMSAN uninit-value in sctp_inq_pop").
-
-Fixes: df2185771439 ("[SCTP]: Update association lookup to look at ASCONF chunks as well")
-Signed-off-by: Michael Bommarito <michael.bommarito@gmail.com>
-Acked-by: Xin Long <lucien.xin@gmail.com>
-Link: https://patch.msgid.link/20260608122234.459098-1-michael.bommarito@gmail.com
+Fixes: 77e4b94a3de6 ("mptcp: update userspace pm infos")
+Cc: stable@vger.kernel.org
+Signed-off-by: Tao Cui <cuitao@kylinos.cn>
+Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
+Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
+Link: https://patch.msgid.link/20260602-net-mptcp-misc-fixes-7-1-rc7-v2-5-856831229976@kernel.org
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/sctp/input.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ net/mptcp/pm_userspace.c | 13 ++++++++-----
+ 1 file changed, 8 insertions(+), 5 deletions(-)
 
-diff --git a/net/sctp/input.c b/net/sctp/input.c
-index e119e460ccde0b..864741fae4187e 100644
---- a/net/sctp/input.c
-+++ b/net/sctp/input.c
-@@ -1204,6 +1204,14 @@ static struct sctp_association *__sctp_rcv_asconf_lookup(
- 	/* Skip over the ADDIP header and find the Address parameter */
- 	param = (union sctp_addr_param *)(asconf + 1);
+diff --git a/net/mptcp/pm_userspace.c b/net/mptcp/pm_userspace.c
+index 8faf776cb977c6..663aeefbd1b230 100644
+--- a/net/mptcp/pm_userspace.c
++++ b/net/mptcp/pm_userspace.c
+@@ -408,18 +408,21 @@ int mptcp_nl_cmd_sf_create(struct sk_buff *skb, struct genl_info *info)
+ 		goto create_err;
+ 	}
  
-+	/* The whole address parameter must lie within the chunk before
-+	 * af->from_addr_param() reads the variable-length address; otherwise a
-+	 * truncated trailing ASCONF chunk lets it read uninitialized bytes past
-+	 * the parameter.
-+	 */
-+	if (sizeof(*asconf) + ntohs(param->p.length) > ntohs(ch->length))
-+		return NULL;
++	spin_lock_bh(&msk->pm.lock);
++	msk->pm.subflows++;
++	spin_unlock_bh(&msk->pm.lock);
 +
- 	af = sctp_get_af_specific(param_type2af(param->p.type));
- 	if (unlikely(!af))
- 		return NULL;
+ 	lock_sock(sk);
+ 
+ 	err = __mptcp_subflow_connect(sk, &addr_l, &addr_r);
+ 
+ 	release_sock(sk);
+ 
+-	spin_lock_bh(&msk->pm.lock);
+-	if (err)
++	if (err) {
++		spin_lock_bh(&msk->pm.lock);
+ 		mptcp_userspace_pm_delete_local_addr(msk, &local);
+-	else
+-		msk->pm.subflows++;
+-	spin_unlock_bh(&msk->pm.lock);
++		spin_unlock_bh(&msk->pm.lock);
++	}
+ 
+  create_err:
+ 	sock_put((struct sock *)msk);
 -- 
 2.53.0
-
-
 
