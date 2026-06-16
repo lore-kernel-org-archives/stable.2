@@ -1,93 +1,88 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F72036C5A1;
-	Tue, 16 Jun 2026 14:19:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F9D63624C1;
+	Tue, 16 Jun 2026 14:22:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781619575; cv=none; b=I3kZAdJfwQ6DhaGWGF/HoPfeKbVgBPd9omiLNuPskLL4IRTVVBsXLKg2usE8NRub0cvm8pdaFhFUiukQI3i0GudEqSX417WQJuYebWOOJlAnjNh6ki/sFqFbSRZy9r/M1rZ1r0NdBbalwUfhi6XjizzmUYApKA4IZtY4Hn4W5jg=
+	t=1781619765; cv=none; b=KHhU6vtLT9COtb1lHDQtjY2+ZMNxaqvla4qCh0Hu4c9Z96FwjGlsFpzADxgfd/YEe3WE1abaNbyVjdczOPR8BRKR0o86jOxx8HqV0V9qbXSdQeVCjLVo9ubBXROVE6RbZc5+//3zw4zcoiO9GkDTCggblmtkTFVzed/Y94NX3uc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781619575; c=relaxed/simple;
-	bh=f0B7hPcLipWmH3E8jjtfL31N+sYuG8r1wAD9c9nYHVg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AA48y0rCuT0qOtleuWlS5NvYNh5Y8gTkW6sQugirr6TtOtNfnXd8mLk9TLJtVt9/FhgBG2eXztfrIgrUPhJpMghUUWwr78TqM6ppMLYHj/8ko6WA6jTZ2jIAtogCOZXr8kj1scXpT/h7vdjODT5cUoExXrdvg6QOjudr3Jy4/fw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UYYJAupL; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UYYJAupL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D0C21F000E9;
-	Tue, 16 Jun 2026 14:19:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781619574;
-	bh=TLGGdLtUmkchl0dQCLv1NvzeNJ5dSPlGQkOH9FAEEBk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=UYYJAupLKnVLY+f+SbK8WhBPC/wZkWBRG04GJeZddICgwlcHkm3ldMO2Udb/Vk6in
-	 /7e5rKDqV7pswD6PRKf3cYq1ax9tI3jsHEOWbtnpPURKASvjwc+STALhf/VbGwwNDK
-	 Pm1SKI1FMUEiNHWY+Iuw/+RHW1p6L6H8exaSGqD9Q/TwVj2CO4SYID/aPrafZD51mi
-	 aK9TfeDDqNXTMHAATINmkq3104pBcB+czy1IFf8PHGQk+baiz7gOUMKUrQO6gG++VU
-	 QZSmAFJwMbQV89U3eOdo4VtYdvy+3RP2JgW1bgNzL9IBQkb3WcnSH8M5zgS7tSip0A
-	 EUH+0qGeOryzg==
-Date: Tue, 16 Jun 2026 16:19:28 +0200
-From: Carlos Maiolino <cem@kernel.org>
-To: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
-Cc: Sasha Levin <sashal@kernel.org>, Fedor Pchelkin <pchelkin@ispras.ru>, 
-	Leah Rumancik <leah.rumancik@gmail.com>, stable@vger.kernel.org, xfs-stable@lists.linux.dev, 
-	"Darrick J. Wong" <djwong@kernel.org>, Christoph Hellwig <hch@lst.de>, 
-	Catherine Hoang <catherine.hoang@oracle.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	lvc-project@linuxtesting.org, linux-xfs@vger.kernel.org
-Subject: Re: [PATCH 6.6 0/4] fix kernel crash for xfs/235 test
-Message-ID: <ajFabPtI8UGfkyix@nidhogg.toxiclabs.cc>
-References: <20250322143418.216654-1-pchelkin@ispras.ru>
- <aisAxyXVxf4wql2u@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
- <20260612233110.2-1-sashal@kernel.org>
- <ajBQPNuKCruxhkXX@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
- <ajD3Gb-vQkGU0N6b@nidhogg.toxiclabs.cc>
- <ajFQPY2m2A6ltvTH@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
+	s=arc-20240116; t=1781619765; c=relaxed/simple;
+	bh=rPUlpii724+DCkmPeW9rSHCFn/3gLQDSUBcQ5krqFA4=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=brvFBbaTgRpdN+b8rxSb9CQXDcwPRtDZplM+kuHtg2YPJjJxhgMpWsuOkXuiHGsp/wnFzsvSlZ34kBOF0C9WVYUcMew4ENHrGtWCvQYwieZ2xODweHlolRnhMfdX8aWeg/Wrxcw0kCupjvrq4llJM/1xXKngJc0/gAVjGeO2PJY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-01 (Coremail) with SMTP id qwCowACHKNEuXDFqlqTvAQ--.40251S2;
+	Tue, 16 Jun 2026 22:22:38 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: vincent.sunplus@gmail.com,
+	vkoul@kernel.org
+Cc: neil.armstrong@linaro.org,
+	linux-usb@vger.kernel.org,
+	linux-phy@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] phy: sunplus: fix refcount leak in sp_uphy_init()
+Date: Tue, 16 Jun 2026 14:22:34 +0000
+Message-Id: <20260616142234.1690457-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ajFQPY2m2A6ltvTH@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qwCowACHKNEuXDFqlqTvAQ--.40251S2
+X-Coremail-Antispam: 1UD129KBjvdXoW7JF43tw45Zw4kGr13Wr13CFg_yoWkZrg_WF
+	18Kry7Jw4DKF1Dur40yrWIy3yS9Fn8XFy8Ka10vFWSyFyjyFnIv3Z7ZFWv9F1fu3yUCFy2
+	kwnrZ34fAa92gjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUb4kFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j
+	6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Cr1j6rxdMcvjeVCFs4IE7xkEbVWUJV
+	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AFwI0_
+	JF0_Jw1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67
+	AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIY
+	rxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14
+	v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8
+	JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjfUz9aBUU
+	UUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAcAA2oxFt-+7gAAsK
 
-On Tue, Jun 16, 2026 at 09:31:41AM -0400, Hamza Mahfooz wrote:
-> Cc: linux-xfs@vger.kernel.org
-> 
-> On Tue, Jun 16, 2026 at 09:13:45AM +0200, Carlos Maiolino wrote:
-> > On Mon, Jun 15, 2026 at 03:19:24PM -0400, Hamza Mahfooz wrote:
-> > > Cc: Carlos Maiolino <cem@kernel.org>
-> > 
-> > FWIW I don't maintain the stable trees I really don't have time for
-> > that. Darrick/Leah have been doing a best effort case for that, but
-> > again, this is mostly a best effort so we shouldn't expect them to be
-> > looking/picking up every single possible patch suggested for stable.
-> > 
-> 
-> Now that you mention it, the xfs-stable mailing list seems to be pretty
-> much dead (i.e. the last time fixes from it were merged into stable was
-> almost a year ago). I guess no one is really working on it anymore?
+If update_disc_vol() fails after reset_control_deassert() succeeds,
+the function returns without calling reset_control_assert() and
+clk_disable_unprepare(). This leaks the reset control deassert count
+and leaves the clock enabled.
 
-IIRC Darrick started it, I personally never worked on it, but I didn't
-follow the evolution there.
+Fix it by jumping to the err_reset label instead of returning
+directly, so the cleanup path is executed.
 
-> 
-> > > 
-> > > On Fri, Jun 12, 2026 at 08:20:34PM -0400, Sasha Levin wrote:
-> > > > On Wed, Jun 11, 2026 at 02:39:03PM -0400, Hamza Mahfooz wrote:
-> > > > > Any idea what happened to this series? It resolves an issue that I've
-> > > > > hit in a production environment FWIW.
-> > > > >
-> > > > > Series is:
-> > > > >
-> > > > > Tested-by: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
-> > > > 
-> > > > Thanks for the nudge, and thanks Fedor for putting the backport together.
-> > > > 
-> > > > We generally don't take XFS backports without a maintainer signing off on them,
-> > > > so right now we're waiting for one to do so :)
-> > > > 
-> > > > --
-> > > > Thanks,
-> > > > Sasha
+Cc: stable@vger.kernel.org
+Fixes: 99d9ccd97385 ("phy: usb: Add USB2.0 phy driver for Sunplus SP7021")
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/phy/sunplus/phy-sunplus-usb2.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/phy/sunplus/phy-sunplus-usb2.c b/drivers/phy/sunplus/phy-sunplus-usb2.c
+index 637a5fbae6d9..c7bc3ac89ca9 100644
+--- a/drivers/phy/sunplus/phy-sunplus-usb2.c
++++ b/drivers/phy/sunplus/phy-sunplus-usb2.c
+@@ -129,7 +129,7 @@ static int sp_uphy_init(struct phy *phy)
+ 	/* disconnect voltage */
+ 	ret = update_disc_vol(usbphy);
+ 	if (ret < 0)
+-		return ret;
++		goto err_reset;
+ 
+ 	/* board uphy 0 internal register modification for tid certification */
+ 	val = readl(usbphy->phy_regs + CONFIG9);
+-- 
+2.34.1
+
