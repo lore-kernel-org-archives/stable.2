@@ -1,138 +1,114 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from out-174.mta1.migadu.com (out-174.mta1.migadu.com [95.215.58.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16B3A3C09EE
-	for <stable@vger.kernel.org>; Tue, 16 Jun 2026 02:26:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 275DE37C91C
+	for <stable@vger.kernel.org>; Tue, 16 Jun 2026 02:32:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781576785; cv=none; b=fF/uT0/+a/fBuoDvTj3nPk3Oc2+NJb4dvnBfFO2MHnHwAF5+FhtW1PqGRQUVCRHbzngAHXWFoQzUXQlc3ty0Cvfvzr98h5h5BjeIBIC+QarATqGdQWGz5A2ZUXTJUyato8u7vkTfMoKG/fFwTkdqThk+bl3kuzcZyap/Rmtwo2Y=
+	t=1781577150; cv=none; b=XnNK+TKGRxlV4GvVk+TwArhRrY5XtctH8Fgby4IMAMZXHtaebBiwrRxMzVrhmW/6Rnspe50kkcMPjTKBXo6xXd6ok30vPlBzKuEHw/RTuyJua59prvAILK2TiPcjykAtfB08bb/IyIdbwhdWyTpiHLBYNn56Avw+TJTe8FnLEYI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781576785; c=relaxed/simple;
-	bh=rXDiLHONRdX5xgJKk59Q2h6sS+qsbt8Lalr/InWKZS8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=iuY+c4j+Z3RsyB++GfA5U/6dAQq6pEXOcabcCK8XzOR9cOzCJ7hja4YHhQJRStOfmbYLSJ7ebyAd6d7Lu5h/weVtIrkwqieVDLCaQo0Pg0Q4xTOkNoM5z8cryg7eiO/irSr+sUWcRbwLuLwNT3kU1fsxcnnFiXV0dBRkFWBqEww=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=A9eP23dR; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1781577150; c=relaxed/simple;
+	bh=Sopc87+5q7eR7VJtTx+KVoE2M/UJom9Vu1PK0A1rLVU=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=qNu226HVKIu76x8U3J/i+xxM6EDQberTztAIX7x2IJkewkpiuXPB2hVEuHKpaQEw1zYtj6bb0vluOjjRgoHTWe24pJ83z0SEylLhZlpp1P1u0Dho2YvBPexNb0sm2gvB9p9qBYbtH82oa60U+FWp7YaHLs2htq4wlz7PETDXDAA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ZRQmG+zF; arc=none smtp.client-ip=95.215.58.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="A9eP23dR"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1781576783;
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ZRQmG+zF"
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1781577137;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Eb9pUs+M+9+MDnB/3Yt1uwyfMWxmUaDhKWEfbwTi46Y=;
-	b=A9eP23dRjlccSEUtrvX+WTPxP2Cy4NDvrynd8DcdI23arEgD8lw49Jcwc0D/S7VlAuQ4xI
-	dqIhwP5/jGEvrhQckr+Fqz1uvkiDKEcndwUxE1Bal1WRCL6vA8Ppydka07x1jHd2BVFl/O
-	kSrWt/BjRd8ZuJq0ZlZXftSebfgBix0=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-35-5arF6-6bNoeyheyT1mfSjg-1; Mon,
- 15 Jun 2026 22:26:16 -0400
-X-MC-Unique: 5arF6-6bNoeyheyT1mfSjg-1
-X-Mimecast-MFC-AGG-ID: 5arF6-6bNoeyheyT1mfSjg_1781576774
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 7C9B71800655;
-	Tue, 16 Jun 2026 02:26:13 +0000 (UTC)
-Received: from [10.22.89.117] (unknown [10.22.89.117])
-	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 5920C1800347;
-	Tue, 16 Jun 2026 02:26:10 +0000 (UTC)
-Message-ID: <70f486ce-5ef6-4d72-8cc3-7086f4eea930@redhat.com>
-Date: Mon, 15 Jun 2026 22:26:09 -0400
+	bh=/oQp60CeS2OqPkQlb+GAaqqk2o9SM+Ljd8d+w6AQvZ0=;
+	b=ZRQmG+zFarn/PCSzk9dhXskN9MMAgbLgLtc8e1+KicSk+DS/IClkIrjnBGq49lziVpg4if
+	S50fUr+Q5BZ9Fzq5RvEtmUyjchStVLuDGSUhJzQJnKyvdiPiPzT+3iGLHrgHLrIq8quWTq
+	/nCsbHdjZaTRpCbi60EfU7rvFudjzk4=
+From: Lance Yang <lance.yang@linux.dev>
+To: leitao@debian.org
+Cc: catalin.marinas@arm.com,
+	akpm@linux-foundation.org,
+	lance.yang@linux.dev,
+	dave@stgolabs.net,
+	oleg@redhat.com,
+	cai@lca.pw,
+	sj@kernel.org,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	kernel-team@meta.com,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v3 1/3] mm/kmemleak: avoid soft lockup when scanning task stacks
+Date: Tue, 16 Jun 2026 10:31:53 +0800
+Message-Id: <20260616023153.20399-1-lance.yang@linux.dev>
+In-Reply-To: <20260615-kmemleak-stack-resched-v3-1-acecd7d7fd92@debian.org>
+References: <20260615-kmemleak-stack-resched-v3-1-acecd7d7fd92@debian.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] cgroup/cpuset: rebind mm mempolicy to effective_mems,
- not mems_allowed
-To: Gregory Price <gourry@gourry.net>,
- "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Farhad Alemi <farhad.alemi@berkeley.edu>,
- Andrew Morton <akpm@linux-foundation.org>, Farhad Alemi <falemi@asu.edu>,
- Yury Norov <ynorov@nvidia.com>, Joshua Hahn <joshua.hahnjy@gmail.com>,
- Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>,
- Rakie Kim <rakie.kim@sk.com>, Byungchul Park <byungchul@sk.com>,
- Ying Huang <ying.huang@linux.alibaba.com>,
- Alistair Popple <apopple@nvidia.com>,
- Rasmus Villemoes <linux@rasmusvillemoes.dk>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, cgroups@vger.kernel.org, stable@vger.kernel.org
-References: <CA+0ovCg05rUk1-3k2ysdxmbcER8aG-wVh9SSTrrbp6LPWpPHYA@mail.gmail.com>
- <CA+0ovCgfHJHv5d1mzapWWvF-LhjppzDX8NPPLvCPZxPKg8RiYw@mail.gmail.com>
- <8d3b4561-92cd-4ebc-8462-5fb0fd659e8a@kernel.org>
- <ai_IHvyptWPcTD0y@gourry-fedora-PF4VCD3F>
-Content-Language: en-US
-From: Waiman Long <longman@redhat.com>
-In-Reply-To: <ai_IHvyptWPcTD0y@gourry-fedora-PF4VCD3F>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Migadu-Flow: FLOW_OUT
 
 
-On 6/15/26 5:38 AM, Gregory Price wrote:
-> On Mon, Jun 15, 2026 at 10:08:51AM +0200, David Hildenbrand (Arm) wrote:
->> On 6/14/26 15:25, Farhad Alemi wrote:
->>> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
->>> --- a/kernel/cgroup/cpuset.c
->>> +++ b/kernel/cgroup/cpuset.c
->>> @@ -2649,7 +2649,7 @@ void cpuset_update_tasks_nodemask(struct cpuset *cs)
->>>
->>>   		migrate = is_memory_migrate(cs);
->>>
->>> -		mpol_rebind_mm(mm, &cs->mems_allowed);
->>> +		mpol_rebind_mm(mm, &cs->effective_mems);
->> God this is confusing.
->>
-> All interactions between mempolicy and cpuset are horrible and
-> confusing.  Much like Lorenzo's anon_vma work, I have to keep
-> notes on how this whole thing doesn't just spew SIGBUS constantly.
+On Mon, Jun 15, 2026 at 10:49:06AM -0700, Breno Leitao wrote:
+>kmemleak_scan() walks every thread and scans its kernel stack under a
+>single rcu_read_lock() with no reschedule point. On a host with very
+>many threads -- amplified by KASAN/lockdep in debug builds -- this loop
+>can hog a CPU long enough to trip the soft lockup watchdog:
 >
-> The short answer is: mempolicy is advisory and cpuset is strictly
-> followed - in a dispute cpuset wins... except for file backed memory,
-> then everyon loses and nothing is consistent.
-
-That is what I believe why mpol_rebind_mm() a bit differently from the 
-others and it is historically done this way a long time ago before 
-cgroup v2.
-
-For cgroup v1, mems_allowed can't be empty or you can't put any task 
-into the cpuset. Also effective_mems is the same as mems_allowed. cgroup 
-v2 is quite different in how it handles memory nodes and CPUs. Users can 
-isn't forced to set mems_allowed and cpus_allowed as effective_mems and 
-effective_cpus will inherit parent version if mems_allowed and 
-cpus_allowed are not set. IOW, effective_mems will never be empty. Yes, 
-it is a bug with the introduction of cpuset v2 that we should have 
-replaced mems_allowed by effective_mems at that time. With v2, 
-effective_mems should contain only online nodes. The only exception is 
-during the short transition period when a memory node hotunplug 
-operation is in progress when a write to cpuset.mems is happening at the 
-same time. With v1, it is theoretically possible that none of the nodes 
-in mems_allowed is online.
-
-The reason why I am suggesting to use cs->effective_mems to keep the old 
-cgroup v1 behavior. If the consensus is to use the output of 
-guarantee_online_mems() for mpol_rebind_mm(), I will not be against that 
-but it will be a slight change in user-visible behavior.
-
-Cheers, Longman
-
->> Naturally I wonder: Why are we not using "task->mems_allowed" (maybe cs vs. tsk
->> was the original bug?), which is effectively just newmems?
->>
-> Short answer: task->mems_allowed is protected by the task lock and we
-> don't hold the task lock for a foreign task (not-current) over mm
-> operations.
+>  watchdog: BUG: soft lockup - CPU#35 stuck for 22s! [kmemleak:537]
+>   scan_block
+>   kmemleak_scan
+>   kmemleak_scan_thread
+>   kthread
 >
-> Long answer: Reasons and "Stop looking at the spaghetti, it's going to
-> break"
+>A cond_resched() cannot be added directly: the loop runs inside an RCU
+>read-side critical section.
 >
-> ~Gregory
+>Walk the tasks one PID at a time with find_ge_pid(), taking the RCU read
+>lock only to look up and pin each task. The stack is then scanned with no
+>lock held, so cond_resched() runs between tasks and the scan stops early
+>on scan_should_stop(). This follows the next_tgid()/task_seq_get_next()
+>iteration pattern and keeps each RCU critical section short.
 >
+>Fixes: c4b28963fd79 ("mm/kmemleak: rely on rcu for task stack scanning")
+>Cc: stable@vger.kernel.org
+>Signed-off-by: Breno Leitao <leitao@debian.org>
+>---
+> mm/kmemleak.c | 51 ++++++++++++++++++++++++++++++++++++++-------------
+> 1 file changed, 38 insertions(+), 13 deletions(-)
+>
+>diff --git a/mm/kmemleak.c b/mm/kmemleak.c
+>index 7c7ba17ce7af0..a7786b6bc174e 100644
+>--- a/mm/kmemleak.c
+>+++ b/mm/kmemleak.c
+>@@ -1695,6 +1695,42 @@ static void kmemleak_cond_resched(struct kmemleak_object *object)
+> 	put_object(object);
+> }
+> 
+>+/*
+>+ * Scan all task kernel stacks, rescheduling between tasks. Each task is looked
+>+ * up and pinned within its own RCU read-side section, so no lock is held across
+>+ * the scan and the walk cannot trip the soft lockup watchdog.
+>+ */
+>+static void kmemleak_scan_task_stacks(void)
+>+{
+>+	struct pid *pid;
+>+	int nr = 1;
+>+
+>+	do {
+>+		struct task_struct *p = NULL;
+>+
+>+		rcu_read_lock();
+>+		pid = find_ge_pid(nr, &init_pid_ns);
 
+I wasn't aware of find_ge_pid() before. It walks the pid IDR, not every
+possible pid number :) LGTM.
+
+Reviewed-by: Lance Yang <lance.yang@linux.dev>
