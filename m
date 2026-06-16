@@ -1,114 +1,61 @@
-Received: from out-174.mta1.migadu.com (out-174.mta1.migadu.com [95.215.58.174])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 275DE37C91C
-	for <stable@vger.kernel.org>; Tue, 16 Jun 2026 02:32:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F5F437C91C
+	for <stable@vger.kernel.org>; Tue, 16 Jun 2026 02:32:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781577150; cv=none; b=XnNK+TKGRxlV4GvVk+TwArhRrY5XtctH8Fgby4IMAMZXHtaebBiwrRxMzVrhmW/6Rnspe50kkcMPjTKBXo6xXd6ok30vPlBzKuEHw/RTuyJua59prvAILK2TiPcjykAtfB08bb/IyIdbwhdWyTpiHLBYNn56Avw+TJTe8FnLEYI=
+	t=1781577170; cv=none; b=SY7mzX/OmHRYzQ6FBQuHDDqQaHsBEhMvbpWNz5+fAGLqTFgUKA7o2PgRsbPQk73Rz8EqXznWFAfFDWaI5DnYI+VvDkbDiA8Rtqb8FJeoKwniuiS34ve41d+9bA6Dfj59jZa/Ey27xKZ5NPuFwhTVjqDM07kdeAtKh/2YcqdTtDU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781577150; c=relaxed/simple;
-	bh=Sopc87+5q7eR7VJtTx+KVoE2M/UJom9Vu1PK0A1rLVU=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=qNu226HVKIu76x8U3J/i+xxM6EDQberTztAIX7x2IJkewkpiuXPB2hVEuHKpaQEw1zYtj6bb0vluOjjRgoHTWe24pJ83z0SEylLhZlpp1P1u0Dho2YvBPexNb0sm2gvB9p9qBYbtH82oa60U+FWp7YaHLs2htq4wlz7PETDXDAA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ZRQmG+zF; arc=none smtp.client-ip=95.215.58.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1781577170; c=relaxed/simple;
+	bh=NIEyluO9LXfnOY4nAceRJA9kyFCz4XS25tyL5ZJP5Ak=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=NX0XYCHfLmuyFD/K7ugGMm24/BYuFr7X1pkgIOD1UF2yotA7doLHdc08ZSfweLjw09z0KrCa/OZSVWby6TR1RCf/VJaB7QcI/qX50JePp00cEWctvwxrxraIvtLF23Z1CUSh+vP9sU2V4aKrehHXYaEGY3peF91CjBHD4s3cCxY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=EDP4zQ2q; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ZRQmG+zF"
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1781577137;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/oQp60CeS2OqPkQlb+GAaqqk2o9SM+Ljd8d+w6AQvZ0=;
-	b=ZRQmG+zFarn/PCSzk9dhXskN9MMAgbLgLtc8e1+KicSk+DS/IClkIrjnBGq49lziVpg4if
-	S50fUr+Q5BZ9Fzq5RvEtmUyjchStVLuDGSUhJzQJnKyvdiPiPzT+3iGLHrgHLrIq8quWTq
-	/nCsbHdjZaTRpCbi60EfU7rvFudjzk4=
-From: Lance Yang <lance.yang@linux.dev>
-To: leitao@debian.org
-Cc: catalin.marinas@arm.com,
-	akpm@linux-foundation.org,
-	lance.yang@linux.dev,
-	dave@stgolabs.net,
-	oleg@redhat.com,
-	cai@lca.pw,
-	sj@kernel.org,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	kernel-team@meta.com,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v3 1/3] mm/kmemleak: avoid soft lockup when scanning task stacks
-Date: Tue, 16 Jun 2026 10:31:53 +0800
-Message-Id: <20260616023153.20399-1-lance.yang@linux.dev>
-In-Reply-To: <20260615-kmemleak-stack-resched-v3-1-acecd7d7fd92@debian.org>
-References: <20260615-kmemleak-stack-resched-v3-1-acecd7d7fd92@debian.org>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="EDP4zQ2q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 977AE1F000E9;
+	Tue, 16 Jun 2026 02:32:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1781577168;
+	bh=/FIkSap4UptszD4NKdK20ykLQ4FNBw5jihrk3CVRDFQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=EDP4zQ2qDSh9nAOVyyeXUplp5VJZTXHqTtZvsy8P26MfotREsBM2L04MGTi2KMj+o
+	 aqntZIUSPBLYaa6j/6ONxSJqIw84eaKvEbnKggEBzqvpS+mV/i1NH+uSMsZJHW4lVF
+	 0HJx7XU8qobJmzDr8S+XGi+b7VtCg5E4glQkFLxM=
+Date: Tue, 16 Jun 2026 08:01:43 +0530
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Rio Liu <rio@r26.me>
+Cc: "stable@vger.kernel.org" <stable@vger.kernel.org>
+Subject: Re: [stable request 6.18+] wifi: mac80211: skip
+ ieee80211_verify_sta_ht_mcs_support check in non-strict mode
+Message-ID: <2026061636-falsify-handprint-8c46@gregkh>
+References: <mCC83on9NUv38GIhB5hQoC8aXh1aZOeWWXh2010h2l8b0-rPJJKWIJvfPu4AZyATnaJuANDDndSZtpVC7_aQeArt435TQjshtrw9PUL2o5k=@r26.me>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <mCC83on9NUv38GIhB5hQoC8aXh1aZOeWWXh2010h2l8b0-rPJJKWIJvfPu4AZyATnaJuANDDndSZtpVC7_aQeArt435TQjshtrw9PUL2o5k=@r26.me>
 
-
-On Mon, Jun 15, 2026 at 10:49:06AM -0700, Breno Leitao wrote:
->kmemleak_scan() walks every thread and scans its kernel stack under a
->single rcu_read_lock() with no reschedule point. On a host with very
->many threads -- amplified by KASAN/lockdep in debug builds -- this loop
->can hog a CPU long enough to trip the soft lockup watchdog:
->
->  watchdog: BUG: soft lockup - CPU#35 stuck for 22s! [kmemleak:537]
->   scan_block
->   kmemleak_scan
->   kmemleak_scan_thread
->   kthread
->
->A cond_resched() cannot be added directly: the loop runs inside an RCU
->read-side critical section.
->
->Walk the tasks one PID at a time with find_ge_pid(), taking the RCU read
->lock only to look up and pin each task. The stack is then scanned with no
->lock held, so cond_resched() runs between tasks and the scan stops early
->on scan_should_stop(). This follows the next_tgid()/task_seq_get_next()
->iteration pattern and keeps each RCU critical section short.
->
->Fixes: c4b28963fd79 ("mm/kmemleak: rely on rcu for task stack scanning")
->Cc: stable@vger.kernel.org
->Signed-off-by: Breno Leitao <leitao@debian.org>
->---
-> mm/kmemleak.c | 51 ++++++++++++++++++++++++++++++++++++++-------------
-> 1 file changed, 38 insertions(+), 13 deletions(-)
->
->diff --git a/mm/kmemleak.c b/mm/kmemleak.c
->index 7c7ba17ce7af0..a7786b6bc174e 100644
->--- a/mm/kmemleak.c
->+++ b/mm/kmemleak.c
->@@ -1695,6 +1695,42 @@ static void kmemleak_cond_resched(struct kmemleak_object *object)
-> 	put_object(object);
-> }
+On Tue, Jun 16, 2026 at 12:00:47AM +0000, Rio Liu wrote:
+> Hello,
 > 
->+/*
->+ * Scan all task kernel stacks, rescheduling between tasks. Each task is looked
->+ * up and pinned within its own RCU read-side section, so no lock is held across
->+ * the scan and the walk cannot trip the soft lockup watchdog.
->+ */
->+static void kmemleak_scan_task_stacks(void)
->+{
->+	struct pid *pid;
->+	int nr = 1;
->+
->+	do {
->+		struct task_struct *p = NULL;
->+
->+		rcu_read_lock();
->+		pid = find_ge_pid(nr, &init_pid_ns);
+> I'd like to include the following two commits to v6.18 and above:
+> 
+> 711a9c018ad2 ("wifi: mac80211: skip ieee80211_verify_sta_ht_mcs_support check in non-strict mode")
+> 0cfff13c94cb ("wifi: mac80211: tests: mark HT check strict")
+> 
+> There was some recent changes in Xfinity router firmware that limits wifi
+> bandwidth in some cases. The patches add a workaround to get back full speed
+> against these routers. I forgot to CC stable in the initial patch submission
+> but I see no reason why the fix be limited to the latest kernel.
+> 
+> Verified these two cherry-picks succesfully against v6.18.35 and v7.0.12.
 
-I wasn't aware of find_ge_pid() before. It walks the pid IDR, not every
-possible pid number :) LGTM.
+Now queued up, thanks.
 
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
+greg k-h
