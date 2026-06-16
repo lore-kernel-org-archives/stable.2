@@ -1,129 +1,108 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com [209.85.160.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFEB4374192
-	for <stable@vger.kernel.org>; Tue, 16 Jun 2026 19:53:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43B2421D596
+	for <stable@vger.kernel.org>; Tue, 16 Jun 2026 20:14:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781639586; cv=none; b=ci/mIp+0yKhZNnNnF4f+LB4WLBVOkBJ8qLZU0PaaAtDXuTo0AYZsaIwOLAfW4Ibwj3O2tpCBH5SKtLio0j+1Mq62lEpPvNvZVMT/ND0X713uUj2nv7vR/PrxCYAV8+DENw+UHFmVOAmhLMwB151tZt2TsyAVdl2j7XkZnAm7BLQ=
+	t=1781640859; cv=none; b=Zxs1p4rvLna8Tzmxwym0lWnHvi66EG2i63ghyXqT7iwc58hzvRFULQ3fNzLsYVvH5sl/JeoqXiqYit55T8jkMtP1QRLoEMT6pkmkR1W9rCvqk8aMy8p+Aka9HmQjhN6Qpu0RBFTDtWsR7lXrumr2/bkN5ymqMmdeD0b18VgBlZM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781639586; c=relaxed/simple;
-	bh=+BNVCenZgnbrbJxFgrUitBa8odZkQtwlzSrSaNwcLM0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=OwSUpVZY0w3PeGjIMy5G1G24N0Z4jp4wyJ+aGj/Gg5fcNK42VFiz7KhI9Fb8YS6EaRBBuDboQaxRwe0keqaC8t/ZE5fWx3C/GjrkgdaddBoLNhzFBiqq8+VdlLsS8zRVC+ryNeMW4ddVIMylizQQu1aKVmh4YcGBiKLCSe9YVxE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JYA8OF+P; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781640859; c=relaxed/simple;
+	bh=Z4buY0yxNSj5ughbZXoco5xIDW6nysocSW3jyixQZKE=;
+	h=Subject:To:Cc:References:From:Message-ID:Date:MIME-Version:
+	 In-Reply-To:Content-Type; b=nmD6MfojKZNocz+0+AadsxjlgfyFlJyLG6cGmmXYtGgKZFOoQ/W/P51jdqtV9h6lr99wswTsoiXm0g9vXhgUPRKbJJllwS31QGs6XT2lUIRdo95C5S/AOF4ewbMJLfboWvW7cgrIRmV+qLFz1ffL36zLRBYxmMs5wjMpko6Sk0g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=s/VpyMbB; arc=none smtp.client-ip=209.85.160.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JYA8OF+P"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF63B1F00A3A;
-	Tue, 16 Jun 2026 19:53:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781639585;
-	bh=xiQij2G4Q1n+868+CTT2W9qy29SsNKvNhzbQkyMw6pI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=JYA8OF+P8OKWvmzQOE/IQOUOLK3F3pY/3DwS6nmOxZ4kpVbvGfgRL/DUnlN191IFC
-	 6n0bjn+yc9rLN6TFRvMkD5X9/vgcyqmszDH0v5xFmsIMcvGkRUXd7D5RajDF295Wda
-	 K+Vu6nRZYsQSRifvW8pwaRa3BZDDy3GrWMZtDYQzlqGKlZzbZuiXEZZeKkxe+y14SH
-	 BgwKf4D47N9fZCwtmYZkWk95W3o/hsH+NlrHTmmaI2gCjKhw5Oo7ajBTmvdDhO0iD1
-	 M19B14SyheGz7O1zzCP4JBGGDuCrDDT5OHC39yVCRruDKilCnw4bzB7LDjfKvdlUhL
-	 mR5vcH7qSxkKA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Srinivas Kandagatla <srini@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 2/2] misc: fastrpc: Fix NULL pointer dereference in rpmsg callback
-Date: Tue, 16 Jun 2026 15:53:02 -0400
-Message-ID: <20260616195302.3526937-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260616195302.3526937-1-sashal@kernel.org>
-References: <2026061532-proponent-wife-a132@gregkh>
- <20260616195302.3526937-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="s/VpyMbB"
+Received: by mail-qt1-f182.google.com with SMTP id d75a77b69052e-51776b4de37so43473371cf.1
+        for <stable@vger.kernel.org>; Tue, 16 Jun 2026 13:14:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781640857; x=1782245657; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:mime-version:user-agent:date
+         :message-id:from:references:cc:to:subject:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=GB1HLk2MsE4YXVeU3KtucQOegECld/8EB1fgDTQNKH8=;
+        b=s/VpyMbBO71TcL+4iIjw9lOyAkhtJZ/7S41z2n5qM0HK44L5NBkOrOaLqex3CDIl6C
+         Cnkedpx3kSbW2oP5VDLHkq8VmCyQZG0UhtVOEGnc9a6raOk7DqBP00Da0jpPdO+o5o3x
+         oUt8rhWbpM8g3sSUtkJEeS4rdsZ1bk9TeTVAom84QCfTpq3ofPEJnTDoNiLe81yjex9e
+         NRD5FKbh9XYXh2L0/KIXOkWarJEIq8PCpjdHM7EKfPRRd0EdcIh5oqAosv5H5oaubi57
+         34zLFlwkglfEBm3hegLDQfm+F8TUV3XPpClcnnNmoIfBiUWFUHz7tS3v5WE80Lfu3bTb
+         piqw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781640857; x=1782245657;
+        h=content-transfer-encoding:in-reply-to:mime-version:user-agent:date
+         :message-id:from:references:cc:to:subject:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=GB1HLk2MsE4YXVeU3KtucQOegECld/8EB1fgDTQNKH8=;
+        b=p24byEOIyeFVXMbtSNY8vvsb6b8ksDoUF39xoKkx3knD4hVudkthFAQZTjOK5XAgCh
+         Bbo5/8dQLXNgD1j/vrdFEta6Bk11mixOyoalT06K25KbWzsFZDF2ttXCVNZ/2K801Txh
+         P4e+01eMHZIBxpKtFmQww2lKLf8oUWGH90B+6P0lArqR3tr6Bu+iN7xWt8QXxokrHneO
+         msNKeTfZFZhEtDNGRUyw4ePY4kg2WcZSiRnuOywvYnr8F67P8InVkrmOaOAEME4Ni0PI
+         CF5L+J0IzDsoru0pPFJpk1KRakVpsbiFYGPgvqn8WHk8rI3OOdpV9sa/I4tV/sgB7j+v
+         eiaQ==
+X-Forwarded-Encrypted: i=1; AFNElJ/yOpLBr6nfsTZdqmhcZLclhi7A9zdQNaUvBC+diqYwGnwD+a5RbF+gsIC5eabAdNMV2BVKLWY=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx1Ap5Q0P1H2+UGJf3W+pqvp+RW2dK80/THe90zUVL0bewATDX8
+	wqCeBgf2RhJw/kFVOFEiJ/AI5TV5GWhaiDoghONUiI5yPhUpvyc65Us=
+X-Gm-Gg: Acq92OEwZTzpOfWudPiimJyTLXoOcA9cMYd08I0KS2uz4cPNsCGd0QVWHQwDn/aOvnb
+	WzlBjbI+yi8R0lzygst4msTJVRq6UzE+DPzkVk2rQDsJ8yld4Ayi0v59VitbOj5+zJavCi5L+q7
+	ODwoIo+NCcc046T6ixvweuCSYtF8NF3X+jZMd/CVduGxeoogc5BNrufWC4vNAQMFfFIVC47dELC
+	wHmWB5/veCgA4lrIny55SDENhZqSwaotAAtWIApm6YdXx0p74gH3G+7PBBxQIUoxc+RyOByUAsB
+	VQRGqP8EvtiubcaMq0qvGSB6YEQ/hqAORaB21cW8XkUbE3gsMrKPZC6lY8j2R2NUe25HxODGnNf
+	7hPHTJuMV2Cu/6iOhG0+pGJ3cD8pQfYJh1hZYMR/cN1YP1301TSk0/XJaBlgGYXA7ZNGxqmtyNi
+	6PyLUjN8fLMXYuzhCMx55Keyn0lYHk+ug61V+/H8He2ASN7ka3eBM=
+X-Received: by 2002:ac8:5fcf:0:b0:517:89d0:b8a9 with SMTP id d75a77b69052e-519a8ca24d1mr16762201cf.9.1781640857211;
+        Tue, 16 Jun 2026 13:14:17 -0700 (PDT)
+Received: from [120.7.1.23] (135-23-94-154.cpe.pppoe.ca. [135.23.94.154])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-517fb7dacdfsm156361931cf.20.2026.06.16.13.14.15
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 16 Jun 2026 13:14:16 -0700 (PDT)
+Subject: Re: [PATCH 5.10 000/342] 5.10.259-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20260616145048.348037099@linuxfoundation.org>
+From: Woody Suwalski <terraluna977@gmail.com>
+Message-ID: <88a6a3f4-7e7f-2818-1eb5-145838b9a957@gmail.com>
+Date: Tue, 16 Jun 2026 16:14:29 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:128.0) Gecko/20100101
+ Firefox/128.0 SeaMonkey/2.53.23
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260616145048.348037099@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 5.10.259 release.
+> There are 342 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+>
+> Responses should be made by Thu, 18 Jun 2026 14:49:57 +0000.
+> Anything received after that time might be too late.
+>
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v5.x/stable-review/patch-5.10.259-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-5.10.y
+> and the diffstat can be found below.
+>
+> thanks,
+>
+> greg k-h
+>
+Built for i386 and booted OK on a 32 bit laptop.
 
-[ Upstream commit 5401fb4fe10fac6134c308495df18ed74aebb9c4 ]
-
-A NULL pointer dereference was observed on Hawi at boot when the DSP
-sends a glink message before fastrpc_rpmsg_probe() has completed
-initialization:
-
-  Unable to handle kernel NULL pointer dereference at virtual address 0000000000000178
-  pc : _raw_spin_lock_irqsave+0x34/0x8c
-  lr : fastrpc_rpmsg_callback+0x3c/0xcc [fastrpc]
-  ...
-  Call trace:
-   _raw_spin_lock_irqsave+0x34/0x8c (P)
-   fastrpc_rpmsg_callback+0x3c/0xcc [fastrpc]
-   qcom_glink_native_rx+0x538/0x6a4
-   qcom_glink_smem_intr+0x14/0x24 [qcom_glink_smem]
-
-The faulting address 0x178 corresponds to the lock variable inside
-struct fastrpc_channel_ctx, confirming that cctx is NULL when
-fastrpc_rpmsg_callback() attempts to take the spinlock.
-
-There are two issues here. First, dev_set_drvdata() is called before
-spin_lock_init() and idr_init(), leaving a window where the callback
-can retrieve a valid cctx pointer but operate on an uninitialized
-spinlock. Second, the rpmsg channel becomes live as soon as the driver
-is bound, so fastrpc_rpmsg_callback() can fire before dev_set_drvdata()
-is called at all, resulting in dev_get_drvdata() returning NULL.
-
-Fix both issues by moving all cctx initialization ahead of
-dev_set_drvdata() so the structure is fully initialized before it
-becomes visible to the callback, and add a NULL check in
-fastrpc_rpmsg_callback() as a guard against any remaining window.
-
-Fixes: f6f9279f2bf0 ("misc: fastrpc: Add Qualcomm fastrpc basic driver model")
-Cc: stable@vger.kernel.org
-Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-Reviewed-by: Bjorn Andersson <andersson@kernel.org>
-Signed-off-by: Srinivas Kandagatla <srini@kernel.org>
-Link: https://patch.msgid.link/20260530204528.116920-4-srini@kernel.org
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/misc/fastrpc.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-index fad9654a8ee1c4..2b33bfd3f256ef 100644
---- a/drivers/misc/fastrpc.c
-+++ b/drivers/misc/fastrpc.c
-@@ -1662,7 +1662,6 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
- 
- 	kref_init(&data->refcount);
- 
--	dev_set_drvdata(&rpdev->dev, data);
- 	rdev->dma_mask = &data->dma_mask;
- 	dma_set_mask_and_coherent(rdev, DMA_BIT_MASK(32));
- 	INIT_LIST_HEAD(&data->users);
-@@ -1670,6 +1669,7 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
- 	idr_init(&data->ctx_idr);
- 	data->domain_id = domain_id;
- 	data->rpdev = rpdev;
-+	dev_set_drvdata(&rpdev->dev, data);
- 
- 	return of_platform_populate(rdev->of_node, NULL, NULL, rdev);
- }
-@@ -1717,6 +1717,9 @@ static int fastrpc_rpmsg_callback(struct rpmsg_device *rpdev, void *data,
- 	if (len < sizeof(*rsp))
- 		return -EINVAL;
- 
-+	if (!cctx)
-+		return -ENODEV;
-+
- 	ctxid = ((rsp->ctx & FASTRPC_CTXID_MASK) >> 4);
- 
- 	spin_lock_irqsave(&cctx->lock, flags);
--- 
-2.53.0
+Tested-by: Woody Suwalski <terraluna977@gmail.com>
 
