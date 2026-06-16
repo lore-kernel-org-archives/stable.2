@@ -1,152 +1,116 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+Received: from fout-b6-smtp.messagingengine.com (fout-b6-smtp.messagingengine.com [202.12.124.149])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5829B3CD8B9;
-	Tue, 16 Jun 2026 04:52:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BC503CD8A8
+	for <stable@vger.kernel.org>; Tue, 16 Jun 2026 05:06:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.149
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781585563; cv=none; b=efvDNReiA9Kla0oBCulSlh48oGp0Yo66Cf1zvLXi6q+bh7udHZ8soAGwtFWaxIWAk1d6zs/zdgBQCPHRF2IkmvmAdwum+5YphYXSXkudskoEZH8LQmEJLuAYpcxk5xqYEVRlb8QakkDjis84kqyb4o6lpfcSuIU5r9LeRCIMeAA=
+	t=1781586413; cv=none; b=Y7gllX5U/6APl48znJjm7WQ4/vDz0W6BFka6JrinIz4eivyqfmSIhsMn6A8gbThEDPpzOrhfk+fNQXlTiD0BfQlGzrp+kSTOR86+xXPd3R0haz06tWhcVDjtGgcANuV03IVcJ3mbnCmRsjLNMbQ63ef5NDx0uca0B/VJIkDBxuk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781585563; c=relaxed/simple;
-	bh=VBK0ktbAZEblhul2ZSD/6BFwCP42zOQDKriOL6zk4wY=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=hJWM6RcVhgLjc0ENBMZdePJRlas2d1MHgIy1Bv+z8dsDlknAQL9/X+qYdrH32pYVZAnhfcKAoKWFCEACNM67iNMX+PoctHgy2359e0B+fzGkp/NHBb47P43MIwuaa+mTOHbe5f8tNNhKibpNPjkawWhESlgSZFVAOT12y8sSXQI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=j86Su8Oc; arc=none smtp.client-ip=192.198.163.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1781586413; c=relaxed/simple;
+	bh=GqYOMS0tQ/zUf2ktF51zEA9/nsonMHVzRp3KK8Tnxvw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=S6nlY46M+gSS1GtkVTL6toVL2CBrM2wdAG6wrnsglacSqrIDrLRdGkyvjG3SKxUdWS+0RsbzJq2aAZ7QphehJv5zWOpwHIBEJynf2D6DYmQFvojkboasn3dlX03QPQDEp7sxBOBQUATRQZLT7DNS9gsf2xT324r2jaCmBIa9ghI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com; spf=pass smtp.mailfrom=kroah.com; dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b=PQ1dbdnm; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=G+xbG0bZ; arc=none smtp.client-ip=202.12.124.149
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="j86Su8Oc"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1781585562; x=1813121562;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=VBK0ktbAZEblhul2ZSD/6BFwCP42zOQDKriOL6zk4wY=;
-  b=j86Su8OcU78in8Ki97t6pAIVc4TUOmYp8an+38GXwdj/7G5944Sfy64Y
-   nJdbm2RxYqKHLSLdegP6TGvkpwg9heryynEHgLfzMzLeAxC+bbshNO+V3
-   8qHYcUot+PCx35IQwhyVL6PI7zejl3sXFbl4Zxl1ONnRiYv4ZEe888Emn
-   JlfPi8800OFfP7Do54AhiTyR+tZIcwHz5uDWpEDaAgTwlotBBEoM7iAQZ
-   8I+LrctSjv2EQLDOSMpgh1RIqeC5WmYGC4zi1n7wPxL/7eagAo/5GqkW0
-   8bg1uM6ElXsGryYN1eqsKhmbc8drovLilVp0KqQlun4LCe5PdP6n95qpx
-   Q==;
-X-CSE-ConnectionGUID: FAHBThzhSMqKNwBosS7DkA==
-X-CSE-MsgGUID: CFgxvNQ6TrSyJXJD4sIYJg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11818"; a="82445423"
-X-IronPort-AV: E=Sophos;i="6.24,207,1774335600"; 
-   d="scan'208";a="82445423"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Jun 2026 21:52:42 -0700
-X-CSE-ConnectionGUID: G3pndbb0TWufGkvOd6hxKw==
-X-CSE-MsgGUID: fwCXms2RR8y35ZuWweZMxQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,207,1774335600"; 
-   d="scan'208";a="271726379"
-Received: from spr.sh.intel.com ([10.112.230.239])
-  by fmviesa001.fm.intel.com with ESMTP; 15 Jun 2026 21:52:38 -0700
-From: Dapeng Mi <dapeng1.mi@linux.intel.com>
-To: Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Andi Kleen <ak@linux.intel.com>,
-	Eranian Stephane <eranian@google.com>
-Cc: linux-kernel@vger.kernel.org,
-	linux-perf-users@vger.kernel.org,
-	Dapeng Mi <dapeng1.mi@intel.com>,
-	Zide Chen <zide.chen@intel.com>,
-	Falcon Thomas <thomas.falcon@intel.com>,
-	Xudong Hao <xudong.hao@intel.com>,
-	Dapeng Mi <dapeng1.mi@linux.intel.com>,
-	stable@vger.kernel.org
-Subject: [Patch v4 4/8] perf/x86/intel: Fix kernel address leakages in LBR stack
-Date: Tue, 16 Jun 2026 12:46:50 +0800
-Message-Id: <20260616044654.3468742-5-dapeng1.mi@linux.intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260616044654.3468742-1-dapeng1.mi@linux.intel.com>
-References: <20260616044654.3468742-1-dapeng1.mi@linux.intel.com>
+	dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b="PQ1dbdnm";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="G+xbG0bZ"
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+	by mailfout.stl.internal (Postfix) with ESMTP id 661DF1D00172;
+	Tue, 16 Jun 2026 01:06:51 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-06.internal (MEProxy); Tue, 16 Jun 2026 01:06:51 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
+	:cc:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm1; t=1781586411; x=1781672811; bh=h4gPK3FZ6b
+	63Jyfr6Z/suOoSJEvo2X3t8RLqUz9KcA8=; b=PQ1dbdnm+pQgs5f5kTl6KSz+ft
+	eaUZDsNJGJK3YztBcenK/Zu9hy4wRSncXPTCXHpye4jzHa4/OnXAYMNaoIqKh1nr
+	NzErS/2ZHIfH/x90iPSoSblWF5ZuVhg+8XwlA7tr8HBR7ggn1GZiUc57zKSHnD6L
+	oxbKWqFcPMZnXd6z7qKxeNvwIBhPHhkgGUYe5nGvwM59WbC7JInDQSub0Fyqi3F1
+	w0flBypf/78vbWlSDAfE8+ovyaB+kFlbFu7088DOwUJG9ugoNb7be+FFxu4UYbq1
+	TJhUifDBTbWVSOdV0ABhck/qXiN2p5qazch1Qv8lmVoXmTJAxs8jxPiMQZOA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1781586411; x=1781672811; bh=h4gPK3FZ6b63Jyfr6Z/suOoSJEvo2X3t8RL
+	qUz9KcA8=; b=G+xbG0bZPw2oyg2t1TYuRvnlTvk/gRiA1F12DM6vnsllfAaOda3
+	4Yb+Zsr20kLVC+mPLllqwgeq/ikuthfNZvQQH7rJGVMHmpovI6bobDybmjKOUUY8
+	rSrvwxfYSNaCv+mjJt+GDdfNbPzMcpunlg6Xx+ueMWyKQtIV9F24eCHl0G/j7LYk
+	n8oH1966mcLrAPaee92NUPgc/bxuCwzPqcINKJS3sbboxhUBtUVOvjJ+avuLxm8K
+	eySQQuftneJHue3Rw0gifQEQdFMwuWtZNMnfyu+TvefKuvDRu+8DniSXGjhTtdG/
+	+SARuW1DAYfcst8GWiZS/YMCMNvlHSi4LWw==
+X-ME-Sender: <xms:6tkwaoaK62zh_YQVFIoyStCIAqu3COMbjJbeDze6E2syWpCrMC-CYg>
+    <xme:6tkwatZ8L1samA_u5CePOG1KOXayBBlziYUwpFWnZDAoifIsRzAG-hl6s3R7_agYJ
+    idWxLvMx7VIq-amDQGldP9UM4dLTj7U76KShlZcRhlxa4HE>
+X-ME-Received: <xmr:6tkwapn55k5lWWpVpPd6kkI5rPJhNYwqFGXjWnNLuG_PB3xpIlvNRYho>
+X-ME-Proxy-Cause: dmFkZTF8J3kCHEzZJQ90lPsnhmT3IWK7e209v8VpFQC//OCwqkYdSlhrXdu3YuT+NPplhg
+    iBMz0zEz3dMylz1GVVDvIxnTLHpZoGg1DmRjwnZZIhzIR7oP/ZhX4AiHYm+PjYPbdfS/6f
+    puTzfiHkOHPW5j3wfLnMqvtpAS9Z/G4fPAzly2W0FnWj/UxsACH+fXG7S1mV3670P+KYel
+    h7dbv+3OpfOYiO7vxk95ulnh4CKibaiLpzaZbA56agLeKsr7BuSjZvql9pTRzzusEw9QNt
+    vqoSOp4D8z5gUeKMGobL6FMzSKaPcInq6XYY6JpxvWmiQ93Cbh61j+KhokxTnPOY5u97nB
+    Ne8sONMvHOFaCOKKL3i8dGx1QFwxtDGgUfQgEiVYVQwF1ktZS6xdQ3mbmNoPMeDGOZ67ui
+    kxXMaOCTA2kEZJFRcdH01GYCVLDrCNOjpsRtmx516hx8R7+MslK6Aa2IcpzVYXH2mXk4gO
+    5GRhjk8nPIGDd9oZeCZUhU2m3jx90QYe8mojVF5sA1NDbr/Gt2wMFDSD8YhJou6gyop1B1
+    6+ia+ogXZyymbrGmNcqoK8HOTQZCeVJMRTuz6DgQbSlEaqLeeJ5Kk7Ks9osGkT6xYKzdmC
+    ywQxjTToVGJrBYEi/daZngN6QxtZjaLcndM418OlxxFZpCRfHAfvwTOhClhw
+X-ME-Proxy: <xmx:6tkwag26W8S2XwGYHkuW5-wDVKuyfAH6C0apP9EwY6uPhEU_U76CvA>
+    <xmx:6tkwah029VB5nX60Wx2_hbmEUoHPRBvi4C4mj9Hzg-nC5owyH4n5uQ>
+    <xmx:6tkwaqr4dQKHe9omp2MqLG5Y5WBBs9wbrT-Oy6pe5l7KPfhxqq6cTg>
+    <xmx:6tkwalhxeTmyZsBgkcAAqHe-jXcOXePNRla1IS9gactI_AMqv4NfKw>
+    <xmx:69kwapSaM8_wUZ0n3efCKYjlohW0YYq0QahJw4P3bjhURLY3LcCalT5M>
+Feedback-ID: i787e41f1:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 16 Jun 2026 01:06:49 -0400 (EDT)
+Date: Tue, 16 Jun 2026 10:35:45 +0530
+From: Greg KH <greg@kroah.com>
+To: Sasha Levin <sashal@kernel.org>
+Cc: stable@vger.kernel.org, Rodrigo Alencar <rodrigo.alencar@analog.com>,
+	Jonathan Cameron <jic23@kernel.org>
+Subject: Re: [PATCH 6.6.y] iio: dac: ad5686: fix powerdown control on
+ dual-channel devices
+Message-ID: <2026061638-struggle-enforced-f8d7@gregkh>
+References: <2026060441-corrosive-musky-8357@gregkh>
+ <20260604161903.3777464-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260604161903.3777464-1-sashal@kernel.org>
 
-Before Arch LBR gained CPL filtering support, a user-only branch stack
-could still contain kernel addresses. As a result, kernel branch records
-may be exposed to user space even when PERF_SAMPLE_BRANCH_USER is
-requested.
+On Thu, Jun 04, 2026 at 12:19:03PM -0400, Sasha Levin wrote:
+> From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+> 
+> [ Upstream commit 8aeaf25a85263a7a43357e16ad78ab969f6f8aeb ]
+> 
+> Fix powerdown control by using a proper bit shift for the powerdown mask
+> values. During initialization, powerdown bits are initialized so that
+> unused bits are set to 1 and the correct bit shift is used. Dual-channel
+> devices use one-hot encoding in the address and that reflects on the
+> position of the powerdown bits, which are not channel-index based
+> for that case. Quad-channel devices also use one-hot encoding for the
+> channel address but the result of log2(address) coincides with the channel
+> index value. Mask as 0x3U is used rather than 0x3, because shift can reach
+> value of 30 (last channel of a 16-channel device), which would mess with
+> the sign bit. The issue was introduced when first adding support for
+> dual-channel devices, which overlooked powerdown control differences.
+> 
+> Fixes: 7dc8faeab3e3 ("iio: dac: ad5686: add support for AD5338R")
+> Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
+> Cc: <Stable@vger.kernel.org>
+> Signed-off-by: Jonathan Cameron <jic23@kernel.org>
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
+> ---
+>  drivers/iio/dac/ad5686.c | 46 +++++++++++++++++++++++++++++++---------
+>  1 file changed, 36 insertions(+), 10 deletions(-)
+> 
 
-For example, on Intel Tiger Lake, the following command can still report
-SYSRET/ERET entries with kernel-space from addresses:
-
-$ ./perf record -e cycles:p -o - --branch-filter any,save_type,u -- \
- 	./perf bench syscall basic --loop 1000 | \
-	./perf script -i - --fields brstack|tr ' ' '\n'| \
-	grep -E '0x[89a-f][0-9a-f]{15}'
-
-    Total time: 0.000 [sec]
-
-      0.219000 usecs/op
-     4,566,210 ops/sec
-[ perf record: Woken up 1 times to write data ]
-[ perf record: Captured and wrote 0.551 MB - ]
-0xffffffff93c001c8/0x7f12a2b1d647/P/-/-/16959/SYSRET/-
-0xffffffff93c001c8/0x7f12a2b1d5c2/P/-/-/17535/SYSRET/-
-0xffffffff93c01928/0x7f12a2861000/P/-/-/6719/ERET/-
-0xffffffff93c01928/0x7f12a297a000/P/-/-/8575/ERET/-
-
-The problem is that intel_pmu_lbr_filter() does not fully validate the
-privilege level of sampled entries. It filters some mismatches based on
-the branch type and the to address, but it does not reject entries whose
-from address violates the requested branch privilege filter.
-
-Fix this by extending software filtering to validate both from and to
-addresses against br_sel. Any LBR entry contains kernel address does not
-match the requested user filter is dropped. This prevents kernel
-addresses from appearing in user-only branch stacks.
-
-Cc: stable@vger.kernel.org
-Reported-by: Ian Rogers <irogers@google.com>
-Fixes: 47125db27e47 ("perf/x86/intel/lbr: Support Architectural LBR")
-Signed-off-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
----
- arch/x86/events/intel/lbr.c | 12 +++++++++---
- 1 file changed, 9 insertions(+), 3 deletions(-)
-
-diff --git a/arch/x86/events/intel/lbr.c b/arch/x86/events/intel/lbr.c
-index e2657f791e50..16eef1537816 100644
---- a/arch/x86/events/intel/lbr.c
-+++ b/arch/x86/events/intel/lbr.c
-@@ -1212,7 +1212,7 @@ intel_pmu_lbr_filter(struct cpu_hw_events *cpuc)
- {
- 	u64 from, to;
- 	int br_sel = cpuc->br_sel;
--	int i, j, type, to_plm;
-+	int i, j, type, from_plm, to_plm;
- 	bool compress = false;
- 
- 	/* if sampling all branches, then nothing to filter */
-@@ -1244,8 +1244,14 @@ intel_pmu_lbr_filter(struct cpu_hw_events *cpuc)
- 				type |= X86_BR_NO_TX;
- 		}
- 
--		/* if type does not correspond, then discard */
--		if (type == X86_BR_NONE || (br_sel & type) != type) {
-+		from_plm = kernel_ip(from) ? X86_BR_KERNEL : X86_BR_USER;
-+		/*
-+		 * If type does not correspond, then discard.
-+		 * Specifically reject entries whose from address is in
-+		 * kernel space when only X86_BR_USER is requested.
-+		 */
-+		if (type == X86_BR_NONE || (br_sel & type) != type ||
-+		    (!(br_sel & X86_BR_KERNEL) && (from_plm & X86_BR_KERNEL))) {
- 			cpuc->lbr_entries[i].from = 0;
- 			compress = true;
- 		}
--- 
-2.34.1
-
+Does not apply :(
