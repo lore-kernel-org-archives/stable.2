@@ -1,55 +1,44 @@
-Received: from smtp-42ab.mail.infomaniak.ch (smtp-42ab.mail.infomaniak.ch [84.16.66.171])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2D4136F8F5
-	for <stable@vger.kernel.org>; Tue, 16 Jun 2026 14:38:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.16.66.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F8F43C2B82;
+	Tue, 16 Jun 2026 15:00:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781620695; cv=none; b=DtPbSk0iDTQbdxzNmhzUBLl64j60MZFjHPOEbGJb/w2vhQaj9q8li11l2jxxkraC/fRUXK5Z4uMlG5bdVnRWqrY5vjMTBf2J5bIJtgTcl8zKnEIGQx5YgIWqOpo9uDFRwq7Thn5eG21PNcJgonOzHchhCr2GGB7vNKppdWlcnTU=
+	t=1781622008; cv=none; b=OdV82eH/g3pCwi82tq20+cL0PlmeK8OOTpa6d36Afb5oXFjo4IRu50v6KKXw+EMs/i8QgbwmNXuDqEYE2/t64fAnm4Aj3kxQ4iwxQJFo9LzR0U2pKPVJr/y/qzXFrEBqqjenTPAmP4O97uLgnu8Pt2AgumTqxEjyT7AqWbMjxho=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781620695; c=relaxed/simple;
-	bh=G6WeaxFC7coc3mi7da2c15aCmzkL6y9OaDzjZLkJFF8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nVf4RdE+8ECrxvAVh8dmO720SKCKGbL8J19/b3R+RE9RnGWKS+UA/RzAwrXUXMQ2wzQyfHAiNrQ7ChHMylsBl5YP4bwYvSpyfCa/UK8EtH6q9yoYgSqfAPWAJMwl42KUrF3NTCoQrTus+f9HnBS5cVwqeXw5Yipv0yJAFCUx8JY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pschenker.ch; spf=pass smtp.mailfrom=pschenker.ch; dkim=pass (1024-bit key) header.d=pschenker.ch header.i=@pschenker.ch header.b=tAi96LJX; arc=none smtp.client-ip=84.16.66.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pschenker.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pschenker.ch
+	s=arc-20240116; t=1781622008; c=relaxed/simple;
+	bh=5jP/zQ10W0PfB7FAZyxMPuxlZvSzZ+qiPmOcK+bOmUg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=KHjQR7EjUUBelhpUqqKasG+UbonnYS0iF3XbrQ1ydlpDruh+fdOpXHMe9OGC1pg6f6eYiE0Gk+zvqRndGywlhp9+Q7wLNR5C0KnMB3R32U/7x6VtDvftulaIpEn3RTMMUdI1SSkFqg+TuGMxcV2Q3T7rcCA1sce04waBcK3zebg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=UB4gERkk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=pschenker.ch header.i=@pschenker.ch header.b="tAi96LJX"
-Received: from smtp-3-0000.mail.infomaniak.ch (smtp-3-0000.mail.infomaniak.ch [10.4.36.107])
-	by smtp-4-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4gfqND4Fy3z8qs;
-	Tue, 16 Jun 2026 16:38:04 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pschenker.ch;
-	s=20220412; t=1781620684;
-	bh=L4HUsPuZdj6LV3uNElVOC/aB6ZtKXn8837uRKeGnUl0=;
-	h=From:To:Cc:Subject:Date:From;
-	b=tAi96LJXCg+fKOs6D1B1q64Pr4G70CxNuWQUFaWA9A+WDqf4Gc6eAM0ZBvGatjXId
-	 /Fi1Xe8/4Riq0LXduefg3SJpl59vwyHZyJgfUd+f+gyQkrSU0unGCXKTy8Ux6MaaVL
-	 nVEwf9VC6Ww+wNNTk90YNVNIVLor7B5oLju+kPPo=
-Received: from unknown by smtp-3-0000.mail.infomaniak.ch (Postfix) with ESMTPA id 4gfqN93F77zy0m;
-	Tue, 16 Jun 2026 16:38:01 +0200 (CEST)
-From: Philippe Schenker <dev@pschenker.ch>
-To: netdev@vger.kernel.org
-Cc: Philippe Schenker <philippe.schenker@impulsing.ch>,
-	danishanwar@ti.com,
-	rogerq@kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	stable@vger.kernel.org,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	David Carlier <devnexen@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jacob Keller <jacob.e.keller@intel.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Kevin Hao <haokexin@gmail.com>,
-	Meghana Malladi <m-malladi@ti.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Vadim Fedorenko <vadim.fedorenko@linux.dev>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net] net: ethernet: ti: icssg: guard PA stat lookups
-Date: Tue, 16 Jun 2026 16:35:34 +0200
-Message-ID: <20260616143642.1972071-1-dev@pschenker.ch>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="UB4gERkk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 480081F00A3F;
+	Tue, 16 Jun 2026 15:00:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1781622007;
+	bh=6IEQe+pvzUENqXuyOy7c5F1iT15Wx2j/xJOScqJn0g8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=UB4gERkkuG95fZxH3jAW13UWOO1Yx1WplJjiWTCPYml0A36Oc2xXUEk/C0NXvAWtP
+	 Cj1cSUJdn1cBFKzzKZKFl5xFchtWNfPnhG5J13osZB/OHlvxz/2U8Ed6f95bN77YIw
+	 AjaWRlJM9zS9ND18GZ5ibRcIBpoMZmtEfcLKE6bU=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Jeff Layton <jlayton@kernel.org>,
+	Mingyu Wang <25181214217@stu.xidian.edu.cn>,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>
+Subject: [PATCH 7.1 1/8] fs/fcntl: fix SOFTIRQ-unsafe lock order in fasync signaling
+Date: Tue, 16 Jun 2026 20:28:46 +0530
+Message-ID: <20260616145523.379523542@linuxfoundation.org>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260616145523.335696673@linuxfoundation.org>
+References: <20260616145523.335696673@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -57,104 +46,96 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Infomaniak-Routing: alpha
 
-From: Philippe Schenker <philippe.schenker@impulsing.ch>
+7.1-stable review patch.  If anyone has any objections, please let me know.
 
-icssg_ndo_get_stats64() unconditionally calls emac_get_stat_by_name()
-with FW PA stat names regardless of whether the PA stats block is
-present on the hardware.  emac_get_stat_by_name() already guards the
-PA stats lookup with `if (emac->prueth->pa_stats)`; when that pointer
-is NULL the lookup falls through to netdev_err() and returns -EINVAL.
-Because ndo_get_stats64 is polled regularly by the networking stack
-this produces thousands of log entries of the form:
+------------------
 
-  icssg-prueth icssg1-eth end0: Invalid stats FW_RX_ERROR
+From: Mingyu Wang <25181214217@stu.xidian.edu.cn>
 
-A secondary consequence is that the int(-EINVAL) return value is
-implicitly widened to a near-ULLONG_MAX unsigned value when accumulated
-into the __u64 fields of rtnl_link_stats64, silently corrupting the
-rx_errors, rx_dropped and tx_dropped counters reported by `ip -s link`.
+commit 00633c4683828acd5256fa8d5163f440d74bbe71 upstream.
 
-Every other PA-aware code path in the driver is already guarded with
-the same `if (emac->prueth->pa_stats)` check.  Apply the same guard
-here.
+A SOFTIRQ-safe to SOFTIRQ-unsafe lock order deadlock can occur in
+send_sigio() and send_sigurg() when a process group receives a signal.
 
-Fixes: 0d15a26b247d ("net: ti: icssg-prueth: Add ICSSG FW Stats")
+When FASYNC is configured for a process group (PIDTYPE_PGID), both
+functions use read_lock(&tasklist_lock) to traverse the task list.
+However, they are frequently called from softirq context:
+- send_sigio() via input_inject_event -> kill_fasync
+- send_sigurg() via tcp_check_urg -> sk_send_sigurg (NET_RX_SOFTIRQ)
 
-Signed-off-by: Philippe Schenker <philippe.schenker@impulsing.ch>
+The deadlock is caused by the rwlock writer fairness mechanism:
+1. CPU 0 (process context) holds read_lock(&tasklist_lock) in do_wait().
+2. CPU 1 (process context) attempts write_lock(&tasklist_lock) in
+   fork() or exit() and spins, which blocks all new readers.
+3. CPU 0 is interrupted by a softirq (e.g., TCP URG packet reception).
+4. The softirq calls send_sigurg() and attempts to acquire
+   read_lock(&tasklist_lock), deadlocking because CPU 1 is waiting.
 
-Cc: danishanwar@ti.com
-Cc: rogerq@kernel.org
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: stable@vger.kernel.org
+Since PID hashing and do_each_pid_task() traversals are already
+RCU-protected, the read_lock on tasklist_lock is no longer strictly
+required for safe traversal. Fix this by replacing tasklist_lock with
+rcu_read_lock(), aligning the process group signaling path with the
+single-PID path. This also mitigates a potential remote denial of
+service vector via TCP URG packets.
+
+Lockdep splat:
+=====================================================
+WARNING: SOFTIRQ-safe -> SOFTIRQ-unsafe lock order detected
+[...]
+Chain exists of:
+  &dev->event_lock --> &f_owner->lock --> tasklist_lock
+
+Possible interrupt unsafe locking scenario:
+       CPU0                    CPU1
+       ----                    ----
+  lock(tasklist_lock);
+                           local_irq_disable();
+                           lock(&dev->event_lock);
+                           lock(&f_owner->lock);
+  <Interrupt>
+    lock(&dev->event_lock);
+
+*** DEADLOCK ***
+
+Reviewed-by: Jeff Layton <jlayton@kernel.org>
+Signed-off-by: Mingyu Wang <25181214217@stu.xidian.edu.cn>
+Link: https://patch.msgid.link/20260523135210.590928-1-w15303746062@163.com
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
+ fs/fcntl.c |    8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
- drivers/net/ethernet/ti/icssg/icssg_common.c | 48 +++++++++++---------
- 1 file changed, 27 insertions(+), 21 deletions(-)
+--- a/fs/fcntl.c
++++ b/fs/fcntl.c
+@@ -929,11 +929,11 @@ void send_sigio(struct fown_struct *fown
+ 			send_sigio_to_task(p, fown, fd, band, type);
+ 		rcu_read_unlock();
+ 	} else {
+-		read_lock(&tasklist_lock);
++		rcu_read_lock();
+ 		do_each_pid_task(pid, type, p) {
+ 			send_sigio_to_task(p, fown, fd, band, type);
+ 		} while_each_pid_task(pid, type, p);
+-		read_unlock(&tasklist_lock);
++		rcu_read_unlock();
+ 	}
+  out_unlock_fown:
+ 	read_unlock_irqrestore(&fown->lock, flags);
+@@ -975,11 +975,11 @@ int send_sigurg(struct file *file)
+ 			send_sigurg_to_task(p, fown, type);
+ 		rcu_read_unlock();
+ 	} else {
+-		read_lock(&tasklist_lock);
++		rcu_read_lock();
+ 		do_each_pid_task(pid, type, p) {
+ 			send_sigurg_to_task(p, fown, type);
+ 		} while_each_pid_task(pid, type, p);
+-		read_unlock(&tasklist_lock);
++		rcu_read_unlock();
+ 	}
+  out_unlock_fown:
+ 	read_unlock_irqrestore(&fown->lock, flags);
 
-diff --git a/drivers/net/ethernet/ti/icssg/icssg_common.c b/drivers/net/ethernet/ti/icssg/icssg_common.c
-index a28a608f9bf4..2dbb8f717de0 100644
---- a/drivers/net/ethernet/ti/icssg/icssg_common.c
-+++ b/drivers/net/ethernet/ti/icssg/icssg_common.c
-@@ -1628,28 +1628,34 @@ void icssg_ndo_get_stats64(struct net_device *ndev,
- 	stats->rx_over_errors = emac_get_stat_by_name(emac, "rx_over_errors");
- 	stats->multicast      = emac_get_stat_by_name(emac, "rx_multicast_frames");
- 
--	stats->rx_errors  = ndev->stats.rx_errors +
--			    emac_get_stat_by_name(emac, "FW_RX_ERROR") +
--			    emac_get_stat_by_name(emac, "FW_RX_EOF_SHORT_FRMERR") +
--			    emac_get_stat_by_name(emac, "FW_RX_B0_DROP_EARLY_EOF") +
--			    emac_get_stat_by_name(emac, "FW_RX_EXP_FRAG_Q_DROP") +
--			    emac_get_stat_by_name(emac, "FW_RX_FIFO_OVERRUN");
--	stats->rx_dropped = ndev->stats.rx_dropped +
--			    emac_get_stat_by_name(emac, "FW_DROPPED_PKT") +
--			    emac_get_stat_by_name(emac, "FW_INF_PORT_DISABLED") +
--			    emac_get_stat_by_name(emac, "FW_INF_SAV") +
--			    emac_get_stat_by_name(emac, "FW_INF_SA_DL") +
--			    emac_get_stat_by_name(emac, "FW_INF_PORT_BLOCKED") +
--			    emac_get_stat_by_name(emac, "FW_INF_DROP_TAGGED") +
--			    emac_get_stat_by_name(emac, "FW_INF_DROP_PRIOTAGGED") +
--			    emac_get_stat_by_name(emac, "FW_INF_DROP_NOTAG") +
--			    emac_get_stat_by_name(emac, "FW_INF_DROP_NOTMEMBER");
-+	stats->rx_errors  = ndev->stats.rx_errors;
-+	stats->rx_dropped = ndev->stats.rx_dropped;
- 	stats->tx_errors  = ndev->stats.tx_errors;
--	stats->tx_dropped = ndev->stats.tx_dropped +
--			    emac_get_stat_by_name(emac, "FW_RTU_PKT_DROP") +
--			    emac_get_stat_by_name(emac, "FW_TX_DROPPED_PACKET") +
--			    emac_get_stat_by_name(emac, "FW_TX_TS_DROPPED_PACKET") +
--			    emac_get_stat_by_name(emac, "FW_TX_JUMBO_FRM_CUTOFF");
-+	stats->tx_dropped = ndev->stats.tx_dropped;
-+
-+	if (emac->prueth->pa_stats) {
-+		stats->rx_errors  +=
-+				emac_get_stat_by_name(emac, "FW_RX_ERROR") +
-+				emac_get_stat_by_name(emac, "FW_RX_EOF_SHORT_FRMERR") +
-+				emac_get_stat_by_name(emac, "FW_RX_B0_DROP_EARLY_EOF") +
-+				emac_get_stat_by_name(emac, "FW_RX_EXP_FRAG_Q_DROP") +
-+				emac_get_stat_by_name(emac, "FW_RX_FIFO_OVERRUN");
-+		stats->rx_dropped +=
-+				emac_get_stat_by_name(emac, "FW_DROPPED_PKT") +
-+				emac_get_stat_by_name(emac, "FW_INF_PORT_DISABLED") +
-+				emac_get_stat_by_name(emac, "FW_INF_SAV") +
-+				emac_get_stat_by_name(emac, "FW_INF_SA_DL") +
-+				emac_get_stat_by_name(emac, "FW_INF_PORT_BLOCKED") +
-+				emac_get_stat_by_name(emac, "FW_INF_DROP_TAGGED") +
-+				emac_get_stat_by_name(emac, "FW_INF_DROP_PRIOTAGGED") +
-+				emac_get_stat_by_name(emac, "FW_INF_DROP_NOTAG") +
-+				emac_get_stat_by_name(emac, "FW_INF_DROP_NOTMEMBER");
-+		stats->tx_dropped +=
-+				emac_get_stat_by_name(emac, "FW_RTU_PKT_DROP") +
-+				emac_get_stat_by_name(emac, "FW_TX_DROPPED_PACKET") +
-+				emac_get_stat_by_name(emac, "FW_TX_TS_DROPPED_PACKET") +
-+				emac_get_stat_by_name(emac, "FW_TX_JUMBO_FRM_CUTOFF");
-+	}
- }
- EXPORT_SYMBOL_GPL(icssg_ndo_get_stats64);
- 
--- 
-2.54.0
 
-base-commit: 8cd9520d35a6c38db6567e97dd93b1f11f185dc6
-branch: fix-icssg_common-pa-stats-errors__master-7-1
