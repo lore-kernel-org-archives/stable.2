@@ -1,92 +1,87 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CCEA477E57;
-	Tue, 16 Jun 2026 17:44:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4255B47AF5F;
+	Tue, 16 Jun 2026 17:44:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781631881; cv=none; b=hl986cWOjiGTaveyA2U3juRgsvLDD/gMSUB4w3pEsnTL66DS8XpPzJw53D7hHhaIoUf63X5I3dFISig0qi1dzwfAHklfIAQEUq8k3j96gSXUT1fJuoWneshszewmkrotxwCBCS0T3tFri4DwcLrfGl5A+CBt3Avy7ZpDuQp4VSI=
+	t=1781631884; cv=none; b=E1JTEROV4ydsqU7m5lahwMBkXBPUCmzB3ASKHTcBvqexBsuTGZ/zJgFeYFnR4URQ3468pjFEpxXEyCCL0F209+CTYkhjSEWBpi0xKVx4MukxStrIQdcWBKSoLFIYg1hIDHU+1cHibtvOo6E2VOXHcqHIPH/vxUBZF7EfyMFRzZI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781631881; c=relaxed/simple;
-	bh=aBSoF3xVNtdr92G32w4ao0y0W7mm1HNio68qc3VHsGc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=p5zAUq3CzVTF0Ru2qcPqVdQqW4wXyahGgSuoCLTRSPtbD7GwqDQJRa9Op6ro2nA60vWCKDJi/kPSOZ1NuhA3KwlZYyf3Bk6OunSP+cSbOK2N7bBPqvlMmgzn2NZGFOHS5fd94b1jXbaGYEwuA0PuwxZrKMzCKqyT4fnErH2TeDo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=fokWOVF5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781631884; c=relaxed/simple;
+	bh=PQA145YAA2CJZfOtrtPtkSQEG98dC0r4HRCTF/mgdjc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=bcdPOBlNPlDVdWm4qofedNpZNYSS+TfrY84NXwvi2tQQNn15jW7TinNDzBUCyn87VRd3g2oFQ0IcVErpyS9A2VGW870YrT2xihcWfRWnWtTzXb2+TlfibVmJIFDYDRqAEJLny461Y9N9lzIOabcEk5EmdxgzJVNm35CAwxVZifw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=StKcjs5I; arc=none smtp.client-ip=192.198.163.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="fokWOVF5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A42461F000E9;
-	Tue, 16 Jun 2026 17:44:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1781631879;
-	bh=IA8H7MMDqbCui7LYInnB39LYEhcJtd6D+UrH6xHu1t8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=fokWOVF5ixZDBRlQTvsdARvOB7xobkuVFfnCjE9oUG9sHX5jU+2iXXtalAw2PnnQx
-	 rxpv6zVe14h2bshQsO6f/WQnNDz8z2XJI6KN51LAQL0hBW7oE+M97k7cUYDMm1xxS7
-	 lDKkg8Ld/20S5g+ma+yA0lXdq1yzJaXARlVEnnWI=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Paolo Abeni <pabeni@redhat.com>,
-	"Matthieu Baerts (NGI0)" <matttbe@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>
-Subject: [PATCH 6.1 285/522] mptcp: fix retransmission loop when csum is enabled
-Date: Tue, 16 Jun 2026 20:27:12 +0530
-Message-ID: <20260616145139.277181300@linuxfoundation.org>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260616145125.307082728@linuxfoundation.org>
-References: <20260616145125.307082728@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="StKcjs5I"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1781631882; x=1813167882;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=PQA145YAA2CJZfOtrtPtkSQEG98dC0r4HRCTF/mgdjc=;
+  b=StKcjs5IG/IaKGzMI+JeQgQZlKWmOIPcJSQV5mSCyiwAenSxVdnKsccJ
+   xGDpdhwUmsQq9K/KxEvwKUsUprzarkokG68kjLdIKFVID2wBdDXnILhUn
+   k2lUooQCdfFN6Nk0inuSVYdyA9k40G6OsHaKr5SQ2uGPfv+rW2pUvHq0e
+   eSriDmsA1Nxh3DSyZLi4orSNVjC23cXR+RlYpNUSGE4rfnFNHWKf68rtm
+   rtSnTo6w5Jdna7TgahFRuv/VgsDwGV5VS2LK2hCx0qfGBvzijdCNiefLr
+   uCgKZFOfDTjUMQ8A18d6kMJyAGHck5tbr4uau7sAwcV+ZDslw6Jav5htE
+   A==;
+X-CSE-ConnectionGUID: HOGDe5ykTn+lxdAQhjCmxg==
+X-CSE-MsgGUID: qJgcM1a5TZ6H3lJK1QHmbQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11819"; a="84971395"
+X-IronPort-AV: E=Sophos;i="6.24,208,1774335600"; 
+   d="scan'208";a="84971395"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Jun 2026 10:44:42 -0700
+X-CSE-ConnectionGUID: EGu9RFbRTzqgHkXWAdaN6w==
+X-CSE-MsgGUID: tLFRqi/tTci1/3FLRF0UZw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,208,1774335600"; 
+   d="scan'208";a="271908495"
+Received: from aduenasd-mobl5.amr.corp.intel.com (HELO [10.125.111.91]) ([10.125.111.91])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Jun 2026 10:44:40 -0700
+Message-ID: <81f90f2e-a0df-483a-af25-7eac7a19049a@intel.com>
+Date: Tue, 16 Jun 2026 10:44:39 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-
-6.1-stable review patch.  If anyone has any objections, please let me know.
-
-------------------
-
-From: Paolo Abeni <pabeni@redhat.com>
-
-commit d1918b36edcaed0ec4ef6888b2358c6b1ddcff47 upstream.
-
-Sashiko noted that retransmission with csum enabled can actually
-transmit new data, but currently the relevant code does not update
-accordingly snd_nxt.
-
-The may cause incoming ack drop and an endless retransmission loop.
-
-Address the issue incrementing snd_nxt as needed.
-
-Fixes: 4e14867d5e91 ("mptcp: tune re-injections for csum enabled mode")
-Cc: stable@vger.kernel.org
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
-Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
-Link: https://patch.msgid.link/20260602-net-mptcp-misc-fixes-7-1-rc7-v2-2-856831229976@kernel.org
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- net/mptcp/protocol.c |    4 ++++
- 1 file changed, 4 insertions(+)
-
---- a/net/mptcp/protocol.c
-+++ b/net/mptcp/protocol.c
-@@ -2752,6 +2752,10 @@ static void __mptcp_retrans(struct sock
- 
- 	release_sock(ssk);
- 
-+	/* With csum enabled retransmission can send new data. */
-+	if (after64(dfrag->already_sent + dfrag->data_seq, msk->snd_nxt))
-+		WRITE_ONCE(msk->snd_nxt, dfrag->already_sent + dfrag->data_seq);
-+
- reset_timer:
- 	mptcp_check_and_set_pending(sk);
- 
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] cxl/mce: Validate memdev and endpoint before
+ dereference in cxl_handle_mce()
+To: "Dan Williams (nvidia)" <djbw@kernel.org>, linux-cxl@vger.kernel.org
+Cc: dave@stgolabs.net, jic23@kernel.org, alison.schofield@intel.com,
+ vishal.l.verma@intel.com, flavien@nus.edu.sg, stable@vger.kernel.org
+References: <20260616004007.4186004-1-dave.jiang@intel.com>
+ <20260616004007.4186004-2-dave.jiang@intel.com>
+ <6a318b25443ad_199fc4100b5@djbw-dev.notmuch>
+Content-Language: en-US
+From: Dave Jiang <dave.jiang@intel.com>
+In-Reply-To: <6a318b25443ad_199fc4100b5@djbw-dev.notmuch>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
 
+
+On 6/16/26 10:43 AM, Dan Williams (nvidia) wrote:
+> Dave Jiang wrote:
+>> cxlmd and endpoint are both used in cxl_handle_mce() without proper
+>> validation, which can lead to NULL pointer dereference or invalid pointer
+>> dereference. The notifier is registered in cxl_memdev_state_create()
+>> when the CXL PCI driver first binds, before the memdev is published and
+>> before it is attached to a CXL topology.
+>>
+>> Add checks to cxlmd and endpoint to ensure they are valid before usage.
+> 
+> This looks to be trying to band-aid the original mistake of having
+> cxl_memdev_state_create() register a region-relative callback.
+> 
+> Move the mce notifier registration to be per-region and all the lookup
+> lifetime problems disappear.
+
+ok that makes sense. 
