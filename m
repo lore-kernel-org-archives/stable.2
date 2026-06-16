@@ -1,43 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62FBB46AF11
-	for <stable@vger.kernel.org>; Tue, 16 Jun 2026 16:19:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACB0E472762;
+	Tue, 16 Jun 2026 16:19:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781626742; cv=none; b=kXBvRO5vNlVlVoRqkw9sgl5J4D0HOH30YXv1N7rw4jJkbdoWRbdVTY3XFAP/n8iuhhm9HpvWALzDwDcHZydhnqynsv0p5OvC+xyZlHTfzdYt3pY1K4TB1lzseh/3cKPOnvOHmv90L14AwkmcJgJp3ZK52eAstxNqKzaV1lQbO5k=
+	t=1781626744; cv=none; b=NY155lpiGQQFUHJMHS0ATXd3dIVpKy4zQPdLqa58zUYiMqC5WyoSeoJo8Xs1L1iDgXDuxT9m2hnuCyMBwkxXYq/Ll8OSjLyGXC3m81MvNvfCQHbpuz9+UFAzRwh6qI8rH/k0ENgEFVTr4AVZW9H69AvTdZpJUTYKVxPDuPXWci4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781626742; c=relaxed/simple;
-	bh=ris77oPsGbaorWuP4W4LqnMqm5sOkWuBvKfybJA1jGM=;
+	s=arc-20240116; t=1781626744; c=relaxed/simple;
+	bh=LftoIHJu1UEusYj2qcEZskCON4pbtH3tsr5aCtNwbZg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cNn1tTUn5O90Q+lNqxdCwnNASJq06QokuekzD9pubUZ0UlEgLFSmgKNxhAuJGY+HNhHV28CmoLc+zaMJQY1nw3cvy66vJTflQLYyBfRR6rD3NUVVJSkL/OYCWosgI7gYuH0fkhhCntOOw8bWuUflKVjUTaHh3smMBjUqgkKKvSk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jyQ2dOk2; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=mgO2ZJQOppm8GKq1KpJiqgHCZmuFMMmV8fE8Zv9SDwD87zDjEB5Xshvb2XzH4YMD3p/DNsN+KVj/l5eQUSad4UyTB3vE/oyqh7ZHy4FQnv8M5kywR2D7cZZa35RrjJfHI9C4lzTQGeeDyvR0gHcxo3/riKeAdOCZDVEZ+eox1WU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=1JM/xztd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jyQ2dOk2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AE8A1F000E9;
-	Tue, 16 Jun 2026 16:19:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781626741;
-	bh=HNotEzno6DlUHfSSkJqgB6WovQsh3ASWIxV5iwJr/Z4=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="1JM/xztd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72DB61F000E9;
+	Tue, 16 Jun 2026 16:19:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1781626743;
+	bh=cP1M17NZxeLKaIaKkYd/wmoNLQ4+R31eSu2ml+WY7x8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jyQ2dOk2/ZbUS6ptF+r9g3ao4TqSTF4zaCP6viar5TLPvYaAiU8evECkyiJs3LV+t
-	 YnKHGNZ/2mGEcDUc26JWJ9pmHEf2d2NGLkLY++RbB3VMhMsjmY9TyzT6hJT61Ld/wV
-	 rKD0VelRc0VTV9WQ/Qa1X7kTcAsVVyDL0A1sJiG4KQDsUnVk3AdzIZxw4cZFzihiFO
-	 ZOfBKf3nzpsoS/C0zTADzaMmOqmU0+mkus5Onyms+yWEVxbi0LDAI0eiEGk41ntQ9r
-	 djagVUBmRmirPqOGWwp9owXlQIpd47/A1Kxk65DUeNJvGKumQ2r73yydNMvwcwBDF1
-	 76nmKe+lwJFIw==
-From: Sasha Levin <sashal@kernel.org>
+	b=1JM/xztdLHbtdHLMgjwbw31c7W2Z+uzRD5NmB/f0Pl/OLHIy7NfnQqZ+uLJ4IHhgQ
+	 GjxVXY8U0IgFsJlxfuyP9h/LiuDejCnemxHx9MzEiMDJYb8IpPxg7ndd2zjV1a9JHx
+	 Pe0724JaK47RbJ3Mxmy6iJQURKW5/yabvlQd7qJo=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Paolo Abeni <pabeni@redhat.com>,
-	"Matthieu Baerts (NGI0)" <matttbe@kernel.org>,
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Mark Bloch <mbloch@nvidia.com>,
+	Jiri Pirko <jiri@nvidia.com>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] mptcp: fix missing wakeups in edge scenarios
-Date: Tue, 16 Jun 2026 12:18:58 -0400
-Message-ID: <20260616161858.3332254-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026061542-certify-unmixable-abde@gregkh>
-References: <2026061542-certify-unmixable-abde@gregkh>
+Subject: [PATCH 6.12 028/261] devlink: Release nested relation on devlink free
+Date: Tue, 16 Jun 2026 20:27:46 +0530
+Message-ID: <20260616145046.363335203@linuxfoundation.org>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260616145044.869532709@linuxfoundation.org>
+References: <20260616145044.869532709@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,45 +48,53 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Paolo Abeni <pabeni@redhat.com>
+6.12-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit 9d8d28738f24b75616d6ca7a27cb4aed88520343 ]
+------------------
 
-The mptcp_recvmsg() can fill MPTCP socket receive queue via
-mptcp_move_skbs(), but currently does not try to wakeup any listener,
-because the same process is going to check the receive queue soon.
+From: Mark Bloch <mbloch@nvidia.com>
 
-When multiple threads are reading from the same fd, the above can
-cause stall. Add the missing wakeup.
+[ Upstream commit 3522b21fd7e1863d0734537737bd59f1b90d0190 ]
 
-Fixes: 6771bfd9ee24 ("mptcp: update mptcp ack sequence from work queue")
-Cc: stable@vger.kernel.org
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
-Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
-Link: https://patch.msgid.link/20260602-net-mptcp-misc-fixes-7-1-rc7-v2-1-856831229976@kernel.org
+devlink relation state is normally released from devl_unregister(), which
+calls devlink_rel_put(). This misses devlink instances that get a nested
+relation before registration and then fail probe before devl_register() is
+reached.
+
+That flow can happen for SFs. The child devlink gets linked to its
+parent before registration, then a later probe error calls devlink_free()
+directly. Since the instance was never registered, devl_unregister() is not
+called and devlink->rel is leaked.
+
+Release any pending relation from devlink_free() as well. The registered
+path is unchanged because devl_unregister() already clears devlink->rel
+before devlink_free() runs.
+
+Fixes: c137743bce02 ("devlink: introduce object and nested devlink relationship infra")
+Signed-off-by: Mark Bloch <mbloch@nvidia.com>
+Reviewed-by: Jiri Pirko <jiri@nvidia.com>
+Link: https://patch.msgid.link/20260528191411.3270532-1-mbloch@nvidia.com
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/mptcp/protocol.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ net/devlink/core.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/net/mptcp/protocol.c b/net/mptcp/protocol.c
-index 965819ddc04c95..3abd6ee4a2970c 100644
---- a/net/mptcp/protocol.c
-+++ b/net/mptcp/protocol.c
-@@ -2182,8 +2182,10 @@ static bool __mptcp_move_skbs(struct mptcp_sock *msk)
- 		__mptcp_splice_receive_queue(sk);
- 		mptcp_data_unlock(sk);
- 	}
--	if (ret)
-+	if (ret) {
- 		mptcp_check_data_fin((struct sock *)msk);
-+		sk->sk_data_ready(sk);
-+	}
- 	return !skb_queue_empty(&msk->receive_queue);
- }
+diff --git a/net/devlink/core.c b/net/devlink/core.c
+index 7203c39532fcc3..5f62fe5d2aa883 100644
+--- a/net/devlink/core.c
++++ b/net/devlink/core.c
+@@ -469,6 +469,8 @@ void devlink_free(struct devlink *devlink)
+ {
+ 	ASSERT_DEVLINK_NOT_REGISTERED(devlink);
  
++	devlink_rel_put(devlink);
++
+ 	WARN_ON(!list_empty(&devlink->trap_policer_list));
+ 	WARN_ON(!list_empty(&devlink->trap_group_list));
+ 	WARN_ON(!list_empty(&devlink->trap_list));
 -- 
 2.53.0
+
+
 
