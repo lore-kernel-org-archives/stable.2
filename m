@@ -1,341 +1,154 @@
-Received: from ultrarisc.com (unknown [218.76.62.146])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 22392231A41;
-	Tue, 16 Jun 2026 06:19:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=218.76.62.146
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781590761; cv=none; b=TstcBJLh3cab2ktgPaZSYA51KO4pdCv7QD91OoPTDJg0JEQUGGZF/V8MZtN7lJnXSv0W/ta1CuGjJMkxYGBf22U4lbbfsfnLs/CJ4zzOuWuuHuG6yg1cdvu0VI6hsGFbvLMsSaNYEHxYN51VJ9X7zyxP+EbfFfcQXFI7yQxAnxs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781590761; c=relaxed/simple;
-	bh=doFZDcXnD1gmgwydQWlehUp/x2kH0dIblF+zo4/hG3w=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=TcPSCELAzw3H/ETRA7dLtyJ8WRgasmskzjJTsdOCxik/I7QrLOcdDzz0yAYIJYzLGxVI9dP4mFb0fDxLB6lL/bwRmwJKpC9ZwLPWYfEh00fDd0EaVJaAWmqlBlnKk8zL12JIZiNYz46sPQKX66/4o9IMszFf50KUQkANwgdnODY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com; spf=none smtp.mailfrom=ultrarisc.com; dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b=PIuetGEl; arc=none smtp.client-ip=218.76.62.146
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=ultrarisc.com
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012058.outbound.protection.outlook.com [40.93.195.58])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23A963D0C07;
+	Tue, 16 Jun 2026 06:21:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.58
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781590889; cv=fail; b=deuoKXpaCEyJ32LIu3u18Y4poiwJu7501O6DeLvVS7BBuQ7irD5JKbr/u6+4t0M4vJpWBeFOsZULXnvlQJ1VDQTi3kLvU8O/xb4gVwrwrQvZaJlL0n2RrqJtn2vvd2+uVHw6vHkCPrKY0JfVTmdK+uIs5zvlTupbe6n/O6HmDGE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781590889; c=relaxed/simple;
+	bh=PadryAYe5IvvuZswPj3rCvIkA/JvLb2HKMdzZLuY6Z8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=cnE1uWjJlPPFFf89lKGDbSHg4jXs+LtpGRdRIBthcUiIhZbzryzHsIKnJKZjL+rBc6zNTIIHMm/Wn/LUl7dLDyPFF+51ocOaARlVQapbWR4Q9TzhQ6U+qEAJ+xM9gA13kKdNMi/jMjxAo+3JKxNLlkOQtfOhtWVwQhtAr1/fGXs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=QvrJvF7y; arc=fail smtp.client-ip=40.93.195.58
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b="PIuetGEl"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=ultrarisc.com; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-ID:Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=3jZltsipL0X/qLFFiz2GS+s+hrpgA/ArrsB87YJnZa8=; b=PIuetGElS6Ens
-	OV38nVLDVyJtD8Bi4GIKP9MbHQKKc9Sq9vr1yNjLAp4WflTYAqwwJx7SUs/Lrm71
-	cme0hlgO0H/QzoUo99Q8JejYKg4SbpxV+LXaamnoZuB2tkRdjzQYHuCOwzNUUihU
-	qhjI4xY9YLf7MX+fZXmgFmjxiHjMsQ=
-Received: from [127.0.1.1] (unknown [192.168.100.1])
-	by localhost.localdomain (Coremail) with SMTP id AQAAfwA3cULh6jBqdZQKAA--.9582S2;
-	Tue, 16 Jun 2026 14:19:13 +0800 (CST)
-From: Xie Bo <xb@ultrarisc.com>
-To: Anup Patel <anup@brainfault.org>, kvm-riscv@lists.infradead.org
-Cc: Atish Patra <atish.patra@linux.dev>, Paul Walmsley <pjw@kernel.org>,
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
- Alexandre Ghiti <alex@ghiti.fr>, Paolo Bonzini <pbonzini@redhat.com>,
- Alexander Graf <graf@amazon.com>, kvm@vger.kernel.org,
- linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, Xie Bo <xb@ultrarisc.com>
-Subject: [PATCH] RISC-V: KVM: Fix lost virtual interrupts during IRQ sync
-Date: Tue, 16 Jun 2026 14:17:58 +0800
-Message-ID: <178159067899.108868.8176174463274678253@ultrarisc.com>
-X-Mailer: python-smtplib kernel patch sender
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="QvrJvF7y"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=pRzRVUuDCGNvlrbIUiq8VYL1iBldMJVcwMMbqgILFCP7GZ4nbvay3BT/TW6IdHhPVZ3CZ4FbJd8uf6XvY8+qJdTrMlRQogPFWx84JILn0WyF3ZFZizFLpJGXxfmyLDkQyLbU6livkT4qvsQfFVLiiYpEHNYNmgMuXZhPt0c+0U//q1cUkzxSWi97OcLbmROcCIs708JbNJaq8jHRcylSBffdPkeSWr9XzYrK7VpwkGgqLufyv7KGynH9eCCrQVqqPbkRcBiROzBYRsAqB0G7UAs1svh4nKl4/qLJuC26/xaKRNXHEH92sNIcpoWuTQhwPOfWqJSgu1Eh6r6S2R5ocA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=9cB6P2+tyZTLKtGoy6mgG/qD4+1j9y5ubF2jkRvopps=;
+ b=uf8PR+cpwXjDv72mD8Ec52q6/dIoM+LNir0ZiMAu6uwwUm9TYJinE1wA3PXBBiRSXL9Ncm5C3zhNEurflBefgc9lFKqBwpzH1VZuBxLSGx2xE3FV+RHMlI9g4m1yLjFIX8EBR/r4Ekwg/eSeMs70NmyC+B49bAdMQLT9+JfaYi/tELsosfPNYdSRh9+kFWiiB9XOKe147r0bqGhMlA5Jby/keaWpNMMD46LHTblpnQEhfnGQORYzHd/RJsTJScXqeIl/DTdz/ICTKRfKtNGc1Se+/FS/lH4QZC5RIfYVBAO6l296gXqZ5woHhiC6TlSnuI/HLKPBuVVjLAqN8AHg9Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9cB6P2+tyZTLKtGoy6mgG/qD4+1j9y5ubF2jkRvopps=;
+ b=QvrJvF7yO0WApNXzzxrUooQb8qSCSw+Cpc1ROmZF3HXKbZW7r2XQctc+eTM5mm0hJYL+sUZGOei7aFzmEgMGAT5iWXOzZzyWpog+EiFtzWvXNVjVbVPTSN3n8kR0VtyGmCZ13w3LWbsIzvApxX6j6FYNGVTIqBUcQSlHtr170xY=
+Received: from MW4PR03CA0160.namprd03.prod.outlook.com (2603:10b6:303:8d::15)
+ by IA1PR12MB6234.namprd12.prod.outlook.com (2603:10b6:208:3e6::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.18; Tue, 16 Jun
+ 2026 06:21:24 +0000
+Received: from SJ5PEPF000001CF.namprd05.prod.outlook.com
+ (2603:10b6:303:8d:cafe::6a) by MW4PR03CA0160.outlook.office365.com
+ (2603:10b6:303:8d::15) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.113.18 via Frontend Transport; Tue,
+ 16 Jun 2026 06:21:23 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ5PEPF000001CF.mail.protection.outlook.com (10.167.242.43) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.139.8 via Frontend Transport; Tue, 16 Jun 2026 06:21:23 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 16 Jun
+ 2026 01:21:23 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 16 Jun
+ 2026 01:21:22 -0500
+Received: from [172.19.71.207] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Tue, 16 Jun 2026 01:21:22 -0500
+Message-ID: <be23dd53-78a2-0753-26bb-76b9ef7dbe02@amd.com>
+Date: Mon, 15 Jun 2026 23:21:17 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-CM-TRANSID:AQAAfwA3cULh6jBqdZQKAA--.9582S2
-X-Coremail-Antispam: 1UD129KBjvJXoW3CFW5CFyDCFy7Ar43Zw48Xrb_yoWDKw4kpF
-	WxCws09w48XrWxW34agrnYvr4Fqws5Kw4jkrZrWrW3Jr1Yqry5Zr1kGa45ZFyUCry8ZFnF
-	vryYkFy093WUZw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9l14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r1j6r1xM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4j6r
-	4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
-	I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r
-	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628v
-	n2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCY02Avz4vE-syl42xK82IYc2Ij64vIr41l4I
-	8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AK
-	xVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcV
-	AFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8I
-	cIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r
-	4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjfU5dgADUUUU
-X-CM-SenderInfo: l0e63zxwud2x1vfou0bp/1tbiAQAAB2owyEoAAgAAsc
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH] accel/amdxdna: Use caller client for debug BO sync
+Content-Language: en-US
+To: Shuvam Pandey <shuvampandey1@gmail.com>, Min Ma <mamin506@gmail.com>,
+	"Oded Gabbay" <ogabbay@kernel.org>
+CC: "Mario Limonciello (AMD)" <superm1@kernel.org>,
+	<dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+	<stable@vger.kernel.org>
+References: <178155468039.81818.12173237984867749651@gmail.com>
+From: Lizhi Hou <lizhi.hou@amd.com>
+In-Reply-To: <178155468039.81818.12173237984867749651@gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001CF:EE_|IA1PR12MB6234:EE_
+X-MS-Office365-Filtering-Correlation-Id: cce13be2-ea2b-4522-2ebf-08decb6f7d54
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|82310400026|36860700016|23010399003|376014|18002099003|22082099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	Ci5bvn0TmayUn+ynqyxiXG9Us4DAGcr7OC2A32U8rbFQDWOG0MbpW8VFgDVptTz/vHWoMuJ3idAt2FrIQwpPaBYIONVS56PRvXKdhDtQP5uJxGqawG2cbYdtcEfaXiUt3N+NhhrIrilZpRUDSwN0ZYA8sMZGrdixv+1nRSuAGgooh/BuFoMZmUs5bwoGGVFP7af75zcxB5+T/C7Bmk6tA/OHyZqYH5bvsN7e8oTRuaELgPUvmg8gubI0lIIvbsigIie/vq46AGLw7NM7zNY2JPyAQp3fE8/r1NiCgxwu/lin44t6lKuae1Gv94yNmGHt/1cyTE/mgtLxQgFgg6m3EKjOBQXpKTBdUhNfpFE6Njx4GXAvUtlRdaf84GIiyQZHV+lDXc3X5sHnAQcN04ZbQOwFaK+K+gRz0jON+aKFof6x9T8KAsF0fHyflq48tvjTTYMq1aWdAT9UR9O/TDjgaf+hz+TucI1QAhV8tWiLW3+Ho6AkubYLNNh+C8oJwikKE24hEkVG9GgQATF8pXmWXlpBvUSSOOwpfklu/SF57JLK6a4m4jdjFi1M8vWkIqmRFKNPCArZLMVQqLOkjtl7bNK9JdRNAnQ3k392uwubUIfNDB4dT7Ruj09rYAw6Q5V9BJW/JE9IgHNPi0XBhSwLQdtGtW0ufNH54bRy85WSwcXNrATinkUqY2HTFN/0iIPb9wVkJWiTVi5srXvnVVxFVE6LlG56jPJW5i8b8tZzKZo=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(36860700016)(23010399003)(376014)(18002099003)(22082099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	T92CPbzbncDncsQjjsufw+TbbC+mu7zsTs5e5lFewKpJx9ERgKBn9+oKpubntxEUidqiaZ1JbHGRcImm9ti+L37AJNkEdWu2cQZlMUxZMg4E5hSXUFXUQW7SAHNusnIvmHLweoMzIFLs+E0/4EQGnoASuLoksXcDiYjPz8bE2eWfy2ZKwdhaR1wO/rLYXqzH+jrmds3UIB96VmkJgvwg1IaEIb85NIgEv1kgjQYL5RQfLUp6Tvvai86FCsPCdAeM3FnI8WWfZkIXDbsvZsIuLz1weFOLaouIFHpc7velsAKUuQ8IBQ8jV+stKLEMaSvMCdaPxB1RsZxcLeRhGTVAE5F3Q77Zh2TD0YlgYuyxBriduryFnoKGXRTugkcKQ0duY67r9Bu/xMHq+12o3ZraZw5M0I9KFyKVAs2y3TWWs2Ml706CHvYLCLI9Pap8w22u
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jun 2026 06:21:23.6638
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: cce13be2-ea2b-4522-2ebf-08decb6f7d54
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ5PEPF000001CF.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6234
 
-RISC-V KVM tracks guest pending interrupts with irqs_pending and
-irqs_pending_mask. The existing code uses atomic bitops and models the
-state as a multiple-producer, single-consumer queue where the vCPU is
-the consumer.
 
-The atomic bitops make each individual bitmap operation atomic, but
-they do not make the pair of irqs_pending and irqs_pending_mask an
-atomic state transition. The vCPU interrupt sync path is also not a
-pure consumer: it writes both bitmaps when it reflects guest-visible
-HVIP changes back into KVM state.
-
-For example, kvm_riscv_vcpu_set_interrupt() can set IRQ_VS_SOFT in
-irqs_pending while the target vCPU is concurrently syncing a
-guest-cleared HVIP.VSSIP bit. If sync observes irqs_pending_mask before
-the producer sets it, sync can set the mask and clear irqs_pending. The
-producer then sets the mask and kicks the vCPU, but the pending bit has
-already been lost. A subsequent flush updates HVIP without VSSIP, and
-the guest can remain blocked in WFI even though it has work queued.
-
-Serialize all updates to irqs_pending and irqs_pending_mask with a
-per-vCPU raw spinlock. This intentionally replaces the lockless
-pending/mask protocol with one small critical section per vCPU, so the
-pending bit and the dirty mask are updated as one state transition.
-Use the same lock for sync, flush, reset, and userspace CSR writes that
-clear the dirty mask, so a newly injected interrupt cannot be
-overwritten by a concurrent HVIP sync.
-
-Fixes: cce69aff689e ("RISC-V: KVM: Implement VCPU interrupts and requests handling")
-Cc: stable@vger.kernel.org
-Signed-off-by: Xie Bo <xb@ultrarisc.com>
----
- arch/riscv/include/asm/kvm_host.h | 10 +++++-----
- arch/riscv/kvm/aia.c              | 28 +++++++++++++++++++++-------
- arch/riscv/kvm/vcpu.c             | 27 ++++++++++++++++++++++-----
- arch/riscv/kvm/vcpu_onereg.c      | 13 +++++++++----
- 4 files changed, 57 insertions(+), 21 deletions(-)
-
-diff --git a/arch/riscv/include/asm/kvm_host.h b/arch/riscv/include/asm/kvm_host.h
-index 75b0a951c..97e42645c 100644
---- a/arch/riscv/include/asm/kvm_host.h
-+++ b/arch/riscv/include/asm/kvm_host.h
-@@ -207,13 +207,13 @@ struct kvm_vcpu_arch {
- 	/*
- 	 * VCPU interrupts
- 	 *
--	 * We have a lockless approach for tracking pending VCPU interrupts
--	 * implemented using atomic bitops. The irqs_pending bitmap represent
--	 * pending interrupts whereas irqs_pending_mask represent bits changed
--	 * in irqs_pending. Our approach is modeled around multiple producer
--	 * and single consumer problem where the consumer is the VCPU itself.
-+	 * The irqs_pending bitmap represents pending interrupts whereas
-+	 * irqs_pending_mask represents bits changed in irqs_pending. Updates
-+	 * to these bitmaps are serialized so vcpu interrupt sync/flush cannot
-+	 * drop a newly injected interrupt while syncing guest-visible HVIP.
- 	 */
- #define KVM_RISCV_VCPU_NR_IRQS	64
-+	raw_spinlock_t irqs_pending_lock;
- 	DECLARE_BITMAP(irqs_pending, KVM_RISCV_VCPU_NR_IRQS);
- 	DECLARE_BITMAP(irqs_pending_mask, KVM_RISCV_VCPU_NR_IRQS);
- 
-diff --git a/arch/riscv/kvm/aia.c b/arch/riscv/kvm/aia.c
-index 5ec503288..821d2cb6d 100644
---- a/arch/riscv/kvm/aia.c
-+++ b/arch/riscv/kvm/aia.c
-@@ -50,17 +50,21 @@ void kvm_riscv_vcpu_aia_flush_interrupts(struct kvm_vcpu *vcpu)
- {
- 	struct kvm_vcpu_aia_csr *csr = &vcpu->arch.aia_context.guest_csr;
- 	unsigned long mask, val;
-+	unsigned long flags;
- 
- 	if (!kvm_riscv_aia_available())
- 		return;
- 
--	if (READ_ONCE(vcpu->arch.irqs_pending_mask[1])) {
--		mask = xchg_acquire(&vcpu->arch.irqs_pending_mask[1], 0);
--		val = READ_ONCE(vcpu->arch.irqs_pending[1]) & mask;
-+	raw_spin_lock_irqsave(&vcpu->arch.irqs_pending_lock, flags);
-+	mask = vcpu->arch.irqs_pending_mask[1];
-+	if (mask) {
-+		vcpu->arch.irqs_pending_mask[1] = 0;
-+		val = vcpu->arch.irqs_pending[1] & mask;
- 
- 		csr->hviph &= ~mask;
- 		csr->hviph |= val;
- 	}
-+	raw_spin_unlock_irqrestore(&vcpu->arch.irqs_pending_lock, flags);
- }
- 
- void kvm_riscv_vcpu_aia_sync_interrupts(struct kvm_vcpu *vcpu)
-@@ -205,6 +209,9 @@ int kvm_riscv_vcpu_aia_set_csr(struct kvm_vcpu *vcpu,
- {
- 	struct kvm_vcpu_aia_csr *csr = &vcpu->arch.aia_context.guest_csr;
- 	unsigned long regs_max = sizeof(struct kvm_riscv_aia_csr) / sizeof(unsigned long);
-+#ifdef CONFIG_32BIT
-+	unsigned long flags;
-+#endif
- 
- 	if (!riscv_isa_extension_available(vcpu->arch.isa, SSAIA))
- 		return -ENOENT;
-@@ -214,11 +221,18 @@ int kvm_riscv_vcpu_aia_set_csr(struct kvm_vcpu *vcpu,
- 	reg_num = array_index_nospec(reg_num, regs_max);
- 
- 	if (kvm_riscv_aia_available()) {
--		((unsigned long *)csr)[reg_num] = val;
--
- #ifdef CONFIG_32BIT
--		if (reg_num == KVM_REG_RISCV_CSR_AIA_REG(siph))
--			WRITE_ONCE(vcpu->arch.irqs_pending_mask[1], 0);
-+		if (reg_num == KVM_REG_RISCV_CSR_AIA_REG(siph)) {
-+			raw_spin_lock_irqsave(&vcpu->arch.irqs_pending_lock, flags);
-+			((unsigned long *)csr)[reg_num] = val;
-+			vcpu->arch.irqs_pending_mask[1] = 0;
-+			raw_spin_unlock_irqrestore(&vcpu->arch.irqs_pending_lock,
-+						   flags);
-+		} else {
-+			((unsigned long *)csr)[reg_num] = val;
-+		}
-+#else
-+		((unsigned long *)csr)[reg_num] = val;
- #endif
- 	}
- 
-diff --git a/arch/riscv/kvm/vcpu.c b/arch/riscv/kvm/vcpu.c
-index a73690eda..b04730ccd 100644
---- a/arch/riscv/kvm/vcpu.c
-+++ b/arch/riscv/kvm/vcpu.c
-@@ -80,6 +80,7 @@ static void kvm_riscv_vcpu_context_reset(struct kvm_vcpu *vcpu,
- 
- static void kvm_riscv_reset_vcpu(struct kvm_vcpu *vcpu, bool kvm_sbi_reset)
- {
-+	unsigned long flags;
- 	bool loaded;
- 
- 	/**
-@@ -104,8 +105,10 @@ static void kvm_riscv_reset_vcpu(struct kvm_vcpu *vcpu, bool kvm_sbi_reset)
- 
- 	kvm_riscv_vcpu_aia_reset(vcpu);
- 
-+	raw_spin_lock_irqsave(&vcpu->arch.irqs_pending_lock, flags);
- 	bitmap_zero(vcpu->arch.irqs_pending, KVM_RISCV_VCPU_NR_IRQS);
- 	bitmap_zero(vcpu->arch.irqs_pending_mask, KVM_RISCV_VCPU_NR_IRQS);
-+	raw_spin_unlock_irqrestore(&vcpu->arch.irqs_pending_lock, flags);
- 
- 	kvm_riscv_vcpu_pmu_reset(vcpu);
- 
-@@ -151,6 +154,7 @@ int kvm_arch_vcpu_create(struct kvm_vcpu *vcpu)
- 
- 	/* Setup VCPU hfence queue */
- 	spin_lock_init(&vcpu->arch.hfence_lock);
-+	raw_spin_lock_init(&vcpu->arch.irqs_pending_lock);
- 
- 	spin_lock_init(&vcpu->arch.reset_state.lock);
- 
-@@ -352,14 +356,18 @@ void kvm_riscv_vcpu_flush_interrupts(struct kvm_vcpu *vcpu)
- {
- 	struct kvm_vcpu_csr *csr = &vcpu->arch.guest_csr;
- 	unsigned long mask, val;
-+	unsigned long flags;
- 
--	if (READ_ONCE(vcpu->arch.irqs_pending_mask[0])) {
--		mask = xchg_acquire(&vcpu->arch.irqs_pending_mask[0], 0);
--		val = READ_ONCE(vcpu->arch.irqs_pending[0]) & mask;
-+	raw_spin_lock_irqsave(&vcpu->arch.irqs_pending_lock, flags);
-+	mask = vcpu->arch.irqs_pending_mask[0];
-+	if (mask) {
-+		vcpu->arch.irqs_pending_mask[0] = 0;
-+		val = vcpu->arch.irqs_pending[0] & mask;
- 
- 		csr->hvip &= ~mask;
- 		csr->hvip |= val;
- 	}
-+	raw_spin_unlock_irqrestore(&vcpu->arch.irqs_pending_lock, flags);
- 
- 	/* Flush AIA high interrupts */
- 	kvm_riscv_vcpu_aia_flush_interrupts(vcpu);
-@@ -368,6 +376,7 @@ void kvm_riscv_vcpu_flush_interrupts(struct kvm_vcpu *vcpu)
- void kvm_riscv_vcpu_sync_interrupts(struct kvm_vcpu *vcpu)
- {
- 	unsigned long hvip;
-+	unsigned long flags;
- 	struct kvm_vcpu_arch *v = &vcpu->arch;
- 	struct kvm_vcpu_csr *csr = &vcpu->arch.guest_csr;
- 
-@@ -376,6 +385,7 @@ void kvm_riscv_vcpu_sync_interrupts(struct kvm_vcpu *vcpu)
- 
- 	/* Sync-up HVIP.VSSIP bit changes does by Guest */
- 	hvip = ncsr_read(CSR_HVIP);
-+	raw_spin_lock_irqsave(&v->irqs_pending_lock, flags);
- 	if ((csr->hvip ^ hvip) & (1UL << IRQ_VS_SOFT)) {
- 		if (hvip & (1UL << IRQ_VS_SOFT)) {
- 			if (!test_and_set_bit(IRQ_VS_SOFT,
-@@ -394,6 +404,7 @@ void kvm_riscv_vcpu_sync_interrupts(struct kvm_vcpu *vcpu)
- 		    !test_and_set_bit(IRQ_PMU_OVF, v->irqs_pending_mask))
- 			clear_bit(IRQ_PMU_OVF, v->irqs_pending);
- 	}
-+	raw_spin_unlock_irqrestore(&v->irqs_pending_lock, flags);
- 
- 	/* Sync-up AIA high interrupts */
- 	kvm_riscv_vcpu_aia_sync_interrupts(vcpu);
-@@ -404,6 +415,8 @@ void kvm_riscv_vcpu_sync_interrupts(struct kvm_vcpu *vcpu)
- 
- int kvm_riscv_vcpu_set_interrupt(struct kvm_vcpu *vcpu, unsigned int irq)
- {
-+	unsigned long flags;
-+
- 	/*
- 	 * We only allow VS-mode software, timer, and external
- 	 * interrupts when irq is one of the local interrupts
-@@ -416,9 +429,10 @@ int kvm_riscv_vcpu_set_interrupt(struct kvm_vcpu *vcpu, unsigned int irq)
- 	    irq != IRQ_PMU_OVF)
- 		return -EINVAL;
- 
-+	raw_spin_lock_irqsave(&vcpu->arch.irqs_pending_lock, flags);
- 	set_bit(irq, vcpu->arch.irqs_pending);
--	smp_mb__before_atomic();
- 	set_bit(irq, vcpu->arch.irqs_pending_mask);
-+	raw_spin_unlock_irqrestore(&vcpu->arch.irqs_pending_lock, flags);
- 
- 	kvm_vcpu_kick(vcpu);
- 
-@@ -427,6 +441,8 @@ int kvm_riscv_vcpu_set_interrupt(struct kvm_vcpu *vcpu, unsigned int irq)
- 
- int kvm_riscv_vcpu_unset_interrupt(struct kvm_vcpu *vcpu, unsigned int irq)
- {
-+	unsigned long flags;
-+
- 	/*
- 	 * We only allow VS-mode software, timer, counter overflow and external
- 	 * interrupts when irq is one of the local interrupts
-@@ -439,9 +455,10 @@ int kvm_riscv_vcpu_unset_interrupt(struct kvm_vcpu *vcpu, unsigned int irq)
- 	    irq != IRQ_PMU_OVF)
- 		return -EINVAL;
- 
-+	raw_spin_lock_irqsave(&vcpu->arch.irqs_pending_lock, flags);
- 	clear_bit(irq, vcpu->arch.irqs_pending);
--	smp_mb__before_atomic();
- 	set_bit(irq, vcpu->arch.irqs_pending_mask);
-+	raw_spin_unlock_irqrestore(&vcpu->arch.irqs_pending_lock, flags);
- 
- 	return 0;
- }
-diff --git a/arch/riscv/kvm/vcpu_onereg.c b/arch/riscv/kvm/vcpu_onereg.c
-index bb920e892..cba368294 100644
---- a/arch/riscv/kvm/vcpu_onereg.c
-+++ b/arch/riscv/kvm/vcpu_onereg.c
-@@ -298,6 +298,7 @@ static int kvm_riscv_vcpu_general_set_csr(struct kvm_vcpu *vcpu,
- {
- 	struct kvm_vcpu_csr *csr = &vcpu->arch.guest_csr;
- 	unsigned long regs_max = sizeof(struct kvm_riscv_csr) / sizeof(unsigned long);
-+	unsigned long flags;
- 
- 	if (reg_num >= regs_max)
- 		return -ENOENT;
-@@ -309,10 +310,14 @@ static int kvm_riscv_vcpu_general_set_csr(struct kvm_vcpu *vcpu,
- 		reg_val <<= VSIP_TO_HVIP_SHIFT;
- 	}
- 
--	((unsigned long *)csr)[reg_num] = reg_val;
--
--	if (reg_num == KVM_REG_RISCV_CSR_REG(sip))
--		WRITE_ONCE(vcpu->arch.irqs_pending_mask[0], 0);
-+	if (reg_num == KVM_REG_RISCV_CSR_REG(sip)) {
-+		raw_spin_lock_irqsave(&vcpu->arch.irqs_pending_lock, flags);
-+		((unsigned long *)csr)[reg_num] = reg_val;
-+		vcpu->arch.irqs_pending_mask[0] = 0;
-+		raw_spin_unlock_irqrestore(&vcpu->arch.irqs_pending_lock, flags);
-+	} else {
-+		((unsigned long *)csr)[reg_num] = reg_val;
-+	}
- 
- 	return 0;
- }
-
-base-commit: 481329ec5b31d2c48ac6b8b703c8008133884c7e
--- 
-2.54.0
-
+On 6/15/26 13:18, Shuvam Pandey wrote:
+> amdxdna_drm_sync_bo_ioctl() looks up args->handle in the ioctl caller's
+> drm_file. For SYNC_DIRECT_FROM_DEVICE, it then calls
+> amdxdna_hwctx_sync_debug_bo(), but passes abo->client.
+>
+> amdxdna_hwctx_sync_debug_bo() uses the passed client both as the handle
+> namespace for debug_bo_hdl and as the owner of the hardware context xarray.
+> Those must match the file that supplied args->handle. The BO's stored
+> client pointer is object state, not the ioctl context.
+>
+> Pass filp->driver_priv instead, matching the original handle lookup.
+>
+> Fixes: 7ea046838021 ("accel/amdxdna: Support firmware debug buffer")
+> Cc: stable@vger.kernel.org # v6.19+
+> Signed-off-by: Shuvam Pandey <shuvampandey1@gmail.com>
+> ---
+>   drivers/accel/amdxdna/amdxdna_gem.c | 3 ++-
+>
+> diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/amdxdna_gem.c
+> index 6e367ddb9e1becb8d03cb4badec25deed38a851d..6c16b21994abc8f0ce58ee6dede219a84ade6825 100644
+> --- a/drivers/accel/amdxdna/amdxdna_gem.c
+> +++ b/drivers/accel/amdxdna/amdxdna_gem.c
+> @@ -1027,6 +1027,7 @@ int amdxdna_drm_get_bo_info_ioctl(struct drm_device *dev, void *data, struct drm
+>   int amdxdna_drm_sync_bo_ioctl(struct drm_device *dev,
+>   			      void *data, struct drm_file *filp)
+>   {
+> +	struct amdxdna_client *client = filp->driver_priv;
+>   	struct amdxdna_dev *xdna = to_xdna_dev(dev);
+>   	struct amdxdna_drm_sync_bo *args = data;
+>   	struct amdxdna_gem_obj *abo;
+> @@ -1061,7 +1062,7 @@ int amdxdna_drm_sync_bo_ioctl(struct drm_device *dev,
+>   		 args->handle, args->offset, args->size);
+>   
+>   	if (args->direction == SYNC_DIRECT_FROM_DEVICE)
+> -		ret = amdxdna_hwctx_sync_debug_bo(abo->client, args->handle);
+> +		ret = amdxdna_hwctx_sync_debug_bo(client, args->handle);
+Reviewed-by: Lizhi Hou <lizhi.hou@amd.com>
+>   
+>   put_obj:
+>   	drm_gem_object_put(gobj);
