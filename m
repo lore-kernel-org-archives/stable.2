@@ -1,46 +1,89 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 506CD2BE026;
-	Tue, 16 Jun 2026 13:32:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C03A830B529;
+	Tue, 16 Jun 2026 13:38:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781616724; cv=none; b=cjoMg3J8MaLUXXzR+dxvPX1AR0/OZnzdVvIGOQtkQb9efD5rsLeXO2DUgblwpX+ztq961Sb/JJx4rJckMVmyCFd54rchIHlVTVGrDcCUq93s+HCGcVebp/gjQsOL7pUCRlEyTSyJLjSqUuGY9/NpndhMGAGqQ0n0mxtSC14YhDA=
+	t=1781617099; cv=none; b=aV8kiBqjq7vf69eYzdReoLFH8TJET8MMF9k8d9LdjHmYUk2jDmIaiv7I2GS9Et3PxK/i/i3kdVZ4qLXVyRe8XwCfKn9k0GBePYkFiGB+jIpCPtSEA2nBhpxoGoAzGIN1x60YFxPP9CV6Sj52dvB9w/y8Selqgnt9OoiL4PCnY54=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781616724; c=relaxed/simple;
-	bh=9Lg1J7A4O8tyIczW9feMfYwxsXwLwMsgsLPQDTWGkPQ=;
+	s=arc-20240116; t=1781617099; c=relaxed/simple;
+	bh=YrlXqVwO4LlWxC2v2Tki0wOYpoD4pmFGQ+gzNRlk1YY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UJMywr+mTo0l9x8SMr0J4XpgtiOEZ+fJQflTMgVejF93M5naR0pJm+BpFPWH94s+7HeBpfYNB7jRkweYirGeojhmGw0hSdll95iXaSR062zn4HTXSUmWin6i3jbYqKshoMcf4fQVx1CVNb0Q09ljFgPApS4GzM5lFrIYzapS1dE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=nMSzF8R3; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=iHPj4T3eISs6kOOZJuN85zSNcg1Gm0BwIhaoELt0qNAJj4UVHKghvfsUcLqZdYkTvlAmdgLlbc6geth8PHEHTfJmbE4XQRsmN5T/o+HGvHtZPftuyo08QXf6YgcadqhpE6Dq69Et31eiQfNcL6v1gS3Pvyau8P3UX/jvK+dmc9w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=B7gOOxoV; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="nMSzF8R3"
-Received: by linux.microsoft.com (Postfix, from userid 1216)
-	id EA72620B716A; Tue, 16 Jun 2026 06:31:41 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com EA72620B716A
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1781616701;
-	bh=1L59/F0MlY1PyEzER7lNpGooBsayOF3108pPWJiREgc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=nMSzF8R3JSbBi1eOF8Be5Wy4X8vcUC7njNyiUG+qm9C5qEoEqbSs1iZvQ6oC+mu+f
-	 SmPhvl1pt/2//CrxP0CuSUbSjru44o/8wWC2/PYUpbhHiUh43Wf0ZGVVv5cF/fZVH0
-	 zI3e3jHR7HFsk9j4HM+VB6U953Rt/VvCuMr+1KI8=
-Date: Tue, 16 Jun 2026 09:31:41 -0400
-From: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
-To: Carlos Maiolino <cem@kernel.org>
-Cc: Sasha Levin <sashal@kernel.org>, Fedor Pchelkin <pchelkin@ispras.ru>,
-	Leah Rumancik <leah.rumancik@gmail.com>, stable@vger.kernel.org,
-	xfs-stable@lists.linux.dev, "Darrick J. Wong" <djwong@kernel.org>,
-	Christoph Hellwig <hch@lst.de>,
-	Catherine Hoang <catherine.hoang@oracle.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	lvc-project@linuxtesting.org, linux-xfs@vger.kernel.org
-Subject: Re: [PATCH 6.6 0/4] fix kernel crash for xfs/235 test
-Message-ID: <ajFQPY2m2A6ltvTH@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
-References: <20250322143418.216654-1-pchelkin@ispras.ru>
- <aisAxyXVxf4wql2u@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
- <20260612233110.2-1-sashal@kernel.org>
- <ajBQPNuKCruxhkXX@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
- <ajD3Gb-vQkGU0N6b@nidhogg.toxiclabs.cc>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="B7gOOxoV"
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65GAIQtR1156101;
+	Tue, 16 Jun 2026 13:38:03 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pp1; bh=OJlJUiTv5XLMETNJVTesa29BlzuKdp
+	nijWbmINEBqB4=; b=B7gOOxoVTJ0XFMFgjK7UOGZNOLEAoGBQsbGLt6CjbGK4bH
+	9jG0p+Qs1LWYoOnypXmRBE+n6iiTi/xTq7CQ49gFLB0xjWJEvL3WYsO536t2P8Fz
+	0X2d51nAg0DQ6WhLqtO6WfzUc+iPf9fdVs17o3SqTmVL78MmgTjh7GEcNV3rrPSt
+	5khh+2fyZ/YRtdmyZo740wfCtoIagIrHjC2e5DEPrjy+P++/kOYHyFW9bQwDcU+r
+	/nuZyFw//DRfAC5ahZ5Q+vo5s1rWHwfjM1QQyDOzn1oDZYlqFVxoFp0+mRZwxbCX
+	EknmTxh2TqjwLH7RSVNTfwTcKweOuvxwOog2M3UA==
+Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4es1eg5caa-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 16 Jun 2026 13:38:02 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma21.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 65GDYdrJ012348;
+	Tue, 16 Jun 2026 13:38:01 GMT
+Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
+	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4esjhk3hm1-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 16 Jun 2026 13:38:01 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com [10.20.54.100])
+	by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 65GDbvC813042050
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 16 Jun 2026 13:37:57 GMT
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id C2EE520043;
+	Tue, 16 Jun 2026 13:37:57 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 050F220040;
+	Tue, 16 Jun 2026 13:37:55 +0000 (GMT)
+Received: from fedora (unknown [9.5.7.39])
+	by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Tue, 16 Jun 2026 13:37:54 +0000 (GMT)
+Date: Tue, 16 Jun 2026 19:07:55 +0530
+From: Amit Machhiwal <amachhiw@linux.ibm.com>
+To: Ritesh Harjani <ritesh.list@gmail.com>
+Cc: Amit Machhiwal <amachhiw@linux.ibm.com>, linuxppc-dev@lists.ozlabs.org,
+        Madhavan Srinivasan <maddy@linux.ibm.com>,
+        Vaibhav Jain <vaibhav@linux.ibm.com>,
+        Harsh Prateek Bora <harshpb@linux.ibm.com>,
+        Anushree Mathur <anushree.mathur@linux.ibm.com>,
+        Gautam Menghani <gautam@linux.ibm.com>,
+        Mukesh Kumar Chaurasiya <mkchauras@gmail.com>,
+        Nicholas Piggin <npiggin@gmail.com>,
+        Michael Ellerman <mpe@ellerman.id.au>,
+        "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+        Thomas Huth <thuth@redhat.com>, kvm@vger.kernel.org,
+        stable@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] KVM: PPC: Book3S HV: Validate arch_compat against
+ host compatibility mode
+Message-ID: <20260616190601.49193107-d8-amachhiw@linux.ibm.com>
+Mail-Followup-To: Ritesh Harjani <ritesh.list@gmail.com>, 
+	linuxppc-dev@lists.ozlabs.org, Madhavan Srinivasan <maddy@linux.ibm.com>, 
+	Vaibhav Jain <vaibhav@linux.ibm.com>, Harsh Prateek Bora <harshpb@linux.ibm.com>, 
+	Anushree Mathur <anushree.mathur@linux.ibm.com>, Gautam Menghani <gautam@linux.ibm.com>, 
+	Mukesh Kumar Chaurasiya <mkchauras@gmail.com>, Nicholas Piggin <npiggin@gmail.com>, 
+	Michael Ellerman <mpe@ellerman.id.au>, "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
+	Thomas Huth <thuth@redhat.com>, kvm@vger.kernel.org, stable@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+References: <20260609053327.61563-1-amachhiw@linux.ibm.com>
+ <cxxqerzk.ritesh.list@gmail.com>
+ <20260616161011.835c90f0-38-amachhiw@linux.ibm.com>
+ <a4suelh6.ritesh.list@gmail.com>
+ <20260616182627.2ebf3cfc-3a-amachhiw@linux.ibm.com>
+ <8q8eeio8.ritesh.list@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,39 +92,104 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <ajD3Gb-vQkGU0N6b@nidhogg.toxiclabs.cc>
+In-Reply-To: <8q8eeio8.ritesh.list@gmail.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE2MDEzNSBTYWx0ZWRfXwLYiwAAZ/0qP
+ C4fGeY/69Q52L5ztLq7fK62M/koQTcP7rGqF0dcW5PdQJIVqmG25U6Butopsqhyz0hWV9rQ+X2Q
+ kZnO3iR09Fi6wc+Z3l3m+3eJ85OKFS0=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE2MDEzNSBTYWx0ZWRfX2aa9naN/h4n/
+ uZGa/jNJHCKe9M0iG+BKTBaVDqhwW5VeWwinEuRAcyAQzZ9YPyC8D8yUD3TnUTwZmOkTD3wdPFS
+ KC/8MWStWvd7Yd28iAb2bRlU6va6qFm3zD9Ahtr23Act6pSxn3pq8YFgLBg52n5fk7ksPmM/b0m
+ pEJ9gMzK9jmxgqhGtiKTLYHS1y/rOSb/gOmSl8IdmVJE7ULglbSX0J4PB9OqiqV6F+uBgUgmqHW
+ FyHeTUnE+oLlUPDvFk1DwvMNW1xYT0tO4GbaGQ4w8b9ndzhzRJkQIZThvWbL9zYNmoaz1M7nA+M
+ GL5vAS6jPizSqyu/nXaKDKhOFGWnVskpd14SWXXKRdNEcRC6nNSaHM4KwQcGp/49xWxhthSOpWa
+ 7EZid1rkJfI/JOGNZT2f1Ceyl/OTWwUiip+rXSUrO/AHDdL2RNd6KeAe7cObRJ+hHttixnRQbXz
+ 4p+Ao2j6zgWEeT8KE4g==
+X-Proofpoint-GUID: iK_GhqM-0CA3-a8u0l2MimtfPdu62Gqd
+X-Authority-Analysis: v=2.4 cv=NuDhtcdJ c=1 sm=1 tr=0 ts=6a3151ba cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=kj9zAlcOel0A:10 a=FelO9ux0wxsA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=VnNF1IyMAAAA:8
+ a=iq54L-VbdJhnno5R1iwA:9 a=CjuIK1q_8ugA:10
+X-Proofpoint-ORIG-GUID: 3woL183bwpqlqcMfJLp47KJDbDowNofT
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-16_03,2026-06-15_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 adultscore=0 suspectscore=0 impostorscore=0 clxscore=1015
+ phishscore=0 bulkscore=0 malwarescore=0 priorityscore=1501 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606040000 definitions=main-2606160135
 
-Cc: linux-xfs@vger.kernel.org
-
-On Tue, Jun 16, 2026 at 09:13:45AM +0200, Carlos Maiolino wrote:
-> On Mon, Jun 15, 2026 at 03:19:24PM -0400, Hamza Mahfooz wrote:
-> > Cc: Carlos Maiolino <cem@kernel.org>
+On 2026/06/16 06:39 PM, Ritesh Harjani wrote:
+> Amit Machhiwal <amachhiw@linux.ibm.com> writes:
 > 
-> FWIW I don't maintain the stable trees I really don't have time for
-> that. Darrick/Leah have been doing a best effort case for that, but
-> again, this is mostly a best effort so we shouldn't expect them to be
-> looking/picking up every single possible patch suggested for stable.
+> > On 2026/06/16 05:38 PM, Ritesh Harjani wrote:
+> >> Amit Machhiwal <amachhiw@linux.ibm.com> writes:
+> >> 
+> >> >> > diff --git a/arch/powerpc/include/asm/reg.h b/arch/powerpc/include/asm/reg.h
+> >> >> > index 3449dd2b577d..7472b9522f71 100644
+> >> >> > --- a/arch/powerpc/include/asm/reg.h
+> >> >> > +++ b/arch/powerpc/include/asm/reg.h
+> >> >> > @@ -1356,6 +1356,7 @@
+> >> >> >  #define PVR_ARCH_300	0x0f000005
+> >> >> >  #define PVR_ARCH_31	0x0f000006
+> >> >> >  #define PVR_ARCH_31_P11	0x0f000007
+> >> >> > +#define PVR_ARCH_INVALID	0xffffffff
+> >> >> 
+> >> >> Logical processor version is defined as part of the PAPR spec. We should
+> >> >> ensure that this invalid PVR is also documented in the PAPR spec.
+> >> >> 
+> >> >> If you have already taken care of that, then please confirm and feel free to add:
+> >> >
+> >> > Regarding the PAPR specification documentation: The PAPR spec documents
+> >> > the valid Processor Version Register (PVR) values for each processor
+> >> > generation (POWER8, POWER9, POWER10, POWER11, etc.). However, the
+> >> > PVR_ARCH_INVALID value (0xffffffff) introduced in this patch series is a
+> >> > KVM implementation detail used internally to mark invalid compatibility
+> >> > mode requests - it's not an architectural value that would be defined in
+> >> > PAPR itself.
+> >> >
+> >> > The validation logic and the use of PVR_ARCH_INVALID as a sentinel value
+> >> > are documented in the kernel code and commit message.
+> >> >
+> >> 
+> >> But that still worries me on what if PAPR wants to re-use this value for
+> >> some other purpose in future. 
+> >
+> > This is a valid concern about potential future conflicts with PAPR.
+> > However, I'd like to point out that PAPR explicitly specifies:
+> >
+> >   "The first byte of the logical processor version value shall be 0x0F."
+> >
+> > Since PVR_ARCH_INVALID (0xffffffff) has a first byte of 0xFF, it's
+> > explicitly outside the valid PAPR-defined range for logical PVR values.
+> > This means there shouldn't be any risk of future conflict with PAPR
+> > specifications.
+> >
 > 
+> aah ok.. That make sense. Thanks for confirming that.
+> Can we please update a small comment in the code and log this info,
+> maybe something like:
 
-Now that you mention it, the xfs-stable mailing list seems to be pretty
-much dead (i.e. the last time fixes from it were merged into stable was
-almost a year ago). I guess no one is really working on it anymore?
+Sure, Ritesh. I can certainly do that in the next version.
 
-> > 
-> > On Fri, Jun 12, 2026 at 08:20:34PM -0400, Sasha Levin wrote:
-> > > On Wed, Jun 11, 2026 at 02:39:03PM -0400, Hamza Mahfooz wrote:
-> > > > Any idea what happened to this series? It resolves an issue that I've
-> > > > hit in a production environment FWIW.
-> > > >
-> > > > Series is:
-> > > >
-> > > > Tested-by: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
-> > > 
-> > > Thanks for the nudge, and thanks Fedor for putting the backport together.
-> > > 
-> > > We generally don't take XFS backports without a maintainer signing off on them,
-> > > so right now we're waiting for one to do so :)
-> > > 
-> > > --
-> > > Thanks,
-> > > Sasha
+Thanks,
+Amit.
+
+> 
+> /*
+>  * PAPR specifies that the first byte of a valid logical PVR value is
+>  * 0x0f. 0xffffffff therefore lies permanently outside the PAPR-defined
+>  * range and is safe to repurpose as a kernel-internal sentinel. KVM
+>  * stores it in vc->arch_compat when userspace requests an unsupported
+>  * compatibility mode (e.g. Power11 on a Power10 compat host);
+>  * kvmppc_sanity_check() detects this and prevents the vCPU from running
+>  * until a valid arch_compat is set.
+>  */
+> #define PVR_ARCH_INVALID      0xffffffff
+> 
+> 
+> -ritesh
+> 
