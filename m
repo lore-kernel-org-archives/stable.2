@@ -1,108 +1,120 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE47B4418CA
-	for <stable@vger.kernel.org>; Tue, 16 Jun 2026 15:27:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C48E43DA2C;
+	Tue, 16 Jun 2026 15:27:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781623651; cv=none; b=VgIB0LOY4owWQC/9OoarVIGAqdYvL9nSpp+MRYQ9G7cSDS/M9NDleR2Q/6izk0qPpwmMYQTES9Uli+6Zw0xTkDmkIflMZYNmT6drE4RYpmp9lZHbp9arJAWTwD8SjaFHMRWslKl15JeIzpjC3fO1ykTbdKQP2kkiKeMr+za1J/Y=
+	t=1781623651; cv=none; b=A69tKjfoRk6YUBPUr+fxhJRPaLexmGuW8tIsVPtoVHaNqsWcXdx64OTe4jkyhZA4LYFfsBMn0QTqsN6u0L5UWC+UL3OpuxI7byjWBOFabETWfx9Z2hy64A2oszyg3IYeOXmypUtRN0VrGfCjyCz6nIaLNP7sVOPfHy+ZDpHWnxw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1781623651; c=relaxed/simple;
-	bh=gWePh3Vznf74DWR5pPqi6EqAwqedNELsKH618o5hclA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=tUSNhgPajzOEE17012CJ8PhpZpWxrn7c+3mZJEbc2DtBUAyn9xR+grcpiDrPjPMZsEuw4PtfBI9MOjN8blqPwsp9iwZDllP0GZx5tPVIfYvIxLELMlq25clDRg0tbZeLmGN/AfrUbiOpC+hutF0WFJTLzFC8wh6nVjYNThdAM70=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=bQ5qFCuz; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	bh=wFhny3fssXfyMH5l3cFRpbHqTv1VrdKEgT2aQ+MsD1Q=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=DAXdyHu/uz762fJUTpcaeiyHHkOlLhzj1kFUYVLBvC580odXtQ7Vp8gQzo/E80KDJ8uKpHqIImuKHLTtOfX/4gXHlmMJFTuaeAA5utbQkQsZ66eESrq6s59Avtwh+KGuzNkFWiDl/4GUR/olFS6jrrXqHZPZy7l5IWMhB/EZIMM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=nxkwT3c8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="bQ5qFCuz"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1781623648;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=PM8sP3MAiJZZknY6HDXqfIBCoWcPf7VRCGmXyvu7wus=;
-	b=bQ5qFCuz9eyquc9xvxDd/jSfgyTLh+6X0HUuE3MfWHWfS067m8zqtZdz58kCzR0K6ND0pe
-	KMf9gpvDcfo8lzFGSo6wJmMYUnETSWti12L9hkdYgxsG94ClUbOaW8v9de++TZ0g7UY0fY
-	mqORZ95BnKUD3BR0uP74MYMdFRCVHek=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-563-jgGo_N4IM2WI6zmN4LSXbA-1; Tue,
- 16 Jun 2026 11:27:23 -0400
-X-MC-Unique: jgGo_N4IM2WI6zmN4LSXbA-1
-X-Mimecast-MFC-AGG-ID: jgGo_N4IM2WI6zmN4LSXbA_1781623638
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 4AB4C1955F0D;
-	Tue, 16 Jun 2026 15:27:17 +0000 (UTC)
-Received: from [10.22.81.159] (unknown [10.22.81.159])
-	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 60017180058F;
-	Tue, 16 Jun 2026 15:27:13 +0000 (UTC)
-Message-ID: <cca24d1a-f4c9-43a2-8411-5b2919d4efb0@redhat.com>
-Date: Tue, 16 Jun 2026 11:27:12 -0400
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="nxkwT3c8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C7AF1F00A3A;
+	Tue, 16 Jun 2026 15:27:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1781623649;
+	bh=qbr7NI9O7fbI8OgBMCZcokjDGkZUuZ36CY8NZB5T5Lg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=nxkwT3c8eurZlCnAWyyIddpS2YBCs3Z9w9Fow2oqeza05SdCrnPna2sQ/NmnMtubP
+	 625f3UUGH0RHlt2OkOFZIUFZByr6VVIGpr6mnJiVO4Ofs/+6h6Zd9vTsimEPFBlqVQ
+	 wFEL8qzFfBtOOumbxFagX3eDlfYZ9l/v30mt8MRk=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	stable@kernel.org,
+	Bo Ye <bo.ye@mediatek.com>,
+	Isaac Manjarres <isaacmanjarres@google.com>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Miguel Ojeda <ojeda@kernel.org>,
+	Sami Tolvanen <samitolvanen@google.com>
+Subject: [PATCH 7.0 190/378] rust: arm64: set uwtable llvm module flag for CONFIG_UNWIND_TABLES
+Date: Tue, 16 Jun 2026 20:27:01 +0530
+Message-ID: <20260616145120.382957735@linuxfoundation.org>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260616145109.744539446@linuxfoundation.org>
+References: <20260616145109.744539446@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] cgroup/cpuset: rebind mm mempolicy to effective_mems,
- not mems_allowed
-To: Gregory Price <gourry@gourry.net>,
- "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Farhad Alemi <farhad.alemi@berkeley.edu>,
- Andrew Morton <akpm@linux-foundation.org>, Farhad Alemi <falemi@asu.edu>,
- Yury Norov <ynorov@nvidia.com>, Joshua Hahn <joshua.hahnjy@gmail.com>,
- Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>,
- Rakie Kim <rakie.kim@sk.com>, Byungchul Park <byungchul@sk.com>,
- Ying Huang <ying.huang@linux.alibaba.com>,
- Alistair Popple <apopple@nvidia.com>,
- Rasmus Villemoes <linux@rasmusvillemoes.dk>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, cgroups@vger.kernel.org, stable@vger.kernel.org
-References: <CA+0ovCg05rUk1-3k2ysdxmbcER8aG-wVh9SSTrrbp6LPWpPHYA@mail.gmail.com>
- <CA+0ovCgfHJHv5d1mzapWWvF-LhjppzDX8NPPLvCPZxPKg8RiYw@mail.gmail.com>
- <8d3b4561-92cd-4ebc-8462-5fb0fd659e8a@kernel.org>
- <ai_IHvyptWPcTD0y@gourry-fedora-PF4VCD3F>
- <70f486ce-5ef6-4d72-8cc3-7086f4eea930@redhat.com>
- <c1495b1b-9dee-4cd5-ac8e-eeb7a2d968ed@redhat.com>
- <51eafe6c-6622-479b-b391-6d3ff9350e75@kernel.org>
- <ajFTVaMBeu-ViGIC@gourry-fedora-PF4VCD3F>
-Content-Language: en-US
-From: Waiman Long <longman@redhat.com>
-In-Reply-To: <ajFTVaMBeu-ViGIC@gourry-fedora-PF4VCD3F>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
+Content-Transfer-Encoding: 8bit
 
-On 6/16/26 9:44 AM, Gregory Price wrote:
-> On Tue, Jun 16, 2026 at 08:59:07AM +0200, David Hildenbrand (Arm) wrote:
->> On 6/16/26 05:43, Waiman Long wrote:
->>> On 6/15/26 10:26 PM, Waiman Long wrote:
->>>>
->>>> The reason why I am suggesting to use cs->effective_mems to keep the old
->>>> cgroup v1 behavior. If the consensus is to use the output of
->>>> guarantee_online_mems() for mpol_rebind_mm(), I will not be against that but
->>>> it will be a slight change in user-visible behavior.
-> I'm not grok'ing what is user-visible here.
->
-> The two values should effectively be equivalent because we're
-> using this value to constrain mpol's during a hotplug event.
->
-> If the values differed, you would be saying there's a race condition
-> that could affect correctness of the rebind (which can't happen,
-> because this whole thing is done under the hotplug lock btw).
->
-> Can you help me understand?
+7.0-stable review patch.  If anyone has any objections, please let me know.
 
-The effective_mems and guarantee_online_mems() should be more or less 
-equivalent for v2, but not for v1. In my response to David, I gave an 
-example of how the behavior will differ.
+------------------
 
-Cheers,
-Longman
+From: Alice Ryhl <aliceryhl@google.com>
+
+commit ac35b5580ace12e5d0a0b5e61e36d2c4e1ffa29c upstream.
+
+Due to a rustc bug [1] the -Cforce-unwind-tables=y flag only emits the
+uwtable annotation for functions, but not for the module. This means
+that compiler-generated functions such as 'asan.module_ctor' do not
+receive the uwtable annotation.
+
+When CONFIG_UNWIND_PATCH_PAC_INTO_SCS is enabled, this leads to boot
+failures because the dwarf information emitted for the kasan
+constructors is wrong, which causes the SCS boot patching code to
+patch the constructor in an illegal manner. Specifically, the paciasp
+instruction is patched, but the autiasp instruction is not. This
+mismatch leads to a crash when the constructor is called during boot.
+
+	==================================================================
+	BUG: KASAN: global-out-of-bounds in do_basic_setup+0x4c/0x90
+	Read of size 8 at addr ffffffe3cc7eb488 by task swapper/0/1
+
+Specifically the faulting instruction is the (*fn)() to invoke the
+constructor in do_ctors() of the init/main.c file.
+
+Once the fix lands in rustc, this flag can be made conditional on the
+rustc version. Note that passing the flag on a rustc with the fix
+present has no effect.
+
+[ The fix [1] has landed for Rust 1.98.0 (expected release on
+  2026-08-20).
+
+  Thus add a version check as discussed.
+
+    - Miguel ]
+
+Fixes: d077242d68a3 ("rust: support for shadow call stack sanitizer")
+Cc: stable@kernel.org
+Link: https://github.com/rust-lang/rust/pull/156973 [1]
+Reported-by: Bo Ye <bo.ye@mediatek.com>
+Debugged-by: Isaac Manjarres <isaacmanjarres@google.com>
+Debugged-by: Sami Tolvanen <samitolvanen@google.com>
+Tested-by: Isaac Manjarres <isaacmanjarres@google.com>
+Signed-off-by: Alice Ryhl <aliceryhl@google.com>
+Link: https://patch.msgid.link/20260527-uwtable-module-flag-v1-1-caa41342be4b@google.com
+[ Adjusted link and comment. - Miguel ]
+Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ arch/arm64/Makefile |    3 +++
+ 1 file changed, 3 insertions(+)
+
+--- a/arch/arm64/Makefile
++++ b/arch/arm64/Makefile
+@@ -63,6 +63,9 @@ else
+ KBUILD_CFLAGS	+= -fasynchronous-unwind-tables
+ KBUILD_AFLAGS	+= -fasynchronous-unwind-tables
+ KBUILD_RUSTFLAGS += -Cforce-unwind-tables=y -Zuse-sync-unwind=n
++# Work around rustc bug on compilers without
++# https://github.com/rust-lang/rust/pull/156973.
++KBUILD_RUSTFLAGS += $(if $(call rustc-min-version,109800),,-Zllvm_module_flag=uwtable:u32:2:max)
+ endif
+ 
+ ifeq ($(CONFIG_STACKPROTECTOR_PER_TASK),y)
+
 
