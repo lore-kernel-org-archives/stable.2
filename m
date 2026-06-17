@@ -1,293 +1,187 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010068.outbound.protection.outlook.com [52.101.61.68])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C6A2317148
-	for <stable@vger.kernel.org>; Wed, 17 Jun 2026 19:27:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781724463; cv=none; b=DReQVlBIwM5F2KIHMO6EuUKYzLt6wsCmPM39vp83xM4VFjFzuPrMBT8Ql9QgiVXLsSd8IWs1qxsAGT0zpdTY3rJFyUOgDRVOVuFN7w5EWn3flVyBiOts8Os6Q1DRPPY1HsJfbe33AsByQ4WejWA20gMmZ5gfWcIsexeumLcE3n0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781724463; c=relaxed/simple;
-	bh=rJkgmoz7EmqnNiPJ1TXRM+EOs3EnVRBt8q3RtCLN6AE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HiCU9XiQf6WmKK123GLEZuzUTHeyEI3Y0gQ0rORNbu6Z42Wj7Bc2OmHW+99aHwfTRFczdazixCuc+p+jZNgLKnOpWZX04LH2BFsmCjrZYikt9NMfhD/hZZAMN4yc+1fQlCZl4hQTOkYapMm0yIY2+szQocQzdBluglWBAdWAzJ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=KjKY7CNd; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=zlK73lRe; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=KjKY7CNd; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=zlK73lRe; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59944317148
+	for <stable@vger.kernel.org>; Wed, 17 Jun 2026 19:27:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.61.68
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781724474; cv=fail; b=Rdxz00M5MoNUkCOaUzbDrFqx5hg17ImwX+S2RLph9k9AAucl5LDsbbXXX6xeSPwfEkMcNPaX4k+bhPD51bQuetfJWP2XL+NVBwVSi6h6DdIUTnvXuRy7kjADDS3I3RPpNnuB8MIF/WYbJ57TvLbWhHCGCuU5SdZaJZMFRv52bE8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781724474; c=relaxed/simple;
+	bh=iml8Pr44cdOIqJyIrLKH8zIaoRKqcao8HKRn9KgO2Jk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=RX5AZFV5V+frDroZ4ouf1sRh4i+V03dp/8uRhjpxtRKGZp+KAfNDd1l4lXtYg/p8F/ZJlJCgL5pZselg6kTURyK8cnhOhAi8/wqil1EZbJyv+axwWMFa1W/ZaUsEshsZkycxZM4YaBaClaBc03VE2dIVsgzOy3w20u9HgUoS3uo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=KdPblrc+; arc=fail smtp.client-ip=52.101.61.68
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="KjKY7CNd";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="zlK73lRe";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="KjKY7CNd";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="zlK73lRe"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 650F175B75;
-	Wed, 17 Jun 2026 19:27:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1781724458; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5TOcj9vGSqFRhOPnIn0LJ1p+gKaatteNuwDYVzjeXDo=;
-	b=KjKY7CNd3pr/Z0aaUMMJ9eTgI9zlvRaSLIhcmP5N4rSgIU7lFVWzO5QMP1JJYS0L6//e95
-	MDU4qo+IoNYZYkciyL8+twC+Akmvwyr946mQNKU1b3lY05JVC7vAwU73eDXoNX0OlZ5XRL
-	QLjF8Rg97oCQZIS4bFApQ5LiaIfF63w=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1781724458;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5TOcj9vGSqFRhOPnIn0LJ1p+gKaatteNuwDYVzjeXDo=;
-	b=zlK73lRe8o3aDXbkDdfoSPLNZtwOu0gip15Yy9KcUz7T1xf53Z8BEIy4+nYZwdBGyVEMnr
-	GQ54WD+6tL1IudDA==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=KjKY7CNd;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=zlK73lRe
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1781724458; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5TOcj9vGSqFRhOPnIn0LJ1p+gKaatteNuwDYVzjeXDo=;
-	b=KjKY7CNd3pr/Z0aaUMMJ9eTgI9zlvRaSLIhcmP5N4rSgIU7lFVWzO5QMP1JJYS0L6//e95
-	MDU4qo+IoNYZYkciyL8+twC+Akmvwyr946mQNKU1b3lY05JVC7vAwU73eDXoNX0OlZ5XRL
-	QLjF8Rg97oCQZIS4bFApQ5LiaIfF63w=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1781724458;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5TOcj9vGSqFRhOPnIn0LJ1p+gKaatteNuwDYVzjeXDo=;
-	b=zlK73lRe8o3aDXbkDdfoSPLNZtwOu0gip15Yy9KcUz7T1xf53Z8BEIy4+nYZwdBGyVEMnr
-	GQ54WD+6tL1IudDA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 288DA779A8;
-	Wed, 17 Jun 2026 19:27:38 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id N772Air1Mmo2SAAAD6G6ig
-	(envelope-from <krisman@suse.de>); Wed, 17 Jun 2026 19:27:38 +0000
-From: Gabriel Krisman Bertazi <krisman@suse.de>
-To: gregkh@linuxfoundation.org,
-	stable@vger.kernel.org
-Cc: io-uring@vger.kernel.org,
-	Gabriel Krisman Bertazi <krisman@suse.de>,
-	Jens Axboe <axboe@kernel.dk>
-Subject: [PATCH stable-7.0.y] io_uring/net: Avoid msghdr on op_connect/op_bind async data
-Date: Wed, 17 Jun 2026 15:27:22 -0400
-Message-ID: <20260617192722.3041610-1-krisman@suse.de>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <2026061845-cycle-enviable-bb5e@gregkh>
-References: <2026061845-cycle-enviable-bb5e@gregkh>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="KdPblrc+"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=qAru4QGwENE7I4SISqm5vzBZX3fLB1s6u3ArWF5DKy+t3L4aZoNlkax51/GfpKJncf3tilefq901QhUXGV5nPBoREaMS8T2JXF8Qm9RxG7NsLiYuoT8aIj4/4phzD72DGFzJ1nYYy2VWGpMELf/3qIaLGSlzfl+PGaXw2z+OgjWDHmtmBUaVDM0n5NAQw8g1M+aVXrusBc5JyXboAUBlVvAs6M1/BnI1Tp8KeRfVipLRvMbmzXgkisnTaxB8zLvBlYadZ5D2+OVkGqWuIB42CwX3CPvXiG6idgS7PhBIvyPVtWSAuOJlV+B3qQ9BdxkrtwY0A93Huft+LzESf1R9vg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0IZqJsMcYup5T1J63x3YC2DOjiq0C8Ef0QY5zpeczAk=;
+ b=XKcGjDxFe4Vju86BJ8VaQ6WWk8Md8BiBinq9kq5lynBs7uzUNG9m17Yj8kr2EXkh3TuPg9Eh6mkI+ikPbNtlKWdJI89mtcRZWEMC3W0KvcbiPc65iTGc3gRtu31r9gIfqj7h1KlJnZ7RKQ9B5mY8C6xd7ehXyy/LBc35f1UhvABZjiWgxS4bE73T50556JIo7K0i4hQNF2QTMH3QVJw3nVmMvhzvnyQeEsrhGN+8+ehgx0R9Ek4lFIUF6y3StBxw5QdHpPFkV2hCBrHryGLR++rCEPU/kmdj0ehuwfRsET0GyxKt+5kzSZu8Y4r02PSxs5xuPVCnQzwY0LS5IEiR1w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=mailbox.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0IZqJsMcYup5T1J63x3YC2DOjiq0C8Ef0QY5zpeczAk=;
+ b=KdPblrc+AR4d2O26ygaRp0zzUG1mPKafbFoa89pLeZohHF5AylX8t915wvggtG9+Oovz24sMdcru2Az6B6J5wA936klS5820tbzWHjj3RxNFp++P5cLc615fQkhJpGgj6TZHD4IHVIMumQw5ETtbQn48kWLQ2Evi7BeoYwgJPCQ=
+Received: from PH8P220CA0023.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:345::29)
+ by SN7PR12MB7835.namprd12.prod.outlook.com (2603:10b6:806:328::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.12; Wed, 17 Jun
+ 2026 19:27:47 +0000
+Received: from CY4PEPF0000E9DC.namprd05.prod.outlook.com
+ (2603:10b6:510:345:cafe::25) by PH8P220CA0023.outlook.office365.com
+ (2603:10b6:510:345::29) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.139.12 via Frontend Transport; Wed,
+ 17 Jun 2026 19:27:46 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CY4PEPF0000E9DC.mail.protection.outlook.com (10.167.241.75) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.139.8 via Frontend Transport; Wed, 17 Jun 2026 19:27:46 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 17 Jun
+ 2026 14:27:45 -0500
+Received: from [10.254.92.203] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Wed, 17 Jun 2026 14:27:45 -0500
+Message-ID: <7bf196dd-c43a-44b5-91e2-ee7ab40fd6f5@amd.com>
+Date: Wed, 17 Jun 2026 15:27:39 -0400
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/3] drm/amd/display: check GRPH_FLIP status before
+ sending event
+To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
+CC: <Harry.Wentland@amd.com>, <mario.limonciello@amd.com>,
+	<wiagn233@outlook.com>, <sysdadmin@m1k.cloud>, <timur.kristof@gmail.com>,
+	<xaver.hugl@kde.org>, <mario.kleiner.de@gmail.com>, <stable@vger.kernel.org>,
+	<amd-gfx@lists.freedesktop.org>
+References: <20260616201828.389985-1-sunpeng.li@amd.com>
+ <20260616201828.389985-3-sunpeng.li@amd.com>
+ <a74f1233-d63f-4bcb-a379-3c9a6332cfb4@mailbox.org>
+ <75732f3e-8ffd-4cac-b205-8f6cf705daab@mailbox.org>
+Content-Language: en-US
+From: Leo Li <sunpeng.li@amd.com>
+In-Reply-To: <75732f3e-8ffd-4cac-b205-8f6cf705daab@mailbox.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-Spam-Flag: NO
-X-Rspamd-Action: no action
-X-Spam-Level: 
-X-Spamd-Result: default: False [-3.01 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_MISSING_CHARSET(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,msgid.link:url,suse.de:email,suse.de:dkim,suse.de:mid];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	ARC_NA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FUZZY_RATELIMITED(0.00)[rspamd.com];
-	FROM_EQ_ENVFROM(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RCVD_COUNT_TWO(0.00)[2];
-	RCVD_TLS_ALL(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[5];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 650F175B75
-X-Spam-Score: -3.01
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9DC:EE_|SN7PR12MB7835:EE_
+X-MS-Office365-Filtering-Correlation-Id: b511e141-78ac-4d0f-dc26-08decca682c6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|32650700020|376014|23010399003|82310400026|42112799006|1800799024|56012099006|11063799006|18002099003|22082099003|4143699003;
+X-Microsoft-Antispam-Message-Info:
+	nW5VicAudmPKc7FFfRNQU+rFAES0eoxlc5oYjsxp7UZV3d+9Pih0WoecgvgSw5gA3/6UGiuW7vwRbvHBT3AbOnKPVyZ49ZKm/ixBrOvP3ykOE222576cIfWLJQnNG/btMeLinn8vvT8+VeyW/zlVmSowcXScpk0RjlZ2wzP2IaVKSbLuAmpesBt7XzGAqi7qAWUscm5a5YeajFy1NTd+KpZ4xr1/vIWvnFZytgNFQ7mLqXQtAxh+LrYT9rAl7giIp5WfJ3Cfc4kgVJufHKLo5Db6eh+qwhJPxtjWVo1qqTtxKC/7mnQk0KsnS6UAoOdpQwEwPtZkvuB3ZkhHlvFuc0gHXmQTV4CI8chYz/QW30+Lc8g2mIT90kKJVu33K7BM/x1Ke8BaSygX7ewcMTBof1NNbWohlyfn9PU3my+Djz+QkpBGzj9oB5sxE7VNK4bZb33QZtlE/vjdrxcYZ8po0W28MYh+om4F9BGjIjwvw95vylvR+tTn8fae7IGROCOBIvf+Tr/j/6mcXtEK4GmdQsM1XT9p4gdaypv5YDvJ3rWADs17ohmPufmwmENcNmzIeJdJ38E0JLrIHi39o8kEq30ikk6U5piAFZce6r9KVgs7mvHHHYBlrsxdSLG+MRJj3nLig4vougeD7mfAXkAsS5ooycXEVwkBphoFQMSsL+uox2NoJg0O8fEVjFdmX+KothvfiPqeR04NyUrEDWsGh6e/mcmFqvoR4gw5qR+9Gss=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(32650700020)(376014)(23010399003)(82310400026)(42112799006)(1800799024)(56012099006)(11063799006)(18002099003)(22082099003)(4143699003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	FKahdwBIVI3avTxEoDJvhxFG6427/UCTParYR8egpcmgmDs52sAIVYxXF7AkLI6zBjdqclIsxKi0FLdAeXzjMfpV1EUjctvYAU0k5DEGhMjLLbcyujBFvorOcpONNo73rak/+SO0KiID9GnbjTwoSGLoaa1SDrrtPHCuFNc3l6sUEIY22rWdz3zyFyH4uP7e/6brdOt28KEEFNC4G49Nf/9W49kyNfB+zRHgGKflV5HJF6MRxkVSwabuyMdYWIKXuVbIuznadjbclSxigepAXl64HHfl/4hIhNr4cg0VNksA5hauCwbDOkhTbkjvcXsiMiRl5922wmTfq77ZUnPvQiqwJsKVDOimpuh7wLBbV+diRDlOEGeMAxjq82UqtPLnFPf/xL2kLnNtmvDGBhRq2cqTvjZ69Ts+n3iC0Cfb+OX43VxSp6Srw7RuLJXyxQTg
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jun 2026 19:27:46.3007
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b511e141-78ac-4d0f-dc26-08decca682c6
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CY4PEPF0000E9DC.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7835
 
-[ Upstream commit 3979840cd858f30f43ea9f4e7f7f1f56de82d698 ]
-This fixes a memory leak due to the lack of the cleanup hook for the
-iovec.  The stable backport differs from upstream by dropping the
-io_connect_bpf_populate hunk, which didn't exist at the time and by
-fixing the merge conflict due to the introduction of
-io_bind_file_create.
+Hi Michel, thanks for the review!
 
-Both IORING_OP_CONNECT and IORING_OP_BIND reuse the msghdr object just
-to store the sockaddr. Beyond allocating a much larger object than
-needed, msghdr can also wrap an iovec, which will be recycled
-unnecessarily. This uses the sockaddr directly.
+On 2026-06-17 04:56, Michel Dänzer wrote:
+> On 6/17/26 10:07, Michel Dänzer wrote:
+>> On 6/16/26 22:18, sunpeng.li@amd.com wrote:
+>>>
+>>> * Add a flip_programmed completion. Arm it (reinit_completion) under
+>>>   event_lock together with prepare_flip_isr(), and signal it
+>>>   (complete_all) right after update_planes_and_stream_adapter() programs
+>>>   the flip. It starts in the "completed" state at crtc init.
+>>
+>> Is the completion really necessary? Wouldn't moving the acrtc->pflip_status = AMDGPU_FLIP_SUBMITTED assignment after the flip programming suffice?
 
-Cc: stable@vger.kernel.org
-Signed-off-by: Gabriel Krisman Bertazi <krisman@suse.de>
-Link: https://patch.msgid.link/20260602215327.1885109-2-krisman@suse.de
-Signed-off-by: Jens Axboe <axboe@kernel.dk>
-Signed-off-by: Gabriel Krisman Bertazi <krisman@suse.de>
----
- io_uring/net.c   | 36 ++++++++++++++++++------------------
- io_uring/opdef.c |  4 ++--
- 2 files changed, 20 insertions(+), 20 deletions(-)
+I think this would create a window between HW programming and arming acrtc->event and pflip_status, where HW latch (VUPDATE_NO_LOCK) can fire and run the handler:
 
-diff --git a/io_uring/net.c b/io_uring/net.c
-index 5bd3fa5a2b6d..85efde185a2b 100644
---- a/io_uring/net.c
-+++ b/io_uring/net.c
-@@ -1774,7 +1774,7 @@ int io_socket(struct io_kiocb *req, unsigned int issue_flags)
- int io_connect_prep(struct io_kiocb *req, const struct io_uring_sqe *sqe)
- {
- 	struct io_connect *conn = io_kiocb_to_cmd(req, struct io_connect);
--	struct io_async_msghdr *io;
-+	struct sockaddr_storage *addr;
- 
- 	if (sqe->len || sqe->buf_index || sqe->rw_flags || sqe->splice_fd_in)
- 		return -EINVAL;
-@@ -1783,17 +1783,17 @@ int io_connect_prep(struct io_kiocb *req, const struct io_uring_sqe *sqe)
- 	conn->addr_len =  READ_ONCE(sqe->addr2);
- 	conn->in_progress = conn->seen_econnaborted = false;
- 
--	io = io_msg_alloc_async(req);
--	if (unlikely(!io))
-+	addr = io_uring_alloc_async_data(NULL, req);
-+	if (unlikely(!addr))
- 		return -ENOMEM;
- 
--	return move_addr_to_kernel(conn->addr, conn->addr_len, &io->addr);
-+	return move_addr_to_kernel(conn->addr, conn->addr_len, addr);
- }
- 
- int io_connect(struct io_kiocb *req, unsigned int issue_flags)
- {
- 	struct io_connect *connect = io_kiocb_to_cmd(req, struct io_connect);
--	struct io_async_msghdr *io = req->async_data;
-+	struct sockaddr_storage *addr = req->async_data;
- 	unsigned file_flags;
- 	int ret;
- 	bool force_nonblock = issue_flags & IO_URING_F_NONBLOCK;
-@@ -1807,8 +1807,7 @@ int io_connect(struct io_kiocb *req, unsigned int issue_flags)
- 
- 	file_flags = force_nonblock ? O_NONBLOCK : 0;
- 
--	ret = __sys_connect_file(req->file, &io->addr, connect->addr_len,
--				 file_flags);
-+	ret = __sys_connect_file(req->file, addr, connect->addr_len, file_flags);
- 	if ((ret == -EAGAIN || ret == -EINPROGRESS || ret == -ECONNABORTED)
- 	    && force_nonblock) {
- 		if (ret == -EINPROGRESS) {
-@@ -1837,7 +1836,6 @@ int io_connect(struct io_kiocb *req, unsigned int issue_flags)
- out:
- 	if (ret < 0)
- 		req_set_fail(req);
--	io_req_msg_cleanup(req, issue_flags);
- 	io_req_set_res(req, ret, 0);
- 	return IOU_COMPLETE;
- }
-@@ -1847,15 +1845,15 @@ int io_connect(struct io_kiocb *req, unsigned int issue_flags)
-  * which in turn end up in mnt_want_write() which will grab the fs
-  * percpu start write sem. This can trigger a lockdep warning.
-  */
--static int io_bind_file_create(const struct io_async_msghdr *io, int addr_len)
-+static int io_bind_file_create(const struct sockaddr_storage *addr, int addr_len)
- {
- 	const struct sockaddr_un *sun;
- 
--	if (io->addr.ss_family != AF_UNIX)
-+	if (addr->ss_family != AF_UNIX)
- 		return 0;
- 	if (addr_len <= offsetof(struct sockaddr_un, sun_path))
- 		return 0;
--	sun = (const struct sockaddr_un *) &io->addr;
-+	sun = (const struct sockaddr_un *) addr;
- 	return sun->sun_path[0] != '\0';
- }
- 
-@@ -1863,7 +1861,7 @@ int io_bind_prep(struct io_kiocb *req, const struct io_uring_sqe *sqe)
- {
- 	struct io_bind *bind = io_kiocb_to_cmd(req, struct io_bind);
- 	struct sockaddr __user *uaddr;
--	struct io_async_msghdr *io;
-+	struct sockaddr_storage *addr;
- 	int ret;
- 
- 	if (sqe->len || sqe->buf_index || sqe->rw_flags || sqe->splice_fd_in)
-@@ -1872,21 +1870,23 @@ int io_bind_prep(struct io_kiocb *req, const struct io_uring_sqe *sqe)
- 	uaddr = u64_to_user_ptr(READ_ONCE(sqe->addr));
- 	bind->addr_len =  READ_ONCE(sqe->addr2);
- 
--	io = io_msg_alloc_async(req);
--	if (unlikely(!io))
-+	addr = io_uring_alloc_async_data(NULL, req);
-+	if (unlikely(!addr))
- 		return -ENOMEM;
--	ret = move_addr_to_kernel(uaddr, bind->addr_len, &io->addr);
-+
-+	ret = move_addr_to_kernel(uaddr, bind->addr_len, addr);
- 	if (unlikely(ret))
- 		return ret;
--	if (io_bind_file_create(io, bind->addr_len))
-+	if (io_bind_file_create(addr, bind->addr_len))
- 		req->flags |= REQ_F_FORCE_ASYNC;
- 	return 0;
- }
- 
-+
- int io_bind(struct io_kiocb *req, unsigned int issue_flags)
- {
- 	struct io_bind *bind = io_kiocb_to_cmd(req, struct io_bind);
--	struct io_async_msghdr *io = req->async_data;
-+	struct sockaddr_storage *addr = req->async_data;
- 	struct socket *sock;
- 	int ret;
- 
-@@ -1894,7 +1894,7 @@ int io_bind(struct io_kiocb *req, unsigned int issue_flags)
- 	if (unlikely(!sock))
- 		return -ENOTSOCK;
- 
--	ret = __sys_bind_socket(sock, &io->addr, bind->addr_len);
-+	ret = __sys_bind_socket(sock, addr, bind->addr_len);
- 	if (ret < 0)
- 		req_set_fail(req);
- 	io_req_set_res(req, ret, 0);
-diff --git a/io_uring/opdef.c b/io_uring/opdef.c
-index 91a23baf415e..2e1752df8748 100644
---- a/io_uring/opdef.c
-+++ b/io_uring/opdef.c
-@@ -207,7 +207,7 @@ const struct io_issue_def io_issue_defs[] = {
- 		.unbound_nonreg_file	= 1,
- 		.pollout		= 1,
- #if defined(CONFIG_NET)
--		.async_size		= sizeof(struct io_async_msghdr),
-+		.async_size		= sizeof(struct sockaddr_storage),
- 		.prep			= io_connect_prep,
- 		.issue			= io_connect,
- #else
-@@ -510,7 +510,7 @@ const struct io_issue_def io_issue_defs[] = {
- 		.needs_file		= 1,
- 		.prep			= io_bind_prep,
- 		.issue			= io_bind,
--		.async_size		= sizeof(struct io_async_msghdr),
-+		.async_size		= sizeof(struct sockaddr_storage),
- #else
- 		.prep			= io_eopnotsupp_prep,
- #endif
--- 
-2.54.0
+    Thread A:        Thread B:
+    PROGRAM(flip_n)
+                     LATCH(flip_n)
+                     vupdate_no_lock_handler(flip_n) # no event armed; skip sending
+    ARM(flip_n)
+
+Ah, but the flip_programmed completion has the same issue...
+
+    Thread A:                 Thread B:
+    INIT_(flip_programmed)
+    ARM(flip_n)
+    PROGRAM(flip_n)
+                              LATCH(flip_n)
+                              vupdate_no_lock_handler(flip_n) # flip_programmed not complete; skip sending
+    COMPLETE(flip_programmed)
+
+> 
+> Or even just moving the unlocking of event_lock after the flip programming.
+> 
+
+I initially thought about doing so. But the possibility of update_planes_and_stream_adapter() sleeping made me think otherwise.
+
+I suppose the worst case scenario with arming acrtc->event/pflip_status after programming is we deliver the event a frame later than it needs to be (which is also the case with the current patch), thus stalling the next commit via flip_done, and making userspace think it missed the programming deadline. That is, if the exact scenario above happens.
+
+If it sounds good to you, I'll roll that into v2 as well.
+
+> 
+>>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>>> index 00f7a3b445ebf..571198c46c0c2 100644
+>>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>>> @@ -4384,17 +4384,17 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
+>>>  		 * from 0 -> n planes we have to skip a hardware generated event
+>>>  		 * and rely on sending it from software.
+>>>  		 */
+>>> +		spin_lock_irqsave(&pcrtc->dev->event_lock, flags);
+>>>  		if (acrtc_attach->base.state->event &&
+>>>  		    acrtc_state->active_planes > 0) {
+>>>  			drm_crtc_vblank_get(pcrtc);
+>>>  
+>>> -			spin_lock_irqsave(&pcrtc->dev->event_lock, flags);
+>>> -
+>>>  			WARN_ON(acrtc_attach->pflip_status != AMDGPU_FLIP_NONE);
+>>> +			/* Arm flip completion handling and event delivery */
+>>> +			reinit_completion(&acrtc_attach->dm_irq_params.flip_programmed);
+>>>  			prepare_flip_isr(acrtc_attach);
+>>> -
+>>> -			spin_unlock_irqrestore(&pcrtc->dev->event_lock, flags);
+>>>  		}
+>>> +		spin_unlock_irqrestore(&pcrtc->dev->event_lock, flags);
+>>>  
+>>>  		if (acrtc_state->stream) {
+>>>  			if (acrtc_state->freesync_vrr_info_changed)
+>> 
+>> Pulling event_lock out of the if block doesn't make any difference (other than locking it unnecessarily when the block isn't entered 🙂, does it?
+
+FWIU the crtc_state->event pointer itself should be guarded under event_lock, since it can be NULL'd concurrently.
+
+- Leo
 
