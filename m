@@ -1,62 +1,103 @@
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
+Received: from mail-pg1-f202.google.com (mail-pg1-f202.google.com [209.85.215.202])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08A3B22097;
-	Wed, 17 Jun 2026 13:03:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 403E93090C2
+	for <stable@vger.kernel.org>; Wed, 17 Jun 2026 13:03:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.202
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781701388; cv=none; b=LxFChQ+hwa2haCDw/w8yQR5KeAK5LB+hNEKlhPhpZkOJWjIOI3vOFzUggz1xqBj/1FS9+qeVYVvl0BdP5fdphA3iXq/Dvam7gt/epG5XcxWUr6EM3M8bkaX1K8R6quKjnQM9wMbasHyWO0Uvb7wHPRnkhbWlEi55c/5H2oYeheo=
+	t=1781701389; cv=none; b=uHyZi5Q4oR0CxmJ2TViN5VBaQbhNWkqkGUlcnuNQiP/gElTrlSTfc3ITxm6oQ7er9qVafR88Gd5Iya7Eo0jatE5rlPkicRfB9uOaljcsj+0UvNWoAW3CbGDwjUQ/29b5fJEOz7cPpXpkKExn1FV1q96V/As5ZUxNT9uku4WHpqc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781701388; c=relaxed/simple;
-	bh=0lsMmjAs/2Q8EOI4mjIOEbG4E5I7eGD/uwFJ5kFhM9g=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tt+NK+jyGAW2RzKA7rwRvtTeiQc05wTul3zJd4TpKDBZWiSNpgE15wXS7+9Jo7ZYEo1QUDrWsSZPk9OstqztJ2uA8LrlSdT72tNEf7Qs7QGKkLX3nMRdChpLxCodLs9DGDnMRVCd89WZ95yaKY9oRd8C8gV1mDq2hbWTf9ZqsiA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=infWk4Ip; arc=none smtp.client-ip=217.194.8.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+	s=arc-20240116; t=1781701389; c=relaxed/simple;
+	bh=Jgplr6cJMoMN6z/aXhWQHWzsS0EgW53NNDnD4vyPhZY=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=uGQebemSUtsXQLJz0ZoTBOZX+4qxFVJ3rQ3HH8I6qmYEzrh6VtXyvrIbPeV/3xf2CEx42Co01sqgBh+JyBUHf5sZgOvMVV4LDL5MXP9MwFrqdczjdnzk0BQ3WasUpVILBQm2xjUTswVQfKyTcPeMNuQEY/MoyunsgIweuSXJaWQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=nyVgetfi; arc=none smtp.client-ip=209.85.215.202
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="infWk4Ip"
-Received: from francesco-nb (xcpe-178-82-120-96.dyn.res.sunrise.net [178.82.120.96])
-	by mail11.truemail.it (Postfix) with ESMTPA id 19EA41FBE7;
-	Wed, 17 Jun 2026 15:02:55 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1781701375;
-	bh=MMlivkAnm4TvS0mxxeHvMExihjVoruMbjvrI3cufwXM=; h=From:To:Subject;
-	b=infWk4IpQg1Axf+9IlTLoOtTPEb8a3Jx3Om/znf20ojBkU5/OXsIM/gpXvhn1vl1S
-	 dALH8falK/Xop2fiPPFiheX2Qny42cfGYEnC2kyWljkFyo0VDXsBlH661BdDlsVHq0
-	 YW3LQdXQFPlNtv+NN9SgpznR8QbvM9mFf13CVZdu15Bs1EewxNmsB9ChYLjO8XoBf7
-	 e/vcM+6iddSZedAQGoxwhjzeU/DiOTn/2rfjoW/+Jfoyy5O+BB/rMBpjiwk8ZqyMAZ
-	 sQSb05dJbj4ry3Evhpd96UWjQR7JuNaU8bpPJ+OE9Ne63SAio7QugF51ErM7Q0AQio
-	 D5NxAI358HZZQ==
-Date: Wed, 17 Jun 2026 15:02:50 +0200
-From: Francesco Dolcini <francesco@dolcini.it>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev,
-	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
-	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
-	patches@kernelci.org, lkft-triage@lists.linaro.org,
-	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
-	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
-	sr@sladewatkins.com
-Subject: Re: [PATCH 6.1 000/522] 6.1.176-rc1 review
-Message-ID: <20260617130250.GA90253@francesco-nb>
-References: <20260616145125.307082728@linuxfoundation.org>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="nyVgetfi"
+Received: by mail-pg1-f202.google.com with SMTP id 41be03b00d2f7-c85a2c665easo5379990a12.1
+        for <stable@vger.kernel.org>; Wed, 17 Jun 2026 06:03:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1781701387; x=1782306187; darn=vger.kernel.org;
+        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
+         :date:from:to:cc:subject:date:message-id:reply-to;
+        bh=EM28efTr5yjuE0SO3xRGbNYRHe4cnOYh7jH86+doO9k=;
+        b=nyVgetfiil/tWAnxYrLZR3VqdHHcFYIRSi/dKFWgFMGeAwx0TVRN1K2e6nvwQPlkSW
+         mTQllKK1Vg7fst9s/FuAA5sgQ7o9RpUJaKQUQlE2mVB9v7/c+g7LbNIru6xM/c39WxiP
+         aqYhyLOSWDOISOnFCGHmsqyhkxX63JQNjepcansWzC7Cq/YUFcVG618CothgDS/qCbTr
+         N7+OUBiLxTiBRb+NQkXXC01Gcuzs3yORhvWc7YMptwU40BjK/fkWo1X6UAxcrCp3O49X
+         A2O+g+vvjrfCO+p9h/2ses3j3wXHqVEA1MPr8yMX3CpiD2yJtVPHjNFtwu227Wr461D0
+         MWfA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781701387; x=1782306187;
+        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
+         :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=EM28efTr5yjuE0SO3xRGbNYRHe4cnOYh7jH86+doO9k=;
+        b=Rfe0u+6sDwfyF54dmrIJeQsff+UEKIMTaa8X+yqDqx1fyoaxBrS4v6oI9I1DGxFEHB
+         Q1Nn88WAC6Pg/gsPT6t7+1RNs4x3c3rCo7pv5a7sSQRtkqiol55C38wAH5PeFUFp4o88
+         gdfHlSAtyX6a5hfgaWcU/R6nSYt8GLX089d608H78FVsL9pZg8aKXnIoOS8reNt+W9Gg
+         jkE2wSr8xpLDpnYOy1LLu2Plq/YsaYXmoXasuPp2sAkPVMleCoUG+Fvhms5wAE+KegvW
+         irXlstTR3K0xjPd75MxdjvXoVA4jvxvFskqXqbIVgxWvGOBQMomg4TLwQLSQxESP9AZQ
+         U0Eg==
+X-Forwarded-Encrypted: i=1; AFNElJ8wo26okUkoT6TVSDgydM/XUO6khI5O85CDLuz1/S8p7VVGAJfT4XtHGQ4fs5c4KfHb5NYgirs=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwR+h1Iw5g8HDvvklWjqpAqlrr1yngH+HnJpgxjzrK+w+MGdjgD
+	JG+9dnEvWqy9zMtT0CYIYQO4ySJcPL/mtLnIlpLn0hIgtCafQtzBEU9b5SOPc+yvqIPVreKHPSP
+	+AjR2lg==
+X-Received: from pgdg15.prod.google.com ([2002:a05:6a02:51cf:b0:c82:2bb1:fdb0])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:748f:b0:3b2:b1ed:d1df
+ with SMTP id adf61e73a8af0-3b8b72c6650mr4040175637.29.1781701387134; Wed, 17
+ Jun 2026 06:03:07 -0700 (PDT)
+Date: Wed, 17 Jun 2026 06:03:06 -0700
+In-Reply-To: <5b5a0f3f21bba5d25410382a9e0170a17c952738.camel@intel.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260616145125.307082728@linuxfoundation.org>
+Mime-Version: 1.0
+References: <20260616214652.2157032-1-yosry@kernel.org> <20260616214652.2157032-2-yosry@kernel.org>
+ <5b5a0f3f21bba5d25410382a9e0170a17c952738.camel@intel.com>
+Message-ID: <ajKbCii_1LpyQKjJ@google.com>
+Subject: Re: [PATCH 1/3] KVM: nVMX: Always flush vpid02 on first use
+From: Sean Christopherson <seanjc@google.com>
+To: Kai Huang <kai.huang@intel.com>
+Cc: "yosry@kernel.org" <yosry@kernel.org>, "jmattson@google.com" <jmattson@google.com>, 
+	"kvm@vger.kernel.org" <kvm@vger.kernel.org>, "pbonzini@redhat.com" <pbonzini@redhat.com>, 
+	"stable@vger.kernel.org" <stable@vger.kernel.org>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="us-ascii"
 
-On Tue, Jun 16, 2026 at 08:22:27PM +0530, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.1.176 release.
-> There are 522 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+On Wed, Jun 17, 2026, Kai Huang wrote:
+> On Tue, 2026-06-16 at 21:46 +0000, Yosry Ahmed wrote:
+> > Make sure vpid02 is always flushed on first use by setting last_vpid=0
+> > when allocating vpid02.  nested_vmx_transition_tlb_flush() will always
+> > detect a VPID change on first VM-Enter after VMXON, because VPID=0 in
+> > vmcb12 is not allowed if L1 enables VPID.
+> 
+> vmcs12 :-)
+> 
+> > 
+> > This avoids using stale TLB entries from a previous lifetime of the
+> > VPID, that might have been associated with a different vCPU (or a
+> > completely different VM).
+> > 
+> > Note that last_vpid is already being initialized as 0 when the vCPU is
+> > created, but it is not reset when vpid02 is freed on VMXOFF. Hence, the
+> > problem can only occur if L1 does VMXOFF -> VMXON, runs an L2, and KVM
+> > happens to reuse a VPID that has TLB entries on the physical CPU.
+> 
+> Not sure whether it's better to set it to 0 in free_nested(), which also resets
+> some other nested fields to clean slate AFAICT?
 
-Tested-by: Francesco Dolcini <francesco.dolcini@toradex.com>
+It needs to be set on first use, for the same reason that kvm_mmu_load() flushes
+the root:
 
+	/*
+	 * Flush any TLB entries for the new root, the provenance of the root
+	 * is unknown.  Even if KVM ensures there are no stale TLB entries
+	 * for a freed root, in theory another hypervisor could have left
+	 * stale entries.  Flushing on alloc also allows KVM to skip the TLB
+	 * flush when freeing a root (see kvm_tdp_mmu_put_root()).
+	 */
+	kvm_x86_call(flush_tlb_current)(vcpu);
