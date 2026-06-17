@@ -1,110 +1,272 @@
-Received: from mail-oo1-f41.google.com (mail-oo1-f41.google.com [209.85.161.41])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E9621ACED5
-	for <stable@vger.kernel.org>; Wed, 17 Jun 2026 17:41:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65BEE33F8A2
+	for <stable@vger.kernel.org>; Wed, 17 Jun 2026 17:50:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781718079; cv=none; b=uS3iTj4cH2x4nvHzY8BSyeVRu6/dIyn9ukIy55BdgvWkD0uZURC1NDOJU694eR0kypbkDE41MKSPkJB31RpCSuqyGBB8UmEdDc3a7jeAtxVA+ALuPNlEkami35DVhK5hX5nVnY1gxL6mBAaSfiv65nlmnkaRjKndTuq2H4eXUsQ=
+	t=1781718602; cv=none; b=EGtyIhqvnRtuv7fzXw6RHYfeh/SJfwuqp7w2Eu6MWvwAMouEsoxvY7bpFrWq9J8J3KagNrgK30iihzSGpjTWXAZz5wgxBOspfJ0vSzlDgpgSRAY0//1VA/0kyAUhybQYdwaeTiv57KHpbIIpICsgoLow+Tv63P16yj/NYKAqM88=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781718079; c=relaxed/simple;
-	bh=LILRFxSYEoi268hL3OSZ138XRa0ZaBP07waWon/0rGg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=JmNWsXDb9yYhbD9RC+Yz/q8UlhClInubRr4kyihaHuDpOYFwEJOSED57zNJxvfh0/7lcJucCndCbBTQcD2ZyDTpuuEd+GD2YpQvoqTYxo1Ke+rSFSeJ/B2ex/d9qLnhvaiLM41sBuvn2/z53P9Mi5tBV1qOv4eIo4JLdXU9oMbA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=M0itRPPb; arc=none smtp.client-ip=209.85.161.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	s=arc-20240116; t=1781718602; c=relaxed/simple;
+	bh=o2oM1IX6lAnwvUbxEC5oYkzXcJHd0G3oc+ER6p9i60s=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ef4z3zD3/0nxCGm/WBn94U+vK3QNqZKEuZGO4JMPdat81+/xucyO7B163tMivCwSjR3RH0eRcAhzuCl8gaYfZwaU2TrpQQ3P1bxIH8S3lZpCEHt91n4Zjb4A2s3ia0bGZnXZnqg3iOe7o3S+8FM5gP0+T9RTPSXaRKxWDSFm6Cs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=ePeo/lpK; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=an4/hqK9; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=ePeo/lpK; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=an4/hqK9; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="M0itRPPb"
-Received: by mail-oo1-f41.google.com with SMTP id 006d021491bc7-69e4ac3b37fso46817eaf.1
-        for <stable@vger.kernel.org>; Wed, 17 Jun 2026 10:41:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google; t=1781718076; x=1782322876; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=igyxVB7fmZZCgjWNvoj3rySPp2JuIhAo6gLty/VDFpo=;
-        b=M0itRPPbYdJmsCnySRvGckyPaPL//zmuVCG9T5uk/7u83ZIRtnBO2MGWBOe2ECdHQO
-         /CaWQ1s29T8K+hRqcPvihy5mrJ7y4qhmX/15N40TCVyxUSpKluqDI00GHs+BSunAy/sN
-         VUOdWr3gG70zuOF8vnzHsvkuT4sWREErki88c=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781718076; x=1782322876;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=igyxVB7fmZZCgjWNvoj3rySPp2JuIhAo6gLty/VDFpo=;
-        b=j/B2nAmcx9hb7CQLXCxyqXkq8x9rHBen+uHQZ+sET4K1VDSozJe8jtcpyhexigHyTW
-         gnEJB7JUgrndCP0XfQqPc5bC5F2syLktViZlHlv0dHZ2CLP8HVGRxVoJUNXKUetVNTsO
-         n3YY9FLhtGo9lox4yqKB1z4oib+d5tYmKu87dcopHAlwYuvwp7JKi1ZYEeD3fYpyNJVe
-         D6NOeMBxpLV/TI5Zkg0/Bhw8m+G3GthM4jnqTazXZ1PcK5QkUMjUToqxC7hFzaGs8nZO
-         k7XMIjU+r8sbMwdfKxLljTKbuC7IRGBnMnfo52LQQ3WKUs6SbcFEDlw5GaHV3U7ZyBfC
-         sqHA==
-X-Forwarded-Encrypted: i=1; AFNElJ802PAVFf1VBPdvptas8jjsgjia9Azh1LKBE3MvnwE2Jt6gXWYEl+b2x9pKWFsZlq+bjrcm3vw=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwK3k6mGW61OkCtJYOvIpiO4+3m2jqT3ZKAQlPChC2uWwp7zTHa
-	DIIUw7x98FoTyyGUa5K2krI8McGKf0xpGpAYuAJP9zfiWNfLg7DCdSlTAEVD79l+Dx4=
-X-Gm-Gg: Acq92OHVLEgp2+LeG3c4qGxvJhme3FaUnXSoYbc1Ti4h5NJpwCvojmRJLHZKfWRbMT7
-	kn+FW/442kBXwBC5GTwYLQ+jIRQWl4+aAozE0aINXhBY2QfO5X3TCd7f7X/ONJuCXVY6cKGPMtN
-	yDnL2qAw2tfU2ioCgbUKw051VFIS5HW1FLN+mNsPwh1NkSSC+olp+J9EWp13qTlnlri40xoV1ID
-	0PMTsA2c9oiZnJzgHwcRT3AS9wzayRD157n2Qk+GxapJnzkic6KFyVti/LAtR+FARw4JXEBcX0C
-	XPFMyNtXgrk/Dd52g5e45Bpslf2qt/93xn6vsBorokw73RXa3ViXSVhUyJJZ0D5U4dI++NZD6Kw
-	d8V9iYovgupteYSubbrugLDPbWgFtjaPFEUC+IzaHt1VuwAhA/HfVn4gHOnLqbOcIoJiC1/Fqre
-	BEpqAbl9C2JgYWMpU5UT8T
-X-Received: by 2002:a05:6820:4d06:b0:69e:36c1:8fa0 with SMTP id 006d021491bc7-6a0b619686fmr3355888eaf.39.1781718076578;
-        Wed, 17 Jun 2026 10:41:16 -0700 (PDT)
-Received: from [192.168.1.14] ([38.15.57.99])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-69f00edacdasm7277086eaf.11.2026.06.17.10.41.15
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 17 Jun 2026 10:41:16 -0700 (PDT)
-Message-ID: <0733960d-aa94-488d-a4a8-7ec07d5bdfa2@linuxfoundation.org>
-Date: Wed, 17 Jun 2026 11:41:14 -0600
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="ePeo/lpK";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="an4/hqK9";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="ePeo/lpK";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="an4/hqK9"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 7A8EB75DFE;
+	Wed, 17 Jun 2026 17:49:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1781718599; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=MAYZM6YSvgsj+RUY/3KQm9i1+j1pj9xgKkHWOennv/M=;
+	b=ePeo/lpKDyDNa3YOFWTVP7yfNK+Zgr6HkrtkVM8/1AyBfC8DUMMVeTMcBSZ5YUdxcY5VdD
+	aWHLKjpEdA0I9f67MNsLmkC131Py8cpADbue4jtvG78qKemax9vzsRyg/hIrAl7G0aFB59
+	vGL7nL49LolJsXyhLMDWUJq6WgJsl1Y=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1781718599;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=MAYZM6YSvgsj+RUY/3KQm9i1+j1pj9xgKkHWOennv/M=;
+	b=an4/hqK9VvKmuLBNMga4u7uM2RjauEiRS1i++tGl24f0cjDkhDO3L5b4KMGXB57Hlg9S88
+	NjbKkVJhNoedUTAw==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1781718599; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=MAYZM6YSvgsj+RUY/3KQm9i1+j1pj9xgKkHWOennv/M=;
+	b=ePeo/lpKDyDNa3YOFWTVP7yfNK+Zgr6HkrtkVM8/1AyBfC8DUMMVeTMcBSZ5YUdxcY5VdD
+	aWHLKjpEdA0I9f67MNsLmkC131Py8cpADbue4jtvG78qKemax9vzsRyg/hIrAl7G0aFB59
+	vGL7nL49LolJsXyhLMDWUJq6WgJsl1Y=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1781718599;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=MAYZM6YSvgsj+RUY/3KQm9i1+j1pj9xgKkHWOennv/M=;
+	b=an4/hqK9VvKmuLBNMga4u7uM2RjauEiRS1i++tGl24f0cjDkhDO3L5b4KMGXB57Hlg9S88
+	NjbKkVJhNoedUTAw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2A329779A8;
+	Wed, 17 Jun 2026 17:49:59 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 6GrPA0feMmrwaAAAD6G6ig
+	(envelope-from <krisman@suse.de>); Wed, 17 Jun 2026 17:49:59 +0000
+From: Gabriel Krisman Bertazi <krisman@suse.de>
+To: stable@vger.kernel.org
+Cc: io-uring@vger.kernel.org,
+	Gabriel Krisman Bertazi <krisman@suse.de>,
+	Jens Axboe <axboe@kernel.dk>
+Subject: [PATCH stable-7.1.y] io_uring/net: Avoid msghdr on op_connect/op_bind async data
+Date: Wed, 17 Jun 2026 13:49:47 -0400
+Message-ID: <20260617174947.2975419-1-krisman@suse.de>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5.15 000/411] 5.15.210-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com,
- Shuah Khan <skhan@linuxfoundation.org>
-References: <20260616145100.376842714@linuxfoundation.org>
-Content-Language: en-US
-From: Shuah Khan <skhan@linuxfoundation.org>
-In-Reply-To: <20260616145100.376842714@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Spam-Flag: NO
+X-Spam-Score: -2.80
+X-Spamd-Result: default: False [-2.80 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_MISSING_CHARSET(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	TO_DN_SOME(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:email,suse.de:mid,msgid.link:url,kernel.dk:email];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	FUZZY_RATELIMITED(0.00)[rspamd.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	RCPT_COUNT_THREE(0.00)[4];
+	RCVD_TLS_ALL(0.00)[]
+X-Spam-Level: 
 
-On 6/16/26 08:53, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 5.15.210 release.
-> There are 411 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Thu, 18 Jun 2026 14:49:57 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v5.x/stable-review/patch-5.15.210-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-5.15.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
-> 
+[ Upstream commit 3979840cd858f30f43ea9f4e7f7f1f56de82d698 ]
+This fixes a memory leak due to the lack of the cleanup hook for the
+iovec.  The stable backport differs from upstream by dropping the
+io_connect_bpf_populate hunk, which didn't exist at the time and by
+fixing the merge conflict due to the introduction of
+io_bind_file_create.
 
-Compiled and booted on my test system. No dmesg regressions.
+Both IORING_OP_CONNECT and IORING_OP_BIND reuse the msghdr object just
+to store the sockaddr. Beyond allocating a much larger object than
+needed, msghdr can also wrap an iovec, which will be recycled
+unnecessarily. This uses the sockaddr directly.
 
-Tested-by: Shuah Khan <skhan@linuxfoundation.org>
+Cc: stable@vger.kernel.org
+Signed-off-by: Gabriel Krisman Bertazi <krisman@suse.de>
+Link: https://patch.msgid.link/20260602215327.1885109-2-krisman@suse.de
+Signed-off-by: Jens Axboe <axboe@kernel.dk>
+Signed-off-by: Gabriel Krisman Bertazi <krisman@suse.de>
+---
+ io_uring/net.c   | 36 ++++++++++++++++++------------------
+ io_uring/opdef.c |  4 ++--
+ 2 files changed, 20 insertions(+), 20 deletions(-)
 
-thanks,
--- Shuah
+diff --git a/io_uring/net.c b/io_uring/net.c
+index ee848eb65ec9..bf60cd393b11 100644
+--- a/io_uring/net.c
++++ b/io_uring/net.c
+@@ -1733,7 +1733,7 @@ int io_socket(struct io_kiocb *req, unsigned int issue_flags)
+ int io_connect_prep(struct io_kiocb *req, const struct io_uring_sqe *sqe)
+ {
+ 	struct io_connect *conn = io_kiocb_to_cmd(req, struct io_connect);
+-	struct io_async_msghdr *io;
++	struct sockaddr_storage *addr;
+ 
+ 	if (sqe->len || sqe->buf_index || sqe->rw_flags || sqe->splice_fd_in)
+ 		return -EINVAL;
+@@ -1742,17 +1742,17 @@ int io_connect_prep(struct io_kiocb *req, const struct io_uring_sqe *sqe)
+ 	conn->addr_len =  READ_ONCE(sqe->addr2);
+ 	conn->in_progress = conn->seen_econnaborted = false;
+ 
+-	io = io_msg_alloc_async(req);
+-	if (unlikely(!io))
++	addr = io_uring_alloc_async_data(NULL, req);
++	if (unlikely(!addr))
+ 		return -ENOMEM;
+ 
+-	return move_addr_to_kernel(conn->addr, conn->addr_len, &io->addr);
++	return move_addr_to_kernel(conn->addr, conn->addr_len, addr);
+ }
+ 
+ int io_connect(struct io_kiocb *req, unsigned int issue_flags)
+ {
+ 	struct io_connect *connect = io_kiocb_to_cmd(req, struct io_connect);
+-	struct io_async_msghdr *io = req->async_data;
++	struct sockaddr_storage *addr = req->async_data;
+ 	unsigned file_flags;
+ 	int ret;
+ 	bool force_nonblock = issue_flags & IO_URING_F_NONBLOCK;
+@@ -1766,8 +1766,7 @@ int io_connect(struct io_kiocb *req, unsigned int issue_flags)
+ 
+ 	file_flags = force_nonblock ? O_NONBLOCK : 0;
+ 
+-	ret = __sys_connect_file(req->file, &io->addr, connect->addr_len,
+-				 file_flags);
++	ret = __sys_connect_file(req->file, addr, connect->addr_len, file_flags);
+ 	if ((ret == -EAGAIN || ret == -EINPROGRESS || ret == -ECONNABORTED)
+ 	    && force_nonblock) {
+ 		if (ret == -EINPROGRESS) {
+@@ -1796,7 +1795,6 @@ int io_connect(struct io_kiocb *req, unsigned int issue_flags)
+ out:
+ 	if (ret < 0)
+ 		req_set_fail(req);
+-	io_req_msg_cleanup(req, issue_flags);
+ 	io_req_set_res(req, ret, 0);
+ 	return IOU_COMPLETE;
+ }
+@@ -1806,15 +1804,15 @@ int io_connect(struct io_kiocb *req, unsigned int issue_flags)
+  * which in turn end up in mnt_want_write() which will grab the fs
+  * percpu start write sem. This can trigger a lockdep warning.
+  */
+-static int io_bind_file_create(const struct io_async_msghdr *io, int addr_len)
++static int io_bind_file_create(const struct sockaddr_storage *addr, int addr_len)
+ {
+ 	const struct sockaddr_un *sun;
+ 
+-	if (io->addr.ss_family != AF_UNIX)
++	if (addr->ss_family != AF_UNIX)
+ 		return 0;
+ 	if (addr_len <= offsetof(struct sockaddr_un, sun_path))
+ 		return 0;
+-	sun = (const struct sockaddr_un *) &io->addr;
++	sun = (const struct sockaddr_un *) addr;
+ 	return sun->sun_path[0] != '\0';
+ }
+ 
+@@ -1822,7 +1820,7 @@ int io_bind_prep(struct io_kiocb *req, const struct io_uring_sqe *sqe)
+ {
+ 	struct io_bind *bind = io_kiocb_to_cmd(req, struct io_bind);
+ 	struct sockaddr __user *uaddr;
+-	struct io_async_msghdr *io;
++	struct sockaddr_storage *addr;
+ 	int ret;
+ 
+ 	if (sqe->len || sqe->buf_index || sqe->rw_flags || sqe->splice_fd_in)
+@@ -1831,21 +1829,23 @@ int io_bind_prep(struct io_kiocb *req, const struct io_uring_sqe *sqe)
+ 	uaddr = u64_to_user_ptr(READ_ONCE(sqe->addr));
+ 	bind->addr_len =  READ_ONCE(sqe->addr2);
+ 
+-	io = io_msg_alloc_async(req);
+-	if (unlikely(!io))
++	addr = io_uring_alloc_async_data(NULL, req);
++	if (unlikely(!addr))
+ 		return -ENOMEM;
+-	ret = move_addr_to_kernel(uaddr, bind->addr_len, &io->addr);
++
++	ret = move_addr_to_kernel(uaddr, bind->addr_len, addr);
+ 	if (unlikely(ret))
+ 		return ret;
+-	if (io_bind_file_create(io, bind->addr_len))
++	if (io_bind_file_create(addr, bind->addr_len))
+ 		req->flags |= REQ_F_FORCE_ASYNC;
+ 	return 0;
+ }
+ 
++
+ int io_bind(struct io_kiocb *req, unsigned int issue_flags)
+ {
+ 	struct io_bind *bind = io_kiocb_to_cmd(req, struct io_bind);
+-	struct io_async_msghdr *io = req->async_data;
++	struct sockaddr_storage *addr = req->async_data;
+ 	struct socket *sock;
+ 	int ret;
+ 
+@@ -1853,7 +1853,7 @@ int io_bind(struct io_kiocb *req, unsigned int issue_flags)
+ 	if (unlikely(!sock))
+ 		return -ENOTSOCK;
+ 
+-	ret = __sys_bind_socket(sock, &io->addr, bind->addr_len);
++	ret = __sys_bind_socket(sock, addr, bind->addr_len);
+ 	if (ret < 0)
+ 		req_set_fail(req);
+ 	io_req_set_res(req, ret, 0);
+diff --git a/io_uring/opdef.c b/io_uring/opdef.c
+index c3ef52b70811..34cd320a427b 100644
+--- a/io_uring/opdef.c
++++ b/io_uring/opdef.c
+@@ -203,7 +203,7 @@ const struct io_issue_def io_issue_defs[] = {
+ 		.unbound_nonreg_file	= 1,
+ 		.pollout		= 1,
+ #if defined(CONFIG_NET)
+-		.async_size		= sizeof(struct io_async_msghdr),
++		.async_size		= sizeof(struct sockaddr_storage),
+ 		.prep			= io_connect_prep,
+ 		.issue			= io_connect,
+ #else
+@@ -503,7 +503,7 @@ const struct io_issue_def io_issue_defs[] = {
+ 		.needs_file		= 1,
+ 		.prep			= io_bind_prep,
+ 		.issue			= io_bind,
+-		.async_size		= sizeof(struct io_async_msghdr),
++		.async_size		= sizeof(struct sockaddr_storage),
+ #else
+ 		.prep			= io_eopnotsupp_prep,
+ #endif
+-- 
+2.54.0
+
