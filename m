@@ -1,126 +1,129 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3662239BFEC;
-	Wed, 17 Jun 2026 09:17:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E411D39B4A3;
+	Wed, 17 Jun 2026 09:18:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781687878; cv=none; b=sQ94aLM1pPmdIjWhCtSBVRe3y+QHGJ4+1bY4uto5JWxr9tbwltegTtJpX520JJmvTfJleGo6/TgFnYNh/8Eer4z5tzegxq0TeMweLlOZIIVHSPmNm15PoTYR+Pc8Owi0sLTnb3g9B4/b0J16Slioyb1nokWXBgh/4hLgEJGUpo4=
+	t=1781687908; cv=none; b=p0cn+kwt8jKTV8s6f2Gr7r5s8S/qTWRDqODsjgTZANL0+rTeICufgv33ew9V6l+uM50kX7xFdo4jRMnCb/ge7xvLRvSnvXcuR+x8rbAH9G0kZ4uHjB3gnZCMPf6Yem5QB/jb0WCRPZxIUuZpQ4Vay/IEUiojpS/bHHJCNqg/OU0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781687878; c=relaxed/simple;
-	bh=1jBDxYXWJq8oVg4cfwRSFslEeHBgkTsITO5M9rYbr1Q=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Gg2TryQ6nuLGD1euMOmC6cst+8sjKB1DEipsWzcpvfY9aa89gmWQASkOLIfF1cuGE1CWxNVd6HGOTuhZyBI8qnDn2kipwR1vM8nvItzLrwuCyFqzn0tIn9RpDA0PbTGM5RxPWbvgSsbw6ag1d9aAZsYCL0igsxxkax5wf/NpAqY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=Qm0iVjU4; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1781687908; c=relaxed/simple;
+	bh=jU+y4zwGW5m9F+uZkVQ/IsuSU9Z9wtD6LH5H8jCyUPk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=pu3P5hf+pZsF0KrwxHO5jdst89EYaNvLe2tmNrcBU52qSSUuma17Uy9n0RqKuQq/98xYJZCAJzcWF6kxXqohtXHlDB+FoSZhz9SLjZJsHdAeVo6A14l1aLnM046dw16XAMqwUYCbqhvWzcGyD6dOOxzfQOLWYNY8FEf//PX1+6Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SKvst9fX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="Qm0iVjU4"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 722B94E42F2C;
-	Wed, 17 Jun 2026 09:17:49 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 46A8A601AA;
-	Wed, 17 Jun 2026 09:17:49 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 804AA106CA350;
-	Wed, 17 Jun 2026 11:17:46 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1781687868; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=G9FpCeKi3Ynv/LOiUy9epKx2SW5IzmteIiDj38KugCY=;
-	b=Qm0iVjU4OMdghsQmnsSO/ZVglUuAgnSWOLaEln7sLb0stSd5BiwNTG+skRE5W6v3NM36gN
-	WIQOk93EJD4sv52sOkRdC9HVawr/X7IFU80SnCCXq1PazwZhwep1i9OgCmhKP2wFB1zGoc
-	GB13r44Stdt2gEgUmPQ9q0Wc/7qHoUm4h4m7TiaNtiWtbj3eNC2ZzwF+EPWwbb8ePFfN8N
-	qvNsINoO3ALOm5y1vsJVXflVV2fQT8s76IUjL/6eSGp0JF40a4ibAL/sMhj9QEPcn3N5yL
-	O/b+AA+zriz0OkqoSBxJne3TuK/MHTD9n+4MLuAli8RdO4XGmVqJ6ApiAWzEfQ==
-From: =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>
-Date: Wed, 17 Jun 2026 11:17:30 +0200
-Subject: [PATCH net v3 2/2] net: macb: drop in-flight Tx SKBs on close
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SKvst9fX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F21A1F000E9;
+	Wed, 17 Jun 2026 09:18:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781687907;
+	bh=EtNxW7/37fBEOlp38QPfab6gfweMcAFcEQ1RgfKloiU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=SKvst9fXi2R1TDymljJrc6AzQ+h9tCJfP4PIijyCLDV76XTG3aUP7jios0lc8vvJW
+	 wrRahawIRsQ+OPKPdq7je/hchFPjjHCPZohsuaNjxm1BcPjxTCDVY8n2/mCm2aAM7H
+	 zXLrsbXwC+8ziBuz7+e9gDXD5MCmnpwl3Lju9Y8xKD6VyVNK+tviH3ZXMN+LjOqn30
+	 zjKGX2rO5i/EVprgo85hlksRklXiFopnO57f/mv+7cG+7s0fEDqX6b+LDUE6POjJOg
+	 YGhsPv3hyVNyUXUpEOJqlWfTz0ZBfayCvtda9zGnSUnHNCy5JVQkfNgcospb47T/sG
+	 7cnRM1qBtkO+Q==
+From: Simon Horman <horms@kernel.org>
+To: doruk@0sec.ai
+Cc: Simon Horman <horms@kernel.org>,
+	saeedm@nvidia.com,
+	leon@kernel.org,
+	tariqt@nvidia.com,
+	mbloch@nvidia.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	borisp@nvidia.com,
+	sd@queasysnail.net,
+	raeds@nvidia.com,
+	ehakim@nvidia.com,
+	netdev@vger.kernel.org,
+	linux-rdma@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH net] net/mlx5e: macsec: fix use-after-free of metadata_dst on RX SC delete
+Date: Wed, 17 Jun 2026 10:16:35 +0100
+Message-ID: <20260617091634.846438-2-horms@kernel.org>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260615140534.52691-1-doruk@0sec.ai>
+References: <20260615140534.52691-1-doruk@0sec.ai>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260617-macb-drop-tx-v3-2-d4c7e57d890b@bootlin.com>
-References: <20260617-macb-drop-tx-v3-0-d4c7e57d890b@bootlin.com>
-In-Reply-To: <20260617-macb-drop-tx-v3-0-d4c7e57d890b@bootlin.com>
-To: Nicolas Ferre <nicolas.ferre@microchip.com>, 
- Claudiu Beznea <claudiu.beznea@tuxon.dev>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Haavard Skinnemoen <hskinnemoen@atmel.com>, Jeff Garzik <jeff@garzik.org>, 
- Conor Dooley <conor.dooley@microchip.com>
-Cc: Paolo Valerio <pvalerio@redhat.com>, Nicolai Buchwitz <nb@tipi-net.de>, 
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>, 
- Gregory CLEMENT <gregory.clement@bootlin.com>, 
- =?utf-8?q?Beno=C3=AEt_Monin?= <benoit.monin@bootlin.com>, 
- Tawfik Bayouk <tawfik.bayouk@mobileye.com>, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- Maxime Chevallier <maxime.chevallier@bootlin.com>, 
- =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>, 
- stable@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Last-TLS-Session-Version: TLSv1.3
 
-The MACB driver has since forever leaked the outgoing SKBs that
-have not yet been marked as completed. They live in queue->tx_skb
-which gets freed without remorse nor checking.
-
-macb_free_consistent() gets called in a few codepaths, but only
-close will trigger the added expressions. In macb_open() and
-macb_alloc_consistent() failure cases, tx_skb just got allocated
-and is empty.
-
-Use the new macb_tx_unmap() prototype to report our error as
-SKB_DROP_REASON_NOT_SPECIFIED rather than SKB_CONSUMED which makes it
-sound like no error occurred. Equivalent to dev_kfree_skb_any().
-
-Fixes: 89e5785fc8a6 ("[PATCH] Atmel MACB ethernet driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Théo Lebrun <theo.lebrun@bootlin.com>
+This is an AI-generated review of your patch. The human sending this
+email has considered the AI review valid, or at least plausible.
+Full review at: https://sashiko.dev
 ---
- drivers/net/ethernet/cadence/macb_main.c | 22 ++++++++++++++++++++--
- 1 file changed, 20 insertions(+), 2 deletions(-)
+net/mlx5e: macsec: fix use-after-free of metadata_dst on RX SC delete
 
-diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
-index 9caae1ef52b1..5a2500bd59a6 100644
---- a/drivers/net/ethernet/cadence/macb_main.c
-+++ b/drivers/net/ethernet/cadence/macb_main.c
-@@ -2678,8 +2678,26 @@ static void macb_free_consistent(struct macb *bp)
- 	dma_free_coherent(dev, size, bp->queues[0].rx_ring, bp->queues[0].rx_ring_dma);
- 
- 	for (q = 0, queue = bp->queues; q < bp->num_queues; ++q, ++queue) {
--		kfree(queue->tx_skb);
--		queue->tx_skb = NULL;
-+		if (queue->tx_skb) {
-+			unsigned int dropped = 0, tail;
-+
-+			for (tail = queue->tx_tail; tail != queue->tx_head;
-+			     tail++) {
-+				if (macb_tx_skb(queue, tail)->skb)
-+					dropped++;
-+				macb_tx_unmap(bp, macb_tx_skb(queue, tail), 0,
-+					      SKB_DROP_REASON_NOT_SPECIFIED);
-+			}
-+
-+			queue->stats.tx_dropped += dropped;
-+			bp->dev->stats.tx_dropped += dropped;
-+
-+			kfree(queue->tx_skb);
-+			queue->tx_skb = NULL;
-+		}
-+
-+		queue->tx_head = 0;
-+		queue->tx_tail = 0;
- 		queue->tx_ring = NULL;
- 		queue->rx_ring = NULL;
- 	}
+This patch replaces metadata_dst_free() with dst_release() during MACsec
+RX SC deletion. It relies on the dst subsystem's refcounting to defer freeing
+the metadata_dst until the last reference is dropped, aiming to fix a
+use-after-free when an skb still references it.
 
--- 
-2.54.0
+> diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_accel/macsec.c b/drivers/net/ethernet/mellanox/mlx5/core/en_accel/macsec.c
+> index 71b3a059c9647..2a4e7ed76d315 100644
+> --- a/drivers/net/ethernet/mellanox/mlx5/core/en_accel/macsec.c
+> +++ b/drivers/net/ethernet/mellanox/mlx5/core/en_accel/macsec.c
+> @@ -829,7 +829,7 @@ static void macsec_del_rxsc_ctx(struct mlx5e_macsec *macsec, struct mlx5e_macsec
+>  	 */
+>  	list_del_rcu(&rx_sc->rx_sc_list_element);
+>  	xa_erase(&macsec->sc_xarray, rx_sc->sc_xarray_element->fs_id);
+> -	metadata_dst_free(rx_sc->md_dst);
+> +	dst_release(&rx_sc->md_dst->dst);
 
+[Severity: High]
+Does this change introduce a new use-after-free in the RX datapath?
+
+When dst_release() drops the refcount to 0, concurrent readers in
+mlx5e_macsec_offload_handle_rx_skb() can still find the object via RCU
+and call dst_hold(). Because dst_hold() uses rcuref_get(), it fails on a
+0-refcount object without incrementing the count.
+
+However, the datapath still attaches the 0-refcount dst to the skb. When the
+skb is later freed, skb_dst_drop() will call dst_release() on already-freed
+memory.
+
+Should the datapath be updated to use dst_hold_safe() instead?
+
+>  	kfree(rx_sc->sc_xarray_element);
+
+[Severity: High]
+This is a pre-existing issue, but does this synchronous kfree() cause a
+use-after-free for concurrent datapath readers?
+
+The element was just removed from the RCU-protected xarray via xa_erase(),
+but the RX datapath can still be accessing it via xa_load() under
+rcu_read_lock() in mlx5e_macsec_offload_handle_rx_skb().
+
+Should this use an RCU-deferred free mechanism instead?
+
+[Severity: Critical]
+This is a pre-existing issue, but does mlx5e_macsec_offload_handle_rx_skb()
+blindly dereference the result of xa_load()?
+
+drivers/net/ethernet/mellanox/mlx5/core/en_accel/macsec.c:mlx5e_macsec_offload_handle_rx_skb() {
+    ...
+    sc_xarray_element = xa_load(&macsec->sc_xarray, fs_id);
+    rx_sc = sc_xarray_element->rx_sc;
+    ...
+}
+
+If xa_load() returns NULL (e.g., if the entry was concurrently deleted by
+xa_erase() or the packet has an unrecognized fs_id), will this cause a
+deterministic kernel panic?
+
+Is a NULL check needed before accessing the returned element?
+
+>  	kfree_rcu_mightsleep(rx_sc);
+>  }
