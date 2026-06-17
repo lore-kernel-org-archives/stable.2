@@ -1,137 +1,119 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08A4A3EFD14
-	for <stable@vger.kernel.org>; Wed, 17 Jun 2026 11:59:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEA9324A05D
+	for <stable@vger.kernel.org>; Wed, 17 Jun 2026 12:08:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781697574; cv=none; b=Te+sz9fZm498ivCiJLMYdn8xcp6xOAEQhP4ASKJj/NIMeSFuAV+nxza9R8/NcknaXrMTzAbJDYTEmudKgyUe9hjSFQzo99/59cliM66Q9uSt524PlPddaheF4FT35g0iZ/z2vVIy8WizDJm8bnpaL7b18AuSv3MTW5juaRGkh8Q=
+	t=1781698100; cv=none; b=iCFDmdyH2craRFlh0n433LJgavy8pLQbMU3TRX4wf/46a5LT76V9Jzi3sJMZROvPO51Z1Z7XxbAH+PW8y47Z+i44/GwTbTNz4hWHuudc0gdN/VxwobSHBkHXhYmamNWz852aCeSxZf6jFlIGJwcE6pRXiA7FaSgTDn+SJR6HkKc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781697574; c=relaxed/simple;
-	bh=cvsxccTzFVOpMQezm4HlOWz2aB8KWwD6zxOBa9D3eA8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Rpb6u3lUSy2w5Ncewof5g/AdDGSdEQBUzZJrv8WhaR/91/XWdRugmyJWpyRzVIwn5X1I5emI7RjWVv5Yet3dK7E2RJd1mFNCg5HpxCf7f8k2lHuY0ilkLgGdo7eFFxfYbF0ZdjLszliJ6I6WiBox4PUh2+W4ibE3C7W76GMBuVk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=M6qD7bvt; arc=none smtp.client-ip=209.85.128.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1781698100; c=relaxed/simple;
+	bh=YjsAhYXUodz7nc4xjdfUxVayCu7T92r33C55MOfrInU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jIy8zl0l164FWy4YNhD4k+Z+wQ2VU29cXlOUjJWXzL8jKMyGka5po9iyQlZXD1coxoFgQXGXH/iE783rJYVcfe+5abJixfzZr8Hxiwaj52cFeQXt6uNlJuDrXlLughBYJZ6c4JiPT9J0JFGF6qSrhs53L0f5Q0d28PSq8zF4E9A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FkpWpsan; arc=none smtp.client-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="M6qD7bvt"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-490bc6a7958so7158485e9.1
-        for <stable@vger.kernel.org>; Wed, 17 Jun 2026 04:59:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FkpWpsan"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-49230a567a9so10110825e9.0
+        for <stable@vger.kernel.org>; Wed, 17 Jun 2026 05:08:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1781697570; x=1782302370; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=wFy1siI5GPA02P4SigwJOvEY2/GCKPj1mDQV6Az/rvE=;
-        b=M6qD7bvtZL4WoGDeCzK3htwiEAuyM4CktDeM5fxxmuqw8gryeGiBqYiMqXeDX0TObt
-         ZhwgjWODAUq1Wf3Ii+fDS6wIbRIKznp+VbtnNcMlXDPeRTSb35z7nADRBqaaQQJpu7c5
-         E+wQDUsA8ekgkOZFpVB+TO4QInOdJdP0boeMLaa7Jm+N+CRknJN8WskaFdqdSBs19MsJ
-         eGKWMVRPZzLWCQU6WqgGC1mSSdRD/AcSd5UzNGZKVBVNC6xyNW6sQLx4BqpiZ+xh4bnR
-         kH561LSvnpzCGzIWt+h44lsPyKA5JUitnlXOYfdn+0QaRB9CPyOj+PXMEt90lJWu8pBR
-         H3GA==
+        d=gmail.com; s=20251104; t=1781698097; x=1782302897; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=a0jOMZCcA1H7BGnP4Ncr7NnGD7quAU2khlteKx4MJN0=;
+        b=FkpWpsantnKAFhI2b+a2A2WgmVrui8g4xddO1qZi0zQpARTHfc7fqytYWT1+VK43TV
+         N4Ud0ch2bExcsdANmWtGHdpoaC0O5YeEQ1agzSkSP0GifIU1XSUwJZaHg5VGqIEDVK2c
+         8HkuzcbTIBfJRKvCYgQVKocpfTxHrwq1OFshK43TVP4VpdRTDr0SIoDqpxfV0DDUO5in
+         Omrjfp2Wus+n/rU5g+ROolPnATccDXMQtgk6wTwRu75bY/F5//932PuXYosGOey42PAG
+         zjli1oFed2E//4kTDdeCBaukRVhljUwHnqlxkuW6TgDhohhkclNsICH1QMzcU+sY4/61
+         X92Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781697570; x=1782302370;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=wFy1siI5GPA02P4SigwJOvEY2/GCKPj1mDQV6Az/rvE=;
-        b=GaGUM5cBWn8PmJyN0WS7wZKRSsE+dprYMhdSe+f3t+UoIedq8T2WgSzLKMKM0RsMCG
-         YROjv5oFGADnUFb276EegrajrHbWiU2BJL9O6oCVHguJAAgl4Lw9tgaSZ5D42ZmTMZIK
-         brQhY5W8BgAgzUvbAHMpWLNaJvvZP68fhAlhPhAZxZrlPEOwZPc760he9gOutaIlrYVX
-         0z5jHra4oADx22YjcpT9Nlt/4HzV9RQl7LJcyk9U0a7HSXrBogA4ZoUFOolwHA023g8X
-         Yt5ekDh0xJaLRtD9FvsaMAcTiBIfZk1nstTujsUxheHk7HAnTf4ur/HrVuGxzKw8w6T0
-         i7bQ==
-X-Forwarded-Encrypted: i=1; AFNElJ9cBNogujR6wYiEp63VAtFxa+UISU4sjMbinLmYJXYJorYGlL1N/xGK6PRtmSTFEfHkZcCNr/U=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwZTLl3agTGFPP9aX+i57G+KPn2C3PapiJBWaTk3bRCLXsj9EQN
-	RA+jgXvJKz4//NgqE9wpoJ0fNENCCet6q+u0A1/2+uSSZOeZ+K8kpeUPWuYNZWOAGCo=
-X-Gm-Gg: Acq92OFJ2+wqdxUDxj0FNWFxTLaqrBKQl2jzyH1Kni2TO84RECo5OoGy3SooFI1G5wk
-	BJDf9MwhUQ2aOx0a5IsMsszE6RONZNsvdDJZ1STPnG1AzvxG4I2vi81kya5DWUCyXEB2+IeMz+o
-	X9UQLT6osezh7jaHSh8bZXBHNN+xI5A6IIGava/WYyixGv4hjY1dphJQMXP7mWiiyXDdXURY+Uv
-	wPop4kXZS5lWnG9UIJYgtbyg7RT4Yvetm5Q9zIFbwYxCsWoECotgtnOazL/pwzeSQi4RVXqX3Ik
-	k/+QnAwlcPeIGPa1kkxochrE1GtHzTICBn/TyocTYak3EaIbjqLjMYgFye57GY1OKEVe83vOmR1
-	VUWExgILSIkc1M1H4t1kaoUUHgL7ddqF+0OHiejRSTgIc0/QzxNcYxpnjC0wtOOSNaK0imEIil5
-	rmHJ2/uYGiKtyjNIQ=
-X-Received: by 2002:a05:600d:8450:10b0:490:4035:323 with SMTP id 5b1f17b1804b1-492340e75cdmr33496715e9.9.1781697570289;
-        Wed, 17 Jun 2026 04:59:30 -0700 (PDT)
-Received: from pathway.suse.cz ([176.114.240.130])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4606f26f309sm48879291f8f.14.2026.06.17.04.59.29
+        d=1e100.net; s=20251104; t=1781698097; x=1782302897;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=a0jOMZCcA1H7BGnP4Ncr7NnGD7quAU2khlteKx4MJN0=;
+        b=NYxtgRuHjs0OuOLuRIYCeRcV+t8XEOc5tYKr1/fE3QZ+O9ciVCy4Tc78naJs9bbW+f
+         35dG93acCljjbOINHDQax+xunGymys8woZG92rgoZeSpiOuemKnYaEADZ+ymnJLqqpH5
+         dDFc87Faftr+TfJBfZX/DSQSCu6ulK392x9x5jraXsHoD4ljT+Z8aYVDVCfYQ+WOy6hI
+         jj5cA+TG1KnSA9vrWuqP6haJN8UKFLSctA5W9P1wIBbVAgB9j8IjpNK0qfmuQX95d++x
+         w4efsaQwV1nvWMcsHoYQAIyqLQEZj4OWT1fkyQWFagar3GIAmIIVqSl/AqfRgjdRGJcy
+         dCPA==
+X-Forwarded-Encrypted: i=1; AFNElJ9z51p2vfsUslEHXErV8DICfDR5wNr0p8s2LhM95U+GyiI8PXewFdGfyLa5LxVJKcXnNzqHHFg=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwrG1TN1df0K7ixwEUa7EE+BcpvLTWMF5nq1KVpSLHqnx6Sw0so
+	RolnJ2RpEYYNUtRx4LgZlBYDZzK25fAKY54o2o1/0rchYcUz26lSBRM=
+X-Gm-Gg: Acq92OGwb9fEuaxr4OE4K7/ZpqnDnvnXcGSclyAvJmR+QXr9dP8Zwaas4c8WSVbA0CG
+	UKhVpkKtnm0wRVa9+vFkP8HRNZnG2B+iKrtROH58qkTjGL3L9196hY0JNu7LYWfEPLgMogub7Qs
+	3VbJbX3c8HVbXvcgXITRgKds9glN6ITbUFDI9DzzGjRwouIg1lnf6y2kk9mjDKO3feRckKswE1p
+	AE49/aH54i9Xnse8PCu49iXZcYRj6dkdiy6ZuFxp8CYaMwDQqcwex2+hBqlyuicaBQ/qIl/ynRk
+	GF4Kc1BZz0GWEmZK8PnwZaWy0a4hYJuLlgDgYvVt9SYd7SgGsnWX1Is5DUIsOwcmtdkIiwF6hGw
+	AaicsHw4vnN5MthHeide8uI2ksIHLfJzGd32QiFhttmerPz84pAe/S9x20+5Tf58Lkk/U
+X-Received: by 2002:a05:600c:4fcb:b0:492:3214:cbe6 with SMTP id 5b1f17b1804b1-4923341f59dmr55904685e9.23.1781698096974;
+        Wed, 17 Jun 2026 05:08:16 -0700 (PDT)
+Received: from debian.. ([2001:41d0:303:db6b::])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49230a4ff67sm153691355e9.6.2026.06.17.05.08.15
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 17 Jun 2026 04:59:29 -0700 (PDT)
-Date: Wed, 17 Jun 2026 13:59:27 +0200
-From: Petr Mladek <pmladek@suse.com>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Jakub Kicinski <kuba@kernel.org>,
-	John Ogness <john.ogness@linutronix.de>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Vlad Poenaru <vlad.wing@gmail.com>,
-	Thomas Gleixner <tglx@kernel.org>, netdev@vger.kernel.org,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>, Breno Leitao <leitao@debian.org>,
-	Clark Williams <clrkwllms@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	linux-rt-devel@lists.linux.dev, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org, Frederic Weisbecker <frederic@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>
-Subject: Re: [PATCH net] netpoll: run NAPI poll in softirq context to avoid
- rq->lock self-deadlock
-Message-ID: <ajKMH_LmiZhjNlOW@pathway.suse.cz>
-References: <20260610183621.3915271-1-vlad.wing@gmail.com>
- <20260611191114.5bc43a59@kernel.org>
- <20260616103529.Yh9Dxsjp@linutronix.de>
- <20260616081128.04e2c8dd@kernel.org>
- <20260616153122.keHMKvVT@linutronix.de>
- <ajJy92ES-Q8ro97A@pathway.suse.cz>
- <20260617111504.GK49951@noisy.programming.kicks-ass.net>
+        Wed, 17 Jun 2026 05:08:16 -0700 (PDT)
+From: Tristan Madani <tristmd@gmail.com>
+To: Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>
+Cc: Xu Kuohai <xukuohai@huawei.com>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	bpf@vger.kernel.org,
+	stable@vger.kernel.org,
+	Tristan Madani <tristan@talencesecurity.com>
+Subject: [PATCH] bpf: Reset register bounds before narrowing retval range in check_mem_access()
+Date: Wed, 17 Jun 2026 12:08:15 +0000
+Message-ID: <20260617120815.3910671-1-tristmd@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260617111504.GK49951@noisy.programming.kicks-ass.net>
+Content-Transfer-Encoding: 8bit
 
-On Wed 2026-06-17 13:15:04, Peter Zijlstra wrote:
-> On Wed, Jun 17, 2026 at 12:12:07PM +0200, Petr Mladek wrote:
-> > On Tue 2026-06-16 17:31:22, Sebastian Andrzej Siewior wrote:
-> > > On 2026-06-16 08:11:28 [-0700], Jakub Kicinski wrote:
-> > > > > 
-> > > > > Adding sched and printk folks for opinions while eyeballing
-> > > > > WARN_ON_DEFERRED().
-> > > > 
-> > > > Thanks a lot for looking into this! To be clear - the printk_deferred /
-> > > > WARN_DEFERRED would be just for stable? Or there's still some
-> > > > sensitivity even with nbcon?
-> > > 
-> > > We already have printk_deferred(). WARN_DEFERRED() would be new. I
-> > > *think* this is not limited netpoll/ netconsole but all console drivers
-> > > not using CON_NBCON if the printk (via WARN) occurs with the rq held.
-> > > I don't remember all the details but printk_deferred() was introduced to
-> > > circumvent this until printk is fixed.
-> > 
-> > Just to make it clear. The problem with the legacy consoles is that
-> > they are called under console_lock() which is a semaphore. And it
-> > calls wake_up_process() in console_unlock() when there is another
-> > waiter on the lock.
-> > 
-> > > Once we get rid of those legacy drivers and NBCON is the default we can
-> > > get rid of printk_deferred() :)
-> > 
-> > Yup.
-> 
-> Can't we push all the legacy consoles into a single legacy kthread? I
-> mean, converting all consoles is of course awesome, but should we really
-> wait for that?
+From: Tristan Madani <tristan@talencesecurity.com>
 
-I am afraid that converting the consoles one by one is the deal with
-Linus. I could imagine to moving last few sinners into the kthread
-when the majority is converted. But we are far from there :-/
+When the BPF verifier processes a context load of an LSM hook return
+value, it calls __mark_reg_s32_range() to narrow the register to the
+hook's valid range. However, __mark_reg_s32_range() intersects the new
+range with the register's existing bounds using max_t()/min_t() rather
+than replacing them.
 
-Best Regards,
-Petr
+If the destination register carries stale bounds from a prior instruction
+(e.g. BPF_MOV64_IMM), the intersection can produce a range narrower than
+reality. The verifier then believes it knows the register's exact value,
+while at runtime the actual hook return value is loaded, creating a
+verifier/runtime mismatch that can be used to bypass BPF memory safety
+checks.
+
+The else branch already calls mark_reg_unknown() to reset register state
+before any narrowing. Apply the same reset in the is_retval path so
+stale bounds are cleared before __mark_reg_s32_range() intersects.
+
+Fixes: 5d99e198be27 ("bpf, lsm: Add check for BPF LSM return value")
+Cc: stable@vger.kernel.org
+Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
+---
+ kernel/bpf/verifier.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
+index 54c6953a8b84..7e30dddc7721 100644
+--- a/kernel/bpf/verifier.c
++++ b/kernel/bpf/verifier.c
+@@ -7532,6 +7532,7 @@ static int check_mem_access(struct bpf_verifier_env *env, int insn_idx, u32 regn
+ 			 */
+ 			if (info.reg_type == SCALAR_VALUE) {
+ 				if (info.is_retval && get_func_retval_range(env->prog, &range)) {
++					mark_reg_unknown(env, regs, value_regno);
+ 					err = __mark_reg_s32_range(env, regs, value_regno,
+ 								   range.minval, range.maxval);
+ 					if (err)
+-- 
+2.47.3
+
