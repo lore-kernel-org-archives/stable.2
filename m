@@ -1,36 +1,36 @@
-Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
+Received: from out28-134.mail.aliyun.com (out28-134.mail.aliyun.com [115.124.28.134])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EC3A3101A6;
-	Wed, 17 Jun 2026 15:14:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62BD6480DEA
+	for <stable@vger.kernel.org>; Wed, 17 Jun 2026 15:17:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.134
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781709268; cv=none; b=pu1yu+RXASsJ4NBTIhg69XprIY412fZno1nk/ak+AC8ptHjt6PdK+TT2p/bARQCZ9VRnyUa/xM+wGpnxPVE1vcAAK9925CyQh3M1bJzMCwDalNxUoz8D5W+Rr/U5iMiKaj/aviC+SPpIlA7uhUUD+dvgvhRm3uxueCRY+VFsbOo=
+	t=1781709475; cv=none; b=p+tMM9RNjod0n5nvPpcZYanTTZdpLRL/tAdIU/EGeK9agQsQnMLZ5U9jM1G+FuSiDLcu6Ycm93CPJG3m94th1sD42pZJw8lEL8wDjMj55+B8Rirol6dfSyAqf75lwpEJqaIU13E2MpQ01yTb2yTjiFiROlojrGSnsSc1w0D1kO4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781709268; c=relaxed/simple;
-	bh=GMSkdwKwwvN36qMoWsVT2yLCvb+VwQ5Tnb7iL6tpNpQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=TzutdzX7KOvqXCtvkYVDWYR+wHTjQSZgzKOr4WfoYco0+SHKtYBawPTQz6Y4Wmhy8CsHfchq8Pwr/dtQbYZfVGyfmNtx4BtdN4O94nGFEt6nAVqbur08eDbM1FnCph1UcsEFonfn2fQ9cCM2Kn/FZdA3IJf+XGvHpmWj9NYtMDo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=Iv7D5zQQ; arc=none smtp.client-ip=45.254.49.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	s=arc-20240116; t=1781709475; c=relaxed/simple;
+	bh=JDITdoNQe6JysXQwdncGz5aHwM8xnjrR1YGJSUXmcTE=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Xc4GLMuaLt++zghT0Tq/oG/lEhG+vY+iB4yw2x5XyxUDVc0hXKTa5c1OnQN8SmJCnePTyBwp0wdpXWrjWwezJa+Xs3255C/JYPBrdf/cK6ZhejFCKIVMESxJFA3aKuU9BE+5VY1m+OlBCPmTTV3XjV5FsxsI5s5PIauAteWxqzg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sigvoid.com; spf=pass smtp.mailfrom=sigvoid.com; dkim=pass (2048-bit key) header.d=sigvoid.com header.i=@sigvoid.com header.b=jhKYziPx; arc=none smtp.client-ip=115.124.28.134
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sigvoid.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sigvoid.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="Iv7D5zQQ"
-Received: from PC-202605011814.localdomain (unknown [58.241.16.34])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 42c703c95;
-	Wed, 17 Jun 2026 23:09:13 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: Eddie James <eajames@linux.ibm.com>,
-	Arnd Bergmann <arnd@arndb.de>,
-	linux-hwmon@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	jianhao.xu@seu.edu.cn,
-	runyu.xiao@seu.edu.cn,
-	stable@vger.kernel.org
-Subject: [PATCH] hwmon: (occ) unregister hwmon device outside occ lock
-Date: Wed, 17 Jun 2026 23:08:59 +0800
-Message-Id: <20260617150859.741453-1-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=sigvoid.com header.i=@sigvoid.com header.b="jhKYziPx"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=sigvoid.com; s=default;
+	t=1781709463; h=From:To:Subject:Date:Message-Id:MIME-Version;
+	bh=oSWc9sSlhXbpQOqYnu9ZH7ql4C5+7+B5hkIhJzZFNDU=;
+	b=jhKYziPxMCom0+m9IbaHBnbqyIDVm8Jw4QOFZ4+xRPsrOhkBqpgxSMvitTZpMnyHjah92avulsK9LQQfuOg+XF2Qz8n63ewMhVeyyATx1pC0iejm4y4sIcssPgwmZ0bAmRgtDj2f7nREbU8QTqxc8MP/Hcjik9rJpeBosrH1KlDe8losvamMloBcHTKey2VfVN+NEDmUtTh4RnMO9oRohnpXfO0OEDoPXidVat9vmjagmjF3yPkcMHLZbNjUElG+GkeaikrmC/+t1shU76gj+ppTGJEj8DuVs7365cIbWi4u5ZZVwBgYSDvU60Q+akD0iq7h0XdyYPIkfatCWdrmKQ==
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.06689589|-1;BR=01201311R171S32rulernew998_84748_2000303;CH=blue;DM=|CONTINUE|false|;DS=CONTINUE|ham_alarm|0.00466299-0.000278393-0.995059;FP=13590277443709849546|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037022039;MF=yingjcao@sigvoid.com;NM=1;PH=DS;RN=2;RT=2;SR=0;TI=SMTPD_---.i-qcTA6_1781709439;
+Received: from localhost.localdomain(mailfrom:yingjcao@sigvoid.com fp:SMTPD_---.i-qcTA6_1781709439 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Wed, 17 Jun 2026 23:17:42 +0800
+From: Yingjie Cao <yingjcao@sigvoid.com>
+To: yingjcao@sigvoid.com
+Cc: stable@vger.kernel.org
+Subject: [PATCH] wifi: mac80211: fix negotiated TTLM skb allocation
+Date: Wed, 17 Jun 2026 23:17:14 +0800
+Message-Id: <20260617151714.24458-1-yingjcao@sigvoid.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,148 +38,69 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9ed621159103a1kunm16e6a07772443
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaTUwdVk1DHxhNSUIYTEoYGFYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlOQ1VJT0pVSk1VSE9ZV1kWGg8SFR0UWUFZT0tIVUpLSEpPSE
-	xVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=Iv7D5zQQ71MG0Dhb+gC9gE89+Gyrsv1HzTj7mA7/KUVqjLd/btbiYm2qxDBHBG+ws7HsaICdeFqeg9aJ9dvBcfzWdmeDXqQiH4WFNnmpbHL8m/Of1ibIEbeNMOAZJSWahuQX0KSRaQXR09inW1+rYW+aM4DxLCE7eygqdlTJH+s=; s=default; c=relaxed/relaxed; d=seu.edu.cn; v=1;
-	bh=ZWA+6aQnuueaEeg7IzTAGsIcPfG41MO3NK5SCC3HElg=;
-	h=date:mime-version:subject:message-id:from;
 
-occ_active(false) and occ_shutdown() call hwmon_device_unregister() while
-occ->lock is held.  hwmon_device_unregister() waits for sysfs callbacks to
-drain, and those callbacks can enter the OCC update path and try to take
-occ->lock again.  That gives the unregister paths the lock ordering
-occ->lock -> sysfs callback drain, while a callback has the opposite edge
-sysfs callback -> occ->lock.
+The negotiated TTLM request and response allocation only accounts for
+one TTLM element header. When downlink and uplink mappings differ,
+ieee80211_neg_ttlm_add_suggested_map() emits two elements, each with
+its own 5-byte header.
 
-This issue was found by our static analysis tool and then manually
-reviewed against the current tree.
+With all eight TIDs mapped in both directions, the helper writes
+42 bytes of TTLM data, but the callers only reserve 37 bytes for that
+portion. With tight skb tailroom and CONFIG_DEBUG_NET, the next
+skb_put_data() is caught as skb_over_panic; otherwise the write can
+corrupt skb_shared_info past the intended skb data area.
 
-The grounded PoC kept the real unregister and callback carrier:
+Account for IEEE80211_TTLM_MAX_CNT element headers in both negotiated
+TTLM request and response construction paths.
 
-  occ_shutdown()
-  hwmon_device_unregister()
-  occ_show_temp_1()
-  occ_update_response()
-
-Lockdep reported the circular dependency with occ_shutdown() already
-holding the OCC mutex and hwmon_device_unregister() waiting on the sysfs
-side:
-
-  WARNING: possible circular locking dependency detected
-  ... (sysfs_lock) ... at: hwmon_device_unregister+0x12/0x30 [vuln_msv]
-  ... (&test_occ.lock) ... at: occ_shutdown.constprop.0+0xe/0x40 [vuln_msv]
-  occ_update_response.isra.0+0xb/0x20 [vuln_msv]
-  occ_show_temp_1.constprop.0.isra.0+0x23/0x40 [vuln_msv]
-  *** DEADLOCK ***
-
-Serialize hwmon registration and removal with a separate hwmon_lock.
-Under that lock, detach occ->hwmon and update occ->active while occ->lock
-is held so concurrent OCC state changes still see a stable state, then
-drop occ->lock before calling hwmon_device_unregister().  This keeps the
-double-unregister protection while avoiding the unregister-versus-callback
-lock inversion.
-
-Fixes: 849b0156d996 ("hwmon: (occ) Delay hwmon registration until user request")
-Fixes: ac6888ac5a11 ("hwmon: (occ) Lock mutex in shutdown to prevent race with occ_active")
+Fixes: f7660b3f584a ("wifi: mac80211: add support for negotiated TTLM request")
 Cc: stable@vger.kernel.org
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Signed-off-by: Yingjie Cao <yingjcao@sigvoid.com>
 ---
- drivers/hwmon/occ/common.c | 28 ++++++++++++++++++++++------
- drivers/hwmon/occ/common.h |  1 +
- 2 files changed, 23 insertions(+), 6 deletions(-)
+Based on wireless.git main:
+ddd664bbff63e09e7a7f9acae9c43605d4cf185f
+("Merge tag 'net-7.1-rc7' of
+git://git.kernel.org/pub/scm/linux/kernel/git/netdev/net")
 
-diff --git a/drivers/hwmon/occ/common.c b/drivers/hwmon/occ/common.c
-index 89928d38831b..43dfea14d2ef 100644
---- a/drivers/hwmon/occ/common.c
-+++ b/drivers/hwmon/occ/common.c
-@@ -1106,11 +1106,16 @@ static void occ_parse_poll_response(struct occ *occ)
+The crash proof used reports/poc/ttlm_force.c in a
+QEMU/mac80211_hwsim environment. I used hwsim because I do not have
+physical Wi-Fi 7 MLO hardware that satisfies the negotiated TTLM
+prerequisite.
+
+Local validation:
+- git am on the base commit above: OK
+- git show --check: OK
+- scripts/checkpatch.pl --strict --no-tree: only the expected warning
+  that my shallow checkout cannot resolve the older Fixes commit
+
+ net/mac80211/mlme.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/net/mac80211/mlme.c b/net/mac80211/mlme.c
+index b98ddfa30..0b6626a01 100644
+--- a/net/mac80211/mlme.c
++++ b/net/mac80211/mlme.c
+@@ -7998,7 +7998,8 @@ ieee80211_send_neg_ttlm_req(struct ieee80211_sub_if_data *sdata,
+ 	struct ieee80211_mgmt *mgmt;
+ 	struct sk_buff *skb;
+ 	int hdr_len = IEEE80211_MIN_ACTION_SIZE(ttlm_req);
+-	int ttlm_max_len = 2 + 1 + sizeof(struct ieee80211_ttlm_elem) + 1 +
++	int ttlm_max_len = IEEE80211_TTLM_MAX_CNT *
++		(2 + 1 + sizeof(struct ieee80211_ttlm_elem) + 1) +
+ 		2 * 2 * IEEE80211_TTLM_NUM_TIDS;
  
- int occ_active(struct occ *occ, bool active)
- {
--	int rc = mutex_lock_interruptible(&occ->lock);
-+	struct device *hwmon = NULL;
-+	int rc = mutex_lock_interruptible(&occ->hwmon_lock);
+ 	skb = dev_alloc_skb(local->tx_headroom + hdr_len + ttlm_max_len);
+@@ -8066,7 +8067,8 @@ ieee80211_send_neg_ttlm_res(struct ieee80211_sub_if_data *sdata,
+ 	struct ieee80211_mgmt *mgmt;
+ 	struct sk_buff *skb;
+ 	int hdr_len = IEEE80211_MIN_ACTION_SIZE(ttlm_res);
+-	int ttlm_max_len = 2 + 1 + sizeof(struct ieee80211_ttlm_elem) + 1 +
++	int ttlm_max_len = IEEE80211_TTLM_MAX_CNT *
++		(2 + 1 + sizeof(struct ieee80211_ttlm_elem) + 1) +
+ 		2 * 2 * IEEE80211_TTLM_NUM_TIDS;
+ 	u16 status_code;
  
- 	if (rc)
- 		return rc;
- 
-+	rc = mutex_lock_interruptible(&occ->lock);
-+	if (rc)
-+		goto unlock_hwmon;
-+
- 	if (active) {
- 		if (occ->active) {
- 			rc = -EALREADY;
-@@ -1155,14 +1160,17 @@ int occ_active(struct occ *occ, bool active)
- 			goto unlock;
- 		}
- 
--		if (occ->hwmon)
--			hwmon_device_unregister(occ->hwmon);
-+		hwmon = occ->hwmon;
- 		occ->active = false;
- 		occ->hwmon = NULL;
- 	}
- 
- unlock:
- 	mutex_unlock(&occ->lock);
-+	if (hwmon)
-+		hwmon_device_unregister(hwmon);
-+unlock_hwmon:
-+	mutex_unlock(&occ->hwmon_lock);
- 	return rc;
- }
- 
-@@ -1171,6 +1179,7 @@ int occ_setup(struct occ *occ)
- 	int rc;
- 
- 	mutex_init(&occ->lock);
-+	mutex_init(&occ->hwmon_lock);
- 	occ->groups[0] = &occ->group;
- 
- 	rc = occ_setup_sysfs(occ);
-@@ -1191,15 +1200,22 @@ EXPORT_SYMBOL_GPL(occ_setup);
- 
- void occ_shutdown(struct occ *occ)
- {
--	mutex_lock(&occ->lock);
-+	struct device *hwmon;
- 
-+	mutex_lock(&occ->hwmon_lock);
-+	mutex_lock(&occ->lock);
-+
- 	occ_shutdown_sysfs(occ);
- 
--	if (occ->hwmon)
--		hwmon_device_unregister(occ->hwmon);
-+	hwmon = occ->hwmon;
-+	occ->active = false;
- 	occ->hwmon = NULL;
- 
- 	mutex_unlock(&occ->lock);
-+
-+	if (hwmon)
-+		hwmon_device_unregister(hwmon);
-+	mutex_unlock(&occ->hwmon_lock);
- }
- EXPORT_SYMBOL_GPL(occ_shutdown);
- 
-diff --git a/drivers/hwmon/occ/common.h b/drivers/hwmon/occ/common.h
-index 7ac4b2febce6..82f600093c7f 100644
---- a/drivers/hwmon/occ/common.h
-+++ b/drivers/hwmon/occ/common.h
-@@ -101,6 +101,7 @@ struct occ {
- 
- 	unsigned long next_update;
- 	struct mutex lock;		/* lock OCC access */
-+	struct mutex hwmon_lock;		/* serialize hwmon registration/removal */
- 
- 	struct device *hwmon;
- 	struct occ_attribute *attrs;
+
+base-commit: ddd664bbff63e09e7a7f9acae9c43605d4cf185f
 -- 
-2.34.1
+2.39.5 (Apple Git-154)
