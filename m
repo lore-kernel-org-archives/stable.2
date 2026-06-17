@@ -1,137 +1,228 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender4-op-o15.zoho.com (sender4-op-o15.zoho.com [136.143.188.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06A953B4EAA
-	for <stable@vger.kernel.org>; Wed, 17 Jun 2026 12:13:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781698398; cv=none; b=aIQLwES4ex+5qN+bb7Fjm3kh2OjeU2nx3YMpLYdVwMqpYE6pFJ/ejKhMZRuiCJRKusiqCUl++CrJnlzo7Xd54NSqB2ErJ7Ef9oV4eHXf2gpUebhXbep2chcK5xGutuh7/FxXRFbxQodjEOTdi+1us52RYv7jHOP0+RDaG2BUnQk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781698398; c=relaxed/simple;
-	bh=drQjluxR83utrv7JFzAl3tgoSzQhMivNx3FdMfRDDGc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Rxou+WQK11KwoBL5kf3kMAnfQN6uFxWA+beR23rryu1KBQ0sZcBnw4Z3AwTfanktl7FWhOiseT+iPM0A1KCDbt8/ZDva4jJhveidcIvtK/EOt/TSkkMYgwL9BUAHRXhNJb0tz2AvhKElhYBGY8WUbWh4GADa9VZ9OFpeegYBZgE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=hDHsGGZu; arc=none smtp.client-ip=209.85.128.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1ED8F3F65FB;
+	Wed, 17 Jun 2026 12:26:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.15
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781699174; cv=pass; b=EeiUuiRWxyTl+98gahWx8XCZBNYDD6cLsoic4/HZjmx82UIoyTazzG3E/QSt2AnPMy/lq2zkiQBHKBOv1O0XI+B19fCqC47RgoSjcEkX1RqHAKRB89bCjSCo1mkDyoXKj5eqXNGtSrJaGt5JacWgr8SrvA244AMggHMWK67sT/A=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781699174; c=relaxed/simple;
+	bh=KdJG4zRHuVbedneI0eAEw61H+V+L8AZzIyer0jQRuWE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=TFvFehw7NMe3TSUf8BmOi+Ai5DJCe/Yt3OdUVdI1LRWp0dGIThmh161rtDVWOlzSF5jyb/oM/yk4gL3B2T2s5nVcVbByQRXFQ8u+IvbkSvh8NMeekTt6amSprPs/KoSve8+9TIG5ApsLA8FrEJYlv68a9zdIpoh21QyGelK037I=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.beauty; spf=pass smtp.mailfrom=linux.beauty; dkim=pass (1024-bit key) header.d=linux.beauty header.i=me@linux.beauty header.b=DEmoFv7f; arc=pass smtp.client-ip=136.143.188.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.beauty
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.beauty
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="hDHsGGZu"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-490b8ac62baso8688935e9.0
-        for <stable@vger.kernel.org>; Wed, 17 Jun 2026 05:13:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1781698395; x=1782303195; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=Z3Of6hY+HxCVg/UtNEg6WyP3LTybOpcyjydWiZNY5Yg=;
-        b=hDHsGGZuSNOAw6+ZKjLAvTI6yvJYWjx7A7tMPmq9nk5aM/ntFWx9SRVdYg2QDb8UJ1
-         /RvQEXfithO8SAVUYu/hSY+eXOJ6fw7WkA401q/DUQ2biAYQawZuJCq0uZ+TfqS/af+i
-         txfYBozL5uVtBjXvUa4nOXqvWYciZI5kkhmpZeB2wnlKw52BGiGKS10ooENHaIdlX6w2
-         KxoIFz3Sy5WHlni+SUDZL8nx7txBOwo+OJX6XDatSNo4369F8PezWSAl0qyyEo7J0h6U
-         Xr43A/nwdneeBxP2mjHj9WtuQrklEtf8Y2G3X0x4UsvsAPE+9kj1hqA7QhuT+wXXjFr7
-         fHbQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781698395; x=1782303195;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=Z3Of6hY+HxCVg/UtNEg6WyP3LTybOpcyjydWiZNY5Yg=;
-        b=FdlvU1O2lwSq6vEj9bsQS4XfZZ4YpDzeIy/wiTiRDwwmLlr0bou3ayKmGmQWzNvV/O
-         8zNMpus+tiQaILcHYNO2xHuieQkTpzePufhl6L8Fs7yLaEZ4TxHp7TMDwFROXJDJE54A
-         ShOz80s9+k6R5CrJE/qSjgsYOOGKn9UIijHDmgQiFyrUOOayLIa83UXQ+v1yN8g05sEc
-         mhDxy0dIKSpF+R/MM007qD07FjB9Wy7QYtGPJlk/vC+qtEn3YjFC75Ye8wHhmaRURsih
-         1tNt8eiYlXcz4Vyrghr0hU/6/QHvw+nsI1Ua4HAR0W7LyT0dIz8McLSR2kY6OeuQ8tKe
-         N7mg==
-X-Forwarded-Encrypted: i=1; AFNElJ/UBiABtqRszaf/iWEc8wIjNGPQEa65/I+t6D6ymPHlKSNEHKWwXW/EWD/214zR2PwmDAzzBhg=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz7QeHjw1vFQkNnmbkfS3QUvm1SILd3LYDnYQinikzOYpRuGsaJ
-	HQ/PMnr2lCwUimtcVhU2BhS9LEnTKHljggYxf7U65I+S96BicbatlfCs/jX1BjvaNcU=
-X-Gm-Gg: Acq92OF5JJRuz5l1nu9saxRqtE9a7yxUjRPFqlJzmgnONab5H2VBU+++taH0eMmaMgu
-	8irkPLvpDNDF1mU1r+wuQ8zDU+kVnwwT6Wx9G7GNQeQOywdFRX+rNTfPtPok5IOx+Q5e9qTl4+d
-	MQiVPkStssItSad2Y2hYFkCqfSzLkc5GdMl+LEg0ri2VBsd8bAlwAoYWAXi3WKyurRWDxeFmaH0
-	KxU5zg0InAJrs+aSrYsm4ZYHdq4LfCiYy2Y0OcpbgV+0YE47CVQ/MXrUSEy1+aywym/dAcqut/m
-	FiEHTmtdFEYoFaMSGHih6Qn32ZQDX9Y4tJ/u+elaEkx6wdJtBljzNDRuGD4ZjzrBEf5F3sE3M7y
-	wJNATwTyAnavL7yZM6YrOgzgmo8f6VNpZRu2eCUM9+/C5hJ60YxuBGIKWoko3yzO2N+yIIEZb65
-	9lLRKWhtrEpybjLwQ=
-X-Received: by 2002:a05:600c:46cf:b0:490:b4cb:3866 with SMTP id 5b1f17b1804b1-492340e7632mr36603905e9.10.1781698395410;
-        Wed, 17 Jun 2026 05:13:15 -0700 (PDT)
-Received: from pathway.suse.cz ([176.114.240.130])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4922fa47d1csm159343545e9.4.2026.06.17.05.13.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 17 Jun 2026 05:13:15 -0700 (PDT)
-Date: Wed, 17 Jun 2026 14:13:13 +0200
-From: Petr Mladek <pmladek@suse.com>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: Jakub Kicinski <kuba@kernel.org>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	John Ogness <john.ogness@linutronix.de>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Vlad Poenaru <vlad.wing@gmail.com>,
-	Thomas Gleixner <tglx@kernel.org>, netdev@vger.kernel.org,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>, Breno Leitao <leitao@debian.org>,
-	Clark Williams <clrkwllms@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	linux-rt-devel@lists.linux.dev, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org, Frederic Weisbecker <frederic@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>
-Subject: Re: [PATCH net] netpoll: run NAPI poll in softirq context to avoid
- rq->lock self-deadlock
-Message-ID: <ajKPWUtGfJj6tfPL@pathway.suse.cz>
-References: <20260610183621.3915271-1-vlad.wing@gmail.com>
- <20260611191114.5bc43a59@kernel.org>
- <20260616103529.Yh9Dxsjp@linutronix.de>
- <20260616170257.GH49951@noisy.programming.kicks-ass.net>
- <20260616141719.67684bf0@kernel.org>
- <ajJ46o4fomfxY5CX@pathway.suse.cz>
- <20260617111958.GL49951@noisy.programming.kicks-ass.net>
+	dkim=pass (1024-bit key) header.d=linux.beauty header.i=me@linux.beauty header.b="DEmoFv7f"
+ARC-Seal: i=1; a=rsa-sha256; t=1781699126; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=U1EKANdTZjP6IDjTcK7Kl4vrI6mkqMDfqlc8H4lzmqUlzkFUrSt3U0h7zvYxdUTqZgdEfDOQE+zk+Pz0xsp/9zZJr5gER7Lu0/NB/oycdwbpdToB9PEDpk6H9dZK4xTmSX6OgBrRIu8mbRAnrW1nPtQwL6la52AtvJF/zmWRElg=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1781699126; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=GXAoC5zKyTc3h2xhSbceB5qyRcnqM5DC0tBvQYicLqI=; 
+	b=CRXJ/SHkW0jScWlA2EmBQI5Lv2eBEZDPeqa65IIApjyw16d0MSfEA7dC2LH1iAQlpqWM7/+I0vEhBWxpC+QhnOAkoYEAbbwiNSEKlsZm+Vrb0+b43DBIoAg/wElwdauYDC4pqxRjrNPQv1d5MwqloXkYSlbLpOdNhmWdUDl5yV4=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=linux.beauty;
+	spf=pass  smtp.mailfrom=me@linux.beauty;
+	dmarc=pass header.from=<me@linux.beauty>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1781699126;
+	s=zmail; d=linux.beauty; i=me@linux.beauty;
+	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=GXAoC5zKyTc3h2xhSbceB5qyRcnqM5DC0tBvQYicLqI=;
+	b=DEmoFv7f4BCwp4zQwbHyUVlhRUhIEQzRviTBM1wjBJwMIRPFrbSjIgC9k4Mifoid
+	5hEjFRDH4tXhcrb4Bz4xufi49x2OLAOxmmsiFkCe7salc5++E90pnRRIM1jE1fkt6w7
+	lv0dCchD6uUKTjyUTCz3WzRRtLxZqY76JS3aBe8U=
+Received: by mx.zohomail.com with SMTPS id 178169912434377.57623848369292;
+	Wed, 17 Jun 2026 05:25:24 -0700 (PDT)
+From: Li Chen <me@linux.beauty>
+To: Pankaj Gupta <pankaj.gupta.linux@gmail.com>,
+	Dan Williams <dan.j.williams@intel.com>,
+	Vishal Verma <vishal.l.verma@intel.com>,
+	Dave Jiang <dave.jiang@intel.com>,
+	Ira Weiny <ira.weiny@intel.com>,
+	Alison Schofield <alison.schofield@intel.com>,
+	virtualization@lists.linux.dev,
+	nvdimm@lists.linux.dev
+Cc: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Li Chen <me@linux.beauty>
+Subject: [PATCH v5 6/8] nvdimm: virtio_pmem: refcount requests for token lifetime
+Date: Wed, 17 Jun 2026 20:24:38 +0800
+Message-ID: <20260617122442.2118957-7-me@linux.beauty>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20260617122442.2118957-1-me@linux.beauty>
+References: <20260617122442.2118957-1-me@linux.beauty>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260617111958.GL49951@noisy.programming.kicks-ass.net>
+Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 
-On Wed 2026-06-17 13:19:58, Peter Zijlstra wrote:
-> On Wed, Jun 17, 2026 at 12:37:30PM +0200, Petr Mladek wrote:
-> > On Tue 2026-06-16 14:17:19, Jakub Kicinski wrote:
-> > > On Tue, 16 Jun 2026 19:02:57 +0200 Peter Zijlstra wrote:
-> > > > > So this is not an issue since commit 7eab73b18630e ("netconsole: convert
-> > > > > to NBCON console infrastructure"). Because from here now on writes are
-> > > > > deferred to the nbcon thread. So this purely about -stable in this case.  
-> > > > 
-> > > > Hmm, I thought netconsole had some reserved skbs and could to writes
-> > > > 'atomic' like? That said, it was 2.6 era the last time I looked at
-> > > > netconsole.
-> > > 
-> > > Yes, that part is fine. The problem is that netconsole tries
-> > > to reap Tx completions if the Tx queue is full. We can't call
-> > > skb destructor in irq context so we put the completed skbs on
-> > > a queue and try to arm softirq to get to them later.
-> > > Arming softirq causes a ksoftirq wake up.
-> > > 
-> > > We already skip the completion polling if we detect getting called
-> > > from the same networking driver. It's best effort, anyway.
-> > > Networking-side fix would be to toss another OR condition into
-> > > the skip. But we don't have one that'd work cleanly :S
-> > 
-> > Alternative solution might be to offload the ksoftirq wake up
-> > to an irq_work. It might make this part safe for the
-> > console->write_atomic() call.
-> > 
-> > Well, my understanding is that there are more problems.
-> > AFAIK, some drivers do not use an IRQ safe locking, see
-> > https://lore.kernel.org/all/oth5t27z6acp7qxut7u45ekyil7djirg2ny3bnsvnzeqasavxb@nhwdxahvcosh/
-> 
-> But anything using locking is not ->write_atomic() and should be driven
-> from a kthread, no?
+KASAN reports slab-use-after-free in __wake_up_common():
+BUG: KASAN: slab-use-after-free in __wake_up_common+0x114/0x160
+Read of size 8 at addr ffff88810fdcb710 by task swapper/0/0
 
-Right. I am not sure where my head was this morning.
+CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Not tainted
+6.19.0-next-20260220-00006-g1eae5f204ec3 #4 PREEMPT(full)
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS Arch Linux
+1.17.0-2-2 04/01/2014
+Call Trace:
+ <IRQ>
+ dump_stack_lvl+0x6d/0xb0
+ print_report+0x170/0x4e2
+ ? __pfx__raw_spin_lock_irqsave+0x10/0x10
+ ? __virt_addr_valid+0x1dc/0x380
+ kasan_report+0xbc/0xf0
+ ? __wake_up_common+0x114/0x160
+ ? __wake_up_common+0x114/0x160
+ __wake_up_common+0x114/0x160
+ ? __pfx__raw_spin_lock_irqsave+0x10/0x10
+ __wake_up+0x36/0x60
+ virtio_pmem_host_ack+0x11d/0x3b0
+ ? sched_balance_domains+0x29f/0xb00
+ ? __pfx_virtio_pmem_host_ack+0x10/0x10
+ ? _raw_spin_lock_irqsave+0x98/0x100
+ ? __pfx__raw_spin_lock_irqsave+0x10/0x10
+ vring_interrupt+0x1c9/0x5e0
+ ? __pfx_vp_interrupt+0x10/0x10
+ vp_vring_interrupt+0x87/0x100
+ ? __pfx_vp_interrupt+0x10/0x10
+ __handle_irq_event_percpu+0x17f/0x550
+ ? __pfx__raw_spin_lock+0x10/0x10
+ handle_irq_event+0xab/0x1c0
+ handle_fasteoi_irq+0x276/0xae0
+ __common_interrupt+0x65/0x130
+ common_interrupt+0x78/0xa0
+ </IRQ>
 
-Best Regards,
-Petr
+virtio_pmem_host_ack() wakes a request that has already been freed by the
+submitter.
+
+This happens when the request token is still reachable via the virtqueue,
+but virtio_pmem_flush() returns and frees it.
+
+Fix the token lifetime by refcounting struct virtio_pmem_request.
+virtio_pmem_flush() holds a submitter reference, and the virtqueue holds an
+extra reference once the request is queued. The completion path drops the
+virtqueue reference, and the submitter drops its reference before
+returning.
+
+Fixes: 6e84200c0a29 ("virtio-pmem: Add virtio pmem driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Li Chen <me@linux.beauty>
+---
+v2->v3:
+- Add raw KASAN report to the patch description.
+- Drop timestamps from the embedded report.
+v3->v4:
+- Rebased onto v7.1-rc7 and renumbered after the flush error patches.
+
+ drivers/nvdimm/nd_virtio.c   | 34 +++++++++++++++++++++++++++++-----
+ drivers/nvdimm/virtio_pmem.h |  2 ++
+ 2 files changed, 31 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/nvdimm/nd_virtio.c b/drivers/nvdimm/nd_virtio.c
+index f8c0604edde51..f5264f6afe44f 100644
+--- a/drivers/nvdimm/nd_virtio.c
++++ b/drivers/nvdimm/nd_virtio.c
+@@ -9,6 +9,14 @@
+ #include "virtio_pmem.h"
+ #include "nd.h"
+ 
++static void virtio_pmem_req_release(struct kref *kref)
++{
++	struct virtio_pmem_request *req;
++
++	req = container_of(kref, struct virtio_pmem_request, kref);
++	kfree(req);
++}
++
+ static void virtio_pmem_wake_one_waiter(struct virtio_pmem *vpmem)
+ {
+ 	struct virtio_pmem_request *req_buf;
+@@ -36,6 +44,7 @@ void virtio_pmem_host_ack(struct virtqueue *vq)
+ 		virtio_pmem_wake_one_waiter(vpmem);
+ 		WRITE_ONCE(req_data->done, true);
+ 		wake_up(&req_data->host_acked);
++		kref_put(&req_data->kref, virtio_pmem_req_release);
+ 	}
+ 	spin_unlock_irqrestore(&vpmem->pmem_lock, flags);
+ }
+@@ -66,6 +75,7 @@ static int virtio_pmem_flush(struct nd_region *nd_region)
+ 	if (!req_data)
+ 		return -ENOMEM;
+ 
++	kref_init(&req_data->kref);
+ 	WRITE_ONCE(req_data->done, false);
+ 	init_waitqueue_head(&req_data->host_acked);
+ 	init_waitqueue_head(&req_data->wq_buf);
+@@ -83,10 +93,23 @@ static int virtio_pmem_flush(struct nd_region *nd_region)
+ 	  * to req_list and wait for host_ack to wake us up when free
+ 	  * slots are available.
+ 	  */
+-	while ((err = virtqueue_add_sgs(vpmem->req_vq, sgs, 1, 1, req_data,
+-					GFP_ATOMIC)) == -ENOSPC) {
+-
+-		dev_info(&vdev->dev, "failed to send command to virtio pmem device, no free slots in the virtqueue\n");
++	for (;;) {
++		err = virtqueue_add_sgs(vpmem->req_vq, sgs, 1, 1, req_data,
++					GFP_ATOMIC);
++		if (!err) {
++			/*
++			 * Take the virtqueue reference while @pmem_lock is
++			 * held so completion cannot run concurrently.
++			 */
++			kref_get(&req_data->kref);
++			break;
++		}
++
++		if (err != -ENOSPC)
++			break;
++
++		dev_info_ratelimited(&vdev->dev,
++				     "failed to send command to virtio pmem device, no free slots in the virtqueue\n");
+ 		WRITE_ONCE(req_data->wq_buf_avail, false);
+ 		list_add_tail(&req_data->list, &vpmem->req_list);
+ 		spin_unlock_irqrestore(&vpmem->pmem_lock, flags);
+@@ -95,6 +118,7 @@ static int virtio_pmem_flush(struct nd_region *nd_region)
+ 		wait_event(req_data->wq_buf, READ_ONCE(req_data->wq_buf_avail));
+ 		spin_lock_irqsave(&vpmem->pmem_lock, flags);
+ 	}
++
+ 	err1 = virtqueue_kick(vpmem->req_vq);
+ 	spin_unlock_irqrestore(&vpmem->pmem_lock, flags);
+ 	/*
+@@ -110,7 +134,7 @@ static int virtio_pmem_flush(struct nd_region *nd_region)
+ 		err = le32_to_cpu(req_data->resp.ret);
+ 	}
+ 
+-	kfree(req_data);
++	kref_put(&req_data->kref, virtio_pmem_req_release);
+ 	return err;
+ };
+ 
+diff --git a/drivers/nvdimm/virtio_pmem.h b/drivers/nvdimm/virtio_pmem.h
+index f72cf17f9518f..1017e498c9b4c 100644
+--- a/drivers/nvdimm/virtio_pmem.h
++++ b/drivers/nvdimm/virtio_pmem.h
+@@ -12,11 +12,13 @@
+ 
+ #include <linux/module.h>
+ #include <uapi/linux/virtio_pmem.h>
++#include <linux/kref.h>
+ #include <linux/libnvdimm.h>
+ #include <linux/mutex.h>
+ #include <linux/spinlock.h>
+ 
+ struct virtio_pmem_request {
++	struct kref kref;
+ 	struct virtio_pmem_req req;
+ 	struct virtio_pmem_resp resp;
+ 
+-- 
+2.52.0
