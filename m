@@ -1,228 +1,100 @@
-Received: from sender4-op-o15.zoho.com (sender4-op-o15.zoho.com [136.143.188.15])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1ED8F3F65FB;
-	Wed, 17 Jun 2026 12:26:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.15
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781699174; cv=pass; b=EeiUuiRWxyTl+98gahWx8XCZBNYDD6cLsoic4/HZjmx82UIoyTazzG3E/QSt2AnPMy/lq2zkiQBHKBOv1O0XI+B19fCqC47RgoSjcEkX1RqHAKRB89bCjSCo1mkDyoXKj5eqXNGtSrJaGt5JacWgr8SrvA244AMggHMWK67sT/A=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781699174; c=relaxed/simple;
-	bh=KdJG4zRHuVbedneI0eAEw61H+V+L8AZzIyer0jQRuWE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=TFvFehw7NMe3TSUf8BmOi+Ai5DJCe/Yt3OdUVdI1LRWp0dGIThmh161rtDVWOlzSF5jyb/oM/yk4gL3B2T2s5nVcVbByQRXFQ8u+IvbkSvh8NMeekTt6amSprPs/KoSve8+9TIG5ApsLA8FrEJYlv68a9zdIpoh21QyGelK037I=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.beauty; spf=pass smtp.mailfrom=linux.beauty; dkim=pass (1024-bit key) header.d=linux.beauty header.i=me@linux.beauty header.b=DEmoFv7f; arc=pass smtp.client-ip=136.143.188.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.beauty
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.beauty
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E94AD3F1AB2;
+	Wed, 17 Jun 2026 12:31:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781699472; cv=none; b=K1obk/JTsYf0fCZnb7ZCE/+P8d6OFh+6h+/Z1xiVU0LpxelhQSegVpq3xXv73i2ZgqBdYbufUpTvB+kvdWtvn7nEEciIs9C2l+znDj08nZFHThh4q0MiIDtVT0cmKnmZC8R+6Y4AxhECXpnermaBna1ng301cz/ROVY7kEw8Ys4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781699472; c=relaxed/simple;
+	bh=GrGTI8a4oj/pksGdFmbK0N88ozLr60wbX3NY439HgAg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=niZOgyz80oKxVUsGF/VVfWTUSt7Pu+FMYs7MolDUktG3Y3NNgkkkaKQX6JqKqqdV6im7n2B+8wfCf1RRMFp7JVCEMDrdOdfYh9fGhgMEP4gk5zKV8EXLYMRuxdvYX3Ft2110lJCUms4Q6dG+2KkUC/GRdXXv4MLSVMIB7+f2cLo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WAmUlqUK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.beauty header.i=me@linux.beauty header.b="DEmoFv7f"
-ARC-Seal: i=1; a=rsa-sha256; t=1781699126; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=U1EKANdTZjP6IDjTcK7Kl4vrI6mkqMDfqlc8H4lzmqUlzkFUrSt3U0h7zvYxdUTqZgdEfDOQE+zk+Pz0xsp/9zZJr5gER7Lu0/NB/oycdwbpdToB9PEDpk6H9dZK4xTmSX6OgBrRIu8mbRAnrW1nPtQwL6la52AtvJF/zmWRElg=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1781699126; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=GXAoC5zKyTc3h2xhSbceB5qyRcnqM5DC0tBvQYicLqI=; 
-	b=CRXJ/SHkW0jScWlA2EmBQI5Lv2eBEZDPeqa65IIApjyw16d0MSfEA7dC2LH1iAQlpqWM7/+I0vEhBWxpC+QhnOAkoYEAbbwiNSEKlsZm+Vrb0+b43DBIoAg/wElwdauYDC4pqxRjrNPQv1d5MwqloXkYSlbLpOdNhmWdUDl5yV4=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=linux.beauty;
-	spf=pass  smtp.mailfrom=me@linux.beauty;
-	dmarc=pass header.from=<me@linux.beauty>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1781699126;
-	s=zmail; d=linux.beauty; i=me@linux.beauty;
-	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=GXAoC5zKyTc3h2xhSbceB5qyRcnqM5DC0tBvQYicLqI=;
-	b=DEmoFv7f4BCwp4zQwbHyUVlhRUhIEQzRviTBM1wjBJwMIRPFrbSjIgC9k4Mifoid
-	5hEjFRDH4tXhcrb4Bz4xufi49x2OLAOxmmsiFkCe7salc5++E90pnRRIM1jE1fkt6w7
-	lv0dCchD6uUKTjyUTCz3WzRRtLxZqY76JS3aBe8U=
-Received: by mx.zohomail.com with SMTPS id 178169912434377.57623848369292;
-	Wed, 17 Jun 2026 05:25:24 -0700 (PDT)
-From: Li Chen <me@linux.beauty>
-To: Pankaj Gupta <pankaj.gupta.linux@gmail.com>,
-	Dan Williams <dan.j.williams@intel.com>,
-	Vishal Verma <vishal.l.verma@intel.com>,
-	Dave Jiang <dave.jiang@intel.com>,
-	Ira Weiny <ira.weiny@intel.com>,
-	Alison Schofield <alison.schofield@intel.com>,
-	virtualization@lists.linux.dev,
-	nvdimm@lists.linux.dev
-Cc: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Li Chen <me@linux.beauty>
-Subject: [PATCH v5 6/8] nvdimm: virtio_pmem: refcount requests for token lifetime
-Date: Wed, 17 Jun 2026 20:24:38 +0800
-Message-ID: <20260617122442.2118957-7-me@linux.beauty>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20260617122442.2118957-1-me@linux.beauty>
-References: <20260617122442.2118957-1-me@linux.beauty>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WAmUlqUK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 588481F000E9;
+	Wed, 17 Jun 2026 12:31:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781699470;
+	bh=uLu8ShXl0Y2YxWQom10gkSNouCyBlM04U9LSELPsG9Q=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=WAmUlqUKvUP+p7yOixVSlSWFhtTdaKcNfjOrHvTIDMEQbJoZG5nE5hFweeqWxWFjs
+	 hDqBVTAbjgYYuY4/SfoZZ1q67bf3FKq30fYfaJo8Ts6BtufqRg7AmizH67IOSy6FPm
+	 HcaYZydmmW6HvDRYBPxRLpSnWfcYR7qcyWeI7PsgEyojsFoBvnxHYuI2g9S4euYNk5
+	 CioB0mIXp+g5eDSTlaPvKSy44dUeMsQrOZBZKxHOkDc9jc1HKFFQ1PH/dKCQtVrc4Y
+	 /bjNVzYrA5u0ULZv9aTuI1qH0T5UNGxHvVFXFn6qImu55yrq1VXl57hdz1Xkfrk7hD
+	 xWepBqtVdnJQA==
+Date: Wed, 17 Jun 2026 14:31:01 +0200
+From: Carlos Maiolino <cem@kernel.org>
+To: Amir Goldstein <amir73il@gmail.com>
+Cc: "Darrick J. Wong" <djwong@kernel.org>, 
+	Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>, Sasha Levin <sashal@kernel.org>, 
+	Fedor Pchelkin <pchelkin@ispras.ru>, stable@vger.kernel.org, xfs-stable@lists.linux.dev, 
+	Christoph Hellwig <hch@lst.de>, Catherine Hoang <catherine.hoang@oracle.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, lvc-project@linuxtesting.org, linux-xfs@vger.kernel.org, 
+	Leah Rumancik <leah.rumancik@gmail.com>
+Subject: Re: [PATCH 6.6 0/4] fix kernel crash for xfs/235 test
+Message-ID: <ajKSytW_sBFJaBTW@nidhogg.toxiclabs.cc>
+References: <20250322143418.216654-1-pchelkin@ispras.ru>
+ <aisAxyXVxf4wql2u@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
+ <20260612233110.2-1-sashal@kernel.org>
+ <ajBQPNuKCruxhkXX@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
+ <ajD3Gb-vQkGU0N6b@nidhogg.toxiclabs.cc>
+ <ajFQPY2m2A6ltvTH@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
+ <ajFabPtI8UGfkyix@nidhogg.toxiclabs.cc>
+ <CACzhbgS59uCYhjX80__+nPjEx=N8mKUsYyFS1+aRDpMA-b-VXQ@mail.gmail.com>
+ <CAOQ4uxgXqmP49FV3b_cKDD_703bRHz0fjm=k=FmNytsPpnKx3g@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
+In-Reply-To: <CAOQ4uxgXqmP49FV3b_cKDD_703bRHz0fjm=k=FmNytsPpnKx3g@mail.gmail.com>
 
-KASAN reports slab-use-after-free in __wake_up_common():
-BUG: KASAN: slab-use-after-free in __wake_up_common+0x114/0x160
-Read of size 8 at addr ffff88810fdcb710 by task swapper/0/0
+On Wed, Jun 17, 2026 at 11:19:25AM +0200, Amir Goldstein wrote:
+> On Tue, Jun 16, 2026 at 7:33 PM Leah Rumancik <leah.rumancik@gmail.com> wrote:
+> >
+> > I have changed teams so I no longer work on kernel and I don't believe
+> > my xfs maintenance work was backfilled ;(
+> >
+> > On Tue, Jun 16, 2026 at 7:19 AM Carlos Maiolino <cem@kernel.org> wrote:
+> > >
+> > > On Tue, Jun 16, 2026 at 09:31:41AM -0400, Hamza Mahfooz wrote:
+> > > > Cc: linux-xfs@vger.kernel.org
+> > > >
+> > > > On Tue, Jun 16, 2026 at 09:13:45AM +0200, Carlos Maiolino wrote:
+> > > > > On Mon, Jun 15, 2026 at 03:19:24PM -0400, Hamza Mahfooz wrote:
+> > > > > > Cc: Carlos Maiolino <cem@kernel.org>
+> > > > >
+> > > > > FWIW I don't maintain the stable trees I really don't have time for
+> > > > > that. Darrick/Leah have been doing a best effort case for that, but
+> > > > > again, this is mostly a best effort so we shouldn't expect them to be
+> > > > > looking/picking up every single possible patch suggested for stable.
+> > > > >
+> > > >
+> > > > Now that you mention it, the xfs-stable mailing list seems to be pretty
+> > > > much dead (i.e. the last time fixes from it were merged into stable was
+> > > > almost a year ago). I guess no one is really working on it anymore?
+> > >
+> > > IIRC Darrick started it, I personally never worked on it, but I didn't
+> > > follow the evolution there.
+> 
+> I think at this point we can officially declare xfs in stable <= 6.6
+> unmaintained
+> maybe need to send patches to LTS MAINTAINERS.
+> 
+> The best chance in this case to apply the requested fix to 6.6.y is that the
+> author (Darrick) approves it.
 
-CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Not tainted
-6.19.0-next-20260220-00006-g1eae5f204ec3 #4 PREEMPT(full)
-Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS Arch Linux
-1.17.0-2-2 04/01/2014
-Call Trace:
- <IRQ>
- dump_stack_lvl+0x6d/0xb0
- print_report+0x170/0x4e2
- ? __pfx__raw_spin_lock_irqsave+0x10/0x10
- ? __virt_addr_valid+0x1dc/0x380
- kasan_report+0xbc/0xf0
- ? __wake_up_common+0x114/0x160
- ? __wake_up_common+0x114/0x160
- __wake_up_common+0x114/0x160
- ? __pfx__raw_spin_lock_irqsave+0x10/0x10
- __wake_up+0x36/0x60
- virtio_pmem_host_ack+0x11d/0x3b0
- ? sched_balance_domains+0x29f/0xb00
- ? __pfx_virtio_pmem_host_ack+0x10/0x10
- ? _raw_spin_lock_irqsave+0x98/0x100
- ? __pfx__raw_spin_lock_irqsave+0x10/0x10
- vring_interrupt+0x1c9/0x5e0
- ? __pfx_vp_interrupt+0x10/0x10
- vp_vring_interrupt+0x87/0x100
- ? __pfx_vp_interrupt+0x10/0x10
- __handle_irq_event_percpu+0x17f/0x550
- ? __pfx__raw_spin_lock+0x10/0x10
- handle_irq_event+0xab/0x1c0
- handle_fasteoi_irq+0x276/0xae0
- __common_interrupt+0x65/0x130
- common_interrupt+0x78/0xa0
- </IRQ>
-
-virtio_pmem_host_ack() wakes a request that has already been freed by the
-submitter.
-
-This happens when the request token is still reachable via the virtqueue,
-but virtio_pmem_flush() returns and frees it.
-
-Fix the token lifetime by refcounting struct virtio_pmem_request.
-virtio_pmem_flush() holds a submitter reference, and the virtqueue holds an
-extra reference once the request is queued. The completion path drops the
-virtqueue reference, and the submitter drops its reference before
-returning.
-
-Fixes: 6e84200c0a29 ("virtio-pmem: Add virtio pmem driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Li Chen <me@linux.beauty>
----
-v2->v3:
-- Add raw KASAN report to the patch description.
-- Drop timestamps from the embedded report.
-v3->v4:
-- Rebased onto v7.1-rc7 and renumbered after the flush error patches.
-
- drivers/nvdimm/nd_virtio.c   | 34 +++++++++++++++++++++++++++++-----
- drivers/nvdimm/virtio_pmem.h |  2 ++
- 2 files changed, 31 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/nvdimm/nd_virtio.c b/drivers/nvdimm/nd_virtio.c
-index f8c0604edde51..f5264f6afe44f 100644
---- a/drivers/nvdimm/nd_virtio.c
-+++ b/drivers/nvdimm/nd_virtio.c
-@@ -9,6 +9,14 @@
- #include "virtio_pmem.h"
- #include "nd.h"
- 
-+static void virtio_pmem_req_release(struct kref *kref)
-+{
-+	struct virtio_pmem_request *req;
-+
-+	req = container_of(kref, struct virtio_pmem_request, kref);
-+	kfree(req);
-+}
-+
- static void virtio_pmem_wake_one_waiter(struct virtio_pmem *vpmem)
- {
- 	struct virtio_pmem_request *req_buf;
-@@ -36,6 +44,7 @@ void virtio_pmem_host_ack(struct virtqueue *vq)
- 		virtio_pmem_wake_one_waiter(vpmem);
- 		WRITE_ONCE(req_data->done, true);
- 		wake_up(&req_data->host_acked);
-+		kref_put(&req_data->kref, virtio_pmem_req_release);
- 	}
- 	spin_unlock_irqrestore(&vpmem->pmem_lock, flags);
- }
-@@ -66,6 +75,7 @@ static int virtio_pmem_flush(struct nd_region *nd_region)
- 	if (!req_data)
- 		return -ENOMEM;
- 
-+	kref_init(&req_data->kref);
- 	WRITE_ONCE(req_data->done, false);
- 	init_waitqueue_head(&req_data->host_acked);
- 	init_waitqueue_head(&req_data->wq_buf);
-@@ -83,10 +93,23 @@ static int virtio_pmem_flush(struct nd_region *nd_region)
- 	  * to req_list and wait for host_ack to wake us up when free
- 	  * slots are available.
- 	  */
--	while ((err = virtqueue_add_sgs(vpmem->req_vq, sgs, 1, 1, req_data,
--					GFP_ATOMIC)) == -ENOSPC) {
--
--		dev_info(&vdev->dev, "failed to send command to virtio pmem device, no free slots in the virtqueue\n");
-+	for (;;) {
-+		err = virtqueue_add_sgs(vpmem->req_vq, sgs, 1, 1, req_data,
-+					GFP_ATOMIC);
-+		if (!err) {
-+			/*
-+			 * Take the virtqueue reference while @pmem_lock is
-+			 * held so completion cannot run concurrently.
-+			 */
-+			kref_get(&req_data->kref);
-+			break;
-+		}
-+
-+		if (err != -ENOSPC)
-+			break;
-+
-+		dev_info_ratelimited(&vdev->dev,
-+				     "failed to send command to virtio pmem device, no free slots in the virtqueue\n");
- 		WRITE_ONCE(req_data->wq_buf_avail, false);
- 		list_add_tail(&req_data->list, &vpmem->req_list);
- 		spin_unlock_irqrestore(&vpmem->pmem_lock, flags);
-@@ -95,6 +118,7 @@ static int virtio_pmem_flush(struct nd_region *nd_region)
- 		wait_event(req_data->wq_buf, READ_ONCE(req_data->wq_buf_avail));
- 		spin_lock_irqsave(&vpmem->pmem_lock, flags);
- 	}
-+
- 	err1 = virtqueue_kick(vpmem->req_vq);
- 	spin_unlock_irqrestore(&vpmem->pmem_lock, flags);
- 	/*
-@@ -110,7 +134,7 @@ static int virtio_pmem_flush(struct nd_region *nd_region)
- 		err = le32_to_cpu(req_data->resp.ret);
- 	}
- 
--	kfree(req_data);
-+	kref_put(&req_data->kref, virtio_pmem_req_release);
- 	return err;
- };
- 
-diff --git a/drivers/nvdimm/virtio_pmem.h b/drivers/nvdimm/virtio_pmem.h
-index f72cf17f9518f..1017e498c9b4c 100644
---- a/drivers/nvdimm/virtio_pmem.h
-+++ b/drivers/nvdimm/virtio_pmem.h
-@@ -12,11 +12,13 @@
- 
- #include <linux/module.h>
- #include <uapi/linux/virtio_pmem.h>
-+#include <linux/kref.h>
- #include <linux/libnvdimm.h>
- #include <linux/mutex.h>
- #include <linux/spinlock.h>
- 
- struct virtio_pmem_request {
-+	struct kref kref;
- 	struct virtio_pmem_req req;
- 	struct virtio_pmem_resp resp;
- 
--- 
-2.52.0
+Unfortunately this might be true. But let's wait for Darrick's input
+please. He's on vacations this week so will be unfair to make any
+decisions in this matter without his input.
+Also he has been still poking people to tag patches with LTS versions
+so even though he might not me dealing with the xfs-stable, he might still
+be driving work on LTS trees.
