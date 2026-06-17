@@ -1,45 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5731D38837E
-	for <stable@vger.kernel.org>; Wed, 17 Jun 2026 21:51:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27A8B38F957
+	for <stable@vger.kernel.org>; Wed, 17 Jun 2026 21:51:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781733064; cv=none; b=Vx4aiLx56fuRuXMbLkSAESjCVXawMlyhG6VZXmDv7/RYrvq2FnLAzmlmT9yPjufleS2ABq2NYOdubybsDoqjuNSY8u/oC3aIBirrDP7+CHr4FB9PuHGkodrltMWwE2+ASTn9zFm7rfr5eX9zvj3E1657VGlT/WD1d3xb+sa6GSo=
+	t=1781733065; cv=none; b=HPIF5Zi9wCVMZox1XAJnhYz4iwfZX5OvClk79wRtq3CoFqns9U+/dJvZkLTJWo9yvftleL3Csi1Ug6U4EweS61MCAx3XY1AIr4COfbJuB8QhkmTNGur3bk3vuE7o0b5rz6B0Q7AhyDG22BR8ZdB6SheNBB/ogytS6YKczmK3ecM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781733064; c=relaxed/simple;
-	bh=7KG/wr3tZB65o52rm7arzniCaqAwjs39uLo3ORSiD2M=;
+	s=arc-20240116; t=1781733065; c=relaxed/simple;
+	bh=q01bxzx8uhYhYEPxP44kqrnHchVi1D23HLYuK2jXIO4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=monlw0n6SoOafuAU8m/4hU7YqOS3AFwoQSliHJEEcO2LozuIuwHjjher5AGQ8q3Zfn/Seo5PsxOmhyUT7MyVmvZiNbCUpeduwB/RZR5rbB8b5wKlY1BDcsBtGpldyA3udylp/GYiitPp62tPFLmmmA3x9isAhbRPOt+SO84i1mw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U2uvY41y; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=PcVOT1xS+VKYqpRD6VeJpJFYbx2Xv7cXWbGgPWZuS2iUwcY/NQ5br+SYpfU3HrqGfHD/w5/yQbjtZkkq3jrVk2kJoEotgchqHAImhJ9AMuVyniL1hT0csdvAtSpgWSpnmKuhSgCTfdT/KkSct/8Im2VI1PSlXe5FXCEJxoNHb9I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HDaUQH3s; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U2uvY41y"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7EF831F00A3E;
-	Wed, 17 Jun 2026 21:51:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HDaUQH3s"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4EC2D1F00A3D;
+	Wed, 17 Jun 2026 21:51:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781733063;
-	bh=Ht63qIu/Z7J/kvsDmov21713vkHOPWmBEvLttnJU1cA=;
+	s=k20260515; t=1781733064;
+	bh=WCanlnpQJ0d7G/Yc7iVF94rdbIRljw2i+u0pBiG3MGU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=U2uvY41yJxQ1ju3s1xLrdvDXiZgdYhugb5tGxNl7YCgHk9q0emIyL20c6cJGyjb57
-	 KY9aruTnM/xK5xsj9bjEn5etyMJEMz6BVSkrFBKHq1z3IA6XDHK/fca8ifm2Ky2uHS
-	 ysl8P4oNvA6pDbULFv3M3IYFocCNpXKJvYzxTpPtWwp1t9M8vDQeLA8U7htxrLuxek
-	 siEFHjWyF2FI54wVama6NpwwAGFxJTItExg0Bshf1CF9hQg3ksLXTShxBQGod4Oidn
-	 tUgM2iqAY/oYqdNhRbBImOI43y2bjm2nTUTiC00QOSK+FKC+faoihtDxBSArUgJW7F
-	 eLgLbJjHGbv3Q==
+	b=HDaUQH3sAM0fCHEhTzdIU0Sn0XV70jRn/OhOx2xuGTtsP+Wzlleb3BpUu3QnhoWym
+	 3ACRXXzIjegTWDs20Zf/CJ2NIGLGZ1JHldIw5YbyGKKOz+G+F4T9vGgYQ8l8aJ84GN
+	 //ShXW2eeRKyVWmnfiZi6SJkOSXfSbbEFHX6Ag2bTY8A8DyuHKwlRa89xDmt9LhYce
+	 LU1K/0mvr9MXSGkoQaaWz3fhnKlvPBIJjeNyGu9iLrJpIXMDtzBKPSNAqMFs6Z9f2t
+	 TyMy4nsaErJUqxJlb3kOcQ6Pc7XFt1g6XU0H+ssNLzKvRvLIL+UCnC2wYHJVyZ7gAN
+	 UoAlh2ZOWmKrQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
 	Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
 	Srinivas Kandagatla <srini@kernel.org>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 4/4] slimbus: qcom-ngd-ctrl: Register callbacks after creating the ngd
-Date: Wed, 17 Jun 2026 17:50:58 -0400
-Message-ID: <20260617215058.418058-4-sashal@kernel.org>
+Subject: [PATCH 5.15.y] slimbus: qcom-ngd-ctrl: Fix probe error path ordering
+Date: Wed, 17 Jun 2026 17:51:01 -0400
+Message-ID: <20260617215101.418241-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260617215058.418058-1-sashal@kernel.org>
-References: <2026061509-identical-efficient-87fe@gregkh>
- <20260617215058.418058-1-sashal@kernel.org>
+In-Reply-To: <2026061546-headscarf-monsoon-d5c4@gregkh>
+References: <2026061546-headscarf-monsoon-d5c4@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -50,113 +50,56 @@ Content-Transfer-Encoding: 8bit
 
 From: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
 
-[ Upstream commit 2a9d50e9ea406e0c8735938484adc20515ef1b47 ]
+[ Upstream commit 2c22ff152d380ec3d3af099fa05d0ac5ca9b4c1e ]
 
-When the remoteproc starts in parallel with the NGD driver being probed,
-or the remoteproc is already up when the PDR lookup is being registered,
-or in the theoretical event that we get an interrupt from the hardware,
-these callbacks will operate on uninitialized data. This result in
-issues to boot the affected boards.
+qcom_slim_ngd_ctrl_probe() first registers the SSR callback then
+allocates the PDR context, as such the error path needs to come in
+opposite order to allow us to unroll each step.
 
-One such example can be seen in the following fault, where
-qcom_slim_ngd_ssr_pdr_notify() schedules work on the NULL ngd_up_work.
-
-[   21.858578] ------------[ cut here ]------------
-[   21.858745] WARNING: kernel/workqueue.c:2338 at __queue_work+0x5e0/0x790, CPU#2: kworker/2:2/116
-...
-[   21.859251] Call trace:
-[   21.859255]  __queue_work+0x5e0/0x790 (P)
-[   21.859265]  queue_work_on+0x6c/0xf0
-[   21.859273]  qcom_slim_ngd_ssr_pdr_notify+0x110/0x150 [slim_qcom_ngd_ctrl]
-[   21.859304]  qcom_slim_ngd_ssr_notify+0x24/0x40 [slim_qcom_ngd_ctrl]
-[   21.859318]  notifier_call_chain+0xa4/0x230
-[   21.859329]  srcu_notifier_call_chain+0x64/0xb8
-[   21.859338]  ssr_notify_start+0x40/0x78 [qcom_common]
-[   21.859355]  rproc_start+0x130/0x230
-[   21.859367]  rproc_boot+0x3d4/0x518
-...
-
-Move the enablement of interrupts, and the registration of SSR and PDR
-until after the NGD device has been registered.
-
-This could be further refined by moving initialization to the control
-driver probe and by removing the platform driver model from the picture.
-
-Fixes: 917809e2280b ("slimbus: ngd: Add qcom SLIMBus NGD driver")
+Fixes: 16f14551d0df ("slimbus: qcom-ngd: cleanup in probe error path")
 Cc: stable@vger.kernel.org
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Reviewed-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
 Signed-off-by: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
 Signed-off-by: Srinivas Kandagatla <srini@kernel.org>
-Link: https://patch.msgid.link/20260530204421.116824-6-srini@kernel.org
+Link: https://patch.msgid.link/20260530204421.116824-4-srini@kernel.org
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/slimbus/qcom-ngd-ctrl.c | 32 ++++++++++++++++++++------------
- 1 file changed, 20 insertions(+), 12 deletions(-)
+ drivers/slimbus/qcom-ngd-ctrl.c | 11 +++++------
+ 1 file changed, 5 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/slimbus/qcom-ngd-ctrl.c b/drivers/slimbus/qcom-ngd-ctrl.c
-index 0d118998f00ab8..9584303c5518fb 100644
+index ed1eb491430bac..c6433618b18d1a 100644
 --- a/drivers/slimbus/qcom-ngd-ctrl.c
 +++ b/drivers/slimbus/qcom-ngd-ctrl.c
-@@ -1545,17 +1545,13 @@ static int qcom_slim_ngd_ctrl_probe(struct platform_device *pdev)
- 	}
- 
- 	ret = devm_request_irq(dev, res->start, qcom_slim_ngd_interrupt,
--			       IRQF_TRIGGER_HIGH, "slim-ngd", ctrl);
-+			       IRQF_TRIGGER_HIGH | IRQF_NO_AUTOEN, "slim-ngd",
-+			       ctrl);
- 	if (ret) {
- 		dev_err(&pdev->dev, "request IRQ failed\n");
- 		return ret;
- 	}
- 
--	ctrl->nb.notifier_call = qcom_slim_ngd_ssr_notify;
--	ctrl->notifier = qcom_register_ssr_notifier("lpass", &ctrl->nb);
--	if (IS_ERR(ctrl->notifier))
--		return PTR_ERR(ctrl->notifier);
--
- 	ctrl->dev = dev;
- 	ctrl->framer.rootfreq = SLIM_ROOT_FREQ >> 3;
- 	ctrl->framer.superfreq =
-@@ -1579,23 +1575,35 @@ static int qcom_slim_ngd_ctrl_probe(struct platform_device *pdev)
- 	ctrl->pdr = pdr_handle_alloc(slim_pd_status, ctrl);
+@@ -1573,24 +1573,23 @@ static int qcom_slim_ngd_ctrl_probe(struct platform_device *pdev)
  	if (IS_ERR(ctrl->pdr)) {
  		dev_err(dev, "Failed to init PDR handle\n");
--		ret = PTR_ERR(ctrl->pdr);
--		goto err_unregister_ssr;
-+		return PTR_ERR(ctrl->pdr);
+ 		ret = PTR_ERR(ctrl->pdr);
+-		goto err_pdr_alloc;
++		goto err_unregister_ssr;
  	}
  
-+	ret = of_qcom_slim_ngd_register(dev, ctrl);
-+	if (ret)
-+		goto err_pdr_release;
-+
  	pds = pdr_add_lookup(ctrl->pdr, "avs/audio", "msm/adsp/audio_pd");
  	if (IS_ERR(pds) && PTR_ERR(pds) != -EALREADY) {
  		ret = PTR_ERR(pds);
  		dev_err(dev, "pdr add lookup failed: %d\n", ret);
--		goto err_pdr_release;
-+		goto err_unregister_ngd;
+-		goto err_pdr_lookup;
++		goto err_pdr_release;
  	}
  
--	return of_qcom_slim_ngd_register(dev, ctrl);
-+	ctrl->nb.notifier_call = qcom_slim_ngd_ssr_notify;
-+	ctrl->notifier = qcom_register_ssr_notifier("lpass", &ctrl->nb);
-+	if (IS_ERR(ctrl->notifier)) {
-+		ret = PTR_ERR(ctrl->notifier);
-+		goto err_unregister_ngd;
-+	}
+ 	platform_driver_register(&qcom_slim_ngd_driver);
+ 	return of_qcom_slim_ngd_register(dev, ctrl);
  
-+	enable_irq(res->start);
-+
-+	return 0;
-+
-+err_unregister_ngd:
-+	qcom_slim_ngd_unregister(ctrl);
- err_pdr_release:
- 	pdr_handle_release(ctrl->pdr);
--err_unregister_ssr:
+-err_pdr_alloc:
 -	qcom_unregister_ssr_notifier(ctrl->notifier, &ctrl->nb);
+-
+-err_pdr_lookup:
++err_pdr_release:
+ 	pdr_handle_release(ctrl->pdr);
++err_unregister_ssr:
++	qcom_unregister_ssr_notifier(ctrl->notifier, &ctrl->nb);
  
  	return ret;
  }
