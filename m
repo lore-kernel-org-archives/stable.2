@@ -1,209 +1,173 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F7253F8ED3
-	for <stable@vger.kernel.org>; Wed, 17 Jun 2026 12:36:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD1E423E320
+	for <stable@vger.kernel.org>; Wed, 17 Jun 2026 12:45:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781699805; cv=none; b=R3aH+MeEuH/PbbF2qfiZCZViMjFpBRGrgbngyKrzjW4p6xzjC86S8n4yvCUOnII26D/kFqaNxKKYRePK8MHHUM829jiZtiiK68+xRCKPB6qBIC85OA/qyhzQxFh7/HJwurtiUiCFbvhiNcUMYPecUPIKx34DeWLt7y3mHMdUckU=
+	t=1781700349; cv=none; b=ADW9vkjc53i3QMZTwzRBRjmITJfLIJcRfB0/s/L0wZPMORehFWKAvtocuTrs9VvKvJ66JmncRL/LUnWK49f2pgbYQ7zwJK+Gj1KEyYHIwRWjTyrDgHfDj/r1lNTA/qkJ6bguBp1SY4Ux+sA3d7rVwDhAStbES+VOGf4bXn5o1jI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781699805; c=relaxed/simple;
-	bh=BLhbvrRR/HJ2UXcFhZDaXzn6kzxtWODktq5uNU4CFu8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=B4N0Sri/gISDpeVYJq9NciGJbPBVRHe+Al1VaCOMRix1acfkb4RkfjhQI9aQrYzxDjRXtH1O0Sj/8RG4FoLiz1YQsbCKT2eFJmYWTVirehq1e4pZt7Xgxl0kGdoMFyb9vUmZzJZgvGmsPDBMWXuMfK+Wn0qwzz2YeA6coIEShJM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=SB1YPUr3; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Jq2mttOj; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=SB1YPUr3; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Jq2mttOj; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1781700349; c=relaxed/simple;
+	bh=EYe2U5kb+DI1PVTkLIyCk/XXadoTiQIIClruG2jTE3Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=nJTjlkj0GPDLk3aJRT2uM3uC2F3ghxMyYCXLBtqO/pz9rzoEP61x24YhXwEzuedq86+rJ1ZWfEVqrDl+a5FbkxKeiegOgk6GT7BZluOPRm83f5OeOH0QP/qWuwmJaMjmhSV68OKS8EZMVh7xSc8ClMaDidGLy9ke+oXlGEUb9HI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AL9OL6BU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="SB1YPUr3";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Jq2mttOj";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="SB1YPUr3";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Jq2mttOj"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 52C9E75AE4;
-	Wed, 17 Jun 2026 12:36:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1781699800; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=uMwmD5ZVKo48graesQDZg+wP6nz0U0LlLpQHB/3WxOs=;
-	b=SB1YPUr3ni0ThVz0W1qRVpKO0aHK2y+Po0bTOFTdQYTHtoQ32wTt7J1QUmNY/Kb9QCsvsM
-	Hi5nx/TkR+fm+OgKjjsHs9eXWXhwYHgNuL9VG5sgpq8kfRhd+H8XjjJzGfgPC+exBIuZt+
-	b2id3KN0pse/eexwj9Y+MMrPGN0F2Hc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1781699800;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=uMwmD5ZVKo48graesQDZg+wP6nz0U0LlLpQHB/3WxOs=;
-	b=Jq2mttOjjS3NHtXBy5w6IKCUu57tgAfIFSWY28UgO5fmNXvN3WhV2Io/LZGGyikWW5Wwln
-	T9aWM21NfzZFS2Bw==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1781699800; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=uMwmD5ZVKo48graesQDZg+wP6nz0U0LlLpQHB/3WxOs=;
-	b=SB1YPUr3ni0ThVz0W1qRVpKO0aHK2y+Po0bTOFTdQYTHtoQ32wTt7J1QUmNY/Kb9QCsvsM
-	Hi5nx/TkR+fm+OgKjjsHs9eXWXhwYHgNuL9VG5sgpq8kfRhd+H8XjjJzGfgPC+exBIuZt+
-	b2id3KN0pse/eexwj9Y+MMrPGN0F2Hc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1781699800;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=uMwmD5ZVKo48graesQDZg+wP6nz0U0LlLpQHB/3WxOs=;
-	b=Jq2mttOjjS3NHtXBy5w6IKCUu57tgAfIFSWY28UgO5fmNXvN3WhV2Io/LZGGyikWW5Wwln
-	T9aWM21NfzZFS2Bw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1C5BC779A8;
-	Wed, 17 Jun 2026 12:36:40 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id uI6gBdiUMmrXKwAAD6G6ig
-	(envelope-from <tzimmermann@suse.de>); Wed, 17 Jun 2026 12:36:40 +0000
-Message-ID: <ebf3a909-99e4-47f3-9c1c-b329d6000996@suse.de>
-Date: Wed, 17 Jun 2026 14:36:39 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AL9OL6BU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3AF01F00A3A;
+	Wed, 17 Jun 2026 12:45:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781700348;
+	bh=icKfoAOd1q8p4FlZ96R9x14MG55Ag/Zn5WtF0D8ddAY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=AL9OL6BUU4547wfDU7yF6BpnmBuHTa6c2HeBUa5ecoFcKTcxD+51Dog8//IEsrYPy
+	 SNE2qefgVoHLj02GIuKJLG0ED05PjMCGlpItTat849JU/xY+He3n22rd64gwOZrNVN
+	 QVArwtiRjj+qcxIhdUkI/wGmO04fgEyKRIKKRP5P6A7at0xvGhQHL4cN+pYt9It7Gs
+	 EgPxvUUy7FkxNw5OsvmHKwHdeYf/DtaYm7eFfKPPEIVTPXEYvWwwB3wnD06Ul+K60z
+	 cU30MFZ6yrTvbsCL2K5fP96tJ58kw4XhxYPOqzPMgFQH1NXucPFKAVQYvmthuaqmTM
+	 1Dj0fgf58F6UA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Tudor Ambarus <tudor.ambarus@linaro.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.0.y] firmware: samsung: acpm: Fix infinite loop on sequence number exhaustion
+Date: Wed, 17 Jun 2026 08:45:46 -0400
+Message-ID: <20260617124546.3855844-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026061542-daintily-knickers-a496@gregkh>
+References: <2026061542-daintily-knickers-a496@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] drm/sysfb: Do not page-align visible size of the
- framebuffer
-To: Javier Martinez Canillas <javierm@redhat.com>,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
- simona@ffwll.ch
-Cc: dri-devel@lists.freedesktop.org, sashiko-reviews@lists.linux.dev,
- stable@vger.kernel.org
-References: <20260617112932.511657-1-tzimmermann@suse.de>
- <20260617112932.511657-2-tzimmermann@suse.de>
- <874ij1z90y.fsf@ocarina.mail-host-address-is-not-set>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <874ij1z90y.fsf@ocarina.mail-host-address-is-not-set>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Spam-Flag: NO
-X-Spam-Score: -4.30
-X-Spamd-Result: default: False [-4.30 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-0.997];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FREEMAIL_TO(0.00)[redhat.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	FUZZY_RATELIMITED(0.00)[rspamd.com];
-	MID_RHS_MATCH_FROM(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:url,suse.de:email,suse.de:mid]
-X-Spam-Level: 
 
-Hi
+From: Tudor Ambarus <tudor.ambarus@linaro.org>
 
-Am 17.06.26 um 13:44 schrieb Javier Martinez Canillas:
-> Thomas Zimmermann <tzimmermann@suse.de> writes:
->
-> Hello Thomas,
->
->> Only return the actually visible size of the system framebuffer in
->> drm_sysfb_get_visible_size_si(). Drivers use this size value for
->> reserving access to framebuffer memory. Increasing the value can
->> make later attempts to do so fail.
->>
->> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
->> Fixes: 32ae90c66fb6 ("drm/sysfb: Add efidrm for EFI displays")
->> Fixes: a84eb6abe2b6 ("drm/sysfb: Add vesadrm for VESA displays")
->> Cc: Thomas Zimmermann <tzimmermann@suse.de>
->> Cc: Javier Martinez Canillas <javierm@redhat.com>
->> Cc: dri-devel@lists.freedesktop.org
->> Cc: <stable@vger.kernel.org> # v6.16+
->> ---
->>   drivers/gpu/drm/sysfb/drm_sysfb_screen_info.c | 2 +-
->>   1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/drivers/gpu/drm/sysfb/drm_sysfb_screen_info.c b/drivers/gpu/drm/sysfb/drm_sysfb_screen_info.c
->> index 749290196c6a..361b7233600c 100644
->> --- a/drivers/gpu/drm/sysfb/drm_sysfb_screen_info.c
->> +++ b/drivers/gpu/drm/sysfb/drm_sysfb_screen_info.c
->> @@ -67,7 +67,7 @@ EXPORT_SYMBOL(drm_sysfb_get_stride_si);
->>   u64 drm_sysfb_get_visible_size_si(struct drm_device *dev, const struct screen_info *si,
->>   				  unsigned int height, unsigned int stride, u64 size)
->>   {
->> -	u64 vsize = PAGE_ALIGN(height * stride);
-> Do you know why the original efidrm_get_visible_size_si() (from where
-> you took this code to make it generic) did the page align ?
+[ Upstream commit 7fe40c32a33905302341797b5d12c541729dd08d ]
 
-There's nothing in the old reviews AFAICT. I think, it was an oversight 
-from prototyping the driver. I certainly wanted to return 0 for errors 
-at first, but later changed it to an errno code. There, I forgot to 
-update the code accordingly.
+Sashiko identified a possible infinite loop [1].
 
->
-> The change makes sense to me though from your explanation:
->
-> Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
+ACPM IPC sequence numbers are tracked via a 64-bit bitmap. Previously,
+acpm_prepare_xfer() used a do...while loop to search for a free
+sequence number.
 
-Thanks.
+If all 63 available sequence numbers are leaked due to transient
+hardware timeouts or mailbox failures, the bitmap becomes full.
+The next call to acpm_prepare_xfer() would enter an infinite loop.
 
-Best regards
-Thomas
+Fix this by utilizing the kernel's optimized bitmap search functions
+(find_next_zero_bit / find_first_zero_bit). If the pool is completely
+exhausted, log the failure and return -EBUSY to allow the kernel to
+fail gracefully instead of hanging.
 
->
+Furthermore, drop the allocation loop entirely. Because
+acpm_prepare_xfer() is strictly called under the 'tx_lock' mutex,
+sequence number allocations are perfectly serialized. If
+find_next_zero_bit() locates a free bit, a single
+test_and_set_bit_lock() is mathematically guaranteed to succeed.
 
+To enforce this locking invariant, wrap the allocation in a
+WARN_ON_ONCE. If the atomic set fails, it indicates the driver's
+mutex serialization is fundamentally broken. The warning generates a
+stack trace for debugging, while returning -EIO immediately aborts the
+transfer to prevent silent payload corruption.
+
+Cc: stable@vger.kernel.org
+Fixes: a88927b534ba ("firmware: add Exynos ACPM protocol driver")
+Closes: https://sashiko.dev/#/patchset/20260420-acpm-tmu-v3-0-3dc8e93f0b26%40linaro.org [1]
+Signed-off-by: Tudor Ambarus <tudor.ambarus@linaro.org>
+Link: https://patch.msgid.link/20260505-acpm-fixes-sashiko-reports-v5-7-43b5ee7f1674@linaro.org
+Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/firmware/samsung/exynos-acpm.c | 43 +++++++++++++++++++-------
+ 1 file changed, 32 insertions(+), 11 deletions(-)
+
+diff --git a/drivers/firmware/samsung/exynos-acpm.c b/drivers/firmware/samsung/exynos-acpm.c
+index 987b59778ffc4a..075aadb10d23a3 100644
+--- a/drivers/firmware/samsung/exynos-acpm.c
++++ b/drivers/firmware/samsung/exynos-acpm.c
+@@ -12,6 +12,7 @@
+ #include <linux/container_of.h>
+ #include <linux/delay.h>
+ #include <linux/device.h>
++#include <linux/find.h>
+ #include <linux/firmware/samsung/exynos-acpm-protocol.h>
+ #include <linux/io.h>
+ #include <linux/iopoll.h>
+@@ -364,29 +365,47 @@ static int acpm_wait_for_queue_slots(struct acpm_chan *achan, u32 next_tx_front)
+  * TX queue.
+  * @achan:	ACPM channel info.
+  * @xfer:	reference to the transfer being prepared.
++ *
++ * Return: 0 on success, -errno otherwise.
+  */
+-static void acpm_prepare_xfer(struct acpm_chan *achan,
+-			      const struct acpm_xfer *xfer)
++static int acpm_prepare_xfer(struct acpm_chan *achan,
++			     const struct acpm_xfer *xfer)
+ {
+ 	struct acpm_rx_data *rx_data;
+ 	u32 *txd = (u32 *)xfer->txd;
++	unsigned long size = ACPM_SEQNUM_MAX - 1;
++	unsigned long bit = achan->seqnum;
++
++	bit = find_next_zero_bit(achan->bitmap_seqnum, size, bit);
++	if (bit >= size) {
++		bit = find_first_zero_bit(achan->bitmap_seqnum, size);
++		if (bit >= size) {
++			dev_err_ratelimited(achan->acpm->dev,
++					    "ACPM sequence number pool exhausted\n");
++			return -EBUSY;
++		}
++	}
+ 
+-	/* Prevent chan->seqnum from being re-used */
+-	do {
+-		if (++achan->seqnum == ACPM_SEQNUM_MAX)
+-			achan->seqnum = 1;
+-	} while (test_bit(achan->seqnum - 1, achan->bitmap_seqnum));
++	/*
++	 * Execute the atomic set to formally claim the bit and establish
++	 * LKMM Acquire semantics against the RX thread's clear_bit_unlock().
++	 * A loop is unnecessary because allocations are strictly serialized
++	 * by tx_lock.
++	 */
++	if (WARN_ON_ONCE(test_and_set_bit_lock(bit, achan->bitmap_seqnum)))
++		return -EIO;
+ 
++	/* Flag the index based on seqnum. (seqnum: 1~63, bitmap: 0~62) */
++	achan->seqnum = bit + 1;
+ 	txd[0] |= FIELD_PREP(ACPM_PROTOCOL_SEQNUM, achan->seqnum);
+ 
+ 	/* Clear data for upcoming responses */
+-	rx_data = &achan->rx_data[achan->seqnum - 1];
++	rx_data = &achan->rx_data[bit];
+ 	memset(rx_data->cmd, 0, sizeof(*rx_data->cmd) * rx_data->n_cmd);
+ 	if (xfer->rxd)
+ 		rx_data->response = true;
+ 
+-	/* Flag the index based on seqnum. (seqnum: 1~63, bitmap: 0~62) */
+-	set_bit(achan->seqnum - 1, achan->bitmap_seqnum);
++	return 0;
+ }
+ 
+ /**
+@@ -444,7 +463,9 @@ int acpm_do_xfer(struct acpm_handle *handle, const struct acpm_xfer *xfer)
+ 		if (ret)
+ 			return ret;
+ 
+-		acpm_prepare_xfer(achan, xfer);
++		ret = acpm_prepare_xfer(achan, xfer);
++		if (ret)
++			return ret;
+ 
+ 		/* Write TX command. */
+ 		__iowrite32_copy(achan->tx.base + achan->mlen * tx_front,
 -- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
-
+2.53.0
 
