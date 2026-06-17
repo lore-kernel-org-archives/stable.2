@@ -1,77 +1,78 @@
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65BEE33F8A2
-	for <stable@vger.kernel.org>; Wed, 17 Jun 2026 17:50:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A359F3403E7
+	for <stable@vger.kernel.org>; Wed, 17 Jun 2026 17:51:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781718602; cv=none; b=EGtyIhqvnRtuv7fzXw6RHYfeh/SJfwuqp7w2Eu6MWvwAMouEsoxvY7bpFrWq9J8J3KagNrgK30iihzSGpjTWXAZz5wgxBOspfJ0vSzlDgpgSRAY0//1VA/0kyAUhybQYdwaeTiv57KHpbIIpICsgoLow+Tv63P16yj/NYKAqM88=
+	t=1781718673; cv=none; b=M30+PdiJwZ/yVRgGmPxZFYaTlkieP+q5lTdGghnLcE0EBTSPbabgaOGDaQpq/8pC0R4p/wyZDi5P2kQvFH5v6lScJRIbPc4Osd7EWPbGTU6EfX4qDrOpNEq9pYbwT0nQcJ1QkIiRDmMgnsh0BghJopiCZuTSx4fDB0ndDsF+9Rw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781718602; c=relaxed/simple;
-	bh=o2oM1IX6lAnwvUbxEC5oYkzXcJHd0G3oc+ER6p9i60s=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ef4z3zD3/0nxCGm/WBn94U+vK3QNqZKEuZGO4JMPdat81+/xucyO7B163tMivCwSjR3RH0eRcAhzuCl8gaYfZwaU2TrpQQ3P1bxIH8S3lZpCEHt91n4Zjb4A2s3ia0bGZnXZnqg3iOe7o3S+8FM5gP0+T9RTPSXaRKxWDSFm6Cs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=ePeo/lpK; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=an4/hqK9; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=ePeo/lpK; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=an4/hqK9; arc=none smtp.client-ip=195.135.223.131
+	s=arc-20240116; t=1781718673; c=relaxed/simple;
+	bh=+7VrUeFtJylxc1QSPdT758BoJmAjLk8LuB3n2Ece1t0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=e8tUBKLWvmejk0nmoP31F4oCt8Yif58TdouChM0Olcjybfa2ORIsnJgw/c4lm+dqerN+l5KRr8GxsG6QgGkkUnFbSIo+r4ap6UZqd6aG39lZhxJcs1mbwp9k+VVBqOe8sx4OY5M/a+x95k7W1pWDSRA3BzfefphFHXzHvxLvbwg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=r1lJhZbK; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=t9d9Fske; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=zktijByu; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=8bG7FSwf; arc=none smtp.client-ip=195.135.223.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="ePeo/lpK";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="an4/hqK9";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="ePeo/lpK";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="an4/hqK9"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="r1lJhZbK";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="t9d9Fske";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="zktijByu";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="8bG7FSwf"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 7A8EB75DFE;
-	Wed, 17 Jun 2026 17:49:59 +0000 (UTC)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id D12B875AA8;
+	Wed, 17 Jun 2026 17:51:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1781718599; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1781718670; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=MAYZM6YSvgsj+RUY/3KQm9i1+j1pj9xgKkHWOennv/M=;
-	b=ePeo/lpKDyDNa3YOFWTVP7yfNK+Zgr6HkrtkVM8/1AyBfC8DUMMVeTMcBSZ5YUdxcY5VdD
-	aWHLKjpEdA0I9f67MNsLmkC131Py8cpADbue4jtvG78qKemax9vzsRyg/hIrAl7G0aFB59
-	vGL7nL49LolJsXyhLMDWUJq6WgJsl1Y=
+	bh=jRxjP0xlpH9rCnCOGZ0NA3qVBnMm7o1HRT4HtphgJ8c=;
+	b=r1lJhZbKfAP8xs/ZYJAzIOIretDg2Puh6H7CnVIJn8yiK+X0XNuDYHLoSTx4CIxUrX98Kd
+	hUreXW2Eh/DYwPuzS/b+IfBlOL7yrlNMn8IL2zz8yO10i6n58mbvco3RAHmI1unmwLC0RX
+	hi8y4YT/uu2HkfDCg/Sp8OKVRkM2X7w=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1781718599;
+	s=susede2_ed25519; t=1781718670;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=MAYZM6YSvgsj+RUY/3KQm9i1+j1pj9xgKkHWOennv/M=;
-	b=an4/hqK9VvKmuLBNMga4u7uM2RjauEiRS1i++tGl24f0cjDkhDO3L5b4KMGXB57Hlg9S88
-	NjbKkVJhNoedUTAw==
+	bh=jRxjP0xlpH9rCnCOGZ0NA3qVBnMm7o1HRT4HtphgJ8c=;
+	b=t9d9FskepgzI2Hg5uHQf5JsnLuXeQstZJxdv/R6+FVkkBRq6Ik3jUPKUX1TM7JDveJbaQn
+	K3soyYN2kdihLJBg==
 Authentication-Results: smtp-out2.suse.de;
-	none
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=zktijByu;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=8bG7FSwf
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1781718599; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1781718669; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=MAYZM6YSvgsj+RUY/3KQm9i1+j1pj9xgKkHWOennv/M=;
-	b=ePeo/lpKDyDNa3YOFWTVP7yfNK+Zgr6HkrtkVM8/1AyBfC8DUMMVeTMcBSZ5YUdxcY5VdD
-	aWHLKjpEdA0I9f67MNsLmkC131Py8cpADbue4jtvG78qKemax9vzsRyg/hIrAl7G0aFB59
-	vGL7nL49LolJsXyhLMDWUJq6WgJsl1Y=
+	bh=jRxjP0xlpH9rCnCOGZ0NA3qVBnMm7o1HRT4HtphgJ8c=;
+	b=zktijByufSXbilBTdff0yTO7evFSh7DwP/3/KNfIlsGbjyRdlU/8evzLy+4nzKl4dbkA+Y
+	aJRbB6U5ENNzDE6dVWYOUTd9+mC3aJMUU0c2QdmexRBlrXPJM1hYjvBPpy0PoUj21/cwnJ
+	xEaBNXdPiur7kOrLjDml6QWrNItxs5Y=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1781718599;
+	s=susede2_ed25519; t=1781718669;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=MAYZM6YSvgsj+RUY/3KQm9i1+j1pj9xgKkHWOennv/M=;
-	b=an4/hqK9VvKmuLBNMga4u7uM2RjauEiRS1i++tGl24f0cjDkhDO3L5b4KMGXB57Hlg9S88
-	NjbKkVJhNoedUTAw==
+	bh=jRxjP0xlpH9rCnCOGZ0NA3qVBnMm7o1HRT4HtphgJ8c=;
+	b=8bG7FSwf7Nthlv+tQwHNblyJf6nkE6/6TpjF+D+xWbgPWiOpwPs4/50mOJbFS5maMbA3lV
+	m7YShUrrHWYWh5CA==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2A329779A8;
-	Wed, 17 Jun 2026 17:49:59 +0000 (UTC)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9453F779A8;
+	Wed, 17 Jun 2026 17:51:09 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
 	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 6GrPA0feMmrwaAAAD6G6ig
-	(envelope-from <krisman@suse.de>); Wed, 17 Jun 2026 17:49:59 +0000
+	id UuSpHY3eMmriaQAAD6G6ig
+	(envelope-from <krisman@suse.de>); Wed, 17 Jun 2026 17:51:09 +0000
 From: Gabriel Krisman Bertazi <krisman@suse.de>
 To: stable@vger.kernel.org
 Cc: io-uring@vger.kernel.org,
 	Gabriel Krisman Bertazi <krisman@suse.de>,
 	Jens Axboe <axboe@kernel.dk>
-Subject: [PATCH stable-7.1.y] io_uring/net: Avoid msghdr on op_connect/op_bind async data
-Date: Wed, 17 Jun 2026 13:49:47 -0400
-Message-ID: <20260617174947.2975419-1-krisman@suse.de>
+Subject: [PATCH stable-6.18.y] io_uring/net: Avoid msghdr on op_connect/op_bind async data
+Date: Wed, 17 Jun 2026 13:51:02 -0400
+Message-ID: <20260617175102.2976716-1-krisman@suse.de>
 X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -80,29 +81,38 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Rspamd-Action: no action
+X-Rspamd-Queue-Id: D12B875AA8
 X-Spam-Flag: NO
-X-Spam-Score: -2.80
-X-Spamd-Result: default: False [-2.80 / 50.00];
+X-Spam-Score: -3.01
+X-Spam-Level: 
+X-Spamd-Result: default: False [-3.01 / 50.00];
 	BAYES_HAM(-3.00)[100.00%];
 	MID_CONTAINS_FROM(1.00)[];
 	NEURAL_HAM_LONG(-1.00)[-1.000];
 	R_MISSING_CHARSET(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
 	NEURAL_HAM_SHORT(-0.20)[-1.000];
 	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
 	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	ARC_NA(0.00)[];
 	MIME_TRACE(0.00)[0:+];
-	TO_DN_SOME(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:email,suse.de:mid,msgid.link:url,kernel.dk:email];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	FUZZY_RATELIMITED(0.00)[rspamd.com];
 	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	ARC_NA(0.00)[];
+	FUZZY_RATELIMITED(0.00)[rspamd.com];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_TRACE(0.00)[suse.de:+];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
 	RCPT_COUNT_THREE(0.00)[4];
-	RCVD_TLS_ALL(0.00)[]
-X-Spam-Level: 
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.de:email,suse.de:mid,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,msgid.link:url,kernel.dk:email]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 
 [ Upstream commit 3979840cd858f30f43ea9f4e7f7f1f56de82d698 ]
 This fixes a memory leak due to the lack of the cleanup hook for the
@@ -127,10 +137,10 @@ Signed-off-by: Gabriel Krisman Bertazi <krisman@suse.de>
  2 files changed, 20 insertions(+), 20 deletions(-)
 
 diff --git a/io_uring/net.c b/io_uring/net.c
-index ee848eb65ec9..bf60cd393b11 100644
+index 7595850c2217..e34eb1624a2c 100644
 --- a/io_uring/net.c
 +++ b/io_uring/net.c
-@@ -1733,7 +1733,7 @@ int io_socket(struct io_kiocb *req, unsigned int issue_flags)
+@@ -1770,7 +1770,7 @@ int io_socket(struct io_kiocb *req, unsigned int issue_flags)
  int io_connect_prep(struct io_kiocb *req, const struct io_uring_sqe *sqe)
  {
  	struct io_connect *conn = io_kiocb_to_cmd(req, struct io_connect);
@@ -139,7 +149,7 @@ index ee848eb65ec9..bf60cd393b11 100644
  
  	if (sqe->len || sqe->buf_index || sqe->rw_flags || sqe->splice_fd_in)
  		return -EINVAL;
-@@ -1742,17 +1742,17 @@ int io_connect_prep(struct io_kiocb *req, const struct io_uring_sqe *sqe)
+@@ -1779,17 +1779,17 @@ int io_connect_prep(struct io_kiocb *req, const struct io_uring_sqe *sqe)
  	conn->addr_len =  READ_ONCE(sqe->addr2);
  	conn->in_progress = conn->seen_econnaborted = false;
  
@@ -161,7 +171,7 @@ index ee848eb65ec9..bf60cd393b11 100644
  	unsigned file_flags;
  	int ret;
  	bool force_nonblock = issue_flags & IO_URING_F_NONBLOCK;
-@@ -1766,8 +1766,7 @@ int io_connect(struct io_kiocb *req, unsigned int issue_flags)
+@@ -1803,8 +1803,7 @@ int io_connect(struct io_kiocb *req, unsigned int issue_flags)
  
  	file_flags = force_nonblock ? O_NONBLOCK : 0;
  
@@ -171,7 +181,7 @@ index ee848eb65ec9..bf60cd393b11 100644
  	if ((ret == -EAGAIN || ret == -EINPROGRESS || ret == -ECONNABORTED)
  	    && force_nonblock) {
  		if (ret == -EINPROGRESS) {
-@@ -1796,7 +1795,6 @@ int io_connect(struct io_kiocb *req, unsigned int issue_flags)
+@@ -1833,7 +1832,6 @@ int io_connect(struct io_kiocb *req, unsigned int issue_flags)
  out:
  	if (ret < 0)
  		req_set_fail(req);
@@ -179,7 +189,7 @@ index ee848eb65ec9..bf60cd393b11 100644
  	io_req_set_res(req, ret, 0);
  	return IOU_COMPLETE;
  }
-@@ -1806,15 +1804,15 @@ int io_connect(struct io_kiocb *req, unsigned int issue_flags)
+@@ -1843,15 +1841,15 @@ int io_connect(struct io_kiocb *req, unsigned int issue_flags)
   * which in turn end up in mnt_want_write() which will grab the fs
   * percpu start write sem. This can trigger a lockdep warning.
   */
@@ -198,7 +208,7 @@ index ee848eb65ec9..bf60cd393b11 100644
  	return sun->sun_path[0] != '\0';
  }
  
-@@ -1822,7 +1820,7 @@ int io_bind_prep(struct io_kiocb *req, const struct io_uring_sqe *sqe)
+@@ -1859,7 +1857,7 @@ int io_bind_prep(struct io_kiocb *req, const struct io_uring_sqe *sqe)
  {
  	struct io_bind *bind = io_kiocb_to_cmd(req, struct io_bind);
  	struct sockaddr __user *uaddr;
@@ -207,7 +217,7 @@ index ee848eb65ec9..bf60cd393b11 100644
  	int ret;
  
  	if (sqe->len || sqe->buf_index || sqe->rw_flags || sqe->splice_fd_in)
-@@ -1831,21 +1829,23 @@ int io_bind_prep(struct io_kiocb *req, const struct io_uring_sqe *sqe)
+@@ -1868,21 +1866,23 @@ int io_bind_prep(struct io_kiocb *req, const struct io_uring_sqe *sqe)
  	uaddr = u64_to_user_ptr(READ_ONCE(sqe->addr));
  	bind->addr_len =  READ_ONCE(sqe->addr2);
  
@@ -236,7 +246,7 @@ index ee848eb65ec9..bf60cd393b11 100644
  	struct socket *sock;
  	int ret;
  
-@@ -1853,7 +1853,7 @@ int io_bind(struct io_kiocb *req, unsigned int issue_flags)
+@@ -1890,7 +1890,7 @@ int io_bind(struct io_kiocb *req, unsigned int issue_flags)
  	if (unlikely(!sock))
  		return -ENOTSOCK;
  
@@ -246,10 +256,10 @@ index ee848eb65ec9..bf60cd393b11 100644
  		req_set_fail(req);
  	io_req_set_res(req, ret, 0);
 diff --git a/io_uring/opdef.c b/io_uring/opdef.c
-index c3ef52b70811..34cd320a427b 100644
+index 932319633eac..a57c820567f7 100644
 --- a/io_uring/opdef.c
 +++ b/io_uring/opdef.c
-@@ -203,7 +203,7 @@ const struct io_issue_def io_issue_defs[] = {
+@@ -207,7 +207,7 @@ const struct io_issue_def io_issue_defs[] = {
  		.unbound_nonreg_file	= 1,
  		.pollout		= 1,
  #if defined(CONFIG_NET)
@@ -258,7 +268,7 @@ index c3ef52b70811..34cd320a427b 100644
  		.prep			= io_connect_prep,
  		.issue			= io_connect,
  #else
-@@ -503,7 +503,7 @@ const struct io_issue_def io_issue_defs[] = {
+@@ -504,7 +504,7 @@ const struct io_issue_def io_issue_defs[] = {
  		.needs_file		= 1,
  		.prep			= io_bind_prep,
  		.issue			= io_bind,
