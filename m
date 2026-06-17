@@ -1,43 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4D1144A739
-	for <stable@vger.kernel.org>; Wed, 17 Jun 2026 14:27:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B61333F7A97
+	for <stable@vger.kernel.org>; Wed, 17 Jun 2026 14:28:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781706466; cv=none; b=Ndo3Ou0HwyK2ekDKpCKF0BpZG0XSQG7dT2yziTM6b/Y5J/ulR98r48stCvEdXy4lwTMPq7E7SbZ1LvfXal1D2i2z4yK6LVV0SD96Rnmg3n2SIs8K0EPZBYJOgj2rLFM7NPS2Kh4F3CCSZbkNfs+n4X1S5QeFnLVxClXlhMp8ZM0=
+	t=1781706481; cv=none; b=iWpD/ce6dWnUQqJmnxYResLjlVcZR/orwp7exbzt87XnnAoYYnfxlAmpqqgS2Pt0Lvbt1xtEdXwBYemQPo9I8K1SEpoSK/Bp6Vb6rgmytgC4w6S9fKQZYVdwd0rhiu7YhRA3mppTLjkeAaDIrciErl/+mg5L7+W5eoC3GJfiPv4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781706466; c=relaxed/simple;
-	bh=aQktCdjb5lwGQvya00rvIWi+5TgRtsh4QwvjWuHC0SE=;
+	s=arc-20240116; t=1781706481; c=relaxed/simple;
+	bh=+LONaG6kOInUPDinVDzrXq3p57aCRx1YqYxGEWX8LOs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=TOzLkPzEMVqIqaYsGQucm/6I7H2WIP0xgVF7mAdwzR5dd4EjNsyiYqkZHFTu26gv+HL0DBl/8tKHNSFhbOSQ45/3Fb4/Qf3WiQXlz2wMvZT8dhdXcdPWIENp1xjBdgS4B+tI/PgXfbDZ+cCmowesOohDsxeMLAAxh6Ttf6RCHZU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hDhgvxU/; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=lieKbAPg64svxNhUYxLMPrRxvjWwCSQWtE6dmzVt1RrKnmKU1XdQoOcx7A9o3V0cNOKh+Z6C5+rWqMTgC6GpMxFz0v6QTLKS4DjmR2pDP+g6sXyEjcpxn8ruHWsVCBC9asPRT59Nmo15K8Kk4UfzAO0UVPwvS4/lrSQ9dSikw+E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QEKBCiXC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hDhgvxU/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35F311F00A3D;
-	Wed, 17 Jun 2026 14:27:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QEKBCiXC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E82C21F000E9;
+	Wed, 17 Jun 2026 14:27:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781706464;
-	bh=TbXoQinPA4I9fDQmqsTR0eDggoTGl5FrMCaKRpD+Wtg=;
+	s=k20260515; t=1781706480;
+	bh=0oAanY3w26+2aoFcYcCulhTiF19XNZ8w/5y8tkTeIBk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hDhgvxU/LS5Irc/LLWIUSLqTbUG8vyu/rt09tkXhh5Erxbv3qdTKvoVDHHTRvojV4
-	 MvRSVfXEQlPFHkmNXI2iz+vxG3L396YltKZ6Z4Yw5Lf0EaIgZoTnBx4QlIdEH3wK45
-	 sdnoySZk+8nYkKFJnje3Tbjk+aJJNyGBpCRMDwIBRPWVVN4f5dQdX7W9I4wCMlp2QB
-	 7R7rypRyIU5gKUkVDOiGriJws9v7WS7QG1wuQDfCFapxgQUy9zXqWlpMOCSGsPj1cS
-	 JsO1W2F/uS9HFDXTXmTZAp1/dg0Ce0ezUAh02uohQSSZCmsJ33y9tsqQbzi7/Q9eMH
-	 miPuCStu2vNDQ==
+	b=QEKBCiXCwajlWkCPPySOlf3JnDGALQFjzJhsBv7f41WNt0xs9NR2jIHKWMsbYFwgh
+	 eXZ6B1pIheBYj0oEaAVYNtxix1hpnfSdPGQAdqFSLqket8PGA8SO1tZssl39hZXo6u
+	 mYZ3S9lBVjvEwyANGiNcGjrDfVpdLxjfqlUsujCFOM725ozJ2opLHiB9c4P75u0s1h
+	 7SH2USfxdKpdkDOGQw2/1nIe7+kQoZZafgvXfswuEUzx+hn/tE1HH2PYr21RpSxHXT
+	 vWiwc/yIoywboVrIFEXfvpAYs6O8UDivt38/5e+knLIdWxBYqLajenIr6h6EcBQi3f
+	 G+Y1InzHzwHXQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Tudor Ambarus <tudor.ambarus@linaro.org>,
 	Krzysztof Kozlowski <krzk@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.0.y 5/5] firmware: samsung: acpm: Fix missing LKMM barriers in sequence allocator
-Date: Wed, 17 Jun 2026 10:27:39 -0400
-Message-ID: <20260617142739.3938338-5-sashal@kernel.org>
+Subject: [PATCH 6.18.y] firmware: samsung: acpm: Fix infinite loop on sequence number exhaustion
+Date: Wed, 17 Jun 2026 10:27:58 -0400
+Message-ID: <20260617142758.3938836-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260617142739.3938338-1-sashal@kernel.org>
-References: <2026061551-lung-clutter-0849@gregkh>
- <20260617142739.3938338-1-sashal@kernel.org>
+In-Reply-To: <2026061544-rinsing-fragrance-9ee5@gregkh>
+References: <2026061544-rinsing-fragrance-9ee5@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,102 +47,127 @@ Content-Transfer-Encoding: 8bit
 
 From: Tudor Ambarus <tudor.ambarus@linaro.org>
 
-[ Upstream commit bf296f83a3ddab1ab875edc4e8862cb10553064f ]
+[ Upstream commit 7fe40c32a33905302341797b5d12c541729dd08d ]
 
-Sashiko identified memory ordering races in [1].
+Sashiko identified a possible infinite loop [1].
 
-The ACPM driver uses a globally shared 'bitmap_seqnum' to track
-available sequence numbers. Even though threads now strictly free their
-own sequence numbers, the allocation and freeing of these bits across
-concurrent threads are effectively lockless operations and require
-explicit LKMM memory barriers.
+ACPM IPC sequence numbers are tracked via a 64-bit bitmap. Previously,
+acpm_prepare_xfer() used a do...while loop to search for a free
+sequence number.
 
-Previously, the driver used plain bitwise operators (test_bit, set_bit,
-clear_bit), which lack ordering guarantees. This creates two race
-conditions on weakly ordered architectures like ARM64:
+If all 63 available sequence numbers are leaked due to transient
+hardware timeouts or mailbox failures, the bitmap becomes full.
+The next call to acpm_prepare_xfer() would enter an infinite loop.
 
-1. Polling Release Violation: The polling thread copies its payload and
-   calls clear_bit(). Without a release barrier, the CPU can reorder
-   the memory operations, making the cleared bit globally visible
-   before the payload reads have fully completed.
-2. TX Acquire Violation: The TX thread loops on test_bit(), calls
-   set_bit(), and then wipes the payload buffer via memset(). Without
-   an acquire barrier, the CPU can speculatively execute the memset()
-   before the bit is safely and formally claimed.
+Fix this by utilizing the kernel's optimized bitmap search functions
+(find_next_zero_bit / find_first_zero_bit). If the pool is completely
+exhausted, log the failure and return -EBUSY to allow the kernel to
+fail gracefully instead of hanging.
 
-If these reorderings overlap, a new TX thread can claim the sequence
-number and overwrite the buffer while the original polling thread is
-still actively reading from it.
+Furthermore, drop the allocation loop entirely. Because
+acpm_prepare_xfer() is strictly called under the 'tx_lock' mutex,
+sequence number allocations are perfectly serialized. If
+find_next_zero_bit() locates a free bit, a single
+test_and_set_bit_lock() is mathematically guaranteed to succeed.
 
-Fix this by upgrading the bitwise operators. Wrap the TX allocation in
-test_and_set_bit_lock() to establish formal LKMM Acquire semantics, and
-pair it with clear_bit_unlock() in the polling path to enforce Release
-semantics.
+To enforce this locking invariant, wrap the allocation in a
+WARN_ON_ONCE. If the atomic set fails, it indicates the driver's
+mutex serialization is fundamentally broken. The warning generates a
+stack trace for debugging, while returning -EIO immediately aborts the
+transfer to prevent silent payload corruption.
 
 Cc: stable@vger.kernel.org
 Fixes: a88927b534ba ("firmware: add Exynos ACPM protocol driver")
-Closes: https://sashiko.dev/#/patchset/20260423-acpm-fixes-sashiko-reports-v1-0-2217b790925e%40linaro.org [1]
+Closes: https://sashiko.dev/#/patchset/20260420-acpm-tmu-v3-0-3dc8e93f0b26%40linaro.org [1]
 Signed-off-by: Tudor Ambarus <tudor.ambarus@linaro.org>
-Link: https://patch.msgid.link/20260505-acpm-fixes-sashiko-reports-v5-6-43b5ee7f1674@linaro.org
+Link: https://patch.msgid.link/20260505-acpm-fixes-sashiko-reports-v5-7-43b5ee7f1674@linaro.org
 Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/firmware/samsung/exynos-acpm.c | 18 +++++++++++-------
- 1 file changed, 11 insertions(+), 7 deletions(-)
+ drivers/firmware/samsung/exynos-acpm.c | 43 +++++++++++++++++++-------
+ 1 file changed, 32 insertions(+), 11 deletions(-)
 
 diff --git a/drivers/firmware/samsung/exynos-acpm.c b/drivers/firmware/samsung/exynos-acpm.c
-index 7eda1aff4c197b..c472569441949c 100644
+index 6572cd7be9d177..a62cb9e77196c5 100644
 --- a/drivers/firmware/samsung/exynos-acpm.c
 +++ b/drivers/firmware/samsung/exynos-acpm.c
-@@ -7,7 +7,7 @@
- 
- #include <linux/bitfield.h>
- #include <linux/bitmap.h>
--#include <linux/bits.h>
-+#include <linux/bitops.h>
- #include <linux/cleanup.h>
+@@ -12,6 +12,7 @@
  #include <linux/container_of.h>
  #include <linux/delay.h>
-@@ -340,7 +340,7 @@ static int acpm_dequeue_by_polling(struct acpm_chan *achan,
- 				acpm_get_saved_rx(achan, xfer, seqnum);
- 
- 			/* Relinquish ownership of the sequence slot */
--			clear_bit(seqnum - 1, achan->bitmap_seqnum);
-+			clear_bit_unlock(seqnum - 1, achan->bitmap_seqnum);
- 			return 0;
- 		}
- 
-@@ -397,11 +397,18 @@ static void acpm_prepare_xfer(struct acpm_chan *achan,
+ #include <linux/device.h>
++#include <linux/find.h>
+ #include <linux/firmware/samsung/exynos-acpm-protocol.h>
+ #include <linux/io.h>
+ #include <linux/iopoll.h>
+@@ -361,29 +362,47 @@ static int acpm_wait_for_queue_slots(struct acpm_chan *achan, u32 next_tx_front)
+  * TX queue.
+  * @achan:	ACPM channel info.
+  * @xfer:	reference to the transfer being prepared.
++ *
++ * Return: 0 on success, -errno otherwise.
+  */
+-static void acpm_prepare_xfer(struct acpm_chan *achan,
+-			      const struct acpm_xfer *xfer)
++static int acpm_prepare_xfer(struct acpm_chan *achan,
++			     const struct acpm_xfer *xfer)
+ {
  	struct acpm_rx_data *rx_data;
  	u32 *txd = (u32 *)xfer->txd;
++	unsigned long size = ACPM_SEQNUM_MAX - 1;
++	unsigned long bit = achan->seqnum;
++
++	bit = find_next_zero_bit(achan->bitmap_seqnum, size, bit);
++	if (bit >= size) {
++		bit = find_first_zero_bit(achan->bitmap_seqnum, size);
++		if (bit >= size) {
++			dev_err_ratelimited(achan->acpm->dev,
++					    "ACPM sequence number pool exhausted\n");
++			return -EBUSY;
++		}
++	}
  
 -	/* Prevent chan->seqnum from being re-used */
-+	/*
-+	 * Prevent chan->seqnum from being re-used.
-+	 * test_and_set_bit_lock() provides formal LKMM Acquire semantics.
-+	 * It pairs with the RX thread's clear_bit_unlock() to ensure the CPU
-+	 * does not speculatively execute the rx_data buffer wipe (memset)
-+	 * before the sequence number is safely claimed.
-+	 */
- 	do {
- 		if (++achan->seqnum == ACPM_SEQNUM_MAX)
- 			achan->seqnum = 1;
+-	do {
+-		if (++achan->seqnum == ACPM_SEQNUM_MAX)
+-			achan->seqnum = 1;
 -	} while (test_bit(achan->seqnum - 1, achan->bitmap_seqnum));
-+		/* Flag the index based on seqnum. (seqnum: 1~63, bitmap: 0~62) */
-+	} while (test_and_set_bit_lock(achan->seqnum - 1, achan->bitmap_seqnum));
++	/*
++	 * Execute the atomic set to formally claim the bit and establish
++	 * LKMM Acquire semantics against the RX thread's clear_bit_unlock().
++	 * A loop is unnecessary because allocations are strictly serialized
++	 * by tx_lock.
++	 */
++	if (WARN_ON_ONCE(test_and_set_bit_lock(bit, achan->bitmap_seqnum)))
++		return -EIO;
  
++	/* Flag the index based on seqnum. (seqnum: 1~63, bitmap: 0~62) */
++	achan->seqnum = bit + 1;
  	txd[0] |= FIELD_PREP(ACPM_PROTOCOL_SEQNUM, achan->seqnum);
  
-@@ -411,9 +418,6 @@ static void acpm_prepare_xfer(struct acpm_chan *achan,
+ 	/* Clear data for upcoming responses */
+-	rx_data = &achan->rx_data[achan->seqnum - 1];
++	rx_data = &achan->rx_data[bit];
  	memset(rx_data->cmd, 0, sizeof(*rx_data->cmd) * rx_data->n_cmd);
- 	/* zero means no response expected */
- 	rx_data->rxcnt = xfer->rxcnt;
--
+ 	if (xfer->rxd)
+ 		rx_data->response = true;
+ 
 -	/* Flag the index based on seqnum. (seqnum: 1~63, bitmap: 0~62) */
 -	set_bit(achan->seqnum - 1, achan->bitmap_seqnum);
++	return 0;
  }
  
  /**
+@@ -441,7 +460,9 @@ int acpm_do_xfer(struct acpm_handle *handle, const struct acpm_xfer *xfer)
+ 		if (ret)
+ 			return ret;
+ 
+-		acpm_prepare_xfer(achan, xfer);
++		ret = acpm_prepare_xfer(achan, xfer);
++		if (ret)
++			return ret;
+ 
+ 		/* Write TX command. */
+ 		__iowrite32_copy(achan->tx.base + achan->mlen * tx_front,
 -- 
 2.53.0
 
