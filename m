@@ -1,42 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD1E423E320
-	for <stable@vger.kernel.org>; Wed, 17 Jun 2026 12:45:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2E023EDE6A
+	for <stable@vger.kernel.org>; Wed, 17 Jun 2026 12:45:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781700349; cv=none; b=ADW9vkjc53i3QMZTwzRBRjmITJfLIJcRfB0/s/L0wZPMORehFWKAvtocuTrs9VvKvJ66JmncRL/LUnWK49f2pgbYQ7zwJK+Gj1KEyYHIwRWjTyrDgHfDj/r1lNTA/qkJ6bguBp1SY4Ux+sA3d7rVwDhAStbES+VOGf4bXn5o1jI=
+	t=1781700353; cv=none; b=Oe04qh90I+9I73ag+1AxuYyQ3It1zVt6BwuLsdkgNcX4zylq649jmueTR8GOqTHzxtxw+uyO0TaMZWu2WJu7b6SBBaLePeYCly4arpH2KNsUoZ5RGC+S80GU2PMi89g9EtXhWL2B0b1b/LhVWUVdg8HpwH37rY3ti//qeRlIgOo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781700349; c=relaxed/simple;
-	bh=EYe2U5kb+DI1PVTkLIyCk/XXadoTiQIIClruG2jTE3Y=;
+	s=arc-20240116; t=1781700353; c=relaxed/simple;
+	bh=X2ittUQu/p01WnSNNUQSWZfn7sPhD5OBIKNvkIdAm+Q=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nJTjlkj0GPDLk3aJRT2uM3uC2F3ghxMyYCXLBtqO/pz9rzoEP61x24YhXwEzuedq86+rJ1ZWfEVqrDl+a5FbkxKeiegOgk6GT7BZluOPRm83f5OeOH0QP/qWuwmJaMjmhSV68OKS8EZMVh7xSc8ClMaDidGLy9ke+oXlGEUb9HI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AL9OL6BU; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=fQQXx0b4miuw0IiOz/wNsgEq01ke3rDW7JX1THyfiW24uGtBe15idPO8C8Z141Gg6XpFLIRJcz1OAUm20R8+9R4dSMqz0Kyb6YNi7r7wFsIBjtsOn9hyQVuhuX+WTzJyfniHQmNwbPAy7+av3VZDmbMN5uC758Fy4E95Os2ow00=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ADTsEDt+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AL9OL6BU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3AF01F00A3A;
-	Wed, 17 Jun 2026 12:45:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ADTsEDt+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BB5B1F00A3A;
+	Wed, 17 Jun 2026 12:45:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781700348;
-	bh=icKfoAOd1q8p4FlZ96R9x14MG55Ag/Zn5WtF0D8ddAY=;
+	s=k20260515; t=1781700351;
+	bh=+TloABigSAgzCfkqPfjQniToemLRVARwFG+i0ywpJeE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=AL9OL6BUU4547wfDU7yF6BpnmBuHTa6c2HeBUa5ecoFcKTcxD+51Dog8//IEsrYPy
-	 SNE2qefgVoHLj02GIuKJLG0ED05PjMCGlpItTat849JU/xY+He3n22rd64gwOZrNVN
-	 QVArwtiRjj+qcxIhdUkI/wGmO04fgEyKRIKKRP5P6A7at0xvGhQHL4cN+pYt9It7Gs
-	 EgPxvUUy7FkxNw5OsvmHKwHdeYf/DtaYm7eFfKPPEIVTPXEYvWwwB3wnD06Ul+K60z
-	 cU30MFZ6yrTvbsCL2K5fP96tJ58kw4XhxYPOqzPMgFQH1NXucPFKAVQYvmthuaqmTM
-	 1Dj0fgf58F6UA==
+	b=ADTsEDt+JviMqtQepvEtA1pFcsfqSu48D/8YxkwHuVMw18mnKVP8CxX/b6fwBrVDJ
+	 OHMTzw089gqnW5IG6nFUUcUaInJXATD+TldLS2z2lk29eWErX7Ymk8CT0shByI9RUO
+	 TwiJ2Ff2wVa3rGwnWJboaqkZzOjE23kZPWOILsedPVMDl8g8IoGgi6wG0tPyTsDCs4
+	 D0flJShIIemRh/UwBeIVo5PJ46PB3ntjnID0D1IdNRec6BlPU46GqHfHB3qvWlQHbL
+	 kZ6KCeQj/jAdidEhrg5XA7yaYUxZoXZpFPlb4Lwsq4Sf64gRpnStn73LdibTuOClHC
+	 l7oTdf6c3hnuQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Tudor Ambarus <tudor.ambarus@linaro.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
+Cc: Dexuan Cui <decui@microsoft.com>,
+	Michael Kelley <mhklinux@outlook.com>,
+	Krister Johansen <kjlx@templeofstupid.com>,
+	Matthew Ruffell <matthew.ruffell@canonical.com>,
+	Wei Liu <wei.liu@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.0.y] firmware: samsung: acpm: Fix infinite loop on sequence number exhaustion
-Date: Wed, 17 Jun 2026 08:45:46 -0400
-Message-ID: <20260617124546.3855844-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] Drivers: hv: vmbus: Improve the logic of reserving fb_mmio on Gen2 VMs
+Date: Wed, 17 Jun 2026 08:45:49 -0400
+Message-ID: <20260617124549.3856162-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026061542-daintily-knickers-a496@gregkh>
-References: <2026061542-daintily-knickers-a496@gregkh>
+In-Reply-To: <2026061524-limb-radiance-9105@gregkh>
+References: <2026061524-limb-radiance-9105@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,129 +48,164 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Tudor Ambarus <tudor.ambarus@linaro.org>
+From: Dexuan Cui <decui@microsoft.com>
 
-[ Upstream commit 7fe40c32a33905302341797b5d12c541729dd08d ]
+[ Upstream commit 016a25e4b0df4d77e7c258edee4aaf982e4ee809 ]
 
-Sashiko identified a possible infinite loop [1].
+If vmbus_reserve_fb() in the kdump/kexec kernel fails to properly reserve
+the framebuffer MMIO range (which is below 4GB) due to a Gen2 VM's
+screen.lfb_base being zero [1], there is an MMIO conflict between the
+drivers hyperv-drm and pci-hyperv: when the driver pci-hyperv's
+hv_allocate_config_window() calls vmbus_allocate_mmio() to get an
+MMIO range, typically it gets a 32-bit MMIO range that overlaps with the
+framebuffer MMIO range, and later hv_pci_enter_d0() fails with an
+error message "PCI Pass-through VSP failed D0 Entry with status" since
+the host thinks that PCI devices must not use MMIO space that the
+host has assigned to the framebuffer.
 
-ACPM IPC sequence numbers are tracked via a 64-bit bitmap. Previously,
-acpm_prepare_xfer() used a do...while loop to search for a free
-sequence number.
+This is especially an issue if pci-hyperv is built-in and hyperv-drm is
+built as a module. Consequently, the kdump/kexec kernel fails to detect
+PCI devices via pci-hyperv, and may fail to mount the root file system,
+which may reside in a NVMe disk. The issue described here has existed
+for SR-IOV VF NICs since day one of the pci-hyperv driver, and has been
+worked around on x64 when possible. With the recent introduction of
+ARM64 VMs that boot from NVMe, there is no workaround, so we need a
+formal fix.
 
-If all 63 available sequence numbers are leaked due to transient
-hardware timeouts or mailbox failures, the bitmap becomes full.
-The next call to acpm_prepare_xfer() would enter an infinite loop.
+On Gen2 VMs, if the screen.lfb_base is 0 in the kdump/kexec kernel [1],
+fall back to the low MMIO base, which should be equal to the framebuffer
+MMIO base [2] (the statement is true according to my testing on x64
+Windows Server 2016, and on x64 and ARM64 Windows Server 2025 and on
+Azure. I checked with the Hyper-V team and they said the statement should
+continue to be true for Gen2 VMs). In the first kernel, screen.lfb_base
+is not 0; if the user specifies a very high resolution, it's not enough
+to only reserve 8MB: let's always reserve half of the space below 4GB,
+but cap the reservation to 128MB, which is the required framebuffer size
+of the highest resolution 7680*4320 supported by Hyper-V.
 
-Fix this by utilizing the kernel's optimized bitmap search functions
-(find_next_zero_bit / find_first_zero_bit). If the pool is completely
-exhausted, log the failure and return -EBUSY to allow the kernel to
-fail gracefully instead of hanging.
+While at it, fix the comparison "end > VTPM_BASE_ADDRESS" by changing
+the > to >=. Here the 'end' is an inclusive end (typically, it's
+0xFFFF_FFFF for the low MMIO range).
 
-Furthermore, drop the allocation loop entirely. Because
-acpm_prepare_xfer() is strictly called under the 'tx_lock' mutex,
-sequence number allocations are perfectly serialized. If
-find_next_zero_bit() locates a free bit, a single
-test_and_set_bit_lock() is mathematically guaranteed to succeed.
+Note: vmbus_reserve_fb() now also reserves an MMIO range at the beginning
+of the low MMIO range on CVMs, which have no framebuffers (the
+'screen.lfb_base' in vmbus_reserve_fb() is 0 for CVMs), just in case the
+host might treat the beginning of the low MMIO range specially [3]. BTW,
+the OpenHCL kernel is not affected by the change, because that kernel
+boots with DeviceTree rather than ACPI (so vmbus_reserve_fb() won't run
+there), and there is no framebuffer device for that kernel.
 
-To enforce this locking invariant, wrap the allocation in a
-WARN_ON_ONCE. If the atomic set fails, it indicates the driver's
-mutex serialization is fundamentally broken. The warning generates a
-stack trace for debugging, while returning -EIO immediately aborts the
-transfer to prevent silent payload corruption.
+Note: normally Gen1 VMs don't have the MMIO conflict issue because the
+framebuffer MMIO range (which is hardcoded to base=4GB-128MB and
+size=64MB for Gen1 VMs by the host) is always reported via the legacy PCI
+graphics device's BAR, so the kdump/kexec kernel can reserve the 64MB
+MMIO range; however, if the VM is configured to use a very high resolution
+and the required framebuffer size exceeds 64MB (AFAIK, in practice, this
+isn't a typical configuration by users), the hyperv-drm driver may need to
+allocate an MMIO range above 4GB and change the framebuffer MMIO location
+to the allocated MMIO range -- in this case, there can still be issues [4]
+which can't be easily fixed: any possible affected Gen1 users would have
+to use a resolution whose framebuffer size is <= 64MB, or switch to Gen2
+VMs.
 
-Cc: stable@vger.kernel.org
-Fixes: a88927b534ba ("firmware: add Exynos ACPM protocol driver")
-Closes: https://sashiko.dev/#/patchset/20260420-acpm-tmu-v3-0-3dc8e93f0b26%40linaro.org [1]
-Signed-off-by: Tudor Ambarus <tudor.ambarus@linaro.org>
-Link: https://patch.msgid.link/20260505-acpm-fixes-sashiko-reports-v5-7-43b5ee7f1674@linaro.org
-Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
+[1] https://lore.kernel.org/all/SA1PR21MB692176C1BC53BFC9EAE5CF8EBF51A@SA1PR21MB6921.namprd21.prod.outlook.com/
+[2] https://lore.kernel.org/all/SA1PR21MB69218F955B62DFF62E3E88D2BF222@SA1PR21MB6921.namprd21.prod.outlook.com/
+[3] https://lore.kernel.org/all/SN6PR02MB415726B17D5A6027CD1717E8D4342@SN6PR02MB4157.namprd02.prod.outlook.com/
+[4] https://lore.kernel.org/all/SA1PR21MB69213486F821CA5A2C793C81BF342@SA1PR21MB6921.namprd21.prod.outlook.com/
+
+Fixes: 4daace0d8ce8 ("PCI: hv: Add paravirtual PCI front-end for Microsoft Hyper-V VMs")
+CC: stable@vger.kernel.org
+Reviewed-by: Michael Kelley <mhklinux@outlook.com>
+Tested-by: Krister Johansen <kjlx@templeofstupid.com>
+Tested-by: Matthew Ruffell <matthew.ruffell@canonical.com>
+Signed-off-by: Dexuan Cui <decui@microsoft.com>
+Signed-off-by: Wei Liu <wei.liu@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/firmware/samsung/exynos-acpm.c | 43 +++++++++++++++++++-------
- 1 file changed, 32 insertions(+), 11 deletions(-)
+ drivers/hv/vmbus_drv.c | 56 +++++++++++++++++++++++++++++++-----------
+ 1 file changed, 41 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/firmware/samsung/exynos-acpm.c b/drivers/firmware/samsung/exynos-acpm.c
-index 987b59778ffc4a..075aadb10d23a3 100644
---- a/drivers/firmware/samsung/exynos-acpm.c
-+++ b/drivers/firmware/samsung/exynos-acpm.c
-@@ -12,6 +12,7 @@
- #include <linux/container_of.h>
- #include <linux/delay.h>
- #include <linux/device.h>
-+#include <linux/find.h>
- #include <linux/firmware/samsung/exynos-acpm-protocol.h>
- #include <linux/io.h>
- #include <linux/iopoll.h>
-@@ -364,29 +365,47 @@ static int acpm_wait_for_queue_slots(struct acpm_chan *achan, u32 next_tx_front)
-  * TX queue.
-  * @achan:	ACPM channel info.
-  * @xfer:	reference to the transfer being prepared.
-+ *
-+ * Return: 0 on success, -errno otherwise.
-  */
--static void acpm_prepare_xfer(struct acpm_chan *achan,
--			      const struct acpm_xfer *xfer)
-+static int acpm_prepare_xfer(struct acpm_chan *achan,
-+			     const struct acpm_xfer *xfer)
+diff --git a/drivers/hv/vmbus_drv.c b/drivers/hv/vmbus_drv.c
+index 2fed2b169a9106..8d5245b74d23f1 100644
+--- a/drivers/hv/vmbus_drv.c
++++ b/drivers/hv/vmbus_drv.c
+@@ -2134,8 +2134,8 @@ static acpi_status vmbus_walk_resources(struct acpi_resource *res, void *ctx)
+ 		return AE_NO_MEMORY;
+ 
+ 	/* If this range overlaps the virtual TPM, truncate it. */
+-	if (end > VTPM_BASE_ADDRESS && start < VTPM_BASE_ADDRESS)
+-		end = VTPM_BASE_ADDRESS;
++	if (end >= VTPM_BASE_ADDRESS && start < VTPM_BASE_ADDRESS)
++		end = VTPM_BASE_ADDRESS - 1;
+ 
+ 	new_res->name = "hyperv mmio";
+ 	new_res->flags = IORESOURCE_MEM;
+@@ -2202,26 +2202,52 @@ static int vmbus_acpi_remove(struct acpi_device *device)
+ 
+ static void vmbus_reserve_fb(void)
  {
- 	struct acpm_rx_data *rx_data;
- 	u32 *txd = (u32 *)xfer->txd;
-+	unsigned long size = ACPM_SEQNUM_MAX - 1;
-+	unsigned long bit = achan->seqnum;
+-	int size;
++	resource_size_t start = 0, size;
++	resource_size_t low_mmio_base;
 +
-+	bit = find_next_zero_bit(achan->bitmap_seqnum, size, bit);
-+	if (bit >= size) {
-+		bit = find_first_zero_bit(achan->bitmap_seqnum, size);
-+		if (bit >= size) {
-+			dev_err_ratelimited(achan->acpm->dev,
-+					    "ACPM sequence number pool exhausted\n");
-+			return -EBUSY;
++	if (efi_enabled(EFI_BOOT)) {
++		/* Gen2 VM: get FB base from EFI framebuffer */
++		start = screen_info.lfb_base;
++		size = max_t(__u32, screen_info.lfb_size, 0x800000);
++
++		low_mmio_base = hyperv_mmio->start;
++		if (!low_mmio_base || upper_32_bits(low_mmio_base) ||
++		    (start && start < low_mmio_base)) {
++			pr_warn("Unexpected low mmio base %pa\n", &low_mmio_base);
++		} else {
++			/*
++			 * If the kdump/kexec or CVM kernel's lfb_base
++			 * is 0, fall back to the low mmio base.
++			 */
++			if (!start)
++				start = low_mmio_base;
++			/*
++			 * Reserve half of the space below 4GB for high
++			 * resolutions, but cap the reservation to 128MB.
++			 */
++			size = min((SZ_4G - start) / 2, SZ_128M);
 +		}
++	} else {
++		/* Gen1 VM: get FB base from screen_info */
++		start = screen_info.lfb_base;
++		size = max_t(__u32, screen_info.lfb_size, 0x4000000);
 +	}
++
++	if (!start) {
++		pr_warn("Unexpected framebuffer mmio base of zero\n");
++		return;
++	}
++
+ 	/*
+ 	 * Make a claim for the frame buffer in the resource tree under the
+ 	 * first node, which will be the one below 4GB.  The length seems to
+ 	 * be underreported, particularly in a Generation 1 VM.  So start out
+ 	 * reserving a larger area and make it smaller until it succeeds.
+ 	 */
++	for (; !fb_mmio && (size >= 0x100000); size >>= 1)
++		fb_mmio = __request_region(hyperv_mmio, start, size, fb_mmio_name, 0);
  
--	/* Prevent chan->seqnum from being re-used */
--	do {
--		if (++achan->seqnum == ACPM_SEQNUM_MAX)
--			achan->seqnum = 1;
--	} while (test_bit(achan->seqnum - 1, achan->bitmap_seqnum));
-+	/*
-+	 * Execute the atomic set to formally claim the bit and establish
-+	 * LKMM Acquire semantics against the RX thread's clear_bit_unlock().
-+	 * A loop is unnecessary because allocations are strictly serialized
-+	 * by tx_lock.
-+	 */
-+	if (WARN_ON_ONCE(test_and_set_bit_lock(bit, achan->bitmap_seqnum)))
-+		return -EIO;
- 
-+	/* Flag the index based on seqnum. (seqnum: 1~63, bitmap: 0~62) */
-+	achan->seqnum = bit + 1;
- 	txd[0] |= FIELD_PREP(ACPM_PROTOCOL_SEQNUM, achan->seqnum);
- 
- 	/* Clear data for upcoming responses */
--	rx_data = &achan->rx_data[achan->seqnum - 1];
-+	rx_data = &achan->rx_data[bit];
- 	memset(rx_data->cmd, 0, sizeof(*rx_data->cmd) * rx_data->n_cmd);
- 	if (xfer->rxd)
- 		rx_data->response = true;
- 
--	/* Flag the index based on seqnum. (seqnum: 1~63, bitmap: 0~62) */
--	set_bit(achan->seqnum - 1, achan->bitmap_seqnum);
-+	return 0;
+-	if (screen_info.lfb_base) {
+-		if (efi_enabled(EFI_BOOT))
+-			size = max_t(__u32, screen_info.lfb_size, 0x800000);
+-		else
+-			size = max_t(__u32, screen_info.lfb_size, 0x4000000);
+-
+-		for (; !fb_mmio && (size >= 0x100000); size >>= 1) {
+-			fb_mmio = __request_region(hyperv_mmio,
+-						   screen_info.lfb_base, size,
+-						   fb_mmio_name, 0);
+-		}
+-	}
++	pr_info("hv_mmio=%pR,%pR fb=%pR\n", hyperv_mmio, hyperv_mmio->sibling, fb_mmio);
  }
  
  /**
-@@ -444,7 +463,9 @@ int acpm_do_xfer(struct acpm_handle *handle, const struct acpm_xfer *xfer)
- 		if (ret)
- 			return ret;
- 
--		acpm_prepare_xfer(achan, xfer);
-+		ret = acpm_prepare_xfer(achan, xfer);
-+		if (ret)
-+			return ret;
- 
- 		/* Write TX command. */
- 		__iowrite32_copy(achan->tx.base + achan->mlen * tx_front,
 -- 
 2.53.0
 
