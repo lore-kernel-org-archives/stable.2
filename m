@@ -1,84 +1,86 @@
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B35444E052
-	for <stable@vger.kernel.org>; Wed, 17 Jun 2026 15:49:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAF4849252B
+	for <stable@vger.kernel.org>; Wed, 17 Jun 2026 15:49:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781711409; cv=none; b=iJjuC9hbqByr/x9ebsv9+CxZK2aSBuefNDqUMlc3a6GOXXh+9k16vIST8cJcsDcvJttVjXxYQKbsdOSBJ2+yLWRG9EjH/f60DFjhFo80HntW+i6qEO96FSfyyTWRq2qiQQQqx3jKrY2tSNJrMFGNqH4V9JJRS/TQvPEU1kAzJaQ=
+	t=1781711415; cv=none; b=KpRxFXUJqDETX7N6h7wJL+pN3PSQ97hbcpo7+3mQkYdkcFCURuSfkvouBDq8WM5Kp0Xhq3JFo+z5TyvpMfjWBKypnEPIHMtp22kuqpAb7+aAbQWT3wHvcIE8yFRpSb3ocbaYXDXF3hJW8iHtyHreCf2dv089DVF20gEQMdn5TZI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781711409; c=relaxed/simple;
-	bh=ZpXcRRX1P/Vbry8Wo72HFVJu88egSE1krlMUW4hDsmQ=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=XyWtnSqamTjWdk+jLqyhj3sBpFE7fqn/GzrVOzHwbhkBK+djSWpxvZyQkMqKzWJ5QqKsP5kc8jIpXROG7SX11Os5AV4BD3V5MXrxEJNpbLCCAm8/bRCAjuBW11ifIhK1CEeGdHIzIEZNgrP7parQSk1DEf85OI/zXCtUALmBIt4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=IOrlRasl; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=UryMmDKp; arc=none smtp.client-ip=205.220.180.131
+	s=arc-20240116; t=1781711415; c=relaxed/simple;
+	bh=5HYPSuqwHvfSmSQVOks7PYOyX7RqJez1KALqTtPiBBU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=SyeV5QOgkyBmdyPQHXge+1iCuE8kagOVYf+KcByJVFfAmje4v2Fq327e6mn9oYfTNY/F6fMx3uX4TlOun2BZZ0rMe6byuOVJK6o8KN3Ke6X6FUXsbeSociPM+fJD8EA08qK+F4O60vLyjHZ0RmoCdFcoDug2qmcTtdmmpaP2Cyk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=SUxCVOBU; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=P3wtjfIJ; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="IOrlRasl";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="UryMmDKp"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65HFPTYH3157276
-	for <stable@vger.kernel.org>; Wed, 17 Jun 2026 15:49:53 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="SUxCVOBU";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="P3wtjfIJ"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65HFfnfF3244836
+	for <stable@vger.kernel.org>; Wed, 17 Jun 2026 15:49:56 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=XPWZkZ500XJwZn26o7+t4Z
-	zKCCQCUoNphYUHhoj3vjo=; b=IOrlRaslGlbY1sb26aDp0aih0jQ5+ndws3+0Kr
-	X2WmHDPXzRl4a8cmvKC3bMlb3a0tc8tilkGmt9AGP7WPOdqgGL0CbQBZt3RXhvo2
-	vHElKX48aFXkYwMtBCvY4rstv2ZloNBQQbuiKGe3CLxa/jo4ucGQR9ZQTrJFEcpV
-	5AftKbMTCtmGDWQuDxhnN5zvka5XtfozBhytcxHD6d3D5cRppC00DyZowsX0skOK
-	q519RUzfT4Kq1xoX5mQGr8e2R+iD0JGFjD5H2X9FB4mNHMSFiNhb1txYB+WYRO9P
-	/y8wooNFlUB53CawSp1nFE4KMUpgwFNhyBkxDU8KGvRpHWQA==
-Received: from mail-vs1-f69.google.com (mail-vs1-f69.google.com [209.85.217.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eueerc2tj-1
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	TWPhcURBj03/aizfzAWsyeCqqs4pI7zvP9Ca7yOHpU0=; b=SUxCVOBUCZ1j99S0
+	xxO5vQzduZW6r3nOh8dbp8nR/vOg54NHtxFkKlI+kIgeg9+yseKnZPe5geNBwbZh
+	h1xeITkJfva9SGKUwBWzQNTcj52u2Whadq3TCYvfJRCd/s/5gqKoyOCoU8Kdu0tn
+	0S3P4Kor2g5g2aV2WufsmGChVBFIe/E0fLunoToF8gEbJs1TsAFz87wT+QIiHsYo
+	mVyzpyaWwjzCnO9Gnqxte7ssMC9yQdcN0neJYgl+txKqfWVOeD+PQ8jejOpm9QKF
+	A0LL9ufubeOTy7u5ZqMqnwAeL4TFsSQtlQpkZZR5STsqOBwP6igFnBreOG2uMb2Q
+	yJ4h4A==
+Received: from mail-vk1-f197.google.com (mail-vk1-f197.google.com [209.85.221.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eux2jr568-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Wed, 17 Jun 2026 15:49:53 +0000 (GMT)
-Received: by mail-vs1-f69.google.com with SMTP id ada2fe7eead31-6751db2792dso2851286137.3
-        for <stable@vger.kernel.org>; Wed, 17 Jun 2026 08:49:53 -0700 (PDT)
+	for <stable@vger.kernel.org>; Wed, 17 Jun 2026 15:49:56 +0000 (GMT)
+Received: by mail-vk1-f197.google.com with SMTP id 71dfb90a1353d-59e6c1217b6so3421343e0c.3
+        for <stable@vger.kernel.org>; Wed, 17 Jun 2026 08:49:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1781711393; x=1782316193; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:mime-version:message-id:date
-         :subject:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=XPWZkZ500XJwZn26o7+t4ZzKCCQCUoNphYUHhoj3vjo=;
-        b=UryMmDKp+jeV6AqovPpBRNx+uCDIpQXLGsnWoXY6vCFeTRTZ0P1brk3kymj9nwkdRy
-         ElDd7hoKLr0Hm9PKt7pHQF0wBiWCYnLwf2IrkYIZxjg2mV9IkDZyl61FGYXpiZQ8EeIy
-         4r2TWTJ4WJVi/mWVu1X2HI07HBlzfwL5gt72PbydFZgujv06WFmmYUy4IKpn2VuR21bY
-         LfG3YYjpsysP65qQsgMF3wUGww8c7z1/MvcAvKo9r6q7DreqOlj8H6brFpfduMbdeBK4
-         BIKo8oC8UABA6ICLb5ScREMl2ytt/pem9tx1nDQMS00EucZs7at+Dk4i8REY/Gr4fVHp
-         qNuw==
+        d=oss.qualcomm.com; s=google; t=1781711396; x=1782316196; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=TWPhcURBj03/aizfzAWsyeCqqs4pI7zvP9Ca7yOHpU0=;
+        b=P3wtjfIJ3D7SEP1Oz0nlu6Uq3xQsj13bCC1hIgIqxAqh7lLiApUDRoUaWEW/OX0AMV
+         j1KzDBM7PRPPdC3f3aMu4Wws2OAWnkRsaVgLpSJLSM/Emx5NuhG1v5+iV+9r3RcxbAt7
+         juut34bThF8NfcvvHTH0RuFCSm6sYiWI2lLAVLC2JM3Fd66Kubv+SHIGKw8UGfUMJEwo
+         uojDxrFyv9d2B13jkaUANfJ6gSDZHZZ+zxUxtvOfYpyMAWnoUxwP5uf7WBpkt+Y9kRI9
+         HtLN1FzBUP2HdR+/xudA8NSJDxUi/7M0hCY2z3joRmowCjfbR1F12LAQ433ano8IjdQx
+         vYww==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781711393; x=1782316193;
-        h=cc:to:content-transfer-encoding:mime-version:message-id:date
-         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=XPWZkZ500XJwZn26o7+t4ZzKCCQCUoNphYUHhoj3vjo=;
-        b=Af0qA/4lbWNDuYCgqER/118xi8Dj8BQ8uIBsZdWzHDKKbcHcJ5QWlilzU+RSadKqn2
-         mQopriQ17CFekEif8geZtSC5jiJJSx4JMq3c4jqKHGWYZCZkypNjHrmp3EUijgj2qYu2
-         018p3J+l/YsvRlLac85Ao9MeCpEmFrtAvcJt0xNKKx5d5NIuBJ8wmSaD3jEGCkBf09cO
-         Gd+GugYlgROluAVElcgfVSLTU995DF9iCXp0xbM97Kjh+gsR8hvf8TXHli6NGSsNNfLN
-         LS4Vn+oD2RihW+lwtbpbD6OIYFam2Zu2rt+vP1dyHR/eCv5zzgMoiOKq4S25ATCM2pOm
-         iRcw==
-X-Forwarded-Encrypted: i=1; AFNElJ9kaoIOXe/HWWoHgW7KW7G6kSvWj8D4Mxi00ATuu/kG8/88dJ+ZCP3enyQYRt4aODlFB1BjfKE=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx4P8wMUQ25Mb4Q9LjT9vCZpZZgwrm9xX3ObBcF4Vdh0EVw8U+l
-	5ZJKwnuHcGYmvmKLaA8DZlj9C5ztmJaGPJBhjStsIoHqYfHmsiTchiUpgpnbYej+GWHVpNh+rnb
-	xVf5PUnZpLfDgwf2/+1lIj5ry3cCyD7lw7iCRUcRLFeRqSUsr9vYRKqh2rPVg5mWPN42JUA==
-X-Gm-Gg: AfdE7cl75oX8HU5731wxmdAaYl+p2UpzrqhBKE55RJAtZl2vmluW25gvNtn7n2XB4KZ
-	PbTnrgj7hukGxcnL/xGRS/dhqm+JDi09cKjon0hDN+0IA6FTgoZtGnxinaabfwG8OQpjYi6PPmj
-	W7hF4t227RAQvPcUQNghT9OUtHziq2cf+NwgGcrbrYBOJGu1UaZSpSjkOG2bZPSa4ucAS9nzyVx
-	jVnMjEN5Oi37AU+dThVpQsKgzx/KoKtLTCr0XmYDeoLipdr/HH0Rp0bKHOs8MBR/ZDYDJtuPbTT
-	zJVap+pzc8D88ITLgPwa8+Rb6OCql+cab3O59h8TFL+AIRzrepoYlUY/5KHEkdSDLx2/qj49jYs
-	FiWNf/5Y4XijTpGc84+Sc00atJ7KLu4LJLsfdQHtv
-X-Received: by 2002:a05:6102:15ab:b0:720:81d5:92dd with SMTP id ada2fe7eead31-7246cefffa3mr2759158137.22.1781711392972;
-        Wed, 17 Jun 2026 08:49:52 -0700 (PDT)
-X-Received: by 2002:a05:6102:15ab:b0:720:81d5:92dd with SMTP id ada2fe7eead31-7246cefffa3mr2759121137.22.1781711392491;
-        Wed, 17 Jun 2026 08:49:52 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1781711396; x=1782316196;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=TWPhcURBj03/aizfzAWsyeCqqs4pI7zvP9Ca7yOHpU0=;
+        b=d8WZAm82eV+luKfbCPq1fk8zAVC+aGYJBZMLlAsAB8IQWrY16+OcQ1zDhF0Havcry5
+         Zm9fGQs8e6ygGeUmAHc0CLty3HDPdpzdkboFl2wBsP8YyRvJyVdYh7MH+ycY5n/3MlAQ
+         eemi6seEbuyXnKOYy2lZ7iEKJbWVcRpoMfdmd/8DzOISRACegKVNsJwzm/Ggy9X8IxKU
+         onpAhyyBlIqBDxOw5/CqmBB+Qv3+CslUWx8+NYP3R4j1/7phjUUT/lMNmBD9dPHXj/CX
+         ETvtwZaF6fqMGL+Gh1GhEn4EOTFh9YVDDoEVeTeLwXoISrweOSfhRv+v9PZQAijvNauX
+         nFXA==
+X-Forwarded-Encrypted: i=1; AFNElJ++BEoh5fV9gNmCvnrBPtLL839DbO3GGRyNvp59y1+/CmWEtM97fVFbwaRp/o4dm5VLWdwZEo0=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxrhFQ6LuULhYY7DlkZJqyhnxddIH+Mky2H80ieQnfNPibc6pDE
+	NRLL9aKA/bHhQnAqwNsYX7aOH2eTXYolj+jYezKEj1AfgSPaaV25tJYdEP6vC8+M5FVdXyJBhzW
+	1yjGNQ6k/ehDBy6NWgvIavjPZXPy6ZK2/o5agLZe8utOrK0s6WNr75m7g808=
+X-Gm-Gg: AfdE7cmC8/nQqXVmRw1vJnD3YzUrNQAmx/NSrTooI2O1AhpX4UVw88jI6LQbyPri0mK
+	mf5eeWRBQhuT4Uq2ggqGqNRjeg7Zh68K4f+5eqSH+0owNtyNn0kuE0/Qu+rFSndYUzu3m/jojkO
+	qDfs5c+dc6oTLRk5lKM7Al0PgKIRgcVV60XOodR+ApHfMQl5sgUalJIq02mWvL5RTP/V4dv7Ub5
+	6PIzd7wQHdw3uFkWmLsTYEe4otCXEPXCUKuzgAz85mXwSdHNT8H0w1Nt0Q6xhiLnDq1pJrGtYEZ
+	2DnXB4BkdSWl1fEjTATTI/iiw0CzJtBaOkj1NSeapX/SAhneR53tja348WK9bIiGJa389QJLwtc
+	QWR3UjO66OF4u1U8OEIOKE5fANfhfSn46CliASDyC
+X-Received: by 2002:a05:6102:5a8e:b0:6ac:c0ab:5dc7 with SMTP id ada2fe7eead31-727c4778c35mr17339137.5.1781711395509;
+        Wed, 17 Jun 2026 08:49:55 -0700 (PDT)
+X-Received: by 2002:a05:6102:5a8e:b0:6ac:c0ab:5dc7 with SMTP id ada2fe7eead31-727c4778c35mr17319137.5.1781711395008;
+        Wed, 17 Jun 2026 08:49:55 -0700 (PDT)
 Received: from brgl-qcom.local ([2a01:cb1d:dc:7e00:c856:25e5:e249:5e0f])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4922fa8b423sm168913195e9.11.2026.06.17.08.49.50
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4922fa8b423sm168913195e9.11.2026.06.17.08.49.53
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 17 Jun 2026 08:49:51 -0700 (PDT)
+        Wed, 17 Jun 2026 08:49:53 -0700 (PDT)
 From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Subject: [PATCH v3 0/8] crypto: qce - Fix crypto self-test failures
-Date: Wed, 17 Jun 2026 17:49:29 +0200
-Message-Id: <20260617-qce-fix-self-tests-v3-0-ecc2b4dedcfd@oss.qualcomm.com>
+Date: Wed, 17 Jun 2026 17:49:30 +0200
+Subject: [PATCH v3 1/8] crypto: qce - Remove unsafe/deprecated algorithms
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -87,11 +89,9 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAnCMmoC/22NQQqDMBBFryKz7kgyVcGueo/iIiSTGlBTM1Zax
- Ls3FbrrZuB9/n+zgXAKLHApNki8BglxynA+FWB7M90Zg8sMpKhRjVY4W0YfXig8eFxYFsGqJe8
- dsW/rGvLwkTg3Dumty9wHWWJ6Hz9W+qY/Xf1PtxIqdLbV2mtjXEXXKFLOTzPYOI5lPtDt+/4Bp
- zGra7sAAAA=
-X-Change-ID: 20260610-qce-fix-self-tests-492ffd2ef955
+Message-Id: <20260617-qce-fix-self-tests-v3-1-ecc2b4dedcfd@oss.qualcomm.com>
+References: <20260617-qce-fix-self-tests-v3-0-ecc2b4dedcfd@oss.qualcomm.com>
+In-Reply-To: <20260617-qce-fix-self-tests-v3-0-ecc2b4dedcfd@oss.qualcomm.com>
 To: Thara Gopinath <thara.gopinath@gmail.com>,
         Herbert Xu <herbert@gondor.apana.org.au>,
         "David S. Miller" <davem@davemloft.net>,
@@ -104,110 +104,549 @@ Cc: linux-crypto@vger.kernel.org, linux-arm-msm@vger.kernel.org,
         Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
         stable@vger.kernel.org
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2484;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=17466;
  i=bartosz.golaszewski@oss.qualcomm.com; h=from:subject:message-id;
- bh=ZpXcRRX1P/Vbry8Wo72HFVJu88egSE1krlMUW4hDsmQ=;
- b=owEBbQKS/ZANAwAKAQWdLsv/NoTDAcsmYgBqMsIRrHso5RRinGMfK9331qoboVev1dMveaEtg
- Cmc9jx60wCJAjMEAAEKAB0WIQSR5RMt5bVGHXuiZfwFnS7L/zaEwwUCajLCEQAKCRAFnS7L/zaE
- wy1bD/sFRJTbi4HsHDpTGfTW1y71rTRLPEYEZf+tQr7zD9+h64p0WBNdHUAzq0iGER+zzc1bs6S
- KrTFgZxRFjuIa+sPd20H8JtcvJemtIX/RdnbhoIXxWIo7FopFpLWn3s6i/qe8ikMIOAQlf8K2ok
- NVNJluibGHrbETsjqTwBGtyqWcnf6gfJODLMBYUIfZQeNK3PiIy/C9cAXKV6J6JLqSnADgmVfr4
- u5Xg9WhIQ2E4CNNoUtSXYind0oqeMksahb7tYWPQtd1przzYbVGn8uWkgRDa/bfZsvt+MnJ9cHs
- Z1QVwS9e+OTCCxnzMuhEzmcjW633ksNqqAwNjHtHmRlXGsww/mgX7RaLiOC5Pi4YNV9c+bft0d6
- PUs0Eb8HXC/wqRV5S9FdwdRK76yven+Ma26Q1+pqJnA7zMh06rCEkCJBzKv/J4QL0Cyxwy25Ecw
- wIOTnvBJm+St12E6mppmG/DomDBQ1gQt7XXtOze6snkGNeEoDNXeZv9ZWhsGPNJM2KrlvknHAhJ
- rUrQCcCXM/Zl6IhONHKzpSgLDAgTKuy64zUYXT6wnz4ggIewnetyJBDbnapCiC4qcXmGSUjYOgr
- VAlwZ4B7oShanO/RLT9k0exVBw/I+6XlrdQZ0jrXOt+LwEUOyv22puIsYoY2UCPQG7UzFo0C6fx
- +YW55afoZ5DKpnw==
+ bh=5HYPSuqwHvfSmSQVOks7PYOyX7RqJez1KALqTtPiBBU=;
+ b=owEBbQKS/ZANAwAKAQWdLsv/NoTDAcsmYgBqMsIVkPKsYVZSzB6FRUV7HX7j9z9eu0ZEt7Xuh
+ TNHXyg5v8yJAjMEAAEKAB0WIQSR5RMt5bVGHXuiZfwFnS7L/zaEwwUCajLCFQAKCRAFnS7L/zaE
+ w/EyD/4m5gfewEhAkTMMXZ6CxBnwMuEY4U8xTAZCCAelw4rjZWfc64e9MjvUeKVJamVp74xNQa3
+ eoFySbn1niqS/Q+0Z06EGivAe9NDqLvaO13RJIOxFk6siv3AP3V8C87JL/6JyiO6AleRP5vrwUb
+ qy6hGos/PBXRLsA19a1XbxWgmsomsJ1PNX1Yn0DTntKGvrf6Qd+0cPuzDJbaqwRDqq4uJOZebaV
+ i+BjhpJ2Oa79mJmBcDhSAYczFqRrms65EQAOBoS7Oc0bDTcOlK+nVvcONBrAAx+NSa/FfMcLSWK
+ 5KYIFjhr3oejNj7SnI1toRFLHnkuwtVLy4dr0fF8fz3LDkbtw3llIMCEzHC1sE44CMqGLVFW/x4
+ EXyfHNGa+P8FZw3PXnb49BFhn/zDUYW81QYg6sBuLIFCGOsXtE1md6gYTHzokbXMR+YjnbWY+F3
+ Qb9lI1UIhRYgNc7EGqcQk4y/+qn6oicQ+aVPxHBbrZZw0DoF+sK1zH20h2sqLN6Hf5v5JI9w50I
+ 3MdwQrmxxobAJ1JZqwrr+idEcuaOqN1aYk+yUL0sKPw5tFu4LcdAgs1vYnZswbx2+nW1m0crZ+c
+ Fh2pr+uGfXX5XihaU7YMy5ytKBuiPQJ76WjWrob3gkbX2WdJ5I+s6DkfJCweuLv4da9Tm0uPcQv
+ gUrzwBkGk/Xx/NQ==
 X-Developer-Key: i=bartosz.golaszewski@oss.qualcomm.com; a=openpgp;
  fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE3MDE1MSBTYWx0ZWRfX53qUzMpaoDI3
- 4+Pk1SHSAGEMGuYoU5tDnOLjloAJoWz6JGtWGBiHKLMUXhzrxtR9YbiHJaMBcDPBEa9LhkqFG2J
- iuhZVfnKeFiHtkOxilo3lOQcu4b3IDc=
-X-Proofpoint-GUID: MDx3wpqT-X6PqtxBROqnEk2hc3vTXzTF
-X-Authority-Analysis: v=2.4 cv=d4fFDxjE c=1 sm=1 tr=0 ts=6a32c221 cx=c_pps
- a=5HAIKLe1ejAbszaTRHs9Ug==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE3MDE1MSBTYWx0ZWRfXwdobB8WPWlFi
+ qkoL15y1vpJ3Ti+6AGf9A533vuahl2uGdG0oSqZlEhpaWMKiqNOPRiVD0JpzgEIs6U3BchSWwKo
+ G+l0X8iyw9u6kaZ4z2Qk0mpsLdHKIwwWC7loifbf5fR/PJeiiDJClEhZHzDhgDSI6EZa/Ewx79a
+ A3SliVYncqy1ZJ/XuRgSGdcyQTYwlJp815nx3bHDyj3lsNCVHs5pU2tDsvxjWDSgloFjj3tbVhC
+ YNjiQzmosSZhnvevdufafsdvfm6tnpHXFt1QTYPLEz03bfwFDgDSwKiAOvyR6ip1H6oXvin5R/4
+ 3sMhTsfqG8PNAId9ZQ+Ee1Nf5x/shLF+oOjKkPWYwUS4ZTSqXH8Va0a6iKzu9ZrMhx2WJUnlnsq
+ MVvCBSU7R5odiz0K8VICVajy2Ovp7eCvfxUS6wG5WZsiPchA1+OMF1Wu/Zbyaw9WW3MihGK6BVJ
+ QYoEZau6d/BpAeW7n7g==
+X-Authority-Analysis: v=2.4 cv=Fsg1OWrq c=1 sm=1 tr=0 ts=6a32c224 cx=c_pps
+ a=JIY1xp/sjQ9K5JH4t62bdg==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
  a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=bC-a23v3AAAA:8
- a=EUspDBNiAAAA:8 a=5rERACauPDyaBIpbJ_EA:9 a=QEXdDO2ut3YA:10
- a=gYDTvv6II1OnSo0itH1n:22 a=FO4_E8m0qiDe52t0p3_H:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE3MDE1MSBTYWx0ZWRfX/QNXhXhJy3nw
- c9LO+hp4o04fu1IRBeDrJEDGoKx7m6HJ5tVGANW52kdYQrTbuAd0lW8HH+YLU/X3qwfdVKDr2KY
- h0jzpp3aMaq+wpLNmFJQk56mDfhQv0cvr02CW5bpeJwA2l2NKtd3RAclOQlnsBRDcdzm4OiNls9
- U8oNWHAHrslfMdS77sB5Nkk2Crjs7Oro6FLXI01mAUxNW+0k+00hDP3pL5zXZJLJ/OaVxbtoVq6
- SWAH2E3oqOWUZToU2UjEWR2oYi45x60zG2UCwfbFA32fmMEclOJIl1X+JlNwNcy05pxNBRhQMmE
- FEB+aWvlDUoEwfQZGj5ahNTtqZ/W6lUaLIHttiQV6ESyMxPhOYPpEW/5oZb5DFNFKSi5dyn4PiV
- fe0UviwG0vyjNfFAgRCFjWZQHL50rJij2i9TBy7UKdIPLdgSXi3eNtMO5wzM+fH2GHmswxKp0h1
- pJLUoanZYmgJxWwx0ug==
-X-Proofpoint-ORIG-GUID: MDx3wpqT-X6PqtxBROqnEk2hc3vTXzTF
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=uvoCddpHiQeRX8bMFhYA:9 a=QEXdDO2ut3YA:10
+ a=tNoRWFLymzeba-QzToBc:22
+X-Proofpoint-ORIG-GUID: PjwQoYQf-JFFZAH0VnRuW4lZkfl_MfNj
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE3MDE1MSBTYWx0ZWRfX02Fm+O1DtFmR
+ 2WwhUAZaS5SDE+we+E22OYHY19yLfjjd0A1fneyc/v0Ai1SXepvR+L1QxmHMf3kROBbRSo0dcZM
+ ljRghzAyKHPOKAeHfhqJBSWtKI9Mc8g=
+X-Proofpoint-GUID: PjwQoYQf-JFFZAH0VnRuW4lZkfl_MfNj
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
  definitions=2026-06-17_02,2026-06-17_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 suspectscore=0 malwarescore=0 lowpriorityscore=0
- phishscore=0 bulkscore=0 clxscore=1015 adultscore=0 spamscore=0
+ clxscore=1015 bulkscore=0 suspectscore=0 spamscore=0 phishscore=0
+ lowpriorityscore=0 malwarescore=0 adultscore=0 priorityscore=1501
  impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
  route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
  definitions=main-2606170151
 
-This extends the initial submission from Kuldeep.
+Remove algorithms that are either unsafe or deprecated and have no
+in-kernel users that cannot be served by the ARM CE implementations.
 
-The QCE hardware crypto engine has several limitations that cause it to
-produce incorrect results or stall on certain inputs. This series fixes
-several bugs and adds workaround allowing the deiver to pass crypto
-self-tests.
+AES-ECB reveals plaintext patterns (identical plaintext blocks produce
+identical ciphertext blocks) and should not be exposed as a hardware-
+accelerated primitive. DES, Triple DES and HMAC-SHA1 have been
+deprecated for years.
 
-The failures addressed are:
+Remove sha1, ecb(aes), ecb(des), cbc(des), ecb(des3_ede), cbc(des3_ede),
+hmac(sha1) and all AEAD variants built on these primitives as well as
+authenc(hmac(sha256),cbc(des)). Also clean up the - now dead - code,
+flags and constants.
 
-- HMAC self-test failures for empty messages
-- AES-XTS returning success on zero-length input (should be -EINVAL)
-- AES-CTR: partial final block causes the engine to stall, output IV
-  derivation was incorrect
-- AES-XTS with key1 == key2 is not supported by the CE
-- AES-CCM: partial final block and fragmented payload both stall the
-  engine
-
-All fixes were tested on an SM8650 QRD board with
-CONFIG_CRYPTO_SELFTESTS=y and CONFIG_CRYPTO_SELFTESTS_FULL=y.
-
+Cc: stable@vger.kernel.org
 Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 ---
-Changes in v3:
-- Remove even more algorithms and dead code in patch 1/8
-- Link to v2: https://patch.msgid.link/20260615-qce-fix-self-tests-v2-0-dc911f1aad42@oss.qualcomm.com
+ drivers/crypto/qce/aead.c     | 56 +------------------------
+ drivers/crypto/qce/common.c   | 40 ++++--------------
+ drivers/crypto/qce/common.h   | 13 +-----
+ drivers/crypto/qce/regs-v5.h  |  4 --
+ drivers/crypto/qce/sha.c      | 30 +-------------
+ drivers/crypto/qce/sha.h      |  1 -
+ drivers/crypto/qce/skcipher.c | 95 +------------------------------------------
+ 7 files changed, 13 insertions(+), 226 deletions(-)
 
-Changes in v2:
-- Add fixes for the full suite of crypto self-tests
-- Add Fixes and Cc tags
-- Link to v1: https://patch.msgid.link/20260610-qce_selftest_fix-v1-0-1b0504783a46@oss.qualcomm.com/
+diff --git a/drivers/crypto/qce/aead.c b/drivers/crypto/qce/aead.c
+index 03b8042da9a1b4aebdc775ad8ab912abc7b2383d..336614a11377e0be246817da584296124f4de5d8 100644
+--- a/drivers/crypto/qce/aead.c
++++ b/drivers/crypto/qce/aead.c
+@@ -9,8 +9,6 @@
+ #include <crypto/gcm.h>
+ #include <crypto/authenc.h>
+ #include <crypto/internal/aead.h>
+-#include <crypto/internal/des.h>
+-#include <crypto/sha1.h>
+ #include <crypto/sha2.h>
+ #include <crypto/scatterwalk.h>
+ #include "aead.h"
+@@ -592,7 +590,6 @@ static int qce_aead_setkey(struct crypto_aead *tfm, const u8 *key, unsigned int
+ 	struct qce_aead_ctx *ctx = crypto_aead_ctx(tfm);
+ 	struct crypto_authenc_keys authenc_keys;
+ 	unsigned long flags = to_aead_tmpl(tfm)->alg_flags;
+-	u32 _key[6];
+ 	int err;
+ 
+ 	err = crypto_authenc_extractkeys(&authenc_keys, key, keylen);
+@@ -603,26 +600,7 @@ static int qce_aead_setkey(struct crypto_aead *tfm, const u8 *key, unsigned int
+ 	    authenc_keys.authkeylen > QCE_MAX_KEY_SIZE)
+ 		return -EINVAL;
+ 
+-	if (IS_DES(flags)) {
+-		err = verify_aead_des_key(tfm, authenc_keys.enckey, authenc_keys.enckeylen);
+-		if (err)
+-			return err;
+-	} else if (IS_3DES(flags)) {
+-		err = verify_aead_des3_key(tfm, authenc_keys.enckey, authenc_keys.enckeylen);
+-		if (err)
+-			return err;
+-		/*
+-		 * The crypto engine does not support any two keys
+-		 * being the same for triple des algorithms. The
+-		 * verify_skcipher_des3_key does not check for all the
+-		 * below conditions. Schedule fallback in this case.
+-		 */
+-		memcpy(_key, authenc_keys.enckey, DES3_EDE_KEY_SIZE);
+-		if (!((_key[0] ^ _key[2]) | (_key[1] ^ _key[3])) ||
+-		    !((_key[2] ^ _key[4]) | (_key[3] ^ _key[5])) ||
+-		    !((_key[0] ^ _key[4]) | (_key[1] ^ _key[5])))
+-			ctx->need_fallback = true;
+-	} else if (IS_AES(flags)) {
++	if (IS_AES(flags)) {
+ 		/* No random key sizes */
+ 		if (authenc_keys.enckeylen != AES_KEYSIZE_128 &&
+ 		    authenc_keys.enckeylen != AES_KEYSIZE_192 &&
+@@ -693,38 +671,6 @@ struct qce_aead_def {
+ };
+ 
+ static const struct qce_aead_def aead_def[] = {
+-	{
+-		.flags          = QCE_ALG_DES | QCE_MODE_CBC | QCE_HASH_SHA1_HMAC,
+-		.name           = "authenc(hmac(sha1),cbc(des))",
+-		.drv_name       = "authenc-hmac-sha1-cbc-des-qce",
+-		.blocksize      = DES_BLOCK_SIZE,
+-		.ivsize         = DES_BLOCK_SIZE,
+-		.maxauthsize	= SHA1_DIGEST_SIZE,
+-	},
+-	{
+-		.flags          = QCE_ALG_3DES | QCE_MODE_CBC | QCE_HASH_SHA1_HMAC,
+-		.name           = "authenc(hmac(sha1),cbc(des3_ede))",
+-		.drv_name       = "authenc-hmac-sha1-cbc-3des-qce",
+-		.blocksize      = DES3_EDE_BLOCK_SIZE,
+-		.ivsize         = DES3_EDE_BLOCK_SIZE,
+-		.maxauthsize	= SHA1_DIGEST_SIZE,
+-	},
+-	{
+-		.flags          = QCE_ALG_DES | QCE_MODE_CBC | QCE_HASH_SHA256_HMAC,
+-		.name           = "authenc(hmac(sha256),cbc(des))",
+-		.drv_name       = "authenc-hmac-sha256-cbc-des-qce",
+-		.blocksize      = DES_BLOCK_SIZE,
+-		.ivsize         = DES_BLOCK_SIZE,
+-		.maxauthsize	= SHA256_DIGEST_SIZE,
+-	},
+-	{
+-		.flags          = QCE_ALG_3DES | QCE_MODE_CBC | QCE_HASH_SHA256_HMAC,
+-		.name           = "authenc(hmac(sha256),cbc(des3_ede))",
+-		.drv_name       = "authenc-hmac-sha256-cbc-3des-qce",
+-		.blocksize      = DES3_EDE_BLOCK_SIZE,
+-		.ivsize         = DES3_EDE_BLOCK_SIZE,
+-		.maxauthsize	= SHA256_DIGEST_SIZE,
+-	},
+ 	{
+ 		.flags          =  QCE_ALG_AES | QCE_MODE_CBC | QCE_HASH_SHA256_HMAC,
+ 		.name           = "authenc(hmac(sha256),cbc(aes))",
+diff --git a/drivers/crypto/qce/common.c b/drivers/crypto/qce/common.c
+index 54a78a57f63028f01870a3edeb8e390f523bb190..a1c972115c700448cd17713b7615a5e5f0c377bf 100644
+--- a/drivers/crypto/qce/common.c
++++ b/drivers/crypto/qce/common.c
+@@ -8,7 +8,6 @@
+ #include <linux/interrupt.h>
+ #include <linux/types.h>
+ #include <crypto/scatterwalk.h>
+-#include <crypto/sha1.h>
+ #include <crypto/sha2.h>
+ 
+ #include "cipher.h"
+@@ -115,18 +114,16 @@ static u32 qce_auth_cfg(unsigned long flags, u32 key_size, u32 auth_size)
+ 			cfg |= AUTH_KEY_SZ_AES256 << AUTH_KEY_SIZE_SHIFT;
+ 	}
+ 
+-	if (IS_SHA1(flags) || IS_SHA1_HMAC(flags))
+-		cfg |= AUTH_SIZE_SHA1 << AUTH_SIZE_SHIFT;
+-	else if (IS_SHA256(flags) || IS_SHA256_HMAC(flags))
++	if (IS_SHA256(flags) || IS_SHA256_HMAC(flags))
+ 		cfg |= AUTH_SIZE_SHA256 << AUTH_SIZE_SHIFT;
+ 	else if (IS_CMAC(flags))
+ 		cfg |= AUTH_SIZE_ENUM_16_BYTES << AUTH_SIZE_SHIFT;
+ 	else if (IS_CCM(flags))
+ 		cfg |= (auth_size - 1) << AUTH_SIZE_SHIFT;
+ 
+-	if (IS_SHA1(flags) || IS_SHA256(flags))
++	if (IS_SHA256(flags))
+ 		cfg |= AUTH_MODE_HASH << AUTH_MODE_SHIFT;
+-	else if (IS_SHA1_HMAC(flags) || IS_SHA256_HMAC(flags))
++	else if (IS_SHA256_HMAC(flags))
+ 		cfg |= AUTH_MODE_HMAC << AUTH_MODE_SHIFT;
+ 	else if (IS_CCM(flags))
+ 		cfg |= AUTH_MODE_CCM << AUTH_MODE_SHIFT;
+@@ -191,7 +188,7 @@ static int qce_setup_regs_ahash(struct crypto_async_request *async_req)
+ 	else
+ 		qce_cpu_to_be32p_array(auth, rctx->digest, digestsize);
+ 
+-	iv_words = (IS_SHA1(rctx->flags) || IS_SHA1_HMAC(rctx->flags)) ? 5 : 8;
++	iv_words = 8;
+ 	qce_write_array(qce, REG_AUTH_IV0, (u32 *)auth, iv_words);
+ 
+ 	if (rctx->first_blk)
+@@ -243,14 +240,6 @@ static u32 qce_encr_cfg(unsigned long flags, u32 aes_key_size)
+ 
+ 	if (IS_AES(flags))
+ 		cfg |= ENCR_ALG_AES << ENCR_ALG_SHIFT;
+-	else if (IS_DES(flags) || IS_3DES(flags))
+-		cfg |= ENCR_ALG_DES << ENCR_ALG_SHIFT;
+-
+-	if (IS_DES(flags))
+-		cfg |= ENCR_KEY_SZ_DES << ENCR_KEY_SZ_SHIFT;
+-
+-	if (IS_3DES(flags))
+-		cfg |= ENCR_KEY_SZ_3DES << ENCR_KEY_SZ_SHIFT;
+ 
+ 	switch (flags & QCE_MODE_MASK) {
+ 	case QCE_MODE_ECB:
+@@ -340,13 +329,7 @@ static int qce_setup_regs_skcipher(struct crypto_async_request *async_req)
+ 
+ 	encr_cfg = qce_encr_cfg(flags, keylen);
+ 
+-	if (IS_DES(flags)) {
+-		enciv_words = 2;
+-		enckey_words = 2;
+-	} else if (IS_3DES(flags)) {
+-		enciv_words = 2;
+-		enckey_words = 6;
+-	} else if (IS_AES(flags)) {
++	if (IS_AES(flags)) {
+ 		if (IS_XTS(flags))
+ 			qce_xtskey(qce, ctx->enc_key, ctx->enc_keylen,
+ 				   rctx->cryptlen);
+@@ -393,10 +376,6 @@ static int qce_setup_regs_skcipher(struct crypto_async_request *async_req)
+ #endif
+ 
+ #ifdef CONFIG_CRYPTO_DEV_QCE_AEAD
+-static const u32 std_iv_sha1[SHA256_DIGEST_SIZE / sizeof(u32)] = {
+-	SHA1_H0, SHA1_H1, SHA1_H2, SHA1_H3, SHA1_H4, 0, 0, 0
+-};
+-
+ static const u32 std_iv_sha256[SHA256_DIGEST_SIZE / sizeof(u32)] = {
+ 	SHA256_H0, SHA256_H1, SHA256_H2, SHA256_H3,
+ 	SHA256_H4, SHA256_H5, SHA256_H6, SHA256_H7
+@@ -473,13 +452,8 @@ static int qce_setup_regs_aead(struct crypto_async_request *async_req)
+ 	/* Write initial authentication IV only for HMAC algorithms */
+ 	if (IS_SHA_HMAC(rctx->flags)) {
+ 		/* Write default authentication iv */
+-		if (IS_SHA1_HMAC(rctx->flags)) {
+-			auth_ivsize = SHA1_DIGEST_SIZE;
+-			memcpy(authiv, std_iv_sha1, auth_ivsize);
+-		} else if (IS_SHA256_HMAC(rctx->flags)) {
+-			auth_ivsize = SHA256_DIGEST_SIZE;
+-			memcpy(authiv, std_iv_sha256, auth_ivsize);
+-		}
++		auth_ivsize = SHA256_DIGEST_SIZE;
++		memcpy(authiv, std_iv_sha256, auth_ivsize);
+ 		authiv_words = auth_ivsize / sizeof(u32);
+ 		qce_write_array(qce, REG_AUTH_IV0, (u32 *)authiv, authiv_words);
+ 	} else if (IS_CCM(rctx->flags)) {
+diff --git a/drivers/crypto/qce/common.h b/drivers/crypto/qce/common.h
+index 02e63ad9f24557c2238caa70b0ec521d49da4f13..8f0ab4d9fa1e11ab123edb616b43b82541275f4e 100644
+--- a/drivers/crypto/qce/common.h
++++ b/drivers/crypto/qce/common.h
+@@ -33,14 +33,10 @@
+ #define QCE_MAX_ALIGN_SIZE		64
+ 
+ /* cipher algorithms */
+-#define QCE_ALG_DES			BIT(0)
+-#define QCE_ALG_3DES			BIT(1)
+ #define QCE_ALG_AES			BIT(2)
+ 
+ /* hash and hmac algorithms */
+-#define QCE_HASH_SHA1			BIT(3)
+ #define QCE_HASH_SHA256			BIT(4)
+-#define QCE_HASH_SHA1_HMAC		BIT(5)
+ #define QCE_HASH_SHA256_HMAC		BIT(6)
+ #define QCE_HASH_AES_CMAC		BIT(7)
+ 
+@@ -58,18 +54,13 @@
+ #define QCE_ENCRYPT			BIT(30)
+ #define QCE_DECRYPT			BIT(31)
+ 
+-#define IS_DES(flags)			(flags & QCE_ALG_DES)
+-#define IS_3DES(flags)			(flags & QCE_ALG_3DES)
+ #define IS_AES(flags)			(flags & QCE_ALG_AES)
+ 
+-#define IS_SHA1(flags)			(flags & QCE_HASH_SHA1)
+ #define IS_SHA256(flags)		(flags & QCE_HASH_SHA256)
+-#define IS_SHA1_HMAC(flags)		(flags & QCE_HASH_SHA1_HMAC)
+ #define IS_SHA256_HMAC(flags)		(flags & QCE_HASH_SHA256_HMAC)
+ #define IS_CMAC(flags)			(flags & QCE_HASH_AES_CMAC)
+-#define IS_SHA(flags)			(IS_SHA1(flags) || IS_SHA256(flags))
+-#define IS_SHA_HMAC(flags)		\
+-		(IS_SHA1_HMAC(flags) || IS_SHA256_HMAC(flags))
++#define IS_SHA(flags)			IS_SHA256(flags)
++#define IS_SHA_HMAC(flags)		IS_SHA256_HMAC(flags)
+ 
+ #define IS_CBC(mode)			(mode & QCE_MODE_CBC)
+ #define IS_ECB(mode)			(mode & QCE_MODE_ECB)
+diff --git a/drivers/crypto/qce/regs-v5.h b/drivers/crypto/qce/regs-v5.h
+index d59ed279890621a8e2e6f4cdb20692dbf39f1461..431a7db1a4e72188c2ccca094bda18a03f30d3d2 100644
+--- a/drivers/crypto/qce/regs-v5.h
++++ b/drivers/crypto/qce/regs-v5.h
+@@ -203,7 +203,6 @@
+ 
+ #define AUTH_SIZE_SHIFT			9
+ #define AUTH_SIZE_MASK			GENMASK(13, 9)
+-#define AUTH_SIZE_SHA1			0
+ #define AUTH_SIZE_SHA256		1
+ #define AUTH_SIZE_ENUM_1_BYTES		0
+ #define AUTH_SIZE_ENUM_2_BYTES		1
+@@ -284,15 +283,12 @@
+ 
+ #define ENCR_KEY_SZ_SHIFT		3
+ #define ENCR_KEY_SZ_MASK		GENMASK(5, 3)
+-#define ENCR_KEY_SZ_DES			0
+-#define ENCR_KEY_SZ_3DES		1
+ #define ENCR_KEY_SZ_AES128		0
+ #define ENCR_KEY_SZ_AES256		2
+ 
+ #define ENCR_ALG_SHIFT			0
+ #define ENCR_ALG_MASK			GENMASK(2, 0)
+ #define ENCR_ALG_NONE			0
+-#define ENCR_ALG_DES			1
+ #define ENCR_ALG_AES			2
+ #define ENCR_ALG_KASUMI			4
+ #define ENCR_ALG_SNOW_3G		5
+diff --git a/drivers/crypto/qce/sha.c b/drivers/crypto/qce/sha.c
+index a3a1a205aaf8559a04809936e2a3b7d564c16c53..0a3f88aaf5169ea7b47a549bbc10ea87d3ae7a2b 100644
+--- a/drivers/crypto/qce/sha.c
++++ b/drivers/crypto/qce/sha.c
+@@ -25,10 +25,6 @@ struct qce_sha_saved_state {
+ 
+ static LIST_HEAD(ahash_algs);
+ 
+-static const u32 std_iv_sha1[SHA256_DIGEST_SIZE / sizeof(u32)] = {
+-	SHA1_H0, SHA1_H1, SHA1_H2, SHA1_H3, SHA1_H4, 0, 0, 0
+-};
+-
+ static const u32 std_iv_sha256[SHA256_DIGEST_SIZE / sizeof(u32)] = {
+ 	SHA256_H0, SHA256_H1, SHA256_H2, SHA256_H3,
+ 	SHA256_H4, SHA256_H5, SHA256_H6, SHA256_H7
+@@ -349,9 +345,7 @@ static int qce_ahash_hmac_setkey(struct crypto_ahash *tfm, const u8 *key,
+ 		return 0;
+ 	}
+ 
+-	if (digestsize == SHA1_DIGEST_SIZE)
+-		alg_name = "sha1-qce";
+-	else if (digestsize == SHA256_DIGEST_SIZE)
++	if (digestsize == SHA256_DIGEST_SIZE)
+ 		alg_name = "sha256-qce";
+ 	else
+ 		return -EINVAL;
+@@ -412,15 +406,6 @@ struct qce_ahash_def {
+ };
+ 
+ static const struct qce_ahash_def ahash_def[] = {
+-	{
+-		.flags		= QCE_HASH_SHA1,
+-		.name		= "sha1",
+-		.drv_name	= "sha1-qce",
+-		.digestsize	= SHA1_DIGEST_SIZE,
+-		.blocksize	= SHA1_BLOCK_SIZE,
+-		.statesize	= sizeof(struct qce_sha_saved_state),
+-		.std_iv		= std_iv_sha1,
+-	},
+ 	{
+ 		.flags		= QCE_HASH_SHA256,
+ 		.name		= "sha256",
+@@ -430,15 +415,6 @@ static const struct qce_ahash_def ahash_def[] = {
+ 		.statesize	= sizeof(struct qce_sha_saved_state),
+ 		.std_iv		= std_iv_sha256,
+ 	},
+-	{
+-		.flags		= QCE_HASH_SHA1_HMAC,
+-		.name		= "hmac(sha1)",
+-		.drv_name	= "hmac-sha1-qce",
+-		.digestsize	= SHA1_DIGEST_SIZE,
+-		.blocksize	= SHA1_BLOCK_SIZE,
+-		.statesize	= sizeof(struct qce_sha_saved_state),
+-		.std_iv		= std_iv_sha1,
+-	},
+ 	{
+ 		.flags		= QCE_HASH_SHA256_HMAC,
+ 		.name		= "hmac(sha256)",
+@@ -476,9 +452,7 @@ static int qce_ahash_register_one(const struct qce_ahash_def *def,
+ 	alg->halg.digestsize = def->digestsize;
+ 	alg->halg.statesize = def->statesize;
+ 
+-	if (IS_SHA1(def->flags))
+-		tmpl->hash_zero = sha1_zero_message_hash;
+-	else if (IS_SHA256(def->flags))
++	if (IS_SHA256(def->flags))
+ 		tmpl->hash_zero = sha256_zero_message_hash;
+ 
+ 	base = &alg->halg.base;
+diff --git a/drivers/crypto/qce/sha.h b/drivers/crypto/qce/sha.h
+index a22695361f1654cc94325ec5d886a158fa4bfb9c..cb822fc334dc187cf1c66e2a332822a596ebcef3 100644
+--- a/drivers/crypto/qce/sha.h
++++ b/drivers/crypto/qce/sha.h
+@@ -7,7 +7,6 @@
+ #define _SHA_H_
+ 
+ #include <crypto/scatterwalk.h>
+-#include <crypto/sha1.h>
+ #include <crypto/sha2.h>
+ 
+ #include "common.h"
+diff --git a/drivers/crypto/qce/skcipher.c b/drivers/crypto/qce/skcipher.c
+index 1fef315a7105c869e7fc6a60719087b721e78bb3..58a6c8e333784af73cd4340814046f04405c69e7 100644
+--- a/drivers/crypto/qce/skcipher.c
++++ b/drivers/crypto/qce/skcipher.c
+@@ -11,7 +11,6 @@
+ #include <linux/types.h>
+ #include <linux/errno.h>
+ #include <crypto/aes.h>
+-#include <crypto/internal/des.h>
+ #include <crypto/internal/skcipher.h>
+ 
+ #include "cipher.h"
+@@ -209,51 +208,6 @@ static int qce_skcipher_setkey(struct crypto_skcipher *ablk, const u8 *key,
+ 	return ret;
+ }
+ 
+-static int qce_des_setkey(struct crypto_skcipher *ablk, const u8 *key,
+-			  unsigned int keylen)
+-{
+-	struct qce_cipher_ctx *ctx = crypto_skcipher_ctx(ablk);
+-	int err;
+-
+-	err = verify_skcipher_des_key(ablk, key);
+-	if (err)
+-		return err;
+-
+-	ctx->enc_keylen = keylen;
+-	memcpy(ctx->enc_key, key, keylen);
+-	return 0;
+-}
+-
+-static int qce_des3_setkey(struct crypto_skcipher *ablk, const u8 *key,
+-			   unsigned int keylen)
+-{
+-	struct qce_cipher_ctx *ctx = crypto_skcipher_ctx(ablk);
+-	u32 _key[6];
+-	int err;
+-
+-	err = verify_skcipher_des3_key(ablk, key);
+-	if (err)
+-		return err;
+-
+-	/*
+-	 * The crypto engine does not support any two keys
+-	 * being the same for triple des algorithms. The
+-	 * verify_skcipher_des3_key does not check for all the
+-	 * below conditions. Return -ENOKEY in case any two keys
+-	 * are the same. Revisit to see if a fallback cipher
+-	 * is needed to handle this condition.
+-	 */
+-	memcpy(_key, key, DES3_EDE_KEY_SIZE);
+-	if (!((_key[0] ^ _key[2]) | (_key[1] ^ _key[3])) ||
+-	    !((_key[2] ^ _key[4]) | (_key[3] ^ _key[5])) ||
+-	    !((_key[0] ^ _key[4]) | (_key[1] ^ _key[5])))
+-		return -ENOKEY;
+-
+-	ctx->enc_keylen = keylen;
+-	memcpy(ctx->enc_key, key, keylen);
+-	return 0;
+-}
+-
+ static int qce_skcipher_crypt(struct skcipher_request *req, int encrypt)
+ {
+ 	struct crypto_skcipher *tfm = crypto_skcipher_reqtfm(req);
+@@ -359,15 +313,6 @@ struct qce_skcipher_def {
+ };
+ 
+ static const struct qce_skcipher_def skcipher_def[] = {
+-	{
+-		.flags		= QCE_ALG_AES | QCE_MODE_ECB,
+-		.name		= "ecb(aes)",
+-		.drv_name	= "ecb-aes-qce",
+-		.blocksize	= AES_BLOCK_SIZE,
+-		.ivsize		= 0,
+-		.min_keysize	= AES_MIN_KEY_SIZE,
+-		.max_keysize	= AES_MAX_KEY_SIZE,
+-	},
+ 	{
+ 		.flags		= QCE_ALG_AES | QCE_MODE_CBC,
+ 		.name		= "cbc(aes)",
+@@ -396,42 +341,6 @@ static const struct qce_skcipher_def skcipher_def[] = {
+ 		.min_keysize	= AES_MIN_KEY_SIZE * 2,
+ 		.max_keysize	= AES_MAX_KEY_SIZE * 2,
+ 	},
+-	{
+-		.flags		= QCE_ALG_DES | QCE_MODE_ECB,
+-		.name		= "ecb(des)",
+-		.drv_name	= "ecb-des-qce",
+-		.blocksize	= DES_BLOCK_SIZE,
+-		.ivsize		= 0,
+-		.min_keysize	= DES_KEY_SIZE,
+-		.max_keysize	= DES_KEY_SIZE,
+-	},
+-	{
+-		.flags		= QCE_ALG_DES | QCE_MODE_CBC,
+-		.name		= "cbc(des)",
+-		.drv_name	= "cbc-des-qce",
+-		.blocksize	= DES_BLOCK_SIZE,
+-		.ivsize		= DES_BLOCK_SIZE,
+-		.min_keysize	= DES_KEY_SIZE,
+-		.max_keysize	= DES_KEY_SIZE,
+-	},
+-	{
+-		.flags		= QCE_ALG_3DES | QCE_MODE_ECB,
+-		.name		= "ecb(des3_ede)",
+-		.drv_name	= "ecb-3des-qce",
+-		.blocksize	= DES3_EDE_BLOCK_SIZE,
+-		.ivsize		= 0,
+-		.min_keysize	= DES3_EDE_KEY_SIZE,
+-		.max_keysize	= DES3_EDE_KEY_SIZE,
+-	},
+-	{
+-		.flags		= QCE_ALG_3DES | QCE_MODE_CBC,
+-		.name		= "cbc(des3_ede)",
+-		.drv_name	= "cbc-3des-qce",
+-		.blocksize	= DES3_EDE_BLOCK_SIZE,
+-		.ivsize		= DES3_EDE_BLOCK_SIZE,
+-		.min_keysize	= DES3_EDE_KEY_SIZE,
+-		.max_keysize	= DES3_EDE_KEY_SIZE,
+-	},
+ };
+ 
+ static int qce_skcipher_register_one(const struct qce_skcipher_def *def,
+@@ -455,9 +364,7 @@ static int qce_skcipher_register_one(const struct qce_skcipher_def *def,
+ 	alg->ivsize			= def->ivsize;
+ 	alg->min_keysize		= def->min_keysize;
+ 	alg->max_keysize		= def->max_keysize;
+-	alg->setkey			= IS_3DES(def->flags) ? qce_des3_setkey :
+-					  IS_DES(def->flags) ? qce_des_setkey :
+-					  qce_skcipher_setkey;
++	alg->setkey			= qce_skcipher_setkey;
+ 	alg->encrypt			= qce_skcipher_encrypt;
+ 	alg->decrypt			= qce_skcipher_decrypt;
+ 
 
----
-Bartosz Golaszewski (6):
-      crypto: qce - Remove unsafe/deprecated algorithms
-      crypto: qce - Fix HMAC self-test failures for empty messages
-      crypto: qce - Reject empty messages for AES-XTS
-      crypto: qce - Use a fallback for AES-CTR with a partial final block
-      crypto: qce - Use a fallback for CCM with a partial final block
-      crypto: qce - Use fallback for CCM with a fragmented payload
-
-Kuldeep Singh (2):
-      crypto: qce - Fix CTR-AES for partial block requests
-      crypto: qce - Fix xts-aes-qce for weak keys
-
- drivers/crypto/qce/aead.c     |  88 ++++++++++----------------
- drivers/crypto/qce/cipher.h   |   1 +
- drivers/crypto/qce/common.c   |  40 +++---------
- drivers/crypto/qce/common.h   |  13 +---
- drivers/crypto/qce/regs-v5.h  |   4 --
- drivers/crypto/qce/sha.c      | 114 +++++++++++++++++++++++++---------
- drivers/crypto/qce/sha.h      |   2 +-
- drivers/crypto/qce/skcipher.c | 141 ++++++++++++------------------------------
- 8 files changed, 166 insertions(+), 237 deletions(-)
----
-base-commit: 7f5e2941e7dccc9dfaaa23d0548a40039772a284
-change-id: 20260610-qce-fix-self-tests-492ffd2ef955
-
-Best regards,
 -- 
-Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+2.47.3
 
