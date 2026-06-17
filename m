@@ -1,157 +1,147 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7115328CF5D
-	for <stable@vger.kernel.org>; Wed, 17 Jun 2026 20:34:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 439EA3783CC
+	for <stable@vger.kernel.org>; Wed, 17 Jun 2026 20:34:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781728444; cv=none; b=AtwCsaNKSxUCbP2DqVgGBk21EdWSfISckegn2Dp+3MplfqkJgTPL3dg4h7M86zTP7bq7RikA4nwoqfmdyOf8bK+9uSWudZnw+LZoMBL/mUN1fo4gnPOAu8t8Sz0VlzbJELFjZDqIepMG5XCUgKFACJ5N7m0jxxQ6VMQ1Jc+HjVA=
+	t=1781728445; cv=none; b=sOjOvxDNg9zFxZhHm8Ps+v6uax/2+WJ7RUbRP4ChvArgiAm+fFeXNPZIGMbRd557P3Q7gf4MfYAaWjS0XOX4Vx44FQfg2WNS15tMTNXWQ4JZnv5fmbIJyG+u2NG8YzPS5A9fexWcMxQI/qRTMvcIF1rP/9Ex6NJvYd1MRsFks3M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781728444; c=relaxed/simple;
-	bh=sMGr5ug+hsZO4kQSIrbuq06XSdG5xIeAW1C2O9ov4zc=;
+	s=arc-20240116; t=1781728445; c=relaxed/simple;
+	bh=r4w1T9Np7JpdQ2zWjfVK9klzMr7kV6BEXwYj/4kKGyo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=TV8LIlwAWjWiginFMAxsumPMjHa3+z9TwR5T3VKwIrHapo5fhCMwWPfzh8nQ1skrZoG5U0MpBCeJm9vOGkIddpboixgtd0A7+I7CaKX8CMmgiCHJCTFRhXFa07PftjegRJ+fa6W5/m/GLsD8nU6gdVcF8wIXQ7fdqOVFnsvDXHs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aAiQYr4B; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=OZ67h3g1eLY/jNCeqDQmtZC3y7yB05pe2eP9819gKf2cYgUJ2CldP80ebwWgsEXMTHmwBn4GZsTO4mi17l9diRPL/O0J8CCsCsPeNW5vDnUlSGIGa8lhtl1z8zmBYz65WpM6DSgZYfEDKjvdX3J3NTjsj6yq3i6+lQRaB9gOvLg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VmXMzOZR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aAiQYr4B"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C1D31F000E9;
-	Wed, 17 Jun 2026 20:34:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VmXMzOZR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A0061F00A3A;
+	Wed, 17 Jun 2026 20:34:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781728443;
-	bh=xvrfebBA1DS3FCUHk7mIpra8jRQT6duXlISJByAfmTE=;
+	s=k20260515; t=1781728444;
+	bh=diMGqWNVNua9yj+rYkl5aTwmcgqa3P4DHilQpBUOj0w=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=aAiQYr4BLwUCd1bABh3KfaRo0JIWxAe8FqGPVm8ldAP+8XyteLAp8UJIF+gNloPds
-	 1v9orefztcC54SyNt7e1IvBSVeihawSofmSHj3mHe9TDOpJIbJ4mga2I17q+73kL/v
-	 lHaWpzseUa8SNs/zU3GGLUPa/xyJnSTgxginJeH8ukqXhr1skwjmW12k9ksxmZnG4c
-	 kMIxmoG64dLQHALgP88wTDHvC48pZ9i7Wz6LnItE+bvY0+mH7rVrXvGa7x8Aq1M0aD
-	 47oCHeg6pe9oEPBlM9XoGwILK3B6iNwcSDn32xdI7ViJNbpyxlBdk5evvrE4PeZ//T
-	 D66UFk1TxnluA==
+	b=VmXMzOZR0VdLKfj1+l07y9HhbYaZKkfLK10zcVN3CQqjaYGXaHSh+/T7bmLZqFq96
+	 Ri0OnrsVSG83WKPzSBI8CK/+sFHRSjw/nhuKgSi6ESgy42Y+xyMvZvLx8INkyVz7N1
+	 w6FaGtRCNFSHaTO+wMttN5v2y7EdLm6AVp1jdbcptiuxEtuKjt4J0+ySJe7IMKGKty
+	 89kNs6VI09Rs86GuccfOPhRYOONi7XCiRYm/0aso1ArBjeV4Mr0SZODlGqlKhnUDWq
+	 yarPmaux8gnnMNj0Z4L2m1oU5rl1INHCYI6lc5RNSKaobX5biQrMmSp/pum5nraoXv
+	 h/Tad3V+IHwpA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
-	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+Cc: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
+	Srinivas Kandagatla <srini@kernel.org>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 1/4] slimbus: Convert to platform remove callback returning void
-Date: Wed, 17 Jun 2026 16:33:57 -0400
-Message-ID: <20260617203400.334600-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y 2/4] slimbus: qcom-ngd-ctrl: Fix up platform_driver registration
+Date: Wed, 17 Jun 2026 16:33:58 -0400
+Message-ID: <20260617203400.334600-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026061507-squishy-ankle-c2e7@gregkh>
+In-Reply-To: <20260617203400.334600-1-sashal@kernel.org>
 References: <2026061507-squishy-ankle-c2e7@gregkh>
+ <20260617203400.334600-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
+From: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
 
-[ Upstream commit 880b33b0580c8ac9d0202b6e592cb116c99d1b65 ]
+[ Upstream commit 8663e8334d7b6007f5d8a4e5dd270246f35107a6 ]
 
-The .remove() callback for a platform driver returns an int which makes
-many driver authors wrongly assume it's possible to do error handling by
-returning an error code. However the value returned is ignored (apart
-from emitting a warning) and this typically results in resource leaks.
+Device drivers should not invoke platform_driver_register()/unregister()
+in their probe and remove paths. They should further not rely on
+platform_driver_unregister() as their only means of "deleting" their
+child devices.
 
-To improve here there is a quest to make the remove callback return
-void. In the first step of this quest all drivers are converted to
-.remove_new(), which already returns void. Eventually after all drivers
-are converted, .remove_new() will be renamed to .remove().
+Introduce a helper to unregister the child device and move the
+platform_driver_register()/unregister() to module_init()/exit().
 
-Trivially convert the slimbus drivers from always returning zero in the
-remove callback to the void returning variant.
-
-Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
-Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Link: https://lore.kernel.org/r/20240430091657.35428-3-srinivas.kandagatla@linaro.org
+Fixes: 917809e2280b ("slimbus: ngd: Add qcom SLIMBus NGD driver")
+Cc: stable@vger.kernel.org
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Reviewed-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+Signed-off-by: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
+Signed-off-by: Srinivas Kandagatla <srini@kernel.org>
+Link: https://patch.msgid.link/20260530204421.116824-3-srini@kernel.org
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Stable-dep-of: 2a9d50e9ea40 ("slimbus: qcom-ngd-ctrl: Register callbacks after creating the ngd")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/slimbus/qcom-ctrl.c     |  5 ++---
- drivers/slimbus/qcom-ngd-ctrl.c | 11 ++++-------
- 2 files changed, 6 insertions(+), 10 deletions(-)
+ drivers/slimbus/qcom-ngd-ctrl.c | 36 ++++++++++++++++++++++++++++++---
+ 1 file changed, 33 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/slimbus/qcom-ctrl.c b/drivers/slimbus/qcom-ctrl.c
-index c0c4f895d76e20..31f46000ca030f 100644
---- a/drivers/slimbus/qcom-ctrl.c
-+++ b/drivers/slimbus/qcom-ctrl.c
-@@ -628,7 +628,7 @@ static int qcom_slim_probe(struct platform_device *pdev)
- 	return ret;
- }
- 
--static int qcom_slim_remove(struct platform_device *pdev)
-+static void qcom_slim_remove(struct platform_device *pdev)
- {
- 	struct qcom_slim_ctrl *ctrl = platform_get_drvdata(pdev);
- 
-@@ -637,7 +637,6 @@ static int qcom_slim_remove(struct platform_device *pdev)
- 	clk_disable_unprepare(ctrl->rclk);
- 	clk_disable_unprepare(ctrl->hclk);
- 	destroy_workqueue(ctrl->rxwq);
--	return 0;
- }
- 
- /*
-@@ -724,7 +723,7 @@ static const struct of_device_id qcom_slim_dt_match[] = {
- 
- static struct platform_driver qcom_slim_driver = {
- 	.probe = qcom_slim_probe,
--	.remove = qcom_slim_remove,
-+	.remove_new = qcom_slim_remove,
- 	.driver	= {
- 		.name = "qcom_slim_ctrl",
- 		.of_match_table = qcom_slim_dt_match,
 diff --git a/drivers/slimbus/qcom-ngd-ctrl.c b/drivers/slimbus/qcom-ngd-ctrl.c
-index 3fa245a472b2ee..55739ed04fb84b 100644
+index 55739ed04fb84b..931bec1abc79ec 100644
 --- a/drivers/slimbus/qcom-ngd-ctrl.c
 +++ b/drivers/slimbus/qcom-ngd-ctrl.c
-@@ -1607,14 +1607,12 @@ static int qcom_slim_ngd_ctrl_probe(struct platform_device *pdev)
- 	return ret;
+@@ -1491,6 +1491,13 @@ static int of_qcom_slim_ngd_register(struct device *parent,
+ 	return -ENODEV;
  }
  
--static int qcom_slim_ngd_ctrl_remove(struct platform_device *pdev)
-+static void qcom_slim_ngd_ctrl_remove(struct platform_device *pdev)
++static void qcom_slim_ngd_unregister(struct qcom_slim_ngd_ctrl *ctrl)
++{
++	struct qcom_slim_ngd *ngd = ctrl->ngd;
++
++	platform_device_del(ngd->pdev);
++}
++
+ static int qcom_slim_ngd_probe(struct platform_device *pdev)
  {
- 	platform_driver_unregister(&qcom_slim_ngd_driver);
--
--	return 0;
- }
+ 	struct device *dev = &pdev->dev;
+@@ -1595,7 +1602,6 @@ static int qcom_slim_ngd_ctrl_probe(struct platform_device *pdev)
+ 		goto err_pdr_lookup;
+ 	}
  
--static int qcom_slim_ngd_remove(struct platform_device *pdev)
-+static void qcom_slim_ngd_remove(struct platform_device *pdev)
+-	platform_driver_register(&qcom_slim_ngd_driver);
+ 	return of_qcom_slim_ngd_register(dev, ctrl);
+ 
+ err_pdr_alloc:
+@@ -1609,7 +1615,9 @@ static int qcom_slim_ngd_ctrl_probe(struct platform_device *pdev)
+ 
+ static void qcom_slim_ngd_ctrl_remove(struct platform_device *pdev)
  {
- 	struct qcom_slim_ngd_ctrl *ctrl = platform_get_drvdata(pdev);
- 
-@@ -1629,7 +1627,6 @@ static int qcom_slim_ngd_remove(struct platform_device *pdev)
- 
- 	kfree(ctrl->ngd);
- 	ctrl->ngd = NULL;
--	return 0;
+-	platform_driver_unregister(&qcom_slim_ngd_driver);
++	struct qcom_slim_ngd_ctrl *ctrl = platform_get_drvdata(pdev);
++
++	qcom_slim_ngd_unregister(ctrl);
  }
  
- static int __maybe_unused qcom_slim_ngd_runtime_idle(struct device *dev)
-@@ -1672,7 +1669,7 @@ static const struct dev_pm_ops qcom_slim_ngd_dev_pm_ops = {
+ static void qcom_slim_ngd_remove(struct platform_device *pdev)
+@@ -1685,6 +1693,28 @@ static struct platform_driver qcom_slim_ngd_driver = {
+ 	},
+ };
  
- static struct platform_driver qcom_slim_ngd_ctrl_driver = {
- 	.probe = qcom_slim_ngd_ctrl_probe,
--	.remove = qcom_slim_ngd_ctrl_remove,
-+	.remove_new = qcom_slim_ngd_ctrl_remove,
- 	.driver	= {
- 		.name = "qcom,slim-ngd-ctrl",
- 		.of_match_table = qcom_slim_ngd_dt_match,
-@@ -1681,7 +1678,7 @@ static struct platform_driver qcom_slim_ngd_ctrl_driver = {
- 
- static struct platform_driver qcom_slim_ngd_driver = {
- 	.probe = qcom_slim_ngd_probe,
--	.remove = qcom_slim_ngd_remove,
-+	.remove_new = qcom_slim_ngd_remove,
- 	.driver	= {
- 		.name = QCOM_SLIM_NGD_DRV_NAME,
- 		.pm = &qcom_slim_ngd_dev_pm_ops,
+-module_platform_driver(qcom_slim_ngd_ctrl_driver);
++static int qcom_slim_ngd_init(void)
++{
++	int ret;
++
++	ret = platform_driver_register(&qcom_slim_ngd_driver);
++	if (ret)
++		return ret;
++
++	ret = platform_driver_register(&qcom_slim_ngd_ctrl_driver);
++	if (ret)
++		platform_driver_unregister(&qcom_slim_ngd_driver);
++
++	return ret;
++}
++
++static void qcom_slim_ngd_exit(void)
++{
++	platform_driver_unregister(&qcom_slim_ngd_ctrl_driver);
++	platform_driver_unregister(&qcom_slim_ngd_driver);
++}
++
++module_init(qcom_slim_ngd_init);
++module_exit(qcom_slim_ngd_exit);
+ MODULE_LICENSE("GPL v2");
+ MODULE_DESCRIPTION("Qualcomm SLIMBus NGD controller");
 -- 
 2.53.0
 
