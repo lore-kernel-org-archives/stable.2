@@ -1,65 +1,79 @@
-Received: from smtpbg151.qq.com (smtpbg151.qq.com [18.169.211.239])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F10A3542F6;
-	Wed, 17 Jun 2026 06:39:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.169.211.239
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 958433B776C
+	for <stable@vger.kernel.org>; Wed, 17 Jun 2026 06:45:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781678402; cv=none; b=XRf3xNozXzmcXp5P3QsWzL5zjTK7XM7IjlO9YVqkXC/KtLWLXM2btOTOsAzfyUG3uhUc8CGrAegyCWaEjjOoqxBmZnPQzNC5di2zywfET52C79gJGXa3X5kVO3Dg20dfjPj8XVUxpeine8muWluCkI23NXp27FoUvRR9Yaz3lD8=
+	t=1781678757; cv=none; b=rMCxDmJTP6YVTKSCNZCHiQ7p8EaraO+zbu17HfAehk0CaKSLaKFnGQKTYu2iBCjqmvuRVDh1B2NdZWtmY63gIvJBlLEbZ4D2VPyLOXh0ow3pz55zHztkdt8QmeZAZ5UrWiOkwOrQ9+1peRQqPIdaQdx/I3YKLV6tirgfW3/TupQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781678402; c=relaxed/simple;
-	bh=8/9ViRRaBKEF2YISDo1QAVs+IVqgYW8NHcoRlBWau9I=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=fxCxBhw8LNLFJ5XmpGc4qyNWAt9rxyZB+DhMlP6Bep/yKvS5aQBRwPAsDMvs1RBqS6vmhzj7Xz3DPygekbErmP2l41uCzGzwdLvwCSd4759tvFPVQRZSmTHN501sXZczzUuKeFsHH57qHI0Y9c7rhO4H5Yx74N2GaytHJb1mtA0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=Owpdw5Nz; arc=none smtp.client-ip=18.169.211.239
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	s=arc-20240116; t=1781678757; c=relaxed/simple;
+	bh=4Z8MER+upsXsPgDv1PcDe7VVV+NEP+nEb0Z9kgnbjwU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=VEuT7QL74o5HWDObJqCbJ8sqDqWPbB0eKOHBVyyatVwSjHk/S0yAajBbP0Z1tTnIktM4iKcwqlZhNcpRjNmKk+rPBujy9c+KwEd614+XrslS5jTm5yoDUoVWH9EgMirkTBmX+52rUJPLdSdTmyGkGbRDNooPf+kebCt2EmcjSbU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=kaBAo7kI; arc=none smtp.client-ip=209.85.214.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="Owpdw5Nz"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1781678319;
-	bh=8/9ViRRaBKEF2YISDo1QAVs+IVqgYW8NHcoRlBWau9I=;
-	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=Owpdw5Nz+sCIUTs8Q69YvPr5HtCCCM21nUtZgAoM+oWR/ewQXIJbjgGRjUxV7VE7o
-	 in9IHy+Ne1UBmcJy9f5zY4qfCOhl5LP1RjLi0uO88NRzi38ZVVKXkH68jisOE7Pl79
-	 ZKJkxmBlio016VQ1hBoVic67qwBbH+V626IILVWE=
-X-QQ-mid: zesmtpsz8t1781678312t3a5506a6
-X-QQ-Originating-IP: L0uZcgUqq6qX+JAZdIvCU18Ar7NHQk/DXjZrshiJ6EU=
-Received: from localhost.localdomain ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Wed, 17 Jun 2026 14:38:29 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 14321659712413733696
-EX-QQ-RecipientCnt: 21
-From: Wentao Guan <guanwentao@uniontech.com>
-To: gregkh@linuxfoundation.org
-Cc: achill@achill.org,
-	akpm@linux-foundation.org,
-	broonie@kernel.org,
-	conor@kernel.org,
-	f.fainelli@gmail.com,
-	hargar@microsoft.com,
-	jonathanh@nvidia.com,
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="kaBAo7kI"
+Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2c6b67d5fa1so5336475ad.2
+        for <stable@vger.kernel.org>; Tue, 16 Jun 2026 23:45:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1781678756; x=1782283556; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=yx01qzHYL7zapV7JT7OmgAtxcHhwEqISMkYtU1aw3M4=;
+        b=kaBAo7kIU1eHL2en5N6HyLiNOzbXs7kHrkCSAvtFmCtEdqJWoyA/nDul4oxvxzwPaY
+         XNHozPt5Os4tdImsMsLZTTMbq/mxZAVKrQsDVcMi3LG8PosBIOrrMgZXi3syFrlAgyrh
+         5qm5/qe5vxDBE2fmFL/SbSLipXpRBpoZTUZcw=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781678756; x=1782283556;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=yx01qzHYL7zapV7JT7OmgAtxcHhwEqISMkYtU1aw3M4=;
+        b=lio35yicOR4jbJ6bMbPFX7EcG0yCNTdFcqEGuy+Unlb//DMb+LzqDy3VgfKeRJK0pa
+         5KkmA2GuvYUtLcwjhZXeG8tKtko3mNyDZroflvqCA5RPNMQjSXs4jRw91EXw4HGOMuuV
+         wkpBg1oINRxQwKZOmeKMdqlo1jYDTYey7RSuOmoGNKQiRj3AMNnPBUHymVxRzxj+d60i
+         1EV3ugFc7qv32FcazHhPbDOgsoVie4d/dKfTlvX9EpSrlBk2q2AIs4AlVLfzYyIoTCO2
+         eW9WiDcPAURqW9cB3PbaFLN5wcwhsKY6lJMp62ZQng/QpHxAJptZl+DyD2oOCVBgFoFe
+         d13g==
+X-Forwarded-Encrypted: i=1; AFNElJ9SNQlsfT75bayAfO6xTtVxEjDn1+a6f/uo9uJfnJVGj342hYio+sIT59DpJipyoAztbK45gmo=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyG5bQnMHvjolfkIF2o77qziAwePz68jGzEkVqejrmQMhLvavBa
+	GKil1FQhfGjYz8VjGCCHNBfaf6JXJgaUbRcXB97UoA91u4oFTAbNGbmFUXPQvbAgtw==
+X-Gm-Gg: AfdE7cl85Ug/wcYwyi/s0/tz+kuJ6w5cPx6ZKyb/M/fAtH1L/2EEdnpSRL6T6mhmdec
+	UVtIC2l3lnXdNHT0yHztCn/McwuP16jJMT62RAlyg8OzXZAYIBOlbjoRl3B1NO/T5UrWeoc6OYl
+	aJmX3iglGh8SogLstLxmYrjK431i8EVYPAPJGAj+gM1ALN6ZpPfYNqWRp8kQsTZA9qCvGee6GkE
+	3gTSt0JPhIIvclCJqzscINRsT8Xp8V0YvvjXQk1LuY1CShSpw9qOUPuwFHcqgnT3I+MalQLO8mZ
+	kehgTYxQ+WliygbdpNHMGJbjshnMhy0U1gse8Q9RXQEjGSshPUPh5V8ebNKq4OQDtDTKxRbyKea
+	dGTZmfr/U43XfAPQdMs7Hhg1jpIzvW7vjrSNJtGwnPkrEx0Kvycfzif19GN4fEgTD6HYEcmgj/T
+	czeOxzXoHZOSdq+V597M+AVjyZaXuaLmfyg/TmmHuBYbxIRmc5OWyMlFXyqMc2UmI9wLvGP6D/7
+	+k=
+X-Received: by 2002:a17:903:32d1:b0:2bc:f1ef:2e64 with SMTP id d9443c01a7336-2c6bc0c8905mr27041175ad.12.1781678756057;
+        Tue, 16 Jun 2026 23:45:56 -0700 (PDT)
+Received: from tigerii.tok.corp.google.com ([2a00:79e0:2031:6:20ef:efdb:f2c9:836f])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c6af931f19sm24365675ad.74.2026.06.16.23.45.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 16 Jun 2026 23:45:55 -0700 (PDT)
+From: Sergey Senozhatsky <senozhatsky@chromium.org>
+To: Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+	Mark-yw Chen <mark-yw.chen@mediatek.com>,
+	Sean Wang <sean.wang@mediatek.com>
+Cc: Tomasz Figa <tfiga@chromium.org>,
+	linux-bluetooth@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux@roeck-us.net,
-	lkft-triage@lists.linaro.org,
-	patches@kernelci.org,
-	patches@lists.linux.dev,
-	pavel@nabladev.com,
-	rwarsow@gmx.de,
-	shuah@kernel.org,
-	sr@sladewatkins.com,
-	stable@vger.kernel.org,
-	sudipm.mukherjee@gmail.com,
-	torvalds@linux-foundation.org,
-	Wentao Guan <guanwentao@uniontech.com>
-Subject: Re: [PATCH 6.18 000/325] 6.18.36-rc1 review
-Date: Wed, 17 Jun 2026 14:38:21 +0800
-Message-Id: <20260617063820.880745-1-guanwentao@uniontech.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20260616145057.827196531@linuxfoundation.org>
-References: <20260616145057.827196531@linuxfoundation.org>
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	Sergey Senozhatsky <senozhatsky@chromium.org>,
+	stable@vger.kernel.org
+Subject: [PATCH v3 1/2] Bluetooth: btmtksdio: test for BUS IO errors in btmtksdio_txrx_work()
+Date: Wed, 17 Jun 2026 15:45:31 +0900
+Message-ID: <20260617064543.574704-2-senozhatsky@chromium.org>
+X-Mailer: git-send-email 2.54.0.1136.gdb2ca164c4-goog
+In-Reply-To: <20260617064543.574704-1-senozhatsky@chromium.org>
+References: <20260617064543.574704-1-senozhatsky@chromium.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -67,44 +81,35 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: NU60Kbs86PFjh5YoCQ4I3+fsJ1FXvYlJdJ5yI4wHGq/EyI0Bdqy7wT1w
-	uj8tAB/fzOTJlEy89kn+3IzI6OZl2xX3bRIPUAkHqD+9/XqaL4G50Wfc9WoIP57/56MK90P
-	xY9gx/8bWkfpx8xewYrSG8DHG3lHBv0vy+I4SrTxEd297DV+nhpzBZotkrGyB/ybE/8Lb02
-	oelnHGLcEqUjNLvjAKKX6+QubKM4KUeqKbVi7gxA/rQOHHAooPTH+gNT96bKswb3wa+i/xu
-	IuFja9F0qz0d+hbI+L3P7dmgRe05UrX2oTVa5E4Z+1+KN6aKMPahtaM02AUPovIghtYxllx
-	qHqVRtr8BlV4luezXSfnICH30PEoqTZA6X6fhOf1l4HubOiEyqDXhMNX7SobUwDKuE/rf8v
-	dvlArz1W5vq+fmJ9CDycmW3ZiHJJym1rnkydeQ22lzRj5CMls2V7BYZDr6VBItMd2ygtKhZ
-	/xgAaXgnyQWboyeygZ239ue2cOM/pR8J5/8VIzIUv+V2hneSzNbk8SbL56j8oMoNczTFYFO
-	R+T0AT097fcv0//hW23ZxRPD+zCAE5hwlSzDQvrE++p9pkKyT7tTUs952L+vqcItfCe6CzW
-	5Mm7Omj44NAPU5TVj6CQV0H1w3Fit9VIDmmFTaAFCh85skCurYhCzt19ghA80GC7fREJgZ7
-	xyBShZK85DSXN23e7hdnjkm/twXZr+wZOBVX9LSGfpXshOkIhCGCpFoTv61qn2mxSuD/lID
-	XGxcpTTmG3OydU8JXo7zJon+rptZ5ndnXpEY2OkUN2dEaY+rLr5xUNJr0nBd/A5rmsZS5jz
-	N29cA8AuPIVLrE4RKHDPmnO/+F8x4n/UBb72zdBE7vBNa7I05LR40AjZ57cOWD7Sd2LjVn8
-	Hl21lbjxHnONLU+77/Hfe4kYMC3iz9q9TgaIIU7YdD3XPZ5XChWAHn6cdiCx3hKYRsKhtwJ
-	g01oxEY9Hg1Fz9ry6sNDW6hal7e38L3NVCOpctPoppx52DsrPmvGE2ep8MqU+LV6ORWF9Oi
-	XBRinJvkjX2pY/fZTh9MwAbLbaPdnbem3bxM5lTBZ3l4b7pfbBZ8xr/CEhVBrwQJNvPYw+Q
-	auXKjcOd9vLSs9IAR0Ir9U=
-X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
-X-QQ-RECHKSPAM: 0
 
-Build tested in our x86,arm64,loongarch,riscv config successfully without error.
+btmtksdio_txrx_work() loop termination condition checks for
+int_status being non-zero, however, this evaluates to true
+even when sdio_readl() encounters BUS I/O error (in which
+case int_status is 0xffffffff).  Break out of the loop if
+sdio_readl() errors out.
 
-Tested-by: Wentao Guan <guanwentao@uniontech.com>
+Fixes: 26270bc189ea4 ("Bluetooth: btmtksdio: move interrupt service to work")
+Cc: stable@vger.kernel.org
+Signed-off-by: Sergey Senozhatsky <senozhatsky@chromium.org>
+---
+ drivers/bluetooth/btmtksdio.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-BRs
-Wentao Guan
+diff --git a/drivers/bluetooth/btmtksdio.c b/drivers/bluetooth/btmtksdio.c
+index c6f80c419e90..d8c8d2857527 100644
+--- a/drivers/bluetooth/btmtksdio.c
++++ b/drivers/bluetooth/btmtksdio.c
+@@ -574,7 +574,9 @@ static void btmtksdio_txrx_work(struct work_struct *work)
+ 	txrx_timeout = jiffies + 5 * HZ;
+ 
+ 	do {
+-		int_status = sdio_readl(bdev->func, MTK_REG_CHISR, NULL);
++		int_status = sdio_readl(bdev->func, MTK_REG_CHISR, &err);
++		if (err < 0 || int_status == 0xffffffff)
++			break;
+ 
+ 		/* Ack an interrupt as soon as possible before any operation on
+ 		 * hardware.
+-- 
+2.54.0.1136.gdb2ca164c4-goog
 
-defconfigs:
-https://gist.github.com/opsiff/a840ae9e3d6857f5b7bacb9cdc49f8e9
-
-Log:
-Linux version 6.18.36-rc1-g1b6356bc9016 (guanwentao@uos-PC) (aarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP PREEMPT_DYNAMIC
-Linux version 6.18.36-rc1-g1b6356bc9016 (guanwentao@uos-PC) (aarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #2 SMP PREEMPT_DYNAMIC Wed Jun 17 10:22:33 CST 2026
-Linux version 6.18.36-rc1-g1b6356bc9016 (guanwentao@uos-PC) (loongarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP PREEMPT_DYNAMIC
-Linux version 6.18.36-rc1-g1b6356bc9016 (guanwentao@uos-PC) (loongarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #3 SMP PREEMPT_DYNAMIC Wed Jun 17 10:45:35 CST 2026
-Linux version 6.18.36-rc1+ (guanwentao@uos-PC) (riscv64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP PREEMPT
-Linux version 6.18.36-rc1+ (guanwentao@uos-PC) (riscv64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #4 SMP PREEMPT Wed Jun 17 11:02:54 CST 2026
-Linux version 6.18.36-rc1-g1b6356bc9016 (guanwentao@uos-PC) (gcc (Deepin 12.3.0-17deepin15) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP PREEMPT_DYNAMIC
-Linux version 6.18.36-rc1-g1b6356bc9016 (guanwentao@uos-PC) (gcc (Deepin 12.3.0-17deepin15) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #1 SMP PREEMPT_DYNAMIC Wed Jun 17 09:57:57 CST 2026
