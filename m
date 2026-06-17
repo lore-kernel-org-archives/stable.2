@@ -1,209 +1,145 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B06773B3C15
-	for <stable@vger.kernel.org>; Wed, 17 Jun 2026 11:07:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2B6B37DADB
+	for <stable@vger.kernel.org>; Wed, 17 Jun 2026 11:09:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781694450; cv=none; b=QmaFqyT/+mO3mhPTaIsjvak5CSVHpn9I77vTDRD2VY+hCW03RQSSqPZI5JR/BhaBW8W3yw2XkmEbXVSHEDuRy58KK+wKvlGoD5qo7UJTxA4wOGckYwj3ZmkI/ZzJBpx6leHpHVE+skPEtBx6dX4z5dGNmRDLiOQVyuaaFnUhDAk=
+	t=1781694570; cv=none; b=pUQm5tH5nCnqWw74zBf0TcQb/a7FP0XG1jsk7sc2Q8GXt5VAge1R2b8MvelWMv7pGrTlvUeRbO1tvd3lQ7JlM75JGHWvXejsQsAACgk5LFjohyyhtmCVuTIiGl1nC7gFhxO5RipHR3YEyJIgFRKEynAQ9ronoUU2IoFdYPQULXA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781694450; c=relaxed/simple;
-	bh=0w1s3YLkG+jtkr8qUvyuwkEbPb4RqLlVdDbqa6f/WtY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=lugpKgAKOzpuZ0ypFnMtNdhc40VZNqoOygewN5vC+UXEM+S5PcPCeIy7wKC1HZP0nvkCo2CH3RZRZMGqShtjJNdNFhMEhzZC2KqpAwoquJBCe4sxZOqSMTrY1Ttnz2mT7lnk/fyGpUnuZiD8th3d1jxhpttN1VpiiSFXbmEO4To=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Fa9eQQyv; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=SdIr35rL; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1781694570; c=relaxed/simple;
+	bh=WY9VsZQecKDe0TlWzi3fiPomPwta6Mz8yoHLAjob3vQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=pOlExaD0sNn7cXpoGRoMQnvWHprJ7A9171iZgIs4xn7S0YNUnkj2EP6YfC6QM77dhX0GatKV6YDvWmrl5Ss8e0CPRQV23xDdL3Uem36kNQI6C8p0PSp5R0BGkz6SavRD4JsAf2sM7vpdpS/VqVm2tcbIU6GEFh5c/+iKExOIu+M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A7+RShmh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Fa9eQQyv";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="SdIr35rL"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65H8VZiY2190769
-	for <stable@vger.kernel.org>; Wed, 17 Jun 2026 11:07:27 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	6y9ccpxsi5yOvGDb95mPzv4201ZnlOndGkxveCSQBy0=; b=Fa9eQQyvT6/fYXwB
-	Ar+yBsfOHuqXmBX4aG8koDP+IythKcL/6cfa7fu3WMrzIInJ9RcM4lKHqD0dLDLI
-	+JL6ZvNuMNUyQhciqAr/rSoGRYY7JebGbS6VKOmEVPk5WnW4FFDL5cjCWd90mmm/
-	ZkXBfi1ugupurheaOBQQW1THX2em/BBmtq9koxZHCHJdgx0dZRtUOtcPRsBv8FwF
-	edu9Ceccm3HmBnTXjuYd4fCwuKhN15nypCOQ/0hRS1O/UdTGm1N1Hm35E0jUhWX7
-	wuEzbEZKdW2XqTRqXOwjeibedBVNvfOcZCK9+zlRwuxSrr0e5KhuYy5NEkvUIxhI
-	r5AEVg==
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eueesjtt2-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Wed, 17 Jun 2026 11:07:27 +0000 (GMT)
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-36d99629fd6so8880264a91.1
-        for <stable@vger.kernel.org>; Wed, 17 Jun 2026 04:07:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1781694447; x=1782299247; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=6y9ccpxsi5yOvGDb95mPzv4201ZnlOndGkxveCSQBy0=;
-        b=SdIr35rLxMt9RbQLIcY9PpvJ2TYbotzQT5yVXJEBBWJ6ItwG9yHV4nyq8xUVeGbNyY
-         YBmJzmKfYYbNRHeMEIk+mnoem5QdJHiK3yAM02qfXxKi7AMQMk7uwvBh3m0rP51EPnz3
-         M+p87L1TPJShs5MrMzoLu2cfYjtVs9ub45SP2LCKwTa+QkNVqU2OFE3dwAf92ZH2FCys
-         UzWwvaPxFmc4Nez7SpBnYh+NFoumrIWspA6bzFPP47WdMdPHT+XunkDCYoQg1OGH8jk+
-         fttPEmSRnrt2rFoyb/9fMBpKkLrXfGt/gDeJjtwfEYWfGJSWOCy95xgorGgiz9URLlaq
-         LplA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781694447; x=1782299247;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=6y9ccpxsi5yOvGDb95mPzv4201ZnlOndGkxveCSQBy0=;
-        b=WGAs7Ra8G4A1KqRQlwkRmVNYHUieJUO5KiD357cJbW9B6oNDD4HzRa9Ewf6dTTbisp
-         5/RLcYg4jIWEtBrZyGVAlxgJkW4z2Zclbxm8vJcVUi4+IT469omx69+BhoGMSmTAwjKP
-         fphzQvAG2kSoxunoKuTxBjIzYolXIL0+8nqEGYbEB7ZGs7m9l0Uwq9ye9MzSr8jRgdbd
-         M4XJvp22dElyU9PmXIThE8RPmE0WjWDBIYeY6dl64eCj5YXmhxdV9ypU5Yv3JzGM+Iqh
-         DziXlEIkS4oeqaDZET3SB84mMmcV0ziCZ6tK4IcXSKyzUYQaG4J2zKdrRzkrmAKllb0A
-         DCMw==
-X-Forwarded-Encrypted: i=1; AFNElJ/2rwjdC2Sfwjp0KvwogVlibYcBxAX1UeOVfLPJMqeflbAg8iaatdl0rtntggrK9LgNQaqPcEI=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxtNU8o7WGG5aN9ZOUstCwDJEAUO9xByI6TMB1nJTePfAD7Y7J+
-	01BlTFlHfRZAX0DL0YkcNZIyk/iEPxU3Xu5Q3o8XxPUW6kZYI7u2IWs4ny2pppFfrnUWu4lNwJe
-	VR9ELa30yfU+5rqoyMkMI5ItBn2LC+r5+rw7MlzeVtHfsjXw1G8G0wIrLQR1tkPSlfVY=
-X-Gm-Gg: AfdE7ck9PAh9mQDCRK886kb9k9XTUg6bwmz1Hz0d0ku++HBLeiqZ9Cc/zZn/2RMHJS8
-	f5pgeoCh9Gh0VGtA7wBGFBohPmrqV9fXcUg6ffpHBzpriub8LEEVLEXWbzPjmKP8L1sYL18hcqU
-	OJh8G76c3seBtV3JbEATEcyyy1PVcF5OhAu9nV0givDzqkUcT+14L0S8hOl2mwjwcG9Aoof4vSc
-	XPBGTV/5QViaGOLpvqrWB2VaZD+IYfpwEv3xLiJnWVgAy1tzlqf0D+PZvfFrdL5+5gn1MOYVEVd
-	PBrWRuGBMDCP/tRn2W6jfWEtnIXAxeCIJQkS9UhLd6MmLKVjGTwoMw4Hxa+zMM5qfynFnndB+Hn
-	shulvh+ObzeW4JpB18nA9rAEgGxlt1hf5Ysw7UoyASyR4LxfBYbKwnWjVkBFXvL0wyZq7IZ+NAM
-	mKL2CY3A==
-X-Received: by 2002:a17:90b:5807:b0:36d:ae6a:22f4 with SMTP id 98e67ed59e1d1-37c9e9c8c7emr2943103a91.15.1781694446548;
-        Wed, 17 Jun 2026 04:07:26 -0700 (PDT)
-X-Received: by 2002:a17:90b:5807:b0:36d:ae6a:22f4 with SMTP id 98e67ed59e1d1-37c9e9c8c7emr2943065a91.15.1781694445993;
-        Wed, 17 Jun 2026 04:07:25 -0700 (PDT)
-Received: from CHUNKAID2.ap.qualcomm.com (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-37c5228eb5bsm5577639a91.12.2026.06.17.04.07.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 17 Jun 2026 04:07:25 -0700 (PDT)
-From: Chunkai Deng <chunkai.deng@oss.qualcomm.com>
-Date: Wed, 17 Jun 2026 19:07:14 +0800
-Subject: [PATCH v2 2/2] rpmsg: glink: smem: Add WARN_ON_ONCE for FIFO index
- invariants
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A7+RShmh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6F551F000E9;
+	Wed, 17 Jun 2026 11:09:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781694569;
+	bh=uhSrWqn0IM9g7LwbWzgWfCpDeanxPIH9UlxzhP1mWKA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=A7+RShmhLJ7ENpuqwWUHUmQ52PtNjbqA4LgsUkx4bGIsiEkjf22min2rodWkg4kHb
+	 CpoKhLUsBl4ozOuG09JJLkMTsrYmHAJkLdFwA4+aqGjHq7CP3lWBn9RJPJbcs57PpD
+	 48B7GKQnVC1/rpfwlOXiGCqgwlf63M52lCvgOEEFOvFcuphb+fu6ne6DMCw40wFNQe
+	 xuLMnZ3oat3mVDbgZtAgtIOwq2ZT6WYQEZprUUiKR3g9mCyIbncFjFQhoW5Ud93/v1
+	 8SZ284+wiX3obTyqHDwn45SvCqPfyX77hFEir75Zc83RAO2s04f6nFVkZrRSyHlkkL
+	 2/nOskthOLbKg==
+Message-ID: <8fc34141-b8a7-43fd-8c84-f843bd34fb9f@kernel.org>
+Date: Wed, 17 Jun 2026 13:09:26 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260617-rpmsg-improvements-v2-2-477d4eb569dc@oss.qualcomm.com>
-References: <20260617-rpmsg-improvements-v2-0-477d4eb569dc@oss.qualcomm.com>
-In-Reply-To: <20260617-rpmsg-improvements-v2-0-477d4eb569dc@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Mathieu Poirier <mathieu.poirier@linaro.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
-        linux-kernel@vger.kernel.org, chris.lew@oss.qualcomm.com,
-        tony.truong@oss.qualcomm.com,
-        Chunkai Deng <chunkai.deng@oss.qualcomm.com>, stable@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1781694436; l=2286;
- i=chunkai.deng@oss.qualcomm.com; s=20260512; h=from:subject:message-id;
- bh=0w1s3YLkG+jtkr8qUvyuwkEbPb4RqLlVdDbqa6f/WtY=;
- b=WB/PBn5QAVqwzjusrIFk4JTnZj1Sveo89mv10F/gfaxNm4YfnActQH8YKmaaD9fOueq+gIZnq
- OyweneaLAq7DDrQDG/d0MuzitO8Momdu9vFuncqVhyfApANi7TTYMeG
-X-Developer-Key: i=chunkai.deng@oss.qualcomm.com; a=ed25519;
- pk=NfifEElkZxgJ0ghUBxNu1RTaEqtoCGYDb0k5UzIRXOY=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE3MDEwNCBTYWx0ZWRfX05v5YLnjNroF
- VTvCOkkgFEX3jOuiQYC6aViva+DhPyQo8Dn4oZ3O16w/aUNoSh0Uw92PRV8VJXvOaMCoZRdSYQN
- K8bsbkAAI4DSLmgUj9aipDRg4KRIcRF58SRQiriwZ8oraPb/9vSEvZFxLorSmqttBLKVEf54wUL
- 76AxB7Oq8XL9a901k0bbA1uo39wHJtCq66kqoQ+IoqnHCXnbO0udqTcmNtWkG12HPo2A3PABrt6
- Xwu4xlkIh023UnKax0Cyrmo3OSFMLR/c+midtU21JPNZvpnD2OsBZQs7vImyjOA+FBkpeCLn7sq
- uKX7HuN3wOamoZ/n+ekn/D9m4R7wT14oyeCOYx58F/VKNP7Y9WDG2xM4nYgtJHs3RkIvBNVZuEN
- jHxQb8mJYNW/gd3Do9/s7P2fMRv9MvcGM9uJn7Glz4sbscoQlfm9XxBJPL5xpd3p8C3EfGYR+il
- x64qsXaqxy/nM5IEU3Q==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE3MDEwNCBTYWx0ZWRfX3j4cQNNg6LUd
- cnt8fKKpjEevZBNBT1NrmKzO1EsblPITrQY64vU5v2cyQHoMrgFmKtGw70+l1+Trt9YZlhX2L+3
- xoA9skFwWY+FPdu7SAokmee4b0KLKwU=
-X-Proofpoint-ORIG-GUID: hhyxGdss1-kXAgfSBy_AamxGHy7Nox8U
-X-Proofpoint-GUID: hhyxGdss1-kXAgfSBy_AamxGHy7Nox8U
-X-Authority-Analysis: v=2.4 cv=ePojSnp1 c=1 sm=1 tr=0 ts=6a327fef cx=c_pps
- a=vVfyC5vLCtgYJKYeQD43oA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=SdC2vBNBQt3qShdCGKMA:9 a=QEXdDO2ut3YA:10
- a=rl5im9kqc5Lf4LNbBjHf:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-17_01,2026-06-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 spamscore=0 adultscore=0 priorityscore=1501 lowpriorityscore=0
- malwarescore=0 bulkscore=0 clxscore=1011 impostorscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606170104
-
-The FIFO read/write helpers assume the head and tail indices stay within
-[0, pipe->native.length) and use them directly as offsets into the
-mapped FIFO region. If that invariant is ever broken, the subsequent
-memcpy or memcpy_fromio would access memory outside the FIFO.
-
-Add WARN_ON_ONCE checks in these helpers so a broken invariant is
-caught and reported once, and the out-of-bounds access is skipped
-instead of proceeding silently.
-
-Fixes: caf989c350e8 ("rpmsg: glink: Introduce glink smem based transport")
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm: fix CONFIG_STACK_GROWSUP typo in
+ tools/testing/vma/include/dup.h
+To: Ethan Nelson-Moore <enelsonmoore@gmail.com>,
+ Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>,
+ Pedro Falcato <pfalcato@suse.de>, Lorenzo Stoakes <ljs@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Alice Ryhl <aliceryhl@google.com>,
+ linux-mm@kvack.org
 Cc: stable@vger.kernel.org
-Signed-off-by: Chunkai Deng <chunkai.deng@oss.qualcomm.com>
----
- drivers/rpmsg/qcom_glink_smem.c | 18 ++++++++++++++++--
- 1 file changed, 16 insertions(+), 2 deletions(-)
+References: <20260611012258.432043-1-enelsonmoore@gmail.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260611012258.432043-1-enelsonmoore@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-diff --git a/drivers/rpmsg/qcom_glink_smem.c b/drivers/rpmsg/qcom_glink_smem.c
-index edab912557ac..42ad315d7910 100644
---- a/drivers/rpmsg/qcom_glink_smem.c
-+++ b/drivers/rpmsg/qcom_glink_smem.c
-@@ -86,9 +86,14 @@ static size_t glink_smem_rx_avail(struct qcom_glink_pipe *np)
- 	tail = le32_to_cpu(*pipe->tail);
- 
- 	if (head < tail)
--		return pipe->native.length - tail + head;
-+		len = pipe->native.length - tail + head;
- 	else
--		return head - tail;
-+		len = head - tail;
-+
-+	if (WARN_ON_ONCE(len > pipe->native.length))
-+		len = 0;
-+
-+	return len;
- }
- 
- static void glink_smem_rx_peek(struct qcom_glink_pipe *np,
-@@ -103,6 +108,9 @@ static void glink_smem_rx_peek(struct qcom_glink_pipe *np,
- 	if (tail >= pipe->native.length)
- 		tail -= pipe->native.length;
- 
-+	if (WARN_ON_ONCE(tail >= pipe->native.length))
-+		return;
-+
- 	len = min_t(size_t, count, pipe->native.length - tail);
- 	if (len)
- 		memcpy_fromio(data, pipe->fifo + tail, len);
-@@ -141,6 +149,9 @@ static size_t glink_smem_tx_avail(struct qcom_glink_pipe *np)
- 	else
- 		avail = tail - head;
- 
-+	if (WARN_ON_ONCE(avail > pipe->native.length))
-+		avail = 0;
-+
- 	if (avail < (FIFO_FULL_RESERVE + TX_BLOCKED_CMD_RESERVE))
- 		avail = 0;
- 	else
-@@ -155,6 +166,9 @@ static unsigned int glink_smem_tx_write_one(struct glink_smem_pipe *pipe,
- {
- 	size_t len;
- 
-+	if (WARN_ON_ONCE(head >= pipe->native.length))
-+		return head;
-+
- 	len = min_t(size_t, count, pipe->native.length - head);
- 	if (len)
- 		memcpy(pipe->fifo + head, data, len);
+On 6/11/26 03:22, Ethan Nelson-Moore wrote:
+> Commit 2b6a3f061f11 ("mm: declare VMA flags by bit") significantly
+> refactored the header file include/linux/mm.h.  In that step, it introduced
+> a typo in an ifdef, referring to a non-existing config option
+> STACK_GROWS_UP, whereas the actual config option is called STACK_GROWSUP.
+> 
+> Commit 40a4af52e047 ("mm: fix CONFIG_STACK_GROWSUP typo in mm.h") fixed
+> this typo in the mm.h header file, but did not update the copy of the
+> code in tools/testing/vma/include/dup.h. Update this copy as well.
+> 
+> Commit message adapted from the above-referenced fix to mm.h.
+> 
+> Fixes: 2b6a3f061f11 ("mm: declare VMA flags by bit")
+> Cc: stable@vger.kernel.org # 7.0+
+
+This is in tools/testing/vma. Why does this require a stable tag?
+
+What is the resulting problem (in the test!) that we even care about the Fixes: tag?
+
+If there is no user visible (test!) problem, then this is merely a cleanup, not
+a bugfix.
+
+Change itself LGTM.
+
+> Signed-off-by: Ethan Nelson-Moore <enelsonmoore@gmail.com>
+> ---
+>  tools/testing/vma/include/dup.h | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/tools/testing/vma/include/dup.h b/tools/testing/vma/include/dup.h
+> index 9e0dfd3a85b0..adbc3179085d 100644
+> --- a/tools/testing/vma/include/dup.h
+> +++ b/tools/testing/vma/include/dup.h
+> @@ -243,7 +243,7 @@ enum {
+>  #define VM_NOHUGEPAGE	INIT_VM_FLAG(NOHUGEPAGE)
+>  #define VM_MERGEABLE	INIT_VM_FLAG(MERGEABLE)
+>  #define VM_STACK	INIT_VM_FLAG(STACK)
+> -#ifdef CONFIG_STACK_GROWS_UP
+> +#ifdef CONFIG_STACK_GROWSUP
+>  #define VM_STACK_EARLY	INIT_VM_FLAG(STACK_EARLY)
+>  #else
+>  #define VM_STACK_EARLY	VM_NONE
+
 
 -- 
-2.34.1
+Cheers,
 
+David
