@@ -1,71 +1,73 @@
-Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
+Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99FB73A4539
-	for <stable@vger.kernel.org>; Wed, 17 Jun 2026 09:22:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AAC83A5E93
+	for <stable@vger.kernel.org>; Wed, 17 Jun 2026 09:23:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781688183; cv=none; b=VkFXb5R0qc9HGw1R12MBWHAhlebIkFbP3YjUcCEjDYyCDeAvm+VZM1zXixoiN/cHDatC9EBBU41hKc7aEJ7Us7NqeubzKKwRn3DUHkBMIOT6A+FnoPYNO5zymS9ddF0XfEz09pMWi+y6ied/RN9Ddil3FJ+BbenAEE8EEcKIm/o=
+	t=1781688184; cv=none; b=mE3P7Er+Ruln/ZxlrObd5oA+vZ/KXLY/LPtgxXn4vd5STq9wLfo/VU2xfI0ViKRfG1hoPZgFo135aQEZMDKUjt8rBpZs84Fpruo/7xJn0mUma2e+hJiy9e9g10YMRG41QDzAqQf5/RTqO9lmCaXdz7kdXjWYmR2XXh229umbl5Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781688183; c=relaxed/simple;
-	bh=liFDqSGLsFRV+8NH5P3wFjhjjK2slQDQ3iLuLnnghN8=;
+	s=arc-20240116; t=1781688184; c=relaxed/simple;
+	bh=HkzTXWp/0Juq+8uYD0k3DXG4ACO3SdzCm6mHMxe57ds=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=TqdD06WE338EkXODNSWvfgj7Q+PHkJEWZgRte3ZHedKE5yrFEGeABtmJootz0NKsZ8FbHOLNxefmiqRkrC292GrDl9gW7dXfOLDVmd8Zif/AGVUt1DBYa2zcS9VnQbXQk+4tomLZ1kgxZzBfn61dz/8CgbTjrLWfRsM60EYzz7w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu; spf=pass smtp.mailfrom=asu.edu; dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b=JNVbKqjW; arc=none smtp.client-ip=209.85.210.175
+	 MIME-Version; b=cop2y2W9kgy7x06uNJSh9yN7O2H7jYpFWPly90O0nZQnZ4+rR13pLkgExxSANbYxvWvgpeNh6VAEd73qeh6i3lOMMFM8J+Ave2XqPgMIWuQeeYquf9f0I+6XPONs7t0dT/hxI4Ei4FcEjcsxMeRIhyPbo8PUlbbY+i7/lyLpMkY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu; spf=pass smtp.mailfrom=asu.edu; dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b=V4nFU+2g; arc=none smtp.client-ip=209.85.215.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asu.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b="JNVbKqjW"
-Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-8423f1d8902so2605188b3a.1
-        for <stable@vger.kernel.org>; Wed, 17 Jun 2026 02:22:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b="V4nFU+2g"
+Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-c85d8615b09so3293198a12.3
+        for <stable@vger.kernel.org>; Wed, 17 Jun 2026 02:23:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=asu.edu; s=google; t=1781688179; x=1782292979; darn=vger.kernel.org;
+        d=asu.edu; s=google; t=1781688180; x=1782292980; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=S4Mt2Iqchc17KPwGM0drtBt2mRhj/4CUcfdGwg0LVw4=;
-        b=JNVbKqjWCYRx4zIrFdeYRYZ9R38sPN3bVtQieuByhGVjVG0eB1lB1vp3zqNVQqCMBj
-         +UuN22Pekfs5MaExIGV76wnVb9R/R024PqdGGtOzNukKle8bksCpdCTIjrieUISzyzVl
-         VEiznhrfaA0Bl2omGKmzCzFxAEOpF+rp9qXjZt4hosaYTxPLfl/cNqj+0/Tm3kUnE/8m
-         AW1o/WOAx8Jgz0iqGz8SY03F0sjLhMhL2MySBADgntq9j3rUhMoh2T0dIi2Q6pX72uqs
-         h/cMaE82mHSmMr55BuZolXFu49tTKL1Oiozx1/rgQJ6P188wrKmv+Sa6cM0XJU8wLSEn
-         54jw==
+        bh=N9QEGty2v/cSSuw62QBmZlOmrqqK3D9WfaIXoyJUkPM=;
+        b=V4nFU+2gOxJgJ4xb2H2UeZIy/f5ylH/ZE2MBPcUI4Em+G4KqvBrqtOunqmAA57C24q
+         EOnVz97mwzpW1gYfed9TYyagB0QsgooMZUQkBhbXXxmJ6UBjt42erCMkDOVuqq67zXgE
+         0QHXNjw16GbGFdnUoMwP6kiuNnZVBHxkOdQMjA94aH4AgpSgaOWw9E6+t79O0tOYK3QZ
+         EnIRrzpvJc4BSSSOd6kdXi5sGxI0jDCaF7sKtmgVhfVor2iwQxgIIlIGBwRGH3gylBLn
+         J9YU79Pdgyi9YRsshNhpUYVzqp3JzfUwCJZqMi6cNIWoB75Pmd3dRA3yO4mNP19qkeKe
+         Adrg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781688179; x=1782292979;
+        d=1e100.net; s=20251104; t=1781688180; x=1782292980;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=S4Mt2Iqchc17KPwGM0drtBt2mRhj/4CUcfdGwg0LVw4=;
-        b=YCAaZnB4uw5DjyBp6ivgTFuCbbz6KZ5Uo4geieElo2DEShBv7k68tuOU1ZeK/Yvrnf
-         p01PWUve5sRrP1SqHVez9b9wuWkqWki6858k/h6une9C7+PbnpI38plYc/shvfoOk9Hw
-         jfpCYqHKbND6XAxqBQcRSDuZ5AwSI0W5k66J+FDBxfHw2yPw6DSwesDk5H88dBSpW9Rb
-         U5+TWxmsPNdtrjL+cjRdC4F6eNTzia8thBILMMjGzvD0SoOM94ootOmm8xNqeKmfn+Xh
-         EIO5T2MdYKQMXnnT8kl07Hg/ekD1npIFnWjSqFfWjGXStG7ZRCBoFAatJtSGjnjQqGP0
-         fxkQ==
-X-Forwarded-Encrypted: i=1; AFNElJ9ZYeMh23syf1lZB4GXih6lutMHX+x7Sjs3MukUXfOD/IKbMWTeWej603iO+U+cZ0r2bWA2OaQ=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yye1r6tdfn3vi8Lk4wqjCVUNnLCzQkt+dEYWjdynQVFuwnADwZR
-	OEV9kgmly99A798kSfk6/Iz3KBkfvfodItwauVcJfP9YEsCFnDpQFlA4zq1PqelSZQ==
-X-Gm-Gg: Acq92OG5eMWXvYCmNpP7A+Bit9MYLow8DYTOPuy/wInId3qddIKoJzKOXF5FPn9YJaA
-	3IeP7RZ0Inix9BZgxsQggU1JYgXp4os6Batlme5iP3miA10G0LFpJ3Qswd9GgfGEM4u2gwkx0r1
-	Ml8vt65zNtblf+aa/jqAwiEXltXcY5LaHms23mMnfAAT5PtzZFqWO0Nqt9Ul4W1lPeKkYEuOz8b
-	Zv1vFjoUTJPuJb71gshYHnFVww1Kf8b+n+s6TVwSoiYGEjorQxZQnCjBVW07TV9JajYZmWuknwP
-	LvQE/I+GFoENku1jIWGDmNBgBATKDB5DzbXwRPOjWt8cMu8pWAhzOeG3J5FJnM+wgg6sWuYWKYt
-	xtKqdjvm8yyG85oBMfPWSFyqrL3EVx7gkxBFdgALRNyPIABtqvCPAgRy5DkUsDtxpGlu+Dw==
-X-Received: by 2002:a05:6a00:2d28:b0:842:569d:b105 with SMTP id d2e1a72fcca58-84524562663mr3071526b3a.34.1781688178670;
-        Wed, 17 Jun 2026 02:22:58 -0700 (PDT)
+        bh=N9QEGty2v/cSSuw62QBmZlOmrqqK3D9WfaIXoyJUkPM=;
+        b=QuZwVxVEoJd87+E6un44uWNQBgvUce2WxFruHCCFG9plRT0Juglhej8g6RCkhnAkMv
+         lEuZCsQ1NU9pQsYeOWWar4rxRVO9arDpanz56zEXv+puIY16HWVssR4ZDQKbnrTsexsC
+         SpE4kXgP3tDn994ufNqWxpK687hi0gXjKasyOYTnD8Y6PHHHxzME/qetmcnXB+10V82D
+         Zxmh6pYKE/Nw8B7Vvxro6gUCtkDkt/bslhzm0Diu+RRU0Iijkbs/qgpGn616M9kcwNEQ
+         eStnfQsoxsuWGoGHs4pdslYauR5pXDlSaw9oCIvPenMWQs7D/bNJLwUWmUmqji5EeloX
+         Mkiw==
+X-Forwarded-Encrypted: i=1; AFNElJ+ZkC43qI9N4nPg3bO+6eGISUvTWh6fSgwWi7hPZChVcmkSny7iXuaHiW/v7dm494z206YzYjo=@vger.kernel.org
+X-Gm-Message-State: AOJu0YytRBMW9Yyep78T7N32jNRpFtOpwnSrxtkyD8Gdq8PIe55lvDN6
+	g74gXdDhUhvxwY6psig2mwKmJs2Sj/Au0YJ7uFlR8V8jFxEKbkQZb81JZ2sla3enlRj/aKC66ot
+	Jzi2D4g==
+X-Gm-Gg: Acq92OFRkKNir49MOoGQZJP0yt58SwVzcXsPdiIwdKc4fqx54bTw0OUwB83rnuFb8pF
+	YAr6D+QWMJ0vWCYL9NslWUnCDxRCh9WWjoVrUIi1eNqfhBoNmNPdKaWVu5uc4zpHbWsYvaI3bV/
+	CergenbvW4Lo6Fi7NgaFdPyaSh4GuA/tqTHiNtkyxv7rZs2fP0X9PAq2uwIoy15bvs34Gome1uA
+	GEVWBc4IF2Fej5rs5Vj3R+7FIOm6qmYqEPKfHUyzuO5WAzrXUqyv6HHxiaOz1kl7GjpfvClo50j
+	J3yH7pLuNhmrvoeKzOn/2XNZ9U76gmiV84iivrQBmcP5h5D3kK8GpW9MpXBuLAf5eSQN4TtIxIa
+	JOyT4QhTJE0VsYPBEwTl7SZjg4zCR3Aw1dxLlCCdc8plbVoMi50B58c0sRirk3WBbULMOWyrwCl
+	kiYLxC
+X-Received: by 2002:a05:6a20:3d94:b0:3b4:6f45:d8f1 with SMTP id adf61e73a8af0-3b8b76e7e3amr3622997637.26.1781688180186;
+        Wed, 17 Jun 2026 02:23:00 -0700 (PDT)
 Received: from p1.. ([73.140.210.38])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8434ac9dc5esm14636685b3a.10.2026.06.17.02.22.58
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8434ac9dc5esm14636685b3a.10.2026.06.17.02.22.59
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 17 Jun 2026 02:22:58 -0700 (PDT)
+        Wed, 17 Jun 2026 02:22:59 -0700 (PDT)
 From: Xiang Mei <xmei5@asu.edu>
 To: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
 	security@kernel.org
 Cc: Weiming Shi <bestswngs@gmail.com>,
 	Xiang Mei <xmei5@asu.edu>,
 	stable@vger.kernel.org
-Subject: [PATCH 1/2] fs/ntfs3: validate dirty page table on log replay
-Date: Wed, 17 Jun 2026 02:22:34 -0700
-Message-ID: <20260617092235.99610-2-xmei5@asu.edu>
+Subject: [PATCH 2/2] fs/ntfs3: bound page_lcns[] index by the log record
+Date: Wed, 17 Jun 2026 02:22:35 -0700
+Message-ID: <20260617092235.99610-3-xmei5@asu.edu>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260617092235.99610-1-xmei5@asu.edu>
 References: <20260617092235.99610-1-xmei5@asu.edu>
@@ -77,19 +79,18 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Each DIR_PAGE_ENTRY ends in a page_lcns[] array whose length is the on-disk
-lcns_follow field. check_rstbl() validates the table bookkeeping but never
-checks that this array fits in the entry, so a crafted lcns_follow lets the
-v0->v1 conversion memmove and later replay passes run off the entry.
+The copy_lcns loop and the redo shorten loop index page_lcns[] at j + i,
+where i runs up to the log record's lcns_follow. That count is checked only
+against the record's own length, not the target entry, so check_dp_table()
+(which validates the entry's lcns_follow) does not cover it: the copy_lcns
+entry may even be freshly allocated after that check, and find_dp() bounds j
+but not i. A crafted record thus overflows page_lcns[] of an otherwise valid
+entry.
 
-Add check_dp_table() to reject, right after check_rstbl(), any entry larger
-than its size claims via struct_size() (the same expression used to allocate
-these entries, so the check is overflow-safe by construction). All consumers
-can then trust lcns_follow as the real capacity. This covers every
-page_lcns[] access whose index is bounded by the entry itself (the
-conversion memmove, the HotFix store via find_dp(), and the self-bounded
-scan loops). Accesses whose index comes from the log record need a separate
-bound and are handled in a follow-up patch.
+Add dp_range_ok() and reject, before each loop, any record whose run does
+not fit the entry. These are the only two page_lcns[] accesses indexed by
+the record rather than the entry, so together with the entry validation
+every access is now bounded.
 
 Fixes: b46acd6a6a62 ("fs/ntfs3: Add NTFS journal")
 Cc: stable@vger.kernel.org
@@ -97,46 +98,75 @@ Reported-by: Weiming Shi <bestswngs@gmail.com>
 Assisted-by: Claude:claude-opus-4-8
 Signed-off-by: Xiang Mei <xmei5@asu.edu>
 ---
- fs/ntfs3/fslog.c | 19 +++++++++++++++++++
- 1 file changed, 19 insertions(+)
+ fs/ntfs3/fslog.c | 25 +++++++++++++++++++++----
+ 1 file changed, 21 insertions(+), 4 deletions(-)
 
 diff --git a/fs/ntfs3/fslog.c b/fs/ntfs3/fslog.c
-index acfa18b84401..b1ca84d83de5 100644
+index b1ca84d83de5..1cc7402fdc2c 100644
 --- a/fs/ntfs3/fslog.c
 +++ b/fs/ntfs3/fslog.c
-@@ -778,6 +778,20 @@ static bool check_rstbl(const struct RESTART_TABLE *rt, size_t bytes)
- 	return true;
+@@ -647,6 +647,14 @@ static inline void *enum_rstbl(struct RESTART_TABLE *t, void *c)
+ 	return NULL;
  }
  
-+static bool check_dp_table(const struct RESTART_TABLE *dptbl)
++/*
++ * dp_range_ok - true if [j, j + count) fits in a page_lcns[cap] array.
++ */
++static inline bool dp_range_ok(size_t j, u32 count, u32 cap)
 +{
-+	u32 rsize = le16_to_cpu(dptbl->size);
-+	struct DIR_PAGE_ENTRY *dp = NULL;
-+
-+	while ((dp = enum_rstbl((struct RESTART_TABLE *)dptbl, dp))) {
-+		if (struct_size(dp, page_lcns, le32_to_cpu(dp->lcns_follow)) >
-+		    rsize)
-+			return false;
-+	}
-+
-+	return true;
++	return j < cap && count <= cap - j;
 +}
 +
  /*
-  * free_rsttbl_idx - Free a previously allocated index a Restart Table.
+  * find_dp - Search for a @vcn in Dirty Page Table.
   */
-@@ -4209,6 +4223,11 @@ int log_replay(struct ntfs_inode *ni, bool *initialized)
- 		goto out;
- 	}
+@@ -3801,6 +3809,7 @@ int log_replay(struct ntfs_inode *ni, bool *initialized)
+ 	u64 t64;
+ 	u16 t16;
+ 	u32 t32;
++	size_t j;
  
-+	if (!check_dp_table(rt)) {
+ 	log = kzalloc_obj(struct ntfs_log, GFP_NOFS);
+ 	if (!log)
+@@ -4566,9 +4575,12 @@ int log_replay(struct ntfs_inode *ni, bool *initialized)
+ 		 * whole routine a loop, case Lcns do not fit below.
+ 		 */
+ 		t16 = le16_to_cpu(lrh->lcns_follow);
++		j = le64_to_cpu(lrh->target_vcn) - le64_to_cpu(dp->vcn);
++		if (!dp_range_ok(j, t16, le32_to_cpu(dp->lcns_follow))) {
++			err = -EINVAL;
++			goto out;
++		}
+ 		for (i = 0; i < t16; i++) {
+-			size_t j = (size_t)(le64_to_cpu(lrh->target_vcn) -
+-					    le64_to_cpu(dp->vcn));
+ 			dp->page_lcns[j + i] = lrh->page_lcns[i];
+ 		}
+ 
+@@ -4985,8 +4997,14 @@ int log_replay(struct ntfs_inode *ni, bool *initialized)
+ 	/* Shorten length by any Lcns which were deleted. */
+ 	saved_len = dlen;
+ 
++	j = le64_to_cpu(lrh->target_vcn) - le64_to_cpu(dp->vcn);
++	if (!dp_range_ok(j, le16_to_cpu(lrh->lcns_follow),
++			 le32_to_cpu(dp->lcns_follow))) {
 +		err = -EINVAL;
 +		goto out;
 +	}
 +
- 	dptbl = kmemdup(rt, t32, GFP_NOFS);
- 	if (!dptbl) {
- 		err = -ENOMEM;
+ 	for (i = le16_to_cpu(lrh->lcns_follow); i; i--) {
+-		size_t j;
+ 		u32 alen, voff;
+ 
+ 		voff = le16_to_cpu(lrh->record_off) +
+@@ -4994,7 +5012,6 @@ int log_replay(struct ntfs_inode *ni, bool *initialized)
+ 		voff += le16_to_cpu(lrh->cluster_off) << SECTOR_SHIFT;
+ 
+ 		/* If the Vcn question is allocated, we can just get out. */
+-		j = le64_to_cpu(lrh->target_vcn) - le64_to_cpu(dp->vcn);
+ 		if (dp->page_lcns[j + i - 1])
+ 			break;
+ 
 -- 
 2.43.0
 
