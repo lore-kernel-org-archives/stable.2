@@ -1,126 +1,78 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7424492538;
-	Wed, 17 Jun 2026 16:04:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DFF647DFA5;
+	Wed, 17 Jun 2026 16:05:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781712263; cv=none; b=uG6CddrkrNFj1j7lm4WM51CZVY+gryvcZIy6PhgRotLReOljCcpWg6WP+nOXry2badd9SghMJdIhtO0KXIpDaH0p3nooyJZBrF1/4rCbCc49MxmxJwnNBdMmpvjhnsViCRBNJOpXjCNZhncIOBBZlSmywJbr9N4hUb0wB2/jyyg=
+	t=1781712355; cv=none; b=V/xo82ENgWg9HNZsX0T6zqIgw31tTRwAHCrl2rZtSMaGTvRIYIGfEm0mNsAVmqR0N3pT6RWenLt6AVBW8JjluJ6CTS8g53vi3s4vfG3jd2PPDVo10NZ42LvZwgeXxThIJP1+3LH81JfjELoXWz4X1W3e5EytcO7DJIFRvOeINHI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781712263; c=relaxed/simple;
-	bh=KG6e9Y2xf4noxyO5MAPevY2MJrB9TJ7JJod1rdTLo5M=;
-	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=rhwMKLm47m2rQ8uIvrbdBd/k/0/u339QMak0z6huB74oqnEfUVR/9+x+bbzALIVcnUWNUyDNYb112qlOOoDPT1BrENe6lbi6+FoVxtxsiiBC1oQbXQZh9qdTMAHpJP+pjSgD8aJgMmilY8pqtaa1pAUy5O/r7N51e8rfhUxdGno=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=0fq6iKFw; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=QloiBHsu; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1781712355; c=relaxed/simple;
+	bh=xy5pKmpHR+8apKnOQYTmpDygAfYhxlGd9QQhURnxDB0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=grHmdLXBjaLp4MUk513lVLf+mcMimtND6Zgxm1OL0mj7xeN2eLT/ZvTpusAf0eNAkwQRDgdBIy8yO0V2c/MVaAWcjUzT70vcjN0+1vwswFQBp8UdFIA9IHQNGj5R/wMqRL6MDfhlpYSbflxRHQ0PWqXgaY/xtDMmZokntQ4rqTU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QeXpHjOZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="0fq6iKFw";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="QloiBHsu"
-Date: Wed, 17 Jun 2026 16:04:09 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1781712250;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=aZREPk+Kuqp0M4Z9yXOBpLRFv/OOhpDllEOdLI3tIAw=;
-	b=0fq6iKFwKrqdnyzHk3z2Kb6b1dVUJ+BhU/esD7cfTaOY1ePp6RrHR/U6kfBYn4V85Gm45D
-	uZuBy+udQK/JBSYg8b7CK8pE7xFzZrcQR8PI/vlscBCJx0SPHdS80SXKgOmCX8eMcfn/Oy
-	kl2N27PWn3dmZTqPMNZNlRyeF9hl/YpS6GCsXcttnPv/2zWesDb5ShmzbYp3EpSBPtVyuj
-	EqcmDKuMW9ophHkTkhajYKaF1ppRPgaQ31MiDUTTjbsFobnJedIryaE34E92jn8/VFQmLA
-	YH5URkssNc51rfgoPRQCk4c9BKd5I1aHNB0vIqIQoyFSBe4DN8lz37ZE6mamlg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1781712250;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=aZREPk+Kuqp0M4Z9yXOBpLRFv/OOhpDllEOdLI3tIAw=;
-	b=QloiBHsuCziAUy0IOYtRwhumhE2s/soXShYKRsFCmzq4a0e18LJhEj4Ceo/DSJ29+hP2gU
-	LCmAtIE0i1AQ6DCg==
-From: "tip-bot2 for Zhan Xusheng" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject: [tip: timers/urgent] posix-cpu-timers: Use u64 multiplication in
- update_rlimit_cpu()
-Cc: Zhan Xusheng <zhanxusheng@xiaomi.com>, Thomas Gleixner <tglx@kernel.org>,
- stable@vger.kernel.org, x86@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260616112017.1681372-1-zhanxusheng@xiaomi.com>
-References: <20260616112017.1681372-1-zhanxusheng@xiaomi.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QeXpHjOZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E8EA1F00A3D;
+	Wed, 17 Jun 2026 16:05:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781712345;
+	bh=Bpns6yus6XLe48Ane9Z4QuHWfQYFi/6/9PVRUaHA5qk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=QeXpHjOZfwNWL9KTxEQnzpY41ylIsdi+mnTMtyDNCU7IzT7h/eGyRBA++5D4ytpjF
+	 7VV+hd5MKl5R1qWerv0K3Mz4UR+EFyT4g0GohxEpeOv7XClJmZr10ZTM/wTVmW/6+F
+	 tAPcrEvr7gMLLOzPOmMQZcJo6qcslbEGlCT8cjO1CSakBwcnKuxwDVO79CjBW5wY29
+	 Y/t8T3QU4gCrwqmfiJn5Ph67cWTAKrza/lvY5TbTq6SnucCudxXeMBomaPJbZeQ6vN
+	 jMeWdX/QAdBncvPT2OjvjT6KuPIz5jrES0WmHC74pcLAzhWgtfz/YtgB9QsMvFvFt3
+	 uoXA/zaZwY+8A==
+Date: Wed, 17 Jun 2026 16:05:43 +0000
+From: Eric Biggers <ebiggers@kernel.org>
+To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Cc: Thara Gopinath <thara.gopinath@gmail.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	"David S. Miller" <davem@davemloft.net>,
+	Stanimir Varbanov <svarbanov@mm-sol.com>,
+	Eneas U de Queiroz <cotequeiroz@gmail.com>,
+	Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
+	linux-crypto@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org, brgl@kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v3 1/8] crypto: qce - Remove unsafe/deprecated algorithms
+Message-ID: <20260617160543.GB785086@google.com>
+References: <20260617-qce-fix-self-tests-v3-0-ecc2b4dedcfd@oss.qualcomm.com>
+ <20260617-qce-fix-self-tests-v3-1-ecc2b4dedcfd@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <178171224929.1650852.7915564871936236069.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260617-qce-fix-self-tests-v3-1-ecc2b4dedcfd@oss.qualcomm.com>
 
-The following commit has been merged into the timers/urgent branch of tip:
+On Wed, Jun 17, 2026 at 05:49:30PM +0200, Bartosz Golaszewski wrote:
+> Remove algorithms that are either unsafe or deprecated and have no
+> in-kernel users that cannot be served by the ARM CE implementations.
+> 
+> AES-ECB reveals plaintext patterns (identical plaintext blocks produce
+> identical ciphertext blocks) and should not be exposed as a hardware-
+> accelerated primitive. DES, Triple DES and HMAC-SHA1 have been
+> deprecated for years.
+> 
+> Remove sha1, ecb(aes), ecb(des), cbc(des), ecb(des3_ede), cbc(des3_ede),
+> hmac(sha1) and all AEAD variants built on these primitives as well as
+> authenc(hmac(sha256),cbc(des)). Also clean up the - now dead - code,
+> flags and constants.
+> 
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 
-Commit-ID:     26aff38fefb1d6cd87e22525f41cc8f1aa61b24f
-Gitweb:        https://git.kernel.org/tip/26aff38fefb1d6cd87e22525f41cc8f1aa6=
-1b24f
-Author:        Zhan Xusheng <zhanxusheng1024@gmail.com>
-AuthorDate:    Tue, 16 Jun 2026 19:20:17 +08:00
-Committer:     Thomas Gleixner <tglx@kernel.org>
-CommitterDate: Wed, 17 Jun 2026 17:58:34 +02:00
+Acked-by: Eric Biggers <ebiggers@kernel.org>
 
-posix-cpu-timers: Use u64 multiplication in update_rlimit_cpu()
+Looks pretty comprehensive, but I did notice a few leftovers: a comment
+still mentions DES3_EDE_BLOCK_SIZE, and there's still some ECB-related
+code (grep for ENCR_MODE_ECB, QCE_MODE_ECB, and IS_ECB).
 
-update_rlimit_cpu() converts the RLIMIT_CPU value to nanoseconds with
-
-        u64 nsecs =3D rlim_new * NSEC_PER_SEC;
-
-On 32-bit kernels both rlim_new (unsigned long) and NSEC_PER_SEC
-(1000000000L) are 32-bit, so the multiplication is performed in unsigned
-long and truncated for rlim_new > 4 seconds before being widened to u64.
-
-The same file already casts to u64 for the matching computation in
-check_process_timers():
-
-        u64 softns =3D (u64)soft * NSEC_PER_SEC;
-
-As a result, the truncated value is installed into the CPUCLOCK_PROF
-expiry cache (nextevt), causing the process CPU timer to be programmed
-to fire prematurely for any RLIMIT_CPU soft limit >=3D 5 seconds. The
-actual SIGXCPU/SIGKILL decision in check_process_timers() already casts
-to u64 and is therefore correct, so limit enforcement is not broken;
-only the expiry-cache programming is wrong. Apply the same cast here so
-both paths convert rlim_cur identically.
-
-64-bit kernels are unaffected.
-
-Fixes: 858cf3a8c599 ("timers/itimer: Convert internal cputime_t units to nsec=
-")
-Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
-Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260616112017.1681372-1-zhanxusheng@xiaomi.com
----
- kernel/time/posix-cpu-timers.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/kernel/time/posix-cpu-timers.c b/kernel/time/posix-cpu-timers.c
-index 74775b9..5e633d8 100644
---- a/kernel/time/posix-cpu-timers.c
-+++ b/kernel/time/posix-cpu-timers.c
-@@ -41,7 +41,7 @@ void posix_cputimers_group_init(struct posix_cputimers *pct=
-, u64 cpu_limit)
-  */
- int update_rlimit_cpu(struct task_struct *task, unsigned long rlim_new)
- {
--	u64 nsecs =3D rlim_new * NSEC_PER_SEC;
-+	u64 nsecs =3D (u64)rlim_new * NSEC_PER_SEC;
- 	unsigned long irq_fl;
-=20
- 	if (!lock_task_sighand(task, &irq_fl))
+- Eric
