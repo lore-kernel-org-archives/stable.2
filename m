@@ -1,148 +1,176 @@
-Received: from mail-lj1-f175.google.com (mail-lj1-f175.google.com [209.85.208.175])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 613163CB918
-	for <stable@vger.kernel.org>; Wed, 17 Jun 2026 11:20:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39DDA2D94AB
+	for <stable@vger.kernel.org>; Wed, 17 Jun 2026 11:29:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781695219; cv=none; b=lt/qz+N+59bRemigEaJpRS9uG3aHwCrWoNgTlm/+QdWifLOxlYc0CHmNa3XSjbOblyWKFbdDds3ceGk9Qw0yVPZ9zz2dmEBpsh//Uu3GFoLhSRRO5ayjwZu2ggPyh4F6zhZ6nD5cK+VwX/xvEFs6PEy4YuwDZKiLK+OWM+blIrw=
+	t=1781695780; cv=none; b=jV06yhRLfs9tz0jks680sxxx1p+CUyI9Rut2t23ixH3Afirs+ouw158+zZd9JNKvkhsHREVKNfA9XJq1YU+gr3MvPFjOw2c7/GASDS9qlViTHWErfv003WxvnutzhBxP7RQpx2fr3iEMKYn9aMHUY8jWQjRDdH1tI9nIpwb9/mw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781695219; c=relaxed/simple;
-	bh=CN3hTnHGTzcazerSqLwxWW1GpSBEGf3IG1NQptlmTJI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=BzR56MMl03lb+20V6S4VawYs7pSxJb3NUDC4lV27R581oBv3kEsT7jknODAoi1pTVX6n6ckgjMUv6UTdyrYxolfRnm+F7hUA/A255tQjtm5qQS4SXCggIT4fNIU9YuRFLh7gkldmCsx3X/wsaludSjYDzXJVLr5l3TZDS5ctkeM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ecEorMHW; arc=none smtp.client-ip=209.85.208.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ecEorMHW"
-Received: by mail-lj1-f175.google.com with SMTP id 38308e7fff4ca-399389dae7fso8614381fa.0
-        for <stable@vger.kernel.org>; Wed, 17 Jun 2026 04:20:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781695214; x=1782300014; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=fEPBS2XQIGG150Y2esIPhsZu4HIK10nFbPjkifBbsWY=;
-        b=ecEorMHWxYRrFshldT4/9/HxINnrxEwiWHKpjj6NiVHDowYEgdGiP/kEd7VTQZF28F
-         ySgjjBkQYPSPB2u6Hy+r+6kvnJqRsouiSykcEf6loKSJAPbLZCufdjF+GMEtO48Oy+8M
-         2G3N0maccsgvVmClYCSGeoNm1f+HeAEfVP9Fr3Ewm6l6g5KrV/fpz2Ix/Mxv+cnE23EM
-         CFLz84P3IhH4iJjQDYvOb2l9LtKxU0u4tyzbgaWWJ9v8uvEuCsTIeSb6INi1R7NM7+GK
-         GJUN404Z7BvolbDAm33V4jvoi/zdw/V0YQoMkIV1kOAps7YMrE40RRpOAc9hadzs5m8F
-         rtCg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781695214; x=1782300014;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=fEPBS2XQIGG150Y2esIPhsZu4HIK10nFbPjkifBbsWY=;
-        b=ZvnObjsl/xIQKxKLT5fcZw/H1ddLL8oL6fRKhpmxsBsUi16ez7aigXUP0jsx1YJswP
-         WTnbuQtj7jilCYLWK8T+QYBpKE26SN8+d2T8OTQ03tygbg1ARj6jqELylBahOaskixl2
-         HuV8QOfyvL9QUEgjXUVJZ7eRoq2vdxCIWGZZByaM5mZY0BO8LP5kaGzGrrrR+epwY75W
-         ++4QnfPu00hgI/tkIRO3J0AMPqCkAEVhW1gIKIwg41VAYOAIzjuWwVZMzOjhiidcL8YQ
-         llb1qUml3n8w65cjfSTvmf2l2kIQl104cgRiXv2cLto1FkKtJKQTocx3lVmxWcBj3FlX
-         p+Nw==
-X-Forwarded-Encrypted: i=1; AFNElJ+YPo0nzcg4BxZl/+1/rOACZ9NVYPp71wOm3KtrmD7Cj0W6UaJTcJ6G16ZzYCE9Ldms+uar56g=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzgJvD9zN2dZL6c7oFiXjkHSWSdlmP5MgYoTgdSjFzYh+ZGNkcW
-	Ul8wANJe2VxvNefcjxbwZaioW4zoYDmqtmUX2iGG8f4FBweCi+vghZ55
-X-Gm-Gg: AfdE7cl4mEQajcFP4UOBGoNLW2J1H3EimUs1EmYbJbQJ/oFATn64TBceizHZDSZdCeS
-	0XujN7qkZqBqZeZmxqhG2vSkFPJIHOCh4yHnKK7Su0V3s47a02jszRLHCQGz46iCwIL+nHfNEzK
-	paD/IbaBoPGxPfFOuy+i7KRT4v/fWa+00Yop3i9EszfNR7IKw2BC+AsXIJYhFpUNky/HNN3RT7o
-	N8/QxrWBzJC1vxwk8Gl7i1eMrlmY6FmljbA8yC+5RFZepGUlbqjd0wbj9mFDcRcSTuAoa7endOJ
-	2w9zjDXvPGrLgroLzMB3yAiu/18NPoZASAhX9TR4L5/wMHRvhfX80HSxMD2XLfk/NnKPo7I5CPi
-	3GCX8W9s4b6upqbubyVKfit4L1icLrjAD0yVslJnQzbKOMIedDhHaMoKe+P/kF4fzY4uIImLyQy
-	kwGL3KQ0ig+3X5whcGm4Y6c5VcEJDqPoNxL98loYzdBLuouaBUhGMmHXctNGYsTx0jaLoRe6cUu
-	eISTqyEv8UfSmrvuy5px2NW/3NUuGY+Y65oRqqQrEiAF/HULg==
-X-Received: by 2002:a2e:a594:0:b0:38a:5bf2:80d6 with SMTP id 38308e7fff4ca-3996a013db5mr9545231fa.5.1781695214065;
-        Wed, 17 Jun 2026 04:20:14 -0700 (PDT)
-Received: from ?IPV6:2001:14ba:6e:3100:ab3:3fa0:bafe:f56b? (2001-14ba-6e-3100-ab3-3fa0-bafe-f56b.rev.dnainternet.fi. [2001:14ba:6e:3100:ab3:3fa0:bafe:f56b])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3995c191cd8sm14748111fa.20.2026.06.17.04.20.13
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 17 Jun 2026 04:20:13 -0700 (PDT)
-Message-ID: <09f69783-3eca-4318-b09b-78e6730e899c@gmail.com>
-Date: Wed, 17 Jun 2026 14:20:12 +0300
+	s=arc-20240116; t=1781695780; c=relaxed/simple;
+	bh=3p7XZ/qL3/9FoxLGYi5zEFz1IHsnMRpVGxgtlmMPr3o=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=PIIH0svRwxhocawf4jXWzkdSqBqyanopwzk2XtqWJR9GGHVKwZjE2ftWT4IkUu1WNTZRvb7YirBEKuJhs4/O2oR+7beOxUjbrhTdsQj7nGT/mAWEXXGnGBaCOsRZRXyMAig+2Yu/jB4urSfa1hNSH0M/e4RFjrpxKKjZy19vD1o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id B112D6BEAF;
+	Wed, 17 Jun 2026 11:29:37 +0000 (UTC)
+Authentication-Results: smtp-out1.suse.de;
+	none
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 73B87779A8;
+	Wed, 17 Jun 2026 11:29:37 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id iP8HGyGFMmqbZAAAD6G6ig
+	(envelope-from <tzimmermann@suse.de>); Wed, 17 Jun 2026 11:29:37 +0000
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: javierm@redhat.com,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	airlied@gmail.com,
+	simona@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org,
+	sashiko-reviews@lists.linux.dev,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	stable@vger.kernel.org
+Subject: [PATCH 2/2] drm/sysfb: Return errno code from drm_sysfb_get_visible_size()
+Date: Wed, 17 Jun 2026 13:27:30 +0200
+Message-ID: <20260617112932.511657-3-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260617112932.511657-1-tzimmermann@suse.de>
+References: <20260617112932.511657-1-tzimmermann@suse.de>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] KVM: VMX: guard regparm(0) on
- vmread_error_trampoline for x86_32 only
-To: Clark Williams <clrkwllms@kernel.org>, stable@vger.kernel.org
-Cc: bpf@vger.kernel.org, x86@ekrnel.org, kvm@vger.kernel.org
-References: <20260617011303.3969027-1-clrkwllms@kernel.org>
- <20260617011303.3969027-3-clrkwllms@kernel.org>
-Content-Language: en-US
-From: =?UTF-8?B?SGFubmUtTG90dGEgTcOkZW5ww6TDpA==?= <hannelotta@gmail.com>
-In-Reply-To: <20260617011303.3969027-3-clrkwllms@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Rspamd-Pre-Result: action=no action;
+	module=replies;
+	Message is reply to one we originated
+X-Rspamd-Pre-Result: action=no action;
+	module=replies;
+	Message is reply to one we originated
+X-Spam-Flag: NO
+X-Spam-Score: -4.00
+X-Spam-Level: 
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Spamd-Result: default: False [-4.00 / 50.00];
+	REPLY(-4.00)[]
+X-Rspamd-Queue-Id: B112D6BEAF
+X-Rspamd-Action: no action
 
-On 6/17/26 4:13 AM, Clark Williams wrote:
-> [ Upstream commit 0b5e7a16a0a79a3742f0df9e45bca46f01b40e6a ]
-> 
-> regparm(0) overrides the kernel's -mregparm=3 convention on x86-32 so
-> that vmread_error_trampoline receives its arguments on the stack, matching
-> the inline asm callers that push args before the call.  On x86-64 the
-> attribute is a no-op and newer GCC now emits -Wattributes for it, which
-> becomes a build error under -Werror.  Guard it with CONFIG_X86_32.
-> 
-> [ clrkwllms: the upstream commit redesigns the trampoline declaration as
->    an opaque symbol; this simpler approach guards the regparm(0) attribute
->    with CONFIG_X86_32 since the attribute is only meaningful on x86-32. ]
-> 
-> Assisted-by: Claude:claude-sonnet-4.6
-> Signed-off-by: Clark Williams <clrkwllms@kernel.org>
-> ---
->   arch/x86/kvm/vmx/vmx_ops.h | 7 +++++--
->   1 file changed, 5 insertions(+), 2 deletions(-)
-> 
-> diff --git a/arch/x86/kvm/vmx/vmx_ops.h b/arch/x86/kvm/vmx/vmx_ops.h
-> index 5edab28dfb2e..50328be40b2b 100644
-> --- a/arch/x86/kvm/vmx/vmx_ops.h
-> +++ b/arch/x86/kvm/vmx/vmx_ops.h
-> @@ -11,8 +11,11 @@
->   #include "../x86.h"
->   
->   void vmread_error(unsigned long field, bool fault);
-> -__attribute__((regparm(0))) void vmread_error_trampoline(unsigned long field,
-> -							 bool fault);
-> +/* regparm(0) overrides -mregparm=3 so args are stack-passed, matching asm callers */
-> +#ifdef CONFIG_X86_32
-> +__attribute__((regparm(0)))
-> +#endif
-> +void vmread_error_trampoline(unsigned long field, bool fault);
->   void vmwrite_error(unsigned long field, unsigned long value);
->   void vmclear_error(struct vmcs *vmcs, u64 phys_addr);
->   void vmptrld_error(struct vmcs *vmcs, u64 phys_addr);
+Change the return type of drm_sysfb_get_visible_size() to s64 so
+that it returns a possible errno code from _get_validated_size0().
+Fix callers to handle the errno code.
 
-Hi,
+The currently returned unsigned type converts an errno code to a
+very large size value, which drivers interpret as visible size of
+the system framebuffer. Later efforts to reserve the framebuffer
+resource fail.
 
-I've sent a backport patch for this commit, see here:
+The bug has been present since efidrm and vesadrm got merged. It
+was then part of each driver.
 
-https://lore.kernel.org/lkml/20260617105100.22094-1-hannelotta@gmail.com/
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Fixes: 32ae90c66fb6 ("drm/sysfb: Add efidrm for EFI displays")
+Fixes: a84eb6abe2b6 ("drm/sysfb: Add vesadrm for VESA displays")
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Javier Martinez Canillas <javierm@redhat.com>
+Cc: dri-devel@lists.freedesktop.org
+Cc: <stable@vger.kernel.org> # v6.16+
+---
+ drivers/gpu/drm/sysfb/drm_sysfb_helper.h      | 2 +-
+ drivers/gpu/drm/sysfb/drm_sysfb_screen_info.c | 2 +-
+ drivers/gpu/drm/sysfb/efidrm.c                | 7 ++++---
+ drivers/gpu/drm/sysfb/vesadrm.c               | 6 +++---
+ 4 files changed, 9 insertions(+), 8 deletions(-)
 
-The commit applies cleanly without any modifications, and compiles 
-without errors with gcc-16, and boots.
+diff --git a/drivers/gpu/drm/sysfb/drm_sysfb_helper.h b/drivers/gpu/drm/sysfb/drm_sysfb_helper.h
+index 2a2b553366fb..547f2327af5e 100644
+--- a/drivers/gpu/drm/sysfb/drm_sysfb_helper.h
++++ b/drivers/gpu/drm/sysfb/drm_sysfb_helper.h
+@@ -50,7 +50,7 @@ struct resource *drm_sysfb_get_memory_si(struct drm_device *dev,
+ int drm_sysfb_get_stride_si(struct drm_device *dev, const struct screen_info *si,
+ 			    const struct drm_format_info *format,
+ 			    unsigned int width, unsigned int height, u64 size);
+-u64 drm_sysfb_get_visible_size_si(struct drm_device *dev, const struct screen_info *si,
++s64 drm_sysfb_get_visible_size_si(struct drm_device *dev, const struct screen_info *si,
+ 				  unsigned int height, unsigned int stride, u64 size);
+ #endif
+ 
+diff --git a/drivers/gpu/drm/sysfb/drm_sysfb_screen_info.c b/drivers/gpu/drm/sysfb/drm_sysfb_screen_info.c
+index 361b7233600c..40b4f7883b9b 100644
+--- a/drivers/gpu/drm/sysfb/drm_sysfb_screen_info.c
++++ b/drivers/gpu/drm/sysfb/drm_sysfb_screen_info.c
+@@ -64,7 +64,7 @@ int drm_sysfb_get_stride_si(struct drm_device *dev, const struct screen_info *si
+ }
+ EXPORT_SYMBOL(drm_sysfb_get_stride_si);
+ 
+-u64 drm_sysfb_get_visible_size_si(struct drm_device *dev, const struct screen_info *si,
++s64 drm_sysfb_get_visible_size_si(struct drm_device *dev, const struct screen_info *si,
+ 				  unsigned int height, unsigned int stride, u64 size)
+ {
+ 	u64 vsize = height * stride;
+diff --git a/drivers/gpu/drm/sysfb/efidrm.c b/drivers/gpu/drm/sysfb/efidrm.c
+index 1a1e36700976..3f9cd5d03efb 100644
+--- a/drivers/gpu/drm/sysfb/efidrm.c
++++ b/drivers/gpu/drm/sysfb/efidrm.c
+@@ -152,7 +152,8 @@ static struct efidrm_device *efidrm_device_create(struct drm_driver *drv,
+ 	const struct screen_info *si;
+ 	const struct drm_format_info *format;
+ 	int width, height, stride;
+-	u64 vsize, mem_flags;
++	s64 vsize;
++	u64 mem_flags;
+ 	struct resource resbuf;
+ 	struct resource *res;
+ 	struct efidrm_device *efi;
+@@ -206,8 +207,8 @@ static struct efidrm_device *efidrm_device_create(struct drm_driver *drv,
+ 	if (stride < 0)
+ 		return ERR_PTR(stride);
+ 	vsize = drm_sysfb_get_visible_size_si(dev, si, height, stride, resource_size(res));
+-	if (!vsize)
+-		return ERR_PTR(-EINVAL);
++	if (vsize < 0)
++		return ERR_PTR(vsize);
+ 
+ 	drm_dbg(dev, "framebuffer format=%p4cc, size=%dx%d, stride=%d bytes\n",
+ 		&format->format, width, height, stride);
+diff --git a/drivers/gpu/drm/sysfb/vesadrm.c b/drivers/gpu/drm/sysfb/vesadrm.c
+index dbc317778d54..6a67b2d2e451 100644
+--- a/drivers/gpu/drm/sysfb/vesadrm.c
++++ b/drivers/gpu/drm/sysfb/vesadrm.c
+@@ -402,7 +402,7 @@ static struct vesadrm_device *vesadrm_device_create(struct drm_driver *drv,
+ 	const struct screen_info *si;
+ 	const struct drm_format_info *format;
+ 	int width, height, stride;
+-	u64 vsize;
++	s64 vsize;
+ 	struct resource resbuf;
+ 	struct resource *res;
+ 	struct vesadrm_device *vesa;
+@@ -457,8 +457,8 @@ static struct vesadrm_device *vesadrm_device_create(struct drm_driver *drv,
+ 	if (stride < 0)
+ 		return ERR_PTR(stride);
+ 	vsize = drm_sysfb_get_visible_size_si(dev, si, height, stride, resource_size(res));
+-	if (!vsize)
+-		return ERR_PTR(-EINVAL);
++	if (vsize < 0)
++		return ERR_PTR(vsize);
+ 
+ 	drm_dbg(dev, "framebuffer format=%p4cc, size=%dx%d, stride=%d bytes\n",
+ 		&format->format, width, height, stride);
+-- 
+2.54.0
 
-For commits that apply cleanly, you can simply use:
-
-     git cherry-pick -s -x <commit-id>
-
-And after that
-
-     git commit --amend
-
-to add the required [ Upstream commit <commit-id> ] line.
-
-I wasn't able to see other compilation errors for v6.1.175 using gcc-16. 
-I tried with allyesconfig and my local config.
-
-Hope this helps.
-
-Best regards,
-
-Hanne-Lotta Mäenpää
