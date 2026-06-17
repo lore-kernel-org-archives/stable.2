@@ -1,143 +1,136 @@
-Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com [209.85.167.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpbguseast3.qq.com (smtpbguseast3.qq.com [54.243.244.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D501F3D0918
-	for <stable@vger.kernel.org>; Wed, 17 Jun 2026 10:10:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D03743C3C0E;
+	Wed, 17 Jun 2026 10:10:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.243.244.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781691005; cv=none; b=rsO16oT2P8BDNa+tc1f7wOnQJAwZ4eNt+GApUQGy6oJkaTejrm2ap7eM0D+2vNPHTYdl1naKN1cBQwrOVdE7E568gkjUITsinbDVrUo0j3ieySMf3AYAlgAaNudcO9KZO0Z8A6/4HI1/qZ3fYuhKQU2xRXtgcEdpaV1C1W4MHsI=
+	t=1781691046; cv=none; b=kWs+w9Xx092yzy01ojz7OFSdq4bzE2zK/lnHClNWMARRTdbKHmPQ4lMmh4UzTRs7ixRoX2EJdaRNSloI0j1oZvCIoGlK1pvLffkHZN+NFk9LRAon+sXvX4FV9rVIceTFWvzIoexGIWYZAfuJaUgjc4EIAbYRMxr5hpXvayGQz9k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781691005; c=relaxed/simple;
-	bh=LsdT55GzrGnni5tHROTuUFTGgK0O+ZZu7Oj5y1cwZ6o=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=NAzs220RHgRLbkbfQOqLpUftA0NkWKxuzzg+FtfcETVcoNP3KSUkwqid9OMUAoyTUinpnAjRSAYDu2ncN5Eurb1CiVOocu/8O+F/59FSgUiUyJ0pILh304jYHzvoAv9s3oiSSx1npYBEWX9wLyHvfBGRbmYOubxpRE4KrHKXw7Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pqD3H/T/; arc=none smtp.client-ip=209.85.167.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781691046; c=relaxed/simple;
+	bh=34QBRVhfuaS2DMfKCySh/mkmfr2LC/mf23+rkkAdqDI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VsK4s+AHfoi0A94jMpRILVYjJtZdBi5DPmjy0nC2Ws9pAUWhG6ANYEWXbHzi2L+A7ElOPZQTcXGtW3IDBY7Me4VfsNf+P6NYVMn9nxE3R75TQgVXlaOk2bPztJORWvjkeiBGczCoACTCZNZkaUvfP2XG/R5qzM+Pw9UrEEvtzRM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=jjjrHG5Y; arc=none smtp.client-ip=54.243.244.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pqD3H/T/"
-Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5ad4b60f6d5so237071e87.2
-        for <stable@vger.kernel.org>; Wed, 17 Jun 2026 03:10:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781691000; x=1782295800; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=vGwnZNetQNHsEtMJnoWmHE73vyXkoWstMnhqfVRhjIw=;
-        b=pqD3H/T//2PTz7OFi8PFn8z/JJvFqn7hbs412QerZHR2Y1PTGayfh2diWX+OoHI7yH
-         7e2MTjd4EG1qL94byX1GtEMBG8vvn8sB69InZIkXjTjxYFWbtRBCGwNb93aSVMeE9ibn
-         O4a++Xo/Gmbdz+BLFw6UvJcyeDoIZ140mOlhn8cZsh7LwKLBWoLzaDnzKQ5miy9bh/os
-         lmtbp/oOuTUHPr03l21GYHoHE6HfgUyPlMEVjSIUKvA8R6U8ibx/Pfu40uY9Tc7A7ODM
-         O5mEMvLQlUS86I0B/YW4/XaeloluL+Y5s4SHuOTe+dvkK/LhALPxzC00+UXkkTC38cqZ
-         ZWPA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781691000; x=1782295800;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=vGwnZNetQNHsEtMJnoWmHE73vyXkoWstMnhqfVRhjIw=;
-        b=aU+Y53OcwW+x8V6f5ygdZ63y5bCD4OZxu0RT8jQW2k/9g++aglI0EBiPL3w9dM24bs
-         R9D6W9jjK8LCvm1+2nNoEwEco95NKKZB7YtCyaI4JjxBFvIPg0wTz9Rb9wTgiMFJTVtG
-         DCORBQlQEKJMUgSr6IAWF6PD683x72MiqQQQyROtdo3o75RsbVlYqHnrjBXFM5QH/iM9
-         Cu4oT/6CdbmDeZPbOzQXvDwUsvt1tvzTwFoksF77an8rbRqPT1AHAYLgg5EhP3OPsRop
-         +Ot4sy2NWODZnuFc3R6yyjBIAmeYzIpsjE+cxDPyn0jOZ6ftlKe/R3r+IBTME7Qb2Mqd
-         29HA==
-X-Gm-Message-State: AOJu0YzWpjhNP1GcT3PaDeRtJHmA2pQxjI0uzbJ7sBVQ2zTXDeSLwwCd
-	JQw/wblCX+G8LHe166U8G/sh14Kwg4DzIFNQvNH/FGA9HddGnElR7OsZTGHk0K36RfA=
-X-Gm-Gg: AfdE7ckJ9iFwnlh5VM8pAOUxeUrOqRZym30CuNEzkSThKuPCKjyzgm3sqdo3Xmp5MLI
-	uil/b7cv/1GJScUKr0y89rfukdkz/a37Lgefq+tqj1EY7ltOs2lWr+uu9rk7OKeB8X+yZ762Iil
-	Z6iB6S+VwenuwC3cd3CPbzsuPg+MjBNA2jIJMU7N3qwDSQcCMPC+3LGKQx+HYD0TsgPmc2ZnH4G
-	+vuCwikvhvPQI1HnjpZSeYh3hgo8yt1TLkISI/IrlxUq4GQsLOOzo8XPYpmvFeq353SLFzja0Eu
-	LGptDsKx7/9TPtJ3aQCiuLcfbaaOMJelpLSU2prk8nRyyTElBlF+LlykRYS/kaXIYRz66kxV2jz
-	LOl6Qu5eIyNMgry5GJ28og2dKa/eWJGM5ciApkqCvFNyFMfPg9O+u9VOl19RYlIIJ/40mRB8Nz5
-	lQzDLCfk1XRcg66J9UGirJzEQ/OgK6K5cR
-X-Received: by 2002:a05:6512:3e1a:b0:5ad:4c10:e990 with SMTP id 2adb3069b0e04-5ad4c202d17mr91232e87.43.1781690999742;
-        Wed, 17 Jun 2026 03:09:59 -0700 (PDT)
-Received: from cherrypc.astra-academy.ru ([81.9.21.4])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5ad2e1a726asm4301506e87.44.2026.06.17.03.09.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 17 Jun 2026 03:09:59 -0700 (PDT)
-From: Nazar Kalashnikov <nazarkalashnikov0@gmail.com>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Nazar Kalashnikov <nazarkalashnikov0@gmail.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Javier Martinez Canillas <javier@osg.samsung.com>,
-	Jon Hunter <jonathanh@nvidia.com>,
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="jjjrHG5Y"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1781691016;
+	bh=t0k4KETS3DYbrhuiTcpPSSNVJN8XG33QT9JP6dIByTY=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version;
+	b=jjjrHG5YD5geU+YCMCIsWyHS+RaPtG94xrNFnGVRKCPVhSt3nNdc4bTQABDJRSPvh
+	 FYqlbCG8ulrhw1/BvEIpgaDRysBtGhPlcYOsX/ieW2qIqjEZDlhEQNpdrae4TBQrOY
+	 fIK5w3Ch4YKHIEccLqzZ+KmwpJMIUFBPAMkeuDD8=
+X-QQ-mid: zesmtpgz6t1781691000t43d5fb33
+X-QQ-Originating-IP: meuJZ+mkGZcHUGa1IWwktNozjbt5o5TDqGotR1bukL0=
+Received: from PEN202512010004 ( [113.57.152.160])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Wed, 17 Jun 2026 18:09:58 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 7307632202497933010
+EX-QQ-RecipientCnt: 6
+From: raoxu <raoxu@uniontech.com>
+To: mathias.nyman@intel.com
+Cc: gregkh@linuxfoundation.org,
+	linux-usb@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	lvc-project@linuxtesting.org,
-	=?UTF-8?q?Andr=C3=A9=20Draszik?= <andre.draszik@linaro.org>
-Subject: [PATCH 5.10/5.15/6.1/6.6/6.12/6.18] regulator: core: fix locking in regulator_resolve_supply() error path
-Date: Wed, 17 Jun 2026 16:10:12 +0300
-Message-ID: <20260617131018.880160-1-nazarkalashnikov0@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	raoxu@uniontech.com,
+	stable@vger.kernel.org
+Subject: [PATCH v2] xhci: pci: Disable soft retry for Renesas uPD720201
+Date: Wed, 17 Jun 2026 18:09:57 +0800
+Message-ID: <D9BA02889D046D23+20260617100957.2888108-1-raoxu@uniontech.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
+X-QQ-XMAILINFO: NQN/cmJBY1rC10lbOi6TuNqgKRROH5AUjkbVIfKhWdrSTuWzYrMjoNST
+	BePrmAwGCGQDkEj1rjdVY3AlcrSsqUPNjVaoNdrzbitg4ePoLPDiQf1t61kIeZyDNFQRn1A
+	F7WelYFDuLTyrKWRcRfzD9b5CbJKd1RI0pukU57mVW7Deawi8C37F8eXOOBpCJG60T8/v4C
+	9VhW6Lf5W6v/Hfu05Fy7ByTBqBkhCjLmmQIAfnjKIrWoMPXxJn+6jO7MgQY/xnqizQLdoNM
+	xPPxqu1JYEzWf4fM3zxrQZdMONGf0GpY3PhWkVTzWsRh1RIx/ChAChijPdGV9tsvF3v5Yp5
+	CM3eMWEALsPQgw54o5ntqd52ALUslyARw/KQq7K84ix+Oipx3gXzS/PoPt3xHuTWwxo9fSv
+	4DIEasty0hS8nJeRCGsEVhjxNhEiTrnCn/illruGe8oYdkEmWvPVjygNbtRa+cZHqQSdot0
+	Zp80WwbEnpoci9Yhw+zIjvqeHKfXHMg5FEhh6mqzxp0AT2VAoUj7L8G7nqLHU2WTOMY8By1
+	kmqUDqr4gvE4mr7wk8Lnrh6EJeFgx8DodLcGtGkawEryQjn17sslMp/mBW3Jv1qcqT+QOzS
+	T9TW9HucyosnxNDPIQ6Y7HTAlEa8rFbpuRU39L1igCJqlVluYlm44vskwGP0LGnahk6e0P4
+	wnf+Ny4vD+LW835KlMlds+6TJO1WcuKLK6jUh+blVC5K8oP+leepyC6R38vaFXnH401fwBg
+	lh1nWxKpNLdZBTH8kkdXTtak2/fjQ+v8LysgWMHfN+dVaSz2DVQWgGW5LnnqZK2lmAw0O+s
+	MeMB+vVgUK+OsfIarp4N2vSA6x3fWkfnTDpoX0++POfJqNdByM+IKOZ1lUoJlmIdXHhCN55
+	CUyEujO6E7dtAyL0i6APsNTip1wZxJ6D1fCVhIFbOQX9O+d5pp2K5hl4MLx7bcT1gXSG/QB
+	oX38m4IMNmxvtJqmY+enGc8i3Bk1zQj0Gh0PgNacfnFh1JxWQJ/NWBTp9P/o029uTEZfA+y
+	C9RD2PsjXDIbNlSIRLOxPkGDkSyt87S2rsXcd1+YvhQo8NCHW5Z+A6B3Ig3kXKet5k5VCsu
+	5EVoYgE7CV6ogesvITfb5edq+xePjJCUGJxY5UI9N8UG6hNw6OpKco=
+X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
+X-QQ-RECHKSPAM: 0
 
-From: André Draszik <andre.draszik@linaro.org>
+From: Xu Rao <raoxu@uniontech.com>
 
-commit 497330b203d2c59c5ff3fa4c34d14494d7203bc3 upstream.
+The Renesas uPD720201 xHCI controller can fail to complete
+a Stop Endpoint command after a transaction error on an interrupt
+endpoint when soft retry is used.
 
-If late enabling of a supply regulator fails in
-regulator_resolve_supply(), the code currently triggers a lockdep
-warning:
+This was reproduced with this setup:
 
-    WARNING: drivers/regulator/core.c:2649 at _regulator_put+0x80/0xa0, CPU#6: kworker/u32:4/596
-    ...
-    Call trace:
-     _regulator_put+0x80/0xa0 (P)
-     regulator_resolve_supply+0x7cc/0xbe0
-     regulator_register_resolve_supply+0x28/0xb8
+  xHCI: Renesas uPD720201, PCI ID 1912:0014 rev 03
+  dev:  USB Ethernet device with an integrated Genesys Logic
+        USB3.1 hub, USB ID 05e3:0626, and a Realtek RTL8153
+        Ethernet function, USB ID 0bda:8153
 
-as the regulator_list_mutex must be held when calling _regulator_put().
+Reproducer:
 
-To solve this, simply switch to using regulator_put().
+  1. Plug the integrated USB hub and Ethernet device into the
+     1912:0014 xHCI controller.
+  2. Let r8152 bind to the 0bda:8153 RTL8153 Ethernet function
+     behind the integrated hub.
+  3. Bring the Ethernet device up.
+  4. Hot-unplug the device.
 
-While at it, we should also make sure that no concurrent access happens
-to our rdev while we clear out the supply pointer. Add appropriate
-locking to ensure that.
+The host reports a transaction error on the RTL8153 interrupt
+endpoint, queues a soft reset, and later times out the Stop
+Endpoint command while disconnecting the device:
 
-While the code in question will be removed altogether in a follow-up
-commit, I believe it is still beneficial to have this corrected before
-removal for future reference.
+  Transfer error for slot 8 ep 6 on endpoint
+  Soft-reset ep 6, slot 8
+  Ignoring reset ep completion code of 1
+  xHCI host not responding to stop endpoint command
+  xHCI host controller not responding, assume dead
+  HC died; cleaning up
 
-Fixes: 36a1f1b6ddc6 ("regulator: core: Fix memory leak in regulator_resolve_supply()")
-Fixes: 8e5356a73604 ("regulator: core: Clear the supply pointer if enabling fails")
-Signed-off-by: André Draszik <andre.draszik@linaro.org>
-Link: https://patch.msgid.link/20260109-regulators-defer-v2-2-1a25dc968e60@linaro.org
-Signed-off-by: Mark Brown <broonie@kernel.org>
-Signed-off-by: Nazar Kalashnikov <nazarkalashnikov0@gmail.com>
+The Renesas 1912:0014 controller cannot safely use the xHCI soft
+retry path. Set XHCI_NO_SOFT_RETRY for this controller so
+transaction errors use the pre-soft-retry recovery path. With
+this quirk the same hot-unplug test no longer times out the Stop
+Endpoint command and the RTL8153 remains usable and stable.
+
+Fixes: f8f80be501aa ("xhci: Use soft retry to recover faster from transaction errors")
+Cc: stable@vger.kernel.org
+Signed-off-by: Xu Rao <raoxu@uniontech.com>
 ---
-Backport fix for CVE-2026-46252
- drivers/regulator/core.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+Changes in v2:
+- Add Cc: stable@vger.kernel.org.
 
-diff --git a/drivers/regulator/core.c b/drivers/regulator/core.c
-index 765bd1b5deb3..761a3f905859 100644
---- a/drivers/regulator/core.c
-+++ b/drivers/regulator/core.c
-@@ -2159,8 +2159,16 @@ static int regulator_resolve_supply(struct regulator_dev *rdev)
- 	if (rdev->use_count) {
- 		ret = regulator_enable(rdev->supply);
- 		if (ret < 0) {
--			_regulator_put(rdev->supply);
-+			struct regulator *supply;
-+
-+			regulator_lock_two(rdev, rdev->supply->rdev, &ww_ctx);
-+
-+			supply = rdev->supply;
- 			rdev->supply = NULL;
-+
-+			regulator_unlock_two(rdev, supply->rdev, &ww_ctx);
-+
-+			regulator_put(supply);
- 			goto out;
- 		}
+ drivers/usb/host/xhci-pci.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/usb/host/xhci-pci.c b/drivers/usb/host/xhci-pci.c
+index 585b2f3117b0..d70c6a6a64bb 100644
+--- a/drivers/usb/host/xhci-pci.c
++++ b/drivers/usb/host/xhci-pci.c
+@@ -427,6 +427,7 @@ static void xhci_pci_quirks(struct device *dev, struct xhci_hcd *xhci)
+ 	if (pdev->vendor == PCI_VENDOR_ID_RENESAS &&
+ 	    pdev->device == 0x0014) {
+ 		xhci->quirks |= XHCI_ZERO_64B_REGS;
++		xhci->quirks |= XHCI_NO_SOFT_RETRY;
  	}
--- 
-2.47.3
+ 	if (pdev->vendor == PCI_VENDOR_ID_RENESAS &&
+ 	    pdev->device == 0x0015) {
+--
+2.50.1
