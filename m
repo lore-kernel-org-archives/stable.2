@@ -1,80 +1,110 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f50.google.com (mail-oo1-f50.google.com [209.85.161.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8768632FA2B;
-	Wed, 17 Jun 2026 17:16:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2795D33F5B3
+	for <stable@vger.kernel.org>; Wed, 17 Jun 2026 17:18:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781716597; cv=none; b=n0zxlftSrur2OK2IL2J2A/kPpxpI/5Eg0eLV4Hf9bRwfbGQQwVRWkIaRjkv8/CpxU30kTmeDSOfNwWRwc6TnYTZ3zrflj5lCqOYOGeMu9TUN44o1lUMfJRq+ivsa4wu56XfOCZcEPRXXbpru3fD6XxzTZBTvdUP1HaZEqMmtN4U=
+	t=1781716702; cv=none; b=lp6Q1WHwFpYvRmJ76T61x/xL5Fs4Eiybd9Ddbr/QIF/kJ5+l1hBtJN1V1T/XI18NdBEdRiRCuymkbh3ZsQ7/m/4i9rgksb7imNRQr5fO0syQCgct2dG2rLw43cPSxznX7bdS9OjNkd5KQsugVfD/s+JWHIl6uVo5xvZEmsGzx6A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781716597; c=relaxed/simple;
-	bh=2tu9Ndzm7e7ymDfPxW7a6jiGBH/GxO+26oHdgDtE/UM=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=dPLEyASFlCgBkMNDqv+aQmlaytoau7Jw3FKF2GHR/bU4DbE9uGzSuqX3YEGv2u7SXeXyzqT9x9pBDDAKzj4AB0DC2q4V4MRd/Sj0TQmaRXdkvUFAPQlfZjbVfvH1bi4Wh3KpH9Jwgk/4vPoO2q8x7hkSg1wHMAQUwCoETt4zfJU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FEPyKk3E; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781716702; c=relaxed/simple;
+	bh=zHKO1XlZBRzXSXgfQgWwKooKrNuhcoEsmgecyBdnxXs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=aVhh4QJ6bzHJTQ3BonHJnfLXsc2eGuO4e8qVSp46CEM2TfiIuyVtC8/0jVhHZCrzEYPoy2+kGq5DjVlbZrxJOc0qu/pI5VBEaP0hwbtZYczvwGUm1PbK/7uiFTL1AoYrQH/irT4WHv17vBuRI0nIiZTY8IIBzE78/uKFt5mtwI8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Xpr6aDdk; arc=none smtp.client-ip=209.85.161.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FEPyKk3E"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1AAFF1F00A3D;
-	Wed, 17 Jun 2026 17:16:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781716594;
-	bh=E44XtN03WqA3ejVy8uRHfadaoVzphs4tobBkxTahb9w=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=FEPyKk3EDKwnTQyUWm09S4Fo/rpxddZ0sPq5su4KpGy+CJmgfB29mBPukGRgeYPqE
-	 eet+slDdwlrD3UKYdNss1+CA71wlB0dP9E5roBpR5HFa3jY+9SIl9R0knqKABEOgF1
-	 +D7sPdZnNZxH7vRG2JWJRtA6IXnWmDzgmbDYHdFZNPWpdevwV5umxusJgAU0/WkbTG
-	 owgPUNpGEdsyKQ7CWEIxoJzFcC0dq3vX+IOvmoeRqBCO7A4LlhXrNWH2IOQrxHdzdn
-	 JWcUL6UM3bKBFNmPxdn+u11rouhNPxLfNA0/wZaJV18KYqBxL/ad6RC3JooJY/K8QO
-	 6BEWCc3F0Izog==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 56AC33930F8E;
-	Wed, 17 Jun 2026 17:16:29 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Xpr6aDdk"
+Received: by mail-oo1-f50.google.com with SMTP id 006d021491bc7-69e66e11386so11855eaf.3
+        for <stable@vger.kernel.org>; Wed, 17 Jun 2026 10:18:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linuxfoundation.org; s=google; t=1781716698; x=1782321498; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=ASXWrUWStyQOageYC3LoVBOOGZ/iKGTFoHvXDiH7SyA=;
+        b=Xpr6aDdkRobcxMwtV07Lg/n7gC/ReNEQq4Szd/35DrsDOevsFz4paqoewZGqAfmXxJ
+         Qt1WgC6IBDuM5shdIZMIuheNy3Cvy2qbxFe4z7CGLpDmIddBEsGaGoVqdzOIwdIgE8FB
+         F69mMmiTWk0uUoRoUEYQq9wyO0VHXWVIdc51g=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781716698; x=1782321498;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=ASXWrUWStyQOageYC3LoVBOOGZ/iKGTFoHvXDiH7SyA=;
+        b=r1g+rvi0okHIRyHOVaT4/W8armKSAoy18lgUkzY2kabwS/aefDfe4UXVJx6ehQiDmt
+         AzcG/wMN5ueT5YQKXKrv3icST3Cos5Zvp78fI6FxvnLvrp1SNhLKnoBD6gH4hBWkKYAr
+         vufbiaSFMUplFYGzjxrClwVxU+8UVAegkDVqSG4nGCetkvnFi/bjAfJyZH3LUmpUAOnL
+         QWj8qctw2fsTSyZf4YJlIEHG7nxbNgNbbyJgmEFvI3FU0e4ibqcUFmtr6yP3xIawNEau
+         VTrVNfIWdMs6WFQ1RHAizSMNtvnXuYqLXZXa5EP6PIjjzeJVK2W6s9Tk1lKHaK7bTxu1
+         QaHQ==
+X-Forwarded-Encrypted: i=1; AFNElJ9danYtxm+EOey3Oa7L6RTv7i4MkebdanqlWLDxu7DKegjIOEMqCFobgbdn3nr3ViZazzbRilM=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy/FNaFrnZUITjj2d0PVPihsZa6ld2zn+8q+asaUPFPAJ9im+dA
+	kUfnRgbRwaxJbbeoTPe8afQR5EldsLYLI6wn1KSyhr6YPHEbxlFUtlOtMhWRMjlrXfU=
+X-Gm-Gg: Acq92OHH2ewPrpDTTfkEaTMd+SRndiUg35f+oz296/EzeoVCyIQHH2Ivi/QOhyzAwzm
+	u+6i/aFIG/S/G8s4Zmzd2bEnaDHJP2WGLZphNCXQafGBgjRteg9dB+BZvqbwol6YrJt8qNC2QZZ
+	6rD4wbyHSoTqU8yhRLAuRnYWzwiZerVP585zLIrs7SImhL9+SJz2EU0Tep5CuBeH7U+QTXxWs/w
+	g+0ygiJGgKChO5Ko19Rn8dlP3HQhhGrX4Y5zOWm/l1bcAdnHEqEFe8QUb8Py7aKU6a06ZkCqvck
+	FqFDmj9zeWW+NQ7uzACtUJpEaCBykVDzKbMhmluo+eYU/zq4/EwnKTXULCVHKyRHbVeosY9/xJF
+	by+nkFChCVbt8oZZbjhOW9EWwJoaTHd5Hq9RILuEJVZLpgizWvdlsKqTX68HKjYz+iIXb0hH4ZW
+	VtzW3WzSaj6NDrba4HPXgG
+X-Received: by 2002:a05:6820:f022:b0:6a0:b429:4436 with SMTP id 006d021491bc7-6a0c72f9a99mr346616eaf.0.1781716697847;
+        Wed, 17 Jun 2026 10:18:17 -0700 (PDT)
+Received: from [192.168.1.14] ([38.15.57.99])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-44308a66827sm4841164fac.2.2026.06.17.10.18.16
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 17 Jun 2026 10:18:17 -0700 (PDT)
+Message-ID: <5f919e15-45e2-4c33-896c-a17782d5e8ec@linuxfoundation.org>
+Date: Wed, 17 Jun 2026 11:18:15 -0600
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net] octeontx2-af: fix memory leak in
- rvu_setup_hw_resources()
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <178171658788.1670911.17461690846628878234.git-patchwork-notify@kernel.org>
-Date: Wed, 17 Jun 2026 17:16:27 +0000
-References: <20260617013416.113860-1-dawei.feng@seu.edu.cn>
-In-Reply-To: <20260617013416.113860-1-dawei.feng@seu.edu.cn>
-To: Dawei Feng <dawei.feng@seu.edu.cn>
-Cc: sgoutham@marvell.com, lcherian@marvell.com, gakula@marvell.com,
- hkelam@marvell.com, sbhatta@marvell.com, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, jianhao.xu@seu.edu.cn,
- zilin@seu.edu.cn, stable@vger.kernel.org
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.18 000/325] 6.18.36-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com,
+ Shuah Khan <skhan@linuxfoundation.org>
+References: <20260616145057.827196531@linuxfoundation.org>
+Content-Language: en-US
+From: Shuah Khan <skhan@linuxfoundation.org>
+In-Reply-To: <20260616145057.827196531@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hello:
-
-This patch was applied to bpf/bpf-next.git (master)
-by Paolo Abeni <pabeni@redhat.com>:
-
-On Wed, 17 Jun 2026 09:34:16 +0800 you wrote:
-> If rvu_npc_exact_init() fails in rvu_setup_hw_resources(), the function
-> returns directly instead of jumping to the error handling path. This
-> causes a resource leak for the previously initialized CGX, NPC, fwdata,
-> and MSI-X states.
+On 6/16/26 08:56, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.18.36 release.
+> There are 325 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 > 
-> Fix this by replacing the direct return with goto cgx_err to ensure
-> proper cleanup.
+> Responses should be made by Thu, 18 Jun 2026 14:49:57 +0000.
+> Anything received after that time might be too late.
 > 
-> [...]
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.18.36-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.18.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
+> 
 
-Here is the summary with links:
-  - [net] octeontx2-af: fix memory leak in rvu_setup_hw_resources()
-    https://git.kernel.org/bpf/bpf-next/c/09a5bf856aa7
+Compiled and booted on my test system. No dmesg regressions.
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+Tested-by: Shuah Khan <skhan@linuxfoundation.org>
 
-
+thanks,
+-- Shuah
