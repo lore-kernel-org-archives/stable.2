@@ -1,159 +1,136 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F40430F927;
-	Wed, 17 Jun 2026 03:38:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3544B311946
+	for <stable@vger.kernel.org>; Wed, 17 Jun 2026 03:41:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781667518; cv=none; b=MKavQIYUtIuZpQ0n64vkZ5mqzeswkDAgtp2hLIiLax0/qID3JWsEOZ4I5s00jFe6o4JPOrBjA6R71JjXJFGpR/gMLnDhjg+L4EbFk02c3MqOcUn5hejUFc4+iSc0JF+WK4hka0MP6SmkzAJ7sc3l+uxcf1fFgppdUFW77ExlQDM=
+	t=1781667682; cv=none; b=YwxrfOEiWybjJ1bHQ5H5gPMuOzMQH8pbTBIqZ3Vd/VkWlegSblIPoT6Hv1SQotLbLeMgE01ZIqBqguDUqiMDjgofqSQIM4SiS8DJkqNF8yiMyWlA5foevCeflYeSkwsJrxHSM7edO+TFeJL5B4PLb6lwQLrglsGfhXwStKGLpnY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781667518; c=relaxed/simple;
-	bh=0yqpe+lm26W/LP+lHFCj4JnBMx0WRaxSZRm9RwmCSVk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FYmTLKxaC5yxudgNrthGGHIItg00Nq5xmV8SY5rGgOtMAVAAYzu62pXYhgVOCfxRRYydpKUQnLTPy9eS9D5UOmUkXeVNWL3Kr55kOGONJETNrkEAds+QyFfAqzjxEcog66Jj+KTU6b+iG51MlXGYn/bCVDVlmg3VE3AEOK7219Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=qS885WPE; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=P3KdvkCE; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1781667682; c=relaxed/simple;
+	bh=ejKlcD3ojZM/P1bfToXGF2SV9BXp3bkfJzxqQ6vqRMw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=KTPFKyY5veOFE3isV3xwT0hMaviAv4fEqVLnJiSBOnjDhvhP4iW7OIRnjnq9CeQVMAlFivEm9ZD4eWx9KsX4DGrhoYrSy6abgN4b7unfN1hYBq1/uf1P+zG6pv/E5cjlJg25HkN2Ajt8acxo4A4N1T2/Vx6QSihPAFahGEYubkc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=Tl9xDgmK; arc=none smtp.client-ip=209.85.216.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="qS885WPE";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="P3KdvkCE"
-From: Nam Cao <namcao@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1781667515;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ECbGHWtQ+jrzHJRs4USa5UszLEQs+i/gsj0NHZu3sqc=;
-	b=qS885WPEJYfEIVB87uVsb2/mCKzMsYdlADE/ymT2IShEbcDn2tpcYm0KZERQlYOKqvD49/
-	sw7SIUfCEfKKKYx+clC7SgC+rZd60cwRe3TcZfcJAtg8gVvoAFUJrQzSg8H5hLjQwM4XIv
-	GTOPY574yORpm3RH0+CH4iZJQQtOsBa+HqTkMd8OxErdn1qMIGswHa0NnvSN8glkLg0zpe
-	uKpwJ+FOB+u52EyCSQvoH0xRLaBrwynwI+m2L5fiwqFMXqOutCu3GubEgnY2DDZc+MRXvg
-	HypApqDw8IqAdEfpHxBNneaTyI14qdV5bbd8LV6KW7+siNaJYZVrKoab9aL4/g==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1781667515;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ECbGHWtQ+jrzHJRs4USa5UszLEQs+i/gsj0NHZu3sqc=;
-	b=P3KdvkCETGCEdPuE/2MX5ipRPf2qck+mhr2XAqJLzCfybFn97nnATBrc5vnHbsRHZO/KIw
-	HVPU8jJ+Jk4W1vAA==
-To: Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Andrew Jones <andrew.jones@oss.qualcomm.com>,
-	Jingwei Wang <wangjingwei@iscas.ac.cn>,
-	Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>,
-	linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Cc: Nam Cao <namcao@linutronix.de>,
-	stable@vger.kernel.org
-Subject: [PATCH 1/2] riscv: unaligned: stop using kthread for check_vector_unaligned_access()
-Date: Wed, 17 Jun 2026 05:38:24 +0200
-Message-ID: <1c378963f27c5960e8a57c50b8b444d30954cb54.1781666867.git.namcao@linutronix.de>
-In-Reply-To: <cover.1781666867.git.namcao@linutronix.de>
-References: <cover.1781666867.git.namcao@linutronix.de>
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="Tl9xDgmK"
+Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-36da8439078so4569725a91.2
+        for <stable@vger.kernel.org>; Tue, 16 Jun 2026 20:41:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1781667680; x=1782272480; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=Gix0nvCYK1OhR2Kcuql53IhC6b91d4kE/6Woyx2T6JY=;
+        b=Tl9xDgmKmasCIwxyfeEMKDiN5nHV2Ssko8Nh+INXPud4chIGoKDnKCtH9mm8R8Ler9
+         qXtWDwNF46vYWsQTSzqp3Wjffk8XQKrIiXpS00ANsxqQwxKdN0xX+8rGJsvVAqDEll1M
+         zYM3Uic/IRVymEVLeG/b3UBiLeB/b+OTire1A=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781667680; x=1782272480;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=Gix0nvCYK1OhR2Kcuql53IhC6b91d4kE/6Woyx2T6JY=;
+        b=GXwzj9UhoVRSqf58EQ0Xl8K7Q5yjViGxDFXGuE7nqIdYiVFBklKtMwTCVv9gtk8FVt
+         S00q0szV1LTu+/sO6ucD9Vc+agBk6ezhbXtkdyHAIcZ1+CbMLFnxzN0dQhFs/Mpwh2wS
+         2Ng36TWXUr/51j5YDsypssPr9T5tEmzE1Ud11p2bS+2KJ/j5d+jV9oypTlq6zRnd2Usu
+         TN4VLh97p2C/OgvVoOcJ70o4M7iUm6Wf2GsZWmD5vG8L/vDweYnX/p6ESGVharMiUD9p
+         fVvS119ydeNQKJkBzsxA48SpxWl84hlf5YUxxbXzyJhKimRuGKvs5YcX+d0AvG3da1LM
+         Z1/g==
+X-Forwarded-Encrypted: i=1; AFNElJ+VhzfNBpxYW0heCuhRv3l5Enlm15ctfYOB00dxrWeRPehgIOZrNRa43h+QGteS/XTpFaKQrqc=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yys1NZeum14kLQPqyhS6swswupJDHvESu8rpDESfbVZ5K0GDL+r
+	B5HBVjiGe9iiOiUj1a08XPbNtoJGSaU3KiSX0aOIPgO41RXJyR7mT/xLf7rVfAwEnw==
+X-Gm-Gg: AfdE7ckO9nqRyHvYgY+LkyIwT/vQ6JU3TXPxc73X8mZOG9ecZsXChcmVPq4u/cMqjk4
+	KqunkpNDbPqNfCk0jaw1JvDYc8sMZLBn+MiN7pNEoBBCV3GGuBZCOvbtFHrcLMA1WeTpIXS8klv
+	U6X4IADFKNWf8TiOyjvEHR5YQWTXQYp/vIXePMQgY7IFgdiDM7qhIaxpZzCm8XziLHJliJrBQtP
+	3nidLs8RS3cct/szVMX2BwH1H/CcKGpAYp3FcZqySyqRv4AFswqG1yKBOYdSC+ZId9exSBKeeZV
+	lPQJbNCHmLDfd1lK7bkE5Z39LP2//UC9qxQ+Q/gehlXledEOvkROAJ7TH/d8hDxcPmgWzSFPZ+V
+	hd6BFBQqxV0VHVfbXrUuyQn5zgM+FEAQZBweWsYziGaEwzdEFjReVyj4ZDr6MMdptRxcTfiobvR
+	KXupkzv1RGZQqEAS22inky3TydIEKTURQ6zyD4kv6vvs+fMh2+PE4=
+X-Received: by 2002:a17:90b:5107:b0:36a:a16b:5f65 with SMTP id 98e67ed59e1d1-37c9372863cmr2233719a91.11.1781667680584;
+        Tue, 16 Jun 2026 20:41:20 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2031:6:a0b:fabb:5b62:b85b])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-37c521d8e7bsm4513705a91.5.2026.06.16.20.41.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 16 Jun 2026 20:41:20 -0700 (PDT)
+Date: Wed, 17 Jun 2026 12:41:15 +0900
+From: Sergey Senozhatsky <senozhatsky@chromium.org>
+To: Sean Wang <sean.wang@kernel.org>
+Cc: Sergey Senozhatsky <senozhatsky@chromium.org>, 
+	Marcel Holtmann <marcel@holtmann.org>, Luiz Augusto von Dentz <luiz.dentz@gmail.com>, 
+	Mark-yw Chen <mark-yw.chen@mediatek.com>, Sean Wang <sean.wang@mediatek.com>, 
+	Tomasz Figa <tfiga@chromium.org>, linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2 3/3] Bluetooth: btmtksdio: call cancel_work_sync()
+ outside of host lock scope
+Message-ID: <ajIWAC9b_l6Id_6A@google.com>
+References: <20260616111224.152140-1-senozhatsky@chromium.org>
+ <20260616111224.152140-4-senozhatsky@chromium.org>
+ <CAGp9LzqT4knwk9hONu43cGDr005Phs3xw6T+YexXa3X6JEBOpA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAGp9LzqT4knwk9hONu43cGDr005Phs3xw6T+YexXa3X6JEBOpA@mail.gmail.com>
 
-A kthread is used to run check_vector_unaligned_access() to optimize boot
-time, allowing the kernel to continue booting without waiting for the
-unaligned vector speed probe to finish.
+On (26/06/16 19:56), Sean Wang wrote:
+> The patch looks good to me. Inspired by your patch,
+> do you think should we add another patch to keep txrx_work out of the
+> reset window by rejecting TX during reset,
+> ignoring reset-time interrupts, and making queued workers exit early?
 
-However, this asynchronous approach introduces several complications.
-First, the kthread may not complete before a user reads vDSO data,
-resulting in incorrect values. This was previously addressed by
-commit 5d15d2ad36b0 ("riscv: hwprobe: Fix stale vDSO data for
-late-initialized keys at boot"), which added complex synchronization
-between the kthread and vDSO reads.
+I honestly don't know, it's hard for to me judge as I'm not all that
+familiar with the code.  To make things more complex, I don't think we
+see any crashes on reset path.  My personal preference maybe would be
+to keep things the way they are?
 
-Second, it was discovered that the kthread may not finish before
-vec_check_unaligned_access_speed_all_cpus() (marked with __init) is freed,
-triggering a page fault.
+> Some code like:
+> 
+> --- a/drivers/bluetooth/btmtksdio.c
+> +++ b/drivers/bluetooth/btmtksdio.c
+> @@ -567,6 +567,8 @@ static void btmtksdio_txrx_work(struct work_struct *work)
+>         pm_runtime_get_sync(bdev->dev);
+> 
+>         sdio_claim_host(bdev->func);
+> +       if (test_bit(BTMTKSDIO_HW_RESET_ACTIVE, &bdev->tx_state))
+> +               goto out;
 
-These issues raise the question of whether the kthread is worth the added
-complexity. A past boot time regression report was actually unrelated to
-synchronous probing; it was caused by the probe running serially. Since
-switching to a parallel probe, no further complaints have been made.
-Furthermore, the unaligned scalar access speed probe takes the same amount
-of time, runs synchronously, and has caused no issues.
+A nit: I think you can test_bit() outside of host lock scope.
+Other than that I'm afraid I cannot be of much help here.
 
-Testing shows no noticeable boot time slowdown when running the vector
-probe synchronously (0.464474s with kthread vs. 0.457991s without).
-
-Remove the kthread usage and run the probe synchronously. This simplifies
-the boot flow and allows for the revert of commit 5d15d2ad36b0 ("riscv:
-hwprobe: Fix stale vDSO data for late-initialized keys at boot")
-
-Reported-by: Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>
-Closes: https://lore.kernel.org/linux-riscv/20260612-vec_unaligned_drop_ini=
-t-v1-1-df969210ae34@oss.tenstorrent.com/
-Fixes: a00e022be531 ("riscv: Annotate unaligned access init functions")
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Nam Cao <namcao@linutronix.de>
----
- arch/riscv/kernel/unaligned_access_speed.c | 19 ++-----------------
- 1 file changed, 2 insertions(+), 17 deletions(-)
-
-diff --git a/arch/riscv/kernel/unaligned_access_speed.c b/arch/riscv/kernel=
-/unaligned_access_speed.c
-index bb57eb5d19df..6e35bca568de 100644
---- a/arch/riscv/kernel/unaligned_access_speed.c
-+++ b/arch/riscv/kernel/unaligned_access_speed.c
-@@ -6,7 +6,6 @@
- #include <linux/cpu.h>
- #include <linux/cpumask.h>
- #include <linux/jump_label.h>
--#include <linux/kthread.h>
- #include <linux/mm.h>
- #include <linux/smp.h>
- #include <linux/types.h>
-@@ -288,18 +287,9 @@ static void check_vector_unaligned_access(struct work_=
-struct *work __always_unus
- 	__free_pages(page, MISALIGNED_BUFFER_ORDER);
- }
-=20
--/* Measure unaligned access speed on all CPUs present at boot in parallel.=
- */
--static int __init vec_check_unaligned_access_speed_all_cpus(void *unused _=
-_always_unused)
--{
--	schedule_on_each_cpu(check_vector_unaligned_access);
--	riscv_hwprobe_complete_async_probe();
--
--	return 0;
--}
- #else /* CONFIG_RISCV_PROBE_VECTOR_UNALIGNED_ACCESS */
--static int __init vec_check_unaligned_access_speed_all_cpus(void *unused _=
-_always_unused)
-+static void check_vector_unaligned_access(struct work_struct *work __alway=
-s_unused)
- {
--	return 0;
- }
- #endif
-=20
-@@ -387,12 +377,7 @@ static int __init check_unaligned_access_all_cpus(void)
- 			per_cpu(vector_misaligned_access, cpu) =3D unaligned_vector_speed_param;
- 	} else if (!check_vector_unaligned_access_emulated_all_cpus() &&
- 		   IS_ENABLED(CONFIG_RISCV_PROBE_VECTOR_UNALIGNED_ACCESS)) {
--		riscv_hwprobe_register_async_probe();
--		if (IS_ERR(kthread_run(vec_check_unaligned_access_speed_all_cpus,
--				       NULL, "vec_check_unaligned_access_speed_all_cpus"))) {
--			pr_warn("Failed to create vec_unalign_check kthread\n");
--			riscv_hwprobe_complete_async_probe();
--		}
-+		schedule_on_each_cpu(check_vector_unaligned_access);
- 	}
-=20
- 	/*
---=20
-2.47.3
-
+>         /* Disable interrupt */
+>         sdio_writel(bdev->func, C_INT_EN_CLR, MTK_REG_CHLPCR, NULL);
+> @@ -628,6 +630,7 @@ static void btmtksdio_txrx_work(struct work_struct *work)
+>             !test_bit(BTMTKSDIO_HW_RESET_ACTIVE, &bdev->tx_state))
+>                 sdio_writel(bdev->func, C_INT_EN_SET, MTK_REG_CHLPCR, NULL);
+> 
+> +out:
+>         sdio_release_host(bdev->func);
+> 
+>         pm_runtime_put_autosuspend(bdev->dev);
+> @@ -646,6 +649,9 @@ static void btmtksdio_interrupt(struct sdio_func *func)
+>         /* Disable interrupt */
+>         sdio_writel(bdev->func, C_INT_EN_CLR, MTK_REG_CHLPCR, NULL);
+> 
+> +       if (test_bit(BTMTKSDIO_HW_RESET_ACTIVE, &bdev->tx_state))
+> +               return;
+> +
+>         schedule_work(&bdev->txrx_work);
+>  }
+> 
+> @@ -1250,6 +1256,9 @@ static int btmtksdio_send_frame(struct hci_dev
+> *hdev, struct sk_buff *skb)
+>  {
+>         struct btmtksdio_dev *bdev = hci_get_drvdata(hdev);
+> 
+> +       if (test_bit(BTMTKSDIO_HW_RESET_ACTIVE, &bdev->tx_state))
+> +               return -EBUSY;
+> +
+>         switch (hci_skb_pkt_type(skb)) {
+>         case HCI_COMMAND_PKT:
+>                 hdev->stat.cmd_tx++;
