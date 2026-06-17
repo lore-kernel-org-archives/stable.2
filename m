@@ -1,45 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDFB825F984;
-	Wed, 17 Jun 2026 14:48:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B40B12E736B
+	for <stable@vger.kernel.org>; Wed, 17 Jun 2026 14:49:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781707726; cv=none; b=oqipYZsUTu2TLkH54+R/jikDy8ZhXq04n9scu7qEi/TNmjU49FBRUIHMR5SHJjQxebgG2nRl5WCMtu1lytC8JQpfoPGoqShFD74/eyfvKLPn4MHIhZmkMZD6fFU7utPryG4nYwoUSr9L2frEHy55tB0fE44nT/+pY0fe3BEymZg=
+	t=1781707762; cv=none; b=h/CwhYZmofuUFKPyi5AW/ChREwQMuiP4XRcEcTqLIvJ9KM6aOSF7nDj5MQNBH+neLPUmY7TQD48IL6V2ZTBV5R4yDyWpXeyrS+pFjUDdV3rT0kEwYlhDHOOArEO86xVwrlWCAq2FB5T83wCee3l+kgLLP5WWbBzf4RgHOljCnJI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781707726; c=relaxed/simple;
-	bh=n+MpPsjDxaJNzCR36ZHui5GCopQ8H1IC/W8er6O8MP4=;
+	s=arc-20240116; t=1781707762; c=relaxed/simple;
+	bh=2mEWhKkYvCoxqAV4EaE/XMBtHtdRFtluNxbU7PsVflM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Lv1jKsre9lKfEBuSpfsZNr5cabPj655YJ+v9Xj6krgJeU4jQBj50wCFnCDCWozrClcOqBZqxiJps7DPT4jIp9MFnTJQAwIIXgJrTVZbjtHevPhOfJAtnKRuy0xfmgV0Hj7ZOBscG5yDmLTLlvWy8T5yBF6E5IYJM7dFuOQ7cTXI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YTSK+CWW; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=aNE1ooy5IFPx+C3ClIr1gldljfxPc0/LejjENzpxXyTDUzh7eht+0SzQHV7gzrjrRpd4AJxDEHF4NGU4jRogDiTI3IeOSHZ8egDDLJos+wpXP38GPs2FeutrWCd2JaAgIPGOMPUNGOCW3QqD0S2SJOoIcJCBwDkvzrvw0UtF2gM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gNP2diVb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YTSK+CWW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE0B41F00A3D;
-	Wed, 17 Jun 2026 14:48:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gNP2diVb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C584C1F000E9;
+	Wed, 17 Jun 2026 14:49:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781707724;
-	bh=CaF8UdvZVDDussggfwjRLGsPjlTiPuwSrEK65nFYR9w=;
+	s=k20260515; t=1781707761;
+	bh=SFBxBAhgXrRXmyfBFo/Vgy59o9Ged79mpgVK9YU+rgU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=YTSK+CWWyy07fQAd79Drqssx8EIz0d1umquuzvD0ZbX8Scsa+HOIG0PyZWxPcJnOp
-	 YIrJZFgZSdwLv3THjsKukFxPyF7a0dDVukj1UTz8zG3dAuqxBVmOimH2rH1JWydV06
-	 VZJD69fV6T7CBSfscjR1ClWWhXsxi4q7IQa0DkOyb6syaZe02+TAWtA1M2FjKZHX2H
-	 UeZUe6NjuIpfz6GOCv8jMkDi1iVDG8uQWtmi1RTcx/tDdXpUndGiAFCc+/UV7H+WQ2
-	 dCEdxRubeJnecn7xCBAMuWJoALKti7qqPQkLz3mC5zY7cXfzqd+CeftszHLhCwimUL
-	 ln7eIPlXC776Q==
-From: SeongJae Park <sj@kernel.org>
-To: 
-Cc: SeongJae Park <sj@kernel.org>,
-	"# 6 . 17 . x" <stable@vger.kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [RFC PATCH v1.1 07/11] mm/damon/sysfs-schemes: kobject_del() scheme action destination dirs
-Date: Wed, 17 Jun 2026 07:48:01 -0700
-Message-ID: <20260617144807.91441-8-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260617144807.91441-1-sj@kernel.org>
-References: <20260617144807.91441-1-sj@kernel.org>
+	b=gNP2diVb/HfbHguZ5FtjJSIOvSN714OeHrj68gwBiFVAykAuevbov1KOly5SBNLKA
+	 u9n1csoyGFI/QtShg8D3sI3JbWvuf0mk8iQ8cuUfSo6PP8uzbV/gw7GyAK5bzMZih1
+	 SFOdc7TiTWkGRmwHDqD1xLmwzTtU+7d5xBZ9Pr04Iy2XSUifQXlZ6JmaWZJ7wqwEmd
+	 XE+xybwIfL6rY2M+ro8cZ9VJU7+WpGIMfbeE3Q3jTX1Z87NLi2qqIIbFVSLyRXXVJ+
+	 NByKzGW3XYSpqeQ43bszzC9JXFPLmwd7FCACwtWkqvS7VtqskDOONLsRy9X9dA1AgK
+	 J2MeYl8WB9v1Q==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Kuniyuki Iwashima <kuniyu@amazon.com>,
+	Eric Dumazet <edumazet@google.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/3] phonet: Pass ifindex to fill_addr().
+Date: Wed, 17 Jun 2026 10:49:16 -0400
+Message-ID: <20260617144918.39042-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026061547-discourse-faceless-4af5@gregkh>
+References: <2026061547-discourse-faceless-4af5@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,33 +46,79 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On CONFIG_DEBUG_KOBJECT_RELEASE enabled kernel, lack of kobject_del()
-could cause directories creation failures due to the name conflicts. Fix
-those issues for scheme action destination directories by adding
-kobject_del() calls.
+From: Kuniyuki Iwashima <kuniyu@amazon.com>
 
-Fixes: 2cd0bf85a203 ("mm/damon/sysfs-schemes: implement DAMOS action destinations directory")
-Cc: <stable@vger.kernel.org> # 6.17.x
-Signed-off-by: SeongJae Park <sj@kernel.org>
+[ Upstream commit 08a9572be36819b5d9011604edfa5db6c5062a7a ]
+
+We will convert addr_doit() and getaddr_dumpit() to RCU, both
+of which call fill_addr().
+
+The former will call phonet_address_notify() outside of RCU
+due to GFP_KERNEL, so dev will not be available in fill_addr().
+
+Let's pass ifindex directly to fill_addr().
+
+Signed-off-by: Kuniyuki Iwashima <kuniyu@amazon.com>
+Reviewed-by: Eric Dumazet <edumazet@google.com>
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+Stable-dep-of: 71de0177b28d ("net: phonet: free phonet_device after RCU grace period")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/damon/sysfs-schemes.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ net/phonet/pn_netlink.c | 13 +++++++------
+ 1 file changed, 7 insertions(+), 6 deletions(-)
 
-diff --git a/mm/damon/sysfs-schemes.c b/mm/damon/sysfs-schemes.c
-index 573a40c679be3..0c0c9637b594e 100644
---- a/mm/damon/sysfs-schemes.c
-+++ b/mm/damon/sysfs-schemes.c
-@@ -2145,8 +2145,10 @@ static void damos_sysfs_dests_rm_dirs(
- 	struct damos_sysfs_dest **dests_arr = dests->dests_arr;
- 	int i;
+diff --git a/net/phonet/pn_netlink.c b/net/phonet/pn_netlink.c
+index dd4c7e9a634fbe..6b50e4d526682f 100644
+--- a/net/phonet/pn_netlink.c
++++ b/net/phonet/pn_netlink.c
+@@ -19,7 +19,7 @@
  
--	for (i = 0; i < dests->nr; i++)
-+	for (i = 0; i < dests->nr; i++) {
-+		kobject_del(&dests_arr[i]->kobj);
- 		kobject_put(&dests_arr[i]->kobj);
-+	}
- 	dests->nr = 0;
- 	kfree(dests_arr);
- 	dests->dests_arr = NULL;
+ /* Device address handling */
+ 
+-static int fill_addr(struct sk_buff *skb, struct net_device *dev, u8 addr,
++static int fill_addr(struct sk_buff *skb, u32 ifindex, u8 addr,
+ 		     u32 portid, u32 seq, int event);
+ 
+ void phonet_address_notify(int event, struct net_device *dev, u8 addr)
+@@ -31,7 +31,8 @@ void phonet_address_notify(int event, struct net_device *dev, u8 addr)
+ 			nla_total_size(1), GFP_KERNEL);
+ 	if (skb == NULL)
+ 		goto errout;
+-	err = fill_addr(skb, dev, addr, 0, 0, event);
++
++	err = fill_addr(skb, dev->ifindex, addr, 0, 0, event);
+ 	if (err < 0) {
+ 		WARN_ON(err == -EMSGSIZE);
+ 		kfree_skb(skb);
+@@ -92,8 +93,8 @@ static int addr_doit(struct sk_buff *skb, struct nlmsghdr *nlh,
+ 	return err;
+ }
+ 
+-static int fill_addr(struct sk_buff *skb, struct net_device *dev, u8 addr,
+-			u32 portid, u32 seq, int event)
++static int fill_addr(struct sk_buff *skb, u32 ifindex, u8 addr,
++		     u32 portid, u32 seq, int event)
+ {
+ 	struct ifaddrmsg *ifm;
+ 	struct nlmsghdr *nlh;
+@@ -107,7 +108,7 @@ static int fill_addr(struct sk_buff *skb, struct net_device *dev, u8 addr,
+ 	ifm->ifa_prefixlen = 0;
+ 	ifm->ifa_flags = IFA_F_PERMANENT;
+ 	ifm->ifa_scope = RT_SCOPE_LINK;
+-	ifm->ifa_index = dev->ifindex;
++	ifm->ifa_index = ifindex;
+ 	if (nla_put_u8(skb, IFA_LOCAL, addr))
+ 		goto nla_put_failure;
+ 	nlmsg_end(skb, nlh);
+@@ -140,7 +141,7 @@ static int getaddr_dumpit(struct sk_buff *skb, struct netlink_callback *cb)
+ 			if (addr_idx++ < addr_start_idx)
+ 				continue;
+ 
+-			if (fill_addr(skb, pnd->netdev, addr << 2,
++			if (fill_addr(skb, pnd->netdev->ifindex, addr << 2,
+ 					 NETLINK_CB(cb->skb).portid,
+ 					cb->nlh->nlmsg_seq, RTM_NEWADDR) < 0)
+ 				goto out;
 -- 
-2.47.3
+2.53.0
+
