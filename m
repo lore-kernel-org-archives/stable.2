@@ -1,174 +1,302 @@
-Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com [67.231.145.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C8F93CFF7F
-	for <stable@vger.kernel.org>; Wed, 17 Jun 2026 23:13:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 600F21DE4F1
+	for <stable@vger.kernel.org>; Wed, 17 Jun 2026 23:34:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=67.231.145.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781738034; cv=none; b=MTA86kWfJB5fpG47LJVKVKT/rnQA/ItEW9HMhGpQEAcBEHMFexW/dmWTKCIoFMtKUhNuD+iEPvQxDphcbrU3OzPGOwy3s/30boAvDnSjuQ8ZRn1XDtw069GQBf5fopkp1tULoHYfiyHs1Em+woM09csK2NJSfi6TrLO5CCfJ940=
+	t=1781739243; cv=none; b=q/QMPmM8vd7B7JadbNxk08cK9irTGAwZILc7lxErm3qwYKgWMm3wvd6TOKiJXVIHc7L8Re7udwwG9hVfObaR5Rf/npyqueDS645JlLTDvu+5ByR1lZ3OZ2cO3NP5wq+6Lotxt8qZ60fKkeUTHc2G1p9uR/Lud9iBXRtrmq/3VIg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781738034; c=relaxed/simple;
-	bh=Kj0TBfxEicM57cvRUBFcrL1W+6OHe2oDpqZXrRZ/o3c=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=iZmmZI4vz847bQyZOW4SXSqA9rX3eKUKaMIoHUumBzLqWhkVQ5NKXkOjmsSIQO11Ki+ahUR6SaItHE5DTyIUzI42aVitlbNbNxkVqnBvbZ07kNiHAxA0glop4zcJx76TKBV5odq56QoqiE27VDjdGNrhSyBEkn0FJrVyb9m5abg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu; spf=pass smtp.mailfrom=asu.edu; dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b=RMbgMf2p; arc=none smtp.client-ip=209.85.210.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asu.edu
+	s=arc-20240116; t=1781739243; c=relaxed/simple;
+	bh=bYGJHmHFIdg/vZp+bBJZjvaSuFW3cm1oJyzL7R50C2w=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Gb/teJ4AWkzQsqO7C1f15v6kNwXriWaCKKf1mWg3xdvpMLeMGMDIV0B+PS96mTGymzpDfzPWy2xmWK0BiPKMsG/yh31EUz2QH9MGO9O7IPRc+voL0YLCzzCnebpPMQTpK/KURGzXToKIWZonL+5WCGOSTkTYIx7ICwFzbkEKnWk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meta.com; spf=pass smtp.mailfrom=meta.com; dkim=pass (2048-bit key) header.d=meta.com header.i=@meta.com header.b=dFL2otj5; arc=none smtp.client-ip=67.231.145.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meta.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b="RMbgMf2p"
-Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-84536ecfc5bso204512b3a.2
-        for <stable@vger.kernel.org>; Wed, 17 Jun 2026 16:13:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=asu.edu; s=google; t=1781738033; x=1782342833; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=4jtRzExnB/EeGtbnZ2qJXWTojvkZFyWJwa+IXv5Dkx4=;
-        b=RMbgMf2pb8qQ3AVVp/dIoTVBJlqskOGXQuiL2SOZcSU5DOo1Fjq0BBX+BGP2WcSe3m
-         o/4cjTuAkdvlNnM5PHS4yuIdkE/z7uTTP40ckH7b81RZd+QYLJOuZ3Vz/to8BNwtvWV4
-         bX0DJIPbjVYMMgNTjAUTO/scXUy76kz7XjzDxEVFtbpAYn6kSJT267quEm/peZ9dl1vy
-         QU55b+28b6PCNm1Hx0lCeDd+i/VsNgHoH5QCheNpbwDAYpT4ApTnAUHoNB8FKxfaV8rj
-         YCvDtiiDa0xGzWAWdBEXC8EfRZA9O25bmyrjwOpcAJCDtFbms9VGwZsfT9g96jb07K8m
-         kRgw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781738033; x=1782342833;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=4jtRzExnB/EeGtbnZ2qJXWTojvkZFyWJwa+IXv5Dkx4=;
-        b=fVZ4JiuE2gWKMF0HIDOoV7QjxZ4xt+MProYgt/PT/8kCB1EdTKT8lN+6WGV7YH3zI/
-         shInfDDqM9ZXgzutJiYvXEiWIm3qqEg4HXnrqD6ceTOWxc5DJcjrze+KF+SB4fWlUM0I
-         QOEgWtRHkQtCs9/dVXLQlC/Ldh+n1viK0ac/Wbl5h1JN73bXlKAa176fToimTMXVazLw
-         34S3kQm6p+4HMkgUn2FmmYZVol1kE2MJDoJbLKz+YAITfb/MOWxkUMBPcPDw/bI9ELEj
-         B3GwrlGWmLjLUq41cPn9yWptlxGEPXubLd1s8WWCuy48Jw+bWiGHk4sx3N6vtgpFi9qC
-         hsEQ==
-X-Forwarded-Encrypted: i=1; AFNElJ8UUEPtiN9KcyFhIKN1926eHUKNZWcJdEmd13prqYQP/SNExfpRBs5PhgJO/3JdcK/R2mggb4o=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxlShC4BUk1FESkes1RNq67IXQNwqrwecLd0vh/lP+0moCCRSUD
-	NPznDtKRSIzd/6iTkOTxtScHl6rjUpRSuxHWBZdMCuB8h8csstraCweQVL+PCYk25g==
-X-Gm-Gg: AfdE7cnuNyokBBZ60uEHdheQTPt+iGIWAhpSM8If+JjvUALJuqjWeOyGM289KFG70QI
-	zGd1e9RxDOHhXQWJfsVcVD5JTbzPAX4nVKirmkyQ/7imyMPyIDWjI2KoJXDPNF56/6lQNeXJM35
-	OltaYWIG9+2AZ67UOyTUuXL/OPXNet5T8ercFY5+rjR/aQ/DS4rWpphshFKDmoYBSWZDlQ3gLft
-	Q0RyYF18KOslo6HDU4iMLBf25BW4vuUN214g5mgY2Iqsrr0wN/xceRdZ7vng4SfCigSXuWVv0/0
-	cNPM3c0RvWv2zZDnxcfjItXCb3vM/ktVC9WYHbtCO0VxIg9chqgIKR9+txZkIO8eC6lUeeN71zz
-	owmOgEJWfd3GnYaT6rpWzzJO3FgjIl0VrGwzSzRR+XVCT+3gvIMOO/XY6Y/uPf7/KUCrJ7DPCmA
-	==
-X-Received: by 2002:a05:6a00:1709:b0:842:377a:4dcd with SMTP id d2e1a72fcca58-8453b27ecd1mr853640b3a.43.1781738032748;
-        Wed, 17 Jun 2026 16:13:52 -0700 (PDT)
-Received: from p1.. ([2607:fb90:ec29:4018:2b5d:3e92:f9ad:889c])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8434acf4b5csm21073427b3a.23.2026.06.17.16.13.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 17 Jun 2026 16:13:52 -0700 (PDT)
-From: Xiang Mei <xmei5@asu.edu>
-To: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
-Cc: ntfs3@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Weiming Shi <bestswngs@gmail.com>,
-	Xiang Mei <xmei5@asu.edu>,
-	stable@vger.kernel.org
-Subject: [PATCH v2 2/2] fs/ntfs3: bound page_lcns[] index by the log record
-Date: Wed, 17 Jun 2026 16:13:43 -0700
-Message-ID: <20260617231343.403432-3-xmei5@asu.edu>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260617231343.403432-1-xmei5@asu.edu>
-References: <20260617231343.403432-1-xmei5@asu.edu>
+	dkim=pass (2048-bit key) header.d=meta.com header.i=@meta.com header.b="dFL2otj5"
+Received: from pps.filterd (m0528007.ppops.net [127.0.0.1])
+	by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65HK0vTA981659
+	for <stable@vger.kernel.org>; Wed, 17 Jun 2026 16:34:01 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=s2048-2025-q2;
+	 bh=M8oj17OkIUhfmg6VbN8ApgSdYh1H4y5vkkOv0aGYNNU=; b=dFL2otj5cPi/
+	cFzux+jvpGhB9xcXMoAy4jOlTY9E3ohTXgZ7fzCVnSiBeYmFhzlHnq77alP64aab
+	L5hyUk1VxPNLQPXxO/B+IYcY5SMvw3WGcttOTqOEE/EaVlMnB/E7e9qC7ddQSmOq
+	QHlQwmN6yfHzWWB0HS0+TeJTz2dbonCPe6nmmGICVWsJXUu4DcyzY4Nu5J23n4PQ
+	tPpTk+0Mm7Vj7wK4BbkT3u3i4hTC3c3Tis8vk8ZRolj1eJPgAzBsKSnMp1+Tmfaw
+	g1dyW5K45f0BCyKOb2v3/TpekvefZuFS+nOKHiZbONbyTvBWW86GnUATo8cthTWC
+	VG8tJZ4EDQ==
+Received: from maileast.thefacebook.com ([163.114.135.16])
+	by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4euegcr67j-5
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Wed, 17 Jun 2026 16:34:01 -0700 (PDT)
+Received: from twshared25719.01.snb2.facebook.com (2620:10d:c0a8:1b::2d) by
+ mail.thefacebook.com (2620:10d:c0a9:6f::237c) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.41; Wed, 17 Jun 2026 23:33:58 +0000
+Received: by devbig197.nha3.facebook.com (Postfix, from userid 544533)
+	id E030723517B5B; Wed, 17 Jun 2026 16:32:35 -0700 (PDT)
+From: Keith Busch <kbusch@meta.com>
+To: <linux-block@vger.kernel.org>, <linux-fsdevel@vger.kernel.org>
+CC: <dm-devel@lists.linux.dev>, <hch@lst.de>, <axboe@kernel.dk>,
+        <brauner@kernel.org>, <djwong@kernel.org>, <viro@zeniv.linux.org.uk>,
+        Keith
+ Busch <kbusch@kernel.org>, <stable@vger.kernel.org>
+Subject: [PATCH 1/1] block: validate user space vectors during extraction
+Date: Wed, 17 Jun 2026 16:32:35 -0700
+Message-ID: <20260617233235.1016063-2-kbusch@meta.com>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20260617233235.1016063-1-kbusch@meta.com>
+References: <20260617233235.1016063-1-kbusch@meta.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+X-FB-Internal: Safe
+Content-Type: text/plain
+X-Proofpoint-GUID: Sqv8TWa3VBW4lDcDVCSKtCMzYzOAjInm
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE3MDIyNSBTYWx0ZWRfX82mRqKwRwf0m
+ DhV2ohXeW5APij2W0YQiqo+SRAWMmWHH59astezJi1jjZIOkY48L14JITiHtKCGF+SQns9MJWHB
+ Fxh1Aatv6tvMXD5PJI8Ih/OEwqcoM3s=
+X-Authority-Analysis: v=2.4 cv=NpXhtcdJ c=1 sm=1 tr=0 ts=6a332ee9 cx=c_pps
+ a=MfjaFnPeirRr97d5FC5oHw==:117 a=MfjaFnPeirRr97d5FC5oHw==:17
+ a=FelO9ux0wxsA:10 a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22
+ a=4h92JMTCafKA-fb_NiOh:22 a=VwQbUJbxAAAA:8 a=MFjv_cZ18IANV4BSG9cA:9
+X-Proofpoint-ORIG-GUID: Sqv8TWa3VBW4lDcDVCSKtCMzYzOAjInm
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE3MDIyNSBTYWx0ZWRfX0fquvaCDgkny
+ 6tplqLKBuyH3aBBRxyVXm+g8nnRPqrKZ8xCyGfwSOmsfSIKXw+H4+hfJxRGh0Vw2sNayZrlbwhA
+ GI35eaKJ29H8ogBlzT2bjoo3MvDdVmg99VY/MGlux0IZFwbIhNTOYCc72ii26n5TKSGOxVeof6I
+ kz6oecpR1cz6jA5A7GufKlXPhGO7A+F72ot//3l++ID6F8FgD9jiFt+b82ip8uRaN169Wmaioht
+ wq7aZUAQkGMApSTJ6RglnOmeHQIFqbLpz4c9BnBXbEey/nQBovHKMndfMDYk4pR2ProNXRnM9b2
+ 7BnpNHtT10QqJVNpwrycNzLtDK3s4+48frkVg+XUyQgCKqS8TiB4noFEcyGdvvEpDsASl/cqo7Q
+ /Wx10yqLiHLMW9a+ceDz0lPFmXgUjeQE6+M7SogQaQFinmAdYU+5pk8XCNfWQ3SEEL7nB2cZI7E
+ 7Gmszp0X9GPJ4U77fnw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-17_02,2026-06-17_03,2025-10-01_01
 
-The copy_lcns loop and the redo shorten loop index page_lcns[] at j + i,
-where i runs up to the log record's lcns_follow. That count is checked only
-against the record's own length, not the target entry, so check_dp_table()
-(which validates the entry's lcns_follow) does not cover it: the copy_lcns
-entry may even be freshly allocated after that check, and find_dp() bounds j
-but not i. A crafted record thus overflows page_lcns[] of an otherwise valid
-entry.
+From: Keith Busch <kbusch@kernel.org>
 
-Add dp_range_ok() and reject, before each loop, any record whose run does
-not fit the entry. These are the only two page_lcns[] accesses indexed by
-the record rather than the entry, so together with the entry validation
-every access is now bounded.
+The blk-mq based drivers have every incoming bio validated by an
+unconditional __bio_split_to_limits() call, which rejects any segment
+that does not meet the queue's dma_alignment with BLK_STS_INVAL, so they
+only see viable requests. A bio-based driver, though, receives a bio
+whose memory alignment has not been checked.
 
-Fixes: b46acd6a6a62 ("fs/ntfs3: Add NTFS journal")
+Misalignment is possible for vectors supplied from user space direct-io.
+When a stacking driver forwards a misaligned bio to a member device,
+that member may reject it with BLK_STS_INVAL if the lower level attempts
+to split the bio to the queue limits. The stacker tends to mishandle the
+error: dm-raid1 may degrade an otherwise healthy array.
+
+Alternatively, some lower level bio based block drivers never attempt to
+split their bio and assume the one received is viable. If it's
+unaligned, block devices like brd and pmem may corrupt their data as
+they have a strong dependency on sector size aligned bvecs.
+
+Validate the source against the device's dma_alignment where the bio is
+built from the iov_iter, rejecting misaligned I/O with -EINVAL before it
+is submitted. This is done opportunistically in a path that already pins
+the pages, so no additional io vector walking is needed.
+
+The required alignment is supplied by the callers as vec_align_mask
+(bdev_dma_alignment()); passthrough and the bounce path pass 0 as they
+have no such requirement. If a vector is misaligned while building the
+bio, any pages already pinned into that bio are released before
+returning.
+
 Cc: stable@vger.kernel.org
-Reported-by: Weiming Shi <bestswngs@gmail.com>
-Assisted-by: Claude:claude-opus-4-8
-Signed-off-by: Xiang Mei <xmei5@asu.edu>
+Fixes: 5ff3f74e145a ("block: simplify direct io validity check")
+Fixes: 7eac33186957 ("iomap: simplify direct io validity check")
+Signed-off-by: Keith Busch <kbusch@kernel.org>
 ---
-v2: resend to public mailing list
+ block/bio.c          | 19 ++++++++++++++++---
+ block/blk-map.c      |  2 +-
+ block/fops.c         |  3 ++-
+ fs/iomap/direct-io.c |  3 ++-
+ include/linux/bio.h  |  2 +-
+ include/linux/uio.h  |  3 ++-
+ lib/iov_iter.c       |  9 ++++++++-
+ 7 files changed, 32 insertions(+), 9 deletions(-)
 
- fs/ntfs3/fslog.c | 25 +++++++++++++++++++++----
- 1 file changed, 21 insertions(+), 4 deletions(-)
-
-diff --git a/fs/ntfs3/fslog.c b/fs/ntfs3/fslog.c
-index b1ca84d83de5..1cc7402fdc2c 100644
---- a/fs/ntfs3/fslog.c
-+++ b/fs/ntfs3/fslog.c
-@@ -647,6 +647,14 @@ static inline void *enum_rstbl(struct RESTART_TABLE *t, void *c)
- 	return NULL;
- }
- 
-+/*
-+ * dp_range_ok - true if [j, j + count) fits in a page_lcns[cap] array.
-+ */
-+static inline bool dp_range_ok(size_t j, u32 count, u32 cap)
-+{
-+	return j < cap && count <= cap - j;
-+}
-+
- /*
-  * find_dp - Search for a @vcn in Dirty Page Table.
+diff --git a/block/bio.c b/block/bio.c
+index f2a5f4d0a9672..1bd7da889e069 100644
+--- a/block/bio.c
++++ b/block/bio.c
+@@ -1242,7 +1242,7 @@ static int bio_iov_iter_align_down(struct bio *bio,=
+ struct iov_iter *iter,
+  * is returned only if 0 pages could be pinned.
   */
-@@ -3801,6 +3809,7 @@ int log_replay(struct ntfs_inode *ni, bool *initialized)
- 	u64 t64;
- 	u16 t16;
- 	u32 t32;
-+	size_t j;
- 
- 	log = kzalloc_obj(struct ntfs_log, GFP_NOFS);
- 	if (!log)
-@@ -4566,9 +4575,12 @@ int log_replay(struct ntfs_inode *ni, bool *initialized)
- 		 * whole routine a loop, case Lcns do not fit below.
- 		 */
- 		t16 = le16_to_cpu(lrh->lcns_follow);
-+		j = le64_to_cpu(lrh->target_vcn) - le64_to_cpu(dp->vcn);
-+		if (!dp_range_ok(j, t16, le32_to_cpu(dp->lcns_follow))) {
-+			err = -EINVAL;
-+			goto out;
-+		}
- 		for (i = 0; i < t16; i++) {
--			size_t j = (size_t)(le64_to_cpu(lrh->target_vcn) -
--					    le64_to_cpu(dp->vcn));
- 			dp->page_lcns[j + i] = lrh->page_lcns[i];
- 		}
- 
-@@ -4985,8 +4997,14 @@ int log_replay(struct ntfs_inode *ni, bool *initialized)
- 	/* Shorten length by any Lcns which were deleted. */
- 	saved_len = dlen;
- 
-+	j = le64_to_cpu(lrh->target_vcn) - le64_to_cpu(dp->vcn);
-+	if (!dp_range_ok(j, le16_to_cpu(lrh->lcns_follow),
-+			 le32_to_cpu(dp->lcns_follow))) {
-+		err = -EINVAL;
-+		goto out;
-+	}
+ int bio_iov_iter_get_pages(struct bio *bio, struct iov_iter *iter,
+-			   unsigned len_align_mask)
++			   unsigned len_align_mask, unsigned vec_align_mask)
+ {
+ 	iov_iter_extraction_t flags =3D 0;
+=20
+@@ -1251,6 +1251,11 @@ int bio_iov_iter_get_pages(struct bio *bio, struct=
+ iov_iter *iter,
+=20
+ 	if (iov_iter_is_bvec(iter)) {
+ 		bio_iov_bvec_set(bio, iter);
 +
- 	for (i = le16_to_cpu(lrh->lcns_follow); i; i--) {
--		size_t j;
- 		u32 alen, voff;
- 
- 		voff = le16_to_cpu(lrh->record_off) +
-@@ -4994,7 +5012,6 @@ int log_replay(struct ntfs_inode *ni, bool *initialized)
- 		voff += le16_to_cpu(lrh->cluster_off) << SECTOR_SHIFT;
- 
- 		/* If the Vcn question is allocated, we can just get out. */
--		j = le64_to_cpu(lrh->target_vcn) - le64_to_cpu(dp->vcn);
- 		if (dp->page_lcns[j + i - 1])
++		if (mp_bvec_iter_offset(bio->bi_io_vec, bio->bi_iter) &
++							vec_align_mask)
++			return -EINVAL;
++
+ 		iov_iter_advance(iter, bio->bi_iter.bi_size);
+ 		return 0;
+ 	}
+@@ -1265,8 +1270,16 @@ int bio_iov_iter_get_pages(struct bio *bio, struct=
+ iov_iter *iter,
+=20
+ 		ret =3D iov_iter_extract_bvecs(iter, bio->bi_io_vec,
+ 				BIO_MAX_SIZE - bio->bi_iter.bi_size,
+-				&bio->bi_vcnt, bio->bi_max_vecs, flags);
++				&bio->bi_vcnt, bio->bi_max_vecs,
++				vec_align_mask, flags);
+ 		if (ret <=3D 0) {
++			if (ret =3D=3D -EINVAL) {
++				bio_release_pages(bio, false);
++				bio_clear_flag(bio, BIO_PAGE_PINNED);
++				bio->bi_iter.bi_size =3D 0;
++				bio->bi_vcnt =3D 0;
++				return ret;
++			}
+ 			if (!bio->bi_vcnt)
+ 				return ret;
  			break;
- 
--- 
-2.43.0
+@@ -1377,7 +1390,7 @@ static int bio_iov_iter_bounce_read(struct bio *bio=
+, struct iov_iter *iter,
+ 		ssize_t ret;
+=20
+ 		ret =3D iov_iter_extract_bvecs(iter, bio->bi_io_vec + 1, len,
+-				&bio->bi_vcnt, bio->bi_max_vecs - 1, 0);
++				&bio->bi_vcnt, bio->bi_max_vecs - 1, 0, 0);
+ 		if (ret <=3D 0) {
+ 			if (!bio->bi_vcnt) {
+ 				folio_put(folio);
+diff --git a/block/blk-map.c b/block/blk-map.c
+index 768549f19f97e..c9535efe1a913 100644
+--- a/block/blk-map.c
++++ b/block/blk-map.c
+@@ -274,7 +274,7 @@ static int bio_map_user_iov(struct request *rq, struc=
+t iov_iter *iter,
+ 	 * No alignment requirements on our part to support arbitrary
+ 	 * passthrough commands.
+ 	 */
+-	ret =3D bio_iov_iter_get_pages(bio, iter, 0);
++	ret =3D bio_iov_iter_get_pages(bio, iter, 0, 0);
+ 	if (ret)
+ 		goto out_put;
+ 	ret =3D blk_rq_append_bio(rq, bio);
+diff --git a/block/fops.c b/block/fops.c
+index 15783a6180dec..928ba9be170cd 100644
+--- a/block/fops.c
++++ b/block/fops.c
+@@ -47,7 +47,8 @@ static inline int blkdev_iov_iter_get_pages(struct bio =
+*bio,
+ 		struct iov_iter *iter, struct block_device *bdev)
+ {
+ 	return bio_iov_iter_get_pages(bio, iter,
+-			bdev_logical_block_size(bdev) - 1);
++			bdev_logical_block_size(bdev) - 1,
++			bdev_dma_alignment(bdev));
+ }
+=20
+ #define DIO_INLINE_BIO_VECS 4
+diff --git a/fs/iomap/direct-io.c b/fs/iomap/direct-io.c
+index b485e3b191daf..645a4e9cd25f9 100644
+--- a/fs/iomap/direct-io.c
++++ b/fs/iomap/direct-io.c
+@@ -358,7 +358,8 @@ static ssize_t iomap_dio_bio_iter_one(struct iomap_it=
+er *iter,
+ 				iomap_max_bio_size(&iter->iomap), alignment);
+ 	else
+ 		ret =3D bio_iov_iter_get_pages(bio, dio->submit.iter,
+-					     alignment - 1);
++					     alignment - 1,
++					     bdev_dma_alignment(bio->bi_bdev));
+ 	if (unlikely(ret))
+ 		goto out_put_bio;
+ 	ret =3D bio->bi_iter.bi_size;
+diff --git a/include/linux/bio.h b/include/linux/bio.h
+index 8f33f717b14f5..13be7edb524fc 100644
+--- a/include/linux/bio.h
++++ b/include/linux/bio.h
+@@ -477,7 +477,7 @@ int bdev_rw_virt(struct block_device *bdev, sector_t =
+sector, void *data,
+ 		size_t len, enum req_op op);
+=20
+ int bio_iov_iter_get_pages(struct bio *bio, struct iov_iter *iter,
+-		unsigned len_align_mask);
++		unsigned len_align_mask, unsigned vec_align_mask);
+=20
+ void bio_iov_bvec_set(struct bio *bio, const struct iov_iter *iter);
+ void __bio_release_pages(struct bio *bio, bool mark_dirty);
+diff --git a/include/linux/uio.h b/include/linux/uio.h
+index a9bc5b3067e32..be8b2625b376a 100644
+--- a/include/linux/uio.h
++++ b/include/linux/uio.h
+@@ -391,7 +391,8 @@ ssize_t iov_iter_extract_pages(struct iov_iter *i, st=
+ruct page ***pages,
+ 			       size_t *offset0);
+ ssize_t iov_iter_extract_bvecs(struct iov_iter *iter, struct bio_vec *bv=
+,
+ 		size_t max_size, unsigned short *nr_vecs,
+-		unsigned short max_vecs, iov_iter_extraction_t extraction_flags);
++		unsigned short max_vecs, unsigned align_mask,
++		iov_iter_extraction_t extraction_flags);
+=20
+ /**
+  * iov_iter_extract_will_pin - Indicate how pages from the iterator will=
+ be retained
+diff --git a/lib/iov_iter.c b/lib/iov_iter.c
+index 273919b161617..ccd5b49f6b78d 100644
+--- a/lib/iov_iter.c
++++ b/lib/iov_iter.c
+@@ -1886,6 +1886,8 @@ static unsigned int get_contig_folio_len(struct pag=
+e **pages,
+  * @max_size:	maximum size to extract from @iter
+  * @nr_vecs:	number of vectors in @bv (on in and output)
+  * @max_vecs:	maximum vectors in @bv, including those filled before call=
+ing
++ * @align_mask:	reject with -EINVAL if the source address or length is n=
+ot
++ *		aligned to this mask
+  * @extraction_flags: flags to qualify request
+  *
+  * Like iov_iter_extract_pages(), but returns physically contiguous rang=
+es
+@@ -1897,14 +1899,19 @@ static unsigned int get_contig_folio_len(struct p=
+age **pages,
+  */
+ ssize_t iov_iter_extract_bvecs(struct iov_iter *iter, struct bio_vec *bv=
+,
+ 		size_t max_size, unsigned short *nr_vecs,
+-		unsigned short max_vecs, iov_iter_extraction_t extraction_flags)
++		unsigned short max_vecs, unsigned align_mask,
++		iov_iter_extraction_t extraction_flags)
+ {
++	unsigned long start =3D (unsigned long)iter_iov_addr(iter);
+ 	unsigned short entries_left =3D max_vecs - *nr_vecs;
+ 	unsigned short nr_pages, i =3D 0;
+ 	size_t left, offset, len;
+ 	struct page **pages;
+ 	ssize_t size;
+=20
++	if ((start | iter_iov_len(iter)) & align_mask)
++		return -EINVAL;
++
+ 	/*
+ 	 * Move page array up in the allocated memory for the bio vecs as far a=
+s
+ 	 * possible so that we can start filling biovecs from the beginning
+--=20
+2.52.0
 
