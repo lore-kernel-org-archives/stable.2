@@ -1,218 +1,213 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 651CB3B841F;
-	Wed, 17 Jun 2026 07:49:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781682595; cv=fail; b=oa6aXbrItdjUUBSvm89KUFYz62/0/eRL/S7Ing/zLYfBZIx1e+27ItD9rNFHV+soPLhZIVDKArRgNBDDf23waJcJQjBjlBGceSCcml5wXby6tUEii/teNjdemzyo8q9hhARD7IP0/zPOUAFofWMXbnrImdwwbiNCbTsH97IFt4Q=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781682595; c=relaxed/simple;
-	bh=iFGsNFEmd1Ny8Ncft3nPJYRLzOoJSb+MUp/9xElMSuA=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=FMn9NPhfZXspiOF1fO+xvg3cL+K8F+XM0wypOqoWsp9YNkz9Ons4eV+VD6+0ciVoqDRoRgiaU9XmhRiJhzCS91TXTMRA/FVcjsBMljRXjveiWt2adSWvA6Nj6ZH+CM4K7OfSSe8hv97hit8J56/wTVLOylFfFLXUYrp+7abL/as=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=fykvJR48; arc=fail smtp.client-ip=198.175.65.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D0193C3441
+	for <stable@vger.kernel.org>; Wed, 17 Jun 2026 07:58:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781683105; cv=none; b=D8o1ubAgN0o1r3gtIk+vUJJfTPHzNJ895uX4pkn1uOVUV77/4HXmIpWIUhMnlQN0/cBHgl3Fgb2c91qihCSRlgehwKXc3/7IMK6xlGCPv5DJvbT3LXda84k4oIt4R9J6EfLNBUtxs/73b+h5dauGjiie2l0QDj1g7N4HU6k2UiA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781683105; c=relaxed/simple;
+	bh=MTSLF1i0SVm8X/ceHYU7vQaIB21106ApW03KPotEA3A=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fEznLe9mvQPMf/0CYij0UEC3MKe8xvGdSJ8VPUenGtB6NXWGpaU2WCCpxli9mXFrhyHNVGfhtcSDt7KTBiyuhwGDsLI2NIS4uZ9L5HWXifOIj7K8gtFrA7LhmisO/ahs/D6DUDKPM+XN10ZI4N+narF+ojlEugun3qfpL0snAEA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0sec.ai; spf=pass smtp.mailfrom=0sec.ai; dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b=Z7cfZc0p; arc=none smtp.client-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0sec.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=0sec.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="fykvJR48"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1781682595; x=1813218595;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=iFGsNFEmd1Ny8Ncft3nPJYRLzOoJSb+MUp/9xElMSuA=;
-  b=fykvJR48bXJac13im/BA+mh10co+GRXdV1HhcxavctFf6FSe8eH2L1r+
-   j53vNWSwlM0KwjCrsY9X5UDOdVDfgL62+mcVTMs8rRxtT0gZrhuMya4np
-   T7A4sVVxwLbtcgfSAfYDWZSICs3BwvzDHcZVoVASWPfCDrmEOh+Rm40r0
-   mulSFkFng4WgzQq/UMao4PZO3dvDrxSc6gmfecJApZFOmmeLnGqhjoFMV
-   taKbftvHGG4jcBWMbBXqqOHqDIUHWUtg/f1ITRxfxr9OZQf3h0Jc1nJG2
-   QBMTLAkxBx54LkirJrOeicfEmfqMFU/3u/80wFMcxBWg2m5bWdh9aZWcn
-   A==;
-X-CSE-ConnectionGUID: TBjsyAPySsOxT1hchjMibQ==
-X-CSE-MsgGUID: hg9hUm8XQA2tjJS1CQFSPA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11819"; a="92821286"
-X-IronPort-AV: E=Sophos;i="6.24,209,1774335600"; 
-   d="scan'208";a="92821286"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Jun 2026 00:49:54 -0700
-X-CSE-ConnectionGUID: 41OEJBhwTgqmchFCVOR9fg==
-X-CSE-MsgGUID: mazasq6oRf2tgNSeoj9Klg==
-X-ExtLoop1: 1
-Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
-  by fmviesa003.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Jun 2026 00:49:54 -0700
-Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
- fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Wed, 17 Jun 2026 00:49:53 -0700
-Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
- FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37 via Frontend Transport; Wed, 17 Jun 2026 00:49:53 -0700
-Received: from BL0PR03CU003.outbound.protection.outlook.com (52.101.53.0) by
- edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Wed, 17 Jun 2026 00:49:53 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Rqo49guC9BM7I5C6ZxwgzJoQV90guVebC27zwJrxBtPtWZcotRAcFQ+lVzJEYKQBQZio4mc2F5F0htGSQ/rcBNy/Z7fgBoy2XV2+PXUQiHU/eqOptK9pxPff3Qvk4HtedDYE7R3TLiQqHE9MBmsysp+oMlq0lllUKGcmHfA/qsMUmuRdU/Lyg6Yhr+WKu4C/CbloARxqXuvKKBje802vk26HyvcGGtNi/Qaq9l0rPtoEDm7s/Uq6IAktv3KoDkbuyAb0wMW6BGGyIYwd7geir67GQnisUJ+p+mZng8HDphUztol/QmogOwm48duXrQScgoIgUJpQx7kBj2/pGGylvQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iFGsNFEmd1Ny8Ncft3nPJYRLzOoJSb+MUp/9xElMSuA=;
- b=Ul/wsfnlxAsa62U6PI2lx+1zzA2ir69WUsH9boocLr6NPAJY7nIClB5fXVnaK377RP4GLAyU0zwTacjIaWJpIzLKVoZmGaYrCX56dW4ZQIQdE/WVTxm/E4utqptjLUeqy7MoZaj4JrT1Jm5UxY306/1S6j9iBXrCGLfNyNaOa+Q2pIEl4D70GdH2ewcwrXWqEungp8GEjP/ZVOiFrEreN6c5eK12Ezdnz2VN33ceUD9qzKLbpOi7AnoMXeiOEd4DH19IRdYQs1V9/Q3CJ57zFA6QXfBfjbk7qieL5offtktYI+6GPJJlS0/n1Et3exXzoZ2ldQKh0R3Emv7s6GujTg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from IA3PR11MB8985.namprd11.prod.outlook.com (2603:10b6:208:575::17)
- by PH0PR11MB7588.namprd11.prod.outlook.com (2603:10b6:510:28b::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.18; Wed, 17 Jun
- 2026 07:49:50 +0000
-Received: from IA3PR11MB8985.namprd11.prod.outlook.com
- ([fe80::355c:96ca:a45:dd5d]) by IA3PR11MB8985.namprd11.prod.outlook.com
- ([fe80::355c:96ca:a45:dd5d%6]) with mapi id 15.21.0113.015; Wed, 17 Jun 2026
- 07:49:50 +0000
-From: "Romanowski, Rafal" <rafal.romanowski@intel.com>
-To: Simon Horman <horms@kernel.org>, Junrui Luo <moonafterrain@outlook.com>
-CC: "Nguyen, Anthony L" <anthony.l.nguyen@intel.com>, "Kitszel, Przemyslaw"
-	<przemyslaw.kitszel@intel.com>, Andrew Lunn <andrew+netdev@lunn.ch>, "David
- S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, "Jakub
- Kicinski" <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Mitch Williams
-	<mitch.a.williams@intel.com>, Greg Rose <gregory.v.rose@intel.com>,
-	"intel-wired-lan@lists.osuosl.org" <intel-wired-lan@lists.osuosl.org>,
-	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Yuhao Jiang
-	<danisjiang@gmail.com>, "stable@vger.kernel.org" <stable@vger.kernel.org>
-Subject: RE: [Intel-wired-lan] [PATCH net v2] iavf: validate num_vsis in
- VIRTCHNL_OP_GET_VF_RESOURCES response
-Thread-Topic: [Intel-wired-lan] [PATCH net v2] iavf: validate num_vsis in
- VIRTCHNL_OP_GET_VF_RESOURCES response
-Thread-Index: AQHc4288+ro6RLEjb0ST60lt0iHd7bYUKR2AgC5rs7A=
-Date: Wed, 17 Jun 2026 07:49:49 +0000
-Message-ID: <IA3PR11MB898548ED18B05119AD80B19A8FE42@IA3PR11MB8985.namprd11.prod.outlook.com>
-References: <SYBPR01MB7881AF11C45AEDC0D4CA89C1AF062@SYBPR01MB7881.ausprd01.prod.outlook.com>
- <SYBPR01MB788139F8F31129E4B64E66D4AF072@SYBPR01MB7881.ausprd01.prod.outlook.com>
- <20260518185611.GF98116@horms.kernel.org>
-In-Reply-To: <20260518185611.GF98116@horms.kernel.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: IA3PR11MB8985:EE_|PH0PR11MB7588:EE_
-x-ms-office365-filtering-correlation-id: d20dcb5d-0769-49be-a527-08decc450285
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|7416014|366016|1800799024|376014|23010399003|56012099006|11063799006|5023799004|4143699003|38070700021|6133799003|18002099003|22082099003;
-x-microsoft-antispam-message-info: SoT+egfjPVIDjY48oGjNzR04NBtUcfQRyF50IZA9OhODKRQGI+hXam1pfgJ5G+e0ZTtRMLcQn1Wua+5LbzBRr3CsZMbHYV74/wYp5dOtDDOPpwEGDmzKURx8wEySQsmQ0POMRE4NB/4Uo6ui4Q93XdrTOO7IEx+K9kc+Qo5dSi28UZ98yuMgyYj8vCoyQNHKMUCY7QQhBWNSBi67AT2tCXZ7DZkiIPqMrQQ1cFkJwLy026VsPvs1BZ7f0gFB+P80Ck4t++V97P+0HgLuxxJ/M9Gc0VX/K4cxGl8WtBBE5GE+1Fx1pZ+0ojU2jPItThOXLVAkSwX2E5N/S/bg0JCX3+9TPI/H6L3NAN+cKRRE9wrxcdrcyoOOJH9qBTl/EEf5ayPyxckXqyCeeBUZbqPgoa+H0hipa4moHTmaN8QB3kQtJYhIQ7BopWP7pQhzQ+nSaYTuoXAjYV3KnAU9DpaAV+I7vrw+totQAllWXfWD3ZoEpXaG4cVqYJbd9TJPUT+HgVX7WphJ7vI6ldRa4FvKnEtHRfySa6iMTH+pLA8uZAgAsrbyB/BD+F9n7un2VAb2VXELZTRjeZqb75Imf6Kk4uqAY0NQzP+qD7ZUXOGQuNdMvQ8utCL2r55czlCufsJ1z0gv3j8YWZJl8gMCxNK3Czu5CYrdTRXSaa+xAasCvfvtMz4fIfdxJW5/xMEZQfhRwm8dBRLeiiUzWBwOM92WfDn3FoqzsJyqmrgRct3jhktivwSwGmdIOQXexw2LHGDS
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA3PR11MB8985.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(366016)(1800799024)(376014)(23010399003)(56012099006)(11063799006)(5023799004)(4143699003)(38070700021)(6133799003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?wqw6NFrxuOlRs219G1I8IHGyY4iQ7UDJaIFeIz78p3gOkxfKBxA696dcqAit?=
- =?us-ascii?Q?HTeP2FuyiVOl6zAp1vmYr19nIuoQpnQf9+XlbMwTLdTkTy440/rYtb/rtrXC?=
- =?us-ascii?Q?W0qTTOYqOeGCffwSWXUFMpMpv3YfXVvJ0i5sGhB1s0dm+xo/ea4GkNjMZqGA?=
- =?us-ascii?Q?iACXN5vAAQ8519qwkFtqQtK8quh0QcN+k/h66HyehNaxZlnF4dbbPS+5Muf9?=
- =?us-ascii?Q?CSMoIAeeBDDo74JiEjcN37IEb25Dzy8QTgIy64qcTffKsNSmwL+XWW/5NFrs?=
- =?us-ascii?Q?Gp2K3ulHoplLJK3q+CdOV1mlx3FP56tPpQ2xWspgafO9e6iEMsrMlN74ZD1Y?=
- =?us-ascii?Q?iKH1I6QB1Dw1ch0QKE8w1GNRluDqyDhRUpx5jkTU3IyNzD2TODjp8JoFfV5p?=
- =?us-ascii?Q?tS10teoALhKPHtHMEQpnezfKAyxBbG+o5Xo6Zub4iaeAwQg8G8FzuORfuvRT?=
- =?us-ascii?Q?zygYIPT9NDKi+aHp7JIAxXGorkGH1eq2hAV4XzCetIW7ti6GMNeaAU/DDjtu?=
- =?us-ascii?Q?H1FL00SQHWRsruvQgV3FLfd6DFCgqf1ACyPc0oF5e2b1BCcsVAbES/fdobvP?=
- =?us-ascii?Q?g+GEDGVL5oL/Wpwl1lWoaVAbgFuy/V8NT3T0vAiZ6mfjFuJ0EWCYyC/09NLO?=
- =?us-ascii?Q?OTQpCcO0q8jtAeyOvI50vjbyusXkRZk5/+8CrRdglsE0yKJywSILzR0HI5Pf?=
- =?us-ascii?Q?Ebo3YOwqZdNvfj8HXUTIHP7YZCptqxiBgRXFSESZFsp2hXTY86KAZrxESwO1?=
- =?us-ascii?Q?/OwAaxqPOCo82rt8t6zzIAaLFcYIZmdh1DUbkj6kpMTFEtSrT9eWM2flN9qW?=
- =?us-ascii?Q?Cwxz+A7FqRRquscBq+hldYzPa7QJIV0n9m04o+ARJnelOulmzUgYpHdrRcfp?=
- =?us-ascii?Q?MjOH5nQOX5ISGqz6LnTBWml0HNihFROqlCgD7PFYJ68e3TDhBdnlUnHv2SMA?=
- =?us-ascii?Q?haRRLpCNv4wnutGqdwjo4NoeQdGuG5rP7y1NyvL2tfU1S0bKOP6DeipihzfQ?=
- =?us-ascii?Q?su6h7vMphECIkjj2cNVpWbJtzN39TQ4vHjGSV8QBbHab820iYZNqsFvDEZHN?=
- =?us-ascii?Q?x+KHgm3nexNF62ehw5rKyrGLNgKrC/qqEJ+AmGmjOfLmG1dSJdKaBYOv358/?=
- =?us-ascii?Q?+cthBXlvBF9OFyGgUHxRGJTQtcVZTXwZThW4mgFBMGQSgrF5X4lKshCeVC7O?=
- =?us-ascii?Q?/SCk4mGSaHKZQxU6ar2hOR4pZa6gC+lXJPkGfixtkBkVe4S25VQTcZDHFKb5?=
- =?us-ascii?Q?FZvjoBhhNjohrXPwKGOfbO3AW77gjQLY6R+hzUa8Guj2p43by48ia5yaipxC?=
- =?us-ascii?Q?hE29x9KmIgfvUASWM+v3hIQgYbwhJ0kdJK3vP4hhVuUXYZgpdHCCZ6+arJua?=
- =?us-ascii?Q?ivRO1dr8d2tT2vSTNQocXwqgYkYsnemMt/sN6szDONHXtdtaEyCk66rX1MBs?=
- =?us-ascii?Q?xBlwMugaq10LgIUqZilJc9fnDGjzKdExEbm0so9stW/SEwcJan3aSmJri9v0?=
- =?us-ascii?Q?TFzGxMv6LZEsKL4mVrqYufJqSerz3EpQbaVPqyFn26vNbsVaoE4vWOYA2IMU?=
- =?us-ascii?Q?UBcgH0sWFnmF5roMvWVXKOJaXWi7T3jiIY5E7YS2B7HnH3jt/uX1Rb8kVOsp?=
- =?us-ascii?Q?XBw3jJmXLMQwvPzBaZM8vmJw8lT+32b8pmVWm9jTS0irZQCzB7XRB72Pg/81?=
- =?us-ascii?Q?CCI+kV5mT172Bx/EXI2SdguSLg+/4px6KctXe4rzBfh5hmamc2yrvP1DZlvn?=
- =?us-ascii?Q?reIeePaTFg=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b="Z7cfZc0p"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-490b8ac62baso5993405e9.0
+        for <stable@vger.kernel.org>; Wed, 17 Jun 2026 00:58:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=0sec.ai; s=google; t=1781683101; x=1782287901; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=hFkTCzH0bW/6eaucGKv1hofGcpDdZG/dUw+kXhlNjkA=;
+        b=Z7cfZc0p7HcuUKcqjg38xCst1q2S2KB4isXkNp9AsFDhtkc38gCp6q62Obq3M+NKFj
+         54lH1rgdR1SlrfYMqXFcuJuBoLRKPnRjFmX+gxp9LvlqaNR2BC5RisA0T1wdNaUTHOM2
+         tAXSJKR4QFxehLJjtDYnSz1x3TxvsOPDH7Y9Pf68SK5fTa+cbqTI5TxVhzFeCrZOp07U
+         owHp5HOEFnVVy/8gI0+iX2PzJzk3vvn/dkH5x7H75S22bQPLsiyPrSOVpodT1azc/3VL
+         5u1jOciqut5CVzo13hrGUql2ypf/ImbjoEjm3yMAUxi3rFvXncmtjwCn35cYTuT+52hi
+         rdFw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781683101; x=1782287901;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=hFkTCzH0bW/6eaucGKv1hofGcpDdZG/dUw+kXhlNjkA=;
+        b=V1n9bJ2pBOM7KhKlrrXMNYpmt6SIgk84SXrYjNEi9c9z7ZXAuAUscteNInkT5YNt+f
+         fRrqxVcVpGSe02j231tphZy3vEhGXRxZZ4JakqTW1wzL55Rcry1QvE1t4Mpeyxtj58N8
+         lMw9H6aPOQ48vpaDXfzxFthLMutZc3NT2q9eUIKSjq2jhn8rkvFAAiW4XoQXOWILDcNc
+         XJCI6Axt0qG00Gi2/Itatfe2KZUgN2WGVEqT3Bb8ubVNjcrV6YOV2JI2h57suDqj+2U4
+         hnriyoTEU1nEmQ9mw8x9YfgOLjOXBlQO/spc3aoBIlDdAzGCoaA4iyChnHq9D0wE6u+k
+         UqAQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+hbHu4lvmdGBKt/YEIFxOEw8JE62xsCBvHFCcW8jF66nxjAOoftIHC9Bue5FBSkqTodsYn1TQ=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy3XDpMpqZGESrYolb/zzJtAgw036w63Onb1NfOEKQZcO/5uo85
+	juK1IWMuKH8bljhqec9n3ftqLDw5mOxfLox/ccBJnGhb9kVQsL9MGfH4xGXJd9OuEoyP
+X-Gm-Gg: Acq92OHbKfDOeqzccZW7LEEq9B90cZez4g3/a/eq80j9apEeiTQPfoliXIqeBicfgdT
+	HJx8WxzojfQVLcBEw23kO/brq7KNB/GCHgx2NRJE3k9ArjmjMjkDtBbSD5jGNazVDWo0+khot7k
+	YO/hzZEJ5of1MmtRVWr+Wsf9TS/bpmsKzCU0ZGXKb3hNpHvV/6hlRzQYKjIGAmPHcuM9QpOxRac
+	gZjy6rjQj1E4FTUgt5Rwc3W5xwXnoYU1C57oDGzCXINAI4z8oo1jHJxzn8xVPKh4To2jNVsc689
+	3AN25NK+ju0gaCKw/DOJ/qqxqwbTiEH8UcL/XiuiQBQ3Fqf6GdHOf72ZJT+8amsjQS+weNYEyAa
+	ZkXU6T2IxddrUzCGdlnOSsV2wn8anSB5qaUq6o/6RWBFJCGt/3vf5/7oSxser09zkInyvqnaDlj
+	2eCrsa1XY8uaiu4PNYOo1Fy1XiOdEP3LENy5OCqeOjmasYimq3EumhLHcPvWidvKFp3GGUoXOKR
+	asymZJcSpXurI88cWfsu5BGxrX24433Re8=
+X-Received: by 2002:a05:600c:4f83:b0:490:ad1e:1846 with SMTP id 5b1f17b1804b1-492340e763emr23901315e9.9.1781683100362;
+        Wed, 17 Jun 2026 00:58:20 -0700 (PDT)
+Received: from PeakBook-Mini.tail8e484.ts.net ([178.197.218.209])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4922fa5120esm150707715e9.8.2026.06.17.00.58.19
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 17 Jun 2026 00:58:19 -0700 (PDT)
+From: Doruk Tan Ozturk <doruk@0sec.ai>
+To: jmaloy@redhat.com
+Cc: davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	aleksander.lobakin@intel.com,
+	tung.quang.nguyen@est.tech,
+	tipc-discussion@lists.sourceforge.net,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Doruk Tan Ozturk <doruk@0sec.ai>,
+	stable@vger.kernel.org
+Subject: [PATCH net v4] tipc: fix slab-use-after-free Read in tipc_aead_decrypt_done
+Date: Wed, 17 Jun 2026 09:58:18 +0200
+Message-ID: <20260617075818.37431-1-doruk@0sec.ai>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: V0Dn98kIZkdz3gEPVheE5p04zrr0BSXnal84QtOJtY76qsp0PkNdeI4KazsC5cFb+ojkYKbEtLZ8IcVsywl77VicW8mcr/3q6coLkDHBb7ODRTDv1nrk/8anUShSaDmO8LWZtiNmaPAW1yHXCbAbNERQX60OTuD0Z3LPICE6fDDrIdsd/pWf5Zc2kgFVNYWoozoV9JJGCQDGvLp1cNh6RMIejE3WEZHQfWm1iRS5Id/KRZLY+AsW+TCLJB562LAV68gDMDrIXy88XEbuhe1yFu7e+L4cav8Acbu52XIDF3EIH3aTICEgIWXE8Wlewl2+NGd5XmggqSNYg5qki+a6kg==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: IA3PR11MB8985.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d20dcb5d-0769-49be-a527-08decc450285
-X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Jun 2026 07:49:50.0214
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: ZokCbTacFP3c2pUy1BdhMxAAWXb+RR5z73/ov7zYWLOdqQdbjV4kjfVVHaCrgEtoOwIjqoX216a1QFNHJk1icmS6ozZ7JJRq/sPiIm1JjWo=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR11MB7588
-X-OriginatorOrg: intel.com
+Content-Transfer-Encoding: 8bit
 
-> -----Original Message-----
-> From: Intel-wired-lan <intel-wired-lan-bounces@osuosl.org> On Behalf Of S=
-imon
-> Horman
-> Sent: Monday, May 18, 2026 8:56 PM
-> To: Junrui Luo <moonafterrain@outlook.com>
-> Cc: Nguyen, Anthony L <anthony.l.nguyen@intel.com>; Kitszel, Przemyslaw
-> <przemyslaw.kitszel@intel.com>; Andrew Lunn <andrew+netdev@lunn.ch>;
-> David S. Miller <davem@davemloft.net>; Eric Dumazet
-> <edumazet@google.com>; Jakub Kicinski <kuba@kernel.org>; Paolo Abeni
-> <pabeni@redhat.com>; Mitch Williams <mitch.a.williams@intel.com>; Greg Ro=
-se
-> <gregory.v.rose@intel.com>; intel-wired-lan@lists.osuosl.org;
-> netdev@vger.kernel.org; linux-kernel@vger.kernel.org; Yuhao Jiang
-> <danisjiang@gmail.com>; stable@vger.kernel.org
-> Subject: Re: [Intel-wired-lan] [PATCH net v2] iavf: validate num_vsis in
-> VIRTCHNL_OP_GET_VF_RESOURCES response
->=20
-> On Thu, May 14, 2026 at 02:55:04PM +0800, Junrui Luo wrote:
-> > The VF allocates a fixed-size buffer for IAVF_MAX_VF_VSI (3) VSI
-> > entries when processing a VIRTCHNL_OP_GET_VF_RESOURCES response from
-> > the PF. However, num_vsis from the PF response is used unchecked as
-> > the loop bound when iterating over vsi_res[] in multiple functions.
-> >
-> > A PF sending num_vsis greater than IAVF_MAX_VF_VSI, or the received
-> > message is shorter than num_vsis claims leads to out-of-bounds
-> > accesses on the vsi_res[] array.
-> >
-> > Clamp num_vsis based on the actual bytes copied from the PF response.
-> >
-> > Fixes: 5eae00c57f5e ("i40evf: main driver core")
-> > Reported-by: Yuhao Jiang <danisjiang@gmail.com>
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Junrui Luo <moonafterrain@outlook.com>
-> > ---
-> > Changes in v2:
-> > - Clamp num_vsis based on actual received message length instead of
-> > IAVF_MAX_VF_VSI suggested by Przemek
-> > - Link to v1:
-> >
-> https://lore.kernel.org/r/SYBPR01MB7881AF11C45AEDC0D4CA89C1AF062@SYB
-> PR
-> > 01MB7881.ausprd01.prod.outlook.com
->=20
-> Reviewed-by: Simon Horman <horms@kernel.org>
->=20
-> There is an AI-generated review of this patchset available on sashiko.dev=
-.
-> However, I believe that the issues raised there can be considered in the =
-context of
-> possible follow-up. I do not believe they should block progress of this p=
-atch.
+tipc_aead_decrypt() goes straight from tipc_bearer_hold(b) to
+crypto_aead_decrypt(req) without taking a reference on the netns, unlike
+the encrypt path. When crypto_aead_decrypt() is offloaded asynchronously
+(e.g. the SIMD aead wrapper queuing to cryptd), the cryptd worker runs
+tipc_aead_decrypt_done() later. If the bearer's netns is torn down in the
+meantime, cleanup_net() -> tipc_exit_net() -> tipc_crypto_stop() frees the
+per-netns tipc_crypto, and the completion then reads it:
+tipc_aead_decrypt_done() dereferences aead->crypto->stats and
+aead->crypto->net, and tipc_crypto_rcv_complete() dereferences
+aead->crypto->aead[] and the node table -- reading freed memory.
 
+Decoded KASAN splat (v7.1-rc7, CONFIG_KASAN_INLINE + TIPC + TIPC_CRYPTO):
 
-Tested-by: Rafal Romanowski <rafal.romanowski@intel.com>
+  BUG: KASAN: slab-use-after-free in tipc_aead_decrypt_done (net/tipc/crypto.c:999)
+  Read of size 8 at addr ffff8881056258a8 by task kworker/u16:2/51
+  Workqueue: events_unbound
+  Call Trace:
+   tipc_aead_decrypt_done (net/tipc/crypto.c:999)
+   process_one_work (kernel/workqueue.c:3314)
+   worker_thread (kernel/workqueue.c:3397 kernel/workqueue.c:3478)
+   kthread (kernel/kthread.c:436)
+   ret_from_fork (arch/x86/kernel/process.c:158)
+   ret_from_fork_asm (arch/x86/entry/entry_64.S:245)
+
+  Allocated by task 169:
+   __kasan_kmalloc (mm/kasan/common.c:398 mm/kasan/common.c:415)
+   tipc_crypto_start (net/tipc/crypto.c:1502)
+   tipc_init_net (net/tipc/core.c:72)
+   ops_init (net/core/net_namespace.c:137)
+   setup_net (net/core/net_namespace.c:446)
+   copy_net_ns (net/core/net_namespace.c:579)
+   create_new_namespaces (kernel/nsproxy.c:132)
+   __x64_sys_unshare (kernel/fork.c:3316)
+   do_syscall_64 (arch/x86/entry/syscall_64.c:63)
+   entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
+
+  Freed by task 8:
+   kfree (mm/slub.c:6566)
+   tipc_exit_net (net/tipc/core.c:119)
+   cleanup_net (net/core/net_namespace.c:704)
+   process_one_work (kernel/workqueue.c:3314)
+   kthread (kernel/kthread.c:436)
+
+This is the same class of bug that commit e279024617134 ("net/tipc: fix
+slab-use-after-free Read in tipc_aead_encrypt_done") fixed for the encrypt
+side. The encrypt path takes maybe_get_net(aead->crypto->net) before
+crypto_aead_encrypt() and drops it with put_net() on the synchronous
+return paths and in tipc_aead_encrypt_done(); the -EINPROGRESS/-EBUSY
+return keeps the reference for the async callback to release. The decrypt
+path was left without the equivalent guard.
+
+Mirror the encrypt-side fix on the decrypt path: take a net reference
+before crypto_aead_decrypt() (failing with -ENODEV and the matching
+bearer put if it cannot be acquired), keep it across the
+-EINPROGRESS/-EBUSY async return, and drop it with put_net() on the
+synchronous success/error return and at the end of
+tipc_aead_decrypt_done().
+
+Reproduced under KASAN on v7.1-rc7: a UDP bearer with a cluster key is
+flooded with crafted encrypted frames from an unknown peer (driving the
+cluster-key decrypt path) while the bearer's netns is repeatedly torn
+down. The completion must run asynchronously to outlive
+tipc_crypto_stop(); on x86 the stock aesni gcm(aes) now decrypts
+synchronously, so the async path was exercised via cryptd offload. The
+unguarded aead->crypto dereference in tipc_aead_decrypt_done() is the
+unpatched upstream path; tipc_aead_decrypt() still lacks
+maybe_get_net(aead->crypto->net), so the completion can outlive the free
+on any config where crypto_aead_decrypt() goes async.
+
+Found by 0sec automated security-research tooling (https://0sec.ai).
+
+Fixes: fc1b6d6de220 ("tipc: introduce TIPC encryption & authentication")
+Cc: stable@vger.kernel.org
+Signed-off-by: Doruk Tan Ozturk <doruk@0sec.ai>
+Reviewed-by: Alexander Lobakin <aleksander.lobakin@intel.com>
+Reviewed-by: Tung Nguyen <tung.quang.nguyen@est.tech>
+---
+v4:
+ - Use the net parameter for maybe_get_net()/put_net() instead of
+   dereferencing aead->crypto->net, which is the per-netns structure at
+   risk during teardown (per the automated review forwarded by Simon
+   Horman). net == aead->crypto->net here; no functional change.
+v3:
+ - Rewrite the changelog with the decoded stack trace and frame the
+   reproduction on the current tree (v7.1-rc7); drop the v6.12.92
+   references (Tung Quang Nguyen).
+v2:
+ - Add Cc: stable@vger.kernel.org and Alexander Lobakin's Reviewed-by.
+   No functional change.
+ net/tipc/crypto.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/net/tipc/crypto.c b/net/tipc/crypto.c
+index 6d3b6b89b1d1..16f1ed1f6b1b 100644
+--- a/net/tipc/crypto.c
++++ b/net/tipc/crypto.c
+@@ -941,12 +941,20 @@ static int tipc_aead_decrypt(struct net *net, struct tipc_aead *aead,
+ 		goto exit;
+ 	}
+ 
++	/* Get net to avoid freed tipc_crypto when delete namespace */
++	if (!maybe_get_net(net)) {
++		tipc_bearer_put(b);
++		rc = -ENODEV;
++		goto exit;
++	}
++
+ 	/* Now, do decrypt */
+ 	rc = crypto_aead_decrypt(req);
+ 	if (rc == -EINPROGRESS || rc == -EBUSY)
+ 		return rc;
+ 
+ 	tipc_bearer_put(b);
++	put_net(net);
+ 
+ exit:
+ 	kfree(ctx);
+@@ -984,6 +992,7 @@ static void tipc_aead_decrypt_done(void *data, int err)
+ 	}
+ 
+ 	tipc_bearer_put(b);
++	put_net(net);
+ }
+ 
+ static inline int tipc_ehdr_size(struct tipc_ehdr *ehdr)
+-- 
+2.43.0
 
