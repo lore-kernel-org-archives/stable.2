@@ -1,45 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 458F7326D55
-	for <stable@vger.kernel.org>; Wed, 17 Jun 2026 19:08:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68CCD31077A
+	for <stable@vger.kernel.org>; Wed, 17 Jun 2026 19:09:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781723339; cv=none; b=jsG/lsIWXoRrRyrJAK98pt7DH6G6eqpSViMytM1LNaipZIsjxIyQos9bWsFfROFyhqSlJHYrDdVRxRLWEZJMvORdDLGz5Xe/1XNkZrmB29kTmAHVFQoBm51bnTEyZxxUJetwWozP3fGovKees7vcXN5qcWSsORux1wcrFKVEwHY=
+	t=1781723361; cv=none; b=hsdzdM+u5ckOCaYzgCftbk4+idl5mgCFmSG0G8Ov3T4MXrgc8KAvsYawtSx5ahuMQPxWrqK1l5taDeC9xGjR9d9KDcCI1j4aipIxLcEQsFnxaq87Qs9oPI0yaS47Sg9DFcHtwIA1Ffdo6vvjSFPfHoNeECWAssMFsExEOYINn1w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781723339; c=relaxed/simple;
-	bh=Mtoka3DYaIVbsJ8KtgAuxgLwTHwG2DMkS8DxUWWoNcw=;
+	s=arc-20240116; t=1781723361; c=relaxed/simple;
+	bh=p4EJ3pbvuYEboC+OEG3ZvlJcdBJ2tQdAYhMhrOBcx7E=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=S+KuwbWIR2O4NdtFpNppmN7i9hLY0zzTOmFajyV2GLod4BVsTmDitbArP9Yb4bGlod3cOS2pd+WBuI9AWG59oe1obdRmHBGK1dhvIATpZrGGjjcCq6kEhRNm0OxmqzEFmm5D+ewwLt/AUTJX8QeIYyO3jAISIcsx1JNJgk0jpog=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iEWjb81b; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=BhArTRYAjxMIOwp8Pb7cChxuHDXgWEP36VHRoXQUbLjZ29bqWKkXWMjbYSwdhwEdryZ968mpBh7oppamI/wIkkO0zqxLgW1cbVA33M1zrmFRSkcpyNJquz+VvNLkSg2k9TAbODK5p//DlSvBhVM08qwYj7hwVFRfoBJthehnAtA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gRWvyfHc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iEWjb81b"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 627C11F000E9;
-	Wed, 17 Jun 2026 19:08:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gRWvyfHc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A7A41F00A3A;
+	Wed, 17 Jun 2026 19:09:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781723338;
-	bh=7nUxGwfV7wyA6vc6UxOIHboF6zt99+7kcxYcMcbG1Eg=;
+	s=k20260515; t=1781723360;
+	bh=2gxMNGcYepSZoYCwzx+UGSRMFEev7f76dt3yhsrSBVw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=iEWjb81bcQCqMb3CbWEZIMwzsTSAt4q2JsjdkYerE/xDbxfx1Xw2sGG5Hq9MIg+fM
-	 j1r1GACJ8AH+4MiBPz1xa5BBElmxQo6yzxmbKO8bOP/PE8UIhb109obXjCJBdX4mlI
-	 pI6on7U7PG7pO/wTbzGcn3HtKqUep2R8meje64eQ3wgHvvBokvdF7jj+Tfni4aTTtZ
-	 /rxMLqb4xHmBDqMTFhm9x8ok35h1Rz3KV43uwMbqmcxMNUmseOO6qahMrcL5dUBkFH
-	 wj/RPLRZCVccR5MQiXfgOg7yxN6tfoOzN7AbgWfWTz0p63EXd5N+o5mk2epIcBCSTs
-	 dfzSmn2SNdbsw==
+	b=gRWvyfHcfmaXevZPq9eHLoWfJNsaalcwleZIgAJWtdwk7yXt2L1edC5Ojcpk9tH+v
+	 xr7QTHFiPehi2byZO6cSBK48ZT3XnhglIRIqrdulL6Mp38qqEo4ctYwCmqQExHbDvi
+	 VBIQZmk5BCCU5Sr9JG5+Z4HuhtuQ2WAs66g8M8HamLucQ3zXaKl4SrtfDEsPNU0hdb
+	 D2m6qI43EvF8we4QQf5KobrshzW9KZMm1YMDTAcTmIqHYQfk86uucVwRdTzrOYz6AA
+	 G+TrGCsxOn0PhZV0kY3yVQwjBP+V+NssTVpqH6JUj1dEM0TNdjGRlmoEb/QeRpi8HT
+	 UfvRcGOVCmETw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
+Cc: Junrui Luo <moonafterrain@outlook.com>,
+	Yuhao Jiang <danisjiang@gmail.com>,
 	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
 	Srinivas Kandagatla <srini@kernel.org>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] slimbus: qcom-ngd-ctrl: Fix up platform_driver registration
-Date: Wed, 17 Jun 2026 15:08:55 -0400
-Message-ID: <20260617190855.291480-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] misc: fastrpc: fix DMA address corruption due to find_vma misuse
+Date: Wed, 17 Jun 2026 15:09:17 -0400
+Message-ID: <20260617190917.292166-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026061517-legume-grieving-bb5f@gregkh>
-References: <2026061517-legume-grieving-bb5f@gregkh>
+In-Reply-To: <2026061542-daybreak-anemic-ed9c@gregkh>
+References: <2026061542-daybreak-anemic-ed9c@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,98 +48,45 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
+From: Junrui Luo <moonafterrain@outlook.com>
 
-[ Upstream commit 8663e8334d7b6007f5d8a4e5dd270246f35107a6 ]
+[ Upstream commit 464c6ad2aa16e1e1df9d559289199356493d1e00 ]
 
-Device drivers should not invoke platform_driver_register()/unregister()
-in their probe and remove paths. They should further not rely on
-platform_driver_unregister() as their only means of "deleting" their
-child devices.
+fastrpc_get_args() uses find_vma() to look up the VMA for a user-provided
+pointer and compute a DMA address offset. When the address falls in a gap
+before the returned VMA, (ptr & PAGE_MASK) - vma->vm_start underflows,
+corrupting the DMA address sent to the DSP.
 
-Introduce a helper to unregister the child device and move the
-platform_driver_register()/unregister() to module_init()/exit().
+Replace find_vma() with vma_lookup(), which returns NULL when the address
+is not contained within any VMA.
 
-Fixes: 917809e2280b ("slimbus: ngd: Add qcom SLIMBus NGD driver")
 Cc: stable@vger.kernel.org
+Fixes: 80f3afd72bd4 ("misc: fastrpc: consider address offset before sending to DSP")
+Reported-by: Yuhao Jiang <danisjiang@gmail.com>
+Signed-off-by: Junrui Luo <moonafterrain@outlook.com>
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Reviewed-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-Signed-off-by: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
 Signed-off-by: Srinivas Kandagatla <srini@kernel.org>
-Link: https://patch.msgid.link/20260530204421.116824-3-srini@kernel.org
+Link: https://patch.msgid.link/20260530204528.116920-3-srini@kernel.org
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+[ adapted `vma_lookup(mm, ptr)` to `find_vma(mm, ptr)` plus a `ptr >= vma->vm_start` guard since `vma_lookup()` does not exist in 5.10 ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/slimbus/qcom-ngd-ctrl.c | 36 ++++++++++++++++++++++++++++++---
- 1 file changed, 33 insertions(+), 3 deletions(-)
+ drivers/misc/fastrpc.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/slimbus/qcom-ngd-ctrl.c b/drivers/slimbus/qcom-ngd-ctrl.c
-index d0d289c49c8d11..09b6f0c2bff3a7 100644
---- a/drivers/slimbus/qcom-ngd-ctrl.c
-+++ b/drivers/slimbus/qcom-ngd-ctrl.c
-@@ -1564,6 +1564,13 @@ static int of_qcom_slim_ngd_register(struct device *parent,
- 	return -ENODEV;
- }
+diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
+index af8412dd590ef6..f6c0259b29a663 100644
+--- a/drivers/misc/fastrpc.c
++++ b/drivers/misc/fastrpc.c
+@@ -825,7 +825,7 @@ static int fastrpc_get_args(u32 kernel, struct fastrpc_invoke_ctx *ctx)
  
-+static void qcom_slim_ngd_unregister(struct qcom_slim_ngd_ctrl *ctrl)
-+{
-+	struct qcom_slim_ngd *ngd = ctrl->ngd;
-+
-+	platform_device_del(ngd->pdev);
-+}
-+
- static int qcom_slim_ngd_probe(struct platform_device *pdev)
- {
- 	struct device *dev = &pdev->dev;
-@@ -1666,7 +1673,6 @@ static int qcom_slim_ngd_ctrl_probe(struct platform_device *pdev)
- 		goto err_pdr_lookup;
- 	}
- 
--	platform_driver_register(&qcom_slim_ngd_driver);
- 	return of_qcom_slim_ngd_register(dev, ctrl);
- 
- err_pdr_alloc:
-@@ -1680,7 +1686,9 @@ static int qcom_slim_ngd_ctrl_probe(struct platform_device *pdev)
- 
- static int qcom_slim_ngd_ctrl_remove(struct platform_device *pdev)
- {
--	platform_driver_unregister(&qcom_slim_ngd_driver);
-+	struct qcom_slim_ngd_ctrl *ctrl = platform_get_drvdata(pdev);
-+
-+	qcom_slim_ngd_unregister(ctrl);
- 
- 	return 0;
- }
-@@ -1759,6 +1767,28 @@ static struct platform_driver qcom_slim_ngd_driver = {
- 	},
- };
- 
--module_platform_driver(qcom_slim_ngd_ctrl_driver);
-+static int qcom_slim_ngd_init(void)
-+{
-+	int ret;
-+
-+	ret = platform_driver_register(&qcom_slim_ngd_driver);
-+	if (ret)
-+		return ret;
-+
-+	ret = platform_driver_register(&qcom_slim_ngd_ctrl_driver);
-+	if (ret)
-+		platform_driver_unregister(&qcom_slim_ngd_driver);
-+
-+	return ret;
-+}
-+
-+static void qcom_slim_ngd_exit(void)
-+{
-+	platform_driver_unregister(&qcom_slim_ngd_ctrl_driver);
-+	platform_driver_unregister(&qcom_slim_ngd_driver);
-+}
-+
-+module_init(qcom_slim_ngd_init);
-+module_exit(qcom_slim_ngd_exit);
- MODULE_LICENSE("GPL v2");
- MODULE_DESCRIPTION("Qualcomm SLIMBus NGD controller");
+ 			mmap_read_lock(current->mm);
+ 			vma = find_vma(current->mm, ctx->args[i].ptr);
+-			if (vma)
++			if (vma && ctx->args[i].ptr >= vma->vm_start)
+ 				pages[i].addr += (ctx->args[i].ptr & PAGE_MASK) -
+ 						 vma->vm_start;
+ 			mmap_read_unlock(current->mm);
 -- 
 2.53.0
 
