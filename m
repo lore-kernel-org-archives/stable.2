@@ -1,198 +1,160 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 708A22D94AB;
-	Wed, 17 Jun 2026 14:17:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0304A449ED2
+	for <stable@vger.kernel.org>; Wed, 17 Jun 2026 14:21:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781705876; cv=none; b=TFzfK8Nfzo6WTnL/q8BQTSP19JMtH0zulfALL8cMlXvPWXHS1NnBORPDqixNgk1WACqFazTqxpJftIfRP3TwbNYWOrfGgAcC2m1M1YMnIJcJPdHsl8iDF2N+3EwMNTAK5o4vc3FJCJfh1UUuTsUesUYEKK7FPKMlR+HOozBpO7U=
+	t=1781706120; cv=none; b=e0XJawlTgP9Ld+xIyib8k7/BB2rImtg6uhe8tYosvBAeEuv0L/dcuIxwVpxVLYqC8CG+zWBlSpvWiICLuGG4ykgMlm6/5Pj7R3f1cOWZ+fr5MGueL/RSNWjn6mRbpe4mV9VmWYdPLbbccgCEfZCZW9YZpPEJ5PzNIEGR7+gtCtU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781705876; c=relaxed/simple;
-	bh=AkV1b2SxhRv8Z1DlbLWqqT7osTEwXFUZ7e4YsH4eZEE=;
+	s=arc-20240116; t=1781706120; c=relaxed/simple;
+	bh=tITp3vI8QCODQTdN3D7k1C5vtWMYgUCUyDY+YluPXsM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Pkd3i96U0fHWYzwToLHLPFvwdAJFTV7WRZEOSIp0fI12dxRBOKzzlPenW2Rdj+bwcax5ccOmFLUb33JGXNvTmFp6QrVKzOf/ZXDmPGJBvGz/5pUlcXr24KU3QLFvgh8EzS8eYssw/zLT+kgd4UCbiTZhnD1Nb17Z0wffnzs5D8k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gc5bOCuZ; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=pflefdndiJkG6P8YZhuVmb4uMe59snawrMYkIN0P307W6YAIkzlD7f5I7dSlkRdCDETygZlX4MzI4sX7Dr9jfXuFUXq+jqTI03wzMTdBuEp34xtkFVkw9TNkqdgGNrf2mWbKeVNhSRxlsEciJP1FlkA+FMXITh5Fzl7qKrUBVBQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=PtuAxn+I; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=EmrUOBOd; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gc5bOCuZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9EBB51F00A3A;
-	Wed, 17 Jun 2026 14:17:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781705875;
-	bh=ZM2pmLbZEnRqiiVMijb9mGZhjVGPxFxAiEd6zjVu+Dw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=gc5bOCuZLI6PDDkSobp4K8u/Gu2ToeIkkty6kGEQ99T19G2igxl8tMZJ9QnWmEja0
-	 OnUPlrWfGyI6ltcOMvb31qTdgYQM9jZqd1ZPCSrLwhBhlp+o+FRhnrepHrftRg3PUZ
-	 8CO+GHehP5avJ54vOWEbxFCy9vbhwYjocqpX0PvzI2FnYHqtRgHyVby/HgVvLjltTU
-	 GResIs8NOufz35OAttR9gC70AibvbR0vbrdvdAiAkAcoGD+Q+V6gcnEjXPcGkYpLQ2
-	 xxK9+jCSWGDDaPTOGMoUB6Yyjp+mz4Eu8h499HPhWo+N57y88eKt175oKQSgmkt6qH
-	 +QpKVyfcQ97fA==
-Date: Wed, 17 Jun 2026 15:17:51 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Marek Szyprowski <m.szyprowski@samsung.com>
-Cc: linux-kernel@vger.kernel.org, linux-tip-commits@vger.kernel.org,
-	Teddy Astie <teddy.astie@vates.tech>,
-	Thomas Gleixner <tglx@kernel.org>, stable@vger.kernel.org,
-	x86@kernel.org
-Subject: Re: [tip: timers/core] time/jiffies: Register jiffies clocksource
- before usage
-Message-ID: <20260617-flounder-pebble-fe4c19e1be81@spud>
-References: <87y0gn3fve.ffs@fw13>
- <178135728754.1650852.1266320590541376793.tip-bot2@tip-bot2>
- <CGME20260616184701eucas1p13c7aff447073832095aa4adfb85935f0@eucas1p1.samsung.com>
- <813164f9-d036-4858-80ad-f3af9bee9c77@samsung.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="PtuAxn+I";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="EmrUOBOd"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1781706118;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ELObF5Iq/B3jkGpc0knxM9Qj8R7NO2xwYgcKK7rlrAQ=;
+	b=PtuAxn+II8Km1nMtASvQ5s/Z4URBw25uJw+a7PVjNVj98XlmtO9sPPR9QoyaLaSVC8LVQ4
+	pT1U9/7UegBETSlI+IgJA0myJB0kuMwry9OtHuiPMz+dxkPPeocQ9KW7YmH8Lg/tVguitQ
+	KP6y3tyjZMVBlBNMMVlIMJbRDSUbki0=
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
+ [209.85.222.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-297-wh63EqY9PYW5skKgISM_GQ-1; Wed, 17 Jun 2026 10:21:55 -0400
+X-MC-Unique: wh63EqY9PYW5skKgISM_GQ-1
+X-Mimecast-MFC-AGG-ID: wh63EqY9PYW5skKgISM_GQ_1781706114
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-9157c8eb597so910304785a.2
+        for <stable@vger.kernel.org>; Wed, 17 Jun 2026 07:21:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1781706114; x=1782310914; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=ELObF5Iq/B3jkGpc0knxM9Qj8R7NO2xwYgcKK7rlrAQ=;
+        b=EmrUOBOdJNUkveNN8EZH7XwTz+W694tGph2Ev0FA0QMPvZlgggV+uyWhWHgV64pUsQ
+         fdsU50lfVCE+itx+J05vOagCZ7r4XLRC4iWo3Dfeb4z9AUTT/Evb+fuJrFTGdIJHJC0s
+         8L++gdkWTZjiS8V01OEGGlF2KTWABvsVh/ISIMFJ8MeKlyY2NcCU/n++ujOV2d/cb1ha
+         R5Kz0cpNSM91DqS3CDK4UN2bSAZcoUoGwza/kM9jth6uHOIZV9iH+kMYYb05En1tArvH
+         VCXCzIKSOOsmQxY0b0Ix3fQb0vXChJvmjFa9qx0s9TkcbGCqYin7aqH+ebYkNunPxH0v
+         E3Tw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781706114; x=1782310914;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=ELObF5Iq/B3jkGpc0knxM9Qj8R7NO2xwYgcKK7rlrAQ=;
+        b=maZYPxmvkC5GfZJu280v9dmWQTfneDjNtyrttT1NcaQkZ10ygX7cEuzD5t9MoOeesL
+         GcEYAsIwrqTzbXzjd61lcOCnbEHclyK25wT86iL4B8mTgdsdGPlJBE/4/yDoDl80LmGh
+         YIZ1oFpd3fMaODoZmz2OWNn4Z8h+kzyJQ6+brVYJ4iFi2YYLXQz66dGAlRl9byyj3lu5
+         AE2B/kObUv/w8W3OeEGnOn0vkItvY90GnQ1D26rrdDpn0MZfb89/CzjPztFrKbzRWkWh
+         OGPLE929P0UKTxMcQTToxC9PYjHGR0ENOD8qGIyKL5fpK7i/3WfpyndlI/qXZmpfha5x
+         BerQ==
+X-Forwarded-Encrypted: i=1; AFNElJ86yLaYDO1IZIU4bltH9Dy9rh2MNT6nTmzW9tWtsVexGam3miITfQuoaDk1u8g4AjvF3as3800=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxfaOqEdk6BSL5MHULBRwjtt37bUvglmLUZUeDFhErwJTyndvtf
+	7qO07GNv+aquBwnK+4ezecT2p3V6/ZiF+YvsCJEvasniSUnKR+EYPn086nriG1UBug7FQJ4dGZx
+	a5D6COHZ8FB3k94cp1jCAKBJtcYaWJ+dyazmmV1eNOz9VxB8vmwotaD7yug==
+X-Gm-Gg: Acq92OGvY+9v8YjJP/2Yi0OuooVJGAX3ojUN2uTPkBJuzFNac0h/cKbYu34wLurunDq
+	aKBOyVYMehUMLG3zsGEwpPLXOQZiAwW8S7Zo03Ymvk9ptxDEgbpB7PfSDt06EfQ6Qol/4OM4Zt9
+	spvvdjw6g1FrbVRtXb7vyUgAv9tp4Q7jTS9ro0QlXq3nNvboNm2JptvmtEWN+yqe28+fQ+V+qDg
+	PNjQzUSMvvSG1pejH/IdpUUCWLgU8IYMMhzW4wWyFVtYxeHqT8CxR95UCoxu9h3f1ij6ZcVxzzz
+	6brKQfMq3mjylPisChe9LUnJOCrH96pBe7Cqj5qBRs/Z7CXmAhmsXZLO77K/Uz266jyFpn40K7t
+	E/t4=
+X-Received: by 2002:a05:620a:29ce:b0:915:c365:ffb1 with SMTP id af79cd13be357-91d8bfb0904mr635622985a.57.1781706113728;
+        Wed, 17 Jun 2026 07:21:53 -0700 (PDT)
+X-Received: by 2002:a05:620a:29ce:b0:915:c365:ffb1 with SMTP id af79cd13be357-91d8bfb0904mr635618885a.57.1781706113132;
+        Wed, 17 Jun 2026 07:21:53 -0700 (PDT)
+Received: from x1.local ([174.91.116.48])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9161a006441sm1869207585a.27.2026.06.17.07.21.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 17 Jun 2026 07:21:52 -0700 (PDT)
+Date: Wed, 17 Jun 2026 10:21:40 -0400
+From: Peter Xu <peterx@redhat.com>
+To: Alex Williamson <alex@shazbot.org>
+Cc: Anthony Pighin <anthony.pighin@nokia.com>, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org, Kefeng Wang <wangkefeng.wang@huawei.com>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>, kvm@vger.kernel.org,
+	Matthew Wilcox <willy@infradead.org>,
+	Jason Gunthorpe <jgg@ziepe.ca>
+Subject: Re: [PATCH] vfio: Request THP-aligned mmap for device fds
+Message-ID: <ajKtdCN0AlbmBnAj@x1.local>
+References: <20260616180129.160016-1-anthony.pighin@nokia.com>
+ <20260616163054.77fdb61a@shazbot.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="rBlzqT461HFZGlY+"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <813164f9-d036-4858-80ad-f3af9bee9c77@samsung.com>
+In-Reply-To: <20260616163054.77fdb61a@shazbot.org>
 
+On Tue, Jun 16, 2026 at 04:30:54PM -0600, Alex Williamson wrote:
+> On Tue, 16 Jun 2026 14:01:29 -0400
+> Anthony Pighin <anthony.pighin@nokia.com> wrote:
+> 
+> > VFIO PCI devices support PMD-sized page table entries for BAR mappings
+> > via their huge_fault handler (vfio_pci_mmap_huge_fault).  However, the
+> > VFIO device file_operations never provided a get_unmapped_area callback
+> > to request PMD-aligned virtual address placement from the mmap address
+> > allocator.
+> > 
+> > Before commit 34d7cf637c43 ("mm: don't try THP alignment for FS without
+> > get_unmapped_area"), this was masked by a bug introduced in commit
+> > ed48e87c7df3 ("thp: add thp_get_unmapped_area_vmflags()") which
+> > inadvertently applied THP alignment to all file-backed mappings,
+> > regardless of whether they provided a get_unmapped_area callback.
+> > 
+> > When commit 34d7cf637c43 ("mm: don't try THP alignment for FS without
+> > get_unmapped_area") correctly restricted THP alignment to anonymous
+> > mappings and files that explicitly opt in via get_unmapped_area, VFIO BAR
+> > mappings lost their PMD-aligned placement.  Since the huge_fault handler
+> > requires both the VMA start address and the physical PFN to be
+> > PMD-aligned, unaligned VMAs force a fallback to 4KB page faults.
+> > 
+> > For example, a 2GiB BAR results in 524,288 individual page faults
+> > instead of 1,024 PMD-sized faults, increasing the VFIO_IOMMU_MAP_DMA
+> > pinning time by orders of magnitude -- a regression directly visible to
+> > KVM guests during PCI device initialization.
+> > 
+> > Fix this by providing a get_unmapped_area callback in vfio_device_fops,
+> > following the same pattern used by ext4, xfs, btrfs, fuse, and other
+> > subsystems that benefit from THP-aligned placement.
+> 
+> The trouble is that PMD alignment isn't right either, your 1024 PMD
+> faults on a 2GiB BAR would be 2 faults on x86_64 with PUD mappings.
+> QEMU has forced the alignment to make it optimal for some time[1], so
+> there are userspace VMM options.  Seems like you were previously
+> getting lucky.
+> 
+> Peter Xu was working on a more comprehensive solution[2] late last
+> year, but it seems there was an objection to the
+> file_operations.get_mapping_order() proposal before Plumbers and the
+> thread hasn't rekindled.
+> 
+> Gentle bump to Peter and Willy that maybe we could resurrect that
+> effort.  Thanks,
 
---rBlzqT461HFZGlY+
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Yes, since QEMU doesn't need it, it was low priority on my list (also due
+to much more downstream works recently, and a lot of things happened).
 
-On Tue, Jun 16, 2026 at 08:47:00PM +0200, Marek Szyprowski wrote:
-> Dear All,
->=20
-> On 13.06.2026 15:28, tip-bot2 for Thomas Gleixner wrote:
-> > The following commit has been merged into the timers/core branch of tip:
-> >
-> > Commit-ID:     f24df84cbe05e4471c04ac4b921fc0340bbc7752
-> > Gitweb:        https://git.kernel.org/tip/f24df84cbe05e4471c04ac4b921fc=
-0340bbc7752
-> > Author:        Thomas Gleixner <tglx@kernel.org>
-> > AuthorDate:    Tue, 09 Jun 2026 17:14:45 +02:00
-> > Committer:     Thomas Gleixner <tglx@kernel.org>
-> > CommitterDate: Sat, 13 Jun 2026 15:22:40 +02:00
-> >
-> > time/jiffies: Register jiffies clocksource before usage
-> >
-> > Teddy reported that a XEN HVM has a long boot delay, which was bisected=
- to
-> > the recent enhancements to the negative motion detection. It turned out
-> > that the jiffies clocksource is used in early boot before it is registe=
-red,
-> > which leaves the max_delta_raw field at zero. That causes the read out =
-to
-> > be clamped to the max delta of 0, which means time is not making progre=
-ss.
-> >
-> > Cure it by ensuring that it is initialized before its first usage in
-> > timekeeping_init().
-> >
-> > Fixes: 76031d9536a0 ("clocksource: Make negative motion detection more =
-robust")
-> > Reported-by: Teddy Astie <teddy.astie@vates.tech>
-> > Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-> > Tested-by: Teddy Astie <teddy.astie@vates.tech>
-> > Cc: stable@vger.kernel.org
-> > Link: https://patch.msgid.link/87y0gn3fve.ffs@fw13
-> > Closes: https://lore.kernel.org/all/1780914594.8631fc262581453bbf619ec5=
-b2062170.19ea6c8227b000701b@vates.tech
-> This patch landed recently in linux-next as commit f24df84cbe05 ("time/ji=
-ffies:
-> Register jiffies clocksource before usage"). In my tests I found that it =
-triggers
-> the following warning on Qualcomm Robotics RB5 board
-> (arch/arm64/boot/dts/qcom/qrb5165-rb5.dts):
->=20
-> clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_n=
-s: 7645041785100000 ns
->=20
-> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D
-> [ BUG: Invalid wait context ]
-> 7.1.0-rc1+ #16790 Not tainted
-> -----------------------------
-> swapper/0/0 is trying to lock:
-> ffffb0d1364d1270 (clocksource_mutex){....}-{4:4}, at: __clocksource_regis=
-ter_scale+0x204/0x3e8
-> other info that might help us debug this:
-> context-{5:5}
-> 1 lock held by swapper/0/0:
-> =A0#0: ffffb0d1376855f0 (&tkd->lock){....}-{2:2}, at: timekeeping_init+0x=
-13c/0x21c
-> stack backtrace:
-> CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Not tainted 7.1.0-rc1+ #16790 PREEMPT
-> Hardware name: Qualcomm Technologies, Inc. Robotics RB5 (DT)
-> Call trace:
-> =A0show_stack+0x18/0x24 (C)
-> =A0dump_stack_lvl+0x90/0xd0
-> =A0dump_stack+0x18/0x24
-> =A0__lock_acquire+0xa48/0x225c
-> =A0lock_acquire+0x1c4/0x3f0
-> =A0__mutex_lock+0xa8/0x8e4
-> =A0mutex_lock_nested+0x24/0x30
-> =A0__clocksource_register_scale+0x204/0x3e8
-> =A0clocksource_default_clock+0x48/0x64
-> =A0timekeeping_init+0x148/0x21c
-> =A0start_kernel+0x4c8/0x8dc
-> =A0__primary_switched+0x88/0x90
-> arch_timer: cp15 timer running at 19.20MHz (virt).
-> clocksource: arch_sys_counter: mask: 0xffffffffffffff max_cycles: 0x46d98=
-7e47, max_idle_ns: 440795202767 ns
->=20
->=20
-> Reverting $subject on top of linux-next fixes this issue.
+I can definitely try again.
 
-Same here:
-    0.000000] clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff=
-, max_idle_ns: 7645041785100000 ns
-[    0.000000]
-[    0.000000] =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D
-[    0.000000] [ BUG: Invalid wait context ]
-[    0.000000] 7.1.0-06889-g4b99990cdf95 #1 Tainted: G        W
-[    0.000000] -----------------------------
-[    0.000000] swapper/0/0 is trying to lock:
-[    0.000000] ffffffff820cd258 (clocksource_mutex){....}-{4:4}, at: __cloc=
-ksource_register_scale+0x222/0x306
-[    0.000000] other info that might help us debug this:
-[    0.000000] context-{5:5}
-[    0.000000] 1 lock held by swapper/0/0:
-[    0.000000]  #0: ffffffff82fdae70 (&tkd->lock){....}-{2:2}, at: timekeep=
-ing_init+0x1a4/0x25e
-[    0.000000] stack backtrace:
-[    0.000000] CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Tainted: G        W    =
-       7.1.0-06889-g4b99990cdf95 #1 PREEMPT_RT
-[    0.000000] Tainted: [W]=3DWARN
-[    0.000000] Hardware name: Microchip PolarFire-SoC Icicle Kit (DT)
-[    0.000000] Call Trace:
-[    0.000000] [<ffffffff8001c0e0>] dump_backtrace+0x1c/0x24
-[    0.000000] [<ffffffff80002526>] show_stack+0x28/0x34
-[    0.000000] [<ffffffff800135a0>] dump_stack_lvl+0x60/0x88
-[    0.000000] [<ffffffff800135dc>] dump_stack+0x14/0x1c
-[    0.000000] [<ffffffff800bb096>] __lock_acquire+0x81c/0x234e
-[    0.000000] [<ffffffff800bd924>] lock_acquire+0x2e0/0x460
-[    0.000000] [<ffffffff80d61d46>] mutex_lock_nested+0x44/0x8a
-[    0.000000] [<ffffffff8012e704>] __clocksource_register_scale+0x222/0x306
-[    0.000000] [<ffffffff80e15572>] clocksource_default_clock+0x48/0x62
-[    0.000000] [<ffffffff80e15286>] timekeeping_init+0x1b6/0x25e
-[    0.000000] [<ffffffff80e00f9c>] start_kernel+0x67c/0xc66
-[    0.000000] clocksource: riscv_clocksource: mask: 0xffffffffffffffff max=
-_cycles: 0x1d854df40, max_idle_ns: 3526361616960 ns
+I'll wait for another 1-2 weeks in case Matthew would like to provide a
+better suggestion, otherwise I can send a new version based on what we
+have, and we can start from there.
 
-In your case, do you also see an increase in logging verbosity, as if
-you had enabled debug on your commandline?
+Thanks,
 
-Cheers,
-Conor.
+-- 
+Peter Xu
 
---rBlzqT461HFZGlY+
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCajKsjAAKCRB4tDGHoIJi
-0m0fAP4lo8ZsVCUAHKYAdo5qn/L/MN1CijsOd5Ddw3YVOsfIqAD+JTE6gwUtFeNa
-VkRMAUbqWBdYN10Jev0LJYjemyLDrQo=
-=z7J4
------END PGP SIGNATURE-----
-
---rBlzqT461HFZGlY+--
