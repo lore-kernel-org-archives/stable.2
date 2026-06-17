@@ -1,152 +1,97 @@
-Received: from out-188.mta0.migadu.com (out-188.mta0.migadu.com [91.218.175.188])
+Received: from maynard.decadent.org.uk (maynard.decadent.org.uk [65.21.191.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 968F03905EE
-	for <stable@vger.kernel.org>; Wed, 17 Jun 2026 08:58:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.188
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC4C5395AC5;
+	Wed, 17 Jun 2026 09:01:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.21.191.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781686689; cv=none; b=J43iao2pMJM4fRnoXyVU+u2A8tNdJjn4EKz+M0/uVVPGqwacvrmG5jv9Ayh6h5sPvXYb/9KohGiMWRKaXgf1t87/ARb+M2rD0D1NJmLpLlgccngfs4NSmlTplM1c+LK9H1nG6CSRJgdpDumSQ8in65CWuWQQMRDLcplJUxclROo=
+	t=1781686882; cv=none; b=eXHRW2b3HVxJhdJ7+iqRUy4fjJ65TsgT735t4xqLUQKpRPqPO3pqeUr2WCf9L0b4LDNiVcNPyDrdMWhbWSZPn484irBAXFlMfSafd+zygoV245lwzZBN1x9lxWWYHxa2ME/kJGApuLYfHp0q5HrhZIO8fkpQgNc6a32sNObQtAo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781686689; c=relaxed/simple;
-	bh=B1fSA4lHmjp6pyVCM5e1W4YXWgAA4KKl6On33givD3Q=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UU4vMu4Wj13h0JJoBg3ZbsZCjm9qt/XsUXQB4/+wwqnzuG34wy2HRlAZrv28bWemHcLKZQ5FleyLB104de3mtXGf2RNpsTGXVquGq7MIOOiWNPDqDzx7kHAY2aydm9D9PeJ4e2Vcvs5e+jQIx0cocQfa17zIWzvc3CM8ftV+2vU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=bfigpFQs; arc=none smtp.client-ip=91.218.175.188
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="bfigpFQs"
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1781686681;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=z+0oawbYAvCbDfWFytofWS7kpNw2bfjZSR+3b+oyM0U=;
-	b=bfigpFQs9ZnUA/co/pq01dfms67+/z/n4KaDrR9aRUYNVt7dKK/khuGJihn5qG6Eue6TU0
-	mt5Yit1VbnEyZ4hA+KOqOgs+TvRAp6qNpcUfjm7PC2kwyV+brJky8g+C9dF8kyG2RewbuZ
-	dYbU1vX6jzmjOnmBsPMQNxaiT38w7cw=
-From: Qi Zheng <qi.zheng@linux.dev>
-To: akpm@linux-foundation.org,
-	david@fromorbit.com,
-	roman.gushchin@linux.dev,
-	muchun.song@linux.dev
-Cc: linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	Qi Zheng <zhengqi.arch@bytedance.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] mm: shrinker: fix shrinker_info teardown race with expansion
-Date: Wed, 17 Jun 2026 16:56:58 +0800
-Message-ID: <20260617085658.27096-1-qi.zheng@linux.dev>
+	s=arc-20240116; t=1781686882; c=relaxed/simple;
+	bh=K2zLVQL1BzmILF4ERNaZzBchvoB7Cc3ypPlIVWBMvn4=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=hEIrqp2bBlU9fTROeTIn+r35alhzT1xbcQF80EH5K6cS9r1EsgpCrwChZqJYq6TDDyzxhjxRfsCQHf5e8GVVZtJsUqytkRZExNRf2rJe0Ykg+P5LVQrkrcNfCkhSzNlqlMfQJL43wqOZ+u5lQNPPyW4s28vR4l4BLI8MPbuu/I8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=decadent.org.uk; spf=pass smtp.mailfrom=decadent.org.uk; arc=none smtp.client-ip=65.21.191.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=decadent.org.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=decadent.org.uk
+Received: from [2a02:a03f:8fba:4c00:9e56:df29:1317:540b] (helo=deadeye)
+	by maynard with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <ben@decadent.org.uk>)
+	id 1wZm98-002tb4-2k;
+	Wed, 17 Jun 2026 09:01:18 +0000
+Received: from ben by deadeye with local (Exim 4.99.3)
+	(envelope-from <ben@decadent.org.uk>)
+	id 1wZm96-00000006ft8-2kPl;
+	Wed, 17 Jun 2026 11:01:16 +0200
+Message-ID: <f0be2ecfe2c27c1920a44b6f41d8db87611267f1.camel@decadent.org.uk>
+Subject: Re: [PATCH 5.10 035/342] batman-adv: tp_meter: fix race condition
+ in send error reporting
+From: Ben Hutchings <ben@decadent.org.uk>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, stable@kernel.org, Sven Eckelmann
+	 <sven@narfation.org>, Sasha Levin <sashal@kernel.org>
+Date: Wed, 17 Jun 2026 11:01:11 +0200
+In-Reply-To: <20260616145049.888286838@linuxfoundation.org>
+References: <20260616145048.348037099@linuxfoundation.org>
+	 <20260616145049.888286838@linuxfoundation.org>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-MBZnAM1IHasi8YnJP9N2"
+User-Agent: Evolution 3.56.2-9 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
+X-SA-Exim-Connect-IP: 2a02:a03f:8fba:4c00:9e56:df29:1317:540b
+X-SA-Exim-Mail-From: ben@decadent.org.uk
+X-SA-Exim-Scanned: No (on maynard); SAEximRunCond expanded to false
 
-From: Qi Zheng <zhengqi.arch@bytedance.com>
 
-The expand_shrinker_info() iterates all visible memcgs under
-shrinker_mutex, including memcgs that have not finished ->css_online()
-yet.
+--=-MBZnAM1IHasi8YnJP9N2
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Once pn->shrinker_info has been published, teardown must stay serialized
-with expand_shrinker_info() until that memcg is either fully online or
-no longer visible to iteration. Today alloc_shrinker_info() breaks that
-rule by dropping shrinker_mutex before freeing a partially initialized
-shrinker_info array, which may cause the following race:
+On Tue, 2026-06-16 at 20:25 +0530, Greg Kroah-Hartman wrote:
+> 5.10-stable review patch.  If anyone has any objections, please let me kn=
+ow.
+>=20
+> ------------------
+>=20
+> From: Sven Eckelmann <sven@narfation.org>
+>=20
+> commit 71dce47f0758537fff78fddb5fb0d4632d29b29f upstream.
+[...]
 
-CPU0                   CPU1
-====                   ====
+No objection, but this is missing from the 5.15 and 6.1 queues.  (It was
+already applied to 6.6 and later.)
 
-css_create
---> list_add_tail_rcu(&css->sibling, &parent_css->children);
-    online_css
-    --> mem_cgroup_css_online
-        --> alloc_shrinker_info
-            --> alloc node0 info
-                rcu_assign_pointer(C->node0->shrinker_info, old0)
-                alloc node1 info -> FAIL -> goto err
-                mutex_unlock(shrinker_mutex)
+Ben.
 
-                       shrinker_alloc()
-                       --> shrinker_memcg_alloc
-                           --> mutex_lock(shrinker_mutex)
-                               expand_shrinker_info
-                               --> mem_cgroup_iter see the memcg
-                                   expand_one_shrinker_info
-                                   --> old0 = C->node0->shrinker_info
-                                       memcpy(new->unit, old0->unit, ...);
+--=20
+Ben Hutchings
+Humour is the best antidote to reality.
 
-                free_shrinker_info
-                --> kvfree(old0);
+--=-MBZnAM1IHasi8YnJP9N2
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
 
-                                       /* double free !! */
-                                       kvfree_rcu(old0, rcu);
+-----BEGIN PGP SIGNATURE-----
 
-The same problem exists later in mem_cgroup_css_online(). If
-alloc_shrinker_info() succeeds but a subsequent objcg allocation fails,
-the free_objcg -> free_shrinker_info() unwind path tears down the already
-published pn->shrinker_info arrays without shrinker_mutex. The
-expand_one_shrinker_info() can race with that teardown in the same way,
-leading to use-after-free or double-free of the old shrinker_info.
+iQIzBAABCgAdFiEErCspvTSmr92z9o8157/I7JWGEQkFAmoyYlgACgkQ57/I7JWG
+EQng6BAAn/PM0sXmV8ads/cM5w27r7CmYrzaL/J3RfUNoeGhmo6tJwoMZ1/s5m3G
+2yCGFGaE8D7yKKDKIKPRsq4+zSiWeBUqID35PX/jTaCpfEhHm5yW+yfQhhw9h1sK
++OqhOCaIFS5uG/yx+yUwBuztNq4FzhXSPhEmz/toLpoEVOcGj5xdpt+5d5hg3Ud2
+K+8L7HRAoy7jS5uEHSn6nO2APpuhPvbon2kM2MvS0yn4ql1e3kW4zDeMFUww4MyX
+6C/RYSD2amIW+uTcipo8GbTYI12FI4zTEzJ3IQ3dWkq22+4K1lJ2KjxrVcfO5CW6
+YN7Auub1lB0Y0x+KeZFv/2h0sNTSblBho3yPu8tGYI3dl9cbOtm8IuANEZ0XMYS5
+AJVOF6Rn6L5JXFD7qCS8SyoV3Ikb5hn3E93bT4ft0RvJw8cGkr5s8VKUlQxMM87c
+nU1I1hKti3dTytD05ZZm+nP8/Jd2dAY2aCNrLYLcWQbgu9LJwmiVKcnng9Yld9I4
+fcvB47vh+7Q75WazoDSeTHmrZ0BJ5bsSTEtg23B82LB/G9HFjAwWyu3tjqaoSGrM
+vXSz9D1rgmns0PDLT8qute7qe+tfokzwT1DMWpqULMkTA3euGSyWilOUA77DSdP/
+Q98Mf63S4ObxxcQpu1UU3Ifj5vosL5HNafW5mb4foQuJp82dp8k=
+=CPOu
+-----END PGP SIGNATURE-----
 
-Fix this by serializing shrinker_info teardown with shrinker_mutex, and by
-keeping alloc_shrinker_info() error cleanup inside the locked section.
-
-Fixes: 307bececcd12 ("mm: shrinker: add a secondary array for shrinker_info::{map, nr_deferred}")
-Cc: stable@vger.kernel.org
-Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
----
- mm/shrinker.c | 13 +++++++++++--
- 1 file changed, 11 insertions(+), 2 deletions(-)
-
-diff --git a/mm/shrinker.c b/mm/shrinker.c
-index 7082d01c8c9d..a70aab124a0e 100644
---- a/mm/shrinker.c
-+++ b/mm/shrinker.c
-@@ -59,12 +59,14 @@ static inline int shrinker_unit_alloc(struct shrinker_info *new,
- 	return 0;
- }
- 
--void free_shrinker_info(struct mem_cgroup *memcg)
-+static void __free_shrinker_info(struct mem_cgroup *memcg)
- {
- 	struct mem_cgroup_per_node *pn;
- 	struct shrinker_info *info;
- 	int nid;
- 
-+	lockdep_assert_held(&shrinker_mutex);
-+
- 	for_each_node(nid) {
- 		pn = memcg->nodeinfo[nid];
- 		info = rcu_dereference_protected(pn->shrinker_info, true);
-@@ -74,6 +76,13 @@ void free_shrinker_info(struct mem_cgroup *memcg)
- 	}
- }
- 
-+void free_shrinker_info(struct mem_cgroup *memcg)
-+{
-+	mutex_lock(&shrinker_mutex);
-+	__free_shrinker_info(memcg);
-+	mutex_unlock(&shrinker_mutex);
-+}
-+
- int alloc_shrinker_info(struct mem_cgroup *memcg)
- {
- 	int nid, ret = 0;
-@@ -98,8 +107,8 @@ int alloc_shrinker_info(struct mem_cgroup *memcg)
- 	return ret;
- 
- err:
-+	__free_shrinker_info(memcg);
- 	mutex_unlock(&shrinker_mutex);
--	free_shrinker_info(memcg);
- 	return -ENOMEM;
- }
- 
--- 
-2.54.0
-
+--=-MBZnAM1IHasi8YnJP9N2--
