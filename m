@@ -1,103 +1,174 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB51C3CB918;
-	Wed, 17 Jun 2026 08:49:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 650E8311C1B;
+	Wed, 17 Jun 2026 08:54:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781686164; cv=none; b=Aaqia/3ByZh//br+PLknClIfvJK7B6rz6upYfkIZWdiFYcDPOAjO4T4dGmwCLQx3QrQNAPg8n+4FKBHVypY1CH2AGu9z2q1eA3zOI+BEfd9OjbFmFbfrabxTO1MNo95nDMagszM73acQ48moxL8C/RU2kwFlWuqx7TvBrc3T2+4=
+	t=1781686488; cv=none; b=lcAyUS4+O58/i5QwMi///7xcCmxjG0BC33LXAgrgYCJNCsT12Axg7u5yujfS2VpXeRM1oP9OuW2BJI4KetxF50+RUFtrXivHclJMsIrWPO2B3y8ZabvL7z7Os3FfKOrlCsBDawMBEBVE6G7ZHSyUY09j026GzutLvcj5Py3VyU0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781686164; c=relaxed/simple;
-	bh=4l2BKjym3mytO0Q6PBB2W4g8XqgjCbKZyZOeZ1FMgK0=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=jxm6bke++FnUsLwZtKZIT2RPouvmr9AO2x8V0r1CNBuZ0bjwGiqtJEVwDtqS0oOK4+xXlO28dLMaWCA/Ks5dLDgz/iBlDJffPnDgQ5QxnjacTv59o151he9APLuo1CoiYIgQvSMjiH//se8jqYCVTlikvnzIzJP9MgSNeqjoreI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=tGnL3Cez; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=Mommjx+g; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1781686488; c=relaxed/simple;
+	bh=c9p/hQ6eaTZ113vmdmEPnqxG6fqfqU3h1QhInGIX2wc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=BnBJAcWp77XKmERXBG4q2SD/UrGaGZOGNukR23yat/3lSnijB3nyAQBRe6TaGc0n1IAaouzPfVFEhDYQwl/P4t+9oLx3H/25RG/pk+/KRjRPswiC38ljy4a4iAjThozxWHid/+QLYYJhCbMshgwVf20sgJDsjZz2FeORxgR5bvY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LTS6Xk9R; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="tGnL3Cez";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="Mommjx+g"
-From: Nam Cao <namcao@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1781686147;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=4l2BKjym3mytO0Q6PBB2W4g8XqgjCbKZyZOeZ1FMgK0=;
-	b=tGnL3CezgSQSCYxHm+fgYbSvzfuf2ltLwHErTnksa+NUvalR2pVJXOatyHId9e/9qJQLHI
-	yB2rEFsjAZyTHuUf0++Kw5OJRPcuD9coec8pk8va1KL0jPmVvIh2CK/TXoJD3yMywrw+SK
-	F+j1Jz6bUiquuFKiKvzZoE4AsnlmzNWAdOsmCLO1Dq4W8MGMKboW8B0YhNfKZ/lHgiQqJq
-	8Mm0g4G5NUwc5cyeXM/+txsTAK3DwttyXyrXjec3Q9nxzae0Ac8Xd3i+UsrMWx8P89gHhN
-	WYpER0No/Nev27EPg1feRo0b+ScuO27CI/7p20/GtlGH9uMgujG4n8Hr/h0MrQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1781686147;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=4l2BKjym3mytO0Q6PBB2W4g8XqgjCbKZyZOeZ1FMgK0=;
-	b=Mommjx+gS7sauK5jJ6WSnQenr2JKsc8xxW8s2nMZFeACOx0q/JYO6c8bbpXM8xq+orf1YQ
-	y85Vcgy1uKLfCeCA==
-To: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Andrew
- Jones <andrew.jones@oss.qualcomm.com>, Jingwei Wang
- <wangjingwei@iscas.ac.cn>, Anirudh Srinivasan
- <asrinivasan@oss.tenstorrent.com>, linux-riscv@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Subject: Re: [PATCH 1/2] riscv: unaligned: stop using kthread for
- check_vector_unaligned_access()
-In-Reply-To: <1c378963f27c5960e8a57c50b8b444d30954cb54.1781666867.git.namcao@linutronix.de>
-References: <cover.1781666867.git.namcao@linutronix.de>
- <1c378963f27c5960e8a57c50b8b444d30954cb54.1781666867.git.namcao@linutronix.de>
-Date: Wed, 17 Jun 2026 10:49:06 +0200
-Message-ID: <87tsr1zh4t.fsf@yellow.woof>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LTS6Xk9R"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 824171F00A3A;
+	Wed, 17 Jun 2026 08:54:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781686487;
+	bh=ZdEhA3Eiq9fe7/PUtOiAHXL0M9bcxE2j/rSowkuW1iM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=LTS6Xk9R1eky0Ihz+STM0PJpFfc54ILtVKP2RV0IovSkRxgtzGTnmpJlSo981U10x
+	 nDnsf18MwFavhdruefsd8JAyLAvKKuTQN2KRe7Ry/Yz4AbKot69TQq1BjFhUEDimFZ
+	 mLkY1t1ER3253ch2mZugM8IXNjaXJ+65L+gc0M6PwTUerQV9MEa7lpS0c3BbvHMiAP
+	 ipSneRndLtH8MlRDNk808+koxj7gd64QAaQYUIGveIRYFyKHHTZCpxyqr2R0AB9+Fu
+	 uWfDY4+ODICB4bpc8R3bFxIjK2PNNOQADSh5XmoW6bu42hm3Z9B8ngVkswtDDzKL9W
+	 uqon8S+XUnBYA==
+From: Simon Horman <horms@kernel.org>
+To: justinlai0215@realtek.com
+Cc: Simon Horman <horms@kernel.org>,
+	kuba@kernel.org,
+	davem@davemloft.net,
+	edumazet@google.com,
+	pabeni@redhat.com,
+	andrew+netdev@lunn.ch,
+	linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org,
+	stable@vger.kernel.org,
+	richardcochran@gmail.com,
+	david.laight.linux@gmail.com,
+	aleksander.lobakin@intel.com,
+	pkshih@realtek.com,
+	larry.chiu@realtek.com
+Subject: Re: [PATCH net v3] rtase: Workaround for TX hang caused by short UDP packets entering hardware PTP parsing
+Date: Wed, 17 Jun 2026 09:54:17 +0100
+Message-ID: <20260617085416.841731-2-horms@kernel.org>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260615131653.15730-1-justinlai0215@realtek.com>
+References: <20260615131653.15730-1-justinlai0215@realtek.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 
-Nam Cao <namcao@linutronix.de> writes:
-> A kthread is used to run check_vector_unaligned_access() to optimize boot
-> time, allowing the kernel to continue booting without waiting for the
-> unaligned vector speed probe to finish.
->
-> However, this asynchronous approach introduces several complications.
-> First, the kthread may not complete before a user reads vDSO data,
-> resulting in incorrect values. This was previously addressed by
-> commit 5d15d2ad36b0 ("riscv: hwprobe: Fix stale vDSO data for
-> late-initialized keys at boot"), which added complex synchronization
-> between the kthread and vDSO reads.
->
-> Second, it was discovered that the kthread may not finish before
-> vec_check_unaligned_access_speed_all_cpus() (marked with __init) is freed,
-> triggering a page fault.
->
-> These issues raise the question of whether the kthread is worth the added
-> complexity. A past boot time regression report was actually unrelated to
-> synchronous probing; it was caused by the probe running serially. Since
-> switching to a parallel probe, no further complaints have been made.
-> Furthermore, the unaligned scalar access speed probe takes the same amount
-> of time, runs synchronously, and has caused no issues.
+This is an AI-generated review of your patch. The human sending this
+email has considered the AI review valid, or at least plausible.
+Full review at: https://netdev-ai.bots.linux.dev/sashiko/
+---
+rtase: Workaround for TX hang caused by short UDP packets entering hardware PTP parsing
 
-Another point I forgot to include. We start the kthread to run
-asynchronously, but the probe is executed on all CPUs including the boot
-CPU. Therefore if the kthread is executed before boot is completed,
-asynchronous probe will actually slow down boot time due to the overhead
-with kthread. If the kthread is executed after boot is completed, we run
-into the two race conditions mentioned above.
+This patch adds a workaround for a hardware TX hang that occurs when
+short UDP packets matching destination ports 319/320 enter a PTP parsing
+path that reads beyond the packet end. The workaround pads affected
+packets so the transport data reaches RTASE_MIN_PAD_LEN before
+transmission.
 
-> Testing shows no noticeable boot time slowdown when running the vector
-> probe synchronously (0.464474s with kthread vs. 0.457991s without).
->
-> Remove the kthread usage and run the probe synchronously. This simplifies
-> the boot flow and allows for the revert of commit 5d15d2ad36b0 ("riscv:
-> hwprobe: Fix stale vDSO data for late-initialized keys at boot")
->
-> Reported-by: Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>
-> Closes: https://lore.kernel.org/linux-riscv/20260612-vec_unaligned_drop_init-v1-1-df969210ae34@oss.tenstorrent.com/
-> Fixes: a00e022be531 ("riscv: Annotate unaligned access init functions")
-> Cc: <stable@vger.kernel.org>
-> Signed-off-by: Nam Cao <namcao@linutronix.de>
+> diff --git a/drivers/net/ethernet/realtek/rtase/rtase_main.c b/drivers/net/ethernet/realtek/rtase/rtase_main.c
+> index 55105d34bc79..4c295a39c7a0 100644
+> --- a/drivers/net/ethernet/realtek/rtase/rtase_main.c
+> +++ b/drivers/net/ethernet/realtek/rtase/rtase_main.c
+
+[ ... ]
+
+> +static bool rtase_get_udp_offset(struct sk_buff *skb, u32 *udp_offset)
+> +{
+> +	int no = skb_network_offset(skb);
+> +	struct ipv6hdr *i6h, _i6h;
+> +	struct iphdr *ih, _ih;
+> +
+> +	switch (vlan_get_protocol(skb)) {
+> +	case htons(ETH_P_IP):
+> +		ih = skb_header_pointer(skb, no, sizeof(_ih), &_ih);
+> +		if (!ih)
+> +			return false;
+> +
+> +		if (ih->ihl < 5)
+> +			return false;
+> +
+> +		if (ih->protocol != IPPROTO_UDP)
+> +			return false;
+> +
+> +		*udp_offset = no + ih->ihl * 4;
+
+[Low]
+Should ih->ihl also be checked against the actual data present in the
+skb? With ihl up to 15 (60 bytes), if the skb only contains the basic
+20-byte IP header, the computed udp_offset can exceed skb->len.
+
+Downstream in rtase_skb_pad():
+
+	trans_data_len = skb->len - udp_offset;
+
+trans_data_len is u32, so when udp_offset > skb->len this underflows to
+a very large value, which trivially satisfies:
+
+	trans_data_len >= RTASE_MIN_PAD_LEN
+
+and rtase_skb_pad() silently skips the padding. A malformed packet from
+an AF_PACKET sender with CAP_NET_RAW could craft a mismatched ihl and
+bypass the workaround. Would clamping or validating udp_offset against
+skb->len before the subtraction be appropriate?
+
+> +
+> +		return true;
+> +	case htons(ETH_P_IPV6):
+> +		i6h = skb_header_pointer(skb, no, sizeof(_i6h), &_i6h);
+> +		if (!i6h)
+> +			return false;
+> +
+> +		if (i6h->nexthdr != IPPROTO_UDP)
+> +			return false;
+> +
+> +		*udp_offset = no + sizeof(*i6h);
+> +
+> +		return true;
+> +	default:
+> +		return false;
+> +	}
+> +}
+> +
+> +static bool rtase_skb_pad(struct sk_buff *skb)
+> +{
+> +	__be16 *dest, _dest;
+> +	u32 trans_data_len;
+> +	u32 udp_offset;
+> +	u16 dest_port;
+> +	u32 pad_len;
+> +
+> +	if (!rtase_get_udp_offset(skb, &udp_offset))
+> +		return true;
+> +
+> +	trans_data_len = skb->len - udp_offset;
+> +	if (trans_data_len < offsetof(struct udphdr, len) ||
+> +	    trans_data_len >= RTASE_MIN_PAD_LEN)
+> +		return true;
+
+[Low]
+When trans_data_len is less than offsetof(struct udphdr, len) (i.e., the
+transport region is under 4 bytes), this returns true and skips the
+padding entirely.
+
+The commit message states the hardware "may access data beyond the end
+of the packet" during PTP parsing. If the hardware also reads out of
+bounds while classifying the packet, an IPv4 last fragment with 1-3
+trailing bytes could still be misclassified as PTP based on whatever
+garbage memory the hardware happens to read, and the workaround would
+be bypassed.
+
+The implicit assumption here seems to be "if the driver cannot read the
+dest port from the skb, the hardware cannot classify it either", which
+appears to contradict the premise that the hardware reads beyond the
+packet boundary. Should these very short transport-data cases also be
+padded to be safe?
+
+> +
+> +	dest = skb_header_pointer(skb,
+> +				  udp_offset + offsetof(struct udphdr, dest),
+> +				  sizeof(_dest), &_dest);
+
+[ ... ]
