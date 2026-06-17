@@ -1,93 +1,154 @@
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f202.google.com (mail-pf1-f202.google.com [209.85.210.202])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCB3539E9C8;
-	Wed, 17 Jun 2026 22:19:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7ADFB3A16AE
+	for <stable@vger.kernel.org>; Wed, 17 Jun 2026 22:26:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.202
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781734747; cv=none; b=f8HsnJvv1DQXCMOEvKMevGXEivDdVwaUqxr7xXaQXEdgZ3WjdglfU4P8M/G1jbyuZUm+eVGxbLKTBlvwac/0MVCIFHwwdokoiZZhyq6wTV5htOpuHCWHIySHKLsUB5LlrtHjOHy3C61VYBDAjhSCjoDaooBTIEEGk8Jmyymqzhc=
+	t=1781735202; cv=none; b=tWALL40JTIPQ1KHuLE+0zaIBEJfeL/qXvRUfZDJWHl9Hlu0E/xB9OnUtPaWD2mjrtGfxaT7vw1dZTg5kOtHJ4/tgkoNSCkBhoK5USQJc7W6FC5g2XeirfGiLXlcx6KdZ6+FP4IXq5KjT4dGVXxCek4oB2op6AOcuqIQC6Kan2j8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781734747; c=relaxed/simple;
-	bh=iwOB2BjRpWHpiAkjAunSy1kSThaOq0jrJ2urVceQOo4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EUYo/cxs0YVyjxVr+YFsqOoxi+lUfDxMkPAGG8TM5A0u1JOxx9R6f3EhyLeuBy9CfliiPj77EFMajzi9IxWE2di1l8d+97feKLX+yNsdrMsd1JfQXge6dHJlSRxGf3CsLh/6blII1J5fH1JNc0Q+4QwhK04wqnvkhsr8sT6lGYc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=Nd2VCaWK; arc=none smtp.client-ip=65.109.113.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	s=arc-20240116; t=1781735202; c=relaxed/simple;
+	bh=TexFUd0FNIbMCFe6ktlPk7eiHyZsg1GNyJS8GoZOP5w=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=pPNoGynphQIcx8GB38r2HoMQneY4O6tizY/jcjOBft01bhxOttppjeN+xYuEohXZOOmkJqI1LJLgRlKlaKeCYoqkgdgvI1R5nLsjTuvlno+Cn09emi93sfmA5Ws5sS5wlejcP1/reMhNbiamJIsQjZ1+cl1Oft7Dqe40WVEypHg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=bKoe6hFx; arc=none smtp.client-ip=209.85.210.202
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="Nd2VCaWK"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 9E67040E015A;
-	Wed, 17 Jun 2026 22:18:54 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id vxrtJOhXEUgf; Wed, 17 Jun 2026 22:18:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1781734724; bh=0f++1YPuGU5ow7b72prPIvdwxMCAYDA1ZPUqkcuhCPw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Nd2VCaWKziaZOZ4bMV6vnMQI+BEohcevqcsu6njOO4c+Ip1jsXkF5+6sNLtQW8Qsb
-	 Ut6B8PVN0NOW6GEqxOIy3G1lYZB97Hw5DPRGG6K8Kg+smR2pvBe/JVsQPOYNxQhpVr
-	 Nw46UL+OO7cp0GkbNHHXQyb/7hNGLbaHQrdwIh/XZujzax9Y31uQ32sifR1HKsMcmP
-	 ReHn9ILE3W7by602SwxSNxZJJsf9zAlMcDv7ddovN2pTfWcX5Fdv+yH0pBol8h7PVF
-	 wx3soDVj0mTKrEoXR0Us64tc1wf7aSAt2VL2DksQoP0HtvesQkvCHYqKilndDwK9WD
-	 uNy3jPkoH9U/ohEXyHil+wkadwzAKOo4fEf0/kQhhxtg8LZS1+tg2+eKyQo+D1XxkA
-	 DTRQ9zxw7DkVYR7yS2CRwMIbsc2L/9KL3P+Iwt5qF1qFM0mP1JJBYuBG8ufMGXuJi4
-	 wjr/1p2tbYAH3CNEvVaZNtB8Eq88O3xTCVp+qupacOIrENDiM3eFSdbh3DghzuCtu3
-	 ht1xvJs2+X0dck5f0tuqDQ1w/Xt9zoYVXbfe9J3IICkg8awZ+Rs8cyqd0RKnkPhP03
-	 6lMNjjPck1LP6HrR9yFGEs2misZPT7Taar3fjWUO/fSlhJ5lRp/p7AfSLjIsYun9D6
-	 m8RZvavoN8TGkkPp+2vWA7Ms=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::3a])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 6EC4740E00BF;
-	Wed, 17 Jun 2026 22:18:37 +0000 (UTC)
-Date: Wed, 17 Jun 2026 15:18:34 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Dinh Nguyen <dinguyen@kernel.org>
-Cc: tony.luck@intel.com, dbgh9129@gmail.com, linux-edac@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] EDAC/altera: Use parent device for devres in
- altr_portb_setup()
-Message-ID: <20260617221834.GAajMdOocCPq39b-s0@fat_crate.local>
-References: <20260617164303.585555-1-dinguyen@kernel.org>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="bKoe6hFx"
+Received: by mail-pf1-f202.google.com with SMTP id d2e1a72fcca58-8422382178bso117679b3a.2
+        for <stable@vger.kernel.org>; Wed, 17 Jun 2026 15:26:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1781735201; x=1782340001; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:from:subject:message-id:references
+         :mime-version:in-reply-to:date:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=j/Ad4YVUF/7gsfcl7+YM6RzYsrPG0W4dlBQkxAzbvq4=;
+        b=bKoe6hFx00rKBILWZ4ZDg146IDusUUoB/hQRleyX/lad8jXmOitvg+8VwwLJx0UJSS
+         PQEsBx5jCSeXOzoYxVcXEc8Ja2oYrMqaZoVgUhZmGm2fECIJNeNertRTOMBFb7EmopDy
+         feyR3kftSP72s0Bb8Si6qegM3sBlFs3oeSdyzyBTDJTe7rgEtAckmvop9axwrnGzhMn1
+         Sah5MwXOrUN8wTV5bhxnz0cv8+yQBDvkXdKAFfc6ycSAUMrQgep/cpV8clCfDXwnBcOZ
+         p/cHBvYOEDrCeu+QKTMaQsenOZTlerkaScANpu7wtTHyNhO9aMGCpgsnDUzLemMdA9jJ
+         VyPQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781735201; x=1782340001;
+        h=content-transfer-encoding:cc:to:from:subject:message-id:references
+         :mime-version:in-reply-to:date:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=j/Ad4YVUF/7gsfcl7+YM6RzYsrPG0W4dlBQkxAzbvq4=;
+        b=VpNtoemauU1tjVqNF7DPWQVXHGkS7ALUsiGXRxR79b3dxj/sywHrMZ1P5QwNpkxF+R
+         PtkQ/qxZCQ/B+npopnRCnSEt6AbYnoRZimS5ACaQaSx9hi5LeYGtRSXMdia8N0jH6KUd
+         8jnWn6+Zx3T6NEeAE2XwU9Pl73GNQxvcdfcjPBbARZRf6CTJzXWvOFWCI/pHc9lkfbKd
+         26fX3MzD5bCeJ3F6CDpMTvMPXXsoRBQjzj1bvCyB86H22RpNoFO/kBh9/97k3FMGRFQW
+         0cc6pIeD5glU7R2tKE5Ft3gPuJsNEbFDVa8MfMvAaAPTiTeJgy3pBZrL6xstymO6ZUry
+         gtgg==
+X-Forwarded-Encrypted: i=1; AFNElJ/j3KN8LfTMxsk+Cr19/ZsTtAAhW4gNor8Y8CIOKpwNmR3IZpyT8Xil/lhaOa1hjIFATNnAEFM=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzxwaeAB9X4X0FfTXZqsVrtGWxafKz94MmqOdxg1kPkKd+k+2wH
+	Xw2GDmpX0EzHON2hWMdQuzeWnsp9JCyQd2KQ+rM+iqmYZ4dW73RQ6GHKL9yqxAqXYVITtcICzwU
+	akDumhw==
+X-Received: from pgmk4.prod.google.com ([2002:a63:5a44:0:b0:c85:117a:2b31])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a21:8cc5:b0:3b8:268d:5208
+ with SMTP id adf61e73a8af0-3b8b7ff2b4fmr6341233637.42.1781735200616; Wed, 17
+ Jun 2026 15:26:40 -0700 (PDT)
+Date: Wed, 17 Jun 2026 15:26:39 -0700
+In-Reply-To: <CAO9r8zOMkyjG+a8YLGskEaHaLpGyo4qnrHBGJu=pZc_4a3bZWg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260617164303.585555-1-dinguyen@kernel.org>
+Mime-Version: 1.0
+References: <20260616214652.2157032-1-yosry@kernel.org> <20260616214652.2157032-2-yosry@kernel.org>
+ <5b5a0f3f21bba5d25410382a9e0170a17c952738.camel@intel.com>
+ <ajKbCii_1LpyQKjJ@google.com> <861c890587cb8cd0e2893ea4041555d33d8e9db4.camel@intel.com>
+ <CAO9r8zOMkyjG+a8YLGskEaHaLpGyo4qnrHBGJu=pZc_4a3bZWg@mail.gmail.com>
+Message-ID: <ajMfH1kWnzFuHJoU@google.com>
+Subject: Re: [PATCH 1/3] KVM: nVMX: Always flush vpid02 on first use
+From: Sean Christopherson <seanjc@google.com>
+To: Yosry Ahmed <yosry@kernel.org>
+Cc: Kai Huang <kai.huang@intel.com>, "jmattson@google.com" <jmattson@google.com>, 
+	"kvm@vger.kernel.org" <kvm@vger.kernel.org>, "pbonzini@redhat.com" <pbonzini@redhat.com>, 
+	"stable@vger.kernel.org" <stable@vger.kernel.org>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Jun 17, 2026 at 11:43:03AM -0500, Dinh Nguyen wrote:
-> Anchor the devres group and the devm-managed IRQ requests in
-> altr_portb_setup() to the actual parent device (device->edac->dev)
-> instead of the embedded struct device inside the copied per-port
-> altr_edac_device_dev. This keeps devres_open_group(),
-> devm_request_irq(), devres_remove_group() and devres_release_group()
-> all referring to the same long-lived device so the group and the
-> resources allocated inside it are torn down together.
-> 
-> Fixes: 911049845d70 ("EDAC, altera: Add Arria10 SD-MMC EDAC support")
-> Cc: stable@vger.kernel.org
-> Closes: https://sashiko.dev/#/patchset/20260503212558.2811480-1-dbgh9129%40gmail.com
-> Assisted-by: Claude:claude-opus-4-7
-> Signed-off-by: Dinh Nguyen <dinguyen@kernel.org>
-> ---
->  drivers/edac/altera_edac.c | 10 +++++-----
->  1 file changed, 5 insertions(+), 5 deletions(-)
+On Wed, Jun 17, 2026, Yosry Ahmed wrote:
+> On Wed, Jun 17, 2026 at 3:03=E2=80=AFPM Huang, Kai <kai.huang@intel.com> =
+wrote:
+> >
+> > On Wed, 2026-06-17 at 06:03 -0700, Sean Christopherson wrote:
+> > > On Wed, Jun 17, 2026, Kai Huang wrote:
+> > > > On Tue, 2026-06-16 at 21:46 +0000, Yosry Ahmed wrote:
+> > > > > Make sure vpid02 is always flushed on first use by setting last_v=
+pid=3D0
+> > > > > when allocating vpid02.  nested_vmx_transition_tlb_flush() will a=
+lways
+> > > > > detect a VPID change on first VM-Enter after VMXON, because VPID=
+=3D0 in
+> > > > > vmcb12 is not allowed if L1 enables VPID.
+> > > >
+> > > > vmcs12 :-)
+> > > >
+> > > > >
+> > > > > This avoids using stale TLB entries from a previous lifetime of t=
+he
+> > > > > VPID, that might have been associated with a different vCPU (or a
+> > > > > completely different VM).
+> > > > >
+> > > > > Note that last_vpid is already being initialized as 0 when the vC=
+PU is
+> > > > > created, but it is not reset when vpid02 is freed on VMXOFF. Henc=
+e, the
+> > > > > problem can only occur if L1 does VMXOFF -> VMXON, runs an L2, an=
+d KVM
+> > > > > happens to reuse a VPID that has TLB entries on the physical CPU.
+> > > >
+> > > > Not sure whether it's better to set it to 0 in free_nested(), which=
+ also resets
+> > > > some other nested fields to clean slate AFAICT?
+> > >
+> > > It needs to be set on first use, for the same reason that kvm_mmu_loa=
+d() flushes
+> > > the root:
+> > >
+> > >       /*
+> > >        * Flush any TLB entries for the new root, the provenance of th=
+e root
+> > >        * is unknown.  Even if KVM ensures there are no stale TLB entr=
+ies
+> > >        * for a freed root, in theory another hypervisor could have le=
+ft
+> > >        * stale entries.  Flushing on alloc also allows KVM to skip th=
+e TLB
+> > >        * flush when freeing a root (see kvm_tdp_mmu_put_root()).
+> > >        */
+> > >       kvm_x86_call(flush_tlb_current)(vcpu);
+> >
+> > I think you mean the "actual flush" needs to be done on the first use. =
+ But
+> > setting last_vpid to 0 is a setting which is to make sure the actual fl=
+ush will
+> > always be done on the first use, i.e., the actual flush will always be =
+done on
+> > the first use.  For this purpose seems to me there's no difference betw=
+een
+> > setting last_vpid to 0 in enter_vmx_operation() and free_nested(), but =
+maybe I
+> > am missing something.
 
-How urgent is this? Can it wait until the merge window is over?
+You're not missing anything.  It's just that putting it in free_nested() su=
+btly
+relies on zero-allocating vmx->nested, so that the *very* first use also fl=
+ushes
+vpid02.  Relying on zero-allocating is generally a-ok, but in this case it =
+would
+require documenting the same base logic in multiple places.
 
-Thx.
-
--- 
-Regards/Gruss,
-    Boris.
-
-https://people.kernel.org/tglx/notes-about-netiquette
+> > But I guess doing it in enter_vmx_operation() matches the logic of "doi=
+ng actual
+> > flush on first use" more :-)
+>=20
+> Yup. I thought about putting it free_nested() as it looks like
+> cleanup, but semantically it makes more sense to put it in
+> enter_vmx_operation().
