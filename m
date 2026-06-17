@@ -1,108 +1,77 @@
-Received: from zg8tmja5ljk3lje4mi4ymjia.icoremail.net (zg8tmja5ljk3lje4mi4ymjia.icoremail.net [209.97.182.222])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id ED3233C76BD;
-	Wed, 17 Jun 2026 13:21:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.97.182.222
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 046143BCD31;
+	Wed, 17 Jun 2026 13:22:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781702484; cv=none; b=d29et9KzmDrcTyUFWE2P7sQrpcinRYfFYJkgFottRbC1VW5kzuPj+HqNFcKA7KqIiQlKyjffZKi8dMBZ+YrHUGcr+efhM77aYuzI4DPzCBUESxIrglu0e5se5xcN/vcZ9pP1lgsMtX/LEW7LKwSl+dO2ZqgWjpiHc4EE0x6TaSE=
+	t=1781702549; cv=none; b=BgZHxi1J/2MYsrxPKsTF8QCJS+qqgW+0ap0OI5fhgxNMYxMMhge1iu3Upr2alE5SfzzVNWPRa+RsD716VvyLo+kQSgNaiJ6UDLh5PN8CWD6e1autTa+3hnBQlkD1NHI3ZlaS0TOPoJtK7lxvXLTDt8sDikZ3R8uRBQHH1WWwWYQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781702484; c=relaxed/simple;
-	bh=cXlYSp6X+FT8ZbCLH75IrY765ExigFdRAkqrsvjTB0I=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=OhFh9pR7oDx7KzUIpGsdoO5u09YAJRIdHBXdnjiT/+X0Dw5baQvRWyq62xFPamnQo/mWiYobsWrjIt+p7Unp/4/n4WVui5RhG5U+zd0y1PHqOMZDWx2erhJzGrki9B0heFC9x0QQuVTuWu/jm2dX4jbiRfcIbExdhXEurJ41IV4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=209.97.182.222
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.98.66.117])
-	by mtasvr (Coremail) with SMTP id _____wCnFjw+nzJqCam8Ag--.54892S3;
-	Wed, 17 Jun 2026 21:21:03 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.98.66.117])
-	by mail-app4 (Coremail) with SMTP id zi_KCgCn2jE+nzJqBRWdAQ--.32818S2;
-	Wed, 17 Jun 2026 21:21:02 +0800 (CST)
-From: Fan Wu <fanwu01@zju.edu.cn>
-To: robin.clark@oss.qualcomm.com
-Cc: sean@poorly.run,
-	konradybcio@kernel.org,
-	akhilpo@oss.qualcomm.com,
-	lumag@kernel.org,
-	abhinav.kumar@linux.dev,
-	jesszhan0024@gmail.com,
-	marijn.suijten@somainline.org,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	linux-arm-msm@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	freedreno@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Fan Wu <fanwu01@zju.edu.cn>
-Subject: [PATCH 0/3] drm/msm/adreno: fix preempt teardown races and cleanup
-Date: Wed, 17 Jun 2026 13:20:04 +0000
-Message-Id: <20260617132007.131079-1-fanwu01@zju.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1781702549; c=relaxed/simple;
+	bh=2l+Wx1vgZnMvuLLZF695Kf9yHqIqlLEZVIyAT0+TDPQ=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=hqDSbCPMCW5m1gZMUjk3PaVbB1J57gIxnObff/i/tHw0dntSkjkgVxN9u8Hl5yLwwAcOr896SBb30UCq81gvV/UUS+rEtgoB8WKA79wiK6961mTwi/DqGD2eNmWUbb0OAO4xfVi9ozkqbadkZbw1ZA1YP1jsoXsue8FTt+dNXqc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CO2Sv6j3; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CO2Sv6j3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 011E91F000E9;
+	Wed, 17 Jun 2026 13:22:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781702548;
+	bh=jjE1ZgEQ7JK8ooIDdfvIp9yidTMTkSuCid79afKW4HA=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=CO2Sv6j3D1MvkjY+AfuWFS/W0s2AxAFVNZXibTGHyLViBO2kHoDIOCLB20Fm/7AiG
+	 gr4wr8Fee4yWuKlpV+X/vEE+cT9lFSOn2lInt/vGAVzQrHjKX1H5C1DXVsmVkkcbYz
+	 oaRQfn1yCCA/Z4OTS0VhZnJKia4yytKDsl7lcc/VXe660cHNBY4gWRNtwG7yDYd6Hn
+	 SfPDJDOihKHgKizKEvkwVpFarcsGlQXEImYph2z8EwWbRgqkqEbWTcZCJ7ZYiukoZ9
+	 Ec9mmznt+9SC0IgDNzBCFW935dyfq+hdTgr95wrhNt6P282awuYrsjOyvICz3c3NDx
+	 0SDW96A97CSmw==
+From: Christian Brauner <brauner@kernel.org>
+To: miklos@szeredi.hu, amir73il@gmail.com, 
+ Souvik Banerjee <souvik@amlalabs.com>
+Cc: linux-unionfs@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+In-Reply-To: <20260501232735.2610824-1-souvik@amlalabs.com>
+References: <20260501232735.2610824-1-souvik@amlalabs.com>
+Subject: Re: [PATCH] ovl: use linked upper dentry in copy-up tmpfile
+Message-Id: <178170254157.660235.877558308523952750.b4-ty@b4>
+Date: Wed, 17 Jun 2026 15:22:21 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zi_KCgCn2jE+nzJqBRWdAQ--.32818S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?HXMpeAXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfnXz+g1OQfMo27QHy5TwQyZxLwNNxMHD+hlcs/yDr0L/NQ+VxDRSXxPGQotD49GmWfKpp
-	yPDu2GgIIjdkSmMp7CXN5RPxYw6l01w8CbPzC/8w
-X-Coremail-Antispam: 1Uk129KBj93XoW7Ww4fGF47Jr43ur1kGF1kXrc_yoW8WF1Dpr
-	WfGrWSyr4xA34akw43AF1kuFy5AFWfXFW8KryIg398Cw15Jr1jgF17ZryUXF98WF12yrWI
-	qFn7Kr45WF15ArcCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUP0b4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
-	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
-	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
-	xVWUAVWUtwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
-	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxM4IIrI8v6xkF7I0E8cxan2IY04v7
-	MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr
-	0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVW8ZVWrXwCIc40Y0x0E
-	wIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JV
-	WxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAI
-	cVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU80385UUUUU==
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16-dev-4090c
+X-Developer-Signature: v=1; a=openpgp-sha256; l=873; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=2l+Wx1vgZnMvuLLZF695Kf9yHqIqlLEZVIyAT0+TDPQ=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWQZzZ/EabtpGTdDsjXTwt0sLPe/Nt4+y5yqdZlZZuKly
+ +szLnzk6ihlYRDjYpAVU2RxaDcJl1vOU7HZKFMDZg4rE8gQBi5OAZiIARMjw5t7BxWyriidjch1
+ vNPH6bLGfFnKnldTLixh2nLZOtrTKYmR4cmipQ4ndxRP/v3rYsiab28FHWaqu9zLcz6QYhbKvfD
+ OPx4A
+X-Developer-Key: i=brauner@kernel.org; a=openpgp;
+ fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-This short series fixes three issues in the A5XX/A6XX preemption
-teardown/error paths.
+On Fri, 01 May 2026 23:27:35 +0000, Souvik Banerjee wrote:
+> ovl: use linked upper dentry in copy-up tmpfile
 
-Patch 1 fixes a use-after-free: the preemption watchdog timer
-(a5xx_preempt_timer / a6xx_preempt_timer) can fire during GPU teardown
-and dereference the a5xx_gpu/a6xx_gpu container after it has been freed.
-timer_shutdown_sync() is added to both destroy paths, and the timer is
-initialized at GPU allocation so it is valid on every teardown path.
+Applied to the vfs.fixes branch of the vfs/vfs.git tree.
+Patches in the vfs.fixes branch should appear in linux-next soon.
 
-Patch 2 fixes a buffer leak: a6xx_destroy() never called
-a6xx_preempt_fini(), so the per-ring preempt_bo/preempt_smmu_bo and the
-preempt_postamble_bo were never released. a6xx_preempt_fini() now
-releases all of them, clears the pointers, and is called from
-a6xx_destroy().
+Please report any outstanding bugs that were missed during review in a
+new review to the original patch series allowing us to drop it.
 
-Patch 3 makes a5xx_preempt_fini() idempotent. It is called from three
-sites (init error, a5xx_ucode_load when WHERE_AM_I is unavailable, and
-a5xx_destroy) but does not null the GEM buffer pointers after put, so a
-second call double-frees them.
+It's encouraged to provide Acked-bys and Reviewed-bys even though the
+patch has now been applied. If possible patch trailers will be updated.
 
-Patches 2 and 3 build on patch 1; apply in order.
+Note that commit hashes shown below are subject to change due to rebase,
+trailer updates or similar. If in doubt, please check the listed branch.
 
-Fan Wu (3):
-  drm/msm/adreno: sync preempt watchdog timer on teardown
-  drm/msm/a6xx: free all preempt buffers on teardown
-  drm/msm/a5xx: make preempt_fini idempotent
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
+branch: vfs.fixes
 
- drivers/gpu/drm/msm/adreno/a5xx_gpu.c     |  2 ++
- drivers/gpu/drm/msm/adreno/a5xx_gpu.h     |  1 +
- drivers/gpu/drm/msm/adreno/a5xx_preempt.c | 16 +++++++++++++++-
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c     |  5 +++++
- drivers/gpu/drm/msm/adreno/a6xx_gpu.h     |  1 +
- drivers/gpu/drm/msm/adreno/a6xx_preempt.c | 21 ++++++++++++++++++---
- 6 files changed, 42 insertions(+), 4 deletions(-)
-
--- 
-2.34.1
+[1/1] ovl: use linked upper dentry in copy-up tmpfile
+      https://git.kernel.org/vfs/vfs/c/8726161b595e
 
