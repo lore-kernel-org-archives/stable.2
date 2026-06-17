@@ -1,37 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09C47318EFF;
-	Wed, 17 Jun 2026 18:09:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC1823750CB;
+	Wed, 17 Jun 2026 18:09:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781719747; cv=none; b=IALwM4CtK6cLziszGCBzBoiLKwb6/VbaGUvaqb+5ph/wZO6KvL47aTLUMjgfn9S/Y6z4zKCRq9BVK8eb/inCvsjQPF+zUeh8+nEYuAGRe92XPCnOOq+PlrmYspmVXjj3B2nX0XyQsyYq9S9X+R0JfbFogTATLgLPFIeaQxQxg3E=
+	t=1781719777; cv=none; b=nJZkGJjdSzeBXIFkUR2/dj9zPjEoaIB0e6yguTcWyed3qOgGZq2kFDpYUA09QCGG2+fKfg4Vhh16amMEGAvOjO/8TcwCO2N2NJGjFVJK03hTFpcJ1FTtas8dURjA3MpxShtOQm6GGPzKJJDfcM2HxqsTFb9/nAeWQXAhFcXJbJM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781719747; c=relaxed/simple;
-	bh=8ZmRW4mX2Dv9ATUZb0Ea8pdMkv24H41DyPo6k6Ue8mQ=;
+	s=arc-20240116; t=1781719777; c=relaxed/simple;
+	bh=tPxlq0qL8ZiBrQmoi8Rx8xtOxDUmm2s8o0hFeRA4jX4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=M4s9YU6+Uig+860BsoQ5G6HTbGnjmAzUeFqIal83Z2a4sEGZOi3hpBXE1m4SnB5BbVrzY0Vs5lk0spSs0OsQpp4dAQxFSMlz/nIs4YXvchmAIbJzFdV1ZKyjzTEOZH2ErzU7iuu1wDIMmArpunVqNfcDG3z2l1xgdLNwmNcsG00=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=CLA8Wfv3; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=tBijIhHiuyh1luAIM6ugyFG6g2MdieUiZnyqN3Iqi8JB89Ds+1CumyXXdFLFs45GDNJWaCdm33YwEyzKxe926T9TK4ICYteN5UnCSHqH/4CRoLTQmgXdVrf2edrer/LD2CdTMYSuQCy5poYLJvG080RuT7SAWe6WZo1RQkG5Asw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FvR2WSXb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="CLA8Wfv3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A4571F000E9;
-	Wed, 17 Jun 2026 18:09:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1781719745;
-	bh=5M72rRNDNk4gzJoqbel9sUQ88muLiWkbO9KQPjKK0g4=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FvR2WSXb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F19B1F000E9;
+	Wed, 17 Jun 2026 18:09:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781719776;
+	bh=jWEa6RP1Pi3Ycy/oGmflXx0TMIdx6fHkv2r2sAHUe5M=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=CLA8Wfv3wYG5UQ2SNt/9vO/cufYZsF+7sZZb6ROt3qMVwnVDlbSUKkhREi4uHJeh1
-	 n6jGONZjekietRyamgpOG2DI0qq63ypRzQbRsjbCuiMJYNqElh4cp4RoIi50qWsFHM
-	 h5KQ+uhGll/1Zh3NdQqIaEmBARy5aU3ANzYuQ12c=
-Date: Wed, 17 Jun 2026 23:37:55 +0530
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Gabriel Krisman Bertazi <krisman@suse.de>
-Cc: stable@vger.kernel.org, io-uring@vger.kernel.org,
-	Jens Axboe <axboe@kernel.dk>
-Subject: Re: [PATCH stable-6.18.y] io_uring/net: Avoid msghdr on
- op_connect/op_bind async data
-Message-ID: <2026061727-thirsty-sculptor-1e6f@gregkh>
-References: <20260617175102.2976716-1-krisman@suse.de>
+	b=FvR2WSXb120GdkouzMt5pxNolEXMByOMorJ2qh7bQ5fpzAlqYLc4BrvcueSaoHTXa
+	 Cn1vkCsT+oHzPgJW2IWomMhsHj1FYD0FAlZURjHcNCRiqHpa11+nDYxxO95Adikfrm
+	 Sy6AdDOCZBPOeDzqGhismne1s7GGF9TG81ifMqvtfgHuZg/nMwxfIwUdlL5FyVlBTP
+	 qmMZm8/JW4us9Tpyy3+ZoJtliXwZ6/woJo0rnPBm2lTLVAeu14AcCiGWgMsSEre9je
+	 e4kcQe46sD7adaUGKfRwq0A99LjZhoUGdYz3+ICnCC19PxB91DLbZ+lL+IfKvDRsym
+	 n9s7yl3xl7NHQ==
+Date: Wed, 17 Jun 2026 18:09:34 +0000
+From: Jaegeuk Kim <jaegeuk@kernel.org>
+To: Wenjie Qi <qwjhust@gmail.com>
+Cc: chao@kernel.org, geoo115@gmail.com, yangyongpeng@xiaomi.com,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+	linux-f2fs-devel@lists.sourceforge.net, qiwenjie@xiaomi.com
+Subject: Re: [f2fs-dev] [PATCH v5] f2fs: use post-decrement count for cp_wait
+ wakeup
+Message-ID: <ajLi3nLqyS31Y6J4@google.com>
+References: <20260616135637.1439319-1-qiwenjie@xiaomi.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -40,34 +44,64 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260617175102.2976716-1-krisman@suse.de>
+In-Reply-To: <20260616135637.1439319-1-qiwenjie@xiaomi.com>
 
-On Wed, Jun 17, 2026 at 01:51:02PM -0400, Gabriel Krisman Bertazi wrote:
-> [ Upstream commit 3979840cd858f30f43ea9f4e7f7f1f56de82d698 ]
-> This fixes a memory leak due to the lack of the cleanup hook for the
-> iovec.  The stable backport differs from upstream by dropping the
-> io_connect_bpf_populate hunk, which didn't exist at the time and by
-> fixing the merge conflict due to the introduction of
-> io_bind_file_create.
+On 06/16, Wenjie Qi wrote:
+> f2fs_write_end_io() decrements the writeback page counter and then
+> reads it again with get_pages() to decide whether the last
+> F2FS_WB_CP_DATA completion should wake cp_wait.
 > 
-> Both IORING_OP_CONNECT and IORING_OP_BIND reuse the msghdr object just
-> to store the sockaddr. Beyond allocating a much larger object than
-> needed, msghdr can also wrap an iovec, which will be recycled
-> unnecessarily. This uses the sockaddr directly.
+> Use atomic_dec_return() for F2FS_WB_CP_DATA completions so the wakeup
+> decision is made from the value produced by the decrement itself. Keep
+> the existing dec_page_count() path for other writeback counters.
+
+Is there a race condition to do this? If so, can you describe? And, I think
+we need a wrapper function instead of calling nr_pages directly.
+
 > 
+> Fixes: e234088758fc ("f2fs: avoid wait if IO end up when do_checkpoint for better performance")
+> Fixes: ce2739e482bc ("f2fs: fix to avoid UAF in f2fs_write_end_io()")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Gabriel Krisman Bertazi <krisman@suse.de>
-> Link: https://patch.msgid.link/20260602215327.1885109-2-krisman@suse.de
-> Signed-off-by: Jens Axboe <axboe@kernel.dk>
-> Signed-off-by: Gabriel Krisman Bertazi <krisman@suse.de>
+> Signed-off-by: Wenjie Qi <qiwenjie@xiaomi.com>
 > ---
->  io_uring/net.c   | 36 ++++++++++++++++++------------------
->  io_uring/opdef.c |  4 ++--
->  2 files changed, 20 insertions(+), 20 deletions(-)
-
-This isn't in any release yet, why just 6.18?  And why wan't it
-originally tagged for stable?
-
-thanks,
-
-greg k-h
+>  fs/f2fs/data.c | 12 +++++++-----
+>  1 file changed, 7 insertions(+), 5 deletions(-)
+> 
+> diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
+> index d83a21998ec2..58d23eb74ec2 100644
+> --- a/fs/f2fs/data.c
+> +++ b/fs/f2fs/data.c
+> @@ -392,15 +392,17 @@ static void f2fs_write_end_io(struct bio *bio)
+>  		if (f2fs_in_warm_node_list(folio))
+>  			f2fs_del_fsync_node_entry(sbi, folio);
+>  
+> -		dec_page_count(sbi, type);
+> -
+>  		/*
+>  		 * we should access sbi before folio_end_writeback() to
+>  		 * avoid racing w/ kill_f2fs_super()
+>  		 */
+> -		if (type == F2FS_WB_CP_DATA && !get_pages(sbi, type) &&
+> -				wq_has_sleeper(&sbi->cp_wait))
+> -			wake_up(&sbi->cp_wait);
+> +		if (type == F2FS_WB_CP_DATA) {
+> +			if (!atomic_dec_return(&sbi->nr_pages[type]) &&
+> +			    wq_has_sleeper(&sbi->cp_wait))
+> +				wake_up(&sbi->cp_wait);
+> +		} else {
+> +			dec_page_count(sbi, type);
+> +		}
+>  
+>  		folio_clear_f2fs_gcing(folio);
+>  		folio_end_writeback(folio);
+> 
+> base-commit: c0b65f6129c7fbb526e921dd60261650f1b2bef9
+> -- 
+> 2.43.0
+> 
+> 
+> 
+> _______________________________________________
+> Linux-f2fs-devel mailing list
+> Linux-f2fs-devel@lists.sourceforge.net
+> https://lists.sourceforge.net/lists/listinfo/linux-f2fs-devel
