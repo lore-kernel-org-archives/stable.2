@@ -1,124 +1,166 @@
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB7B82848A8
-	for <stable@vger.kernel.org>; Wed, 17 Jun 2026 02:02:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.179
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [13.76.78.106])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9601F2E7363;
+	Wed, 17 Jun 2026 02:06:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.76.78.106
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781661736; cv=none; b=Jo05sB4kGerlLCaLI4I/zfpSXJIDXJvuYHNLWSQg6f3nFe9oUITNYvqO5LeqRSRDMx3RMoybbIqvNmas6kFjJpZyhivcvJwob3tTPgKdqv5C60o1M0GySOtptONISCjBjBuxALnhQ7+LIlg/IYZK+DyvsMJr1UdwwQLuARYwRb4=
+	t=1781662006; cv=none; b=ttu9KJPchb7xvKiMF1dDW38DQ1R0c/qj91ErRpui3BBuMAN4+aOFc9Wrz/8UbSOnDVjcvIn1yLeDwZy1PgmbkkrYhZNlvGpFXMbST0/TtIrD1uHZVxrTFtX+xa3zU4JbherBziDJR4AxIN2eyiaZHxT+hjddROq1P5fcfNoQEZk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781661736; c=relaxed/simple;
-	bh=/6qqonAB1rvfwi0nHfBcjTnP0l6KSbTgCUpfm1TzYf8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=i4ls2JMKXcYMI5A9t2hbTxZU479AY8zsEODEiSG0YYpqt9sayhT7bCCpQOfbD5lzjuuohfIpspd/CgNcE1O9wSz1Py6QLoJopEVi6YkcxPx18qbemZjH26aVbQZzeJKOuglLJunkAQQW1ceQT8GryLsxBQz7PRGnyEoMi76bX00=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ankey.net; spf=none smtp.mailfrom=ankey.net; dkim=pass (2048-bit key) header.d=ankey-net.20251104.gappssmtp.com header.i=@ankey-net.20251104.gappssmtp.com header.b=tOQJtQCx; arc=none smtp.client-ip=209.85.214.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ankey.net
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=ankey.net
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ankey-net.20251104.gappssmtp.com header.i=@ankey-net.20251104.gappssmtp.com header.b="tOQJtQCx"
-Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2c40397e746so32059005ad.3
-        for <stable@vger.kernel.org>; Tue, 16 Jun 2026 19:02:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ankey-net.20251104.gappssmtp.com; s=20251104; t=1781661734; x=1782266534; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=z7ztbMiRRaO/C1m+UU2CZ46ifpbNE3xQILmUDMNi364=;
-        b=tOQJtQCxmO8sWi2mM1fh9NbmclYDichvbh8WHbygZw17Zn5GoApHfy2ktyo2wuH7lK
-         jzRF8CgBklu+OV83/NHJxPlGbhm2LbAyipRS/a09aalFDcaaUNESMELmfXxYomfa9aTc
-         vOH3hmx9VeopheqyQtAcElaVq1W40UNnBE0eC47ygMAVkx48Ka0oS825sPy/XB0VwAcK
-         5ZsrrhtVu66uEd7cqg08yLQUztFx96Co1p4EvcdRA+62kIZRSTt+LwtzKVkvEJ3tmcL6
-         f2vjjwbNYfW3bB0F1X8F5Xec0FOMONnraiDd/zDk2JNTguRw3xQkuhbWEICBnCFTBXdE
-         24Tg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781661734; x=1782266534;
-        h=mime-version:content-transfer-encoding:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=z7ztbMiRRaO/C1m+UU2CZ46ifpbNE3xQILmUDMNi364=;
-        b=XeRSu4RY74G/6RJjWPR6t4qJ+1s/YjNvSpfBhkWKojkw+BR2ofu4e5TZWqouY+L5UA
-         FxGvAEdxcPGp7NS6Z1A3yKWmRi6d21vKAMZoWFf9vMVoLZ2kHlFmsTEcA9Qyqzx+QFPD
-         g1GfDVHypzjRPECh9BCjmurrPdAgdxoKvx33c1Y6KVGVmkmbqEx8UwMLO6c9JYu6Wunn
-         FoN5tQhd4lexSVHiXyN5HERfQj2j3x8qkeN3EhPZ9LfH1w4mcojpPL17GCS5ke9NyVMB
-         RBVT2xwzaTkDg+51z6vDRwRUucp7vzFlH+FGo7TRSCV2DiOsH/zIxPkN8KAKX7+r4hMk
-         a5JQ==
-X-Forwarded-Encrypted: i=1; AFNElJ+7XLUnmWaMOqqrCoFQ9CQNsVxU0XLHRc+buJgBAi5F/PhEZ/Te5BdGiXH0JK/FhQLqpV/1OaU=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzSFFp+3FrOjCn7v4kTfB9TNg1MumMiJkRx84wpjqUSwYxig9NJ
-	vDoaNBGnEDMi0cw473t7tOsZLLObCNjMo5Qkm0673s22OnXX3pJ5awhVa3b8Bsi938YiZpbz1VS
-	JM/c=
-X-Gm-Gg: AfdE7cm60OvTfOqBOB95GQD4QuVEm+MjEi8o5rK1H1cALbN9h8l7w/7DdJqy00///eB
-	35Z8tMvESizs+xHNAlIa7l/vxVt3FhI9Oqhtlyvd+d8IIYP4KBF2g5VSmb2UDStjd9eNaoOkJtW
-	iGKk4Z+YPlRc49M1jzPswg6bvwNIAOyvXFWBOnwu0bd30bxaVlX+EtIWLf+/H+hZpPe/h163vDP
-	+YAseh6glYGvDpCmDg3WWsroAam9dbm9RYRwI+KP/dakgtq1+BXF1muUAaX+XmDtSZZwpXYg3b+
-	JkD1YJaYG79mZ7Wx1Yatp9A7l6TjZ9z95w2fwQl6WOfJ0KK4bNLK4+3QZARNkr8qvHi+Oz+53TZ
-	BZt0SrESsdrviCvebU474brzbSTqQpCcmlmLWrJ2IwMeNbv3osFzNjq6dqpX2skfqisw0pS2F2M
-	ALErTpBSoGdD+2kcReSiAi0AEJ6gFrIUoKYx1VWwBrmhwQEnM485t355d+UJaJO2Eg4ZJo8k3VQ
-	AOWGt7K9ihEW8qJ3zVOuO6psMc=
-X-Received: by 2002:a17:902:fc47:b0:2c2:8659:da43 with SMTP id d9443c01a7336-2c6bbf7cdeemr15372715ad.4.1781661733790;
-        Tue, 16 Jun 2026 19:02:13 -0700 (PDT)
-Received: from atimofey-ld1.linkedin.biz ([20.29.181.177])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c6a3ee1052sm25075775ad.48.2026.06.16.19.02.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 16 Jun 2026 19:02:13 -0700 (PDT)
-From: Alex Timofeyev <sashka@ankey.net>
-To: Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
- linux-rdma@vger.kernel.org
-Cc: Parav Pandit <parav@nvidia.com>, Edward Srouji <edwards@nvidia.com>,
- Vlad Dumitrescu <vdumitrescu@nvidia.com>, stable@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH rdma-next v1 0/2] RDMA: fix cross-NIC same-host IPv6
- RDMA-CM connect
-Date: Wed, 17 Jun 2026 02:02:12 +0000
-Message-ID: <1781661732.reply1-sashka@ankey.net>
-In-Reply-To: <1781545579.1-sashka@ankey.net>
-References: <1781545579.1-sashka@ankey.net>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	s=arc-20240116; t=1781662006; c=relaxed/simple;
+	bh=XR5rX7AEi3dE4D9yTc4XpsrNZTxVw02lWpYNIY3tlm4=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=u9+cF4z8sg1ZuEIUC9OETtqqCZd3Z/AwN01qYxZN9CpLCiV2KiyoTPTFJD+yenW8IxNYorOfkusoS/bVxCpHMRZJnH2duzgpjWq3Q6PMaZ4pTfT0cUVE7XnBsJPGvP2ZhDcHEQ3lkiR0W0L1EWRh1kHRI62B1Bw3Vq3BRS4To0Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=13.76.78.106
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.98.66.117])
+	by mtasvr (Coremail) with SMTP id _____wDH7QElATJqbfO1Ag--.47260S3;
+	Wed, 17 Jun 2026 10:06:30 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.98.66.117])
+	by mail-app4 (Coremail) with SMTP id zi_KCgC36jEkATJqD1WaAQ--.62560S2;
+	Wed, 17 Jun 2026 10:06:28 +0800 (CST)
+From: Fan Wu <fanwu01@zju.edu.cn>
+To: netdev@vger.kernel.org
+Cc: Krzysztof Halasa <khc@pm.waw.pl>,
+	Jakub Kicinski <kuba@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	linux-kernel@vger.kernel.org,
+	Fan Wu <fanwu01@zju.edu.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH net] net/wan/hdlc_ppp: sync per-proto timers before freeing hdlc state
+Date: Wed, 17 Jun 2026 02:05:18 +0000
+Message-Id: <20260617020518.116319-1-fanwu01@zju.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zi_KCgC36jEkATJqD1WaAQ--.62560S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?HLlfpwXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfnXz+g1OQfMo27QHy5TwQyZyhOBsypYEs13K1iRN4yz/iJreJjTS4EGE3UMt20y+GDsI+
+	pdyaw3B8CRgE8f1vi2ap9E6mavGmQbzmcFsnzP86
+X-Coremail-Antispam: 1Uk129KBj93XoWxZrW8Zry8KFWDJr1fKr1ruFX_yoWrXw4kpF
+	W7X3WfAFZYg392qw43Jw4kWFyfArn7t3y7Gw1fGanYvFnxGFyF9FyUtFW2kF4fAFWvkr12
+	vr109w45Z39YywcCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUU9lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
+	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
+	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
+	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
+	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
+	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
+	I_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
+	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
+	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVWUJVW8
+	JbIYCTnIWIevJa73UjIFyTuYvjxU7gAwDUUUU
 
-> You need to setup policy routing or a VRF so these local routes don't
-> show up the way they do. We shouldn't be mangling the loopback routes
-> in the kernel, and removing the check is not correct.
+Each PPP control protocol (LCP/IPCP/IPV6CP) embedded in struct ppp
+registers a timer via timer_setup(). That struct ppp is the
+hdlc->state allocation, which detach_hdlc_protocol() frees with kfree()
+in both teardown paths: unregister_hdlc_device() and the re-attach inside
+attach_hdlc_protocol().
 
-You're right, and thanks for pushing back on this.
+The ppp proto never registered a .detach callback, so
+detach_hdlc_protocol() performs no timer synchronization before the
+kfree(). The only cancel, timer_delete(&proto->timer) in ppp_cp_event(),
+is partial (it does not wait for a running callback) and only runs on the
+->CLOSED transition; ppp_stop()/ppp_close() do not sync either. A
+ppp_timer callback already executing (blocked on ppp->lock) survives the
+kfree and then dereferences proto->state / ppp->lock in freed memory,
+leading to a use-after-free.
 
-I've been testing VRF all day and it solves the problem completely,
-with no kernel changes. Putting each NIC in its own VRF moves that
-NIC's addresses out of the global v6 local table (255), so the
-cross-NIC same-host destination no longer collapses to lo -- it
-resolves on-wire to the real egress device:
+Fix this by adding a .detach helper that calls timer_shutdown_sync() on
+every per-proto timer. detach_hdlc_protocol() invokes proto->detach(dev)
+before kfree(hdlc->state), so timer_shutdown_sync()
+now runs on both free paths.
+timer_shutdown_sync() is used instead of timer_delete_sync() because the
+keepalive path re-arms the timer through add_timer()/mod_timer() and
+shutdown blocks any re-activation during teardown.
 
-  # enp49s0np0 -> vrfdata0 (table 100), enp193s0np0 -> vrfdata1 (101)
-  $ ip -6 route get <dst-on-other-local-nic> from <src> oif enp49s0np0
-  ... dev enp49s0np0 ...        # was: local ... dev lo
+Initialize the per-protocol timers in ppp_ioctl() when the protocol is
+attached, and remove the now-redundant timer_setup() from ppp_start(), so
+that the timers are initialized exactly once at attach time and
+ppp_timer_release() never operates on uninitialized timer_list
+structures. attach_hdlc_protocol() uses kmalloc() (not kzalloc), so
+struct ppp's protos[i].timer is uninitialized garbage until the first
+timer_setup(); without this init-at-attach, attaching the PPP protocol
+without ever bringing the device up would leave timer_shutdown_sync()
+operating on uninitialized memory in .detach. Moving the init out of
+ppp_start() (which only runs on NETDEV_UP) into the attach path makes the
+initialization unconditional and avoids initializing the same timer_list
+twice.
 
-So neither addr_resolve_neigh() nor validate_ipv6_net_dev() ever hits
-the local shortcut my patches were rewriting. The check stays correct
-and the loopback routes stay untouched, exactly as you said.
+This bug was found by static analysis.
 
-I validated it with the actual workload that motivated the series, not
-just rping: a 3-node DAOS cluster (two engines per host, one per NUMA
-NIC) on a kernel WITHOUT these two patches -- only the upstream prereqs
-fa29d1e8877b + c31e4038c97f. All 6 ranks join and stay joined, and a
-pool created across all of them comes up healthy. That covers both the
-same-host cross-NIC path and the cross-host path, all over v6 RoCEv2.
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+---
+ drivers/net/wan/hdlc_ppp.c | 15 +++++++++++++--
+ 1 file changed, 13 insertions(+), 2 deletions(-)
 
-One observation in case it's useful to others who hit this: VRF
-self-RPC relies on c31e4038c97f -- once an address is homed in a VRF
-table, is_dst_local() needs the RTF_LOCAL test rather than the old
-IFF_LOOPBACK one to still recognize it as local. That commit is in
-v6.18 but not in linux-6.6.y, which is the stable base we (and
-presumably other RoCE-on-6.6 users) are on; might be worth a stable
-backport on its own merits, independent of this series.
+diff --git a/drivers/net/wan/hdlc_ppp.c b/drivers/net/wan/hdlc_ppp.c
+index 159295c4bd6d820ca51bb768a70437b541cb3f1e..302ed27944e7c8586a04f70ea639f2da0f7dcbb9 100644
+--- a/drivers/net/wan/hdlc_ppp.c
++++ b/drivers/net/wan/hdlc_ppp.c
+@@ -619,7 +619,6 @@ static void ppp_start(struct net_device *dev)
+ 		struct proto *proto = &ppp->protos[i];
 
-Given all that, please drop this series -- I'm withdrawing it. The
-right fix here is configuration, not a kernel patch. Appreciate the
-review and the steer toward VRF.
+ 		proto->dev = dev;
+-		timer_setup(&proto->timer, ppp_timer, 0);
+ 		proto->state = CLOSED;
+ 	}
+ 	ppp->protos[IDX_LCP].pid = PID_LCP;
+@@ -639,6 +638,15 @@ static void ppp_close(struct net_device *dev)
+ 	ppp_tx_flush();
+ }
 
-Thanks,
-Alex
++static void ppp_timer_release(struct net_device *dev)
++{
++	struct ppp *ppp = get_ppp(dev);
++	int i;
++
++	for (i = 0; i < IDX_COUNT; i++)
++		timer_shutdown_sync(&ppp->protos[i].timer);
++}
++
+ static struct hdlc_proto proto = {
+ 	.start		= ppp_start,
+ 	.stop		= ppp_stop,
+@@ -647,6 +655,7 @@ static struct hdlc_proto proto = {
+ 	.ioctl		= ppp_ioctl,
+ 	.netif_rx	= ppp_rx,
+ 	.module		= THIS_MODULE,
++	.detach		= ppp_timer_release,
+ };
+
+ static const struct header_ops ppp_header_ops = {
+@@ -657,7 +666,7 @@ static int ppp_ioctl(struct net_device *dev, struct if_settings *ifs)
+ {
+ 	hdlc_device *hdlc = dev_to_hdlc(dev);
+ 	struct ppp *ppp;
+-	int result;
++	int i, result;
+
+ 	switch (ifs->type) {
+ 	case IF_GET_PROTO:
+@@ -685,6 +694,8 @@ static int ppp_ioctl(struct net_device *dev, struct if_settings *ifs)
+ 			return result;
+
+ 		ppp = get_ppp(dev);
++		for (i = 0; i < IDX_COUNT; i++)
++			timer_setup(&ppp->protos[i].timer, ppp_timer, 0);
+ 		spin_lock_init(&ppp->lock);
+ 		ppp->req_timeout = 2;
+ 		ppp->cr_retries = 10;
+--
+2.39.2
+
