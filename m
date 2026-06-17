@@ -1,40 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9A0A31E822
-	for <stable@vger.kernel.org>; Wed, 17 Jun 2026 17:21:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDB603624CC
+	for <stable@vger.kernel.org>; Wed, 17 Jun 2026 17:21:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781716866; cv=none; b=dSULXea0N46oPU/O9XpXa5qkBN2lkx5s62pJsYMFIRGkpSBU66ihGhw0XnrMEtVvfM0jTIwDpF4y0MJShJgAVhBhfLSB53wGjIosEDExpBW2bMKfGT6FSu6CWr+OBpYP78ays7QVYReiXjU8XxdlnSEMtkX3vDV4pi0Oj7nD16w=
+	t=1781716868; cv=none; b=gQ0UiXocakKnkf0UCefBc3OtEiFlEKNopze5ZwMhvbr1DeK2JgS9lDLUbyXHW4itcGwh/K5KHNQEHimzcg2KPAEifGs94sIBgoWLjTEG8uj6A6bA7qXe7pJB89Hi6cCrY4+xY5ALww1+4P8sX5ZXf6igxZKa3cvVFcCym5pPhi0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781716866; c=relaxed/simple;
-	bh=vvX5lku+vTwQ912Ybo7Ytv3Kck5cmXeW97WC6CgF15o=;
+	s=arc-20240116; t=1781716868; c=relaxed/simple;
+	bh=mlUtjGgMVY546aWVe7aw/Qp/RZ0gWZU3yn1gnEnTPqo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mwFiP9ssuSeyAPK0kywQD2OfevRoUMmwAosWcqQjhV6wr/d/QGhwpqHAvBS7dl5JMEUP/cVjjnJ+s2Dk6txh9Ss2KDDzCYb2Z6Iitgii3sHErPodtx62Xt1cvUe0T51X1MJT+9EWAQN02iVveL9W43TbkHXxo//TOc6qr+GwInM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BIwyCh2a; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=NASY2wfv8wNEfb0HTh/kfjG5SnrhswxWIgK+//ckl5zAUZxMycoeTwyDpxhb4xnt/JwkJY/zKQTvOpPc31lb6kBtQmcAvHuO3CjEnWK8g+OTmo1XeWnAAzBTLlZCdEmvmTAIlC+Ugocl2tMmaj6nFhobd/1rUrcCnrtsUCqEeEs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AC+xCHUr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BIwyCh2a"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A4A31F00AC4;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AC+xCHUr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4AF01F00A3E;
 	Wed, 17 Jun 2026 17:21:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781716863;
-	bh=sqGaxkJfTv4RDat0hxqIrX6NEfELP2J1nXm7dBxO4aQ=;
+	s=k20260515; t=1781716864;
+	bh=BSVeKdr5W+JFYH3E/FcJJwmSNeP1XXnQGZ4NtP2KI5k=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BIwyCh2abuLEo2cnLb+f9psqRgLTGg0nOOje6PEZDFBYIuONqaubspVBksX2gMOzH
-	 +w/caHd5cJZjFjyqSgHqXfWfTy8qaKqQd5LjB1QqjyMuZm+uCDRUR9c5sHcdYFVRGT
-	 6OgeHQcjE05x5fCghf4EvMMIVgH/VZBMXnemgAbGAMzZYV7yB8NX2MwlSehQBZL85P
-	 vczidO1vLXQ2IbNFqq6d6WhhKvrcerH8KgbXvZGSj3+to4bGyEX46VOBfWS2eo+Zdg
-	 AIwlbGTRgELZDzCVHb/IDtsEEpljfYe8byBlKwk75Z26dYD1lT76hidDV4yuAF71wE
-	 Rpd4EIydxILfA==
+	b=AC+xCHUrxuxy9Vhxr3Se8NbsB37NPyvPlCnl5vhMpM7BWlGhnnae1J2XGz+h9ftQs
+	 QKT+2mjaEsY022CsDyZteDZIV/jznADs56H5TIZIEKGAqIgYQYORKWivqY0mcRAuJ9
+	 ZWvnxNI/dH+WcAmJiu7Z5UnYb6Vt5CsPAvP666tqjNaDIaYTLMxlgQQxuChPSae1+H
+	 7AdD9VVaQFpJyeEdpSBjP0qry8DwHywMz4AfqPj1zsaX0aESUrqp3yFauKIH6QfH0d
+	 aVh31BRsYFHzQRGoR7TOmTjhaZ0Z43eKuKLjAsevpaHeIlz57wEUEBOGjv6TUuJtD8
+	 xp18OYHBKmixw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Tudor Ambarus <tudor.ambarus@linaro.org>,
-	Titouan Ameline de Cadeville <titouan.ameline@gmail.com>,
 	Krzysztof Kozlowski <krzk@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 4/6] firmware: samsung: acpm: Fix cross-thread RX length corruption
-Date: Wed, 17 Jun 2026 13:20:56 -0400
-Message-ID: <20260617172058.253463-4-sashal@kernel.org>
+Subject: [PATCH 6.18.y 5/6] firmware: samsung: acpm: Fix false timeouts and Use-After-Free in polling
+Date: Wed, 17 Jun 2026 13:20:57 -0400
+Message-ID: <20260617172058.253463-5-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260617172058.253463-1-sashal@kernel.org>
 References: <2026061553-curly-gigahertz-3ad1@gregkh>
@@ -49,104 +48,227 @@ Content-Transfer-Encoding: 8bit
 
 From: Tudor Ambarus <tudor.ambarus@linaro.org>
 
-[ Upstream commit f133bd4b5daf71bccdde0ad1a4f47fac76a6bfb1 ]
+[ Upstream commit c889b146478885344a220dd468e5a08de088cbc5 ]
 
-Sashiko identified a cross-thread RX length corruption bug when
-reviewing the thermal addition to ACPM [1].
+Sashiko identified severe races in the polling state machine [1].
 
-When multiple threads concurrently send IPC requests, the ACPM polling
-mechanism can encounter responses belonging to other threads. To drain
-the queue, the driver saves these concurrent responses into an internal
-cache (`rx_data->cmd`) to be retrieved later by the owning thread.
+In the ACPM driver's polling mode, threads waited for responses by
+monitoring the globally shared 'bitmap_seqnum'. This caused false
+timeouts because if a thread processed its response and freed the
+sequence number, a concurrent TX thread could immediately reallocate
+it before the polling thread woke up.
 
-Previously, the driver incorrectly used `xfer->rxcnt` (the expected
-receive length of the *current* polling thread) when copying data for
-*other* threads into this cache. If the threads expected responses of
-different lengths, this resulted in buffer underflows (leading to reads
-of uninitialized memory) or potential buffer overflows.
+Additionally, the driver suffered from a cross-thread Use-After-Free
+(UAF) preemption race. Previously, acpm_get_rx() cleared the sequence
+number of whichever RX message it drained from the hardware queue. This
+meant Thread A could globally free Thread B's sequence slot while
+Thread B was asleep. A new Thread C could then steal the slot,
+overwrite the buffer, and leave Thread B to wake up to corrupted state
+or a timeout.
 
-Fix this by replacing the boolean `response` flag in
-`struct acpm_rx_data` with `rxcnt`, caching the exact expected receive
-length for each specific transaction during transfer preparation. Use
-this cached length when saving concurrent responses.
+Fix this by rewriting the polling state machine:
+1. Decouple polling from the global allocator by introducing a per-slot
+   'completed' flag, synchronized via smp_store_release() and
+   smp_load_acquire().
+2. Strip acpm_get_saved_rx() out of acpm_get_rx() to make it a pure
+   queue-draining function. Introduce a 'native_match' boolean argument
+   which evaluates to true only if the thread natively processed its
+   own sequence number during the call. This explicitly informs the
+   polling loop whether it must retrieve its payload from the
+   cross-thread cache.
+3. Centralize the cache fallback and sequence number free (clear_bit)
+   inside the polling loop. Crucially, the free operation now strictly
+   targets the thread's own TX sequence number (xfer->txd[0]), rather
+   than the drained RX sequence number. This enforces strict ownership:
+   a thread only ever frees its own allocated sequence slot, and only
+   at the exact moment it completes its poll, eliminating the UAF
+   window.
 
-Consequently, ensure that `xfer->rxcnt` is explicitly zeroed in driver
-helpers (e.g., `acpm_dvfs_set_xfer`) for fire-and-forget messages to
-prevent uninitialized stack garbage from being interpreted as a massive
-expected receive length.
+Furthermore, explicitly guard the 'native_match' assignment with an
+if (rx_seqnum == tx_seqnum) check, even for zero-length (no payload)
+responses. While an unguarded assignment wouldn't crash (because the
+cache fallback acpm_get_saved_rx() safely returns early on zero-length
+transfers) doing so would "lie" to the state machine. If a thread
+drained the queue and found another thread's zero-length message,
+setting native_match = true would falsely convince the polling loop
+that it natively handled its own response. Maintaining a rigorous state
+machine requires that native_match is only set when a thread explicitly
+processes its own sequence number.
 
 Cc: stable@vger.kernel.org
 Fixes: a88927b534ba ("firmware: add Exynos ACPM protocol driver")
-Closes: https://sashiko.dev/#/patchset/20260420-acpm-tmu-v3-0-3dc8e93f0b26%40linaro.org [1]
-Reported-by: Titouan Ameline de Cadeville <titouan.ameline@gmail.com>
-Closes: https://lore.kernel.org/r/20260426210255.73674-1-titouan.ameline@gmail.com/
+Closes: https://sashiko.dev/#/patchset/20260429-acpm-fixes-sashiko-reports-v3-0-47cf74ab09ad%40linaro.org [1]
 Signed-off-by: Tudor Ambarus <tudor.ambarus@linaro.org>
-Link: https://patch.msgid.link/20260505-acpm-fixes-sashiko-reports-v5-1-43b5ee7f1674@linaro.org
+Link: https://patch.msgid.link/20260505-acpm-fixes-sashiko-reports-v5-5-43b5ee7f1674@linaro.org
 Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
 Stable-dep-of: bf296f83a3dd ("firmware: samsung: acpm: Fix missing LKMM barriers in sequence allocator")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/firmware/samsung/exynos-acpm.c | 15 ++++++++-------
- 1 file changed, 8 insertions(+), 7 deletions(-)
+ drivers/firmware/samsung/exynos-acpm.c | 68 ++++++++++++++++++--------
+ 1 file changed, 48 insertions(+), 20 deletions(-)
 
 diff --git a/drivers/firmware/samsung/exynos-acpm.c b/drivers/firmware/samsung/exynos-acpm.c
-index 07bb4af1ca5845..742c0093250435 100644
+index 742c0093250435..eaa52aeede3772 100644
 --- a/drivers/firmware/samsung/exynos-acpm.c
 +++ b/drivers/firmware/samsung/exynos-acpm.c
-@@ -103,12 +103,12 @@ struct acpm_queue {
-  *
+@@ -104,11 +104,14 @@ struct acpm_queue {
   * @cmd:	pointer to where the data shall be saved.
   * @n_cmd:	number of 32-bit commands.
-- * @response:	true if the client expects the RX data.
-+ * @rxcnt:	expected length of the response in 32-bit words.
+  * @rxcnt:	expected length of the response in 32-bit words.
++ * @completed:	flag indicating if the firmware response has been fully
++ *		processed.
   */
  struct acpm_rx_data {
  	u32 *cmd;
  	size_t n_cmd;
--	bool response;
-+	size_t rxcnt;
+ 	size_t rxcnt;
++	bool completed;
  };
  
  #define ACPM_SEQNUM_MAX    64
-@@ -196,7 +196,7 @@ static void acpm_get_saved_rx(struct acpm_chan *achan,
- 	const struct acpm_rx_data *rx_data = &achan->rx_data[tx_seqnum - 1];
- 	u32 rx_seqnum;
- 
--	if (!rx_data->response)
-+	if (!rx_data->rxcnt)
- 		return;
+@@ -201,26 +204,28 @@ static void acpm_get_saved_rx(struct acpm_chan *achan,
  
  	rx_seqnum = FIELD_GET(ACPM_PROTOCOL_SEQNUM, rx_data->cmd[0]);
-@@ -253,7 +253,7 @@ static int acpm_get_rx(struct acpm_chan *achan, const struct acpm_xfer *xfer)
- 		seqnum = rx_seqnum - 1;
- 		rx_data = &achan->rx_data[seqnum];
  
--		if (rx_data->response) {
-+		if (rx_data->rxcnt) {
+-	if (rx_seqnum == tx_seqnum) {
++	if (rx_seqnum == tx_seqnum)
+ 		memcpy(xfer->rxd, rx_data->cmd, xfer->rxcnt * sizeof(*xfer->rxd));
+-		clear_bit(rx_seqnum - 1, achan->bitmap_seqnum);
+-	}
+ }
+ 
+ /**
+  * acpm_get_rx() - get response from RX queue.
+  * @achan:	ACPM channel info.
+  * @xfer:	reference to the transfer to get response for.
++ * @native_match: pointer to a boolean set to true if the thread natively
++ *                processed its own sequence number during this call.
+  *
+  * Return: 0 on success, -errno otherwise.
+  */
+-static int acpm_get_rx(struct acpm_chan *achan, const struct acpm_xfer *xfer)
++static int acpm_get_rx(struct acpm_chan *achan, const struct acpm_xfer *xfer,
++		       bool *native_match)
+ {
+ 	u32 rx_front, rx_seqnum, tx_seqnum, seqnum;
+ 	const void __iomem *base, *addr;
+ 	struct acpm_rx_data *rx_data;
+ 	u32 i, val, mlen;
+-	bool rx_set = false;
++
++	*native_match = false;
+ 
+ 	guard(mutex)(&achan->rx_lock);
+ 
+@@ -229,10 +234,8 @@ static int acpm_get_rx(struct acpm_chan *achan, const struct acpm_xfer *xfer)
+ 
+ 	tx_seqnum = FIELD_GET(ACPM_PROTOCOL_SEQNUM, xfer->txd[0]);
+ 
+-	if (i == rx_front) {
+-		acpm_get_saved_rx(achan, xfer, tx_seqnum);
++	if (i == rx_front)
+ 		return 0;
+-	}
+ 
+ 	base = achan->rx.base;
+ 	mlen = achan->mlen;
+@@ -256,8 +259,13 @@ static int acpm_get_rx(struct acpm_chan *achan, const struct acpm_xfer *xfer)
+ 		if (rx_data->rxcnt) {
  			if (rx_seqnum == tx_seqnum) {
  				__ioread32_copy(xfer->rxd, addr, xfer->rxcnt);
- 				rx_set = true;
-@@ -265,7 +265,8 @@ static int acpm_get_rx(struct acpm_chan *achan, const struct acpm_xfer *xfer)
- 				 * clear yet the bitmap. It will be cleared
- 				 * after the response is copied to the request.
+-				rx_set = true;
+-				clear_bit(seqnum, achan->bitmap_seqnum);
++				/*
++				 * Signal completion to the polling thread.
++				 * Pairs with smp_load_acquire() in polling
++				 * loop.
++				 */
++				smp_store_release(&rx_data->completed, true);
++				*native_match = true;
+ 			} else {
+ 				/*
+ 				 * The RX data corresponds to another request.
+@@ -267,9 +275,21 @@ static int acpm_get_rx(struct acpm_chan *achan, const struct acpm_xfer *xfer)
  				 */
--				__ioread32_copy(rx_data->cmd, addr, xfer->rxcnt);
-+				__ioread32_copy(rx_data->cmd, addr,
-+						rx_data->rxcnt);
+ 				__ioread32_copy(rx_data->cmd, addr,
+ 						rx_data->rxcnt);
++				/*
++				 * Signal completion to the polling thread.
++				 * Pairs with smp_load_acquire() in polling
++				 * loop.
++				 */
++				smp_store_release(&rx_data->completed, true);
  			}
  		} else {
- 			clear_bit(seqnum, achan->bitmap_seqnum);
-@@ -377,8 +378,8 @@ static void acpm_prepare_xfer(struct acpm_chan *achan,
+-			clear_bit(seqnum, achan->bitmap_seqnum);
++			/*
++			 * Signal completion to the polling thread.
++			 * Pairs with smp_load_acquire() in polling loop.
++			 */
++			smp_store_release(&rx_data->completed, true);
++			if (rx_seqnum == tx_seqnum)
++				*native_match = true;
+ 		}
+ 
+ 		i = (i + 1) % achan->qlen;
+@@ -278,13 +298,6 @@ static int acpm_get_rx(struct acpm_chan *achan, const struct acpm_xfer *xfer)
+ 	/* We saved all responses, mark RX empty. */
+ 	writel(rx_front, achan->rx.rear);
+ 
+-	/*
+-	 * If the response was not in this iteration of the queue, check if the
+-	 * RX data was previously saved.
+-	 */
+-	if (!rx_set)
+-		acpm_get_saved_rx(achan, xfer, tx_seqnum);
+-
+ 	return 0;
+ }
+ 
+@@ -299,6 +312,7 @@ static int acpm_dequeue_by_polling(struct acpm_chan *achan,
+ 				   const struct acpm_xfer *xfer)
+ {
+ 	struct device *dev = achan->acpm->dev;
++	bool native_match;
+ 	ktime_t timeout;
+ 	u32 seqnum;
+ 	int ret;
+@@ -307,12 +321,25 @@ static int acpm_dequeue_by_polling(struct acpm_chan *achan,
+ 
+ 	timeout = ktime_add_us(ktime_get(), ACPM_POLL_TIMEOUT_US);
+ 	do {
+-		ret = acpm_get_rx(achan, xfer);
++		ret = acpm_get_rx(achan, xfer, &native_match);
+ 		if (ret)
+ 			return ret;
+ 
+-		if (!test_bit(seqnum - 1, achan->bitmap_seqnum))
++		/*
++		 * Safely check if our specific transaction has been processed.
++		 * smp_load_acquire prevents the CPU from speculatively
++		 * executing subsequent instructions before the transaction is
++		 * synchronized.
++		 */
++		if (smp_load_acquire(&achan->rx_data[seqnum - 1].completed)) {
++			/* Retrieve payload if another thread cached it for us */
++			if (!native_match)
++				acpm_get_saved_rx(achan, xfer, seqnum);
++
++			/* Relinquish ownership of the sequence slot */
++			clear_bit(seqnum - 1, achan->bitmap_seqnum);
+ 			return 0;
++		}
+ 
+ 		/* Determined experimentally. */
+ 		udelay(20);
+@@ -377,6 +404,7 @@ static void acpm_prepare_xfer(struct acpm_chan *achan,
+ 
  	/* Clear data for upcoming responses */
  	rx_data = &achan->rx_data[achan->seqnum - 1];
++	rx_data->completed = false;
  	memset(rx_data->cmd, 0, sizeof(*rx_data->cmd) * rx_data->n_cmd);
--	if (xfer->rxd)
--		rx_data->response = true;
-+	/* zero means no response expected */
-+	rx_data->rxcnt = xfer->rxcnt;
- 
- 	/* Flag the index based on seqnum. (seqnum: 1~63, bitmap: 0~62) */
- 	set_bit(achan->seqnum - 1, achan->bitmap_seqnum);
+ 	/* zero means no response expected */
+ 	rx_data->rxcnt = xfer->rxcnt;
 -- 
 2.53.0
 
