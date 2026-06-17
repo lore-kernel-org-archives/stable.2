@@ -1,45 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2E023EDE6A
-	for <stable@vger.kernel.org>; Wed, 17 Jun 2026 12:45:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C78473F1AB2
+	for <stable@vger.kernel.org>; Wed, 17 Jun 2026 12:46:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781700353; cv=none; b=Oe04qh90I+9I73ag+1AxuYyQ3It1zVt6BwuLsdkgNcX4zylq649jmueTR8GOqTHzxtxw+uyO0TaMZWu2WJu7b6SBBaLePeYCly4arpH2KNsUoZ5RGC+S80GU2PMi89g9EtXhWL2B0b1b/LhVWUVdg8HpwH37rY3ti//qeRlIgOo=
+	t=1781700371; cv=none; b=blnp2uJ7mwdG7M/oZApE185ovamMIb+o4vdoNl/fgiS88HkSyn86LoZB1xFyF8czlmC07QPrAjjQD8CW/NKn7YXGhSkzIG3d3A8t97BpLjodV+Iomdegwx4q7jScdyrw6VV5tu+8Vhzvr83l8smOnevsDElK+z7EraAEV75Srog=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781700353; c=relaxed/simple;
-	bh=X2ittUQu/p01WnSNNUQSWZfn7sPhD5OBIKNvkIdAm+Q=;
+	s=arc-20240116; t=1781700371; c=relaxed/simple;
+	bh=w/sB2l7gXJTakhJ0wWIIgmulvqcW/BvVtvS64eq14H8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fQQXx0b4miuw0IiOz/wNsgEq01ke3rDW7JX1THyfiW24uGtBe15idPO8C8Z141Gg6XpFLIRJcz1OAUm20R8+9R4dSMqz0Kyb6YNi7r7wFsIBjtsOn9hyQVuhuX+WTzJyfniHQmNwbPAy7+av3VZDmbMN5uC758Fy4E95Os2ow00=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ADTsEDt+; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=uZiL4fCpSh9UlirDeyV/zZYQuhRLVdbv+4SZekd1DCSqmjo3RPnoBzGd778l7u1Nmiwuv3liPiqPwTNQD8ESf+uL2QPMkiGIn3gRmoKK/FlaGaYYMfXkDm2AeaTpBivBy5NxwB6mu7rTPT3svNdiBBWcYAvMgRVWb+rkNpnQzpo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G4e9fO1c; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ADTsEDt+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BB5B1F00A3A;
-	Wed, 17 Jun 2026 12:45:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G4e9fO1c"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 259821F00A3E;
+	Wed, 17 Jun 2026 12:46:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781700351;
-	bh=+TloABigSAgzCfkqPfjQniToemLRVARwFG+i0ywpJeE=;
+	s=k20260515; t=1781700370;
+	bh=UyL3MLqsl1QwRb+An2uZnxrWd4KDwtYihrrKlA6XsOI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ADTsEDt+JviMqtQepvEtA1pFcsfqSu48D/8YxkwHuVMw18mnKVP8CxX/b6fwBrVDJ
-	 OHMTzw089gqnW5IG6nFUUcUaInJXATD+TldLS2z2lk29eWErX7Ymk8CT0shByI9RUO
-	 TwiJ2Ff2wVa3rGwnWJboaqkZzOjE23kZPWOILsedPVMDl8g8IoGgi6wG0tPyTsDCs4
-	 D0flJShIIemRh/UwBeIVo5PJ46PB3ntjnID0D1IdNRec6BlPU46GqHfHB3qvWlQHbL
-	 kZ6KCeQj/jAdidEhrg5XA7yaYUxZoXZpFPlb4Lwsq4Sf64gRpnStn73LdibTuOClHC
-	 l7oTdf6c3hnuQ==
+	b=G4e9fO1c4V2I6svSC8YFfZuUqxSNVbsQtm9Ga8Qz6nKmIgUT2qExtw4hd/j/6KZgo
+	 ULJQLN2arKBbxkFqD9AOWcWCeODRcvdN3+gWEDStTY0cD2SXY+DZJnIAEoqdzWRI68
+	 4YFD8wdVvpTjx+XzdS7VXUFZyD+HsYtExLjNHp6B+23xBeodCdnQm5AAUKePEnHuwE
+	 F+UDgGhwWKJw1qMsJcGuyS3LkuUC3/SSYXglsmL5U/3pCrExCC4IwCev262xCkVYuF
+	 uR87lNT0FjW6Hv588rDJXk5EXoxUjtCHXAT2shrgLZ5QiueNsa5u5R3hd1h43sXiXQ
+	 3h6zHO++ZSpRg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Dexuan Cui <decui@microsoft.com>,
-	Michael Kelley <mhklinux@outlook.com>,
-	Krister Johansen <kjlx@templeofstupid.com>,
-	Matthew Ruffell <matthew.ruffell@canonical.com>,
-	Wei Liu <wei.liu@kernel.org>,
+Cc: Davidlohr Bueso <dave@stgolabs.net>,
+	syzbot+78147abe6c524f183ee9@syzkaller.appspotmail.com,
+	Thomas Gleixner <tglx@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] Drivers: hv: vmbus: Improve the logic of reserving fb_mmio on Gen2 VMs
-Date: Wed, 17 Jun 2026 08:45:49 -0400
-Message-ID: <20260617124549.3856162-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] locking/rtmutex: Skip remove_waiter() when waiter is not enqueued
+Date: Wed, 17 Jun 2026 08:46:07 -0400
+Message-ID: <20260617124607.3857087-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026061524-limb-radiance-9105@gregkh>
-References: <2026061524-limb-radiance-9105@gregkh>
+In-Reply-To: <2026061518-quilt-plaything-413e@gregkh>
+References: <2026061518-quilt-plaything-413e@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,164 +46,70 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Dexuan Cui <decui@microsoft.com>
+From: Davidlohr Bueso <dave@stgolabs.net>
 
-[ Upstream commit 016a25e4b0df4d77e7c258edee4aaf982e4ee809 ]
+[ Upstream commit 40a25d59e85b3c8709ac2424d44f65610467871e ]
 
-If vmbus_reserve_fb() in the kdump/kexec kernel fails to properly reserve
-the framebuffer MMIO range (which is below 4GB) due to a Gen2 VM's
-screen.lfb_base being zero [1], there is an MMIO conflict between the
-drivers hyperv-drm and pci-hyperv: when the driver pci-hyperv's
-hv_allocate_config_window() calls vmbus_allocate_mmio() to get an
-MMIO range, typically it gets a 32-bit MMIO range that overlaps with the
-framebuffer MMIO range, and later hv_pci_enter_d0() fails with an
-error message "PCI Pass-through VSP failed D0 Entry with status" since
-the host thinks that PCI devices must not use MMIO space that the
-host has assigned to the framebuffer.
+syzbot triggered the following splat in remove_waiter() via
+FUTEX_CMP_REQUEUE_PI:
 
-This is especially an issue if pci-hyperv is built-in and hyperv-drm is
-built as a module. Consequently, the kdump/kexec kernel fails to detect
-PCI devices via pci-hyperv, and may fail to mount the root file system,
-which may reside in a NVMe disk. The issue described here has existed
-for SR-IOV VF NICs since day one of the pci-hyperv driver, and has been
-worked around on x64 when possible. With the recent introduction of
-ARM64 VMs that boot from NVMe, there is no workaround, so we need a
-formal fix.
+  KASAN: null-ptr-deref in range [0x0000000000000a88-0x0000000000000a8f]
+   class_raw_spinlock_constructor
+   remove_waiter+0x159/0x1200 kernel/locking/rtmutex.c:1561
+   rt_mutex_start_proxy_lock+0x103/0x120
+   futex_requeue+0x10e4/0x20d0
+   __x64_sys_futex+0x34f/0x4d0
 
-On Gen2 VMs, if the screen.lfb_base is 0 in the kdump/kexec kernel [1],
-fall back to the low MMIO base, which should be equal to the framebuffer
-MMIO base [2] (the statement is true according to my testing on x64
-Windows Server 2016, and on x64 and ARM64 Windows Server 2025 and on
-Azure. I checked with the Hyper-V team and they said the statement should
-continue to be true for Gen2 VMs). In the first kernel, screen.lfb_base
-is not 0; if the user specifies a very high resolution, it's not enough
-to only reserve 8MB: let's always reserve half of the space below 4GB,
-but cap the reservation to 128MB, which is the required framebuffer size
-of the highest resolution 7680*4320 supported by Hyper-V.
+task_blocks_on_rt_mutex() does not arm the waiter upon deadlock detection,
+leaving waiter->task nil, where 3bfdc63936dd ("rtmutex: Use waiter::task instead
+of current in remove_waiter()") made this fatal.
 
-While at it, fix the comparison "end > VTPM_BASE_ADDRESS" by changing
-the > to >=. Here the 'end' is an inclusive end (typically, it's
-0xFFFF_FFFF for the low MMIO range).
+Furthermore, rt_mutex_start_proxy_lock() should not be calling into remove_waiter()
+upon a successfully grabbing the rtmutex. 1a1fb985f2e2 ("futex: Handle early deadlock
+return correctly"), moved the remove_waiter() out of __rt_mutex_start_proxy_lock()
+(where 'ret' was only ever 0 or < 0) into the wrapper. Tighten this check to
+account for try_to_take_rt_mutex().
 
-Note: vmbus_reserve_fb() now also reserves an MMIO range at the beginning
-of the low MMIO range on CVMs, which have no framebuffers (the
-'screen.lfb_base' in vmbus_reserve_fb() is 0 for CVMs), just in case the
-host might treat the beginning of the low MMIO range specially [3]. BTW,
-the OpenHCL kernel is not affected by the change, because that kernel
-boots with DeviceTree rather than ACPI (so vmbus_reserve_fb() won't run
-there), and there is no framebuffer device for that kernel.
-
-Note: normally Gen1 VMs don't have the MMIO conflict issue because the
-framebuffer MMIO range (which is hardcoded to base=4GB-128MB and
-size=64MB for Gen1 VMs by the host) is always reported via the legacy PCI
-graphics device's BAR, so the kdump/kexec kernel can reserve the 64MB
-MMIO range; however, if the VM is configured to use a very high resolution
-and the required framebuffer size exceeds 64MB (AFAIK, in practice, this
-isn't a typical configuration by users), the hyperv-drm driver may need to
-allocate an MMIO range above 4GB and change the framebuffer MMIO location
-to the allocated MMIO range -- in this case, there can still be issues [4]
-which can't be easily fixed: any possible affected Gen1 users would have
-to use a resolution whose framebuffer size is <= 64MB, or switch to Gen2
-VMs.
-
-[1] https://lore.kernel.org/all/SA1PR21MB692176C1BC53BFC9EAE5CF8EBF51A@SA1PR21MB6921.namprd21.prod.outlook.com/
-[2] https://lore.kernel.org/all/SA1PR21MB69218F955B62DFF62E3E88D2BF222@SA1PR21MB6921.namprd21.prod.outlook.com/
-[3] https://lore.kernel.org/all/SN6PR02MB415726B17D5A6027CD1717E8D4342@SN6PR02MB4157.namprd02.prod.outlook.com/
-[4] https://lore.kernel.org/all/SA1PR21MB69213486F821CA5A2C793C81BF342@SA1PR21MB6921.namprd21.prod.outlook.com/
-
-Fixes: 4daace0d8ce8 ("PCI: hv: Add paravirtual PCI front-end for Microsoft Hyper-V VMs")
-CC: stable@vger.kernel.org
-Reviewed-by: Michael Kelley <mhklinux@outlook.com>
-Tested-by: Krister Johansen <kjlx@templeofstupid.com>
-Tested-by: Matthew Ruffell <matthew.ruffell@canonical.com>
-Signed-off-by: Dexuan Cui <decui@microsoft.com>
-Signed-off-by: Wei Liu <wei.liu@kernel.org>
+Fixes: 3bfdc63936dd ("rtmutex: Use waiter::task instead of current in remove_waiter()")
+Reported-by: syzbot+78147abe6c524f183ee9@syzkaller.appspotmail.com
+Signed-off-by: Davidlohr Bueso <dave@stgolabs.net>
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Cc: stable@vger.kernel.org
+Closes: https://lore.kernel.org/all/69f114ac.050a0220.ac8b.0003.GAE@google.com/
+Link: https://patch.msgid.link/20260507112913.1019537-1-dave@stgolabs.net
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/hv/vmbus_drv.c | 56 +++++++++++++++++++++++++++++++-----------
- 1 file changed, 41 insertions(+), 15 deletions(-)
+ kernel/locking/rtmutex.c     | 3 +++
+ kernel/locking/rtmutex_api.c | 2 +-
+ 2 files changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/hv/vmbus_drv.c b/drivers/hv/vmbus_drv.c
-index 2fed2b169a9106..8d5245b74d23f1 100644
---- a/drivers/hv/vmbus_drv.c
-+++ b/drivers/hv/vmbus_drv.c
-@@ -2134,8 +2134,8 @@ static acpi_status vmbus_walk_resources(struct acpi_resource *res, void *ctx)
- 		return AE_NO_MEMORY;
+diff --git a/kernel/locking/rtmutex.c b/kernel/locking/rtmutex.c
+index def1f8fbc85cda..6df2f674712a47 100644
+--- a/kernel/locking/rtmutex.c
++++ b/kernel/locking/rtmutex.c
+@@ -1524,6 +1524,9 @@ static void __sched remove_waiter(struct rt_mutex_base *lock,
  
- 	/* If this range overlaps the virtual TPM, truncate it. */
--	if (end > VTPM_BASE_ADDRESS && start < VTPM_BASE_ADDRESS)
--		end = VTPM_BASE_ADDRESS;
-+	if (end >= VTPM_BASE_ADDRESS && start < VTPM_BASE_ADDRESS)
-+		end = VTPM_BASE_ADDRESS - 1;
+ 	lockdep_assert_held(&lock->wait_lock);
  
- 	new_res->name = "hyperv mmio";
- 	new_res->flags = IORESOURCE_MEM;
-@@ -2202,26 +2202,52 @@ static int vmbus_acpi_remove(struct acpi_device *device)
- 
- static void vmbus_reserve_fb(void)
- {
--	int size;
-+	resource_size_t start = 0, size;
-+	resource_size_t low_mmio_base;
-+
-+	if (efi_enabled(EFI_BOOT)) {
-+		/* Gen2 VM: get FB base from EFI framebuffer */
-+		start = screen_info.lfb_base;
-+		size = max_t(__u32, screen_info.lfb_size, 0x800000);
-+
-+		low_mmio_base = hyperv_mmio->start;
-+		if (!low_mmio_base || upper_32_bits(low_mmio_base) ||
-+		    (start && start < low_mmio_base)) {
-+			pr_warn("Unexpected low mmio base %pa\n", &low_mmio_base);
-+		} else {
-+			/*
-+			 * If the kdump/kexec or CVM kernel's lfb_base
-+			 * is 0, fall back to the low mmio base.
-+			 */
-+			if (!start)
-+				start = low_mmio_base;
-+			/*
-+			 * Reserve half of the space below 4GB for high
-+			 * resolutions, but cap the reservation to 128MB.
-+			 */
-+			size = min((SZ_4G - start) / 2, SZ_128M);
-+		}
-+	} else {
-+		/* Gen1 VM: get FB base from screen_info */
-+		start = screen_info.lfb_base;
-+		size = max_t(__u32, screen_info.lfb_size, 0x4000000);
-+	}
-+
-+	if (!start) {
-+		pr_warn("Unexpected framebuffer mmio base of zero\n");
++	if (!waiter_task) /* never enqueued */
 +		return;
-+	}
 +
- 	/*
- 	 * Make a claim for the frame buffer in the resource tree under the
- 	 * first node, which will be the one below 4GB.  The length seems to
- 	 * be underreported, particularly in a Generation 1 VM.  So start out
- 	 * reserving a larger area and make it smaller until it succeeds.
- 	 */
-+	for (; !fb_mmio && (size >= 0x100000); size >>= 1)
-+		fb_mmio = __request_region(hyperv_mmio, start, size, fb_mmio_name, 0);
+ 	scoped_guard(raw_spinlock, &waiter_task->pi_lock) {
+ 		rt_mutex_dequeue(lock, waiter);
+ 		waiter_task->pi_blocked_on = NULL;
+diff --git a/kernel/locking/rtmutex_api.c b/kernel/locking/rtmutex_api.c
+index a6974d04459301..06c3db9f6cf1c5 100644
+--- a/kernel/locking/rtmutex_api.c
++++ b/kernel/locking/rtmutex_api.c
+@@ -344,7 +344,7 @@ int __sched rt_mutex_start_proxy_lock(struct rt_mutex_base *lock,
  
--	if (screen_info.lfb_base) {
--		if (efi_enabled(EFI_BOOT))
--			size = max_t(__u32, screen_info.lfb_size, 0x800000);
--		else
--			size = max_t(__u32, screen_info.lfb_size, 0x4000000);
--
--		for (; !fb_mmio && (size >= 0x100000); size >>= 1) {
--			fb_mmio = __request_region(hyperv_mmio,
--						   screen_info.lfb_base, size,
--						   fb_mmio_name, 0);
--		}
--	}
-+	pr_info("hv_mmio=%pR,%pR fb=%pR\n", hyperv_mmio, hyperv_mmio->sibling, fb_mmio);
- }
+ 	raw_spin_lock_irq(&lock->wait_lock);
+ 	ret = __rt_mutex_start_proxy_lock(lock, waiter, task);
+-	if (unlikely(ret))
++	if (unlikely(ret < 0))
+ 		remove_waiter(lock, waiter);
+ 	raw_spin_unlock_irq(&lock->wait_lock);
  
- /**
 -- 
 2.53.0
 
