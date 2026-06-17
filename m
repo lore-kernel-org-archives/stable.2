@@ -1,90 +1,114 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF0302DF701
-	for <stable@vger.kernel.org>; Wed, 17 Jun 2026 14:55:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32BBB3F8EA7;
+	Wed, 17 Jun 2026 14:57:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781708144; cv=none; b=m2jHp1KKzJQxBheB90FjdnlnQfaZx0ILkgINjzAnwOGs+D1CVRLfEYiQl0FN+Ip6duVcX5QhLSRE0Beqy0gl4qK8+LNgZWwR+9M2hYWvc3Xecp/vrymSnYYa98uNA6yHgYB5bI2Om6y21DzyAxs3PpEEaKTiNMKiHiEfVivSEYE=
+	t=1781708230; cv=none; b=mTRnlxLb8mFGQ0dU1spTqIXmTWqHZGg/kaGspiJsQbYxiY1jb9kWrfSCI+/A1EXKdMa8VHJdg6dZnIDlh32z9RNbBWaveovdExEDi9N+/z5hwD9g1uhzBKZiY3yeU7uGGNxHi/hV81naj2v7o9IAZwcHSmOd21rF8ABdzRzCqdg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781708144; c=relaxed/simple;
-	bh=ZYUc/U1x3ZS0oe9t0Rr7odEfZqwQANkGgvl+1pxDTLs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=lVwonvnBqaX9V+sfadlzVLpo6b/R1HglMAtPQknbc8hXeu6GTfUy3oozw1GP3+E77HXpnzmujjp9Q+bjTPzA1NnunArNKVAuhtNXsLQjyd685IjV/U4v6qw1D0s52Q7q7/Qheyy/JoIfxnuGlq1A1BWUkkWi8IiR4YUZ0oju3Yc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S6s+xOSq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781708230; c=relaxed/simple;
+	bh=Kb0K46wf+oOtriIVzSLs2BRre9ehKuOivbEA2vanJg8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=VQUAy1qVVwWNoEFE+wHCrlZj0f1eSUDhKHFysBzwDTuOzQnVU9e3LQOiqrvObQca/zLsGFNUtiwGU4Jj4PmHlzmboYpoykUNluQuvqLkOYYTHnNCyF48QKAv2I8yFDPj7VWfTD+SK/xJ4TaR6MzNngHjsYUJyjJ1zcT4Mi98ahQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=EIfWc+FK; arc=none smtp.client-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S6s+xOSq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 392D31F00A3F;
-	Wed, 17 Jun 2026 14:55:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781708142;
-	bh=pPhumvrDmgpP+yI7sacMiGw55muhNQpo9VCRlmKlHDA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=S6s+xOSqHf6Gi9tMSx+3cpDwSDx6QNXQWLLwD7QYHwfcaLWOLuBKGYC6JIGFEUYX8
-	 yHkQsy2M3BB6/9EIH5PX4Bxretq3Gj5aHeRwbArUD7kxZxn2AFlN6m5sXohu5awT+8
-	 rDOG0pKX1CxnZvGxULsgio6uv2Fxi2WxIsIEaxzFgnH0J9Pktw3OyVw+9HCsb+VLXv
-	 jJo2wV7VY+Ygd4XujjgoMUZxlstGmY6124+S0rGftg7jetTVo6PKVEc1Y3DHxssVEB
-	 bTORbb5Kx0j0J5bmzWGdexdJ6TnucorAJ+MwX7p9KffPZ4oW0/9LYEYCrSQ51BclNX
-	 S100o/Tbfu5Aw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Santosh Kalluri <santosh.kalluri129@gmail.com>,
-	=?UTF-8?q?R=C3=A9mi=20Denis-Courmont?= <remi@remlab.net>,
-	Simon Horman <horms@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 3/3] net: phonet: free phonet_device after RCU grace period
-Date: Wed, 17 Jun 2026 10:55:38 -0400
-Message-ID: <20260617145538.157435-3-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260617145538.157435-1-sashal@kernel.org>
-References: <2026061549-equipment-myspace-2ba7@gregkh>
- <20260617145538.157435-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="EIfWc+FK"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=MrRknOfSzpz9R15Mc3e7c9NlkPc7hEDp9dvwFWEnuWQ=; b=EIfWc+FKI7lOmP5oqQ0iXVksxJ
+	fUyKMzpC+kSXH+d6S/obeGLCXM8Ez1ciZXh3IDb2/ONQGpOQLsLSp2mLjF7BqgmZP2WtqTIhCeTMG
+	hv5cvhvI/21SxDt6juDD59ZgmeO/oeB3TInjke2+UWhGuE9AZoOxOytuCwi31q8Ft59guXZsz0DMK
+	l+1DZytV7zIdzVl+6/QvBDVtNCrIIls1MvHZDg3Np84MA9PS8rcxpglCZk3PHldKP9y9K2joD8tr7
+	5yisr4Dv9kddwgua6sz1BAQrZW74VFAAssQhkYbHeYn4CIVgmjCv65qNyT8YI/zZ36WwDPxBkX1Q3
+	i/C8H8TQ==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1wZrhI-00EhJZ-27;
+	Wed, 17 Jun 2026 14:56:57 +0000
+Date: Wed, 17 Jun 2026 07:56:50 -0700
+From: Breno Leitao <leitao@debian.org>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: Petr Mladek <pmladek@suse.com>, Jakub Kicinski <kuba@kernel.org>, 
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>, John Ogness <john.ogness@linutronix.de>, 
+	Sergey Senozhatsky <senozhatsky@chromium.org>, Vlad Poenaru <vlad.wing@gmail.com>, 
+	Thomas Gleixner <tglx@kernel.org>, netdev@vger.kernel.org, "David S . Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
+	linux-rt-devel@lists.linux.dev, linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	Frederic Weisbecker <frederic@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+	Vincent Guittot <vincent.guittot@linaro.org>, Dietmar Eggemann <dietmar.eggemann@arm.com>, 
+	K Prateek Nayak <kprateek.nayak@amd.com>
+Subject: Re: [PATCH net] netpoll: run NAPI poll in softirq context to avoid
+ rq->lock self-deadlock
+Message-ID: <ajKi4wtA8U1iZkMD@gmail.com>
+References: <20260610183621.3915271-1-vlad.wing@gmail.com>
+ <20260611191114.5bc43a59@kernel.org>
+ <20260616103529.Yh9Dxsjp@linutronix.de>
+ <20260616170257.GH49951@noisy.programming.kicks-ass.net>
+ <20260616141719.67684bf0@kernel.org>
+ <ajJ46o4fomfxY5CX@pathway.suse.cz>
+ <20260617111958.GL49951@noisy.programming.kicks-ass.net>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260617111958.GL49951@noisy.programming.kicks-ass.net>
+X-Debian-User: leitao
 
-From: Santosh Kalluri <santosh.kalluri129@gmail.com>
+On Wed, Jun 17, 2026 at 01:19:58PM +0200, Peter Zijlstra wrote:
+> On Wed, Jun 17, 2026 at 12:37:30PM +0200, Petr Mladek wrote:
+> > On Tue 2026-06-16 14:17:19, Jakub Kicinski wrote:
+> > > On Tue, 16 Jun 2026 19:02:57 +0200 Peter Zijlstra wrote:
+> > > > > So this is not an issue since commit 7eab73b18630e ("netconsole: convert
+> > > > > to NBCON console infrastructure"). Because from here now on writes are
+> > > > > deferred to the nbcon thread. So this purely about -stable in this case.  
+> > > > 
+> > > > Hmm, I thought netconsole had some reserved skbs and could to writes
+> > > > 'atomic' like? That said, it was 2.6 era the last time I looked at
+> > > > netconsole.
+> > > 
+> > > Yes, that part is fine. The problem is that netconsole tries
+> > > to reap Tx completions if the Tx queue is full. We can't call
+> > > skb destructor in irq context so we put the completed skbs on
+> > > a queue and try to arm softirq to get to them later.
+> > > Arming softirq causes a ksoftirq wake up.
+> > > 
+> > > We already skip the completion polling if we detect getting called
+> > > from the same networking driver. It's best effort, anyway.
+> > > Networking-side fix would be to toss another OR condition into
+> > > the skip. But we don't have one that'd work cleanly :S
+> > 
+> > Alternative solution might be to offload the ksoftirq wake up
+> > to an irq_work. It might make this part safe for the
+> > console->write_atomic() call.
+> > 
+> > Well, my understanding is that there are more problems.
+> > AFAIK, some drivers do not use an IRQ safe locking, see
+> > https://lore.kernel.org/all/oth5t27z6acp7qxut7u45ekyil7djirg2ny3bnsvnzeqasavxb@nhwdxahvcosh/
+> 
+> But anything using locking is not ->write_atomic() and should be driven
+> from a kthread, no?
 
-[ Upstream commit 71de0177b28da751f407581a4515cf4d762f6296 ]
+Good point. If that's the case, netconsole might not ever be able to drop
+CON_NBCON_ATOMIC_UNSAFE for any network-based console driver at all. 
 
-phonet_device_destroy() removes a phonet_device from the per-net device
-list with list_del_rcu(), but frees it immediately. RCU readers walking
-the same list can still hold a pointer to the object after it has been
-removed, leading to a slab-use-after-free.
+As far as I can tell, there isn't a network driver today whose transmit
+path is completely lockless, so, even if we make netpoll lockless.
 
-Use kfree_rcu(), matching the lifetime rule already used by
-phonet_address_del() for the same object type.
+It's unlikely any NIC will ever achieve this, given that NIC TX
+fundamentally relies on a shared DMA ring and doorbell register, which
+inherently cannot be made lockless.
 
-Fixes: eeb74a9d45f7 ("Phonet: convert devices list to RCU")
-Cc: stable@vger.kernel.org
-Signed-off-by: Santosh Kalluri <santosh.kalluri129@gmail.com>
-Acked-by: Rémi Denis-Courmont <remi@remlab.net>
-Reviewed-by: Simon Horman <horms@kernel.org>
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- net/phonet/pn_dev.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/net/phonet/pn_dev.c b/net/phonet/pn_dev.c
-index 5a8f3a7c2a6c8a..84e6558f47a9fb 100644
---- a/net/phonet/pn_dev.c
-+++ b/net/phonet/pn_dev.c
-@@ -105,7 +105,7 @@ static void phonet_device_destroy(struct net_device *dev)
- 		for_each_set_bit(addr, pnd->addrs, 64)
- 			phonet_address_notify(net, RTM_DELADDR, ifindex, addr);
- 
--		kfree(pnd);
-+		kfree_rcu(pnd, rcu);
- 	}
- }
- 
--- 
-2.53.0
-
+So, is it correct to state that CON_NBCON_ATOMIC_UNSAFE will be part of
+netconsole forever-ish?
