@@ -1,109 +1,157 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D555388E4D
-	for <stable@vger.kernel.org>; Wed, 17 Jun 2026 19:51:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70B412F0680
+	for <stable@vger.kernel.org>; Wed, 17 Jun 2026 20:02:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781725900; cv=none; b=JhYKFFvJBZnhCOQxQct/xwg/kGzJUNBjGP5VwCT09jRNmpxoTl+Eu3bUyJQeQbL7Uc2Q2h/LtNWGSQtmlDd1rL2FuOcP14Lze7gH7w2VeBuujFlD8J3zBVRlPMeNIigu3TwlLEGJUjgxocWxEq/fbxh7L5T0MfjjJNEqvJOAbBc=
+	t=1781726564; cv=none; b=k8cv70TcLOR6/BoKH4ra3mjxbZCzx0mrT0ckCkohi7deeZavwHiBLm5vd9bXnYjJKKkpUG6VMnkRANWP1gogsr2XII0a7sAAizX++ORGOmvaKDbPQAzmwb/WSGMIxuTHHyusKm5CsuhGxiXeflSCQTl2CO57COfXjDDrPk5Q3D4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781725900; c=relaxed/simple;
-	bh=YRWp0QBY9So9jvC++gDHCc2QC2B11a+d/rs/bKIKsrE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jU2wJoj1LUUp8G70pv8gLVeV9Kvc7WvsZ1tV8wGfgZ5JtSO4jb25RLbnPS1kriYbFou6iqetYFtrQkDyppXyN3SQGNMYuiiMCNu2trGI0VIB+PWNhLbjnaZ/yVhkRHBHrYQEs1iZtpnnzi9TAeA2P4jP76qUBw8nAauyObKOsOY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com; spf=pass smtp.mailfrom=googlemail.com; dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b=BkVIAemT; arc=none smtp.client-ip=209.85.128.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
+	s=arc-20240116; t=1781726564; c=relaxed/simple;
+	bh=OThbo7UvEfl9zic8FxiZWcqZ5fhur+lwu2LnEFecIvM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=UfnOG2HhZOXMVysGYeWjLoV0E4iKyK2YG4lMvnbC2PZWxGlz7ewwvAWCAOg/XG/qiC8CeA5p2rSpwpQZsHWAG5Yk88JFpITRzYjIQ7fSUjvF7rg+7ZbcA//mKeHbUd/wPQur3jQh33Qv78g4opLUb++3Ph4dKj4eHSwgZFm2eyk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bblGW9E4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b="BkVIAemT"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-490acbb0f89so509375e9.0
-        for <stable@vger.kernel.org>; Wed, 17 Jun 2026 12:51:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlemail.com; s=20251104; t=1781725892; x=1782330692; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=pfGIZP62uh7PYVhHDF3yN5s7VorHMzFuzJ11i4tucO0=;
-        b=BkVIAemTjGfUcaOQikqNUm0zy1wn19m9E/96O6C8r/lI7ZKR9/1rG+oeUI8AvhzWhm
-         cVNa4jB11BC5qSok1oZlNVZ5QSEloumXRB004Cktxg0vi/WIuxv2Oeyh8aAt46EX6twz
-         UVTrzsFOqzQCv2cceZYnUBnF/M1LT9y2Do1LmLD9wnQrt+sBIkaJSzZyG6uFQmpBSZPP
-         qjYWMpAwzDtheBWCPL/rYeg0tSyolwjWsQzXMqtYodXHGNHsECV/ibbQ7cJuXrX9pjFC
-         ZnXiLLbH6wqY30FSm3GvjVs2m8Lhwv3gyyB0hntZIlm345giL9MjUPR4tWdw3yTRASch
-         qZHw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781725892; x=1782330692;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=pfGIZP62uh7PYVhHDF3yN5s7VorHMzFuzJ11i4tucO0=;
-        b=ZbMFp/CggUB81xrXjpmSM90dxT0U5s5f7DxGTBIRcV6Gt4KVj4l2tTmT1EkH7up6gN
-         XuaYZZbJHMA0vXkPSEB1omckr7JeEb7RJd023xm/l875HesJmJDUP2jFj+PwcIIK+4jW
-         dvoDxl5R7cosAQgoIh4LqtKStCOerWgz77c+fnet29yFvpHkBnvMJ6UJ9c+A8iAHBtAu
-         h1Ey2Q06p5TmNlwxhUjxEn3RjenFiL2ls1NBnYNmZZ+SYrQ7bJxcqHB8Dx30Yob0beAd
-         rJ3Ft4J1jyzPFKhsbPjjRWbI5C2a2RqvOq08CffkI8kJEJZjup6U/EwgE9O/9vBoEgA7
-         b6kA==
-X-Forwarded-Encrypted: i=1; AFNElJ8QaUIWj1WIBUil3rtLn3vxWI6GYNR9Nr2lyZEg2gEMCPF+gsF4Sc45kEAjCc03paAQGGr5+1Y=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwSvolKziKthJkJWYCSGWUS3qWds/1WtAu99Rjb23i59b+Sknoo
-	nYORDKe0FQQ2YGW+Y85nxjtxMT9rogwu3Ua7phSU5Cl5ymc1YrEodVU=
-X-Gm-Gg: Acq92OEGCCf2q87RE0mNK50l9RGWEMp+cNxdiuP3dp1ZFOMr46pPsJWzhc4xz0g38og
-	ZQNJ6EPIF2Ahh/vUILp1tAL0aRMmnvEeD4oxF8gnKZejgCz7xg7v46E+f0qklJf4DhxAosHFJXh
-	kz/12VMsCEw+BFeR6d1PCXFSQUCyP5vM6dr15JGpaYlnnk3MsK5HlXeN0awBBOffFldUaiXDzS5
-	1uXpil+oXpYHgHL3zCr6v3vaOAOUfe+oAgNG9MVNKOedXiVuvJ8jzuLv24OWo9Ue9QacrkSjeQw
-	Oaeem6X/s/7Ux+VUKWOXDchXWJjhuBVMtbV1PVf+qgnhTlJHQvwGmp0y7lHtwg8a55axki0gJGi
-	jKEAWICySM+Yp7YEede36HgCGniD9++vLjJuEMeywM74dsbfwxLPYW6/UgHq57mxy1QZ77kU+fz
-	h10yDG0ueEbYT7gyz7D4PnYNIvcKRAobVECOKDNi4u9Uye+xXEfr2VPbAIyBrlmhjj
-X-Received: by 2002:a05:600d:6443:20b0:490:5e2a:f924 with SMTP id 5b1f17b1804b1-492381e2430mr11808775e9.7.1781725892360;
-        Wed, 17 Jun 2026 12:51:32 -0700 (PDT)
-Received: from [192.168.1.3] (p5b2b4777.dip0.t-ipconnect.de. [91.43.71.119])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4922fa47ce3sm211320875e9.6.2026.06.17.12.51.31
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 17 Jun 2026 12:51:32 -0700 (PDT)
-Message-ID: <a937041f-31f6-40b3-83f1-1cac8deb1f50@googlemail.com>
-Date: Wed, 17 Jun 2026 21:51:31 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bblGW9E4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B97B1F000E9;
+	Wed, 17 Jun 2026 20:02:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781726563;
+	bh=b0gz5Y2tdnmtMLX3B+Vr/yN3bG3iJhQ3xHDNHqz65n4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=bblGW9E4utgeuQDPvKJ+rIMDEzxtg5w6jgSKkNpruFtKRWY2uj3d9L9BY2OgyGs8F
+	 4AK0jFmPDeRM5jcI5WEdhnz1Hq6dY34D8Z/TSVOXMrgF2Vsvy0/ylayUeP8oY2GWdp
+	 1etlPnn1Co67mH3tvTW/yzDbhePQ7nm9jaEclfpr42Z82azeJqzWGupHYjk9am34/b
+	 bhez7EV/KJm+uNZaLJYi7p6jIMhD1YWOf1QzOjBTjUOaobBS+tWCkkiGf6zCpccmVt
+	 h6NvJ3JY90oDYlgOnHn6UfSEoxMfpqFAHIeoUniB0plQaU7o/iklFiCPUFnjuaPIAD
+	 z/Exz/xZgG20g==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/4] slimbus: Convert to platform remove callback returning void
+Date: Wed, 17 Jun 2026 16:02:38 -0400
+Message-ID: <20260617200241.310475-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026061505-reverb-graceful-8efb@gregkh>
+References: <2026061505-reverb-graceful-8efb@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH 7.1 0/8] 7.1.1-rc1 review
-Content-Language: de-DE
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260616145523.335696673@linuxfoundation.org>
-From: Peter Schneider <pschneider1968@googlemail.com>
-In-Reply-To: <20260616145523.335696673@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Am 16.06.2026 um 16:58 schrieb Greg Kroah-Hartman:
-> This is the start of the stable review cycle for the 7.1.1 release.
-> There are 8 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+From: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
 
-Builds, boots and works on my 2-socket Ivy Bridge Xeon E5-2697 v2 server. No dmesg oddities or regressions found.
+[ Upstream commit 880b33b0580c8ac9d0202b6e592cb116c99d1b65 ]
 
-Tested-by: Peter Schneider <pschneider1968@googlemail.com>
+The .remove() callback for a platform driver returns an int which makes
+many driver authors wrongly assume it's possible to do error handling by
+returning an error code. However the value returned is ignored (apart
+from emitting a warning) and this typically results in resource leaks.
 
+To improve here there is a quest to make the remove callback return
+void. In the first step of this quest all drivers are converted to
+.remove_new(), which already returns void. Eventually after all drivers
+are converted, .remove_new() will be renamed to .remove().
 
-Beste Grüße,
-Peter Schneider
+Trivially convert the slimbus drivers from always returning zero in the
+remove callback to the void returning variant.
 
+Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
+Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Link: https://lore.kernel.org/r/20240430091657.35428-3-srinivas.kandagatla@linaro.org
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Stable-dep-of: 2a9d50e9ea40 ("slimbus: qcom-ngd-ctrl: Register callbacks after creating the ngd")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/slimbus/qcom-ctrl.c     |  5 ++---
+ drivers/slimbus/qcom-ngd-ctrl.c | 11 ++++-------
+ 2 files changed, 6 insertions(+), 10 deletions(-)
+
+diff --git a/drivers/slimbus/qcom-ctrl.c b/drivers/slimbus/qcom-ctrl.c
+index 400b7b385a443e..7d632fad13005f 100644
+--- a/drivers/slimbus/qcom-ctrl.c
++++ b/drivers/slimbus/qcom-ctrl.c
+@@ -626,7 +626,7 @@ static int qcom_slim_probe(struct platform_device *pdev)
+ 	return ret;
+ }
+ 
+-static int qcom_slim_remove(struct platform_device *pdev)
++static void qcom_slim_remove(struct platform_device *pdev)
+ {
+ 	struct qcom_slim_ctrl *ctrl = platform_get_drvdata(pdev);
+ 
+@@ -635,7 +635,6 @@ static int qcom_slim_remove(struct platform_device *pdev)
+ 	clk_disable_unprepare(ctrl->rclk);
+ 	clk_disable_unprepare(ctrl->hclk);
+ 	destroy_workqueue(ctrl->rxwq);
+-	return 0;
+ }
+ 
+ /*
+@@ -721,7 +720,7 @@ static const struct of_device_id qcom_slim_dt_match[] = {
+ 
+ static struct platform_driver qcom_slim_driver = {
+ 	.probe = qcom_slim_probe,
+-	.remove = qcom_slim_remove,
++	.remove_new = qcom_slim_remove,
+ 	.driver	= {
+ 		.name = "qcom_slim_ctrl",
+ 		.of_match_table = qcom_slim_dt_match,
+diff --git a/drivers/slimbus/qcom-ngd-ctrl.c b/drivers/slimbus/qcom-ngd-ctrl.c
+index d0d289c49c8d11..04a73dffeb1041 100644
+--- a/drivers/slimbus/qcom-ngd-ctrl.c
++++ b/drivers/slimbus/qcom-ngd-ctrl.c
+@@ -1678,14 +1678,12 @@ static int qcom_slim_ngd_ctrl_probe(struct platform_device *pdev)
+ 	return ret;
+ }
+ 
+-static int qcom_slim_ngd_ctrl_remove(struct platform_device *pdev)
++static void qcom_slim_ngd_ctrl_remove(struct platform_device *pdev)
+ {
+ 	platform_driver_unregister(&qcom_slim_ngd_driver);
+-
+-	return 0;
+ }
+ 
+-static int qcom_slim_ngd_remove(struct platform_device *pdev)
++static void qcom_slim_ngd_remove(struct platform_device *pdev)
+ {
+ 	struct qcom_slim_ngd_ctrl *ctrl = platform_get_drvdata(pdev);
+ 
+@@ -1700,7 +1698,6 @@ static int qcom_slim_ngd_remove(struct platform_device *pdev)
+ 
+ 	kfree(ctrl->ngd);
+ 	ctrl->ngd = NULL;
+-	return 0;
+ }
+ 
+ static int __maybe_unused qcom_slim_ngd_runtime_idle(struct device *dev)
+@@ -1743,7 +1740,7 @@ static const struct dev_pm_ops qcom_slim_ngd_dev_pm_ops = {
+ 
+ static struct platform_driver qcom_slim_ngd_ctrl_driver = {
+ 	.probe = qcom_slim_ngd_ctrl_probe,
+-	.remove = qcom_slim_ngd_ctrl_remove,
++	.remove_new = qcom_slim_ngd_ctrl_remove,
+ 	.driver	= {
+ 		.name = "qcom,slim-ngd-ctrl",
+ 		.of_match_table = qcom_slim_ngd_dt_match,
+@@ -1752,7 +1749,7 @@ static struct platform_driver qcom_slim_ngd_ctrl_driver = {
+ 
+ static struct platform_driver qcom_slim_ngd_driver = {
+ 	.probe = qcom_slim_ngd_probe,
+-	.remove = qcom_slim_ngd_remove,
++	.remove_new = qcom_slim_ngd_remove,
+ 	.driver	= {
+ 		.name = QCOM_SLIM_NGD_DRV_NAME,
+ 		.pm = &qcom_slim_ngd_dev_pm_ops,
 -- 
-Climb the mountain not to plant your flag, but to embrace the challenge,
-enjoy the air and behold the view. Climb it so you can see the world,
-not so the world can see you.                    -- David McCullough Jr.
+2.53.0
 
-OpenPGP:  0xA3828BD796CCE11A8CADE8866E3A92C92C3FF244
-Download: https://www.peters-netzplatz.de/download/pschneider1968_pub.asc
-https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@googlemail.com
-https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@gmail.com
