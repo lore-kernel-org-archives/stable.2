@@ -1,90 +1,124 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AFF53F9F56
-	for <stable@vger.kernel.org>; Wed, 17 Jun 2026 14:33:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FAD044CAF8
+	for <stable@vger.kernel.org>; Wed, 17 Jun 2026 14:45:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781706820; cv=none; b=DP+2pCld1V76pGdNjPwaOCxGPNbk1/jqZAvAQ9IkVgrO1yIWaGORS9rsezZ+frjZEnkp0lzHHKHBQXiehXXF/qurmw02yonCLK9NU6ZiP9Ug5RG/H3Aa5HSaRksi+dQYtSITt4JDEMP4jbsfkqXdliGdUWcXbiVLYw9G1JQvx5Q=
+	t=1781707508; cv=none; b=m/4vK5sy/zNdBaCZWAYD3SwQ9Cdymked70mmzEK5N+qaA74++UZUToWemp9POIScvw697P+j+IIwNBI+krmr3uNlehh3yxj8BU1E4ea5QucrL01CiSr/4ZP4WibfB6Hxl3Ul6d96yXrc2wWs/Yxdksk94UH1TBKInsKm6/HhnYY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781706820; c=relaxed/simple;
-	bh=ttANePPkO7P1BaCSZQpFItFrqnqjHZWxgMEo0jgIoTw=;
+	s=arc-20240116; t=1781707508; c=relaxed/simple;
+	bh=2mEWhKkYvCoxqAV4EaE/XMBtHtdRFtluNxbU7PsVflM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=XOGVj1VY/FFFvBJ9OLMCZjlXDMbH+yrGGKsMKtLpnR7FwSx/27T0h6AOZyUa/CzW6bf6VWML0XHmbqbtDnoGGi5IewRC+DwIqNfFkdSrBkp6EpbPLsFRbDknyZMmj1ZjqhhmjleOF/VCnrRPYQqtR/cveAE1OxOj+OsfuVlC4kI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hukNwdb4; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=o7zlNxXsgWcVbv/Y9g08YZZHhYfku+htEHZnS+bmuKbtt+aQd0AljMH5KFStg3XYp+ANc2L96ao4pVsLLBf1NkZdzoiWjdZfnUQfN225SiqsLJ1Jc9KTbUzC4TmH/Fn6JB376lrHykSQEoTh6VUIpPxVr1zkktF5E0EOaiCNggk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f2OPlIRp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hukNwdb4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4733C1F00A3F;
-	Wed, 17 Jun 2026 14:33:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f2OPlIRp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A86861F00A3A;
+	Wed, 17 Jun 2026 14:45:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781706819;
-	bh=mlUuneOEXraJI0inpBsDP+A4/EPUliEN5nTwxU/J6Ew=;
+	s=k20260515; t=1781707507;
+	bh=SFBxBAhgXrRXmyfBFo/Vgy59o9Ged79mpgVK9YU+rgU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hukNwdb4NjBwTNhb41B2hHrY/RpquDYawAF7Lb9hmE29IeSp+E5/eaYKfQ0SfUaYb
-	 6GZZF+3HoeW+dQ9MZhjmA0RGR8Cpv4L40YW1ipC712W17SIdxi7wn/hTbpP+Luv3uX
-	 J17+WMkm+T4EB9uXdifqXn/O2aT4de/mjZ9kUScpZLzF3Qy9xdfsZOyZR8CGnswyA/
-	 EJzrt6t2xs+rL+WKn5TLhY/GeeDcMin32jVGK3C9cmyL8muXngO1zIXl5T/bYx/Psu
-	 yXoEqFJrPYQ2l6ltTZlqnfPgQY0oo+mo9cTZbMhi2BHHEKUPqPiD1M1B7p2Vh/jTA5
-	 Cxluo0DvyTX1g==
+	b=f2OPlIRpUtOeeTz0P/xTXZMFUwogg71hT4UQF5/sgkSAd0htMP0sGMVJsATWVranx
+	 n1BejYfmaTgzNJHv6QXM+AN1IBBpuqOgHdGTih0bVAwQREYt5wS3Ml0SUR8P+PiWrj
+	 uHEE6ftEhqz0N+4E9geqTYzqtMxgN47XBH18u8u0QWtlILZXVl2fAsE//6ef30NVyO
+	 xqbaGeTU4MUuirmzUXkNZQphnb3pLEAxw2uiqeQJ8N5PLr3m6rqtodjmu/5LT3ebwX
+	 U8A1JS1ZdkXvPI1j4J+QI4KXoMG7a/yWejdVCcCcUm7cVGcFbSAOUi45wfBQgqru+L
+	 JQDKN8fejoDnA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Santosh Kalluri <santosh.kalluri129@gmail.com>,
-	=?UTF-8?q?R=C3=A9mi=20Denis-Courmont?= <remi@remlab.net>,
-	Simon Horman <horms@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: Kuniyuki Iwashima <kuniyu@amazon.com>,
+	Eric Dumazet <edumazet@google.com>,
+	Paolo Abeni <pabeni@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 3/3] net: phonet: free phonet_device after RCU grace period
-Date: Wed, 17 Jun 2026 10:33:35 -0400
-Message-ID: <20260617143335.3942705-3-sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/3] phonet: Pass ifindex to fill_addr().
+Date: Wed, 17 Jun 2026 10:45:02 -0400
+Message-ID: <20260617144504.4144644-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260617143335.3942705-1-sashal@kernel.org>
-References: <2026061544-output-dreamt-c938@gregkh>
- <20260617143335.3942705-1-sashal@kernel.org>
+In-Reply-To: <2026061545-rival-anything-e56f@gregkh>
+References: <2026061545-rival-anything-e56f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Santosh Kalluri <santosh.kalluri129@gmail.com>
+From: Kuniyuki Iwashima <kuniyu@amazon.com>
 
-[ Upstream commit 71de0177b28da751f407581a4515cf4d762f6296 ]
+[ Upstream commit 08a9572be36819b5d9011604edfa5db6c5062a7a ]
 
-phonet_device_destroy() removes a phonet_device from the per-net device
-list with list_del_rcu(), but frees it immediately. RCU readers walking
-the same list can still hold a pointer to the object after it has been
-removed, leading to a slab-use-after-free.
+We will convert addr_doit() and getaddr_dumpit() to RCU, both
+of which call fill_addr().
 
-Use kfree_rcu(), matching the lifetime rule already used by
-phonet_address_del() for the same object type.
+The former will call phonet_address_notify() outside of RCU
+due to GFP_KERNEL, so dev will not be available in fill_addr().
 
-Fixes: eeb74a9d45f7 ("Phonet: convert devices list to RCU")
-Cc: stable@vger.kernel.org
-Signed-off-by: Santosh Kalluri <santosh.kalluri129@gmail.com>
-Acked-by: Rémi Denis-Courmont <remi@remlab.net>
-Reviewed-by: Simon Horman <horms@kernel.org>
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Let's pass ifindex directly to fill_addr().
+
+Signed-off-by: Kuniyuki Iwashima <kuniyu@amazon.com>
+Reviewed-by: Eric Dumazet <edumazet@google.com>
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+Stable-dep-of: 71de0177b28d ("net: phonet: free phonet_device after RCU grace period")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/phonet/pn_dev.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ net/phonet/pn_netlink.c | 13 +++++++------
+ 1 file changed, 7 insertions(+), 6 deletions(-)
 
-diff --git a/net/phonet/pn_dev.c b/net/phonet/pn_dev.c
-index 2e7d850dc72668..3f020c362d6cde 100644
---- a/net/phonet/pn_dev.c
-+++ b/net/phonet/pn_dev.c
-@@ -105,7 +105,7 @@ static void phonet_device_destroy(struct net_device *dev)
- 		for_each_set_bit(addr, pnd->addrs, 64)
- 			phonet_address_notify(net, RTM_DELADDR, ifindex, addr);
+diff --git a/net/phonet/pn_netlink.c b/net/phonet/pn_netlink.c
+index dd4c7e9a634fbe..6b50e4d526682f 100644
+--- a/net/phonet/pn_netlink.c
++++ b/net/phonet/pn_netlink.c
+@@ -19,7 +19,7 @@
  
--		kfree(pnd);
-+		kfree_rcu(pnd, rcu);
- 	}
+ /* Device address handling */
+ 
+-static int fill_addr(struct sk_buff *skb, struct net_device *dev, u8 addr,
++static int fill_addr(struct sk_buff *skb, u32 ifindex, u8 addr,
+ 		     u32 portid, u32 seq, int event);
+ 
+ void phonet_address_notify(int event, struct net_device *dev, u8 addr)
+@@ -31,7 +31,8 @@ void phonet_address_notify(int event, struct net_device *dev, u8 addr)
+ 			nla_total_size(1), GFP_KERNEL);
+ 	if (skb == NULL)
+ 		goto errout;
+-	err = fill_addr(skb, dev, addr, 0, 0, event);
++
++	err = fill_addr(skb, dev->ifindex, addr, 0, 0, event);
+ 	if (err < 0) {
+ 		WARN_ON(err == -EMSGSIZE);
+ 		kfree_skb(skb);
+@@ -92,8 +93,8 @@ static int addr_doit(struct sk_buff *skb, struct nlmsghdr *nlh,
+ 	return err;
  }
  
+-static int fill_addr(struct sk_buff *skb, struct net_device *dev, u8 addr,
+-			u32 portid, u32 seq, int event)
++static int fill_addr(struct sk_buff *skb, u32 ifindex, u8 addr,
++		     u32 portid, u32 seq, int event)
+ {
+ 	struct ifaddrmsg *ifm;
+ 	struct nlmsghdr *nlh;
+@@ -107,7 +108,7 @@ static int fill_addr(struct sk_buff *skb, struct net_device *dev, u8 addr,
+ 	ifm->ifa_prefixlen = 0;
+ 	ifm->ifa_flags = IFA_F_PERMANENT;
+ 	ifm->ifa_scope = RT_SCOPE_LINK;
+-	ifm->ifa_index = dev->ifindex;
++	ifm->ifa_index = ifindex;
+ 	if (nla_put_u8(skb, IFA_LOCAL, addr))
+ 		goto nla_put_failure;
+ 	nlmsg_end(skb, nlh);
+@@ -140,7 +141,7 @@ static int getaddr_dumpit(struct sk_buff *skb, struct netlink_callback *cb)
+ 			if (addr_idx++ < addr_start_idx)
+ 				continue;
+ 
+-			if (fill_addr(skb, pnd->netdev, addr << 2,
++			if (fill_addr(skb, pnd->netdev->ifindex, addr << 2,
+ 					 NETLINK_CB(cb->skb).portid,
+ 					cb->nlh->nlmsg_seq, RTM_NEWADDR) < 0)
+ 				goto out;
 -- 
 2.53.0
 
