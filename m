@@ -1,36 +1,43 @@
-Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BFEA2F7F12;
-	Wed, 17 Jun 2026 01:40:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A47213FEE
+	for <stable@vger.kernel.org>; Wed, 17 Jun 2026 01:47:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781660417; cv=none; b=Cte5O1hB3NMQNBeSdW9cZKg2QHzNzk4gFm2sTSV6t36Gebi/sAJeCMYOsFny+kIcZ//KHRrmaTj8l39afjw6qWv292vX7QUvy2WhmrCEuRPfV7mvYeOYVaQiyolxDJ+LMYkeYzN4bWEQVOnIY+f3Y/atedRr77rcCm1nCODXnDA=
+	t=1781660843; cv=none; b=sCGmkLNgMpfQjbqLAsLLLXb054CPNEDcAAcAZk/lPljdwwkpJsxunep9o1l25hWwJHENbQnqumjLc4mDg3HX5J95OJUctA3FngNAHoLUE+2gWQUHhAIJFdz9/+ZjuvM9Th9fOsl7BXm6m2WYK7Y0yBKdkjP5uhYtw5pzYHgCI60=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781660417; c=relaxed/simple;
-	bh=xyVjGMzYJ9KEd8oDTglHCE5Pt/C2/hi8VCe40kyw6Jo=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=MepxJRZ565q6Paoxtd0SFs+3bbOTzg0PPQkauQHJfKZCl0BPaIrOAVHSBMYQgzmq4f8Wyht2Qy2LbkKJZF34J3WkvJgtCJbCmz8Qx73W7YycVN4Rzt6/IhhsvEcB2S5hpJF1+CvYmZD3mBFZNjnLjmdfuX3kJhB8OLVkHAgCz9M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=lRira26v; arc=none smtp.client-ip=45.254.49.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	s=arc-20240116; t=1781660843; c=relaxed/simple;
+	bh=kTtGBZ6G/4e+tdgizYjk6mT0Da4ru19EKlz1zkEXstc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Q95Ft/QJqCVaekUvQ0aJemqNv64g6cVReueDT/RQmroTGC+tUWynck7SDaFQ6aQOegCEc2kZBEhYME98czNphlVe/jwacyyZakBelYoBKz8/QLIbVH+bRsrXGoeGUDqDU50lLiLgVnMRFN06JLJjBloIsmJWecbNSKHLa/jbv+A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kINFI/Ud; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="lRira26v"
-Received: from DESKTOP-SUEFNF9.taila7e912.ts.net (unknown [58.241.16.34])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 42a9e4c6e;
-	Wed, 17 Jun 2026 09:35:02 +0800 (GMT+08:00)
-From: Dawei Feng <dawei.feng@seu.edu.cn>
-To: pkshih@realtek.com
-Cc: leitao@debian.org,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	jianhao.xu@seu.edu.cn,
-	zilin@seu.edu.cn,
-	Dawei Feng <dawei.feng@seu.edu.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH wireless] wifi: rtw88: pci: fix resource leak on failed NAPI setup
-Date: Wed, 17 Jun 2026 09:35:02 +0800
-Message-Id: <20260617013502.114057-1-dawei.feng@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kINFI/Ud"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 883071F000E9;
+	Wed, 17 Jun 2026 01:47:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781660842;
+	bh=qOCL0H6seGVLnjrf63MQMBRezF/V9x0Seopk4bh3y8Y=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=kINFI/UdeBSffEh6kzNEnWgjFbihEwmHsDRdDLmwcIcSzrKwgTSPriPNHpXcWKD4K
+	 5W6u9kkYlu8a86AdAQ5Sz0tbMSL8zA7ADaNqmBpYhZrsOAkGnmBDBsxff0HcAumR7h
+	 vJrW6vJTP+ULf4jQv+nrfWSJ11EeyGCZuBe8P7rxmxySEUMFHPCdDHAkJBb4vaJhWv
+	 jICit4A2dvyfkcvvWpwOjzLaSDYmoIhRD3Ho2x3PUJBQLI2HzAUr5bAxiVQXtxkhv3
+	 VH4RJrpjYDMDjqbzG0UW9IkDDOgpLXuHg1Oh5HFHg3Whz9XgfICj5Yo2gPMX3XXQFa
+	 RHqhSnJy3OpZg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Tudor Ambarus <tudor.ambarus@linaro.org>,
+	Titouan Ameline de Cadeville <titouan.ameline@gmail.com>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y] firmware: samsung: acpm: Fix cross-thread RX length corruption
+Date: Tue, 16 Jun 2026 21:47:19 -0400
+Message-ID: <20260617014719.3671631-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026061526-attention-sedative-060d@gregkh>
+References: <2026061526-attention-sedative-060d@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,65 +45,105 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9ed337ad8e03a2kunm5578f45264a81
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZGB4aVkJKTkMfHkJMGUxMSVYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlOQ1VJT0pVSk1VSE9ZV1kWGg8SFR0UWUFZT0tIVUpLSEpPSE
-	xVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=lRira26vmv893Speklw2Xlr4MK5Zt3M+5mB5ZPiDnrJgbqmhmkGVCPJLjf5oaHThA3ynUgzT+6CasGyKwV08dqz2lz9BxOS9diM7Gf6bqJc5P+UK5XHw6auW74uyfV3uuhSjr1VmEiymsPaeyppJr/kCdNe1KRHNazw5bHXAqO4=; s=default; c=relaxed/relaxed; d=seu.edu.cn; v=1;
-	bh=yHEXIEjMsEp34e1RjSskAYHeXSb8QxPj24zxwQcSn1U=;
-	h=date:mime-version:subject:message-id:from;
 
-rtw_pci_probe() allocates PCI resources through
-rtw_pci_setup_resource() before it sets up NAPI. If
-rtw_pci_napi_init() fails, the error path jumps straight to
-err_pci_declaim and skips rtw_pci_destroy(), leaving the PCI
-resources allocated by rtw_pci_setup_resource() behind.
+From: Tudor Ambarus <tudor.ambarus@linaro.org>
 
-Add a dedicated cleanup label for the NAPI setup failure path so probe
-destroys the PCI resources.
+[ Upstream commit f133bd4b5daf71bccdde0ad1a4f47fac76a6bfb1 ]
 
-The bug was first flagged by an experimental analysis tool we are
-developing for kernel memory-management bugs while analyzing current
-mainline kernels. The tool is still under development and is not yet
-publicly available. Manual inspection confirms that the bug is still
-present in v7.1-rc7.
+Sashiko identified a cross-thread RX length corruption bug when
+reviewing the thermal addition to ACPM [1].
 
-An x86_64 allyesconfig build showed no new warnings. As we do not have a
-suitable rtw88 PCI board to test with, no runtime testing was able to be
-performed.
+When multiple threads concurrently send IPC requests, the ACPM polling
+mechanism can encounter responses belonging to other threads. To drain
+the queue, the driver saves these concurrent responses into an internal
+cache (`rx_data->cmd`) to be retrieved later by the owning thread.
 
-Fixes: d0bcb10e7b94 ("wifi: rtw88: Un-embed dummy device")
+Previously, the driver incorrectly used `xfer->rxcnt` (the expected
+receive length of the *current* polling thread) when copying data for
+*other* threads into this cache. If the threads expected responses of
+different lengths, this resulted in buffer underflows (leading to reads
+of uninitialized memory) or potential buffer overflows.
+
+Fix this by replacing the boolean `response` flag in
+`struct acpm_rx_data` with `rxcnt`, caching the exact expected receive
+length for each specific transaction during transfer preparation. Use
+this cached length when saving concurrent responses.
+
+Consequently, ensure that `xfer->rxcnt` is explicitly zeroed in driver
+helpers (e.g., `acpm_dvfs_set_xfer`) for fire-and-forget messages to
+prevent uninitialized stack garbage from being interpreted as a massive
+expected receive length.
+
 Cc: stable@vger.kernel.org
-Signed-off-by: Dawei Feng <dawei.feng@seu.edu.cn>
+Fixes: a88927b534ba ("firmware: add Exynos ACPM protocol driver")
+Closes: https://sashiko.dev/#/patchset/20260420-acpm-tmu-v3-0-3dc8e93f0b26%40linaro.org [1]
+Reported-by: Titouan Ameline de Cadeville <titouan.ameline@gmail.com>
+Closes: https://lore.kernel.org/r/20260426210255.73674-1-titouan.ameline@gmail.com/
+Signed-off-by: Tudor Ambarus <tudor.ambarus@linaro.org>
+Link: https://patch.msgid.link/20260505-acpm-fixes-sashiko-reports-v5-1-43b5ee7f1674@linaro.org
+Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/wireless/realtek/rtw88/pci.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/firmware/samsung/exynos-acpm.c | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/net/wireless/realtek/rtw88/pci.c b/drivers/net/wireless/realtek/rtw88/pci.c
-index bba370ad510c..9eeb6cb31261 100644
---- a/drivers/net/wireless/realtek/rtw88/pci.c
-+++ b/drivers/net/wireless/realtek/rtw88/pci.c
-@@ -1825,7 +1825,7 @@ int rtw_pci_probe(struct pci_dev *pdev,
- 	ret = rtw_pci_napi_init(rtwdev);
- 	if (ret) {
- 		rtw_err(rtwdev, "failed to setup NAPI\n");
--		goto err_pci_declaim;
-+		goto err_destroy_rsrc;
- 	}
+diff --git a/drivers/firmware/samsung/exynos-acpm.c b/drivers/firmware/samsung/exynos-acpm.c
+index 6572cd7be9d177..769858c535eaa6 100644
+--- a/drivers/firmware/samsung/exynos-acpm.c
++++ b/drivers/firmware/samsung/exynos-acpm.c
+@@ -103,12 +103,12 @@ struct acpm_queue {
+  *
+  * @cmd:	pointer to where the data shall be saved.
+  * @n_cmd:	number of 32-bit commands.
+- * @response:	true if the client expects the RX data.
++ * @rxcnt:	expected length of the response in 32-bit words.
+  */
+ struct acpm_rx_data {
+ 	u32 *cmd;
+ 	size_t n_cmd;
+-	bool response;
++	size_t rxcnt;
+ };
  
- 	ret = rtw_chip_info_setup(rtwdev);
-@@ -1857,6 +1857,8 @@ int rtw_pci_probe(struct pci_dev *pdev,
+ #define ACPM_SEQNUM_MAX    64
+@@ -196,7 +196,7 @@ static void acpm_get_saved_rx(struct acpm_chan *achan,
+ 	const struct acpm_rx_data *rx_data = &achan->rx_data[tx_seqnum - 1];
+ 	u32 rx_seqnum;
  
- err_destroy_pci:
- 	rtw_pci_napi_deinit(rtwdev);
-+
-+err_destroy_rsrc:
- 	rtw_pci_destroy(rtwdev, pdev);
+-	if (!rx_data->response)
++	if (!rx_data->rxcnt)
+ 		return;
  
- err_pci_declaim:
+ 	rx_seqnum = FIELD_GET(ACPM_PROTOCOL_SEQNUM, rx_data->cmd[0]);
+@@ -253,7 +253,7 @@ static int acpm_get_rx(struct acpm_chan *achan, const struct acpm_xfer *xfer)
+ 		seqnum = rx_seqnum - 1;
+ 		rx_data = &achan->rx_data[seqnum];
+ 
+-		if (rx_data->response) {
++		if (rx_data->rxcnt) {
+ 			if (rx_seqnum == tx_seqnum) {
+ 				__ioread32_copy(xfer->rxd, addr,
+ 						xfer->rxlen / 4);
+@@ -267,7 +267,7 @@ static int acpm_get_rx(struct acpm_chan *achan, const struct acpm_xfer *xfer)
+ 				 * after the response is copied to the request.
+ 				 */
+ 				__ioread32_copy(rx_data->cmd, addr,
+-						xfer->rxlen / 4);
++						rx_data->rxcnt);
+ 			}
+ 		} else {
+ 			clear_bit(seqnum, achan->bitmap_seqnum);
+@@ -379,8 +379,8 @@ static void acpm_prepare_xfer(struct acpm_chan *achan,
+ 	/* Clear data for upcoming responses */
+ 	rx_data = &achan->rx_data[achan->seqnum - 1];
+ 	memset(rx_data->cmd, 0, sizeof(*rx_data->cmd) * rx_data->n_cmd);
+-	if (xfer->rxd)
+-		rx_data->response = true;
++	/* zero means no response expected */
++	rx_data->rxcnt = xfer->rxlen / 4;
+ 
+ 	/* Flag the index based on seqnum. (seqnum: 1~63, bitmap: 0~62) */
+ 	set_bit(achan->seqnum - 1, achan->bitmap_seqnum);
 -- 
-2.34.1
+2.53.0
 
