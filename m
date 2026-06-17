@@ -1,45 +1,48 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A66603559E1
-	for <stable@vger.kernel.org>; Wed, 17 Jun 2026 19:35:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5884638A72C;
+	Wed, 17 Jun 2026 19:41:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781724919; cv=none; b=rnfckS9Ew10IdFKfGDGmUPtpiutwKLUPmcN0FpaPgRigm4KrVtWbJfmpuC13FvOvvhHfe0WnPKu5rnhZschM5mdINU20Qr3oMY/yYQrY7W0DzqnSbfiVXImoUV2xvKHNYG1NNCgUzHYDjonwiI/AS0t7r3rO1rTfz9NBWpUGbJM=
+	t=1781725267; cv=none; b=qRCEhbSooP3fOk4C3peBqO7Zhp19I3ASHHcAr4WcIutkoM3w8XgfjqDzPOe6hMBFecZ8tnHh3emDQXQE8HFQ5/7A3S+Y6G8/1xAaRwbNX8QK8C0h+NVe312F09N+lqAdhzqhOrkFJUBG+UnysBFkLH3uctXzUy+DkWcMFuLnRzo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781724919; c=relaxed/simple;
-	bh=bVWMwplVbOd5SaWj3xuy6yaBfUYN07YvFXYnHUD/BXo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rv6gqD+Hi4mF4aWZTE1HNdC1cJbFPHCiJxoH26P5KFjLO44r/8cJp3eTvekWJN8Ove9IypEqhnphyv5J/vM0WPQt/Q7DGltFkE/S2uvvfsRF5JTjzFxQhH9kKM5pIu4jJ++WpJtuxLB1avpis3IN5tWeYm/YpsZkK0UmShPKNR4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QtAA5QY9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781725267; c=relaxed/simple;
+	bh=cLCtUrFszsNpqaXSsFU9smSVm9I+BmoRFXf4J4vNNuw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QvIIzv9icA3xn0XOhTnpUDPvjJ6dBn1m1fLdUjLfRExlZblifb11CBLqM/p9FyqqXyZISbHCwmVIKwqH2uDO9eMeReqXYVbyKBTPgjesm4t3WGc/a/QjcpD2jNz5uM5DZLPwL+yjLsMYnYzQhJyILup073apFXRdqX08HUluJMw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gWDvejAF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QtAA5QY9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 827F51F00A3F;
-	Wed, 17 Jun 2026 19:35:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gWDvejAF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2BA611F000E9;
+	Wed, 17 Jun 2026 19:41:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781724918;
-	bh=gdrEc4OWN4xv/tIebu+2Hvs3hs0VlAMq3PrwULwCzX8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QtAA5QY9absfNxvA/JRGmKksjiQVuBhlPfjPs4/bJHEEgqo3I8b3riYjMURIBl04Z
-	 ppBTOQylNHB+G4ZuyrW4mjbrukml9DRn8yEYQ67PpC+DbiYU+kudAB6ffO25v3DALQ
-	 /WvAPCSETjtoIqoJt04Q69wm22XU3U7E0n6v4O2lPXl7ADF+Hvt0a4BaMWD3rClOKW
-	 g5s8ZaV5ci1zQPLEwfs8ovthj13gjbCsQLUAGPR6xnQOIxzn0uYHaN8rrfn3LFu4gS
-	 3/FpNkByy/yrF6cLvl5MA0BcE/BFjBq127J9w0sZ5tLDPRib04B+r/LELUcQ/JJM8k
-	 z9FpBj25bSWDA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
-	Srinivas Kandagatla <srini@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] slimbus: qcom-ngd-ctrl: Fix up platform_driver registration
-Date: Wed, 17 Jun 2026 15:35:16 -0400
-Message-ID: <20260617193516.299894-1-sashal@kernel.org>
+	s=k20260515; t=1781725266;
+	bh=SOS1yGkhDPya+/uAhiZ1+Rq+6pspSgmQL30KoFCQaE4=;
+	h=From:To:Cc:Subject:Date;
+	b=gWDvejAFGLUPpouhULsa6FkMZlkYa1bbkiKWcOYyc6h8izFiTlHGQdTDxmdzm7Av6
+	 6FVUbO3pIohmkRkC3dW+mxqY6hY5i0HYWosv43Bdh6bQx/0O8W9aEJir4BPzJ7nRW+
+	 IKxlIkkG5tBeN6ghY8lO0i0Pn8ZnESPASKjFV0Tfrvx5V6bFxOuu+dY+d3olggfwNT
+	 a8Ukf+1UizEgbleF2FM7sVEu2QSSP5Cpws5MK2IYnhiO0azQ5Ao4zFECcrblB1SO7f
+	 7NwIhJHk1LxugF7QS4kxIFPtZDvY6tftOGGZ4SrlSnBBabqHbZNpcJxpCwSuUjm7+K
+	 Wlxfi4YwIPNQQ==
+From: Mike Rapoport <rppt@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	Linus Torvalds <torvalds@linuxfoundation.org>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>,
+	Christian Brauner <brauner@kernel.org>,
+	David Hildenbrand <david@kernel.org>,
+	Jan Kara <jack@suse.cz>,
+	Mike Rapoport <rppt@kernel.org>,
+	Oleg Nesterov <oleg@redhat.com>,
+	Peter Xu <peterx@redhat.com>,
+	vova tokarev <vladimirelitokarev@gmail.com>,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	stable@vger.kernel.org
+Subject: [PATCH] userfaultfd: prevent registration of special VMAs
+Date: Wed, 17 Jun 2026 22:40:59 +0300
+Message-ID: <20260617194059.2529406-1-rppt@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026061522-crib-retract-1312@gregkh>
-References: <2026061522-crib-retract-1312@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,98 +51,44 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
+From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
 
-[ Upstream commit 8663e8334d7b6007f5d8a4e5dd270246f35107a6 ]
+Vova Tokarev says:
 
-Device drivers should not invoke platform_driver_register()/unregister()
-in their probe and remove paths. They should further not rely on
-platform_driver_unregister() as their only means of "deleting" their
-child devices.
+  userfaultfd allows registration on shadow stack VMAs.  With userfaultfd
+  access, you can register on the shadow stack, discard a page ... and
+  inject a page with chosen return addresses via UFFDIO_COPY.
 
-Introduce a helper to unregister the child device and move the
-platform_driver_register()/unregister() to module_init()/exit().
+Update vma_can_userfault() to reject VM_SHADOW_STACK.
 
-Fixes: 917809e2280b ("slimbus: ngd: Add qcom SLIMBus NGD driver")
-Cc: stable@vger.kernel.org
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Reviewed-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-Signed-off-by: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
-Signed-off-by: Srinivas Kandagatla <srini@kernel.org>
-Link: https://patch.msgid.link/20260530204421.116824-3-srini@kernel.org
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+While on it, also reject VM_IO, VM_MIXEDMAP and VM_PFNMAP so that if a
+driver would implement vm_uffd_ops, it wouldn't be possible to register
+special VMAs with userfaultfd.
+
+Reported-by: vova tokarev <vladimirelitokarev@gmail.com>
+Fixes: 54007f818206 ("mm: Introduce VM_SHADOW_STACK for shadow stack memory")
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
 ---
- drivers/slimbus/qcom-ngd-ctrl.c | 36 ++++++++++++++++++++++++++++++---
- 1 file changed, 33 insertions(+), 3 deletions(-)
+ mm/userfaultfd.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/slimbus/qcom-ngd-ctrl.c b/drivers/slimbus/qcom-ngd-ctrl.c
-index ed1eb491430bac..0fa668f8578d9c 100644
---- a/drivers/slimbus/qcom-ngd-ctrl.c
-+++ b/drivers/slimbus/qcom-ngd-ctrl.c
-@@ -1474,6 +1474,13 @@ static int of_qcom_slim_ngd_register(struct device *parent,
- 	return -ENODEV;
- }
- 
-+static void qcom_slim_ngd_unregister(struct qcom_slim_ngd_ctrl *ctrl)
-+{
-+	struct qcom_slim_ngd *ngd = ctrl->ngd;
-+
-+	platform_device_del(ngd->pdev);
-+}
-+
- static int qcom_slim_ngd_probe(struct platform_device *pdev)
+diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
+index 246af12bf801..b8d2d87ce8d7 100644
+--- a/mm/userfaultfd.c
++++ b/mm/userfaultfd.c
+@@ -2111,7 +2111,8 @@ static bool vma_can_userfault(struct vm_area_struct *vma, vm_flags_t vm_flags,
  {
- 	struct device *dev = &pdev->dev;
-@@ -1583,7 +1590,6 @@ static int qcom_slim_ngd_ctrl_probe(struct platform_device *pdev)
- 		goto err_pdr_lookup;
- 	}
+ 	const struct vm_uffd_ops *ops = vma_uffd_ops(vma);
  
--	platform_driver_register(&qcom_slim_ngd_driver);
- 	return of_qcom_slim_ngd_register(dev, ctrl);
+-	if (vma->vm_flags & VM_DROPPABLE)
++	if (vma->vm_flags & (VM_DROPPABLE | VM_IO | VM_MIXEDMAP | VM_PFNMAP |
++			     VM_SHADOW_STACK))
+ 		return false;
  
- err_pdr_alloc:
-@@ -1597,7 +1603,9 @@ static int qcom_slim_ngd_ctrl_probe(struct platform_device *pdev)
- 
- static int qcom_slim_ngd_ctrl_remove(struct platform_device *pdev)
- {
--	platform_driver_unregister(&qcom_slim_ngd_driver);
-+	struct qcom_slim_ngd_ctrl *ctrl = platform_get_drvdata(pdev);
-+
-+	qcom_slim_ngd_unregister(ctrl);
- 
- 	return 0;
- }
-@@ -1676,6 +1684,28 @@ static struct platform_driver qcom_slim_ngd_driver = {
- 	},
- };
- 
--module_platform_driver(qcom_slim_ngd_ctrl_driver);
-+static int qcom_slim_ngd_init(void)
-+{
-+	int ret;
-+
-+	ret = platform_driver_register(&qcom_slim_ngd_driver);
-+	if (ret)
-+		return ret;
-+
-+	ret = platform_driver_register(&qcom_slim_ngd_ctrl_driver);
-+	if (ret)
-+		platform_driver_unregister(&qcom_slim_ngd_driver);
-+
-+	return ret;
-+}
-+
-+static void qcom_slim_ngd_exit(void)
-+{
-+	platform_driver_unregister(&qcom_slim_ngd_ctrl_driver);
-+	platform_driver_unregister(&qcom_slim_ngd_driver);
-+}
-+
-+module_init(qcom_slim_ngd_init);
-+module_exit(qcom_slim_ngd_exit);
- MODULE_LICENSE("GPL v2");
- MODULE_DESCRIPTION("Qualcomm SLIMBus NGD controller");
+ 	vm_flags &= __VM_UFFD_FLAGS;
+
+base-commit: e3d8707358ea76b78bdec9928937bb9a797f2c8f
 -- 
 2.53.0
 
