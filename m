@@ -1,108 +1,85 @@
-Received: from smtpbgau1.qq.com (smtpbgau1.qq.com [54.206.16.166])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BB863B4EAA;
-	Wed, 17 Jun 2026 12:09:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.206.16.166
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63C05288D0;
+	Wed, 17 Jun 2026 12:11:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781698156; cv=none; b=pgo7BysAv1LddxV0VdFUSNFeWpBXfYmODn8bnyFfCULW16U3XF0GlXWZeHwyRT41OsN4NiEaZmsVh7YQEAaEnp96sbRFvGtSp6sCDNvUPdnR7Q54H5OLEM81Jfzll+grPD+HYf1M6UZG7KDipaVvZ+4SDkOAMugjzNtcuLLE+G4=
+	t=1781698261; cv=none; b=QAFTw/5QvZLWYEJY3ixxpg9Yg0YZrc8W4fqWJoY80jUN9JZN9SeGOqnRll3G3jqJVLQAAlmJrSXCfKqcAfjN7DVKy7vHfC9vXvb28kuxY22cW5dCNTRgv2yWZje2ZXxxSoX4gbWf/9j5bBEK/9V/lDV3XKbyNB3/4zpPLEBUTow=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781698156; c=relaxed/simple;
-	bh=SMgrSA/kIjByUED9+XkXmN8xQD9JA6hPkyyYkau0aBQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=hqdM7CyERcDKPsLWGws7DnlPbUszOFqAMK8dgc4rOHyQXP68ZKm13PW7cRYhDXyjoA8oOzz0nYuOi4WS9X9StkJXbzTJQYyi9q+E2vP2M1HqKFK++4vPAJUl7M91pkH3SbjP2cjZWBdSJYWWr2RaGnsgerYZGvYzWgm1O8SsE2E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=HFvNnWN6; arc=none smtp.client-ip=54.206.16.166
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	s=arc-20240116; t=1781698261; c=relaxed/simple;
+	bh=X6HpM5Za44X7ZepaSExNy+W5QBtUM4vthFa/g0qfZHE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=h+bhZNJCvZ0LAbua9+CEJS2A9hh92dqn+iMo4clrZ9pqYAKLlG4i2sKOS0dF1ASFcbTfyTLR0MDYdhC706vuc+4+dlfH1sCPih2LBRB8Z7MeOgpl0/qpKYszc+sl99fJ03hp9TwGJNyTsYdfSz14EKNfdHudU7K3hbMvn7823rc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LXsOIYKr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="HFvNnWN6"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1781698089;
-	bh=SMgrSA/kIjByUED9+XkXmN8xQD9JA6hPkyyYkau0aBQ=;
-	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=HFvNnWN6fA0kXa4AQRrJKN4VKGHbAXkdGvavTMLteyHI3LwKPkSEe5tdRLG1u+zek
-	 IjkGWvBXJURxQTjWcSUGIU4MbpQPekOCJm/nNhIvPJXj/DIJ+MLn3TH14BXS3uIsv7
-	 taWg+lD3xhm2BJiHTqVLkh37P8tkWOnabMFjvn6s=
-X-QQ-mid: zesmtpsz4t1781698083t041b0929
-X-QQ-Originating-IP: Jb0C0ZXzNqY/BFbTVt39oM2OHBuQciYf+eq6X0aQM6Q=
-Received: from localhost.localdomain ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Wed, 17 Jun 2026 20:08:00 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 11797564057231867192
-EX-QQ-RecipientCnt: 21
-From: Wentao Guan <guanwentao@uniontech.com>
-To: gregkh@linuxfoundation.org
-Cc: achill@achill.org,
-	akpm@linux-foundation.org,
-	broonie@kernel.org,
-	conor@kernel.org,
-	f.fainelli@gmail.com,
-	hargar@microsoft.com,
-	jonathanh@nvidia.com,
-	linux-kernel@vger.kernel.org,
-	linux@roeck-us.net,
-	lkft-triage@lists.linaro.org,
-	patches@kernelci.org,
-	patches@lists.linux.dev,
-	pavel@nabladev.com,
-	rwarsow@gmx.de,
-	shuah@kernel.org,
-	sr@sladewatkins.com,
-	stable@vger.kernel.org,
-	sudipm.mukherjee@gmail.com,
-	torvalds@linux-foundation.org,
-	Wentao Guan <guanwentao@uniontech.com>
-Subject: Re: [PATCH 6.6 000/452] 6.6.143-rc1 review
-Date: Wed, 17 Jun 2026 20:07:49 +0800
-Message-Id: <20260617120747.1241937-1-guanwentao@uniontech.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20260616145117.796205997@linuxfoundation.org>
-References: <20260616145117.796205997@linuxfoundation.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LXsOIYKr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 595821F000E9;
+	Wed, 17 Jun 2026 12:10:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781698260;
+	bh=oGH4exJeiKznSQXGrDnbISb7qf5M+zPLl1Qxv/C3Ccc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=LXsOIYKrowM0PHEHQ13vCxCeNrgzz1Ps4BvrtD9w1HLpOQHKCefO4seANf/coE8QS
+	 fOjTK2Jc7G8HmX71gKBZMiXOVXpVg/2V+NbLDBrRq1deTedyBJmMWgDWTZrCjphBYV
+	 nnPlzvpqCFt8v6FE70tCgTPIfQLZOriSeXCbMs3rpCwIpX0NWKypopE1EDFSVYlxsr
+	 j2O6mbNiCAZKgfqNaVpJTGzpB+cOly+a0+/MMeT1LKNJhi7YS6wrOfg/rE1giBM0eI
+	 GSQFWiXBwEPbkh/VszliGVCnZgZAg94aPpXXurhKqvQrmPPHoZUTNUDAk7szjyFKIU
+	 NP5DLvgoQMaMQ==
+Date: Wed, 17 Jun 2026 15:10:55 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: Zhenhao Wan <whi4ed0g@gmail.com>
+Cc: "Md. Haris Iqbal" <haris.iqbal@ionos.com>,
+	Jack Wang <jinpu.wang@ionos.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+	Danil Kipnis <danil.kipnis@cloud.ionos.com>,
+	Jack Wang <jinpu.wang@cloud.ionos.com>, linux-rdma@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Yuhao Jiang <danisjiang@gmail.com>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] RDMA/rtrs-srv: Reject usr_len larger than off in
+ process_{read,write}
+Message-ID: <20260617121055.GY327369@unreal>
+References: <20260617-rtrs-srv-usr-len-underflow-v1-1-942e6414150a@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: OA2O1J/qT0Faq+b2gmU82E529Fk2xtR3zC41GU+9WV6cPAs+StJJTDR4
-	f2jNrULRJ0mGWY/79tu1KL+MV+r5d9dDqHPT7rbus1I60OyBBP5j8ZFAo55Ub0u4oUxRwE+
-	2bF2YFVWnk5lkZCvF2vW4sWuf8AzUmanCn/Np1c+A7vl3OHaqZLa04fGgvCXkZDaYvU6pI7
-	kWUFuTTZ+QRJXdDthMX6bumbLA6BkcFdZyFAF5zvmvm5WInjI8yjoOkiXdxSLu88UcPB29T
-	v/8H2f2bHKP3Hv22FLY3S0YilawKQkznfM+4XjDOz8s1sQbghPxyr0GVaJTmWhCdyvVDhP+
-	r9Et0m+cJyiaVm43cEs+wdKb9roAJ9ndCU87RYkqv/HLCFJRHg1e7Cm+fSwi2jOzeK0G/sd
-	6lL1lNVSsEOGlyjhLAxr0C9iaGx+CEgFdedW0AuUt1J86NfZMet8ouR2qsuHSs0+Z8lpPix
-	Virm4ukhkXGeIkc8iIzRk4Yy6iHgSi40LfzU2f+gYijQo1EKmkWv8dWx84AfcnE8LBYJ5zP
-	qqv+faWF8cBAjN8DGDrqsH4d7fO/ctBgoLqYgt3Y4uDYsARmCluLTvI/D/iv8qIlpYNtlVa
-	pRQcLDk2a8Q9yxw8OFxzrHcinPXwaIZOkW/9lcoQUwPt+X/XhQ2vqkkrehtwpUg4Vvgnvvc
-	l4AWrlddt7di9vm/XNO5gL873xULbMGn+2s4d0fcmxeeWlPGOwrjNZ+TsNWi5VGJ7kyUctd
-	DtnqtH8u+/ZVmNYN5aeK+KdUTfTi0RRrL7nzkmiHYvoD6Hy5rgfOdcfnAEm2qYjPZvVbcxr
-	fpTTjmKbqc173IAZ5RE6MRGOFROOw3y+m85ulugERJ8ksGYIl6dW62U5Mr28iGnClxmK//L
-	+Rc2+FqARHl+7qgQjF6Soc8bGvU6os30MQSVM2Oh52+NUnf+i2W4g1SgmjT1dA+hgtkoIp4
-	YUKFQyYA9xrJAU19JuZZQOtlEQJEGe0S7+P3o1QN4PL/PBZwXpXBszxmUbhO6+C3IqbFhKi
-	xaTwemyyXJtclH4drgyaivHFHerE2cN0QB+wQqBgEonY4l951zZcMnDm/MVS9lFZ9CXrBau
-	R6AejTkf75zcBTW5t1UdDZGvSp1LmVOo9Ytr7TNWE6zCse3vjNLwDVh4KTqaTNs/UKYT7tk
-	mXO5fwho8na80O4=
-X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
-X-QQ-RECHKSPAM: 0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260617-rtrs-srv-usr-len-underflow-v1-1-942e6414150a@gmail.com>
 
-Build tested in our x86,arm64,loongarch,riscv config successfully without error.
+On Wed, Jun 17, 2026 at 12:52:00AM +0800, Zhenhao Wan wrote:
+> process_read() and process_write() derive the data length of an I/O
+> request as:
+> 
+> 	usr_len = le16_to_cpu(req->usr_len);
+> 	data_len = off - usr_len;
+> 
+> off comes from the RDMA-Write-with-imm immediate and is only bounded
+> above (off < max_chunk_size) in rtrs_srv_rdma_done(). usr_len is read
+> from the chunk buffer the remote peer fills over RDMA, so it is peer
+> controlled over the full u16 range and is not checked against off.
+> 
+> If a peer sends usr_len > off, the size_t subtraction underflows and
+> the pointer data + data_len passed to the ->rdma_ev() callback points
+> before the chunk. The in-tree consumer rnbd_srv_rdma_ev() dereferences
+> it as the message header (le16_to_cpu(hdr->type)) before validating it;
+> this is an out-of-bounds read reachable from a remote peer.
+> 
+> Reject usr_len > off before computing data_len in both paths, via the
+> existing send_err_msg path. For a well-formed request off is the total
+> length data_len + usr_len, so usr_len <= off holds and valid requests
+> are unaffected.
+> 
+> Fixes: 9cb837480424 ("RDMA/rtrs: server: main functionality")
+> Reported-by: Yuhao Jiang <danisjiang@gmail.com>
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Zhenhao Wan <whi4ed0g@gmail.com>
+> ---
+>  drivers/infiniband/ulp/rtrs/rtrs-srv.c | 14 ++++++++++++++
+>  1 file changed, 14 insertions(+)
 
-Tested-by: Wentao Guan <guanwentao@uniontech.com>
+It is already fixed in the commit 54bf38b27afc ("RDMA/rtrs-srv: Fix integer underflow in process_read and process_write")
 
-BRs
-Wentao Guan
-
-Log:
-Linux version 6.6.143-rc1-arm64-desktop-hwe-gc3a40fddacf0 (guanwentao@uos-PC) (aarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP PREEMPT
-Linux version 6.6.143-rc1-arm64-desktop-hwe-gc3a40fddacf0 (guanwentao@uos-PC) (aarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #2 SMP PREEMPT Wed Jun 17 15:27:25 CST 2026
-Linux version 6.6.143-rc1-loong64-desktop-hwe-gc3a40fddacf0 (guanwentao@uos-PC) (loongarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP PREEMPT
-Linux version 6.6.143-rc1-loong64-desktop-hwe-gc3a40fddacf0 (guanwentao@uos-PC) (loongarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #3 SMP PREEMPT Wed Jun 17 15:43:37 CST 2026
-Linux version 6.6.143-rc1-riscv64-desktop-hwe+ (guanwentao@uos-PC) (riscv64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP
-Linux version 6.6.143-rc1-riscv64-desktop-hwe+ (guanwentao@uos-PC) (riscv64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #4 SMP Wed Jun 17 15:57:42 CST 2026
-Linux version 6.6.143-rc1-amd64-desktop-hwe-gc3a40fddacf0 (guanwentao@uos-PC) (gcc (Deepin 12.3.0-17deepin15) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP PREEMPT_DYNAMIC
-Linux version 6.6.143-rc1-amd64-desktop-hwe-gc3a40fddacf0 (guanwentao@uos-PC) (gcc (Deepin 12.3.0-17deepin15) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #1 SMP PREEMPT_DYNAMIC Wed Jun 17 15:11:47 CST 2026
+Thanks
