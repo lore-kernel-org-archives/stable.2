@@ -1,100 +1,209 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E94AD3F1AB2;
-	Wed, 17 Jun 2026 12:31:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F7253F8ED3
+	for <stable@vger.kernel.org>; Wed, 17 Jun 2026 12:36:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781699472; cv=none; b=K1obk/JTsYf0fCZnb7ZCE/+P8d6OFh+6h+/Z1xiVU0LpxelhQSegVpq3xXv73i2ZgqBdYbufUpTvB+kvdWtvn7nEEciIs9C2l+znDj08nZFHThh4q0MiIDtVT0cmKnmZC8R+6Y4AxhECXpnermaBna1ng301cz/ROVY7kEw8Ys4=
+	t=1781699805; cv=none; b=R3aH+MeEuH/PbbF2qfiZCZViMjFpBRGrgbngyKrzjW4p6xzjC86S8n4yvCUOnII26D/kFqaNxKKYRePK8MHHUM829jiZtiiK68+xRCKPB6qBIC85OA/qyhzQxFh7/HJwurtiUiCFbvhiNcUMYPecUPIKx34DeWLt7y3mHMdUckU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781699472; c=relaxed/simple;
-	bh=GrGTI8a4oj/pksGdFmbK0N88ozLr60wbX3NY439HgAg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=niZOgyz80oKxVUsGF/VVfWTUSt7Pu+FMYs7MolDUktG3Y3NNgkkkaKQX6JqKqqdV6im7n2B+8wfCf1RRMFp7JVCEMDrdOdfYh9fGhgMEP4gk5zKV8EXLYMRuxdvYX3Ft2110lJCUms4Q6dG+2KkUC/GRdXXv4MLSVMIB7+f2cLo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WAmUlqUK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781699805; c=relaxed/simple;
+	bh=BLhbvrRR/HJ2UXcFhZDaXzn6kzxtWODktq5uNU4CFu8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=B4N0Sri/gISDpeVYJq9NciGJbPBVRHe+Al1VaCOMRix1acfkb4RkfjhQI9aQrYzxDjRXtH1O0Sj/8RG4FoLiz1YQsbCKT2eFJmYWTVirehq1e4pZt7Xgxl0kGdoMFyb9vUmZzJZgvGmsPDBMWXuMfK+Wn0qwzz2YeA6coIEShJM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=SB1YPUr3; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Jq2mttOj; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=SB1YPUr3; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Jq2mttOj; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WAmUlqUK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 588481F000E9;
-	Wed, 17 Jun 2026 12:31:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781699470;
-	bh=uLu8ShXl0Y2YxWQom10gkSNouCyBlM04U9LSELPsG9Q=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=WAmUlqUKvUP+p7yOixVSlSWFhtTdaKcNfjOrHvTIDMEQbJoZG5nE5hFweeqWxWFjs
-	 hDqBVTAbjgYYuY4/SfoZZ1q67bf3FKq30fYfaJo8Ts6BtufqRg7AmizH67IOSy6FPm
-	 HcaYZydmmW6HvDRYBPxRLpSnWfcYR7qcyWeI7PsgEyojsFoBvnxHYuI2g9S4euYNk5
-	 CioB0mIXp+g5eDSTlaPvKSy44dUeMsQrOZBZKxHOkDc9jc1HKFFQ1PH/dKCQtVrc4Y
-	 /bjNVzYrA5u0ULZv9aTuI1qH0T5UNGxHvVFXFn6qImu55yrq1VXl57hdz1Xkfrk7hD
-	 xWepBqtVdnJQA==
-Date: Wed, 17 Jun 2026 14:31:01 +0200
-From: Carlos Maiolino <cem@kernel.org>
-To: Amir Goldstein <amir73il@gmail.com>
-Cc: "Darrick J. Wong" <djwong@kernel.org>, 
-	Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>, Sasha Levin <sashal@kernel.org>, 
-	Fedor Pchelkin <pchelkin@ispras.ru>, stable@vger.kernel.org, xfs-stable@lists.linux.dev, 
-	Christoph Hellwig <hch@lst.de>, Catherine Hoang <catherine.hoang@oracle.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, lvc-project@linuxtesting.org, linux-xfs@vger.kernel.org, 
-	Leah Rumancik <leah.rumancik@gmail.com>
-Subject: Re: [PATCH 6.6 0/4] fix kernel crash for xfs/235 test
-Message-ID: <ajKSytW_sBFJaBTW@nidhogg.toxiclabs.cc>
-References: <20250322143418.216654-1-pchelkin@ispras.ru>
- <aisAxyXVxf4wql2u@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
- <20260612233110.2-1-sashal@kernel.org>
- <ajBQPNuKCruxhkXX@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
- <ajD3Gb-vQkGU0N6b@nidhogg.toxiclabs.cc>
- <ajFQPY2m2A6ltvTH@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
- <ajFabPtI8UGfkyix@nidhogg.toxiclabs.cc>
- <CACzhbgS59uCYhjX80__+nPjEx=N8mKUsYyFS1+aRDpMA-b-VXQ@mail.gmail.com>
- <CAOQ4uxgXqmP49FV3b_cKDD_703bRHz0fjm=k=FmNytsPpnKx3g@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="SB1YPUr3";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Jq2mttOj";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="SB1YPUr3";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Jq2mttOj"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 52C9E75AE4;
+	Wed, 17 Jun 2026 12:36:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1781699800; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=uMwmD5ZVKo48graesQDZg+wP6nz0U0LlLpQHB/3WxOs=;
+	b=SB1YPUr3ni0ThVz0W1qRVpKO0aHK2y+Po0bTOFTdQYTHtoQ32wTt7J1QUmNY/Kb9QCsvsM
+	Hi5nx/TkR+fm+OgKjjsHs9eXWXhwYHgNuL9VG5sgpq8kfRhd+H8XjjJzGfgPC+exBIuZt+
+	b2id3KN0pse/eexwj9Y+MMrPGN0F2Hc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1781699800;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=uMwmD5ZVKo48graesQDZg+wP6nz0U0LlLpQHB/3WxOs=;
+	b=Jq2mttOjjS3NHtXBy5w6IKCUu57tgAfIFSWY28UgO5fmNXvN3WhV2Io/LZGGyikWW5Wwln
+	T9aWM21NfzZFS2Bw==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1781699800; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=uMwmD5ZVKo48graesQDZg+wP6nz0U0LlLpQHB/3WxOs=;
+	b=SB1YPUr3ni0ThVz0W1qRVpKO0aHK2y+Po0bTOFTdQYTHtoQ32wTt7J1QUmNY/Kb9QCsvsM
+	Hi5nx/TkR+fm+OgKjjsHs9eXWXhwYHgNuL9VG5sgpq8kfRhd+H8XjjJzGfgPC+exBIuZt+
+	b2id3KN0pse/eexwj9Y+MMrPGN0F2Hc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1781699800;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=uMwmD5ZVKo48graesQDZg+wP6nz0U0LlLpQHB/3WxOs=;
+	b=Jq2mttOjjS3NHtXBy5w6IKCUu57tgAfIFSWY28UgO5fmNXvN3WhV2Io/LZGGyikWW5Wwln
+	T9aWM21NfzZFS2Bw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1C5BC779A8;
+	Wed, 17 Jun 2026 12:36:40 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id uI6gBdiUMmrXKwAAD6G6ig
+	(envelope-from <tzimmermann@suse.de>); Wed, 17 Jun 2026 12:36:40 +0000
+Message-ID: <ebf3a909-99e4-47f3-9c1c-b329d6000996@suse.de>
+Date: Wed, 17 Jun 2026 14:36:39 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] drm/sysfb: Do not page-align visible size of the
+ framebuffer
+To: Javier Martinez Canillas <javierm@redhat.com>,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
+ simona@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org, sashiko-reviews@lists.linux.dev,
+ stable@vger.kernel.org
+References: <20260617112932.511657-1-tzimmermann@suse.de>
+ <20260617112932.511657-2-tzimmermann@suse.de>
+ <874ij1z90y.fsf@ocarina.mail-host-address-is-not-set>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <874ij1z90y.fsf@ocarina.mail-host-address-is-not-set>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAOQ4uxgXqmP49FV3b_cKDD_703bRHz0fjm=k=FmNytsPpnKx3g@mail.gmail.com>
+X-Spam-Flag: NO
+X-Spam-Score: -4.30
+X-Spamd-Result: default: False [-4.30 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-0.997];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FREEMAIL_TO(0.00)[redhat.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	FUZZY_RATELIMITED(0.00)[rspamd.com];
+	MID_RHS_MATCH_FROM(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:url,suse.de:email,suse.de:mid]
+X-Spam-Level: 
 
-On Wed, Jun 17, 2026 at 11:19:25AM +0200, Amir Goldstein wrote:
-> On Tue, Jun 16, 2026 at 7:33 PM Leah Rumancik <leah.rumancik@gmail.com> wrote:
-> >
-> > I have changed teams so I no longer work on kernel and I don't believe
-> > my xfs maintenance work was backfilled ;(
-> >
-> > On Tue, Jun 16, 2026 at 7:19 AM Carlos Maiolino <cem@kernel.org> wrote:
-> > >
-> > > On Tue, Jun 16, 2026 at 09:31:41AM -0400, Hamza Mahfooz wrote:
-> > > > Cc: linux-xfs@vger.kernel.org
-> > > >
-> > > > On Tue, Jun 16, 2026 at 09:13:45AM +0200, Carlos Maiolino wrote:
-> > > > > On Mon, Jun 15, 2026 at 03:19:24PM -0400, Hamza Mahfooz wrote:
-> > > > > > Cc: Carlos Maiolino <cem@kernel.org>
-> > > > >
-> > > > > FWIW I don't maintain the stable trees I really don't have time for
-> > > > > that. Darrick/Leah have been doing a best effort case for that, but
-> > > > > again, this is mostly a best effort so we shouldn't expect them to be
-> > > > > looking/picking up every single possible patch suggested for stable.
-> > > > >
-> > > >
-> > > > Now that you mention it, the xfs-stable mailing list seems to be pretty
-> > > > much dead (i.e. the last time fixes from it were merged into stable was
-> > > > almost a year ago). I guess no one is really working on it anymore?
-> > >
-> > > IIRC Darrick started it, I personally never worked on it, but I didn't
-> > > follow the evolution there.
-> 
-> I think at this point we can officially declare xfs in stable <= 6.6
-> unmaintained
-> maybe need to send patches to LTS MAINTAINERS.
-> 
-> The best chance in this case to apply the requested fix to 6.6.y is that the
-> author (Darrick) approves it.
+Hi
 
-Unfortunately this might be true. But let's wait for Darrick's input
-please. He's on vacations this week so will be unfair to make any
-decisions in this matter without his input.
-Also he has been still poking people to tag patches with LTS versions
-so even though he might not me dealing with the xfs-stable, he might still
-be driving work on LTS trees.
+Am 17.06.26 um 13:44 schrieb Javier Martinez Canillas:
+> Thomas Zimmermann <tzimmermann@suse.de> writes:
+>
+> Hello Thomas,
+>
+>> Only return the actually visible size of the system framebuffer in
+>> drm_sysfb_get_visible_size_si(). Drivers use this size value for
+>> reserving access to framebuffer memory. Increasing the value can
+>> make later attempts to do so fail.
+>>
+>> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+>> Fixes: 32ae90c66fb6 ("drm/sysfb: Add efidrm for EFI displays")
+>> Fixes: a84eb6abe2b6 ("drm/sysfb: Add vesadrm for VESA displays")
+>> Cc: Thomas Zimmermann <tzimmermann@suse.de>
+>> Cc: Javier Martinez Canillas <javierm@redhat.com>
+>> Cc: dri-devel@lists.freedesktop.org
+>> Cc: <stable@vger.kernel.org> # v6.16+
+>> ---
+>>   drivers/gpu/drm/sysfb/drm_sysfb_screen_info.c | 2 +-
+>>   1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/gpu/drm/sysfb/drm_sysfb_screen_info.c b/drivers/gpu/drm/sysfb/drm_sysfb_screen_info.c
+>> index 749290196c6a..361b7233600c 100644
+>> --- a/drivers/gpu/drm/sysfb/drm_sysfb_screen_info.c
+>> +++ b/drivers/gpu/drm/sysfb/drm_sysfb_screen_info.c
+>> @@ -67,7 +67,7 @@ EXPORT_SYMBOL(drm_sysfb_get_stride_si);
+>>   u64 drm_sysfb_get_visible_size_si(struct drm_device *dev, const struct screen_info *si,
+>>   				  unsigned int height, unsigned int stride, u64 size)
+>>   {
+>> -	u64 vsize = PAGE_ALIGN(height * stride);
+> Do you know why the original efidrm_get_visible_size_si() (from where
+> you took this code to make it generic) did the page align ?
+
+There's nothing in the old reviews AFAICT. I think, it was an oversight 
+from prototyping the driver. I certainly wanted to return 0 for errors 
+at first, but later changed it to an errno code. There, I forgot to 
+update the code accordingly.
+
+>
+> The change makes sense to me though from your explanation:
+>
+> Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
+
+Thanks.
+
+Best regards
+Thomas
+
+>
+
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
+
+
