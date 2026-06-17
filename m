@@ -1,42 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B61333F7A97
-	for <stable@vger.kernel.org>; Wed, 17 Jun 2026 14:28:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DBF43F7A97
+	for <stable@vger.kernel.org>; Wed, 17 Jun 2026 14:28:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781706481; cv=none; b=iWpD/ce6dWnUQqJmnxYResLjlVcZR/orwp7exbzt87XnnAoYYnfxlAmpqqgS2Pt0Lvbt1xtEdXwBYemQPo9I8K1SEpoSK/Bp6Vb6rgmytgC4w6S9fKQZYVdwd0rhiu7YhRA3mppTLjkeAaDIrciErl/+mg5L7+W5eoC3GJfiPv4=
+	t=1781706514; cv=none; b=sSd4rYSKP+e2rEGf8mHbxEo4FfSeICVFcpA5x7Kz0g31VxdQ94GuvBooR8XDVIYnN+/Wx+8bu/qqB1Iz0Gta8NLIGkLBS9eHgxefcbFXTV/iZv7Ac3lnyTC9ywauHxTS7V5ttBX/yuS+QnM1UG5Rg26V5WbXdum2NIlqDPCoYc4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781706481; c=relaxed/simple;
-	bh=+LONaG6kOInUPDinVDzrXq3p57aCRx1YqYxGEWX8LOs=;
+	s=arc-20240116; t=1781706514; c=relaxed/simple;
+	bh=u6za2pQomzjrHXKVrEnhsnuXJe/YhTUfdNJ6xViSwJo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lieKbAPg64svxNhUYxLMPrRxvjWwCSQWtE6dmzVt1RrKnmKU1XdQoOcx7A9o3V0cNOKh+Z6C5+rWqMTgC6GpMxFz0v6QTLKS4DjmR2pDP+g6sXyEjcpxn8ruHWsVCBC9asPRT59Nmo15K8Kk4UfzAO0UVPwvS4/lrSQ9dSikw+E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QEKBCiXC; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=sh7v5NKHuvBBcRaVMneyudGtuYE9xtVKQgA6H0NIZC81FBO0EaopFPD1X9KLMepHAJ6ZCxw/cLigXhs3JwHoEGWyAe37/wXBCk1f5AtYLgRKNRyw0xZOXlA54XXISJ9hZVuD09MqonT3WeChsNPMrTWS1LaMkC4AHUwDXSHIj7k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oh/5DZcN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QEKBCiXC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E82C21F000E9;
-	Wed, 17 Jun 2026 14:27:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oh/5DZcN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C8F31F000E9;
+	Wed, 17 Jun 2026 14:28:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781706480;
-	bh=0oAanY3w26+2aoFcYcCulhTiF19XNZ8w/5y8tkTeIBk=;
+	s=k20260515; t=1781706513;
+	bh=n85baoOzuqnd+rVQs1BoTnxrQgBaBFs5Wg1Dp2HgvfM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QEKBCiXCwajlWkCPPySOlf3JnDGALQFjzJhsBv7f41WNt0xs9NR2jIHKWMsbYFwgh
-	 eXZ6B1pIheBYj0oEaAVYNtxix1hpnfSdPGQAdqFSLqket8PGA8SO1tZssl39hZXo6u
-	 mYZ3S9lBVjvEwyANGiNcGjrDfVpdLxjfqlUsujCFOM725ozJ2opLHiB9c4P75u0s1h
-	 7SH2USfxdKpdkDOGQw2/1nIe7+kQoZZafgvXfswuEUzx+hn/tE1HH2PYr21RpSxHXT
-	 vWiwc/yIoywboVrIFEXfvpAYs6O8UDivt38/5e+knLIdWxBYqLajenIr6h6EcBQi3f
-	 G+Y1InzHzwHXQ==
+	b=oh/5DZcN4TUH5kvhCOIQj9ipSM7dp6pdG9+O1ilBGBMdMlDPO/NqkW7RG2dUHstQh
+	 zaUwJZZ5tvTR1rN4QIHT/d5pUoy8xqx7WnW2KyG68iPtJOAtlZFG16TU8hUCX1WlNk
+	 g0Vhh5geRhoLsELgOgWxhFTzSxIe8kRhrysfT56HWjjkmzvqFzxY/bD25+fbF0ZABT
+	 JFj9FseCuFbZG0852PLXiE6O1sMMs/f3oq2OgWDlFYOQ3bobR9FrHYXSdITToEpQ0M
+	 cuM8/MVRRtWhQ57am7iQLFMOMPe8TnW/86utHwhura3MnEo/L02GH1bLGR8agPVhss
+	 mCYE8ZbyX/yPg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Tudor Ambarus <tudor.ambarus@linaro.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
+Cc: Kuniyuki Iwashima <kuniyu@amazon.com>,
+	Eric Dumazet <edumazet@google.com>,
+	Paolo Abeni <pabeni@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] firmware: samsung: acpm: Fix infinite loop on sequence number exhaustion
-Date: Wed, 17 Jun 2026 10:27:58 -0400
-Message-ID: <20260617142758.3938836-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/3] phonet: Pass ifindex to fill_addr().
+Date: Wed, 17 Jun 2026 10:28:28 -0400
+Message-ID: <20260617142830.3939916-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026061544-rinsing-fragrance-9ee5@gregkh>
-References: <2026061544-rinsing-fragrance-9ee5@gregkh>
+In-Reply-To: <2026061541-expanse-aloft-6b99@gregkh>
+References: <2026061541-expanse-aloft-6b99@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,129 +46,79 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Tudor Ambarus <tudor.ambarus@linaro.org>
+From: Kuniyuki Iwashima <kuniyu@amazon.com>
 
-[ Upstream commit 7fe40c32a33905302341797b5d12c541729dd08d ]
+[ Upstream commit 08a9572be36819b5d9011604edfa5db6c5062a7a ]
 
-Sashiko identified a possible infinite loop [1].
+We will convert addr_doit() and getaddr_dumpit() to RCU, both
+of which call fill_addr().
 
-ACPM IPC sequence numbers are tracked via a 64-bit bitmap. Previously,
-acpm_prepare_xfer() used a do...while loop to search for a free
-sequence number.
+The former will call phonet_address_notify() outside of RCU
+due to GFP_KERNEL, so dev will not be available in fill_addr().
 
-If all 63 available sequence numbers are leaked due to transient
-hardware timeouts or mailbox failures, the bitmap becomes full.
-The next call to acpm_prepare_xfer() would enter an infinite loop.
+Let's pass ifindex directly to fill_addr().
 
-Fix this by utilizing the kernel's optimized bitmap search functions
-(find_next_zero_bit / find_first_zero_bit). If the pool is completely
-exhausted, log the failure and return -EBUSY to allow the kernel to
-fail gracefully instead of hanging.
-
-Furthermore, drop the allocation loop entirely. Because
-acpm_prepare_xfer() is strictly called under the 'tx_lock' mutex,
-sequence number allocations are perfectly serialized. If
-find_next_zero_bit() locates a free bit, a single
-test_and_set_bit_lock() is mathematically guaranteed to succeed.
-
-To enforce this locking invariant, wrap the allocation in a
-WARN_ON_ONCE. If the atomic set fails, it indicates the driver's
-mutex serialization is fundamentally broken. The warning generates a
-stack trace for debugging, while returning -EIO immediately aborts the
-transfer to prevent silent payload corruption.
-
-Cc: stable@vger.kernel.org
-Fixes: a88927b534ba ("firmware: add Exynos ACPM protocol driver")
-Closes: https://sashiko.dev/#/patchset/20260420-acpm-tmu-v3-0-3dc8e93f0b26%40linaro.org [1]
-Signed-off-by: Tudor Ambarus <tudor.ambarus@linaro.org>
-Link: https://patch.msgid.link/20260505-acpm-fixes-sashiko-reports-v5-7-43b5ee7f1674@linaro.org
-Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
+Signed-off-by: Kuniyuki Iwashima <kuniyu@amazon.com>
+Reviewed-by: Eric Dumazet <edumazet@google.com>
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+Stable-dep-of: 71de0177b28d ("net: phonet: free phonet_device after RCU grace period")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/firmware/samsung/exynos-acpm.c | 43 +++++++++++++++++++-------
- 1 file changed, 32 insertions(+), 11 deletions(-)
+ net/phonet/pn_netlink.c | 13 +++++++------
+ 1 file changed, 7 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/firmware/samsung/exynos-acpm.c b/drivers/firmware/samsung/exynos-acpm.c
-index 6572cd7be9d177..a62cb9e77196c5 100644
---- a/drivers/firmware/samsung/exynos-acpm.c
-+++ b/drivers/firmware/samsung/exynos-acpm.c
-@@ -12,6 +12,7 @@
- #include <linux/container_of.h>
- #include <linux/delay.h>
- #include <linux/device.h>
-+#include <linux/find.h>
- #include <linux/firmware/samsung/exynos-acpm-protocol.h>
- #include <linux/io.h>
- #include <linux/iopoll.h>
-@@ -361,29 +362,47 @@ static int acpm_wait_for_queue_slots(struct acpm_chan *achan, u32 next_tx_front)
-  * TX queue.
-  * @achan:	ACPM channel info.
-  * @xfer:	reference to the transfer being prepared.
-+ *
-+ * Return: 0 on success, -errno otherwise.
-  */
--static void acpm_prepare_xfer(struct acpm_chan *achan,
--			      const struct acpm_xfer *xfer)
-+static int acpm_prepare_xfer(struct acpm_chan *achan,
-+			     const struct acpm_xfer *xfer)
- {
- 	struct acpm_rx_data *rx_data;
- 	u32 *txd = (u32 *)xfer->txd;
-+	unsigned long size = ACPM_SEQNUM_MAX - 1;
-+	unsigned long bit = achan->seqnum;
+diff --git a/net/phonet/pn_netlink.c b/net/phonet/pn_netlink.c
+index 894e5c72d6bfff..3205d24574779f 100644
+--- a/net/phonet/pn_netlink.c
++++ b/net/phonet/pn_netlink.c
+@@ -19,7 +19,7 @@
+ 
+ /* Device address handling */
+ 
+-static int fill_addr(struct sk_buff *skb, struct net_device *dev, u8 addr,
++static int fill_addr(struct sk_buff *skb, u32 ifindex, u8 addr,
+ 		     u32 portid, u32 seq, int event);
+ 
+ void phonet_address_notify(int event, struct net_device *dev, u8 addr)
+@@ -31,7 +31,8 @@ void phonet_address_notify(int event, struct net_device *dev, u8 addr)
+ 			nla_total_size(1), GFP_KERNEL);
+ 	if (skb == NULL)
+ 		goto errout;
+-	err = fill_addr(skb, dev, addr, 0, 0, event);
 +
-+	bit = find_next_zero_bit(achan->bitmap_seqnum, size, bit);
-+	if (bit >= size) {
-+		bit = find_first_zero_bit(achan->bitmap_seqnum, size);
-+		if (bit >= size) {
-+			dev_err_ratelimited(achan->acpm->dev,
-+					    "ACPM sequence number pool exhausted\n");
-+			return -EBUSY;
-+		}
-+	}
- 
--	/* Prevent chan->seqnum from being re-used */
--	do {
--		if (++achan->seqnum == ACPM_SEQNUM_MAX)
--			achan->seqnum = 1;
--	} while (test_bit(achan->seqnum - 1, achan->bitmap_seqnum));
-+	/*
-+	 * Execute the atomic set to formally claim the bit and establish
-+	 * LKMM Acquire semantics against the RX thread's clear_bit_unlock().
-+	 * A loop is unnecessary because allocations are strictly serialized
-+	 * by tx_lock.
-+	 */
-+	if (WARN_ON_ONCE(test_and_set_bit_lock(bit, achan->bitmap_seqnum)))
-+		return -EIO;
- 
-+	/* Flag the index based on seqnum. (seqnum: 1~63, bitmap: 0~62) */
-+	achan->seqnum = bit + 1;
- 	txd[0] |= FIELD_PREP(ACPM_PROTOCOL_SEQNUM, achan->seqnum);
- 
- 	/* Clear data for upcoming responses */
--	rx_data = &achan->rx_data[achan->seqnum - 1];
-+	rx_data = &achan->rx_data[bit];
- 	memset(rx_data->cmd, 0, sizeof(*rx_data->cmd) * rx_data->n_cmd);
- 	if (xfer->rxd)
- 		rx_data->response = true;
- 
--	/* Flag the index based on seqnum. (seqnum: 1~63, bitmap: 0~62) */
--	set_bit(achan->seqnum - 1, achan->bitmap_seqnum);
-+	return 0;
++	err = fill_addr(skb, dev->ifindex, addr, 0, 0, event);
+ 	if (err < 0) {
+ 		WARN_ON(err == -EMSGSIZE);
+ 		kfree_skb(skb);
+@@ -92,8 +93,8 @@ static int addr_doit(struct sk_buff *skb, struct nlmsghdr *nlh,
+ 	return err;
  }
  
- /**
-@@ -441,7 +460,9 @@ int acpm_do_xfer(struct acpm_handle *handle, const struct acpm_xfer *xfer)
- 		if (ret)
- 			return ret;
+-static int fill_addr(struct sk_buff *skb, struct net_device *dev, u8 addr,
+-			u32 portid, u32 seq, int event)
++static int fill_addr(struct sk_buff *skb, u32 ifindex, u8 addr,
++		     u32 portid, u32 seq, int event)
+ {
+ 	struct ifaddrmsg *ifm;
+ 	struct nlmsghdr *nlh;
+@@ -107,7 +108,7 @@ static int fill_addr(struct sk_buff *skb, struct net_device *dev, u8 addr,
+ 	ifm->ifa_prefixlen = 0;
+ 	ifm->ifa_flags = IFA_F_PERMANENT;
+ 	ifm->ifa_scope = RT_SCOPE_LINK;
+-	ifm->ifa_index = dev->ifindex;
++	ifm->ifa_index = ifindex;
+ 	if (nla_put_u8(skb, IFA_LOCAL, addr))
+ 		goto nla_put_failure;
+ 	nlmsg_end(skb, nlh);
+@@ -140,7 +141,7 @@ static int getaddr_dumpit(struct sk_buff *skb, struct netlink_callback *cb)
+ 			if (addr_idx++ < addr_start_idx)
+ 				continue;
  
--		acpm_prepare_xfer(achan, xfer);
-+		ret = acpm_prepare_xfer(achan, xfer);
-+		if (ret)
-+			return ret;
- 
- 		/* Write TX command. */
- 		__iowrite32_copy(achan->tx.base + achan->mlen * tx_front,
+-			if (fill_addr(skb, pnd->netdev, addr << 2,
++			if (fill_addr(skb, pnd->netdev->ifindex, addr << 2,
+ 					 NETLINK_CB(cb->skb).portid,
+ 					cb->nlh->nlmsg_seq, RTM_NEWADDR) < 0)
+ 				goto out;
 -- 
 2.53.0
 
