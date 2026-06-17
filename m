@@ -1,45 +1,91 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D6BE30EF6C
-	for <stable@vger.kernel.org>; Wed, 17 Jun 2026 19:24:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C6A2317148
+	for <stable@vger.kernel.org>; Wed, 17 Jun 2026 19:27:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781724286; cv=none; b=lE36AP68Yj2Q1Mz0l6wdd6QkZlTQZo8CrqZ+0Fid5eK4IkujCOT6xR1BWXP57U8itoNEgTjh9gAkLxPs3h6idJMsQY0ddU/CyNthWI1EFwL8fCc1lPyBe45qfDwXD6F8WuA4PsFOS9eTq59kMrrdX2eAkgvlLTU4gN6uHDr82ys=
+	t=1781724463; cv=none; b=DReQVlBIwM5F2KIHMO6EuUKYzLt6wsCmPM39vp83xM4VFjFzuPrMBT8Ql9QgiVXLsSd8IWs1qxsAGT0zpdTY3rJFyUOgDRVOVuFN7w5EWn3flVyBiOts8Os6Q1DRPPY1HsJfbe33AsByQ4WejWA20gMmZ5gfWcIsexeumLcE3n0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781724286; c=relaxed/simple;
-	bh=byOZliA7wCh2t3B67e2sA6IUQEqhlCgpgg2p5ra3t/E=;
+	s=arc-20240116; t=1781724463; c=relaxed/simple;
+	bh=rJkgmoz7EmqnNiPJ1TXRM+EOs3EnVRBt8q3RtCLN6AE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XmdybSOzsr1XXUshdFyrf9zT0EwJ0oTgkwUNMNBuKzYwYrK+ePSxU88LqyE8yJ9AUTIrBj/DpI+SmHJQkxJtFu49gP+qMPZe5QJP4Y0+x9lkH5hotPxY4xTucyXStV4Wu58U0fe+0OmdpjeB/Y13L04jeJ61iwshmTVkJjZO1aU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DWmPvGve; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=HiCU9XiQf6WmKK123GLEZuzUTHeyEI3Y0gQ0rORNbu6Z42Wj7Bc2OmHW+99aHwfTRFczdazixCuc+p+jZNgLKnOpWZX04LH2BFsmCjrZYikt9NMfhD/hZZAMN4yc+1fQlCZl4hQTOkYapMm0yIY2+szQocQzdBluglWBAdWAzJ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=KjKY7CNd; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=zlK73lRe; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=KjKY7CNd; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=zlK73lRe; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DWmPvGve"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4EF801F000E9;
-	Wed, 17 Jun 2026 19:24:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781724285;
-	bh=NdWWaYSnb/U09xcZbcuJ1gWhwVkRXpZ5OAlLh5MpcPM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DWmPvGvedxf+bfaQa7013Al+FvXWlE2w1D7mEKU1kTSBdoJRvmugQSGeBjRg/aJfg
-	 lNDX9PX267i0vtjx6vCbSEuH8ZJGbFiZRSoTRTp7LEulO+kvw55Bpbm43sV2ryowJf
-	 ikMPwYT4LYsEsEp+wSPmy3oGfPvHH3gXtbJFuWt71Zqu7arIgWVkzzlTJCs5F27Xf7
-	 3V8q9wQdZMpZfHvSYnmQnH5sFSfRQBJpQYuZ4M7N0czjj5IuzlJ+ecCDiP6bB7bAip
-	 0WpalPdiUzt4UJmrZsIoq60v4li0zoqZkb1ievrqOot2M3R6ptjRwtnF9KPXf9owqG
-	 2DDnlgGANRb7A==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
-	Srinivas Kandagatla <srini@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] slimbus: qcom-ngd-ctrl: Fix up platform_driver registration
-Date: Wed, 17 Jun 2026 15:24:42 -0400
-Message-ID: <20260617192442.296528-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026061519-vest-submerge-1c40@gregkh>
-References: <2026061519-vest-submerge-1c40@gregkh>
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="KjKY7CNd";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="zlK73lRe";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="KjKY7CNd";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="zlK73lRe"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 650F175B75;
+	Wed, 17 Jun 2026 19:27:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1781724458; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5TOcj9vGSqFRhOPnIn0LJ1p+gKaatteNuwDYVzjeXDo=;
+	b=KjKY7CNd3pr/Z0aaUMMJ9eTgI9zlvRaSLIhcmP5N4rSgIU7lFVWzO5QMP1JJYS0L6//e95
+	MDU4qo+IoNYZYkciyL8+twC+Akmvwyr946mQNKU1b3lY05JVC7vAwU73eDXoNX0OlZ5XRL
+	QLjF8Rg97oCQZIS4bFApQ5LiaIfF63w=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1781724458;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5TOcj9vGSqFRhOPnIn0LJ1p+gKaatteNuwDYVzjeXDo=;
+	b=zlK73lRe8o3aDXbkDdfoSPLNZtwOu0gip15Yy9KcUz7T1xf53Z8BEIy4+nYZwdBGyVEMnr
+	GQ54WD+6tL1IudDA==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=KjKY7CNd;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=zlK73lRe
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1781724458; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5TOcj9vGSqFRhOPnIn0LJ1p+gKaatteNuwDYVzjeXDo=;
+	b=KjKY7CNd3pr/Z0aaUMMJ9eTgI9zlvRaSLIhcmP5N4rSgIU7lFVWzO5QMP1JJYS0L6//e95
+	MDU4qo+IoNYZYkciyL8+twC+Akmvwyr946mQNKU1b3lY05JVC7vAwU73eDXoNX0OlZ5XRL
+	QLjF8Rg97oCQZIS4bFApQ5LiaIfF63w=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1781724458;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5TOcj9vGSqFRhOPnIn0LJ1p+gKaatteNuwDYVzjeXDo=;
+	b=zlK73lRe8o3aDXbkDdfoSPLNZtwOu0gip15Yy9KcUz7T1xf53Z8BEIy4+nYZwdBGyVEMnr
+	GQ54WD+6tL1IudDA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 288DA779A8;
+	Wed, 17 Jun 2026 19:27:38 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id N772Air1Mmo2SAAAD6G6ig
+	(envelope-from <krisman@suse.de>); Wed, 17 Jun 2026 19:27:38 +0000
+From: Gabriel Krisman Bertazi <krisman@suse.de>
+To: gregkh@linuxfoundation.org,
+	stable@vger.kernel.org
+Cc: io-uring@vger.kernel.org,
+	Gabriel Krisman Bertazi <krisman@suse.de>,
+	Jens Axboe <axboe@kernel.dk>
+Subject: [PATCH stable-7.0.y] io_uring/net: Avoid msghdr on op_connect/op_bind async data
+Date: Wed, 17 Jun 2026 15:27:22 -0400
+Message-ID: <20260617192722.3041610-1-krisman@suse.de>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <2026061845-cycle-enviable-bb5e@gregkh>
+References: <2026061845-cycle-enviable-bb5e@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,99 +93,201 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Spam-Flag: NO
+X-Rspamd-Action: no action
+X-Spam-Level: 
+X-Spamd-Result: default: False [-3.01 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_MISSING_CHARSET(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,msgid.link:url,suse.de:email,suse.de:dkim,suse.de:mid];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	ARC_NA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FUZZY_RATELIMITED(0.00)[rspamd.com];
+	FROM_EQ_ENVFROM(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCVD_COUNT_TWO(0.00)[2];
+	RCVD_TLS_ALL(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[5];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 650F175B75
+X-Spam-Score: -3.01
 
-From: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
+[ Upstream commit 3979840cd858f30f43ea9f4e7f7f1f56de82d698 ]
+This fixes a memory leak due to the lack of the cleanup hook for the
+iovec.  The stable backport differs from upstream by dropping the
+io_connect_bpf_populate hunk, which didn't exist at the time and by
+fixing the merge conflict due to the introduction of
+io_bind_file_create.
 
-[ Upstream commit 8663e8334d7b6007f5d8a4e5dd270246f35107a6 ]
+Both IORING_OP_CONNECT and IORING_OP_BIND reuse the msghdr object just
+to store the sockaddr. Beyond allocating a much larger object than
+needed, msghdr can also wrap an iovec, which will be recycled
+unnecessarily. This uses the sockaddr directly.
 
-Device drivers should not invoke platform_driver_register()/unregister()
-in their probe and remove paths. They should further not rely on
-platform_driver_unregister() as their only means of "deleting" their
-child devices.
-
-Introduce a helper to unregister the child device and move the
-platform_driver_register()/unregister() to module_init()/exit().
-
-Fixes: 917809e2280b ("slimbus: ngd: Add qcom SLIMBus NGD driver")
 Cc: stable@vger.kernel.org
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Reviewed-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-Signed-off-by: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
-Signed-off-by: Srinivas Kandagatla <srini@kernel.org>
-Link: https://patch.msgid.link/20260530204421.116824-3-srini@kernel.org
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Gabriel Krisman Bertazi <krisman@suse.de>
+Link: https://patch.msgid.link/20260602215327.1885109-2-krisman@suse.de
+Signed-off-by: Jens Axboe <axboe@kernel.dk>
+Signed-off-by: Gabriel Krisman Bertazi <krisman@suse.de>
 ---
- drivers/slimbus/qcom-ngd-ctrl.c | 36 ++++++++++++++++++++++++++++++---
- 1 file changed, 33 insertions(+), 3 deletions(-)
+ io_uring/net.c   | 36 ++++++++++++++++++------------------
+ io_uring/opdef.c |  4 ++--
+ 2 files changed, 20 insertions(+), 20 deletions(-)
 
-diff --git a/drivers/slimbus/qcom-ngd-ctrl.c b/drivers/slimbus/qcom-ngd-ctrl.c
-index 3fa245a472b2ee..da8bffe6df5de3 100644
---- a/drivers/slimbus/qcom-ngd-ctrl.c
-+++ b/drivers/slimbus/qcom-ngd-ctrl.c
-@@ -1491,6 +1491,13 @@ static int of_qcom_slim_ngd_register(struct device *parent,
- 	return -ENODEV;
+diff --git a/io_uring/net.c b/io_uring/net.c
+index 5bd3fa5a2b6d..85efde185a2b 100644
+--- a/io_uring/net.c
++++ b/io_uring/net.c
+@@ -1774,7 +1774,7 @@ int io_socket(struct io_kiocb *req, unsigned int issue_flags)
+ int io_connect_prep(struct io_kiocb *req, const struct io_uring_sqe *sqe)
+ {
+ 	struct io_connect *conn = io_kiocb_to_cmd(req, struct io_connect);
+-	struct io_async_msghdr *io;
++	struct sockaddr_storage *addr;
+ 
+ 	if (sqe->len || sqe->buf_index || sqe->rw_flags || sqe->splice_fd_in)
+ 		return -EINVAL;
+@@ -1783,17 +1783,17 @@ int io_connect_prep(struct io_kiocb *req, const struct io_uring_sqe *sqe)
+ 	conn->addr_len =  READ_ONCE(sqe->addr2);
+ 	conn->in_progress = conn->seen_econnaborted = false;
+ 
+-	io = io_msg_alloc_async(req);
+-	if (unlikely(!io))
++	addr = io_uring_alloc_async_data(NULL, req);
++	if (unlikely(!addr))
+ 		return -ENOMEM;
+ 
+-	return move_addr_to_kernel(conn->addr, conn->addr_len, &io->addr);
++	return move_addr_to_kernel(conn->addr, conn->addr_len, addr);
  }
  
-+static void qcom_slim_ngd_unregister(struct qcom_slim_ngd_ctrl *ctrl)
-+{
-+	struct qcom_slim_ngd *ngd = ctrl->ngd;
-+
-+	platform_device_del(ngd->pdev);
-+}
-+
- static int qcom_slim_ngd_probe(struct platform_device *pdev)
+ int io_connect(struct io_kiocb *req, unsigned int issue_flags)
  {
- 	struct device *dev = &pdev->dev;
-@@ -1595,7 +1602,6 @@ static int qcom_slim_ngd_ctrl_probe(struct platform_device *pdev)
- 		goto err_pdr_lookup;
- 	}
+ 	struct io_connect *connect = io_kiocb_to_cmd(req, struct io_connect);
+-	struct io_async_msghdr *io = req->async_data;
++	struct sockaddr_storage *addr = req->async_data;
+ 	unsigned file_flags;
+ 	int ret;
+ 	bool force_nonblock = issue_flags & IO_URING_F_NONBLOCK;
+@@ -1807,8 +1807,7 @@ int io_connect(struct io_kiocb *req, unsigned int issue_flags)
  
--	platform_driver_register(&qcom_slim_ngd_driver);
- 	return of_qcom_slim_ngd_register(dev, ctrl);
+ 	file_flags = force_nonblock ? O_NONBLOCK : 0;
  
- err_pdr_alloc:
-@@ -1609,7 +1615,9 @@ static int qcom_slim_ngd_ctrl_probe(struct platform_device *pdev)
- 
- static int qcom_slim_ngd_ctrl_remove(struct platform_device *pdev)
+-	ret = __sys_connect_file(req->file, &io->addr, connect->addr_len,
+-				 file_flags);
++	ret = __sys_connect_file(req->file, addr, connect->addr_len, file_flags);
+ 	if ((ret == -EAGAIN || ret == -EINPROGRESS || ret == -ECONNABORTED)
+ 	    && force_nonblock) {
+ 		if (ret == -EINPROGRESS) {
+@@ -1837,7 +1836,6 @@ int io_connect(struct io_kiocb *req, unsigned int issue_flags)
+ out:
+ 	if (ret < 0)
+ 		req_set_fail(req);
+-	io_req_msg_cleanup(req, issue_flags);
+ 	io_req_set_res(req, ret, 0);
+ 	return IOU_COMPLETE;
+ }
+@@ -1847,15 +1845,15 @@ int io_connect(struct io_kiocb *req, unsigned int issue_flags)
+  * which in turn end up in mnt_want_write() which will grab the fs
+  * percpu start write sem. This can trigger a lockdep warning.
+  */
+-static int io_bind_file_create(const struct io_async_msghdr *io, int addr_len)
++static int io_bind_file_create(const struct sockaddr_storage *addr, int addr_len)
  {
--	platform_driver_unregister(&qcom_slim_ngd_driver);
-+	struct qcom_slim_ngd_ctrl *ctrl = platform_get_drvdata(pdev);
-+
-+	qcom_slim_ngd_unregister(ctrl);
+ 	const struct sockaddr_un *sun;
  
+-	if (io->addr.ss_family != AF_UNIX)
++	if (addr->ss_family != AF_UNIX)
+ 		return 0;
+ 	if (addr_len <= offsetof(struct sockaddr_un, sun_path))
+ 		return 0;
+-	sun = (const struct sockaddr_un *) &io->addr;
++	sun = (const struct sockaddr_un *) addr;
+ 	return sun->sun_path[0] != '\0';
+ }
+ 
+@@ -1863,7 +1861,7 @@ int io_bind_prep(struct io_kiocb *req, const struct io_uring_sqe *sqe)
+ {
+ 	struct io_bind *bind = io_kiocb_to_cmd(req, struct io_bind);
+ 	struct sockaddr __user *uaddr;
+-	struct io_async_msghdr *io;
++	struct sockaddr_storage *addr;
+ 	int ret;
+ 
+ 	if (sqe->len || sqe->buf_index || sqe->rw_flags || sqe->splice_fd_in)
+@@ -1872,21 +1870,23 @@ int io_bind_prep(struct io_kiocb *req, const struct io_uring_sqe *sqe)
+ 	uaddr = u64_to_user_ptr(READ_ONCE(sqe->addr));
+ 	bind->addr_len =  READ_ONCE(sqe->addr2);
+ 
+-	io = io_msg_alloc_async(req);
+-	if (unlikely(!io))
++	addr = io_uring_alloc_async_data(NULL, req);
++	if (unlikely(!addr))
+ 		return -ENOMEM;
+-	ret = move_addr_to_kernel(uaddr, bind->addr_len, &io->addr);
++
++	ret = move_addr_to_kernel(uaddr, bind->addr_len, addr);
+ 	if (unlikely(ret))
+ 		return ret;
+-	if (io_bind_file_create(io, bind->addr_len))
++	if (io_bind_file_create(addr, bind->addr_len))
+ 		req->flags |= REQ_F_FORCE_ASYNC;
  	return 0;
  }
-@@ -1688,6 +1696,28 @@ static struct platform_driver qcom_slim_ngd_driver = {
- 	},
- };
  
--module_platform_driver(qcom_slim_ngd_ctrl_driver);
-+static int qcom_slim_ngd_init(void)
-+{
-+	int ret;
 +
-+	ret = platform_driver_register(&qcom_slim_ngd_driver);
-+	if (ret)
-+		return ret;
-+
-+	ret = platform_driver_register(&qcom_slim_ngd_ctrl_driver);
-+	if (ret)
-+		platform_driver_unregister(&qcom_slim_ngd_driver);
-+
-+	return ret;
-+}
-+
-+static void qcom_slim_ngd_exit(void)
-+{
-+	platform_driver_unregister(&qcom_slim_ngd_ctrl_driver);
-+	platform_driver_unregister(&qcom_slim_ngd_driver);
-+}
-+
-+module_init(qcom_slim_ngd_init);
-+module_exit(qcom_slim_ngd_exit);
- MODULE_LICENSE("GPL v2");
- MODULE_DESCRIPTION("Qualcomm SLIMBus NGD controller");
+ int io_bind(struct io_kiocb *req, unsigned int issue_flags)
+ {
+ 	struct io_bind *bind = io_kiocb_to_cmd(req, struct io_bind);
+-	struct io_async_msghdr *io = req->async_data;
++	struct sockaddr_storage *addr = req->async_data;
+ 	struct socket *sock;
+ 	int ret;
+ 
+@@ -1894,7 +1894,7 @@ int io_bind(struct io_kiocb *req, unsigned int issue_flags)
+ 	if (unlikely(!sock))
+ 		return -ENOTSOCK;
+ 
+-	ret = __sys_bind_socket(sock, &io->addr, bind->addr_len);
++	ret = __sys_bind_socket(sock, addr, bind->addr_len);
+ 	if (ret < 0)
+ 		req_set_fail(req);
+ 	io_req_set_res(req, ret, 0);
+diff --git a/io_uring/opdef.c b/io_uring/opdef.c
+index 91a23baf415e..2e1752df8748 100644
+--- a/io_uring/opdef.c
++++ b/io_uring/opdef.c
+@@ -207,7 +207,7 @@ const struct io_issue_def io_issue_defs[] = {
+ 		.unbound_nonreg_file	= 1,
+ 		.pollout		= 1,
+ #if defined(CONFIG_NET)
+-		.async_size		= sizeof(struct io_async_msghdr),
++		.async_size		= sizeof(struct sockaddr_storage),
+ 		.prep			= io_connect_prep,
+ 		.issue			= io_connect,
+ #else
+@@ -510,7 +510,7 @@ const struct io_issue_def io_issue_defs[] = {
+ 		.needs_file		= 1,
+ 		.prep			= io_bind_prep,
+ 		.issue			= io_bind,
+-		.async_size		= sizeof(struct io_async_msghdr),
++		.async_size		= sizeof(struct sockaddr_storage),
+ #else
+ 		.prep			= io_eopnotsupp_prep,
+ #endif
 -- 
-2.53.0
+2.54.0
 
