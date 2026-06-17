@@ -1,154 +1,157 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09B3928CF5D
-	for <stable@vger.kernel.org>; Wed, 17 Jun 2026 20:33:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7115328CF5D
+	for <stable@vger.kernel.org>; Wed, 17 Jun 2026 20:34:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781728440; cv=none; b=r/ML0ERpXvR5BCRuecx+/W5HGprp1c1B9Ysm8H7uAJ8O8L0SvrDg+5Pn4vC1QbcMpIs8DDrU1g/ZuVtgAbftfn175OS/aCBinF3CCAKEN7lFJuugm5TkwDwqJcnUaDbhbbQdu4OGfNv+b/+cncpUQxjZ6Y15jvLf2pNNivLgz94=
+	t=1781728444; cv=none; b=AtwCsaNKSxUCbP2DqVgGBk21EdWSfISckegn2Dp+3MplfqkJgTPL3dg4h7M86zTP7bq7RikA4nwoqfmdyOf8bK+9uSWudZnw+LZoMBL/mUN1fo4gnPOAu8t8Sz0VlzbJELFjZDqIepMG5XCUgKFACJ5N7m0jxxQ6VMQ1Jc+HjVA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781728440; c=relaxed/simple;
-	bh=yv/OAO1hm17vRsQtyncwVgokk9OgH8vnf7MacQ3bM2E=;
+	s=arc-20240116; t=1781728444; c=relaxed/simple;
+	bh=sMGr5ug+hsZO4kQSIrbuq06XSdG5xIeAW1C2O9ov4zc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=H+Gv/3mTo8vHu4SqFP0sT8TTC4n1VVe8WbVCfwZerc6qQdXfkxayA3av/+9kIDDAAovq5NGmld2HOtWGbumHAT0GqhSff73Nel11iUj34VrRpO7cI8lF/N/3PmLirztZBYR9j6R0dtR9grXt70dVe0PD5oluoVlsiFNLNdys+lA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mMZ5mX/4; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=TV8LIlwAWjWiginFMAxsumPMjHa3+z9TwR5T3VKwIrHapo5fhCMwWPfzh8nQ1skrZoG5U0MpBCeJm9vOGkIddpboixgtd0A7+I7CaKX8CMmgiCHJCTFRhXFa07PftjegRJ+fa6W5/m/GLsD8nU6gdVcF8wIXQ7fdqOVFnsvDXHs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aAiQYr4B; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mMZ5mX/4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E70C11F000E9;
-	Wed, 17 Jun 2026 20:33:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aAiQYr4B"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C1D31F000E9;
+	Wed, 17 Jun 2026 20:34:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781728438;
-	bh=bNdlfoqtsBMfEuTEBZXui1lzUFRRYvXWdUgkF6AxEBc=;
+	s=k20260515; t=1781728443;
+	bh=xvrfebBA1DS3FCUHk7mIpra8jRQT6duXlISJByAfmTE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mMZ5mX/40Z3FKpyiZ5u5bByaQ4UGnA2/b8FuvpzpqbjmTxxvmYHxNaWOuNw1iF9hC
-	 UFASpt1qlj+uypryTzBpPk+V3t0sl74Esb9Cwg93Ji+xskm9gG6A82gVqRX4YXURQa
-	 Z6JRbTeCpAgaK7xjcQLoCnfTfeD/qPqp8MGXibCcJiEuCXgTfhNWkwfNOUSp8xsm94
-	 b8LsO5bAnQkZJxWXEOy3pOTqiSIgdNqVABYbOyHwfypwoAWx4l02iGYLLi8FNVVfh6
-	 jwFX5L6O93hHzaKyTD2ALcxbhxSxi49hrMTF3wDx2HBXSn1KPtZnqhxB4xDjO60f8+
-	 vo+SdPyG+XfnQ==
+	b=aAiQYr4BLwUCd1bABh3KfaRo0JIWxAe8FqGPVm8ldAP+8XyteLAp8UJIF+gNloPds
+	 1v9orefztcC54SyNt7e1IvBSVeihawSofmSHj3mHe9TDOpJIbJ4mga2I17q+73kL/v
+	 lHaWpzseUa8SNs/zU3GGLUPa/xyJnSTgxginJeH8ukqXhr1skwjmW12k9ksxmZnG4c
+	 kMIxmoG64dLQHALgP88wTDHvC48pZ9i7Wz6LnItE+bvY0+mH7rVrXvGa7x8Aq1M0aD
+	 47oCHeg6pe9oEPBlM9XoGwILK3B6iNwcSDn32xdI7ViJNbpyxlBdk5evvrE4PeZ//T
+	 D66UFk1TxnluA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
-	Srinivas Kandagatla <srini@kernel.org>,
+Cc: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] slimbus: qcom-ngd-ctrl: Initialize controller resources in controller
-Date: Wed, 17 Jun 2026 16:33:56 -0400
-Message-ID: <20260617203356.334410-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/4] slimbus: Convert to platform remove callback returning void
+Date: Wed, 17 Jun 2026 16:33:57 -0400
+Message-ID: <20260617203400.334600-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026061531-astute-serotonin-a9f5@gregkh>
-References: <2026061531-astute-serotonin-a9f5@gregkh>
+In-Reply-To: <2026061507-squishy-ankle-c2e7@gregkh>
+References: <2026061507-squishy-ankle-c2e7@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
+From: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
 
-[ Upstream commit 07c564ea5fb859b7381429de935d5df4781947c6 ]
+[ Upstream commit 880b33b0580c8ac9d0202b6e592cb116c99d1b65 ]
 
-The work structs and work queue are controller resources, create and
-destroy them in the controller context. Creating them as part of the
-child device's probe path seems to be okay now that the controller's
-probe has been updated, but if for some reason the child does not probe
-successfully a SSR or PDR notification will schedule_work() on an
-uninitialized "ngd_up_work".
+The .remove() callback for a platform driver returns an int which makes
+many driver authors wrongly assume it's possible to do error handling by
+returning an error code. However the value returned is ignored (apart
+from emitting a warning) and this typically results in resource leaks.
 
-Move the initialization of these controller resources to the controller
-probe function to avoid any issues, and to clarify the ownership.
+To improve here there is a quest to make the remove callback return
+void. In the first step of this quest all drivers are converted to
+.remove_new(), which already returns void. Eventually after all drivers
+are converted, .remove_new() will be renamed to .remove().
 
-Fixes: 917809e2280b ("slimbus: ngd: Add qcom SLIMBus NGD driver")
-Cc: stable@vger.kernel.org
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Reviewed-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-Signed-off-by: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
-Signed-off-by: Srinivas Kandagatla <srini@kernel.org>
-Link: https://patch.msgid.link/20260530204421.116824-7-srini@kernel.org
+Trivially convert the slimbus drivers from always returning zero in the
+remove callback to the void returning variant.
+
+Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
+Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Link: https://lore.kernel.org/r/20240430091657.35428-3-srinivas.kandagatla@linaro.org
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Stable-dep-of: 2a9d50e9ea40 ("slimbus: qcom-ngd-ctrl: Register callbacks after creating the ngd")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/slimbus/qcom-ngd-ctrl.c | 33 +++++++++++++--------------------
- 1 file changed, 13 insertions(+), 20 deletions(-)
+ drivers/slimbus/qcom-ctrl.c     |  5 ++---
+ drivers/slimbus/qcom-ngd-ctrl.c | 11 ++++-------
+ 2 files changed, 6 insertions(+), 10 deletions(-)
 
+diff --git a/drivers/slimbus/qcom-ctrl.c b/drivers/slimbus/qcom-ctrl.c
+index c0c4f895d76e20..31f46000ca030f 100644
+--- a/drivers/slimbus/qcom-ctrl.c
++++ b/drivers/slimbus/qcom-ctrl.c
+@@ -628,7 +628,7 @@ static int qcom_slim_probe(struct platform_device *pdev)
+ 	return ret;
+ }
+ 
+-static int qcom_slim_remove(struct platform_device *pdev)
++static void qcom_slim_remove(struct platform_device *pdev)
+ {
+ 	struct qcom_slim_ctrl *ctrl = platform_get_drvdata(pdev);
+ 
+@@ -637,7 +637,6 @@ static int qcom_slim_remove(struct platform_device *pdev)
+ 	clk_disable_unprepare(ctrl->rclk);
+ 	clk_disable_unprepare(ctrl->hclk);
+ 	destroy_workqueue(ctrl->rxwq);
+-	return 0;
+ }
+ 
+ /*
+@@ -724,7 +723,7 @@ static const struct of_device_id qcom_slim_dt_match[] = {
+ 
+ static struct platform_driver qcom_slim_driver = {
+ 	.probe = qcom_slim_probe,
+-	.remove = qcom_slim_remove,
++	.remove_new = qcom_slim_remove,
+ 	.driver	= {
+ 		.name = "qcom_slim_ctrl",
+ 		.of_match_table = qcom_slim_dt_match,
 diff --git a/drivers/slimbus/qcom-ngd-ctrl.c b/drivers/slimbus/qcom-ngd-ctrl.c
-index d0d289c49c8d11..a49aba31bb8de5 100644
+index 3fa245a472b2ee..55739ed04fb84b 100644
 --- a/drivers/slimbus/qcom-ngd-ctrl.c
 +++ b/drivers/slimbus/qcom-ngd-ctrl.c
-@@ -1579,25 +1579,8 @@ static int qcom_slim_ngd_probe(struct platform_device *pdev)
- 	pm_runtime_enable(dev);
- 	pm_runtime_get_noresume(dev);
- 	ret = qcom_slim_ngd_qmi_svc_event_init(ctrl);
--	if (ret) {
-+	if (ret)
- 		dev_err(&pdev->dev, "QMI service registration failed:%d", ret);
--		return ret;
--	}
--
--	INIT_WORK(&ctrl->m_work, qcom_slim_ngd_master_worker);
--	INIT_WORK(&ctrl->ngd_up_work, qcom_slim_ngd_up_worker);
--	ctrl->mwq = create_singlethread_workqueue("ngd_master");
--	if (!ctrl->mwq) {
--		dev_err(&pdev->dev, "Failed to start master worker\n");
--		ret = -ENOMEM;
--		goto wq_err;
--	}
+@@ -1607,14 +1607,12 @@ static int qcom_slim_ngd_ctrl_probe(struct platform_device *pdev)
+ 	return ret;
+ }
+ 
+-static int qcom_slim_ngd_ctrl_remove(struct platform_device *pdev)
++static void qcom_slim_ngd_ctrl_remove(struct platform_device *pdev)
+ {
+ 	platform_driver_unregister(&qcom_slim_ngd_driver);
 -
 -	return 0;
--wq_err:
--	qcom_slim_ngd_qmi_svc_event_deinit(&ctrl->qmi);
--	if (ctrl->mwq)
--		destroy_workqueue(ctrl->mwq);
- 
- 	return ret;
- }
-@@ -1653,6 +1636,13 @@ static int qcom_slim_ngd_ctrl_probe(struct platform_device *pdev)
- 	init_completion(&ctrl->qmi.qmi_comp);
- 	init_completion(&ctrl->qmi_up);
- 
-+	INIT_WORK(&ctrl->m_work, qcom_slim_ngd_master_worker);
-+	INIT_WORK(&ctrl->ngd_up_work, qcom_slim_ngd_up_worker);
-+
-+	ctrl->mwq = create_singlethread_workqueue("ngd_master");
-+	if (!ctrl->mwq)
-+		return dev_err_probe(dev, -ENOMEM, "Failed to start master worker\n");
-+
- 	ctrl->pdr = pdr_handle_alloc(slim_pd_status, ctrl);
- 	if (IS_ERR(ctrl->pdr)) {
- 		ret = dev_err_probe(dev, PTR_ERR(ctrl->pdr),
-@@ -1674,14 +1664,19 @@ static int qcom_slim_ngd_ctrl_probe(struct platform_device *pdev)
- 
- err_pdr_lookup:
- 	pdr_handle_release(ctrl->pdr);
-+	destroy_workqueue(ctrl->mwq);
- 
- 	return ret;
  }
  
- static int qcom_slim_ngd_ctrl_remove(struct platform_device *pdev)
+-static int qcom_slim_ngd_remove(struct platform_device *pdev)
++static void qcom_slim_ngd_remove(struct platform_device *pdev)
  {
-+	struct qcom_slim_ngd_ctrl *ctrl = platform_get_drvdata(pdev);
-+
- 	platform_driver_unregister(&qcom_slim_ngd_driver);
+ 	struct qcom_slim_ngd_ctrl *ctrl = platform_get_drvdata(pdev);
  
-+	destroy_workqueue(ctrl->mwq);
-+
- 	return 0;
- }
- 
-@@ -1695,8 +1690,6 @@ static int qcom_slim_ngd_remove(struct platform_device *pdev)
- 	qcom_slim_ngd_enable(ctrl, false);
- 	qcom_slim_ngd_exit_dma(ctrl);
- 	qcom_slim_ngd_qmi_svc_event_deinit(&ctrl->qmi);
--	if (ctrl->mwq)
--		destroy_workqueue(ctrl->mwq);
+@@ -1629,7 +1627,6 @@ static int qcom_slim_ngd_remove(struct platform_device *pdev)
  
  	kfree(ctrl->ngd);
  	ctrl->ngd = NULL;
+-	return 0;
+ }
+ 
+ static int __maybe_unused qcom_slim_ngd_runtime_idle(struct device *dev)
+@@ -1672,7 +1669,7 @@ static const struct dev_pm_ops qcom_slim_ngd_dev_pm_ops = {
+ 
+ static struct platform_driver qcom_slim_ngd_ctrl_driver = {
+ 	.probe = qcom_slim_ngd_ctrl_probe,
+-	.remove = qcom_slim_ngd_ctrl_remove,
++	.remove_new = qcom_slim_ngd_ctrl_remove,
+ 	.driver	= {
+ 		.name = "qcom,slim-ngd-ctrl",
+ 		.of_match_table = qcom_slim_ngd_dt_match,
+@@ -1681,7 +1678,7 @@ static struct platform_driver qcom_slim_ngd_ctrl_driver = {
+ 
+ static struct platform_driver qcom_slim_ngd_driver = {
+ 	.probe = qcom_slim_ngd_probe,
+-	.remove = qcom_slim_ngd_remove,
++	.remove_new = qcom_slim_ngd_remove,
+ 	.driver	= {
+ 		.name = QCOM_SLIM_NGD_DRV_NAME,
+ 		.pm = &qcom_slim_ngd_dev_pm_ops,
 -- 
 2.53.0
 
