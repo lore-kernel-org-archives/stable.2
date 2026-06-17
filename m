@@ -1,110 +1,107 @@
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5222648164E
-	for <stable@vger.kernel.org>; Wed, 17 Jun 2026 16:30:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E00F44BC003;
+	Wed, 17 Jun 2026 16:31:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781713820; cv=none; b=FJPL4jt4IabxVC6tmkxwsJ694TcZP3TFdW1zyfhDtcDQorv+Jjv8AzE2K8H7/L2IFCG70r6Qbz9+ITuLbP6b0gXUWbsVuITiqxaEdnjf/BpXSudCg69Suyb8iHO4gYluRha8dfZ6kPlBtygwAlRInuO6tyPKAhmKBGHRAsIHoRQ=
+	t=1781713898; cv=none; b=OdL303QE4exoicf4SfuXNEO5Zm+5k1FAYA+cwH/thyONUKuqPK04ZAo1M0Q6wQanDC14qyzSZPeGIWA4QlJvuaioBjvPcgdDmEv3fYy9/xLU8a+3DCt+WDVuz3tJ8cZ5hx21h8bj7qh/P5hnlLsQIcFhnJSeKLs/Lw/Rt5+dXS0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781713820; c=relaxed/simple;
-	bh=hsewUNouosKGNpJS30V7SF+ZI6qWwdZuSjy4WguIEJ0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=cnYH4HNbQykjyEtTwAUb8iAdQHVpe6et7Kjy3oRhycjDYlf26xy8ZFvp5/QGQqNRRGiRnkHGET5rAC0uI9UTfdXoB5RHELvpGMaAPGGw5EfG3bes/rIB9/hwV2q69SZFmxE8mCWs64Jf3lcpcJEHxKCkz+nXM+Cc15jq52WxqIo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com; spf=pass smtp.mailfrom=googlemail.com; dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b=JWa09O1X; arc=none smtp.client-ip=209.85.221.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
+	s=arc-20240116; t=1781713898; c=relaxed/simple;
+	bh=1+ZGcx5TMr1kWNhSCKBo/Jx/q44j6gy2ujf6YIz4Hok=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PY9Ujt2FpvLBbdThKtXrCoVX70Tdc0oqb8BSijR5O7mhCgMgjAAyGjsQw8DzGXupfQPcpOnd73FU/hBPdeMaQg5yKmDK3o5DLHAX1TMY9M3XTbbAenD41kOaSlQ1RTwZ8GCDRr9dKaQT2ZiWLe8+/utaZpDws0szeZOTer85/FA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=Io1nRl4G; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b="JWa09O1X"
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-460662fcb4eso18674f8f.0
-        for <stable@vger.kernel.org>; Wed, 17 Jun 2026 09:30:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlemail.com; s=20251104; t=1781713814; x=1782318614; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=i2Fz0gfXChJSjKov0DWWEtFMC4KgxCKir1jdmeKrCPA=;
-        b=JWa09O1XStTdGQPeGFlZ5wQvVYhgknNqQYF64t23kH9K715IwJJlSycHTr7UjLUy/4
-         mnGncL0e3cXbsgc5/uTDhe7Pi6+nv7pT9ejz9xE3mTKSTM54Y6T+vSJKC8o3v7zrs+qm
-         0AoIedycRiUUhuKCks7uB8wu6hJkjzQtWfWWJBnOHU4zGw81mqx/qMesIYBepEELbpv7
-         SAoNXY37F+4KVB5vPPDxqgi3GfZs5d3XRs27emCBTJ/ZaTtYFdoAWx7v/+fJ5NLzELE0
-         UD7tZzB6O58D/PQec70piniu9blsaBjZF1F5ryy7LjKtSBYDWaKfuYQncb8yP82PewNA
-         BpoA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781713814; x=1782318614;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=i2Fz0gfXChJSjKov0DWWEtFMC4KgxCKir1jdmeKrCPA=;
-        b=Pp5EBJjWWFrmLt5ggGHEFTySabPYHmeD+o9v7SAprHZIuCGIsyPa9nWZXl78OX6FkR
-         /ribQzOBhwDDJMvZftsx1JcGkWV0UG5G4fda8p5V6iuQ+Xn0ZEwoWMA4JNtBLbu92YZH
-         HCfuaHSuFSj46OTtK/RMVD0jnd7v7xdnfsoAZjpNJwUbvp8P0/U+B6rVQch19v8XHq6l
-         ycGpv29A+FIyHCv0mjM8wyJagYzLJIA2U1oLYWShYkfTSd3skoJZCLQzAKw47dGQKOb1
-         DUhWv55W9fRrGbMQbRyi/R2YI4B3KdfwMXHxc6r4GJY0AiqqyRdxCYL0l1lbXUbIbeM+
-         ixuw==
-X-Forwarded-Encrypted: i=1; AFNElJ9OKYyt+vGzJv3GI7p4k7OJgHJqMvE7/9rU1RRfR7+Aa+cpJNSMdmWt3/60zlE+1UyZRkVTZ1o=@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywj2X0kpowC9LZv7yQeHDOFBeBgW2ZVSb3IdrqqEBCpy53QCv6L
-	v50vjgKziBto8czVsa4Fw0JqX37BSEWcm9f8lrSyurwOqvGFmhRGCzw=
-X-Gm-Gg: AfdE7cnJS0MYxKYQTALs/7NE/TWoELo5RETzBVFjOaW+7SvDy+/P0UIqQrGK7w7WRHO
-	Ghi+wkPIlwPZjxnbqs55Gton0t5LMIbuWkljnO+moe/S1gjUVze905RIKQatn5RrlY0lvWYcmXN
-	i+9eou5/LAAWlLK3W/kVQKVe47pdVGgECEt+3kKQuQHqgv6rHxmQrj3ozhtV2gXqlicIdy+TjS8
-	sl6QnO7aS2fnMMyGNiFnOHwZz58xwep2MyfINp6/HhJYdM+34I14nfO7/64Tjllwde/dR/H84xl
-	zqvKZQ2xo+Rflc7hOhYlT4RoPQOxSzknHMwbaHmUuSQlWsGSOcFxc+LEoP12u+Aoz8dhhIhYpmV
-	gSOaPiy3jlhOP8cZLhH6AXL0hTlXaGGVe7c/zclxN6nleI94ljwf14AUb4Mv0vSR/hbhalePwC7
-	p/KZUeb+pcVcNHhUWXX/kPhw53P+gdMgRsh1i5b9xECieIDg0KLOfcfjMUdPQ1awJ6TqrADbLFE
-	r0=
-X-Received: by 2002:a5d:45cc:0:b0:45e:945b:276 with SMTP id ffacd0b85a97d-46237d5b277mr5616577f8f.20.1781713814234;
-        Wed, 17 Jun 2026 09:30:14 -0700 (PDT)
-Received: from [192.168.1.3] (p5b2b4777.dip0.t-ipconnect.de. [91.43.71.119])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4606f26434dsm56803202f8f.1.2026.06.17.09.30.13
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 17 Jun 2026 09:30:13 -0700 (PDT)
-Message-ID: <96791227-acbc-4a38-b779-a4238f0c2061@googlemail.com>
-Date: Wed, 17 Jun 2026 18:30:12 +0200
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="Io1nRl4G"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:
+	Content-ID:Content-Description:In-Reply-To:References;
+	bh=SC2CjG0tyBQTzB68y+c7c4kv0xX9wi+E9xbDTYwfOrw=; b=Io1nRl4GKWGEkviVg4PYxP+8Xh
+	LXNMBLy7nu8iHIuLPQ0LAMgxHpfrt+wVsd98vTbzX/pmDOUV2N+52sUGkwfqvB+CVj53WdFjlItO1
+	9n8TtThKb3wMCKbsozkalBko4c6zD03emBdp4ifanmq+z72W6NEpH84fwpAbFG9M5+7WYSpo182OH
+	maXlypIWcCReEnHkWcNTtIeVVyX70J7zJOJofYI0Fvaf7KUiFV5X10RFgiVkjBhzqVY+hjWAkFlQc
+	+uDSrf0cyLAN7+JkVS4bbYu1S0Eg9wyi3v6+xnYKGKF937lvyMYL9sFlPAOX9JQnOd0hpshq0hmFi
+	ZWqp7ynQ==;
+Received: from [50.53.43.113] (helo=bombadil.infradead.org)
+	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1wZtAl-000000003P8-3sVs;
+	Wed, 17 Jun 2026 16:31:27 +0000
+From: Randy Dunlap <rdunlap@infradead.org>
+To: linux-kernel@vger.kernel.org
+Cc: Randy Dunlap <rdunlap@infradead.org>,
+	"Harry Yoo (Oracle)" <harry@kernel.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	linux-mm@kvack.org,
+	stable@vger.kernel.org,
+	Kees Cook <kees@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>
+Subject: [PATCH v2] slab: recognize @GFP parameter as optional in kernel-doc
+Date: Wed, 17 Jun 2026 09:31:25 -0700
+Message-ID: <20260617163125.2716279-1-rdunlap@infradead.org>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH 6.6 000/452] 6.6.143-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260616145117.796205997@linuxfoundation.org>
-Content-Language: de-DE
-From: Peter Schneider <pschneider1968@googlemail.com>
-In-Reply-To: <20260616145117.796205997@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Am 16.06.2026 um 16:53 schrieb Greg Kroah-Hartman:
-> This is the start of the stable review cycle for the 6.6.143 release.
-> There are 452 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+Since the @GFP parameter in kmalloc_obj() etc. is now optional, change
+the kernel-doc to indicate that it is optional. This avoids kernel-doc
+warnings:
 
-Builds, boots and works on my 2-socket Ivy Bridge Xeon E5-2697 v2 server. No dmesg oddities or regressions found.
+WARNING: include/linux/slab.h:1101 Excess function parameter 'GFP' description in 'kmalloc_obj'
+WARNING: include/linux/slab.h:1113 Excess function parameter 'GFP' description in 'kmalloc_objs'
+WARNING: include/linux/slab.h:1128 Excess function parameter 'GFP' description in 'kmalloc_flex'
 
-Tested-by: Peter Schneider <pschneider1968@googlemail.com>
+Fixes: e19e1b480ac7 ("add default_gfp() helper macro and use it in the new *alloc_obj() helpers")
+Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+Acked-by: Harry Yoo (Oracle) <harry@kernel.org>
+---
+v2: add default value for GFP flags to the description (Harry)
 
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Harry Yoo <harry@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>
+Cc: linux-mm@kvack.org
+Cc: stable@vger.kernel.org
+Cc: Kees Cook <kees@kernel.org>
+Cc: Jonathan Corbet <corbet@lwn.net>
 
-Beste Grüße,
-Peter Schneider
+ include/linux/slab.h |    6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
--- 
-Climb the mountain not to plant your flag, but to embrace the challenge,
-enjoy the air and behold the view. Climb it so you can see the world,
-not so the world can see you.                    -- David McCullough Jr.
-
-OpenPGP:  0xA3828BD796CCE11A8CADE8866E3A92C92C3FF244
-Download: https://www.peters-netzplatz.de/download/pschneider1968_pub.asc
-https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@googlemail.com
-https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@gmail.com
+--- linux-next-20260615.orig/include/linux/slab.h
++++ linux-next-20260615/include/linux/slab.h
+@@ -1094,7 +1094,7 @@ void *kmalloc_nolock(size_t size, gfp_t
+ /**
+  * kmalloc_obj - Allocate a single instance of the given type
+  * @VAR_OR_TYPE: Variable or type to allocate.
+- * @GFP: GFP flags for the allocation.
++ * @...: optional GFP flags for the allocation (GFP_KERNEL when not specified).
+  *
+  * Returns: newly allocated pointer to a @VAR_OR_TYPE on success, or NULL
+  * on failure.
+@@ -1106,7 +1106,7 @@ void *kmalloc_nolock(size_t size, gfp_t
+  * kmalloc_objs - Allocate an array of the given type
+  * @VAR_OR_TYPE: Variable or type to allocate an array of.
+  * @COUNT: How many elements in the array.
+- * @GFP: GFP flags for the allocation.
++ * @...: optional GFP flags for the allocation (GFP_KERNEL when not specified).
+  *
+  * Returns: newly allocated pointer to array of @VAR_OR_TYPE on success,
+  * or NULL on failure.
+@@ -1119,7 +1119,7 @@ void *kmalloc_nolock(size_t size, gfp_t
+  * @VAR_OR_TYPE: Variable or type to allocate (with its flex array).
+  * @FAM: The name of the flexible array member of the structure.
+  * @COUNT: How many flexible array member elements are desired.
+- * @GFP: GFP flags for the allocation.
++ * @...: optional GFP flags for the allocation (GFP_KERNEL when not specified).
+  *
+  * Returns: newly allocated pointer to @VAR_OR_TYPE on success, NULL on
+  * failure. If @FAM has been annotated with __counted_by(), the allocation
