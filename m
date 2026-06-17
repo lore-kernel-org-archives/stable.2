@@ -1,100 +1,110 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+Received: from mail-ot1-f49.google.com (mail-ot1-f49.google.com [209.85.210.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 540B84ADD8B
-	for <stable@vger.kernel.org>; Wed, 17 Jun 2026 17:09:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC0833368A5
+	for <stable@vger.kernel.org>; Wed, 17 Jun 2026 17:15:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781716183; cv=none; b=bTKBP2R5IV+qLbiV6GlkAP4QiBVHUWYHldY5oH898iD2nhV1YlMNQEaB0bPO5+FXdk7LMbXmiMAaB6gaoE1shoq83+cxZTtPl1p7Y8492f/0qOD223H7JW7YW+CMFLeeZuc2s36la/sRkpyryCT1r/0mUbKjIoCkm6EA4FS0q9M=
+	t=1781716514; cv=none; b=iPNlcTr/l8LN2b4YM7j2IrRJGO5YkGP++cdvr+R8VSPc+X5HVQJ89V5auwGNYD4ZuQ5muQ/7cYihqQuwGn7rSkVRIuhPX2Hv5Tzvg98RnsmB+BE1tE3m0MN22EcVorVrG9C8+ExqXxwFlepiSuX/iWp4LIw1/pfwVWPNyfFt4gc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781716183; c=relaxed/simple;
-	bh=JUnSab4D4cmQCvYGqezRnjMRf9ULW+i5vXU/rQB8eJA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=cmiIDxT+7+HLek9lgVN80sN44GiH8Nj+rw0aAJ2F1NvWdYzf8V4YzIt55q1+srtQRxD6jdo23EbNzcye7EuRphFBinOk+5ek/qPaPex5m1BeDXuazorBDuAQLo5erB8aJByOZPqRhhh48heOo+jlRDPLMKftNIpoxh1Gt/Pk60Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ptTuMt4V; arc=none smtp.client-ip=209.85.128.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781716514; c=relaxed/simple;
+	bh=DfopIBMX/TQrYURkHA/8/q1uNAzuMF8sUBfrpC3SFio=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=QVzLEJF7DgYP6LtkWla2Dl3t9J1GG3mYFPronGBA/LaBSF5TZ/lFkubXjurlCUkFaCM+ZzXheOUEVvWfpnSSkO5cGrz3TIbu9eLUxNLuHOZIuDHUahKegJLF2akP4ObMvdJqSlX3CvUXc0i6qpoxg7FgHQKCNlMlM4x2OfPgTlk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=NY9qIHcK; arc=none smtp.client-ip=209.85.210.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ptTuMt4V"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4908b92904fso74737775e9.0
-        for <stable@vger.kernel.org>; Wed, 17 Jun 2026 10:09:40 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="NY9qIHcK"
+Received: by mail-ot1-f49.google.com with SMTP id 46e09a7af769-7e6d37b7098so5355a34.0
+        for <stable@vger.kernel.org>; Wed, 17 Jun 2026 10:15:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781716178; x=1782320978; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=JUnSab4D4cmQCvYGqezRnjMRf9ULW+i5vXU/rQB8eJA=;
-        b=ptTuMt4Vkw1EMRKYUqFHwFf5/qhBXY5iQ5LKEAYiJbWk0GD7qGhvyvyJSJOliZFqyU
-         F+Z7DuljMp0YP3PuApUnzVLc1viEzi3SkvIAel7P76oM/OJJhnk6moDfcrCW61JbyjtF
-         SMse/2GAsbzR9B8cbfScsKQZgPhQdGg9dLFhYq3BnfRnFGnnWcZ6OSbWr10hxSYatBUO
-         gvuN7nmU6i8XdeMfTzCx3/djVKHxEg49W2eamDoMh+RivzH5JQ1957bwVYLZGjRb+Cfn
-         q4d43YGw71k5smtgECna2PAtgWAXGsJ+Jd/n0Wsj9GHsuU/mDH3/kS4lK0ZmZnJ76yfj
-         BOyg==
+        d=linuxfoundation.org; s=google; t=1781716510; x=1782321310; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=YTV+yTlG0bYfe+/PihUammSNlg4bVXG5fdMlVuGlrtQ=;
+        b=NY9qIHcK57NSvS2SR/CPyrNzKhoua6LtAy8jR+ILI5Hh0s01793TH/D3rAuyvteu53
+         xJTq+V+x8oxxbrIFdRvY0et4iXja+TeLZvo8FXEGpnn5EcEK4ixmicvQPyUjVa/RaVIp
+         rWc35M8F8Hl8/NydAc1IDf1uTMHm2lTZ+cqlQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781716178; x=1782320978;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=JUnSab4D4cmQCvYGqezRnjMRf9ULW+i5vXU/rQB8eJA=;
-        b=iOYqiOi95zNGW4BFrmC/wh1lt9F1X6bKtmpR16FwOo8GZZ2GmDhVi9H5aBhkJwYEBD
-         p43lGf/VRY9zqJfzo4QgZUE6zPDZouZDFiYQOJT+kija275XOh4u9fEdykm8d04iCtGE
-         q6m2txFut9irVoCXWVR5wJeApPHumxgCYBMg5+Mn65CJdcsb/AhtIh8T7GNdCT/9FNF6
-         XdfLS60jHSz6KpkY5tQSDpbYZqWQZ8szvYecEIJKWAFTrNSJ1J0qQLKTC9RDAs87vFdl
-         U8IfBUX7XjKVo+6FfyNe5A3s515ICslj5U96NgQSUj/f6XrAqgnU2HIlJSFzYL3QGcgW
-         PIMQ==
-X-Forwarded-Encrypted: i=1; AFNElJ/dqSgUIowGuoum3Blkll2U8+vgnVipR0QxK9FKh2uq8Dp4mDDDMGJON0ZaQAfSX+vQ/h2qhy0=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwsfSRDMmXFoAtU/y6rSDpn0mXHZKOe+fqO1g/aOsXGSbYlUnwA
-	ljCiqQcvEAcgH4KntR25E2IOmWvIyATHlOkk6Q8cW6nH6FIPaRJtSVJ54mD5lg==
-X-Gm-Gg: Acq92OH5EKo6fdwYcHkF/ns3x/f95unb/ACSef9QcjQHpH9fJGRjKPfyC73x9bmS0uv
-	qPLGFuKIWfyUQaB9eambQHquljK2jKYkLCEnohvA2ajZ5Ftzd7ZrIPyaSR4AHj3DxcoVfgSj5Tb
-	Cj8hnb2BT4KC1Knd4ALrPggMK23M5m7IvgbrdU5CYbksBoljMfbvC8hxHIe7Do6BFqn+NRTt6jI
-	B889oNRhc1Z4qdk3a4mjUDFKFTKYmP5m3DCUZ0QpxipiFpPqenpbXVtVodguyyST3oAMZIeqBSy
-	bO2uBp/cZim2UFRxvJwuY9vG1ZV1JIyXH0Sj20UX5kxjAyh4sKcjfmhYGKEzayAXq8x9lTJ6N/T
-	Gn+cxRp1xoBrRyqGWxt1PwBteSfsLmsx1iFm5+ZJZ2RWOmQH0Zno3peAZ3XQhgSss3KA5EYGvro
-	YmjezU3o1BKkOjIckWK19JiFzDoo0nd/LBiuxr+tq1HnFhGRuM49riAOxcyhSO+bL29ZDy/y9Zw
-	O5E4R1hL1DyOwUKVIZ9N4dW2w==
-X-Received: by 2002:a05:600c:3541:b0:48f:d5a0:284e with SMTP id 5b1f17b1804b1-49234132005mr69613935e9.28.1781716178292;
-        Wed, 17 Jun 2026 10:09:38 -0700 (PDT)
-Received: from jernej-laptop.localnet (APN-122-99-120-gprs.simobil.net. [46.122.99.120])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49236860482sm19462305e9.0.2026.06.17.10.09.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 17 Jun 2026 10:09:37 -0700 (PDT)
-From: Jernej =?UTF-8?B?xaBrcmFiZWM=?= <jernej.skrabec@gmail.com>
-To: p.zabel@pengutronix.de, wens@kernel.org,
- Zhao Dongdong <winter91@foxmail.com>
-Cc: linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org,
- Zhao Dongdong <zhaodongdong@kylinos.cn>, stable@vger.kernel.org
-Subject: Re: [PATCH] reset: sunxi: fix memory region leak on ioremap failure
-Date: Wed, 17 Jun 2026 19:09:34 +0200
-Message-ID: <BoFIpAKHR22rGns4zmN6vA@gmail.com>
-In-Reply-To: <tencent_2C7697B076D53BBE62D99B7CD15E77A20C07@qq.com>
-References: <tencent_2C7697B076D53BBE62D99B7CD15E77A20C07@qq.com>
+        d=1e100.net; s=20251104; t=1781716510; x=1782321310;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=YTV+yTlG0bYfe+/PihUammSNlg4bVXG5fdMlVuGlrtQ=;
+        b=aM2eu5JEMtEurR+uddtEy3Zu5EwG6MQxwkkweZYIWF6JtqXyWAOrNzQvyCdpSzIbtT
+         g+dsPVUzZw8F/xsoVFOwDZqR/T+d9zULgdGhpyWbNUvhA2/mGLKocamNX6oXBgwcrdUN
+         yr3WVu4DrzqD1/oIptev6hvX6Wu904nSqBf3rDLkF3uVcu9INZ30DqL1nUtEAejqzRBm
+         YSQDIGJ6M+3n4h+APidLr2FgIWI290cDZEiHQ9KyZwrCdeUJ9koQBEvud8zt5dztIYc3
+         Hduz72MmxPN9my+zPffb6rEhQtFbjaW9RaQFidchpIWQDsjZDrm9DPQ0e3caxHtSrxhG
+         CdYg==
+X-Forwarded-Encrypted: i=1; AFNElJ+BjDz5SUCCyYD6gir/KkI978ZsigtMpcn0Z5xeVoZfJkbaeg/DmPx0H+qVNHHVqzicQFxgmWk=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwsyVeFCOGWHPciI/M2LlaPPfv6zlAYCeILU2xqgywkO5fEYDxP
+	0uBVh58FSuQIvxZ3Mtz2Z9DjfpsQg09Gk43vS5EsT9CfhDDsQ4H4XamidnL0IWTB2uY=
+X-Gm-Gg: Acq92OH95Eb1LsdtgbZo1s7G+5nP/zSFfGrYzuomumpen9kiY5JPAwLqwatRI3guHu7
+	6PrSP3giAcCGZDINAMthnc+1kJ4Ysosafx5PZwKf2/Xn5LlRJgqnpeog/IzXOUfk0pXPZVwfOVO
+	/gInUNPzI6kbopVtDd6oWy2f0jvEsl7BklKCAZimO0s78/8xBhUwf+HZiRilwfTT7kNwcbO5ITv
+	6IqfWPSI2RYejdBQFn4NvqgkXBfIeRrRPsf9l28Xv1nPQ/cSa/A9pi7Pb6AzA3N6c1PAJzVoQp8
+	iWwL+IJYhqDwRMX0Uklh4S1OZ1H2grUIqAGM4QEY2qkItHlku1IIfX7Cq1q0ZX6tVUrJ+kfiyZ8
+	pgSMkvTDO94ktm3y/NueJHwvlp+W0O5Q/7Ayxu8aDs886Rv2RMOoqJ2AKAL9Vp3e+3a+iCJ0+Xq
+	AJ0RhM1GzT3+E63GAlHCBN
+X-Received: by 2002:a05:6808:178c:b0:482:6b96:5ad0 with SMTP id 5614622812f47-489429ace36mr3857167b6e.26.1781716509971;
+        Wed, 17 Jun 2026 10:15:09 -0700 (PDT)
+Received: from [192.168.1.14] ([38.15.57.99])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-4875dda5f7csm6566221b6e.1.2026.06.17.10.15.07
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 17 Jun 2026 10:15:08 -0700 (PDT)
+Message-ID: <e112ac49-e518-4efc-b481-a557ee929ee6@linuxfoundation.org>
+Date: Wed, 17 Jun 2026 11:15:06 -0600
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7.1 0/8] 7.1.1-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com,
+ Shuah Khan <skhan@linuxfoundation.org>
+References: <20260616145523.335696673@linuxfoundation.org>
+Content-Language: en-US
+From: Shuah Khan <skhan@linuxfoundation.org>
+In-Reply-To: <20260616145523.335696673@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Dne sreda, 17. junij 2026 ob 05:16:27 Srednjeevropski poletni =C4=8Das je Z=
-hao Dongdong napisal(a):
-> From: Zhao Dongdong <zhaodongdong@kylinos.cn>
->=20
-> In sunxi_reset_init(), when ioremap() fails, the memory region obtained
-> via request_mem_region() is not released, leading to a resource leak.
->=20
-> Add an err_mem_region label to properly release the memory region before
-> freeing the data structure.
->=20
-> Fixes: 8f1ae77f4666 ("reset: Add Allwinner SoCs Reset Controller Driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Zhao Dongdong <zhaodongdong@kylinos.cn>
+On 6/16/26 08:58, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 7.1.1 release.
+> There are 8 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Thu, 18 Jun 2026 14:55:16 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.1.1-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.1.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
+> 
 
-Acked-by: Jernej Skrabec <jernej.skrabec@gmail.com>
+Compiled and booted on my test system. No dmesg regressions.
 
-Best regards,
-Jernej
+Tested-by: Shuah Khan <skhan@linuxfoundation.org>
 
-
+thanks,
+-- Shuah
