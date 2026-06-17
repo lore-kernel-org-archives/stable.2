@@ -1,135 +1,110 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f41.google.com (mail-ot1-f41.google.com [209.85.210.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF9ED3093B5;
-	Wed, 17 Jun 2026 17:22:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DC8431E822
+	for <stable@vger.kernel.org>; Wed, 17 Jun 2026 17:23:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781716928; cv=none; b=SKt4DoUq8jqnBJh0nJFbcW0/7ZKNR9EKK7fQAwRfQQLRKj1khNtZEOkFRtkGKh9jt7rdCldLXIY2vVIzKnDJqSDJE4a5h6gnSUxEg67Jba4YXuJpVUrEASaUeZm2UZ3qkaaZzBRPvD0Wi++FFoE5Oj/ksNq7jitz5NMYHmXMzYw=
+	t=1781717027; cv=none; b=sP7X0zVhIj+ZShPFCXf1Q3/u2z63OdQqCWEd9KR9egfeU+D3RGOlgs5LlNmzVVBddcDroxggvBp8aqOOwTbVuDMJIsGk8obeB97Crqb748EhnlOl0MePEvtcPSqF4uofCwEN4FmyCJCoN/JLdpw5evS2tBw+4Xkr7Q65+SdBuRE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781716928; c=relaxed/simple;
-	bh=0egeRixYlU1lAj/TAMijXsvxTT06tG+LdjSQtQdAd3k=;
-	h=Date:To:From:Subject:Message-Id; b=B2Yk3ddP2sFQmJsdZ7H0km6S3ZGkaQiEaYCHDxTHlopbbks3z7FnG1UWpY7kBvMrz4CeKHg7ua/WOXmNTw4INyPdvjnfLR9stIa+zHvISTascUDLy/R2YcUGJra0ZNxAKGs0KZVWZQRQgxXwnmCbZUS9ki1NUAeyFQ9FAX4N5Fs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=JfG9joGn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781717027; c=relaxed/simple;
+	bh=LpkugHqniC1/Ud+acecpCwDNeyNZT1ZImtaVjAiFeWE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=jtR222z/3DvY1gS76oV+y86gt2gNfnDm7n89JHMdmRhXCLwEtk3eeXm9darEYst4pmTAgyvBhqJWncVnJP5xadaVaC7oLEzgugMvXAVd8My5NzNm0cnDyzK+rltJKgnxFY4V1T9UVcvdbK9CpI70Kmx9ythOacSZ/3tx2NTgBW4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Cvzn3f7z; arc=none smtp.client-ip=209.85.210.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="JfG9joGn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62A941F000E9;
-	Wed, 17 Jun 2026 17:22:07 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Cvzn3f7z"
+Received: by mail-ot1-f41.google.com with SMTP id 46e09a7af769-7e6d2f297f4so3696856a34.2
+        for <stable@vger.kernel.org>; Wed, 17 Jun 2026 10:23:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1781716927;
-	bh=OFtvY5qovzsFYqHtFUO8+DYFRRktc1zlNFyOr3L1rXM=;
-	h=Date:To:From:Subject;
-	b=JfG9joGnIKJwZMLa6yjAnLcNRfKkRjLqUPS78YxdMJZOC+2BKyNWSK0QjVvLcSOwn
-	 A57U5Q79MnotdDchLrPqS3DEhRwrlAFAduV1SOF6EZ6HfVlo6m0phIV5FBrIzPpYUl
-	 wKsH5tLGlCBtL3Hx8UNn1FK2/u+5B/5CxSptJKhM=
-Date: Wed, 17 Jun 2026 10:22:06 -0700
-To: mm-commits@vger.kernel.org,stable@vger.kernel.org,roman.gushchin@linux.dev,muchun.song@linux.dev,david@fromorbit.com,zhengqi.arch@bytedance.com,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + mm-shrinker-fix-null-pointer-dereference-in-debugfs.patch added to mm-hotfixes-unstable branch
-Message-Id: <20260617172207.62A941F000E9@smtp.kernel.org>
+        d=linuxfoundation.org; s=google; t=1781717024; x=1782321824; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=3qi3a8oYApaPNeH5JbeamWYok+cJhMUB6yg9/Q+xM1c=;
+        b=Cvzn3f7zjR/MMTs8U3RNFSJfxPfFxvdlxHftYrrUctYq7W7mJxkrq2O3C47/PuBFgZ
+         imLlvcSehe9cNSfOzOk8qMq6BSx6+YZpxPiidmNUajB2O02jixX9JMexnKSnH3AmUQPR
+         EQJJ+jCdsggIu1XdnKTZPrqNhqkop8pHHdP7I=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781717024; x=1782321824;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=3qi3a8oYApaPNeH5JbeamWYok+cJhMUB6yg9/Q+xM1c=;
+        b=R8GCske6JWkKj6dQql4aMMTPoWJGxBdv/MsO0RHGKes9F5eidPMC5HA7mjbMD9YVob
+         e/zDDhYTE+FNzDsQi+XDgZux0ybdnWbiFC2+pqX1bAp28odKggXGvDuuelaSN2ooHhFh
+         /MI+Zh8PukDPdJSIh2UWfLZhv6p9ahLWzN7WodlqGJfqhkNqFjisGA/C1FCl7wFAs/3t
+         HXIRRuGu+wMNzjuI1w7rI+azn2Brt4vujt3j0SLuChZyrFnfJEDBT5p6+OEeyxiJdRcZ
+         n5Ko4wGcQ3FbIOxMQmAia2CaSsnueW49uYuAcRyifzQy9hDnqdy86pZwG42fizkgntBy
+         224w==
+X-Forwarded-Encrypted: i=1; AFNElJ/2O/BgvvFvyh69fvgz9X8Ojmp3c8p5vJSRuwL4HLYH/TOfsCUN1D3AeFN6XlYrG8tJy0FX6m4=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx4+hVLfiUsq97EHlyejPVC8tniUgyIK5ncxt1QDs09KM1epLOt
+	V/+CqvFmXknWhjwuf3cMGeZ+0RwqB/Ec30PeZ4AkRM3GozzmkaZCbQfnLH5mc+74BuI=
+X-Gm-Gg: Acq92OHsXg2dlYGnocpef6ihTjx7fZQaiqAn1P+uJ+CFT2iZc89l2xyJVBet0TQVV2c
+	k5K6qeLlQar9oKmFzpa15m8pvLyXiINLeFR2uvCPHvqrZb78e+GHPnMcAvPS8jz0jsBk797aRpT
+	7fAchqmEnfoMJjv94BHLPkOUpCbA8gaNt6z9xTg93w925z6xC8tIkLqeJJYWcE6NwCbNeWA6Q2O
+	ZZS04v0doONxbfQj0hcv1uRrS7bCmRLGDmjNbSgvnxmoWJdD9DAXELQZ5+Rm7Zc6wcS1yCLJC2n
+	2KV25aRJ+jC8fPCwz+3QOh8YBXfvIYeQTSpYQ1V4ofZgeHfOPqo7M516VboB1Ao8wCbEMeQCc9m
+	rMWJgIGevO9uGPcM2hjRmCzOiqYqAxxgNO2d30Il6Co4i8d0lPi2kEZA6/gv9ff61IHpg3zx9PD
+	S6dSY/X9JZu7J8tWzfvUVq
+X-Received: by 2002:a05:6830:350a:b0:7e7:623:80d5 with SMTP id 46e09a7af769-7e90b3f9891mr4771801a34.19.1781717024327;
+        Wed, 17 Jun 2026 10:23:44 -0700 (PDT)
+Received: from [192.168.1.14] ([38.15.57.99])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7e79f5bb5fcsm10283124a34.9.2026.06.17.10.23.43
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 17 Jun 2026 10:23:43 -0700 (PDT)
+Message-ID: <d266b43b-309f-41cb-a832-8a0868b8812b@linuxfoundation.org>
+Date: Wed, 17 Jun 2026 11:23:42 -0600
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.12 000/261] 6.12.94-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com,
+ Shuah Khan <skhan@linuxfoundation.org>
+References: <20260616145044.869532709@linuxfoundation.org>
+Content-Language: en-US
+From: Shuah Khan <skhan@linuxfoundation.org>
+In-Reply-To: <20260616145044.869532709@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
+On 6/16/26 08:57, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.12.94 release.
+> There are 261 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Thu, 18 Jun 2026 14:49:57 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.12.94-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.12.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
+> 
 
-The patch titled
-     Subject: mm: shrinker: fix NULL pointer dereference in debugfs
-has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
-     mm-shrinker-fix-null-pointer-dereference-in-debugfs.patch
+Compiled and booted on my test system. No dmesg regressions.
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-shrinker-fix-null-pointer-dereference-in-debugfs.patch
+Tested-by: Shuah Khan <skhan@linuxfoundation.org>
 
-This patch will later appear in the mm-hotfixes-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: Qi Zheng <zhengqi.arch@bytedance.com>
-Subject: mm: shrinker: fix NULL pointer dereference in debugfs
-Date: Wed, 17 Jun 2026 17:00:52 +0800
-
-shrinker_debugfs_add() creates both "count" and "scan" debugfs files
-unconditionally.
-
-That assumes every shrinker implements both count_objects() and
-scan_objects(), which is not guaranteed.  For example, the xen-backend
-shrinker sets count_objects() but leaves scan_objects() NULL, so writing
-to its scan file calls through a NULL function pointer and panics the
-kernel:
-
-BUG: kernel NULL pointer dereference, address: 0000000000000000
-RIP: 0010:0x0
-Code: Unable to access opcode bytes at 0xffffffffffffffd6.
-Call Trace:
- <TASK>
- shrinker_debugfs_scan_write+0x12e/0x270
- full_proxy_write+0x5f/0x90
- vfs_write+0xde/0x420
- ? filp_flush+0x75/0x90
- ? filp_close+0x1d/0x30
- ? do_dup2+0xb8/0x120
- ksys_write+0x68/0xf0
- ? filp_flush+0x75/0x90
- do_syscall_64+0xb3/0x5b0
- entry_SYSCALL_64_after_hwframe+0x76/0x7e
-
-The count path has the same issue in principle if a shrinker omits
-count_objects().
-
-To fix it, only create "count" and "scan" debugfs files when the
-corresponding callbacks are present.
-
-Link: https://lore.kernel.org/20260617090052.27325-1-qi.zheng@linux.dev
-Fixes: bbf535fd6f06 ("mm: shrinkers: add scan interface for shrinker debugfs")
-Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
-Reviewed-by: Muchun Song <muchun.song@linux.dev>
-Cc: Dave Chinner <david@fromorbit.com>
-Cc: Qi Zheng <zhengqi.arch@bytedance.com>
-Cc: Roman Gushchin <roman.gushchin@linux.dev>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
----
-
- mm/shrinker_debug.c |   10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
-
---- a/mm/shrinker_debug.c~mm-shrinker-fix-null-pointer-dereference-in-debugfs
-+++ a/mm/shrinker_debug.c
-@@ -187,10 +187,12 @@ int shrinker_debugfs_add(struct shrinker
- 	}
- 	shrinker->debugfs_entry = entry;
- 
--	debugfs_create_file("count", 0440, entry, shrinker,
--			    &shrinker_debugfs_count_fops);
--	debugfs_create_file("scan", 0220, entry, shrinker,
--			    &shrinker_debugfs_scan_fops);
-+	if (shrinker->count_objects)
-+		debugfs_create_file("count", 0440, entry, shrinker,
-+				    &shrinker_debugfs_count_fops);
-+	if (shrinker->scan_objects)
-+		debugfs_create_file("scan", 0220, entry, shrinker,
-+				    &shrinker_debugfs_scan_fops);
- 	return 0;
- }
- 
-_
-
-Patches currently in -mm which might be from zhengqi.arch@bytedance.com are
-
-mm-shrinker-fix-shrinker_info-teardown-race-with-expansion.patch
-mm-shrinker-fix-null-pointer-dereference-in-debugfs.patch
-
+thanks,
+-- Shuah
