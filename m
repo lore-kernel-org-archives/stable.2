@@ -1,44 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FCED35202E
-	for <stable@vger.kernel.org>; Wed, 17 Jun 2026 17:20:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB03D346E55
+	for <stable@vger.kernel.org>; Wed, 17 Jun 2026 17:21:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781716856; cv=none; b=sifl08+dsGb0XVTOUdHqOhflcOPKfIjQvgic9gBIuBVqiDGUtj+9qmn4qjYY5bX2qoN5qxqvoMDTxQyPmpGPDjx/pAjlJUug8PwH78BvLS4qnOc3NC+ZBPJ3kemqeidBiwVCXS1h2rrxwo8w/iDalxlfOPODhEEcpayHhwkVH2s=
+	t=1781716864; cv=none; b=P7qi6qQ+9pib+F62MChQHtRIKHuRGDByjdJGp/HpQu7yAQXpG8bSowzPrN9iPB9/rTuz3bk178SDLCIw3ZypH++1R0UGSx57rB1vU/IUtLKUd4a0A9dWElLoq19wgYny/VOmZlU3vzPBJdEU8MPniGVBm1iKK2d6/APOwUzzaGg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781716856; c=relaxed/simple;
-	bh=Lya4g+uomsQwd3HMuDRsAT0+gs/fuadRtVEUxPbxC8o=;
+	s=arc-20240116; t=1781716864; c=relaxed/simple;
+	bh=dgTvGU49cBFDkj7IP9PbmLD68usnIxvn73O4yGjhoBE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XCUGtE2sBjXKjqH9oL/BoNPhGIlEWkwtv8cNgPZYpCySZCQXxzY/g2Ijve4LhVwmZRshzCo7gGiRLzP4tObgrpe3DgyNCNqfz2EPwM2gP/KMYzbhCZnrDin3/fCNdXI3IsRgc54fZY8ROx3YJCcjlo4mhELcpBdKShoTvDZALdc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=osYshPbi; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=nHNaFGMYqiNBwBkVAzbCyBWOI9umBPxqoPhlA16JgoKb2E0bVJPujJk/KauEoKeWUklgJlquQTQjh9x2Ctp3Fm8cviAKWLgXKbGyt4wh8F2rZnFCR4wZQZT7PYfs3VxX1trEyaA2sFPfKRLHrpMT3E1ejfahJdzWTykVbLCaFU8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jAKFH2pq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="osYshPbi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EA921F000E9;
-	Wed, 17 Jun 2026 17:20:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jAKFH2pq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFEEA1F000E9;
+	Wed, 17 Jun 2026 17:21:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781716853;
-	bh=Yg5cghdxpiYTphg8yIVUhNZNR5s3/C2j5/DgCaF19+I=;
+	s=k20260515; t=1781716861;
+	bh=iRg4KkahyL7x4u/2Zf448ud+T1To4PK/YszaWWSdOyg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=osYshPbiIjMD1AV0c5GRB/9+LnnqzuylxZlxl4e+pTAzYYhsoPc3aPmiG2TfCK9TP
-	 9oLUWPIyOp2XHyrkxTbwPVd8bRuf9aRZ8MrK7iyBQntEf3ZEpsBaTy/iK3FYwhKvss
-	 SrmGjwDZgrubylMZ9zXLVOzHdDAH3aMf8V90sjQ7uMXznAidL0CwpCu65X4BNt3wl4
-	 Lu39GhnEi7r79B8QphGLflwHjBA1LWuLhhkQ2kMx96OOX+uA3LpgpLKW6XyGIuXdAV
-	 KduJU4Eyg1iwxxYqwGRe5g2JbB69Giz3p7RC5hpgcumPvVmdJG/qzqMAXZRABNe/Kc
-	 hgkHajzlrpUhw==
+	b=jAKFH2pqKWNmlNDp12pagxjxx3sE+OKGztLnsXu8mTEtI2aMI3hcU5lhBS1K51dRW
+	 /q8zAcxJhkL+rLVmlG7joyG8Rl7Uiy8FqqnLvBWEiMmqZMwBFU1oTyHed7HQbU3l00
+	 fB2k0xfBK9ZfysnVTRFYJJss/90+R5hpcacZfWjK9yWMpYebggJGfEFHUhiXd8px6s
+	 9W7G2XPZeoZqNTx4AVFMwSiOa4wY0i/zy6uXoA/hvEB4E4lZvkSQUI3lS1QCDwgEm7
+	 Jp7f9mT26k57eRx1B1YxDKl8OTT+JHuN7OMJnR9l3J81OLwof2/+uwIqVrF1hysvC7
+	 PK0rBXfl3x6Lw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Ulf Hansson <ulfh@kernel.org>,
+Cc: Bill Wendling <morbo@google.com>,
+	Kees Cook <kees@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] mmc: renesas_sdhi: Add OF entry for RZ/G2H SoC
-Date: Wed, 17 Jun 2026 13:20:51 -0400
-Message-ID: <20260617172051.253322-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/6] compiler_types.h: Attributes: Add __counted_by_ptr macro
+Date: Wed, 17 Jun 2026 13:20:53 -0400
+Message-ID: <20260617172058.253463-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026061546-plexiglas-flaky-762c@gregkh>
-References: <2026061546-plexiglas-flaky-762c@gregkh>
+In-Reply-To: <2026061553-curly-gigahertz-3ad1@gregkh>
+References: <2026061553-curly-gigahertz-3ad1@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,43 +45,127 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+From: Bill Wendling <morbo@google.com>
 
-[ Upstream commit f48ee49726ee4ab545fd2dc644f169c0809b19b3 ]
+[ Upstream commit 150a04d817d8f5be5a4f92799827cdc8d7e45989 ]
 
-The RZ/G2H (R8A774E1) SoC was previously handled via the generic
-"renesas,rcar-gen3-sdhi" fallback compatible string. However, because
-the SDHI IP on RZ/G2H is identical with the R-Car H3-N (R8A77951), it
-requires the specific quirks and configuration defined in
-`of_r8a7795_compatible` rather than the generic Gen3 data.
+Introduce __counted_by_ptr(), which works like __counted_by(), but for
+pointer struct members.
 
-Add the explicit "renesas,sdhi-r8a774e1" match entry to map it correctly.
-Note that the DT binding file renesas,sdhi.yaml does not need an update
-as the entry for this SoC is already present.
+struct foo {
+	int a, b, c;
+	char *buffer __counted_by_ptr(bytes);
+	short nr_bars;
+	struct bar *bars __counted_by_ptr(nr_bars);
+	size_t bytes;
+};
 
-Fixes: 31941342888d ("arm64: dts: renesas: r8a774e1: Add SDHI nodes")
-Cc: stable@vger.kernel.org
-Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-Signed-off-by: Ulf Hansson <ulfh@kernel.org>
+Because "counted_by" can only be applied to pointer members in very
+recent compiler versions, its application ends up needing to be distinct
+from flexibe array "counted_by" annotations, hence a separate macro.
+
+This is a reworking of Kees' previous patch [1].
+
+Link: https://lore.kernel.org/all/20251020220118.1226740-1-kees@kernel.org/ [1]
+Co-developed-by: Kees Cook <kees@kernel.org>
+Signed-off-by: Bill Wendling <morbo@google.com>
+Link: https://patch.msgid.link/20260116005838.2419118-1-morbo@google.com
+Signed-off-by: Kees Cook <kees@kernel.org>
+Stable-dep-of: bf296f83a3dd ("firmware: samsung: acpm: Fix missing LKMM barriers in sequence allocator")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/mmc/host/renesas_sdhi_internal_dmac.c | 1 +
- 1 file changed, 1 insertion(+)
+ Makefile                       |  6 ++++++
+ include/linux/compiler_types.h | 18 +++++++++++++++++-
+ include/uapi/linux/stddef.h    |  4 ++++
+ init/Kconfig                   |  7 +++++++
+ 4 files changed, 34 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/mmc/host/renesas_sdhi_internal_dmac.c b/drivers/mmc/host/renesas_sdhi_internal_dmac.c
-index f3e76d6b3e3fe3..1082e2cb399e1d 100644
---- a/drivers/mmc/host/renesas_sdhi_internal_dmac.c
-+++ b/drivers/mmc/host/renesas_sdhi_internal_dmac.c
-@@ -119,6 +119,7 @@ static const struct renesas_sdhi_of_data of_rcar_gen3_compatible = {
- static const struct of_device_id renesas_sdhi_internal_dmac_of_match[] = {
- 	{ .compatible = "renesas,sdhi-r7s9210", .data = &of_rza2_compatible, },
- 	{ .compatible = "renesas,sdhi-mmc-r8a77470", .data = &of_rcar_gen3_compatible, },
-+	{ .compatible = "renesas,sdhi-r8a774e1", .data = &of_rcar_gen3_compatible, },
- 	{ .compatible = "renesas,sdhi-r8a7795", .data = &of_rcar_gen3_compatible, },
- 	{ .compatible = "renesas,sdhi-r8a7796", .data = &of_rcar_gen3_compatible, },
- 	{ .compatible = "renesas,rcar-gen3-sdhi", .data = &of_rcar_gen3_compatible, },
+diff --git a/Makefile b/Makefile
+index 0b24b388e16c29..1f3f256adf5cb5 100644
+--- a/Makefile
++++ b/Makefile
+@@ -939,6 +939,12 @@ KBUILD_CFLAGS	+= $(CC_AUTO_VAR_INIT_ZERO_ENABLER)
+ endif
+ endif
+ 
++ifdef CONFIG_CC_IS_CLANG
++ifdef CONFIG_CC_HAS_COUNTED_BY_PTR
++KBUILD_CFLAGS	+= -fexperimental-late-parse-attributes
++endif
++endif
++
+ # Explicitly clear padding bits during variable initialization
+ KBUILD_CFLAGS += $(call cc-option,-fzero-init-padding-bits=all)
+ 
+diff --git a/include/linux/compiler_types.h b/include/linux/compiler_types.h
+index 2f18b8a01afe62..1d2f49cf315d7a 100644
+--- a/include/linux/compiler_types.h
++++ b/include/linux/compiler_types.h
+@@ -378,7 +378,7 @@ struct ftrace_likely_data {
+  * Optional: only supported since clang >= 18
+  *
+  *   gcc: https://gcc.gnu.org/bugzilla/show_bug.cgi?id=108896
+- * clang: https://github.com/llvm/llvm-project/pull/76348
++ * clang: https://clang.llvm.org/docs/AttributeReference.html#counted-by-counted-by-or-null-sized-by-sized-by-or-null
+  *
+  * __bdos on clang < 19.1.2 can erroneously return 0:
+  * https://github.com/llvm/llvm-project/pull/110497
+@@ -392,6 +392,22 @@ struct ftrace_likely_data {
+ # define __counted_by(member)
+ #endif
+ 
++/*
++ * Runtime track number of objects pointed to by a pointer member for use by
++ * CONFIG_FORTIFY_SOURCE and CONFIG_UBSAN_BOUNDS.
++ *
++ * Optional: only supported since gcc >= 16
++ * Optional: only supported since clang >= 22
++ *
++ *   gcc: https://gcc.gnu.org/pipermail/gcc-patches/2025-April/681727.html
++ * clang: https://clang.llvm.org/docs/AttributeReference.html#counted-by-counted-by-or-null-sized-by-sized-by-or-null
++ */
++#ifdef CONFIG_CC_HAS_COUNTED_BY_PTR
++#define __counted_by_ptr(member)	__attribute__((__counted_by__(member)))
++#else
++#define __counted_by_ptr(member)
++#endif
++
+ /*
+  * Optional: only supported since gcc >= 15
+  * Optional: not supported by Clang
+diff --git a/include/uapi/linux/stddef.h b/include/uapi/linux/stddef.h
+index 9a28f7d9a3342d..111b097ec00b0a 100644
+--- a/include/uapi/linux/stddef.h
++++ b/include/uapi/linux/stddef.h
+@@ -72,6 +72,10 @@
+ #define __counted_by_be(m)
+ #endif
+ 
++#ifndef __counted_by_ptr
++#define __counted_by_ptr(m)
++#endif
++
+ #ifdef __KERNEL__
+ #define __kernel_nonstring	__nonstring
+ #else
+diff --git a/init/Kconfig b/init/Kconfig
+index cab3ad28ca49e7..5cfd79a2fa790e 100644
+--- a/init/Kconfig
++++ b/init/Kconfig
+@@ -139,6 +139,13 @@ config CC_HAS_COUNTED_BY
+ 	# https://gcc.gnu.org/bugzilla/show_bug.cgi?id=108896
+ 	default y if CC_IS_GCC && GCC_VERSION >= 150100
+ 
++config CC_HAS_COUNTED_BY_PTR
++	bool
++	# supported since clang 22
++	default y if CC_IS_CLANG && CLANG_VERSION >= 220000
++	# supported since gcc 16.0.0
++	default y if CC_IS_GCC && GCC_VERSION >= 160000
++
+ config CC_HAS_MULTIDIMENSIONAL_NONSTRING
+ 	def_bool $(success,echo 'char tag[][4] __attribute__((__nonstring__)) = { };' | $(CC) $(CLANG_FLAGS) -x c - -c -o /dev/null -Werror)
+ 
 -- 
 2.53.0
 
