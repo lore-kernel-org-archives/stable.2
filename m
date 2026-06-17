@@ -1,129 +1,125 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out-170.mta0.migadu.com (out-170.mta0.migadu.com [91.218.175.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E411D39B4A3;
-	Wed, 17 Jun 2026 09:18:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD0863148D3
+	for <stable@vger.kernel.org>; Wed, 17 Jun 2026 09:19:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781687908; cv=none; b=p0cn+kwt8jKTV8s6f2Gr7r5s8S/qTWRDqODsjgTZANL0+rTeICufgv33ew9V6l+uM50kX7xFdo4jRMnCb/ge7xvLRvSnvXcuR+x8rbAH9G0kZ4uHjB3gnZCMPf6Yem5QB/jb0WCRPZxIUuZpQ4Vay/IEUiojpS/bHHJCNqg/OU0=
+	t=1781687953; cv=none; b=LY0UqZwrEw1/PhJbx6rgMnSiyGg3TcVtvmEUPPuBWf7aXamv006ze2R16K4T+1QcEf9+CD0j2tXwn9T8x448xJHOmNt02m2vI8rNrh0F2vWyjc7NUbADpD97NGSR3rXqqciZW8e64yXhjAjAaZBineRC6B1KOjAjPHL9L3m+V8w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781687908; c=relaxed/simple;
-	bh=jU+y4zwGW5m9F+uZkVQ/IsuSU9Z9wtD6LH5H8jCyUPk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=pu3P5hf+pZsF0KrwxHO5jdst89EYaNvLe2tmNrcBU52qSSUuma17Uy9n0RqKuQq/98xYJZCAJzcWF6kxXqohtXHlDB+FoSZhz9SLjZJsHdAeVo6A14l1aLnM046dw16XAMqwUYCbqhvWzcGyD6dOOxzfQOLWYNY8FEf//PX1+6Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SKvst9fX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781687953; c=relaxed/simple;
+	bh=dfNyzEm0HtGsQGTvMwWDhpf24NmRwu+ZChOl+PfMOP8=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=nMmxoIpnfYhqPNDOPodBzwQZIFZaXhsEDtX6K0ST34e+EMQ78QwQqULESXWD4MDF3DyRUvcYyr+AplU+CaKGC+ryGpfUYu0ez1972s/6grMsjdcsnUGqIuVKr4aTAflwMBZKLOzkSMgtSx8MWYUFYyiTZ1/CK5qWjVFZEbUus0I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=QPy5fbS0; arc=none smtp.client-ip=91.218.175.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SKvst9fX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F21A1F000E9;
-	Wed, 17 Jun 2026 09:18:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781687907;
-	bh=EtNxW7/37fBEOlp38QPfab6gfweMcAFcEQ1RgfKloiU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=SKvst9fXi2R1TDymljJrc6AzQ+h9tCJfP4PIijyCLDV76XTG3aUP7jios0lc8vvJW
-	 wrRahawIRsQ+OPKPdq7je/hchFPjjHCPZohsuaNjxm1BcPjxTCDVY8n2/mCm2aAM7H
-	 zXLrsbXwC+8ziBuz7+e9gDXD5MCmnpwl3Lju9Y8xKD6VyVNK+tviH3ZXMN+LjOqn30
-	 zjKGX2rO5i/EVprgo85hlksRklXiFopnO57f/mv+7cG+7s0fEDqX6b+LDUE6POjJOg
-	 YGhsPv3hyVNyUXUpEOJqlWfTz0ZBfayCvtda9zGnSUnHNCy5JVQkfNgcospb47T/sG
-	 7cnRM1qBtkO+Q==
-From: Simon Horman <horms@kernel.org>
-To: doruk@0sec.ai
-Cc: Simon Horman <horms@kernel.org>,
-	saeedm@nvidia.com,
-	leon@kernel.org,
-	tariqt@nvidia.com,
-	mbloch@nvidia.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	borisp@nvidia.com,
-	sd@queasysnail.net,
-	raeds@nvidia.com,
-	ehakim@nvidia.com,
-	netdev@vger.kernel.org,
-	linux-rdma@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH net] net/mlx5e: macsec: fix use-after-free of metadata_dst on RX SC delete
-Date: Wed, 17 Jun 2026 10:16:35 +0100
-Message-ID: <20260617091634.846438-2-horms@kernel.org>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260615140534.52691-1-doruk@0sec.ai>
-References: <20260615140534.52691-1-doruk@0sec.ai>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="QPy5fbS0"
+Content-Type: text/plain;
+	charset=us-ascii
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1781687950;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=lMQGqpgSC5EMLyUBnCorVPFjA76iXNC33Ltwj1O5yMQ=;
+	b=QPy5fbS0RybOo1ITfmRGYOxj37GMmK1I1T8rjl+fDmd6rf2JhYAMwF9D5oAvzGpAGOTjmP
+	veiggTaNCIb8k2GPskVwl6CCKSfXJtrbVE2aLN4iYda++M3j6OffFni1+oWG7C0ojDvSGc
+	dukv9z/KDBkRJpbWj8PcGFu2gt2rE/I=
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.600.51.1.1\))
+Subject: Re: [PATCH] mm: shrinker: fix shrinker_info teardown race with
+ expansion
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <20260617085658.27096-1-qi.zheng@linux.dev>
+Date: Wed, 17 Jun 2026 17:18:07 +0800
+Cc: akpm@linux-foundation.org,
+ david@fromorbit.com,
+ roman.gushchin@linux.dev,
+ linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org,
+ Qi Zheng <zhengqi.arch@bytedance.com>,
+ stable@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <D326325D-79A4-473F-9C63-B875176F378E@linux.dev>
+References: <20260617085658.27096-1-qi.zheng@linux.dev>
+To: Qi Zheng <qi.zheng@linux.dev>
+X-Migadu-Flow: FLOW_OUT
 
-This is an AI-generated review of your patch. The human sending this
-email has considered the AI review valid, or at least plausible.
-Full review at: https://sashiko.dev
----
-net/mlx5e: macsec: fix use-after-free of metadata_dst on RX SC delete
 
-This patch replaces metadata_dst_free() with dst_release() during MACsec
-RX SC deletion. It relies on the dst subsystem's refcounting to defer freeing
-the metadata_dst until the last reference is dropped, aiming to fix a
-use-after-free when an skb still references it.
 
-> diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_accel/macsec.c b/drivers/net/ethernet/mellanox/mlx5/core/en_accel/macsec.c
-> index 71b3a059c9647..2a4e7ed76d315 100644
-> --- a/drivers/net/ethernet/mellanox/mlx5/core/en_accel/macsec.c
-> +++ b/drivers/net/ethernet/mellanox/mlx5/core/en_accel/macsec.c
-> @@ -829,7 +829,7 @@ static void macsec_del_rxsc_ctx(struct mlx5e_macsec *macsec, struct mlx5e_macsec
->  	 */
->  	list_del_rcu(&rx_sc->rx_sc_list_element);
->  	xa_erase(&macsec->sc_xarray, rx_sc->sc_xarray_element->fs_id);
-> -	metadata_dst_free(rx_sc->md_dst);
-> +	dst_release(&rx_sc->md_dst->dst);
+> On Jun 17, 2026, at 16:56, Qi Zheng <qi.zheng@linux.dev> wrote:
+>=20
+> From: Qi Zheng <zhengqi.arch@bytedance.com>
+>=20
+> The expand_shrinker_info() iterates all visible memcgs under
+> shrinker_mutex, including memcgs that have not finished ->css_online()
+> yet.
+>=20
+> Once pn->shrinker_info has been published, teardown must stay =
+serialized
+> with expand_shrinker_info() until that memcg is either fully online or
+> no longer visible to iteration. Today alloc_shrinker_info() breaks =
+that
+> rule by dropping shrinker_mutex before freeing a partially initialized
+> shrinker_info array, which may cause the following race:
+>=20
+> CPU0                   CPU1
+> =3D=3D=3D=3D                   =3D=3D=3D=3D
+>=20
+> css_create
+> --> list_add_tail_rcu(&css->sibling, &parent_css->children);
+>    online_css
+>    --> mem_cgroup_css_online
+>        --> alloc_shrinker_info
+>            --> alloc node0 info
+>                rcu_assign_pointer(C->node0->shrinker_info, old0)
+>                alloc node1 info -> FAIL -> goto err
+>                mutex_unlock(shrinker_mutex)
+>=20
+>                       shrinker_alloc()
+>                       --> shrinker_memcg_alloc
+>                           --> mutex_lock(shrinker_mutex)
+>                               expand_shrinker_info
+>                               --> mem_cgroup_iter see the memcg
+>                                   expand_one_shrinker_info
+>                                   --> old0 =3D C->node0->shrinker_info
+>                                       memcpy(new->unit, old0->unit, =
+...);
+>=20
+>                free_shrinker_info
+>                --> kvfree(old0);
+>=20
+>                                       /* double free !! */
+>                                       kvfree_rcu(old0, rcu);
+>=20
+> The same problem exists later in mem_cgroup_css_online(). If
+> alloc_shrinker_info() succeeds but a subsequent objcg allocation =
+fails,
+> the free_objcg -> free_shrinker_info() unwind path tears down the =
+already
+> published pn->shrinker_info arrays without shrinker_mutex. The
+> expand_one_shrinker_info() can race with that teardown in the same =
+way,
+> leading to use-after-free or double-free of the old shrinker_info.
+>=20
+> Fix this by serializing shrinker_info teardown with shrinker_mutex, =
+and by
+> keeping alloc_shrinker_info() error cleanup inside the locked section.
+>=20
+> Fixes: 307bececcd12 ("mm: shrinker: add a secondary array for =
+shrinker_info::{map, nr_deferred}")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
 
-[Severity: High]
-Does this change introduce a new use-after-free in the RX datapath?
+Acked-by: Muchun Song <muchun.song@linux.dev>
 
-When dst_release() drops the refcount to 0, concurrent readers in
-mlx5e_macsec_offload_handle_rx_skb() can still find the object via RCU
-and call dst_hold(). Because dst_hold() uses rcuref_get(), it fails on a
-0-refcount object without incrementing the count.
+Thanks.
 
-However, the datapath still attaches the 0-refcount dst to the skb. When the
-skb is later freed, skb_dst_drop() will call dst_release() on already-freed
-memory.
-
-Should the datapath be updated to use dst_hold_safe() instead?
-
->  	kfree(rx_sc->sc_xarray_element);
-
-[Severity: High]
-This is a pre-existing issue, but does this synchronous kfree() cause a
-use-after-free for concurrent datapath readers?
-
-The element was just removed from the RCU-protected xarray via xa_erase(),
-but the RX datapath can still be accessing it via xa_load() under
-rcu_read_lock() in mlx5e_macsec_offload_handle_rx_skb().
-
-Should this use an RCU-deferred free mechanism instead?
-
-[Severity: Critical]
-This is a pre-existing issue, but does mlx5e_macsec_offload_handle_rx_skb()
-blindly dereference the result of xa_load()?
-
-drivers/net/ethernet/mellanox/mlx5/core/en_accel/macsec.c:mlx5e_macsec_offload_handle_rx_skb() {
-    ...
-    sc_xarray_element = xa_load(&macsec->sc_xarray, fs_id);
-    rx_sc = sc_xarray_element->rx_sc;
-    ...
-}
-
-If xa_load() returns NULL (e.g., if the entry was concurrently deleted by
-xa_erase() or the packet has an unrecognized fs_id), will this cause a
-deterministic kernel panic?
-
-Is a NULL check needed before accessing the returned element?
-
->  	kfree_rcu_mightsleep(rx_sc);
->  }
