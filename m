@@ -1,150 +1,98 @@
-Received: from pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.35.192.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE2AC380FCF;
-	Wed, 17 Jun 2026 08:28:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.35.192.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0822F31A813;
+	Wed, 17 Jun 2026 08:34:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781684891; cv=none; b=WM8/jtEtTGH+9cV0zDN9AHko57yAW38Tzn7r7nOs/nGJi7D1DhC8553phxCYtbsD/YZcxCk8318E+g30s8sCeQhaAf8eC/NFt6/FMyEU6whEjOxD+DR5BqH3ndKIXFP1y3TD3V4UZF4WWDcOvJ7HA3qGpJSsAWG5c1V7awq79Cs=
+	t=1781685248; cv=none; b=EKDcHj8Wo7+EGa7MTlIpEoKqH0Phxf0ra3hXSdWuyCrbhhmS72hLrRBc0PIMBweEy/ZyQWO+Hupu5z4ey575aOXTotpj5Q/AH1Z0uzjfJL5dDKgnyiTGyHPmFahVKbcd2dAJXA10h3DNFpYDsFl4GV/LPhhyxvOgsUwSPuXRFiI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781684891; c=relaxed/simple;
-	bh=RSZzWjXkPh2qWrxycJ/AEFxf0WaPV0g6SYdonukY4C4=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=otHOML1k2ceXSQZyjNDymI4ryJSdAbl+7jNlRKOlDlDYxiYckdMfW7LZ3bI8VkjK8Wt6Oay3BWlXy/b9LhWMP/s87jGHIkZkK/KuZR7WtIudQpzNvuTsZsNxh8C7FVFVasZp8Ds7HnjQ7QRfVO3+c6QFbqRcwqm35DtC6non2nQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de; spf=pass smtp.mailfrom=amazon.de; dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b=HZ4ADbBd; arc=none smtp.client-ip=52.35.192.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
+	s=arc-20240116; t=1781685248; c=relaxed/simple;
+	bh=VNCbHQg5Qrsnj35x6teMZJAQNOJ6kX8DZ7xM+8qBSMs=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=NGaQQX5udx1r/stTM7Dvj4fitLMOtoEgAcMoFC+pS6QUnjQb3XGG6pNqKFLhFxEiXixaaYx7/E40CzNayuBjNQZNuE6KyNTqBz34OiO6bx9+i4giU4XwVSDP43dJ0YCgTW3qZC8ghvoi0mv7zYggOZxUWdncprrRKuPzYPIZGJs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=m9rCVOj2; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b="HZ4ADbBd"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
-  t=1781684889; x=1813220889;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=t12xmcDgKdGHIyBUSp6XH4cwbusTZoYgT23w3rCQ89U=;
-  b=HZ4ADbBd6aIk9QgzEjZ2O32fvUpFzBza/JiUtMfB1/Y1wTqfQ5PC0MQC
-   w6wPsuJUYtylYeZ/KNxW3r/7qZAMrHVxd9E/3+X07XZ4Tk3Hmy1sar09G
-   wnCL6Rg2Y9Yhz34sJyxGhP8DATQ+TGj8mr0aisptP2z0TxvkX2xyr4xH3
-   gRfxF29Bl19io+hKaMgKt0xo+N820xHxBtEpI0khKkfgDOZ1cEEing/0Z
-   yJCK1zJJt+g06BjtQluCUkAxUfU0RcgVsOlrnC24SRAEATcDWrVbra16j
-   //Aip1omgDGBrnnnXFUhfr8AbaTDWk7XIWaNXgAbY8qyigw0tY41xmyes
-   g==;
-X-CSE-ConnectionGUID: cek8SUr5Rbqg6EHysoU5NQ==
-X-CSE-MsgGUID: 0zu5w3lCQLGLzo2ad8UcDw==
-X-IronPort-AV: E=Sophos;i="6.24,209,1774310400"; 
-   d="scan'208";a="21709201"
-Received: from ip-10-5-6-203.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.6.203])
-  by internal-pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Jun 2026 08:28:06 +0000
-Received: from EX19MTAUWC001.ant.amazon.com [205.251.233.53:13715]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.30.151:2525] with esmtp (Farcaster)
- id 2c888740-3098-4a22-a09f-ec0f9de1c90c; Wed, 17 Jun 2026 08:28:06 +0000 (UTC)
-X-Farcaster-Flow-ID: 2c888740-3098-4a22-a09f-ec0f9de1c90c
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWC001.ant.amazon.com (10.250.64.174) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.37;
- Wed, 17 Jun 2026 08:28:06 +0000
-Received: from dev-dsk-mheyne-1b-8cc83676.eu-west-1.amazon.com (10.13.235.223)
- by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.37;
- Wed, 17 Jun 2026 08:28:04 +0000
-From: Maximilian Heyne <mheyne@amazon.de>
-To: <stable@vger.kernel.org>
-CC: Maximilian Heyne <mheyne@amazon.de>, Wolfgang Grandegger
-	<wg@grandegger.com>, Marc Kleine-Budde <mkl@pengutronix.de>, "David S.
- Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, "Eric W.
- Biederman" <ebiederm@aristanetworks.com>, Eric Dumazet
-	<eric.dumazet@gmail.com>, <linux-can@vger.kernel.org>,
-	<netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH 5.10.y] net: add missing ns_capable check for peer netns
-Date: Wed, 17 Jun 2026 08:27:39 +0000
-Message-ID: <20260617-thaws-enid-af4ad67d@mheyne-amazon>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="m9rCVOj2"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 65H8XhIO22587399, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1781685223; bh=VNCbHQg5Qrsnj35x6teMZJAQNOJ6kX8DZ7xM+8qBSMs=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=m9rCVOj2aK0OxqJGQZ8kTOgQcHykEGWVzxgzsqejYrO31SS+mOHMjZfnOZc7VnzOP
+	 hzKO9wSJ++HtwVO+Pv0q9ITbbtzhtv98oEA7wC+lAqZqx9JWoTk55JyBfkLok3lx3g
+	 z2sV9iCQVslTdyvqOoLl5MkCaDZrLhz0n/ugo9CD/Hc9O9UwMrSax96i1G/zjbWCgS
+	 3wIPNtCRh3HMUCJW+ReVE99IsyY6DBeQWNd1mqfxGHhw2kWArbvtb6irT4qDjOtWVf
+	 vqykbJdmfQpezIka02O54fM+cEQUxBZeW0VZV1TTsffJv027atUq1ylAUE4FbfcB/Q
+	 ivqbTNhB5JmrA==
+Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 65H8XhIO22587399
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Wed, 17 Jun 2026 16:33:43 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.17; Wed, 17 Jun 2026 16:33:43 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS06.realtek.com.tw (10.21.1.56) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.17; Wed, 17 Jun 2026 16:33:43 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::e6fd:5a3f:8946:92c4%10]) with mapi id
+ 15.02.2562.017; Wed, 17 Jun 2026 16:33:43 +0800
+From: Ping-Ke Shih <pkshih@realtek.com>
+To: Dawei Feng <dawei.feng@seu.edu.cn>
+CC: "leitao@debian.org" <leitao@debian.org>, "linux-wireless@vger.kernel.org"
+	<linux-wireless@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "jianhao.xu@seu.edu.cn"
+	<jianhao.xu@seu.edu.cn>, "zilin@seu.edu.cn" <zilin@seu.edu.cn>,
+	"stable@vger.kernel.org" <stable@vger.kernel.org>
+Subject: RE: [PATCH wireless] wifi: rtw88: pci: fix resource leak on failed
+ NAPI setup
+Thread-Topic: [PATCH wireless] wifi: rtw88: pci: fix resource leak on failed
+ NAPI setup
+Thread-Index: AQHc/fmIAcGrEcSAmkm2jiCazgmzlLZCa/QQ
+Date: Wed, 17 Jun 2026 08:33:43 +0000
+Message-ID: <459e4dfeb2f048c3bff97028d8c1f3a2@realtek.com>
+References: <20260617013502.114057-1-dawei.feng@seu.edu.cn>
+In-Reply-To: <20260617013502.114057-1-dawei.feng@seu.edu.cn>
+Accept-Language: en-US, zh-TW
+Content-Language: zh-TW
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ClientProxiedBy: EX19D031UWC004.ant.amazon.com (10.13.139.246) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
 
-The upstream commit 7b735ef81286 ("rtnetlink: add missing
-netlink_ns_capable() check for peer netns") doesn't apply on older
-stable kernels due to refactoring. Therefore, this patch is an attempt
-to implement the same capability check just directly in the respective
-interface types.
+Dawei Feng <dawei.feng@seu.edu.cn> wrote:
+> rtw_pci_probe() allocates PCI resources through
+> rtw_pci_setup_resource() before it sets up NAPI. If
+> rtw_pci_napi_init() fails, the error path jumps straight to
+> err_pci_declaim and skips rtw_pci_destroy(), leaving the PCI
+> resources allocated by rtw_pci_setup_resource() behind.
+>=20
+> Add a dedicated cleanup label for the NAPI setup failure path so probe
+> destroys the PCI resources.
+>=20
+> The bug was first flagged by an experimental analysis tool we are
+> developing for kernel memory-management bugs while analyzing current
+> mainline kernels. The tool is still under development and is not yet
+> publicly available. Manual inspection confirms that the bug is still
+> present in v7.1-rc7.
+>=20
+> An x86_64 allyesconfig build showed no new warnings. As we do not have a
+> suitable rtw88 PCI board to test with, no runtime testing was able to be
+> performed.
+>=20
+> Fixes: d0bcb10e7b94 ("wifi: rtw88: Un-embed dummy device")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Dawei Feng <dawei.feng@seu.edu.cn>
 
-Approximate the netlink_ns_capable check with an ns_capable check. As
-the newlink operation is synchronous this should result in the same
-behavior.
+Acked-by: Ping-Ke Shih <pkshih@realtek.com>
 
-Without this commit, for example, the following command creating a veth
-device in network namespace of pid 1 succeeds:
-
-$ unshare -U -r -n -- bash -c '
-  ip link add veth0 type veth peer name foobar netns 1
-  sleep 60' &
-$ ip link show foobar
-13: foobar@if2: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN mode DEFAULT group default qlen 1000
-    link/ether 96:09:69:92:92:cc brd ff:ff:ff:ff:ff:ff link-netnsid 1
-
-With this patch, it's returning -EPERM.
-
-This fixes CVE-2026-31692
-
-Cc: stable@vger.kernel.org
-Fixes: 81adee47dfb6 ("net: Support specifying the network namespace upon device creation.")
-Assisted-by: Kiro:claude
-Signed-off-by: Maximilian Heyne <mheyne@amazon.de>
----
- drivers/net/can/vxcan.c | 5 +++++
- drivers/net/veth.c      | 5 +++++
- 2 files changed, 10 insertions(+)
-
-diff --git a/drivers/net/can/vxcan.c b/drivers/net/can/vxcan.c
-index 1bfede407270d..05fcbfacc3433 100644
---- a/drivers/net/can/vxcan.c
-+++ b/drivers/net/can/vxcan.c
-@@ -198,6 +198,11 @@ static int vxcan_newlink(struct net *net, struct net_device *dev,
- 	if (IS_ERR(peer_net))
- 		return PTR_ERR(peer_net);
- 
-+	if (!ns_capable(peer_net->user_ns, CAP_NET_ADMIN)) {
-+		put_net(peer_net);
-+		return -EPERM;
-+	}
-+
- 	peer = rtnl_create_link(peer_net, ifname, name_assign_type,
- 				&vxcan_link_ops, tbp, extack);
- 	if (IS_ERR(peer)) {
-diff --git a/drivers/net/veth.c b/drivers/net/veth.c
-index 743716ebebdb9..bda3add65c76e 100644
---- a/drivers/net/veth.c
-+++ b/drivers/net/veth.c
-@@ -1341,6 +1341,11 @@ static int veth_newlink(struct net *src_net, struct net_device *dev,
- 	if (IS_ERR(net))
- 		return PTR_ERR(net);
- 
-+	if (!ns_capable(net->user_ns, CAP_NET_ADMIN)) {
-+		put_net(net);
-+		return -EPERM;
-+	}
-+
- 	peer = rtnl_create_link(net, ifname, name_assign_type,
- 				&veth_link_ops, tbp, extack);
- 	if (IS_ERR(peer)) {
--- 
-2.50.1
-
-
-
-
-Amazon Web Services Development Center Germany GmbH
-Tamara-Danz-Str. 13
-10243 Berlin
-Geschaeftsfuehrung: Christof Hellmis, Andreas Stieger
-Eingetragen am Amtsgericht Charlottenburg unter HRB 257764 B
-Sitz: Berlin
-Ust-ID: DE 365 538 597
 
