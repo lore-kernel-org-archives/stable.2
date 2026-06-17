@@ -1,110 +1,173 @@
-Received: from mail-oo1-f50.google.com (mail-oo1-f50.google.com [209.85.161.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2795D33F5B3
-	for <stable@vger.kernel.org>; Wed, 17 Jun 2026 17:18:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B066D318BA7;
+	Wed, 17 Jun 2026 17:20:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781716702; cv=none; b=lp6Q1WHwFpYvRmJ76T61x/xL5Fs4Eiybd9Ddbr/QIF/kJ5+l1hBtJN1V1T/XI18NdBEdRiRCuymkbh3ZsQ7/m/4i9rgksb7imNRQr5fO0syQCgct2dG2rLw43cPSxznX7bdS9OjNkd5KQsugVfD/s+JWHIl6uVo5xvZEmsGzx6A=
+	t=1781716830; cv=none; b=WX0T6Vv2rH65Zto9LUfDvfIP7meVaoKm7nr1Eo6pj6z1KPLunRJM5e0to0mMZ4/GRnCJIOtniGui+hLbVrqtgM6ctuQ9QdacYS/29hGejU6nxAHJz911RgnF36mO7mDeHYJbCMrOyzRxg9lyIbftEAuig0STHOss6ZHX97mgcss=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781716702; c=relaxed/simple;
-	bh=zHKO1XlZBRzXSXgfQgWwKooKrNuhcoEsmgecyBdnxXs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=aVhh4QJ6bzHJTQ3BonHJnfLXsc2eGuO4e8qVSp46CEM2TfiIuyVtC8/0jVhHZCrzEYPoy2+kGq5DjVlbZrxJOc0qu/pI5VBEaP0hwbtZYczvwGUm1PbK/7uiFTL1AoYrQH/irT4WHv17vBuRI0nIiZTY8IIBzE78/uKFt5mtwI8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Xpr6aDdk; arc=none smtp.client-ip=209.85.161.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	s=arc-20240116; t=1781716830; c=relaxed/simple;
+	bh=Nzm64MZ0U50LvGJEIPNUK2Xhx/pQRBWgAqw5ps3uOCk=;
+	h=Date:To:From:Subject:Message-Id; b=BAyYdABuG0wfwOzVjxNhEi48GhIqJaouYE/c/3DOFx8zngw0G1fKWrj5kTszw2xBrI+dsBivNtVBB13WOdVYQ+8lGIERz3b6JlNcgAeBOBN+coUPq69Fineb18/tzqgsi/qeTY0oCYWv1J5LP4btV9QdR4c9aQEOT1x+usGOCWg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=wKvfxzP0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Xpr6aDdk"
-Received: by mail-oo1-f50.google.com with SMTP id 006d021491bc7-69e66e11386so11855eaf.3
-        for <stable@vger.kernel.org>; Wed, 17 Jun 2026 10:18:18 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="wKvfxzP0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC76D1F000E9;
+	Wed, 17 Jun 2026 17:20:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google; t=1781716698; x=1782321498; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=ASXWrUWStyQOageYC3LoVBOOGZ/iKGTFoHvXDiH7SyA=;
-        b=Xpr6aDdkRobcxMwtV07Lg/n7gC/ReNEQq4Szd/35DrsDOevsFz4paqoewZGqAfmXxJ
-         Qt1WgC6IBDuM5shdIZMIuheNy3Cvy2qbxFe4z7CGLpDmIddBEsGaGoVqdzOIwdIgE8FB
-         F69mMmiTWk0uUoRoUEYQq9wyO0VHXWVIdc51g=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781716698; x=1782321498;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=ASXWrUWStyQOageYC3LoVBOOGZ/iKGTFoHvXDiH7SyA=;
-        b=r1g+rvi0okHIRyHOVaT4/W8armKSAoy18lgUkzY2kabwS/aefDfe4UXVJx6ehQiDmt
-         AzcG/wMN5ueT5YQKXKrv3icST3Cos5Zvp78fI6FxvnLvrp1SNhLKnoBD6gH4hBWkKYAr
-         vufbiaSFMUplFYGzjxrClwVxU+8UVAegkDVqSG4nGCetkvnFi/bjAfJyZH3LUmpUAOnL
-         QWj8qctw2fsTSyZf4YJlIEHG7nxbNgNbbyJgmEFvI3FU0e4ibqcUFmtr6yP3xIawNEau
-         VTrVNfIWdMs6WFQ1RHAizSMNtvnXuYqLXZXa5EP6PIjjzeJVK2W6s9Tk1lKHaK7bTxu1
-         QaHQ==
-X-Forwarded-Encrypted: i=1; AFNElJ9danYtxm+EOey3Oa7L6RTv7i4MkebdanqlWLDxu7DKegjIOEMqCFobgbdn3nr3ViZazzbRilM=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy/FNaFrnZUITjj2d0PVPihsZa6ld2zn+8q+asaUPFPAJ9im+dA
-	kUfnRgbRwaxJbbeoTPe8afQR5EldsLYLI6wn1KSyhr6YPHEbxlFUtlOtMhWRMjlrXfU=
-X-Gm-Gg: Acq92OHH2ewPrpDTTfkEaTMd+SRndiUg35f+oz296/EzeoVCyIQHH2Ivi/QOhyzAwzm
-	u+6i/aFIG/S/G8s4Zmzd2bEnaDHJP2WGLZphNCXQafGBgjRteg9dB+BZvqbwol6YrJt8qNC2QZZ
-	6rD4wbyHSoTqU8yhRLAuRnYWzwiZerVP585zLIrs7SImhL9+SJz2EU0Tep5CuBeH7U+QTXxWs/w
-	g+0ygiJGgKChO5Ko19Rn8dlP3HQhhGrX4Y5zOWm/l1bcAdnHEqEFe8QUb8Py7aKU6a06ZkCqvck
-	FqFDmj9zeWW+NQ7uzACtUJpEaCBykVDzKbMhmluo+eYU/zq4/EwnKTXULCVHKyRHbVeosY9/xJF
-	by+nkFChCVbt8oZZbjhOW9EWwJoaTHd5Hq9RILuEJVZLpgizWvdlsKqTX68HKjYz+iIXb0hH4ZW
-	VtzW3WzSaj6NDrba4HPXgG
-X-Received: by 2002:a05:6820:f022:b0:6a0:b429:4436 with SMTP id 006d021491bc7-6a0c72f9a99mr346616eaf.0.1781716697847;
-        Wed, 17 Jun 2026 10:18:17 -0700 (PDT)
-Received: from [192.168.1.14] ([38.15.57.99])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-44308a66827sm4841164fac.2.2026.06.17.10.18.16
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 17 Jun 2026 10:18:17 -0700 (PDT)
-Message-ID: <5f919e15-45e2-4c33-896c-a17782d5e8ec@linuxfoundation.org>
-Date: Wed, 17 Jun 2026 11:18:15 -0600
+	d=linux-foundation.org; s=korg; t=1781716827;
+	bh=mdLS4DcstOIgnb++Z9Kesrd+VQTAcWdRQKJ91IFWQbg=;
+	h=Date:To:From:Subject;
+	b=wKvfxzP0rtGkQxgsdbcjdLnAkXDqa1pTNjUR90rxBayISrLp1gk46vIhGwqmO15wo
+	 i2KLcCanfpKh3sc50TYjz+YqGDi6rk1q4QSNLI063tYyeAmeYiY/0m27x0DpGYlfqz
+	 UvIS2Z70lj8pkc4ljMU2viioPYHEKcTBoQhyD6VU=
+Date: Wed, 17 Jun 2026 10:20:26 -0700
+To: mm-commits@vger.kernel.org,stable@vger.kernel.org,roman.gushchin@linux.dev,muchun.song@linux.dev,david@fromorbit.com,zhengqi.arch@bytedance.com,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + mm-shrinker-fix-shrinker_info-teardown-race-with-expansion.patch added to mm-hotfixes-unstable branch
+Message-Id: <20260617172026.DC76D1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.18 000/325] 6.18.36-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com,
- Shuah Khan <skhan@linuxfoundation.org>
-References: <20260616145057.827196531@linuxfoundation.org>
-Content-Language: en-US
-From: Shuah Khan <skhan@linuxfoundation.org>
-In-Reply-To: <20260616145057.827196531@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 6/16/26 08:56, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.18.36 release.
-> There are 325 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Thu, 18 Jun 2026 14:49:57 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.18.36-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.18.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
-> 
 
-Compiled and booted on my test system. No dmesg regressions.
+The patch titled
+     Subject: mm: shrinker: fix shrinker_info teardown race with expansion
+has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
+     mm-shrinker-fix-shrinker_info-teardown-race-with-expansion.patch
 
-Tested-by: Shuah Khan <skhan@linuxfoundation.org>
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-shrinker-fix-shrinker_info-teardown-race-with-expansion.patch
 
-thanks,
--- Shuah
+This patch will later appear in the mm-hotfixes-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
+
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: Qi Zheng <zhengqi.arch@bytedance.com>
+Subject: mm: shrinker: fix shrinker_info teardown race with expansion
+Date: Wed, 17 Jun 2026 16:56:58 +0800
+
+expand_shrinker_info() iterates all visible memcgs under shrinker_mutex,
+including memcgs that have not finished ->css_online() yet.
+
+Once pn->shrinker_info has been published, teardown must stay serialized
+with expand_shrinker_info() until that memcg is either fully online or no
+longer visible to iteration.  Today alloc_shrinker_info() breaks that rule
+by dropping shrinker_mutex before freeing a partially initialized
+shrinker_info array, which may cause the following race:
+
+CPU0                   CPU1
+====                   ====
+
+css_create
+--> list_add_tail_rcu(&css->sibling, &parent_css->children);
+    online_css
+    --> mem_cgroup_css_online
+        --> alloc_shrinker_info
+            --> alloc node0 info
+                rcu_assign_pointer(C->node0->shrinker_info, old0)
+                alloc node1 info -> FAIL -> goto err
+                mutex_unlock(shrinker_mutex)
+
+                       shrinker_alloc()
+                       --> shrinker_memcg_alloc
+                           --> mutex_lock(shrinker_mutex)
+                               expand_shrinker_info
+                               --> mem_cgroup_iter see the memcg
+                                   expand_one_shrinker_info
+                                   --> old0 = C->node0->shrinker_info
+                                       memcpy(new->unit, old0->unit, ...);
+
+                free_shrinker_info
+                --> kvfree(old0);
+
+                                       /* double free !! */
+                                       kvfree_rcu(old0, rcu);
+
+The same problem exists later in mem_cgroup_css_online().  If
+alloc_shrinker_info() succeeds but a subsequent objcg allocation fails,
+the free_objcg -> free_shrinker_info() unwind path tears down the already
+published pn->shrinker_info arrays without shrinker_mutex.  The
+expand_one_shrinker_info() can race with that teardown in the same way,
+leading to use-after-free or double-free of the old shrinker_info.
+
+Fix this by serializing shrinker_info teardown with shrinker_mutex, and by
+keeping alloc_shrinker_info() error cleanup inside the locked section.
+
+Link: https://lore.kernel.org/20260617085658.27096-1-qi.zheng@linux.dev
+Fixes: 307bececcd12 ("mm: shrinker: add a secondary array for shrinker_info::{map, nr_deferred}")
+Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
+Acked-by: Muchun Song <muchun.song@linux.dev>
+Cc: Dave Chinner <david@fromorbit.com>
+Cc: Qi Zheng <zhengqi.arch@bytedance.com>
+Cc: Roman Gushchin <roman.gushchin@linux.dev>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+---
+
+ mm/shrinker.c |   13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
+
+--- a/mm/shrinker.c~mm-shrinker-fix-shrinker_info-teardown-race-with-expansion
++++ a/mm/shrinker.c
+@@ -59,12 +59,14 @@ static inline int shrinker_unit_alloc(st
+ 	return 0;
+ }
+ 
+-void free_shrinker_info(struct mem_cgroup *memcg)
++static void __free_shrinker_info(struct mem_cgroup *memcg)
+ {
+ 	struct mem_cgroup_per_node *pn;
+ 	struct shrinker_info *info;
+ 	int nid;
+ 
++	lockdep_assert_held(&shrinker_mutex);
++
+ 	for_each_node(nid) {
+ 		pn = memcg->nodeinfo[nid];
+ 		info = rcu_dereference_protected(pn->shrinker_info, true);
+@@ -74,6 +76,13 @@ void free_shrinker_info(struct mem_cgrou
+ 	}
+ }
+ 
++void free_shrinker_info(struct mem_cgroup *memcg)
++{
++	mutex_lock(&shrinker_mutex);
++	__free_shrinker_info(memcg);
++	mutex_unlock(&shrinker_mutex);
++}
++
+ int alloc_shrinker_info(struct mem_cgroup *memcg)
+ {
+ 	int nid, ret = 0;
+@@ -98,8 +107,8 @@ int alloc_shrinker_info(struct mem_cgrou
+ 	return ret;
+ 
+ err:
++	__free_shrinker_info(memcg);
+ 	mutex_unlock(&shrinker_mutex);
+-	free_shrinker_info(memcg);
+ 	return -ENOMEM;
+ }
+ 
+_
+
+Patches currently in -mm which might be from zhengqi.arch@bytedance.com are
+
+mm-shrinker-fix-shrinker_info-teardown-race-with-expansion.patch
+
