@@ -1,109 +1,154 @@
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FF4E3C8C72
-	for <stable@vger.kernel.org>; Wed, 17 Jun 2026 20:31:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09B3928CF5D
+	for <stable@vger.kernel.org>; Wed, 17 Jun 2026 20:33:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781728311; cv=none; b=nfcWZFhBkDQZJIUqYVdymBP5dpBfSrZ758blb28/JEBdw1js4QknXlonrXe2+ZOTB91RhfN4IAhhDzun5bD+hW6HxoIOwctyEVqaeFm56epHzc1F71lrWN+Aqigeakn2WDpT14sU9eLPp8eeveCX9PYUDX2OJ7YhxWKFqTKSOlk=
+	t=1781728440; cv=none; b=r/ML0ERpXvR5BCRuecx+/W5HGprp1c1B9Ysm8H7uAJ8O8L0SvrDg+5Pn4vC1QbcMpIs8DDrU1g/ZuVtgAbftfn175OS/aCBinF3CCAKEN7lFJuugm5TkwDwqJcnUaDbhbbQdu4OGfNv+b/+cncpUQxjZ6Y15jvLf2pNNivLgz94=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781728311; c=relaxed/simple;
-	bh=ilHa6mBWU2AoqymTSuxCecFC/tP1FzoccoWuRJlRG8w=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qwnpdbX/NxXJgbGzOP+5u3H4UZlvCe2TNiLbYlvIOkAZqg4USyIKNon9rTlj5MfuqzGo901in/uYsNmmM3c1sshxGl+KbGPtLiB2luiX6i6WsDmrVvwN7zwbuTiX05FHQc35R4XNV5UKRmAl25azZBphFRE32kNvg1vPFUBB/DU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com; spf=pass smtp.mailfrom=googlemail.com; dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b=kp8oM1Ab; arc=none smtp.client-ip=209.85.221.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
+	s=arc-20240116; t=1781728440; c=relaxed/simple;
+	bh=yv/OAO1hm17vRsQtyncwVgokk9OgH8vnf7MacQ3bM2E=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=H+Gv/3mTo8vHu4SqFP0sT8TTC4n1VVe8WbVCfwZerc6qQdXfkxayA3av/+9kIDDAAovq5NGmld2HOtWGbumHAT0GqhSff73Nel11iUj34VrRpO7cI8lF/N/3PmLirztZBYR9j6R0dtR9grXt70dVe0PD5oluoVlsiFNLNdys+lA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mMZ5mX/4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b="kp8oM1Ab"
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-45eeba68948so174791f8f.1
-        for <stable@vger.kernel.org>; Wed, 17 Jun 2026 13:31:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlemail.com; s=20251104; t=1781728308; x=1782333108; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=KJoFZAgDnFS7dzERXVYf3hL3VCTnc1Lf8VBBxmJqE2o=;
-        b=kp8oM1AbrcdjZgeio9aTaPDZcJaM0rZdBeyEi9aLW5PlIJvlbQTDoJ+01oZ+2tszUr
-         q5AqZz0P+G58tRKBFDPLj14zpKaYdXoyNrSxNgQQV6cDVXft72vsiPSpSDQyAC41OnqM
-         wdGQjXcS8fJvzTNCMYiI+lazXNQhDJTLglzvaelC5/3QbqQqW/8DaFt2F/G/JEwhyh11
-         I0vh5Fs8CeOFLC3TTdv6mJIPX3Eolp46ZsIpN3fbhK/U10ZMYr/3ZPRHb3HeXz4vHR1N
-         vDrYctoNijEUj3VfHCuEHey70IirhjH9CfKnnvlSp1j8sbdoEghyImbkD06P2GsTZ8Aw
-         5zug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781728308; x=1782333108;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=KJoFZAgDnFS7dzERXVYf3hL3VCTnc1Lf8VBBxmJqE2o=;
-        b=cXFXonKmKRHzKbXbTZVNPXXJ/BSKpVE6QkI6i2THgdU0esY4dC6/vlyHc3MQqmHsrH
-         Y8+Rms4TmK38r9VarXXsQ+xmhqiLxCm1llm3NjkjBnNilzP/TXWOiw6PgBUqbeXmTmLn
-         4K4pfVCWEKQBSA8i7fGDmPI2ZmHfU5tb14p7/0qvhYiY4vGTTjksqnmvkkzYt6ajO7w8
-         bMculyD7uNbs5NZhaGp627NwkOi++AfJy6P5skCzE1N9/cIqnRIsMZYvml3TF8RZqAp/
-         c/lxIZaasjgzCwvQlX4/MRPxRbM5Gs1cUtwOyy6r7wliL2pgfz8Unm8XWWBGq7/QbcCK
-         gZHw==
-X-Forwarded-Encrypted: i=1; AFNElJ+UvMACRYGltS6bFDiKHeJBBqQZbz2BEor4l2+7iAqTgSlJJ6Lvnx+7p7ZX0nQ9BzCu2Ln5SOs=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw8OlVUk/OkgSn0M8Q52osgzwQteM9jU7MW3tgNeiYxhUYK6H1Q
-	k8WjxWq0H8XPg7zh874z3/6YmMwv2xy5ejAOESQ5EdIGaRg1NkBjpVg=
-X-Gm-Gg: AfdE7cmzjVGtGuYhgI+fftbg65p6T9bnHk47bKlMJGiy3IdHwCDub/vfB7088vgWSa/
-	y9TwXGNq9HjUanBxdD1i/ObzGMr7wBO2gXm6rQeIVkHatpP5Ra3ie46+fglxMnuN0eldw/NjRsq
-	aAgJispNERcQH6Ti83J/gyRJIAp1gSGobwuQGK7D6lMWs33c++ZuhZdVgSfZDgKOKyLZeEsHg9p
-	82qaylCbtTK7txdEOC6axNmyuHnA1jVpUVKIOYV1A65qnbagROI+3KQQfRNjGhDkNYkjuJPmUej
-	0C7ZDc8D07CdaiGfSOor1H34/5qFnySVmvNB7+EPjossj+VMg0ZKHYmLk0jphlJi3dcQJvUYFfn
-	L6fzB2btYJ+P7ZgsO6IkVYATYGRQ7XeziQCyx4x3Z4Yg9OfcJgC5XjC98Oo5mjSd51X0X4vM78U
-	rKKPZdwsh6yOtLRrjUY99Wm5n9iiEMIAVKdI+2tOukm3Apv20bQRUKzADlpzePrdXQ
-X-Received: by 2002:a05:6000:461e:b0:45e:f2bd:2b17 with SMTP id ffacd0b85a97d-46238acb523mr10028940f8f.21.1781728307522;
-        Wed, 17 Jun 2026 13:31:47 -0700 (PDT)
-Received: from [192.168.1.3] (p5b2b4777.dip0.t-ipconnect.de. [91.43.71.119])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-461eaa0d1c7sm13523403f8f.7.2026.06.17.13.31.46
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 17 Jun 2026 13:31:47 -0700 (PDT)
-Message-ID: <f93fa5d9-c2ed-4c83-a6f0-3d7b9c792051@googlemail.com>
-Date: Wed, 17 Jun 2026 22:31:46 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mMZ5mX/4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E70C11F000E9;
+	Wed, 17 Jun 2026 20:33:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781728438;
+	bh=bNdlfoqtsBMfEuTEBZXui1lzUFRRYvXWdUgkF6AxEBc=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=mMZ5mX/40Z3FKpyiZ5u5bByaQ4UGnA2/b8FuvpzpqbjmTxxvmYHxNaWOuNw1iF9hC
+	 UFASpt1qlj+uypryTzBpPk+V3t0sl74Esb9Cwg93Ji+xskm9gG6A82gVqRX4YXURQa
+	 Z6JRbTeCpAgaK7xjcQLoCnfTfeD/qPqp8MGXibCcJiEuCXgTfhNWkwfNOUSp8xsm94
+	 b8LsO5bAnQkZJxWXEOy3pOTqiSIgdNqVABYbOyHwfypwoAWx4l02iGYLLi8FNVVfh6
+	 jwFX5L6O93hHzaKyTD2ALcxbhxSxi49hrMTF3wDx2HBXSn1KPtZnqhxB4xDjO60f8+
+	 vo+SdPyG+XfnQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
+	Srinivas Kandagatla <srini@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y] slimbus: qcom-ngd-ctrl: Initialize controller resources in controller
+Date: Wed, 17 Jun 2026 16:33:56 -0400
+Message-ID: <20260617203356.334410-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026061531-astute-serotonin-a9f5@gregkh>
+References: <2026061531-astute-serotonin-a9f5@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH 6.1 000/522] 6.1.176-rc1 review
-Content-Language: de-DE
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260616145125.307082728@linuxfoundation.org>
-From: Peter Schneider <pschneider1968@googlemail.com>
-In-Reply-To: <20260616145125.307082728@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Am 16.06.2026 um 16:52 schrieb Greg Kroah-Hartman:
-> This is the start of the stable review cycle for the 6.1.176 release.
-> There are 522 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+From: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
 
-Builds, boots and works on my 2-socket Ivy Bridge Xeon E5-2697 v2 server. No dmesg oddities or regressions found.
+[ Upstream commit 07c564ea5fb859b7381429de935d5df4781947c6 ]
 
-Tested-by: Peter Schneider <pschneider1968@googlemail.com>
+The work structs and work queue are controller resources, create and
+destroy them in the controller context. Creating them as part of the
+child device's probe path seems to be okay now that the controller's
+probe has been updated, but if for some reason the child does not probe
+successfully a SSR or PDR notification will schedule_work() on an
+uninitialized "ngd_up_work".
 
+Move the initialization of these controller resources to the controller
+probe function to avoid any issues, and to clarify the ownership.
 
-Beste Grüße,
-Peter Schneider
+Fixes: 917809e2280b ("slimbus: ngd: Add qcom SLIMBus NGD driver")
+Cc: stable@vger.kernel.org
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Reviewed-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+Signed-off-by: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
+Signed-off-by: Srinivas Kandagatla <srini@kernel.org>
+Link: https://patch.msgid.link/20260530204421.116824-7-srini@kernel.org
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/slimbus/qcom-ngd-ctrl.c | 33 +++++++++++++--------------------
+ 1 file changed, 13 insertions(+), 20 deletions(-)
 
+diff --git a/drivers/slimbus/qcom-ngd-ctrl.c b/drivers/slimbus/qcom-ngd-ctrl.c
+index d0d289c49c8d11..a49aba31bb8de5 100644
+--- a/drivers/slimbus/qcom-ngd-ctrl.c
++++ b/drivers/slimbus/qcom-ngd-ctrl.c
+@@ -1579,25 +1579,8 @@ static int qcom_slim_ngd_probe(struct platform_device *pdev)
+ 	pm_runtime_enable(dev);
+ 	pm_runtime_get_noresume(dev);
+ 	ret = qcom_slim_ngd_qmi_svc_event_init(ctrl);
+-	if (ret) {
++	if (ret)
+ 		dev_err(&pdev->dev, "QMI service registration failed:%d", ret);
+-		return ret;
+-	}
+-
+-	INIT_WORK(&ctrl->m_work, qcom_slim_ngd_master_worker);
+-	INIT_WORK(&ctrl->ngd_up_work, qcom_slim_ngd_up_worker);
+-	ctrl->mwq = create_singlethread_workqueue("ngd_master");
+-	if (!ctrl->mwq) {
+-		dev_err(&pdev->dev, "Failed to start master worker\n");
+-		ret = -ENOMEM;
+-		goto wq_err;
+-	}
+-
+-	return 0;
+-wq_err:
+-	qcom_slim_ngd_qmi_svc_event_deinit(&ctrl->qmi);
+-	if (ctrl->mwq)
+-		destroy_workqueue(ctrl->mwq);
+ 
+ 	return ret;
+ }
+@@ -1653,6 +1636,13 @@ static int qcom_slim_ngd_ctrl_probe(struct platform_device *pdev)
+ 	init_completion(&ctrl->qmi.qmi_comp);
+ 	init_completion(&ctrl->qmi_up);
+ 
++	INIT_WORK(&ctrl->m_work, qcom_slim_ngd_master_worker);
++	INIT_WORK(&ctrl->ngd_up_work, qcom_slim_ngd_up_worker);
++
++	ctrl->mwq = create_singlethread_workqueue("ngd_master");
++	if (!ctrl->mwq)
++		return dev_err_probe(dev, -ENOMEM, "Failed to start master worker\n");
++
+ 	ctrl->pdr = pdr_handle_alloc(slim_pd_status, ctrl);
+ 	if (IS_ERR(ctrl->pdr)) {
+ 		ret = dev_err_probe(dev, PTR_ERR(ctrl->pdr),
+@@ -1674,14 +1664,19 @@ static int qcom_slim_ngd_ctrl_probe(struct platform_device *pdev)
+ 
+ err_pdr_lookup:
+ 	pdr_handle_release(ctrl->pdr);
++	destroy_workqueue(ctrl->mwq);
+ 
+ 	return ret;
+ }
+ 
+ static int qcom_slim_ngd_ctrl_remove(struct platform_device *pdev)
+ {
++	struct qcom_slim_ngd_ctrl *ctrl = platform_get_drvdata(pdev);
++
+ 	platform_driver_unregister(&qcom_slim_ngd_driver);
+ 
++	destroy_workqueue(ctrl->mwq);
++
+ 	return 0;
+ }
+ 
+@@ -1695,8 +1690,6 @@ static int qcom_slim_ngd_remove(struct platform_device *pdev)
+ 	qcom_slim_ngd_enable(ctrl, false);
+ 	qcom_slim_ngd_exit_dma(ctrl);
+ 	qcom_slim_ngd_qmi_svc_event_deinit(&ctrl->qmi);
+-	if (ctrl->mwq)
+-		destroy_workqueue(ctrl->mwq);
+ 
+ 	kfree(ctrl->ngd);
+ 	ctrl->ngd = NULL;
 -- 
-Climb the mountain not to plant your flag, but to embrace the challenge,
-enjoy the air and behold the view. Climb it so you can see the world,
-not so the world can see you.                    -- David McCullough Jr.
+2.53.0
 
-OpenPGP:  0xA3828BD796CCE11A8CADE8866E3A92C92C3FF244
-Download: https://www.peters-netzplatz.de/download/pschneider1968_pub.asc
-https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@googlemail.com
-https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@gmail.com
