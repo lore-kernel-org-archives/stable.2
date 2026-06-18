@@ -1,105 +1,107 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 792092AE8D
-	for <stable@vger.kernel.org>; Thu, 18 Jun 2026 19:08:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C83C024E4A1
+	for <stable@vger.kernel.org>; Thu, 18 Jun 2026 19:25:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781809708; cv=none; b=VYpieBu2VaKFw9CQ4K9i7GXlbC7xxWRkhtQw/KLjyL/Vdc63lzXVpnwpMxFxQ8lG8/7MA6M37gx6Vvn9XHxgMeshClJLIipZILW2/JoJtfP7fD73qBhV+zfUExh6TDZwsCDXBMoT7+xNc+9WTZ/p/Fx3cCSFRnfzxaHut8poQHg=
+	t=1781810725; cv=none; b=mw8shKnNFDNcI/zjKUAepEF5llff5P5TCaVNBMPAJlsw/JxC4Tepd8+h8TKYCdaiDrkGbWlieCYT2prkZP4M5pORhTqPGvkIk4v1DXFdxMhYSt6nCJxKOZY4aKzELVsktS3G0EB67TiaHmecb8WtUXqQRoOaoUEaf8VVG0ylfJY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781809708; c=relaxed/simple;
-	bh=qfjGJ5CvoayPVlQvB+11cWCAnki221oDocN9fqHIl9s=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=BdHKAZy4AVdqUgncEU9+fSPk6PRR7VHmoRABoM4XA956/0QNHBcy941T24KD0TNDj2dUuG4I5FEtR/hpfdC6gP2uFwnOldsbXhsSJPlfcFLOGARsvmn8IlLeJwn60ikFagsEnZ8UckRICl3KH8bj4Lz8yi4K3+NSQQsayO08R9Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Yke/Pl0y; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781810725; c=relaxed/simple;
+	bh=MJ/atw/sjJbjgNUE/NJPSlbXr6d7eVv74PHfVe2Qqz0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=QfgV1ZriwFKDWkpoN8BJRbBwCKjFateyO+PTw0/c7cvF2WVOfYIsJ6XJcKMt1qBVrcxevNXRMQDTZJbofMUmf74jLJ5yCKMWXM0WqWFNH2aytqhVwA4bKaXYZ6ywYJW6Ses1Cqey3PyGdntgo3NImkpHpUoqY+fS2WP3jwF7TCs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=E4AU9xGx; arc=none smtp.client-ip=209.85.218.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Yke/Pl0y"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B8231F00A3D;
-	Thu, 18 Jun 2026 19:08:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781809707;
-	bh=x4VmBUM9Mnb4BMl6IzRGsPB2z7C2TlEYbuFFJ28s4Gs=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Yke/Pl0yDHw6BLnyXKkl8a0sImfWb/qOgjunMpofw25dlnlkSgU2ZHl6JoWYyhXOZ
-	 7KvSHPXc/UBq1g77T6pNXDVc0sL5z1yGn75MOBCYBFhw10HGpCmoirJJjgms2c10v4
-	 AkwIYe8SFWXxgZqq1fYUZGMmmzU7Ddi0ZgjUywWy/etOYb4c/tDhKObcppuRKAoZqU
-	 UG1b4JMN+fsYghaGvPW0UY32mGx3Dc1DFJmZB0ACuahcvcz6giw4fsSWNyCmrH2Hft
-	 Ijgao1pcKnS8mpZo8ha8vTHmiNizvkqpC35kdPj2GJK/5kyvpHfmCUlaZI1iIl3FBG
-	 njzmEENa2riGQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
-	Jose Maria Casanova Crespo <jmcasanova@igalia.com>,
-	Iago Toral Quiroga <itoral@igalia.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 2/2] drm/v3d: Skip CSD when it has zeroed workgroups
-Date: Thu, 18 Jun 2026 15:08:24 -0400
-Message-ID: <20260618190824.985358-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260618190824.985358-1-sashal@kernel.org>
-References: <2026061530-phoniness-operative-8a96@gregkh>
- <20260618190824.985358-1-sashal@kernel.org>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="E4AU9xGx"
+Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-bec49f7e35eso186554466b.2
+        for <stable@vger.kernel.org>; Thu, 18 Jun 2026 12:25:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linuxfoundation.org; s=google; t=1781810722; x=1782415522; darn=vger.kernel.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=6gl/162Yyv89laBaNydReyy3xdtnaXM6oi2Bko2qKKQ=;
+        b=E4AU9xGxnqZai2+JMxBxCKLKGw1fTlbShXmto3YMAJRIrTW1lfXacuH6Y4aZBKqU7V
+         5M6guT8XlG8CQoXPPe1gw2BHod+eZxZTdyMD9+rVJYW5HD3WuIoEglCwWExWeKeeED3H
+         7wre97/JQEZfmdwxfzFvI0SJ/s37z7gv2S+1A=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781810722; x=1782415522;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=6gl/162Yyv89laBaNydReyy3xdtnaXM6oi2Bko2qKKQ=;
+        b=RiAqiFZabdDnSEb7Xgd5YkIQDnqKoNwTeM86u0sDkWH/6V81h2wOV/YX/VpiMiwhMm
+         wXZp45uXrIDkPWDQJVOu0mzqI6U4VV7pd+TRhdAcdu7F+XF0/XgwWKIRhjCzstUoZxCH
+         Gq+AQDhFLBy4b8hZWFAH62ns9o/0WaW75VsqbXSTiRSQYN5GuZvHwVU1lt3HTsWYsh2P
+         k377gigMIEp1hHNQg7kJxu9GTF4QFG2UeeK69Q8X05fQM7q4DeMhBDa6ynXXFi6rXL66
+         EFsOvvTxY5kVhxRGSEvfpkHkWZreFL6+tc7dsRj0q5v2JLT7Oq7LFpCWAWUv634/PD8q
+         9LMA==
+X-Forwarded-Encrypted: i=1; AFNElJ+cZiAHYFeqlromqsANGh+8SRYjSvwZKlDR9r8wZuUW9Emr05Q8NgxnzQDIijQS9FD5T7HpUZ4=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzYuwUTwTj2OfbbUaXjdykWiKqAiy+C8wSh86eaCFhZ7NHuNMpN
+	1ba/hr/bINUXWIUL5i1yXauxelQ6iuPo7/5cQuLG8JgmS87rFhaKMEzgBlu0d1xZ0cWO/LlbP27
+	rlKaoBb8=
+X-Gm-Gg: AfdE7clVgVFtqFP2rT7574o1mQPjs1iC5SuTqrLOht6giI4vUVDJSo+gs+8sB9bupGN
+	42eVgpILT0FdzDVMJuYFKRXUw2pw44KGFPvP3LwB50Jn85c8j/wFbdp3A6wMjlDie/052Es/aK4
+	FZ5JXhXa1Ok3Y0xXa9uanD9ZXVZDCmp0i+vQzaj3zA3wClFxYrsY8oraWoKT6EkecD5LblHkgKV
+	YDmxIlImWGDXCmAt4Mj5l6pkYyZxnA9tNzCV6RS8Y7/wwXUAv/TFgYMUqlg07kjnu8gXhYYusP8
+	UKLpRITSGII7Qwdt2SivReAb8mwD/BsRDu25AMsv4kph4S87zxZxeRT8GN44BFfwIfUb56YDy5N
+	01y8h7AdGd+HhdRMws0SpA9OPIPZB4cLjoMZrGoB0dJvLNql7C4FPdJfgycq2n5jX9nTTUdH19y
+	pVEwpLOHbUkMdwBkIjvnWAT1d5dV5GruW0ARXcOeyPk8YkW6W3LvprWam5dt++
+X-Received: by 2002:a17:906:6a22:b0:c06:3880:69fb with SMTP id a640c23a62f3a-c097adf68f8mr29155566b.3.1781810722195;
+        Thu, 18 Jun 2026 12:25:22 -0700 (PDT)
+Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com. [209.85.218.49])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bfdb511b8aasm990884066b.24.2026.06.18.12.25.20
+        for <stable@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 18 Jun 2026 12:25:21 -0700 (PDT)
+Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-bf046d4da1fso147539766b.3
+        for <stable@vger.kernel.org>; Thu, 18 Jun 2026 12:25:20 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ/evum7l6FpMtwTPKWk9qpPIJ4VW01j7KKzKbqbOqUun5c2zzB4di2wxNKQssvvZ54EXu2fhOY=@vger.kernel.org
+X-Received: by 2002:a17:907:3cc2:b0:bfe:ed06:5a16 with SMTP id
+ a640c23a62f3a-c098fed1511mr23022066b.52.1781810719995; Thu, 18 Jun 2026
+ 12:25:19 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20260618183442.BBCD71F000E9@smtp.kernel.org>
+In-Reply-To: <20260618183442.BBCD71F000E9@smtp.kernel.org>
+From: Linus Torvalds <torvalds@linuxfoundation.org>
+Date: Thu, 18 Jun 2026 12:25:03 -0700
+X-Gmail-Original-Message-ID: <CAHk-=wiQ_10MRYYW+aRfLP4Ah9gDrShOvLESXtz+Q32-9M9Y9w@mail.gmail.com>
+X-Gm-Features: AVVi8CfH2WnN-uQgGzjlFiJWeaLtj_2exZjAxtndehiWrEVgNpGbugy27v-vnzY
+Message-ID: <CAHk-=wiQ_10MRYYW+aRfLP4Ah9gDrShOvLESXtz+Q32-9M9Y9w@mail.gmail.com>
+Subject: Re: + userfaultfd-prevent-registration-of-special-vmas.patch added to
+ mm-hotfixes-unstable branch
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: mm-commits@vger.kernel.org, vladimirelitokarev@gmail.com, 
+	viro@zeniv.linux.org.uk, stable@vger.kernel.org, peterx@redhat.com, 
+	oleg@redhat.com, jack@suse.cz, david@kernel.org, brauner@kernel.org, 
+	rppt@kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-From: Maíra Canal <mcanal@igalia.com>
+On Thu, 18 Jun 2026 at 11:34, Andrew Morton <akpm@linux-foundation.org> wrote:
+>
+> Since VM_SPECIAL includes VM_DONTEXPAND which is set but hugetlb, exclude
+> hugetlb VMAs from the check for VM_SPECIAL.
 
-[ Upstream commit 7f93fad5ea0affc9e1505dd0f7596c0fdb496213 ]
+This seems bogus.
 
-A compute shader dispatch encodes its workgroup counts in the CFG0..CFG2
-registers. Kicking off a dispatch with a zero count in any of the three
-dimensions is invalid. First, the hardware will process 0 as 65536,
-while the user-space driver exposes a maximum of 65535. Over that, a
-submission with a zeroed workgroup dimension should be a no-op.
+If somebody sets DONTEXPAND, then that mapping *is* special, and
+userfaultfd should not mess with it.
 
-These zeroed counts can reach the dispatch path through an indirect CSD
-job, whose workgroup counts are only known once the indirect buffer is
-read and may legitimately be zero, but such scenario should only result in
-a no-op.
+It feels like hugetlbfs is just wrong to do this.
 
-Overwrite the indirect CSD job workgroup counts with the indirect BO
-ones, even if they are zeroed, and don't submit the job to the hardware
-when any of the workgroup counts is zero, so the job completes immediately
-instead of running the shader.
+This has caused problems before, see MADV_DODUMP which has that same
+"hugetlb doesn't follow the rules" check.
 
-Cc: stable@vger.kernel.org
-Fixes: d223f98f0209 ("drm/v3d: Add support for compute shader dispatch.")
-Suggested-by: Jose Maria Casanova Crespo <jmcasanova@igalia.com>
-Reviewed-by: Iago Toral Quiroga <itoral@igalia.com>
-Link: https://patch.msgid.link/20260602-v3d-fix-indirect-csd-v4-2-654309e32bc0@igalia.com
-Signed-off-by: Maíra Canal <mcanal@igalia.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/gpu/drm/v3d/v3d_sched.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+What exactly is it that hugetlbfs wants that DONTEXPAND thing to be?
 
-diff --git a/drivers/gpu/drm/v3d/v3d_sched.c b/drivers/gpu/drm/v3d/v3d_sched.c
-index 06371ea19e3c0d..fe5bdfd19f13a6 100644
---- a/drivers/gpu/drm/v3d/v3d_sched.c
-+++ b/drivers/gpu/drm/v3d/v3d_sched.c
-@@ -243,6 +243,16 @@ v3d_csd_job_run(struct drm_sched_job *sched_job)
- 		return NULL;
- 	}
- 
-+	/* The HW interprets a workgroup size of 0 as 65536; however, the
-+	 * user-space driver exposes a maximum of 65535. Therefore, a 0 in
-+	 * any dimension means that we have no workgroups and the compute
-+	 * shader should not be dispatched.
-+	 */
-+	if (!V3D_GET_FIELD(job->args.cfg[0], V3D_CSD_QUEUED_CFG0_NUM_WGS_X) ||
-+	    !V3D_GET_FIELD(job->args.cfg[1], V3D_CSD_QUEUED_CFG1_NUM_WGS_Y) ||
-+	    !V3D_GET_FIELD(job->args.cfg[2], V3D_CSD_QUEUED_CFG2_NUM_WGS_Z))
-+		return NULL;
-+
- 	v3d->queue[V3D_CSD].active_job = &job->base;
- 
- 	v3d_invalidate_caches(v3d);
--- 
-2.53.0
+That said, I don't like the VM_SPECIAL bit mask all that much, because
+it doesn't specify *what* kind of "special" it is.
 
+                  Linus
