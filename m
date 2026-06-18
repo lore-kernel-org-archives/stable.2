@@ -1,153 +1,121 @@
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76C5E32B107
-	for <stable@vger.kernel.org>; Thu, 18 Jun 2026 14:03:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D54C92EC083;
+	Thu, 18 Jun 2026 14:03:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781791391; cv=none; b=aCcFfo6stiIIjneOxc0Mc+9VUOMsoIowpDF9vzatFmiUpG2g3cyCXW6bIE6vw1ziJslenZY+XcDLFrXf1IPcBKQ+LjPH3Qy7t8CAlpw+M+3hU0AIggJwMfGiR1ZGrBojBnqChSqdqkzy6uo2UQu1LZWRUTxLM+k3lfxjSS+7L8M=
+	t=1781791441; cv=none; b=R4MWKq8wnYnGuYLbvy87KE+nGPc08Wc6wCLxoqX4FcJKrMeh48662fmEyS1JxPAoO0fx4DuFVsJHikI2NT/SHU/PHSmHOs1AELUK28pn+91kT3J+lZttuXCaWlb9Z1yz9kXvwOjrIPJykaaTNDMXPCXxMCTF/6qiHNIntVl1JEE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781791391; c=relaxed/simple;
-	bh=263UnQqT7FgRjQmrIuWnRIN9Xzmjzy5Zozx+IEZgAgM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=kYAzX3fSmEmzh7f3uT1a0mZxoY1avMhiO68/U3pXm/A2hXoLTfFHbPqh5cC3E+FiDVhKNi032bPlziZslYXbX0jAEvWwTsBj0AHb+0+TYVbxn6hi4Vcl2OEOLyypK+HrODec+punSgGKwSqtum6nscFad7RUee9EaogFve5Flr8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=pt1Lllqf; arc=none smtp.client-ip=209.85.221.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1781791441; c=relaxed/simple;
+	bh=srOPg0tWBjG5yQAvOL8QEzOqo9Ham8uU0STmfpTpj/M=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=nmIX0m8tf2FcvgLPLNJCrn8qf1/dOmUZOsWhAztg/18SNmzbdwWuMTUS6dA66C/I7HM2l7D69rWqR1y/9R6fMY84I/hNiMIc6Pj51WvdUtewWqoTwfcOd2po/mewcUEM0Z4xru0rNWa/DLEZiJwGdtAZ+/X/I2YV0Zg5z3q0Lt4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=g6dPVsSn; arc=none smtp.client-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="pt1Lllqf"
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-462ebd5d37dso1167595f8f.1
-        for <stable@vger.kernel.org>; Thu, 18 Jun 2026 07:03:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1781791387; x=1782396187; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=jos76VU9rUcfTgCENKyUN1lsrrQ63yv55cXHCv1GV14=;
-        b=pt1Lllqfz1DR5lS4hxUiGsQrthAzYZWCVFMOsUeERbgGrWTzXfKYxy0AIkSQzkhFAo
-         H3Np4gA1A6ZHufF1UoiqaNQcs4usnBEC6d0fdBteYemOLjunU7q+qH3lnLAcM0MnsMrM
-         nxqYTs18z+EHLx2380LEFg3XbH4cCC6hq3tmtgQm46KEJv5hBrAKuKjfKMNmcUh/Lb4V
-         zIgZmCggCD6xisEF59/evzGLbzTuifT1HG81MOVxGcoSNIMR7BBtimzwZ1wnsG3z3itN
-         FcKNNRjTK9wYB1pV496DHEqZ7FexcOWOSyny5GYeUUlr8uGrz7IvvsP+AqT9xz7XRpLx
-         OHLg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781791387; x=1782396187;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=jos76VU9rUcfTgCENKyUN1lsrrQ63yv55cXHCv1GV14=;
-        b=qR6A4qlp+sF/jtJrMZc6kqOlKjAf8HbcIqgycz6pOodCiaugbQFoSKSQjBsxfhK2oA
-         4aIGTdpCUjjhjQb/51sCin4mlo6aKiNcfvKso5z4bMqxXslOc83CsTdU7AKA1IuqX6sI
-         u/qu9lJOtezoIhNRFvVO4ZJRirZsRq030j2a+8z9LvzIlcKNRo7AaKfJSJFsnGj3tCoY
-         jYuHS4Eyfvjp5Em2qlQ8/QTyEgzJW4lbCdiMAA8yATErV0iUIb9I++ekLfUGAJ6Sgvh8
-         wXw8DevytatGT89QBAm5QCffLjdlqnNUT1I+u989heT1AkvEs0ebt6W1BlYr/+tkdjAW
-         3ivA==
-X-Forwarded-Encrypted: i=1; AFNElJ/dncpPsE14TrZFu2c75VKtzGi/5YmY/9ED//IeESGqQnoERYCjKfI4GFg7hRtxG2u/9ep58GU=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzKgUyFYT3s8VRhb9zXH5vT/DmF11TIIKNJrpRedQquTtWKMZec
-	KT3Af6x95thV//6+FQ20VejEusfTSdcz5Tg9v+DhcbEV6O1+EPVhT1Y0T+YdysVlRHM=
-X-Gm-Gg: AfdE7clNmE4qnF0Qt0osN0iXJ9soediCbfq+BqjNk315cLICNr/dgpxY6FdpR05mfjl
-	o0qTnQi5AhfwMgYQ+hKm7Ubu0Mvxn8nVvX8rCdntGwFGF7B2FxuNzo40XK2H1TNv0Z3VXva7f6g
-	4dORhudngXe8sczFvCgCH/eurX2umPyaTB9jJGmDLtpRV7CKCxFkz09ZdI4K0HtVhHMs1IkZKJn
-	zbTPrCsuUe5Kd9JJtgsblFKdLs8XWE+V//KFUjxsXMuGE98LDvOOsH0YAIvvw7kyUU+Z8ni4t1V
-	+6ZSo8ByaUbFilxwJEZWyv6Qp3DqaSCWZuorvdwryDbQ3ITCBC/q4pAEiib9AMvbUtcpGUkAgyV
-	QJAzcfM1yvXiycXv/7qBLtn2iOn8+o7SwHmJg/aZKfTKHc5IBYU0ZbMIPJTsLkYxYzSZDZiSPpk
-	+dec1bJh4+NZYJ7yOlRccsuKimk2538x32rcKL7T61V6KUKhPWxjQSp0w2jaQ0TF58kBy21vmPM
-	buV
-X-Received: by 2002:a05:6000:4687:b0:464:6ee:4fe1 with SMTP id ffacd0b85a97d-46406ee51d8mr3568612f8f.33.1781791386660;
-        Thu, 18 Jun 2026 07:03:06 -0700 (PDT)
-Received: from localhost (p200300f65f47db04cea0a59ab11cac9f.dip0.t-ipconnect.de. [2003:f6:5f47:db04:cea0:a59a:b11c:ac9f])
-        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-46289c3b3a3sm15325402f8f.30.2026.06.18.07.03.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 18 Jun 2026 07:03:05 -0700 (PDT)
-From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?= <u.kleine-koenig@baylibre.com>
-To: Marc Kleine-Budde <mkl@pengutronix.de>,
-	Vincent Mailhol <mailhol@kernel.org>,
-	Rob Herring <robh@kernel.org>
-Cc: Jean-Michel Hautbois <jeanmichel.hautbois@yoseli.org>,
-	linux-can@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH net] can: flexcan: Fix probing for m68k/coldfire
-Date: Thu, 18 Jun 2026 16:01:47 +0200
-Message-ID: <20260618140147.142489-2-u.kleine-koenig@baylibre.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="g6dPVsSn"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1781791440; x=1813327440;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=srOPg0tWBjG5yQAvOL8QEzOqo9Ham8uU0STmfpTpj/M=;
+  b=g6dPVsSnqBA7jEx5VTptwhblGI19dUNPvgZ1IbNVRyu/seEECHuyXr3a
+   JJXeoApvrwRvpw3JICpPnIvlZGIz4hljH8bz63OefSImouLrAQd7Jk70b
+   4Ed35Pc5mvuebYfL+NLEYzn9lGQmAeoaNto/TXjpFJcvxQXQfiGuJ1Wbk
+   cUfKc3lxJWVD0Al3MTOmGVa5shqGfF+K7718ss0/f2E5IO/FX/AyCWtil
+   73/B5geV2lLv950uUt6gsRvIJVkmd11NZ1n19vJbL4XdSz8TVpp75B5DY
+   hFz7iUvh8rSGyYU9rOT/BsxbDEmLjqdyJuzpEEfuDZ0Yjsw/pT60RcBeF
+   w==;
+X-CSE-ConnectionGUID: k5bgZCaPTyqIW9K66Uo0iw==
+X-CSE-MsgGUID: MvVrYLz8TVmIskXjC3h4NQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11820"; a="82496010"
+X-IronPort-AV: E=Sophos;i="6.24,211,1774335600"; 
+   d="scan'208";a="82496010"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Jun 2026 07:03:59 -0700
+X-CSE-ConnectionGUID: 3HdCDfgwSXaEcir9yU3agg==
+X-CSE-MsgGUID: MS8QkOSpTpuQQ2yIj/KBmA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,211,1774335600"; 
+   d="scan'208";a="250275868"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO [10.245.244.119]) ([10.245.244.119])
+  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Jun 2026 07:03:55 -0700
+Message-ID: <62003881-4975-4bb2-a842-cb153ebd8cd4@linux.intel.com>
+Date: Thu, 18 Jun 2026 17:03:26 +0300
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2611; i=u.kleine-koenig@baylibre.com; h=from:subject; bh=263UnQqT7FgRjQmrIuWnRIN9Xzmjzy5Zozx+IEZgAgM=; b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBqM/pML1hFap/UgihwRJNb3DQPM0zusq3sfUm27 yKUYXEx1neJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCajP6TAAKCRCPgPtYfRL+ TqY2B/wPSLflQcf6bhsX8LkcflcqNm7174taCwQLa0R9I1TrLZQqw/AOowkuL/pwpTwGLrs84gR relE5J0uazE683Zv3i/JkOrMkiymyZUx5T5sOuunNvGrQhIRwJsk3fDxlfYrdQnPTf1O6wNk7TC Ev8kds36RmxGDCSzbhsYfvatVmoRtESYRP7bNPJ0j0xB9bmZpzM6Occ09QFN9eDgsYKsX2loH7d z30fZLMFcjkIVq2pglGw9xHrVAK695hDQ1TGxr1kbNzrgm6HVnxbgksjSI4m9H/hNSGOspTCKk/ IgD7zCruvvHll+ZJLNTAEsx2Xo+TASyfNvsOTuxJzxi0n0hl
-X-Developer-Key: i=u.kleine-koenig@baylibre.com; a=openpgp; fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] xhci: pci: Disable soft retry for Renesas uPD720201
+To: raoxu <raoxu@uniontech.com>, mathias.nyman@intel.com
+Cc: gregkh@linuxfoundation.org, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <D9BA02889D046D23+20260617100957.2888108-1-raoxu@uniontech.com>
+Content-Language: en-US
+From: Mathias Nyman <mathias.nyman@linux.intel.com>
+In-Reply-To: <D9BA02889D046D23+20260617100957.2888108-1-raoxu@uniontech.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-When determining the device details was reworked in commit 5e6c3454b405
-("net: can: Use device_get_match_data()") there was no replacement for
-the previous handling of non-of instantiated devices via the device's
-id_entry which then results in a NULL pointer exception. The only
-in-tree provider of such a device is arch/m68k/coldfire/device.c.
+On 6/17/26 13:09, raoxu wrote:
+> From: Xu Rao <raoxu@uniontech.com>
+> 
+> The Renesas uPD720201 xHCI controller can fail to complete
+> a Stop Endpoint command after a transaction error on an interrupt
+> endpoint when soft retry is used.
+> 
+> This was reproduced with this setup:
+> 
+>    xHCI: Renesas uPD720201, PCI ID 1912:0014 rev 03
+>    dev:  USB Ethernet device with an integrated Genesys Logic
+>          USB3.1 hub, USB ID 05e3:0626, and a Realtek RTL8153
+>          Ethernet function, USB ID 0bda:8153
+> 
+> Reproducer:
+> 
+>    1. Plug the integrated USB hub and Ethernet device into the
+>       1912:0014 xHCI controller.
+>    2. Let r8152 bind to the 0bda:8153 RTL8153 Ethernet function
+>       behind the integrated hub.
+>    3. Bring the Ethernet device up.
+>    4. Hot-unplug the device.
+> 
+> The host reports a transaction error on the RTL8153 interrupt
+> endpoint, queues a soft reset, and later times out the Stop
+> Endpoint command while disconnecting the device:
+> 
+>    Transfer error for slot 8 ep 6 on endpoint
+>    Soft-reset ep 6, slot 8
+>    Ignoring reset ep completion code of 1
+>    xHCI host not responding to stop endpoint command
+>    xHCI host controller not responding, assume dead
+>    HC died; cleaning up
+> 
+> The Renesas 1912:0014 controller cannot safely use the xHCI soft
+> retry path. Set XHCI_NO_SOFT_RETRY for this controller so
+> transaction errors use the pre-soft-retry recovery path. With
+> this quirk the same hot-unplug test no longer times out the Stop
+> Endpoint command and the RTL8153 remains usable and stable.
+> 
+> Fixes: f8f80be501aa ("xhci: Use soft retry to recover faster from transaction errors")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Xu Rao <raoxu@uniontech.com>
+> ---
 
-Given the id_table only contains a single entry just hardcode the result
-of `platform_get_device_id(pdev)->driver_data` and drop the unused
-assignment to .driver_data from the table.
+Thanks, added
 
-While touching the id table, drop the unusual comma after the terminator
-entry.
+I'd appreciate your opinion on a related issue.
+I'm thinking about trying to recover from these stop endpoint command timeouts.
 
-Fixes: 5e6c3454b405 ("net: can: Use device_get_match_data()")
-Cc: stable@vger.kernel.org
-Signed-off-by: Uwe Kleine-König (The Capable Hub) <u.kleine-koenig@baylibre.com>
----
-Hello,
+While debugging this, did xHC controller otherwise seem somewhat functional?
+Did you for example see port status change events, or transfer events
+between queuing the stop endpoint command and the timeout?
 
-this is essentially v2 of
-https://lore.kernel.org/all/20260528094540.1867783-2-u.kleine-koenig@baylibre.com/,
-but that patch was intended to be a cleanup, while the discussion then
-revealed that there is a crash to be fixed.
-
-Jean-Michel Hautbois confirmed (off-list) that Marc's and my suspicion
-is true and probing the flexcan device provided by
-arch/m68k/coldfire/device.c indeed crashes.
-
-Best regards
-Uwe
-
- drivers/net/can/flexcan/flexcan-core.c | 12 ++++++++++--
- 1 file changed, 10 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/net/can/flexcan/flexcan-core.c b/drivers/net/can/flexcan/flexcan-core.c
-index f5d22c61503f..05b8ca72ca2a 100644
---- a/drivers/net/can/flexcan/flexcan-core.c
-+++ b/drivers/net/can/flexcan/flexcan-core.c
-@@ -2077,10 +2077,9 @@ MODULE_DEVICE_TABLE(of, flexcan_of_match);
- static const struct platform_device_id flexcan_id_table[] = {
- 	{
- 		.name = "flexcan-mcf5441x",
--		.driver_data = (kernel_ulong_t)&fsl_mcf5441x_devtype_data,
- 	}, {
- 		/* sentinel */
--	},
-+	}
- };
- MODULE_DEVICE_TABLE(platform, flexcan_id_table);
- 
-@@ -2148,6 +2147,15 @@ static int flexcan_probe(struct platform_device *pdev)
- 		return PTR_ERR(regs);
- 
- 	devtype_data = device_get_match_data(&pdev->dev);
-+	if (!devtype_data)
-+		/*
-+		 * If the device was instantiated via the traditional platform
-+		 * mechanisms (i.e. not by device tree), device_get_match_data()
-+		 * returns NULL. The only remaining such device is mcf_flexcan0
-+		 * (defined in arch/m68k/coldfire/device.c). Pick the right
-+		 * device type for that.
-+		 */
-+		devtype_data = &fsl_mcf5441x_devtype_data;
- 
- 	if ((devtype_data->quirks & FLEXCAN_QUIRK_SUPPORT_FD) &&
- 	    !((devtype_data->quirks &
-
-base-commit: e2cae00c05d196491c318196792297f2dfbaa02c
--- 
-2.47.3
-
+Thanks
+Mathias
