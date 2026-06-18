@@ -1,67 +1,105 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B33433DFC6B;
-	Thu, 18 Jun 2026 09:49:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92A073C1402;
+	Thu, 18 Jun 2026 09:50:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781776199; cv=none; b=chQFFI32xGCAEkUJMcmXBU6gs/AWozIVNsRuQ1nYn1RAMyRqMF+NkaXe4AI1xpVL7FGO2L1b+LyldD/WLD3cW6Hs5z9F/K1O5oiqq3LHPYE5FmCPSWtwbbSPHJQFtNGyb3bnPPnLYwmBdAKoU8Jxr8KZ6tWeOHFR7BOa0rfT/ic=
+	t=1781776225; cv=none; b=g4UmLra7glwCoNm6wFNfiZ+npGShtFnb4X+nAynY9JA3JLze+q4PMeoQhKynxmDgcha6pzEoIjBgmBmDdfd6SHxoKVLYzQGN7feU4FZY84QphHyAEHzQ+uJAngVu4S2rFWBYBBCunzj9MvN2TiwxvHgruZAV8OmXfXkL3NiJVnY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781776199; c=relaxed/simple;
-	bh=1j6nLnLOVBePWf0/aAALwVLmoB3ZSMnuH+q4qiF6yGg=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=qykrRz05RQtOaCETGV0V+GAswuxXg23qYEhvJj6Y//9fDh0E8LT9cSSEAMSDQJ40L+oGnjglMe3+jNEC5eg1uXxTm1IDYYQcz+3PeUzTh4GUAgiiXQq/EM0yIj5YCxweAgWN47e5X29qtnpEci6l6vFg1AqidQUXMgG+ooBhVM0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id EF99F2002AA;
-	Thu, 18 Jun 2026 11:49:55 +0200 (CEST)
-Received: from lupine.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::4e] helo=lupine)
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <p.zabel@pengutronix.de>)
-	id 1wa9Nj-003Psb-2o;
-	Thu, 18 Jun 2026 11:49:55 +0200
-Received: from pza by lupine with local (Exim 4.98.2)
-	(envelope-from <p.zabel@pengutronix.de>)
-	id 1wa9Nj-000000005Vo-3N6X;
-	Thu, 18 Jun 2026 11:49:55 +0200
-Message-ID: <bda9fbc282d9be7d07605684c12447877663754a.camel@pengutronix.de>
-Subject: Re: [PATCH] reset: sunxi: fix memory region leak on ioremap failure
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: Zhao Dongdong <winter91@foxmail.com>, wens@kernel.org, 
-	jernej.skrabec@gmail.com
-Cc: linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, Zhao Dongdong
-	 <zhaodongdong@kylinos.cn>, stable@vger.kernel.org
-Date: Thu, 18 Jun 2026 11:49:55 +0200
-In-Reply-To: <tencent_2C7697B076D53BBE62D99B7CD15E77A20C07@qq.com>
-References: <tencent_2C7697B076D53BBE62D99B7CD15E77A20C07@qq.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	s=arc-20240116; t=1781776225; c=relaxed/simple;
+	bh=1X/LLlJo0XKVnDm+ByK3MJQEd4TUzqoNqPBV75130YM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UvHiilWqU9FHShEIWzZOpgg64aGBMdfoiDCpWlx3GiV5MrWdc3K/T4tQxTed6oKCFWWuXLf2RtTeMJSGqmSHVbIYPijIOi7WSDgSm0bvUQultFazBAYEWCB0sUpqs7a4ZT67Px+YcBwDRewvO1FO1RtPu6KVjLynpV8HQde0n5U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YxqGFQBh; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YxqGFQBh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 247ED1F000E9;
+	Thu, 18 Jun 2026 09:50:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781776224;
+	bh=BWwwCWEs6k8jntGbl6gKaqqrPpfzJ0y/J83NkZ0wKkM=;
+	h=From:To:Cc:Subject:Date;
+	b=YxqGFQBh9rYaT2yOGmXP+bDnc2URzBXy0IkTpq9liQGs+U9DbtfTzEAtneEcieh5l
+	 5x9htkhbdrDnl0Sot0soTd87KwFdwqztJPJJbMdyOE0hdJ82AdXhJXC8z/A9A/ti+W
+	 asitA/IUXGo2M9KJvp4rcHC9ETTy9mTHrPFP/qqDcgItj009sK0UThX340K87CyF3x
+	 S1h4DThiX8JD4JtJ1Loj/WyZUGt+UuL1M1X+MbH4b6/VCjlssUrEiviMf7M8xqf05i
+	 KeZ8eZtbcWMDw7ZMRQA2/7PUgJbRG1Rgq/qFCKUPYNWZb3y8zkoDn1ypTAH90+17X/
+	 5T4TIpQVFtB9Q==
+From: Mike Rapoport <rppt@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	Linus Torvalds <torvalds@linuxfoundation.org>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>,
+	Christian Brauner <brauner@kernel.org>,
+	David Hildenbrand <david@kernel.org>,
+	Jan Kara <jack@suse.cz>,
+	Mike Rapoport <rppt@kernel.org>,
+	Oleg Nesterov <oleg@redhat.com>,
+	Peter Xu <peterx@redhat.com>,
+	vova tokarev <vladimirelitokarev@gmail.com>,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	stable@vger.kernel.org
+Subject: [PATCH v2] userfaultfd: prevent registration of special VMAs
+Date: Thu, 18 Jun 2026 12:50:17 +0300
+Message-ID: <20260618095017.2553004-1-rppt@kernel.org>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Mi, 2026-06-17 at 11:16 +0800, Zhao Dongdong wrote:
-> From: Zhao Dongdong <zhaodongdong@kylinos.cn>
->=20
-> In sunxi_reset_init(), when ioremap() fails, the memory region obtained
-> via request_mem_region() is not released, leading to a resource leak.
->=20
-> Add an err_mem_region label to properly release the memory region before
-> freeing the data structure.
->=20
-> Fixes: 8f1ae77f4666 ("reset: Add Allwinner SoCs Reset Controller Driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Zhao Dongdong <zhaodongdong@kylinos.cn>
+From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
 
-Reviewed-by: Philipp Zabel <p.zabel@pengutronix.de>
+Vova Tokarev says:
 
-regards
-Philipp
+  userfaultfd allows registration on shadow stack VMAs.  With userfaultfd
+  access, you can register on the shadow stack, discard a page ... and
+  inject a page with chosen return addresses via UFFDIO_COPY.
+
+Update vma_can_userfault() to reject VM_SHADOW_STACK.
+
+While on it, also reject VM_SPECIAL so that if a driver would implement
+vm_uffd_ops, it wouldn't be possible to register special VMAs with
+userfaultfd.
+
+Since VM_SPECIAL includes VM_DONTEXPAND which is set but hugetlb,
+exclude hugetlb VMAs from the check for VM_SPECIAL.
+
+Reported-by: vova tokarev <vladimirelitokarev@gmail.com>
+Fixes: 54007f818206 ("mm: Introduce VM_SHADOW_STACK for shadow stack memory")
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+---
+
+v2 changes: 
+* reject all VM_SPECIAL except hugetlb
+
+v1: https://lore.kernel.org/all/20260617194059.2529406-1-rppt@kernel.org
+
+ mm/userfaultfd.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
+index 246af12bf801..c3adedaaf7d5 100644
+--- a/mm/userfaultfd.c
++++ b/mm/userfaultfd.c
+@@ -2111,7 +2111,10 @@ static bool vma_can_userfault(struct vm_area_struct *vma, vm_flags_t vm_flags,
+ {
+ 	const struct vm_uffd_ops *ops = vma_uffd_ops(vma);
+ 
+-	if (vma->vm_flags & VM_DROPPABLE)
++	if (vma->vm_flags & (VM_DROPPABLE | VM_SHADOW_STACK))
++		return false;
++
++	if (!is_vm_hugetlb_page(vma) && (vma->vm_flags & VM_SPECIAL))
+ 		return false;
+ 
+ 	vm_flags &= __VM_UFFD_FLAGS;
+
+base-commit: e3d8707358ea76b78bdec9928937bb9a797f2c8f
+-- 
+2.53.0
+
