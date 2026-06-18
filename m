@@ -1,105 +1,122 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39ECE20E334;
-	Thu, 18 Jun 2026 08:43:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37ADA3112C0;
+	Thu, 18 Jun 2026 08:47:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781772232; cv=none; b=Za6yJ0AxpjrF2gH9+CyOcPVxI5QeQzCtu4ApD1UEPSjz5agOQdXoeGDX7C7ZjB3rSuFMu6L6LzWLVZe8znhUDFvzuea7h0rxOtCUOQXBU19VcOUIEyZw0NX3zwH54/r+G3QjXziCrXH3FY2e0m63Xlk1TcAYmKWDtEZsm3+bIuc=
+	t=1781772446; cv=none; b=nEWg3XmBbPaW6qlMnc4BXFv7jYLl6SwtpWMOx7WrHk55vw9jDZM777609WKk98lsxZ5gmQNqFO16onAFpvj3EdKXgYGve7xW9MMdrqOXncdD7npCI8FKH45XsGRQAtvlZV0SvdKPzdz1X/1ObEqgLCZSukgjfkKHb06msg/8HMI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781772232; c=relaxed/simple;
-	bh=FyoE8GbvYTwS6GbEF4K/IhfVIv8iF4ZW99LFKKB1bpU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gUvONOjsG/dD6jMH34OpaclTdW6SNUW4FKruRRA12mEXbcyjdzzW8uYGphqCDxdpoqFzqDqoHIA4Zr34+6u2OIRdKVVv5pvBm/NT2fvhstbeXksf1ljAVIBLDPb5/4f2BA+Hs/1Y1uWI37QZqMl5X/NzQJnXi6drpu4sqcUxQv0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UR41z7fP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781772446; c=relaxed/simple;
+	bh=cVYxPbKiCw8I6vWtZVfisPED329h8mPhpx51Bjwx8v0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=UisTGOx2qxpxHHRjY8tIOUvME4zRuNmOk6zOlTGTjo0kZvkJdMnez2TYa3hiQgxNZ4Z2Fro4ZIJ6tpuiqljmor1rPtBn+Nr5Iiq+5gEbLf65At4825jdDhBJsosUtc2oS9G+ZlTKOR4uuY4vHAD7nxcqgTOF0npxDfPjQOFWhHY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h2napG4F; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UR41z7fP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE5241F000E9;
-	Thu, 18 Jun 2026 08:43:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h2napG4F"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8AFEA1F000E9;
+	Thu, 18 Jun 2026 08:47:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781772231;
-	bh=uMHM7UuTf2do2f7Hpoqk2j+rviNJ44WWlkZ4oTbhXQI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=UR41z7fPG6eVHeAWjFEh8fwBtmodmDzk+F3Lk7VGgBEcVCo7xuYoZlzv7ajxbUgqL
-	 8NHszgXK/0ld2fcayuwb183RFUP1LmOuiz8CbdQgQ+g0aO0woiBL8P+QQK+hbRFoDO
-	 scrCxeHw9o6SozJBMF197xUAr85od+/VUepcFepPuO7ob6AsDpPB7baAHXFqQU9bze
-	 tLh/Di3w+K881gfrWsflutns/P2W3oo92/VVrZ4xA6cB4Z+qMlmLgc5MtZAvTm2jQo
-	 anD2gB94b5c2C0p9yp04vf7bSzD4EtsceR/sSm0clC8omBqYDROVEDgjC8FNutME9t
-	 0mcXH1jXo+WWA==
-Date: Thu, 18 Jun 2026 11:43:44 +0300
-From: Mike Rapoport <rppt@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Linus Torvalds <torvalds@linuxfoundation.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
-	Oleg Nesterov <oleg@redhat.com>, Peter Xu <peterx@redhat.com>,
-	vova tokarev <vladimirelitokarev@gmail.com>,
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] userfaultfd: prevent registration of special VMAs
-Message-ID: <ajOvwGs5xhnfBu-k@kernel.org>
-References: <20260617194059.2529406-1-rppt@kernel.org>
- <5a993689-f730-406d-8515-8bb6025cc851@kernel.org>
- <ajOtfdGgFQYL-T6f@kernel.org>
+	s=k20260515; t=1781772444;
+	bh=CnSbWReKGTEDPoaUR3qOev0pPCPHLKT28K++dObk2Z4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=h2napG4FfR/yPntLk9yltjsnQ1tWjH6S5xgCqt9ov3q4oh5HWT9ILBcDj7n1lAKVS
+	 Gj3t0fhK8jL2HzUkqIXxVlJbp7Q5H9PYweet2l1FOjxfJbUE2mxdD6LdxTFYu4NXX6
+	 3CH15FT9GJjMwegnFDDQjy+m3iw6Rs8AOxyjn4JNe7iiTFhUFaqhdtczAn5CB0620e
+	 pPSshravIhP7l0D5iSUrj5wwSnIgZqaQcL5XFFzakD5gK2RaVO0MDia0Ibp/yuCtpK
+	 OiMWdYA+VXlVBcibkICEFagANR9A52Ue+h6FmWNDLBk3aB/c7ddKRObfDVSlZw25Qc
+	 8ZdFnDLdc/bFg==
+Message-ID: <41ef0dce-e973-4947-b5e3-150fdb07f1a6@kernel.org>
+Date: Thu, 18 Jun 2026 10:47:19 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ajOtfdGgFQYL-T6f@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] userfaultfd: prevent registration of special VMAs
+To: Mike Rapoport <rppt@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ Linus Torvalds <torvalds@linuxfoundation.org>,
+ Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
+ Oleg Nesterov <oleg@redhat.com>, Peter Xu <peterx@redhat.com>,
+ vova tokarev <vladimirelitokarev@gmail.com>, linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org, stable@vger.kernel.org
+References: <20260617194059.2529406-1-rppt@kernel.org>
+ <5a993689-f730-406d-8515-8bb6025cc851@kernel.org>
+ <ajOtfdGgFQYL-T6f@kernel.org> <ajOvwGs5xhnfBu-k@kernel.org>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <ajOvwGs5xhnfBu-k@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, Jun 18, 2026 at 11:34:12AM +0300, Mike Rapoport wrote:
-> On Thu, Jun 18, 2026 at 10:19:17AM +0200, David Hildenbrand (Arm) wrote:
-> > On 6/17/26 21:40, Mike Rapoport wrote:
-> > > From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
-> > > 
-> > > Vova Tokarev says:
-> > > 
-> > >   userfaultfd allows registration on shadow stack VMAs.  With userfaultfd
-> > >   access, you can register on the shadow stack, discard a page ... and
-> > >   inject a page with chosen return addresses via UFFDIO_COPY.
-> > > 
-> > > Update vma_can_userfault() to reject VM_SHADOW_STACK.
-> > > 
-> > > While on it, also reject VM_IO, VM_MIXEDMAP and VM_PFNMAP so that if a
-> > > driver would implement vm_uffd_ops, it wouldn't be possible to register
-> > > special VMAs with userfaultfd.
-> > > 
-> > > Reported-by: vova tokarev <vladimirelitokarev@gmail.com>
-> > > Fixes: 54007f818206 ("mm: Introduce VM_SHADOW_STACK for shadow stack memory")
-> > > Cc: <stable@vger.kernel.org>
-> > > Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-> > > ---
-> > >  mm/userfaultfd.c | 3 ++-
-> > >  1 file changed, 2 insertions(+), 1 deletion(-)
-> > > 
-> > > diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
-> > > index 246af12bf801..b8d2d87ce8d7 100644
-> > > --- a/mm/userfaultfd.c
-> > > +++ b/mm/userfaultfd.c
-> > > @@ -2111,7 +2111,8 @@ static bool vma_can_userfault(struct vm_area_struct *vma, vm_flags_t vm_flags,
-> > >  {
-> > >  	const struct vm_uffd_ops *ops = vma_uffd_ops(vma);
-> > >  
-> > > -	if (vma->vm_flags & VM_DROPPABLE)
-> > > +	if (vma->vm_flags & (VM_DROPPABLE | VM_IO | VM_MIXEDMAP | VM_PFNMAP |
-> > > +			     VM_SHADOW_STACK))
-> > 
-> > I'm sure you considered VM_SPECIAL, which additionally includes VM_DONTEXPAND.
-> > 
-> > Would that be better, or what was the reason to allow VM_DONTEXPAND?
+On 6/18/26 10:43, Mike Rapoport wrote:
+> On Thu, Jun 18, 2026 at 11:34:12AM +0300, Mike Rapoport wrote:
+>> On Thu, Jun 18, 2026 at 10:19:17AM +0200, David Hildenbrand (Arm) wrote:
+>>>
+>>> I'm sure you considered VM_SPECIAL, which additionally includes VM_DONTEXPAND.
+>>>
+>>> Would that be better, or what was the reason to allow VM_DONTEXPAND?
+>>
+>> By itself VM_DONTEXPAND won't matter, as uffd can't resize a VMA.
+>> But thinking more about it, it's better to make vma_can_userfault() more
+>> restrictive and just use VM_SPECIAL.
 > 
-> By itself VM_DONTEXPAND won't matter, as uffd can't resize a VMA.
-> But thinking more about it, it's better to make vma_can_userfault() more
-> restrictive and just use VM_SPECIAL.
+> Ah, hugetlb sets VM_DONTEXPAND, so it must me excluded to allow uffd with
+> hugetlb.
+> 
 
-Ah, hugetlb sets VM_DONTEXPAND, so it must me excluded to allow uffd with
-hugetlb.
+It would probably be cleaner to just allow hugetlb, and then check for
+VM_SPECIAL if not hugetlb.
 
 -- 
-Sincerely yours,
-Mike.
+Cheers,
+
+David
