@@ -1,149 +1,139 @@
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EAF014A4F0
-	for <stable@vger.kernel.org>; Thu, 18 Jun 2026 05:33:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781760809; cv=none; b=LS+T8xaVMFC6zD+OokU1ohtCLuuliN95u+sTxxvjN6RoEQY6dghlwYuMOt0rhXVK+QawBo2pJx2EwvBikofp2VATF4pQ9qX2br1lfzbQo8EER7JuxCqZMXzs2Le5eG1BM9BKgm/0wVyQB0nVm68ii2nAIuTSOOlPazQKJEa53J0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781760809; c=relaxed/simple;
-	bh=sW5xyKDUaPnM6cUopV3mk+CIkNTSQ52tQUCTumc8JbU=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=q6EvqfZkg5ULJDPxh5Jbo3n0ntq3aaohjsBvUZ5WT+LGJ7GcATp7yd8lsK5p+QZEWxHqWIf8JYaPtBrIKuJ/dAmL2pHJmhasOhOtAR77DFLhaQrGDUgN+nH4j7ksZV0O1I74oLXhWWueBYWy2o8l3/urJvnN/NwOtbm5jDF+ag0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BpFyOwU8; arc=none smtp.client-ip=209.85.221.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=debian.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91175270545
+	for <stable@vger.kernel.org>; Thu, 18 Jun 2026 06:05:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.177
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781762708; cv=pass; b=rX4M+KgChnuK1dgd7YlFlnnRiP3i5BGISW/UdibhEfZVndGtSLAE+43jzVHpB1uEbVjZqVDTpy5ULv1JETKXrc5AFEr9fo3ZpB28ZawPR5Ko+WmTcwR4hsy/D4X5nRjPV6cpNgh8e737TfrjNMVObFYKtR8ChhvyTMj4/N2qqw8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781762708; c=relaxed/simple;
+	bh=+kpJnXO4/8wwNzoHtaVQtv8o7oAoB303aXi/DiQlGLQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=UyOFo/nhwZlG+x8daWrlS+GTwu3P2G0/GXoA7xnuDIrfzrw8UnBtsKXmf9vgkN/9NXqxJ2xeaaw95jAXqVRrjh4d1LP8ke9j+EyTf5SAVosMgnK4hXya0fiJPuBkaKjpB9g0oWHlMZKQDHlsP0YsPDfxVzqUjQvE1qA/kjY2f7c=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eehzqdAn; arc=pass smtp.client-ip=74.125.82.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BpFyOwU8"
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-464192ab2e1so106707f8f.0
-        for <stable@vger.kernel.org>; Wed, 17 Jun 2026 22:33:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eehzqdAn"
+Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-30bd47b9f0fso604155eec.0
+        for <stable@vger.kernel.org>; Wed, 17 Jun 2026 23:05:07 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781762707; cv=none;
+        d=google.com; s=arc-20240605;
+        b=SNu/sxtOKH+zwSDImDZh6rmMdi6b3J+XTmRUzxJHrGfNqya3OHwx4Hs3lXe7TWLM3M
+         PRmTnIhTsSvMojqWVQhaVtaKvogdaPx8iS2qv+zT91ntxnUUWf6npNb9LtIGx6nnJ3B2
+         sEglBIkSl8Lk5s6LR77loDVsRWo50GZ6Zc5sVkY/uT/zo7HlQ+NpyInYXGkbYynB4cDt
+         sAjFN3zBQ1r9NpBvF/Toekq45rdSUgQviDD3nl45oexOYqNnitBWT1y1e36A7Oox+bfA
+         AyHMKJshPqdkbDEpxIzfm+vTUP5xigtEkR81RlHrpWwlHdHxosgmSIBWoolsUruzLeCO
+         iLXg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=WkgBk3go1aRtnxlhVuzDR+Jr3GsyjXkZW1XpX+0nkCE=;
+        fh=QqrdBPX3xQ/y2WH2Ll1bT1wuXKeknVZfErRpcUcNKjI=;
+        b=DbdvICucmefGsuvsII/9W8x5oWXBCZixYSsrtCYFx+NltQPyeEOO+6r96BQnakF/8B
+         cBV3soiv8PjG7gVA35QA4PMxUVqzAmTFZx6foIJ4wCfq+O112C/H/nXiZGUodcc/ekbO
+         d5lyrQdsXO5weEnZ5wwSbKFLz8I8KyehE5X6TNQWmKyoiexxN0OCGnu6HROvxjBEiB6y
+         SPt581VZAuhWxOOJ4/wh6qwMwHfIdj7ZFaN94pD9EpSmf0fMA5oeG2zc4UAHMY7u0zts
+         LCQr0ttGiQPubaT9mMqEUh+Oe0MI/zO9wcOpzsO1G7X0kODMItAG+aZzOEnlhuGtynE7
+         mBeA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781760806; x=1782365606; darn=vger.kernel.org;
-        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
-         :sender:from:to:cc:subject:date:message-id:reply-to;
-        bh=i0uwRadVCrKcgbTyVtvSnT1KA2KxE6PBBbL07wYsqME=;
-        b=BpFyOwU8+Z37WqrUzfwXK3biAX6IAjrKoM1+fF1fszq11Njgdx7c4aHSEAdbH9h1BN
-         fDbvqGi5SlNFzPNWWwlpBk+rNHnK3nEucxgHVQwOcR9Gr5ZshSkISXaYXhnSbfwkvJcu
-         NtXA2yzJJ9poltaVOW8V/+A85cT+vXCmr61qR8QmZMbBH40CBHP8si0qkitso3riSFE5
-         0mQZ81XZCUFwYv8lbeN4px/OhV6brUWta7WS7s22zqYYiBFHvl0Ph2Pi+dRzusFntJxE
-         ChkHTFEpW4TzCk6AWOmAEsMIXYjGDE/270vWev3O31F5jSN7VNKR1QmWCWnwNTen6QNW
-         J97g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781760806; x=1782365606;
-        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
-         :sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1781762707; x=1782367507; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=i0uwRadVCrKcgbTyVtvSnT1KA2KxE6PBBbL07wYsqME=;
-        b=d4EUs4Vh4jzY1tswRjozVnUtXf9cTMc4D4XR3o13yevDte46RhgKLrFJxn5iPUgFft
-         ZmZBG8pQIDmV5DbGR6GiES9yN2EEJfIC7rWZXVzdOOh2LNf631aTnzLdb8my9HOUGiHc
-         Any2vU+t0bQCtCl7LZx9Tk3eCEzCqut/wND6wjuRyi73D+yfD2ZhqYvLZ6PLM3vz/aqi
-         Qt/VXpdsrvkHm/gElH4q76KY+AYNygiJYC2eWEVoXKKZZaJiOdvt2bmJiXyz4DQcLbhk
-         AaviaWuKFgCCKDv8Ka98l4Is8PsIcKv6sNOk2f9Tx+xRcBKTrFZOwLpbejAt/i7VejmO
-         7LXg==
-X-Gm-Message-State: AOJu0YweSGjdxtSuVqz/ssmjMYa3GU/yAqFXXFaR5odwFk8vlDGIVlOM
-	sotf0rtCBIat2jHRfgYb2SCRqxh8OTt+3Lbejen7HHfvmX9g1THPCDhi
-X-Gm-Gg: AfdE7cm/IczhP4V0bS7kLjr88NFzEBVcIywHbF5Lc3E1u2qUSV1c/jHuHdr2mAMTKqG
-	yMi49CEbUao/Ai7hDwhmnVoNflGSqN166OPv2rZbS7xuvFwShgg13LBUV4c9Jzuk5yg1ugk7qbL
-	oFpcYECQq+uUCsyKizzyTljH6fgaqN9YpoEI3jcOF++ZlqAub16LoMAtvXO6A05jli1dA1F1XSQ
-	knFoKNmfYF20ush0LlUENm6L3J/Lw76tPZwDOYJl5jjoH0UQRmIEJs6u6MS2hcfP7Biggwj8wpE
-	we7LH1BJmTJ1vD8VEAVvIuwRC2zTui+v79BDMnAKakAYQWLeP5i4VTbIauTxymZ0581wiMcXYvJ
-	Qh94BQWSmPih8XKmfAboXFGkhrpwAmYXBp9r4O7beQeAZTS57nFmdWBOnUZxZsA57wJYxpnyQvc
-	avKzcSt1SvcuAvAkkDVYiTBEylEOgmQyy/01O7ABmqsaHe1Z+F
-X-Received: by 2002:a05:6000:178a:b0:461:bfd6:510c with SMTP id ffacd0b85a97d-463ab043b6fmr2966327f8f.3.1781760805582;
-        Wed, 17 Jun 2026 22:33:25 -0700 (PDT)
-Received: from eldamar.lan (c-82-192-247-196.customer.ggaweb.ch. [82.192.247.196])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-461eaa0d1c7sm16536416f8f.7.2026.06.17.22.33.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 17 Jun 2026 22:33:24 -0700 (PDT)
-Sender: Salvatore Bonaccorso <salvatore.bonaccorso@gmail.com>
-Received: by eldamar.lan (Postfix, from userid 1000)
-	id 93682BE2EE7; Thu, 18 Jun 2026 07:33:23 +0200 (CEST)
-Date: Thu, 18 Jun 2026 07:33:23 +0200
-From: Salvatore Bonaccorso <carnil@debian.org>
-To: stable <stable@vger.kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>
-Cc: Eric Dumazet <edumazet@google.com>,
-	Noam Rathaus <noamr@ssd-disclosure.com>,
-	Steffen Klassert <steffen.klassert@secunet.com>,
-	Nicolas Dichtel <nicolas.dichtel@6wind.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Ben Hutchings <ben@decadent.org.uk>
-Subject: Please backport d289d5307762 ("ip6_vti: set netns_immutable on the
- fallback device.") to 6.6.y and older
-Message-ID: <ajODI0ViiySkNjK5@eldamar.lan>
+        bh=WkgBk3go1aRtnxlhVuzDR+Jr3GsyjXkZW1XpX+0nkCE=;
+        b=eehzqdAnyb2bKiM89tJ0PM5VB90fPgRZ1sldXDqqTGU/3dn1d4gjbG39W+5L2x1buV
+         CouYvYcsDi5GSBF58m2f2VLWTGEz6n3zPJJ1eIQX38rekX0wesyXwCSMTl2sSIAXXGfz
+         RyldL7fBEwtaUM9ZQR0tDojk1lC1rfcQK9Od9kLPqqWwmeyWx6RuY/j5nLJnhemOVuxD
+         96E5vBCUqCOnPd45JHVo8HQZEbdqwlEaUyRWHc6wroHrSy60xes18WTCP+3ho2wXo/k7
+         PGSGI8bgOm8Cx5oHPlFCTjX2VFUYx4U/v72s0SfW7VZbU/2Xu31c2l1gen2fdced4Dye
+         BcZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781762707; x=1782367507;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=WkgBk3go1aRtnxlhVuzDR+Jr3GsyjXkZW1XpX+0nkCE=;
+        b=XKA4FNvk4+yrOs2Bp30S77awXBj64EN5OCwPaNjQwyHJPv26VTAV8Nkb512n/vs1zX
+         xjvrEwvs3Rx9Frl1enyUo4gem8F1U4FtXtMLBE/wXweA1cogr3gujStdE1whnkFlr/Uo
+         JOoCc014Nw8Ri9cLR9YZeku1DN64R6lr2j6Wnk4Njvtz3Eo480Xayc2yG8Min6jbEsJa
+         GRevjz9bs1XU/bKGj1gZpp/f1NKJTTzzNLWd8np2SJq2nKGGA0ioZaYnFvsFDbXe/kTL
+         MB5HVBqMlFihJvyPSYw5wyMfXbkhHpTWAuz2ozKhFnvwHH+E42HPQ6bvMgcvzXzDv1/6
+         8Urw==
+X-Forwarded-Encrypted: i=1; AFNElJ9Jk1eO3fbvrf5bqeuithrgIEDaJAd7Vpk6AvFF/RxiwUPjredPIUEl930AwpmIJAjpW9RzTvU=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz+T8bDvFhVDIZT/ym3NKgZJqneQDNUeRggZfbtKhs1d1CuDRfo
+	4lVVSFFvEYFAuL8GM2dXtu7RsX7CUOi+Ra4aLiRETd3e1QP0dkmwG6lw9iM3HJrJPlTjpaM3Cq5
+	W7+ShinbYyPRHqc0O16o607Ronc+Qs0c=
+X-Gm-Gg: AfdE7clAjgCS7PACIrDsEm8lOiHVED/ES9xZZH0NmM01d/YViwzqoIsjg7yQw18TusA
+	UwVvetAlhSKL8dSTZMzVIgQaveEjHeEivDxkWmh458YQHaB6f/cMQLrgfwmP8y2xsBR1XPaVjdL
+	otQSyOyCg8heVTwd9qIF93J4Fjq4x7DvTMOXaeHR+9Hyy8eSrc/MaFdeT80YWpU+xl2hr/tEteL
+	WF1EdTK09r+MJknH9PH9TNnpi63ifBvSyI6xC1rPhyFp5OUO88+YPMvnJNoJW4YZH/NILaHb1T0
+	Z8DEo7zo8qoofErfw6Mh+5zCAZGUSk7bjConT2JtxdneGe2Y3GrlpBIRTcb6w743UqAEptHjBc6
+	7UPjiw+IISIaoVKev4LQrSizkyiknUV8Oh2RJpBCFokar0ksdh67Pae0Em8wEqcn7tCtuHT1IjM
+	qXXCCAZGFR
+X-Received: by 2002:a05:693c:3105:b0:30b:a257:3a2d with SMTP id
+ 5a478bee46e88-30bca0a18c7mr3986622eec.26.1781762706420; Wed, 17 Jun 2026
+ 23:05:06 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+References: <20260616145109.744539446@linuxfoundation.org> <f33dcd2f-787d-4705-9272-394e1d560ae0@googlemail.com>
+In-Reply-To: <f33dcd2f-787d-4705-9272-394e1d560ae0@googlemail.com>
+From: Luna Jernberg <droidbittin@gmail.com>
+Date: Thu, 18 Jun 2026 08:04:54 +0200
+X-Gm-Features: AVVi8CdXBPQXTNC1zq_Qb8ITwFfGHIZRxK_GPHJGWi-dkCBBji6Nl3TN03zhaWo
+Message-ID: <CADo9pHhAQHGsEB5i4R1GDeAqRubRb-oaUgMjTrk0y-Oc_8U5EA@mail.gmail.com>
+Subject: Re: [PATCH 7.0 000/378] 7.0.13-rc1 review
+To: Peter Schneider <pschneider1968@googlemail.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org, 
+	patches@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	torvalds@linux-foundation.org, akpm@linux-foundation.org, linux@roeck-us.net, 
+	shuah@kernel.org, patches@kernelci.org, lkft-triage@lists.linaro.org, 
+	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com, 
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org, 
+	hargar@microsoft.com, broonie@kernel.org, achill@achill.org, 
+	sr@sladewatkins.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi
+Work a Dell Micro 3050 with Intel(R) Core(TM) i5-6500T CPU @ 2.50GHz
+and Arch Linux
 
-d289d5307762 ("ip6_vti: set netns_immutable on the fallback device.")
-was already queued for 7.0.13-rc1 and 6.18.36-rc1:
-https://lore.kernel.org/all/20260616145117.258480602@linuxfoundation.org/
-https://lore.kernel.org/all/20260616145103.487984074@linuxfoundation.org/
-but not for the older series as needed.
+Tested-by: Luna Jernberg <droidbittin@gmail.com>
 
-A backport for 6.12.y was added in
-https://lore.kernel.org/stable/ajJ6TSzxuWdfQkxf@eldamar.lan/ .
-
-Here is the backport for 6.6.y and older for versions which do not
-have netns_local.
-
-Does that look ok?
-
-Regards,
-Salvatore
-
-From baba4cc5ae46577aa7fc4f163c0dc44833298d9d Mon Sep 17 00:00:00 2001
-From: Eric Dumazet <edumazet@google.com>
-Date: Mon, 8 Jun 2026 15:59:18 +0000
-Subject: [PATCH] ip6_vti: set netns_immutable on the fallback device.
-
-[ Upstream commit d289d5307762d1838aaece22c6b6fcad9e8865f9 ]
-
-john1988 and Noam Rathaus reported that vti6_init_net() does not set the
-netns_immutable flag on the per-netns fallback tunnel device (ip6_vti0).
-
-Other similar tunnel drivers (like ip6_tunnel, sit, ip6_gre, and ip_tunnel)
-correctly set this flag during their fallback device initialization to
-prevent them from being moved to another network namespace.
-
-Fixes: 61220ab34948 ("vti6: Enable namespace changing")
-Reported-by: Noam Rathaus <noamr@ssd-disclosure.com>
-Signed-off-by: Eric Dumazet <edumazet@google.com>
-Cc: Steffen Klassert <steffen.klassert@secunet.com>
-Reviewed-by: Nicolas Dichtel <nicolas.dichtel@6wind.com>
-Link: https://patch.msgid.link/20260608155918.787644-1-edumazet@google.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[Salvatore Bonaccorso: Backport for version without 0c493da86374 ("net:
-rename netns_local to netns_immutable") in v6.15-rc1 and without
-05c1280a2bcf ("netdev_features: convert NETIF_F_NETNS_LOCAL to
-dev->netns_local") in v6.12-rc1 and use NETIF_F_NETNS_LOCAL device
-feature.]
-Signed-off-by: Salvatore Bonaccorso <carnil@debian.org>
----
- net/ipv6/ip6_vti.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/net/ipv6/ip6_vti.c b/net/ipv6/ip6_vti.c
-index 04e4368fe465..33b21ecd51ba 100644
---- a/net/ipv6/ip6_vti.c
-+++ b/net/ipv6/ip6_vti.c
-@@ -1155,6 +1155,7 @@ static int __net_init vti6_init_net(struct net *net)
- 		goto err_alloc_dev;
- 	dev_net_set(ip6n->fb_tnl_dev, net);
- 	ip6n->fb_tnl_dev->rtnl_link_ops = &vti6_link_ops;
-+	ip6n->fb_tnl_dev->features |= NETIF_F_NETNS_LOCAL;
- 
- 	err = vti6_fb_tnl_dev_init(ip6n->fb_tnl_dev);
- 	if (err < 0)
--- 
-2.53.0
-
+Den ons 17 juni 2026 kl 21:13 skrev Peter Schneider
+<pschneider1968@googlemail.com>:
+>
+> Am 16.06.2026 um 16:53 schrieb Greg Kroah-Hartman:
+> > This is the start of the stable review cycle for the 7.0.13 release.
+> > There are 378 patches in this series, all will be posted as a response
+> > to this one.  If anyone has any issues with these being applied, please
+> > let me know.
+>
+> Builds, boots and works on my 2-socket Ivy Bridge Xeon E5-2697 v2 server.=
+ No dmesg oddities or regressions found.
+>
+> Tested-by: Peter Schneider <pschneider1968@googlemail.com>
+>
+>
+> Beste Gr=C3=BC=C3=9Fe,
+> Peter Schneider
+>
+> --
+> Climb the mountain not to plant your flag, but to embrace the challenge,
+> enjoy the air and behold the view. Climb it so you can see the world,
+> not so the world can see you.                    -- David McCullough Jr.
+>
+> OpenPGP:  0xA3828BD796CCE11A8CADE8866E3A92C92C3FF244
+> Download: https://www.peters-netzplatz.de/download/pschneider1968_pub.asc
+> https://keys.mailvelope.com/pks/lookup?op=3Dget&search=3Dpschneider1968@g=
+ooglemail.com
+> https://keys.mailvelope.com/pks/lookup?op=3Dget&search=3Dpschneider1968@g=
+mail.com
+>
