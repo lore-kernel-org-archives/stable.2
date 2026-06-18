@@ -1,36 +1,36 @@
-Received: from smtpbguseast3.qq.com (smtpbguseast3.qq.com [54.243.244.52])
+Received: from smtpbguseast1.qq.com (smtpbguseast1.qq.com [54.204.34.129])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1BAD14884C
-	for <stable@vger.kernel.org>; Thu, 18 Jun 2026 03:43:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.243.244.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FE3435898
+	for <stable@vger.kernel.org>; Thu, 18 Jun 2026 03:44:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.204.34.129
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781754219; cv=none; b=aJWpyAthbcitFE3oZsAHgIO8DnwKFKWAGn2aL9yeKlF2diIPLIppsqpHOsS+iVvpRwEqNSVwLdXY6jm5ep9Mz+akZ9Tobpxq8J/LTRCgdp0XZ2cZgaB2GabP+4jAYkXmTdI/LpGKATfsfE3QnKqX7CdRAsyfgzlrETmOtctnQng=
+	t=1781754284; cv=none; b=BsgDSWX8wWjACbC8p9deu2BM442fMq5xHc8kDMdhCFVUHGFea1/e4/RLBF99/hfklct+8ntgTJMmtG+pGol6rpqrLEeUtFZ/AHb1DSdzaK/ZAWZW8vB2eh2WHcOOyaGUFIC3r4wFPmT/90PCE/idQMinTuw6Eq5kbPU5ZswfKIY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781754219; c=relaxed/simple;
-	bh=M/SY2oHM6heqUzd5oIg6bRcDLp15Xu/sq8tRBYhnyuk=;
+	s=arc-20240116; t=1781754284; c=relaxed/simple;
+	bh=0/o5265vQcObSYJMlLwxMPFqjO3w9uCaIcwTnKsuvXA=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=o33H+WCAkk6IF4W9bx6Y2TwTfvkPLIbgCghaFJ5/pMc1hf67oaQgqekIk7PGlrxxEcwCz524Z2/ruD2LQNygYLFBprqwSKmqtueprgcockgaQzMDTQupODm7cUxnYrbZUawQ/2jiBGkYOmvl503RVcn9WNfqAoVIBEseEhJI7/k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=Xar4hgfl; arc=none smtp.client-ip=54.243.244.52
+	 MIME-Version; b=GYIrmI9utz5nL+KQKr3+QvDNkjM4WU4GQLz/uGjDQHlKhw36GM2dfMmpoGqXCZJ+sKcDIhVuk6f/soSRBksT6IpUUi3sbTaQm+b2bkHWBjCc2IpTzMs+V6cygKMRQ0nxPZQwd2x/FMWPRnK5V4d4EdS7VK0Zu1hXnx3zCBDaPKE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=kWbAOy+T; arc=none smtp.client-ip=54.204.34.129
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="Xar4hgfl"
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="kWbAOy+T"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1781754195;
-	bh=aKRH9vsLdSP6xszzoF1c3cSPDafELHO/23Y48eGZWAk=;
+	s=onoh2408; t=1781754202;
+	bh=b/LlPpwjYtM22GZXCQ5lP2V6/hIymaxfc1h3lZ5SqnU=;
 	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=Xar4hgflGnDLP7Yi5sLh1G0XxU9AJDPSoxMlTwJMQsFKBbgRNBQSxBWRRp1N4mw3A
-	 E6QPqK2lAyOl6BvbXk40Dwwf2EW/Qd6fYAdPq+b43pz0BfDUFeyi/m5aELMlM2MwSt
-	 QlALQj6OYuJVwTa1xWJCCX3gdw0us6GiWhl3PBl0=
-X-QQ-mid: esmtpsz16t1781754176t2cb8eb53
-X-QQ-Originating-IP: ryqksIF/MZ9pwBPnAEH3OlDBJglMXN+2/sunf8kgwJU=
+	b=kWbAOy+T3gZMd7kvLQ+OQ2v06a1BnDSVsL6X55Pk0jZf1K8mSGaa1PbQOKyUPZ04o
+	 skiDse+BnBH+ir3OYhIbaXUyWmPUKq0RmdFsJ87MeXacSTe0vh6zBgUgI7nDWfj3eG
+	 uP2jnxFN4HJ822mzUlPzOPc7KmR/uzmOB0lHIA/s=
+X-QQ-mid: esmtpsz16t1781754183t6819f6da
+X-QQ-Originating-IP: kTmWeZg4IVQ51Aoy9oLHKT1FQAwuMXN3hcSEan1qAYk=
 Received: from localhost.localdomain ( [113.57.152.160])
 	by bizesmtp.qq.com (ESMTP) with 
-	id ; Thu, 18 Jun 2026 11:42:53 +0800 (CST)
+	id ; Thu, 18 Jun 2026 11:42:59 +0800 (CST)
 X-QQ-SSF: 0000000000000000000000000000000
 X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 5472547804747186854
+X-BIZMAIL-ID: 8461035864353927015
 EX-QQ-RecipientCnt: 17
 From: Wentao Guan <guanwentao@uniontech.com>
 To: sashal@kernel.org,
@@ -50,12 +50,13 @@ Cc: stable@vger.kernel.org,
 	Pedro Tammela <pctammela@mojatatu.com>,
 	Simon Horman <simon.horman@corigine.com>,
 	"David S . Miller" <davem@davemloft.net>
-Subject: [PATCH 6.1.y 1/3] net/sched: act_pedit: check static offsets a priori
-Date: Thu, 18 Jun 2026 11:42:48 +0800
-Message-Id: <20260618034250.1525454-1-guanwentao@uniontech.com>
+Subject: [PATCH 6.1.y 2/3] net/sched: act_pedit: rate limit datapath messages
+Date: Thu, 18 Jun 2026 11:42:49 +0800
+Message-Id: <20260618034250.1525454-2-guanwentao@uniontech.com>
 X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20260618034034.1525175-1-guanwentao@uniontech.com>
+In-Reply-To: <20260618034250.1525454-1-guanwentao@uniontech.com>
 References: <20260618034034.1525175-1-guanwentao@uniontech.com>
+ <20260618034250.1525454-1-guanwentao@uniontech.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -65,97 +66,87 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-QQ-SENDSIZE: 520
 Feedback-ID: esmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: NcdhUYIpzyYIAib7Z5TtV6S1PTChVUe0V5KCIykPFoZYHYdzqM/DgMR8
-	x3jmn8/peMYFPPg2uUshn5c3JEYLZUrhjUssUDxLkp5X+D43OABOFGrYgpY4F1TgNdMon6g
-	b1flRxNMelqTKpMNqlitdfqM3Wsv9464PAx8q4k9lvV+XcsBFj5AwwhXkkY/2ZKJDH+TAGt
-	XBo6A1ZyE26s8Jv27SX5zwI/dPewnQjOZbLmQC07pr27PLzxD8/tYN3TGiY1pa6KN4yE6lA
-	b18lKp6/uhyHK7T6u4lpJaNMjBsgXxkp2958V8Dr3BAuGSZjOHA9Vm0wB5SduXHNVRxuuPD
-	Sm7p1bM71UfI6IAxq19IYB71GNssE8yaZH9LP87GBZ9VmPC5mI+RwqLfmP38tmsXrnlPdC/
-	X4qf7Sgfr9lGS87o4CIWzWGWlM1g5kteppBJhhOYE58pipwdk5tTzr5cdf5y8TQyJsqqT4k
-	JtSQIgJdW/TVbR+RY8uWwCa72hxHvqehodYUVAoiwrInQE+okhc7JrYk6Z40tTi++k8ZIVf
-	SvYS35d8tAgykZWe2fgoyKEc+4NJ5XDyzTtJPO2TjWpbZzpOSdqLoHOx0NwYxFFLz9ACzSd
-	s4ryHlDdcjSCKWFxNijCJi+svkuO9Mw1LdOvOCc8RX8Il5Dl2W2L7lNEUxAojTqgMQ4uuM3
-	R6di/EThAmbq6lwYhrR459+ttrshAwk8CgGuybYbDtHuPc0M682ZiI4q4Jkzk3eETK0WVGi
-	QKEEKJ3NHRdS1sqHCU9Xw+5rcZwYq0NoXR4UdR9wiPDWef8+/PaUHxJvQis0MJx65S7fmjS
-	m3XQvk6mihIgu5RMdtOSFKI70YMM8CK32nL6Zxi1d0sU6pjmfYfX8Z2BQOys9fDT7oB94nI
-	R8vwFTsILUatEFZRsuhObQswEdxFv1hxgwHw1d1KP+5fL9jMV6OZia/nz3EfBWZYLZFDbIY
-	3CjsHwdWMsYm3fpvwMaVMLu+j7DsOS2tpyeh9wt+MTxEKswOYisyKxBJG98poYNqutDTlHk
-	Bdw2NUynHDPhSl3bVtlFcEHKvf/x4esMAvcQIEF1zPMxCJWXjYuDfqTTne6MBIqYKl5ji5/
-	cV4uLEP9mnP
-X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
+X-QQ-XMAILINFO: NEuxXjgkfD8wV5PaJl4w+RwWks10rdaBHWv6geRq1C143LAJfwBGPdFd
+	c5eZKHCDzI5fGzY0IYu1UStSn8+bX3bxiJIeJ61EClfoVU+4AgA4f2Z9ARjQgVDVpUXo6Tt
+	c82LVg3PcKQIg8RBfNoYGank8IMXCtnLyqrcDC2tHkcgd707qCVH0amD0zFJeHuy5QDnHxv
+	tCWhwakLJpc7w71Z2EwDL17CkiJPC6VQwHiR3FOpyDp1ik5/B4g0pI7W3NvKI1mzNkG5bny
+	AiHzOhA+LnTsv7ZzLye0MbzKPXNagdjI3ua6kRe2DvJaMVZmc6glUwkXk6m+wDw+5suie0M
+	S0IkMSmCD+DxSymtKEp4dv1AkAy10f0icaySn+5FlnmNan1qGiiM3gHdj6r5VBEUtNFBbr7
+	ZZI74YJrne2L/oUOvojzZQD2DcjSAXY4mXX/riBljwA5AuLKaMair1Ohx/qb+e8IY59jp0J
+	BkKP3Z6HVXg3MD0894d23t3B2uOqiReG34hR4XfsUXVgKwPUhuuQ7Vs/HHHPExqedJ6JMrM
+	bDuQSqKgjexvgiRn1TN4+3d3Qjgn4Nl3JBSwilEjjuS/bW0xOnrJk7N6lJU9H/SV+7ZRvx6
+	fYV9/BTtOWBdLISdFxn4G8ePf59V9W1kdnhHTpLSkf1wc7ZicUqEzV0kMmv3LgvHffGifb2
+	p7UhzpJBsFMQBFc+KerVzuyKCvioMIRrqj3xM0FIYtEmzhalHEx0aYlN/ydoblyTcYc8gMs
+	Y5egZJ9VmQ+ChQJLKvpSOISfcRsTNLp+arD+KQZF0OKvIl7iSMQ70xcgIZony5atE597JFm
+	4ZJhM9hIqVdhrbfh9+gcL3wJsOtI/PR5n5aAKUTLO9BViYbbOumOB+tHUvwqKAR61BiabV7
+	wSQA0jZzJ1bxehYqpjXbev+kZ6FVa3qFWZCep83aSMZiVUeZd8849b7kaUUgnR4mmvFBVPt
+	slJ7qhIaDFoDQAWSutgdSSl3538urxnvkKO1FhcuAGW9+kWdZlP+2ctATO4J2ueUbv+iNRd
+	kNSSK+6r+xwbd3wcTtp62SnfUIcmLpZDtLUEqWOUY37glv3bs9JVe8urB/UQepus801dW8L
+	KgW45+yRfC6zUJWjoPXm4yR7Ibz9UFFr06NVsuEbidq
+X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
 X-QQ-RECHKSPAM: 0
 
 From: Pedro Tammela <pctammela@mojatatu.com>
 
-[ Upstream commit e1201bc781c28766720e78a5e099ffa568be4d74 ]
+[ Upstream commit e3c9673e2f6e1b3aa4bb87c570336e10f364c28a ]
 
-Static key offsets should always be on 32 bit boundaries. Validate them on
-create/update time for static offsets and move the datapath validation
-for runtime offsets only.
-
-iproute2 already errors out if a given offset and data size cannot be
-packed to a 32 bit boundary. This change will make sure users which
-create/update pedit instances directly via netlink also error out,
-instead of finding out when packets are traversing.
+Unbounded info messages in the pedit datapath can flood the printk
+ring buffer quite easily depending on the action created.
+As these messages are informational, usually printing some, not all,
+is enough to bring attention to the real issue.
 
 Reviewed-by: Jamal Hadi Salim <jhs@mojatatu.com>
 Reviewed-by: Simon Horman <simon.horman@corigine.com>
 Signed-off-by: Pedro Tammela <pctammela@mojatatu.com>
 Signed-off-by: David S. Miller <davem@davemloft.net>
-(cherry picked from commit e1201bc781c28766720e78a5e099ffa568be4d74)
+(cherry picked from commit e3c9673e2f6e1b3aa4bb87c570336e10f364c28a)
 Signed-off-by: Wentao Guan <guanwentao@uniontech.com>
 ---
- net/sched/act_pedit.c | 20 ++++++++++++++------
- 1 file changed, 14 insertions(+), 6 deletions(-)
+ net/sched/act_pedit.c | 12 +++++-------
+ 1 file changed, 5 insertions(+), 7 deletions(-)
 
 diff --git a/net/sched/act_pedit.c b/net/sched/act_pedit.c
-index aee2e13f1db62..2bdc44efee779 100644
+index 2bdc44efee779..7ba460fda1f4e 100644
 --- a/net/sched/act_pedit.c
 +++ b/net/sched/act_pedit.c
-@@ -250,8 +250,16 @@ static int tcf_pedit_init(struct net *net, struct nlattr *nla,
- 	memcpy(nparms->tcfp_keys, parm->keys, ksize);
+@@ -429,8 +429,8 @@ static int tcf_pedit_act(struct sk_buff *skb, const struct tc_action *a,
+ 			u8 *d, _d;
  
- 	for (i = 0; i < nparms->tcfp_nkeys; ++i) {
-+		u32 offmask = nparms->tcfp_keys[i].offmask;
- 		u32 cur = nparms->tcfp_keys[i].off;
- 
-+		/* The AT option can be added to static offsets in the datapath */
-+		if (!offmask && cur % 4) {
-+			NL_SET_ERR_MSG_MOD(extack, "Offsets must be on 32bit boundaries");
-+			ret = -EINVAL;
-+			goto put_chain;
-+		}
-+
- 		/* sanitize the shift value for any later use */
- 		nparms->tcfp_keys[i].shift = min_t(size_t,
- 						   BITS_PER_TYPE(int) - 1,
-@@ -260,7 +268,7 @@ static int tcf_pedit_init(struct net *net, struct nlattr *nla,
- 		/* The AT option can read a single byte, we can bound the actual
- 		 * value with uchar max.
- 		 */
--		cur += (0xff & nparms->tcfp_keys[i].offmask) >> nparms->tcfp_keys[i].shift;
-+		cur += (0xff & offmask) >> nparms->tcfp_keys[i].shift;
- 
- 		/* Each key touches 4 bytes starting from the computed offset */
- 		nparms->tcfp_off_max_hint =
-@@ -429,12 +437,12 @@ static int tcf_pedit_act(struct sk_buff *skb, const struct tc_action *a,
- 					       sizeof(_d), &_d);
- 			if (!d)
+ 			if (!offset_valid(skb, hoffset + tkey->at)) {
+-				pr_info("tc action pedit 'at' offset %d out of bounds\n",
+-					hoffset + tkey->at);
++				pr_info_ratelimited("tc action pedit 'at' offset %d out of bounds\n",
++						    hoffset + tkey->at);
  				goto bad;
--			offset += (*d & tkey->offmask) >> tkey->shift;
--		}
+ 			}
+ 			d = skb_header_pointer(skb, hoffset + tkey->at,
+@@ -440,14 +440,13 @@ static int tcf_pedit_act(struct sk_buff *skb, const struct tc_action *a,
  
--		if (offset % 4) {
--			pr_info("tc action pedit offset must be on 32 bit boundaries\n");
--			goto bad;
-+			offset += (*d & tkey->offmask) >> tkey->shift;
-+			if (offset % 4) {
-+				pr_info("tc action pedit offset must be on 32 bit boundaries\n");
-+				goto bad;
-+			}
+ 			offset += (*d & tkey->offmask) >> tkey->shift;
+ 			if (offset % 4) {
+-				pr_info("tc action pedit offset must be on 32 bit boundaries\n");
++				pr_info_ratelimited("tc action pedit offset must be on 32 bit boundaries\n");
+ 				goto bad;
+ 			}
  		}
  
  		if (!offset_valid(skb, hoffset + offset)) {
+-			pr_info("tc action pedit offset %d out of bounds\n",
+-				hoffset + offset);
++			pr_info_ratelimited("tc action pedit offset %d out of bounds\n", hoffset + offset);
+ 			goto bad;
+ 		}
+ 
+@@ -464,8 +463,7 @@ static int tcf_pedit_act(struct sk_buff *skb, const struct tc_action *a,
+ 			val = (*ptr + tkey->val) & ~tkey->mask;
+ 			break;
+ 		default:
+-			pr_info("tc action pedit bad command (%d)\n",
+-				cmd);
++			pr_info_ratelimited("tc action pedit bad command (%d)\n", cmd);
+ 			goto bad;
+ 		}
+ 
 -- 
 2.30.2
 
