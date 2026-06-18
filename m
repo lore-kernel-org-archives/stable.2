@@ -1,173 +1,188 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11022074.outbound.protection.outlook.com [52.101.48.74])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E70F15A864;
-	Thu, 18 Jun 2026 18:34:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781807684; cv=none; b=W+AZZGdIomh7pDljZvDPsnfyPuMGcRtzV8vWIfet30/WPP6OMb7d1TOYDhxhOYwX6iA+J6Rey3XzbCeRyJ1LB9iWoJdl7kuGN2wUY3Wq5Xhp8pXPs7xRfkkQmTIH7ZSmCtEExMvb2WzlDrHf6cm7PHy/ji5xBi+YhKoE147jgwk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781807684; c=relaxed/simple;
-	bh=63vlxuxlUNvwRyOcR8bZBL+gdC7dePKv0Lsd4RjqI1I=;
-	h=Date:To:From:Subject:Message-Id; b=epEAAnDrqy0w9EzNzclo+ExS6KW0fXQZitjod9R7sJNsF5kS6ftPxhgZr6V3OIyPmY63fs7kfgYnpHMvJzVWV61JML0s97YtfdOJT8YtDPeldz4Rd2wlmYR2bT5hP/ytf296FbtCDytSFR2lrahk7kGSPUNOTqfiBfWD2LMlvbo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=tJEQAHgf; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45EE8401A14;
+	Thu, 18 Jun 2026 18:38:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.74
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781807927; cv=fail; b=i9/CdK1wmMdchcqiytP8K5eLeGSWwiA4qnrx0rg45ayMATf3gC7tJ60mz4bElIzOec/hLp13WDdYGE0361nXj2QOC7HngNI58w3fFgZ7gKGOJ4Zx48FIinmhujIuGI8aTT7am05VHHpp3xvypSlLe4gvysonrM83e1+HHGsXAq4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781807927; c=relaxed/simple;
+	bh=8wjYvYGFbOGXimIZfjufLikEVjCtDLfzWFojplBHhNE=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=JCwa0CVA/hrl0YKt064R5MtFlVuKcpkdr1cfe9V1Nzdgy661XqGu6Qa3x/O8geN6iuXh076qFpniAMrbAgw5i6hao7LIMwkWf5Np6VZnSMEqSSUIUrkkDvnZnC2wqkIBz+2wOe7ac1mMFu9t9raO3w2Aq3aMYXoonMtH3VeqYt4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microsoft.com; spf=pass smtp.mailfrom=microsoft.com; dkim=pass (1024-bit key) header.d=microsoft.com header.i=@microsoft.com header.b=iuWZdayN; arc=fail smtp.client-ip=52.101.48.74
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="tJEQAHgf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBCD71F000E9;
-	Thu, 18 Jun 2026 18:34:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1781807682;
-	bh=vJOBl6rNEM7wV46rhbsBVn9UTO0qItXWD97j02VoBoM=;
-	h=Date:To:From:Subject;
-	b=tJEQAHgfQN93AUexMb71tjeckaa8sqQDK6EUhT3oQzLPt/++pKVFNDIPNmHeIJeiJ
-	 RF2I8+f1qxGZqtP0eFAEEhlPq5fiB2O/YMSDhzQX5Ct6yqSYU1H9BYQUdieHjP0MOC
-	 S4S4o5tft2sG4yUVxNWRkok7YaPwz2DY0HO2YdPI=
-Date: Thu, 18 Jun 2026 11:34:41 -0700
-To: mm-commits@vger.kernel.org,vladimirelitokarev@gmail.com,viro@zeniv.linux.org.uk,torvalds@linuxfoundation.org,stable@vger.kernel.org,peterx@redhat.com,oleg@redhat.com,jack@suse.cz,david@kernel.org,brauner@kernel.org,rppt@kernel.org,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + userfaultfd-prevent-registration-of-special-vmas.patch added to mm-hotfixes-unstable branch
-Message-Id: <20260618183442.BBCD71F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=microsoft.com header.i=@microsoft.com header.b="iuWZdayN"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=oKNWv1HQ4qtjRtBNg/pQeSkY4bywnFZl9SeLeddfnmI6w5hDkiXeKGC90WJz4FcSKz1IV5tb83mOj1pJ9YzcHcY8QBuo/zyoKTatbBji3Swh/RMHP80fC+WD4Uhpd30wf0t3fSzLSfE3saxMd/bQsWXPsCoWBF4ofxYk1rxDIKNi6xVvXC4doDpy1lIB0uLqiqYsIikDYOHZmHHa/9SzJZyTuBfvJ9/FZuvTkwtuYozXyWOvb9eAdO/MNthgbYA5p+qG5NFAoOa36UIJuNYOXd6PzWbfruBuyRuhPCtKDqIAtqcxb9DHednsYpxtBop33E3HQ5yoDBUH8x7U2kMjJg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=KWs0pqBzoPTQXdAObStncvVaVw5iIAZ1xE4NzogYx1g=;
+ b=J9SNdNR9Yst83w+Ar+MhgcY8nFr0A+ATpZ2sYmExXRlc7KXmZaTqAcCrjq9iDHZ7cMgpDFvlPdQjCZ9VCrQSRnmspsEdO7prpceP9SzS159Uqi9fkKr/xiuMev+QLLH+4WxlsIOT1t15n6CcG/JmFy+LOnMnz6NlaXYR/9E2RDRMQ0YFi9uNHh7Kt6/7NblJk6HI6wzV8lQD1LvwoqzGN4QHi6aJxuAzw3/8S6vpl+BwcPliE2chxJcw+EE5TONvz+UxB5TH464ikhqIW9m0/ZRuvQhBXUizGJPsxvpY3vmMRSkC523reu0Qf+0G4LMyJB5tAaGT23Z7xYBjB6/5Kw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=microsoft.com; dmarc=pass action=none
+ header.from=microsoft.com; dkim=pass header.d=microsoft.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=KWs0pqBzoPTQXdAObStncvVaVw5iIAZ1xE4NzogYx1g=;
+ b=iuWZdayNJJ/HeSjaRR0iOj7ZI5tXuFeQyaqeA6fqVIkJsui4kXr8oWkhpJtCd4Ez1CRhofQfWD82CGXbbD0vrSW4mY+mmwVueo3ZY2rCaihYACBQxV7g26YQ1CqXkoSgI+V9HvN5mc8XSYVwNMjblmKLPiD8xbrbr7d+F6R8l4U=
+Received: from SA3PR21MB3867.namprd21.prod.outlook.com (2603:10b6:806:2fc::15)
+ by PH0PR21MB6350.namprd21.prod.outlook.com (2603:10b6:510:374::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.6; Thu, 18 Jun
+ 2026 18:38:41 +0000
+Received: from SA3PR21MB3867.namprd21.prod.outlook.com
+ ([fe80::d8ab:5f37:de73:8e6]) by SA3PR21MB3867.namprd21.prod.outlook.com
+ ([fe80::d8ab:5f37:de73:8e6%5]) with mapi id 15.21.0159.000; Thu, 18 Jun 2026
+ 18:38:41 +0000
+From: Haiyang Zhang <haiyangz@microsoft.com>
+To: Dexuan Cui <DECUI@microsoft.com>, KY Srinivasan <kys@microsoft.com>,
+	"wei.liu@kernel.org" <wei.liu@kernel.org>, Dexuan Cui <DECUI@microsoft.com>,
+	Long Li <longli@microsoft.com>, "andrew+netdev@lunn.ch"
+	<andrew+netdev@lunn.ch>, "davem@davemloft.net" <davem@davemloft.net>,
+	"edumazet@google.com" <edumazet@google.com>, "kuba@kernel.org"
+	<kuba@kernel.org>, "pabeni@redhat.com" <pabeni@redhat.com>, Konstantin
+ Taranov <kotaranov@microsoft.com>, "horms@kernel.org" <horms@kernel.org>,
+	"ernis@linux.microsoft.com" <ernis@linux.microsoft.com>,
+	"dipayanroy@linux.microsoft.com" <dipayanroy@linux.microsoft.com>,
+	"kees@kernel.org" <kees@kernel.org>, "jacob.e.keller@intel.com"
+	<jacob.e.keller@intel.com>, "ssengar@linux.microsoft.com"
+	<ssengar@linux.microsoft.com>, "linux-hyperv@vger.kernel.org"
+	<linux-hyperv@vger.kernel.org>, "netdev@vger.kernel.org"
+	<netdev@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "linux-rdma@vger.kernel.org"
+	<linux-rdma@vger.kernel.org>
+CC: "stable@vger.kernel.org" <stable@vger.kernel.org>
+Subject: RE: [PATCH net] net: mana: Sync page pool RX frags for CPU
+Thread-Topic: [PATCH net] net: mana: Sync page pool RX frags for CPU
+Thread-Index: AQHc/tW7ny4CStGhZ0mFMn/7JB0H2bZEpWmQ
+Date: Thu, 18 Jun 2026 18:38:41 +0000
+Message-ID:
+ <SA3PR21MB38674EB484BFB58C2EC9A2B7CAE32@SA3PR21MB3867.namprd21.prod.outlook.com>
+References: <20260618035029.249361-1-decui@microsoft.com>
+In-Reply-To: <20260618035029.249361-1-decui@microsoft.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+ MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_ActionId=cdb5c85e-e3b6-48bc-a83d-5595288bb4a5;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_ContentBits=0;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Enabled=true;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Method=Standard;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Name=Internal;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_SetDate=2026-06-18T18:37:39Z;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_SiteId=72f988bf-86f1-41af-91ab-2d7cd011db47;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Tag=10,
+ 3, 0, 1;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=microsoft.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SA3PR21MB3867:EE_|PH0PR21MB6350:EE_
+x-ms-office365-filtering-correlation-id: 41bc5081-3ba5-4082-9741-08decd68d1ea
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|366016|376014|23010399003|7416014|1800799024|38070700021|22082099003|18002099003|6133799003|921020|7053199004|56012099006|11063799006;
+x-microsoft-antispam-message-info:
+ 6Vpr//cQqa2Kj6zFAy6diWzONKQlWgKmiOVzQihdyGpz+gVWRf0ti2lUBfJhjDI7T+6zSTAjrODZFuV1tZ2OED6FunBh9OULoXx63Erczu1j5WtwhaHwGzErBhvGpFvMFBRGZaBpoUtdInugjvWRw68TlFYOwYBAfEgcQc93iNNPa9ov0M1RLjVf7vOiWis2VZkrRk/pV19cPii7adetgczp0/Q1Zy17I6EX9BUDhpA/KusaKw02N+r+EIWRy69xXEdV0ZL/diui0cM+JVzGC5mBJ+XXlRWWMR2CwJL6iEpSHFkrPXFZSU/S2ChvzyOUP56uE26+F5O0Oea0Vyr4/+WS/8KMz4F8nIJ0eWnTVB0PXFTvqy2qsSscNULV20be8pAc+c6zohWQai5N2RHr17g6fn/jbvPKEZGdlJ8Q7SdRZULFv2l3+coEXR3868gp6wmXfNt4UxZloPaG7+AZF9abp+RGtxulBUXrcweh/5XFudTyakO9nBCVxpa/FaH1Bbw/jQ995qf+U2NSEyq+dsqZFW1dLvle0YUK4tEAIk7ZzAkw2BaPnlYhsl2f49KsxxfWmuMapwBkNh7IGQSCr7a5CQBKgOl2Tc48EzZ92s+Xk1+PC76rMjbTvTxox2VCDACHpwkjg4CFzuCW2khk1/vtRkP0b9gv785n+PfV3Omo+tvP9cVUBe98CZj5m2PgAfL4IZMJWx/JKncY1dvnVv5zi8IdhwiYmoQldNpMBYqHI41YZElURO0r/HzzAZ3ZtoTvA3JM+2MXviEisAu93g==
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA3PR21MB3867.namprd21.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(23010399003)(7416014)(1800799024)(38070700021)(22082099003)(18002099003)(6133799003)(921020)(7053199004)(56012099006)(11063799006);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?Yy8pTyBqkt5FXbevx6vrhdq+U6vSw2T3iXbPtqL0bCGcV8UbZE5UwyGbRjhC?=
+ =?us-ascii?Q?SLId3xNVmX3QeynqocDFFaJ4JxEkKx+ctwtFDYrn3B7Dv0vVa/d0LurOe6Gj?=
+ =?us-ascii?Q?ePUQeIPdMb9c8rgpXJU56yEt3JFNCywwFi1ZsjvwXpIdA4i94Aobn9s9SKmW?=
+ =?us-ascii?Q?aNJz/SBYsjUWllTCVKE742KUbR73oZjql5qhd8oUZjFRFX5sau5Ctzk0FGve?=
+ =?us-ascii?Q?hxZTcqdW097TsoNiDSdH/UatePxOsucDZLImaz9yK4kCwlY/iHqEwDh3ZJky?=
+ =?us-ascii?Q?TxuAjFIvT+BZyzzfC9EGFIDwIzfnaeLseRJZLg/UqRjTxcmDV+f4+xJpc79q?=
+ =?us-ascii?Q?hvA99Tw9LUjv5OiwwiZU3TCjuGzsGwC9hHQcaLuJXUe+tVSk2jWy0iNKNXkC?=
+ =?us-ascii?Q?j5ZYXTGLg59L6QACyxJ6EKCLeYC1wv+SGqD1ZQOFasaoBthjQ8+bI37eab8B?=
+ =?us-ascii?Q?qcreKQjLX5RUFb0G07R6CaP6ichDzLzNO1+TPe3HBoCFYSIA616d5P7BM12c?=
+ =?us-ascii?Q?K0WNReAThuNq4i7bZa4jlxJ8dobniJwm5sSyiJRPSSwfWEZGqwbNzBYy6kJG?=
+ =?us-ascii?Q?TY40bQZDfSUi1HHMkHNW09RFFRhFRYHsu7lDbMpGFnDstui6IKc740F5aRF9?=
+ =?us-ascii?Q?I3ZuIFw28n6A8o2Ien3XaVEnlTUWfSuNOph+62Z/VVokOm1h7cQDCbdSCO5D?=
+ =?us-ascii?Q?hgkEAxqxad3C/aJa+DzP4Dfe9ke/D1zIzcV0N26R4JAZq5188oKTRgHZrVwf?=
+ =?us-ascii?Q?PDDYe9iC+0qiIsb8wwur/xsMZyWJ96Q/GjNtHuLVw8lY7Ur11tRd1DlR835A?=
+ =?us-ascii?Q?na8xrHgrZHAIEK8s4MkVZdnwV1OGz71OoJ7An+DeBwj3hFpjgw5ZgRaQTiPC?=
+ =?us-ascii?Q?hEzUcNyph1uo+g6L5YybosnPBgha2XYZkxz94OT/OIZ8HJNMNyrTc5spZHyy?=
+ =?us-ascii?Q?8V5ZnVc5NOMfYyczivVyhBRKo/8kO8hl8J43RVsgF7vTWHVwYImWKKbVX20/?=
+ =?us-ascii?Q?+H0W3pq9JCcrp/L5yTPNaOGXBsOnihlmTGmMfyZfJ5w27yaJYwJ25aDrC7Ip?=
+ =?us-ascii?Q?UJ9tasCYhCqOnH1juhj6APDtHhQfSzHn/5E9B04kIMJh3nZOLf9iixX5LGhm?=
+ =?us-ascii?Q?rYf2zGmu2UyWucsHlDoP6Jh9aSQL81Bcpz108XqmjzlmEo+uiLjzt008BN31?=
+ =?us-ascii?Q?unIlm3LFEoA8pC22AQU7/AlHl2FgntxTEbeucPkI7NeUb8d3Qp5XI2ZVE0Yl?=
+ =?us-ascii?Q?YFOtEBTNy8FOeGdCYybaH+E18ffvJd088rkATRj55MMk+pYdybaZ3+XlOfCE?=
+ =?us-ascii?Q?Y8DI2qRQfIFhOkNGCO+rRcXYc2VJYGegVE3Wp5LFIfShGbRHygwLv6rR+Afu?=
+ =?us-ascii?Q?tlCtbhAArib6OyMSUspKtHDOI3mrm6OhxwpG4JlVsC5TWpj1QFbHtdObUgok?=
+ =?us-ascii?Q?HnG2EFt3NCTtMA0zS7GXNUkPNTKaQHUteyIrkh/jakkI3yzaYljUukh5wXx/?=
+ =?us-ascii?Q?In+hKYGvT25dek/yl+G4halwP7vUofGg2sL+amEumulmlY5b72D/zv6cOEY6?=
+ =?us-ascii?Q?DKCP9SfKStAamCJKeeyrKdo9DOKlYe9thbnnCUag8gshhPH/QqLZeS7iwrcm?=
+ =?us-ascii?Q?Mj6Q30yyTsMkLfNrW5Fqbz30OjX8LnuRNoLhJi2VF3eawKQIlPGYxDxBm5g+?=
+ =?us-ascii?Q?+Lih/V4cy+AQdEGG8IzDRhf++uGHMv+pvAuSr9gScRW8aQk3Hx/2EsoZEh1f?=
+ =?us-ascii?Q?kJgnf9bmaw=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-OriginatorOrg: microsoft.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SA3PR21MB3867.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 41bc5081-3ba5-4082-9741-08decd68d1ea
+X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Jun 2026 18:38:41.5050
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 72f988bf-86f1-41af-91ab-2d7cd011db47
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 6r6W7EBj9qJxHFO3fCkLNwNW+9G37yy+YI/O0zX0+Si54LingUbp14rUt8C6KVLt64/GTjQOVzmxtojrQHPfrQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR21MB6350
 
 
-The patch titled
-     Subject: userfaultfd: prevent registration of special VMAs
-has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
-     userfaultfd-prevent-registration-of-special-vmas.patch
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/userfaultfd-prevent-registration-of-special-vmas.patch
+> -----Original Message-----
+> From: Dexuan Cui <decui@microsoft.com>
+> Sent: Wednesday, June 17, 2026 11:50 PM
+> To: KY Srinivasan <kys@microsoft.com>; Haiyang Zhang
+> <haiyangz@microsoft.com>; wei.liu@kernel.org; Dexuan Cui
+> <DECUI@microsoft.com>; Long Li <longli@microsoft.com>;
+> andrew+netdev@lunn.ch; davem@davemloft.net; edumazet@google.com;
+> kuba@kernel.org; pabeni@redhat.com; Konstantin Taranov
+> <kotaranov@microsoft.com>; horms@kernel.org; ernis@linux.microsoft.com;
+> dipayanroy@linux.microsoft.com; kees@kernel.org; jacob.e.keller@intel.com=
+;
+> ssengar@linux.microsoft.com; linux-hyperv@vger.kernel.org;
+> netdev@vger.kernel.org; linux-kernel@vger.kernel.org; linux-
+> rdma@vger.kernel.org
+> Cc: stable@vger.kernel.org
+> Subject: [PATCH net] net: mana: Sync page pool RX frags for CPU
+>=20
+> MANA allocates RX buffers from page pool fragments when frag_count is
+> greater than 1. In that case the buffers remain DMA mapped by page pool
+> and the RX completion path does not call dma_unmap_single(). As a result,
+> the implicit sync-for-CPU normally performed by dma_unmap_single() is
+> missing before the packet data is passed to the networking stack.
+>=20
+> This breaks RX on configurations which require explicit DMA syncing, for
+> example when booted with swiotlb=3Dforce.
+>=20
+> Fix this by recording the page pool page and DMA sync offset when the RX
+> buffer is allocated, and syncing the received packet range for CPU access
+> before handing the RX buffer to the stack.
+>=20
+> Also validate the packet length reported in the RX CQE before using it as
+> a DMA sync length or passing it to skb processing. The CQE is supplied
+> by the device and should not be blindly trusted by Confidential VMs.
+>=20
+> Fixes: 730ff06d3f5c ("net: mana: Use page pool fragments for RX buffers
+> instead of full pages to improve memory efficiency.")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Dexuan Cui <decui@microsoft.com>
+> ---
+>  drivers/net/ethernet/microsoft/mana/mana_en.c | 61 +++++++++++++++----
+>  include/net/mana/mana.h                       |  8 +++
+>  2 files changed, 57 insertions(+), 12 deletions(-)
 
-This patch will later appear in the mm-hotfixes-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+Reviewed-by: Haiyang Zhang <haiyangz@microsoft.com>
 
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
-Subject: userfaultfd: prevent registration of special VMAs
-Date: Thu, 18 Jun 2026 12:50:17 +0300
-
-Vova Tokarev says:
-
-  userfaultfd allows registration on shadow stack VMAs.  With userfaultfd
-  access, you can register on the shadow stack, discard a page ... and
-  inject a page with chosen return addresses via UFFDIO_COPY.
-
-Update vma_can_userfault() to reject VM_SHADOW_STACK.
-
-While on it, also reject VM_SPECIAL so that if a driver would implement
-vm_uffd_ops, it wouldn't be possible to register special VMAs with
-userfaultfd.
-
-Since VM_SPECIAL includes VM_DONTEXPAND which is set but hugetlb, exclude
-hugetlb VMAs from the check for VM_SPECIAL.
-
-Link: https://lore.kernel.org/20260618095017.2553004-1-rppt@kernel.org
-Fixes: 54007f818206 ("mm: Introduce VM_SHADOW_STACK for shadow stack memory")
-Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-Reported-by: vova tokarev <vladimirelitokarev@gmail.com>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Cc: Al Viro <viro@zeniv.linux.org.uk>
-Cc: Christian Brauner <brauner@kernel.org>
-Cc: Jan Kara <jack@suse.cz>
-Cc: Linus Torvalds <torvalds@linuxfoundation.org>
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: Oleg Nesterov <oleg@redhat.com>
-Cc: Peter Xu <peterx@redhat.com>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
----
-
- mm/userfaultfd.c |    5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
-
---- a/mm/userfaultfd.c~userfaultfd-prevent-registration-of-special-vmas
-+++ a/mm/userfaultfd.c
-@@ -2095,7 +2095,10 @@ bool vma_can_userfault(struct vm_area_st
- {
- 	const struct vm_uffd_ops *ops = vma_uffd_ops(vma);
- 
--	if (vma->vm_flags & VM_DROPPABLE)
-+	if (vma->vm_flags & (VM_DROPPABLE | VM_SHADOW_STACK))
-+		return false;
-+
-+	if (!is_vm_hugetlb_page(vma) && (vma->vm_flags & VM_SPECIAL))
- 		return false;
- 
- 	vm_flags &= __VM_UFFD_FLAGS;
-_
-
-Patches currently in -mm which might be from rppt@kernel.org are
-
-userfaultfd-prevent-registration-of-special-vmas.patch
-selftests-mm-hugetlb-read-hwpoison-add-sigbus-handler.patch
-selftests-mm-migration-dont-assume-huge-page-is-twomeg.patch
-selftests-mm-migration-make-nthreads-represent-number-of-working-threads.patch
-selftests-mm-migration-properly-cleanup-forked-processes.patch
-selftests-mm-run_vmtestssh-dont-gate-thp-and-ksm-tests-on-have_hugepages.patch
-selftests-mm-merge-map_hugetlb-into-hugepage-mmap.patch
-selftests-mm-rename-hugepage-tests-to-hugetlb.patch
-selftests-mm-hugetlb-shm-use-kselftest-framework.patch
-selftests-mm-hugetlb-vmemmap-use-kselftest-framework.patch
-selftests-mm-hugetlb-madvise-use-kselftest-framework.patch
-selftests-mm-hugetlb_madv_vs_map-use-kselftest-framework.patch
-selftests-mm-hugetlb-read-hwpoison-use-kselftest-framework.patch
-selftests-mm-khugepaged-group-tests-in-an-array.patch
-selftests-mm-khugepaged-use-ksefltest-framework.patch
-selftests-mm-ksm_tests-use-kselftest-framework.patch
-selftests-mm-protection_keys-use-descriptive-test-names-in-the-output.patch
-selftests-mm-protection_keys-use-kselftest-framework.patch
-selftests-mm-uffd-common-use-kselftest-framework.patch
-selftests-mm-uffd-stress-use-kselftest-framework.patch
-selftests-mm-uffd-unit-tests-use-kselftest-framework.patch
-selftests-mm-va_high_addr_switch-use-kselftest-framework.patch
-selftests-mm-add-atexit-and-signal-handlers-to-thp_settings.patch
-selftests-mm-rename-thp_settings-to-hugepage_settings.patch
-selftests-mm-move-hugetlb-helpers-to-hugepage_settings.patch
-selftests-mm-hugepage_settings-use-unsigned-long-in-detect_hugetlb_page_size.patch
-selftests-mm-hugepage_settings-add-apis-to-get-and-set-nr_hugepages.patch
-selftests-mm-hugepage_settings-rename-and-rework-get_free_hugepages.patch
-selftests-mm-hugepage_settings-add-apis-for-hugetlb-setup-and-teardown.patch
-selftests-mm-move-read_file-read_num-and-write_num-to-vm_util.patch
-selftests-mm-vm_util-add-helpers-to-set-and-restore-shm-limits.patch
-selftests-mm-compaction_test-use-hugetlb-helpers.patch
-selftests-mm-cow-add-setup-of-hugetlb-pages.patch
-selftests-mm-gup_longterm-add-setup-of-hugetlb-pages.patch
-selftests-mm-gup_test-add-setup-of-hugetlb-pages.patch
-selftests-mm-hmm-tests-add-setup-of-hugetlb-pages.patch
-selftests-mm-hugepage_dio-add-setup-of-hugetlb-pages.patch
-selftests-mm-hugetlb_fault_after_madv-add-setup-of-hugetlb-pages.patch
-selftests-mm-hugetlb-madvise-add-setup-of-hugetlb-pages.patch
-selftests-mm-hugetlb_madv_vs_map-add-setup-of-hugetlb-pages.patch
-selftests-mm-hugetlb-mmap-add-setup-of-hugetlb-pages.patch
-selftests-mm-hugetlb-mremap-add-setup-of-hugetlb-pages.patch
-selftests-mm-hugetlb-shm-add-setup-of-hugetlb-pages.patch
-selftests-mm-hugetlb-soft-offline-add-setup-of-hugetlb-pages.patch
-selftests-mm-hugetlb-vmemmap-add-setup-of-hugetlb-pages.patch
-selftests-mm-migration-add-setup-of-hugetlb-pages.patch
-selftests-mm-pagemap_ioctl-add-setup-of-hugetlb-pages.patch
-selftests-mm-protection_keys-use-library-code-for-hugetlb-setup.patch
-selftests-mm-thuge-gen-add-setup-of-hugetlb-pages.patch
-selftests-mm-uffd-stress-use-hugetlb_save-and-alloc-huge-pages.patch
-selftests-mm-uffd-unit-tests-add-setup-of-hugetlb-pages.patch
-selftests-mm-uffd-wp-mremap-add-setup-of-hugetlb-pages.patch
-selftests-mm-va_high_addr_switch-add-setup-of-hugetlb-pages.patch
-selftests-mm-va_high_addr_switchsh-drop-huge-pages-setup.patch
-selftests-mm-run_vmtestssh-free-memory-if-available-memory-is-low.patch
-selftests-mm-run_vmtestssh-drop-detection-and-setup-of-hugetlb.patch
 
