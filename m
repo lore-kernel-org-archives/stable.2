@@ -1,115 +1,69 @@
-Received: from omta036.useast.a.cloudfilter.net (omta036.useast.a.cloudfilter.net [44.202.169.35])
+Received: from air.basealt.ru (air.basealt.ru [193.43.8.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90C293BE644
-	for <stable@vger.kernel.org>; Thu, 18 Jun 2026 08:08:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=44.202.169.35
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1068840D575;
+	Thu, 18 Jun 2026 08:14:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.43.8.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781770139; cv=none; b=YXpdGwQA08dDJE9/Av+6KbJj8XflkUqsvH7FQIvnFgK0qt1v9F8kIqQblDOSIDG0HIUoOgmwRt3Q/0Mw+Yqzk75FfLn9/E/ES0VQ5vw+rBJM1d/c2SW3IcJcTWGV8q1UnedDlNJ+BjPiV5CUxMl3Nvd35jWke/ViBzJznwIg4Fg=
+	t=1781770483; cv=none; b=febSYQe83ua9DJPGK9dKs0GFwgu3MQVyPQDwgzA/9NgG+QgUGM2uuFqJdFskwrJIA/8C/u286ItUo2bsTH8ZmIqBVjzt3Kt1MpR0C+lFCGytOq3V9bIPoOTDwXsbL0NN0DyPChNmLVnysKDk5vF6CCT8aAu+3ym+YaLd4wX9qMQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781770139; c=relaxed/simple;
-	bh=kQDq92TZ0/zcHt7npGEiWArikkJTnEfK8CahfQQCh3I=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=MbTE2Hctn5hkdF9qvrIFF5zNnakXBKprfQtg8vEBkUM1oy08XZ/xASUEkzoqPmN4LTncRb/GjLcyA1Z0bCvd85EHHEadtZQud9LwJik0zFu7phKuefTJCLj3NJBZwEmrqx616C9sBRuUzLAk85z6JWjKXwXbg94XBgElfzSkZAo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net; spf=pass smtp.mailfrom=w6rz.net; dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b=H/vZoKpl; arc=none smtp.client-ip=44.202.169.35
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b="H/vZoKpl"
-Received: from eig-obgw-5006b.ext.cloudfilter.net ([10.0.29.217])
-	by cmsmtp with ESMTPS
-	id a6EvwbSA0gwLna7o1waPqc; Thu, 18 Jun 2026 08:08:57 +0000
-Received: from box5620.bluehost.com ([162.241.219.59])
-	by cmsmtp with ESMTPS
-	id a7o1wEOEzhFZUa7o1wJ5AN; Thu, 18 Jun 2026 08:08:57 +0000
-X-Authority-Analysis: v=2.4 cv=RduQC0tv c=1 sm=1 tr=0 ts=6a33a799
- a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
- a=HaFmDPmJAAAA:8 a=9GQXaQUDpQhx98mIA28A:9 a=QEXdDO2ut3YA:10
- a=nmWuMzfKamIsx3l42hEX:22 a=L5EjiQpGQaFGZdqT14z7:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
-	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
-	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=gzqjjqtIMvK8LPow+2uCg6tEti/DxqjjGl3o0uxALdQ=; b=H/vZoKplcQSatQ2uBy7vh/6yGF
-	d9KK6Qa+bx3spHSdQrBTeyX1uNifkMBfxrg7TnljgjYXbzKPXw40oVGCUcvWzVS0Fi6vi46Nd5ZZK
-	xk0JOp+W0GiPZbA4D+wRdpog3QDMeI8TC8NVxVEdfuFT6N+F/6mW2jteMrc+3JjNiLKn0aJT9OffL
-	nvuCliSc3tQxfk//5PYUXfDAaRpM2fk7FR22sQggBDFnaOrfc2T/wOTH7FEFBjoH+aJHkx5vCPEde
-	W7op6NLPlFr7K1J9319/WZo5IZK5B1mG8NC3oiCZ38CGh60WVH4zKDD/L2SGN9rGnOFNYx4it+qKQ
-	DfsLWkjQ==;
-Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:52572 helo=[10.0.1.180])
-	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
-	(Exim 4.99.2)
-	(envelope-from <re@w6rz.net>)
-	id 1wa7o0-00000002SGv-27Pn;
-	Thu, 18 Jun 2026 02:08:56 -0600
-Message-ID: <0dd0ada3-28f8-4369-942c-4d1f65c2a1de@w6rz.net>
-Date: Thu, 18 Jun 2026 01:08:54 -0700
+	s=arc-20240116; t=1781770483; c=relaxed/simple;
+	bh=NmWXmrXvzYwJAoUXOAT+nNl/N1rkT05SLxF2KGI8uI0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=AKFTkAjyXOKdItZEpm1DfHAbT/rb2+WawMDljhj7shJLw7fD/qxuXIKTGVbKkxLhqGa+sX2sOtRbZ9L4znWmOHuEq3h8fiq/GGbfT2UunMCKQAYDJwiIhz8i4CLAeLLLcOKYbenfNF72PbXR0yspJLwtPxrcI2je2p4mDmaTivg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=altlinux.org; spf=pass smtp.mailfrom=altlinux.org; arc=none smtp.client-ip=193.43.8.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=altlinux.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altlinux.org
+Received: from ajratkogda.malta.altlinux.ru (obninsk.basealt.ru [217.15.195.17])
+	(Authenticated sender: ajratma)
+	by air.basealt.ru (Postfix) with ESMTPSA id 08AED23383;
+	Thu, 18 Jun 2026 11:14:33 +0300 (MSK)
+From: Ajrat Makhmutov <rauty@altlinux.org>
+To: stable@vger.kernel.org
+Cc: sashal@kernel.org,
+	nbd@nbd.name,
+	linux-wireless@vger.kernel.org
+Subject: [PATCH 6.12.y v3 0/3] mt7921e: backport three mt76 fixes to 6.12.y
+Date: Thu, 18 Jun 2026 11:14:10 +0300
+Message-ID: <20260618081413.17812-1-rauty@altlinux.org>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20260617130826.1667503-1-rauty@altlinux.org>
+References: <20260617130826.1667503-1-rauty@altlinux.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.12 000/261] 6.12.94-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260616145044.869532709@linuxfoundation.org>
-Content-Language: en-US
-From: Ron Economos <re@w6rz.net>
-In-Reply-To: <20260616145044.869532709@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - box5620.bluehost.com
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - w6rz.net
-X-BWhitelist: no
-X-Source-IP: 73.162.206.103
-X-Source-L: No
-X-Exim-ID: 1wa7o0-00000002SGv-27Pn
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:52572
-X-Source-Auth: re@w6rz.net
-X-Email-Count: 39
-X-Org: HG=bhshared;ORG=bluehost;
-X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfCs0L9ObqqfypBo43v/xz4dr5nXRKioiMB2rwY20FW77wBQJZVaJ3ygOEb/NVrNnjf8l6ww2PKN7YMIOkjlh7Z3b0ORCrfMsOUzT4Ti1VLPJcmpcxBjA
- Pxl2Yj1BLuAObUcC9Vk3KA3FlX8Xh9Zrpcv7EXCWIpIhJtoVPjDjgWSvwJWwE4isSOO3s75mVMgmcA==
+Content-Transfer-Encoding: 8bit
 
-On 6/16/26 07:57, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.12.94 release.
-> There are 261 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
->
-> Responses should be made by Thu, 18 Jun 2026 14:49:57 +0000.
-> Anything received after that time might be too late.
->
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.12.94-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.12.y
-> and the diffstat can be found below.
->
-> thanks,
->
-> greg k-h
+This series backports three mt76/mt7921 fixes to 6.12.y. All three are in
+mainline; none carried Cc: stable, so they were not auto-selected for
+6.12.y.
 
-Built and booted successfully on RISC-V RV64 (HiFive Unmatched).
+Per your earlier reply, resending as a three-patch series:
+https://lore.kernel.org/all/20260610-stable-reply-0014@kernel.org/
 
-Tested-by: Ron Economos <re@w6rz.net>
+d5059e52 is already in the v6.18.y and v7.0.y stable trees:
+https://github.com/gregkh/linux/commit/91e77840bf13de3add125060cf8b32ca24a52c8c
+https://github.com/gregkh/linux/commit/35180c772f5e11e2fa4d80d3dfd50906cb6d9646
 
+The three must go together. 5ed54896 adds mt7921_roc_abort_sync() on the
+sta-remove path, which runs under dev->mt76.mutex (taken by
+mt76_sta_remove()); d5059e52 then turns cancel_work_sync() inside
+roc_abort_sync() into cancel_work() to avoid a self-deadlock with
+roc_work(). Applying 5ed54896 alone queues a reachable deadlock.
+
+6.12.y note: d5059e52 keeps del_timer_sync() -- the timer_delete_sync()
+rename is not in 6.12.y. The other two cherry-pick cleanly.
+
+Tested on MT7921e: Acer Aspire 5 A517-52, ASUS VivoBook S14,
+Lenovo IdeaPad Slim 5 14AHP9.
+
+Link to v2:
+https://lore.kernel.org/all/20260617130826.1667503-1-rauty@altlinux.org/
+
+v3:
+  * subject prefix now carries target branch (6.12.y)
+  * cover letter added with stable backport status of d5059e52
+  * no code changes
