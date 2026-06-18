@@ -1,72 +1,43 @@
-Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E33552D8796
-	for <stable@vger.kernel.org>; Thu, 18 Jun 2026 01:40:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9F2B1D9663
+	for <stable@vger.kernel.org>; Thu, 18 Jun 2026 02:18:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781746845; cv=none; b=k+N3uZRzPQyBdHxBVs8785JGV2iTpEYxSEIytkDXZ2q3lvt62LUBxKBKIzAD8naDSVFPR/R57LYijfsQM2F6Qcl87YS9hijV9IuNJKubaNqCqGnq4RmzGHyqXghA7tOiK+4OdFqIx5aGKldu4hR0AIsC9oR0x7low4BU8s/Cgpk=
+	t=1781749109; cv=none; b=G0pPNWzEOqKutPk8lokZqKkxRLCaebLXw7GSqGrI8L6cQxBavxMyNRKUVpPaxtN+Dho3k3Nq8hAYd1d+XS+Gz8/2IOAU825KyB7WGdxsvgZ+5z9sDjqx7VFaQViX1A+PmpHLTefCbDwuCltE3c8nnOMl2lXZzCUfjnOUYOq+iSM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781746845; c=relaxed/simple;
-	bh=hg8t92h06FMeh3qP2NsaIfHe4h/t6rFHy707BOVZLDg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=P9QW0jaEetbFoEOHyZY1i6ZbjkhYHjLJdn2zpTFEgb/7dBunkeXveQvX6yHNl5zw2cgN1t9PjcOr74BBOjZuNcJaHj0o2YcncqyImaeWozduQgZFYbNKy/vS+dSKGPE7tvJQTB1UNaBmJonlQxKJbs9tmT6hAmA5RLpQbMos/rE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=WRUFy57Q; arc=none smtp.client-ip=209.85.208.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1781749109; c=relaxed/simple;
+	bh=Q2iKGAylfR4B3gcPEcRHAzK4ZZCLprv3woYiKr7cXJc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=BJW/eGjRZq4sVmLXZ9tG/mIEmV1zOCWUQ7EQFND3EhmuOMCueJPtawVpvQzgo/znx0hyXjUvgjCon2io6X1hoG5teuakHKdTilf2/mTK2ynGWI6K7btufODRFT2pZZKwSwWnFHILZpXOCv+YOnCqVH8d4aoBh9RMUbs7dZZpB3o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SXbAAGRi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="WRUFy57Q"
-Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-695defc333cso175277a12.2
-        for <stable@vger.kernel.org>; Wed, 17 Jun 2026 18:40:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1781746840; x=1782351640; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=/9i4OkP5lQtF+RTD3ITD/QoHMaJt5CawBKYKYJx8rKc=;
-        b=WRUFy57QslcYOZRI/8HhBcDhndwmF/8DonDgV3SkZA6DZivVgWlwSam2krdY4aF8yr
-         tKvZQqqiC+tDZT/aL3b7+DJWqTfpQVwME7leEg2j507ifh8EeyyXjpiiZH/DyYGehGKk
-         nqXvCnvfUkuZXxXxsDyWqs28WPS/zJudJUC4CgRzNx4/rKtGR54EH2yseomL2lzU38Ah
-         8xD5+NaeeMCvsV/nXk9E7BgwIeI3CFJa4f5RhHzytfn5qBSzYSmqiT1A6DMOOystBqxy
-         cHCuqTwEvIUVHvRDGdGyIdB+NN+9rAQu6NzoUHQlF6UoSl8nB3tpDc1A37kHrrsIeBLf
-         Ivxg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781746840; x=1782351640;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=/9i4OkP5lQtF+RTD3ITD/QoHMaJt5CawBKYKYJx8rKc=;
-        b=C6UrjcSYQuGCVH31zShGPjWGVDvrgxWHnHny2uLWtmpYH6tKdH6OHj66q0+uIsa0U3
-         IqdmG/hq5lk6bOU8/90xa+LnlZ8X3fEwGAxwehLTQJRhCqNnFus9Ei+ChuxewAE2e6Pb
-         yL5Uqxtpy7Zm+GvU/6jB+NG8PbgNPhZkWztm2zLlhRQuZc7c8bfHGqg9sP0ulzSGZfvT
-         OoSIf6l7tLIktdHICPPQ6Id71/CyraDUacQNlZmqymsYcNw3ywZOfnvUg8jTq3aVc3OF
-         3SDgnX8ysk3KCdVQwkRTv2DEyD9jJ2ABCvk6hzTVQaMKgoiJQmWt/Q/w8WqOhpmu+LQk
-         66eA==
-X-Gm-Message-State: AOJu0YymlV2LfZKErPMQPhSfqNx6zMLjiMpmiaRxmnP3K+K8pWYf6fGU
-	lRwm/OEssg3ojPiFye+wsHX32VCMI+CgvJDbAV7XWmcZHkPJh3Vsr1oqu0u3gAYcCrD6hWLBu+M
-	i9yVT
-X-Gm-Gg: Acq92OG084fcwmWQhUfivQiveNkd7brFR0faDKfxTkWIUkorgeLL+85iNp9cuZr6wjs
-	VDOnx/fhSZWltMXD8muEnkTJ3xwUaPw69PSPEcAKvXZ0D5XHtpmLVLISiV9YuL7AcVpF9TeaiTK
-	a4faRM9O26vjYuFMK46vcwXwAq3OF9G47Usbrws8qbAB9jPTV3MNrzxxu7TUg0f9k7Fzr6pN10E
-	XVx+z67l0hdaQ9wONKf7v5vqYqqRNFA5L52+iDeS0pNPeTWafoPig7yb67y+8a3+403lrhxFNoN
-	nku5om4o4+GFAVkQ6h/UrSsO2K5mdEwQAPhcXEJ6I0be7CouwO3YCbRQQdVPrVH/ZQ+74ZKH4gr
-	VsqpG5gXH+STHWHNhRvo3fQ2APBWeYFH97e2PhrD2jK/h8KyYBSsO7+DBl+NJ5nRZoufL6JmJGI
-	7+YpnOnwlZRKuJhRYaFJAThQ3iwv70AAk=
-X-Received: by 2002:a17:907:608f:b0:be8:d31d:e1e1 with SMTP id a640c23a62f3a-c074ac870d4mr77591866b.3.1781746840069;
-        Wed, 17 Jun 2026 18:40:40 -0700 (PDT)
-Received: from localhost (27-53-9-6.adsl.fetnet.net. [27.53.9.6])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c42f7c70easm238373745ad.25.2026.06.17.18.40.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 17 Jun 2026 18:40:38 -0700 (PDT)
-From: Shung-Hsi Yu <shung-hsi.yu@suse.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SXbAAGRi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C970F1F000E9;
+	Thu, 18 Jun 2026 02:18:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781749108;
+	bh=fyNpDURjICfBv7EO4AxygXbjlqaXsEYNg02AHe8G3EY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=SXbAAGRiYsBA5EMhXNXyRc6v/3ASO2S7lf7xE8KjN5nrrJfb2AxTBCBZwC6ea+YNm
+	 aOHx0IDFPP3GW5qc0ANd6Ou/bDz57YJJ0ukkgouai2NAEN9hhgvEEYuRCgcxm6rWnr
+	 1QIY6srWD+CAjtgBT6tvucHBVTsR8MOWQNGPxOf48Mlzj4srNv6N7FfEd2BJyQutne
+	 neJSJNe4bcyeq3CFtaHjnFElIDJaZ1xvU7hcPfsoAyBOfe4UyivEgmq+zkrA+SkUb/
+	 cbRDqDbpTrkdTPoMUemrS2/y/eReGea19fDYOh9zsi9dbajiL2tTpMrdu21SI7CBMk
+	 czAetT2KueZjQ==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Shung-Hsi Yu <shung-hsi.yu@suse.com>,
-	Paul Chaignon <paul.chaignon@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Hangbin Liu <liuhangbin@gmail.com>,
-	Martin KaFai Lau <martin.lau@kernel.org>
-Subject: [PATCH stable 6.1 1/1] selftests/bpf: move SYS() macro into the test_progs.h
-Date: Thu, 18 Jun 2026 09:40:31 +0800
-Message-ID: <20260618014033.83033-1-shung-hsi.yu@suse.com>
-X-Mailer: git-send-email 2.54.0
+Cc: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
+	Srinivas Kandagatla <srini@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y] slimbus: qcom-ngd-ctrl: Balance pm_runtime enablement for NGD
+Date: Wed, 17 Jun 2026 22:18:26 -0400
+Message-ID: <20260618021826.525414-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026061525-skillet-catfight-64c5@gregkh>
+References: <2026061525-skillet-catfight-64c5@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -75,730 +46,45 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Hangbin Liu <liuhangbin@gmail.com>
+From: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
 
-commit b61987d37cbee3c44e80304598c60b163553926b upstream.
+[ Upstream commit 6a003446b725c44b9e3ffa111b0effbaa2d43085 ]
 
-A lot of tests defined SYS() macro to run system calls with goto label.
-Let's move this macro to test_progs.h and add configurable
-"goto_label" as the first arg.
+The pm_runtime_enable() and pm_runtime_use_autosuspend() calls are
+supposed to be balanced on exit, add these calls.
 
-Suggested-by: Martin KaFai Lau <martin.lau@linux.dev>
-Signed-off-by: Hangbin Liu <liuhangbin@gmail.com>
-Link: https://lore.kernel.org/r/20230224061343.506571-2-liuhangbin@gmail.com
-Signed-off-by: Martin KaFai Lau <martin.lau@kernel.org>
-Stable-dep-of: 967e8def1100 ("selftests/bpf: Fix bpf_nf selftest failure")
-[shung-hsi.yu: changes to several files are dropped because they don't exist
-yet: decap_sanity.c, fib_lookup.c, xdp_metadata.c, and xfrm_info.c. Addional
-changes are introdced to tc_redirect.c to patch SYS() macro usage not found
-in upstream. ]
-Signed-off-by: Shung-Hsi Yu <shung-hsi.yu@suse.com>
+Fixes: 917809e2280b ("slimbus: ngd: Add qcom SLIMBus NGD driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
+Signed-off-by: Srinivas Kandagatla <srini@kernel.org>
+Link: https://patch.msgid.link/20260530204421.116824-8-srini@kernel.org
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-Backported commit 967e8def1100 ("selftests/bpf: Fix bpf_nf selftest
-failure") that is currently is the 6.1 queue is breaking build of BPF
-selftests due to its use of the SYS_NOFAIL() macro.
----
- .../selftests/bpf/prog_tests/empty_skb.c      |  25 ++-
- .../selftests/bpf/prog_tests/tc_redirect.c    | 154 +++++++++---------
- .../selftests/bpf/prog_tests/test_tunnel.c    |  71 ++++----
- .../selftests/bpf/prog_tests/xdp_bonding.c    |  38 ++---
- .../bpf/prog_tests/xdp_do_redirect.c          |  30 ++--
- .../selftests/bpf/prog_tests/xdp_synproxy.c   |  41 ++---
- tools/testing/selftests/bpf/test_progs.h      |  15 ++
- 7 files changed, 170 insertions(+), 204 deletions(-)
+ drivers/slimbus/qcom-ngd-ctrl.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/tools/testing/selftests/bpf/prog_tests/empty_skb.c b/tools/testing/selftests/bpf/prog_tests/empty_skb.c
-index 329e34e5226e..33c8631fc1a7 100644
---- a/tools/testing/selftests/bpf/prog_tests/empty_skb.c
-+++ b/tools/testing/selftests/bpf/prog_tests/empty_skb.c
-@@ -4,11 +4,6 @@
- #include <net/if.h>
- #include "empty_skb.skel.h"
- 
--#define SYS(cmd) ({ \
--	if (!ASSERT_OK(system(cmd), (cmd))) \
--		goto out; \
--})
--
- void serial_test_empty_skb(void)
- {
- 	LIBBPF_OPTS(bpf_test_run_opts, tattr);
-@@ -97,18 +92,18 @@ void serial_test_empty_skb(void)
- 		},
- 	};
- 
--	SYS("ip netns add empty_skb");
-+	SYS(out, "ip netns add empty_skb");
- 	tok = open_netns("empty_skb");
--	SYS("ip link add veth0 type veth peer veth1");
--	SYS("ip link set dev veth0 up");
--	SYS("ip link set dev veth1 up");
--	SYS("ip addr add 10.0.0.1/8 dev veth0");
--	SYS("ip addr add 10.0.0.2/8 dev veth1");
-+	SYS(out, "ip link add veth0 type veth peer veth1");
-+	SYS(out, "ip link set dev veth0 up");
-+	SYS(out, "ip link set dev veth1 up");
-+	SYS(out, "ip addr add 10.0.0.1/8 dev veth0");
-+	SYS(out, "ip addr add 10.0.0.2/8 dev veth1");
- 	veth_ifindex = if_nametoindex("veth0");
- 
--	SYS("ip link add ipip0 type ipip local 10.0.0.1 remote 10.0.0.2");
--	SYS("ip link set ipip0 up");
--	SYS("ip addr add 192.168.1.1/16 dev ipip0");
-+	SYS(out, "ip link add ipip0 type ipip local 10.0.0.1 remote 10.0.0.2");
-+	SYS(out, "ip link set ipip0 up");
-+	SYS(out, "ip addr add 192.168.1.1/16 dev ipip0");
- 	ipip_ifindex = if_nametoindex("ipip0");
- 
- 	bpf_obj = empty_skb__open_and_load();
-@@ -150,5 +145,5 @@ void serial_test_empty_skb(void)
- 		empty_skb__destroy(bpf_obj);
- 	if (tok)
- 		close_netns(tok);
--	system("ip netns del empty_skb");
-+	SYS_NOFAIL("ip netns del empty_skb");
- }
-diff --git a/tools/testing/selftests/bpf/prog_tests/tc_redirect.c b/tools/testing/selftests/bpf/prog_tests/tc_redirect.c
-index cb6a53b3e023..c01733b5c4be 100644
---- a/tools/testing/selftests/bpf/prog_tests/tc_redirect.c
-+++ b/tools/testing/selftests/bpf/prog_tests/tc_redirect.c
-@@ -160,24 +160,16 @@ static int get_ifindex(const char *name)
- 	return atoi(buf);
- }
- 
--#define SYS(fmt, ...)						\
--	({							\
--		char cmd[1024];					\
--		snprintf(cmd, sizeof(cmd), fmt, ##__VA_ARGS__);	\
--		if (!ASSERT_OK(system(cmd), cmd))		\
--			goto fail;				\
--	})
--
- static int netns_setup_links_and_routes(struct netns_setup_result *result)
- {
- 	struct nstoken *nstoken = NULL;
- 	char veth_src_fwd_addr[IFADDR_STR_LEN+1] = {};
- 
--	SYS("ip link add veth_src type veth peer name veth_src_fwd");
--	SYS("ip link add veth_dst type veth peer name veth_dst_fwd");
-+	SYS(fail, "ip link add veth_src type veth peer name veth_src_fwd");
-+	SYS(fail, "ip link add veth_dst type veth peer name veth_dst_fwd");
- 
--	SYS("ip link set veth_dst_fwd address " MAC_DST_FWD);
--	SYS("ip link set veth_dst address " MAC_DST);
-+	SYS(fail, "ip link set veth_dst_fwd address " MAC_DST_FWD);
-+	SYS(fail, "ip link set veth_dst address " MAC_DST);
- 
- 	if (get_ifaddr("veth_src_fwd", veth_src_fwd_addr))
- 		goto fail;
-@@ -189,27 +181,27 @@ static int netns_setup_links_and_routes(struct netns_setup_result *result)
- 	if (result->ifindex_veth_dst_fwd < 0)
- 		goto fail;
- 
--	SYS("ip link set veth_src netns " NS_SRC);
--	SYS("ip link set veth_src_fwd netns " NS_FWD);
--	SYS("ip link set veth_dst_fwd netns " NS_FWD);
--	SYS("ip link set veth_dst netns " NS_DST);
-+	SYS(fail, "ip link set veth_src netns " NS_SRC);
-+	SYS(fail, "ip link set veth_src_fwd netns " NS_FWD);
-+	SYS(fail, "ip link set veth_dst_fwd netns " NS_FWD);
-+	SYS(fail, "ip link set veth_dst netns " NS_DST);
- 
- 	/** setup in 'src' namespace */
- 	nstoken = open_netns(NS_SRC);
- 	if (!ASSERT_OK_PTR(nstoken, "setns src"))
- 		goto fail;
- 
--	SYS("ip addr add " IP4_SRC "/32 dev veth_src");
--	SYS("ip addr add " IP6_SRC "/128 dev veth_src nodad");
--	SYS("ip link set dev veth_src up");
-+	SYS(fail, "ip addr add " IP4_SRC "/32 dev veth_src");
-+	SYS(fail, "ip addr add " IP6_SRC "/128 dev veth_src nodad");
-+	SYS(fail, "ip link set dev veth_src up");
- 
--	SYS("ip route add " IP4_DST "/32 dev veth_src scope global");
--	SYS("ip route add " IP4_NET "/16 dev veth_src scope global");
--	SYS("ip route add " IP6_DST "/128 dev veth_src scope global");
-+	SYS(fail, "ip route add " IP4_DST "/32 dev veth_src scope global");
-+	SYS(fail, "ip route add " IP4_NET "/16 dev veth_src scope global");
-+	SYS(fail, "ip route add " IP6_DST "/128 dev veth_src scope global");
- 
--	SYS("ip neigh add " IP4_DST " dev veth_src lladdr %s",
-+	SYS(fail, "ip neigh add " IP4_DST " dev veth_src lladdr %s",
- 	    veth_src_fwd_addr);
--	SYS("ip neigh add " IP6_DST " dev veth_src lladdr %s",
-+	SYS(fail, "ip neigh add " IP6_DST " dev veth_src lladdr %s",
- 	    veth_src_fwd_addr);
- 
- 	close_netns(nstoken);
-@@ -223,15 +215,15 @@ static int netns_setup_links_and_routes(struct netns_setup_result *result)
- 	 * needs v4 one in order to start ARP probing. IP4_NET route is added
- 	 * to the endpoints so that the ARP processing will reply.
- 	 */
--	SYS("ip addr add " IP4_SLL "/32 dev veth_src_fwd");
--	SYS("ip addr add " IP4_DLL "/32 dev veth_dst_fwd");
--	SYS("ip link set dev veth_src_fwd up");
--	SYS("ip link set dev veth_dst_fwd up");
-+	SYS(fail, "ip addr add " IP4_SLL "/32 dev veth_src_fwd");
-+	SYS(fail, "ip addr add " IP4_DLL "/32 dev veth_dst_fwd");
-+	SYS(fail, "ip link set dev veth_src_fwd up");
-+	SYS(fail, "ip link set dev veth_dst_fwd up");
- 
--	SYS("ip route add " IP4_SRC "/32 dev veth_src_fwd scope global");
--	SYS("ip route add " IP6_SRC "/128 dev veth_src_fwd scope global");
--	SYS("ip route add " IP4_DST "/32 dev veth_dst_fwd scope global");
--	SYS("ip route add " IP6_DST "/128 dev veth_dst_fwd scope global");
-+	SYS(fail, "ip route add " IP4_SRC "/32 dev veth_src_fwd scope global");
-+	SYS(fail, "ip route add " IP6_SRC "/128 dev veth_src_fwd scope global");
-+	SYS(fail, "ip route add " IP4_DST "/32 dev veth_dst_fwd scope global");
-+	SYS(fail, "ip route add " IP6_DST "/128 dev veth_dst_fwd scope global");
- 
- 	close_netns(nstoken);
- 
-@@ -240,16 +232,16 @@ static int netns_setup_links_and_routes(struct netns_setup_result *result)
- 	if (!ASSERT_OK_PTR(nstoken, "setns dst"))
- 		goto fail;
- 
--	SYS("ip addr add " IP4_DST "/32 dev veth_dst");
--	SYS("ip addr add " IP6_DST "/128 dev veth_dst nodad");
--	SYS("ip link set dev veth_dst up");
-+	SYS(fail, "ip addr add " IP4_DST "/32 dev veth_dst");
-+	SYS(fail, "ip addr add " IP6_DST "/128 dev veth_dst nodad");
-+	SYS(fail, "ip link set dev veth_dst up");
- 
--	SYS("ip route add " IP4_SRC "/32 dev veth_dst scope global");
--	SYS("ip route add " IP4_NET "/16 dev veth_dst scope global");
--	SYS("ip route add " IP6_SRC "/128 dev veth_dst scope global");
-+	SYS(fail, "ip route add " IP4_SRC "/32 dev veth_dst scope global");
-+	SYS(fail, "ip route add " IP4_NET "/16 dev veth_dst scope global");
-+	SYS(fail, "ip route add " IP6_SRC "/128 dev veth_dst scope global");
- 
--	SYS("ip neigh add " IP4_SRC " dev veth_dst lladdr " MAC_DST_FWD);
--	SYS("ip neigh add " IP6_SRC " dev veth_dst lladdr " MAC_DST_FWD);
-+	SYS(fail, "ip neigh add " IP4_SRC " dev veth_dst lladdr " MAC_DST_FWD);
-+	SYS(fail, "ip neigh add " IP6_SRC " dev veth_dst lladdr " MAC_DST_FWD);
- 
- 	close_netns(nstoken);
- 
-@@ -262,16 +254,16 @@ static int netns_setup_links_and_routes(struct netns_setup_result *result)
- 
- static int netns_load_bpf(void)
- {
--	SYS("tc qdisc add dev veth_src_fwd clsact");
--	SYS("tc filter add dev veth_src_fwd ingress bpf da object-pinned "
-+	SYS(fail, "tc qdisc add dev veth_src_fwd clsact");
-+	SYS(fail, "tc filter add dev veth_src_fwd ingress bpf da object-pinned "
- 	    SRC_PROG_PIN_FILE);
--	SYS("tc filter add dev veth_src_fwd egress bpf da object-pinned "
-+	SYS(fail, "tc filter add dev veth_src_fwd egress bpf da object-pinned "
- 	    CHK_PROG_PIN_FILE);
- 
--	SYS("tc qdisc add dev veth_dst_fwd clsact");
--	SYS("tc filter add dev veth_dst_fwd ingress bpf da object-pinned "
-+	SYS(fail, "tc qdisc add dev veth_dst_fwd clsact");
-+	SYS(fail, "tc filter add dev veth_dst_fwd ingress bpf da object-pinned "
- 	    DST_PROG_PIN_FILE);
--	SYS("tc filter add dev veth_dst_fwd egress bpf da object-pinned "
-+	SYS(fail, "tc filter add dev veth_dst_fwd egress bpf da object-pinned "
- 	    CHK_PROG_PIN_FILE);
- 
- 	return 0;
-@@ -330,7 +322,7 @@ static void test_tcp(int family, const char *addr, __u16 port)
- 
- static int test_ping(int family, const char *addr)
- {
--	SYS("ip netns exec " NS_SRC " %s " PING_ARGS " %s > /dev/null", ping_command(family), addr);
-+	SYS(fail, "ip netns exec " NS_SRC " %s " PING_ARGS " %s > /dev/null", ping_command(family), addr);
- 	return 0;
- fail:
- 	return -1;
-@@ -516,10 +508,10 @@ static int netns_load_dtime_bpf(struct test_tc_dtime *skel)
- 		return -1;
- 	PIN(egress_host);
- 	PIN(ingress_host);
--	SYS("tc qdisc add dev veth_src clsact");
--	SYS("tc filter add dev veth_src ingress bpf da object-pinned "
-+	SYS(fail, "tc qdisc add dev veth_src clsact");
-+	SYS(fail, "tc filter add dev veth_src ingress bpf da object-pinned "
- 	    PIN_FNAME(ingress_host));
--	SYS("tc filter add dev veth_src egress bpf da object-pinned "
-+	SYS(fail, "tc filter add dev veth_src egress bpf da object-pinned "
- 	    PIN_FNAME(egress_host));
- 	close_netns(nstoken);
- 
-@@ -529,10 +521,10 @@ static int netns_load_dtime_bpf(struct test_tc_dtime *skel)
- 		return -1;
- 	PIN(egress_host);
- 	PIN(ingress_host);
--	SYS("tc qdisc add dev veth_dst clsact");
--	SYS("tc filter add dev veth_dst ingress bpf da object-pinned "
-+	SYS(fail, "tc qdisc add dev veth_dst clsact");
-+	SYS(fail, "tc filter add dev veth_dst ingress bpf da object-pinned "
- 	    PIN_FNAME(ingress_host));
--	SYS("tc filter add dev veth_dst egress bpf da object-pinned "
-+	SYS(fail, "tc filter add dev veth_dst egress bpf da object-pinned "
- 	    PIN_FNAME(egress_host));
- 	close_netns(nstoken);
- 
-@@ -544,23 +536,23 @@ static int netns_load_dtime_bpf(struct test_tc_dtime *skel)
- 	PIN(egress_fwdns_prio100);
- 	PIN(ingress_fwdns_prio101);
- 	PIN(egress_fwdns_prio101);
--	SYS("tc qdisc add dev veth_dst_fwd clsact");
--	SYS("tc filter add dev veth_dst_fwd ingress prio 100 bpf da object-pinned "
-+	SYS(fail, "tc qdisc add dev veth_dst_fwd clsact");
-+	SYS(fail, "tc filter add dev veth_dst_fwd ingress prio 100 bpf da object-pinned "
- 	    PIN_FNAME(ingress_fwdns_prio100));
--	SYS("tc filter add dev veth_dst_fwd ingress prio 101 bpf da object-pinned "
-+	SYS(fail, "tc filter add dev veth_dst_fwd ingress prio 101 bpf da object-pinned "
- 	    PIN_FNAME(ingress_fwdns_prio101));
--	SYS("tc filter add dev veth_dst_fwd egress prio 100 bpf da object-pinned "
-+	SYS(fail, "tc filter add dev veth_dst_fwd egress prio 100 bpf da object-pinned "
- 	    PIN_FNAME(egress_fwdns_prio100));
--	SYS("tc filter add dev veth_dst_fwd egress prio 101 bpf da object-pinned "
-+	SYS(fail, "tc filter add dev veth_dst_fwd egress prio 101 bpf da object-pinned "
- 	    PIN_FNAME(egress_fwdns_prio101));
--	SYS("tc qdisc add dev veth_src_fwd clsact");
--	SYS("tc filter add dev veth_src_fwd ingress prio 100 bpf da object-pinned "
-+	SYS(fail, "tc qdisc add dev veth_src_fwd clsact");
-+	SYS(fail, "tc filter add dev veth_src_fwd ingress prio 100 bpf da object-pinned "
- 	    PIN_FNAME(ingress_fwdns_prio100));
--	SYS("tc filter add dev veth_src_fwd ingress prio 101 bpf da object-pinned "
-+	SYS(fail, "tc filter add dev veth_src_fwd ingress prio 101 bpf da object-pinned "
- 	    PIN_FNAME(ingress_fwdns_prio101));
--	SYS("tc filter add dev veth_src_fwd egress prio 100 bpf da object-pinned "
-+	SYS(fail, "tc filter add dev veth_src_fwd egress prio 100 bpf da object-pinned "
- 	    PIN_FNAME(egress_fwdns_prio100));
--	SYS("tc filter add dev veth_src_fwd egress prio 101 bpf da object-pinned "
-+	SYS(fail, "tc filter add dev veth_src_fwd egress prio 101 bpf da object-pinned "
- 	    PIN_FNAME(egress_fwdns_prio101));
- 	close_netns(nstoken);
- 
-@@ -941,7 +933,7 @@ static int tun_open(char *name)
- 	if (!ASSERT_OK(err, "ioctl TUNSETIFF"))
- 		goto fail;
- 
--	SYS("ip link set dev %s up", name);
-+	SYS(fail, "ip link set dev %s up", name);
- 
- 	return fd;
- fail:
-@@ -1061,34 +1053,34 @@ static void test_tc_redirect_peer_l3(struct netns_setup_result *setup_result)
- 	 * towards dst, and "tc_dst" to redirect packets
- 	 * and "tc_chk" on veth_dst_fwd to drop non-redirected packets.
- 	 */
--	SYS("tc qdisc add dev tun_fwd clsact");
--	SYS("tc filter add dev tun_fwd ingress bpf da object-pinned "
-+	SYS(fail, "tc qdisc add dev tun_fwd clsact");
-+	SYS(fail, "tc filter add dev tun_fwd ingress bpf da object-pinned "
- 	    SRC_PROG_PIN_FILE);
- 
--	SYS("tc qdisc add dev veth_dst_fwd clsact");
--	SYS("tc filter add dev veth_dst_fwd ingress bpf da object-pinned "
-+	SYS(fail, "tc qdisc add dev veth_dst_fwd clsact");
-+	SYS(fail, "tc filter add dev veth_dst_fwd ingress bpf da object-pinned "
- 	    DST_PROG_PIN_FILE);
--	SYS("tc filter add dev veth_dst_fwd egress bpf da object-pinned "
-+	SYS(fail, "tc filter add dev veth_dst_fwd egress bpf da object-pinned "
- 	    CHK_PROG_PIN_FILE);
- 
- 	/* Setup route and neigh tables */
--	SYS("ip -netns " NS_SRC " addr add dev tun_src " IP4_TUN_SRC "/24");
--	SYS("ip -netns " NS_FWD " addr add dev tun_fwd " IP4_TUN_FWD "/24");
-+	SYS(fail, "ip -netns " NS_SRC " addr add dev tun_src " IP4_TUN_SRC "/24");
-+	SYS(fail, "ip -netns " NS_FWD " addr add dev tun_fwd " IP4_TUN_FWD "/24");
- 
--	SYS("ip -netns " NS_SRC " addr add dev tun_src " IP6_TUN_SRC "/64 nodad");
--	SYS("ip -netns " NS_FWD " addr add dev tun_fwd " IP6_TUN_FWD "/64 nodad");
-+	SYS(fail, "ip -netns " NS_SRC " addr add dev tun_src " IP6_TUN_SRC "/64 nodad");
-+	SYS(fail, "ip -netns " NS_FWD " addr add dev tun_fwd " IP6_TUN_FWD "/64 nodad");
- 
--	SYS("ip -netns " NS_SRC " route del " IP4_DST "/32 dev veth_src scope global");
--	SYS("ip -netns " NS_SRC " route add " IP4_DST "/32 via " IP4_TUN_FWD
-+	SYS(fail, "ip -netns " NS_SRC " route del " IP4_DST "/32 dev veth_src scope global");
-+	SYS(fail, "ip -netns " NS_SRC " route add " IP4_DST "/32 via " IP4_TUN_FWD
- 	    " dev tun_src scope global");
--	SYS("ip -netns " NS_DST " route add " IP4_TUN_SRC "/32 dev veth_dst scope global");
--	SYS("ip -netns " NS_SRC " route del " IP6_DST "/128 dev veth_src scope global");
--	SYS("ip -netns " NS_SRC " route add " IP6_DST "/128 via " IP6_TUN_FWD
-+	SYS(fail, "ip -netns " NS_DST " route add " IP4_TUN_SRC "/32 dev veth_dst scope global");
-+	SYS(fail, "ip -netns " NS_SRC " route del " IP6_DST "/128 dev veth_src scope global");
-+	SYS(fail, "ip -netns " NS_SRC " route add " IP6_DST "/128 via " IP6_TUN_FWD
- 	    " dev tun_src scope global");
--	SYS("ip -netns " NS_DST " route add " IP6_TUN_SRC "/128 dev veth_dst scope global");
-+	SYS(fail, "ip -netns " NS_DST " route add " IP6_TUN_SRC "/128 dev veth_dst scope global");
- 
--	SYS("ip -netns " NS_DST " neigh add " IP4_TUN_SRC " dev veth_dst lladdr " MAC_DST_FWD);
--	SYS("ip -netns " NS_DST " neigh add " IP6_TUN_SRC " dev veth_dst lladdr " MAC_DST_FWD);
-+	SYS(fail, "ip -netns " NS_DST " neigh add " IP4_TUN_SRC " dev veth_dst lladdr " MAC_DST_FWD);
-+	SYS(fail, "ip -netns " NS_DST " neigh add " IP6_TUN_SRC " dev veth_dst lladdr " MAC_DST_FWD);
- 
- 	if (!ASSERT_OK(set_forwarding(false), "disable forwarding"))
- 		goto fail;
-diff --git a/tools/testing/selftests/bpf/prog_tests/test_tunnel.c b/tools/testing/selftests/bpf/prog_tests/test_tunnel.c
-index eea274110267..e0823c2472fe 100644
---- a/tools/testing/selftests/bpf/prog_tests/test_tunnel.c
-+++ b/tools/testing/selftests/bpf/prog_tests/test_tunnel.c
-@@ -91,30 +91,15 @@
- 
- #define PING_ARGS "-i 0.01 -c 3 -w 10 -q"
- 
--#define SYS(fmt, ...)						\
--	({							\
--		char cmd[1024];					\
--		snprintf(cmd, sizeof(cmd), fmt, ##__VA_ARGS__);	\
--		if (!ASSERT_OK(system(cmd), cmd))		\
--			goto fail;				\
--	})
--
--#define SYS_NOFAIL(fmt, ...)					\
--	({							\
--		char cmd[1024];					\
--		snprintf(cmd, sizeof(cmd), fmt, ##__VA_ARGS__);	\
--		system(cmd);					\
--	})
--
- static int config_device(void)
- {
--	SYS("ip netns add at_ns0");
--	SYS("ip link add veth0 address " MAC_VETH1 " type veth peer name veth1");
--	SYS("ip link set veth0 netns at_ns0");
--	SYS("ip addr add " IP4_ADDR1_VETH1 "/24 dev veth1");
--	SYS("ip link set dev veth1 up mtu 1500");
--	SYS("ip netns exec at_ns0 ip addr add " IP4_ADDR_VETH0 "/24 dev veth0");
--	SYS("ip netns exec at_ns0 ip link set dev veth0 up mtu 1500");
-+	SYS(fail, "ip netns add at_ns0");
-+	SYS(fail, "ip link add veth0 address " MAC_VETH1 " type veth peer name veth1");
-+	SYS(fail, "ip link set veth0 netns at_ns0");
-+	SYS(fail, "ip addr add " IP4_ADDR1_VETH1 "/24 dev veth1");
-+	SYS(fail, "ip link set dev veth1 up mtu 1500");
-+	SYS(fail, "ip netns exec at_ns0 ip addr add " IP4_ADDR_VETH0 "/24 dev veth0");
-+	SYS(fail, "ip netns exec at_ns0 ip link set dev veth0 up mtu 1500");
- 
- 	return 0;
- fail:
-@@ -132,23 +117,23 @@ static void cleanup(void)
- static int add_vxlan_tunnel(void)
- {
- 	/* at_ns0 namespace */
--	SYS("ip netns exec at_ns0 ip link add dev %s type vxlan external gbp dstport 4789",
-+	SYS(fail, "ip netns exec at_ns0 ip link add dev %s type vxlan external gbp dstport 4789",
- 	    VXLAN_TUNL_DEV0);
--	SYS("ip netns exec at_ns0 ip link set dev %s address %s up",
-+	SYS(fail, "ip netns exec at_ns0 ip link set dev %s address %s up",
- 	    VXLAN_TUNL_DEV0, MAC_TUNL_DEV0);
--	SYS("ip netns exec at_ns0 ip addr add dev %s %s/24",
-+	SYS(fail, "ip netns exec at_ns0 ip addr add dev %s %s/24",
- 	    VXLAN_TUNL_DEV0, IP4_ADDR_TUNL_DEV0);
--	SYS("ip netns exec at_ns0 ip neigh add %s lladdr %s dev %s",
-+	SYS(fail, "ip netns exec at_ns0 ip neigh add %s lladdr %s dev %s",
- 	    IP4_ADDR_TUNL_DEV1, MAC_TUNL_DEV1, VXLAN_TUNL_DEV0);
--	SYS("ip netns exec at_ns0 ip neigh add %s lladdr %s dev veth0",
-+	SYS(fail, "ip netns exec at_ns0 ip neigh add %s lladdr %s dev veth0",
- 	    IP4_ADDR2_VETH1, MAC_VETH1);
- 
- 	/* root namespace */
--	SYS("ip link add dev %s type vxlan external gbp dstport 4789",
-+	SYS(fail, "ip link add dev %s type vxlan external gbp dstport 4789",
- 	    VXLAN_TUNL_DEV1);
--	SYS("ip link set dev %s address %s up", VXLAN_TUNL_DEV1, MAC_TUNL_DEV1);
--	SYS("ip addr add dev %s %s/24", VXLAN_TUNL_DEV1, IP4_ADDR_TUNL_DEV1);
--	SYS("ip neigh add %s lladdr %s dev %s",
-+	SYS(fail, "ip link set dev %s address %s up", VXLAN_TUNL_DEV1, MAC_TUNL_DEV1);
-+	SYS(fail, "ip addr add dev %s %s/24", VXLAN_TUNL_DEV1, IP4_ADDR_TUNL_DEV1);
-+	SYS(fail, "ip neigh add %s lladdr %s dev %s",
- 	    IP4_ADDR_TUNL_DEV0, MAC_TUNL_DEV0, VXLAN_TUNL_DEV1);
- 
- 	return 0;
-@@ -165,26 +150,26 @@ static void delete_vxlan_tunnel(void)
- 
- static int add_ip6vxlan_tunnel(void)
- {
--	SYS("ip netns exec at_ns0 ip -6 addr add %s/96 dev veth0",
-+	SYS(fail, "ip netns exec at_ns0 ip -6 addr add %s/96 dev veth0",
- 	    IP6_ADDR_VETH0);
--	SYS("ip netns exec at_ns0 ip link set dev veth0 up");
--	SYS("ip -6 addr add %s/96 dev veth1", IP6_ADDR1_VETH1);
--	SYS("ip -6 addr add %s/96 dev veth1", IP6_ADDR2_VETH1);
--	SYS("ip link set dev veth1 up");
-+	SYS(fail, "ip netns exec at_ns0 ip link set dev veth0 up");
-+	SYS(fail, "ip -6 addr add %s/96 dev veth1", IP6_ADDR1_VETH1);
-+	SYS(fail, "ip -6 addr add %s/96 dev veth1", IP6_ADDR2_VETH1);
-+	SYS(fail, "ip link set dev veth1 up");
- 
- 	/* at_ns0 namespace */
--	SYS("ip netns exec at_ns0 ip link add dev %s type vxlan external dstport 4789",
-+	SYS(fail, "ip netns exec at_ns0 ip link add dev %s type vxlan external dstport 4789",
- 	    IP6VXLAN_TUNL_DEV0);
--	SYS("ip netns exec at_ns0 ip addr add dev %s %s/24",
-+	SYS(fail, "ip netns exec at_ns0 ip addr add dev %s %s/24",
- 	    IP6VXLAN_TUNL_DEV0, IP4_ADDR_TUNL_DEV0);
--	SYS("ip netns exec at_ns0 ip link set dev %s address %s up",
-+	SYS(fail, "ip netns exec at_ns0 ip link set dev %s address %s up",
- 	    IP6VXLAN_TUNL_DEV0, MAC_TUNL_DEV0);
- 
- 	/* root namespace */
--	SYS("ip link add dev %s type vxlan external dstport 4789",
-+	SYS(fail, "ip link add dev %s type vxlan external dstport 4789",
- 	    IP6VXLAN_TUNL_DEV1);
--	SYS("ip addr add dev %s %s/24", IP6VXLAN_TUNL_DEV1, IP4_ADDR_TUNL_DEV1);
--	SYS("ip link set dev %s address %s up",
-+	SYS(fail, "ip addr add dev %s %s/24", IP6VXLAN_TUNL_DEV1, IP4_ADDR_TUNL_DEV1);
-+	SYS(fail, "ip link set dev %s address %s up",
- 	    IP6VXLAN_TUNL_DEV1, MAC_TUNL_DEV1);
- 
- 	return 0;
-@@ -205,7 +190,7 @@ static void delete_ip6vxlan_tunnel(void)
- 
- static int test_ping(int family, const char *addr)
- {
--	SYS("%s %s %s > /dev/null", ping_command(family), PING_ARGS, addr);
-+	SYS(fail, "%s %s %s > /dev/null", ping_command(family), PING_ARGS, addr);
- 	return 0;
- fail:
- 	return -1;
-diff --git a/tools/testing/selftests/bpf/prog_tests/xdp_bonding.c b/tools/testing/selftests/bpf/prog_tests/xdp_bonding.c
-index 5e3a26b15ec6..d19f79048ff6 100644
---- a/tools/testing/selftests/bpf/prog_tests/xdp_bonding.c
-+++ b/tools/testing/selftests/bpf/prog_tests/xdp_bonding.c
-@@ -141,41 +141,33 @@ static const char * const xmit_policy_names[] = {
- static int bonding_setup(struct skeletons *skeletons, int mode, int xmit_policy,
- 			 int bond_both_attach)
- {
--#define SYS(fmt, ...)						\
--	({							\
--		char cmd[1024];					\
--		snprintf(cmd, sizeof(cmd), fmt, ##__VA_ARGS__);	\
--		if (!ASSERT_OK(system(cmd), cmd))		\
--			return -1;				\
--	})
-+	SYS(fail, "ip netns add ns_dst");
-+	SYS(fail, "ip link add veth1_1 type veth peer name veth2_1 netns ns_dst");
-+	SYS(fail, "ip link add veth1_2 type veth peer name veth2_2 netns ns_dst");
- 
--	SYS("ip netns add ns_dst");
--	SYS("ip link add veth1_1 type veth peer name veth2_1 netns ns_dst");
--	SYS("ip link add veth1_2 type veth peer name veth2_2 netns ns_dst");
--
--	SYS("ip link add bond1 type bond mode %s xmit_hash_policy %s",
-+	SYS(fail, "ip link add bond1 type bond mode %s xmit_hash_policy %s",
- 	    mode_names[mode], xmit_policy_names[xmit_policy]);
--	SYS("ip link set bond1 up address " BOND1_MAC_STR " addrgenmode none");
--	SYS("ip -netns ns_dst link add bond2 type bond mode %s xmit_hash_policy %s",
-+	SYS(fail, "ip link set bond1 up address " BOND1_MAC_STR " addrgenmode none");
-+	SYS(fail, "ip -netns ns_dst link add bond2 type bond mode %s xmit_hash_policy %s",
- 	    mode_names[mode], xmit_policy_names[xmit_policy]);
--	SYS("ip -netns ns_dst link set bond2 up address " BOND2_MAC_STR " addrgenmode none");
-+	SYS(fail, "ip -netns ns_dst link set bond2 up address " BOND2_MAC_STR " addrgenmode none");
- 
--	SYS("ip link set veth1_1 master bond1");
-+	SYS(fail, "ip link set veth1_1 master bond1");
- 	if (bond_both_attach == BOND_BOTH_AND_ATTACH) {
--		SYS("ip link set veth1_2 master bond1");
-+		SYS(fail, "ip link set veth1_2 master bond1");
- 	} else {
--		SYS("ip link set veth1_2 up addrgenmode none");
-+		SYS(fail, "ip link set veth1_2 up addrgenmode none");
- 
- 		if (xdp_attach(skeletons, skeletons->xdp_dummy->progs.xdp_dummy_prog, "veth1_2"))
- 			return -1;
+diff --git a/drivers/slimbus/qcom-ngd-ctrl.c b/drivers/slimbus/qcom-ngd-ctrl.c
+index d0d289c49c8d11..28484a6735e725 100644
+--- a/drivers/slimbus/qcom-ngd-ctrl.c
++++ b/drivers/slimbus/qcom-ngd-ctrl.c
+@@ -1581,6 +1581,8 @@ static int qcom_slim_ngd_probe(struct platform_device *pdev)
+ 	ret = qcom_slim_ngd_qmi_svc_event_init(ctrl);
+ 	if (ret) {
+ 		dev_err(&pdev->dev, "QMI service registration failed:%d", ret);
++		pm_runtime_dont_use_autosuspend(dev);
++		pm_runtime_disable(dev);
+ 		return ret;
  	}
  
--	SYS("ip -netns ns_dst link set veth2_1 master bond2");
-+	SYS(fail, "ip -netns ns_dst link set veth2_1 master bond2");
- 
- 	if (bond_both_attach == BOND_BOTH_AND_ATTACH)
--		SYS("ip -netns ns_dst link set veth2_2 master bond2");
-+		SYS(fail, "ip -netns ns_dst link set veth2_2 master bond2");
- 	else
--		SYS("ip -netns ns_dst link set veth2_2 up addrgenmode none");
-+		SYS(fail, "ip -netns ns_dst link set veth2_2 up addrgenmode none");
- 
- 	/* Load a dummy program on sending side as with veth peer needs to have a
- 	 * XDP program loaded as well.
-@@ -194,8 +186,8 @@ static int bonding_setup(struct skeletons *skeletons, int mode, int xmit_policy,
- 	}
- 
- 	return 0;
--
--#undef SYS
-+fail:
-+	return -1;
- }
- 
- static void bonding_cleanup(struct skeletons *skeletons)
-diff --git a/tools/testing/selftests/bpf/prog_tests/xdp_do_redirect.c b/tools/testing/selftests/bpf/prog_tests/xdp_do_redirect.c
-index 15ad33669161..b97b08181772 100644
---- a/tools/testing/selftests/bpf/prog_tests/xdp_do_redirect.c
-+++ b/tools/testing/selftests/bpf/prog_tests/xdp_do_redirect.c
-@@ -10,14 +10,6 @@
- #include <bpf/bpf_endian.h>
- #include "test_xdp_do_redirect.skel.h"
- 
--#define SYS(fmt, ...)						\
--	({							\
--		char cmd[1024];					\
--		snprintf(cmd, sizeof(cmd), fmt, ##__VA_ARGS__);	\
--		if (!ASSERT_OK(system(cmd), cmd))		\
--			goto out;				\
--	})
--
- struct udp_packet {
- 	struct ethhdr eth;
- 	struct ipv6hdr iph;
-@@ -124,19 +116,19 @@ void serial_test_xdp_do_redirect(void)
- 	 * iface and NUM_PKTS-2 in the TC hook. We match the packets on the UDP
- 	 * payload.
- 	 */
--	SYS("ip netns add testns");
-+	SYS(out, "ip netns add testns");
- 	nstoken = open_netns("testns");
- 	if (!ASSERT_OK_PTR(nstoken, "setns"))
- 		goto out;
- 
--	SYS("ip link add veth_src type veth peer name veth_dst");
--	SYS("ip link set dev veth_src address 00:11:22:33:44:55");
--	SYS("ip link set dev veth_dst address 66:77:88:99:aa:bb");
--	SYS("ip link set dev veth_src up");
--	SYS("ip link set dev veth_dst up");
--	SYS("ip addr add dev veth_src fc00::1/64");
--	SYS("ip addr add dev veth_dst fc00::2/64");
--	SYS("ip neigh add fc00::2 dev veth_src lladdr 66:77:88:99:aa:bb");
-+	SYS(out, "ip link add veth_src type veth peer name veth_dst");
-+	SYS(out, "ip link set dev veth_src address 00:11:22:33:44:55");
-+	SYS(out, "ip link set dev veth_dst address 66:77:88:99:aa:bb");
-+	SYS(out, "ip link set dev veth_src up");
-+	SYS(out, "ip link set dev veth_dst up");
-+	SYS(out, "ip addr add dev veth_src fc00::1/64");
-+	SYS(out, "ip addr add dev veth_dst fc00::2/64");
-+	SYS(out, "ip neigh add fc00::2 dev veth_src lladdr 66:77:88:99:aa:bb");
- 
- 	/* We enable forwarding in the test namespace because that will cause
- 	 * the packets that go through the kernel stack (with XDP_PASS) to be
-@@ -149,7 +141,7 @@ void serial_test_xdp_do_redirect(void)
- 	 * code didn't have this, so we keep the test behaviour to make sure the
- 	 * bug doesn't resurface.
- 	 */
--	SYS("sysctl -qw net.ipv6.conf.all.forwarding=1");
-+	SYS(out, "sysctl -qw net.ipv6.conf.all.forwarding=1");
- 
- 	ifindex_src = if_nametoindex("veth_src");
- 	ifindex_dst = if_nametoindex("veth_dst");
-@@ -200,6 +192,6 @@ void serial_test_xdp_do_redirect(void)
- out:
- 	if (nstoken)
- 		close_netns(nstoken);
--	system("ip netns del testns");
-+	SYS_NOFAIL("ip netns del testns");
- 	test_xdp_do_redirect__destroy(skel);
- }
-diff --git a/tools/testing/selftests/bpf/prog_tests/xdp_synproxy.c b/tools/testing/selftests/bpf/prog_tests/xdp_synproxy.c
-index 13daa3746064..0327c10fe6e9 100644
---- a/tools/testing/selftests/bpf/prog_tests/xdp_synproxy.c
-+++ b/tools/testing/selftests/bpf/prog_tests/xdp_synproxy.c
-@@ -8,11 +8,6 @@
- 
- #define CMD_OUT_BUF_SIZE 1023
- 
--#define SYS(cmd) ({ \
--	if (!ASSERT_OK(system(cmd), (cmd))) \
--		goto out; \
--})
--
- #define SYS_OUT(cmd, ...) ({ \
- 	char buf[1024]; \
- 	snprintf(buf, sizeof(buf), (cmd), ##__VA_ARGS__); \
-@@ -69,37 +64,37 @@ static void test_synproxy(bool xdp)
- 	char buf[CMD_OUT_BUF_SIZE];
- 	size_t size;
- 
--	SYS("ip netns add synproxy");
-+	SYS(out, "ip netns add synproxy");
- 
--	SYS("ip link add tmp0 type veth peer name tmp1");
--	SYS("ip link set tmp1 netns synproxy");
--	SYS("ip link set tmp0 up");
--	SYS("ip addr replace 198.18.0.1/24 dev tmp0");
-+	SYS(out, "ip link add tmp0 type veth peer name tmp1");
-+	SYS(out, "ip link set tmp1 netns synproxy");
-+	SYS(out, "ip link set tmp0 up");
-+	SYS(out, "ip addr replace 198.18.0.1/24 dev tmp0");
- 
- 	/* When checksum offload is enabled, the XDP program sees wrong
- 	 * checksums and drops packets.
- 	 */
--	SYS("ethtool -K tmp0 tx off");
-+	SYS(out, "ethtool -K tmp0 tx off");
- 	if (xdp)
- 		/* Workaround required for veth. */
--		SYS("ip link set tmp0 xdp object xdp_dummy.bpf.o section xdp 2> /dev/null");
-+		SYS(out, "ip link set tmp0 xdp object xdp_dummy.bpf.o section xdp 2> /dev/null");
- 
- 	ns = open_netns("synproxy");
- 	if (!ASSERT_OK_PTR(ns, "setns"))
- 		goto out;
- 
--	SYS("ip link set lo up");
--	SYS("ip link set tmp1 up");
--	SYS("ip addr replace 198.18.0.2/24 dev tmp1");
--	SYS("sysctl -w net.ipv4.tcp_syncookies=2");
--	SYS("sysctl -w net.ipv4.tcp_timestamps=1");
--	SYS("sysctl -w net.netfilter.nf_conntrack_tcp_loose=0");
--	SYS("iptables-legacy -t raw -I PREROUTING \
-+	SYS(out, "ip link set lo up");
-+	SYS(out, "ip link set tmp1 up");
-+	SYS(out, "ip addr replace 198.18.0.2/24 dev tmp1");
-+	SYS(out, "sysctl -w net.ipv4.tcp_syncookies=2");
-+	SYS(out, "sysctl -w net.ipv4.tcp_timestamps=1");
-+	SYS(out, "sysctl -w net.netfilter.nf_conntrack_tcp_loose=0");
-+	SYS(out, "iptables-legacy -t raw -I PREROUTING \
- 	    -i tmp1 -p tcp -m tcp --syn --dport 8080 -j CT --notrack");
--	SYS("iptables-legacy -t filter -A INPUT \
-+	SYS(out, "iptables-legacy -t filter -A INPUT \
- 	    -i tmp1 -p tcp -m tcp --dport 8080 -m state --state INVALID,UNTRACKED \
- 	    -j SYNPROXY --sack-perm --timestamp --wscale 7 --mss 1460");
--	SYS("iptables-legacy -t filter -A INPUT \
-+	SYS(out, "iptables-legacy -t filter -A INPUT \
- 	    -i tmp1 -m state --state INVALID -j DROP");
- 
- 	ctrl_file = SYS_OUT("./xdp_synproxy --iface tmp1 --ports 8080 \
-@@ -170,8 +165,8 @@ static void test_synproxy(bool xdp)
- 	if (ns)
- 		close_netns(ns);
- 
--	system("ip link del tmp0");
--	system("ip netns del synproxy");
-+	SYS_NOFAIL("ip link del tmp0");
-+	SYS_NOFAIL("ip netns del synproxy");
- }
- 
- void serial_test_xdp_synproxy(void)
-diff --git a/tools/testing/selftests/bpf/test_progs.h b/tools/testing/selftests/bpf/test_progs.h
-index ff1caffefa52..b47606eebdb9 100644
---- a/tools/testing/selftests/bpf/test_progs.h
-+++ b/tools/testing/selftests/bpf/test_progs.h
-@@ -376,6 +376,21 @@ int test__join_cgroup(const char *path);
- 	___ok;								\
- })
- 
-+#define SYS(goto_label, fmt, ...)					\
-+	({								\
-+		char cmd[1024];						\
-+		snprintf(cmd, sizeof(cmd), fmt, ##__VA_ARGS__);		\
-+		if (!ASSERT_OK(system(cmd), cmd))			\
-+			goto goto_label;				\
-+	})
-+
-+#define SYS_NOFAIL(fmt, ...)						\
-+	({								\
-+		char cmd[1024];						\
-+		snprintf(cmd, sizeof(cmd), fmt, ##__VA_ARGS__);		\
-+		system(cmd);						\
-+	})
-+
- static inline __u64 ptr_to_u64(const void *ptr)
+@@ -1689,6 +1691,7 @@ static int qcom_slim_ngd_remove(struct platform_device *pdev)
  {
- 	return (__u64) (unsigned long) ptr;
+ 	struct qcom_slim_ngd_ctrl *ctrl = platform_get_drvdata(pdev);
+ 
++	pm_runtime_dont_use_autosuspend(&pdev->dev);
+ 	pm_runtime_disable(&pdev->dev);
+ 	pdr_handle_release(ctrl->pdr);
+ 	qcom_unregister_ssr_notifier(ctrl->notifier, &ctrl->nb);
 -- 
-2.54.0
+2.53.0
 
