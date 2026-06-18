@@ -1,185 +1,84 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out-189.mta0.migadu.com (out-189.mta0.migadu.com [91.218.175.189])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4130F3E4504
-	for <stable@vger.kernel.org>; Thu, 18 Jun 2026 12:31:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F1651AA1D2
+	for <stable@vger.kernel.org>; Thu, 18 Jun 2026 12:43:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.189
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781785917; cv=none; b=Msdopr2YrlSN6nOVdQV8YomjYJBOdJ+IDgHPPIkek3qi9JTirJUhNMp9gWrpy+jtU0maftNh6gD9gOrtzyOoNds4+aHKiWPvghES/7NgmAoYhg9GJOziFyqDoTMzyWjAzDUHe9hy97ektqa3lBJqydoa15APggSXG59fp69VYas=
+	t=1781786621; cv=none; b=RDwkKzdGgkR+Yfv/bZp4u4CfgYvbEDZokvSW7vL7ynvjDvgN6acVfBpAGVfx0TDinNVkdJhhKdodVIaZUFFKjK3QPYK0wwv7I09Hxkalpo11+AuPrb8BlE3bVZqMISgZtVEvWEHApT2LD6M5EeuGoeUzeWEpMyOLSZHbUuGduMo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781785917; c=relaxed/simple;
-	bh=otMyTGzPNefDNXsxc+KHyPw2W2HBmgKvh7/2nzNpf1o=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=WWBQkR0jcClrlkKzK4Vmx3KkfiMXmQBTA+W+pbpWIAoAd30RsbhAabAoAHgPRpxzEjqi8+8FNeWk3+saUM1CLYH1niCd19vQlgB7XICIuQZYpwGlys3oZPGqf6C4rJUEXi4wkgbX/Ubqwl2uZOoh7e6/gZxmqOGuwsx4iWV+gjk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=GJDazzry; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=1wjnnoyn; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=GJDazzry; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=1wjnnoyn; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1781786621; c=relaxed/simple;
+	bh=0xOGb09rTuf9GPV/jBFAQS4RgTq69F7ydy3K5ixrwlU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cB9j7BZK04lN0I11l5bSUzGz7z8/FEfWnS9dtxpFuDkEE8bD7s7pyRvJtFxP6RlWpi5u256F/2OlssLTql4dSsfh4Qsk5CdElWQjWQv6scVOFbFfg643JNIEacq/j1CYKQhdwaOcPJNIyVslPYOT581t4/Bn6sSAeYpUsdVPq34=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=b1n.io; spf=pass smtp.mailfrom=b1n.io; dkim=pass (2048-bit key) header.d=b1n.io header.i=@b1n.io header.b=RbabBeY2; arc=none smtp.client-ip=91.218.175.189
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=b1n.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=b1n.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="GJDazzry";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="1wjnnoyn";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="GJDazzry";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="1wjnnoyn"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id B9D5375E26;
-	Thu, 18 Jun 2026 12:31:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1781785908; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
+	dkim=pass (2048-bit key) header.d=b1n.io header.i=@b1n.io header.b="RbabBeY2"
+Date: Thu, 18 Jun 2026 12:43:17 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=b1n.io; s=key1;
+	t=1781786607;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=puXDryzmvm+hScsn8xQG8yH6VqIBFkvdIaDgwIfkaOA=;
-	b=GJDazzryCET/HO4aVNxQ0YI/ZL6wfOBWbWza6dgF3R441mCAFEAyXktczW75IQA7vuJMyo
-	AMAH0xnR+YmyZU+JtuAFwB3I6azyHJwwOCR1YtdmKR7c+2MZnuyBwu0h0UZSVTcFn3FWgd
-	47wmj2D+8GiCWBX7QfaU2Djba6BDSG0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1781785908;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=puXDryzmvm+hScsn8xQG8yH6VqIBFkvdIaDgwIfkaOA=;
-	b=1wjnnoynqvSUUcSWMKD8pdTKlGwNXMgvtIdeq7IhjrHnyDqGcT+VPzW4p921ioWTBhKfKx
-	QDTWmO6Yy/tZuMCQ==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1781785908; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=puXDryzmvm+hScsn8xQG8yH6VqIBFkvdIaDgwIfkaOA=;
-	b=GJDazzryCET/HO4aVNxQ0YI/ZL6wfOBWbWza6dgF3R441mCAFEAyXktczW75IQA7vuJMyo
-	AMAH0xnR+YmyZU+JtuAFwB3I6azyHJwwOCR1YtdmKR7c+2MZnuyBwu0h0UZSVTcFn3FWgd
-	47wmj2D+8GiCWBX7QfaU2Djba6BDSG0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1781785908;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=puXDryzmvm+hScsn8xQG8yH6VqIBFkvdIaDgwIfkaOA=;
-	b=1wjnnoynqvSUUcSWMKD8pdTKlGwNXMgvtIdeq7IhjrHnyDqGcT+VPzW4p921ioWTBhKfKx
-	QDTWmO6Yy/tZuMCQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5B755779A8;
-	Thu, 18 Jun 2026 12:31:48 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 8GUmFTTlM2rTJQAAD6G6ig
-	(envelope-from <tzimmermann@suse.de>); Thu, 18 Jun 2026 12:31:48 +0000
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: shiyongbang@huawei.com,
-	tiantao6@hisilicon.com,
-	kong.kongxinwei@hisilicon.com,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	airlied@gmail.com,
-	simona@ffwll.ch
-Cc: dri-devel@lists.freedesktop.org,
-	sashiko-reviews@lists.linux.dev,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Rongrong Zou <zourongrong@gmail.com>,
-	Sean Paul <seanpaul@chromium.org>,
-	Xinliang Liu <xinliang.liu@linaro.org>,
-	Dmitry Baryshkov <lumag@kernel.org>,
-	Baihan Li <libaihan@huawei.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v4 2/6] drm/hibmc: Fix list of formats on the primary plane
-Date: Thu, 18 Jun 2026 14:28:40 +0200
-Message-ID: <20260618123142.92298-3-tzimmermann@suse.de>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260618123142.92298-1-tzimmermann@suse.de>
-References: <20260618123142.92298-1-tzimmermann@suse.de>
+	bh=0xOGb09rTuf9GPV/jBFAQS4RgTq69F7ydy3K5ixrwlU=;
+	b=RbabBeY29BJbtGj5OwkpJedKIOYaDFFaGYzGpQK0f2k03ZQGocbG215y8oplEfd5lZQJBM
+	k8AYSdY1Bq8vAEx73lFgO+Fv397I0mtRS9VPlpjqAUYskIrz+bC3cb/AyLhtVHcZx8eKtv
+	hIvyLqI7uX//fNdlzmWNLy6PE0RAsMugzAHkPE1cql6ycNgU6nMhkC2lccODAYRjfgnw50
+	E4g+jICYXFws2Bw7ZFy2ho42d2PAfcKKZBgsYr9fwNofdAaGI8CaMgZqC9LA8+HJ31bG1d
+	dhdwMnQSvQH9iq0JEaPS3q0JiqQjDy2mwgE3YvJRmfyT0ke9U2539qVAC0WENA==
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: Xingquan Liu <b1n@b1n.io>
+To: Jamal Hadi Salim <jhs@mojatatu.com>
+Cc: netdev@vger.kernel.org, Jiri Pirko <jiri@resnulli.us>, 
+	Victor Nogueira <victor@mojatatu.com>, stable@vger.kernel.org, 
+	"Chia-Yu Chang (Nokia)" <chia-yu.chang@nokia-bell-labs.com>
+Subject: Re: [PATCH] net/sched: dualpi2: fix GSO backlog accounting
+Message-ID: <ajPndLsHz1-d76qj@fedora>
+References: <20260616220303.31552-1-b1n@b1n.io>
+ <CAM0EoM=o+kBQNND8ViMe8bZQmFAtATav+CFMmtp1udzu+tpTzA@mail.gmail.com>
+ <CAM0EoMmXrZ5pUAkuVScgQjPFm3-dSC03mygDm3sAaFO=TQgvDw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-6.80 / 50.00];
-	REPLY(-4.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_CONTAINS_FROM(1.00)[];
-	R_MISSING_CHARSET(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-0.999];
-	MIME_GOOD(-0.10)[text/plain];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:email,suse.de:mid,linaro.org:email];
-	ARC_NA(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[16];
-	MIME_TRACE(0.00)[0:+];
-	FUZZY_RATELIMITED(0.00)[rspamd.com];
-	FREEMAIL_CC(0.00)[lists.freedesktop.org,lists.linux.dev,suse.de,gmail.com,chromium.org,linaro.org,kernel.org,huawei.com,vger.kernel.org];
-	FREEMAIL_TO(0.00)[huawei.com,hisilicon.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com]
-X-Spam-Level: 
-X-Spam-Score: -6.80
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="eb6zudvooesa7q7h"
+Content-Disposition: inline
+In-Reply-To: <CAM0EoMmXrZ5pUAkuVScgQjPFm3-dSC03mygDm3sAaFO=TQgvDw@mail.gmail.com>
+X-Migadu-Flow: FLOW_OUT
 
-Remove all formats from the primary plane that are unsupported for
-various reasons.
 
-* Formats with alpha channel: planes should not announce alpha channels
-unless they support transparency. There's no transparency support in
-the primary plane's implementation.
+--eb6zudvooesa7q7h
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Subject: Re: [PATCH] net/sched: dualpi2: fix GSO backlog accounting
+MIME-Version: 1.0
 
-* Formats with BGR order. The common format is in RGB channel order.
-There's no BGR support in the primary plane's implementation.
+On Wed, Jun 17, 2026 at 10:23:42AM -0400, Jamal Hadi Salim wrote:
+> Do you know how to create a tdc test that will recreate this? If not
+> either Victor or myself can help you create one.
 
-* RGB888: atomic_update programs the format from cpp[0] * 8 / 16. For
-RGB888's cpp value of 3 this returns 1.5; rounded to 1. Programming
-the value of 1 to HIBMC_CRT_DISP_CTL_FORMAT sets up RGB565. Hence, the
-output is distorted. This can be tested by booting with video=1024x768-24.
+Okay, I will try to create a tdc test.
 
-Removing all unsupported formats leaves XRGB8888 and RGB565. Both of
-which are supported and work correctly.
+--
+Xingquan Liu
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Fixes: da52605eea8f ("drm/hisilicon/hibmc: Add support for display engine")
-Reviewed-by: Yongbang Shi <shiyongbang@huawei.com>
-Cc: Rongrong Zou <zourongrong@gmail.com>
-Cc: Sean Paul <seanpaul@chromium.org>
-Cc: Xinliang Liu <xinliang.liu@linaro.org>
-Cc: Dmitry Baryshkov <lumag@kernel.org>
-Cc: Yongbang Shi <shiyongbang@huawei.com>
-Cc: Baihan Li <libaihan@huawei.com>
-Cc: <stable@vger.kernel.org> # v4.10+
----
- drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+--eb6zudvooesa7q7h
+Content-Type: application/pgp-signature; name="signature.asc"
 
-diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c
-index 7c0b88c774b5..2e6e189bec1a 100644
---- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c
-+++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c
-@@ -135,10 +135,8 @@ static void hibmc_plane_atomic_update(struct drm_plane *plane,
- }
- 
- static const u32 channel_formats1[] = {
--	DRM_FORMAT_RGB565, DRM_FORMAT_BGR565, DRM_FORMAT_RGB888,
--	DRM_FORMAT_BGR888, DRM_FORMAT_XRGB8888, DRM_FORMAT_XBGR8888,
--	DRM_FORMAT_RGBA8888, DRM_FORMAT_BGRA8888, DRM_FORMAT_ARGB8888,
--	DRM_FORMAT_ABGR8888
-+	DRM_FORMAT_XRGB8888,
-+	DRM_FORMAT_RGB565,
- };
- 
- static const struct drm_plane_funcs hibmc_plane_funcs = {
--- 
-2.54.0
+-----BEGIN PGP SIGNATURE-----
 
+iPcEABYKAJ8WIQRK8k7aQ0rr/Uwki+E2I1LDHPWnXgUCajPn4ygUgAAAAAAVAApw
+a2EtYWRkcmVzc0BnbnVwZy5vcmdiMW5AYjFuLmlvWBhodHRwczovL2tleXMub3Bl
+bnBncC5vcmcvdmtzL3YxL2J5LWZpbmdlcnByaW50LzMwQUYxQUMwNzMwODkzRURD
+MTQ5Qjc5NUIwMDc5QjEyRTZDOThFQTYACgkQNiNSwxz1p17bDgEAwV1mMS0uKtA8
+Z6fej+nWAlg2wf7S5/FFoCsDEoT55EgBAOMa2bgvVTtqFJwQSIZ+YxMIcA1vn+Rv
+o1FDHyabauYL
+=85ev
+-----END PGP SIGNATURE-----
+
+--eb6zudvooesa7q7h--
