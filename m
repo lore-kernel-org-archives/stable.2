@@ -1,104 +1,161 @@
-Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B9362E737B
-	for <stable@vger.kernel.org>; Thu, 18 Jun 2026 20:50:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.42
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781815831; cv=pass; b=ShhAQeJxACsIpDj01xE/Qz+VlJ8xl7anEyunJYXBnDWpSY81F0EHPjTuUo19uvKi4bAXsFqfu5+Y0fadlLaUx2mRd/wlwwXUTltlUHLErFmrs6rsG9uF99D7KufYHZa430AC5M1u/FUyw1b4I/khV+3yhVtzETuYkCbOr4EnRLw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781815831; c=relaxed/simple;
-	bh=N7+ML8b+QHv4xdu2zCfe8zZhdw3YE/RabD+YMSHfnCo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=szrKN5bCNxi19T2SnNPftcE+GrkO8i1i91W27xR/V6kYA4lA5GJdgEpucZo7UQT5SVk2ZkdBNABS4+gLObLxES7WZyLH23MXfpyCQhP7zirJIcl+t3qB9aH/wxifFAXj4hyVNt6d1dfylsl/nrvAB1vrFNlXc881acwsDdf63Dk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mongodb.com; spf=fail smtp.mailfrom=mongodb.com; dkim=pass (1024-bit key) header.d=mongodb.com header.i=@mongodb.com header.b=EJpP9pwA; arc=pass smtp.client-ip=209.85.208.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mongodb.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=mongodb.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDBEC14AD20;
+	Thu, 18 Jun 2026 21:07:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781816839; cv=none; b=Io+tICpCnxDBr//IEE8GE7dJnkqdfQiu3+E1HW9uu97uYbsmH1IFtkQ/9bxFpq9D7d1OYoj24fZ2IZty/EhmREX804BvCs/r5Uw3fFmbUPaAHafCoR3S6PkXWCY+TlHYH84Hp3zvBs9AKGaMJ7s/0LSMj6pqXlGlnf1V7DQjgwQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781816839; c=relaxed/simple;
+	bh=P8ahyLEUSY/L+t9kwvK/Sx6Q5A/PLuVM9mZGX59bw28=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=StP0+rGJhz+sga54TWavD/ZQ4fziksakm2Q80hX0G4X0O3fGb+E4AghDm0P5m/c7PnwiGvyQn1msLKefMJCFDxWGU/OjIFX8lgntEzh/Q/zlshjfssifFuTidUsLHidQdFwvKQcw4USWiG2Cl62s/BC3aJpGFAT98sZNZh9g/aA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EMcXFAty; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mongodb.com header.i=@mongodb.com header.b="EJpP9pwA"
-Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-68bfcf11050so2387727a12.0
-        for <stable@vger.kernel.org>; Thu, 18 Jun 2026 13:50:29 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781815828; cv=none;
-        d=google.com; s=arc-20240605;
-        b=O7+xLbE2cjNoWSw9aqW7rCcRlNz+JdsrPQjUTphnOPEXZhDbTjldkyaN4/XT87L2CN
-         wKD8rzB1MOrRLD7NY4yrSs9dJoKf89Ovf4s7TgUNzwPXmrbd5IZJKJHJ7DK3VVfyO7GA
-         cCNmxmC4DEMxnH3USBtXd5roHALLJpoL7yBYPehsybmoh7+5e+O3fLdlbYc6KbHt7CFZ
-         /s+jb/xvhg1fSGVrVsGZcrAZcyMc9PT5bzuG4+qtU18k3J575oQpAmzxueSGAIdaFN0f
-         xav11JXtMl330yHy0O2XNABpxwylRAEF0M45DsH5rRSGWBQ4uuVUqSAxYmHASp2rEYu3
-         54Rw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=N7+ML8b+QHv4xdu2zCfe8zZhdw3YE/RabD+YMSHfnCo=;
-        fh=F49qhPvpuSxSz5wBw+fqBqyjDHWRdpkJ478oFBD6r7E=;
-        b=ZDB+rgdSqXZvM3NQ2ilJvyLHc6P+d/SQp3PllmA0Knscv7ZfOo2EpXIMFrvEqivL2u
-         3DS50oCkFqY6inkkdOYIw51vI0Vke15tikJFOHMDBaOk5XaH7N6Jko0HArpk3xwSJuh6
-         2o80WUEFMkiMg4M1GbM9Dx8pA++lchzTFmhoit6x5C4JGDAmcJt9hI8hF5FqbWxiCtOZ
-         4Zb6LX2v4xAzoVQKArrBLGDjswWC9VGSgetj0asyoi2vHF+HVo0AEjuS6pNC/b/Q1ktt
-         KA23cBWogaZNanbNvFgVMRrXGw9O8Is91IcZlhum6LFL2pRUfbdZiYWs/ZuSvzkPT1Ar
-         v2OA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mongodb.com; s=google; t=1781815828; x=1782420628; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=N7+ML8b+QHv4xdu2zCfe8zZhdw3YE/RabD+YMSHfnCo=;
-        b=EJpP9pwAYu83Zh2Rb7S6dpMJee0yu5At07YRw8qcMg4QjxXDulrnCIy0C+9EeS0jM9
-         d2vSnc9Qdy29T40isS+JAuYhkdIDo9DhUiw3CPA2sKxsUO3sdgSE5YokMBiy7hxtSSN9
-         W4sUap7cKZ2IqMuLgpxHC6QskxhjfBs79aATs=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781815828; x=1782420628;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=N7+ML8b+QHv4xdu2zCfe8zZhdw3YE/RabD+YMSHfnCo=;
-        b=mtfBKZkHmeYazXlkzmBoVE3J1jRX3uk7j3x8CqDeGU43x37SatK097GfLEi+S93N1v
-         40TrdH124QPaZZ41423m9AWTdOWxXl1Kzhwhwlp74o2yvV7FoClCW4B5NPM9fjR8zAdi
-         xP/VGHL0l5r5psXrQ9nOw217CsF6aJD5MejT6yTqWaaAgMw/m1YsP5dP73G7SlxWB45u
-         2WfGQAUg8v4N7Xes9A6RLJ3sJJ2PAgTeirowfdvWrnKrCVs1xgKLPKU6y4FpDKC/qNMV
-         nqTc3ACarr044Tmk3ERZ8fbbY6C2CqwKn3lEtrKv8QHGMSG4qmOKt/ZOH0XIkquGUyZz
-         ISRw==
-X-Gm-Message-State: AOJu0YyBGxrY2ITzAM3GSt59ZTV6K8sBB03TmYHiBffbExCp1Auz+RvA
-	sWkF+DckDiK1Vf80rix+lXOS0W/e7ajRZRe+/LyA9mXGY7Y1T+f1PcIHO4D1NTLjSimeSy6pmQs
-	4cqqiZttaZgUTauyp1NeE+uFZC8ez2kbOUxXs07020w==
-X-Gm-Gg: AfdE7clFqR9I3IYn9cMOrl+z1WMDoXe4e7pbwKd/s+24ZJXAzEmlZbliAKeLbtTif9S
-	jZtJarR8xKWzx+g2pERDw/4svDVgUGPfyuZTLbW8oxWbJVamyDOD4QB0mSz+Ih7slFcUOmcuDwX
-	bhtd7h7aug/IpwMDiE1PLtYSyi3F0qvw5g0xaqTTSIlGZnMVKehVhKRYrAbs9q7W0T6Wwuc6bU7
-	KL375jrUuHWffW2JVFPLxXL7ST3E6JXQFfshs1T+wwYrr/zcQUAMO+nwoOmiJJ9AwAXTRIVYDOo
-	f+CRhd3mdfm63t4=
-X-Received: by 2002:a17:906:6207:b0:bfb:1853:c34c with SMTP id
- a640c23a62f3a-c097b389874mr40144266b.14.1781815827926; Thu, 18 Jun 2026
- 13:50:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EMcXFAty"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7690C1F000E9;
+	Thu, 18 Jun 2026 21:07:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781816838;
+	bh=aKcLcoZc0XbVzuHW4tda6GVNppvLxUk/gwYmWzl7I5E=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=EMcXFAtyzSsNQyMRTvmswqzR7TyPIw3JlPF7ox/H40xevTpNXWy7pGoIjsCEI6xf/
+	 thIFDhQ/Vyw5TM5ujiSWtbsyuf72sYpCGIXXtjQdMx1qGMKLc69RRmUipG+hsIQoA0
+	 4UpMJyRXbNkMGK8GuC+uU4eS9/W788gto4jNVnywGjPC/Fm9mFEN9dQKyJO+48NZog
+	 pYQP4jQcWiu7idC1eUdSZq0cJJmIaQXWOaNslyDyoCYVbHhw70JragMXbYoChjWjMC
+	 ZouNe1jU1Nh8OUvJr8M5AbQV+mcylLVzAfEoiBPtpmM3x/KMyupSG7BBdXdm78t2mv
+	 1z1qRP9+pJN5A==
+Message-ID: <9bbaa053-ea06-4b36-98ba-dc487a28964e@kernel.org>
+Date: Thu, 18 Jun 2026 23:07:13 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260618151426.308099-1-mark.rutland@arm.com>
-In-Reply-To: <20260618151426.308099-1-mark.rutland@arm.com>
-From: Mathias Stearn <mathias@mongodb.com>
-Date: Thu, 18 Jun 2026 22:50:00 +0200
-X-Gm-Features: AVVi8CensPWmx9w1RaQWAU0DXlTxh-QWmcYKTBcAjsiIIZ-rezr9iAxfVStsHb4
-Message-ID: <CAHnCjA3HBwt-rtgmyfanu9wA0eNc3oQqHemPOwUVfp9kotuEwg@mail.gmail.com>
-Subject: Re: [PATCH 7.0] arm64/entry: Fix arm64-specific rseq brokenness
-To: Mark Rutland <mark.rutland@arm.com>
-Cc: stable@vger.kernel.org, catalin.marinas@arm.com, peterz@infradead.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: + userfaultfd-prevent-registration-of-special-vmas.patch added to
+ mm-hotfixes-unstable branch
+To: Linus Torvalds <torvalds@linuxfoundation.org>,
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: mm-commits@vger.kernel.org, vladimirelitokarev@gmail.com,
+ viro@zeniv.linux.org.uk, stable@vger.kernel.org, peterx@redhat.com,
+ oleg@redhat.com, jack@suse.cz, brauner@kernel.org, rppt@kernel.org
+References: <20260618183442.BBCD71F000E9@smtp.kernel.org>
+ <CAHk-=wiQ_10MRYYW+aRfLP4Ah9gDrShOvLESXtz+Q32-9M9Y9w@mail.gmail.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <CAHk-=wiQ_10MRYYW+aRfLP4Ah9gDrShOvLESXtz+Q32-9M9Y9w@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, Jun 18, 2026 at 5:14=E2=80=AFPM Mark Rutland <mark.rutland@arm.com>=
- wrote:
-> Mathias Stearn reports that since v6.19, there are two big issues
-> affecting rseq:
-> [...]
-> The other rseq fixes made it into v7.1 and were all backported to v7.0.y
-> as of v7.0.10. We forgot to CC stable, so this patch was missed.
->
-> This isn't needed for earlier stable trees.
+On 6/18/26 21:25, Linus Torvalds wrote:
+> On Thu, 18 Jun 2026 at 11:34, Andrew Morton <akpm@linux-foundation.org> wrote:
+>>
+>> Since VM_SPECIAL includes VM_DONTEXPAND which is set but hugetlb, exclude
+>> hugetlb VMAs from the check for VM_SPECIAL.
+> 
+> This seems bogus.
+> 
+> If somebody sets DONTEXPAND, then that mapping *is* special, and
+> userfaultfd should not mess with it.
 
-What about 6.19 itself, or is that not a stable tree? AFAIK it isn't a
-priority for us (MongoDB) like 7.0 is, but I felt like mentioning it
-for completeness, since rseq is quite broken on arm64 with 6.19 today.
+Right, it's one kind of special.
+
+> 
+> It feels like hugetlbfs is just wrong to do this.
+> 
+> This has caused problems before, see MADV_DODUMP which has that same
+> "hugetlb doesn't follow the rules" check.
+> 
+> What exactly is it that hugetlbfs wants that DONTEXPAND thing to be?
+
+I tried digging into the history: hugetlb doesn't support VMA merging (or VMA
+expansion through mremap), apparently because of hugetlb reservation
+interactions. Just nasty.
+
+So I guess for userfaultd at least the VMA mergability/expansion doesn't matter.
+Hopefully.
+
+> 
+> That said, I don't like the VM_SPECIAL bit mask all that much, because
+> it doesn't specify *what* kind of "special" it is.
+
+Right. It's documented as
+
+	"Special vmas that are non-mergable, non-mlock()able."
+
+It's a bit weird that we throw both things into one bin but ok.
+
+And we use it in other context, like
+
+	#define VM_NO_KHUGEPAGED (VM_SPECIAL | VM_HUGETLB)
+
+
+Maybe we should rename and possibly split that up, like
+
+	VM_NO_MLOCK
+	VM_NO_VMA_MERGE
+
+And then have some generic "there are really special things mapped in here"
+
+	VM_HAS_SPECIAL_MAPPINGS
+
+
+This might become a bigger (overdue?) audit, because I wouldn't immediately be
+able to tell why MLOCK would have a problem with VM_DONTEXPAND.
+
+VMA_REMAP_FLAGS is also odd, because it talks about "Physically remapped pages
+are special" but then also includes VM_DONTEXPAND.
+
+Any suggestion?
+
+-- 
+Cheers,
+
+David
